@@ -28,7 +28,6 @@
 #define MAX_LEN_SBOX 25
 #define READEM 1
 
-double evaluate();
 double ndrand48();
 
 extern double MyData[MAXODE];
@@ -303,7 +302,7 @@ new_h_fun(int silent) {
         my_h[i] = (float *)malloc(sizeof(float) * h_len);
     for (i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
-    if (make_h(storage, my_adj, my_h, h_len, DELTA_T * NJMP, NODE, silent)) {
+    if (make_h(storage, my_adj, h_len, DELTA_T * NJMP, NODE, silent)) {
         H_HERE = 1;
         h_back();
     }
@@ -325,7 +324,7 @@ dump_h_stuff(FILE *fp, int f) {
 }
 
 int
-make_h(float **orb, float **adj, float **h, int nt, double dt, int node,
+make_h(float **orb, float **adj, int nt, double dt, int node,
        int silent) {
 
     int i, j, rval = 0;

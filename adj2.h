@@ -15,7 +15,7 @@ void make_adj_com(int com);
 void adjoint_parameters(void);
 void new_h_fun(int silent);
 void dump_h_stuff(FILE *fp, int f);
-int make_h(float **orb, float **adj, float **h, int nt, double dt, int node,
+int make_h(float **orb, float **adj, int nt, double dt, int node,
            int silent);
 void new_adjoint(void);
 void test_test(void);
