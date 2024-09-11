@@ -781,6 +781,7 @@ update_view(float xlo, float xhi, float ylo, float yhi) {
 
     redraw_the_graph();
 }
+
 void
 scroll_window(void) {
     XEvent ev;
@@ -1134,6 +1135,7 @@ padnum(char *s, int i, int m) {
     }
     s[m] = 0;
 }
+
 void
 dump_ps(int i) {
     char filename[XPP_MAX_NAME];
@@ -1520,6 +1522,7 @@ frz_bd(void) {
     }
     read_bd(fp);
 }
+
 void
 read_bd(FILE *fp) {
     int oldtype, type, oldbr, br, ncrv = 0, len, f2;

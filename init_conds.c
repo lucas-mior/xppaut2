@@ -244,6 +244,7 @@ redraw_scroll_list(SCROLL_LIST sl) {
         }
     }
 }
+
 void
 c_hints(void) {
     int i, index;

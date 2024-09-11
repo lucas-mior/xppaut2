@@ -58,6 +58,7 @@ int twod_hist();
 void
 new_2dhist(void) {
 }
+
 int
 two_d_hist(int col1, int col2, int ndat, int n1, int n2, double xlo, double xhi,
            double ylo, double yhi)
@@ -238,6 +239,7 @@ twod_hist(void)
 
     return (1);
 }
+
 int
 new_2d_hist(void) {
 
@@ -686,6 +688,7 @@ just_sd(int flag) {
     hist_back();
     ping();
 }
+
 void
 compute_sd(void) {
     int length, i, j;
@@ -802,6 +805,7 @@ compute_correl(void) {
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col,
              hist_inf.col2, hist_inf.cond, 2 + hist_inf.fftc);
 }
+
 void
 compute_stacor(void) {
     new_int("Number of bins ", &hist_inf.nbins);

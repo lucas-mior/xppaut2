@@ -118,6 +118,7 @@ get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
     dll_loaded = 1;
     fun(n, ivar, con, var, wgt, ydot);
 }
+
 int
 my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
     char *error;
@@ -160,9 +161,11 @@ void
 get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
                   double *wgt[MAXW], double *var, double *con) {
 }
+
 int
 load_new_dll(void) {
 }
+
 my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
 }
 
@@ -222,6 +225,7 @@ check_inout(void) {
     for (i = 0; i < in_out.nout; i++)
         plintf(" type=%d index=%d \n", in_out.outtype[i], in_out.out[i]);
 }
+
 int
 get_export_count(char *s) {
     int i = 0;

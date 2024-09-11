@@ -337,6 +337,7 @@ load_browser_with_branch(int ibr, int pts, int pte) {
     storind = nrows;
     refresh_browser(nrows);
 }
+
 void
 write_init_data_file(void) {
     /*char filename[256];*/

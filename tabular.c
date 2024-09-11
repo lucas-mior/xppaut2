@@ -97,6 +97,7 @@ set_auto_eval_flags(int f) {
         my_table[i].autoeval = f;
     return;
 }
+
 void
 set_table_name(char *name, int index) {
     strcpy(my_table[index].name, name);
@@ -246,6 +247,7 @@ tab_interp(double xlo, double h, double x, double *y, int n, int i) {
     tt = (x - xlo) / h - i;
     return d + tt * (c + tt * (b + tt * a));
 }
+
 double
 lookup(double x, int index) {
     double xlo = my_table[index].xlo, xhi = my_table[index].xhi,

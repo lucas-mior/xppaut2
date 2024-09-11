@@ -1470,6 +1470,7 @@ top_button_cross(Window w, int b) {
             return;
         }
 }
+
 void
 top_button_press(Window w) {
     if (w == TopButton[0]) {
@@ -1511,6 +1512,7 @@ top_button_events(XEvent report) {
     }
     user_button_events(report);
 }
+
 void
 make_top_buttons(void) {
     int x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
@@ -1538,6 +1540,7 @@ make_top_buttons(void) {
     x1 = x1 + x2 + dx;
     create_user_buttons(x1, 1, main_win);
 }
+
 void
 getGC(GC *gc) {
     unsigned int valuemask = 0;

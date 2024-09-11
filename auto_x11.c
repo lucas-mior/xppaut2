@@ -720,6 +720,7 @@ RedrawMark(void) {
         MarkAuto(mark_ixe, mark_iye);
     }
 }
+
 void
 MarkAuto(int x, int y) {
 
@@ -728,6 +729,7 @@ MarkAuto(int x, int y) {
     ALINE(x + 8, y - 8, x - 8, y + 8);
     LineWidth(1);
 }
+
 void
 XORCross(int x, int y) {
 
@@ -772,6 +774,7 @@ auto_update_view(float xlo, float xhi, float ylo, float yhi) {
     Auto.ymax = yhi;
     redraw_diagram();
 }
+
 void
 auto_scroll_window(void) {
     XEvent ev;

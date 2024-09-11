@@ -61,6 +61,7 @@ ping(void) {
     is not. if(tfBell&&!XPPBatch) XBell(display,100);
    */
 }
+
 void
 reset_graphics(void) {
     blank_screen(draw_win);

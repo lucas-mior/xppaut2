@@ -388,6 +388,7 @@ check_ani_pause(XEvent ev) {
         return (27);
     return (0);
 }
+
 void
 do_ani_events(XEvent ev) {
     int x, y;
@@ -437,6 +438,7 @@ ani_motion_stuff(Window w, int x, int y) {
         update_ani_motion_stuff(x, y);
     return;
 }
+
 double
 get_current_time(void) {
     double t1;
@@ -524,6 +526,7 @@ ani_buttonx(XEvent ev, int flag) {
     ani_button(w);
     return;
 }
+
 void
 ani_button(Window w) {
     if ((ani_grab_flag == 1))
@@ -617,6 +620,7 @@ do_ani_slider_motion(Window w, int x) {
     ani_flip1(k);
     return;
 }
+
 void
 redraw_ani_slider(void) {
     int k = vcr.pos;
@@ -629,6 +633,7 @@ redraw_ani_slider(void) {
     draw_ani_slider(vcr.slider, xx);
     return;
 }
+
 void
 draw_ani_slider(Window w, int x)
 
@@ -752,6 +757,7 @@ check_on_the_fly(void) {
     }
     return;
 }
+
 void
 on_the_fly(int task) {
     if (vcr.iexist == 0 || n_anicom == 0)
@@ -810,6 +816,7 @@ set_from_init_data(void) {
     set_fix_rhs(T0, y);
     return;
 }
+
 void
 ani_flip1(int n) {
     int row;
@@ -852,6 +859,7 @@ ani_flip1(int n) {
     XFlush(display);
     return;
 }
+
 void
 ani_flip(void) {
     double y[MAXODE];
@@ -1732,6 +1740,7 @@ add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick) {
         return -1;
     return 0;
 }
+
 void
 reset_comets(void) {
     int i;
@@ -1739,6 +1748,7 @@ reset_comets(void) {
         if (my_ani[i].type == COMET)
             my_ani[i].c.i = 0;
 }
+
 void
 roll_comet(ANI_COM *a, int xn, int yn, int col) {
     int i;
@@ -2107,6 +2117,7 @@ eval_ani_color(int j) {
         my_ani[j].zcol = z;
     }
 }
+
 void
 eval_ani_com(int j) {
 
@@ -2211,6 +2222,7 @@ ani_ij_to_xy(int ix, int iy, double *x, double *y) {
     *x = ani_xlo + (double)ix * dx;
     *y = ani_ylo + (double)(vcr.hgt - iy) * dy;
 }
+
 void
 ani_xyscale(double x, double y, int *ix, int *iy) {
     double dx = (double)vcr.wid / (ani_xhi - ani_xlo),
@@ -2659,6 +2671,7 @@ do_grab_tasks(int which) /* which=1 for start, 2 for end */
         return;
     }
 }
+
 int
 add_grab_task(char *lhs, char *rhs, int igrab, int which) {
     int com[256];

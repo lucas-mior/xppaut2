@@ -124,6 +124,7 @@ set_up_aplot_range(void) {
     }
     return;
 }
+
 void
 fit_aplot(void) {
     double zmax, zmin;
@@ -133,6 +134,7 @@ fit_aplot(void) {
     redraw_aplot(aplot);
     return;
 }
+
 void
 optimize_aplot(int *plist) {
     int i0 = plist[0] - 1;
@@ -575,12 +577,14 @@ APLOT *ap;
     }
     return 1;
 }
+
 void
 close_aplot_files(void) {
     if (aplot_still == 0)
         fclose(ap_fp);
     return;
 }
+
 void
 gif_aplot_all(char *filename, int still) {
     Pixmap xi;
@@ -709,6 +713,7 @@ void redraw_aplot(ap) APLOT ap;
     }
     XFlush(display);
 }
+
 void
 tag_aplot(char *bob) {
     set_color(0);

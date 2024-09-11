@@ -329,6 +329,7 @@ list_em(char *wild) {
 
     free_finfo(&my_ff);
 }
+
 int
 read_eqn(void) {
     char wild[256], string[256];
@@ -1051,6 +1052,7 @@ get_first(char *string, char *src) {
     ptr = strtok(string, src);
     return (ptr);
 }
+
 char *
 get_next(char *src) {
     char *ptr;
@@ -2143,6 +2145,7 @@ formula_or_number(char *expr, double *z) {
         return 0; /* 0 is a number */
     return 1;     /* 1 is a formula */
 }
+
 void
 strpiece(char *dest, char *src, int i0, int ie) {
     int i;
@@ -3090,6 +3093,7 @@ strcpy_trim(char *dest, char *source) {
     strncpy(dest, source, i + 1);
     dest[i + 1] = '\0';
 }
+
 void
 strncpy_trim(char *dest, char *source, int n) {
     /* like strncpy, except removes leading and trailing whitespace (and always

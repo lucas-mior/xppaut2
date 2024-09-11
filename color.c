@@ -285,6 +285,7 @@ print_cust(void) {
     printf("custom map =%d \n", custom_color);
     return 1;
 }
+
 void
 MakeColormap(void) {
 

@@ -1773,6 +1773,7 @@ com_name(int com) {
     else
         return "";
 }
+
 double
 do_shift(double shift, double variable) {
     int it, in;
@@ -1804,6 +1805,7 @@ do_shift(double shift, double variable) {
         return 0.0;
     }
 }
+
 double
 do_ishift(double shift, double variable) {
 
@@ -1832,6 +1834,7 @@ do_delay_shift(double delay, double shift, double variable) {
 
     return (delay_stab_eval(delay, in));
 }
+
 double
 do_delay(double delay, double i) {
 
@@ -1857,12 +1860,14 @@ double z;
  if(z>700)return(1.01423e+304);
  return(exp(z));
 }
+
 double Ln(z)
 double z;
 {
  if(z<1e-320)return(-736.82724);
  return(log(z));
 }
+
 double Log10(z)
 double z;
 {
@@ -1875,6 +1880,7 @@ double
 hom_bcs(int i) {
     return 0.0; /* this is deprecated so no longer used */
 }
+
 void
 one_arg(void) {
     fun1[0] = sin;
@@ -1976,34 +1982,42 @@ double
 dnot(double x) {
     return ((double)(x == 0.0));
 }
+
 double
 dand(double x, double y) {
     return ((double)(x && y));
 }
+
 double
 dor(double x, double y) {
     return ((double)(x || y));
 }
+
 double
 dge(double x, double y) {
     return ((double)(x >= y));
 }
+
 double
 dle(double x, double y) {
     return ((double)(x <= y));
 }
+
 double
 deq(double x, double y) {
     return ((double)(x == y));
 }
+
 double
 dne(double x, double y) {
     return ((double)(x != y));
 }
+
 double
 dgt(double x, double y) {
     return ((double)(x > y));
 }
+
 double
 dlt(double x, double y) {
     return ((double)(x < y));

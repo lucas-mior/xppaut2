@@ -42,6 +42,7 @@ user_button_events(XEvent report) {
     }
     return;
 }
+
 void
 user_button_press(Window w) {
     int i;

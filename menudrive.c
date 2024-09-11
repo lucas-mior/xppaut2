@@ -167,6 +167,7 @@ MessageBox(char *m) {
     strcpy(MsgBox.text, m);
     ping();
 }
+
 void
 RedrawMessageBox(Window w) {
     if (w == MsgBox.w) {
@@ -174,6 +175,7 @@ RedrawMessageBox(Window w) {
         Ftext(10, 2 * DCURY, MsgBox.text, MsgBox.w);
     }
 }
+
 void
 KillMessageBox(void) {
     if (MsgBox.here == 0)
@@ -182,11 +184,13 @@ KillMessageBox(void) {
     waitasec(ClickTime);
     XDestroyWindow(display, MsgBox.w);
 }
+
 int
 TwoChoice(char *c1, char *c2, char *q, char *key) {
     return two_choice(c1, c2, q, key, DisplayWidth / 2, DisplayHeight / 2,
                       RootWindow(display, screen), NULL);
 }
+
 int
 GetMouseXY(int *x, int *y) {
     return get_mouse_xy(x, y, draw_win);
@@ -196,6 +200,7 @@ void
 FlushDisplay(void) {
     XFlush(display);
 }
+
 void
 clear_draw_window(void) {
     clr_scrn();

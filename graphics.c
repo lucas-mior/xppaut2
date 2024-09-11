@@ -115,6 +115,7 @@ void
 get_draw_area(void) {
     get_draw_area_flag(1);
 }
+
 void
 get_draw_area_flag(int flag) {
     int x, y;

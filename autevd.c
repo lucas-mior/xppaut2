@@ -152,6 +152,7 @@ get_bif_type(int ibr, int ntot, int lab) {
     /* if(lab>0)type=SPECIAL; */
     return (type);
 }
+
 void
 addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
        int64 *icp, int lab, double *a, double *uhigh, double *ulow, double *u0,

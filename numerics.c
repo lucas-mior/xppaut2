@@ -499,6 +499,7 @@ compute_one_period(double period, double *x, char *name) {
     TEND = ote;
     return;
 }
+
 void
 get_pmap_pars_com(int l) {
     static char mkey[] = "nsmp";

@@ -373,6 +373,7 @@ save_batch_shoot(void) {
     }
     DELTA_T = olddt;
 }
+
 void
 shoot_this_now(void) /* this uses the current labeled saddle point stuff to
                         integrate */
@@ -871,6 +872,7 @@ l330:
 l1000:
     *ierr = en;
 }
+
 void
 orthesx(int n, int low, int igh, double *a, double *ort) {
     int i, j, m, ii, jj, la, mp, kp1;

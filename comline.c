@@ -422,6 +422,7 @@ if_needed_load_ext_options(void) {
         return 1;
     }
 }
+
 int
 if_needed_select_sets(void) {
     if (!select_intern_sets) {

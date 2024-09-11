@@ -76,6 +76,7 @@ ps_replot(float **z, int col0, int row0, int nskip, int ncskip, int maxrow,
         }
     }
 }
+
 void
 ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
     float x0, y0, x1, y1;

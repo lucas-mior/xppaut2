@@ -432,11 +432,13 @@ do_batch_nclines(void) {
     }
     return;
 }
+
 void
 set_colorization_stuff(void) {
     user_set_color_par(ColorizeFlag, ColorVia, ColorViaLo, ColorViaHi);
     return;
 }
+
 void
 do_batch_dfield(void) {
     if (!XPPBatch)
@@ -483,6 +485,7 @@ do_batch_dfield(void) {
     }
     return;
 }
+
 void
 redraw_dfield(void) {
     int i, j, k;
@@ -846,6 +849,7 @@ restor_null(/* d=1 for x and 2 for y  */
     }
     return;
 }
+
 void
 create_new_cline(void) {
     if (NULL_HERE)

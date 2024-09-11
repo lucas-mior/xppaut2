@@ -15,6 +15,7 @@ time_start(void) {
     microseconds = (double)time.ru_utime.tv_usec;
     return seconds + microseconds / 1e6;
 }
+
 static double
 time_end(double start) {
     struct rusage time;

@@ -249,6 +249,7 @@ add_vectorizer(char *name, char *rhs) {
 
     return 1;
 }
+
 void
 add_vectorizer_name(char *name, char *rhs) {
     if (n_vector >= MAXVEC) {
@@ -261,6 +262,7 @@ add_vectorizer_name(char *name, char *rhs) {
     n_vector++;
     return;
 }
+
 double
 vector_value(double x, int i) {
     int il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length, k = (int)x;
@@ -280,6 +282,7 @@ vector_value(double x, int i) {
         return variables[2 * n - k - 1 + root];
     }
 }
+
 double
 network_value(double x, int i) {
     int j = (int)x;
@@ -1045,6 +1048,7 @@ add_spec_fun(char *name, char *rhs) {
     }
     return 0;
 }
+
 void
 add_special_name(char *name, char *rhs) {
     if (is_network(rhs)) {
@@ -1620,6 +1624,7 @@ import_error(void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
 }
+
 int
 parse_import(char *s, char *soname, char *sofun, int *n, char *vname, int *m,
              char *tname[MAXW]) {

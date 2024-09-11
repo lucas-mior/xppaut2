@@ -798,6 +798,7 @@ add_marker_old(void) {
     add_grob(xs, ys, xe, ye, size, type, color);
     redraw_all();
 }
+
 void
 add_markers(void) {
     int i;
@@ -1061,6 +1062,7 @@ set_active_windows(void) {
     }
     num_pops = np;
 }
+
 void
 do_windows_com(int c) {
     switch (c) {

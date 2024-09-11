@@ -133,6 +133,7 @@ void
 reset_dae(void) {
     dae_work.status = 1;
 }
+
 void
 set_init_guess(void) {
     int i;
@@ -147,6 +148,7 @@ set_init_guess(void) {
         svar[i].last = z;
     }
 }
+
 void
 err_dae(void) {
 

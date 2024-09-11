@@ -286,6 +286,7 @@ pscolset2(int flag2) {
         set_linestyle(0);
     }
 }
+
 void
 colset2(int flag2) {
     LineWidth(2);
@@ -324,6 +325,7 @@ storeautopoint(double x, double y) {
         FromAutoFlag = 1;
     }
 }
+
 void
 setautopoint(void) {
     if (FromAutoFlag) {
@@ -446,6 +448,7 @@ cat_fp(FILE *fo) {
         printf("%c", c);
     }
 }
+
 void
 cat_file(char *f) {
     FILE *fo;
@@ -501,6 +504,7 @@ appendf(char *old, char *new) {
     copyf(TMPSWAP, new);
     deletef(TMPSWAP);
 }
+
 void
 deletef(char *old) {
     remove(old);
@@ -633,6 +637,7 @@ set_auto(void) /* Caution - need to include NICP here */
               Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4, Auto.icp5, Auto.nper,
               Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
 }
+
 int
 auto_name_to_index(char *s) {
     int i, in;
@@ -645,6 +650,7 @@ auto_name_to_index(char *s) {
             return (i);
     return (-1);
 }
+
 int
 auto_par_to_name(int index, char *s) {
     if (index == 10) {
@@ -1475,6 +1481,7 @@ load_last_plot(int flg) {
         Auto.var = Old2p.var;
     }
 }
+
 void
 keep_last_plot(int flg) {
     if (flg == 1) { /* one parameter */
@@ -1633,6 +1640,7 @@ yes_reset_auto(void) {
     mark_flag = 0;
     return 1;
 }
+
 int
 reset_auto(void) {
     char ch;
@@ -1700,6 +1708,7 @@ void
 get_start_period(double *p) {
     *p = storage[0][storind - 1];
 }
+
 void
 find_best_homo_shift(int n)
 /* this code looks for the best value
@@ -1725,6 +1734,7 @@ find_best_homo_shift(int n)
     HOMO_SHIFT = tshift;
     printf("shifting %g\n", HOMO_SHIFT);
 }
+
 void
 get_shifted_orbit(double *u, double t, double p, int n) {
     double ts, t1, t2;
@@ -1748,6 +1758,7 @@ get_shifted_orbit(double *u, double t, double p, int n) {
         }
     }
 }
+
 void
 get_start_orbit(double *u, double t, double p, int n) {
     double tnorm, lam;
@@ -2007,6 +2018,7 @@ auto_homo_choice(int itp) {
     if (itp != 5)
         auto_extend_homoclinic();
 }
+
 void
 auto_branch_choice(int ibr, int ips) {
 
@@ -2632,6 +2644,7 @@ void
 load_auto_orbit(void) {
     load_auto_orbitx(grabpt.ibr, grabpt.flag, grabpt.lab, grabpt.per);
 }
+
 void
 load_auto_orbitx(int ibr, int flag, int lab, double per) {
     FILE *fp;

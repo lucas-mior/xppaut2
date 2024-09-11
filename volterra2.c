@@ -262,6 +262,7 @@ alpbetjn(double mu, double dt, int l) {
     m1 = 1 - mu;
     return (.5 * (pow(dif + dt, m1) - pow(fabs(dif - dt), m1)) / m1);
 }
+
 double
 betnn(double mu, double dt, double t0, double t) {
     double m1;

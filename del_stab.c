@@ -400,10 +400,12 @@ find_positive_root(double *coef, double *delay, int n, int m, double rad,
     plintf("Max iterates exceeded \n");
     return -1;
 }
+
 void
 process_root(double real, double im) {
     plintf("Root: %g + I %g \n", real, im);
 }
+
 double
 get_arg(delay, coef, m, n, lambda)
 COMPLEX lambda;

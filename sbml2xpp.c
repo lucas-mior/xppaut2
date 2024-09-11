@@ -225,6 +225,7 @@ add_reaction(int i, char *f, int npr, int nre) {
     r->npr = npr;
     r->nre = nre;
 }
+
 add_rule(int i, char *v, char *f, char *tc) {
     RULE *r;
     r = rule + i;
@@ -271,6 +272,7 @@ add_parameter(char *name, char *id, double z, int f) {
     par[Npar].unique = 1;
     Npar++;
 }
+
 void
 GetEvents(Model_t *m) {
     const Event_t *e;
@@ -459,6 +461,7 @@ dump_reactions(void) {
         plintf("\n");
     }
 }
+
 int
 dump_events(void) {
     int i, j, na;
@@ -474,6 +477,7 @@ dump_events(void) {
         plintf("%s}\n", ev->a[na - 1]);
     }
 }
+
 int
 dump_funs(void) {
     int i, j;
@@ -486,6 +490,7 @@ dump_funs(void) {
         plintf(")=%s\n", f->formula);
     }
 }
+
 int
 dump_rules(void) {
     RULE *r;
@@ -497,6 +502,7 @@ dump_rules(void) {
         plintf("%s=%s\n", r->v, r->f);
     }
 }
+
 int
 dump_species(void) {
     SPECIES *x;
@@ -517,6 +523,7 @@ dump_parameters(void) {
         plintf("%d %s %s = %g \n", par[i].fixed, par[i].name, par[i].id,
                par[i].z);
 }
+
 add_species(int i, char *name, char *id, double x0, int bc, int c, char *tc) {
     SPECIES *x;
     x = X_spec + i;
@@ -811,6 +818,7 @@ find_parameter(char *s) {
     }
     return -1;
 }
+
 find_species(char *s) {
     SPECIES *sp;
     int i;
@@ -821,6 +829,7 @@ find_species(char *s) {
     }
     return -1;
 }
+
 int
 mark_rule_pars(void) {
     int i, j;
@@ -839,6 +848,7 @@ mark_rule_pars(void) {
         }
     }
 }
+
 is_blank(char *s) {
     int i;
     for (i = 0; i < strlen(s); i++)
@@ -975,12 +985,14 @@ fix_long_names(char *big, char *bigp) {
     }
     strcpy(bigp, z);
 }
+
 static int
 z_sort(LONG_NAMES *sy1, LONG_NAMES *sy2) {
     if (strlen(sy1->src) > strlen(sy2->src))
         return -1;
     return 1;
 }
+
 int
 sort_long_names(void) {
     int i;

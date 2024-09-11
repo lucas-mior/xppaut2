@@ -56,6 +56,7 @@ set_global_map(int flag) {
     UseGlobalMap = flag;
     return;
 }
+
 int
 ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n) {
     int i, nc = *n;

@@ -7323,6 +7323,7 @@ time_start(void) {
     microseconds = (double)time.tv_usec;
     return seconds + microseconds / 1e6;
 }
+
 double
 time_end(double start) {
     struct timeval time;

@@ -259,6 +259,7 @@ dump_range(FILE *fp, int f) {
     if (f == READEM)
         range.steps2 = range.steps;
 }
+
 void
 init_range(void) {
     eq_range.col = -1;
@@ -1481,6 +1482,7 @@ do_init_data(int com) {
     usual_integrate_stuff(x);
     DELTA_T = old_dt;
 }
+
 void
 run_from_x(double *x) {
 
@@ -1497,6 +1499,7 @@ run_from_x(double *x) {
     reset_browser();
     usual_integrate_stuff(x);
 }
+
 void
 run_now(void) {
 
@@ -1522,6 +1525,7 @@ do_start_flags(double *x, double *t) {
     double sss;
     one_flag_step(x, x, &iflagstart, *t, &tnew, NODE, &sss);
 }
+
 void
 usual_integrate_stuff(double *x) {
     int i;
@@ -1633,6 +1637,7 @@ evaluate_ar_ic(char *v, char *f, int j1, int j2) {
         }
     }
 }
+
 int
 extract_ic_data(char *big) {
     int i, n, j;
@@ -2485,10 +2490,12 @@ integrate(double *t, double *x, double tend, double dt, int count, int nout,
 #endif
     return (rval);
 }
+
 void
 send_halt(double *y, double t) {
     STOP_FLAG = 1;
 }
+
 void
 send_output(double *y, double t) {
     double yy[MAXODE];
@@ -2638,6 +2645,7 @@ plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
         comp_color(xv, xvold, NODE, (float)ddt);
     do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
 }
+
 void
 restore(int i1, int i2) {
     int ip, np = MyGraph->nvars;
