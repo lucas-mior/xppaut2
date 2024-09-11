@@ -2,7 +2,7 @@
  * File:
  *	fftn.h
  *
- * Singleton's multivariate complex Fourier transform, computed in
+ * Singleton's multivariate floatcomplex Fourier transform, computed in
  * place using mixed-radix Fast Fourier Transform algorithm.
  *
  * Called here `fftn' since it does a radix-n FFT on n-dimensional data
@@ -35,7 +35,7 @@
  * ---------------------------------------------------------------------*
  * Re[]:	real value array
  * Im[]:	imaginary value array
- * nTotal:	total number of complex values
+ * nTotal:	total number of floatcomplex values
  * nPass:	number of elements involved in this pass of transform
  * nSpan:	nspan/nPass = number of bytes to increment pointer
  *		in Re[] and Im[]
@@ -66,7 +66,7 @@
  * Multidimensional data *must* be allocated contiguously.  There is
  * no limit on the number of dimensions.
  *
- * ISIGN = the sign of the complex exponential
+ * ISIGN = the sign of the floatcomplex exponential
  *	(ie, forward or inverse FFT)
  *	the magnitude of ISIGN (normally 1) is used to determine
  *	the correct indexing increment (see below).

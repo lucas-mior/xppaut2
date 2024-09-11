@@ -465,7 +465,7 @@ adjoint (float **orbit, float **adjnt, int nt, double dt, double eps, double min
     }
 
     /*  Now we compute the
-          transpose time reversed jacobian  --  this is complex !! */
+          transpose time reversed jacobian  --  this is floatcomplex !! */
     for (k = 0; k < nt; k++) {
         l = nt - 1 - k; /* reverse the limit cycle  */
         for (i = 0; i < node; i++)

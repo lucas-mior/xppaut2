@@ -1530,14 +1530,14 @@ L4:
     ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab];
     return ret_val;
 
-    /* Neutrally-divergent saddle-focus (stable eigenvalues complex) */
+    /* Neutrally-divergent saddle-focus (stable eigenvalues floatcomplex) */
 
 L5:
     ret_val =
         rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + rr[blhom_1.nstab - 2];
     return ret_val;
 
-    /* Neutrally-divergent saddle-focus (unstable eigenvalues complex) */
+    /* Neutrally-divergent saddle-focus (unstable eigenvalues floatcomplex) */
 
 L6:
     ret_val =

@@ -336,7 +336,7 @@
 
     qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi, qzbeta, FALSE_, qzz);
 
-    /*  Pack the eigenvalues into complex form. */
+    /*  Pack the eigenvalues into floatcomplex form. */
     ev[0].r = ARRAY2D(c0, 0, (*ndim - 1)) / ARRAY2D(c1, 0, (*ndim - 1));
     ev[0].i = 0.;
     infev = FALSE_;

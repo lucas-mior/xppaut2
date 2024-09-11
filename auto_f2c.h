@@ -14,7 +14,7 @@
 typedef int64_t int64;
 typedef struct {
     float r, i;
-} complex;
+} floatcomplex;
 typedef struct {
     double r, i;
 } doublecomplex;

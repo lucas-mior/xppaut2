@@ -3,7 +3,7 @@
  * File:
  *	fftn.c
  *
- *	multivariate complex Fourier transform, computed in place
+ *	multivariate floatcomplex Fourier transform, computed in place
  *	using mixed-radix Fast Fourier Transform algorithm.
  *
  *	Fortran code by:
@@ -67,7 +67,7 @@
  * must be called once for each dimension, but the calls may be in
  * any order.
  *
- * NTOTAL = the total number of complex data values
+ * NTOTAL = the total number of floatcomplex data values
  * NPASS  = the dimension of the current variable
  * NSPAN/NPASS = the spacing of consecutive data values while indexing
  *	the current variable
@@ -81,7 +81,7 @@
  *	fftradix (Re, Im, n1*n2*n3, n3, n1*n2*n3, 1, maxf, maxp);
  *
  * single-variate transform,
- *    NTOTAL = N = NSPAN = (number of complex data values),
+ *    NTOTAL = N = NSPAN = (number of floatcomplex data values),
  *
  *	fftradix (Re, Im, n, n, n, 1, maxf, maxp);
  *
@@ -329,7 +329,7 @@ static int fftradixf(float Re[], float Im[], size_t nTotal, size_t nPass,
 
 /*
  * use macros to access the Real/Imaginary parts so that it's possible
- * to substitute different macros if a complex struct is used
+ * to substitute different macros if a floatcomplex struct is used
  */
 
 #ifndef Re_Data

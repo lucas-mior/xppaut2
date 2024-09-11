@@ -539,7 +539,7 @@ int spectrum(float *data, int nr, int win, int w_type, float *pow) {
    csd(x,y)
    break into chunks
    compute for each frequency fft(y)*fft(x)^*
-   now average these - note that this will be complex
+   now average these - note that this will be floatcomplex
    what I call the cross spectrum is |Pxy|
   the coherence is
    |Pxy|^2/|Pxx||Pyy|

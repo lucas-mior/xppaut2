@@ -8,7 +8,7 @@
 #include <string.h>
 /* this is a way to communicate XPP with other stuff
 
-# complex right-hand sides
+# floatcomplex right-hand sides
 # let xpp know about the names
 xp=0
 yp=0

@@ -3919,7 +3919,7 @@ L8:
     /* eigenvalues of the general real matrix A. */
     /* NDIM is the dimension of A. */
     /* M1A is the first dimension of A as in the DIMENSION statement. */
-    /* The eigenvalues are to be returned in the complex vector EV. */
+    /* The eigenvalues are to be returned in the floatcomplex vector EV. */
 
     /* Local */
 
@@ -6532,7 +6532,7 @@ double fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     wrk = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
 
-    /* This function returns a quantity that changes sign when a complex */
+    /* This function returns a quantity that changes sign when a floatcomplex */
     /* pair of eigenvalues of the linearized Poincare map moves in or out */
     /* of the unit circle or when a real eigenvalues passes through -1. */
     /* Local */

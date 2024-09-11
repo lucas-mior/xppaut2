@@ -11,7 +11,7 @@
 
 #define Z(a, b) z[(a) + n * (b)]
 #define DING ping()
-/* this code takes the determinant of a complex valued matrix
+/* this code takes the determinant of a floatcomplex valued matrix
  */
 
 extern double variable_shift[2][MAXODE], AlphaMax, OmegaMax;
@@ -308,7 +308,7 @@ int n, m;
         }
     for (k = 0; k < m; k++) {
         km = (k + 1) * n * n;
-        temp = rtoc(-delay[k], 0.0);     /* convert delay to complex number */
+        temp = rtoc(-delay[k], 0.0);     /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
         for (j = 0; j < n; j++)
@@ -427,7 +427,7 @@ int m, n;
         }
     for (k = 0; k < m; k++) {
         km = (k + 1) * n * n;
-        temp = rtoc(-delay[k], 0.0);     /* convert delay to complex number */
+        temp = rtoc(-delay[k], 0.0);     /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
         for (j = 0; j < n; j++)
