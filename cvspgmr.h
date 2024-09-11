@@ -51,12 +51,12 @@
  ******************************************************************/
 
 enum {
-  SPGMR_NPE = CVODE_IOPT_SIZE,
-  SPGMR_NLI,
-  SPGMR_NPS,
-  SPGMR_NCFL,
-  SPGMR_LRW,
-  SPGMR_LIW
+    SPGMR_NPE = CVODE_IOPT_SIZE,
+    SPGMR_NLI,
+    SPGMR_NPS,
+    SPGMR_NCFL,
+    SPGMR_LRW,
+    SPGMR_LIW
 };
 
 /******************************************************************

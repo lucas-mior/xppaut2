@@ -68,15 +68,15 @@
 
 typedef struct {
 
-  integer N;
-  int l_max;
+    integer N;
+    int l_max;
 
-  N_Vector *V;
-  real **Hes;
-  real *givens;
-  N_Vector xcor;
-  real *yg;
-  N_Vector vtemp;
+    N_Vector *V;
+    real **Hes;
+    real *givens;
+    N_Vector xcor;
+    real *yg;
+    N_Vector vtemp;
 
 } SpgmrMemRec, *SpgmrMem;
 
@@ -193,7 +193,7 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
 
 #define SPGMR_SUCCESS 0 /* Converged                    */
 #define SPGMR_RES_REDUCED                                                      \
-  1                                /* Did not converge, but reduced            \
+    1                              /* Did not converge, but reduced            \
                                       norm of residual             */
 #define SPGMR_CONV_FAIL 2          /* Failed to converge           */
 #define SPGMR_QRFACT_FAIL 3        /* QRfact found singular matrix */
@@ -202,7 +202,7 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
 #define SPGMR_ATIMES_FAIL -2       /* atimes returned failure flag */
 #define SPGMR_PSOLVE_FAIL_UNREC -3 /* psolve failed unrecoverably  */
 #define SPGMR_GS_FAIL                                                          \
-  -4                        /* Gram-Schmidt routine                            \
+    -4                      /* Gram-Schmidt routine                            \
                                returned failure flag        */
 #define SPGMR_QRSOL_FAIL -5 /* QRsol found singular R       */
 

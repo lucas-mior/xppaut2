@@ -14,10 +14,10 @@ typedef long int integer;
 typedef float real;
 typedef double doublereal;
 typedef struct {
-  real r, i;
+    real r, i;
 } complex;
 typedef struct {
-  doublereal r, i;
+    doublereal r, i;
 } doublecomplex;
 typedef integer logical;
 
@@ -42,7 +42,7 @@ typedef integer logical;
 
 #define ARRAY2D(array, i, j) array[(i) + (j) * array##_dim1]
 #define ARRAY3D(array, i, j, k)                                                \
-  array[(i) + ((j) + (k) * array##_dim2) * array##_dim1]
+    array[(i) + ((j) + (k) * array##_dim2) * array##_dim1]
 
 /* cabs.c */
 double f__cabs(double real, double imag);

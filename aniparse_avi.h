@@ -2,33 +2,33 @@
 #define _aniparse_avi_h
 
 typedef struct {
-  int nframe, wid, hgt, fps;
-  unsigned char *image;
-  int cur_frame;
-  int task;
+    int nframe, wid, hgt, fps;
+    unsigned char *image;
+    int cur_frame;
+    int task;
 } AVI_INFO;
 
 AVI_INFO avi_info;
 typedef struct {
-  int flag;
-  int skip;
-  char root[100];
-  char filter[256];
-  int aviflag, filflag;
+    int flag;
+    int skip;
+    char root[100];
+    char filter[256];
+    int aviflag, filflag;
 } MPEG_SAVE;
 
 typedef struct {
-  int n;
-  int *x, *y, *col;
-  int i;
+    int n;
+    int *x, *y, *col;
+    int i;
 } Comet;
 
 typedef struct {
-  Comet c;
-  int type, flag;
-  int *col, *x1, *y1, *x2, *y2;
-  double zcol, zx1, zy1, zx2, zy2, zrad, zval;
-  int zthick, tfont, tsize, tcolor;
+    Comet c;
+    int type, flag;
+    int *col, *x1, *y1, *x2, *y2;
+    double zcol, zx1, zy1, zx2, zy2, zrad, zval;
+    int zthick, tfont, tsize, tcolor;
 } ANI_COM;
 
 int new_vcr(void);

@@ -5,14 +5,14 @@
 #include <X11/Xlib.h>
 
 typedef struct GifTree {
-  char typ;         /* terminating, lookup, or search */
-  int code;         /* the code to be output */
-  unsigned char ix; /* the color map index */
-  struct GifTree **node, *nxt, *alt;
+    char typ;         /* terminating, lookup, or search */
+    int code;         /* the code to be output */
+    unsigned char ix; /* the color map index */
+    struct GifTree **node, *nxt, *alt;
 } GifTree;
 
 typedef struct {
-  unsigned char r, g, b;
+    unsigned char r, g, b;
 } GIFCOL;
 
 void set_global_map(int flag);

@@ -4,8 +4,8 @@
 #include <X11/Xlib.h>
 
 typedef struct {
-  Window canvas, axes, numerics, grab, next, run, clear, redraw, base, per;
-  Window info, param, file, abort, stab, hint, kill;
+    Window canvas, axes, numerics, grab, next, run, clear, redraw, base, per;
+    Window info, param, file, abort, stab, hint, kill;
 } AUTOWIN;
 
 void ALINE(int a, int b, int c, int d);

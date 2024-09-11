@@ -10,9 +10,9 @@ doublecomplex *r, *z;
 void z_exp(doublecomplex *r, doublecomplex *z)
 #endif
 {
-  double expx, zi = z->i;
+    double expx, zi = z->i;
 
-  expx = exp(z->r);
-  r->r = expx * cos(zi);
-  r->i = expx * sin(zi);
+    expx = exp(z->r);
+    r->r = expx * cos(zi);
+    r->i = expx * sin(zi);
 }

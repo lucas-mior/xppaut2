@@ -69,16 +69,16 @@
 #define MXLEN 10
 
 typedef struct {
-  char name[MXLEN + 1];
-  int len;
-  int com;
-  int arg;
-  int pri;
+    char name[MXLEN + 1];
+    int len;
+    int com;
+    int arg;
+    int pri;
 } SYMBOL;
 
 typedef struct {
-  int narg;
-  char args[MAXARG][11];
+    int narg;
+    char args[MAXARG][11];
 } UFUN_ARG;
 
 #define VECT_ROOT 500

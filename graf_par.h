@@ -17,17 +17,17 @@
 #include <stdio.h>
 
 typedef struct {
-  char angle[20];
-  char yes[3];
-  double start;
-  double incr;
-  int nclip;
+    char angle[20];
+    char yes[3];
+    double start;
+    double incr;
+    int nclip;
 } MOV3D;
 
 typedef struct {
-  float *x[MAXBIFCRV], *y[MAXBIFCRV];
-  int color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
-  Window w;
+    float *x[MAXBIFCRV], *y[MAXBIFCRV];
+    int color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
+    Window w;
 } BD;
 
 void change_view_com(int com);

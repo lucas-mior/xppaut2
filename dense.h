@@ -78,8 +78,8 @@
  ******************************************************************/
 
 typedef struct {
-  integer size;
-  real **data;
+    integer size;
+    real **data;
 } *DenseMat;
 
 /* DenseMat accessor macros */

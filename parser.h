@@ -59,12 +59,12 @@
 #define NEXT2VAR 120
 
 typedef struct {
-  char name[MXLEN + 1];
-  int len;
-  int com;
-  int arg;
-  int pri;
-  int id;
+    char name[MXLEN + 1];
+    int len;
+    int com;
+    int arg;
+    int pri;
+    int id;
 } SYMBOL;
 
 SYMBOL my_symb[MAX_SYMBS] = {
@@ -700,8 +700,8 @@ double *Memory[MAXKER];
 int NTable;
 
 typedef struct {
-  int narg;
-  char args[MAXARG][11];
+    int narg;
+    char args[MAXARG][11];
 } UFUN_ARG;
 
 UFUN_ARG ufun_arg[MAXUFUN];

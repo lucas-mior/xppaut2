@@ -20,11 +20,11 @@
 #define DONE_THIS 1
 
 #define EV_MASK                                                                \
-  (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 #define BUT_MASK                                                               \
-  (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |       \
-   EnterWindowMask | LeaveWindowMask)
+    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
+     EnterWindowMask | LeaveWindowMask)
 
 extern Display *display;
 extern int DisplayWidth, DisplayHeight;
@@ -49,17 +49,17 @@ Window make_plain_window();
  */
 
 typedef struct {
-  Window base, ok, cancel;
-  Window win[MAX_N_SBOX];
-  char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
-  int n, hot;
-  int hgt, wid;
-  int hh[MAX_N_SBOX];
+    Window base, ok, cancel;
+    Window win[MAX_N_SBOX];
+    char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
+    int n, hot;
+    int hgt, wid;
+    int hh[MAX_N_SBOX];
 } STRING_BOX;
 
 typedef struct {
-  char **list;
-  int n;
+    char **list;
+    int n;
 } SCRBOX_LIST;
 
 extern int NUPAR, NEQ, NODE, NMarkov;
@@ -69,29 +69,29 @@ extern SCRBOX_LIST scrbox_list[10];
 
 /*  This is a new improved pop_up widget */
 typedef struct {
-  Window base, tit;
-  Window *w;
-  char *title;
-  char **entries;
-  char **hints;
-  int n, max;
-  char *key;
-  int hot;
+    Window base, tit;
+    Window *w;
+    char *title;
+    char **entries;
+    char **hints;
+    int n, max;
+    char *key;
+    int hot;
 } POP_UP;
 
 typedef struct {
-  Window base, slide, close, text;
-  int i0;
-  int exist, len, nlines;
-  char **list;
+    Window base, slide, close, text;
+    int i0;
+    int exist, len, nlines;
+    char **list;
 } TEXTWIN;
 
 typedef struct {
-  Window base, slide;
-  Window *w;
-  int nw, nent, i0;
-  int len, exist;
-  char **list;
+    Window base, slide;
+    Window *w;
+    int nw, nent, i0;
+    int len, exist;
+    char **list;
 } SCROLLBOX;
 
 extern TEXTWIN mytext;

@@ -2,8 +2,8 @@
 #define _read_dir_h_
 
 typedef struct {
-  char **dirnames, **filenames;
-  int nfiles, ndirs;
+    char **dirnames, **filenames;
+    int nfiles, ndirs;
 } FILEINFO;
 
 void free_finfo(FILEINFO *ff);

@@ -30,27 +30,27 @@ int func(ndim, u, icp, par, ijac, f, dfdu, dfdp)
 integer ndim, *icp, ijac;
 double *u, *par, *f, *dfdu, *dfdp;
 {
-  int i, j;
-  double zz[NAUTO];
-  double y[NAUTO], yp[NAUTO], xp[NAUTO];
-  for (i = 0; i < NAutoPar; i++) {
-    constants[Auto_index_to_array[i]] = par[i];
-  }
-  evaluate_derived();
-  redo_all_fun_tables();
-  rhs(0.0, u, f, ndim);
-  if (ijac == 1) {
-    getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, ndim);
-  }
-  if (METHOD > 0 || NJMP == 1)
-    return 0;
-  for (i = 1; i < NJMP; i++) {
-    for (j = 0; j < ndim; j++)
-      zz[j] = f[j];
-    rhs(0.0, zz, f, ndim);
-  }
+    int i, j;
+    double zz[NAUTO];
+    double y[NAUTO], yp[NAUTO], xp[NAUTO];
+    for (i = 0; i < NAutoPar; i++) {
+        constants[Auto_index_to_array[i]] = par[i];
+    }
+    evaluate_derived();
+    redo_all_fun_tables();
+    rhs(0.0, u, f, ndim);
+    if (ijac == 1) {
+        getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, ndim);
+    }
+    if (METHOD > 0 || NJMP == 1)
+        return 0;
+    for (i = 1; i < NJMP; i++) {
+        for (j = 0; j < ndim; j++)
+            zz[j] = f[j];
+        rhs(0.0, zz, f, ndim);
+    }
 
-  return 0;
+    return 0;
 
 } /* func_ */
 
@@ -58,38 +58,38 @@ int stpnt(ndim, t, u, par)
 integer ndim;
 doublereal *u, *par, t;
 {
-  int i;
+    int i;
 
-  double p;
+    double p;
 
-  for (i = 0; i < NAutoPar; i++)
-    par[i] = constants[Auto_index_to_array[i]];
+    for (i = 0; i < NAutoPar; i++)
+        par[i] = constants[Auto_index_to_array[i]];
 
-  if (NewPeriodFlag == 0) {
-    for (i = 0; i < ndim; i++)
-      u[i] = last_ic[i];
+    if (NewPeriodFlag == 0) {
+        for (i = 0; i < ndim; i++)
+            u[i] = last_ic[i];
+        return 0;
+    }
+
+    get_start_period(&p);
+    par[10] = p;
+    if (HomoFlag != 1)
+        get_start_orbit(u, t, p, ndim);
+    /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
+    if (HomoFlag == 1) {
+
+        get_shifted_orbit(u, t, p, ndim);
+        for (i = 0; i < ndim; i++) {
+            par[11 + i] = homo_l[i];
+        }
+    }
+    if (HomoFlag == 2) { /* heteroclinic */
+        for (i = 0; i < ndim; i++) {
+            par[11 + i] = homo_l[i];
+            par[11 + i + ndim] = homo_r[i];
+        }
+    }
     return 0;
-  }
-
-  get_start_period(&p);
-  par[10] = p;
-  if (HomoFlag != 1)
-    get_start_orbit(u, t, p, ndim);
-  /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
-  if (HomoFlag == 1) {
-
-    get_shifted_orbit(u, t, p, ndim);
-    for (i = 0; i < ndim; i++) {
-      par[11 + i] = homo_l[i];
-    }
-  }
-  if (HomoFlag == 2) { /* heteroclinic */
-    for (i = 0; i < ndim; i++) {
-      par[11 + i] = homo_l[i];
-      par[11 + i + ndim] = homo_r[i];
-    }
-  }
-  return 0;
 
 } /* stpnt_ */
 
@@ -101,18 +101,18 @@ double *u0, *u1, *fb;
 integer ijac;
 double *dbc;
 {
-  int i;
-  /* Hooks to the XPP bc parser!! */
+    int i;
+    /* Hooks to the XPP bc parser!! */
 
-  for (i = 0; i < NAutoPar; i++) {
-    constants[Auto_index_to_array[i]] = par[i];
-  }
+    for (i = 0; i < NAutoPar; i++) {
+        constants[Auto_index_to_array[i]] = par[i];
+    }
 
-  evaluate_derived();
-  redo_all_fun_tables();
-  do_bc(u0, 0.0, u1, 1.0, fb, nbc);
+    evaluate_derived();
+    redo_all_fun_tables();
+    do_bc(u0, 0.0, u1, 1.0, fb, nbc);
 
-  return 0;
+    return 0;
 } /* bcnd_ */
 
 /* Subroutine */ int icnd(ndim, par, icp, nint, u, uold, udot, upold, fi, ijac,
@@ -124,14 +124,14 @@ double *u, *uold, *udot, *upold, *fi;
 integer *ijac;
 double *dint;
 {
-  int i;
-  double dum = 0.0;
-  /*
- for(i=0;i<Homo_n;i++)
-   dum+=upold[i]*(u[i]-uold[i]);
- fi[0]=dum;
-  */
-  return 0;
+    int i;
+    double dum = 0.0;
+    /*
+   for(i=0;i<Homo_n;i++)
+     dum+=upold[i]*(u[i]-uold[i]);
+   fi[0]=dum;
+    */
+    return 0;
 } /* icnd_ */
 
 /* Subroutine */ int fopt(ndim, u, icp, par, ijac, fs, dfdu, dfdp)
@@ -142,8 +142,8 @@ double *par;
 integer *ijac;
 double *fs, *dfdu, *dfdp;
 {
-  /*     ---------- ---- */
-  return 0;
+    /*     ---------- ---- */
+    return 0;
 } /* fopt_ */
 
 /*  Not sure what to do here; I think  do nothing  since IEQUIB is always

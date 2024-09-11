@@ -115,9 +115,9 @@
  ******************************************************************/
 
 typedef struct {
-  integer size;
-  integer mu, ml, smu;
-  real **data;
+    integer size;
+    integer mu, ml, smu;
+    real **data;
 } *BandMat;
 
 /* BandMat accessor macros */

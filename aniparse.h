@@ -10,43 +10,43 @@
 
 typedef struct { /* tasks have the form {name1=formula1;name2=formula2;...} */
 
-  double vrhs[MAX_GEVENTS];
-  char lhsname[MAX_GEVENTS][11];
-  int lhsivar[MAX_GEVENTS];
-  int *comrhs[MAX_GEVENTS];
-  int runnow;
-  int n; /* number of tasks <= MAX_GEVENTS */
+    double vrhs[MAX_GEVENTS];
+    char lhsname[MAX_GEVENTS][11];
+    int lhsivar[MAX_GEVENTS];
+    int *comrhs[MAX_GEVENTS];
+    int runnow;
+    int n; /* number of tasks <= MAX_GEVENTS */
 } GRAB_TASK;
 
 typedef struct {
-  int ok;
-  double zx, zy, tol;
-  int *x, *y;
-  GRAB_TASK start, end;
+    int ok;
+    double zx, zy, tol;
+    int *x, *y;
+    GRAB_TASK start, end;
 } ANI_GRAB;
 
 /***************  End of grabber stuff  in header **************/
 
 typedef struct {
-  int flag;
-  int skip;
-  char root[100];
-  char filter[256];
-  int aviflag, filflag;
+    int flag;
+    int skip;
+    char root[100];
+    char filter[256];
+    int aviflag, filflag;
 } MPEG_SAVE;
 
 typedef struct {
-  int n;
-  int *x, *y, *col;
-  int i;
+    int n;
+    int *x, *y, *col;
+    int i;
 } Comet;
 
 typedef struct {
-  Comet c;
-  int type, flag;
-  int *col, *x1, *y1, *x2, *y2, *who;
-  double zcol, zx1, zy1, zx2, zy2, zrad, zval;
-  int zthick, tfont, tsize, tcolor;
+    Comet c;
+    int type, flag;
+    int *col, *x1, *y1, *x2, *y2, *who;
+    double zcol, zx1, zy1, zx2, zy2, zrad, zval;
+    int zthick, tfont, tsize, tcolor;
 } ANI_COM;
 
 void new_vcr(void);

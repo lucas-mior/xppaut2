@@ -9,8 +9,8 @@
 /* typedef struct {double r,i;} doublecomplex; */
 
 typedef struct {
-  int pt, br;
-  double evr[NAUTO], evi[NAUTO];
+    int pt, br;
+    double evr[NAUTO], evi[NAUTO];
 } EIGVAL;
 
 void send_eigen(int ibr, int ntot, int n, doublecomplex *ev);

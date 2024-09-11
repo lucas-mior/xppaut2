@@ -2,14 +2,14 @@
 #define _comline_h_
 
 typedef struct {
-  char *name;
-  char *does;
-  unsigned int use;
+    char *name;
+    char *does;
+    unsigned int use;
 } INTERN_SET;
 
 typedef struct {
-  char *name;
-  struct SET_NAME *next;
+    char *name;
+    struct SET_NAME *next;
 } SET_NAME;
 
 int is_set_name(SET_NAME *set, char *nam);

@@ -28,11 +28,11 @@
  */
 
 typedef struct {
-  Window base, ok, cancel, reset;
-  Window win[MAX_N_EBOX];
-  char name[MAX_N_EBOX][MAX_LEN_EBOX], value[MAX_N_EBOX][MAX_LEN_EBOX],
-      rval[MAX_N_EBOX][MAX_LEN_EBOX];
-  int n, hot;
+    Window base, ok, cancel, reset;
+    Window win[MAX_N_EBOX];
+    char name[MAX_N_EBOX][MAX_LEN_EBOX], value[MAX_N_EBOX][MAX_LEN_EBOX],
+        rval[MAX_N_EBOX][MAX_LEN_EBOX];
+    int n, hot;
 } EDIT_BOX;
 
 void reset_ebox(EDIT_BOX *sb, int *pos, int *col);

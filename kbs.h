@@ -1,7 +1,7 @@
 #include "menudrive.h"
 typedef struct {
-  int com;
-  char seq[5];
+    int com;
+    char seq[5];
 
 } KBS;
 

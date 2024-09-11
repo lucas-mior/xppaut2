@@ -260,15 +260,15 @@ int CVode(void *cvode_mem, real tout, N_Vector yout, real *t, int itask);
 /* CVode return values */
 
 enum {
-  SUCCESS = 0,
-  CVODE_NO_MEM = -1,
-  ILL_INPUT = -2,
-  TOO_MUCH_WORK = -3,
-  TOO_MUCH_ACC = -4,
-  ERR_FAILURE = -5,
-  CONV_FAILURE = -6,
-  SETUP_FAILURE = -7,
-  SOLVE_FAILURE = -8
+    SUCCESS = 0,
+    CVODE_NO_MEM = -1,
+    ILL_INPUT = -2,
+    TOO_MUCH_WORK = -3,
+    TOO_MUCH_ACC = -4,
+    ERR_FAILURE = -5,
+    CONV_FAILURE = -6,
+    SETUP_FAILURE = -7,
+    SOLVE_FAILURE = -8
 };
 
 /******************************************************************
@@ -427,19 +427,19 @@ void CVodeFree(void *cvode_mem);
 /* iopt indices */
 
 enum {
-  MAXORD,
-  MXSTEP,
-  MXHNIL,
-  NST,
-  NFE,
-  NSETUPS,
-  NNI,
-  NCFN,
-  NETF,
-  QU,
-  QCUR,
-  LENRW,
-  LENIW
+    MAXORD,
+    MXSTEP,
+    MXHNIL,
+    NST,
+    NFE,
+    NSETUPS,
+    NNI,
+    NCFN,
+    NETF,
+    QU,
+    QCUR,
+    LENRW,
+    LENIW
 };
 
 /* ropt indices */
@@ -465,143 +465,143 @@ enum { H0, HMAX, HMIN, HU, HCUR, TCUR, TOLSF };
 
 typedef struct CVodeMemRec {
 
-  real cv_uround; /* machine unit roundoff */
+    real cv_uround; /* machine unit roundoff */
 
-  /* Problem Specification Data */
+    /* Problem Specification Data */
 
-  integer cv_N;    /* ODE system size             */
-  RhsFn cv_f;      /* y' = f(t,y(t))              */
-  void *cv_f_data; /* user pointer passed to f    */
-  int cv_lmm;      /* lmm = ADAMS or BDF          */
-  int cv_iter;     /* iter = FUNCTIONAL or NEWTON */
-  int cv_itol;     /* itol = SS or SV             */
-  real *cv_reltol; /* ptr to relative tolerance   */
-  void *cv_abstol; /* ptr to absolute tolerance   */
+    integer cv_N;    /* ODE system size             */
+    RhsFn cv_f;      /* y' = f(t,y(t))              */
+    void *cv_f_data; /* user pointer passed to f    */
+    int cv_lmm;      /* lmm = ADAMS or BDF          */
+    int cv_iter;     /* iter = FUNCTIONAL or NEWTON */
+    int cv_itol;     /* itol = SS or SV             */
+    real *cv_reltol; /* ptr to relative tolerance   */
+    void *cv_abstol; /* ptr to absolute tolerance   */
 
-  /* Nordsieck History Array */
+    /* Nordsieck History Array */
 
-  N_Vector cv_zn[L_MAX]; /* Nordsieck array N x (q+1),                  */
-                         /* zn[j] is a vector of length N, j=0, ... , q */
-                         /* zn[j] = h^j * jth derivative of the         */
-                         /* interpolating polynomial                    */
+    N_Vector cv_zn[L_MAX]; /* Nordsieck array N x (q+1),                  */
+                           /* zn[j] is a vector of length N, j=0, ... , q */
+                           /* zn[j] = h^j * jth derivative of the         */
+                           /* interpolating polynomial                    */
 
-  /* Vectors of length N */
+    /* Vectors of length N */
 
-  N_Vector cv_ewt;   /* error weight vector                          */
-  N_Vector cv_y;     /* y is used as temporary storage by the solver */
-                     /* The memory is provided by the user to CVode  */
-                     /* where the vector is named yout.              */
-  N_Vector cv_acor;  /* In the context of the solution of the        */
-                     /* nonlinear equation, acor = y_n(m) - y_n(0).  */
-                     /* On return, this vector is scaled to give     */
-                     /* the estimated local error in y.              */
-  N_Vector cv_tempv; /* temporary storage vector                     */
-  N_Vector cv_ftemp; /* temporary storage vector                     */
+    N_Vector cv_ewt;   /* error weight vector                          */
+    N_Vector cv_y;     /* y is used as temporary storage by the solver */
+                       /* The memory is provided by the user to CVode  */
+                       /* where the vector is named yout.              */
+    N_Vector cv_acor;  /* In the context of the solution of the        */
+                       /* nonlinear equation, acor = y_n(m) - y_n(0).  */
+                       /* On return, this vector is scaled to give     */
+                       /* the estimated local error in y.              */
+    N_Vector cv_tempv; /* temporary storage vector                     */
+    N_Vector cv_ftemp; /* temporary storage vector                     */
 
-  /* Step Data */
+    /* Step Data */
 
-  int cv_q;      /* current order                           */
-  int cv_qprime; /* order to be used on the next step       */
-                 /* = q-1, q, or q+1                        */
-  int cv_qwait;  /* number of internal steps to wait before */
-                 /* considering a change in q               */
-  int cv_L;      /* L = q + 1                               */
+    int cv_q;      /* current order                           */
+    int cv_qprime; /* order to be used on the next step       */
+                   /* = q-1, q, or q+1                        */
+    int cv_qwait;  /* number of internal steps to wait before */
+                   /* considering a change in q               */
+    int cv_L;      /* L = q + 1                               */
 
-  real cv_h;      /* current step size                     */
-  real cv_hprime; /* step size to be used on the next step */
-  real cv_eta;    /* eta = hprime / h                      */
-  real cv_hscale; /* value of h used in zn                 */
-  real cv_tn;     /* current internal value of t           */
+    real cv_h;      /* current step size                     */
+    real cv_hprime; /* step size to be used on the next step */
+    real cv_eta;    /* eta = hprime / h                      */
+    real cv_hscale; /* value of h used in zn                 */
+    real cv_tn;     /* current internal value of t           */
 
-  real cv_tau[L_MAX + 1];    /* vector of previous q+1 successful step    */
-                             /* sizes indexed from 1 to q+1               */
-  real cv_tq[NUM_TESTS + 1]; /* vector of test quantities indexed from    */
-                             /* 1 to NUM_TESTS(=5)                        */
-  real cv_l[L_MAX];          /* coefficients of l(x) (degree q poly)      */
+    real cv_tau[L_MAX + 1];    /* vector of previous q+1 successful step    */
+                               /* sizes indexed from 1 to q+1               */
+    real cv_tq[NUM_TESTS + 1]; /* vector of test quantities indexed from    */
+                               /* 1 to NUM_TESTS(=5)                        */
+    real cv_l[L_MAX];          /* coefficients of l(x) (degree q poly)      */
 
-  real cv_rl1;    /* 1 / l[1]                     */
-  real cv_gamma;  /* gamma = h * rl1              */
-  real cv_gammap; /* gamma at the last setup call */
-  real cv_gamrat; /* gamma / gammap               */
+    real cv_rl1;    /* 1 / l[1]                     */
+    real cv_gamma;  /* gamma = h * rl1              */
+    real cv_gammap; /* gamma at the last setup call */
+    real cv_gamrat; /* gamma / gammap               */
 
-  real cv_crate; /* estimated corrector convergence rate */
-  real cv_acnrm; /* | acor | wrms                        */
-  int cv_mnewt;  /* Newton iteration counter             */
+    real cv_crate; /* estimated corrector convergence rate */
+    real cv_acnrm; /* | acor | wrms                        */
+    int cv_mnewt;  /* Newton iteration counter             */
 
-  /* Limits */
+    /* Limits */
 
-  int cv_qmax;   /* q <= qmax                                          */
-  int cv_mxstep; /* maximum number of internal steps for one user call */
-  int cv_maxcor; /* maximum number of corrector iterations for the     */
-                 /* solution of the nonlinear equation                 */
-  int cv_mxhnil; /* maximum number of warning messages issued to the   */
-                 /* user that t + h == t for the next internal step    */
+    int cv_qmax;   /* q <= qmax                                          */
+    int cv_mxstep; /* maximum number of internal steps for one user call */
+    int cv_maxcor; /* maximum number of corrector iterations for the     */
+                   /* solution of the nonlinear equation                 */
+    int cv_mxhnil; /* maximum number of warning messages issued to the   */
+                   /* user that t + h == t for the next internal step    */
 
-  real cv_hmin;     /* |h| >= hmin       */
-  real cv_hmax_inv; /* |h| <= 1/hmax_inv */
-  real cv_etamax;   /* eta <= etamax     */
+    real cv_hmin;     /* |h| >= hmin       */
+    real cv_hmax_inv; /* |h| <= 1/hmax_inv */
+    real cv_etamax;   /* eta <= etamax     */
 
-  /* Counters */
+    /* Counters */
 
-  int cv_nst;     /* number of internal steps taken             */
-  int cv_nfe;     /* number of f calls                          */
-  int cv_ncfn;    /* number of corrector convergence failures   */
-  int cv_netf;    /* number of error test failures              */
-  int cv_nni;     /* number of Newton iterations performed      */
-  int cv_nsetups; /* number of setup calls                      */
-  int cv_nhnil;   /* number of messages issued to the user that */
-                  /* t + h == t for the next iternal step       */
-  int cv_lrw;     /* number of real words in CVODE work vectors */
-  int cv_liw;     /* no. of integer words in CVODE work vectors */
+    int cv_nst;     /* number of internal steps taken             */
+    int cv_nfe;     /* number of f calls                          */
+    int cv_ncfn;    /* number of corrector convergence failures   */
+    int cv_netf;    /* number of error test failures              */
+    int cv_nni;     /* number of Newton iterations performed      */
+    int cv_nsetups; /* number of setup calls                      */
+    int cv_nhnil;   /* number of messages issued to the user that */
+                    /* t + h == t for the next iternal step       */
+    int cv_lrw;     /* number of real words in CVODE work vectors */
+    int cv_liw;     /* no. of integer words in CVODE work vectors */
 
-  /* Linear Solver Data */
+    /* Linear Solver Data */
 
-  /* Linear Solver functions to be called */
+    /* Linear Solver functions to be called */
 
-  int (*cv_linit)(struct CVodeMemRec *cv_mem, bool *setupNonNull);
+    int (*cv_linit)(struct CVodeMemRec *cv_mem, bool *setupNonNull);
 
-  int (*cv_lsetup)(struct CVodeMemRec *cv_mem, int convfail, N_Vector ypred,
-                   N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                   N_Vector vtemp2, N_Vector vtemp3);
+    int (*cv_lsetup)(struct CVodeMemRec *cv_mem, int convfail, N_Vector ypred,
+                     N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
+                     N_Vector vtemp2, N_Vector vtemp3);
 
-  int (*cv_lsolve)(struct CVodeMemRec *cv_mem, N_Vector b, N_Vector ycur,
-                   N_Vector fcur);
+    int (*cv_lsolve)(struct CVodeMemRec *cv_mem, N_Vector b, N_Vector ycur,
+                     N_Vector fcur);
 
-  void (*cv_lfree)(struct CVodeMemRec *cv_mem);
+    void (*cv_lfree)(struct CVodeMemRec *cv_mem);
 
-  /* Linear Solver specific memory */
+    /* Linear Solver specific memory */
 
-  void *cv_lmem;
+    void *cv_lmem;
 
-  /* Flag to indicate successful cv_linit call */
+    /* Flag to indicate successful cv_linit call */
 
-  bool cv_linitOK;
+    bool cv_linitOK;
 
-  /* Saved Values */
+    /* Saved Values */
 
-  int cv_qu;            /* last successful q value used   */
-  int cv_nstlp;         /* step number of last setup call */
-  real cv_hu;           /* last successful h value used   */
-  real cv_saved_tq5;    /* saved value of tq[5]           */
-  integer cv_imxer;     /* index of max value of          */
-                        /* |acor[i]|*ewt[i]               */
-  bool cv_jcur;         /* Is the Jacobian info used by   */
-                        /* linear solver current?         */
-  real cv_tolsf;        /* tolerance scale factor         */
-  bool cv_setupNonNull; /* Does setup do something?       */
+    int cv_qu;            /* last successful q value used   */
+    int cv_nstlp;         /* step number of last setup call */
+    real cv_hu;           /* last successful h value used   */
+    real cv_saved_tq5;    /* saved value of tq[5]           */
+    integer cv_imxer;     /* index of max value of          */
+                          /* |acor[i]|*ewt[i]               */
+    bool cv_jcur;         /* Is the Jacobian info used by   */
+                          /* linear solver current?         */
+    real cv_tolsf;        /* tolerance scale factor         */
+    bool cv_setupNonNull; /* Does setup do something?       */
 
-  /* Arrays for Optional Input and Optional Output */
+    /* Arrays for Optional Input and Optional Output */
 
-  int *cv_iopt;  /*   int optional input, output */
-  real *cv_ropt; /* real optional input, output     */
+    int *cv_iopt;  /*   int optional input, output */
+    real *cv_ropt; /* real optional input, output     */
 
-  /* Error File */
+    /* Error File */
 
-  FILE *cv_errfp; /* CVODE error messages are sent to errfp */
+    FILE *cv_errfp; /* CVODE error messages are sent to errfp */
 
-  /* Pointer to Machine Environment-Specific Information */
+    /* Pointer to Machine Environment-Specific Information */
 
-  void *cv_machenv;
+    void *cv_machenv;
 
 } *CVodeMem;
 

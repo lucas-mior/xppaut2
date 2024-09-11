@@ -4,9 +4,9 @@
 #include <X11/Xlib.h>
 
 typedef struct {
-  Window w;
-  char bname[10];
-  int com;
+    Window w;
+    char bname[10];
+    int com;
 } USERBUT;
 
 void user_button_events(XEvent report);

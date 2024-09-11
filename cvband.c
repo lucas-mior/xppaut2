@@ -47,25 +47,25 @@
 
 typedef struct {
 
-  CVBandJacFn b_jac; /* jac = Jacobian routine to be called      */
+    CVBandJacFn b_jac; /* jac = Jacobian routine to be called      */
 
-  integer b_ml; /* b_ml = lower bandwidth of savedJ         */
+    integer b_ml; /* b_ml = lower bandwidth of savedJ         */
 
-  integer b_mu; /* b_mu = upper bandwidth of savedJ         */
+    integer b_mu; /* b_mu = upper bandwidth of savedJ         */
 
-  integer b_storage_mu; /* upper bandwith of M = MIN(N-1,b_mu+b_ml) */
+    integer b_storage_mu; /* upper bandwith of M = MIN(N-1,b_mu+b_ml) */
 
-  BandMat b_M; /* M = I - gamma J, gamma = h / l1          */
+    BandMat b_M; /* M = I - gamma J, gamma = h / l1          */
 
-  integer *b_pivots; /* pivots = pivot array for PM = LU         */
+    integer *b_pivots; /* pivots = pivot array for PM = LU         */
 
-  BandMat b_savedJ; /* savedJ = old Jacobian                    */
+    BandMat b_savedJ; /* savedJ = old Jacobian                    */
 
-  int b_nstlj; /* nstlj = nst at last Jacobian eval.       */
+    int b_nstlj; /* nstlj = nst at last Jacobian eval.       */
 
-  int b_nje; /* nje = no. of calls to jac                */
+    int b_nje; /* nje = no. of calls to jac                */
 
-  void *b_J_data; /* J_data is passed to jac                  */
+    void *b_J_data; /* J_data is passed to jac                  */
 
 } CVBandMemRec, *CVBandMem;
 
@@ -97,60 +97,62 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J, RhsFn f,
                  void *f_data, real tn, N_Vector y, N_Vector fy, N_Vector ewt,
                  real h, real uround, void *jac_data, int *nfePtr,
                  N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-  real fnorm, minInc, inc, inc_inv, srur;
-  N_Vector ftemp, ytemp;
-  integer group, i, j, width, ngroups, i1, i2;
-  real *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
+    real fnorm, minInc, inc, inc_inv, srur;
+    N_Vector ftemp, ytemp;
+    integer group, i, j, width, ngroups, i1, i2;
+    real *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
 
-  /* Rename work vectors for use as temporary values of y and f */
-  ftemp = vtemp1;
-  ytemp = vtemp2;
+    /* Rename work vectors for use as temporary values of y and f */
+    ftemp = vtemp1;
+    ytemp = vtemp2;
 
-  /* Obtain pointers to the data for ewt, fy, ftemp, y, ytemp */
-  ewt_data = N_VDATA(ewt);
-  fy_data = N_VDATA(fy);
-  ftemp_data = N_VDATA(ftemp);
-  y_data = N_VDATA(y);
-  ytemp_data = N_VDATA(ytemp);
+    /* Obtain pointers to the data for ewt, fy, ftemp, y, ytemp */
+    ewt_data = N_VDATA(ewt);
+    fy_data = N_VDATA(fy);
+    ftemp_data = N_VDATA(ftemp);
+    y_data = N_VDATA(y);
+    ytemp_data = N_VDATA(ytemp);
 
-  /* Load ytemp with y = predicted y vector */
-  N_VScale(ONE, y, ytemp);
+    /* Load ytemp with y = predicted y vector */
+    N_VScale(ONE, y, ytemp);
 
-  /* Set minimum increment based on uround and norm of f */
-  srur = RSqrt(uround);
-  fnorm = N_VWrmsNorm(fy, ewt);
-  minInc = (fnorm != ZERO) ? (MIN_INC_MULT * ABS(h) * uround * N * fnorm) : ONE;
+    /* Set minimum increment based on uround and norm of f */
+    srur = RSqrt(uround);
+    fnorm = N_VWrmsNorm(fy, ewt);
+    minInc =
+        (fnorm != ZERO) ? (MIN_INC_MULT * ABS(h) * uround * N * fnorm) : ONE;
 
-  /* Set bandwidth and number of column groups for band differencing */
-  width = mlower + mupper + 1;
-  ngroups = MIN(width, N);
+    /* Set bandwidth and number of column groups for band differencing */
+    width = mlower + mupper + 1;
+    ngroups = MIN(width, N);
 
-  for (group = 1; group <= ngroups; group++) {
+    for (group = 1; group <= ngroups; group++) {
 
-    /* Increment all y_j in group */
-    for (j = group - 1; j < N; j += width) {
-      inc = MAX(srur * ABS(y_data[j]), minInc / ewt_data[j]);
-      ytemp_data[j] += inc;
+        /* Increment all y_j in group */
+        for (j = group - 1; j < N; j += width) {
+            inc = MAX(srur * ABS(y_data[j]), minInc / ewt_data[j]);
+            ytemp_data[j] += inc;
+        }
+
+        /* Evaluate f with incremented y */
+        f(N, tn, ytemp, ftemp, f_data);
+
+        /* Restore ytemp, then form and load difference quotients */
+        for (j = group - 1; j < N; j += width) {
+            ytemp_data[j] = y_data[j];
+            col_j = BAND_COL(J, j);
+            inc = MAX(srur * ABS(y_data[j]), minInc / ewt_data[j]);
+            inc_inv = ONE / inc;
+            i1 = MAX(0, j - mupper);
+            i2 = MIN(j + mlower, N - 1);
+            for (i = i1; i <= i2; i++)
+                BAND_COL_ELEM(col_j, i, j) =
+                    inc_inv * (ftemp_data[i] - fy_data[i]);
+        }
     }
 
-    /* Evaluate f with incremented y */
-    f(N, tn, ytemp, ftemp, f_data);
-
-    /* Restore ytemp, then form and load difference quotients */
-    for (j = group - 1; j < N; j += width) {
-      ytemp_data[j] = y_data[j];
-      col_j = BAND_COL(J, j);
-      inc = MAX(srur * ABS(y_data[j]), minInc / ewt_data[j]);
-      inc_inv = ONE / inc;
-      i1 = MAX(0, j - mupper);
-      i2 = MIN(j + mlower, N - 1);
-      for (i = i1; i <= i2; i++)
-        BAND_COL_ELEM(col_j, i, j) = inc_inv * (ftemp_data[i] - fy_data[i]);
-    }
-  }
-
-  /* Increment counter nfe = *nfePtr */
-  *nfePtr += ngroups;
+    /* Increment counter nfe = *nfePtr */
+    *nfePtr += ngroups;
 }
 
 /* Readability Replacements */
@@ -207,36 +209,36 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J, RhsFn f,
 
 void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
             void *jac_data) {
-  CVodeMem cv_mem;
-  CVBandMem cvband_mem;
+    CVodeMem cv_mem;
+    CVBandMem cvband_mem;
 
-  /* Return immediately if cvode_mem is NULL */
-  cv_mem = (CVodeMem)cvode_mem;
-  if (cv_mem == NULL)
-    return; /* CVode reports this error */
+    /* Return immediately if cvode_mem is NULL */
+    cv_mem = (CVodeMem)cvode_mem;
+    if (cv_mem == NULL)
+        return; /* CVode reports this error */
 
-  /* Set four main function fields in cv_mem */
-  linit = CVBandInit;
-  lsetup = CVBandSetup;
-  lsolve = CVBandSolve;
-  lfree = CVBandFree;
+    /* Set four main function fields in cv_mem */
+    linit = CVBandInit;
+    lsetup = CVBandSetup;
+    lsolve = CVBandSolve;
+    lfree = CVBandFree;
 
-  /* Get memory for CVBandMemRec */
-  lmem = cvband_mem = (CVBandMem)malloc(sizeof(CVBandMemRec));
-  if (cvband_mem == NULL)
-    return; /* CVBandInit reports this error */
+    /* Get memory for CVBandMemRec */
+    lmem = cvband_mem = (CVBandMem)malloc(sizeof(CVBandMemRec));
+    if (cvband_mem == NULL)
+        return; /* CVBandInit reports this error */
 
-  /* Set Jacobian routine field to user's bjac or CVBandDQJac */
-  if (bjac == NULL) {
-    jac = CVBandDQJac;
-  } else {
-    jac = bjac;
-  }
-  J_data = jac_data;
+    /* Set Jacobian routine field to user's bjac or CVBandDQJac */
+    if (bjac == NULL) {
+        jac = CVBandDQJac;
+    } else {
+        jac = bjac;
+    }
+    J_data = jac_data;
 
-  /* Load half-bandwiths in cvband_mem */
-  ml = mlower;
-  mu = mupper;
+    /* Load half-bandwiths in cvband_mem */
+    ml = mlower;
+    mu = mupper;
 }
 
 /*************** CVBandInit ******************************************
@@ -248,59 +250,59 @@ void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
 **********************************************************************/
 
 static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
-  CVBandMem cvband_mem;
+    CVBandMem cvband_mem;
 
-  cvband_mem = (CVBandMem)lmem;
+    cvband_mem = (CVBandMem)lmem;
 
-  /* Print error message and return if cvband_mem is NULL */
-  if (cvband_mem == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    return (LINIT_ERR);
-  }
+    /* Print error message and return if cvband_mem is NULL */
+    if (cvband_mem == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        return (LINIT_ERR);
+    }
 
-  /* Set flag setupNonNull = TRUE */
-  *setupNonNull = TRUE;
+    /* Set flag setupNonNull = TRUE */
+    *setupNonNull = TRUE;
 
-  /* Test ml and mu for legality */
-  if ((ml < 0) || (mu < 0) || (ml >= N) || (mu >= N)) {
-    fprintf(errfp, MSG_BAD_SIZES, (long int)ml, (long int)mu,
-            (long int)(N - 1));
-    return (LINIT_ERR);
-  }
+    /* Test ml and mu for legality */
+    if ((ml < 0) || (mu < 0) || (ml >= N) || (mu >= N)) {
+        fprintf(errfp, MSG_BAD_SIZES, (long int)ml, (long int)mu,
+                (long int)(N - 1));
+        return (LINIT_ERR);
+    }
 
-  /* Set extended upper half-bandwith for M (required for pivoting) */
-  storage_mu = MIN(N - 1, mu + ml);
+    /* Set extended upper half-bandwith for M (required for pivoting) */
+    storage_mu = MIN(N - 1, mu + ml);
 
-  /* Allocate memory for M, savedJ, and pivot arrays */
-  M = BandAllocMat(N, mu, ml, storage_mu);
-  if (M == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    return (LINIT_ERR);
-  }
-  savedJ = BandAllocMat(N, mu, ml, mu);
-  if (savedJ == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    BandFreeMat(M);
-    return (LINIT_ERR);
-  }
-  pivots = BandAllocPiv(N);
-  if (pivots == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    BandFreeMat(M);
-    BandFreeMat(savedJ);
-    return (LINIT_ERR);
-  }
+    /* Allocate memory for M, savedJ, and pivot arrays */
+    M = BandAllocMat(N, mu, ml, storage_mu);
+    if (M == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        return (LINIT_ERR);
+    }
+    savedJ = BandAllocMat(N, mu, ml, mu);
+    if (savedJ == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        BandFreeMat(M);
+        return (LINIT_ERR);
+    }
+    pivots = BandAllocPiv(N);
+    if (pivots == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        BandFreeMat(M);
+        BandFreeMat(savedJ);
+        return (LINIT_ERR);
+    }
 
-  /* Initialize nje and nstlj, and set workspace lengths */
-  nje = 0;
-  if (iopt != NULL) {
-    iopt[BAND_NJE] = nje;
-    iopt[BAND_LRW] = N * (storage_mu + mu + 2 * ml + 2);
-    iopt[BAND_LIW] = N;
-  }
-  nstlj = 0;
+    /* Initialize nje and nstlj, and set workspace lengths */
+    nje = 0;
+    if (iopt != NULL) {
+        iopt[BAND_NJE] = nje;
+        iopt[BAND_LRW] = N * (storage_mu + mu + 2 * ml + 2);
+        iopt[BAND_LIW] = N;
+    }
+    nstlj = 0;
 
-  return (LINIT_OK);
+    return (LINIT_OK);
 }
 
 /*************** CVBandSetup *****************************************
@@ -317,49 +319,49 @@ static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
                        N_Vector vtemp2, N_Vector vtemp3) {
-  bool jbad, jok;
-  real dgamma;
-  integer ier;
-  CVBandMem cvband_mem;
+    bool jbad, jok;
+    real dgamma;
+    integer ier;
+    CVBandMem cvband_mem;
 
-  cvband_mem = (CVBandMem)lmem;
+    cvband_mem = (CVBandMem)lmem;
 
-  /* Use nst, gamma/gammap, and convfail to set J eval. flag jok */
+    /* Use nst, gamma/gammap, and convfail to set J eval. flag jok */
 
-  dgamma = ABS((gamma / gammap) - ONE);
-  jbad = (nst == 0) || (nst > nstlj + CVB_MSBJ) ||
-         ((convfail == FAIL_BAD_J) && (dgamma < CVB_DGMAX)) ||
-         (convfail == FAIL_OTHER);
-  jok = !jbad;
+    dgamma = ABS((gamma / gammap) - ONE);
+    jbad = (nst == 0) || (nst > nstlj + CVB_MSBJ) ||
+           ((convfail == FAIL_BAD_J) && (dgamma < CVB_DGMAX)) ||
+           (convfail == FAIL_OTHER);
+    jok = !jbad;
 
-  if (jok) {
-    /* If jok = TRUE, use saved copy of J */
-    *jcurPtr = FALSE;
-    BandCopy(savedJ, M, mu, ml);
-  } else {
-    /* If jok = FALSE, call jac routine for new J value */
-    nje++;
-    if (iopt != NULL)
-      iopt[BAND_NJE] = nje;
-    nstlj = nst;
-    *jcurPtr = TRUE;
-    BandZero(M);
-    jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe,
-        vtemp1, vtemp2, vtemp3);
-    BandCopy(M, savedJ, mu, ml);
-  }
+    if (jok) {
+        /* If jok = TRUE, use saved copy of J */
+        *jcurPtr = FALSE;
+        BandCopy(savedJ, M, mu, ml);
+    } else {
+        /* If jok = FALSE, call jac routine for new J value */
+        nje++;
+        if (iopt != NULL)
+            iopt[BAND_NJE] = nje;
+        nstlj = nst;
+        *jcurPtr = TRUE;
+        BandZero(M);
+        jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data,
+            &nfe, vtemp1, vtemp2, vtemp3);
+        BandCopy(M, savedJ, mu, ml);
+    }
 
-  /* Scale and add I to get M = I - gamma*J */
-  BandScale(-gamma, M);
-  BandAddI(M);
+    /* Scale and add I to get M = I - gamma*J */
+    BandScale(-gamma, M);
+    BandAddI(M);
 
-  /* Do LU factorization of M */
-  ier = BandFactor(M, pivots);
+    /* Do LU factorization of M */
+    ier = BandFactor(M, pivots);
 
-  /* Return 0 if the LU was complete; otherwise return 1 */
-  if (ier > 0)
-    return (1);
-  return (0);
+    /* Return 0 if the LU was complete; otherwise return 1 */
+    if (ier > 0)
+        return (1);
+    return (0);
 }
 
 /*************** CVBandSolve *****************************************
@@ -371,18 +373,18 @@ static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 static int CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                        N_Vector fcur) {
-  CVBandMem cvband_mem;
+    CVBandMem cvband_mem;
 
-  cvband_mem = (CVBandMem)lmem;
+    cvband_mem = (CVBandMem)lmem;
 
-  BandBacksolve(M, pivots, b);
+    BandBacksolve(M, pivots, b);
 
-  /* If BDF, scale the correction to account for change in gamma */
-  if ((lmm == BDF) && (gamrat != ONE)) {
-    N_VScale(TWO / (ONE + gamrat), b, b);
-  }
+    /* If BDF, scale the correction to account for change in gamma */
+    if ((lmm == BDF) && (gamrat != ONE)) {
+        N_VScale(TWO / (ONE + gamrat), b, b);
+    }
 
-  return (0);
+    return (0);
 }
 
 /*************** CVBandFree ******************************************
@@ -392,12 +394,12 @@ static int CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 **********************************************************************/
 
 static void CVBandFree(CVodeMem cv_mem) {
-  CVBandMem cvband_mem;
+    CVBandMem cvband_mem;
 
-  cvband_mem = (CVBandMem)lmem;
+    cvband_mem = (CVBandMem)lmem;
 
-  BandFreeMat(M);
-  BandFreeMat(savedJ);
-  BandFreePiv(pivots);
-  free(lmem);
+    BandFreeMat(M);
+    BandFreeMat(savedJ);
+    BandFreePiv(pivots);
+    free(lmem);
 }

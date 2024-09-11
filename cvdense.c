@@ -42,19 +42,19 @@
 
 typedef struct {
 
-  CVDenseJacFn d_jac; /* jac = Jacobian routine to be called    */
+    CVDenseJacFn d_jac; /* jac = Jacobian routine to be called    */
 
-  DenseMat d_M; /* M = I - gamma J, gamma = h / l1        */
+    DenseMat d_M; /* M = I - gamma J, gamma = h / l1        */
 
-  integer *d_pivots; /* pivots = pivot array for PM = LU       */
+    integer *d_pivots; /* pivots = pivot array for PM = LU       */
 
-  DenseMat d_savedJ; /* savedJ = old Jacobian                  */
+    DenseMat d_savedJ; /* savedJ = old Jacobian                  */
 
-  int d_nstlj; /* nstlj = nst at last Jacobian eval.     */
+    int d_nstlj; /* nstlj = nst at last Jacobian eval.     */
 
-  int d_nje; /* nje = no. of calls to jac              */
+    int d_nje; /* nje = no. of calls to jac              */
 
-  void *d_J_data; /* J_data is passed to jac                */
+    void *d_J_data; /* J_data is passed to jac                */
 
 } CVDenseMemRec, *CVDenseMem;
 
@@ -88,43 +88,44 @@ void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real tn,
                   N_Vector y, N_Vector fy, N_Vector ewt, real h, real uround,
                   void *jac_data, int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
                   N_Vector vtemp3) {
-  real fnorm, minInc, inc, inc_inv, yjsaved, srur;
-  real *y_data, *ewt_data;
-  N_Vector ftemp, jthCol;
-  integer j;
+    real fnorm, minInc, inc, inc_inv, yjsaved, srur;
+    real *y_data, *ewt_data;
+    N_Vector ftemp, jthCol;
+    integer j;
 
-  ftemp = vtemp1; /* Rename work vector for use as f vector value */
+    ftemp = vtemp1; /* Rename work vector for use as f vector value */
 
-  /* Obtain pointers to the data for ewt, y */
-  ewt_data = N_VDATA(ewt);
-  y_data = N_VDATA(y);
+    /* Obtain pointers to the data for ewt, y */
+    ewt_data = N_VDATA(ewt);
+    y_data = N_VDATA(y);
 
-  /* Set minimum increment based on uround and norm of f */
-  srur = RSqrt(uround);
-  fnorm = N_VWrmsNorm(fy, ewt);
-  minInc = (fnorm != ZERO) ? (MIN_INC_MULT * ABS(h) * uround * N * fnorm) : ONE;
+    /* Set minimum increment based on uround and norm of f */
+    srur = RSqrt(uround);
+    fnorm = N_VWrmsNorm(fy, ewt);
+    minInc =
+        (fnorm != ZERO) ? (MIN_INC_MULT * ABS(h) * uround * N * fnorm) : ONE;
 
-  N_VMAKE(jthCol, NULL, N);
+    N_VMAKE(jthCol, NULL, N);
 
-  /* this is the only for loop for 0..N-1 in CVODE */
-  for (j = 0; j < N; j++) {
+    /* this is the only for loop for 0..N-1 in CVODE */
+    for (j = 0; j < N; j++) {
 
-    /* Generate the jth col of J(tn,y) */
+        /* Generate the jth col of J(tn,y) */
 
-    N_VDATA(jthCol) = DENSE_COL(J, j);
-    yjsaved = y_data[j];
-    inc = MAX(srur * ABS(yjsaved), minInc / ewt_data[j]);
-    y_data[j] += inc;
-    f(N, tn, y, ftemp, f_data);
-    inc_inv = ONE / inc;
-    N_VLinearSum(inc_inv, ftemp, -inc_inv, fy, jthCol);
-    y_data[j] = yjsaved;
-  }
+        N_VDATA(jthCol) = DENSE_COL(J, j);
+        yjsaved = y_data[j];
+        inc = MAX(srur * ABS(yjsaved), minInc / ewt_data[j]);
+        y_data[j] += inc;
+        f(N, tn, y, ftemp, f_data);
+        inc_inv = ONE / inc;
+        N_VLinearSum(inc_inv, ftemp, -inc_inv, fy, jthCol);
+        y_data[j] = yjsaved;
+    }
 
-  N_VDISPOSE(jthCol);
+    N_VDISPOSE(jthCol);
 
-  /* Increment counter nfe = *nfePtr */
-  *nfePtr += N;
+    /* Increment counter nfe = *nfePtr */
+    *nfePtr += N;
 }
 
 /* Readability Replacements */
@@ -177,32 +178,32 @@ void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real tn,
 **********************************************************************/
 
 void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
-  CVodeMem cv_mem;
-  CVDenseMem cvdense_mem;
+    CVodeMem cv_mem;
+    CVDenseMem cvdense_mem;
 
-  /* Return immediately if cvode_mem is NULL */
-  cv_mem = (CVodeMem)cvode_mem;
-  if (cv_mem == NULL)
-    return; /* CVode reports this error */
+    /* Return immediately if cvode_mem is NULL */
+    cv_mem = (CVodeMem)cvode_mem;
+    if (cv_mem == NULL)
+        return; /* CVode reports this error */
 
-  /* Set four main function fields in cv_mem */
-  linit = CVDenseInit;
-  lsetup = CVDenseSetup;
-  lsolve = CVDenseSolve;
-  lfree = CVDenseFree;
+    /* Set four main function fields in cv_mem */
+    linit = CVDenseInit;
+    lsetup = CVDenseSetup;
+    lsolve = CVDenseSolve;
+    lfree = CVDenseFree;
 
-  /* Get memory for CVDenseMemRec */
-  lmem = cvdense_mem = (CVDenseMem)malloc(sizeof(CVDenseMemRec));
-  if (cvdense_mem == NULL)
-    return; /* CVDenseInit reports this error */
+    /* Get memory for CVDenseMemRec */
+    lmem = cvdense_mem = (CVDenseMem)malloc(sizeof(CVDenseMemRec));
+    if (cvdense_mem == NULL)
+        return; /* CVDenseInit reports this error */
 
-  /* Set Jacobian routine field to user's djac or CVDenseDQJac */
-  if (djac == NULL) {
-    jac = CVDenseDQJac;
-  } else {
-    jac = djac;
-  }
-  J_data = jac_data;
+    /* Set Jacobian routine field to user's djac or CVDenseDQJac */
+    if (djac == NULL) {
+        jac = CVDenseDQJac;
+    } else {
+        jac = djac;
+    }
+    J_data = jac_data;
 }
 
 /*************** CVDenseInit *****************************************
@@ -214,51 +215,51 @@ void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
 **********************************************************************/
 
 static int CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
-  CVDenseMem cvdense_mem;
+    CVDenseMem cvdense_mem;
 
-  cvdense_mem = (CVDenseMem)lmem;
+    cvdense_mem = (CVDenseMem)lmem;
 
-  /* Print error message and return if cvdense_mem is NULL */
-  if (cvdense_mem == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    return (LINIT_ERR);
-  }
+    /* Print error message and return if cvdense_mem is NULL */
+    if (cvdense_mem == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        return (LINIT_ERR);
+    }
 
-  /* Set flag setupNonNull = TRUE */
-  *setupNonNull = TRUE;
+    /* Set flag setupNonNull = TRUE */
+    *setupNonNull = TRUE;
 
-  /* Allocate memory for M, savedJ, and pivot array */
+    /* Allocate memory for M, savedJ, and pivot array */
 
-  M = DenseAllocMat(N);
-  if (M == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    return (LINIT_ERR);
-  }
-  savedJ = DenseAllocMat(N);
-  if (savedJ == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    DenseFreeMat(M);
-    return (LINIT_ERR);
-  }
-  pivots = DenseAllocPiv(N);
-  if (pivots == NULL) {
-    fprintf(errfp, MSG_MEM_FAIL);
-    DenseFreeMat(M);
-    DenseFreeMat(savedJ);
-    return (LINIT_ERR);
-  }
+    M = DenseAllocMat(N);
+    if (M == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        return (LINIT_ERR);
+    }
+    savedJ = DenseAllocMat(N);
+    if (savedJ == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        DenseFreeMat(M);
+        return (LINIT_ERR);
+    }
+    pivots = DenseAllocPiv(N);
+    if (pivots == NULL) {
+        fprintf(errfp, MSG_MEM_FAIL);
+        DenseFreeMat(M);
+        DenseFreeMat(savedJ);
+        return (LINIT_ERR);
+    }
 
-  /* Initialize nje and nstlj, and set workspace lengths */
+    /* Initialize nje and nstlj, and set workspace lengths */
 
-  nje = 0;
-  if (iopt != NULL) {
-    iopt[DENSE_NJE] = nje;
-    iopt[DENSE_LRW] = 2 * N * N;
-    iopt[DENSE_LIW] = N;
-  }
-  nstlj = 0;
+    nje = 0;
+    if (iopt != NULL) {
+        iopt[DENSE_NJE] = nje;
+        iopt[DENSE_LRW] = 2 * N * N;
+        iopt[DENSE_LIW] = N;
+    }
+    nstlj = 0;
 
-  return (LINIT_OK);
+    return (LINIT_OK);
 }
 
 /*************** CVDenseSetup ****************************************
@@ -275,49 +276,49 @@ static int CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
 static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
                         N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
                         N_Vector vtemp2, N_Vector vtemp3) {
-  bool jbad, jok;
-  real dgamma;
-  integer ier;
-  CVDenseMem cvdense_mem;
+    bool jbad, jok;
+    real dgamma;
+    integer ier;
+    CVDenseMem cvdense_mem;
 
-  cvdense_mem = (CVDenseMem)lmem;
+    cvdense_mem = (CVDenseMem)lmem;
 
-  /* Use nst, gamma/gammap, and convfail to set J eval. flag jok */
+    /* Use nst, gamma/gammap, and convfail to set J eval. flag jok */
 
-  dgamma = ABS((gamma / gammap) - ONE);
-  jbad = (nst == 0) || (nst > nstlj + CVD_MSBJ) ||
-         ((convfail == FAIL_BAD_J) && (dgamma < CVD_DGMAX)) ||
-         (convfail == FAIL_OTHER);
-  jok = !jbad;
+    dgamma = ABS((gamma / gammap) - ONE);
+    jbad = (nst == 0) || (nst > nstlj + CVD_MSBJ) ||
+           ((convfail == FAIL_BAD_J) && (dgamma < CVD_DGMAX)) ||
+           (convfail == FAIL_OTHER);
+    jok = !jbad;
 
-  if (jok) {
-    /* If jok = TRUE, use saved copy of J */
-    *jcurPtr = FALSE;
-    DenseCopy(savedJ, M);
-  } else {
-    /* If jok = FALSE, call jac routine for new J value */
-    nje++;
-    if (iopt != NULL)
-      iopt[DENSE_NJE] = nje;
-    nstlj = nst;
-    *jcurPtr = TRUE;
-    DenseZero(M);
-    jac(N, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe, vtemp1,
-        vtemp2, vtemp3);
-    DenseCopy(M, savedJ);
-  }
+    if (jok) {
+        /* If jok = TRUE, use saved copy of J */
+        *jcurPtr = FALSE;
+        DenseCopy(savedJ, M);
+    } else {
+        /* If jok = FALSE, call jac routine for new J value */
+        nje++;
+        if (iopt != NULL)
+            iopt[DENSE_NJE] = nje;
+        nstlj = nst;
+        *jcurPtr = TRUE;
+        DenseZero(M);
+        jac(N, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe,
+            vtemp1, vtemp2, vtemp3);
+        DenseCopy(M, savedJ);
+    }
 
-  /* Scale and add I to get M = I - gamma*J */
-  DenseScale(-gamma, M);
-  DenseAddI(M);
+    /* Scale and add I to get M = I - gamma*J */
+    DenseScale(-gamma, M);
+    DenseAddI(M);
 
-  /* Do LU factorization of M */
-  ier = DenseFactor(M, pivots);
+    /* Do LU factorization of M */
+    ier = DenseFactor(M, pivots);
 
-  /* Return 0 if the LU was complete; otherwise return 1 */
-  if (ier > 0)
-    return (1);
-  return (0);
+    /* Return 0 if the LU was complete; otherwise return 1 */
+    if (ier > 0)
+        return (1);
+    return (0);
 }
 
 /*************** CVDenseSolve ****************************************
@@ -329,18 +330,18 @@ static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 static int CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                         N_Vector fcur) {
-  CVDenseMem cvdense_mem;
+    CVDenseMem cvdense_mem;
 
-  cvdense_mem = (CVDenseMem)lmem;
+    cvdense_mem = (CVDenseMem)lmem;
 
-  DenseBacksolve(M, pivots, b);
+    DenseBacksolve(M, pivots, b);
 
-  /* If BDF, scale the correction to account for change in gamma */
-  if ((lmm == BDF) && (gamrat != ONE)) {
-    N_VScale(TWO / (ONE + gamrat), b, b);
-  }
+    /* If BDF, scale the correction to account for change in gamma */
+    if ((lmm == BDF) && (gamrat != ONE)) {
+        N_VScale(TWO / (ONE + gamrat), b, b);
+    }
 
-  return (0);
+    return (0);
 }
 
 /*************** CVDenseFree *****************************************
@@ -350,12 +351,12 @@ static int CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 **********************************************************************/
 
 static void CVDenseFree(CVodeMem cv_mem) {
-  CVDenseMem cvdense_mem;
+    CVDenseMem cvdense_mem;
 
-  cvdense_mem = (CVDenseMem)lmem;
+    cvdense_mem = (CVDenseMem)lmem;
 
-  DenseFreeMat(M);
-  DenseFreeMat(savedJ);
-  DenseFreePiv(pivots);
-  free(lmem);
+    DenseFreeMat(M);
+    DenseFreeMat(savedJ);
+    DenseFreePiv(pivots);
+    free(lmem);
 }

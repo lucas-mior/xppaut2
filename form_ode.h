@@ -25,7 +25,7 @@ args[MAXARG][NAMLEN+1]); void stor_internopts(char *s1);
 */
 
 typedef struct {
-  char *name, *value;
+    char *name, *value;
 } FIXINFO;
 
 int make_eqn(void);

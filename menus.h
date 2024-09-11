@@ -37,12 +37,12 @@ char *fileoff_menu[] = {
 
 /* end CLONE change */
 typedef struct {
-  Window base, title;
-  Window w[25];
-  char key[25];
-  char **names;
-  char **hints;
-  int n, visible;
+    Window base, title;
+    Window w[25];
+    char key[25];
+    char **names;
+    char **hints;
+    int n, visible;
 } MENUDEF;
 
 /* hints for the main menus */

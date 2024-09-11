@@ -2,7 +2,7 @@
 #define _del_stab_h_
 
 typedef struct {
-  double r, i;
+    double r, i;
 } COMPLEX;
 
 /* del_stab.c */
