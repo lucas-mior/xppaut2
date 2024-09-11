@@ -399,7 +399,7 @@ new_float(char *name, double *value) {
     int flag;
     double newz;
     char tvalue[200];
-    sprintf(tvalue, "%.16g", *value);
+    snprintf(tvalue, sizeof(tvalue), "%.16g", *value);
     done = new_string(name, tvalue);
     if (done == 0 || strlen(tvalue) == 0)
         return -1;
@@ -428,7 +428,7 @@ double *v;
 int
 new_int(char *name, int *value) {
     char svalue[200];
-    sprintf(svalue, "%d", *value);
+    snprintf(svalue, sizeof(svalue), "%d", *value);
     if (new_string(name, svalue) == 0 || strlen(svalue) == 0)
         return (-1);
     *value = atoi(svalue);

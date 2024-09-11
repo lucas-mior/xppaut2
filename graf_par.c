@@ -144,14 +144,14 @@ get_2d_view(int ind) {
     char n1[15], n2[15];
     ind_to_sym(i1, n1);
     ind_to_sym(i2, n2);
-    sprintf(values[0], "%s", n1);
-    sprintf(values[1], "%s", n2);
-    sprintf(values[2], "%g", MyGraph->xmin);
-    sprintf(values[3], "%g", MyGraph->ymin);
-    sprintf(values[4], "%g", MyGraph->xmax);
-    sprintf(values[5], "%g", MyGraph->ymax);
-    sprintf(values[6], "%s", MyGraph->xlabel);
-    sprintf(values[7], "%s", MyGraph->ylabel);
+    snprintf(values[0], sizeof(values[0]), "%s", n1);
+    snprintf(values[1], sizeof(values[1]), "%s", n2);
+    snprintf(values[2], sizeof(values[2]), "%g", MyGraph->xmin);
+    snprintf(values[3], sizeof(values[3]), "%g", MyGraph->ymin);
+    snprintf(values[4], sizeof(values[4]), "%g", MyGraph->xmax);
+    snprintf(values[5], sizeof(values[5]), "%g", MyGraph->ymax);
+    snprintf(values[6], sizeof(values[6]), "%s", MyGraph->xlabel);
+    snprintf(values[7], sizeof(values[7]), "%s", MyGraph->ylabel);
     MyGraph->ThreeDFlag = 0;
     status = do_string_box(8, 4, 2, "2D View", n, values, 31);
     if (status != 0) {
@@ -171,8 +171,8 @@ get_2d_view(int ind) {
         MyGraph->ylo = MyGraph->ymin;
         MyGraph->xhi = MyGraph->xmax;
         MyGraph->yhi = MyGraph->ymax;
-        sprintf(MyGraph->xlabel, "%s", values[6]);
-        sprintf(MyGraph->ylabel, "%s", values[7]);
+        snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[6]);
+        snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[7]);
         check_windows();
         /*	      plintf(" x=%d y=%d xlo=%f ylo=%f xhi=%f yhi=%f \n",
                              MyGraph->xv[ind],MyGraph->yv[ind],MyGraph->xlo,

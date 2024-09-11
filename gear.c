@@ -354,7 +354,7 @@ save_batch_shoot(void) {
 
             DELTA_T = fabs(DELTA_T);
             usual_integrate_stuff(x);
-            sprintf(name, "UM%d.dat", k);
+            snprintf(name, sizeof(name), "UM%d.dat", k);
 
             fp = fopen(name, "w");
             write_mybrowser_data(fp);
@@ -364,7 +364,7 @@ save_batch_shoot(void) {
 
             DELTA_T = -fabs(DELTA_T);
             usual_integrate_stuff(x);
-            sprintf(name, "SM%d.dat", k);
+            snprintf(name, sizeof(name), "SM%d.dat", k);
 
             fp = fopen(name, "w");
             write_mybrowser_data(fp);
