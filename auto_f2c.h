@@ -11,9 +11,8 @@
 #include <math.h>
 
 typedef long int integer;
-typedef float real;
 typedef struct {
-    real r, i;
+    float r, i;
 } complex;
 typedef struct {
     double r, i;
@@ -44,7 +43,7 @@ typedef integer logical;
     array[(i) + ((j) + (k) * array##_dim2) * array##_dim1]
 
 /* cabs.c */
-double f__cabs(double real, double imag);
+double f__cabs(double, double imag);
 /* d_imag.c */
 double d_imag(doublecomplex *z);
 /* d_lg10.c */
@@ -56,7 +55,7 @@ double etime(float *tarray);
 /* i_dnnt.c */
 integer i_dnnt(double *x);
 /* i_nint.c */
-integer i_nint(real *x);
+integer i_nint(float *x);
 /* pow_dd.c */
 double pow_dd(double *ap, double *bp);
 /* pow_di.c */
@@ -64,7 +63,7 @@ double pow_di(double *ap, integer *bp);
 /* pow_ii.c */
 integer pow_ii(integer ap, integer bp);
 /* r_lg10.c */
-double r_lg10(real x);
+double r_lg10(float x);
 /* z_abs.c */
 double z_abs(doublecomplex *z);
 /* z_exp.c */

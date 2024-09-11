@@ -1065,7 +1065,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
     integer niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO],
         ismm[KREDO], nlev, itmp;
     double zero, tpiv;
-    real xkwt;
+    float xkwt;
     integer nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
 
     logical evenc[KREDO];
@@ -1112,9 +1112,9 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
     nrcmnbc = *nrc - *nbc;
     len1 = (*nov * (*nrc - *nbc)) * 8;
     len2 = (*nov + *nrc - *nbc + 1) * 8;
-    xkwt = (real)(*kwt);
+    xkwt = (float)(*kwt);
     {
-        real tmp = r_lg10(xkwt) / r_lg10(2.0);
+        float tmp = r_lg10(xkwt) / r_lg10(2.0);
         nlev = i_nint(&tmp);
     }
     notsend = TRUE_;
@@ -1829,7 +1829,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 
     /* Local variables */
     integer niam, nlev;
-    real xkwt;
+    float xkwt;
     integer nbcp1, ipiv1, ipiv2, i;
 
     integer i1, i2, k1, l1, ic, ir;
@@ -1862,9 +1862,9 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
     nbcp1 = *nbc + 1;
     nap1 = *na + 1;
     nam1 = *na - 1;
-    xkwt = (real)(*kwt);
+    xkwt = (float)(*kwt);
     {
-        real tmp = r_lg10(xkwt) / r_lg10(2.0);
+        float tmp = r_lg10(xkwt) / r_lg10(2.0);
         nlev = i_nint(&tmp);
     }
     notsend = TRUE_;
@@ -2695,7 +2695,7 @@ integer numnodes(void) {
 /* Subroutine */ int gsync(void) { return 0; } /* gsync_ */
 
 double dclock(void) {
-    real ret_val;
+    float ret_val;
 
     ret_val = (double)0.;
     return ret_val;
