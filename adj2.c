@@ -102,12 +102,12 @@ do_transpose(void) {
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};
     char values[6][MAX_LEN_SBOX];
-    sprintf(values[0], "%s", my_trans.firstcol);
-    sprintf(values[1], "%d", my_trans.ncol);
-    sprintf(values[2], "%d", my_trans.colskip);
-    sprintf(values[3], "%d", my_trans.row0);
-    sprintf(values[4], "%d", my_trans.nrow);
-    sprintf(values[5], "%d", my_trans.rowskip);
+    snprintf(values[0], sizeof(values[0]), "%s", my_trans.firstcol);
+    snprintf(values[1], sizeof(values[0]), "%d", my_trans.ncol);
+    snprintf(values[2], sizeof(values[0]), "%d", my_trans.colskip);
+    snprintf(values[3], sizeof(values[0]), "%d", my_trans.row0);
+    snprintf(values[4], sizeof(values[0]), "%d", my_trans.nrow);
+    snprintf(values[5], sizeof(values[0]), "%d", my_trans.rowskip);
     if (my_trans.here) {
 
         for (i = 0; i <= my_trans.nrow; i++)
@@ -335,7 +335,7 @@ make_h(float **orb, float **adj, float **h, int nt, double dt, int node,
     char name[30];
     if (silent == 0) {
         for (i = 0; i < NODE; i++) {
-            sprintf(name, "Coupling for %s eqn:", uvar_names[i]);
+            snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
             new_string(name, coup_string[i]);
             if (add_expr(coup_string[i], coup_fun[i], &j)) {
                 err_msg("Illegal formula");
@@ -791,7 +791,7 @@ hrw_liapunov(double *liap, int batch, double eps) {
         sum = sum / t1;
     *liap = sum;
     if (batch == 0) {
-        sprintf(bob, "Maximal exponent is %g", sum);
+        snprintf(bob, sizeof(bob), "Maximal exponent is %g", sum);
         err_msg(bob);
     }
 
