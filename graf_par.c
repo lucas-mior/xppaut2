@@ -35,7 +35,7 @@
 #include "load_eqn.h"
 #include <libgen.h>
 
-double atof();
+double atof(const char *);
 NCLINE nclines[MAXNCLINE];
 extern CURVE frz[MAXFRZ];
 extern GRAPH *MyGraph;
