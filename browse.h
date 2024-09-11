@@ -7,24 +7,24 @@
 #include <stdio.h>
 
 typedef struct {
-		Window base,upper;
-		Window find,up,down,pgup,pgdn,home,end,left,right;
-		Window first,last,restore,write,get,close;
-		Window load,repl,unrepl,table,addcol,delcol;
-                Window main;
-                Window label[BMAXCOL];
-                Window time;
-                Window hint;
-		char hinttxt[256];
-		int dataflag,xflag;
-		int col0,row0,ncol,nrow;
-		int maxrow,maxcol;
-                float **data;
-		int istart,iend;
-                } BROWSER;
+  Window base, upper;
+  Window find, up, down, pgup, pgdn, home, end, left, right;
+  Window first, last, restore, write, get, close;
+  Window load, repl, unrepl, table, addcol, delcol;
+  Window main;
+  Window label[BMAXCOL];
+  Window time;
+  Window hint;
+  char hinttxt[256];
+  int dataflag, xflag;
+  int col0, row0, ncol, nrow;
+  int maxrow, maxcol;
+  float **data;
+  int istart, iend;
+} BROWSER;
 
 /*extern BROWSER my_browser;
-*/
+ */
 
 float **get_browser_data(void);
 void set_browser_data(float **data, int col0);
@@ -75,7 +75,8 @@ void data_pgup(BROWSER *b);
 void data_pgdn(BROWSER *b);
 void data_home(BROWSER *b);
 void data_end(BROWSER *b);
-void get_data_xyz(float *x, float *y, float *z, int i1, int i2, int i3, int off);
+void get_data_xyz(float *x, float *y, float *z, int i1, int i2, int i3,
+                  int off);
 void data_get(BROWSER *b);
 void data_replace(BROWSER *b);
 void data_unreplace(BROWSER *b);
@@ -92,5 +93,3 @@ void data_restore(BROWSER *b);
 void get_col_list(char *s, int *cl, int *n);
 
 #endif
-
-

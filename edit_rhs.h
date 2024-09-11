@@ -24,23 +24,23 @@
 */
 
 /*  This is a edit box widget which handles a list of
-	editable strings
+        editable strings
  */
 
 typedef struct {
-		Window base,ok,cancel,reset;
-		Window win[MAX_N_EBOX];
-		char name[MAX_N_EBOX][MAX_LEN_EBOX],
-		     value[MAX_N_EBOX][MAX_LEN_EBOX],
-		     rval[MAX_N_EBOX][MAX_LEN_EBOX];
-		int n,hot;
-		} EDIT_BOX;
+  Window base, ok, cancel, reset;
+  Window win[MAX_N_EBOX];
+  char name[MAX_N_EBOX][MAX_LEN_EBOX], value[MAX_N_EBOX][MAX_LEN_EBOX],
+      rval[MAX_N_EBOX][MAX_LEN_EBOX];
+  int n, hot;
+} EDIT_BOX;
 
 void reset_ebox(EDIT_BOX *sb, int *pos, int *col);
 int do_edit_box(int n, char *title, char **names, char **values);
 void expose_ebox(EDIT_BOX *sb, Window w, int pos, int col);
 void ereset_hot(int inew, EDIT_BOX *sb);
-void enew_editable(EDIT_BOX *sb, int inew, int *pos, int *col, int *done, Window *w);
+void enew_editable(EDIT_BOX *sb, int inew, int *pos, int *col, int *done,
+                   Window *w);
 int e_box_event_loop(EDIT_BOX *sb, int *pos, int *col);
 void make_ebox_windows(EDIT_BOX *sb, char *title);
 void edit_menu(void);

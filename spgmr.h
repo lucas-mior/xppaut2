@@ -184,25 +184,27 @@ SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv);
  *                                                                *
  ******************************************************************/
 
-int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
-               int pretype, int gstype, real delta, int max_restarts,
-	       void *P_data, N_Vector sx, N_Vector sb, ATimesFn atimes,
-	       PSolveFn psolve, real *res_norm, int *nli, int *nps);
+int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
+               int gstype, real delta, int max_restarts, void *P_data,
+               N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
+               real *res_norm, int *nli, int *nps);
 
 /* Return values for SpgmrSolve */
 
-#define SPGMR_SUCCESS             0  /* Converged                    */
-#define SPGMR_RES_REDUCED         1  /* Did not converge, but reduced
-                                        norm of residual             */
-#define SPGMR_CONV_FAIL           2  /* Failed to converge           */
-#define SPGMR_QRFACT_FAIL         3  /* QRfact found singular matrix */
-#define SPGMR_PSOLVE_FAIL_REC     4  /* psolve failed recoverably    */
-#define SPGMR_MEM_NULL           -1  /* mem argument is NULL         */
-#define SPGMR_ATIMES_FAIL        -2  /* atimes returned failure flag */
-#define SPGMR_PSOLVE_FAIL_UNREC  -3  /* psolve failed unrecoverably  */
-#define SPGMR_GS_FAIL            -4  /* Gram-Schmidt routine
-					returned failure flag        */
-#define SPGMR_QRSOL_FAIL         -5  /* QRsol found singular R       */
+#define SPGMR_SUCCESS 0 /* Converged                    */
+#define SPGMR_RES_REDUCED                                                      \
+  1                                /* Did not converge, but reduced            \
+                                      norm of residual             */
+#define SPGMR_CONV_FAIL 2          /* Failed to converge           */
+#define SPGMR_QRFACT_FAIL 3        /* QRfact found singular matrix */
+#define SPGMR_PSOLVE_FAIL_REC 4    /* psolve failed recoverably    */
+#define SPGMR_MEM_NULL -1          /* mem argument is NULL         */
+#define SPGMR_ATIMES_FAIL -2       /* atimes returned failure flag */
+#define SPGMR_PSOLVE_FAIL_UNREC -3 /* psolve failed unrecoverably  */
+#define SPGMR_GS_FAIL                                                          \
+  -4                        /* Gram-Schmidt routine                            \
+                               returned failure flag        */
+#define SPGMR_QRSOL_FAIL -5 /* QRsol found singular R       */
 
 /******************************************************************
  *                                                                *
@@ -216,4 +218,3 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
 void SpgmrFree(SpgmrMem mem);
 
 #endif
-

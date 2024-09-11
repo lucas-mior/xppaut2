@@ -73,10 +73,10 @@
 typedef double real;
 typedef int integer;
 
-#define FLOAT  0
+#define FLOAT 0
 #define DOUBLE 1
 
-#define INT      1
+#define INT 1
 #define LONG_INT 0
 
 #if FLOAT
@@ -117,5 +117,3 @@ typedef int integer;
 #endif
 
 #endif
-
-

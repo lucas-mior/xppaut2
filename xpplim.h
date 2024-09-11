@@ -4,7 +4,7 @@
 #define MAXODE 5000
 #define MAXODE1 4999
 #define MAXDELAY 50
-#define MAXPRIMEVAR (MAXODE-10)/2
+#define MAXPRIMEVAR (MAXODE - 10) / 2
 #define MAXPAR 400
 #define MAXFLAG 2000
 #define MAX_SYMBS 10000

@@ -19,66 +19,65 @@
 #include "ggets.h"
 
 #define ZERO RCONST(0.0)
-#define ONE  RCONST(1.0)
+#define ONE RCONST(1.0)
 
 /* Private Helper Prototypes */
 
-static void VCopy(N_Vector x, N_Vector z); /* z=x */
-static void VSum(N_Vector x, N_Vector y, N_Vector z); /* z=x+y */
+static void VCopy(N_Vector x, N_Vector z);             /* z=x */
+static void VSum(N_Vector x, N_Vector y, N_Vector z);  /* z=x+y */
 static void VDiff(N_Vector x, N_Vector y, N_Vector z); /* z=x-y */
-static void VNeg(N_Vector x, N_Vector z); /* z=-x */
+static void VNeg(N_Vector x, N_Vector z);              /* z=-x */
 /* z=c(x+y) */
 static void VScaleSum(real c, N_Vector x, N_Vector y, N_Vector z);
 /* z=c(x-y) */
 static void VScaleDiff(real c, N_Vector x, N_Vector y, N_Vector z);
 static void VLin1(real a, N_Vector x, N_Vector y, N_Vector z); /* z=ax+y */
 static void VLin2(real a, N_Vector x, N_Vector y, N_Vector z); /* z=ax-y */
-static void Vaxpy(real a, N_Vector x, N_Vector y); /* y <- ax+y */
-static void VScaleBy(real a, N_Vector x); /* x <- ax */
+static void Vaxpy(real a, N_Vector x, N_Vector y);             /* y <- ax+y */
+static void VScaleBy(real a, N_Vector x);                      /* x <- ax */
 
 /********************* Exported Functions ************************/
 
-N_Vector N_VNew(integer N, void *machEnv)
-{
+N_Vector N_VNew(integer N, void *machEnv) {
   N_Vector v;
 
-  if (N <= 0) return(NULL);
+  if (N <= 0)
+    return (NULL);
 
-  v = (N_Vector) malloc(sizeof *v);
-  if (v == NULL) return(NULL);
+  v = (N_Vector)malloc(sizeof *v);
+  if (v == NULL)
+    return (NULL);
 
-  v->data = (real *) malloc(N * sizeof(real));
+  v->data = (real *)malloc(N * sizeof(real));
   if (v->data == NULL) {
     free(v);
-    return(NULL);
+    return (NULL);
   }
 
   v->length = N;
 
-  return(v);
+  return (v);
 }
 
-void N_VFree(N_Vector x)
-{
+void N_VFree(N_Vector x) {
   free(x->data);
   free(x);
 }
 
-void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z)
-{
+void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z) {
   integer i, N;
   real c, *xd, *yd, *zd;
   /*N_Vector v, v1, v2;*/
   N_Vector v1, v2;
   bool test;
 
-  if ((b == ONE) && (z == y)) {    /* BLAS usage: axpy y <- ax+y */
-    Vaxpy(a,x,y);
+  if ((b == ONE) && (z == y)) { /* BLAS usage: axpy y <- ax+y */
+    Vaxpy(a, x, y);
     return;
   }
 
-  if ((a == ONE) && (z == x)) {    /* BLAS usage: axpy x <- by+x */
-    Vaxpy(b,y,x);
+  if ((a == ONE) && (z == x)) { /* BLAS usage: axpy x <- by+x */
+    Vaxpy(b, y, x);
     return;
   }
 
@@ -144,24 +143,22 @@ void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = a * (*xd++) + b * (*yd++);
 }
 
-void N_VConst(real c, N_Vector z)
-{
+void N_VConst(real c, N_Vector z) {
   integer i, N;
   real *zd;
 
   N = z->length;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = c;
 }
 
-void N_VProd(N_Vector x, N_Vector y, N_Vector z)
-{
+void N_VProd(N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -170,12 +167,11 @@ void N_VProd(N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = (*xd++) * (*yd++);
 }
 
-void N_VDiv(N_Vector x, N_Vector y, N_Vector z)
-{
+void N_VDiv(N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -184,16 +180,15 @@ void N_VDiv(N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = (*xd++) / (*yd++);
 }
 
-void N_VScale(real c, N_Vector x, N_Vector z)
-{
+void N_VScale(real c, N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
-  if (z == x) {       /* BLAS usage: scale x <- cx */
+  if (z == x) { /* BLAS usage: scale x <- cx */
     VScaleBy(c, x);
     return;
   }
@@ -206,12 +201,12 @@ void N_VScale(real c, N_Vector x, N_Vector z)
     N = x->length;
     xd = x->data;
     zd = z->data;
-    for (i=0; i < N; i++) *zd++ = c * (*xd++);
+    for (i = 0; i < N; i++)
+      *zd++ = c * (*xd++);
   }
 }
 
-void N_VAbs(N_Vector x, N_Vector z)
-{
+void N_VAbs(N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -219,12 +214,11 @@ void N_VAbs(N_Vector x, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++, xd++, zd++)
+  for (i = 0; i < N; i++, xd++, zd++)
     *zd = ABS(*xd);
 }
 
-void N_VInv(N_Vector x, N_Vector z)
-{
+void N_VInv(N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -232,12 +226,11 @@ void N_VInv(N_Vector x, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = ONE / (*xd++);
 }
 
-void N_VAddConst(N_Vector x, real b, N_Vector z)
-{
+void N_VAddConst(N_Vector x, real b, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -245,11 +238,11 @@ void N_VAddConst(N_Vector x, real b, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++) *zd++ = (*xd++) + b;
+  for (i = 0; i < N; i++)
+    *zd++ = (*xd++) + b;
 }
 
-real N_VDotProd(N_Vector x, N_Vector y)
-{
+real N_VDotProd(N_Vector x, N_Vector y) {
   integer i, N;
   real sum = ZERO, *xd, *yd;
 
@@ -257,29 +250,28 @@ real N_VDotProd(N_Vector x, N_Vector y)
   xd = x->data;
   yd = y->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     sum += (*xd++) * (*yd++);
 
-  return(sum);
+  return (sum);
 }
 
-real N_VMaxNorm(N_Vector x)
-{
+real N_VMaxNorm(N_Vector x) {
   integer i, N;
   real max = ZERO, *xd;
 
   N = x->length;
   xd = x->data;
 
-  for (i=0; i < N; i++, xd++) {
-    if (ABS(*xd) > max) max = ABS(*xd);
+  for (i = 0; i < N; i++, xd++) {
+    if (ABS(*xd) > max)
+      max = ABS(*xd);
   }
 
-  return(max);
+  return (max);
 }
 
-real N_VWrmsNorm(N_Vector x, N_Vector w)
-{
+real N_VWrmsNorm(N_Vector x, N_Vector w) {
   integer i, N;
   real sum = ZERO, prodi, *xd, *wd;
 
@@ -287,16 +279,15 @@ real N_VWrmsNorm(N_Vector x, N_Vector w)
   xd = x->data;
   wd = w->data;
 
-  for (i=0; i < N; i++) {
+  for (i = 0; i < N; i++) {
     prodi = (*xd++) * (*wd++);
     sum += prodi * prodi;
   }
 
-  return(RSqrt(sum / N));
+  return (RSqrt(sum / N));
 }
 
-real N_VMin(N_Vector x)
-{
+real N_VMin(N_Vector x) {
   integer i, N;
   real min, *xd;
 
@@ -304,15 +295,15 @@ real N_VMin(N_Vector x)
   xd = x->data;
   min = xd[0];
 
-  for (i=0; i < N; i++, xd++) {
-    if ((*xd) < min) min = *xd;
+  for (i = 0; i < N; i++, xd++) {
+    if ((*xd) < min)
+      min = *xd;
   }
 
-  return(min);
+  return (min);
 }
 
-void N_VCompare(real c, N_Vector x, N_Vector z)
-{
+void N_VCompare(real c, N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -320,13 +311,12 @@ void N_VCompare(real c, N_Vector x, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++, xd++, zd++) {
+  for (i = 0; i < N; i++, xd++, zd++) {
     *zd = (ABS(*xd) >= c) ? ONE : ZERO;
   }
 }
 
-bool N_VInvTest(N_Vector x, N_Vector z)
-{
+bool N_VInvTest(N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -334,31 +324,31 @@ bool N_VInvTest(N_Vector x, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++) {
-    if (*xd == ZERO) return(FALSE);
+  for (i = 0; i < N; i++) {
+    if (*xd == ZERO)
+      return (FALSE);
     *zd++ = ONE / (*xd++);
   }
 
-  return(TRUE);
+  return (TRUE);
 }
 
-void N_VPrint(N_Vector x)
-{
+void N_VPrint(N_Vector x) {
   integer i, N;
   real *xd;
 
   N = x->length;
   xd = x->data;
 
-  for (i=0; i < N; i++) plintf("%g\n", *xd++);
+  for (i = 0; i < N; i++)
+    plintf("%g\n", *xd++);
 
   plintf("\n");
 }
 
 /***************** Private Helper Functions **********************/
 
-static void VCopy(N_Vector x, N_Vector z)
-{
+static void VCopy(N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -366,12 +356,11 @@ static void VCopy(N_Vector x, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = *xd++;
 }
 
-static void VSum(N_Vector x, N_Vector y, N_Vector z)
-{
+static void VSum(N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -380,12 +369,11 @@ static void VSum(N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = (*xd++) + (*yd++);
 }
 
-static void VDiff(N_Vector x, N_Vector y, N_Vector z)
-{
+static void VDiff(N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -394,12 +382,11 @@ static void VDiff(N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = (*xd++) - (*yd++);
 }
 
-static void VNeg(N_Vector x, N_Vector z)
-{
+static void VNeg(N_Vector x, N_Vector z) {
   integer i, N;
   real *xd, *zd;
 
@@ -407,12 +394,11 @@ static void VNeg(N_Vector x, N_Vector z)
   xd = x->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = -(*xd++);
 }
 
-static void VScaleSum(real c, N_Vector x, N_Vector y, N_Vector z)
-{
+static void VScaleSum(real c, N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -421,12 +407,11 @@ static void VScaleSum(real c, N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = c * ((*xd++) + (*yd++));
 }
 
-void VScaleDiff(real c, N_Vector x, N_Vector y, N_Vector z)
-{
+void VScaleDiff(real c, N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -435,12 +420,11 @@ void VScaleDiff(real c, N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = c * ((*xd++) - (*yd++));
 }
 
-static void VLin1(real a, N_Vector x, N_Vector y, N_Vector z)
-{
+static void VLin1(real a, N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -449,12 +433,11 @@ static void VLin1(real a, N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = a * (*xd++) + (*yd++);
 }
 
-static void VLin2(real a, N_Vector x, N_Vector y, N_Vector z)
-{
+static void VLin2(real a, N_Vector x, N_Vector y, N_Vector z) {
   integer i, N;
   real *xd, *yd, *zd;
 
@@ -463,12 +446,11 @@ static void VLin2(real a, N_Vector x, N_Vector y, N_Vector z)
   yd = y->data;
   zd = z->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *zd++ = a * (*xd++) - (*yd++);
 }
 
-static void Vaxpy(real a, N_Vector x, N_Vector y)
-{
+static void Vaxpy(real a, N_Vector x, N_Vector y) {
   integer i, N;
   real *xd, *yd;
 
@@ -477,31 +459,28 @@ static void Vaxpy(real a, N_Vector x, N_Vector y)
   yd = y->data;
 
   if (a == ONE) {
-    for (i=0; i < N; i++)
+    for (i = 0; i < N; i++)
       *yd++ += (*xd++);
     return;
   }
 
   if (a == -ONE) {
-    for (i=0; i < N; i++)
+    for (i = 0; i < N; i++)
       *yd++ -= (*xd++);
     return;
   }
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *yd++ += a * (*xd++);
 }
 
-static void VScaleBy(real a, N_Vector x)
-{
+static void VScaleBy(real a, N_Vector x) {
   integer i, N;
   real *xd;
 
   N = x->length;
   xd = x->data;
 
-  for (i=0; i < N; i++)
+  for (i = 0; i < N; i++)
     *xd++ *= a;
 }
-
-

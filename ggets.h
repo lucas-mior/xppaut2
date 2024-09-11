@@ -43,8 +43,8 @@ void movmem(char *s1, char *s2, int len);
 void memmov(char *s1, char *s2, int len);
 void edit_window(Window w, int *pos, char *value, int *col, int *done, int ch);
 void do_backspace(int *pos, char *value, int *col, Window w);
-void edit_command_string(XEvent ev, char *name, char *value, int *done, int *pos, int *col);
+void edit_command_string(XEvent ev, char *name, char *value, int *done,
+                         int *pos, int *col);
 int new_string(char *name, char *value);
 
 #endif
-

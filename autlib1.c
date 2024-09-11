@@ -4,14 +4,14 @@
 extern XAUTO xAuto;
 extern int NODE;
 extern int RestartLabel;
-int restart_flag=0;
+int restart_flag = 0;
 /* The memory for these are taken care of in main, and setubv for the
    mpi parallel case.  These are global since the they are used many times
    in the wrapper functions in autlib3.c (and autlib5.c) and the cost
    of allocating and deallocating them is prohibitive. */
 struct {
   doublereal *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
-} global_scratch={NULL,NULL,NULL,NULL,NULL,NULL};
+} global_scratch = {NULL, NULL, NULL, NULL, NULL, NULL};
 
 /* The memory for these are taken care of in main, and setubv for the
    mpi parallel case.  These are global since they only need to be
@@ -20,7 +20,7 @@ struct {
 struct {
   integer irtn;
   integer *nrtn;
-} global_rotations = {0,NULL};
+} global_rotations = {0, NULL};
 
 /* There are used to short circuit the code.  getp is a user callable function
    that allows certain parameters to be returned.  Unfortunately, the
@@ -32,7 +32,7 @@ struct {
   rap_type *rav;
   iap_type *iav;
   doublereal *dtv;
-} global_parameters = {NULL,NULL,NULL};
+} global_parameters = {NULL, NULL, NULL};
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -40,15 +40,18 @@ struct {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 FILE *fp8;
-int fp8_is_open=0;
-extern char fort8[200],fort3[200];
+int fp8_is_open = 0;
+extern char fort8[200], fort3[200];
 void send_eigen();
 void send_mult();
 int byeauto_();
-void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs, double *par,integer *icp,int labw, double *a, double *uhigh, double *ulow, double *u0, double *ubar);
+void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs,
+            double *par, integer *icp, int labw, double *a, double *uhigh,
+            double *ulow, double *u0, double *ubar);
 
-int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *thl, doublereal **thu_pointer, integer *iuz, doublereal *vuz)
-{
+int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+         doublereal *thl, doublereal **thu_pointer, integer *iuz,
+         doublereal *vuz) {
   /* Local variables */
   doublereal hbff, biff;
   integer nbif;
@@ -79,23 +82,22 @@ int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal
     thl[icp[i]] = 1.;
   }
 
- ndim=xAuto.ndim;
-  ips=xAuto.ips;
-  irs=xAuto.irs;
-  ilp=xAuto.ilp;
+  ndim = xAuto.ndim;
+  ips = xAuto.ips;
+  irs = xAuto.irs;
+  ilp = xAuto.ilp;
 
-  thu = *thu_pointer = (doublereal *)malloc(sizeof(doublereal)*8*ndim);
+  thu = *thu_pointer = (doublereal *)malloc(sizeof(doublereal) * 8 * ndim);
 
   for (i = 0; i < ndim * 8; ++i) {
     thu[i] = 1.;
   }
 
   jtmp = NPARX;
-  nicp=xAuto.nicp;
+  nicp = xAuto.nicp;
 
   for (i = 0; i < nicp; ++i) {
-    icp[jtmp+i]=xAuto.icp[i];
-
+    icp[jtmp + i] = xAuto.icp[i];
   }
 
   if (nicp > 0) {
@@ -109,58 +111,56 @@ int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal
     icp[jtmp] = icp[0];
   }
 
-  ntst=xAuto.ntst;
-  ncol=xAuto.ncol;
-  iad=xAuto.iad;
-  isp=xAuto.isp;
-  isw=xAuto.isw;
-  iplt=xAuto.iplt;
-  nbc=xAuto.nbc;
-  nint=xAuto.nint;
-  nmx=xAuto.nmx;
-  rl0=xAuto.rl0;
-  rl1=xAuto.rl1;
-  a0=xAuto.a0;
-  a1=xAuto.a1;
-  npr=xAuto.npr;
-  mxbf=xAuto.mxbf;
-  iid=xAuto.iid;
-  itmx=xAuto.itmx;
-  itnw=xAuto.itnw;
-  nwtn=xAuto.nwtn;
-  jac=xAuto.jac;
-  epsl=xAuto.epsl;
-  epss=xAuto.epss;
-  epsu=xAuto.epsu;
-  ds=xAuto.ds;
-  dsmin=xAuto.dsmin;
-  dsmax=xAuto.dsmax;
-  iads=xAuto.iads;
+  ntst = xAuto.ntst;
+  ncol = xAuto.ncol;
+  iad = xAuto.iad;
+  isp = xAuto.isp;
+  isw = xAuto.isw;
+  iplt = xAuto.iplt;
+  nbc = xAuto.nbc;
+  nint = xAuto.nint;
+  nmx = xAuto.nmx;
+  rl0 = xAuto.rl0;
+  rl1 = xAuto.rl1;
+  a0 = xAuto.a0;
+  a1 = xAuto.a1;
+  npr = xAuto.npr;
+  mxbf = xAuto.mxbf;
+  iid = xAuto.iid;
+  itmx = xAuto.itmx;
+  itnw = xAuto.itnw;
+  nwtn = xAuto.nwtn;
+  jac = xAuto.jac;
+  epsl = xAuto.epsl;
+  epss = xAuto.epss;
+  epsu = xAuto.epsu;
+  ds = xAuto.ds;
+  dsmin = xAuto.dsmin;
+  dsmax = xAuto.dsmax;
+  iads = xAuto.iads;
 
-  if(dsmin < 0.0) {
+  if (dsmin < 0.0) {
     printf("Warning : DSMIN less then 0.0, will use absolute value instead.");
     dsmin = fabs(dsmin);
   }
 
-  if(dsmax < 0.0) {
+  if (dsmax < 0.0) {
     printf("Warning : DSMAX less then 0.0, will use absolute value instead.");
     dsmax = fabs(dsmax);
   }
-  nthl=xAuto.nthl;
+  nthl = xAuto.nthl;
 
   if (nthl > 0) {
     for (i = 0; i < nthl; ++i)
-      thl[xAuto.ithl[i]]=xAuto.thl[i];
-
+      thl[xAuto.ithl[i]] = xAuto.thl[i];
   }
 
-  nthu=0;
-  nuzr=xAuto.nuzr;
-  for(i=0;i<nuzr;i++)
-    {
-      iuz[i]=xAuto.iuz[i];
-      vuz[i]=xAuto.vuz[i];
-    }
+  nthu = 0;
+  nuzr = xAuto.nuzr;
+  for (i = 0; i < nuzr; i++) {
+    iuz[i] = xAuto.iuz[i];
+    vuz[i] = xAuto.vuz[i];
+  }
 
   iap->ndim = ndim;
 
@@ -215,7 +215,6 @@ int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal
   } else {
 
     nbc0 = 1;
-
   }
 
   if (nint != 0) {
@@ -225,7 +224,6 @@ int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal
   } else {
 
     nnt0 = 1;
-
   }
 
   iuzr = 1;
@@ -337,23 +335,22 @@ int init(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal
   rap->spbf = spbf;
 
   return 0;
-
 }
 
 /*     ---------- ----- */
-/* Subroutine */ int
-chdim(iap_type *iap)
-{
+/* Subroutine */ int chdim(iap_type *iap) {
   /* Local variables */
   integer npar;
 
-/* Check dimensions. */
+  /* Check dimensions. */
 
   npar = iap->nfpr;
 
   if (npar > NPARX) {
     if (iap->mynode == 0) {
-      printf("Dimension exceeded : NPAR=%5ld  maximum=%5d (Increase NPARX in auto.h and recompile AUTO",npar,NPARX);
+      printf("Dimension exceeded : NPAR=%5ld  maximum=%5d (Increase NPARX in "
+             "auto.h and recompile AUTO",
+             npar, NPARX);
     }
     exit(0);
   }
@@ -367,12 +364,9 @@ chdim(iap_type *iap)
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-int autoae(iap_type *iap, rap_type *rap, doublereal *par,
-	   integer *icp,
-	   FUNI_TYPE((*funi)),
-	   STPNT_TYPE_AE((*stpnt)),
-	   PVLI_TYPE_AE((*pvli)),
-	   doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
+int autoae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+           FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
+           doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
 
 {
   /* This is the entry subroutine for algebraic systems. */
@@ -381,9 +375,10 @@ int autoae(iap_type *iap, rap_type *rap, doublereal *par,
   return 0;
 }
 
-int
-autobv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+int autobv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+           FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
+           STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), doublereal *thl,
+           doublereal *thu, integer *iuz, doublereal *vuz) {
 
   /* THIS IS THE ENTRY ROUTINE FOR GENERAL BOUNDARY VALUE PROBLEMS. */
 
@@ -392,11 +387,10 @@ autobv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 }
 
 /*     ---------- ----- */
-/* Subroutine */ int
-init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
-{
+/* Subroutine */ int init1(iap_type *iap, rap_type *rap, integer *icp,
+                           doublereal *par) {
 
-    /* Local variables */
+  /* Local variables */
   integer ndim, ncol, nicp;
 
   integer nneg, nfpr, nint, jtmp, nuzr, i;
@@ -404,8 +398,7 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
   integer ic, jc;
   int ii;
   doublereal ds;
-  integer nxploc, jac, nbc, ndm, ict[NPARX], ilp, ips, isp, irs, itp,
-    isw, nmx;
+  integer nxploc, jac, nbc, ndm, ict[NPARX], ilp, ips, isp, irs, itp, isw, nmx;
 
   /* General initialization. Redefinition of constants. */
 
@@ -508,7 +501,7 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
     nfpr = nbc + nint - ndim + 1;
     /*    printf("%d %d %d %d %d\n",ndim,nbc,nint,nuzr,nfpr);
      for(ii=0;ii<nfpr;ii++)
-	 printf("%d %d \n",ii,icp[ii]);
+         printf("%d %d \n",ii,icp[ii]);
     */
   } else if (ips == 14 || ips == 16) {
     /*        **Evolution calculations for Parabolic Systems */
@@ -535,8 +528,8 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
     nfpr = 0;
     for (i = 0; i < nicp; ++i) {
       if (ict[i] >= 0) {
-	icp[nfpr] = ict[i];
-	++nfpr;
+        icp[nfpr] = ict[i];
+        ++nfpr;
       }
     }
     icp[nfpr] = 9;
@@ -552,8 +545,8 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
       ic = ict[i];
       jc = abs(ic) - 20;
       if (ic < 0 && jc > 0 && jc <= 11) {
-	++nneg;
-	icp[nfpr + nneg - 1] = jc;
+        ++nneg;
+        icp[nfpr + nneg - 1] = jc;
       }
     }
     /* Set indices of output parameters */
@@ -580,8 +573,8 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
   } else if (irs > 0 && abs(isw) == 2) {
     /*        ** Continuation of singular points */
 
-    if ((itp == 1 || abs(itp) / 10 == 1 || itp == 2 || abs(itp) / 10 == 2)
-	&& abs(ips) <= 1) {
+    if ((itp == 1 || abs(itp) / 10 == 1 || itp == 2 || abs(itp) / 10 == 2) &&
+        abs(ips) <= 1) {
       /*          ** Fold continuation (Algebraic Problems) */
       ndim = (ndim << 1) + 1;
       nfpr = 2;
@@ -598,22 +591,22 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
       nint = 3;
       nfpr = nbc + nint - ndim + 1;
       if (icp[2] == 10 || nicp == 2) {
-	/*            ** Variable period */
-	icp[1] = 12;
-	icp[2] = 10;
-	icp[3] = 11;
+        /*            ** Variable period */
+        icp[1] = 12;
+        icp[2] = 10;
+        icp[3] = 11;
       } else {
-	/*            ** Fixed period */
-	icp[2] = 12;
-	icp[3] = 11;
+        /*            ** Fixed period */
+        icp[2] = 12;
+        icp[3] = 11;
       }
       ilp = 0;
       isw = -2;
       isp = 0;
       nmx = 5;
       if (iap->mynode == 0) {
-	printf("\nGenerating starting data :\n Restart at EP label below :\n");
-	restart_flag=1;
+        printf("\nGenerating starting data :\n Restart at EP label below :\n");
+        restart_flag = 1;
       }
 
     } else if ((abs(itp) / 10 == 5 || abs(itp) / 10 == 6) && ips == 2) {
@@ -623,33 +616,33 @@ init1(iap_type *iap, rap_type *rap, integer *icp, doublereal *par)
       nint = 3;
       nfpr = nbc + nint - ndim + 1;
       if (nicp == 2) {
-	/*            ** Variable period */
-	icp[2] = 10;
+        /*            ** Variable period */
+        icp[2] = 10;
       }
       icp[3] = 11;
 
     } else if (itp == 7 && ips == 2) {
       /*          ** Continuation of period doubling bifurcations; start
- */
+       */
       ndim <<= 1;
       nbc = ndim;
       nint = 2;
       nfpr = nbc + nint - ndim + 1;
       if (icp[2] == 10 || nicp == 2) {
-	/*            ** Variable period */
-	icp[1] = 10;
-	icp[2] = 12;
+        /*            ** Variable period */
+        icp[1] = 10;
+        icp[2] = 12;
       } else {
-	/*            ** Fixed period */
-	icp[2] = 12;
+        /*            ** Fixed period */
+        icp[2] = 12;
       }
       ilp = 0;
       isw = -2;
       isp = 0;
       nmx = 5;
       if (iap->mynode == 0) {
-	printf("\nGenerating starting data :\n Restart at EP label below :\n");
-	restart_flag=1;
+        printf("\nGenerating starting data :\n Restart at EP label below :\n");
+        restart_flag = 1;
       }
 
     } else if (abs(itp) / 10 == 7 && ips == 2) {
@@ -660,8 +653,8 @@ rt */
       nint = 2;
       nfpr = nbc + nint - ndim + 1;
       if (icp[2] == 10 || nicp == 2) {
-	/*            ** Variable period */
-	icp[2] = 10;
+        /*            ** Variable period */
+        icp[2] = 10;
       }
 
     } else if (itp == 8 && ips == 2) {
@@ -678,8 +671,8 @@ rt */
       isw = -2;
       nmx = 5;
       if (iap->mynode == 0) {
-	printf("\nGenerating starting data :\n Restart at EP label below :\n");
-	restart_flag=1;
+        printf("\nGenerating starting data :\n Restart at EP label below :\n");
+        restart_flag = 1;
       }
 
     } else if (abs(itp) / 10 == 8 && ips == 2) {
@@ -699,9 +692,9 @@ rt */
       nfpr = nbc + nint - ndim + 1;
       nxploc = nfpr / 2 - 1;
       if (nxploc > 0) {
-	for (i = 0; i < nxploc; ++i) {
-	  icp[nfpr / 2 + i] = i + 10;
-	}
+        for (i = 0; i < nxploc; ++i) {
+          icp[nfpr / 2 + i] = i + 10;
+        }
       }
       icp[nfpr / 2] = nfpr / 2 + 10;
       ilp = 0;
@@ -709,8 +702,8 @@ rt */
       isp = 0;
       nmx = 5;
       if (iap->mynode == 0) {
-	restart_flag=1;
-	printf("\nGenerating starting data :\n Restart at EP label below :\n");
+        restart_flag = 1;
+        printf("\nGenerating starting data :\n Restart at EP label below :\n");
       }
 
     } else if ((abs(itp) / 10 == 5 || abs(itp) / 10 == 5) && ips == 4) {
@@ -721,13 +714,11 @@ rt */
       nfpr = nbc + nint - ndim + 1;
       nxploc = nfpr / 2 - 1;
       if (nxploc > 0) {
-	for (i = 0; i < nxploc; ++i) {
-	  icp[nfpr / 2 + i] = i + 10;
-	}
+        for (i = 0; i < nxploc; ++i) {
+          icp[nfpr / 2 + i] = i + 10;
+        }
       }
-
     }
-
   }
 
   iap->ndim = ndim;
@@ -749,8 +740,8 @@ rt */
   rap->dsmin = dsmin;
   rap->dsmax = dsmax;
   /* printf("ready to go \n");
-  printf("dim=%d ps=%d rs=%d lp=%d sp=%d sw=%d nbc=%d nint=%d nfpr=%d nicp=%d\n",
-  ndim,ips,irs,ilp,isp,isw,nbc,nint,nfpr,nicp); */
+  printf("dim=%d ps=%d rs=%d lp=%d sp=%d sw=%d nbc=%d nint=%d nfpr=%d
+  nicp=%d\n", ndim,ips,irs,ilp,isp,isw,nbc,nint,nfpr,nicp); */
   return 0;
 } /* init1 */
 
@@ -761,11 +752,13 @@ rt */
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)), doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+/* Subroutine */ int cnrlae(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FUNI_TYPE((*funi)),
+                            STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
+                            doublereal *thl, doublereal *thu, integer *iuz,
+                            doublereal *vuz) {
 
-    /* Local variables */
+  /* Local variables */
   integer nbfc;
   doublereal *dfdp;
   integer nbif, iads;
@@ -776,7 +769,7 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   integer nins;
   doublereal *udot;
   integer ipos;
-  doublereal *stud;	
+  doublereal *stud;
   integer ntot, iuzr, nuzr;
   doublereal *f;
   integer i, k;
@@ -802,22 +795,23 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   integer aa_first_dimension = iap->ndim + 1;
 
-  dfdp = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*NPARX);
-  dfdu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
-  uold = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  udot = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  stud =  (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*NBIFX);
-  f = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  u = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  aa = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim+1)*(iap->ndim+1));
-  du = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim+1));
-  rhs = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim+1));
-  stu =  (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*NBIFX);
-  uzr =  (doublereal *)malloc(sizeof(doublereal)*(iap->nuzr));
+  dfdp = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NPARX);
+  dfdu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+  uold = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  udot = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  stud = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NBIFX);
+  f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  aa = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim + 1) *
+                            (iap->ndim + 1));
+  du = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim + 1));
+  rhs = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim + 1));
+  stu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NBIFX);
+  uzr = (doublereal *)malloc(sizeof(doublereal) * (iap->nuzr));
 
   /* Controls the bifurcation analysis of algebraic problems */
 
-/* Local */
+  /* Local */
 
   ips = iap->ips;
   irs = iap->irs;
@@ -870,7 +864,7 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   (*stpnt)(iap, rap, par, icp, u);
   (*pvli)(iap, rap, u, par);
 
-/* Determine a suitable starting label and branch number */
+  /* Determine a suitable starting label and branch number */
 
   newlab(iap, rap);
 
@@ -897,9 +891,8 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Starting procedure  (to get second point on first branch) : */
 
-  stprae(iap, rap, par, icp, funi, &rds, &aa_first_dimension, aa,
-	 rhs, rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, thl,
-	 thu);
+  stprae(iap, rap, par, icp, funi, &rds, &aa_first_dimension, aa, rhs, rlcur,
+         rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, thl, thu);
   istop = iap->istop;
   if (istop == 1) {
     goto L5;
@@ -908,11 +901,11 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   iap->itp = itp;
   goto L3;
 
-/* Initialize computation of the next bifurcating branch. */
+  /* Initialize computation of the next bifurcating branch. */
 
- L2:
-  swpnt(iap, rap, par, icp, &rds, NBIFX, stud, stu,
-	stla, stld, rlcur, rlold, rldot, u, udot);
+L2:
+  swpnt(iap, rap, par, icp, &rds, NBIFX, stud, stu, stla, stld, rlcur, rlold,
+        rldot, u, udot);
 
   ipos = iap->ipos;
   if (ipos == 1) {
@@ -945,7 +938,7 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   dsold = rds;
   rap->dsold = dsold;
 
-/* Store plotting data for first point on the bifurcating branch */
+  /* Store plotting data for first point on the bifurcating branch */
 
   stplae(iap, rap, par, icp, rlcur, u);
   istop = iap->istop;
@@ -955,9 +948,8 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Determine the second point on the bifurcating branch */
 
-  swprc(iap, rap, par, icp, funi, &aa_first_dimension, aa, rhs,
-	rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, &rds, thl,
-	thu);
+  swprc(iap, rap, par, icp, funi, &aa_first_dimension, aa, rhs, rlcur, rlold,
+        rldot, u, du, uold, udot, f, dfdu, dfdp, &rds, thl, thu);
   istop = iap->istop;
   if (istop == 1) {
     goto L5;
@@ -974,16 +966,15 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   rev = 0.;
   rlp = 0.;
 
-/* Provide initial approximation to the next point on the branch */
+  /* Provide initial approximation to the next point on the branch */
 
- L3:
+L3:
   contae(iap, rap, &rds, rlcur, rlold, rldot, u, uold, udot);
 
-/* Find the next solution point on the branch */
+  /* Find the next solution point on the branch */
 
-  solvae(iap, rap, par, icp, funi, &rds, &aa_first_dimension, aa,
-	 rhs, rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, thl,
-	 thu);
+  solvae(iap, rap, par, icp, funi, &rds, &aa_first_dimension, aa, rhs, rlcur,
+         rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, thl, thu);
   istop = iap->istop;
   if (istop == 1) {
     goto L5;
@@ -994,26 +985,25 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   if (nuzr > 0) {
     for (iuzr = 0; iuzr < nuzr; ++iuzr) {
       iap->iuzr = iuzr;
-      lcspae(iap, rap, par, icp,
-	     fnuzae, funi, &aa_first_dimension, aa, rhs, rlcur, rlold, rldot, u, du, uold, udot,
-	     f, dfdu, dfdp, &uzr[iuzr], thl, thu, iuz, vuz);
+      lcspae(iap, rap, par, icp, fnuzae, funi, &aa_first_dimension, aa, rhs,
+             rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, &uzr[iuzr],
+             thl, thu, iuz, vuz);
       istop = iap->istop;
       if (istop == 1) {
-	goto L5;
+        goto L5;
       }
       itp = iap->itp;
       if (itp == -1) {
-	if (iuz[iuzr] >= 0) {
-	  itp = -4 - itpst * 10;
-	  iap->itp = itp;
-	  for (k = 0; k < nuzr; ++k) {
-	    uzr[k] = 0.;
-	  }
-	} else {
-	  istop = -1
-;
-	  iap->istop = istop;
-	}
+        if (iuz[iuzr] >= 0) {
+          itp = -4 - itpst * 10;
+          iap->itp = itp;
+          for (k = 0; k < nuzr; ++k) {
+            uzr[k] = 0.;
+          }
+        } else {
+          istop = -1;
+          iap->istop = istop;
+        }
       }
     }
   }
@@ -1021,10 +1011,9 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   /* Check for fold */
 
   if (iap->ilp == 1) {
-    lcspae(iap, rap, par, icp, fnlpae,
-	   funi, &aa_first_dimension,
-	   aa, rhs, rlcur, rlold, rldot, u, du, uold, udot, f, dfdu,
-	   dfdp, &rlp, thl, thu, iuz, vuz);
+    lcspae(iap, rap, par, icp, fnlpae, funi, &aa_first_dimension, aa, rhs,
+           rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, &rlp, thl,
+           thu, iuz, vuz);
     itp = iap->itp;
     if (itp == -1) {
       itp = itpst * 10 + 2;
@@ -1038,10 +1027,9 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   /* Check for branch point, and if so store data : */
 
   if (isp != 0) {
-    lcspae(iap, rap, par, icp,
-	   fnbpae, funi, &aa_first_dimension,
-	   aa, rhs, rlcur, rlold, rldot, u, du, uold, udot, f, dfdu,
-	   dfdp, &rbp, thl, thu, iuz, vuz);
+    lcspae(iap, rap, par, icp, fnbpae, funi, &aa_first_dimension, aa, rhs,
+           rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, &rbp, thl,
+           thu, iuz, vuz);
     istop = iap->istop;
     if (istop == 1) {
       goto L5;
@@ -1052,9 +1040,8 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
       iap->itp = itp;
       ++nbif;
       iap->nbif = nbif;
-      stbif(iap, rap, par, icp, &aa_first_dimension, aa,
-	    NBIFX, stud, stu, stla, stld, rlcur, rlold, rldot, u,
-	    du, udot, dfdu, dfdp, thl, thu);
+      stbif(iap, rap, par, icp, &aa_first_dimension, aa, NBIFX, stud, stu, stla,
+            stld, rlcur, rlold, rldot, u, du, udot, dfdu, dfdp, thl, thu);
       rlp = 0.;
       rbp = 0.;
       rev = 0.;
@@ -1064,10 +1051,9 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   /* Check for Hopf bifurcation */
 
   if (abs(ips) == 1) {
-    lcspae(iap, rap, par, icp, fnhbae,
-	   funi, &aa_first_dimension,
-	   aa, rhs, rlcur, rlold, rldot, u, du, uold, udot, f, dfdu,
-	   dfdp, &rev, thl, thu, iuz, vuz);
+    lcspae(iap, rap, par, icp, fnhbae, funi, &aa_first_dimension, aa, rhs,
+           rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, &rev, thl,
+           thu, iuz, vuz);
     istop = iap->istop;
     if (istop == 1) {
 
@@ -1079,16 +1065,15 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
       iap->itp = itp;
       rev = 0.;
       /***  HERE IS WHERE Hopf IS FOUND */
-
     }
   }
 
   /* Store plotting data on unit 7 : */
 
- L5:
+L5:
   stplae(iap, rap, par, icp, rlcur, u);
 
-/* Adapt the stepsize along the branch */
+  /* Adapt the stepsize along the branch */
 
   itp = iap->itp;
   ntot = iap->ntot;
@@ -1096,7 +1081,7 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     adptds(iap, rap, &rds);
   }
 
- L6:
+L6:
   itp = 0;
   iap->itp = itp;
   istop = iap->istop;
@@ -1126,9 +1111,8 @@ cnrlae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 } /* cnrlae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stpnus(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
-{
+/* Subroutine */ int stpnus(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublereal *u) {
   integer ndim;
 
   /* Gets the starting data from user supplied STPNT */
@@ -1141,9 +1125,8 @@ stpnus(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 } /* stpnus_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stpnae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
-{
+/* Subroutine */ int stpnae(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublereal *u) {
   logical found;
   integer nfprs;
 
@@ -1158,9 +1141,14 @@ stpnae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 } /* stpnae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stprae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), doublereal *rds, integer *m1aaloc, doublereal *aa, doublereal *rhs, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *du, doublereal *uold, doublereal *udot, doublereal *f, doublereal *dfdu, doublereal *dfdp, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int stprae(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FUNI_TYPE((*funi)), doublereal *rds,
+                            integer *m1aaloc, doublereal *aa, doublereal *rhs,
+                            doublereal *rlcur, doublereal *rlold,
+                            doublereal *rldot, doublereal *u, doublereal *du,
+                            doublereal *uold, doublereal *udot, doublereal *f,
+                            doublereal *dfdu, doublereal *dfdp, doublereal *thl,
+                            doublereal *thu) {
   /* System generated locals */
   integer aa_dim1;
 
@@ -1175,7 +1163,7 @@ stprae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   integer iid;
 
-/* Finds the second point on the initial solution branch. */
+  /* Finds the second point on the initial solution branch. */
 
   aa_dim1 = *m1aaloc;
 
@@ -1231,32 +1219,32 @@ stprae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   }
   rldot[0] = du[ndim];
 
-/* Set initial approximations to the second point on the branch */
+  /* Set initial approximations to the second point on the branch */
 
   for (i = 0; i < ndim; ++i) {
     u[i] = uold[i] + *rds * udot[i];
   }
   rlcur[0] = rlold[0] + *rds * rldot[0];
 
-  solvae(iap, rap, par, icp, funi, rds, m1aaloc, aa,
-	 rhs, rlcur, rlold, rldot, u, du, uold,
-	 udot, f, dfdu, dfdp, thl, thu);
+  solvae(iap, rap, par, icp, funi, rds, m1aaloc, aa, rhs, rlcur, rlold, rldot,
+         u, du, uold, udot, f, dfdu, dfdp, thl, thu);
 
   return 0;
 } /* stprae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-contae(iap_type *iap, rap_type *rap, doublereal *rds, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *uold, doublereal *udot)
-{
+/* Subroutine */ int contae(iap_type *iap, rap_type *rap, doublereal *rds,
+                            doublereal *rlcur, doublereal *rlold,
+                            doublereal *rldot, doublereal *u, doublereal *uold,
+                            doublereal *udot) {
   /* Local variables */
   integer ndim, i;
   doublereal dsold;
   integer ips;
 
-/* This subroutine determines an initial approximation to the next */
-/* solution on a branch by extrapolating from the two preceding points. */
-/* The step used in the preceding step has been stored in DSOLD. */
+  /* This subroutine determines an initial approximation to the next */
+  /* solution on a branch by extrapolating from the two preceding points. */
+  /* The step used in the preceding step has been stored in DSOLD. */
 
   ndim = iap->ndim;
   ips = iap->ips;
@@ -1283,9 +1271,14 @@ contae(iap_type *iap, rap_type *rap, doublereal *rds, doublereal *rlcur, doubler
 } /* contae_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), doublereal *rds, integer *m1aaloc, doublereal *aa, doublereal *rhs, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *du, doublereal *uold, doublereal *udot, doublereal *f, doublereal *dfdu, doublereal *dfdp, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int solvae(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FUNI_TYPE((*funi)), doublereal *rds,
+                            integer *m1aaloc, doublereal *aa, doublereal *rhs,
+                            doublereal *rlcur, doublereal *rlold,
+                            doublereal *rldot, doublereal *u, doublereal *du,
+                            doublereal *uold, doublereal *udot, doublereal *f,
+                            doublereal *dfdu, doublereal *dfdp, doublereal *thl,
+                            doublereal *thu) {
   /* System generated locals */
   integer aa_dim1;
 
@@ -1302,7 +1295,7 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   integer istop;
 
   doublereal au;
-  doublereal delref=0.0, ss, delmax;
+  doublereal delref = 0.0, ss, delmax;
 
   integer iid;
   doublereal dds;
@@ -1311,15 +1304,15 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   integer nit, mxt;
   doublereal umx;
   integer nit1;
-  static integer last_ntop=0;
+  static integer last_ntop = 0;
 
-/* This is the subroutine for computing solution branches. It solves */
-/* the equations for finding the next point on the branch at distance DS
-*/
-/* from the current point. An initial approximation to the new point */
-/* ( i.e. to PAR(ICP(1)) and U ) has been supplied by CONT. */
+  /* This is the subroutine for computing solution branches. It solves */
+  /* the equations for finding the next point on the branch at distance DS
+   */
+  /* from the current point. An initial approximation to the new point */
+  /* ( i.e. to PAR(ICP(1)) and U ) has been supplied by CONT. */
 
-/* Local */
+  /* Local */
 
   aa_dim1 = *m1aaloc;
 
@@ -1335,7 +1328,7 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   epsl = rap->epsl;
   epsu = rap->epsu;
 
- L1:
+L1:
   dsold = *rds;
   rap->dsold = dsold;
   dds = 1. / *rds;
@@ -1348,21 +1341,21 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     ndmr = 6;
   }
   if (iid >= 2 && iap->mynode == 0) {
-    if(last_ntop != ntop) {
-      fprintf(fp9,"========================================");
-      fprintf(fp9,"========================================\n");
+    if (last_ntop != ntop) {
+      fprintf(fp9, "========================================");
+      fprintf(fp9, "========================================\n");
       last_ntop = ntop;
     }
     if (nit == 0) {
-      fprintf(fp9,"  BR    PT  IT\n");
+      fprintf(fp9, "  BR    PT  IT\n");
     }
 
-    fprintf(fp9,"%4li%6li%4li    %14.6E              ",ibr,ntop,
-	    nit,rlcur[0]);
+    fprintf(fp9, "%4li%6li%4li    %14.6E              ", ibr, ntop, nit,
+            rlcur[0]);
     for (i = 0; i < ndmr; ++i) {
-      fprintf(fp9,"%14.6E",u[i]);
+      fprintf(fp9, "%14.6E", u[i]);
     }
-    fprintf(fp9,"\n");
+    fprintf(fp9, "\n");
   }
 
   /* Call user-supplied FUNC to evaluate the right hand side of the */
@@ -1381,21 +1374,22 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
       ARRAY2D(aa, i, ndim) = dfdp[(icp[0]) * ndim + i];
       rhs[i] = -f[i];
       for (k = 0; k < ndim; ++k) {
-	ARRAY2D(aa, i, k) = dfdu[k * ndim + i];
+        ARRAY2D(aa, i, k) = dfdu[k * ndim + i];
       }
     }
     for (k = 0; k < ndim; ++k) {
       ARRAY2D(aa, ndim, k) = thu[k] * 2. * (u[k] - uold[k]) * dds;
     }
-    ARRAY2D(aa, ndim, ndim) = thl[icp[0]] * 2. * (rlcur[0] -
-						      rlold[0]) * dds;
+    ARRAY2D(aa, ndim, ndim) = thl[icp[0]] * 2. * (rlcur[0] - rlold[0]) * dds;
     ss = 0.;
     for (i = 0; i < ndim; ++i) {
       /* Computing 2nd power */
       ss += thu[i] * ((u[i] - uold[i]) * (u[i] - uold[i]));
     }
     /* Computing 2nd power */
-    rhs[ndim] = *rds - dds * ss - thl[icp[0]] * dds * ((rlcur[0] - rlold[0]) * (rlcur[0] - rlold[0]));
+    rhs[ndim] =
+        *rds - dds * ss -
+        thl[icp[0]] * dds * ((rlcur[0] - rlold[0]) * (rlcur[0] - rlold[0]));
 
     /* Use Gauss elimination with pivoting to solve the linearized system
        : */
@@ -1405,8 +1399,7 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
       wrjac(iap, &tmp, m1aaloc, aa, rhs);
     }
 
-    ge(ndim + 1, *m1aaloc, aa, 1, ndim + 1, du,
-       ndim + 1, rhs, &det);
+    ge(ndim + 1, *m1aaloc, aa, 1, ndim + 1, du, ndim + 1, rhs, &det);
     rap->det = det;
     drlm = du[ndim];
 
@@ -1422,22 +1415,22 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
       adu = fabs(du[i]);
       au = fabs(u[i]);
       if (au > umx) {
-	umx = au;
+        umx = au;
       }
       if (adu > dumx) {
-	dumx = adu;
+        dumx = adu;
       }
     }
 
     if (iid >= 2 && iap->mynode == 0) {
       if (iap->mynode == 0) {
 
-	fprintf(fp9,"%4li%6li%4li    %14.6E              ",ibr,ntop,
-		nit,rlcur[0]);
-	for (i = 0; i < ndmr; ++i) {
-	  fprintf(fp9,"%14.6E",u[i]);
-	}
-	fprintf(fp9,"\n");
+        fprintf(fp9, "%4li%6li%4li    %14.6E              ", ibr, ntop, nit,
+                rlcur[0]);
+        for (i = 0; i < ndmr; ++i) {
+          fprintf(fp9, "%14.6E", u[i]);
+        }
+        fprintf(fp9, "\n");
       }
     }
 
@@ -1446,7 +1439,7 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     if (rdrlm <= epsl && rdumx <= epsu) {
       pvlsae(iap, rap, u, par);
       if (iid >= 2) {
-	fprintf(fp9,"\n");
+        fprintf(fp9, "\n");
       }
       return 0;
     }
@@ -1455,11 +1448,11 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
      */
 
     if (nit == 1) {
-      delref = max(rdrlm,rdumx) * 20;
+      delref = max(rdrlm, rdumx) * 20;
     } else {
-      delmax = max(rdrlm,rdumx);
+      delmax = max(rdrlm, rdumx);
       if (delmax > delref) {
-	goto L3;
+        goto L3;
       }
     }
 
@@ -1468,9 +1461,10 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Maximum number of iterations has been reached */
 
- L3:
+L3:
   if (iads == 0 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:No convergence with fixed step size\n",ibr,ntop);
+    fprintf(fp9, "%4li%6li NOTE:No convergence with fixed step size\n", ibr,
+            ntop);
   }
   if (iads == 0) {
     goto L5;
@@ -1489,17 +1483,18 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     u[i] = uold[i] + *rds * udot[i];
   }
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9," NOTE:Retrying step\n");
+    fprintf(fp9, " NOTE:Retrying step\n");
   }
   goto L1;
 
-/* Minimum stepsize reached */
+  /* Minimum stepsize reached */
 
- L4:
+L4:
   if (iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:No convergence using minimum step size\n",ibr,ntop);
+    fprintf(fp9, "%4li%6li NOTE:No convergence using minimum step size\n", ibr,
+            ntop);
   }
- L5:
+L5:
   rlcur[0] = rlold[0];
   par[icp[0]] = rlcur[0];
   for (i = 0; i < ndim; ++i) {
@@ -1517,9 +1512,15 @@ solvae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE((*fncs)), FUNI_TYPE((*funi)), integer *m1aaloc, doublereal *aa, doublereal *rhs, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *du, doublereal *uold, doublereal *udot, doublereal *f, doublereal *dfdu, doublereal *dfdp, doublereal *q, doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+/* Subroutine */ int lcspae(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FNCS_TYPE_AE((*fncs)),
+                            FUNI_TYPE((*funi)), integer *m1aaloc,
+                            doublereal *aa, doublereal *rhs, doublereal *rlcur,
+                            doublereal *rlold, doublereal *rldot, doublereal *u,
+                            doublereal *du, doublereal *uold, doublereal *udot,
+                            doublereal *f, doublereal *dfdu, doublereal *dfdp,
+                            doublereal *q, doublereal *thl, doublereal *thu,
+                            integer *iuz, doublereal *vuz) {
 
   /* Local variables */
   logical chng;
@@ -1538,12 +1539,12 @@ lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE
   /* This subroutine uses the secant method to accurately locate special */
   /* points (branch points, folds, Hopf bifurcations, user zeroes). */
   /* These are characterized as zeroes of the function FNCS supplied in the
-*/
-/* call. */
-/* This subroutine calls CONT and SOLVAE with varying stepsize RDS. */
-/* The special point is assumed to have been found with sufficient */
-/* accuracy if the ratio between RDS and the user supplied value of */
-/* DS is less than the user-supplied toler du. */
+   */
+  /* call. */
+  /* This subroutine calls CONT and SOLVAE with varying stepsize RDS. */
+  /* The special point is assumed to have been found with sufficient */
+  /* accuracy if the ratio between RDS and the user supplied value of */
+  /* DS is less than the user-supplied toler du. */
 
   iid = iap->iid;
   itmx = iap->itmx;
@@ -1557,13 +1558,12 @@ lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE
   /* Check whether FNCS has changed sign (FNCS is EXTERNAL). */
 
   q0 = *q;
-  q1 = (*fncs)(iap, rap, par, icp, &chng, funi, m1aaloc,
-	       aa, rlcur, rlold, rldot, u, uold, udot,
-	       rhs, dfdu, dfdp, iuz, vuz);
+  q1 = (*fncs)(iap, rap, par, icp, &chng, funi, m1aaloc, aa, rlcur, rlold,
+               rldot, u, uold, udot, rhs, dfdu, dfdp, iuz, vuz);
   pq = q0 * q1;
   ntot = iap->ntot;
   ntop = (ntot + 1) % 10000;
-  if (pq >= 0. || ! chng) {
+  if (pq >= 0. || !chng) {
     *q = q1;
     return 0;
   }
@@ -1576,7 +1576,7 @@ lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE
   dq = q0 - q1;
   rds = q1 / dq * (s1 - s0);
   rtmp = HMACH1;
- L1:
+L1:
   rds = rtmp * rds;
   s = s1 + rds;
 
@@ -1587,30 +1587,33 @@ lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE
     itp = -1;
     iap->itp = itp;
     *q = 0.;
-    fprintf(fp9," ==> Location of special point :  Convergence.    Stepsize =%11.3E\n",rds);
+    fprintf(
+        fp9,
+        " ==> Location of special point :  Convergence.    Stepsize =%11.3E\n",
+        rds);
     return 0;
   }
 
   /* If requested write additional output on unit 9 : */
 
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9," ==> Location of special point :  Iteration %3li   Stepsize =%11.3E\n",itlcsp,rds);	
+    fprintf(
+        fp9,
+        " ==> Location of special point :  Iteration %3li   Stepsize =%11.3E\n",
+        itlcsp, rds);
   }
 
-  contae(iap, rap, &rds, rlcur, rlold, rldot, u, uold,
-	 udot);
-  solvae(iap, rap, par, icp, funi, &rds, m1aaloc, aa,
-	 rhs, rlcur, rlold, rldot, u, du, uold, udot, f,
-	 dfdu, dfdp, thl, thu);
+  contae(iap, rap, &rds, rlcur, rlold, rldot, u, uold, udot);
+  solvae(iap, rap, par, icp, funi, &rds, m1aaloc, aa, rhs, rlcur, rlold, rldot,
+         u, du, uold, udot, f, dfdu, dfdp, thl, thu);
   istop = iap->istop;
   if (istop == 1) {
     *q = 0.;
     return 0;
   }
 
-  *q = (*fncs)(iap, rap, par, icp, &chng, funi, m1aaloc,
-	       aa, rlcur, rlold, rldot, u, uold, udot,
-	       rhs, dfdu, dfdp, iuz, vuz);
+  *q = (*fncs)(iap, rap, par, icp, &chng, funi, m1aaloc, aa, rlcur, rlold,
+               rldot, u, uold, udot, rhs, dfdu, dfdp, iuz, vuz);
   ++itlcsp;
   if (itlcsp <= itmx) {
     /*        Use Mueller's method with bracketing for subsequent steps */
@@ -1618,7 +1621,8 @@ lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE
     goto L1;
   } else {
     if (iap->mynode == 0) {
-      fprintf(fp9,"%4li%6li NOTE:Possible special point\n",ibr,(ntot + 1) % 10000);	
+      fprintf(fp9, "%4li%6li NOTE:Possible special point\n", ibr,
+              (ntot + 1) % 10000);
     }
     *q = 0.;
     return 0;
@@ -1627,10 +1631,10 @@ lcspae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_AE
 } /* lcspae_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int
-mueller(doublereal *q0, doublereal *q1, doublereal *q, doublereal *s0, doublereal *s1, doublereal *s, doublereal *rds)
-{
-    /* Local variables */
+/* Subroutine */ int mueller(doublereal *q0, doublereal *q1, doublereal *q,
+                             doublereal *s0, doublereal *s1, doublereal *s,
+                             doublereal *rds) {
+  /* Local variables */
   doublereal a, b, c, d, r, h0, h1, dq;
 
   /* Mueller's method with bracketing */
@@ -1640,7 +1644,7 @@ mueller(doublereal *q0, doublereal *q1, doublereal *q, doublereal *s0, doublerea
   d = h0 * h1 * (h1 - h0);
   /* Computing 2nd power */
 
-  a = (h1 * h1 * (*q0 - *q) - h0 *  h0 * (*q1 - *q)) / d;
+  a = (h1 * h1 * (*q0 - *q) - h0 * h0 * (*q1 - *q)) / d;
   b = (-h1 * (*q0 - *q) + h0 * (*q1 - *q)) / d;
   if (fabs(b) <= RSMALL) {
     *rds = -(*q) / a;
@@ -1667,9 +1671,12 @@ mueller(doublereal *q0, doublereal *q1, doublereal *q, doublereal *s0, doublerea
 } /* mueller_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnbpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc, doublereal *aa, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *uold, doublereal *udot, doublereal *rhs, doublereal *dfdu, doublereal *dfdp, integer *iuz, doublereal *vuz)
-{
+doublereal fnbpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc,
+                  doublereal *aa, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, doublereal *u, doublereal *uold,
+                  doublereal *udot, doublereal *rhs, doublereal *dfdu,
+                  doublereal *dfdp, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   doublereal ret_val;
 
@@ -1689,28 +1696,31 @@ fnbpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   /* If requested write additional output on unit 9 : */
 
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li        BP   Function %14.6E\n",ibr,ntop,ret_val);
+    fprintf(fp9, "%4li%6li        BP   Function %14.6E\n", ibr, ntop, ret_val);
   }
 
   return ret_val;
 } /* fnbpae_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnlpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc, doublereal *aa, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *uold, doublereal *udot, doublereal *rhs, doublereal *dfdu, doublereal *dfdp, integer *iuz, doublereal *vuz)
-{
+doublereal fnlpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc,
+                  doublereal *aa, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, doublereal *u, doublereal *uold,
+                  doublereal *udot, doublereal *rhs, doublereal *dfdu,
+                  doublereal *dfdp, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   integer aa_dim1;
   doublereal ret_val;
 
-    /* Local variables */
+  /* Local variables */
   integer ndim, ntop, ntot, i, k;
 
   doublereal *ud;
   integer iid, ibr;
   doublereal det;
 
-  ud = (double *)malloc(sizeof(doublereal)*(iap->ndim + 1));
+  ud = (double *)malloc(sizeof(doublereal) * (iap->ndim + 1));
 
   /* Local */
 
@@ -1735,8 +1745,7 @@ fnlpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   ntop = (ntot + 1) % 10000;
 
   par[icp[0]] = rlcur[0];
-  (*funi)(iap, rap, ndim, u, uold, icp, par, 2,
-	  rhs, dfdu, dfdp);
+  (*funi)(iap, rap, ndim, u, uold, icp, par, 2, rhs, dfdu, dfdp);
   for (i = 0; i < ndim; ++i) {
     ARRAY2D(aa, i, ndim) = dfdp[(icp[0]) * ndim + i];
     for (k = 0; k < ndim; ++k) {
@@ -1763,16 +1772,20 @@ fnlpae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   /* If requested write additional output on unit 9 : */
 
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li        Fold Function %14.6E\n",abs(ibr),ntop,ret_val);
+    fprintf(fp9, "%4li%6li        Fold Function %14.6E\n", abs(ibr), ntop,
+            ret_val);
   }
   free(ud);
   return ret_val;
 } /* fnlpae_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc, doublereal *aa, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *uold, doublereal *udot, doublereal *rhs, doublereal *dfdu, doublereal *dfdp, integer *iuz, doublereal *vuz)
-{
+doublereal fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc,
+                  doublereal *aa, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, doublereal *u, doublereal *uold,
+                  doublereal *udot, doublereal *rhs, doublereal *dfdu,
+                  doublereal *dfdp, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   integer aa_dim1;
   doublereal ret_val;
@@ -1789,11 +1802,11 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   doublecomplex *ev;
   doublereal rp;
 
-  integer iid, ibr, ndm, ier, loc=0, ips;
+  integer iid, ibr, ndm, ier, loc = 0, ips;
   doublereal rev;
   integer isw;
 
-  ev = (doublecomplex *)malloc(sizeof(doublecomplex)*(iap->ndim));
+  ev = (doublecomplex *)malloc(sizeof(doublecomplex) * (iap->ndim));
 
   /* Local */
 
@@ -1815,7 +1828,7 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   ntot = iap->ntot;
   ntop = (ntot + 1) % 10000;
 
-/* INITIALIZE */
+  /* INITIALIZE */
 
   *chng = FALSE_;
 
@@ -1825,17 +1838,17 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   if (ips == -1) {
     for (i = 0; i < ndm; ++i) {
       if (ev[i].r != -1. || d_imag(&ev[i]) != 0.) {
-	doublecomplex in,out;
-	in.r = ev[i].r + 1., in.i = ev[i].i;
-	z_log(&out, &in);
-	ev[i].r = out.r, ev[i].i = out.i;
+        doublecomplex in, out;
+        in.r = ev[i].r + 1., in.i = ev[i].i;
+        z_log(&out, &in);
+        ev[i].r = out.r, ev[i].i = out.i;
       } else {
-	ev[i].r = -RLARGE, ev[i].i = 0.;
+        ev[i].r = -RLARGE, ev[i].i = 0.;
       }
     }
   }
   /* here is where to put send_eigenvalue   */
-  send_eigen(ibr,ntot+1,ndim,(doublecomplex*)&ev[0]);
+  send_eigen(ibr, ntot + 1, ndim, (doublecomplex *)&ev[0]);
   /* Order the eigenvalues by real part. */
 
   for (i = 0; i < ndm - 1; ++i) {
@@ -1843,8 +1856,8 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
     for (j = i; j < ndm; ++j) {
       rp = ev[j].r;
       if (rp >= rmax) {
-	rmax = rp;
-	loc = j;
+        rmax = rp;
+        loc = j;
       }
     }
     if (loc != i) {
@@ -1863,12 +1876,12 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
     if (d_imag(&ev[i]) != 0.) {
       ar = fabs(ev[i].r);
       if (ar <= arev) {
-	arev = ar;
-	rev = ev[i].r;
-	rimhb = fabs(d_imag(&ev[i]));
-	if (rimhb != 0.) {
-	  par[10] = pi(2.0) / rimhb;
-	}
+        arev = ar;
+        rev = ev[i].r;
+        rimhb = fabs(d_imag(&ev[i]));
+        if (rimhb != 0.) {
+          par[10] = pi(2.0) / rimhb;
+        }
       }
     }
   }
@@ -1879,13 +1892,13 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   if (isw != 2) {
     for (i = 0; i < ndm; ++i) {
       if (ev[i].r <= 0.) {
-	++nins1;
+        ++nins1;
       }
     }
   } else {
     for (i = 0; i < ndm; ++i) {
       if (ev[i].r <= HMACH) {
-	++nins1;
+        ++nins1;
       }
     }
   }
@@ -1906,23 +1919,29 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   ntot = iap->ntot;
   ntotp1 = ntot + 1;
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li        Hopf Function %14.6E\n",abs(ibr),ntop,ret_val);	
+    fprintf(fp9, "%4li%6li        Hopf Function %14.6E\n", abs(ibr), ntop,
+            ret_val);
   }
   if (nins1 == ndm) {
     ntotp1 = -ntotp1;
   }
 
   if (iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li        Eigenvalues:                                 Stable:%3li\n",abs(ibr),ntop,nins);	
+    fprintf(fp9,
+            "%4li%6li        Eigenvalues:                                 "
+            "Stable:%3li\n",
+            abs(ibr), ntop, nins);
     if (ips == -1) {
       for (i = 0; i < ndm; ++i) {
-	doublecomplex tmp;
-	z_exp(&tmp, &ev[i]);
-	fprintf(fp9,"%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",abs(ibr),ntop,i+1,tmp.r,tmp.i);	
+        doublecomplex tmp;
+        z_exp(&tmp, &ev[i]);
+        fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n", abs(ibr),
+                ntop, i + 1, tmp.r, tmp.i);
       }
     } else {
       for (i = 0; i < ndm; ++i) {
-	fprintf(fp9,"%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",abs(ibr),ntop,i+1,ev[i].r,ev[i].i);
+        fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n", abs(ibr),
+                ntop, i + 1, ev[i].r, ev[i].i);
       }
     }
   }
@@ -1932,9 +1951,12 @@ fnhbae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
 } /* fnhbae_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnuzae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc, doublereal *aa, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *uold, doublereal *udot, doublereal *rhs, doublereal *dfdu, doublereal *dfdp, integer *iuz, doublereal *vuz)
-{
+doublereal fnuzae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), integer *m1aaloc,
+                  doublereal *aa, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, doublereal *u, doublereal *uold,
+                  doublereal *udot, doublereal *rhs, doublereal *dfdu,
+                  doublereal *dfdp, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   doublereal ret_val;
 
@@ -1956,7 +1978,8 @@ fnuzae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   *chng = TRUE_;
 
   if (iid >= 3) {
-    fprintf(fp9,"%4li%6li        User Func. %3li %16.6E\n",abs(ibr),ntop,iuzr,ret_val);	
+    fprintf(fp9, "%4li%6li        User Func. %3li %16.6E\n", abs(ibr), ntop,
+            iuzr, ret_val);
   }
 
   return ret_val;
@@ -1969,9 +1992,14 @@ fnuzae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-stbif(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *m1aaloc, doublereal *aa, integer m1sbloc, doublereal *stud, doublereal *stu, doublereal *stla, doublereal *stld, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *du, doublereal *udot, doublereal *dfdu, doublereal *dfdp, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int stbif(iap_type *iap, rap_type *rap, doublereal *par,
+                           integer *icp, integer *m1aaloc, doublereal *aa,
+                           integer m1sbloc, doublereal *stud, doublereal *stu,
+                           doublereal *stla, doublereal *stld,
+                           doublereal *rlcur, doublereal *rlold,
+                           doublereal *rldot, doublereal *u, doublereal *du,
+                           doublereal *udot, doublereal *dfdu, doublereal *dfdp,
+                           doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer aa_dim1, stud_dim1, stu_dim1;
 
@@ -1993,7 +2021,7 @@ stbif(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *m1aa
   /* at branch point and is perpendicular to the direction vector of */
   /* known branch at this point. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -2023,7 +2051,8 @@ stbif(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *m1aa
   /* Keep track of the number of branch points stored. */
 
   if (nbif == NBIFX && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:No more branch points can be stored\n",ibr,ntop);	
+    fprintf(fp9, "%4li%6li NOTE:No more branch points can be stored\n", ibr,
+            ntop);
   }
   if (nbif > NBIFX) {
     nbif = NBIFX;
@@ -2070,13 +2099,16 @@ stbif(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *m1aa
 } /* stbif_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-swpnt(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *rds, integer m1sbloc, doublereal *stud, doublereal *stu, doublereal *stla, doublereal *stld, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *udot)
-{
+/* Subroutine */ int swpnt(iap_type *iap, rap_type *rap, doublereal *par,
+                           integer *icp, doublereal *rds, integer m1sbloc,
+                           doublereal *stud, doublereal *stu, doublereal *stla,
+                           doublereal *stld, doublereal *rlcur,
+                           doublereal *rlold, doublereal *rldot, doublereal *u,
+                           doublereal *udot) {
   /* System generated locals */
   integer stud_dim1, stu_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer nbif, ndim, mxbf, ipos, i, i1;
   doublereal ds;
   integer isw;
@@ -2143,13 +2175,17 @@ swpnt(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *r
 } /* swpnt_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), integer *m1aaloc, doublereal *aa, doublereal *rhs, doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *u, doublereal *du, doublereal *uold, doublereal *udot, doublereal *f, doublereal *dfdu, doublereal *dfdp, doublereal *rds, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int swprc(iap_type *iap, rap_type *rap, doublereal *par,
+                           integer *icp, FUNI_TYPE((*funi)), integer *m1aaloc,
+                           doublereal *aa, doublereal *rhs, doublereal *rlcur,
+                           doublereal *rlold, doublereal *rldot, doublereal *u,
+                           doublereal *du, doublereal *uold, doublereal *udot,
+                           doublereal *f, doublereal *dfdu, doublereal *dfdp,
+                           doublereal *rds, doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer aa_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer iads, ndim;
   doublereal drlm;
   integer ndmr;
@@ -2172,14 +2208,14 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
   doublereal umx, rlm1;
   integer nit1;
 
-  u1 = (double *)malloc(sizeof(doublereal)*(iap->ndim + 1));
+  u1 = (double *)malloc(sizeof(doublereal) * (iap->ndim + 1));
 
   /* Controls the computation of the second point on a bifurcating branch. */
-/* This point is required to lie in a hyper-plane at distance DS from the */
-/* branch point. This hyper-plane is parallel to the tangent of the */
-/* known branch at the branch point. */
+  /* This point is required to lie in a hyper-plane at distance DS from the */
+  /* branch point. This hyper-plane is parallel to the tangent of the */
+  /* known branch at the branch point. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -2221,26 +2257,25 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
     u[i] = uold[i] + *rds * udot[i];
   }
 
- L2:
+L2:
   dsold = *rds;
   rap->dsold = dsold;
   nit = 0;
   iap->nit = nit;
 
-/* Write additional output on unit 9 if requested : */
+  /* Write additional output on unit 9 if requested : */
 
   ndmr = ndim;
   if (ndmr > 6) {
     ndmr = 6;
   }
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9," Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=",ibr,ntop,
-	    nit,icp[0],rlcur[0]);	
+    fprintf(fp9, " Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=", ibr, ntop,
+            nit, icp[0], rlcur[0]);
     for (i = 0; i < ndmr; ++i) {
-      fprintf(fp9,"%11.3E",u[i]);	
+      fprintf(fp9, "%11.3E", u[i]);
     }
-    fprintf(fp9,"\n");	
-
+    fprintf(fp9, "\n");
   }
 
   rlm1 = rlcur[0];
@@ -2257,7 +2292,7 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
       ARRAY2D(aa, i, ndim) = dfdp[(icp[0]) * ndim + i];
       rhs[i] = -f[i];
       for (k = 0; k < ndim; ++k) {
-	ARRAY2D(aa, i, k) = dfdu[k * ndim + i];
+        ARRAY2D(aa, i, k) = dfdu[k * ndim + i];
       }
     }
     for (k = 0; k < ndim; ++k) {
@@ -2277,8 +2312,7 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
       integer tmp = ndim + 1;
       wrjac(iap, &tmp, m1aaloc, aa, rhs);
     }
-    ge(ndim + 1, *m1aaloc, aa, 1, ndim + 1, du,
-       ndim + 1, rhs, &det);
+    ge(ndim + 1, *m1aaloc, aa, 1, ndim + 1, du, ndim + 1, rhs, &det);
     rap->det = det;
     drlm = du[ndim];
 
@@ -2293,21 +2327,21 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
     for (i = 0; i < ndim; ++i) {
       adu = fabs(du[i]);
       if (adu > dumx) {
-	dumx = adu;
+        dumx = adu;
       }
       au = fabs(u[i]);
       if (au > umx) {
-	umx = au;
+        umx = au;
       }
     }
 
     if (iid >= 2 && iap->mynode == 0) {
-      fprintf(fp9," Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=",ibr,ntop,
-	      nit+1,icp[0],rlcur[0]);	
+      fprintf(fp9, " Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=", ibr, ntop,
+              nit + 1, icp[0], rlcur[0]);
       for (i = 0; i < ndmr; ++i) {
-	fprintf(fp9,"%11.3E",u[i]);	
+        fprintf(fp9, "%11.3E", u[i]);
       }
-      fprintf(fp9,"\n");	
+      fprintf(fp9, "\n");
     }
 
     /* Check whether relative error has reached user-supplied tolerance :
@@ -2324,7 +2358,10 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
   /* Maximum number of iterations reached. Reduce stepsize and try again. */
 
   if (iads == 0 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:No convergence when switching branches with fixed step size\n",ibr,ntop);	
+    fprintf(fp9,
+            "%4li%6li NOTE:No convergence when switching branches with fixed "
+            "step size\n",
+            ibr, ntop);
   }
   if (iads == 0) {
     goto L5;
@@ -2341,17 +2378,20 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
     u[i] = uold[i] + *rds * udot[i];
   }
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:Retrying step\n",ibr,ntop);	
+    fprintf(fp9, "%4li%6li NOTE:Retrying step\n", ibr, ntop);
   }
   goto L2;
 
-/* Minimum stepsize reached. */
+  /* Minimum stepsize reached. */
 
- L4:
+L4:
   if (iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:No convergence when switching branches with minimum step size\n",ibr,ntop);	
+    fprintf(fp9,
+            "%4li%6li NOTE:No convergence when switching branches with minimum "
+            "step size\n",
+            ibr, ntop);
   }
- L5:
+L5:
   rlcur[0] = rlold[0];
   par[icp[0]] = rlcur[0];
   for (i = 0; i < ndim; ++i) {
@@ -2363,10 +2403,9 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
   free(u1);
 
   return 0;
-	
+
 } /* swprc_ */
 
-	
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*                    Output (Algebraic Problems) */
@@ -2374,9 +2413,8 @@ swprc(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*f
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int
-sthd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int sthd(iap_type *iap, rap_type *rap, doublereal *par,
+                          integer *icp, doublereal *thl, doublereal *thu) {
   /* Local variables */
   integer ndim, ncol, mxbf, nicp;
   doublereal epsl;
@@ -2437,56 +2475,64 @@ sthd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *th
     return 0;
   }
 
-  fprintf(fp7,"   0 %12.4E%12.4E%12.4E%12.4E\n",rl0,rl1,a0,a1);
-  fprintf(fp7,"   0   EPSL=%11.4E  EPSU =%11.4E  EPSS =%11.4E\n",epsl,epsu,epss);
-  fprintf(fp7,"   0   DS  =%11.4E  DSMIN=%11.4E  DSMAX=%11.4E\n",ds,dsmin,dsmax);
-  fprintf(fp7,"   0   NDIM=%4li   IPS =%4li   IRS =%4li   ILP =%4li\n",ndim,ips,irs,ilp);
-  fprintf(fp7,"   0   NTST=%4li   NCOL=%4li   IAD =%4li   ISP =%4li\n",ntst,ncol,iad,isp);
-  fprintf(fp7,"   0   ISW =%4li   IPLT=%4li   NBC =%4li   NINT=%4li\n",isw,iplt,nbc,nint);
-  fprintf(fp7,"   0   NMX=%5ld   NPR =%4li   MXBF=%4li   IID =%4li\n",nmx,npr,mxbf,iid);
-  fprintf(fp7,"   0   ITMX=%4li   ITNW=%4li   NWTN=%4li   JAC=%4li  NUZR=%4li\n",itmx,itnw,nwtn,jac,nuzr);
+  fprintf(fp7, "   0 %12.4E%12.4E%12.4E%12.4E\n", rl0, rl1, a0, a1);
+  fprintf(fp7, "   0   EPSL=%11.4E  EPSU =%11.4E  EPSS =%11.4E\n", epsl, epsu,
+          epss);
+  fprintf(fp7, "   0   DS  =%11.4E  DSMIN=%11.4E  DSMAX=%11.4E\n", ds, dsmin,
+          dsmax);
+  fprintf(fp7, "   0   NDIM=%4li   IPS =%4li   IRS =%4li   ILP =%4li\n", ndim,
+          ips, irs, ilp);
+  fprintf(fp7, "   0   NTST=%4li   NCOL=%4li   IAD =%4li   ISP =%4li\n", ntst,
+          ncol, iad, isp);
+  fprintf(fp7, "   0   ISW =%4li   IPLT=%4li   NBC =%4li   NINT=%4li\n", isw,
+          iplt, nbc, nint);
+  fprintf(fp7, "   0   NMX=%5ld   NPR =%4li   MXBF=%4li   IID =%4li\n", nmx,
+          npr, mxbf, iid);
+  fprintf(fp7,
+          "   0   ITMX=%4li   ITNW=%4li   NWTN=%4li   JAC=%4li  NUZR=%4li\n",
+          itmx, itnw, nwtn, jac, nuzr);
 
   if (nicp == 1) {
     jtmp = NPARX;
-    fprintf(fp7,"   0   User-specified parameter:       ");
+    fprintf(fp7, "   0   User-specified parameter:       ");
     for (i = 0; i < nicp; ++i) {
-      fprintf(fp7,"%4li",icp[jtmp + i]);
+      fprintf(fp7, "%4li", icp[jtmp + i]);
     }
-    fprintf(fp7,"\n");
+    fprintf(fp7, "\n");
   } else {
     jtmp = NPARX;
-    fprintf(fp7,"   0   User-specified parameters:      ");
+    fprintf(fp7, "   0   User-specified parameters:      ");
     for (i = 0; i < nicp; ++i) {
-      fprintf(fp7,"%4li",icp[jtmp + i]);
+      fprintf(fp7, "%4li", icp[jtmp + i]);
     }
-    fprintf(fp7,"\n");
+    fprintf(fp7, "\n");
   }
 
   if (nfpr == 1) {
-    fprintf(fp7,"   0   Active continuation parameter:  ");
-	
+    fprintf(fp7, "   0   Active continuation parameter:  ");
+
     for (i = 0; i < nfpr; ++i) {
-      fprintf(fp7,"%4li",icp[i]);
+      fprintf(fp7, "%4li", icp[i]);
     }
-    fprintf(fp7,"\n");
+    fprintf(fp7, "\n");
   } else {
-    fprintf(fp7,"   0   Active continuation parameters:  ");
+    fprintf(fp7, "   0   Active continuation parameters:  ");
     for (i = 0; i < nfpr; ++i) {
-      fprintf(fp7,"%4li",icp[i]);
+      fprintf(fp7, "%4li", icp[i]);
     }
-    fprintf(fp7,"\n");
+    fprintf(fp7, "\n");
   }
 
   return 0;
 } /* sthd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iunit, integer *n1, integer *n2)
-{
+/* Subroutine */ int headng(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, integer iunit, integer *n1,
+                            integer *n2) {
   /* Local variables */
   integer iplt, itmp, i, j;
-  char col[9][14+1];
+  char col[9][14 + 1];
   integer ndm, ips, itp;
   integer isw;
 
@@ -2512,68 +2558,70 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
       printf(" \n");
     }
     if (iunit == 7) {
-      fprintf(fp7,"   0\n");
+      fprintf(fp7, "   0\n");
     }
     if (iunit == 9) {
-      fprintf(fp9," \n");	
+      fprintf(fp9, " \n");
     }
   }
 
   j = 0;
   for (i = 0; i < *n1; ++i) {
     ++j;
-    if ((double) j == (double)2.) {
+    if ((double)j == (double)2.) {
       j = j + 1 + *n2;
     }
     if (icp[i] > 9) {
-      sprintf(col[j-1],"   PAR(%ld)    ",icp[i]);
+      sprintf(col[j - 1], "   PAR(%ld)    ", icp[i]);
     } else {
-      sprintf(col[j-1],"   PAR(%ld)     ",icp[i]);
+      sprintf(col[j - 1], "   PAR(%ld)     ", icp[i]);
     }
-	
   }
 
   if (iplt > ndm && iplt <= ndm << 1) {
-    sprintf(col[1]," INTEGRAL U(%ld)",iplt-ndm);
+    sprintf(col[1], " INTEGRAL U(%ld)", iplt - ndm);
   } else if (iplt > ndm << 1 && iplt <= ndm * 3) {
-    sprintf(col[1]," L2-NORM U(%ld) ",iplt - (ndm * 2));
+    sprintf(col[1], " L2-NORM U(%ld) ", iplt - (ndm * 2));
   } else if (iplt > 0 && iplt <= ndm) {
     if (abs(ips) <= 1 || ips == 5) {
-      sprintf(col[1],"     U(%ld)     ",-iplt);
+      sprintf(col[1], "     U(%ld)     ", -iplt);
     } else {
-      sprintf(col[1],"   MAX U(%ld)   ",iplt);
+      sprintf(col[1], "   MAX U(%ld)   ", iplt);
     }
   } else if (iplt < 0 && iplt >= -ndm) {
     if (abs(ips) <= 1 || ips == 5) {
-      sprintf(col[1],"     U(%ld)     ",-iplt);
+      sprintf(col[1], "     U(%ld)     ", -iplt);
     } else {
-      sprintf(col[1],"   MIN U(%ld)   ",-iplt);
+      sprintf(col[1], "   MIN U(%ld)   ", -iplt);
     }
   } else {
-    sprintf(col[1],"   L2-NORM    ");
+    sprintf(col[1], "   L2-NORM    ");
   }
 
   if (*n2 > 0) {
     for (i = 0; i < *n2; ++i) {
-      sprintf(col[i+2],"     U(%ld)     ",i + 1);
+      sprintf(col[i + 2], "     U(%ld)     ", i + 1);
       itmp = i;
     }
-    if ((ips >= 2 && ips <= 4) || (ips >= 6 && ips <= 9) || (ips >= 12 && ips <= 17)) {
+    if ((ips >= 2 && ips <= 4) || (ips >= 6 && ips <= 9) ||
+        (ips >= 12 && ips <= 17)) {
       for (i = 3; i <= *n2 + 2; ++i) {
-	col[i-1][3]='M';
-	col[i-1][4]='A';
-	col[i-1][5]='X';
+        col[i - 1][3] = 'M';
+        col[i - 1][4] = 'A';
+        col[i - 1][5] = 'X';
       }
     }
   }
 
   for (i = 0; i < *n1 + *n2 + 1; ++i) {
-    if (strcmp(col[i],"   PAR(10)    ") == 0 && ips > 0 && ips != 4) {
-      sprintf(col[i],"    PERIOD    ");
-    } else if (strcmp(col[i],"   PAR(9)    ") == 0 && (ips == 5 || ips == 15)) {
-      sprintf(col[i],"     FOPT     ");
-    } else if (strcmp(col[i],"   PAR(13)    ") == 0 && (ips == 14 || ips == 16)) {
-      sprintf(col[i],"     TIME     ");
+    if (strcmp(col[i], "   PAR(10)    ") == 0 && ips > 0 && ips != 4) {
+      sprintf(col[i], "    PERIOD    ");
+    } else if (strcmp(col[i], "   PAR(9)    ") == 0 &&
+               (ips == 5 || ips == 15)) {
+      sprintf(col[i], "     FOPT     ");
+    } else if (strcmp(col[i], "   PAR(13)    ") == 0 &&
+               (ips == 14 || ips == 16)) {
+      sprintf(col[i], "     TIME     ");
     }
   }
 
@@ -2581,23 +2629,22 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
     if (iunit == 6) {
       printf("  BR    PT  TY LAB ");
       for (i = 0; i < *n1 + *n2 + 1; ++i) {
-	printf("%s",col[i]);
+        printf("%s", col[i]);
       }
       printf("\n");
       fflush(stdout);
     } else if (iunit == 7) {
-      fprintf(fp7,"   0    PT  TY LAB ");
+      fprintf(fp7, "   0    PT  TY LAB ");
       for (i = 0; i < *n1 + *n2 + 1; ++i) {
-	fprintf(fp7,"%s",col[i]);
+        fprintf(fp7, "%s", col[i]);
       }
-      fprintf(fp7,"\n");
+      fprintf(fp7, "\n");
     } else if (iunit == 9) {
-      fprintf(fp9,"  BR    PT  TY LAB ");	
+      fprintf(fp9, "  BR    PT  TY LAB ");
       for (i = 0; i < *n1 + *n2 + 1; ++i) {
-	fprintf(fp9,"%s",col[i]);
+        fprintf(fp9, "%s", col[i]);
       }
-      fprintf(fp9,"\n");	
-
+      fprintf(fp9, "\n");
     }
   }
 
@@ -2605,11 +2652,10 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
 } /* headng_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *rlcur, doublereal *u)
-{
+/* Subroutine */ int stplae(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublereal *rlcur, doublereal *u) {
 
-    /* Local variables */
+  /* Local variables */
   integer labw, ndim, nins, iplt, ntot, i;
   doublereal a0, a1;
   integer istop, itpst, ntots;
@@ -2619,35 +2665,35 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   integer iab, lab, ibr, ndm;
   doublereal amp;
   integer ips, itp, npr, isw, nmx;
-  int iflag=0;
+  int iflag = 0;
 
-/* Stores the bifurcation diagram on unit 7 (Algebraic Problems). */
-/* Every line written contains, in order, the following: */
+  /* Stores the bifurcation diagram on unit 7 (Algebraic Problems). */
+  /* Every line written contains, in order, the following: */
 
-/*  IBR    : The label of the branch. */
-/*  NTOT   : The index of the point on the branch. */
-/*           (Points are numbered consecutively along a branch). */
-/*           If IPS=1 or -1, then the sign of NTOT indicates stability :
-*/
-/*            - = stable , + = unstable, unknown, or not relevant. */
-/*  ITP    : An integer indicating the type of point : */
+  /*  IBR    : The label of the branch. */
+  /*  NTOT   : The index of the point on the branch. */
+  /*           (Points are numbered consecutively along a branch). */
+  /*           If IPS=1 or -1, then the sign of NTOT indicates stability :
+   */
+  /*            - = stable , + = unstable, unknown, or not relevant. */
+  /*  ITP    : An integer indicating the type of point : */
 
-/*             1  (BP)  :   Branch point. */
-/*             2  (LP)  :   Fold. */
-/*             3  (HB)  :   Hopf bifurcation point. */
-/*             4  (  )  :   Output point (Every NPR steps along branch).
-*/
-/*            -4  (UZ)  :   Output point (Zero of user function). */
-/*             9  (EP)  :   End point of branch, normal termination. */
-/*            -9  (MX)  :   End point of branch, abnormal termination. */
+  /*             1  (BP)  :   Branch point. */
+  /*             2  (LP)  :   Fold. */
+  /*             3  (HB)  :   Hopf bifurcation point. */
+  /*             4  (  )  :   Output point (Every NPR steps along branch).
+   */
+  /*            -4  (UZ)  :   Output point (Zero of user function). */
+  /*             9  (EP)  :   End point of branch, normal termination. */
+  /*            -9  (MX)  :   End point of branch, abnormal termination. */
 
-/*  LAB        : The label of a special point. */
-/*  PAR(ICP(1)): The principal parameter. */
-/*  A          : The L2-norm of the solution vector, or other measure of
-*/
-/*               the solution (see the user-supplied parameter IPLT). */
-/*  U          : The first few components of the solution vector. */
-/*  PAR(ICP(*)): Further free parameters (if any). */
+  /*  LAB        : The label of a special point. */
+  /*  PAR(ICP(1)): The principal parameter. */
+  /*  A          : The L2-norm of the solution vector, or other measure of
+   */
+  /*               the solution (see the user-supplied parameter IPLT). */
+  /*  U          : The first few components of the solution vector. */
+  /*  PAR(ICP(*)): Further free parameters (if any). */
 
   /* Parameter adjustments */
   /*--u;*/
@@ -2676,8 +2722,8 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 
   pvlsae(iap, rap, u, par);
 
-/* ITP is set to 4 every NPR steps along a branch, and the entire */
-/* solution is written on unit 8. */
+  /* ITP is set to 4 every NPR steps along a branch, and the entire */
+  /* solution is written on unit 8. */
 
   if (npr != 0) {
     if (ntot % npr == 0 && itp % 10 == 0) {
@@ -2692,10 +2738,10 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 
   if (iab <= ndim && iab > 0) {
     amp = u[-1 + iab];
-  } else if (iplt > ndim && iplt <= (ndim*2)) {
+  } else if (iplt > ndim && iplt <= (ndim * 2)) {
     amp = u[-1 + iplt - ndim];
-  } else if (iplt > (ndim*2) && iplt <= ndim * 3) {
-    amp = u[-1 + iplt - (ndim*2)];
+  } else if (iplt > (ndim * 2) && iplt <= ndim * 3) {
+    amp = u[-1 + iplt - (ndim * 2)];
   } else {
     ss = 0.;
     for (i = 0; i < ndm; ++i) {
@@ -2715,8 +2761,8 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
     itp = itpst * 10 + 9;
     iap->itp = itp;
   } else {
-    if (rlcur[0] < rl0 || rlcur[0] > rl1 || amp < a0 || amp > a1 || ntot
-	== nmx|| iflag==1) {
+    if (rlcur[0] < rl0 || rlcur[0] > rl1 || amp < a0 || amp > a1 ||
+        ntot == nmx || iflag == 1) {
       istop = 1;
       iap->istop = istop;
       itp = itpst * 10 + 9;
@@ -2741,11 +2787,10 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
       ntots = -ntot;
     }
   }
-  addbif(iap,rap,ntots,iap->ibr,par,icp,labw,&amp, u, u, u, u);
+  addbif(iap, rap, ntots, iap->ibr, par, icp, labw, &amp, u, u, u, u);
   /* addbif_(ibr, ntot, itp, labw,
    npar,amp, u, u, u, u,ndim);  */
-  wrline(iap, rap, par, icp, &icp[NPARX], &ibr, &ntots,
-	 &labw, &amp, u);
+  wrline(iap, rap, par, icp, &icp[NPARX], &ibr, &ntots, &labw, &amp, u);
 
   /* Write restart information for multi-parameter analysis : */
 
@@ -2757,24 +2802,25 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 } /* stplae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-wrline(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *icu, integer *ibr, integer *ntot, integer *lab, doublereal *vaxis, doublereal *u)
-{
+/* Subroutine */ int wrline(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, integer *icu, integer *ibr,
+                            integer *ntot, integer *lab, doublereal *vaxis,
+                            doublereal *u) {
 
   /* Local variables */
   integer nicp, nfpr, mtot, i;
   char atype[3];
   integer n1, n2;
 
-  integer nt, ndm, ips, itp, isw,lb;
-  lb=*lab;
-  if((restart_flag==1)&&(lb!=0)){
+  integer nt, ndm, ips, itp, isw, lb;
+  lb = *lab;
+  if ((restart_flag == 1) && (lb != 0)) {
 
-    restart_flag=0;
-    RestartLabel=*lab;
+    restart_flag = 0;
+    RestartLabel = *lab;
   }
 
-/* Write one line of output on unit 6 and 7. */
+  /* Write one line of output on unit 6 and 7. */
 
   /* Parameter adjustments */
   /*--u;*/
@@ -2811,7 +2857,7 @@ wrline(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *icu
   headng(iap, rap, par, icu, 9, &n1, &n2);
 
   if (itp % 10 == 1) {
-    strcpy(atype,"BP");
+    strcpy(atype, "BP");
   } else if (itp % 10 == 2) {
     strcpy(atype, "LP");
   } else if (itp % 10 == 3) {
@@ -2843,90 +2889,95 @@ wrline(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *icu
   mtot = *ntot % 10000;
   if (n2 == 0) {
     if (itp % 10 != 0) {
-      printf("%4li%6li  %c%c%4li",(*ibr),mtot,atype[0],atype[1],*(lab));
-      printf("%14.6E",par[icu[0]]);
-      printf("%14.6E",(*vaxis));
+      printf("%4li%6li  %c%c%4li", (*ibr), mtot, atype[0], atype[1], *(lab));
+      printf("%14.6E", par[icu[0]]);
+      printf("%14.6E", (*vaxis));
       for (i = 1; i < n1; ++i) {
-	printf("%14.6E",par[icu[i]]);
+        printf("%14.6E", par[icu[i]]);
       }
       printf("\n");
       fflush(stdout);
     }
-    fprintf(fp7,"%4li%6li%4li%4li",(*ibr),mtot,itp,(*lab));
-    fprintf(fp7,"%14.5E",par[icu[0]]);
-    fprintf(fp7,"%14.5E",(*vaxis));
+    fprintf(fp7, "%4li%6li%4li%4li", (*ibr), mtot, itp, (*lab));
+    fprintf(fp7, "%14.5E", par[icu[0]]);
+    fprintf(fp7, "%14.5E", (*vaxis));
     for (i = 1; i < n1; ++i) {
-      fprintf(fp7,"%14.5E",par[icu[i]]);
+      fprintf(fp7, "%14.5E", par[icu[i]]);
     }
-    fprintf(fp7,"\n");
-    fprintf(fp9,"%4li%6li  %c%c%4li",(*ibr),mtot,atype[0],atype[1],*(lab));	
-    fprintf(fp9,"%14.6E",par[icu[0]]);
-    fprintf(fp9,"%14.6E",(*vaxis));
+    fprintf(fp7, "\n");
+    fprintf(fp9, "%4li%6li  %c%c%4li", (*ibr), mtot, atype[0], atype[1],
+            *(lab));
+    fprintf(fp9, "%14.6E", par[icu[0]]);
+    fprintf(fp9, "%14.6E", (*vaxis));
     for (i = 1; i < n1; ++i) {
-      fprintf(fp9,"%14.6E",par[icu[i]]);
+      fprintf(fp9, "%14.6E", par[icu[i]]);
     }
-    fprintf(fp9,"\n");
+    fprintf(fp9, "\n");
   } else {
     if (n1 == 1) {
       if (itp % 10 != 0) {
-	printf("%4li%6li  %c%c%4li",abs(*ibr),abs(mtot),atype[0],atype[1],*(lab));
-	printf("%14.6E",par[icu[0]]);
-	printf("%14.6E",(*vaxis));
-	for (i = 0; i < n2; ++i) {
-	  printf("%14.6E",u[i]);
-	}
-	printf("\n");
-	fflush(stdout);
+        printf("%4li%6li  %c%c%4li", abs(*ibr), abs(mtot), atype[0], atype[1],
+               *(lab));
+        printf("%14.6E", par[icu[0]]);
+        printf("%14.6E", (*vaxis));
+        for (i = 0; i < n2; ++i) {
+          printf("%14.6E", u[i]);
+        }
+        printf("\n");
+        fflush(stdout);
       }
-      fprintf(fp7,"%4li%6li%4li%4li",(*ibr),mtot,itp,(*lab));
-      fprintf(fp7,"%14.5E",par[icu[0]]);
-      fprintf(fp7,"%14.5E",(*vaxis));
+      fprintf(fp7, "%4li%6li%4li%4li", (*ibr), mtot, itp, (*lab));
+      fprintf(fp7, "%14.5E", par[icu[0]]);
+      fprintf(fp7, "%14.5E", (*vaxis));
       for (i = 0; i < n2; ++i) {
-	fprintf(fp7,"%14.5E",u[i]);
+        fprintf(fp7, "%14.5E", u[i]);
       }
-      fprintf(fp7,"\n");
-      fprintf(fp9,"%4li%6li  %c%c%4li",(*ibr),mtot,atype[0],atype[1],*(lab));
-      fprintf(fp9,"%14.6E",par[icu[0]]);
-      fprintf(fp9,"%14.6E",(*vaxis));
+      fprintf(fp7, "\n");
+      fprintf(fp9, "%4li%6li  %c%c%4li", (*ibr), mtot, atype[0], atype[1],
+              *(lab));
+      fprintf(fp9, "%14.6E", par[icu[0]]);
+      fprintf(fp9, "%14.6E", (*vaxis));
       for (i = 0; i < n2; ++i) {
-	fprintf(fp9,"%14.6E",u[i]);
+        fprintf(fp9, "%14.6E", u[i]);
       }
-      fprintf(fp9,"\n");	
+      fprintf(fp9, "\n");
 
     } else {
       if (itp % 10 != 0) {
-	printf("%4li%6li  %c%c%4li",abs(*ibr),abs(mtot),atype[0],atype[1],*(lab));
-	printf("%14.6E",par[icu[0]]);
-	printf("%14.6E",(*vaxis));
-	for (i = 0; i < n2; ++i) {
-	  printf("%14.6E",u[i]);
-	}
-	for (i = 1; i < n1; ++i) {
-	  printf("%14.6E",par[icu[i]]);
-	}
-	printf("\n");
-	fflush(stdout);
+        printf("%4li%6li  %c%c%4li", abs(*ibr), abs(mtot), atype[0], atype[1],
+               *(lab));
+        printf("%14.6E", par[icu[0]]);
+        printf("%14.6E", (*vaxis));
+        for (i = 0; i < n2; ++i) {
+          printf("%14.6E", u[i]);
+        }
+        for (i = 1; i < n1; ++i) {
+          printf("%14.6E", par[icu[i]]);
+        }
+        printf("\n");
+        fflush(stdout);
       }
-      fprintf(fp7,"%4li%6li%4li%4li",(*ibr),mtot,itp,(*lab));
-      fprintf(fp7,"%14.5E",par[icu[0]]);
-      fprintf(fp7,"%14.5E",(*vaxis));
+      fprintf(fp7, "%4li%6li%4li%4li", (*ibr), mtot, itp, (*lab));
+      fprintf(fp7, "%14.5E", par[icu[0]]);
+      fprintf(fp7, "%14.5E", (*vaxis));
       for (i = 0; i < n2; ++i) {
-	fprintf(fp7,"%14.5E",u[i]);
+        fprintf(fp7, "%14.5E", u[i]);
       }
       for (i = 1; i < n1; ++i) {
-	fprintf(fp7,"%14.5E",par[icu[i]]);
+        fprintf(fp7, "%14.5E", par[icu[i]]);
       }
-      fprintf(fp7,"\n");
-      fprintf(fp9,"%4li%6li  %c%c%4li",(*ibr),mtot,atype[0],atype[1],*(lab));
-      fprintf(fp9,"%14.6E",par[icu[0]]);
-      fprintf(fp9,"%14.6E",(*vaxis));
+      fprintf(fp7, "\n");
+      fprintf(fp9, "%4li%6li  %c%c%4li", (*ibr), mtot, atype[0], atype[1],
+              *(lab));
+      fprintf(fp9, "%14.6E", par[icu[0]]);
+      fprintf(fp9, "%14.6E", (*vaxis));
       for (i = 0; i < n2; ++i) {
-	fprintf(fp9,"%14.6E",u[i]);
+        fprintf(fp9, "%14.6E", u[i]);
       }
       for (i = 1; i < n1; ++i) {
-	fprintf(fp9,"%14.6E",par[icu[i]]);
+        fprintf(fp9, "%14.6E", par[icu[i]]);
       }
-      fprintf(fp9,"\n");	
+      fprintf(fp9, "\n");
     }
   }
 
@@ -2934,9 +2985,9 @@ wrline(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *icu
 } /* wrline_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-wrtsp8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *lab, doublereal *rlcur, doublereal *u)
-{
+/* Subroutine */ int wrtsp8(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, integer *lab, doublereal *rlcur,
+                            doublereal *u) {
   /* Local variables */
   integer ndim, nfpr, ntpl, jtmp, mtot, ntot, i;
   doublereal t;
@@ -2946,11 +2997,11 @@ wrtsp8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *lab
 
   /*   static FILE *fp8=NULL; */
 
-  if(fp8_is_open==0){
-    fp8 = fopen(fort8,"w");
-    fp8_is_open=1;
-    if(fp8 == NULL) {
-      fprintf(stderr,"Error:  Could not open fort.8\n");
+  if (fp8_is_open == 0) {
+    fp8 = fopen(fort8, "w");
+    fp8_is_open = 1;
+    if (fp8 == NULL) {
+      fprintf(stderr, "Error:  Could not open fort.8\n");
       exit(1);
     }
   }
@@ -2984,42 +3035,41 @@ wrtsp8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *lab
   }
 
   mtot = ntot % 10000;
-  fprintf(fp8,"%5ld",ibr);
-  fprintf(fp8,"%5ld",mtot);
-  fprintf(fp8,"%5ld",itp);
-  fprintf(fp8,"%5ld",(*lab));
-  fprintf(fp8,"%5ld",nfpr);
-  fprintf(fp8,"%5ld",isw);
-  fprintf(fp8,"%5ld",ntpl);
-  fprintf(fp8,"%5ld",nar);
-  fprintf(fp8,"%5ld",nrowpr);
-  fprintf(fp8,"%5d",0);
-  fprintf(fp8,"%5d",0);
-  fprintf(fp8,"%5d\n",NPARX);
-  fprintf(fp8,"    %19.10E",t);
+  fprintf(fp8, "%5ld", ibr);
+  fprintf(fp8, "%5ld", mtot);
+  fprintf(fp8, "%5ld", itp);
+  fprintf(fp8, "%5ld", (*lab));
+  fprintf(fp8, "%5ld", nfpr);
+  fprintf(fp8, "%5ld", isw);
+  fprintf(fp8, "%5ld", ntpl);
+  fprintf(fp8, "%5ld", nar);
+  fprintf(fp8, "%5ld", nrowpr);
+  fprintf(fp8, "%5d", 0);
+  fprintf(fp8, "%5d", 0);
+  fprintf(fp8, "%5d\n", NPARX);
+  fprintf(fp8, "    %19.10E", t);
   for (i = 0; i < ndim; ++i) {
-    if((i>0)&&((i+1)%7==0))
-      fprintf(fp8,"\n    ");
-    fprintf(fp8,"%19.10E",u[i]);
+    if ((i > 0) && ((i + 1) % 7 == 0))
+      fprintf(fp8, "\n    ");
+    fprintf(fp8, "%19.10E", u[i]);
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
   for (i = 0; i < NPARX; ++i) {
-    if(i==0)
-      fprintf(fp8,"    ");
-    if((i>0)&&(i%7==0))
-      fprintf(fp8,"\n    ");
-    fprintf(fp8,"%19.10E",par[i]);
+    if (i == 0)
+      fprintf(fp8, "    ");
+    if ((i > 0) && (i % 7 == 0))
+      fprintf(fp8, "\n    ");
+    fprintf(fp8, "%19.10E", par[i]);
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
   fflush(fp8);
 
   return 0;
 } /* wrtsp8_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-wrjac(iap_type *iap, integer *n, integer *m1aaloc, doublereal *aa, doublereal *rhs)
-{
+/* Subroutine */ int wrjac(iap_type *iap, integer *n, integer *m1aaloc,
+                           doublereal *aa, doublereal *rhs) {
   /* System generated locals */
   integer aa_dim1;
 
@@ -3033,19 +3083,18 @@ wrjac(iap_type *iap, integer *n, integer *m1aaloc, doublereal *aa, doublereal *r
   if (iap->mynode > 0) {
     return 0;
   }
-  fprintf(fp9," Residual vector :\n");	
+  fprintf(fp9, " Residual vector :\n");
 
   for (i = 0; i < *n; ++i) {
-    fprintf(fp9," %10.3E",rhs[i]);	
+    fprintf(fp9, " %10.3E", rhs[i]);
   }
-  fprintf(fp9,"\n");	
-  fprintf(fp9," Jacobian matrix :\n");	
+  fprintf(fp9, "\n");
+  fprintf(fp9, " Jacobian matrix :\n");
   for (i = 0; i < *n; ++i) {
     for (j = 0; j < *n; ++j) {
-      fprintf(fp9," %10.3E",ARRAY2D(aa, i, j));	
+      fprintf(fp9, " %10.3E", ARRAY2D(aa, i, j));
     }
-    fprintf(fp9,"\n");	
-
+    fprintf(fp9, "\n");
   }
 
   return 0;
@@ -3058,15 +3107,14 @@ wrjac(iap_type *iap, integer *n, integer *m1aaloc, doublereal *aa, doublereal *r
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- --- */
-/* Subroutine */ int
-msh(const iap_type *iap, const rap_type *rap, doublereal *tm)
-{
+/* Subroutine */ int msh(const iap_type *iap, const rap_type *rap,
+                         doublereal *tm) {
 
-    /* Local variables */
+  /* Local variables */
   integer ntst, j;
   doublereal dt;
 
-/* Generates a uniform mesh on [0,1]. */
+  /* Generates a uniform mesh on [0,1]. */
 
   /* Parameter adjustments */
   /*--tm;*/
@@ -3083,13 +3131,12 @@ msh(const iap_type *iap, const rap_type *rap, doublereal *tm)
 } /* msh_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-genwts(const integer ncol, const integer n1, doublereal *wt, doublereal *wp)
-{
+/* Subroutine */ int genwts(const integer ncol, const integer n1,
+                            doublereal *wt, doublereal *wp) {
   /* System generated locals */
   integer wt_dim1, wp_dim1;
 
-    /* Local variables */
+  /* Local variables */
   doublereal d;
   integer i, k, l;
   doublereal p, denom;
@@ -3098,20 +3145,20 @@ genwts(const integer ncol, const integer n1, doublereal *wt, doublereal *wp)
   doublereal *xm, *zm, sum;
   integer ncp1;
 
-  xm = (doublereal *)malloc(sizeof(doublereal)*(ncol + 1));
-  zm = (doublereal *)malloc(sizeof(doublereal)*(ncol));
+  xm = (doublereal *)malloc(sizeof(doublereal) * (ncol + 1));
+  zm = (doublereal *)malloc(sizeof(doublereal) * (ncol));
 
-/* Generates weights of the collocation method. The user selected */
-/* number of collocation points (ncol) must be one of { 2,...,7 }. */
+  /* Generates weights of the collocation method. The user selected */
+  /* number of collocation points (ncol) must be one of { 2,...,7 }. */
 
-/* The following weights are generated : */
+  /* The following weights are generated : */
 
-/*         WT : for the function value, */
-/*         WP : for the first derivative, */
+  /*         WT : for the function value, */
+  /*         WP : for the first derivative, */
 
-/* Local */
+  /* Local */
 
-/* Generate the collocation points : */
+  /* Generate the collocation points : */
   /* Parameter adjustments */
   wp_dim1 = n1;
   wt_dim1 = n1;
@@ -3130,30 +3177,30 @@ genwts(const integer ncol, const integer n1, doublereal *wt, doublereal *wp)
     denom = 1.;
     for (k = 0; k < ncp1; ++k) {
       if (k != ib) {
-	denom *= xm[ib] - xm[k];
+        denom *= xm[ib] - xm[k];
       }
     }
     for (ic = 0; ic < ncol; ++ic) {
       /* Weights for the function values : */
       p = 1.;
       for (k = 0; k < ncp1; ++k) {
-	if (k != ib) {
-	  p *= zm[ic] - xm[k];
-	}
+        if (k != ib) {
+          p *= zm[ic] - xm[k];
+        }
       }
       ARRAY2D(wt, ib, ic) = p / denom;
       /* Weights for derivatives : */
       sum = 0.;
       for (l = 0; l < ncp1; ++l) {
-	if (l != ib) {
-	  p = 1.;
-	  for (k = 0; k < ncp1; ++k) {
-	    if (k != ib && k != l) {
-	      p *= zm[ic] - xm[k];
-	    }
-	  }
-	  sum += p;
-	}
+        if (l != ib) {
+          p = 1.;
+          for (k = 0; k < ncp1; ++k) {
+            if (k != ib && k != l) {
+              p *= zm[ic] - xm[k];
+            }
+          }
+          sum += p;
+        }
       }
       ARRAY2D(wp, ib, ic) = sum / denom;
     }
@@ -3165,43 +3212,47 @@ genwts(const integer ncol, const integer n1, doublereal *wt, doublereal *wp)
 } /* genwts_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-cpnts(const integer ncol, doublereal *zm)
-{
-    /* Local variables */
+/* Subroutine */ int cpnts(const integer ncol, doublereal *zm) {
+  /* Local variables */
   doublereal c, r, c1, c2, c3;
 
   /* Generates the collocation points with respect to [0,1]. */
   if (ncol > 7) {
-    fprintf(stderr,"Dimension exceeded : NCOL=%5ld  maximum=7\n",ncol);
-    fprintf(stderr,"AUTO does not contain weights for NCOL > 1\n");
-    fprintf(stderr,"Please reset NCOL to 7 or smaller\n");
+    fprintf(stderr, "Dimension exceeded : NCOL=%5ld  maximum=7\n", ncol);
+    fprintf(stderr, "AUTO does not contain weights for NCOL > 1\n");
+    fprintf(stderr, "Please reset NCOL to 7 or smaller\n");
     exit(1);
   }
 
   switch ((int)(ncol - 1)) {
-  case 1:  goto L2;
-  case 2:  goto L3;
-  case 3:  goto L4;
-  case 4:  goto L5;
-  case 5:  goto L6;
-  case 6:  goto L7;
+  case 1:
+    goto L2;
+  case 2:
+    goto L3;
+  case 3:
+    goto L4;
+  case 4:
+    goto L5;
+  case 5:
+    goto L6;
+  case 6:
+    goto L7;
   }
 
- L2:
+L2:
   c = .5 / sqrt(3.);
   zm[0] = .5 - c;
   zm[1] = c + .5;
   return 0;
 
- L3:
+L3:
   c = sqrt(.6) * .5;
   zm[0] = .5 - c;
   zm[1] = .5;
   zm[2] = c + .5;
   return 0;
 
- L4:
+L4:
   r = .8571428571428571;
   /* Computing 2nd power */
   c = sqrt(r * r - .34285714285714286) * .5;
@@ -3213,7 +3264,7 @@ cpnts(const integer ncol, doublereal *zm)
   zm[3] = c1 + .5;
   return 0;
 
- L5:
+L5:
   c1 = .45308992296933198;
   c2 = .26923465505284155;
   zm[0] = .5 - c1;
@@ -3223,7 +3274,7 @@ cpnts(const integer ncol, doublereal *zm)
   zm[4] = c1 + .5;
   return 0;
 
- L6:
+L6:
   c1 = .46623475710157603;
   c2 = .33060469323313224;
   c3 = .11930959304159845;
@@ -3235,7 +3286,7 @@ cpnts(const integer ncol, doublereal *zm)
   zm[5] = c1 + .5;
   return 0;
 
- L7:
+L7:
   c1 = .4745539956171379;
   c2 = .37076559279969723;
   c3 = .20292257568869859;
@@ -3250,11 +3301,9 @@ cpnts(const integer ncol, doublereal *zm)
 } /* cpnts_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-cntdif(integer *n, doublereal *d)
-{
+/* Subroutine */ int cntdif(integer *n, doublereal *d) {
 
-    /* Local variables */
+  /* Local variables */
   integer i, k, k1;
   doublereal sc;
 
@@ -3282,7 +3331,7 @@ cntdif(integer *n, doublereal *d)
 
   /* Scale to [0,1]  : */
 
-  sc = (doublereal) pow_ii(*n, *n);
+  sc = (doublereal)pow_ii(*n, *n);
   for (i = 0; i < *n + 1; ++i) {
     d[i] = sc * d[i];
   }
@@ -3291,31 +3340,35 @@ cntdif(integer *n, doublereal *d)
 } /* cntdif_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
-wint(const integer n, doublereal *wi)
-{
+/* Subroutine */ int wint(const integer n, doublereal *wi) {
   doublereal c;
 
   /* Generates the weights for the integration formula based on polynomial */
   /* interpolation at N equally spaced points in [0,1]. */
 
   switch ((int)(n - 2)) {
-  case 1:  goto L3;
-  case 2:  goto L4;
-  case 3:  goto L5;
-  case 4:  goto L6;
-  case 5:  goto L7;
-  case 6:  goto L8;
+  case 1:
+    goto L3;
+  case 2:
+    goto L4;
+  case 3:
+    goto L5;
+  case 4:
+    goto L6;
+  case 5:
+    goto L7;
+  case 6:
+    goto L8;
   }
 
- L3:
+L3:
   c = .16666666666666666;
   wi[0] = c;
   wi[1] = c * 4.;
   wi[2] = c;
   return 0;
 
- L4:
+L4:
   c = .125;
   wi[0] = c;
   wi[1] = c * 3.;
@@ -3323,7 +3376,7 @@ wint(const integer n, doublereal *wi)
   wi[3] = c;
   return 0;
 
- L5:
+L5:
   c = .011111111111111112;
   wi[0] = c * 7.;
   wi[1] = c * 32.;
@@ -3332,7 +3385,7 @@ wint(const integer n, doublereal *wi)
   wi[4] = wi[0];
   return 0;
 
- L6:
+L6:
   wi[0] = .065972222222222224;
   wi[1] = .26041666666666669;
   wi[2] = .1736111111111111;
@@ -3341,7 +3394,7 @@ wint(const integer n, doublereal *wi)
   wi[5] = wi[0];
   return 0;
 
- L7:
+L7:
   wi[0] = .04880952380952381;
   wi[1] = .25714285714285712;
   wi[2] = .03214285714285714;
@@ -3351,7 +3404,7 @@ wint(const integer n, doublereal *wi)
   wi[6] = wi[0];
   return 0;
 
- L8:
+L8:
   wi[0] = .043460648148148151;
   wi[1] = .20700231481481482;
   wi[2] = .076562500000000006;
@@ -3371,19 +3424,17 @@ wint(const integer n, doublereal *wi)
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-adptds(iap_type *iap, rap_type *rap, doublereal *rds)
-{
+/* Subroutine */ int adptds(iap_type *iap, rap_type *rap, doublereal *rds) {
   /* Local variables */
   doublereal ards;
   integer ntop, itnw, ntot;
   doublereal dsmax;
   integer n1, iid, ibr, nit;
 
-/* The stepsize along the branch of solutions is adapted depending on the
-*/
-/* number of Newton iterations in the previous step (called if IADS > 0).
-*/
+  /* The stepsize along the branch of solutions is adapted depending on the
+   */
+  /* number of Newton iterations in the previous step (called if IADS > 0).
+   */
 
   dsmax = rap->dsmax;
   iid = iap->iid;
@@ -3415,20 +3466,23 @@ adptds(iap_type *iap, rap_type *rap, doublereal *rds)
     *rds = *rds * dsmax / ards;
   }
 
-  fprintf(fp9,"%4li%6li        Iterations     %3li\n",abs(ibr),ntop - 1,nit);	
-  fprintf(fp9,"%4li%6li        Stepsize      %14.6E\n",abs(ibr),ntop,(*rds));	
+  fprintf(fp9, "%4li%6li        Iterations     %3li\n", abs(ibr), ntop - 1,
+          nit);
+  fprintf(fp9, "%4li%6li        Stepsize      %14.6E\n", abs(ibr), ntop,
+          (*rds));
 
   return 0;
 } /* adptds_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-adapt(iap_type *iap, rap_type *rap, integer *nold, integer *ncold, integer *nnew, integer *ncnew, doublereal *tm, doublereal *dtm, integer *ndxloc, doublereal *ups, doublereal *vps)
-{
+/* Subroutine */ int adapt(iap_type *iap, rap_type *rap, integer *nold,
+                           integer *ncold, integer *nnew, integer *ncnew,
+                           doublereal *tm, doublereal *dtm, integer *ndxloc,
+                           doublereal *ups, doublereal *vps) {
   /* System generated locals */
   integer ups_dim1, vps_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer ndim, iper;
   integer i, j, noldp1, nnewp1;
 
@@ -3439,16 +3493,17 @@ adapt(iap_type *iap, rap_type *rap, integer *nold, integer *ncold, integer *nnew
   doublereal *tm2;
   integer *itm;
 
-  uint = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc)*(iap->ndim * iap->ncol));
-  tint = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc));
-  tm2 = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc));
-  itm = (integer *)malloc(sizeof(integer)*(*ndxloc));
+  uint = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc) *
+                              (iap->ndim * iap->ncol));
+  tint = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc));
+  tm2 = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc));
+  itm = (integer *)malloc(sizeof(integer) * (*ndxloc));
 
   /* Adapts the distribution of the mesh points so that the increase of the */
   /* monotone function EQDF becomes approximately equidistributed over the */
   /* intervals. The functions UPS and VPS are interpolated on new mesh. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--tm;*/
@@ -3480,12 +3535,12 @@ adapt(iap_type *iap, rap_type *rap, integer *nold, integer *ncold, integer *nnew
 
   /* Generate the new mesh : */
 
-  newmsh(iap, rap, ndxloc, ups, nold,
-	 ncold, tm, dtm, nnew, tint, &iper);
+  newmsh(iap, rap, ndxloc, ups, nold, ncold, tm, dtm, nnew, tint, &iper);
 
   /* Replace UPS by its interpolant on the new mesh : */
 
-  interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, ups, &nnewp1, ncnew, tint, uint, tm2, itm);
+  interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, ups, &nnewp1, ncnew, tint,
+         uint, tm2, itm);
   for (j = 0; j < nnewp1; ++j) {
     for (i = 0; i < nrwnew; ++i) {
       ARRAY2D(ups, j, i) = uint[j + i * (*ndxloc)];
@@ -3494,8 +3549,8 @@ adapt(iap_type *iap, rap_type *rap, integer *nold, integer *ncold, integer *nnew
 
   /* Replace VPS by its interpolant on the new mesh : */
 
-  interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc,
-	 vps, &nnewp1, ncnew, tint, uint, tm2, itm);
+  interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, vps, &nnewp1, ncnew, tint,
+         uint, tm2, itm);
   for (j = 0; j < nnewp1; ++j) {
     for (i = 0; i < nrwnew; ++i) {
       ARRAY2D(vps, j, i) = uint[j + i * (*ndxloc)];
@@ -3506,8 +3561,8 @@ adapt(iap_type *iap, rap_type *rap, integer *nold, integer *ncold, integer *nnew
 
   tm[0] = 0.;
   for (j = 0; j < *nnew; ++j) {
-    dtm[j] = tint[j+1] - tint[j];
-    tm[j + 1] = tint[j+1];
+    dtm[j] = tint[j + 1] - tint[j];
+    tm[j + 1] = tint[j + 1];
   }
 
   free(uint);
@@ -3519,9 +3574,11 @@ adapt(iap_type *iap, rap_type *rap, integer *nold, integer *ncold, integer *nnew
 } /* adapt_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-interp(iap_type *iap, rap_type *rap, integer *ndim, integer *n, integer *nc, doublereal *tm, integer *ndxloc, doublereal *ups, integer *n1, integer *nc1, doublereal *tm1, doublereal *ups1, doublereal *tm2, integer *itm1)
-{
+/* Subroutine */ int interp(iap_type *iap, rap_type *rap, integer *ndim,
+                            integer *n, integer *nc, doublereal *tm,
+                            integer *ndxloc, doublereal *ups, integer *n1,
+                            integer *nc1, doublereal *tm1, doublereal *ups1,
+                            doublereal *tm2, integer *itm1) {
   /* System generated locals */
   integer ups_dim1, ups1_dim1;
 
@@ -3535,12 +3592,12 @@ interp(iap_type *iap, rap_type *rap, integer *ndim, integer *n, integer *nc, dou
 
   integer n1m1, ncp1;
 
-  w = (doublereal *)malloc(sizeof(doublereal)*(*nc+1));
-  x = (doublereal *)malloc(sizeof(doublereal)*(*nc+1));
+  w = (doublereal *)malloc(sizeof(doublereal) * (*nc + 1));
+  x = (doublereal *)malloc(sizeof(doublereal) * (*nc + 1));
 
-/* Finds interpolant (TM(.) , UPS(.) ) on new mesh TM1. */
+  /* Finds interpolant (TM(.) , UPS(.) ) on new mesh TM1. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--tm;*/
@@ -3554,27 +3611,27 @@ interp(iap_type *iap, rap_type *rap, integer *ndim, integer *n, integer *nc, dou
   n1m1 = *n1 - 1;
 
   for (i = 0; i < *nc1; ++i) {
-    ri = (doublereal) (i);
+    ri = (doublereal)(i);
     d = ri / *nc1;
     for (j1 = 0; j1 < n1m1; ++j1) {
       tm2[j1] = tm1[j1] + d * (tm1[j1 + 1] - tm1[j1]);
     }
     ordr(iap, rap, n, tm, &n1m1, tm2, itm1);
-    for (j1 = 0; j1 <n1m1; ++j1) {
+    for (j1 = 0; j1 < n1m1; ++j1) {
       j = itm1[j1];
       z__ = tm2[j1];
       d = (tm[j] - tm[-1 + j]) / *nc;
       for (l = 0; l < ncp1; ++l) {
-	x[l] = tm[-1 + j] + l * d;
+        x[l] = tm[-1 + j] + l * d;
       }
       intwts(iap, rap, &ncp1, &z__, x, w);
       for (k = 0; k < *ndim; ++k) {
-	k1 = i * *ndim + k;
-	ARRAY2D(ups1, j1, k1) = w[ncp1 - 1] * ARRAY2D(ups, j, k);
-	for (l = 0; l < *nc; ++l) {
-	  l1 = k + l * *ndim;
-	  ARRAY2D(ups1, j1, k1) += w[l] * ARRAY2D(ups, (j - 1), l1);
-	}
+        k1 = i * *ndim + k;
+        ARRAY2D(ups1, j1, k1) = w[ncp1 - 1] * ARRAY2D(ups, j, k);
+        for (l = 0; l < *nc; ++l) {
+          l1 = k + l * *ndim;
+          ARRAY2D(ups1, j1, k1) += w[l] * ARRAY2D(ups, (j - 1), l1);
+        }
       }
     }
   }
@@ -3589,10 +3646,11 @@ interp(iap_type *iap, rap_type *rap, integer *ndim, integer *n, integer *nc, dou
 } /* interp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-newmsh(iap_type *iap, rap_type *rap, integer *ndxloc, doublereal *ups, integer *nold, integer *ncold, doublereal *tmold, doublereal *dtmold, integer *nnew, doublereal *tmnew, integer *iper)
-{
-    /* Local variables */
+/* Subroutine */ int newmsh(iap_type *iap, rap_type *rap, integer *ndxloc,
+                            doublereal *ups, integer *nold, integer *ncold,
+                            doublereal *tmold, doublereal *dtmold,
+                            integer *nnew, doublereal *tmnew, integer *iper) {
+  /* Local variables */
 
   integer ndim;
 
@@ -3605,13 +3663,13 @@ newmsh(iap_type *iap, rap_type *rap, integer *ndxloc, doublereal *ups, integer *
   doublereal *eqf;
   integer *ial;
 
-  uneq=(doublereal *)malloc(sizeof(doublereal)*(*nnew + 1));
-  eqf=(doublereal *)malloc(sizeof(doublereal)*(*nold + 1));
-  ial=(integer *)malloc(sizeof(integer)*(*nnew + 1));
+  uneq = (doublereal *)malloc(sizeof(doublereal) * (*nnew + 1));
+  eqf = (doublereal *)malloc(sizeof(doublereal) * (*nold + 1));
+  ial = (integer *)malloc(sizeof(integer) * (*nnew + 1));
 
   /* Redistributes the mesh according to the function EQDF. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--tmnew;*/
@@ -3622,8 +3680,7 @@ newmsh(iap_type *iap, rap_type *rap, integer *ndxloc, doublereal *ups, integer *
 
   /* Put the values of the monotonely increasing function EQDF in EQF. */
 
-  eqdf(iap, rap, nold, &ndim, ncold, dtmold, ndxloc, ups, eqf,
-       iper);
+  eqdf(iap, rap, nold, &ndim, ncold, dtmold, ndxloc, ups, eqf, iper);
 
   /* Uniformly divide the range of EQDF : */
 
@@ -3631,12 +3688,12 @@ newmsh(iap_type *iap, rap_type *rap, integer *ndxloc, doublereal *ups, integer *
   nnewp1 = *nnew + 1;
   dal = eqf[noldp1 - 1] / *nnew;
   for (j = 0; j < nnewp1; ++j) {
-    uneq[j] = (j) * dal;
+    uneq[j] = (j)*dal;
   }
 
   ordr(iap, rap, &noldp1, eqf, &nnewp1, uneq, ial);
 
-/* Generate the new mesh in TMNEW : */
+  /* Generate the new mesh in TMNEW : */
 
   for (j1 = 0; j1 < nnewp1; ++j1) {
     j = ial[j1];
@@ -3651,17 +3708,17 @@ newmsh(iap_type *iap, rap_type *rap, integer *ndxloc, doublereal *ups, integer *
 } /* newmsh_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
-ordr(iap_type *iap, rap_type *rap, integer *n, doublereal *tm, integer *n1, doublereal *tm1, integer *itm1)
-{
+/* Subroutine */ int ordr(iap_type *iap, rap_type *rap, integer *n,
+                          doublereal *tm, integer *n1, doublereal *tm1,
+                          integer *itm1) {
 
-    /* Local variables */
-  integer j, k0, j1, k1=0;
+  /* Local variables */
+  integer j, k0, j1, k1 = 0;
 
   /* TM and TM1 are two ascending arrays with values in [0,1]. On exit the
-*/
-/* value of ITM1( i ) specifies the index of the TM-interval in which */
-/* TM1(i) lies. */
+   */
+  /* value of ITM1( i ) specifies the index of the TM-interval in which */
+  /* TM1(i) lies. */
 
   /* Parameter adjustments */
   /*--tm;*/
@@ -3673,7 +3730,7 @@ ordr(iap_type *iap, rap_type *rap, integer *n, doublereal *tm, integer *n1, doub
     for (j = k0; j <= *n; ++j) {
       k1 = j;
       if (tm1[j1] < tm[-1 + j]) {
-	goto L1;
+        goto L1;
       }
     }
   L1:
@@ -3685,11 +3742,10 @@ ordr(iap_type *iap, rap_type *rap, integer *n, doublereal *tm, integer *n1, doub
 } /* ordr_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-intwts(iap_type *iap, rap_type *rap, integer *n, doublereal *z__, doublereal *x, doublereal *wts)
-{
+/* Subroutine */ int intwts(iap_type *iap, rap_type *rap, integer *n,
+                            doublereal *z__, doublereal *x, doublereal *wts) {
 
-    /* Local variables */
+  /* Local variables */
   integer k;
   doublereal p, denom;
   integer ib;
@@ -3705,8 +3761,8 @@ intwts(iap_type *iap, rap_type *rap, integer *n, doublereal *z__, doublereal *x,
     denom = 1.;
     for (k = 0; k < *n; ++k) {
       if (k != ib) {
-	p *= *z__ - x[k];
-	denom *= x[ib] - x[k];
+        p *= *z__ - x[k];
+        denom *= x[ib] - x[k];
       }
     }
     wts[ib] = p / denom;
@@ -3716,9 +3772,10 @@ intwts(iap_type *iap, rap_type *rap, integer *n, doublereal *z__, doublereal *x,
 } /* intwts_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
-eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, doublereal *dtm, integer *ndxloc, doublereal *ups, doublereal *eqf, integer *iper)
-{
+/* Subroutine */ int eqdf(iap_type *iap, rap_type *rap, integer *ntst,
+                          integer *ndim, integer *ncol, doublereal *dtm,
+                          integer *ndxloc, doublereal *ups, doublereal *eqf,
+                          integer *iper) {
   /* System generated locals */
   integer ups_dim1;
 
@@ -3732,8 +3789,8 @@ eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, 
   integer jp1;
   doublereal pwr;
 
-  hd = (doublereal *)malloc(sizeof(doublereal)*(*ntst + 1)*(*ndim * *ncol));
-  wh = (doublereal *)malloc(sizeof(doublereal)*(*ncol + 1));
+  hd = (doublereal *)malloc(sizeof(doublereal) * (*ntst + 1) * (*ndim * *ncol));
+  wh = (doublereal *)malloc(sizeof(doublereal) * (*ncol + 1));
 
   /* Compute approximation to NCOL-th derivative : */
   /* Parameter adjustments */
@@ -3750,12 +3807,12 @@ eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, 
     for (i = 0; i < *ndim; ++i) {
       hd[j + i * (*ntst + 1)] = wh[*ncol] * ARRAY2D(ups, jp1, i);
       for (k = 0; k < *ncol; ++k) {
-	k1 = i + k * *ndim;
-	hd[j + i * (*ntst + 1)] += wh[k] * ARRAY2D(ups, j, k1);
+        k1 = i + k * *ndim;
+        hd[j + i * (*ntst + 1)] += wh[k] * ARRAY2D(ups, j, k1);
       }
       hd[j + i * (*ntst + 1)] = sc * hd[j + i * (*ntst + 1)];
       if (fabs(hd[j + i * (*ntst + 1)]) > HMACH) {
-	small = FALSE_;
+        small = FALSE_;
       }
     }
   }
@@ -3764,7 +3821,7 @@ eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, 
 
   if (small) {
     for (i = 0; i < *ntst + 1; ++i) {
-      eqf[i] = (doublereal) (i);
+      eqf[i] = (doublereal)(i);
     }
     free(hd);
     free(wh);
@@ -3780,7 +3837,8 @@ eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, 
   } else {
     /*        *Extend by extrapolation : */
     for (i = 0; i < *ndim; ++i) {
-      hd[*ntst + i * (*ntst + 1)] = hd[(*ntst -1) + i * (*ntst + 1)] * 2 - hd[(*ntst - 2) + i * (*ntst + 1)];
+      hd[*ntst + i * (*ntst + 1)] = hd[(*ntst - 1) + i * (*ntst + 1)] * 2 -
+                                    hd[(*ntst - 2) + i * (*ntst + 1)];
     }
     dtm[*ntst] = dtm[-1 + *ntst];
   }
@@ -3792,7 +3850,8 @@ eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, 
     dtav = (dtm[j] + dtm[j + 1]) * .5;
     sc = 1. / dtav;
     for (i = 0; i < *ndim; ++i) {
-      hd[j + i * (*ntst + 1)] = sc * (hd[j + 1 + i * (*ntst + 1)] - hd[j + i * (*ntst + 1)]);
+      hd[j + i * (*ntst + 1)] =
+          sc * (hd[j + 1 + i * (*ntst + 1)] - hd[j + i * (*ntst + 1)]);
     }
   }
 
@@ -3820,24 +3879,23 @@ eqdf(iap_type *iap, rap_type *rap, integer *ntst, integer *ndim, integer *ncol, 
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- --- */
-/* Subroutine */ int
-eig(iap_type *iap, integer *ndim, integer *m1a, doublereal *a, doublecomplex *ev, integer *ier)
-{
+/* Subroutine */ int eig(iap_type *iap, integer *ndim, integer *m1a,
+                         doublereal *a, doublecomplex *ev, integer *ier) {
   /* System generated locals */
   integer a_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer matz, ntop, ntot, i;
   doublereal *z__;
 
   doublereal *wi, *wr, *fv1;
   integer *iv1, ibr;
 
-  z__ = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
-  wi  = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  wr  = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  fv1 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  iv1 = (integer *)malloc(sizeof(integer)*(iap->ndim));
+  z__ = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+  wi = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  wr = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  fv1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  iv1 = (integer *)malloc(sizeof(integer) * (iap->ndim));
 
   /* This subroutine uses the EISPACK subroutine RG to compute the */
   /* eigenvalues of the general real matrix A. */
@@ -3845,7 +3903,7 @@ eig(iap_type *iap, integer *ndim, integer *m1a, doublereal *a, doublecomplex *ev
   /* M1A is the first dimension of A as in the DIMENSION statement. */
   /* The eigenvalues are to be returned in the complex vector EV. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--ev;*/
@@ -3868,25 +3926,25 @@ eig(iap_type *iap, integer *ndim, integer *m1a, doublereal *a, doublecomplex *ev
     *ier = 1;
   }
   if (*ier == 1) {
-    fprintf(fp9,"%4li%6li NOTE:Error return from EISPACK routine RG\n",ibr,ntop);	
+    fprintf(fp9, "%4li%6li NOTE:Error return from EISPACK routine RG\n", ibr,
+            ntop);
   }
 
   free(z__);
-  free(wi );
-  free(wr );
+  free(wi);
+  free(wr);
   free(fv1);
   free(iv1);
   return 0;
 } /* eig_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
-nlvc(integer n, integer m, integer k, doublereal *a, doublereal *u)
-{
+/* Subroutine */ int nlvc(integer n, integer m, integer k, doublereal *a,
+                          doublereal *u) {
   /* System generated locals */
   integer a_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer ipiv, jpiv, i, j, l;
   doublereal p;
   integer i1, jj, kk;
@@ -3895,21 +3953,21 @@ nlvc(integer n, integer m, integer k, doublereal *a, doublereal *u)
   doublereal piv;
   integer jjp1;
 
-  integer *ir,*ic;
-  ir=(integer *)malloc(sizeof(integer)*(n));
-  ic=(integer *)malloc(sizeof(integer)*(n));
+  integer *ir, *ic;
+  ir = (integer *)malloc(sizeof(integer) * (n));
+  ic = (integer *)malloc(sizeof(integer) * (n));
 
-/* Finds a null-vector of a singular matrix A. */
-/* The null space of A is assumed to be K-dimensional. */
+  /* Finds a null-vector of a singular matrix A. */
+  /* The null space of A is assumed to be K-dimensional. */
 
-/* Parameters : */
+  /* Parameters : */
 
-/*     N : number of equations, */
-/*     M : first dimension of A from DIMENSION statement, */
-/*     K : dimension of nullspace, */
-/*     A : N * N matrix of coefficients, */
-/*     U : on exit U contains the null vector, */
-/* IR,IC : integer arrays of dimension at least N. */
+  /*     N : number of equations, */
+  /*     M : first dimension of A from DIMENSION statement, */
+  /*     K : dimension of nullspace, */
+  /*     A : N * N matrix of coefficients, */
+  /*     U : on exit U contains the null vector, */
+  /* IR,IC : integer arrays of dimension at least N. */
 
   /* Parameter adjustments */
   /*--u;*/
@@ -3932,17 +3990,19 @@ nlvc(integer n, integer m, integer k, doublereal *a, doublereal *u)
     piv = 0.;
     for (i = jj; i < n; ++i) {
       for (j = jj; j < n; ++j) {
-	p = fabs(ARRAY2D(a, ir[i], ic[j]));
-	if (p > piv) {
-	  piv = p;
-	  ipiv = i;
-	  jpiv = j;
-	}
+        p = fabs(ARRAY2D(a, ir[i], ic[j]));
+        if (p > piv) {
+          piv = p;
+          ipiv = i;
+          jpiv = j;
+        }
       }
     }
     if (piv < RSMALL) {
-      fprintf(fp9,"        NOTE:Pivot %3li < %10.3E  in NLVC : A null space may be multi-dimensional\n",jj,RSMALL);	
-
+      fprintf(fp9,
+              "        NOTE:Pivot %3li < %10.3E  in NLVC : A null space may be "
+              "multi-dimensional\n",
+              jj, RSMALL);
     }
 
     kk = ir[jj];
@@ -3957,9 +4017,9 @@ nlvc(integer n, integer m, integer k, doublereal *a, doublereal *u)
     for (l = jjp1; l < n; ++l) {
       rm = ARRAY2D(a, ir[l], ic[jj]) / ARRAY2D(a, ir[jj], ic[jj]);
       if (rm != 0.) {
-	for (i = jjp1; i < n; ++i) {
-	  ARRAY2D(a, ir[l], ic[i]) -= rm * ARRAY2D(a, ir[jj], ic[i]);
-	}
+        for (i = jjp1; i < n; ++i) {
+          ARRAY2D(a, ir[l], ic[i]) -= rm * ARRAY2D(a, ir[jj], ic[i]);
+        }
       }
     }
   }
@@ -3970,11 +4030,11 @@ nlvc(integer n, integer m, integer k, doublereal *a, doublereal *u)
     u[ic[-1 + n - i]] = 1.;
   }
 
-  for (i1 = 0 ; i1 < nmk; ++i1) {
+  for (i1 = 0; i1 < nmk; ++i1) {
     i = nmk - i1 - 1;
     sm = 0.;
     ip1 = i + 1;
-    for (j = ip1; j <  n; ++j) {
+    for (j = ip1; j < n; ++j) {
       sm += ARRAY2D(a, ir[i], ic[j]) * u[ic[j]];
     }
     u[ic[i]] = -sm / ARRAY2D(a, ir[i], ic[i]);
@@ -3990,10 +4050,8 @@ nlvc(integer n, integer m, integer k, doublereal *a, doublereal *u)
 } /* nlvc_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-nrmlz(integer *ndim, doublereal *v)
-{
-    /* Local variables */
+/* Subroutine */ int nrmlz(integer *ndim, doublereal *v) {
+  /* Local variables */
   doublereal c;
   integer i;
   doublereal ss;
@@ -4016,9 +4074,7 @@ nrmlz(integer *ndim, doublereal *v)
 } /* nrmlz_ */
 
 /*     ------ --------- -------- */
-doublereal
-pi(doublereal r)
-{
+doublereal pi(doublereal r) {
   /* System generated locals */
   doublereal ret_val;
 
@@ -4028,9 +4084,9 @@ pi(doublereal r)
 } /* pi */
 
 /*     ---------- -- */
-/* Subroutine */ int
-ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublereal *u, integer m1f, doublereal *f, doublereal *det)
-{
+/* Subroutine */ int ge(integer n, integer m1a, doublereal *a, integer nrhs,
+                        integer ndxloc, doublereal *u, integer m1f,
+                        doublereal *f, doublereal *det) {
   /* System generated locals */
   integer a_dim1, u_dim1, f_dim1;
 
@@ -4043,27 +4099,27 @@ ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublere
   doublereal piv;
   integer jjp1;
 
-  integer *ic,*ir;
-  ic=(integer *)malloc(sizeof(integer)*(n));
-  ir=(integer *)malloc(sizeof(integer)*(n));
+  integer *ic, *ir;
+  ic = (integer *)malloc(sizeof(integer) * (n));
+  ir = (integer *)malloc(sizeof(integer) * (n));
 
-/* Solves the linear system  A U = F by Gauss elimination */
-/* with complete pivoting. */
+  /* Solves the linear system  A U = F by Gauss elimination */
+  /* with complete pivoting. */
 
-/* Parameters : */
+  /* Parameters : */
 
-/*   N   : number of equations, */
-/*   M1A : first dimension of A from DIMENSION statement, */
-/*   A   : N * N matrix of coefficients, */
-/*   NRHS: 0   if no right hand sides (determinant only), */
-/*         >0   if there are NRHS right hand sides, */
-/*   ndxloc : first dimension of U from DIMENSION statement, */
-/*   U   : on exit U contains the solution vector(s), */
-/*   M1F : first dimension of F from DIMENSION statement, */
-/*   F   : right hand side vector(s), */
-/*  IR,IC: integer vectors of dimension at least N. */
+  /*   N   : number of equations, */
+  /*   M1A : first dimension of A from DIMENSION statement, */
+  /*   A   : N * N matrix of coefficients, */
+  /*   NRHS: 0   if no right hand sides (determinant only), */
+  /*         >0   if there are NRHS right hand sides, */
+  /*   ndxloc : first dimension of U from DIMENSION statement, */
+  /*   U   : on exit U contains the solution vector(s), */
+  /*   M1F : first dimension of F from DIMENSION statement, */
+  /*   F   : right hand side vector(s), */
+  /*  IR,IC: integer vectors of dimension at least N. */
 
-/* The input matrix A is overwritten. */
+  /* The input matrix A is overwritten. */
 
   /* Parameter adjustments */
   /*--ir;*/
@@ -4087,20 +4143,22 @@ ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublere
     piv = 0.;
     for (i = jj; i < n; ++i) {
       for (j = jj; j < n; ++j) {
-	p = fabs(ARRAY2D(a, ir[i], ic[j]));
-	if (p > piv) {
-	  piv = p;
-	  ipiv = i;
-	  jpiv = j;
-	}
+        p = fabs(ARRAY2D(a, ir[i], ic[j]));
+        if (p > piv) {
+          piv = p;
+          ipiv = i;
+          jpiv = j;
+        }
       }
     }
     *det *= ARRAY2D(a, ir[ipiv], ic[jpiv]);
 #define GE_PIVOTS_DEBUG
 #ifdef GE_PIVOTS_DEBUG
-    if(jj==0)  fprintf(fp9,"\n Pivots in GE");
-    if((jj%6)==0) fprintf(fp9,"\n");
-    fprintf(fp9," %4d %12.3e ",jj,fabs(ARRAY2D(a, ir[ipiv], ic[jpiv])));
+    if (jj == 0)
+      fprintf(fp9, "\n Pivots in GE");
+    if ((jj % 6) == 0)
+      fprintf(fp9, "\n");
+    fprintf(fp9, " %4d %12.3e ", jj, fabs(ARRAY2D(a, ir[ipiv], ic[jpiv])));
 #endif
     if (ipiv != jj) {
       *det = -(*det);
@@ -4110,7 +4168,7 @@ ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublere
     }
 
     if (piv < RSMALL) {
-      fprintf(fp9,"         NOTE:Pivot %3li < %10.3E, in GE\n",jj,RSMALL);	
+      fprintf(fp9, "         NOTE:Pivot %3li < %10.3E, in GE\n", jj, RSMALL);
     }
 
     k = ir[jj];
@@ -4126,21 +4184,22 @@ ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublere
 
       rm = ARRAY2D(a, ir[l], ic[jj]) / ARRAY2D(a, ir[jj], ic[jj]);
       if (rm != 0.) {
-	for (i = jjp1; i < n; ++i) {
-	  ARRAY2D(a, ir[l], ic[i]) -= rm * ARRAY2D(a, ir[jj], ic[i]);
-	}
-	if (nrhs != 0) {
-	  for (irh = 0; irh < nrhs; ++irh) {
-	    ARRAY2D(f, ir[l], irh) -= rm * ARRAY2D(f, ir[jj], irh);
-	  }
-	}
+        for (i = jjp1; i < n; ++i) {
+          ARRAY2D(a, ir[l], ic[i]) -= rm * ARRAY2D(a, ir[jj], ic[i]);
+        }
+        if (nrhs != 0) {
+          for (irh = 0; irh < nrhs; ++irh) {
+            ARRAY2D(f, ir[l], irh) -= rm * ARRAY2D(f, ir[jj], irh);
+          }
+        }
       }
     }
   }
   *det *= ARRAY2D(a, ir[n - 1], ic[n - 1]);
 #ifdef GE_PIVOTS_DEBUG
-     if((jj%6)==0) fprintf(fp9,"\n");
-     fprintf(fp9," %4d %12.3e \n",n-1,ARRAY2D(a, ir[n - 1], ic[n - 1]));
+  if ((jj % 6) == 0)
+    fprintf(fp9, "\n");
+  fprintf(fp9, " %4d %12.3e \n", n - 1, ARRAY2D(a, ir[n - 1], ic[n - 1]));
 #endif
 
   if (nrhs == 0) {
@@ -4157,20 +4216,22 @@ ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublere
 
   for (irh = 0; irh < nrhs; ++irh) {
 #ifndef FLOATING_POINT_TRAP
-    if(ARRAY2D(a, ir[n - 1], ic[n - 1]) == 0) {
+    if (ARRAY2D(a, ir[n - 1], ic[n - 1]) == 0) {
       printf("Division by Zero, exiting\n");
       exit(0);
     }
 #endif
-    ARRAY2D(u, ic[n - 1], irh) = ARRAY2D(f, ir[n - 1], irh) / ARRAY2D(a, ir[n - 1], ic[n - 1]);
+    ARRAY2D(u, ic[n - 1], irh) =
+        ARRAY2D(f, ir[n - 1], irh) / ARRAY2D(a, ir[n - 1], ic[n - 1]);
     for (i1 = 0; i1 < n - 1; ++i1) {
       i = n - (i1 + 1) - 1;
       sm = 0.;
       ip1 = i + 1;
       for (j = ip1; j < n; ++j) {
-	sm += ARRAY2D(a, ir[i], ic[j]) * ARRAY2D(u, ic[j], irh);
+        sm += ARRAY2D(a, ir[i], ic[j]) * ARRAY2D(u, ic[j], irh);
       }
-      ARRAY2D(u, ic[i], irh) = (ARRAY2D(f, ir[i], irh) - sm) / ARRAY2D(a, ir[i], ic[i]);
+      ARRAY2D(u, ic[i], irh) =
+          (ARRAY2D(f, ir[i], irh) - sm) / ARRAY2D(a, ir[i], ic[i]);
     }
   }
 
@@ -4185,15 +4246,13 @@ ge(integer n, integer m1a, doublereal *a, integer nrhs, integer ndxloc, doublere
 } /* ge_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-newlab(iap_type *iap, rap_type *rap)
-{
+/* Subroutine */ int newlab(iap_type *iap, rap_type *rap) {
 
   /* Local variables */
   integer mlab, ibrs, nars;
 
-  integer labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs, lab,
-    ibr, mbr, ips, itp, irs, isw;
+  integer labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs, lab, ibr, mbr, ips,
+      itp, irs, isw;
   logical eof3;
 
   /* Determine a suitable label when restarting. */
@@ -4207,36 +4266,37 @@ newlab(iap_type *iap, rap_type *rap)
   mlab = 0;
   rewind(fp3);
 
- L1:
-  if (fscanf(fp3,"%ld",&ibrs) != 1) {
+L1:
+  if (fscanf(fp3, "%ld", &ibrs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&ntotrs) != 1) {
+  if (fscanf(fp3, "%ld", &ntotrs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&itprs) != 1) {
+  if (fscanf(fp3, "%ld", &itprs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&labrs) != 1) {
+  if (fscanf(fp3, "%ld", &labrs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&nfprs) != 1) {
+  if (fscanf(fp3, "%ld", &nfprs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&iswrs) != 1) {
+  if (fscanf(fp3, "%ld", &iswrs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&ntplrs) != 1) {
+  if (fscanf(fp3, "%ld", &ntplrs) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&nars) != 1) {
+  if (fscanf(fp3, "%ld", &nars) != 1) {
     goto L2;
   }
-  if (fscanf(fp3,"%ld",&nskip) != 1) {
+  if (fscanf(fp3, "%ld", &nskip) != 1) {
     goto L2;
   }
   /*go to the end of the line*/
-  while(fgetc(fp3)!='\n');
+  while (fgetc(fp3) != '\n')
+    ;
 
   if (ibrs > mbr) {
     mbr = ibrs;
@@ -4245,18 +4305,19 @@ newlab(iap_type *iap, rap_type *rap)
     mlab = labrs;
   }
   skip3(&nskip, &eof3);
-  if (! eof3) {
+  if (!eof3) {
     goto L1;
   }
 
- L2:
+L2:
   lab = mlab;
   iap->lab = lab;
   if (isw < 0 || irs == 0) {
     ibr = mbr + 1;
     iap->ibr = ibr;
   } else if ((abs(itp) < 10 && abs(isw) == 2) || (ips == 2 && itp == 3) ||
-	     (ips == 4 && isw == 2 && abs(itp) < 10) || (ips == 5 && itp % 10 == 2)) {
+             (ips == 4 && isw == 2 && abs(itp) < 10) ||
+             (ips == 5 && itp % 10 == 2)) {
     ibr = irs;
     iap->ibr = ibr;
   }
@@ -4264,15 +4325,12 @@ newlab(iap_type *iap, rap_type *rap)
   return 0;
 } /* newlab_ */
 
-int
-findlb(iap_type *iap, const rap_type *rap,
-       integer irs, integer *nfpr, logical *found)
-{
+int findlb(iap_type *iap, const rap_type *rap, integer irs, integer *nfpr,
+           logical *found) {
   /* Local variables */
   integer nars;
 
-  integer labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp,
-    isw;
+  integer labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
   logical eof3;
 
   /* Locates restart point with label IRS and determines type. */
@@ -4282,61 +4340,62 @@ findlb(iap_type *iap, const rap_type *rap,
   rewind(fp3);
   isw = iap->isw;
 
-  while(1) {
-    if (fscanf(fp3,"%ld",&ibr) != 1) {
+  while (1) {
+    if (fscanf(fp3, "%ld", &ibr) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&ntotrs) != 1) {
+    if (fscanf(fp3, "%ld", &ntotrs) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&itp) != 1) {
+    if (fscanf(fp3, "%ld", &itp) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&labrs) != 1) {
+    if (fscanf(fp3, "%ld", &labrs) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&(*nfpr)) != 1) {
+    if (fscanf(fp3, "%ld", &(*nfpr)) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&iswrs) != 1) {
+    if (fscanf(fp3, "%ld", &iswrs) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&ntplrs) != 1) {
+    if (fscanf(fp3, "%ld", &ntplrs) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&nars) != 1) {
+    if (fscanf(fp3, "%ld", &nars) != 1) {
       break;
     }
-    if (fscanf(fp3,"%ld",&nskip) != 1) {
+    if (fscanf(fp3, "%ld", &nskip) != 1) {
       break;
     }
     /*go to the end of the line*/
-    while(fgetc(fp3)!='\n');
+    while (fgetc(fp3) != '\n')
+      ;
     iap->itp = itp;
     iap->ibr = ibr;
     if (labrs == irs) {
       *found = TRUE_;
       if (abs(isw) == 2) {
-	if (abs(itp) < 10) {
-	  itpst = abs(itp);
-	  iap->itpst = itpst;
-	} else {
-	  itpst = abs(itp / 10);
-	  iap->itpst = itpst;
-	}
+        if (abs(itp) < 10) {
+          itpst = abs(itp);
+          iap->itpst = itpst;
+        } else {
+          itpst = abs(itp / 10);
+          iap->itpst = itpst;
+        }
       } else {
         itpst = 0;
-	iap->itpst = itpst;
+        iap->itpst = itpst;
       }
-      fseek(fp3,-2,SEEK_CUR);
-      while((fgetc(fp3)!='\n') && (ftell(fp3)!=1)){
-	fseek(fp3,-2,SEEK_CUR);
+      fseek(fp3, -2, SEEK_CUR);
+      while ((fgetc(fp3) != '\n') && (ftell(fp3) != 1)) {
+        fseek(fp3, -2, SEEK_CUR);
       }
       return 0;
     } else {
       skip3(&nskip, &eof3);
       if (eof3) {
-	break;
+        break;
       }
     }
   }
@@ -4344,9 +4403,8 @@ findlb(iap_type *iap, const rap_type *rap,
 }
 
 /*     ---------- ------ */
-/* Subroutine */ int
-readlb(const iap_type *iap, const rap_type *rap, doublereal *u, doublereal *par)
-{
+/* Subroutine */ int readlb(const iap_type *iap, const rap_type *rap,
+                            doublereal *u, doublereal *par) {
   /* Local variables */
   integer labr, ndim, ibrr, itpr, iswr, i;
   doublereal t;
@@ -4354,38 +4412,38 @@ readlb(const iap_type *iap, const rap_type *rap, doublereal *u, doublereal *par)
 
   /* Reads the restart data for algebraic problems. */
 
-  fscanf(fp3,"%ld",&ibrr);
-  fscanf(fp3,"%ld",&ntotr);
-  fscanf(fp3,"%ld",&itpr);
-  fscanf(fp3,"%ld",&labr);
-  fscanf(fp3,"%ld",&nfprr);
-  fscanf(fp3,"%ld",&iswr);
-  fscanf(fp3,"%ld",&ntplrs);
-  fscanf(fp3,"%ld",&nar);
-  fscanf(fp3,"%ld",&nskipr);
-  fscanf(fp3,"%ld",&n1);
-  fscanf(fp3,"%ld",&n2);
-  fscanf(fp3,"%ld",&nparr);
+  fscanf(fp3, "%ld", &ibrr);
+  fscanf(fp3, "%ld", &ntotr);
+  fscanf(fp3, "%ld", &itpr);
+  fscanf(fp3, "%ld", &labr);
+  fscanf(fp3, "%ld", &nfprr);
+  fscanf(fp3, "%ld", &iswr);
+  fscanf(fp3, "%ld", &ntplrs);
+  fscanf(fp3, "%ld", &nar);
+  fscanf(fp3, "%ld", &nskipr);
+  fscanf(fp3, "%ld", &n1);
+  fscanf(fp3, "%ld", &n2);
+  fscanf(fp3, "%ld", &nparr);
   ndim = nar - 1;
-  fscanf(fp3,"%le",&t);
+  fscanf(fp3, "%le", &t);
   for (i = 0; i < ndim; ++i) {
-    fscanf(fp3,"%le",&u[i]);
+    fscanf(fp3, "%le", &u[i]);
   }
   if (nparr > NPARX) {
     nparr = NPARX;
-    printf("Warning : NPARX too small for restart data :\n restart PAR(i) skipped for i > %3ld\n",nparr);
+    printf("Warning : NPARX too small for restart data :\n restart PAR(i) "
+           "skipped for i > %3ld\n",
+           nparr);
   }
   for (i = 0; i < nparr; ++i) {
-    fscanf(fp3,"%le",&par[i]);
+    fscanf(fp3, "%le", &par[i]);
   }
 
   return 0;
 } /* readlb_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
-skip3(integer *nskip, logical *eof3)
-{
+/* Subroutine */ int skip3(integer *nskip, logical *eof3) {
 
   /* Local variables */
   integer i;
@@ -4396,14 +4454,14 @@ skip3(integer *nskip, logical *eof3)
   for (i = 0; i < *nskip; ++i) {
     /* NOTE from Randy:  I am not 100% happy with this.  I am
        not sure if this properly simulates the Fortran behavior */
-    while(1) {
+    while (1) {
       int tmp = fgetc(fp3);
-      if(tmp==EOF) {
-	*eof3 = TRUE_;
-	return 0;
+      if (tmp == EOF) {
+        *eof3 = TRUE_;
+        return 0;
       }
-      if((char)tmp=='\n') {
-	break;
+      if ((char)tmp == '\n') {
+        break;
       }
     }
   }
@@ -4411,9 +4469,9 @@ skip3(integer *nskip, logical *eof3)
 } /* skip3_ */
 
 /*     ------ --------- -------- ----- */
-doublereal
-rinpr(iap_type *iap, integer *ndim1, integer *ndxloc, doublereal *ups, doublereal *vps, doublereal *dtm, doublereal *thu)
-{
+doublereal rinpr(iap_type *iap, integer *ndim1, integer *ndxloc,
+                 doublereal *ups, doublereal *vps, doublereal *dtm,
+                 doublereal *thu) {
   /* System generated locals */
   integer ups_dim1, vps_dim1;
   doublereal ret_val;
@@ -4427,7 +4485,7 @@ rinpr(iap_type *iap, integer *ndim1, integer *ndxloc, doublereal *ups, doublerea
   doublereal sj, *wi;
   integer jp1;
 
-  wi = (doublereal *)malloc(sizeof(doublereal)*(iap->ncol+1));
+  wi = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol + 1));
 
   /* Computes the L2 inner product of UPS and VPS. */
   /* (Using the first NDIM1 components only.) */
@@ -4453,8 +4511,8 @@ rinpr(iap_type *iap, integer *ndim1, integer *ndxloc, doublereal *ups, doublerea
     sj = 0.;
     for (i = 0; i < *ndim1; ++i) {
       for (k = 0; k < ncol; ++k) {
-	k1 = k * ndim + i;
-	sj += wi[k] * thu[i] * ARRAY2D(ups, j, k1) * ARRAY2D(vps, j, k1);
+        k1 = k * ndim + i;
+        sj += wi[k] * thu[i] * ARRAY2D(ups, j, k1) * ARRAY2D(vps, j, k1);
       }
       sj += wi[ncol] * thu[i] * ARRAY2D(ups, jp1, i) * ARRAY2D(vps, jp1, i);
     }
@@ -4468,15 +4526,14 @@ rinpr(iap_type *iap, integer *ndim1, integer *ndxloc, doublereal *ups, doublerea
 } /* rinpr_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-rnrmsq(iap_type *iap, integer *ndim1, integer *ndxloc, doublereal *ups, doublereal *dtm, doublereal *thu)
-{
+doublereal rnrmsq(iap_type *iap, integer *ndim1, integer *ndxloc,
+                  doublereal *ups, doublereal *dtm, doublereal *thu) {
   /* System generated locals */
   doublereal ret_val;
 
-    /* Local variables */
+  /* Local variables */
 
-/* Finds the norm of UPS (first NDIM1 components are included only). */
+  /* Finds the norm of UPS (first NDIM1 components are included only). */
 
   /* Parameter adjustments */
   /*--thu;*/
@@ -4487,9 +4544,8 @@ rnrmsq(iap_type *iap, integer *ndim1, integer *ndxloc, doublereal *ups, doublere
 } /* rnrmsq_ */
 
 /*     ------ --------- -------- ----- */
-doublereal
-rintg(iap_type *iap, integer *ndxloc, integer ic, doublereal *ups, doublereal *dtm)
-{
+doublereal rintg(iap_type *iap, integer *ndxloc, integer ic, doublereal *ups,
+                 doublereal *dtm) {
   /* System generated locals */
   integer ups_dim1;
   doublereal ret_val;
@@ -4503,11 +4559,11 @@ rintg(iap_type *iap, integer *ndxloc, integer ic, doublereal *ups, doublereal *d
   doublereal sj, *wi;
   integer jp1;
 
-  wi = (doublereal *)malloc(sizeof(doublereal)*(iap->ncol+1));
+  wi = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol + 1));
 
   /* Computes the integral of the IC'th component of UPS. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--dtm;*/
@@ -4538,9 +4594,8 @@ rintg(iap_type *iap, integer *ndxloc, integer ic, doublereal *ups, doublereal *d
 } /* rintg_ */
 
 /*     ------ --------- -------- ----- */
-doublereal
-rnrm2(iap_type *iap, integer *ndxloc, integer *ic, doublereal *ups, doublereal *dtm)
-{
+doublereal rnrm2(iap_type *iap, integer *ndxloc, integer *ic, doublereal *ups,
+                 doublereal *dtm) {
   /* System generated locals */
   integer ups_dim1;
   doublereal ret_val;
@@ -4554,11 +4609,11 @@ rnrm2(iap_type *iap, integer *ndxloc, integer *ic, doublereal *ups, doublereal *
   doublereal sj, *wi;
   integer jp1;
 
-  wi = (doublereal *)malloc(sizeof(doublereal)*(iap->ncol+1));
+  wi = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol + 1));
 
   /* Computes the L2-norm of the IC'th component of UPS. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--dtm;*/
@@ -4580,7 +4635,8 @@ rnrm2(iap_type *iap, integer *ndxloc, integer *ic, doublereal *ups, doublereal *
       sj += wi[k] * (ARRAY2D(ups, j, k1) * ARRAY2D(ups, j, k1));
     }
     /* Computing 2nd power */
-    sj += wi[ncol] * (ARRAY2D(ups, jp1, (*ic - 1)) * ARRAY2D(ups, jp1, (*ic - 1)));
+    sj += wi[ncol] *
+          (ARRAY2D(ups, jp1, (*ic - 1)) * ARRAY2D(ups, jp1, (*ic - 1)));
     s += dtm[j] * sj;
   }
 
@@ -4591,9 +4647,7 @@ rnrm2(iap_type *iap, integer *ndxloc, integer *ic, doublereal *ups, doublereal *
 } /* rnrm2_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-rmxups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups)
-{
+doublereal rmxups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups) {
   /* System generated locals */
   integer ups_dim1;
   doublereal ret_val;
@@ -4616,7 +4670,7 @@ rmxups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups)
     for (k = 0; k < ncol; ++k) {
       k1 = k * ndim + *i - 1;
       if (ARRAY2D(ups, j, k1) > ret_val) {
-	ret_val = ARRAY2D(ups, j, k1);
+        ret_val = ARRAY2D(ups, j, k1);
       }
     }
   }
@@ -4628,9 +4682,7 @@ rmxups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups)
 } /* rmxups_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-rmnups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups)
-{
+doublereal rmnups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups) {
   /* System generated locals */
   integer ups_dim1;
   doublereal ret_val;
@@ -4653,21 +4705,21 @@ rmnups(iap_type *iap, integer *ndxloc, integer *i, doublereal *ups)
     for (k = 0; k < ncol; ++k) {
       k1 = k * ndim + (*i - 1);
       if (ARRAY2D(ups, j, k1) < ret_val) {
-	ret_val = ARRAY2D(ups, j, k1);
+        ret_val = ARRAY2D(ups, j, k1);
       }
     }
   }
   if (ARRAY2D(ups, ntst, (*i - 1)) < ret_val) {
-    ret_val = ARRAY2D(ups, ntst, (*i - 1 ));
+    ret_val = ARRAY2D(ups, ntst, (*i - 1));
   }
 
   return ret_val;
 } /* rmnups_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-scaleb(iap_type *iap, integer *icp, integer *ndxloc, doublereal *dvps, doublereal *rld, doublereal *dtm, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int scaleb(iap_type *iap, integer *icp, integer *ndxloc,
+                            doublereal *dvps, doublereal *rld, doublereal *dtm,
+                            doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer dvps_dim1;
 
@@ -4675,7 +4727,7 @@ scaleb(iap_type *iap, integer *icp, integer *ndxloc, doublereal *dvps, doublerea
   integer ndim, ncol, nfpr, nrow, ntst, i, j;
   doublereal sc, ss;
 
-/* Scales the vector (DVPS,RLD) so its norm becomes 1. */
+  /* Scales the vector (DVPS,RLD) so its norm becomes 1. */
 
   /* Parameter adjustments */
   /*--icp;*/
@@ -4723,10 +4775,13 @@ scaleb(iap_type *iap, integer *icp, integer *ndxloc, doublereal *dvps, doublerea
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
-    /* Local variables */
+/* Subroutine */ int cnrlbv(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FUNI_TYPE((*funi)),
+                            BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
+                            STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)),
+                            doublereal *thl, doublereal *thu, integer *iuz,
+                            doublereal *vuz) {
+  /* Local variables */
   integer iads, ndim, ncol;
   integer ntot, ntst, iuzr, nuzr, i, j, k;
   doublereal dsold;
@@ -4743,7 +4798,7 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   integer isw, itp;
   doublereal *uzr;
 
-  integer ntst_plus_one=iap->ntst + 1;
+  integer ntst_plus_one = iap->ntst + 1;
 
   doublereal *ups;
   doublereal *upoldp;
@@ -4757,19 +4812,25 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   doublereal *p0;
   doublereal *p1;
   doublecomplex *ev;
-  ups=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1)*(iap->ndim * iap->ncol));
-  upoldp=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1)*(iap->ndim * iap->ncol));
-  uoldps=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1)*(iap->ndim * iap->ncol));
-  udotps=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1)*(iap->ndim * iap->ncol));
-  dups=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1)*(iap->ndim * iap->ncol));
-  fa=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1)*(iap->ndim * iap->ncol));
-  dtm=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1));
-  tm=(doublereal *)malloc(sizeof(doublereal)*(iap->ntst + 1));
-  fc=(doublereal *)malloc(sizeof(doublereal)*(iap->nbc+iap->nint+1));
-  p0=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
-  p1=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
-  ev=(doublecomplex *)malloc(sizeof(doublecomplex)*(iap->ndim));
-  uzr=(doublereal *)malloc(sizeof(doublereal)*(iap->nuzr));
+  ups = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                             (iap->ndim * iap->ncol));
+  upoldp = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                                (iap->ndim * iap->ncol));
+  uoldps = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                                (iap->ndim * iap->ncol));
+  udotps = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                                (iap->ndim * iap->ncol));
+  dups = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                              (iap->ndim * iap->ncol));
+  fa = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                            (iap->ndim * iap->ncol));
+  dtm = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1));
+  tm = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1));
+  fc = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc + iap->nint + 1));
+  p0 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+  p1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+  ev = (doublecomplex *)malloc(sizeof(doublecomplex) * (iap->ndim));
+  uzr = (doublereal *)malloc(sizeof(doublereal) * (iap->nuzr));
 
   /* INITIALIZE COMPUTATION OF BRANCH */
 
@@ -4816,7 +4877,7 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   iap->istop = istop;
 
   for (j = 0; j < (iap->ntst + 1); ++j) {
-    for (i = 0; i < (iap->ndim * iap -> ncol); ++i) {
+    for (i = 0; i < (iap->ndim * iap->ncol); ++i) {
       ups[j + i * (iap->ntst + 1)] = 0.;
       uoldps[j + i * (iap->ntst + 1)] = 0.;
       upoldp[j + i * (iap->ntst + 1)] = 0.;
@@ -4826,27 +4887,27 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     }
   }
 
-  for(j = 0; j < NPARX; ++j) {
+  for (j = 0; j < NPARX; ++j) {
     rldot[j] = 0.0;
     rlcur[j] = 0.0;
     rlold[j] = 0.0;
   }
 
-  rsptbv(iap, rap, par, icp, funi, stpnt, &rds, rlcur,
-	 rlold, rldot, &ntst_plus_one, ups, uoldps, udotps, upoldp, dups, tm,
-	 dtm, ev, &nodir, thl, thu);
+  rsptbv(iap, rap, par, icp, funi, stpnt, &rds, rlcur, rlold, rldot,
+         &ntst_plus_one, ups, uoldps, udotps, upoldp, dups, tm, dtm, ev, &nodir,
+         thl, thu);
   (*pvli)(iap, rap, icp, dtm, &ntst_plus_one, ups, &ndim, p0, p1, par);
 
   setrtn(iap, &ntst, &ntst_plus_one, ups, par);
 
   if (nodir == 1 && isw > 0) {
-    stdrbv(iap, rap, par, icp, funi, bcni, icni, rlcur,
-	   rlold, rldot, iap->ntst+1, ups, dups, uoldps, udotps, upoldp,
-	   fa, fc, dtm, 0, p0, p1, thl, thu);
+    stdrbv(iap, rap, par, icp, funi, bcni, icni, rlcur, rlold, rldot,
+           iap->ntst + 1, ups, dups, uoldps, udotps, upoldp, fa, fc, dtm, 0, p0,
+           p1, thl, thu);
   } else if (irs != 0 && isw < 0) {
-    stdrbv(iap, rap, par, icp, funi, bcni, icni, rlcur,
-	   rlold, rldot, iap->ntst+1, ups, dups, uoldps, udotps, upoldp,
-	   fa, fc, dtm, 1, p0, p1, thl, thu);
+    stdrbv(iap, rap, par, icp, funi, bcni, icni, rlcur, rlold, rldot,
+           iap->ntst + 1, ups, dups, uoldps, udotps, upoldp, fa, fc, dtm, 1, p0,
+           p1, thl, thu);
   }
 
   /* Store plotting data for restart point : */
@@ -4861,8 +4922,8 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   istop = 0;
   iap->istop = istop;
   (*pvli)(iap, rap, icp, dtm, &ntst_plus_one, ups, &ndim, p0, p1, par);
-  stplbv(iap, rap, par, icp, rldot, &ntst_plus_one, ups, udotps,
-	 tm, dtm, thl, thu);
+  stplbv(iap, rap, par, icp, rldot, &ntst_plus_one, ups, udotps, tm, dtm, thl,
+         thu);
   istop = iap->istop;
   if (istop == 1) {
     free(ups);
@@ -4881,24 +4942,24 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     return 0;
   }
 
-  extrbv(iap, rap, funi, &rds, rlcur, rlold, rldot, &ntst_plus_one, ups,
-	 uoldps, udotps);
+  extrbv(iap, rap, funi, &rds, rlcur, rlold, rldot, &ntst_plus_one, ups, uoldps,
+         udotps);
 
   itp = 0;
   iap->itp = itp;
   goto L2;
 
- L1:
+L1:
   itp = 0;
   iap->itp = itp;
   ntot = iap->ntot;
 
-/* Adapt the mesh to the solution. */
+  /* Adapt the mesh to the solution. */
 
   if (iad != 0) {
     if (ntot % iad == 0) {
-      adapt(iap, rap, &ntst, &ncol, &ntst, &ncol, tm, dtm, &
-	    ntst_plus_one, ups, uoldps);
+      adapt(iap, rap, &ntst, &ncol, &ntst, &ncol, tm, dtm, &ntst_plus_one, ups,
+            uoldps);
     }
   }
 
@@ -4914,69 +4975,73 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
 #define SECANT_GUESS
 #ifdef SECANT_GUESS
-  contbv(iap, rap, par, icp, funi, &rds, rlcur, rlold,
-	 rldot, &ntst_plus_one, ups, uoldps, udotps, upoldp, dtm, thl, thu);
+  contbv(iap, rap, par, icp, funi, &rds, rlcur, rlold, rldot, &ntst_plus_one,
+         ups, uoldps, udotps, upoldp, dtm, thl, thu);
 #else
   {
-    doublereal *uolddotps,*rlolddot;
-    uolddotps = (doublereal *)malloc(sizeof(doublereal)*(iap->ntst+1)*(iap->ndim)*(iap->ncol));
-    rlolddot = (doublereal *)malloc(sizeof(doublereal)*(iap->nfpr));
+    doublereal *uolddotps, *rlolddot;
+    uolddotps = (doublereal *)malloc(sizeof(doublereal) * (iap->ntst + 1) *
+                                     (iap->ndim) * (iap->ncol));
+    rlolddot = (doublereal *)malloc(sizeof(doublereal) * (iap->nfpr));
 
     for (i = 0; i < iap->nfpr; ++i) {
       rlolddot[i] = rldot[i];
     }
     for (j = 0; j < iap->ntst; ++j) {
       for (i = 0; i < iap->ncol * iap->ndim; ++i) {
-	uolddotps[j + i * (iap->ntst+1)] = udotps[j + i * (iap->ntst+1)];
+        uolddotps[j + i * (iap->ntst + 1)] = udotps[j + i * (iap->ntst + 1)];
       }
     }
     for (i = 0; i < iap->ndim; ++i) {
-      uolddotps[ntst + i * (iap->ntst+1)] = udotps[ntst + i * (iap->ntst+1)];
+      uolddotps[ntst + i * (iap->ntst + 1)] =
+          udotps[ntst + i * (iap->ntst + 1)];
     }
 
-    stdrbv(iap, rap, par, icp, funi, bcni, icni, rlcur,
-	   rlold, rldot, iap->ntst+1, ups, dups, uoldps, udotps, upoldp,
-	   fa, fc, dtm, 0, p0, p1, thl, thu);
-	
+    stdrbv(iap, rap, par, icp, funi, bcni, icni, rlcur, rlold, rldot,
+           iap->ntst + 1, ups, dups, uoldps, udotps, upoldp, fa, fc, dtm, 0, p0,
+           p1, thl, thu);
+
     {
-      doublereal dot_product = rinpr(iap,&(iap->ndim),&ntst_plus_one,udotps,uolddotps,dtm,thu);
+      doublereal dot_product =
+          rinpr(iap, &(iap->ndim), &ntst_plus_one, udotps, uolddotps, dtm, thu);
 
       for (i = 0; i < iap->nfpr; ++i) {
-	/* Computing 2nd power */
-	//FIXME  No sure if this is right
-	//This is the original
-	//dot_product += thl[icp[-1+i]] * (rldot[i] * rlolddot[i]);
-	dot_product += thl[icp[i]] * (rldot[i] * rlolddot[i]);
+        /* Computing 2nd power */
+        // FIXME  No sure if this is right
+        // This is the original
+        // dot_product += thl[icp[-1+i]] * (rldot[i] * rlolddot[i]);
+        dot_product += thl[icp[i]] * (rldot[i] * rlolddot[i]);
       }
 
-      if(dot_product < 0) {
-	for (i = 0; i < iap->nfpr; ++i) {
-	  rldot[i] = -rldot[i];
-	}
-	for (j = 0; j < iap->ntst; ++j) {
-	  for (i = 0; i < iap->ndim * iap->ncol; ++i) {
-	    udotps[j + i * (iap->ntst+1)] = -udotps[j + i * (iap->ntst+1)];
-	  }
-	}
-	for (i = 0; i < iap->ndim; ++i) {
-	  udotps[ntst + i * (iap->ntst+1)] = -udotps[ntst + i * (iap->ntst+1)];
-	}
+      if (dot_product < 0) {
+        for (i = 0; i < iap->nfpr; ++i) {
+          rldot[i] = -rldot[i];
+        }
+        for (j = 0; j < iap->ntst; ++j) {
+          for (i = 0; i < iap->ndim * iap->ncol; ++i) {
+            udotps[j + i * (iap->ntst + 1)] = -udotps[j + i * (iap->ntst + 1)];
+          }
+        }
+        for (i = 0; i < iap->ndim; ++i) {
+          udotps[ntst + i * (iap->ntst + 1)] =
+              -udotps[ntst + i * (iap->ntst + 1)];
+        }
       }
     }
     free(uolddotps);
     free(rlolddot);
-  }	
-  extrbv(iap, rap, funi, &rds, rlcur, rlold, rldot, &ntst_plus_one, ups,
-	 uoldps, udotps);
+  }
+  extrbv(iap, rap, funi, &rds, rlcur, rlold, rldot, &ntst_plus_one, ups, uoldps,
+         udotps);
 
-  stupbv(iap, rap, par, icp, funi, rlcur, rlold, rldot,
-	 &ntst_plus_one, ups, uoldps, upoldp);
+  stupbv(iap, rap, par, icp, funi, rlcur, rlold, rldot, &ntst_plus_one, ups,
+         uoldps, upoldp);
 #endif
 
- L2:
-  stepbv(iap, rap, par, icp, funi, bcni, icni, pvli, &rds,
-	 rlcur, rlold, rldot, &ntst_plus_one, ups, dups, uoldps, udotps, upoldp,
-	 fa, fc, tm, dtm, p0, p1, thl, thu);
+L2:
+  stepbv(iap, rap, par, icp, funi, bcni, icni, pvli, &rds, rlcur, rlold, rldot,
+         &ntst_plus_one, ups, dups, uoldps, udotps, upoldp, fa, fc, tm, dtm, p0,
+         p1, thl, thu);
   istop = iap->istop;
   if (istop == 1) {
     goto L3;
@@ -4987,26 +5052,25 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   if (nuzr > 0) {
     for (iuzr = 0; iuzr < nuzr; ++iuzr) {
       iap->iuzr = iuzr;
-      lcspbv(iap, rap, par, icp, fnuzbv, funi, bcni,
-	     icni, pvli, &uzr[iuzr], rlcur, rlold, rldot, &
-	     ntst_plus_one, ups, dups, uoldps, udotps, upoldp, fa, fc, tm,
-	     dtm, p0, p1, ev, thl, thu, iuz, vuz);
+      lcspbv(iap, rap, par, icp, fnuzbv, funi, bcni, icni, pvli, &uzr[iuzr],
+             rlcur, rlold, rldot, &ntst_plus_one, ups, dups, uoldps, udotps,
+             upoldp, fa, fc, tm, dtm, p0, p1, ev, thl, thu, iuz, vuz);
       istop = iap->istop;
       if (istop == 1) {
-	goto L3;
+        goto L3;
       }
       itp = iap->itp;
       if (itp == -1) {
-	if (iuz[iuzr] >= 0) {
-	  itp = -4 - itpst * 10;
-	  iap->itp = itp;
-	  for (k = 0; k < nuzr; ++k) {
-	    uzr[k] = 0.;
-	  }
-	} else {
-	  istop = -1;
-	  iap->istop = istop;
-	}
+        if (iuz[iuzr] >= 0) {
+          itp = -4 - itpst * 10;
+          iap->itp = itp;
+          for (k = 0; k < nuzr; ++k) {
+            uzr[k] = 0.;
+          }
+        } else {
+          istop = -1;
+          iap->istop = istop;
+        }
       }
     }
   }
@@ -5014,10 +5078,9 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   /* Check for fold. */
 
   if (ilp == 1) {
-    lcspbv(iap, rap, par, icp, fnlpbv, funi, bcni, icni,
-	   pvli, &rlp, rlcur, rlold, rldot, &ntst_plus_one, ups, dups,
-	   uoldps, udotps, upoldp, fa, fc, tm, dtm, p0, p1, ev, thl, thu,
-	   iuz, vuz);
+    lcspbv(iap, rap, par, icp, fnlpbv, funi, bcni, icni, pvli, &rlp, rlcur,
+           rlold, rldot, &ntst_plus_one, ups, dups, uoldps, udotps, upoldp, fa,
+           fc, tm, dtm, p0, p1, ev, thl, thu, iuz, vuz);
     istop = iap->istop;
     if (istop == 1) {
       goto L3;
@@ -5035,10 +5098,9 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   /* Check for branch point. */
 
   if (isp >= 2) {
-    lcspbv(iap, rap, par, icp, fnbpbv, funi, bcni, icni,
-	   pvli, &bp1, rlcur, rlold, rldot, &ntst_plus_one, ups, dups,
-	   uoldps, udotps, upoldp, fa, fc, tm, dtm, p0, p1, ev, thl, thu,
-	   iuz, vuz);
+    lcspbv(iap, rap, par, icp, fnbpbv, funi, bcni, icni, pvli, &bp1, rlcur,
+           rlold, rldot, &ntst_plus_one, ups, dups, uoldps, udotps, upoldp, fa,
+           fc, tm, dtm, p0, p1, ev, thl, thu, iuz, vuz);
     istop = iap->istop;
     if (istop == 1) {
       goto L3;
@@ -5056,10 +5118,9 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   /* Check for period-doubling and torus bifurcation. */
 
   if ((isp == 1 || isp == 2) && (ips == 2 || ips == 7 || ips == 12)) {
-    lcspbv(iap, rap, par, icp, fnspbv, funi, bcni, icni,
-	   pvli, &sp1, rlcur, rlold, rldot, &ntst_plus_one, ups, dups,
-	   uoldps, udotps, upoldp, fa, fc, tm, dtm, p0, p1, ev, thl, thu,
-	   iuz, vuz);
+    lcspbv(iap, rap, par, icp, fnspbv, funi, bcni, icni, pvli, &sp1, rlcur,
+           rlold, rldot, &ntst_plus_one, ups, dups, uoldps, udotps, upoldp, fa,
+           fc, tm, dtm, p0, p1, ev, thl, thu, iuz, vuz);
     istop = iap->istop;
     if (istop == 1) {
       goto L3;
@@ -5076,10 +5137,10 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Store plotting data. */
 
- L3:
+L3:
   (*pvli)(iap, rap, icp, dtm, &ntst_plus_one, ups, &ndim, p0, p1, par);
-  stplbv(iap, rap, par, icp, rldot, &ntst_plus_one, ups, udotps,
-	 tm, dtm, thl, thu);
+  stplbv(iap, rap, par, icp, rldot, &ntst_plus_one, ups, udotps, tm, dtm, thl,
+         thu);
 
   istop = iap->istop;
   if (istop == 0) {
@@ -5104,9 +5165,13 @@ cnrlbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 } /* cnrlbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-contbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), doublereal *rds, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *dtm, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int contbv(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FUNI_TYPE((*funi)), doublereal *rds,
+                            doublereal *rlcur, doublereal *rlold,
+                            doublereal *rldot, integer *ndxloc, doublereal *ups,
+                            doublereal *uoldps, doublereal *udotps,
+                            doublereal *upoldp, doublereal *dtm,
+                            doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer ups_dim1, udotps_dim1, uoldps_dim1;
 
@@ -5142,34 +5207,34 @@ contbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   nrow = ndim * ncol;
   for (j = 0; j < ntst + 1; ++j) {
     for (i = 0; i < nrow; ++i) {
-      ARRAY2D(udotps, j, i) = (ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i)) * dds;
+      ARRAY2D(udotps, j, i) =
+          (ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i)) * dds;
     }
   }
   for (i = 0; i < nfpr; ++i) {
     rldot[i] = (rlcur[i] - rlold[i]) * dds;
   }
   /*        Rescale, to set the norm of (UDOTPS,RLDOT) equal to 1. */
-  scaleb(iap, icp, ndxloc, udotps, rldot, dtm,
-	 thl, thu);
+  scaleb(iap, icp, ndxloc, udotps, rldot, dtm, thl, thu);
 
   /* Extrapolate to get initial approximation to next solution point. */
 
-  extrbv(iap, rap, funi, rds, rlcur, rlold, rldot,
-	 ndxloc, ups, uoldps,
-	 udotps);
+  extrbv(iap, rap, funi, rds, rlcur, rlold, rldot, ndxloc, ups, uoldps, udotps);
 
   /* Store time-derivative. */
 
-  stupbv(iap, rap, par, icp, funi, rlcur, rlold, rldot,
-	 ndxloc, ups, uoldps, upoldp);
+  stupbv(iap, rap, par, icp, funi, rlcur, rlold, rldot, ndxloc, ups, uoldps,
+         upoldp);
 
   return 0;
 } /* contbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), doublereal *rds, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps)
-{
+/* Subroutine */ int extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)),
+                            doublereal *rds, doublereal *rlcur,
+                            doublereal *rlold, doublereal *rldot,
+                            integer *ndxloc, doublereal *ups,
+                            doublereal *uoldps, doublereal *udotps) {
   /* System generated locals */
   integer ups_dim1, udotps_dim1, uoldps_dim1;
 
@@ -5209,9 +5274,11 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), doublereal *rds, double
 } /* extrbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stupbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *upoldp)
-{
+/* Subroutine */ int stupbv(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, FUNI_TYPE((*funi)), doublereal *rlcur,
+                            doublereal *rlold, doublereal *rldot,
+                            integer *ndxloc, doublereal *ups,
+                            doublereal *uoldps, doublereal *upoldp) {
   /* System generated locals */
   integer ups_dim1, uoldps_dim1, upoldp_dim1;
 
@@ -5220,17 +5287,17 @@ stupbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   integer nfpr, ntst;
   integer i, j, k;
   integer n1, ips;
-  doublereal *dfdp,*dfdu,*uold,*f,*u;
+  doublereal *dfdp, *dfdu, *uold, *f, *u;
 
-  dfdp = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*NPARX);
-  dfdu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
-  uold = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  f    = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-  u    = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
+  dfdp = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NPARX);
+  dfdu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+  uold = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+  u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
 
-/* Stores U-prime (derivative with respect to T) in UPOLDP. */
+  /* Stores U-prime (derivative with respect to T) in UPOLDP. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -5256,13 +5323,12 @@ stupbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     for (i = 0; i < ndim; ++i) {
       u[i] = ARRAY2D(uoldps, j, i);
       if (ips == 14 || ips == 16) {
-	uold[i] = ARRAY2D(uoldps, j, i) * 2 - ARRAY2D(ups, j, i);
+        uold[i] = ARRAY2D(uoldps, j, i) * 2 - ARRAY2D(ups, j, i);
       } else {
-	uold[i] = ARRAY2D(uoldps, j, i);
+        uold[i] = ARRAY2D(uoldps, j, i);
       }
     }
-    (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f,
-	    dfdu, dfdp);
+    (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f, dfdu, dfdp);
     for (i = 0; i < ndim; ++i) {
       ARRAY2D(upoldp, j, i) = f[i];
     }
@@ -5272,17 +5338,17 @@ stupbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     n1 = k * ndim;
     for (j = 0; j < ntst; ++j) {
       for (i = 0; i < ndim; ++i) {
-	u[i] = ARRAY2D(uoldps, j, (n1 + i));
-	if (ips == 14 || ips == 16) {
-	  uold[i] = ARRAY2D(uoldps, j, (n1 + i)) * 2
-	    - ARRAY2D(ups, j, (n1 + i));
-	} else {
-	  uold[i] = ARRAY2D(uoldps, j, (n1 + i));
-	}
+        u[i] = ARRAY2D(uoldps, j, (n1 + i));
+        if (ips == 14 || ips == 16) {
+          uold[i] =
+              ARRAY2D(uoldps, j, (n1 + i)) * 2 - ARRAY2D(ups, j, (n1 + i));
+        } else {
+          uold[i] = ARRAY2D(uoldps, j, (n1 + i));
+        }
       }
       (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f, dfdu, dfdp);
       for (i = 0; i < ndim; ++i) {
-	ARRAY2D(upoldp, j, (n1 + i)) = f[i];
+        ARRAY2D(upoldp, j, (n1 + i)) = f[i];
       }
     }
   }
@@ -5293,16 +5359,22 @@ stupbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   free(dfdp);
   free(dfdu);
   free(uold);
-  free(f   );
-  free(u   );
+  free(f);
+  free(u);
 
   return 0;
 } /* stupbv_ */
 
 /*     ---------- ------ */
 /* Subroutine */ int
-stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), PVLI_TYPE_BVP((*pvli)), doublereal *rds, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *dups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *tm, doublereal *dtm, doublereal *p0, doublereal *p1, doublereal *thl, doublereal *thu)
-{
+stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
+       PVLI_TYPE_BVP((*pvli)), doublereal *rds, doublereal *rlcur,
+       doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups,
+       doublereal *dups, doublereal *uoldps, doublereal *udotps,
+       doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *tm,
+       doublereal *dtm, doublereal *p0, doublereal *p1, doublereal *thl,
+       doublereal *thu) {
   /* System generated locals */
   integer ups_dim1, uoldps_dim1, udotps_dim1, fa_dim1;
 
@@ -5316,14 +5388,14 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   doublereal epsu;
   integer ntop, itnw, nllv;
   doublereal dumx;
-  integer ntot, nrow=0, nwtn, ntst, i, j;
+  integer ntot, nrow = 0, nwtn, ntst, i, j;
   doublereal dsold, dsmin;
   integer nitps;
   doublereal rdumx;
   integer istop;
   doublereal au;
 
-  doublereal delref=0.0, delmax;
+  doublereal delref = 0.0, delmax;
 
   integer iid;
   doublereal adu;
@@ -5332,8 +5404,8 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   integer nit1;
 
   /* Controls the solution of the nonlinear equations (by Newton's method)
-*/
-/* for the next solution (PAR(ICP(*)) , U) on a branch of solutions. */
+   */
+  /* for the next solution (PAR(ICP(*)) , U) on a branch of solutions. */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -5365,7 +5437,7 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   epsl = rap->epsl;
   epsu = rap->epsu;
 
- L1:
+L1:
   dsold = *rds;
   rap->dsold = dsold;
   nitps = 0;
@@ -5373,8 +5445,7 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Write additional output on unit 9 if requested. */
 
-  wrtbv9(iap, rap, par, icp, rlcur, ndxloc,
-	 ups, tm, dtm, thl, thu);
+  wrtbv9(iap, rap, par, icp, rlcur, ndxloc, ups, tm, dtm, thl, thu);
 
   /* Generate the Jacobian matrix and the right hand side. */
 
@@ -5389,11 +5460,9 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
       ifst = 1;
     }
 
-    solvbv(&ifst, iap, rap, par, icp, funi, bcni, icni,
-	   rds, &nllv, rlcur, rlold, rldot, ndxloc,
-	   ups, dups, uoldps,
-	   udotps, upoldp, dtm, fa, fc, p0,
-	   p1, thl, thu);
+    solvbv(&ifst, iap, rap, par, icp, funi, bcni, icni, rds, &nllv, rlcur,
+           rlold, rldot, ndxloc, ups, dups, uoldps, udotps, upoldp, dtm, fa, fc,
+           p0, p1, thl, thu);
     /* Add Newton increments. */
 
     for (i = 0; i < ndim; ++i) {
@@ -5409,15 +5478,15 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     nrow = ndim * ncol;
     for (j = 0; j < ntst; ++j) {
       for (i = 0; i < nrow; ++i) {
-	adu = fabs(ARRAY2D(fa, j, i));
-	if (adu > dumx) {
-	  dumx = adu;
-	}
-	au = fabs(ARRAY2D(ups, j, i));
-	if (au > umx) {
-	  umx = au;
-	}
-	ARRAY2D(ups, j, i) += ARRAY2D(fa, j, i);
+        adu = fabs(ARRAY2D(fa, j, i));
+        if (adu > dumx) {
+          dumx = adu;
+        }
+        au = fabs(ARRAY2D(ups, j, i));
+        if (au > umx) {
+          umx = au;
+        }
+        ARRAY2D(ups, j, i) += ARRAY2D(fa, j, i);
       }
     }
     /* I am not sure why this is here, and it requires a wierd
@@ -5434,27 +5503,27 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     for (i = 0; i < nfpr; ++i) {
       adrl = fabs(fc[ndim + i]) / (fabs(rlcur[i]) + 1.);
       if (adrl > epsl) {
-	done = FALSE_;
+        done = FALSE_;
       }
       if (adrl > rdrl) {
-	rdrl = adrl;
+        rdrl = adrl;
       }
     }
     rdumx = dumx / (umx + 1.);
     if (done && rdumx < epsu) {
       (*pvli)(iap, rap, icp, dtm, ndxloc, ups, &ndim, p0, p1, par);
       if (iid >= 2) {
-	fprintf(fp9," \n");	
+        fprintf(fp9, " \n");
       }
       return 0;
     }
 
     if (nitps == 1) {
-      delref = max(rdrl,rdumx) * 20;
+      delref = max(rdrl, rdumx) * 20;
     } else {
-      delmax = max(rdrl,rdumx);
+      delmax = max(rdrl, rdumx);
       if (delmax > delref) {
-	goto L3;
+        goto L3;
       }
     }
 
@@ -5463,9 +5532,10 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Maximum number of iterations reached. */
 
- L3:
+L3:
   if (iads == 0 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:No convergence with fixed step size\n",ibr,ntop);	
+    fprintf(fp9, "%4li%6li NOTE:No convergence with fixed step size\n", ibr,
+            ntop);
   }
   if (iads == 0) {
     goto L13;
@@ -5484,24 +5554,22 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   }
   for (j = 0; j < ntst + 1; ++j) {
     for (i = 0; i < nrow; ++i) {
-      ARRAY2D(ups, j, i) = ARRAY2D(uoldps, j, i) + *rds *
-	ARRAY2D(udotps, j, i);
+      ARRAY2D(ups, j, i) = ARRAY2D(uoldps, j, i) + *rds * ARRAY2D(udotps, j, i);
     }
   }
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li NOTE:Retrying step\n",ibr,ntop);	
-
+    fprintf(fp9, "%4li%6li NOTE:Retrying step\n", ibr, ntop);
   }
   goto L1;
 
-/* Minimum stepsize reached. */
+  /* Minimum stepsize reached. */
 
- L12:
+L12:
   if (iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li, NOTE:No convergence using minimum step size\n",ibr,ntop);	
-
+    fprintf(fp9, "%4li%6li, NOTE:No convergence using minimum step size\n", ibr,
+            ntop);
   }
- L13:
+L13:
   for (i = 0; i < nfpr; ++i) {
     rlcur[i] = rlold[i];
     par[icp[i]] = rlcur[i];
@@ -5525,12 +5593,16 @@ stepbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
 /*     ---------- ------ */
 /* Subroutine */ int
-rsptbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), STPNT_TYPE_BVP((*stpnt)), doublereal *rds, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *dups, doublereal *tm, doublereal *dtm, doublecomplex *ev, integer *nodir, doublereal *thl, doublereal *thu)
-{
+rsptbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+       FUNI_TYPE((*funi)), STPNT_TYPE_BVP((*stpnt)), doublereal *rds,
+       doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc,
+       doublereal *ups, doublereal *uoldps, doublereal *udotps,
+       doublereal *upoldp, doublereal *dups, doublereal *tm, doublereal *dtm,
+       doublecomplex *ev, integer *nodir, doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer ups_dim1, uoldps_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer ndim, ncol, nfpr, ntst, i, j;
 
   integer ntsrs;
@@ -5539,15 +5611,15 @@ rsptbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   integer irs, isw;
 
-  integer ntst_fort8,ncol_fort8,junk;
+  integer ntst_fort8, ncol_fort8, junk;
 
   /* Restarts computation of a branch of solutions at point labelled IRS. */
   /* The output written on unit 8 by a previous run is now expected as */
   /* input on unit 3. The label IRS, where computation is to resume, must */
   /* be specified in the user-supplied subroutine INIT. */
   /* If IRS=0 then the starting point must be provided analytically in the
-*/
-/* user-supplied subroutine STPNT. */
+   */
+  /* user-supplied subroutine STPNT. */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -5570,68 +5642,71 @@ rsptbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
   /* Get restart data : */
 
-    /* First take a peak at the file to see if ntst and
-       ncol are different then the values found in
-       the parameter file fort.2.
-    */
-  if(iap->irs > 0) {
+  /* First take a peak at the file to see if ntst and
+     ncol are different then the values found in
+     the parameter file fort.2.
+  */
+  if (iap->irs > 0) {
     findlb(iap, rap, iap->irs, &junk, &junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&junk);
-    fscanf(fp3,"%ld",&ntst_fort8);
-    fscanf(fp3,"%ld",&ncol_fort8);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &junk);
+    fscanf(fp3, "%ld", &ntst_fort8);
+    fscanf(fp3, "%ld", &ncol_fort8);
   } else {
     ntst_fort8 = iap->ntst;
     ncol_fort8 = iap->ncol;
   }
 
   {
-    integer ntst_used,ncol_used;
+    integer ntst_used, ncol_used;
     doublereal *ups_new;
     doublereal *upoldp_new;
     doublereal *udotps_new;
     doublereal *tm_new;
     doublereal *dtm_new;
-    integer ndxloc_orig=*ndxloc;
+    integer ndxloc_orig = *ndxloc;
 
-    /* use the bigger of the size defined in fort.2 and the one defined in fort.8 */
-    if(ntst_fort8 > ntst)
-      ntst_used=ntst_fort8;
+    /* use the bigger of the size defined in fort.2 and the one defined in
+     * fort.8 */
+    if (ntst_fort8 > ntst)
+      ntst_used = ntst_fort8;
     else
-      ntst_used=ntst;
+      ntst_used = ntst;
 
-    if(ncol_fort8 > ncol)
-      ncol_used=ncol_fort8;
+    if (ncol_fort8 > ncol)
+      ncol_used = ncol_fort8;
     else
-      ncol_used=ncol;
+      ncol_used = ncol;
 
-    *ndxloc=(ntst_used + 1)*4;
-    ups_new    = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc)*(iap->ndim * ncol_used));
-    upoldp_new    = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc)*(iap->ndim * ncol_used));
-    udotps_new = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc)*(iap->ndim * ncol_used));
-    tm_new     = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc));
-    dtm_new    = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc));
+    *ndxloc = (ntst_used + 1) * 4;
+    ups_new = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc) *
+                                   (iap->ndim * ncol_used));
+    upoldp_new = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc) *
+                                      (iap->ndim * ncol_used));
+    udotps_new = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc) *
+                                      (iap->ndim * ncol_used));
+    tm_new = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc));
+    dtm_new = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc));
 
     /*initialize arrays*/
-    for(i=0;i<*ndxloc;i++) {
-      dtm_new[i]=0.0;
-      tm_new[i]=0.0;
-      for(j=0;j<ndim*ncol_used;j++) {
-	ups_new[i+j*(*ndxloc)] = 0.0;
-	upoldp_new[i+j*(*ndxloc)] = 0.0;
-	udotps_new[i+j*(*ndxloc)] = 0.0;
+    for (i = 0; i < *ndxloc; i++) {
+      dtm_new[i] = 0.0;
+      tm_new[i] = 0.0;
+      for (j = 0; j < ndim * ncol_used; j++) {
+        ups_new[i + j * (*ndxloc)] = 0.0;
+        upoldp_new[i + j * (*ndxloc)] = 0.0;
+        udotps_new[i + j * (*ndxloc)] = 0.0;
       }
     }
-    (*stpnt)(iap, rap, par, icp, &ntsrs, &ncolrs, rlcur,
-	     rldot, ndxloc, ups_new, udotps_new, upoldp_new, tm_new,
-	     dtm_new, nodir, thl, thu);
+    (*stpnt)(iap, rap, par, icp, &ntsrs, &ncolrs, rlcur, rldot, ndxloc, ups_new,
+             udotps_new, upoldp_new, tm_new, dtm_new, nodir, thl, thu);
     /* Determine a suitable starting label and branch number. */
 
     newlab(iap, rap);
@@ -5643,20 +5718,20 @@ rsptbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     /* Adapt mesh if necessary : */
 
     if (ntst != ntsrs || ncol != ncolrs) {
-      adapt(iap, rap, &ntsrs, &ncolrs, &ntst, &ncol, tm_new, dtm_new,
-	    ndxloc, ups_new, udotps_new);
+      adapt(iap, rap, &ntsrs, &ncolrs, &ntst, &ncol, tm_new, dtm_new, ndxloc,
+            ups_new, udotps_new);
     }
     /* Copy from the temporary large arrays into the normal arrays. */
-    for(i=0;i<ntst+1;i++) {
-      dtm[-1 + i+1] = dtm_new[i];
-      tm[-1 + i+1] = tm_new[i];
-      for(j=0;j<ndim*ncol;j++) {
-	ups[i+j*(ntst+1)] = ups_new[i+j*(*ndxloc)];
-	upoldp[i+j*(ntst+1)] = upoldp_new[i+j*(*ndxloc)];
-	udotps[i+j*(ntst+1)] = udotps_new[i+j*(*ndxloc)];
+    for (i = 0; i < ntst + 1; i++) {
+      dtm[-1 + i + 1] = dtm_new[i];
+      tm[-1 + i + 1] = tm_new[i];
+      for (j = 0; j < ndim * ncol; j++) {
+        ups[i + j * (ntst + 1)] = ups_new[i + j * (*ndxloc)];
+        upoldp[i + j * (ntst + 1)] = upoldp_new[i + j * (*ndxloc)];
+        udotps[i + j * (ntst + 1)] = udotps_new[i + j * (*ndxloc)];
       }
     }
-    *ndxloc=ndxloc_orig;
+    *ndxloc = ndxloc_orig;
     free(ups_new);
     free(upoldp_new);
     free(udotps_new);
@@ -5686,20 +5761,24 @@ rsptbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   } else {
     /*        ** Restart from orbit. */
     stupbv(iap, rap, par, icp, funi, rlcur, rlold, rldot, ndxloc, ups, uoldps,
-	   upoldp);
+           upoldp);
   }
 
   return 0;
 } /* rsptbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsrs, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int stpnbv(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, integer *ntsrs, integer *ncolrs,
+                            doublereal *rlcur, doublereal *rldot,
+                            integer *ndxloc, doublereal *ups,
+                            doublereal *udotps, doublereal *upoldp,
+                            doublereal *tm, doublereal *dtm, integer *nodir,
+                            doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
 
-    /* Local variables */
+  /* Local variables */
   integer ndim, nars;
   doublereal temp[7];
   integer nfpr;
@@ -5718,7 +5797,7 @@ stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   /* restart computation at the point with label IRS. */
   /* This information is expected on unit 3. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--tm;*/
@@ -5737,18 +5816,18 @@ stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   nfpr = iap->nfpr;
 
   findlb(iap, rap, irs, &nfprs, &found);
-  fscanf(fp3,"%ld",&ibr);
-  fscanf(fp3,"%ld",&ntotrs);
-  fscanf(fp3,"%ld",&itprs);
-  fscanf(fp3,"%ld",&lab);
-  fscanf(fp3,"%ld",&nfprs);
-  fscanf(fp3,"%ld",&iswrs);
-  fscanf(fp3,"%ld",&ntplrs);
-  fscanf(fp3,"%ld",&nars);
-  fscanf(fp3,"%ld",&nskip);
-  fscanf(fp3,"%ld",&(*ntsrs));
-  fscanf(fp3,"%ld",&(*ncolrs));
-  fscanf(fp3,"%ld",&nparr);
+  fscanf(fp3, "%ld", &ibr);
+  fscanf(fp3, "%ld", &ntotrs);
+  fscanf(fp3, "%ld", &itprs);
+  fscanf(fp3, "%ld", &lab);
+  fscanf(fp3, "%ld", &nfprs);
+  fscanf(fp3, "%ld", &iswrs);
+  fscanf(fp3, "%ld", &ntplrs);
+  fscanf(fp3, "%ld", &nars);
+  fscanf(fp3, "%ld", &nskip);
+  fscanf(fp3, "%ld", &(*ntsrs));
+  fscanf(fp3, "%ld", &(*ncolrs));
+  fscanf(fp3, "%ld", &nparr);
   iap->ibr = ibr;
   iap->lab = lab;
 
@@ -5765,34 +5844,36 @@ stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
     for (i = 0; i < *ncolrs; ++i) {
       k1 = i * ndim;
       k2 = k1 + ndimrd - 1;
-      fscanf(fp3,"%le",&temp[i]);
+      fscanf(fp3, "%le", &temp[i]);
       for (k = k1; k <= k2; ++k) {
-	fscanf(fp3,"%lf",&ARRAY2D(ups, j, k));
+        fscanf(fp3, "%lf", &ARRAY2D(ups, j, k));
       }
       /*go to the end of the line*/
-      while(fgetc(fp3)!='\n');
-	
+      while (fgetc(fp3) != '\n')
+        ;
+
       if (nskip1 > 0) {
-	skip3(&nskip1, &eof3);
+        skip3(&nskip1, &eof3);
       }
     }
     tm[j] = temp[0];
   }
-  fscanf(fp3,"%le",&tm[*ntsrs]);
+  fscanf(fp3, "%le", &tm[*ntsrs]);
   for (k = 0; k < ndimrd; ++k) {
-    fscanf(fp3,"%le",&ARRAY2D(ups, *ntsrs, k));
+    fscanf(fp3, "%le", &ARRAY2D(ups, *ntsrs, k));
   }
   /*go to the end of the line*/
-  while(fgetc(fp3)!='\n');
+  while (fgetc(fp3) != '\n')
+    ;
   if (nskip1 > 0) {
     skip3(&nskip1, &eof3);
   }
 
   for (i = 0; i < nfprs; ++i) {
-    fscanf(fp3,"%ld",&icprs[i]);
+    fscanf(fp3, "%ld", &icprs[i]);
   }
   for (i = 0; i < nfprs; ++i) {
-    fscanf(fp3,"%le",&rldot[i]);
+    fscanf(fp3, "%le", &rldot[i]);
   }
 
   /* Read U-dot (deriv. with respect to arclength along solution branch). */
@@ -5802,20 +5883,22 @@ stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
       k1 = i * ndim;
       k2 = k1 + ndimrd - 1;
       for (k = k1; k <= k2; ++k) {
-	fscanf(fp3,"%le",&ARRAY2D(udotps, j, k));
+        fscanf(fp3, "%le", &ARRAY2D(udotps, j, k));
       }
       /*go to the end of the line*/
-      while(fgetc(fp3)!='\n');
+      while (fgetc(fp3) != '\n')
+        ;
       if (nskip2 > 0) {
-	skip3(&nskip2, &eof3);
+        skip3(&nskip2, &eof3);
       }
     }
   }
   for (k = 0; k < ndimrd; ++k) {
-    fscanf(fp3,"%le",&ARRAY2D(udotps, *ntsrs, k));
+    fscanf(fp3, "%le", &ARRAY2D(udotps, *ntsrs, k));
   }
   /*go to the end of the line*/
-  while(fgetc(fp3)!='\n');
+  while (fgetc(fp3) != '\n')
+    ;
   if (nskip2 > 0) {
     skip3(&nskip2, &eof3);
   }
@@ -5824,10 +5907,12 @@ stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   if (nparr > NPARX) {
     nparr = NPARX;
-    printf("Warning : NPARX too small for restart data :\n restart PAR(i) skipped for i > %3ld\n",nparr);
+    printf("Warning : NPARX too small for restart data :\n restart PAR(i) "
+           "skipped for i > %3ld\n",
+           nparr);
   }
   for (i = 0; i < nparr; ++i) {
-    fscanf(fp3,"%le",&par[i]);
+    fscanf(fp3, "%le", &par[i]);
   }
   for (i = 0; i < nfpr; ++i) {
     rlcur[i] = par[icp[i]];
@@ -5866,9 +5951,13 @@ stpnbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 } /* stpnbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stpnub(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsrs, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int stpnub(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, integer *ntsrs, integer *ncolrs,
+                            doublereal *rlcur, doublereal *rldot,
+                            integer *ndxloc, doublereal *ups,
+                            doublereal *udotps, doublereal *upoldp,
+                            doublereal *tm, doublereal *dtm, integer *nodir,
+                            doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
 
@@ -5880,13 +5969,13 @@ stpnub(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   doublereal dt;
   integer lab, ibr;
 
-  u = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
+  u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
 
-/* Generates a starting point for the continuation of a branch of */
-/* of solutions to general boundary value problems by calling the user */
-/* supplied subroutine STPNT where an analytical solution is given. */
+  /* Generates a starting point for the continuation of a branch of */
+  /* of solutions to general boundary value problems by calling the user */
+  /* supplied subroutine STPNT where an analytical solution is given. */
 
-/* Local */
+  /* Local */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -5903,7 +5992,7 @@ stpnub(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   ncol = iap->ncol;
   nfpr = iap->nfpr;
 
-/* Generate the (initially uniform) mesh. */
+  /* Generate the (initially uniform) mesh. */
 
   msh(iap, rap, tm);
   dt = 1. / (ntst * ncol);
@@ -5920,7 +6009,7 @@ stpnub(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
       k2 = (i + 1) * ndim;
       stpnt(ndim, t, u, par);
       for (k = k1; k < k2; ++k) {
-	ARRAY2D(ups, j, k) = u[k - k1];
+        ARRAY2D(ups, j, k) = u[k - k1];
       }
     }
   }
@@ -5943,9 +6032,8 @@ stpnub(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 } /* stpnub_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-setrtn(iap_type *iap, integer *ntst, integer *ndxloc, doublereal *ups, doublereal *par)
-{
+/* Subroutine */ int setrtn(iap_type *iap, integer *ntst, integer *ndxloc,
+                            doublereal *ups, doublereal *par) {
   /* System generated locals */
   integer ups_dim1;
 
@@ -5978,26 +6066,31 @@ setrtn(iap_type *iap, integer *ntst, integer *ndxloc, doublereal *ups, doublerea
 
 /*     ---------- ------ */
 /* Subroutine */ int
-stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer ndxloc, doublereal *ups, doublereal *dups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *dtm, integer iperp, doublereal *p0, doublereal *p1, doublereal *thl, doublereal *thu)
-{
+stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
+       doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer ndxloc,
+       doublereal *ups, doublereal *dups, doublereal *uoldps,
+       doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc,
+       doublereal *dtm, integer iperp, doublereal *p0, doublereal *p1,
+       doublereal *thl, doublereal *thu) {
   /* System generated locals */
   integer udotps_dim1, fa_dim1;
 
   /* Builtin Local */
 
-    /* variables functions */
+  /* variables functions */
   integer ndim, ncol, nfpr, ifst, nllv;
   doublereal rdsz;
   integer nrow, ntst, i, j;
 
   integer iid;
 
-/* Generates a direction vector (UDOTPS,RLDOT) that is needed to start */
-/* the computation of a branch when no direction vector is given. */
+  /* Generates a direction vector (UDOTPS,RLDOT) that is needed to start */
+  /* the computation of a branch when no direction vector is given. */
 
-/* Generate the Jacobian matrix with zero direction vector. */
-/* (Then the last row of the Jacobian will be zero) */
-/* in case the starting direction is to be determined. */
+  /* Generate the Jacobian matrix with zero direction vector. */
+  /* (Then the last row of the Jacobian will be zero) */
+  /* in case the starting direction is to be determined. */
 
   /* Parameter adjustments */
   /*--par;*/
@@ -6020,7 +6113,7 @@ stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   if (iperp == 0) {
     for (j = 0; j < ntst + 1; ++j) {
       for (i = 0; i < nrow; ++i) {
-	ARRAY2D(udotps, j, i) = 0.;
+        ARRAY2D(udotps, j, i) = 0.;
       }
     }
     for (i = 0; i < nfpr; ++i) {
@@ -6031,10 +6124,9 @@ stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   rdsz = 0.;
   nllv = 1;
   ifst = 1;
-  solvbv(&ifst, iap, rap, par, icp, funi, bcni, icni, &rdsz,
-	 &nllv, rlcur, rlold, rldot, &ndxloc, ups, dups, uoldps,
-	 udotps, upoldp, dtm, fa, fc,
-	 p0, p1, thl, thu);
+  solvbv(&ifst, iap, rap, par, icp, funi, bcni, icni, &rdsz, &nllv, rlcur,
+         rlold, rldot, &ndxloc, ups, dups, uoldps, udotps, upoldp, dtm, fa, fc,
+         p0, p1, thl, thu);
 
   /* Compute the starting direction. */
 
@@ -6064,7 +6156,7 @@ stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
     }
     for (j = 0; j < ntst; ++j) {
       for (i = 0; i < nrow; ++i) {
-	ARRAY2D(udotps, j, i) = -ARRAY2D(udotps, j, i);
+        ARRAY2D(udotps, j, i) = -ARRAY2D(udotps, j, i);
       }
     }
 #define BUG_FIX
@@ -6080,10 +6172,10 @@ stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
   }
 
   if (iid >= 2) {
-    fprintf(fp9,"Starting direction of the free parameter(s) :\n");	
+    fprintf(fp9, "Starting direction of the free parameter(s) :\n");
 
     for (i = 0; i < nfpr; ++i) {
-      fprintf(fp9," PAR(%3ld) :%11.3E\n",icp[i],rldot[i]);	
+      fprintf(fp9, " PAR(%3ld) :%11.3E\n", icp[i], rldot[i]);
     }
   }
 
@@ -6098,8 +6190,15 @@ stdrbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*
 
 /*     ---------- ------ */
 /* Subroutine */ int
-lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BVP((*fncs)), FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), PVLI_TYPE_BVP((*pvli)), doublereal *q, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *dups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *tm, doublereal *dtm, doublereal *p0, doublereal *p1, doublecomplex *ev, doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+       FNCS_TYPE_BVP((*fncs)), FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
+       ICNI_TYPE((*icni)), PVLI_TYPE_BVP((*pvli)), doublereal *q,
+       doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc,
+       doublereal *ups, doublereal *dups, doublereal *uoldps,
+       doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc,
+       doublereal *tm, doublereal *dtm, doublereal *p0, doublereal *p1,
+       doublecomplex *ev, doublereal *thl, doublereal *thu, integer *iuz,
+       doublereal *vuz) {
   /* Local variables */
   logical chng;
   doublereal epss;
@@ -6150,13 +6249,12 @@ lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BV
   /* Check for zero. */
 
   q0 = *q;
-  q1 = (*fncs)(iap, rap, par, icp, &chng, funi, bcni, icni, p0, p1,
-	       ev, rlcur, rlold, rldot, ndxloc, ups, uoldps,
-	       udotps, upoldp, fa, fc, dups, tm, dtm, thl, thu, iuz, vuz)
-    ;
+  q1 = (*fncs)(iap, rap, par, icp, &chng, funi, bcni, icni, p0, p1, ev, rlcur,
+               rlold, rldot, ndxloc, ups, uoldps, udotps, upoldp, fa, fc, dups,
+               tm, dtm, thl, thu, iuz, vuz);
 
   pq = q0 * q1;
-  if (pq >= 0. || ! chng) {
+  if (pq >= 0. || !chng) {
     *q = q1;
     return 0;
   }
@@ -6169,7 +6267,7 @@ lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BV
   dq = q0 - q1;
   rds = q1 / dq * (s1 - s0);
   rtmp = HMACH1;
- L1:
+L1:
   rds = rtmp * rds;
   s = s1 + rds;
 
@@ -6180,7 +6278,10 @@ lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BV
     itp = -1;
     iap->itp = itp;
     /* xx???   Q=0.d0 */
-    fprintf(fp9,"==> Location of special point : Convergence.    Stepsize =%11.3E\n",rds);	
+    fprintf(
+        fp9,
+        "==> Location of special point : Convergence.    Stepsize =%11.3E\n",
+        rds);
 
     return 0;
   }
@@ -6188,14 +6289,17 @@ lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BV
   /* If requested write additional output on unit 9 : */
 
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9," ==> Location of special point :  Iteration %3ld   Stepsize =%11.3E\n",nitsp1,rds);	
+    fprintf(
+        fp9,
+        " ==> Location of special point :  Iteration %3ld   Stepsize =%11.3E\n",
+        nitsp1, rds);
   }
 
-  contbv(iap, rap, par, icp, funi, &rds, rlcur, rlold, &
-	 rldot[0], ndxloc, ups, uoldps, udotps, upoldp, dtm, thl, thu);
-  stepbv(iap, rap, par, icp, funi, bcni, icni, pvli, &rds, &rlcur[-1 +
-								 1], rlold, rldot, ndxloc, ups, dups, uoldps, udotps,
-	 upoldp, fa, fc, tm, dtm, p0, p1, thl, thu);
+  contbv(iap, rap, par, icp, funi, &rds, rlcur, rlold, &rldot[0], ndxloc, ups,
+         uoldps, udotps, upoldp, dtm, thl, thu);
+  stepbv(iap, rap, par, icp, funi, bcni, icni, pvli, &rds, &rlcur[-1 + 1],
+         rlold, rldot, ndxloc, ups, dups, uoldps, udotps, upoldp, fa, fc, tm,
+         dtm, p0, p1, thl, thu);
   istop = iap->istop;
   if (istop != 0) {
     *q = 0.;
@@ -6204,10 +6308,9 @@ lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BV
 
   /* Check for zero. */
 
-  *q = (*fncs)(iap, rap, par, icp, &chng, funi, bcni, icni, p0, p1,
-	       ev, rlcur, rlold, rldot, ndxloc, ups, uoldps,
-	       udotps, upoldp, fa, fc, dups, tm, dtm, thl, thu, iuz, vuz)
-    ;
+  *q = (*fncs)(iap, rap, par, icp, &chng, funi, bcni, icni, p0, p1, ev, rlcur,
+               rlold, rldot, ndxloc, ups, uoldps, udotps, upoldp, fa, fc, dups,
+               tm, dtm, thl, thu, iuz, vuz);
 
   ++nitsp1;
   if (nitsp1 <= itmx) {
@@ -6220,28 +6323,34 @@ lcspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FNCS_TYPE_BV
     return 0;
   }
 
-  fprintf(fp9,"%4li%6li NOTE:Possible special point\n",ibr,ntop);	
+  fprintf(fp9, "%4li%6li NOTE:Possible special point\n", ibr, ntop);
   *q = 0.;
 
   return 0;
 } /* lcspbv_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnlpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1, doublecomplex *ev, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *dups, doublereal *tm, doublereal *dtm, doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+doublereal fnlpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
+                  ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1,
+                  doublecomplex *ev, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, integer *ndxloc, doublereal *ups,
+                  doublereal *uoldps, doublereal *udotps, doublereal *upoldp,
+                  doublereal *fa, doublereal *fc, doublereal *dups,
+                  doublereal *tm, doublereal *dtm, doublereal *thl,
+                  doublereal *thu, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   integer udotps_dim1, fa_dim1;
   doublereal ret_val;
 
-    /* Local variables */
+  /* Local variables */
   integer ndim, ncol, nfpr, ifst, nllv, ntop;
   doublereal rdsz;
   integer ntot, ntst, i, j;
 
   integer iid, ibr, isp;
 
-/* RETURNS A QUANTITY THAT CHANGES SIGN AT A LIMIT POINT (BVP) */
+  /* RETURNS A QUANTITY THAT CHANGES SIGN AT A LIMIT POINT (BVP) */
 
   fa_dim1 = *ndxloc;
   udotps_dim1 = *ndxloc;
@@ -6262,10 +6371,9 @@ fnlpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   ifst = 0;
   rdsz = 0.;
 
-  solvbv(&ifst, iap, rap, par, icp, funi, bcni, icni, &rdsz, &nllv,
-	 rlcur, rlold, rldot, ndxloc, ups, dups, uoldps, udotps,
-	 upoldp, dtm, fa, fc,
-	 p0, p1, thl, thu);
+  solvbv(&ifst, iap, rap, par, icp, funi, bcni, icni, &rdsz, &nllv, rlcur,
+         rlold, rldot, ndxloc, ups, dups, uoldps, udotps, upoldp, dtm, fa, fc,
+         p0, p1, thl, thu);
 
   for (i = 0; i < ndim; ++i) {
     ARRAY2D(udotps, ntst, i) = fc[i];
@@ -6276,17 +6384,17 @@ fnlpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   }
 
   for (j = 0; j < ntst; ++j) {
-    for (i = 0; i < ndim*ncol; ++i) {
+    for (i = 0; i < ndim * ncol; ++i) {
       ARRAY2D(udotps, j, i) = ARRAY2D(fa, j, i);
     }
   }
 
   /* Scale the direction vector. */
 
-  scaleb(iap, icp, ndxloc, udotps, rldot, dtm,
-	 thl, thu);
+  scaleb(iap, icp, ndxloc, udotps, rldot, dtm, thl, thu);
   if (iid >= 2 && iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li        Fold Function %14.6E\n",abs(ibr),ntop,rldot[0]);	
+    fprintf(fp9, "%4li%6li        Fold Function %14.6E\n", abs(ibr), ntop,
+            rldot[0]);
   }
 
   /* Set the quantity to be returned. */
@@ -6299,9 +6407,15 @@ fnlpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
 } /* fnlpbv_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnbpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1, doublecomplex *ev, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *dups, doublereal *tm, doublereal *dtm, doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+doublereal fnbpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
+                  ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1,
+                  doublecomplex *ev, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, integer *ndxloc, doublereal *ups,
+                  doublereal *uoldps, doublereal *udotps, doublereal *upoldp,
+                  doublereal *fa, doublereal *fc, doublereal *dups,
+                  doublereal *tm, doublereal *dtm, doublereal *thl,
+                  doublereal *thu, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   doublereal ret_val;
 
@@ -6317,12 +6431,12 @@ fnbpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   integer ibr;
   doublereal det0;
 
-  pp = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
+  pp = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
 
   ndim = iap->ndim;
   iid = iap->iid;
 
-/* Save the determinant of the reduced system. */
+  /* Save the determinant of the reduced system. */
 
   det = rap->det;
   det0 = det;
@@ -6332,7 +6446,7 @@ fnbpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
 
   /* Compute the determinant of P1. */
 
-/* Computing 2nd power */
+  /* Computing 2nd power */
   for (i = 0; i < ndim * ndim; ++i) {
     pp[i] = p1[i];
   }
@@ -6356,17 +6470,23 @@ fnbpbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   }
 
   if (iid >= 2) {
-    fprintf(fp9,"%4li%6li        BP   Function %14.6E\n",abs(ibr),ntop,ret_val);	
-
+    fprintf(fp9, "%4li%6li        BP   Function %14.6E\n", abs(ibr), ntop,
+            ret_val);
   }
   free(pp);
   return ret_val;
 } /* fnbpbv_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1, doublecomplex *ev, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *dups, doublereal *tm, doublereal *dtm, doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+doublereal fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
+                  ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1,
+                  doublecomplex *ev, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, integer *ndxloc, doublereal *ups,
+                  doublereal *uoldps, doublereal *udotps, doublereal *upoldp,
+                  doublereal *fa, doublereal *fc, doublereal *dups,
+                  doublereal *tm, doublereal *dtm, doublereal *thl,
+                  doublereal *thu, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   doublereal ret_val;
 
@@ -6374,14 +6494,14 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   doublereal amin;
   integer ndim, nins, ntop, ntot;
   doublecomplex ztmp;
-  integer nins1=0;
+  integer nins1 = 0;
   doublereal d;
   integer i, j;
 
-  integer iid,ibr,loc=0,isp,isw;
+  integer iid, ibr, loc = 0, isp, isw;
   doublereal *wrk, azm1;
 
-  wrk = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
+  wrk = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
 
   /* This function returns a quantity that changes sign when a complex */
   /* pair of eigenvalues of the linearized Poincare map moves in or out */
@@ -6408,13 +6528,13 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   d = 0.;
   *chng = FALSE_;
 
-/*  Compute the Floquet multipliers */
+  /*  Compute the Floquet multipliers */
 
   flowkm(&ndim, p0, p1, &iid, wrk, ev);
   free(wrk);
   /* Find the multiplier closest to z=1. */
   /* send_mult here! */
-  send_mult(ibr,ntot+1,ndim,(doublecomplex *)&ev[0]);
+  send_mult(ibr, ntot + 1, ndim, (doublecomplex *)&ev[0]);
   amin = RLARGE;
   for (j = 0; j < ndim; ++j) {
     doublecomplex tmp;
@@ -6437,17 +6557,17 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
     for (i = 1; i < ndim - 1; ++i) {
       amin = RLARGE;
       for (j = i; j < ndim; ++j) {
-	azm1 = z_abs(&ev[j]) - 1.;
-	azm1 = fabs(azm1);
-	if (azm1 <= amin) {
-	  amin = azm1;
-	  loc = j;
-	}
+        azm1 = z_abs(&ev[j]) - 1.;
+        azm1 = fabs(azm1);
+        if (azm1 <= amin) {
+          amin = azm1;
+          loc = j;
+        }
       }
       if (loc != i) {
-	ztmp.r = ev[loc].r, ztmp.i = ev[loc].i;
-	ev[loc].r = ev[i].r, ev[loc].i = ev[i].i;
-	ev[i].r = ztmp.r, ev[i].i = ztmp.i;
+        ztmp.r = ev[loc].r, ztmp.i = ev[loc].i;
+        ev[loc].r = ev[i].r, ev[loc].i = ev[i].i;
+        ev[i].r = ztmp.r, ev[i].i = ztmp.i;
       }
     }
   }
@@ -6464,17 +6584,18 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   if (amin > (double).05 && isp == 2) {
     if (iap->mynode == 0) {
       if (iid >= 2) {
-	fprintf(fp9,"%4li%6li NOTE:Multiplier inaccurate\n",abs(ibr),ntop);	
-
+        fprintf(fp9, "%4li%6li NOTE:Multiplier inaccurate\n", abs(ibr), ntop);
       }
       for (i = 0; i < ndim; ++i) {
-	fprintf(fp9,"%4li%6li        Multiplier %3li %14.6E %14.6E\n",abs(ibr),ntop,i,ev[i].r,ev[i].i);	
+        fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
+                abs(ibr), ntop, i, ev[i].r, ev[i].i);
       }
     }
     nins = 0;
     iap->nins = nins;
     if (iap->mynode == 0) {
-      fprintf(fp9,"%4li%6li        Multipliers:   Stable: %3li\n",abs(ibr),ntop,nins);	
+      fprintf(fp9, "%4li%6li        Multipliers:   Stable: %3li\n", abs(ibr),
+              ntop, nins);
     }
     isp = -isp;
     iap->isp = isp;
@@ -6487,15 +6608,17 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   if (isp < 0) {
     if (amin < (double).01) {
       if (iap->mynode == 0) {
-	fprintf(fp9,"%4li%6li NOTE:Multiplier accurate again\n",abs(ibr),ntop);	
+        fprintf(fp9, "%4li%6li NOTE:Multiplier accurate again\n", abs(ibr),
+                ntop);
       }
       isp = -isp;
       iap->isp = isp;
     } else {
       if (iap->mynode == 0) {
-	for (i = 0; i < ndim; ++i) {
-	  fprintf(fp9,"%4li%6li        Multiplier %3li %14.6E %14.6E\n",abs(ibr),ntop,i,ev[i].r,ev[i].i);	
-	}
+        for (i = 0; i < ndim; ++i) {
+          fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
+                  abs(ibr), ntop, i, ev[i].r, ev[i].i);
+        }
       }
       return ret_val;
     }
@@ -6511,25 +6634,25 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
     nins1 = 1;
     for (i = 1; i < ndim; ++i) {
       if (z_abs(&ev[i]) <= 1.) {
-	++nins1;
+        ++nins1;
       }
     }
     if (isp == 2) {
       if (d_imag(&ev[1]) == 0. && ev[1].r > 0.) {
-	/*            *Ignore if second multiplier is real positive */
-	d = 0.;
+        /*            *Ignore if second multiplier is real positive */
+        d = 0.;
       } else {
-	d = z_abs(&ev[1]) - 1.;
+        d = z_abs(&ev[1]) - 1.;
       }
       if (isw == 2) {
-	ret_val = 0.;
+        ret_val = 0.;
       } else {
-	ret_val = d;
+        ret_val = d;
       }
       rap->spbf = ret_val;
       nins = iap->nins;
       if (nins1 != nins) {
-	*chng = TRUE_;
+        *chng = TRUE_;
       }
     }
   }
@@ -6538,8 +6661,7 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   iap->nins = nins;
   if (iid >= 2 && (isp == 1 || isp == 2)) {
     if (iap->mynode == 0) {
-      fprintf(fp9,"%4li%6li        SPB  Function %14.6E\n",abs(ibr),ntop,d);	
-
+      fprintf(fp9, "%4li%6li        SPB  Function %14.6E\n", abs(ibr), ntop, d);
     }
   }
 
@@ -6547,11 +6669,12 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
 
   nins = iap->nins;
   if (iap->mynode == 0) {
-    fprintf(fp9,"%4li%6li        Multipliers:   Stable: %3li\n",abs(ibr),ntop,nins);	
+    fprintf(fp9, "%4li%6li        Multipliers:   Stable: %3li\n", abs(ibr),
+            ntop, nins);
 
     for (i = 0; i < ndim; ++i) {
-      fprintf(fp9,"%4li%6li        Multiplier %3li %14.6E %14.6E\n",abs(ibr),ntop,i,ev[i].r,ev[i].i);	
-
+      fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n", abs(ibr),
+              ntop, i, ev[i].r, ev[i].i);
     }
   }
 
@@ -6559,13 +6682,19 @@ fnspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
 } /* fnspbv_ */
 
 /*     ------ --------- -------- ------ */
-doublereal
-fnuzbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1, doublecomplex *ev, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *fa, doublereal *fc, doublereal *dups, doublereal *tm, doublereal *dtm, doublereal *thl, doublereal *thu, integer *iuz, doublereal *vuz)
-{
+doublereal fnuzbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
+                  ICNI_TYPE((*icni)), doublereal *p0, doublereal *p1,
+                  doublecomplex *ev, doublereal *rlcur, doublereal *rlold,
+                  doublereal *rldot, integer *ndxloc, doublereal *ups,
+                  doublereal *uoldps, doublereal *udotps, doublereal *upoldp,
+                  doublereal *fa, doublereal *fc, doublereal *dups,
+                  doublereal *tm, doublereal *dtm, doublereal *thl,
+                  doublereal *thu, integer *iuz, doublereal *vuz) {
   /* System generated locals */
   doublereal ret_val;
 
-    /* Local variables */
+  /* Local variables */
   integer ntop, ntot, iuzr, iid, ibr;
 
   iid = iap->iid;
@@ -6578,18 +6707,18 @@ fnuzbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, logical *chn
   *chng = TRUE_;
 
   if (iid >= 3) {
-    fprintf(fp9,"%4li%6li        User Func. %3li %14.6E\n",abs(ibr),ntop,iuzr,ret_val);	
+    fprintf(fp9, "%4li%6li        User Func. %3li %14.6E\n", abs(ibr), ntop,
+            iuzr, ret_val);
   }
 
   return ret_val;
 } /* fnuzbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-tpspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublecomplex *ev)
-{
+/* Subroutine */ int tpspbv(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublecomplex *ev) {
 
-    /* Local variables */
+  /* Local variables */
   doublereal amin;
   integer ndim;
   doublereal epss, d;
@@ -6629,8 +6758,8 @@ tpspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublecomple
       d = z_abs(&ev[i]) - 1.;
       ad = fabs(d);
       if (ad <= amin) {
-	amin = ad;
-	loc1 = i;
+        amin = ad;
+        loc1 = i;
       }
     }
   }
@@ -6639,7 +6768,7 @@ tpspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublecomple
     /*       ** torus bifurcation */
     itp = itpst * 10 + 8;
     iap->itp = itp;
-    par[11] =fabs(atan2(d_imag(&ev[loc1]),ev[loc1].r));
+    par[11] = fabs(atan2(d_imag(&ev[loc1]), ev[loc1].r));
 
   } else /* if(complicated condition) */ {
     if (ev[loc1].r < -.5) {
@@ -6663,17 +6792,18 @@ tpspbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublecomple
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-stplbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *tm, doublereal *dtm, doublereal *thl, doublereal *thu)
-{
-    /* Local variables */
+/* Subroutine */ int stplbv(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublereal *rldot, integer *ndxloc,
+                            doublereal *ups, doublereal *udotps, doublereal *tm,
+                            doublereal *dtm, doublereal *thl, doublereal *thu) {
+  /* Local variables */
   integer labw, ndim, ibrs, nins, iplt, itmp, jtmp, ntot;
-  int iflag=0;
+  int iflag = 0;
   integer i;
-  double u_high[1000],u_low[1000],u_0[1000],u_bar[1000];
+  double u_high[1000], u_low[1000], u_0[1000], u_bar[1000];
   doublereal a0, a1;
-   /* used a fixed array here for maximum AUTO size
-     double u_high[NAUTO], u_low, u0, ubar   */
+  /* used a fixed array here for maximum AUTO size
+    double u_high[NAUTO], u_low, u0, ubar   */
 
   integer istop, itpst, n2, ntots;
 
@@ -6688,32 +6818,32 @@ stplbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   /* (Also controls the writing of complete solutions on unit 8). */
   /* Every line written contains, in order, the following: */
 
-/*  IBR    : The label of the branch. */
-/*  NTOT   : The index of the point on the branch. */
-/*           (Points are numbered consecutively along a branch). */
-/*           If IPS=2 or 3, then the sign of NTOT indicates stability : */
-/*            - = stable , + = unstable, or unknown. */
-/*  ITP    : An integer indicating the type of point : */
+  /*  IBR    : The label of the branch. */
+  /*  NTOT   : The index of the point on the branch. */
+  /*           (Points are numbered consecutively along a branch). */
+  /*           If IPS=2 or 3, then the sign of NTOT indicates stability : */
+  /*            - = stable , + = unstable, or unknown. */
+  /*  ITP    : An integer indicating the type of point : */
 
-/*             4  (  )  :   Output point (Every NPR steps along branch).
-*/
-/*            -4  (UZ)  :   Output point (Zero of user function). */
-/*             5  (LP)  :   Fold (fold). */
-/*             6  (BP)  :   Branch point. */
-/*             7  (PD)  :   Period doubling bifurcation. */
-/*             8  (TR)  :   Bifurcation to an invariant torus. */
-/*             9  (EP)  :   End point of branch, normal termination. */
-/*            -9  (MX)  :   End point of branch, abnormal termination. */
+  /*             4  (  )  :   Output point (Every NPR steps along branch).
+   */
+  /*            -4  (UZ)  :   Output point (Zero of user function). */
+  /*             5  (LP)  :   Fold (fold). */
+  /*             6  (BP)  :   Branch point. */
+  /*             7  (PD)  :   Period doubling bifurcation. */
+  /*             8  (TR)  :   Bifurcation to an invariant torus. */
+  /*             9  (EP)  :   End point of branch, normal termination. */
+  /*            -9  (MX)  :   End point of branch, abnormal termination. */
 
-/*  LAB        : The label of a special point. */
-/*  PAR(ICP(1)): The principal parameter. */
-/*  A          : The L2-norm of the solution vector, or other measure of
-*/
-/*               the solution (see the user-supplied parameter IPLT). */
-/*  MAX U(*)   : The maxima of the first few solution components. */
-/*  PAR(ICP(*)): Further free parameters (if any). */
+  /*  LAB        : The label of a special point. */
+  /*  PAR(ICP(1)): The principal parameter. */
+  /*  A          : The L2-norm of the solution vector, or other measure of
+   */
+  /*               the solution (see the user-supplied parameter IPLT). */
+  /*  MAX U(*)   : The maxima of the first few solution components. */
+  /*  PAR(ICP(*)): Further free parameters (if any). */
 
-/* Local */
+  /* Local */
 
   ndim = iap->ndim;
   ips = iap->ips;
@@ -6736,9 +6866,9 @@ stplbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   ++ntot;
   iap->ntot = ntot;
 
-/* ITP is set to 4 every NPR steps along a branch of solns and the entire
-*/
-/* solution is written on unit 8. */
+  /* ITP is set to 4 every NPR steps along a branch of solns and the entire
+   */
+  /* solution is written on unit 8. */
 
   if (npr != 0) {
     if (ntot % npr == 0 && itp % 10 == 0) {
@@ -6782,7 +6912,7 @@ stplbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
     iap->itp = itp;
   } else {
     if (par[icp[0]] < rl0 || par[icp[0]] > rl1 || amp < a0 || amp > a1 ||
-	ntot >= nmx || iflag==1 ) { /* more bye auto */
+        ntot >= nmx || iflag == 1) { /* more bye auto */
       istop = 1;
       iap->istop = istop;
       itp = itpst * 10 + 9;
@@ -6812,12 +6942,12 @@ stplbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   }
 
   /* compute max, min, etc of solutions   This is correct!! */
-  for (i=0;i<NODE;i++){
-    itmp=i+1;
-    u_high[i]=rmxups(iap,ndxloc,&itmp,ups);
-    u_low[i]=rmnups(iap,ndxloc,&itmp,ups);
-    u_0[i]=ups[i*(*ndxloc)];
-    u_bar[i]=rintg(iap, ndxloc, itmp, ups, dtm);
+  for (i = 0; i < NODE; i++) {
+    itmp = i + 1;
+    u_high[i] = rmxups(iap, ndxloc, &itmp, ups);
+    u_low[i] = rmnups(iap, ndxloc, &itmp, ups);
+    u_0[i] = ups[i * (*ndxloc)];
+    u_bar[i] = rintg(iap, ndxloc, itmp, ups, dtm);
   }
 
   /* Determine stability, and write output on units 7 and 8. */
@@ -6835,25 +6965,25 @@ stplbv(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   /* addbif max min  of variables & initial data
 
   */
-  addbif(iap,rap, ntots, ibrs, par,icp,labw,&amp, u_high, u_low, u_0, u_bar);
+  addbif(iap, rap, ntots, ibrs, par, icp, labw, &amp, u_high, u_low, u_0,
+         u_bar);
 
-  wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots,
-	 &labw, &amp, umx);
+  wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots, &labw, &amp, umx);
 
   /* Write plotting and restart data on unit 8. */
 
   if (itp % 10 != 0) {
-    wrtbv8(iap, rap, par, icp, rldot, ndxloc, ups,
-	   udotps, tm, dtm);
+    wrtbv8(iap, rap, par, icp, rldot, ndxloc, ups, udotps, tm, dtm);
   }
 
   return 0;
 } /* stplbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-wrtbv8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *tm, doublereal *dtm)
-{
+/* Subroutine */ int wrtbv8(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublereal *rldot, integer *ndxloc,
+                            doublereal *ups, doublereal *udotps, doublereal *tm,
+                            doublereal *dtm) {
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
 
@@ -6864,11 +6994,11 @@ wrtbv8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   doublereal rn;
   integer nrowpr, lab, ibr, nar, nrd, itp, isw;
 
-  if(fp8_is_open==0) {
-    fp8 = fopen(fort8,"w");
-    fp8_is_open=1;
-    if(fp8 == NULL) {
-      fprintf(stderr,"Error:  Could not open fort.8\n");
+  if (fp8_is_open == 0) {
+    fp8 = fopen(fort8, "w");
+    fp8_is_open = 1;
+    if (fp8 == NULL) {
+      fprintf(stderr, "Error:  Could not open fort.8\n");
       exit(1);
     }
   }
@@ -6880,40 +7010,40 @@ wrtbv8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 
   /* Specifically the following is written: */
 
-/*  IBR   : The index of the branch. */
-/*  NTOT  : The index of the point. */
-/*  ITP   : The type of point (see STPLBV above). */
-/*  LAB   : The label of the point. */
-/*  NFPR : The number of free parameters used in the computation. */
-/*  ISW   : The value of ISW used in the computation. */
-/*  NTPL  : The number of points in the time interval [0,1] for which */
-/*          solution values are wriiten. */
-/*  NAR   : The number of values written per point. */
-/*          (NAR=NDIM+1, since T and U(i), i=1,..,NDIM are written). */
-/*  NROWPR: The number of lines printed following the identifying line */
-/*          and before the next data set or the end of the file. */
-/*          (Used for quickly skipping a data set when searching). */
-/*  NTST  : The number of time intervals used in the discretization. */
-/*  NCOL  : The number of collocation points used. */
-/*  NPARX : The dimension of the par array (and the number of */
-/*          number of values in the parameter block).*/
+  /*  IBR   : The index of the branch. */
+  /*  NTOT  : The index of the point. */
+  /*  ITP   : The type of point (see STPLBV above). */
+  /*  LAB   : The label of the point. */
+  /*  NFPR : The number of free parameters used in the computation. */
+  /*  ISW   : The value of ISW used in the computation. */
+  /*  NTPL  : The number of points in the time interval [0,1] for which */
+  /*          solution values are wriiten. */
+  /*  NAR   : The number of values written per point. */
+  /*          (NAR=NDIM+1, since T and U(i), i=1,..,NDIM are written). */
+  /*  NROWPR: The number of lines printed following the identifying line */
+  /*          and before the next data set or the end of the file. */
+  /*          (Used for quickly skipping a data set when searching). */
+  /*  NTST  : The number of time intervals used in the discretization. */
+  /*  NCOL  : The number of collocation points used. */
+  /*  NPARX : The dimension of the par array (and the number of */
+  /*          number of values in the parameter block).*/
 
-/*  Following the above described identifying line there are NTPL lines */
-/* containing : */
-/*     T , U-1(T) , U-2(T) , ... , U-NDIM(T), */
-/* where NDIM is the dimension of the system of differential equations. */
+  /*  Following the above described identifying line there are NTPL lines */
+  /* containing : */
+  /*     T , U-1(T) , U-2(T) , ... , U-NDIM(T), */
+  /* where NDIM is the dimension of the system of differential equations. */
 
-/*  Following this is a line which lists the active parameters (from ICP) */
+  /*  Following this is a line which lists the active parameters (from ICP) */
 
-/* Following this is a line containing */
-/*    RL-dot(i) , i=1,NFPR, */
+  /* Following this is a line containing */
+  /*    RL-dot(i) , i=1,NFPR, */
 
-/* and following this are NTPL lines each containing */
-/*    U-dot-1(T), U-dot-2(T), ... , U-dot-NDIM(T). */
+  /* and following this are NTPL lines each containing */
+  /*    U-dot-1(T), U-dot-2(T), ... , U-dot-NDIM(T). */
 
-/* Finally the parameter values PAR(i) , i=1,NPARX, are written. */
+  /* Finally the parameter values PAR(i) , i=1,NPARX, are written. */
 
-/*  Above, RL-dot(.) and U-dot(.) specify the direction of the branch. */
+  /*  Above, RL-dot(.) and U-dot(.) specify the direction of the branch. */
 
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
@@ -6934,28 +7064,28 @@ wrtbv8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   nar = ndim + 1;
   nrd = ndim / 7 + 2 + (ndim - 1) / 7;
   jtmp = NPARX;
-  nrowpr = nrd * (ncol * ntst + 1) + (nfpr - 1) / 7 + 1 + (jtmp - 1) / 7 +
-    1 + (nfpr - 1) / 20 + 1;
+  nrowpr = nrd * (ncol * ntst + 1) + (nfpr - 1) / 7 + 1 + (jtmp - 1) / 7 + 1 +
+           (nfpr - 1) / 20 + 1;
 
   if (iap->mynode > 0) {
     return 0;
   }
 
   mtot = ntot % 10000;
-  fprintf(fp8,"%5ld",ibr);
-  fprintf(fp8,"%5ld",mtot);
-  fprintf(fp8,"%5ld",itp);
-  fprintf(fp8,"%5ld",lab);
-  fprintf(fp8,"%5ld",nfpr);
-  fprintf(fp8,"%5ld",isw);
-  fprintf(fp8,"%5ld",ntpl);
-  fprintf(fp8,"%5ld",nar);
-  fprintf(fp8,"%5ld",nrowpr);
-  fprintf(fp8,"%5ld",ntst);
-  fprintf(fp8,"%5ld",ncol);
-  fprintf(fp8,"%5d\n",NPARX);
+  fprintf(fp8, "%5ld", ibr);
+  fprintf(fp8, "%5ld", mtot);
+  fprintf(fp8, "%5ld", itp);
+  fprintf(fp8, "%5ld", lab);
+  fprintf(fp8, "%5ld", nfpr);
+  fprintf(fp8, "%5ld", isw);
+  fprintf(fp8, "%5ld", ntpl);
+  fprintf(fp8, "%5ld", nar);
+  fprintf(fp8, "%5ld", nrowpr);
+  fprintf(fp8, "%5ld", ntst);
+  fprintf(fp8, "%5ld", ncol);
+  fprintf(fp8, "%5d\n", NPARX);
 
-/* Write the entire solution on unit 8 : */
+  /* Write the entire solution on unit 8 : */
 
   for (j = 0; j < ntst; ++j) {
     rn = 1. / ncol;
@@ -6963,79 +7093,79 @@ wrtbv8(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
       k1 = i * ndim;
       k2 = (i + 1) * ndim;
       t = tm[j] + i * rn * dtm[j];
-      fprintf(fp8,"    %19.10E",t);
+      fprintf(fp8, "    %19.10E", t);
       for (k = k1; k < k2; ++k) {
-	if((k+1-k1)%7==0)
-	  fprintf(fp8,"\n    ");
-	fprintf(fp8,"%19.10E",ARRAY2D(ups, j, k));
+        if ((k + 1 - k1) % 7 == 0)
+          fprintf(fp8, "\n    ");
+        fprintf(fp8, "%19.10E", ARRAY2D(ups, j, k));
       }
-      fprintf(fp8,"\n");	
-
+      fprintf(fp8, "\n");
     }
   }
-  fprintf(fp8,"    %19.10E",tm[ntst]);
+  fprintf(fp8, "    %19.10E", tm[ntst]);
   for (i = 0; i < ndim; ++i) {
-    if((i+1)%7==0)
-      fprintf(fp8,"\n    ");
-    fprintf(fp8,"%19.10E",ARRAY2D(ups, ntst, i));
+    if ((i + 1) % 7 == 0)
+      fprintf(fp8, "\n    ");
+    fprintf(fp8, "%19.10E", ARRAY2D(ups, ntst, i));
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
 
-/* Write the free parameter indices: */
+  /* Write the free parameter indices: */
   for (i = 0; i < nfpr; ++i) {
-    fprintf(fp8,"%5ld",icp[i]);
+    fprintf(fp8, "%5ld", icp[i]);
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
 
-/* Write the direction of the branch: */
-  fprintf(fp8,"    ");
+  /* Write the direction of the branch: */
+  fprintf(fp8, "    ");
   for (i = 0; i < nfpr; ++i) {
-    if((i>0)&&((i)%7==0))
-      fprintf(fp8,"\n    ");
-    fprintf(fp8,"%19.10E",rldot[i]);
+    if ((i > 0) && ((i) % 7 == 0))
+      fprintf(fp8, "\n    ");
+    fprintf(fp8, "%19.10E", rldot[i]);
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
 
   for (j = 0; j < ntst; ++j) {
     for (i = 0; i < ncol; ++i) {
       k1 = i * ndim;
-      k2 = (i + 1)* ndim;
+      k2 = (i + 1) * ndim;
 
-      fprintf(fp8,"    ");
+      fprintf(fp8, "    ");
       for (k = k1; k < k2; ++k) {
-	if((k!=k1)&&((k-k1)%7==0))
-	  fprintf(fp8,"\n    ");
-	fprintf(fp8,"%19.10E",ARRAY2D(udotps, j, k));
+        if ((k != k1) && ((k - k1) % 7 == 0))
+          fprintf(fp8, "\n    ");
+        fprintf(fp8, "%19.10E", ARRAY2D(udotps, j, k));
       }
-      fprintf(fp8,"\n");
+      fprintf(fp8, "\n");
     }
   }
-  fprintf(fp8,"    ");
+  fprintf(fp8, "    ");
 
   for (k = 0; k < ndim; ++k) {
-    if((k!=0)&&(k%7==0))
-      fprintf(fp8,"\n    ");
-    fprintf(fp8,"%19.10E",ARRAY2D(udotps, ntst, k));
+    if ((k != 0) && (k % 7 == 0))
+      fprintf(fp8, "\n    ");
+    fprintf(fp8, "%19.10E", ARRAY2D(udotps, ntst, k));
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
 
-/* Write the parameter values. */
+  /* Write the parameter values. */
 
-  fprintf(fp8,"    ");
+  fprintf(fp8, "    ");
   for (i = 0; i < NPARX; ++i) {
-    if((i>0)&&(i%7==0))
-      fprintf(fp8,"\n    ");
-    fprintf(fp8,"%19.10E",par[i]);
+    if ((i > 0) && (i % 7 == 0))
+      fprintf(fp8, "\n    ");
+    fprintf(fp8, "%19.10E", par[i]);
   }
-  fprintf(fp8,"\n");
+  fprintf(fp8, "\n");
   fflush(fp8);
   return 0;
 } /* wrtbv8_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-wrtbv9(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *rlcur, integer *ndxloc, doublereal *ups, doublereal *tm, doublereal *dtm, doublereal *thl, doublereal *thu)
-{
+/* Subroutine */ int wrtbv9(iap_type *iap, rap_type *rap, doublereal *par,
+                            integer *icp, doublereal *rlcur, integer *ndxloc,
+                            doublereal *ups, doublereal *tm, doublereal *dtm,
+                            doublereal *thl, doublereal *thu) {
 
   /* System generated locals */
   integer ups_dim1;
@@ -7047,7 +7177,7 @@ wrtbv9(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   doublereal ds, rn;
 
   integer iab, iid, ibr, ndm;
-  doublereal amp=0.0;
+  doublereal amp = 0.0;
 
   /* Writes additional output on unit 9. */
 
@@ -7084,50 +7214,47 @@ wrtbv9(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
     }
     if (iap->mynode == 0) {
       if (nitps == 0 || iid >= 3) {
-	fprintf(fp9,"========================================");
-	fprintf(fp9,"========================================\n");
-	fprintf(fp9,"  BR    PT  IT\n");	
-	
+        fprintf(fp9, "========================================");
+        fprintf(fp9, "========================================\n");
+        fprintf(fp9, "  BR    PT  IT\n");
       }
       mtot = (ntot + 1) % 10000;
-      fprintf(fp9,"%4li%6li%4li    %14.6E%14.6E\n",ibr,mtot,nitps,rlcur[0],amp);	
-
+      fprintf(fp9, "%4li%6li%4li    %14.6E%14.6E\n", ibr, mtot, nitps, rlcur[0],
+              amp);
     }
   }
 
   if (iid >= 5 && iap->mynode == 0) {
-    fprintf(fp9," UPS :\n");	
+    fprintf(fp9, " UPS :\n");
     for (j = 0; j < ntst; ++j) {
       rn = 1. / ncol;
       for (i = 0; i < ncol; ++i) {
-	t = tm[j] + i * rn * dtm[j];
-	k1 = i * ndim;
-	k2 = (i + 1) * ndim;
-	fprintf(fp9," %14.6E",t);	
-	for (k = k1; k < k2; ++k) {
-	  if((k+1-k1)%7==0)
-	    fprintf(fp9,"\n ");
-	  fprintf(fp9," %14.6E",ARRAY2D(ups, j, k));	
-	}
-	fprintf(fp9,"\n");	
-	
+        t = tm[j] + i * rn * dtm[j];
+        k1 = i * ndim;
+        k2 = (i + 1) * ndim;
+        fprintf(fp9, " %14.6E", t);
+        for (k = k1; k < k2; ++k) {
+          if ((k + 1 - k1) % 7 == 0)
+            fprintf(fp9, "\n ");
+          fprintf(fp9, " %14.6E", ARRAY2D(ups, j, k));
+        }
+        fprintf(fp9, "\n");
       }
     }
-    fprintf(fp9," %14.6E",tm[ntst]);	
+    fprintf(fp9, " %14.6E", tm[ntst]);
     for (i = 0; i < ndim; ++i) {
-      if((i+1)%7==0)
-	fprintf(fp9,"\n ");
-      fprintf(fp9," %14.6E",ARRAY2D(ups, ntst, i));	
+      if ((i + 1) % 7 == 0)
+        fprintf(fp9, "\n ");
+      fprintf(fp9, " %14.6E", ARRAY2D(ups, ntst, i));
     }
-    fprintf(fp9,"\n");	
+    fprintf(fp9, "\n");
   }
   return 0;
 } /* wrtbv9_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-pvlsae(iap_type *iap, rap_type *rap, doublereal *u, doublereal *par)
-{
+/* Subroutine */ int pvlsae(iap_type *iap, rap_type *rap, doublereal *u,
+                            doublereal *par) {
 
   integer ndm;
 
@@ -7139,9 +7266,10 @@ pvlsae(iap_type *iap, rap_type *rap, doublereal *u, doublereal *par)
 } /* pvlsae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-pvlsbv(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndxloc, doublereal *ups, integer *ndim, doublereal *p0, doublereal *p1, doublereal *par)
-{
+/* Subroutine */ int pvlsbv(iap_type *iap, rap_type *rap, integer *icp,
+                            doublereal *dtm, integer *ndxloc, doublereal *ups,
+                            integer *ndim, doublereal *p0, doublereal *p1,
+                            doublereal *par) {
   integer ndm;
 
   setpbv(iap, rap, dtm);
@@ -7152,9 +7280,7 @@ pvlsbv(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
 } /* pvlsbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-setpae(iap_type *iap, rap_type *rap)
-{
+/* Subroutine */ int setpae(iap_type *iap, rap_type *rap) {
   global_parameters.iav = iap;
   global_parameters.rav = rap;
 
@@ -7162,9 +7288,7 @@ setpae(iap_type *iap, rap_type *rap)
 } /* setpae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
-setpbv(iap_type *iap, rap_type *rap, doublereal *dtm)
-{
+/* Subroutine */ int setpbv(iap_type *iap, rap_type *rap, doublereal *dtm) {
   global_parameters.iav = iap;
   global_parameters.rav = rap;
 
@@ -7183,28 +7307,26 @@ setpbv(iap_type *iap, rap_type *rap, doublereal *dtm)
 
 double time_start(void) {
   struct timeval time;
-  double seconds,microseconds;
-  gettimeofday(&time,NULL);
+  double seconds, microseconds;
+  gettimeofday(&time, NULL);
   seconds = (double)time.tv_sec;
   microseconds = (double)time.tv_usec;
-  return seconds + microseconds/1e6;
+  return seconds + microseconds / 1e6;
 }
 double time_end(double start) {
   struct timeval time;
-  double seconds,microseconds;
-  gettimeofday(&time,NULL);
+  double seconds, microseconds;
+  gettimeofday(&time, NULL);
   seconds = (double)time.tv_sec;
   microseconds = (double)time.tv_usec;
-  return (seconds + microseconds/1e6)-start;
+  return (seconds + microseconds / 1e6) - start;
 }
 
-doublereal
-getp(char *code, integer *ic, doublereal *ups, integer code_len)
-{
+doublereal getp(char *code, integer *ic, doublereal *ups, integer code_len) {
   /* System generated locals */
-  doublereal ret_val=0.0;
+  doublereal ret_val = 0.0;
 
-    /* Local variables */
+  /* Local variables */
   integer ntst;
 
   integer nxloc;
@@ -7259,18 +7381,19 @@ getp(char *code, integer *ic, doublereal *ups, integer code_len)
     } else if (strcmp(code, "SPB") == 0 || strcmp(code, "spb") == 0) {
 
       ret_val = (double)0.0;
-
     }
 
   } else {
 
     if (strcmp(code, "NRM") == 0 || strcmp(code, "nrm") == 0) {
 
-      ret_val = rnrm2(global_parameters.iav, &nxloc, ic, ups, global_parameters.dtv);
+      ret_val =
+          rnrm2(global_parameters.iav, &nxloc, ic, ups, global_parameters.dtv);
 
     } else if (strcmp(code, "INT") == 0 || strcmp(code, "int") == 0) {
 
-      ret_val = rintg(global_parameters.iav, &nxloc, *ic, ups, global_parameters.dtv);
+      ret_val =
+          rintg(global_parameters.iav, &nxloc, *ic, ups, global_parameters.dtv);
 
     } else if (strcmp(code, "MAX") == 0 || strcmp(code, "max") == 0) {
 
@@ -7282,11 +7405,11 @@ getp(char *code, integer *ic, doublereal *ups, integer code_len)
 
     } else if (strcmp(code, "BV0") == 0 || strcmp(code, "bv0") == 0) {
 
-      ret_val = ups[(*ic-1) * (global_parameters.iav->ntst + 1)];
+      ret_val = ups[(*ic - 1) * (global_parameters.iav->ntst + 1)];
 
     } else if (strcmp(code, "BV1") == 0 || strcmp(code, "bv1") == 0) {
 
-      ret_val = ups[ntst + (*ic-1) * (global_parameters.iav->ntst + 1)];
+      ret_val = ups[ntst + (*ic - 1) * (global_parameters.iav->ntst + 1)];
 
     } else if (strcmp(code, "STP") == 0 || strcmp(code, "stp") == 0) {
 
@@ -7307,31 +7430,28 @@ getp(char *code, integer *ic, doublereal *ups, integer code_len)
     } else if (strcmp(code, "SPB") == 0 || strcmp(code, "spb") == 0) {
 
       ret_val = global_parameters.rav->spbf;
-
     }
-
   }
 
   return ret_val;
-
 }
 
 void allocate_global_memory(const iap_type iap) {
-    free(global_scratch.dfu);
-    free(global_scratch.dfp);
-    free(global_scratch.uu1);
-    free(global_scratch.uu2);
-    free(global_scratch.ff1);
-    free(global_scratch.ff2);
-    global_scratch.dfu = (doublereal *)malloc(sizeof(doublereal)*(iap.ndim)*(iap.ndim));
-    global_scratch.dfp = (doublereal *)malloc(sizeof(doublereal)*(iap.ndim)*NPARX);
-    global_scratch.uu1 = (doublereal *)malloc(sizeof(doublereal)*(iap.ndim));
-    global_scratch.uu2 = (doublereal *)malloc(sizeof(doublereal)*(iap.ndim));
-    global_scratch.ff1 = (doublereal *)malloc(sizeof(doublereal)*(iap.ndim));
-    global_scratch.ff2 = (doublereal *)malloc(sizeof(doublereal)*(iap.ndim));
+  free(global_scratch.dfu);
+  free(global_scratch.dfp);
+  free(global_scratch.uu1);
+  free(global_scratch.uu2);
+  free(global_scratch.ff1);
+  free(global_scratch.ff2);
+  global_scratch.dfu =
+      (doublereal *)malloc(sizeof(doublereal) * (iap.ndim) * (iap.ndim));
+  global_scratch.dfp =
+      (doublereal *)malloc(sizeof(doublereal) * (iap.ndim) * NPARX);
+  global_scratch.uu1 = (doublereal *)malloc(sizeof(doublereal) * (iap.ndim));
+  global_scratch.uu2 = (doublereal *)malloc(sizeof(doublereal) * (iap.ndim));
+  global_scratch.ff1 = (doublereal *)malloc(sizeof(doublereal) * (iap.ndim));
+  global_scratch.ff2 = (doublereal *)malloc(sizeof(doublereal) * (iap.ndim));
 
-    free(global_rotations.nrtn);
-    global_rotations.nrtn = (integer *)malloc(sizeof(integer)*(iap.nbc));
+  free(global_rotations.nrtn);
+  global_rotations.nrtn = (integer *)malloc(sizeof(integer) * (iap.nbc));
 }
-
-

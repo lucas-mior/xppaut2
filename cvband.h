@@ -44,7 +44,7 @@
  *                                                                *
  ******************************************************************/
 
-enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
+enum { BAND_NJE = CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
 
 /******************************************************************
  *                                                                *
@@ -58,7 +58,7 @@ enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
  *                                                                *
  ******************************************************************/
 
-#define CVB_MSBJ  50
+#define CVB_MSBJ 50
 
 #define CVB_DGMAX RCONST(0.2)
 
@@ -154,7 +154,7 @@ enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
 typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
                             BandMat J, RhsFn f, void *f_data, real t,
                             N_Vector y, N_Vector fy, N_Vector ewt, real h,
-                            real uround, void *jac_data,   int *nfePtr,
+                            real uround, void *jac_data, int *nfePtr,
                             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
 /******************************************************************
@@ -197,12 +197,9 @@ void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
  *                                                                *
  ******************************************************************/
 
-void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
-		 RhsFn f, void *f_data, real t, N_Vector y, N_Vector fy,
-		 N_Vector ewt, real h, real uround, void *jac_data,
-		   int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
-		 N_Vector vtemp3);
+void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J, RhsFn f,
+                 void *f_data, real t, N_Vector y, N_Vector fy, N_Vector ewt,
+                 real h, real uround, void *jac_data, int *nfePtr,
+                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
 #endif
-
-

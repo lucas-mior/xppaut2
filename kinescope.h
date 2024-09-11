@@ -13,5 +13,3 @@ void auto_play(void);
 void too_small(void);
 
 #endif
-
-

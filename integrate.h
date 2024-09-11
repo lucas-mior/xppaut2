@@ -14,7 +14,7 @@ int set_up_range(void);
 int set_up_range2(void);
 void init_monte_carlo(void);
 void monte_carlo(void);
-void do_monte_carlo_search(int append, int stuffbrowse,int ishoot);
+void do_monte_carlo_search(int append, int stuffbrowse, int ishoot);
 void do_eq_range(double *x);
 void swap_color(int *col, int rorw);
 void set_cycle(int flag, int *icol);
@@ -38,13 +38,17 @@ int set_array_ic(void);
 int form_ic(void);
 void get_ic(int it, double *x);
 int ode_int(double *y, double *t, int *istart, int ishow);
-int integrate(double *t, double *x, double tend, double dt, int count, int nout, int *start);
+int integrate(double *t, double *x, double tend, double dt, int count, int nout,
+              int *start);
 void send_halt(double *y, double t);
 void send_output(double *y, double t);
-void do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl, float *zpl);
+void do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl,
+             float *ypl, float *zpl);
 void export_data(FILE *fp);
-void plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt, int *tc,int flag);
-void plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt, int *tc);
+void plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt,
+                     int *tc, int flag);
+void plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
+                    int *tc);
 void restore(int i1, int i2);
 void comp_color(float *v1, float *v2, int n, double dt);
 void shoot(double *x, double *xg, double *evec, int sgn);

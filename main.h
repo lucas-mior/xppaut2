@@ -16,7 +16,9 @@ void bye_bye(void);
 void clr_scrn(void);
 void redraw_all(void);
 void commander(int ch);
-Window init_win(unsigned int bw, char *icon_name, char *win_name, int x, int y, unsigned int min_wid, unsigned int min_hgt, int argc, char **argv);
+Window init_win(unsigned int bw, char *icon_name, char *win_name, int x, int y,
+                unsigned int min_wid, unsigned int min_hgt, int argc,
+                char **argv);
 void top_button_draw(Window w);
 void top_button_cross(Window w, int b);
 void top_button_press(Window w);
@@ -30,4 +32,3 @@ int getxcolors(XWindowAttributes *win_info, XColor **colors);
 void test_color_info(void);
 
 #endif
-

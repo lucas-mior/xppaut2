@@ -50,8 +50,14 @@
  *                                                                *
  ******************************************************************/
 
-enum { SPGMR_NPE = CVODE_IOPT_SIZE,
-       SPGMR_NLI, SPGMR_NPS, SPGMR_NCFL, SPGMR_LRW, SPGMR_LIW };
+enum {
+  SPGMR_NPE = CVODE_IOPT_SIZE,
+  SPGMR_NLI,
+  SPGMR_NPS,
+  SPGMR_NCFL,
+  SPGMR_LRW,
+  SPGMR_LIW
+};
 
 /******************************************************************
  *                                                                *
@@ -73,13 +79,13 @@ enum { SPGMR_NPE = CVODE_IOPT_SIZE,
  *                                                                *
  ******************************************************************/
 
-#define CVSPGMR_MAXL    5
+#define CVSPGMR_MAXL 5
 
-#define CVSPGMR_MSBPRE  50
+#define CVSPGMR_MSBPRE 50
 
-#define CVSPGMR_DGMAX   RCONST(0.2)
+#define CVSPGMR_DGMAX RCONST(0.2)
 
-#define CVSPGMR_DELT    RCONST(0.05)
+#define CVSPGMR_DELT RCONST(0.05)
 
 /******************************************************************
  *                                                                *
@@ -180,9 +186,8 @@ enum { SPGMR_NPE = CVODE_IOPT_SIZE,
 
 typedef int (*CVSpgmrPrecondFn)(integer N, real t, N_Vector y, N_Vector fy,
                                 bool jok, bool *jcurPtr, real gamma,
-                                N_Vector ewt, real h, real uround,
-                                  int *nfePtr, void *P_data,
-                                N_Vector vtemp1, N_Vector vtemp2,
+                                N_Vector ewt, real h, real uround, int *nfePtr,
+                                void *P_data, N_Vector vtemp1, N_Vector vtemp2,
                                 N_Vector vtemp3);
 
 /******************************************************************
@@ -248,8 +253,8 @@ typedef int (*CVSpgmrPrecondFn)(integer N, real t, N_Vector y, N_Vector fy,
 
 typedef int (*CVSpgmrPSolveFn)(integer N, real t, N_Vector y, N_Vector fy,
                                N_Vector vtemp, real gamma, N_Vector ewt,
-                               real delta,   int *nfePtr, N_Vector r,
-                               int lr, void *P_data, N_Vector z);
+                               real delta, int *nfePtr, N_Vector r, int lr,
+                               void *P_data, N_Vector z);
 
 /******************************************************************
  *                                                                *

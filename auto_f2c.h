@@ -2,7 +2,7 @@
 
 /**  barf  [ba:rf]  2.  "He suggested using FORTRAN, and everybody barfed."
 
-	- From The Shogakukan DICTIONARY OF NEW ENGLISH (Second edition) */
+        - From The Shogakukan DICTIONARY OF NEW ENGLISH (Second edition) */
 
 #ifndef F2C_INCLUDE
 #define F2C_INCLUDE
@@ -13,8 +13,12 @@
 typedef long int integer;
 typedef float real;
 typedef double doublereal;
-typedef struct { real r, i; } complex;
-typedef struct { doublereal r, i; } doublecomplex;
+typedef struct {
+  real r, i;
+} complex;
+typedef struct {
+  doublereal r, i;
+} doublecomplex;
 typedef integer logical;
 
 #define TRUE_ (1)
@@ -31,13 +35,14 @@ typedef integer logical;
 #define fabs(x) ((x) >= 0 ? (x) : -(x))
 #endif
 
-#define min(a,b) ((a) <= (b) ? (a) : (b))
-#define max(a,b) ((a) >= (b) ? (a) : (b))
-#define dmin(a,b) (doublereal)min(a,b)
-#define dmax(a,b) (doublereal)max(a,b)
+#define min(a, b) ((a) <= (b) ? (a) : (b))
+#define max(a, b) ((a) >= (b) ? (a) : (b))
+#define dmin(a, b) (doublereal) min(a, b)
+#define dmax(a, b) (doublereal) max(a, b)
 
-#define ARRAY2D(array,i,j) array[(i) + (j) * array ## _dim1]
-#define ARRAY3D(array,i,j,k) array[(i) + ((j)  + (k) * array ## _dim2) * array ## _dim1]
+#define ARRAY2D(array, i, j) array[(i) + (j) * array##_dim1]
+#define ARRAY3D(array, i, j, k)                                                \
+  array[(i) + ((j) + (k) * array##_dim2) * array##_dim1]
 
 /* cabs.c */
 double f__cabs(double real, double imag);
@@ -69,5 +74,3 @@ void z_exp(doublecomplex *r, doublecomplex *z);
 void z_log(doublecomplex *r, doublecomplex *z);
 
 #endif
-
-

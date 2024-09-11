@@ -14,7 +14,8 @@ void eval_all_nets(void);
 void evaluate_network(int ind);
 void update_all_ffts(void);
 void update_fft(int ind);
-void fft_conv(int it, int n, double *values, double *yy, double *fftr, double *ffti, double *dr, double *di);
+void fft_conv(int it, int n, double *values, double *yy, double *fftr,
+              double *ffti, double *dr, double *di);
 int gilparse(char *s, int *ind, int *nn);
 int g_namelist(char *s, char *root, int *flag, int *i1, int *i2);
 

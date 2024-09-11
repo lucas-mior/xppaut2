@@ -17,7 +17,8 @@ void arrow_head(double xs, double ys, double xe, double ye, double size);
 void destroy_grob(Window w);
 void destroy_label(Window w);
 void draw_label(Window w);
-void add_grob(double xs, double ys, double xe, double ye, double size, int type, int color);
+void add_grob(double xs, double ys, double xe, double ye, double size, int type,
+              int color);
 int select_marker_type(int *type);
 int man_xy(float *xe, float *ye);
 int get_marker_info(void);
@@ -49,7 +50,7 @@ void SmallBase(void);
 void change_plot_vars(int k);
 int check_active_plot(int k);
 int graph_used(int i);
-void make_active(int i,int flag);
+void make_active(int i, int flag);
 void select_window(Window w);
 void set_gr_fore(void);
 void set_gr_back(void);

@@ -12,7 +12,7 @@ int gfun(double y, int per);
 int bfun(double y, int per);
 void NewColormap(int type);
 void get_ps_color(int i, float *r, float *g, float *b);
-void get_svg_color(int i,int *r,int *g,int *b);
+void get_svg_color(int i, int *r, int *g, int *b);
 void MakeColormap(void);
 int ColorMap(int i);
 

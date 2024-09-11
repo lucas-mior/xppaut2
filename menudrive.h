@@ -20,7 +20,7 @@
 
 #define MAX_M_I 13
 
-#define M_C  20
+#define M_C 20
 
 #define M_NN 31
 #define M_NR 32
@@ -124,7 +124,7 @@
 #define M_TEC 171
 #define M_TED 172
 
-#define M_V2  180
+#define M_V2 180
 #define M_V3 181
 #define M_VA 182
 #define M_VT 183
@@ -251,5 +251,3 @@ void edit_xpprc();
 void do_tutorial();
 
 #endif
-
-

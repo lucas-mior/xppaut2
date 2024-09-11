@@ -66,7 +66,7 @@
 
 typedef struct {
   integer length;
-  real   *data;
+  real *data;
 } *N_Vector;
 
 /***************************************************************
@@ -140,9 +140,10 @@ typedef struct {
  *                                                             *
  ***************************************************************/
 
-#define N_VMAKE(v, v_data, v_len) v = (N_Vector) malloc(sizeof(*v)); \
-                                  v->data   = v_data; \
-                                  v->length = v_len
+#define N_VMAKE(v, v_data, v_len)                                              \
+  v = (N_Vector)malloc(sizeof(*v));                                            \
+  v->data = v_data;                                                            \
+  v->length = v_len
 
 #define N_VDISPOSE(v) free(v)
 
@@ -150,7 +151,7 @@ typedef struct {
 
 #define N_VLENGTH(v) (v->length)
 
-#define N_VIth(v,i) ((v->data)[i])
+#define N_VIth(v, i) ((v->data)[i])
 
 /* Part II: N_Vector Kernel Prototypes (Machine Environment-Independent) */
 

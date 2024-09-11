@@ -6,9 +6,9 @@
 
 /**************  New stuff for the Grabber ***************************/
 #define MAX_GEVENTS 20  /* maximum variables you can change per grabbable */
-#define MAX_ANI_GRAB 50   /* max grabbable objects  */
+#define MAX_ANI_GRAB 50 /* max grabbable objects  */
 
-typedef struct {  /* tasks have the form {name1=formula1;name2=formula2;...} */
+typedef struct { /* tasks have the form {name1=formula1;name2=formula2;...} */
 
   double vrhs[MAX_GEVENTS];
   char lhsname[MAX_GEVENTS][11];
@@ -16,37 +16,37 @@ typedef struct {  /* tasks have the form {name1=formula1;name2=formula2;...} */
   int *comrhs[MAX_GEVENTS];
   int runnow;
   int n; /* number of tasks <= MAX_GEVENTS */
-}GRAB_TASK;
+} GRAB_TASK;
 
 typedef struct {
   int ok;
-  double zx,zy,tol;
-  int *x,*y;
-  GRAB_TASK start,end;
+  double zx, zy, tol;
+  int *x, *y;
+  GRAB_TASK start, end;
 } ANI_GRAB;
 
 /***************  End of grabber stuff  in header **************/
 
 typedef struct {
   int flag;
- int skip;
+  int skip;
   char root[100];
- char filter[256];
- int aviflag,filflag;
+  char filter[256];
+  int aviflag, filflag;
 } MPEG_SAVE;
 
 typedef struct {
   int n;
-  int *x,*y,*col;
+  int *x, *y, *col;
   int i;
 } Comet;
 
 typedef struct {
   Comet c;
   int type, flag;
-  int *col,*x1,*y1,*x2,*y2,*who;
-  double zcol,zx1,zy1,zx2,zy2,zrad,zval;
-  int zthick,tfont,tsize,tcolor;
+  int *col, *x1, *y1, *x2, *y2, *who;
+  double zcol, zx1, zy1, zx2, zy2, zrad, zval;
+  int zthick, tfont, tsize, tcolor;
 } ANI_COM;
 
 void new_vcr(void);
@@ -79,7 +79,8 @@ int ani_new_file(char *filename);
 int load_ani_file(FILE *fp);
 int parse_ani_string(char *s, FILE *fp);
 void set_ani_dimension(char *x1, char *y1, char *x2, char *y2);
-int add_ani_com(int type, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
+int add_ani_com(int type, char *x1, char *y1, char *x2, char *y2, char *col,
+                char *thick);
 void init_ani_stuff(void);
 void free_ani(void);
 int chk_ani_color(char *s, int *index);
@@ -87,15 +88,24 @@ int add_ani_expr(char *x, int *c);
 int add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick);
 void reset_comets(void);
 void roll_comet(ANI_COM *a, int xn, int yn, int col);
-int add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_null(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *who);
-int add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col, char *thick);
-int add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col, char *thick);
+int add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                  char *thick);
+int add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                 char *thick);
+int add_ani_null(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                 char *who);
+int add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                 char *thick);
+int add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                  char *thick);
+int add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                  char *thick);
+int add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+                   char *col, char *thick);
+int add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+                   char *thick);
+int add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+                    char *thick);
 int add_ani_text(ANI_COM *a, char *x1, char *y1, char *y2);
 int add_ani_vtext(ANI_COM *a, char *x1, char *y1, char *x2, char *y2);
 int add_ani_settext(ANI_COM *a, char *x1, char *y1, char *col);
@@ -136,7 +146,7 @@ int add_grab_task(char *lhs, char *rhs, int igrab, int which);
 void draw_grab_points(void);
 void free_grabber(void);
 int check_ani_pause(XEvent ev);
-void do_ani_slider_motion(Window w,int x);
-void draw_ani_slider(Window w,int x);
+void do_ani_slider_motion(Window w, int x);
+void draw_ani_slider(Window w, int x);
 void redraw_ani_slider(void);
 #endif

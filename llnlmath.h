@@ -40,9 +40,9 @@
 
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 
-#define ABS(A)    ((A > 0) ? (A) : -(A))
+#define ABS(A) ((A > 0) ? (A) : -(A))
 
-#define SQR(A)    ((A) * (A))
+#define SQR(A) ((A) * (A))
 
 /******************************************************************
  *                                                                *
@@ -99,5 +99,3 @@ real RPowerR(real base, real exponent);
 real RSqrt(real x);
 
 #endif
-
-

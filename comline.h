@@ -8,8 +8,8 @@ typedef struct {
 } INTERN_SET;
 
 typedef struct {
-   char *name;
-   struct SET_NAME * next;
+  char *name;
+  struct SET_NAME *next;
 } SET_NAME;
 
 int is_set_name(SET_NAME *set, char *nam);

@@ -15,6 +15,8 @@ int set_up_periodic(int *ipar, int *ivar, double *sect, int *ishow);
 void find_bvp_com(int com);
 void last_shot(int flag);
 int set_up_sh_range(void);
-void bvshoot(double *y, double *yend, double err, double eps, int maxit, int *iret, int n, int ishow, int iper, int ipar, int ivar, double sect);
+void bvshoot(double *y, double *yend, double err, double eps, int maxit,
+             int *iret, int n, int ishow, int iper, int ipar, int ivar,
+             double sect);
 
 #endif

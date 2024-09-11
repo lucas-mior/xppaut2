@@ -1,6 +1,6 @@
 /* autlib4.f -- translated by f2c (version 19970805).
    You must link the resulting object file with the libraries:
-	-lf2c -lm   (in that order)
+        -lf2c -lm   (in that order)
 */
 
 #include "auto_f2c.h"
@@ -59,9 +59,9 @@
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int
-flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *rwork, doublecomplex *ev)
-{
+/* Subroutine */ int flowkm(integer *ndim, doublereal *c0, doublereal *c1,
+                            integer *iid, doublereal *rwork,
+                            doublecomplex *ev) {
 
   /* System generated locals */
   integer c0_dim1, c1_dim1, rwork_dim1;
@@ -84,15 +84,15 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   integer qzierr;
   doublereal *svdwrk, qzz[1];
 
-  svde = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
-  svds = (doublereal *)malloc(sizeof(doublereal)*(*ndim+1));
-  svdv = (doublereal *)malloc(sizeof(doublereal)*(*ndim)*(*ndim));
-  v = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
-  x = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
-  qzalfi = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
-  qzbeta = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
-  qzalfr = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
-  svdwrk = (doublereal *)malloc(sizeof(doublereal)*(*ndim));
+  svde = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+  svds = (doublereal *)malloc(sizeof(doublereal) * (*ndim + 1));
+  svdv = (doublereal *)malloc(sizeof(doublereal) * (*ndim) * (*ndim));
+  v = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+  x = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+  qzalfi = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+  qzbeta = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+  qzalfr = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+  svdwrk = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
 
   /*  Subroutine to compute Floquet multipliers via the "deflated circuit */
   /*  pencil" method. This routine is called by the AUTO routine FNSPBV */
@@ -137,25 +137,23 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*  Print the undeflated circuit pencil (C0, C1). */
 
   if (*iid > 4) {
-    fprintf(fp9," Undeflated circuit pencil (C0, C1) \n");	
+    fprintf(fp9, " Undeflated circuit pencil (C0, C1) \n");
 
-    fprintf(fp9,"   C0 : \n");	
+    fprintf(fp9, "   C0 : \n");
 
     for (i = 0; i < *ndim; ++i) {
       for (j = 0; j < *ndim; ++j) {
-	fprintf(fp9," %23.16f",ARRAY2D(c0, i, j));	
+        fprintf(fp9, " %23.16f", ARRAY2D(c0, i, j));
       }
-      fprintf(fp9,"\n");	
-
+      fprintf(fp9, "\n");
     }
-    fprintf(fp9,"   C1 : \n");	
+    fprintf(fp9, "   C1 : \n");
 
     for (i = 0; i < *ndim; ++i) {
       for (j = 0; j < *ndim; ++j) {
-	fprintf(fp9," %23.16f",ARRAY2D(c1, i, j));
+        fprintf(fp9, " %23.16f", ARRAY2D(c1, i, j));
       }
-      fprintf(fp9,"\n");	
-
+      fprintf(fp9, "\n");
     }
   }
 
@@ -202,12 +200,15 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
        BLAS routines. */
     integer tmp = 1;
     doublereal tmp_tol = 1.0E-16;
-    ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp,
-	  svdv, ndim, svdwrk, &tmp, &svdinf, &tmp_tol);
+    ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp, svdv, ndim, svdwrk,
+          &tmp, &svdinf, &tmp_tol);
   }
   if (svdinf != 0) {
-    fprintf(fp9," NOTE : Warning from subroutine FLOWKM SVD routine returned SVDINF = %4ld        Floquet multiplier calculations may be wrong\n",svdinf);	
-
+    fprintf(
+        fp9,
+        " NOTE : Warning from subroutine FLOWKM SVD routine returned SVDINF = "
+        "%4ld        Floquet multiplier calculations may be wrong\n",
+        svdinf);
   }
 
   /*  Apply a Householder matrix (call it H1) based on the null vector */
@@ -221,11 +222,11 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
     doublereal tmp0 = 0.0;
     logical tmp_false = FALSE_;
 
-    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv,
-	  ndim, &tmp0, rwork, ndim, 1L, 1L);
+    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, ndim, &tmp0, rwork,
+          ndim, 1L, 1L);
     dgemc(ndim, ndim, rwork, ndim, c0, ndim, &tmp_false);
-    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c1, ndim, svdv,
-	  ndim, &tmp0, rwork, ndim, 1L, 1L);
+    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c1, ndim, svdv, ndim, &tmp0, rwork,
+          ndim, 1L, 1L);
     dgemc(ndim, ndim, rwork, ndim, c1, ndim, &tmp_false);
   }
   /*  Apply a Householder matrix (call it H2) based on */
@@ -240,7 +241,9 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
     nrmc1x = dnrm2(ndim, &ARRAY2D(c1, 0, (*ndim - 1)), &tmp);
   }
   for (i = 0; i < *ndim; ++i) {
-    x[i] = (ARRAY2D(c0, i, (*ndim - 1)) / nrmc0x + ARRAY2D(c1, i, (*ndim - 1)) / nrmc1x) / 2.;
+    x[i] = (ARRAY2D(c0, i, (*ndim - 1)) / nrmc0x +
+            ARRAY2D(c1, i, (*ndim - 1)) / nrmc1x) /
+           2.;
   }
   {
     /* This is here since I don't want to change the calling sequence of the
@@ -256,7 +259,8 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
    */
 
   /* Computing MAX */
-  const__ = max(fabs(ARRAY2D(c0, 0, (*ndim - 1))),fabs(ARRAY2D(c1, 0, (*ndim - 1))));
+  const__ =
+      max(fabs(ARRAY2D(c0, 0, (*ndim - 1))), fabs(ARRAY2D(c1, 0, (*ndim - 1))));
   for (j = 0; j < *ndim; ++j) {
     for (i = 0; i < *ndim; ++i) {
       ARRAY2D(c0, i, j) /= const__;
@@ -267,24 +271,23 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*  Finished the deflation process! Print the deflated circuit pencil. */
 
   if (*iid > 4) {
-    fprintf(fp9," Deflated cicuit pencil (H2^T)*(C0, C1)*(H1) \n");	
+    fprintf(fp9, " Deflated cicuit pencil (H2^T)*(C0, C1)*(H1) \n");
 
-    fprintf(fp9,"   (H2^T)*C0*(H1) : \n");	
+    fprintf(fp9, "   (H2^T)*C0*(H1) : \n");
 
     for (i = 0; i < *ndim; ++i) {
       for (j = 0; j < *ndim; ++j) {
-	fprintf(fp9," %23.16f",ARRAY2D(c0, i, j));
+        fprintf(fp9, " %23.16f", ARRAY2D(c0, i, j));
       }
-      fprintf(fp9,"\n");	
+      fprintf(fp9, "\n");
     }
-    fprintf(fp9,"   (H2^T)*C1*(H1) : \n");	
+    fprintf(fp9, "   (H2^T)*C1*(H1) : \n");
 
     for (i = 0; i < *ndim; ++i) {
       for (j = 0; j < *ndim; ++j) {
-	fprintf(fp9," %23.16f",ARRAY2D(c1, i, j));
+        fprintf(fp9, " %23.16f", ARRAY2D(c1, i, j));
       }
-      fprintf(fp9,"\n");	
-
+      fprintf(fp9, "\n");
     }
   }
 
@@ -315,22 +318,23 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*  reduce the generalized eigenvalue problem to a simpler form */
   /*   (C0BarDef,C1BarDef) = (upper hessenberg, upper triangular) */
 
-  qzhes(*ndim, ndimm1, &c0[1], &c1[1], FALSE_ , qzz);
+  qzhes(*ndim, ndimm1, &c0[1], &c1[1], FALSE_, qzz);
 
   /*  now reduce to an even simpler form */
   /*   (C0BarDef,C1BarDef) = (quasi-upper triangular, upper triangular) */
 
-  qzit(*ndim, ndimm1, &c0[1], &c1[1], QZEPS1, FALSE_ ,
-       qzz, &qzierr);
+  qzit(*ndim, ndimm1, &c0[1], &c1[1], QZEPS1, FALSE_, qzz, &qzierr);
   if (qzierr != 0) {
-    fprintf(fp9," NOTE : Warning from subroutine FLOWKM : QZ routine returned QZIERR = %4ld        Floquet multiplier calculations may be wrong \n",qzierr);	
-
+    fprintf(
+        fp9,
+        " NOTE : Warning from subroutine FLOWKM : QZ routine returned QZIERR = "
+        "%4ld        Floquet multiplier calculations may be wrong \n",
+        qzierr);
   }
 
   /*  compute the generalized eigenvalues */
 
-  qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi,
-	qzbeta, FALSE_, qzz);
+  qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi, qzbeta, FALSE_, qzz);
 
   /*  Pack the eigenvalues into complex form. */
   ev[0].r = ARRAY2D(c0, 0, (*ndim - 1)) / ARRAY2D(c1, 0, (*ndim - 1));
@@ -346,8 +350,8 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
     }
   }
   if (infev) {
-    fprintf(fp9," NOTE : Warning from subroutine FLOWKM : Infinite Floquet multiplier represented by CMPLX( 1.0D+30, 1.0D+30 )\n");	
-
+    fprintf(fp9, " NOTE : Warning from subroutine FLOWKM : Infinite Floquet "
+                 "multiplier represented by CMPLX( 1.0D+30, 1.0D+30 )\n");
   }
 
   free(svde);
@@ -376,9 +380,8 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int
-dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublereal *beta, doublereal *v)
-{
+/* Subroutine */ int dhhpr(integer *k, integer *j, integer *n, doublereal *x,
+                           integer *incx, doublereal *beta, doublereal *v) {
 
   /* Local variables */
   static integer iend, jmkp1;
@@ -437,7 +440,7 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
   /*           Is updated to be the appropriate Householder vector for */
   /*           the given problem. (Note: space for the implicit zeroes is */
   /*          assumed to be present. Will save on time for index translation
-	      .)*/
+              .)*/
 
   /*  -- Written by Tom Fairgrieve, */
   /*                Department of Computer Science, */
@@ -458,15 +461,15 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
   /*--x;*/
 
   if (*k < 1 || *k > *j) {
-    fprintf(fp9,"Domain error for K in DHHPR\n");	
+    fprintf(fp9, "Domain error for K in DHHPR\n");
     exit(0);
   }
   if (*j > *n) {
-    fprintf(fp9,"Domain error for J in DHHPR\n");	
+    fprintf(fp9, "Domain error for J in DHHPR\n");
     exit(0);
   }
   if (*incx < 1) {
-    fprintf(fp9,"Domain error for INCX in DHHPR\n");	
+    fprintf(fp9, "Domain error for INCX in DHHPR\n");
     exit(0);
   }
 
@@ -495,11 +498,10 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
     iend = jmkp1 * *incx;
     istart = (*k - 1) * *incx + 1;
     l = *k;
-    for (i = istart; *incx < 0 ? i >= iend : i <= iend; i += *incx)
-      {
-	v[-1 + l] = x[-1 + i] / m;
-	++l;
-      }
+    for (i = istart; *incx < 0 ? i >= iend : i <= iend; i += *incx) {
+      v[-1 + l] = x[-1 + i] / m;
+      ++l;
+    }
   }
 
   /*  Compute alpha */
@@ -525,13 +527,13 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
 
 } /* dhhpr_ */
 
-/* Subroutine */ int
-dhhap(integer *k, integer *j, integer *n, integer *q, doublereal *beta, doublereal *v, integer *job, doublereal *a, integer *lda)
-{
+/* Subroutine */ int dhhap(integer *k, integer *j, integer *n, integer *q,
+                           doublereal *beta, doublereal *v, integer *job,
+                           doublereal *a, integer *lda) {
   /* System generated locals */
   integer a_dim1;
 
-    /* Local variables */
+  /* Local variables */
 
   static integer jmkp1;
   static doublereal s;
@@ -559,76 +561,76 @@ dhhap(integer *k, integer *j, integer *n, integer *q, doublereal *beta, doublere
   /*           K must be at least one. */
   /*           Unchanged on exit. */
 
-/*  J      - INTEGER. */
-/*           On entry, J specifies the last non-zero entry of V. */
-/*           J must be >= K and <= N. */
-/*           Unchanged on exit. */
+  /*  J      - INTEGER. */
+  /*           On entry, J specifies the last non-zero entry of V. */
+  /*           J must be >= K and <= N. */
+  /*           Unchanged on exit. */
 
-/*  N      - INTEGER. */
-/*           On entry, N specifies the row dimension of A. */
-/*           Unchanged on exit. */
+  /*  N      - INTEGER. */
+  /*           On entry, N specifies the row dimension of A. */
+  /*           Unchanged on exit. */
 
-/*  Q      - INTEGER. */
-/*           On entry, Q specifies the column dimension of A. */
-/*           Unchanged on exit. */
+  /*  Q      - INTEGER. */
+  /*           On entry, Q specifies the column dimension of A. */
+  /*           Unchanged on exit. */
 
-/*  BETA   - DOUBLE PRECISION. */
-/*           BETA specifies the scalar beta. (see pg. 40 of G and v.L.) */
-/*           Unchanged on exit. */
+  /*  BETA   - DOUBLE PRECISION. */
+  /*           BETA specifies the scalar beta. (see pg. 40 of G and v.L.) */
+  /*           Unchanged on exit. */
 
-/*  V      - DOUBLE PRECISION array of DIMENSION at least n. */
-/*           Householder vector v. */
-/*           Unchanged on exit. */
+  /*  V      - DOUBLE PRECISION array of DIMENSION at least n. */
+  /*           Householder vector v. */
+  /*           Unchanged on exit. */
 
-/*  JOB    - INTEGER. */
-/*          On entry, JOB specifies the order of the Householder applicati
-on.*/
-/*           If JOB = 1 then A := (I - beta*v*vt)A and if JOB = 2 then */
-/*           A := A(I - beta*v*vt) */
-/*           Unchanged on exit. */
+  /*  JOB    - INTEGER. */
+  /*          On entry, JOB specifies the order of the Householder applicati
+  on.*/
+  /*           If JOB = 1 then A := (I - beta*v*vt)A and if JOB = 2 then */
+  /*           A := A(I - beta*v*vt) */
+  /*           Unchanged on exit. */
 
-/*  A      - DOUBLE PRECISION array of DIMENSION at least */
-/*           ( LDA, Q ). */
-/*           On entry, A specifies the matrix to be transformed. */
-/*           On exit, A specifies the transformed matrix. */
+  /*  A      - DOUBLE PRECISION array of DIMENSION at least */
+  /*           ( LDA, Q ). */
+  /*           On entry, A specifies the matrix to be transformed. */
+  /*           On exit, A specifies the transformed matrix. */
 
-/*  LDA    - INTEGER. */
-/*           On entry, LDA specifies the declared leading dimension of A.
-*/
-/*           Unchanged on exit. */
+  /*  LDA    - INTEGER. */
+  /*           On entry, LDA specifies the declared leading dimension of A.
+   */
+  /*           Unchanged on exit. */
 
-/*  -- Written by Tom Fairgrieve, */
-/*                Department of Computer Science, */
-/*                University of Toronto, */
-/*                Toronto, Ontario CANADA  M5S 1A4 */
+  /*  -- Written by Tom Fairgrieve, */
+  /*                Department of Computer Science, */
+  /*                University of Toronto, */
+  /*                Toronto, Ontario CANADA  M5S 1A4 */
 
-/*     .. Local Scalars .. */
-/*     .. External Functions from BLAS .. */
+  /*     .. Local Scalars .. */
+  /*     .. External Functions from BLAS .. */
 
-/*     .. Executable Statements .. */
+  /*     .. Executable Statements .. */
 
-/*  Test the input parameters. */
+  /*  Test the input parameters. */
 
-    /* Parameter adjustments */
-    /*--v;*/
+  /* Parameter adjustments */
+  /*--v;*/
   a_dim1 = *lda;
 
   if (*job != 1 && *job != 2) {
-    fprintf(fp9,"Domain error for JOB in DHHAP\n");	
+    fprintf(fp9, "Domain error for JOB in DHHAP\n");
     exit(0);
   }
   if (*k < 1 || *k > *j) {
-    fprintf(fp9,"Domain error for K in DHHAP\n");	
+    fprintf(fp9, "Domain error for K in DHHAP\n");
     exit(0);
   }
   if (*job == 1) {
     if (*j > *n) {
-      fprintf(fp9,"Domain error for J in DHHAP\n");	
+      fprintf(fp9, "Domain error for J in DHHAP\n");
       exit(0);
     }
   } else {
     if (*j > *q) {
-      fprintf(fp9,"Domain error for J in DHHAP\n");	
+      fprintf(fp9, "Domain error for J in DHHAP\n");
       exit(0);
     }
   }
@@ -656,25 +658,27 @@ on.*/
   if (*job == 1) {
     for (col = 0; col < *q; ++col) {
       {
-	/* This is here since I don't want to change the calling sequence of the
-	   BLAS routines. */
-	integer tmp = 1;
-	s = *beta * ddot(&jmkp1, &v[-1 + *k], &tmp, &ARRAY2D(a, -1 + *k, col), &tmp);
+        /* This is here since I don't want to change the calling sequence of the
+           BLAS routines. */
+        integer tmp = 1;
+        s = *beta *
+            ddot(&jmkp1, &v[-1 + *k], &tmp, &ARRAY2D(a, -1 + *k, col), &tmp);
       }
       for (row = *k - 1; row < *j; ++row) {
-	ARRAY2D(a, row, col) -= s * v[row];
+        ARRAY2D(a, row, col) -= s * v[row];
       }
     }
   } else {
     for (row = 0; row < *n; ++row) {
       {
-	/* This is here since I don't want to change the calling sequence of the
-	   BLAS routines. */
-	integer tmp = 1;
-	s = *beta * ddot(&jmkp1, &v[-1 + *k], &tmp, &ARRAY2D(a, row, (*k - 1)), lda);
+        /* This is here since I don't want to change the calling sequence of the
+           BLAS routines. */
+        integer tmp = 1;
+        s = *beta *
+            ddot(&jmkp1, &v[-1 + *k], &tmp, &ARRAY2D(a, row, (*k - 1)), lda);
       }
       for (col = *k - 1; col < *j; ++col) {
-	ARRAY2D(a, row, col) -= s * v[col];
+        ARRAY2D(a, row, col) -= s * v[col];
       }
     }
   }
@@ -686,5 +690,3 @@ on.*/
   /*     End of DHHAP. */
 
 } /* dhhap_ */
-
-

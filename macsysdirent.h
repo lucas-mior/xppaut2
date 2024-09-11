@@ -70,35 +70,35 @@
 #define _SYS_DIRENT_H
 
 struct dirent {
-	unsigned long d_fileno;		/* file number of entry */
-	unsigned short d_reclen;		/* length of this record */
-	unsigned char  d_type; 		/* file type, see below */
-	unsigned char d_namlen;		/* length of string in d_name */
+  unsigned long d_fileno;  /* file number of entry */
+  unsigned short d_reclen; /* length of this record */
+  unsigned char d_type;    /* file type, see below */
+  unsigned char d_namlen;  /* length of string in d_name */
 #ifdef _POSIX_SOURCE
-	char	d_name[255 + 1];	/* name must be no longer than this */
+  char d_name[255 + 1]; /* name must be no longer than this */
 #else
-#define	MAXNAMLEN	255
-	char	d_name[MAXNAMLEN + 1];	/* name must be no longer than this */
+#define MAXNAMLEN 255
+  char d_name[MAXNAMLEN + 1]; /* name must be no longer than this */
 #endif
 };
 
 /*
  * File types
  */
-#define	DT_UNKNOWN	 0
-#define	DT_FIFO		 1
-#define	DT_CHR		 2
-#define	DT_DIR		 4
-#define	DT_BLK		 6
-#define	DT_REG		 8
-#define	DT_LNK		10
-#define	DT_SOCK		12
-#define	DT_WHT		14
+#define DT_UNKNOWN 0
+#define DT_FIFO 1
+#define DT_CHR 2
+#define DT_DIR 4
+#define DT_BLK 6
+#define DT_REG 8
+#define DT_LNK 10
+#define DT_SOCK 12
+#define DT_WHT 14
 
 /*
  * Convert between stat structure types and directory types.
  */
-#define	IFTODT(mode)	(((mode) & 0170000) >> 12)
-#define	DTTOIF(dirtype)	((dirtype) << 12)
+#define IFTODT(mode) (((mode) & 0170000) >> 12)
+#define DTTOIF(dirtype) ((dirtype) << 12)
 
 #endif /* _SYS_DIRENT_H  */

@@ -41,8 +41,10 @@ void text3d(double x, double y, double z, char *s);
 void text_3d(double x, double y, double z, char *s);
 int threed_proj(double x, double y, double z, float *xp, float *yp);
 void point_3d(double x, double y, double z);
-void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1, double zsp1);
-void line3d(double x01, double y01, double z01, double x02, double y02, double z02);
+void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
+             double zsp1);
+void line3d(double x01, double y01, double z01, double x02, double y02,
+            double z02);
 void line_3d(double x, double y, double z, double xp, double yp, double zp);
 void pers_line(double x, double y, double z, double xp, double yp, double zp);
 void rot_3dvec(double x, double y, double z, float *xp, float *yp, float *zp);
@@ -54,8 +56,11 @@ void line_abs(double x1, double y1, double x2, double y2);
 void text_abs(double x, double y, char *text);
 void fillintext(char *old, char *new);
 void fancy_text_abs(double x, double y, char *old, int size, int font);
-int clip3d(double x1, double y1, double z1, double x2, double y2, double z2, float *x1p, float *y1p, float *z1p, float *x2p, float *y2p, float *z2p);
-int clip(double x1, double x2, double y1, double y2, float *x1_out, float *y1_out, float *x2_out, float *y2_out);
+int clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
+           float *x1p, float *y1p, float *z1p, float *x2p, float *y2p,
+           float *z2p);
+int clip(double x1, double x2, double y1, double y2, float *x1_out,
+         float *y1_out, float *x2_out, float *y2_out);
 void eq_symb(double *x, int type);
 void draw_symbol(double x, double y, double size, int my_symb);
 void reset_all_line_type();

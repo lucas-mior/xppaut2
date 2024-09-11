@@ -12,8 +12,9 @@ double alpha1n(double mu, double dt, double t, double t0);
 double alpbetjn(double mu, double dt, int l);
 double betnn(double mu, double dt, double t0, double t);
 void get_kn(double *y, double t);
-int volterra(double *y, double *t, double dt, int nt, int neq, int *istart, double *work);
-int volt_step(double *y, double t, double dt, int neq, double *yg, double *yp, double *yp2, double *ytemp, double *errvec, double *jac);
+int volterra(double *y, double *t, double dt, int nt, int neq, int *istart,
+             double *work);
+int volt_step(double *y, double t, double dt, int neq, double *yg, double *yp,
+              double *yp2, double *ytemp, double *errvec, double *jac);
 
 #endif
-

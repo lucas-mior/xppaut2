@@ -42,7 +42,7 @@
  *                                                                *
  ******************************************************************/
 
-enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
+enum { DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 
 /******************************************************************
  *                                                                *
@@ -56,7 +56,7 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  *                                                                *
  ******************************************************************/
 
-#define CVD_MSBJ  50
+#define CVD_MSBJ 50
 
 #define CVD_DGMAX RCONST(0.2)
 
@@ -132,9 +132,8 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 
 typedef void (*CVDenseJacFn)(integer N, DenseMat J, RhsFn f, void *f_data,
                              real t, N_Vector y, N_Vector fy, N_Vector ewt,
-                             real h, real uround, void *jac_data,
-                               int *nfePtr, N_Vector vtemp1,
-                             N_Vector vtemp2, N_Vector vtemp3);
+                             real h, real uround, void *jac_data, int *nfePtr,
+                             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
 /******************************************************************
  *                                                                *
@@ -169,8 +168,8 @@ void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
  ******************************************************************/
 
 void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real t,
-		  N_Vector y, N_Vector fy, N_Vector ewt, real h, real uround,
-		  void *jac_data,   int *nfePtr, N_Vector vtemp1,
-		  N_Vector vtemp2, N_Vector vtemp3);
+                  N_Vector y, N_Vector fy, N_Vector ewt, real h, real uround,
+                  void *jac_data, int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
+                  N_Vector vtemp3);
 
 #endif

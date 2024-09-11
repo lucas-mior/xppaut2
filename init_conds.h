@@ -6,61 +6,63 @@
 
 #define FILESELNWIN 10
 typedef struct {
- int n,n0,here;
- Window base,cancel,ok,up,dn,pgup,pgdn,file,wild,w[FILESELNWIN],dir,home,start;
- Window fw,ww;
- char wildtxt[256],filetxt[256];
- int nwin,minwid,minhgt;
- int off,pos,hot;
- char title[256];
+  int n, n0, here;
+  Window base, cancel, ok, up, dn, pgup, pgdn, file, wild, w[FILESELNWIN], dir,
+      home, start;
+  Window fw, ww;
+  char wildtxt[256], filetxt[256];
+  int nwin, minwid, minhgt;
+  int off, pos, hot;
+  char title[256];
 } FILESEL;
 
 typedef struct {
- int pos,n,n0,npos;
- int ihot,twid;
- int max;
- char **v;
- Window side,up,down,text;
+  int pos, n, n0, npos;
+  int ihot, twid;
+  int max;
+  char **v;
+  Window side, up, down, text;
 } SCROLL_LIST;
 
 typedef struct {
-  int use,pos,l;
+  int use, pos, l;
   char parname[20];
-  double lo,hi,val;
+  double lo, hi, val;
   int hgt;
-  int type,index;
-  Window left,right,top,main,slide,go;
+  int type, index;
+  Window left, right, top, main, slide, go;
 } PAR_SLIDER;
 
 typedef struct {
-  		int use,type;
-		int n;
-		Window base;
-                Window cancel,ok,def,go;
-		Window *w;
-                Window *we;
-                char **value;
-                int mc,*off,*pos;
-		} BoxListold;
+  int use, type;
+  int n;
+  Window base;
+  Window cancel, ok, def, go;
+  Window *w;
+  Window *we;
+  char **value;
+  int mc, *off, *pos;
+} BoxListold;
 
 typedef struct {
-  		int use,type,xuse;
-		int n,n0;
-                int nwin,minwid,minhgt;
-                Window up,dn;
-                Window pgup,pgdn;
-		Window base;
-                Window cancel,ok,def,go,close;
-                Window xvt,pp,arr;
-		Window *w;
-                Window *we;
-                Window *ck;
-                char **value,*iname,*wname;
-                int *isck;
-                int mc,*off,*pos;
-		} BoxList;
+  int use, type, xuse;
+  int n, n0;
+  int nwin, minwid, minhgt;
+  Window up, dn;
+  Window pgup, pgdn;
+  Window base;
+  Window cancel, ok, def, go, close;
+  Window xvt, pp, arr;
+  Window *w;
+  Window *we;
+  Window *ck;
+  char **value, *iname, *wname;
+  int *isck;
+  int mc, *off, *pos;
+} BoxList;
 
-void create_scroll_list(Window base, int x, int y, int width, int height, SCROLL_LIST *sl);
+void create_scroll_list(Window base, int x, int y, int width, int height,
+                        SCROLL_LIST *sl);
 void free_scroll_list(SCROLL_LIST *sl);
 void add_scroll_item(char *v, SCROLL_LIST *sl);
 int expose_scroll_list(Window w, SCROLL_LIST sl);
@@ -94,7 +96,7 @@ void set_slide_pos(PAR_SLIDER *p);
 void slide_release(Window w);
 void do_slide_release(int w, PAR_SLIDER *p);
 void slider_motion(XEvent ev);
-void do_slide_motion(Window w, int x, PAR_SLIDER *p,int state);
+void do_slide_motion(Window w, int x, PAR_SLIDER *p, int state);
 void enter_slides(Window w, int val);
 void enter_slider(Window w, PAR_SLIDER *p, int val);
 void expose_slides(Window w);
@@ -110,7 +112,8 @@ void resize_par_box(Window win);
 void get_nrow_from_hgt(int h, int *n, int *w);
 void destroy_box(BoxList *b);
 void make_box_list_window(BoxList *b, int type);
-void make_box_list(BoxList *b, char *wname, char *iname, int n, int type, int use);
+void make_box_list(BoxList *b, char *wname, char *iname, int n, int type,
+                   int use);
 void do_box_expose(Window w);
 void justify_string(Window w1, char *s1);
 void draw_one_box(BoxList b, int index);

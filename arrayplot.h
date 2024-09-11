@@ -5,20 +5,21 @@
 #include <stdio.h>
 
 typedef struct {
-  Window base,wclose,wedit,wprint,wstyle,wscale,wmax,wmin,wplot,wredraw,wtime,wgif,wrange,wfit;
-  int index0,indexn,alive,nacross,ndown,plotdef;
-  int height,width,ploth,plotw;
-  int nstart,nskip,ncskip;
+  Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin, wplot,
+      wredraw, wtime, wgif, wrange, wfit;
+  int index0, indexn, alive, nacross, ndown, plotdef;
+  int height, width, ploth, plotw;
+  int nstart, nskip, ncskip;
   char name[20];
-  double tstart,tend,zmin,zmax,dt;
-  char xtitle[256],ytitle[256],filename[256],bottom[256];
+  double tstart, tend, zmin, zmax, dt;
+  char xtitle[256], ytitle[256], filename[256], bottom[256];
   int type;
 } APLOT;
 void set_acolor(int);
 void tag_aplot(char *);
 void close_aplot_files(void);
 void draw_one_array_plot(char *);
-void gif_aplot_all(char *,int);
+void gif_aplot_all(char *, int);
 void optimize_aplot(int *plist);
 void make_my_aplot(char *name);
 void scale_aplot(APLOT *ap, double *zmax, double *zmin);

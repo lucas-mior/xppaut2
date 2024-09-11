@@ -20,12 +20,13 @@ void free_comments();
 
 void add_comment(char *s);
 void init_varinfo();
-void add_varinfo(int type,char *lhs,char *rhs,int nargs,char args[MAXARG][NAMLEN+1]);
-void stor_internopts(char *s1);
+void add_varinfo(int type,char *lhs,char *rhs,int nargs,char
+args[MAXARG][NAMLEN+1]); void stor_internopts(char *s1);
 */
 
 typedef struct {
-  char *name,*value;} FIXINFO;
+  char *name, *value;
+} FIXINFO;
 
 int make_eqn(void);
 void strip_saveqn(void);
@@ -61,11 +62,12 @@ int formula_or_number(char *expr, double *z);
 void strpiece(char *dest, char *src, int i0, int ie);
 int parse_a_string(char *s1, VAR_INFO *v);
 void init_varinfo(void);
-void add_varinfo(int type, char *lhs, char *rhs, int nargs, char args[20][10 +1]);
+void add_varinfo(int type, char *lhs, char *rhs, int nargs,
+                 char args[20][10 + 1]);
 void free_varinfo(void);
 int extract_ode(char *s1, int *ie, int i1);
 int strparse(char *s1, char *s2, int i0, int *i1);
-int extract_args(char *s1, int i0, int *ie, int *narg, char args[20][10 +1]);
+int extract_args(char *s1, int i0, int *ie, int *narg, char args[20][10 + 1]);
 int find_char(char *s1, char *s2, int i0, int *i1);
 int next_nonspace(char *s1, int i0, int *i1);
 void remove_blanks(char *s1);
@@ -82,9 +84,9 @@ void new_comment(FILE *f);
 void add_comment(char *s);
 
 /* for parsing par, init with whitespace correctly */
-char* new_string2(char* old, int length);
-void advance_past_first_word(char** sptr);
-char* get_next2(char** tokens_ptr);
-void strcpy_trim(char* dest, char* source);
-void strncpy_trim(char* dest, char* source, int n);
+char *new_string2(char *old, int length);
+void advance_past_first_word(char **sptr);
+char *get_next2(char **tokens_ptr);
+void strcpy_trim(char *dest, char *source);
+void strncpy_trim(char *dest, char *source, int n);
 #endif

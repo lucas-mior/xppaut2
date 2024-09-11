@@ -2,7 +2,7 @@
 #define _aniparse_avi_h
 
 typedef struct {
-  int nframe,wid,hgt,fps;
+  int nframe, wid, hgt, fps;
   unsigned char *image;
   int cur_frame;
   int task;
@@ -11,24 +11,24 @@ typedef struct {
 AVI_INFO avi_info;
 typedef struct {
   int flag;
- int skip;
+  int skip;
   char root[100];
- char filter[256];
- int aviflag,filflag;
+  char filter[256];
+  int aviflag, filflag;
 } MPEG_SAVE;
 
 typedef struct {
   int n;
-  int *x,*y,*col;
+  int *x, *y, *col;
   int i;
 } Comet;
 
 typedef struct {
   Comet c;
   int type, flag;
-  int *col,*x1,*y1,*x2,*y2;
-  double zcol,zx1,zy1,zx2,zy2,zrad,zval;
-  int zthick,tfont,tsize,tcolor;
+  int *col, *x1, *y1, *x2, *y2;
+  double zcol, zx1, zy1, zx2, zy2, zrad, zval;
+  int zthick, tfont, tsize, tcolor;
 } ANI_COM;
 
 int new_vcr(void);
@@ -51,7 +51,8 @@ int ani_new_file(char *filename);
 int load_ani_file(FILE *fp);
 int parse_ani_string(char *s);
 int set_ani_dimension(char *x1, char *y1, char *x2, char *y2);
-int add_ani_com(int type, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
+int add_ani_com(int type, char *x1, char *y1, char *x2, char *y2, char *col,
+                char *thick);
 int init_ani_stuff(void);
 int free_ani(void);
 int chk_ani_color(char *s, int *index);
@@ -59,14 +60,22 @@ int add_ani_expr(char *x, int *c);
 int add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick);
 int reset_comets(void);
 int roll_comet(ANI_COM *a, int xn, int yn, int col);
-int add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-int add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col, char *thick);
-int add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col, char *thick);
+int add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                  char *thick);
+int add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                 char *thick);
+int add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                 char *thick);
+int add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                  char *thick);
+int add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                  char *thick);
+int add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+                   char *col, char *thick);
+int add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+                   char *thick);
+int add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+                    char *thick);
 int add_ani_text(ANI_COM *a, char *x1, char *y1, char *y2);
 int add_ani_vtext(ANI_COM *a, char *x1, char *y1, char *x2, char *y2);
 int add_ani_settext(ANI_COM *a, char *x1, char *y1, char *col);

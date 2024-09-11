@@ -79,7 +79,7 @@
 
 typedef struct {
   integer size;
-  real  **data;
+  real **data;
 } *DenseMat;
 
 /* DenseMat accessor macros */
@@ -95,7 +95,7 @@ typedef struct {
  *                                                                *
  ******************************************************************/
 
-#define DENSE_ELEM(A,i,j) ((A->data)[j][i])
+#define DENSE_ELEM(A, i, j) ((A->data)[j][i])
 
 /******************************************************************
  *                                                                *
@@ -110,7 +110,7 @@ typedef struct {
  *                                                                *
  ******************************************************************/
 
-#define DENSE_COL(A,j) ((A->data)[j])
+#define DENSE_COL(A, j) ((A->data)[j])
 
 /* Functions that use the DenseMat representation for a dense matrix */
 

@@ -30,14 +30,21 @@ int auto_num_par(void);
 int auto_plot_par(void);
 int auto_fit(void);
 int auto_zoom(int i1, int j1, int i2, int j2);
-int auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2, double per, double *uhigh, double *ulow, double *ubar, double a);
+int auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
+                 double per, double *uhigh, double *ulow, double *ubar,
+                 double a);
 int plot_point(int flag2, int icp1, int icp2);
-int add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar, double a, int type, int flag, int lab, int npar, int icp1, int icp2, int flag2, double *evr, double *evi);
-int add_point(double *par, double per, double *uhigh, double *ulow, double *ubar, double a, int type, int flag, int lab, int npar, int icp1, int icp2, int flag2, double *evr, double *evi);
+int add_ps_point(double *par, double per, double *uhigh, double *ulow,
+                 double *ubar, double a, int type, int flag, int lab, int npar,
+                 int icp1, int icp2, int flag2, double *evr, double *evi);
+int add_point(double *par, double per, double *uhigh, double *ulow,
+              double *ubar, double a, int type, int flag, int lab, int npar,
+              int icp1, int icp2, int flag2, double *evr, double *evi);
 int redraw_auto_menus(void);
 int get_bif_sym(char *at, int itp);
 int info_header(int flag2, int icp1, int icp2);
-int new_info(int ibr, int pt, char *ty, int lab, double *par, double norm, double u0, double per, int flag2, int icp1, int icp2);
+int new_info(int ibr, int pt, char *ty, int lab, double *par, double norm,
+             double u0, double per, int flag2, int icp1, int icp2);
 int traverse_diagram(void);
 int clear_auto_plot(void);
 int do_auto_win(void);

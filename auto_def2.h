@@ -24,8 +24,6 @@
 #define NMX iap->nmx
 #define NUZR iap->nuzr
 #define RL0 rap->rl0
-#define RL1  rap->rl1
+#define RL1 rap->rl1
 #define AUTO_A0 rap->a0
 #define AUTO_A1 rap->a1
-
-

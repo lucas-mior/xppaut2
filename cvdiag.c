@@ -18,14 +18,14 @@
 
 /* Error Messages */
 
-#define CVDIAG_INIT   "CVDiagInit-- "
+#define CVDIAG_INIT "CVDiagInit-- "
 
-#define MSG_MEM_FAIL  CVDIAG_INIT "A memory request failed.\n\n"
+#define MSG_MEM_FAIL CVDIAG_INIT "A memory request failed.\n\n"
 
 /* Other Constants */
 
 #define FRACT RCONST(0.1)
-#define ONE   RCONST(1.0)
+#define ONE RCONST(1.0)
 
 /******************************************************************
  *                                                                *
@@ -38,12 +38,12 @@
 
 typedef struct {
 
-  real di_gammasv;   /* gammasv = gamma at the last call to setup */
-                     /* or solve                                  */
+  real di_gammasv; /* gammasv = gamma at the last call to setup */
+                   /* or solve                                  */
 
-  N_Vector di_M;       /* M = (I - gamma J)^{-1} , gamma = h / l1   */
+  N_Vector di_M; /* M = (I - gamma J)^{-1} , gamma = h / l1   */
 
-  N_Vector di_bit;     /* temporary storage vector                  */
+  N_Vector di_bit; /* temporary storage vector                  */
 
   N_Vector di_bitcomp; /* temporary storage vector                  */
 
@@ -51,43 +51,43 @@ typedef struct {
 
 /* CVDIAG linit, lsetup, lsolve, and lfree routines */
 
-static int  CVDiagInit(CVodeMem cv_mem, bool *setupNonNull);
+static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull);
 
-static int  CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
-			N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-			N_Vector vtemp2, N_Vector vtemp3);
+static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
+                       N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
+                       N_Vector vtemp2, N_Vector vtemp3);
 
-static int  CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-			N_Vector fcur);
+static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
+                       N_Vector fcur);
 
 static void CVDiagFree(CVodeMem cv_mem);
 
 /* Readability Replacements */
 
-#define N         (cv_mem->cv_N)
-#define f         (cv_mem->cv_f)
-#define f_data    (cv_mem->cv_f_data)
-#define uround    (cv_mem->cv_uround)
-#define tn        (cv_mem->cv_tn)
-#define h         (cv_mem->cv_h)
-#define rl1       (cv_mem->cv_rl1)
-#define gamma     (cv_mem->cv_gamma)
-#define ewt       (cv_mem->cv_ewt)
-#define nfe       (cv_mem->cv_nfe)
-#define errfp     (cv_mem->cv_errfp)
-#define iopt      (cv_mem->cv_iopt)
-#define zn        (cv_mem->cv_zn)
-#define linit     (cv_mem->cv_linit)
-#define lsetup    (cv_mem->cv_lsetup)
-#define lsolve    (cv_mem->cv_lsolve)
-#define lfree     (cv_mem->cv_lfree)
-#define lmem      (cv_mem->cv_lmem)
-#define machenv   (cv_mem->cv_machenv)
+#define N (cv_mem->cv_N)
+#define f (cv_mem->cv_f)
+#define f_data (cv_mem->cv_f_data)
+#define uround (cv_mem->cv_uround)
+#define tn (cv_mem->cv_tn)
+#define h (cv_mem->cv_h)
+#define rl1 (cv_mem->cv_rl1)
+#define gamma (cv_mem->cv_gamma)
+#define ewt (cv_mem->cv_ewt)
+#define nfe (cv_mem->cv_nfe)
+#define errfp (cv_mem->cv_errfp)
+#define iopt (cv_mem->cv_iopt)
+#define zn (cv_mem->cv_zn)
+#define linit (cv_mem->cv_linit)
+#define lsetup (cv_mem->cv_lsetup)
+#define lsolve (cv_mem->cv_lsolve)
+#define lfree (cv_mem->cv_lfree)
+#define lmem (cv_mem->cv_lmem)
+#define machenv (cv_mem->cv_machenv)
 
-#define gammasv   (cvdiag_mem->di_gammasv)
-#define M         (cvdiag_mem->di_M)
-#define bit       (cvdiag_mem->di_bit)
-#define bitcomp   (cvdiag_mem->di_bitcomp)
+#define gammasv (cvdiag_mem->di_gammasv)
+#define M (cvdiag_mem->di_M)
+#define bit (cvdiag_mem->di_bit)
+#define bitcomp (cvdiag_mem->di_bitcomp)
 
 /*************** CVDiag **********************************************
 
@@ -101,24 +101,25 @@ static void CVDiagFree(CVodeMem cv_mem);
 
 **********************************************************************/
 
-void CVDiag(void *cvode_mem)
-{
+void CVDiag(void *cvode_mem) {
   CVodeMem cv_mem;
   CVDiagMem cvdiag_mem;
 
   /* Return immediately if cvode_mem is NULL */
-  cv_mem = (CVodeMem) cvode_mem;
-  if (cv_mem == NULL) return;  /* CVode reports this error */
+  cv_mem = (CVodeMem)cvode_mem;
+  if (cv_mem == NULL)
+    return; /* CVode reports this error */
 
   /* Set four main function fields in cv_mem */
-  linit  = CVDiagInit;
+  linit = CVDiagInit;
   lsetup = CVDiagSetup;
   lsolve = CVDiagSolve;
-  lfree  = CVDiagFree;
+  lfree = CVDiagFree;
 
   /* Get memory for CVDiagMemRec */
-  lmem = cvdiag_mem = (CVDiagMem) malloc(sizeof(CVDiagMemRec));
-  if (cvdiag_mem == NULL) return; /* CVDiagInit reports this error */
+  lmem = cvdiag_mem = (CVDiagMem)malloc(sizeof(CVDiagMemRec));
+  if (cvdiag_mem == NULL)
+    return; /* CVDiagInit reports this error */
 }
 
 /*************** CVDiagInit ******************************************
@@ -129,16 +130,15 @@ void CVDiag(void *cvode_mem)
 
 **********************************************************************/
 
-static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull)
-{
+static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
   CVDiagMem cvdiag_mem;
 
-  cvdiag_mem = (CVDiagMem) lmem;
+  cvdiag_mem = (CVDiagMem)lmem;
 
   /* Print error message and return if cvdiag_mem is NULL */
   if (cvdiag_mem == NULL) {
     fprintf(errfp, MSG_MEM_FAIL);
-    return(LINIT_ERR);
+    return (LINIT_ERR);
   }
 
   /* Set flag setupNonNull = TRUE */
@@ -149,29 +149,29 @@ static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull)
   M = N_VNew(N, machenv);
   if (M == NULL) {
     fprintf(errfp, MSG_MEM_FAIL);
-    return(LINIT_ERR);
+    return (LINIT_ERR);
   }
   bit = N_VNew(N, machenv);
   if (bit == NULL) {
     fprintf(errfp, MSG_MEM_FAIL);
     N_VFree(M);
-    return(LINIT_ERR);
+    return (LINIT_ERR);
   }
   bitcomp = N_VNew(N, machenv);
   if (bitcomp == NULL) {
     fprintf(errfp, MSG_MEM_FAIL);
     N_VFree(M);
     N_VFree(bit);
-    return(LINIT_ERR);
+    return (LINIT_ERR);
   }
 
   /* Set workspace lengths */
   if (iopt != NULL) {
-    iopt[DIAG_LRW] = N*3;
+    iopt[DIAG_LRW] = N * 3;
     iopt[DIAG_LIW] = 0;
   }
 
-  return(LINIT_OK);
+  return (LINIT_OK);
 }
 
 /*************** CVDiagSetup *****************************************
@@ -183,19 +183,18 @@ static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull)
 **********************************************************************/
 
 static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
-		       N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-		       N_Vector vtemp2, N_Vector vtemp3)
-{
+                       N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
+                       N_Vector vtemp2, N_Vector vtemp3) {
   real r;
   N_Vector ftemp, y;
   bool invOK;
   CVDiagMem cvdiag_mem;
 
-  cvdiag_mem = (CVDiagMem) lmem;
+  cvdiag_mem = (CVDiagMem)lmem;
 
   /* Rename work vectors for use as temporary values of y and f */
   ftemp = vtemp1;
-  y     = vtemp2;
+  y = vtemp2;
 
   /* Form y with perturbation = FRACT*(func. iter. correction) */
   r = FRACT * rl1;
@@ -221,12 +220,13 @@ static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
   /* Invert M with test for zero components */
   invOK = N_VInvTest(M, M);
-  if (!invOK) return(1);
+  if (!invOK)
+    return (1);
 
   /* Set jcur = TRUE, save gamma in gammasv, and return */
   *jcurPtr = TRUE;
   gammasv = gamma;
-  return(0);
+  return (0);
 }
 
 /*************** CVDiagSolve *****************************************
@@ -237,13 +237,12 @@ static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 **********************************************************************/
 
 static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-		       N_Vector fcur)
-{
+                       N_Vector fcur) {
   bool invOK;
   real r;
   CVDiagMem cvdiag_mem;
 
-  cvdiag_mem = (CVDiagMem) lmem;
+  cvdiag_mem = (CVDiagMem)lmem;
 
   /* If gamma has changed, update factor in M, and save gamma value */
 
@@ -254,14 +253,15 @@ static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
     N_VScale(r, M, M);
     N_VAddConst(M, ONE, M);
     invOK = N_VInvTest(M, M);
-    if (!invOK) return (1);
+    if (!invOK)
+      return (1);
 
     gammasv = gamma;
   }
 
   /* Apply M-inverse to b */
   N_VProd(b, M, b);
-  return(0);
+  return (0);
 }
 
 /*************** CVDiagFree ******************************************
@@ -270,11 +270,10 @@ static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 
 **********************************************************************/
 
-static void CVDiagFree(CVodeMem cv_mem)
-{
+static void CVDiagFree(CVodeMem cv_mem) {
   CVDiagMem cvdiag_mem;
 
-  cvdiag_mem = (CVDiagMem) lmem;
+  cvdiag_mem = (CVDiagMem)lmem;
 
   N_VFree(M);
   N_VFree(bit);

@@ -6,36 +6,36 @@
 
 #define FUN1TYPE 9
 #define FUN2TYPE 1
-#define VARTYPE 3  /* standard variable */
-#define CONTYPE 2  /* standard parameter */
-#define UFUNTYPE   24
+#define VARTYPE 3 /* standard variable */
+#define CONTYPE 2 /* standard parameter */
+#define UFUNTYPE 24
 #define SVARTYPE 4  /* shifted variable */
-#define SCONTYPE 32  /* shifted constant  */
+#define SCONTYPE 32 /* shifted constant  */
 #define NETTYPE 6
 #define TABTYPE 7
 #define USTACKTYPE 8
 #define KERTYPE 10
-#define VECTYPE 13  /* for vectorized stuff */
-#define EVECTYPE 14 /* treat vector like a function */
-#define MAXTYPE 20000000  /* this is the maximum number of named stuff */
+#define VECTYPE 13       /* for vectorized stuff */
+#define EVECTYPE 14      /* treat vector like a function */
+#define MAXTYPE 20000000 /* this is the maximum number of named stuff */
 
-#define COM(a,b) ((a)*MAXTYPE+(b))
+#define COM(a, b) ((a) * MAXTYPE + (b))
 
 #define MAXARG 20
 #define NEGATE 9
 #define MINUS 4
 #define LPAREN 0
 #define RPAREN 1
-#define COMMA  2
+#define COMMA 2
 #define STARTTOK 10
 #define ENDTOK 11
 
 #define ENDEXP 999
 #define ENDFUN 998
 #define STARTDELAY 980
-#define DELSYM  42
+#define DELSYM 42
 #define ENDDELAY 996
-#define MYIF  995
+#define MYIF 995
 #define MYELSE 993
 #define MYTHEN 994
 #define SUMSYM 990
@@ -44,7 +44,7 @@
 #define ISHIFTSYM 67
 #define ENDSHIFT 988
 #define SUMINDEX 989
-#define LASTTOK MAX_SYMBS-2
+#define LASTTOK MAX_SYMBS - 2
 #define NUMSYM 987
 #define NUMTOK 59
 #define CONV 2
@@ -52,13 +52,13 @@
 #define ENDDELSHFT 986
 #define DELSHFTSYM 65
 #define ENDISHIFT 985
-#define SETSYM  72
+#define SETSYM 72
 #define ENDSET 981
 #define INDX 68
 #define INDXVAR 984
 
 /*#define STDSYM 95
-*/
+ */
 #define STDSYM 96
 
 #define INDXCOM 922
@@ -68,15 +68,14 @@
 /* #define MXLEN 32 */
 #define MXLEN 10
 
-typedef struct
-        {
-         char name[MXLEN+1];
-         int len;
-         int com;
-         int arg;
-         int pri;
-        } SYMBOL;
-	
+typedef struct {
+  char name[MXLEN + 1];
+  int len;
+  int com;
+  int arg;
+  int pri;
+} SYMBOL;
+
 typedef struct {
   int narg;
   char args[MAXARG][11];
@@ -182,5 +181,3 @@ void strlwr(char *s);
 /*****************************************************/
 
 #endif
-
-

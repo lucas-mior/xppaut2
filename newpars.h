@@ -2,7 +2,7 @@
 #define _newpars_h
 
 /*#define LPAREN 1
-*/
+ */
 
 #define COMMENT 2
 #define SPACE 3
@@ -38,10 +38,10 @@
 #define MAXARG 20
 #define MAXEXPLEN 1024
 typedef struct var_info {
-  char lhs[MAXEXPLEN],rhs[MAXEXPLEN],args[MAXARG][NAMLEN+1];
-  int type,nargs;
+  char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
+  int type, nargs;
   double value;
-  struct var_info *next,*prev;
+  struct var_info *next, *prev;
 } VAR_INFO;
 
 /*int start_var_info=0;
@@ -50,5 +50,3 @@ VAR_INFO *my_varinfo;
 */
 
 #endif
-
-

@@ -11,7 +11,7 @@
 #define REAL_SMALL 1.e-6
 #define MAX_LEN_SBOX 25
 #define MAXBIFCRV 100
-#define lmax(a,b) ((a>b) ? a : b)
+#define lmax(a, b) ((a > b) ? a : b)
 
 #include <X11/Xlib.h>
 #include <stdio.h>
@@ -25,8 +25,8 @@ typedef struct {
 } MOV3D;
 
 typedef struct {
-  float *x[MAXBIFCRV],*y[MAXBIFCRV];
-  int color[MAXBIFCRV],npts[MAXBIFCRV],nbifcrv;
+  float *x[MAXBIFCRV], *y[MAXBIFCRV];
+  int color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
   Window w;
 } BD;
 
@@ -83,6 +83,6 @@ int get_frz_index(Window w);
 void export_graf_data(void);
 void add_a_curve_com(int c);
 void default_window();
-void dump_ps( int i);
+void dump_ps(int i);
 
 #endif
