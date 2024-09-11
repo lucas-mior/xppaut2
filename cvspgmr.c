@@ -55,13 +55,13 @@
 
 typedef struct {
 
-    int g_pretype; /* type of preconditioning                      */
-    int g_gstype;  /* type of Gram-Schmidt orthogonalization       */
+    int g_pretype;   /* type of preconditioning                      */
+    int g_gstype;    /* type of Gram-Schmidt orthogonalization       */
     double g_srqtN;  /* sqrt(N)                                      */
     double g_delt;   /* delt = user specified or DELT_DEFAULT        */
     double g_deltar; /* deltar = delt * tq4                          */
     double g_delta;  /* delta = deltar * sqrtN                       */
-    int g_maxl;    /* maxl = maximum dimension of the Krylov space */
+    int g_maxl;      /* maxl = maximum dimension of the Krylov space */
 
     int g_nstlpre; /* value of nst at the last precond call       */
     int g_npe;     /* npe = total number of precond calls         */

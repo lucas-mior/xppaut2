@@ -290,8 +290,8 @@ bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 }
 
 void
-bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu, int64 copymu,
-         int64 copyml) {
+bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
+         int64 copymu, int64 copyml) {
     int64 i, j, copySize;
     double *a_col_j, *b_col_j;
 

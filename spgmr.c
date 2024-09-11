@@ -152,9 +152,9 @@ SpgmrMalloc(int64 N, int l_max, void *machEnv) {
 
 int
 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
-           int gstype, double delta, int max_restarts, void *P_data, N_Vector sx,
-           N_Vector sb, ATimesFn atimes, PSolveFn psolve, double *res_norm,
-           int *nli, int *nps) {
+           int gstype, double delta, int max_restarts, void *P_data,
+           N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
+           double *res_norm, int *nli, int *nps) {
     N_Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/

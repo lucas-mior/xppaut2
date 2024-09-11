@@ -96,8 +96,8 @@ static void CVBandFree(CVodeMem cv_mem);
 void
 CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             void *f_data, double tn, N_Vector y, N_Vector fy, N_Vector ewt,
-            double h, double uround, void *jac_data, int *nfePtr, N_Vector vtemp1,
-            N_Vector vtemp2, N_Vector vtemp3) {
+            double h, double uround, void *jac_data, int *nfePtr,
+            N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     double fnorm, minInc, inc, inc_inv, srur;
     N_Vector ftemp, ytemp;
     int64 group, i, j, width, ngroups, i1, i2;

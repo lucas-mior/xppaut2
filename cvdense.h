@@ -134,10 +134,11 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data, double t,
-                             N_Vector y, N_Vector fy, N_Vector ewt, double h,
-                             double uround, void *jac_data, int *nfePtr,
-                             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
+typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data,
+                             double t, N_Vector y, N_Vector fy, N_Vector ewt,
+                             double h, double uround, void *jac_data,
+                             int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
+                             N_Vector vtemp3);
 
 /******************************************************************
  *                                                                *
@@ -172,8 +173,8 @@ void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
  ******************************************************************/
 
 void CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double t,
-                  N_Vector y, N_Vector fy, N_Vector ewt, double h, double uround,
-                  void *jac_data, int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
-                  N_Vector vtemp3);
+                  N_Vector y, N_Vector fy, N_Vector ewt, double h,
+                  double uround, void *jac_data, int *nfePtr, N_Vector vtemp1,
+                  N_Vector vtemp2, N_Vector vtemp3);
 
 #endif

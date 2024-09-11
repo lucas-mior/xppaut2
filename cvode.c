@@ -310,8 +310,8 @@ static void CVFreeVectors(CVodeMem cv_mem, int maxord);
 
 static bool CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int tol_type,
                      N_Vector ycur, N_Vector ewtvec, int64 neq);
-static bool CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
-                       N_Vector ewtvec, int64 neq);
+static bool CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol,
+                       N_Vector ycur, N_Vector ewtvec, int64 neq);
 static bool CVEwtSetSV(CVodeMem cv_mem, double *rtol, N_Vector atol,
                        N_Vector ycur, N_Vector ewtvec, int64 neq);
 
@@ -338,8 +338,8 @@ static double CVAdamsStart(CVodeMem cv_mem, double m[]);
 static void CVAdamsFinish(CVodeMem cv_mem, double m[], double M[], double hsum);
 static double CVAltSum(int iend, double a[], int k);
 static void CVSetBDF(CVodeMem cv_mem);
-static void CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
-                       double xi_inv, double xistar_inv);
+static void CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0,
+                       double alpha0_hat, double xi_inv, double xistar_inv);
 
 static int CVnls(CVodeMem cv_mem, int nflag);
 static int CVnlsFunctional(CVodeMem cv_mem);
@@ -360,7 +360,8 @@ static void CVPrepareNextStep(CVodeMem cv_mem, double dsm);
 static void CVSetEta(CVodeMem cv_mem);
 static double CVComputeEtaqm1(CVodeMem cv_mem);
 static double CVComputeEtaqp1(CVodeMem cv_mem);
-static void CVChooseEta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1);
+static void CVChooseEta(CVodeMem cv_mem, double etaqm1, double etaq,
+                        double etaqp1);
 
 static int CVHandleFailure(CVodeMem cv_mem, int kflag);
 
@@ -452,9 +453,9 @@ static int CVHandleFailure(CVodeMem cv_mem, int kflag);
 *****************************************************************/
 
 void *
-CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int lmm, int iter, int itol,
-            double *reltol, void *abstol, void *f_data, FILE *errfp, bool optIn,
-            int iopt[], double ropt[], void *machEnv) {
+CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int lmm, int iter,
+            int itol, double *reltol, void *abstol, void *f_data, FILE *errfp,
+            bool optIn, int iopt[], double ropt[], void *machEnv) {
     bool allocOK, ioptExists, roptExists, neg_abstol, ewtsetOK;
     int maxord;
     CVodeMem cv_mem;

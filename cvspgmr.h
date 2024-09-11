@@ -186,9 +186,9 @@ enum {
 
 typedef int (*CVSpgmrPrecondFn)(int64 N, double t, N_Vector y, N_Vector fy,
                                 bool jok, bool *jcurPtr, double gamma,
-                                N_Vector ewt, double h, double uround, int *nfePtr,
-                                void *P_data, N_Vector vtemp1, N_Vector vtemp2,
-                                N_Vector vtemp3);
+                                N_Vector ewt, double h, double uround,
+                                int *nfePtr, void *P_data, N_Vector vtemp1,
+                                N_Vector vtemp2, N_Vector vtemp3);
 
 /******************************************************************
  *                                                                *

@@ -107,7 +107,8 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot, void *f_data);
+typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot,
+                      void *f_data);
 
 /******************************************************************
  *                                                                *
@@ -494,14 +495,14 @@ typedef struct CVodeMemRec {
 
     /* Problem Specification Data */
 
-    int64 cv_N;      /* ODE system size             */
-    RhsFn cv_f;      /* y' = f(t,y(t))              */
-    void *cv_f_data; /* user pointer passed to f    */
-    int cv_lmm;      /* lmm = ADAMS or BDF          */
-    int cv_iter;     /* iter = FUNCTIONAL or NEWTON */
-    int cv_itol;     /* itol = SS or SV             */
+    int64 cv_N;        /* ODE system size             */
+    RhsFn cv_f;        /* y' = f(t,y(t))              */
+    void *cv_f_data;   /* user pointer passed to f    */
+    int cv_lmm;        /* lmm = ADAMS or BDF          */
+    int cv_iter;       /* iter = FUNCTIONAL or NEWTON */
+    int cv_itol;       /* itol = SS or SV             */
     double *cv_reltol; /* ptr to relative tolerance   */
-    void *cv_abstol; /* ptr to absolute tolerance   */
+    void *cv_abstol;   /* ptr to absolute tolerance   */
 
     /* Nordsieck History Array */
 
@@ -539,9 +540,9 @@ typedef struct CVodeMemRec {
     double cv_tn;     /* current internal value of t           */
 
     double cv_tau[L_MAX + 1];    /* vector of previous q+1 successful step    */
-                               /* sizes indexed from 1 to q+1               */
+                                 /* sizes indexed from 1 to q+1               */
     double cv_tq[NUM_TESTS + 1]; /* vector of test quantities indexed from    */
-                               /* 1 to NUM_TESTS(=5)                        */
+                                 /* 1 to NUM_TESTS(=5)                        */
     double cv_l[L_MAX];          /* coefficients of l(x) (degree q poly)      */
 
     double cv_rl1;    /* 1 / l[1]                     */
@@ -551,7 +552,7 @@ typedef struct CVodeMemRec {
 
     double cv_crate; /* estimated corrector convergence rate */
     double cv_acnrm; /* | acor | wrms                        */
-    int cv_mnewt;  /* Newton iteration counter             */
+    int cv_mnewt;    /* Newton iteration counter             */
 
     /* Limits */
 
@@ -606,18 +607,18 @@ typedef struct CVodeMemRec {
 
     int cv_qu;            /* last successful q value used   */
     int cv_nstlp;         /* step number of last setup call */
-    double cv_hu;           /* last successful h value used   */
-    double cv_saved_tq5;    /* saved value of tq[5]           */
+    double cv_hu;         /* last successful h value used   */
+    double cv_saved_tq5;  /* saved value of tq[5]           */
     int64 cv_imxer;       /* index of max value of          */
                           /* |acor[i]|*ewt[i]               */
     bool cv_jcur;         /* Is the Jacobian info used by   */
                           /* linear solver current?         */
-    double cv_tolsf;        /* tolerance scale factor         */
+    double cv_tolsf;      /* tolerance scale factor         */
     bool cv_setupNonNull; /* Does setup do something?       */
 
     /* Arrays for Optional Input and Optional Output */
 
-    int *cv_iopt;  /*   int optional input, output */
+    int *cv_iopt;    /*   int optional input, output */
     double *cv_ropt; /* double optional input, output     */
 
     /* Error File */

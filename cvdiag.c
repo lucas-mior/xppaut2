@@ -39,7 +39,7 @@
 typedef struct {
 
     double di_gammasv; /* gammasv = gamma at the last call to setup */
-                     /* or solve                                  */
+                       /* or solve                                  */
 
     N_Vector di_M; /* M = (I - gamma J)^{-1} , gamma = h / l1   */
 

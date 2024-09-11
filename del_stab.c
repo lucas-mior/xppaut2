@@ -143,8 +143,7 @@ do_delay_sing(double *x, double eps, double err, double big, int maxit, int n,
 }
 
 COMPLEX
-csum(z, w)
-COMPLEX z, w;
+csum(z, w) COMPLEX z, w;
 {
     COMPLEX sum;
     sum.r = z.r + w.r;
@@ -153,8 +152,7 @@ COMPLEX z, w;
 }
 
 COMPLEX
-cdif(z, w)
-COMPLEX z, w;
+cdif(z, w) COMPLEX z, w;
 {
     COMPLEX sum;
     sum.r = z.r - w.r;
@@ -163,8 +161,7 @@ COMPLEX z, w;
 }
 
 COMPLEX
-cmlt(z, w)
-COMPLEX z, w;
+cmlt(z, w) COMPLEX z, w;
 {
     COMPLEX sum;
     sum.r = z.r * w.r - z.i * w.i;
@@ -173,8 +170,7 @@ COMPLEX z, w;
 }
 
 COMPLEX
-cdivv(z, w)
-COMPLEX z, w;
+cdivv(z, w) COMPLEX z, w;
 {
     COMPLEX sum;
     double amp = w.r * w.r + w.i * w.i;
@@ -184,8 +180,7 @@ COMPLEX z, w;
 }
 
 COMPLEX
-cexp2(z)
-COMPLEX z;
+cexp2(z) COMPLEX z;
 {
     COMPLEX sum;
     double ex = exp(z.r);
@@ -207,8 +202,7 @@ int i1, i2, n;
 }
 
 COMPLEX
-rtoc(x, y)
-double x, y;
+rtoc(x, y) double x, y;
 {
     COMPLEX sum;
     sum.i = y;
@@ -239,8 +233,7 @@ COMPLEX z;
 { return (sqrt(z.i * z.i + z.r * z.r)); }
 
 COMPLEX
-cdeterm(z, n)
-COMPLEX *z;
+cdeterm(z, n) COMPLEX *z;
 int n;
 {
     int i, j, imax = 0, k;
@@ -274,8 +267,7 @@ int n;
     return sum;
 }
 COMPLEX
-cxdeterm(z, n)
-COMPLEX *z;
+cxdeterm(z, n) COMPLEX *z;
 int n;
 {
     int i, j, k;
