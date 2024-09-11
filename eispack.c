@@ -7455,7 +7455,7 @@ int get_qp(double *a1,int n, double *qr,double *qi, double *pr, double *pi)
       printf(" %d %d %g %g \n",i,j,at[k],a[k]);
     }
   }
- rg(n,n,at,wr,wi,1,z,iv1,fv1,&ier);
+ rg(n,n,at,wr,wi,1,z,(integer *)iv1,fv1,(integer *)&ier);
  j=-1;
  for(i=0;i<n;i++)
    if((fabs(wr[i])<eps)&&(wi[i]>0))j=i;
@@ -7464,7 +7464,8 @@ int get_qp(double *a1,int n, double *qr,double *qi, double *pr, double *pi)
    qr[i]=z[n*j+i];
    qi[i]=z[n*(j+1)+i];
  }
- rg(n,n,a,wr,wi,1,z,iv1,fv1,&ier);
+/* rg(integer nm, integer n, doublereal *a, doublereal *wr, doublereal *wi, integer matz, doublereal *z__, integer *iv1, doublereal *fv1, integer *ierr) */
+ rg(n,n,a,wr,wi,1,z,(integer *)iv1,fv1,(integer *)&ier);
  j=-1;
     for(i=0;i<n;i++)
     if((fabs(wr[i])<eps)&&(wi[i]>0))j=i;
