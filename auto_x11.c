@@ -98,7 +98,6 @@ extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
 
 extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
     *no_hint[], *aspecial_hint[];
-double atof();
 
 extern double constants[];
 

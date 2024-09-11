@@ -80,7 +80,6 @@ typedef struct {
 
 TABULAR my_table[MAX_TAB];
 
-double atof();
 double get_ivar();
 double evaluate();
 extern char cur_dir[];

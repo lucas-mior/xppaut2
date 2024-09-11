@@ -47,7 +47,6 @@ extern int *plotlist, N_plist;
 
 extern char *ode_names[MAXODE];
 double evaluate();
-double atof();
 extern int NEQ, MAXSTOR, NMarkov, FIX_VAR;
 extern int NEQ_MIN;
 extern int NODE, NJMP;

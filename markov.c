@@ -36,10 +36,8 @@ extern FILE *convertf;
 
 long int myrandomseed = -1;
 double ndrand48();
-double ran1();
-double evaluate();
-double new_state();
-double atof();
+double ran1(long *);
+double new_state(double, int, double);
 
 extern int DCURY;
 extern int *my_ode[];

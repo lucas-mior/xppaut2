@@ -46,7 +46,6 @@ extern double MyTime;
 extern char *info_message, *meth_hint[];
 extern int DelayGrid;
 extern double OmegaMax, AlphaMax;
-double atof();
 extern BROWSER my_browser;
 
 /*   This is numerics.c

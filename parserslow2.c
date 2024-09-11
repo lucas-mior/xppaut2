@@ -51,7 +51,6 @@ double delay_stab_eval(double, int);
 double lookup(double, int);
 double network_value();
 double vector_value();
-double atof(const char *);
 double poidev();
 double ndrand48();
 double ker_val();

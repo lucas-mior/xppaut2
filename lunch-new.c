@@ -31,7 +31,6 @@
 
 extern int XPPBatch;
 extern BoxList ParamBox;
-double atof();
 
 extern int Xup;
 extern Window main_win;

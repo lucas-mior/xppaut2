@@ -45,7 +45,6 @@
 #define WDMARK .001
 #define HTMARK .0016
 
-double atof();
 typedef struct {
     float xs, ys, xe, ye;
     double size;

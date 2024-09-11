@@ -143,8 +143,6 @@ BoxList BCBox;
 
 int BoxMode;
 
-double atof();
-
 extern char this_file[100];
 
 #define SB_DIM 5

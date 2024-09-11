@@ -32,7 +32,6 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 extern double constants[];
 extern double last_ic[MAXODE];
-double atof();
 
 extern double DELAY;
 extern int DelayFlag;

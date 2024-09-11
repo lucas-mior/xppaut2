@@ -192,7 +192,6 @@ extern int TipsFlag;
 extern unsigned int MyBackColor, MyForeColor, GrFore, GrBack;
 
 void auto_scroll_window();
-double atof();
 
 double outperiod[20];
 int64 UzrPar[20];

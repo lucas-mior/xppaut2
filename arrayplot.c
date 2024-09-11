@@ -69,7 +69,6 @@ extern Display *display;
 extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
     screen;
 extern GC gc, small_gc, gc_graph;
-double atof();
 extern char uvar_names[MAXODE][12];
 extern BROWSER my_browser;
 int aplot_range;

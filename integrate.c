@@ -166,7 +166,6 @@ extern int NUPAR;
 extern char *info_message, *ic_hint[], *sing_hint[];
 extern int Xup, batch_range;
 extern char batchout[256];
-double atof();
 extern int NMarkov, STOCH_FLAG;
 extern int color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
 int DelayErr;

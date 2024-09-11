@@ -128,7 +128,6 @@ extern int DoTutorial;
 /*void set_option(char *s1,char *s2);
  */
 
-double atof();
 char *get_first();
 char *get_next();
 /*   this file has all of the phaseplane parameters defined

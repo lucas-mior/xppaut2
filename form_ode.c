@@ -134,7 +134,6 @@ char *get_first(/* char *string,char *src */);
 char *get_next(/* char *src */);
 
 char *getsi();
-double atof();
 
 int
 make_eqn(void) {

@@ -138,7 +138,6 @@ extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, NODE;
 extern int FIX_VAR, NMarkov;
 extern GC small_gc;
 double evaluate();
-double atof();
 extern BROWSER my_browser;
 
 int aniflag;

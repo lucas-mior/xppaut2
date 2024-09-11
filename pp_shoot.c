@@ -79,7 +79,6 @@ struct {
 
 extern char upar_names[MAXPAR][14];
 extern char uvar_names[MAXODE][12];
-double atof();
 
 double evaluate();
 

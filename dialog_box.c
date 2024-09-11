@@ -31,7 +31,6 @@ extern unsigned int MyBackColor, MyForeColor;
 extern int screen;
 extern GC gc;
 extern int xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
-double atof();
 Window make_window();
 
 int

@@ -28,7 +28,6 @@ extern int XPPBatch;
 new_float();
 new_int();
 */
-double atof();
 extern int SCALEX, SCALEY;
 int MSStyle = 0;
 extern int Xup;

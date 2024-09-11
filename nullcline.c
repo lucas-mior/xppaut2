@@ -43,7 +43,6 @@ extern int XPPBatch;
 int NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int (*rhs)();
 int user_set_color_par();
-double atof();
 extern int DRight, DLeft, DTop, DBottom;
 extern int STORFLAG;
 extern double last_ic[MAXODE];
