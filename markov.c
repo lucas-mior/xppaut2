@@ -396,10 +396,10 @@ make_gill_nu(double *nu, int n, int m, double *v) {
     yp = (double *)malloc(n * sizeof(double));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
-    rhs_only(y, yold);
+    rhs_only(yold);
     for (ir = 0; ir < m; ir++) {
         v[ir + 1] = 1;
-        rhs_only(y, yp);
+        rhs_only(yp);
         for (iy = 0; iy < n; iy++) {
             nu[ir + m * iy] = yp[iy];
             plintf("ir=%d iy=%d nu=%g\n", ir + 1, iy, yp[iy] - yold[iy]);

@@ -118,7 +118,7 @@ fix_only(void) {
 }
 
 void
-rhs_only(double *y, double *ydot) {
+rhs_only(double *ydot) {
     int i;
     for (i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
