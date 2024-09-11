@@ -2,9 +2,9 @@
 
 #ifdef KR_headers
 double d_sign(a, b)
-doublereal a, b;
+double a, b;
 #else
-double d_sign(doublereal a, doublereal b)
+double d_sign(double a, double b)
 #endif
 {
     double x;

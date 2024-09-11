@@ -14,7 +14,7 @@ extern XAUTO xAuto;
    in the wrapper functions in autlib3.c (and autlib5.c) and the cost
    of allocating and deallocating them is prohibitive. */
 extern struct {
-    doublereal *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
+    double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
 } global_scratch;
 
 /* All of these global structures correspond to common
@@ -30,7 +30,7 @@ struct {
 } blhmp_1 = {NULL, NULL, NULL};
 
 struct {
-    doublereal *pu0, *pu1;
+    double *pu0, *pu1;
 } blhmu_1 = {NULL, NULL};
 
 struct {
@@ -38,21 +38,21 @@ struct {
 } bcnn_1;
 
 struct {
-    doublereal compzero;
+    double compzero;
 } blhma_1;
 
 struct {
-    doublereal *rr, *ri, *v, *vt, *xequib;
+    double *rr, *ri, *v, *vt, *xequib;
     integer ineig;
 } bleig_1 = {NULL, NULL, NULL, NULL, NULL, 0};
 
 struct {
-    doublereal *vrprev;
+    double *vrprev;
     integer *ieigc;
 } blhme_1 = {NULL, NULL};
 
 struct {
-    doublereal *cprev;
+    double *cprev;
     integer *iflag;
 } beyn_1 = {NULL, NULL};
 
@@ -65,21 +65,21 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for homoclinic bifurcation analysis */
 
@@ -149,17 +149,17 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal dum1;
+    double dum1;
 
     /* Parameter adjustments */
     /*--u;*/
@@ -203,26 +203,26 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
+    double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     integer nbc0;
 
-    ff1 = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
-    ff2 = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
-    uu1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    uu2 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc) *
+    ff1 = (double *)malloc(sizeof(double) * (iap->nbc));
+    ff2 = (double *)malloc(sizeof(double) * (iap->nbc));
+    uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
+    uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
+    dfu = (double *)malloc(sizeof(double) * (iap->nbc) *
                                (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
@@ -321,10 +321,10 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fbho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, integer nbc0, const doublereal *u0,
-                          const doublereal *u1, doublereal *fb,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, integer nbc0, const double *u0,
+                          const double *u1, double *fb,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
@@ -341,14 +341,14 @@ struct {
     integer kp;
 
     integer ijc = 0, ndm;
-    doublereal dum, dum1, dum2;
+    double dum, dum1, dum2;
 
-    doublereal *f;
-    doublereal *bound;
-    doublereal *fj;
-    doublereal *ri;
-    doublereal *rr, *vr, *vt;
-    doublereal *xequib1, *xequib2;
+    double *f;
+    double *bound;
+    double *fj;
+    double *ri;
+    double *rr, *vr, *vt;
+    double *xequib1, *xequib2;
 
     /* I am not 100% sure if this is supposed to be iap->ndm or iap->ndim,
        but it appears from looking at the code that it should be iap->ndm.
@@ -359,15 +359,15 @@ struct {
        also depend on these arrays, and more importantly the algorithm,
        having N X.  So, they all need to be changed at once.
     */
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    bound = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm) * (iap->ndm));
-    fj = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    ri = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    rr = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    vr = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm) * (iap->ndm));
-    vt = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm) * (iap->ndm));
-    xequib1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    xequib2 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
+    f = (double *)malloc(sizeof(double) * (iap->ndm));
+    bound = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    fj = (double *)malloc(sizeof(double) * (iap->ndm));
+    ri = (double *)malloc(sizeof(double) * (iap->ndm));
+    rr = (double *)malloc(sizeof(double) * (iap->ndm));
+    vr = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    vt = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    xequib1 = (double *)malloc(sizeof(double) * (iap->ndm));
+    xequib2 = (double *)malloc(sizeof(double) * (iap->ndm));
 
     /* Generates the boundary conditions for homoclinic orbits. */
 
@@ -638,27 +638,27 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
+    double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     integer nnt0;
 
-    ff1 = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    ff2 = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    uu1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    uu2 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) *
+    ff1 = (double *)malloc(sizeof(double) * (iap->nint));
+    ff2 = (double *)malloc(sizeof(double) * (iap->nint));
+    uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
+    uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim) *
                                (iap->ndim + NPARX));
 
     /* Generates integral conditions for homoclinic bifurcation analysis */
@@ -739,11 +739,11 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fiho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, integer nnt0, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *fi,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, integer nnt0, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *fi,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
@@ -751,11 +751,11 @@ struct {
     integer ijac = 0;
 
     integer i, jb;
-    doublereal *fj;
+    double *fj;
     integer ndm;
-    doublereal dum;
+    double dum;
 
-    fj = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    fj = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates the integral conditions for homoclinic orbits. */
 
     /* Parameter adjustments */
@@ -806,7 +806,7 @@ struct {
 } /* fiho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int inho(iap_type *iap, integer *icp, doublereal *par) {
+/* Subroutine */ int inho(iap_type *iap, integer *icp, double *par) {
 
     /* Local variables */
     integer ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
@@ -882,20 +882,20 @@ struct {
     /* Allocate memory for global structures.  We didn't know the
        size for these until ndim was computed. */
 
-    blhmu_1.pu0 = (doublereal *)malloc(sizeof(doublereal) * (ndim));
-    blhmu_1.pu1 = (doublereal *)malloc(sizeof(doublereal) * (ndim));
+    blhmu_1.pu0 = (double *)malloc(sizeof(double) * (ndim));
+    blhmu_1.pu1 = (double *)malloc(sizeof(double) * (ndim));
 
-    bleig_1.rr = (doublereal *)malloc(sizeof(doublereal) * (ndim));
-    bleig_1.ri = (doublereal *)malloc(sizeof(doublereal) * (ndim));
-    bleig_1.v = (doublereal *)malloc(sizeof(doublereal) * (ndim) * (ndim));
-    bleig_1.vt = (doublereal *)malloc(sizeof(doublereal) * (ndim) * (ndim));
-    bleig_1.xequib = (doublereal *)malloc(sizeof(doublereal) * (ndim));
+    bleig_1.rr = (double *)malloc(sizeof(double) * (ndim));
+    bleig_1.ri = (double *)malloc(sizeof(double) * (ndim));
+    bleig_1.v = (double *)malloc(sizeof(double) * (ndim) * (ndim));
+    bleig_1.vt = (double *)malloc(sizeof(double) * (ndim) * (ndim));
+    bleig_1.xequib = (double *)malloc(sizeof(double) * (ndim));
 
     blhme_1.vrprev =
-        (doublereal *)malloc(sizeof(doublereal) * 2 * (ndim) * (ndim));
+        (double *)malloc(sizeof(double) * 2 * (ndim) * (ndim));
 
     beyn_1.cprev =
-        (doublereal *)malloc(sizeof(doublereal) * 2 * 2 * (ndim) * (ndim));
+        (double *)malloc(sizeof(double) * 2 * 2 * (ndim) * (ndim));
 
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
@@ -970,19 +970,19 @@ struct {
 
 /*     ---------- ----- */
 /* Subroutine */ int preho(integer *ndx, integer *ntsr, integer *nar,
-                           integer *ndim, integer *ncolrs, doublereal *ups,
-                           doublereal *udotps, doublereal *tm,
-                           doublereal *par) {
+                           integer *ndim, integer *ncolrs, double *ups,
+                           double *udotps, double *tm,
+                           double *par) {
     /* System generated locals */
     integer ups_dim1, udotps_dim1;
 
     /* Local variables */
     integer jmin;
-    doublereal upsi;
+    double upsi;
     integer i, j, k;
-    doublereal tmmin;
+    double tmmin;
     integer k1, k2, ii;
-    doublereal upsmin;
+    double upsmin;
     integer ist;
 
     /* Preprocesses (perturbs) restart data to enable */
@@ -1079,25 +1079,25 @@ struct {
 } /* preho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnho(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnho(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
     /* System generated locals */
     integer ups_dim1, udotps_dim1;
 
     /* Local variables */
     integer ndim, ncol, nfpr, ntst, ncol1, i, j, k;
-    doublereal t, *u;
+    double t, *u;
     integer k1, k2;
 
-    doublereal dt;
+    double dt;
     integer lab, ibr;
 
-    u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    u = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates a starting point for the continuation of a branch of */
     /* of solutions to general boundary value problems by calling the user */
     /* supplied subroutine STPNT where an analytical solution is given. */
@@ -1158,8 +1158,8 @@ struct {
 } /* stpnho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int stpho(iap_type *iap, integer *icp, doublereal *u,
-                           doublereal *par, doublereal *t) {
+/* Subroutine */ int stpho(iap_type *iap, integer *icp, double *u,
+                           double *par, double *t) {
     /* Local variables */
 
     integer i, j;
@@ -1168,14 +1168,14 @@ struct {
     integer kp;
     integer ndm;
 
-    doublereal *ri;
-    doublereal *rr, *vr, *vt, *xequib;
+    double *ri;
+    double *rr, *vr, *vt, *xequib;
 
-    ri = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    rr = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    vr = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm) * (iap->ndm));
-    vt = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm) * (iap->ndm));
-    xequib = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
+    ri = (double *)malloc(sizeof(double) * (iap->ndm));
+    rr = (double *)malloc(sizeof(double) * (iap->ndm));
+    vr = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    vt = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    xequib = (double *)malloc(sizeof(double) * (iap->ndm));
 
     /* Generates a starting point for homoclinic continuation */
     /* If ISTART=2 it calls STPNHO. */
@@ -1297,9 +1297,9 @@ L3:
 
 /*     ---------- ------ */
 /* Subroutine */ int pvlsho(iap_type *iap, rap_type *rap, integer *icp,
-                            doublereal *dtm, integer *ndxloc, doublereal *ups,
-                            integer *ndim, doublereal *p0, doublereal *p1,
-                            doublereal *par) {
+                            double *dtm, integer *ndxloc, double *ups,
+                            integer *ndim, double *p0, double *p1,
+                            double *par) {
 
     /* System generated locals */
     integer ups_dim1, p0_dim1, p1_dim1;
@@ -1307,7 +1307,7 @@ L3:
     /* Local variables */
     integer i, j;
 
-    doublereal orient;
+    double orient;
 
     integer iid, ndm;
 
@@ -1372,21 +1372,21 @@ L3:
 } /* pvlsho_ */
 
 /*     -------- ------- -------- ----- */
-doublereal psiho(const iap_type *iap, integer is, doublereal *rr,
-                 doublereal *ri, doublereal *v, doublereal *vt,
-                 const integer *icp, doublereal *par) {
+double psiho(const iap_type *iap, integer is, double *rr,
+                 double *ri, double *v, double *vt,
+                 const integer *icp, double *par) {
     /* System generated locals */
-    doublereal ret_val;
+    double ret_val;
 
     /* Local variables */
 
     integer i, j;
-    doublereal *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
+    double *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
     integer ndm;
-    doublereal dum1, dum2;
+    double dum1, dum2;
 
-    f0 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
-    f1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndm));
+    f0 = (double *)malloc(sizeof(double) * (iap->ndm));
+    f1 = (double *)malloc(sizeof(double) * (iap->ndm));
 
     /* The conditions for degenerate homoclinic orbits are given by PSI(IS)=0.
      */
@@ -1500,11 +1500,11 @@ L1:
 L2:
     if (fabs(ri[-1 + blhom_1.nstab]) > blhma_1.compzero) {
         /* Computing 2nd power */
-        doublereal tmp = ri[-1 + blhom_1.nstab] - ri[-1 + blhom_1.nstab - 1];
+        double tmp = ri[-1 + blhom_1.nstab] - ri[-1 + blhom_1.nstab - 1];
         ret_val = -(tmp * tmp);
     } else {
         /* Computing 2nd power */
-        doublereal tmp = rr[-1 + blhom_1.nstab] - rr[-1 + blhom_1.nstab - 1];
+        double tmp = rr[-1 + blhom_1.nstab] - rr[-1 + blhom_1.nstab - 1];
         ret_val = tmp * tmp;
     }
     return ret_val;
@@ -1515,11 +1515,11 @@ L2:
 L3:
     if (fabs(ri[blhom_1.nstab]) > blhma_1.compzero) {
         /* Computing 2nd power */
-        doublereal tmp = ri[blhom_1.nstab] - ri[blhom_1.nstab + 1];
+        double tmp = ri[blhom_1.nstab] - ri[blhom_1.nstab + 1];
         ret_val = -(tmp * tmp);
     } else {
         /* Computing 2nd power */
-        doublereal tmp = rr[blhom_1.nstab] - rr[blhom_1.nstab + 1];
+        double tmp = rr[blhom_1.nstab] - rr[blhom_1.nstab + 1];
         ret_val = tmp * tmp;
     }
     return ret_val;
@@ -1634,15 +1634,15 @@ L16:
 } /* psiho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int eighi(integer isign, integer itrans, doublereal *rr,
-                           doublereal *ri, doublereal *vret, doublereal *xequib,
-                           const integer *icp, doublereal *par, integer *ndm) {
-    doublereal *dfdp, *dfdu;
-    doublereal *zz;
+/* Subroutine */ int eighi(integer isign, integer itrans, double *rr,
+                           double *ri, double *vret, double *xequib,
+                           const integer *icp, double *par, integer *ndm) {
+    double *dfdp, *dfdu;
+    double *zz;
 
-    dfdp = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * NPARX);
-    dfdu = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    zz = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
+    dfdp = (double *)malloc(sizeof(double) * (*ndm) * NPARX);
+    dfdu = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    zz = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
 
     eigho(&isign, &itrans, rr, ri, vret, xequib, icp, par, ndm, dfdu, dfdp, zz);
 
@@ -1654,32 +1654,32 @@ L16:
 } /* eighi */
 
 /*     ---------- ----- */
-/* Subroutine */ int eigho(integer *isign, integer *itrans, doublereal *rr,
-                           doublereal *ri, doublereal *vret, doublereal *xequib,
-                           const integer *icp, doublereal *par, integer *ndm,
-                           doublereal *dfdu, doublereal *dfdp, doublereal *zz) {
+/* Subroutine */ int eigho(integer *isign, integer *itrans, double *rr,
+                           double *ri, double *vret, double *xequib,
+                           const integer *icp, double *par, integer *ndm,
+                           double *dfdu, double *dfdp, double *zz) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1, zz_dim1;
 
     /* Local variables */
 
     integer i, j, k, ifail;
-    doublereal vdot;
+    double vdot;
 
-    doublereal *f;
-    doublereal *ridum, *vidum, *rrdum, *vrdum;
+    double *f;
+    double *ridum, *vidum, *rrdum, *vrdum;
 
-    doublereal *vi, *vr, *fv1;
+    double *vi, *vr, *fv1;
     integer *iv1;
 
-    f = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    ridum = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    vidum = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    rrdum = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    vrdum = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    vi = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    vr = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    fv1 = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
+    f = (double *)malloc(sizeof(double) * (*ndm));
+    ridum = (double *)malloc(sizeof(double) * (*ndm));
+    vidum = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    rrdum = (double *)malloc(sizeof(double) * (*ndm));
+    vrdum = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    vi = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    vr = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    fv1 = (double *)malloc(sizeof(double) * (*ndm));
     iv1 = (integer *)malloc(sizeof(integer) * (*ndm));
 
     /* Uses EISPACK routine RG to calculate the eigenvalues/eigenvectors */
@@ -1842,13 +1842,13 @@ L16:
 } /* eigho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int prjcti(doublereal *bound, doublereal *xequib,
-                            const integer *icp, doublereal *par, integer imfd,
+/* Subroutine */ int prjcti(double *bound, double *xequib,
+                            const integer *icp, double *par, integer imfd,
                             integer is, integer itrans, integer *ndm) {
-    doublereal *dfdp, *dfdu;
+    double *dfdp, *dfdu;
 
-    dfdp = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * NPARX);
-    dfdu = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
+    dfdp = (double *)malloc(sizeof(double) * (*ndm) * NPARX);
+    dfdu = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
 
     prjctn(bound, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
 
@@ -1858,10 +1858,10 @@ L16:
 } /* prjcti */
 
 /*     ---------- ------ */
-/* Subroutine */ int prjctn(doublereal *bound, doublereal *xequib,
-                            const integer *icp, doublereal *par, integer *imfd,
+/* Subroutine */ int prjctn(double *bound, double *xequib,
+                            const integer *icp, double *par, integer *imfd,
                             integer *is, integer *itrans, integer *ndm,
-                            doublereal *dfdu, doublereal *dfdp) {
+                            double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -1869,27 +1869,27 @@ L16:
     integer i, j, k;
     integer mcond, k1, k2, m0;
 
-    doublereal det, eps;
+    double det, eps;
 
-    doublereal *fdum;
-    doublereal *cnow;
+    double *fdum;
+    double *cnow;
     integer *type__;
-    doublereal *a, *d;
-    doublereal *v;
-    doublereal *ei, *er;
-    doublereal *ort, *dum1, *dum2;
+    double *a, *d;
+    double *v;
+    double *ei, *er;
+    double *ort, *dum1, *dum2;
 
-    fdum = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    cnow = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
+    fdum = (double *)malloc(sizeof(double) * (*ndm));
+    cnow = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
     type__ = (integer *)malloc(sizeof(integer) * (*ndm));
-    a = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    d = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    v = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    ei = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    er = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    ort = (doublereal *)malloc(sizeof(doublereal) * (*ndm));
-    dum1 = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
-    dum2 = (doublereal *)malloc(sizeof(doublereal) * (*ndm) * (*ndm));
+    a = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    d = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    v = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    ei = (double *)malloc(sizeof(double) * (*ndm));
+    er = (double *)malloc(sizeof(double) * (*ndm));
+    ort = (double *)malloc(sizeof(double) * (*ndm));
+    dum1 = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    dum2 = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
 
     /* Compute NUNSTAB (or NSTAB) projection boundary condition functions */
     /*onto to the UNSTABLE (or STABLE) manifold of the appropriate equilibrium

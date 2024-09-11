@@ -2,10 +2,10 @@
 
 #ifdef KR_headers
 double pow_di(ap, bp)
-doublereal *ap;
+double *ap;
 integer *bp;
 #else
-double pow_di(doublereal *ap, integer *bp)
+double pow_di(double *ap, integer *bp)
 #endif
 {
     double pow, x;

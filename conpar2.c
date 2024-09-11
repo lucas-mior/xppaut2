@@ -34,19 +34,19 @@ void *conpar_process(void *arg) {
 
     /* Local variables */
     integer ipiv, jpiv, itmp;
-    doublereal tpiv;
+    double tpiv;
     integer i, l, k1, k2, m1, m2, ic, ir;
-    doublereal rm;
+    double rm;
     integer ir1, irp;
-    doublereal piv;
+    double piv;
     integer icp1;
 
     integer *nov, *nra, *nca;
-    doublereal *a;
+    double *a;
     integer *ncb;
-    doublereal *b;
+    double *b;
     integer *nbc, *nrc;
-    doublereal *c, *d;
+    double *c, *d;
     integer *irf, *icf;
     integer loop_start, loop_end;
 
@@ -225,9 +225,9 @@ void *conpar_process(void *arg) {
 }
 
 int conpar_default_wrapper(integer *nov, integer *na, integer *nra,
-                           integer *nca, doublereal *a, integer *ncb,
-                           doublereal *b, integer *nbc, integer *nrc,
-                           doublereal *c, doublereal *d, integer *irf,
+                           integer *nca, double *a, integer *ncb,
+                           double *b, integer *nbc, integer *nrc,
+                           double *c, double *d, integer *irf,
                            integer *icf)
 
 {
@@ -250,9 +250,9 @@ int conpar_default_wrapper(integer *nov, integer *na, integer *nra,
     return 0;
 }
 
-int conpar(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a,
-           integer *ncb, doublereal *b, integer *nbc, integer *nrc,
-           doublereal *c, doublereal *d, integer *irf, integer *icf) {
+int conpar(integer *nov, integer *na, integer *nra, integer *nca, double *a,
+           integer *ncb, double *b, integer *nbc, integer *nrc,
+           double *c, double *d, integer *irf, integer *icf) {
     /* Aliases for the dimensions of the arrays */
     integer icf_dim1, irf_dim1;
 

@@ -59,40 +59,40 @@
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int flowkm(integer *ndim, doublereal *c0, doublereal *c1,
-                            integer *iid, doublereal *rwork,
+/* Subroutine */ int flowkm(integer *ndim, double *c0, double *c1,
+                            integer *iid, double *rwork,
                             doublecomplex *ev) {
 
     /* System generated locals */
     integer c0_dim1, c1_dim1, rwork_dim1;
 
     /* Local variables */
-    doublereal beta, *svde, *svds, svdu[1], *svdv;
+    double beta, *svde, *svds, svdu[1], *svdv;
 
     integer i, j;
 
-    doublereal *v, *x;
+    double *v, *x;
 
     logical infev;
 
-    doublereal const__;
+    double const__;
 
     integer ndimm1;
-    doublereal nrmc0x, nrmc1x, *qzalfi, *qzbeta;
+    double nrmc0x, nrmc1x, *qzalfi, *qzbeta;
     integer svdinf;
-    doublereal *qzalfr;
+    double *qzalfr;
     integer qzierr;
-    doublereal *svdwrk, qzz[1];
+    double *svdwrk, qzz[1];
 
-    svde = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
-    svds = (doublereal *)malloc(sizeof(doublereal) * (*ndim + 1));
-    svdv = (doublereal *)malloc(sizeof(doublereal) * (*ndim) * (*ndim));
-    v = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
-    x = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
-    qzalfi = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
-    qzbeta = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
-    qzalfr = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
-    svdwrk = (doublereal *)malloc(sizeof(doublereal) * (*ndim));
+    svde = (double *)malloc(sizeof(double) * (*ndim));
+    svds = (double *)malloc(sizeof(double) * (*ndim + 1));
+    svdv = (double *)malloc(sizeof(double) * (*ndim) * (*ndim));
+    v = (double *)malloc(sizeof(double) * (*ndim));
+    x = (double *)malloc(sizeof(double) * (*ndim));
+    qzalfi = (double *)malloc(sizeof(double) * (*ndim));
+    qzbeta = (double *)malloc(sizeof(double) * (*ndim));
+    qzalfr = (double *)malloc(sizeof(double) * (*ndim));
+    svdwrk = (double *)malloc(sizeof(double) * (*ndim));
 
     /*  Subroutine to compute Floquet multipliers via the "deflated circuit */
     /*  pencil" method. This routine is called by the AUTO routine FNSPBV */
@@ -199,7 +199,7 @@
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
         integer tmp = 1;
-        doublereal tmp_tol = 1.0E-16;
+        double tmp_tol = 1.0E-16;
         ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp, svdv, ndim,
               svdwrk, &tmp, &svdinf, &tmp_tol);
     }
@@ -218,8 +218,8 @@
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        doublereal tmp1 = 1.0;
-        doublereal tmp0 = 0.0;
+        double tmp1 = 1.0;
+        double tmp0 = 0.0;
         logical tmp_false = FALSE_;
 
         dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, ndim, &tmp0,
@@ -381,14 +381,14 @@
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int dhhpr(integer *k, integer *j, integer *n, doublereal *x,
-                           integer *incx, doublereal *beta, doublereal *v) {
+/* Subroutine */ int dhhpr(integer *k, integer *j, integer *n, double *x,
+                           integer *incx, double *beta, double *v) {
 
     /* Local variables */
     static integer iend, jmkp1;
 
     static integer i, l;
-    static doublereal m, alpha;
+    static double m, alpha;
 
     static integer istart;
 
@@ -529,15 +529,15 @@
 } /* dhhpr_ */
 
 /* Subroutine */ int dhhap(integer *k, integer *j, integer *n, integer *q,
-                           doublereal *beta, doublereal *v, integer *job,
-                           doublereal *a, integer *lda) {
+                           double *beta, double *v, integer *job,
+                           double *a, integer *lda) {
     /* System generated locals */
     integer a_dim1;
 
     /* Local variables */
 
     static integer jmkp1;
-    static doublereal s;
+    static double s;
     static integer col, row;
 
     /*     IMPLICIT LOGICAL (A-Z) */

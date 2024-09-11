@@ -27,7 +27,7 @@ static double time_end(double start) {
 /* The memory for these are taken care of in autobv_, autoae_, and setubv for
    the mpi parallel case */
 extern struct {
-    doublereal *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
+    double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
 } global_scratch;
 
 /* The memory for these are taken care of in autobv_ and autoae_ */

@@ -15,18 +15,18 @@ struct {
 #endif
 
 typedef struct {
-    doublereal *a;
-    doublereal *b;
-    doublereal *c;
-    doublereal *d;
-    doublereal *a1;
-    doublereal *a2;
-    doublereal *s1;
-    doublereal *s2;
-    doublereal *bb;
-    doublereal *cc;
-    doublereal *faa;
-    doublereal *ca1;
+    double *a;
+    double *b;
+    double *c;
+    double *d;
+    double *a1;
+    double *a2;
+    double *s1;
+    double *s2;
+    double *bb;
+    double *cc;
+    double *faa;
+    double *ca1;
 
     integer *icf;
     integer *irf;
@@ -114,7 +114,7 @@ void print_jacobian(iap_type iap, main_auto_storage_type data) {
     fclose(fp);
 }
 
-void print_ups_rlcur(iap_type iap, doublereal *ups, doublereal *rlcur) {
+void print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
     FILE *fp;
     static int num_calls = 0;
     char filename[80];
@@ -131,7 +131,7 @@ void print_ups_rlcur(iap_type iap, doublereal *ups, doublereal *rlcur) {
     fclose(fp);
 }
 
-void print_fa_fc(iap_type iap, doublereal *fa, doublereal *fc, char *filename) {
+void print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
     FILE *fp;
     int i, j;
     int num_rows_A = iap.ndim * iap.ncol;
@@ -156,13 +156,13 @@ void print_fa_fc(iap_type iap, doublereal *fa, doublereal *fc, char *filename) {
 
 /*     ---------- ------ */
 /* Subroutine */ int
-solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par,
+solvbv(integer *ifst, iap_type *iap, rap_type *rap, double *par,
        integer *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-       doublereal *rds, integer *nllv, doublereal *rlcur, doublereal *rlold,
-       doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *dups,
-       doublereal *uoldps, doublereal *udotps, doublereal *upoldp,
-       doublereal *dtm, doublereal *fa, doublereal *fc, doublereal *p0,
-       doublereal *p1, doublereal *thl, doublereal *thu) {
+       double *rds, integer *nllv, double *rlcur, double *rlold,
+       double *rldot, integer *ndxloc, double *ups, double *dups,
+       double *uoldps, double *udotps, double *upoldp,
+       double *dtm, double *fa, double *fc, double *p0,
+       double *p1, double *thl, double *thu) {
 
     /* Local variables */
 
@@ -170,10 +170,10 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par,
     logical ipar;
     integer ncol, nclm, nfpr, nint, nrow, ntst, ntst0;
 
-    doublereal *ff, *ft;
+    double *ff, *ft;
 
     integer nbc, iid, iam;
-    doublereal det;
+    double det;
     integer ips, nrc;
 
     integer kwt;
@@ -246,48 +246,48 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par,
         free(main_auto_storage.np);
 
         /*(M 1AAR*M 2AA*N AX) */
-        main_auto_storage.a = (doublereal *)malloc(
-            sizeof(doublereal) * ((((iap->ndim * iap->ncol) + iap->ndim)) *
+        main_auto_storage.a = (double *)malloc(
+            sizeof(double) * ((((iap->ndim * iap->ncol) + iap->ndim)) *
                                   ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1BB*M 2BB*N AX)*/
-        main_auto_storage.b = (doublereal *)malloc(
-            sizeof(doublereal) *
+        main_auto_storage.b = (double *)malloc(
+            sizeof(double) *
             ((NPARX) * ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
-        main_auto_storage.c = (doublereal *)malloc(
-            sizeof(doublereal) *
+        main_auto_storage.c = (double *)malloc(
+            sizeof(double) *
             (((((iap->ndim * iap->ncol) + iap->ndim))) *
              ((iap->nbc + iap->nint + 1)) * (iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
-        main_auto_storage.d = (doublereal *)malloc(
-            sizeof(doublereal) * (((iap->nbc + iap->nint + 1)) * (NPARX)));
+        main_auto_storage.d = (double *)malloc(
+            sizeof(double) * (((iap->nbc + iap->nint + 1)) * (NPARX)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.a1 = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.a1 = (double *)malloc(
+            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.a2 = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.a2 = (double *)malloc(
+            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.s1 = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.s1 = (double *)malloc(
+            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.s2 = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.s2 = (double *)malloc(
+            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim *N PARX*N AX)*/
-        main_auto_storage.bb = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * NPARX * (iap->ntst + 1)));
+        main_auto_storage.bb = (double *)malloc(
+            sizeof(double) * (iap->ndim * NPARX * (iap->ntst + 1)));
         /*(N RCX* iap->ndim *N AX+1)*/
-        main_auto_storage.cc = (doublereal *)malloc(
-            sizeof(doublereal) *
+        main_auto_storage.cc = (double *)malloc(
+            sizeof(double) *
             ((iap->nbc + iap->nint + 1) * iap->ndim * (iap->ntst + 1) + 1));
 
         /*(iap->ndim *N AX)*/
-        main_auto_storage.faa = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.faa = (double *)malloc(
+            sizeof(double) * (iap->ndim * (iap->ntst + 1)));
 
         /*(iap->ndim * iap->ndim *K REDO)*/
-        main_auto_storage.ca1 = (doublereal *)malloc(
-            sizeof(doublereal) * (iap->ndim * iap->ndim * KREDO));
+        main_auto_storage.ca1 = (double *)malloc(
+            sizeof(double) * (iap->ndim * iap->ndim * KREDO));
 
         /*(N CLMX*N AX)*/
         main_auto_storage.icf = (integer *)malloc(
@@ -432,7 +432,7 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par,
 } /* solvbv_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int setfcdd(integer *ifst, doublereal *dd, doublereal *fc,
+/* Subroutine */ int setfcdd(integer *ifst, double *dd, double *fc,
                              integer *ncb, integer *nrc) {
     /* System generated locals */
     integer dd_dim1;
@@ -457,7 +457,7 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par,
 } /* setfcdd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int faft(doublereal *ff, doublereal *fa, integer *ntst,
+/* Subroutine */ int faft(double *ff, double *fa, integer *ntst,
                           integer *nrow, integer *ndxloc) {
     /* System generated locals */
     integer fa_dim1, ff_dim1;
@@ -530,12 +530,12 @@ setrhs(integer *ndim, integer *ips, integer *na, integer *ntst, integer *np,
        integer *ncol, integer *nbc, integer *nint, integer *ncb, integer *nrc,
        integer *nra, integer *nca, integer *iam, integer *kwt, logical *ipar,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-       integer *ndxloc, iap_type *iap, rap_type *rap, doublereal *par,
-       integer *icp, doublereal *rds, doublereal *fa, doublereal *fc,
-       doublereal *rlcur, doublereal *rlold, doublereal *rldot, doublereal *ups,
-       doublereal *uoldps, doublereal *udotps, doublereal *upoldp,
-       doublereal *dups, doublereal *dtm, doublereal *thl, doublereal *thu,
-       doublereal *p0, doublereal *p1) {
+       integer *ndxloc, iap_type *iap, rap_type *rap, double *par,
+       integer *icp, double *rds, double *fa, double *fc,
+       double *rlcur, double *rlold, double *rldot, double *ups,
+       double *uoldps, double *udotps, double *upoldp,
+       double *dups, double *dtm, double *thl, double *thu,
+       double *p0, double *p1) {
     /* System generated locals */
     integer ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1, fa_dim1,
         wt_dim1, wp_dim1, wploc_dim1;
@@ -543,45 +543,45 @@ setrhs(integer *ndim, integer *ips, integer *na, integer *ntst, integer *np,
     integer i, j, k, l, m;
     integer mpart, i1, j1, k1, l1;
 
-    doublereal rlsum;
+    double rlsum;
     integer ib, ic, jj;
     integer ic1;
 
     integer jp1;
     integer ncp1;
-    doublereal dt, ddt;
+    double dt, ddt;
 
-    doublereal *dicd, *ficd, *dfdp, *dfdu, *uold;
-    doublereal *f;
-    doublereal *u, *wploc;
-    doublereal *wi, *wp, *wt;
-    doublereal *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
+    double *dicd, *ficd, *dfdp, *dfdu, *uold;
+    double *f;
+    double *u, *wploc;
+    double *wi, *wp, *wt;
+    double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
-    dicd = (doublereal *)malloc(sizeof(doublereal) * (iap->nint) *
+    dicd = (double *)malloc(sizeof(double) * (iap->nint) *
                                 (iap->ndim + NPARX));
-    ficd = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    dfdp = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NPARX);
-    dfdu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
-    uold = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    wploc = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol) *
+    ficd = (double *)malloc(sizeof(double) * (iap->nint));
+    dfdp = (double *)malloc(sizeof(double) * (iap->ndim) * NPARX);
+    dfdu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
+    uold = (double *)malloc(sizeof(double) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    u = (double *)malloc(sizeof(double) * (iap->ndim));
+    wploc = (double *)malloc(sizeof(double) * (iap->ncol) *
                                  (iap->ncol + 1));
-    wi = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol + 1));
-    wp = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol) *
+    wi = (double *)malloc(sizeof(double) * (iap->ncol + 1));
+    wp = (double *)malloc(sizeof(double) * (iap->ncol) *
                               (iap->ncol + 1));
-    wt = (doublereal *)malloc(sizeof(doublereal) * (iap->ncol) *
+    wt = (double *)malloc(sizeof(double) * (iap->ncol) *
                               (iap->ncol + 1));
-    dbc = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc) *
+    dbc = (double *)malloc(sizeof(double) * (iap->nbc) *
                                (2 * iap->ndim + NPARX));
-    fbc = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
-    uic = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    uio = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    prm = (doublereal *)malloc(sizeof(doublereal) * NPARX);
-    uid = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    uip = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    ubc0 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    ubc1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    fbc = (double *)malloc(sizeof(double) * (iap->nbc));
+    uic = (double *)malloc(sizeof(double) * (iap->ndim));
+    uio = (double *)malloc(sizeof(double) * (iap->ndim));
+    prm = (double *)malloc(sizeof(double) * NPARX);
+    uid = (double *)malloc(sizeof(double) * (iap->ndim));
+    uip = (double *)malloc(sizeof(double) * (iap->ndim));
+    ubc0 = (double *)malloc(sizeof(double) * (iap->ndim));
+    ubc1 = (double *)malloc(sizeof(double) * (iap->ndim));
 
     /* Parameter adjustments */
     /*--np;*/
@@ -759,26 +759,26 @@ setrhs(integer *ndim, integer *ips, integer *na, integer *ntst, integer *np,
 
 /*     ---------- ---- */
 /* Subroutine */ int
-brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
-     doublereal *fc, doublereal *p0, doublereal *p1, integer *ifst,
-     integer *idb, integer *nllv, doublereal *det, integer *nov, integer *na,
+brbd(double *a, double *b, double *c, double *d, double *fa,
+     double *fc, double *p0, double *p1, integer *ifst,
+     integer *idb, integer *nllv, double *det, integer *nov, integer *na,
      integer *nbc, integer *nra, integer *nca, integer *ncb, integer *nrc,
-     integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2,
-     doublereal *bb, doublereal *cc, doublereal *faa, doublereal *ca1,
-     doublereal *s1, doublereal *s2, integer *icf11, integer *ipr,
+     integer *iam, integer *kwt, logical *par, double *a1, double *a2,
+     double *bb, double *cc, double *faa, double *ca1,
+     double *s1, double *s2, integer *icf11, integer *ipr,
      integer *icf1, integer *icf2, integer *irf, integer *icf) {
-    doublereal *e;
-    doublereal *fcc;
-    doublereal *sol1, *sol2, *sol3;
+    double *e;
+    double *fcc;
+    double *sol1, *sol2, *sol3;
 
-    e = (doublereal *)malloc(sizeof(doublereal) * (*nov + *nrc) *
+    e = (double *)malloc(sizeof(double) * (*nov + *nrc) *
                              (*nov + *nrc));
-    fcc = (doublereal *)malloc(sizeof(doublereal) *
+    fcc = (double *)malloc(sizeof(double) *
                                ((*nov + *nrc) + (2 * (*nov) * (*nov)) + 1));
 
-    sol1 = (doublereal *)malloc(sizeof(doublereal) * (*nov) * (*na + 1));
-    sol2 = (doublereal *)malloc(sizeof(doublereal) * (*nov) * (*na + 1));
-    sol3 = (doublereal *)malloc(sizeof(doublereal) * (*nov) * (*na + 1));
+    sol1 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
+    sol2 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
+    sol3 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
 
     /* Local */
 
@@ -870,7 +870,7 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 } /* brbd_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int setzero(doublereal *fa, doublereal *fc, integer *na,
+/* Subroutine */ int setzero(double *fa, double *fc, integer *na,
                              integer *nra, integer *nrc) {
     /* System generated locals */
     integer fa_dim1;
@@ -897,9 +897,9 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 
 /*     ---------- ------ */
 /* Subroutine */ int conrhs(integer *nov, integer *na, integer *nra,
-                            integer *nca, doublereal *a, integer *nbc,
-                            integer *nrc, doublereal *c, doublereal *fa,
-                            doublereal *fc, integer *irf, integer *icf,
+                            integer *nca, double *a, integer *nbc,
+                            integer *nrc, double *c, double *fa,
+                            double *fc, integer *irf, integer *icf,
                             integer *iam) {
     /* System generated locals */
     integer icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
@@ -957,9 +957,9 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 /*     ---------- ------ */
 /* Subroutine */ int copycp(integer *iam, integer *kwt, integer *na,
                             integer *nov, integer *nra, integer *nca,
-                            doublereal *a, integer *ncb, doublereal *b,
-                            integer *nrc, doublereal *c, doublereal *a1,
-                            doublereal *a2, doublereal *bb, doublereal *cc,
+                            double *a, integer *ncb, double *b,
+                            integer *nrc, double *c, double *a1,
+                            double *a2, double *bb, double *cc,
                             integer *irf) {
     /* System generated locals */
     integer irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
@@ -1024,7 +1024,7 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 
 /*     ---------- ------ */
 /* Subroutine */ int cpyrhs(integer *na, integer *nov, integer *nra,
-                            doublereal *faa, doublereal *fa, integer *irf) {
+                            double *faa, double *fa, integer *irf) {
     /* System generated locals */
     integer irf_dim1, fa_dim1, faa_dim1;
 
@@ -1049,10 +1049,10 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 
 /*     ---------- ------ */
 /* Subroutine */ int reduce(integer *iam, integer *kwt, logical *par,
-                            doublereal *a1, doublereal *a2, doublereal *bb,
-                            doublereal *cc, doublereal *dd, integer *na,
+                            double *a1, double *a2, double *bb,
+                            double *cc, double *dd, integer *na,
                             integer *nov, integer *ncb, integer *nrc,
-                            doublereal *s1, doublereal *s2, doublereal *ca1,
+                            double *s1, double *s2, double *ca1,
                             integer *icf1, integer *icf2, integer *icf11,
                             integer *ipr, integer *nbc) {
     /* System generated locals */
@@ -1064,25 +1064,25 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
     logical oddc[KREDO];
     integer niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO],
         ismm[KREDO], nlev, itmp;
-    doublereal zero, tpiv;
+    double zero, tpiv;
     real xkwt;
     integer nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
 
     logical evenc[KREDO];
 
     integer i1, i2, k1, k2, i3, l1, iprow, k3, l2, l3, ic, ir;
-    doublereal rm;
+    double rm;
     logical master[KREDO];
     integer ib1, ib2, myleft[KREDO];
 
     logical worker[KREDO];
     integer ir1, iprown, iprown2, ism[KREDO], irm[KREDO], nrcmnbc;
-    doublereal tmp;
+    double tmp;
     integer myleftc[KREDO];
     logical notsend;
     integer nap1, myright[KREDO], nam1, len1, len2, icp1;
-    doublereal piv1, piv2;
-    doublereal *buf = NULL;
+    double piv1, piv2;
+    double *buf = NULL;
 
     /* Parameter adjustments */
     ipr_dim1 = *nov;
@@ -1503,7 +1503,7 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
                                 ARRAY3D(bb, (ipiv1 - 1), l, (*na - 1));
                         }
 
-                        buf[ib1 + 1] = (doublereal)jpiv1;
+                        buf[ib1 + 1] = (double)jpiv1;
 
                         for (l = nbcp1 - 1; l < *nrc; ++l) {
                             l1 = l - *nbc;
@@ -1576,7 +1576,7 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
                             ARRAY3D(bb, ic, l, (*na - 1)) = tmp;
                         }
 
-                        buf[ib1 + 1] = (doublereal)jpiv2;
+                        buf[ib1 + 1] = (double)jpiv2;
 
                         for (l = nbcp1; l <= *nrc; ++l) {
                             l1 = l - *nbc;
@@ -1696,8 +1696,8 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
                         buf[l1 + 1] = ARRAY3D(bb, (ipiv2 - 1), l, (*na - 1));
                     }
 
-                    buf[ib1 + 1] = (doublereal)jpiv2;
-                    buf[ib2 + 1] = (doublereal)ipiv2;
+                    buf[ib1 + 1] = (double)jpiv2;
+                    buf[ib2 + 1] = (double)ipiv2;
 
                     csend();
                     crecv();
@@ -1818,10 +1818,10 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 
 /*     ---------- ------ */
 /* Subroutine */ int redrhs(integer *iam, integer *kwt, logical *par,
-                            doublereal *a1, doublereal *a2, doublereal *cc,
-                            doublereal *faa, doublereal *fc, integer *na,
+                            double *a1, double *a2, double *cc,
+                            double *faa, double *fc, integer *na,
                             integer *nov, integer *ncb, integer *nrc,
-                            doublereal *ca1, integer *icf1, integer *icf2,
+                            double *ca1, integer *icf1, integer *icf2,
                             integer *icf11, integer *ipr, integer *nbc) {
     /* System generated locals */
     integer icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1,
@@ -1833,13 +1833,13 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
     integer nbcp1, ipiv1, ipiv2, i;
 
     integer i1, i2, k1, l1, ic, ir;
-    doublereal rm;
+    double rm;
     logical master[KREDO];
     integer myleft[KREDO];
     logical worker[KREDO];
-    doublereal buf[2];
+    double buf[2];
     integer ism[KREDO], irm[KREDO];
-    doublereal tmp;
+    double tmp;
     logical notsend;
     integer nap1, nam1, myright[KREDO], icp1;
 
@@ -1948,7 +1948,7 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
                     } else {
                         buf[0] = ARRAY2D(faa, ic, (*na - 1));
                         buf[1] =
-                            (doublereal)(ARRAY2D(ipr, ic, (*na - 1)) - *nov);
+                            (double)(ARRAY2D(ipr, ic, (*na - 1)) - *nov);
                         csend();
                         crecv();
                     }
@@ -1997,11 +1997,11 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
 
 /*     ---------- ------ */
 /* Subroutine */ int
-dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
-       doublereal *d, doublereal *fc, integer *ifst, integer *na, integer *nrc,
-       integer *nov, integer *ncb, integer *idb, integer *nllv, doublereal *fcc,
-       doublereal *p0, doublereal *p1, doublereal *det, doublereal *s,
-       doublereal *a2, doublereal *faa, doublereal *bb) {
+dimrge(integer *iam, integer *kwt, logical *par, double *e, double *cc,
+       double *d, double *fc, integer *ifst, integer *na, integer *nrc,
+       integer *nov, integer *ncb, integer *idb, integer *nllv, double *fcc,
+       double *p0, double *p1, double *det, double *s,
+       double *a2, double *faa, double *bb) {
 
     /* System generated locals */
     integer e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
@@ -2016,7 +2016,7 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
     integer novpj2, kc, kr, ncrloc, msglen1, msglen2, nap1;
 
     double *xe;
-    xe = (doublereal *)malloc(sizeof(doublereal) * (*nov + *nrc));
+    xe = (double *)malloc(sizeof(double) * (*nov + *nrc));
 
     /* Parameter adjustments */
     /*--fc;*/
@@ -2195,10 +2195,10 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
 
 /*     ---------- ------ */
 /* Subroutine */ int bcksub(integer *iam, integer *kwt, logical *par,
-                            doublereal *s1, doublereal *s2, doublereal *a2,
-                            doublereal *bb, doublereal *faa, doublereal *fc,
-                            doublereal *fcc, doublereal *sol1, doublereal *sol2,
-                            doublereal *sol3, integer *na, integer *nov,
+                            double *s1, double *s2, double *a2,
+                            double *bb, double *faa, double *fc,
+                            double *fcc, double *sol1, double *sol2,
+                            double *sol3, integer *na, integer *nov,
                             integer *ncb, integer *icf2) {
     /* System generated locals */
     integer icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2,
@@ -2209,11 +2209,11 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
     logical even = FALSE_;
     integer nlev;
     logical hasright;
-    doublereal xkwt;
+    double xkwt;
     integer rmsgtype, smsgtype, i, k, l;
 
     integer nlist[2], itest, l1, l2;
-    doublereal sm;
+    double sm;
     integer msglen;
 
     logical master[KREDO];
@@ -2241,9 +2241,9 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
     bb_dim1 = *nov;
     bb_dim2 = *ncb;
 
-    xkwt = (doublereal)(*kwt);
+    xkwt = (double)(*kwt);
     {
-        doublereal tmp = d_lg10(&xkwt) / r_lg10(2.0);
+        double tmp = d_lg10(&xkwt) / r_lg10(2.0);
         nlev = i_dnnt(&tmp);
     }
     nov2 = *nov * 2;
@@ -2333,7 +2333,7 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
                         buf[*nov + l + 1] = ARRAY2D(sol2, l, (*na - 1));
                         buf[nov2 + l + 1] = ARRAY2D(sol3, l, (*na - 1));
                     }
-                    buf[nov3 + 1] = (doublereal)(*iam);
+                    buf[nov3 + 1] = (double)(*iam);
                     gsendx();
                 }
             }
@@ -2445,9 +2445,9 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
 } /* bcksub_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int infpar(integer *iam, logical *par, doublereal *a,
-                            doublereal *b, doublereal *fa, doublereal *sol1,
-                            doublereal *sol2, doublereal *fc, integer *na,
+/* Subroutine */ int infpar(integer *iam, logical *par, double *a,
+                            double *b, double *fa, double *sol1,
+                            double *sol2, double *fc, integer *na,
                             integer *nov, integer *nra, integer *nca,
                             integer *ncb, integer *irf, integer *icf) {
     /* System generated locals */
@@ -2456,12 +2456,12 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
 
     /* Local variables */
     integer nram, icfj1, i, j;
-    doublereal *x;
+    double *x;
     integer nrapj, irfir, j1, novpj, icfnovpir, ir;
-    doublereal sm;
+    double sm;
     integer novpir, irp1;
 
-    x = (doublereal *)malloc(sizeof(doublereal) * (*nra));
+    x = (double *)malloc(sizeof(double) * (*nra));
 
     /* Determine the local varables by backsubstitition. */
 
@@ -2519,24 +2519,24 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
 } /* infpar_ */
 
 /*     ---------- --- */
-/* Subroutine */ int rd0(integer *iam, integer *kwt, doublereal *d,
+/* Subroutine */ int rd0(integer *iam, integer *kwt, double *d,
                          integer *nrc) {
 
     /* Local variables */
     integer niam;
     logical even[KREDO];
-    doublereal xkwt;
+    double xkwt;
     integer i, n;
 
     integer nredo, msglen, rmtype[KREDO], smtype[KREDO];
     logical odd[KREDO];
 
-    doublereal *buf;
+    double *buf;
 
     logical notsend;
     integer myright[KREDO];
 
-    buf = (doublereal *)malloc(sizeof(doublereal) * (*nrc));
+    buf = (double *)malloc(sizeof(double) * (*nrc));
 
     /*     RECURSIVE DOUBLING PROCEDURE TO GET */
     /*     THE GLOBAL SUM OF VECTORS FROM */
@@ -2547,11 +2547,11 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
     /* Parameter adjustments */
     /*--d;*/
 
-    xkwt = (doublereal)(*kwt);
+    xkwt = (double)(*kwt);
 
     /* Determine the recursion level */
     {
-        doublereal tmp = log(xkwt) / log((double)2.);
+        double tmp = log(xkwt) / log((double)2.);
         nredo = i_dnnt(&tmp);
     }
 
@@ -2598,8 +2598,8 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc,
 /*     ---------- ------ */
 /* Subroutine */ int print1(integer *nov, integer *na, integer *nra,
                             integer *nca, integer *ncb, integer *nrc,
-                            doublereal *a, doublereal *b, doublereal *c,
-                            doublereal *d, doublereal *fa, doublereal *fc) {
+                            double *a, double *b, double *c,
+                            double *d, double *fa, double *fc) {
 
     /* System generated locals */
     integer a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
@@ -2694,7 +2694,7 @@ integer numnodes(void) {
 
 /* Subroutine */ int gsync(void) { return 0; } /* gsync_ */
 
-doublereal dclock(void) {
+double dclock(void) {
     real ret_val;
 
     ret_val = (double)0.;

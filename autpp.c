@@ -56,7 +56,7 @@ double *u, *par, *f, *dfdu, *dfdp;
 
 int stpnt(ndim, t, u, par)
 integer ndim;
-doublereal *u, *par, t;
+double *u, *par, t;
 {
     int i;
 
@@ -149,4 +149,4 @@ double *fs, *dfdu, *dfdp;
 /*  Not sure what to do here; I think  do nothing  since IEQUIB is always
     -2
 */
-int pvls(integer ndim, const doublereal *u, doublereal *par) { return 0; }
+int pvls(integer ndim, const double *u, double *par) { return 0; }

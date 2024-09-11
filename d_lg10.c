@@ -5,10 +5,10 @@
 #ifdef KR_headers
 double log();
 double d_lg10(x)
-doublereal *x;
+double *x;
 #else
 #undef abs
 #include "math.h"
-double d_lg10(doublereal *x)
+double d_lg10(double *x)
 #endif
 { return (log10e * log(*x)); }

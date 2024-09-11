@@ -36,51 +36,51 @@ void *setubv_make_aa_bb_cc(void *arg) {
     integer i1, j1;
 
     integer ib, ic, jj;
-    doublereal dt;
+    double dt;
     integer ib1, ic1;
     integer jp1;
-    doublereal ddt;
+    double ddt;
 
     setubv_parallel_arglist *larg = (setubv_parallel_arglist *)arg;
 
-    doublereal *dicd, *ficd, *dfdp, *dfdu, *uold;
-    doublereal *f;
-    doublereal *u, *wploc;
-    doublereal *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
+    double *dicd, *ficd, *dfdp, *dfdu, *uold;
+    double *f;
+    double *u, *wploc;
+    double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
-    doublereal *ups = larg->ups;
-    doublereal *upoldp = larg->upoldp;
-    doublereal *udotps = larg->udotps;
-    doublereal *uoldps = larg->uoldps;
+    double *ups = larg->ups;
+    double *upoldp = larg->upoldp;
+    double *udotps = larg->udotps;
+    double *uoldps = larg->uoldps;
 
-    doublereal *aa = larg->aa;
-    doublereal *bb = larg->bb;
-    doublereal *cc = larg->cc;
+    double *aa = larg->aa;
+    double *bb = larg->bb;
+    double *cc = larg->cc;
 
-    doublereal *wp = larg->wp;
-    doublereal *wt = larg->wt;
+    double *wp = larg->wp;
+    double *wt = larg->wt;
 
-    dicd = (doublereal *)malloc(sizeof(doublereal) * (larg->nint) *
+    dicd = (double *)malloc(sizeof(double) * (larg->nint) *
                                 (larg->ndim + NPARX));
-    ficd = (doublereal *)malloc(sizeof(doublereal) * (larg->nint));
-    dfdp = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim) * NPARX);
+    ficd = (double *)malloc(sizeof(double) * (larg->nint));
+    dfdp = (double *)malloc(sizeof(double) * (larg->ndim) * NPARX);
     dfdu =
-        (doublereal *)malloc(sizeof(doublereal) * (larg->ndim) * (larg->ndim));
-    uold = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    f = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    u = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    wploc = (doublereal *)malloc(sizeof(doublereal) * (larg->ncol) *
+        (double *)malloc(sizeof(double) * (larg->ndim) * (larg->ndim));
+    uold = (double *)malloc(sizeof(double) * (larg->ndim));
+    f = (double *)malloc(sizeof(double) * (larg->ndim));
+    u = (double *)malloc(sizeof(double) * (larg->ndim));
+    wploc = (double *)malloc(sizeof(double) * (larg->ncol) *
                                  (larg->ncol + 1));
-    dbc = (doublereal *)malloc(sizeof(doublereal) * (larg->nbc) *
+    dbc = (double *)malloc(sizeof(double) * (larg->nbc) *
                                (2 * larg->ndim + NPARX));
-    fbc = (doublereal *)malloc(sizeof(doublereal) * (larg->nbc));
-    uic = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    uio = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    prm = (doublereal *)malloc(sizeof(doublereal) * NPARX);
-    uid = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    uip = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    ubc0 = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
-    ubc1 = (doublereal *)malloc(sizeof(doublereal) * (larg->ndim));
+    fbc = (double *)malloc(sizeof(double) * (larg->nbc));
+    uic = (double *)malloc(sizeof(double) * (larg->ndim));
+    uio = (double *)malloc(sizeof(double) * (larg->ndim));
+    prm = (double *)malloc(sizeof(double) * NPARX);
+    uid = (double *)malloc(sizeof(double) * (larg->ndim));
+    uip = (double *)malloc(sizeof(double) * (larg->ndim));
+    ubc0 = (double *)malloc(sizeof(double) * (larg->ndim));
+    ubc1 = (double *)malloc(sizeof(double) * (larg->ndim));
 
     upoldp_dim1 = larg->ndxloc;
     udotps_dim1 = larg->ndxloc;
@@ -284,24 +284,24 @@ int setubv_default_wrapper(setubv_parallel_arglist data) {
 int setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc,
            integer nint, integer ncb, integer nrc, integer nra, integer nca,
            FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-           integer ndxloc, iap_type *iap, rap_type *rap, doublereal *par,
-           integer *icp, doublereal rds, doublereal *aa, doublereal *bb,
-           doublereal *cc, doublereal *dd, doublereal *fa, doublereal *fc,
-           doublereal *rlcur, doublereal *rlold, doublereal *rldot,
-           doublereal *ups, doublereal *uoldps, doublereal *udotps,
-           doublereal *upoldp, doublereal *dups, doublereal *dtm,
-           doublereal *thl, doublereal *thu, doublereal *p0, doublereal *p1) {
+           integer ndxloc, iap_type *iap, rap_type *rap, double *par,
+           integer *icp, double rds, double *aa, double *bb,
+           double *cc, double *dd, double *fa, double *fc,
+           double *rlcur, double *rlold, double *rldot,
+           double *ups, double *uoldps, double *udotps,
+           double *upoldp, double *dups, double *dtm,
+           double *thl, double *thu, double *p0, double *p1) {
     /* System generated locals */
     integer aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
     /* Local variables */
     integer i, j, k;
 
-    doublereal *wi, *wp, *wt;
+    double *wi, *wp, *wt;
 
-    wi = (doublereal *)malloc(sizeof(doublereal) * (ncol + 1));
-    wp = (doublereal *)malloc(sizeof(doublereal) * (ncol) * (ncol + 1));
-    wt = (doublereal *)malloc(sizeof(doublereal) * (ncol) * (ncol + 1));
+    wi = (double *)malloc(sizeof(double) * (ncol + 1));
+    wp = (double *)malloc(sizeof(double) * (ncol) * (ncol + 1));
+    wt = (double *)malloc(sizeof(double) * (ncol) * (ncol + 1));
 
     dd_dim1 = ncb;
 
@@ -382,35 +382,35 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
     integer i, j, k, l;
     integer ic, k1, ib;
     integer jj, jp1, l1, ic1;
-    doublereal dt, ddt;
+    double dt, ddt;
 
-    doublereal *ups = larg.ups;
+    double *ups = larg.ups;
     integer ups_dim1 = larg.ndxloc;
 
-    doublereal *uoldps = larg.uoldps;
+    double *uoldps = larg.uoldps;
     integer uoldps_dim1 = larg.ndxloc;
 
-    doublereal *wp = larg.wp;
+    double *wp = larg.wp;
     integer wp_dim1 = larg.ncol + 1;
 
-    doublereal *wt = larg.wt;
+    double *wt = larg.wt;
     integer wt_dim1 = larg.ncol + 1;
 
-    doublereal *fa = larg.fa;
+    double *fa = larg.fa;
     integer fa_dim1 = larg.nra;
 
-    doublereal *wploc = (doublereal *)malloc(sizeof(doublereal) * (larg.ncol) *
+    double *wploc = (double *)malloc(sizeof(double) * (larg.ncol) *
                                              (larg.ncol + 1));
     integer wploc_dim1 = larg.ncol + 1;
 
-    doublereal *dfdp =
-        (doublereal *)malloc(sizeof(doublereal) * (larg.ndim) * NPARX);
-    doublereal *dfdu =
-        (doublereal *)malloc(sizeof(doublereal) * (larg.ndim) * (larg.ndim));
-    doublereal *u = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *uold = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *f = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *prm = (doublereal *)malloc(sizeof(doublereal) * NPARX);
+    double *dfdp =
+        (double *)malloc(sizeof(double) * (larg.ndim) * NPARX);
+    double *dfdu =
+        (double *)malloc(sizeof(double) * (larg.ndim) * (larg.ndim));
+    double *u = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *uold = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *f = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *prm = (double *)malloc(sizeof(double) * NPARX);
 
     for (jj = 0; jj < larg.na; ++jj) {
         j = jj;
@@ -464,42 +464,42 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
     free(prm);
 }
 
-void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups,
-                       doublereal *rlcur, doublereal *rlold, doublereal rds) {
+void setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups,
+                       double *rlcur, double *rlold, double rds) {
     integer i, j, jj, jp1, k, i1, m, j1;
-    doublereal rlsum;
+    double rlsum;
 
     integer dups_dim1 = larg.ndxloc;
 
-    doublereal *dd = larg.dd;
+    double *dd = larg.dd;
     integer dd_dim1 = larg.ncb;
 
-    doublereal *ups = larg.ups;
+    double *ups = larg.ups;
     integer ups_dim1 = larg.ndxloc;
 
-    doublereal *uoldps = larg.uoldps;
+    double *uoldps = larg.uoldps;
     integer uoldps_dim1 = larg.ndxloc;
 
-    doublereal *udotps = larg.udotps;
+    double *udotps = larg.udotps;
     integer udotps_dim1 = larg.ndxloc;
 
-    doublereal *upoldp = larg.upoldp;
+    double *upoldp = larg.upoldp;
     integer upoldp_dim1 = larg.ndxloc;
 
     integer dbc_dim1 = larg.nbc;
-    doublereal *dbc = (doublereal *)malloc(sizeof(doublereal) * (larg.nbc) *
+    double *dbc = (double *)malloc(sizeof(double) * (larg.nbc) *
                                            (2 * larg.ndim + NPARX));
-    doublereal *fbc = (doublereal *)malloc(sizeof(doublereal) * (larg.nbc));
-    doublereal *ubc0 = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *ubc1 = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
+    double *fbc = (double *)malloc(sizeof(double) * (larg.nbc));
+    double *ubc0 = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *ubc1 = (double *)malloc(sizeof(double) * (larg.ndim));
     integer dicd_dim1 = larg.nint;
-    doublereal *dicd = (doublereal *)malloc(sizeof(doublereal) * (larg.nint) *
+    double *dicd = (double *)malloc(sizeof(double) * (larg.nint) *
                                             (larg.ndim + NPARX));
-    doublereal *ficd = (doublereal *)malloc(sizeof(doublereal) * (larg.nint));
-    doublereal *uic = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *uio = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *uid = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
-    doublereal *uip = (doublereal *)malloc(sizeof(doublereal) * (larg.ndim));
+    double *ficd = (double *)malloc(sizeof(double) * (larg.nint));
+    double *uic = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *uio = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *uid = (double *)malloc(sizeof(double) * (larg.ndim));
+    double *uip = (double *)malloc(sizeof(double) * (larg.ndim));
 
     /* Boundary condition part of FC */
     if (larg.nbc > 0) {
@@ -600,11 +600,11 @@ void setubv_parallel_arglist_constructor(
     integer ndim, integer ips, integer na, integer ncol, integer nbc,
     integer nint, integer ncb, integer nrc, integer nra, integer nca,
     FUNI_TYPE((*funi)), ICNI_TYPE((*icni)), integer ndxloc, iap_type *iap,
-    rap_type *rap, doublereal *par, integer *icp, doublereal *aa,
-    doublereal *bb, doublereal *cc, doublereal *dd, doublereal *fa,
-    doublereal *fc, doublereal *ups, doublereal *uoldps, doublereal *udotps,
-    doublereal *upoldp, doublereal *dtm, doublereal *wp, doublereal *wt,
-    doublereal *wi, doublereal *thu, doublereal *thl, doublereal *rldot,
+    rap_type *rap, double *par, integer *icp, double *aa,
+    double *bb, double *cc, double *dd, double *fa,
+    double *fc, double *ups, double *uoldps, double *udotps,
+    double *upoldp, double *dtm, double *wp, double *wt,
+    double *wi, double *thu, double *thl, double *rldot,
     BCNI_TYPE((*bcni)), setubv_parallel_arglist *data) {
     data->ndim = ndim;
     data->ips = ips;

@@ -12,10 +12,10 @@ extern int (*rhs)();
 #include "auto_c.h"
 /* Table of constant values */
 
-static doublereal c_b81 = 0.;
-static doublereal c_b170 = 1.;
+static double c_b81 = 0.;
+static double c_b170 = 1.;
 static integer c__1 = 1;
-static doublereal c_b367 = -1.;
+static double c_b367 = -1.;
 static integer c__2 = 2;
 
 void sgefa(double *a, int n, int m, int *ip, int *ier);
@@ -25,9 +25,9 @@ void sgesl(double *a, int n, int m, int *ip, double *b, int);
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int rg(integer nm, integer n, doublereal *a, doublereal *wr,
-                        doublereal *wi, integer matz, doublereal *z__,
-                        integer *iv1, doublereal *fv1, integer *ierr) {
+/* Subroutine */ int rg(integer nm, integer n, double *a, double *wr,
+                        double *wi, integer matz, double *z__,
+                        integer *iv1, double *fv1, integer *ierr) {
     /* System generated locals */
     integer a_dim1, a_offset, z_dim1, z_offset;
 
@@ -127,21 +127,21 @@ L50:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int hqr(integer *nm, integer *n, integer *low, integer *igh,
-                         doublereal *h__, doublereal *wr, doublereal *wi,
+                         double *h__, double *wr, double *wi,
                          integer *ierr) {
     /* System generated locals */
     integer h_dim1, h_offset, i__1, i__2, i__3;
-    doublereal d__1, d__2;
+    double d__1, d__2;
 
     /* Local variables */
-    static doublereal norm;
+    static double norm;
     static integer i__, j, k, l, m;
-    static doublereal p, q, r__, s, t, w, x, y;
+    static double p, q, r__, s, t, w, x, y;
     static integer na, en, ll, mm;
-    static doublereal zz;
+    static double zz;
     static logical notlas;
     static integer mp2, itn, its, enm2;
-    static doublereal tst1, tst2;
+    static double tst1, tst2;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR, */
     /*     NUM. MATH. 14, 219-231(1970) BY MARTIN, PETERS, AND WILKINSON. */
@@ -473,24 +473,24 @@ L1001:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int hqr2(integer *nm, integer *n, integer *low, integer *igh,
-                          doublereal *h__, doublereal *wr, doublereal *wi,
-                          doublereal *z__, integer *ierr) {
+                          double *h__, double *wr, double *wi,
+                          double *z__, integer *ierr) {
     /* System generated locals */
     integer h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
-    doublereal d__1, d__2, d__3, d__4;
+    double d__1, d__2, d__3, d__4;
 
     /* Local variables */
 
-    static doublereal norm;
+    static double norm;
     static integer i__, j, k, l, m;
-    static doublereal p, q, r__, s, t, w, x, y;
+    static double p, q, r__, s, t, w, x, y;
     static integer na, ii, en, jj;
-    static doublereal ra, sa;
+    static double ra, sa;
     static integer ll, mm, nn;
-    static doublereal vi, vr, zz;
+    static double vi, vr, zz;
     static logical notlas;
     static integer mp2, itn, its, enm2;
-    static doublereal tst1, tst2;
+    static double tst1, tst2;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR2, */
     /*     NUM. MATH. 16, 181-204(1970) BY PETERS AND WILKINSON. */
@@ -1157,13 +1157,13 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int cdiv(doublereal *ar, doublereal *ai, doublereal *br,
-                          doublereal *bi, doublereal *cr, doublereal *ci) {
+/* Subroutine */ int cdiv(double *ar, double *ai, double *br,
+                          double *bi, double *cr, double *ci) {
     /* System generated locals */
-    doublereal d__1, d__2;
+    double d__1, d__2;
 
     /* Local variables */
-    static doublereal s, ais, bis, ars, brs;
+    static double s, ais, bis, ars, brs;
 
     /*     COMPLEX DIVISION, (CR,CI) = (AR,AI)/(BR,BI) */
 
@@ -1184,17 +1184,17 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int balanc(integer *nm, integer *n, doublereal *a,
-                            integer *low, integer *igh, doublereal *scale) {
+/* Subroutine */ int balanc(integer *nm, integer *n, double *a,
+                            integer *low, integer *igh, double *scale) {
     /* System generated locals */
     integer a_dim1, a_offset, i__1, i__2;
-    doublereal d__1;
+    double d__1;
 
     /* Local variables */
     static integer iexc;
-    static doublereal c__, f, g;
+    static double c__, f, g;
     static integer i__, j, k, l, m;
-    static doublereal r__, s, radix, b2;
+    static double r__, s, radix, b2;
     static integer jj;
     static logical noconv;
 
@@ -1267,7 +1267,7 @@ L1001:
 /*     .......... IN-LINE PROCEDURE FOR ROW AND */
 /*                COLUMN EXCHANGE .......... */
 L20:
-    scale[m] = (doublereal)j;
+    scale[m] = (double)j;
     if (j == m) {
         goto L50;
     }
@@ -1436,13 +1436,13 @@ L280:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int balbak(integer *nm, integer *n, integer *low, integer *igh,
-                            doublereal *scale, integer *m, doublereal *z__) {
+                            double *scale, integer *m, double *z__) {
     /* System generated locals */
     integer z_dim1, z_offset, i__1, i__2;
 
     /* Local variables */
     static integer i__, j, k;
-    static doublereal s;
+    static double s;
     static integer ii;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALBAK, */
@@ -1547,14 +1547,14 @@ L200:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int elmhes(integer *nm, integer *n, integer *low, integer *igh,
-                            doublereal *a, integer *int__) {
+                            double *a, integer *int__) {
     /* System generated locals */
     integer a_dim1, a_offset, i__1, i__2, i__3;
-    doublereal d__1;
+    double d__1;
 
     /* Local variables */
     static integer i__, j, m;
-    static doublereal x, y;
+    static double x, y;
     static integer la, mm1, kp1, mp1;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMHES, */
@@ -1688,7 +1688,7 @@ L200:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int eltran(integer *nm, integer *n, integer *low, integer *igh,
-                            doublereal *a, integer *int__, doublereal *z__) {
+                            double *a, integer *int__, double *z__) {
     /* System generated locals */
     integer a_dim1, a_offset, z_dim1, z_offset, i__1, i__2;
 
@@ -1802,20 +1802,20 @@ L200:
 /*  EISPACK routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzhes(integer nm, integer n, doublereal *a, doublereal *b,
-                           logical matz, doublereal *z__) {
+/* Subroutine */ int qzhes(integer nm, integer n, double *a, double *b,
+                           logical matz, double *z__) {
     /* System generated locals */
     integer a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
-    doublereal d__1, d__2;
+    double d__1, d__2;
 
     /* Local variables */
     static integer i__, j, k, l;
-    static doublereal r__, s, t;
+    static double r__, s, t;
     static integer l1;
-    static doublereal u1, u2, v1, v2;
+    static double u1, u2, v1, v2;
     static integer lb, nk1, nm1, nm2;
-    static doublereal rho;
+    static double rho;
 
     /*     THIS SUBROUTINE IS THE FIRST STEP OF THE QZ ALGORITHM */
     /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
@@ -2084,33 +2084,33 @@ L170:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzit(integer nm, integer n, doublereal *a, doublereal *b,
-                          doublereal eps1, logical matz, doublereal *z__,
+/* Subroutine */ int qzit(integer nm, integer n, double *a, double *b,
+                          double eps1, logical matz, double *z__,
                           integer *ierr) {
     /* System generated locals */
     integer a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
-    doublereal d__1, d__2, d__3;
+    double d__1, d__2, d__3;
 
     /* Local variables */
-    static doublereal epsa, epsb;
+    static double epsa, epsb;
     static integer i__, j, k, l;
-    static doublereal r__, s, t, anorm, bnorm;
+    static double r__, s, t, anorm, bnorm;
     static integer enorn;
-    static doublereal a1, a2, a3;
+    static double a1, a2, a3;
     static integer k1, k2, l1;
-    static doublereal u1, u2, u3, v1, v2, v3, a11, a12, a21, a22, a33, a34, a43,
+    static double u1, u2, u3, v1, v2, v3, a11, a12, a21, a22, a33, a34, a43,
         a44, b11, b12, b22, b33;
     static integer na, ld;
-    static doublereal b34, b44;
+    static double b34, b44;
     static integer en;
-    static doublereal ep;
+    static double ep;
     static integer ll;
-    static doublereal sh;
+    static double sh;
 
     static logical notlas;
     static integer km1, lm1;
-    static doublereal ani, bni;
+    static double ani, bni;
     static integer ish, itn, its, enm2, lor1;
 
     /*     THIS SUBROUTINE IS THE SECOND STEP OF THE QZ ALGORITHM */
@@ -2611,27 +2611,27 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzval(integer nm, integer n, doublereal *a, doublereal *b,
-                           doublereal *alfr, doublereal *alfi, doublereal *beta,
-                           logical matz, doublereal *z__) {
+/* Subroutine */ int qzval(integer nm, integer n, double *a, double *b,
+                           double *alfr, double *alfi, double *beta,
+                           logical matz, double *z__) {
     /* System generated locals */
     integer a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
-    doublereal d__1, d__2, d__3, d__4;
+    double d__1, d__2, d__3, d__4;
 
     /* Local variables */
-    static doublereal epsb, c__, d__, e;
+    static double epsb, c__, d__, e;
     static integer i__, j;
-    static doublereal r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22,
+    static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22,
         b11, b12, b22, di, ei;
     static integer na;
-    static doublereal an, bn;
+    static double an, bn;
     static integer en;
-    static doublereal cq, dr;
+    static double cq, dr;
     static integer nn;
-    static doublereal cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r,
+    static double cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r,
         sqi, ssi;
     static integer isw;
-    static doublereal sqr, szi, ssr, szr;
+    static double sqr, szi, ssr, szr;
 
     /*     THIS SUBROUTINE IS THE THIRD STEP OF THE QZ ALGORITHM */
     /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
@@ -2998,12 +2998,12 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-doublereal epslon(doublereal x) {
+double epslon(double x) {
     /* System generated locals */
-    doublereal ret_val, d__1;
+    double ret_val, d__1;
 
     /* Local variables */
-    static doublereal a, b, c__, eps;
+    static double a, b, c__, eps;
 
     /*     ESTIMATE UNIT ROUNDOFF IN QUANTITIES OF SIZE X. */
 
@@ -3045,24 +3045,24 @@ L10:
 /*  BLAS-1 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-doublereal dnrm2(integer *n, doublereal *dx, integer *incx) {
+double dnrm2(integer *n, double *dx, integer *incx) {
     /* Initialized data */
 
-    static doublereal zero = 0.;
-    static doublereal one = 1.;
-    static doublereal cutlo = 8.232e-11;
-    static doublereal cuthi = 1.304e19;
+    static double zero = 0.;
+    static double one = 1.;
+    static double cutlo = 8.232e-11;
+    static double cuthi = 1.304e19;
 
     /* Format strings */
 
     /* System generated locals */
     integer i__1, i__2;
-    doublereal ret_val, d__1;
+    double ret_val, d__1;
 
     /* Local variables */
-    static doublereal xmax;
+    static double xmax;
     static integer next, i__, j, nn;
-    static doublereal hitest, sum;
+    static double hitest, sum;
 
     /* Parameter adjustments */
     --dx;
@@ -3233,15 +3233,15 @@ L300:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-doublereal ddot(integer *n, doublereal *dx, integer *incx, doublereal *dy,
+double ddot(integer *n, double *dx, integer *incx, double *dy,
                 integer *incy) {
     /* System generated locals */
     integer i__1;
-    doublereal ret_val;
+    double ret_val;
 
     /* Local variables */
     static integer i__, m;
-    static doublereal dtemp;
+    static double dtemp;
     static integer ix, iy, mp1;
 
     /*     FORMS THE DOT PRODUCT OF TWO VECTORS. */
@@ -3316,7 +3316,7 @@ L60:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dscal(integer *n, doublereal *da, doublereal *dx,
+/* Subroutine */ int dscal(integer *n, double *da, double *dx,
                            integer *incx) {
     /* System generated locals */
     integer i__1, i__2;
@@ -3383,13 +3383,13 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-integer idamax(integer *n, doublereal *dx, integer *incx) {
+integer idamax(integer *n, double *dx, integer *incx) {
     /* System generated locals */
     integer ret_val, i__1;
-    doublereal d__1;
+    double d__1;
 
     /* Local variables */
-    static doublereal dmax__;
+    static double dmax__;
     static integer i__, ix;
 
     /*     FINDS THE INDEX OF ELEMENT HAVING MAX. ABSOLUTE VALUE. */
@@ -3447,8 +3447,8 @@ L20:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int daxpy(integer *n, doublereal *da, doublereal *dx,
-                           integer *incx, doublereal *dy, integer *incy) {
+/* Subroutine */ int daxpy(integer *n, double *da, double *dx,
+                           integer *incx, double *dy, integer *incy) {
     /* System generated locals */
     integer i__1;
 
@@ -3526,15 +3526,15 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int drot(integer *n, doublereal *dx, integer *incx,
-                          doublereal *dy, integer *incy, doublereal *c__,
-                          doublereal *s) {
+/* Subroutine */ int drot(integer *n, double *dx, integer *incx,
+                          double *dy, integer *incy, double *c__,
+                          double *s) {
     /* System generated locals */
     integer i__1;
 
     /* Local variables */
     static integer i__;
-    static doublereal dtemp;
+    static double dtemp;
     static integer ix, iy;
 
     /*     APPLIES A PLANE ROTATION. */
@@ -3589,14 +3589,14 @@ L20:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dswap(integer *n, doublereal *dx, integer *incx,
-                           doublereal *dy, integer *incy) {
+/* Subroutine */ int dswap(integer *n, double *dx, integer *incx,
+                           double *dy, integer *incy) {
     /* System generated locals */
     integer i__1;
 
     /* Local variables */
     static integer i__, m;
-    static doublereal dtemp;
+    static double dtemp;
     static integer ix, iy, mp1;
 
     /*     INTERCHANGES TWO VECTORS. */
@@ -3676,8 +3676,8 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dgemc(integer *m, integer *n, doublereal *a, integer *lda,
-                           doublereal *b, integer *ldb, logical *trans) {
+/* Subroutine */ int dgemc(integer *m, integer *n, double *a, integer *lda,
+                           double *b, integer *ldb, logical *trans) {
     /* System generated locals */
     integer a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
 
@@ -3923,9 +3923,9 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int dgemm(char *transa, char *transb, integer *m, integer *n,
-                           integer *k, doublereal *alpha, doublereal *a,
-                           integer *lda, doublereal *b, integer *ldb,
-                           doublereal *beta, doublereal *c__, integer *ldc,
+                           integer *k, double *alpha, double *a,
+                           integer *lda, double *b, integer *ldb,
+                           double *beta, double *c__, integer *ldc,
                            integer transa_len, integer transb_len) {
     /* System generated locals */
     integer a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
@@ -3934,7 +3934,7 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     /* Local variables */
     static integer info;
     static logical nota, notb;
-    static doublereal temp;
+    static double temp;
     static integer i__, j, l, ncola;
 
     static integer nrowa, nrowb;
@@ -4325,11 +4325,11 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ezsvd(doublereal *x, integer *ldx, integer *n, integer *p,
-                           doublereal *s, doublereal *e, doublereal *u,
-                           integer *ldu, doublereal *v, integer *ldv,
-                           doublereal *work, integer *job, integer *info,
-                           doublereal *tol) {
+/* Subroutine */ int ezsvd(double *x, integer *ldx, integer *n, integer *p,
+                           double *s, double *e, double *u,
+                           integer *ldu, double *v, integer *ldv,
+                           double *work, integer *job, integer *info,
+                           double *tol) {
     /* System generated locals */
     integer x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset;
 
@@ -4337,7 +4337,7 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     static integer idbg, skip, iidir, ifull;
 
     static integer kount, kount1, kount2, limshf;
-    static doublereal maxsin;
+    static double maxsin;
     static integer maxitr;
 
     /*     new svd by J. Demmel, W. Kahan */
@@ -4403,11 +4403,11 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ndrotg(doublereal *f, doublereal *g, doublereal *cs,
-                            doublereal *sn) {
+/* Subroutine */ int ndrotg(double *f, double *g, double *cs,
+                            double *sn) {
 
     /* Local variables */
-    static doublereal t, tt;
+    static double t, tt;
 
     /*     faster version of drotg, except g unchanged on return */
     /*     cs, sn returned so that -sn*f+cs*g = 0 */
@@ -4456,59 +4456,59 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ndsvd(doublereal *x, integer *ldx, integer *n, integer *p,
-                           doublereal *s, doublereal *e, doublereal *u,
-                           integer *ldu, doublereal *v, integer *ldv,
-                           doublereal *work, integer *job, integer *info,
-                           integer *maxitr, doublereal *tol, integer *idbg,
+/* Subroutine */ int ndsvd(double *x, integer *ldx, integer *n, integer *p,
+                           double *s, double *e, double *u,
+                           integer *ldu, double *v, integer *ldv,
+                           double *work, integer *job, integer *info,
+                           integer *maxitr, double *tol, integer *idbg,
                            integer *ifull, integer *kount, integer *kount1,
                            integer *kount2, integer *skip, integer *limshf,
-                           doublereal *maxsin, integer *iidir) {
+                           double *maxsin, integer *iidir) {
     /* System generated locals */
     integer x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2,
         i__3;
-    doublereal d__1, d__2, d__3, d__4;
+    double d__1, d__2, d__3, d__4;
 
     /* Local variables */
-    static doublereal abse;
+    static double abse;
 
     static integer idir;
-    static doublereal abss;
+    static double abss;
 
     static integer oldm, jobu;
-    static doublereal cosl;
+    static double cosl;
     static integer iter;
-    static doublereal temp, smin, smax, cosr, sinl, sinr;
+    static double temp, smin, smax, cosr, sinl, sinr;
 
-    static doublereal test;
+    static double test;
 
     static integer nctp1, nrtp1;
-    static doublereal f, g;
+    static double f, g;
     static integer i__, j, k, l, m;
-    static doublereal t;
+    static double t;
 
-    static doublereal oldcs;
+    static double oldcs;
     static integer oldll, iisub;
-    static doublereal shift, oldsn, sigmn;
+    static double shift, oldsn, sigmn;
     static integer minnp, maxit;
-    static doublereal sminl;
+    static double sminl;
 
-    static doublereal sigmx;
+    static double sigmx;
     static logical wantu, wantv;
-    static doublereal gg, lambda;
+    static double gg, lambda;
     static integer oldacc;
-    static doublereal cs;
+    static double cs;
     static integer ll, mm;
-    static doublereal sm;
+    static double sm;
     static integer lu;
-    static doublereal sn, mu;
+    static double sn, mu;
 
-    static doublereal thresh;
+    static double thresh;
 
     static integer lm1, lp1, lll, nct, ncu;
-    static doublereal sll;
+    static double sll;
     static integer nrt;
-    static doublereal emm1, smm1;
+    static double emm1, smm1;
 
     /* Fortran I/O blocks */
 
@@ -5748,7 +5748,7 @@ L996:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int prse(integer *ll, integer *m, integer *nrow, integer *ncol,
-                          doublereal *s, doublereal *e) {
+                          double *s, double *e) {
     /* Format strings */
 
     /* System generated locals */
@@ -5787,22 +5787,22 @@ L996:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int sig22(doublereal *a, doublereal *b, doublereal *c__,
-                           doublereal *sigmin, doublereal *sigmax,
-                           doublereal *snr, doublereal *csr, doublereal *snl,
-                           doublereal *csl) {
+/* Subroutine */ int sig22(double *a, double *b, double *c__,
+                           double *sigmin, double *sigmax,
+                           double *snr, double *csr, double *snl,
+                           double *csl) {
     /* System generated locals */
-    doublereal d__1, d__2;
+    double d__1, d__2;
 
     /* Local variables */
-    static doublereal absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl,
+    static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl,
         sinl, cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
     static integer ia;
-    static doublereal absbac;
+    static double absbac;
     static integer ib;
-    static doublereal as, at, au;
+    static double as, at, au;
 
-    static doublereal bac;
+    static double bac;
 
     /*     compute the singular value decomposition of the 2 by 2 */
     /*     upper triangular matrix [[a,b];[0,c]] */
@@ -6041,12 +6041,12 @@ L996:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-doublereal sigmin(doublereal *a, doublereal *b, doublereal *c__) {
+double sigmin(double *a, double *b, double *c__) {
     /* System generated locals */
-    doublereal ret_val, d__1, d__2;
+    double ret_val, d__1, d__2;
 
     /* Local variables */
-    static doublereal acmn, acmx, aa, ab, ac, as, at, au;
+    static double acmn, acmx, aa, ab, ac, as, at, au;
 
     /*     compute smallest singular value of 2 by 2 matrix ((a,b);(0,c)) */
     /*     answer is accurate to a few ulps if final answer */
@@ -6096,13 +6096,13 @@ doublereal sigmin(doublereal *a, doublereal *b, doublereal *c__) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int sndrtg(doublereal *f, doublereal *g, doublereal *cs,
-                            doublereal *sn) {
+/* Subroutine */ int sndrtg(double *f, double *g, double *cs,
+                            double *sn) {
     /* System generated locals */
-    doublereal d__1;
+    double d__1;
 
     /* Local variables */
-    static doublereal t, tt;
+    static double t, tt;
 
     /*     version of ndrotg, in which sign(f)=sign(cs),sign(g)=sign(sn) */
     /*     cs, sn returned so that -sn*f+cs*g = 0 */
@@ -6140,18 +6140,18 @@ doublereal sigmin(doublereal *a, doublereal *b, doublereal *c__) {
 
 /*  hqr3_loc.f orthes.f ortran.f   for computing triangular matrix */
 
-/* Subroutine */ int hqr3lc(doublereal *a, doublereal *v, integer *n,
-                            integer *nlow, integer *nup, doublereal *eps,
-                            doublereal *er, doublereal *ei, integer *type__,
+/* Subroutine */ int hqr3lc(double *a, double *v, integer *n,
+                            integer *nlow, integer *nup, double *eps,
+                            double *er, double *ei, integer *type__,
                             integer *na, integer *nv, integer *imfd) {
     /* System generated locals */
     integer a_dim1, a_offset, v_dim1, v_offset, i__1;
-    doublereal d__1, d__2, d__3;
+    double d__1, d__2, d__3;
 
     /* Local variables */
     static logical fail;
     static integer i__, l;
-    static doublereal p, q, r__, s, t, w, x, y, z__, e1, e2;
+    static double p, q, r__, s, t, w, x, y, z__, e1, e2;
 
     static integer nl, it, mu, nu;
     /* HQR3 REDUCES THE UPPER HESSENBERG MATRIX A TO QUASI- */
@@ -6540,16 +6540,16 @@ L310:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int split(doublereal *a, doublereal *v, integer *n, integer *l,
-                           doublereal *e1, doublereal *e2, integer *na,
+/* Subroutine */ int split(double *a, double *v, integer *n, integer *l,
+                           double *e1, double *e2, integer *na,
                            integer *nv) {
     /* System generated locals */
     integer a_dim1, a_offset, v_dim1, v_offset, i__1;
-    doublereal d__1, d__2;
+    double d__1, d__2;
 
     /* Local variables */
     static integer i__, j;
-    static doublereal p, q, r__, t, u, w, x, y, z__;
+    static double p, q, r__, t, u, w, x, y, z__;
     static integer l1;
 
     /* GIVEN THE UPPER HESSENBERG MATRIX A WITH A 2X2 BLOCK */
@@ -6682,17 +6682,17 @@ L80:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int exchng(doublereal *a, doublereal *v, integer *n,
+/* Subroutine */ int exchng(double *a, double *v, integer *n,
                             integer *l, integer *b1, integer *b2,
-                            doublereal *eps, logical *fail, integer *na,
+                            double *eps, logical *fail, integer *na,
                             integer *nv) {
     /* System generated locals */
     integer a_dim1, a_offset, v_dim1, v_offset, i__1;
-    doublereal d__1, d__2, d__3;
+    double d__1, d__2, d__3;
 
     /* Local variables */
     static integer i__, j, m;
-    static doublereal p, q, r__, s, w, x, y, z__;
+    static double p, q, r__, s, w, x, y, z__;
     static integer l1, it;
 
     /* GIVEN THE UPPER HESSENBERG MATRIX A WITH CONSECUTIVE */
@@ -6854,17 +6854,17 @@ L90:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qrstep(doublereal *a, doublereal *v, doublereal *p,
-                            doublereal *q, doublereal *r__, integer *nl,
+/* Subroutine */ int qrstep(double *a, double *v, double *p,
+                            double *q, double *r__, integer *nl,
                             integer *nu, integer *n, integer *na, integer *nv) {
     /* System generated locals */
     integer a_dim1, a_offset, v_dim1, v_offset, i__1, i__2;
-    doublereal d__1, d__2, d__3;
+    double d__1, d__2, d__3;
 
     /* Local variables */
     static logical last;
     static integer i__, j, k;
-    static doublereal s, x, y, z__;
+    static double s, x, y, z__;
     static integer nl2, nl3, num1;
 
     /* QRSTEP PERFORMS ONE IMPLICIT QR STEP ON THE */
@@ -7011,15 +7011,15 @@ L30:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int orthes(integer *nm, integer *n, integer *low, integer *igh,
-                            doublereal *a, doublereal *ort) {
+                            double *a, double *ort) {
     /* System generated locals */
     integer a_dim1, a_offset, i__1, i__2, i__3;
-    doublereal d__1;
+    double d__1;
 
     /* Local variables */
-    static doublereal f, g, h__;
+    static double f, g, h__;
     static integer i__, j, m;
-    static doublereal scale;
+    static double scale;
     static integer la, ii, jj, mp, kp1;
 
     /*     this subroutine is a translation of the algol procedure orthes, */
@@ -7164,12 +7164,12 @@ L200:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int ortran(integer *nm, integer *n, integer *low, integer *igh,
-                            doublereal *a, doublereal *ort, doublereal *z__) {
+                            double *a, double *ort, double *z__) {
     /* System generated locals */
     integer a_dim1, a_offset, z_dim1, z_offset, i__1, i__2, i__3;
 
     /* Local variables */
-    static doublereal g;
+    static double g;
     static integer i__, j, kl, mm, mp, mp1;
 
     /*     this subroutine is a translation of the algol procedure ortrans, */
@@ -7330,8 +7330,8 @@ int get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
         qr[i] = z[n * j + i];
         qi[i] = z[n * (j + 1) + i];
     }
-    /* rg(integer nm, integer n, doublereal *a, doublereal *wr, doublereal *wi,
-     * integer matz, doublereal *z__, integer *iv1, doublereal *fv1, integer
+    /* rg(integer nm, integer n, double *a, double *wr, double *wi,
+     * integer matz, double *z__, integer *iv1, double *fv1, integer
      * *ierr) */
     rg(n, n, a, wr, wi, 1, z, (integer *)iv1, fv1, (integer *)&ier);
     j = -1;

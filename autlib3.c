@@ -11,7 +11,7 @@
    in the wrapper functions in autlib3.c (and autlib5.c) and the cost
    of allocating and deallocating them is prohibitive. */
 extern struct {
-    doublereal *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
+    double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
 } global_scratch;
 
 /* The memory for these are taken care of in main, and setubv for the
@@ -31,19 +31,19 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnlp(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for the 2-par continuation of folds. */
 
@@ -109,10 +109,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fflp(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -150,22 +150,22 @@ extern struct {
 } /* fflp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnlp(iap_type *iap, rap_type *rap, doublereal *par,
-                            integer *icp, doublereal *u) {
+/* Subroutine */ int stpnlp(iap_type *iap, rap_type *rap, double *par,
+                            integer *icp, double *u) {
     /* Local variables */
     integer ndim;
 
-    doublereal uold;
+    double uold;
     integer nfpr1;
-    doublereal *f;
+    double *f;
     integer i;
-    doublereal *v;
+    double *v;
     logical found;
 
     integer ndm, ips, irs;
 
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    v = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    v = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the continuation of folds. */
 
     /* Local */
@@ -207,20 +207,20 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnc1(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal ddp[NPARX], *ddu;
+    double ddp[NPARX], *ddu;
     integer ndm;
 
-    ddu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    ddu = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generate the equations for the continuation scheme used for */
     /* the optimization of algebraic systems (one parameter). */
 
@@ -268,14 +268,14 @@ extern struct {
 } /* fnc1_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnc1(iap_type *iap, rap_type *rap, doublereal *par,
-                            integer *icp, doublereal *u) {
+/* Subroutine */ int stpnc1(iap_type *iap, rap_type *rap, double *par,
+                            integer *icp, double *u) {
     integer ndim;
 
     integer nfpr;
 
     integer ndm;
-    doublereal fop, dum;
+    double fop, dum;
 
     /* Generate starting data for optimization problems (one parameter). */
 
@@ -296,19 +296,19 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnc2(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generate the equations for the continuation scheme used for the */
     /* optimization of algebraic systems (more than one parameter). */
@@ -369,10 +369,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffc2(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -381,10 +381,10 @@ extern struct {
     integer icpm;
 
     integer nfpr, i, j;
-    doublereal ddp[NPARX], *ddu, fop;
+    double ddp[NPARX], *ddu, fop;
     integer ndm2;
 
-    ddu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    ddu = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -429,30 +429,30 @@ extern struct {
 } /* ffc2_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnc2(iap_type *iap, rap_type *rap, doublereal *par,
-                            integer *icp, doublereal *u) {
+/* Subroutine */ int stpnc2(iap_type *iap, rap_type *rap, double *par,
+                            integer *icp, double *u) {
 
     /* Local variables */
     integer ndim;
 
-    doublereal uold;
+    double uold;
     integer nfpr;
-    doublereal *f;
+    double *f;
     integer i, j;
-    doublereal *v;
+    double *v;
     logical found;
 
-    doublereal *dd;
-    doublereal dp[NPARX], *du;
+    double *dd;
+    double dp[NPARX], *du;
 
     integer ndm;
-    doublereal fop;
+    double fop;
     integer irs;
 
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    v = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dd = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
-    du = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    v = (double *)malloc(sizeof(double) * (iap->ndim));
+    dd = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
+    du = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the continuation equations for */
     /* optimization of algebraic systems (More than one parameter). */
 
@@ -513,10 +513,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnds(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -555,18 +555,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnti(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
-    doublereal told;
+    double told;
     integer i, j;
-    doublereal dt;
+    double dt;
 
     /* Generate the equations for continuing fixed points. */
 
@@ -606,20 +606,20 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnhd(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for the 2-parameter continuation of Hopf */
     /* bifurcation points for maps. */
@@ -686,18 +686,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffhd(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
-    doublereal thta;
+    double thta;
 
     integer i, j;
-    doublereal c1, s1;
+    double c1, s1;
     integer ndm2;
 
     /* Parameter adjustments */
@@ -744,29 +744,29 @@ extern struct {
 } /* ffhd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnhd(iap_type *iap, rap_type *rap, doublereal *par,
-                            integer *icp, doublereal *u) {
+/* Subroutine */ int stpnhd(iap_type *iap, rap_type *rap, double *par,
+                            integer *icp, double *u) {
 
     /* Local variables */
     integer ndim;
-    doublereal thta;
+    double thta;
 
-    doublereal uold, *smat;
+    double uold, *smat;
 
     integer nfpr1;
-    doublereal *f;
+    double *f;
     integer i, j;
-    doublereal *v;
+    double *v;
     logical found;
-    doublereal c1;
+    double c1;
 
-    doublereal s1;
+    double s1;
 
     integer ndm, irs, ndm2;
 
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    v = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    smat = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim * 2) *
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    v = (double *)malloc(sizeof(double) * (iap->ndim));
+    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
                                 (iap->ndim * 2));
     /* Generates starting data for the continuation of Hopf bifurcation */
     /* points for maps. */
@@ -839,20 +839,20 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnhb(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for the 2-parameter continuation of Hopf */
     /* bifurcation points in ODE. */
@@ -919,10 +919,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffhb(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -930,7 +930,7 @@ extern struct {
 
     integer i, j;
 
-    doublereal rom;
+    double rom;
     integer ndm2;
 
     /* Parameter adjustments */
@@ -973,27 +973,27 @@ extern struct {
 } /* ffhb_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnhb(iap_type *iap, rap_type *rap, doublereal *par,
-                            integer *icp, doublereal *u) {
+/* Subroutine */ int stpnhb(iap_type *iap, rap_type *rap, double *par,
+                            integer *icp, double *u) {
 
     /* Local variables */
     integer ndim;
 
-    doublereal uold, *smat;
+    double uold, *smat;
     integer nfpr1;
-    doublereal *f;
+    double *f;
     integer i, j;
-    doublereal *v;
+    double *v;
     logical found;
 
-    doublereal period;
+    double period;
     integer ndm, irs;
-    doublereal rom;
+    double rom;
     integer ndm2;
-    smat = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim * 2) *
+    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
                                 (iap->ndim * 2));
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    v = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    v = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the 2-parameter continuation of */
     /* Hopf bifurcation point (ODE). */
 
@@ -1061,20 +1061,20 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnhw(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for the 2-parameter continuation of a */
     /* bifurcation to a traveling wave. */
@@ -1142,10 +1142,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffhw(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -1153,7 +1153,7 @@ extern struct {
     integer ijac;
 
     integer i, j;
-    doublereal rom;
+    double rom;
     integer ndm2;
 
     /* Parameter adjustments */
@@ -1195,30 +1195,30 @@ extern struct {
 } /* ffhw_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnhw(iap_type *iap, rap_type *rap, doublereal *par,
-                            integer *icp, doublereal *u) {
+/* Subroutine */ int stpnhw(iap_type *iap, rap_type *rap, double *par,
+                            integer *icp, double *u) {
     /* Local variables */
     integer ijac, ndim;
 
-    doublereal uold, *smat;
+    double uold, *smat;
 
     integer nfpr1;
-    doublereal *f;
+    double *f;
     integer i, j;
-    doublereal *v;
+    double *v;
     logical found;
 
-    doublereal period, *dfp, *dfu;
+    double period, *dfp, *dfu;
     integer ndm, irs;
-    doublereal rom;
+    double rom;
     integer ndm2;
 
-    smat = (doublereal *)malloc(sizeof(doublereal) * (2 * iap->ndim) *
+    smat = (double *)malloc(sizeof(double) * (2 * iap->ndim) *
                                 (2 * iap->ndim));
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    v = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dfp = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NPARX);
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    v = (double *)malloc(sizeof(double) * (iap->ndim));
+    dfp = (double *)malloc(sizeof(double) * (iap->ndim) * NPARX);
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
 
     /* Generates starting data for the continuation of a bifurcation to a */
     /* traveling wave. */
@@ -1290,17 +1290,17 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnps(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal period;
+    double period;
 
     /* Generates the equations for the continuation of periodic orbits. */
 
@@ -1354,10 +1354,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcps(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
@@ -1403,11 +1403,11 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icps(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
@@ -1449,8 +1449,8 @@ extern struct {
 /*     ---------- ----- */
 /* Subroutine */ int pdble(const iap_type *iap, const rap_type *rap,
                            integer *ndim, integer *ntst, integer *ncol,
-                           integer *ndxloc, doublereal *ups, doublereal *udotps,
-                           doublereal *tm, doublereal *par) {
+                           integer *ndxloc, double *ups, double *udotps,
+                           double *tm, double *par) {
     /* System generated locals */
     integer ups_dim1, udotps_dim1;
 
@@ -1495,41 +1495,41 @@ extern struct {
 } /* pdble_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnps(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnps(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
     /* System generated locals */
     integer ups_dim1, udotps_dim1, upoldp_dim1;
 
     /* Local variables */
     integer ndim, ncol;
 
-    doublereal uold, *smat;
+    double uold, *smat;
     integer nfpr, ntst, ndim2, nfpr1;
-    doublereal c, *f;
+    double c, *f;
     integer i, j, k;
-    doublereal s, t, *u, rimhb;
+    double s, t, *u, rimhb;
     logical found;
     integer k1;
-    doublereal *rnllv;
+    double *rnllv;
 
-    doublereal dt;
+    double dt;
 
-    doublereal period;
+    double period;
 
-    doublereal tpi;
+    double tpi;
     integer irs;
 
-    smat = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim * 2) *
+    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
                                 (iap->ndim * 2));
-    rnllv = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim * 2) *
+    rnllv = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
                                  (iap->ndim * 2));
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    u = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the continuation of a branch of periodic */
     /* solutions from a Hopf bifurcation point. */
 
@@ -1644,10 +1644,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnws(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -1678,18 +1678,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffws(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp, integer ndm,
-                          doublereal *dfu, doublereal *dfp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp, integer ndm,
+                          double *dfu, double *dfp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal c;
+    double c;
     integer i, j;
 
     /* Parameter adjustments */
@@ -1756,17 +1756,17 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnwp(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal period;
+    double period;
 
     /* Equations for the continuation of traveling waves. */
 
@@ -1821,44 +1821,44 @@ extern struct {
 } /* fnwp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnwp(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnwp(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
     /* System generated locals */
     integer ups_dim1, udotps_dim1, upoldp_dim1;
 
     /* Local variables */
     integer ndim, ncol;
 
-    doublereal uold, *smat;
+    double uold, *smat;
     integer nfpr;
 
     integer ntst, ndim2, nfpr1;
-    doublereal c, *f;
+    double c, *f;
     integer i, j, k;
-    doublereal s, t, *u, rimhb;
+    double s, t, *u, rimhb;
     logical found;
     integer k1;
-    doublereal *rnllv;
+    double *rnllv;
 
-    doublereal dt;
+    double dt;
 
-    doublereal period, *dfp, *dfu;
+    double period, *dfp, *dfu;
 
-    doublereal tpi;
+    double tpi;
     integer irs;
 
-    smat = (doublereal *)malloc(sizeof(doublereal) * (2 * iap->ndim) *
+    smat = (double *)malloc(sizeof(double) * (2 * iap->ndim) *
                                 (2 * iap->ndim));
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    rnllv = (doublereal *)malloc(sizeof(doublereal) * 2 * (iap->ndim));
-    dfp = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * NPARX);
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    u = (double *)malloc(sizeof(double) * (iap->ndim));
+    rnllv = (double *)malloc(sizeof(double) * 2 * (iap->ndim));
+    dfp = (double *)malloc(sizeof(double) * (iap->ndim) * NPARX);
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
 
     /* Generates starting data for the continuation of a branch of periodic */
     /* solutions starting from a Hopf bifurcation point (Waves). */
@@ -1972,10 +1972,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnsp(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -2003,18 +2003,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffsp(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp, integer ndm,
-                          doublereal *dfu, doublereal *dfp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp, integer ndm,
+                          double *dfu, double *dfp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal period;
+    double period;
 
     /* Parameter adjustments */
 
@@ -2068,10 +2068,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnpe(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -2098,18 +2098,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffpe(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp, integer ndm,
-                          doublereal *dfu, doublereal *dfp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp, integer ndm,
+                          double *dfu, double *dfp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal t, dsmin, rlold, ds, dt, period;
+    double t, dsmin, rlold, ds, dt, period;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndim;
@@ -2161,11 +2161,11 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icpe(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
 
     /* Dummy integral condition subroutine for parabolic systems. */
 
@@ -2180,21 +2180,21 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnpl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Local */
 
@@ -2258,18 +2258,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffpl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
-    doublereal beta;
+    double beta;
 
     integer i, j;
-    doublereal period;
+    double period;
     integer ips;
 
     /* Parameter adjustments */
@@ -2302,10 +2302,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcpl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
     /* Local variables */
@@ -2352,11 +2352,11 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icpl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
@@ -2413,25 +2413,25 @@ extern struct {
 } /* icpl_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnpl(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnpl(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
 
     /* System generated locals */
     integer ups_dim1, udotps_dim1, upoldp_dim1;
 
     /* Local variables */
     integer ndim;
-    doublereal temp[7];
+    double temp[7];
     integer nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
     logical found;
     integer icprs[NPARX], nparr, k1, k2, nskip1;
 
-    doublereal rd1, rd2;
+    double rd1, rd2;
     integer ibr, ndm, ips, irs, lab1, nar1, itp1, isw1;
 
     /* Generates starting data for the 2-parameter continuation of folds */
@@ -2567,21 +2567,21 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnpd(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Local */
 
@@ -2645,17 +2645,17 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffpd(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal period;
+    double period;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndm;
@@ -2678,10 +2678,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcpd(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
@@ -2736,11 +2736,11 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icpd(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
@@ -2789,20 +2789,20 @@ extern struct {
 } /* icpd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnpd(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnpd(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
 
     /* System generated locals */
     integer ups_dim1, udotps_dim1, upoldp_dim1;
 
     /* Local variables */
     integer ndim;
-    doublereal temp[7];
+    double temp[7];
     integer nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
     logical found;
     integer icprs[NPARX], nparr, k1, k2, nskip1;
@@ -2924,21 +2924,21 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fntr(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for the 2-parameter continuation of */
     /* torus bifurcations. */
@@ -3005,17 +3005,17 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fftr(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal period;
+    double period;
     integer ndm2;
 
     /* Parameter adjustments */
@@ -3043,18 +3043,18 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bctr(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
     /* Local variables */
     integer jtmp, i, j;
-    doublereal theta, cs;
+    double theta, cs;
     integer nn;
-    doublereal ss;
+    double ss;
     integer ndm, ndm2;
 
     /* Parameter adjustments */
@@ -3115,11 +3115,11 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ictr(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
@@ -3174,20 +3174,20 @@ extern struct {
 } /* ictr_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpntr(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpntr(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
 
     /* System generated locals */
     integer ups_dim1, udotps_dim1;
 
     /* Local variables */
     integer ndim;
-    doublereal temp[7];
+    double temp[7];
     integer nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
     logical found;
     integer icprs[NPARX], nparr, k1, k2, k3, nskip1;
@@ -3315,23 +3315,23 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnpo(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal *upold, ep, period;
+    double *upold, ep, period;
     integer ndm;
-    doublereal umx;
+    double umx;
 
-    upold = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    upold = (double *)malloc(sizeof(double) * (iap->ndim));
 
     /* Generates the equations for periodic optimization problems. */
 
@@ -3407,19 +3407,19 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffpo(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const doublereal *upold,
-                          const integer *icp, doublereal *par, doublereal *f,
-                          integer ndm, doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const double *upold,
+                          const integer *icp, double *par, double *f,
+                          integer ndm, double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer i, j;
-    doublereal gamma, rkappa, period, dfp[NPARX], *dfu, fop;
+    double gamma, rkappa, period, dfp[NPARX], *dfu, fop;
 
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -3456,10 +3456,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcpo(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
@@ -3507,27 +3507,27 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icpo(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal *f1, *f2, ep;
+    double *f1, *f2, ep;
     integer ndm;
-    doublereal *dnt, umx;
+    double *dnt, umx;
     integer nnt0;
 
-    f1 = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    f2 = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    dnt = (doublereal *)malloc(sizeof(doublereal) * (iap->nint) *
+    f1 = (double *)malloc(sizeof(double) * (iap->nint));
+    f2 = (double *)malloc(sizeof(double) * (iap->nint));
+    dnt = (double *)malloc(sizeof(double) * (iap->nint) *
                                (iap->ndim + NPARX));
 
     /* Generates integral conditions for periodic optimization problems. */
@@ -3599,26 +3599,26 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fipo(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, integer nnt0, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *fi,
-                          doublereal *dint, integer ndmt, doublereal *dfdu,
-                          doublereal *dfdp) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, integer nnt0, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *fi,
+                          double *dint, integer ndmt, double *dfdu,
+                          double *dfdp) {
     /* System generated locals */
     integer dint_dim1, dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr, indx;
-    doublereal *f;
+    double *f;
     integer i, j, l;
-    doublereal dfp[NPARX], *dfu;
+    double dfp[NPARX], *dfu;
     integer ndm;
-    doublereal fop;
+    double fop;
 
-    f = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    f = (double *)malloc(sizeof(double) * (iap->ndim));
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -3677,37 +3677,37 @@ extern struct {
 } /* fipo_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnpo(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnpo(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
 
     /* System generated locals */
     integer ups_dim1, udotps_dim1, upoldp_dim1;
 
     /* Local variables */
     integer ndim;
-    doublereal temp[7];
+    double temp[7];
     integer nfpr;
-    doublereal dump;
+    double dump;
 
-    doublereal dumu;
+    double dumu;
     integer nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
-    doublereal *u;
+    double *u;
     logical found;
     integer icprs[NPARX], nparr;
 
     integer k1, k2, nskip1;
-    doublereal fs;
+    double fs;
 
     integer ibr, ndm, irs, lab1, nar1;
-    doublereal rld1, rld2;
+    double rld1, rld2;
     integer itp1, isw1;
 
-    doublereal *temporary_storage;
+    double *temporary_storage;
     integer temporary_storage_dim1;
     /* This is a little funky.  In the older version, upoldp was used for some
        temporary storage in a loop later on.  I wanted to get rid of that
@@ -3719,10 +3719,10 @@ extern struct {
        calculations). So, that is why I use ndxloc here.  Also, iap->ncol MAY BE
        tool small, but I am not sure how to get value from the fort.8 file into
        here. */
-    temporary_storage = (doublereal *)malloc(sizeof(doublereal) * (*ndxloc) *
+    temporary_storage = (double *)malloc(sizeof(double) * (*ndxloc) *
                                              (iap->ndim * iap->ncol));
     ;
-    u = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    u = (double *)malloc(sizeof(double) * (iap->ndim));
 
     /* Generates starting data for optimization of periodic solutions. */
 
@@ -3870,21 +3870,21 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnbl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer ndm;
-    doublereal umx;
+    double umx;
 
     /* Generates the equations for the 2-parameter continuation */
     /* of folds (BVP). */
@@ -3951,10 +3951,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffbl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, doublereal *f, integer ndm,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, double *f, integer ndm,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
@@ -3989,26 +3989,26 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcbl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
+    double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     integer nbc0;
 
-    ff1 = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
-    ff2 = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
-    uu1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    uu2 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc) *
+    ff1 = (double *)malloc(sizeof(double) * (iap->nbc));
+    ff2 = (double *)malloc(sizeof(double) * (iap->nbc));
+    uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
+    uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
+    dfu = (double *)malloc(sizeof(double) * (iap->nbc) *
                                (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for the 2-parameter continuation */
@@ -4102,10 +4102,10 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fbbl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, integer nbc0, const doublereal *u0,
-                          const doublereal *u1, doublereal *f,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, integer nbc0, const double *u0,
+                          const double *u1, double *f,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
@@ -4140,27 +4140,27 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icbl(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
     /* Local variables */
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
+    double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     integer nnt0;
 
-    ff1 = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    ff2 = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    uu1 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    uu2 = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    dfu = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim) *
+    ff1 = (double *)malloc(sizeof(double) * (iap->nint));
+    ff2 = (double *)malloc(sizeof(double) * (iap->nint));
+    uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
+    uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim) *
                                (iap->ndim + NPARX));
 
     /* Generates integral conditions for the 2-parameter continuation of */
@@ -4235,11 +4235,11 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fibl(const iap_type *iap, const rap_type *rap,
-                          const integer ndim, doublereal *par,
+                          const integer ndim, double *par,
                           const integer *icp, integer nint, integer nnt0,
-                          const doublereal *u, const doublereal *uold,
-                          const doublereal *udot, const doublereal *upold,
-                          doublereal *f, doublereal *dint) {
+                          const double *u, const double *uold,
+                          const double *udot, const double *upold,
+                          double *f, double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
@@ -4287,20 +4287,20 @@ extern struct {
 } /* fibl_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnbl(iap_type *iap, rap_type *rap, doublereal *par,
+/* Subroutine */ int stpnbl(iap_type *iap, rap_type *rap, double *par,
                             integer *icp, integer *ntsr, integer *ncolrs,
-                            doublereal *rlcur, doublereal *rldot,
-                            integer *ndxloc, doublereal *ups,
-                            doublereal *udotps, doublereal *upoldp,
-                            doublereal *tm, doublereal *dtm, integer *nodir,
-                            doublereal *thl, doublereal *thu) {
+                            double *rlcur, double *rldot,
+                            integer *ndxloc, double *ups,
+                            double *udotps, double *upoldp,
+                            double *tm, double *dtm, integer *nodir,
+                            double *thl, double *thu) {
 
     /* System generated locals */
     integer ups_dim1, udotps_dim1;
 
     /* Local variables */
     integer ndim;
-    doublereal temp[7];
+    double temp[7];
     integer nfpr, nfpx, nfpr0, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
     logical found;
     integer icprs[NPARX], nparr, k1, k2, nskip1;
@@ -4413,27 +4413,27 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int funi(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u,
-                          const doublereal *uold, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u,
+                          const double *uold, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
     /* System generated locals */
     integer dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
-    doublereal *u1zz, *u2zz;
+    double *u1zz, *u2zz;
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer jac, ijc;
-    doublereal umx, *f1zz, *f2zz;
+    double umx, *f1zz, *f2zz;
 
-    u1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    f1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    f2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    u1zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    u2zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    f1zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    f2zz = (double *)malloc(sizeof(double) * (iap->ndim));
 
     /* Interface subroutine to user supplied FUNC. */
 
@@ -4517,27 +4517,27 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcni(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nbc, const doublereal *u0,
-                          const doublereal *u1, doublereal *f, integer ijac,
-                          doublereal *dbc) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nbc, const double *u0,
+                          const double *u1, double *f, integer ijac,
+                          double *dbc) {
     /* System generated locals */
     integer dbc_dim1;
 
     /* Local variables */
 
-    doublereal *u1zz, *u2zz;
+    double *u1zz, *u2zz;
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer jac, ijc;
-    doublereal umx, *f1zz, *f2zz;
+    double umx, *f1zz, *f2zz;
 
-    u1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    f1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
-    f2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->nbc));
+    u1zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    u2zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    f1zz = (double *)malloc(sizeof(double) * (iap->nbc));
+    f2zz = (double *)malloc(sizeof(double) * (iap->nbc));
 
     /* Interface subroutine to the user supplied BCND. */
 
@@ -4640,28 +4640,28 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icni(const iap_type *iap, const rap_type *rap,
-                          integer ndim, doublereal *par, const integer *icp,
-                          integer nint, const doublereal *u,
-                          const doublereal *uold, const doublereal *udot,
-                          const doublereal *upold, doublereal *f, integer ijac,
-                          doublereal *dint) {
+                          integer ndim, double *par, const integer *icp,
+                          integer nint, const double *u,
+                          const double *uold, const double *udot,
+                          const double *upold, double *f, integer ijac,
+                          double *dint) {
     /* System generated locals */
     integer dint_dim1;
 
     /* Local variables */
-    doublereal *u1zz, *u2zz;
+    double *u1zz, *u2zz;
 
     integer nfpr;
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal ep;
+    double ep;
     integer jac, ijc;
-    doublereal umx, *f1zz, *f2zz;
+    double umx, *f1zz, *f2zz;
 
-    f1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    f2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->nint));
-    u1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    f1zz = (double *)malloc(sizeof(double) * (iap->nint));
+    f2zz = (double *)malloc(sizeof(double) * (iap->nint));
+    u1zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    u2zz = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Interface subroutine to user supplied ICND. */
 
     /* Local */
@@ -4740,22 +4740,22 @@ extern struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fopi(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const doublereal *u, const integer *icp,
-                          doublereal *par, integer ijac, doublereal *f,
-                          doublereal *dfdu, doublereal *dfdp) {
+                          integer ndim, const double *u, const integer *icp,
+                          double *par, integer ijac, double *f,
+                          double *dfdu, double *dfdp) {
 
     /* Local variables */
-    doublereal *u1zz, *u2zz;
+    double *u1zz, *u2zz;
     integer nfpr;
 
-    doublereal rtmp;
+    double rtmp;
     integer i, j;
-    doublereal f1, f2, ep;
+    double f1, f2, ep;
     integer jac, ijc;
-    doublereal umx;
+    double umx;
 
-    u1zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
-    u2zz = (doublereal *)malloc(sizeof(doublereal) * (iap->ndim));
+    u1zz = (double *)malloc(sizeof(double) * (iap->ndim));
+    u2zz = (double *)malloc(sizeof(double) * (iap->ndim));
 
     /* Interface subroutine to user supplied FOPT. */
 

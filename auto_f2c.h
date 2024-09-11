@@ -12,12 +12,11 @@
 
 typedef long int integer;
 typedef float real;
-typedef double doublereal;
 typedef struct {
     real r, i;
 } complex;
 typedef struct {
-    doublereal r, i;
+    double r, i;
 } doublecomplex;
 typedef integer logical;
 
@@ -37,8 +36,8 @@ typedef integer logical;
 
 #define min(a, b) ((a) <= (b) ? (a) : (b))
 #define max(a, b) ((a) >= (b) ? (a) : (b))
-#define dmin(a, b) (doublereal) min(a, b)
-#define dmax(a, b) (doublereal) max(a, b)
+#define dmin(a, b) (double) min(a, b)
+#define dmax(a, b) (double) max(a, b)
 
 #define ARRAY2D(array, i, j) array[(i) + (j) * array##_dim1]
 #define ARRAY3D(array, i, j, k)                                                \
@@ -49,19 +48,19 @@ double f__cabs(double real, double imag);
 /* d_imag.c */
 double d_imag(doublecomplex *z);
 /* d_lg10.c */
-double d_lg10(doublereal *x);
+double d_lg10(double *x);
 /* d_sign.c */
-double d_sign(doublereal a, doublereal b);
+double d_sign(double a, double b);
 /* etime_.c */
 double etime(float *tarray);
 /* i_dnnt.c */
-integer i_dnnt(doublereal *x);
+integer i_dnnt(double *x);
 /* i_nint.c */
 integer i_nint(real *x);
 /* pow_dd.c */
-double pow_dd(doublereal *ap, doublereal *bp);
+double pow_dd(double *ap, double *bp);
 /* pow_di.c */
-double pow_di(doublereal *ap, integer *bp);
+double pow_di(double *ap, integer *bp);
 /* pow_ii.c */
 integer pow_ii(integer ap, integer bp);
 /* r_lg10.c */
