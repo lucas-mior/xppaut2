@@ -97,7 +97,8 @@ draw_one_array_plot(char *bob) {
     if (aplot_tag)
         tag_aplot(bob);
     XFlush(display);
-    snprintf(filename, sizeof(filename), "%s.%d.gif", aplot_range_stem, aplot_range_count);
+    snprintf(filename, sizeof(filename), "%s.%d.gif", aplot_range_stem,
+             aplot_range_count);
     gif_aplot_all(filename, aplot_still);
     aplot_range_count++;
     return;

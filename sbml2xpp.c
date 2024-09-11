@@ -908,7 +908,8 @@ check_name_len(char *s) {
         strcpy(long_names[lnum].src, s);
         strncpy(x, s, 4);
         x[4] = 0;
-        snprintf(long_names[lnum].rep, sizeof(long_names[lnum].rep), "%s.%d", x, lnum);
+        snprintf(long_names[lnum].rep, sizeof(long_names[lnum].rep), "%s.%d", x,
+                 lnum);
         plintf("long name: %s -> %s \n", long_names[lnum].src,
                long_names[lnum].rep);
         lnum++;

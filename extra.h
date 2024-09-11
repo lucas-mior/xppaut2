@@ -13,6 +13,6 @@ int get_export_count(char *s);
 void do_export_list(void);
 void parse_inout(char *l, int flag);
 void get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
-                  double *wgt[MAXW], double *var, double *con);
+                       double *wgt[MAXW], double *var, double *con);
 
 #endif

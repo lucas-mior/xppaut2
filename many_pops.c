@@ -971,8 +971,8 @@ edit_object_com(int com) {
         if (ilab >= 0 && type == 1) {
             switch (com) {
             case 0:
-                snprintf(str, sizeof(str), "Move graphic at (%f,%f)", grob[ilab].xs,
-                        grob[ilab].ys);
+                snprintf(str, sizeof(str), "Move graphic at (%f,%f)",
+                         grob[ilab].xs, grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
 
@@ -993,8 +993,8 @@ edit_object_com(int com) {
                 }
                 break;
             case 1:
-                snprintf(str, sizeof(str), "Change graphic at (%f,%f)", grob[ilab].xs,
-                        grob[ilab].ys);
+                snprintf(str, sizeof(str), "Change graphic at (%f,%f)",
+                         grob[ilab].xs, grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     if (grob[ilab].type >= MARKER)
@@ -1006,8 +1006,8 @@ edit_object_com(int com) {
                 }
                 break;
             case 2:
-                snprintf(str, sizeof(str), "Delete graphic at (%f,%f)", grob[ilab].xs,
-                        grob[ilab].ys);
+                snprintf(str, sizeof(str), "Delete graphic at (%f,%f)",
+                         grob[ilab].xs, grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     grob[ilab].w = 0;

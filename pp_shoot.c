@@ -148,7 +148,8 @@ reset_bvp()
  }
  BVP_FLAG=1;
  for(i=0;i<BVP_NL;i++){ my_bc[i].side=0;
-                        snprintf(my_bc[i].name, sizeof(my_bc[i].name),"At t0 0=");
+                        snprintf(my_bc[i].name, sizeof(my_bc[i].name),"At t0
+0=");
                       }
  for(i=BVP_NL;i<NODE;i++){
    my_bc[i].side=1;

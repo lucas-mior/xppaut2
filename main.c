@@ -461,10 +461,11 @@ do_main(int argc, char **argv) {
     xppvermaj = (float)cstringmaj;
     xppvermin = (float)cstringmin;
     if (strlen(this_file) < 60)
-        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj, xppvermin,
-                this_file);
+        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj,
+                 xppvermin, this_file);
     else
-        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj, xppvermin);
+        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj,
+                 xppvermin);
     /*  win_name=pptitle; */
     do_meth();
 

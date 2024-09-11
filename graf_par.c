@@ -1140,11 +1140,12 @@ void
 dump_ps(int i) {
     char filename[XPP_MAX_NAME];
     if (i < 0) {
-        snprintf(filename, sizeof(filename), "%s%s.%s", this_file, this_internset, PlotFormat);
+        snprintf(filename, sizeof(filename), "%s%s.%s", this_file,
+                 this_internset, PlotFormat);
     } else {
         /*   padnum(s,i,4); */
-        snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file, this_internset, i,
-                PlotFormat);
+        snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file,
+                 this_internset, i, PlotFormat);
     }
 
     if (strcmp(PlotFormat, "ps") == 0) {

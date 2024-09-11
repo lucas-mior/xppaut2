@@ -981,7 +981,8 @@ ani_disk_warn(void) {
     char ans;
     total = total / (1024 * 1024);
     if (total > 10) {
-        snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?", total);
+        snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?",
+                 total);
         ans = (char)TwoChoice("YES", "NO", junk, "yn");
         if (ans != 'y')
             mpeg.flag = 0;
@@ -1113,7 +1114,8 @@ writeframe(char *filename, Window window, int wid, int hgt) {
         /* plintf(" bbp=%d CMSK=%d CSHIFT=%d CMULT=%d \n",
            bbp,CMSK,CSHIFT,CMULT); */
     }
-    snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width, ximage->height);
+    snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width,
+             ximage->height);
     write(fd, head, strlen(head));
     area = ximage->width * ximage->height;
     pixel = (unsigned char *)ximage->data;
