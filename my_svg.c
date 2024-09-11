@@ -5,7 +5,7 @@
 #include "color.h"
 #include "graf_par.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -38,7 +38,7 @@ extern int Xup;
 
 
 int svg_init(char *filename, int color)
-{ 
+{
 	FILE *fp;
     	
 	init_svg();
@@ -81,7 +81,7 @@ int svg_init(char *filename, int color)
 	fprintf(svgfile,"           <![CDATA[\n");
 	fprintf(svgfile,"      \n");
 
- 
+
 	
 		fprintf(svgfile,"                 circle.xpppointP {\n");
 		fprintf(svgfile,"                    stroke-width: 1.0;\n");
@@ -166,7 +166,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -174,7 +174,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1em;\n");
 		fprintf(svgfile,"                    stroke	: none;\n");
-		fprintf(svgfile,"                    fill	: none;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: none;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -182,7 +182,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -190,7 +190,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -199,7 +199,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 0.5em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -208,7 +208,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 0.75em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -217,7 +217,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -226,7 +226,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1.25em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -235,7 +235,7 @@ int svg_init(char *filename, int color)
 		fprintf(svgfile,"                    font-family: sans-serif;\n");
 		fprintf(svgfile,"                    font-size  : 1.5em;\n");
 		fprintf(svgfile,"                    stroke	: #000000;\n");
-		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/ 
+		fprintf(svgfile,"                    fill	: #000000;\n"); /*Need to support more than 1 vertical centering tactic!*/
 		fprintf(svgfile,"                    baseline-shift:-33%%;\n"); /*Supported in Inkscape v0.48.2, but not in Firefox v13*/
 		fprintf(svgfile,"                    dominant-baseline: central;\n");/*Supported in Firefox v13, but not in Inkscape v0.48.2*/
 		fprintf(svgfile,"                 }\n");
@@ -247,7 +247,7 @@ int svg_init(char *filename, int color)
 			plintf("Styling svg image according to %s\n",css);
 			char bob[256];
 			while(!feof(fp))
-			{ 
+			{
 				bob[0]='\0';
 				fgets(bob,255,fp);
         			fprintf(svgfile,"%s",bob);
@@ -285,7 +285,7 @@ void svg_do_color(int color)
    if(PSColorFlag==0)return;
    get_svg_color(color,&r,&g,&b);
    cur_RGB[0]=r;cur_RGB[1]=g;cur_RGB[2]=b;
-   
+
    DOING_SVG_COLOR=1;
 }
 
@@ -300,7 +300,7 @@ void svg_end(void)
  fclose(svgfile);
  PltFmtFlag=SCRNFMT;
  DOING_SVG_COLOR=0;
- if(Xup)init_x11(); 
+ if(Xup)init_x11();
 }
 
 void svg_bead(int x, int y)
@@ -319,7 +319,7 @@ void svg_frect(int x, int y, int w, int h)
 	{
 		gray = (0.299*cur_RGB[0] + 0.587*cur_RGB[1] + 0.114*cur_RGB[2]);
 		fprintf(svgfile,"      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" style=\"stroke:rgb(%d,%d,%d);fill:rgb(%d,%d,%d);\"/>",x,y,w,h,(int)gray,(int)gray,(int)gray,(int)gray,(int)gray,(int)gray);
-	}     
+	}
 }
 
 void svg_last_pt_off(void)
@@ -352,7 +352,7 @@ void svg_line(int xp1, int yp1, int xp2, int yp2)
 			{
 				if (DO_MARKER)
 				{
-					fprintf(svgfile,"<g>\n"); 
+					fprintf(svgfile,"<g>\n");
 				}
 			
 			
@@ -360,8 +360,8 @@ void svg_line(int xp1, int yp1, int xp2, int yp2)
 				if (DO_MARKER)
 				{	
 					fprintf(svgfile,"      <use xlink:href = \"#xppbead\" x=\"%d\" y=\"%d\" style=\"stroke:rgb(%d,%d,%d); fill:rgb(%d,%d,%d)\"/>\n",xp2,yp2,cur_RGB[0],cur_RGB[1],cur_RGB[2],cur_RGB[0],cur_RGB[1],cur_RGB[2]);
-					fprintf(svgfile,"</g>\n"); 
-				}   
+					fprintf(svgfile,"</g>\n");
+				}
 			}
 			else
 			{
@@ -392,14 +392,14 @@ void svg_line(int xp1, int yp1, int xp2, int yp2)
 			
 				if (DO_MARKER)
 				{
-					fprintf(svgfile,"<g>\n"); 
+					fprintf(svgfile,"<g>\n");
 				}
 				fprintf(svgfile,"      <line class=\"xppdfield\"  x1=\"%d\"  y1=\"%d\" x2=\"%d\"   y2=\"%d\" />\n",xp1,yp1,xp2,yp2);
 				if (DO_MARKER)
 				{	
 					fprintf(svgfile,"      <use xlink:href = \"#xppbead\" x=\"%d\" y=\"%d\" />\n",xp2,yp2);
-					fprintf(svgfile,"</g>\n"); 
-				} 
+					fprintf(svgfile,"</g>\n");
+				}
 			
 			}
 			else
@@ -424,12 +424,12 @@ void chk_svg_lines(void)
   if(PSLines>=MAXPSLINE){
     fprintf(psfile,"currentpoint stroke moveto\n");
     PSLines=0;
-  } */  
+  } */
 }
 
 void svg_linetype(int linetype)
 {	
-	char *line = "ba0123456789c"; 
+	char *line = "ba0123456789c";
 
 	SVGLINETYPE=line[(linetype%11)+2];
 	
@@ -444,18 +444,18 @@ void svg_point(int x, int y)
 {
   char svgcol[8];
   char svgfill[8];
- 
- 
+
+
   sprintf(svgfill,"none");
   svgcol[0]='\0';
 
   int number=PointType;
   char *point="PDABCTSKF";
   number %= POINT_TYPES;
-  if(number < -1) 
+  if(number < -1)
     number = -1;
   if(PointRadius>0)number=7;
-  
+
   if (number==7)
   {
   	sprintf(svgcol,"00FF00");sprintf(svgfill,"#00FF00");
@@ -468,7 +468,7 @@ void svg_point(int x, int y)
   {
   	sprintf(svgcol,"000000");sprintf(svgfill,"#000000");
   }
- 
+
   if (DOING_SVG_COLOR)
   {
   	fprintf(svgfile,"      <use xlink:href = \"#xpppoint%c\" x=\"%d\" y=\"%d\" style=\"stroke:rgb(%d,%d,%d); fill:rgb(%d,%d,%d)\"/>\n",point[number+1],x,y,cur_RGB[0],cur_RGB[1],cur_RGB[2],cur_RGB[0],cur_RGB[1],cur_RGB[2]);
@@ -477,7 +477,7 @@ void svg_point(int x, int y)
   {
   	fprintf(svgfile,"      <use xlink:href = \"#xpppoint%c\" x=\"%d\" y=\"%d\" style=\"stroke:#%s; fill:%s\"/>\n",point[number+1],x,y,svgcol,svgfill);
   }
- 
+
   PSLines=0;
   LastPtLine=0;
   DOING_SVG_COLOR=0;
@@ -508,12 +508,12 @@ void special_put_text_svg(int x, int y, char *str, int size)
 {
   /*int i=0,j=0,type=1;
   int cf=0;
- 
+
   int n=strlen(str);
   int cy=0;
   char tmp[256],c;
   int sub,sup,pssz;
-  static int sz[]={8,10,14,18,24};    
+  static int sz[]={8,10,14,18,24};
   fprintf(psfile, "0 0 0 setrgbcolor \n");
   ps_abs(x,y);
   pssz=sz[size]*PS_SC;
@@ -521,11 +521,11 @@ void special_put_text_svg(int x, int y, char *str, int size)
   sup=.6*pssz;
   */
   /* set the size here! */
-  
+
   /*ps_fnt(cf,pssz);
   while(i<n){
     c=str[i];
-    if(c=='\\'){      
+    if(c=='\\'){
       i++;
       c=str[i];
       tmp[j]=0;*/ /* end the current buffer */
@@ -534,7 +534,7 @@ void special_put_text_svg(int x, int y, char *str, int size)
 	type=0;
       }
 
-      
+
       j=0;
       if(c=='0'){
         cf=0;
@@ -566,7 +566,7 @@ void special_put_text_svg(int x, int y, char *str, int size)
 	cf=1;
 	ps_fnt(cf,pssz);
       }
-    
+
       i++;
     }
     else {
@@ -578,9 +578,9 @@ void special_put_text_svg(int x, int y, char *str, int size)
   tmp[j]=0;
   if(strlen(tmp)>0)
     ps_show(tmp,type);
-   */   
-   
-   
+   */
+
+
    	char anchor[7];
 	
 	switch(TextJustify) {
@@ -595,7 +595,7 @@ void special_put_text_svg(int x, int y, char *str, int size)
 	}
 	
 	fprintf(svgfile,"\n      <text class=\"xpptext%d\" text-anchor=\"%s\" x=\"%d\"  y=\"%d\"\n",size,anchor,x,y);
-        
+
         fprintf(svgfile,"      >%s</text>\n",str);
 	
 }
@@ -623,7 +623,7 @@ void svg_text(int x, int y, char *str)
 	if (DOING_AXES)
 	{
 		fprintf(svgfile,"\n      <text class=\"xppaxestext\" text-anchor=\"%s\" x=\"%d\"  y=\"%d\"\n",anchor,x,y);
-      
+
 	}
 	else
 	{

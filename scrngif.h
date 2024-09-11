@@ -10,8 +10,8 @@
    unsigned char ix;     /* the color map index */
    struct GifTree **node, *nxt, *alt;
  } GifTree;
- 
- 
+
+
 typedef struct {
   unsigned char r,g,b;
 } GIFCOL;

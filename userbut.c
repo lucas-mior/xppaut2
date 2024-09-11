@@ -2,7 +2,7 @@
 
 #include "color.h"
 #include "ggets.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -56,7 +56,7 @@ void user_button_press(Window w)
 void  draw_all_user_buttons()
 {
 	int i=0;
-	for(i=0;i<nuserbut;i++){ 
+	for(i=0;i<nuserbut;i++){
 	  user_button_draw(userbut[i].w);
 	}
 }
@@ -64,7 +64,7 @@ void  draw_all_user_buttons()
 void user_button_draw(Window w)
 {
   int i;
-  for(i=0;i<nuserbut;i++){ 
+  for(i=0;i<nuserbut;i++){
     if(w==userbut[i].w)
     {
     	
@@ -73,7 +73,7 @@ void user_button_draw(Window w)
     }
   }
 }
- 
+
 void user_button_cross(Window w,int b)
 {
   int i;
@@ -114,7 +114,7 @@ int get_button_info(char *s,char *bname,char *sc)
   }
   sc[j]=0;
 
- return(1); 
+ return(1);
 }
 
 int find_kbs(char *sc)
@@ -154,7 +154,7 @@ void add_user_button(char *s)
   userbut[nuserbut].com=z;
   strcpy(userbut[nuserbut].bname,bname);
   plintf(" added button(%d)  -- %s %d\n",
-	 nuserbut,userbut[nuserbut].bname,userbut[nuserbut].com); 
+	 nuserbut,userbut[nuserbut].bname,userbut[nuserbut].com);
   nuserbut++;
 }
 
@@ -171,4 +171,4 @@ void create_user_buttons(int x0,int y0, Window base)
     x=x+l+DCURXs;
   }
   draw_all_user_buttons();
-}  
+}

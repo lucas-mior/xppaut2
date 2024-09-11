@@ -3,7 +3,7 @@
 
 
 /*
-When adding items try to keep to the format of using a strong _verb_ to 
+When adding items try to keep to the format of using a strong _verb_ to
 start the help topic (e.g. "Press" or "Add") and keep it brief.
 */
 #define N_TUTORIAL 12

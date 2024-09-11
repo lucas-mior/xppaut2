@@ -1,6 +1,6 @@
 #include "abort.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -24,7 +24,7 @@ int get_command_width()
 {
   int x,y;
   unsigned int w,h,bw,de;
- 
+
  Window root;
  XGetGeometry(display,command_pop,&root,&x,&y,&w,&h,&bw,&de);
  XClearWindow(display,command_pop);
@@ -41,7 +41,7 @@ void plot_command(nit,icount,cwidth)
  i=(int)dx;
 
 
- XDrawPoint(display,command_pop,gc,i,5); 
+ XDrawPoint(display,command_pop,gc,i,5);
 }
 
 
@@ -60,16 +60,16 @@ int my_abort()
     case KeyPress:
       ch=get_key_press(&event);
       return(ch);
-      
+
     }
     return(0);
   }
-  
+
   return(64);
 }
 
- 
- 
+
+
 
 
 

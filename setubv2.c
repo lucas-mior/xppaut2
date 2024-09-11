@@ -25,20 +25,20 @@ static double time_end(double start) {
 #endif
 
 void *setubv_make_aa_bb_cc(void * arg)
-{  
+{
   /* System generated locals */
   integer aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1,
-    cc_dim2, ups_dim1, 
+    cc_dim2, ups_dim1,
     uoldps_dim1, udotps_dim1, upoldp_dim1,
     dbc_dim1, dicd_dim1, wploc_dim1, dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
-  
+
   /* Local variables */
   integer i, j, k, l, m;
   integer k1, l1;
   integer i1,j1;
 
   integer ib, ic, jj;
-  doublereal dt;  
+  doublereal dt;
   integer ib1, ic1;
   integer jp1;
   doublereal ddt;
@@ -49,7 +49,7 @@ void *setubv_make_aa_bb_cc(void * arg)
   doublereal *f;
   doublereal *u, *wploc;
   doublereal *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
-  
+
   doublereal *ups = larg->ups;
   doublereal *upoldp = larg->upoldp;
   doublereal *udotps = larg->udotps;
@@ -92,10 +92,10 @@ void *setubv_make_aa_bb_cc(void * arg)
 
   bb_dim1 = larg->ncb;
   bb_dim2 = larg->nra;
-  
+
   cc_dim1 = larg->nca;
   cc_dim2 = larg->nrc;
-  
+
   aa_dim1 = larg->nca;
   aa_dim2 = larg->nra;
 
@@ -104,7 +104,7 @@ void *setubv_make_aa_bb_cc(void * arg)
   wt_dim1 = larg->ncol + 1;
 
   /* Generate AA and BB: */
-  
+
   /*      Partition the mesh intervals */
   /*jj will be replaced with loop_start and loop_end*/
   for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
@@ -136,13 +136,13 @@ void *setubv_make_aa_bb_cc(void * arg)
       for (i = 0; i < NPARX; ++i) {
 	prm[i] = larg->par[i];
       }
-      /*  
+      /*
 	  Ok this is a little wierd, so hold tight.  This function
 	  is actually a pointer to a wrapper function, which eventually
 	  calls the user defined func_.  Which wrapper is used
 	  depends on what kind of problem it is.  The need for
 	  the mutex is because some of these wrappers use a common
-	  block for temporary storage 
+	  block for temporary storage
 	  NOTE!!!:  The icni and bcni wrappers do the same thing,
 	  so if they ever get parallelized they need to be
 	  checked as well.
@@ -168,20 +168,20 @@ void *setubv_make_aa_bb_cc(void * arg)
 	}
       }
     }
-  
+
   }
 
   /*     Generate CC : */
-  
+
   /*     Boundary conditions : */
   if (larg->nbc > 0) {
     for (i = 0; i < larg->ndim; ++i) {
       ubc0[i] = ARRAY2D(ups, 0, i);
       ubc1[i] = ARRAY2D(ups, larg->na, i);
     }
-    
 
-    (*(larg->bcni))(larg->iap, larg->rap, larg->ndim, larg->par, 
+
+    (*(larg->bcni))(larg->iap, larg->rap, larg->ndim, larg->par,
 	    larg->icp, larg->nbc, ubc0, ubc1, fbc, 2, dbc);
     for (i = 0; i < larg->nbc; ++i) {
       for (k = 0; k < larg->ndim; ++k) {
@@ -192,13 +192,13 @@ void *setubv_make_aa_bb_cc(void * arg)
 	  ARRAY3D(cc, k, i, 0) = ARRAY2D(dbc, i, k);
 	}
 	if(larg->loop_offset + larg->loop_end == larg->na) {
-	  ARRAY3D(cc, larg->nra + k, i, larg->na-1 - larg->loop_offset) = 
+	  ARRAY3D(cc, larg->nra + k, i, larg->na-1 - larg->loop_offset) =
 	    ARRAY2D(dbc ,i , larg->ndim + k);
 	}
       }
     }
   }
-  
+
   /*     Integral constraints : */
   if (larg->nint > 0) {
     for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
@@ -221,15 +221,15 @@ void *setubv_make_aa_bb_cc(void * arg)
 	}
 	
 
-	(*(larg->icni))(larg->iap, larg->rap, larg->ndim, larg->par, 
-		larg->icp, larg->nint, 
+	(*(larg->icni))(larg->iap, larg->rap, larg->ndim, larg->par,
+		larg->icp, larg->nint,
 		uic, uio, uid, uip, ficd, 2, dicd);
 
 	
 	for (m = 0; m < larg->nint; ++m) {
 	  for (i = 0; i < larg->ndim; ++i) {
 	    k1 = k * larg->ndim + i;
-	    ARRAY3D(cc, k1, larg->nbc + m, jj) = 
+	    ARRAY3D(cc, k1, larg->nbc + m, jj) =
 	      larg->dtm[j] * larg->wi[k ] * ARRAY2D(dicd, m, i);
 	  }
 	}
@@ -241,12 +241,12 @@ void *setubv_make_aa_bb_cc(void * arg)
     for (i = 0; i < larg->ndim; ++i) {
       for (k = 0; k < larg->ncol; ++k) {
 	k1 = k * larg->ndim + i;
-	ARRAY3D(cc, k1 , larg->nrc - 1, jj) = 
-	  larg->dtm[jj] * larg->thu[i] * larg->wi[k] * 
+	ARRAY3D(cc, k1 , larg->nrc - 1, jj) =
+	  larg->dtm[jj] * larg->thu[i] * larg->wi[k] *
 	  ARRAY2D(udotps, jj + larg->loop_offset, k1);
       }
-      ARRAY3D(cc, larg->nra + i, larg->nrc -1, jj) = 
-	larg->dtm[jj] * larg->thu[i] * larg->wi[larg->ncol] * 
+      ARRAY3D(cc, larg->nra + i, larg->nrc -1, jj) =
+	larg->dtm[jj] * larg->thu[i] * larg->wi[larg->ncol] *
 	ARRAY2D(udotps, jj + 1 + larg->loop_offset, i);
     }
   }
@@ -273,18 +273,18 @@ void *setubv_make_aa_bb_cc(void * arg)
 
 }
 
-int 
+int
 setubv_default_wrapper(setubv_parallel_arglist data)
 {
   setubv_make_aa_bb_cc((void *)&data);
   return 0;
 }
 
-int 
-setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc, integer nint, integer ncb, integer nrc, integer nra, integer nca, 
-       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), integer ndxloc, iap_type *iap, rap_type *rap, doublereal *par, integer *icp, 
-       doublereal rds, doublereal *aa, doublereal *bb, doublereal *cc, doublereal *dd, doublereal *fa, doublereal *fc, doublereal *rlcur, 
-       doublereal *rlold, doublereal *rldot, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *dups, 
+int
+setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc, integer nint, integer ncb, integer nrc, integer nra, integer nca,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), integer ndxloc, iap_type *iap, rap_type *rap, doublereal *par, integer *icp,
+       doublereal rds, doublereal *aa, doublereal *bb, doublereal *cc, doublereal *dd, doublereal *fa, doublereal *fc, doublereal *rlcur,
+       doublereal *rlold, doublereal *rldot, doublereal *ups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *dups,
        doublereal *dtm, doublereal *thl, doublereal *thu, doublereal *p0, doublereal *p1)
 {
   /* System generated locals */
@@ -295,25 +295,25 @@ setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc, integer
   integer i, j, k;
 
   doublereal *wi, *wp, *wt;
-  
+
   wi   = (doublereal *)malloc(sizeof(doublereal)*(ncol+1) );
   wp   = (doublereal *)malloc(sizeof(doublereal)*(ncol)*(ncol+1) );
   wt   = (doublereal *)malloc(sizeof(doublereal)*(ncol)*(ncol+1) );
 
   dd_dim1 = ncb;
-  
+
   bb_dim1 = ncb;
   bb_dim2 = nra;
-  
+
   cc_dim1 = nca;
   cc_dim2 = nrc;
-  
+
   aa_dim1 = nca;
   aa_dim2 = nra;
 
   wint(ncol + 1, wi);
   genwts(ncol, ncol + 1, wt, wp);
-  
+
   /* Initialize to zero. */
   for (i = 0; i < nrc; ++i) {
     fc[i] = 0.;
@@ -326,9 +326,9 @@ setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc, integer
   for (i = 0; i < ncb; ++i) {
     par[icp[i]] = rlcur[i];
   }
-  
+
   /*  NA is the local node's mesh interval number. */
-  
+
   for (i = 0; i < na; ++i) {
     for (j = 0; j < nra; ++j) {
       for (k = 0; k < nca; ++k) {
@@ -350,16 +350,16 @@ setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc, integer
   /*     ** Time evolution computations (parabolic systems) */
   if (ips == 14 || ips == 16) {
     rap->tivp = rlold[0];
-  } 
- 
+  }
+
   {
     setubv_parallel_arglist arglist;
-    setubv_parallel_arglist_constructor(ndim, ips, na, ncol, nbc, nint, ncb, 
-					nrc, nra, nca, funi, icni, ndxloc, iap, rap, 
-					par, icp, aa, bb, cc, dd, fa, fc, ups, 
-					uoldps, udotps, upoldp, dtm, wp, wt, wi, 
+    setubv_parallel_arglist_constructor(ndim, ips, na, ncol, nbc, nint, ncb,
+					nrc, nra, nca, funi, icni, ndxloc, iap, rap,
+					par, icp, aa, bb, cc, dd, fa, fc, ups,
+					uoldps, udotps, upoldp, dtm, wp, wt, wi,
 					thu, thl, rldot, bcni, &arglist);
-  
+
     switch(global_setubv_type) {
 
 
@@ -394,13 +394,13 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
 
   doublereal *wt = larg.wt;
   integer wt_dim1 = larg.ncol + 1;
-  
+
   doublereal *fa = larg.fa;
   integer fa_dim1 = larg.nra;
-  
+
   doublereal *wploc= (doublereal *)malloc(sizeof(doublereal)*(larg.ncol)*(larg.ncol+1));
   integer wploc_dim1 = larg.ncol + 1;
-  
+
   doublereal *dfdp = (doublereal *)malloc(sizeof(doublereal)*(larg.ndim)*NPARX);
   doublereal *dfdu = (doublereal *)malloc(sizeof(doublereal)*(larg.ndim)*(larg.ndim));
   doublereal *u    = (doublereal *)malloc(sizeof(doublereal)*(larg.ndim));
@@ -443,7 +443,7 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
 	}
       }
     }
-  
+
   }
   free(wploc);
   free(dfdp);
@@ -452,17 +452,17 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
   free(uold);
   free(f);
   free(prm);
-  
+
 }
 
 
-void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups, doublereal *rlcur, 
+void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups, doublereal *rlcur,
 	     doublereal *rlold, doublereal rds) {
   integer i,j,jj,jp1,k,i1,m,j1;
   doublereal rlsum;
 
   integer dups_dim1 = larg.ndxloc;
-  
+
   doublereal *dd = larg.dd;
   integer dd_dim1 = larg.ncb;
 
@@ -471,13 +471,13 @@ void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups, doublerea
 
   doublereal *uoldps = larg.uoldps;
   integer uoldps_dim1 = larg.ndxloc;
-  
+
   doublereal *udotps = larg.udotps;
   integer udotps_dim1 = larg.ndxloc;
-  
+
   doublereal *upoldp = larg.upoldp;
   integer upoldp_dim1 = larg.ndxloc;
-  
+
   integer dbc_dim1 = larg.nbc;
   doublereal *dbc  = (doublereal *)malloc(sizeof(doublereal)*(larg.nbc)*(2*larg.ndim + NPARX));
   doublereal *fbc  = (doublereal *)malloc(sizeof(doublereal)*(larg.nbc));
@@ -497,13 +497,13 @@ void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups, doublerea
       ubc0[i] = ARRAY2D(ups, 0, i);
       ubc1[i] = ARRAY2D(ups, larg.na, i);
     }
-    
-    (*(larg.bcni))(larg.iap, larg.rap, larg.ndim, larg.par, 
+
+    (*(larg.bcni))(larg.iap, larg.rap, larg.ndim, larg.par,
 		   larg.icp, larg.nbc, ubc0, ubc1, fbc, 2, dbc);
     for (i = 0; i < larg.nbc; ++i) {
       larg.fc[i] = -fbc[i];
       for (k = 0; k < larg.ncb; ++k) {
-	ARRAY2D(dd, k, i) = 
+	ARRAY2D(dd, k, i) =
 	  ARRAY2D(dbc, i, (larg.ndim *2) + larg.icp[k]);
       }
     }
@@ -536,14 +536,14 @@ void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups, doublerea
 	  uip[i] = ARRAY2D(upoldp, j1, i1);
 	}
 	
-	(*(larg.icni))(larg.iap, larg.rap, larg.ndim, larg.par, 
-		larg.icp, larg.nint, 
+	(*(larg.icni))(larg.iap, larg.rap, larg.ndim, larg.par,
+		larg.icp, larg.nint,
 		uic, uio, uid, uip, ficd, 2, dicd);
 	
 	for (m = 0; m < larg.nint; ++m) {
 	  larg.fc[larg.nbc + m] -= larg.dtm[j] * larg.wi[k] * ficd[m];
 	  for (i = 0; i < larg.ncb; ++i) {
-	    ARRAY2D(dd, i, larg.nbc + m) += 
+	    ARRAY2D(dd, i, larg.nbc + m) +=
 	      larg.dtm[j] * larg.wi[k] * ARRAY2D(dicd, m, larg.ndim + larg.icp[i]);
 	  }
 	}
@@ -583,13 +583,13 @@ void setubv_parallel_arglist_copy(setubv_parallel_arglist *output,
 
 
 /* Fill in a setubv_parallel_arglist for the individual variables */
-void setubv_parallel_arglist_constructor(integer ndim, integer ips, integer na, integer ncol, 
-					 integer nbc, integer nint, integer ncb, integer nrc, integer nra, integer nca, 
-					 FUNI_TYPE((*funi)), ICNI_TYPE((*icni)), integer ndxloc, iap_type *iap, rap_type *rap, doublereal *par, 
-					 integer *icp, doublereal *aa, doublereal *bb, 
-					 doublereal *cc, doublereal *dd, doublereal *fa, doublereal *fc, doublereal *ups, 
-					 doublereal *uoldps, doublereal *udotps, 
-					 doublereal *upoldp, doublereal *dtm, 
+void setubv_parallel_arglist_constructor(integer ndim, integer ips, integer na, integer ncol,
+					 integer nbc, integer nint, integer ncb, integer nrc, integer nra, integer nca,
+					 FUNI_TYPE((*funi)), ICNI_TYPE((*icni)), integer ndxloc, iap_type *iap, rap_type *rap, doublereal *par,
+					 integer *icp, doublereal *aa, doublereal *bb,
+					 doublereal *cc, doublereal *dd, doublereal *fa, doublereal *fc, doublereal *ups,
+					 doublereal *uoldps, doublereal *udotps,
+					 doublereal *upoldp, doublereal *dtm,
 					 doublereal *wp, doublereal *wt, doublereal *wi,
 					 doublereal *thu, doublereal *thl,
 					 doublereal *rldot, BCNI_TYPE((*bcni)), setubv_parallel_arglist *data) {
@@ -631,7 +631,7 @@ void setubv_parallel_arglist_constructor(integer ndim, integer ips, integer na, 
   data->thl    = thl;
   data->rldot  = rldot;
   data->bcni   = bcni;
-}  
+}
 
 
 

@@ -12,7 +12,7 @@
 #include "parserslow.h"
 #include "pop_list.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
@@ -67,7 +67,7 @@ char ColorVia[15]="speed";
 double ColorViaLo=0,ColorViaHi=1;
 int ColorizeFlag=0;
 
-RANGE_INFO ncrange;  
+RANGE_INFO ncrange;
 
 NCLINES *ncperm;
 int n_nstore=0;
@@ -99,7 +99,7 @@ void froz_cline_stuff_com(int i)
 
 void silent_dfields()
 {
-  
+
   if(DFBatch==5 ||DFBatch==4){
     DFSuppress=1;
     init_ps();
@@ -107,7 +107,7 @@ void silent_dfields()
     DFSuppress=0;
   }
 }	
-		 
+		
 void silent_nullclines()
 {
   FILE *fp;
@@ -152,7 +152,7 @@ void do_range_clines()
     dz=(ncrange.xhi-ncrange.xlo)/(double)ncrange.nstep;
     if(dz<=0.0)return;
     get_val(ncrange.rv,&zold);
-    
+
     for(i=NODE;i<NODE+NMarkov;i++)set_ivar(i+1+FIX_VAR,last_ic[i]);
     xmin=(float)MyGraph->xmin;
     xmax=(float)MyGraph->xmax;
@@ -160,8 +160,8 @@ void do_range_clines()
     y_bot=(float)MyGraph->ymin;
     null_ix=MyGraph->xv[0];
     null_iy=MyGraph->yv[0];
-    
-    
+
+
     for(i=0;i<=ncrange.nstep;i++){
       z=(double)i*dz+ncrange.xlo;
       set_val(ncrange.rv,z);
@@ -169,8 +169,8 @@ void do_range_clines()
 	{
 	  if((X_n=(float *)malloc(4*MAX_NULL*sizeof(float)))!=NULL
 	     && (Y_n=(float *)malloc(4*MAX_NULL*sizeof(float)))!=NULL)
-	    
-	    
+	
+	
 	    NULL_HERE=1;
 	  NTop=(float *)malloc((course+1)*sizeof(float));
 	  NBot=(float *)malloc((course+1)*sizeof(float));
@@ -184,12 +184,12 @@ void do_range_clines()
 	if(NTop==NULL||NBot==NULL){NULL_HERE=0;
 	return;}
       }
-      
+
       WHICH_CRV=null_ix;
       set_linestyle(col1);
       new_nullcline(course,xmin,y_bot,xmax,y_tp,X_n,&num_x_n);
-      
-      
+
+
       WHICH_CRV=null_iy;
       set_linestyle(col2);
       new_nullcline(course,xmin,y_bot,xmax,y_tp,Y_n,&num_y_n);
@@ -197,7 +197,7 @@ void do_range_clines()
     }
     set_val(ncrange.rv,zold);
   }
-  
+
 }
 
 void start_ncline()
@@ -223,7 +223,7 @@ void clear_froz_cline()
   while(z->n!=NULL)
     z=z->n;
   /*  this is the bottom but there is nothing here that has been stored   */
-  
+
   znew=z->p;
   if(znew==NULL)return;
   free(z);
@@ -282,7 +282,7 @@ int get_nullcline_floats(float **v,int *n,int who,int type) /* type=0,1 */
     }
     if(v==NULL)return 1;
     return 0;
-}   
+}
 
 void save_frozen_clines(fn)
      char *fn;
@@ -310,8 +310,8 @@ void save_frozen_clines(fn)
     	z=z->n;
 	if(z==NULL)break;
     }
-    
-  
+
+
 }
 
 void redraw_froz_cline(flag)
@@ -327,7 +327,7 @@ void redraw_froz_cline(flag)
   z=ncperm;
   while(1){
     if(z==NULL||(z->nmx==0&&z->nmy==0))return;
-    
+
   /*  plintf(" %d %d  %d %d  %d \n",
 	   MyGraph->xv[0],z->n_ix, &MyGraph->yv[0],z->n_iy ,
 	  MyGraph->ThreeDFlag==0); */
@@ -348,7 +348,7 @@ void redraw_froz_cline(flag)
     	z=z->n;
 	if(z==NULL)break;
 
-    
+
   }
 }
 
@@ -361,14 +361,14 @@ void add_froz_cline(xn,nmx,n_ix,yn,nmy,n_iy)
   z=ncperm;
   /* move to end */
   while(z->n!=NULL){
-    z=(z->n); 
+    z=(z->n);
   }
   z->xn=(float *)malloc(4*nmx*sizeof(float));
   for(i=0;i<4*nmx;i++)
     z->xn[i]=xn[i];
   z->yn=(float *)malloc(4*nmy*sizeof(float));
   for(i=0;i<4*nmy;i++)
-    z->yn[i]=yn[i]; 
+    z->yn[i]=yn[i];
   z->nmx=nmx;
   z->nmy=nmy;
   z->n_ix=n_ix;
@@ -384,7 +384,7 @@ void add_froz_cline(xn,nmx,n_ix,yn,nmy,n_iy)
   ncline_cnt++;
 }
 
-                
+
 void get_max_dfield(y,ydot,u0,v0,du,dv,n,inx,iny,mdf)
      double *y,*ydot,du,dv,u0,v0,*mdf;
      int n,inx,iny;
@@ -416,7 +416,7 @@ void do_batch_nclines()
     new_clines_com(0);
     return;
   }
-  
+
 }
 void set_colorization_stuff()
 {
@@ -426,7 +426,7 @@ void do_batch_dfield()
 {
   if(!XPPBatch)return;
   switch(DFBatch){
-  case 0: 
+  case 0:
     return;
   case 1:
     DF_FLAG=1;
@@ -481,7 +481,7 @@ void redraw_dfield()
 
 
   int grid=DF_GRID;
-  if(DF_FLAG==0|| 
+  if(DF_FLAG==0||
      MyGraph->TimeFlag||MyGraph->xv[0]==MyGraph->yv[0]||MyGraph->ThreeDFlag
      || DF_IX!=MyGraph->xv[0]||DF_IY!=MyGraph->yv[0])
     return;
@@ -492,7 +492,7 @@ void redraw_dfield()
 
   du=(MyGraph->xhi-MyGraph->xlo)/(double)grid;
   dv=(MyGraph->yhi-MyGraph->ylo)/(double)grid;
-  
+
   dup =(double)(DRight-DLeft)/(double)grid;
   dvp=(double)(DTop-DBottom)/(double)grid;
   /* printf("dup=%g dvp=  %g \n",dup,dvp); */
@@ -506,7 +506,7 @@ void redraw_dfield()
      {
      	    DOING_DFIELD=1;
   	   fprintf(svgfile,"<g>\n");
-     } 
+     }
   for(i=0;i<=grid;i++){
     y[inx]=u0+du*i;
     for(j=0;j<=grid;j++){
@@ -553,12 +553,12 @@ void redraw_dfield()
       }
     }
   }
-  
+
      if (PltFmtFlag==SVGFMT)
      {
      	    DOING_DFIELD=0;
   	   fprintf(svgfile,"</g>\n");
-     } 
+     }
      if(DFSuppress==1)
        fclose(fp);
      DFSuppress=0;
@@ -566,24 +566,24 @@ void redraw_dfield()
 
 void direct_field_com(int c)
 {
-  
+
   int i,j,start,k;
   int inx=MyGraph->xv[0]-1;
   int iny=MyGraph->yv[0]-1;
   double y[MAXODE],ydot[MAXODE],xv1,xv2;
   double dtold=DELTA_T;
   float v1[MAXODE],v2[MAXODE];
-  
-  
+
+
   double amp,mdf;
   double t;
   double du,dv,u0,v0,dxp,dyp,dz,dup,dvp;
   double oldtrans=TRANS;
-  
-  
+
+
   int grid=DF_GRID;
-  
-  
+
+
   if(MyGraph->TimeFlag||MyGraph->xv[0]==MyGraph->yv[0]||MyGraph->ThreeDFlag)
     return;
 
@@ -598,9 +598,9 @@ void direct_field_com(int c)
   DF_GRID=grid;
   du=(MyGraph->xhi-MyGraph->xlo)/(double)grid;
   dv=(MyGraph->yhi-MyGraph->ylo)/(double)grid;
-  
+
   dup =(double)(DRight-DLeft)/(double)grid;
-  dvp=(double)(DTop-DBottom)/(double)grid; 
+  dvp=(double)(DTop-DBottom)/(double)grid;
   dz=hypot(dup,dvp)*(.25+.75*DFIELD_TYPE) ;
   u0=MyGraph->xlo;
   v0=MyGraph->ylo;
@@ -621,9 +621,9 @@ void direct_field_com(int c)
      {
      	    DOING_DFIELD=1;
   	   fprintf(svgfile,"<g>\n");
-     } 
-     
-     
+     }
+
+
    for(i=0;i<=grid;i++){
      y[inx]=u0+du*i;
      for(j=0;j<=grid;j++){
@@ -660,15 +660,15 @@ void direct_field_com(int c)
        if(DF_FLAG==2&&j>0&&i<grid){
 	 frect_abs((float)y[inx],(float)y[iny],(float)du,(float)dv);
        }
-       
+
      }
    }
-   TRANS=oldtrans; 
+   TRANS=oldtrans;
      if (PltFmtFlag==SVGFMT)
      {
      	    DOING_DFIELD=0;
   	   fprintf(svgfile,"</g>\n");
-     } 
+     }
    return;
   }
   STORFLAG=0;
@@ -700,12 +700,12 @@ void direct_field_com(int c)
    {
      	  DOING_DFIELD=0;
   	 fprintf(svgfile,"</g>\n");
-   } 
+   }
 
 }
 
-/* animated nullclines stuff   
-   added Aug 31 97 
+/* animated nullclines stuff
+   added Aug 31 97
    just redraws them
    It will allow you to either freeze a range of them
    or just one at a time
@@ -714,11 +714,11 @@ void direct_field_com(int c)
    range_freeze - compute over some range of parameters
    clear - delete all but the current set
    animate - replay all frozen ones (not current set )
-   */ 	 
-       
-       
-     
-     
+   */ 	
+
+
+
+
 void save_the_nullclines()
 {
   FILE *fp;
@@ -790,7 +790,7 @@ void dump_clines_old(fp,x,nx,y,ny)
     for(i=0;i<n;i++){
       if(i>=nx)
 	ix=nx-1;
-      else 
+      else
 	ix=i;
       if(i>=ny)
 	iy=ny-1;
@@ -798,8 +798,8 @@ void dump_clines_old(fp,x,nx,y,ny)
 	iy=i;
       fprintf(fp,"%g %g %g %g \n",x[4*ix],x[4*ix+1],y[4*iy],y[4*iy+1]);
       fprintf(fp,"%g %g %g %g \n",x[4*ix+2],x[4*ix+3],y[4*iy+2],y[4*iy+3]);
-      
-      
+
+
     }
 
 }
@@ -808,14 +808,14 @@ void restor_null(v,n,d) /* d=1 for x and 2 for y  */
      float *v;
      int n,d;
 {
-  
+
   int i,i4;
   float xm,ym;
   int x1,y1;
   if (PltFmtFlag==SVGFMT)
   {
   	fprintf(svgfile,"<g>\n");
-  } 
+  }
 
   for(i=0;i<n;i++)
     {
@@ -826,9 +826,9 @@ void restor_null(v,n,d) /* d=1 for x and 2 for y  */
 	ym=.5*(v[i4+1]+v[i4+3]);
 	scale_to_screen(xm,ym,&x1,&y1);
 	switch(d){
-	case 1: 
+	case 1:
 	  line(x1,y1-4,x1,y1+4);
-	  
+	
 	  break;
 	case 2:
 	  line(x1-4,y1,x1+4,y1);
@@ -836,24 +836,24 @@ void restor_null(v,n,d) /* d=1 for x and 2 for y  */
 	    }
       }
     }
-    
+
     if (PltFmtFlag==SVGFMT)
     {
   	  fprintf(svgfile,"</g>\n");
-    } 
+    }
 }
 void create_new_cline()
 {
   if(NULL_HERE)
     new_clines_com(0);
-} 
+}
 
 void new_clines_com(int c)
 {
   int course=NMESH,i;
   float xmin,xmax,y_tp,y_bot;
   int col1=XNullColor,col2=YNullColor;
-  
+
   if(MyGraph->ThreeDFlag||MyGraph->TimeFlag||MyGraph->xv[0]==MyGraph->yv[0])return;
 
   if(c==1){
@@ -903,17 +903,17 @@ void new_clines_com(int c)
    if(NTop==NULL||NBot==NULL){NULL_HERE=0;
    return;}
   }
-  
+
   WHICH_CRV=null_ix;
   if(!NCSuppress)set_linestyle(col1);
   new_nullcline(course,xmin,y_bot,xmax,y_tp,X_n,&num_x_n);
   ping();
-  
+
   WHICH_CRV=null_iy;
   if(!NCSuppress)set_linestyle(col2);
   new_nullcline(course,xmin,y_bot,xmax,y_tp,Y_n,&num_y_n);
   ping();
-  
+
   }
 }
 
@@ -943,7 +943,7 @@ float x1,y1,x2,y2;
  saver[i+2]=x2;
  saver[i+3]=y2;
  num_index++;
-} 
+}
 
 float fnull( x, y)
  float x,y;
@@ -951,7 +951,7 @@ float fnull( x, y)
   double y1[MAXODE],ydot[MAXODE];
   int i;
   for(i=0;i<NODE;i++)y1[i]=last_ic[i];
- 
+
   y1[null_ix-1]=(double)x;
   y1[null_iy-1]=(double)y;
   rhs(0.0,y1,ydot,NODE);
@@ -991,7 +991,7 @@ Pt p1,p2,p3,p4;
    if(!NCSuppress)line_abs(x[0],y[0],x[1],y[1]);
    stor_null(x[0],y[0],x[1],y[1]);
  }
- 
+
 
 }
 
@@ -1011,16 +1011,16 @@ if( p1.z*p3.z<=0.0)
 	((0.0>=p1.z)&&(0.0<=p3.z))) */
 
 	if(interpolate(p1,p3,0.0,&x[count],&y[count]))count++;
-if(p2.z*p3.z<=0.0) 
+if(p2.z*p3.z<=0.0)
   /* if(((0.0<=p3.z)&&(0.0>=p2.z))||
 	((0.0>=p3.z)&&(0.0<=p2.z))) */
 	if(interpolate(p3,p2,0.0,&x[count],&y[count]))count++;
- 
+
  if(count==2){
    line_abs(x[0],y[0],x[1],y[1]);
    stor_null(x[0],y[0],x[1],y[1]);
  }
- 
+
 
  }
 
@@ -1065,18 +1065,18 @@ float x1,y1,x2,y2;
      p[2].x=x;
      p[2].y=y;
      p[2].z=NBot[i];
- /*      Uncomment for triangle contour   
+ /*      Uncomment for triangle contour
       p[4].x=.25*(p[0].x+p[1].x+p[2].x+p[3].x);	
      p[4].y=.25*(p[0].y+p[1].y+p[2].y+p[3].y);
-     p[4].z=.25*(p[0].z+p[1].z+p[2].z+p[3].z); 
+     p[4].z=.25*(p[0].z+p[1].z+p[2].z+p[3].z);
 
-      
+
      triangle_contour(p[0],p[1],p[4]);
      triangle_contour(p[1],p[4],p[2]);
      triangle_contour(p[4],p[3],p[2]);
      triangle_contour(p[0],p[4],p[3]); */
  /*   Uncomment for quad contour     */
-     quad_contour(p[0],p[1],p[2],p[3]); 
+     quad_contour(p[0],p[1],p[2],p[3]);
      /*     FlushDisplay(); */
    }
  }

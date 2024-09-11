@@ -4,7 +4,7 @@
 #include "menudrive.h"
 #include "pop_list.h"
 #include "graphics.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -113,7 +113,7 @@ typedef struct {
   double xlo,xhi,dx;
   double *y,*x;
   int n,flag,interp,autoeval;
-  int xyvals;   
+  int xyvals;
 /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
 		         interp=0 for normal interpolation, interp=1 for 'step'
                          interp=2 for cubic spline
@@ -138,7 +138,7 @@ int select_table()
    key[i]='a'+i;
    sprintf(n[i],"%c: %s",key[i],my_table[i].name);
  }
- key[NTable]=0;  
+ key[NTable]=0;
  ch=(char)pop_up_list(&temp,"Table",n,key,NTable,12,0,10,0,
 		       no_hint,info_pop,info_message);
    for(i=0;i<NTable;i++)free(n[i]);
@@ -187,7 +187,7 @@ char *icon;
 Window w;
 int wid,hgt;
 {
-Pixmap icon_map; 
+Pixmap icon_map;
 XWMHints wm_hints;
  icon_map=XCreateBitmapFromData(display,w,icon,wid,hgt);
 wm_hints.initial_state=NormalState;
@@ -252,8 +252,8 @@ void restore_on()
 /*  MyGraph->Nullrestore=1; */
 
 }
- 
-  
+
+
 void add_label(s,x,y,size,font)
 char *s;
 int x,y,size,font;
@@ -292,7 +292,7 @@ static int sym_dir[] = {
   1,  0,-12,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
-  
+
   /*          diamond             */
   0, 8, 0,1, -8,  -8,1,  8, -8,1,8,  8,
   1, -8, 8,3,  0,  0,3,  0,  0,3,  0,  0,
@@ -303,25 +303,25 @@ static int sym_dir[] = {
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
-  
+
   /*          plus            */
   0, -6,  0,1, 12,  0,0, -6, -6,1,  0, 12,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
-  
+
   /*          cross            */
   0, -6,  6,1, 12, -12,0, -12, 0,1,  12, 12,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
   3,  0,  0,3,  0,  0,3,  0,  0,3,  0,  0,
-  
+
   /*          circle           */
   0,  6,  0,1, -1,  3,1, -2,  2,1, -3,  1,
   1, -3, -1,1, -2, -2,1, -1, -3,1,  1, -3,
   1,  2, -2,1,  3, -1,1,  3,  1,1,  2,  2,
   1,  1,  3,3,  0,  0,3,  0,  0,3,  0,  0,
-  
+
 };
 float dx=(MyGraph->xhi-MyGraph->xlo)*WDMARK*size;
 float dy=(MyGraph->yhi-MyGraph->ylo)*HTMARK*size;
@@ -364,9 +364,9 @@ void arrow_head(xs,ys,xe,ye,size)
  float ar=(MyGraph->xhi-MyGraph->xlo)/(MyGraph->yhi-MyGraph->ylo);
  float x0=xs+size*l,y0=ys+size*h;
  /* float tot=(float)sqrt((double)(l*l+h*h)); */
- 
+
  float xp=x0+.5*size*h*ar,yp=y0-.5*size*l/ar;
- float xm=x0-.5*size*h*ar,ym=y0+.5*size*l/ar; 
+ float xm=x0-.5*size*h*ar,ym=y0+.5*size*l/ar;
  line_abs(xs,ys,xp,yp);
  line_abs(xs,ys,xm,ym);
 }
@@ -395,7 +395,7 @@ Window w;
    }
   }
 }
- 
+
 void draw_label(w)
 Window w;
 {
@@ -434,7 +434,7 @@ void add_grob(xs,ys,xe,ye,size,type,color)
     }
   }
 }
-    
+
 int select_marker_type(type)
      int *type;
 {
@@ -528,7 +528,7 @@ void add_marker()
   scale_to_real(i1,j1,&xs,&ys);
   add_grob(xs,ys,xe,ye,markinfo.size,markinfo.type,markinfo.color);
   redraw_all();
-  
+
 }
 
 void add_marker_old()
@@ -557,20 +557,20 @@ void add_marker_old()
   if(flag==-3){
     if(man_xy(&xs,&ys))
       add_grob(xs,ys,xe,ye,size,type,color);
-     redraw_all(); 
+     redraw_all();
     return;
   }
-  
+
   scale_to_real(i1,j1,&xs,&ys);
 
   add_grob(xs,ys,xe,ye,size,type,color);
- redraw_all(); 
+ redraw_all();
 }
 void add_markers()
 {
   int i;
   float xe=0.0,ye=0.0,xs,ys,x,y,z;
-  
+
   if(get_markers_info()==0)return;
   for(i=0;i<markinfo.number;i++){
     get_data_xyz(&x,&y,&z,MyGraph->xv[0],MyGraph->yv[0],MyGraph->zv[0],
@@ -585,7 +585,7 @@ void add_markers()
     }
     add_grob(xs,ys,xe,ye,markinfo.size,markinfo.type,markinfo.color);
   }
-  redraw_all(); 
+  redraw_all();
 }
 
 void add_markers_old()
@@ -593,9 +593,9 @@ void add_markers_old()
   double size=1;
   int i;
   int color=0;
-  int nm=1,nskip=1,nstart=0; 
+  int nm=1,nskip=1,nstart=0;
   float xe=0.0,ye=0.0,xs,ys,x,y,z;
-  
+
   int type=MARKER;
   if(select_marker_type(&type)==0)return;
   if(new_float("Size: ",&size))return;
@@ -616,7 +616,7 @@ void add_markers_old()
     }
     add_grob(xs,ys,xe,ye,size,type,color);
   }
-  redraw_all(); 
+  redraw_all();
 }
 
 void add_pntarr(type)
@@ -641,10 +641,10 @@ void add_pntarr(type)
     scale_to_real(i2,j2,&xe,&ye);
     if(i1==i2&&j1==j2)return;
     add_grob(xs,ys,xe,ye,size,type,color);
-    redraw_all(); 
+    redraw_all();
   }
 }
-  
+
 void edit_object_com(int com)
 {
   char ans,str[80];
@@ -691,7 +691,7 @@ void edit_object_com(int com)
             MessageBox("Click on new position");
 	    flag=GetMouseXY(&i,&j);
 
-	    KillMessageBox();    
+	    KillMessageBox();
 	    XFlush(display);
 	    if(flag){
 	      scale_to_real(i,j,&x,&y);
@@ -783,12 +783,12 @@ void edit_object_com(int com)
 
 }
 
-  
+
 
 void do_gr_objs_com(int com)
 {
   switch(com){
-  case 0: 
+  case 0:
     cput_text();
     break;
   case 1:
@@ -825,17 +825,17 @@ void set_active_windows()
    }
  }
  num_pops=np;
-}  
+}
 void do_windows_com(int c)
 {
  switch(c){
 	
 	case 0: create_a_pop();
          		break;
- 	case 1: 
+ 	case 1:
 		if(yes_no_box())kill_all_pops();
 		break;
-	case 3: 
+	case 3:
 		 XLowerWindow(display,draw_win);
 		break;
 	case 2: destroy_a_pop();
@@ -884,7 +884,7 @@ int nc;
   }
   return 0;
 }
-    
+
 
 
 void destroy_a_pop()
@@ -920,7 +920,7 @@ int x,y,w,h;
  {
   lb[i].use=0;
   lb[i].w=(Window)0;
- } 
+ }
  for(i=0;i<MAXGROB;i++){
    grob[i].w=(Window)0;
    grob[i].use=0;
@@ -933,7 +933,7 @@ int x,y,w,h;
    graph[i].Use=0;
  ActiveWinList[0]=0;
  init_all_graph();
- 
+
   graph[0].w=XCreateSimpleWindow(display,main_win,x,y+4,w,h,2,GrFore,MyDrawWinColor);
  graph[0].w_info=info_pop;
 
@@ -975,15 +975,15 @@ void ps_restore()
  ps_do_color(0);
  if(MyGraph->Nullrestore){restore_nullclines();ps_stroke();}
   }
- ps_last_pt_off(); 
+ ps_last_pt_off();
 
-  restore(0,my_browser.maxrow);  
- 
+  restore(0,my_browser.maxrow);
+
   do_batch_nclines();
-  do_batch_dfield(); 
- do_axes(); 
-  
- ps_do_color(0); 
+  do_batch_dfield();
+ do_axes();
+
+ ps_do_color(0);
  if(Xup){
  draw_label(draw_win);
  draw_freeze(draw_win);
@@ -993,17 +993,17 @@ void ps_restore()
 
 void svg_restore()
 {
- 
+
 /* restore(0,my_browser.maxrow);
 */
  /*ps_do_color(0);
  if(MyGraph->Nullrestore){restore_nullclines();ps_stroke();}
   */
-  
+
   redraw_dfield();
  if(MyGraph->Nullrestore){restore_nullclines();}
   svg_last_pt_off();
- /*ps_do_color(0);*/ 
+ /*ps_do_color(0);*/
  restore(0,my_browser.maxrow);
  do_axes();
  if(Xup){
@@ -1011,7 +1011,7 @@ void svg_restore()
  draw_freeze(draw_win);
  }
   do_batch_nclines();
-  do_batch_dfield(); 
+  do_batch_dfield();
  svg_end();
 }
 
@@ -1044,7 +1044,7 @@ int rotate3dcheck(ev)
 	  MyGraph->Phi=phi-(double)dy;
 	  MyGraph->Theta=theta-(double)dx;
 	  redraw_cube_pt(MyGraph->Theta,MyGraph->Phi);
-	 
+	
        }
     }
   }
@@ -1069,19 +1069,19 @@ void do_motion_events(ev)
     canvas_xy(buf);
   }
 }
- 
+
 void do_expose(ev)
  XEvent ev;
  {
   int i;
   int cp=current_pop;
   Window temp;
-  
+
   temp=draw_win;
   top_button_draw(ev.xany.window);
-  expose_aplot(ev.xany.window); 
+  expose_aplot(ev.xany.window);
   /* redraw_txtview(ev.xany.window);  */
-  ani_expose(ev.xany.window); 
+  ani_expose(ev.xany.window);
   expose_my_browser(ev);
   /* draw_info_pop(ev.xany.window); */
   RedrawMessageBox(ev.xany.window);
@@ -1092,7 +1092,7 @@ void do_expose(ev)
   menu_expose(ev.xany.window);
 #ifdef AUTO
   display_auto(ev.xany.window);
-#endif 
+#endif
   /* if(ev.xexpose.window==menu_pop){
 	draw_help();
  	
@@ -1114,7 +1114,7 @@ void do_expose(ev)
 	   SmallBase();
 	   XDrawString(display,graph[i].w_info,small_gc,0,CURY_OFFs,
 		     graph[i].gr_info,strlen(graph[i].gr_info));
-	    SmallGr(); 
+	    SmallGr();
 	 }
 	
        }
@@ -1132,7 +1132,7 @@ void do_expose(ev)
 		if(graph[i].Nullrestore)restore_nullclines();
 	}
      }
-  } /* namual expose */  
+  } /* namual expose */
    draw_win=temp;
    MyGraph=&graph[cp];
    current_pop=cp;
@@ -1162,13 +1162,13 @@ void kill_all_pops()
 
  for(i=1;i<MAXPOP;i++)
  if(graph[i].Use){
-   graph[i].Use=0; 
+   graph[i].Use=0;
    destroy_label(graph[i].w);
    destroy_grob(graph[i].w);
-   
+
 	XDestroySubwindows(display,graph[i].w);
         XDestroyWindow(display,graph[i].w);
-      
+
  }
  num_pops=1;
 }
@@ -1193,7 +1193,7 @@ index=i;
 graph[index].w=XCreateSimpleWindow(display,RootWindow(display,screen),0,0,MINI_W,MINI_H,2,GrFore,GrBack);
  graph[index].w_info=make_window(graph[index].w,10,0,40*DCURXs,DCURYs,0);
   XSetWindowBackground(display,graph[i].w,MyDrawWinColor);
-  
+
   copy_graph(index,current_pop);
   graph[index].Width=MINI_W;
   graph[index].Height=MINI_H;
@@ -1204,7 +1204,7 @@ graph[index].w=XCreateSimpleWindow(display,RootWindow(display,screen),0,0,MINI_W
   XSelectInput(display,graph[index].w,KeyPressMask|ButtonPressMask
 	       |ExposureMask|ButtonReleaseMask|ButtonMotionMask);
   XMapWindow(display,graph[index].w);
-  XRaiseWindow(display,graph[index].w); 
+  XRaiseWindow(display,graph[index].w);
   XSetWMProtocols(display, graph[index].w, &deleteWindowAtom, 1);
       select_window(graph[index].w);
       /*  select_window(graph[0].w);
@@ -1217,7 +1217,7 @@ void GrCol()
 {
  XSetForeground(display,gc,GrFore);
  XSetBackground(display,gc,GrBack);
- 
+
 }
 
 void BaseCol()
@@ -1276,7 +1276,7 @@ int check_active_plot(int k)
 int graph_used(int i)
 {
  return graph[i].Use;
-} 
+}
 
 void make_active(int i,int flag)
 {
@@ -1295,18 +1295,18 @@ Window w;
  GrCol();
  if(w==graph[0].w)current_pop=0;
  else{
- 
+
   for(i=1;i<MAXPOP;i++)if((graph[i].Use)&&(w==graph[i].w))current_pop=i;
  }
  MyGraph=&graph[current_pop];
  lo_lite(draw_win);
  draw_win=w;
  hi_lite(w);
-  XRaiseWindow(display,w); 
+  XRaiseWindow(display,w);
  get_draw_area();
 BaseCol();
 }
- 
+
 void set_gr_fore()
 {
  XSetForeground(display,gc,GrFore);
@@ -1322,7 +1322,7 @@ Window wi;
 {
   set_gr_fore();
   select_sym(wi);
- 
+
 }
 
 void lo_lite(wi)
@@ -1330,7 +1330,7 @@ Window wi;
 {
  set_gr_back();
  bar(0,0,5,5,wi);
- 
+
 }
 
 void select_sym(w)
@@ -1338,7 +1338,7 @@ Window w;
 {
  bar(0,0,5,5,w);
 }
- 
+
 void canvas_xy(buf)
 char *buf;
 {
@@ -1353,7 +1353,7 @@ char *buf;
     XDrawString(display,MyGraph->w_info,small_gc,0,CURY_OFFs,buf,strlen(buf));
     /* SmallGr(); */
   }
-}  
+}
 
 void check_draw_button(ev)
 XEvent ev;
@@ -1383,10 +1383,10 @@ XEvent ev;
  sprintf(buf,"x=%f y=%f ",x,y);
  canvas_xy(buf);
   }
-}  
+}
 
- 
-   
+
+
 
 
 

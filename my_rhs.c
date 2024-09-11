@@ -2,7 +2,7 @@
 #include "dae_fun.h"
 #include "main.h"
 #include "extra.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include "xpplim.h"
 #include "shoot.h"
 #include "getvar.h"
@@ -32,7 +32,7 @@ int main(argc,argv)
      int argc;
 {
   do_main(argc,argv);
-  
+
   exit(0);
 }
 
@@ -49,9 +49,9 @@ void extra(y__y, t,nod,neq)
   for(i=nod;i<nod+FIX_VAR;i++)
   SETVAR(i+1,evaluate(my_ode[i]));
   /* I dont think this is generally needed  */
-  
+
   /* do_in_out();   */
-  
+
   for(i=nod+NMarkov;i<neq;i++)
   y__y[i]=evaluate(my_ode[i+FIX_VAR-NMarkov]);
 }
@@ -67,7 +67,7 @@ void extra(y__y, t,nod,neq)
   for(i=neq;i<neq+FIX_VAR;i++)
     SETVAR(i+1,evaluate(my_ode[i]));
   eval_all_nets();
-  do_in_out(); 
+  do_in_out();
   } */
 void set_fix_rhs(t,y)
      double t,*y;
@@ -82,7 +82,7 @@ void set_fix_rhs(t,y)
     SETVAR(i+1,evaluate(my_ode[i]));
   eval_all_nets();
 
-  do_in_out(); 
+  do_in_out();
 }
 
 
@@ -102,10 +102,10 @@ int neq;
     /*printf("WTF %g\n",evaluate(my_ode[1]));
     */
     eval_all_nets();
-    
+
     do_daes();
 
-    do_in_out(); 
+    do_in_out();
  for(i=0;i<NODE;i++)
   {
     ydot[i]=evaluate(my_ode[i]);
@@ -120,9 +120,9 @@ void update_based_on_current()
   int i;
    for(i=NODE;i<NODE+FIX_VAR;i++)
     SETVAR(i+1,evaluate(my_ode[i]));
-    
+
   eval_all_nets();
-  do_in_out(); 
+  do_in_out();
 }
 
 void fix_only()
@@ -140,7 +140,7 @@ void rhs_only(double *y,double *ydot)
     ydot[i]=evaluate(my_ode[i]);
   }
 }
- 
+
 void vec_rhs( t,y,ydot,neq)
 double t,*y,*ydot;
 int neq;
@@ -150,11 +150,11 @@ int neq;
 }
 
 
-/***    
+/***
     This is the order in which quantities are evaluated
-    
+
 1.  Fixed variables
-2.  network stuff 
+2.  network stuff
 3.  DAEs
 4.  External C code
 5.  RH sides of the ODEs

@@ -2,10 +2,10 @@
 #define _phsplan_h
 
 
-/*          This include file has all of the global phaseplane 
+/*          This include file has all of the global phaseplane
             stuff.
             This is not where it is defined
-            
+
 */
 
 #include "xpplim.h"
@@ -23,9 +23,9 @@
  extern int FOREVER;
 
  extern int ENDSING,PAUSER;
- 
+
 /*  extern GRAPH *MyGraph; */
- 
+
 
  extern int METHOD,NJMP;
  extern double HMIN,HMAX,TOLER,ATOLER,BOUND,DELAY;
@@ -33,7 +33,7 @@
  extern int EVEC_ITER,NMESH,NC_ITER;
 
 
- 
+
 
  extern float *fft_data;
  extern int FFT;

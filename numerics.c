@@ -3,7 +3,7 @@
 #include <strings.h>
 
 #include "menudrive.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -49,9 +49,9 @@ extern double OmegaMax,AlphaMax;
 double atof();
 extern BROWSER my_browser;
 
-/*   This is numerics.c    
+/*   This is numerics.c
  *   The input is primitive and eventually, I want to make it so
-	that it uses nice windows for input. 
+	that it uses nice windows for input.
 	For now, I just will let it remain command driven
 */
 
@@ -128,7 +128,7 @@ void quick_num(int com)
     get_num_par(key[com]);
 }
 
- 
+
 
 void set_total(double total)
 {
@@ -182,7 +182,7 @@ void  get_num_par(ch)
 			    INFLAG=0; /*  Make sure no last ics allowed */
 			  }
 			}
-			  else 
+			  else
 			    free_delay();
 		       if(NKernel>0){
 			 INFLAG=0;
@@ -207,7 +207,7 @@ void  get_num_par(ch)
 		case 'v':
 		      /*   new_int("Number Left :", &BVP_NL);
 		         new_int("Number Right :", &BVP_NR); */
-		        
+		
 		         new_int("Maximum iterates :",&BVP_MAXIT);
 		         check_pos(&BVP_MAXIT);
 		         new_float("Tolerance :",&BVP_TOL);
@@ -222,7 +222,7 @@ void  get_num_par(ch)
 			 new_float("Jacobian epsilon :",&NEWT_ERR);
 		       if(NFlags>0)
 			 new_float("SMIN :",&STOL);
-		       
+		
 			flash(5);
 			break;
 		case 'o': flash(6);
@@ -243,7 +243,7 @@ void  get_num_par(ch)
 			 get_method();
 			 if(METHOD==VOLTERRA&&NKernel==0){
 			   err_msg("Volterra only for integral eqns");
-			   METHOD=4; 
+			   METHOD=4;
 			 }
 		       if(NKernel>0)METHOD=VOLTERRA;
 			if(METHOD==GEAR||METHOD==RKQS||METHOD==STIFF)
@@ -268,7 +268,7 @@ void  get_num_par(ch)
 			 new_int("AutoEval(1=yes) :",&AutoEvaluate);
 			 allocate_volterra(tmp,1);
 		       }
-			 
+			
 		       if(METHOD==CVODE||METHOD==RB23)
 			 {
 			   new_int("Banded system(0/1)?",&cv_bandflag);
@@ -290,7 +290,7 @@ void  get_num_par(ch)
                         if(NDELAYS==0)break;
 			new_float("Maximal delay :",&DELAY);
                         new_float("real guess :", &AlphaMax);
-			   new_float("imag guess :", &OmegaMax); 
+			   new_float("imag guess :", &OmegaMax);
 		        new_int("DelayGrid :",&DelayGrid);
 		        if(DELAY>0.0) {
 			  free_delay();
@@ -298,9 +298,9 @@ void  get_num_par(ch)
 			    INFLAG=0; /*  Make sure no last ics allowed */
 			  }
 			}
-			  else 
+			  else
 			    free_delay();
-			  
+			
 			flash(9);
 			break;
 		case 'c': flash(10);
@@ -312,7 +312,7 @@ void  get_num_par(ch)
 		    case 'h': flash(11);
 		          do_stochast();
 		          flash(11);
-		          break;      
+		          break;
 		case 'f': flash(11);
 			 /* FFT */
 			flash(11);
@@ -332,7 +332,7 @@ void  get_num_par(ch)
                         new_lookup();
 			flash(14);
 			break;
-		case 27: 
+		case 27:
 		       do_meth();
 		      TEND=fabs(TEND);
 		       alloc_meth();
@@ -340,7 +340,7 @@ void  get_num_par(ch)
 			break;
 
 		}  /* End num switch */
-	   } 
+	   }
 
 
 void chk_delay()
@@ -351,7 +351,7 @@ void chk_delay()
 			    INFLAG=0; /*  Make sure no last ics allowed */
 			  }
 			}
-			  else 
+			  else
 			    free_delay();
 }
 
@@ -452,7 +452,7 @@ void compute_one_period(double period,double *x,char *name)
     TRANS=ot;
   POIMAP=opm;
   TEND=ote;
-   
+
     return;
   }
   new_adjoint();
@@ -471,9 +471,9 @@ void compute_one_period(double period,double *x,char *name)
     fclose(fp);
     data_back();
   }
-  
+
   reset_browser();
-  
+
 
   TRANS=ot;
   POIMAP=opm;
@@ -492,17 +492,17 @@ void get_pmap_pars_com(int l)
  int status;
  char n1[15];
  int i1=POIVAR;
- 
+
  ch=mkey[l];
 
- 
+
  POIMAP=0;
  if(ch=='s')POIMAP=1;
  if(ch=='m')POIMAP=2;
  if(ch=='p')POIMAP=3;
- 
+
  if(POIMAP==0)return;
-   
+
  ind_to_sym(i1,n1);
  sprintf(values[0],"%s",n1);
  sprintf(values[1],"%.16g",POIPLN);
@@ -545,7 +545,7 @@ void get_method()
  nmeth=15;
 #else
  nmeth=15;
-#endif 
+#endif
  ch = (char)pop_up_list(&temp,"Method",n,key,nmeth,15,METHOD,10,DCURY+8,
 			meth_hint,info_pop,info_message);
  for(i=0;i<nmeth;i++)
@@ -563,7 +563,7 @@ void user_set_color_par(int flag,char *via,double lo,double hi)
     MyGraph->color_scale=(hi-lo);
   else
     MyGraph->color_scale=1;
-  
+
   if(strncasecmp("speed",via,5)==0)
     {
       MyGraph->ColorFlag=1;
@@ -583,13 +583,13 @@ void user_set_color_par(int flag,char *via,double lo,double hi)
     }
   if(flag==0){ /* force overwrite  */
     MyGraph->ColorFlag=0;
-  
+
   }
-  
- 
+
+
 
 }
- 
+
 void set_col_par_com(int i)
    {
     int j,ivar;
@@ -605,7 +605,7 @@ void set_col_par_com(int i)
       ind_to_sym(MyGraph->ColorValue,name);
       new_string("Color via:",name);
       find_variable(name,&ivar);
-      
+
 
       if(ivar>=0)
 	MyGraph->ColorValue=ivar;
@@ -616,11 +616,11 @@ void set_col_par_com(int i)
 	return;
       }
     }
-      
-    
+
+
    /*   This will be uncommented    ..... */
     ch=TwoChoice("(O)ptimize","(C)hoose","Color","oc");
- 
+
     if(ch=='c')
     {
      temp[0]=MyGraph->min_scale;
@@ -664,9 +664,9 @@ void set_col_par_com(int i)
   MyGraph->color_scale=(temp[1]-temp[0]);
   if(MyGraph->color_scale==0.0)MyGraph->color_scale=1.0;
  }
-  
+
 }
- 
+
 
 
 void do_meth()
@@ -681,7 +681,7 @@ void do_meth()
   case 4: solver=adams;break;
   case 5: NJMP=1;break;
   case 6: solver=volterra;break;
-  case SYMPLECT: 
+  case SYMPLECT:
        solver=symplect3;
        break;
  case BACKEUL: solver=bak_euler;break;

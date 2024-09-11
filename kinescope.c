@@ -8,7 +8,7 @@
 #include "load_eqn.h"
 
 #include "ggets.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 /*    Kinescope for X  windows       */
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -43,9 +43,9 @@ void do_movie_com(int c)
 
 
 
-/*  XDestroyWindow(display,temp); 
+/*  XDestroyWindow(display,temp);
   draw_help();
-  XFlush(display); */ 
+  XFlush(display); */
  switch(c){
 
 	     case 0: if(film_clip()==0)
@@ -64,7 +64,7 @@ void do_movie_com(int c)
  case 6: /* test_keys(); */
    break;
 	    }
-      
+
   }
 
 
@@ -77,7 +77,7 @@ void reset_film()
  mov_ind=0;
  }
 
- 
+
 
 int film_clip()
 {
@@ -121,7 +121,7 @@ void play_back()
     too_small();
     return;
   }
-  
+
   XCopyArea(display,movie[i].xi,draw_win,gc_graph,0,0,w,h,0,0);
   XFlush(display);
   while(1){
@@ -156,13 +156,13 @@ void play_back()
 	    if(show_frame(i,h,w))return;
 	    break;
 	  }
-	  
+	
       }
   }
 }
 	       		
 
-     
+
 void save_kine()
 {
  char base[128];
@@ -176,12 +176,12 @@ new_int("format:1-ppm,2-gif",&fmat);
  new_string("Base file name",base);
  if(strlen(base)>0)
    save_movie(base,fmat);
-   
+
 }
-  
 
 
-     
+
+
 void make_anigif()
 {
   int i=0;
@@ -194,7 +194,7 @@ void make_anigif()
   if(h<movie[i].h||w<movie[i].w){
     too_small();
     return;
-    
+
   }
  h=movie[0].h;
  w=movie[0].w;
@@ -212,7 +212,7 @@ void make_anigif()
     /* add_ani_gif(draw_win,fp,i); */
         add_ani_gif(movie[i].xi,fp,i);
   }
-  
+
  end_ani_gif(fp);
    fclose(fp);
    set_global_map(0);
@@ -220,7 +220,7 @@ void make_anigif()
 }
 
 
-     
+
 void save_movie(basename,fmat)
      char *basename;
      int fmat;
@@ -239,9 +239,9 @@ void save_movie(basename,fmat)
   if(h<movie[i].h||w<movie[i].w){
     too_small();
     return;
-    
+
   }
-  
+
   for(i=0;i<mov_ind;i++){
     if(fmat==1)
       sprintf(file,"%s_%d.ppm",basename,i);
@@ -250,39 +250,39 @@ void save_movie(basename,fmat)
     XCopyArea(display,movie[i].xi,draw_win,gc_graph,0,0,w,h,0,0);
     XFlush(display);
    if(fmat==1)
-     writeframe(file,draw_win,w,h); 
+     writeframe(file,draw_win,w,h);
 #ifndef NOGIF
    else{
     XGetGeometry(display,draw_win,&root,&x,&y,&w,&h,&bw,&d);
   xi=XCreatePixmap(display,RootWindow(display,screen),w,h,
 		  DefaultDepth(display,screen));
- XCopyArea(display,draw_win,xi,gc_graph,0,0,w,h,0,0); 
-     
+ XCopyArea(display,draw_win,xi,gc_graph,0,0,w,h,0,0);
+
      fp=fopen(file,"wb");
      screen_to_gif(xi,fp);
      fclose(fp);
    }
-#endif 
-   
+#endif
+
 
   }
 
 }
- 
 
-     
+
+
 void  auto_play()
 {
  int x,y;
  unsigned int h,w,bw,d,key;
  Window root;
- 
+
   int dt=20;
   int smax=500;
  XEvent ev;
  int i=0,cycle=0;
 
- 
+
  new_int("Number of cycles",&ks_ncycle);
  new_int("Msec between frames",&ks_speed);
  if(ks_speed<0)ks_speed=0;
@@ -302,12 +302,12 @@ void  auto_play()
  while(1)
 {
 	
-	  
-	  	  
+	
+	  	
 	/* check for events    */
 	  if(XPending(display)>0)
 	  {
-	   
+	
           XNextEvent(display,&ev);
           switch(ev.type){
 			  case ButtonPress:
@@ -327,7 +327,7 @@ void  auto_play()
 				 ks_speed+=dt;
 			       if(ks_speed>smax)ks_speed=smax;
 			      }
-			   
+			
 		         break;
                         }
 
@@ -343,25 +343,25 @@ void  auto_play()
 		XCopyArea(display,movie[i].xi,draw_win,gc_graph,0,0,w,h,0,0);
 		XFlush(display);
                 if(cycle>=ks_ncycle)return;
- 
+
 
 	}  /*  Big loop   */
-  }	  
+  }	
 
 
-       
+
 
 void too_small()
  {
   respond_box("Okay","Window too small for film!");
   }
 
- 
- 
-  
- 
- 
- 
- 
+
+
+
+
+
+
+
 
 		

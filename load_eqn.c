@@ -27,7 +27,7 @@
 #include "storage.h"
 #include "tabular.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "xpplim.h"
@@ -114,7 +114,7 @@ INTERN_SET intern_set[MAX_INTERN_SET];
 int Nintern_set=0;
 
 extern int STOCH_FLAG;
-extern char uvar_names[MAXODE][12]; 
+extern char uvar_names[MAXODE][12];
 extern struct {
          char item[30],item2[30];
 	 int steps,steps2,reset,oldic,index,index2,cycle,type,type2,movie;
@@ -134,13 +134,13 @@ extern int DoTutorial;
 double atof();
 char *get_first();
 char *get_next();
-/*   this file has all of the phaseplane parameters defined   
+/*   this file has all of the phaseplane parameters defined
      and created.  All other files should use external stuff
     to use them. (Except eqn forming stuff)
  */
 
 extern char batchout[256];
-extern int batch_range; 
+extern int batch_range;
  double last_ic[MAXODE];
 extern char PlotFormat[100];
  extern char big_font_name[100],small_font_name[100];
@@ -170,7 +170,7 @@ extern int (*solver)();
  double TOR_PERIOD=6.2831853071795864770;
  int TORUS=0;
  int NEQ;
- char options[100];  
+ char options[100];
 
 /*   Numerical stuff ....   */
 
@@ -242,7 +242,7 @@ void notBothOptions(OptionsSet nasA,OptionsSet nasB)
    nasA.XLO = (nasA.XLO & nasB.XLO);
    nasA.XHI = (nasA.XHI & nasB.XHI);
    nasA.YLO = (nasA.YLO & nasB.YLO);
-   nasA.YHI = (nasA.YHI & nasB.YHI);  
+   nasA.YHI = (nasA.YHI & nasB.YHI);
    nasA.UserBlack = (nasA.UserBlack & nasB.UserBlack);
    nasA.UserWhite = (nasA.UserWhite & nasB.UserWhite);
    nasA.UserMainWinColor = (nasA.UserMainWinColor & nasB.UserMainWinColor);
@@ -288,7 +288,7 @@ void notBothOptions(OptionsSet nasA,OptionsSet nasB)
    nasA.ZMAX = (nasA.ZMAX & nasB.ZMAX);
    nasA.POIVAR = (nasA.POIVAR & nasB.POIVAR);
    nasA.OUTPUT = (nasA.OUTPUT & nasB.OUTPUT);
-   nasA.POISGN = (nasA.POISGN & nasB.POISGN);  
+   nasA.POISGN = (nasA.POISGN & nasB.POISGN);
    nasA.POIEXT = (nasA.POIEXT & nasB.POIEXT);
    nasA.POISTOP = (nasA.POISTOP & nasB.POISTOP);
    nasA.STOCH = (nasA.STOCH & nasB.STOCH);
@@ -326,12 +326,12 @@ void notBothOptions(OptionsSet nasA,OptionsSet nasB)
    nasA.AUTOYMIN = (nasA.AUTOYMIN & nasB.AUTOYMIN);
    nasA.AUTOVAR = (nasA.AUTOVAR & nasB.AUTOVAR);
    nasA.PS_FONT = (nasA.PS_FONT & nasB.PS_FONT);
-   nasA.PS_LW = (nasA.PS_LW  & nasB.PS_LW );   
+   nasA.PS_LW = (nasA.PS_LW  & nasB.PS_LW );
    nasA.PS_FSIZE = (nasA.PS_FSIZE & nasB.PS_FSIZE);
    nasA.PS_COLOR = (nasA.PS_COLOR & nasB.PS_COLOR);
-   nasA.FOREVER = (nasA.FOREVER & nasB.FOREVER); 
-   nasA.BVP_TOL = (nasA.BVP_TOL & nasB.BVP_TOL); 
-   nasA.BVP_EPS = (nasA.BVP_EPS & nasB.BVP_EPS); 
+   nasA.FOREVER = (nasA.FOREVER & nasB.FOREVER);
+   nasA.BVP_TOL = (nasA.BVP_TOL & nasB.BVP_TOL);
+   nasA.BVP_EPS = (nasA.BVP_EPS & nasB.BVP_EPS);
    nasA.BVP_MAXIT = (nasA.BVP_MAXIT & nasB.BVP_MAXIT);
    nasA.BVP_FLAG = (nasA.BVP_FLAG & nasB.BVP_FLAG);
    nasA.SOS = (nasA.SOS & nasB.SOS);
@@ -348,7 +348,7 @@ void notBothOptions(OptionsSet nasA,OptionsSet nasB)
    nasA.NULL_HERE = (nasA.NULL_HERE & nasB.NULL_HERE);
 }
 
-   
+
 
 void dump_torus(fp,f)
      FILE *fp;
@@ -404,7 +404,7 @@ void load_eqn()
    okay=get_eqn(fptr);
    if(std==0)
      fclose(fptr);
-  
+
    if(okay==1)no_eqn=0;
   }
  }
@@ -416,7 +416,7 @@ void load_eqn()
 	 char odeclassrm[256];
 	 if (getenv("XPPSTART")!=NULL)
 	 {
-	      
+	
 	 	sprintf(odeclassrm,"%s",getenv("XPPSTART"));
 	
 		if ((dp=(struct dirent*)opendir(odeclassrm))!=NULL)
@@ -424,10 +424,10 @@ void load_eqn()
 	 	       change_directory(odeclassrm);
 		}
 	 }
-	 
+	
 	 okay=make_eqn();
-       } 
-   }   
+       }
+   }
 }
 
 /*
@@ -459,15 +459,15 @@ load_eqn()
 	else
 	{
 		if (fptr=fopen(this_file,"r")!=NULL)
-  		{ 
+  		{
 		plintf("Here we are 2\n");
 			if(std==1)sprintf(this_file,"console");
    		plintf("Here we are 4\n");
    			okay=get_eqn(fptr);
 		plintf("Here we are 3\n");
 			if(std==0)
-     			  fclose(fptr); 
-			  
+     			  fclose(fptr);
+			
 		        if(okay==1)no_eqn=0;
 		}
 	}
@@ -478,9 +478,9 @@ load_eqn()
        {
 	 okay=make_eqn();
        }
-     
+
    }
-   
+
 }
 
 */
@@ -543,9 +543,9 @@ void set_X_vals()
 void set_all_vals()
 {
  int i;
- 
+
  FILE *fp;
- 
+
  if (notAlreadySet.TIMEPLOT){TIMPLOT=1;notAlreadySet.TIMEPLOT=0;};
  if (notAlreadySet.FOREVER){FOREVER=0;notAlreadySet.FOREVER=0;};
  if (notAlreadySet.BVP_TOL){BVP_TOL=1.e-5;notAlreadySet.BVP_TOL=0;};
@@ -595,31 +595,31 @@ void set_all_vals()
  if (notAlreadySet.XHI){MY_XHI=20.0;x_3d[1]=MY_XHI;notAlreadySet.XHI=0;notAlreadySet.XMAX=0;};
  if (notAlreadySet.YLO){MY_YLO=-1;y_3d[0]=MY_YLO;notAlreadySet.YLO=0;notAlreadySet.YMIN=0;};
  if (notAlreadySet.YHI){MY_YHI=1;y_3d[0]=MY_YHI;notAlreadySet.YHI=0;notAlreadySet.YMAX=0;};
- 
+
  if (notAlreadySet.BOUND){BOUND=100;notAlreadySet.BOUND=0;};
  if (notAlreadySet.MAXSTOR){MAXSTOR=5000;notAlreadySet.MAXSTOR=0;};
  my_pl_wid=10000. ;
  my_pl_ht=7000.  ;
 
- /* TORUS=0; */ 
+ /* TORUS=0; */
  if (notAlreadySet.T0){T0=0.0;notAlreadySet.T0=0;};
  if (notAlreadySet.TRANS){TRANS=0.0;notAlreadySet.TRANS=0;};
  if (notAlreadySet.DT){DELTA_T=.05;notAlreadySet.DT=0;};
  /*  if (notAlreadySet.JAC_EPS){NEWT_ERR=.001;notAlreadySet.JAC_EPS=0;}; */
- 
+
  if (notAlreadySet.XMIN){x_3d[0]=-12;notAlreadySet.XMIN=0;notAlreadySet.XLO=0;};
  if (notAlreadySet.XMAX){x_3d[1]=12;notAlreadySet.XMAX=0;notAlreadySet.XHI=0;};
  if (notAlreadySet.YMIN){y_3d[0]=-12;notAlreadySet.YMIN=0;notAlreadySet.YLO=0;};
  if (notAlreadySet.YMAX){y_3d[1]=12;notAlreadySet.YMAX=0;notAlreadySet.YHI=0;};
  if (notAlreadySet.ZMIN){z_3d[0]=-12;notAlreadySet.ZMIN=0;};
  if (notAlreadySet.ZMAX){z_3d[1]=12;notAlreadySet.ZMAX=0;};
- 
+
  if (notAlreadySet.TEND){TEND=20.00;notAlreadySet.TEND=0;};
  /* TOR_PERIOD=6.2831853071795864770; */
  if (notAlreadySet.IXPLT){IXPLT=0;notAlreadySet.IXPLT=0;}
  if (notAlreadySet.IYPLT){IYPLT=1;notAlreadySet.IYPLT=0;}
  if (notAlreadySet.IZPLT){IZPLT=1;notAlreadySet.IZPLT=0;}
- 
+
  if (notAlreadySet.NPLOT){
    if (NEQ>2){if(notAlreadySet.IZPLT){IZPLT=2;}}
  NPltV=1;
@@ -636,13 +636,13 @@ void set_all_vals()
  }
  /* internal options go here  */
  set_internopts(NULL);
- 
+
 
  if((fp=fopen(options,"r"))!=NULL)
  {
   read_defaults(fp);
   fclose(fp);
- } 
+ }
 
 
  init_range();
@@ -650,7 +650,7 @@ void set_all_vals()
  init_my_aplot();
  init_txtview();
 
-  chk_volterra();  
+  chk_volterra();
 
 /*                           */
 
@@ -658,7 +658,7 @@ void set_all_vals()
  if(IYPLT>NEQ)IYPLT=NEQ;
  if(IXPLT==0||IYPLT==0)
    TIMPLOT=1;
- else 
+ else
    TIMPLOT=0;
  if(x_3d[0]>=x_3d[1]){
    x_3d[0]=-1;
@@ -685,7 +685,7 @@ if(MY_YLO>=MY_YHI){
    y_3d[0]=MY_YLO;
    x_3d[1]=MY_XHI;
    y_3d[1]=MY_YHI;
- } 
+ }
  init_stor(MAXSTOR,NEQ+1);
  if(AXES>=5)PLOT_3D=1;
  chk_delay(); /* check for delay allocation */
@@ -694,7 +694,7 @@ if(MY_YLO>=MY_YHI){
  alloc_v_memory();  /* allocate stuff for volterra equations */
  alloc_meth();
  arr_ic_start(); /* take care of all predefined array ics */
- 
+
 
 }
 
@@ -711,16 +711,16 @@ void read_defaults(fp)
  	strcpy(big_font_name,ptr);
 	notAlreadySet.BIG_FONT_NAME=0;
  }
- 
+
  fgets(bob,80,fp);
  ptr=get_first(bob," ");
  if (notAlreadySet.SMALL_FONT_NAME)
  {
-        
+
  	strcpy(small_font_name,ptr);
 	notAlreadySet.SMALL_FONT_NAME=0;
  }
- 
+
  if (notAlreadySet.PaperWhite){fil_int(fp,&PaperWhite);notAlreadySet.PaperWhite=0;};
  if (notAlreadySet.IXPLT){fil_int(fp,&IXPLT);notAlreadySet.IXPLT=0;};
  if (notAlreadySet.IYPLT){fil_int(fp,&IYPLT);notAlreadySet.IYPLT=0;};
@@ -746,7 +746,7 @@ void read_defaults(fp)
  if (notAlreadySet.YLO){fil_flt(fp,&MY_YLO);notAlreadySet.YLO=0;};
  if (notAlreadySet.YHI){fil_flt(fp,&MY_YHI);notAlreadySet.YHI=0;};
 
- 
+
 }
 
 void fil_flt(fpt,val)
@@ -814,7 +814,7 @@ void add_intern_set(name,does)
 	 intern_set[j].name,intern_set[j].does);
   Nintern_set++;
 }
-      
+
 
 void extract_action(char *ptr)
 {
@@ -828,12 +828,12 @@ void extract_action(char *ptr)
   {
   	/*No more tokens--should this throw an error?*/
   }
-  
+
   while((mystring=get_next(" ,;\n"))!=NULL){
    split_apart(mystring,name,value);
       if(strlen(name)>0&&strlen(value)>0)
        do_intern_set(name,value);
-    } 
+    }
 }
 
 void extract_internset(j)
@@ -877,8 +877,8 @@ int msc(s1,s2)
  for(i=0;i<n;i++)
    if(s1[i]!=s2[i])return(0);
  return(1);
-}  
-  
+}
+
 void set_internopts(OptionsSet *mask)
 {
   int i;
@@ -958,12 +958,12 @@ void set_internopts(OptionsSet *mask)
       }
     }
   }
- 
+
   for(i=0;i<Nopts;i++)
   {
     free(interopt[i]);
-  }  
-  Nopts = 0;  
+  }
+  Nopts = 0;
 }
 
 void set_internopts_xpprc_and_comline()
@@ -977,7 +977,7 @@ void set_internopts_xpprc_and_comline()
   for(i=0;i<Nopts;i++){
     strcpy(intrnoptcpy,interopt[i]);
     ptr=intrnoptcpy;
-    junk=get_first(ptr," ,");  
+    junk=get_first(ptr," ,");
     if (junk == NULL)
     {
     	/*No more tokens.  Should this throw an error?*/
@@ -985,8 +985,8 @@ void set_internopts_xpprc_and_comline()
     while((mystring=get_next(" ,\n\r"))!=NULL)
     {
       split_apart(mystring,name,value);
-      strupr(name); 
-      
+      strupr(name);
+
       if (strlen(name)==5)
       {
       	      strupr(name);
@@ -998,7 +998,7 @@ void set_internopts_xpprc_and_comline()
       else if (strlen(name)==7)
       {	
 	      strupr(name);
-	      
+	
 	      if(strcmp(name,"LOGFILE")==0)
 	      {
 	      	      set_option(name,value,0,NULL);
@@ -1006,14 +1006,14 @@ void set_internopts_xpprc_and_comline()
     }
   }
   }
-  
+
   /*We make a BOOLEAN MASK using the current OptionsSet*/
   /*This allows options to be overwritten multiple times within .xpprc
   but prevents overwriting across comline, .xpprc etc.
-  */ 
+  */
   OptionsSet *tempNAS = (OptionsSet*)malloc(sizeof(OptionsSet));
   *tempNAS = notAlreadySet;
-  
+
   for(i=0;i<Nopts;i++){
     ptr=interopt[i];
     junk=get_first(ptr," ,");
@@ -1027,15 +1027,15 @@ void set_internopts_xpprc_and_comline()
     }
   }
   free(tempNAS);
-   
+
   /*
   We leave a fresh start for options specified in the ODE file.
   */
   for(i=0;i<Nopts;i++)
   {
   	free(interopt[i]);
-  } 
-  
+  }
+
   Nopts=0;
 }
 
@@ -1102,7 +1102,7 @@ void stor_internopts(s1)
   Nopts++;
 
 }
-  
+
 
 
 void set_option(s1,s2,force,mask)
@@ -1131,11 +1131,11 @@ void set_option(s1,s2,force,mask)
  if(msc("LOGFILE",s1)){
    if (OVERRIDE_LOGFILE==0) /*Will be 1 if -logfile was specified on the command line.*/
    {
-      if (logfile != NULL)       
-      { 		         
-     	  fclose(logfile);       
-      } 		         
-      logfile=fopen(s2,"w");     
+      if (logfile != NULL)
+      { 		
+     	  fclose(logfile);
+      } 		
+      logfile=fopen(s2,"w");
    }
    return;
  }
@@ -1226,7 +1226,7 @@ void set_option(s1,s2,force,mask)
     return;
   }
 
-  
+
 
   if(msc("BACKIMAGE",s1)){
     if ((notAlreadySet.UserBGBitmap||force) || ((mask!=NULL)&&(mask->UserBGBitmap==1)))
@@ -1270,10 +1270,10 @@ if(msc("XNC",s1)){
 	    i=atoi(s2);
 	  if(i>-1&&i<11)
 	  {
-	   XNullColor=i; 
+	   XNullColor=i;
 	   notAlreadySet.XNullColor=0;
 	  }
-	  
+	
     }
   return;
   }
@@ -1282,7 +1282,7 @@ if(msc("SMC",s1)){
 
     if ((notAlreadySet.StableManifoldColor||force) || ((mask!=NULL)&&(mask->StableManifoldColor==1)))
     {
-  
+
 	  i=atoi(s2);
 	  if(i>-1&&i<11)
 	  {
@@ -1311,21 +1311,21 @@ if(msc("UMC",s1)){
      	
 	    i=atoi(s2);
 	    if(i<2&&i>-6)
-	    {  
-	      START_LINE_TYPE=i; 
+	    {
+	      START_LINE_TYPE=i;
 	      reset_all_line_type();
 	      notAlreadySet.START_LINE_TYPE=0;
 	      }
      }
      return;
   }
-  if(msc("SEED",s1)){ 
+  if(msc("SEED",s1)){
      if ((notAlreadySet.RandSeed||force) || ((mask!=NULL)&&(mask->RandSeed==1)))
      {
 	    i=atoi(s2);
 	    if(i>=0){
 	      RandSeed=i;
-	      nsrand48(RandSeed);  
+	      nsrand48(RandSeed);
 	      notAlreadySet.RandSeed=0;
 	    }
      }
@@ -1338,8 +1338,8 @@ if(msc("UMC",s1)){
 	   {
 	   	PaperWhite=1;
 	   }
-	   else 
-	   {  
+	   else
+	   {
 	   	PaperWhite=0;
 	   }
 	   notAlreadySet.PaperWhite=0;
@@ -1396,10 +1396,10 @@ if(msc("UMC",s1)){
       sprintf(xx,"XP%d",j);
       sprintf(yy,"YP%d",j);
       sprintf(zz,"ZP%d",j);
-      sprintf(xxh,"XHI%d",j);    
-      sprintf(xxl,"XLO%d",j);    
-      sprintf(yyh,"YHI%d",j);    
-      sprintf(yyl,"YLO%d",j);    
+      sprintf(xxh,"XHI%d",j);
+      sprintf(xxl,"XLO%d",j);
+      sprintf(yyh,"YHI%d",j);
+      sprintf(yyl,"YLO%d",j);
     if(msc(xx,s1)){
     find_variable(s2,&i);
     if(i>-1)IX_PLT[j]=i;
@@ -1470,11 +1470,11 @@ if(msc(yyl,s1)){
 	 {
 	   AXES=5;
 	 }
-	 else 
+	 else
 	 {
 	   AXES=0;
-	 } 
-        
+	 }
+
 	 notAlreadySet.AXES=0;
      }
     return;
@@ -1510,7 +1510,7 @@ if(msc(yyl,s1)){
     for(i=0;i<15;i++)
       if(s2[0]==mkey[i]||s2[0]==Mkey[i])
 	METHOD=i;
-      
+
        notAlreadySet.METHOD=0;
      }
     return;
@@ -1520,16 +1520,16 @@ if(msc(yyl,s1)){
      {
      	MaxPoints=atoi(s2);
 	notAlreadySet.VMAXPTS=0;
-     
+
      }
      return;
    }
-   if(msc("MAXSTOR",s1)){ 
+   if(msc("MAXSTOR",s1)){
      if ((notAlreadySet.MAXSTOR||force) || ((mask!=NULL)&&(mask->MAXSTOR==1)))
      {
     	MAXSTOR=atoi(s2);
         notAlreadySet.MAXSTOR=0;
-     } 
+     }
     return;
   }
    if(msc("TOR_PER",s1)){
@@ -1554,7 +1554,7 @@ if(msc(yyl,s1)){
      {
      	EVEC_ERR=atof(s2);
 	notAlreadySet.NEWT_TOL=0;
-     
+
      }
      return;
    }
@@ -1574,7 +1574,7 @@ if(msc(yyl,s1)){
        itor[i-1]=1;
       TORUS=1;
      }
-     
+
      }
      return;
    }
@@ -1612,7 +1612,7 @@ if(msc(yyl,s1)){
   }
    if(msc("T0",s1)){
      if ((notAlreadySet.T0||force) || ((mask!=NULL)&&(mask->T0==1)))
-     { 
+     {
     	T0=atof(s2);
         notAlreadySet.T0=0;
      }
@@ -1650,7 +1650,7 @@ if(msc(yyl,s1)){
      }
     return;
   }
-    
+
    if(msc("DELAY",s1)){
      if ((notAlreadySet.DELAY||force) || ((mask!=NULL)&&(mask->DELAY==1)))
      {
@@ -1677,7 +1677,7 @@ if(msc(yyl,s1)){
      }
      return;
    }
-  
+
   if(msc("PHI",s1)){
      if ((notAlreadySet.PHI||force) || ((mask!=NULL)&&(mask->PHI==1)))
      {
@@ -1710,7 +1710,7 @@ if(msc(yyl,s1)){
     }
     return;
   }
-  
+
    if(msc("XHI",s1)){
     if ((notAlreadySet.XHI||force) || ((mask!=NULL)&&(mask->XHI==1)))
     {
@@ -1732,7 +1732,7 @@ if(msc(yyl,s1)){
      {
     	x_3d[1]=atof(s2);
 	notAlreadySet.XMAX=0;
-     
+
      }
     return;
   }
@@ -1757,7 +1757,7 @@ if(msc(yyl,s1)){
      if ((notAlreadySet.XMIN||force) || ((mask!=NULL)&&(mask->XMIN==1)))
      {
         x_3d[0]=atof(s2);
-	notAlreadySet.XMIN=0; 
+	notAlreadySet.XMIN=0;
 	if ((notAlreadySet.XLO||force) || ((mask!=NULL)&&(mask->XLO==1)))
 	{
     	   MY_XLO=atof(s2);
@@ -1806,7 +1806,7 @@ if(msc(yyl,s1)){
     	if(i>-1)POIVAR=i;
 	
 	notAlreadySet.POIVAR=0;
-     
+
      }
     return;
   }
@@ -1818,7 +1818,7 @@ if(msc(yyl,s1)){
      }
    return;
  }
-  
+
  if(msc("POISGN",s1)){
      if ((notAlreadySet.POISGN||force) || ((mask!=NULL)&&(mask->POISGN==1)))
      {
@@ -1827,7 +1827,7 @@ if(msc(yyl,s1)){
      }
    return;
  }
- 
+
  if(msc("POISTOP",s1)){
      if ((notAlreadySet.POISTOP||force) || ((mask!=NULL)&&(mask->POISTOP==1)))
      {
@@ -1852,8 +1852,8 @@ if(msc(yyl,s1)){
      }
    return;
  }
-  
- 
+
+
 
  if(msc("RANGEOVER",s1)){
      if ((notAlreadySet.RANGEOVER||force)|| ((mask!=NULL)&&(mask->RANGEOVER==1)))
@@ -1867,13 +1867,13 @@ if(msc(yyl,s1)){
  if(msc("RANGESTEP",s1)){
      if ((notAlreadySet.RANGESTEP||force)|| ((mask!=NULL)&&(mask->RANGESTEP==1)))
      {
-        
+
    	range.steps=atoi(s2);
 	notAlreadySet.RANGESTEP=0;
      }
    return;
  }
-  
+
  if(msc("RANGELOW",s1)){
      if ((notAlreadySet.RANGELOW||force)|| ((mask!=NULL)&&(mask->RANGELOW==1)))
      {
@@ -1892,7 +1892,7 @@ if(msc(yyl,s1)){
      }
    return;
  }
- 
+
  if(msc("RANGERESET",s1)){
      if ((notAlreadySet.RANGERESET||force)|| ((mask!=NULL)&&(mask->RANGERESET==1)))
      {
@@ -1903,7 +1903,7 @@ if(msc(yyl,s1)){
 	 else
 	 {
 	  range.reset=0;
-	 } 
+	 }
 	  notAlreadySet.RANGERESET=0;
      }
   	return;
@@ -1917,7 +1917,7 @@ if(msc(yyl,s1)){
    		range.oldic=1;
    	}
 	else
-	{ 
+	{
    		range.oldic=0;
 	}
 	
@@ -1925,8 +1925,8 @@ if(msc(yyl,s1)){
      }
       return;
  }
- 
-   
+
+
  if(msc("RANGE",s1)){
      if ((notAlreadySet.RANGE||force)|| ((mask!=NULL)&&(mask->RANGE==1)))
      {
@@ -1935,7 +1935,7 @@ if(msc(yyl,s1)){
      }
    return;
  }
- 
+
  if(msc("NTST",s1)){
      if ((notAlreadySet.NTST||force)|| ((mask!=NULL)&&(mask->NTST==1)))
      {
@@ -1992,7 +1992,7 @@ if(msc("DS",s1)){
    	auto_ds=atof(s2);
 	notAlreadySet.DS=0;
     }
- 
+
    return;
  }
 if(msc("PARMIN",s1)){
@@ -2275,7 +2275,7 @@ if(msc("SLO2",s1)){
  }
 
  /* postprocessing options
-    This is rally only relevant for batch jobs as it 
+    This is rally only relevant for batch jobs as it
     writes files then
  */
 
@@ -2287,7 +2287,7 @@ if(msc("SLO2",s1)){
      }
     return;
    }
-   
+
  if(msc("HISTLO",s1)){
      if ((notAlreadySet.HISTLO||force) || ((mask!=NULL)&&(mask->HISTLO==1)))
      {
@@ -2404,15 +2404,15 @@ if(msc("SLO2",s1)){
 
   if(msc("DFGRID",s1)){
      if ((notAlreadySet.DFGRID||force)|| ((mask!=NULL)&&(mask->DFGRID==1)))
-     { 
+     {
      	DF_GRID=atoi(s2);
 	notAlreadySet.DFGRID=0;
      }
    return;
  }
-  if(msc("DFDRAW",s1)){ 
+  if(msc("DFDRAW",s1)){
      if ((notAlreadySet.DFBATCH||force)|| ((mask!=NULL)&&(mask->DFBATCH==1)))
-     { 
+     {
      	DFBatch=atoi(s2);
 	notAlreadySet.DFBATCH=0;
      }
@@ -2420,7 +2420,7 @@ if(msc("SLO2",s1)){
  }
    if(msc("NCDRAW",s1)){
      if ((notAlreadySet.NCBATCH||force)|| ((mask!=NULL)&&(mask->NCBATCH==1)))
-     { 
+     {
      	NCBatch=atoi(s2);
 	notAlreadySet.NCBATCH=0;
      }
@@ -2457,8 +2457,8 @@ if(msc("SLO2",s1)){
        return;
      }
 
-plintf("!! Option %s not recognized\n",s1); 
-  
+plintf("!! Option %s not recognized\n",s1);
+
 }
 
 

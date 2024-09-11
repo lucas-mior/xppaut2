@@ -1,6 +1,6 @@
 #include "histogram.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -33,7 +33,7 @@ int spec_col=1,spec_wid=512,spec_win=2,spec_col2=1,spec_type=0;
 /* type =0 for PSD
    type =1 for crossspectrum
    type =2 for coherence
-   
+
 
 */
 
@@ -63,7 +63,7 @@ void new_2dhist()
 
 
 
-}  
+}
 int two_d_hist(int col1,int col2,int ndat,int n1,int n2,double xlo,double xhi,double ylo,double yhi)
      /*
        col1,2 are the data you want to histogram
@@ -89,7 +89,7 @@ int two_d_hist(int col1,int col2,int ndat,int n1,int n2,double xlo,double xhi,do
   dx=(xhi-xlo)/(double) n1;
   dy=(yhi-ylo)/(double) n2;
   norm=1./(double)ndat;
-  /* now fill the data with the bin values - take the midpoints of 
+  /* now fill the data with the bin values - take the midpoints of
      each bin
   */
   for(i=0;i<n1;i++)
@@ -105,7 +105,7 @@ int two_d_hist(int col1,int col2,int ndat,int n1,int n2,double xlo,double xhi,do
     j=(int)y;
     if((i>=0)&&(i<n1)&&(j>=0)&&(j<n2))
       my_hist[2][i+j*n1]+=norm;
-   }  
+   }
   return 0;
 }
 
@@ -156,7 +156,7 @@ void new_four(nmodes,col)
  }
  FOUR_HERE=1;
  for(i=3;i<=NEQ;i++)my_four[i]=storage[i];
-for(i=0;i<length;i++)my_four[0][i]=(float)i/total; 
+for(i=0;i<length;i++)my_four[0][i]=(float)i/total;
 /* for(i=0;i<length;i++)my_four[0][i]=(float)i; */
  /*  sft(my_browser.data[col],my_four[1],my_four[2],length,storind);
   */
@@ -168,7 +168,7 @@ for(i=0;i<length;i++)my_four[0][i]=(float)i/total;
 
 void post_process_stuff()
 {
-  
+
 
   if(post_process==0)return;
     if(N_plist<1)plotlist=(int *)malloc(sizeof(int)*10);
@@ -198,7 +198,7 @@ void post_process_stuff()
 
 
 
-  
+
 
 
 }
@@ -241,20 +241,20 @@ int twod_hist()
   hist_back();
 
       ping();
-      
-  return(1);
- 
 
-}  
+  return(1);
+
+
+}
 int new_2d_hist()
 {
-  
-  
+
+
   if((NEQ<2)||(storind<3)){
     err_msg("Need more data and at least 3 columns");
     return 0;
   }
-  if(get_col_info(&hist_inf.col,"Variable 1 ")==0)return(-1);  
+  if(get_col_info(&hist_inf.col,"Variable 1 ")==0)return(-1);
   new_int("Number of bins ",&hist_inf.nbins);
   new_float("Low ",&hist_inf.xlo);
   new_float("Hi ",&hist_inf.xhi);
@@ -266,8 +266,8 @@ int new_2d_hist()
     err_msg("Low must be less than hi");
     return(0);
   }
-  
-  if(get_col_info(&hist_inf.col2,"Variable 2 ")==0)return(-1);  
+
+  if(get_col_info(&hist_inf.col2,"Variable 2 ")==0)return(-1);
   new_int("Number of bins ",&hist_inf.nbins2);
   new_float("Low ",&hist_inf.ylo);
   new_float("Hi ",&hist_inf.yhi);
@@ -283,13 +283,13 @@ if(hist_inf.nbins2<2){
 
   return(twod_hist());
 }
-  
+
 void new_hist(nbins,zlo,zhi,col,col2,condition,which)
      int nbins;
      int col,col2,which;
      double zlo,zhi;
      char *condition;
-     
+
 {
   int i,j,index;
   int command[256];
@@ -329,13 +329,13 @@ void new_hist(nbins,zlo,zhi,col,col2,condition,which)
       {
 	if(add_expr(condition,command,&i)){
 	  err_msg("Bad condition. Ignoring...");
-	  
+	
 	}
 	else {
 	  cond=1;
 	}
       }
-    /* plintf(" cond=%d \n condition=%s \n,node=%d\n", 
+    /* plintf(" cond=%d \n condition=%s \n,node=%d\n",
        cond,condition,NODE);  */
     for(i=0;i<storind;i++)
       {
@@ -388,15 +388,15 @@ void new_hist(nbins,zlo,zhi,col,col2,condition,which)
     ping();
     return;
   }
-    
+
 
 }
 
-    
 
 
 
-  
+
+
 
 void column_mean()
 {
@@ -459,7 +459,7 @@ void compute_power()
   }
   plintf("a0=%g L2norm= %g  \n",datx[0],sqrt(ptot));
 }
-/* short-term fft 
+/* short-term fft
    first apply a window
    give data, window size, increment size,
    window type - 0-square, 1=par 2=hamming,4-hanning,3- bartlet
@@ -469,7 +469,7 @@ void compute_power()
   nr=number of points in data
   win=window size
   w_type=windowing
-  pow returns the power 
+  pow returns the power
       size = win/2
 */
 
@@ -510,7 +510,7 @@ int spectrum(float *data,int nr,int win,int w_type,float *pow)
    pow[i]=0.0;
  /*sum=0;
   */
-  
+
  for(j=0;j<kwin;j++){
    for(i=0;i<win;i++){
      kk=(j*shift+i+nr)%nr;
@@ -531,19 +531,19 @@ int spectrum(float *data,int nr,int win,int w_type,float *pow)
  free(ct);
  free(st);
  free(d);
- 
+
  return(1);
 }
 
 
 
-/*  here is what we do - I think it is what MatLab does as well 
+/*  here is what we do - I think it is what MatLab does as well
 
-    psd(x) breaks data into chunks, takes FFT of each chunk, 
+    psd(x) breaks data into chunks, takes FFT of each chunk,
     power of each chunk, and averages this.
 
-   csd(x,y) 
-   break into chunks 
+   csd(x,y)
+   break into chunks
    compute for each frequency fft(y)*fft(x)^*
    now average these - note that this will be complex
    what I call the cross spectrum is |Pxy|
@@ -555,7 +555,7 @@ int spectrum(float *data,int nr,int win,int w_type,float *pow)
 int cross_spectrum(float *data,float *data2,int nr,int win,int w_type,float *pow,int type)
 {
   int shift=win/2;
-  int kwin=(nr-win+1)/shift; 
+  int kwin=(nr-win+1)/shift;
   /*  int kwin=nr/shift; */
   int i,j,kk;
  float *ct,*st,*f,*d,x,nrmwin;
@@ -597,7 +597,7 @@ pxym=(float *)malloc(sizeof(float)*win);
    pxyr[i]=0.0;
    pxym[i]=0.0;
  }
-   
+
  /*sum=0;*/
  for(j=0;j<=kwin;j++){
    for(i=0;i<win;i++){
@@ -614,10 +614,10 @@ pxym=(float *)malloc(sizeof(float)*win);
      pxym[i]+=(ct[i]*st2[i]-ct2[i]*st[i]);
      pxx[i]+=(ct[i]*ct[i]+st[i]*st[i]);
      pyy[i]+=(ct2[i]*ct2[i]+st2[i]*st2[i]);
-     
-     
-    
-     
+
+
+
+
    }
  }
  for(i=0;i<shift;i++){
@@ -642,7 +642,7 @@ pxym=(float *)malloc(sizeof(float)*win);
  free(pyy);
  free(pxyr);
  free(pxym);
- 
+
  return(1);
 }
 
@@ -658,7 +658,7 @@ void just_sd(int flag)
     if(HIST_HERE==2)
       free(my_hist[2]);
     HIST_HERE=0;
-  }  
+  }
    hist_len=spec_wid/2;
    length=hist_len+2;
    my_hist[0]=(float *)malloc(sizeof(float)*length);
@@ -683,7 +683,7 @@ void compute_sd()
   int length,i,j;
   float total=storage[0][storind-1]-storage[0][0];
   new_int("(0) PSDx, (1) PSDxy, (2) COHxy:",&spec_type);
-  
+
   if(get_col_info(&spec_col,"Variable ")==0)return;
   if(spec_type>0)
       if(get_col_info(&spec_col2,"Variable 2 ")==0)return;
@@ -696,7 +696,7 @@ void compute_sd()
     if(HIST_HERE==2)
       free(my_hist[2]);
     HIST_HERE=0;
-  }  
+  }
    hist_len=spec_wid/2;
    length=hist_len+2;
    my_hist[0]=(float *)malloc(sizeof(float)*length);
@@ -716,7 +716,7 @@ void compute_sd()
   hist_back();
   ping();
 }
- 
+
 void just_fourier(int flag)
 {
   int i;
@@ -729,18 +729,18 @@ void just_fourier(int flag)
      {
        datx=get_data_col(1);
        daty=get_data_col(2);
-       
+
        for(i=0;i<four_len;i++){
 	 c=datx[i];
 	 s=daty[i];
 	 datx[i]=sqrt(s*s+c*c);
 	 daty[i]=atan2(s,c);
-	 
+	
        }
 
      }
 }
-  
+
 void compute_fourier()
 {
   int nmodes=10;
@@ -757,9 +757,9 @@ void compute_fourier()
     nmodes=storind/2-1;
     new_four(nmodes,spec_col);
 }
- 
 
- 
+
+
 void compute_correl()
 {
   int lag;
@@ -770,23 +770,23 @@ void compute_correl()
     compute_cross(flag-1);
     return;
   }
-  */  
-  
+  */
+
   new_int("Number of bins ",&hist_inf.nbins);
   new_int("(0)Direct or (1) FFT ", &hist_inf.fftc);
   if(hist_inf.nbins>(storind/2-1))
     hist_inf.nbins=storind/2-2;
-  
+
   hist_inf.nbins=2*(hist_inf.nbins/2)+1;
   lag=hist_inf.nbins/2;
-  
- 
+
+
   /* new_float("Low ",&hist_inf.xlo);
      new_float("Hi ",&hist_inf.xhi); */
   /* lets try to get the lags correct for plotting */
   hist_inf.xlo=-lag*dta;
   hist_inf.xhi=lag*dta;
-  
+
   if(get_col_info(&hist_inf.col,"Variable 1 ")==0)return;
   if(get_col_info(&hist_inf.col2,"Variable 2 ")==0)return;
   new_hist(hist_inf.nbins,hist_inf.xlo,
@@ -828,7 +828,7 @@ void mycor(float *x,float *y, int n,  double zlo, double zhi, int nbins, float *
       }
     }
     if(count>0)
-      sum=sum/count; 
+      sum=sum/count;
     z[j]=sum;
   }
 }
@@ -858,14 +858,14 @@ void mycor2(float *x,float *y, int n, int nbins, float *z, int flag)
       }
     }
     if(count>0)
-      sum=sum/count; 
+      sum=sum/count;
     z[j]=sum;
   }
 }
 
 void compute_hist()
 {
-  
+
   new_int("Number of bins ",&hist_inf.nbins);
   new_float("Low ",&hist_inf.xlo);
   new_float("Hi ",&hist_inf.xhi);
@@ -874,8 +874,8 @@ void compute_hist()
   new_hist(hist_inf.nbins,hist_inf.xlo,
 	   hist_inf.xhi,hist_inf.col,0,hist_inf.cond,0);
 }
-  
-  
+
+
 
 void sft(data,ct,st,nmodes,grid)
 int grid,nmodes;
@@ -922,7 +922,7 @@ void fftxcorr(float *data1,float *data2,int length,int nlag,float *cr,int flag)
     av2=av2/(float)length;
   }
  /* n2=length/2;*/
- 
+
   dim[0]=length;
     re1=(double *)malloc(length*sizeof(double));
   im1=(double *)malloc(length*sizeof(double));
@@ -960,8 +960,8 @@ void fftxcorr(float *data1,float *data2,int length,int nlag,float *cr,int flag)
    free(re2);
    free(im1);
    free(im2);
-   plintf("residual = %g\n",sum);  
-   
+   plintf("residual = %g\n",sum);
+
 }
 
 
@@ -992,8 +992,8 @@ void fft(data,ct,st,nmodes,length)
    free(re);
 }
 
-   
-  
+
+
 
 
 

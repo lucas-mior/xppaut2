@@ -1,5 +1,5 @@
-#include <stdlib.h> 
-#include "auto_f2c.h" 
+#include <stdlib.h>
+#include "auto_f2c.h"
 #include "auto_nox.h"
 #include "autlim.h"
 #include "derived.h"
@@ -34,7 +34,7 @@ double  *u,*par,*f,*dfdu,*dfdp;
    double  y[NAUTO],yp[NAUTO],xp[NAUTO];
    for(i=0;i<NAutoPar;i++){
      constants[Auto_index_to_array[i]]=par[i];
-     
+
    }
    evaluate_derived();
    redo_all_fun_tables();
@@ -69,7 +69,7 @@ doublereal *u, *par,t;
   for(i=0;i<NAutoPar;i++)
     par[i] = constants[Auto_index_to_array[i]];
 
-  if(NewPeriodFlag==0){  
+  if(NewPeriodFlag==0){
     for(i=0;i<ndim;i++)
       u[i]=last_ic[i];
     return 0;
@@ -120,7 +120,7 @@ double *dbc;
      constants[Auto_index_to_array[i]]=par[i];
  }
 
- 
+
  evaluate_derived();
  redo_all_fun_tables();
  do_bc(u0,0.0,u1,1.0,fb,nbc);
@@ -128,7 +128,7 @@ double *dbc;
     return 0;
 } /* bcnd_ */
 
-/* Subroutine */ int icnd(ndim, par, icp, nint, u, uold, udot, upold, fi, 
+/* Subroutine */ int icnd(ndim, par, icp, nint, u, uold, udot, upold, fi,
 	ijac, dint)
 integer *ndim;
 double *par;
@@ -160,7 +160,7 @@ double *fs, *dfdu, *dfdp;
 } /* fopt_ */
 
 /*  Not sure what to do here; I think  do nothing  since IEQUIB is always
-    -2 
+    -2
 */
 int pvls (integer ndim, const doublereal *u,
           doublereal *par)

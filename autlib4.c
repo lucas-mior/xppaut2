@@ -60,10 +60,10 @@
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int 
+/* Subroutine */ int
 flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *rwork, doublecomplex *ev)
 {
-    
+
 
   /* System generated locals */
   integer c0_dim1, c1_dim1, rwork_dim1;
@@ -174,7 +174,7 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 
   /* The matrix (C0 - C1) should be (nearly) singular.  Find an approximatio
      n*/
-  /*  to the right null vector (call it X).  This will be our approximation 
+  /*  to the right null vector (call it X).  This will be our approximation
    */
   /*  to the eigenvector corresponding to the fixed multiplier at +1.0. */
 
@@ -184,11 +184,11 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*    3) the right singular vector corresponding to the smallest */
   /*       singular value of C0-C1 */
 
-  /*  I've chosen option 3) because it should introduce as little roundoff 
+  /*  I've chosen option 3) because it should introduce as little roundoff
    */
   /* error as possible.  Although it is more expensive, this is insignifican
      t*/
-  /* relative to the rest of the AUTO computations. Also, the SVD does give 
+  /* relative to the rest of the AUTO computations. Also, the SVD does give
      a*/
   /*  version of the Householder matrix which we would have to compute */
   /* anyways.  But note that it gives V = ( X perp | X ) and not (X | Xperp)
@@ -209,7 +209,7 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
        BLAS routines. */
     integer tmp = 1;
     doublereal tmp_tol = 1.0E-16;
-    ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp, 
+    ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp,
 	  svdv, ndim, svdwrk, &tmp, &svdinf, &tmp_tol);
   }
   if (svdinf != 0) {
@@ -221,17 +221,17 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*  to (C0, C1) from the right.  H1 = SVDV = ( Xperp | X ), where X */
   /*  is the null vector. */
 
-  {          
+  {
     /* This is here since I don't want to change the calling sequence of the
        BLAS routines. */
     doublereal tmp1 = 1.0;
     doublereal tmp0 = 0.0;
     logical tmp_false = FALSE_;
 
-    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, 
+    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv,
 	  ndim, &tmp0, rwork, ndim, 1L, 1L);
     dgemc(ndim, ndim, rwork, ndim, c0, ndim, &tmp_false);
-    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c1, ndim, svdv, 
+    dgemm("n", "n", ndim, ndim, ndim, &tmp1, c1, ndim, svdv,
 	  ndim, &tmp0, rwork, ndim, 1L, 1L);
     dgemc(ndim, ndim, rwork, ndim, c1, ndim, &tmp_false);
   }
@@ -253,7 +253,7 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
     /* This is here since I don't want to change the calling sequence of the
        BLAS routines. */
     integer tmp = 1;
-    integer tmp_left = LEFT; 
+    integer tmp_left = LEFT;
     dhhpr(&tmp, ndim, ndim, x, &tmp, &beta, v);
     dhhap(&tmp, ndim, ndim, ndim, &beta, v, &tmp_left, c0, ndim);
     dhhap(&tmp, ndim, ndim, ndim, &beta, v, &tmp_left, c1, ndim);
@@ -328,7 +328,7 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*  now reduce to an even simpler form */
   /*   (C0BarDef,C1BarDef) = (quasi-upper triangular, upper triangular) */
 
-  qzit(*ndim, ndimm1, &c0[1], &c1[1], QZEPS1, FALSE_ , 
+  qzit(*ndim, ndimm1, &c0[1], &c1[1], QZEPS1, FALSE_ ,
        qzz, &qzierr);
   if (qzierr != 0) {
     fprintf(fp9," NOTE : Warning from subroutine FLOWKM : QZ routine returned QZIERR = %4ld        Floquet multiplier calculations may be wrong \n",qzierr);	
@@ -337,7 +337,7 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 
   /*  compute the generalized eigenvalues */
 
-  qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi, 
+  qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi,
 	qzbeta, FALSE_, qzz);
 
   /*  Pack the eigenvalues into complex form. */
@@ -358,15 +358,15 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 
   }
 
-  free(svde); 
-  free(svds); 
-  free(svdv); 
-  free(v); 
-  free(x); 
-  free(qzalfi); 
-  free(qzbeta); 
-  free(qzalfr); 
-  free(svdwrk); 
+  free(svde);
+  free(svds);
+  free(svdv);
+  free(v);
+  free(x);
+  free(qzalfi);
+  free(qzbeta);
+  free(qzalfr);
+  free(svdwrk);
 
   return 0;
 
@@ -386,7 +386,7 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int 
+/* Subroutine */ int
 dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublereal *beta, doublereal *v)
 {
 
@@ -398,7 +398,7 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
 
   static integer istart;
 
-    
+
 
 
   /*     IMPLICIT UNDEFINED (A-Z,a-z) */
@@ -470,7 +470,7 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
   /*--v;*/
   /*--x;*/
 
-    
+
   if (*k < 1 || *k > *j) {
     fprintf(fp9,"Domain error for K in DHHPR\n");	
     exit(0);
@@ -509,7 +509,7 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
     iend = jmkp1 * *incx;
     istart = (*k - 1) * *incx + 1;
     l = *k;
-    for (i = istart; *incx < 0 ? i >= iend : i <= iend; i += *incx) 
+    for (i = istart; *incx < 0 ? i >= iend : i <= iend; i += *incx)
       {
 	v[-1 + l] = x[-1 + i] / m;
 	++l;
@@ -539,13 +539,13 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
 
 } /* dhhpr_ */
 
-/* Subroutine */ int 
+/* Subroutine */ int
 dhhap(integer *k, integer *j, integer *n, integer *q, doublereal *beta, doublereal *v, integer *job, doublereal *a, integer *lda)
 {
   /* System generated locals */
   integer a_dim1;
 
-    
+
 
     /* Local variables */
 
@@ -553,7 +553,7 @@ dhhap(integer *k, integer *j, integer *n, integer *q, doublereal *beta, doublere
   static doublereal s;
   static integer col, row;
 
-    
+
 
 
   /*     IMPLICIT LOGICAL (A-Z) */
@@ -612,7 +612,7 @@ on.*/
 /*           On exit, A specifies the transformed matrix. */
 
 /*  LDA    - INTEGER. */
-/*           On entry, LDA specifies the declared leading dimension of A. 
+/*           On entry, LDA specifies the declared leading dimension of A.
 */
 /*           Unchanged on exit. */
 
@@ -631,7 +631,7 @@ on.*/
     /* Parameter adjustments */
     /*--v;*/
   a_dim1 = *lda;
-    
+
   if (*job != 1 && *job != 2) {
     fprintf(fp9,"Domain error for JOB in DHHAP\n");	
     exit(0);
@@ -697,7 +697,7 @@ on.*/
       }
     }
   }
-    
+
   /*  Done ! */
 
   return 0;

@@ -1,5 +1,5 @@
-#include "autevd.h" 
-#include <stdlib.h> 
+#include "autevd.h"
+#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 
@@ -59,7 +59,7 @@ void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
   /* here are the constants that we do not allow the user to change */
   int nnbc;
   int i;
-  xAuto.iad=aauto.iad;   
+  xAuto.iad=aauto.iad;
   xAuto.iplt=0;
   xAuto.mxbf=aauto.mxbf;
   xAuto.iid=aauto.iid;
@@ -71,14 +71,14 @@ void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
   xAuto.nthl=1;
   xAuto.ithl[0]=10;
   xAuto.thl[0]=0.0;
-  xAuto.nint=0;    
-  
+  xAuto.nint=0;
+
   if(ips==4)
     nnbc=ndim;
   else
     nnbc=0;
   xAuto.ndim=ndim;
-  xAuto.nbc=nnbc; 
+  xAuto.nbc=nnbc;
   xAuto.ips=ips;
   xAuto.irs=irs;
   xAuto.ilp=ilp;
@@ -98,7 +98,7 @@ void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
   xAuto.a0=a0;
   xAuto.a1=a1;
   xAuto.npr=npr;
-  
+
 
 
   xAuto.epsl=epsl;
@@ -113,7 +113,7 @@ void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
     xAuto.iuz[i]=UzrPar[i];
      xAuto.vuz[i]=outperiod[i];
   }
- 
+
 }
 
 
@@ -150,7 +150,7 @@ void send_mult(ibr,ntot,n,ev)
   }
 }
 
-  
+
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
 
 
@@ -185,7 +185,7 @@ void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs, double *p
   {
     add_point(par,per,uhigh,ulow,ubar,*a,type,1,lab,
 	      iap->nfpr,icp1,icp2,icp3,icp4,AutoTwoParam,my_ev.evr,my_ev.evi);
-  }  
+  }
 
   if(DiagFlag==0){
     /* start_diagram(*ndim); */
@@ -193,12 +193,12 @@ void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs, double *p
 	       par,per,iap->ndim,icp1,icp2,icp3,icp4,my_ev.evr,my_ev.evi);
     DiagFlag=1;
     return;
-  } 
+  }
   add_diagram(ibrs,ntots,iap->itp,lab,iap->nfpr,*a,uhigh,ulow,u0,ubar,
 	      par,per,iap->ndim,icp1,icp2,icp3,icp4,AutoTwoParam,my_ev.evr,
 	      my_ev.evi);
 }
-    
+
 
 
 
@@ -206,9 +206,9 @@ void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs, double *p
 double etime_(z)
 double *z;
 {
- 
+
  return(0.0);
- } 
+ }
 
 int eigrf_(a,n,m,ecv,work,ier)
      double *a,*work;

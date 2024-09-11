@@ -6,7 +6,7 @@
 #include "derived.h"
 #include "diagram.h"
 #include "ggets.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -116,8 +116,8 @@ DIAGRAM *CUR_DIAGRAM;
 extern int NBifs;
 
 
-/* **************************************************** 
-   Code here 
+/* ****************************************************
+   Code here
 *****************************************************/
 
 void ALINE(a,b,c,d)
@@ -128,13 +128,13 @@ void ALINE(a,b,c,d)
 
 
 void DLINE(a,b,c,d)
-     double a,b,c,d; 
+     double a,b,c,d;
 {
   ALINE(IXVal(a),IYVal(b),IXVal(c),IYVal(d));
 }
 
 
-void ATEXT(a,b,c) 
+void ATEXT(a,b,c)
      int a,b;
      char *c;
 {
@@ -196,24 +196,24 @@ int query_special(char* title,char *nsymb)
 	else if(ch=='h'){
 	   sprintf(nsymb,"HB");
 	}
-	else if(ch=='l'){ 
+	else if(ch=='l'){
 	   sprintf(nsymb,"LP");
 	}
-	else if(ch=='m'){ 
+	else if(ch=='m'){
 	   sprintf(nsymb,"MX");
 	}
 	else if(ch=='p'){
-	   sprintf(nsymb,"PD"); 
+	   sprintf(nsymb,"PD");
 	}
 	else if(ch=='t'){
-	   sprintf(nsymb,"TR");  
+	   sprintf(nsymb,"TR");
 	}
-	else if(ch=='u'){ 
+	else if(ch=='u'){
 	   sprintf(nsymb,"UZ");
 	}
 	else
 	{
-	   status=0;   
+	   status=0;
 	   sprintf(nsymb,"  ");
 	}
 	redraw_auto_menus();
@@ -224,7 +224,7 @@ int query_special(char* title,char *nsymb)
 void do_auto_range()
 {
   double t=TEND;
-  
+
   if(mark_flag==2)
     do_auto_range_go();
   TEND=t;
@@ -250,15 +250,15 @@ void  auto_get_info( int *n, char *pname )
 	}
        dnew=d->next;
        if(dnew==NULL){
-	 
+	
 	 break;
        }
        d=dnew;
     }
   }
-  
+
 }
-  
+
 void auto_set_mark(int i)
 {
   int pt,ibr;
@@ -293,39 +293,39 @@ void find_point(int ibr, int pt)
 	   redraw_params();
 	   redraw_ics();
            if((d->per)>0)
-	     set_total(d->per);		       
+	     set_total(d->per);		
 	   break;
 	 }
        dnew=d->next;
        if(dnew==NULL){
-	 
+	
 	 break;
        }
        d=dnew;
      }
 }
-        
+
 
 void traverse_diagram()
 {
   DIAGRAM *d,*dnew,*dold;
   int done=0;
-  int ix,iy,i; 
+  int ix,iy,i;
   int lalo;
   XEvent ev;
   int kp;
   mark_flag=0;
   if(NBifs<2)return;
-  
-  d=bifd; 
+
+  d=bifd;
   DONT_XORCross=0;
   traverse_out(d,&ix,&iy,1);
-  
+
   while(done==0){
     XNextEvent(display,&ev);
     if(ev.type==ButtonPress)
     {
-  
+
   	int xm=ev.xmotion.x;
   	int ym=ev.xmotion.y;
 	
@@ -351,7 +351,7 @@ void traverse_diagram()
                 /*
 		END GO HOME
 		*/
-       
+
        		/*
 		GO END
 		*/
@@ -363,7 +363,7 @@ void traverse_diagram()
 		load_all_labeled_orbits=0;
 		while (1)
 		{
-			dist = sqrt(((double)(xm-ix))*((double)(xm-ix)) + ((double)(ym-iy))*((double)(ym-iy))); 
+			dist = sqrt(((double)(xm-ix))*((double)(xm-ix)) + ((double)(ym-iy))*((double)(ym-iy)));
 			if (dist<ndist)
 			{
 				ndist = dist;
@@ -381,8 +381,8 @@ void traverse_diagram()
 		/*
 		END GO END
 		*/
-		 
-      
+		
+
 		
 		/*
 		GO HOME
@@ -409,7 +409,7 @@ void traverse_diagram()
         clear_msg();
 	kp=get_key_press(&ev);
 	char symb[3],nsymb[3];
-        
+
 	int found=0;
 
       switch(kp){
@@ -437,9 +437,9 @@ void traverse_diagram()
        dold=d;
        while(1){
          dnew=d->next;
-	 if(dnew==NULL){dnew=d;break;} 
+	 if(dnew==NULL){dnew=d;break;}
 	 get_bif_sym(symb,dnew->itp);
-	 if(strcmp(symb,nsymb)==0){d=dnew;found=1;break;} 
+	 if(strcmp(symb,nsymb)==0){d=dnew;found=1;break;}
          d=dnew;
          /*if(d->lab==0)break;*/
        }
@@ -463,9 +463,9 @@ void traverse_diagram()
        dold=d;
        while(1){
          dnew=d->prev;
-	 if(dnew==NULL){dnew=d;break;} 
+	 if(dnew==NULL){dnew=d;break;}
 	 get_bif_sym(symb,dnew->itp);
-	 if(strcmp(symb,nsymb)==0){d=dnew;found=1;break;} 
+	 if(strcmp(symb,nsymb)==0){d=dnew;found=1;break;}
          d=dnew;
        }
        if (found)
@@ -480,7 +480,7 @@ void traverse_diagram()
        }
        CUR_DIAGRAM=d;
        traverse_out(d,&ix,&iy,1);
-       break; 
+       break;
       case TAB:
        XORCross(ix,iy);
        while(1){
@@ -564,7 +564,7 @@ void traverse_diagram()
        CUR_DIAGRAM=d;
        traverse_out(d,&ix,&iy,1);
        break;
-      
+
       case FINE:
 	done=1;
 	XORCross(ix,iy);
@@ -581,7 +581,7 @@ void traverse_diagram()
 	break;
       }
     }
-    
+
   }
   /*XORCross(ix,iy);
 */
@@ -620,7 +620,7 @@ void traverse_diagram()
   redraw_params();
   redraw_ics();
 }
-    
+
 
 
 
@@ -660,10 +660,10 @@ int byeauto_(iflag)
 	   ch=get_key_press(&event);
           if(ch==ESC){*iflag=1;return(0);}
 	  break;
-	  
+	
 	}
  }
- 
+
  return(0);
 
 
@@ -738,7 +738,7 @@ void XORCross(x,y)
    if(xorfix)
    {
 	   XSetForeground(display,small_gc,MyDrawWinColor);
- 	   XSetBackground(display,small_gc,MyForeColor);   
+ 	   XSetBackground(display,small_gc,MyForeColor);
    }
 
      XSetFunction(display,small_gc,GXxor);
@@ -749,10 +749,10 @@ void XORCross(x,y)
     LineWidth(1);
    if(xorfix)
    {
-	   XSetForeground(display,small_gc,MyForeColor);   
+	   XSetForeground(display,small_gc,MyForeColor);
  	   XSetBackground(display,small_gc,MyDrawWinColor);
    }
-  
+
   XFlush(display);
 }
 
@@ -761,7 +761,7 @@ void FillCircle(x,y,r)
      int x,y;
      int r;
 {
-  
+
     int  r2 = (int) (r / 1.41421356 + 0.5);
     int wh = 2 * r2;
 
@@ -814,7 +814,7 @@ void auto_scroll_window()
 	 y0=Auto.ymin+(double)(Auto.y0-j+Auto.hgt)*(Auto.ymax-Auto.ymin)/(double)Auto.hgt;
 	 printf("%d %d %g %g \n",i,j,x0,y0); */
         state=1;
-    
+
      }
      break;
    case MotionNotify:
@@ -840,7 +840,7 @@ void auto_scroll_window()
      dy=(float)(j-j0)*(Auto.ymax-Auto.ymin)/(float)Auto.hgt;
      /*    printf("%d %d %d %d %g %g\n",i,j,i0,j0,dx,dy); */
       auto_update_view(xlo+dx,xhi+dx,ylo+dy,yhi+dy);
-     
+
      }
      break;
    case ButtonRelease:
@@ -858,7 +858,7 @@ void auto_scroll_window()
 
 
 
-  
+
 
 void LineWidth(wid)
      int wid;
@@ -938,13 +938,13 @@ Window lil_button(root,x,y,name)
   XSelectInput(display,win,MYMASK);
   return(win);
 }
-  
+
 void aw()
 {
   XFlush(display);
   sleep(5);
 }
-  
+
 
 void make_auto(wname,iname)  /* this makes the auto window  */
      char *wname,*iname;
@@ -978,17 +978,17 @@ void make_auto(wname,iname)  /* this makes the auto window  */
 
  XStringListToTextProperty(&wname,1,&winname);
  XStringListToTextProperty(&iname,1,&iconname);
-  
+
  size_hints.flags=PPosition|PSize|PMinSize;
  size_hints.x=0;
  size_hints.y=0;
  size_hints.min_width=wid;
  size_hints.min_height=hgt;
- 
+
  XClassHint class_hints;
  class_hints.res_name="";
  class_hints.res_class="";
- 
+
  XSetWMProperties(display,base,&winname,&iconname,NULL,0,
 		  &size_hints,NULL,&class_hints);
 
@@ -1035,12 +1035,12 @@ void make_auto(wname,iname)  /* this makes the auto window  */
  x=addwid+5;
  AutoW.info=make_plain_window(base,x,y,STD_WID_var+xmargin,addhgt,2);
  AutoW.hint=make_plain_window(base,x,y+addhgt+6,STD_WID_var+xmargin,DCURY+2,2);
-  
- draw_bif_axes(); 
+
+ draw_bif_axes();
 
 
 }
- 
+
 
 
 void resize_auto_window(XEvent ev)
@@ -1054,9 +1054,9 @@ void resize_auto_window(XEvent ev)
     if(ev.xconfigure.window==AutoW.base){
     wid=ev.xconfigure.width-Auto_extra_wid;
     hgt=ev.xconfigure.height-Auto_extra_hgt;
-    
+
     addhgt=3.0*DCURY;
-    
+
     XResizeWindow(display,AutoW.canvas,wid,hgt);
     Window root;
     int xloc;
@@ -1065,7 +1065,7 @@ void resize_auto_window(XEvent ev)
     unsigned int chgt;
     unsigned int cbwid;
     unsigned int cdepth;
-    
+
     XGetGeometry(display,AutoW.canvas,&root,&xloc,&yloc,&cwid,&chgt,&cbwid,&cdepth);
 
     Auto.hgt=chgt-ymargin;
@@ -1073,22 +1073,22 @@ void resize_auto_window(XEvent ev)
     /*  printf("%l %d %d %d %d\n", AutoW.info,xloc,yloc+chgt+4,wid,addhgt);
 	printf("%l %d %d %d %d\n", AutoW.hint,xloc,yloc+chgt+addhgt+10,wid,DCURY+2);  */
     /* XMoveWindow(display,AutoW.info,xloc,yloc+chgt+4); */
-     if(TrueColorFlag>0){ 
+     if(TrueColorFlag>0){
      XMoveResizeWindow(display,AutoW.info,xloc,yloc+chgt+4,wid,addhgt);
-         
+
      XMoveResizeWindow(display,AutoW.hint,xloc,yloc+chgt+addhgt+10,wid,DCURY+2);
-      } 
-    
-    
-    int ix,iy; 
-    
+      }
+
+
+    int ix,iy;
+
     if(NBifs<2)return;
     traverse_out(CUR_DIAGRAM,&ix,&iy,1);
-    
+
   }
 }
-    
-    
+
+
 
 
 void a_msg(i,v)
@@ -1151,7 +1151,7 @@ void auto_kill()
   waitasec(ClickTime);
   XDestroySubwindows(display,AutoW.base);
   XDestroyWindow(display,AutoW.base);
-  
+
 }
 
 void auto_keypress(ev,used)
@@ -1159,7 +1159,7 @@ void auto_keypress(ev,used)
      int *used;
 {
   Window w=ev.xkey.window;
- /* 
+ /*
   int maxlen=64;
   char buf[65];
   XComposeStatus comp;
@@ -1167,7 +1167,7 @@ void auto_keypress(ev,used)
   char ks;
   Window w2;
   int rev;
-  
+
   *used=0;
   if(Auto.exist==0)return;
   XGetInputFocus(display,&w2,&rev);
@@ -1188,17 +1188,17 @@ void auto_keypress(ev,used)
    if(ks=='P'||ks=='p'){ auto_params(); return;}
    if(ks=='F'||ks=='f'){ auto_file(); return;}
 
-   
+
    if(ks==ESC){
 			XSetInputFocus(display,command_pop,
 				       RevertToParent,CurrentTime);
 		   	return;
 		      }
-   
+
 
  }
-  
+
 }
- 
+
 
 

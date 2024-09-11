@@ -9,9 +9,9 @@ typedef struct {
   char name[20],*expr,*kerexpr;
 }KERNEL;
 
-  
+
 #endif
- 
+
 
 
 

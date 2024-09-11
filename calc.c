@@ -3,7 +3,7 @@
 #include "ggets.h"
 #include "pop_list.h"
 #include "init_conds.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
@@ -114,7 +114,7 @@ void quit_calc()
 {
  my_calc.use=0;
  XSelectInput(display,my_calc.quit,SIMPMASK);
- waitasec(ClickTime); 
+ waitasec(ClickTime);
  XDestroySubwindows(display,my_calc.base);
  XDestroyWindow(display,my_calc.base);
  clr_command();
@@ -151,7 +151,7 @@ void q_calc()
 	 XSetWindowBorderWidth(display,ev.xcrossing.window,2);
 
 	if(ev.type==LeaveNotify&&ev.xcrossing.window==my_calc.quit)
-	XSetWindowBorderWidth(display,ev.xcrossing.window,1);   
+	XSetWindowBorderWidth(display,ev.xcrossing.window,1);
     edit_command_string(ev,name,value,&done,&pos,&col);
     if(done==1){
       flag=do_calc(value,&z);
@@ -161,7 +161,7 @@ void q_calc()
     }
    if(done==-1)break;
  }
-  quit_calc();              
+  quit_calc();
  }
 
 
@@ -170,7 +170,7 @@ char *temp;
 double *z;
  {
  char val[15];
- int ok; 
+ int ok;
  int i;
  double newz;
  if(strlen(temp)==0){
@@ -179,10 +179,10 @@ double *z;
 	}
  if(has_eq(temp,val,&i))
  {
- 
- 
+
+
   newz=calculate(&temp[i],&ok);  /*  calculate quantity  */
- 
+
   if(ok==0)return(-1);
   i=find_user_name(PARAM,val);
   if(i>-1){
@@ -204,7 +204,7 @@ double *z;
   }
     return(0);
 }
-	    
+	
   newz=calculate(temp,&ok);
   if(ok==0)return(-1);
  *z=newz;

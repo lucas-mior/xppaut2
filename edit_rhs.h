@@ -28,8 +28,8 @@
 */
 
 
-/*  This is a edit box widget which handles a list of 
-	editable strings  
+/*  This is a edit box widget which handles a list of
+	editable strings
  */
 
 typedef struct {

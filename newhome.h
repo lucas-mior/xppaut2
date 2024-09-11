@@ -4,7 +4,7 @@
 /*    This is for the Sparc II running X11 R4 --
       It is not the usual value given in XKeySymbDefs
 */
-/*      
+/*
 #define XK_Home 65496
 #define XK_End 65502
 #define XK_PgUp 0xffda

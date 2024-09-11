@@ -1,6 +1,6 @@
 #include "odesol2.h"
 #include "gear.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include "xpplim.h"
@@ -11,7 +11,7 @@
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
-int (*rhs)(); 
+int (*rhs)();
 int mod_euler(/* double *,double *,double,int,int,int *,double * */);
 int rung_kut(/* double *,double *,double,int,int,int *,double * */);
 int adams(/* double *,double *,double,int,int, int*,double * */);
@@ -37,11 +37,11 @@ double *y,*tim,dt,*work;
 int nt,neq,*istart;
 {
  int i;
- if(NFlags==0){ 
+ if(NFlags==0){
    for(i=0;i<nt;i++)
      {
        one_step_symp(y,dt,work,neq,tim);
-       
+
      }
    stor_delay(y);
     return(0);
@@ -54,7 +54,7 @@ int nt,neq,*istart;
     return(0);
 }
 
- 
+
 
 
 
@@ -66,7 +66,7 @@ double *y,*tim,dt,*work;
 int nt,neq,*istart;
 {
 int i;
- if(NFlags==0){ 
+ if(NFlags==0){
    for(i=0;i<nt;i++)
       {
 	one_step_discrete(y,dt,work,neq,tim);
@@ -124,7 +124,7 @@ int one_bak_step(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac,istart)
 {
   int i;
   double err=0.0,err1=0.0;
-  
+
   int iter=0,info,ipivot[MAXODE1];
   int ml=cv_bandlower,mr=cv_bandupper,mt=ml+mr+1;
   set_wieners(dt,y,*t);
@@ -153,7 +153,7 @@ int one_bak_step(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac,istart)
       sgefa(jac,neq,neq,ipivot,&info);
       if(info!=-1)
 	{
-	 
+	
 	  return(-1);
 	}
       sgesl(jac,neq,neq,ipivot,errvec,0);
@@ -171,7 +171,7 @@ int one_bak_step(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac,istart)
     }
 }
 	
-  
+
 void one_step_discrete(y,dt,yp,neq,t)
      double dt,*t;
      double *y,*yp;
@@ -215,7 +215,7 @@ void one_step_euler(y,dt,yp,neq,t)
      double *y,*yp;
      int neq;
 {
-   
+
  int j;
 
 
@@ -280,7 +280,7 @@ double *y,*tim,dt,*work;
 int nt,neq,*istart;
 {
   int i;
-  if(NFlags==0){ 
+  if(NFlags==0){
     for(i=0;i<nt;i++)
       {
 	one_step_euler(y,dt,work,neq,tim);
@@ -331,7 +331,7 @@ int nt,neq, *istart;
 {
  register int j;
  double *yval[3];
- 
+
  yval[0]=work;
  yval[1]=work+neq;
  yval[2]=work+neq+neq;
@@ -351,7 +351,7 @@ int nt,neq, *istart;
        stor_delay(y);
    }
  return(0);
- 
+
 }
 
 /*   ABM   */
@@ -460,12 +460,12 @@ int neq;
  }
    *t=x1;
  rhs(x1,y,y_p[0],neq);
- 
+
  return(1);
- 
+
 }
 
-/* this is rosen  - rosenbock step 
+/* this is rosen  - rosenbock step
     This uses banded routines as well */
 int rb23(double *y,double *tstart,double tfinal,
  int *istart,int n,double *work,int *ierr)
@@ -481,7 +481,7 @@ int out =-1;
  }
  return(out);
 }
- 
+
 int rosen(double *y,double *tstart,double tfinal,
 int *istart,int n,double *work,int *ierr)
 {
@@ -509,8 +509,8 @@ int *istart,int n,double *work,int *ierr)
  dfdt=f2+n;
  ynew=dfdt+n;
  dfdy=ynew+n;
- 
- 
+
+
  if(t0>tfinal)tdir=-1;
  hmax=fabs(tfinal-t);
  if(*istart==1)
@@ -542,7 +542,7 @@ int *istart,int n,double *work,int *ierr)
        if(cv_bandflag){
 	  for(i=0;i<n;i++)
 	 dfdy[i*mt+ml]+=1;
-        
+
 	 bandfac(dfdy,ml,mr,n);
 	 bandsol(dfdy,k1,ml,mr,n);
        }
@@ -622,7 +622,7 @@ int *istart,int n,double *work,int *ierr)
  *istart=0;
  return(0);
 }
-     
+
 /* wait_for_key()
 {
   char bob[256];
@@ -680,8 +680,8 @@ void get_band_jac(a,y,t,ypnew,ypold,n,eps,scal)
       a[k*mt+j+ml]=dsy*(ypnew[k]-ypold[k]);
     }
     y[i]=yhat;
-  } 
- 
+  }
+
 }
 
 

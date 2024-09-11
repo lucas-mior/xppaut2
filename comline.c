@@ -3,7 +3,7 @@
 #include "ggets.h"
 #include "load_eqn.h"
 #include "lunch-new.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 /* command-line stuff for xpp */
 #include <stdio.h>
@@ -11,7 +11,7 @@
 
 #define MAKEC 0
 #define XORFX 1
-#define SILENT 2 
+#define SILENT 2
 #define CONVERT 3
 #define NOICON 4
 #define NEWSEED 5
@@ -145,7 +145,7 @@ typedef struct {
 
 VOCAB my_cmd[NCMD]=
 {
-  {"-m",3},         
+  {"-m",3},
   {"-xorfix",7},
   {"-silent",7},
   {"-convert",8},
@@ -267,7 +267,7 @@ char *nam;
 void do_comline(argc,argv)
 char **argv;
 int argc;
-{ 
+{
  int i,k;
 
  silent = 0;
@@ -286,7 +286,7 @@ int argc;
      strcpy(setfilename,argv[i+1]);
      i++;
      loadsetfile=1;
-     
+
    }
    if(k==2){
      if (notAlreadySet.SMALL_FONT_NAME){strcpy(small_font_name,argv[i+1]);notAlreadySet.SMALL_FONT_NAME=0;};
@@ -295,7 +295,7 @@ int argc;
    if(k==3){
      if (notAlreadySet.BIG_FONT_NAME){strcpy(big_font_name,argv[i+1]);notAlreadySet.BIG_FONT_NAME=0;};
      i++;
-   } 
+   }
    if(k==4){
      strcat(parfilename,"!load ");
      strcat(parfilename,argv[i+1]);
@@ -321,7 +321,7 @@ int argc;
      }
      set_option("FORECOLOR",argv[i+1],1,NULL);
      i++;
-     
+
    }
    if(k==8){
      if (strlen(argv[i+1]) != 6)
@@ -373,7 +373,7 @@ int argc;
      use_intern_sets=atoi(argv[i+1]);
      select_intern_sets=1;
      i++;
-   }  
+   }
    if(k==17){
      sets2use=add_set(sets2use,argv[i+1]);
      i++;
@@ -383,7 +383,7 @@ int argc;
      setsNOTuse=add_set(setsNOTuse,argv[i+1]);
      i++;
      select_intern_sets=1;
-   } 
+   }
    if(k==19){
      if (NincludedFiles>MaxIncludeFiles)
      {
@@ -393,7 +393,7 @@ int argc;
      NincludedFiles++;
      i++;
      loadincludefile=1;
-   } 
+   }
    if(k==20){
      set_option("QUIET",argv[i+1],1,NULL);
      i++;
@@ -417,14 +417,14 @@ int argc;
    }
    if(k==25){
      SuppressOut=1;
-     
+
    }
    if(k==26){
      set_option("DFDRAW",argv[i+1],1,NULL);
      i++;
-   } 
+   }
    if(k==27){
-    
+
      set_option("NCDRAW",argv[i+1],1,NULL);
      i++;
    }
@@ -444,8 +444,8 @@ int argc;
      i++;
      printf(" Batch equilibria %d \n",BatchEquil);
    }
-	 
-  
+	
+
  }
 }
 
@@ -476,8 +476,8 @@ int if_needed_load_ext_options()
     sprintf(myoptsx,"$ %s",externaloptionsstring);
     extract_action(myoptsx);
     return 1;
-  }  
-  
+  }
+
 }
 int if_needed_select_sets()
 {
@@ -545,7 +545,7 @@ int if_needed_load_par()
 
 int if_needed_load_ic()
 {
-  
+
   if(!loadicfile)
   {
   	return 1;
@@ -565,7 +565,7 @@ int parse_it(com)
     	{
     		break;
   	}
-  } 
+  }
 
   if(j<NCMD){
     switch(j){
@@ -590,7 +590,7 @@ int parse_it(com)
     case NEWSEED:
      plintf("Random number seed changed\n");
       newseed=1;
-      break;  
+      break;
     case ALLWIN:
       allwinvis=1;
       break;
@@ -616,7 +616,7 @@ int parse_it(com)
     case PARFILE:
       return 4;
     case OUTFILE:
-      return 5; 
+      return 5;
     case ICFILE:
       return 6;
     case FCOLOR:
@@ -644,17 +644,17 @@ int parse_it(com)
     case RSET:
       return 18;
     case INCLUDE:
-      return 19; 
+      return 19;
     case QUIET:
-      return 20; 
+      return 20;
     case LOGFILE:
-      return 21; 
+      return 21;
     case ANIFILE:
       return 22;
     case VERSION:
       return 23;
     case PLOTFMT:
-      return 24;  
+      return 24;
     case NOOUT:
       return 25;
     case DFDRAW:
@@ -665,14 +665,14 @@ int parse_it(com)
       return 28;
     case WITH:
       return 29;
-    case EQUIL: 
+    case EQUIL:
       return 30;
     case QSETS:
       XPPBatch=1;
       querysets=1;
       dryrun=1;
       break;
-    case QPARS: 
+    case QPARS:
       XPPBatch=1;
       querypars=1;
       dryrun=1;
@@ -681,11 +681,11 @@ int parse_it(com)
       XPPBatch=1;
       queryics=1;
       dryrun=1;
-      break; 
+      break;
     }
   }
   else {
-    if(com[0]=='-'||got_file==1){ 
+    if(com[0]=='-'||got_file==1){
      plintf("Problem reading option %s\n",com);
      plintf("\nUsage: xppaut filename [options ...]\n\n");
      plintf("Options:\n");
@@ -708,7 +708,7 @@ int parse_it(com)
      plintf("  -backimage <filename>  Name of bitmap file (.xbm) to load in background\n");
      plintf("  -mwcolor <######>      Hexadecimal color (e.g. 808080) for main window\n");
      plintf("  -dwcolor <######>      Hexadecimal color (e.g. FFFFFF) for drawing window\n");
-     plintf("  -grads < 1 | 0 >       Color gradients will | won't be used\n"); 
+     plintf("  -grads < 1 | 0 >       Color gradients will | won't be used\n");
      plintf("  -width N               Minimum width in pixels of main window\n");
      plintf("  -height N              Minimum height in pixels of main window\n");
      plintf("  -bell < 1 | 0 >        Events will | won't trigger system bell\n");

@@ -4,7 +4,7 @@
 #include "parserslow.h"
 
 #include "ggets.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -62,7 +62,7 @@ int add_svar(name,rhs)
     plintf(" Too many variables\n");
     return 1;
   }
-  
+
   strcpy(svar[nsvar].name,name);
   svar[nsvar].rhs=(char *) malloc(80);
   strcpy(svar[nsvar].rhs,rhs);
@@ -109,7 +109,7 @@ int compile_svars()
     plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n",nsvar,naeqn);
     return 1;
   }
-  
+
   for(i=0;i<naeqn;i++){
     if(add_expr(aeqn[i].rhs,f,&n)==1){
     plintf(" Bad right-hand side for alg-eqn \n");
@@ -131,7 +131,7 @@ int compile_svars()
    }
      init_dae_work();
    return 0;
- 
+
 }
 
 void reset_dae()
@@ -153,18 +153,18 @@ void set_init_guess()
 }
 void err_dae()
 {
-  
+
   switch(dae_work.status){
-  case 2: 
+  case 2:
     err_msg(" Warning - no change in Iterates");
     break;
   case -1:
     err_msg(" Singular jacobian for dae\n");
-    
+
     break;
   case -2:
     err_msg(" Maximum iterates exceeded for dae\n");
-    
+
     break;
   case -3:
     err_msg(" Newton update out of bounds\n");
@@ -201,8 +201,8 @@ void do_daes()
   dae_work.status=ans;
   if(ans==1||ans==2)return; /* accepts a no change error! */
   DelayErr=1;
-  
-  
+
+
 }
 
 /* Newton solver for algebraic stuff */
@@ -239,7 +239,7 @@ int solve_dae()
 	SETVAR(svar[i].index,y[i]);
 	svar[i].last=y[i];
       }
-      return 1; 
+      return 1;
     }
     /* compute jacobian */
     for(i=0;i<n;i++){
@@ -264,7 +264,7 @@ int solve_dae()
     for(i=0;i<n;i++){
       y[i]-=errvec[i];
       err+=fabs(errvec[i]);
-    } 
+    }
     if(err>(n*BOUND)){
       for(i=0;i<n;i++)
 	SETVAR(svar[i].index,svar[i].last);
@@ -291,7 +291,7 @@ int solve_dae()
 
 
 /* interface shit -- different for Win95 */
- 
+
 void get_new_guesses()
 {
   int i,n;

@@ -4,7 +4,7 @@
 #include "ggets.h"
 #include "init_conds.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>
@@ -67,10 +67,10 @@ struct {
 struct{
   Window base,up,down,list,main,close;
   int istart,nlines,flag;
-  
+
 } eq_list;
 
- 
+
 extern int HomoFlag,sparity;
 extern double homo_l[100],homo_r[100];
 
@@ -85,7 +85,7 @@ Window w;
  if(w==eq_list.down)xds("Down");
   if(w==eq_list.close)xds("Close");
  if(w==eq_list.list){
- 
+
    for(i=eq_list.istart;i<eq_list.istart+eq_list.nlines;i++){
      if(i>=NEQ)break;
      if(i<NODE &&METHOD>0)strcpy(fstr,"d%s/dT=%s");
@@ -93,7 +93,7 @@ Window w;
      if(i<NODE &&EqType[i]==1)strcpy(fstr,"%s(t)=%s");
      if(i>=NODE)strcpy(fstr,"%s=%s");
      sprintf(bob,fstr,uvar_names[i],ode_names[i]);
-    
+
      bob[299]=0;
      XDrawString(display,w,small_gc,0,CURY_OFFs+(i-eq_list.istart)*(DCURYs+2),
 		 bob,strlen(bob));
@@ -102,15 +102,15 @@ Window w;
 }
 
 
- 
-   
 
- 
+
+
+
 
 
 void create_eq_list()
 {
- 
+
  int width,height,hlist,hmain;
  Window base;
  static char *wname[]={"Equations"};
@@ -122,7 +122,7 @@ void create_eq_list()
    return;
  }
 
-  eq_list.flag=0; /*  this is to tell that no eq_box is here  */ 
+  eq_list.flag=0; /*  this is to tell that no eq_box is here  */
 
 
   hmain=3*DCURYs;
@@ -131,11 +131,11 @@ void create_eq_list()
   if(height>300)height=300;
   eq_list.istart=0;
   eq_list.nlines=(height-hmain)/(DCURYs+2);
- 
+
   width=300;
   base=make_plain_window(RootWindow(display,screen),0,0,width,height,4);
   eq_list.base=base;
-  
+
   XStringListToTextProperty(wname,1,&winname);
    XStringListToTextProperty(iname,1,&iconame);
 
@@ -146,12 +146,12 @@ void create_eq_list()
  size_hints.height=height;
  size_hints.min_width=width;
  size_hints.min_height=height;
- 
+
  XClassHint class_hints;
  class_hints.res_name="";
  class_hints.res_class="";
- 
- 
+
+
   XSetWMProperties(display,base,&winname,&iconame,NULL,0,&size_hints,NULL,&class_hints);
  make_icon((char*)eqns_bits,eqns_width,eqns_height,base);
  eq_list.main=make_plain_window(base,0,0,width,hmain,1);
@@ -185,9 +185,9 @@ void eq_list_keypress(ev,used)
  {
   *used=1;
    ks=(char)get_key_press(&ev);
- 
 
- 
+
+
    if(ks==UP){eq_list_up(); return;}
 
   if(ks==DOWN){eq_list_down(); return;}
@@ -222,7 +222,7 @@ void eq_list_button(XEvent ev)
  }
 }
 
-  
+
 void eq_list_up(){
  if(eq_list.istart>0){
    eq_list.istart--;
@@ -275,7 +275,7 @@ unsigned int *wid,*hgt;
 
 void resize_eq_list(win)
 Window win;
-{ 
+{
 
   int nlines;
   unsigned int w,h;
@@ -287,7 +287,7 @@ Window win;
   get_new_size(win,&w,&h);
   nlines=(h-CURY_OFFs-2*DCURYs)/(DCURYs+2);
   eq_list.nlines=nlines;
-  XResizeWindow(display,eq_list.base,w,h);  
+  XResizeWindow(display,eq_list.base,w,h);
  XResizeWindow(display,eq_list.list,w,h-2*DCURYs);
  XResizeWindow(display,eq_list.main,w,2*DCURYs);
 }
@@ -320,7 +320,7 @@ double *y,*ev;
   XSizeHints size_hints;
 /*    Do this every time   */
  redraw_ics();
- for(i=0;i<n;i++) 
+ for(i=0;i<n;i++)
  eq_box.y[i]=y[i];
  eq_box.n=n;
  eq_box.info[0]=cp;
@@ -375,8 +375,8 @@ else {   /*   Already it has been created so we are updating it */
  XClearWindow(display,eq_box.rest);
   draw_eq_box(eq_box.rest);
 }
- 
-    
+
+
 }
 
 void  draw_eq_box(w)
@@ -413,9 +413,9 @@ void  draw_eq_box(w)
  if(w==eq_box.rest){
   if(n>=20)nrow=20;
   else nrow=n;
- 
+
    ncol=1+n/3;
- 
+
    for(j=0;j<ncol;j++){
      for(i=0;i<nrow;i++){
        in=j*20+i;
@@ -423,18 +423,18 @@ void  draw_eq_box(w)
        sprintf(temp,"%s=%.5g",uvar_names[in],eq_box.y[in]);
        XDrawString(display,eq_box.rest,small_gc,j*28*DCURXs+8,i*(DCURYs+3)+13,
 		   temp,strlen(temp));
-     
+
      }
    }
   return;
 }
 }
-       
 
- 
-   
 
-			 
+
+
+
+			
 
 
 

@@ -2,7 +2,7 @@
 #include "my_ps.h"
 #include "my_svg.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
@@ -34,7 +34,7 @@ extern int AXES,TIMPLOT,PLOT_3D;
 extern int START_LINE_TYPE;
 extern double MY_XLO,MY_YLO,MY_XHI,MY_YHI;
 extern int Xup;
-extern int COLOR,colorline[]; 
+extern int COLOR,colorline[];
 extern int DCURXs,DCURYs;
 extern int PltFmtFlag;
 extern unsigned int GrFore,GrBack;
@@ -54,7 +54,7 @@ extern GC small_gc;
 extern float **storage;
 extern int storind;
 
-char dashes[10][5] = { {0}, {1,6,0}, 
+char dashes[10][5] = { {0}, {1,6,0},
    {0}, {4,2,0}, {1,3,0}, {4,4,0}, {1,5,0}, {4,4,4,1,0}, {4,2,0}, {1,3,0}
    };
 
@@ -68,29 +68,29 @@ extern double X_LO[10],Y_LO[10],X_HI[10],Y_HI[10];
 extern int MultiWin;
 extern int Xup;
 
-/*  This is an improved graphics driver for XPP  
+/*  This is an improved graphics driver for XPP
     It requires only a few commands
     All positions are integers
-   
+
     point(x,y)        Draws point to (x,y) with pointtype PointStyle
     line(x1,y1,x2,y2) Draws line with linetype LineStyle
     put_text(x1,y,text)  Draws text with TextAngle, Justify
     init_device()     Sets up the default for tics, plotting area,
-                      and anything else 
-                      
+                      and anything else
+
 
     close_device()  closes files, etc
 
     The device is assumed to go from (0,0) to (XDMax,YDMax)
-    
+
     DLeft,DRight,DTop,DBottom are the actual graph areas
     VTic Htic are the actual sizes of the tics in device pixels
     VChar HChar are the height and width used for character spacing
- 
+
     linetypes   -2  thick plain lines
                 -1  thin plain lines
-                   
-    
+
+
 */
 
 
@@ -136,7 +136,7 @@ void get_draw_area_flag(int flag)
     }
   else
     {
-    
+
     w=MyGraph->x11Wid;
     h=MyGraph->x11Hgt;
   }
@@ -147,7 +147,7 @@ void get_draw_area_flag(int flag)
   HTic=max(w/150,1);
   VChar=DCURYs;  /*max(h/25,1);*/
   HChar=DCURXs; /* max(w/80,1); */
-  
+
   DLeft=12*HChar;
   DRight=XDMax-3*HChar-HTic;
   DBottom=YDMax-1-VChar*7/2;
@@ -170,7 +170,7 @@ void change_current_linestyle(new,old)
  *old=MyGraph->color[0];
   MyGraph->color[0]=new;
 }
-     
+
 
 void set_normal_scale()
 {
@@ -285,7 +285,7 @@ void point_x11(xp,yp)
     XDrawPoint(display,draw_win,gc_graph,xp,yp);
   else
     XFillArc(display,draw_win,gc_graph,xp-r2,yp-r2,wh, wh, 0, 360*64);
-    
+
 }
 
 void set_linestyle(ls)
@@ -331,7 +331,7 @@ void set_line_style_x11(ls)
   XSetLineAttributes(display,gc_graph,0,LineSolid,CapButt,JoinBevel);
   set_color(colorline[ls]);
 }
-    
+
 void bead_x11(x,y)
      int x,y;
 {
@@ -352,11 +352,11 @@ void draw_many_lines()
     XDrawLine(display,draw_win,gc_graph,rand()%200,rand()%200,rand()%200,rand()%200);
   printf("Done\n");
 }
-  
+
 void line_x11(xp1,yp1,xp2,yp2)
      int xp1,yp1,xp2,yp2;
 {
-  XDrawLine(display,draw_win,gc_graph,xp1,yp1,xp2,yp2);  
+  XDrawLine(display,draw_win,gc_graph,xp1,yp1,xp2,yp2);
 }
 
 void put_text_x11(x,y,str)
@@ -374,7 +374,7 @@ void put_text_x11(x,y,str)
   XSetForeground(display,small_gc,GrBack);
 }
 
-  
+
 void special_put_text_x11(x,y,str,size)
      int x,y,size;
      char *str;
@@ -398,11 +398,11 @@ void special_put_text_x11(x,y,str,size)
   }
   while(i<n){
     c=str[i];
-    if(c=='\\'){      
+    if(c=='\\'){
       i++;
       c=str[i];
       tmp[j]=0; /* end the current buffer */
-      
+
       fancy_put_text_x11(cx,cy,tmp,cs,cf); /* render the current buffer */
       if(cf==0){
 	if(avromfonts[cs]==1)
@@ -443,7 +443,7 @@ void special_put_text_x11(x,y,str,size)
 
 	cf=1;
       }
-    
+
       i++;
     }
     else {
@@ -455,10 +455,10 @@ void special_put_text_x11(x,y,str,size)
   tmp[j]=0;
       fancy_put_text_x11(cx,cy,tmp,cs,cf);
 }
-    
-      
-      
-    
+
+
+
+
 void fancy_put_text_x11(x,y,str,size,font)
      int x,y,size,font;
      char *str;
@@ -467,8 +467,8 @@ void fancy_put_text_x11(x,y,str,size,font)
   */
   if(strlen(str)==0)return;
   switch(font){
-  
-  case 1: 
+
+  case 1:
     if(avsymfonts[size]==1){
       XSetFont(display,font_gc,symfonts[size]->fid);
       /*yoff=symfonts[size]->ascent;*/
@@ -476,17 +476,17 @@ void fancy_put_text_x11(x,y,str,size,font)
     else {
       XSetFont(display,font_gc,small_font->fid);
       /*yoff=small_font->ascent;*/
-      
+
     }
     XSetForeground(display,font_gc,GrFore);
     XDrawString(display,draw_win,font_gc,x,y,str,strlen(str));
-   XSetForeground(display,font_gc,GrBack);  
+   XSetForeground(display,font_gc,GrBack);
     break;
-  default: 
+  default:
     if(avromfonts[size]==1){
       XSetFont(display,font_gc,romfonts[size]->fid);
       /*yoff=romfonts[size]->ascent;*/
-    
+
     }
     else {
       XSetFont(display,font_gc,small_font->fid);
@@ -494,7 +494,7 @@ void fancy_put_text_x11(x,y,str,size,font)
     }
     XSetForeground(display,font_gc,GrFore);
     XDrawString(display,draw_win,font_gc,x,y,str,strlen(str));
-    XSetForeground(display,font_gc,GrBack);  
+    XSetForeground(display,font_gc,GrBack);
     break;
   }
 }
@@ -507,8 +507,8 @@ void scale_dxdy(x,y,i,j)
   float dy=(DTop-DBottom)/(YMax-YMin);
   *i=x*dx;
   *j=y*dy;
-}  
-     
+}
+
 void scale_to_screen(x,y,i,j)  /* not really the screen!  */
      float x,y;
      int *i,*j;
@@ -532,7 +532,7 @@ void scale_to_real(i,j,x,y) /* Not needed except for X */
   y1=(float)j1;
   *x=(MyGraph->xhi-MyGraph->xlo)*x1/((float)(DRight-DLeft))+MyGraph->xlo;
   *y=(MyGraph->yhi-MyGraph->ylo)*y1/((float)(DTop-DBottom))+MyGraph->ylo;
-  
+
  }
 
 
@@ -559,7 +559,7 @@ void init_all_graph()
  /*set_extra_graphs();*/
  set_normal_scale();
 
- 
+
 }
 
 void set_extra_graphs()
@@ -593,7 +593,7 @@ void set_extra_graphs()
     /*  printf(" %g %g %g %g \n",X_LO[i+1],X_HI[i+1],Y_LO[i+1],Y_HI[i+1]); */
   }
   set_active_windows();
-  make_active(0,1); 
+  make_active(0,1);
   }
 }
 
@@ -649,7 +649,7 @@ if(PLOT_3D)
   AXES=5;
 else
   AXES=0;
-AXES=MyGraph->grtype;  
+AXES=MyGraph->grtype;
 }
 
 void init_graph(i)
@@ -669,7 +669,7 @@ int i;
         graph[i].line[j]=START_LINE_TYPE;
 	graph[i].color[j]=0;
         }
-     
+
     /*sprintf(graph[i].xlabel,"");
     sprintf(graph[i].ylabel,"");
     sprintf(graph[i].zlabel,"");
@@ -677,7 +677,7 @@ int i;
     graph[i].xlabel[0]='\0';
     graph[i].ylabel[0]='\0';
     graph[i].zlabel[0]='\0';
-    
+
     graph[i].Use=0;
     graph[i].state=0;
     graph[i].Restore=1;
@@ -725,7 +725,7 @@ int i;
     graph[i].oldyhi=MY_YHI;
     MyGraph=&graph[i];
     make_rot(THETA0,PHI0);
-    
+
   }
 
 
@@ -841,7 +841,7 @@ double proj3d(double theta,double phi,double x,double y,double z,int in)
 	vnew[i]=0.0;
 	for(j=0;j<3;j++)vnew[i]=vnew[i]+rm[i][j]*vt[j];
 	}
-  
+
  return vnew[in];
 }
 
@@ -867,7 +867,7 @@ float x2p,y2p,z2p,*xp,*yp;
 }
 
 
-void text3d(x,y,z,s)    
+void text3d(x,y,z,s)
 float x,y,z;
 char *s;
 {
@@ -878,7 +878,7 @@ if(threedproj(x,y,z,&xp,&yp)) text_abs(xp,yp,s);
 
 
 
-void text_3d(x,y,z,s)    
+void text_3d(x,y,z,s)
 float x,y,z;
 char *s;
 {
@@ -1055,7 +1055,7 @@ float x1,y1;
   float x_right=XMax;
   float y_top=YMax;
   float y_bottom=YMin;
-   if((x1>x_right)||(x1<x_left)||(y1>y_top)||(y1<y_bottom))return; 
+   if((x1>x_right)||(x1<x_left)||(y1>y_top)||(y1<y_bottom))return;
   scale_to_screen(x1,y1,&xp,&yp);
   point(xp,yp);
 }
@@ -1063,9 +1063,9 @@ float x1,y1;
 void line_nabs(x1_out, y1_out, x2_out, y2_out)
 float x1_out,y1_out,x2_out,y2_out;
 {
-  
-  
-  
+
+
+
 
   int xp1,yp1,xp2,yp2;
 
@@ -1082,7 +1082,7 @@ void bead_abs(x1,y1)
   float x_right=XMax;
   float y_top=YMax;
   float y_bottom=YMin;
-   if((x1>x_right)||(x1<x_left)||(y1>y_top)||(y1<y_bottom))return; 
+   if((x1>x_right)||(x1<x_left)||(y1>y_top)||(y1<y_bottom))return;
   scale_to_screen(x1,y1,&i1,&j1);
   bead(i1,j1);
 }
@@ -1198,11 +1198,11 @@ void fancy_text_abs(x,y,old,size,font)
   char text[256];
   scale_to_screen(x,y,&xp,&yp);
   fillintext(old,text);
-  if(PltFmtFlag==PSFMT)special_put_text_ps(xp,yp,text,size); 
+  if(PltFmtFlag==PSFMT)special_put_text_ps(xp,yp,text,size);
   else if(PltFmtFlag==SVGFMT)special_put_text_svg(xp,yp,text,size);
   else special_put_text_x11(xp,yp,text,size);
 /* fancy_put_text_x11(xp,yp,text,size,font); */
-    
+
 }
 
 
@@ -1375,7 +1375,7 @@ float x1,y1,x2,y2,*x1_out,*y1_out,*x2_out,*y2_out;
    isum=abs(ix1)+abs(ix2)+abs(iy1)+abs(iy2);
    if(isum==0)return(1); /* both inside window so plottem' */
 
-   if(((ix1==ix2)&&(ix1!=0))||((iy1==iy2)&&(iy1!=0)))return(0); 
+   if(((ix1==ix2)&&(ix1!=0))||((iy1==iy2)&&(iy1!=0)))return(0);
    if(ix1==0) goto C2;
    wv=x_left;
    if(ix1>0) wv=x_right;
@@ -1432,7 +1432,7 @@ double *x;
  int ix=MyGraph->xv[0]-1,iy=MyGraph->yv[0]-1,iz=MyGraph->zv[0]-1;
  if(!Xup)return;
   if(MyGraph->TimeFlag)return;
-  set_color(0); 
+  set_color(0);
   if(MyGraph->ThreeDFlag)
   {
    dx=6.0*SYMSIZE/MyGraph->dx;
@@ -1445,7 +1445,7 @@ double *x;
   }
   draw_symbol((float)x[ix],(float)x[iy],SYMSIZE,type);
   point_abs((float)x[ix],(float)x[iy]);
- 
+
 }
 
 void draw_symbol( x, y, size,my_symb)
@@ -1481,7 +1481,7 @@ int my_symb;
     };
   int ind=0,pen=0;
   float x1=x,y1=y,x2,y2;
- 
+
    while(pen!=3)
    {
     x2=sym_dir[my_symb][3*ind+1]*dx+x1;
@@ -1517,7 +1517,7 @@ int my_symb;
 
 
 	
-   
+
 
 
 

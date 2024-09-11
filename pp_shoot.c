@@ -20,7 +20,7 @@
 
 
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "shoot.h"
@@ -108,7 +108,7 @@ void do_bc(y__0,t0,y__1,t1,f,n)
    SETVAR(i+n0+1,y__1[i]);
  }
   for(i=n;i<n+FIX_VAR;i++)SETVAR(i+1,evaluate(my_ode[i]));
- 
+
   for(i=0;i<n;i++)f[i]=evaluate(my_bc[i].com);
 }
 
@@ -126,7 +126,7 @@ void compile_bvp()
  NSYM=NSYM_START;
  BVP_FLAG=0;
  for(i=0;i<NODE;i++){
- 
+
    if(add_expr(my_bc[i].string,my_bc[i].com,&len)){
      sprintf(badcom,"Bad syntax on %d th BC",i+1);
      err_msg(badcom);
@@ -135,14 +135,14 @@ void compile_bvp()
  }
  BVP_FLAG=1;
 }
- 
-  
+
+
 void reset_bvp()
 {
  BVP_FLAG=1;
-} 
-   
-/* 
+}
+
+/*
 
 reset_bvp()
 {
@@ -163,7 +163,7 @@ reset_bvp()
  }
  redraw_bcs();
 }
- 
+
 */
 
 void init_shoot_range(s)
@@ -177,7 +177,7 @@ char *s;
  shoot_range.steps=10;
  shoot_range.movie=0;
 }
-  
+
 void dump_shoot_range(fp,f)
      FILE *fp;
      int f;
@@ -220,9 +220,9 @@ double *ystart,*yend;
  int npar,i,j,ierr;
  int side,cycle,icol,color;
  char bob[50];
- 
 
- 
+
+
  if(set_up_sh_range()==0)return;
  swap_color(&color,0);
  parhi=shoot_range.phigh;
@@ -243,11 +243,11 @@ double *ystart,*yend;
      bottom_msg(2,bob);
      if(shoot_range.movie==1)
        clr_scrn();
-     
+
      bvshoot(ystart,yend,BVP_TOL,BVP_EPS,BVP_MAXIT,&ierr,NODE,0,
 	     0,0,0,0.0);
      if(ierr==-5)continue;
-     if(ierr<0){ 
+     if(ierr<0){
        bad_shoot(ierr);
 
        refresh_browser(storind);
@@ -265,7 +265,7 @@ double *ystart,*yend;
      ping();
    }
   refresh_browser(storind);
-  auto_freeze_it();     
+  auto_freeze_it();
  swap_color(&color,1);
 
 
@@ -286,7 +286,7 @@ double *sect;
  sprintf(values[1],"%s",uvar_names[*ivar]);
  sprintf(values[2],"%g",*sect);
  sprintf(values[3],"%s",yn[*ishow]);
- 
+
  status=do_string_box(4,4,1,"Periodic BCs",n,values,45);
  if(status!=0){
                i=find_user_name(PARAM,values[0]);
@@ -310,12 +310,12 @@ double *sect;
 	     }
   return(0);
 }
-	  
-		 
+	
+		
 
 
-	       
-   
+	
+
 
 void find_bvp_com(int com)
 {
@@ -351,8 +351,8 @@ void find_bvp_com(int com)
    iper=1;
    get_val(upar_names[ipar],&oldpar);
    break;
-        
- case 2: 
+
+ case 2:
    ishow=1;
    iper=0;
    break;
@@ -364,11 +364,11 @@ void find_bvp_com(int com)
  if(iper)
  bvshoot(ystart,yend,BVP_TOL,BVP_EPS,BVP_MAXIT,&iret,NODE,ishow,
 	iper,ipar,ivar,sect);
- else 
+ else
  bvshoot(ystart,yend,BVP_TOL,BVP_EPS,BVP_MAXIT,&iret,NODE,ishow,0,0,0,0.0 );
  bad_shoot(iret);
  if(iret==1||iret==2) {
- get_ic(0,ystart);  
+ get_ic(0,ystart);
  redraw_ics();
  if(ishow){
    reset_graphics();
@@ -379,9 +379,9 @@ void find_bvp_com(int com)
  auto_freeze_it();
  ping();
 }
-else 
+else
  if(iper)set_val(upar_names[ipar],oldpar);
-  
+
 bye:  TRANS=oldtrans;
 }
 
@@ -435,7 +435,7 @@ static char *n[]={"*2Range over","Steps","Start","End",
         err_msg("No such parameter");
        return(0);
      }
-   
+
    shoot_range.steps=atoi(values[1]);
    if(shoot_range.steps<=0)shoot_range.steps=10;
    shoot_range.plow=atof(values[2]);
@@ -446,7 +446,7 @@ static char *n[]={"*2Range over","Steps","Start","End",
    else shoot_range.movie=0;
 
    shoot_range.side=atoi(values[5]);
-   
+
 
  return(1);
  }
@@ -471,33 +471,33 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
  double dt=DELTA_T,t;
  double t0=T0;
  double t1=T0+TEND*dt/fabs(dt);
- 
+
  if(iper)ntot=n+1;
  jac=(double *)malloc(ntot*ntot*sizeof(double));
  f=(double *)malloc(ntot*sizeof(double));
  fdev=(double *)malloc(ntot*sizeof(double));
  y0=(double *)malloc(ntot*sizeof(double));
  y1=(double *)malloc(ntot*sizeof(double));
-  
+
  for(i=0;i<n;i++)
    y0[i]=y[i];
  if(iper)  get_val(upar_names[ipar],&y0[n]);
 
 
 	
-         
+
  /* dt=(t1-t0)/nt;  */
  while(1){
    esc=my_abort();
-	 
-       
+	
+
            {
-            
+
              if(esc==ESCAPE) {*iret=-5;break;}
 	     if(esc=='/'){*iret=-6;break;}
-	    
+	
            }
-         
+
   t=t0;
  istart=1;
  if(iper)set_val(upar_names[ipar],y0[n]);
@@ -520,39 +520,39 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
  for(i=0;i<ntot;i++)error+=fabs(f[i]);
  if(error<err){
    for(i=0;i<n;i++)y[i]=y0[i]; /*   Good values .... */
-  if(iper){ 
+  if(iper){
     set_val(upar_names[ipar],y0[n]);
     redraw_params();
   }
-   
+
    for(i=0;i<n;i++)yend[i]=y1[i];
    *iret=1;
    goto bye;
-  
+
  }
-  /* plintf("err1 = %f tol= %f \n",error,err); */ 
+  /* plintf("err1 = %f tol= %f \n",error,err); */
  niter++;
  if(niter>maxit){
    *iret=-2;
    goto bye;
  }      /* Too many iterates   */
- 
 
- 
+
+
  /*   create the Jacobian matrix ...   */
- 
+
  for(j=0;j<ntot;j++){
    for(i=0;i<n;i++) y[i]=y0[i];
     if(fabs(y0[j])<eps)dev=eps*eps;
 	else dev=eps*fabs(y0[j]);
-   
+
     if(j<n) y[j]=y[j]+dev;
      ytemp=y0[j];
      y0[j]=y0[j]+dev;
-  
+
      if(j==n)
          set_val(upar_names[ipar],y0[j]);
-       
+
      t=t0;
      istart=1;
 
@@ -561,16 +561,16 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
 	goto bye;
       }
 
-     
+
      do_bc(y0,t0,y,t1,fdev,n);
      if(iper)fdev[n]=y[ivar]-sect;
      y0[j]=ytemp;
      for(i=0;i<ntot;i++)jac[j+i*ntot]=(fdev[i]-f[i])/dev;
  }
 
-  
-  
-	   
+
+
+	
   sgefa(jac,ntot,ntot,ipvt,&info);
   if(info!=-1){
     *iret=-3;
@@ -583,7 +583,7 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
     y0[i]=y0[i]-fdev[i];
     error+=fabs(fdev[i]);
   }
- 
+
  for(i=0;i<n;i++)y[i]=y0[i];
   /* plintf("error2 = %f \n",error);  */
   if(error<1.e-10){
@@ -592,7 +592,7 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
     goto bye;
   }
 }
-  
+
  bye:
 
       free(f);

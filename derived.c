@@ -1,6 +1,6 @@
 #include "derived.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "ggets.h"
@@ -19,7 +19,7 @@ typedef struct {
 } DERIVED;
 
 DERIVED derived[MAXDERIVED];
-int nderived=0; 
+int nderived=0;
 
 /* clean up derived stuff */
 void free_derived()
@@ -32,7 +32,7 @@ void free_derived()
   nderived=0;
 }
 
-/* This compiles all of the formulae 
+/* This compiles all of the formulae
 It is called only once during the session
 */
 int compile_derived()
@@ -52,7 +52,7 @@ int compile_derived()
  return 0;
 }
 
-/* This evaluates all derived quantities in order of definition 
+/* This evaluates all derived quantities in order of definition
 called before any integration or numerical computation
 and after changing parameters and constants
 */
@@ -62,7 +62,7 @@ void evaluate_derived()
   for(i=0;i<nderived;i++){
     derived[i].value=evaluate(derived[i].form);
     constants[derived[i].index]=derived[i].value;
-  
+
   }
 }
 
@@ -87,8 +87,8 @@ int add_derived(name,rhs)
   nderived++;
   return(add_con(name,0.0));
 }
-  
-    
+
+
 
 
 

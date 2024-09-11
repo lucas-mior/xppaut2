@@ -11,9 +11,9 @@
 
 
 typedef struct {  /* tasks have the form {name1=formula1;name2=formula2;...} */
- 
+
   double vrhs[MAX_GEVENTS];
-  char lhsname[MAX_GEVENTS][11]; 
+  char lhsname[MAX_GEVENTS][11];
   int lhsivar[MAX_GEVENTS];
   int *comrhs[MAX_GEVENTS];
   int runnow;
@@ -50,7 +50,7 @@ typedef struct {
   int type, flag;
   int *col,*x1,*y1,*x2,*y2,*who;
   double zcol,zx1,zy1,zx2,zy2,zrad,zval;
-  int zthick,tfont,tsize,tcolor;  
+  int zthick,tfont,tsize,tcolor;
 } ANI_COM;
 
 void new_vcr(void);

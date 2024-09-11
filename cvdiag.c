@@ -26,13 +26,13 @@
 
 
 /* Other Constants */
-  
+
 #define FRACT RCONST(0.1)
 #define ONE   RCONST(1.0)
 
 
 /******************************************************************
- *                                                                *           
+ *                                                                *
  * Types : CVDiagMemRec, CVDiagMem                                *
  *----------------------------------------------------------------*
  * The type CVDiagMem is pointer to a CVDiagMemRec. This          *
@@ -109,7 +109,7 @@ static void CVDiagFree(CVodeMem cv_mem);
  address of this structure.
 
 **********************************************************************/
-                  
+
 void CVDiag(void *cvode_mem)
 {
   CVodeMem cv_mem;
@@ -118,7 +118,7 @@ void CVDiag(void *cvode_mem)
   /* Return immediately if cvode_mem is NULL */
   cv_mem = (CVodeMem) cvode_mem;
   if (cv_mem == NULL) return;  /* CVode reports this error */
-  
+
   /* Set four main function fields in cv_mem */
   linit  = CVDiagInit;
   lsetup = CVDiagSetup;
@@ -154,7 +154,7 @@ static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull)
   *setupNonNull = TRUE;
 
   /* Allocate memory for M, bit, and bitcomp */
-    
+
   M = N_VNew(N, machenv);
   if (M == NULL) {
     fprintf(errfp, MSG_MEM_FAIL);
@@ -179,14 +179,14 @@ static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull)
     iopt[DIAG_LRW] = N*3;
     iopt[DIAG_LIW] = 0;
   }
-    
+
   return(LINIT_OK);
 }
 
 /*************** CVDiagSetup *****************************************
 
- This routine does the setup operations for the diagonal linear 
- solver.  It constructs a diagonal approximation to the Newton matrix 
+ This routine does the setup operations for the diagonal linear
+ solver.  It constructs a diagonal approximation to the Newton matrix
  M = I - gamma*J, updates counters, and inverts M.
 
 **********************************************************************/
@@ -199,7 +199,7 @@ static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
   N_Vector ftemp, y;
   bool invOK;
   CVDiagMem cvdiag_mem;
-  
+
   cvdiag_mem = (CVDiagMem) lmem;
 
   /* Rename work vectors for use as temporary values of y and f */
@@ -253,7 +253,7 @@ static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
   CVDiagMem cvdiag_mem;
 
   cvdiag_mem = (CVDiagMem) lmem;
-  
+
   /* If gamma has changed, update factor in M, and save gamma value */
 
   if (gammasv != gamma) {
@@ -282,7 +282,7 @@ static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 static void CVDiagFree(CVodeMem cv_mem)
 {
   CVDiagMem cvdiag_mem;
-  
+
   cvdiag_mem = (CVDiagMem) lmem;
 
   N_VFree(M);

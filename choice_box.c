@@ -1,6 +1,6 @@
 #include "choice_box.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -49,12 +49,12 @@ CHOICE_BOX p;
  int n=p.n;
  XSetFillStyle(display,gc,FillSolid);
   XSetForeground(display,gc,MyForeColor);
- 
+
   if(w==p.ok)XDrawString(display,w,gc,0,CURY_OFF,"Ok",2);
   if(w==p.cancel)
 	XDrawString(display,w,gc,0,CURY_OFF,"Cancel",6);
    for(i=0;i<n;i++)
-  {  
+  {
     if(w!=p.cw[i])continue;
     XDrawString(display,w,gc,0,CURY_OFF,p.name[i],strlen(p.name[i]));
     if(p.flag[i]==1)set_fore();
@@ -68,8 +68,8 @@ void do_checks(p)
 CHOICE_BOX p;
 {
  int i;
- 
- 
+
+
  for(i=0;i<p.n;i++)
  {
   if(p.flag[i]==1)set_fore();
@@ -87,7 +87,7 @@ char **names,*wname;
 }
 
 
- 
+
 
 int do_choice_box(root,wname,n,mcc,names,check,type)
 Window root;
@@ -121,7 +121,7 @@ char **names,*wname;
  size_hints.max_width=width;
  size_hints.max_height=height;
  XSetWMProperties(display,base,&winname,NULL,NULL,0,&size_hints,NULL,NULL);
- 
+
  ystart=DCURY;
    xstart=DCURX;
 
@@ -139,7 +139,7 @@ for(i=0;i<n;i++){
   p.ok=make_window(base,xpos,ypos,2*DCURX,DCURY,2);
   p.cancel=make_window(base,xpos+4*DCURX,ypos,6*DCURX,DCURY,2);
   p.base=base;
-  
+
   p.n=n;
   p.type=type;
   p.mc=mcc;
@@ -155,19 +155,19 @@ for(i=0;i<n;i++){
  }
 
 
- 
+
 int choice_box_event_loop(p)
  CHOICE_BOX p;
- 
+
  {
  int i,j,nn=p.n;
   int status=-1;
- 
+
  XEvent ev;
 
  XNextEvent(display,&ev);
- 
- 
+
+
   switch(ev.type){
 	case ConfigureNotify:
 	case Expose:
@@ -198,7 +198,7 @@ int choice_box_event_loop(p)
 			     do_checks(p);
 			     }
                          }
-			 
+			
 			
 			
 		}
@@ -207,7 +207,7 @@ int choice_box_event_loop(p)
 	case KeyPress:
              		break;
          }
- 
+
          return(status);
  }
 

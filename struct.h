@@ -21,7 +21,7 @@ typedef struct {
 		double xlo,xhi;
 		char rv[10];
   		int nstep, ic,stor;
-		} RANGE_INFO; 
+		} RANGE_INFO;
 		
 typedef struct {
 		Window base,ok,cancel,old,last,more,range;
@@ -34,7 +34,7 @@ typedef struct {
 		char ascval[MAXODE][ICLENGTH];
 		Window wname[ICMAX],wval[ICMAX];
 		} IC_BOX;
-			       
+			
 		
 		
 	
@@ -160,7 +160,7 @@ typedef struct {
 		} TXTCHOICE;
 
 
-  
+
 
 #endif
 

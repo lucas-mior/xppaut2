@@ -1,14 +1,14 @@
 #include "arrayplot.h"
 #include "array_print.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
-/*   routines for plotting arrays as functions of time  
+/*   routines for plotting arrays as functions of time
 
-     makes a window 
-     of  N X M pixels 
+     makes a window
+     of  N X M pixels
      user specifies   starting variable  x0 and ending variable xn
-                      starting time  ending time 
+                      starting time  ending time
                       max var  min var
 
                                 TITLE
@@ -23,15 +23,15 @@
           -                                                   | |
                                                               | |
                                                               | |
-                                                              | | 
-                                                              | | 
-                                                              | |  
-          - 
+                                                              | |
+                                                              | |
+                                                              | |
+          -
           -                                                   MIN
-     TN     ---------------------------------------                   
- 
+     TN     ---------------------------------------
 
-    and it creates a color plot 
+
+    and it creates a color plot
 
 */
 #include "ggets.h"
@@ -98,7 +98,7 @@ extern double MyData[MAXODE];
 void draw_one_array_plot(char *bob)
 {
   char filename[300];
- 
+
   redraw_aplot(aplot);
   if(aplot_tag)tag_aplot(bob);
   XFlush(display);
@@ -109,7 +109,7 @@ void draw_one_array_plot(char *bob)
 }
 
 void set_up_aplot_range()
-{ 
+{
   static char *n[]={"Basename","Still(1/0)","Tag(0/1)"};
   char values[3][MAX_LEN_SBOX];
   int status;
@@ -117,7 +117,7 @@ void set_up_aplot_range()
  sprintf(values[0],"%s",aplot_range_stem);
  sprintf(values[1],"%d",aplot_still);
  sprintf(values[2],"%d",aplot_tag);
- status=do_string_box(3,3,1,"Array range saving",n,values,28); 
+ status=do_string_box(3,3,1,"Array range saving",n,values,28);
  if(status!=0){
    sprintf(aplot_range_stem,"%s",values[0]);
    aplot_still=atoi(values[1]);
@@ -165,9 +165,9 @@ void optimize_aplot(int *plist)
   reset_aplot_axes(aplot);
   redraw_aplot(aplot);
 }
-  
-  
-  
+
+
+
 void make_my_aplot(name)
      char *name;
 {
@@ -201,7 +201,7 @@ double *zmax,*zmin;
   }
   if(*zmin>=*zmax)
     *zmax=fabs(*zmin)+1+*zmin;
- 
+
 }
 
 void init_arrayplot(ap)
@@ -316,7 +316,7 @@ void create_arrayplot(ap,wname,iname)
   XGCValues values;
   XTextProperty winname,iconname;
   XSizeHints size_hints;
-  /* init_arrayplot(ap); */ 
+  /* init_arrayplot(ap); */
   width=ap->width;
   height=ap->height;
   base=make_plain_window(RootWindow(display,screen),0,0,ap->width,ap->height,1);
@@ -325,7 +325,7 @@ void create_arrayplot(ap,wname,iname)
 	       StructureNotifyMask);
   XStringListToTextProperty(&wname,1,&winname);
   XStringListToTextProperty(&iname,1,&iconname);
-  
+
   size_hints.flags=PPosition|PSize|PMinSize;
   size_hints.x=0;
   size_hints.y=0;
@@ -352,13 +352,13 @@ void create_arrayplot(ap,wname,iname)
   ap->alive=1;
   aplot_gc=XCreateGC(display,ap->wplot,valuemask,&values);
 }
- 
+
 void print_aplot(ap)
      APLOT *ap;
 {
   double tlo,thi;
   int status,errflag;
-  static char *n[]={"Filename","Top label","Side label","Bottom label", 
+  static char *n[]={"Filename","Top label","Side label","Bottom label",
 	       "Render(-1,0,1,2)"};
    char values[5][MAX_LEN_SBOX];
   int nrows=my_browser.maxrow;
@@ -457,9 +457,9 @@ void get_root(s,sroot,num)
   char me[100];
   *num=0;
   while(1){
-   
+
     if(!isdigit(s[i])){
-   
+
       break;
     }
     i--;
@@ -475,11 +475,11 @@ void get_root(s,sroot,num)
     for(j=i+1;j<n;j++)
       me[j-i-1]=s[j];
     me[n-i]=0;
-   /* plintf(" i=%d me=%s sroot=%s \n",i,me,sroot); */  
+   /* plintf(" i=%d me=%s sroot=%s \n",i,me,sroot); */
     *num=atoi(me);
   }
 }
-  
+
 void reset_aplot_axes(ap)
      APLOT ap;
 {
@@ -576,11 +576,11 @@ void gif_aplot_all(char *filename,int still)
  unsigned int h,w,bw,d;
  Window root;
  /* FILE *fp; */
- if(still==0) 
+ if(still==0)
    {
 
      if(aplot_range_count==0){
-     
+
        if((ap_fp=fopen(filename,"w"))==NULL){
 	 err_msg("Cannot open file ");
 	 return;
@@ -589,12 +589,12 @@ void gif_aplot_all(char *filename,int still)
      XGetGeometry(display,aplot.wplot,&root,&x,&y,&w,&h,&bw,&d);
      xi=XCreatePixmap(display,RootWindow(display,screen),w,h,
 		      DefaultDepth(display,screen));
-     XCopyArea(display,aplot.wplot,xi,aplot_gc,0,0,w,h,0,0); 
-     
+     XCopyArea(display,aplot.wplot,xi,aplot_gc,0,0,w,h,0,0);
+
      add_ani_gif(xi,ap_fp,aplot_range_count);
      XFreePixmap(display,xi);
      return;
-   } 
+   }
 
  if(still==1){
    if((ap_fp=fopen(filename,"w"))==NULL){
@@ -606,16 +606,16 @@ void gif_aplot_all(char *filename,int still)
    XGetGeometry(display,aplot.wplot,&root,&x,&y,&w,&h,&bw,&d);
   xi=XCreatePixmap(display,RootWindow(display,screen),w,h,
 		  DefaultDepth(display,screen));
- XCopyArea(display,aplot.wplot,xi,aplot_gc,0,0,w,h,0,0); 
+ XCopyArea(display,aplot.wplot,xi,aplot_gc,0,0,w,h,0,0);
  /*  XFlush(display); */
-  
-  /* screen_to_gif(aplot.wplot,fp); */  
-  screen_to_gif(xi,ap_fp);  
+
+  /* screen_to_gif(aplot.wplot,fp); */
+  screen_to_gif(xi,ap_fp);
   fclose(ap_fp);
   XFreePixmap(display,xi);
  }
 }
- 
+
 void gif_aplot()
 {
   /*char filename[256];*/
@@ -629,7 +629,7 @@ void gif_aplot()
 void grab_aplot_screen(ap)
      APLOT ap;
 {
- 
+
  Window temp=draw_win;
  draw_win=ap.wplot;
  if(film_clip()==0)
@@ -714,7 +714,7 @@ void display_aplot(w,ap)
      Window w;
 {
   char bob[200];
-  
+
   if(w==ap.wplot){
     draw_aplot(ap);
     return;
@@ -763,7 +763,7 @@ if(w==ap.wrange){
    return;
  }
   */
- 
+
 if(w==ap.wclose){
    XDrawString(display,w,small_gc,0,CURY_OFFs,"Close",5);
    return;

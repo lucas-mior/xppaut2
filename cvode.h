@@ -29,7 +29,7 @@
  *                                                                *
  ******************************************************************/
 
- 
+
 /******************************************************************
  *                                                                *
  * Enumerations for input parameters to CVodeMalloc and CVode.    *
@@ -78,16 +78,16 @@ enum { FUNCTIONAL, NEWTON };   /* iter */
 enum { SS, SV };               /* itol */
 
 enum { NORMAL, ONE_STEP };     /* itask */
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Type : RhsFn                                                   *
- *----------------------------------------------------------------*        
+ *----------------------------------------------------------------*
  * The f function which defines the right hand side of the ODE    *
  * system y'=f(t,y) must have type RhsFn.                         *
  * f takes as input the problem size N, the independent variable  *
- * value t, and the dependent variable vector y.  It stores the   * 
+ * value t, and the dependent variable vector y.  It stores the   *
  * result of f(t,y) in the vector ydot.  The y and ydot arguments *
  * are of type N_Vector.                                          *
  * (Allocation of memory for ydot is handled within CVODE.)       *
@@ -101,8 +101,8 @@ enum { NORMAL, ONE_STEP };     /* itask */
 
 typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
                       void *f_data);
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Function : CVodeMalloc                                         *
@@ -112,7 +112,7 @@ typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
  *                                                                *
  * N       is the number of equations in the ODE system.          *
  *                                                                *
- * f       is the right hand side function in y' = f(t,y).        *          
+ * f       is the right hand side function in y' = f(t,y).        *
  *                                                                *
  * t0      is the initial value of t.                             *
  *                                                                *
@@ -175,7 +175,7 @@ typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
  *       (*reltol) and either (*abstol), for a scalar absolute    *
  *       tolerance, or the components of abstol, for a vector     *
  *       absolute tolerance.                                      *
- *                                                                * 
+ *                                                                *
  * If successful, CVodeMalloc returns a pointer to initialized    *
  * problem memory. This pointer should be passed to CVode. If     *
  * an initialization error occurs, CVodeMalloc prints an error    *
@@ -188,8 +188,8 @@ void *CVodeMalloc(integer N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
                   int itol, real *reltol, void *abstol, void *f_data,
                   FILE *errfp, bool optIn,   int iopt[], real ropt[],
                   void *machEnv);
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Function : CVode                                               *
@@ -271,8 +271,8 @@ int CVode(void *cvode_mem, real tout, N_Vector yout, real *t, int itask);
 enum { SUCCESS=0, CVODE_NO_MEM=-1, ILL_INPUT=-2, TOO_MUCH_WORK=-3,
        TOO_MUCH_ACC=-4, ERR_FAILURE=-5, CONV_FAILURE=-6,
        SETUP_FAILURE=-7, SOLVE_FAILURE=-8 };
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Function : CVodeDky                                            *
@@ -309,7 +309,7 @@ enum { SUCCESS=0, CVODE_NO_MEM=-1, ILL_INPUT=-2, TOO_MUCH_WORK=-3,
  * BAD_DKY : The dky argument was NULL.                           *
  *                                                                *
  * DKY_NO_MEM : The cvode_mem argument was NULL.                  *
- *                                                                * 
+ *                                                                *
  ******************************************************************/
 
 
@@ -319,8 +319,8 @@ int CVodeDky(void *cvode_mem, real t, int k, N_Vector dky);
 /* CVodeDky return values */
 
 enum { OKAY=0, BAD_K=-1, BAD_T=-2, BAD_DKY=-3, DKY_NO_MEM=-4 };
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Function : CVodeFree                                           *
@@ -332,8 +332,8 @@ enum { OKAY=0, BAD_K=-1, BAD_T=-2, BAD_DKY=-3, DKY_NO_MEM=-4 };
  ******************************************************************/
 
 void CVodeFree(void *cvode_mem);
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Optional Inputs and Outputs                                    *
@@ -359,7 +359,7 @@ void CVodeFree(void *cvode_mem);
  *                the solver in its attempt to reach tout.        *
  *                Optional input. (Default = 500).                *
  *                                                                *
- * iopt[MXHNIL] : maximum number of warning messages issued       * 
+ * iopt[MXHNIL] : maximum number of warning messages issued       *
  *                by the solver that t+h==t on the next internal  *
  *                step. Optional input. (Default = 10).           *
  *                                                                *
@@ -420,7 +420,7 @@ void CVodeFree(void *cvode_mem);
 /* iopt, ropt array sizes */
 
 #define OPT_SIZE 40
- 
+
 
 /* iopt and ropt offsets                                          *
  * The constants CVODE_IOPT_SIZE and CVODE_ROPT_SIZE are equal to *
@@ -499,14 +499,14 @@ typedef struct CVodeMemRec {
   /* Step Data */
 
   int cv_q;         /* current order                           */
-  int cv_qprime;    /* order to be used on the next step       */ 
+  int cv_qprime;    /* order to be used on the next step       */
                     /* = q-1, q, or q+1                        */
   int cv_qwait;     /* number of internal steps to wait before */
                     /* considering a change in q               */
   int cv_L;         /* L = q + 1                               */
 
   real cv_h;        /* current step size                     */
-  real cv_hprime;   /* step size to be used on the next step */ 
+  real cv_hprime;   /* step size to be used on the next step */
   real cv_eta;      /* eta = hprime / h                      */
   real cv_hscale;   /* value of h used in zn                 */
   real cv_tn;       /* current internal value of t           */
@@ -560,7 +560,7 @@ typedef struct CVodeMemRec {
 
   int (*cv_lsetup)(struct CVodeMemRec *cv_mem, int convfail, N_Vector ypred,
 		   N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-		   N_Vector vtemp2, N_Vector vtemp3); 
+		   N_Vector vtemp2, N_Vector vtemp3);
 
   int (*cv_lsolve)(struct CVodeMemRec *cv_mem, N_Vector b, N_Vector ycur,
 		   N_Vector fcur);
@@ -569,7 +569,7 @@ typedef struct CVodeMemRec {
 
   /* Linear Solver specific memory */
 
-  void *cv_lmem;           
+  void *cv_lmem;
 
   /* Flag to indicate successful cv_linit call */
 
@@ -621,7 +621,7 @@ typedef struct CVodeMemRec {
  * NO_FAILURES : Either this is the first cv_setup call for this  *
  *               step, or the local error test failed on the      *
  *               previous attempt at this step (but the Newton    *
- *               iteration converged).                            * 
+ *               iteration converged).                            *
  *                                                                *
  * FAIL_BAD_J  : This value is passed to cv_lsetup if             *
  *                                                                *
@@ -655,9 +655,9 @@ typedef struct CVodeMemRec {
 
 /* Constants for convfail (input to cv_lsetup) */
 
-#define NO_FAILURES 0   
-#define FAIL_BAD_J  1  
-#define FAIL_OTHER  2  
+#define NO_FAILURES 0
+#define FAIL_BAD_J  1
+#define FAIL_OTHER  2
 
 
 /*******************************************************************

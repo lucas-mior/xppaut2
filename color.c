@@ -1,6 +1,6 @@
 #include "color.h"
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 
 
 #include <X11/Xlib.h>
@@ -122,7 +122,7 @@ void make_cmaps(r,g,b,n,type)
    i1=.375*n;
    i2=2*i1;
    i3=n-i2;
- 
+
    for(i=0;i<i1;i++){
      x=256*255*(double)i/((double)i1);
 
@@ -148,7 +148,7 @@ void make_cmaps(r,g,b,n,type)
      r[i]=(int)(256*255*x);
      b[i]=(int)(256*255*(1-x));
      g[i]=256*255;
-   
+
    }
    break;
  case C_REDBLUE:
@@ -157,10 +157,10 @@ void make_cmaps(r,g,b,n,type)
      r[i]=(int)(256*255*x);
      b[i]=(int)(256*255*(1-x));
      g[i]=0;
-   
+
    }
    break;
- 
+
  case C_GRAY:
    for(i=0;i<n;i++){
      r[i]=i*256*255/n;
@@ -193,8 +193,8 @@ void make_cmaps(r,g,b,n,type)
  }
 }
 
-/* this loads a color_map file and counts the 
-   entries. It then does a simple interpolation to fill  
+/* this loads a color_map file and counts the
+   entries. It then does a simple interpolation to fill
    n copies of rr,gg,bb
 */
 int read_cmap_from_file(char *fname,int n, int *rr, int *gg, int *bb)
@@ -221,14 +221,14 @@ int read_cmap_from_file(char *fname,int n, int *rr, int *gg, int *bb)
     bb[i]=256*255*b[j];
     gg[i]=256*255*g[j];
   }
-  return m;  
+  return m;
 }
-  
-  
+
+
  int rfun(y,per)
   double y;
   int per;
-{  
+{
   double x;
   x=y;
   if((y>.666666)&&(per==1))x=1.-y;
@@ -244,7 +244,7 @@ int gfun(y,per)
  if(y>.666666)return(0);
  return( (int)(3.*255*sqrt((.6666667-y)*(y))));
 }
- 
+
 int bfun(y,per)
 double y;
 int per;
@@ -259,7 +259,7 @@ void NewColormap(int type)
    if(TrueColorFlag==0){
    err_msg("New colormaps not supported without TrueColor");
    return;
-   } 
+   }
  custom_color=type;
  MakeColormap();
 }
@@ -274,7 +274,7 @@ void get_ps_color(int i,float *r,float *g,float *b)
 
 void get_svg_color(int i,int *r,int *g,int *b)
 {
-  
+
   *r=color[i].red/255;
     *g=color[i].green/255;
   *b=color[i].blue/255;
@@ -310,8 +310,8 @@ int r[256],g[256],b[256];
     color[i].green=0;
     	color[i].flags = DoRed | DoGreen | DoBlue;
     }
- 
-  
+
+
     color[RED].red=255;
     color[BLUE].blue=255;
     color[GREEN].green=225;
@@ -341,17 +341,17 @@ int r[256],g[256],b[256];
 	if (Xup){XAllocColor(display,cmap,&color[i]);}
 
     }
-    
+
    make_cmaps(r,g,b,color_total+1,custom_color);
     for (i = color_min; i <= color_max; i++) {
      color[i].red=r[i-color_min];
      color[i].green=g[i-color_min];
      color[i].blue=b[i-color_min];
-     
+
 	 	color[i].flags = DoRed | DoGreen | DoBlue;
 	if (Xup){XAllocColor(display,cmap,&color[i]);}
     }
-   
+
 }
 
 

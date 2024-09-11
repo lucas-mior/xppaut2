@@ -1,4 +1,4 @@
- 
+
 /****************************************************************
  *                                                              *
  * File          : vector.h                                     *
@@ -33,14 +33,14 @@
  *         N_VLinearSum(a,x,b,y,y);    y <- ax+by               *
  *                                                              *
  * is legal.                                                    *
- *                                                              * 
+ *                                                              *
  * This version of vector.h is for the ordinary sequential      *
  * machine environment. In the documentation given below, N is  *
  * the length of all N_Vector parameters and x[i] denotes the   *
  * ith component of the N_Vector x, where 0 <= i <= N-1.        *
  *                                                              *
  ****************************************************************/
- 
+
 
 #ifndef vector_h
 #define vector_h
@@ -54,7 +54,7 @@
 
 /* Environment: Sequential */
 
- 
+
 /***************************************************************
  *                                                             *
  * Type: N_Vector                                              *
@@ -73,8 +73,8 @@ typedef struct {
   integer length;
   real   *data;
 } *N_Vector;
- 
- 
+
+
 /***************************************************************
  *                                                             *
  * Macros: N_VMAKE, N_VDISPOSE, N_VDATA, N_VLENGTH, N_VIth     *
@@ -110,7 +110,7 @@ typedef struct {
  *     The assignment v_data=N_VDATA(v) sets v_data to be      *
  *     a pointer to the first component of v. The assignment   *
  *     N_VDATA(v)=v_data sets the component array of v to      *
- *     be v_data by storing the pointer v_data.                *  
+ *     be v_data by storing the pointer v_data.                *
  *                                                             *
  *     The assignment v_len=N_VLENGTH(v) sets v_len to be      *
  *     the length of v. The call N_VLENGTH(v)=len_v sets       *
@@ -144,7 +144,7 @@ typedef struct {
  * component memory is allocated and freed by the user of      *
  * this package.                                               *
  *                                                             *
- ***************************************************************/ 
+ ***************************************************************/
 
 #define N_VMAKE(v, v_data, v_len) v = (N_Vector) malloc(sizeof(*v)); \
                                   v->data   = v_data; \
@@ -157,11 +157,11 @@ typedef struct {
 #define N_VLENGTH(v) (v->length)
 
 #define N_VIth(v,i) ((v->data)[i])
- 
+
 
 /* Part II: N_Vector Kernel Prototypes (Machine Environment-Independent) */
 
- 
+
 /***************************************************************
  *                                                             *
  * Memory Allocation and Deallocation: N_VNew, N_VFree         *
@@ -199,8 +199,8 @@ N_Vector N_VNew(integer n, void *machEnv);
  ***************************************************************/
 
 void N_VFree(N_Vector x);
- 
- 
+
+
 /***************************************************************
  *                                                             *
  * N_Vector Arithmetic: N_VLinearSum, N_VConst, N_VProd,       *
@@ -293,8 +293,8 @@ void N_VInv(N_Vector x, N_Vector z);
  ***************************************************************/
 
 void N_VAddConst(N_Vector x, real b, N_Vector z);
- 
- 
+
+
 /***************************************************************
  *                                                             *
  * N_Vector Measures: N_VDotProd, N_VMaxNorm, VWrmsNorm,       *
@@ -367,8 +367,8 @@ real N_VWrmsNorm(N_Vector x, N_Vector w);
  ***************************************************************/
 
 real N_VMin(N_Vector x);
- 
- 
+
+
 /***************************************************************
  *                                                             *
  * Miscellaneous : N_VCompare, N_VInvTest                      *
@@ -401,8 +401,8 @@ void N_VCompare(real c, N_Vector x, N_Vector z);
  ***************************************************************/
 
 bool N_VInvTest(N_Vector x, N_Vector z);
- 
- 
+
+
 /***************************************************************
  *                                                             *
  * Debugging Tools : N_VPrint                                  *
@@ -423,6 +423,6 @@ bool N_VInvTest(N_Vector x, N_Vector z);
  ***************************************************************/
 
 void N_VPrint(N_Vector x);
- 
+
 
 #endif

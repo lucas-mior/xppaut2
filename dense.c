@@ -7,7 +7,7 @@
  * This is the implementation file for a generic DENSE linear     *
  * solver package.                                                *
  *                                                                *
- ******************************************************************/ 
+ ******************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +33,7 @@ DenseMat DenseAllocMat(integer N)
 
   A = (DenseMat) malloc(sizeof *A);
   if (A==NULL) return (NULL);
-  
+
   A->data = denalloc(N);
   if (A->data == NULL) {
     free(A);
@@ -93,7 +93,7 @@ void DenseFreeMat(DenseMat A)
 }
 
 void DenseFreePiv(integer *p)
-{  
+{
   free(p);
 }
 
@@ -155,9 +155,9 @@ integer gefa(real **a, integer n, integer *p)
     /* check for zero pivot element */
 
     if (col_k[l] == ZERO) return(k+1);
-    
+
     /* swap a(l,k) and a(k,k) if necessary */
-    
+
     if ((swap = (l != k))) {
       temp = col_k[l];
       col_k[l] = *diag_k;
@@ -229,9 +229,9 @@ void gesl(real **a, integer n, integer *p, real *b)
     for (i=k+1; i < n; i++)
       b[i] += mult*col_k[i];
   }
-  
+
   /* Solve Ux = y, store solution x in b */
-  
+
   for (k=n-1; k >= 0; k--) {
     col_k = a[k];
     b[k] /= col_k[k];
@@ -282,7 +282,7 @@ void denscale(real c, real **a, integer n)
 void denaddI(real **a, integer n)
 {
   integer i;
-  
+
   for (i=0; i < n; i++) a[i][i] += ONE;
 }
 

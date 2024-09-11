@@ -8,7 +8,7 @@
 #include "my_ps.h"
 #include "graphics.h"
 #include "auto_nox.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include "autlim.h"
 #include "load_eqn.h"
@@ -16,7 +16,7 @@
 int refresh_browser();
 extern int TypeOfCalc;
 extern ROTCHK blrtn;
-extern int PS_Color;  
+extern int PS_Color;
 
 extern float **storage;
 extern int storind;
@@ -45,7 +45,7 @@ void start_diagram(n)
   bifd->evi=DALLOC(n);
   bifd->norm=0;
   bifd->lab=0;
-   
+
   DiagFlag=0;
 }
 
@@ -87,7 +87,7 @@ int find_diagram(irs,n,index,ibr,ntot,itp,nfpar,a,uhi,ulo,u0,par,per,icp1,icp2,i
   }
   return(0);
 }
-    
+
 void edit_start(ibr,ntot,itp,lab,nfpar,a,uhi,ulo,u0,ubar,
 		par,per,n,icp1,icp2,icp3,icp4,evr,evi)
      int ibr,ntot,itp,lab,nfpar,n,icp1,icp2,icp3,icp4;
@@ -122,7 +122,7 @@ void edit_diagram(d,ibr,ntot,itp,lab,nfpar,a,uhi,ulo,u0,ubar,
   }
 
   d->per=per;
- 
+
   d->icp1=icp1;
   d->icp2=icp2;
   d->icp3=icp3;
@@ -138,7 +138,7 @@ void edit_diagram(d,ibr,ntot,itp,lab,nfpar,a,uhi,ulo,u0,ubar,
    }
   d->torper=tp;
 }
-  
+
 void add_diagram(ibr,ntot,itp,lab,nfpar,a,uhi,ulo,u0,ubar,
 		 par,per,n,icp1,icp2,icp3,icp4,flag2,evr,evi)
      int ibr,ntot,itp,lab,n,icp1,icp2,icp3,icp4,flag2,nfpar;
@@ -166,7 +166,7 @@ void add_diagram(ibr,ntot,itp,lab,nfpar,a,uhi,ulo,u0,ubar,
  NBifs++;
  edit_diagram(dnew,ibr,ntot,itp,lab,nfpar,a,uhi,ulo,u0,ubar,par,per,n,
 	      icp1,icp2,icp3,icp4,flag2,evr,evi,blrtn.torper);
- 
+
 }
 
 void kill_diagrams()
@@ -213,7 +213,7 @@ void redraw_diagram()
   if(d->next==NULL)return;
   while(1){
     type=get_bif_type(d->ibr,d->ntot,d->lab);
- 
+
     if(d->ntot==1)flag=0;
     else flag=1;
     add_point(d->par,d->per,d->uhi,d->ulo,d->ubar,d->norm,type,flag,
@@ -248,12 +248,12 @@ void write_info_out()
     err_msg("Can't open file");
     return;
   }
-  
+
   d=bifd;
   if(d->next==NULL)return;
  while(1){
     type=get_bif_type(d->ibr,d->ntot,d->lab);
-    
+
     /*if(d->ntot==1)flag=0;
     else flag=1;
     */
@@ -269,9 +269,9 @@ void write_info_out()
     par1=par[icp1];
     if(icp2<NAutoPar)
       par2=par[icp2];
-    else 
+    else
       par2=par1;
-     
+
     fprintf(fp,"%d %d %d %g %g %g ",
 	    type,d->ibr,d->flag2,par1,par2,per);
     for(i=0;i<NODE;i++)
@@ -279,7 +279,7 @@ void write_info_out()
     for(i=0;i<NODE;i++)
       fprintf(fp,"%g ",ulow[i]);
     for(i=0;i<NODE;i++)
-      fprintf(fp,"%g %g ",d->evr[i],d->evi[i]); 
+      fprintf(fp,"%g %g ",d->evr[i],d->evi[i]);
     fprintf(fp,"\n");
     d=d->next;
     if(d==NULL)break;
@@ -319,11 +319,11 @@ void load_browser_with_branch(int ibr,int pts,int pte)
       par=d->par;
       per=d->per;
       u0=d->u0;
-    
+
       par1=par[icp1];
       if(icp2<NAutoPar)
 	par2=par[icp2];
-      else 
+      else
 	par2=par1;
       storage[0][j]=par1;
       for(i=0;i<NODE;i++)
@@ -332,7 +332,7 @@ void load_browser_with_branch(int ibr,int pts,int pte)
     }
     d=d->next;
     if(d==NULL)break;
-        
+
  }
  storind=nrows;
  refresh_browser(nrows);
@@ -362,12 +362,12 @@ void write_init_data_file()
     err_msg("Can't open file");
     return;
   }
-  
+
   d=bifd;
   if(d->next==NULL)return;
  while(1){
     type=get_bif_type(d->ibr,d->ntot,d->lab);
-    
+
     /*if(d->ntot==1)flag=0;
     else flag=1;
     Unused here?
@@ -379,22 +379,22 @@ void write_init_data_file()
     /*
     uhigh=d->uhi;
     ulow=d->ulo;
-    ubar=d->ubar; 
+    ubar=d->ubar;
     Unused here??
     */
     u0=d->u0;
-    
+
     /*
     a=d->norm;
-    
+
     Unused here??
     */
     par1=par[icp1];
     if(icp2<NAutoPar)
       par2=par[icp2];
-    else 
+    else
       par2=par1;
-     
+
     /* fprintf(fp,"%d %d %g %g %g ",
        type,d->ibr,par1,par2,per); */
     fprintf(fp,"%g ",par1);
@@ -431,15 +431,15 @@ void write_pts()
     err_msg("Can't open file");
     return;
   }
-  
+
   d=bifd;
   if(d->next==NULL)return;
   while(1){
     type=get_bif_type(d->ibr,d->ntot,d->lab);
-    
+
     /*if(d->ntot==1)flag=0;
     else flag=1;
-    
+
     Unused here??
     */
     icp1=d->icp1;
@@ -454,11 +454,11 @@ void write_pts()
     if(icp2<NAutoPar)
       par2=par[icp2];
 
-    /* now we have to check is the diagram parameters correspond to the 
-       current view 
+    /* now we have to check is the diagram parameters correspond to the
+       current view
     */
     if(check_plot_type(d->flag2,icp1,icp2)==1){
-      auto_xy_plot(&x,&y1,&y2,par1,par2,per,uhigh,ulow,ubar,a); 
+      auto_xy_plot(&x,&y1,&y2,par1,par2,per,uhigh,ulow,ubar,a);
       fprintf(fp,"%g %g %g %d %d %d\n",
 	      x,y1,y2,type,abs(d->ibr),d->flag2);
     }
@@ -532,7 +532,7 @@ void svg_auto()
     if(d==NULL)break;
   }
   svg_end();
-  
+
   set_normal_scale();
 }
 
@@ -544,7 +544,7 @@ void bound_diagram(xlo,xhi,ylo,yhi)
 {
   DIAGRAM *d;
   int type;
-  
+
   /*int flag=0;
   */
   double x,y1,y2,par1,par2=0.0;
@@ -589,12 +589,12 @@ int save_diagram(fp,n)
     return(-1);
   d=bifd;
   while(1){
-    fprintf(fp,"%d %d %d %d %d %d %d %d %d %d %d %d\n", 
+    fprintf(fp,"%d %d %d %d %d %d %d %d %d %d %d %d\n",
 	    d->calc,d->ibr,d->ntot,d->itp,d->lab,d->index,d->nfpar,
 	    d->icp1,d->icp2,d->icp3,d->icp4,d->flag2);
     for(i=0;i<8;i++)fprintf(fp,"%g ",d->par[i]);
     fprintf(fp,"%g %g \n",d->norm,d->per);
-    
+
     for(i=0;i<n;i++)fprintf(fp,"%f %f %f %f %f %f\n",d->u0[i],d->uhi[i],d->ulo[i],
 			    d->ubar[i],d->evr[i],d->evi[i]);
     d=d->next;
@@ -602,12 +602,12 @@ int save_diagram(fp,n)
   }
   return(1);
 }
- 
 
 
 
 
- 
+
+
 int load_diagram(fp,node)
      FILE *fp;
      int node;
@@ -621,7 +621,7 @@ int load_diagram(fp,node)
 /*    start_diagram(NODE); */
     return(-1);
   }
-    
+
   while(1){
     fscanf(fp,"%d %d %d %d %d %d %d %d %d %d %d %d",
 	   &calc,&ibr,&ntot,&itp,&lab,&index,&nfpar,
@@ -644,7 +644,7 @@ int load_diagram(fp,node)
     return(1);
 
 }
-  
+
 
 
 

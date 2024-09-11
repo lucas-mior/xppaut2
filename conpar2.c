@@ -33,7 +33,7 @@ void *conpar_process(void * arg)
 {
   integer icf_dim1, irf_dim1, d_dim1;
   integer a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
-  
+
   /* Local variables */
   integer ipiv, jpiv, itmp;
   doublereal tpiv;
@@ -94,7 +94,7 @@ void *conpar_process(void * arg)
   /* Note that the summation of the adjacent overlapped part of C */
   /* is delayed until REDUCE, in order to merge it with other communications.*/
   /* NA is the local NTST. */
-  
+
   irf_dim1 = *nra;
   icf_dim1 = *nca;
   d_dim1 = *ncb;
@@ -105,7 +105,7 @@ void *conpar_process(void * arg)
   b_dim2 = *nra;
   c_dim1 = *nca;
   c_dim2 = *nrc;
-  
+
   /* Condensation of parameters (Elimination of local variables). */
   m1 = *nov + 1;
   m2 = *nca - *nov;
@@ -180,7 +180,7 @@ void *conpar_process(void * arg)
 	      c[-1 + icf_l_i + c_offset1] -= rm * a[-1 + icf_l_i + a_offset2];
 	    }
 	    for (l = 0; l < *ncb; ++l) {
-	      /* 
+	      /*
 		 A little explanation of what is going on here
 		 is in order I believe.  This array is
 		 created by a summation across all workers,
@@ -222,7 +222,7 @@ void *conpar_process(void * arg)
 
 
 
-int 
+int
 conpar_default_wrapper(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, integer *ncb, doublereal *b, integer *nbc, integer *nrc, doublereal *c, doublereal *d, integer *irf, integer *icf)
 
 {
@@ -246,12 +246,12 @@ conpar_default_wrapper(integer *nov, integer *na, integer *nra, integer *nca, do
 }
 
 
-int 
+int
 conpar(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, integer *ncb, doublereal *b, integer *nbc, integer *nrc, doublereal *c, doublereal *d, integer *irf, integer *icf)
 {
   /* Aliases for the dimensions of the arrays */
   integer icf_dim1, irf_dim1;
-  
+
   /* Local variables */
   integer i,j;
   integer nex;
@@ -265,7 +265,7 @@ conpar(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, int
   if (nex == 0) {
     return 0;
   }
-  
+
   /*     Initialization */
   for (i = 0; i <*na; ++i) {
     for (j = 0; j < *nra; ++j) {
@@ -278,12 +278,12 @@ conpar(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, int
 
   switch(global_conpar_type) {
   default:
-    conpar_default_wrapper(nov, na, nra, nca, a, 
+    conpar_default_wrapper(nov, na, nra, nca, a,
 			    ncb, b, nbc, nrc, c, d,irf, icf);
     break;
   }
   return 0;
-} 
+}
 
 
 

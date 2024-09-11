@@ -1,11 +1,11 @@
-#include <stdlib.h>  
+#include <stdlib.h>
 
 #include <sys/wait.h>
 #include <unistd.h>
-/* the menu for XPP commands 
+/* the menu for XPP commands
    this calls any command
    it also has lots of the direct X Gui stuff
-   
+
 */
 
 #include "browse.h"
@@ -46,7 +46,7 @@ extern char *info_message,*ic_hint[],*sing_hint[],
 *null_hint[],*flow_hint[],*null_freeze[], *bvp_hint[],*color_hint[],
   *stoch_hint[];
 extern char *no_hint[],*wind_hint[],*view_hint[],*frz_hint[];
-extern char *graf_hint[], *cmap_hint[],*half_hint[],*map_hint[]; 
+extern char *graf_hint[], *cmap_hint[],*half_hint[],*map_hint[];
 extern char *text_hint[];
 extern char *edit_hint[];
 extern char *adj_hint[];
@@ -60,7 +60,7 @@ extern int DisplayHeight,DisplayWidth;
 extern int AutoFreezeFlag,NTable;
 extern Display *display;
 extern int screen;
-int status; 
+int status;
 
 extern int TORUS;
 typedef struct {
@@ -120,12 +120,12 @@ void edit_xpprc()
 		sprintf(rc,"%s/.xpprc",getenv("HOME"));
 		
 		char *const args[] = {editor,rc,NULL};
-	        execvp(editor,args); 
+	        execvp(editor,args);
 		wait(&child_status);
 		return;
 	}
 	else
-	{    
+	{
 		if (child_pid == -1)
 		{
 		 	err_msg("Unable to fork process for editor.");
@@ -145,27 +145,27 @@ void xpp_hlp()
   	err_msg("Environment variable XPPHELP undefined.");
     	return;
   }
-  
+
   if (getenv("XPPBROWSER")==NULL)
   {
     	err_msg("Environment variable XPPBROWSER undefined.");
     	return;
   }
-  
+
   sprintf(cmd,"file:///%s",getenv("XPPHELP"));
-  
+
   if(fork()==0){
-    
-           execlp(getenv("XPPBROWSER"),getenv("XPPHELP"),cmd,(char *)0); 
+
+           execlp(getenv("XPPBROWSER"),getenv("XPPHELP"),cmd,(char *)0);
       perror("Unable to open browser. Check your XPPBROWSER and XPPHELP environement variables.");
-      exit(1); 
+      exit(1);
   }
-  else 
-  { 
+  else
+  {
       wait(&status);
-      
-  } 
- 
+
+  }
+
 }
 
 
@@ -175,12 +175,12 @@ void MessageBox(char *m)
  int hgt=4*DCURY;
  MsgBox.w=make_plain_window(RootWindow(display,screen),
 		      DisplayWidth/2,DisplayHeight/2, wid,hgt,4);
-		      
+		
  make_icon((char*)alert_bits,alert_width,alert_height,MsgBox.w);
  MsgBox.here=1;
  set_window_title(MsgBox.w,"Yo!");
  strcpy(MsgBox.text,m);
- ping(); 
+ ping();
 
 }
 void RedrawMessageBox(Window w)
@@ -201,7 +201,7 @@ void KillMessageBox()
 int TwoChoice(char *c1,char *c2, char *q,char *key)
 {
  return two_choice(c1,c2,q,key,DisplayWidth/2,DisplayHeight/2,
-		   RootWindow(display,screen),NULL); 
+		   RootWindow(display,screen),NULL);
 }
 int GetMouseXY(int *x,int *y)
 {
@@ -228,17 +228,17 @@ void drw_all_scrns(){
     manual_expose=me;
  return;
  }
- 
+
  for(i=0;i<num_pops;i++){
    make_active(ActiveWinList[i],1);
    redraw_all();
  }
- 
+
  make_active(ic,1);
  hi_lite(draw_win);
      manual_expose=me;
 }
- 
+
 void clr_all_scrns()
 {
  int i;
@@ -248,12 +248,12 @@ void clr_all_scrns()
  hi_lite(draw_win);
  return;
  }
- 
+
  for(i=0;i<num_pops;i++){
    make_active(ActiveWinList[i],1);
    clr_scrn();
  }
- 
+
  make_active(ic,1);
  hi_lite(draw_win);
 }
@@ -270,7 +270,7 @@ void run_the_commands(int com)
     cont_integ();
     return;
   }
-  
+
   if(com>=M_SG&&com<=M_SC){
     find_equilib_com(com-M_SG);
     return;
@@ -286,7 +286,7 @@ void run_the_commands(int com)
     if((com-M_DD)==1)
       return;
     create_new_cline();
-    redraw_the_graph(); 
+    redraw_the_graph();
     /*redraw_dfield();*/
 	/*create_new_cline();
 	run_now();*/
@@ -316,11 +316,11 @@ void run_the_commands(int com)
   if(com>=M_GCN&&com<=M_GCU){
     change_cmap_com(com-M_GCN);
     redraw_dfield();
-    
+
     return;
   }
 
-  
+
   if(com==M_GFKK||com==M_GFKN){
     key_frz_com(com-M_GFKN);
     return;
@@ -364,7 +364,7 @@ void run_the_commands(int com)
     do_file_com(com);
     return;
   }
-  
+
   if(com>=M_TT&&com<=M_TS){
     do_gr_objs_com(com-M_TT);
     return;
@@ -377,8 +377,8 @@ void run_the_commands(int com)
     find_bvp_com(com-M_BR);
     return;
   }
-  
-  
+
+
   if(com>=M_V2&&com<=M_VT)change_view_com(com-M_V2);
   if(com>=M_UAN&&com<=M_UAR)make_adj_com(com-M_UAN);
   if(com>=M_UCN&&com<=M_UCA)set_col_par_com(com-M_UCN);
@@ -436,7 +436,7 @@ void set_col_par()
     if(ch==key[i])break;
   if(i>=0&&i<3)run_the_commands(i+M_UCN);
 }
-  
+
 void make_adj()
 {
  Window temp=main_win;
@@ -458,19 +458,19 @@ void do_file_com(int com)
   case M_FT:
     do_transpose();
     break;
-  case M_FG: 
+  case M_FG:
     get_intern_set();
     break;
-  case M_FI:  
+  case M_FI:
     TipsFlag=1-TipsFlag;
     break;
   case M_FP:
     make_txtview();
     break;
-  case M_FW: 
+  case M_FW:
     do_lunch(0);
     break;
-  case M_FS: 
+  case M_FS:
     file_inf();
     break;
   case M_FA:
@@ -484,7 +484,7 @@ void do_file_com(int com)
   case M_FR:
     do_lunch(1);
     break;
-  case M_FB: 
+  case M_FB:
     tfBell=1-tfBell;
     break;
   case M_FH:
@@ -497,7 +497,7 @@ void do_file_com(int com)
   case M_FU:
     do_tutorial();
     break;
-  case M_FQ: 
+  case M_FQ:
     if(yes_no_box())bye_bye();
     break;
   case M_FER:
@@ -515,7 +515,7 @@ void do_file_com(int com)
   case M_FL:
     clone_ode();
   break;
-                
+
   }
 }
 
@@ -589,10 +589,10 @@ void change_view()
 {
 Window temp=main_win;
  static char *n[]={"2D" ,"3D","Array","Toon"};
- static char key[]="23at"; 
+ static char key[]="23at";
  char ch;
  int i;
- 
+
  ch=(char)pop_up_list(&temp,"Axes",n,key,4,5,0,10,13*DCURY+8,
 		      view_hint,info_pop,info_message);
  for(i=0;i<4;i++)
@@ -626,7 +626,7 @@ char ch;
  if(i>=0&&i<7)
    run_the_commands(M_MC+i);
 }
- 
+
 
 void add_a_curve()
 {
@@ -635,7 +635,7 @@ void add_a_curve()
 		     "(E)dit curve", "(P)ostscript","S(V)G","(F)reeze","a(X)es opts",
 		     "exp(O)rt data", "(C)olormap"};
   static char *nc[]={"(N)ormal","(P)eriodic","(H)ot","(C)ool","(B)lue-red",
-		     "(G)ray","c(U)behelix"};  
+		     "(G)ray","c(U)behelix"};
   static char *nf[]={"(F)reeze","(D)elete","(E)dit","(R)emove all","(K)ey",
 		 "(B)if.Diag","(C)lr. BD","(O)n freeze"};
   static char *nf2[]={"(F)reeze","(D)elete","(E)dit","(R)emove all","(K)ey",
@@ -654,7 +654,7 @@ void add_a_curve()
     if(ch==keya[i])
       break;
   if(i==6){
-    if(AutoFreezeFlag==0)  
+    if(AutoFreezeFlag==0)
       ch=(char)pop_up_list(&temp,"Freeze",nf,keyf,8,15,0,10,8*DCURY+8,
 			   frz_hint,info_pop,info_message);
     else
@@ -747,7 +747,7 @@ for(i=0;i<6;i++)
 if(i>=0&&i<6)
   run_the_commands(M_WW+i);
 }
-  
+
 void direct_field()
 {
   int i;
@@ -800,7 +800,7 @@ void froz_cline_stuff()
 }
 
 void find_equilibrium()
-{ 
+{
   int i;
   static char *n[]={"(G)o","(M)ouse","(R)ange","monte(C)ar"};
   static char key[]="gmrc";
@@ -818,10 +818,10 @@ void find_equilibrium()
  if(i>-1&&i<4)
    run_the_commands(i+M_SG);
 }
- 
+
 void ini_data_menu()
 {
- 
+
  int i;
 Window temp=main_win;
  static char *n[]={"(R)ange","(2)par range","(L)ast","(O)ld","(G)o","(M)ouse","(S)hift","(N)ew",
@@ -834,15 +834,15 @@ Window temp=main_win;
 
  if(ch==27)
     return;
-   
+
   for(i=0;i<14;i++){
     if(ch==key[i])
       break;
   }
- 
+
  run_the_commands(i);
- 
- 
+
+
 }
 
 void new_param()

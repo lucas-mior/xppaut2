@@ -17,7 +17,7 @@
 #define KERTYPE 10
 #define VECTYPE 13  /* for vectorized stuff */
 #define EVECTYPE 14 /* treat vector like a function */
-#define MAXTYPE 20000000  /* this is the maximum number of named stuff */ 
+#define MAXTYPE 20000000  /* this is the maximum number of named stuff */
 
 
 
@@ -89,7 +89,7 @@ typedef struct {
 
 
 
-#define VECT_ROOT 500 
+#define VECT_ROOT 500
 
 
 

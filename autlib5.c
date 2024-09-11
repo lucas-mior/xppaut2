@@ -66,7 +66,7 @@ struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -97,13 +97,13 @@ fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /*--f;*/
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
 /* Generate the function. */
 
-  ffho(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffho(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -129,9 +129,9 @@ fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffho(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffho(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffho(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffho(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -140,7 +140,7 @@ fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    ffho(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+    ffho(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
 	 ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -153,7 +153,7 @@ fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -178,7 +178,7 @@ ffho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /*--f;*/
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   ndm = iap->ndm;
 
   if (blhom_1.itwist == 0) {
@@ -214,7 +214,7 @@ ffho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -233,13 +233,13 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   uu1=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   uu2=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfu=(doublereal *)malloc(sizeof(doublereal)*(iap->nbc)*(2*iap->ndim+NPARX));
-		     
+		
 
 
 
 
 
-/* Generates the boundary conditions for homoclinic bifurcation analysis 
+/* Generates the boundary conditions for homoclinic bifurcation analysis
 */
 
 /* Local */
@@ -251,7 +251,7 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /*--u0;*/
     /*--u1;*/
   dbc_dim1 = nbc;
-  
+
   nbc0 = iap->nbc0;
   nfpr = iap->nfpr;
 
@@ -286,9 +286,9 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     uu1[i] -= ep;
     uu2[i] += ep;
-    fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu1, u1, 
+    fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu1, u1,
 	 ff1, dfu);
-    fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu2, u1, 
+    fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu2, u1,
 	 ff2, dfu);
     for (j = 0; j < nbc; ++j) {
       ARRAY2D(dbc, j, i) = (ff2[j] - ff1[j]) / (ep * 2);
@@ -312,9 +312,9 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     uu1[i] -= ep;
     uu2[i] += ep;
-    fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu1, 
+    fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu1,
 	 ff1, dfu);
-    fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu2, 
+    fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu2,
 	 ff2, dfu);
     for (j = 0; j < nbc; ++j) {
       ARRAY2D(dbc, j, (ndim + i)) = (ff2[j] - ff1[j]) / (ep * 2);
@@ -341,13 +341,13 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, integer nbc0, const doublereal *u0, const doublereal *u1, doublereal *fb, doublereal *dbc)
 {
   /* System generated locals */
   integer dbc_dim1;
 
-  
+
 
 
     /* Local variables */
@@ -403,7 +403,7 @@ fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /*--u1;*/
     /*--fb;*/
   dbc_dim1 = nbc;
-  
+
   ndm = iap->ndm;
 
   /*     *Initialization */
@@ -477,7 +477,7 @@ fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     ieig = 0;
     ineig = 0;
-    /*        *NFIXED extra boundary conditions for the fixed conditions 
+    /*        *NFIXED extra boundary conditions for the fixed conditions
      */
     if (blhom_1.nfixed > 0) {
       if (ieig == 0) {
@@ -524,7 +524,7 @@ fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     /*        *boundary conditions for normal vector */
     if (blhom_1.itwist == 1) {
-      /*           *-orthogonal to the unstable directions of A  at t=0 
+      /*           *-orthogonal to the unstable directions of A  at t=0
        */
       prjcti(bound, xequib1, icp, par, 1, 1, 2, &ndm);
       for (i = ndm - blhom_1.nunstab; i < ndm; ++i) {
@@ -596,7 +596,7 @@ fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
       }
       jb = ndm + 1;
     }
-    /*        *Projection boundary conditions for the homoclinic orbit at 
+    /*        *Projection boundary conditions for the homoclinic orbit at
 t=1 */
     if (ineig == 0) {
       eighi(1, 1, rr, ri, vt, xequib2, icp, par, &ndm);
@@ -659,7 +659,7 @@ t=1 */
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -693,13 +693,13 @@ icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /*--upold;*/
     /*--f;*/
   dint_dim1 = nint;
-  
+
   nnt0 = iap->nnt0;
   nfpr = iap->nfpr;
 
 /* Generate the function. */
 
-  fiho(iap, rap, ndim, par, icp, nint, nnt0, u, uold, 
+  fiho(iap, rap, ndim, par, icp, nint, nnt0, u, uold,
        udot, upold, f, dfu);
 
   if (ijac == 0) {
@@ -741,7 +741,7 @@ icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    fiho(iap, rap, ndim, par, icp, nint, nnt0, u, 
+    fiho(iap, rap, ndim, par, icp, nint, nnt0, u,
 	 uold, udot, upold, ff1, dfu);
     for (j = 0; j < nint; ++j) {
       ARRAY2D(dint, j, ndim + icp[i]) = (ff1[j] - f[j]) / ep;
@@ -759,7 +759,7 @@ icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, integer nnt0, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *fi, doublereal *dint)
 {
   /* System generated locals */
@@ -788,7 +788,7 @@ fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   /*--upold;*/
   /*--fi;*/
   dint_dim1 = nint;
-    
+
   ndm = iap->ndm;
   jb = 0;
 
@@ -817,7 +817,7 @@ fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   /* User-defined integral constraints */
 
   if (jb < nint) {
-    icnd(ndm, par, icp, nint, u, uold, udot, 
+    icnd(ndm, par, icp, nint, u, uold, udot,
 	 upold, ijac, fj, dint);
     for (i = 0; i < nint - jb; ++i) {
       fi[i + jb] = fj[i];
@@ -829,7 +829,7 @@ fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 inho(iap_type *iap, integer *icp, doublereal *par)
 {
 
@@ -849,7 +849,7 @@ inho(iap_type *iap, integer *icp, doublereal *par)
   free(bleig_1.v);
   free(bleig_1.vt);
   free(bleig_1.xequib);
-    
+
   free(blhme_1.vrprev);
   free(blhme_1.ieigc);
 
@@ -870,7 +870,7 @@ inho(iap_type *iap, integer *icp, doublereal *par)
        have created it. */
   for(i=0;i<4;i++)
     beyn_1.iflag[i]=0;
-    
+
 
 /* Reads from fort.11 specific constants for homoclinic continuation. */
 /* Sets up re-defined constants in IAP. */
@@ -882,9 +882,9 @@ inho(iap_type *iap, integer *icp, doublereal *par)
     /* Parameter adjustments */
     /*--par;*/
     /*--icp;*/
-    
 
-    
+
+
   ndim = iap->ndim;
   irs = iap->irs;
   isw = iap->isw;
@@ -905,8 +905,8 @@ inho(iap_type *iap, integer *icp, doublereal *par)
   /* updated reading in of constants for reversible equations */
   /* replaces location in datafile of compzero */
 
- 
-    
+
+
   ndim = ndm * (blhom_1.itwist + 1);
   /* Allocate memory for global structures.  We didn't know the
      size for these until ndim was computed. */
@@ -924,8 +924,8 @@ inho(iap_type *iap, integer *icp, doublereal *par)
 
   beyn_1.cprev   = (doublereal *)malloc(sizeof(doublereal)*2*2*(ndim)*(ndim));
 
- 
- 
+
+
   nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
   bcnn_1.nbcn = nbc;
 
@@ -998,7 +998,7 @@ inho(iap_type *iap, integer *icp, doublereal *par)
 
 
 /*     ---------- ----- */
-/* Subroutine */ int 
+/* Subroutine */ int
 preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs, doublereal *ups, doublereal *udotps, doublereal *tm, doublereal *par)
 {
   /* System generated locals */
@@ -1014,7 +1014,7 @@ preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs,
   integer ist;
 
 
-  
+
 
 /* Preprocesses (perturbs) restart data to enable */
 /* initial computation of the adjoint variable */
@@ -1025,7 +1025,7 @@ preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs,
     /*--par;*/
   udotps_dim1 = *ndx;
   ups_dim1 = *ndx;
-    
+
   if (*nar < *ndim) {
     for (j = 0; j < *ntsr; ++j) {
       for (i = 0; i < *ncolrs; ++i) {
@@ -1111,7 +1111,7 @@ preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs,
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnho(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
   /* System generated locals */
@@ -1141,7 +1141,7 @@ stpnho(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
     /*--dtm;*/
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-    
+
   ndim = iap->ndim;
   ntst = iap->ntst;
   ncol = iap->ncol;
@@ -1187,7 +1187,7 @@ stpnho(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
 
 /*     ---------- ----- */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t)
 {
     /* Local variables */
@@ -1219,9 +1219,9 @@ stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t
     /*--par;*/
     /*--u;*/
     /*--icp;*/
-    
 
-    
+
+
   ndm = iap->ndm;
 
   /* Initialize parameters */
@@ -1310,7 +1310,7 @@ stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t
   for (i = 0; i < blhom_1.nunstab; ++i) {
     par[ip + i] = 0.;
     for (j = 0; j < ndm; ++j) {
-      par[ip + i] += vr[blhom_1.nstab + j * (iap->ndm)] * par[-1 + kp] * par[kp] * exp(rr[blhom_1.nstab] * par[10]) * 
+      par[ip + i] += vr[blhom_1.nstab + j * (iap->ndm)] * par[-1 + kp] * par[kp] * exp(rr[blhom_1.nstab] * par[10]) *
 	vt[blhom_1.nstab + i + j * (iap->ndm)];
     }
   }
@@ -1327,13 +1327,13 @@ stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndxloc, doublereal *ups, integer *ndim, doublereal *p0, doublereal *p1, doublereal *par)
 {
-  
+
 
   /* System generated locals */
-  integer ups_dim1, p0_dim1, p1_dim1;    
+  integer ups_dim1, p0_dim1, p1_dim1;
 
     /* Local variables */
   integer i, j;
@@ -1350,11 +1350,11 @@ pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
   ups_dim1 = *ndxloc;
   p1_dim1 = *ndim;
   p0_dim1 = *ndim;
-  
+
   iid = iap->iid;
   ndm = iap->ndm;
 
-  pvlsbv(iap, rap, icp, dtm, ndxloc, ups, ndim, 
+  pvlsbv(iap, rap, icp, dtm, ndxloc, ups, ndim,
 	 p0, p1, par);
 
   /*      *Compute eigenvalues */
@@ -1362,7 +1362,7 @@ pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
   for (i = 0; i < ndm; ++i) {
     bleig_1.xequib[i] = par[i + 11];
   }
-  eighi(1, 2, bleig_1.rr, bleig_1.ri, bleig_1.v, bleig_1.xequib, 
+  eighi(1, 2, bleig_1.rr, bleig_1.ri, bleig_1.v, bleig_1.xequib,
 	icp, par, &ndm);
   if (iid >= 3) {
     fprintf(fp9,"EIGENVALUES\n");	
@@ -1371,10 +1371,10 @@ pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
     }
   }
   if (blhom_1.itwist == 1) {
-    eighi(1, 1, bleig_1.rr, bleig_1.ri, bleig_1.vt, 
+    eighi(1, 1, bleig_1.rr, bleig_1.ri, bleig_1.vt,
 	  bleig_1.xequib, icp, par, &ndm);
     bleig_1.ineig = 1;
-    orient = psiho(iap, 0, bleig_1.rr, bleig_1.ri, bleig_1.v, 
+    orient = psiho(iap, 0, bleig_1.rr, bleig_1.ri, bleig_1.v,
 		   bleig_1.vt, icp, par);
     if (iid >= 3) {
       if (orient < 0.) {
@@ -1387,7 +1387,7 @@ pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
 
   for (i = 0; i < blhom_1.npsi; ++i) {
     if (blhmp_1.ipsi[i] > 10 && bleig_1.ineig == 0) {
-      eighi(1, 1, bleig_1.rr, bleig_1.ri, bleig_1.vt, 
+      eighi(1, 1, bleig_1.rr, bleig_1.ri, bleig_1.vt,
 	    bleig_1.xequib, icp, par, &ndm);
       bleig_1.ineig = 1;
     }
@@ -1405,7 +1405,7 @@ pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
 
 
 /*     -------- ------- -------- ----- */
-doublereal 
+doublereal
 psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublereal *v, doublereal *vt, const integer *icp, doublereal *par)
 {
   /* System generated locals */
@@ -1418,7 +1418,7 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
   integer ndm;
   doublereal dum1, dum2;
 
-  f0 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm));    
+  f0 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm));
   f1 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm));
 
 /* The conditions for degenerate homoclinic orbits are given by PSI(IS)=0.
@@ -1444,9 +1444,9 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
     /*--rr;*/
   vt -= ((iap->ndm)+1);
   v -= ((iap->ndm)+1);
-    
 
-    
+
+
   ndm = iap->ndm;
 
   func(ndm, blhmu_1.pu0, icp, par, 0, f0, &dum1, &dum2);
@@ -1511,7 +1511,7 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
   /* Resonant eigenvalues (neutral saddle) */
 
  L1:
-  ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + ri[-1 + blhom_1.nstab] + 
+  ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + ri[-1 + blhom_1.nstab] +
     ri[blhom_1.nstab];
   return ret_val;
 
@@ -1608,7 +1608,7 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
   ret_val *= exp(par[10] * rr[blhom_1.nstab] / 2.);
   return ret_val;
 
-  /* Inclination flip (critically twisted) with respect to stable manifold 
+  /* Inclination flip (critically twisted) with respect to stable manifold
 */
 /*   e.g. 1D unstable manifold */
 
@@ -1651,7 +1651,7 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
 
 
 /*     ---------- ----- */
-/* Subroutine */ int 
+/* Subroutine */ int
 eighi(integer isign, integer itrans, doublereal *rr, doublereal *ri, doublereal *vret, doublereal *xequib, const integer *icp, doublereal *par, integer *ndm)
 {
   doublereal *dfdp, *dfdu;
@@ -1672,7 +1672,7 @@ eighi(integer isign, integer itrans, doublereal *rr, doublereal *ri, doublereal 
 
 
 /*     ---------- ----- */
-/* Subroutine */ int 
+/* Subroutine */ int
 eigho(integer *isign, integer *itrans, doublereal *rr, doublereal *ri, doublereal *vret, doublereal *xequib, const integer *icp, doublereal *par, integer *ndm, doublereal *dfdu, doublereal *dfdp, doublereal *zz)
 {
   /* System generated locals */
@@ -1731,10 +1731,10 @@ eigho(integer *isign, integer *itrans, doublereal *rr, doublereal *ri, doublerea
   zz_dim1 = *ndm;
   dfdp_dim1 = *ndm;
   dfdu_dim1 = *ndm;
-    
+
   ifail = 0;
 
-  func(*ndm, xequib, icp, par, 1, f, dfdu, 
+  func(*ndm, xequib, icp, par, 1, f, dfdu,
        dfdp);
 
   if (*itrans == 1) {
@@ -1751,7 +1751,7 @@ eigho(integer *isign, integer *itrans, doublereal *rr, doublereal *ri, doublerea
   }
 
   /* EISPACK call for eigenvalues and eigenvectors */
-  rg(*ndm, *ndm, dfdu, rr, ri, 1, zz, 
+  rg(*ndm, *ndm, dfdu, rr, ri, 1, zz,
      iv1, fv1, &ifail);
 
   if (ifail != 0) {
@@ -1861,16 +1861,16 @@ eigho(integer *isign, integer *itrans, doublereal *rr, doublereal *ri, doublerea
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 prjcti(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *par, integer imfd, integer is, integer itrans, integer *ndm)
 {
   doublereal *dfdp, *dfdu;
-  
+
   dfdp = (doublereal *)malloc(sizeof(doublereal)*(*ndm)*NPARX);
   dfdu = (doublereal *)malloc(sizeof(doublereal)*(*ndm)*(*ndm));
-  
+
   prjctn(bound, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
-  
+
   free(dfdp);
   free(dfdu);
   return 0;
@@ -1878,7 +1878,7 @@ prjcti(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *par, integer *imfd, integer *is, integer *itrans, integer *ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -1899,7 +1899,7 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
   doublereal *v;
   doublereal *ei, *er;
   doublereal *ort, *dum1, *dum2;
-    
+
   fdum   = (doublereal *)malloc(sizeof(doublereal)*(*ndm));
   cnow   = (doublereal *)malloc(sizeof(doublereal)*(*ndm)*(*ndm));
   type__ = (integer *)malloc(sizeof(integer)*(*ndm));
@@ -1940,7 +1940,7 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
   bound -= ((*ndm)+1);
   dfdp_dim1 = *ndm;
   dfdu_dim1 = *ndm;
-  
+
   func(*ndm, xequib, icp, par, 1, fdum, dfdu, dfdp);
 
   /* Compute transpose of A if ITRANS=1 */
@@ -2043,17 +2043,17 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
 	integer tmp;
 	tmp = *ndm;
 	for (k = 0; k < tmp; ++k) {
-	  dum1[i + j * (tmp)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (tmp)) * (tmp)] 
+	  dum1[i + j * (tmp)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (tmp)) * (tmp)]
 	    * cnow[j + m0 + k * (tmp)];
-	  dum2[i + j * (tmp)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (tmp)) * (tmp)] 
+	  dum2[i + j * (tmp)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (tmp)) * (tmp)]
 	    * beyn_1.cprev[j + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (tmp)) * (tmp)];
 	}
       }
 #else
       for (k = 0; k < *ndm; ++k) {
-	dum1[i + j * (*ndm)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (*ndm)) * (*ndm)] 
+	dum1[i + j * (*ndm)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (*ndm)) * (*ndm)]
 	  * cnow[j + m0 + k * (*ndm)];
-	dum2[i + j * (*ndm)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (*ndm)) * (*ndm)] 
+	dum2[i + j * (*ndm)] += beyn_1.cprev[i + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (*ndm)) * (*ndm)]
 	  * beyn_1.cprev[j + m0 + (k + ((*is - 1) + ((*itrans - 1) * 2)) * (*ndm)) * (*ndm)];
       }
 #endif
@@ -2069,7 +2069,7 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
     for (j = 0; j < *ndm; ++j) {
       bound[(i + 1) + m0 + (j + 1) * (*ndm)] = 0.;
       for (k = 0; k < mcond; ++k) {
-	bound[(i + 1) + m0 + (j + 1) * (*ndm)] += d[k + i * (*ndm)] * 
+	bound[(i + 1) + m0 + (j + 1) * (*ndm)] += d[k + i * (*ndm)] *
 	  cnow[k + m0 + j * (*ndm)];
       }
     }

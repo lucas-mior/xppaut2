@@ -24,7 +24,7 @@ real UnitRoundoff(void)
 {
   real u;
   volatile real one_plus_u;
-  
+
   u = ONE;
   one_plus_u = ONE + u;
   while (one_plus_u != ONE) {
@@ -32,7 +32,7 @@ real UnitRoundoff(void)
     one_plus_u = ONE + u;
   }
   u *=  TWO;
-  
+
   return(u);
 }
 
@@ -52,7 +52,7 @@ real RPowerI(real base, int exponent)
 
 real RPowerR(real base, real exponent)
 {
- 
+
   if (base <= ZERO) return(ZERO);
 
   return((real)pow((double)base,(double)exponent));

@@ -14,11 +14,11 @@ void set_window_title(Window win,char *string)
   XTextProperty wname,iname;
   XStringListToTextProperty(&string,1,&wname);
   XStringListToTextProperty(&string,1,&iname);
-  
+
   XClassHint class_hints;
   class_hints.res_name="";
   class_hints.res_class="";
- 
+
   XSetWMProperties(display,win,&wname,&iname,NULL,0,NULL,NULL,&class_hints);
 }
 
@@ -92,9 +92,9 @@ scrbox_list[3].n=n;
      scrbox_list[6].list[i]=(char *)malloc(22*sizeof(char));
      sprintf(scrbox_list[6].list[i],"%d %s",i,method[i]);
    }
- 
+
 }
- 
+
 int get_x_coord_win(Window win)
 {
  int x,y;
@@ -141,7 +141,7 @@ void create_scroll_box(Window root,int x0,int y0,int nent,
  sb->len=len-4;
  sb->exist=1;
 }
- 
+
 void expose_scroll_box(Window w,SCROLLBOX sb)
 {
  int i;
@@ -234,8 +234,8 @@ void scroll_popup(STRING_BOX *sb,SCROLLBOX *scrb)
   create_scroll_box(sb->base,xx,3,
 		    scrbox_list[id].n,maxw,scrbox_list[id].list,
 		    scrb);
-  
-  
+
+
 
 }
 
@@ -282,7 +282,7 @@ int do_string_box(n,row,col,title,names,values,maxchar)
   if(status==FORGET_ALL) return(status);
   for(i=0;i<n;i++)strcpy(values[i],sb.value[i]);
   return(status);
-   
+
 	
 }
 
@@ -292,10 +292,10 @@ Window w;
 int pos,col;
 {
  int i,flag;
- 
+
  if(w==sb.ok){XDrawString(display,w,gc,5,CURY_OFF,"Ok",2);return;}
  if(w==sb.cancel){XDrawString(display,w,gc,5,CURY_OFF,"Cancel",6);
-		   return; 
+		   return;
                  }
  for(i=0;i<sb.n;i++){
  if(w!=sb.win[i])continue;
@@ -327,7 +327,7 @@ int flag;
  if(flag) put_cursor_at(w,DCURX*l,pos);
 }
 
-  
+
 void reset_hot(inew,sb)
 int inew;
 STRING_BOX *sb;
@@ -355,7 +355,7 @@ void new_editable(sb,inew,pos,col,done,w)
   *done=0;
   *w=sb->win[inew];
   }
- 
+
 void set_sbox_item(STRING_BOX *sb,int item)
 {
   int i=sb->hot;
@@ -383,7 +383,7 @@ int s_box_event_loop(sb,pos,col,scrb)
  Window w=sb->win[ihot];   /* active window   */
  char *s;
  s=sb->value[ihot];
-  
+
  XNextEvent(display,&ev);
  switch(ev.type){
  	case ConfigureNotify:
@@ -405,7 +405,7 @@ int s_box_event_loop(sb,pos,col,scrb)
                   new_editable(sb,sb->hot,pos,col,&done,&w);
 		  destroy_scroll_box(scrb);
 		}
-                
+
 	  }
 		if(ev.xbutton.window==sb->ok){
 		  destroy_scroll_box(scrb);
@@ -437,7 +437,7 @@ int s_box_event_loop(sb,pos,col,scrb)
 			      }
 			  }
 		      }
-		    
+		
 		      break;
 		    }
                   }
@@ -466,23 +466,23 @@ int s_box_event_loop(sb,pos,col,scrb)
 		   new_editable(sb,inew,pos,col,&done,&w);
 		  }
         break;
-		   
+		
 	}
        return(status);
      }           	
-        
-	
-
- 
-  
-
-
-
- 
 
 	
- 
- 
+
+
+
+
+
+
+
+
+	
+
+
 void make_sbox_windows(sb,row,col,title,maxchar)
 int row,col,maxchar;
 char *title;
@@ -513,12 +513,12 @@ STRING_BOX *sb;
  XClassHint class_hints;
  class_hints.res_name="";
  class_hints.res_class="";
- 
+
  make_icon((char*)info_bits,info_width,info_height,base);
  XSetWMProperties(display,base,&winname,NULL,NULL,0,&size_hints,NULL,&class_hints);
  sb->base=base;
  sb->hgt=height;
- sb->wid=width; 
+ sb->wid=width;
   ystart=DCURY;
    xstart=DCURX;
   for(i=0;i<n;i++) {
@@ -526,7 +526,7 @@ STRING_BOX *sb;
   ypos=ystart+(i%row)*(DCURY+10);
   sb->win[i]=make_window(base,xpos,ypos,maxchar*DCURX,DCURY,1);
   }
-  
+
  ypos=height-2*DCURY;
   xpos=(width-16*DCURX)/2;
   (sb->ok)=make_window(base,xpos,ypos,8*DCURX,DCURY,1);
@@ -534,7 +534,7 @@ STRING_BOX *sb;
   XRaiseWindow(display,base);
  }
 
-/* 
+/*
 This is the previous make_fancy_window which we override to get
 consistent use of colors for a themed look.
 
@@ -545,14 +545,14 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 	 Window win;
 	 win=XCreateSimpleWindow(display,root,x,y,width,height,
 		bw,fc,bc);
-	 
-	 
+	
+	
 	
 	 XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask|
 		      LeaveWindowMask|EnterWindowMask);
 	 XMapWindow(display,win);
-	 
+	
          return(win);
          }
 */
@@ -565,18 +565,18 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 	 Window win;
 	 win=XCreateSimpleWindow(display,root,x,y,width,height,
 		bw,MyForeColor,MyBackColor);
-	 
+	
 	
 	 if (UserGradients == 1)
 	 {
-		 
+		
 		 Pixmap pmap = XCreatePixmap(display,root,width,height,DefaultDepth(display, DefaultScreen(display)));
 
 		 int xx, yy;
 		 double cosine;
 		 /*double l2rads;*/
 		 xx= 0;
-		 
+		
 		 XColor bcolour, col2, diffcol;
 		 Colormap cmap = DefaultColormap(display, DefaultScreen(display));
 		 XParseColor(display, cmap,UserWhite, &bcolour);
@@ -584,7 +584,7 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 
 		 /*l2rads = 3.1415926535897932384/(1.0*height);
 		 */
-		 
+		
 		 /*win=XCreateSimpleWindow(display,root,x,y,width,height,
 			bw,diffcol.pixel,bcolour.pixel);
 		 */
@@ -601,7 +601,7 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 				 col2.green = 65355;
 				 col2.blue = 65355;	
 			 }
-			 else 
+			 else
 			 {
 				 if (yy<(height/2.0))
 				 {
@@ -624,15 +624,15 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 
 			 XAllocColor(display, cmap, &col2);
 			 XSetForeground(display, gc, col2.pixel);
-			 
-			 
+			
+			
 			 for (xx = 1; xx < width-1; xx += 1)
 			 {
 			 	
 				 XDrawPoint(display, pmap, gc, xx, yy);
 			 }
-			 
-			 
+			
+			
 			 /*Now do xx=0 and xx=width-1*/
 			 xx = 0;
 			 col2.red = 65535;
@@ -646,26 +646,26 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 			 col2.red = bcolour.red * cosine;
 			 col2.green = bcolour.green * cosine;
                          col2.blue = bcolour.blue  * cosine;
-			 
+			
 			 XAllocColor(display, cmap, &col2);
 			 XSetForeground(display, gc, col2.pixel);
 			 XDrawPoint(display, pmap, gc, xx, yy);
 
 
 		  }
-		  
+		
 		 XSetWindowBackgroundPixmap(display,win,pmap);
 		 XFreePixmap(display,pmap);
-	 
-	 
+	
+	
 	 }
-	 
+	
 	
 	 XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask|
 		      LeaveWindowMask|EnterWindowMask);
 	 XMapWindow(display,win);
-	 
+	
          return(win);
          }
 
@@ -678,13 +678,13 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 	 win=XCreateSimpleWindow(display,root,x,y,width,height,
 		bw,MyForeColor,MyBackColor);
 		
-		 
+		
 	 /*Gradient stuff*/
 	
 	
 	 if (UserGradients == 1)
 	 {
-		 
+		
 		 Pixmap pmap = XCreatePixmap(display,root,width,height,DefaultDepth(display, DefaultScreen(display)));
 
 		 int xx, yy;
@@ -692,7 +692,7 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 		 /*double l2rads;
 		 */
 		 xx= 0;
-		 
+		
 		 XColor bcolour, col2, diffcol;
 		 Colormap cmap = DefaultColormap(display, DefaultScreen(display));
 		 XParseColor(display, cmap,UserWhite, &bcolour);
@@ -716,7 +716,7 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 				 col2.green = 65355;
 				 col2.blue = 65355;	
 			 }
-			 else 
+			 else
 			 {
 				 if (yy<(height/2.0))
 				 {
@@ -746,8 +746,8 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 			 	
 				 XDrawPoint(display, pmap, gc, xx, yy);
 			 }
-			 
-			 
+			
+			
 			 /*Now do xx=0 and xx=width-1*/
 			 xx = 0;
 			 col2.red = 65535;
@@ -761,27 +761,27 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 			 col2.red = bcolour.red * cosine;
 			 col2.green = bcolour.green * cosine;
                          col2.blue = bcolour.blue  * cosine;
-			 
+			
 			 XAllocColor(display, cmap, &col2);
 			 XSetForeground(display, gc, col2.pixel);
 			 XDrawPoint(display, pmap, gc, xx, yy);
-			 
-			 
+			
+			
 		  }
 		  XSetWindowBackgroundPixmap(display,win,pmap);
 		  XFreePixmap(display,pmap);
 	 }
-	 
-	 
-	 
+	
+	
+	
 	 XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask|
 		      LeaveWindowMask|EnterWindowMask);
-	 
+	
          return(win);
          }
-	 
-	 
+	
+	
 void bin_prnt_byte(int x,int *arr)
 {
    int n=0;
@@ -795,11 +795,11 @@ void bin_prnt_byte(int x,int *arr)
       {
          arr[n]=0;
       }
-      
+
       x = x<<1;
    }
-   
-   
+
+
    return;
 }
 
@@ -814,7 +814,7 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 	 win=XCreateSimpleWindow(display,root,x,y,width,height,
 		bw,MyForeColor,MyBackColor);
 		
-		 
+		
 	 /*Gradient stuff*/
 	
 	 Pixmap pmap = XCreatePixmap(display,root,width,height,DefaultDepth(display, DefaultScreen(display)));
@@ -823,19 +823,19 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 	 Colormap cmap = DefaultColormap(display, DefaultScreen(display));
 	 XParseColor(display, cmap,UserWhite, &bcolour);
 	 XParseColor(display, cmap,UserBlack, &diffcol);
-	 
+	
 	 if (UserGradients == 1)
 	 {
-		 
 		
 		
-		 double cosine; 
-		 
+		
+		 double cosine;
+		
 		 /*double l2rads;
 		 */
 		 xx= 0;
-		 
-		 
+		
+		
 
 		 /*l2rads = 3.1415926535897932384/(1.0*height);*/
 
@@ -843,18 +843,18 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 			bw,diffcol.pixel,bcolour.pixel);
 		 */
 
-                
+
 		 for(yy = 0; yy < height; yy += 1)
 		 {
 
-			 
+			
 			 if (yy<1.0)
 			 {
 				 col2.red = 65535;
 				 col2.green = 65355;
 				 col2.blue = 65355;	
 			 }
-			 else 
+			 else
 			 {
 				 if (yy<(height/2.0))
 				 {
@@ -883,8 +883,8 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 			 {
 				 XDrawPoint(display, pmap, gc, xx, yy);
 			 }
-			 
-			 
+			
+			
 			 /*Now do xx=0 and xx=width-1*/
 			 xx = 0;
 			 col2.red = 65535;
@@ -898,7 +898,7 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 			 col2.red = bcolour.red * cosine;
 			 col2.green = bcolour.green * cosine;
                          col2.blue = bcolour.blue  * cosine;
-			 
+			
 			 XAllocColor(display, cmap, &col2);
 			 XSetForeground(display, gc, col2.pixel);
 			 XDrawPoint(display, pmap, gc, xx, yy);
@@ -923,8 +923,8 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 	}
 	
 	  int z=0,row=0,col=0;
-		  
-		  
+		
+		
 	  if (icdata==NULL)
 	  {
 		/*Don't do anything...*/
@@ -932,7 +932,7 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 	  }
 	  else
 	  {
-	  
+	
 	  	col2.red = diffcol.red;
 		col2.green = diffcol.green;
 		col2.blue = diffcol.blue;
@@ -941,7 +941,7 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 		
 		unsigned char* ps = icdata;
 
-		int intstack[8]; 
+		int intstack[8];
 
 		col=0;
 		row=-1;
@@ -991,17 +991,17 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 		
 	XSetWindowBackgroundPixmap(display,win,pmap);
 	XFreePixmap(display,pmap);
-	 
-	 
-	 
-	 
+	
+	
+	
+	
 	 XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask|
 		      LeaveWindowMask|EnterWindowMask);
-	 
+	
          return(win);
 }
-	 
+	
 
 
 Window make_plain_unmapped_window(root,x,y,width,height,bw)
@@ -1012,12 +1012,12 @@ Window make_plain_unmapped_window(root,x,y,width,height,bw)
 	 win=XCreateSimpleWindow(display,root,x,y,width,height,
 		bw,MyForeColor,MyBackColor);
 		
-		 
+		
 	
 	 XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask|
 		      LeaveWindowMask|EnterWindowMask);
-	 
+	
          return(win);
         }
 
@@ -1030,8 +1030,8 @@ Window make_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 	{
 	 Window win;
          win=make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata);
-	 if(root==RootWindow(display,screen)) 
-          XSetWMProtocols(display, win, &deleteWindowAtom, 1);	  
+	 if(root==RootWindow(display,screen))
+          XSetWMProtocols(display, win, &deleteWindowAtom, 1);	
 	 XMapWindow(display,win);
          return(win);
          }
@@ -1042,20 +1042,20 @@ Window make_window(root,x,y,width,height,bw)
 	{
 	 Window win;
          win=make_unmapped_window(root,x,y,width,height,bw);
-	 if(root==RootWindow(display,screen)) 
-          XSetWMProtocols(display, win, &deleteWindowAtom, 1);	  
+	 if(root==RootWindow(display,screen))
+          XSetWMProtocols(display, win, &deleteWindowAtom, 1);	
 	 XMapWindow(display,win);
          return(win);
          }
-	 
+	
 Window make_plain_window(root,x,y,width,height,bw)
 	Window root;
 	int x,y,width,height,bw;
 	{
 	 Window win;
          win=make_plain_unmapped_window(root,x,y,width,height,bw);
-	 if(root==RootWindow(display,screen)) 
-          XSetWMProtocols(display, win, &deleteWindowAtom, 1);	  
+	 if(root==RootWindow(display,screen))
+          XSetWMProtocols(display, win, &deleteWindowAtom, 1);	
 	 XMapWindow(display,win);
          return(win);
          }
@@ -1089,7 +1089,7 @@ void respond_box(button,message)
        make_icon((char*)alert_bits,alert_width,alert_height,wmain);
        wm=make_plain_window(wmain,((width-l1)*DCURX)/2,DCURY/2,l1*DCURX,DCURY,0);
        wb=make_window(wmain,((width-l2)*DCURX)/2,2*DCURY,l2*DCURX,DCURY,1);
-       
+
 	
             ping();
       set_window_title(wmain,"!!");
@@ -1125,19 +1125,19 @@ void respond_box(button,message)
      XSelectInput(display,wb,EV_MASK);
      waitasec(ClickTime);
      XDestroySubwindows(display,wmain);
-     XDestroyWindow(display,wmain); 
+     XDestroyWindow(display,wmain);
     }
-			    
+			
 			
 
- 
-       
-       
-       
-      
-      
-      
-    
+
+
+
+
+
+
+
+
 
    void message_box(w,x,y,message)
 	Window *w;
@@ -1152,7 +1152,7 @@ void respond_box(button,message)
 	 Ftext(25,2*DCURY,message,z);
 	 ping();
 	 *w=z;
-	         }   
+	         }
 
 
 void expose_choice(choice1,choice2,msg,c1,c2,wm,w)
@@ -1177,7 +1177,7 @@ int two_choice(choice1,choice2,string,key,x,y,w,title)
   int l2=strlen(choice2)*DCURX;
   int lm=strlen(string)*DCURX;
   int tot=lm,xm,x1,x2;
-  
+
    if(lm<(l1+l2+4*DCURX))tot=(l1+l2+4*DCURX);
    tot=tot+6*DCURX;
     xm=(tot-lm)/2;
@@ -1194,7 +1194,7 @@ int two_choice(choice1,choice2,string,key,x,y,w,title)
  	 XSelectInput(display,c2,BUT_MASK);
 	
 	wm=make_window(base,xm,DCURY/2,lm+2,DCURY,0);
-	 
+	
 	ping();
         if(w==RootWindow(display,screen))
 	{
@@ -1207,7 +1207,7 @@ int two_choice(choice1,choice2,string,key,x,y,w,title)
 	  	set_window_title(base,title);
 	  }
          }
-  
+
         while(not_done){
         XNextEvent(display,&ev);
 		switch(ev.type){
@@ -1267,7 +1267,7 @@ int yes_no_box()
    return(0);
   }
 	
-  
+
 /*  new pop_up_list   */
 
 int pop_up_list(root,title,list,key,n,max,def,x,y,hints,hwin,httxt)
@@ -1322,7 +1322,7 @@ Window *root,hwin;
 				done=1;
 				}
 			     }	
-   			         
+   			
 			     break;
 			case EnterNotify:
 			     for(i=0;i<p.n;i++)if(ev.xcrossing.window==p.w[i]){
@@ -1334,7 +1334,7 @@ Window *root,hwin;
 					   hints[i],strlen(hints[i]));
 			     }
 			     }
-					   
+					
 			     break;
 			case LeaveNotify:
  			for(i=0;i<p.n;i++)if(ev.xcrossing.window==p.w[i])
@@ -1375,18 +1375,18 @@ void draw_pop_up(p,w)
 		      if(i==p.hot)Ftext(DCURX*(p.max+1),4,"X",w);
 		      return;
 		      }
-	 
+	
     }
 }
 
-   
+
 
 		
 
-  
-   
 
-/*   Note that this will be improved later -- it is pretty dumb  
+
+
+/*   Note that this will be improved later -- it is pretty dumb
 
 pop_up_list(root,title,list,key,n,max,def,x,y)
 int def,n,max,x,y;
@@ -1445,7 +1445,7 @@ Window *root;
    int n,max;
    int def;
    {
-   
+
 	int i,xi,yi;
  	xi=2*DCURX;
         yi=4;
@@ -1464,11 +1464,11 @@ Window *root;
 	xi=DCURX;
 	yi=(DCURY+8)*(def+1);
 	rectangle(xi,yi+5,xi+max-2*DCURX,yi+DCURY+5,w);
-   } 	 
+   } 	
 
 
-   */ 
+   */
 
 
-   
-  
+
+

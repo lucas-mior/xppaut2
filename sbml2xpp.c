@@ -1,10 +1,10 @@
 /*   sbml2xpp.c
-     This owes much to 
-     SBML Development Group <sbml-team@caltech.edu> 
+     This owes much to
+     SBML Development Group <sbml-team@caltech.edu>
      who wrote Matlab translators. I couldn't get it to work
      on my old version of Matlab, I just wanted to get XPP code
-     anyway. 
-     The original code contained in TranslateSBML 
+     anyway.
+     The original code contained in TranslateSBML
       was initially developed by:
  *
  *     Sarah Keating
@@ -21,12 +21,12 @@
  was going on, I modified it rather heavily.
 
 
- 
+
 I also used sample code from this group
 
 
 
- 
+
  *     Ben Bornstein
  *     The Systems Biology Markup Language Development Group
  *     ERATO Kitano Symbiotic Systems Project
@@ -47,7 +47,7 @@ Basic idea:
 
  if the rule sets a parameter, figure it out.
  get all functions
- get all events 
+ get all events
 
 find all named things which are more than 9 characters
 assign them unique characters - xxxx.#
@@ -78,7 +78,7 @@ I add pow(x,y) = x^y  to keep in compliance with math ML
 I also add 2 functions  gt(x,y)=x-y and lt(x,y)=y-x
 so i dont have to parse the event trigger
 
- 
+
 
 
 */
@@ -100,7 +100,7 @@ typedef struct {
   char rep[10];
 } LONG_NAMES;
 
-LONG_NAMES long_names[1024]; 
+LONG_NAMES long_names[1024];
 int lnum=0;
 typedef struct {
   char *f;
@@ -119,7 +119,7 @@ typedef struct {
 
 EVENT *event;
 Nevent=0;
-  
+
 typedef struct {
   char *name;
   double x0;
@@ -235,7 +235,7 @@ add_reaction(int i,char *f,int npr,int nre)
   strcpy(r->formula,f);
   r->npr=npr;
   r->nre=nre;
-  
+
 }
 add_rule(int i,char *v,char *f, char *tc)
 {
@@ -249,7 +249,7 @@ add_rule(int i,char *v,char *f, char *tc)
   strcpy(r->v,v);
   check_name_len(r->v);
 }
-  
+
 
 add_parameter(char *name, char *id,double z,int f)
 {
@@ -324,11 +324,11 @@ void GetEvents(Model_t *m)
 	 strcpy(x->a[j],big);
 	 free(formula);
       }
-      
+
 
     }
   }
-} 
+}
 
 void GetFunctions(Model_t *m)
 {
@@ -367,10 +367,10 @@ void GetFunctions(Model_t *m)
 		f->arg[j]=(char *)malloc(strlen(sa)+1);
 		strcpy(f->arg[j],sa);
 	      }
-	    
-	    
+	
+	
 	  }
-	  
+	
 	math    = ASTNode_getChild(math, ASTNode_getNumChildren(math) - 1);
 	formula = SBML_formulaToString(math);
 	f->formula=(char *)malloc(strlen(formula)+1);
@@ -394,7 +394,7 @@ void GetReaction(Model_t      *m,
   KineticLaw_t *kl;
   Parameter_t *p;
   SpeciesReference_t *s;
-  int np,j; 
+  int np,j;
   int npr,nre;
   char *name,*id;
   double value,st;
@@ -422,14 +422,14 @@ void GetReaction(Model_t      *m,
 	      if(name==NULL)name=" ";
 	      add_parameter(name,id,value,1);
 	    }
-	      
-	      
-	      
-      
+	
+	
+	
+
 	    for(j=0;j<npr;j++){
 	      s=Reaction_getProduct(r,j);
 	      name=SpeciesReference_getSpecies(s);
-	      st=SpeciesReference_getStoichiometry(s); 
+	      st=SpeciesReference_getStoichiometry(s);
 	      add_product(i,j,name,st);
 	    }
 	    for(j=0;j<nre;j++){
@@ -438,15 +438,15 @@ void GetReaction(Model_t      *m,
 	      st=SpeciesReference_getStoichiometry(s);
 	      add_reactant(i,j,name,st);
 	    }
-	    
-	    
+	
+	
 	  }
       }
   }
-  
+
 }
 
-/* i=reactin #, j=reactant number or product number 
+/* i=reactin #, j=reactant number or product number
   name is variable and s is stoichiometry */
 
 add_reactant(int i,int j,char *name,double s)
@@ -584,16 +584,16 @@ void GetSpecies ( Model_t      *pModel,
   double dInitialAmount;
   int nBoundaryCondition;
   int nConstant=0;
- 
+
   int i;
   Species_t *pSpecies;
-    
-      
+
+
    X_spec = (SPECIES *)malloc(n * sizeof (SPECIES));
    N_spec=n;
    for(i=0;i<n;i++){
      pSpecies = Model_getSpecies(pModel, i);
-     pacTypecode = TypecodeToChar(SBase_getTypeCode(pSpecies)); 
+     pacTypecode = TypecodeToChar(SBase_getTypeCode(pSpecies));
      pacName = Species_getName(pSpecies);
      dInitialAmount = Species_getInitialAmount(pSpecies);
      nBoundaryCondition = Species_getBoundaryCondition(pSpecies);
@@ -606,9 +606,9 @@ void GetSpecies ( Model_t      *pModel,
      if(pacTypecode==NULL)pacTypecode=" ";
      add_species(i,pacName,pacId,dInitialAmount,
 		 nBoundaryCondition,nConstant,pacTypecode);
-     
-       
-     
+
+
+
    }
 }
 
@@ -627,9 +627,9 @@ GetParameter ( Model_t      *pModel,
   char * pacId = NULL;
   double dValue;
   int nConstant=1;
-  
+
   Parameter_t *pParameter;
-  
+
   int i;
   for (i = 0; i < n; i++) {
     /* determine the values */
@@ -640,12 +640,12 @@ GetParameter ( Model_t      *pModel,
     if (level == 2) {
       pacId = Parameter_getId(pParameter);
       nConstant = Parameter_getConstant(pParameter);
- 
+
     }
     if(pacName==NULL)pacName=" ";
     if(pacId==NULL)pacId=" ";
     add_parameter(pacName,pacId,dValue,nConstant);
-    
+
   }
 }
 
@@ -705,7 +705,7 @@ TypecodeToChar (SBMLTypeCode_t typecode)
 
     case SBML_MODIFIER_SPECIES_REFERENCE:
       pacTypecode = "SBML_MODIFIER_SPECIES_REFERENCE";
-      break;    
+      break;
 
     case SBML_UNIT_DEFINITION:
       pacTypecode = "SBML_UNIT_DEFINITION";
@@ -852,7 +852,7 @@ GetListRule ( Model_t      *pModel,
 
     add_rule(i,pacVariable,pacFormula,pacTypecode);
 
-  }  
+  }
 }
 
 
@@ -941,11 +941,11 @@ species_participation()
       l++;
       s->nrx=l;
     }
-    
+
   }
 }
 /* the following code is probably suboptimal
-   it takes care of long names  
+   it takes care of long names
 */
 
 
@@ -992,7 +992,7 @@ strrep(char *sold,char *snew,char *sfnd,char *srep)
 
       lold=l+nf;
   }
-  
+
 }
 /* finds s1 in s2  starting at j0 */
 int strfnd(char *s1,char *s2,int j0)
@@ -1045,7 +1045,7 @@ sort_long_names()
   qsort(long_names,lnum,sizeof(LONG_NAMES),z_sort);
   for(i=0;i<lnum;i++)
     plintf("%d: %s -> %s \n",i,long_names[i].src,long_names[i].rep);
-  
+
 }
 
 write_ode_file(char *base)
@@ -1086,7 +1086,7 @@ write_ode_file(char *base)
     fix_long_names(big,bigp);
     fprintf(fp,"%s\n",bigp);
   }
-    
+
   for(i=0;i<Nrule;i++){
     r=rule+i;
     if(!is_blank(r->v)){
@@ -1094,7 +1094,7 @@ write_ode_file(char *base)
       fix_long_names(big,bigp);
       fprintf(fp,"%s\n",bigp);
     }
-    /* dont print blank named rules, probably they are something else 
+    /* dont print blank named rules, probably they are something else
      like globals which we will find later
     */
   }
@@ -1115,7 +1115,7 @@ write_ode_file(char *base)
 	sprintf(big,"%s=%g",x->id,x->x0);
       else
 	sprintf(big,"%s=%g",x->name,x->x0);
-    }  
+    }
     else {
       if(!is_blank(x->id))
 	sprintf(big,"init %s=%g",x->id,x->x0);
@@ -1124,7 +1124,7 @@ write_ode_file(char *base)
     }
     fix_long_names(big,bigp);
     fprintf(fp,"%s\n",bigp);
-  
+
   }
   for(i=0;i<Nrxn;i++){
     rx=rxn+i;

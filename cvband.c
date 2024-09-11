@@ -23,7 +23,7 @@
 /* Error Messages */
 
 #define CVBAND_INIT      "CVBandInit-- "
-  
+
 #define MSG_MEM_FAIL     CVBAND_INIT "A memory request failed.\n\n"
 
 #define MSG_BAD_SIZES_1  CVBAND_INIT "Illegal bandwidth parameter(s) "
@@ -41,7 +41,7 @@
 
 
 /******************************************************************
- *                                                                *           
+ *                                                                *
  * Types : CVBandMemRec, CVBandMem                                *
  *----------------------------------------------------------------*
  * The type CVBandMem is pointer to a CVBandMemRec. This          *
@@ -55,7 +55,7 @@ typedef struct {
 
     integer b_ml;           /* b_ml = lower bandwidth of savedJ         */
 
-    integer b_mu;           /* b_mu = upper bandwidth of savedJ         */ 
+    integer b_mu;           /* b_mu = upper bandwidth of savedJ         */
 
     integer b_storage_mu;   /* upper bandwith of M = MIN(N-1,b_mu+b_ml) */
 
@@ -66,7 +66,7 @@ typedef struct {
     BandMat b_savedJ;       /* savedJ = old Jacobian                    */
 
       int b_nstlj;       /* nstlj = nst at last Jacobian eval.       */
-    
+
       int b_nje;         /* nje = no. of calls to jac                */
 
     void *b_J_data;         /* J_data is passed to jac                  */
@@ -133,9 +133,9 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
   /* Set bandwidth and number of column groups for band differencing */
   width = mlower + mupper + 1;
   ngroups = MIN(width, N);
-  
+
   for (group=1; group <= ngroups; group++) {
-    
+
     /* Increment all y_j in group */
     for(j=group-1; j < N; j+=width) {
       inc = MAX(srur*ABS(y_data[j]), minInc/ewt_data[j]);
@@ -158,7 +158,7 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
 	  inc_inv * (ftemp_data[i] - fy_data[i]);
     }
   }
-  
+
   /* Increment counter nfe = *nfePtr */
   *nfePtr += ngroups;
 }
@@ -211,32 +211,32 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
  CVBandMemRec structure to be the input parameter jac_data, b_mu to
  be mupper, b_ml to be mlower, and the b_jac field to be:
 
- (1) the input parameter bjac if bjac != NULL or                
-                                                                
- (2) CVBandDQJac if bjac == NULL.                               
+ (1) the input parameter bjac if bjac != NULL or
+
+ (2) CVBandDQJac if bjac == NULL.
 
 **********************************************************************/
-                  
+
 void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
 	    void *jac_data)
 {
   CVodeMem cv_mem;
   CVBandMem cvband_mem;
-  
+
   /* Return immediately if cvode_mem is NULL */
   cv_mem = (CVodeMem) cvode_mem;
   if (cv_mem == NULL) return;  /* CVode reports this error */
 
-  /* Set four main function fields in cv_mem */  
+  /* Set four main function fields in cv_mem */
   linit  = CVBandInit;
   lsetup = CVBandSetup;
   lsolve = CVBandSolve;
   lfree  = CVBandFree;
-  
+
   /* Get memory for CVBandMemRec */
   lmem = cvband_mem = (CVBandMem) malloc(sizeof(CVBandMemRec));
   if (cvband_mem == NULL) return;  /* CVBandInit reports this error */
-  
+
   /* Set Jacobian routine field to user's bjac or CVBandDQJac */
   if (bjac == NULL) {
     jac = CVBandDQJac;
@@ -244,7 +244,7 @@ void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
     jac = bjac;
   }
   J_data = jac_data;
-  
+
   /* Load half-bandwiths in cvband_mem */
   ml = mlower;
   mu = mupper;
@@ -261,7 +261,7 @@ void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
 static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull)
 {
   CVBandMem cvband_mem;
-  
+
   cvband_mem = (CVBandMem) lmem;
 
   /* Print error message and return if cvband_mem is NULL */
@@ -310,7 +310,7 @@ static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull)
     iopt[BAND_LIW] = N;
   }
   nstlj = 0;
-  
+
   return(LINIT_OK);
 }
 
@@ -318,9 +318,9 @@ static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull)
 
  This routine does the setup operations for the band linear solver.
  It makes a decision whether or not to call the Jacobian evaluation
- routine based on various state variables, and if not it uses the 
- saved copy.  In any case, it constructs the Newton matrix 
- M = I - gamma*J, updates counters, and calls the band LU 
+ routine based on various state variables, and if not it uses the
+ saved copy.  In any case, it constructs the Newton matrix
+ M = I - gamma*J, updates counters, and calls the band LU
  factorization routine.
 
 **********************************************************************/
@@ -333,7 +333,7 @@ static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
   real dgamma;
   integer ier;
   CVBandMem   cvband_mem;
-  
+
   cvband_mem = (CVBandMem) lmem;
 
   /* Use nst, gamma/gammap, and convfail to set J eval. flag jok */
@@ -343,7 +343,7 @@ static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
          ((convfail == FAIL_BAD_J) && (dgamma < CVB_DGMAX)) ||
          (convfail == FAIL_OTHER);
   jok = !jbad;
-  
+
   if (jok) {
     /* If jok = TRUE, use saved copy of J */
     *jcurPtr = FALSE;
@@ -354,12 +354,12 @@ static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
     if (iopt != NULL) iopt[BAND_NJE] = nje;
     nstlj = nst;
     *jcurPtr = TRUE;
-    BandZero(M); 
+    BandZero(M);
     jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt,
 	h, uround, J_data, &nfe, vtemp1, vtemp2, vtemp3);
     BandCopy(M, savedJ, mu, ml);
   }
-  
+
   /* Scale and add I to get M = I - gamma*J */
   BandScale(-gamma, M);
   BandAddI(M);
@@ -383,7 +383,7 @@ static int CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 		       N_Vector fcur)
 {
   CVBandMem cvband_mem;
-  
+
   cvband_mem = (CVBandMem) lmem;
 
   BandBacksolve(M, pivots, b);

@@ -39,12 +39,12 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
     {
             fp3 = fopen(fort3,"w+");
     }
-  
+
 
 
   fp7 = fopen(fort7,"w");
   fp9 = fopen(fort9,"w");
- 
+
 
   /* Initialization : */
 
@@ -56,16 +56,16 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
     iap.parallel_flag = 0;
   }
 
-    
+
   /* here is the feeder code from xAuto structure */
 
   init(&iap, &rap, par, icp, thl, &thu, iuz, vuz);
 
-    
+
     /* Find restart label and determine type of restart point. */
     if (iap.irs > 0) {
       logical found = FALSE_;
-     
+
       findlb(&iap, &rap, iap.irs, &(iap.nfpr), &found);
       if (! found) {
 	if (iap.mynode == 0) {
@@ -80,7 +80,7 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
     init1(&iap, &rap, icp, par);
     chdim(&iap);
 
-    /* Create the allocations for the global structures used in 
+    /* Create the allocations for the global structures used in
        autlib3.c and autlib5.c.  There are purely an efficiency thing.
        The allocation and deallocation of these scratch areas takes
        up a nontrivial amount of time if done directly in the
@@ -96,13 +96,13 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
     if(list.type==AUTOAE)
       autoae(&iap, &rap, par, icp, list.aelist.funi, list.aelist.stpnt, list.aelist.pvli, thl, thu, iuz, vuz);
     if(list.type==AUTOBV)
-      autobv(&iap, &rap, par, icp, list.bvlist.funi, list.bvlist.bcni, 
+      autobv(&iap, &rap, par, icp, list.bvlist.funi, list.bvlist.bcni,
 	     list.bvlist.icni, list.bvlist.stpnt, list.bvlist.pvli, thl, thu, iuz, vuz);
 
 
 
 
-  
+
 
 
   free(thu);
@@ -372,13 +372,13 @@ int set_function_pointers(const iap_type iap,function_list *data) {
 	data->aelist.pvli    = pvlsae;
       }
     }
-  }	   
+  }	
   /* ---------------------------------------------------*/
   /* ---------------------------------------------------*/
   /*	Two-Parameter Continuation. */
   /* ---------------------------------------------------*/
   /* ---------------------------------------------------*/
-      
+
   else if (iap.ips <= 1 && abs(iap.isw) == 2 && (iap.itp == 1 || iap.itp == 2)) {
     /*	** Fold continuation (algebraic problems). */
     data->type	   = AUTOAE;
@@ -483,7 +483,7 @@ int set_function_pointers(const iap_type iap,function_list *data) {
     data->bvlist.icni  = icbl;
     data->bvlist.stpnt = stpnbl;
     data->bvlist.pvli  = pvlsbv;
-  } else if (iap.ips == 4 && abs(iap.isw) == 2 && (abs(iap.itp) / 10 == 5 || abs(iap.itp) / 
+  } else if (iap.ips == 4 && abs(iap.isw) == 2 && (abs(iap.itp) / 10 == 5 || abs(iap.itp) /
 						     10 == 6)) {
     /*        ** Continuation of folds (BVP, restart). */
     data->type         = AUTOBV;
@@ -494,9 +494,9 @@ int set_function_pointers(const iap_type iap,function_list *data) {
     data->bvlist.pvli  = pvlsbv;
   } else {
     /*        ** Error in INIT. */
-    
+
       printf("\nInitialization Error CRASH!!\n");
-   
+
       printf("itp=%d ips=%d isw=%d\n",iap.itp,iap.ips,iap.isw);
   }
   /* -----------------------------------------------------------------------*/
@@ -521,6 +521,6 @@ int dump_params(iap_type iap, rap_type rap,int *icp, double *thl)
   for(i=0;i<5;i++)
     printf("%g ",thl[icp[i]]);
   printf("\n");
-  
+
 }
 

@@ -1,4 +1,4 @@
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 /* #include <malloc.h> */
@@ -26,7 +26,7 @@ void dprhs(unsigned n, double t, double *y, double *f)
 }
 
 void dp_err(int k)
-{ 
+{
   ping();
   switch(k){
   case -1: err_msg("Input is not consistent");
@@ -39,7 +39,7 @@ void dp_err(int k)
     break;
   }
 }
-    
+
 int dp(istart,y,t,n,tout,tol,atol,flag,kflag)
     double *y,*t,tout,*tol,*atol;
      int flag,*istart,*kflag,n;
@@ -443,13 +443,13 @@ static int dopcor (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
   nfcn += 2;
   reject = 0;
   xold = x;
-  
+
   if (iout)
   {
     irtrn = 1;
     hout = 1.0;
     xout = x;
-    solout (naccpt+1, xold, x, y, n, &irtrn); 
+    solout (naccpt+1, xold, x, y, n, &irtrn);
     if (irtrn < 0)
     {
       if (fileout)
@@ -535,7 +535,7 @@ static int dopcor (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
 	      b10*k10[i] + b11*k2[i] + b12*k3[i];
       k5[i] = y[i] + h * k4[i];
     }
-     
+
     /* error estimation */
     err = 0.0;
     err2 = 0.0;
@@ -584,7 +584,7 @@ static int dopcor (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
       naccpt++;
       fcn (n, xph, k5, k4);
       nfcn++;
-      
+
       /* stiffness detection */
       if (!(naccpt % nstiff) || (iasti > 0))
       {
@@ -624,7 +624,7 @@ static int dopcor (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
 	    iasti = 0;
 	}
       }
-       
+
       /* final preparation for dense output */
       if (iout == 2)
       {
@@ -713,7 +713,7 @@ static int dopcor (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
 	  }
       }
 
-      memcpy (k1, k4, n * sizeof(double)); 
+      memcpy (k1, k4, n * sizeof(double));
       memcpy (y, k5, n * sizeof(double));
       xold = x;
       x = xph;
@@ -827,7 +827,7 @@ int dop853
   }
   else if (nrdens)
   {
-    
+
     /* is there enough memory to allocate rcont12345678&indir ? */
     rcont1 = work;
     rcont2 = rcont1+nrdens;
@@ -921,12 +921,12 @@ int dop853
   k10 = k9+n;
 
 
-  
+
     idid = dopcor (n, fcn, x, y, xend, hmax, h, rtoler, atoler, itoler, fileout,
 		   solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1, fac2, icont);
   if(indir)free(indir);
     return idid;
-  
+
 
 } /* dop853 */
 
@@ -1173,7 +1173,7 @@ static int dopcor5 (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
 	  i = icont[j];
 	  rcont5[j] = h * (d1*k1[i] + d3*k3[i] + d4*k4[i] + d5*k5[i] + d6*k6[i] + d7*k2[i]);
 	}
-      } 
+      }
     }
     for (i = 0; i < n; i++)
       k4[i] = h * (e1*k1[i] + e3*k3[i] + e4*k4[i] + e5*k5[i] + e6*k6[i] + e7*k2[i]);
@@ -1282,7 +1282,7 @@ static int dopcor5 (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
 	  }
 	}
       }
-      memcpy (k1, k2, n * sizeof(double)); 
+      memcpy (k1, k2, n * sizeof(double));
       memcpy (y, yy1, n * sizeof(double));
       xold = x;
       x = xph;

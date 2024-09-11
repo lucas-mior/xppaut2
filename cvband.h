@@ -25,7 +25,7 @@
 #include "band.h"
 #include "vector.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * CVBAND solver statistics indices                               *
@@ -46,7 +46,7 @@
  *                  workspace vectors used by this solver.        *
  *                                                                *
  ******************************************************************/
- 
+
 enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
 
 
@@ -62,13 +62,13 @@ enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
  *                                                                *
  ******************************************************************/
 
-#define CVB_MSBJ  50  
+#define CVB_MSBJ  50
 
-#define CVB_DGMAX RCONST(0.2)  
+#define CVB_DGMAX RCONST(0.2)
 
- 
+
 /******************************************************************
- *                                                                *           
+ *                                                                *
  * Type : CVBandJacFn                                             *
  *----------------------------------------------------------------*
  * A band Jacobian approximation function Jac must have the       *
@@ -107,7 +107,7 @@ enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
  *         col_j[k] = J_ij;                                       *
  *       }                                                        *
  *     }                                                          *
- *                                                                *  
+ *                                                                *
  * (3) (without macros - explicit data structure references)      *
  *     offset = J->smu;                                           *
  *     for (j=0; j < N; j++) {                                    *
@@ -155,14 +155,14 @@ enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
  * as temporary storage or work space.                            *
  *                                                                *
  ******************************************************************/
-  
+
 typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
                             BandMat J, RhsFn f, void *f_data, real t,
                             N_Vector y, N_Vector fy, N_Vector ewt, real h,
                             real uround, void *jac_data,   int *nfePtr,
                             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Function : CVBand                                              *
@@ -190,10 +190,10 @@ typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
  *           bjac routine every time it is called.                *
  *                                                                *
  ******************************************************************/
-  
+
 void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
             void *jac_data);
- 
+
 
 /******************************************************************
  *                                                                *

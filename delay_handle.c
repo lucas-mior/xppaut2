@@ -3,7 +3,7 @@
 #include "ggets.h"
 #include "integrate.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 /*   This handles the delay stuff    */
 
 #include <stdio.h>
@@ -25,14 +25,14 @@ double delay_list[MAXDELAY];
 double evaluate();
 extern double DELTA_T,T0,DELAY;
 extern int NODE,NCON,NSYM,NSYM_START,NCON_START,NMarkov;
- 
+
 extern char delay_string[MAXODE][80];
 extern double variables[];
 extern int NVAR;
 
 
-double delay_stab_eval(delay,var)  
-/* this returns appropriate values for delay jacobian */ 
+double delay_stab_eval(delay,var)
+/* this returns appropriate values for delay jacobian */
      double delay;
      int var;
 {
@@ -49,7 +49,7 @@ double delay_stab_eval(delay,var)
       return(GETVAR(var));
     }
  /*  now we must determine the value to return  */
- /*  del_stab_flag =-1 */    
+ /*  del_stab_flag =-1 */
      for(i=0;i<NDelay;i++){
        if(delay==delay_list[i])
 	if(i==WhichDelay)
@@ -65,7 +65,7 @@ double big;
 {
  int n,i;
 
- 
+
  n=(int)(big/fabs(DELTA_T))+1;
 
  MaxDelay=n;
@@ -197,7 +197,7 @@ double tau;
    ya[0]=DelayWork[in+(nodes )*i0];
   ya[3]=DelayWork[in+(nodes )*i3];
   polint(xa,ya,4,tau,&y,&dy);
-  
+
   return(y);
  }
 
@@ -208,7 +208,7 @@ double big;
  double t=T0,old_t,y[MAXODE];
  int i,nt,j;
  int len;
- 
+
  int *del_form[MAXODE];
  nt=(int)(big/fabs(DELTA_T));
  NCON=NCON_START;
@@ -234,7 +234,7 @@ double big;
   LatestDelay=1;
 
   get_val("t",&old_t);
- 
+
   for(i=nt;i>=0;i--){
 	t=T0-fabs(DELTA_T)*i;
 	set_val("t",t);
@@ -249,18 +249,18 @@ double big;
    return(1);
  }
 		
-	 
 	
-        
- 
- 
-  
+	
 
- 
- 
- 
 
- 
+
+
+
+
+
+
+
+
 
 
 

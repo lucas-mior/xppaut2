@@ -4,7 +4,7 @@
 
 
 #include "phsplan.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -16,7 +16,7 @@
 
 
 #define MAX_N_SBOX 22
-#define MAX_LEN_SBOX 25 
+#define MAX_LEN_SBOX 25
 
 
 #define FORGET_ALL 0
@@ -65,8 +65,8 @@ extern int UserGradients;
 Window make_window();
 Window make_plain_window();
 
-/*  This is a string box widget which handles a list of 
-	editable strings  
+/*  This is a string box widget which handles a list of
+	editable strings
  */
 
 typedef struct {
@@ -103,7 +103,7 @@ typedef struct {
 		int hot;
 		} POP_UP;
 		
-   
+
 typedef struct {
                Window base,slide,close,text;
                int i0;

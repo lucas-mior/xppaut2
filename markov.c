@@ -6,7 +6,7 @@
 #include "ggets.h"
 #include "my_rhs.h"
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include "init_conds.h"
 #include "adj2.h"
 #include "histogram.h"
@@ -123,7 +123,7 @@ int build_markov(ma,name)
  int len=0,ll;
  char line[256],expr[256];
   int istart;
- 
+
 
  int i,j,nstates,index;
  index=-1;
@@ -163,14 +163,14 @@ int build_markov(ma,name)
        plintf("%s ",expr);
        add_markov_entry(index,i,j,expr);
      }
-   plintf("\n");   
+   plintf("\n");
  }
  return index;
 }
-  
+
 
 int old_build_markov(fptr,name)
-     FILE *fptr; 
+     FILE *fptr;
 
      char *name;
 {
@@ -178,7 +178,7 @@ int old_build_markov(fptr,name)
  int len=0,ll;
  char line[256],expr[256];
   int istart;
- 
+
 
  int i,j,nstates,index;
  index=-1;
@@ -204,7 +204,7 @@ int old_build_markov(fptr,name)
    fprintf(convertf,"markov %s %d\n",name,nstates);
  plintf(" Building %s ...\n",name);
  for(i=0;i<nstates;i++){
-    fgets(line,256,fptr); 
+    fgets(line,256,fptr);
 
    if(ConvertStyle)
      fprintf(convertf,"%s",line);
@@ -217,11 +217,11 @@ int old_build_markov(fptr,name)
        plintf("%s ",expr);
        add_markov_entry(index,i,j,expr);
      }
-   plintf("\n");   
+   plintf("\n");
  }
  return index;
 }
-  
+
 void extract_expr(source,dest,i0)
      char *source,*dest;
      int *i0;
@@ -245,9 +245,9 @@ void extract_expr(source,dest,i0)
    dest[len]=0;
 }
 
-     
-     
- 
+
+
+
 
 
 
@@ -272,21 +272,21 @@ void create_markov(nstates,st,type,name)
   }
   else {
     markov[j].fixed=(double *)malloc(n2*sizeof(double));
-    
+
   }
-    
+
   for(i=0;i<nstates;i++)markov[j].states[i]=st[i];
   strcpy(markov[j].name,name);
   NMarkov++;
 
-  
+
 }
 
 void add_markov_entry(index,j,k,expr)
      int index,j,k;
      char *expr;
 {
-  
+
   int l0=markov[index].nstates*j+k;
   int type=markov[index].type;
   if(type==0){
@@ -294,25 +294,25 @@ void add_markov_entry(index,j,k,expr)
   strcpy(markov[index].trans[l0],expr);
   /*  compilation step -- can be delayed */
  /*
-  if(add_expr(expr,com,&leng)){ 
+  if(add_expr(expr,com,&leng)){
     plintf("Illegal expression %s\n",expr);
     exit(0);
   }
   markov[index].command[l0]=(int *)malloc(sizeof(int)*(leng+2));
   for(i=0;i<leng;i++){
     markov[index].command[l0][i]=com[i];
-    
+
   }
  */
   /*  end of compilation   */
-  
+
 }
   else {
     markov[index].fixed[l0]=atof(expr);
   }
 }
 
- 
+
 void compile_all_markov()
 {
   int index,j,k,ns,l0;
@@ -340,15 +340,15 @@ int compile_markov(index,j,k)
   int i;
   int com[256];
   expr=markov[index].trans[l0];
-  
+
   if(add_expr(expr,com,&leng))
     return -1;
   markov[index].command[l0]=(int *)malloc(sizeof(int)*(leng+2));
   for(i=0;i<leng;i++){
     markov[index].command[l0][i]=com[i];
-    
+
   }
-  
+
   return 1;
 }
 
@@ -372,8 +372,8 @@ void update_markov(x,t,dt)
     set_ivar(i+NODE+FIX_VAR+1,yp[i]);
   }
 }
-  
-  
+
+
 
 double new_state(old,index,dt)
      double old,dt;
@@ -419,7 +419,7 @@ double new_state(old,index,dt)
        }
      }
    }
-     
+
   return(old);
 }
 
@@ -443,7 +443,7 @@ void make_gill_nu(double *nu,int n,int m,double *v)
     rhs_only(y,yp);
     for(iy=0;iy<n;iy++){
       nu[ir+m*iy]=yp[iy];
-      plintf("ir=%d iy=%d nu=%g\n",ir+1,iy,yp[iy]-yold[iy]);  
+      plintf("ir=%d iy=%d nu=%g\n",ir+1,iy,yp[iy]-yold[iy]);
     }
     v[ir+1]=0;
   }
@@ -460,7 +460,7 @@ void one_gill_step(int meth,int nrxn,int *rxn,double *v)
   double rate=0,test;
   double r[1000];
   /*double rold[1000]; Not used*/
- 
+
   int i;
   switch(meth){
   case 0: /* std gillespie method */
@@ -493,19 +493,19 @@ void one_gill_step(int meth,int nrxn,int *rxn,double *v)
   }
 
 }
-    
-		     
-		     
-    
-    
+
+		
+		
+
+
 void do_stochast_com(int i)
 {
   static char key[]="ncdmvhofpislaxe2";
   char ch=key[i];
-  
+
   if(ch==27)return;
   switch(ch){
-  case 'n': 
+  case 'n':
     new_int("Seed:",&RandSeed);
     nsrand48(RandSeed);
     break;
@@ -529,7 +529,7 @@ void do_stochast_com(int i)
     hist_back();
     break;
   case 'f':
-    compute_fourier(); 
+    compute_fourier();
     break;
   case 'p':
     compute_power();
@@ -558,9 +558,9 @@ void do_stochast_com(int i)
     new_2d_hist();
     break;
   }
-  
+
 }
-  
+
 
 void mean_back()
 {
@@ -584,7 +584,7 @@ void variance_back()
        storind=stoch_len;
   }
 }
-  
+
 
 void compute_em()
 {
@@ -608,7 +608,7 @@ void free_stoch()
     STOCH_HERE=0;
   }
 }
-  
+
 
 void init_stoch(len)
      int len;
@@ -630,7 +630,7 @@ void init_stoch(len)
   }
   STOCH_HERE=1;
 }
-    
+
 
 
 void append_stoch(first,length)
@@ -665,7 +665,7 @@ void do_stats(ierr)
 	my_variance[j][i]=(my_variance[j][i]*ninv-mean*mean);
       }
     }
- 
+
   }
 }
 double gammln(double xx)
@@ -721,7 +721,7 @@ double poidev(double xm)
 }
 
 
-    
+
 double ndrand48()
 {
  return ran1(&myrandomseed);

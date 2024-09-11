@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "eig_list.h" 
+#include "eig_list.h"
 #include "gear.h"
 #include "ggets.h"
 
@@ -28,7 +28,7 @@ double amax();
 
 /* The
  code here replaces the do_sing code if the equation is
-   a delay differential equation. 
+   a delay differential equation.
 */
 
 void do_delay_sing(x,eps,err,big,maxit,n,ierr,stabinfo)
@@ -67,15 +67,15 @@ void do_delay_sing(x,eps,err,big,maxit,n,ierr,stabinfo)
    variable_shift[1][i]=x[i];
  }
  free(work);
- /*  plintf(" Found %d delays \n",NDelay); */ 
+ /*  plintf(" Found %d delays \n",NDelay); */
  coef=(double *)malloc(n*n*(NDelay+1)*sizeof(double));
- 
+
  /* now we must compute a bunch of jacobians  */
  /* first the normal one   */
  del_stab_flag=-1;
  WhichDelay=-1;
  colmax=0.0;
- 
+
  for(i=0;i<n;i++)
    {
      colsum=0.0;
@@ -86,7 +86,7 @@ void do_delay_sing(x,eps,err,big,maxit,n,ierr,stabinfo)
      for(j=0;j<n;j++){
        coef[j*n+i]=(yp[j]-y[j])/dx;
        colsum+=fabs(coef[j*n+i]);
-       /*      plintf("a(0,%d,%d)=%g \n",i,j,coef[j*n+i]); */   
+       /*      plintf("a(0,%d,%d)=%g \n",i,j,coef[j*n+i]); */
      }
      if(colsum>colmax)colmax=colsum;
    }
@@ -94,7 +94,7 @@ void do_delay_sing(x,eps,err,big,maxit,n,ierr,stabinfo)
  for(j=0;j<n;j++)xp[j]=x[j];
  /* now the jacobians for the delays */
  for(k=0;k<NDelay;k++){
-   /* plintf(" found delay=%g \n",delay_list[k]); */   
+   /* plintf(" found delay=%g \n",delay_list[k]); */
    WhichDelay=k;
    colmax=0.0;
    for(i=0;i<n;i++){
@@ -108,7 +108,7 @@ void do_delay_sing(x,eps,err,big,maxit,n,ierr,stabinfo)
      for(j=0;j<n;j++){
        coef[j*n+i+n*n*(k+1)]=(yp[j]-y[j])/dx;
        colsum+=fabs(coef[j*n+i+n*n*(k+1)]);
-       /* plintf("a(%d,%d,%d)=%g \n",k+1,i,j,coef[j*n+i+n*n*(k+1)]); */  
+       /* plintf("a(%d,%d,%d)=%g \n",k+1,i,j,coef[j*n+i+n*n*(k+1)]); */
      }
      if(colsum>colmax)colmax=colsum;
    }
@@ -123,7 +123,7 @@ void do_delay_sing(x,eps,err,big,maxit,n,ierr,stabinfo)
    ev[0]=rr[0];
    ev[1]=rr[1];
  }
- free(coef);  
+ free(coef);
  *stabinfo=(float)fabs(sign);
  /* if(*stabinfo>0) */
  i=(int)sign;
@@ -294,7 +294,7 @@ COMPLEX cxdeterm(z,n)
   }
   return sum;
 }
-	 
+	
 void make_z(z,delay,n,m,coef,lambda)
      COMPLEX lambda;
      COMPLEX *z;
@@ -303,7 +303,7 @@ void make_z(z,delay,n,m,coef,lambda)
 {
   int i,j,k,km;
   COMPLEX temp,eld;
-  
+
  for(j=0;j<n;j++)
     for(i=0;i<n;i++){
       if(i==j)temp=lambda;
@@ -334,15 +334,15 @@ int find_positive_root(coef,delay,n,m,rad,err,eps,big,maxit,rr)
   double xl,yl,r,xlp,ylp;
 
   int k;
-  
+
     lambda.r=AlphaMax;
     lambda.i=OmegaMax;
- 
-   z=(COMPLEX *)malloc(sizeof(COMPLEX)*n*n); 
- 
+
+   z=(COMPLEX *)malloc(sizeof(COMPLEX)*n*n);
+
   /* now Newtons Method for maxit times */
   for(k=0;k<maxit;k++){
-      
+
     make_z(z,delay,n,m,coef,lambda);
     det=cdeterm(z,n);
 
@@ -355,7 +355,7 @@ int find_positive_root(coef,delay,n,m,rad,err,eps,big,maxit,rr)
     }
     xl=lambda.r;
     yl=lambda.i;
-   
+
     /* compute the Jacobian */
     if(fabs(xl)>eps)
       r=eps*fabs(xl);
@@ -403,16 +403,16 @@ int find_positive_root(coef,delay,n,m,rad,err,eps,big,maxit,rr)
       return -1;
     }
   }
-      
+
   plintf("Max iterates exceeded \n");
   return -1;
 }
 void process_root(real,im)
      double real,im;
 {
-  plintf("Root: %g + I %g \n",real,im); 
+  plintf("Root: %g + I %g \n",real,im);
 }
-double get_arg(delay,coef,m,n,lambda)  
+double get_arg(delay,coef,m,n,lambda)
      COMPLEX lambda;
      double *coef;
      double *delay;
@@ -423,7 +423,7 @@ double get_arg(delay,coef,m,n,lambda)
   COMPLEX temp,eld;
   double arg;
   if(m==0)return(0);  /* no delays so don't use this! */
-  z=(COMPLEX *)malloc(sizeof(COMPLEX)*n*n); 
+  z=(COMPLEX *)malloc(sizeof(COMPLEX)*n*n);
   for(j=0;j<n;j++)
     for(i=0;i<n;i++){
       if(i==j)temp=lambda;
@@ -441,16 +441,16 @@ double get_arg(delay,coef,m,n,lambda)
 	z[i+j*n]=cdif(z[i+j*n],cmlt(eld,rtoc(coef[km+i+n*j],0.0)));
   }
   /*  the array is done  */
- /* cprintarr(z,n,n); */ 
+ /* cprintarr(z,n,n); */
   temp=cdeterm(z,n);
-  /* cprint(lambda); 
-  cprint(temp); 
+  /* cprint(lambda);
+  cprint(temp);
   plintf(" \n"); */
-   free(z); 
+   free(z);
   arg=atan2(temp.i,temp.r);
-  /*   plintf("%g %g %g \n",lambda.r,lambda.i,arg); */ 
+  /*   plintf("%g %g %g \n",lambda.r,lambda.i,arg); */
   return(arg);
-}   
+}
 
 int test_sign(old,new)
      double old,new;
@@ -479,10 +479,10 @@ int test_sign(old,new)
        V                            ^
        |                            |
      -i wmax ----->-----------  amax-i wmax
-  
+
      sign is the number of roots in the contour using the argument
      principle
-*/  
+*/
 
 int plot_args(coef,delay,n,m,npts,almax,wmax)
      double *coef;
@@ -504,7 +504,7 @@ int plot_args(coef,delay,n,m,npts,almax,wmax)
    /* plintf(" %d %g \n",i,arg); */
     sign=sign+test_sign(oldarg,arg);
     oldarg=arg;
- 
+
   }
  /* lower contour   */
   y=-wmax;
@@ -516,7 +516,7 @@ int plot_args(coef,delay,n,m,npts,almax,wmax)
 /*        plintf(" %d %g \n",i+npts,arg); */
        sign=sign+test_sign(oldarg,arg);
     oldarg=arg;
- 
+
   }
 /* right contour */
  x=almax;
@@ -528,9 +528,9 @@ int plot_args(coef,delay,n,m,npts,almax,wmax)
 /*     plintf(" %d %g \n",i+2*npts,arg); */
       sign=sign+test_sign(oldarg,arg);
     oldarg=arg;
- 
+
   }
- 
+
 /* top contour */
   y=wmax;
   ds=almax/npts;
@@ -541,11 +541,11 @@ int plot_args(coef,delay,n,m,npts,almax,wmax)
 /*         plintf(" %d %g \n",i+3*npts,arg); */
     sign=sign+test_sign(oldarg,arg);
     oldarg=arg;
-  
+
   }
   return sign;
 }
- 
+
 
 
 

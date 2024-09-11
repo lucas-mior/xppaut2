@@ -30,7 +30,7 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnlp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -46,31 +46,31 @@ fnlp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   /* Generates the equations for the 2-par continuation of folds. */
 
   /* Local */
-  
+
   /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-  
+
   ndm = iap->ndm;
-  
+
   /* Generate the function. */
-  
-  fflp(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+
+  fflp(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
-  
+
   if (ijac == 0) {
     return 0;
   }
-  
+
   /* Generate the Jacobian. */
-  
+
   umx = 0.;
   for (i = 0; i < ndim; ++i) {
     if (fabs(u[i]) > umx) {
       umx = fabs(u[i]);
     }
   }
- 
+
   rtmp = HMACH;
   ep = rtmp * (umx + 1);
 
@@ -81,9 +81,9 @@ fnlp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    fflp(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    fflp(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    fflp(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    fflp(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -105,20 +105,20 @@ fnlp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fflp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
   integer dfdu_dim1, dfdp_dim1;
-  
+
   /* Local variables */
-  
+
   integer i, j, ips;
-  
-  
-  
-  
-  
+
+
+
+
+
   /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
@@ -150,7 +150,7 @@ fflp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
 {
   /* Local variables */
@@ -174,7 +174,7 @@ stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 
     /* Parameter adjustments */
 
-    
+
   ndim = iap->ndim;
   ips = iap->ips;
   irs = iap->irs;
@@ -184,10 +184,10 @@ stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   readlb(iap, rap, u, par);
 
   if (ips == -1) {
-    fnds(iap, rap, ndm, u, &uold, icp, par, 1, f, 
+    fnds(iap, rap, ndm, u, &uold, icp, par, 1, f,
 	 global_scratch.dfu, global_scratch.dfp);
   } else {
-    funi(iap, rap, ndm, u, &uold, icp, par, 1, f, 
+    funi(iap, rap, ndm, u, &uold, icp, par, 1, f,
 	 global_scratch.dfu, global_scratch.dfp);
   }
   nlvc(ndm, ndm, 1, global_scratch.dfu, v);
@@ -210,7 +210,7 @@ stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnc1(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -231,7 +231,7 @@ fnc1(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   par[icp[1]] = u[-1 + ndim];
@@ -253,7 +253,7 @@ fnc1(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
   }
 
-  fopi(iap, rap, ndm, u, icp, par, ijac, &f[-1 + ndim], ddu, 
+  fopi(iap, rap, ndm, u, icp, par, ijac, &f[-1 + ndim], ddu,
        ddp);
   f[-1 + ndim] = par[icp[0]] - f[-1 + ndim];
 
@@ -272,7 +272,7 @@ fnc1(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnc1(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
 {
   integer ndim;
@@ -283,14 +283,14 @@ stpnc1(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   doublereal fop, dum;
 
 
-  
+
 
 
   /* Generate starting data for optimization problems (one parameter). */
 
 
   /* Parameter adjustments */
-  
+
   ndim = iap->ndim;
   ndm = iap->ndm;
 
@@ -307,7 +307,7 @@ stpnc1(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -322,7 +322,7 @@ fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 
-  
+
 
 
   /* Generate the equations for the continuation scheme used for the */
@@ -333,12 +333,12 @@ fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function. */
 
-  ffc2(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffc2(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -364,9 +364,9 @@ fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffc2(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffc2(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffc2(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffc2(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -383,7 +383,7 @@ fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -404,7 +404,7 @@ ffc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   nfpr = iap->nfpr;
 
   for (i = 1; i < nfpr; ++i) {
@@ -444,7 +444,7 @@ ffc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnc2(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
 {
 
@@ -485,9 +485,9 @@ stpnc2(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   readlb(iap, rap, u, par);
 
   if (nfpr == 3) {
-    funi(iap, rap, ndm, u, &uold, icp, par, 2, f, 
+    funi(iap, rap, ndm, u, &uold, icp, par, 2, f,
 	 global_scratch.dfu, global_scratch.dfp);
-    fopi(iap, rap, ndm, u, icp, par, 2, &fop, du, 
+    fopi(iap, rap, ndm, u, icp, par, 2, &fop, du,
 	 dp);
     /*       TRANSPOSE */
     for (i = 0; i < ndm; ++i) {
@@ -530,7 +530,7 @@ stpnc2(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnds(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -541,7 +541,7 @@ fnds(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i;
 
 
-  
+
 
   /* Generate the equations for continuing fixed points. */
 
@@ -549,7 +549,7 @@ fnds(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
 
   for (i = 0; i < ndim; ++i) {
@@ -575,7 +575,7 @@ fnds(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnti(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -588,7 +588,7 @@ fnti(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal dt;
 
 
-  
+
 
   /* Generate the equations for continuing fixed points. */
 
@@ -596,8 +596,8 @@ fnti(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
-  funi(iap, rap, ndim, u, uold, icp, par, ijac, f, 
+
+  funi(iap, rap, ndim, u, uold, icp, par, ijac, f,
        dfdu, dfdp);
 
   told = rap->tivp;
@@ -630,7 +630,7 @@ fnti(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -645,7 +645,7 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal umx;
 
 
-  
+
 
 
   /* Generates the equations for the 2-parameter continuation of Hopf */
@@ -656,12 +656,12 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function. */
 
-  ffhd(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffhd(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -687,9 +687,9 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffhd(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffhd(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffhd(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffhd(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -698,7 +698,7 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   par[icp[0]] += ep;
 
-  ffhd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+  ffhd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
        ndm, global_scratch.dfu, global_scratch.dfp);
 
   for (j = 0; j < ndim; ++j) {
@@ -712,7 +712,7 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -734,7 +734,7 @@ ffhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
 
-    
+
   ndm2 = ndm * 2;
 
   thta = u[-1 + ndim - 1];
@@ -773,7 +773,7 @@ ffhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnhd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
 {
 
@@ -803,7 +803,7 @@ stpnhd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   /* Local */
 
   /* Parameter adjustments */
-    
+
   ndim = iap->ndim;
   irs = iap->irs;
   ndm = iap->ndm;
@@ -814,7 +814,7 @@ stpnhd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   thta = pi(2.0) / par[10];
   s1 = sin(thta);
   c1 = cos(thta);
-  funi(iap, rap, ndm, u, &uold, icp, par, 1, f, 
+  funi(iap, rap, ndm, u, &uold, icp, par, 1, f,
        global_scratch.dfu, global_scratch.dfp);
 
   ndm2 = ndm * 2;
@@ -867,7 +867,7 @@ stpnhd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -882,7 +882,7 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal umx;
 
 
-  
+
 
 
   /* Generates the equations for the 2-parameter continuation of Hopf */
@@ -894,12 +894,12 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function. */
 
-  ffhb(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffhb(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -925,9 +925,9 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffhb(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffhb(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffhb(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffhb(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -936,7 +936,7 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   par[icp[0]] += ep;
 
-  ffhb(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+  ffhb(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
        ndm, global_scratch.dfu, global_scratch.dfp);
 
   for (j = 0; j < ndim; ++j) {
@@ -949,7 +949,7 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -963,14 +963,14 @@ ffhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer ndm2;
 
 
-  
+
 
 
   /* Parameter adjustments */
 
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   ndm2 = ndm * 2;
 
   rom = u[ndim - 2];
@@ -1005,7 +1005,7 @@ ffhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnhb(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
 {
 
@@ -1033,7 +1033,7 @@ stpnhb(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   /* Local */
 
   /* Parameter adjustments */
-    
+
   ndim = iap->ndim;
   irs = iap->irs;
   ndm = iap->ndm;
@@ -1043,7 +1043,7 @@ stpnhb(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 
   period = par[10];
   rom = period / pi(2.0);
-  funi(iap, rap, ndm, u, &uold, icp, par, 1, f, 
+  funi(iap, rap, ndm, u, &uold, icp, par, 1, f,
        global_scratch.dfu, global_scratch.dfp);
 
   ndm2 = ndm * 2;
@@ -1093,7 +1093,7 @@ stpnhb(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -1108,7 +1108,7 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal umx;
 
 
-  
+
 
 
   /* Generates the equations for the 2-parameter continuation of a */
@@ -1120,12 +1120,12 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function. */
 
-  ffhw(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffhw(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -1151,9 +1151,9 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffhw(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffhw(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffhw(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffhw(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -1162,7 +1162,7 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   par[icp[0]] += ep;
 
-  ffhw(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+  ffhw(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
        ndm, global_scratch.dfu, global_scratch.dfp);
 
   for (j = 0; j < ndim; ++j) {
@@ -1176,7 +1176,7 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -1196,13 +1196,13 @@ ffhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   ndm2 = ndm * 2;
 
   rom = u[-1 + ndim - 1];
   par[icp[1]] = u[-1 + ndim];
   ijac = 1;
-  fnws(iap, rap, ndm, u, uold, icp, par, ijac, f, 
+  fnws(iap, rap, ndm, u, uold, icp, par, ijac, f,
        dfdu, dfdp);
 
   for (i = 0; i < ndm; ++i) {
@@ -1231,7 +1231,7 @@ ffhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
 {
   /* Local variables */
@@ -1274,7 +1274,7 @@ stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   ijac = 1;
   period = par[10];
   rom = period / pi(2.0);
-  fnws(iap, rap, ndm, u, &uold, icp, par, ijac, f, dfu, 
+  fnws(iap, rap, ndm, u, &uold, icp, par, ijac, f, dfu,
        dfp);
 
   ndm2 = ndm * 2;
@@ -1315,7 +1315,7 @@ stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   free(f   );
   free(v   );
   free(dfp );
-  free(dfu ); 
+  free(dfu );
 
   return 0;
 } /* stpnhw_ */
@@ -1328,7 +1328,7 @@ stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnps(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -1350,7 +1350,7 @@ fnps(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   if (icp[1] == 10) {
     /*          **Variable period continuation */
     funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
@@ -1395,7 +1395,7 @@ fnps(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -1405,14 +1405,14 @@ bcps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer jtmp, i, j, nn;
 
 
-  
+
 
 
 
   /* Parameter adjustments */
 
   dbc_dim1 = nbc;
-  
+
   for (i = 0; i < ndim; ++i) {
     f[i] = u0[i] - u1[i];
   }
@@ -1448,7 +1448,7 @@ bcps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -1458,14 +1458,14 @@ icps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer jtmp, i, nn;
 
 
-  
+
 
 
 
   /* Parameter adjustments */
 
   dint_dim1 = nint;
-  
+
   f[0] = 0.;
   for (i = 0; i < ndim; ++i) {
     if (global_rotations.nrtn[i] == 0) {
@@ -1496,7 +1496,7 @@ icps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ----- */
-/* Subroutine */ int 
+/* Subroutine */ int
 pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, integer *ncol, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *tm, doublereal *par)
 {
   /* System generated locals */
@@ -1506,7 +1506,7 @@ pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, in
   integer i, j, i1, i2;
 
 
-  
+
 
   /* Preprocesses restart data for switching branches at a period doubling */
 
@@ -1516,7 +1516,7 @@ pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, in
     /* Parameter adjustments */
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-    
+
   par[10] *= 2.;
   if (global_rotations.irtn != 0) {
     par[18] *= 2.;
@@ -1533,13 +1533,13 @@ pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, in
     for (i1 = 0; i1 < *ndim; ++i1) {
       for (i2 = 0; i2 < *ncol; ++i2) {
 	i = i2 * *ndim + i1;
-	ARRAY2D(ups, *ntst + j, i) = 
-	  ARRAY2D(ups, *ntst, i1) + 
-	  ARRAY2D(ups, j, i) - 
+	ARRAY2D(ups, *ntst + j, i) =
+	  ARRAY2D(ups, *ntst, i1) +
+	  ARRAY2D(ups, j, i) -
 	  ARRAY2D(ups, 0, i1);
-	ARRAY2D(udotps, *ntst + j, i) = 
-	  ARRAY2D(udotps, *ntst, i1) + 
-	  ARRAY2D(udotps, j, i) - 
+	ARRAY2D(udotps, *ntst + j, i) =
+	  ARRAY2D(udotps, *ntst, i1) +
+	  ARRAY2D(udotps, j, i) -
 	  ARRAY2D(udotps, 0, i);
       }
     }
@@ -1552,7 +1552,7 @@ pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, in
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
   /* System generated locals */
@@ -1592,7 +1592,7 @@ stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   upoldp_dim1 = *ndxloc;
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-  
+
   ndim = iap->ndim;
   irs = iap->irs;
   ntst = iap->ntst;
@@ -1624,7 +1624,7 @@ stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
     smat[ndim + i + (ndim + i) * (ndim*2)] = rimhb;
   }
 
-  funi(iap, rap, ndim, u, &uold, icp, par, 1, f, 
+  funi(iap, rap, ndim, u, &uold, icp, par, 1, f,
        global_scratch.dfu, global_scratch.dfp);
 
   for (i = 0; i < ndim; ++i) {
@@ -1696,7 +1696,7 @@ stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -1707,7 +1707,7 @@ fnws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer ndm, ndm2;
 
 
-  
+
 
 
   /* Sets up equations for the continuation of spatially homogeneous */
@@ -1719,13 +1719,13 @@ fnws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function. */
 
   ndm2 = ndm / 2;
-  ffws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm2, global_scratch.dfu, 
+  ffws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp, ndm2, global_scratch.dfu,
        global_scratch.dfp);
 
   return 0;
@@ -1733,7 +1733,7 @@ fnws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp, integer ndm, doublereal *dfu, doublereal *dfp)
 {
   /* System generated locals */
@@ -1746,7 +1746,7 @@ ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
 
 
-  
+
 
 
   /* Parameter adjustments */
@@ -1755,7 +1755,7 @@ ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   dfdu_dim1 = ndim;
   dfp_dim1 = ndm;
   dfu_dim1 = ndm;
-    
+
   nfpr = iap->nfpr;
 
   c = par[9];
@@ -1811,7 +1811,7 @@ ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -1833,10 +1833,10 @@ fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   if (icp[1] == 10) {
     /*          **Variable wave length */
-    fnws(iap, rap, ndim, u, uold, icp, par, ijac, f, 
+    fnws(iap, rap, ndim, u, uold, icp, par, ijac, f,
 	 dfdu, dfdp);
     period = par[10];
     for (i = 0; i < ndim; ++i) {
@@ -1856,7 +1856,7 @@ fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
   } else {
     /*          **Fixed wave length */
-    fnws(iap, rap, ndim, u, uold, icp, par, ijac, f, 
+    fnws(iap, rap, ndim, u, uold, icp, par, ijac, f,
 	 dfdu, dfdp);
     period = par[10];
     for (i = 0; i < ndim; ++i) {
@@ -1882,7 +1882,7 @@ fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnwp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
   /* System generated locals */
@@ -1928,7 +1928,7 @@ stpnwp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   upoldp_dim1 = *ndxloc;
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-  
+
   ndim = iap->ndim;
   irs = iap->irs;
   ntst = iap->ntst;
@@ -2031,7 +2031,7 @@ stpnwp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -2048,13 +2048,13 @@ fnsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function and Jacobian. */
 
-  ffsp(iap, rap, ndim, u, uold, icp, par, ijac, f, 
-       dfdu, dfdp, ndm, global_scratch.dfu, 
+  ffsp(iap, rap, ndim, u, uold, icp, par, ijac, f,
+       dfdu, dfdp, ndm, global_scratch.dfu,
        global_scratch.dfp);
 
   return 0;
@@ -2062,7 +2062,7 @@ fnsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp, integer ndm, doublereal *dfu, doublereal *dfp)
 {
   /* System generated locals */
@@ -2083,7 +2083,7 @@ ffsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   dfdu_dim1 = ndim;
   dfp_dim1 = ndm;
   dfu_dim1 = ndm;
-    
+
   funi(iap, rap, ndm, u, uold, icp, par, ijac, &f[ndm], dfu, dfp);
 
   period = par[10];
@@ -2127,7 +2127,7 @@ ffsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -2144,12 +2144,12 @@ fnpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
 
   /* Generate the function and Jacobian. */
-  ffpe(iap, rap, ndim, u, uold, icp, par, ijac, f, 
-       dfdu, dfdp, ndm, global_scratch.dfu, 
+  ffpe(iap, rap, ndim, u, uold, icp, par, ijac, f,
+       dfdu, dfdp, ndm, global_scratch.dfu,
        global_scratch.dfp);
 
   return 0;
@@ -2157,7 +2157,7 @@ fnpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp, integer ndm, doublereal *dfu, doublereal *dfp)
 {
   /* System generated locals */
@@ -2177,7 +2177,7 @@ ffpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   dfdu_dim1 = ndim;
   dfp_dim1 = ndm;
   dfu_dim1 = ndm;
-    
+
   ds = rap->ds;
   dsmin = rap->dsmin;
 
@@ -2219,7 +2219,7 @@ ffpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icpe(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
 
@@ -2236,7 +2236,7 @@ icpe(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -2247,7 +2247,7 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer nfpr;
   doublereal rtmp;
   integer i, j;
-  doublereal ep; 
+  doublereal ep;
   integer ndm;
   doublereal umx;
 
@@ -2260,13 +2260,13 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
 /* Generate the function. */
 
-  ffpl(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffpl(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -2292,9 +2292,9 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffpl(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffpl(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffpl(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffpl(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -2303,7 +2303,7 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    ffpl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+    ffpl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
 	 ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -2316,7 +2316,7 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -2336,10 +2336,10 @@ ffpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   period = par[10];
   beta = par[11];
-  funi(iap, rap, ndm, u, uold, icp, par, 2, f, 
+  funi(iap, rap, ndm, u, uold, icp, par, 2, f,
        dfdu, dfdp);
 
   ips = iap->ips;
@@ -2363,7 +2363,7 @@ ffpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -2380,7 +2380,7 @@ bcpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Parameter adjustments */
   dbc_dim1 = nbc;
-  
+
   for (i = 0; i < ndim; ++i) {
     f[i] = u0[i] - u1[i];
   }
@@ -2417,7 +2417,7 @@ bcpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -2435,7 +2435,7 @@ icpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Parameter adjustments */
   dint_dim1 = nint;
-  
+
   ndm = iap->ndm;
 
   f[0] = 0.;
@@ -2482,15 +2482,15 @@ icpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
-  
+
 
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
 
-    
+
 
   /* Local variables */
   integer ndim;
@@ -2502,7 +2502,7 @@ stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   doublereal rd1, rd2;
   integer ibr, ndm, ips, irs, lab1, nar1, itp1, isw1;
 
-  
+
 
 
 
@@ -2519,7 +2519,7 @@ stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   upoldp_dim1 = *ndxloc;
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-  
+
   ndim = iap->ndim;
   ips = iap->ips;
   irs = iap->irs;
@@ -2645,7 +2645,7 @@ stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -2669,13 +2669,13 @@ fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
 /* Generate the function. */
 
-  ffpd(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffpd(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -2701,9 +2701,9 @@ fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffpd(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffpd(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffpd(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffpd(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -2712,7 +2712,7 @@ fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    ffpd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+    ffpd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
 	 ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -2725,7 +2725,7 @@ fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -2743,7 +2743,7 @@ ffpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   period = par[10];
   funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
 
@@ -2761,7 +2761,7 @@ ffpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -2771,7 +2771,7 @@ bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer jtmp, i, j, nn, ndm;
 
 
-  
+
 
 
   /* Generate boundary conditions for the 2-parameter continuation */
@@ -2780,7 +2780,7 @@ bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
   /* Parameter adjustments */
   dbc_dim1 = nbc;
-  
+
   ndm = iap->ndm;
 
   for (i = 0; i < ndm; ++i) {
@@ -2823,7 +2823,7 @@ bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -2833,13 +2833,13 @@ icpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer jtmp, i, j, nn, ndm;
 
 
-  
+
 
 
 
   /* Parameter adjustments */
   dint_dim1 = nint;
-  
+
   ndm = iap->ndm;
 
   f[0] = 0.;
@@ -2880,10 +2880,10 @@ icpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
-  
+
 
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
@@ -2898,7 +2898,7 @@ stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   integer ibr, ndm, irs, lab1, nar1, itp1, isw1;
 
-    
+
 
 
 
@@ -3023,7 +3023,7 @@ stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -3050,13 +3050,13 @@ fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
 /* Generate the function. */
 
-  fftr(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  fftr(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -3082,9 +3082,9 @@ fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    fftr(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    fftr(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    fftr(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    fftr(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -3093,7 +3093,7 @@ fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    fftr(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+    fftr(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
 	 ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -3106,7 +3106,7 @@ fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fftr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -3119,13 +3119,13 @@ fftr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer ndm2;
 
 
-  
+
 
 
   /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   period = par[10];
   funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
 
@@ -3147,13 +3147,13 @@ fftr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bctr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
   integer dbc_dim1;
 
-    
+
 
 
     /* Local variables */
@@ -3164,13 +3164,13 @@ bctr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer ndm, ndm2;
 
 
-  
+
 
 
 
   /* Parameter adjustments */
   dbc_dim1 = nbc;
-  
+
   ndm = iap->ndm;
 
   ndm2 = ndm << 1;
@@ -3224,7 +3224,7 @@ bctr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ictr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -3234,13 +3234,13 @@ ictr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer jtmp, i, j, nn, ndm, ndm2;
 
 
-  
+
 
 
 
   /* Parameter adjustments */
   dint_dim1 = nint;
-  
+
   ndm = iap->ndm;
   ndm2 = ndm * 2;
 
@@ -3287,10 +3287,10 @@ ictr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
-  
+
 
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
@@ -3304,7 +3304,7 @@ stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   integer ibr, ndm, k2p1, irs, lab1, nar1, itp1, isw1;
 
-    
+
 
 
 
@@ -3320,7 +3320,7 @@ stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   /* Parameter adjustments */
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-    
+
   ndim = iap->ndim;
   irs = iap->irs;
   ndm = iap->ndm;
@@ -3434,7 +3434,7 @@ stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -3458,13 +3458,13 @@ fnpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
 /* Generate F(UOLD) */
 
-  funi(iap, rap, ndm, uold, uold, icp, par, 0, 
+  funi(iap, rap, ndm, uold, uold, icp, par, 0,
        upold, dfdu, dfdp);
   period = par[10];
   for (i = 0; i < ndm; ++i) {
@@ -3500,9 +3500,9 @@ fnpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffpo(iap, rap, ndim, global_scratch.uu1, uold, upold, icp, par, 
+    ffpo(iap, rap, ndim, global_scratch.uu1, uold, upold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffpo(iap, rap, ndim, global_scratch.uu2, uold, upold, icp, par, 
+    ffpo(iap, rap, ndim, global_scratch.uu2, uold, upold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -3511,7 +3511,7 @@ fnpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    ffpo(iap, rap, ndim, u, uold, upold, icp, par, 
+    ffpo(iap, rap, ndim, u, uold, upold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -3525,7 +3525,7 @@ fnpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const doublereal *upold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -3543,7 +3543,7 @@ ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   period = par[10];
   rkappa = par[12];
   gamma = par[13];
@@ -3553,7 +3553,7 @@ ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
       ARRAY2D(dfdp, i, j) = 0.;
     }
   }
-  funi(iap, rap, ndm, u, uold, icp, par, 1, f, 
+  funi(iap, rap, ndm, u, uold, icp, par, 1, f,
        dfdu, dfdp);
   for (i = 0; i < NPARX; ++i) {
     dfp[i] = 0.;
@@ -3575,7 +3575,7 @@ ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -3585,16 +3585,16 @@ bcpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer nfpr, i, j, nbc0;
 
 
-  
 
 
-  /* Generates the boundary conditions for periodic optimization problems. 
+
+  /* Generates the boundary conditions for periodic optimization problems.
 */
 
 
     /* Parameter adjustments */
   dbc_dim1 = nbc;
-  
+
   nfpr = iap->nfpr;
 
   for (i = 0; i < nbc; ++i) {
@@ -3630,7 +3630,7 @@ bcpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -3657,14 +3657,14 @@ icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Parameter adjustments */
   dint_dim1 = nint;
-  
+
   ndm = iap->ndm;
   nnt0 = iap->nnt0;
   nfpr = iap->nfpr;
 
   /* Generate the function. */
 
-  fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, 
+  fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold,
        udot, upold, f, dnt, ndm, global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -3693,11 +3693,11 @@ icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu1, 
-	 uold, udot, upold, f1, dnt, ndm, global_scratch.dfu, 
+    fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu1,
+	 uold, udot, upold, f1, dnt, ndm, global_scratch.dfu,
 	 global_scratch.dfp);
-    fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu2, 
-	 uold, udot, upold, f2, dnt, ndm, global_scratch.dfu, 
+    fipo(iap, rap, ndim, par, icp, nint, nnt0, global_scratch.uu2,
+	 uold, udot, upold, f2, dnt, ndm, global_scratch.dfu,
 	 global_scratch.dfp);
     for (j = 0; j < nint; ++j) {
       ARRAY2D(dint, j, i) = (f2[j] - f1[j]) / (ep * 2);
@@ -3706,7 +3706,7 @@ icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f1, dnt, ndm, global_scratch.dfu, 
+    fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f1, dnt, ndm, global_scratch.dfu,
 	 global_scratch.dfp);
     for (j = 0; j < nint; ++j) {
       ARRAY2D(dint, j, ndim + icp[i]) = (f1[j] - f[j]) / ep;
@@ -3722,7 +3722,7 @@ icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fipo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, integer nnt0, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *fi, doublereal *dint, integer ndmt, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -3746,7 +3746,7 @@ fipo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   dfdp_dim1 = ndmt;
   dfdu_dim1 = ndmt;
 
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
@@ -3800,10 +3800,10 @@ fipo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
-  
+
 
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
@@ -3811,7 +3811,7 @@ stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
 
   /* Local variables */
-  integer ndim; 
+  integer ndim;
   doublereal temp[7];
   integer nfpr;
   doublereal dump;
@@ -3838,7 +3838,7 @@ stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
      rsptbv.  The are various places the sizes are defined (fort.2 and fort.8)
      and you have to pick the maximum, multiplied by a constant (something
      like 4 to take into account the increase in size for certain calculations).
-     So, that is why I use ndxloc here.  Also, iap->ncol MAY BE tool small, 
+     So, that is why I use ndxloc here.  Also, iap->ncol MAY BE tool small,
      but I am not sure how to get value from the fort.8 file into here. */
   temporary_storage = (doublereal *)malloc(sizeof(doublereal)*(*ndxloc)*(iap->ndim * iap->ncol));;
   u = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
@@ -3853,7 +3853,7 @@ stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
   temporary_storage_dim1 = *ndxloc;
-  
+
   ndim = iap->ndim;
   irs = iap->irs;
   ndm = iap->ndm;
@@ -3989,7 +3989,7 @@ stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -4016,13 +4016,13 @@ fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
 /* Generate the function. */
 
-  ffbl(iap, rap, ndim, u, uold, icp, par, f, ndm, 
+  ffbl(iap, rap, ndim, u, uold, icp, par, f, ndm,
        global_scratch.dfu, global_scratch.dfp);
 
   if (ijac == 0) {
@@ -4048,9 +4048,9 @@ fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     }
     global_scratch.uu1[i] -= ep;
     global_scratch.uu2[i] += ep;
-    ffbl(iap, rap, ndim, global_scratch.uu1, uold, icp, par, 
+    ffbl(iap, rap, ndim, global_scratch.uu1, uold, icp, par,
 	 global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
-    ffbl(iap, rap, ndim, global_scratch.uu2, uold, icp, par, 
+    ffbl(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
 	 global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdu, j, i) = (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
@@ -4059,7 +4059,7 @@ fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   for (i = 0; i < nfpr; ++i) {
     par[icp[i]] += ep;
-    ffbl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, 
+    ffbl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1,
 	 ndm, global_scratch.dfu, global_scratch.dfp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
@@ -4072,7 +4072,7 @@ fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 ffbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -4083,16 +4083,16 @@ ffbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer nfpr, nfpx, i, j;
 
 
-  
+
 
 
   /* Parameter adjustments */
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-    
+
   nfpr = iap->nfpr;
 
-  funi(iap, rap, ndm, u, uold, icp, par, 2, f, 
+  funi(iap, rap, ndm, u, uold, icp, par, 2, f,
        dfdu, dfdp);
 
   nfpx = nfpr / 2 - 1;
@@ -4113,7 +4113,7 @@ ffbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -4132,7 +4132,7 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   uu1=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   uu2=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfu=(doublereal *)malloc(sizeof(doublereal)*(iap->nbc)*(2*iap->ndim+NPARX));
-		     
+		
 
 
 
@@ -4144,7 +4144,7 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Parameter adjustments */
   dbc_dim1 = nbc;
-  
+
   nbc0 = iap->nbc0;
   nfpr = iap->nfpr;
 
@@ -4178,9 +4178,9 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     uu1[i] -= ep;
     uu2[i] += ep;
-    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, uu1, u1, 
+    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, uu1, u1,
 	 ff1, dfu);
-    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, uu2, u1, 
+    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, uu2, u1,
 	 ff2, dfu);
     for (j = 0; j < nbc; ++j) {
       ARRAY2D(dbc, j, i) = (ff2[j] - ff1[j]) / (ep * 2);
@@ -4204,9 +4204,9 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     }
     uu1[i] -= ep;
     uu2[i] += ep;
-    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu1, 
+    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu1,
 	 ff1, dfu);
-    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu2, 
+    fbbl(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu2,
 	 ff2, dfu);
     for (j = 0; j < nbc; ++j) {
       ARRAY2D(dbc, j, (ndim + i)) = (ff2[j] - ff1[j]) / ( ep * 2);
@@ -4232,7 +4232,7 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fbbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, integer nbc0, const doublereal *u0, const doublereal *u1, doublereal *f, doublereal *dbc)
 {
   /* System generated locals */
@@ -4243,12 +4243,12 @@ fbbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer nfpr, nfpx, i, j, ndm;
 
 
-  
+
 
 
   /* Parameter adjustments */
   dbc_dim1 = nbc0;
-  
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
@@ -4273,7 +4273,7 @@ fbbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -4295,7 +4295,7 @@ icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 
-    
+
 /* Generates integral conditions for the 2-parameter continuation of */
 /* folds (BVP). */
 
@@ -4303,13 +4303,13 @@ icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Parameter adjustments */
   dint_dim1 = nint;
-  
+
   nnt0 = iap->nnt0;
   nfpr = iap->nfpr;
 
   /* Generate the function. */
 
-  fibl(iap, rap, ndim, par, icp, nint, nnt0, u, uold, 
+  fibl(iap, rap, ndim, par, icp, nint, nnt0, u, uold,
        udot, upold, f, dfu);
 
   if (ijac == 0) {
@@ -4368,7 +4368,7 @@ icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fibl(const iap_type *iap, const rap_type *rap, const integer ndim, doublereal *par, const integer *icp, integer nint, integer nnt0, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, doublereal *dint)
 {
   /* System generated locals */
@@ -4379,12 +4379,12 @@ fibl(const iap_type *iap, const rap_type *rap, const integer ndim, doublereal *p
   integer nfpr, nfpx=0, i, j, ndm;
 
 
-  
+
 
 
   /* Parameter adjustments */
   dint_dim1 = nnt0;
-  
+
   ndm = iap->ndm;
   nfpr = iap->nfpr;
 
@@ -4421,10 +4421,10 @@ fibl(const iap_type *iap, const rap_type *rap, const integer ndim, doublereal *p
 
 
 /*     ---------- ------ */
-/* Subroutine */ int 
+/* Subroutine */ int
 stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
-  
+
 
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
@@ -4439,7 +4439,7 @@ stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   integer ibr, ndm, irs, lab1, nar1, itp1, isw1;
 
-    
+
 
 
 
@@ -4456,7 +4456,7 @@ stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
 
-    
+
   ndim = iap->ndim;
   irs = iap->irs;
   ndm = iap->ndm;
@@ -4555,7 +4555,7 @@ stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
   /* System generated locals */
@@ -4584,7 +4584,7 @@ funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
   dfdu_dim1 = ndim;
-    
+
   jac = iap->jac;
   nfpr = iap->nfpr;
 
@@ -4595,7 +4595,7 @@ funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   } else {
     ijc = ijac;
   }
-  func(ndim, u, icp, par, ijc, f, dfdu, 
+  func(ndim, u, icp, par, ijc, f, dfdu,
        dfdp);
 
   if (jac == 1 || ijac == 0) {
@@ -4644,7 +4644,7 @@ funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     rtmp = HMACH;
     ep = rtmp * (fabs(par[icp[i]]) + 1);
     par[icp[i]] += ep;
-    func(ndim, u, icp, par, 0, f1zz, dfdu, 
+    func(ndim, u, icp, par, 0, f1zz, dfdu,
 	 dfdp);
     for (j = 0; j < ndim; ++j) {
       ARRAY2D(dfdp, j, icp[i]) = (f1zz[j] - f[j]) / ep;
@@ -4661,7 +4661,7 @@ funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
 {
   /* System generated locals */
@@ -4682,7 +4682,7 @@ bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   f1zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nbc));
   f2zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nbc));
 
-  
+
 
 
   /* Interface subroutine to the user supplied BCND. */
@@ -4691,7 +4691,7 @@ bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Parameter adjustments */
   dbc_dim1 = nbc;
-  
+
   jac = iap->jac;
   nfpr = iap->nfpr;
 
@@ -4786,7 +4786,7 @@ bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
 {
   /* System generated locals */
@@ -4802,7 +4802,7 @@ icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer jac, ijc;
   doublereal umx, *f1zz, *f2zz;
 
-    
+
   f1zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nint));
   f2zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nint));
   u1zz = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
@@ -4814,7 +4814,7 @@ icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /* Parameter adjustments */
 
   dint_dim1 = nint;
-  
+
   jac = iap->jac;
   nfpr = iap->nfpr;
 
@@ -4825,7 +4825,7 @@ icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   } else {
     ijc = ijac;
   }
-  icnd(ndim, par, icp, nint, u, uold, udot, upold, 
+  icnd(ndim, par, icp, nint, u, uold, udot, upold,
        ijc, f, dint);
 
   if (jac == 1 || ijac == 0) {
@@ -4886,7 +4886,7 @@ icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
 
 /*     ---------- ---- */
-/* Subroutine */ int 
+/* Subroutine */ int
 fopi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
 {
 
@@ -4908,7 +4908,7 @@ fopi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   /* Local */
 
   /* Parameter adjustments */
-    
+
   jac = iap->jac;
   nfpr = iap->nfpr;
 

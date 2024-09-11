@@ -30,7 +30,7 @@ typedef struct {
   int type, flag;
   int *col,*x1,*y1,*x2,*y2;
   double zcol,zx1,zy1,zx2,zy2,zrad,zval;
-  int zthick,tfont,tsize,tcolor;  
+  int zthick,tfont,tsize,tcolor;
 } ANI_COM;
 
 

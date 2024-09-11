@@ -1,7 +1,7 @@
 
 #include "storage.h"
 #include "ggets.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 #include "xpplim.h"
 float **storage;
@@ -17,7 +17,7 @@ extern int METHOD;
 #define GEAR 5
 #define RB23 13
 #define SYMPLECT 14
-typedef struct 
+typedef struct
 {
   int nvec,node;
   double *x;
@@ -43,7 +43,7 @@ void alloc_meth()
   switch(METHOD){
   case STIFF:
      sz=2*nn*nn+13*nn+100;
-    
+
      break;
   case GEAR:
     sz=30*nn+nn*nn+100;
@@ -61,18 +61,18 @@ void alloc_meth()
   WORK=(double *)malloc(sz*sizeof(double));
   /* plintf(" I have allocated %d doubles \n",sz); */
 }
-    
+
 int reallocstor(int ncol,int nrow)
 {
   int i=0;
   while((storage[i]=(float *)realloc(storage[i],nrow*sizeof(float)))!=NULL){
    i++;
    if(i==ncol)return 1;
-   }  
+   }
    err_msg("Cannot allocate sufficient storage");
    return 0;
 }
-  
+
 void init_stor(nrow,ncol)
 int nrow,ncol;
 {
@@ -89,7 +89,7 @@ WORK=NULL;
    i++;
    if(i==ncol)return;
    }
- 
+
  }
  /*  } */
  /*  plintf("col=%d\n",i); */
@@ -105,10 +105,10 @@ int ncol;
   for(i=0;i<ncol;i++)free(storage[i]);
   free(storage);
   if(WORK)free(WORK);
-  
+
 }
 
- 
+
 
 
 

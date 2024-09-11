@@ -9,7 +9,7 @@
 #define DOWN 14
 #define HOME 1
 #define END 5
-#define DEL 9 
+#define DEL 9
 #define BKSP 8
 #define FINE 13
 #define ESC 27

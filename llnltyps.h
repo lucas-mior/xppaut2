@@ -22,7 +22,7 @@
  * Similarly, if a user needs to work with extremely large        *
  * integers (see the system header file <limits.h> for the limits *
  * on type int and   int on your machine), then the user       *
- * should change the definition below to:                         *            
+ * should change the definition below to:                         *
  *                                                                *
  * typedef   int integer;                                      *
  *                                                                *
@@ -117,7 +117,7 @@ typedef int integer;
 
 #ifndef TRUE
 #define TRUE 1
-#endif 
+#endif
 
 #endif
 

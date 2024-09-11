@@ -23,17 +23,17 @@ char *num_menu[]={"NUMERICS","Total","Start time","tRansient",
 "Dt","Ncline ctrl","sIng pt ctrl","nOutput","Bounds","Method",
 "dElay","Color code","stocHast","Poincare map","rUelle plot",
 "looKup","bndVal","Averaging","[Esc]-exit"};
-/* CLONE change */  
+/* CLONE change */
 
 char *fileon_menu[]={
 "FILE","Prt src","Write set","Read set",
 "Auto","Calculator","Edit","Save info",
-"Bell off","Help","Quit","Transpose","tIps","Get par set","cLone",".Xpprc","tUtorial"}; 
+"Bell off","Help","Quit","Transpose","tIps","Get par set","cLone",".Xpprc","tUtorial"};
 
 char *fileoff_menu[]={
 "FILE","Prt src","Write set","Read set",
 "Auto","Calculator","Edit","Save info",
-"Bell on","Help","Quit","Transpose","tIps","Get par set","cLone",".Xpprc","tUtorial"}; 
+"Bell on","Help","Quit","Transpose","tIps","Get par set","cLone",".Xpprc","tUtorial"};
 
 /* end CLONE change */
 typedef struct {
@@ -237,7 +237,7 @@ char *bvp_hint[]={
 "Show each step of iteration",
 "Solve BVP with periodic conditions",
 "Set up special homoclinic stuff"
-}; 
+};
 
 char *adj_hint[]={
 "Compute a new adjoint function",
@@ -338,7 +338,7 @@ char *auto_hint[]={
 "Redraw the diagram",
 "Save and output options"};
 
-char *no_hint[]={ 
+char *no_hint[]={
 " "," "," "," "," "," "," "," "," "," ", " "," "," "," "};
 
 char *aaxes_hint[]={
@@ -393,7 +393,7 @@ char *arun_hint[]={
   "Start at solution to boundary value problem",
   "Start at homoclinics",
   "Start at a heteroclinic",
-}; 
+};
 
 char *browse_hint[]={
  "Find closest data point to given value",

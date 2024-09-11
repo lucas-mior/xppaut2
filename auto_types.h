@@ -24,14 +24,14 @@ typedef struct {
   doublereal *upoldp; /*array input size: *ndxloc X (*ndim X *ncol) */
   doublereal *dtm; /*array input size: *na */
   integer loop_start; /*scalar input*/
-  integer loop_end; /*scalar input*/  
+  integer loop_end; /*scalar input*/
   integer loop_offset; /*scalar input*/
   doublereal *wp; /*array input size: MCL2*MCL1 */
   doublereal *wt; /*array input size: MCL2*MCL1 */
   doublereal *wi; /*array input size: MCL2*MCL1??? Not sure of this one yet */
   doublereal *thu; /*array input size: ndim * 8 */
-  doublereal *thl; /*array input size: NPARX */ 
-  doublereal *rldot; /*array input size: NPARX */ 
+  doublereal *thl; /*array input size: NPARX */
+  doublereal *rldot; /*array input size: NPARX */
   BCNI_TYPE((*bcni));
 } setubv_parallel_arglist;
 
@@ -49,7 +49,7 @@ typedef struct {
   integer *irf; /*array input size: na X nra*/
   integer *icf; /*array input: na X nca*/
   integer loop_start; /*scalar input*/
-  integer loop_end; /*scalar output*/  
+  integer loop_end; /*scalar output*/
 } conpar_parallel_arglist;
 #endif
 

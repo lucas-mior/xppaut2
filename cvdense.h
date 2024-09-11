@@ -23,7 +23,7 @@
 #include "dense.h"
 #include "vector.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * CVDENSE solver statistics indices                              *
@@ -44,7 +44,7 @@
  *                   workspace vectors used by this solver.       *
  *                                                                *
  ******************************************************************/
- 
+
 enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 
 
@@ -60,13 +60,13 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  *                                                                *
  ******************************************************************/
 
-#define CVD_MSBJ  50   
+#define CVD_MSBJ  50
 
-#define CVD_DGMAX RCONST(0.2)  
+#define CVD_DGMAX RCONST(0.2)
 
- 
+
 /******************************************************************
- *                                                                *           
+ *                                                                *
  * Type : CVDenseJacFn                                            *
  *----------------------------------------------------------------*
  * A dense Jacobian approximation function Jac must have the      *
@@ -88,7 +88,7 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  *         col_j[i] = J_ij;                                       *
  *       }                                                        *
  *     }                                                          *
- *                                                                *  
+ *                                                                *
  * (2) (without macros - explicit data structure references)      *
  *     for (j=0; j < N; j++) {                                    *
  *       col_j = (J->data)[j];                                    *
@@ -134,14 +134,14 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  * as temporary storage or work space.                            *
  *                                                                *
  ******************************************************************/
-  
+
 typedef void (*CVDenseJacFn)(integer N, DenseMat J, RhsFn f, void *f_data,
                              real t, N_Vector y, N_Vector fy, N_Vector ewt,
                              real h, real uround, void *jac_data,
                                int *nfePtr, N_Vector vtemp1,
                              N_Vector vtemp2, N_Vector vtemp3);
- 
- 
+
+
 /******************************************************************
  *                                                                *
  * Function : CVDense                                             *
@@ -162,14 +162,14 @@ typedef void (*CVDenseJacFn)(integer N, DenseMat J, RhsFn f, void *f_data,
  *         djac routine every time it is called.                  *
  *                                                                *
  ******************************************************************/
-  
+
 void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
- 
+
 
 /******************************************************************
  *                                                                *
  * Function : CVDenseDQJac                                        *
- *----------------------------------------------------------------*  
+ *----------------------------------------------------------------*
  * This routine generates a dense difference quotient             *
  * approximation to the Jacobian of f(t,y).                       *
  *                                                                *

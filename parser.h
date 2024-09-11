@@ -49,14 +49,14 @@
 #define ENDINDX 69
 #define MAX_TAB 50
 /* #define MXLEN 32 */
-#define MXLEN 10 
+#define MXLEN 10
 
 /* number of standard symbols */
 
 #define STDSYM 95
 
 #define NEXT1VAR  26
-#define NEXT2VAR  120 
+#define NEXT2VAR  120
 
 
 typedef struct
@@ -130,15 +130,15 @@ SYMBOL my_symb[MAX_SYMBS]=
    "NORMAL",6,117,2,10,0, /* returns normally dist number */
    "BESSELJ",7,118,2,10, 0,/* Bessel J   */
    "BESSELY",7,119,2,10, 0,/* Bessel Y */
-   "NXXQQ",5,NUMSYM,0,10, 0, 
+   "NXXQQ",5,NUMSYM,0,10, 0,
    "ERF", 3, 21,0,10, 0,/* 60 */
    "ERFC",4,22,0,10,0,
    "SUM",3,SUMSYM,2,10,0,
    "OF",2,ENDSUM,0,10,0,
-   "SHIFT",5,ENDSHIFT,2,10,0, 
+   "SHIFT",5,ENDSHIFT,2,10,0,
    "DEL_SHFT",8,ENDDELSHFT,3,10,0,
    "HOM_BCS",7,23,0,10, 0,
-    "ISHIFT",6,ENDISHIFT,2,10,0, 
+    "ISHIFT",6,ENDISHIFT,2,10,0,
    "$",1,INDXCOM,0,10,0, /*68 */
    "]",1,ENDSHIFT,0,10,0,
    "[",1,ENDSHIFT,0,10,0, /*70 */
@@ -188,7 +188,7 @@ SYMBOL my_symb[MAX_SYMBS]=
 #define IMYIF 15
 #define IMYTHEN 16
 #define IMYELSE 17
-#define IENDDELAY 18 
+#define IENDDELAY 18
 #define IENDSHIFT 19
 #define ISUMSYM 20
 #define IENDSUM 21
@@ -198,7 +198,7 @@ SYMBOL my_symb[MAX_SYMBS]=
 #define ISETEQUAL 25
 #define IENDISHIFT 26
 #define I_INDX 27
-#define VECT_ROOT 500 
+#define VECT_ROOT 500
 
 int NSYM=STDSYM,NCON=0,NVAR=0,NFUN=0;
 

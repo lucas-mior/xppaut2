@@ -68,7 +68,7 @@
  * vector storage during calculations.                            *
  *                                                                *
  ******************************************************************/
-  
+
 typedef struct {
 
   integer N;
@@ -189,7 +189,7 @@ SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv);
  *                                                                *
  ******************************************************************/
 
-     
+
 int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
                int pretype, int gstype, real delta, int max_restarts,
 	       void *P_data, N_Vector sx, N_Vector sb, ATimesFn atimes,
@@ -207,7 +207,7 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
 #define SPGMR_MEM_NULL           -1  /* mem argument is NULL         */
 #define SPGMR_ATIMES_FAIL        -2  /* atimes returned failure flag */
 #define SPGMR_PSOLVE_FAIL_UNREC  -3  /* psolve failed unrecoverably  */
-#define SPGMR_GS_FAIL            -4  /* Gram-Schmidt routine         
+#define SPGMR_GS_FAIL            -4  /* Gram-Schmidt routine
 					returned failure flag        */
 #define SPGMR_QRSOL_FAIL         -5  /* QRsol found singular R       */
 

@@ -1,4 +1,4 @@
- 
+
 /******************************************************************
  *                                                                *
  * File          : dense.h                                        *
@@ -40,14 +40,14 @@
  * other implementations of the type N_Vector. Thus, the          *
  * implementation of DenseBacksolve may need to change if the     *
  * type N_Vector is changed.                                      *
- *                                                                * 
+ *                                                                *
  * Routines that work with real ** begin with "den" (except for   *
  * the factor and solve routines which are called gefa and gesl,  *
  * respectively). The underlying matrix storage is described in   *
  * the documentation for denalloc.                                *
  *                                                                *
  ******************************************************************/
- 
+
 
 #ifndef _dense_h
 #define _dense_h
@@ -56,7 +56,7 @@
 #include "llnltyps.h"
 #include "vector.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * Type: DenseMat                                                 *
@@ -84,11 +84,11 @@ typedef struct {
   integer size;
   real  **data;
 } *DenseMat;
- 
+
 
 /* DenseMat accessor macros */
 
- 
+
 /******************************************************************
  *                                                                *
  * Macro : DENSE_ELEM                                             *
@@ -117,11 +117,11 @@ typedef struct {
  ******************************************************************/
 
 #define DENSE_COL(A,j) ((A->data)[j])
- 
+
 
 /* Functions that use the DenseMat representation for a dense matrix */
 
- 
+
 /******************************************************************
  *                                                                *
  * Function : DenseAllocMat                                       *
@@ -132,8 +132,8 @@ typedef struct {
  * returns the storage allocated (type DenseMat). DenseAllocMat   *
  * returns NULL if the request for matrix storage cannot be       *
  * satisfied. See the above documentation for the type DenseMat   *
- * for matrix storage details.                                    * 
- *                                                                * 
+ * for matrix storage details.                                    *
+ *                                                                *
  ******************************************************************/
 
 DenseMat DenseAllocMat(integer N);
@@ -151,7 +151,7 @@ DenseMat DenseAllocMat(integer N);
  * information is an array of N integers and this routine returns *
  * the pointer to the memory it allocates. If the request for     *
  * pivot storage cannot be satisfied, DenseAllocPiv returns NULL. *
- *                                                                * 
+ *                                                                *
  ******************************************************************/
 
 integer *DenseAllocPiv(integer N);
@@ -297,12 +297,12 @@ void DenseFreePiv(integer *p);
  ******************************************************************/
 
 void DensePrint(DenseMat A);
- 
+
 
 
 /* Functions that use the real ** representation for a dense matrix */
 
- 
+
 /******************************************************************
  *                                                                *
  * Function : denalloc                                            *
@@ -366,7 +366,7 @@ integer *denallocpiv(integer n);
  *     triangular matrix, then the upper triangular part of a     *
  *     (including its diagonal) contains U and the strictly lower *
  *     triangular part of a contains the multipliers, I-L.        *
- *                                                                * 
+ *                                                                *
  * gefa returns 0 if successful. Otherwise it encountered a zero  *
  * diagonal element during the factorization. In this case it     *
  * returns the column index (numbered from one) at which it       *
@@ -485,6 +485,6 @@ void denfree(real **a);
  ******************************************************************/
 
 void denprint(real **a, integer n);
- 
+
 
 #endif

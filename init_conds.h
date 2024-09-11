@@ -26,7 +26,7 @@ typedef struct {
 } SCROLL_LIST;
 
 typedef struct {
-  int use,pos,l; 
+  int use,pos,l;
   char parname[20];
   double lo,hi,val;
   int hgt;

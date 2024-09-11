@@ -38,8 +38,8 @@ void start_cv(y,t,n,tout,atol,rtol)
  if(cv_bandflag==1)
    CVBand(cvode_mem,cv_bandupper,cv_bandlower,NULL,NULL);
  else
-   CVDense(cvode_mem, NULL, NULL); 
-    
+   CVDense(cvode_mem, NULL, NULL);
+
 }
 
 void end_cv()
@@ -47,7 +47,7 @@ void end_cv()
   N_VFree(ycv);
   CVodeFree(cvode_mem);
 }
- 
+
 static void cvf(n,t,y,ydot,fdata)
      void *fdata;
      double t;
@@ -55,10 +55,10 @@ static void cvf(n,t,y,ydot,fdata)
      N_Vector y,ydot;
 {
   my_rhs(t,y->data,ydot->data,n);
-  
+
 }
-     
- 
+
+
 void cvode_err_msg(kflag)
      int kflag;
 {
@@ -90,9 +90,9 @@ void cvode_err_msg(kflag)
   if(strlen(s)>0)
     err_msg(s);
 }
-    
 
-int cvode(command,y,t,n,tout,kflag,atol,rtol) 
+
+int cvode(command,y,t,n,tout,kflag,atol,rtol)
 /* command =0 continue, 1 is start 2 finish */
      int *command,*kflag;
      double *y,*atol,*rtol;
@@ -108,7 +108,7 @@ int cvode(command,y,t,n,tout,kflag,atol,rtol)
    return 1;
 }
 /* rtol is like our TOLER and atol is something else ?? */
-int ccvode(command,y,t,n,tout,kflag,atol,rtol) 
+int ccvode(command,y,t,n,tout,kflag,atol,rtol)
 /* command =0 continue, 1 is start 2 finish */
      int *command,*kflag;
      double *y,*atol,*rtol;
@@ -126,7 +126,7 @@ int ccvode(command,y,t,n,tout,kflag,atol,rtol)
     start_cv(y,*t,n,tout,atol,rtol);
     flag=CVode(cvode_mem, tout, ycv, t, NORMAL);
     if(flag != SUCCESS){
-     
+
      *kflag=flag;
      end_cv();
      *command=1;
@@ -135,13 +135,13 @@ int ccvode(command,y,t,n,tout,kflag,atol,rtol)
     *command=0;
     for(i=0;i<n;i++)y[i]=ycv->data[i];
     return(0);
-  } 
+  }
   flag=CVode(cvode_mem,tout,ycv,t,NORMAL);
   if(flag != SUCCESS){
       *kflag=flag;
       end_cv();
       *command=1;
-     
+
       return(-1);
   }
   for(i=0;i<n;i++)y[i]=ycv->data[i];

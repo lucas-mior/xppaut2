@@ -27,9 +27,9 @@ void stor_internopts(char *s1);
 
 typedef struct {
   char *name,*value;} FIXINFO;
-  
-  
-  
+
+
+
 int make_eqn(void);
 void strip_saveqn(void);
 int disc(char *string);
@@ -90,4 +90,4 @@ void advance_past_first_word(char** sptr);
 char* get_next2(char** tokens_ptr);
 void strcpy_trim(char* dest, char* source);
 void strncpy_trim(char* dest, char* source, int n);
-#endif 
+#endif

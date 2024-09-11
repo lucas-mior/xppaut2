@@ -21,7 +21,7 @@
 #include "llnltyps.h"
 #include "vector.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * CVDIAG solver statistics indices                               *
@@ -42,10 +42,10 @@
  * in cv_iopt[NSETUPS].                                           *
  *                                                                *
  ******************************************************************/
- 
+
 enum { DIAG_LRW=CVODE_IOPT_SIZE, DIAG_LIW };
 
- 
+
 /******************************************************************
  *                                                                *
  * Function : CVDiag                                              *
@@ -57,7 +57,7 @@ enum { DIAG_LRW=CVODE_IOPT_SIZE, DIAG_LIW };
  *              CVodeMalloc.                                      *
  *                                                                *
  ******************************************************************/
-  
+
 void CVDiag(void *cvode_mem);
- 
+
 #endif
