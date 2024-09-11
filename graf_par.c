@@ -1093,32 +1093,12 @@ create_ps(void) {
 }
 
 void
-padnum(char *s, int i, int m) {
-    char tmp[25];
-    int k, q;
-    snprintf(tmp, sizeof(tmp), "%d", i);
-    if (strlen(tmp) >= m) {
-        strcpy(s, tmp);
-        return;
-    }
-    q = m - strlen(tmp);
-    for (k = 0; k < m; k++) {
-        if (k < q)
-            s[k] = '0';
-        else
-            s[k] = tmp[k - q];
-    }
-    s[m] = 0;
-}
-
-void
 dump_ps(int i) {
     char filename[XPP_MAX_NAME];
     if (i < 0) {
         snprintf(filename, sizeof(filename), "%s%s.%s", this_file,
                  this_internset, PlotFormat);
     } else {
-        /*   padnum(s,i,4); */
         snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file,
                  this_internset, i, PlotFormat);
     }
