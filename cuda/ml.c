@@ -1,6 +1,6 @@
 #include <math.h>
 
-/*  ml.c for use in the ode file mlnet.ode  
+/*  ml.c for use in the ode file mlnet.ode
 
  without the -O3 -m64 it is slower than XPP!!
  gcc -fPIC -dynamiclib -O3 -o ML.SO ml.c -m64
@@ -42,77 +42,61 @@ double vth=0,vshp=.05;
 
 real *sum;
 
-int allocflag=0;
-real minf(real v)
-{
-  return .5*(1+tanh((v-va)/vb));
-}
-real ninf(real v)
-{
+int allocflag = 0;
+real minf(real v) { return .5 * (1 + tanh((v - va) / vb)); }
+real ninf(real v) { return .5 * (1 + tanh((v - vc) / vd)); }
+real lamn(real v) { return phi * cosh((v - vc) / (2 * vd)); }
+real s_inf(real v) {
 
-  return .5*(1+tanh((v-vc)/vd));
-}
-real lamn(real  v)
-{
-  return phi*cosh((v-vc)/(2*vd));
-}
-real s_inf(real v)
-{
-  
-  return 1.0/(1.0+exp(-(v-vth)/vshp)); 
-  /* return 0.0; */
+    return 1.0 / (1.0 + exp(-(v - vth) / vshp));
+    /* return 0.0; */
 }
 
-void update_sums(real *s,real *wgt,int n)
-{
-  int i,j;
-  for(i=0;i<n;i++){
-    sum[i]=0.0;
-    for(j=0;j<n;j++)
-      sum[i]+=(s[j]*wgt[j+i*n]);
-  }
- 
+void update_sums(real *s, real *wgt, int n) {
+    int i, j;
+    for (i = 0; i < n; i++) {
+        sum[i] = 0.0;
+        for (j = 0; j < n; j++)
+            sum[i] += (s[j] * wgt[j + i * n]);
+    }
 }
 
-
-void update_rhs(real *vp,real *wp,real *sp, real *v,real *w,real *s, int n)
-{
-  int i;
-  for(i=0;i<n;i++){
-    vp[i]=iapp-gl*(v[i]-vl)-gk*w[i]*(v[i]-vk)-gca*minf(v[i])*(v[i]-1.0)-gsyn*sum[i]*(v[i]-vsyn);
-    wp[i]=lamn(v[i])*(ninf(v[i])-w[i]);
-    sp[i]=(s_inf(v[i])-s[i])/tsyn;
-  }
+void update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s,
+                int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        vp[i] = iapp - gl * (v[i] - vl) - gk * w[i] * (v[i] - vk) -
+                gca * minf(v[i]) * (v[i] - 1.0) - gsyn * sum[i] * (v[i] - vsyn);
+        wp[i] = lamn(v[i]) * (ninf(v[i]) - w[i]);
+        sp[i] = (s_inf(v[i]) - s[i]) / tsyn;
+    }
 }
 
-void allocsum(int n)
-{
-  if(allocflag==1)return;
-  sum=(real *)malloc(n*sizeof(real));
-  allocflag=1;
-}  
-void ML(int nn,int ivar, double *par,double *var,double *z[50],double *ydot)
-{
-  double *s,*w,*v;
-  double *sp,*wp,*vp;
-  double *wgt;
-  int n=nn/3;
-
-  double t=var[0];
-  v=var+ivar;
-  w=var+n+ivar;
-  s=var+2*n+ivar;
-  vp=ydot;
-  wp=ydot+n;
-  sp=ydot+2*n;
-  wgt=z[0];
-  p=par;
-  /*  printf("%g %g %g ... %g %g %g \n",iapp,phi,va,tsyn,gsyn,vsyn); */
-  /* printf("%g %g %g %g %g %g\n",v[0],v[1],w[0],w[1],s[0],s[1]); */
-  allocsum(n);
-  update_sums(s,wgt,n);
-  update_rhs(vp,wp,sp,v,w,s,n);
- 
+void allocsum(int n) {
+    if (allocflag == 1)
+        return;
+    sum = (real *)malloc(n * sizeof(real));
+    allocflag = 1;
 }
+void ML(int nn, int ivar, double *par, double *var, double *z[50],
+        double *ydot) {
+    double *s, *w, *v;
+    double *sp, *wp, *vp;
+    double *wgt;
+    int n = nn / 3;
 
-
+    double t = var[0];
+    v = var + ivar;
+    w = var + n + ivar;
+    s = var + 2 * n + ivar;
+    vp = ydot;
+    wp = ydot + n;
+    sp = ydot + 2 * n;
+    wgt = z[0];
+    p = par;
+    /*  printf("%g %g %g ... %g %g %g \n",iapp,phi,va,tsyn,gsyn,vsyn); */
+    /* printf("%g %g %g %g %g %g\n",v[0],v[1],w[0],w[1],s[0],s[1]); */
+    allocsum(n);
+    update_sums(s, wgt, n);
+    update_rhs(vp, wp, sp, v, w, s, n);
+}
