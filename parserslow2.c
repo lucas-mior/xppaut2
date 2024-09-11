@@ -48,11 +48,14 @@ int NDELAYS = 0;
 /*double pow2(); */
 double get_delay();
 double delay_stab_eval();
-double lookup(), network_value(), vector_value();
-double atof(), poidev();
+double lookup();
+double network_value();
+double vector_value();
+double atof(const char *);
+double poidev();
 double ndrand48();
 double ker_val();
-double hom_bcs();
+double hom_bcs(int);
 double BoxMuller;
 int BoxMullerFlag = 0;
 int RandSeed = 12345678;
