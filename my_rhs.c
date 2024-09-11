@@ -94,8 +94,6 @@ my_rhs(double t, double *y, double *ydot, int neq) {
     for (i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }
-    if (neq > NODE)
-        vec_rhs(t, y, ydot, neq);
 
     return (1);
 }
@@ -123,10 +121,6 @@ rhs_only(double *ydot) {
     for (i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }
-}
-
-void
-vec_rhs(double t, double *y, double *ydot, int neq) {
 }
 
 /***
