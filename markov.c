@@ -23,7 +23,6 @@
 
 extern int ConvertStyle;
 extern FILE *convertf;
-double get_ivar();
 #define IA 16807
 #define IM 2147483647
 #define AM (1.0 / IM)
