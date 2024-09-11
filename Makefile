@@ -21,7 +21,7 @@ HELP=help/*.html
 #CC= gcc
 # Use c99 to compile according to newer ISO C standards (IEEE Std 1003.1-2001)
 # may need to add -fcommon
-CC= gcc -std=c99 -pedantic -D_XOPEN_SOURCE=600 -Wall -Wfatal-errors
+CC= gcc -std=c99 -D_XOPEN_SOURCE=600 -Wall -Wextra -Wpedantic -Wfatal-errors
 #AUTLIBS=  -lsundials_cvode -lX11 -lm 
 #These are the 32bit compat libraries.
 #AUTLIBS= -lf2c -lsundials_cvode -lX11 -lm 

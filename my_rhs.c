@@ -7,6 +7,7 @@
 #include "shoot.h"
 #include "getvar.h"
 #include "simplenet.h"
+#include "parserslow.h"
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
@@ -16,14 +17,6 @@ extern int *my_ode[];
 
 extern double variables[];
 extern int NVAR, NODE;
-
-double evaluate(/* int *ar */);
-
-/* int MAIN__()
-{
-        return(0);
-}
-*/
 
 int
 main(int argc, char **argv) {
