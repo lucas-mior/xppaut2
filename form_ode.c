@@ -260,7 +260,7 @@ format_list(char **s, int n) {
         ncol = 8;
     k = n / ncol;
     j = n - ncol * k;
-    sprintf(fmat, "%s%d%s", "%", lmax + 2, "s");
+    snprintf(fmat, sizeof(fmat), "%s%d%s", "%", lmax + 2, "s");
     for (ip = 0; ip < k; ip++) {
         for (i = 0; i < ncol; i++)
             plintf(fmat, s[ip * ncol + i]);
@@ -336,7 +336,7 @@ read_eqn(void) {
     FILE *fptr;
     int okay;
     okay = 0;
-    sprintf(wild, "*.ode");
+    snprintf(wild, sizeof(wild), "*.ode");
     get_a_filename(string, wild);
     if ((fptr = fopen(string, "r")) == NULL) {
         plintf("\n Cannot open %s \n", string);
@@ -416,9 +416,9 @@ get_eqn(FILE *fptr) {
         plintf("NEQ=%d\n", NEQ);
         if (ConvertStyle) {
             if (strlen(this_file) == 0)
-                sprintf(filename, "convert.ode");
+                snprintf(filename, sizeof(filename), "convert.ode");
             else
-                sprintf(filename, "%s.new", this_file);
+                snprintf(filename, sizeof(filename), "%s.new", this_file);
             if ((convertf = fopen(filename, "w")) == NULL) {
                 printf(" Cannot open %s - no conversion done \n", filename);
                 ConvertStyle = 0;
@@ -478,7 +478,7 @@ get_eqn(FILE *fptr) {
         strcpy(uvar_names[i + NODE + NMarkov], aux_names[i]);
 
     for (i = NODE + NMarkov + Naux; i < NEQ; i++) {
-        sprintf(uvar_names[i], "AUX%d", i - NODE - NMarkov + 1);
+        snprintf(uvar_names[i], sizeof(uvar_names[i]), "AUX%d", i - NODE - NMarkov + 1);
     }
 
     for (i = 0; i < NEQ; i++) {
@@ -492,7 +492,7 @@ get_eqn(FILE *fptr) {
     if (NVAR < MAXPRIMEVAR) {
         add_var("t'", 0.0);
         for (i = 0; i < NODE; i++) {
-            sprintf(prim, "%s'", uvar_names[i]);
+            snprintf(prim, sizeof(prim), "%s'", uvar_names[i]);
             add_var(prim, 0.0);
         }
     } else {
@@ -1097,7 +1097,7 @@ find_ker(/* this extracts the integral operators from the string */
         }
         if (ch == '}') {
             form[ifr] = 0;
-            sprintf(name, "K##%d", NKernel);
+            snprintf(name, sizeof(name), "K##%d", NKernel);
             plintf("Kernel mu=%f %s = %s \n", mu, name, form);
             if (add_kernel(name, mu, form))
                 exit(0);
@@ -1718,32 +1718,32 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
     while (1) {
 
         if (v->type == COMMAND && v->lhs[0] == 'P') {
-            sprintf(big, "par %s \n", v->rhs);
+            snprintf(big, sizeof(big), "par %s \n", v->rhs);
             compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'W') {
-            sprintf(big, "wie %s \n", v->rhs);
+            snprintf(big, sizeof(big), "wie %s \n", v->rhs);
             compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'N') {
-            sprintf(big, "num %s \n", v->rhs);
+            snprintf(big, sizeof(big), "num %s \n", v->rhs);
             compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'O') {
-            sprintf(big, "c %s \n", v->rhs);
+            snprintf(big, sizeof(big), "c %s \n", v->rhs);
             compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'S' && v->lhs[1] == 'E') {
-            sprintf(big, "x %s\n", v->rhs);
+            snprintf(big, sizeof(big), "x %s\n", v->rhs);
             compiler(big, fp);
         }
 
         if (v->type == COMMAND && v->lhs[0] == 'B') {
-            sprintf(big, "b %s \n", v->rhs);
+            snprintf(big, sizeof(big), "b %s \n", v->rhs);
             compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'G') {
-            sprintf(big, "g %s \n", v->rhs);
+            snprintf(big, sizeof(big), "g %s \n", v->rhs);
             compiler(big, fp);
         }
         if (v->type == MAP || v->type == ODE || v->type == VEQ) {
@@ -1885,7 +1885,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
     while (1) {
 
         if (v->type == COMMAND && v->lhs[0] == 'I') {
-            sprintf(big, "i %s \n", v->rhs);
+            snprintf(big, sizeof(big), "i %s \n", v->rhs);
             ptr = big;
             junk = get_first(ptr, " ,");
             if (junk == NULL) {
@@ -2065,7 +2065,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
             break;
 
         case TABLE:
-            sprintf(big, "t %s %s ", v->lhs, v->rhs);
+            snprintf(big, sizeof(big), "t %s %s ", v->lhs, v->rhs);
             ptr = big;
             junk = get_first(ptr, " ,");
             my_string = get_next(" ");
@@ -2184,7 +2184,7 @@ parse_a_string(char *s1, VAR_INFO *v) {
     if (s1[0] == '0' && s1[1] == '=') { /* ||(s1[1]==' '&&s1[2]=='='))) */
                                         /* plintf("DAE --- \n");  */
         type2 = DAE;
-        sprintf(lhs, "0=");
+        snprintf(lhs, sizeof(lhs), "0=");
         strpiece(rhs, s1, 2, n1);
         v->type = type2;
         strcpy(v->lhs, lhs);
@@ -2749,7 +2749,7 @@ subsk(char *big, char *new, int k, int flag) {
                     i++;
                     num[inum] = 0;
                     add = atoi(num);
-                    sprintf(num, "%d", add);
+                    snprintf(num, sizeof(num), "%d", add);
                     m = strlen(num);
                     for (j = 0; j < m; j++) {
                         new[inew] = num[j];
@@ -2808,7 +2808,7 @@ subsk(char *big, char *new, int k, int flag) {
                         add = atoi(num) * k;
                         multflag = 0;
                     }
-                    sprintf(num, "%d", add);
+                    snprintf(num, sizeof(num), "%d", add);
                     m = strlen(num);
                     for (j = 0; j < m; j++) {
                         new[inew] = num[j];
@@ -2895,7 +2895,7 @@ new_comment(FILE *f) {
     free_comments();
     while (!feof(f)) {
         fgets(bob, 256, f);
-        sprintf(ted, "@%s", bob);
+        snprintf(ted, sizeof(ted), "@%s", bob);
         add_comment(ted);
     }
 }
