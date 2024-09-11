@@ -69,8 +69,8 @@
  * macros.                                                        *
  *                                                                *
  ******************************************************************/
-
-typedef int int64;
+#include <stdint.h>
+typedef int64_t int64;
 
 #define FLOAT 0
 #define DOUBLE 1
