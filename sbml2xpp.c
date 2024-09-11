@@ -312,6 +312,7 @@ GetEvents(Model_t *m) {
             }
         }
     }
+    return;
 }
 
 void
@@ -358,6 +359,7 @@ GetFunctions(Model_t *m) {
             free(formula);
         }
     }
+    return;
 }
 
 /* reaction stuff  */
@@ -415,6 +417,7 @@ GetReaction(Model_t *m, unsigned int level, unsigned int version) {
             }
         }
     }
+    return;
 }
 
 /* i=reactin #, j=reactant number or product number
@@ -575,6 +578,7 @@ GetSpecies(Model_t *pModel, unsigned int level, unsigned int version) {
         add_species(i, pacName, pacId, dInitialAmount, nBoundaryCondition,
                     nConstant, pacTypecode);
     }
+    return;
 }
 
 void
@@ -608,6 +612,7 @@ GetParameter(Model_t *pModel, unsigned int level, unsigned int version)
             pacId = " ";
         add_parameter(pacName, pacId, dValue, nConstant);
     }
+    return;
 }
 
 char *
@@ -795,6 +800,7 @@ GetListRule(Model_t *pModel, unsigned int unSBMLLevel,
 
         add_rule(i, pacVariable, pacFormula, pacTypecode);
     }
+    return;
 }
 
 find_parameter(char *s) {

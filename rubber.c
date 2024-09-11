@@ -124,4 +124,5 @@ rbox(int i1, int j1, int i2, int j2, Window w, int f) {
         y2 = j1;
     }
     rectangle(x1, y1, x2, y2, w);
+    return;
 }

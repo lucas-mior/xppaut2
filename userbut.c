@@ -40,6 +40,7 @@ user_button_events(XEvent report) {
         user_button_press(report.xbutton.window);
         break;
     }
+    return;
 }
 void
 user_button_press(Window w) {
@@ -49,6 +50,7 @@ user_button_press(Window w) {
             run_the_commands(userbut[i].com);
         }
     }
+    return;
 }
 
 void
@@ -57,6 +59,7 @@ draw_all_user_buttons(void) {
     for (i = 0; i < nuserbut; i++) {
         user_button_draw(userbut[i].w);
     }
+    return;
 }
 
 void
@@ -69,6 +72,7 @@ user_button_draw(Window w) {
                         strlen(userbut[i].bname));
         }
     }
+    return;
 }
 
 void
@@ -79,6 +83,7 @@ user_button_cross(Window w, int b) {
             XSetWindowBorderWidth(display, w, b);
             return;
         }
+    return;
 }
 
 int
@@ -156,6 +161,7 @@ add_user_button(char *s) {
     plintf(" added button(%d)  -- %s %d\n", nuserbut, userbut[nuserbut].bname,
            userbut[nuserbut].com);
     nuserbut++;
+    return;
 }
 
 void
@@ -172,4 +178,5 @@ create_user_buttons(int x0, int y0, Window base) {
         x = x + l + DCURXs;
     }
     draw_all_user_buttons();
+    return;
 }

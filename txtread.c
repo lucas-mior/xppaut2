@@ -92,6 +92,7 @@ txt_view_events(XEvent ev) {
         txtview_keypress(ev);
         break;
     }
+    return;
 }
 
 void
@@ -126,6 +127,7 @@ txtview_keypress(XEvent ev) {
             return;
         }
     }
+    return;
 }
 
 void
@@ -134,6 +136,7 @@ enter_txtview(Window w, int val) {
         w == txtview.pgdn || w == txtview.home || w == txtview.end ||
         w == txtview.src || w == txtview.action || w == txtview.kill)
         XSetWindowBorderWidth(display, w, val);
+    return;
 }
 
 void
@@ -148,6 +151,7 @@ do_txt_action(char *s) {
     redraw_params();
     redraw_ics();
     reset_graph();
+    return;
 }
 
 void
@@ -156,6 +160,7 @@ resize_txtview(int w, int h) {
     XMoveResizeWindow(display, txtview.text, 2, 3 * DCURYs + 5, w - 4, hgt);
     txtview.nlines = (int)(hgt / DCURY);
     /*   plintf(" nlines=%d \n",txtview.nlines); */
+    return;
 }
 
 void
@@ -235,6 +240,7 @@ txtview_press(Window w, int x, int y) {
             redraw_txtview_text();
         }
     }
+    return;
 }
 
 void
@@ -260,6 +266,7 @@ redraw_txtview(Window w) {
         xds("Source");
     if (w == txtview.action)
         xds("Action");
+    return;
 }
 
 void
@@ -287,6 +294,7 @@ redraw_txtview_text(void) {
             break;
         }
     }
+    return;
 }
 
 void
@@ -296,6 +304,7 @@ init_txtview(void) {
     txtview.dw = DCURX;
     txtview.which = 0;
     txtview.first = 0;
+    return;
 }
 
 void
@@ -350,4 +359,5 @@ make_txtview(void) {
     txtview.first = 0;
     txtview.dh = DCURY;
     txtview.dw = DCURX;
+    return;
 }

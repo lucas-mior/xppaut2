@@ -259,6 +259,7 @@ add_vectorizer_name(char *name, char *rhs) {
     if (add_vector_name(n_vector, name))
         exit(0);
     n_vector++;
+    return;
 }
 double
 vector_value(double x, int i) {
@@ -295,6 +296,7 @@ init_net(double *v, int n) {
     int i;
     for (i = 0; i < n; i++)
         v[i] = 0.0;
+    return;
 }
 
 int
@@ -1055,6 +1057,7 @@ add_special_name(char *name, char *rhs) {
         n_network++;
     } else
         plintf(" No such special type ...\n");
+    return;
 }
 
 int
@@ -1099,6 +1102,7 @@ eval_all_nets(void) {
     int i;
     for (i = 0; i < n_network; i++)
         evaluate_network(i);
+    return;
 }
 
 void
@@ -1368,6 +1372,7 @@ evaluate_network(int ind) {
         }
         break;
     }
+    return;
 }
 
 void
@@ -1377,6 +1382,7 @@ update_all_ffts(void) {
     for (i = 0; i < n_network; i++)
         if (my_net[i].type == FFTCON0 || my_net[i].type == FFTCONP)
             update_fft(i);
+    return;
 }
 /*
  tabular weights are of size 2k+1
@@ -1424,6 +1430,7 @@ update_fft(int ind) {
     }
     /* for(i=0;i<10;i++)printf("fftr,i=%g %g %g
      * %g\n",fftr[i],ffti[i],fftr[n-1-i],ffti[n-1-i]); */
+    return;
 }
 
 void
@@ -1476,6 +1483,7 @@ fft_conv(int it, int n, double *values, double *yy, double *fftr, double *ffti,
             values[i] = dr[i];
         return;
     }
+    return;
 }
 
 /* parsing stuff to get gillespie code quickly */

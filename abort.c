@@ -39,6 +39,7 @@ plot_command(int nit, int icount, int cwidth) {
     i = (int)dx;
 
     XDrawPoint(display, command_pop, gc, i, 5);
+    return;
 }
 
 int

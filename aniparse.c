@@ -280,6 +280,7 @@ new_vcr(void) {
         create_vcr(toons[i]);
     else
         create_vcr("Wanna be a member");
+    return;
 }
 
 void
@@ -358,6 +359,7 @@ create_vcr(char *name) {
     vcr.pos = 0;
     if (use_ani_file)
         get_ani_file(vcr.file);
+    return;
 }
 
 void
@@ -366,6 +368,7 @@ ani_border(Window w, int i) {
         w == vcr.wfast || w == vcr.wfile || w == vcr.wslow || w == vcr.wmpeg ||
         w == vcr.wup || w == vcr.wdn || w == vcr.wskip || w == vcr.kill)
         XSetWindowBorderWidth(display, w, i);
+    return;
 }
 
 void
@@ -374,6 +377,7 @@ destroy_vcr(void) {
     XDestroySubwindows(display, vcr.base);
 
     XDestroyWindow(display, vcr.base);
+    return;
 }
 
 int
@@ -423,6 +427,7 @@ do_ani_events(XEvent ev) {
         ani_buttonx(ev, 1);
         break;
     }
+    return;
 }
 /*************************  NEW ANIMaTION STUFF ***********************/
 
@@ -430,6 +435,7 @@ void
 ani_motion_stuff(Window w, int x, int y) {
     if (w == vcr.view)
         update_ani_motion_stuff(x, y);
+    return;
 }
 double
 get_current_time(void) {
@@ -468,6 +474,7 @@ update_ani_motion_stuff(int x, int y) {
     do_grab_tasks(1);
     fix_only();
     ani_frame(0);
+    return;
 }
 
 /*************************** End motion & speed stuff   ****************/
@@ -515,6 +522,7 @@ ani_buttonx(XEvent ev, int flag) {
     /*   END OF ADDED STUFF  ************************/
 
     ani_button(w);
+    return;
 }
 void
 ani_button(Window w) {
@@ -562,6 +570,7 @@ ani_button(Window w) {
     if (w == vcr.kill) {
         destroy_vcr();
     }
+    return;
 }
 
 void
@@ -586,6 +595,7 @@ ani_create_mpeg(void) {
         mpeg.flag = 0;
     if (mpeg.flag == 1)
         ani_disk_warn();
+    return;
 }
 
 void
@@ -605,6 +615,7 @@ do_ani_slider_motion(Window w, int x) {
     vcr.pos = 0;
     ani_flip1(0);
     ani_flip1(k);
+    return;
 }
 void
 redraw_ani_slider(void) {
@@ -616,6 +627,7 @@ redraw_ani_slider(void) {
         return;
     xx = (k * l) / mr;
     draw_ani_slider(vcr.slider, xx);
+    return;
 }
 void
 draw_ani_slider(Window w, int x)
@@ -630,6 +642,7 @@ draw_ani_slider(Window w, int x)
     XClearWindow(display, w);
     for (i = 0; i < 4; i++)
         XDrawLine(display, w, small_gc, x0 + i, 0, x0 + i, hgt);
+    return;
 }
 
 void
@@ -668,6 +681,7 @@ ani_expose(Window w) {
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "MPEG", 4);
     if (w == vcr.wfly)
         check_on_the_fly();
+    return;
 }
 
 void
@@ -710,6 +724,7 @@ ani_resize(int x, int y) {
     XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     tst_pix_draw();
+    return;
 }
 
 void
@@ -726,6 +741,7 @@ ani_newskip(void) {
             vcr.inc = 1;
     }
     XSetInputFocus(display, w, rev, CurrentTime);
+    return;
 }
 
 void
@@ -734,6 +750,7 @@ check_on_the_fly(void) {
     if (animation_on_the_fly) {
         XDrawString(display, vcr.wfly, small_gc, 5, 1.5 * CURY_OFFs, "*", 1);
     }
+    return;
 }
 void
 on_the_fly(int task) {
@@ -741,6 +758,7 @@ on_the_fly(int task) {
         return;
     ani_frame(task);
     waitasec(on_the_fly_speed);
+    return;
 }
 
 void
@@ -765,6 +783,7 @@ ani_frame(int task) {
               0);
 
     XFlush(display);
+    return;
 }
 
 void
@@ -778,6 +797,7 @@ set_to_init_data(void) {
     }
 
     redraw_ics();
+    return;
 }
 
 void
@@ -788,6 +808,7 @@ set_from_init_data(void) {
         y[i] = last_ic[i];
     }
     set_fix_rhs(T0, y);
+    return;
 }
 void
 ani_flip1(int n) {
@@ -829,6 +850,7 @@ ani_flip1(int n) {
               0);
 
     XFlush(display);
+    return;
 }
 void
 ani_flip(void) {
@@ -940,6 +962,7 @@ ani_flip(void) {
         fclose(angiffile);
         set_global_map(0);
     }
+    return;
 }
 
 void
@@ -2710,6 +2733,7 @@ draw_grab_points(void) /* Draw little black x's where the grab points are */
         XDrawLine(display, ani_pixmap, ani_gc, i1, j2, i2, j1);
     }
     show_grab_points = 0;
+    return;
 }
 
 void
@@ -2728,4 +2752,5 @@ free_grabber(void) {
         ani_grab[i].start.n = 0;
         ani_grab[i].end.n = 0;
     }
+    return;
 }

@@ -102,6 +102,7 @@ do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int n) {
 
     for (i = 0; i < n; i++)
         f[i] = evaluate(my_bc[i].com);
+    return;
 }
 
 void
@@ -125,11 +126,13 @@ compile_bvp(void) {
         }
     }
     BVP_FLAG = 1;
+    return;
 }
 
 void
 reset_bvp(void) {
     BVP_FLAG = 1;
+    return;
 }
 
 /*
@@ -165,6 +168,7 @@ init_shoot_range(char *s) {
     shoot_range.cycle = 0;
     shoot_range.steps = 10;
     shoot_range.movie = 0;
+    return;
 }
 
 void
@@ -175,6 +179,7 @@ dump_shoot_range(FILE *fp, int f) {
     io_int(&shoot_range.steps, fp, f, "BVP range steps");
     io_double(&shoot_range.plow, fp, f, "BVP range low");
     io_double(&shoot_range.phigh, fp, f, "BVP range high");
+    return;
 }
 
 void
@@ -196,6 +201,7 @@ bad_shoot(int iret) {
         err_msg("Bad Jacobian -- uninvertable");
         break;
     }
+    return;
 }
 
 void
@@ -255,6 +261,7 @@ do_sh_range(double *ystart, double *yend) {
     refresh_browser(storind);
     auto_freeze_it();
     swap_color(&color, 1);
+    return;
 }
 
 int
@@ -364,6 +371,7 @@ find_bvp_com(int com) {
 
 bye:
     TRANS = oldtrans;
+    return;
 }
 
 void
@@ -388,6 +396,7 @@ last_shot(int flag) {
        refresh_browser(storind);
      }
      */
+    return;
 }
 
 int

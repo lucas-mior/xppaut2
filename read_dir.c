@@ -98,6 +98,7 @@ free_finfo(FILEINFO *ff) {
     for (i = 0; i < ff->nfiles; i++)
         free(ff->filenames[i]);
     free(ff->filenames);
+    return;
 }
 
 int

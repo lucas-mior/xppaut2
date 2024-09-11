@@ -111,12 +111,14 @@ void
 chk_volterra(void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
+    return;
 }
 
 void
 check_pos(int *j) {
     if (*j <= 0)
         *j = 1;
+    return;
 }
 
 void
@@ -124,6 +126,7 @@ quick_num(int com) {
     char key[] = "tsrdnviobec";
     if (com >= 0 && com < 11)
         get_num_par(key[com]);
+    return;
 }
 
 void
@@ -131,6 +134,7 @@ set_total(double total) {
     int n;
     n = (total / fabs(DELTA_T)) + 1;
     TEND = n * fabs(DELTA_T);
+    return;
 }
 
 void
@@ -351,6 +355,7 @@ get_num_par(int ch)
         break;
 
     } /* End num switch */
+    return;
 }
 
 void
@@ -362,6 +367,7 @@ chk_delay(void) {
         }
     } else
         free_delay();
+    return;
 }
 
 void
@@ -374,6 +380,7 @@ set_delay(void) {
             INFLAG = 0;
         }
     }
+    return;
 }
 
 void
@@ -387,6 +394,7 @@ ruelle(void) {
         MyGraph->yshft = 0;
     if (MyGraph->zshft < 0)
         MyGraph->zshft = 0;
+    return;
 }
 
 void
@@ -427,6 +435,7 @@ init_numerics(void)
     POIVAR = 1;
     POISGN = 1;
     SOS = 0;
+    return;
 }
 
 void
@@ -437,6 +446,7 @@ meth_dialog(void) {
     sprintf(values[0], "%d", METHOD);
     sprintf(values[1], "%g", ATOLER);
     sprintf(values[2], "%g", TOLER);
+    return;
 }
 
 void
@@ -487,6 +497,7 @@ compute_one_period(double period, double *x, char *name) {
     TRANS = ot;
     POIMAP = opm;
     TEND = ote;
+    return;
 }
 void
 get_pmap_pars_com(int l) {
@@ -534,6 +545,7 @@ get_pmap_pars_com(int l) {
             SOS = 0;
         POIPLN = atof(values[1]);
     }
+    return;
 }
 
 void
@@ -563,6 +575,7 @@ get_method(void) {
     if (i > (nmeth - 1))
         i = nmeth - 1;
     /* XDestroyWindow(display,temp); */
+    return;
 }
 
 void
@@ -588,6 +601,7 @@ user_set_color_par(int flag, char *via, double lo, double hi) {
     if (flag == 0) { /* force overwrite  */
         MyGraph->ColorFlag = 0;
     }
+    return;
 }
 
 void
@@ -660,6 +674,7 @@ set_col_par_com(int i) {
         if (MyGraph->color_scale == 0.0)
             MyGraph->color_scale = 1.0;
     }
+    return;
 }
 
 void
@@ -706,4 +721,5 @@ do_meth(void) {
     default:
         solver = rung_kut;
     }
+    return;
 }

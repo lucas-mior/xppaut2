@@ -21,6 +21,7 @@ set_window_title(Window win, char *string) {
 
     XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
                      &class_hints);
+    return;
 }
 
 /* these are the standard lists that are possible */
@@ -94,6 +95,7 @@ make_scrbox_lists(void) {
         scrbox_list[6].list[i] = (char *)malloc(22 * sizeof(char));
         sprintf(scrbox_list[6].list[i], "%d %s", i, method[i]);
     }
+    return;
 }
 
 int
@@ -113,6 +115,7 @@ destroy_scroll_box(SCROLLBOX *sb) {
         XDestroySubwindows(display, sb->base);
         XDestroyWindow(display, sb->base);
     }
+    return;
 }
 
 void
@@ -142,6 +145,7 @@ create_scroll_box(Window root, int x0, int y0, int nent, int nw, char **list,
                                 ww + DCURXs / 2 + 6, 2 + len, 1);
     sb->len = len - 4;
     sb->exist = 1;
+    return;
 }
 
 void
@@ -155,6 +159,7 @@ expose_scroll_box(Window w, SCROLLBOX sb) {
         }
     if (sb.nw < sb.nent && w == sb.slide)
         redraw_scroll_box(sb);
+    return;
 }
 
 void
@@ -173,6 +178,7 @@ redraw_scroll_box(SCROLLBOX sb) {
         for (i = -2; i <= 2; i++)
             XDrawLine(display, sb.slide, small_gc, 0, p + i, 5, p + i);
     }
+    return;
 }
 
 void
@@ -184,6 +190,7 @@ crossing_scroll_box(Window w, int c, SCROLLBOX sb) {
             return;
         }
     }
+    return;
 }
 
 int
@@ -241,6 +248,7 @@ scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb) {
     xx = get_x_coord_win(sb->win[ihot]);
     create_scroll_box(sb->base, xx, 3, scrbox_list[id].n, maxw,
                       scrbox_list[id].list, scrb);
+    return;
 }
 
 int
@@ -310,6 +318,7 @@ expose_sbox(STRING_BOX sb, Window w, int pos, int col) {
             flag = 1;
         do_hilite_text(sb.name[i], sb.value[i], flag, w, pos, col);
     }
+    return;
 }
 
 void
@@ -329,6 +338,7 @@ do_hilite_text(char *name, char *value, int flag, Window w, int pos, int col) {
     /* if(flag) showchar('_',DCURX*(l+m),0,w); */
     if (flag)
         put_cursor_at(w, DCURX * l, pos);
+    return;
 }
 
 void
@@ -341,6 +351,7 @@ reset_hot(int inew, STRING_BOX *sb) {
     XClearWindow(display, sb->win[i]);
     do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
                    strlen(sb->value[i]), 0);
+    return;
 }
 
 void
@@ -352,6 +363,7 @@ new_editable(STRING_BOX *sb, int inew, int *pos, int *col, int *done,
     *col = (*pos + strlen(sb->name[inew])) * DCURX;
     *done = 0;
     *w = sb->win[inew];
+    return;
 }
 
 void
@@ -363,6 +375,7 @@ set_sbox_item(STRING_BOX *sb, int item) {
     strcpy(sb->value[i], scrbox_list[id].list[item]);
     /* plintf("setting %d to be %d in list %d \n",
        i,item, sb->hh[i]); */
+    return;
 }
 
 int
@@ -514,6 +527,7 @@ make_sbox_windows(STRING_BOX *sb, int row, int col, char *title, int maxchar) {
     (sb->cancel) =
         make_window(base, xpos + 8 * DCURX + 4, ypos, 8 * DCURX, DCURY, 1);
     XRaiseWindow(display, base);
+    return;
 }
 
 /*
@@ -935,6 +949,7 @@ expose_resp_box(char *button, char *message, Window wb, Window wm, Window w) {
         Ftext(0, 0, button, wb);
     if (w == wm)
         Ftext(0, 0, message, wm);
+    return;
 }
 
 void
@@ -992,6 +1007,7 @@ respond_box(char *button, char *message) {
     waitasec(ClickTime);
     XDestroySubwindows(display, wmain);
     XDestroyWindow(display, wmain);
+    return;
 }
 
 void
@@ -1004,6 +1020,7 @@ message_box(Window *w, int x, int y, char *message) {
     Ftext(25, 2 * DCURY, message, z);
     ping();
     *w = z;
+    return;
 }
 
 void
@@ -1015,6 +1032,7 @@ expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
         Ftext(0, 0, choice1, c1);
     if (w == c2)
         Ftext(0, 0, choice2, c2);
+    return;
 }
 
 int
@@ -1217,6 +1235,7 @@ draw_pop_up(POP_UP p, Window w) {
             return;
         }
     }
+    return;
 }
 
 /*   Note that this will be improved later -- it is pretty dumb

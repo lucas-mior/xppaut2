@@ -64,6 +64,7 @@ void
 N_VFree(N_Vector x) {
     free(x->data);
     free(x);
+    return;
 }
 
 void
@@ -149,6 +150,7 @@ N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = a * (*xd++) + b * (*yd++);
+    return;
 }
 
 void
@@ -161,6 +163,7 @@ N_VConst(double c, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = c;
+    return;
 }
 
 void
@@ -175,6 +178,7 @@ N_VProd(N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = (*xd++) * (*yd++);
+    return;
 }
 
 void
@@ -189,6 +193,7 @@ N_VDiv(N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = (*xd++) / (*yd++);
+    return;
 }
 
 void
@@ -212,6 +217,7 @@ N_VScale(double c, N_Vector x, N_Vector z) {
         for (i = 0; i < N; i++)
             *zd++ = c * (*xd++);
     }
+    return;
 }
 
 void
@@ -225,6 +231,7 @@ N_VAbs(N_Vector x, N_Vector z) {
 
     for (i = 0; i < N; i++, xd++, zd++)
         *zd = ABS(*xd);
+    return;
 }
 
 void
@@ -238,6 +245,7 @@ N_VInv(N_Vector x, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = ONE / (*xd++);
+    return;
 }
 
 void
@@ -251,6 +259,7 @@ N_VAddConst(N_Vector x, double b, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = (*xd++) + b;
+    return;
 }
 
 double
@@ -330,6 +339,7 @@ N_VCompare(double c, N_Vector x, N_Vector z) {
     for (i = 0; i < N; i++, xd++, zd++) {
         *zd = (ABS(*xd) >= c) ? ONE : ZERO;
     }
+    return;
 }
 
 bool
@@ -362,6 +372,7 @@ N_VPrint(N_Vector x) {
         plintf("%g\n", *xd++);
 
     plintf("\n");
+    return;
 }
 
 /***************** Private Helper Functions **********************/
@@ -446,6 +457,7 @@ VScaleDiff(double c, N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = c * ((*xd++) - (*yd++));
+    return;
 }
 
 static void

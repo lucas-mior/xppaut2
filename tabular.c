@@ -95,10 +95,12 @@ set_auto_eval_flags(int f) {
     int i;
     for (i = 0; i < MAX_TAB; i++)
         my_table[i].autoeval = f;
+    return;
 }
 void
 set_table_name(char *name, int index) {
     strcpy(my_table[index].name, name);
+    return;
 }
 
 void
@@ -115,6 +117,7 @@ view_table(int index) {
         storage[1][i] = y[i];
     }
     refresh_browser(len);
+    return;
 }
 
 void
@@ -154,6 +157,7 @@ new_lookup_com(int i) {
         new_string("Formula :", newform);
         create_fun_table(npts, xlo, xhi, newform, index);
     }
+    return;
 }
 
 void
@@ -198,6 +202,7 @@ new_lookup_ok(void) {
         } else
             err_msg("Not a Table function");
     }
+    return;
 }
 
 double
@@ -290,6 +295,7 @@ init_table(void) {
         my_table[i].autoeval = 1;
         my_table[i].interp = 0;
     }
+    return;
 }
 
 void
@@ -301,6 +307,7 @@ redo_all_fun_tables(void) {
                            my_table[i].filename, my_table[i].y);
     }
     update_all_ffts();
+    return;
 }
 
 int

@@ -54,6 +54,7 @@ set_global_map(int flag) {
         return;
     }
     UseGlobalMap = flag;
+    return;
 }
 int
 ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n) {
@@ -84,6 +85,7 @@ ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n) {
 void
 end_ani_gif(FILE *fp) {
     fputc(';', fp);
+    return;
 }
 
 void
@@ -93,17 +95,20 @@ add_ani_gif(Window win, FILE *fp, int count) {
         gif_stuff(win, fp, FIRST_ANI_GIF);
     else
         gif_stuff(win, fp, NEXT_ANI_GIF);
+    return;
 }
 
 void
 screen_to_gif(Window win, FILE *fp) {
     gif_stuff(win, fp, MAKE_ONE_GIF);
+    return;
 }
 
 void
 get_global_colormap(Window win) {
     FILE *junk = NULL;
     gif_stuff(win, junk, GET_GLOBAL_CMAP);
+    return;
 }
 
 void
@@ -114,6 +119,7 @@ local_to_global(void) {
         gifcol[i].g = gifGcol[i].g;
         gifcol[i].b = gifGcol[i].b;
     }
+    return;
 }
 
 int
@@ -246,6 +252,7 @@ gif_stuff(Window win, FILE *fp, int task) {
     }
     free(pixels);
     free(ppm);
+    return;
 }
 
 void
@@ -281,6 +288,7 @@ write_global_header(int cols, int rows, FILE *dst) {
     fwrite(buffer, pos - buffer, 1, dst);
     free(buffer - 1);
     GifLoop(dst, GifFrameLoop);
+    return;
 }
 
 void
@@ -296,6 +304,7 @@ GifLoop(FILE *fout, unsigned int repeats) {
     GifPutShort(repeats, fout); /* repeat count */
 
     fputc(0x00, fout); /* terminator */
+    return;
 }
 
 void
@@ -324,6 +333,7 @@ write_local_header(int cols, int rows, FILE *fout, int colflag, int delay) {
             fputc(0xff & gifcol[i].b, fout);
         }
     }
+    return;
 }
 
 void
@@ -376,6 +386,7 @@ make_gif(unsigned char *pixels, int cols, int rows, FILE *dst) {
     GifEncode(dst, pixels, depth, rows * cols);
     fputc(';', dst);
     free(buffer - 1);
+    return;
 }
 
 int
@@ -588,6 +599,7 @@ ClearTree(int cc, GifTree *root) {
         newNode->node = empty;
         nodecount++;
     }
+    return;
 }
 
 unsigned char *

@@ -95,6 +95,7 @@ froz_cline_stuff_com(int i) {
         do_range_clines();
         break;
     }
+    return;
 }
 
 void
@@ -106,6 +107,7 @@ silent_dfields(void) {
         do_batch_dfield();
         DFSuppress = 0;
     }
+    return;
 }
 
 void
@@ -123,6 +125,7 @@ silent_nullclines(void) {
     dump_clines(fp, X_n, num_x_n, Y_n, num_y_n);
     fclose(fp);
     NCSuppress = 0;
+    return;
 }
 
 void
@@ -200,6 +203,7 @@ do_range_clines(void) {
         }
         set_val(ncrange.rv, zold);
     }
+    return;
 }
 
 void
@@ -216,6 +220,7 @@ start_ncline(void) {
     ncrange.xhi = 1;
     ncrange.nstep = 10;
     sprintf(ncrange.rv, " ");
+    return;
 }
 
 void
@@ -252,6 +257,7 @@ clear_froz_cline(void) {
     ncperm->n = NULL;
     n_nstore = 1;
     ncline_cnt = 0;
+    return;
 }
 
 int
@@ -319,6 +325,7 @@ save_frozen_clines(char *fn) {
         if (z == NULL)
             break;
     }
+    return;
 }
 
 void
@@ -356,6 +363,7 @@ redraw_froz_cline(int flag) {
         if (z == NULL)
             break;
     }
+    return;
 }
 
 void
@@ -386,6 +394,7 @@ add_froz_cline(float *xn, int nmx, int n_ix, float *yn, int nmy, int n_iy) {
     znew->n_ix = -5;
     znew->n_iy = -5;
     ncline_cnt++;
+    return;
 }
 
 void
@@ -406,6 +415,7 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                 *mdf = amp;
         }
     }
+    return;
 }
 /*  all the nifty 2D stuff here    */
 
@@ -420,10 +430,12 @@ do_batch_nclines(void) {
         new_clines_com(0);
         return;
     }
+    return;
 }
 void
 set_colorization_stuff(void) {
     user_set_color_par(ColorizeFlag, ColorVia, ColorViaLo, ColorViaHi);
+    return;
 }
 void
 do_batch_dfield(void) {
@@ -469,6 +481,7 @@ do_batch_dfield(void) {
         redraw_dfield();
         return;
     }
+    return;
 }
 void
 redraw_dfield(void) {
@@ -564,6 +577,7 @@ redraw_dfield(void) {
     if (DFSuppress == 1)
         fclose(fp);
     DFSuppress = 0;
+    return;
 }
 
 void
@@ -698,6 +712,7 @@ direct_field_com(int c) {
         DOING_DFIELD = 0;
         fprintf(svgfile, "</g>\n");
     }
+    return;
 }
 
 /* animated nullclines stuff
@@ -730,6 +745,7 @@ save_the_nullclines(void) {
     dump_clines(fp, X_n, num_x_n, Y_n, num_y_n);
     fclose(fp);
     save_frozen_clines(filename);
+    return;
 }
 
 void
@@ -749,6 +765,7 @@ restore_nullclines(void) {
         restor_null(Y_n, num_y_n, 2);
     }
     redraw_froz_cline(0);
+    return;
 }
 
 void
@@ -767,6 +784,7 @@ dump_clines(/* gnuplot format */
         fprintf(fp, "%g %g 2 \n", y[4 * i + 2], y[4 * i + 3]);
         fprintf(fp, "\n");
     }
+    return;
 }
 
 void
@@ -790,6 +808,7 @@ dump_clines_old(FILE *fp, float *x, int nx, float *y, int ny) {
         fprintf(fp, "%g %g %g %g \n", x[4 * ix + 2], x[4 * ix + 3],
                 y[4 * iy + 2], y[4 * iy + 3]);
     }
+    return;
 }
 
 void
@@ -825,11 +844,13 @@ restor_null(/* d=1 for x and 2 for y  */
     if (PltFmtFlag == SVGFMT) {
         fprintf(svgfile, "</g>\n");
     }
+    return;
 }
 void
 create_new_cline(void) {
     if (NULL_HERE)
         new_clines_com(0);
+    return;
 }
 
 void
@@ -903,6 +924,7 @@ new_clines_com(int c) {
         new_nullcline(course, xmin, y_bot, xmax, y_tp, Y_n, &num_y_n);
         ping();
     }
+    return;
 }
 
 void
@@ -912,6 +934,7 @@ new_nullcline(int course, double xlo, double ylo, double xhi, double yhi,
     saver = stor;
     do_cline(course, xlo, ylo, xhi, yhi);
     *npts = num_index;
+    return;
 }
 
 void
@@ -925,6 +948,7 @@ stor_null(double x1, double y1, double x2, double y2) {
     saver[i + 2] = x2;
     saver[i + 3] = y2;
     num_index++;
+    return;
 }
 
 float

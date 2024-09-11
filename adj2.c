@@ -77,6 +77,7 @@ init_trans(void) {
     my_trans.colskip = 1;
     my_trans.row0 = 1;
     my_trans.col0 = 2;
+    return;
 }
 
 void
@@ -92,6 +93,7 @@ dump_transpose_info(FILE *fp, int f) {
     io_int(&my_trans.rowskip, fp, f, "row skip");
     io_int(&my_trans.colskip, fp, f, "col skip");
     io_int(&my_trans.row0, fp, f, "row 0");
+    return;
 }
 
 int
@@ -177,6 +179,7 @@ alloc_h_stuff(void) {
         coup_string[i] = (char *)malloc(80);
         strcpy(coup_string[i], "0");
     }
+    return;
 }
 
 void
@@ -186,6 +189,7 @@ data_back(void) {
     /*  my_browser.data=storage;
         my_browser.col0=1; */
     refresh_browser(storind);
+    return;
 }
 
 void
@@ -197,6 +201,7 @@ adj_back(void) {
              my_browser.col0=1; */
         refresh_browser(adj_len);
     }
+    return;
 }
 
 void
@@ -209,6 +214,7 @@ h_back(void) {
         my_browser.col0=1; */
         refresh_browser(h_len);
     }
+    return;
 }
 /*  Here is how to do the range over adjoints and h functions
     unfortunately, h functions are always computed even if you dont want them
@@ -253,12 +259,14 @@ make_adj_com(int com) {
         AdjRange = 1;
         break;
     }
+    return;
 }
 
 void
 adjoint_parameters(void) {
     new_int("Maximum iterates :", &ADJ_MAXIT);
     new_float("Adjoint error tolerance :", &ADJ_ERR);
+    return;
 }
 
 void
@@ -300,6 +308,7 @@ new_h_fun(int silent) {
         h_back();
     }
     ping();
+    return;
 }
 
 void
@@ -312,6 +321,7 @@ dump_h_stuff(FILE *fp, int f) {
         fprintf(fp, "# Coupling stuff for H funs\n");
     for (i = 0; i < NODE; i++)
         io_string(coup_string[i], 79, fp, f);
+    return;
 }
 
 int
@@ -397,6 +407,7 @@ new_adjoint(void) {
         adj_back();
     }
     ping();
+    return;
 }
 /* this computes the periodic orbit and stores it in
    the usual place  given initial data and period */
@@ -407,6 +418,7 @@ test_test(void) {
     x[0] = .35249;
     x[1] = .2536;
     compute_one_orbit(x, 14.6);
+    return;
 }
 
 void
@@ -417,6 +429,7 @@ compute_one_orbit(double *ic, double per) {
     run_from_x(ic);
     new_adjoint();
     TEND = oldtotal;
+    return;
 }
 
 /*    ADJOINT ROUTINE
@@ -588,6 +601,7 @@ eval_rhs(double **jac, int k1, int k2, double t, double *y, double *yp,
                              jac[i + j * node][k2] * t) *
                                 y[i];
     }
+    return;
 }
 
 int
@@ -688,6 +702,7 @@ do_liapunov(void) {
     LIAP_FLAG = 0;
     free(my_liap[0]);
     free(my_liap[1]);
+    return;
 }
 
 void
@@ -698,6 +713,7 @@ alloc_liap(int n) {
     my_liap[1] = (float *)malloc(sizeof(float) * (n + 1));
     LIAP_N = (n + 1);
     LIAP_I = 0;
+    return;
 }
 
 void
@@ -710,6 +726,7 @@ do_this_liaprun(int i, double p) {
     my_liap[1][i] = liap;
     /* plintf("p=%g lambda=%g \n",p,liap); */
     LIAP_I++;
+    return;
 }
 
 void

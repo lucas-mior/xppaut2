@@ -17,4 +17,5 @@ z_exp(doublecomplex *r, doublecomplex *z)
     expx = exp(z->r);
     r->r = expx * cos(zi);
     r->i = expx * sin(zi);
+    return;
 }

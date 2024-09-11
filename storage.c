@@ -33,6 +33,7 @@ init_alloc_info(void) {
     /* plintf(" node=%d nvec=%d \n",xpv.node,xpv.nvec); */
     for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
+    return;
 }
 
 void
@@ -59,6 +60,7 @@ alloc_meth(void) {
         free(WORK);
     WORK = (double *)malloc(sz * sizeof(double));
     /* plintf(" I have allocated %d doubles \n",sz); */
+    return;
 }
 
 int
@@ -95,6 +97,7 @@ init_stor(int nrow, int ncol) {
     /*  plintf("col=%d\n",i); */
     err_msg("Cannot allocate sufficient storage");
     exit(0);
+    return;
 }
 
 void
@@ -105,4 +108,5 @@ free_storage(int ncol) {
     free(storage);
     if (WORK)
         free(WORK);
+    return;
 }

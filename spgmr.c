@@ -446,6 +446,7 @@ SpgmrFree(SpgmrMem mem) {
     N_VFree(mem->vtemp);
 
     free(mem);
+    return;
 }
 
 /*************** Private Helper Function: FreeVectorArray ************/

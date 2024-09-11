@@ -283,6 +283,7 @@ init_rpn(void) {
     if (newseed == 1)
         RandSeed = time(0);
     nsrand48(RandSeed);
+    return;
 }
 
 /*  FREE_UFUNS   */
@@ -294,6 +295,7 @@ free_ufuns(void) {
         free(ufun[i]);
         free(ufun_def[i]);
     }
+    return;
 }
 
 int
@@ -607,6 +609,7 @@ set_old_arg_names(int narg) {
         sprintf(my_symb[FIRST_ARG + i].name, "ARG%d", i + 1);
         my_symb[FIRST_ARG + i].len = 4;
     }
+    return;
 }
 
 void
@@ -616,6 +619,7 @@ set_new_arg_names(int narg, char args[10][11]) {
         strcpy(my_symb[FIRST_ARG + i].name, args[i]);
         my_symb[FIRST_ARG + i].len = strlen(args[i]);
     }
+    return;
 }
 
 /* NEW ADD_FUN for new form_ode code  */
@@ -651,6 +655,7 @@ fixup_endfun(int *u, int l, int narg) {
     u[l - 1] = ENDFUN;
     u[l] = narg;
     u[l + 1] = ENDEXP;
+    return;
 }
 
 int
@@ -861,6 +866,7 @@ find_name(char *string, int *index) {
         *index = i;
     else
         *index = -1;
+    return;
 }
 
 int
@@ -922,6 +928,7 @@ set_val(char *name, double value) {
 void
 set_ivar(int i, double value) {
     SETVAR(i, value);
+    return;
 }
 
 double
@@ -1171,6 +1178,7 @@ pr_command(int *command) {
             return;
         i++;
     }
+    return;
 }
 
 void
@@ -1183,6 +1191,7 @@ show_where(char *string, int index) {
     junk[index] = '^';
     junk[index + 1] = 0;
     plintf("%s\n%s\n", string, junk);
+    return;
 }
 
 int
@@ -1397,6 +1406,7 @@ void
 tokeninfo(int tok) {
     plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len,
            my_symb[tok].com, my_symb[tok].arg, my_symb[tok].pri);
+    return;
 }
 
 int
@@ -1464,6 +1474,7 @@ convert(char *source, char *dest) {
             break;
     }
     strupr(dest);
+    return;
 }
 
 void
@@ -1490,6 +1501,7 @@ find_tok(char *source, int *index, int *tok) {
     }
     *index = *index + maxlen;
     *tok = my_tok;
+    return;
 }
 
 double
@@ -1521,6 +1533,7 @@ two_args(void) {
     fun2[19] = bessel_y;
     fun2[20] = bessi;
     fun2[21] = bessis;
+    return;
 }
 
 /*   These are the Bessel Functions; if you dont have them then
@@ -1890,6 +1903,7 @@ one_arg(void) {
     fun1[23] = hom_bcs;
     fun1[24] = poidev;
     fun1[25] = lgamma;
+    return;
 }
 
 double
@@ -2232,6 +2246,7 @@ strupr(char *s) {
             s[i] -= 32;
         i++;
     }
+    return;
 }
 
 void
@@ -2242,5 +2257,6 @@ strlwr(char *s) {
             s[i] += 32;
         i++;
     }
+    return;
 }
 #endif

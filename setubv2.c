@@ -462,6 +462,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     free(uold);
     free(f);
     free(prm);
+    return;
 }
 
 void
@@ -588,6 +589,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     free(uio);
     free(uid);
     free(uip);
+    return;
 }
 
 /* Copy a setubv_parallel_arglist */
@@ -595,6 +597,7 @@ void
 setubv_parallel_arglist_copy(setubv_parallel_arglist *output,
                              const setubv_parallel_arglist input) {
     memcpy(output, &input, sizeof(setubv_parallel_arglist));
+    return;
 }
 
 /* Fill in a setubv_parallel_arglist for the individual variables */
@@ -645,4 +648,5 @@ setubv_parallel_arglist_constructor(
     data->thl = thl;
     data->rldot = rldot;
     data->bcni = bcni;
+    return;
 }

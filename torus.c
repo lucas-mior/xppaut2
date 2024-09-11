@@ -64,6 +64,7 @@ do_torus_com(int c) {
     for (i = 0; i < MAXODE; i++)
         itor[i] = 0;
     TORUS = 0;
+    return;
 }
 
 void
@@ -76,6 +77,7 @@ draw_tor_var(int i) {
         sprintf(strng, "   %s", uvar_names[i]);
     XDrawString(display, torbox.w[i], small_gc, 0, CURY_OFFs, strng,
                 strlen(strng));
+    return;
 }
 
 void
@@ -95,6 +97,7 @@ draw_torus_box(Window win) {
         if (win == torbox.w[i])
             draw_tor_var(i);
     }
+    return;
 }
 
 void
@@ -105,6 +108,7 @@ choose_torus(void) {
     for (i = 0; i < NEQ; i++)
         if (itor[i] == 1)
             TORUS = 1;
+    return;
 }
 
 void
@@ -174,6 +178,7 @@ make_tor_box(char *title) {
     XSelectInput(display, torbox.cancel, BUT_MASK);
     XSelectInput(display, torbox.done, BUT_MASK);
     XRaiseWindow(display, torbox.base);
+    return;
 }
 
 void
@@ -241,4 +246,5 @@ do_torus_events(void) {
     waitasec(ClickTime);
     XDestroySubwindows(display, torbox.base);
     XDestroyWindow(display, torbox.base);
+    return;
 }

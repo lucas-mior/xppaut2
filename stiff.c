@@ -78,6 +78,7 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
         }
         y[i] = ytemp;
     }
+    return;
 }
 
 int
@@ -328,4 +329,5 @@ rkck(double *y, double *dydx, int n, double x, double h, double *yout,
     for (i = 0; i < n; i++)
         yerr[i] = h * (dc1 * dydx[i] + dc3 * ak3[i] + dc4 * ak4[i] +
                        dc5 * ak5[i] + dc6 * ak6[i]);
+    return;
 }

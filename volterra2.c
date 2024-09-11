@@ -94,6 +94,7 @@ alloc_v_memory(void) /* allocate stuff for volterra equations */
         }
     }
     allocate_volterra(MaxPoints, 0);
+    return;
 }
 
 void
@@ -129,6 +130,7 @@ allocate_volterra(int npts, int flag) {
     CurrentPoint = 0;
     KnFlag = 1;
     alloc_kernels(flag);
+    return;
 }
 
 void
@@ -145,6 +147,7 @@ re_evaluate_kernels(void) {
             }
         }
     }
+    return;
 }
 
 void
@@ -172,6 +175,7 @@ alloc_kernels(int flag) {
                 kernel[i].al[j] = alpbetjn(mu, DELTA_T, j);
         }
     }
+    return;
 }
 
 /* the following is the main driver for evaluating the sums in the
@@ -230,6 +234,7 @@ init_sums(double t0, int n, double dt, int i0, int iend, int ishift) {
     for (ker = 0; ker < NKernel; ker++) {
         kernel[ker].sum = sum[ker];
     }
+    return;
 }
 
 /* the following functions compute integrals for the piecewise
@@ -287,6 +292,7 @@ get_kn(/* uses the guessed value y to update Kn  */
                 kernel[i].sum + kernel[i].betnn * evaluate(kernel[i].formula);
         /* plintf(" Value t=%g %d =%g %g\n",t,i,kernel[i].k_n,y[i]); */
     }
+    return;
 }
 
 int

@@ -167,6 +167,7 @@ one_step_discrete(double *y, double dt, double *yp, int neq, double *t) {
         y[j] = yp[j];
         /*                  plintf("%g %d %g \n",*t,j,y[j]); */
     }
+    return;
 }
 
 void
@@ -180,6 +181,7 @@ one_step_symp(double *y, double h, double *f, int n, double *t) {
             y[j + 1] += (h * symp_B[s] * f[j + 1]);
     }
     *t += h;
+    return;
 }
 
 void
@@ -192,6 +194,7 @@ one_step_euler(double *y, double dt, double *yp, int neq, double *t) {
     *t += dt;
     for (j = 0; j < neq; j++)
         y[j] = y[j] + dt * yp[j];
+    return;
 }
 
 void
@@ -220,6 +223,7 @@ one_step_rk4(double *y, double dt, double *yval[3], int neq, double *tim) {
     for (i = 0; i < neq; i++)
         y[i] = yval[0][i] + dt * yval[1][i] / 6.00;
     *tim = t2;
+    return;
 }
 
 void
@@ -235,6 +239,7 @@ one_step_heun(double *y, double dt, double *yval[2], int neq, double *tim) {
     for (i = 0; i < neq; i++)
         y[i] = .5 * (y[i] + yval[0][i] + dt * yval[1][i]);
     *tim = t1;
+    return;
 }
 
 /*  Euler  */
@@ -611,6 +616,7 @@ get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
             y[i] = yold;
         }
     }
+    return;
 }
 
 void
@@ -638,6 +644,7 @@ get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
         }
         y[i] = yhat;
     }
+    return;
 }
 
 int
@@ -690,4 +697,5 @@ bandsol(/* requires that the matrix be factored   */
         for (k = 1; k <= m; k++)
             b[row] = b[row] - a[r0 + k] * b[row + k];
     }
+    return;
 }

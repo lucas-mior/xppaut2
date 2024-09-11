@@ -100,6 +100,7 @@ draw_one_array_plot(char *bob) {
     sprintf(filename, "%s.%d.gif", aplot_range_stem, aplot_range_count);
     gif_aplot_all(filename, aplot_still);
     aplot_range_count++;
+    return;
 }
 
 void
@@ -121,6 +122,7 @@ set_up_aplot_range(void) {
         x = &MyData[0];
         do_range(x, 0);
     }
+    return;
 }
 void
 fit_aplot(void) {
@@ -129,6 +131,7 @@ fit_aplot(void) {
     aplot.zmin = zmin;
     aplot.zmax = zmax;
     redraw_aplot(aplot);
+    return;
 }
 void
 optimize_aplot(int *plist) {
@@ -158,6 +161,7 @@ optimize_aplot(int *plist) {
     aplot.plotdef = 1;
     reset_aplot_axes(aplot);
     redraw_aplot(aplot);
+    return;
 }
 
 void
@@ -165,6 +169,7 @@ make_my_aplot(char *name) {
     if (aplot.alive == 1)
         return;
     create_arrayplot(&aplot, name, name);
+    return;
 }
 
 void scale_aplot(ap, zmax, zmin) APLOT *ap;
@@ -226,6 +231,7 @@ void
 expose_aplot(Window w) {
     if (aplot.alive)
         display_aplot(w, aplot);
+    return;
 }
 
 void
@@ -273,6 +279,7 @@ do_array_plot_events(XEvent ev) {
         apbutton(ev.xbutton.window);
         break;
     }
+    return;
 }
 
 void wborder(w, i, ap) Window w;
@@ -292,11 +299,13 @@ destroy_aplot(void) {
     waitasec(ClickTime);
     XDestroySubwindows(display, aplot.base);
     XDestroyWindow(display, aplot.base);
+    return;
 }
 
 void
 init_my_aplot(void) {
     init_arrayplot(&aplot);
+    return;
 }
 
 void create_arrayplot(ap, wname, iname) APLOT *ap;
@@ -424,6 +433,7 @@ apbutton(Window w) {
     if (w == aplot.wgif) {
         gif_aplot();
     }
+    return;
 }
 
 void draw_scale(ap) APLOT ap;
@@ -447,6 +457,7 @@ void draw_aplot(ap) APLOT ap;
 void
 edit_aplot(void) {
     editaplot(&aplot);
+    return;
 }
 
 void
@@ -480,6 +491,7 @@ get_root(char *s, char *sroot, int *num) {
         /* plintf(" i=%d me=%s sroot=%s \n",i,me,sroot); */
         *num = atoi(me);
     }
+    return;
 }
 
 void reset_aplot_axes(ap) APLOT ap;
@@ -512,6 +524,7 @@ dump_aplot(FILE *fp, int f) {
     io_int(&aplot.nskip, fp, f, "RowSkip");
     io_double(&aplot.zmin, fp, f, "Zmin");
     io_double(&aplot.zmax, fp, f, "Zmax");
+    return;
 }
 
 int
@@ -566,6 +579,7 @@ void
 close_aplot_files(void) {
     if (aplot_still == 0)
         fclose(ap_fp);
+    return;
 }
 void
 gif_aplot_all(char *filename, int still) {
@@ -611,6 +625,7 @@ gif_aplot_all(char *filename, int still) {
         fclose(ap_fp);
         XFreePixmap(display, xi);
     }
+    return;
 }
 
 void
@@ -621,6 +636,7 @@ gif_aplot(void) {
     if (!file_selector("GIF plot", filename, "*.gif"))
         return;
     gif_aplot_all(filename, 1);
+    return;
 }
 
 void grab_aplot_screen(ap) APLOT ap;
@@ -697,6 +713,7 @@ void
 tag_aplot(char *bob) {
     set_color(0);
     XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob, strlen(bob));
+    return;
 }
 
 void
@@ -712,6 +729,7 @@ set_acolor(int col) {
         else
             XSetForeground(display, aplot_gc, GrFore);
     }
+    return;
 }
 
 void display_aplot(w, ap) APLOT ap;
