@@ -228,7 +228,7 @@ write_info_out(void) {
     /*int flag=0
      */
     int status;
-    int icp1, icp2, icp3, icp4;
+    int icp1, icp2;
     double *par;
     double par1, par2 = 0, *uhigh, *ulow, per;
     /*double a,*ubar,*u0;*/
