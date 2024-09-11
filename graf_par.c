@@ -187,13 +187,13 @@ axes_opts(void) {
                         "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
     char values[7][MAX_LEN_SBOX];
     int status;
-    sprintf(values[0], "%g", MyGraph->xorg);
-    sprintf(values[1], "%g", MyGraph->yorg);
-    sprintf(values[2], "%g", MyGraph->zorg);
-    sprintf(values[3], "%d", MyGraph->xorgflag);
-    sprintf(values[4], "%d", MyGraph->yorgflag);
-    sprintf(values[5], "%d", MyGraph->zorgflag);
-    sprintf(values[6], "%d", PS_FONTSIZE);
+    snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xorg);
+    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->yorg);
+    snprintf(values[2], sizeof(values[2]), "%g", MyGraph->zorg);
+    snprintf(values[3], sizeof(values[3]), "%d", MyGraph->xorgflag);
+    snprintf(values[4], sizeof(values[4]), "%d", MyGraph->yorgflag);
+    snprintf(values[5], sizeof(values[5]), "%d", MyGraph->zorgflag);
+    snprintf(values[6], sizeof(values[6]), "%d", PS_FONTSIZE);
     status = do_string_box(7, 7, 1, "Axes options", n, values, 25);
     if (status != 0) {
         MyGraph->xorg = atof(values[0]);

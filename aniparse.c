@@ -248,7 +248,7 @@ char *get_next(/* char *src */);
 
  eg   text .3;.3;t=%g;t
 
- will do a sprintf(string,"t=%g",t);
+ will do a snprintf(string, sizeof(string), "t=%g",t);
 
  and put text at .3,.3
 */
