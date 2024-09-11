@@ -137,8 +137,7 @@ extern double get_delay(int in, double td);
 void get_import_values();
 int parse_import(char *s, char *soname, char *sofun, int *n, char *vname, int
         *m, char *tname[MAXW]);
-int get_vector_info(char *str, char *name, int *root, int *length, int *il,
-                int *ir);
+int get_vector_info(char *str, char *name, int *root, int *length, int *il, int *ir);
 #define IC 2
 extern int fftn(int /* ndim */, const int /* dims */[], double /* Re */[],
                 double /* Im */[], int /* isign */, double /* scaling */);
@@ -205,8 +204,8 @@ typedef struct {
 
 extern double variables[], constants[];
 
-char *get_first(/* char *string,char *src */);
-char *get_next(/* char *src */);
+char *get_first(char *string, char *src);
+char *get_next(char *src);
 
 double evaluate(int *);
 
@@ -253,6 +252,7 @@ add_vectorizer(char *name, char *rhs) {
 
 void
 add_vectorizer_name(char *name, char *rhs) {
+    (void) rhs;
     if (n_vector >= MAXVEC) {
         plintf("Too many vectors \n");
         exit(0);
@@ -282,6 +282,7 @@ vector_value(double x, int i) {
             return 0.0;
         return variables[2 * n - k - 1 + root];
     }
+    return 0;
 }
 
 double

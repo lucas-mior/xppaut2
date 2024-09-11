@@ -84,8 +84,6 @@ load_new_dll(void) {
     dlf.loaded = 0;
 }
 
-#define MAXW 50
-
 void
 get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
                   double *wgt[MAXW], double *var, double *con) {
