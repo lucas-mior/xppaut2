@@ -54,7 +54,7 @@ extern double last_ic[MAXODE];
 
 /*extern char upar_names[MAXPAR][11],this_file[100];*/
 
-extern char upar_names[MAXPAR][11], this_file[XPP_MAX_NAME];
+extern char upar_names[MAXPAR][14], this_file[XPP_MAX_NAME];
 extern int EqType[MAXODE];
 
 extern char *ufun_def[MAXUFUN];

@@ -109,7 +109,7 @@ FILESEL filesel;
 extern FILEINFO my_ff;
 
 extern int NUPAR, NODE, NEQ, NMarkov;
-extern char upar_names[MAXPAR][11], uvar_names[MAXODE][12];
+extern char upar_names[MAXPAR][14], uvar_names[MAXODE][12];
 extern char delay_string[MAXODE][80];
 extern double default_val[MAXPAR];
 extern double last_ic[MAXODE];

@@ -78,7 +78,7 @@ typedef struct {
 
 typedef struct {
     int narg;
-    char args[MAXARG][11];
+    char args[MAXARG][14];
 } UFUN_ARG;
 
 #define VECT_ROOT 500
@@ -100,10 +100,10 @@ int add_file_table(int index, char *file);
 int add_table_name(int index, char *name);
 int add_form_table(int index, int nn, double xlo, double xhi, char *formula);
 void set_old_arg_names(int narg);
-void set_new_arg_names(int narg, char args[10][11]);
+void set_new_arg_names(int narg, char args[10][14]);
 int add_ufun_name(char *name, int index, int narg);
 void fixup_endfun(int *u, int l, int narg);
-int add_ufun_new(int index, int narg, char *rhs, char args[20][11]);
+int add_ufun_new(int index, int narg, char *rhs, char args[20][14]);
 int add_ufun(char *junk, char *expr, int narg);
 int check_num(int *tok, double value);
 int is_ufun(int x);

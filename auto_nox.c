@@ -212,7 +212,7 @@ char fort9[200];
 char TMPSWAP[200];
 
 extern char uvar_names[MAXODE][12];
-extern char upar_names[MAXPAR][11];
+extern char upar_names[MAXPAR][14];
 extern int NUPAR;
 unsigned int DONT_XORCross = 0;
 

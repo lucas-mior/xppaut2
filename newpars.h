@@ -34,7 +34,7 @@
 
 #define VECTOR 28
 
-#define NAMLEN 10
+#define NAMLEN 13
 #define MAXARG 20
 #define MAXEXPLEN 1024
 typedef struct var_info {

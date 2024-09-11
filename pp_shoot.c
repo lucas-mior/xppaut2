@@ -77,7 +77,7 @@ struct {
     double plow, phigh;
 } shoot_range;
 
-extern char upar_names[MAXPAR][11];
+extern char upar_names[MAXPAR][14];
 extern char uvar_names[MAXODE][12];
 double atof();
 

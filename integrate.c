@@ -178,7 +178,7 @@ int MyStart;
 extern int DelayFlag, DCURY, NKernel;
 int RANGE_FLAG;
 extern int PAR_FOL, SHOOT;
-extern char upar_names[MAXPAR][11];
+extern char upar_names[MAXPAR][14];
 extern double default_val[MAXPAR];
 extern double last_ic[MAXODE];
 double LastTime;

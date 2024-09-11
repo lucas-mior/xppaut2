@@ -229,7 +229,6 @@ add_vectorizer(char *name, char *rhs) {
     int len;
     int flag;
 
-    char rootname[100];
     for (i = 0; i < n_vector; i++)
         if (strcmp(name, my_vec[i].name) == 0)
             break;

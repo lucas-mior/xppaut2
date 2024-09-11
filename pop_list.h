@@ -63,7 +63,7 @@ typedef struct {
 } SCRBOX_LIST;
 
 extern int NUPAR, NEQ, NODE, NMarkov;
-extern char upar_names[MAXPAR][11], uvar_names[MAXODE][12];
+extern char upar_names[MAXPAR][14], uvar_names[MAXODE][12];
 extern char *color_names[];
 extern SCRBOX_LIST scrbox_list[10];
 

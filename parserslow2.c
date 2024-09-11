@@ -47,8 +47,8 @@ extern int DelayFlag;
 int NDELAYS = 0;
 /*double pow2(); */
 double get_delay();
-double delay_stab_eval();
-double lookup();
+double delay_stab_eval(double, int);
+double lookup(double, int);
 double network_value();
 double vector_value();
 double atof(const char *);
@@ -616,7 +616,7 @@ set_old_arg_names(int narg) {
 }
 
 void
-set_new_arg_names(int narg, char args[10][11]) {
+set_new_arg_names(int narg, char args[10][14]) {
     int i;
     for (i = 0; i < narg; i++) {
         strcpy(my_symb[FIRST_ARG + i].name, args[i]);
@@ -662,7 +662,7 @@ fixup_endfun(int *u, int l, int narg) {
 }
 
 int
-add_ufun_new(int index, int narg, char *rhs, char args[MAXARG][11]) {
+add_ufun_new(int index, int narg, char *rhs, char args[MAXARG][14]) {
 
     int i, l;
     int end;
