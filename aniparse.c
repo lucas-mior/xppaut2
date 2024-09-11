@@ -582,16 +582,16 @@ ani_create_mpeg(void) {
     char values[3][MAX_LEN_SBOX];
     int status;
     mpeg.flag = 0;
-    sprintf(values[0], "%d", mpeg.flag);
-    sprintf(values[1], "%s", mpeg.root);
-    sprintf(values[2], "%d", mpeg.aviflag);
+    snprintf(values[0], sizeof(values[0]), "%d", mpeg.flag);
+    snprintf(values[1], sizeof(values[0]), "%s", mpeg.root);
+    snprintf(values[2], sizeof(values[0]), "%d", mpeg.aviflag);
     status = do_string_box(3, 3, 1, "Frame saving", n, values, 28);
     if (status != 0) {
         mpeg.flag = atoi(values[0]);
         if (mpeg.flag > 0)
             mpeg.flag = 1;
         mpeg.aviflag = atoi(values[2]);
-        sprintf(mpeg.root, "%s", values[1]);
+        snprintf(mpeg.root, sizeof(mpeg.root), "%s", values[1]);
         if (mpeg.aviflag == 1)
             mpeg.flag = 0;
     } else
@@ -738,7 +738,7 @@ ani_newskip(void) {
     Window w;
     int rev, status;
     XGetInputFocus(display, &w, &rev);
-    sprintf(bob, "%d", vcr.inc);
+    snprintf(bob, sizeof(bob), "%d", vcr.inc);
     status = get_dialog("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
     if (status != 0) {
         vcr.inc = atoi(bob);
@@ -948,7 +948,7 @@ ani_flip(void) {
 
         /* now check mpeg stuff */
         if (mpeg.flag > 0 && ((mpeg_frame % mpeg.skip) == 0)) {
-            sprintf(fname, "%s_%d.ppm", mpeg.root, mpeg_write);
+            snprintf(fname, sizeof(fname), "%s_%d.ppm", mpeg.root, mpeg_write);
             mpeg_write++;
             writeframe(fname, ani_pixmap, vcr.wid, vcr.hgt);
         }
@@ -981,7 +981,7 @@ ani_disk_warn(void) {
     char ans;
     total = total / (1024 * 1024);
     if (total > 10) {
-        sprintf(junk, " %d Mb disk space needed! Continue?", total);
+        snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?", total);
         ans = (char)TwoChoice("YES", "NO", junk, "yn");
         if (ans != 'y')
             mpeg.flag = 0;
@@ -1113,7 +1113,7 @@ writeframe(char *filename, Window window, int wid, int hgt) {
         /* plintf(" bbp=%d CMSK=%d CSHIFT=%d CMULT=%d \n",
            bbp,CMSK,CSHIFT,CMULT); */
     }
-    sprintf(head, "P6\n%d %d\n255\n", ximage->width, ximage->height);
+    snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width, ximage->height);
     write(fd, head, strlen(head));
     area = ximage->width * ximage->height;
     pixel = (unsigned char *)ximage->data;
@@ -1172,7 +1172,7 @@ ani_zero(void) {
         strcpy(vcr.file, anifile);
     else {
         strcpy(vcr.file, this_file);
-        sprintf(vcr.file, "%s/", dirname(vcr.file));
+        snprintf(vcr.file, sizeof(vcr.file), "%s/", dirname(vcr.file));
         /*strcpy(vcr.file,"foo.ani");*/
     }
 }
@@ -1215,7 +1215,7 @@ ani_new_file(char *filename) {
     if (n_anicom > 0)
         free_ani();
     if (load_ani_file(fp) == 0) {
-        sprintf(bob, "Bad ani-file at line %d", ani_line);
+        snprintf(bob, sizeof(bob), "Bad ani-file at line %d", ani_line);
         err_msg(bob);
         return -1;
     }
@@ -2450,7 +2450,7 @@ draw_ani_vtext(int j) {
     double x1 = my_ani[j].zx1, y1 = my_ani[j].zy1;
     int i1, j1;
     s = (char *)my_ani[j].y2;
-    sprintf(s2, "%s%g", s, my_ani[j].zval);
+    snprintf(s2, sizeof(s2), "%s%g", s, my_ani[j].zval);
     n = strlen(s2);
     ani_xyscale(x1, y1, &i1, &j1);
     XDrawString(display, ani_pixmap, ani_gc, i1, j1, s2, n);
