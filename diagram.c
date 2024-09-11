@@ -2,6 +2,7 @@
 #include "autevd.h"
 #include "init_conds.h"
 #include "ggets.h"
+#include "browse.h"
 
 #include "my_svg.h"
 #include "my_ps.h"
@@ -13,7 +14,6 @@
 #include "autlim.h"
 #include "load_eqn.h"
 #define DALLOC(a) (double *)malloc((a) * sizeof(double))
-int refresh_browser();
 extern int TypeOfCalc;
 extern ROTCHK blrtn;
 extern int PS_Color;
