@@ -24,7 +24,8 @@
  modified Gram-Schmidt routine (called mgs) written by Milo Dorr.
 *************************************************************************/
 
-int ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm) {
+int
+ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm) {
     int i, k_minus_1, i0;
     real new_norm_2, new_product, vk_norm, temp;
 
@@ -78,8 +79,9 @@ int ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm) {
  and Peter Brown.
 **********************************************************************/
 
-int ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
-                N_Vector temp, real *s) {
+int
+ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
+            N_Vector temp, real *s) {
     int i, k_minus_1, i0;
     real vk_norm;
 
@@ -131,7 +133,8 @@ int ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
  routine (called qrfact) written by Milo Dorr.
 **********************************************************************/
 
-int QRfact(int n, real **h, real *q, int job) {
+int
+QRfact(int n, real **h, real *q, int job) {
     real c, s, temp1, temp2, temp3;
     int i, j, k, q_ptr, n_minus_1, code = 0;
 
@@ -223,7 +226,8 @@ int QRfact(int n, real **h, real *q, int job) {
  routine (called qrsol) written by Milo Dorr.
 **********************************************************************/
 
-int QRsol(int n, real **h, real *q, real *b) {
+int
+QRsol(int n, real **h, real *q, real *b) {
     real c, s, temp1, temp2;
     int i, k, q_ptr, code = 0;
 

@@ -24,7 +24,8 @@
 
 /* Implementation */
 
-BandMat BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
+BandMat
+BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
     BandMat A;
 
     if (N <= 0)
@@ -48,43 +49,62 @@ BandMat BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
     return (A);
 }
 
-int64 *BandAllocPiv(int64 N) {
+int64 *
+BandAllocPiv(int64 N) {
     if (N <= 0)
         return (NULL);
 
     return ((int64 *)malloc(N * sizeof(int64)));
 }
 
-int64 BandFactor(BandMat A, int64 *p) {
+int64
+BandFactor(BandMat A, int64 *p) {
     return (gbfa(A->data, A->size, A->mu, A->ml, A->smu, p));
 }
 
-void BandBacksolve(BandMat A, int64 *p, N_Vector b) {
+void
+BandBacksolve(BandMat A, int64 *p, N_Vector b) {
     gbsl(A->data, A->size, A->smu, A->ml, p, N_VDATA(b));
 }
 
-void BandZero(BandMat A) { bandzero(A->data, A->size, A->mu, A->ml, A->smu); }
+void
+BandZero(BandMat A) {
+    bandzero(A->data, A->size, A->mu, A->ml, A->smu);
+}
 
-void BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
+void
+BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
     bandcopy(A->data, B->data, A->size, A->smu, B->smu, copymu, copyml);
 }
 
-void BandScale(real c, BandMat A) {
+void
+BandScale(real c, BandMat A) {
     bandscale(c, A->data, A->size, A->mu, A->ml, A->smu);
 }
 
-void BandAddI(BandMat A) { bandaddI(A->data, A->size, A->smu); }
+void
+BandAddI(BandMat A) {
+    bandaddI(A->data, A->size, A->smu);
+}
 
-void BandFreeMat(BandMat A) {
+void
+BandFreeMat(BandMat A) {
     bandfree(A->data);
     free(A);
 }
 
-void BandFreePiv(int64 *p) { free(p); }
+void
+BandFreePiv(int64 *p) {
+    free(p);
+}
 
-void BandPrint(BandMat A) { bandprint(A->data, A->size, A->mu, A->ml, A->smu); }
+void
+BandPrint(BandMat A) {
+    bandprint(A->data, A->size, A->mu, A->ml, A->smu);
+}
 
-real **bandalloc(int64 n, int64 smu, int64 ml) {
+real **
+bandalloc(int64 n, int64 smu, int64 ml) {
     real **a;
     int64 j, colSize;
 
@@ -108,15 +128,16 @@ real **bandalloc(int64 n, int64 smu, int64 ml) {
     return (a);
 }
 
-int64 *bandallocpiv(int64 n) {
+int64 *
+bandallocpiv(int64 n) {
     if (n <= 0)
         return (NULL);
 
     return ((int64 *)malloc(n * sizeof(int64)));
 }
 
-int64 gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu,
-             int64 *p) {
+int64
+gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     int64 c, r, num_rows;
     int64 i, j, k, l, storage_l, storage_k, last_col_k, last_row_k;
     real *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
@@ -223,7 +244,8 @@ int64 gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu,
     return (0);
 }
 
-void gbsl(real **a, int64 n, int64 smu, int64 ml, int64 *p, real *b) {
+void
+gbsl(real **a, int64 n, int64 smu, int64 ml, int64 *p, real *b) {
     int64 k, l, i, first_row_k, last_row_k;
     real mult, *diag_k;
 
@@ -254,7 +276,8 @@ void gbsl(real **a, int64 n, int64 smu, int64 ml, int64 *p, real *b) {
     }
 }
 
-void bandzero(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
+void
+bandzero(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, colSize;
     real *col_j;
 
@@ -266,8 +289,9 @@ void bandzero(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
     }
 }
 
-void bandcopy(real **a, real **b, int64 n, int64 a_smu, int64 b_smu,
-              int64 copymu, int64 copyml) {
+void
+bandcopy(real **a, real **b, int64 n, int64 a_smu, int64 b_smu, int64 copymu,
+         int64 copyml) {
     int64 i, j, copySize;
     real *a_col_j, *b_col_j;
 
@@ -281,8 +305,8 @@ void bandcopy(real **a, real **b, int64 n, int64 a_smu, int64 b_smu,
     }
 }
 
-void bandscale(real c, real **a, int64 n, int64 mu, int64 ml,
-               int64 smu) {
+void
+bandscale(real c, real **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, colSize;
     real *col_j;
 
@@ -295,21 +319,27 @@ void bandscale(real c, real **a, int64 n, int64 mu, int64 ml,
     }
 }
 
-void bandaddI(real **a, int64 n, int64 smu) {
+void
+bandaddI(real **a, int64 n, int64 smu) {
     int64 j;
 
     for (j = 0; j < n; j++)
         a[j][smu] += ONE;
 }
 
-void bandfreepiv(int64 *p) { free(p); }
+void
+bandfreepiv(int64 *p) {
+    free(p);
+}
 
-void bandfree(real **a) {
+void
+bandfree(real **a) {
     free(a[0]);
     free(a);
 }
 
-void bandprint(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
+void
+bandprint(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, start, finish;
 
     plintf("\n");

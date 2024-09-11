@@ -42,7 +42,11 @@
  *                                                                *
  ******************************************************************/
 
-enum { DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
+enum {
+    DENSE_NJE = CVODE_IOPT_SIZE,
+    DENSE_LRW,
+    DENSE_LIW
+};
 
 /******************************************************************
  *                                                                *
@@ -130,9 +134,9 @@ enum { DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  *                                                                *
  ******************************************************************/
 
-typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data,
-                             real t, N_Vector y, N_Vector fy, N_Vector ewt,
-                             real h, real uround, void *jac_data, int *nfePtr,
+typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data, real t,
+                             N_Vector y, N_Vector fy, N_Vector ewt, real h,
+                             real uround, void *jac_data, int *nfePtr,
                              N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
 /******************************************************************

@@ -210,7 +210,8 @@ double evaluate();
 
 NETWORK my_net[MAXNET];
 int n_network = 0;
-double net_interp(double x, int i) {
+double
+net_interp(double x, int i) {
     int jlo = (int)x;
     double *y;
     int n = my_net[i].n;
@@ -221,7 +222,8 @@ double net_interp(double x, int i) {
     return (1 - dx) * y[jlo] + dx * y[jlo + 1];
 }
 
-int add_vectorizer(char *name, char *rhs) {
+int
+add_vectorizer(char *name, char *rhs) {
     int i, ivar, il, ir;
     int ind;
     int len;
@@ -247,7 +249,8 @@ int add_vectorizer(char *name, char *rhs) {
 
     return 1;
 }
-void add_vectorizer_name(char *name, char *rhs) {
+void
+add_vectorizer_name(char *name, char *rhs) {
     if (n_vector >= MAXVEC) {
         plintf("Too many vectors \n");
         exit(0);
@@ -257,9 +260,8 @@ void add_vectorizer_name(char *name, char *rhs) {
         exit(0);
     n_vector++;
 }
-double 
-vector_value (double x, int i)
-{
+double
+vector_value(double x, int i) {
     int il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length, k = (int)x;
     int root = my_vec[i].root;
     if ((k >= 0) && (k < n))
@@ -277,9 +279,8 @@ vector_value (double x, int i)
         return variables[2 * n - k - 1 + root];
     }
 }
-double 
-network_value (double x, int i)
-{
+double
+network_value(double x, int i) {
     int j = (int)x;
     if (my_net[i].type == INTERP) {
         return net_interp(x, i);
@@ -289,15 +290,15 @@ network_value (double x, int i)
     return 0.0;
 }
 
-void init_net(double *v, int n) {
+void
+init_net(double *v, int n) {
     int i;
     for (i = 0; i < n; i++)
         v[i] = 0.0;
 }
 
-int 
-add_spec_fun (char *name, char *rhs)
-{
+int
+add_spec_fun(char *name, char *rhs) {
     int i, ind, elen, err;
     int type;
     int iwgt, itau, iind, ivar, ivar2;
@@ -1042,9 +1043,8 @@ add_spec_fun (char *name, char *rhs)
     }
     return 0;
 }
-void 
-add_special_name (char *name, char *rhs)
-{
+void
+add_special_name(char *name, char *rhs) {
     if (is_network(rhs)) {
         plintf(" netrhs = |%s| \n", rhs);
         if (n_network >= MAXNET) {
@@ -1057,9 +1057,8 @@ add_special_name (char *name, char *rhs)
         plintf(" No such special type ...\n");
 }
 
-int 
-is_network (char *s)
-{
+int
+is_network(char *s) {
     /*int n;
      */
     de_space(s);
@@ -1095,16 +1094,15 @@ is_network (char *s)
     return 0;
 }
 
-void 
-eval_all_nets (void) {
+void
+eval_all_nets(void) {
     int i;
     for (i = 0; i < n_network; i++)
         evaluate_network(i);
 }
 
-void 
-evaluate_network (int ind)
-{
+void
+evaluate_network(int ind) {
     int i, j, k, ij;
     int imin, imax;
     double ymin, ymax;
@@ -1372,8 +1370,8 @@ evaluate_network (int ind)
     }
 }
 
-void 
-update_all_ffts (void) {
+void
+update_all_ffts(void) {
     int i;
 
     for (i = 0; i < n_network; i++)
@@ -1388,7 +1386,8 @@ update_all_ffts (void) {
  fftr[i]=wgt[i+k] i = 0.. k
  fftr[i+k]=wgt[i] i=1 .. k-1
 */
-void update_fft(int ind) {
+void
+update_fft(int ind) {
     int i;
     int dims[2];
     double *w = my_net[ind].weight;
@@ -1427,8 +1426,9 @@ void update_fft(int ind) {
      * %g\n",fftr[i],ffti[i],fftr[n-1-i],ffti[n-1-i]); */
 }
 
-void fft_conv(int it, int n, double *values, double *yy, double *fftr,
-              double *ffti, double *dr, double *di) {
+void
+fft_conv(int it, int n, double *values, double *yy, double *fftr, double *ffti,
+         double *dr, double *di) {
     int i;
     int dims[2];
     double x, y;
@@ -1480,7 +1480,8 @@ void fft_conv(int it, int n, double *values, double *yy, double *fftr,
 
 /* parsing stuff to get gillespie code quickly */
 
-int gilparse(char *s, int *ind, int *nn) {
+int
+gilparse(char *s, int *ind, int *nn) {
     int i = 0, n = strlen(s);
     char piece[50], b[20], bn[25], c;
     int i1, i2, jp = 0, f;
@@ -1534,7 +1535,8 @@ int gilparse(char *s, int *ind, int *nn) {
 }
 
 /* plucks info out of  xxx{aa-bb}  or returns string */
-int g_namelist(char *s, char *root, int *flag, int *i1, int *i2) {
+int
+g_namelist(char *s, char *root, int *flag, int *i1, int *i2) {
     int i, n = strlen(s), ir = -1, j = 0;
     char c, num[20];
     *flag = 0;
@@ -1577,7 +1579,8 @@ int g_namelist(char *s, char *root, int *flag, int *i1, int *i2) {
     return 1;
 }
 
-int getimpstr(char *in, int *i, char *out) {
+int
+getimpstr(char *in, int *i, char *out) {
     int j = 0;
     int done = 1;
     char c;
@@ -1604,13 +1607,14 @@ int getimpstr(char *in, int *i, char *out) {
     return k;
 }
 
-int 
-import_error (void) {
+int
+import_error(void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
 }
-int parse_import(char *s, char *soname, char *sofun, int *n, char *vname,
-                 int *m, char *tname[MAXW]) {
+int
+parse_import(char *s, char *soname, char *sofun, int *n, char *vname, int *m,
+             char *tname[MAXW]) {
     char temp[256];
     int j;
     char c;
@@ -1661,8 +1665,9 @@ int parse_import(char *s, char *soname, char *sofun, int *n, char *vname,
     return 1;
 }
 
-int get_vector_info(char *str, char *name, int *root, int *length, int *il,
-                    int *ir) {
+int
+get_vector_info(char *str, char *name, int *root, int *length, int *il,
+                int *ir) {
 
     int i = 0;
     int ivar;

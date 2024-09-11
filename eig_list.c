@@ -63,9 +63,8 @@ struct {
 extern int HomoFlag, sparity;
 extern double homo_l[100], homo_r[100];
 
-void 
-draw_eq_list (Window w)
-{
+void
+draw_eq_list(Window w) {
     int i;
     char bob[300];
     char fstr[15];
@@ -100,8 +99,8 @@ draw_eq_list (Window w)
     }
 }
 
-void 
-create_eq_list (void) {
+void
+create_eq_list(void) {
 
     int width, height, hlist, hmain;
     Window base;
@@ -162,9 +161,8 @@ create_eq_list (void) {
     eq_list.flag = 1;
 }
 
-void 
-eq_list_keypress (XEvent ev, int *used)
-{
+void
+eq_list_keypress(XEvent ev, int *used) {
     Window w = ev.xkey.window;
 
     char ks;
@@ -189,7 +187,8 @@ eq_list_keypress (XEvent ev, int *used)
     }
 }
 
-void enter_eq_stuff(Window w, int b) {
+void
+enter_eq_stuff(Window w, int b) {
     if (eq_list.flag == 1) {
         if (w == eq_list.close || w == eq_list.up || w == eq_list.down)
             XSetWindowBorderWidth(display, w, b);
@@ -198,7 +197,8 @@ void enter_eq_stuff(Window w, int b) {
         XSetWindowBorderWidth(display, w, b);
 }
 
-void eq_list_button(XEvent ev) {
+void
+eq_list_button(XEvent ev) {
     Window w = ev.xbutton.window;
     /* pure laziness here - use this to go to eq_box */
     eq_box_button(w);
@@ -221,8 +221,8 @@ void eq_list_button(XEvent ev) {
     }
 }
 
-void 
-eq_list_up (void) {
+void
+eq_list_up(void) {
     if (eq_list.istart > 0) {
         eq_list.istart--;
         XClearWindow(display, eq_list.list);
@@ -230,8 +230,8 @@ eq_list_up (void) {
     }
 }
 
-void 
-eq_list_down (void) {
+void
+eq_list_down(void) {
     if (eq_list.istart < (NEQ - 1)) {
         eq_list.istart++;
         XClearWindow(display, eq_list.list);
@@ -239,8 +239,8 @@ eq_list_down (void) {
     }
 }
 
-void 
-eq_box_import (void) {
+void
+eq_box_import(void) {
     int n = eq_box.n, i;
     for (i = 0; i < n; i++)
         last_ic[i] = eq_box.y[i];
@@ -261,18 +261,16 @@ eq_box_import (void) {
     redraw_ics();
 }
 
-void 
-get_new_size (Window win, unsigned int *wid, unsigned int *hgt)
-{
+void
+get_new_size(Window win, unsigned int *wid, unsigned int *hgt) {
     int x, y;
     unsigned int bw, de;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, wid, hgt, &bw, &de);
 }
 
-void 
-resize_eq_list (Window win)
-{
+void
+resize_eq_list(Window win) {
 
     int nlines;
     unsigned int w, h;
@@ -291,7 +289,8 @@ resize_eq_list (Window win)
     XResizeWindow(display, eq_list.main, w, 2 * DCURYs);
 }
 
-void eq_box_button(Window w) {
+void
+eq_box_button(Window w) {
     if (eq_box.flag == 0)
         return;
     if (w == eq_box.import) {
@@ -306,9 +305,9 @@ void eq_box_button(Window w) {
     }
 }
 
-void 
-create_eq_box (int cp, int cm, int rp, int rm, int im, double *y, double *ev, int n)
-{
+void
+create_eq_box(int cp, int cm, int rp, int rm, int im, double *y, double *ev,
+              int n) {
     int width, hstab, hequil, height, i;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};
@@ -382,9 +381,8 @@ create_eq_box (int cp, int cm, int rp, int rm, int im, double *y, double *ev, in
     }
 }
 
-void 
-draw_eq_box (Window w)
-{
+void
+draw_eq_box(Window w) {
     int i, j, ncol, n = eq_box.n, nrow;
     int in;
     char temp[50];

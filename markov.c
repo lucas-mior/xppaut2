@@ -76,25 +76,22 @@ int NWiener;
 double normal();
 extern double constants[];
 
-void 
-add_wiener (int index)
-{
+void
+add_wiener(int index) {
     Wiener[NWiener] = index;
     NWiener++;
 }
 
-void 
-set_wieners (double dt, double *x, double t)
-{
+void
+set_wieners(double dt, double *x, double t) {
     int i;
     update_markov(x, t, fabs(dt));
     for (i = 0; i < NWiener; i++)
         constants[Wiener[i]] = normal(0.00, 1.00) / sqrt(fabs(dt));
 }
 
-void 
-add_markov (int nstate, char *name)
-{
+void
+add_markov(int nstate, char *name) {
     double st[50];
     int i;
     for (i = 0; i < 50; i++)
@@ -102,13 +99,10 @@ add_markov (int nstate, char *name)
     create_markov(nstate, st, 0, name);
 }
 
-int 
-build_markov (
-/*   FILE *fptr; */
-    char **ma,
-    char *name
-)
-{
+int
+build_markov(
+    /*   FILE *fptr; */
+    char **ma, char *name) {
     /*int nn;
      */
     int len = 0, ll;
@@ -157,9 +151,8 @@ build_markov (
     return index;
 }
 
-int 
-old_build_markov (FILE *fptr, char *name)
-{
+int
+old_build_markov(FILE *fptr, char *name) {
     /*int nn;*/
     int len = 0, ll;
     char line[256], expr[256];
@@ -206,9 +199,8 @@ old_build_markov (FILE *fptr, char *name)
     return index;
 }
 
-void 
-extract_expr (char *source, char *dest, int *i0)
-{
+void
+extract_expr(char *source, char *dest, int *i0) {
     char ch;
     int len = 0;
     int flag = 0;
@@ -229,9 +221,8 @@ extract_expr (char *source, char *dest, int *i0)
     dest[len] = 0;
 }
 
-void 
-create_markov (int nstates, double *st, int type, char *name)
-{
+void
+create_markov(int nstates, double *st, int type, char *name) {
     int i;
     int n2 = nstates * nstates;
     int j = NMarkov;
@@ -255,9 +246,8 @@ create_markov (int nstates, double *st, int type, char *name)
     NMarkov++;
 }
 
-void 
-add_markov_entry (int index, int j, int k, char *expr)
-{
+void
+add_markov_entry(int index, int j, int k, char *expr) {
 
     int l0 = markov[index].nstates * j + k;
     int type = markov[index].type;
@@ -284,8 +274,8 @@ add_markov_entry (int index, int j, int k, char *expr)
     }
 }
 
-void 
-compile_all_markov (void) {
+void
+compile_all_markov(void) {
     int index, j, k, ns, l0;
     if (NMarkov == 0)
         return;
@@ -304,9 +294,8 @@ compile_all_markov (void) {
     }
 }
 
-int 
-compile_markov (int index, int j, int k)
-{
+int
+compile_markov(int index, int j, int k) {
     char *expr;
     int l0 = markov[index].nstates * j + k, leng;
     int i;
@@ -323,9 +312,8 @@ compile_markov (int index, int j, int k)
     return 1;
 }
 
-void 
-update_markov (double *x, double t, double dt)
-{
+void
+update_markov(double *x, double t, double dt) {
     int i;
     double yp[MAXODE];
     /*  plintf(" NODE=%d x=%g \n",NODE,x[0]); */
@@ -346,9 +334,8 @@ update_markov (double *x, double t, double dt)
     }
 }
 
-double 
-new_state (double old, int index, double dt)
-{
+double
+new_state(double old, int index, double dt) {
     double prob, sum;
     double coin = ndrand48();
     int row = -1, rns;
@@ -395,7 +382,8 @@ new_state (double old, int index, double dt)
     return (old);
 }
 
-void make_gill_nu(double *nu, int n, int m, double *v) {
+void
+make_gill_nu(double *nu, int n, int m, double *v) {
     /* nu[j+m*i] = nu_{i,j} i=1,n-1 -- assume first eqn is tr'=tr+z(0)
        i species j reaction
       need this for improved tau stepper
@@ -424,7 +412,8 @@ void make_gill_nu(double *nu, int n, int m, double *v) {
     free(yold);
 }
 
-void one_gill_step(int meth, int nrxn, int *rxn, double *v) {
+void
+one_gill_step(int meth, int nrxn, int *rxn, double *v) {
     double rate = 0, test;
     double r[1000];
     /*double rold[1000]; Not used*/
@@ -460,7 +449,8 @@ void one_gill_step(int meth, int nrxn, int *rxn, double *v) {
     }
 }
 
-void do_stochast_com(int i) {
+void
+do_stochast_com(int i) {
     static char key[] = "ncdmvhofpislaxe2";
     char ch = key[i];
 
@@ -522,8 +512,8 @@ void do_stochast_com(int i) {
     }
 }
 
-void 
-mean_back (void) {
+void
+mean_back(void) {
     if (STOCH_HERE) {
         set_browser_data(my_mean, 1);
         /*    my_browser.data=my_mean;
@@ -533,8 +523,8 @@ mean_back (void) {
     }
 }
 
-void 
-variance_back (void) {
+void
+variance_back(void) {
     if (STOCH_HERE) {
         set_browser_data(my_variance, 1);
         /*    my_browser.data=my_variance;
@@ -544,8 +534,8 @@ variance_back (void) {
     }
 }
 
-void 
-compute_em (void) {
+void
+compute_em(void) {
     double *x;
     x = &MyData[0];
     free_stoch();
@@ -554,8 +544,8 @@ compute_em (void) {
     redraw_ics();
 }
 
-void 
-free_stoch (void) {
+void
+free_stoch(void) {
     int i;
     if (STOCH_HERE) {
         data_back();
@@ -567,9 +557,8 @@ free_stoch (void) {
     }
 }
 
-void 
-init_stoch (int len)
-{
+void
+init_stoch(int len) {
     int i, j;
     N_TRIALS = 0;
     stoch_len = len;
@@ -588,9 +577,8 @@ init_stoch (int len)
     STOCH_HERE = 1;
 }
 
-void 
-append_stoch (int first, int length)
-{
+void
+append_stoch(int first, int length) {
     int i, j;
     float z;
     if (first == 0)
@@ -607,9 +595,8 @@ append_stoch (int first, int length)
     N_TRIALS++;
 }
 
-void 
-do_stats (int ierr)
-{
+void
+do_stats(int ierr) {
     int i, j;
     float ninv, mean;
     /*  STOCH_FLAG=0; */
@@ -624,7 +611,8 @@ do_stats (int ierr)
         }
     }
 }
-double gammln(double xx) {
+double
+gammln(double xx) {
     double x, y, tmp, ser;
     static double cof[6] = {76.18009172947146,     -86.50532032941677,
                             24.01409824083091,     -1.231739572450155,
@@ -640,7 +628,8 @@ double gammln(double xx) {
     return -tmp + log(2.5066282746310005 * ser / x);
 }
 
-double poidev(double xm) {
+double
+poidev(double xm) {
     static double sq, alxm, g, oldm = (-1.0);
 
     double em, t, y;
@@ -675,14 +664,18 @@ double poidev(double xm) {
     return em;
 }
 
-double 
-ndrand48 (void) { return ran1(&myrandomseed); }
+double
+ndrand48(void) {
+    return ran1(&myrandomseed);
+}
 
-void nsrand48(int seed) { myrandomseed = -seed; }
+void
+nsrand48(int seed) {
+    myrandomseed = -seed;
+}
 
-double 
-ran1 (long *idum)
-{
+double
+ran1(long *idum) {
     int j;
     long k;
     static long iy = 0;

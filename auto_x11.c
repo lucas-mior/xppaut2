@@ -119,37 +119,41 @@ extern int NBifs;
    Code here
 *****************************************************/
 
-void 
-ALINE (int a, int b, int c, int d)
-{ XDrawLine(display, AutoW.canvas, small_gc, (a), (b), (c), (d)); }
+void
+ALINE(int a, int b, int c, int d) {
+    XDrawLine(display, AutoW.canvas, small_gc, (a), (b), (c), (d));
+}
 
-void 
-DLINE (double a, double b, double c, double d)
-{ ALINE(IXVal(a), IYVal(b), IXVal(c), IYVal(d)); }
+void
+DLINE(double a, double b, double c, double d) {
+    ALINE(IXVal(a), IYVal(b), IXVal(c), IYVal(d));
+}
 
-void 
-ATEXT (int a, int b, char *c)
-{ XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), strlen(c)); }
+void
+ATEXT(int a, int b, char *c) {
+    XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), strlen(c));
+}
 
-void 
-clr_stab (void) {
+void
+clr_stab(void) {
     int r = Auto.st_wid / 4;
     XClearWindow(display, AutoW.stab);
     XDrawArc(display, AutoW.stab, small_gc, r, r, 2 * r, 2 * r, 0, 360 * 64);
 }
 
-void auto_stab_line(int x, int y, int xp, int yp) {
+void
+auto_stab_line(int x, int y, int xp, int yp) {
     XDrawLine(display, AutoW.stab, small_gc, x, y, xp, yp);
 }
 
-void 
-clear_auto_plot (void) {
+void
+clear_auto_plot(void) {
     XClearWindow(display, AutoW.canvas);
     redraw_auto_menus();
 }
 
-void 
-redraw_auto_menus (void) {
+void
+redraw_auto_menus(void) {
     display_auto(AutoW.axes);
     display_auto(AutoW.numerics);
     display_auto(AutoW.grab);
@@ -163,7 +167,8 @@ redraw_auto_menus (void) {
     display_auto(AutoW.abort);
 }
 
-int query_special(char *title, char *nsymb) {
+int
+query_special(char *title, char *nsymb) {
     int status = 1;
     static char *m[] = {"BP", "EP", "HB", "LP", "MX", "PD", "TR", "UZ"};
     static char key[] = "behlmptu";
@@ -193,8 +198,8 @@ int query_special(char *title, char *nsymb) {
     return (status);
 }
 
-void 
-do_auto_range (void) {
+void
+do_auto_range(void) {
     double t = TEND;
 
     if (mark_flag == 2)
@@ -202,7 +207,8 @@ do_auto_range (void) {
     TEND = t;
 }
 
-void auto_get_info(int *n, char *pname) {
+void
+auto_get_info(int *n, char *pname) {
     int i1, i2, ibr;
     DIAGRAM *d, *dnew;
 
@@ -227,7 +233,8 @@ void auto_get_info(int *n, char *pname) {
     }
 }
 
-void auto_set_mark(int i) {
+void
+auto_set_mark(int i) {
     int pt, ibr;
     if (mark_flag == 2) {
         ibr = mark_ibrs;
@@ -239,7 +246,8 @@ void auto_set_mark(int i) {
     }
 }
 
-void find_point(int ibr, int pt) {
+void
+find_point(int ibr, int pt) {
     int i;
     DIAGRAM *d, *dnew;
     if (NBifs < 2)
@@ -273,8 +281,8 @@ void find_point(int ibr, int pt) {
     }
 }
 
-void 
-traverse_diagram (void) {
+void
+traverse_diagram(void) {
     DIAGRAM *d, *dnew, *dold;
     int done = 0;
     int ix, iy, i;
@@ -625,19 +633,23 @@ traverse_diagram (void) {
     redraw_ics();
 }
 
-void 
-clear_auto_info (void) { XClearWindow(display, AutoW.info); }
+void
+clear_auto_info(void) {
+    XClearWindow(display, AutoW.info);
+}
 
-void draw_auto_info(char *bob, int x, int y) {
+void
+draw_auto_info(char *bob, int x, int y) {
     XDrawString(display, AutoW.info, small_gc, x, y, bob, strlen(bob));
 }
 
-void 
-refreshdisplay (void) { XFlush(display); }
+void
+refreshdisplay(void) {
+    XFlush(display);
+}
 
-int 
-byeauto_ (int *iflag)
-{
+int
+byeauto_(int *iflag) {
     XEvent event;
     Window w;
     char ch;
@@ -671,52 +683,53 @@ byeauto_ (int *iflag)
     return (0);
 }
 
-void 
-Circle (int x, int y, int r)
-{
+void
+Circle(int x, int y, int r) {
     XDrawArc(display, AutoW.canvas, small_gc, x - r, y - r, r << 1, r << 1, 0,
              360 * 64);
 }
 
-void autocol(int col) { set_scolor(col); }
+void
+autocol(int col) {
+    set_scolor(col);
+}
 
-void 
-autobw (void) {
+void
+autobw(void) {
     XSetBackground(display, small_gc, MyBackColor);
     XSetForeground(display, small_gc, MyForeColor);
 }
 
-int 
-auto_rubber (int *i1, int *j1, int *i2, int *j2, int flag)
-{ return (rubber(i1, j1, i2, j2, AutoW.canvas, flag)); }
+int
+auto_rubber(int *i1, int *j1, int *i2, int *j2, int flag) {
+    return (rubber(i1, j1, i2, j2, AutoW.canvas, flag));
+}
 
-int 
-auto_pop_up_list (char *title, char **list, char *key, int n, int max, int def, int x, int y, char **hints, char *httxt)
-{
+int
+auto_pop_up_list(char *title, char **list, char *key, int n, int max, int def,
+                 int x, int y, char **hints, char *httxt) {
     Window temp = AutoW.base;
     return pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
                        AutoW.hint, httxt);
 }
 
-void 
-RedrawMark (void) {
+void
+RedrawMark(void) {
     if (mark_flag == 2) {
         MarkAuto(mark_ixs, mark_iys);
         MarkAuto(mark_ixe, mark_iye);
     }
 }
-void 
-MarkAuto (int x, int y)
-{
+void
+MarkAuto(int x, int y) {
 
     LineWidth(2);
     ALINE(x - 8, y - 8, x + 8, y + 8);
     ALINE(x + 8, y - 8, x - 8, y + 8);
     LineWidth(1);
 }
-void 
-XORCross (int x, int y)
-{
+void
+XORCross(int x, int y) {
 
     if (DONT_XORCross) {
         return;
@@ -741,9 +754,8 @@ XORCross (int x, int y)
     XFlush(display);
 }
 
-void 
-FillCircle (int x, int y, int r)
-{
+void
+FillCircle(int x, int y, int r) {
 
     int r2 = (int)(r / 1.41421356 + 0.5);
     int wh = 2 * r2;
@@ -752,15 +764,16 @@ FillCircle (int x, int y, int r)
              360 * 64);
 }
 
-void auto_update_view(float xlo, float xhi, float ylo, float yhi) {
+void
+auto_update_view(float xlo, float xhi, float ylo, float yhi) {
     Auto.xmin = xlo;
     Auto.ymin = ylo;
     Auto.xmax = xhi;
     Auto.ymax = yhi;
     redraw_diagram();
 }
-void 
-auto_scroll_window (void) {
+void
+auto_scroll_window(void) {
     XEvent ev;
     int i = 0, j = 0;
     int i0 = 0, j0 = 0;
@@ -834,18 +847,16 @@ auto_scroll_window (void) {
     }
 }
 
-void 
-LineWidth (int wid)
-{
+void
+LineWidth(int wid) {
     int ls = LineSolid;
     int cs = CapButt;
     int js = JoinRound;
     XSetLineAttributes(display, small_gc, wid, ls, cs, js);
 }
 
-void 
-auto_motion (XEvent ev)
-{
+void
+auto_motion(XEvent ev) {
     int i = ev.xmotion.x;
     int j = ev.xmotion.y;
     double x, y;
@@ -863,9 +874,8 @@ auto_motion (XEvent ev)
     }
 }
 
-void 
-display_auto (Window w)
-{
+void
+display_auto(Window w) {
 
     int ix, iy;
     if (Auto.exist == 0)
@@ -914,9 +924,8 @@ display_auto (Window w)
     }
 }
 
-Window 
-lil_button (Window root, int x, int y, char *name)
-{
+Window
+lil_button(Window root, int x, int y, char *name) {
     Window win;
     /*int width=strlen(name)*DCURX+5;
      */
@@ -926,17 +935,15 @@ lil_button (Window root, int x, int y, char *name)
     return (win);
 }
 
-void 
-aw (void) {
+void
+aw(void) {
     XFlush(display);
     sleep(5);
 }
 
-void 
-make_auto ( /* this makes the auto window  */
-    char *wname,
-    char *iname
-)
+void
+make_auto(/* this makes the auto window  */
+          char *wname, char *iname)
 
 {
     int x, y, wid, hgt, addwid = 16 * DCURX, addhgt = 3.0 * DCURY,
@@ -1032,7 +1039,8 @@ make_auto ( /* this makes the auto window  */
     draw_bif_axes();
 }
 
-void resize_auto_window(XEvent ev) {
+void
+resize_auto_window(XEvent ev) {
 
     int wid, hgt, addhgt = 3.5 * DCURY;
     STD_HGT_var = 20 * DCURY;
@@ -1079,26 +1087,24 @@ void resize_auto_window(XEvent ev) {
     }
 }
 
-void 
-a_msg (int i, int v)
-{
+void
+a_msg(int i, int v) {
     if (v == 0 || TipsFlag == 0)
         return;
     snprintf(Auto.hinttxt, 255, auto_hint[i]);
     display_auto(AutoW.hint);
 }
 
-void 
-clear_msg (void) {
+void
+clear_msg(void) {
     Auto.hinttxt[0] = '\0';
     display_auto(AutoW.hint);
 }
 
 /*  Auto event handlers   */
 
-void 
-auto_enter (Window w, int v)
-{
+void
+auto_enter(Window w, int v) {
     if (Auto.exist == 0)
         return;
     if (w == AutoW.axes) {
@@ -1152,9 +1158,8 @@ auto_enter (Window w, int v)
     }
 }
 
-void 
-auto_button (XEvent ev)
-{
+void
+auto_button(XEvent ev) {
     Window w = ev.xbutton.window;
     if (Auto.exist == 0)
         return;
@@ -1210,17 +1215,16 @@ auto_button (XEvent ev)
     }
 }
 
-void 
-auto_kill (void) {
+void
+auto_kill(void) {
     Auto.exist = 0;
     waitasec(ClickTime);
     XDestroySubwindows(display, AutoW.base);
     XDestroyWindow(display, AutoW.base);
 }
 
-void 
-auto_keypress (XEvent ev, int *used)
-{
+void
+auto_keypress(XEvent ev, int *used) {
     Window w = ev.xkey.window;
     /*
      int maxlen=64;

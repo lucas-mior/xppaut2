@@ -166,8 +166,9 @@ static int CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int lr);
 
 **********************************************************************/
 
-void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
-             CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
+void
+CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
+        CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
 
 {
     CVodeMem cv_mem;
@@ -217,7 +218,8 @@ void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
 
 **********************************************************************/
 
-static int CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
+static int
+CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     CVSpgmrMem cvspgmr_mem;
 
     cvspgmr_mem = (CVSpgmrMem)lmem;
@@ -300,9 +302,9 @@ static int CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
 
 **********************************************************************/
 
-static int CVSpgmrSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
-                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                        N_Vector vtemp2, N_Vector vtemp3) {
+static int
+CVSpgmrSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
+             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
     real dgamma;
     int ier;
@@ -355,8 +357,8 @@ static int CVSpgmrSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 **********************************************************************/
 
-static int CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow,
-                        N_Vector fnow) {
+static int
+CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
     real bnorm, res_norm;
     CVSpgmrMem cvspgmr_mem;
     int nli_inc, nps_inc, ier;
@@ -413,7 +415,8 @@ static int CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow,
 
 **********************************************************************/
 
-static void CVSpgmrFree(CVodeMem cv_mem) {
+static void
+CVSpgmrFree(CVodeMem cv_mem) {
     CVSpgmrMem cvspgmr_mem;
 
     cvspgmr_mem = (CVSpgmrMem)lmem;
@@ -433,7 +436,8 @@ static void CVSpgmrFree(CVodeMem cv_mem) {
 
 **********************************************************************/
 
-static int CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
+static int
+CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
     real rho;
     CVodeMem cv_mem;
     CVSpgmrMem cvspgmr_mem;
@@ -474,7 +478,8 @@ static int CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
 
 **********************************************************************/
 
-static int CVSpgmrPSolve(void *cvode_mem, N_Vector r, N_Vector z, int lr) {
+static int
+CVSpgmrPSolve(void *cvode_mem, N_Vector r, N_Vector z, int lr) {
     CVodeMem cv_mem;
     CVSpgmrMem cvspgmr_mem;
     int ier;

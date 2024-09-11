@@ -28,7 +28,8 @@ static void FreeVectorArray(N_Vector *A, int indMax);
 
 /*************** SpgmrMalloc *****************************************/
 
-SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv) {
+SpgmrMem
+SpgmrMalloc(int64 N, int l_max, void *machEnv) {
     SpgmrMem mem;
     N_Vector *V, xcor, vtemp;
     real **Hes, *givens, *yg;
@@ -149,10 +150,11 @@ SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv) {
 
 /*************** SpgmrSolve ******************************************/
 
-int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
-               int gstype, real delta, int max_restarts, void *P_data,
-               N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
-               real *res_norm, int *nli, int *nps) {
+int
+SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
+           int gstype, real delta, int max_restarts, void *P_data, N_Vector sx,
+           N_Vector sb, ATimesFn atimes, PSolveFn psolve, real *res_norm,
+           int *nli, int *nps) {
     N_Vector *V, xcor, vtemp;
     real **Hes, *givens, *yg;
     /*real s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
@@ -423,7 +425,8 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
 
 /*************** SpgmrFree *******************************************/
 
-void SpgmrFree(SpgmrMem mem) {
+void
+SpgmrFree(SpgmrMem mem) {
     int i, l_max;
     real **Hes;
 
@@ -447,7 +450,8 @@ void SpgmrFree(SpgmrMem mem) {
 
 /*************** Private Helper Function: FreeVectorArray ************/
 
-static void FreeVectorArray(N_Vector *A, int indMax) {
+static void
+FreeVectorArray(N_Vector *A, int indMax) {
     int j;
 
     for (j = 0; j <= indMax; j++)

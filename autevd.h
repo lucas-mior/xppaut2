@@ -16,9 +16,9 @@ typedef struct {
 void send_eigen(int ibr, int ntot, int n, doublecomplex *ev);
 void send_mult(int ibr, int ntot, int n, doublecomplex *ev);
 int get_bif_type(int ibr, int ntot, int lab);
-void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs,
-            double *par, int64 *icp, int labw, double *a, double *uhigh,
-            double *ulow, double *u0, double *ubar);
+void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
+            int64 *icp, int labw, double *a, double *uhigh, double *ulow,
+            double *u0, double *ubar);
 double etime_(double *z);
 int eigrf_(double *a, int *n, int *m, doublecomplex *ecv, double *work,
            int *ier);

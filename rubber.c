@@ -18,9 +18,8 @@ extern GC gc, gc_graph;
 extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
     GrFore, GrBack;
 
-int 
-rubber (int *x1, int *y1, int *x2, int *y2, Window w, int f)
-{
+int
+rubber(int *x1, int *y1, int *x2, int *y2, Window w, int f) {
     XEvent ev;
     int there = 0;
     int error = 0;
@@ -109,9 +108,8 @@ rubber (int *x1, int *y1, int *x2, int *y2, Window w, int f)
     return (1);
 }
 
-void 
-rbox (int i1, int j1, int i2, int j2, Window w, int f)
-{
+void
+rbox(int i1, int j1, int i2, int j2, Window w, int f) {
     int x1 = i1, x2 = i2, y1 = j1, y2 = j2;
     if (f == RUBLINE) {
         XDrawLine(display, w, gc, i1, j1, i2, j2);

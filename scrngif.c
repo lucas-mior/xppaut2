@@ -47,14 +47,16 @@ extern Display *display;
 GIFCOL gifcol[256];
 GIFCOL gifGcol[256];
 int NGlobalColors = 0;
-void set_global_map(int flag) {
+void
+set_global_map(int flag) {
     if (NGlobalColors == 0) { /* Cant use it if it aint there */
         UseGlobalMap = 0;
         return;
     }
     UseGlobalMap = flag;
 }
-int ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n) {
+int
+ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n) {
     int i, nc = *n;
     if (UseGlobalMap == 1) {
         for (i = 0; i < NGlobalColors; i++) {
@@ -79,9 +81,13 @@ int ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n) {
     return nc - 1;
 }
 
-void end_ani_gif(FILE *fp) { fputc(';', fp); }
+void
+end_ani_gif(FILE *fp) {
+    fputc(';', fp);
+}
 
-void add_ani_gif(Window win, FILE *fp, int count) {
+void
+add_ani_gif(Window win, FILE *fp, int count) {
     plintf("Frame %d \n", count);
     if (count == 0)
         gif_stuff(win, fp, FIRST_ANI_GIF);
@@ -89,15 +95,19 @@ void add_ani_gif(Window win, FILE *fp, int count) {
         gif_stuff(win, fp, NEXT_ANI_GIF);
 }
 
-void screen_to_gif(Window win, FILE *fp) { gif_stuff(win, fp, MAKE_ONE_GIF); }
+void
+screen_to_gif(Window win, FILE *fp) {
+    gif_stuff(win, fp, MAKE_ONE_GIF);
+}
 
-void get_global_colormap(Window win) {
+void
+get_global_colormap(Window win) {
     FILE *junk = NULL;
     gif_stuff(win, junk, GET_GLOBAL_CMAP);
 }
 
-void 
-local_to_global (void) {
+void
+local_to_global(void) {
     int i;
     for (i = 0; i < 256; i++) {
         gifcol[i].r = gifGcol[i].r;
@@ -106,7 +116,8 @@ local_to_global (void) {
     }
 }
 
-int use_global_map(unsigned char *pixels, unsigned char *ppm, int h, int w) {
+int
+use_global_map(unsigned char *pixels, unsigned char *ppm, int h, int w) {
     unsigned char r, g, b;
     int i, j, k = 0, l = 0;
     int pix, nc;
@@ -126,7 +137,8 @@ int use_global_map(unsigned char *pixels, unsigned char *ppm, int h, int w) {
     return (1);
 }
 
-int make_local_map(unsigned char *pixels, unsigned char *ppm, int h, int w) {
+int
+make_local_map(unsigned char *pixels, unsigned char *ppm, int h, int w) {
     unsigned char r, g, b;
     int i, j, k = 0, l = 0;
     int pix, ncol = 0;
@@ -152,7 +164,8 @@ int make_local_map(unsigned char *pixels, unsigned char *ppm, int h, int w) {
     return ncol;
 }
 
-void gif_stuff(Window win, FILE *fp, int task) {
+void
+gif_stuff(Window win, FILE *fp, int task) {
     Window root;
     unsigned int h, w, bw, d;
     int x0, y0;
@@ -235,7 +248,8 @@ void gif_stuff(Window win, FILE *fp, int task) {
     free(ppm);
 }
 
-void write_global_header(int cols, int rows, FILE *dst) {
+void
+write_global_header(int cols, int rows, FILE *dst) {
     int i;
 
     unsigned char *pos, *buffer;
@@ -269,7 +283,8 @@ void write_global_header(int cols, int rows, FILE *dst) {
     GifLoop(dst, GifFrameLoop);
 }
 
-void GifLoop(FILE *fout, unsigned int repeats) {
+void
+GifLoop(FILE *fout, unsigned int repeats) {
 
     fputc(0x21, fout);
     fputc(0xFF, fout);
@@ -283,8 +298,8 @@ void GifLoop(FILE *fout, unsigned int repeats) {
     fputc(0x00, fout); /* terminator */
 }
 
-void write_local_header(int cols, int rows, FILE *fout, int colflag,
-                        int delay) {
+void
+write_local_header(int cols, int rows, FILE *fout, int colflag, int delay) {
     int i;
     fputc(0x21, fout);
     fputc(0xF9, fout);
@@ -311,7 +326,8 @@ void write_local_header(int cols, int rows, FILE *fout, int colflag,
     }
 }
 
-void make_gif(unsigned char *pixels, int cols, int rows, FILE *dst) {
+void
+make_gif(unsigned char *pixels, int cols, int rows, FILE *dst) {
 
     int i, depth = 8;
 
@@ -362,7 +378,8 @@ void make_gif(unsigned char *pixels, int cols, int rows, FILE *dst) {
     free(buffer - 1);
 }
 
-int GifEncode(FILE *fout, unsigned char *pixels, int depth, int siz) {
+int
+GifEncode(FILE *fout, unsigned char *pixels, int depth, int siz) {
     GifTree *first = &GifRoot, *newNode, *curNode;
     unsigned char *end;
     int cc, eoi, next, tel = 0;
@@ -541,7 +558,8 @@ int GifEncode(FILE *fout, unsigned char *pixels, int depth, int siz) {
     return 1;
 }
 
-void ClearTree(int cc, GifTree *root) {
+void
+ClearTree(int cc, GifTree *root) {
     int i;
     GifTree *newNode, **xx;
 
@@ -572,7 +590,8 @@ void ClearTree(int cc, GifTree *root) {
     }
 }
 
-unsigned char *AddCodeToBuffer(int code, short n, unsigned char *buf) {
+unsigned char *
+AddCodeToBuffer(int code, short n, unsigned char *buf) {
     int mask;
 
     if (n < 0) {

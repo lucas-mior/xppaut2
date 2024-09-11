@@ -19,9 +19,13 @@ static double *rcont5, *rcont6, *rcont7, *rcont8;
 
 extern int NFlags;
 
-void dprhs(unsigned n, double t, double *y, double *f) { my_rhs(t, y, f, n); }
+void
+dprhs(unsigned n, double t, double *y, double *f) {
+    my_rhs(t, y, f, n);
+}
 
-void dp_err(int k) {
+void
+dp_err(int k) {
     ping();
     switch (k) {
     case -1:
@@ -39,9 +43,9 @@ void dp_err(int k) {
     }
 }
 
-int 
-dp (int *istart, double *y, double *t, int n, double tout, double *tol, double *atol, int flag, int *kflag)
-{
+int
+dp(int *istart, double *y, double *t, int n, double tout, double *tol,
+   double *atol, int flag, int *kflag) {
     int err = 0;
     if (NFlags == 0)
         return (dormprin(istart, y, t, n, tout, tol, atol, flag, kflag));
@@ -58,9 +62,9 @@ dp (int *istart, double *y, double *t, int n, double tout, double *tol, double *
   istart=1 for first time
   istart=0 for continuation
 */
-int 
-dormprin (int *istart, double *y, double *t, int n, double tout, double *tol, double *atol, int flag, int *kflag)
-{
+int
+dormprin(int *istart, double *y, double *t, int n, double tout, double *tol,
+         double *atol, int flag, int *kflag) {
     double hg = 0.0;
     if (*istart == 0)
         hg = hout;
@@ -82,31 +86,56 @@ dormprin (int *istart, double *y, double *t, int n, double tout, double *tol, do
     return (-1);
 }
 
-long nfcnRead(void) { return nfcn; } /* nfcnRead */
+long
+nfcnRead(void) {
+    return nfcn;
+} /* nfcnRead */
 
-long nstepRead(void) { return nstep; } /* stepRead */
+long
+nstepRead(void) {
+    return nstep;
+} /* stepRead */
 
-long naccptRead(void) { return naccpt; } /* naccptRead */
+long
+naccptRead(void) {
+    return naccpt;
+} /* naccptRead */
 
-long nrejctRead(void) { return nrejct; } /* nrejct */
+long
+nrejctRead(void) {
+    return nrejct;
+} /* nrejct */
 
-double hRead(void) { return hout; } /* hRead */
+double
+hRead(void) {
+    return hout;
+} /* hRead */
 
-double xRead(void) { return xout; } /* xRead */
+double
+xRead(void) {
+    return xout;
+} /* xRead */
 
-static double sign(double a, double b) {
+static double
+sign(double a, double b) {
     return (b < 0.0) ? -fabs(a) : fabs(a);
 
 } /* sign */
 
-static double min_d(double a, double b) { return (a < b) ? a : b; } /* min_d */
+static double
+min_d(double a, double b) {
+    return (a < b) ? a : b;
+} /* min_d */
 
-static double max_d(double a, double b) { return (a > b) ? a : b; } /* max_d */
+static double
+max_d(double a, double b) {
+    return (a > b) ? a : b;
+} /* max_d */
 
-static double hinit(unsigned n, FcnEqDiff fcn, double x, double *y,
-                    double posneg, double *f0, double *f1, double *yy1,
-                    int iord, double hmax, double *atoler, double *rtoler,
-                    int itoler) {
+static double
+hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
+      double *f1, double *yy1, int iord, double hmax, double *atoler,
+      double *rtoler, int itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     unsigned i;
 
@@ -176,11 +205,12 @@ static double hinit(unsigned n, FcnEqDiff fcn, double x, double *y,
 } /* hinit */
 
 /* core integrator */
-static int dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-                  double hmax, double h, double *rtoler, double *atoler,
-                  int itoler, FILE *fileout, SolTrait solout, int iout,
-                  long nmax, double uround, int meth, long nstiff, double safe,
-                  double beta, double fac1, double fac2, unsigned *icont) {
+static int
+dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
+       double h, double *rtoler, double *atoler, int itoler, FILE *fileout,
+       SolTrait solout, int iout, long nmax, double uround, int meth,
+       long nstiff, double safe, double beta, double fac1, double fac2,
+       unsigned *icont) {
     double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
     double atoli, rtoli, hlamb, err, sk, hnew, ydiff, bspl;
     double stnum, stden, sqr, err2, erri, deno;
@@ -721,12 +751,12 @@ static int dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 } /* dopcor */
 
 /* front-end */
-int dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-           double *rtoler, double *atoler, int itoler, SolTrait solout,
-           int iout, FILE *fileout, double uround, double safe, double fac1,
-           double fac2, double beta, double hmax, double h, long nmax, int meth,
-           long nstiff, unsigned nrdens, unsigned *icont, unsigned licont,
-           double *work) {
+int
+dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
+       double *rtoler, double *atoler, int itoler, SolTrait solout, int iout,
+       FILE *fileout, double uround, double safe, double fac1, double fac2,
+       double beta, double hmax, double h, long nmax, int meth, long nstiff,
+       unsigned nrdens, unsigned *icont, unsigned licont, double *work) {
     int arret, idid;
     unsigned i;
 
@@ -881,7 +911,8 @@ int dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 } /* dop853 */
 
 /* dense output function */
-double contd8(unsigned ii, double x) {
+double
+contd8(unsigned ii, double x) {
     unsigned i;
     double s, s1;
 
@@ -911,10 +942,10 @@ double contd8(unsigned ii, double x) {
 } /* contd8 */
 
 /************    dopri5  ***************************/
-static double hinit5(unsigned n, FcnEqDiff fcn, double x, double *y,
-                     double posneg, double *f0, double *f1, double *yy1,
-                     int iord, double hmax, double *atoler, double *rtoler,
-                     int itoler) {
+static double
+hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
+       double *f0, double *f1, double *yy1, int iord, double hmax,
+       double *atoler, double *rtoler, int itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     unsigned i;
 
@@ -984,11 +1015,12 @@ static double hinit5(unsigned n, FcnEqDiff fcn, double x, double *y,
 } /* hinit */
 
 /* core integrator */
-static int dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-                   double hmax, double h, double *rtoler, double *atoler,
-                   int itoler, FILE *fileout, SolTrait solout, int iout,
-                   long nmax, double uround, int meth, long nstiff, double safe,
-                   double beta, double fac1, double fac2, unsigned *icont) {
+static int
+dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
+        double hmax, double h, double *rtoler, double *atoler, int itoler,
+        FILE *fileout, SolTrait solout, int iout, long nmax, double uround,
+        int meth, long nstiff, double safe, double beta, double fac1,
+        double fac2, unsigned *icont) {
     double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
     double atoli, rtoli, hlamb, err, sk, hnew, yd0, ydiff, bspl;
     double stnum, stden, sqr;
@@ -1260,12 +1292,12 @@ static int dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 } /* dopcor5 */
 
 /* front-end */
-int dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-           double *rtoler, double *atoler, int itoler, SolTrait solout,
-           int iout, FILE *fileout, double uround, double safe, double fac1,
-           double fac2, double beta, double hmax, double h, long nmax, int meth,
-           long nstiff, unsigned nrdens, unsigned *icont, unsigned licont,
-           double *work) {
+int
+dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
+       double *rtoler, double *atoler, int itoler, SolTrait solout, int iout,
+       FILE *fileout, double uround, double safe, double fac1, double fac2,
+       double beta, double hmax, double h, long nmax, int meth, long nstiff,
+       unsigned nrdens, unsigned *icont, unsigned licont, double *work) {
     int arret, idid;
     unsigned i;
 
@@ -1414,7 +1446,8 @@ int dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 } /* dopri5 */
 
 /* dense output function */
-double contd5(unsigned ii, double x) {
+double
+contd5(unsigned ii, double x) {
     unsigned i;
     double theta, theta1;
 

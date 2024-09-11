@@ -26,7 +26,8 @@ extern double outperiod[];
 extern int UzrPar[], NAutoUzr;
 
 extern double NEWT_ERR;
-int func(ndim, u, icp, par, ijac, f, dfdu, dfdp)
+int
+func(ndim, u, icp, par, ijac, f, dfdu, dfdp)
 int64 ndim, *icp, ijac;
 double *u, *par, *f, *dfdu, *dfdp;
 {
@@ -54,7 +55,8 @@ double *u, *par, *f, *dfdu, *dfdp;
 
 } /* func_ */
 
-int stpnt(ndim, t, u, par)
+int
+stpnt(ndim, t, u, par)
 int64 ndim;
 double *u, *par, t;
 {
@@ -93,7 +95,8 @@ double *u, *par, t;
 
 } /* stpnt_ */
 
-/* Subroutine */ int bcnd(ndim, par, icp, nbc, u0, u1, ijac, fb, dbc)
+/* Subroutine */ int
+bcnd(ndim, par, icp, nbc, u0, u1, ijac, fb, dbc)
 int64 ndim;
 double *par;
 int64 *icp, nbc;
@@ -115,8 +118,8 @@ double *dbc;
     return 0;
 } /* bcnd_ */
 
-/* Subroutine */ int icnd(ndim, par, icp, nint, u, uold, udot, upold, fi, ijac,
-                          dint)
+/* Subroutine */ int
+icnd(ndim, par, icp, nint, u, uold, udot, upold, fi, ijac, dint)
 int64 *ndim;
 double *par;
 int64 *icp, *nint;
@@ -134,7 +137,8 @@ double *dint;
     return 0;
 } /* icnd_ */
 
-/* Subroutine */ int fopt(ndim, u, icp, par, ijac, fs, dfdu, dfdp)
+/* Subroutine */ int
+fopt(ndim, u, icp, par, ijac, fs, dfdu, dfdp)
 int64 *ndim;
 double *u;
 int64 *icp;
@@ -149,4 +153,7 @@ double *fs, *dfdu, *dfdp;
 /*  Not sure what to do here; I think  do nothing  since IEQUIB is always
     -2
 */
-int pvls(int64 ndim, const double *u, double *par) { return 0; }
+int
+pvls(int64 ndim, const double *u, double *par) {
+    return 0;
+}

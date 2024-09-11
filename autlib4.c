@@ -59,9 +59,9 @@
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int flowkm(int64 *ndim, double *c0, double *c1,
-                            int64 *iid, double *rwork,
-                            doublecomplex *ev) {
+/* Subroutine */ int
+flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
+       doublecomplex *ev) {
 
     /* System generated locals */
     int64 c0_dim1, c1_dim1, rwork_dim1;
@@ -381,8 +381,9 @@
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int dhhpr(int64 *k, int64 *j, int64 *n, double *x,
-                           int64 *incx, double *beta, double *v) {
+/* Subroutine */ int
+dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
+      double *v) {
 
     /* Local variables */
     static int64 iend, jmkp1;
@@ -528,9 +529,9 @@
 
 } /* dhhpr_ */
 
-/* Subroutine */ int dhhap(int64 *k, int64 *j, int64 *n, int64 *q,
-                           double *beta, double *v, int64 *job,
-                           double *a, int64 *lda) {
+/* Subroutine */ int
+dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
+      int64 *job, double *a, int64 *lda) {
     /* System generated locals */
     int64 a_dim1;
 

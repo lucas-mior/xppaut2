@@ -240,7 +240,8 @@ AUTOAX Old1p;
 AUTOAX Old2p;
 
 /* color plot stuff */
-void colset(int type) {
+void
+colset(int type) {
     switch (type) {
     case CSEQ:
         autocol(SEc);
@@ -257,7 +258,8 @@ void colset(int type) {
     }
 }
 
-void pscolset2(int flag2) {
+void
+pscolset2(int flag2) {
     switch (flag2) {
     case LPE2:
         set_linestyle(LPE_color - 19);
@@ -284,7 +286,8 @@ void pscolset2(int flag2) {
         set_linestyle(0);
     }
 }
-void colset2(int flag2) {
+void
+colset2(int flag2) {
     LineWidth(2);
     switch (flag2) {
     case LPE2:
@@ -313,15 +316,16 @@ void colset2(int flag2) {
     }
 }
 
-void storeautopoint(double x, double y) {
+void
+storeautopoint(double x, double y) {
     if (Auto.plot == P_P) {
         XfromAuto = x;
         YfromAuto = y;
         FromAutoFlag = 1;
     }
 }
-void 
-setautopoint (void) {
+void
+setautopoint(void) {
     if (FromAutoFlag) {
         FromAutoFlag = 0;
         set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
@@ -332,9 +336,8 @@ setautopoint (void) {
     }
 }
 
-void 
-get_auto_str (char *xlabel, char *ylabel)
-{
+void
+get_auto_str(char *xlabel, char *ylabel) {
 
     sprintf(xlabel, "%s", upar_names[AutoPar[Auto.icp1]]);
     switch (Auto.plot) {
@@ -360,24 +363,24 @@ get_auto_str (char *xlabel, char *ylabel)
     }
 }
 
-void 
-draw_ps_axes (void) {
+void
+draw_ps_axes(void) {
     char sx[20], sy[20];
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
     Box_axis(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
 }
 
-void 
-draw_svg_axes (void) {
+void
+draw_svg_axes(void) {
     char sx[20], sy[20];
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
     Box_axis(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
 }
 
-void 
-draw_bif_axes (void) {
+void
+draw_bif_axes(void) {
     int x0 = Auto.x0, y0 = Auto.y0, ii, i0;
     int x1 = x0 + Auto.wid, y1 = y0 + Auto.hgt;
     char junk[20], xlabel[20], ylabel[20];
@@ -409,21 +412,20 @@ draw_bif_axes (void) {
     refreshdisplay();
 }
 
-int 
-IXVal (double x)
-{
+int
+IXVal(double x) {
     double temp = (double)Auto.wid * (x - Auto.xmin) / (Auto.xmax - Auto.xmin);
     return ((int)temp + Auto.x0);
 }
 
-int 
-IYVal (double y)
-{
+int
+IYVal(double y) {
     double temp = (double)Auto.hgt * (y - Auto.ymin) / (Auto.ymax - Auto.ymin);
     return (Auto.hgt - (int)temp + Auto.y0);
 }
 
-int chk_auto_bnds(int ix, int iy) {
+int
+chk_auto_bnds(int ix, int iy) {
     int x1 = Auto.x0, x2 = Auto.x0 + Auto.wid;
     int y1 = Auto.y0, y2 = Auto.y0 + Auto.hgt;
     if ((ix >= x1) && (ix < x2) && (iy >= y1) && (iy < y2))
@@ -431,22 +433,21 @@ int chk_auto_bnds(int ix, int iy) {
     return 0;
 }
 /*   File manipulation stuff  */
-void 
-renamef (char *old, char *new)
-{ rename(old, new); }
+void
+renamef(char *old, char *new) {
+    rename(old, new);
+}
 
-void 
-cat_fp (FILE *fo)
-{
+void
+cat_fp(FILE *fo) {
     int c;
     rewind(fo);
     while ((c = getc(fo)) != EOF) {
         printf("%c", c);
     }
 }
-void 
-cat_file (char *f)
-{
+void
+cat_file(char *f) {
     FILE *fo;
     int c;
     printf(" cat %s \n", f);
@@ -457,9 +458,8 @@ cat_file (char *f)
     fclose(fo);
 }
 
-void 
-copyf (char *old, char *new)
-{
+void
+copyf(char *old, char *new) {
     FILE *fo, *fn;
     int c;
     fo = fopen(old, "r");
@@ -472,9 +472,8 @@ copyf (char *old, char *new)
     fclose(fn);
 }
 
-void 
-appendf (char *old, char *new)
-{
+void
+appendf(char *old, char *new) {
     FILE *fo, *fn;
     FILE *ft;
     int c;
@@ -502,15 +501,14 @@ appendf (char *old, char *new)
     copyf(TMPSWAP, new);
     deletef(TMPSWAP);
 }
-void 
-deletef (char *old)
-{ remove(old); }
+void
+deletef(char *old) {
+    remove(old);
+}
 
-void 
-close_auto ( /* labels compatible with A2K  */
-    int flg
-)
-{
+void
+close_auto(/* labels compatible with A2K  */
+           int flg) {
     char string[1000];
     /*    if(fp8_is_open){
         fclose(fp8);
@@ -542,8 +540,8 @@ close_auto ( /* labels compatible with A2K  */
     deletef(fort3);
 }
 
-void 
-create_auto_file_name (void) {
+void
+create_auto_file_name(void) {
     char string[200];
     char *basec, *bname, *dirc, *dname;
 
@@ -561,11 +559,9 @@ create_auto_file_name (void) {
     sprintf(this_auto_file, "%s/%s", HOME, bname);
 }
 
-void 
-open_auto ( /* compatible with new auto */
-    int flg
-)
-{
+void
+open_auto(/* compatible with new auto */
+          int flg) {
     char string[200];
     char *basec, *bname, *dirc, *dname;
 
@@ -595,9 +591,8 @@ open_auto ( /* compatible with new auto */
 
 /* MAIN Running routine  Assumes that Auto structure is set up */
 
-void 
-do_auto (int iold, int isave, int itp)
-{
+void
+do_auto(int iold, int isave, int itp) {
     redraw_auto_menus();
 
     set_auto(); /* this sets up all the continuation initialization
@@ -628,8 +623,8 @@ do_auto (int iold, int isave, int itp)
     redraw_params();
 }
 
-void 
-set_auto (void) /* Caution - need to include NICP here */
+void
+set_auto(void) /* Caution - need to include NICP here */
 {
     NAutoUzr = Auto.nper;
     init_auto(NODE, Auto.nfpar, Auto.nbc, Auto.ips, Auto.irs, Auto.ilp,
@@ -638,9 +633,8 @@ set_auto (void) /* Caution - need to include NICP here */
               Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4, Auto.icp5, Auto.nper,
               Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
 }
-int 
-auto_name_to_index (char *s)
-{
+int
+auto_name_to_index(char *s) {
     int i, in;
     find_variable(s, &in);
     if (in == 0)
@@ -651,9 +645,8 @@ auto_name_to_index (char *s)
             return (i);
     return (-1);
 }
-int 
-auto_par_to_name (int index, char *s)
-{
+int
+auto_par_to_name(int index, char *s) {
     if (index == 10) {
         sprintf(s, "T");
         return (1);
@@ -664,8 +657,8 @@ auto_par_to_name (int index, char *s)
     return (1);
 }
 
-void 
-auto_per_par (void) {
+void
+auto_per_par(void) {
 
     static char *m[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     static char key[] = "0123456789";
@@ -708,8 +701,8 @@ auto_per_par (void) {
 /* auto parameters are 1-8 (0-7) and since there are only 8, need to associate
    them with real xpp parameters for which there may be many
 */
-void 
-auto_params (void) {
+void
+auto_params(void) {
     static char *n[] = {"*2Par1", "*2Par2", "*2Par3", "*2Par4",
                         "*2Par5", "*2Par6", "*2Par7", "*2Par8"};
     int status, i, in;
@@ -736,8 +729,8 @@ auto_params (void) {
     }
 }
 
-void 
-auto_num_par (void) {
+void
+auto_num_par(void) {
     static char *n[] = {"Ntst",     "Nmax",     "NPr",   "Ds",      "Dsmin",
                         "Ncol",     "EPSL",     "Dsmax", "Par Min", "Par Max",
                         "Norm Min", "Norm Max", "EPSU",  "EPSS",    "IAD",
@@ -795,8 +788,8 @@ auto_num_par (void) {
     }
 }
 
-void 
-auto_plot_par (void) {
+void
+auto_plot_par(void) {
 
     static char *m[] = {"Hi",         "Norm",      "hI-lo",      "Period",
                         "Two par",    "(Z)oom in", "Zoom (O)ut", "last 1 par",
@@ -912,16 +905,16 @@ auto_plot_par (void) {
     }
 }
 
-void 
-auto_default (void) {
+void
+auto_default(void) {
     Auto.xmin = auto_xmin;
     Auto.xmax = auto_xmax;
     Auto.ymin = auto_ymin;
     Auto.ymax = auto_ymax;
 }
 
-void 
-auto_fit (void) {
+void
+auto_fit(void) {
     double xlo = Auto.xmin, xhi = Auto.xmax, ylo = Auto.ymin, yhi = Auto.ymax;
     bound_diagram(&xlo, &xhi, &ylo, &yhi);
     Auto.xmin = xlo;
@@ -930,9 +923,8 @@ auto_fit (void) {
     Auto.ymax = yhi;
 }
 
-void 
-auto_zoom_in (int i1, int j1, int i2, int j2)
-{
+void
+auto_zoom_in(int i1, int j1, int i2, int j2) {
     double x1, y1, x2, y2;
     int temp;
     if (i1 > i2) {
@@ -976,9 +968,8 @@ auto_zoom_in (int i1, int j1, int i2, int j2)
     }
 }
 
-void 
-auto_zoom_out (int i1, int j1, int i2, int j2)
-{
+void
+auto_zoom_out(int i1, int j1, int i2, int j2) {
     double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0;
     int temp;
     double dx = (Auto.xmax - Auto.xmin);
@@ -1028,9 +1019,9 @@ auto_zoom_out (int i1, int j1, int i2, int j2)
     }
 }
 
-void 
-auto_xy_plot (double *x, double *y1, double *y2, double par1, double par2, double per, double *uhigh, double *ulow, double *ubar, double a)
-{
+void
+auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
+             double per, double *uhigh, double *ulow, double *ubar, double a) {
     switch (Auto.plot) {
     case HI_P:
         *x = par1;
@@ -1073,9 +1064,8 @@ auto_xy_plot (double *x, double *y1, double *y2, double par1, double par2, doubl
     }
 }
 
-int 
-plot_point (int flag2, int icp1, int icp2)
-{
+int
+plot_point(int flag2, int icp1, int icp2) {
     int j = 1;
     if (icp1 != Auto.icp1)
         j = 0;
@@ -1084,9 +1074,10 @@ plot_point (int flag2, int icp1, int icp2)
     return (j);
 }
 
-void 
-add_ps_point (double *par, double per, double *uhigh, double *ulow, double *ubar, double a, int type, int flg, int lab, int npar, int icp1, int icp2, int flag2, double *evr, double *evi)
-{
+void
+add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
+             double a, int type, int flg, int lab, int npar, int icp1, int icp2,
+             int flag2, double *evr, double *evi) {
     double x, y1, y2, par1, par2 = 0;
     int type1 = type;
     par1 = par[icp1];
@@ -1177,9 +1168,8 @@ add_ps_point (double *par, double per, double *uhigh, double *ulow, double *ubar
     Auto.lasty = y1;
 }
 
-void 
-auto_line (double x1i, double y1i, double x2i, double y2i)
-{
+void
+auto_line(double x1i, double y1i, double x2i, double y2i) {
     double xmin, ymin, xmax, ymax;
     float x1 = x1i, x2 = x2i, y1 = y1i, y2 = y2i;
     double x1d, x2d, y1d, y2d;
@@ -1201,7 +1191,8 @@ auto_line (double x1i, double y1i, double x2i, double y2i)
    in the current view
 
 */
-int check_plot_type(int flag2, int icp1, int icp2) {
+int
+check_plot_type(int flag2, int icp1, int icp2) {
     if (flag2 == 0 && Auto.plot == P_P)
         return 0;
     if (flag2 > 0 && Auto.plot != P_P)
@@ -1213,9 +1204,10 @@ int check_plot_type(int flag2, int icp1, int icp2) {
     return 1;
 }
 /* main plotting code  */
-void 
-add_point (double *par, double per, double *uhigh, double *ulow, double *ubar, double a, int type, int flg, int lab, int npar, int icp1, int icp2, int icp3, int icp4, int flag2, double *evr, double *evi)
-{
+void
+add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
+          double a, int type, int flg, int lab, int npar, int icp1, int icp2,
+          int icp3, int icp4, int flag2, double *evr, double *evi) {
     double x, y1, y2, par1, par2 = 0;
     int ix, iy1, iy2, type1 = type;
     char bob[5];
@@ -1334,9 +1326,8 @@ add_point (double *par, double per, double *uhigh, double *ulow, double *ubar, d
     refreshdisplay();
 }
 
-void 
-get_bif_sym (char *at, int itp)
-{
+void
+get_bif_sym(char *at, int itp) {
     int i = itp % 10;
     switch (i) {
     case 1:
@@ -1371,9 +1362,8 @@ get_bif_sym (char *at, int itp)
     }
 }
 
-void 
-info_header (int flag2, int icp1, int icp2)
-{
+void
+info_header(int flag2, int icp1, int icp2) {
     char bob[80];
     char p1name[12], p2name[12];
 
@@ -1388,9 +1378,9 @@ info_header (int flag2, int icp1, int icp2)
     draw_auto_info(bob, 10, DCURYs + 1);
 }
 
-void 
-new_info (int ibr, int pt, char *ty, int lab, double *par, double norm, double u0, double per, int flag2, int icp1, int icp2)
-{
+void
+new_info(int ibr, int pt, char *ty, int lab, double *par, double norm,
+         double u0, double per, int flag2, int icp1, int icp2) {
     char bob[80];
     double p1, p2 = 0.0;
     clear_auto_info();
@@ -1405,9 +1395,8 @@ new_info (int ibr, int pt, char *ty, int lab, double *par, double norm, double u
     refreshdisplay();
 }
 
-void 
-traverse_out (DIAGRAM *d, int *ix, int *iy, int dodraw)
-{
+void
+traverse_out(DIAGRAM *d, int *ix, int *iy, int dodraw) {
     double norm, per, *par, par1, par2 = 0, *evr, *evi;
     int pt, itp, ibr, lab, icp1, icp2, flag2;
     double x, y1, y2;
@@ -1449,8 +1438,8 @@ traverse_out (DIAGRAM *d, int *ix, int *iy, int dodraw)
         load_auto_orbitx(ibr, 1, lab, per);
 }
 
-void 
-do_auto_win (void) {
+void
+do_auto_win(void) {
     char bob[256];
     if (Auto.exist == 0) {
         if (NODE > NAUTO) {
@@ -1463,9 +1452,8 @@ do_auto_win (void) {
     }
 }
 
-void 
-load_last_plot (int flg)
-{
+void
+load_last_plot(int flg) {
     if (flg == 1) { /* one parameter */
         Auto.xmin = Old1p.xmin;
         Auto.xmax = Old1p.xmax;
@@ -1487,9 +1475,8 @@ load_last_plot (int flg)
         Auto.var = Old2p.var;
     }
 }
-void 
-keep_last_plot (int flg)
-{
+void
+keep_last_plot(int flg) {
     if (flg == 1) { /* one parameter */
         Old1p.xmin = Auto.xmin;
         Old1p.xmax = Auto.xmax;
@@ -1512,8 +1499,8 @@ keep_last_plot (int flg)
     }
 }
 
-void 
-init_auto_win (void) {
+void
+init_auto_win(void) {
     int i;
     if (NODE > NAUTO)
         return;
@@ -1600,9 +1587,8 @@ init_auto_win (void) {
     xAuto.nstab = NODE - 1;
 }
 
-void 
-plot_stab (double *evr, double *evi, int n)
-{
+void
+plot_stab(double *evr, double *evi, int n) {
     int i, ix, iy;
     int r = Auto.st_wid;
 
@@ -1629,8 +1615,8 @@ plot_stab (double *evr, double *evi, int n)
     }
 }
 
-int 
-yes_reset_auto (void) {
+int
+yes_reset_auto(void) {
     char string[256];
     if (NBifs <= 1)
         return (0);
@@ -1647,8 +1633,8 @@ yes_reset_auto (void) {
     mark_flag = 0;
     return 1;
 }
-int 
-reset_auto (void) {
+int
+reset_auto(void) {
     char ch;
     if (NBifs <= 1)
         return (0);
@@ -1659,15 +1645,15 @@ reset_auto (void) {
     return (yes_reset_auto());
 }
 
-void 
-auto_grab (void) {
+void
+auto_grab(void) {
     traverse_diagram();
     /* redraw_auto_menus();
      */
 }
 
-void 
-auto_next (void) {
+void
+auto_next(void) {
 
     static char *m[] = {"EP", "HB", "LP", "PD", "MX"};
     /*static char *m[]={"Fixed period","Extend"}; */
@@ -1710,10 +1696,12 @@ auto_next (void) {
      */
 }
 
-void 
-get_start_period (double *p)
-{ *p = storage[0][storind - 1]; }
-void find_best_homo_shift(int n)
+void
+get_start_period(double *p) {
+    *p = storage[0][storind - 1];
+}
+void
+find_best_homo_shift(int n)
 /* this code looks for the best value
     of the shift to be close as possible to the saddle
     point of the homoclinic when starting from a
@@ -1737,9 +1725,8 @@ void find_best_homo_shift(int n)
     HOMO_SHIFT = tshift;
     printf("shifting %g\n", HOMO_SHIFT);
 }
-void 
-get_shifted_orbit (double *u, double t, double p, int n)
-{
+void
+get_shifted_orbit(double *u, double t, double p, int n) {
     double ts, t1, t2;
     int i, i1, i2, ip, j;
     double v1, v2, lam;
@@ -1761,9 +1748,8 @@ get_shifted_orbit (double *u, double t, double p, int n)
         }
     }
 }
-void 
-get_start_orbit (double *u, double t, double p, int n)
-{
+void
+get_start_orbit(double *u, double t, double p, int n) {
     double tnorm, lam;
     int i1, i2, j;
     if (t > 1.0)
@@ -1781,8 +1767,8 @@ get_start_orbit (double *u, double t, double p, int n)
         u[j] = (1.0 - lam) * storage[j + 1][i1] + lam * storage[j + 1][i2];
 }
 
-void 
-auto_start_choice (void) {
+void
+auto_start_choice(void) {
     static char *m[] = {"Steady state", "Periodic", "Bdry Value", "Homoclinic",
                         "hEteroclinic"};
     static char key[] = "spbhe";
@@ -1825,8 +1811,8 @@ auto_start_choice (void) {
     redraw_auto_menus();
 }
 
-void 
-torus_choice (void) {
+void
+torus_choice(void) {
     static char *m[] = {"Two Param", "Fixed period", "Extend"};
     /*static char *m[]={"Fixed period","Extend"}; */
     static char key[] = "tfe";
@@ -1848,8 +1834,8 @@ torus_choice (void) {
     redraw_auto_menus();
 }
 
-void 
-per_doub_choice (void) {
+void
+per_doub_choice(void) {
     static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
     static char key[] = "dtfe";
     char ch;
@@ -1874,8 +1860,8 @@ per_doub_choice (void) {
     redraw_auto_menus();
 }
 
-void 
-periodic_choice (void) {
+void
+periodic_choice(void) {
     static char *m[] = {"Extend", "Fixed Period"};
     static char key[] = "ef";
     char ch;
@@ -1893,8 +1879,8 @@ periodic_choice (void) {
     redraw_auto_menus();
 }
 
-void 
-hopf_choice (void) {
+void
+hopf_choice(void) {
     static char *m[] = {"Periodic", "Extend", "New Point", "Two Param"};
     static char key[] = "pent";
     char ch;
@@ -1924,8 +1910,8 @@ hopf_choice (void) {
     redraw_auto_menus();
 }
 
-void 
-auto_run (void) {
+void
+auto_run(void) {
     int itp1, itp2, itp, ips;
     char ch;
     if (grabpt.flag == 0) { /* the first call to AUTO   */
@@ -2015,14 +2001,14 @@ auto_run (void) {
     }
 }
 
-void auto_homo_choice(int itp) {
+void
+auto_homo_choice(int itp) {
     /* printf("in choice: itp=%d\n",itp); */
     if (itp != 5)
         auto_extend_homoclinic();
 }
-void 
-auto_branch_choice (int ibr, int ips)
-{
+void
+auto_branch_choice(int ibr, int ips) {
 
     static char *m[] = {"Switch", "Extend", "New Point", "Two Param"};
     static char key[] = "sent";
@@ -2094,8 +2080,8 @@ NICP=2, ISW=2 at Hopf
 
 /* Start a new point for bifurcation diagram   */
 
-void 
-auto_start_diff_ss (void) {
+void
+auto_start_diff_ss(void) {
     TypeOfCalc = EQ1;
     Auto.ips = 1;
     if (METHOD == DISCRETE)
@@ -2112,8 +2098,8 @@ auto_start_diff_ss (void) {
     do_auto(NO_OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_start_at_bvp (void) {
+void
+auto_start_at_bvp(void) {
     int opn = NO_OPEN_3, cls = OVERWRITE;
     compile_bvp();
     if (BVP_FLAG == 0)
@@ -2135,8 +2121,8 @@ auto_start_at_bvp (void) {
     do_auto(opn, cls, Auto.itp);
 }
 
-void 
-auto_start_at_per (void) {
+void
+auto_start_at_per(void) {
     int opn = NO_OPEN_3, cls = OVERWRITE;
 
     TypeOfCalc = PE1;
@@ -2155,8 +2141,8 @@ auto_start_at_per (void) {
     do_auto(opn, cls, Auto.itp);
 }
 
-void 
-auto_new_ss (void) {
+void
+auto_new_ss(void) {
     int ans;
     int opn = NO_OPEN_3, cls = OVERWRITE;
     NewPeriodFlag = 0;
@@ -2186,8 +2172,8 @@ auto_new_ss (void) {
     do_auto(opn, cls, Auto.itp);
 }
 
-void 
-auto_new_discrete (void) {
+void
+auto_new_discrete(void) {
     int ans;
     int opn = NO_OPEN_3, cls = OVERWRITE;
     NewPeriodFlag = 0;
@@ -2215,8 +2201,8 @@ auto_new_discrete (void) {
     do_auto(opn, cls, Auto.itp);
 }
 
-void 
-auto_extend_ss (void) {
+void
+auto_extend_ss(void) {
 
     /*Prevent crash on hopf of infinite period. here
 
@@ -2251,7 +2237,8 @@ auto_extend_ss (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-int get_homo_info(int flg, int *nun, int *nst, double *ul, double *ur) {
+int
+get_homo_info(int flg, int *nun, int *nst, double *ul, double *ur) {
     char **s;
     char v[100][MAX_LEN_SBOX];
     int n = 2 + 2 * NODE;
@@ -2290,8 +2277,8 @@ int get_homo_info(int flg, int *nun, int *nst, double *ul, double *ur) {
     return flag;
 }
 
-void 
-three_parameter_homoclinic (void) {
+void
+three_parameter_homoclinic(void) {
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
 
@@ -2314,8 +2301,8 @@ three_parameter_homoclinic (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_extend_homoclinic (void) {
+void
+auto_extend_homoclinic(void) {
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
 
@@ -2338,8 +2325,8 @@ auto_extend_homoclinic (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_start_at_homoclinic (void) {
+void
+auto_start_at_homoclinic(void) {
     int opn = NO_OPEN_3, cls = OVERWRITE;
     int flag;
     Auto.irs = 0;
@@ -2369,8 +2356,8 @@ auto_start_at_homoclinic (void) {
         do_auto(opn, (int)close, Auto.itp);
 }
 
-void 
-auto_new_per (void) /* same for extending periodic  */
+void
+auto_new_per(void) /* same for extending periodic  */
 {
     blrtn.torper = grabpt.torper;
 
@@ -2404,8 +2391,8 @@ auto_new_per (void) /* same for extending periodic  */
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_extend_bvp (void) /* extending bvp */
+void
+auto_extend_bvp(void) /* extending bvp */
 {
     TypeOfCalc = BV1;
     Auto.irs = grabpt.lab;
@@ -2421,8 +2408,8 @@ auto_extend_bvp (void) /* extending bvp */
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_switch_per (void) {
+void
+auto_switch_per(void) {
     TypeOfCalc = PE1;
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
@@ -2438,8 +2425,8 @@ auto_switch_per (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_switch_bvp (void) {
+void
+auto_switch_bvp(void) {
     TypeOfCalc = BV1;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
@@ -2454,8 +2441,8 @@ auto_switch_bvp (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_switch_ss (void) {
+void
+auto_switch_ss(void) {
 
     TypeOfCalc = EQ1;
     Auto.irs = grabpt.lab;
@@ -2473,9 +2460,8 @@ auto_switch_ss (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_2p_limit (int ips)
-{
+void
+auto_2p_limit(int ips) {
     int ipsuse = 1;
     int itp1, itp2;
     blrtn.torper = grabpt.torper;
@@ -2509,8 +2495,8 @@ auto_2p_limit (int ips)
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_twopar_double (void) {
+void
+auto_twopar_double(void) {
 
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
@@ -2525,8 +2511,8 @@ auto_twopar_double (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_torus (void) {
+void
+auto_torus(void) {
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
@@ -2540,9 +2526,8 @@ auto_torus (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_2p_branch (int ips)
-{
+void
+auto_2p_branch(int ips) {
     int ipsuse = 1;
     int itp1, itp2;
     blrtn.torper = grabpt.torper;
@@ -2569,8 +2554,8 @@ auto_2p_branch (int ips)
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_2p_fixper (void) {
+void
+auto_2p_fixper(void) {
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
@@ -2583,8 +2568,8 @@ auto_2p_fixper (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_2p_hopf (void) {
+void
+auto_2p_hopf(void) {
 
     /*Prevent crash on hopf of infinite period. here
 
@@ -2616,8 +2601,8 @@ auto_2p_hopf (void) {
     do_auto(OPEN_3, APPEND, Auto.itp);
 }
 
-void 
-auto_period_double (void) {
+void
+auto_period_double(void) {
 
     blrtn.torper = grabpt.torper;
     Auto.ntst = 2 * Auto.ntst;
@@ -2638,15 +2623,17 @@ auto_period_double (void) {
 
 /**********   END RUN AUTO *********************/
 
-void 
-auto_err (char *s)
-{ respond_box("OK", s); }
+void
+auto_err(char *s) {
+    respond_box("OK", s);
+}
 
-void 
-load_auto_orbit (void) {
+void
+load_auto_orbit(void) {
     load_auto_orbitx(grabpt.ibr, grabpt.flag, grabpt.lab, grabpt.per);
 }
-void load_auto_orbitx(int ibr, int flag, int lab, double per) {
+void
+load_auto_orbitx(int ibr, int flag, int lab, double per) {
     FILE *fp;
     double *x;
     int i, j, nstor;
@@ -2705,8 +2692,8 @@ void load_auto_orbitx(int ibr, int flag, int lab, double per) {
     fclose(fp);
 }
 
-void 
-save_auto (void) {
+void
+save_auto(void) {
 
     int ok;
     FILE *fp;
@@ -2736,9 +2723,8 @@ save_auto (void) {
     fclose(fp);
 }
 
-void 
-save_auto_numerics (FILE *fp)
-{
+void
+save_auto_numerics(FILE *fp) {
     int i;
     fprintf(fp, "%d ", NAutoPar);
     for (i = 0; i < NAutoPar; i++)
@@ -2753,9 +2739,8 @@ save_auto_numerics (FILE *fp)
             aauto.itmx, aauto.itnw, aauto.nwtn, aauto.iads);
 }
 
-void 
-load_auto_numerics (FILE *fp)
-{
+void
+load_auto_numerics(FILE *fp) {
     int i, in;
     fscanf(fp, "%d ", &NAutoPar);
     for (i = 0; i < NAutoPar; i++) {
@@ -2779,25 +2764,21 @@ load_auto_numerics (FILE *fp)
            &aauto.itmx, &aauto.itnw, &aauto.nwtn, &aauto.iads);
 }
 
-void 
-save_auto_graph (FILE *fp)
-{
+void
+save_auto_graph(FILE *fp) {
     fprintf(fp, "%g %g %g %g %d %d \n", Auto.xmin, Auto.ymin, Auto.xmax,
             Auto.ymax, Auto.var, Auto.plot);
 }
 
-void 
-load_auto_graph (FILE *fp)
-{
+void
+load_auto_graph(FILE *fp) {
     fscanf(fp, "%lg %lg %lg %lg %d %d \n", &Auto.xmin, &Auto.ymin, &Auto.xmax,
            &Auto.ymax, &Auto.var, &Auto.plot);
 }
 
-void 
-save_q_file ( /* I am keeping the name q_file even though they are s_files */
-    FILE *fp
-)
-{
+void
+save_q_file(/* I am keeping the name q_file even though they are s_files */
+            FILE *fp) {
     char string[500];
     FILE *fq;
     sprintf(string, "%s.s", this_auto_file);
@@ -2814,9 +2795,8 @@ save_q_file ( /* I am keeping the name q_file even though they are s_files */
     fclose(fq);
 }
 
-void 
-make_q_file (FILE *fp)
-{
+void
+make_q_file(FILE *fp) {
     char string[500];
     FILE *fq;
     sprintf(string, "%s.s", this_auto_file);
@@ -2836,11 +2816,9 @@ make_q_file (FILE *fp)
     fclose(fq);
 }
 
-int 
-noinfo ( /* get rid of any blank lines  */
-    char *s
-)
-{
+int
+noinfo(/* get rid of any blank lines  */
+       char *s) {
     int n = strlen(s);
     int i;
     if (n == 0)
@@ -2852,8 +2830,8 @@ noinfo ( /* get rid of any blank lines  */
     return (1);
 }
 
-void 
-load_auto (void) {
+void
+load_auto(void) {
 
     int ok;
     FILE *fp;
@@ -2888,9 +2866,8 @@ load_auto (void) {
     fclose(fp);
 }
 
-int 
-move_to_label (int mylab, int *nrow, int *ndim, FILE *fp)
-{
+int
+move_to_label(int mylab, int *nrow, int *ndim, FILE *fp) {
     int ibr, ntot, itp, lab, nfpar, isw, ntpl, nar, nskip;
     int i;
     char line[MAXLINELENGTH];
@@ -2911,17 +2888,16 @@ move_to_label (int mylab, int *nrow, int *ndim, FILE *fp)
     return (0);
 }
 
-void 
-get_a_row (double *u, double *t, int n, FILE *fp)
-{
+void
+get_a_row(double *u, double *t, int n, FILE *fp) {
     int i;
     fscanf(fp, "%lg ", t);
     for (i = 0; i < n; i++)
         fscanf(fp, "%lg ", &u[i]);
 }
 
-void 
-auto_file (void) {
+void
+auto_file(void) {
 
     static char *m[] = {"Import orbit",   "Save diagram",  "Load diagram",
                         "Postscript",     "SVG",           "Reset diagram",

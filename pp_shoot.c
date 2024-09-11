@@ -85,9 +85,8 @@ double evaluate();
 
 /*   more general mixed boundary types   */
 
-void 
-do_bc (double *y__0, double t0, double *y__1, double t1, double *f, int n)
-{
+void
+do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int n) {
     int n0 = PrimeStart;
     int i;
 
@@ -105,8 +104,8 @@ do_bc (double *y__0, double t0, double *y__1, double t1, double *f, int n)
         f[i] = evaluate(my_bc[i].com);
 }
 
-void 
-compile_bvp (void) {
+void
+compile_bvp(void) {
     int i;
     int len;
     char badcom[50];
@@ -128,8 +127,10 @@ compile_bvp (void) {
     BVP_FLAG = 1;
 }
 
-void 
-reset_bvp (void) { BVP_FLAG = 1; }
+void
+reset_bvp(void) {
+    BVP_FLAG = 1;
+}
 
 /*
 
@@ -155,9 +156,8 @@ reset_bvp()
 
 */
 
-void 
-init_shoot_range (char *s)
-{
+void
+init_shoot_range(char *s) {
     strcpy(shoot_range.item, s);
     shoot_range.phigh = 1.0;
     shoot_range.plow = 0.0;
@@ -167,9 +167,8 @@ init_shoot_range (char *s)
     shoot_range.movie = 0;
 }
 
-void 
-dump_shoot_range (FILE *fp, int f)
-{
+void
+dump_shoot_range(FILE *fp, int f) {
     io_string(shoot_range.item, 11, fp, f);
     io_int(&shoot_range.side, fp, f, "BVP side");
     io_int(&shoot_range.cycle, fp, f, "color cycle flag 1=on");
@@ -178,9 +177,8 @@ dump_shoot_range (FILE *fp, int f)
     io_double(&shoot_range.phigh, fp, f, "BVP range high");
 }
 
-void 
-bad_shoot (int iret)
-{
+void
+bad_shoot(int iret) {
     switch (iret) {
     case NOCHANGE:
         err_msg("No change from last point. Saving anyway");
@@ -200,9 +198,8 @@ bad_shoot (int iret)
     }
 }
 
-void 
-do_sh_range (double *ystart, double *yend)
-{
+void
+do_sh_range(double *ystart, double *yend) {
     double parlo, parhi, dpar, temp;
     int npar, i, j, ierr;
     int side, cycle, icol, color;
@@ -260,9 +257,8 @@ do_sh_range (double *ystart, double *yend)
     swap_color(&color, 1);
 }
 
-int 
-set_up_periodic (int *ipar, int *ivar, double *sect, int *ishow)
-{
+int
+set_up_periodic(int *ipar, int *ivar, double *sect, int *ishow) {
     static char *n[] = {"Freq. Par.", "*1Sect. Var", "Section", "Show(Y/N)"};
     char values[4][MAX_LEN_SBOX];
     int status, i;
@@ -298,7 +294,8 @@ set_up_periodic (int *ipar, int *ivar, double *sect, int *ishow)
     return (0);
 }
 
-void find_bvp_com(int com) {
+void
+find_bvp_com(int com) {
     int ishow = 0, iret;
     int iper = 0, ivar = 0, ipar = 0, pflag;
     double sect = 0.0;
@@ -369,7 +366,8 @@ bye:
     TRANS = oldtrans;
 }
 
-void last_shot(int flag) {
+void
+last_shot(int flag) {
     int i;
     double *x;
     x = &MyData[0];
@@ -392,8 +390,8 @@ void last_shot(int flag) {
      */
 }
 
-int 
-set_up_sh_range (void) {
+int
+set_up_sh_range(void) {
     static char *n[] = {"*2Range over",     "Steps",     "Start",     "End",
                         "Cycle color(Y/N)", "Side(0/1)", "Movie(Y/N)"};
     char values[7][MAX_LEN_SBOX];
@@ -438,9 +436,9 @@ set_up_sh_range (void) {
     return (0);
 }
 
-void 
-bvshoot (double *y, double *yend, double err, double eps, int maxit, int *iret, int n, int ishow, int iper, int ipar, int ivar, double sect)
-{
+void
+bvshoot(double *y, double *yend, double err, double eps, int maxit, int *iret,
+        int n, int ishow, int iper, int ipar, int ivar, double sect) {
     double *jac, *f, *fdev, *y0, *y1;
     double dev, error, ytemp;
 

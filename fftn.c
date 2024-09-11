@@ -204,7 +204,8 @@ static int factor[NFACTOR];
 /*}}}*/
 
 /*{{{ fft_free() */
-void fft_free(void) {
+void
+fft_free(void) {
     SpaceAlloced = MaxPermAlloced = 0;
     if (Tmp0) {
         free(Tmp0);
@@ -230,7 +231,8 @@ void fft_free(void) {
 /*}}}*/
 
 /* return the number of factors */
-static int factorize(int nPass, int *kt) {
+static int
+factorize(int nPass, int *kt) {
     int nFactor = 0;
     int j, jj;
 
@@ -340,8 +342,9 @@ static int fftradixf(float Re[], float Im[], size_t nTotal, size_t nPass,
 /*
  *
  */
-int FFTN(int ndim, const int dims[], REAL Re[], REAL Im[], int iSign,
-         double scaling) {
+int
+FFTN(int ndim, const int dims[], REAL Re[], REAL Im[], int iSign,
+     double scaling) {
     size_t nTotal;
     int maxFactors, maxPerm;
 
@@ -450,8 +453,9 @@ Dimension_Error:
  * could move allocation out to fftn(), but leave it here so that it's
  * possible to make this a standalone function
  */
-static int FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass,
-                    size_t nSpan, int iSign, int maxFactors, int maxPerm) {
+static int
+FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
+         int iSign, int maxFactors, int maxPerm) {
     int ii, nFactor, kspan, ispan, inc;
     int j, jc, jf, jj, k, k1, k3, kk, kt, nn, ns, nt;
 

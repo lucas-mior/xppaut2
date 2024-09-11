@@ -29,9 +29,8 @@ int NBifs = 0;
 extern int NAutoPar;
 DIAGRAM *bifd;
 
-void 
-start_diagram (int n)
-{
+void
+start_diagram(int n) {
     NBifs = 1;
     bifd = (DIAGRAM *)malloc(sizeof(DIAGRAM));
     bifd->prev = NULL;
@@ -49,9 +48,11 @@ start_diagram (int n)
     DiagFlag = 0;
 }
 
-int 
-find_diagram (int irs, int n, int *index, int *ibr, int *ntot, int *itp, int *nfpar, double *a, double *uhi, double *ulo, double *u0, double *par, double *per, int *icp1, int *icp2, int *icp3, int *icp4)
-{
+int
+find_diagram(int irs, int n, int *index, int *ibr, int *ntot, int *itp,
+             int *nfpar, double *a, double *uhi, double *ulo, double *u0,
+             double *par, double *per, int *icp1, int *icp2, int *icp3,
+             int *icp4) {
     int i, found = 0;
     DIAGRAM *d;
     d = bifd;
@@ -86,17 +87,21 @@ find_diagram (int irs, int n, int *index, int *ibr, int *ntot, int *itp, int *nf
     return (0);
 }
 
-void 
-edit_start (int ibr, int ntot, int itp, int lab, int nfpar, double a, double *uhi, double *ulo, double *u0, double *ubar, double *par, double per, int n, int icp1, int icp2, int icp3, int icp4, double *evr, double *evi)
-{
+void
+edit_start(int ibr, int ntot, int itp, int lab, int nfpar, double a,
+           double *uhi, double *ulo, double *u0, double *ubar, double *par,
+           double per, int n, int icp1, int icp2, int icp3, int icp4,
+           double *evr, double *evi) {
     edit_diagram(bifd, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
                  per, n, icp1, icp2, icp3, icp4, AutoTwoParam, evr, evi,
                  blrtn.torper);
 }
 
-void 
-edit_diagram (DIAGRAM *d, int ibr, int ntot, int itp, int lab, int nfpar, double a, double *uhi, double *ulo, double *u0, double *ubar, double *par, double per, int n, int icp1, int icp2, int icp3, int icp4, int flag2, double *evr, double *evi, double tp)
-{
+void
+edit_diagram(DIAGRAM *d, int ibr, int ntot, int itp, int lab, int nfpar,
+             double a, double *uhi, double *ulo, double *u0, double *ubar,
+             double *par, double per, int n, int icp1, int icp2, int icp3,
+             int icp4, int flag2, double *evr, double *evi, double tp) {
     int i;
     d->calc = TypeOfCalc;
     d->ibr = ibr;
@@ -128,9 +133,11 @@ edit_diagram (DIAGRAM *d, int ibr, int ntot, int itp, int lab, int nfpar, double
     d->torper = tp;
 }
 
-void 
-add_diagram (int ibr, int ntot, int itp, int lab, int nfpar, double a, double *uhi, double *ulo, double *u0, double *ubar, double *par, double per, int n, int icp1, int icp2, int icp3, int icp4, int flag2, double *evr, double *evi)
-{
+void
+add_diagram(int ibr, int ntot, int itp, int lab, int nfpar, double a,
+            double *uhi, double *ulo, double *u0, double *ubar, double *par,
+            double per, int n, int icp1, int icp2, int icp3, int icp4,
+            int flag2, double *evr, double *evi) {
     DIAGRAM *d, *dnew;
 
     d = bifd;
@@ -153,8 +160,8 @@ add_diagram (int ibr, int ntot, int itp, int lab, int nfpar, double a, double *u
                  per, n, icp1, icp2, icp3, icp4, flag2, evr, evi, blrtn.torper);
 }
 
-void 
-kill_diagrams (void) {
+void
+kill_diagrams(void) {
     DIAGRAM *d, *dnew;
     d = bifd;
     while (d->next != NULL) { /*  Move to the end of the tree  */
@@ -188,8 +195,8 @@ kill_diagrams (void) {
     start_diagram(NODE);
 }
 
-void 
-redraw_diagram (void) {
+void
+redraw_diagram(void) {
     DIAGRAM *d;
     int type, flag = 0;
     draw_bif_axes();
@@ -212,8 +219,8 @@ redraw_diagram (void) {
     }
 }
 
-void 
-write_info_out (void) {
+void
+write_info_out(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
@@ -279,7 +286,8 @@ write_info_out (void) {
     fclose(fp);
 }
 
-void load_browser_with_branch(int ibr, int pts, int pte) {
+void
+load_browser_with_branch(int ibr, int pts, int pte) {
     DIAGRAM *d;
     int type, i, j, pt;
     /*int flag=0;
@@ -329,8 +337,8 @@ void load_browser_with_branch(int ibr, int pts, int pte) {
     storind = nrows;
     refresh_browser(nrows);
 }
-void 
-write_init_data_file (void) {
+void
+write_init_data_file(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
@@ -402,8 +410,8 @@ write_init_data_file (void) {
     fclose(fp);
 }
 
-void 
-write_pts (void) {
+void
+write_pts(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
@@ -464,8 +472,8 @@ write_pts (void) {
     fclose(fp);
 }
 
-void 
-post_auto (void) {
+void
+post_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
@@ -502,8 +510,8 @@ post_auto (void) {
     set_normal_scale();
 }
 
-void 
-svg_auto (void) {
+void
+svg_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
@@ -541,9 +549,8 @@ svg_auto (void) {
     set_normal_scale();
 }
 
-void 
-bound_diagram (double *xlo, double *xhi, double *ylo, double *yhi)
-{
+void
+bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
     DIAGRAM *d;
     int type;
 
@@ -585,9 +592,8 @@ bound_diagram (double *xlo, double *xhi, double *ylo, double *yhi)
     }
 }
 
-int 
-save_diagram (FILE *fp, int n)
-{
+int
+save_diagram(FILE *fp, int n) {
     int i;
     DIAGRAM *d;
     fprintf(fp, "%d\n", NBifs - 1);
@@ -612,9 +618,8 @@ save_diagram (FILE *fp, int n)
     return (1);
 }
 
-int 
-load_diagram (FILE *fp, int node)
-{
+int
+load_diagram(FILE *fp, int node) {
     double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO], evr[NAUTO],
         evi[NAUTO], norm, par[8], per;
     int i, flag = 0;

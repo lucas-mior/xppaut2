@@ -89,9 +89,8 @@ main()
  free_finfo(&my_ff);
 }
 */
-void 
-free_finfo (FILEINFO *ff)
-{
+void
+free_finfo(FILEINFO *ff) {
     int i;
     for (i = 0; i < ff->ndirs; i++)
         free(ff->dirnames[i]);
@@ -101,7 +100,8 @@ free_finfo (FILEINFO *ff)
     free(ff->filenames);
 }
 
-int cmpstringp(const void *p1, const void *p2) {
+int
+cmpstringp(const void *p1, const void *p2) {
     /* The actual arguments to this function are "pointers to
        pointers to char", but strcmp(3) arguments are "pointers
        to char", hence the following cast plus dereference */
@@ -109,9 +109,8 @@ int cmpstringp(const void *p1, const void *p2) {
     return strcmp(*(char *const *)p1, *(char *const *)p2);
 }
 
-int 
-get_fileinfo_tab (char *wild, char *direct, FILEINFO *ff, char *wild2)
-{
+int
+get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
     int i, ans;
     DIR *dirp;
     int mlf, mld;
@@ -165,9 +164,8 @@ get_fileinfo_tab (char *wild, char *direct, FILEINFO *ff, char *wild2)
     return 1;
 }
 
-int 
-get_fileinfo (char *wild, char *direct, FILEINFO *ff)
-{
+int
+get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
     int i, ans;
     DIR *dirp;
     int mlf, mld;
@@ -212,9 +210,8 @@ get_fileinfo (char *wild, char *direct, FILEINFO *ff)
     return 1;
 }
 
-int 
-fil_count (char *direct, int *ndir, int *nfil, char *wild, int *mld, int *mlf)
-{
+int
+fil_count(char *direct, int *ndir, int *nfil, char *wild, int *mld, int *mlf) {
     DIR *dirp;
     int l;
     struct dirent *dp;
@@ -248,9 +245,8 @@ fil_count (char *direct, int *ndir, int *nfil, char *wild, int *mld, int *mlf)
     return 1;
 }
 
-int 
-change_directory (char *path)
-{
+int
+change_directory(char *path) {
     if (path == NULL) {
         *cur_dir = '\0';
         return (0);
@@ -265,9 +261,8 @@ change_directory (char *path)
         return (1);
 }
 
-int 
-get_directory (char *direct)
-{
+int
+get_directory(char *direct) {
 #if defined(SYSV) || defined(SVR4)
     extern char *getcwd();
 
@@ -289,7 +284,8 @@ get_directory (char *direct)
     return 1;
 }
 
-int IsDirectory(root, path)
+int
+IsDirectory(root, path)
 char *root;
 char *path;
 {
@@ -367,7 +363,8 @@ static int star();
 /* Return nonzero if `string' matches Unix-style wildcard pattern
    `pattern'; zero if not. */
 
-int wild_match(string, pattern)
+int
+wild_match(string, pattern)
 char *string, *pattern;
 {
     int prev;    /* Previous character in character class. */
@@ -409,7 +406,8 @@ char *string, *pattern;
     return *string == '\0';
 }
 
-static int star(string, pattern)
+static int
+star(string, pattern)
 char *string, *pattern;
 {
     while (wild_match(string, pattern) == 0)

@@ -460,8 +460,7 @@ int64 *bandallocpiv(int64 n);
  *                                                                *
  ******************************************************************/
 
-int64 gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu,
-             int64 *p);
+int64 gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
 
 /******************************************************************
  *                                                                *
@@ -513,8 +512,7 @@ void bandcopy(real **a, real **b, int64 n, int64 a_smu, int64 b_smu,
  *                                                                *
  ******************************************************************/
 
-void bandscale(real c, real **a, int64 n, int64 mu, int64 ml,
-               int64 smu);
+void bandscale(real c, real **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
  *                                                                *

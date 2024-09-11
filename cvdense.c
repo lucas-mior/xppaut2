@@ -84,10 +84,10 @@ static void CVDenseFree(CVodeMem cv_mem);
 
 **********************************************************************/
 
-void CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, real tn,
-                  N_Vector y, N_Vector fy, N_Vector ewt, real h, real uround,
-                  void *jac_data, int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
-                  N_Vector vtemp3) {
+void
+CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, real tn, N_Vector y,
+             N_Vector fy, N_Vector ewt, real h, real uround, void *jac_data,
+             int *nfePtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     real fnorm, minInc, inc, inc_inv, yjsaved, srur;
     real *y_data, *ewt_data;
     N_Vector ftemp, jthCol;
@@ -177,7 +177,8 @@ void CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, real tn,
 
 **********************************************************************/
 
-void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
+void
+CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     CVodeMem cv_mem;
     CVDenseMem cvdense_mem;
 
@@ -214,7 +215,8 @@ void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
 
 **********************************************************************/
 
-static int CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
+static int
+CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;
@@ -273,9 +275,9 @@ static int CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
 
 **********************************************************************/
 
-static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
-                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                        N_Vector vtemp2, N_Vector vtemp3) {
+static int
+CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
+             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
     real dgamma;
     int64 ier;
@@ -328,8 +330,8 @@ static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 **********************************************************************/
 
-static int CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                        N_Vector fcur) {
+static int
+CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;
@@ -350,7 +352,8 @@ static int CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 
 **********************************************************************/
 
-static void CVDenseFree(CVodeMem cv_mem) {
+static void
+CVDenseFree(CVodeMem cv_mem) {
     CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;

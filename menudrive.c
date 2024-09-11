@@ -71,8 +71,8 @@ MSGBOXSTRUCT MsgBox;
 
 char *getenv();
 
-void 
-do_tutorial (void) {
+void
+do_tutorial(void) {
 
     printf("Running tutorial!\n");
     int tut = 0;
@@ -90,8 +90,8 @@ do_tutorial (void) {
     }
 }
 
-void 
-edit_xpprc (void) {
+void
+edit_xpprc(void) {
     pid_t child_pid;
 
     char rc[256];
@@ -126,8 +126,8 @@ edit_xpprc (void) {
     }
 }
 
-void 
-xpp_hlp (void) {
+void
+xpp_hlp(void) {
 
     char cmd[256];
 
@@ -154,7 +154,8 @@ xpp_hlp (void) {
     }
 }
 
-void MessageBox(char *m) {
+void
+MessageBox(char *m) {
     int wid = strlen(m) * DCURX + 20;
     int hgt = 4 * DCURY;
     MsgBox.w = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
@@ -166,36 +167,43 @@ void MessageBox(char *m) {
     strcpy(MsgBox.text, m);
     ping();
 }
-void RedrawMessageBox(Window w) {
+void
+RedrawMessageBox(Window w) {
     if (w == MsgBox.w) {
         /*    plintf("%s \n",MsgBox.text); */
         Ftext(10, 2 * DCURY, MsgBox.text, MsgBox.w);
     }
 }
-void 
-KillMessageBox (void) {
+void
+KillMessageBox(void) {
     if (MsgBox.here == 0)
         return;
     MsgBox.here = 0;
     waitasec(ClickTime);
     XDestroyWindow(display, MsgBox.w);
 }
-int TwoChoice(char *c1, char *c2, char *q, char *key) {
+int
+TwoChoice(char *c1, char *c2, char *q, char *key) {
     return two_choice(c1, c2, q, key, DisplayWidth / 2, DisplayHeight / 2,
                       RootWindow(display, screen), NULL);
 }
-int GetMouseXY(int *x, int *y) { return get_mouse_xy(x, y, draw_win); }
+int
+GetMouseXY(int *x, int *y) {
+    return get_mouse_xy(x, y, draw_win);
+}
 
-void 
-FlushDisplay (void) { XFlush(display); }
-void 
-clear_draw_window (void) {
+void
+FlushDisplay(void) {
+    XFlush(display);
+}
+void
+clear_draw_window(void) {
     clr_scrn();
     hi_lite(draw_win);
 }
 
-void 
-drw_all_scrns (void) {
+void
+drw_all_scrns(void) {
     int i;
     int me = manual_expose;
     int ic = current_pop;
@@ -216,8 +224,8 @@ drw_all_scrns (void) {
     manual_expose = me;
 }
 
-void 
-clr_all_scrns (void) {
+void
+clr_all_scrns(void) {
     int i;
     int ic = current_pop;
     if (SimulPlotFlag == 0) {
@@ -235,7 +243,8 @@ clr_all_scrns (void) {
     hi_lite(draw_win);
 }
 
-void run_the_commands(int com) {
+void
+run_the_commands(int com) {
     if (com < 0)
         return;
     if (com <= MAX_M_I) {
@@ -378,8 +387,8 @@ void run_the_commands(int com) {
         quick_num(com - M_UT);
 }
 
-void 
-do_stochast (void) {
+void
+do_stochast(void) {
     static char *n[] = {"New seed",  "Compute",     "Data",     "Mean",
                         "Variance",  "Histogram",   "Old hist", "Fourier",
                         "Power",     "fIt data",    "Stat",     "Liapunov",
@@ -398,8 +407,8 @@ do_stochast (void) {
         run_the_commands(M_UHN + i);
 }
 
-void 
-get_pmap_pars (void) {
+void
+get_pmap_pars(void) {
     static char *map[] = {"(N)one", "(S)ection", "(M)ax/min", "(P)eriod"};
     static char mkey[] = "nsmp";
     char ch;
@@ -417,8 +426,8 @@ get_pmap_pars (void) {
         run_the_commands(M_UPN + i);
 }
 
-void 
-set_col_par (void) {
+void
+set_col_par(void) {
     char ch;
     Window tempw = main_win;
     static char *n[] = {"(N)o color", "(V)elocity", "(A)nother quantity"};
@@ -433,8 +442,8 @@ set_col_par (void) {
         run_the_commands(i + M_UCN);
 }
 
-void 
-make_adj (void) {
+void
+make_adj(void) {
     Window temp = main_win;
     static char *n[] = {"(N)ew adj", "(M)ake H",     "(A)djoint", "(O)rbit",
                         "(H)fun",    "(P)arameters", "(R)ange"};
@@ -450,7 +459,8 @@ make_adj (void) {
         run_the_commands(M_UAN + i);
 }
 
-void do_file_com(int com) {
+void
+do_file_com(int com) {
     switch (com) {
     case M_FT:
         do_transpose();
@@ -516,8 +526,8 @@ void do_file_com(int com) {
     }
 }
 
-void 
-do_gr_objs (void) {
+void
+do_gr_objs(void) {
     char ch;
     int i;
     static char *list[] = {"(T)ext", "(A)rrow",      "(P)ointer", "(M)arker",
@@ -555,8 +565,8 @@ do_gr_objs (void) {
         run_the_commands(M_TT + i);
 }
 
-void 
-new_lookup (void) {
+void
+new_lookup(void) {
     static char *n[] = {"(E)dit", "(V)iew"};
     static char key[] = "ev";
     char ch;
@@ -571,8 +581,8 @@ new_lookup (void) {
         run_the_commands(M_UKV);
 }
 
-void 
-find_bvp (void) {
+void
+find_bvp(void) {
     static char *n[] = {"(R)ange", "(N)o show", "(S)how", "(P)eriodic"};
     static char key[] = "rnsp";
     char ch;
@@ -589,8 +599,8 @@ find_bvp (void) {
         run_the_commands(M_BR + i);
 }
 
-void 
-change_view (void) {
+void
+change_view(void) {
     Window temp = main_win;
     static char *n[] = {"2D", "3D", "Array", "Toon"};
     static char key[] = "23at";
@@ -606,8 +616,8 @@ change_view (void) {
         run_the_commands(M_V2 + i);
 }
 
-void 
-do_windows (void) {
+void
+do_windows(void) {
     int i;
     char ch;
     static char *list[] = {"(C)reate", "(K)ill all", "(D)estroy",   "(B)ottom",
@@ -635,8 +645,8 @@ do_windows (void) {
         run_the_commands(M_MC + i);
 }
 
-void 
-add_a_curve (void) {
+void
+add_a_curve(void) {
     int com = -1;
     static char *na[] = {"(A)dd curve",  "(D)elete last", "(R)emove all",
                          "(E)dit curve", "(P)ostscript",  "S(V)G",
@@ -704,8 +714,8 @@ add_a_curve (void) {
     run_the_commands(com);
 }
 
-void 
-do_movie (void) {
+void
+do_movie(void) {
     int i;
     char ch;
     int nkc = 6;
@@ -723,8 +733,8 @@ do_movie (void) {
         run_the_commands(i + M_KC);
 }
 
-void 
-do_torus (void) {
+void
+do_torus(void) {
     Window temp = main_win;
     static char *n[] = {"(A)ll", "(N)one", "(C)hoose"};
     static char key[] = "anc";
@@ -739,8 +749,8 @@ do_torus (void) {
         run_the_commands(M_AA + i);
 }
 
-void 
-window_zoom (void) {
+void
+window_zoom(void) {
 
     static char *n[] = {"(W)indow", "(Z)oom In", "Zoom (O)ut",
                         "(F)it",    "(D)efault", "(S)croll"};
@@ -757,8 +767,8 @@ window_zoom (void) {
         run_the_commands(M_WW + i);
 }
 
-void 
-direct_field (void) {
+void
+direct_field(void) {
     int i;
     static char *n[] = {"(D)irect Field", "(F)low", "(N)o dir. fld.",
                         "(C)olorize", "(S)caled Dir.Fld"};
@@ -775,8 +785,8 @@ direct_field (void) {
         run_the_commands(M_DD + i);
 }
 
-void 
-new_clines (void) {
+void
+new_clines(void) {
     int i;
     Window temp = main_win;
     static char *n[] = {"(N)ew",    "(R)estore", "(A)uto",
@@ -792,8 +802,8 @@ new_clines (void) {
         run_the_commands(M_NN + i);
 }
 
-void 
-froz_cline_stuff (void) {
+void
+froz_cline_stuff(void) {
     Window temp = main_win;
     static char *n[] = {"(F)reeze", "(D)elete all", "(R)ange", "(A)nimate"};
     static char key[] = "fdra";
@@ -809,8 +819,8 @@ froz_cline_stuff (void) {
         run_the_commands(M_NFF + i);
 }
 
-void 
-find_equilibrium (void) {
+void
+find_equilibrium(void) {
     int i;
     static char *n[] = {"(G)o", "(M)ouse", "(R)ange", "monte(C)ar"};
     static char key[] = "gmrc";
@@ -829,8 +839,8 @@ find_equilibrium (void) {
         run_the_commands(i + M_SG);
 }
 
-void 
-ini_data_menu (void) {
+void
+ini_data_menu(void) {
 
     int i;
     Window temp = main_win;
@@ -854,17 +864,27 @@ ini_data_menu (void) {
     run_the_commands(i);
 }
 
-void 
-new_param (void) { run_the_commands(M_P); }
+void
+new_param(void) {
+    run_the_commands(M_P);
+}
 
-void 
-clear_screens (void) { run_the_commands(M_EE); }
+void
+clear_screens(void) {
+    run_the_commands(M_EE);
+}
 
-void 
-x_vs_t (void) { run_the_commands(M_X); }
+void
+x_vs_t(void) {
+    run_the_commands(M_X);
+}
 
-void 
-redraw_them_all (void) { run_the_commands(M_R); }
+void
+redraw_them_all(void) {
+    run_the_commands(M_R);
+}
 
-void 
-get_3d_par (void) { run_the_commands(M_3); }
+void
+get_3d_par(void) {
+    run_the_commands(M_3);
+}

@@ -30,11 +30,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnlp(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnlp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -108,11 +107,10 @@ extern struct {
 } /* fnlp_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fflp(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fflp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -150,8 +148,8 @@ extern struct {
 } /* fflp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnlp(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     /* Local variables */
     int64 ndim;
 
@@ -206,11 +204,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnc1(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnc1(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -268,8 +265,8 @@ extern struct {
 } /* fnc1_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnc1(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
 
     int64 nfpr;
@@ -295,11 +292,10 @@ extern struct {
 } /* stpnc1_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnc2(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -368,11 +364,10 @@ extern struct {
 } /* fnc2_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffc2(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -429,8 +424,8 @@ extern struct {
 } /* ffc2_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnc2(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     /* Local variables */
     int64 ndim;
@@ -512,11 +507,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnds(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnds(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -554,11 +548,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnti(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnti(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -605,11 +598,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnhd(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -685,11 +677,10 @@ extern struct {
 } /* fnhd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffhd(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -744,8 +735,8 @@ extern struct {
 } /* ffhd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnhd(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     /* Local variables */
     int64 ndim;
@@ -766,8 +757,7 @@ extern struct {
 
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     v = (double *)malloc(sizeof(double) * (iap->ndim));
-    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
-                                (iap->ndim * 2));
+    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
     /* Generates starting data for the continuation of Hopf bifurcation */
     /* points for maps. */
 
@@ -838,11 +828,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnhb(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -918,11 +907,10 @@ extern struct {
 } /* fnhb_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffhb(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -973,8 +961,8 @@ extern struct {
 } /* ffhb_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnhb(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     /* Local variables */
     int64 ndim;
@@ -990,8 +978,7 @@ extern struct {
     int64 ndm, irs;
     double rom;
     int64 ndm2;
-    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
-                                (iap->ndim * 2));
+    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     v = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the 2-parameter continuation of */
@@ -1060,11 +1047,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnhw(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -1141,11 +1127,10 @@ extern struct {
 } /* fnhw_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffhw(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -1195,8 +1180,8 @@ extern struct {
 } /* ffhw_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnhw(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     /* Local variables */
     int64 ijac, ndim;
 
@@ -1213,8 +1198,7 @@ extern struct {
     double rom;
     int64 ndm2;
 
-    smat = (double *)malloc(sizeof(double) * (2 * iap->ndim) *
-                                (2 * iap->ndim));
+    smat = (double *)malloc(sizeof(double) * (2 * iap->ndim) * (2 * iap->ndim));
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     v = (double *)malloc(sizeof(double) * (iap->ndim));
     dfp = (double *)malloc(sizeof(double) * (iap->ndim) * NPARX);
@@ -1289,11 +1273,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnps(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -1353,11 +1336,10 @@ extern struct {
 } /* fnps_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcps(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -1402,12 +1384,11 @@ extern struct {
 } /* bcps_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icps(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -1447,10 +1428,10 @@ extern struct {
 } /* icps_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int pdble(const iap_type *iap, const rap_type *rap,
-                           int64 *ndim, int64 *ntst, int64 *ncol,
-                           int64 *ndxloc, double *ups, double *udotps,
-                           double *tm, double *par) {
+/* Subroutine */ int
+pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
+      int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
+      double *par) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -1495,13 +1476,11 @@ extern struct {
 } /* pdble_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnps(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
@@ -1524,10 +1503,9 @@ extern struct {
     double tpi;
     int64 irs;
 
-    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
-                                (iap->ndim * 2));
-    rnllv = (double *)malloc(sizeof(double) * (iap->ndim * 2) *
-                                 (iap->ndim * 2));
+    smat = (double *)malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
+    rnllv =
+        (double *)malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     u = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the continuation of a branch of periodic */
@@ -1643,11 +1621,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnws(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -1677,12 +1654,10 @@ extern struct {
 } /* fnws_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffws(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp, int64 ndm,
-                          double *dfu, double *dfp) {
+/* Subroutine */ int
+ffws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
@@ -1755,11 +1730,10 @@ extern struct {
 } /* ffws_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnwp(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnwp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -1821,13 +1795,11 @@ extern struct {
 } /* fnwp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnwp(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
@@ -1852,8 +1824,7 @@ extern struct {
     double tpi;
     int64 irs;
 
-    smat = (double *)malloc(sizeof(double) * (2 * iap->ndim) *
-                                (2 * iap->ndim));
+    smat = (double *)malloc(sizeof(double) * (2 * iap->ndim) * (2 * iap->ndim));
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     u = (double *)malloc(sizeof(double) * (iap->ndim));
     rnllv = (double *)malloc(sizeof(double) * 2 * (iap->ndim));
@@ -1971,11 +1942,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnsp(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -2002,12 +1972,10 @@ extern struct {
 } /* fnsp_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffsp(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp, int64 ndm,
-                          double *dfu, double *dfp) {
+/* Subroutine */ int
+ffsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
@@ -2067,11 +2035,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnpe(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -2097,12 +2064,10 @@ extern struct {
 } /* fnpe_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffpe(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp, int64 ndm,
-                          double *dfu, double *dfp) {
+/* Subroutine */ int
+ffpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
@@ -2160,12 +2125,11 @@ extern struct {
 } /* ffpe_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icpe(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icpe(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
 
     /* Dummy integral condition subroutine for parabolic systems. */
 
@@ -2179,11 +2143,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnpl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -2257,11 +2220,10 @@ extern struct {
 } /* fnpl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffpl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -2301,11 +2263,10 @@ extern struct {
 } /* ffpl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcpl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
     /* Local variables */
@@ -2351,12 +2312,11 @@ extern struct {
 } /* bcpl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icpl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -2413,13 +2373,11 @@ extern struct {
 } /* icpl_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnpl(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
 
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
@@ -2566,11 +2524,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnpd(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -2644,11 +2601,10 @@ extern struct {
 } /* fnpd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffpd(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -2677,11 +2633,10 @@ extern struct {
 } /* ffpd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcpd(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -2735,12 +2690,11 @@ extern struct {
 } /* bcpd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icpd(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -2789,13 +2743,11 @@ extern struct {
 } /* icpd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnpd(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
 
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
@@ -2923,11 +2875,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fntr(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fntr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -3004,11 +2955,10 @@ extern struct {
 } /* fntr_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fftr(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -3042,11 +2992,10 @@ extern struct {
 } /* fftr_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bctr(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -3114,12 +3063,11 @@ extern struct {
 } /* bctr_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ictr(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+ictr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -3174,13 +3122,11 @@ extern struct {
 } /* ictr_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpntr(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
 
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
@@ -3314,11 +3260,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnpo(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -3406,11 +3351,10 @@ extern struct {
 } /* fnpo_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffpo(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const double *upold,
-                          const int64 *icp, double *par, double *f,
-                          int64 ndm, double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const double *upold, const int64 *icp, double *par,
+     double *f, int64 ndm, double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -3455,11 +3399,10 @@ extern struct {
 } /* ffpo_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcpo(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -3506,12 +3449,11 @@ extern struct {
 } /* bcpo_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icpo(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -3527,8 +3469,7 @@ extern struct {
 
     f1 = (double *)malloc(sizeof(double) * (iap->nint));
     f2 = (double *)malloc(sizeof(double) * (iap->nint));
-    dnt = (double *)malloc(sizeof(double) * (iap->nint) *
-                               (iap->ndim + NPARX));
+    dnt = (double *)malloc(sizeof(double) * (iap->nint) * (iap->ndim + NPARX));
 
     /* Generates integral conditions for periodic optimization problems. */
 
@@ -3598,13 +3539,11 @@ extern struct {
 } /* icpo_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fipo(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, int64 nnt0, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *fi,
-                          double *dint, int64 ndmt, double *dfdu,
-                          double *dfdp) {
+/* Subroutine */ int
+fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, int64 nnt0, const double *u,
+     const double *uold, const double *udot, const double *upold, double *fi,
+     double *dint, int64 ndmt, double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dint_dim1, dfdu_dim1, dfdp_dim1;
 
@@ -3677,13 +3616,11 @@ extern struct {
 } /* fipo_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnpo(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
 
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
@@ -3719,8 +3656,8 @@ extern struct {
        calculations). So, that is why I use ndxloc here.  Also, iap->ncol MAY BE
        tool small, but I am not sure how to get value from the fort.8 file into
        here. */
-    temporary_storage = (double *)malloc(sizeof(double) * (*ndxloc) *
-                                             (iap->ndim * iap->ncol));
+    temporary_storage =
+        (double *)malloc(sizeof(double) * (*ndxloc) * (iap->ndim * iap->ncol));
     ;
     u = (double *)malloc(sizeof(double) * (iap->ndim));
 
@@ -3869,11 +3806,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnbl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -3950,11 +3886,10 @@ extern struct {
 } /* fnbl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffbl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -3988,11 +3923,10 @@ extern struct {
 } /* ffbl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcbl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -4008,8 +3942,8 @@ extern struct {
     ff2 = (double *)malloc(sizeof(double) * (iap->nbc));
     uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
     uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
-    dfu = (double *)malloc(sizeof(double) * (iap->nbc) *
-                               (2 * iap->ndim + NPARX));
+    dfu =
+        (double *)malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for the 2-parameter continuation */
     /* of folds (BVP). */
@@ -4101,11 +4035,10 @@ extern struct {
 } /* bcbl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fbbl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, int64 nbc0, const double *u0,
-                          const double *u1, double *f,
-                          double *dbc) {
+/* Subroutine */ int
+fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
+     const double *u1, double *f, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -4139,12 +4072,11 @@ extern struct {
 } /* fbbl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icbl(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -4160,8 +4092,7 @@ extern struct {
     ff2 = (double *)malloc(sizeof(double) * (iap->nint));
     uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
     uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
-    dfu = (double *)malloc(sizeof(double) * (iap->ndim) *
-                               (iap->ndim + NPARX));
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim + NPARX));
 
     /* Generates integral conditions for the 2-parameter continuation of */
     /* folds (BVP). */
@@ -4234,12 +4165,11 @@ extern struct {
 } /* icbl_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fibl(const iap_type *iap, const rap_type *rap,
-                          const int64 ndim, double *par,
-                          const int64 *icp, int64 nint, int64 nnt0,
-                          const double *u, const double *uold,
-                          const double *udot, const double *upold,
-                          double *f, double *dint) {
+/* Subroutine */ int
+fibl(const iap_type *iap, const rap_type *rap, const int64 ndim, double *par,
+     const int64 *icp, int64 nint, int64 nnt0, const double *u,
+     const double *uold, const double *udot, const double *upold, double *f,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -4287,13 +4217,11 @@ extern struct {
 } /* fibl_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnbl(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
 
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
@@ -4412,11 +4340,10 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int funi(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -4516,11 +4443,10 @@ extern struct {
 } /* funi */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcni(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -4639,12 +4565,11 @@ extern struct {
 } /* bcni */
 
 /*     ---------- ---- */
-/* Subroutine */ int icni(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -4739,10 +4664,10 @@ extern struct {
 } /* icni */
 
 /*     ---------- ---- */
-/* Subroutine */ int fopi(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fopi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
 
     /* Local variables */
     double *u1zz, *u2zz;

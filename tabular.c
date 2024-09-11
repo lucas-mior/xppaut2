@@ -90,16 +90,19 @@ extern int NCON, NSYM, NCON_START, NSYM_START;
 
 extern int MAXSTOR;
 extern float **storage;
-void set_auto_eval_flags(int f) {
+void
+set_auto_eval_flags(int f) {
     int i;
     for (i = 0; i < MAX_TAB; i++)
         my_table[i].autoeval = f;
 }
-void 
-set_table_name (char *name, int index)
-{ strcpy(my_table[index].name, name); }
+void
+set_table_name(char *name, int index) {
+    strcpy(my_table[index].name, name);
+}
 
-void view_table(int index) {
+void
+view_table(int index) {
     int i;
     int n = my_table[index].n, len;
     double *y = my_table[index].y;
@@ -114,7 +117,8 @@ void view_table(int index) {
     refresh_browser(len);
 }
 
-void new_lookup_com(int i) {
+void
+new_lookup_com(int i) {
     char file[128];
     int index, ok, status;
     double xlo, xhi;
@@ -152,8 +156,8 @@ void new_lookup_com(int i) {
     }
 }
 
-void 
-new_lookup_ok (void) {
+void
+new_lookup_ok(void) {
     char file[128];
     char name[10];
     int index, ok;
@@ -196,9 +200,8 @@ new_lookup_ok (void) {
     }
 }
 
-double 
-lookupxy (double x, int n, double *xv, double *yv)
-{
+double
+lookupxy(double x, int n, double *xv, double *yv) {
     double dx, dy, x1, y1, x2, y2;
     int i;
     if (x <= xv[0])
@@ -222,9 +225,8 @@ lookupxy (double x, int n, double *xv, double *yv)
     return (yv[n - 1]);
 }
 
-double 
-tab_interp (double xlo, double h, double x, double *y, int n, int i)
-{
+double
+tab_interp(double xlo, double h, double x, double *y, int n, int i) {
     double a, b, c, d;
     double ym, y0, y1, y2;
     double tt;
@@ -239,9 +241,8 @@ tab_interp (double xlo, double h, double x, double *y, int n, int i)
     tt = (x - xlo) / h - i;
     return d + tt * (c + tt * (b + tt * a));
 }
-double 
-lookup (double x, int index)
-{
+double
+lookup(double x, int index) {
     double xlo = my_table[index].xlo, xhi = my_table[index].xhi,
            dx = my_table[index].dx;
     double *y;
@@ -281,8 +282,8 @@ lookup (double x, int index)
     return (0.0);
 }
 
-void 
-init_table (void) {
+void
+init_table(void) {
     int i;
     for (i = 0; i < MAX_TAB; i++) {
         my_table[i].flag = 0;
@@ -291,8 +292,8 @@ init_table (void) {
     }
 }
 
-void 
-redo_all_fun_tables (void) {
+void
+redo_all_fun_tables(void) {
     int i;
     for (i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
@@ -302,9 +303,8 @@ redo_all_fun_tables (void) {
     update_all_ffts();
 }
 
-int 
-eval_fun_table (int n, double xlo, double xhi, char *formula, double *y)
-{
+int
+eval_fun_table(int n, double xlo, double xhi, char *formula, double *y) {
     int i;
 
     double dx;
@@ -328,9 +328,8 @@ eval_fun_table (int n, double xlo, double xhi, char *formula, double *y)
     return (1);
 }
 
-int 
-create_fun_table (int npts, double xlo, double xhi, char *formula, int index)
-{
+int
+create_fun_table(int npts, double xlo, double xhi, char *formula, int index) {
     int length = npts;
 
     if (my_table[index].flag == 1) {
@@ -367,9 +366,8 @@ create_fun_table (int npts, double xlo, double xhi, char *formula, int index)
     return (0);
 }
 
-int 
-load_table (char *filename, int index)
-{
+int
+load_table(char *filename, int index) {
     int i;
     char bobtab[100];
     char *bob;
@@ -474,7 +472,10 @@ load_table (char *filename, int index)
     return (1);
 }
 
-int get_lookup_len(int i) { return my_table[i].n; }
+int
+get_lookup_len(int i) {
+    return my_table[i].n;
+}
 
 /*   network stuff
 

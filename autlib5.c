@@ -64,11 +64,10 @@ struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int fnho(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, int64 ijac, double *f,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -148,11 +147,10 @@ struct {
 } /* fnho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ffho(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, const double *u,
-                          const double *uold, const int64 *icp,
-                          double *par, double *f, int64 ndm,
-                          double *dfdu, double *dfdp) {
+/* Subroutine */ int
+ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
+     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
+     double *dfdu, double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
@@ -202,11 +200,10 @@ struct {
 } /* ffho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int bcho(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, const double *u0,
-                          const double *u1, double *f, int64 ijac,
-                          double *dbc) {
+/* Subroutine */ int
+bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
+     int64 ijac, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -222,8 +219,8 @@ struct {
     ff2 = (double *)malloc(sizeof(double) * (iap->nbc));
     uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
     uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
-    dfu = (double *)malloc(sizeof(double) * (iap->nbc) *
-                               (2 * iap->ndim + NPARX));
+    dfu =
+        (double *)malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */
@@ -320,11 +317,10 @@ struct {
 } /* bcho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fbho(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nbc, int64 nbc0, const double *u0,
-                          const double *u1, double *fb,
-                          double *dbc) {
+/* Subroutine */ int
+fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
+     const double *u1, double *fb, double *dbc) {
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -637,12 +633,11 @@ struct {
 } /* fbho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int icho(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *f, int64 ijac,
-                          double *dint) {
+/* Subroutine */ int
+icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, const double *u, const double *uold,
+     const double *udot, const double *upold, double *f, int64 ijac,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -658,8 +653,7 @@ struct {
     ff2 = (double *)malloc(sizeof(double) * (iap->nint));
     uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
     uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
-    dfu = (double *)malloc(sizeof(double) * (iap->ndim) *
-                               (iap->ndim + NPARX));
+    dfu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim + NPARX));
 
     /* Generates integral conditions for homoclinic bifurcation analysis */
 
@@ -738,12 +732,11 @@ struct {
 } /* icho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int fiho(const iap_type *iap, const rap_type *rap,
-                          int64 ndim, double *par, const int64 *icp,
-                          int64 nint, int64 nnt0, const double *u,
-                          const double *uold, const double *udot,
-                          const double *upold, double *fi,
-                          double *dint) {
+/* Subroutine */ int
+fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
+     const int64 *icp, int64 nint, int64 nnt0, const double *u,
+     const double *uold, const double *udot, const double *upold, double *fi,
+     double *dint) {
     /* System generated locals */
     int64 dint_dim1;
 
@@ -806,7 +799,8 @@ struct {
 } /* fiho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int inho(iap_type *iap, int64 *icp, double *par) {
+/* Subroutine */ int
+inho(iap_type *iap, int64 *icp, double *par) {
 
     /* Local variables */
     int64 ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
@@ -891,11 +885,9 @@ struct {
     bleig_1.vt = (double *)malloc(sizeof(double) * (ndim) * (ndim));
     bleig_1.xequib = (double *)malloc(sizeof(double) * (ndim));
 
-    blhme_1.vrprev =
-        (double *)malloc(sizeof(double) * 2 * (ndim) * (ndim));
+    blhme_1.vrprev = (double *)malloc(sizeof(double) * 2 * (ndim) * (ndim));
 
-    beyn_1.cprev =
-        (double *)malloc(sizeof(double) * 2 * 2 * (ndim) * (ndim));
+    beyn_1.cprev = (double *)malloc(sizeof(double) * 2 * 2 * (ndim) * (ndim));
 
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
@@ -969,10 +961,9 @@ struct {
 } /* inho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int preho(int64 *ndx, int64 *ntsr, int64 *nar,
-                           int64 *ndim, int64 *ncolrs, double *ups,
-                           double *udotps, double *tm,
-                           double *par) {
+/* Subroutine */ int
+preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
+      double *ups, double *udotps, double *tm, double *par) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -1079,13 +1070,11 @@ struct {
 } /* preho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnho(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsr, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -1158,8 +1147,8 @@ struct {
 } /* stpnho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int stpho(iap_type *iap, int64 *icp, double *u,
-                           double *par, double *t) {
+/* Subroutine */ int
+stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     /* Local variables */
 
     int64 i, j;
@@ -1296,10 +1285,9 @@ L3:
 } /* stpho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int pvlsho(iap_type *iap, rap_type *rap, int64 *icp,
-                            double *dtm, int64 *ndxloc, double *ups,
-                            int64 *ndim, double *p0, double *p1,
-                            double *par) {
+/* Subroutine */ int
+pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
+       double *ups, int64 *ndim, double *p0, double *p1, double *par) {
 
     /* System generated locals */
     int64 ups_dim1, p0_dim1, p1_dim1;
@@ -1372,9 +1360,9 @@ L3:
 } /* pvlsho_ */
 
 /*     -------- ------- -------- ----- */
-double psiho(const iap_type *iap, int64 is, double *rr,
-                 double *ri, double *v, double *vt,
-                 const int64 *icp, double *par) {
+double
+psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
+      double *vt, const int64 *icp, double *par) {
     /* System generated locals */
     double ret_val;
 
@@ -1634,9 +1622,9 @@ L16:
 } /* psiho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int eighi(int64 isign, int64 itrans, double *rr,
-                           double *ri, double *vret, double *xequib,
-                           const int64 *icp, double *par, int64 *ndm) {
+/* Subroutine */ int
+eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
+      double *xequib, const int64 *icp, double *par, int64 *ndm) {
     double *dfdp, *dfdu;
     double *zz;
 
@@ -1654,10 +1642,10 @@ L16:
 } /* eighi */
 
 /*     ---------- ----- */
-/* Subroutine */ int eigho(int64 *isign, int64 *itrans, double *rr,
-                           double *ri, double *vret, double *xequib,
-                           const int64 *icp, double *par, int64 *ndm,
-                           double *dfdu, double *dfdp, double *zz) {
+/* Subroutine */ int
+eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
+      double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
+      double *dfdp, double *zz) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
@@ -1842,9 +1830,9 @@ L16:
 } /* eigho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int prjcti(double *bound, double *xequib,
-                            const int64 *icp, double *par, int64 imfd,
-                            int64 is, int64 itrans, int64 *ndm) {
+/* Subroutine */ int
+prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
+       int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
 
     dfdp = (double *)malloc(sizeof(double) * (*ndm) * NPARX);
@@ -1858,10 +1846,10 @@ L16:
 } /* prjcti */
 
 /*     ---------- ------ */
-/* Subroutine */ int prjctn(double *bound, double *xequib,
-                            const int64 *icp, double *par, int64 *imfd,
-                            int64 *is, int64 *itrans, int64 *ndm,
-                            double *dfdu, double *dfdp) {
+/* Subroutine */ int
+prjctn(double *bound, double *xequib, const int64 *icp, double *par,
+       int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
+       double *dfdp) {
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 

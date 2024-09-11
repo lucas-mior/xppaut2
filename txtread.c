@@ -61,7 +61,8 @@ TXTVIEW txtview;
   [Up]   [Down]  [PgUp]  [PgDn] [Kill]
   [Home] [End]   [Src]   [Actn]
 */
-void txt_view_events(XEvent ev) {
+void
+txt_view_events(XEvent ev) {
     int x, y;
     if (txtview.here == 0)
         return;
@@ -93,7 +94,8 @@ void txt_view_events(XEvent ev) {
     }
 }
 
-void txtview_keypress(XEvent ev) {
+void
+txtview_keypress(XEvent ev) {
 
     Window w = ev.xkey.window;
     char ks;
@@ -126,14 +128,16 @@ void txtview_keypress(XEvent ev) {
     }
 }
 
-void enter_txtview(Window w, int val) {
+void
+enter_txtview(Window w, int val) {
     if (w == txtview.up || w == txtview.down || w == txtview.pgup ||
         w == txtview.pgdn || w == txtview.home || w == txtview.end ||
         w == txtview.src || w == txtview.action || w == txtview.kill)
         XSetWindowBorderWidth(display, w, val);
 }
 
-void do_txt_action(char *s) {
+void
+do_txt_action(char *s) {
     int tb = tfBell;
     tfBell = 1;
     get_graph();
@@ -146,14 +150,16 @@ void do_txt_action(char *s) {
     reset_graph();
 }
 
-void resize_txtview(int w, int h) {
+void
+resize_txtview(int w, int h) {
     int hgt = h - 8 - 3 * DCURYs;
     XMoveResizeWindow(display, txtview.text, 2, 3 * DCURYs + 5, w - 4, hgt);
     txtview.nlines = (int)(hgt / DCURY);
     /*   plintf(" nlines=%d \n",txtview.nlines); */
 }
 
-void txtview_press(Window w, int x, int y) {
+void
+txtview_press(Window w, int x, int y) {
     int j;
     int nt;
     if (txtview.which == 1)
@@ -231,7 +237,8 @@ void txtview_press(Window w, int x, int y) {
     }
 }
 
-void redraw_txtview(Window w) {
+void
+redraw_txtview(Window w) {
 
     if (w == txtview.text)
         redraw_txtview_text();
@@ -255,8 +262,8 @@ void redraw_txtview(Window w) {
         xds("Action");
 }
 
-void 
-redraw_txtview_text (void) {
+void
+redraw_txtview_text(void) {
     int i, j;
     XClearWindow(display, txtview.text);
     for (i = 0; i < txtview.nlines; i++) {
@@ -282,8 +289,8 @@ redraw_txtview_text (void) {
     }
 }
 
-void 
-init_txtview (void) {
+void
+init_txtview(void) {
     txtview.here = 0;
     txtview.dh = DCURY;
     txtview.dw = DCURX;
@@ -291,8 +298,8 @@ init_txtview (void) {
     txtview.first = 0;
 }
 
-void 
-make_txtview (void) {
+void
+make_txtview(void) {
     int minwid = DCURXs * 60, minlen = 3 * DCURYs + 8 + 10 * DCURY;
     Window base;
     int ww = 9 * DCURXs, hh = DCURYs + 4;

@@ -22,7 +22,8 @@
 
 /* Implementation */
 
-DenseMat DenseAllocMat(int64 N) {
+DenseMat
+DenseAllocMat(int64 N) {
     DenseMat A;
 
     if (N <= 0)
@@ -43,39 +44,62 @@ DenseMat DenseAllocMat(int64 N) {
     return (A);
 }
 
-int64 *DenseAllocPiv(int64 N) {
+int64 *
+DenseAllocPiv(int64 N) {
     if (N <= 0)
         return (NULL);
 
     return ((int64 *)malloc(N * sizeof(int64)));
 }
 
-int64 DenseFactor(DenseMat A, int64 *p) {
+int64
+DenseFactor(DenseMat A, int64 *p) {
     return (gefa(A->data, A->size, p));
 }
 
-void DenseBacksolve(DenseMat A, int64 *p, N_Vector b) {
+void
+DenseBacksolve(DenseMat A, int64 *p, N_Vector b) {
     gesl(A->data, A->size, p, N_VDATA(b));
 }
 
-void DenseZero(DenseMat A) { denzero(A->data, A->size); }
+void
+DenseZero(DenseMat A) {
+    denzero(A->data, A->size);
+}
 
-void DenseCopy(DenseMat A, DenseMat B) { dencopy(A->data, B->data, A->size); }
+void
+DenseCopy(DenseMat A, DenseMat B) {
+    dencopy(A->data, B->data, A->size);
+}
 
-void DenseScale(real c, DenseMat A) { denscale(c, A->data, A->size); }
+void
+DenseScale(real c, DenseMat A) {
+    denscale(c, A->data, A->size);
+}
 
-void DenseAddI(DenseMat A) { denaddI(A->data, A->size); }
+void
+DenseAddI(DenseMat A) {
+    denaddI(A->data, A->size);
+}
 
-void DenseFreeMat(DenseMat A) {
+void
+DenseFreeMat(DenseMat A) {
     denfree(A->data);
     free(A);
 }
 
-void DenseFreePiv(int64 *p) { free(p); }
+void
+DenseFreePiv(int64 *p) {
+    free(p);
+}
 
-void DensePrint(DenseMat A) { denprint(A->data, A->size); }
+void
+DensePrint(DenseMat A) {
+    denprint(A->data, A->size);
+}
 
-real **denalloc(int64 n) {
+real **
+denalloc(int64 n) {
     int64 j;
     real **a;
 
@@ -98,14 +122,16 @@ real **denalloc(int64 n) {
     return (a);
 }
 
-int64 *denallocpiv(int64 n) {
+int64 *
+denallocpiv(int64 n) {
     if (n <= 0)
         return (NULL);
 
     return ((int64 *)malloc(n * sizeof(int64)));
 }
 
-int64 gefa(real **a, int64 n, int64 *p) {
+int64
+gefa(real **a, int64 n, int64 *p) {
     int64 i, j, k, l;
     real *col_j, *col_k, *diag_k;
     real temp, mult, a_kj;
@@ -187,7 +213,8 @@ int64 gefa(real **a, int64 n, int64 *p) {
     return (0);
 }
 
-void gesl(real **a, int64 n, int64 *p, real *b) {
+void
+gesl(real **a, int64 n, int64 *p, real *b) {
     int64 k, l, i;
     real mult, *col_k;
 
@@ -216,7 +243,8 @@ void gesl(real **a, int64 n, int64 *p, real *b) {
     }
 }
 
-void denzero(real **a, int64 n) {
+void
+denzero(real **a, int64 n) {
     int64 i, j;
     real *col_j;
 
@@ -227,7 +255,8 @@ void denzero(real **a, int64 n) {
     }
 }
 
-void dencopy(real **a, real **b, int64 n) {
+void
+dencopy(real **a, real **b, int64 n) {
     int64 i, j;
     real *a_col_j, *b_col_j;
 
@@ -239,7 +268,8 @@ void dencopy(real **a, real **b, int64 n) {
     }
 }
 
-void denscale(real c, real **a, int64 n) {
+void
+denscale(real c, real **a, int64 n) {
     int64 i, j;
     real *col_j;
 
@@ -250,21 +280,27 @@ void denscale(real c, real **a, int64 n) {
     }
 }
 
-void denaddI(real **a, int64 n) {
+void
+denaddI(real **a, int64 n) {
     int64 i;
 
     for (i = 0; i < n; i++)
         a[i][i] += ONE;
 }
 
-void denfreepiv(int64 *p) { free(p); }
+void
+denfreepiv(int64 *p) {
+    free(p);
+}
 
-void denfree(real **a) {
+void
+denfree(real **a) {
     free(a[0]);
     free(a);
 }
 
-void denprint(real **a, int64 n) {
+void
+denprint(real **a, int64 n) {
     int64 i, j;
 
     plintf("\n");

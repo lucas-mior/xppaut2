@@ -34,9 +34,9 @@ extern int xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
 double atof();
 Window make_window();
 
-int 
-get_dialog (char *wname, char *name, char *value, char *ok, char *cancel, int max)
-{
+int
+get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
+           int max) {
     int lm = strlen(name) * DCURX;
     int lv = max * DCURX;
     int pos, colm;
@@ -106,9 +106,8 @@ get_dialog (char *wname, char *name, char *value, char *ok, char *cancel, int ma
     return (status);
 }
 
-int 
-dialog_event_loop (DIALOG *d, int max, int *pos, int *col)
-{
+int
+dialog_event_loop(DIALOG *d, int max, int *pos, int *col) {
     int status = -1;
     int done = 0;
     int ch;
@@ -157,9 +156,8 @@ dialog_event_loop (DIALOG *d, int max, int *pos, int *col)
     return (status);
 }
 
-void 
-display_dialog (Window w, DIALOG d, int pos, int col)
-{
+void
+display_dialog(Window w, DIALOG d, int pos, int col) {
     if (w == d.ok)
         XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s, strlen(d.ok_s));
     if (w == d.cancel)

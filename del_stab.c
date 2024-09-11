@@ -31,9 +31,9 @@ double amax();
    a delay differential equation.
 */
 
-void 
-do_delay_sing (double *x, double eps, double err, double big, int maxit, int n, int *ierr, float *stabinfo)
-{
+void
+do_delay_sing(double *x, double eps, double err, double big, int maxit, int n,
+              int *ierr, float *stabinfo) {
     double rr[2];
 
     double colnorm = 0, colmax, colsum;
@@ -142,7 +142,8 @@ do_delay_sing (double *x, double eps, double err, double big, int maxit, int n, 
         *stabinfo = AlphaMax;
 }
 
-COMPLEX csum(z, w)
+COMPLEX
+csum(z, w)
 COMPLEX z, w;
 {
     COMPLEX sum;
@@ -151,7 +152,8 @@ COMPLEX z, w;
     return sum;
 }
 
-COMPLEX cdif(z, w)
+COMPLEX
+cdif(z, w)
 COMPLEX z, w;
 {
     COMPLEX sum;
@@ -160,7 +162,8 @@ COMPLEX z, w;
     return sum;
 }
 
-COMPLEX cmlt(z, w)
+COMPLEX
+cmlt(z, w)
 COMPLEX z, w;
 {
     COMPLEX sum;
@@ -169,7 +172,8 @@ COMPLEX z, w;
     return sum;
 }
 
-COMPLEX cdivv(z, w)
+COMPLEX
+cdivv(z, w)
 COMPLEX z, w;
 {
     COMPLEX sum;
@@ -179,7 +183,8 @@ COMPLEX z, w;
     return sum;
 }
 
-COMPLEX cexp2(z)
+COMPLEX
+cexp2(z)
 COMPLEX z;
 {
     COMPLEX sum;
@@ -201,7 +206,8 @@ int i1, i2, n;
     }
 }
 
-COMPLEX rtoc(x, y)
+COMPLEX
+rtoc(x, y)
 double x, y;
 {
     COMPLEX sum;
@@ -227,11 +233,13 @@ int n, m;
     }
 }
 
-double c_abs(z)
+double
+c_abs(z)
 COMPLEX z;
 { return (sqrt(z.i * z.i + z.r * z.r)); }
 
-COMPLEX cdeterm(z, n)
+COMPLEX
+cdeterm(z, n)
 COMPLEX *z;
 int n;
 {
@@ -265,7 +273,8 @@ int n;
         sum = cmlt(sum, Z(j, j));
     return sum;
 }
-COMPLEX cxdeterm(z, n)
+COMPLEX
+cxdeterm(z, n)
 COMPLEX *z;
 int n;
 {
@@ -308,7 +317,7 @@ int n, m;
         }
     for (k = 0; k < m; k++) {
         km = (k + 1) * n * n;
-        temp = rtoc(-delay[k], 0.0);     /* convert delay to floatcomplex number */
+        temp = rtoc(-delay[k], 0.0); /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
         for (j = 0; j < n; j++)
@@ -318,9 +327,9 @@ int n, m;
     }
 }
 
-int 
-find_positive_root (double *coef, double *delay, int n, int m, double rad, double err, double eps, double big, int maxit, double *rr)
-{
+int
+find_positive_root(double *coef, double *delay, int n, int m, double rad,
+                   double err, double eps, double big, int maxit, double *rr) {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
@@ -399,10 +408,12 @@ find_positive_root (double *coef, double *delay, int n, int m, double rad, doubl
     plintf("Max iterates exceeded \n");
     return -1;
 }
-void 
-process_root (double real, double im)
-{ plintf("Root: %g + I %g \n", real, im); }
-double get_arg(delay, coef, m, n, lambda)
+void
+process_root(double real, double im) {
+    plintf("Root: %g + I %g \n", real, im);
+}
+double
+get_arg(delay, coef, m, n, lambda)
 COMPLEX lambda;
 double *coef;
 double *delay;
@@ -427,7 +438,7 @@ int m, n;
         }
     for (k = 0; k < m; k++) {
         km = (k + 1) * n * n;
-        temp = rtoc(-delay[k], 0.0);     /* convert delay to floatcomplex number */
+        temp = rtoc(-delay[k], 0.0); /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
         for (j = 0; j < n; j++)
@@ -447,9 +458,8 @@ int m, n;
     return (arg);
 }
 
-int 
-test_sign (double old, double new)
-{
+int
+test_sign(double old, double new) {
     if (old > 0.0 && new < 0.0) {
         if (old > 2.9 && new < -2.9)
             return 1;
@@ -481,9 +491,9 @@ test_sign (double old, double new)
      principle
 */
 
-int 
-plot_args (double *coef, double *delay, int n, int m, int npts, double almax, double wmax)
-{
+int
+plot_args(double *coef, double *delay, int n, int m, int npts, double almax,
+          double wmax) {
     int i;
     int sign = 0;
     COMPLEX lambda;

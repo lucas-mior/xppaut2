@@ -4,11 +4,13 @@
 
 #ifdef KR_headers
 double log();
-double d_lg10(x)
+double
+d_lg10(x)
 double *x;
 #else
 #undef abs
 #include "math.h"
-double d_lg10(double *x)
+double
+d_lg10(double *x)
 #endif
 { return (log10e * log(*x)); }

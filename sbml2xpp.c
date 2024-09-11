@@ -181,7 +181,8 @@ add_reactant(int i, int j, char *name, double s);
 add_product(int i, int j, char *name, double s);
 add_species(int i, char *name, char *id, double x0, int bc, int c, char *tc);
 
-int main(int argc, char *argv[]) {
+int
+main(int argc, char *argv[]) {
     SBMLDocument_t *d;
     Model_t *m;
     unsigned int level, version;
@@ -270,7 +271,8 @@ add_parameter(char *name, char *id, double z, int f) {
     par[Npar].unique = 1;
     Npar++;
 }
-void GetEvents(Model_t *m) {
+void
+GetEvents(Model_t *m) {
     const Event_t *e;
     const EventAssignment_t *ea;
     int n, na;
@@ -312,7 +314,8 @@ void GetEvents(Model_t *m) {
     }
 }
 
-void GetFunctions(Model_t *m) {
+void
+GetFunctions(Model_t *m) {
     const ASTNode_t *math;
     const FunctionDefinition_t *fd;
     char *formula;
@@ -359,7 +362,8 @@ void GetFunctions(Model_t *m) {
 
 /* reaction stuff  */
 
-void GetReaction(Model_t *m, unsigned int level, unsigned int version) {
+void
+GetReaction(Model_t *m, unsigned int level, unsigned int version) {
     int n = Model_getNumReactions(m);
     int i;
     Reaction_t *r;
@@ -432,8 +436,8 @@ add_product(int i, int j, char *name, double s) {
     r->spr[j] = s;
 }
 
-int 
-dump_reactions (void) {
+int
+dump_reactions(void) {
     int i, j;
     int npr, nre;
     RXN *r;
@@ -452,8 +456,8 @@ dump_reactions (void) {
         plintf("\n");
     }
 }
-int 
-dump_events (void) {
+int
+dump_events(void) {
     int i, j, na;
     EVENT *ev;
     if (Nevent == 0)
@@ -467,8 +471,8 @@ dump_events (void) {
         plintf("%s}\n", ev->a[na - 1]);
     }
 }
-int 
-dump_funs (void) {
+int
+dump_funs(void) {
     int i, j;
     FUN_DEF *f;
     for (i = 0; i < Nfuns; i++) {
@@ -479,8 +483,8 @@ dump_funs (void) {
         plintf(")=%s\n", f->formula);
     }
 }
-int 
-dump_rules (void) {
+int
+dump_rules(void) {
     RULE *r;
     int i;
     if (Nrule > 0)
@@ -490,8 +494,8 @@ dump_rules (void) {
         plintf("%s=%s\n", r->v, r->f);
     }
 }
-int 
-dump_species (void) {
+int
+dump_species(void) {
     SPECIES *x;
     int i;
     plintf("SPECIES: n i t\n");
@@ -502,8 +506,8 @@ dump_species (void) {
     }
 }
 
-int 
-dump_parameters (void) {
+int
+dump_parameters(void) {
     int i;
     plintf("PARAMETERS:\n");
     for (i = 0; i < Npar; i++)
@@ -537,7 +541,8 @@ add_species(int i, char *name, char *id, double x0, int bc, int c, char *tc) {
     x->rule = 0;
 }
 
-void GetSpecies(Model_t *pModel, unsigned int level, unsigned int version) {
+void
+GetSpecies(Model_t *pModel, unsigned int level, unsigned int version) {
     int n = Model_getNumSpecies(pModel);
     char *pacTypecode;
     char *pacName;
@@ -572,7 +577,8 @@ void GetSpecies(Model_t *pModel, unsigned int level, unsigned int version) {
     }
 }
 
-void GetParameter(Model_t *pModel, unsigned int level, unsigned int version)
+void
+GetParameter(Model_t *pModel, unsigned int level, unsigned int version)
 
 {
 
@@ -604,7 +610,8 @@ void GetParameter(Model_t *pModel, unsigned int level, unsigned int version)
     }
 }
 
-char *TypecodeToChar(SBMLTypeCode_t typecode) {
+char *
+TypecodeToChar(SBMLTypeCode_t typecode) {
     char *pacTypecode;
 
     switch (typecode) {
@@ -692,8 +699,9 @@ char *TypecodeToChar(SBMLTypeCode_t typecode) {
     return pacTypecode;
 }
 
-void GetListRule(Model_t *pModel, unsigned int unSBMLLevel,
-                 unsigned int unSBMLVersion) {
+void
+GetListRule(Model_t *pModel, unsigned int unSBMLLevel,
+            unsigned int unSBMLVersion) {
     int n = Model_getNumRules(pModel);
     /* determine the values */
     const char *pacTypecode;
@@ -807,8 +815,8 @@ find_species(char *s) {
     }
     return -1;
 }
-int 
-mark_rule_pars (void) {
+int
+mark_rule_pars(void) {
     int i, j;
     RULE *r;
     for (i = 0; i < Nrule; i++) {
@@ -836,8 +844,8 @@ is_blank(char *s) {
 /* this searches all reactions and finds the
    partici[ating species and marks them
 */
-int 
-species_participation (void) {
+int
+species_participation(void) {
     int i, j, k, l;
     RXN *r;
     SPECIES *s;
@@ -921,7 +929,8 @@ strrep(char *sold, char *snew, char *sfnd, char *srep) {
     }
 }
 /* finds s1 in s2  starting at j0 */
-int strfnd(char *s1, char *s2, int j0) {
+int
+strfnd(char *s1, char *s2, int j0) {
     int r = -1, false;
     int i = 0, k = 0, l;
     int n1 = strlen(s1), n2 = strlen(s2);
@@ -960,15 +969,14 @@ fix_long_names(char *big, char *bigp) {
     }
     strcpy(bigp, z);
 }
-static int 
-z_sort (LONG_NAMES *sy1, LONG_NAMES *sy2)
-{
+static int
+z_sort(LONG_NAMES *sy1, LONG_NAMES *sy2) {
     if (strlen(sy1->src) > strlen(sy2->src))
         return -1;
     return 1;
 }
-int 
-sort_long_names (void) {
+int
+sort_long_names(void) {
     int i;
     if (lnum < 2)
         return; /* nothing to sort ! */

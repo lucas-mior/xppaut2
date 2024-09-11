@@ -59,7 +59,8 @@ DLFUN dlf;
 void *dlhandle;
 double (*fun)();
 int dll_loaded = 0;
-void auto_load_dll() {
+void
+auto_load_dll() {
     if (dll_flag == 3) {
         get_directory(cur_dir);
         plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib, dll_fun);
@@ -70,8 +71,8 @@ void auto_load_dll() {
     }
 }
 
-void 
-load_new_dll (void) {
+void
+load_new_dll(void) {
     int status;
     if (dlf.loaded != 0 && dlhandle != NULL)
         dlclose(dlhandle);
@@ -85,8 +86,9 @@ load_new_dll (void) {
 
 #define MAXW 50
 
-void get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
-                       double *wgt[MAXW], double *var, double *con) {
+void
+get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
+                  double *wgt[MAXW], double *var, double *con) {
     int i;
     char sofullname[256];
     char *error;
@@ -116,7 +118,8 @@ void get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
     dll_loaded = 1;
     fun(n, ivar, con, var, wgt, ydot);
 }
-int my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
+int
+my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
     char *error;
     if (dlf.loaded == -1)
         return (0);
@@ -153,18 +156,23 @@ int my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
 }
 #else
 
-void get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
-                       double *wgt[MAXW], double *var, double *con) {}
-int 
-load_new_dll (void) {}
-my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {}
+void
+get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
+                  double *wgt[MAXW], double *var, double *con) {
+}
+int
+load_new_dll(void) {
+}
+my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
+}
 
-int 
-auto_load_dll (void) {}
+int
+auto_load_dll(void) {
+}
 #endif
 
-void 
-do_in_out (void) {
+void
+do_in_out(void) {
     int i;
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
@@ -184,7 +192,8 @@ do_in_out (void) {
     }
 }
 
-void add_export_list(char *in, char *out) {
+void
+add_export_list(char *in, char *out) {
     int l1 = strlen(in);
     int l2 = strlen(out);
     int i;
@@ -205,15 +214,16 @@ void add_export_list(char *in, char *out) {
     /* plintf(" in %d out %d \n",in_out.nin,in_out.nout); */
 }
 
-void 
-check_inout (void) {
+void
+check_inout(void) {
     int i;
     for (i = 0; i < in_out.nin; i++)
         plintf(" type=%d index=%d \n", in_out.intype[i], in_out.in[i]);
     for (i = 0; i < in_out.nout; i++)
         plintf(" type=%d index=%d \n", in_out.outtype[i], in_out.out[i]);
 }
-int get_export_count(char *s) {
+int
+get_export_count(char *s) {
     int i = 0;
     int j;
     int l = strlen(s);
@@ -224,8 +234,8 @@ int get_export_count(char *s) {
     return (i);
 }
 
-void 
-do_export_list (void) {
+void
+do_export_list(void) {
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
     parse_inout(in_out.lin, 0);
@@ -233,7 +243,8 @@ do_export_list (void) {
     /* check_inout(); */
 }
 
-void parse_inout(char *l, int flag) {
+void
+parse_inout(char *l, int flag) {
     int i = 0, j = 0;
     int k = 0, index;
     char new[20], c;

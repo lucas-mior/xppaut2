@@ -23,7 +23,8 @@ Window make_fancy_window();
 extern int DCURYs, DCURXs, CURY_OFFs;
 extern GC small_gc;
 
-void user_button_events(XEvent report) {
+void
+user_button_events(XEvent report) {
     switch (report.type) {
     case Expose:
     case MapNotify:
@@ -40,7 +41,8 @@ void user_button_events(XEvent report) {
         break;
     }
 }
-void user_button_press(Window w) {
+void
+user_button_press(Window w) {
     int i;
     for (i = 0; i < nuserbut; i++) {
         if (w == userbut[i].w) {
@@ -49,15 +51,16 @@ void user_button_press(Window w) {
     }
 }
 
-void 
-draw_all_user_buttons (void) {
+void
+draw_all_user_buttons(void) {
     int i = 0;
     for (i = 0; i < nuserbut; i++) {
         user_button_draw(userbut[i].w);
     }
 }
 
-void user_button_draw(Window w) {
+void
+user_button_draw(Window w) {
     int i;
     for (i = 0; i < nuserbut; i++) {
         if (w == userbut[i].w) {
@@ -68,7 +71,8 @@ void user_button_draw(Window w) {
     }
 }
 
-void user_button_cross(Window w, int b) {
+void
+user_button_cross(Window w, int b) {
     int i;
     for (i = 0; i < nuserbut; i++)
         if (w == userbut[i].w) {
@@ -77,7 +81,8 @@ void user_button_cross(Window w, int b) {
         }
 }
 
-int get_button_info(char *s, char *bname, char *sc) {
+int
+get_button_info(char *s, char *bname, char *sc) {
     int i = 0, j = 0, f = 0, n = strlen(s);
     char c;
     if (n == 0)
@@ -109,7 +114,8 @@ int get_button_info(char *s, char *bname, char *sc) {
     return (1);
 }
 
-int find_kbs(char *sc) {
+int
+find_kbs(char *sc) {
     int i = 0;
     while (1) {
         if (strcmp(sc, kbs[i].seq) == 0)
@@ -120,7 +126,8 @@ int find_kbs(char *sc) {
     }
 }
 
-void add_user_button(char *s) {
+void
+add_user_button(char *s) {
     char bname[10], sc[10];
     int z;
     if (nuserbut >= USERBUTMAX)
@@ -151,7 +158,8 @@ void add_user_button(char *s) {
     nuserbut++;
 }
 
-void create_user_buttons(int x0, int y0, Window base) {
+void
+create_user_buttons(int x0, int y0, Window base) {
     int i;
     int x = x0;
     int l;

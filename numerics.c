@@ -107,33 +107,34 @@ extern int storind;
 
 extern int NODE, NEQ; /* as well as the number of odes etc  */
 
-void 
-chk_volterra (void) {
+void
+chk_volterra(void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
 }
 
-void 
-check_pos (int *j)
-{
+void
+check_pos(int *j) {
     if (*j <= 0)
         *j = 1;
 }
 
-void quick_num(int com) {
+void
+quick_num(int com) {
     char key[] = "tsrdnviobec";
     if (com >= 0 && com < 11)
         get_num_par(key[com]);
 }
 
-void set_total(double total) {
+void
+set_total(double total) {
     int n;
     n = (total / fabs(DELTA_T)) + 1;
     TEND = n * fabs(DELTA_T);
 }
 
-void 
-get_num_par (int ch)
+void
+get_num_par(int ch)
 
 {
     double temp;
@@ -352,8 +353,8 @@ get_num_par (int ch)
     } /* End num switch */
 }
 
-void 
-chk_delay (void) {
+void
+chk_delay(void) {
     if (DELAY > 0.0) {
         free_delay();
         if (alloc_delay(DELAY)) {
@@ -363,8 +364,8 @@ chk_delay (void) {
         free_delay();
 }
 
-void 
-set_delay (void) {
+void
+set_delay(void) {
     if (NDELAYS == 0)
         return;
     if (DELAY > 0.0) {
@@ -375,8 +376,8 @@ set_delay (void) {
     }
 }
 
-void 
-ruelle (void) {
+void
+ruelle(void) {
     new_int("x-axis shift ", &(MyGraph->xshft));
     new_int("y-axis shift ", &(MyGraph->yshft));
     new_int("z-axis shift", &(MyGraph->zshft));
@@ -388,8 +389,8 @@ ruelle (void) {
         MyGraph->zshft = 0;
 }
 
-void 
-init_numerics (void)
+void
+init_numerics(void)
 /*    these are the default values of the numerical parameters   */
 {
 
@@ -428,8 +429,8 @@ init_numerics (void)
     SOS = 0;
 }
 
-void 
-meth_dialog (void) {
+void
+meth_dialog(void) {
     /*static char *n[]={"*6Method","Abs tol","Rel Tol","DtMin","DtMax",
                       "Banded(y/n)","UpperBand","LowerBand"};*/
     char values[8][MAX_LEN_SBOX];
@@ -438,7 +439,8 @@ meth_dialog (void) {
     sprintf(values[2], "%g", TOLER);
 }
 
-void compute_one_period(double period, double *x, char *name) {
+void
+compute_one_period(double period, double *x, char *name) {
     int opm = POIMAP;
     char filename[256];
     double ot = TRANS, ote = TEND;
@@ -486,7 +488,8 @@ void compute_one_period(double period, double *x, char *name) {
     POIMAP = opm;
     TEND = ote;
 }
-void get_pmap_pars_com(int l) {
+void
+get_pmap_pars_com(int l) {
     static char mkey[] = "nsmp";
     char ch;
     static char *n[] = {"*0Variable", "Section", "Direction (+1,-1,0)",
@@ -533,8 +536,8 @@ void get_pmap_pars_com(int l) {
     }
 }
 
-void 
-get_method (void) {
+void
+get_method(void) {
     char ch;
     int i;
     int nmeth;
@@ -562,7 +565,8 @@ get_method (void) {
     /* XDestroyWindow(display,temp); */
 }
 
-void user_set_color_par(int flag, char *via, double lo, double hi) {
+void
+user_set_color_par(int flag, char *via, double lo, double hi) {
     int ivar;
     MyGraph->min_scale = lo;
     if (hi > lo)
@@ -586,7 +590,8 @@ void user_set_color_par(int flag, char *via, double lo, double hi) {
     }
 }
 
-void set_col_par_com(int i) {
+void
+set_col_par_com(int i) {
     int j, ivar;
     double temp[2];
     float maxder = 0.0, minder = 0.0, sum = 0.0;
@@ -657,8 +662,8 @@ void set_col_par_com(int i) {
     }
 }
 
-void 
-do_meth (void) {
+void
+do_meth(void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
     switch (METHOD) {

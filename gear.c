@@ -50,8 +50,9 @@ double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
 
 void write_mybrowser_data();
 
-void silent_fixpt(double *x, double eps, double err, double big, int maxit,
-                  int n, double *er, double *em, int *ierr) {
+void
+silent_fixpt(double *x, double eps, double err, double big, int maxit, int n,
+             double *er, double *em, int *ierr) {
     int kmem, i, j;
 
     double *work, *eval, *b, *bp, *oldwork, *ework;
@@ -103,9 +104,9 @@ void silent_fixpt(double *x, double eps, double err, double big, int maxit,
 } /* end silent fixed point  */
 
 /* main fixed point finder */
-void 
-do_sing (double *x, double eps, double err, double big, int maxit, int n, int *ierr, float *stabinfo)
-{
+void
+do_sing(double *x, double eps, double err, double big, int maxit, int n,
+        int *ierr, float *stabinfo) {
     int kmem, i, j, ipivot[MAXODE];
     int oldcol, dummy;
     int rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
@@ -334,8 +335,8 @@ do_sing (double *x, double eps, double err, double big, int maxit, int n, int *i
     return;
 }
 
-void 
-save_batch_shoot (void) {
+void
+save_batch_shoot(void) {
     int i, k, type, oldcol, dummy;
     double x[MAXODE], olddt;
     char name[256];
@@ -372,9 +373,9 @@ save_batch_shoot (void) {
     }
     DELTA_T = olddt;
 }
-void 
-shoot_this_now (void) /* this uses the current labeled saddle point stuff to
-                         integrate */
+void
+shoot_this_now(void) /* this uses the current labeled saddle point stuff to
+                        integrate */
 {
     int i, k, type, oldcol, dummy;
     double x[MAXODE], olddt;
@@ -404,9 +405,9 @@ shoot_this_now (void) /* this uses the current labeled saddle point stuff to
 }
 
 /* fixed point with no requests and store manifolds */
-void 
-do_sing_info (double *x, double eps, double err, double big, int maxit, int n, double *er, double *em, int *ierr)
-{
+void
+do_sing_info(double *x, double eps, double err, double big, int maxit, int n,
+             double *er, double *em, int *ierr) {
     int kmem, i, j, ipivot[MAXODE];
 
     int rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
@@ -554,9 +555,8 @@ do_sing_info (double *x, double eps, double err, double big, int maxit, int n, d
     return;
 }
 
-void 
-pr_evec (double *x, double *ev, int n, int pr, double eval, int type)
-{
+void
+pr_evec(double *x, double *ev, int n, int pr, double eval, int type) {
 
     int i;
     double d = fabs(DELTA_T) * .1;
@@ -582,9 +582,9 @@ pr_evec (double *x, double *ev, int n, int pr, double eval, int type)
     */
 }
 
-void 
-get_complex_evec (double *m, double evr, double evm, double *br, double *bm, int n, int maxit, double err, int *ierr)
-{
+void
+get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
+                 int n, int maxit, double err, int *ierr) {
     double *a, *anew;
     int *ipivot;
     double *b, *bp;
@@ -626,9 +626,9 @@ get_complex_evec (double *m, double evr, double evm, double *br, double *bm, int
     free(ipivot);
 }
 
-void 
-get_evec (double *a, double *anew, double *b, double *bp, int n, int maxit, double err, int *ipivot, double eval, int *ierr)
-{
+void
+get_evec(double *a, double *anew, double *b, double *bp, int n, int maxit,
+         double err, int *ipivot, double eval, int *ierr) {
     int j, iter, jmax;
     double temp;
     double zz = fabs(eval);
@@ -699,17 +699,15 @@ get_evec (double *a, double *anew, double *b, double *bp, int n, int maxit, doub
     return;
 }
 
-void 
-eigen (int n, double *a, double *ev, double *work, int *ierr)
-{
+void
+eigen(int n, double *a, double *ev, double *work, int *ierr) {
 
     orthesx(n, 1, n, a, work);
     hqrx(n, 1, n, a, ev, ierr);
 }
 
-void 
-hqrx (int n, int low, int igh, double *h, double *ev, int *ierr)
-{
+void
+hqrx(int n, int low, int igh, double *h, double *ev, int *ierr) {
     int i, j, k, l = 0, m = 0, en, ll, mm, na, its, mp2, enm2;
     double p = 0.0, q = 0.0, r = 0.0, s, t, w, x, y, zz, norm, machep = 1.e-10;
     int notlas;
@@ -873,9 +871,8 @@ l330:
 l1000:
     *ierr = en;
 }
-void 
-orthesx (int n, int low, int igh, double *a, double *ort)
-{
+void
+orthesx(int n, int low, int igh, double *a, double *ort) {
     int i, j, m, ii, jj, la, mp, kp1;
     double f, g, h, scale;
     la = igh - 1;
@@ -931,32 +928,30 @@ orthesx (int n, int low, int igh, double *a, double *ort)
     }
 }
 
-double 
-sign (double x, double y)
-{
+double
+sign(double x, double y) {
     if (y >= 0.0)
         return (fabs(x));
     return (-fabs(x));
 }
 
-int 
-imin (int x, int y)
-{
+int
+imin(int x, int y) {
     if (x < y)
         return (x);
     return (y);
 }
 
-double 
-amax (double u, double v)
-{
+double
+amax(double u, double v) {
     if (u > v)
         return (u);
     return (v);
 }
 
-void 
-getjac (double *x, double *y, double *yp, double *xp, double eps, double *dermat, int n)
+void
+getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
+       int n)
 
 {
     int i, j, k;
@@ -988,8 +983,9 @@ getjac (double *x, double *y, double *yp, double *xp, double eps, double *dermat
     }
 }
 
-void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
-                 double *dermat, int n)
+void
+getjactrans(double *x, double *y, double *yp, double *xp, double eps,
+            double *dermat, int n)
 
 {
     int i, j, k;
@@ -1013,9 +1009,9 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
     }
 }
 
-void 
-rooter (double *x, double err, double eps, double big, double *work, int *ierr, int maxit, int n)
-{
+void
+rooter(double *x, double err, double eps, double big, double *work, int *ierr,
+       int maxit, int n) {
     int i, iter, ipivot[MAXODE], info;
     char ch;
     double *xp, *yp, *y, *xg, *dermat, *dely;
@@ -1083,13 +1079,15 @@ rooter (double *x, double err, double eps, double big, double *work, int *ierr, 
     }
 }
 
-double 
-sqr2 (double z)
-{ return (z * z); }
+double
+sqr2(double z) {
+    return (z * z);
+}
 
-int 
-gear (int n, double *t, double tout, double *y, double hmin, double hmax, double eps, int mf, double *error, int *kflag, int *jstart, double *work, int *iwork)
-{
+int
+gear(int n, double *t, double tout, double *y, double hmin, double hmax,
+     double eps, int mf, double *error, int *kflag, int *jstart, double *work,
+     int *iwork) {
     if (NFlags == 0)
         return (ggear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart,
                       work, iwork));
@@ -1097,8 +1095,10 @@ gear (int n, double *t, double tout, double *y, double hmin, double hmax, double
                                jstart, work, iwork));
 }
 
-int 
-ggear (int n, double *t, double tout, double *y, double hmin, double hmax, double eps, int mf, double *error, int *kflag, int *jstart, double *work, int *iwork)
+int
+ggear(int n, double *t, double tout, double *y, double hmin, double hmax,
+      double eps, int mf, double *error, int *kflag, int *jstart, double *work,
+      int *iwork)
 
 {
     /* int ipivot[MAXODE]; */
@@ -1594,34 +1594,30 @@ L860:
     return (1);
 }
 
-double 
-sgnum (double x, double y)
-{
+double
+sgnum(double x, double y) {
     if (y < 0.0)
         return (-fabs(x));
     else
         return (fabs(x));
 }
 
-double 
-Max (double x, double y)
-{
+double
+Max(double x, double y) {
     if (x > y)
         return (x);
     return (y);
 }
 
-double 
-Min (double x, double y)
-{
+double
+Min(double x, double y) {
     if (x < y)
         return (x);
     return (y);
 }
 
-void 
-sgefa (double *a, int lda, int n, int *ipvt, int *info)
-{
+void
+sgefa(double *a, int lda, int n, int *ipvt, int *info) {
     int j, k, kp1, l, nm1;
     double t;
     *info = -1;
@@ -1657,9 +1653,8 @@ sgefa (double *a, int lda, int n, int *ipvt, int *info)
         *info = n - 1;
 }
 
-void 
-sgesl (double *a, int lda, int n, int *ipvt, double *b, int job)
-{
+void
+sgesl(double *a, int lda, int n, int *ipvt, double *b, int job) {
     int k, kb, l, nm1;
     double t;
     nm1 = n - 1;
@@ -1705,9 +1700,8 @@ sgesl (double *a, int lda, int n, int *ipvt, double *b, int job)
     }
 }
 
-void 
-saxpy (int n, double sa, double *sx, int incx, double *sy, int incy)
-{
+void
+saxpy(int n, double sa, double *sx, int incx, double *sy, int incy) {
     int i, ix, iy;
     if (n <= 0)
         return;
@@ -1723,9 +1717,8 @@ saxpy (int n, double sa, double *sx, int incx, double *sy, int incy)
         sy[iy] = sy[iy] + sa * sx[ix];
 }
 
-int 
-isamax (int n, double *sx, int incx)
-{
+int
+isamax(int n, double *sx, int incx) {
     int i, ix, imax;
     double smax;
     if (n < 1)
@@ -1756,9 +1749,8 @@ isamax (int n, double *sx, int incx)
     return (imax);
 }
 
-double 
-sdot (int n, double *sx, int incx, double *sy, int incy)
-{
+double
+sdot(int n, double *sx, int incx, double *sy, int incy) {
     int i, ix, iy;
     double stemp = 0.0;
     if (n <= 0)
@@ -1774,9 +1766,8 @@ sdot (int n, double *sx, int incx, double *sy, int incy)
     return (stemp);
 }
 
-void 
-sscal (int n, double sa, double *sx, int incx)
-{
+void
+sscal(int n, double sa, double *sx, int incx) {
     int i, nincx;
     if (n <= 0)
         return;

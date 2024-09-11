@@ -25,9 +25,9 @@ void sgesl(double *a, int n, int m, int *ip, double *b, int);
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int rg(int64 nm, int64 n, double *a, double *wr,
-                        double *wi, int64 matz, double *z__,
-                        int64 *iv1, double *fv1, int64 *ierr) {
+/* Subroutine */ int
+rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
+   double *z__, int64 *iv1, double *fv1, int64 *ierr) {
     /* System generated locals */
     int64 a_dim1, a_offset, z_dim1, z_offset;
 
@@ -126,9 +126,9 @@ L50:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int hqr(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                         double *h__, double *wr, double *wi,
-                         int64 *ierr) {
+/* Subroutine */ int
+hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
+    double *wi, int64 *ierr) {
     /* System generated locals */
     int64 h_dim1, h_offset, i__1, i__2, i__3;
     double d__1, d__2;
@@ -472,9 +472,9 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                          double *h__, double *wr, double *wi,
-                          double *z__, int64 *ierr) {
+/* Subroutine */ int
+hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
+     double *wi, double *z__, int64 *ierr) {
     /* System generated locals */
     int64 h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
     double d__1, d__2, d__3, d__4;
@@ -1157,8 +1157,8 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int cdiv(double *ar, double *ai, double *br,
-                          double *bi, double *cr, double *ci) {
+/* Subroutine */ int
+cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
     /* System generated locals */
     double d__1, d__2;
 
@@ -1184,8 +1184,8 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int balanc(int64 *nm, int64 *n, double *a,
-                            int64 *low, int64 *igh, double *scale) {
+/* Subroutine */ int
+balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
     /* System generated locals */
     int64 a_dim1, a_offset, i__1, i__2;
     double d__1;
@@ -1435,8 +1435,9 @@ L280:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int balbak(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                            double *scale, int64 *m, double *z__) {
+/* Subroutine */ int
+balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
+       double *z__) {
     /* System generated locals */
     int64 z_dim1, z_offset, i__1, i__2;
 
@@ -1546,8 +1547,8 @@ L200:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                            double *a, int64 *int__) {
+/* Subroutine */ int
+elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
     /* System generated locals */
     int64 a_dim1, a_offset, i__1, i__2, i__3;
     double d__1;
@@ -1687,8 +1688,9 @@ L200:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int eltran(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                            double *a, int64 *int__, double *z__) {
+/* Subroutine */ int
+eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
+       double *z__) {
     /* System generated locals */
     int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2;
 
@@ -1802,8 +1804,8 @@ L200:
 /*  EISPACK routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzhes(int64 nm, int64 n, double *a, double *b,
-                           logical matz, double *z__) {
+/* Subroutine */ int
+qzhes(int64 nm, int64 n, double *a, double *b, logical matz, double *z__) {
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
@@ -2084,9 +2086,9 @@ L170:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzit(int64 nm, int64 n, double *a, double *b,
-                          double eps1, logical matz, double *z__,
-                          int64 *ierr) {
+/* Subroutine */ int
+qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
+     double *z__, int64 *ierr) {
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
@@ -2611,9 +2613,9 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzval(int64 nm, int64 n, double *a, double *b,
-                           double *alfr, double *alfi, double *beta,
-                           logical matz, double *z__) {
+/* Subroutine */ int
+qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
+      double *beta, logical matz, double *z__) {
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
     double d__1, d__2, d__3, d__4;
@@ -2621,15 +2623,15 @@ L1001:
     /* Local variables */
     static double epsb, c__, d__, e;
     static int64 i__, j;
-    static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22,
-        b11, b12, b22, di, ei;
+    static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22, b11,
+        b12, b22, di, ei;
     static int64 na;
     static double an, bn;
     static int64 en;
     static double cq, dr;
     static int64 nn;
-    static double cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r,
-        sqi, ssi;
+    static double cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r, sqi,
+        ssi;
     static int64 isw;
     static double sqr, szi, ssr, szr;
 
@@ -2998,7 +3000,8 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-double epslon(double x) {
+double
+epslon(double x) {
     /* System generated locals */
     double ret_val, d__1;
 
@@ -3045,7 +3048,8 @@ L10:
 /*  BLAS-1 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-double dnrm2(int64 *n, double *dx, int64 *incx) {
+double
+dnrm2(int64 *n, double *dx, int64 *incx) {
     /* Initialized data */
 
     static double zero = 0.;
@@ -3233,8 +3237,8 @@ L300:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-double ddot(int64 *n, double *dx, int64 *incx, double *dy,
-                int64 *incy) {
+double
+ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     /* System generated locals */
     int64 i__1;
     double ret_val;
@@ -3316,8 +3320,8 @@ L60:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dscal(int64 *n, double *da, double *dx,
-                           int64 *incx) {
+/* Subroutine */ int
+dscal(int64 *n, double *da, double *dx, int64 *incx) {
     /* System generated locals */
     int64 i__1, i__2;
 
@@ -3383,7 +3387,8 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-int64 idamax(int64 *n, double *dx, int64 *incx) {
+int64
+idamax(int64 *n, double *dx, int64 *incx) {
     /* System generated locals */
     int64 ret_val, i__1;
     double d__1;
@@ -3447,8 +3452,8 @@ L20:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int daxpy(int64 *n, double *da, double *dx,
-                           int64 *incx, double *dy, int64 *incy) {
+/* Subroutine */ int
+daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
     /* System generated locals */
     int64 i__1;
 
@@ -3526,9 +3531,9 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int drot(int64 *n, double *dx, int64 *incx,
-                          double *dy, int64 *incy, double *c__,
-                          double *s) {
+/* Subroutine */ int
+drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
+     double *s) {
     /* System generated locals */
     int64 i__1;
 
@@ -3589,8 +3594,8 @@ L20:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dswap(int64 *n, double *dx, int64 *incx,
-                           double *dy, int64 *incy) {
+/* Subroutine */ int
+dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     /* System generated locals */
     int64 i__1;
 
@@ -3676,8 +3681,9 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dgemc(int64 *m, int64 *n, double *a, int64 *lda,
-                           double *b, int64 *ldb, logical *trans) {
+/* Subroutine */ int
+dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
+      logical *trans) {
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
 
@@ -3778,7 +3784,8 @@ L40:
 /*  BLAS-2 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int xerbla(char *srname, int64 *info, int64 srname_len) {
+/* Subroutine */ int
+xerbla(char *srname, int64 *info, int64 srname_len) {
     /* Format strings */
 
     /* Builtin functions */
@@ -3829,7 +3836,8 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
+logical
+lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
     /* System generated locals */
     logical ret_val;
 
@@ -3922,11 +3930,10 @@ logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 /*  BLAS-3 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dgemm(char *transa, char *transb, int64 *m, int64 *n,
-                           int64 *k, double *alpha, double *a,
-                           int64 *lda, double *b, int64 *ldb,
-                           double *beta, double *c__, int64 *ldc,
-                           int64 transa_len, int64 transb_len) {
+/* Subroutine */ int
+dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
+      double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
+      int64 *ldc, int64 transa_len, int64 transb_len) {
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
         i__3;
@@ -4325,11 +4332,10 @@ logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ezsvd(double *x, int64 *ldx, int64 *n, int64 *p,
-                           double *s, double *e, double *u,
-                           int64 *ldu, double *v, int64 *ldv,
-                           double *work, int64 *job, int64 *info,
-                           double *tol) {
+/* Subroutine */ int
+ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
+      double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
+      int64 *info, double *tol) {
     /* System generated locals */
     int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset;
 
@@ -4403,8 +4409,8 @@ logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ndrotg(double *f, double *g, double *cs,
-                            double *sn) {
+/* Subroutine */ int
+ndrotg(double *f, double *g, double *cs, double *sn) {
 
     /* Local variables */
     static double t, tt;
@@ -4456,14 +4462,12 @@ logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ndsvd(double *x, int64 *ldx, int64 *n, int64 *p,
-                           double *s, double *e, double *u,
-                           int64 *ldu, double *v, int64 *ldv,
-                           double *work, int64 *job, int64 *info,
-                           int64 *maxitr, double *tol, int64 *idbg,
-                           int64 *ifull, int64 *kount, int64 *kount1,
-                           int64 *kount2, int64 *skip, int64 *limshf,
-                           double *maxsin, int64 *iidir) {
+/* Subroutine */ int
+ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
+      double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
+      int64 *info, int64 *maxitr, double *tol, int64 *idbg, int64 *ifull,
+      int64 *kount, int64 *kount1, int64 *kount2, int64 *skip, int64 *limshf,
+      double *maxsin, int64 *iidir) {
     /* System generated locals */
     int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2,
         i__3;
@@ -5747,8 +5751,8 @@ L996:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol,
-                          double *s, double *e) {
+/* Subroutine */ int
+prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
     /* Format strings */
 
     /* System generated locals */
@@ -5787,16 +5791,15 @@ L996:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int sig22(double *a, double *b, double *c__,
-                           double *sigmin, double *sigmax,
-                           double *snr, double *csr, double *snl,
-                           double *csl) {
+/* Subroutine */ int
+sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
+      double *snr, double *csr, double *snl, double *csl) {
     /* System generated locals */
     double d__1, d__2;
 
     /* Local variables */
-    static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl,
-        sinl, cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
+    static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl, sinl,
+        cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
     static int64 ia;
     static double absbac;
     static int64 ib;
@@ -6041,7 +6044,8 @@ L996:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-double sigmin(double *a, double *b, double *c__) {
+double
+sigmin(double *a, double *b, double *c__) {
     /* System generated locals */
     double ret_val, d__1, d__2;
 
@@ -6096,8 +6100,8 @@ double sigmin(double *a, double *b, double *c__) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int sndrtg(double *f, double *g, double *cs,
-                            double *sn) {
+/* Subroutine */ int
+sndrtg(double *f, double *g, double *cs, double *sn) {
     /* System generated locals */
     double d__1;
 
@@ -6140,10 +6144,10 @@ double sigmin(double *a, double *b, double *c__) {
 
 /*  hqr3_loc.f orthes.f ortran.f   for computing triangular matrix */
 
-/* Subroutine */ int hqr3lc(double *a, double *v, int64 *n,
-                            int64 *nlow, int64 *nup, double *eps,
-                            double *er, double *ei, int64 *type__,
-                            int64 *na, int64 *nv, int64 *imfd) {
+/* Subroutine */ int
+hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
+       double *er, double *ei, int64 *type__, int64 *na, int64 *nv,
+       int64 *imfd) {
     /* System generated locals */
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
@@ -6540,9 +6544,9 @@ L310:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int split(double *a, double *v, int64 *n, int64 *l,
-                           double *e1, double *e2, int64 *na,
-                           int64 *nv) {
+/* Subroutine */ int
+split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
+      int64 *na, int64 *nv) {
     /* System generated locals */
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2;
@@ -6682,10 +6686,9 @@ L80:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int exchng(double *a, double *v, int64 *n,
-                            int64 *l, int64 *b1, int64 *b2,
-                            double *eps, logical *fail, int64 *na,
-                            int64 *nv) {
+/* Subroutine */ int
+exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
+       double *eps, logical *fail, int64 *na, int64 *nv) {
     /* System generated locals */
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
@@ -6854,9 +6857,9 @@ L90:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qrstep(double *a, double *v, double *p,
-                            double *q, double *r__, int64 *nl,
-                            int64 *nu, int64 *n, int64 *na, int64 *nv) {
+/* Subroutine */ int
+qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
+       int64 *nu, int64 *n, int64 *na, int64 *nv) {
     /* System generated locals */
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1, i__2;
     double d__1, d__2, d__3;
@@ -7010,8 +7013,8 @@ L30:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int orthes(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                            double *a, double *ort) {
+/* Subroutine */ int
+orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
     /* System generated locals */
     int64 a_dim1, a_offset, i__1, i__2, i__3;
     double d__1;
@@ -7163,8 +7166,9 @@ L200:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ortran(int64 *nm, int64 *n, int64 *low, int64 *igh,
-                            double *a, double *ort, double *z__) {
+/* Subroutine */ int
+ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
+       double *z__) {
     /* System generated locals */
     int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2, i__3;
 
@@ -7290,7 +7294,8 @@ L200:
     return 0;
 } /* ortran_ */
 
-double dotp(double *p, double *q, int n) {
+double
+dotp(double *p, double *q, int n) {
     double z = 0.0;
     int i;
     for (i = 0; i < n; i++)
@@ -7298,7 +7303,8 @@ double dotp(double *p, double *q, int n) {
     return z;
 }
 
-int get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
+int
+get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
     double *at, *a, *z, *wr, *wi, *fv1;
     int i, j, k, kt, *iv1, ier;
     double eps = 1e-8;
@@ -7356,8 +7362,8 @@ int get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
     return (ier);
 }
 
-void 
-test_matrix_stuff (void) {
+void
+test_matrix_stuff(void) {
     /* what is called At (a-transpose) gives the eigenvectors
        for what I would call A
     */

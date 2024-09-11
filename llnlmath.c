@@ -17,7 +17,8 @@
 #define ONE RCONST(1.0)
 #define TWO RCONST(2.0)
 
-real UnitRoundoff(void) {
+real
+UnitRoundoff(void) {
     real u;
     volatile real one_plus_u;
 
@@ -32,7 +33,8 @@ real UnitRoundoff(void) {
     return (u);
 }
 
-real RPowerI(real base, int exponent) {
+real
+RPowerI(real base, int exponent) {
     int i, expt;
     real prod;
 
@@ -45,7 +47,8 @@ real RPowerI(real base, int exponent) {
     return (prod);
 }
 
-real RPowerR(real base, real exponent) {
+real
+RPowerR(real base, real exponent) {
 
     if (base <= ZERO)
         return (ZERO);
@@ -53,7 +56,8 @@ real RPowerR(real base, real exponent) {
     return ((real)pow((double)base, (double)exponent));
 }
 
-real RSqrt(real x) {
+real
+RSqrt(real x) {
     if (x <= ZERO)
         return (ZERO);
 

@@ -204,9 +204,8 @@ void silent_nullclines();
 
 int popped = 0;
 
-void 
-do_main (int argc, char **argv)
-{
+void
+do_main(int argc, char **argv) {
     /* Moved to init_X() */
     /*  char *icon_name="xpp"; */
     /*char myfile[256];*/
@@ -550,9 +549,8 @@ do_main (int argc, char **argv)
     do_events(min_wid, min_hgt);
 }
 
-void 
-check_for_quiet (int argc, char **argv)
-{
+void
+check_for_quiet(int argc, char **argv) {
     /*First scan, check for any QUIET option set...*/
     int i = 0;
     /*Allow for multiple calls to the QUIET and LOGFILE options
@@ -585,15 +583,15 @@ check_for_quiet (int argc, char **argv)
     }
 }
 
-void 
-do_vis_env (void) {
+void
+do_vis_env(void) {
     set_X_vals();
     check_for_xpprc();
     set_internopts_xpprc_and_comline();
 }
 
-void 
-init_X (void) {
+void
+init_X(void) {
     char *icon_name = "xpp";
     char *win_name = "XPPAUT";
     unsigned int x = 0, y = 0;
@@ -809,16 +807,16 @@ init_X (void) {
      */
 }
 
-void 
-set_big_font (void) {
+void
+set_big_font(void) {
     DCURX = DCURXb;
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
     XSetFont(display, gc, big_font->fid);
 }
 
-void 
-set_small_font (void) {
+void
+set_small_font(void) {
     DCURX = DCURXs;
     DCURY = DCURYs;
     CURY_OFF = CURY_OFFs;
@@ -847,7 +845,8 @@ set_small_font (void) {
    ig  runs XPP
 
 */
-int script_make(char *s, int *k) {
+int
+script_make(char *s, int *k) {
     int l = strlen(s);
     int i = 0;
     char c;
@@ -889,8 +888,8 @@ int script_make(char *s, int *k) {
     return j;
 }
 
-void 
-scripty (void) {
+void
+scripty(void) {
     /*  char scr[100]="piapp#r#b#b#b#b.12#r#rig"; */
     /* char scr[100]="eir#t"; */
     char scr[100] = "edf#b#b8#r";
@@ -906,7 +905,8 @@ scripty (void) {
     }
 }
 
-void xpp_events(XEvent report, int min_wid, int min_hgt) {
+void
+xpp_events(XEvent report, int min_wid, int min_hgt) {
     /*int window_size,com;
      */
 
@@ -1032,9 +1032,8 @@ void xpp_events(XEvent report, int min_wid, int min_hgt) {
     } /* end switch */
 }
 
-void 
-do_events (unsigned int min_wid, unsigned int min_hgt)
-{
+void
+do_events(unsigned int min_wid, unsigned int min_hgt) {
     XEvent report;
 
     blank_screen(main_win);
@@ -1050,8 +1049,8 @@ do_events (unsigned int min_wid, unsigned int min_hgt)
     } /* end while */
 }
 
-void 
-bye_bye (void) {
+void
+bye_bye(void) {
     int i;
     yes_reset_auto();
     XUnloadFont(display, big_font->fid);
@@ -1067,15 +1066,15 @@ bye_bye (void) {
     exit(1);
 }
 
-void 
-clr_scrn (void) {
+void
+clr_scrn(void) {
     blank_screen(draw_win);
     restore_off();
     do_axes();
 }
 
-void 
-redraw_all (void) {
+void
+redraw_all(void) {
     if (manual_expose == 0) {
         redraw_dfield();
         restore(0, my_browser.maxrow);
@@ -1085,9 +1084,8 @@ redraw_all (void) {
     }
 }
 
-void 
-commander (int ch)
-{
+void
+commander(int ch) {
     switch (help_menu) {
     case MAIN_HELP: {
         switch (ch) {
@@ -1333,8 +1331,9 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 
          */
 
-XKeyEvent createKeyEvent(Window win, Window winRoot, int press, int keycode,
-                         int modifiers) {
+XKeyEvent
+createKeyEvent(Window win, Window winRoot, int press, int keycode,
+               int modifiers) {
     XKeyEvent event;
 
     event.display = display;
@@ -1358,9 +1357,9 @@ XKeyEvent createKeyEvent(Window win, Window winRoot, int press, int keycode,
     return event;
 }
 
-Window 
-init_win (unsigned int bw, char *icon_name, char *win_name, int x, int y, unsigned int min_wid, unsigned int min_hgt, int argc, char **argv)
-{
+Window
+init_win(unsigned int bw, char *icon_name, char *win_name, int x, int y,
+         unsigned int min_wid, unsigned int min_hgt, int argc, char **argv) {
     /*  XSetWindowAttributes xswa;
      XWindowAttributes xwa;
       */
@@ -1446,7 +1445,8 @@ init_win (unsigned int bw, char *icon_name, char *win_name, int x, int y, unsign
     return (wine);
 }
 
-void top_button_draw(Window w) {
+void
+top_button_draw(Window w) {
     if (w == TopButton[0])
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "ICs  ", 5);
     if (w == TopButton[1])
@@ -1461,7 +1461,8 @@ void top_button_draw(Window w) {
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Data ", 5);
 }
 
-void top_button_cross(Window w, int b) {
+void
+top_button_cross(Window w, int b) {
     int i;
     for (i = 0; i < 6; i++)
         if (w == TopButton[i]) {
@@ -1469,7 +1470,8 @@ void top_button_cross(Window w, int b) {
             return;
         }
 }
-void top_button_press(Window w) {
+void
+top_button_press(Window w) {
     if (w == TopButton[0]) {
         make_new_ic_box();
     }
@@ -1490,7 +1492,8 @@ void top_button_press(Window w) {
     }
 }
 
-void top_button_events(XEvent report) {
+void
+top_button_events(XEvent report) {
     switch (report.type) {
     case Expose:
     case MapNotify:
@@ -1508,8 +1511,8 @@ void top_button_events(XEvent report) {
     }
     user_button_events(report);
 }
-void 
-make_top_buttons (void) {
+void
+make_top_buttons(void) {
     int x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
     TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
                                      ColorMap(20), ColorMap(TOPBUTTONCOLOR));
@@ -1535,9 +1538,8 @@ make_top_buttons (void) {
     x1 = x1 + x2 + dx;
     create_user_buttons(x1, 1, main_win);
 }
-void 
-getGC (GC *gc)
-{
+void
+getGC(GC *gc) {
     unsigned int valuemask = 0;
     XGCValues values;
     unsigned int lw = 6;
@@ -1553,8 +1555,8 @@ getGC (GC *gc)
        XSetDashes(display,*gc,dash_off,dash,ll);  */
 }
 
-void 
-load_fonts (void) {
+void
+load_fonts(void) {
 
     int i;
     /*printf("\n\nFONTS %s %s \n",big_font_name,small_font_name);
@@ -1595,8 +1597,8 @@ load_fonts (void) {
     plintf("\n");
 }
 
-void 
-make_pops (void)
+void
+make_pops(void)
 
 {
     int x, y;
@@ -1630,9 +1632,8 @@ make_pops (void)
     get_draw_area();
 }
 
-void 
-FixWindowSize (Window w, int width, int height, int flag)
-{
+void
+FixWindowSize(Window w, int width, int height, int flag) {
     XSizeHints size_hints;
     switch (flag) {
     case FIX_SIZE:
@@ -1660,9 +1661,8 @@ FixWindowSize (Window w, int width, int height, int flag)
     XSetWMProperties(display, w, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
 }
 
-int 
-getxcolors (XWindowAttributes *win_info, XColor **colors)
-{
+int
+getxcolors(XWindowAttributes *win_info, XColor **colors) {
 
     int i, ncolors;
 
@@ -1719,8 +1719,8 @@ getxcolors (XWindowAttributes *win_info, XColor **colors)
     return (ncolors);
 }
 
-void 
-test_color_info (void) {
+void
+test_color_info(void) {
     XColor *colors;
     XWindowAttributes xwa;
     /*int n;

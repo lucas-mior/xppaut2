@@ -41,7 +41,8 @@ struct {
     Window w[MAXODE];
 } torbox;
 
-void do_torus_com(int c) {
+void
+do_torus_com(int c) {
     int i;
     TORUS = 0;
     if (c == 0 || c == 2) {
@@ -65,9 +66,8 @@ void do_torus_com(int c) {
     TORUS = 0;
 }
 
-void 
-draw_tor_var (int i)
-{
+void
+draw_tor_var(int i) {
     char strng[15];
     XClearWindow(display, torbox.w[i]);
     if (itor[i] == 1)
@@ -78,9 +78,8 @@ draw_tor_var (int i)
                 strlen(strng));
 }
 
-void 
-draw_torus_box (Window win)
-{
+void
+draw_torus_box(Window win) {
     int i;
 
     if (win == torbox.cancel) {
@@ -98,8 +97,8 @@ draw_torus_box (Window win)
     }
 }
 
-void 
-choose_torus (void) {
+void
+choose_torus(void) {
     int i;
     make_tor_box("Fold which");
     do_torus_events();
@@ -108,9 +107,8 @@ choose_torus (void) {
             TORUS = 1;
 }
 
-void 
-make_tor_box (char *title)
-{
+void
+make_tor_box(char *title) {
 
     int ndn, nac, width, height;
     int nv;
@@ -178,8 +176,8 @@ make_tor_box (char *title)
     XRaiseWindow(display, torbox.base);
 }
 
-void 
-do_torus_events (void) {
+void
+do_torus_events(void) {
     XEvent ev;
     int status = -1;
     int done = 0;

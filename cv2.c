@@ -25,9 +25,8 @@ void *cvode_mem;
 N_Vector ycv;
 extern int NFlags;
 extern double TOLER, ATOLER;
-void 
-start_cv (double *y, double t, int n, double tout, double *atol, double *rtol)
-{
+void
+start_cv(double *y, double t, int n, double tout, double *atol, double *rtol) {
     int i;
 
     ycv = N_VNew(n, NULL);
@@ -41,19 +40,19 @@ start_cv (double *y, double t, int n, double tout, double *atol, double *rtol)
         CVDense(cvode_mem, NULL, NULL);
 }
 
-void 
-end_cv (void) {
+void
+end_cv(void) {
     N_VFree(ycv);
     CVodeFree(cvode_mem);
 }
 
-static void 
-cvf (int n, double t, N_Vector y, N_Vector ydot, void *fdata)
-{ my_rhs(t, y->data, ydot->data, n); }
+static void
+cvf(int n, double t, N_Vector y, N_Vector ydot, void *fdata) {
+    my_rhs(t, y->data, ydot->data, n);
+}
 
-void 
-cvode_err_msg (int kflag)
-{
+void
+cvode_err_msg(int kflag) {
     char s[256];
     strcpy(s, "");
     switch (kflag) {
@@ -93,19 +92,11 @@ cvode_err_msg (int kflag)
         err_msg(s);
 }
 
-int 
-cvode (
-/* command =0 continue, 1 is start 2 finish */
-    int *command,
-    double *y,
-    double *t,
-    int n,
-    double tout,
-    int *kflag,
-    double *atol,
-    double *rtol
-)
-{
+int
+cvode(
+    /* command =0 continue, 1 is start 2 finish */
+    int *command, double *y, double *t, int n, double tout, int *kflag,
+    double *atol, double *rtol) {
     int err = 0;
     if (NFlags == 0)
         return (ccvode(command, y, t, n, tout, kflag, atol, rtol));
@@ -115,19 +106,11 @@ cvode (
     return 1;
 }
 /* rtol is like our TOLER and atol is something else ?? */
-int 
-ccvode (
-/* command =0 continue, 1 is start 2 finish */
-    int *command,
-    double *y,
-    double *t,
-    int n,
-    double tout,
-    int *kflag,
-    double *atol,
-    double *rtol
-)
-{
+int
+ccvode(
+    /* command =0 continue, 1 is start 2 finish */
+    int *command, double *y, double *t, int n, double tout, int *kflag,
+    double *atol, double *rtol) {
     int i, flag;
     *kflag = 0;
     if (*command == 2) {

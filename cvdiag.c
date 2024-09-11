@@ -101,7 +101,8 @@ static void CVDiagFree(CVodeMem cv_mem);
 
 **********************************************************************/
 
-void CVDiag(void *cvode_mem) {
+void
+CVDiag(void *cvode_mem) {
     CVodeMem cv_mem;
     CVDiagMem cvdiag_mem;
 
@@ -130,7 +131,8 @@ void CVDiag(void *cvode_mem) {
 
 **********************************************************************/
 
-static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
+static int
+CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
     CVDiagMem cvdiag_mem;
 
     cvdiag_mem = (CVDiagMem)lmem;
@@ -182,9 +184,9 @@ static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 
 **********************************************************************/
 
-static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
-                       N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                       N_Vector vtemp2, N_Vector vtemp3) {
+static int
+CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
+            bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     real r;
     N_Vector ftemp, y;
     bool invOK;
@@ -236,8 +238,8 @@ static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 **********************************************************************/
 
-static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                       N_Vector fcur) {
+static int
+CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     bool invOK;
     real r;
     CVDiagMem cvdiag_mem;
@@ -270,7 +272,8 @@ static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 
 **********************************************************************/
 
-static void CVDiagFree(CVodeMem cv_mem) {
+static void
+CVDiagFree(CVodeMem cv_mem) {
     CVDiagMem cvdiag_mem;
 
     cvdiag_mem = (CVDiagMem)lmem;

@@ -51,9 +51,9 @@ extern int NFlags;
 #define ERRCON2 1.89e-4
 double sdot();
 extern int (*rhs)();
-void 
-jacobn (double x, double *y, double *dfdx, double *dermat, double eps, double *work, int n)
-{
+void
+jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
+       double *work, int n) {
     int i, j;
     double r;
     double *yval, *ynew, ytemp;
@@ -80,9 +80,10 @@ jacobn (double x, double *y, double *dfdx, double *dermat, double eps, double *w
     }
 }
 
-int 
-adaptive (double *ystart, int nvar, double *xs, double x2, double eps, double *hguess, double hmin, double *work, int *ier, double epjac, int iflag, int *jstart)
-{
+int
+adaptive(double *ystart, int nvar, double *xs, double x2, double eps,
+         double *hguess, double hmin, double *work, int *ier, double epjac,
+         int iflag, int *jstart) {
     if (NFlags == 0)
         return (gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
                           epjac, iflag, jstart));
@@ -90,9 +91,10 @@ adaptive (double *ystart, int nvar, double *xs, double x2, double eps, double *h
                                ier, epjac, iflag, jstart));
 }
 
-int 
-gadaptive (double *ystart, int nvar, double *xs, double x2, double eps, double *hguess, double hmin, double *work, int *ier, double epjac, int iflag, int *jstart)
-{
+int
+gadaptive(double *ystart, int nvar, double *xs, double x2, double eps,
+          double *hguess, double hmin, double *work, int *ier, double epjac,
+          int iflag, int *jstart) {
     double h1 = *hguess;
     int nstp, i;
     double x1 = *xs;
@@ -145,9 +147,10 @@ gadaptive (double *ystart, int nvar, double *xs, double x2, double eps, double *
 
 /*  Need work size of 2n^2+12n  */
 /*  This will integrate a maximum of htry and actually do hmin  */
-int 
-stiff (double y[], double dydx[], int n, double *x, double htry, double eps, double yscal[], double *hdid, double *hnext, double *work, double epjac, int *ier)
-{
+int
+stiff(double y[], double dydx[], int n, double *x, double htry, double eps,
+      double yscal[], double *hdid, double *hnext, double *work, double epjac,
+      int *ier) {
 
     int i, j, jtry, indx[700];
     int info;
@@ -239,9 +242,9 @@ stiff (double y[], double dydx[], int n, double *x, double htry, double eps, dou
     return -1;
 }
 
-int 
-rkqs (double *y, double *dydx, int n, double *x, double htry, double eps, double *yscal, double *hdid, double *hnext, double *work, int *ier)
-{
+int
+rkqs(double *y, double *dydx, int n, double *x, double htry, double eps,
+     double *yscal, double *hdid, double *hnext, double *work, int *ier) {
     int i;
     double errmax, h, htemp, xnew, *yerr, *ytemp;
     double *work2;
@@ -281,9 +284,9 @@ rkqs (double *y, double *dydx, int n, double *x, double htry, double eps, double
 }
 
 /* This takes one step of Cash-Karp RK method */
-void 
-rkck (double *y, double *dydx, int n, double x, double h, double *yout, double *yerr, double *work)
-{
+void
+rkck(double *y, double *dydx, int n, double x, double h, double *yout,
+     double *yerr, double *work) {
     int i;
     static double a2 = 0.2, a3 = 0.3, a4 = 0.6, a5 = 1.0, a6 = 0.875, b21 = 0.2,
                   b31 = 3.0 / 40.0, b32 = 9.0 / 40.0, b41 = 0.3, b42 = -0.9,

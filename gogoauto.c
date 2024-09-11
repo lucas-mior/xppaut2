@@ -15,8 +15,8 @@ int global_verbose_flag = 0;
 extern int fp8_is_open;
 extern char fort3[200], fort7[200], fort8[200], fort9[200];
 
-int 
-go_go_auto (void) /* this is the entry  at this point, xAuto has been set */
+int
+go_go_auto(void) /* this is the entry  at this point, xAuto has been set */
 {
     double time0, time1;
     int64 icp[NPARX2];
@@ -99,7 +99,8 @@ go_go_auto (void) /* this is the entry  at this point, xAuto has been set */
     return 1; /* normal return */
 }
 
-int set_function_pointers(const iap_type iap, function_list *data) {
+int
+set_function_pointers(const iap_type iap, function_list *data) {
     if ((iap.ips == 0 || iap.ips == 1) && abs(iap.isw) != 2) {
         /*	** Algebraic systems. */
         if (iap.irs == 0) {
@@ -496,7 +497,8 @@ int set_function_pointers(const iap_type iap, function_list *data) {
     return 0;
 }
 
-int dump_params(iap_type iap, rap_type rap, int *icp, double *thl) {
+int
+dump_params(iap_type iap, rap_type rap, int *icp, double *thl) {
     int i;
     printf("%d %d %d %d  \n", iap.ndim, iap.ips, iap.irs, iap.ilp);
     printf("%d ", iap.nicp);

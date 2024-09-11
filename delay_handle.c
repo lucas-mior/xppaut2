@@ -30,13 +30,10 @@ extern char delay_string[MAXODE][80];
 extern double variables[];
 extern int NVAR;
 
-double 
-delay_stab_eval (
-/* this returns appropriate values for delay jacobian */
-    double delay,
-    int var
-)
-{
+double
+delay_stab_eval(
+    /* this returns appropriate values for delay jacobian */
+    double delay, int var) {
     int i;
 
     if (del_stab_flag == 0) /* search for all delays  */
@@ -59,9 +56,8 @@ delay_stab_eval (
     return variable_shift[0][var - 1];
 }
 
-int 
-alloc_delay (double big)
-{
+int
+alloc_delay(double big) {
     int n, i;
 
     n = (int)(big / fabs(DELTA_T)) + 1;
@@ -83,16 +79,15 @@ alloc_delay (double big)
     return (1);
 }
 
-void 
-free_delay (void) {
+void
+free_delay(void) {
     if (DelayFlag)
         free(DelayWork);
     DelayFlag = 0;
 }
 
-void 
-stor_delay (double *y)
-{
+void
+stor_delay(double *y) {
     int i, in;
     int nodes = NODE;
     if (DelayFlag == 0)
@@ -105,9 +100,8 @@ stor_delay (double *y)
         DelayWork[i + in] = y[i];
 }
 
-double 
-get_delay_old (int in, double tau)
-{
+double
+get_delay_old(int in, double tau) {
     double x = tau / fabs(DELTA_T);
     int n1 = (int)x;
     int n2 = n1 + 1;
@@ -126,9 +120,8 @@ get_delay_old (int in, double tau)
     return (x1 + (x - n1) * (x2 - x1));
 }
 
-void 
-polint (double *xa, double *ya, int n, double x, double *y, double *dy)
-{
+void
+polint(double *xa, double *ya, int n, double x, double *y, double *dy) {
     int i, m, ns = 1;
     double den, dif, dift, h0, hp, w;
     double c[10], d[10];
@@ -158,9 +151,8 @@ polint (double *xa, double *ya, int n, double x, double *y, double *dy)
 }
 
 /* this is like get_delay but uses cubic interpolation */
-double 
-get_delay (int in, double tau)
-{
+double
+get_delay(int in, double tau) {
     double x = tau / fabs(DELTA_T);
     double dd = fabs(DELTA_T);
     double y, ya[4], xa[4], dy;
@@ -205,9 +197,8 @@ get_delay (int in, double tau)
 }
 
 /*  Handling of the initial data  */
-int 
-do_init_delay (double big)
-{
+int
+do_init_delay(double big) {
     double t = T0, old_t, y[MAXODE];
     int i, nt, j;
     int len;

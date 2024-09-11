@@ -1,11 +1,13 @@
 #include "auto_f2c.h"
 
 #ifdef KR_headers
-double pow_di(ap, bp)
+double
+pow_di(ap, bp)
 double *ap;
 int64 *bp;
 #else
-double pow_di(double *ap, int64 *bp)
+double
+pow_di(double *ap, int64 *bp)
 #endif
 {
     double pow, x;

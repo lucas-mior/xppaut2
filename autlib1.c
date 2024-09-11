@@ -45,13 +45,13 @@ extern char fort8[200], fort3[200];
 void send_eigen();
 void send_mult();
 int byeauto_();
-void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs,
-            double *par, int64 *icp, int labw, double *a, double *uhigh,
-            double *ulow, double *u0, double *ubar);
+void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
+            int64 *icp, int labw, double *a, double *uhigh, double *ulow,
+            double *u0, double *ubar);
 
-int init(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-         double *thl, double **thu_pointer, int64 *iuz,
-         double *vuz) {
+int
+init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
+     double **thu_pointer, int64 *iuz, double *vuz) {
     /* Local variables */
     double hbff, biff;
     int64 nbif;
@@ -340,7 +340,8 @@ int init(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 }
 
 /*     ---------- ----- */
-/* Subroutine */ int chdim(iap_type *iap) {
+/* Subroutine */ int
+chdim(iap_type *iap) {
     /* Local variables */
     int64 npar;
 
@@ -367,9 +368,10 @@ int init(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-int autoae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-           FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
-           double *thl, double *thu, int64 *iuz, double *vuz)
+int
+autoae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
+       double *thl, double *thu, int64 *iuz, double *vuz)
 
 {
     /* This is the entry subroutine for algebraic systems. */
@@ -378,10 +380,11 @@ int autoae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 }
 
-int autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-           FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-           STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
-           double *thu, int64 *iuz, double *vuz) {
+int
+autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
+       STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
+       double *thu, int64 *iuz, double *vuz) {
 
     /* THIS IS THE ENTRY ROUTINE FOR GENERAL BOUNDARY VALUE PROBLEMS. */
 
@@ -391,8 +394,8 @@ int autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 }
 
 /*     ---------- ----- */
-/* Subroutine */ int init1(iap_type *iap, rap_type *rap, int64 *icp,
-                           double *par) {
+/* Subroutine */ int
+init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
 
     /* Local variables */
     int64 ndim, ncol, nicp;
@@ -402,8 +405,7 @@ int autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ic, jc;
     int ii;
     double ds;
-    int64 nxploc, jac, nbc, ndm, ict[NPARX], ilp, ips, isp, irs, itp, isw,
-        nmx;
+    int64 nxploc, jac, nbc, ndm, ict[NPARX], ilp, ips, isp, irs, itp, isw, nmx;
 
     /* General initialization. Redefinition of constants. */
 
@@ -762,11 +764,10 @@ int autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int cnrlae(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FUNI_TYPE((*funi)),
-                            STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
-                            double *thl, double *thu, int64 *iuz,
-                            double *vuz) {
+/* Subroutine */ int
+cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
+       double *thl, double *thu, int64 *iuz, double *vuz) {
 
     /* Local variables */
     int64 nbfc;
@@ -812,8 +813,7 @@ int autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     stud = (double *)malloc(sizeof(double) * (iap->ndim) * NBIFX);
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     u = (double *)malloc(sizeof(double) * (iap->ndim));
-    aa = (double *)malloc(sizeof(double) * (iap->ndim + 1) *
-                              (iap->ndim + 1));
+    aa = (double *)malloc(sizeof(double) * (iap->ndim + 1) * (iap->ndim + 1));
     du = (double *)malloc(sizeof(double) * (iap->ndim + 1));
     rhs = (double *)malloc(sizeof(double) * (iap->ndim + 1));
     stu = (double *)malloc(sizeof(double) * (iap->ndim) * NBIFX);
@@ -1122,8 +1122,8 @@ L6:
 } /* cnrlae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnus(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
 
     /* Gets the starting data from user supplied STPNT */
@@ -1136,8 +1136,8 @@ L6:
 } /* stpnus_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnae(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *u) {
+/* Subroutine */ int
+stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     logical found;
     int64 nfprs;
 
@@ -1152,14 +1152,12 @@ L6:
 } /* stpnae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stprae(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FUNI_TYPE((*funi)), double *rds,
-                            int64 *m1aaloc, double *aa, double *rhs,
-                            double *rlcur, double *rlold,
-                            double *rldot, double *u, double *du,
-                            double *uold, double *udot, double *f,
-                            double *dfdu, double *dfdp, double *thl,
-                            double *thu) {
+/* Subroutine */ int
+stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), double *rds, int64 *m1aaloc, double *aa, double *rhs,
+       double *rlcur, double *rlold, double *rldot, double *u, double *du,
+       double *uold, double *udot, double *f, double *dfdu, double *dfdp,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 aa_dim1;
 
@@ -1244,10 +1242,9 @@ L6:
 } /* stprae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int contae(iap_type *iap, rap_type *rap, double *rds,
-                            double *rlcur, double *rlold,
-                            double *rldot, double *u, double *uold,
-                            double *udot) {
+/* Subroutine */ int
+contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
+       double *rldot, double *u, double *uold, double *udot) {
     /* Local variables */
     int64 ndim, i;
     double dsold;
@@ -1282,14 +1279,12 @@ L6:
 } /* contae_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int solvae(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FUNI_TYPE((*funi)), double *rds,
-                            int64 *m1aaloc, double *aa, double *rhs,
-                            double *rlcur, double *rlold,
-                            double *rldot, double *u, double *du,
-                            double *uold, double *udot, double *f,
-                            double *dfdu, double *dfdp, double *thl,
-                            double *thu) {
+/* Subroutine */ int
+solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), double *rds, int64 *m1aaloc, double *aa, double *rhs,
+       double *rlcur, double *rlold, double *rldot, double *u, double *du,
+       double *uold, double *udot, double *f, double *dfdu, double *dfdp,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 aa_dim1;
 
@@ -1524,15 +1519,13 @@ L5:
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int lcspae(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FNCS_TYPE_AE((*fncs)),
-                            FUNI_TYPE((*funi)), int64 *m1aaloc,
-                            double *aa, double *rhs, double *rlcur,
-                            double *rlold, double *rldot, double *u,
-                            double *du, double *uold, double *udot,
-                            double *f, double *dfdu, double *dfdp,
-                            double *q, double *thl, double *thu,
-                            int64 *iuz, double *vuz) {
+/* Subroutine */ int
+lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FNCS_TYPE_AE((*fncs)), FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,
+       double *rhs, double *rlcur, double *rlold, double *rldot, double *u,
+       double *du, double *uold, double *udot, double *f, double *dfdu,
+       double *dfdp, double *q, double *thl, double *thu, int64 *iuz,
+       double *vuz) {
 
     /* Local variables */
     logical chng;
@@ -1643,9 +1636,9 @@ L1:
 } /* lcspae_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int mueller(double *q0, double *q1, double *q,
-                             double *s0, double *s1, double *s,
-                             double *rds) {
+/* Subroutine */ int
+mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
+        double *rds) {
     /* Local variables */
     double a, b, c, d, r, h0, h1, dq;
 
@@ -1683,12 +1676,11 @@ L1:
 } /* mueller_ */
 
 /*     ------ --------- -------- ------ */
-double fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), int64 *m1aaloc,
-                  double *aa, double *rlcur, double *rlold,
-                  double *rldot, double *u, double *uold,
-                  double *udot, double *rhs, double *dfdu,
-                  double *dfdp, int64 *iuz, double *vuz) {
+double
+fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
+       double *rlold, double *rldot, double *u, double *uold, double *udot,
+       double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     double ret_val;
 
@@ -1716,12 +1708,11 @@ double fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnbpae_ */
 
 /*     ------ --------- -------- ------ */
-double fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), int64 *m1aaloc,
-                  double *aa, double *rlcur, double *rlold,
-                  double *rldot, double *u, double *uold,
-                  double *udot, double *rhs, double *dfdu,
-                  double *dfdp, int64 *iuz, double *vuz) {
+double
+fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
+       double *rlold, double *rldot, double *u, double *uold, double *udot,
+       double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     int64 aa_dim1;
     double ret_val;
@@ -1793,12 +1784,11 @@ double fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnlpae_ */
 
 /*     ------ --------- -------- ------ */
-double fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), int64 *m1aaloc,
-                  double *aa, double *rlcur, double *rlold,
-                  double *rldot, double *u, double *uold,
-                  double *udot, double *rhs, double *dfdu,
-                  double *dfdp, int64 *iuz, double *vuz) {
+double
+fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
+       double *rlold, double *rldot, double *u, double *uold, double *udot,
+       double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     int64 aa_dim1;
     double ret_val;
@@ -1964,12 +1954,11 @@ double fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnhbae_ */
 
 /*     ------ --------- -------- ------ */
-double fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), int64 *m1aaloc,
-                  double *aa, double *rlcur, double *rlold,
-                  double *rldot, double *u, double *uold,
-                  double *udot, double *rhs, double *dfdu,
-                  double *dfdp, int64 *iuz, double *vuz) {
+double
+fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
+       double *rlold, double *rldot, double *u, double *uold, double *udot,
+       double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     double ret_val;
 
@@ -2005,14 +1994,12 @@ double fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ----- */
-/* Subroutine */ int stbif(iap_type *iap, rap_type *rap, double *par,
-                           int64 *icp, int64 *m1aaloc, double *aa,
-                           int64 m1sbloc, double *stud, double *stu,
-                           double *stla, double *stld,
-                           double *rlcur, double *rlold,
-                           double *rldot, double *u, double *du,
-                           double *udot, double *dfdu, double *dfdp,
-                           double *thl, double *thu) {
+/* Subroutine */ int
+stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
+      double *aa, int64 m1sbloc, double *stud, double *stu, double *stla,
+      double *stld, double *rlcur, double *rlold, double *rldot, double *u,
+      double *du, double *udot, double *dfdu, double *dfdp, double *thl,
+      double *thu) {
     /* System generated locals */
     int64 aa_dim1, stud_dim1, stu_dim1;
 
@@ -2112,12 +2099,10 @@ double fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* stbif_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int swpnt(iap_type *iap, rap_type *rap, double *par,
-                           int64 *icp, double *rds, int64 m1sbloc,
-                           double *stud, double *stu, double *stla,
-                           double *stld, double *rlcur,
-                           double *rlold, double *rldot, double *u,
-                           double *udot) {
+/* Subroutine */ int
+swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
+      int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
+      double *rlcur, double *rlold, double *rldot, double *u, double *udot) {
     /* System generated locals */
     int64 stud_dim1, stu_dim1;
 
@@ -2188,13 +2173,12 @@ double fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* swpnt_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int swprc(iap_type *iap, rap_type *rap, double *par,
-                           int64 *icp, FUNI_TYPE((*funi)), int64 *m1aaloc,
-                           double *aa, double *rhs, double *rlcur,
-                           double *rlold, double *rldot, double *u,
-                           double *du, double *uold, double *udot,
-                           double *f, double *dfdu, double *dfdp,
-                           double *rds, double *thl, double *thu) {
+/* Subroutine */ int
+swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
+      int64 *m1aaloc, double *aa, double *rhs, double *rlcur, double *rlold,
+      double *rldot, double *u, double *du, double *uold, double *udot,
+      double *f, double *dfdu, double *dfdp, double *rds, double *thl,
+      double *thu) {
     /* System generated locals */
     int64 aa_dim1;
 
@@ -2428,8 +2412,9 @@ L5:
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int sthd(iap_type *iap, rap_type *rap, double *par,
-                          int64 *icp, double *thl, double *thu) {
+/* Subroutine */ int
+sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
+     double *thu) {
     /* Local variables */
     int64 ndim, ncol, mxbf, nicp;
     double epsl;
@@ -2542,9 +2527,9 @@ L5:
 } /* sthd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int headng(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 iunit, int64 *n1,
-                            int64 *n2) {
+/* Subroutine */ int
+headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
+       int64 *n1, int64 *n2) {
     /* Local variables */
     int64 iplt, itmp, i, j;
     char col[9][14 + 1];
@@ -2667,8 +2652,9 @@ L5:
 } /* headng_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stplae(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *rlcur, double *u) {
+/* Subroutine */ int
+stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
+       double *u) {
 
     /* Local variables */
     int64 labw, ndim, nins, iplt, ntot, i;
@@ -2817,10 +2803,9 @@ L5:
 } /* stplae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int wrline(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *icu, int64 *ibr,
-                            int64 *ntot, int64 *lab, double *vaxis,
-                            double *u) {
+/* Subroutine */ int
+wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
+       int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
 
     /* Local variables */
     int64 nicp, nfpr, mtot, i;
@@ -3001,9 +2986,9 @@ L5:
 } /* wrline_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int wrtsp8(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *lab, double *rlcur,
-                            double *u) {
+/* Subroutine */ int
+wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
+       double *rlcur, double *u) {
     /* Local variables */
     int64 ndim, nfpr, ntpl, jtmp, mtot, ntot, i;
     double t;
@@ -3084,8 +3069,8 @@ L5:
 } /* wrtsp8_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int wrjac(iap_type *iap, int64 *n, int64 *m1aaloc,
-                           double *aa, double *rhs) {
+/* Subroutine */ int
+wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
     /* System generated locals */
     int64 aa_dim1;
 
@@ -3123,8 +3108,8 @@ L5:
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- --- */
-/* Subroutine */ int msh(const iap_type *iap, const rap_type *rap,
-                         double *tm) {
+/* Subroutine */ int
+msh(const iap_type *iap, const rap_type *rap, double *tm) {
 
     /* Local variables */
     int64 ntst, j;
@@ -3147,8 +3132,8 @@ L5:
 } /* msh_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int genwts(const int64 ncol, const int64 n1,
-                            double *wt, double *wp) {
+/* Subroutine */ int
+genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     /* System generated locals */
     int64 wt_dim1, wp_dim1;
 
@@ -3228,7 +3213,8 @@ L5:
 } /* genwts_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int cpnts(const int64 ncol, double *zm) {
+/* Subroutine */ int
+cpnts(const int64 ncol, double *zm) {
     /* Local variables */
     double c, r, c1, c2, c3;
 
@@ -3317,7 +3303,8 @@ L7:
 } /* cpnts_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int cntdif(int64 *n, double *d) {
+/* Subroutine */ int
+cntdif(int64 *n, double *d) {
 
     /* Local variables */
     int64 i, k, k1;
@@ -3356,7 +3343,8 @@ L7:
 } /* cntdif_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int wint(const int64 n, double *wi) {
+/* Subroutine */ int
+wint(const int64 n, double *wi) {
     double c;
 
     /* Generates the weights for the integration formula based on polynomial */
@@ -3440,7 +3428,8 @@ L8:
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int adptds(iap_type *iap, rap_type *rap, double *rds) {
+/* Subroutine */ int
+adptds(iap_type *iap, rap_type *rap, double *rds) {
     /* Local variables */
     double ards;
     int64 ntop, itnw, ntot;
@@ -3491,10 +3480,10 @@ L8:
 } /* adptds_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int adapt(iap_type *iap, rap_type *rap, int64 *nold,
-                           int64 *ncold, int64 *nnew, int64 *ncnew,
-                           double *tm, double *dtm, int64 *ndxloc,
-                           double *ups, double *vps) {
+/* Subroutine */ int
+adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
+      int64 *ncnew, double *tm, double *dtm, int64 *ndxloc, double *ups,
+      double *vps) {
     /* System generated locals */
     int64 ups_dim1, vps_dim1;
 
@@ -3509,8 +3498,8 @@ L8:
     double *tm2;
     int64 *itm;
 
-    uint = (double *)malloc(sizeof(double) * (*ndxloc) *
-                                (iap->ndim * iap->ncol));
+    uint =
+        (double *)malloc(sizeof(double) * (*ndxloc) * (iap->ndim * iap->ncol));
     tint = (double *)malloc(sizeof(double) * (*ndxloc));
     tm2 = (double *)malloc(sizeof(double) * (*ndxloc));
     itm = (int64 *)malloc(sizeof(int64) * (*ndxloc));
@@ -3590,11 +3579,10 @@ L8:
 } /* adapt_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int interp(iap_type *iap, rap_type *rap, int64 *ndim,
-                            int64 *n, int64 *nc, double *tm,
-                            int64 *ndxloc, double *ups, int64 *n1,
-                            int64 *nc1, double *tm1, double *ups1,
-                            double *tm2, int64 *itm1) {
+/* Subroutine */ int
+interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
+       double *tm, int64 *ndxloc, double *ups, int64 *n1, int64 *nc1,
+       double *tm1, double *ups1, double *tm2, int64 *itm1) {
     /* System generated locals */
     int64 ups_dim1, ups1_dim1;
 
@@ -3662,10 +3650,10 @@ L8:
 } /* interp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc,
-                            double *ups, int64 *nold, int64 *ncold,
-                            double *tmold, double *dtmold,
-                            int64 *nnew, double *tmnew, int64 *iper) {
+/* Subroutine */ int
+newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
+       int64 *ncold, double *tmold, double *dtmold, int64 *nnew, double *tmnew,
+       int64 *iper) {
     /* Local variables */
 
     int64 ndim;
@@ -3724,9 +3712,9 @@ L8:
 } /* newmsh_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int ordr(iap_type *iap, rap_type *rap, int64 *n,
-                          double *tm, int64 *n1, double *tm1,
-                          int64 *itm1) {
+/* Subroutine */ int
+ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
+     int64 *itm1) {
 
     /* Local variables */
     int64 j, k0, j1, k1 = 0;
@@ -3758,8 +3746,9 @@ L8:
 } /* ordr_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int intwts(iap_type *iap, rap_type *rap, int64 *n,
-                            double *z__, double *x, double *wts) {
+/* Subroutine */ int
+intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
+       double *wts) {
 
     /* Local variables */
     int64 k;
@@ -3788,10 +3777,9 @@ L8:
 } /* intwts_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int eqdf(iap_type *iap, rap_type *rap, int64 *ntst,
-                          int64 *ndim, int64 *ncol, double *dtm,
-                          int64 *ndxloc, double *ups, double *eqf,
-                          int64 *iper) {
+/* Subroutine */ int
+eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
+     double *dtm, int64 *ndxloc, double *ups, double *eqf, int64 *iper) {
     /* System generated locals */
     int64 ups_dim1;
 
@@ -3805,8 +3793,7 @@ L8:
     int64 jp1;
     double pwr;
 
-    hd = (double *)malloc(sizeof(double) * (*ntst + 1) *
-                              (*ndim * *ncol));
+    hd = (double *)malloc(sizeof(double) * (*ntst + 1) * (*ndim * *ncol));
     wh = (double *)malloc(sizeof(double) * (*ncol + 1));
 
     /* Compute approximation to NCOL-th derivative : */
@@ -3897,8 +3884,9 @@ L8:
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- --- */
-/* Subroutine */ int eig(iap_type *iap, int64 *ndim, int64 *m1a,
-                         double *a, doublecomplex *ev, int64 *ier) {
+/* Subroutine */ int
+eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
+    int64 *ier) {
     /* System generated locals */
     int64 a_dim1;
 
@@ -3957,8 +3945,8 @@ L8:
 } /* eig_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int nlvc(int64 n, int64 m, int64 k, double *a,
-                          double *u) {
+/* Subroutine */ int
+nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     /* System generated locals */
     int64 a_dim1;
 
@@ -4069,7 +4057,8 @@ L8:
 } /* nlvc_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int nrmlz(int64 *ndim, double *v) {
+/* Subroutine */ int
+nrmlz(int64 *ndim, double *v) {
     /* Local variables */
     double c;
     int64 i;
@@ -4093,7 +4082,8 @@ L8:
 } /* nrmlz_ */
 
 /*     ------ --------- -------- */
-double pi(double r) {
+double
+pi(double r) {
     /* System generated locals */
     double ret_val;
 
@@ -4103,9 +4093,9 @@ double pi(double r) {
 } /* pi */
 
 /*     ---------- -- */
-/* Subroutine */ int ge(int64 n, int64 m1a, double *a, int64 nrhs,
-                        int64 ndxloc, double *u, int64 m1f,
-                        double *f, double *det) {
+/* Subroutine */ int
+ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
+   int64 m1f, double *f, double *det) {
     /* System generated locals */
     int64 a_dim1, u_dim1, f_dim1;
 
@@ -4266,13 +4256,14 @@ double pi(double r) {
 } /* ge_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int newlab(iap_type *iap, rap_type *rap) {
+/* Subroutine */ int
+newlab(iap_type *iap, rap_type *rap) {
 
     /* Local variables */
     int64 mlab, ibrs, nars;
 
-    int64 labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs, lab, ibr, mbr,
-        ips, itp, irs, isw;
+    int64 labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs, lab, ibr, mbr, ips,
+        itp, irs, isw;
     logical eof3;
 
     /* Determine a suitable label when restarting. */
@@ -4345,8 +4336,9 @@ L2:
     return 0;
 } /* newlab_ */
 
-int findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
-           logical *found) {
+int
+findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
+       logical *found) {
     /* Local variables */
     int64 nars;
 
@@ -4423,8 +4415,8 @@ int findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
 }
 
 /*     ---------- ------ */
-/* Subroutine */ int readlb(const iap_type *iap, const rap_type *rap,
-                            double *u, double *par) {
+/* Subroutine */ int
+readlb(const iap_type *iap, const rap_type *rap, double *u, double *par) {
     /* Local variables */
     int64 labr, ndim, ibrr, itpr, iswr, i;
     double t;
@@ -4463,7 +4455,8 @@ int findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
 } /* readlb_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int skip3(int64 *nskip, logical *eof3) {
+/* Subroutine */ int
+skip3(int64 *nskip, logical *eof3) {
 
     /* Local variables */
     int64 i;
@@ -4489,9 +4482,9 @@ int findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
 } /* skip3_ */
 
 /*     ------ --------- -------- ----- */
-double rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc,
-                 double *ups, double *vps, double *dtm,
-                 double *thu) {
+double
+rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
+      double *dtm, double *thu) {
     /* System generated locals */
     int64 ups_dim1, vps_dim1;
     double ret_val;
@@ -4548,8 +4541,9 @@ double rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc,
 } /* rinpr_ */
 
 /*     ------ --------- -------- ------ */
-double rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc,
-                  double *ups, double *dtm, double *thu) {
+double
+rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
+       double *thu) {
     /* System generated locals */
     double ret_val;
 
@@ -4566,8 +4560,8 @@ double rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc,
 } /* rnrmsq_ */
 
 /*     ------ --------- -------- ----- */
-double rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups,
-                 double *dtm) {
+double
+rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
     /* System generated locals */
     int64 ups_dim1;
     double ret_val;
@@ -4616,8 +4610,8 @@ double rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups,
 } /* rintg_ */
 
 /*     ------ --------- -------- ----- */
-double rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups,
-                 double *dtm) {
+double
+rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
     /* System generated locals */
     int64 ups_dim1;
     double ret_val;
@@ -4669,7 +4663,8 @@ double rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups,
 } /* rnrm2_ */
 
 /*     ------ --------- -------- ------ */
-double rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
+double
+rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     /* System generated locals */
     int64 ups_dim1;
     double ret_val;
@@ -4704,7 +4699,8 @@ double rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 } /* rmxups_ */
 
 /*     ------ --------- -------- ------ */
-double rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
+double
+rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     /* System generated locals */
     int64 ups_dim1;
     double ret_val;
@@ -4739,9 +4735,9 @@ double rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 } /* rmnups_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int scaleb(iap_type *iap, int64 *icp, int64 *ndxloc,
-                            double *dvps, double *rld, double *dtm,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
+       double *dtm, double *thl, double *thu) {
     /* System generated locals */
     int64 dvps_dim1;
 
@@ -4797,12 +4793,11 @@ double rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int cnrlbv(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FUNI_TYPE((*funi)),
-                            BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-                            STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)),
-                            double *thl, double *thu, int64 *iuz,
-                            double *vuz) {
+/* Subroutine */ int
+cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
+       STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
+       double *thu, int64 *iuz, double *vuz) {
     /* Local variables */
     int64 iads, ndim, ncol;
     int64 ntot, ntst, iuzr, nuzr, i, j, k;
@@ -4835,17 +4830,17 @@ double rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     double *p1;
     doublecomplex *ev;
     ups = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
-                               (iap->ndim * iap->ncol));
+                           (iap->ndim * iap->ncol));
     upoldp = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
-                                  (iap->ndim * iap->ncol));
-    uoldps = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
-                                  (iap->ndim * iap->ncol));
-    udotps = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
-                                  (iap->ndim * iap->ncol));
-    dups = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
-                                (iap->ndim * iap->ncol));
-    fa = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
                               (iap->ndim * iap->ncol));
+    uoldps = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
+                              (iap->ndim * iap->ncol));
+    udotps = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
+                              (iap->ndim * iap->ncol));
+    dups = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
+                            (iap->ndim * iap->ncol));
+    fa = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
+                          (iap->ndim * iap->ncol));
     dtm = (double *)malloc(sizeof(double) * (iap->ntst + 1));
     tm = (double *)malloc(sizeof(double) * (iap->ntst + 1));
     fc = (double *)malloc(sizeof(double) * (iap->nbc + iap->nint + 1));
@@ -5003,7 +4998,7 @@ L1:
     {
         double *uolddotps, *rlolddot;
         uolddotps = (double *)malloc(sizeof(double) * (iap->ntst + 1) *
-                                         (iap->ndim) * (iap->ncol));
+                                     (iap->ndim) * (iap->ncol));
         rlolddot = (double *)malloc(sizeof(double) * (iap->nfpr));
 
         for (i = 0; i < iap->nfpr; ++i) {
@@ -5026,7 +5021,7 @@ L1:
 
         {
             double dot_product = rinpr(iap, &(iap->ndim), &ntst_plus_one,
-                                           udotps, uolddotps, dtm, thu);
+                                       udotps, uolddotps, dtm, thu);
 
             for (i = 0; i < iap->nfpr; ++i) {
                 /* Computing 2nd power */
@@ -5190,13 +5185,11 @@ L3:
 } /* cnrlbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int contbv(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FUNI_TYPE((*funi)), double *rds,
-                            double *rlcur, double *rlold,
-                            double *rldot, int64 *ndxloc, double *ups,
-                            double *uoldps, double *udotps,
-                            double *upoldp, double *dtm,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), double *rds, double *rlcur, double *rlold,
+       double *rldot, int64 *ndxloc, double *ups, double *uoldps,
+       double *udotps, double *upoldp, double *dtm, double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
@@ -5256,11 +5249,10 @@ L3:
 } /* contbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)),
-                            double *rds, double *rlcur,
-                            double *rlold, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *uoldps, double *udotps) {
+/* Subroutine */ int
+extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
+       double *rlcur, double *rlold, double *rldot, int64 *ndxloc, double *ups,
+       double *uoldps, double *udotps) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
@@ -5300,11 +5292,10 @@ L3:
 } /* extrbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stupbv(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, FUNI_TYPE((*funi)), double *rlcur,
-                            double *rlold, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *uoldps, double *upoldp) {
+/* Subroutine */ int
+stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), double *rlcur, double *rlold, double *rldot,
+       int64 *ndxloc, double *ups, double *uoldps, double *upoldp) {
     /* System generated locals */
     int64 ups_dim1, uoldps_dim1, upoldp_dim1;
 
@@ -5395,12 +5386,10 @@ L3:
 /* Subroutine */ int
 stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-       PVLI_TYPE_BVP((*pvli)), double *rds, double *rlcur,
-       double *rlold, double *rldot, int64 *ndxloc, double *ups,
-       double *dups, double *uoldps, double *udotps,
-       double *upoldp, double *fa, double *fc, double *tm,
-       double *dtm, double *p0, double *p1, double *thl,
-       double *thu) {
+       PVLI_TYPE_BVP((*pvli)), double *rds, double *rlcur, double *rlold,
+       double *rldot, int64 *ndxloc, double *ups, double *dups, double *uoldps,
+       double *udotps, double *upoldp, double *fa, double *fc, double *tm,
+       double *dtm, double *p0, double *p1, double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, uoldps_dim1, udotps_dim1, fa_dim1;
 
@@ -5621,10 +5610,9 @@ L13:
 /*     ---------- ------ */
 /* Subroutine */ int
 rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-       FUNI_TYPE((*funi)), STPNT_TYPE_BVP((*stpnt)), double *rds,
-       double *rlcur, double *rlold, double *rldot, int64 *ndxloc,
-       double *ups, double *uoldps, double *udotps,
-       double *upoldp, double *dups, double *tm, double *dtm,
+       FUNI_TYPE((*funi)), STPNT_TYPE_BVP((*stpnt)), double *rds, double *rlcur,
+       double *rlold, double *rldot, int64 *ndxloc, double *ups, double *uoldps,
+       double *udotps, double *upoldp, double *dups, double *tm, double *dtm,
        doublecomplex *ev, int64 *nodir, double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, uoldps_dim1;
@@ -5714,11 +5702,11 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
         *ndxloc = (ntst_used + 1) * 4;
         ups_new = (double *)malloc(sizeof(double) * (*ndxloc) *
-                                       (iap->ndim * ncol_used));
+                                   (iap->ndim * ncol_used));
         upoldp_new = (double *)malloc(sizeof(double) * (*ndxloc) *
-                                          (iap->ndim * ncol_used));
+                                      (iap->ndim * ncol_used));
         udotps_new = (double *)malloc(sizeof(double) * (*ndxloc) *
-                                          (iap->ndim * ncol_used));
+                                      (iap->ndim * ncol_used));
         tm_new = (double *)malloc(sizeof(double) * (*ndxloc));
         dtm_new = (double *)malloc(sizeof(double) * (*ndxloc));
 
@@ -5796,13 +5784,11 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* rsptbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnbv(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsrs, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -5979,13 +5965,11 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* stpnbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int stpnub(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, int64 *ntsrs, int64 *ncolrs,
-                            double *rlcur, double *rldot,
-                            int64 *ndxloc, double *ups,
-                            double *udotps, double *upoldp,
-                            double *tm, double *dtm, int64 *nodir,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
+       int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
+       double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
+       double *thl, double *thu) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -6060,8 +6044,8 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* stpnub_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc,
-                            double *ups, double *par) {
+/* Subroutine */ int
+setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
     /* System generated locals */
     int64 ups_dim1;
 
@@ -6081,8 +6065,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     global_rotations.irtn = 0;
     for (i = 0; i < nbc; ++i) {
-        double tmp =
-            (ARRAY2D(ups, *ntst, i) - ARRAY2D(ups, 0, i)) / pi(2.0);
+        double tmp = (ARRAY2D(ups, *ntst, i) - ARRAY2D(ups, 0, i)) / pi(2.0);
         global_rotations.nrtn[i] = i_dnnt(&tmp);
 
         if (global_rotations.nrtn[i] != 0) {
@@ -6097,10 +6080,9 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /* Subroutine */ int
 stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-       double *rlcur, double *rlold, double *rldot, int64 ndxloc,
-       double *ups, double *dups, double *uoldps,
-       double *udotps, double *upoldp, double *fa, double *fc,
-       double *dtm, int64 iperp, double *p0, double *p1,
+       double *rlcur, double *rlold, double *rldot, int64 ndxloc, double *ups,
+       double *dups, double *uoldps, double *udotps, double *upoldp, double *fa,
+       double *fc, double *dtm, int64 iperp, double *p0, double *p1,
        double *thl, double *thu) {
     /* System generated locals */
     int64 udotps_dim1, fa_dim1;
@@ -6221,13 +6203,11 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /* Subroutine */ int
 lcspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FNCS_TYPE_BVP((*fncs)), FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
-       ICNI_TYPE((*icni)), PVLI_TYPE_BVP((*pvli)), double *q,
-       double *rlcur, double *rlold, double *rldot, int64 *ndxloc,
-       double *ups, double *dups, double *uoldps,
-       double *udotps, double *upoldp, double *fa, double *fc,
-       double *tm, double *dtm, double *p0, double *p1,
-       doublecomplex *ev, double *thl, double *thu, int64 *iuz,
-       double *vuz) {
+       ICNI_TYPE((*icni)), PVLI_TYPE_BVP((*pvli)), double *q, double *rlcur,
+       double *rlold, double *rldot, int64 *ndxloc, double *ups, double *dups,
+       double *uoldps, double *udotps, double *upoldp, double *fa, double *fc,
+       double *tm, double *dtm, double *p0, double *p1, doublecomplex *ev,
+       double *thl, double *thu, int64 *iuz, double *vuz) {
     /* Local variables */
     logical chng;
     double epss;
@@ -6359,15 +6339,14 @@ L1:
 } /* lcspbv_ */
 
 /*     ------ --------- -------- ------ */
-double fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
-                  ICNI_TYPE((*icni)), double *p0, double *p1,
-                  doublecomplex *ev, double *rlcur, double *rlold,
-                  double *rldot, int64 *ndxloc, double *ups,
-                  double *uoldps, double *udotps, double *upoldp,
-                  double *fa, double *fc, double *dups,
-                  double *tm, double *dtm, double *thl,
-                  double *thu, int64 *iuz, double *vuz) {
+double
+fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
+       double *p1, doublecomplex *ev, double *rlcur, double *rlold,
+       double *rldot, int64 *ndxloc, double *ups, double *uoldps,
+       double *udotps, double *upoldp, double *fa, double *fc, double *dups,
+       double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
+       double *vuz) {
     /* System generated locals */
     int64 udotps_dim1, fa_dim1;
     double ret_val;
@@ -6436,15 +6415,14 @@ double fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnlpbv_ */
 
 /*     ------ --------- -------- ------ */
-double fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
-                  ICNI_TYPE((*icni)), double *p0, double *p1,
-                  doublecomplex *ev, double *rlcur, double *rlold,
-                  double *rldot, int64 *ndxloc, double *ups,
-                  double *uoldps, double *udotps, double *upoldp,
-                  double *fa, double *fc, double *dups,
-                  double *tm, double *dtm, double *thl,
-                  double *thu, int64 *iuz, double *vuz) {
+double
+fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
+       double *p1, doublecomplex *ev, double *rlcur, double *rlold,
+       double *rldot, int64 *ndxloc, double *ups, double *uoldps,
+       double *udotps, double *upoldp, double *fa, double *fc, double *dups,
+       double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
+       double *vuz) {
     /* System generated locals */
     double ret_val;
 
@@ -6507,15 +6485,14 @@ double fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnbpbv_ */
 
 /*     ------ --------- -------- ------ */
-double fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
-                  ICNI_TYPE((*icni)), double *p0, double *p1,
-                  doublecomplex *ev, double *rlcur, double *rlold,
-                  double *rldot, int64 *ndxloc, double *ups,
-                  double *uoldps, double *udotps, double *upoldp,
-                  double *fa, double *fc, double *dups,
-                  double *tm, double *dtm, double *thl,
-                  double *thu, int64 *iuz, double *vuz) {
+double
+fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
+       double *p1, doublecomplex *ev, double *rlcur, double *rlold,
+       double *rldot, int64 *ndxloc, double *ups, double *uoldps,
+       double *udotps, double *upoldp, double *fa, double *fc, double *dups,
+       double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
+       double *vuz) {
     /* System generated locals */
     double ret_val;
 
@@ -6714,15 +6691,14 @@ double fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnspbv_ */
 
 /*     ------ --------- -------- ------ */
-double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-                  logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
-                  ICNI_TYPE((*icni)), double *p0, double *p1,
-                  doublecomplex *ev, double *rlcur, double *rlold,
-                  double *rldot, int64 *ndxloc, double *ups,
-                  double *uoldps, double *udotps, double *upoldp,
-                  double *fa, double *fc, double *dups,
-                  double *tm, double *dtm, double *thl,
-                  double *thu, int64 *iuz, double *vuz) {
+double
+fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
+       double *p1, doublecomplex *ev, double *rlcur, double *rlold,
+       double *rldot, int64 *ndxloc, double *ups, double *uoldps,
+       double *udotps, double *upoldp, double *fa, double *fc, double *dups,
+       double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
+       double *vuz) {
     /* System generated locals */
     double ret_val;
 
@@ -6747,8 +6723,9 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* fnuzbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int tpspbv(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, doublecomplex *ev) {
+/* Subroutine */ int
+tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       doublecomplex *ev) {
 
     /* Local variables */
     double amin;
@@ -6824,10 +6801,10 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int stplbv(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *rldot, int64 *ndxloc,
-                            double *ups, double *udotps, double *tm,
-                            double *dtm, double *thl, double *thu) {
+/* Subroutine */ int
+stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
+       int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm,
+       double *thl, double *thu) {
     /* Local variables */
     int64 labw, ndim, ibrs, nins, iplt, itmp, jtmp, ntot;
     int iflag = 0;
@@ -7012,10 +6989,9 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* stplbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int wrtbv8(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *rldot, int64 *ndxloc,
-                            double *ups, double *udotps, double *tm,
-                            double *dtm) {
+/* Subroutine */ int
+wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
+       int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm) {
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -7194,10 +7170,10 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* wrtbv8_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int wrtbv9(iap_type *iap, rap_type *rap, double *par,
-                            int64 *icp, double *rlcur, int64 *ndxloc,
-                            double *ups, double *tm, double *dtm,
-                            double *thl, double *thu) {
+/* Subroutine */ int
+wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
+       int64 *ndxloc, double *ups, double *tm, double *dtm, double *thl,
+       double *thu) {
 
     /* System generated locals */
     int64 ups_dim1;
@@ -7285,8 +7261,8 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* wrtbv9_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int pvlsae(iap_type *iap, rap_type *rap, double *u,
-                            double *par) {
+/* Subroutine */ int
+pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
 
     int64 ndm;
 
@@ -7298,10 +7274,9 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* pvlsae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int pvlsbv(iap_type *iap, rap_type *rap, int64 *icp,
-                            double *dtm, int64 *ndxloc, double *ups,
-                            int64 *ndim, double *p0, double *p1,
-                            double *par) {
+/* Subroutine */ int
+pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
+       double *ups, int64 *ndim, double *p0, double *p1, double *par) {
     int64 ndm;
 
     setpbv(iap, rap, dtm);
@@ -7312,7 +7287,8 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* pvlsbv_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int setpae(iap_type *iap, rap_type *rap) {
+/* Subroutine */ int
+setpae(iap_type *iap, rap_type *rap) {
     global_parameters.iav = iap;
     global_parameters.rav = rap;
 
@@ -7320,7 +7296,8 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* setpae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int setpbv(iap_type *iap, rap_type *rap, double *dtm) {
+/* Subroutine */ int
+setpbv(iap_type *iap, rap_type *rap, double *dtm) {
     global_parameters.iav = iap;
     global_parameters.rav = rap;
 
@@ -7337,7 +7314,8 @@ double fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 #include <sys/time.h>
 #include <sys/resource.h>
 
-double time_start(void) {
+double
+time_start(void) {
     struct timeval time;
     double seconds, microseconds;
     gettimeofday(&time, NULL);
@@ -7345,7 +7323,8 @@ double time_start(void) {
     microseconds = (double)time.tv_usec;
     return seconds + microseconds / 1e6;
 }
-double time_end(double start) {
+double
+time_end(double start) {
     struct timeval time;
     double seconds, microseconds;
     gettimeofday(&time, NULL);
@@ -7354,7 +7333,8 @@ double time_end(double start) {
     return (seconds + microseconds / 1e6) - start;
 }
 
-double getp(char *code, int64 *ic, double *ups, int64 code_len) {
+double
+getp(char *code, int64 *ic, double *ups, int64 code_len) {
     /* System generated locals */
     double ret_val = 0.0;
 
@@ -7468,7 +7448,8 @@ double getp(char *code, int64 *ic, double *ups, int64 code_len) {
     return ret_val;
 }
 
-void allocate_global_memory(const iap_type iap) {
+void
+allocate_global_memory(const iap_type iap) {
     free(global_scratch.dfu);
     free(global_scratch.dfp);
     free(global_scratch.uu1);
@@ -7477,8 +7458,7 @@ void allocate_global_memory(const iap_type iap) {
     free(global_scratch.ff2);
     global_scratch.dfu =
         (double *)malloc(sizeof(double) * (iap.ndim) * (iap.ndim));
-    global_scratch.dfp =
-        (double *)malloc(sizeof(double) * (iap.ndim) * NPARX);
+    global_scratch.dfp = (double *)malloc(sizeof(double) * (iap.ndim) * NPARX);
     global_scratch.uu1 = (double *)malloc(sizeof(double) * (iap.ndim));
     global_scratch.uu2 = (double *)malloc(sizeof(double) * (iap.ndim));
     global_scratch.ff1 = (double *)malloc(sizeof(double) * (iap.ndim));

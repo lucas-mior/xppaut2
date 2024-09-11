@@ -93,10 +93,11 @@ static void CVBandFree(CVodeMem cv_mem);
 
 **********************************************************************/
 
-void CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
-                 void *f_data, real tn, N_Vector y, N_Vector fy, N_Vector ewt,
-                 real h, real uround, void *jac_data, int *nfePtr,
-                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
+void
+CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
+            void *f_data, real tn, N_Vector y, N_Vector fy, N_Vector ewt,
+            real h, real uround, void *jac_data, int *nfePtr, N_Vector vtemp1,
+            N_Vector vtemp2, N_Vector vtemp3) {
     real fnorm, minInc, inc, inc_inv, srur;
     N_Vector ftemp, ytemp;
     int64 group, i, j, width, ngroups, i1, i2;
@@ -207,8 +208,9 @@ void CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 
 **********************************************************************/
 
-void CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
-            void *jac_data) {
+void
+CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
+       void *jac_data) {
     CVodeMem cv_mem;
     CVBandMem cvband_mem;
 
@@ -249,7 +251,8 @@ void CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
 
 **********************************************************************/
 
-static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
+static int
+CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;
@@ -316,9 +319,9 @@ static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 
 **********************************************************************/
 
-static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
-                       N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                       N_Vector vtemp2, N_Vector vtemp3) {
+static int
+CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
+            bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
     real dgamma;
     int64 ier;
@@ -371,8 +374,8 @@ static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 **********************************************************************/
 
-static int CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                       N_Vector fcur) {
+static int
+CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;
@@ -393,7 +396,8 @@ static int CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 
 **********************************************************************/
 
-static void CVBandFree(CVodeMem cv_mem) {
+static void
+CVBandFree(CVodeMem cv_mem) {
     CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;

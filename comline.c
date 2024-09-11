@@ -153,9 +153,8 @@ VOCAB my_cmd[NCMD] = {
     {"-ncdraw", 7},     {"-def", 4},        {"-readset", 8},    {"-with", 5},
     {"-equil", 6}};
 
-int 
-is_set_name (SET_NAME *set, char *nam)
-{
+int
+is_set_name(SET_NAME *set, char *nam) {
     if (set == NULL) {
         return (0);
     }
@@ -174,8 +173,7 @@ is_set_name (SET_NAME *set, char *nam)
 }
 
 SET_NAME *
-add_set (SET_NAME *set, char *nam)
-{
+add_set(SET_NAME *set, char *nam) {
     if (!is_set_name(set, nam)) {
         SET_NAME *curr;
         curr = (SET_NAME *)malloc(sizeof(SET_NAME));
@@ -188,8 +186,7 @@ add_set (SET_NAME *set, char *nam)
 }
 
 SET_NAME *
-rm_set (SET_NAME *set, char *nam)
-{
+rm_set(SET_NAME *set, char *nam) {
     SET_NAME *curr;
     SET_NAME *prev = NULL;
 
@@ -215,9 +212,8 @@ rm_set (SET_NAME *set, char *nam)
     return (set);
 }
 
-void 
-do_comline (int argc, char **argv)
-{
+void
+do_comline(int argc, char **argv) {
     int i, k;
 
     silent = 0;
@@ -398,8 +394,8 @@ do_comline (int argc, char **argv)
     }
 }
 
-int 
-if_needed_load_ext_options (void) {
+int
+if_needed_load_ext_options(void) {
     FILE *fp;
     char myopts[1024];
     char myoptsx[1026];
@@ -426,8 +422,8 @@ if_needed_load_ext_options (void) {
         return 1;
     }
 }
-int 
-if_needed_select_sets (void) {
+int
+if_needed_select_sets(void) {
     if (!select_intern_sets) {
         return 1;
     }
@@ -458,8 +454,8 @@ if_needed_select_sets (void) {
     return 1;
 }
 
-int 
-if_needed_load_set (void) {
+int
+if_needed_load_set(void) {
     FILE *fp;
     if (!loadsetfile) {
         return 1;
@@ -474,8 +470,8 @@ if_needed_load_set (void) {
     return 1;
 }
 
-int 
-if_needed_load_par (void) {
+int
+if_needed_load_par(void) {
 
     if (!loadparfile) {
         return 1;
@@ -485,8 +481,8 @@ if_needed_load_par (void) {
     return 1;
 }
 
-int 
-if_needed_load_ic (void) {
+int
+if_needed_load_ic(void) {
 
     if (!loadicfile) {
         return 1;
@@ -496,9 +492,8 @@ if_needed_load_ic (void) {
     return (1);
 }
 
-int 
-parse_it (char *com)
-{
+int
+parse_it(char *com) {
     int j;
     for (j = 0; j < NCMD; j++) {
         if (strncmp(com, my_cmd[j].name, my_cmd[j].len) == 0) {

@@ -213,7 +213,8 @@ int xorfix, silent, got_file;
 
 /*Logical negate OR on options set. Result overwrites the first OptionsSet
 in the argument list.*/
-void notBothOptions(OptionsSet nasA, OptionsSet nasB) {
+void
+notBothOptions(OptionsSet nasA, OptionsSet nasB) {
     nasA.BIG_FONT_NAME = (nasA.BIG_FONT_NAME & nasB.BIG_FONT_NAME);
     nasA.SMALL_FONT_NAME = (nasA.SMALL_FONT_NAME & nasB.SMALL_FONT_NAME);
     nasA.BACKGROUND = (nasA.BACKGROUND & nasB.BACKGROUND);
@@ -343,9 +344,8 @@ void notBothOptions(OptionsSet nasA, OptionsSet nasB) {
     nasA.NULL_HERE = (nasA.NULL_HERE & nasB.NULL_HERE);
 }
 
-void 
-dump_torus (FILE *fp, int f)
-{
+void
+dump_torus(FILE *fp, int f) {
     int i;
     char bob[256];
     if (f == READEM)
@@ -360,8 +360,8 @@ dump_torus (FILE *fp, int f)
     }
 }
 
-void 
-load_eqn (void) {
+void
+load_eqn(void) {
     int no_eqn = 1, okay = 0;
     int i;
     int std = 0;
@@ -471,8 +471,8 @@ load_eqn()
 
 */
 
-void 
-set_X_vals (void) {
+void
+set_X_vals(void) {
     /*
     Set up the default look here.
     */
@@ -516,8 +516,8 @@ set_X_vals (void) {
     }
 }
 
-void 
-set_all_vals (void) {
+void
+set_all_vals(void) {
     int i;
 
     FILE *fp;
@@ -836,9 +836,8 @@ set_all_vals (void) {
     arr_ic_start(); /* take care of all predefined array ics */
 }
 
-void 
-read_defaults (FILE *fp)
-{
+void
+read_defaults(FILE *fp) {
     char bob[100];
     char *ptr;
     fgets(bob, 80, fp);
@@ -951,17 +950,15 @@ read_defaults (FILE *fp)
     };
 }
 
-void 
-fil_flt (FILE *fpt, double *val)
-{
+void
+fil_flt(FILE *fpt, double *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atof(bob);
 }
 
-void 
-fil_int (FILE *fpt, int *val)
-{
+void
+fil_int(FILE *fpt, int *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atoi(bob);
@@ -972,9 +969,8 @@ fil_int (FILE *fpt, int *val)
    { x=y, z=w, q=p , .... }
 */
 
-void 
-add_intern_set (char *name, char *does)
-{
+void
+add_intern_set(char *name, char *does) {
     char bob[1024], ch;
     int i, n, j = Nintern_set, k = 0;
     if (Nintern_set >= MAX_INTERN_SET) {
@@ -1010,7 +1006,8 @@ add_intern_set (char *name, char *does)
     Nintern_set++;
 }
 
-void extract_action(char *ptr) {
+void
+extract_action(char *ptr) {
     char name[256], value[256];
     char tmp[2048];
     char *junk, *mystring;
@@ -1028,13 +1025,13 @@ void extract_action(char *ptr) {
     }
 }
 
-void 
-extract_internset (int j)
-{ extract_action(intern_set[j].does); }
+void
+extract_internset(int j) {
+    extract_action(intern_set[j].does);
+}
 
-void 
-do_intern_set (char *name1, char *value)
-{
+void
+do_intern_set(char *name1, char *value) {
     int i;
     char name[20];
     convert(name1, name);
@@ -1056,9 +1053,8 @@ do_intern_set (char *name1, char *value)
 }
 /*  ODE options stuff  here !!   */
 
-int 
-msc (char *s1, char *s2)
-{
+int
+msc(char *s1, char *s2) {
 
     int n = strlen(s1), i;
     if (strlen(s2) < n)
@@ -1069,7 +1065,8 @@ msc (char *s1, char *s2)
     return (1);
 }
 
-void set_internopts(OptionsSet *mask) {
+void
+set_internopts(OptionsSet *mask) {
     int i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
@@ -1152,8 +1149,8 @@ void set_internopts(OptionsSet *mask) {
     Nopts = 0;
 }
 
-void 
-set_internopts_xpprc_and_comline (void) {
+void
+set_internopts_xpprc_and_comline(void) {
     int i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
@@ -1217,9 +1214,8 @@ set_internopts_xpprc_and_comline (void) {
     Nopts = 0;
 }
 
-void 
-split_apart (char *bob, char *name, char *value)
-{
+void
+split_apart(char *bob, char *name, char *value) {
     int k, i, l;
 
     l = strlen(bob);
@@ -1236,8 +1232,8 @@ split_apart (char *bob, char *name, char *value)
     }
 }
 
-void 
-check_for_xpprc (void) {
+void
+check_for_xpprc(void) {
     FILE *fp;
     char rc[256];
     char bob[256];
@@ -1257,9 +1253,8 @@ check_for_xpprc (void) {
     fclose(fp);
 }
 
-void 
-stor_internopts (char *s1)
-{
+void
+stor_internopts(char *s1) {
     int n = strlen(s1);
     if (Nopts > MAXOPT) {
         plintf("WARNING -- to many options set %s ignored\n", s1);

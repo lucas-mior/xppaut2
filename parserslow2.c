@@ -250,8 +250,8 @@ char *c;
 }
 */
 
-void 
-init_rpn (void) {
+void
+init_rpn(void) {
 
     ERROUT = 1;
     NCON = 0;
@@ -287,8 +287,8 @@ init_rpn (void) {
 
 /*  FREE_UFUNS   */
 
-void 
-free_ufuns (void) {
+void
+free_ufuns(void) {
     int i;
     for (i = 0; i < NFUN; i++) {
         free(ufun[i]);
@@ -296,9 +296,8 @@ free_ufuns (void) {
     }
 }
 
-int 
-duplicate_name (char *junk)
-{
+int
+duplicate_name(char *junk) {
     int i;
     find_name(junk, &i);
     if (i >= 0) {
@@ -311,9 +310,8 @@ duplicate_name (char *junk)
 
 /*  ADD_CONSTANT   */
 
-int 
-add_constant (char *junk)
-{
+int
+add_constant(char *junk) {
     int len;
     char string[100];
     if (duplicate_name(junk) == 1)
@@ -341,9 +339,8 @@ add_constant (char *junk)
     return (0);
 }
 
-int 
-get_var_index (char *name)
-{
+int
+get_var_index(char *name) {
 
     int type, com;
     find_name(name, &type);
@@ -358,15 +355,15 @@ get_var_index (char *name)
 
 /* GET_TYPE   */
 
-int 
-get_type (int index)
-{ return (my_symb[index].com); }
+int
+get_type(int index) {
+    return (my_symb[index].com);
+}
 
 /*   ADD_CON      */
 
-int 
-add_con (char *name, double value)
-{
+int
+add_con(char *name, double value) {
 
     /*  printf("Adding constant %s # %d\n",name,NCON); */
     if (NCON >= MAXPAR) {
@@ -379,9 +376,8 @@ add_con (char *name, double value)
     return (add_constant(name));
 }
 
-int 
-add_kernel (char *name, double mu, char *expr)
-{
+int
+add_kernel(char *name, double mu, char *expr) {
     char string[100];
 
     int len, i, in = -1;
@@ -440,9 +436,8 @@ add_kernel (char *name, double mu, char *expr)
 
 /*  ADD_VAR          */
 
-int 
-add_var (char *junk, double value)
-{
+int
+add_var(char *junk, double value) {
     char string[100];
     int len;
     /*   plintf(" variable - %s \n",junk); */
@@ -471,9 +466,8 @@ add_var (char *junk, double value)
 
 /* ADD_EXPR   */
 
-int 
-add_expr (char *expr, int *command, int *length)
-{
+int
+add_expr(char *expr, int *command, int *length) {
     char dest[1024];
     int my_token[1024];
     int err, i;
@@ -500,7 +494,8 @@ add_expr (char *expr, int *command, int *length)
     return (0);
 }
 
-int add_vector_name(int index, char *name) {
+int
+add_vector_name(int index, char *name) {
 
     char string[50];
     int len = strlen(name);
@@ -522,9 +517,8 @@ int add_vector_name(int index, char *name) {
     return (0);
 }
 
-int 
-add_net_name (int index, char *name)
-{
+int
+add_net_name(int index, char *name) {
     char string[50];
     int len = strlen(name);
     plintf(" Adding net %s %d \n", name, index);
@@ -545,16 +539,14 @@ add_net_name (int index, char *name)
 
 /* ADD LOOKUP TABLE   */
 
-int 
-add_2d_table (char *name, char *file)
-{
+int
+add_2d_table(char *name, char *file) {
     plintf(" TWO D NOT HERE YET \n");
     return (1);
 }
 
-int 
-add_file_table (int index, char *file)
-{
+int
+add_file_table(int index, char *file) {
     char file2[1000];
     int i2 = 0, i1 = 0, n;
     char ch;
@@ -576,9 +568,8 @@ add_file_table (int index, char *file)
     return (0);
 }
 
-int 
-add_table_name (int index, char *name)
-{
+int
+add_table_name(int index, char *name) {
     char string[50];
     int len = strlen(name);
     if (duplicate_name(name) == 1)
@@ -598,9 +589,8 @@ add_table_name (int index, char *name)
 }
 /* ADD LOOKUP TABLE   */
 
-int 
-add_form_table (int index, int nn, double xlo, double xhi, char *formula)
-{
+int
+add_form_table(int index, int nn, double xlo, double xhi, char *formula) {
 
     if (create_fun_table(nn, xlo, xhi, formula, index) == 0) {
         if (ERROUT)
@@ -610,9 +600,8 @@ add_form_table (int index, int nn, double xlo, double xhi, char *formula)
     return (0);
 }
 
-void 
-set_old_arg_names (int narg)
-{
+void
+set_old_arg_names(int narg) {
     int i;
     for (i = 0; i < narg; i++) {
         sprintf(my_symb[FIRST_ARG + i].name, "ARG%d", i + 1);
@@ -620,9 +609,8 @@ set_old_arg_names (int narg)
     }
 }
 
-void 
-set_new_arg_names (int narg, char args[10][11])
-{
+void
+set_new_arg_names(int narg, char args[10][11]) {
     int i;
     for (i = 0; i < narg; i++) {
         strcpy(my_symb[FIRST_ARG + i].name, args[i]);
@@ -632,9 +620,8 @@ set_new_arg_names (int narg, char args[10][11])
 
 /* NEW ADD_FUN for new form_ode code  */
 
-int 
-add_ufun_name (char *name, int index, int narg)
-{
+int
+add_ufun_name(char *name, int index, int narg) {
     char string[50];
     int len = strlen(name);
     if (duplicate_name(name) == 1)
@@ -659,17 +646,15 @@ add_ufun_name (char *name, int index, int narg)
     return (0);
 }
 
-void 
-fixup_endfun (int *u, int l, int narg)
-{
+void
+fixup_endfun(int *u, int l, int narg) {
     u[l - 1] = ENDFUN;
     u[l] = narg;
     u[l + 1] = ENDEXP;
 }
 
-int 
-add_ufun_new (int index, int narg, char *rhs, char args[MAXARG][11])
-{
+int
+add_ufun_new(int index, int narg, char *rhs, char args[MAXARG][11]) {
 
     int i, l;
     int end;
@@ -712,9 +697,8 @@ add_ufun_new (int index, int narg, char *rhs, char args[MAXARG][11])
 
 /* ADD_UFUN   */
 
-int 
-add_ufun (char *junk, char *expr, int narg)
-{
+int
+add_ufun(char *junk, char *expr, int narg) {
     char string[50];
     int i, l;
     int end;
@@ -768,9 +752,8 @@ add_ufun (char *junk, char *expr, int narg)
     return (1);
 }
 
-int 
-check_num (int *tok, double value)
-{
+int
+check_num(int *tok, double value) {
     int bob, in, i;
     /*int m;*/
     for (i = 0; i < NSYM; i++) {
@@ -790,9 +773,8 @@ check_num (int *tok, double value)
 
 /* is_ufun         */
 
-int 
-is_ufun (int x)
-{
+int
+is_ufun(int x) {
     if ((x / MAXTYPE) == UFUNTYPE)
         return (1);
     else
@@ -801,9 +783,8 @@ is_ufun (int x)
 
 /* IS_UCON        */
 
-int 
-is_ucon (int x)
-{
+int
+is_ucon(int x) {
     if (x / MAXTYPE == CONTYPE)
         return (1);
     else
@@ -812,48 +793,47 @@ is_ucon (int x)
 
 /* IS_UVAR       */
 
-int 
-is_uvar (int x)
-{
+int
+is_uvar(int x) {
     if (x / MAXTYPE == VARTYPE)
         return (1);
     else
         return (0);
 }
 
-int 
-isvar (int y)
-{ return (y == VARTYPE); }
+int
+isvar(int y) {
+    return (y == VARTYPE);
+}
 
-int 
-iscnst (int y)
-{ return (y == CONTYPE); }
+int
+iscnst(int y) {
+    return (y == CONTYPE);
+}
 
-int 
-isker (int y)
-{ return (y == KERTYPE); }
+int
+isker(int y) {
+    return (y == KERTYPE);
+}
 
-int 
-is_kernel (int x)
-{
+int
+is_kernel(int x) {
     if ((x / MAXTYPE) == KERTYPE)
         return (1);
     else
         return (0);
 }
 
-int 
-is_lookup (int x)
-{
+int
+is_lookup(int x) {
     if ((x / MAXTYPE) == TABTYPE)
         return (1);
     else
         return (0);
 }
 
-int 
-find_lookup (char *name)
-{
+int
+find_lookup(char *name) {
     int index, com;
     find_name(name, &index);
     if (index == -1)
@@ -866,9 +846,8 @@ find_lookup (char *name)
 
 /* FIND_NAME    */
 
-void 
-find_name (char *string, int *index)
-{
+void
+find_name(char *string, int *index) {
     char junk[100];
     int i, len;
     convert(string, junk);
@@ -884,9 +863,8 @@ find_name (char *string, int *index)
         *index = -1;
 }
 
-int 
-get_param_index (char *name)
-{
+int
+get_param_index(char *name) {
     int type, com;
     find_name(name, &type);
     if (type < 0)
@@ -900,9 +878,8 @@ get_param_index (char *name)
 
 /* GET_VAL   */
 
-int 
-get_val (char *name, double *value)
-{
+int
+get_val(char *name, double *value) {
     int type, com;
     *value = 0.0;
     find_name(name, &type);
@@ -922,9 +899,8 @@ get_val (char *name, double *value)
 
 /* SET_VAL         */
 
-int 
-set_val (char *name, double value)
-{
+int
+set_val(char *name, double value) {
     int type, com;
     find_name(name, &type);
     if (type < 0)
@@ -943,17 +919,18 @@ set_val (char *name, double value)
     return (0);
 }
 
-void 
-set_ivar (int i, double value)
-{ SETVAR(i, value); }
+void
+set_ivar(int i, double value) {
+    SETVAR(i, value);
+}
 
-double 
-get_ivar (int i)
-{ return (GETVAR(i)); }
+double
+get_ivar(int i) {
+    return (GETVAR(i));
+}
 
-int 
-alg_to_rpn (int *toklist, int *command)
-{
+int
+alg_to_rpn(int *toklist, int *command) {
     int tokstak[500], comptr = 0, tokptr = 0, lstptr = 0, temp;
     int ncomma = 0;
     int loopstk[100];
@@ -1183,9 +1160,8 @@ alg_to_rpn (int *toklist, int *command)
     return (0);
 }
 
-void 
-pr_command (int *command)
-{
+void
+pr_command(int *command) {
     int i = 0;
     int token;
     while (1) {
@@ -1197,9 +1173,8 @@ pr_command (int *command)
     }
 }
 
-void 
-show_where (char *string, int index)
-{
+void
+show_where(char *string, int index) {
     char junk[MAXEXPLEN];
     int i;
     /* exit(-1); */
@@ -1210,7 +1185,8 @@ show_where (char *string, int index)
     plintf("%s\n%s\n", string, junk);
 }
 
-int function_sym(int token) /* functions should have ( after them  */
+int
+function_sym(int token) /* functions should have ( after them  */
 {
     int com = my_symb[token].com;
     int i1 = com / MAXTYPE;
@@ -1231,16 +1207,16 @@ int function_sym(int token) /* functions should have ( after them  */
     return (0);
 }
 
-int unary_sym(int token) {
+int
+unary_sym(int token) {
     /* ram: these are tokens not byte code, so no change here? */
     if (token == 9 || token == 55)
         return (1);
     return (0);
 }
 
-int 
-binary_sym (int token)
-{
+int
+binary_sym(int token) {
     /* ram: these are tokens not byte code, so no change here? */
     if (token > 2 && token < 9)
         return (1);
@@ -1251,9 +1227,8 @@ binary_sym (int token)
     return (0);
 }
 
-int 
-pure_number (int token)
-{
+int
+pure_number(int token) {
     int com = my_symb[token].com;
     int i1 = com / MAXTYPE;
     /* !! */ if (token == NUMTOK || isvar(i1) || iscnst(i1) || isker(i1) ||
@@ -1262,9 +1237,8 @@ pure_number (int token)
     return (0);
 }
 
-int 
-gives_number (int token)
-{
+int
+gives_number(int token) {
     int com = my_symb[token].com;
     int i1 = com / MAXTYPE;
     if (token == INDX)
@@ -1289,12 +1263,9 @@ gives_number (int token)
     return (0);
 }
 
-int 
-check_syntax ( /* 1 is BAD!   */
-    int oldtoken,
-    int newtoken
-)
-{
+int
+check_syntax(/* 1 is BAD!   */
+             int oldtoken, int newtoken) {
     int com2 = my_symb[newtoken].com;
 
     /* if the first symbol or (  or binary symbol then must be unary symbol or
@@ -1347,9 +1318,8 @@ check_syntax ( /* 1 is BAD!   */
  *    PARSER                   *
  ******************************/
 
-int 
-make_toks (char *dest, int *my_token)
-{
+int
+make_toks(char *dest, int *my_token) {
     char num[40];
     double value;
     int old_tok = STARTTOK, tok_in = 0;
@@ -1423,16 +1393,14 @@ make_toks (char *dest, int *my_token)
     return (0);
 }
 
-void 
-tokeninfo (int tok)
-{
+void
+tokeninfo(int tok) {
     plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len,
            my_symb[tok].com, my_symb[tok].arg, my_symb[tok].pri);
 }
 
-int 
-do_num (char *source, char *num, double *value, int *ind)
-{
+int
+do_num(char *source, char *num, double *value, int *ind) {
     int j = 0, i = *ind, error = 0;
     int ndec = 0, nexp = 0, ndig = 0;
     char ch, oldch;
@@ -1483,9 +1451,8 @@ do_num (char *source, char *num, double *value, int *ind)
     return (error);
 }
 
-void 
-convert (char *source, char *dest)
-{
+void
+convert(char *source, char *dest) {
     char ch;
     int i = 0, j = 0;
     while (1) {
@@ -1499,9 +1466,8 @@ convert (char *source, char *dest)
     strupr(dest);
 }
 
-void 
-find_tok (char *source, int *index, int *tok)
-{
+void
+find_tok(char *source, int *index, int *tok) {
     int i = *index, maxlen = 0, symlen;
     int k, j, my_tok, match;
     my_tok = NSYM;
@@ -1526,17 +1492,16 @@ find_tok (char *source, int *index, int *tok)
     *tok = my_tok;
 }
 
-double 
-pmod (double x, double y)
-{
+double
+pmod(double x, double y) {
     double z = fmod(x, y);
     if (z < 0)
         z += y;
     return (z);
 }
 
-void 
-two_args (void) {
+void
+two_args(void) {
     fun2[4] = atan2;
     fun2[5] = pow;
     fun2[6] = max;
@@ -1563,16 +1528,14 @@ two_args (void) {
      to compute them
 */
 
-double 
-bessel_j (double x, double y)
-{
+double
+bessel_j(double x, double y) {
     int n = (int)x;
     return (jn(n, y));
 }
 
-double 
-bessel_y (double x, double y)
-{
+double
+bessel_y(double x, double y) {
     int n = (int)x;
     return (yn(n, y));
 }
@@ -1581,9 +1544,8 @@ bessel_y (double x, double y)
 #define BIGNO 1.0e10
 #define BIGNI 1.0e-10
 
-double 
-bessi (double nn, double x)
-{
+double
+bessi(double nn, double x) {
     int j, n;
     double bi, bim, bip, tox, ans;
     n = (int)nn;
@@ -1614,9 +1576,8 @@ bessi (double nn, double x)
     }
 }
 
-double 
-bessi0 (double x)
-{
+double
+bessi0(double x) {
     double ax, ans;
     double y;
 
@@ -1644,9 +1605,8 @@ bessi0 (double x)
     return ans;
 }
 
-double 
-bessi1 (double x)
-{
+double
+bessi1(double x) {
     double ax, ans;
     double y;
 
@@ -1672,9 +1632,8 @@ bessi1 (double x)
     return x < 0.0 ? -ans : ans;
 }
 
-double 
-bessis (double nn, double x)
-{
+double
+bessis(double nn, double x) {
     int j, n;
     double bi, bim, bip, tox, ans;
     n = (int)nn;
@@ -1705,9 +1664,8 @@ bessis (double nn, double x)
     }
 }
 
-double 
-bessis0 (double x)
-{
+double
+bessis0(double x) {
     double ax, ans;
     double y;
 
@@ -1736,9 +1694,8 @@ bessis0 (double x)
     return ans;
 }
 
-double 
-bessis1 (double x)
-{
+double
+bessis1(double x) {
     double ax, ans;
     double y;
 
@@ -1793,8 +1750,7 @@ double z,w;
 *********************************************/
 
 char *
-com_name (int com)
-{
+com_name(int com) {
     int i;
     for (i = 0; i < NSYM; i++)
         if (my_symb[i].com == com)
@@ -1804,9 +1760,8 @@ com_name (int com)
     else
         return "";
 }
-double 
-do_shift (double shift, double variable)
-{
+double
+do_shift(double shift, double variable) {
     int it, in;
     int i = (int)(variable), ish = (int)shift;
 
@@ -1836,9 +1791,8 @@ do_shift (double shift, double variable)
         return 0.0;
     }
 }
-double 
-do_ishift (double shift, double variable)
-{
+double
+do_ishift(double shift, double variable) {
 
     /* plintf( "shifting %d (%s) by %d to %d (%s)\n",
      *	(int)variable, com_name((int)variable), (int)shift, i, com_name(i) );
@@ -1846,9 +1800,8 @@ do_ishift (double shift, double variable)
     return variable + shift;
 }
 
-double 
-do_delay_shift (double delay, double shift, double variable)
-{
+double
+do_delay_shift(double delay, double shift, double variable) {
     int in;
     int i = (int)(variable), ish = (int)shift;
     if (i < 0)
@@ -1866,9 +1819,8 @@ do_delay_shift (double delay, double shift, double variable)
 
     return (delay_stab_eval(delay, in));
 }
-double 
-do_delay (double delay, double i)
-{
+double
+do_delay(double delay, double i) {
 
     int variable;
     /* ram - this was a little weird, since i is a double... except I think it's
@@ -1906,9 +1858,12 @@ double z;
 }
 */
 
-double hom_bcs(int i) { return 0.0; /* this is deprecated so no longer used */ }
-void 
-one_arg (void) {
+double
+hom_bcs(int i) {
+    return 0.0; /* this is deprecated so no longer used */
+}
+void
+one_arg(void) {
     fun1[0] = sin;
     fun1[1] = cos;
     fun1[2] = tan;
@@ -1937,9 +1892,8 @@ one_arg (void) {
     fun1[25] = lgamma;
 }
 
-double 
-normal (double mean, double std)
-{
+double
+normal(double mean, double std) {
     double fac, r, v1, v2;
     if (BoxMullerFlag == 0) {
         do {
@@ -1957,40 +1911,42 @@ normal (double mean, double std)
     }
 }
 
-double 
-max (double x, double y)
-{ return (((x > y) ? x : y)); }
+double
+max(double x, double y) {
+    return (((x > y) ? x : y));
+}
 
-double 
-min (double x, double y)
-{ return (((x < y) ? x : y)); }
+double
+min(double x, double y) {
+    return (((x < y) ? x : y));
+}
 
-double 
-neg (double z)
-{ return (-z); }
+double
+neg(double z) {
+    return (-z);
+}
 
-double 
-recip (double z)
-{ return (1.00 / z); }
+double
+recip(double z) {
+    return (1.00 / z);
+}
 
-double 
-heaviside (double z)
-{
+double
+heaviside(double z) {
     float w = 1.0;
     if (z < 0)
         w = 0.0;
     return (w);
 }
 
-double 
-rndom (double z)
-{
+double
+rndom(double z) {
     /* return (z*(double)rand()/32767.00); */
     return (z * ndrand48());
 }
 
-double 
-signum (double z)
+double
+signum(double z)
 
 {
     if (z < 0.0)
@@ -2002,47 +1958,54 @@ signum (double z)
 
 /*  logical stuff  */
 
-double 
-dnot (double x)
-{ return ((double)(x == 0.0)); }
-double 
-dand (double x, double y)
-{ return ((double)(x && y)); }
-double 
-dor (double x, double y)
-{ return ((double)(x || y)); }
-double 
-dge (double x, double y)
-{ return ((double)(x >= y)); }
-double 
-dle (double x, double y)
-{ return ((double)(x <= y)); }
-double 
-deq (double x, double y)
-{ return ((double)(x == y)); }
-double 
-dne (double x, double y)
-{ return ((double)(x != y)); }
-double 
-dgt (double x, double y)
-{ return ((double)(x > y)); }
-double 
-dlt (double x, double y)
-{ return ((double)(x < y)); }
+double
+dnot(double x) {
+    return ((double)(x == 0.0));
+}
+double
+dand(double x, double y) {
+    return ((double)(x && y));
+}
+double
+dor(double x, double y) {
+    return ((double)(x || y));
+}
+double
+dge(double x, double y) {
+    return ((double)(x >= y));
+}
+double
+dle(double x, double y) {
+    return ((double)(x <= y));
+}
+double
+deq(double x, double y) {
+    return ((double)(x == y));
+}
+double
+dne(double x, double y) {
+    return ((double)(x != y));
+}
+double
+dgt(double x, double y) {
+    return ((double)(x > y));
+}
+double
+dlt(double x, double y) {
+    return ((double)(x < y));
+}
 
 /*              end of logical stuff    */
 
-double 
-evaluate (int *equat)
-{
+double
+evaluate(int *equat) {
     uptr = 0;
     stack_pointer = 0;
     return (eval_rpn(equat));
 }
 
-double 
-eval_rpn (int *equat)
-{
+double
+eval_rpn(int *equat) {
     int i, it, in, j, *tmpeq;
     int is;
 
@@ -2240,9 +2203,8 @@ eval_rpn (int *equat)
 /* code for log-gamma if you dont have it */
 
 #ifdef NOLGAMMA
-double 
-lgamma (double xx)
-{
+double
+lgamma(double xx) {
     double x, y, tmp, ser;
     static double cof[6] = {76.18009172947146,     -86.50532032941677,
                             24.01409824083091,     -1.231739572450155,
@@ -2262,9 +2224,8 @@ lgamma (double xx)
 
 /*  STRING STUFF  */
 #ifndef STRUPR
-void 
-strupr (char *s)
-{
+void
+strupr(char *s) {
     int i = 0;
     while (s[i]) {
         if (islower(s[i]))
@@ -2273,9 +2234,8 @@ strupr (char *s)
     }
 }
 
-void 
-strlwr (char *s)
-{
+void
+strlwr(char *s) {
     int i = 0;
     while (s[i]) {
         if (isupper(s[i]))

@@ -24,13 +24,12 @@ extern int tfBell, TipsFlag;
 extern int DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
 extern GC gc;
 Window make_unmapped_window();
-void 
-flash (int num)
-{}
+void
+flash(int num) {
+}
 
-void 
-add_menu (Window base, int j, int n, char **names, char *key, char **hint)
-{
+void
+add_menu(Window base, int j, int n, char **names, char *key, char **hint) {
     Window w;
     int i;
     Cursor cursor;
@@ -53,9 +52,8 @@ add_menu (Window base, int j, int n, char **names, char *key, char **hint)
     XMapSubwindows(display, my_menus[j].base);
 }
 
-void 
-create_the_menus (Window base)
-{
+void
+create_the_menus(Window base) {
     char key[30];
     strcpy(key, "icndwakgufpemtsvxr3b");
     add_menu(base, MAIN_MENU, MAIN_ENTRIES, main_menu, key, main_hint);
@@ -69,9 +67,8 @@ create_the_menus (Window base)
     help_menu = -1;
 }
 
-void 
-show_menu (int j)
-{
+void
+show_menu(int j) {
     /*  XMapRaised(display,my_menus[j].base);
     XMapSubwindows(display,my_menus[j].base);
     */
@@ -80,9 +77,8 @@ show_menu (int j)
     help_menu = j;
 }
 
-void 
-unshow_menu (int j)
-{
+void
+unshow_menu(int j) {
 
     if (j < 0)
         return;
@@ -91,20 +87,20 @@ unshow_menu (int j)
      XUnmapWindow(display,my_menus[j].base); */
 }
 
-void 
-help (void) {
+void
+help(void) {
     unshow_menu(help_menu);
     show_menu(MAIN_MENU);
 }
 
-void 
-help_num (void) {
+void
+help_num(void) {
     unshow_menu(help_menu);
     show_menu(NUM_MENU);
 }
 
-void 
-help_file (void) {
+void
+help_file(void) {
     if (tfBell)
         my_menus[FILE_MENU].names = fileon_menu;
     else
@@ -113,9 +109,8 @@ help_file (void) {
     show_menu(FILE_MENU);
 }
 
-void 
-menu_crossing (Window win, int yn)
-{
+void
+menu_crossing(Window win, int yn) {
     int i, n, j = help_menu;
     char **z;
     if (j < 0)
@@ -134,9 +129,8 @@ menu_crossing (Window win, int yn)
     }
 }
 
-void 
-menu_expose (Window win)
-{
+void
+menu_expose(Window win) {
     int i, n, j = help_menu;
     char **z;
     if (j < 0)
@@ -167,9 +161,8 @@ menu_expose (Window win)
     }
 }
 
-void 
-menu_button (Window win)
-{
+void
+menu_button(Window win) {
     int i, n, j = help_menu;
     if (j < 0)
         return;
@@ -185,8 +178,8 @@ menu_button (Window win)
     }
 }
 
-void 
-draw_help (void) {
+void
+draw_help(void) {
     int i, j = help_menu, n;
     /*char **z;
      */

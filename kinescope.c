@@ -36,7 +36,8 @@ typedef struct {
 
 MOVIE movie[MAXFILM];
 
-void do_movie_com(int c)
+void
+do_movie_com(int c)
 
 {
 
@@ -69,8 +70,8 @@ void do_movie_com(int c)
     }
 }
 
-void 
-reset_film (void) {
+void
+reset_film(void) {
     int i;
     if (mov_ind == 0)
         return;
@@ -79,8 +80,8 @@ reset_film (void) {
     mov_ind = 0;
 }
 
-int 
-film_clip (void) {
+int
+film_clip(void) {
     int x, y;
     unsigned int h, w, bw, d;
     Window root;
@@ -96,7 +97,8 @@ film_clip (void) {
     return 1;
 }
 
-int show_frame(int i, int h, int w) {
+int
+show_frame(int i, int h, int w) {
     if (h < movie[i].h || w < movie[i].w) {
         too_small();
         return 1;
@@ -107,8 +109,8 @@ int show_frame(int i, int h, int w) {
     return 0;
 }
 
-void 
-play_back (void) {
+void
+play_back(void) {
     int x, y;
     unsigned int h, w, bw, d;
 
@@ -168,8 +170,8 @@ play_back (void) {
     }
 }
 
-void 
-save_kine (void) {
+void
+save_kine(void) {
     char base[128];
     int fmat = 2;
     sprintf(base, "frame");
@@ -183,8 +185,8 @@ save_kine (void) {
         save_movie(base, fmat);
 }
 
-void 
-make_anigif (void) {
+void
+make_anigif(void) {
     int i = 0;
     int x, y;
     FILE *fp;
@@ -219,9 +221,8 @@ make_anigif (void) {
     set_global_map(0);
 }
 
-void 
-save_movie (char *basename, int fmat)
-{
+void
+save_movie(char *basename, int fmat) {
     /*char file[256];
      */
     char file[XPP_MAX_NAME];
@@ -263,8 +264,8 @@ save_movie (char *basename, int fmat)
     }
 }
 
-void 
-auto_play (void) {
+void
+auto_play(void) {
     int x, y;
     unsigned int h, w, bw, d, key;
     Window root;
@@ -341,5 +342,7 @@ auto_play (void) {
     } /*  Big loop   */
 }
 
-void 
-too_small (void) { respond_box("Okay", "Window too small for film!"); }
+void
+too_small(void) {
+    respond_box("Okay", "Window too small for film!");
+}

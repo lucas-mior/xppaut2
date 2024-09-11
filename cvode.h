@@ -68,13 +68,25 @@
  *                                                                *
  ******************************************************************/
 
-enum { ADAMS, BDF }; /* lmm */
+enum {
+    ADAMS,
+    BDF
+}; /* lmm */
 
-enum { FUNCTIONAL, NEWTON }; /* iter */
+enum {
+    FUNCTIONAL,
+    NEWTON
+}; /* iter */
 
-enum { SS, SV }; /* itol */
+enum {
+    SS,
+    SV
+}; /* itol */
 
-enum { NORMAL, ONE_STEP }; /* itask */
+enum {
+    NORMAL,
+    ONE_STEP
+}; /* itask */
 
 /******************************************************************
  *                                                                *
@@ -95,8 +107,7 @@ enum { NORMAL, ONE_STEP }; /* itask */
  *                                                                *
  ******************************************************************/
 
-typedef void (*RhsFn)(int64 N, real t, N_Vector y, N_Vector ydot,
-                      void *f_data);
+typedef void (*RhsFn)(int64 N, real t, N_Vector y, N_Vector ydot, void *f_data);
 
 /******************************************************************
  *                                                                *
@@ -314,7 +325,13 @@ int CVodeDky(void *cvode_mem, real t, int k, N_Vector dky);
 
 /* CVodeDky return values */
 
-enum { OKAY = 0, BAD_K = -1, BAD_T = -2, BAD_DKY = -3, DKY_NO_MEM = -4 };
+enum {
+    OKAY = 0,
+    BAD_K = -1,
+    BAD_T = -2,
+    BAD_DKY = -3,
+    DKY_NO_MEM = -4
+};
 
 /******************************************************************
  *                                                                *
@@ -444,7 +461,15 @@ enum {
 
 /* ropt indices */
 
-enum { H0, HMAX, HMIN, HU, HCUR, TCUR, TOLSF };
+enum {
+    H0,
+    HMAX,
+    HMIN,
+    HU,
+    HCUR,
+    TCUR,
+    TOLSF
+};
 
 /* Basic CVODE constants */
 
@@ -469,7 +494,7 @@ typedef struct CVodeMemRec {
 
     /* Problem Specification Data */
 
-    int64 cv_N;    /* ODE system size             */
+    int64 cv_N;      /* ODE system size             */
     RhsFn cv_f;      /* y' = f(t,y(t))              */
     void *cv_f_data; /* user pointer passed to f    */
     int cv_lmm;      /* lmm = ADAMS or BDF          */
@@ -583,7 +608,7 @@ typedef struct CVodeMemRec {
     int cv_nstlp;         /* step number of last setup call */
     real cv_hu;           /* last successful h value used   */
     real cv_saved_tq5;    /* saved value of tq[5]           */
-    int64 cv_imxer;     /* index of max value of          */
+    int64 cv_imxer;       /* index of max value of          */
                           /* |acor[i]|*ewt[i]               */
     bool cv_jcur;         /* Is the Jacobian info used by   */
                           /* linear solver current?         */

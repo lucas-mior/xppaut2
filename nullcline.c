@@ -71,7 +71,8 @@ NCLINES *ncperm;
 int n_nstore = 0;
 int ncline_cnt;
 
-void froz_cline_stuff_com(int i) {
+void
+froz_cline_stuff_com(int i) {
     int delay = 200;
     if (n_nstore == 0)
         start_ncline();
@@ -96,8 +97,8 @@ void froz_cline_stuff_com(int i) {
     }
 }
 
-void 
-silent_dfields (void) {
+void
+silent_dfields(void) {
 
     if (DFBatch == 5 || DFBatch == 4) {
         DFSuppress = 1;
@@ -107,8 +108,8 @@ silent_dfields (void) {
     }
 }
 
-void 
-silent_nullclines (void) {
+void
+silent_nullclines(void) {
     FILE *fp;
     if (NCBatch != 2)
         return;
@@ -124,8 +125,8 @@ silent_nullclines (void) {
     NCSuppress = 0;
 }
 
-void 
-do_range_clines (void) {
+void
+do_range_clines(void) {
     static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
     char values[4][MAX_LEN_SBOX];
     int status, i;
@@ -201,8 +202,8 @@ do_range_clines (void) {
     }
 }
 
-void 
-start_ncline (void) {
+void
+start_ncline(void) {
     n_nstore = 1;
     ncperm = (NCLINES *)malloc(sizeof(NCLINES));
     ncperm->p = NULL;
@@ -217,8 +218,8 @@ start_ncline (void) {
     sprintf(ncrange.rv, " ");
 }
 
-void 
-clear_froz_cline (void) {
+void
+clear_froz_cline(void) {
     NCLINES *z, *znew;
     z = ncperm;
     while (z->n != NULL)
@@ -253,7 +254,8 @@ clear_froz_cline (void) {
     ncline_cnt = 0;
 }
 
-int get_nullcline_floats(float **v, int *n, int who, int type) /* type=0,1 */
+int
+get_nullcline_floats(float **v, int *n, int who, int type) /* type=0,1 */
 {
     NCLINES *z;
     int i;
@@ -288,9 +290,8 @@ int get_nullcline_floats(float **v, int *n, int who, int type) /* type=0,1 */
     return 0;
 }
 
-void 
-save_frozen_clines (char *fn)
-{
+void
+save_frozen_clines(char *fn) {
     NCLINES *z;
     FILE *fp;
     char fnx[256];
@@ -320,9 +321,8 @@ save_frozen_clines (char *fn)
     }
 }
 
-void 
-redraw_froz_cline (int flag)
-{
+void
+redraw_froz_cline(int flag) {
     NCLINES *z;
     int col1 = XNullColor, col2 = YNullColor;
     /* if(PaperWhite){
@@ -358,9 +358,8 @@ redraw_froz_cline (int flag)
     }
 }
 
-void 
-add_froz_cline (float *xn, int nmx, int n_ix, float *yn, int nmy, int n_iy)
-{
+void
+add_froz_cline(float *xn, int nmx, int n_ix, float *yn, int nmy, int n_iy) {
     NCLINES *z, *znew;
     int i;
     z = ncperm;
@@ -389,9 +388,9 @@ add_froz_cline (float *xn, int nmx, int n_ix, float *yn, int nmy, int n_iy)
     ncline_cnt++;
 }
 
-void 
-get_max_dfield (double *y, double *ydot, double u0, double v0, double du, double dv, int n, int inx, int iny, double *mdf)
-{
+void
+get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
+               double dv, int n, int inx, int iny, double *mdf) {
     int i, j;
     double amp, dxp, dyp;
     *mdf = 0.0;
@@ -410,8 +409,8 @@ get_max_dfield (double *y, double *ydot, double u0, double v0, double du, double
 }
 /*  all the nifty 2D stuff here    */
 
-void 
-do_batch_nclines (void) {
+void
+do_batch_nclines(void) {
 
     if (!XPPBatch)
         return;
@@ -422,12 +421,12 @@ do_batch_nclines (void) {
         return;
     }
 }
-void 
-set_colorization_stuff (void) {
+void
+set_colorization_stuff(void) {
     user_set_color_par(ColorizeFlag, ColorVia, ColorViaLo, ColorViaHi);
 }
-void 
-do_batch_dfield (void) {
+void
+do_batch_dfield(void) {
     if (!XPPBatch)
         return;
     switch (DFBatch) {
@@ -471,8 +470,8 @@ do_batch_dfield (void) {
         return;
     }
 }
-void 
-redraw_dfield (void) {
+void
+redraw_dfield(void) {
     int i, j, k;
     int inx = MyGraph->xv[0] - 1;
     int iny = MyGraph->yv[0] - 1;
@@ -567,7 +566,8 @@ redraw_dfield (void) {
     DFSuppress = 0;
 }
 
-void direct_field_com(int c) {
+void
+direct_field_com(int c) {
 
     int i, j, start, k;
     int inx = MyGraph->xv[0] - 1;
@@ -712,8 +712,8 @@ void direct_field_com(int c) {
    animate - replay all frozen ones (not current set )
    */
 
-void 
-save_the_nullclines (void) {
+void
+save_the_nullclines(void) {
     FILE *fp;
     char filename[256];
     if (NULL_HERE == 0)
@@ -732,8 +732,8 @@ save_the_nullclines (void) {
     save_frozen_clines(filename);
 }
 
-void 
-restore_nullclines (void) {
+void
+restore_nullclines(void) {
     int col1 = XNullColor, col2 = YNullColor;
     /* if(PaperWhite){
       col1=1;
@@ -751,15 +751,9 @@ restore_nullclines (void) {
     redraw_froz_cline(0);
 }
 
-void 
-dump_clines ( /* gnuplot format */
-    FILE *fp,
-    float *x,
-    int nx,
-    float *y,
-    int ny
-)
-{
+void
+dump_clines(/* gnuplot format */
+            FILE *fp, float *x, int nx, float *y, int ny) {
     int i;
     fprintf(fp, "# X-nullcline\n");
     for (i = 0; i < nx - 1; i++) {
@@ -775,9 +769,8 @@ dump_clines ( /* gnuplot format */
     }
 }
 
-void 
-dump_clines_old (FILE *fp, float *x, int nx, float *y, int ny)
-{
+void
+dump_clines_old(FILE *fp, float *x, int nx, float *y, int ny) {
     int i, ix, iy;
     int n;
     n = nx;
@@ -799,13 +792,9 @@ dump_clines_old (FILE *fp, float *x, int nx, float *y, int ny)
     }
 }
 
-void 
-restor_null ( /* d=1 for x and 2 for y  */
-    float *v,
-    int n,
-    int d
-)
-{
+void
+restor_null(/* d=1 for x and 2 for y  */
+            float *v, int n, int d) {
 
     int i, i4;
     float xm, ym;
@@ -837,13 +826,14 @@ restor_null ( /* d=1 for x and 2 for y  */
         fprintf(svgfile, "</g>\n");
     }
 }
-void 
-create_new_cline (void) {
+void
+create_new_cline(void) {
     if (NULL_HERE)
         new_clines_com(0);
 }
 
-void new_clines_com(int c) {
+void
+new_clines_com(int c) {
     int course = NMESH, i;
     float xmin, xmax, y_tp, y_bot;
     int col1 = XNullColor, col2 = YNullColor;
@@ -915,18 +905,17 @@ void new_clines_com(int c) {
     }
 }
 
-void 
-new_nullcline (int course, double xlo, double ylo, double xhi, double yhi, float *stor, int *npts)
-{
+void
+new_nullcline(int course, double xlo, double ylo, double xhi, double yhi,
+              float *stor, int *npts) {
     num_index = 0;
     saver = stor;
     do_cline(course, xlo, ylo, xhi, yhi);
     *npts = num_index;
 }
 
-void 
-stor_null (double x1, double y1, double x2, double y2)
-{
+void
+stor_null(double x1, double y1, double x2, double y2) {
     int i;
     if (num_index >= MAX_NULL)
         return;
@@ -938,9 +927,8 @@ stor_null (double x1, double y1, double x2, double y2)
     num_index++;
 }
 
-float 
-fnull (double x, double y)
-{
+float
+fnull(double x, double y) {
     double y1[MAXODE], ydot[MAXODE];
     int i;
     for (i = 0; i < NODE; i++)
@@ -953,7 +941,8 @@ fnull (double x, double y)
     return ((float)ydot[WHICH_CRV - 1]);
 }
 
-int interpolate(p1, p2, z, x, y)
+int
+interpolate(p1, p2, z, x, y)
 Pt p1, p2;
 float z, *x, *y;
 {
@@ -1020,9 +1009,8 @@ void triangle_contour(p1, p2, p3)
     }
 }
 
-void 
-do_cline (int ngrid, double x1, double y1, double x2, double y2)
-{
+void
+do_cline(int ngrid, double x1, double y1, double x2, double y2) {
     float dx = (x2 - x1) / (float)ngrid;
     float dy = (y2 - y1) / (float)ngrid;
     float x, y;

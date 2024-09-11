@@ -220,8 +220,8 @@ void save_batch_shoot();
 
 int (*solver)();
 
-void 
-init_ar_ic (void) {
+void
+init_ar_ic(void) {
     int i;
     for (i = 0; i < NAR_IC; i++) {
         ar_ic[i].index0 = -1;
@@ -232,9 +232,8 @@ init_ar_ic (void) {
     }
 }
 
-void 
-dump_range (FILE *fp, int f)
-{
+void
+dump_range(FILE *fp, int f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -260,8 +259,8 @@ dump_range (FILE *fp, int f)
     if (f == READEM)
         range.steps2 = range.steps;
 }
-void 
-init_range (void) {
+void
+init_range(void) {
     eq_range.col = -1;
     eq_range.mc = 0;
     eq_range.shoot = 0;
@@ -306,8 +305,8 @@ init_range (void) {
     init_monte_carlo();
 }
 
-int 
-set_up_eq_range (void) {
+int
+set_up_eq_range(void) {
     static char *n[] = {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
@@ -358,8 +357,8 @@ set_up_eq_range (void) {
     return (0);
 }
 
-void 
-cont_integ (void) {
+void
+cont_integ(void) {
     double tetemp;
     double *x;
     double dif;
@@ -382,8 +381,8 @@ cont_integ (void) {
     refresh_browser(storind);
 }
 
-int 
-range_item (void) {
+int
+range_item(void) {
     int i;
     char bob[256];
     i = find_user_name(PARAM, range.item);
@@ -403,8 +402,8 @@ range_item (void) {
     return 1;
 }
 
-int 
-range_item2 (void) {
+int
+range_item2(void) {
     int i;
     char bob[256];
     i = find_user_name(PARAM, range.item2);
@@ -424,8 +423,8 @@ range_item2 (void) {
     return 1;
 }
 
-int 
-set_up_range (void) {
+int
+set_up_range(void) {
     static char *n[] = {"*3Range over",
                         "Steps",
                         "Start",
@@ -501,8 +500,8 @@ set_up_range (void) {
     return (0);
 }
 
-int 
-set_up_range2 (void) {
+int
+set_up_range2(void) {
     static char *n[] = {"*3Vary1",
                         "Start1",
                         "End1",
@@ -583,8 +582,8 @@ set_up_range2 (void) {
     return (0);
 }
 
-void 
-init_monte_carlo (void) {
+void
+init_monte_carlo(void) {
     int i;
     fixptguess.tol = .001;
     fixptguess.n = 100;
@@ -596,8 +595,8 @@ init_monte_carlo (void) {
     fixptlist.n = 0;
 }
 
-void 
-monte_carlo (void) {
+void
+monte_carlo(void) {
     int append = 0;
     int i = 0, done = 0, ishoot = 0;
     double z;
@@ -628,7 +627,8 @@ monte_carlo (void) {
     do_monte_carlo_search(append, 1, ishoot);
 }
 
-void do_monte_carlo_search(int append, int stuffbrowse, int ishoot) {
+void
+do_monte_carlo_search(int append, int stuffbrowse, int ishoot) {
     int i, j, k, m, n = fixptguess.n;
     int ierr, new = 1;
     double x[MAXODE], sum;
@@ -713,9 +713,8 @@ void do_monte_carlo_search(int append, int stuffbrowse, int ishoot) {
     }
 }
 
-void 
-do_eq_range (double *x)
-{
+void
+do_eq_range(double *x) {
     double parlo, parhi, dpar, temp;
     int npar, stabcol, i, j, ierr;
     int mc;
@@ -791,18 +790,16 @@ do_eq_range (double *x)
     PAR_FOL = 0;
 }
 
-void 
-swap_color (int *col, int rorw)
-{
+void
+swap_color(int *col, int rorw) {
     if (rorw)
         MyGraph->color[0] = *col;
     else
         *col = MyGraph->color[0];
 }
 
-void 
-set_cycle (int flag, int *icol)
-{
+void
+set_cycle(int flag, int *icol) {
     if (flag == 0)
         return;
     MyGraph->color[0] = *icol + 1;
@@ -811,19 +808,17 @@ set_cycle (int flag, int *icol)
         *icol = 0;
 }
 
-int 
-do_auto_range_go (void) {
+int
+do_auto_range_go(void) {
     double *x;
     x = &MyData[0];
     return (do_range(x, 2));
 }
 
-int 
-do_range (
-    double *x,
-    int flag /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
-)
-{
+int
+do_range(double *x,
+         int flag /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
+) {
 
     char bob[256], parn[256];
     int ivar = 0, ivar2 = 0, res = 0, oldic = 0;
@@ -1026,8 +1021,8 @@ do_range (
     return (ierr);
 }
 
-void 
-silent_equilibria (void) {
+void
+silent_equilibria(void) {
     double x[MAXODE], er[MAXODE], em[MAXODE];
     int ierr, i;
     FILE *fp;
@@ -1047,7 +1042,8 @@ silent_equilibria (void) {
     }
 }
 
-void find_equilib_com(int com) {
+void
+find_equilib_com(int com) {
     int ierr;
     float xm, ym;
     int im, jm;
@@ -1109,8 +1105,8 @@ void find_equilib_com(int com) {
     TRANS = oldtrans;
 }
 
-void 
-batch_integrate (void) {
+void
+batch_integrate(void) {
 
     int i;
 
@@ -1143,8 +1139,8 @@ batch_integrate (void) {
     }
 }
 
-void 
-do_batch_dry_run (void) {
+void
+do_batch_dry_run(void) {
     if (!dryrun) {
         return;
     }
@@ -1187,8 +1183,8 @@ do_batch_dry_run (void) {
     return;
 }
 
-void 
-batch_integrate_once (void) {
+void
+batch_integrate_once(void) {
     if (dryrun) {
         return;
     }
@@ -1264,9 +1260,8 @@ batch_integrate_once (void) {
     */
 }
 
-int 
-write_this_run (char *file, int i)
-{
+int
+write_this_run(char *file, int i) {
     /*char outfile[256];*/
     char outfile[XPP_MAX_NAME];
     FILE *fp;
@@ -1285,7 +1280,8 @@ write_this_run (char *file, int i)
     return (1);
 }
 
-void do_init_data(int com) {
+void
+do_init_data(int com) {
     char sr[20], ch;
     int i, si;
     double *x;
@@ -1485,7 +1481,8 @@ void do_init_data(int com) {
     usual_integrate_stuff(x);
     DELTA_T = old_dt;
 }
-void run_from_x(double *x) {
+void
+run_from_x(double *x) {
 
     plintf(" %g %g \n", x[0], x[1]);
     MyStart = 1;
@@ -1500,8 +1497,8 @@ void run_from_x(double *x) {
     reset_browser();
     usual_integrate_stuff(x);
 }
-void 
-run_now (void) {
+void
+run_now(void) {
 
     double *x;
     MyStart = 1;
@@ -1518,15 +1515,15 @@ run_now (void) {
     usual_integrate_stuff(x);
 }
 
-void do_start_flags(double *x, double *t) {
+void
+do_start_flags(double *x, double *t) {
     int iflagstart = 1;
     double tnew = *t;
     double sss;
     one_flag_step(x, x, &iflagstart, *t, &tnew, NODE, &sss);
 }
-void 
-usual_integrate_stuff (double *x)
-{
+void
+usual_integrate_stuff(double *x) {
     int i;
 
     do_start_flags(x, &MyTime);
@@ -1553,9 +1550,8 @@ usual_integrate_stuff (double *x)
     u[5..20]=f([j])
 */
 
-void 
-do_new_array_ic (char *new, int j1, int j2)
-{
+void
+do_new_array_ic(char *new, int j1, int j2) {
     int i;
     int ihot = -1;
     int ifree = -1;
@@ -1587,9 +1583,8 @@ do_new_array_ic (char *new, int j1, int j2)
                    ar_ic[ihot].j2);
 }
 
-void 
-store_new_array_ic (char *new, int j1, int j2, char *formula)
-{
+void
+store_new_array_ic(char *new, int j1, int j2, char *formula) {
     int i;
     int ihot = -1;
     int ifree = -1;
@@ -1618,9 +1613,8 @@ store_new_array_ic (char *new, int j1, int j2, char *formula)
     strcpy(ar_ic[ihot].formula, formula);
 }
 
-void 
-evaluate_ar_ic (char *v, char *f, int j1, int j2)
-{
+void
+evaluate_ar_ic(char *v, char *f, int j1, int j2) {
     int j;
     int i, flag;
     double z;
@@ -1639,7 +1633,8 @@ evaluate_ar_ic (char *v, char *f, int j1, int j2)
         }
     }
 }
-int extract_ic_data(char *big) {
+int
+extract_ic_data(char *big) {
     int i, n, j;
     int j1, j2, flag2;
     char front[40], new[50], c;
@@ -1677,8 +1672,8 @@ int extract_ic_data(char *big) {
     return (1);
 }
 
-void 
-arr_ic_start (void) {
+void
+arr_ic_start(void) {
     int i;
     if (ar_ic_defined == 0)
         return;
@@ -1690,8 +1685,8 @@ arr_ic_start (void) {
     }
 }
 
-int 
-set_array_ic (void) {
+int
+set_array_ic(void) {
     char junk[50];
     char new[50];
     int i, index0, myar = -1;
@@ -1754,8 +1749,8 @@ set_array_ic (void) {
     return 1;
 }
 
-int 
-form_ic (void) {
+int
+form_ic(void) {
     int ans;
     while (1) {
         ans = set_array_ic();
@@ -1765,9 +1760,8 @@ form_ic (void) {
     return 1;
 }
 
-void 
-get_ic (int it, double *x)
-{
+void
+get_ic(int it, double *x) {
     int i;
     switch (it) {
     case 0:
@@ -1782,9 +1776,8 @@ get_ic (int it, double *x)
     }
 }
 
-int 
-ode_int (double *y, double *t, int *istart, int ishow)
-{
+int
+ode_int(double *y, double *t, int *istart, int ishow) {
     double error[MAXODE];
 
     int kflag;
@@ -1926,9 +1919,9 @@ ode_int (double *y, double *t, int *istart, int ishow)
     return (1);
 }
 
-int 
-integrate (double *t, double *x, double tend, double dt, int count, int nout, int *start)
-{
+int
+integrate(double *t, double *x, double tend, double dt, int count, int nout,
+          int *start) {
 
     float xv[MAXODE + 1], xvold[MAXODE + 1];
     float oldperiod = 0.0;
@@ -2492,8 +2485,12 @@ integrate (double *t, double *x, double tend, double dt, int count, int nout, in
 #endif
     return (rval);
 }
-void send_halt(double *y, double t) { STOP_FLAG = 1; }
-void send_output(double *y, double t) {
+void
+send_halt(double *y, double t) {
+    STOP_FLAG = 1;
+}
+void
+send_output(double *y, double t) {
     double yy[MAXODE];
     int i;
     for (i = 0; i < NODE; i++)
@@ -2508,9 +2505,9 @@ void send_output(double *y, double t) {
     }
 }
 
-void 
-do_plot (float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl, float *zpl)
-{
+void
+do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
+        float *zpl) {
     int ip, np = MyGraph->nvars;
 
     for (ip = 0; ip < np; ip++) {
@@ -2542,9 +2539,8 @@ do_plot (float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl, fl
 
 */
 
-void 
-export_data (FILE *fp)
-{
+void
+export_data(FILE *fp) {
 
     int ip, np = MyGraph->nvars;
     int ZSHFT, YSHFT, XSHFT;
@@ -2598,8 +2594,9 @@ export_data (FILE *fp)
     return;
 }
 
-void plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt,
-                     int *tc, int flag) {
+void
+plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt, int *tc,
+                int flag) {
     int i;
     int ic = current_pop;
     if (SimulPlotFlag == 0) {
@@ -2614,8 +2611,9 @@ void plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt,
     make_active(ic, flag);
 }
 
-void plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
-                    int *tc) {
+void
+plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
+               int *tc) {
     int *IXPLT, *IYPLT, *IZPLT;
     int NPlots, ip;
     float oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
@@ -2640,9 +2638,8 @@ void plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
         comp_color(xv, xvold, NODE, (float)ddt);
     do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
 }
-void 
-restore (int i1, int i2)
-{
+void
+restore(int i1, int i2) {
     int ip, np = MyGraph->nvars;
     int ZSHFT, YSHFT, XSHFT;
     int i, j, kxoff, kyoff, kzoff;
@@ -2732,9 +2729,8 @@ restore (int i1, int i2)
 }
 
 /*  Sets the color according to the velocity or z-value */
-void 
-comp_color (float *v1, float *v2, int n, double dt)
-{
+void
+comp_color(float *v1, float *v2, int n, double dt) {
     int i, cur_color;
     float sum;
     float min_scale = (float)(MyGraph->min_scale);
@@ -2765,9 +2761,8 @@ comp_color (float *v1, float *v2, int n, double dt)
     }
 }
 
-void 
-shoot_easy (double *x)
-{
+void
+shoot_easy(double *x) {
     double t = 0.0;
     int i;
     SuppressBounds = 1;
@@ -2776,9 +2771,8 @@ shoot_easy (double *x)
     SuppressBounds = 0;
 }
 
-void 
-shoot (double *x, double *xg, double *evec, int sgn)
-{
+void
+shoot(double *x, double *xg, double *evec, int sgn) {
     int i;
     double t = 0.0;
     SuppressBounds = 1;
@@ -2790,16 +2784,16 @@ shoot (double *x, double *xg, double *evec, int sgn)
     SuppressBounds = 0;
 }
 
-void 
-stop_integration (void) {
+void
+stop_integration(void) {
     /*  set some global error here... */
     if (DelayErr == 0)
         err_msg("Delay too large or negative");
     DelayErr = 1;
 }
 
-int 
-stor_full (void) {
+int
+stor_full(void) {
 
     char ch;
     int nrow = 2 * MAXSTOR;

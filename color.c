@@ -50,9 +50,8 @@ XColor color[MAX_COLORS];
  */
 extern int TrueColorFlag;
 
-void 
-tst_color (Window w)
-{
+void
+tst_color(Window w) {
     int i;
     for (i = 0; i < color_total; i++) {
         set_color(i + color_min);
@@ -60,9 +59,8 @@ tst_color (Window w)
     }
 }
 
-void 
-set_scolor (int col)
-{
+void
+set_scolor(int col) {
     if (col < 0)
         XSetForeground(display, small_gc, GrBack);
     if (col == 0)
@@ -76,9 +74,8 @@ set_scolor (int col)
     }
 }
 
-void 
-set_color (int col)
-{
+void
+set_color(int col) {
     if (col < 0)
         XSetForeground(display, gc_graph, GrBack);
     if (col == 0)
@@ -93,9 +90,8 @@ set_color (int col)
 }
 
 /* this makes alot of nice color maps */
-void 
-make_cmaps (int *r, int *g, int *b, int n, int type)
-{
+void
+make_cmaps(int *r, int *g, int *b, int n, int type) {
     double x;
     int i, i1, i2, i3;
     double pii = 3.1415926;
@@ -204,7 +200,8 @@ make_cmaps (int *r, int *g, int *b, int n, int type)
    entries. It then does a simple interpolation to fill
    n copies of rr,gg,bb
 */
-int read_cmap_from_file(char *fname, int n, int *rr, int *gg, int *bb) {
+int
+read_cmap_from_file(char *fname, int n, int *rr, int *gg, int *bb) {
     float x, r[1000], g[1000], b[1000];
     int i = 0;
     int m;
@@ -230,9 +227,8 @@ int read_cmap_from_file(char *fname, int n, int *rr, int *gg, int *bb) {
     return m;
 }
 
-int 
-rfun (double y, int per)
-{
+int
+rfun(double y, int per) {
     double x;
     x = y;
     if ((y > .666666) && (per == 1))
@@ -243,23 +239,22 @@ rfun (double y, int per)
     return ((int)(3. * 255 * sqrt((.333334 - x) * (x + .33334))));
 }
 
-int 
-gfun (double y, int per)
-{
+int
+gfun(double y, int per) {
     if (y > .666666)
         return (0);
     return ((int)(3. * 255 * sqrt((.6666667 - y) * (y))));
 }
 
-int 
-bfun (double y, int per)
-{
+int
+bfun(double y, int per) {
     if (y < .333334)
         return (0);
     return ((int)(2.79 * 255 * sqrt((1.05 - y) * (y - .333333333))));
 }
 
-void NewColormap(int type) {
+void
+NewColormap(int type) {
     /*  printf(" My color map = %d\n",type); */
     if (TrueColorFlag == 0) {
         err_msg("New colormaps not supported without TrueColor");
@@ -269,27 +264,29 @@ void NewColormap(int type) {
     MakeColormap();
 }
 
-void get_ps_color(int i, float *r, float *g, float *b) {
+void
+get_ps_color(int i, float *r, float *g, float *b) {
     float z = 1. / (65535);
     *r = z * (float)color[i].red;
     *g = z * (float)color[i].green;
     *b = z * (float)color[i].blue;
 }
 
-void get_svg_color(int i, int *r, int *g, int *b) {
+void
+get_svg_color(int i, int *r, int *g, int *b) {
 
     *r = color[i].red / 255;
     *g = color[i].green / 255;
     *b = color[i].blue / 255;
 }
 
-int 
-print_cust (void) {
+int
+print_cust(void) {
     printf("custom map =%d \n", custom_color);
     return 1;
 }
-void 
-MakeColormap (void) {
+void
+MakeColormap(void) {
 
     Colormap cmap;
     int i;
@@ -359,9 +356,8 @@ MakeColormap (void) {
     }
 }
 
-int 
-ColorMap (int i)
-{
+int
+ColorMap(int i) {
     if (i == -1)
         return (GrBack);
     if (i == 0)

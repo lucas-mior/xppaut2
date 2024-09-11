@@ -44,7 +44,11 @@
  *                                                                *
  ******************************************************************/
 
-enum { BAND_NJE = CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
+enum {
+    BAND_NJE = CVODE_IOPT_SIZE,
+    BAND_LRW,
+    BAND_LIW
+};
 
 /******************************************************************
  *                                                                *
@@ -151,11 +155,11 @@ enum { BAND_NJE = CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
  *                                                                *
  ******************************************************************/
 
-typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower,
-                            BandMat J, RhsFn f, void *f_data, real t,
-                            N_Vector y, N_Vector fy, N_Vector ewt, real h,
-                            real uround, void *jac_data, int *nfePtr,
-                            N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
+typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
+                            RhsFn f, void *f_data, real t, N_Vector y,
+                            N_Vector fy, N_Vector ewt, real h, real uround,
+                            void *jac_data, int *nfePtr, N_Vector vtemp1,
+                            N_Vector vtemp2, N_Vector vtemp3);
 
 /******************************************************************
  *                                                                *

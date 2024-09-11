@@ -36,8 +36,8 @@ typedef int64 logical;
 
 #define min(a, b) ((a) <= (b) ? (a) : (b))
 #define max(a, b) ((a) >= (b) ? (a) : (b))
-#define dmin(a, b) (double) min(a, b)
-#define dmax(a, b) (double) max(a, b)
+#define dmin(a, b) (double)min(a, b)
+#define dmax(a, b) (double)max(a, b)
 
 #define ARRAY2D(array, i, j) array[(i) + (j) * array##_dim1]
 #define ARRAY3D(array, i, j, k)                                                \

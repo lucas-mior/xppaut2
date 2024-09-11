@@ -41,7 +41,8 @@ main_auto_storage_type main_auto_storage = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
-void print_jacobian(iap_type iap, main_auto_storage_type data) {
+void
+print_jacobian(iap_type iap, main_auto_storage_type data) {
     int i, j, k, l;
     int num_rows_A = iap.ndim * iap.ncol;
     int num_columns_A = iap.ndim * (iap.ncol + 1);
@@ -114,7 +115,8 @@ void print_jacobian(iap_type iap, main_auto_storage_type data) {
     fclose(fp);
 }
 
-void print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
+void
+print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
     FILE *fp;
     static int num_calls = 0;
     char filename[80];
@@ -131,7 +133,8 @@ void print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
     fclose(fp);
 }
 
-void print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
+void
+print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
     FILE *fp;
     int i, j;
     int num_rows_A = iap.ndim * iap.ncol;
@@ -156,12 +159,11 @@ void print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
 
 /*     ---------- ------ */
 /* Subroutine */ int
-solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
-       int64 *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-       double *rds, int64 *nllv, double *rlcur, double *rlold,
-       double *rldot, int64 *ndxloc, double *ups, double *dups,
-       double *uoldps, double *udotps, double *upoldp,
-       double *dtm, double *fa, double *fc, double *p0,
+solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
+       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *rds,
+       int64 *nllv, double *rlcur, double *rlold, double *rldot, int64 *ndxloc,
+       double *ups, double *dups, double *uoldps, double *udotps,
+       double *upoldp, double *dtm, double *fa, double *fc, double *p0,
        double *p1, double *thl, double *thu) {
 
     /* Local variables */
@@ -203,10 +205,10 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
 
     if (*ifst == 1) {
         /* printf("I am freeing and allocating stuff \n");  */
-        /* The formulas used for the allocation are somewhat floatcomplex, but they
-           are based on following macros (the space after the first letter is
-           for the scripts which detect these things automatically, the original
-           name does not have the space:
+        /* The formulas used for the allocation are somewhat floatcomplex, but
+           they are based on following macros (the space after the first letter
+           is for the scripts which detect these things automatically, the
+           original name does not have the space:
 
            M 1AAR =  (((iap->ndim * iap->ncol ) + iap->ndim ) )
            M 2AA  =	((iap->ndim * iap->ncol ) )
@@ -248,16 +250,15 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
         /*(M 1AAR*M 2AA*N AX) */
         main_auto_storage.a = (double *)malloc(
             sizeof(double) * ((((iap->ndim * iap->ncol) + iap->ndim)) *
-                                  ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
+                              ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1BB*M 2BB*N AX)*/
         main_auto_storage.b = (double *)malloc(
             sizeof(double) *
             ((NPARX) * ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
         main_auto_storage.c = (double *)malloc(
-            sizeof(double) *
-            (((((iap->ndim * iap->ncol) + iap->ndim))) *
-             ((iap->nbc + iap->nint + 1)) * (iap->ntst + 1)));
+            sizeof(double) * (((((iap->ndim * iap->ncol) + iap->ndim))) *
+                              ((iap->nbc + iap->nint + 1)) * (iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
         main_auto_storage.d = (double *)malloc(
             sizeof(double) * (((iap->nbc + iap->nint + 1)) * (NPARX)));
@@ -282,12 +283,12 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
             ((iap->nbc + iap->nint + 1) * iap->ndim * (iap->ntst + 1) + 1));
 
         /*(iap->ndim *N AX)*/
-        main_auto_storage.faa = (double *)malloc(
-            sizeof(double) * (iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.faa =
+            (double *)malloc(sizeof(double) * (iap->ndim * (iap->ntst + 1)));
 
         /*(iap->ndim * iap->ndim *K REDO)*/
-        main_auto_storage.ca1 = (double *)malloc(
-            sizeof(double) * (iap->ndim * iap->ndim * KREDO));
+        main_auto_storage.ca1 =
+            (double *)malloc(sizeof(double) * (iap->ndim * iap->ndim * KREDO));
 
         /*(N CLMX*N AX)*/
         main_auto_storage.icf = (int64 *)malloc(
@@ -432,8 +433,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
 } /* solvbv_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int setfcdd(int64 *ifst, double *dd, double *fc,
-                             int64 *ncb, int64 *nrc) {
+/* Subroutine */ int
+setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     /* System generated locals */
     int64 dd_dim1;
 
@@ -457,8 +458,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
 } /* setfcdd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int faft(double *ff, double *fa, int64 *ntst,
-                          int64 *nrow, int64 *ndxloc) {
+/* Subroutine */ int
+faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     /* System generated locals */
     int64 fa_dim1, ff_dim1;
 
@@ -479,7 +480,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
 } /* faft_ */
 
 /*     ---------- --------- */
-/* Subroutine */ int partition(int64 *n, int64 *kwt, int64 *m) {
+/* Subroutine */ int
+partition(int64 *n, int64 *kwt, int64 *m) {
     /* Local variables */
     int64 i, s, t;
 
@@ -503,7 +505,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par,
 } /* partition_ */
 
 /*     ------- -------- ------ */
-int64 mypart(int64 *iam, int64 *np) {
+int64
+mypart(int64 *iam, int64 *np) {
     /* System generated locals */
     int64 ret_val;
 
@@ -526,16 +529,14 @@ int64 mypart(int64 *iam, int64 *np) {
 
 /*     ---------- ------ */
 /* Subroutine */ int
-setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np,
-       int64 *ncol, int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc,
-       int64 *nra, int64 *nca, int64 *iam, int64 *kwt, logical *ipar,
-       FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-       int64 *ndxloc, iap_type *iap, rap_type *rap, double *par,
-       int64 *icp, double *rds, double *fa, double *fc,
-       double *rlcur, double *rlold, double *rldot, double *ups,
-       double *uoldps, double *udotps, double *upoldp,
-       double *dups, double *dtm, double *thl, double *thu,
-       double *p0, double *p1) {
+setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
+       int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc, int64 *nra, int64 *nca,
+       int64 *iam, int64 *kwt, logical *ipar, FUNI_TYPE((*funi)),
+       BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), int64 *ndxloc, iap_type *iap,
+       rap_type *rap, double *par, int64 *icp, double *rds, double *fa,
+       double *fc, double *rlcur, double *rlold, double *rldot, double *ups,
+       double *uoldps, double *udotps, double *upoldp, double *dups,
+       double *dtm, double *thl, double *thu, double *p0, double *p1) {
     /* System generated locals */
     int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1, fa_dim1,
         wt_dim1, wp_dim1, wploc_dim1;
@@ -557,23 +558,19 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np,
     double *wi, *wp, *wt;
     double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
-    dicd = (double *)malloc(sizeof(double) * (iap->nint) *
-                                (iap->ndim + NPARX));
+    dicd = (double *)malloc(sizeof(double) * (iap->nint) * (iap->ndim + NPARX));
     ficd = (double *)malloc(sizeof(double) * (iap->nint));
     dfdp = (double *)malloc(sizeof(double) * (iap->ndim) * NPARX);
     dfdu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
     uold = (double *)malloc(sizeof(double) * (iap->ndim));
     f = (double *)malloc(sizeof(double) * (iap->ndim));
     u = (double *)malloc(sizeof(double) * (iap->ndim));
-    wploc = (double *)malloc(sizeof(double) * (iap->ncol) *
-                                 (iap->ncol + 1));
+    wploc = (double *)malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
     wi = (double *)malloc(sizeof(double) * (iap->ncol + 1));
-    wp = (double *)malloc(sizeof(double) * (iap->ncol) *
-                              (iap->ncol + 1));
-    wt = (double *)malloc(sizeof(double) * (iap->ncol) *
-                              (iap->ncol + 1));
-    dbc = (double *)malloc(sizeof(double) * (iap->nbc) *
-                               (2 * iap->ndim + NPARX));
+    wp = (double *)malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
+    wt = (double *)malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
+    dbc =
+        (double *)malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
     fbc = (double *)malloc(sizeof(double) * (iap->nbc));
     uic = (double *)malloc(sizeof(double) * (iap->ndim));
     uio = (double *)malloc(sizeof(double) * (iap->ndim));
@@ -759,22 +756,20 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np,
 
 /*     ---------- ---- */
 /* Subroutine */ int
-brbd(double *a, double *b, double *c, double *d, double *fa,
-     double *fc, double *p0, double *p1, int64 *ifst,
-     int64 *idb, int64 *nllv, double *det, int64 *nov, int64 *na,
-     int64 *nbc, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
-     int64 *iam, int64 *kwt, logical *par, double *a1, double *a2,
-     double *bb, double *cc, double *faa, double *ca1,
-     double *s1, double *s2, int64 *icf11, int64 *ipr,
-     int64 *icf1, int64 *icf2, int64 *irf, int64 *icf) {
+brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
+     double *p0, double *p1, int64 *ifst, int64 *idb, int64 *nllv, double *det,
+     int64 *nov, int64 *na, int64 *nbc, int64 *nra, int64 *nca, int64 *ncb,
+     int64 *nrc, int64 *iam, int64 *kwt, logical *par, double *a1, double *a2,
+     double *bb, double *cc, double *faa, double *ca1, double *s1, double *s2,
+     int64 *icf11, int64 *ipr, int64 *icf1, int64 *icf2, int64 *irf,
+     int64 *icf) {
     double *e;
     double *fcc;
     double *sol1, *sol2, *sol3;
 
-    e = (double *)malloc(sizeof(double) * (*nov + *nrc) *
-                             (*nov + *nrc));
+    e = (double *)malloc(sizeof(double) * (*nov + *nrc) * (*nov + *nrc));
     fcc = (double *)malloc(sizeof(double) *
-                               ((*nov + *nrc) + (2 * (*nov) * (*nov)) + 1));
+                           ((*nov + *nrc) + (2 * (*nov) * (*nov)) + 1));
 
     sol1 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
     sol2 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
@@ -870,8 +865,8 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 } /* brbd_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int setzero(double *fa, double *fc, int64 *na,
-                             int64 *nra, int64 *nrc) {
+/* Subroutine */ int
+setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
     /* System generated locals */
     int64 fa_dim1;
 
@@ -896,11 +891,10 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 } /* setzero_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int conrhs(int64 *nov, int64 *na, int64 *nra,
-                            int64 *nca, double *a, int64 *nbc,
-                            int64 *nrc, double *c, double *fa,
-                            double *fc, int64 *irf, int64 *icf,
-                            int64 *iam) {
+/* Subroutine */ int
+conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
+       int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
+       int64 *iam) {
     /* System generated locals */
     int64 icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
 
@@ -955,12 +949,10 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 } /* conrhs_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int copycp(int64 *iam, int64 *kwt, int64 *na,
-                            int64 *nov, int64 *nra, int64 *nca,
-                            double *a, int64 *ncb, double *b,
-                            int64 *nrc, double *c, double *a1,
-                            double *a2, double *bb, double *cc,
-                            int64 *irf) {
+/* Subroutine */ int
+copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
+       double *a, int64 *ncb, double *b, int64 *nrc, double *c, double *a1,
+       double *a2, double *bb, double *cc, int64 *irf) {
     /* System generated locals */
     int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
         a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
@@ -1023,8 +1015,8 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 } /* copycp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int cpyrhs(int64 *na, int64 *nov, int64 *nra,
-                            double *faa, double *fa, int64 *irf) {
+/* Subroutine */ int
+cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     /* System generated locals */
     int64 irf_dim1, fa_dim1, faa_dim1;
 
@@ -1048,22 +1040,20 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 } /* cpyrhs_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int reduce(int64 *iam, int64 *kwt, logical *par,
-                            double *a1, double *a2, double *bb,
-                            double *cc, double *dd, int64 *na,
-                            int64 *nov, int64 *ncb, int64 *nrc,
-                            double *s1, double *s2, double *ca1,
-                            int64 *icf1, int64 *icf2, int64 *icf11,
-                            int64 *ipr, int64 *nbc) {
+/* Subroutine */ int
+reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
+       double *cc, double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
+       double *s1, double *s2, double *ca1, int64 *icf1, int64 *icf2,
+       int64 *icf11, int64 *ipr, int64 *nbc) {
     /* System generated locals */
-    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1,
-        a2_dim2, s1_dim1, s1_dim2, s2_dim1, s2_dim2, bb_dim1, bb_dim2, cc_dim1,
-        cc_dim2, dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
+    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
+        s1_dim1, s1_dim2, s2_dim1, s2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2,
+        dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
     /* Local variables */
     logical oddc[KREDO];
-    int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO],
-        ismm[KREDO], nlev, itmp;
+    int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO],
+        nlev, itmp;
     double zero, tpiv;
     float xkwt;
     int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
@@ -1817,15 +1807,14 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 } /* reduce_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int redrhs(int64 *iam, int64 *kwt, logical *par,
-                            double *a1, double *a2, double *cc,
-                            double *faa, double *fc, int64 *na,
-                            int64 *nov, int64 *ncb, int64 *nrc,
-                            double *ca1, int64 *icf1, int64 *icf2,
-                            int64 *icf11, int64 *ipr, int64 *nbc) {
+/* Subroutine */ int
+redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
+       double *faa, double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
+       double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr,
+       int64 *nbc) {
     /* System generated locals */
-    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1,
-        a2_dim2, cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
+    int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
+        cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
     /* Local variables */
     int64 niam, nlev;
@@ -1947,8 +1936,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
                         csend();
                     } else {
                         buf[0] = ARRAY2D(faa, ic, (*na - 1));
-                        buf[1] =
-                            (double)(ARRAY2D(ipr, ic, (*na - 1)) - *nov);
+                        buf[1] = (double)(ARRAY2D(ipr, ic, (*na - 1)) - *nov);
                         csend();
                         crecv();
                     }
@@ -1997,11 +1985,10 @@ brbd(double *a, double *b, double *c, double *d, double *fa,
 
 /*     ---------- ------ */
 /* Subroutine */ int
-dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
-       double *d, double *fc, int64 *ifst, int64 *na, int64 *nrc,
-       int64 *nov, int64 *ncb, int64 *idb, int64 *nllv, double *fcc,
-       double *p0, double *p1, double *det, double *s,
-       double *a2, double *faa, double *bb) {
+dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
+       double *fc, int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb,
+       int64 *idb, int64 *nllv, double *fcc, double *p0, double *p1,
+       double *det, double *s, double *a2, double *faa, double *bb) {
 
     /* System generated locals */
     int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
@@ -2194,12 +2181,11 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
 } /* dimrge_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int bcksub(int64 *iam, int64 *kwt, logical *par,
-                            double *s1, double *s2, double *a2,
-                            double *bb, double *faa, double *fc,
-                            double *fcc, double *sol1, double *sol2,
-                            double *sol3, int64 *na, int64 *nov,
-                            int64 *ncb, int64 *icf2) {
+/* Subroutine */ int
+bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
+       double *bb, double *faa, double *fc, double *fcc, double *sol1,
+       double *sol2, double *sol3, int64 *na, int64 *nov, int64 *ncb,
+       int64 *icf2) {
     /* System generated locals */
     int64 icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2,
         bb_dim1, bb_dim2, sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
@@ -2445,11 +2431,10 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
 } /* bcksub_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int infpar(int64 *iam, logical *par, double *a,
-                            double *b, double *fa, double *sol1,
-                            double *sol2, double *fc, int64 *na,
-                            int64 *nov, int64 *nra, int64 *nca,
-                            int64 *ncb, int64 *irf, int64 *icf) {
+/* Subroutine */ int
+infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
+       double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
+       int64 *ncb, int64 *irf, int64 *icf) {
     /* System generated locals */
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
@@ -2519,8 +2504,8 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
 } /* infpar_ */
 
 /*     ---------- --- */
-/* Subroutine */ int rd0(int64 *iam, int64 *kwt, double *d,
-                         int64 *nrc) {
+/* Subroutine */ int
+rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 
     /* Local variables */
     int64 niam;
@@ -2596,10 +2581,9 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
 } /* rd0_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int print1(int64 *nov, int64 *na, int64 *nra,
-                            int64 *nca, int64 *ncb, int64 *nrc,
-                            double *a, double *b, double *c,
-                            double *d, double *fa, double *fc) {
+/* Subroutine */ int
+print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
+       double *a, double *b, double *c, double *d, double *fa, double *fc) {
 
     /* System generated locals */
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
@@ -2680,37 +2664,64 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
 /*         Dummy Routines for the Sequential Version */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-int64 mynode(void) {
+int64
+mynode(void) {
     int64 ret_val;
     ret_val = 0;
     return ret_val;
 }
 
-int64 numnodes(void) {
+int64
+numnodes(void) {
     int64 ret_val;
     ret_val = 1;
     return ret_val;
 }
 
-/* Subroutine */ int gsync(void) { return 0; } /* gsync_ */
+/* Subroutine */ int
+gsync(void) {
+    return 0;
+} /* gsync_ */
 
-double dclock(void) {
+double
+dclock(void) {
     float ret_val;
 
     ret_val = (double)0.;
     return ret_val;
 }
 
-/* Subroutine */ int csend(void) { return 0; } /* csend_ */
+/* Subroutine */ int
+csend(void) {
+    return 0;
+} /* csend_ */
 
-/* Subroutine */ int crecv(void) { return 0; } /* crecv_ */
+/* Subroutine */ int
+crecv(void) {
+    return 0;
+} /* crecv_ */
 
-/* Subroutine */ int gdsum(void) { return 0; } /* gdsum_ */
+/* Subroutine */ int
+gdsum(void) {
+    return 0;
+} /* gdsum_ */
 
-/* Subroutine */ int gsendx(void) { return 0; } /* gsendx_ */
+/* Subroutine */ int
+gsendx(void) {
+    return 0;
+} /* gsendx_ */
 
-/* Subroutine */ int gcol(void) { return 0; } /* gcol_ */
+/* Subroutine */ int
+gcol(void) {
+    return 0;
+} /* gcol_ */
 
-/* Subroutine */ int led(void) { return 0; } /* led_ */
+/* Subroutine */ int
+led(void) {
+    return 0;
+} /* led_ */
 
-/* Subroutine */ int setiomode(void) { return 0; } /* setiomode_ */
+/* Subroutine */ int
+setiomode(void) {
+    return 0;
+} /* setiomode_ */

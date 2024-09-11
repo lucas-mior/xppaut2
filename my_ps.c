@@ -117,9 +117,8 @@ char *PS_header[] = {
                                                                   */
     NULL};
 
-int 
-ps_init (char *filename, int color)
-{
+int
+ps_init(char *filename, int color) {
     int i;
     if ((psfile = fopen(filename, "w")) == NULL) {
         err_msg("Cannot open file ");
@@ -167,10 +166,13 @@ ps_init (char *filename, int color)
     return (1);
 }
 
-void 
-ps_stroke (void) { fprintf(psfile, "stroke\n"); }
+void
+ps_stroke(void) {
+    fprintf(psfile, "stroke\n");
+}
 
-void ps_do_color(int color) {
+void
+ps_do_color(int color) {
     float r, g, b;
     /* this doesn work very well */
     if (PltFmtFlag == 0)
@@ -187,9 +189,8 @@ void ps_do_color(int color) {
     fprintf(psfile, "%f %f %f RGb\n", r, g, b);
 }
 
-void 
-ps_setcolor (int color)
-{
+void
+ps_setcolor(int color) {
     int i;
     static float pscolor[] = {
         0.0,  0.0,  0.0,  /* BLACK */
@@ -215,8 +216,8 @@ ps_setcolor (int color)
     ps_write(bob);
 }
 
-void 
-ps_end (void) {
+void
+ps_end(void) {
     ps_write("stroke");
     ps_write("grestore");
     ps_write("end");
@@ -228,25 +229,24 @@ ps_end (void) {
         init_x11();
 }
 
-void 
-ps_bead (int x, int y)
-{ /*fprintf(psfile,"%d %d F\n",x,y);*/
+void
+ps_bead(int x, int y) { /*fprintf(psfile,"%d %d F\n",x,y);*/
 }
 
-void 
-ps_frect (int x, int y, int w, int h)
-{
+void
+ps_frect(int x, int y, int w, int h) {
 
     fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n",
             x, y, 0, -h, w, 0, 0, h);
 }
 
-void 
-ps_last_pt_off (void) { LastPtLine = 0; }
+void
+ps_last_pt_off(void) {
+    LastPtLine = 0;
+}
 
-void 
-ps_line (int xp1, int yp1, int xp2, int yp2)
-{
+void
+ps_line(int xp1, int yp1, int xp2, int yp2) {
     LastPtLine = 1;
     if (NoBreakLine == 1) {
         fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
@@ -275,8 +275,8 @@ ps_line (int xp1, int yp1, int xp2, int yp2)
     chk_ps_lines();
 }
 
-void 
-chk_ps_lines (void) {
+void
+chk_ps_lines(void) {
     PSLines++;
     if (PSLines >= MAXPSLINE) {
         fprintf(psfile, "currentpoint stroke moveto\n");
@@ -284,9 +284,8 @@ chk_ps_lines (void) {
     }
 }
 
-void 
-ps_linetype (int linetype)
-{
+void
+ps_linetype(int linetype) {
     char *line = "ba0123456789c";
 
     fprintf(psfile, "LT%c\n", line[(linetype % 11) + 2]);
@@ -295,8 +294,8 @@ ps_linetype (int linetype)
     LastPSY = -100000000;
 }
 
-void 
-ps_point (int x, int y)
+void
+ps_point(int x, int y)
 
 {
     int number = PointType;
@@ -311,18 +310,21 @@ ps_point (int x, int y)
     LastPtLine = 0;
 }
 
-void 
-ps_write (char *str)
-{ fprintf(psfile, "%s\n", str); }
+void
+ps_write(char *str) {
+    fprintf(psfile, "%s\n", str);
+}
 
-void ps_fnt(int cf, int scale) {
+void
+ps_fnt(int cf, int scale) {
     if (cf == 0)
         fprintf(psfile, "/%s findfont %d scalefont setfont \n", PS_FONT, scale);
     else
         fprintf(psfile, "%d Symfnt\n", scale);
 }
 
-void ps_show(char *str, int type) {
+void
+ps_show(char *str, int type) {
     char ch;
     putc('(', psfile);
     ch = *str++;
@@ -339,17 +341,18 @@ void ps_show(char *str, int type) {
     PSLines = 0;
 }
 
-void 
-ps_abs (int x, int y)
-{ fprintf(psfile, "%d %d moveto \n", x, y); }
+void
+ps_abs(int x, int y) {
+    fprintf(psfile, "%d %d moveto \n", x, y);
+}
 
-void 
-ps_rel (int x, int y)
-{ fprintf(psfile, "%d %d rmoveto \n", x, y); }
+void
+ps_rel(int x, int y) {
+    fprintf(psfile, "%d %d rmoveto \n", x, y);
+}
 
-void 
-special_put_text_ps (int x, int y, char *str, int size)
-{
+void
+special_put_text_ps(int x, int y, char *str, int size) {
     int i = 0, j = 0, type = 1;
     int cf = 0;
     /*int cs;*/
@@ -421,9 +424,8 @@ special_put_text_ps (int x, int y, char *str, int size)
         ps_show(tmp, type);
 }
 
-void 
-fancy_ps_text (int x, int y, char *str, int size, int font)
-{
+void
+fancy_ps_text(int x, int y, char *str, int size, int font) {
 
     static int sz[] = {8, 10, 14, 18, 24};
     char ch;
@@ -452,9 +454,8 @@ fancy_ps_text (int x, int y, char *str, int size, int font)
     PSLines = 0;
 }
 
-void 
-ps_text (int x, int y, char *str)
-{
+void
+ps_text(int x, int y, char *str) {
     char ch;
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE * PS_SC);

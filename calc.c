@@ -42,9 +42,8 @@ struct {
     int use;
 } my_calc;
 
-void 
-draw_calc (Window w)
-{
+void
+draw_calc(Window w) {
     char bob[100];
     if (w == my_calc.answer) {
         XClearWindow(display, w);
@@ -58,8 +57,8 @@ draw_calc (Window w)
     }
 }
 
-void 
-make_calc (double z)
+void
+make_calc(double z)
 
 {
     int width, height;
@@ -100,8 +99,8 @@ make_calc (double z)
     XFlush(display);
 }
 
-void 
-quit_calc (void) {
+void
+quit_calc(void) {
     my_calc.use = 0;
     XSelectInput(display, my_calc.quit, SIMPMASK);
     waitasec(ClickTime);
@@ -110,9 +109,8 @@ quit_calc (void) {
     clr_command();
 }
 
-void 
-ini_calc_string (char *name, char *value, int *pos, int *col)
-{
+void
+ini_calc_string(char *name, char *value, int *pos, int *col) {
     strcpy(value, " ");
     strcpy(name, "Formula:");
     *pos = strlen(value);
@@ -121,8 +119,8 @@ ini_calc_string (char *name, char *value, int *pos, int *col)
     display_command(name, value, 2, 0);
 }
 
-void 
-q_calc (void) {
+void
+q_calc(void) {
     char value[80], name[10];
     double z = 0.0;
     XEvent ev;
@@ -155,9 +153,8 @@ q_calc (void) {
     quit_calc();
 }
 
-int 
-do_calc (char *temp, double *z)
-{
+int
+do_calc(char *temp, double *z) {
     char val[15];
     int ok;
     int i;
@@ -199,9 +196,8 @@ do_calc (char *temp, double *z)
     return (1);
 }
 
-int 
-has_eq (char *z, char *w, int *where)
-{
+int
+has_eq(char *z, char *w, int *where) {
     int i;
     for (i = 0; i < strlen(z); i++)
         if (z[i] == ':')
@@ -214,9 +210,8 @@ has_eq (char *z, char *w, int *where)
     return (1);
 }
 
-double 
-calculate (char *expr, int *ok)
-{
+double
+calculate(char *expr, int *ok) {
     int com[400], i;
     double z = 0.0;
     if (add_expr(expr, com, &i)) {

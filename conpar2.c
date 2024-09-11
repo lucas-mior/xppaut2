@@ -6,7 +6,8 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-static double time_start(void) {
+static double
+time_start(void) {
     struct rusage time;
     double seconds, microseconds;
     getrusage(RUSAGE_SELF, &time);
@@ -14,7 +15,8 @@ static double time_start(void) {
     microseconds = (double)time.ru_utime.tv_usec;
     return seconds + microseconds / 1e6;
 }
-static double time_end(double start) {
+static double
+time_end(double start) {
     struct rusage time;
     double seconds, microseconds;
     getrusage(RUSAGE_SELF, &time);
@@ -28,7 +30,8 @@ static double time_end(double start) {
   on a SMP using shared memory, or wrapped inside another
   routine for message passing*/
 
-void *conpar_process(void *arg) {
+void *
+conpar_process(void *arg) {
     int64 icf_dim1, irf_dim1, d_dim1;
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
 
@@ -224,11 +227,10 @@ void *conpar_process(void *arg) {
     return NULL;
 }
 
-int conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra,
-                           int64 *nca, double *a, int64 *ncb,
-                           double *b, int64 *nbc, int64 *nrc,
-                           double *c, double *d, int64 *irf,
-                           int64 *icf)
+int
+conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
+                       int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
+                       double *d, int64 *irf, int64 *icf)
 
 {
     conpar_parallel_arglist data;
@@ -250,9 +252,10 @@ int conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra,
     return 0;
 }
 
-int conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
-           int64 *ncb, double *b, int64 *nbc, int64 *nrc,
-           double *c, double *d, int64 *irf, int64 *icf) {
+int
+conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
+       double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
+       int64 *icf) {
     /* Aliases for the dimensions of the arrays */
     int64 icf_dim1, irf_dim1;
 

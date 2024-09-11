@@ -18,8 +18,8 @@ extern int DCURYb, DCURXb, CURY_OFFb;
 extern int DCURYs, DCURXs, CURY_OFFs;
 extern int DCURY, DCURX, CURY_OFF;
 
-int 
-get_command_width (void) {
+int
+get_command_width(void) {
     int x, y;
     unsigned int w, h, bw, de;
 
@@ -29,9 +29,8 @@ get_command_width (void) {
     return (w);
 }
 
-void 
-plot_command (int nit, int icount, int cwidth)
-{
+void
+plot_command(int nit, int icount, int cwidth) {
     int i;
     float dx;
     if (nit == 0)
@@ -42,8 +41,8 @@ plot_command (int nit, int icount, int cwidth)
     XDrawPoint(display, command_pop, gc, i, 5);
 }
 
-int 
-my_abort (void) {
+int
+my_abort(void) {
     int ch;
     XEvent event;
     while (XPending(display) > 0) {

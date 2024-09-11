@@ -27,17 +27,15 @@ extern int screen;
 extern GC gc;
 extern int xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
 
-void 
-destroy_choice (CHOICE_BOX p)
-{
+void
+destroy_choice(CHOICE_BOX p) {
     waitasec(ClickTime);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
 }
 
-void 
-display_choice (Window w, CHOICE_BOX p)
-{
+void
+display_choice(Window w, CHOICE_BOX p) {
     int i;
     int n = p.n;
     XSetFillStyle(display, gc, FillSolid);
@@ -60,9 +58,8 @@ display_choice (Window w, CHOICE_BOX p)
     set_fore();
 }
 
-void 
-do_checks (CHOICE_BOX p)
-{
+void
+do_checks(CHOICE_BOX p) {
     int i;
 
     for (i = 0; i < p.n; i++) {
@@ -75,16 +72,15 @@ do_checks (CHOICE_BOX p)
     set_fore();
 }
 
-void 
-base_choice (char *wname, int n, int mcc, char **names, int *check, int type)
-{
+void
+base_choice(char *wname, int n, int mcc, char **names, int *check, int type) {
     do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check,
                   type);
 }
 
-int 
-do_choice_box (Window root, char *wname, int n, int mcc, char **names, int *check, int type)
-{
+int
+do_choice_box(Window root, char *wname, int n, int mcc, char **names,
+              int *check, int type) {
     CHOICE_BOX p;
 
     int i;
@@ -149,8 +145,8 @@ do_choice_box (Window root, char *wname, int n, int mcc, char **names, int *chec
     return (status);
 }
 
-int 
-choice_box_event_loop (CHOICE_BOX p)
+int
+choice_box_event_loop(CHOICE_BOX p)
 
 {
     int i, j, nn = p.n;

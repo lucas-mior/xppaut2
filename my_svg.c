@@ -36,7 +36,8 @@ extern int DOING_DFIELD;
 
 extern int Xup;
 
-int svg_init(char *filename, int color) {
+int
+svg_init(char *filename, int color) {
     FILE *fp;
 
     init_svg();
@@ -398,13 +399,17 @@ int svg_init(char *filename, int color) {
     return (1);
 }
 
-void 
-svg_write (char *str)
-{ fprintf(svgfile, "%s\n", str); }
+void
+svg_write(char *str) {
+    fprintf(svgfile, "%s\n", str);
+}
 
-void svg_stroke(void) {}
+void
+svg_stroke(void) {
+}
 
-void svg_do_color(int color) {
+void
+svg_do_color(int color) {
     int r, g, b;
 
     if (PltFmtFlag == SCRNFMT)
@@ -421,9 +426,12 @@ void svg_do_color(int color) {
     DOING_SVG_COLOR = 1;
 }
 
-void svg_setcolor(int color) {}
+void
+svg_setcolor(int color) {
+}
 
-void svg_end(void) {
+void
+svg_end(void) {
     svg_write("</svg>");
     fclose(svgfile);
     PltFmtFlag = SCRNFMT;
@@ -432,9 +440,13 @@ void svg_end(void) {
         init_x11();
 }
 
-void svg_bead(int x, int y) { DO_MARKER = 1; }
+void
+svg_bead(int x, int y) {
+    DO_MARKER = 1;
+}
 
-void svg_frect(int x, int y, int w, int h) {
+void
+svg_frect(int x, int y, int w, int h) {
     double gray = 0;
     if (DOING_SVG_COLOR) {
         fprintf(svgfile,
@@ -452,9 +464,13 @@ void svg_frect(int x, int y, int w, int h) {
     }
 }
 
-void svg_last_pt_off(void) { LastPtLine = 0; }
+void
+svg_last_pt_off(void) {
+    LastPtLine = 0;
+}
 
-void svg_line(int xp1, int yp1, int xp2, int yp2) {
+void
+svg_line(int xp1, int yp1, int xp2, int yp2) {
     if (DOING_SVG_COLOR) {
         if (DOING_AXES) {
             if (DOING_BOX_AXES) {
@@ -552,7 +568,8 @@ void svg_line(int xp1, int yp1, int xp2, int yp2) {
     DO_MARKER = 0;
 }
 
-void chk_svg_lines(void) {
+void
+chk_svg_lines(void) {
     /*PSLines++;
     if(PSLines>=MAXPSLINE){
       fprintf(psfile,"currentpoint stroke moveto\n");
@@ -560,7 +577,8 @@ void chk_svg_lines(void) {
     } */
 }
 
-void svg_linetype(int linetype) {
+void
+svg_linetype(int linetype) {
     char *line = "ba0123456789c";
 
     SVGLINETYPE = line[(linetype % 11) + 2];
@@ -571,7 +589,8 @@ void svg_linetype(int linetype) {
      */
 }
 
-void svg_point(int x, int y) {
+void
+svg_point(int x, int y) {
     char svgcol[8];
     char svgfill[8];
 
@@ -614,15 +633,24 @@ void svg_point(int x, int y) {
     DOING_SVG_COLOR = 0;
 }
 
-void svg_fnt(int cf, int scale) {}
+void
+svg_fnt(int cf, int scale) {
+}
 
-void svg_show(char *str, int type) {}
+void
+svg_show(char *str, int type) {
+}
 
-void svg_abs(int x, int y) {}
+void
+svg_abs(int x, int y) {
+}
 
-void svg_rel(int x, int y) {}
+void
+svg_rel(int x, int y) {
+}
 
-void special_put_text_svg(int x, int y, char *str, int size) {
+void
+special_put_text_svg(int x, int y, char *str, int size) {
     /*int i=0,j=0,type=1;
     int cf=0;
 
@@ -721,9 +749,12 @@ void special_put_text_svg(int x, int y, char *str, int size) {
     fprintf(svgfile, "      >%s</text>\n", str);
 }
 
-void fancy_svg_text(int x, int y, char *str, int size, int font) {}
+void
+fancy_svg_text(int x, int y, char *str, int size, int font) {
+}
 
-void svg_text(int x, int y, char *str) {
+void
+svg_text(int x, int y, char *str) {
     char anchor[7];
 
     switch (TextJustify) {
