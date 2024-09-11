@@ -125,7 +125,6 @@ including derived parameters but XPP takes care of this so start at 0
 
 */
 
-#include <math.h>
 #include <stdio.h>
 
 #define EVEN 0
@@ -136,7 +135,10 @@ extern int NODE, NDELAYS;
 extern double get_delay(int in, double td);
 
 void get_import_values();
-int parse_import();
+int parse_import(char *s, char *soname, char *sofun, int *n, char *vname, int
+        *m, char *tname[MAXW]);
+int get_vector_info(char *str, char *name, int *root, int *length, int *il,
+                int *ir);
 #define IC 2
 extern int fftn(int /* ndim */, const int /* dims */[], double /* Re */[],
                 double /* Im */[], int /* isign */, double /* scaling */);
@@ -206,7 +208,7 @@ extern double variables[], constants[];
 char *get_first(/* char *string,char *src */);
 char *get_next(/* char *src */);
 
-double evaluate();
+double evaluate(int *);
 
 NETWORK my_net[MAXNET];
 int n_network = 0;
