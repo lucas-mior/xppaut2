@@ -307,7 +307,7 @@ GetEvents(Model_t *m) {
             if (EventAssignment_isSetMath(ea)) {
                 variable = EventAssignment_getVariable(ea);
                 formula = SBML_formulaToString(EventAssignment_getMath(ea));
-                sprintf(big, "%s=%s", variable, formula);
+                snprintf(big, sizeof(big), "%s=%s", variable, formula);
                 x->a[j] = (char *)malloc(strlen(big) + 1);
                 strcpy(x->a[j], big);
                 free(formula);
@@ -908,7 +908,7 @@ check_name_len(char *s) {
         strcpy(long_names[lnum].src, s);
         strncpy(x, s, 4);
         x[4] = 0;
-        sprintf(long_names[lnum].rep, "%s.%d", x, lnum);
+        snprintf(long_names[lnum].rep, sizeof(long_names[lnum].rep), "%s.%d", x, lnum);
         plintf("long name: %s -> %s \n", long_names[lnum].src,
                long_names[lnum].rep);
         lnum++;
@@ -1013,7 +1013,7 @@ write_ode_file(char *base) {
     SPECIES *x;
     EVENT *ev;
     int i, j, k, na;
-    sprintf(fname, "%s.ode", base);
+    snprintf(fname, sizeof(fname), "%s.ode", base);
     fp = fopen(fname, "w");
     fprintf(fp, "# %s\n", fname);
     fprintf(fp, "# Translated from %s by s2c \n", base);
@@ -1030,12 +1030,12 @@ write_ode_file(char *base) {
     for (i = 0; i < Nfuns; i++) {
         fn = funs + i;
         na = fn->nargs;
-        sprintf(big, "%s(", fn->name);
+        snprintf(big, sizeof(big), "%s(", fn->name);
         for (j = 0; j < na - 1; j++) {
-            sprintf(tmp, "%s,", fn->arg[j]);
+            snprintf(tmp, sizeof(tmp), "%s,", fn->arg[j]);
             strcat(big, tmp);
         }
-        sprintf(tmp, "%s)=%s", fn->arg[na - 1], fn->formula);
+        snprintf(tmp, sizeof(tmp), "%s)=%s", fn->arg[na - 1], fn->formula);
         strcat(big, tmp);
         fix_long_names(big, bigp);
         fprintf(fp, "%s\n", bigp);
@@ -1044,7 +1044,7 @@ write_ode_file(char *base) {
     for (i = 0; i < Nrule; i++) {
         r = rule + i;
         if (!is_blank(r->v)) {
-            sprintf(big, "%s=%s", r->v, r->f);
+            snprintf(big, sizeof(big), "%s=%s", r->v, r->f);
             fix_long_names(big, bigp);
             fprintf(fp, "%s\n", bigp);
         }
@@ -1056,9 +1056,9 @@ write_ode_file(char *base) {
         if ((par[i].fixed == -2) || (par[i].unique == -1))
             continue;
         if (!is_blank(par[i].id))
-            sprintf(big, "par %s=%g", par[i].id, par[i].z);
+            snprintf(big, sizeof(big), "par %s=%g", par[i].id, par[i].z);
         else
-            sprintf(big, "par %s=%g", par[i].name, par[i].z);
+            snprintf(big, sizeof(big), "par %s=%g", par[i].name, par[i].z);
         fix_long_names(big, bigp);
         fprintf(fp, "%s\n", bigp);
     }
@@ -1068,21 +1068,21 @@ write_ode_file(char *base) {
             continue;
         if (x->bc == 1) {
             if (!is_blank(x->id))
-                sprintf(big, "%s=%g", x->id, x->x0);
+                snprintf(big, sizeof(big), "%s=%g", x->id, x->x0);
             else
-                sprintf(big, "%s=%g", x->name, x->x0);
+                snprintf(big, sizeof(big), "%s=%g", x->name, x->x0);
         } else {
             if (!is_blank(x->id))
-                sprintf(big, "init %s=%g", x->id, x->x0);
+                snprintf(big, sizeof(big), "init %s=%g", x->id, x->x0);
             else
-                sprintf(big, "init %s=%g", x->name, x->x0);
+                snprintf(big, sizeof(big), "init %s=%g", x->name, x->x0);
         }
         fix_long_names(big, bigp);
         fprintf(fp, "%s\n", bigp);
     }
     for (i = 0; i < Nrxn; i++) {
         rx = rxn + i;
-        sprintf(big, "Rxn%d=%s", i + 1, rx->formula);
+        snprintf(big, sizeof(big), "Rxn%d=%s", i + 1, rx->formula);
         fix_long_names(big, bigp);
         fprintf(fp, "%s\n", bigp);
     }
@@ -1095,20 +1095,20 @@ write_ode_file(char *base) {
             continue; /* dont do boundary conditions
                         or rules     */
         if (!is_blank(x->id))
-            sprintf(big, "d%s/dt=", x->id);
+            snprintf(big, sizeof(big), "d%s/dt=", x->id);
         else
-            sprintf(big, "d%s/dt=", x->name);
+            snprintf(big, sizeof(big), "d%s/dt=", x->name);
         for (j = 0; j < x->nrx; j++) {
             k = x->r[j];
             if (j > 0) {
-                sprintf(tmp, " + ");
+                snprintf(tmp, sizeof(tmp), " + ");
                 strcat(big, tmp);
             }
-            sprintf(tmp, "(%g)*Rxn%d", x->s[j], k + 1);
+            snprintf(tmp, sizeof(tmp), "(%g)*Rxn%d", x->s[j], k + 1);
             strcat(big, tmp);
         }
         if (x->nrx == 0) {
-            sprintf(tmp, "0");
+            snprintf(tmp, sizeof(tmp), "0");
             strcat(big, tmp);
         } /* just to be Ok */
         fix_long_names(big, bigp);
@@ -1118,13 +1118,13 @@ write_ode_file(char *base) {
 
     for (i = 0; i < Nevent; i++) {
         ev = event + i;
-        sprintf(big, "global 1 %s {", ev->ev);
+        snprintf(big, sizeof(big), "global 1 %s {", ev->ev);
         na = ev->na;
         for (j = 0; j < na - 1; j++) {
-            sprintf(tmp, "%s;", ev->a[j]);
+            snprintf(tmp, sizeof(tmp), "%s;", ev->a[j]);
             strcat(big, tmp);
         }
-        sprintf(tmp, "%s}", ev->a[na - 1]);
+        snprintf(tmp, sizeof(tmp), "%s}", ev->a[na - 1]);
         strcat(big, tmp);
         fix_long_names(big, bigp);
         fprintf(fp, "%s\n", bigp);

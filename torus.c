@@ -72,9 +72,9 @@ draw_tor_var(int i) {
     char strng[15];
     XClearWindow(display, torbox.w[i]);
     if (itor[i] == 1)
-        sprintf(strng, "X  %s", uvar_names[i]);
+        snprintf(strng, sizeof(strng), "X  %s", uvar_names[i]);
     else
-        sprintf(strng, "   %s", uvar_names[i]);
+        snprintf(strng, sizeof(strng), "   %s", uvar_names[i]);
     XDrawString(display, torbox.w[i], small_gc, 0, CURY_OFFs, strng,
                 strlen(strng));
     return;

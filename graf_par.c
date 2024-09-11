@@ -548,7 +548,7 @@ xi_vs_t(void) /*  a short cut   */
     int i = MyGraph->yv[0];
 
     ind_to_sym(i, value);
-    sprintf(name, "Plot vs t: ");
+    snprintf(name, sizeof(name), "Plot vs t: ");
     new_string(name, value);
     find_variable(value, &i);
 
@@ -728,13 +728,13 @@ get_3d_par_noper(void) {
     if (MyGraph->grtype < 5)
         return;
 
-    sprintf(values[0], "%g", MyGraph->Theta);
-    sprintf(values[1], "%g", MyGraph->Phi);
-    sprintf(values[2], "%s", mov3d.yes);
-    sprintf(values[3], "%s", mov3d.angle);
-    sprintf(values[4], "%g", mov3d.start);
-    sprintf(values[5], "%g", mov3d.incr);
-    sprintf(values[6], "%d", mov3d.nclip);
+    snprintf(values[0], sizeof(values[0]), "%g", MyGraph->Theta);
+    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->Phi);
+    snprintf(values[2], sizeof(values[2]), "%s", mov3d.yes);
+    snprintf(values[3], sizeof(values[3]), "%s", mov3d.angle);
+    snprintf(values[4], sizeof(values[4]), "%g", mov3d.start);
+    snprintf(values[5], sizeof(values[5]), "%g", mov3d.incr);
+    snprintf(values[6], sizeof(values[6]), "%d", mov3d.nclip);
 
     status = do_string_box(7, 7, 1, "3D Parameters", n, values, 28);
     if (status != 0) {
@@ -1038,11 +1038,11 @@ alter_curve(char *title, int in_it, int n) {
     ind_to_sym(i1, n1);
     ind_to_sym(i2, n2);
     ind_to_sym(i3, n3);
-    sprintf(values[0], "%s", n1);
-    sprintf(values[1], "%s", n2);
-    sprintf(values[2], "%s", n3);
-    sprintf(values[3], "%d", MyGraph->color[in_it]);
-    sprintf(values[4], "%d", MyGraph->line[in_it]);
+    snprintf(values[0], sizeof(values[0]), "%s", n1);
+    snprintf(values[1], sizeof(values[1]), "%s", n2);
+    snprintf(values[2], sizeof(values[2]), "%s", n3);
+    snprintf(values[3], sizeof(values[3]), "%d", MyGraph->color[in_it]);
+    snprintf(values[4], sizeof(values[4]), "%d", MyGraph->line[in_it]);
     status = do_string_box(5, 5, 1, title, nn, values, 25);
     if (status != 0) {
         find_variable(values[0], &i);
@@ -1070,11 +1070,11 @@ void
 edit_curve(void) {
     char bob[20];
     int crv = 0;
-    sprintf(bob, "Edit 0-%d :", MyGraph->nvars - 1);
+    snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
     ping();
     new_int(bob, &crv);
     if (crv >= 0 && crv < MyGraph->nvars) {
-        sprintf(bob, "Edit curve %d", crv);
+        snprintf(bob, sizeof(bob), "Edit curve %d", crv);
         alter_curve(bob, crv, crv);
     }
 }
@@ -1093,19 +1093,19 @@ create_ps(void) {
                          "Font", "Linewidth"};
     int status;
     char values[5][MAX_LEN_SBOX];
-    sprintf(values[0], "%d", PS_Color);
-    sprintf(values[1], "%d", PS_Port);
-    sprintf(values[2], "%d", PS_FONTSIZE);
-    sprintf(values[3], "%s", PS_FONT);
-    sprintf(values[4], "%g", PS_LW);
+    snprintf(values[0], sizeof(values[0]), "%d", PS_Color);
+    snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
+    snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
+    snprintf(values[3], sizeof(values[3]), "%s", PS_FONT);
+    snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
     status = do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
     if (status != 0) {
         PS_Color = atoi(values[0]);
         PS_Port = atoi(values[1]);
         PS_FONTSIZE = atoi(values[2]);
         PS_LW = atof(values[4]);
-        sprintf(PS_FONT, "%s", values[3]);
-        sprintf(filename, "%s.ps", this_file);
+        snprintf(PS_FONT, sizeof(PS_FONT), "%s", values[3]);
+        snprintf(filename, sizeof(filename), "%s.ps", this_file);
         ping();
 
         if (!file_selector("Print postscript", filename, "*.ps"))
@@ -1121,7 +1121,7 @@ void
 padnum(char *s, int i, int m) {
     char tmp[25];
     int k, q;
-    sprintf(tmp, "%d", i);
+    snprintf(tmp, sizeof(tmp), "%d", i);
     if (strlen(tmp) >= m) {
         strcpy(s, tmp);
         return;
@@ -1140,10 +1140,10 @@ void
 dump_ps(int i) {
     char filename[XPP_MAX_NAME];
     if (i < 0) {
-        sprintf(filename, "%s%s.%s", this_file, this_internset, PlotFormat);
+        snprintf(filename, sizeof(filename), "%s%s.%s", this_file, this_internset, PlotFormat);
     } else {
         /*   padnum(s,i,4); */
-        sprintf(filename, "%s%s_%04d.%s", this_file, this_internset, i,
+        snprintf(filename, sizeof(filename), "%s%s_%04d.%s", this_file, this_internset, i,
                 PlotFormat);
     }
 
@@ -1165,7 +1165,7 @@ create_svg(void) {
     strcpy(filename, this_file);
     filename[strlen(filename) - 4] = '\0';
     strcat(filename, ".svg");
-    /*sprintf(filename,"%s.svg",tmp);*/
+    /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
     if (!file_selector("Print svg", filename, "*.svg"))
         return;
     if (svg_init(filename, PS_Color)) {
@@ -1363,8 +1363,8 @@ create_crv(int ind) {
             }
             frz[i].type = type;
             frz[i].w = draw_win;
-            sprintf(frz[i].name, "crv%c", 'a' + i);
-            sprintf(frz[i].key, "%s", frz[i].name);
+            snprintf(frz[i].name, sizeof(frz[i].name), "crv%c", 'a' + i);
+            snprintf(frz[i].key, sizeof(frz[i].key), "%s", frz[i].name);
             return (i);
         }
     }
@@ -1377,14 +1377,14 @@ edit_frz_crv(int i) {
     static char *nn[] = {"*4Color", "Key", "Name"};
     char values[3][MAX_LEN_SBOX];
     int status;
-    sprintf(values[0], "%d", frz[i].color);
-    sprintf(values[1], "%s", frz[i].key);
-    sprintf(values[2], "%s", frz[i].name);
+    snprintf(values[0], sizeof(values[0]), "%d", frz[i].color);
+    snprintf(values[1], sizeof(values[1]), "%s", frz[i].key);
+    snprintf(values[2], sizeof(values[2]), "%s", frz[i].name);
     status = do_string_box(3, 3, 1, "Edit Freeze", nn, values, 25);
     if (status != 0) {
         frz[i].color = atoi(values[0]);
-        sprintf(frz[i].key, "%s", values[1]);
-        sprintf(frz[i].name, "%s", values[2]);
+        snprintf(frz[i].key, sizeof(frz[i].key), "%s", values[1]);
+        snprintf(frz[i].name, sizeof(frz[i].name), "%s", values[2]);
     }
 }
 
@@ -1511,7 +1511,7 @@ frz_bd(void) {
     FILE *fp;
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    sprintf(filename, "diagram.dat");
+    snprintf(filename, sizeof(filename), "diagram.dat");
     ping();
     if (!file_selector("Import Diagram", filename, "*.dat"))
         return;
@@ -1602,7 +1602,7 @@ export_graf_data(void) {
     FILE *fp;
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    sprintf(filename, "curve.dat");
+    snprintf(filename, sizeof(filename), "curve.dat");
     ping();
     if (!file_selector("Export graph data", filename, "*.dat"))
         return;

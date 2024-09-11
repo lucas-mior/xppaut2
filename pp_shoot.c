@@ -120,7 +120,7 @@ compile_bvp(void) {
     for (i = 0; i < NODE; i++) {
 
         if (add_expr(my_bc[i].string, my_bc[i].com, &len)) {
-            sprintf(badcom, "Bad syntax on %d th BC", i + 1);
+            snprintf(badcom, sizeof(badcom), "Bad syntax on %d th BC", i + 1);
             err_msg(badcom);
             return;
         }
@@ -148,7 +148,7 @@ reset_bvp()
  }
  BVP_FLAG=1;
  for(i=0;i<BVP_NL;i++){ my_bc[i].side=0;
-                        sprintf(my_bc[i].name,"At t0 0=");
+                        snprintf(my_bc[i].name, sizeof(my_bc[i].name),"At t0 0=");
                       }
  for(i=BVP_NL;i<NODE;i++){
    my_bc[i].side=1;
@@ -227,7 +227,7 @@ do_sh_range(double *ystart, double *yend) {
     for (i = 0; i <= npar; i++) {
         temp = parlo + dpar * (double)i;
         set_val(shoot_range.item, temp);
-        sprintf(bob, "%s=%.16g", shoot_range.item, temp);
+        snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
         bottom_msg(2, bob);
         if (shoot_range.movie == 1)
             clr_scrn();
@@ -270,10 +270,10 @@ set_up_periodic(int *ipar, int *ivar, double *sect, int *ishow) {
     char values[4][MAX_LEN_SBOX];
     int status, i;
     static char *yn[] = {"N", "Y"};
-    sprintf(values[0], "%s", upar_names[*ipar]);
-    sprintf(values[1], "%s", uvar_names[*ivar]);
-    sprintf(values[2], "%g", *sect);
-    sprintf(values[3], "%s", yn[*ishow]);
+    snprintf(values[0], sizeof(values[0]), "%s", upar_names[*ipar]);
+    snprintf(values[1], sizeof(values[1]), "%s", uvar_names[*ivar]);
+    snprintf(values[2], sizeof(values[2]), "%g", *sect);
+    snprintf(values[3], sizeof(values[3]), "%s", yn[*ishow]);
 
     status = do_string_box(4, 4, 1, "Periodic BCs", n, values, 45);
     if (status != 0) {
@@ -406,13 +406,13 @@ set_up_sh_range(void) {
     char values[7][MAX_LEN_SBOX];
     int status, i;
     static char *yn[] = {"N", "Y"};
-    sprintf(values[0], "%s", shoot_range.item);
-    sprintf(values[1], "%d", shoot_range.steps);
-    sprintf(values[2], "%g", shoot_range.plow);
-    sprintf(values[3], "%g", shoot_range.phigh);
-    sprintf(values[4], "%s", yn[shoot_range.cycle]);
-    sprintf(values[5], "%d", shoot_range.side);
-    sprintf(values[6], "%s", yn[shoot_range.movie]);
+    snprintf(values[0], sizeof(values[0]), "%s", shoot_range.item);
+    snprintf(values[1], sizeof(values[1]), "%d", shoot_range.steps);
+    snprintf(values[2], sizeof(values[2]), "%g", shoot_range.plow);
+    snprintf(values[3], sizeof(values[3]), "%g", shoot_range.phigh);
+    snprintf(values[4], sizeof(values[4]), "%s", yn[shoot_range.cycle]);
+    snprintf(values[5], sizeof(values[5]), "%d", shoot_range.side);
+    snprintf(values[6], sizeof(values[6]), "%s", yn[shoot_range.movie]);
 
     status = do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
     if (status != 0) {

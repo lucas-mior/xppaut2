@@ -485,7 +485,7 @@ add_spec_fun(char *name, char *rhs) {
         }
         str = get_next(")");
         strcpy(fname, str);
-        sprintf(junk, "%s(%s,%s)", fname, rootname, root2name);
+        snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
             plintf(" bad function %s \n", fname);
             return 0;
@@ -558,7 +558,7 @@ add_spec_fun(char *name, char *rhs) {
         }
         str = get_next(")");
         strcpy(fname, str);
-        sprintf(junk, "%s(%s,%s)", fname, rootname, root2name);
+        snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
             plintf(" bad function %s \n", fname);
             return 0;
@@ -736,7 +736,7 @@ add_spec_fun(char *name, char *rhs) {
         }
         str = get_next(")");
         strcpy(fname, str);
-        sprintf(junk, "%s(%s,%s)", fname, rootname, root2name);
+        snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
             plintf(" bad function %s \n", fname);
             return 0;
@@ -1521,7 +1521,7 @@ gilparse(char *s, int *ind, int *nn) {
                 plintf("added %s{%d-%d}\n", b, i1, i2);
                 m = i2 - i1 + 1;
                 for (id = 0; id < m; id++) {
-                    sprintf(bn, "%s%d", b, id + i1);
+                    snprintf(bn, sizeof(bn), "%s%d", b, id + i1);
                     iv = get_var_index(bn);
                     if (iv < 0) {
                         plintf("No such name %s\n", bn);
