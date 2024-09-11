@@ -220,22 +220,22 @@ get_3d_view(int ind) {
     ind_to_sym(i1, n1);
     ind_to_sym(i2, n2);
     ind_to_sym(i3, n3);
-    sprintf(values[0], "%s", n1);
-    sprintf(values[1], "%s", n2);
-    sprintf(values[2], "%s", n3);
-    sprintf(values[3], "%g", MyGraph->xmin);
-    sprintf(values[5], "%g", MyGraph->ymin);
-    sprintf(values[7], "%g", MyGraph->zmin);
-    sprintf(values[4], "%g", MyGraph->xmax);
-    sprintf(values[6], "%g", MyGraph->ymax);
-    sprintf(values[8], "%g", MyGraph->zmax);
-    sprintf(values[9], "%g", MyGraph->xlo);
-    sprintf(values[11], "%g", MyGraph->ylo);
-    sprintf(values[10], "%g", MyGraph->xhi);
-    sprintf(values[12], "%g", MyGraph->yhi);
-    sprintf(values[13], "%s", MyGraph->xlabel);
-    sprintf(values[14], "%s", MyGraph->ylabel);
-    sprintf(values[15], "%s", MyGraph->zlabel);
+    snprintf(values[0], sizeof(values[0]), "%s", n1);
+    snprintf(values[1], sizeof(values[1]), "%s", n2);
+    snprintf(values[2], sizeof(values[2]), "%s", n3);
+    snprintf(values[3], sizeof(values[3]), "%g", MyGraph->xmin);
+    snprintf(values[5], sizeof(values[5]), "%g", MyGraph->ymin);
+    snprintf(values[7], sizeof(values[7]), "%g", MyGraph->zmin);
+    snprintf(values[4], sizeof(values[4]), "%g", MyGraph->xmax);
+    snprintf(values[6], sizeof(values[6]), "%g", MyGraph->ymax);
+    snprintf(values[8], sizeof(values[8]), "%g", MyGraph->zmax);
+    snprintf(values[9], sizeof(values[9]), "%g", MyGraph->xlo);
+    snprintf(values[11], sizeof(values[11]), "%g", MyGraph->ylo);
+    snprintf(values[10], sizeof(values[10]), "%g", MyGraph->xhi);
+    snprintf(values[12], sizeof(values[12]), "%g", MyGraph->yhi);
+    snprintf(values[13], sizeof(values[13]), "%s", MyGraph->xlabel);
+    snprintf(values[14], sizeof(values[14]), "%s", MyGraph->ylabel);
+    snprintf(values[15], sizeof(values[15]), "%s", MyGraph->zlabel);
     MyGraph->ThreeDFlag = 1;
     status = do_string_box(16, 6, 3, "3D View", n, values, 31);
     if (status != 0) {
@@ -249,9 +249,9 @@ get_3d_view(int ind) {
         find_variable(values[2], &i);
         if (i > -1)
             MyGraph->zv[ind] = i;
-        sprintf(MyGraph->xlabel, "%s", values[13]);
-        sprintf(MyGraph->ylabel, "%s", values[14]);
-        sprintf(MyGraph->zlabel, "%s", values[15]);
+        snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[13]);
+        snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[14]);
+        snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s", values[15]);
 
         MyGraph->xmin = atof(values[3]);
         MyGraph->ymin = atof(values[5]);
@@ -519,10 +519,10 @@ user_window(void) {
     static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
     char values[4][MAX_LEN_SBOX];
     int status;
-    sprintf(values[0], "%g", MyGraph->xlo);
-    sprintf(values[2], "%g", MyGraph->ylo);
-    sprintf(values[1], "%g", MyGraph->xhi);
-    sprintf(values[3], "%g", MyGraph->yhi);
+    snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xlo);
+    snprintf(values[2], sizeof(values[2]), "%g", MyGraph->ylo);
+    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->xhi);
+    snprintf(values[3], sizeof(values[3]), "%g", MyGraph->yhi);
     status = do_string_box(4, 2, 2, "Window", n, values, 28);
     if (status != 0) {
 
@@ -674,16 +674,16 @@ get_3d_par_com(void) {
     if (MyGraph->grtype < 5)
         return;
 
-    sprintf(values[0], "%d", MyGraph->PerspFlag);
-    sprintf(values[1], "%g", MyGraph->ZPlane);
-    sprintf(values[2], "%g", MyGraph->ZView);
-    sprintf(values[3], "%g", MyGraph->Theta);
-    sprintf(values[4], "%g", MyGraph->Phi);
-    sprintf(values[5], "%s", mov3d.yes);
-    sprintf(values[6], "%s", mov3d.angle);
-    sprintf(values[7], "%g", mov3d.start);
-    sprintf(values[8], "%g", mov3d.incr);
-    sprintf(values[9], "%d", mov3d.nclip);
+    snprintf(values[0], sizeof(values[0]), "%d", MyGraph->PerspFlag);
+    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->ZPlane);
+    snprintf(values[2], sizeof(values[2]), "%g", MyGraph->ZView);
+    snprintf(values[3], sizeof(values[3]), "%g", MyGraph->Theta);
+    snprintf(values[4], sizeof(values[4]), "%g", MyGraph->Phi);
+    snprintf(values[5], sizeof(values[5]), "%s", mov3d.yes);
+    snprintf(values[6], sizeof(values[6]), "%s", mov3d.angle);
+    snprintf(values[7], sizeof(values[7]), "%g", mov3d.start);
+    snprintf(values[8], sizeof(values[8]), "%g", mov3d.incr);
+    snprintf(values[9], sizeof(values[9]), "%d", mov3d.nclip);
 
     status = do_string_box(10, 5, 2, "3D Parameters", n, values, 28);
     if (status != 0) {
