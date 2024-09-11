@@ -32,7 +32,6 @@ rootname here is the name of the root quantity.
 type is either ep0
 for conv.
 
-
 conv0 conve convp type
 
 value[i]=    sum(j=-ncon;j<=ncon;i++){
@@ -57,7 +56,6 @@ tabular wgt % 51 -25 25 .032*cos(.5*pi*t/25)
 special stot=conv(0, 51, 25, wgt,v0)
 v[0..50]'=f(v[j],w[j])-gsyn*stot([j])*(v([j])-vsyn)
 
-
 last example -- random sparse network 51 cells 5 connections each
 
 tabular w % 251 0 250 .2*rand(1)
@@ -81,7 +79,6 @@ special k=delsparse(m,nc,w,index,tau,root)
           tau is m*nc is list of delays
 
        k[i]=sum( 0<=j < nc) w[j+nc*i]*delay(root[c[j+nc*i]],tau[j+nc*i])
-
 
 special f=mmult(n,m,w,root)  -- note that here m is the number of return
                           values and n is the size of input root
@@ -111,7 +108,6 @@ if type=1  mx(0)=maximum mx(1)=index
 if type=-1 mx(2)=minimum mx(3)=index
 if type=0 mx(0)=maximum mx(1)=index,mx(2)=minimum mx(3)=index
 
-
 special ydot=import(soname,sofun,nret,root,w1,w2,...wm)
 
  run right hand side in C
@@ -120,21 +116,14 @@ special ydot=import(soname,sofun,nret,root,w1,w2,...wm)
  nret is the number of return values
  root is the name of the first variable
 
-
-
 sofun(int nret, int root, double *con, double *var, double *z[50],double *ydot)
 
 *z[50] contains a list of pointers  z[0] -> w1, .... 50 is hard coded
 
-
 NOTE that the user-defined parameters start at #6 and are in order
 including derived parameters but XPP takes care of this so start at 0
 
-
-
-
 */
-
 
 #include <math.h>
 #include <stdio.h>
@@ -156,7 +145,6 @@ int parse_import();
 		    int /* isign */,
 		    double /* scaling */);
 
-
 /* simple network stuff */
 
 #define MAXVEC 100
@@ -165,7 +153,6 @@ typedef struct {
   char name[20];
   int root,length,il,ir;
 } VECTORIZER;
-
 
 VECTORIZER my_vec[MAXVEC];
 int n_vector=0;
@@ -225,7 +212,6 @@ char *get_next(/* char *src */);
 
 double evaluate();
 
-
 NETWORK my_net[MAXNET];
 int n_network=0;
 double net_interp(double x, int i)
@@ -237,7 +223,6 @@ double net_interp(double x, int i)
   y=&variables[my_net[i].root];
   if(jlo<0 || jlo>(n-1))return 0.0; /* out of range */
   return (1-dx)*y[jlo]+dx*y[jlo+1];
-
 
 }
 
@@ -296,8 +281,6 @@ double vector_value(x,i)
     return variables[2*n-k-1+root];
   }
 
-
-
 }
 double network_value(x, i)
     double x;
@@ -311,7 +294,6 @@ double network_value(x, i)
     return my_net[i].values[j];
   return 0.0;
 }
-
 
 void init_net(double *v,int n)
 {
@@ -435,7 +417,6 @@ int add_spec_fun(name,rhs)
     strcpy(rootname,str);
        ivar=get_var_index(rootname);
 
-
    if(ivar<0){
       plintf(" In %s , %s is not valid variable\n",
 	     name,rootname);
@@ -486,7 +467,6 @@ int add_spec_fun(name,rhs)
 	     name,wgtname);
       return 0;
     }
-
 
     str=get_next(",");
     strcpy(rootname,str);
@@ -561,18 +541,15 @@ int add_spec_fun(name,rhs)
       return 0;
     }
 
-
     str=get_next(",");
     strcpy(rootname,str);
        ivar=get_var_index(rootname);
-
 
    if(ivar<0){
       plintf(" In %s , %s is not valid variable\n",
 	     name,rootname);
       return 0;
     }
-
 
     str=get_next(",");
     strcpy(root2name,str);
@@ -701,7 +678,6 @@ int add_spec_fun(name,rhs)
     strcpy(rootname,str);
        ivar=get_var_index(rootname);
 
-
    if(ivar<0){
       plintf(" In %s , %s is not valid variable\n",
 	     name,rootname);
@@ -750,7 +726,6 @@ int add_spec_fun(name,rhs)
     str=get_next(",");
     strcpy(rootname,str);
        ivar=get_var_index(rootname);
-
 
    if(ivar<0){
       plintf(" In %s , %s is not valid variable\n",
@@ -930,12 +905,9 @@ int add_spec_fun(name,rhs)
       return 0;
     }
 
-
-
     str=get_next(")");
     strcpy(rootname,str);
        ivar=get_var_index(rootname);
-
 
    if(ivar<0){
       plintf(" In %s , %s is not valid variable\n",
@@ -995,7 +967,6 @@ int add_spec_fun(name,rhs)
       return 0;
     }
 
-
      str=get_next(",");
     strcpy(tauname,str);
     itau=find_lookup(tauname);
@@ -1006,11 +977,9 @@ int add_spec_fun(name,rhs)
       return 0;
     }
 
-
     str=get_next(")");
     strcpy(rootname,str);
        ivar=get_var_index(rootname);
-
 
    if(ivar<0){
       plintf(" In %s , %s is not valid variable\n",
@@ -1032,7 +1001,6 @@ int add_spec_fun(name,rhs)
     NDELAYS=1;
     return 1;
     break;
-
 
     return 0;
   case 10:
@@ -1094,7 +1062,6 @@ int add_spec_fun(name,rhs)
 
     return 0; */
 
-
   }
   return 0;
 }
@@ -1139,7 +1106,6 @@ int is_network(s)
   /* if(s[0]=='G'&& s[1]=='R' && s[2]=='O' && s[3]=='U')return 8; */
   return 0;
 }
-
 
 void eval_all_nets()
 {
@@ -1464,7 +1430,6 @@ void update_fft(int ind)
   /* for(i=0;i<10;i++)printf("fftr,i=%g %g %g %g\n",fftr[i],ffti[i],fftr[n-1-i],ffti[n-1-i]); */
 }
 
-
 void fft_conv(int it,int n,double *values,double *yy,double *fftr,double *ffti,double *dr,double *di)
 {
   int i;
@@ -1481,8 +1446,6 @@ void fft_conv(int it,int n,double *values,double *yy,double *fftr,double *ffti,d
     }
 
     fftn(1,dims,dr,di,1,-2.0);
-
-
 
     for(i=0;i<n;i++){
       x=dr[i]*fftr[i]-di[i]*ffti[i];
@@ -1581,7 +1544,6 @@ int gilparse(char *s,int *ind,int *nn)
   return 1;
 }
 
-
 /* plucks info out of  xxx{aa-bb}  or returns string */
 int g_namelist(char *s,char *root,int *flag,int *i1,int*i2)
 {
@@ -1624,9 +1586,6 @@ int g_namelist(char *s,char *root,int *flag,int *i1,int*i2)
   return 1;
 }
 
-
-
-
 int getimpstr(char *in,int *i,char *out)
 {
   int j=0;
@@ -1644,7 +1603,6 @@ int getimpstr(char *in,int *i,char *out)
 	  done=0;
 	  if(c==')')k=1;
 	  else k=0;
-
 
 	}
       else {
@@ -1671,7 +1629,6 @@ int parse_import(char *s,  char *soname,char *sofun,int *n, char *vname,int *m, 
 
   int i=0;
   int done=1;
-
 
   while(done>0){
     c=s[i];
@@ -1712,7 +1669,6 @@ int parse_import(char *s,  char *soname,char *sofun,int *n, char *vname,int *m, 
   return 1;
 }
 
-
 int get_vector_info(char *str, char *name,int *root, int *length, int *il, int *ir)
 {
 
@@ -1739,7 +1695,6 @@ int get_vector_info(char *str, char *name,int *root, int *length, int *il, int *
   }
   temp[j]=0;
   ivar=get_var_index(temp);
-
 
   if(ivar<0){
     plintf(" In vector %s , %s is not valid variable\n",
@@ -1776,17 +1731,7 @@ int get_vector_info(char *str, char *name,int *root, int *length, int *il, int *
   if(str[i]=='z'|| str[i]=='Z')
     *ir=ZERO;
 
-
   return 1;
 }
-
-
-
-
-
-
-
-
-
 
 

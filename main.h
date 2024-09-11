@@ -2,7 +2,6 @@
 
 #define _main_h__
 
-
 #include <X11/Xlib.h>
 
 void do_main(int argc, char **argv);
@@ -29,7 +28,6 @@ void make_pops(void);
 void FixWindowSize(Window w, int width, int height, int flag);
 int getxcolors(XWindowAttributes *win_info, XColor **colors);
 void test_color_info(void);
-
 
 #endif
 

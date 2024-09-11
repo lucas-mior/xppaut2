@@ -9,7 +9,6 @@
  *                                                                *
  ******************************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvdiag.h"
@@ -17,19 +16,16 @@
 #include "llnltyps.h"
 #include "vector.h"
 
-
 /* Error Messages */
 
 #define CVDIAG_INIT   "CVDiagInit-- "
 
 #define MSG_MEM_FAIL  CVDIAG_INIT "A memory request failed.\n\n"
 
-
 /* Other Constants */
 
 #define FRACT RCONST(0.1)
 #define ONE   RCONST(1.0)
-
 
 /******************************************************************
  *                                                                *
@@ -39,7 +35,6 @@
  * structure contains CVDiag solver-specific data.                *
  *                                                                *
  ******************************************************************/
-
 
 typedef struct {
 
@@ -54,7 +49,6 @@ typedef struct {
 
 } CVDiagMemRec, *CVDiagMem;
 
-
 /* CVDIAG linit, lsetup, lsolve, and lfree routines */
 
 static int  CVDiagInit(CVodeMem cv_mem, bool *setupNonNull);
@@ -67,7 +61,6 @@ static int  CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 			N_Vector fcur);
 
 static void CVDiagFree(CVodeMem cv_mem);
-
 
 /* Readability Replacements */
 
@@ -95,8 +88,6 @@ static void CVDiagFree(CVodeMem cv_mem);
 #define M         (cvdiag_mem->di_M)
 #define bit       (cvdiag_mem->di_bit)
 #define bitcomp   (cvdiag_mem->di_bitcomp)
-
-
 
 /*************** CVDiag **********************************************
 

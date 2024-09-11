@@ -1,7 +1,6 @@
 #ifndef _aniparse_avi_h
 #define _aniparse_avi_h
 
-
 typedef struct {
   int nframe,wid,hgt,fps;
   unsigned char *image;
@@ -18,7 +17,6 @@ typedef struct {
  int aviflag,filflag;
 } MPEG_SAVE;
 
-
 typedef struct {
   int n;
   int *x,*y,*col;
@@ -32,8 +30,6 @@ typedef struct {
   double zcol,zx1,zy1,zx2,zy2,zrad,zval;
   int zthick,tfont,tsize,tcolor;
 } ANI_COM;
-
-
 
 int new_vcr(void);
 int create_vcr(char *name);
@@ -99,6 +95,5 @@ int draw_ani_vtext(int j);
 int tst_pix_draw(void);
 int read_ani_line(FILE *fp, char *s);
 int de_space(char *s);
-
 
 #endif

@@ -20,8 +20,6 @@ override the below definition.
 #endif
 #endif
 
-
-
 /*
 Options are set accroding to an order of precedence
 
@@ -187,10 +185,7 @@ typedef struct {
   int HISTHI2;
   int HISTBINS2;
 
-
-
   } OptionsSet;
-
 
 void dump_torus(FILE *fp, int f);
 void load_eqn(void);
@@ -210,7 +205,5 @@ void split_apart(char *bob, char *name, char *value);
 void check_for_xpprc(void);
 void stor_internopts(char *s1);
 void set_option(char *s1, char *s2,int force,OptionsSet *mask);
-
-
 
 #endif

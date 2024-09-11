@@ -17,7 +17,6 @@ extern struct {
   doublereal *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
 } global_scratch;
 
-
 /* All of these global structures correspond to common
    blocks in the original code.  They are ONLY used within
    the Homcont code.
@@ -57,7 +56,6 @@ struct {
   integer *iflag;
 } beyn_1 = {NULL,NULL};
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*        Subroutines for Homoclinic Bifurcation Analysis */
@@ -80,11 +78,6 @@ fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
-
 
 /* Generates the equations for homoclinic bifurcation analysis */
 
@@ -151,7 +144,6 @@ fnho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnho_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -163,12 +155,6 @@ ffho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   integer i, j;
   doublereal dum1;
-
-
-
-
-
-
 
     /* Parameter adjustments */
     /*--u;*/
@@ -212,7 +198,6 @@ ffho(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffho_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -234,10 +219,6 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   uu2=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfu=(doublereal *)malloc(sizeof(doublereal)*(iap->nbc)*(2*iap->ndim+NPARX));
 		
-
-
-
-
 
 /* Generates the boundary conditions for homoclinic bifurcation analysis
 */
@@ -339,16 +320,12 @@ bcho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcho_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, integer nbc0, const doublereal *u0, const doublereal *u1, doublereal *fb, doublereal *dbc)
 {
   /* System generated locals */
   integer dbc_dim1;
-
-
-
 
     /* Local variables */
 
@@ -390,7 +367,6 @@ fbho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   vt      = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm)*(iap->ndm));
   xequib1 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm));
   xequib2 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm));
-
 
   /* Generates the boundary conditions for homoclinic orbits. */
 
@@ -657,7 +633,6 @@ t=1 */
   return 0;
 } /* fbho_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -678,7 +653,6 @@ icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   uu1 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   uu2 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim + NPARX));
-
 
 /* Generates integral conditions for homoclinic bifurcation analysis */
 
@@ -757,7 +731,6 @@ icho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* icho_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, integer nnt0, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *fi, doublereal *dint)
@@ -773,11 +746,8 @@ fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   integer ndm;
   doublereal dum;
 
-
   fj = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   /* Generates the integral conditions for homoclinic orbits. */
-
-
 
   /* Parameter adjustments */
   /*--par;*/
@@ -827,7 +797,6 @@ fiho(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* fiho_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 inho(iap_type *iap, integer *icp, doublereal *par)
@@ -871,19 +840,15 @@ inho(iap_type *iap, integer *icp, doublereal *par)
   for(i=0;i<4;i++)
     beyn_1.iflag[i]=0;
 
-
 /* Reads from fort.11 specific constants for homoclinic continuation. */
 /* Sets up re-defined constants in IAP. */
 /* Sets other constants in the following common blocks. */
-
 
 /* set various constants */
 
     /* Parameter adjustments */
     /*--par;*/
     /*--icp;*/
-
-
 
   ndim = iap->ndim;
   irs = iap->irs;
@@ -905,8 +870,6 @@ inho(iap_type *iap, integer *icp, doublereal *par)
   /* updated reading in of constants for reversible equations */
   /* replaces location in datafile of compzero */
 
-
-
   ndim = ndm * (blhom_1.itwist + 1);
   /* Allocate memory for global structures.  We didn't know the
      size for these until ndim was computed. */
@@ -923,8 +886,6 @@ inho(iap_type *iap, integer *icp, doublereal *par)
   blhme_1.vrprev = (doublereal *)malloc(sizeof(doublereal)*2*(ndim)*(ndim));
 
   beyn_1.cprev   = (doublereal *)malloc(sizeof(doublereal)*2*2*(ndim)*(ndim));
-
-
 
   nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
   bcnn_1.nbcn = nbc;
@@ -996,7 +957,6 @@ inho(iap_type *iap, integer *icp, doublereal *par)
   return 0;
 } /* inho_ */
 
-
 /*     ---------- ----- */
 /* Subroutine */ int
 preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs, doublereal *ups, doublereal *udotps, doublereal *tm, doublereal *par)
@@ -1013,12 +973,8 @@ preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs,
   doublereal upsmin;
   integer ist;
 
-
-
-
 /* Preprocesses (perturbs) restart data to enable */
 /* initial computation of the adjoint variable */
-
 
     /* Parameter adjustments */
     /*--tm;*/
@@ -1109,7 +1065,6 @@ preho(integer *ndx, integer *ntsr, integer *nar, integer *ndim, integer *ncolrs,
   return 0;
 } /* preho_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnho(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
@@ -1185,7 +1140,6 @@ stpnho(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   return 0;
 } /* stpnho_ */
 
-
 /*     ---------- ----- */
 /* Subroutine */ int
 stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t)
@@ -1207,20 +1161,16 @@ stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t
   vt      = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm)*(iap->ndm));
   xequib  = (doublereal *)malloc(sizeof(doublereal)*(iap->ndm));
 
-
   /* Generates a starting point for homoclinic continuation */
   /* If ISTART=2 it calls STPNHO. */
   /* If ISTART=3 it sets up the homotopy method. */
 
 /* Local */
 
-
     /* Parameter adjustments */
     /*--par;*/
     /*--u;*/
     /*--icp;*/
-
-
 
   ndm = iap->ndm;
 
@@ -1325,19 +1275,16 @@ stpho(iap_type *iap, integer *icp, doublereal *u, doublereal *par, doublereal *t
    */
 } /* stpho_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndxloc, doublereal *ups, integer *ndim, doublereal *p0, doublereal *p1, doublereal *par)
 {
-
 
   /* System generated locals */
   integer ups_dim1, p0_dim1, p1_dim1;
 
     /* Local variables */
   integer i, j;
-
 
   doublereal orient;
 
@@ -1400,9 +1347,7 @@ pvlsho(iap_type *iap, rap_type *rap, integer *icp, doublereal *dtm, integer *ndx
 
   return 0;
 
-
 } /* pvlsho_ */
-
 
 /*     -------- ------- -------- ----- */
 doublereal
@@ -1433,9 +1378,7 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
 /*and right (PU1) endpoints of the solution (+  vector if that is computed
 )*/
 
-
 /* Local */
-
 
     /* Parameter adjustments */
     /*--par;*/
@@ -1444,8 +1387,6 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
     /*--rr;*/
   vt -= ((iap->ndm)+1);
   v -= ((iap->ndm)+1);
-
-
 
   ndm = iap->ndm;
 
@@ -1649,7 +1590,6 @@ psiho(const iap_type *iap, integer is, doublereal *rr, doublereal *ri, doublerea
 
 } /* psiho_ */
 
-
 /*     ---------- ----- */
 /* Subroutine */ int
 eighi(integer isign, integer itrans, doublereal *rr, doublereal *ri, doublereal *vret, doublereal *xequib, const integer *icp, doublereal *par, integer *ndm)
@@ -1669,7 +1609,6 @@ eighi(integer isign, integer itrans, doublereal *rr, doublereal *ri, doublereal 
 
   return 0;
 } /* eighi */
-
 
 /*     ---------- ----- */
 /* Subroutine */ int
@@ -1716,10 +1655,7 @@ eigho(integer *isign, integer *itrans, doublereal *rr, doublereal *ri, doublerea
 /* 	        VRET the rows of which are real parts of corresponding */
 /*                  eigenvectors */
 
-
-
 /* Local */
-
 
     /* Parameter adjustments */
     /*--rr;*/
@@ -1859,7 +1795,6 @@ eigho(integer *isign, integer *itrans, doublereal *rr, doublereal *ri, doublerea
   return 0;
 } /* eigho_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 prjcti(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *par, integer imfd, integer is, integer itrans, integer *ndm)
@@ -1876,7 +1811,6 @@ prjcti(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
   return 0;
 } /* prjcti */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *par, integer *imfd, integer *is, integer *itrans, integer *ndm, doublereal *dfdu, doublereal *dfdp)
@@ -1887,8 +1821,6 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
     /* Local variables */
   integer i, j, k;
   integer mcond, k1, k2, m0;
-
-
 
   doublereal det, eps;
 
@@ -1928,10 +1860,7 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
 /* branch" is at the values of PAR at which the routine was last */
 /* called with the same values of IS and ITRANS. */
 
-
-
 /* Local */
-
 
     /* Parameter adjustments */
     /*--xequib;*/
@@ -2095,68 +2024,5 @@ prjctn(doublereal *bound, doublereal *xequib, const integer *icp, doublereal *pa
 
   return 0;
 } /* prjctn_ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

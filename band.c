@@ -17,12 +17,10 @@
 #include "llnlmath.h"
 #include "ggets.h"
 
-
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
 
 #define ROW(i,j,smu) (i-j+smu)
-
 
 /* Implementation */
 
@@ -49,7 +47,6 @@ BandMat BandAllocMat(integer N, integer mu, integer ml, integer smu)
   return(A);
 }
 
-
 integer *BandAllocPiv(integer N)
 {
   if (N <= 0) return(NULL);
@@ -57,12 +54,10 @@ integer *BandAllocPiv(integer N)
   return((integer *) malloc(N * sizeof(integer)));
 }
 
-
 integer BandFactor(BandMat A, integer *p)
 {
   return(gbfa(A->data, A->size, A->mu, A->ml, A->smu, p));
 }
-
 
 void BandBacksolve(BandMat A, integer *p, N_Vector b)
 {
@@ -105,7 +100,6 @@ void BandPrint(BandMat A)
   bandprint(A->data, A->size, A->mu, A->ml, A->smu);
 }
 
-
 real **bandalloc(integer n, integer smu, integer ml)
 {
   real **a;
@@ -134,7 +128,6 @@ integer *bandallocpiv(integer n)
 
   return((integer *) malloc(n * sizeof(integer)));
 }
-
 
 integer gbfa(real **a, integer n, integer mu, integer ml, integer smu,
              integer *p)

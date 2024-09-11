@@ -3,7 +3,6 @@
 
 #include <X11/Xlib.h>
 
-
 #define MAIN_MENU 0
 #define FILE_MENU 1
 #define NUM_MENU 2
@@ -45,10 +44,6 @@ typedef struct {
   int n,visible;
 } MENUDEF;
 
-
-
-
-
 /* hints for the main menus */
 char *main_hint[]=
 { "Integrate the equations",
@@ -72,7 +67,6 @@ char *main_hint[]=
   "Set parameters for 3D view",
   "Run boundary value solver" };
 
-
 char *file_hint[]={
 "Display source and active comments",
 "Save information for restart",
@@ -91,7 +85,6 @@ char *file_hint[]={
 "Edit your .xpprc preferences file",
 "Run a quick tutorial on XPPAUT"
 };
-
 
 char *num_hint[]={
 "Total time to integrate eqns",
@@ -256,7 +249,6 @@ char *map_hint[]={
 "Compute map based on period between events",
 };
 
-
 char *view_hint[]={
   "Two-dimensional view settings",
   "Three-dimensional view settings",
@@ -418,9 +410,6 @@ char *browse_hint[]={
  "Add a new column to BROWSER",
  "Delete a column from BROWSER"
 };
-
-
-
 
 #endif
 

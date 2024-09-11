@@ -32,15 +32,11 @@
 #include "graf_par.h"
 #include "auto_x11.h"
 
-
 #include "nullcline.h"
 #include "lunch-new.h"
 
 #include "calc.h"
 #include <stdlib.h>
-
-
-
 
 /*
     Copyright (C) 2002-2017  Bard Ermentrout & Daniel Dougherty
@@ -63,8 +59,6 @@
      bard@pitt.edu
 
 */
-
-
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -207,8 +201,6 @@ void set_colorization_stuff();
 void silent_equilibria();
 void silent_dfields();
 void silent_nullclines();
-
-
 
  int popped=0;
 
@@ -395,14 +387,12 @@ int argc;
   sprintf(batchout,"output.dat");
   sprintf(PlotFormat,"ps");
 
-
   /*Read visualization environement variables here
   since some may be overridden by command line
   */
   logfile=stdout;
   check_for_quiet(argc, argv);
   /*do_vis_env();*/
-
 
    /* Old code did it this way...
    do_vis_env();
@@ -416,8 +406,6 @@ int argc;
   */
 
   do_comline(argc, argv);
-
-
 
   /*We need to init_X here if there is no file on command line
   so that a file browser can be opened.
@@ -442,7 +430,6 @@ int argc;
        free(tempNS);
   }
 
-
   load_eqn();
 
   OptionsSet *tempNS = (OptionsSet*)malloc(sizeof(OptionsSet));
@@ -453,7 +440,6 @@ int argc;
   init_alloc_info();
       do_vis_env();
   set_all_vals();
-
 
   /*if(!XPPBatch)
   {
@@ -473,8 +459,6 @@ int argc;
      exit(0);
      } */
 
-
-
   if(disc(this_file))METHOD=0;
   xppvermaj=(float)cstringmaj;
   xppvermin=(float)cstringmin;
@@ -483,7 +467,6 @@ int argc;
   else sprintf(pptitle,"XPP Version %g.%g",xppvermaj,xppvermin);
 /*  win_name=pptitle; */
   do_meth();
-
 
   set_delay();
   rhs=my_rhs;
@@ -515,14 +498,11 @@ if(XPPBatch){
   Xup=1;
   MakeColormap();
 
-
 XMapWindow(display,main_win);
 
 make_pops();
 
 make_top_buttons();
-
-
 
 initialize_box();
 
@@ -536,9 +516,6 @@ init_browser();
    create_eq_list();
  }
 
-
-
-
 /* create_eq_list(); */
 /* make_my_aplot("z"); */
 Xup=1;
@@ -549,8 +526,6 @@ ani_zero();
 make_scrbox_lists();
 
 /*   This is for testing widgets  ---    */
-
-
 
 /*          MAIN LOOP             */
 test_color_info();
@@ -572,7 +547,6 @@ if(DoTutorial==1)
 default_window();
 
 do_events(min_wid,min_hgt);
-
 
 }
 
@@ -618,7 +592,6 @@ int argc;
 	}
 }
 
-
 void do_vis_env()
 {
   set_X_vals();
@@ -626,7 +599,6 @@ void do_vis_env()
   set_internopts_xpprc_and_comline();
 
 }
-
 
 void init_X ()
 {
@@ -637,7 +609,6 @@ void init_X ()
   char *getenv();
 
   char teststr[] = "The Quick Brown Fox Jumped Over The Lazy Dog?";
-
 
   if (UserMinWidth > 0)
   {
@@ -657,19 +628,13 @@ void init_X ()
       GrBack = Black;
     }
 
-
   main_win = init_win (4, icon_name, win_name,
                        x, y, min_wid, min_hgt, 0, NULL);
 		
    /*Set up foreground and background colors*/
 
-
   Black = BlackPixel (display, screen);
   White = WhitePixel (display, screen);
-
-
-
-
 
   if (strlen(UserBlack) != 0)
   {
@@ -694,8 +659,6 @@ void init_X ()
 	
   }
 
-
-
   /*  Switch for reversed video  */
   MyForeColor = GrFore = Black;
   MyBackColor = GrBack = White;
@@ -710,7 +673,6 @@ void init_X ()
 	  strcpy(swapcol,UserWhite);
 	  strcpy(UserWhite,UserBlack);
 	  strcpy(UserBlack,swapcol);
-
 
 	  MyForeColor = GrFore = White;
 	  MyBackColor = GrBack = Black;
@@ -765,11 +727,9 @@ void init_X ()
      COLOR=1;
      } */
 
-
   XSelectInput (display, main_win,
                 ExposureMask | KeyPressMask | ButtonPressMask |
                 StructureNotifyMask | ButtonReleaseMask | ButtonMotionMask);
-
 
   load_fonts();
 
@@ -787,7 +747,6 @@ void init_X ()
    */
   DCURXb = XTextWidth(big_font,teststr,strlen(teststr))/(strlen(teststr)-2);
 
-
   DCURYb = big_font->ascent + big_font->descent;
   CURY_OFFb = big_font->ascent - 1;
 
@@ -796,7 +755,6 @@ void init_X ()
 
   DCURXs = XTextWidth (small_font,teststr,strlen(teststr))/(strlen(teststr)-2);
 
-
   DCURYs = small_font->ascent + small_font->descent;
   CURY_OFFs = small_font->ascent - 1;
 
@@ -804,7 +762,6 @@ void init_X ()
   getGC (&gc_graph);
   getGC (&small_gc);
   getGC (&font_gc);
-
 
   if (strlen(UserBGBitmap) != 0) /*User supplied */
   {
@@ -870,7 +827,6 @@ void init_X ()
   */
 }
 
-
 void set_big_font()
 {
  DCURX=DCURXb;
@@ -907,8 +863,6 @@ void set_small_font()
    .12# types in the number
    #r gets out of the parameter picker
    ig  runs XPP
-
-
 
 */
 int script_make(char *s,int *k)
@@ -956,8 +910,6 @@ int script_make(char *s,int *k)
   return j;
 }
 
-
-
 void scripty()
 {
   /*  char scr[100]="piapp#r#b#b#b#b.12#r#rig"; */
@@ -973,7 +925,6 @@ void scripty()
     XSendEvent(display,main_win,1,KeyPressMask,(XEvent *)&ev);
   }
 }
-
 
 void xpp_events(XEvent report,int min_wid,int min_hgt)
 {
@@ -1029,7 +980,6 @@ void xpp_events(XEvent report,int min_wid,int min_hgt)
 	if(report.xany.window==command_pop)put_command("Command:");
      do_expose(report);
 
-
    break;
  case KeyPress:
    used=0;
@@ -1047,7 +997,6 @@ void xpp_events(XEvent report,int min_wid,int min_hgt)
 		commander(ch);
 	
 	    /* do_key_stuff(report); */
-
 
                break;
  case EnterNotify:
@@ -1095,11 +1044,9 @@ void xpp_events(XEvent report,int min_wid,int min_hgt)
    }
 		 break;
 
-
  } /* end switch */
 
 }
-
 
 void do_events(min_wid,min_hgt)
 unsigned int min_wid,min_hgt;
@@ -1120,7 +1067,6 @@ while(1)
  } /* end while */
 }
 
-
 void bye_bye()
 {
    int i;
@@ -1135,7 +1081,6 @@ void bye_bye()
    XCloseDisplay(display);
    exit(1);
 }
-
 
 void clr_scrn()
 {
@@ -1154,7 +1099,6 @@ void redraw_all()
   restore_on();
   }
 }
-
 
 void commander(ch)
  char ch;
@@ -1271,7 +1215,6 @@ void commander(ch)
 		     draw_many_lines();
 		  break;
 
-
                  } /* End main switch  */
 		
 
@@ -1280,8 +1223,6 @@ void commander(ch)
   case NUM_HELP:{
     get_num_par(ch);
   } /* end num case   */ break;
-
-
 
   case FILE_HELP: {
           switch(ch){
@@ -1338,7 +1279,6 @@ void commander(ch)
 		   /* c_hints(); */
 		   xpp_hlp();
 		    /*	   make_key_stroke(); */
-
 
 		        break;
 		case 'q': flash(7);
@@ -1632,7 +1572,6 @@ void load_fonts()
   exit(-1);
  }
 
-
   for(i=0;i<5;i++){
     if((symfonts[i]=XLoadQueryFont(display,symbolfonts[i]))==NULL){
       if(i==0||i==1)
@@ -1660,9 +1599,7 @@ void load_fonts()
   }
  plintf("\n");
 
-
 }
-
 
 void make_pops()
 
@@ -1697,7 +1634,6 @@ XSelectInput(display,info_pop,ExposureMask);
 
 }
 
-
 void FixWindowSize(w,width,height,flag)
      Window w;
      int width,height,flag;
@@ -1717,7 +1653,6 @@ void FixWindowSize(w,width,height,flag)
    size_hints.flags=PMinSize;
    size_hints.min_width=width;
 
-
    size_hints.min_height=height;
 
    break;
@@ -1731,16 +1666,12 @@ void FixWindowSize(w,width,height,flag)
 
 }
 
-
-
-
 int getxcolors(win_info, colors)
      XWindowAttributes *win_info;
      XColor **colors;
 {
 
   int i, ncolors;
-
 
   *colors = (XColor *) NULL;
   TrueColorFlag=0;
@@ -1793,12 +1724,6 @@ int getxcolors(win_info, colors)
   return(ncolors);
 }
 
-
-
-
-
-
-
 void test_color_info()
 {
  XColor *colors;
@@ -1814,7 +1739,6 @@ void test_color_info()
 
 if (colors) free((char *) colors);
 }
-
 
 /*   this is stuff for ndrand48(), nsrand48()
      uncomment if you dont have it
@@ -1836,8 +1760,5 @@ int seed;
 #endif
 
 */
-
-
-
 
 

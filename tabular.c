@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 /*********************************************************
      This is code for read-in tables in XPP
      This should probably be accessible from within the program
@@ -39,7 +38,6 @@
      ...
     xn yn
 
-
   In the creation of the file, one can instead use the following:
 
  table <name> % numpts xlo xhi formula
@@ -62,7 +60,6 @@
  f(x1,y1), f(x2,y1),....,f(xn,y1),
  ...
  f(x1,ym), ..., f(xn,ym)
-
 
 to be added later
 **************************************************************/
@@ -129,7 +126,6 @@ void new_lookup_com(int i)
  double xlo,xhi;
  int npts;
  char newform[80];
-
 
   index=select_table();
   if(index==-1)return;
@@ -283,10 +279,8 @@ double lookup(x,index)
   if(i1<0)return(y[0]+(y[1]-y[0])*(x-xlo)/dx);
   if(i2>=n)return(y[n-1]+(y[n-1]-y[n-2])*(x-xhi)/dx);
 
-
   return(0.0);
 }
-
 
 void init_table()
 {
@@ -337,7 +331,6 @@ int eval_fun_table(n,xlo,xhi,formula,y)
   return(1);
 }
 
-
 int create_fun_table(npts,xlo,xhi,formula,index)
      int npts;
      int index;
@@ -380,10 +373,6 @@ int create_fun_table(npts,xlo,xhi,formula,index)
   }
    return(0);
 }
-
-
-
-
 
 int load_table(filename,index)
      char *filename;
@@ -498,7 +487,6 @@ int get_lookup_len(int i)
   return my_table[i].n;
 }
 
-
 /*   network stuff
 
 table name <type> ... arguments ...
@@ -519,9 +507,5 @@ for npts lines
  name(i) = sum(j=1,ncon_i) w_j name(i_j)
 
 */
-
-
-
-
 
 

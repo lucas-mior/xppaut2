@@ -11,7 +11,6 @@
  *                                                              *
  ****************************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
@@ -19,10 +18,8 @@
 #include "llnlmath.h"
 #include "ggets.h"
 
-
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
-
 
 /* Private Helper Prototypes */
 
@@ -40,7 +37,6 @@ static void Vaxpy(real a, N_Vector x, N_Vector y); /* y <- ax+y */
 static void VScaleBy(real a, N_Vector x); /* x <- ax */
 
 /********************* Exported Functions ************************/
-
 
 N_Vector N_VNew(integer N, void *machEnv)
 {
@@ -62,13 +58,11 @@ N_Vector N_VNew(integer N, void *machEnv)
   return(v);
 }
 
-
 void N_VFree(N_Vector x)
 {
   free(x->data);
   free(x);
 }
-
 
 void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z)
 {
@@ -154,7 +148,6 @@ void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z)
     *zd++ = a * (*xd++) + b * (*yd++);
 }
 
-
 void N_VConst(real c, N_Vector z)
 {
   integer i, N;
@@ -166,7 +159,6 @@ void N_VConst(real c, N_Vector z)
   for (i=0; i < N; i++)
     *zd++ = c;
 }
-
 
 void N_VProd(N_Vector x, N_Vector y, N_Vector z)
 {
@@ -182,7 +174,6 @@ void N_VProd(N_Vector x, N_Vector y, N_Vector z)
     *zd++ = (*xd++) * (*yd++);
 }
 
-
 void N_VDiv(N_Vector x, N_Vector y, N_Vector z)
 {
   integer i, N;
@@ -196,7 +187,6 @@ void N_VDiv(N_Vector x, N_Vector y, N_Vector z)
   for (i=0; i < N; i++)
     *zd++ = (*xd++) / (*yd++);
 }
-
 
 void N_VScale(real c, N_Vector x, N_Vector z)
 {
@@ -220,7 +210,6 @@ void N_VScale(real c, N_Vector x, N_Vector z)
   }
 }
 
-
 void N_VAbs(N_Vector x, N_Vector z)
 {
   integer i, N;
@@ -233,7 +222,6 @@ void N_VAbs(N_Vector x, N_Vector z)
   for (i=0; i < N; i++, xd++, zd++)
     *zd = ABS(*xd);
 }
-
 
 void N_VInv(N_Vector x, N_Vector z)
 {
@@ -248,7 +236,6 @@ void N_VInv(N_Vector x, N_Vector z)
     *zd++ = ONE / (*xd++);
 }
 
-
 void N_VAddConst(N_Vector x, real b, N_Vector z)
 {
   integer i, N;
@@ -260,7 +247,6 @@ void N_VAddConst(N_Vector x, real b, N_Vector z)
 
   for (i=0; i < N; i++) *zd++ = (*xd++) + b;
 }
-
 
 real N_VDotProd(N_Vector x, N_Vector y)
 {
@@ -277,7 +263,6 @@ real N_VDotProd(N_Vector x, N_Vector y)
   return(sum);
 }
 
-
 real N_VMaxNorm(N_Vector x)
 {
   integer i, N;
@@ -292,7 +277,6 @@ real N_VMaxNorm(N_Vector x)
 
   return(max);
 }
-
 
 real N_VWrmsNorm(N_Vector x, N_Vector w)
 {
@@ -311,7 +295,6 @@ real N_VWrmsNorm(N_Vector x, N_Vector w)
   return(RSqrt(sum / N));
 }
 
-
 real N_VMin(N_Vector x)
 {
   integer i, N;
@@ -328,7 +311,6 @@ real N_VMin(N_Vector x)
   return(min);
 }
 
-
 void N_VCompare(real c, N_Vector x, N_Vector z)
 {
   integer i, N;
@@ -342,7 +324,6 @@ void N_VCompare(real c, N_Vector x, N_Vector z)
     *zd = (ABS(*xd) >= c) ? ONE : ZERO;
   }
 }
-
 
 bool N_VInvTest(N_Vector x, N_Vector z)
 {
@@ -361,7 +342,6 @@ bool N_VInvTest(N_Vector x, N_Vector z)
   return(TRUE);
 }
 
-
 void N_VPrint(N_Vector x)
 {
   integer i, N;
@@ -375,9 +355,7 @@ void N_VPrint(N_Vector x)
   plintf("\n");
 }
 
-
 /***************** Private Helper Functions **********************/
-
 
 static void VCopy(N_Vector x, N_Vector z)
 {
@@ -391,7 +369,6 @@ static void VCopy(N_Vector x, N_Vector z)
   for (i=0; i < N; i++)
     *zd++ = *xd++;
 }
-
 
 static void VSum(N_Vector x, N_Vector y, N_Vector z)
 {
@@ -407,7 +384,6 @@ static void VSum(N_Vector x, N_Vector y, N_Vector z)
     *zd++ = (*xd++) + (*yd++);
 }
 
-
 static void VDiff(N_Vector x, N_Vector y, N_Vector z)
 {
   integer i, N;
@@ -422,7 +398,6 @@ static void VDiff(N_Vector x, N_Vector y, N_Vector z)
     *zd++ = (*xd++) - (*yd++);
 }
 
-
 static void VNeg(N_Vector x, N_Vector z)
 {
   integer i, N;
@@ -435,7 +410,6 @@ static void VNeg(N_Vector x, N_Vector z)
   for (i=0; i < N; i++)
     *zd++ = -(*xd++);
 }
-
 
 static void VScaleSum(real c, N_Vector x, N_Vector y, N_Vector z)
 {
@@ -451,7 +425,6 @@ static void VScaleSum(real c, N_Vector x, N_Vector y, N_Vector z)
     *zd++ = c * ((*xd++) + (*yd++));
 }
 
-
 void VScaleDiff(real c, N_Vector x, N_Vector y, N_Vector z)
 {
   integer i, N;
@@ -466,7 +439,6 @@ void VScaleDiff(real c, N_Vector x, N_Vector y, N_Vector z)
     *zd++ = c * ((*xd++) - (*yd++));
 }
 
-
 static void VLin1(real a, N_Vector x, N_Vector y, N_Vector z)
 {
   integer i, N;
@@ -480,7 +452,6 @@ static void VLin1(real a, N_Vector x, N_Vector y, N_Vector z)
   for (i=0; i < N; i++)
     *zd++ = a * (*xd++) + (*yd++);
 }
-
 
 static void VLin2(real a, N_Vector x, N_Vector y, N_Vector z)
 {
@@ -532,7 +503,5 @@ static void VScaleBy(real a, N_Vector x)
   for (i=0; i < N; i++)
     *xd++ *= a;
 }
-
-
 
 

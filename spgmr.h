@@ -9,15 +9,12 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _spgmr_h
 #define _spgmr_h
-
 
 #include "llnltyps.h"
 #include "iterativ.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -83,7 +80,6 @@ typedef struct {
 
 } SpgmrMemRec, *SpgmrMem;
 
-
 /******************************************************************
  *                                                                *
  * Function : SpgmrMalloc                                         *
@@ -101,7 +97,6 @@ typedef struct {
  ******************************************************************/
 
 SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv);
-
 
 /******************************************************************
  *                                                                *
@@ -189,12 +184,10 @@ SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv);
  *                                                                *
  ******************************************************************/
 
-
 int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
                int pretype, int gstype, real delta, int max_restarts,
 	       void *P_data, N_Vector sx, N_Vector sb, ATimesFn atimes,
 	       PSolveFn psolve, real *res_norm, int *nli, int *nps);
-
 
 /* Return values for SpgmrSolve */
 
@@ -211,7 +204,6 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
 					returned failure flag        */
 #define SPGMR_QRSOL_FAIL         -5  /* QRsol found singular R       */
 
-
 /******************************************************************
  *                                                                *
  * Function : SpgmrFree                                           *
@@ -222,7 +214,6 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
  ******************************************************************/
 
 void SpgmrFree(SpgmrMem mem);
-
 
 #endif
 

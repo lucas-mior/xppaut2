@@ -51,12 +51,7 @@ double  *u,*par,*f,*dfdu,*dfdp;
 
    return 0;
 
-
-
-
-
 } /* func_ */
-
 
 int stpnt(ndim,t,u,par)
 integer ndim;
@@ -99,12 +94,6 @@ doublereal *u, *par,t;
 
 } /* stpnt_ */
 
-
-
-
-
-
-
 /* Subroutine */ int bcnd(ndim, par, icp, nbc, u0, u1, ijac, fb, dbc)
 integer ndim;
 double *par;
@@ -119,7 +108,6 @@ double *dbc;
  for(i=0;i<NAutoPar;i++){
      constants[Auto_index_to_array[i]]=par[i];
  }
-
 
  evaluate_derived();
  redo_all_fun_tables();

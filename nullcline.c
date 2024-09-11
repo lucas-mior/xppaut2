@@ -24,7 +24,6 @@
 #include "menudrive.h"
 #include <stdio.h>
 
-
 #define MAX_LEN_SBOX 25
 #define DING ping
 #define MAX_NULL 10000
@@ -96,7 +95,6 @@ void froz_cline_stuff_com(int i)
   }
  }
 
-
 void silent_dfields()
 {
 
@@ -123,7 +121,6 @@ void silent_nullclines()
   fclose(fp);
   NCSuppress=0;
 }
-
 
 void do_range_clines()
 {
@@ -161,7 +158,6 @@ void do_range_clines()
     null_ix=MyGraph->xv[0];
     null_iy=MyGraph->yv[0];
 
-
     for(i=0;i<=ncrange.nstep;i++){
       z=(double)i*dz+ncrange.xlo;
       set_val(ncrange.rv,z);
@@ -188,7 +184,6 @@ void do_range_clines()
       WHICH_CRV=null_ix;
       set_linestyle(col1);
       new_nullcline(course,xmin,y_bot,xmax,y_tp,X_n,&num_x_n);
-
 
       WHICH_CRV=null_iy;
       set_linestyle(col2);
@@ -311,7 +306,6 @@ void save_frozen_clines(fn)
 	if(z==NULL)break;
     }
 
-
 }
 
 void redraw_froz_cline(flag)
@@ -348,7 +342,6 @@ void redraw_froz_cline(flag)
     	z=z->n;
 	if(z==NULL)break;
 
-
   }
 }
 
@@ -384,7 +377,6 @@ void add_froz_cline(xn,nmx,n_ix,yn,nmy,n_iy)
   ncline_cnt++;
 }
 
-
 void get_max_dfield(y,ydot,u0,v0,du,dv,n,inx,iny,mdf)
      double *y,*ydot,du,dv,u0,v0,*mdf;
      int n,inx,iny;
@@ -405,7 +397,6 @@ void get_max_dfield(y,ydot,u0,v0,du,dv,n,inx,iny,mdf)
   }
 }
 /*  all the nifty 2D stuff here    */
-
 
 void do_batch_nclines()
 {
@@ -478,7 +469,6 @@ void redraw_dfield()
   double amp,mdf;
 
   double du,dv,u0,v0,dxp,dyp,dz,dup,dvp;
-
 
   int grid=DF_GRID;
   if(DF_FLAG==0||
@@ -574,15 +564,12 @@ void direct_field_com(int c)
   double dtold=DELTA_T;
   float v1[MAXODE],v2[MAXODE];
 
-
   double amp,mdf;
   double t;
   double du,dv,u0,v0,dxp,dyp,dz,dup,dvp;
   double oldtrans=TRANS;
 
-
   int grid=DF_GRID;
-
 
   if(MyGraph->TimeFlag||MyGraph->xv[0]==MyGraph->yv[0]||MyGraph->ThreeDFlag)
     return;
@@ -622,7 +609,6 @@ void direct_field_com(int c)
      	    DOING_DFIELD=1;
   	   fprintf(svgfile,"<g>\n");
      }
-
 
    for(i=0;i<=grid;i++){
      y[inx]=u0+du*i;
@@ -716,9 +702,6 @@ void direct_field_com(int c)
    animate - replay all frozen ones (not current set )
    */ 	
 
-
-
-
 void save_the_nullclines()
 {
   FILE *fp;
@@ -736,7 +719,6 @@ void save_the_nullclines()
   fclose(fp);
   save_frozen_clines(filename);
 }
-
 
 void restore_nullclines()
 {
@@ -775,7 +757,6 @@ void dump_clines(fp,x,nx,y,ny) /* gnuplot format */
       fprintf(fp,"\n");
     }
 
-
 }
 
 void dump_clines_old(fp,x,nx,y,ny)
@@ -798,7 +779,6 @@ void dump_clines_old(fp,x,nx,y,ny)
 	iy=i;
       fprintf(fp,"%g %g %g %g \n",x[4*ix],x[4*ix+1],y[4*iy],y[4*iy+1]);
       fprintf(fp,"%g %g %g %g \n",x[4*ix+2],x[4*ix+3],y[4*iy+2],y[4*iy+3]);
-
 
     }
 
@@ -917,7 +897,6 @@ void new_clines_com(int c)
   }
 }
 
-
 void new_nullcline(course,xlo,ylo,xhi,yhi,stor,npts)
      int course;
      float xlo,ylo,xhi,yhi;
@@ -929,8 +908,6 @@ void new_nullcline(course,xlo,ylo,xhi,yhi,stor,npts)
  do_cline(course,xlo,ylo,xhi,yhi);
  *npts=num_index;
 }
-
-
 
 void stor_null(x1,y1,x2,y2)
 float x1,y1,x2,y2;
@@ -959,7 +936,6 @@ float fnull( x, y)
   return((float)ydot[WHICH_CRV-1]);
  }
 
-
 int interpolate(p1,p2,z,x,y)
  Pt p1,p2;
  float z,*x,*y;
@@ -986,15 +962,12 @@ Pt p1,p2,p3,p4;
  if(p1.z*p4.z<=0.0)
    if(interpolate(p1,p4,0.0,&x[count],&y[count]))count++;
 
-
  if(count==2){
    if(!NCSuppress)line_abs(x[0],y[0],x[1],y[1]);
    stor_null(x[0],y[0],x[1],y[1]);
  }
 
-
 }
-
 
 void triangle_contour(p1,p2,p3)
 
@@ -1021,11 +994,7 @@ if(p2.z*p3.z<=0.0)
    stor_null(x[0],y[0],x[1],y[1]);
  }
 
-
  }
-
-
-
 
 void do_cline(ngrid,x1,y1,x2,y2)
 int ngrid;
@@ -1069,7 +1038,6 @@ float x1,y1,x2,y2;
       p[4].x=.25*(p[0].x+p[1].x+p[2].x+p[3].x);	
      p[4].y=.25*(p[0].y+p[1].y+p[2].y+p[3].y);
      p[4].z=.25*(p[0].z+p[1].z+p[2].z+p[3].z);
-
 
      triangle_contour(p[0],p[1],p[4]);
      triangle_contour(p[1],p[4],p[2]);

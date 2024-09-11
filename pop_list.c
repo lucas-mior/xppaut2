@@ -114,7 +114,6 @@ void destroy_scroll_box(SCROLLBOX *sb)
   }
 }
 
-
 void create_scroll_box(Window root,int x0,int y0,int nent,
 		  int nw,char **list,SCROLLBOX *sb)
 {
@@ -154,7 +153,6 @@ void expose_scroll_box(Window w,SCROLLBOX sb)
  if(sb.nw<sb.nent && w==sb.slide)
         redraw_scroll_box(sb);
 }
-
 
 void redraw_scroll_box(SCROLLBOX sb)
 {
@@ -234,8 +232,6 @@ void scroll_popup(STRING_BOX *sb,SCROLLBOX *scrb)
   create_scroll_box(sb->base,xx,3,
 		    scrbox_list[id].n,maxw,scrbox_list[id].list,
 		    scrb);
-
-
 
 }
 
@@ -327,7 +323,6 @@ int flag;
  if(flag) put_cursor_at(w,DCURX*l,pos);
 }
 
-
 void reset_hot(inew,sb)
 int inew;
 STRING_BOX *sb;
@@ -365,7 +360,6 @@ void set_sbox_item(STRING_BOX *sb,int item)
   /* plintf("setting %d to be %d in list %d \n",
      i,item, sb->hh[i]); */
 }
-
 
 int s_box_event_loop(sb,pos,col,scrb)
  STRING_BOX *sb;
@@ -473,15 +467,7 @@ int s_box_event_loop(sb,pos,col,scrb)
 
 	
 
-
-
-
-
-
-
-
 	
-
 
 void make_sbox_windows(sb,row,col,title,maxchar)
 int row,col,maxchar;
@@ -557,7 +543,6 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
          }
 */
 
-
  Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 	Window root;
 	int x,y,width,height,bw,fc,bc;
@@ -589,11 +574,8 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 			bw,diffcol.pixel,bcolour.pixel);
 		 */
 
-
 		 for(yy = 0; yy < height; yy += 1)
 		 {
-
-
 
 			 if (yy<1.0)
 			 {
@@ -651,7 +633,6 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 			 XSetForeground(display, gc, col2.pixel);
 			 XDrawPoint(display, pmap, gc, xx, yy);
 
-
 		  }
 		
 		 XSetWindowBackgroundPixmap(display,win,pmap);
@@ -704,11 +685,8 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 			bw,diffcol.pixel,bcolour.pixel);
 		 */
 
-
 		 for(yy = 0; yy < height; yy += 1)
 		 {
-
-
 
 			 if (yy<1.0)
 			 {
@@ -735,11 +713,8 @@ Window make_unmapped_window(root,x,y,width,height,bw)
 				 col2.blue = bcolour.blue  * cosine;
 			 }
 
-
-
 			 XAllocColor(display, cmap, &col2);
 			 XSetForeground(display, gc, col2.pixel);
-
 
 			 for (xx = 1; xx < width-1; xx += 1)
 			 {
@@ -799,7 +774,6 @@ void bin_prnt_byte(int x,int *arr)
       x = x<<1;
    }
 
-
    return;
 }
 
@@ -843,7 +817,6 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 			bw,diffcol.pixel,bcolour.pixel);
 		 */
 
-
 		 for(yy = 0; yy < height; yy += 1)
 		 {
 
@@ -873,11 +846,8 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 				 col2.blue = bcolour.blue  * cosine;
 			 }
 
-
-
 			 XAllocColor(display, cmap, &col2);
 			 XSetForeground(display, gc, col2.pixel);
-
 
 			 for (xx = 1; xx < width-1; xx += 1)
 			 {
@@ -972,10 +942,7 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 					z++;
 					col++;
 
-
 				}
-
-
 
 				if (col >= width)
 				{
@@ -1003,7 +970,6 @@ Window make_unmapped_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 }
 	
 
-
 Window make_plain_unmapped_window(root,x,y,width,height,bw)
 	Window root;
 	int x,y,width,height,bw;
@@ -1020,7 +986,6 @@ Window make_plain_unmapped_window(root,x,y,width,height,bw)
 	
          return(win);
         }
-
 
 Window make_icon_window(root,x,y,width,height,bw,icx,icy,icdata)
 	Window root;
@@ -1060,7 +1025,6 @@ Window make_plain_window(root,x,y,width,height,bw)
          return(win);
          }
 
-
 void expose_resp_box(button,message,wb,wm,w)
     Window w,wb,wm;
     char *button,*message;
@@ -1068,7 +1032,6 @@ void expose_resp_box(button,message,wb,wm,w)
 	if(w==wb)Ftext(0,0,button,wb);
 	if(w==wm)Ftext(0,0,message,wm);
    }
-
 
 void respond_box(button,message)
     char *button,*message;
@@ -1130,15 +1093,6 @@ void respond_box(button,message)
 			
 			
 
-
-
-
-
-
-
-
-
-
    void message_box(w,x,y,message)
 	Window *w;
 	int x,y;
@@ -1153,7 +1107,6 @@ void respond_box(button,message)
 	 ping();
 	 *w=z;
 	         }
-
 
 void expose_choice(choice1,choice2,msg,c1,c2,wm,w)
  Window c1,c2,wm,w;
@@ -1379,12 +1332,7 @@ void draw_pop_up(p,w)
     }
 }
 
-
-
 		
-
-
-
 
 /*   Note that this will be improved later -- it is pretty dumb
 
@@ -1466,9 +1414,6 @@ Window *root;
 	rectangle(xi,yi+5,xi+max-2*DCURX,yi+DCURY+5,w);
    } 	
 
-
    */
-
-
 
 

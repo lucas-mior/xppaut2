@@ -6,7 +6,6 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*    Floquet Multiplier Computation (Tom Fairgrieve, U. of Toronto) */
@@ -64,13 +63,11 @@
 flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *rwork, doublecomplex *ev)
 {
 
-
   /* System generated locals */
   integer c0_dim1, c1_dim1, rwork_dim1;
 
   /* Local variables */
   doublereal beta, *svde, *svds, svdu[1], *svdv;
-
 
   integer i, j;
 
@@ -111,15 +108,11 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 
   /*  BLAS routines */
 
-
   /*  routines from EISPACK */
-
 
   /*  own routines */
 
-
   /*  Jim Demmel's svd routine  (demmel@nyu.edu) */
-
 
   /*  builtin F77 functions */
 
@@ -322,7 +315,6 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
   /*  reduce the generalized eigenvalue problem to a simpler form */
   /*   (C0BarDef,C1BarDef) = (upper hessenberg, upper triangular) */
 
-
   qzhes(*ndim, ndimm1, &c0[1], &c1[1], FALSE_ , qzz);
 
   /*  now reduce to an even simpler form */
@@ -372,11 +364,9 @@ flowkm(integer *ndim, doublereal *c0, doublereal *c1, integer *iid, doublereal *
 
 } /* flowkm_ */
 
-
 /* ************************** */
 /* *  Householder routines  * */
 /* ************************** */
-
 
 /*  Subroutines for performing Householder plane rotations. */
 
@@ -397,9 +387,6 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
   static doublereal m, alpha;
 
   static integer istart;
-
-
-
 
   /*     IMPLICIT UNDEFINED (A-Z,a-z) */
   /*     .. Scalar Arguments .. */
@@ -469,7 +456,6 @@ dhhpr(integer *k, integer *j, integer *n, doublereal *x, integer *incx, doublere
   /* Parameter adjustments */
   /*--v;*/
   /*--x;*/
-
 
   if (*k < 1 || *k > *j) {
     fprintf(fp9,"Domain error for K in DHHPR\n");	
@@ -545,16 +531,11 @@ dhhap(integer *k, integer *j, integer *n, integer *q, doublereal *beta, doublere
   /* System generated locals */
   integer a_dim1;
 
-
-
     /* Local variables */
 
   static integer jmkp1;
   static doublereal s;
   static integer col, row;
-
-
-
 
   /*     IMPLICIT LOGICAL (A-Z) */
   /*     .. Scalar Arguments .. */
@@ -705,16 +686,5 @@ on.*/
   /*     End of DHHAP. */
 
 } /* dhhap_ */
-
-
-
-
-
-
-
-
-
-
-
 
 

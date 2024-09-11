@@ -12,17 +12,14 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _cvdense_h
 #define _cvdense_h
-
 
 #include <stdio.h>
 #include "cvode.h"
 #include "llnltyps.h"
 #include "dense.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -47,7 +44,6 @@
 
 enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 
-
 /******************************************************************
  *                                                                *
  * CVDENSE solver constants                                       *
@@ -63,7 +59,6 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 #define CVD_MSBJ  50
 
 #define CVD_DGMAX RCONST(0.2)
-
 
 /******************************************************************
  *                                                                *
@@ -141,7 +136,6 @@ typedef void (*CVDenseJacFn)(integer N, DenseMat J, RhsFn f, void *f_data,
                                int *nfePtr, N_Vector vtemp1,
                              N_Vector vtemp2, N_Vector vtemp3);
 
-
 /******************************************************************
  *                                                                *
  * Function : CVDense                                             *
@@ -164,7 +158,6 @@ typedef void (*CVDenseJacFn)(integer N, DenseMat J, RhsFn f, void *f_data,
  ******************************************************************/
 
 void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
-
 
 /******************************************************************
  *                                                                *

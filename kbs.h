@@ -5,8 +5,6 @@ typedef struct {
 
 } KBS;
 
-
-
 KBS kbs[400]={
   {M_IR,"ir"},
   {M_I2,"i2"},
@@ -173,6 +171,5 @@ KBS kbs[400]={
   {M_UC,"uc"},
   {0,"xxx"}
 };
-
 
 

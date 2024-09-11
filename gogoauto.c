@@ -3,8 +3,6 @@
 #include "auto_c.h"
 #include "xAuto.h"
 
-
-
 extern XAUTO xAuto;
 FILE *fp3;
 FILE *fp7;
@@ -16,9 +14,6 @@ int global_num_procs=1;
 int global_verbose_flag=0;
 extern int fp8_is_open;
 extern char fort3[200], fort7[200], fort8[200],fort9[200];
-
-
-
 
 int go_go_auto() /* this is the entry  at this point, xAuto has been set */
 {
@@ -40,11 +35,8 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
             fp3 = fopen(fort3,"w+");
     }
 
-
-
   fp7 = fopen(fort7,"w");
   fp9 = fopen(fort9,"w");
-
 
   /* Initialization : */
 
@@ -56,11 +48,9 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
     iap.parallel_flag = 0;
   }
 
-
   /* here is the feeder code from xAuto structure */
 
   init(&iap, &rap, par, icp, thl, &thu, iuz, vuz);
-
 
     /* Find restart label and determine type of restart point. */
     if (iap.irs > 0) {
@@ -98,12 +88,6 @@ int go_go_auto() /* this is the entry  at this point, xAuto has been set */
     if(list.type==AUTOBV)
       autobv(&iap, &rap, par, icp, list.bvlist.funi, list.bvlist.bcni,
 	     list.bvlist.icni, list.bvlist.stpnt, list.bvlist.pvli, thl, thu, iuz, vuz);
-
-
-
-
-
-
 
   free(thu);
   /*   free(iuz);
@@ -500,7 +484,6 @@ int set_function_pointers(const iap_type iap,function_list *data) {
       printf("itp=%d ips=%d isw=%d\n",iap.itp,iap.ips,iap.isw);
   }
   /* -----------------------------------------------------------------------*/
-
 
   return 0;
 }

@@ -1,7 +1,6 @@
 #ifndef _my_ps_h_
 #define _my_ps_h_
 
-
 /* my_ps.c */
 int ps_init(char *filename, int color);
 void ps_stroke(void);
@@ -23,6 +22,5 @@ void ps_rel(int x, int y);
 void special_put_text_ps(int x, int y, char *str, int size);
 void fancy_ps_text(int x, int y, char *str, int size, int font);
 void ps_text(int x, int y, char *str);
-
 
 #endif

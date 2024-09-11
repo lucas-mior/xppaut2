@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #include <X11/Xlib.h>
 #include "ggets.h"
 #include <math.h>
@@ -51,7 +50,6 @@ XColor	color[MAX_COLORS];
  */
 extern int TrueColorFlag;
 
-
 void tst_color(w)
 Window w;
 {
@@ -72,7 +70,6 @@ int col;
    if(COLOR)XSetForeground(display,small_gc,ColorMap(col));
    else XSetForeground(display,small_gc,GrFore);
 }
-
 
 }
 
@@ -224,7 +221,6 @@ int read_cmap_from_file(char *fname,int n, int *rr, int *gg, int *bb)
   return m;
 }
 
-
  int rfun(y,per)
   double y;
   int per;
@@ -311,7 +307,6 @@ int r[256],g[256],b[256];
     	color[i].flags = DoRed | DoGreen | DoBlue;
     }
 
-
     color[RED].red=255;
     color[BLUE].blue=255;
     color[GREEN].green=225;
@@ -354,7 +349,6 @@ int r[256],g[256],b[256];
 
 }
 
-
 int ColorMap(i)
 int i;
 {   if(i==-1)return(GrBack);
@@ -367,15 +361,5 @@ int i;
 	return(i);
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 

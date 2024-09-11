@@ -41,19 +41,14 @@
  *                                                              *
  ****************************************************************/
 
-
 #ifndef vector_h
 #define vector_h
 
-
 #include "llnltyps.h"
-
 
 /* Part I: Machine Environment-Dependent Declarations */
 
-
 /* Environment: Sequential */
-
 
 /***************************************************************
  *                                                             *
@@ -73,7 +68,6 @@ typedef struct {
   integer length;
   real   *data;
 } *N_Vector;
-
 
 /***************************************************************
  *                                                             *
@@ -158,16 +152,13 @@ typedef struct {
 
 #define N_VIth(v,i) ((v->data)[i])
 
-
 /* Part II: N_Vector Kernel Prototypes (Machine Environment-Independent) */
-
 
 /***************************************************************
  *                                                             *
  * Memory Allocation and Deallocation: N_VNew, N_VFree         *
  *                                                             *
  ***************************************************************/
-
 
 /***************************************************************
  *                                                             *
@@ -186,7 +177,6 @@ typedef struct {
 
 N_Vector N_VNew(integer n, void *machEnv);
 
-
 /***************************************************************
  *                                                             *
  * Function : N_VFree                                          *
@@ -200,7 +190,6 @@ N_Vector N_VNew(integer n, void *machEnv);
 
 void N_VFree(N_Vector x);
 
-
 /***************************************************************
  *                                                             *
  * N_Vector Arithmetic: N_VLinearSum, N_VConst, N_VProd,       *
@@ -208,7 +197,6 @@ void N_VFree(N_Vector x);
  *                      N_VAddConst                            *
  *                                                             *
  ***************************************************************/
-
 
 /***************************************************************
  *                                                             *
@@ -219,7 +207,6 @@ void N_VFree(N_Vector x);
 
 void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z);
 
-
 /***************************************************************
  *                                                             *
  * Function  : N_VConst                                        *
@@ -228,7 +215,6 @@ void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z);
  ***************************************************************/
 
 void N_VConst(real c, N_Vector z);
-
 
 /***************************************************************
  *                                                             *
@@ -239,7 +225,6 @@ void N_VConst(real c, N_Vector z);
 
 void N_VProd(N_Vector x, N_Vector y, N_Vector z);
 
-
 /***************************************************************
  *                                                             *
  * Function  : N_VDiv                                          *
@@ -248,7 +233,6 @@ void N_VProd(N_Vector x, N_Vector y, N_Vector z);
  ***************************************************************/
 
 void N_VDiv(N_Vector x, N_Vector y, N_Vector z);
-
 
 /***************************************************************
  *                                                             *
@@ -259,7 +243,6 @@ void N_VDiv(N_Vector x, N_Vector y, N_Vector z);
 
 void N_VScale(real c, N_Vector x, N_Vector z);
 
-
 /***************************************************************
  *                                                             *
  * Function  : N_VAbs                                          *
@@ -268,7 +251,6 @@ void N_VScale(real c, N_Vector x, N_Vector z);
  ***************************************************************/
 
 void N_VAbs(N_Vector x, N_Vector z);
-
 
 /***************************************************************
  *                                                             *
@@ -284,7 +266,6 @@ void N_VAbs(N_Vector x, N_Vector z);
 
 void N_VInv(N_Vector x, N_Vector z);
 
-
 /***************************************************************
  *                                                             *
  * Function  : N_VAddConst                                     *
@@ -294,14 +275,12 @@ void N_VInv(N_Vector x, N_Vector z);
 
 void N_VAddConst(N_Vector x, real b, N_Vector z);
 
-
 /***************************************************************
  *                                                             *
  * N_Vector Measures: N_VDotProd, N_VMaxNorm, VWrmsNorm,       *
  *                    N_VMin                                   *
  *                                                             *
  ***************************************************************/
-
 
 /***************************************************************
  *                                                             *
@@ -319,7 +298,6 @@ void N_VAddConst(N_Vector x, real b, N_Vector z);
 
 real N_VDotProd(N_Vector x, N_Vector y);
 
-
 /***************************************************************
  *                                                             *
  * Function : N_VMaxNorm                                       *
@@ -335,7 +313,6 @@ real N_VDotProd(N_Vector x, N_Vector y);
  ***************************************************************/
 
 real N_VMaxNorm(N_Vector x);
-
 
 /***************************************************************
  *                                                             *
@@ -354,7 +331,6 @@ real N_VMaxNorm(N_Vector x);
 
 real N_VWrmsNorm(N_Vector x, N_Vector w);
 
-
 /***************************************************************
  *                                                             *
  * Function : N_VMin                                           *
@@ -368,13 +344,11 @@ real N_VWrmsNorm(N_Vector x, N_Vector w);
 
 real N_VMin(N_Vector x);
 
-
 /***************************************************************
  *                                                             *
  * Miscellaneous : N_VCompare, N_VInvTest                      *
  *                                                             *
  ***************************************************************/
-
 
 /***************************************************************
  *                                                             *
@@ -385,7 +359,6 @@ real N_VMin(N_Vector x);
  ***************************************************************/
 
 void N_VCompare(real c, N_Vector x, N_Vector z);
-
 
 /***************************************************************
  *                                                             *
@@ -401,7 +374,6 @@ void N_VCompare(real c, N_Vector x, N_Vector z);
  ***************************************************************/
 
 bool N_VInvTest(N_Vector x, N_Vector z);
-
 
 /***************************************************************
  *                                                             *
@@ -423,6 +395,5 @@ bool N_VInvTest(N_Vector x, N_Vector z);
  ***************************************************************/
 
 void N_VPrint(N_Vector x);
-
 
 #endif

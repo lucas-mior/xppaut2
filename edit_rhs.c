@@ -27,9 +27,6 @@
 #include "shoot.h"
 #include "load_eqn.h"
 
-
-
-
 #define EV_MASK (ButtonPressMask 	|\
 		KeyPressMask		|\
 		ExposureMask		|\
@@ -51,7 +48,6 @@ extern unsigned int MyBackColor,MyForeColor;
 
 char *get_next(),*get_first();
 
-
 extern char uvar_names[MAXODE][12];
 extern char *ode_names[MAXODE];
 extern int METHOD,NEQ,NODE,NMarkov,FIX_VAR;
@@ -70,16 +66,11 @@ extern char *ufun_def[MAXUFUN];
 extern char ufun_names[MAXUFUN][12];
 extern int narg_fun[MAXUFUN], *ufun[MAXUFUN];
 
-
-
 extern UFUN_ARG ufun_arg[MAXUFUN];
 extern BC_STRUCT my_bc[MAXODE];
 
 extern int NFUN;
 Window make_window();
-
-
-
 
 void reset_ebox(sb,pos,col)
      EDIT_BOX *sb;
@@ -103,7 +94,6 @@ void reset_ebox(sb,pos,col)
   *col=(*pos+strlen(sb->name[0]))*DCURX;
   put_cursor_at(sb->win[0],DCURX*strlen(sb->name[0]),*pos);
 }
-
 
 int do_edit_box(n,title,names,values)
 int n;
@@ -166,8 +156,6 @@ int pos,col;
 }
 }
 
-
-
 void ereset_hot(inew,sb)
 int inew;
 EDIT_BOX *sb;
@@ -195,7 +183,6 @@ void enew_editable(sb,inew,pos,col,done,w)
   *done=0;
   *w=sb->win[inew];
   }
-
 
 int e_box_event_loop(sb,pos,col)
  EDIT_BOX *sb;
@@ -309,7 +296,6 @@ EDIT_BOX *sb;
   XRaiseWindow(display,base);
  }
 
-
 void edit_menu()
 {
  Window temp=main_win;
@@ -386,7 +372,6 @@ void edit_rhs()
      }
    }
  }
-
 
  for(i=0;i<n;i++){
    free(values[i]);
@@ -471,7 +456,6 @@ void edit_functions()
 
    }
  }
-
 
  for(i=0;i<n;i++){
    free(values[i]);

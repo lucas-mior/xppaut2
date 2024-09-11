@@ -27,5 +27,4 @@ double get_arg(double *delay, double *coef, int m, int n, COMPLEX lambda);
 int test_sign(double old, double new);
 int plot_args(double *coef, double *delay, int n, int m, int npts, double almax, double wmax);
 
-
 #endif

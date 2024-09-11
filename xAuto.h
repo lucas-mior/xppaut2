@@ -43,8 +43,6 @@
    int nstab;
    int iequib; /* +1 homoclinic   -2 heteroclinic */
 
-
-
   } XAUTO;
 
 /*  for homcont  - itwist=0, istart=2, nrev=0,nfixed=0,npsi=0 */

@@ -51,7 +51,6 @@ DAE_EQN aeqn[MAXDAE];
 
 int nsvar=0,naeqn=0;
 
-
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
 
@@ -99,7 +98,6 @@ int add_aeqn(rhs)
   naeqn++;
  return 0;
 }
-
 
 /* this compiles formulas to set to zero */
 int compile_svars()
@@ -202,7 +200,6 @@ void do_daes()
   if(ans==1||ans==2)return; /* accepts a no change error! */
   DelayErr=1;
 
-
 }
 
 /* Newton solver for algebraic stuff */
@@ -289,7 +286,6 @@ int solve_dae()
   }
 }
 
-
 /* interface shit -- different for Win95 */
 
 void get_new_guesses()
@@ -312,17 +308,5 @@ void get_new_guesses()
     svar[i].last=z;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

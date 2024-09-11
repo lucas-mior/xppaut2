@@ -103,7 +103,6 @@ fnlp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnlp_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fflp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -114,10 +113,6 @@ fflp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   /* Local variables */
 
   integer i, j, ips;
-
-
-
-
 
   /* Parameter adjustments */
   dfdp_dim1 = ndm;
@@ -148,7 +143,6 @@ fflp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fflp_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
@@ -163,7 +157,6 @@ stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   doublereal *v;
   logical found;
 
-
   integer ndm, ips, irs;
 
   f = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
@@ -173,7 +166,6 @@ stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   /* Local */
 
     /* Parameter adjustments */
-
 
   ndim = iap->ndim;
   ips = iap->ips;
@@ -201,7 +193,6 @@ stpnlp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   free(v);
   return 0;
 } /* stpnlp_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -270,7 +261,6 @@ fnc1(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnc1_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnc1(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
@@ -282,12 +272,7 @@ stpnc1(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   integer ndm;
   doublereal fop, dum;
 
-
-
-
-
   /* Generate starting data for optimization problems (one parameter). */
-
 
   /* Parameter adjustments */
 
@@ -305,7 +290,6 @@ stpnc1(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   return 0;
 } /* stpnc1_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
@@ -319,11 +303,6 @@ fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
-
 
   /* Generate the equations for the continuation scheme used for the */
   /* optimization of algebraic systems (more than one parameter). */
@@ -381,7 +360,6 @@ fnc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnc2_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -396,7 +374,6 @@ ffc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer nfpr, i, j;
   doublereal ddp[NPARX], *ddu, fop;
   integer ndm2;
-
 
   ddu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   /* Local */
@@ -441,7 +418,6 @@ ffc2(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   free(ddu);
   return 0;
 } /* ffc2_ */
-
 
 /*     ---------- ------ */
 /* Subroutine */ int
@@ -522,7 +498,6 @@ stpnc2(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   return 0;
 } /* stpnc2_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*        Subroutines for Discrete Dynamical Systems */
@@ -540,11 +515,7 @@ fnds(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   integer i;
 
-
-
-
   /* Generate the equations for continuing fixed points. */
-
 
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
@@ -567,7 +538,6 @@ fnds(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnds_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*        Subroutines for Time Integration of ODEs */
@@ -587,11 +557,7 @@ fnti(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
   doublereal dt;
 
-
-
-
   /* Generate the equations for continuing fixed points. */
-
 
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
@@ -622,7 +588,6 @@ fnti(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnti */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*     Subroutines for the Continuation of Hopf Bifurcation Points (Maps) */
@@ -643,10 +608,6 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
 
   /* Generates the equations for the 2-parameter continuation of Hopf */
   /* bifurcation points for maps. */
@@ -710,7 +671,6 @@ fnhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnhd_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -725,15 +685,10 @@ ffhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal c1, s1;
   integer ndm2;
 
-
-
-
-
     /* Parameter adjustments */
 
   dfdp_dim1 = ndm;
   dfdu_dim1 = ndm;
-
 
   ndm2 = ndm * 2;
 
@@ -770,7 +725,6 @@ ffhd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   return 0;
 } /* ffhd_ */
-
 
 /*     ---------- ------ */
 /* Subroutine */ int
@@ -859,7 +813,6 @@ stpnhd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   return 0;
 } /* stpnhd_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*     Subroutines for the Continuation of Hopf Bifurcation Points (ODE) */
@@ -880,10 +833,6 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
 
   /* Generates the equations for the 2-parameter continuation of Hopf */
   /* bifurcation points in ODE. */
@@ -947,7 +896,6 @@ fnhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnhb_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -961,10 +909,6 @@ ffhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   doublereal rom;
   integer ndm2;
-
-
-
-
 
   /* Parameter adjustments */
 
@@ -999,10 +943,8 @@ ffhb(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     f[-1 + ndim] = f[-1 + ndim] + uold[ndm2 + i] * (u[ndm + i] - uold[ndm + i]) - uold[ndm + i] * (u[ndm2 + i] - uold[ndm2 + i]);
   }
 
-
   return 0;
 } /* ffhb_ */
-
 
 /*     ---------- ------ */
 /* Subroutine */ int
@@ -1018,7 +960,6 @@ stpnhb(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   integer i, j;
   doublereal *v;
   logical found;
-
 
   doublereal period;
   integer ndm, irs;
@@ -1085,7 +1026,6 @@ stpnhb(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   return 0;
 } /* stpnhb_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*   Subroutines for the Continuation of Hopf Bifurcation Points (Waves) */
@@ -1106,10 +1046,6 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
 
   /* Generates the equations for the 2-parameter continuation of a */
   /* bifurcation to a traveling wave. */
@@ -1174,7 +1110,6 @@ fnhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnhw_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -1188,10 +1123,6 @@ ffhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
   doublereal rom;
   integer ndm2;
-
-
-
-
 
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
@@ -1229,7 +1160,6 @@ ffhw(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffhw_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *u)
@@ -1245,7 +1175,6 @@ stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   doublereal *v;
   logical found;
 
-
   doublereal period, *dfp, *dfu;
   integer ndm, irs;
   doublereal rom;
@@ -1256,7 +1185,6 @@ stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   v   = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfp = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*NPARX);
   dfu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
-
 
   /* Generates starting data for the continuation of a bifurcation to a */
   /* traveling wave. */
@@ -1320,7 +1248,6 @@ stpnhw(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
   return 0;
 } /* stpnhw_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*          Periodic Solutions and Fixed Period Orbits */
@@ -1339,11 +1266,7 @@ fnps(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
   doublereal period;
 
-
-
-
 /* Generates the equations for the continuation of periodic orbits. */
-
 
 /* Generate the function. */
 
@@ -1393,7 +1316,6 @@ fnps(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnps_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -1403,11 +1325,6 @@ bcps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
   /* Local variables */
   integer jtmp, i, j, nn;
-
-
-
-
-
 
   /* Parameter adjustments */
 
@@ -1446,7 +1363,6 @@ bcps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcps_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -1456,11 +1372,6 @@ icps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Local variables */
   integer jtmp, i, nn;
-
-
-
-
-
 
   /* Parameter adjustments */
 
@@ -1494,7 +1405,6 @@ icps(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* icps_ */
 
-
 /*     ---------- ----- */
 /* Subroutine */ int
 pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, integer *ncol, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *tm, doublereal *par)
@@ -1505,13 +1415,7 @@ pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, in
   /* Local variables */
   integer i, j, i1, i2;
 
-
-
-
   /* Preprocesses restart data for switching branches at a period doubling */
-
-
-
 
     /* Parameter adjustments */
   udotps_dim1 = *ndxloc;
@@ -1550,7 +1454,6 @@ pdble(const iap_type *iap, const rap_type *rap, integer *ndim, integer *ntst, in
   return 0;
 } /* pdble_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
@@ -1572,7 +1475,6 @@ stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   doublereal dt;
 
-
   doublereal period;
 
   doublereal tpi;
@@ -1586,7 +1488,6 @@ stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   /* solutions from a Hopf bifurcation point. */
 
   /* Local */
-
 
     /* Parameter adjustments */
   upoldp_dim1 = *ndxloc;
@@ -1688,7 +1589,6 @@ stpnps(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   return 0;
 } /* stpnps_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*          Travelling Wave Solutions to Parabolic PDEs */
@@ -1705,10 +1605,6 @@ fnws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Local variables */
 
   integer ndm, ndm2;
-
-
-
-
 
   /* Sets up equations for the continuation of spatially homogeneous */
   /* solutions to parabolic systems, for the purpose of finding */
@@ -1731,7 +1627,6 @@ fnws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnws_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp, integer ndm, doublereal *dfu, doublereal *dfp)
@@ -1744,10 +1639,6 @@ ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer nfpr;
   doublereal c;
   integer i, j;
-
-
-
-
 
   /* Parameter adjustments */
 
@@ -1809,7 +1700,6 @@ ffws(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffws_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp)
@@ -1822,11 +1712,7 @@ fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
   doublereal period;
 
-
-
-
 /* Equations for the continuation of traveling waves. */
-
 
 /* Generate the function and Jacobian. */
 
@@ -1880,14 +1766,12 @@ fnwp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnwp_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnwp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
-
 
     /* Local variables */
   integer ndim, ncol;
@@ -1917,12 +1801,10 @@ stpnwp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   dfp  = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*NPARX);
   dfu  = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim));
 
-
 /* Generates starting data for the continuation of a branch of periodic */
 /* solutions starting from a Hopf bifurcation point (Waves). */
 
 /* Local (Can't use BLLOC here.) */
-
 
     /* Parameter adjustments */
   upoldp_dim1 = *ndxloc;
@@ -2023,7 +1905,6 @@ stpnwp(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   return 0;
 } /* stpnwp_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*             Parabolic PDEs : Stationary States */
@@ -2060,7 +1941,6 @@ fnsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnsp_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp, integer ndm, doublereal *dfu, doublereal *dfp)
@@ -2072,10 +1952,6 @@ ffsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   integer i, j;
   doublereal period;
-
-
-
-
 
     /* Parameter adjustments */
 
@@ -2119,7 +1995,6 @@ ffsp(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffsp_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*            Time Evolution of Parabolic PDEs */
@@ -2155,7 +2030,6 @@ fnpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnpe_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, integer ijac, doublereal *f, doublereal *dfdu, doublereal *dfdp, integer ndm, doublereal *dfu, doublereal *dfp)
@@ -2167,10 +2041,6 @@ ffpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   integer i, j;
   doublereal t, dsmin, rlold, ds, dt, period;
-
-
-
-
 
     /* Parameter adjustments */
   dfdp_dim1 = ndim;
@@ -2217,7 +2087,6 @@ ffpe(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffpe_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icpe(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -2227,7 +2096,6 @@ icpe(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
   return 0;
 } /* icpe_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -2250,10 +2118,6 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
 
 /* Local */
 
@@ -2314,7 +2178,6 @@ fnpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnpl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -2328,10 +2191,6 @@ ffpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
   doublereal period;
   integer ips;
-
-
-
-
 
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
@@ -2361,7 +2220,6 @@ ffpl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffpl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -2371,12 +2229,7 @@ bcpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   /* Local variables */
   integer jtmp, i, j, nn, ndm;
 
-
   /* Boundary conditions for continuing folds (Periodic solutions) */
-
-
-
-
 
     /* Parameter adjustments */
   dbc_dim1 = nbc;
@@ -2415,7 +2268,6 @@ bcpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcpl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -2426,12 +2278,7 @@ icpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   /* Local variables */
   integer jtmp, i, j, nn, ndm;
 
-
   /* Integral conditions for continuing folds (Periodic solutions) */
-
-
-
-
 
     /* Parameter adjustments */
   dint_dim1 = nint;
@@ -2480,17 +2327,13 @@ icpl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* icpl_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
 
-
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
-
-
 
   /* Local variables */
   integer ndim;
@@ -2502,18 +2345,10 @@ stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   doublereal rd1, rd2;
   integer ibr, ndm, ips, irs, lab1, nar1, itp1, isw1;
 
-
-
-
-
-
-
-
   /* Generates starting data for the 2-parameter continuation of folds */
   /* on a branch of periodic solutions. */
 
   /* Local */
-
 
   /* Parameter adjustments */
   upoldp_dim1 = *ndxloc;
@@ -2577,7 +2412,6 @@ stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
     }
   }
 
-
   for (k = 0; k < ndm; ++k) {
     fscanf(fp3,"%lf",&ARRAY2D(udotps, *ntsr, k));
   }
@@ -2633,10 +2467,8 @@ stpnpl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   *nodir = 0;
 
-
   return 0;
 } /* stpnpl_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -2659,10 +2491,6 @@ fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
 
 /* Local */
 
@@ -2723,7 +2551,6 @@ fnpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnpd_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -2735,10 +2562,6 @@ ffpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   integer i, j;
   doublereal period;
-
-
-
-
 
     /* Parameter adjustments */
   dfdp_dim1 = ndm;
@@ -2759,7 +2582,6 @@ ffpd(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffpd_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -2770,13 +2592,8 @@ bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /* Local variables */
   integer jtmp, i, j, nn, ndm;
 
-
-
-
-
   /* Generate boundary conditions for the 2-parameter continuation */
   /* of period doubling bifurcations. */
-
 
   /* Parameter adjustments */
   dbc_dim1 = nbc;
@@ -2821,7 +2638,6 @@ bcpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcpd_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -2831,11 +2647,6 @@ icpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Local variables */
   integer jtmp, i, j, nn, ndm;
-
-
-
-
-
 
   /* Parameter adjustments */
   dint_dim1 = nint;
@@ -2878,16 +2689,13 @@ icpd(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* icpd_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
 
-
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
-
 
   /* Local variables */
   integer ndim;
@@ -2898,18 +2706,10 @@ stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   integer ibr, ndm, irs, lab1, nar1, itp1, isw1;
 
-
-
-
-
-
-
-
   /* Generates starting data for the 2-parameter continuation of */
   /* period-doubling bifurcations on a branch of periodic solutions. */
 
   /* Local */
-
 
   /* Parameter adjustments */
   upoldp_dim1 = *ndxloc;
@@ -2971,7 +2771,6 @@ stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
     }
   }
 
-
   for (k = 0; k < ndm; ++k) {
     fscanf(fp3,"%lf",&ARRAY2D(udotps, *ntsr, k));
   }
@@ -3011,10 +2810,8 @@ stpnpd(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   *nodir = 0;
 
-
   return 0;
 } /* stpnpd_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -3037,10 +2834,6 @@ fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer ndm;
   doublereal umx;
-
-
-
-
 
 /* Generates the equations for the 2-parameter continuation of */
 /* torus bifurcations. */
@@ -3104,7 +2897,6 @@ fntr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fntr_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fftr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -3117,10 +2909,6 @@ fftr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer i, j;
   doublereal period;
   integer ndm2;
-
-
-
-
 
   /* Parameter adjustments */
   dfdp_dim1 = ndm;
@@ -3145,7 +2933,6 @@ fftr(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fftr_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bctr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -3153,20 +2940,12 @@ bctr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   /* System generated locals */
   integer dbc_dim1;
 
-
-
-
     /* Local variables */
   integer jtmp, i, j;
   doublereal theta, cs;
   integer nn;
   doublereal ss;
   integer ndm, ndm2;
-
-
-
-
-
 
   /* Parameter adjustments */
   dbc_dim1 = nbc;
@@ -3222,7 +3001,6 @@ bctr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bctr_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ictr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -3232,11 +3010,6 @@ ictr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
     /* Local variables */
   integer jtmp, i, j, nn, ndm, ndm2;
-
-
-
-
-
 
   /* Parameter adjustments */
   dint_dim1 = nint;
@@ -3285,12 +3058,10 @@ ictr(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* ictr_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
-
 
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
@@ -3304,18 +3075,10 @@ stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   integer ibr, ndm, k2p1, irs, lab1, nar1, itp1, isw1;
 
-
-
-
-
-
-
-
   /* Generates starting data for the 2-parameter continuation of torus */
   /* bifurcations. */
 
   /* Local */
-
 
   /* Parameter adjustments */
   udotps_dim1 = *ndxloc;
@@ -3422,10 +3185,8 @@ stpntr(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   *nodir = 0;
 
-
   return 0;
 } /* stpntr_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -3523,7 +3284,6 @@ fnpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnpo_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const doublereal *upold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -3535,7 +3295,6 @@ ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
 
   integer i, j;
   doublereal gamma, rkappa, period, dfp[NPARX], *dfu, fop;
-
 
   dfu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   /* Local */
@@ -3573,7 +3332,6 @@ ffpo(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffpo_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -3584,13 +3342,8 @@ bcpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /* Local variables */
   integer nfpr, i, j, nbc0;
 
-
-
-
-
   /* Generates the boundary conditions for periodic optimization problems.
 */
-
 
     /* Parameter adjustments */
   dbc_dim1 = nbc;
@@ -3628,7 +3381,6 @@ bcpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcpo_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -3649,7 +3401,6 @@ icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   f1  = (doublereal *)malloc(sizeof(doublereal)*(iap->nint));
   f2  = (doublereal *)malloc(sizeof(doublereal)*(iap->nint));
   dnt = (doublereal *)malloc(sizeof(doublereal)*(iap->nint)*(iap->ndim + NPARX));
-
 
 /* Generates integral conditions for periodic optimization problems. */
 
@@ -3720,7 +3471,6 @@ icpo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* icpo_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fipo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, integer nnt0, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *fi, doublereal *dint, integer ndmt, doublereal *dfdu, doublereal *dfdp)
@@ -3745,7 +3495,6 @@ fipo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   dint_dim1 = nnt0;
   dfdp_dim1 = ndmt;
   dfdu_dim1 = ndmt;
-
 
   ndm = iap->ndm;
   nfpr = iap->nfpr;
@@ -3798,17 +3547,13 @@ fipo(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* fipo_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
 
-
   /* System generated locals */
   integer ups_dim1, udotps_dim1, upoldp_dim1;
-
-
 
   /* Local variables */
   integer ndim;
@@ -3846,7 +3591,6 @@ stpnpo(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
   /* Generates starting data for optimization of periodic solutions. */
 
   /* Local */
-
 
   /* Parameter adjustments */
   upoldp_dim1 = *ndxloc;
@@ -4004,10 +3748,6 @@ fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   integer ndm;
   doublereal umx;
 
-
-
-
-
 /* Generates the equations for the 2-parameter continuation */
 /* of folds (BVP). */
 
@@ -4070,7 +3810,6 @@ fnbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* fnbl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 ffbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u, const doublereal *uold, const integer *icp, doublereal *par, doublereal *f, integer ndm, doublereal *dfdu, doublereal *dfdp)
@@ -4081,10 +3820,6 @@ ffbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
     /* Local variables */
 
   integer nfpr, nfpx, i, j;
-
-
-
-
 
   /* Parameter adjustments */
   dfdp_dim1 = ndm;
@@ -4111,7 +3846,6 @@ ffbl(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* ffbl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -4133,9 +3867,6 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   uu2=(doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfu=(doublereal *)malloc(sizeof(doublereal)*(iap->nbc)*(2*iap->ndim+NPARX));
 		
-
-
-
 
 /* Generates the boundary conditions for the 2-parameter continuation */
 /* of folds (BVP). */
@@ -4230,7 +3961,6 @@ bcbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcbl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fbbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, integer nbc0, const doublereal *u0, const doublereal *u1, doublereal *f, doublereal *dbc)
@@ -4241,10 +3971,6 @@ fbbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
     /* Local variables */
 
   integer nfpr, nfpx, i, j, ndm;
-
-
-
-
 
   /* Parameter adjustments */
   dbc_dim1 = nbc0;
@@ -4271,7 +3997,6 @@ fbbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* fbbl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -4292,9 +4017,6 @@ icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   uu1 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   uu2 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   dfu = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim)*(iap->ndim + NPARX));
-
-
-
 
 /* Generates integral conditions for the 2-parameter continuation of */
 /* folds (BVP). */
@@ -4366,7 +4088,6 @@ icbl(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* icbl_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 fibl(const iap_type *iap, const rap_type *rap, const integer ndim, doublereal *par, const integer *icp, integer nint, integer nnt0, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, doublereal *dint)
@@ -4377,10 +4098,6 @@ fibl(const iap_type *iap, const rap_type *rap, const integer ndim, doublereal *p
   /* Local variables */
 
   integer nfpr, nfpx=0, i, j, ndm;
-
-
-
-
 
   /* Parameter adjustments */
   dint_dim1 = nnt0;
@@ -4419,16 +4136,13 @@ fibl(const iap_type *iap, const rap_type *rap, const integer ndim, doublereal *p
   return 0;
 } /* fibl_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *ntsr, integer *ncolrs, doublereal *rlcur, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *udotps, doublereal *upoldp, doublereal *tm, doublereal *dtm, integer *nodir, doublereal *thl, doublereal *thu)
 {
 
-
   /* System generated locals */
   integer ups_dim1, udotps_dim1;
-
 
   /* Local variables */
   integer ndim;
@@ -4439,23 +4153,14 @@ stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   integer ibr, ndm, irs, lab1, nar1, itp1, isw1;
 
-
-
-
-
-
-
-
   /* Generates starting data for the 2-parameter continuation of folds. */
   /* (BVP). */
 
   /* Local */
 
-
   /* Parameter adjustments */
   udotps_dim1 = *ndxloc;
   ups_dim1 = *ndxloc;
-
 
   ndim = iap->ndim;
   irs = iap->irs;
@@ -4542,10 +4247,8 @@ stpnbl(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer *nts
 
   *nodir = 1;
 
-
   return 0;
 } /* stpnbl_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -4570,7 +4273,6 @@ funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   doublereal ep;
   integer jac, ijc;
   doublereal umx, *f1zz, *f2zz;
-
 
   u1zz = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   u2zz = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
@@ -4659,7 +4361,6 @@ funi(const iap_type *iap, const rap_type *rap, integer ndim, const doublereal *u
   return 0;
 } /* funi */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nbc, const doublereal *u0, const doublereal *u1, doublereal *f, integer ijac, doublereal *dbc)
@@ -4681,9 +4382,6 @@ bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   u2zz = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   f1zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nbc));
   f2zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nbc));
-
-
-
 
   /* Interface subroutine to the user supplied BCND. */
 
@@ -4784,7 +4482,6 @@ bcni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   return 0;
 } /* bcni */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, const integer *icp, integer nint, const doublereal *u, const doublereal *uold, const doublereal *udot, const doublereal *upold, doublereal *f, integer ijac, doublereal *dint)
@@ -4801,7 +4498,6 @@ icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
   doublereal ep;
   integer jac, ijc;
   doublereal umx, *f1zz, *f2zz;
-
 
   f1zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nint));
   f2zz = (doublereal *)malloc(sizeof(doublereal)*(iap->nint));
@@ -4883,7 +4579,6 @@ icni(const iap_type *iap, const rap_type *rap, integer ndim, doublereal *par, co
 
   return 0;
 } /* icni */
-
 
 /*     ---------- ---- */
 /* Subroutine */ int

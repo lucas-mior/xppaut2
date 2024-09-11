@@ -14,17 +14,14 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _cvband_h
 #define _cvband_h
-
 
 #include <stdio.h>
 #include "cvode.h"
 #include "llnltyps.h"
 #include "band.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -49,7 +46,6 @@
 
 enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
 
-
 /******************************************************************
  *                                                                *
  * CVBAND solver constants                                        *
@@ -65,7 +61,6 @@ enum { BAND_NJE=CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
 #define CVB_MSBJ  50
 
 #define CVB_DGMAX RCONST(0.2)
-
 
 /******************************************************************
  *                                                                *
@@ -162,7 +157,6 @@ typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
                             real uround, void *jac_data,   int *nfePtr,
                             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
-
 /******************************************************************
  *                                                                *
  * Function : CVBand                                              *
@@ -194,7 +188,6 @@ typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
 void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
             void *jac_data);
 
-
 /******************************************************************
  *                                                                *
  * Function : CVBandDQJac                                         *
@@ -211,6 +204,5 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
 		 N_Vector vtemp3);
 
 #endif
-
 
 

@@ -20,12 +20,7 @@
  I used parts of this code verbatim, but once i sort of understood what
  was going on, I modified it rather heavily.
 
-
-
 I also used sample code from this group
-
-
-
 
  *     Ben Bornstein
  *     The Systems Biology Markup Language Development Group
@@ -77,9 +72,6 @@ I add pow(x,y) = x^y  to keep in compliance with math ML
 
 I also add 2 functions  gt(x,y)=x-y and lt(x,y)=y-x
 so i dont have to parse the event trigger
-
-
-
 
 */
 #include <stdio.h>
@@ -135,7 +127,6 @@ typedef struct {
 
 SPECIES *X_spec;
 int N_spec=0;
-
 
 /* for each reaction, we have a formula
    reactants,products, and stoichiometry
@@ -250,7 +241,6 @@ add_rule(int i,char *v,char *f, char *tc)
   check_name_len(r->v);
 }
 
-
 add_parameter(char *name, char *id,double z,int f)
 {
   int i;
@@ -325,7 +315,6 @@ void GetEvents(Model_t *m)
 	 free(formula);
       }
 
-
     }
   }
 }
@@ -381,7 +370,6 @@ void GetFunctions(Model_t *m)
 }
 
 /* reaction stuff  */
-
 
 void GetReaction(Model_t      *m,
              unsigned int level,
@@ -572,7 +560,6 @@ add_species(int i,char *name,char *id,double x0,int bc,int c,char *tc)
   x->rule=0;
 }
 
-
 void GetSpecies ( Model_t      *pModel,
              unsigned int level,
              unsigned int version )
@@ -587,7 +574,6 @@ void GetSpecies ( Model_t      *pModel,
 
   int i;
   Species_t *pSpecies;
-
 
    X_spec = (SPECIES *)malloc(n * sizeof (SPECIES));
    N_spec=n;
@@ -607,11 +593,8 @@ void GetSpecies ( Model_t      *pModel,
      add_species(i,pacName,pacId,dInitialAmount,
 		 nBoundaryCondition,nConstant,pacTypecode);
 
-
-
    }
 }
-
 
 void
 GetParameter ( Model_t      *pModel,
@@ -619,7 +602,6 @@ GetParameter ( Model_t      *pModel,
                unsigned int version )
 
 {
-
 
   int n = Model_getNumParameters(pModel);
   char * pacTypecode;
@@ -648,13 +630,6 @@ GetParameter ( Model_t      *pModel,
 
   }
 }
-
-
-
-
-
-
-
 
 char *
 TypecodeToChar (SBMLTypeCode_t typecode)
@@ -746,9 +721,6 @@ TypecodeToChar (SBMLTypeCode_t typecode)
 
   return pacTypecode;
 }
-
-
-
 
 void
 GetListRule ( Model_t      *pModel,
@@ -855,8 +827,6 @@ GetListRule ( Model_t      *pModel,
   }
 }
 
-
-
 find_parameter(char *s)
 {
   int i;
@@ -947,7 +917,6 @@ species_participation()
 /* the following code is probably suboptimal
    it takes care of long names
 */
-
 
 check_name_len(char *s)
 {

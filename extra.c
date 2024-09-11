@@ -19,10 +19,6 @@ export {x,y} {xp,yp}
 
 */
 
-
-
-
-
 #include <math.h>
 #include <stdio.h>
 #define PAR 0
@@ -39,7 +35,6 @@ typedef struct
   int nin,nout;
   double *vin,*vout;
 } IN_OUT;
-
 
 IN_OUT in_out;
 
@@ -175,8 +170,6 @@ load_new_dll()
 my_fun(double *in, double *out, int nin,int nout,double *v,double *c)
 {
 
-
-
 }
 
 auto_load_dll()
@@ -184,10 +177,6 @@ auto_load_dll()
 
 }
 #endif
-
-
-
-
 
 void do_in_out()
 {
@@ -332,11 +321,5 @@ void parse_inout(char *l,int flag)
 	done=0;
     }
 }
-
-
-
-
-
-
 
 

@@ -6,7 +6,6 @@
 #include <string.h>
 #include "load_eqn.h"
 
-
 /* OSX note:
 
 IGNORE THIS -- I have included the relevant files !!  July 2002
@@ -42,8 +41,6 @@ statement to call your local copy of sysdirent.h
 (These occur in the {\tt struct dirent}  declaration)
 and save the file.
 
-
-
 */
 /*#ifdef MACOSX
 #include "macdirent.h"
@@ -60,7 +57,6 @@ any strings that may hold a path name (e.g. dialog message etc.)*/
 /*#define MAXPATHLEN 1024*/
 #define MAXPATHLEN XPP_MAX_NAME
 
-
 #define EOS '\0'
 #define NENTRIES 100
 #define streq(a,b) (! strcmp((a),(b)))
@@ -76,7 +72,6 @@ static char    *dirmask;
 static char	CurrentSelectionName[MAXPATHLEN];
 */
 char cur_dir[MAXPATHLEN];
-
 
 FILEINFO my_ff;
  /*
@@ -106,7 +101,6 @@ void free_finfo(ff)
   free(ff->filenames);
 }
 
-
 int cmpstringp(const void *p1, const void *p2)
 {
     /* The actual arguments to this function are "pointers to
@@ -115,7 +109,6 @@ int cmpstringp(const void *p1, const void *p2)
 
     return strcmp(* (char * const *) p1, * (char * const *) p2);
 }
-
 
 int get_fileinfo_tab(wild,direct,ff,wild2)
      char *wild,*direct,*wild2;
@@ -174,7 +167,6 @@ int get_fileinfo_tab(wild,direct,ff,wild2)
   return 1;
 }
 
-
 int get_fileinfo(wild,direct,ff)
      char *wild,*direct;
      FILEINFO *ff;
@@ -225,8 +217,6 @@ int get_fileinfo(wild,direct,ff)
   return 1;
 }
 
-
-
 int fil_count(direct,ndir,nfil,wild,mld,mlf)
      char *wild,*direct;
      int *ndir,*nfil,*mld,*mlf;
@@ -263,7 +253,6 @@ int fil_count(direct,ndir,nfil,wild,mld,mlf)
  closedir(dirp);
  return 1;
 }
-
 
 int change_directory(path)
     char	   *path;
@@ -306,9 +295,6 @@ int get_directory(direct)
     return 1;
 }
 
-
-
-
 int IsDirectory(root, path)
     char	   *root;
     char	   *path;
@@ -334,7 +320,6 @@ int IsDirectory(root, path)
  * Returns:	Nothing.
  * Notes:
  */
-
 
 void MakeFullPath(root, filename, pathname)
     char	   *root;
@@ -441,7 +426,5 @@ star(string, pattern)
 	    return 0;
     return 1;
 }
-
-
 
 

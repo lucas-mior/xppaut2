@@ -14,8 +14,6 @@
 #include "calc.h"
 #include "many_pops.h"
 
-
-
 #define MAXPERPLOT 10
 #define MAXPLOTS 20
 #define DEGTORAD .0174532
@@ -78,7 +76,6 @@ extern int Xup;
     init_device()     Sets up the default for tics, plotting area,
                       and anything else
 
-
     close_device()  closes files, etc
 
     The device is assumed to go from (0,0) to (XDMax,YDMax)
@@ -90,9 +87,7 @@ extern int Xup;
     linetypes   -2  thick plain lines
                 -1  thin plain lines
 
-
 */
-
 
 int DLeft,DRight,DTop,DBottom,VTic,HTic,VChar,HChar,XDMax,YDMax;
 double XMin,YMin,XMax,YMax;
@@ -115,7 +110,6 @@ void set_scale(x1,y1,x2,y2)
   XMax=x2;
   YMax=y2;
 }
-
 
 /* SLUGGISH??? */
 
@@ -163,14 +157,12 @@ void get_draw_area_flag(int flag)
  set_normal_scale();
 }
 
-
 void change_current_linestyle(new,old)
      int new,*old;
 {
  *old=MyGraph->color[0];
   MyGraph->color[0]=new;
 }
-
 
 void set_normal_scale()
 {
@@ -223,7 +215,6 @@ void put_text(x,y,str)
   else put_text_x11(x,y,str);
 }
 
-
 void init_x11()
 {
  get_draw_area();
@@ -255,7 +246,6 @@ void init_ps()
  DRight=XDMax-3*HChar-HTic;
  DTop=YDMax-1-VChar*7/2;
  DBottom=VChar*5/2+1;
-
 
     }
 
@@ -374,7 +364,6 @@ void put_text_x11(x,y,str)
   XSetForeground(display,small_gc,GrBack);
 }
 
-
 void special_put_text_x11(x,y,str,size)
      int x,y,size;
      char *str;
@@ -389,7 +378,6 @@ void special_put_text_x11(x,y,str,size)
   if(avromfonts[size]==1){
     sup=romfonts[size]->ascent;
     sub=sup/2;
-
 
   }
   else {
@@ -455,9 +443,6 @@ void special_put_text_x11(x,y,str,size)
   tmp[j]=0;
       fancy_put_text_x11(cx,cy,tmp,cs,cf);
 }
-
-
-
 
 void fancy_put_text_x11(x,y,str,size,font)
      int x,y,size,font;
@@ -535,7 +520,6 @@ void scale_to_real(i,j,x,y) /* Not needed except for X */
 
  }
 
-
 void reset_all_line_type()
 {
 	int j,k;
@@ -549,7 +533,6 @@ void reset_all_line_type()
 
 }
 
-
 void init_all_graph()
 {
  int i;
@@ -558,7 +541,6 @@ void init_all_graph()
  MyGraph=&graph[0];
  /*set_extra_graphs();*/
  set_normal_scale();
-
 
 }
 
@@ -627,7 +609,6 @@ void reset_graph()
     set_normal_scale();
     redraw_the_graph();
 }
-
 
 void get_graph()
 {
@@ -728,8 +709,6 @@ int i;
 
   }
 
-
-
 void copy_graph(i,l)  /*  Graph[i]=Graph[l]  */
 int i,l;
 {
@@ -787,9 +766,6 @@ int i,l;
     graph[i].oldyhi=graph[l].oldyhi;
   }
 
-
-
-
 void make_rot(theta,phi)
 double theta,phi;
 {
@@ -815,7 +791,6 @@ float x,y,z,*xp,*yp,*zp;
  *yp=(y-MyGraph->ybar)*MyGraph->dy;
  *zp=(z-MyGraph->zbar)*MyGraph->dz;
 }
-
 
 double proj3d(double theta,double phi,double x,double y,double z,int in)
 {
@@ -866,7 +841,6 @@ float x2p,y2p,z2p,*xp,*yp;
   return(1);
 }
 
-
 void text3d(x,y,z,s)
 float x,y,z;
 char *s;
@@ -875,9 +849,6 @@ char *s;
 if(threedproj(x,y,z,&xp,&yp)) text_abs(xp,yp,s);
 }
 
-
-
-
 void text_3d(x,y,z,s)
 float x,y,z;
 char *s;
@@ -885,7 +856,6 @@ char *s;
  float xp,yp;
 if(threed_proj(x,y,z,&xp,&yp)) text_abs(xp,yp,s);
 }
-
 
 int threed_proj(x,y,z,xp,yp)
 float x,y,z,*xp,*yp;
@@ -929,9 +899,6 @@ float xs1,ys1,zs1,xsp1,ysp1,zsp1;
      line_nabs(xs,ys,xsp,ysp);
  }
 
-
-
-
 void line3d(x01,y01,z01,x02,y02,z02)  /* unscaled version     */
 float x01,x02,y01,y02,z01,z02;
 {
@@ -946,9 +913,6 @@ if(!clip3d(x01,y01,z01,x02,y02,z02,&xs1,&ys1,&zs1,&xsp1,&ysp1,&zsp1))return;
  else
      line_abs(xs,ys,xsp,ysp);
  }
-
-
-
 
 void line_3d(x,y,z,xp,yp,zp)
 float x,y,z;
@@ -1015,10 +979,6 @@ void pers_line(x,y,z,xp,yp,zp)
  line_abs(x,y,xp,yp);
 }
 
-
-
-
-
 void rot_3dvec( x,y, z,
             xp,yp,zp)
 float x,y,z,*xp,*yp,*zp;
@@ -1039,13 +999,6 @@ float x,y,z,*xp,*yp,*zp;
 
 }
 
-
-
-
-
-
-
-
 void point_abs(x1, y1)
 float x1,y1;
 {
@@ -1063,9 +1016,6 @@ float x1,y1;
 void line_nabs(x1_out, y1_out, x2_out, y2_out)
 float x1_out,y1_out,x2_out,y2_out;
 {
-
-
-
 
   int xp1,yp1,xp2,yp2;
 
@@ -1105,8 +1055,6 @@ void line_abs(x1, y1, x2, y2)
 float x1,x2,y1,y2;
 {
   float x1_out,y1_out,x2_out,y2_out;
-
-
 
   int xp1,yp1,xp2,yp2;
   if(clip(x1,x2,y1,y2,&x1_out,&y1_out,&x2_out,&y2_out)){
@@ -1205,15 +1153,10 @@ void fancy_text_abs(x,y,old,size,font)
 
 }
 
-
-
-
-
 int clip3d( x1, y1, z1, x2, y2, z2,
           x1p, y1p, z1p, x2p, y2p, z2p)
 float x1, y1, z1, x2, y2, z2,
          *x1p, *y1p,*z1p,*x2p, *y2p, *z2p;
-
 
 {
   int istack,ix1=0,ix2=0,iy1=0,iy2=0,iz1=0,iz2=0,iflag=0;
@@ -1335,7 +1278,6 @@ C4:
  return(iflag);
 }
 
-
 int clip(x1,x2,y1, y2,
 x1_out,y1_out,x2_out,y2_out)
 float x1,y1,x2,y2,*x1_out,*y1_out,*x2_out,*y2_out;
@@ -1420,8 +1362,6 @@ C4:
   return(iflag);
 }
 
-
-
 void eq_symb(x,type)
 double *x;
  int type;
@@ -1495,30 +1435,6 @@ int my_symb;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
-
-
-
 
 

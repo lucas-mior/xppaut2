@@ -36,7 +36,6 @@ extern int DOING_DFIELD;
 
 extern int Xup;
 
-
 int svg_init(char *filename, int color)
 {
 	FILE *fp;
@@ -80,7 +79,6 @@ int svg_init(char *filename, int color)
 	fprintf(svgfile,"      <style type=\"text/css\">\n");
 	fprintf(svgfile,"           <![CDATA[\n");
 	fprintf(svgfile,"      \n");
-
 
 	
 		fprintf(svgfile,"                 circle.xpppointP {\n");
@@ -327,8 +325,6 @@ void svg_last_pt_off(void)
   LastPtLine=0;
 }
 
-
-
 void svg_line(int xp1, int yp1, int xp2, int yp2)
 {
 	if (DOING_SVG_COLOR)
@@ -417,7 +413,6 @@ void svg_line(int xp1, int yp1, int xp2, int yp2)
 	DO_MARKER=0;
 }
 
-
 void chk_svg_lines(void)
 {
   /*PSLines++;
@@ -444,7 +439,6 @@ void svg_point(int x, int y)
 {
   char svgcol[8];
   char svgfill[8];
-
 
   sprintf(svgfill,"none");
   svgcol[0]='\0';
@@ -482,7 +476,6 @@ void svg_point(int x, int y)
   LastPtLine=0;
   DOING_SVG_COLOR=0;
 }
-
 
 void svg_fnt(int cf, int scale)
 {
@@ -534,7 +527,6 @@ void special_put_text_svg(int x, int y, char *str, int size)
 	type=0;
       }
 
-
       j=0;
       if(c=='0'){
         cf=0;
@@ -579,7 +571,6 @@ void special_put_text_svg(int x, int y, char *str, int size)
   if(strlen(tmp)>0)
     ps_show(tmp,type);
    */
-
 
    	char anchor[7];
 	

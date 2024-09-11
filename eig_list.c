@@ -23,11 +23,6 @@
 #define xds(a) { XDrawString(display,w,small_gc,5,CURY_OFFs,a,strlen(a));\
 		return;}
 
-
-
-
-
-
 extern double last_ic[MAXODE];
 extern int noicon;
 extern Display *display;
@@ -53,8 +48,6 @@ extern int EqType[MAXODE];
 		  ExposureMask    |\
                   StructureNotifyMask)
 
-
-
 struct {
   Window base,stab,rest,top,close,import;
   double y[MAXODE],ev[MAXODE+MAXODE];
@@ -63,13 +56,11 @@ struct {
   char type[15];
 }eq_box;
 
-
 struct{
   Window base,up,down,list,main,close;
   int istart,nlines,flag;
 
 } eq_list;
-
 
 extern int HomoFlag,sparity;
 extern double homo_l[100],homo_r[100];
@@ -101,13 +92,6 @@ Window w;
  }
 }
 
-
-
-
-
-
-
-
 void create_eq_list()
 {
 
@@ -123,7 +107,6 @@ void create_eq_list()
  }
 
   eq_list.flag=0; /*  this is to tell that no eq_box is here  */
-
 
   hmain=3*DCURYs;
   hlist=NEQ*(DCURYs+2);
@@ -151,7 +134,6 @@ void create_eq_list()
  class_hints.res_name="";
  class_hints.res_class="";
 
-
   XSetWMProperties(display,base,&winname,&iconame,NULL,0,&size_hints,NULL,&class_hints);
  make_icon((char*)eqns_bits,eqns_width,eqns_height,base);
  eq_list.main=make_plain_window(base,0,0,width,hmain,1);
@@ -167,8 +149,6 @@ void create_eq_list()
  eq_list.flag=1;
 }
 
-
-
 void eq_list_keypress(ev,used)
  int *used;
  XEvent ev;
@@ -176,7 +156,6 @@ void eq_list_keypress(ev,used)
   Window w=ev.xkey.window;
 
  char ks;
-
 
 *used=0;
 
@@ -186,14 +165,11 @@ void eq_list_keypress(ev,used)
   *used=1;
    ks=(char)get_key_press(&ev);
 
-
-
    if(ks==UP){eq_list_up(); return;}
 
   if(ks==DOWN){eq_list_down(); return;}
 }
 }
-
 
 void enter_eq_stuff(Window w, int b)
 {
@@ -222,7 +198,6 @@ void eq_list_button(XEvent ev)
  }
 }
 
-
 void eq_list_up(){
  if(eq_list.istart>0){
    eq_list.istart--;
@@ -245,7 +220,6 @@ void eq_box_import()
   int n=eq_box.n,i;
   for(i=0;i<n;i++)
     last_ic[i]=eq_box.y[i];
-
 
   if(n<20){
     if(sparity==0){
@@ -291,9 +265,6 @@ Window win;
  XResizeWindow(display,eq_list.list,w,h-2*DCURYs);
  XResizeWindow(display,eq_list.main,w,2*DCURYs);
 }
-
-
-
 
 void eq_box_button(Window w)
 {
@@ -376,7 +347,6 @@ else {   /*   Already it has been created so we are updating it */
   draw_eq_box(eq_box.rest);
 }
 
-
 }
 
 void  draw_eq_box(w)
@@ -430,14 +400,6 @@ void  draw_eq_box(w)
 }
 }
 
-
-
-
-
 			
-
-
-
-
 
 

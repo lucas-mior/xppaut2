@@ -29,7 +29,5 @@ void do_this_liaprun(int i, double p);
 void norm_vec(double *v, double *mu, int n);
 int hrw_liapunov(double *liap, int batch, double eps);
 
-
-
 #endif
 

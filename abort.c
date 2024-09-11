@@ -18,8 +18,6 @@ extern int DCURYb,DCURXb,CURY_OFFb;
 extern int DCURYs,DCURXs,CURY_OFFs;
 extern int DCURY,DCURX,CURY_OFF;
 
-
-
 int get_command_width()
 {
   int x,y;
@@ -40,10 +38,8 @@ void plot_command(nit,icount,cwidth)
  dx=(float)icount*(float)cwidth/(float)nit;
  i=(int)dx;
 
-
  XDrawPoint(display,command_pop,gc,i,5);
 }
-
 
 int my_abort()
 {
@@ -67,12 +63,5 @@ int my_abort()
 
   return(64);
 }
-
-
-
-
-
-
-
 
 

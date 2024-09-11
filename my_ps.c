@@ -117,7 +117,6 @@ char *PS_header[]={
 NULL
 };
 
-
 		
 int ps_init(filename,color)
 char *filename;
@@ -298,8 +297,6 @@ char *line = "ba0123456789c";
         LastPSY=-100000000;
 }
 
-
-
 void ps_point(x,y)
      int x,y;
 
@@ -315,7 +312,6 @@ void ps_point(x,y)
  LastPtLine=0;
 }
 
-
 void ps_write(str)
 char *str;
 {
@@ -329,7 +325,6 @@ void ps_fnt(int cf,int scale)
   else
     fprintf(psfile,"%d Symfnt\n",scale);
 }
-
 
 void ps_show(char *str,int type)
 {
@@ -393,7 +388,6 @@ void special_put_text_ps(x,y,str,size)
 	type=0;
       }
 
-
       j=0;
       if(c=='0'){
         cf=0;
@@ -438,10 +432,7 @@ void special_put_text_ps(x,y,str,size)
   if(strlen(tmp)>0)
     ps_show(tmp,type);
 
-
 }
-
-
 
 void fancy_ps_text(x,y,str,size,font)
      int x,y,font,size;
@@ -507,20 +498,5 @@ char *str;
    fprintf(psfile,"grestore\n");
  PSLines=0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

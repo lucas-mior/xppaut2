@@ -38,9 +38,7 @@
  GifTree *empty[256], GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL},
          *topNode, *baseNode, **nodeArray, **lastArray;
 
-
 extern Display *display;
-
 
 GIFCOL gifcol[256];
 GIFCOL gifGcol[256];
@@ -78,7 +76,6 @@ int ppmtopix(unsigned char r,unsigned char g, unsigned char b,int *n)
   *n=nc;
   return nc-1;
 }
-
 
 void end_ani_gif(FILE *fp)
 {
@@ -266,7 +263,6 @@ void write_global_header(int cols,int rows, FILE *dst)
 
   unsigned char    *pos,*buffer;
 
-
   buffer = (unsigned char *)malloc((BUFLEN+1)*sizeof(unsigned char))+1;
 
   pos = buffer;
@@ -311,7 +307,6 @@ void GifLoop(FILE *fout, unsigned int repeats)
   fputc(0x00, fout); /* terminator */
 }
 
-
 void write_local_header(int cols,int rows, FILE *fout,int colflag,int delay)
 {
   int i;
@@ -340,10 +335,6 @@ void write_local_header(int cols,int rows, FILE *fout,int colflag,int delay)
   }
 }
 
-
-
-
-
 void make_gif(unsigned char *pixels,int cols,int rows,FILE *dst)
 {
 
@@ -351,11 +342,7 @@ void make_gif(unsigned char *pixels,int cols,int rows,FILE *dst)
 
   unsigned char    *pos,*buffer;
 
-
   buffer = (unsigned char *)malloc((BUFLEN+1)*sizeof(unsigned char))+1;
-
-
-
 
   pos = buffer;
 
@@ -418,7 +405,6 @@ int GifEncode(FILE *fout, unsigned char *pixels, int depth, int siz)
   if (( buffer = (unsigned char *)malloc((BUFLEN+1)*sizeof(unsigned char))) == NULL )
 	 return 0;
   buffer++;
-
 
   pos = buffer;
   buffer[0] = 0x0;
@@ -628,14 +614,5 @@ unsigned char *AddCodeToBuffer(int code, short n, unsigned char *buf)
   }
   return buf;
 }
-
-
-
-
-
-
-
-
-
 
 

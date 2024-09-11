@@ -9,5 +9,4 @@ int get_dialog(char *wname, char *name, char *value, char *ok, char *cancel, int
 int dialog_event_loop(DIALOG *d, int max, int *pos, int *col);
 void display_dialog(Window w, DIALOG d, int pos, int col);
 
-
 #endif

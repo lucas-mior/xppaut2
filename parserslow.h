@@ -19,10 +19,7 @@
 #define EVECTYPE 14 /* treat vector like a function */
 #define MAXTYPE 20000000  /* this is the maximum number of named stuff */
 
-
-
 #define COM(a,b) ((a)*MAXTYPE+(b))
-
 
 #define MAXARG 20
 #define NEGATE 9
@@ -68,8 +65,6 @@
 #define STARTINDX 70
 #define ENDINDX 69
 
-
-
 /* #define MXLEN 32 */
 #define MXLEN 10
 
@@ -87,12 +82,7 @@ typedef struct {
   char args[MAXARG][11];
 } UFUN_ARG;
 
-
-
 #define VECT_ROOT 500
-
-
-
 
 void init_rpn(void);
 void free_ufuns(void);
@@ -191,36 +181,6 @@ void strlwr(char *s);
 
 /*****************************************************/
 
-
-
-
-
-
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

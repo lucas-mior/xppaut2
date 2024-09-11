@@ -97,7 +97,6 @@ void print_jacobian(iap_type iap,main_auto_storage_type data) {
     fprintf(fp,"\n");
   }
 
-
   fclose(fp);
 
 }
@@ -149,7 +148,6 @@ void print_fa_fc(iap_type iap,doublereal *fa,doublereal *fc,char *filename) {
 solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par, integer *icp, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), doublereal *rds, integer *nllv, doublereal *rlcur, doublereal *rlold, doublereal *rldot, integer *ndxloc, doublereal *ups, doublereal *dups, doublereal *uoldps, doublereal *udotps, doublereal *upoldp, doublereal *dtm, doublereal *fa, doublereal *fc, doublereal *p0, doublereal *p1, doublereal *thl, doublereal *thu)
 {
 
-
   /* Local variables */
 
   integer ndim;
@@ -164,15 +162,11 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par, integer *ic
 
   integer kwt;
 
-
-
   /*     N AX is the local N TSTX, which is smaller than the global N TSTX. */
   /*     NODES is the total number of nodes. */
 
-
   /* Sets up and solves the linear equations for one Newton/Chord iteration
    */
-
 
   /* Most of the required memory is allocated below */
   /* This is an interesting section of code.  The main point
@@ -188,8 +182,6 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par, integer *ic
 
   ff = (double *)malloc(sizeof(double)*((iap->ndim * iap->ncol ) )* iap->ntst + 1);
   ft = (double *)malloc(sizeof(double)*((iap->ndim * iap->ncol ) )* (iap->ntst + 1));
-
-
 
    if (*ifst==1){
      /* printf("I am freeing and allocating stuff \n");  */
@@ -280,7 +272,6 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par, integer *ic
     /*(2)*/
     main_auto_storage.np=(integer *)malloc(sizeof(integer)*(2) );
      }
-
 
   iam = iap->mynode;
   kwt = iap->numnodes;
@@ -399,7 +390,6 @@ solvbv(integer *ifst, iap_type *iap, rap_type *rap, doublereal *par, integer *ic
   return 0;
 } /* solvbv_ */
 
-
 /*     ---------- ------- */
 /* Subroutine */ int
 setfcdd(integer *ifst, doublereal *dd, doublereal *fc, integer *ncb, integer *nrc)
@@ -409,8 +399,6 @@ setfcdd(integer *ifst, doublereal *dd, doublereal *fc, integer *ncb, integer *nr
 
     /* Local variables */
   integer i, j;
-
-
 
   /* Parameter adjustments */
   /*--fc;*/
@@ -425,10 +413,8 @@ setfcdd(integer *ifst, doublereal *dd, doublereal *fc, integer *ncb, integer *nr
     fc[i] = 0.;
   }
 
-
   return 0;
 } /* setfcdd_ */
-
 
 /*     ---------- ---- */
 /* Subroutine */ int
@@ -439,8 +425,6 @@ faft(doublereal *ff, doublereal *fa, integer *ntst, integer *nrow, integer *ndxl
 
     /* Local variables */
   integer i, j;
-
-
 
   /* Parameter adjustments */
   ff_dim1 = *nrow;
@@ -455,7 +439,6 @@ faft(doublereal *ff, doublereal *fa, integer *ntst, integer *nrow, integer *ndxl
   return 0;
 } /* faft_ */
 
-
 /*     ---------- --------- */
 /* Subroutine */ int
 partition(integer *n, integer *kwt, integer *m)
@@ -463,12 +446,10 @@ partition(integer *n, integer *kwt, integer *m)
     /* Local variables */
   integer i, s, t;
 
-
   /*     Linear distribution of NTST over all nodes */
 
     /* Parameter adjustments */
     /*--m;*/
-
 
   t = *n / *kwt;
   s = *n % *kwt;
@@ -484,7 +465,6 @@ partition(integer *n, integer *kwt, integer *m)
   return 0;
 } /* partition_ */
 
-
 /*     ------- -------- ------ */
 integer
 mypart(integer *iam, integer *np)
@@ -495,15 +475,10 @@ mypart(integer *iam, integer *np)
     /* Local variables */
   integer i, k;
 
-
-
-
   /*     Partition the mesh */
-
 
     /* Parameter adjustments */
     /*--np;*/
-
 
   k = 0;
   for (i = 0; i < *iam; ++i) {
@@ -513,7 +488,6 @@ mypart(integer *iam, integer *np)
 
   return ret_val;
 } /* mypart_ */
-
 
 /*     ---------- ------ */
 /* Subroutine */ int
@@ -561,7 +535,6 @@ setrhs(integer *ndim, integer *ips, integer *na, integer *ntst, integer *np, int
   uip  = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   ubc0 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
   ubc1 = (doublereal *)malloc(sizeof(doublereal)*(iap->ndim));
-
 
   /* Parameter adjustments */
   /*--np;*/
@@ -736,7 +709,6 @@ setrhs(integer *ndim, integer *ips, integer *na, integer *ntst, integer *np, int
   return 0;
 } /* setrhs_ */
 
-
 /*     ---------- ---- */
 /* Subroutine */ int
 brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa, doublereal *fc, doublereal *p0, doublereal *p1, integer *ifst, integer *idb, integer *nllv, doublereal *det, integer *nov, integer *na, integer *nbc, integer *nra, integer *nca, integer *ncb, integer *nrc, integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2, doublereal *bb, doublereal *cc, doublereal *faa, doublereal *ca1, doublereal *s1, doublereal *s2, integer *icf11, integer *ipr, integer *icf1, integer *icf2, integer *irf, integer *icf)
@@ -777,7 +749,6 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
   /*--c;*/
   /*--b;*/
   /*--a;*/
-
 
   if (*idb > 4 && *iam == 0) {
 #ifndef ACCES_TEST
@@ -846,7 +817,6 @@ brbd(doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa,
   return 0;
 } /* brbd_ */
 
-
 /*     ---------- ------- */
 /* Subroutine */ int
 setzero(doublereal *fa, doublereal *fc, integer *na, integer *nra, integer *nrc)
@@ -874,7 +844,6 @@ setzero(doublereal *fa, doublereal *fc, integer *na, integer *nra, integer *nrc)
   return 0;
 } /* setzero_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 conrhs(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, integer *nbc, integer *nrc, doublereal *c, doublereal *fa, doublereal *fc, integer *irf, integer *icf, integer *iam)
@@ -885,7 +854,6 @@ conrhs(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, int
     /* Local variables */
   integer nbcp1, i, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex,
     irp;
-
 
     /* Parameter adjustments */
     /*--fc;*/
@@ -931,7 +899,6 @@ conrhs(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, int
   return 0;
 } /* conrhs_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 copycp(integer *iam, integer *kwt, integer *na, integer *nov, integer *nra, integer *nca, doublereal *a, integer *ncb, doublereal *b, integer *nrc, doublereal *c, doublereal *a1, doublereal *a2, doublereal *bb, doublereal *cc, integer *irf)
@@ -942,7 +909,6 @@ copycp(integer *iam, integer *kwt, integer *na, integer *nov, integer *nra, inte
 
   /* Local variables */
   integer i, irfir, ic, ir, ic1, nap1;
-
 
 /* Local */
 
@@ -997,7 +963,6 @@ copycp(integer *iam, integer *kwt, integer *na, integer *nov, integer *nra, inte
   return 0;
 } /* copycp_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 cpyrhs(integer *na, integer *nov, integer *nra, doublereal *faa, doublereal *fa, integer *irf)
@@ -1014,7 +979,6 @@ cpyrhs(integer *na, integer *nov, integer *nra, doublereal *faa, doublereal *fa,
   irf_dim1 = *nra;
   fa_dim1 = *nra;
 
-
   for (i = 0; i < *na; ++i) {
     for (ir = 0; ir < *nov; ++ir) {
       irfir = ARRAY2D(irf, *nra - *nov + ir, i);
@@ -1024,7 +988,6 @@ cpyrhs(integer *na, integer *nov, integer *nra, doublereal *faa, doublereal *fa,
 
   return 0;
 } /* cpyrhs_ */
-
 
 /*     ---------- ------ */
 /* Subroutine */ int
@@ -1060,7 +1023,6 @@ reduce(integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2,
   integer nap1, myright[KREDO], nam1, len1, len2, icp1;
   doublereal piv1, piv2;
   doublereal *buf=NULL;
-
 
   /* Parameter adjustments */
   ipr_dim1 = *nov;
@@ -1556,7 +1518,6 @@ e.*/
 
 	    csend();
 
-
 	  }
 	  /* End pivoting in master */
 
@@ -1774,7 +1735,6 @@ e.*/
   return 0;
 } /* reduce_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 redrhs(integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2, doublereal *cc, doublereal *faa, doublereal *fc, integer *na, integer *nov, integer *ncb, integer *nrc, doublereal *ca1, integer *icf1, integer *icf2, integer *icf11, integer *ipr, integer *nbc)
@@ -1801,7 +1761,6 @@ redrhs(integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2,
   logical notsend;
   integer nap1, nam1, myright[KREDO], icp1;
 
-
     /* Parameter adjustments */
     /*--fc;*/
   ipr_dim1 = *nov;
@@ -1817,7 +1776,6 @@ redrhs(integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2,
   a1_dim2 = *nov;
   cc_dim1 = *nov;
   cc_dim2 = *nrc;
-
 
   nbcp1 = *nbc + 1;
   nap1 = *na + 1;
@@ -1944,7 +1902,6 @@ redrhs(integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2,
       /*           **Synchronization at each recursion level among all n
 		   odes */
 
-
     }
 
     l1 = *nrc - *nbc;
@@ -1955,12 +1912,10 @@ redrhs(integer *iam, integer *kwt, logical *par, doublereal *a1, doublereal *a2,
   return 0;
 } /* redrhs_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc, doublereal *d, doublereal *fc, integer *ifst, integer *na, integer *nrc, integer *nov, integer *ncb, integer *idb, integer *nllv, doublereal *fcc, doublereal *p0, doublereal *p1, doublereal *det, doublereal *s, doublereal *a2, doublereal *faa, doublereal *bb)
 {
-
 
   /* System generated locals */
   integer e_dim1, cc_dim1, cc_dim2, d_dim1,
@@ -1978,7 +1933,6 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc, 
 
   double *xe;
   xe = (doublereal *)malloc(sizeof(doublereal)*(*nov + *nrc));
-
 
   /* Parameter adjustments */
   /*--fc;*/
@@ -2159,7 +2113,6 @@ dimrge(integer *iam, integer *kwt, logical *par, doublereal *e, doublereal *cc, 
   return 0;
 } /* dimrge_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 bcksub(integer *iam, integer *kwt, logical *par, doublereal *s1, doublereal *s2, doublereal *a2, doublereal *bb, doublereal *faa, doublereal *fc, doublereal *fcc, doublereal *sol1, doublereal *sol2, doublereal *sol3, integer *na, integer *nov, integer *ncb, integer *icf2)
@@ -2189,7 +2142,6 @@ bcksub(integer *iam, integer *kwt, logical *par, doublereal *s1, doublereal *s2,
   logical hasleft, notsend;
   integer nam1, myright, nov2, nov3;
   double *buf=NULL;
-
 
     /* Parameter adjustments */
     /*--fc;*/
@@ -2301,7 +2253,6 @@ bcksub(integer *iam, integer *kwt, logical *par, doublereal *s1, doublereal *s2,
       }
       /*           **Synchronization at each recursion level */
 
-
     }
 
     /* Define odd and even nodes */
@@ -2408,7 +2359,6 @@ bcksub(integer *iam, integer *kwt, logical *par, doublereal *s1, doublereal *s2,
   return 0;
 } /* bcksub_ */
 
-
 /*     ---------- ------ */
 /* Subroutine */ int
 infpar(integer *iam, logical *par, doublereal *a, doublereal *b, doublereal *fa, doublereal *sol1, doublereal *sol2, doublereal *fc, integer *na, integer *nov, integer *nra, integer *nca, integer *ncb, integer *irf, integer *icf)
@@ -2426,7 +2376,6 @@ infpar(integer *iam, logical *par, doublereal *a, doublereal *b, doublereal *fa,
   integer novpir, irp1;
 
   x = (doublereal *)malloc(sizeof(doublereal)*(*nra));
-
 
 /* Determine the local varables by backsubstitition. */
 
@@ -2482,7 +2431,6 @@ infpar(integer *iam, logical *par, doublereal *a, doublereal *b, doublereal *fa,
   return 0;
 } /* infpar_ */
 
-
 /*     ---------- --- */
 /* Subroutine */ int
 rd0(integer *iam, integer *kwt, doublereal *d, integer *nrc)
@@ -2512,7 +2460,6 @@ rd0(integer *iam, integer *kwt, doublereal *d, integer *nrc)
 /* Copying */
     /* Parameter adjustments */
     /*--d;*/
-
 
   xkwt = (doublereal) (*kwt);
 
@@ -2566,7 +2513,6 @@ rd0(integer *iam, integer *kwt, doublereal *d, integer *nrc)
 /* Subroutine */ int
 print1(integer *nov, integer *na, integer *nra, integer *nca, integer *ncb, integer *nrc, doublereal *a, doublereal *b, doublereal *c, doublereal *d, doublereal *fa, doublereal *fc)
 {
-
 
   /* System generated locals */
   integer a_dim1, a_dim2, b_dim1, b_dim2, c_dim1,
@@ -2640,10 +2586,8 @@ print1(integer *nov, integer *na, integer *nra, integer *nca, integer *ncb, inte
     fprintf(fp9," %10.3E\n",fc[ir]);	
   }
 
-
   return 0;
 } /* print1_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -2666,7 +2610,6 @@ numnodes(void)
   return ret_val;
 }
 
-
 /* Subroutine */ int
 gsync(void)
 {
@@ -2682,13 +2625,11 @@ dclock(void)
   return ret_val;
 }
 
-
 /* Subroutine */ int
 csend(void)
 {
   return 0;
 } /* csend_ */
-
 
 /* Subroutine */ int
 crecv(void)
@@ -2696,13 +2637,11 @@ crecv(void)
   return 0;
 } /* crecv_ */
 
-
 /* Subroutine */ int
 gdsum(void)
 {
   return 0;
 } /* gdsum_ */
-
 
 /* Subroutine */ int
 gsendx(void)
@@ -2710,13 +2649,11 @@ gsendx(void)
   return 0;
 } /* gsendx_ */
 
-
 /* Subroutine */ int
 gcol(void)
 {
   return 0;
 } /* gcol_ */
-
 
 /* Subroutine */ int
 led(void)
@@ -2724,47 +2661,10 @@ led(void)
   return 0;
 } /* led_ */
 
-
 /* Subroutine */ int
 setiomode(void)
 {
   return 0;
 } /* setiomode_ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

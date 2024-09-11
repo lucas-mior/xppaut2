@@ -55,7 +55,6 @@ int PS_Color=1;
 
 extern char PlotFormat[100];
 
-
 #define SPER 3
 #define UPER 4
 #define SEQ 1
@@ -66,11 +65,7 @@ extern char PlotFormat[100];
 #define lsSPER 8
 #define lsUPER 9
 
-
-
 MOV3D mov3d = { "theta","N",45,45,7};
-
-
 
 BD my_bd;
 
@@ -96,7 +91,6 @@ char *color_names[]={"WHITE","RED","REDORANGE","ORANGE","YELLOWORANGE",
                     "YELLOW","YELLOWGREEN","GREEN","BLUEGREEN",
 		      "BLUE","PURPLE","BLACK"};
 
-
 void change_view_com(int com)
 {
 
@@ -117,8 +111,6 @@ void change_view_com(int com)
  redraw_the_graph();
 }
 
-
-
 void ind_to_sym(ind,str)
  char *str;
  int ind;
@@ -135,7 +127,6 @@ void check_flags()
      ((MyGraph->zv[0]==0)&&(MyGraph->ThreeDFlag==1)))MyGraph->TimeFlag=1;
   else MyGraph->TimeFlag=0;
 }
-
 
 void get_2d_view(ind)
 int ind;
@@ -215,7 +206,6 @@ void axes_opts()
 
 }
 
-
 void get_3d_view(ind)
 int ind;
 {
@@ -261,7 +251,6 @@ int ind;
 	      sprintf(MyGraph->xlabel,"%s",values[13]);
 	      sprintf(MyGraph->ylabel,"%s",values[14]);
 	      sprintf(MyGraph->zlabel,"%s",values[15]);
-
 
 	      MyGraph->xmin=atof(values[3]);
 	      MyGraph->ymin=atof(values[5]);
@@ -310,7 +299,6 @@ void check_val(x1,x2,xb,xd)
 	    *xd=2.0/(*x2-*x1);
 
 }
-
 
 void  get_max(index, vmin,vmax)
   double *vmax,*vmin;
@@ -395,8 +383,6 @@ void corner_cube(xlo,xhi,ylo,yhi)
  *yhi=y2;
 }
 
-
-
 void default_window()
 {
  	if(MyGraph->ThreeDFlag){
@@ -436,7 +422,6 @@ void default_window()
 
 }
 
-
 void fit_window()
 {
   double Mx=-1.e25,My=-1.e25,Mz=-1.e25,mx=-Mx,my=-My,mz=-Mz;
@@ -465,7 +450,6 @@ void fit_window()
     MyGraph->ymin=my;
     MyGraph->zmin=mz;
 
-
     pretty(&(MyGraph->ymin),&(MyGraph->ymax));
     pretty(&(MyGraph->xmin),&(MyGraph->xmax));
     pretty(&(MyGraph->zmin),&(MyGraph->zmax));
@@ -492,7 +476,6 @@ void fit_window()
       MyGraph->xmin=mx;
       MyGraph->ymin=my;
 
-
       pretty(&(MyGraph->ymin),&(MyGraph->ymax));
       pretty(&(MyGraph->xmin),&(MyGraph->xmax));
       MyGraph->xlo=MyGraph->xmin;
@@ -503,12 +486,6 @@ void fit_window()
     }
   redraw_the_graph();
 }
-
-
-
-
-
-
 
 void check_windows()
 {
@@ -552,7 +529,6 @@ void xi_vs_t() /*  a short cut   */
  char name[20],value[20];
  int i=MyGraph->yv[0];
 
-
  ind_to_sym(i,value);
  sprintf(name,"Plot vs t: ");
  new_string(name,value);
@@ -583,10 +559,6 @@ void xi_vs_t() /*  a short cut   */
     redraw_the_graph();
  }
 }
-
-
-
-
 
 void redraw_the_graph()
 {
@@ -669,7 +641,6 @@ void test_rot()
 void get_3d_par_com()
 {
 
-
  static char *n[]={"Persp (1=On)","ZPlane","ZView","Theta","Phi","Movie(Y/N)",
                    "Vary (theta/phi)","Start angle", "Increment",
 		   "Number increments"};
@@ -679,7 +650,6 @@ void get_3d_par_com()
  int nclip=8,angle=0;
  double start,increment=45;
   if(MyGraph->grtype<5)return;
-
 
  sprintf(values[0],"%d",MyGraph->PerspFlag);
  sprintf(values[1],"%g",MyGraph->ZPlane);
@@ -723,7 +693,6 @@ void get_3d_par_com()
 	
 }
 
-
 void get_3d_par_noper()
 {
 
@@ -736,7 +705,6 @@ void get_3d_par_noper()
  int nclip=8,angle=0;
  double start,increment=45;
   if(MyGraph->grtype<5)return;
-
 
  sprintf(values[0],"%g",MyGraph->Theta);
  sprintf(values[1],"%g",MyGraph->Phi);
@@ -850,7 +818,6 @@ void scroll_window()
   }
 }
 
-
 void window_zoom_com(int c)
 {
  int i1,i2,j1,j2;
@@ -882,8 +849,6 @@ void window_zoom_com(int c)
             }
  set_normal_scale();
 }
-
-
 
 void zoom_in(i1,j1,i2,j2)
 int i1,j1,i2,j2;
@@ -989,9 +954,6 @@ int i1,j1,i2,j2;
               draw_help();
 }
 
-
-
-
 void graph_all(list,n,type)
      int *list,n,type;
 {
@@ -1024,7 +986,6 @@ void graph_all(list,n,type)
 
 }
 
-
 int find_color(in)
 int in;
 {
@@ -1043,7 +1004,6 @@ int in_it,n;
  int status,i;
  int i1=MyGraph->xv[in_it],i2=MyGraph->yv[in_it],i3=MyGraph->zv[in_it];
  char n1[15],n2[15],n3[15];
-
 
  ind_to_sym(i1,n1);
  ind_to_sym(i2,n2);
@@ -1075,7 +1035,6 @@ int in_it,n;
               }
  return(0);
 }
-
 
 void edit_curve()
 {
@@ -1175,7 +1134,6 @@ void dump_ps(int i)
    }
 }
 
-
 void create_svg()
 {
 
@@ -1204,7 +1162,6 @@ ps_test()
 }
 
 */
-
 
 void change_cmap_com(int i)
 {
@@ -1301,7 +1258,6 @@ void edit_frz()
  edit_frz_crv(i);
 }
 
-
 void delete_frz_crv(i)
      int i;
 {
@@ -1322,7 +1278,6 @@ void delete_frz()
  if(i<0)return;
  delete_frz_crv(i);
 }
-
 
 void kill_frz()
 {
@@ -1511,7 +1466,6 @@ void free_bd()
   }
 }
 
-
 void add_bd_crv(x,y,len,type,ncrv)
      float *x,*y;
      int len,ncrv,type;
@@ -1620,11 +1574,6 @@ int get_frz_index(w)
 
 }
 
-
-
-
-
-
 void export_graf_data()
 {
  FILE *fp;
@@ -1676,25 +1625,5 @@ void add_a_curve_com(int c)
  redraw_the_graph();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

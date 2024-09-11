@@ -9,7 +9,6 @@
  *                                                                *
  ******************************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvspgmr.h"
@@ -19,7 +18,6 @@
 #include "llnlmath.h"
 #include "iterativ.h"
 #include "spgmr.h"
-
 
 /* Error Messages */
 
@@ -88,7 +86,6 @@ typedef struct {
 
 } CVSpgmrMemRec, *CVSpgmrMem;
 
-
 /* CVSPGMR linit, lsetup, lsolve, and lfree routines */
 
 static int  CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull);
@@ -107,7 +104,6 @@ static void CVSpgmrFree(CVodeMem cv_mem);
 static int CVSpgmrAtimesDQ(void *lin_mem, N_Vector v, N_Vector z);
 
 static int CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int lr);
-
 
 /* Readability Replacements */
 
@@ -147,7 +143,6 @@ static int CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int lr);
 #define ncfl    (cvspgmr_mem->g_ncfl)
 #define nstlpre (cvspgmr_mem->g_nstlpre)
 #define spgmr_mem (cvspgmr_mem->g_spgmr_mem)
-
 
 /*************** CVSpgmr *********************************************
 
@@ -202,7 +197,6 @@ void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
   cvspgmr_mem->g_psolve  = psolve;
 }
 
-
 /* Additional readability Replacements */
 
 #define pretype (cvspgmr_mem->g_pretype)
@@ -212,7 +206,6 @@ void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
 #define psolve  (cvspgmr_mem->g_psolve)
 #define precond (cvspgmr_mem->g_precond)
 #define P_data  (cvspgmr_mem->g_P_data)
-
 
 /*************** CVSpgmrInit *****************************************
 

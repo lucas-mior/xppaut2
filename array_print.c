@@ -3,13 +3,10 @@
 #include <stdio.h>
 #include "array_print.h"
 
-
 #define GREYSCALE -1
 #define REDBLUE  0
 #define ROYGBIV  1
 #define PERIODIC 2
-
-
 
 typedef struct {
   float xmin,xmax,ymin,ymax;
@@ -46,7 +43,6 @@ int array_print(filename,xtitle,ytitle,bottom,nacross,ndown,col0,row0,nskip,
   return 0;
  }
 
-
 void  ps_replot(z,col0,row0,nskip,ncskip,maxrow,maxcol,nacross,ndown,zmin,zmax,type)
       float **z;
       double zmin,zmax;
@@ -81,8 +77,6 @@ void  ps_replot(z,col0,row0,nskip,ncskip,maxrow,maxcol,nacross,ndown,zmin,zmax,t
       }
     }
   }
-
-
 
 }
 void ps_begin(xlo,ylo,xhi,yhi,sx,sy)
@@ -130,7 +124,6 @@ void ps_begin(xlo,ylo,xhi,yhi,sx,sy)
   fprintf(my_plot_file,"/basefont /Times-Roman findfont def\n");
   ps_setline(0.0,4);
 }
-
 
 void ps_convert(x,y,xs,ys)
      float x,y, *xs,*ys;
@@ -221,9 +214,6 @@ float *x, *y;
   str[1]='\0';
   ps_text2(str,xp,yp,0);
  }
-
-
-
 
 void ps_text2(str,xr,yr,icent)
      char *str;
@@ -364,16 +354,5 @@ void ps_hsb_bar(x,y,wid,len,fill,flag)
   }
 
  }
-
-
-
-
-
-
-
-
-
-
-
 
 

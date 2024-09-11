@@ -1,11 +1,8 @@
 #ifndef _lunch_new_h_
 #define _lunch_new_h_
 
-
 #include <stdio.h>
 #include "form_ode.h"
-
-
 
 void file_inf(void);
 void ps_write_pars(FILE *fp);
@@ -23,6 +20,5 @@ void io_int(int *i, FILE *fp, int f, char *ss);
 void io_double(double *z, FILE *fp, int f, char *ss);
 void io_float(float *z, FILE *fp, int f, char *ss);
 void io_string(char *s, int len, FILE *fp, int f);
-
 
 #endif

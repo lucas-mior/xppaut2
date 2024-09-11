@@ -12,17 +12,14 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _cvspgmr_h
 #define _cvspgmr_h
-
 
 #include <stdio.h>
 #include "cvode.h"
 #include "spgmr.h"
 #include "llnltyps.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -56,7 +53,6 @@
 enum { SPGMR_NPE = CVODE_IOPT_SIZE,
        SPGMR_NLI, SPGMR_NPS, SPGMR_NCFL, SPGMR_LRW, SPGMR_LIW };
 
-
 /******************************************************************
  *                                                                *
  * CVSPGMR solver constants                                       *
@@ -84,7 +80,6 @@ enum { SPGMR_NPE = CVODE_IOPT_SIZE,
 #define CVSPGMR_DGMAX   RCONST(0.2)
 
 #define CVSPGMR_DELT    RCONST(0.05)
-
 
 /******************************************************************
  *                                                                *
@@ -190,7 +185,6 @@ typedef int (*CVSpgmrPrecondFn)(integer N, real t, N_Vector y, N_Vector fy,
                                 N_Vector vtemp1, N_Vector vtemp2,
                                 N_Vector vtemp3);
 
-
 /******************************************************************
  *                                                                *
  * Type : CVSpgmrPSolveFn                                         *
@@ -256,7 +250,6 @@ typedef int (*CVSpgmrPSolveFn)(integer N, real t, N_Vector y, N_Vector fy,
                                N_Vector vtemp, real gamma, N_Vector ewt,
                                real delta,   int *nfePtr, N_Vector r,
                                int lr, void *P_data, N_Vector z);
-
 
 /******************************************************************
  *                                                                *

@@ -13,7 +13,6 @@
 #ifndef __AUTO_C_H__
 #define __AUTO_C_H__
 
-
 #define NPARX (36) /*get rid of*/
 #define NBIFX (20)
 #define KREDO (1)  /*get rid of*/
@@ -425,7 +424,6 @@ int qrstep(doublereal *a, doublereal *v, doublereal *p, doublereal *q, doublerea
 int orthes(integer *nm, integer *n, integer *low, integer *igh, doublereal *a, doublereal *ort);
 int ortran(integer *nm, integer *n, integer *low, integer *igh, doublereal *a, doublereal *ort, doublereal *z__);
 
-
 /* problem defined functions*/
 int func(integer ndim, const doublereal *u, const integer *icp,
 	 const doublereal *par, integer ijac,
@@ -469,7 +467,6 @@ void setubv_make_fa(setubv_parallel_arglist larg);
 void setubv_make_fc_dd(setubv_parallel_arglist larg,doublereal *dups, doublereal *rlcur,
 		       doublereal *rlold, doublereal rds);
 
-
 /*worker.c*/
 int mpi_worker();
 int mpi_setubv_worker();
@@ -484,8 +481,5 @@ int user_destruct();
 #endif
 
 #endif
-
-
-
 
 

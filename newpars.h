@@ -1,10 +1,8 @@
 #ifndef _newpars_h
 #define _newpars_h
 
-
 /*#define LPAREN 1
 */
-
 
 #define COMMENT 2
 #define SPACE 3
@@ -30,8 +28,6 @@
 
 #define EXPORT 15
 
-
-
 #define ONLY 26
 
 #define GROUP 27
@@ -54,11 +50,5 @@ VAR_INFO *my_varinfo;
 */
 
 #endif
-
-
-
-
-
-
 
 

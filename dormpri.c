@@ -81,13 +81,11 @@ int dormprin(istart,y,t,n,tout,tol,atol,flag,kflag)
   return(-1);
 }
 
-
 long nfcnRead (void)
 {
   return nfcn;
 
 } /* nfcnRead */
-
 
 long nstepRead (void)
 {
@@ -95,13 +93,11 @@ long nstepRead (void)
 
 } /* stepRead */
 
-
 long naccptRead (void)
 {
   return naccpt;
 
 } /* naccptRead */
-
 
 long nrejctRead (void)
 {
@@ -109,13 +105,11 @@ long nrejctRead (void)
 
 } /* nrejct */
 
-
 double hRead (void)
 {
   return hout;
 
 } /* hRead */
-
 
 double xRead (void)
 {
@@ -123,13 +117,11 @@ double xRead (void)
 
 } /* xRead */
 
-
 static double sign (double a, double b)
 {
   return (b < 0.0)? -fabs(a) : fabs(a);
 
 } /* sign */
-
 
 static double min_d (double a, double b)
 {
@@ -137,13 +129,11 @@ static double min_d (double a, double b)
 
 } /* min_d */
 
-
 static double max_d (double a, double b)
 {
   return (a > b)?a:b;
 
 } /* max_d */
-
 
 static double hinit (unsigned n, FcnEqDiff fcn, double x, double* y,
 	      double posneg, double* f0, double* f1, double* yy1, int iord,
@@ -218,7 +208,6 @@ static double hinit (unsigned n, FcnEqDiff fcn, double x, double* y,
   return sign (h, posneg);
 
 } /* hinit */
-
 
 /* core integrator */
 static int dopcor (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
@@ -920,17 +909,12 @@ int dop853
   k9 = k8+n;
   k10 = k9+n;
 
-
-
     idid = dopcor (n, fcn, x, y, xend, hmax, h, rtoler, atoler, itoler, fileout,
 		   solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1, fac2, icont);
   if(indir)free(indir);
     return idid;
 
-
 } /* dop853 */
-
-
 
 /* dense output function */
 double contd8 (unsigned ii, double x)
@@ -1033,7 +1017,6 @@ static double hinit5 (unsigned n, FcnEqDiff fcn, double x, double* y,
   return sign (h, posneg);
 
 } /* hinit */
-
 
 /* core integrator */
 static int dopcor5 (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
@@ -1330,8 +1313,6 @@ static int dopcor5 (unsigned n, FcnEqDiff fcn, double x, double* y, double xend,
 
 } /* dopcor5 */
 
-
-
 /* front-end */
 int dopri5
  (unsigned n, FcnEqDiff fcn, double x, double* y, double xend, double* rtoler,
@@ -1406,8 +1387,6 @@ int dopri5
     rcont5 = rcont4+nrdens;
     if (nrdens < n)
       indir = (unsigned*) malloc (n*sizeof(unsigned));
-
-
 
     /* control of length of icont */
     if (nrdens == n)
@@ -1486,7 +1465,6 @@ int dopri5
   k6 = k5+n;
   ysti = k6+n;
 
-
     idid = dopcor5 (n, fcn, x, y, xend, hmax, h, rtoler, atoler, itoler, fileout,
 		   solout, iout, nmax, uround, meth, nstiff, safe, beta, fac1, fac2, icont);
 
@@ -1494,7 +1472,6 @@ int dopri5
       free (indir);
 
     return idid;
-
 
 } /* dopri5 */
 
@@ -1523,14 +1500,5 @@ double contd5 (unsigned ii, double x)
   return rcont1[i] + theta*(rcont2[i] + theta1*(rcont3[i] + theta*(rcont4[i] + theta1*rcont5[i])));
 
 } /* contd5 */
-
-
-
-
-
-
-
-
-
 
 

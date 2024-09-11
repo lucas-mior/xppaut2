@@ -1,10 +1,8 @@
 #ifndef _auto_h_
 #define _auto_h_
 
-
 #include <X11/Xlib.h>
 #include <stdio.h>
-
 
 int get_auto_str(char *xlabel, char *ylabel);
 int draw_ps_axes(void);

@@ -94,12 +94,3 @@ void get_col_list(char *s, int *cl, int *n);
 #endif
 
 
-
-
-
-
-
-
-
-
-

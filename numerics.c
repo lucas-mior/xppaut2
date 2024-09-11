@@ -64,7 +64,6 @@ typedef struct {
 
 POINCARE_MAP my_pmap;
 
-
 extern int (*solver)();
 extern  double DELTA_T,TEND,T0,TRANS,
 	NULL_ERR,EVEC_ERR,NEWT_ERR;
@@ -73,7 +72,6 @@ float *fft_data,*hist_data,color_scale,min_scale;
 extern double POIPLN;
 
 extern double BVP_TOL,BVP_EPS;
-
 
 extern int NMESH,NJMP,METHOD,NC_ITER;
 extern int EVEC_ITER;
@@ -128,8 +126,6 @@ void quick_num(int com)
     get_num_par(key[com]);
 }
 
-
-
 void set_total(double total)
 {
   int n;
@@ -157,7 +153,6 @@ void  get_num_par(ch)
 			    FOREVER=1;
 			    TEND=-TEND;
                           }
-
 
 			flash(0);
 			break;
@@ -342,7 +337,6 @@ void  get_num_par(ch)
 		}  /* End num switch */
 	   }
 
-
 void chk_delay()
 {
   if(DELAY>0.0) {
@@ -354,7 +348,6 @@ void chk_delay()
 			  else
 			    free_delay();
 }
-
 
 void set_delay()
 {
@@ -427,7 +420,6 @@ void meth_dialog()
    sprintf(values[2],"%g",TOLER);
 }
 
-
 void compute_one_period(double period,double *x,char *name)
 {
   int opm=POIMAP;
@@ -474,12 +466,9 @@ void compute_one_period(double period,double *x,char *name)
 
   reset_browser();
 
-
   TRANS=ot;
   POIMAP=opm;
   TEND=ote;
-
-
 
 }
 void get_pmap_pars_com(int l)
@@ -494,7 +483,6 @@ void get_pmap_pars_com(int l)
  int i1=POIVAR;
 
  ch=mkey[l];
-
 
  POIMAP=0;
  if(ch=='s')POIMAP=1;
@@ -524,10 +512,6 @@ void get_pmap_pars_com(int l)
 
 }
 
-
-
-
-
 void get_method()
 {
  char ch;
@@ -553,7 +537,6 @@ void get_method()
  if(i>(nmeth-1))i=nmeth-1;
 	/* XDestroyWindow(display,temp); */
  }
-
 
 void user_set_color_par(int flag,char *via,double lo,double hi)
 {
@@ -586,8 +569,6 @@ void user_set_color_par(int flag,char *via,double lo,double hi)
 
   }
 
-
-
 }
 
 void set_col_par_com(int i)
@@ -606,7 +587,6 @@ void set_col_par_com(int i)
       new_string("Color via:",name);
       find_variable(name,&ivar);
 
-
       if(ivar>=0)
 	MyGraph->ColorValue=ivar;
       else{
@@ -616,7 +596,6 @@ void set_col_par_com(int i)
 	return;
       }
     }
-
 
    /*   This will be uncommented    ..... */
     ch=TwoChoice("(O)ptimize","(C)hoose","Color","oc");
@@ -667,8 +646,6 @@ void set_col_par_com(int i)
 
 }
 
-
-
 void do_meth()
 {
  if(NKernel>0)METHOD=VOLTERRA;
@@ -695,7 +672,5 @@ void do_meth()
   default: solver=rung_kut;
  }
 }
-
-
 
 

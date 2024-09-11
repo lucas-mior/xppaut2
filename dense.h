@@ -48,14 +48,11 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _dense_h
 #define _dense_h
 
-
 #include "llnltyps.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -85,9 +82,7 @@ typedef struct {
   real  **data;
 } *DenseMat;
 
-
 /* DenseMat accessor macros */
-
 
 /******************************************************************
  *                                                                *
@@ -101,7 +96,6 @@ typedef struct {
  ******************************************************************/
 
 #define DENSE_ELEM(A,i,j) ((A->data)[j][i])
-
 
 /******************************************************************
  *                                                                *
@@ -118,9 +112,7 @@ typedef struct {
 
 #define DENSE_COL(A,j) ((A->data)[j])
 
-
 /* Functions that use the DenseMat representation for a dense matrix */
-
 
 /******************************************************************
  *                                                                *
@@ -138,7 +130,6 @@ typedef struct {
 
 DenseMat DenseAllocMat(integer N);
 
-
 /******************************************************************
  *                                                                *
  * Function : DenseAllocPiv                                       *
@@ -155,7 +146,6 @@ DenseMat DenseAllocMat(integer N);
  ******************************************************************/
 
 integer *DenseAllocPiv(integer N);
-
 
 /******************************************************************
  *                                                                *
@@ -189,7 +179,6 @@ integer *DenseAllocPiv(integer N);
 
 integer DenseFactor(DenseMat A, integer *p);
 
-
 /******************************************************************
  *                                                                *
  * Function : DenseBacksolve                                      *
@@ -205,7 +194,6 @@ integer DenseFactor(DenseMat A, integer *p);
 
 void DenseBacksolve(DenseMat A, integer *p, N_Vector b);
 
-
 /******************************************************************
  *                                                                *
  * Function : DenseZero                                           *
@@ -216,7 +204,6 @@ void DenseBacksolve(DenseMat A, integer *p, N_Vector b);
  ******************************************************************/
 
 void DenseZero(DenseMat A);
-
 
 /******************************************************************
  *                                                                *
@@ -230,7 +217,6 @@ void DenseZero(DenseMat A);
 
 void DenseCopy(DenseMat A, DenseMat B);
 
-
 /******************************************************************
  *                                                                *
  * Function: DenseScale                                           *
@@ -242,7 +228,6 @@ void DenseCopy(DenseMat A, DenseMat B);
  ******************************************************************/
 
 void DenseScale(real c, DenseMat A);
-
 
 /******************************************************************
  *                                                                *
@@ -256,7 +241,6 @@ void DenseScale(real c, DenseMat A);
 
 void DenseAddI(DenseMat A);
 
-
 /******************************************************************
  *                                                                *
  * Function : DenseFreeMat                                        *
@@ -269,7 +253,6 @@ void DenseAddI(DenseMat A);
 
 void DenseFreeMat(DenseMat A);
 
-
 /******************************************************************
  *                                                                *
  * Function : DenseFreePiv                                        *
@@ -281,7 +264,6 @@ void DenseFreeMat(DenseMat A);
  ******************************************************************/
 
 void DenseFreePiv(integer *p);
-
 
 /******************************************************************
  *                                                                *
@@ -298,10 +280,7 @@ void DenseFreePiv(integer *p);
 
 void DensePrint(DenseMat A);
 
-
-
 /* Functions that use the real ** representation for a dense matrix */
-
 
 /******************************************************************
  *                                                                *
@@ -325,7 +304,6 @@ void DensePrint(DenseMat A);
 
 real **denalloc(integer n);
 
-
 /******************************************************************
  *                                                                *
  * Function : denallocpiv                                         *
@@ -340,7 +318,6 @@ real **denalloc(integer n);
  ******************************************************************/
 
 integer *denallocpiv(integer n);
-
 
 /******************************************************************
  *                                                                *
@@ -376,7 +353,6 @@ integer *denallocpiv(integer n);
 
 integer gefa(real **a, integer n, integer *p);
 
-
 /******************************************************************
  *                                                                *
  * Function : gesl                                                *
@@ -393,7 +369,6 @@ integer gefa(real **a, integer n, integer *p);
 
 void gesl(real **a, integer n, integer *p, real *b);
 
-
 /******************************************************************
  *                                                                *
  * Function : denzero                                             *
@@ -405,7 +380,6 @@ void gesl(real **a, integer n, integer *p, real *b);
  ******************************************************************/
 
 void denzero(real **a, integer n);
-
 
 /******************************************************************
  *                                                                *
@@ -419,7 +393,6 @@ void denzero(real **a, integer n);
 
 void dencopy(real **a, real **b, integer n);
 
-
 /******************************************************************
  *                                                                *
  * Function : denscale                                            *
@@ -431,7 +404,6 @@ void dencopy(real **a, real **b, integer n);
  ******************************************************************/
 
 void denscale(real c, real **a, integer n);
-
 
 /******************************************************************
  *                                                                *
@@ -445,7 +417,6 @@ void denscale(real c, real **a, integer n);
 
 void denaddI(real **a, integer n);
 
-
 /******************************************************************
  *                                                                *
  * Function : denfreepiv                                          *
@@ -458,7 +429,6 @@ void denaddI(real **a, integer n);
 
 void denfreepiv(integer *p);
 
-
 /******************************************************************
  *                                                                *
  * Function : denfree                                             *
@@ -469,7 +439,6 @@ void denfreepiv(integer *p);
  ******************************************************************/
 
 void denfree(real **a);
-
 
 /******************************************************************
  *                                                                *
@@ -485,6 +454,5 @@ void denfree(real **a);
  ******************************************************************/
 
 void denprint(real **a, integer n);
-
 
 #endif

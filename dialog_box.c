@@ -30,9 +30,6 @@
 		EnterWindowMask		|\
 		LeaveWindowMask)	
 
-
-
-
 extern Display *display;
 extern Window main_win;
 extern unsigned int MyBackColor,MyForeColor;
@@ -55,8 +52,6 @@ int max;
  int status;
   XTextProperty winname;
 
-
-
  DIALOG d;
  strcpy(d.mes_s,name);
  strcpy(d.input_s,value);
@@ -69,7 +64,6 @@ int max;
  XClassHint class_hints;
  class_hints.res_name="";
  class_hints.res_class="";
-
 
  XSetWMProperties(display,d.base,&winname,NULL,NULL,0,NULL,NULL,&class_hints);
 
@@ -168,10 +162,6 @@ DIALOG *d;
          }
          return(status);
  }
-
-
-
-
 
 void display_dialog(w,d,pos,col)
 Window w;

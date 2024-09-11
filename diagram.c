@@ -408,7 +408,6 @@ void write_init_data_file()
 
 }
 
-
 void write_pts()
 {
   /*char filename[256];*/
@@ -501,7 +500,6 @@ void post_auto()
   set_normal_scale();
 }
 
-
 void svg_auto()
 {
   /*char filename[256];*/
@@ -535,9 +533,6 @@ void svg_auto()
 
   set_normal_scale();
 }
-
-
-
 
 void bound_diagram(xlo,xhi,ylo,yhi)
      double *xlo,*xhi,*ylo,*yhi;
@@ -576,8 +571,6 @@ void bound_diagram(xlo,xhi,ylo,yhi)
   }
 }
 
-
-
 int save_diagram(fp,n)
      FILE *fp;
      int n;
@@ -602,11 +595,6 @@ int save_diagram(fp,n)
   }
   return(1);
 }
-
-
-
-
-
 
 int load_diagram(fp,node)
      FILE *fp;
@@ -644,14 +632,5 @@ int load_diagram(fp,node)
     return(1);
 
 }
-
-
-
-
-
-
-
-
-
 
 

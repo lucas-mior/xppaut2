@@ -18,7 +18,6 @@
 #include "txtread.h"
 #include "browse.h"
 
-
 #ifndef WCTYPE
 #include <ctype.h>
 #else
@@ -95,7 +94,6 @@ void txt_view_events(XEvent ev)
 
 }
 
-
 void txtview_keypress(XEvent ev)
 {
 
@@ -121,7 +119,6 @@ void enter_txtview(Window w,int val)
     XSetWindowBorderWidth(display,w,val);
 }
 
-
 void do_txt_action(char *s)
 {
   int tb=tfBell;
@@ -135,8 +132,6 @@ void do_txt_action(char *s)
   redraw_ics();
   reset_graph();
 }
-
-
 
 void resize_txtview(int w,int h)
 {
@@ -163,8 +158,6 @@ void txtview_press(Window w,int x,int y)
       do_txt_action(comments[j].action);
     return;
   }
-
-
 
   if(w==txtview.up){
     if(txtview.first>0){
@@ -224,8 +217,6 @@ void txtview_press(Window w,int x,int y)
   }
 
 }
-
-
 
 void redraw_txtview(Window w)
 {
@@ -287,7 +278,6 @@ void init_txtview()
   txtview.first=0;
 }
 
-
 void make_txtview()
 {
   int minwid=DCURXs*60,minlen=3*DCURYs+8+10*DCURY;
@@ -335,22 +325,5 @@ void make_txtview()
   txtview.dh=DCURY;
   txtview.dw=DCURX;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

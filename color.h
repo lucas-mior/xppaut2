@@ -16,5 +16,4 @@ void get_svg_color(int i,int *r,int *g,int *b);
 void MakeColormap(void);
 int ColorMap(int i);
 
-
 #endif

@@ -17,9 +17,6 @@
 #include "ggets.h"
 #include "browse.h"
 
-
-
-
 #define EV_MASK (ButtonPressMask 	|\
 		KeyPressMask		|\
 		ExposureMask		|\
@@ -31,7 +28,6 @@ extern unsigned int MyBackColor,MyForeColor;
 extern int screen;
 extern GC gc;
 extern int xor_flag,DCURY,DCURX,CURY_OFF,CURS_X,CURS_Y;
-
 
 void destroy_choice(p)
 CHOICE_BOX p;
@@ -69,7 +65,6 @@ CHOICE_BOX p;
 {
  int i;
 
-
  for(i=0;i<p.n;i++)
  {
   if(p.flag[i]==1)set_fore();
@@ -85,9 +80,6 @@ char **names,*wname;
 {
  do_choice_box(RootWindow(display,screen),wname,n,mcc,names,check,type);
 }
-
-
-
 
 int do_choice_box(root,wname,n,mcc,names,check,type)
 Window root;
@@ -154,8 +146,6 @@ for(i=0;i<n;i++){
    return(status);
  }
 
-
-
 int choice_box_event_loop(p)
  CHOICE_BOX p;
 
@@ -166,7 +156,6 @@ int choice_box_event_loop(p)
  XEvent ev;
 
  XNextEvent(display,&ev);
-
 
   switch(ev.type){
 	case ConfigureNotify:

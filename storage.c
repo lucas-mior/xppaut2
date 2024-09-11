@@ -97,7 +97,6 @@ err_msg("Cannot allocate sufficient storage");
    exit(0);
 }
 
-
 void free_storage(ncol)
 int ncol;
 {
@@ -107,26 +106,5 @@ int ncol;
   if(WORK)free(WORK);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

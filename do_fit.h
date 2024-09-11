@@ -1,7 +1,6 @@
 #ifndef _do_fit_h_
 #define _do_fit_h_
 
-
 typedef struct {
   char file[25];
   char varlist[25],collist[25];
@@ -10,7 +9,6 @@ typedef struct {
   int icols[50],ipar[50],ivar[50];
   double tol,eps;
 } FITINFO;
-
 
 void init_fit_info(void);
 void get_fit_info(double *y, double *a, double *t0, int *flag, double eps, double *yfit, double **yderv, int npts, int npars, int nvars, int *ivar, int *ipar);

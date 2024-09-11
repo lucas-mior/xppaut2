@@ -15,14 +15,11 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _iterativ_h
 #define _iterativ_h
 
-
 #include "llnltyps.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -44,7 +41,6 @@
 
 enum { NONE, LEFT, RIGHT, BOTH };
 
-
 /******************************************************************
  *                                                                *
  * enum : types of Gram-Schmidt routines                          *
@@ -61,7 +57,6 @@ enum { NONE, LEFT, RIGHT, BOTH };
 
 enum { MODIFIED_GS, CLASSICAL_GS };
 
-
 /******************************************************************
  *                                                                *
  * Type: ATimesFn                                                 *
@@ -76,7 +71,6 @@ enum { MODIFIED_GS, CLASSICAL_GS };
  ******************************************************************/
 
 typedef int (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
-
 
 /******************************************************************
  *                                                                *
@@ -97,7 +91,6 @@ typedef int (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
  ******************************************************************/
 
 typedef int (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int lr);
-
 
 /******************************************************************
  *                                                                *
@@ -137,7 +130,6 @@ typedef int (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int lr);
 
 int ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm);
 
-
 /******************************************************************
  *                                                                *
  * Function: ClassicalGS                                          *
@@ -160,7 +152,6 @@ int ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm);
 
 int ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
 		N_Vector temp, real *s);
-
 
 /******************************************************************
  *                                                                *
@@ -195,7 +186,6 @@ int ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
  ******************************************************************/
 
 int QRfact(int n, real **h, real *q, int job);
-
 
 /******************************************************************
  *                                                                *

@@ -62,7 +62,6 @@ void *setubv_make_aa_bb_cc(void * arg)
   doublereal *wp = larg->wp;
   doublereal *wt = larg->wt;
 
-
   dicd = (doublereal *)malloc(sizeof(doublereal)*(larg->nint)*(larg->ndim + NPARX));
   ficd = (doublereal *)malloc(sizeof(doublereal)*(larg->nint));
   dfdp = (doublereal *)malloc(sizeof(doublereal)*(larg->ndim)*NPARX);
@@ -149,7 +148,6 @@ void *setubv_make_aa_bb_cc(void * arg)
       */
       (*(larg->funi))(larg->iap, larg->rap, larg->ndim, u, uold, larg->icp, prm, 2, f, dfdu, dfdp);
 
-
       ic1 = ic * (larg->ndim);
       for (ib = 0; ib < larg->ncol + 1; ++ib) {
 	double wt_tmp=ARRAY2D(wt, ib, ic);
@@ -179,7 +177,6 @@ void *setubv_make_aa_bb_cc(void * arg)
       ubc0[i] = ARRAY2D(ups, 0, i);
       ubc1[i] = ARRAY2D(ups, larg->na, i);
     }
-
 
     (*(larg->bcni))(larg->iap, larg->rap, larg->ndim, larg->par,
 	    larg->icp, larg->nbc, ubc0, ubc1, fbc, 2, dbc);
@@ -362,7 +359,6 @@ setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc, integer
 
     switch(global_setubv_type) {
 
-
     default:
       setubv_default_wrapper(arglist);
       break;
@@ -454,7 +450,6 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
   free(prm);
 
 }
-
 
 void setubv_make_fc_dd(setubv_parallel_arglist larg, doublereal *dups, doublereal *rlcur,
 	     doublereal *rlold, doublereal rds) {
@@ -581,7 +576,6 @@ void setubv_parallel_arglist_copy(setubv_parallel_arglist *output,
   memcpy(output,&input,sizeof(setubv_parallel_arglist));
 }
 
-
 /* Fill in a setubv_parallel_arglist for the individual variables */
 void setubv_parallel_arglist_constructor(integer ndim, integer ips, integer na, integer ncol,
 					 integer nbc, integer nint, integer ncb, integer nrc, integer nra, integer nca,
@@ -632,12 +626,5 @@ void setubv_parallel_arglist_constructor(integer ndim, integer ips, integer na, 
   data->rldot  = rldot;
   data->bcni   = bcni;
 }
-
-
-
-
-
-
-
 
 

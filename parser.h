@@ -58,7 +58,6 @@
 #define NEXT1VAR  26
 #define NEXT2VAR  120
 
-
 typedef struct
         {
          char name[MXLEN+1];
@@ -168,8 +167,6 @@ SYMBOL my_symb[MAX_SYMBS]=
    "LGAMMA",6,25,1,10,0, /* log-gamma #94  */
       };
 
-
-
 #define IFUN1 0
 #define IFUN2 1
 #define IVAR 2
@@ -207,12 +204,7 @@ int NSYM=STDSYM,NCON=0,NVAR=0,NFUN=0;
 void (*fun1[50])( );
 void (*fun2[50])();
 
-
-
-
-
 /*****************************************************/
-
 
 double eval_rpn(/* int* */ );
 double ker_val();
@@ -239,7 +231,6 @@ typedef struct {
 } UFUN_ARG;
 
 UFUN_ARG ufun_arg[MAXUFUN];
-
 
 void zz_pmod(void);
 void zz_atan2(void);
@@ -379,33 +370,6 @@ double feval_rpn(int *comz);
 int strupr(char *s);
 int strlwr(char *s);
 
-
-
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

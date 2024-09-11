@@ -25,7 +25,6 @@
 
 */
 
-
 /***************   NOTES ON MPEG STUFF   ********************
 To prepare for mpeg encoding in order to make your movies
 permanent, I have to do some image manipulation - the main
@@ -55,8 +54,6 @@ want to alter the ordering below
 #define MY_GREEN midbits
 #define MY_RED hibits
 #endif
-
-
 
 /**************************************************************/
 
@@ -126,7 +123,6 @@ double get_ivar(int);
 
 extern double last_ic[MAXODE],T0;
 
-
 /************************8  end grabber **********************/
 
 #define FIRSTCOLOR 30
@@ -187,9 +183,7 @@ typedef struct {
 
 MPEG_SAVE mpeg;
 
-
 ANI_COM my_ani[MAX_ANI_LINES];
-
 
 typedef struct {
 Window base, wfile,wgo,wpause,wreset,wfast,wslow,wmpeg;
@@ -205,9 +199,7 @@ char file[XPP_MAX_NAME];
 
 VCR vcr;
 
-
 int n_anicom;
-
 
 int ani_text_size;
 int ani_text_color;
@@ -218,11 +210,8 @@ GC ani_gc;
 extern int use_ani_file;
 extern char anifile[256];
 
-
-
 char *get_first(/* char *string,char *src */);
 char *get_next(/* char *src */);
-
 
 /* Colors
   no color given is default black on white background or white on black
@@ -273,12 +262,9 @@ char *get_next(/* char *src */);
  -----------------------
 |                       |
 
-
-
 |_______________________|
 
 */
-
 
 #define MYMASK  (ButtonPressMask 	|\
                 ButtonReleaseMask |\
@@ -522,7 +508,6 @@ void ani_buttonx(XEvent ev,int flag)
   if(flag==0)return;
   /*   END OF ADDED STUFF  ************************/
 
-
   ani_button(w);
 }
 void ani_button(w)
@@ -592,7 +577,6 @@ void ani_create_mpeg()
   if(mpeg.flag==1)
     ani_disk_warn();
 
-
 }
 
 void do_ani_slider_motion(Window w, int x)
@@ -610,7 +594,6 @@ void do_ani_slider_motion(Window w, int x)
   vcr.pos=0;
   ani_flip1(0);
   ani_flip1(k);
-
 
 }
 void redraw_ani_slider()
@@ -634,9 +617,6 @@ void draw_ani_slider(Window w,int x)
   for(i=0;i<4;i++)
     XDrawLine(display,w,small_gc,x0+i,0,x0+i,hgt);
 }
-
-
-
 
 void ani_expose(w)
 Window w;
@@ -673,8 +653,6 @@ Window w;
   if(w==vcr.wfly)
     check_on_the_fly();
 }
-
-
 
 void ani_resize(x,y)
      int x,y;
@@ -759,7 +737,6 @@ void ani_frame(int task)
     return;
   }
 
-
  /* now draw the stuff  */
 
  render_ani();
@@ -785,7 +762,6 @@ void set_to_init_data()
 
    redraw_ics();
 }
-
 
 void set_from_init_data()
 {
@@ -813,8 +789,6 @@ XSetForeground(display,ani_gc,WhitePixel(display,screen));
  XSetForeground(display,ani_gc,BlackPixel(display,screen));
  if(vcr.pos==0) set_ani_perm();
 
-
-
  vcr.pos=vcr.pos+n;
  if(vcr.pos>=my_browser.maxrow)
    vcr.pos=my_browser.maxrow-1;
@@ -825,7 +799,6 @@ t=(double)ss[0][row];
  for(i=0;i<NODE+NMarkov;i++)
    y[i]=(double)ss[i+1][row];
  set_fix_rhs(t,y);
-
 
  /* now draw the stuff  */
 
@@ -900,7 +873,6 @@ void ani_flip()
    y[i]=(double)ss[i+1][row];
  set_fix_rhs(t,y);
 
-
  /* now draw the stuff  */
 
  render_ani();
@@ -948,7 +920,6 @@ mpeg.flag=0;
  }
 
 }
-
 
 void ani_disk_warn()
 {
@@ -1145,7 +1116,6 @@ int writeframe(filename,window,wid,hgt)
   return 1;
 }
 
-
 void ani_zero()
 {
   vcr.iexist=0;
@@ -1165,7 +1135,6 @@ void ani_zero()
     /*strcpy(vcr.file,"foo.ani");*/
   }
 }
-
 
 void get_ani_file(char *fname)
 {
@@ -1195,7 +1164,6 @@ void get_ani_file(char *fname)
   }
 }
 
-
 int ani_new_file(filename)
      char *filename;
 {
@@ -1215,8 +1183,6 @@ int ani_new_file(filename)
   }
   return 0;
 }
-
-
 
 int load_ani_file(fp)
 FILE *fp;
@@ -1242,7 +1208,6 @@ FILE *fp;
       return 0;
     }
     ani_line++;
-
 
   }
  return 1;
@@ -1501,7 +1466,6 @@ int parse_ani_string(s,fp)
 	type,x1,x2,x3,x4,col,thick);  */
  return(add_ani_com(type,x1,x2,x3,x4,col,thick));
 
-
 }
 
 void set_ani_dimension(x1,y1,x2,y2)
@@ -1685,8 +1649,6 @@ int add_ani_rline(a,x1,y1,col,thick)
      ANI_COM *a;
 {
 
-
-
  int err,index;
  err=chk_ani_color(col,&index);
  if(err==1)
@@ -1747,7 +1709,6 @@ int add_ani_comet(a,x1,y1,x2,y2,col,thick)
      ANI_COM *a;
 {
 
-
  int err,n,index;
  /* plintf("<<%s>>\n",col); */
  err=chk_ani_color(col,&index);
@@ -1783,8 +1744,6 @@ int add_ani_line(a,x1,y1,x2,y2,col,thick)
      ANI_COM *a;
 {
 
-
-
  int err,index;
  err=chk_ani_color(col,&index);
  if(err==1)
@@ -1813,14 +1772,12 @@ int add_ani_line(a,x1,y1,x2,y2,col,thick)
 
  return 0;
 
-
 }
 
 int add_ani_null(a,x1,y1,x2,y2,col,who)
      char *x1,*x2,*y1,*y2,*col,*who;
      ANI_COM *a;
 {
-
 
  int err,index;
  err=chk_ani_color(col,&index);
@@ -1845,12 +1802,9 @@ int add_ani_null(a,x1,y1,x2,y2,col,who)
  err=add_ani_expr(y2,a->y2);
  if(err)return -1;
 
-
  return 0;
 
-
 }
-
 
 int add_ani_rect(a,x1,y1,x2,y2,col,thick)
      char *x1,*x2,*y1,*y2,*col,*thick;
@@ -1880,14 +1834,10 @@ int add_ani_fellip(a,x1,y1,x2,y2,col,thick)
 return(add_ani_line(a,x1,y1,x2,y2,col,thick));
 }
 
-
-
 int add_ani_circle(a,x1,y1,x2,col,thick)
      char *x1,*y1, *x2,*col,*thick;
      ANI_COM *a;
 {
-
-
 
  int err,index;
  err=chk_ani_color(col,&index);
@@ -2062,7 +2012,6 @@ void render_ani()
     draw_grab_points();
 }
 
-
 void set_ani_perm()
 {
   /*double t;
@@ -2104,8 +2053,6 @@ void eval_ani_com(j)
      int j;
 {
 
-
-
      my_ani[j].zx1=evaluate(my_ani[j].x1);
 
 	
@@ -2135,9 +2082,7 @@ void eval_ani_com(j)
     if(my_ani[j].type==AXNULL||my_ani[j].type==AYNULL)
       my_ani[j].zval=evaluate(my_ani[j].who);
 
-
   }
-
 
 void set_ani_thick(t)
      int t;
@@ -2160,7 +2105,6 @@ void set_ani_font_stuff(size,font,color)
    XSetFont(display,ani_gc,symfonts[size]->fid);
 
 }
-
 
 void set_ani_col(j)
      int j;
@@ -2190,8 +2134,6 @@ if(icol==0)
     XSetForeground(display,ani_gc,ColorMap(icol));
 }
 
-
-
 /**************   DRAWING ROUTINES   *******************/
 
 void ani_rad2scale(rx,ry,ix,iy)
@@ -2204,7 +2146,6 @@ void ani_rad2scale(rx,ry,ix,iy)
   *ix=(int)r1;
   *iy=(int)r2;
 }
-
 
 void ani_radscale(rad,ix,iy)
      double rad;
@@ -2224,7 +2165,6 @@ void ani_ij_to_xy(int ix,int iy,double *x,double *y)
   *x=ani_xlo+(double)ix*dx;
   *y=ani_ylo+(double)(vcr.hgt-iy)*dy;
 
-
 }
 void ani_xyscale(x,y,ix,iy)
      double x,y;
@@ -2241,8 +2181,6 @@ void ani_xyscale(x,y,ix,iy)
   if(*iy<0)*iy=0;
   if(*iy>=vcr.hgt)*iy=vcr.hgt-1;
 }
-
-
 
 void draw_ani_comet(j)
      int j;
@@ -2278,7 +2216,6 @@ void draw_ani_comet(j)
      }
     }
   }
-
 
 }
 
@@ -2339,7 +2276,6 @@ void draw_ani_rline(j)
   ani_lastx=x1;
   ani_lasty=y1;
 }
-
 
 void draw_ani_circ(j)
      int j;
@@ -2406,8 +2342,6 @@ void draw_ani_frect(j)
 
   XFillRectangle(display,ani_pixmap,ani_gc,i1,j1,w,h);
 }
-
-
 
 void draw_ani_ellip(j)
      int j;
@@ -2492,8 +2426,6 @@ void tst_pix_draw()
   /* plintf(" color_tot=%d \n",color_total); */
 }
 
-
-
 void read_ani_line(fp,s)
      char *s;
      FILE *fp;
@@ -2524,8 +2456,6 @@ void read_ani_line(fp,s)
   s[n+1]=0;
 }
 
-
-
 void de_space(s)
      char *s;
 {
@@ -2541,7 +2471,6 @@ void de_space(s)
   }
   s[j]=0;
 }
-
 
 /*************************  GRABBER CODE *****************************/
 
@@ -2570,7 +2499,6 @@ int add_grab_command(char *xs,char *ys,char *ts, FILE *fp)
   ani_grab[j].x= (int *)malloc(sizeof(int)*(nc+1));
   for(k=0;k<=nc;k++)
     ani_grab[j].x[k]=com[k];
-
 
   if(add_expr(ys,com,&nc)){
     plintf("Bad grab y %s \n",ys);
@@ -2709,7 +2637,6 @@ int add_grab_task(char *lhs,char *rhs, int igrab,int which)
     i=ani_grab[igrab].end.n;
     if(i>=MAX_GEVENTS)return(-1); /* too many events */
 
-
     strcpy(ani_grab[igrab].end.lhsname[i],lhs);
     if(add_expr(rhs,com,&nc)){
       plintf("Bad right-hand side for grab event %s\n",rhs);
@@ -2750,7 +2677,6 @@ void draw_grab_points()  /* Draw little black x's where the grab points are */
   }
   show_grab_points=0;
 }
-
 
 void free_grabber()
 {

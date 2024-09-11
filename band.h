@@ -48,14 +48,11 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _band_h
 #define _band_h
 
-
 #include "llnltyps.h"
 #include "vector.h"
-
 
 /******************************************************************
  *                                                                *
@@ -117,16 +114,13 @@
  *                                                                *
  ******************************************************************/
 
-
 typedef struct {
   integer size;
   integer mu, ml, smu;
   real **data;
 } *BandMat;
 
-
 /* BandMat accessor macros */
-
 
 /******************************************************************
  *                                                                *
@@ -141,7 +135,6 @@ typedef struct {
  ******************************************************************/
 
 #define BAND_ELEM(A,i,j) ((A->data)[j][i-j+(A->smu)])
-
 
 /******************************************************************
  *                                                                *
@@ -158,7 +151,6 @@ typedef struct {
 
 #define BAND_COL(A,j) (((A->data)[j])+(A->smu))
 
-
 /******************************************************************
  *                                                                *
  * Macro : BAND_COL_ELEM                                          *
@@ -174,9 +166,7 @@ typedef struct {
 
 #define BAND_COL_ELEM(col_j,i,j) (col_j[i-j])
 
-
 /* Functions that use the BandMat representation for a band matrix */
-
 
 /******************************************************************
  *                                                                *
@@ -202,7 +192,6 @@ typedef struct {
 
 BandMat BandAllocMat(integer N, integer mu, integer ml, integer smu);
 
-
 /******************************************************************
  *                                                                *
  * Function : BandAllocPiv                                        *
@@ -219,7 +208,6 @@ BandMat BandAllocMat(integer N, integer mu, integer ml, integer smu);
  ******************************************************************/
 
 integer *BandAllocPiv(integer N);
-
 
 /******************************************************************
  *                                                                *
@@ -264,7 +252,6 @@ integer *BandAllocPiv(integer N);
 
 integer BandFactor(BandMat A, integer *p);
 
-
 /******************************************************************
  *                                                                *
  * Function : BandBacksolve                                       *
@@ -280,7 +267,6 @@ integer BandFactor(BandMat A, integer *p);
 
 void BandBacksolve(BandMat A, integer *p, N_Vector b);
 
-
 /******************************************************************
  *                                                                *
  * Function : BandZero                                            *
@@ -291,7 +277,6 @@ void BandBacksolve(BandMat A, integer *p, N_Vector b);
  ******************************************************************/
 
 void BandZero(BandMat A);
-
 
 /******************************************************************
  *                                                                *
@@ -306,7 +291,6 @@ void BandZero(BandMat A);
 
 void BandCopy(BandMat A, BandMat B, integer copymu, integer copyml);
 
-
 /******************************************************************
  *                                                                *
  * Function: BandScale                                            *
@@ -318,7 +302,6 @@ void BandCopy(BandMat A, BandMat B, integer copymu, integer copyml);
 
 void BandScale(real c, BandMat A);
 
-
 /******************************************************************
  *                                                                *
  * Function : BandAddI                                            *
@@ -329,7 +312,6 @@ void BandScale(real c, BandMat A);
  ******************************************************************/
 
 void BandAddI(BandMat A);
-
 
 /******************************************************************
  *                                                                *
@@ -343,7 +325,6 @@ void BandAddI(BandMat A);
 
 void BandFreeMat(BandMat A);
 
-
 /******************************************************************
  *                                                                *
  * Function : BandFreePiv                                         *
@@ -355,7 +336,6 @@ void BandFreeMat(BandMat A);
  ******************************************************************/
 
 void BandFreePiv(integer *p);
-
 
 /******************************************************************
  *                                                                *
@@ -373,10 +353,7 @@ void BandFreePiv(integer *p);
 
 void BandPrint(BandMat A);
 
-
-
 /* Functions that use the real ** representation for a band matrix */
-
 
 /******************************************************************
  *                                                                *
@@ -417,7 +394,6 @@ void BandPrint(BandMat A);
 
 real **bandalloc(integer n, integer smu, integer ml);
 
-
 /******************************************************************
  *                                                                *
  * Function : bandallocpiv                                        *
@@ -432,7 +408,6 @@ real **bandalloc(integer n, integer smu, integer ml);
  ******************************************************************/
 
 integer *bandallocpiv(integer n);
-
 
 /******************************************************************
  *                                                                *
@@ -488,7 +463,6 @@ integer *bandallocpiv(integer n);
 integer gbfa(real **a, integer n, integer mu, integer ml, integer smu,
              integer *p);
 
-
 /******************************************************************
  *                                                                *
  * Function : gbsl                                                *
@@ -507,7 +481,6 @@ integer gbfa(real **a, integer n, integer mu, integer ml, integer smu,
 
 void gbsl(real **a, integer n, integer smu, integer ml, integer *p, real *b);
 
-
 /******************************************************************
  *                                                                *
  * Function : bandzero                                            *
@@ -518,7 +491,6 @@ void gbsl(real **a, integer n, integer smu, integer ml, integer *p, real *b);
  ******************************************************************/
 
 void bandzero(real **a, integer n, integer mu, integer ml, integer smu);
-
 
 /******************************************************************
  *                                                                *
@@ -532,7 +504,6 @@ void bandzero(real **a, integer n, integer mu, integer ml, integer smu);
 void bandcopy(real **a, real **b, integer n, integer a_smu, integer b_smu,
               integer copymu, integer copyml);
 
-
 /******************************************************************
  *                                                                *
  * Function : bandscale                                           *
@@ -545,7 +516,6 @@ void bandcopy(real **a, real **b, integer n, integer a_smu, integer b_smu,
 void bandscale(real c, real **a, integer n, integer mu, integer ml,
                integer smu);
 
-
 /******************************************************************
  *                                                                *
  * Function : bandaddI                                            *
@@ -556,7 +526,6 @@ void bandscale(real c, real **a, integer n, integer mu, integer ml,
  ******************************************************************/
 
 void bandaddI(real **a, integer n, integer smu);
-
 
 /******************************************************************
  *                                                                *
@@ -570,7 +539,6 @@ void bandaddI(real **a, integer n, integer smu);
 
 void bandfreepiv(integer *p);
 
-
 /******************************************************************
  *                                                                *
  * Function : bandfree                                            *
@@ -581,7 +549,6 @@ void bandfreepiv(integer *p);
  ******************************************************************/
 
 void bandfree(real **a);
-
 
 /******************************************************************
  *                                                                *
@@ -598,6 +565,5 @@ void bandfree(real **a);
  ******************************************************************/
 
 void bandprint(real **a, integer n, integer mu, integer ml, integer smu);
-
 
 #endif

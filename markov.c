@@ -12,7 +12,6 @@
 #include "histogram.h"
 #include "browse.h"
 
-
 #include <strings.h>
 #include <math.h>
 #include <stdio.h>
@@ -43,10 +42,6 @@ double evaluate();
 double new_state();
 double atof();
 
-
-
-
-
 extern int DCURY;
 extern int *my_ode[];
 extern char *ode_names[MAXODE];
@@ -69,7 +64,6 @@ typedef struct {
 
 MARKOV markov[MAXMARK];
 
-
 extern float **storage;
 
 extern int storind;
@@ -81,8 +75,6 @@ int Wiener[MAXPAR];
 int NWiener;
 double normal();
 extern double constants[];
-
-
 
 void add_wiener(index)
      int index;
@@ -101,7 +93,6 @@ void set_wieners(dt,x,t)
     constants[Wiener[i]]=normal(0.00,1.00)/sqrt(fabs(dt));
 }
 
-
 void add_markov(nstate,name)
      int nstate;
      char *name;
@@ -111,7 +102,6 @@ void add_markov(nstate,name)
   for(i=0;i<50;i++)st[i]=(double)i;
   create_markov(nstate,st,0,name);
 }
-
 
 int build_markov(ma,name)
   /*   FILE *fptr; */
@@ -123,7 +113,6 @@ int build_markov(ma,name)
  int len=0,ll;
  char line[256],expr[256];
   int istart;
-
 
  int i,j,nstates,index;
  index=-1;
@@ -168,7 +157,6 @@ int build_markov(ma,name)
  return index;
 }
 
-
 int old_build_markov(fptr,name)
      FILE *fptr;
 
@@ -178,7 +166,6 @@ int old_build_markov(fptr,name)
  int len=0,ll;
  char line[256],expr[256];
   int istart;
-
 
  int i,j,nstates,index;
  index=-1;
@@ -245,12 +232,6 @@ void extract_expr(source,dest,i0)
    dest[len]=0;
 }
 
-
-
-
-
-
-
 void create_markov(nstates,st,type,name)
      int nstates,type;
      double *st;
@@ -278,7 +259,6 @@ void create_markov(nstates,st,type,name)
   for(i=0;i<nstates;i++)markov[j].states[i]=st[i];
   strcpy(markov[j].name,name);
   NMarkov++;
-
 
 }
 
@@ -311,7 +291,6 @@ void add_markov_entry(index,j,k,expr)
     markov[index].fixed[l0]=atof(expr);
   }
 }
-
 
 void compile_all_markov()
 {
@@ -352,7 +331,6 @@ int compile_markov(index,j,k)
   return 1;
 }
 
-
 void update_markov(x,t,dt)
      double *x,t,dt;
 {
@@ -372,8 +350,6 @@ void update_markov(x,t,dt)
     set_ivar(i+NODE+FIX_VAR+1,yp[i]);
   }
 }
-
-
 
 double new_state(old,index,dt)
      double old,dt;
@@ -454,7 +430,6 @@ void make_gill_nu(double *nu,int n,int m,double *v)
 
 }
 
-
 void one_gill_step(int meth,int nrxn,int *rxn,double *v)
 {
   double rate=0,test;
@@ -489,14 +464,12 @@ void one_gill_step(int meth,int nrxn,int *rxn,double *v)
 	*/
     break;
 
-
   }
 
 }
 
 		
 		
-
 
 void do_stochast_com(int i)
 {
@@ -561,7 +534,6 @@ void do_stochast_com(int i)
 
 }
 
-
 void mean_back()
 {
   if(STOCH_HERE){
@@ -573,7 +545,6 @@ void mean_back()
   }
 }
 
-
 void variance_back()
 {
   if(STOCH_HERE){
@@ -584,7 +555,6 @@ void variance_back()
        storind=stoch_len;
   }
 }
-
 
 void compute_em()
 {
@@ -609,7 +579,6 @@ void free_stoch()
   }
 }
 
-
 void init_stoch(len)
      int len;
 {
@@ -630,8 +599,6 @@ void init_stoch(len)
   }
   STOCH_HERE=1;
 }
-
-
 
 void append_stoch(first,length)
      int first,length;
@@ -720,8 +687,6 @@ double poidev(double xm)
 	return em;
 }
 
-
-
 double ndrand48()
 {
  return ran1(&myrandomseed);
@@ -731,7 +696,6 @@ void nsrand48(int seed)
 {
  myrandomseed=-seed;
 }
-
 
 double ran1(idum)
 long *idum;
@@ -771,14 +735,5 @@ long *idum;
 #undef NDIV
 #undef EPS
 #undef RNMX
-
-
-
-
-
-
-
-
-
 
 

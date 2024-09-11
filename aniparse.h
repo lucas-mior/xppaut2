@@ -1,14 +1,12 @@
 #ifndef _aniparse_h_
 #define _aniparse_h_
 
-
 #include <X11/Xlib.h>
 #include <stdio.h>
 
 /**************  New stuff for the Grabber ***************************/
 #define MAX_GEVENTS 20  /* maximum variables you can change per grabbable */
 #define MAX_ANI_GRAB 50   /* max grabbable objects  */
-
 
 typedef struct {  /* tasks have the form {name1=formula1;name2=formula2;...} */
 
@@ -19,7 +17,6 @@ typedef struct {  /* tasks have the form {name1=formula1;name2=formula2;...} */
   int runnow;
   int n; /* number of tasks <= MAX_GEVENTS */
 }GRAB_TASK;
-
 
 typedef struct {
   int ok;
@@ -37,7 +34,6 @@ typedef struct {
  char filter[256];
  int aviflag,filflag;
 } MPEG_SAVE;
-
 
 typedef struct {
   int n;

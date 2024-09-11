@@ -3,7 +3,6 @@
 #include <math.h>
 #include <stdio.h>
 
-
 #include "auto_nox.h"
 #include "diagram.h"
 #include "diagram.h"
@@ -23,7 +22,6 @@
 #define ESCAPE 27
 #define MAXDIMHET 12
 #define MAXDIMHOM 24
-
 
 extern double outperiod[20];
 extern integer UzrPar[20];
@@ -46,7 +44,6 @@ EIGVAL my_ev;
 
 double sign();
 int imin();
-
 
 void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
 	  ds,dsmin,dsmax,rl0,rl1,a0,a1,
@@ -99,8 +96,6 @@ void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
   xAuto.a1=a1;
   xAuto.npr=npr;
 
-
-
   xAuto.epsl=epsl;
   xAuto.epss=epss;
   xAuto.epsu=epsu;
@@ -115,9 +110,6 @@ void init_auto(ndim,nicp,nbc,ips,irs,ilp,ntst,isp,isw,nmx,npr,
   }
 
 }
-
-
-
 
 void send_eigen(ibr,ntot,n,ev)
      int ibr,ntot,n;
@@ -150,9 +142,7 @@ void send_mult(ibr,ntot,n,ev)
   }
 }
 
-
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
-
 
 int get_bif_type(ibr,ntot,lab)
      int ibr,ntot,lab;
@@ -199,10 +189,6 @@ void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs, double *p
 	      my_ev.evi);
 }
 
-
-
-
-
 double etime_(z)
 double *z;
 {
@@ -224,14 +210,5 @@ int eigrf_(a,n,m,ecv,work,ier)
   }
 return 0;
 }
-
-
-
-
-
-
-
-
-
 
 

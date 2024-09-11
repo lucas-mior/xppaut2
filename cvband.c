@@ -9,7 +9,6 @@
  *                                                                *
  ******************************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvband.h"
@@ -18,7 +17,6 @@
 #include "llnltyps.h"
 #include "vector.h"
 #include "llnlmath.h"
-
 
 /* Error Messages */
 
@@ -31,14 +29,12 @@
 #define MSG_BAD_SIZES_3  "Must have 0 <=  ml, mu <= N-1=%ld.\n\n"
 #define MSG_BAD_SIZES    MSG_BAD_SIZES_1 MSG_BAD_SIZES_2 MSG_BAD_SIZES_3
 
-
 /* Other Constants */
 
 #define MIN_INC_MULT RCONST(1000.0)
 #define ZERO         RCONST(0.0)
 #define ONE          RCONST(1.0)
 #define TWO          RCONST(2.0)
-
 
 /******************************************************************
  *                                                                *
@@ -73,7 +69,6 @@ typedef struct {
 
 } CVBandMemRec, *CVBandMem;
 
-
 /* CVBAND linit, lsetup, lsolve, and lfree routines */
 
 static int  CVBandInit(CVodeMem cv_mem, bool *setupNonNull);
@@ -86,7 +81,6 @@ static int  CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 			N_Vector fcur);
 
 static void CVBandFree(CVodeMem cv_mem);
-
 
 /*************** CVBandDQJac *****************************************
 
@@ -163,7 +157,6 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
   *nfePtr += ngroups;
 }
 
-
 /* Readability Replacements */
 
 #define N         (cv_mem->cv_N)
@@ -197,7 +190,6 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J,
 #define nstlj     (cvband_mem->b_nstlj)
 #define nje       (cvband_mem->b_nje)
 #define J_data    (cvband_mem->b_J_data)
-
 
 /*************** CVBand **********************************************
 

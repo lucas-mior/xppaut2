@@ -15,5 +15,4 @@
 #define XK_PgUp XK_Prior
 #define XK_PgDn XK_Next
 
-
 #endif

@@ -8,17 +8,14 @@
  *                                                                *
  ******************************************************************/
 
-
 #include <stdio.h>
 #include <math.h>
 #include "llnlmath.h"
 #include "llnltyps.h"
 
-
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
 #define TWO  RCONST(2.0)
-
 
 real UnitRoundoff(void)
 {
@@ -36,7 +33,6 @@ real UnitRoundoff(void)
   return(u);
 }
 
-
 real RPowerI(real base, int exponent)
 {
   int i, expt;
@@ -49,7 +45,6 @@ real RPowerI(real base, int exponent)
   return(prod);
 }
 
-
 real RPowerR(real base, real exponent)
 {
 
@@ -57,7 +52,6 @@ real RPowerR(real base, real exponent)
 
   return((real)pow((double)base,(double)exponent));
 }
-
 
 real RSqrt(real x)
 {

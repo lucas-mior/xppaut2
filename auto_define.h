@@ -66,21 +66,3 @@ struct {
 #define AUTO_A1 bllim_1.a1
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,10 +16,6 @@
 #include "ggets.h"
 #include "lunch-new.h"
 
-
-
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -87,9 +83,6 @@ double atof();
 
 double evaluate();
 
-
-
-
 /*   more general mixed boundary types   */
 
 void do_bc(y__0,t0,y__1,t1,f,n)
@@ -112,8 +105,6 @@ void do_bc(y__0,t0,y__1,t1,f,n)
   for(i=0;i<n;i++)f[i]=evaluate(my_bc[i].com);
 }
 
-
-
 void compile_bvp()
 {
  int i;
@@ -135,7 +126,6 @@ void compile_bvp()
  }
  BVP_FLAG=1;
 }
-
 
 void reset_bvp()
 {
@@ -221,8 +211,6 @@ double *ystart,*yend;
  int side,cycle,icol,color;
  char bob[50];
 
-
-
  if(set_up_sh_range()==0)return;
  swap_color(&color,0);
  parhi=shoot_range.phigh;
@@ -268,11 +256,7 @@ double *ystart,*yend;
   auto_freeze_it();
  swap_color(&color,1);
 
-
-
 }
-
-
 
 int set_up_periodic(ipar,ivar,sect,ishow)
 int *ipar,*ivar,*ishow;
@@ -313,9 +297,7 @@ double *sect;
 	
 		
 
-
 	
-
 
 void find_bvp_com(int com)
 {
@@ -409,8 +391,6 @@ void last_shot(int flag)
  */
 }
 
-
-
 int set_up_sh_range()
 {
 static char *n[]={"*2Range over","Steps","Start","End",
@@ -447,14 +427,11 @@ static char *n[]={"*2Range over","Steps","Start","End",
 
    shoot_range.side=atoi(values[5]);
 
-
  return(1);
  }
 
  return(0);
 }
-
-
 
 void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
  double *y,*yend,err,eps,sect;
@@ -482,7 +459,6 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
  for(i=0;i<n;i++)
    y0[i]=y[i];
  if(iper)  get_val(upar_names[ipar],&y0[n]);
-
 
 	
 
@@ -512,8 +488,6 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
   /*  plintf("%f \n",y[i]); */
  }
 
-
-
  do_bc(y0,t0,y1,t1,f,n);
  if(iper)f[n]=y1[ivar]-sect;
  error=0.0;
@@ -537,8 +511,6 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
    goto bye;
  }      /* Too many iterates   */
 
-
-
  /*   create the Jacobian matrix ...   */
 
  for(j=0;j<ntot;j++){
@@ -561,14 +533,11 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
 	goto bye;
       }
 
-
      do_bc(y0,t0,y,t1,fdev,n);
      if(iper)fdev[n]=y[ivar]-sect;
      y0[j]=ytemp;
      for(i=0;i<ntot;i++)jac[j+i*ntot]=(fdev[i]-f[i])/dev;
  }
-
-
 
 	
   sgefa(jac,ntot,ntot,ipvt,&info);
@@ -602,14 +571,5 @@ void bvshoot(y,yend,err,eps,maxit,iret,n,ishow,iper,ipar,ivar,sect)
    free(fdev);
    return;
 }
-
-
-
-
-
-
-
-
-
 
 

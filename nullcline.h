@@ -1,7 +1,6 @@
 #ifndef _nullcline_h_
 #define _nullcline_h_
 
-
 #include <stdio.h>
 
 typedef struct {
@@ -14,7 +13,6 @@ typedef struct nclines {
                 int n_ix,n_iy;
                 struct nclines *n,*p;
 }  NCLINES;
-
 
 void create_new_cline();
 void froz_cline_stuff_com(int i);

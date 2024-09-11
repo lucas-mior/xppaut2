@@ -4,8 +4,6 @@
 #include <X11/Xlib.h>
 #include "read_dir.h"
 
-
-
 #define FILESELNWIN 10
 typedef struct {
  int n,n0,here;

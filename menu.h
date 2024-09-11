@@ -3,7 +3,6 @@
 
 #include <X11/Xlib.h>
 
-
 void flash(int num);
 void add_menu(Window base, int j, int n, char **names, char *key, char **hint);
 void create_the_menus(Window base);

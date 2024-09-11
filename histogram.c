@@ -13,8 +13,6 @@
 #include "fftn.h"
 #include "parserslow.h"
 
-
-
 double evaluate();
 double ndrand48();
 
@@ -33,7 +31,6 @@ int spec_col=1,spec_wid=512,spec_win=2,spec_col2=1,spec_type=0;
 /* type =0 for PSD
    type =1 for crossspectrum
    type =2 for coherence
-
 
 */
 
@@ -60,8 +57,6 @@ extern char *no_hint[],*info_message;
 int twod_hist();
 void new_2dhist()
 {
-
-
 
 }
 int two_d_hist(int col1,int col2,int ndat,int n1,int n2,double xlo,double xhi,double ylo,double yhi)
@@ -169,7 +164,6 @@ for(i=0;i<length;i++)my_four[0][i]=(float)i/total;
 void post_process_stuff()
 {
 
-
   if(post_process==0)return;
     if(N_plist<1)plotlist=(int *)malloc(sizeof(int)*10);
     N_plist=2;
@@ -196,13 +190,7 @@ void post_process_stuff()
       return;
     }
 
-
-
-
-
-
 }
-
 
 int twod_hist()
 
@@ -244,11 +232,9 @@ int twod_hist()
 
   return(1);
 
-
 }
 int new_2d_hist()
 {
-
 
   if((NEQ<2)||(storind<3)){
     err_msg("Need more data and at least 3 columns");
@@ -389,14 +375,7 @@ void new_hist(nbins,zlo,zhi,col,col2,condition,which)
     return;
   }
 
-
 }
-
-
-
-
-
-
 
 void column_mean()
 {
@@ -473,8 +452,6 @@ void compute_power()
       size = win/2
 */
 
-
-
 int spectrum(float *data,int nr,int win,int w_type,float *pow)
 {
   /* assumes 50% overlap */
@@ -534,8 +511,6 @@ int spectrum(float *data,int nr,int win,int w_type,float *pow)
 
  return(1);
 }
-
-
 
 /*  here is what we do - I think it is what MatLab does as well
 
@@ -614,9 +589,6 @@ pxym=(float *)malloc(sizeof(float)*win);
      pxym[i]+=(ct[i]*st2[i]-ct2[i]*st[i]);
      pxx[i]+=(ct[i]*ct[i]+st[i]*st[i]);
      pyy[i]+=(ct2[i]*ct2[i]+st2[i]*st2[i]);
-
-
-
 
    }
  }
@@ -758,8 +730,6 @@ void compute_fourier()
     new_four(nmodes,spec_col);
 }
 
-
-
 void compute_correl()
 {
   int lag;
@@ -779,7 +749,6 @@ void compute_correl()
 
   hist_inf.nbins=2*(hist_inf.nbins/2)+1;
   lag=hist_inf.nbins/2;
-
 
   /* new_float("Low ",&hist_inf.xlo);
      new_float("Hi ",&hist_inf.xhi); */
@@ -875,8 +844,6 @@ void compute_hist()
 	   hist_inf.xhi,hist_inf.col,0,hist_inf.cond,0);
 }
 
-
-
 void sft(data,ct,st,nmodes,grid)
 int grid,nmodes;
 float *data,*ct,*st;
@@ -964,8 +931,6 @@ void fftxcorr(float *data1,float *data2,int length,int nlag,float *cr,int flag)
 
 }
 
-
-
 void fft(data,ct,st,nmodes,length)
      float *data,*ct,*st;
      int nmodes,length;
@@ -991,14 +956,5 @@ void fft(data,ct,st,nmodes,length)
    free(im);
    free(re);
 }
-
-
-
-
-
-
-
-
-
 
 

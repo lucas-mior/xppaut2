@@ -1,7 +1,6 @@
 /*      DOP853
 	------
 
-
 This code computes the numerical solution of a system of first order ordinary
 differential equations y'=f(x,y). It uses an explicit Runge-Kutta method of
 order 8(5,3) due to Dormand & Prince with step size control and dense output.
@@ -24,8 +23,6 @@ and x have been encapsulated in the module and are now accessible through
 dedicated functions; the variable names have been kept to maintain a kind
 of reading compatibility between the C and FORTRAN codes; adaptation made by
 J.Colinge (COLINGE@DIVSUN.UNIGE.CH).
-
-
 
 INPUT PARAMETERS
 ----------------
@@ -90,7 +87,6 @@ icont    An array containing the indexes of components for which dense
 
 licont   The number of cells in icont.
 
-
 Sophisticated setting of parameters
 -----------------------------------
 
@@ -130,14 +126,12 @@ nrdens   Number of components for which dense outpout is required, default 0.
 	 icont[1], ... icont[nrdens-1]. Note that if nrdens=0 or nrdens=n, no
 	 icont is needed, pass NULL.
 
-
 Memory requirements
 -------------------
 
 	 The function dop853 allocates dynamically 11*n doubles for the method
 	 stages, 8*nrdens doubles for the interpolation if dense output is
 	 performed and n unsigned if 0 < nrdens < n.
-
 
 OUTPUT PARAMETERS
 -----------------
@@ -153,7 +147,6 @@ dopri5 returns the following values
 	-3 : step size becomes too small,
 	-4 : the problem is probably stff (interrupted).
 
-
 Several functions provide access to different values :
 
 xRead   x value for which the solution has been computed (x=xend after
@@ -167,12 +160,10 @@ naccptRead  Number of accepted steps.
 nrejctRead  Number of rejected steps.
 nfcnRead    Number of function calls.
 
-
 */
 
 /*      DOPRI5
 	------
-
 
 This code computes the numerical solution of a system of first order ordinary
 differential equations y'=f(x,y). It uses an explicit Runge-Kutta method of
@@ -196,8 +187,6 @@ and x have been encapsulated in the module and are now accessible through
 dedicated functions, the variable names have been kept to maintain a kind
 of reading compatibility between the C and FORTRAN codes; adaptation made by
 J.Colinge (COLINGE@DIVSUN.UNIGE.CH).
-
-
 
 INPUT PARAMETERS
 ----------------
@@ -262,7 +251,6 @@ icont    An array containing the indexes of components for which dense
 
 licont   The number of cells in icont.
 
-
 Sophisticated setting of parameters
 -----------------------------------
 
@@ -303,15 +291,12 @@ nrdens   Number of components for which dense outpout is required, default 0.
 	 icont[1], ... icont[nrdens-1]. Note that if nrdens=0 or nrdens=n, no
 	 icont is needed, pass NULL.
 
-
 Memory requirements
 -------------------
 
 	 The function dopri5 allocates dynamically 8*n doubles for the method
 	 stages, 5*nrdens doubles for the interpolation if dense output is
 	 performed and n unsigned if 0 < nrdens < n.
-
-
 
 OUTPUT PARAMETERS
 -----------------
@@ -327,7 +312,6 @@ dopri5 returns the following values
 	-3 : step size becomes too small,
 	-4 : the problem is probably stff (interrupted).
 
-
 Several functions provide access to different values :
 
 xRead   x value for which the solution has been computed (x=xend after
@@ -341,9 +325,7 @@ naccptRead  Number of accepted steps.
 nrejctRead  Number of rejected steps.
 nfcnRead    Number of function calls.
 
-
 */
-
 
 #include "my_rhs.h"
 #include <stdio.h>
@@ -351,7 +333,6 @@ nfcnRead    Number of function calls.
 
 typedef void (*FcnEqDiff)(unsigned n, double x, double *y, double *f);
 typedef void (*SolTrait)(long nr, double xold, double x, double* y, unsigned n, int* irtrn);
-
 
 extern int dop853
  (unsigned n,      /* dimension of the system <= UINT_MAX-1*/
@@ -386,9 +367,6 @@ extern double contd8
   double x         /* approximation at x */
  );
 
-
-
-
 extern int dopri5
  (unsigned n,      /* dimension of the system <= UINT_MAX-1*/
   FcnEqDiff fcn,   /* function computing the value of f(x,y) */
@@ -422,10 +400,6 @@ extern double contd5
   double x         /* approximation at x */
  );
 
-
-
-
-
 void dprhs(unsigned n, double t, double *y, double *f);
 void dp_err(int k);
 int dp(int *istart, double *y, double *t, int n, double tout, double *tol, double *atol, int flag, int *kflag);
@@ -441,27 +415,11 @@ double contd8(unsigned ii, double x);
 int dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double *rtoler, double *atoler, int itoler, SolTrait solout, int iout, FILE *fileout, double uround, double safe, double fac1, double fac2, double beta, double hmax, double h, long nmax, int meth, long nstiff, unsigned nrdens, unsigned *icont, unsigned licont, double *work);
 double contd5(unsigned ii, double x);
 
-
-
-
 extern long nfcnRead (void);   /* encapsulation of statistical data */
 extern long nstepRead (void);
 extern long naccptRead (void);
 extern long nrejctRead (void);
 extern double hRead (void);
 extern double xRead (void);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

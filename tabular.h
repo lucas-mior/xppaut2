@@ -2,7 +2,6 @@
 #ifndef _tabular_h_
 #define _tabular_h_
 
-
 /* tabular.c */
 void set_auto_eval_flags(int f);
 void set_table_name(char *name, int index);
@@ -18,7 +17,6 @@ int eval_fun_table(int n, double xlo, double xhi, char *formula, double *y);
 int create_fun_table(int npts, double xlo, double xhi, char *formula, int index);
 int load_table(char *filename, int index);
 int get_lookup_len(int i);
-
 
 #endif
 

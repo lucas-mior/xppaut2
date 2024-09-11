@@ -103,16 +103,12 @@ extern int use_ani_file;
 extern char anifile[XPP_MAX_NAME];
 int select_intern_sets=0;
 
-
-
 extern int Nintern_set;
 int Nintern_2_use=0;
-
 
 SET_NAME *sets2use,*setsNOTuse;
 
 extern INTERN_SET intern_set[MAX_INTERN_SET];
-
 
 /*extern char batchout[256];
 */
@@ -192,7 +188,6 @@ VOCAB my_cmd[NCMD]=
   {"-equil",6}
  };
 
-
 int is_set_name(set,nam)
 SET_NAME *set;
 char * nam;
@@ -262,7 +257,6 @@ char *nam;
 	
 	return(set);
 }
-
 
 void do_comline(argc,argv)
 char **argv;
@@ -449,7 +443,6 @@ int argc;
  }
 }
 
-
 int if_needed_load_ext_options()
 {
   FILE *fp;
@@ -509,7 +502,6 @@ int if_needed_select_sets()
 	return 1;
 }
 
-
 int if_needed_load_set()
 {
   FILE *fp;
@@ -528,8 +520,6 @@ int if_needed_load_set()
   return 1;
 }
 
-
-
 int if_needed_load_par()
 {
 
@@ -541,7 +531,6 @@ int if_needed_load_par()
   io_parameter_file(parfilename,1);
   return 1;
 }
-
 
 int if_needed_load_ic()
 {
@@ -746,10 +735,5 @@ int parse_it(com)
   }
   return 0;
 }
-
-
-
-
-
 
 

@@ -21,8 +21,6 @@
 #include "calc.h"
 #include "browse.h"
 
-
-
 #define ESCAPE 27
 char *info_message;
 extern int XPPBatch;
@@ -112,17 +110,6 @@ void chk_xor()
    else
     XSetFunction(display,gc,GXcopy);
  }
-
-
-
-
-
-
-
-
-
-
-
 
 void set_gcurs( y,  x)
 int y,x;
@@ -217,8 +204,6 @@ int *com;
  /*w=ev.xbutton.window;*/
   /* XSetInputFocus(display,w,RevertToParent,CurrentTime); */
 
-
-
  /*i=ev.xbutton.x;
  j=ev.xbutton.y;
  */
@@ -232,7 +217,6 @@ int *com;
  check_draw_button(ev);
  return(0);
 
-
 }
 
 void gpos_prn(string,row,col)
@@ -244,8 +228,6 @@ char *string;
  CURS_X=strlen(string);
 }
 
-
-
 void put_command(string)
 char *string;
 {
@@ -253,7 +235,6 @@ char *string;
  Ftext(0,0,string,command_pop);
  CURS_X=strlen(string);
 }
-
 
 int get_key_press(ev)
     XEvent *ev;
@@ -292,12 +273,6 @@ int get_key_press(ev)
          return(BADKEY);
          }
     }
-
-
-
-
-
-
 
 void cput_text()
  {
@@ -375,8 +350,6 @@ int get_mouse_xy(x,y,w)
 	return(0);
  }
 
-
-
 void Ftext(x,y,string,o)
 int x,y;
  Window o;
@@ -386,16 +359,12 @@ char *string;
    XDrawString(display,o,gc,x,y+CURY_OFF,string,strlen(string));
 }
 
-
-
-
 void bar(x,y,x2,y2,w)
 int x,y,x2,y2;
 Window w;
 {
  XFillRectangle(display,w,gc,x,y,x2-x,y2-y);
 }
-
 
 void rectangle(x,y,x2,y2,w)
 int x,y,x2,y2;
@@ -429,7 +398,6 @@ Window w;
  XDrawArc(display,w,gc,x-radius,y-radius,2*radius,2*radius,0,360*64);
 }
 
-
 void xline(x0,y0,x1,y1,w)
 int x0,y0,x1,y1;
 Window w;
@@ -447,8 +415,6 @@ double *value;
    sprintf(tvalue,"%.16g",*value);
    done=new_string(name,tvalue);
    if(done==0||strlen(tvalue)==0)return -1;
-
-
 
     if(tvalue[0]=='%')
     {
@@ -482,9 +448,6 @@ double *v;
    *value=atoi(svalue);
    return(0);
  }
-
-
-
 
 void display_command(name,value,pos,col)
 char *name,*value;
@@ -629,9 +592,6 @@ void edit_window(w,pos,value,col,done,ch)
 
  }
 
-
-
-
 void do_backspace(pos,value,col,w)
  int *pos,*col;
  char *value;
@@ -679,7 +639,6 @@ void edit_command_string(ev,name,value,done,pos,col)
 		} /* end event cases */
   }
 
-
 int new_string(name,value)
 char *name;
 char *value;
@@ -702,23 +661,5 @@ char *value;
 	strcpy(value,old_value);
 	return(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

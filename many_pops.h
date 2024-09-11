@@ -60,5 +60,4 @@ void canvas_xy(char *buf);
 void check_draw_button(XEvent ev);
 void set_active_windows();
 
-
 #endif

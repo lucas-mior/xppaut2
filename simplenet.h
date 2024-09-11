@@ -18,5 +18,4 @@ void fft_conv(int it, int n, double *values, double *yy, double *fftr, double *f
 int gilparse(char *s, int *ind, int *nn);
 int g_namelist(char *s, char *root, int *flag, int *i1, int *i2);
 
-
 #endif

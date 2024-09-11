@@ -1,11 +1,9 @@
 #ifndef _edit_rhs_h_
 #define _edit_rhs_h_
 
-
 #include <X11/Xlib.h>
 #include "xpplim.h"
 #include <stdio.h>
-
 
 #define NEQMAXFOREDIT 20
 #define MAXARG 20
@@ -19,14 +17,11 @@
 
 #define MAXUFUN 50
 
-
-
 /*typedef struct {
   int narg;
   char args[MAXARG][11];
 } UFUN_ARG;
 */
-
 
 /*  This is a edit box widget which handles a list of
 	editable strings
@@ -40,7 +35,6 @@ typedef struct {
 		     rval[MAX_N_EBOX][MAX_LEN_EBOX];
 		int n,hot;
 		} EDIT_BOX;
-
 
 void reset_ebox(EDIT_BOX *sb, int *pos, int *col);
 int do_edit_box(int n, char *title, char **names, char **values);

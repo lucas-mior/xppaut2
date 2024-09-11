@@ -17,7 +17,6 @@ extern int xor_flag,xorfix;
 extern GC gc,gc_graph;
 extern unsigned int MyBackColor,MyForeColor,MyMainWinColor,MyDrawWinColor,GrFore,GrBack;
 
-
 int rubber(x1,y1,x2,y2,w,f)
  int *x1,*y1,*x2,*y2,f;
  Window w;
@@ -107,7 +106,6 @@ ButtonReleaseMask|ButtonMotionMask);
   return(1);
  }
 
-
 void rbox(i1,j1,i2,j2,w,f)
 int i1,j1,i2,j2,f;
 Window w;
@@ -121,9 +119,5 @@ Window w;
  if(y1>y2){y1=j2;y2=j1;}
  rectangle(x1,y1,x2,y2,w);
 }
-
-
-
-
 
 

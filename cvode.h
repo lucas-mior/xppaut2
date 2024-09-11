@@ -8,10 +8,8 @@
  *                                                                *
  ******************************************************************/
 
-
 #ifndef _cvode_h
 #define _cvode_h
-
 
 #include <stdio.h>
 #include "llnltyps.h"
@@ -28,7 +26,6 @@
  *  where t0, y0 in R^N, and f: R x R^N -> R^N are given.         *
  *                                                                *
  ******************************************************************/
-
 
 /******************************************************************
  *                                                                *
@@ -79,7 +76,6 @@ enum { SS, SV };               /* itol */
 
 enum { NORMAL, ONE_STEP };     /* itask */
 
-
 /******************************************************************
  *                                                                *
  * Type : RhsFn                                                   *
@@ -101,7 +97,6 @@ enum { NORMAL, ONE_STEP };     /* itask */
 
 typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
                       void *f_data);
-
 
 /******************************************************************
  *                                                                *
@@ -183,12 +178,10 @@ typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
  *                                                                *
  ******************************************************************/
 
-
 void *CVodeMalloc(integer N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
                   int itol, real *reltol, void *abstol, void *f_data,
                   FILE *errfp, bool optIn,   int iopt[], real ropt[],
                   void *machEnv);
-
 
 /******************************************************************
  *                                                                *
@@ -262,16 +255,13 @@ void *CVodeMalloc(integer N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
  *                                                                *
  ******************************************************************/
 
-
 int CVode(void *cvode_mem, real tout, N_Vector yout, real *t, int itask);
-
 
 /* CVode return values */
 
 enum { SUCCESS=0, CVODE_NO_MEM=-1, ILL_INPUT=-2, TOO_MUCH_WORK=-3,
        TOO_MUCH_ACC=-4, ERR_FAILURE=-5, CONV_FAILURE=-6,
        SETUP_FAILURE=-7, SOLVE_FAILURE=-8 };
-
 
 /******************************************************************
  *                                                                *
@@ -312,14 +302,11 @@ enum { SUCCESS=0, CVODE_NO_MEM=-1, ILL_INPUT=-2, TOO_MUCH_WORK=-3,
  *                                                                *
  ******************************************************************/
 
-
 int CVodeDky(void *cvode_mem, real t, int k, N_Vector dky);
-
 
 /* CVodeDky return values */
 
 enum { OKAY=0, BAD_K=-1, BAD_T=-2, BAD_DKY=-3, DKY_NO_MEM=-4 };
-
 
 /******************************************************************
  *                                                                *
@@ -332,7 +319,6 @@ enum { OKAY=0, BAD_K=-1, BAD_T=-2, BAD_DKY=-3, DKY_NO_MEM=-4 };
  ******************************************************************/
 
 void CVodeFree(void *cvode_mem);
-
 
 /******************************************************************
  *                                                                *
@@ -421,7 +407,6 @@ void CVodeFree(void *cvode_mem);
 
 #define OPT_SIZE 40
 
-
 /* iopt and ropt offsets                                          *
  * The constants CVODE_IOPT_SIZE and CVODE_ROPT_SIZE are equal to *
  * the number of integer and real optional inputs and outputs     *
@@ -442,7 +427,6 @@ enum { MAXORD, MXSTEP, MXHNIL,
 enum { H0, HMAX, HMIN,
        HU, HCUR, TCUR, TOLSF };
 
-
 /* Basic CVODE constants */
 
 #define ADAMS_Q_MAX 12            /* max value of q for lmm == ADAMS      */
@@ -450,7 +434,6 @@ enum { H0, HMAX, HMIN,
 #define Q_MAX        ADAMS_Q_MAX  /* max value of q for either lmm        */
 #define L_MAX        (Q_MAX+1)    /* max value of L for either lmm        */
 #define NUM_TESTS    5            /* number of error test quantities      */
-
 
 /******************************************************************
  *                                                                *
@@ -603,7 +586,6 @@ typedef struct CVodeMemRec {
 
 } *CVodeMem;
 
-
 /******************************************************************
  *                                                                *
  * Communication between cvode.c and a CVODE Linear Solver        *
@@ -658,7 +640,6 @@ typedef struct CVodeMemRec {
 #define NO_FAILURES 0
 #define FAIL_BAD_J  1
 #define FAIL_OTHER  2
-
 
 /*******************************************************************
  *                                                                 *
@@ -751,6 +732,5 @@ typedef struct CVodeMemRec {
  * completed and the linear solver is no  er needed.            *
  *                                                                 *
  *******************************************************************/
-
 
 #endif

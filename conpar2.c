@@ -24,7 +24,6 @@ static double time_end(double start) {
 }
 #endif
 
-
 /*This is the process function.  It is meant to be called either
   on a SMP using shared memory, or wrapped inside another
   routine for message passing*/
@@ -51,8 +50,6 @@ void *conpar_process(void * arg)
   doublereal *c, *d;
   integer *irf, *icf;
   integer loop_start,loop_end;
-
-
 
   nov = ((conpar_parallel_arglist *)arg)->nov;
   nra = ((conpar_parallel_arglist *)arg)->nra;
@@ -220,8 +217,6 @@ void *conpar_process(void * arg)
   return NULL;
 }
 
-
-
 int
 conpar_default_wrapper(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, integer *ncb, doublereal *b, integer *nbc, integer *nrc, doublereal *c, doublereal *d, integer *irf, integer *icf)
 
@@ -244,7 +239,6 @@ conpar_default_wrapper(integer *nov, integer *na, integer *nra, integer *nca, do
     conpar_process(&data);
     return 0;
 }
-
 
 int
 conpar(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, integer *ncb, doublereal *b, integer *nbc, integer *nrc, doublereal *c, doublereal *d, integer *irf, integer *icf)
@@ -284,11 +278,5 @@ conpar(integer *nov, integer *na, integer *nra, integer *nca, doublereal *a, int
   }
   return 0;
 }
-
-
-
-
-
-
 
 

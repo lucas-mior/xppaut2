@@ -2,7 +2,6 @@
 #ifndef _my_svg_h_
 #define _my_svg_h_
 
-
 /* my_ps.c */
 int svg_init(char *filename, int color);
 void svg_stroke(void);
@@ -24,6 +23,5 @@ void svg_rel(int x, int y);
 void special_put_text_svg(int x, int y, char *str, int size);
 void fancy_svg_text(int x, int y, char *str, int size, int font);
 void svg_text(int x, int y, char *str);
-
 
 #endif

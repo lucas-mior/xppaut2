@@ -9,7 +9,6 @@
 #include "integrate.h"
 #include "parserslow.h"
 
-
 #include <stdlib.h>
 #include <string.h>
 /*
@@ -25,7 +24,6 @@
 #include <math.h>
 
 #include "xpplim.h"
-
 
 #define MAX_LEN_SBOX 25
 #define READEM 1
@@ -44,8 +42,6 @@ float **my_adj;
 int adj_len;
 float **my_h;
 float *my_liap[2];
-
-
 
 extern char *info_message;
 struct {
@@ -99,7 +95,6 @@ void dump_transpose_info(fp,f)
   io_int(&my_trans.colskip,fp,f,"col skip");
   io_int(&my_trans.row0,fp,f,"row 0");
 
-
 }
 
 int do_transpose()
@@ -142,7 +137,6 @@ int do_transpose()
  }
  return 0;
 
-
 }
 
 int create_transpose()
@@ -155,7 +149,6 @@ int create_transpose()
   for(i=my_trans.nrow+1;i<=NEQ;i++)my_trans.data[i]=storage[i];
   for(j=0;j<my_trans.ncol;j++)
     my_trans.data[0][j]=j+1;
-
 
   for(i=0;i<my_trans.ncol;i++){
     incol=my_trans.col0-1+i*my_trans.colskip;
@@ -187,7 +180,6 @@ void alloc_h_stuff()
    strcpy(coup_string[i],"0");
  }
 }
-
 
 void data_back()
 {
@@ -266,7 +258,6 @@ static char key[]="nmaohpr";
  }
 }
 
-
 void adjoint_parameters()
 {
   new_int("Maximum iterates :",&ADJ_MAXIT);
@@ -328,7 +319,6 @@ void dump_h_stuff(fp,f)
    io_string(coup_string[i],79,fp,f);
 
 }
-
 
 int make_h(orb,adj,h,nt,dt,node,silent)
 float **orb,**adj,**h;
@@ -393,12 +383,6 @@ int node,nt,silent;
 
 }
 
-
-
-
-
-
-
 void new_adjoint()
 {
  int i,n=NODE +1;
@@ -421,8 +405,6 @@ void new_adjoint()
 /* this computes the periodic orbit and stores it in
    the usual place  given initial data and period */
 
-
-
 void test_test()
 {
   double x[2];
@@ -442,16 +424,12 @@ void compute_one_orbit(double *ic,double per)
   TEND=oldtotal;
 }
 
-
-
-
 /*    ADJOINT ROUTINE
  *
  *
       This assumes that you have already computed the periodic orbit
 	and have stored in in an array **orbit
       including time in the first column
-
 
       The righthand sides of the equations are
 	rhs(t,y,yp,n)
@@ -606,8 +584,6 @@ int adjoint(orbit,adjnt,nt,dt,eps,minerr,maxit,node)
    return(rval);
  }
 
-
-
 void eval_rhs(jac,k1,k2,t,y,yp,node)
      double t,**jac,*y,*yp;
      int node,k1,k2;
@@ -691,7 +667,6 @@ return(1);
 }
 		
 
-
 		
 /* this is some code for the maximal liapunov exponent
    I assume you have computed an orbit and it is in storage
@@ -747,7 +722,6 @@ void do_this_liaprun(int i,double p)
  LIAP_I++;
 }
 
-
 void norm_vec(v,mu,n) /* returns the length of the vector and the unit vector */
      double *v,*mu;
      int n;
@@ -763,7 +737,6 @@ void norm_vec(v,mu,n) /* returns the length of the vector and the unit vector */
   *mu=sum;
   return;
 }
-
 
 int hrw_liapunov(double *liap,int batch,double eps)
 {
@@ -817,8 +790,5 @@ int hrw_liapunov(double *liap,int batch,double eps)
 
  return 1; /*  success !! */
 }
-
-
-
 
 

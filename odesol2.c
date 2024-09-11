@@ -54,11 +54,6 @@ int nt,neq,*istart;
     return(0);
 }
 
-
-
-
-
-
 /*   DISCRETE    */
 
 int discrete(y,tim,dt,nt,neq,istart,work)
@@ -81,7 +76,6 @@ int i;
       }
     return(0);
 }
-
 
 /* Backward Euler  */
 
@@ -187,9 +181,6 @@ void one_step_discrete(y,dt,yp,neq,t)
 
 }
 
-
-
-
 void one_step_symp(y,h,f,n,t)
      double h,*t,*y,*f;
      int n;
@@ -205,11 +196,6 @@ void one_step_symp(y,h,f,n,t)
   *t+=h;
 }
 
-
-
-
-
-
 void one_step_euler(y,dt,yp,neq,t)
      double dt,*t;
      double *y,*yp;
@@ -217,7 +203,6 @@ void one_step_euler(y,dt,yp,neq,t)
 {
 
  int j;
-
 
    set_wieners(dt,y,*t);
    rhs(*t,y,yp,neq);
@@ -273,7 +258,6 @@ void one_step_heun(y,dt,yval,neq,tim)
 }
 
 /*  Euler  */
-
 
 int euler(y,tim,dt,nt,neq,istart,work)
 double *y,*tim,dt,*work;
@@ -510,7 +494,6 @@ int *istart,int n,double *work,int *ierr)
  ynew=dfdt+n;
  dfdy=ynew+n;
 
-
  if(t0>tfinal)tdir=-1;
  hmax=fabs(tfinal-t);
  if(*istart==1)
@@ -653,9 +636,6 @@ void get_the_jac(double t,double *y,double *yp,
   }
 }
 
-
-
-
 void get_band_jac(a,y,t,ypnew,ypold,n,eps,scal)
      double *a,*y,*ypnew,*ypold,eps,t,scal;
      int n;
@@ -684,7 +664,6 @@ void get_band_jac(a,y,t,ypnew,ypold,n,eps,scal)
 
 }
 
-
 int bandfac(a,ml,mr,n)   /*   factors the matrix    */
      int ml,mr,n;
      double *a;
@@ -710,8 +689,6 @@ int bandfac(a,ml,mr,n)   /*   factors the matrix    */
         a[ri0-i]=-al;
     }
 
-
-
   }
 	return(0);
 }
@@ -736,18 +713,5 @@ void bandsol(a,b,ml,mr,n)  /* requires that the matrix be factored   */
       b[row]=b[row]-a[r0+k]*b[row+k];
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

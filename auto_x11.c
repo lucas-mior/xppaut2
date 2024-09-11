@@ -29,7 +29,6 @@
 
 #include "pop_list.h"
 
-
 #define RUBBOX 0
 #define RUBLINE 1
 
@@ -40,7 +39,6 @@
 #define BAD 0
 #define FINE 13
 
-
 #define STD_WID 460	  /* golden mean  */
 #define STD_HGT 284
 #define MAX_LEN_SBOX 25
@@ -50,8 +48,6 @@
 #define SBW XSetWindowBorderWidth(display,w,1)
 
 #define MAX_AUT_PER 10
-
-
 
 #define MYMASK  (ButtonPressMask|KeyPressMask|ExposureMask|StructureNotifyMask	|LeaveWindowMask|EnterWindowMask| ButtonMotionMask)
 
@@ -99,22 +95,16 @@ extern double constants[];
 
 extern int DONT_XORCross;
 
-
 AUTOWIN AutoW;
-
 
 extern BIFUR Auto;
 
-
 extern GRABPT grabpt;
-
 
 extern DIAGRAM *bifd;
 DIAGRAM *CUR_DIAGRAM;
 
-
 extern int NBifs;
-
 
 /* ****************************************************
    Code here
@@ -126,13 +116,11 @@ void ALINE(a,b,c,d)
   XDrawLine(display,AutoW.canvas,small_gc,(a),(b),(c),(d));
 }
 
-
 void DLINE(a,b,c,d)
      double a,b,c,d;
 {
   ALINE(IXVal(a),IYVal(b),IXVal(c),IYVal(d));
 }
-
 
 void ATEXT(a,b,c)
      int a,b;
@@ -141,16 +129,12 @@ void ATEXT(a,b,c)
   XDrawString(display,AutoW.canvas,small_gc,(a),(b),(c),strlen(c));
 }
 
-
-
 void clr_stab()
 {
   int r=Auto.st_wid/4;
   XClearWindow(display,AutoW.stab);
   XDrawArc(display,AutoW.stab,small_gc,r,r,2*r,2*r,0,360*64);
 }
-
-
 
 void auto_stab_line(int x,int y,int xp, int yp)
 {
@@ -162,7 +146,6 @@ void clear_auto_plot()
   XClearWindow(display,AutoW.canvas);
   redraw_auto_menus();
 }
-
 
 void redraw_auto_menus()
 {
@@ -178,7 +161,6 @@ void redraw_auto_menus()
   display_auto(AutoW.file);
   display_auto(AutoW.abort);
 }
-
 
 int query_special(char* title,char *nsymb)
 {
@@ -220,7 +202,6 @@ int query_special(char* title,char *nsymb)
 	return(status);
 }
 
-
 void do_auto_range()
 {
   double t=TEND;
@@ -234,7 +215,6 @@ void  auto_get_info( int *n, char *pname )
 {
   int i1,i2,ibr;
   DIAGRAM *d,*dnew;
-
 
   if(mark_flag==2){
     i1=abs(mark_ipts);
@@ -304,7 +284,6 @@ void find_point(int ibr, int pt)
        d=dnew;
      }
 }
-
 
 void traverse_diagram()
 {
@@ -621,9 +600,6 @@ void traverse_diagram()
   redraw_ics();
 }
 
-
-
-
 void clear_auto_info()
 {
  XClearWindow(display,AutoW.info);
@@ -666,11 +642,7 @@ int byeauto_(iflag)
 
  return(0);
 
-
 }
-
-
-
 
 void Circle(x,y,r)
      int x,y,r;
@@ -678,20 +650,17 @@ void Circle(x,y,r)
   XDrawArc(display,AutoW.canvas,small_gc,x-r,y-r,r<<1,r<<1,0,360*64);
 }
 
-
 void autocol(int col)
 {
   set_scolor(col);
 
 }
 
-
 void autobw()
 {
 XSetBackground(display,small_gc,MyBackColor);
 XSetForeground(display,small_gc,MyForeColor);
 }
-
 
 int auto_rubber(i1,j1,i2,j2,flag)
      int *i1,*i2,*j1,*j2,flag;
@@ -722,8 +691,6 @@ void MarkAuto(x,y)
   ALINE(x-8,y-8,x+8,y+8);
   ALINE(x+8,y-8,x-8,y+8);
   LineWidth(1);
-
-
 
 }
 void XORCross(x,y)
@@ -756,7 +723,6 @@ void XORCross(x,y)
   XFlush(display);
 }
 
-
 void FillCircle(x,y,r)
      int x,y;
      int r;
@@ -768,7 +734,6 @@ void FillCircle(x,y,r)
     XFillArc(display, AutoW.canvas, small_gc, x - r2, y - r2, wh, wh, 0, 360*64);
 
 }
-
 
 void auto_update_view(float xlo,float xhi, float ylo, float yhi)
 {
@@ -855,11 +820,6 @@ void auto_scroll_window()
   }
 }
 
-
-
-
-
-
 void LineWidth(wid)
      int wid;
 {
@@ -868,7 +828,6 @@ void LineWidth(wid)
  int js=JoinRound;
  XSetLineAttributes(display,small_gc,wid,ls,cs,js);
 }
-
 
 void auto_motion(ev)
      XEvent ev;
@@ -924,7 +883,6 @@ Window w;
   }
 }
 
-
 Window lil_button(root,x,y,name)
      Window root;
      char *name;
@@ -944,7 +902,6 @@ void aw()
   XFlush(display);
   sleep(5);
 }
-
 
 void make_auto(wname,iname)  /* this makes the auto window  */
      char *wname,*iname;
@@ -998,7 +955,6 @@ void make_auto(wname,iname)  /* this makes the auto window  */
  XSetWindowBackground(display,AutoW.canvas,MyDrawWinColor);
    XSelectInput(display,AutoW.canvas,MYMASK);
 
-
  x=DCURX;
  y=DCURY+STD_HGT_var+ymargin-8*DCURX;
  AutoW.stab=make_plain_window(base,x,y,12*DCURX,12*DCURX,2);
@@ -1038,10 +994,7 @@ void make_auto(wname,iname)  /* this makes the auto window  */
 
  draw_bif_axes();
 
-
 }
-
-
 
 void resize_auto_window(XEvent ev)
 {
@@ -1079,7 +1032,6 @@ void resize_auto_window(XEvent ev)
      XMoveResizeWindow(display,AutoW.hint,xloc,yloc+chgt+addhgt+10,wid,DCURY+2);
       }
 
-
     int ix,iy;
 
     if(NBifs<2)return;
@@ -1087,9 +1039,6 @@ void resize_auto_window(XEvent ev)
 
   }
 }
-
-
-
 
 void a_msg(i,v)
      int i;
@@ -1108,7 +1057,6 @@ void clear_msg()
 
 /*  Auto event handlers   */
 
-
 void auto_enter(w,v)
      Window w;
      int v;
@@ -1126,7 +1074,6 @@ void auto_enter(w,v)
   if(w==AutoW.file){ XSetWindowBorderWidth(display,w,v); a_msg(8,v);return;}
 }
 
-
 void auto_button(ev)
      XEvent ev;
 {
@@ -1143,7 +1090,6 @@ void auto_button(ev)
   if(w==AutoW.kill){SBW; auto_kill(); return;}
   if(w==AutoW.file){SBW;auto_file(); return;}
 }
-
 
 void auto_kill()
 {
@@ -1188,17 +1134,14 @@ void auto_keypress(ev,used)
    if(ks=='P'||ks=='p'){ auto_params(); return;}
    if(ks=='F'||ks=='f'){ auto_file(); return;}
 
-
    if(ks==ESC){
 			XSetInputFocus(display,command_pop,
 				       RevertToParent,CurrentTime);
 		   	return;
 		      }
 
-
  }
 
 }
-
 
 

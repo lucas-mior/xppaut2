@@ -58,7 +58,6 @@ static void cvf(n,t,y,ydot,fdata)
 
 }
 
-
 void cvode_err_msg(kflag)
      int kflag;
 {
@@ -90,7 +89,6 @@ void cvode_err_msg(kflag)
   if(strlen(s)>0)
     err_msg(s);
 }
-
 
 int cvode(command,y,t,n,tout,kflag,atol,rtol)
 /* command =0 continue, 1 is start 2 finish */
@@ -147,15 +145,5 @@ int ccvode(command,y,t,n,tout,kflag,atol,rtol)
   for(i=0;i<n;i++)y[i]=ycv->data[i];
   return(0);
 }
-
-
-
-
-
-
-
-
-
-
 
 

@@ -4,7 +4,6 @@
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-
 typedef struct {
   Window base,wclose,wedit,wprint,wstyle,wscale,wmax,wmin,wplot,wredraw,wtime,wgif,wrange,wfit;
   int index0,indexn,alive,nacross,ndown,plotdef;

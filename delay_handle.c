@@ -30,7 +30,6 @@ extern char delay_string[MAXODE][80];
 extern double variables[];
 extern int NVAR;
 
-
 double delay_stab_eval(delay,var)
 /* this returns appropriate values for delay jacobian */
      double delay;
@@ -58,13 +57,10 @@ double delay_stab_eval(delay,var)
    return variable_shift[0][var-1];
 }
 
-
-
 int alloc_delay(big)
 double big;
 {
  int n,i;
-
 
  n=(int)(big/fabs(DELTA_T))+1;
 
@@ -191,7 +187,6 @@ double tau;
   if(i3<0)i3+=MaxDelay;
   if(i0<0)i0+=MaxDelay;
 
-
   ya[1]=DelayWork[in+(nodes )*i1];
   ya[2]=DelayWork[in+(nodes )*i2];
    ya[0]=DelayWork[in+(nodes )*i0];
@@ -251,19 +246,5 @@ double big;
 		
 	
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

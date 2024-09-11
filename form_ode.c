@@ -7,8 +7,6 @@
 #include <unistd.h>
 #include "flags.h"
 
-
-
 #include "main.h"
 #include "ggets.h"
 #include "load_eqn.h"
@@ -19,7 +17,6 @@
 #include "simplenet.h"
 #include "integrate.h"
 #include "newpars.h"
-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -88,7 +85,6 @@ int n_comments=0;
  extern char delay_string[MAXODE][80];
 BC_STRUCT my_bc[MAXODE];
 
-
 double default_ic[MAXODE];
 extern double last_ic[];
 int NODE,NUPAR,NLINES;
@@ -128,10 +124,8 @@ char aux_names[MAXODE][12];
 
 int NUMODES=0,NUMFIX=0,NUMPARAM=0,NUMMARK=0,NUMAUX=0,NUMVOLT=0,NUMSOL=0;
 
-
 FIXINFO fixinfo[MAXODE];
 extern char cur_dir[];
-
 
 extern FILEINFO my_ff;
 
@@ -325,7 +319,6 @@ int get_a_filename(char *filename,char *wild)
   return(0);
 }
 
-
 void list_em(char *wild)
 {
   get_directory(cur_dir);
@@ -375,10 +368,6 @@ get_dir()
  }
 
  */
-
-
-
-
 
 int get_eqn(fptr)
      FILE *fptr;
@@ -495,7 +484,6 @@ int get_eqn(fptr)
       sprintf(uvar_names[i],"AUX%d",i-NODE-NMarkov+1);
     }
 
-
   for(i=0;i<NEQ;i++)
       {
 	strupr(uvar_names[i]);
@@ -564,7 +552,6 @@ write_eqn()
     }
     fclose(fptr);
    }
-
 
   create_eqn()
   {
@@ -817,9 +804,6 @@ int compiler(bob,fptr)
       if(ConvertStyle)
 	fprintf(convertf,"bndry %s\n",my_bc[BVP_N].string);
 
-
-
-
       plintf("|%s| |%s| \n",my_bc[BVP_N].name,my_bc[BVP_N].string);
       BVP_N++;
       break;
@@ -970,7 +954,6 @@ int compiler(bob,fptr)
 	  find_ker(formula,&alt);
 	
 	}
-
 
       if(NODE>=(IN_VARS+FIX_VAR))
 	{
@@ -1174,8 +1157,6 @@ void clrscr()
  system("clear");
  }
 
-
-
 int getuch()
 {
   int ch;
@@ -1184,16 +1165,12 @@ int getuch()
   return(ch);
 }
 
-
 /***   remove this for full PP   ***/
 
 int getchi()
  {
    return(getchar());
  }
-
-
-
 
 /*   This is the new improved parser for input files.
      It is much more natural.  The format is as follows:
@@ -1231,12 +1208,6 @@ u = expression>---  fixed  (replaces f o)
 u(0) = value >---  initial data (replaces v, init is also OK )
 
 */
-
-
-
-
-
-
 
 /*
    XPP INTERNALS DEMAND THE FOLLOWING ORDER CONVENTION:
@@ -1292,7 +1263,6 @@ int if_include_file(char *old,char *nf)
   }
   return 0;
 
-
 }
 
 int if_end_include(old)
@@ -1335,8 +1305,6 @@ void count_object(int type)
     break;
 
   }
-
-
 
 }
 
@@ -1461,14 +1429,10 @@ int nnn;
             break;
        }
 
-
-
-
    while(1){
       for(ns=0;ns<nstrings;ns++){
       strcpy(new,strings[ns]);
       subsk(new,big,jj,is_array);
-
 
    done=parse_a_string(big,&v);
 
@@ -1546,8 +1510,6 @@ int nnn;
        strcpy(v.rhs,"...many states..");
      }
 
-
-
         /* take care of special form for SOLVE-VARIABLE */
           if(v.type==COMMAND && v.lhs[0]=='S' && v.lhs[1]=='O'){
            if(find_char(v.rhs,"=",0,&i1)<0){
@@ -1582,7 +1544,6 @@ int nnn;
        strcpy(big,v.rhs);
        strpiece(v.rhs,big,i1+1,strlen(big));
        v.type=VECTOR;
-
 
      }
         /* take care of special form for special */
@@ -1638,7 +1599,6 @@ int nnn;
       v.type=TABLE;
     }
 
-
     /* printf("v.lhs=%s v.rhs=%s v.type=%d v.args=%s\n",v.lhs,v.rhs,v.type,v.args);
    */
     add_varinfo(v.type,v.lhs,v.rhs,v.nargs,v.args);
@@ -1678,7 +1638,6 @@ int nnn;
     free(markovarrays);
     free(markovarrays2);
   }
-
 
  }
  for(ns=0;ns<nstrings;ns++)
@@ -1738,7 +1697,6 @@ void break_up_list(char *rhs)
   add_only(s);
 }
 
-
 int find_the_name(list,n,name)
      char list[MAXODE1][MAXVNAM],*name;
      int n;
@@ -1774,7 +1732,6 @@ void compile_em() /* Now we try to keep track of markov, fixed, etc as
  */
  while(1)
    {
-
 
     if(v->type==COMMAND && v->lhs[0]=='P'){
       sprintf(big,"par %s \n",v->rhs);
@@ -1894,7 +1851,6 @@ void compile_em() /* Now we try to keep track of markov, fixed, etc as
  /*  plintf(" Found\n %d variables\n %d markov\n %d fixed\n %d aux\n %d fun \n %d tab\n ",
      nvar,nmark,nfix,naux,nufun,ntab); */
 
-
  /* now we add all the names of the variables and the
     fixed stuff
  */
@@ -1926,7 +1882,6 @@ void compile_em() /* Now we try to keep track of markov, fixed, etc as
    strcpy(aux_names[i],anames[i]);
  add_svar_names();
 
-
 /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR = nfix; */
 
  IN_VARS=nvar;
@@ -1945,7 +1900,6 @@ void compile_em() /* Now we try to keep track of markov, fixed, etc as
  nufun=0;
  nfix=0;
  nmark=0;
-
 
  v=my_varinfo;
  while(1)
@@ -2089,7 +2043,6 @@ void compile_em() /* Now we try to keep track of markov, fixed, etc as
 	   plintf("could not allocate space for %s \n",v->lhs);
 	   exit(0);
 	 }
-
 
        strcpy(ode_names[in1],v->rhs);
        /* ode_names[in1][nn]=0; */
@@ -2406,7 +2359,6 @@ void init_varinfo()
  start_var_info=0;
 }
 
-
 void add_varinfo(type,lhs,rhs,nargs,args)
      int type;
      char *lhs;
@@ -2460,7 +2412,6 @@ void free_varinfo()
   init_varinfo();
 
 }
-
 
 int extract_ode(s1,ie,i1)  /* name is char 1-i1  ie is start of rhs */
      int i1,*ie;
@@ -2559,8 +2510,6 @@ int extract_args(s1,i0,ie,narg,args)
   return(0);
 }
 
-
-
 int find_char(s1,s2,i0,i1)
      int i0,*i1;
      char *s1,*s2;
@@ -2625,7 +2574,6 @@ void remove_blanks(s1)
 
 }
 
-
 void read_a_line(fp,s)
      char *s;
      FILE *fp;
@@ -2674,15 +2622,7 @@ void read_a_line(fp,s)
   s[n]=' ';
   s[n+1]=0;
 
-
 }
-
-
-
-
-
-
-
 
 int search_array(old,new,i1,i2,flag)
      char *old,*new;
@@ -2836,7 +2776,6 @@ int is_comment(char *s)
       return 0;
   }
 }
-
 
 void subsk(big,new,k,flag)
      char *big,*new;
@@ -3017,9 +2956,7 @@ void new_comment(FILE *f)
     add_comment(ted);
   }
 
-
 }
-
 
 void add_comment(char *s)
 {
@@ -3082,8 +3019,6 @@ void add_comment(char *s)
 
 }
 
-
-
 void advance_past_first_word(char** sptr) {
     /* changes the string pointed to by sptr to start after the end of the string...
        this may seem odd, but it has to do with avoiding \0's added by strtok */
@@ -3102,7 +3037,6 @@ char* new_string2(char* old, int length) {
     /* printf("s = %s; length = %d\n", s, length); */
     return(s);
 }
-
 
 char* get_next2(char** tokens_ptr) {
     /* grabs (a copy of) the next block of the form var = val, ending with a \n, space, or comma */
@@ -3159,9 +3093,6 @@ char* get_next2(char** tokens_ptr) {
         }
         return new_string2(tokens, i);
     }
-
-
-
 
     /* advance until the first non-space */
     success = 0;

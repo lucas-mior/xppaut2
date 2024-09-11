@@ -1,7 +1,6 @@
 #ifndef _array_print_h_
 #define _array_print_h_
 
-
 /* array_print.c */
 int array_print(char *filename, char *xtitle, char *ytitle, char *bottom, int nacross, int ndown, int col0, int row0, int nskip, int ncskip, int maxrow, int maxcol, float **data, double zmin, double zmax, double tlo, double thi, int type);
 void ps_replot(float **z, int col0, int row0, int nskip, int ncskip, int maxrow, int maxcol, int nacross, int ndown, double zmin, double zmax, int type);
@@ -19,6 +18,5 @@ void ps_rect(double x, double y, double wid, double len);
 void ps_bar(double x, double y, double wid, double len, double fill, int flag);
 void ps_rgb_bar(double x, double y, double wid, double len, double fill, int flag, int rgb);
 void ps_hsb_bar(double x, double y, double wid, double len, double fill, int flag);
-
 
 #endif

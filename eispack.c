@@ -6,7 +6,6 @@
 /*   this also has the code for finding the Hopf normal form
  */
 
-
 extern int (*rhs)();
 #include "auto_f2c.h"
 #include "math.h"
@@ -35,9 +34,6 @@ rg(integer nm, integer n, doublereal *a, doublereal *wr, doublereal *wi, integer
     /* Local variables */
 
     static integer is1, is2;
-
-
-
 
 /*     THIS SUBROUTINE CALLS THE RECOMMENDED SEQUENCE OF */
 /*     SUBROUTINES FROM THE EIGENSYSTEM SUBROUTINE PACKAGE (EISPACK) */
@@ -128,7 +124,6 @@ L50:
     return 0;
 } /* rg_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -147,8 +142,6 @@ hqr(integer *nm, integer *n, integer *low, integer *igh, doublereal *h__, double
     static logical notlas;
     static integer mp2, itn, its, enm2;
     static doublereal tst1, tst2;
-
-
 
 /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR, */
 /*     NUM. MATH. 14, 219-231(1970) BY MARTIN, PETERS, AND WILKINSON. */
@@ -480,7 +473,6 @@ L1001:
     return 0;
 } /* hqr_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -502,8 +494,6 @@ hqr2(integer *nm, integer *n, integer *low, integer *igh, doublereal *h__, doubl
     static logical notlas;
     static integer mp2, itn, its, enm2;
     static doublereal tst1, tst2;
-
-
 
 /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR2, */
 /*     NUM. MATH. 16, 181-204(1970) BY PETERS AND WILKINSON. */
@@ -1173,7 +1163,6 @@ L1001:
     return 0;
 } /* hqr2_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -1184,7 +1173,6 @@ cdiv(doublereal *ar, doublereal *ai, doublereal *br, doublereal *bi, doublereal 
 
     /* Local variables */
     static doublereal s, ais, bis, ars, brs;
-
 
 /*     COMPLEX DIVISION, (CR,CI) = (AR,AI)/(BR,BI) */
 
@@ -1203,7 +1191,6 @@ cdiv(doublereal *ar, doublereal *ai, doublereal *br, doublereal *bi, doublereal 
     return 0;
 } /* cdiv_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -1220,8 +1207,6 @@ balanc(integer *nm, integer *n, doublereal *a, integer *low, integer *igh, doubl
     static doublereal r__, s, radix, b2;
     static integer jj;
     static logical noconv;
-
-
 
 /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALANCE, */
 /*     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. */
@@ -1462,7 +1447,6 @@ L280:
     return 0;
 } /* balanc_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -1475,8 +1459,6 @@ balbak(integer *nm, integer *n, integer *low, integer *igh, doublereal *scale, i
     static integer i__, j, k;
     static doublereal s;
     static integer ii;
-
-
 
 /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALBAK, */
 /*     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. */
@@ -1578,7 +1560,6 @@ L200:
     return 0;
 } /* balbak_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -1592,8 +1573,6 @@ elmhes(integer *nm, integer *n, integer *low, integer *igh, doublereal *a, integ
     static integer i__, j, m;
     static doublereal x, y;
     static integer la, mm1, kp1, mp1;
-
-
 
 /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMHES, */
 /*     NUM. MATH. 12, 349-368(1968) BY MARTIN AND WILKINSON. */
@@ -1726,7 +1705,6 @@ L200:
     return 0;
 } /* elmhes_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -1737,8 +1715,6 @@ eltran(integer *nm, integer *n, integer *low, integer *igh, doublereal *a, integ
 
     /* Local variables */
     static integer i__, j, kl, mm, mp, mp1;
-
-
 
 /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMTRANS,
 */
@@ -1843,7 +1819,6 @@ L200:
     return 0;
 } /* eltran_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*  EISPACK routines needed in the computation of Floquet multipliers */
@@ -1864,8 +1839,6 @@ qzhes(integer nm, integer n, doublereal *a, doublereal *b, logical matz, doubler
     static doublereal u1, u2, v1, v2;
     static integer lb, nk1, nm1, nm2;
     static doublereal rho;
-
-
 
 /*     THIS SUBROUTINE IS THE FIRST STEP OF THE QZ ALGORITHM */
 /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
@@ -2134,7 +2107,6 @@ L170:
     return 0;
 } /* qzhes_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -2165,8 +2137,6 @@ qzit(integer nm, integer n, doublereal *a, doublereal *b, doublereal eps1, logic
     static integer km1, lm1;
     static doublereal ani, bni;
     static integer ish, itn, its, enm2, lor1;
-
-
 
 /*     THIS SUBROUTINE IS THE SECOND STEP OF THE QZ ALGORITHM */
 /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
@@ -2664,7 +2634,6 @@ L1001:
     return 0;
 } /* qzit_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -2688,8 +2657,6 @@ qzval(integer nm, integer n, doublereal *a, doublereal *b, doublereal *alfr, dou
 	    a22r, sqi, ssi;
     static integer isw;
     static doublereal sqr, szi, ssr, szr;
-
-
 
 /*     THIS SUBROUTINE IS THE THIRD STEP OF THE QZ ALGORITHM */
 /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
@@ -3053,7 +3020,6 @@ L510:
     return 0;
 } /* qzval_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 doublereal
@@ -3065,9 +3031,7 @@ epslon(doublereal x)
     /* Local variables */
     static doublereal a, b, c__, eps;
 
-
 /*     ESTIMATE UNIT ROUNDOFF IN QUANTITIES OF SIZE X. */
-
 
 /*     THIS PROGRAM SHOULD FUNCTION PROPERLY ON ALL SYSTEMS */
 /*     SATISFYING THE FOLLOWING TWO ASSUMPTIONS, */
@@ -3101,7 +3065,6 @@ L10:
     ret_val = eps * fabs(x);
     return ret_val;
 } /* epslon_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -3250,12 +3213,10 @@ L115:
     sum += d__1 * d__1;
     goto L200;
 
-
 /*                  PREPARE FOR PHASE 3. */
 
 L75:
     sum = sum * xmax * xmax;
-
 
 /*     FOR REAL OR D.P. SET HITEST = CUTHI/N */
 /*     FOR COMPLEX      SET HITEST = CUTHI/(2*N) */
@@ -3294,7 +3255,6 @@ L300:
     return ret_val;
 } /* dnrm2_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 doublereal
@@ -3309,11 +3269,9 @@ ddot(integer *n, doublereal *dx, integer *incx, doublereal *dy, integer *incy)
     static doublereal dtemp;
     static integer ix, iy, mp1;
 
-
 /*     FORMS THE DOT PRODUCT OF TWO VECTORS. */
 /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. */
 /*     JACK DONGARRA, LINPACK, 3/11/78. */
-
 
     /* Parameter adjustments */
     --dy;
@@ -3352,7 +3310,6 @@ ddot(integer *n, doublereal *dx, integer *incx, doublereal *dy, integer *incy)
 
 /*        CODE FOR BOTH INCREMENTS EQUAL TO 1 */
 
-
 /*        CLEAN-UP LOOP */
 
 L20:
@@ -3382,7 +3339,6 @@ L60:
     return ret_val;
 } /* ddot_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -3394,11 +3350,9 @@ dscal(integer *n, doublereal *da, doublereal *dx, integer *incx)
     /* Local variables */
     static integer i__, m, nincx, mp1;
 
-
 /*     SCALES A VECTOR BY A CONSTANT. */
 /*     USES UNROLLED LOOPS FOR INCREMENT EQUAL TO ONE. */
 /*     JACK DONGARRA, LINPACK, 3/11/78. */
-
 
     /* Parameter adjustments */
     --dx;
@@ -3423,7 +3377,6 @@ dscal(integer *n, doublereal *da, doublereal *dx, integer *incx)
     return 0;
 
 /*        CODE FOR INCREMENT EQUAL TO 1 */
-
 
 /*        CLEAN-UP LOOP */
 
@@ -3454,7 +3407,6 @@ L40:
     return 0;
 } /* dscal_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 integer
@@ -3468,10 +3420,8 @@ idamax(integer *n, doublereal *dx, integer *incx)
     static doublereal dmax__;
     static integer i__, ix;
 
-
 /*     FINDS THE INDEX OF ELEMENT HAVING MAX. ABSOLUTE VALUE. */
 /*     JACK DONGARRA, LINPACK, 3/11/78. */
-
 
     /* Parameter adjustments */
     --dx;
@@ -3524,7 +3474,6 @@ L30:
     return ret_val;
 } /* idamax_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -3536,11 +3485,9 @@ daxpy(integer *n, doublereal *da, doublereal *dx, integer *incx, doublereal *dy,
     /* Local variables */
     static integer i__, m, ix, iy, mp1;
 
-
 /*     CONSTANT TIMES A VECTOR PLUS A VECTOR. */
 /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. */
 /*     JACK DONGARRA, LINPACK, 3/11/78. */
-
 
     /* Parameter adjustments */
     --dy;
@@ -3579,7 +3526,6 @@ daxpy(integer *n, doublereal *da, doublereal *dx, integer *incx, doublereal *dy,
 
 /*        CODE FOR BOTH INCREMENTS EQUAL TO 1 */
 
-
 /*        CLEAN-UP LOOP */
 
 L20:
@@ -3608,7 +3554,6 @@ L40:
     return 0;
 } /* daxpy_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -3622,10 +3567,8 @@ drot(integer *n, doublereal *dx, integer *incx, doublereal *dy, integer *incy, d
     static doublereal dtemp;
     static integer ix, iy;
 
-
 /*     APPLIES A PLANE ROTATION. */
 /*     JACK DONGARRA, LINPACK, 3/11/78. */
-
 
     /* Parameter adjustments */
     --dy;
@@ -3674,7 +3617,6 @@ L20:
     return 0;
 } /* drot_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -3688,11 +3630,9 @@ dswap(integer *n, doublereal *dx, integer *incx, doublereal *dy, integer *incy)
     static doublereal dtemp;
     static integer ix, iy, mp1;
 
-
 /*     INTERCHANGES TWO VECTORS. */
 /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL ONE. */
 /*     JACK DONGARRA, LINPACK, 3/11/78. */
-
 
     /* Parameter adjustments */
     --dy;
@@ -3730,7 +3670,6 @@ dswap(integer *n, doublereal *dx, integer *incx, doublereal *dy, integer *incy)
 
 /*       CODE FOR BOTH INCREMENTS EQUAL TO 1 */
 
-
 /*       CLEAN-UP LOOP */
 
 L20:
@@ -3766,7 +3705,6 @@ L40:
     return 0;
 } /* dswap_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -3778,13 +3716,9 @@ dgemc(integer *m, integer *n, doublereal *a, integer *lda, doublereal *b, intege
     /* Local variables */
     static integer i__, j, mm, mmp1;
 
-
-
 /*  This subroutine copies a double precision real */
 /*  M by N matrix stored in A to double precision real B. */
 /*  If TRANS is true, B is assigned A transpose. */
-
-
 
     /* Parameter adjustments */
     a_dim1 = *lda;
@@ -3871,7 +3805,6 @@ L199:
     return 0;
 } /* dgemc_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*  BLAS-2 routines needed in the computation of Floquet multipliers */
@@ -3885,7 +3818,6 @@ xerbla(char *srname, integer *info, integer srname_len)
     /* Builtin functions */
 
     /* Fortran I/O blocks */
-
 
 /*     ..    Scalar Arguments .. */
 /*     .. */
@@ -3912,7 +3844,6 @@ xerbla(char *srname, integer *info, integer srname_len)
 /*           On entry, INFO specifies the position of the invalid */
 /*           parameter in the parameter-list of the calling routine. */
 
-
 /*  Auxiliary routine for Level 2 Blas. */
 
 /*  Written on 20-July-1986. */
@@ -3927,7 +3858,6 @@ xerbla(char *srname, integer *info, integer srname_len)
 /*     End of XERBLA. */
 
 } /* xerbla_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -3961,7 +3891,6 @@ lsame(char *ca, char *cb, integer ca_len, integer cb_len)
 /*  CB     - CHARACTER*1 */
 /*           On entry, CA and CB specify characters to be compared. */
 /*           Unchanged on exit. */
-
 
 /*  Auxiliary routine for Level 2 Blas. */
 
@@ -4022,7 +3951,6 @@ lsame(char *ca, char *cb, integer ca_len, integer cb_len)
 
 } /* lsame_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*  BLAS-3 routines needed in the computation of Floquet multipliers */
@@ -4042,7 +3970,6 @@ dgemm(char *transa, char *transb, integer *m, integer *n, integer *k, doublereal
     static integer i__, j, l, ncola;
 
     static integer nrowa, nrowb;
-
 
 /*     .. Scalar Arguments .. */
 /*     .. Array Arguments .. */
@@ -4188,7 +4115,6 @@ dgemm(char *transa, char *transb, integer *m, integer *n, integer *k, doublereal
 /*           max( 1, m ). */
 /*           Unchanged on exit. */
 
-
 /*  Level 3 Blas routine. */
 
 /*  -- Written on 8-February-1989. */
@@ -4196,7 +4122,6 @@ dgemm(char *transa, char *transb, integer *m, integer *n, integer *k, doublereal
 /*     Iain Duff, AERE Harwell. */
 /*     Jeremy Du Croz, Numerical Algorithms Group Ltd. */
 /*     Sven Hammarling, Numerical Algorithms Group Ltd. */
-
 
 /*     .. External Functions .. */
 /*     .. External Subroutines .. */
@@ -4430,7 +4355,6 @@ dgemm(char *transa, char *transb, integer *m, integer *n, integer *k, doublereal
 
 } /* dgemm_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
@@ -4448,8 +4372,6 @@ ezsvd(doublereal *x, integer *ldx, integer *n, integer *p, doublereal *s, double
     static integer kount, kount1, kount2, limshf;
     static doublereal maxsin;
     static integer maxitr;
-
-
 
 /*     new svd by J. Demmel, W. Kahan */
 /*     finds singular values of bidiagonal matrices with guaranteed high
@@ -4512,7 +4434,6 @@ ezsvd(doublereal *x, integer *ldx, integer *n, integer *p, doublereal *s, double
     return 0;
 } /* ezsvd_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -4567,7 +4488,6 @@ o */
     return 0;
 } /* ndrotg_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -4620,8 +4540,6 @@ ndsvd(doublereal *x, integer *ldx, integer *n, integer *p, doublereal *s, double
     static doublereal emm1, smm1;
 
     /* Fortran I/O blocks */
-
-
 
 /*     LINPACK SVD modified by: */
 /*     James Demmel                      W. Kahan */
@@ -4680,7 +4598,6 @@ ndsvd(doublereal *x, integer *ldx, integer *n, integer *p, doublereal *s, double
 
 /*     maxsin = maximum sin in inner loop of zero-shift */
 
-
 /*     new version designed to be robust with respect to over/underflow */
 /*     have fast inner loop when shift is zero, */
 /*     guarantee relative accuracy of all singular values */
@@ -4736,10 +4653,8 @@ ndsvd(doublereal *x, integer *ldx, integer *n, integer *p, doublereal *s, double
 
 /*     internal variables */
 
-
 /*     new variables */
 /*     double precision sg1,sg2 */
-
 
 /*     set the maximum number of iterations. */
 
@@ -5062,7 +4977,6 @@ L320:
 L350:
 	;
     }
-
 
     if (*skip == 1) {
 /*       set up s,e,u,v assuming x bidiagonal on input */
@@ -5855,7 +5769,6 @@ L996:
     return 0;
 } /* ndsvd_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -5872,7 +5785,6 @@ prse(integer *ll, integer *m, integer *nrow, integer *ncol, doublereal *s, doubl
     static integer i__;
 
     /* Fortran I/O blocks */
-
 
 /*     debug routine to print s,e */
     /* Parameter adjustments */
@@ -5895,7 +5807,6 @@ prse(integer *ll, integer *m, integer *nrow, integer *ncol, doublereal *s, doubl
     }
     return 0;
 } /* prse_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -5947,7 +5858,6 @@ sig22(doublereal *a, doublereal *b, doublereal *c__, doublereal *sigmin, doubler
 /*     or true angle of rotation < UF/eps */
 
 /*     note: if c=0, then csl=1. and snl=0. (needed in general svd) */
-
 
 /*     local variables: */
 
@@ -6151,7 +6061,6 @@ y */
     return 0;
 } /* sig22_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 doublereal
@@ -6208,7 +6117,6 @@ sigmin(doublereal *a, doublereal *b, doublereal *c__)
     }
     return ret_val;
 } /* sigmin_ */
-
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -6312,7 +6220,6 @@ hqr3lc(doublereal *a, doublereal *v, integer *n, integer *nlow, integer *nup, do
 */
 /*              -1  ascending (i.e. negative eigenvalues first) */
 /*              +1  descending (positive eigenvalues) */
-
 
 /* THE CONVERGENCE CRITERION EPS IS USED TO DETERMINE */
 /* WHEN A SUBDIAGONAL ELEMENT OF A IS NEGLIGIBLE. */
@@ -6654,7 +6561,6 @@ L310:
     return 0;
 } /* hqr3lc_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -6797,7 +6703,6 @@ L80:
     return 0;
 } /* split_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -6811,7 +6716,6 @@ exchng(doublereal *a, doublereal *v, integer *n, integer *l, integer *b1, intege
     static integer i__, j, m;
     static doublereal p, q, r__, s, w, x, y, z__;
     static integer l1, it;
-
 
 /* GIVEN THE UPPER HESSENBERG MATRIX A WITH CONSECUTIVE */
 /* B1XB1 AND B2XB2 DIAGONAL BLOCKS (B1,B2 .LE. 2) */
@@ -6970,7 +6874,6 @@ L90:
     return 0;
 } /* exchng_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -7128,7 +7031,6 @@ L130:
     return 0;
 } /* qrstep_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -7143,8 +7045,6 @@ orthes(integer *nm, integer *n, integer *low, integer *igh, doublereal *a, doubl
     static integer i__, j, m;
     static doublereal scale;
     static integer la, ii, jj, mp, kp1;
-
-
 
 /*     this subroutine is a translation of the algol procedure orthes, */
 /*     num. math. 12, 349-368(1968) by martin and wilkinson. */
@@ -7286,7 +7186,6 @@ L200:
     return 0;
 } /* orthes_ */
 
-
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int
@@ -7298,8 +7197,6 @@ ortran(integer *nm, integer *n, integer *low, integer *igh, doublereal *a, doubl
     /* Local variables */
     static doublereal g;
     static integer i__, j, kl, mm, mp, mp1;
-
-
 
 /*     this subroutine is a translation of the algol procedure ortrans, */
 /*     num. math. 16, 181-204(1970) by peters and wilkinson. */
@@ -7420,9 +7317,6 @@ L200:
     return 0;
 } /* ortran_ */
 
-
-
-
 double dotp(double *p,double *q,int n)
 {
   double z=0.0;
@@ -7497,11 +7391,8 @@ void test_matrix_stuff()
   double pr[3],pi[3],qr[3],qi[3];
   get_qp(a,3,qr,qi,pr,pi);
 
-
   for(i=0;i<3;i++)
     printf(" %g    %g  ||  %g    %g \n",qr[i],qi[i],pr[i],pi[i]);
-
-
 
   /*
       sgefa(ac,3,3,iv1,&ier);
@@ -7511,6 +7402,5 @@ void test_matrix_stuff()
       printf("%g\n",b[i]);
   */
 }
-
 
 

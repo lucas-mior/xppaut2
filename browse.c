@@ -36,11 +36,7 @@ extern char *browse_hint[];
 #define xds(a) { XDrawString(display,w,small_gc,5,CURY_OFFs,a,strlen(a));\
 		return;}
 
-
 #define BMAXCOL 20
-
-
-
 
 extern int *my_ode[];
 
@@ -63,7 +59,6 @@ extern GC gc, small_gc;
 extern int DCURX,DCURXs,DCURY,DCURYs,CURY_OFFs,CURY_OFF;
 extern unsigned int MyBackColor,MyForeColor,MyMainWinColor,MyDrawWinColor,GrFore,GrBack;
 
-
 extern Window command_pop;
 
 #define MYMASK  (ButtonPressMask 	|\
@@ -79,8 +74,6 @@ extern Window command_pop;
 		  KeyPressMask	  |\
 		  ExposureMask    |\
                   StructureNotifyMask)
-
-
 
 /*  The one and only primitive data browser   */
 
@@ -102,9 +95,6 @@ extern Window command_pop;
                 } BROWSER;
 */
 BROWSER my_browser;
-
-
-
 
 extern int noicon;
 extern char uvar_names[MAXODE][12];
@@ -129,7 +119,6 @@ float *get_data_col(int c)
   return my_browser.data[c];
 }
 
-
 /*Excerpt from the man (Section 2) for  gettimeofday:
 "The use of the timezone structure is obsolete; the tz argument should normally be spec-
 ified as NULL.  The tz_dsttime field has never been used under Linux; it has  not  been
@@ -147,7 +136,6 @@ int gettimenow()
   return now.tv_usec;
 }
 
-
 void waitasec(msec)
      int msec;
 {
@@ -163,25 +151,21 @@ void waitasec(msec)
        gettimeofday(&tim,NULL);
        t2=tim.tv_sec+(tim.tv_usec/1000000.0);
 
-
        if((t2-t1)>sec)
 	
        return;
     }
 }
 
-
 int get_maxrow_browser()
 {
   return my_browser.maxrow;
 }
 
-
 void write_mybrowser_data(FILE *fp)
 {
   write_browser_data(fp,&my_browser);
 }
-
 
 void write_browser_data(fp,b)
      FILE *fp;
@@ -256,9 +240,6 @@ char *var;
   redraw_browser(*b);
 }
 
-
-
-
 void data_del_col(b)  /*  this only works with storage  */
  BROWSER *b;
 { Window w;
@@ -273,7 +254,6 @@ void data_del_col(b)  /*  this only works with storage  */
    if(status!=0)
     del_stor_col(var,b);
 }
-
 
 void data_add_col(b)
 BROWSER *b;
@@ -292,7 +272,6 @@ BROWSER *b;
       add_stor_col(var,form,b);
   }
 }
-
 
 int add_stor_col(name,formula,b)
      char *name,*formula;
@@ -338,7 +317,6 @@ int add_stor_col(name,formula,b)
   redraw_browser(*b);
   return(1);
 }
-
 
 void chk_seq(char *f,int *seq, double *a1, double *a2)
 {
@@ -420,9 +398,7 @@ if(dif_var<0)
    return;
  }
 
-
 /*  first compile formula ... */
-
 
  if(dif_var<0&&seq==0){
    if(add_expr(form,com,&i)){
@@ -485,9 +461,6 @@ if(dif_var<0)
 
 }
 
-
-
-
 void  wipe_rep()
  {
     if(!REPLACE)return;
@@ -495,9 +468,7 @@ void  wipe_rep()
     REPLACE=0;
   }
 
-
 void unreplace_column()
-
 
 {
  int i,n=my_browser.maxrow;
@@ -506,8 +477,6 @@ void unreplace_column()
  wipe_rep();
 
  }
-
-
 
 void make_d_table(xlo,xhi,col,filename,b)
      int col;
@@ -521,7 +490,6 @@ void make_d_table(xlo,xhi,col,filename,b)
   if(!ok)return;
     npts=b.iend-b.istart;
 
-
   fprintf(fp,"%d\n",npts);
   fprintf(fp,"%g\n%g\n",xlo,xhi);
   for(i=0;i<npts;i++)
@@ -529,8 +497,6 @@ void make_d_table(xlo,xhi,col,filename,b)
   fclose(fp);
   ping();
 }
-
-
 
 void find_value(col,val,row,b)
 int col,*row;
@@ -565,9 +531,6 @@ int *col;
   if(*col>-1)*col=*col+1;
  }
 
-
-
-
 void browse_but_on(b,i,w,yn)
      int i;
      Window w;
@@ -581,8 +544,6 @@ void browse_but_on(b,i,w,yn)
     strcpy(b->hinttxt,browse_hint[i]);
     display_browser(b->hint,*b);
   }
-
-
 
 }
 
@@ -616,7 +577,6 @@ void enter_browser(ev,b,yn)
   if(w==b->close)browse_but_on(b,-1,w,yn);
 
 }
-
 
 void display_browser(w,b)
 Window w;
@@ -664,7 +624,6 @@ BROWSER b;
  if(w==b.main)draw_data(b);
 }
 
-
 void  redraw_browser(b)
  BROWSER b;
  {
@@ -683,7 +642,6 @@ void  redraw_browser(b)
   }
 }
 
-
 void  new_browse_dat(new_dat,dat_len)
  int dat_len;
  float **new_dat;
@@ -691,7 +649,6 @@ void  new_browse_dat(new_dat,dat_len)
  my_browser.data=new_dat;
  refresh_browser(dat_len);
 }
-
 
 void  refresh_browser(length)
  int length;
@@ -707,7 +664,6 @@ void reset_browser()
   my_browser.maxrow=0;
   my_browser.dataflag=0;
 }
-
 
 void draw_data(b)
  BROWSER b;
@@ -747,10 +703,8 @@ void draw_data(b)
                 }
   }
 
-
 }
 }
-
 
 void init_browser()
 {
@@ -823,8 +777,6 @@ int row,col,iflag;
   XSelectInput(display,win,MYMASK);
  return(win);
  }
-
-
 
 void make_browser(b,wname,iname,row,col)
 BROWSER *b;
@@ -922,7 +874,6 @@ XEvent ev;
  expose_browser(ev,my_browser);
 }
 
-
 void enter_my_browser(ev,yn)
 XEvent ev;
 int yn;
@@ -931,14 +882,12 @@ int yn;
  enter_browser(ev,&my_browser,yn);
 }
 
-
 void  my_browse_button(ev)
 XEvent ev;
  {
   if(my_browser.xflag==0)return;
   browse_button(ev,&my_browser);
  }
-
 
 void my_browse_keypress(ev,used)
 int *used;
@@ -948,18 +897,12 @@ XEvent ev;
  browse_keypress(ev,used,&my_browser);
  }
 
-
 void resize_my_browser(win)
 Window win;
 {
   if(my_browser.xflag==0)return;
  resize_browser(win,&my_browser);
 }
-
-
-
-
-
 
 void expose_browser(ev,b)
 XEvent ev;
@@ -969,7 +912,6 @@ BROWSER b;
    if(ev.type!=Expose)return;
  display_browser(ev.xexpose.window,b);
 }
-
 
 void resize_browser(win,b)
 Window win;
@@ -1014,12 +956,10 @@ b->nrow=newrow;
 
 /* Let the browser know how many rows and columns of data  */
 
-
 }
 
 /*  if button is pressed in the browser
     then do the following  */
-
 
 void browse_button(ev,b)
 BROWSER *b;
@@ -1086,16 +1026,12 @@ if(w==b->last){data_last(b); return;}
 
 }
 
-
-
-
 void browse_keypress(ev,used,b)
 BROWSER *b;
 XEvent ev;
 int *used;
 {
  Window w=ev.xkey.window;
-
 
  char ks;
  Window w2;
@@ -1109,9 +1045,7 @@ int *used;
  {
   *used=1;
 
-
  ks=(char)get_key_press(&ev);
-
 
  /*
   XLookupString(&ev,buf,maxlen,&ks,&comp);
@@ -1158,21 +1092,15 @@ if(ks=='e'||ks=='E'){data_last(b); return;}
 
  if(ks=='d'||ks=='D'){data_del_col(b);return;}
 
-
-
-
  if(ks==ESC){
 			XSetInputFocus(display,command_pop,
 			RevertToParent,CurrentTime);
 		   	return;
                    }
 
-
 		   } /* end of cases */
 
 }
-
-
 
 void data_up(b)
 BROWSER *b;
@@ -1183,7 +1111,6 @@ BROWSER *b;
         }
 }
 
-
 void data_down(b)
 BROWSER *b;
 {
@@ -1192,7 +1119,6 @@ BROWSER *b;
 	draw_data(*b);
         }
 }
-
 
 void data_pgup(b)
 BROWSER *b;
@@ -1205,7 +1131,6 @@ BROWSER *b;
  draw_data(*b);
 }
 
-
 void data_pgdn(b)
 BROWSER *b;
 {
@@ -1217,7 +1142,6 @@ BROWSER *b;
  draw_data(*b);
 }
 
-
 void  data_home(b)
 BROWSER *b;
 {
@@ -1227,14 +1151,12 @@ BROWSER *b;
  draw_data(*b);
 }
 
-
 void  data_end(b)
 BROWSER *b;
 {
  b->row0=b->maxrow-1;
  draw_data(*b);
 }
-
 
 void get_data_xyz(x,y,z,i1,i2,i3,off)
      int i1,i2,i3,off;
@@ -1246,14 +1168,11 @@ void get_data_xyz(x,y,z,i1,i2,i3,off)
   *z=my_browser.data[i3][in];
 }
 
-
-
 void data_get_mybrowser(int row)
 {
   my_browser.row0=row;
   data_get(&my_browser);
 }
-
 
 void data_get(b)
 BROWSER *b;
@@ -1272,10 +1191,8 @@ BROWSER *b;
  for(i=NODE+NMarkov;i<NEQ;i++)
    set_val(uvar_names[i],storage[i+1][in]);
 
-
  redraw_ics();
 }
-
 
 void data_replace(b)
 BROWSER *b;
@@ -1295,9 +1212,7 @@ if(status!=0){
 
   XSetInputFocus(display,w,rev,CurrentTime);
 
-
  }
-
 
 void data_unreplace(b)
 BROWSER *b;
@@ -1305,8 +1220,6 @@ BROWSER *b;
  unreplace_column();
  draw_data(*b);
 }
-
-
 
 void data_table(b)
 BROWSER *b;
@@ -1334,12 +1247,6 @@ BROWSER *b;
    make_d_table(xlo,xhi,col,value[3],*b);
 }
 
-
-
-
-
-
-
 void data_find(b)
 BROWSER *b;
 {
@@ -1357,7 +1264,6 @@ BROWSER *b;
  XGetInputFocus(display,&w,&rev);
  status=do_string_box(2,2,1,"Find Data",name,value,40);
 
-
  XSetInputFocus(display,w,rev,CurrentTime);
 
  if(status==0)return;
@@ -1369,11 +1275,7 @@ BROWSER *b;
 	    draw_data(*b);
 	   }
 
-
-
 }
-
-
 
 void open_write_file(fp,fil,ok)
  FILE **fp;
@@ -1400,10 +1302,6 @@ void open_write_file(fp,fil,ok)
 			 return;
 		
   }
-
-
-
-
 
 void data_read(b)
 BROWSER *b;
@@ -1469,17 +1367,6 @@ if(status==0)return;
  draw_data(*b); */
 }
 
-
-
-
-
-
-
-
-
-
-
-
 void data_write(b)
 BROWSER *b;
 {
@@ -1512,11 +1399,6 @@ if(status==0)return;
  fclose(fp);
 }
 
-
-
-
-
-
 void data_left(b)
 BROWSER *b;
 {
@@ -1526,7 +1408,6 @@ BROWSER *b;
  redraw_browser(*b);
 }
 }
-
 
 void data_right(b)
 BROWSER *b;
@@ -1538,13 +1419,11 @@ BROWSER *b;
  }
 }
 
-
 void  data_first(b)
 BROWSER *b;
 {
  b->istart=b->row0;
 }
-
 
 void  data_last(b)
 BROWSER *b;
@@ -1552,15 +1431,12 @@ BROWSER *b;
  b->iend=b->row0+1;
 }
 
-
 void  data_restore(b)
  BROWSER *b;
  {
   restore(b->istart,b->iend);
 
   }
-
-
 
 void get_col_list(s,cl,n)
      int *n,*cl;
@@ -1578,13 +1454,5 @@ void get_col_list(s,cl,n)
   }
 
 }
-
-
-
-
-
-
-
-
 
 

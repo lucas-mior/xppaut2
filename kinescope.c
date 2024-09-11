@@ -1,6 +1,5 @@
 #include "kinescope.h"
 
-
 #include "scrngif.h"
 #include "pop_list.h"
 #include "aniparse.h"
@@ -41,8 +40,6 @@ void do_movie_com(int c)
 
 {
 
-
-
 /*  XDestroyWindow(display,temp);
   draw_help();
   XFlush(display); */
@@ -67,8 +64,6 @@ void do_movie_com(int c)
 
   }
 
-
-
 void reset_film()
 {
  int i;
@@ -76,8 +71,6 @@ void reset_film()
  for(i=0;i<mov_ind;i++)XFreePixmap(display,movie[i].xi);
  mov_ind=0;
  }
-
-
 
 int film_clip()
 {
@@ -162,7 +155,6 @@ void play_back()
 }
 	       		
 
-
 void save_kine()
 {
  char base[128];
@@ -178,9 +170,6 @@ new_int("format:1-ppm,2-gif",&fmat);
    save_movie(base,fmat);
 
 }
-
-
-
 
 void make_anigif()
 {
@@ -218,8 +207,6 @@ void make_anigif()
    set_global_map(0);
 
 }
-
-
 
 void save_movie(basename,fmat)
      char *basename;
@@ -264,12 +251,9 @@ void save_movie(basename,fmat)
    }
 #endif
 
-
   }
 
 }
-
-
 
 void  auto_play()
 {
@@ -281,7 +265,6 @@ void  auto_play()
   int smax=500;
  XEvent ev;
  int i=0,cycle=0;
-
 
  new_int("Number of cycles",&ks_ncycle);
  new_int("Msec between frames",&ks_speed);
@@ -297,7 +280,6 @@ void  auto_play()
 
 		  XCopyArea(display,movie[i].xi,draw_win,gc_graph,0,0,w,h,0,0);
    XFlush(display);
-
 
  while(1)
 {
@@ -344,24 +326,12 @@ void  auto_play()
 		XFlush(display);
                 if(cycle>=ks_ncycle)return;
 
-
 	}  /*  Big loop   */
   }	
-
-
-
 
 void too_small()
  {
   respond_box("Okay","Window too small for film!");
   }
-
-
-
-
-
-
-
-
 
 		

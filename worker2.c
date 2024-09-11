@@ -37,6 +37,3 @@ extern struct {
 } global_rotations;
 
 
-
-
-

@@ -1,8 +1,6 @@
 #ifndef _odesol2_h_
 #define _odesol2_h_
 
-
-
 int symplect3(double *y, double *tim, double dt, int nt, int neq, int *istart, double *work);
 int discrete(double *y, double *tim, double dt, int nt, int neq, int *istart, double *work);
 int bak_euler(double *y, double *tim, double dt, int nt, int neq, int *istart, double *work);

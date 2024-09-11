@@ -52,7 +52,6 @@
 
 */
 
-
 /*
 New stuff for 9/96 -- cvode added
  cvode(command,y,t,n,tout,kflag,atol,rtol)
@@ -64,7 +63,6 @@ New stuff for 9/96 -- cvode added
 
 NOTE: except for the structure MyGraph, it is "x-free" so it
  is completely portable
-
 
 */
 
@@ -209,7 +207,6 @@ int PSLineStyle;
          int rtype;
        } range;
 
-
 typedef struct {
   char *name;
   char *does;
@@ -335,7 +332,6 @@ static char *n[]={"*2Range over","Steps","Start","End",
  sprintf(values[6],"%s",yn[eq_range.movie]);
 sprintf(values[7],"%s",yn[eq_range.mc]);
 
-
  status=do_string_box(8,8,1,"Range Equilibria",n,values,45);
  if(status!=0){
    strcpy(eq_range.item,values[0]);
@@ -363,7 +359,6 @@ sprintf(values[7],"%s",yn[eq_range.mc]);
  return(0);
 }
 
-
 void cont_integ()
 {
   double tetemp;
@@ -384,7 +379,6 @@ void cont_integ()
   ping();
   refresh_browser(storind);
 }
-
 
 int range_item()
 {
@@ -597,9 +591,6 @@ void monte_carlo()
   do_monte_carlo_search(append, 1,ishoot);
 }
 
-
-
-
 void do_monte_carlo_search(int append, int stuffbrowse,int ishoot)
 {
   int i,j,k,m,n=fixptguess.n;
@@ -681,7 +672,6 @@ void do_monte_carlo_search(int append, int stuffbrowse,int ishoot)
 }
 	
 	
-
 
 void do_eq_range(x)
 double *x;
@@ -771,8 +761,6 @@ int flag,*icol;
   if(*icol==10)*icol=0;
 }
 
-
-
 int do_auto_range_go()
 {
   double *x;
@@ -800,7 +788,6 @@ int flag; /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
 
    if(set_up_range2()==0)return -1;
  }
-
 
  MyStart=1;
  itype=range.type;
@@ -835,7 +822,6 @@ if(range.type==PARAM)get_val(range.item,&temp);
 
  }
 
-
  if(range.movie)reset_film();
  if(flag==2){
    auto_get_info(&nit,parn);
@@ -867,8 +853,6 @@ if(range.type==PARAM)get_val(range.item,&temp);
 	 if(do_init_delay(DELAY)==0)break;
        }
      }
-
-
 
      if(itype==IC)x[ivar]=p;
      else {
@@ -917,7 +901,6 @@ if(fabs(MyTime)>=TRANS&&STORFLAG==1&&POIMAP==0)
  if(STOCH_FLAG)
    append_stoch(i,storind);
 
-
  if(range.movie){
    put_text_x11(5,10,bob);
    redraw_dfield();
@@ -931,7 +914,6 @@ if(fabs(MyTime)>=TRANS&&STORFLAG==1&&POIMAP==0)
    data_get_mybrowser(storind-1);
    compute_one_period((double)storage[0][storind-1],last_ic,bob);
  }
-
 
  do_this_liaprun(i,p);  /* sends parameter and index back */
  if(storind>2)auto_freeze_it();
@@ -969,9 +951,7 @@ MyGraph->color[0]=color;
 
  return(ierr);
 
-
 }
-
 
 void silent_equilibria()
 {
@@ -1002,7 +982,6 @@ void find_equilib_com(int com)
  int iv,jv;
  float stabinfo;
  double *x,oldtrans;
-
 
  x=&MyData[0];
  if(FFT||HIST||NKernel>0)return;
@@ -1094,7 +1073,6 @@ void batch_integrate()
 
 }
 
-
 void do_batch_dry_run()
 {
 	if (!dryrun){return;}
@@ -1142,8 +1120,6 @@ void do_batch_dry_run()
  	return;
 
 }
-
-
 
 void batch_integrate_once()
 {
@@ -1258,7 +1234,6 @@ void do_init_data(int com)
   reset_dae();
   if(FFT||HIST)return;
 
-
   if(com==M_ID){      /* dont want to wipe out everything! */
     get_new_guesses();
     return;
@@ -1272,7 +1247,6 @@ void do_init_data(int com)
   POIEXT=0;
   storind=0;
   reset_browser();
-
 
   switch(com){
   case M_IR: /* do range   */
@@ -1315,7 +1289,6 @@ void do_init_data(int com)
       err_msg("Not in useable 2D plane...");
       return;
     }
-
 
     /*  Get mouse values  */
     if(com==M_IM){
@@ -1468,14 +1441,12 @@ void run_now()
   usual_integrate_stuff(x);
  }
 
-
 void do_start_flags(double *x,double *t)
 {
  int iflagstart=1;
  double tnew=*t;
  double sss;
  one_flag_step(x,x,&iflagstart,*t,&tnew,NODE,&sss);
-
 
 }
 void usual_integrate_stuff(x)
@@ -1541,7 +1512,6 @@ void do_new_array_ic(new,j1,j2)
   evaluate_ar_ic(ar_ic[ihot].var,ar_ic[ihot].formula,
 		 ar_ic[ihot].j1,ar_ic[ihot].j2);
 
-
 }
 
 void store_new_array_ic(new,j1,j2,formula)
@@ -1597,7 +1567,6 @@ void evaluate_ar_ic(v,f,j1,j2)
 	return;
     }
   }
-
 
 }
 int extract_ic_data(char *big)
@@ -1723,7 +1692,6 @@ int form_ic()
   return 1;
 }
 
-
 void get_ic(it,x)
 int it;
 double *x;
@@ -1739,7 +1707,6 @@ double *x;
     break;
    }
 }
-
 
 int ode_int(y,t,istart,ishow)
 double *y,*t;
@@ -1862,8 +1829,6 @@ int *istart,ishow;
   return(1);
 }
 
-
-
 int integrate(t,x,tend,dt, count, nout,start)
 double *t, *x, tend,dt;
 int count,nout, *start;
@@ -1877,8 +1842,6 @@ int count,nout, *start;
 
  int torcross[MAXODE];
  int nodes=xpv.node+xpv.nvec-NMarkov;
-
-
 
  int rval=0;
  double oldx[MAXODE],oldt=0,dint,dxp,sect,sect1,tout,tzero=*t;
@@ -1894,7 +1857,6 @@ int count,nout, *start;
  int cwidth=0;
  /* new poincare map stuff */
 
-
   int i_nan=0; /* NaN */
 MSWTCH(xpv.x,x);
 
@@ -1902,7 +1864,6 @@ if(Xup) cwidth=get_command_width();
 
  LastTime=*t;
  evaluate_derived();
-
 
  if((METHOD==GEAR)&&(*start==1))*start=0;
  if(METHOD==0){
@@ -2139,8 +2100,6 @@ if(Xup) cwidth=get_command_width();
 
 	   extra(x,*t,NODE,NEQ);
 
-
-
           if (TORUS == 1) {
 	for (ieqn = 0; ieqn < NEQ; ieqn++) {
 	        torcross[ieqn]=0;
@@ -2285,7 +2244,6 @@ if(Xup) cwidth=get_command_width();
 	}
 	dint=xprime[POIVAR-1]/dxp;
 
-
 	tv=(1-dint)**t+dint*oldt;
 	xv[0]=tv;
 	for(i=1;i<=NEQ;i++)xv[i]=dint*oldx[i-1]+(1-dint)*x[i-1];
@@ -2297,16 +2255,12 @@ if(Xup) cwidth=get_command_width();
   goto poi;
  }
 
-
  /*  here is code for a formula type map --  F(X,t)=0
   */
  if(POIMAP==4) {
 
    /*  pmapf=get_map_value(x,*t);
     */
-
-
-
 
  }
 
@@ -2382,7 +2336,6 @@ poi:    for(i=0;i<NEQ;i++)oldx[i]=x[i];
 
 	  }
 
-
 	   if((STORFLAG==1)&&(count!=0)&&(storind<MAXSTOR)&&!(fabs(*t)<TRANS))
 	   {
            if(animation_on_the_fly)on_the_fly(0);
@@ -2394,7 +2347,6 @@ poi:    for(i=0;i<NEQ;i++)oldx[i]=x[i];
 	    if((pflag==1)&&(SOS==1))break;
 	   }
 	
-
 
 out:
            icount++;
@@ -2459,8 +2411,6 @@ void send_output(double *y,double t)
 	   }
        }
 }
-
-
 
 /*
  old restore is in restore.c
@@ -2530,7 +2480,6 @@ void plot_the_graphs(float *xv,float *xvold,int node,int neq,double ddt,int *tc,
    plot_one_graph(xv,xvold,node,neq,ddt,tc);
    return;
  }
-
 
  for(i=0;i<num_pops;i++){
    make_active(ActiveWinList[i],flag);
@@ -2653,7 +2602,6 @@ void restore(i1,i2)
   }
 }
 
-
 /*  Sets the color according to the velocity or z-value */
 void comp_color( v1,v2,n, dt)
  float *v1, *v2;
@@ -2710,7 +2658,6 @@ i=1;
   SuppressBounds=0;
 }
 
-
 void stop_integration()
 {
  /*  set some global error here... */
@@ -2718,9 +2665,6 @@ void stop_integration()
     err_msg("Delay too large or negative");
  DelayErr=1;
 }
-
-
-
 
 int stor_full()
 {
@@ -2731,7 +2675,6 @@ int stor_full()
    MAXSTOR=nrow;
    return 1;
  }
-
 
  if(!Xup){
    plintf(" Storage full -- increase maxstor \n");

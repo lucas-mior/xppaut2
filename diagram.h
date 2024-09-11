@@ -20,5 +20,4 @@ void bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi);
 int save_diagram(FILE *fp, int n);
 int load_diagram(FILE *fp, int node);
 
-
 #endif

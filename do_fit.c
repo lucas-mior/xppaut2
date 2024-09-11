@@ -17,7 +17,6 @@
 #include "gear.h"
 #include "browse.h"
 
-
 #include "phsplan.h"
 
 /*  this is also X free ! */
@@ -41,7 +40,6 @@ FITINFO fin;
 
 char *get_first();
 char *get_next();
-
 
 extern int (*solver)();
 
@@ -188,8 +186,6 @@ if(METHOD==CVODE)
  /*printem(yderv,yfit,t0,npars,nvars,npts);  */
 }
 
-
-
 void printem(yderv,yfit,t0,npars,nvars,npts)
      double **yderv,*yfit,*t0;
      int npars,nvars,npts;
@@ -305,8 +301,6 @@ if(METHOD==RKQS||METHOD==STIFF){
   return(1);
 }
 
-
-
 void print_fit_info()
 {
   int i;
@@ -319,7 +313,6 @@ void print_fit_info()
   for(i=0;i<fin.npars;i++)
     plintf(" P[%d]=%d \n",i,fin.ipar[i]);
 }
-
 
 void test_fit()
 {
@@ -334,7 +327,6 @@ void test_fit()
  sprintf(varlist,fin.varlist);
  sprintf(parlist1,fin.parlist1);
  sprintf(parlist2,fin.parlist2);
-
 
  parse_collist(collist,fin.icols,&nvars);
 
@@ -409,8 +401,6 @@ void test_fit()
 
 }
 
-
-
 int run_fit( filename,  /* string */
 	npts,npars,nvars,maxiter,ndim,  /* ints */
 	eps,tol, /* doubles */
@@ -446,7 +436,6 @@ int run_fit( filename,  /* string */
 	  filename,
 	npts,npars,nvars,maxiter,ndim); */
 
-
   if((fp=fopen(filename,"r"))==NULL){
     err_msg("No such file...");
     return(0);
@@ -471,8 +460,6 @@ int run_fit( filename,  /* string */
   }
   plintf(" Data loaded ... %f %f ...  %f %f \n",
 	 y[0],y[1],y[npts*nvars-2],y[npts*nvars-1]);
-
-
 
   work=(double *)malloc(sizeof(double)*(4*npars+npars*npars));
   yderv=(double **)malloc(npars*sizeof(double *));
@@ -538,7 +525,6 @@ int run_fit( filename,  /* string */
   free(t0);
   free(y);
 
-
     return(1);
   }
   ictrl=2;
@@ -553,7 +539,6 @@ int run_fit( filename,  /* string */
       plintf(" %g ",covar[i+npars*j]);
     plintf("\n");
   }
-
 
   free(work);
   for(i=0;i<npars;i++)
@@ -719,8 +704,6 @@ sigma  weights on nvars
        return(1);
      }
 
-
-
 int get_fit_params()
 {
   static char *n[]={"File", "Fitvar","Params","Tolerance","Npts",
@@ -803,7 +786,6 @@ void parse_varlist(varlist,ivars,n)
 
 }
 
-
 void parse_parlist(parlist,ipars,n)
      int *n,*ipars;
      char *parlist;
@@ -848,12 +830,5 @@ void parse_parlist(parlist,ipars,n)
   *n=*n+i;
 
 }
-
-
-
-
-
-
-
 
 

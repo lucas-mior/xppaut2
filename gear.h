@@ -5,7 +5,6 @@ void silent_fixpt(double *x, double eps, double err, double big, int maxit, int 
 void do_sing(double *x, double eps, double err, double big, int maxit, int n, int *ierr, float *stabinfo);
 void do_sing_info(double *x, double eps, double err, double big, int maxit, int n, double *er, double *em, int *ierr);
 
-
 void shoot_this_now();
 void pr_evec(double *x, double *ev, int n, int pr, double eval,int type);
 void get_complex_evec(double *m, double evr, double evm, double *br, double *bm, int n, int maxit, double err, int *ierr);
@@ -31,6 +30,5 @@ void saxpy(int n, double sa, double *sx, int incx, double *sy, int incy);
 int isamax(int n, double *sx, int incx);
 double sdot(int n, double *sx, int incx, double *sy, int incy);
 void sscal(int n, double sa, double *sx, int incx);
-
 
 #endif

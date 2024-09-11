@@ -1,14 +1,12 @@
 #ifndef _graf_par_h_
 #define _graf_par_h_
 
-
 #define RUBBOX 0
 #define RUBLINE 1
 
 #define SCRNFMT 0
 #define PSFMT 1
 #define SVGFMT 2
-
 
 #define REAL_SMALL 1.e-6
 #define MAX_LEN_SBOX 25
@@ -31,8 +29,6 @@ typedef struct {
   int color[MAXBIFCRV],npts[MAXBIFCRV],nbifcrv;
   Window w;
 } BD;
-
-
 
 void change_view_com(int com);
 void ind_to_sym(int ind, char *str);

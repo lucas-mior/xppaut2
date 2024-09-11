@@ -16,6 +16,4 @@
 #define TAB 10
 #define BADKEY 0
 
-
-
 #endif

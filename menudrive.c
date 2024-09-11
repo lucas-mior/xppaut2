@@ -33,7 +33,6 @@
 #include "auto.h"
 #include "ggets.h"
 
-
 #include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>
@@ -70,9 +69,7 @@ typedef struct {
 
 MSGBOXSTRUCT MsgBox;
 
-
 char *getenv();
-
 
 void do_tutorial()
 {
@@ -168,7 +165,6 @@ void xpp_hlp()
 
 }
 
-
 void MessageBox(char *m)
 {
  int wid=strlen(m)*DCURX+20;
@@ -258,7 +254,6 @@ void clr_all_scrns()
  hi_lite(draw_win);
 }
 
-
 void run_the_commands(int com)
 {
   if(com<0)return;
@@ -320,7 +315,6 @@ void run_the_commands(int com)
     return;
   }
 
-
   if(com==M_GFKK||com==M_GFKN){
     key_frz_com(com-M_GFKN);
     return;
@@ -377,7 +371,6 @@ void run_the_commands(int com)
     find_bvp_com(com-M_BR);
     return;
   }
-
 
   if(com>=M_V2&&com<=M_VT)change_view_com(com-M_V2);
   if(com>=M_UAN&&com<=M_UAR)make_adj_com(com-M_UAN);
@@ -553,9 +546,6 @@ void do_gr_objs()
     run_the_commands(M_TT+i);
 }
 
-
-
-
 void new_lookup()
 {
   static char *n[]={"(E)dit","(V)iew"};
@@ -600,7 +590,6 @@ Window temp=main_win;
  if(i>=0&&i<4)run_the_commands(M_V2+i);
 }
 
-
 void do_windows()
 {
  int i;
@@ -626,7 +615,6 @@ char ch;
  if(i>=0&&i<7)
    run_the_commands(M_MC+i);
 }
-
 
 void add_a_curve()
 {
@@ -694,9 +682,6 @@ void add_a_curve()
   run_the_commands(com);
 }
 
-
-
-
 void do_movie()
 {
  int i;
@@ -713,7 +698,6 @@ void do_movie()
  if(i>=0&&i<nkc)
    run_the_commands(i+M_KC);
 }
-
 
 void do_torus()
 {
@@ -842,7 +826,6 @@ Window temp=main_win;
 
  run_the_commands(i);
 
-
 }
 
 void new_param()
@@ -856,13 +839,10 @@ void clear_screens()
 
 }
 
-
-
 void x_vs_t()
 {
  run_the_commands(M_X);
 }
-
 
 void redraw_them_all()
 {
@@ -874,7 +854,5 @@ void get_3d_par()
 {
   run_the_commands(M_3);
 }
-
-
 
 

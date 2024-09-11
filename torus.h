@@ -10,7 +10,4 @@ void choose_torus(void);
 void make_tor_box(char *title);
 void do_torus_events(void);
 
-
-
-
 #endif

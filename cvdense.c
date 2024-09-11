@@ -9,7 +9,6 @@
  *                                                                *
  ******************************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvdense.h"
@@ -19,13 +18,11 @@
 #include "vector.h"
 #include "llnlmath.h"
 
-
 /* Error Messages */
 
 #define CVDENSE_INIT  "CVDenseInit-- "
 
 #define MSG_MEM_FAIL  CVDENSE_INIT "A memory request failed.\n\n"
-
 
 /* Other Constants */
 
@@ -33,7 +30,6 @@
 #define ZERO         RCONST(0.0)
 #define ONE          RCONST(1.0)
 #define TWO          RCONST(2.0)
-
 
 /******************************************************************
  *                                                                *
@@ -62,7 +58,6 @@ typedef struct {
 
 } CVDenseMemRec, *CVDenseMem;
 
-
 /* CVDENSE linit, lsetup, lsolve, and lfree routines */
 
 static int  CVDenseInit(CVodeMem cv_mem, bool *setupNonNull);
@@ -75,7 +70,6 @@ static int  CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
 			 N_Vector fcur);
 
 static void CVDenseFree(CVodeMem cv_mem);
-
 
 /*************** CVDenseDQJac ****************************************
 
@@ -135,7 +129,6 @@ void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real tn,
   *nfePtr += N;
 }
 
-
 /* Readability Replacements */
 
 #define N         (cv_mem->cv_N)
@@ -166,7 +159,6 @@ void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real tn,
 #define nstlj     (cvdense_mem->d_nstlj)
 #define nje       (cvdense_mem->d_nje)
 #define J_data    (cvdense_mem->d_J_data)
-
 
 /*************** CVDense *********************************************
 

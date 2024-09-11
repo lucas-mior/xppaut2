@@ -8,5 +8,4 @@ typedef struct {
   int side;
 } BC_STRUCT;
 
-
 #endif

@@ -31,7 +31,6 @@ int ShootType[8];
 int gear_pivot[MAXODE];
 extern int storind,STORFLAG;
 
-
 double amax(/* double,double */);
 double sign(/* double,double */);
 char status();
@@ -49,7 +48,6 @@ double pertst[7][2][3]={{{2,3,1},{2,12,1}},
 			{{17.15,1,.008267},{70.08,87.97,.07407}},
 			{{1,1,1},{87.97,1,.0139}}};
 
-
 void write_mybrowser_data();
 
 void silent_fixpt(double *x,double eps,double err,double big,int maxit,int n,
@@ -57,11 +55,8 @@ void silent_fixpt(double *x,double eps,double err,double big,int maxit,int n,
 {
   int kmem,i,j;
 
-
-
  double *work,*eval,*b,*bp,*oldwork,*ework;
  double temp,old_x[MAXODE];
-
 
  kmem=n*(2*n+5)+50;
  *ierr=0;
@@ -112,9 +107,6 @@ void silent_fixpt(double *x,double eps,double err,double big,int maxit,int n,
   em[i]=eval[2*i+1];
  }
 } /* end silent fixed point  */
-
-
-
 
 /* main fixed point finder */
 void do_sing(x,eps, err,big,maxit, n,ierr,stabinfo)
@@ -316,7 +308,6 @@ if(!PAR_FOL)
      {
        oldt=DELTA_T;
 
-
 	 if((rp>1)&&(bpos>=0)) /* then there is a strong unstable */
 	 {
 	   plintf("strong unstable %g \n",bigpos);
@@ -351,13 +342,10 @@ if(!PAR_FOL)
 	   else
 	     err_msg("Failed to compute eigenvector");
 
-
 	 }
      }
         DELTA_T=oldt;
  }
-
-
 
  free(work);
  return;
@@ -401,7 +389,6 @@ int i,k,type,oldcol,dummy;
   }
   DELTA_T=olddt;
 
-
 }
 void shoot_this_now() /* this uses the current labeled saddle point stuff to integrate */
 {
@@ -443,8 +430,6 @@ void do_sing_info(x,eps, err,big,maxit, n,er,em,ierr)
  int pose=0,nege=0,pr=0;
  double *work,*eval,*b,*bp,*oldwork,*ework;
  double temp,old_x[MAXODE];
-
-
 
  double real,imag;
  double bigpos=-1e10,bigneg=1e10;
@@ -543,8 +528,6 @@ void do_sing_info(x,eps, err,big,maxit, n,er,em,ierr)
    else eq_symb(x,3);
  }
 
-
-
  /* Lets change Work back to transposed oldwork */
    for(i=0;i<n;i++)
      {
@@ -565,11 +548,9 @@ void do_sing_info(x,eps, err,big,maxit, n,er,em,ierr)
      /*     for(i=0;i<n*n;i++)printf(" w=%g o=%g \n",work[i],oldwork[i]); */
      get_evec(work,oldwork,b,bp,n,maxit,err,ipivot,eval[2*pose],ierr);
 
-
      if(*ierr==0)
      {
        pr_evec(x,b,n,pr,eval[2*pose],1);
-
 
      }
 
@@ -580,26 +561,19 @@ void do_sing_info(x,eps, err,big,maxit, n,er,em,ierr)
 
      get_evec(work,oldwork,b,bp,n,maxit,err,ipivot,eval[2*nege],ierr);
 
-
      if(*ierr==0)
      {
        pr_evec(x,b,n,pr,eval[2*nege],-1);
 
      }
 
-
    }
 
  }
 
-
-
-
  free(work);
  return;
 }
-
-
 
 void pr_evec(x,ev,n,pr,eval,type)
 double *x, *ev;
@@ -752,10 +726,6 @@ void get_evec(a,anew,b,bp, n, maxit,
      return;
   }
 
-
-
-
-
       void eigen( n,a,ev,work,ierr)
 	int n,*ierr;
 	double *a,*ev,*work;
@@ -764,7 +734,6 @@ void get_evec(a,anew,b,bp, n, maxit,
       orthesx(n,1,n,a,work);
       hqrx(n,1,n,a,ev,ierr);
       }
-
 
      void hqrx( n, low, igh,h,ev,ierr)
       int n,low,igh,*ierr;
@@ -1054,7 +1023,6 @@ void getjactrans(double *x,double *y,double *yp,double *xp, double eps, double *
   }
 }
 
-
 void rooter(x, err, eps, big,
 work,ierr,maxit, n)
 
@@ -1138,7 +1106,6 @@ double z;
 {
 return(z*z);
 }
-
 
 int gear( n,t, tout,y, hmin, hmax,eps,
      mf,error,kflag,jstart,work,iwork)
@@ -1620,7 +1587,6 @@ L860:
 
 }
 
-
 double sgnum( x, y)
 double x,y;
 {
@@ -1695,7 +1661,6 @@ int lda,n,*ipvt,job;
 /* for(k=0;k<n;k++)printf("ipiv=%d  b=%f \n",
 			ipvt[k],b[k]);*/
 
-
  if(job==0)
  {
   if(nm1>=1)
@@ -1758,8 +1723,6 @@ double sa,*sx, *sy;
   sy[iy]=sy[iy]+sa*sx[ix];
 }
 
-
-
 int isamax(n,sx,incx)
 double *sx;
 int incx,n;
@@ -1797,7 +1760,6 @@ int incx,n;
  return(imax);
 }
 
-
 double sdot( n,sx,incx,sy,incy)
 int n,incx,incy;
 double *sx, *sy;
@@ -1824,6 +1786,5 @@ double sa,*sx;
   for(i=0;i<nincx;i+=incx)
   sx[i]*=sa;
 }
-
 
 

@@ -20,12 +20,10 @@
 
 extern int NCON,NSYM,NCON_START,NSYM_START;
 
-
 extern Display *display;
 extern int screen;
 extern GC gc, small_gc;
 extern int DCURX,DCURXs,DCURY,DCURYs,CURY_OFFs,CURY_OFF;
-
 
 #define MYMASK  (ButtonPressMask 	|\
 		KeyPressMask		|\
@@ -39,9 +37,6 @@ extern int DCURX,DCURXs,DCURY,DCURYs,CURY_OFFs,CURY_OFF;
 		  ExposureMask    |\
                   StructureNotifyMask)
 
-
-
-
 double calculate(/* char * */);
 double evaluate();
 extern double last_ic[MAXODE];
@@ -51,9 +46,6 @@ struct {
   double last_val;
   int use;
 } my_calc;
-
-
-
 
 void draw_calc(w)
 Window w;
@@ -164,7 +156,6 @@ void q_calc()
   quit_calc();
  }
 
-
 int do_calc(temp,z)
 char *temp;
 double *z;
@@ -179,7 +170,6 @@ double *z;
 	}
  if(has_eq(temp,val,&i))
  {
-
 
   newz=calculate(&temp[i],&ok);  /*  calculate quantity  */
 
@@ -211,7 +201,6 @@ double *z;
  return(1);
 }
 
-
 int has_eq(z, w, where)
  int *where;
  char *z,*w;
@@ -225,7 +214,6 @@ int has_eq(z, w, where)
   *where=i+1;
   return(1);
  }
-
 
  double calculate(expr,ok)
  char *expr;
@@ -247,12 +235,5 @@ bye:
   NSYM=NSYM_START;
   return(z);
  }
-
-
-
-
-
-
-
 
 

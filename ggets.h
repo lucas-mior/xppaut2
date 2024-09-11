@@ -46,6 +46,5 @@ void do_backspace(int *pos, char *value, int *col, Window w);
 void edit_command_string(XEvent ev, char *name, char *value, int *done, int *pos, int *col);
 int new_string(char *name, char *value);
 
-
 #endif
 

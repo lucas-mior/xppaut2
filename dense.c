@@ -17,13 +17,10 @@
 #include "llnlmath.h"
 #include "ggets.h"
 
-
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
 
-
 /* Implementation */
-
 
 DenseMat DenseAllocMat(integer N)
 {
@@ -45,7 +42,6 @@ DenseMat DenseAllocMat(integer N)
   return(A);
 }
 
-
 integer *DenseAllocPiv(integer N)
 {
   if (N <= 0) return(NULL);
@@ -53,18 +49,15 @@ integer *DenseAllocPiv(integer N)
   return((integer *) malloc(N * sizeof(integer)));
 }
 
-
 integer DenseFactor(DenseMat A, integer *p)
 {
   return(gefa(A->data, A->size, p));
 }
 
-
 void DenseBacksolve(DenseMat A, integer *p, N_Vector b)
 {
   gesl(A->data, A->size, p, N_VDATA(b));
 }
-
 
 void DenseZero(DenseMat A)
 {
@@ -101,7 +94,6 @@ void DensePrint(DenseMat A)
 {
   denprint(A->data, A->size);
 }
-
 
 real **denalloc(integer n)
 {
@@ -310,6 +302,5 @@ void denprint(real **a, integer n)
   }
   plintf("\n");
 }
-
 
 

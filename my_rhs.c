@@ -10,8 +10,6 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-
-
 extern BC_STRUCT my_bc[MAXODE];
 extern int FIX_VAR,NMarkov,PrimeStart;
 extern int *my_ode[];
@@ -85,7 +83,6 @@ void set_fix_rhs(t,y)
   do_in_out();
 }
 
-
 int my_rhs( t,y,ydot,neq)
 double t,*y,*ydot;
 int neq;
@@ -146,9 +143,7 @@ double t,*y,*ydot;
 int neq;
 {
 
-
 }
-
 
 /***
     This is the order in which quantities are evaluated
@@ -164,6 +159,5 @@ For Auxilliary stuff
 external C code is not evaluated but fixed are
 
 ***/
-
 
 

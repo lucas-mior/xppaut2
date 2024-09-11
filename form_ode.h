@@ -9,7 +9,6 @@
 #define MAXVNAM 33
 #define MAXLINES 5000
 
-
 /*void break_up_list(char *rhs);
 void compile_em();
 void free_varinfo();
@@ -27,8 +26,6 @@ void stor_internopts(char *s1);
 
 typedef struct {
   char *name,*value;} FIXINFO;
-
-
 
 int make_eqn(void);
 void strip_saveqn(void);

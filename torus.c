@@ -27,8 +27,6 @@ extern int DisplayHeight,DisplayWidth;
 		EnterWindowMask		|\
 		LeaveWindowMask)	
 
-
-
 	
 		
 extern Display *display;
@@ -46,14 +44,10 @@ extern int TORUS;
 extern double TOR_PERIOD;
 extern int itor[MAXODE];
 
-
-
 struct {
          Window base,done,cancel;
 	 Window w[MAXODE];
        } torbox;
-
-
 
 void do_torus_com(int c)
 {
@@ -78,9 +72,6 @@ void do_torus_com(int c)
  TORUS=0;
 }
 
-
-
-
 void draw_tor_var(i)
 int i;
 {
@@ -91,12 +82,10 @@ int i;
  XDrawString(display,torbox.w[i],small_gc,0,CURY_OFFs,strng,strlen(strng));
 }
 
-
 void draw_torus_box(win)
 Window win;
 {
  int i;
-
 
  if(win==torbox.cancel){
    XDrawString(display,win,small_gc,5,CURY_OFFs,"Cancel",6);
@@ -243,18 +232,5 @@ void do_torus_events()
  XDestroyWindow(display,torbox.base);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

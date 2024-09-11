@@ -30,7 +30,6 @@
           -                                                   MIN
      TN     ---------------------------------------
 
-
     and it creates a color plot
 
 */
@@ -92,8 +91,6 @@ extern double MyData[MAXODE];
 		StructureNotifyMask	|\
 		LeaveWindowMask		|\
 		EnterWindowMask)
-
-
 
 void draw_one_array_plot(char *bob)
 {
@@ -166,8 +163,6 @@ void optimize_aplot(int *plist)
   redraw_aplot(aplot);
 }
 
-
-
 void make_my_aplot(name)
      char *name;
 {
@@ -236,7 +231,6 @@ void expose_aplot(w)
     display_aplot(w,aplot);
 }
 
-
 void do_array_plot_events(ev)
      XEvent ev;
 {
@@ -303,7 +297,6 @@ void init_my_aplot()
 {
  init_arrayplot(&aplot);
 }
-
 
 void create_arrayplot(ap,wname,iname)
      APLOT *ap;
@@ -625,7 +618,6 @@ void gif_aplot()
   gif_aplot_all(filename,1);
 }
 
-
 void grab_aplot_screen(ap)
      APLOT ap;
 {
@@ -708,7 +700,6 @@ int col;
 
 }
 
-
 void display_aplot(w,ap)
      APLOT ap;
      Window w;
@@ -769,24 +760,5 @@ if(w==ap.wclose){
    return;
  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

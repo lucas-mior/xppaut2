@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include "parserslow.h"
 
-
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #define MIN(a,b) ((a)<(b)?(a):(b))
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
@@ -30,7 +29,6 @@
     The kernel structure contains the constant mu and the expression for
     evaluating K(t,t',u)
 
-
 */
 
 #define CONV 2
@@ -44,13 +42,11 @@ extern int EqType[MAXODE];
 int CurrentPoint;
 int KnFlag;
 
-
 int AutoEvaluate=0;
 extern double variables[];
 extern int NVAR;
 extern int MaxEulIter;
 extern double EulTol,NEWT_ERR;
-
 
 double evaluate();
 double ker_val();
@@ -60,10 +56,6 @@ double betnn();
 
 extern int *my_ode[];
 double get_ivar();
-
-
-
-
 
 double ker_val(in)
      int in;
@@ -75,7 +67,6 @@ double ker_val(in)
 void alloc_v_memory()  /* allocate stuff for volterra equations */
 {
   int i,len,formula[256],j;
-
 
 /* First parse the kernels   since these were deferred */
   for(i=0;i<NKernel;i++){
@@ -182,7 +173,6 @@ void alloc_kernels(flag)
    the weights al and bet are computed in general, but specifically
    for mu=0,.5 since these involve no transcendental functions
 
-
    */
 
 /***   FIX THIS TO DO MORE GENERAL STUFF
@@ -238,7 +228,6 @@ void init_sums(t0,n,dt,i0,iend,ishift)
    piecewise --linear-- method
 */
 
-
 double alpha1n(mu,dt,t,t0)
      double mu,dt,t,t0;
 {
@@ -247,7 +236,6 @@ double alpha1n(mu,dt,t,t0)
   m1=1-mu;
   return(.5*(pow(fabs(t-t0),m1)-pow(fabs(t-t0-dt),m1))/m1);
 }
-
 
 double alpbetjn(mu,dt,l)
      double dt,mu;
@@ -303,7 +291,6 @@ int volterra(y,t,dt,nt,neq,istart,work)
   yp2=errvec+neq;
   jac=yp2+neq;
 
-
                                          /*  Initialization of everything   */
   if(*istart==1){
     CurrentPoint=0;
@@ -346,10 +333,6 @@ int volterra(y,t,dt,nt,neq,istart,work)
     }
  return(0);
 }
-
-
-
-
 
 int volt_step(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac)
      double *y,t,dt,*yg,*yp,*yp2,*ytemp,*errvec,*jac;
@@ -434,16 +417,8 @@ int volt_step(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac)
    Memory[i][ind]=GETVAR(i+1);
  CurrentPoint++;
 
-
  return(0);
 
 }
-
-
-
-
-
-
-
 
 

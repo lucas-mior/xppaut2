@@ -24,7 +24,6 @@ char *timesfonts[]={
 "*-times-medium-r-*-18-180-*",
 "*-times-medium-r-*-24-240-*"};
 
-
 char *symbolfonts[]={
 "*-symbol-medium-r-*-10-100-*",
 "*-symbol-medium-r-*-12-120-*",

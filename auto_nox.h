@@ -52,7 +52,6 @@ typedef struct {
   int flag;
 } GRABPT;
 
-
 typedef struct diagram {
   int package;
   int ibr,ntot,itp,lab,calc;
@@ -68,8 +67,6 @@ typedef struct {
   int plot,var,icp1,icp2,icp3,icp4,icp5;
   double xmin,ymin,xmax,ymax;
 }  AUTOAX;
-
-
 
 void colset(int type);
 void pscolset2(int flag2);

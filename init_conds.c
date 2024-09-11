@@ -54,7 +54,6 @@ This also has the clone gadget
 #include "home.bitmap"
 #include "start.bitmap"
 
-
 #include "bc.bitmap"
 #include "shoot.h"
 #include "ggets.h"
@@ -106,9 +105,7 @@ extern int noicon;
 #define EDIT_ESC 2
 #define EDIT_DONE 3
 
-
 extern char cur_dir[];
-
 
 FILESEL filesel;
 
@@ -120,8 +117,6 @@ extern char delay_string[MAXODE][80];
 extern double default_val[MAXPAR];
 extern double last_ic[MAXODE];
 extern double default_ic[MAXODE];
-
-
 
 PAR_SLIDER my_par_slide[3];
 extern OptionsSet notAlreadySet;
@@ -138,8 +133,6 @@ extern double SLIDER3LO;
 extern double SLIDER1HI;
 extern double SLIDER2HI;
 extern double SLIDER3HI;
-
-
 
 extern BC_STRUCT my_bc[MAXODE];
 
@@ -182,7 +175,6 @@ sl->down=make_window(base,x+width+SB_SPC,y+height-2*SB_DIM-SB_SPC,
 sl->npos=height-2*(SB_DIM+SB_SPC);
 sl->max=height/(DCURYs+3);
 }
-
 
 void free_scroll_list(SCROLL_LIST *sl)
 {
@@ -345,8 +337,6 @@ void clone_ode()
   fclose(fp);
 }
 
-
-
 int find_user_name(type,oname)
 int type;
 char *oname;
@@ -357,7 +347,6 @@ char *oname;
  if(!isspace(oname[j])){name[k]=oname[j];k++;}
 }
  name[k]=0;
-
 
  for(i=0;i<NUPAR;i++)
          if((type==PARAMBOX)&&(strcasecmp(upar_names[i],name)==0))break;
@@ -409,7 +398,6 @@ void do_slide_button(w,p)
   if(w==p->go&&p->use==1)
     run_now();
 
-
   if(w!=p->top)return;
   strcpy(values[0],p->parname);
   sprintf(values[1],"%.16g",p->val);
@@ -455,9 +443,7 @@ void do_slide_button(w,p)
   set_slide_pos(p);
   redraw_slide(p);
 
-
 }
-
 
 void expose_selector(w)
 Window w;
@@ -494,7 +480,6 @@ int flag;
   if(flag)put_edit_cursor(w,DCURXs*strlen(string));
 }
 
-
 void display_file_sel(f,w)
 Window w;
 FILESEL f;
@@ -520,8 +505,6 @@ FILESEL f;
     int hgt=DCURYs+4;
     XMoveResizeWindow(display,f.ok,cwid/2-7*DCURXs-3,chgt-hgt,7*DCURXs,DCURYs);
     XMoveResizeWindow(display,f.cancel,cwid/2+3,chgt-hgt,7*DCURXs,DCURYs);
-
-
 
  char t[256];
  if(f.here!=1)return;
@@ -606,7 +589,6 @@ int i;
  redraw_file_list();
 }
 
-
 int button_selector(w)
 Window w;
 {
@@ -644,8 +626,6 @@ Window w;
 	      strcat(filesel.filetxt,"/");
       }
 
-
-
       redraw_fs_text(filesel.filetxt,filesel.file,1);
       redraw_file_list();
       XFlush(display);
@@ -679,8 +659,6 @@ Window w;
       {
 	      strcat(filesel.filetxt,"/");
       }
-
-
 
       redraw_fs_text(filesel.filetxt,filesel.file,1);
       redraw_file_list();
@@ -725,8 +703,6 @@ Window w;
 	      strcat(filesel.filetxt,"/");
       }
 
-
-
       redraw_fs_text(filesel.filetxt,filesel.file,1);
       redraw_file_list();
       XFlush(display);
@@ -738,8 +714,6 @@ Window w;
      strcpy(filesel.filetxt,my_ff.filenames[k]);
      return 1; /* got a file */
    }
-
-
 
  }
  return 0;
@@ -798,7 +772,6 @@ int do_file_select_events()
 
 }
 
-
 void create_file_selector(title,file,wild)
  char *title;
  char *wild,*file;
@@ -847,7 +820,6 @@ void create_file_selector(title,file,wild)
  class_hints.res_name="";
  class_hints.res_class="";
 
-
  XSetWMProperties(display,base,&winname,NULL,NULL,0,&size_hints,NULL,&class_hints);
 
  /*
@@ -863,10 +835,6 @@ void create_file_selector(title,file,wild)
  filesel.pgdn=make_icon_window(base,DCURXs,2+3*hgt+120+21,32,24,1,0,0,pagedn_bits);
  filesel.home=make_icon_window(base,DCURXs,2+3*hgt,32,24,1,0,0,home_bits);
  filesel.start=make_icon_window(base,DCURXs,2+3*hgt+24+3,32,24,1,0,0,start_bits);
-
-
-
-
 
  filesel.dir=make_plain_window(base,7*DCURXs,2,width-7*DCURXs-5,DCURYs,0);
  filesel.wild=make_plain_window(base,7*DCURXs,2+hgt,width-7*DCURXs-5,DCURYs,1);
@@ -886,7 +854,6 @@ void create_file_selector(title,file,wild)
   filesel.pos=strlen(filesel.filetxt);
   filesel.off=0;
 }
-
 
 void stringintersect(target,sother)
 char *target,*sother;
@@ -908,7 +875,6 @@ char *target,*sother;
 	}
 	target[j] = '\0';
 }
-
 
 int edit_fitem(ch,string,w,off1,pos1,mc)
 char ch,*string;
@@ -1068,7 +1034,6 @@ int *off1,*pos1,mc;
 	}
      }
 
-
      int n=0;
      ft[0] = '\0';
      if (m>  strlen(filesel.filetxt))
@@ -1220,9 +1185,6 @@ XEvent ev;
  return 0;
 }
 
-
-
-
 void destroy_selector()
 {
  filesel.here=0;
@@ -1231,7 +1193,6 @@ void destroy_selector()
  XDestroyWindow(display,filesel.base);
  free_finfo(&my_ff);
 }
-
 
 int file_selector(title,file,wild)
  char *title;
@@ -1329,7 +1290,6 @@ void slider_motion(ev)
     do_slide_motion(w,x,&my_par_slide[i],ev.xmotion.state);
 }
 
-
 void do_slide_motion(w,x,p,s)
      PAR_SLIDER *p;
      Window w;
@@ -1360,8 +1320,6 @@ void do_slide_motion(w,x,p,s)
   }
 }
 
-
-
 void enter_slides(w,val)
      Window w;
      int val;
@@ -1370,7 +1328,6 @@ void enter_slides(w,val)
   for(i=0;i<3;i++)
     enter_slider(w,&my_par_slide[i],val);
 }
-
 
 void enter_slider(w,p,val)
      Window w;
@@ -1381,7 +1338,6 @@ void enter_slider(w,p,val)
       XSetWindowBorderWidth(display,w,val+1);
 }
 
-
 void expose_slides(w)
      Window w;
 {
@@ -1389,7 +1345,6 @@ void expose_slides(w)
   for(i=0;i<3;i++)
     expose_slider(w,&my_par_slide[i]);
 }
-
 
 void expose_slider(w,p)
      PAR_SLIDER *p;
@@ -1438,7 +1393,6 @@ void expose_slider(w,p)
 
 }
 
-
 void draw_slider(w,x,hgt,l)
      int x,hgt,l;
      Window w;
@@ -1450,7 +1404,6 @@ void draw_slider(w,x,hgt,l)
   for(i=0;i<4;i++)
     XDrawLine(display,w,small_gc,x0+i,0,x0+i,hgt);
 }
-
 
 void make_par_slider(base,x,y,width,index)
      Window base;
@@ -1510,8 +1463,6 @@ void make_par_slider(base,x,y,width,index)
 
 }
 
-
-
 /*     The rest of the code is good
                     |
                     V
@@ -1527,7 +1478,6 @@ void make_new_ic_box()
   make_icon((char*)ic_bits,ic_width,ic_height,ICBox.base);
 
 }
-
 
 void make_new_bc_box()
 {
@@ -1573,7 +1523,6 @@ void initialize_box()
     DelayBox.use=0;
   make_box_list(&BCBox,"Boundary Conds","BCs",NODE,BCBOX,1);
 
-
  /*  Iconify them !!   */
  /*  if(noicon==0){
  if(ICBox.xuse)XIconifyWindow(display,ICBox.base,screen);
@@ -1583,7 +1532,6 @@ void initialize_box()
   } */
 }
 
-
 void resize_par_box(win)
 Window win;
 {
@@ -1591,8 +1539,6 @@ Window win;
   int nwin;
   int ok=0;
   BoxList *b;
-
-
 
   if(ICBox.xuse==1&&win==ICBox.base){
     ok=1;
@@ -1627,12 +1573,9 @@ Window win;
   if(ok==0)return;
   if(nwin>b->n)nwin=b->n;
 
-
   if(nwin==b->nwin)return;
 
-
   b->nwin=nwin;
-
 
   b->n0=(b->n-b->nwin);
  /* b->n0=0;This is a work-around for the following bug (still happening):
@@ -1691,7 +1634,6 @@ void destroy_box(BoxList *b)
   if(b->use==0)return;
   waitasec(ClickTime);
 
-
   XDestroySubwindows(display,b->base);
   XDestroyWindow(display,b->base);
 
@@ -1708,10 +1650,7 @@ void destroy_box(BoxList *b)
   waitasec(200);
   XFlush(display);
 
-
-
 }
-
 
 void make_box_list_window(BoxList *b,int type)
 {
@@ -1721,16 +1660,11 @@ int nrow,n;
  int i,wid1,wid2;
  int width,height,wid,hgt;
 
-
-
  Window base;
   XTextProperty winname,iconame;
    XSizeHints size_hints;
    n=b->n;
    nrow=b->nwin;
-
-
-
 
  wid1=16*DCURXs;
  wid2=22*DCURXs;
@@ -1825,7 +1759,6 @@ if(type==ICBOX){
  b->xuse=1;
 }
 
-
 void make_box_list(b,wname,iname,n,type,use)
 BoxList *b;
 char *wname,*iname;
@@ -1853,7 +1786,6 @@ if(n<10)nrow=n;
  b->wname=(char *)malloc(strlen(wname)+5);
  strcpy(b->wname,wname);
 
-
  for(i=0;i<n;i++){
    b->value[i]=(char *)malloc(256);
    switch(type){
@@ -1876,29 +1808,19 @@ if(n<10)nrow=n;
  }
 }
 
-
-
-
-
  /* this is added to take care of making sure
      exposure of the boxes is easily taken care of
   */
 
-
 void do_box_expose(w)
 Window w;
 {
-
 
  if(ICBox.xuse)display_box(ICBox,w);
  if(BCBox.xuse)display_box(BCBox,w);
  if(ParamBox.xuse)display_box(ParamBox,w);
  if(DelayBox.xuse)display_box(DelayBox,w);
  }
-
-
-
-
 
 void justify_string(w1,s1)
      Window w1;
@@ -1919,13 +1841,11 @@ void justify_string(w1,s1)
     if the index is beyond this dont draw it
 */
 
-
 void draw_one_box(b,index)
 int index;
 BoxList b;
 {
  Window w,we;
-
 
  int n0=b.n0;
  int n1=n0+b.nwin-1;
@@ -1959,8 +1879,6 @@ BoxList b;
 		}
   }
 
-
-
 void redraw_params()
 {
  int i;
@@ -1973,7 +1891,6 @@ void redraw_params()
  }
  reset_sliders();
 }
-
 
 void redraw_delays()
 {
@@ -2071,7 +1988,6 @@ if(b.pgdn==w)
  }
 }
 
-
 void box_enter_events(w,yn)
      Window w;
      int yn;
@@ -2095,7 +2011,6 @@ if(ICBox.xuse)box_enter(ICBox,w,val);
 
 }
 
-
 void box_enter(b,w,val)
      BoxList b;
      Window w;
@@ -2106,7 +2021,6 @@ void box_enter(b,w,val)
 	 XSetWindowBorderWidth(display,w,val);
 
 }
-
 
 int find_the_box(b,w,index)
 BoxList b;
@@ -2123,8 +2037,6 @@ int *index;
  *index=-1;
  return(0);
 }
-
-
 
 void set_up_xvt()
 {
@@ -2145,7 +2057,6 @@ void set_up_xvt()
     graph_all(plot_list,n,0);
 }
 
-
 void set_up_pp()
 {
 int i;
@@ -2164,7 +2075,6 @@ int plot_list[3],n=0;
  if(n>1)
    graph_all(plot_list,n,1);
 }
-
 
 void set_up_arry()
 {
@@ -2185,7 +2095,6 @@ int plot_list[2],n=0;
   optimize_aplot(plot_list);
 }
 
-
 void redraw_entire_box(b)
      BoxList *b;
 {
@@ -2205,7 +2114,6 @@ void redraw_entire_box(b)
     return;
   }
 }
-
 
 void do_box_button(b,w)
      BoxList *b;
@@ -2268,9 +2176,6 @@ void do_box_button(b,w)
  }
 }
 
-
-
-
 void box_list_scroll(b,i)
      BoxList *b;
      int i;
@@ -2308,8 +2213,6 @@ void box_list_scroll(b,i)
  }
 }
 
-
-
 void box_buttons(w)
 Window w;
 {
@@ -2321,12 +2224,10 @@ Window w;
 
 }
 
-
 void box_keypress(ev,used)
      XEvent ev;
      int *used;
 {
-
 
   if(ICBox.xuse){do_box_key(&ICBox,ev,used);if(*used)return;}
   if(BCBox.xuse){do_box_key(&BCBox,ev,used);if(*used)return;}
@@ -2334,7 +2235,6 @@ void box_keypress(ev,used)
   if(ParamBox.xuse){do_box_key(&ParamBox,ev,used);if(*used)return;}
 
 }
-
 
 void do_box_key(b,ev,used)
      int *used;
@@ -2382,8 +2282,6 @@ void do_box_key(b,ev,used)
   }
 }
 	
-
-
 
 void man_ic()
 {
@@ -2451,7 +2349,6 @@ void new_parameter()
   }
 }
 
-
 void   redo_stuff()
     {
       evaluate_derived();
@@ -2468,8 +2365,6 @@ void   set_default_ics()
     last_ic[i]=default_ic[i];
    redraw_ics();
 }
-
-
 
 void   set_default_params()
  {
@@ -2493,7 +2388,6 @@ void   set_default_params()
 
 	
 
-
 void draw_editable(win,string,off,cursor,mc)
      Window win;
      char *string;
@@ -2514,7 +2408,6 @@ void draw_editable(win,string,off,cursor,mc)
 }
 }
 
-
 void put_edit_cursor(w,pos)
      Window w;
      int pos;
@@ -2524,10 +2417,6 @@ void put_edit_cursor(w,pos)
   XDrawLine(display,w,small_gc,x1,1,x1,DCURYs-1);
   XDrawLine(display,w,small_gc,x2,1,x2,DCURYs-1);
 }
-
-
-
-
 
 int edit_bitem(b,i,ch)
      int i;
@@ -2541,7 +2430,6 @@ int edit_bitem(b,i,ch)
   int pos=b->pos[i0];
   int mc=b->mc;
   int l=strlen(string),wpos=pos-off;
-
 
   switch(ch){
   case LEFT:
@@ -2646,13 +2534,11 @@ int edit_bitem(b,i,ch)
 /* all done lets save everything */
   off=pos-wpos;
 
-
   b->off[i0]=off;
   b->pos[i0]=pos;
   draw_editable(win,string,off,pos,mc);
   return 0;
 }
-
 
 void add_edit_float(b,i,z)
      double z;
@@ -2663,7 +2549,6 @@ void add_edit_float(b,i,z)
   sprintf(junk,"%.16g",z);
   add_editval(b,i,junk);
 }
-
 
 void set_edit_params(b,i,string)
 BoxList *b;
@@ -2678,7 +2563,6 @@ BoxList *b;
   else
     b->pos[i]=l;
 }
-
 
 void add_editval(b,i,string)
      BoxList *b;
@@ -2706,7 +2590,6 @@ void check_box_cursor()
   HotBoxItem=-1;
 }
 
-
 void prt_focus()
 {
   Window focus;
@@ -2731,7 +2614,6 @@ int to_float(s,z)
   *z=atof(s);
   return(0);
 }
-
 
 void set_value_from_box(b,i)
      BoxList *b;
@@ -2764,7 +2646,6 @@ void set_value_from_box(b,i)
   }
 }
 
-
 void load_entire_box(b)
      BoxList *b;
 {
@@ -2781,21 +2662,5 @@ void load_entire_box(b)
    do_init_delay(DELAY);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

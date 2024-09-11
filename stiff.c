@@ -6,7 +6,6 @@
 #include "gear.h"
 #include "markov.h"
 
-
 extern int NFlags;
 #define RKQS 8
 #define STIFF 9
@@ -148,9 +147,6 @@ int gadaptive(ystart,nvar,xs,x2,eps,hguess,hmin,work,ier,epjac,iflag,jstart)
   return -1;
 }
 
-
-
-
 /*  Need work size of 2n^2+12n  */
 /*  This will integrate a maximum of htry and actually do hmin  */
 int stiff(y,dydx,n,x,htry,eps,yscal,hdid,hnext,work,epjac,ier)
@@ -244,12 +240,6 @@ int n,*ier;
 	
 }
 
-
-
-
-
-
-
 int rkqs(y,dydx,n,x,htry,eps,yscal,hdid,hnext,work,ier)
      double *hdid,*hnext,*x,*dydx,eps,htry,*y,*yscal,*work;
      int n,*ier;
@@ -287,8 +277,6 @@ int rkqs(y,dydx,n,x,htry,eps,yscal,hdid,hnext,work,ier)
   }
   return 0;
 }
-
-
 
 /* This takes one step of Cash-Karp RK method */
 void rkck(y,dydx,n,x,h,yout,yerr,work)
@@ -334,12 +322,5 @@ void rkck(y,dydx,n,x,h,yout,yerr,work)
 		yerr[i]=h*(dc1*dydx[i]+dc3*ak3[i]+
 			   dc4*ak4[i]+dc5*ak5[i]+dc6*ak6[i]);
 }
-
-
-
-
-
-
-
 
 

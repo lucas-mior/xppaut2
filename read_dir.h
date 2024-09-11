@@ -1,12 +1,10 @@
 #ifndef _read_dir_h_
 #define _read_dir_h_
 
-
 typedef struct {
   char **dirnames,**filenames;
   int nfiles,ndirs;
 } FILEINFO;
-
 
 void free_finfo(FILEINFO *ff);
 int cmpstringp(const void *p1, const void *p2);
@@ -18,7 +16,5 @@ int get_directory(char *direct);
 int IsDirectory(char *root, char *path);
 void MakeFullPath(char *root, char *filename, char *pathname);
 int wild_match(char *string, char *pattern);
-
-
 
 #endif

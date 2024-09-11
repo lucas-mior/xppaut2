@@ -20,7 +20,6 @@
 
 #define MAX_M_I 13
 
-
 #define M_C  20
 
 #define M_NN 31
@@ -34,7 +33,6 @@
 #define M_NFD 38
 #define M_NFR 39
 #define M_NFA 40
-
 
 #define M_SG 50
 #define M_SM 51
@@ -58,7 +56,6 @@
 #define M_AN 81
 #define M_AC 82
 
-
 #define M_KC 90
 #define M_KR 91
 #define M_KP 92
@@ -66,8 +63,6 @@
 #define M_KS 94
 #define M_KM 95
 #define M_KX 96
-
-
 
 #define M_GA 100
 #define M_GD 101
@@ -100,8 +95,6 @@
 #define M_GCG 135
 #define M_GCU 136
 
-
-
 #define M_P 140
 
 #define M_EE 141
@@ -111,8 +104,6 @@
 #define M_X 143
 
 #define M_3 144
-
-
 
 #define M_MC 150
 #define M_MK 151
@@ -144,7 +135,6 @@
 #define M_BP 193
 #define M_BH 194
 
-
 #define M_FP 200
 #define M_FW 201
 #define M_FR 202
@@ -162,7 +152,6 @@
 #define M_FEF 213
 #define M_FES 214
 #define M_FEL 215
-
 
 #define M_FX 216
 #define M_FU 217
@@ -223,7 +212,6 @@
 #define M_UE 409
 #define M_UC 410
 
-
 void xpp_hlp(void);
 void MessageBox(char *m);
 void RedrawMessageBox(Window w);
@@ -262,12 +250,6 @@ void get_3d_par(void);
 void edit_xpprc();
 void do_tutorial();
 
-
-
 #endif
-
-
-
-
 
 

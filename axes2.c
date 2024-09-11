@@ -4,7 +4,6 @@
 #include <string.h>
  /* All new improved axes !!  */
 
-
 #include <math.h>
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -16,7 +15,6 @@
 #include "main.h"
 #include "many_pops.h"
 #include "graf_par.h"
-
 
 #define NOAXES 0
 #define CROSS 1
@@ -31,7 +29,6 @@
 #define SIGNIF (0.01)		/* less than one hundredth of a tic mark */
 #define CheckZero(x,tic) (fabs(x) < ((tic) * SIGNIF) ? 0.0 : (x))
 
-
 extern GRAPH *MyGraph;
 extern GC small_gc;
 extern int DCURXs,DCURYs;
@@ -45,12 +42,9 @@ extern int TextJustify,TextAngle;
 extern double XMin,XMax,YMin,YMax;
 extern int Xup;
 
-
 int DOING_AXES=0;
 int DOING_BOX_AXES=0;
 extern FILE *svgfile;
-
-
 
 void re_title()
 {
@@ -107,7 +101,6 @@ double val;
 	if (y < 0 ) return (1.0/val);
 	return(val);
 }
-
 
 double make_tics(tmin,tmax)
 double tmin,tmax;
@@ -246,8 +239,6 @@ void Frame_3d()
   line3dn(1.0-dt,y1,-1.0,1.0+dt,y1,-1.0);
   line3dn(1.0-dt,y2,-1.0,1.0+dt,y2,-1.0);
 
-
-
   set_linestyle(-1);
 
   if(MyGraph->zorgflag)line_3d(x0,y0,z4,x0,y0,z5);
@@ -282,9 +273,6 @@ void Frame_3d()
   DOING_AXES=0;
 
 }
-
-
-
 
 void Box_axis(x_min,x_max,y_min,y_max,sx,sy,flag)
      double x_min,x_max,y_min,y_max;
@@ -330,7 +318,6 @@ void Box_axis(x_min,x_max,y_min,y_max,sx,sy,flag)
   DOING_AXES=0;
 }
 
-
 void draw_ytics(s1,start, incr, end)
      double start, incr, end;
      char *s1;
@@ -374,7 +361,6 @@ void draw_ytics(s1,start, incr, end)
 
 }
 
-
 void draw_xtics(s2,start, incr, end)
      double start, incr, end;
      char *s2;
@@ -403,19 +389,7 @@ void draw_xtics(s2,start, incr, end)
   }
   put_text((DLeft+DRight)/2,yt-(int)(2.5*VChar*s),s2);
 
-
 }
 	
-
-
-
-
-
-
-
-
-
-
-
 
 

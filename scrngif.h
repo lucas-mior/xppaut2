@@ -11,11 +11,9 @@
    struct GifTree **node, *nxt, *alt;
  } GifTree;
 
-
 typedef struct {
   unsigned char r,g,b;
 } GIFCOL;
-
 
 void set_global_map(int flag);
 int ppmtopix(unsigned char r, unsigned char g, unsigned char b, int *n);

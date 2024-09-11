@@ -17,7 +17,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 #include "xpplim.h"
 #include "getvar.h"
 
@@ -32,9 +31,7 @@ double zippy;
 double lgamma();
 #endif
 
-
 extern int NODE;
-
 
 int nsrand48(int seed);
 
@@ -61,7 +58,6 @@ int RandSeed=12345678;
 #ifndef M_PI
 # define M_PI	3.14159265358979323846264338327950288
 #endif
-
 
 extern int newseed;
 extern int del_stab_flag;
@@ -92,9 +88,7 @@ int MaxPoints;
 double *Memory[MAXKER];
 int NTable;
 
-
 UFUN_ARG ufun_arg[MAXUFUN];
-
 
 SYMBOL my_symb[MAX_SYMBS]=
 {
@@ -196,8 +190,6 @@ SYMBOL my_symb[MAX_SYMBS]=
    {"BESSELIS",8,COM(FUN2TYPE,21),2,10},/* Bessel I Scaled  # 95 */
       };
 
-
-
 int NCON=0,NVAR=0,NFUN=0;
 int NSYM=STDSYM;
 
@@ -206,12 +198,9 @@ int NSYM=STDSYM;
 double (*fun1[50])(/* double */ );
 double (*fun2[50])(/* double,double */ );
 
-
 /*************************
   RPN COMPILER           *
 **************************/
-
-
 
 /*****************************
 *      PARSER.C              *
@@ -293,9 +282,7 @@ void init_rpn()
     nsrand48(RandSeed);
 }
 
-
  /*  FREE_UFUNS   */
-
 
 void free_ufuns()
 {
@@ -349,7 +336,6 @@ char *junk;
  return(0);
 }
 
-
 int get_var_index(name)
      char *name;
 {
@@ -365,9 +351,7 @@ int get_var_index(name)
   return(-1);
 }
 
-
 /* GET_TYPE   */
-
 
 int get_type(index)
 int index;
@@ -448,8 +432,6 @@ int add_kernel(name,mu,expr)
   NKernel++;
   return(0);
 }
-
-
 
 /*  ADD_VAR          */
 
@@ -532,7 +514,6 @@ char string[50];
 
 }
 
-
 int add_net_name(index,name)
      int index;
      char *name;
@@ -553,9 +534,6 @@ int add_net_name(index,name)
   return(0);
 
 }
-
-
-
 
 /* ADD LOOKUP TABLE   */
 
@@ -612,14 +590,12 @@ int add_table_name(index,name)
    }
 /* ADD LOOKUP TABLE   */
 
-
 int add_form_table(index,nn,xlo,xhi,formula)
      char *formula;
      double xlo,xhi;
      int nn;
      int index;
 {
-
 
   if(create_fun_table(nn,xlo,xhi,formula,index)==0)
     {
@@ -628,7 +604,6 @@ int add_form_table(index,nn,xlo,xhi,formula)
     }
     return(0);
 }
-
 
 void set_old_arg_names(narg)
      int narg;
@@ -650,7 +625,6 @@ void set_new_arg_names(narg,args)
     my_symb[FIRST_ARG+i].len=strlen(args[i]);
  }
 }
-
 
 /* NEW ADD_FUN for new form_ode code  */
 
@@ -688,7 +662,6 @@ void fixup_endfun(u,l,narg)
  u[l]=narg;
  u[l+1]=ENDEXP;
 }
-
 
 int add_ufun_new(index,narg,rhs,args)
      char *rhs,args[MAXARG][11];
@@ -791,7 +764,6 @@ int narg;
        return(1);
 }
 
-
 int check_num(tok,value)
 int *tok;
 double value;
@@ -813,8 +785,6 @@ double value;
  return(0);
 }
 	
-
-
 
 /* is_ufun         */
 
@@ -860,7 +830,6 @@ int isker(y)
   return (y == KERTYPE);
 }
 
-
 int is_kernel(x)
 int x;
 {
@@ -886,7 +855,6 @@ int find_lookup(name)
   return(-1);
 }
 
-
 /* FIND_NAME    */
 
 void find_name(string, index)
@@ -906,7 +874,6 @@ void find_name(string, index)
     *index=i;
    else *index=-1;
 }
-
 
 int get_param_index(name)
      char *name;
@@ -972,8 +939,6 @@ double value;
   return(0);
 }
 
-
-
 void set_ivar(i, value)
 int i;
 double value;
@@ -985,9 +950,6 @@ double get_ivar(i)
 int i;
 {       	 return(GETVAR(i));
 }
-
-
-
 
 int alg_to_rpn(toklist,command)
 int *toklist,*command;
@@ -1029,7 +991,6 @@ int *toklist,*command;
 		return(1);
            }
 
-
 	 }
 
 /*        check for delshft symbol             */
@@ -1051,7 +1012,6 @@ int *toklist,*command;
 		printf("Illegal use of DELAY Shift \n");
 		return(1);
            }
-
 
 	 }
 
@@ -1094,12 +1054,7 @@ int *toklist,*command;
 		return(1);
            }
 
-
        	  }
-
-
-
-
 
  next:
           if((newtok==ENDTOK)&&(oldtok==STARTTOK))break;
@@ -1196,7 +1151,6 @@ int *toklist,*command;
 			     nelse++;
 			     }
 
-
 			
 			
              if(my_com==ENDDELAY||my_com==ENDSHIFT||my_com==ENDISHIFT){
@@ -1208,7 +1162,6 @@ int *toklist,*command;
            /*  if(my_com==CONV||my_com==DCONV){
        	      ncomma-=1;
 	     }  */
-
 
             /*    CHECK FOR USER FUNCTION       */
             if(is_ufun(my_com))
@@ -1260,9 +1213,6 @@ void pr_command(command)
    i++;
   }
 }
-
-
-
 
 void show_where(string,index)
      char *string;
@@ -1318,7 +1268,6 @@ int pure_number(token)
   return(0);
 }
 
-
 int gives_number(token)
      int token;
 {
@@ -1335,7 +1284,6 @@ int gives_number(token)
   return(0);
 }
 
-
 int check_syntax(oldtoken,newtoken) /* 1 is BAD!   */
      int oldtoken,newtoken;
 {
@@ -1344,8 +1292,6 @@ int check_syntax(oldtoken,newtoken) /* 1 is BAD!   */
 /* if the first symbol or (  or binary symbol then must be unary symbol or
    something that returns a number or another (
 */
-
-
 
   if(unary_sym(oldtoken)||oldtoken==COMMA||oldtoken==STARTTOK
      ||oldtoken==LPAREN||binary_sym(oldtoken))
@@ -1387,13 +1333,9 @@ int check_syntax(oldtoken,newtoken) /* 1 is BAD!   */
 
 }
 
-
 /******************************
 *    PARSER                   *
 ******************************/
-
-
-
 
 int make_toks(dest,my_token)
  char *dest;
@@ -1482,7 +1424,6 @@ int tok;
         my_symb[tok].arg,my_symb[tok].pri);
 }
 
-
 int do_num(source,num,value,ind)
 char *source,*num;
 double *value;
@@ -1535,8 +1476,6 @@ err:
   return(error);
 }
 
-
-
 void convert(source,dest)
 char *source,*dest;
 {
@@ -1551,8 +1490,6 @@ char *source,*dest;
  }
  strupr(dest);
 }
-
-
 
 void find_tok(source,index,tok)
 char *source;
@@ -1615,10 +1552,6 @@ void two_args()
  fun2[20]=bessi;
  fun2[21]=bessis;
 
-
-
-
-
 }
 
 /*   These are the Bessel Functions; if you dont have them then
@@ -1643,7 +1576,6 @@ double bessel_y(x,y)
 #define ACC 40.0
 #define BIGNO 1.0e10
 #define BIGNI 1.0e-10
-
 
 double bessi(nn,x)
 double  x;
@@ -1718,7 +1650,6 @@ double  x;
 	}
 	return x < 0.0 ? -ans : ans;
 }
-
 
 double bessis(nn,x)
 double  x;
@@ -1798,8 +1729,6 @@ double  x;
 #undef BIGNO
 #undef BIGNI
 
-
-
 /*
 double pow2(z,w)
 double z,w;
@@ -1818,8 +1747,6 @@ double z,w;
 }
 
  */
-
-
 
 /*********************************************
           FANCY DELAY HERE                   *-------------------------<<<
@@ -1896,10 +1823,6 @@ double do_delay_shift(delay,shift,variable)
 
   return(delay_stab_eval(delay,in));
 
-
-
-
-
 }
 double do_delay(delay,i)
 double delay,i;
@@ -1975,9 +1898,6 @@ void one_arg()
   fun1[25]=lgamma;
 }
 
-
-
-
 double normal(mean,std)
      double mean,std;
 {
@@ -1998,7 +1918,6 @@ double normal(mean,std)
    return(BoxMuller*std+mean);
  }
 }
-
 
 double max(x,y)
 double x,y;
@@ -2048,9 +1967,7 @@ double z;
   return(0.0);
 }
 
-
 /*  logical stuff  */
-
 
 double dnot(x)
 double x;
@@ -2098,12 +2015,7 @@ double x,y;
  return((double)(x<y));
 }
 
-
 /*              end of logical stuff    */
-
-
-
-
 
  double evaluate(equat)
  int *equat;
@@ -2112,7 +2024,6 @@ double x,y;
   stack_pointer=0;
   return(eval_rpn(equat));
  }
-
 
  double eval_rpn(equat)
  int *equat;
@@ -2133,8 +2044,6 @@ double x,y;
        double z;
      } num;
    } encoder;
-
-
 
   while((i=*equat++)!=ENDEXP)
   {
@@ -2280,7 +2189,6 @@ bye: j=0;
 
 }
 
-
 /* code for log-gamma if you dont have it */
 
 #ifdef NOLGAMMA
@@ -2301,10 +2209,7 @@ double xx;
 	return -tmp+log(2.5066282746310005*ser/x);
 }
 
-
 #endif
-
-
 
 /*  STRING STUFF  */
 #ifndef STRUPR
@@ -2318,7 +2223,6 @@ char *s;
   i++;
   }
 }
-
 
 void strlwr(s)
 char *s;

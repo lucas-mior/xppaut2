@@ -1,7 +1,6 @@
 #ifndef _flags_h_
 #define _flags_h_
 
-
 /* flags.c */
 int add_global(char *cond, int sign, char *rest);
 void show_flags(void);

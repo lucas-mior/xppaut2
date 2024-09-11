@@ -56,7 +56,6 @@ extern int MaxPoints;
  extern char uvar_names[MAXODE][12];
  extern char *ode_names[MAXODE],*fix_names[MAXODE];
 
-
 void file_inf()
 {
   int ok;
@@ -73,7 +72,6 @@ void file_inf()
     do_info(fp);
     fclose(fp);
 }
-
 
 void ps_write_pars(FILE *fp)
 { int div,rem,i,j;
@@ -128,11 +126,7 @@ FILE *fp;
    user_fun_info(fp);
  }
 
-
  fprintf(fp,"\n\n Numerical parameters ...\n");
-
-
-
 
  fprintf(fp,"NJMP=%d  NMESH=%d METHOD=%s EVEC_ITER=%d \n",
 	 NJMP,NMESH,method[METHOD],EVEC_ITER);
@@ -174,7 +168,6 @@ FILE *fp;
 
  fprintf(fp,"\n");
 }
-
 
 int read_lunch(FILE *fp)
 {
@@ -227,7 +220,6 @@ int f;
  /*char filename[256];*/
  char filename[XPP_MAX_NAME];
  sprintf(filename,"%s.set",this_file);
-
 
  if(f==READEM){
    ping();
@@ -296,13 +288,10 @@ int f;
    fclose(fp);
 }
 
-
-
 void dump_eqn(fp)
 FILE *fp;
 {
  int i;
-
 
  char fstr[15];
  fprintf(fp,"RHS etc ...\n");
@@ -324,7 +313,6 @@ FILE *fp;
  }
 
 }
-
 
 void io_numerics(f,fp)
 int f;
@@ -428,7 +416,6 @@ void io_parameter_file(char *fn,int flag)
   fclose(fp);
 }
 
-
 void io_ic_file(char *fn,int flag)
 {
   char fnx[256],c;
@@ -501,8 +488,6 @@ void io_ic_file(char *fn,int flag)
   */
 }
 
-
-
 void io_parameters(f,fp)
 int f;
 FILE *fp;
@@ -537,7 +522,6 @@ FILE *fp;
   	reset_sliders();
   }
  }
-
 
 void io_exprs(f,fp)
 int f;
@@ -581,7 +565,6 @@ if(f!=READEM)
   }
 }
 
-
  if(f==READEM&&Xup){
    redraw_bcs();
    redraw_ics();
@@ -589,10 +572,6 @@ if(f!=READEM)
    redraw_params();
  }
 }
-
-
-
-
 
 void io_graph(f,fp)
 int f;
@@ -653,7 +632,6 @@ if(f!=READEM)
     io_double(&(MyGraph->oldyhi),fp,f," ");
     if(f==READEM&&Xup)redraw_the_graph();
 }
-
 
 void io_int(i,fp,f,ss)
 int *i,f;
@@ -734,14 +712,5 @@ int f,len;
  else
    fprintf(fp,"%s\n",s);
 }
-
-
-
-
-
-
-
-
-
 
 

@@ -1,7 +1,6 @@
 #ifndef _volterra2_h_
 #define _volterra2_h_
 
-
 /* volterra2.c */
 double ker_val(int in);
 void alloc_v_memory(void);
@@ -15,7 +14,6 @@ double betnn(double mu, double dt, double t0, double t);
 void get_kn(double *y, double t);
 int volterra(double *y, double *t, double dt, int nt, int neq, int *istart, double *work);
 int volt_step(double *y, double t, double dt, int neq, double *yg, double *yp, double *yp2, double *ytemp, double *errvec, double *jac);
-
 
 #endif
 

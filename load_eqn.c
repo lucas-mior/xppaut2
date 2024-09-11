@@ -35,7 +35,6 @@
 #define PARAM 1
 #define IC 2
 
-
 #define DFNORMAL 1
 #define MAXOPT 1000
 #define READEM 1
@@ -51,8 +50,6 @@ typedef struct {
 
 extern HIST_INFO hist_inf;
 extern int spec_col,spec_wid,spec_win,spec_col2,post_process;
-
-
 
 int nsrand48(int seed);
 
@@ -197,13 +194,11 @@ extern int cv_bandflag,cv_bandupper,cv_bandlower;
 
  int PAUSER,ENDSING,SHOOT,PAR_FOL;
 
-
 /*  custon color stuff  */
 
 extern char ColorVia[15];
 extern double ColorViaLo,ColorViaHi;
 extern int ColorizeFlag;
-
 
 /* AUTO STUFF  */
 extern int auto_ntst,auto_nmx,auto_npr,auto_ncol;
@@ -348,8 +343,6 @@ void notBothOptions(OptionsSet nasA,OptionsSet nasB)
    nasA.NULL_HERE = (nasA.NULL_HERE & nasB.NULL_HERE);
 }
 
-
-
 void dump_torus(fp,f)
      FILE *fp;
      int f;
@@ -367,7 +360,6 @@ void dump_torus(fp,f)
       io_int(&itor[i],fp,f,uvar_names[i]);
   }
 }
-
 
 void load_eqn()
 {
@@ -485,7 +477,6 @@ load_eqn()
 
 */
 
-
 void set_X_vals()
 {
 	/*
@@ -538,8 +529,6 @@ void set_X_vals()
 	}
 }
 
-
-
 void set_all_vals()
 {
  int i;
@@ -581,9 +570,7 @@ void set_all_vals()
  storind=0;
  mov_ind=0;
 
-
  STORFLAG=0;
-
 
  INFLAG=0;
  oldhp_x=-100000.0 ;
@@ -637,13 +624,11 @@ void set_all_vals()
  /* internal options go here  */
  set_internopts(NULL);
 
-
  if((fp=fopen(options,"r"))!=NULL)
  {
   read_defaults(fp);
   fclose(fp);
  }
-
 
  init_range();
  init_trans();
@@ -695,9 +680,7 @@ if(MY_YLO>=MY_YHI){
  alloc_meth();
  arr_ic_start(); /* take care of all predefined array ics */
 
-
 }
-
 
 void read_defaults(fp)
  FILE *fp;
@@ -746,7 +729,6 @@ void read_defaults(fp)
  if (notAlreadySet.YLO){fil_flt(fp,&MY_YLO);notAlreadySet.YLO=0;};
  if (notAlreadySet.YHI){fil_flt(fp,&MY_YHI);notAlreadySet.YHI=0;};
 
-
 }
 
 void fil_flt(fpt,val)
@@ -767,14 +749,10 @@ FILE *fpt;
  *val=atoi(bob);
 }
 
-
-
 /* here is some new code for internal set files:
    format of the file is a long string of the form:
    { x=y, z=w, q=p , .... }
 */
-
-
 
 void add_intern_set(name,does)
      char *name,*does;
@@ -814,7 +792,6 @@ void add_intern_set(name,does)
 	 intern_set[j].name,intern_set[j].does);
   Nintern_set++;
 }
-
 
 void extract_action(char *ptr)
 {
@@ -1039,12 +1016,10 @@ void set_internopts_xpprc_and_comline()
   Nopts=0;
 }
 
-
 void split_apart(bob, name,value)
 char *bob,*name,*value;
 {
  int k,i,l;
-
 
  l=strlen(bob);
  k=strcspn(bob,"=");
@@ -1062,9 +1037,6 @@ char *bob,*name,*value;
     }
 
 }
-
-
-
 
 void check_for_xpprc()
 {
@@ -1088,7 +1060,6 @@ void check_for_xpprc()
   fclose(fp);
 }
 
-
 void stor_internopts(s1)
      char *s1;
 {
@@ -1102,8 +1073,6 @@ void stor_internopts(s1)
   Nopts++;
 
 }
-
-
 
 void set_option(s1,s2,force,mask)
      char *s1,*s2;
@@ -1215,8 +1184,6 @@ void set_option(s1,s2,force,mask)
     return;
   }
 
-
-
   if(msc("PLOTFMT",s1)){
     if ((notAlreadySet.PLOTFORMAT||force) || ((mask!=NULL)&&(mask->PLOTFORMAT==1)))
     {
@@ -1225,8 +1192,6 @@ void set_option(s1,s2,force,mask)
     }
     return;
   }
-
-
 
   if(msc("BACKIMAGE",s1)){
     if ((notAlreadySet.UserBGBitmap||force) || ((mask!=NULL)&&(mask->UserBGBitmap==1)))
@@ -1853,8 +1818,6 @@ if(msc(yyl,s1)){
    return;
  }
 
-
-
  if(msc("RANGEOVER",s1)){
      if ((notAlreadySet.RANGEOVER||force)|| ((mask!=NULL)&&(mask->RANGEOVER==1)))
      {
@@ -1926,7 +1889,6 @@ if(msc(yyl,s1)){
       return;
  }
 
-
  if(msc("RANGE",s1)){
      if ((notAlreadySet.RANGE||force)|| ((mask!=NULL)&&(mask->RANGE==1)))
      {
@@ -1968,7 +1930,6 @@ if(msc("NPR",s1)){
    }
    return;
  }
-
 
 if(msc("DSMIN",s1)){
    if ((notAlreadySet.DSMIN||force)|| ((mask!=NULL)&&(mask->DSMIN==1)))
@@ -2362,7 +2323,6 @@ if(msc("SLO2",s1)){
     return;
   }
 
-
  if(msc("SPECCOL",s1)){
      if ((notAlreadySet.SPECCOL||force) || ((mask!=NULL)&&(mask->SPECCOL==1)))
      {
@@ -2400,7 +2360,6 @@ if(msc("SLO2",s1)){
      }
     return;
   }
-
 
   if(msc("DFGRID",s1)){
      if ((notAlreadySet.DFGRID||force)|| ((mask!=NULL)&&(mask->DFGRID==1)))
@@ -2460,8 +2419,5 @@ if(msc("SLO2",s1)){
 plintf("!! Option %s not recognized\n",s1);
 
 }
-
-
-
 
 

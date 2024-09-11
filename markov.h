@@ -32,5 +32,4 @@ double ndrand48(void);
 void nsrand48(int seed);
 double ran1(long *idum);
 
-
 #endif

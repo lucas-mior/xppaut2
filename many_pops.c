@@ -35,14 +35,12 @@
 #include "arrayplot.h"
 #include "eig_list.h"
 
-
 #define MAX_LEN_SBOX 25
 #define MAXLAB 50
 #define MAXGROB 400
 #define POINTER 0
 #define ARROW 1
 #define MARKER 2 /* markers start at 2  there are several of them */
-
 
 #define WDMARK .001
 #define HTMARK .0016
@@ -99,15 +97,11 @@ double signum();
 
 Window make_window();
 
-
-
-
 typedef struct {
   char *name;
   char *does;
   unsigned int use;
 } INTERN_SET;
-
 
 typedef struct {
   double xlo,xhi,dx;
@@ -181,7 +175,6 @@ void get_intern_set()
   reset_graph();
 }
 
-
 void make_icon(icon,wid,hgt,w)
 char *icon;
 Window w;
@@ -207,7 +200,6 @@ void title_text(string)
 {
    gtitle_text(string,draw_win);
 }
-
 
 void gtitle_text(string,win)
  Window win;
@@ -237,9 +229,6 @@ void gtitle_text(string,win)
 BaseCol();
  }
 
-
-
-
 void restore_off()
 {
  MyGraph->Restore=0;
@@ -252,7 +241,6 @@ void restore_on()
 /*  MyGraph->Nullrestore=1; */
 
 }
-
 
 void add_label(s,x,y,size,font)
 char *s;
@@ -274,8 +262,6 @@ int x,y,size,font;
   }
  }
 }
-
-
 
 void draw_marker(x,y,size,type)
      float x,y,size;
@@ -340,9 +326,6 @@ while(1)
 
 }
 
-
-
-
 void draw_grob(i)
      int i;
 {
@@ -382,7 +365,6 @@ Window w;
    }
   }
 }
-
 
 void destroy_label(w)
 Window w;
@@ -487,7 +469,6 @@ int get_marker_info()
   return 0;
 }
 
-
 int get_markers_info()
 {
   static char *n[]={"*5Type","*4Color","Size","Number","Row1","Skip"};
@@ -512,7 +493,6 @@ int get_markers_info()
   }
   return 0;
 }
-
 
 void add_marker()
 {
@@ -687,7 +667,6 @@ void edit_object_com(int com)
 	  ans=(char)TwoChoice("Yes","No",str,"yn");
 	  if(ans=='y'){
 
-
             MessageBox("Click on new position");
 	    flag=GetMouseXY(&i,&j);
 
@@ -735,7 +714,6 @@ void edit_object_com(int com)
 	  ans=(char)TwoChoice("Yes","No",str,"yn");
 	  if(ans=='y'){
 
-
             MessageBox("Reposition");
 	    flag=GetMouseXY(&i,&j);
 
@@ -782,8 +760,6 @@ void edit_object_com(int com)
     }
 
 }
-
-
 
 void do_gr_objs_com(int com)
 {
@@ -885,8 +861,6 @@ int nc;
   return 0;
 }
 
-
-
 void destroy_a_pop()
  {
   int i;
@@ -908,7 +882,6 @@ void destroy_a_pop()
   XDestroyWindow(display,graph[i].w);
   num_pops--;
   }
-
 
 void init_grafs(x,y,w,h)
 int x,y,w,h;
@@ -1015,8 +988,6 @@ void svg_restore()
  svg_end();
 }
 
-
-
 int rotate3dcheck(ev)
      XEvent ev;
 {
@@ -1050,7 +1021,6 @@ int rotate3dcheck(ev)
   }
   return 0;
 }
-
 
 void do_motion_events(ev)
      XEvent ev;
@@ -1142,7 +1112,6 @@ void do_expose(ev)
    SmallBase();
  }
 
-
 void resize_all_pops(wid,hgt)
 int wid,hgt;
 {
@@ -1173,8 +1142,6 @@ void kill_all_pops()
  num_pops=1;
 }
 
-
-
 void create_a_pop()
  {
   int i,index;
@@ -1188,7 +1155,6 @@ void create_a_pop()
    return;
   }
 index=i;
-
 
 graph[index].w=XCreateSimpleWindow(display,RootWindow(display,screen),0,0,MINI_W,MINI_H,2,GrFore,GrBack);
  graph[index].w_info=make_window(graph[index].w,10,0,40*DCURXs,DCURYs,0);
@@ -1384,13 +1350,5 @@ XEvent ev;
  canvas_xy(buf);
   }
 }
-
-
-
-
-
-
-
-
 
 

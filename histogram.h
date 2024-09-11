@@ -1,7 +1,6 @@
 #ifndef _histogram_h_
 #define _histogram_h_
 
-
 /* histogram.c */
 int two_d_hist(int col1, int col2, int ndat, int n1, int n2, double xlo, double xhi, double ylo, double yhi);
 void four_back(void);

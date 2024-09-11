@@ -39,7 +39,6 @@ typedef struct {
 		
 	
 
-
 typedef struct {
 	       Window w,w_info;
 
@@ -86,7 +85,6 @@ typedef struct {
 		int font,size;
 		} LABEL;
 
-
 typedef struct {
                 Window w;
 		char key[20],name[10];
@@ -94,7 +92,6 @@ typedef struct {
 		float *xv,*yv,*zv;
 		int len,color;
 	      } CURVE;
-
 
 typedef struct {
                 Window w;
@@ -115,7 +112,6 @@ typedef struct {
 		char ok_s[MAXCHAR];
 		char cancel_s[MAXCHAR];
 		} DIALOG;
-
 
 typedef struct {
 		char title[MAXCHAR];
@@ -159,13 +155,6 @@ typedef struct {
 		TCHOICE tc[100];
 		} TXTCHOICE;
 
-
-
-
 #endif
-
-
-
-
 
 

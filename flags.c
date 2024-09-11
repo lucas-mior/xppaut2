@@ -57,7 +57,6 @@ these must also be checked to see if they have been switched
 and in what order.  This is particularly true for "delta" function
 type things.
 
-
 Here is a simple example -- the kicked cycle:
 dx/dt = y
 dy/dy = -x -c y
@@ -66,7 +65,6 @@ if y=0 and y goes from pos to neg then x=x+b
 here is how it would work:
 
 global -1 y {x=x+b}
-
 
 Here is Tysons model:
 
@@ -262,8 +260,6 @@ int compile_flags()
   return(0);
 }
 
-
-
 /*  here is the shell code for a loop around  integration step  */
 
 int one_flag_step(yold,ynew,istart,told,tnew,neq,s )
@@ -334,7 +330,6 @@ int one_flag_step(yold,ynew,istart,told,tnew,neq,s )
       }
 
       if(smin>flag[i].tstar)smin=flag[i].tstar;
-
 
   } /* run through flags */
 
@@ -448,9 +443,6 @@ int one_flag_step(yold,ynew,istart,told,tnew,neq,s )
      printf("step 10 %d %g %g \n",i,ynew[i],GETVAR(i+1)); */
   return(1);
 }
-
-
-
 
 /*  here are the ODE drivers */
 
@@ -635,7 +627,6 @@ int one_flag_step_gear(neq,t, tout,y, hmin,
   }
   return 0;
 
-
 }
 int one_flag_step_rosen(double *y,double *tstart,double tfinal,
 int *istart,int n,double *work,int *ierr)
@@ -665,7 +656,6 @@ int *istart,int n,double *work,int *ierr)
     }
   }
   return 0;
-
 
 }
 
@@ -697,7 +687,6 @@ int one_flag_step_dp(istart,y,t,n,tout,tol,atol,flag,kflag)
     }
   }
   return 0;
-
 
 }
 
@@ -735,7 +724,6 @@ int one_flag_step_cvode(command,y,t,n,tout,kflag,atol,rtol)
   }
   return 0;
 
-
 }
 
 #endif
@@ -768,7 +756,6 @@ int one_flag_step_adap(y,neq,t,tout,eps,hguess,hmin,work,ier,epjac,iflag,jstart)
   }
   return 0;
 
-
 }
 
 int one_flag_step_backeul(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac,istart)
@@ -799,14 +786,5 @@ int one_flag_step_backeul(y,t,dt,neq,yg,yp,yp2,ytemp,errvec,jac,istart)
   }
   return 0;
 }
-
-
-
-
-
-
-
-
-
 
 

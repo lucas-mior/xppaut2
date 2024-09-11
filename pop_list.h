@@ -1,8 +1,6 @@
 #ifndef _pop_list_h
 #define _pop_list_h
 
-
-
 #include "phsplan.h"
 #include <stdlib.h>
 #include <string.h>
@@ -13,20 +11,13 @@
 #include "xpplim.h"
 #include "math.h"
 
-
-
 #define MAX_N_SBOX 22
 #define MAX_LEN_SBOX 25
-
 
 #define FORGET_ALL 0
 #define DONE_ALL 2
 #define FORGET_THIS 3
 #define DONE_THIS 1
-
-
-
-
 
 #define EV_MASK (ButtonPressMask 	|\
 		KeyPressMask		|\
@@ -40,11 +31,8 @@
 		EnterWindowMask		|\
 		LeaveWindowMask)	
 
-
-
 	
 	
-
 
 extern Display *display;
 extern int DisplayWidth,DisplayHeight;
@@ -60,7 +48,6 @@ char *get_next(),*get_first();
 extern char UserBlack[8];
 extern char UserWhite[8];
 extern int UserGradients;
-
 
 Window make_window();
 Window make_plain_window();
@@ -79,7 +66,6 @@ typedef struct {
                 int hh[MAX_N_SBOX];
 		} STRING_BOX;
 
-
 typedef struct {
                char **list;
                int n;
@@ -89,7 +75,6 @@ extern int NUPAR,NEQ,NODE,NMarkov;
 extern char  upar_names[MAXPAR][11],uvar_names[MAXODE][12];
 extern  char *color_names[];
 extern SCRBOX_LIST scrbox_list[10];
-
 
 /*  This is a new improved pop_up widget */
 typedef struct {
@@ -127,10 +112,6 @@ extern TEXTWIN mytext;
 #define SB_COLOR 4
 #define SB_MARKER 5
 #define SB_METHOD 6
-
-
-
-
 
 void set_window_title(Window win, char *string);
 void make_scrbox_lists(void);

@@ -9,7 +9,6 @@
  *                                                                *
  ******************************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "iterativ.h"
@@ -18,18 +17,14 @@
 #include "vector.h"
 #include "llnlmath.h"
 
-
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
-
 
 /*************** Private Helper Function Prototype *******************/
 
 static void FreeVectorArray(N_Vector *A, int indMax);
 
-
 /* Implementation of Spgmr algorithm */
-
 
 /*************** SpgmrMalloc *****************************************/
 
@@ -145,7 +140,6 @@ SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv)
   return(mem);
 }
 
-
 /*************** SpgmrSolve ******************************************/
 
 int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
@@ -229,7 +223,6 @@ int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
   /* Set xcor = 0 */
 
   N_VConst(ZERO, xcor);
-
 
   /* Begin outer iterations: up to (max_restarts + 1) attempts */
 
@@ -429,7 +422,6 @@ void SpgmrFree(SpgmrMem mem)
 
   free(mem);
 }
-
 
 /*************** Private Helper Function: FreeVectorArray ************/
 

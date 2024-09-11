@@ -18,6 +18,4 @@ int find_kbs(char *sc);
 void add_user_button(char *s);
 void create_user_buttons(int x0, int y0, Window base);
 
-
-
 #endif

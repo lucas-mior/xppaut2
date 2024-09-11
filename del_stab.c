@@ -137,10 +137,6 @@ if(i==0&&okroot==1&&AlphaMax>0)
  if(okroot==1)*stabinfo=AlphaMax;
 }
 
-
-
-
-
 COMPLEX csum(z,w)
      COMPLEX z,w;
 {
@@ -545,19 +541,5 @@ int plot_args(coef,delay,n,m,npts,almax,wmax)
   }
   return sign;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

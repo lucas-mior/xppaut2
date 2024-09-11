@@ -10,17 +10,14 @@
  *                                                                *
  ******************************************************************/
 
-
 #include "iterativ.h"
 #include "llnltyps.h"
 #include "vector.h"
 #include "llnlmath.h"
 
-
 #define FACTOR RCONST(1000.0)
 #define ZERO   RCONST(0.0)
 #define ONE    RCONST(1.0)
-
 
 /************************* ModifiedGS ***********************************
  This implementation of ModifiedGS is a slight modification of a previous

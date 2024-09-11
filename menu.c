@@ -29,8 +29,6 @@ int num;
 {
 }
 
-
-
 void add_menu(base,j,n,names,key,hint)
    Window base;
    char **names,*key,**hint;
@@ -72,7 +70,6 @@ void create_the_menus(base)
   help_menu=-1;
 }
 
-
 void show_menu(j)
      int j;
 {
@@ -94,7 +91,6 @@ void unshow_menu(j)
    XUnmapWindow(display,my_menus[j].base); */
 
 }
-
 
 void help()
 {
@@ -217,25 +213,5 @@ menu_events(ev)
   }
 }
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

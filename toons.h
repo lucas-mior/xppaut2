@@ -6,11 +6,6 @@ char *toons[]={"Popeye the Sailor","Betty Boop", "Astroboy",
 	       "Bosko!!","The Booze Hangs High", "Porky in Wackyland",
 	       "The Skeleton Dance"};
 
-
-
 #endif
-
-
-
 
 
