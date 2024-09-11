@@ -57,15 +57,16 @@ double betnn();
 extern int *my_ode[];
 double get_ivar();
 
-double ker_val(in)
-int in;
+double 
+ker_val (int in)
 {
     if (KnFlag)
         return (kernel[in].k_n);
     return (kernel[in].k_n1);
 }
 
-void alloc_v_memory() /* allocate stuff for volterra equations */
+void 
+alloc_v_memory (void) /* allocate stuff for volterra equations */
 {
     int i, len, formula[256], j;
 
@@ -96,7 +97,8 @@ void alloc_v_memory() /* allocate stuff for volterra equations */
     allocate_volterra(MaxPoints, 0);
 }
 
-void allocate_volterra(npts, flag) int npts, flag;
+void 
+allocate_volterra (int npts, int flag)
 {
     int i, oldmem = MaxPoints, j;
     int ntot = NODE + FIX_VAR + NMarkov;
@@ -131,7 +133,8 @@ void allocate_volterra(npts, flag) int npts, flag;
     alloc_kernels(flag);
 }
 
-void re_evaluate_kernels() {
+void 
+re_evaluate_kernels (void) {
     int i, j, n = MaxPoints;
 
     if (AutoEvaluate == 0)
@@ -146,7 +149,8 @@ void re_evaluate_kernels() {
     }
 }
 
-void alloc_kernels(flag) int flag;
+void 
+alloc_kernels (int flag)
 {
     int i, n = MaxPoints;
     int j;
@@ -186,8 +190,8 @@ void alloc_kernels(flag) int flag;
        K(t,t',u,u') someday...
 ***/
 
-void init_sums(t0, n, dt, i0, iend, ishift) double t0, dt;
-int n, i0, iend, ishift;
+void 
+init_sums (double t0, int n, double dt, int i0, int iend, int ishift)
 {
     double t = t0 + n * dt, tp = t0 + i0 * dt;
     double sum[MAXODE], al, alpbet, mu;
@@ -239,8 +243,8 @@ int n, i0, iend, ishift;
    piecewise --linear-- method
 */
 
-double alpha1n(mu, dt, t, t0)
-double mu, dt, t, t0;
+double 
+alpha1n (double mu, double dt, double t, double t0)
 {
     double m1;
     if (mu == .5)
@@ -249,9 +253,8 @@ double mu, dt, t, t0;
     return (.5 * (pow(fabs(t - t0), m1) - pow(fabs(t - t0 - dt), m1)) / m1);
 }
 
-double alpbetjn(mu, dt, l)
-double dt, mu;
-int l;
+double 
+alpbetjn (double mu, double dt, int l)
 {
     double m1;
     double dif = l * dt;
@@ -260,8 +263,8 @@ int l;
     m1 = 1 - mu;
     return (.5 * (pow(dif + dt, m1) - pow(fabs(dif - dt), m1)) / m1);
 }
-double betnn(mu, dt, t0, t)
-double mu, dt, t0, t;
+double 
+betnn (double mu, double dt, double t0, double t)
 {
     double m1;
     if (mu == .5)
@@ -270,9 +273,11 @@ double mu, dt, t0, t;
     return (.5 * pow(dt, m1) / m1);
 }
 
-void get_kn(y, t) /* uses the guessed value y to update Kn  */
-    double t,
-    *y;
+void 
+get_kn ( /* uses the guessed value y to update Kn  */
+    double *y,
+    double t
+)
 {
     int i;
 
@@ -294,9 +299,8 @@ void get_kn(y, t) /* uses the guessed value y to update Kn  */
     }
 }
 
-int volterra(y, t, dt, nt, neq, istart, work)
-double *y, *t, dt, *work;
-int nt, neq, *istart;
+int 
+volterra (double *y, double *t, double dt, int nt, int neq, int *istart, double *work)
 {
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     double z, mu, bet;
@@ -356,9 +360,8 @@ int nt, neq, *istart;
     return (0);
 }
 
-int volt_step(y, t, dt, neq, yg, yp, yp2, ytemp, errvec, jac)
-double *y, t, dt, *yg, *yp, *yp2, *ytemp, *errvec, *jac;
-int neq;
+int 
+volt_step (double *y, double t, double dt, int neq, double *yg, double *yp, double *yp2, double *ytemp, double *errvec, double *jac)
 {
     int i0, iend, ishift, i, iter = 0, info, ipivot[MAXODE1], j, ind;
     int n1 = NODE + 1;

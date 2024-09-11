@@ -76,14 +76,15 @@ int NWiener;
 double normal();
 extern double constants[];
 
-void add_wiener(index) int index;
+void 
+add_wiener (int index)
 {
     Wiener[NWiener] = index;
     NWiener++;
 }
 
-void set_wieners(dt, x, t) double dt;
-double *x, t;
+void 
+set_wieners (double dt, double *x, double t)
 {
     int i;
     update_markov(x, t, fabs(dt));
@@ -91,8 +92,8 @@ double *x, t;
         constants[Wiener[i]] = normal(0.00, 1.00) / sqrt(fabs(dt));
 }
 
-void add_markov(nstate, name) int nstate;
-char *name;
+void 
+add_markov (int nstate, char *name)
 {
     double st[50];
     int i;
@@ -101,10 +102,12 @@ char *name;
     create_markov(nstate, st, 0, name);
 }
 
-int build_markov(ma, name)
+int 
+build_markov (
 /*   FILE *fptr; */
-char **ma;
-char *name;
+    char **ma,
+    char *name
+)
 {
     /*int nn;
      */
@@ -154,10 +157,8 @@ char *name;
     return index;
 }
 
-int old_build_markov(fptr, name)
-FILE *fptr;
-
-char *name;
+int 
+old_build_markov (FILE *fptr, char *name)
 {
     /*int nn;*/
     int len = 0, ll;
@@ -205,8 +206,8 @@ char *name;
     return index;
 }
 
-void extract_expr(source, dest, i0) char *source, *dest;
-int *i0;
+void 
+extract_expr (char *source, char *dest, int *i0)
 {
     char ch;
     int len = 0;
@@ -228,9 +229,8 @@ int *i0;
     dest[len] = 0;
 }
 
-void create_markov(nstates, st, type, name) int nstates, type;
-double *st;
-char *name;
+void 
+create_markov (int nstates, double *st, int type, char *name)
 {
     int i;
     int n2 = nstates * nstates;
@@ -255,8 +255,8 @@ char *name;
     NMarkov++;
 }
 
-void add_markov_entry(index, j, k, expr) int index, j, k;
-char *expr;
+void 
+add_markov_entry (int index, int j, int k, char *expr)
 {
 
     int l0 = markov[index].nstates * j + k;
@@ -284,7 +284,8 @@ char *expr;
     }
 }
 
-void compile_all_markov() {
+void 
+compile_all_markov (void) {
     int index, j, k, ns, l0;
     if (NMarkov == 0)
         return;
@@ -303,8 +304,8 @@ void compile_all_markov() {
     }
 }
 
-int compile_markov(index, j, k)
-int index, j, k;
+int 
+compile_markov (int index, int j, int k)
 {
     char *expr;
     int l0 = markov[index].nstates * j + k, leng;
@@ -322,7 +323,8 @@ int index, j, k;
     return 1;
 }
 
-void update_markov(x, t, dt) double *x, t, dt;
+void 
+update_markov (double *x, double t, double dt)
 {
     int i;
     double yp[MAXODE];
@@ -344,9 +346,8 @@ void update_markov(x, t, dt) double *x, t, dt;
     }
 }
 
-double new_state(old, index, dt)
-double old, dt;
-int index;
+double 
+new_state (double old, int index, double dt)
 {
     double prob, sum;
     double coin = ndrand48();
@@ -521,7 +522,8 @@ void do_stochast_com(int i) {
     }
 }
 
-void mean_back() {
+void 
+mean_back (void) {
     if (STOCH_HERE) {
         set_browser_data(my_mean, 1);
         /*    my_browser.data=my_mean;
@@ -531,7 +533,8 @@ void mean_back() {
     }
 }
 
-void variance_back() {
+void 
+variance_back (void) {
     if (STOCH_HERE) {
         set_browser_data(my_variance, 1);
         /*    my_browser.data=my_variance;
@@ -541,7 +544,8 @@ void variance_back() {
     }
 }
 
-void compute_em() {
+void 
+compute_em (void) {
     double *x;
     x = &MyData[0];
     free_stoch();
@@ -550,7 +554,8 @@ void compute_em() {
     redraw_ics();
 }
 
-void free_stoch() {
+void 
+free_stoch (void) {
     int i;
     if (STOCH_HERE) {
         data_back();
@@ -562,7 +567,8 @@ void free_stoch() {
     }
 }
 
-void init_stoch(len) int len;
+void 
+init_stoch (int len)
 {
     int i, j;
     N_TRIALS = 0;
@@ -582,7 +588,8 @@ void init_stoch(len) int len;
     STOCH_HERE = 1;
 }
 
-void append_stoch(first, length) int first, length;
+void 
+append_stoch (int first, int length)
 {
     int i, j;
     float z;
@@ -600,7 +607,8 @@ void append_stoch(first, length) int first, length;
     N_TRIALS++;
 }
 
-void do_stats(ierr) int ierr;
+void 
+do_stats (int ierr)
 {
     int i, j;
     float ninv, mean;
@@ -667,12 +675,13 @@ double poidev(double xm) {
     return em;
 }
 
-double ndrand48() { return ran1(&myrandomseed); }
+double 
+ndrand48 (void) { return ran1(&myrandomseed); }
 
 void nsrand48(int seed) { myrandomseed = -seed; }
 
-double ran1(idum)
-long *idum;
+double 
+ran1 (long *idum)
 {
     int j;
     long k;

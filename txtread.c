@@ -255,7 +255,8 @@ void redraw_txtview(Window w) {
         xds("Action");
 }
 
-void redraw_txtview_text() {
+void 
+redraw_txtview_text (void) {
     int i, j;
     XClearWindow(display, txtview.text);
     for (i = 0; i < txtview.nlines; i++) {
@@ -281,7 +282,8 @@ void redraw_txtview_text() {
     }
 }
 
-void init_txtview() {
+void 
+init_txtview (void) {
     txtview.here = 0;
     txtview.dh = DCURY;
     txtview.dw = DCURX;
@@ -289,7 +291,8 @@ void init_txtview() {
     txtview.first = 0;
 }
 
-void make_txtview() {
+void 
+make_txtview (void) {
     int minwid = DCURXs * 60, minlen = 3 * DCURYs + 8 + 10 * DCURY;
     Window base;
     int ww = 9 * DCURXs, hh = DCURYs + 4;

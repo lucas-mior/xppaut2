@@ -24,12 +24,12 @@ extern int tfBell, TipsFlag;
 extern int DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
 extern GC gc;
 Window make_unmapped_window();
-void flash(num) int num;
+void 
+flash (int num)
 {}
 
-void add_menu(base, j, n, names, key, hint) Window base;
-char **names, *key, **hint;
-int j, n;
+void 
+add_menu (Window base, int j, int n, char **names, char *key, char **hint)
 {
     Window w;
     int i;
@@ -53,7 +53,8 @@ int j, n;
     XMapSubwindows(display, my_menus[j].base);
 }
 
-void create_the_menus(base) Window base;
+void 
+create_the_menus (Window base)
 {
     char key[30];
     strcpy(key, "icndwakgufpemtsvxr3b");
@@ -68,7 +69,8 @@ void create_the_menus(base) Window base;
     help_menu = -1;
 }
 
-void show_menu(j) int j;
+void 
+show_menu (int j)
 {
     /*  XMapRaised(display,my_menus[j].base);
     XMapSubwindows(display,my_menus[j].base);
@@ -78,7 +80,8 @@ void show_menu(j) int j;
     help_menu = j;
 }
 
-void unshow_menu(j) int j;
+void 
+unshow_menu (int j)
 {
 
     if (j < 0)
@@ -88,17 +91,20 @@ void unshow_menu(j) int j;
      XUnmapWindow(display,my_menus[j].base); */
 }
 
-void help() {
+void 
+help (void) {
     unshow_menu(help_menu);
     show_menu(MAIN_MENU);
 }
 
-void help_num() {
+void 
+help_num (void) {
     unshow_menu(help_menu);
     show_menu(NUM_MENU);
 }
 
-void help_file() {
+void 
+help_file (void) {
     if (tfBell)
         my_menus[FILE_MENU].names = fileon_menu;
     else
@@ -107,8 +113,8 @@ void help_file() {
     show_menu(FILE_MENU);
 }
 
-void menu_crossing(win, yn) Window win;
-int yn;
+void 
+menu_crossing (Window win, int yn)
 {
     int i, n, j = help_menu;
     char **z;
@@ -128,7 +134,8 @@ int yn;
     }
 }
 
-void menu_expose(win) Window win;
+void 
+menu_expose (Window win)
 {
     int i, n, j = help_menu;
     char **z;
@@ -160,7 +167,8 @@ void menu_expose(win) Window win;
     }
 }
 
-void menu_button(win) Window win;
+void 
+menu_button (Window win)
 {
     int i, n, j = help_menu;
     if (j < 0)
@@ -177,7 +185,8 @@ void menu_button(win) Window win;
     }
 }
 
-void draw_help() {
+void 
+draw_help (void) {
     int i, j = help_menu, n;
     /*char **z;
      */

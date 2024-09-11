@@ -107,12 +107,14 @@ extern int storind;
 
 extern int NODE, NEQ; /* as well as the number of odes etc  */
 
-void chk_volterra() {
+void 
+chk_volterra (void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
 }
 
-void check_pos(j) int *j;
+void 
+check_pos (int *j)
 {
     if (*j <= 0)
         *j = 1;
@@ -130,7 +132,8 @@ void set_total(double total) {
     TEND = n * fabs(DELTA_T);
 }
 
-void get_num_par(ch) char ch;
+void 
+get_num_par (int ch)
 
 {
     double temp;
@@ -349,7 +352,8 @@ void get_num_par(ch) char ch;
     } /* End num switch */
 }
 
-void chk_delay() {
+void 
+chk_delay (void) {
     if (DELAY > 0.0) {
         free_delay();
         if (alloc_delay(DELAY)) {
@@ -359,7 +363,8 @@ void chk_delay() {
         free_delay();
 }
 
-void set_delay() {
+void 
+set_delay (void) {
     if (NDELAYS == 0)
         return;
     if (DELAY > 0.0) {
@@ -370,7 +375,8 @@ void set_delay() {
     }
 }
 
-void ruelle() {
+void 
+ruelle (void) {
     new_int("x-axis shift ", &(MyGraph->xshft));
     new_int("y-axis shift ", &(MyGraph->yshft));
     new_int("z-axis shift", &(MyGraph->zshft));
@@ -382,7 +388,8 @@ void ruelle() {
         MyGraph->zshft = 0;
 }
 
-void init_numerics()
+void 
+init_numerics (void)
 /*    these are the default values of the numerical parameters   */
 {
 
@@ -421,7 +428,8 @@ void init_numerics()
     SOS = 0;
 }
 
-void meth_dialog() {
+void 
+meth_dialog (void) {
     /*static char *n[]={"*6Method","Abs tol","Rel Tol","DtMin","DtMax",
                       "Banded(y/n)","UpperBand","LowerBand"};*/
     char values[8][MAX_LEN_SBOX];
@@ -525,7 +533,8 @@ void get_pmap_pars_com(int l) {
     }
 }
 
-void get_method() {
+void 
+get_method (void) {
     char ch;
     int i;
     int nmeth;
@@ -648,7 +657,8 @@ void set_col_par_com(int i) {
     }
 }
 
-void do_meth() {
+void 
+do_meth (void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
     switch (METHOD) {

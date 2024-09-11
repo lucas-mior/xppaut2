@@ -46,13 +46,15 @@ int DOING_AXES = 0;
 int DOING_BOX_AXES = 0;
 extern FILE *svgfile;
 
-void re_title() {
+void 
+re_title (void) {
     char bob[40];
     make_title(bob);
     title_text(bob);
 }
 
-void get_title_str(s1, s2, s3) char *s1, *s2, *s3;
+void 
+get_title_str (char *s1, char *s2, char *s3)
 {
     int i;
     if ((i = MyGraph->xv[0]) == 0)
@@ -71,7 +73,8 @@ void get_title_str(s1, s2, s3) char *s1, *s2, *s3;
         strcpy(s3, uvar_names[i - 1]);
 }
 
-void make_title(str) char *str;
+void 
+make_title (char *str)
 {
     int i;
     char name1[20];
@@ -98,9 +101,8 @@ void make_title(str) char *str;
         sprintf(str, "%s vs %s", name2, name1);
 }
 
-double dbl_raise(x, y)
-double x;
-int y;
+double 
+dbl_raise (double x, int y)
 {
     register int i;
     double val;
@@ -113,8 +115,8 @@ int y;
     return (val);
 }
 
-double make_tics(tmin, tmax)
-double tmin, tmax;
+double 
+make_tics (double tmin, double tmax)
 {
     register double xr, xnorm, tics, tic, l10;
 
@@ -132,7 +134,8 @@ double tmin, tmax;
     return (tic);
 }
 
-void find_max_min_tic(tmin, tmax, tic) double *tmin, *tmax, tic;
+void 
+find_max_min_tic (double *tmin, double *tmax, double tic)
 {
     double t1 = *tmin;
     t1 = tic * floor(*tmin / tic);
@@ -155,7 +158,8 @@ void redraw_cube_pt(double theta, double phi) {
     canvas_xy(bob);
 }
 
-void do_axes() {
+void 
+do_axes (void) {
     char s1[20], s2[20], s3[20];
     get_title_str(s1, s2, s3);
     set_linestyle(0);
@@ -187,7 +191,8 @@ void redraw_cube(double theta, double phi) {
     canvas_xy(bob);
 }
 
-void draw_unit_cube() {
+void 
+draw_unit_cube (void) {
     line3d(-1., -1., -1., 1., -1., -1.);
     line3d(1., -1., -1., 1., 1., -1.);
     line3d(1., 1., -1., -1., 1., -1.);
@@ -202,7 +207,8 @@ void draw_unit_cube() {
     line3d(1., -1., 1., 1., -1., -1.);
 }
 
-void Frame_3d() {
+void 
+Frame_3d (void) {
 
     double tx, ty, tz;
     float x1, y1, z1, x2, y2, z2, dt = .03;
@@ -285,10 +291,8 @@ void Frame_3d() {
     DOING_AXES = 0;
 }
 
-void Box_axis(x_min, x_max, y_min, y_max, sx, sy, flag) double x_min, x_max,
-    y_min, y_max;
-int flag;
-char *sx, *sy;
+void 
+Box_axis (double x_min, double x_max, double y_min, double y_max, char *sx, char *sy, int flag)
 {
     double ytic, xtic;
 
@@ -330,8 +334,8 @@ char *sx, *sy;
     DOING_AXES = 0;
 }
 
-void draw_ytics(s1, start, incr, end) double start, incr, end;
-char *s1;
+void 
+draw_ytics (char *s1, double start, double incr, double end)
 
 {
     double ticvalue, place;
@@ -376,8 +380,8 @@ char *s1;
     }
 }
 
-void draw_xtics(s2, start, incr, end) double start, incr, end;
-char *s2;
+void 
+draw_xtics (char *s2, double start, double incr, double end)
 
 {
     double ticvalue, place;

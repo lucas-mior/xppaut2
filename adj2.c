@@ -67,7 +67,8 @@ extern int NSYM, NSYM_START, NCON, NCON_START;
 /* extern Window main_win; */
 extern int DCURY;
 
-void init_trans() {
+void 
+init_trans (void) {
     my_trans.here = 0;
     strcpy(my_trans.firstcol, uvar_names[0]);
     my_trans.ncol = 2;
@@ -78,8 +79,8 @@ void init_trans() {
     my_trans.col0 = 2;
 }
 
-void dump_transpose_info(fp, f) FILE *fp;
-int f;
+void 
+dump_transpose_info (FILE *fp, int f)
 {
     char bob[256];
     if (f == READEM)
@@ -94,7 +95,8 @@ int f;
     io_int(&my_trans.row0, fp, f, "row 0");
 }
 
-int do_transpose() {
+int 
+do_transpose (void) {
     int i, status;
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};
@@ -136,7 +138,8 @@ int do_transpose() {
     return 0;
 }
 
-int create_transpose() {
+int 
+create_transpose (void) {
     int i, j;
     int inrow, incol;
     my_trans.data = (float **)malloc(sizeof(float *) * (NEQ + 1));
@@ -167,7 +170,8 @@ int create_transpose() {
     return 1;
 }
 
-void alloc_h_stuff() {
+void 
+alloc_h_stuff (void) {
     int i;
     for (i = 0; i < NODE; i++) {
         coup_fun[i] = (int *)malloc(100 * sizeof(int));
@@ -176,7 +180,8 @@ void alloc_h_stuff() {
     }
 }
 
-void data_back() {
+void 
+data_back (void) {
     FOUR_HERE = 0;
     set_browser_data(storage, 1);
     /*  my_browser.data=storage;
@@ -184,7 +189,8 @@ void data_back() {
     refresh_browser(storind);
 }
 
-void adj_back() {
+void 
+adj_back (void) {
     if (ADJ_HERE) {
         set_browser_data(my_adj, 1);
         /*   my_browser.data=my_adj;
@@ -194,7 +200,8 @@ void adj_back() {
     }
 }
 
-void h_back() {
+void 
+h_back (void) {
     if (H_HERE) {
         set_browser_data(my_h, 1);
         /*
@@ -248,12 +255,14 @@ void make_adj_com(int com) {
     }
 }
 
-void adjoint_parameters() {
+void 
+adjoint_parameters (void) {
     new_int("Maximum iterates :", &ADJ_MAXIT);
     new_float("Adjoint error tolerance :", &ADJ_ERR);
 }
 
-void new_h_fun(silent) int silent;
+void 
+new_h_fun (int silent)
 {
 
     int i, n = 2;
@@ -294,8 +303,8 @@ void new_h_fun(silent) int silent;
     ping();
 }
 
-void dump_h_stuff(fp, f) FILE *fp;
-int f;
+void 
+dump_h_stuff (FILE *fp, int f)
 {
     char bob[256];
     int i;
@@ -307,10 +316,8 @@ int f;
         io_string(coup_string[i], 79, fp, f);
 }
 
-int make_h(orb, adj, h, nt, dt, node, silent)
-float **orb, **adj, **h;
-double dt;
-int node, nt, silent;
+int 
+make_h (float **orb, float **adj, float **h, int nt, double dt, int node, int silent)
 {
 
     int i, j, rval = 0;
@@ -369,7 +376,8 @@ bye:
     return (rval);
 }
 
-void new_adjoint() {
+void 
+new_adjoint (void) {
     int i, n = NODE + 1;
     if (ADJ_HERE) {
         data_back();
@@ -395,7 +403,8 @@ void new_adjoint() {
 /* this computes the periodic orbit and stores it in
    the usual place  given initial data and period */
 
-void test_test() {
+void 
+test_test (void) {
     double x[2];
     x[0] = .35249;
     x[1] = .2536;
@@ -430,10 +439,8 @@ void compute_one_orbit(double *ic, double per) {
     t in the first column.
   */
 
-int adjoint(orbit, adjnt, nt, dt, eps, minerr, maxit, node)
-float **orbit, **adjnt;
-double dt, eps, minerr;
-int nt, node, maxit;
+int 
+adjoint (float **orbit, float **adjnt, int nt, double dt, double eps, double minerr, int maxit, int node)
 {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
@@ -570,8 +577,8 @@ bye:
     return (rval);
 }
 
-void eval_rhs(jac, k1, k2, t, y, yp, node) double t, **jac, *y, *yp;
-int node, k1, k2;
+void 
+eval_rhs (double **jac, int k1, int k2, double t, double *y, double *yp, int node)
 {
     int i;
     int j;
@@ -584,9 +591,8 @@ int node, k1, k2;
     }
 }
 
-int rk_interp(jac, k1, k2, y, work, neq, del, nstep)
-double *y, del, *work, **jac;
-int neq, k1, k2, nstep;
+int 
+rk_interp (double **jac, int k1, int k2, double *y, double *work, int neq, double del, int nstep)
 {
     int i, j;
     double *yval[3], dt = del / nstep;
@@ -620,9 +626,8 @@ int neq, k1, k2, nstep;
     return (1);
 }
 
-int step_eul(jac, k, k2, yold, work, node, dt)
-double *work, *yold, **jac, dt;
-int k, k2, node;
+int 
+step_eul (double **jac, int k, int k2, double *yold, double *work, int node, double dt)
 {
 
     int j, i, n2 = node * node, info;
@@ -662,7 +667,8 @@ int k, k2, node;
    to get an approximation
 */
 
-void do_liapunov() {
+void 
+do_liapunov (void) {
     double z;
     int i;
     double *x;
@@ -705,11 +711,12 @@ void do_this_liaprun(int i, double p) {
     LIAP_I++;
 }
 
-void norm_vec(v, mu,
-              n) /* returns the length of the vector and the unit vector */
+void 
+norm_vec ( /* returns the length of the vector and the unit vector */
     double *v,
-    *mu;
-int n;
+    double *mu,
+    int n
+)
 {
     int i;
     double sum = 0.0;

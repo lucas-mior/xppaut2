@@ -398,7 +398,8 @@ int svg_init(char *filename, int color) {
     return (1);
 }
 
-void svg_write(str) char *str;
+void 
+svg_write (char *str)
 { fprintf(svgfile, "%s\n", str); }
 
 void svg_stroke(void) {}

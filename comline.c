@@ -153,9 +153,8 @@ VOCAB my_cmd[NCMD] = {
     {"-ncdraw", 7},     {"-def", 4},        {"-readset", 8},    {"-with", 5},
     {"-equil", 6}};
 
-int is_set_name(set, nam)
-SET_NAME *set;
-char *nam;
+int 
+is_set_name (SET_NAME *set, char *nam)
 {
     if (set == NULL) {
         return (0);
@@ -174,9 +173,8 @@ char *nam;
     return (0);
 }
 
-SET_NAME *add_set(set, nam)
-SET_NAME *set;
-char *nam;
+SET_NAME *
+add_set (SET_NAME *set, char *nam)
 {
     if (!is_set_name(set, nam)) {
         SET_NAME *curr;
@@ -189,9 +187,8 @@ char *nam;
     return (set);
 }
 
-SET_NAME *rm_set(set, nam)
-SET_NAME *set;
-char *nam;
+SET_NAME *
+rm_set (SET_NAME *set, char *nam)
 {
     SET_NAME *curr;
     SET_NAME *prev = NULL;
@@ -218,8 +215,8 @@ char *nam;
     return (set);
 }
 
-void do_comline(argc, argv) char **argv;
-int argc;
+void 
+do_comline (int argc, char **argv)
 {
     int i, k;
 
@@ -401,7 +398,8 @@ int argc;
     }
 }
 
-int if_needed_load_ext_options() {
+int 
+if_needed_load_ext_options (void) {
     FILE *fp;
     char myopts[1024];
     char myoptsx[1026];
@@ -428,7 +426,8 @@ int if_needed_load_ext_options() {
         return 1;
     }
 }
-int if_needed_select_sets() {
+int 
+if_needed_select_sets (void) {
     if (!select_intern_sets) {
         return 1;
     }
@@ -459,7 +458,8 @@ int if_needed_select_sets() {
     return 1;
 }
 
-int if_needed_load_set() {
+int 
+if_needed_load_set (void) {
     FILE *fp;
     if (!loadsetfile) {
         return 1;
@@ -474,7 +474,8 @@ int if_needed_load_set() {
     return 1;
 }
 
-int if_needed_load_par() {
+int 
+if_needed_load_par (void) {
 
     if (!loadparfile) {
         return 1;
@@ -484,7 +485,8 @@ int if_needed_load_par() {
     return 1;
 }
 
-int if_needed_load_ic() {
+int 
+if_needed_load_ic (void) {
 
     if (!loadicfile) {
         return 1;
@@ -494,8 +496,8 @@ int if_needed_load_ic() {
     return (1);
 }
 
-int parse_it(com)
-char *com;
+int 
+parse_it (char *com)
 {
     int j;
     for (j = 0; j < NCMD; j++) {

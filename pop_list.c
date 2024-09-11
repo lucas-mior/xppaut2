@@ -24,7 +24,8 @@ void set_window_title(Window win, char *string) {
 
 /* these are the standard lists that are possible */
 
-void make_scrbox_lists() {
+void 
+make_scrbox_lists (void) {
     int i, n;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
@@ -232,9 +233,8 @@ void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb) {
                       scrbox_list[id].list, scrb);
 }
 
-int do_string_box(n, row, col, title, names, values, maxchar)
-int n, row, col, maxchar;
-char **names, values[][MAX_LEN_SBOX], *title;
+int 
+do_string_box (int n, int row, int col, char *title, char **names, char values[][MAX_LEN_SBOX], int maxchar)
 
 {
     STRING_BOX sb;
@@ -279,9 +279,8 @@ char **names, values[][MAX_LEN_SBOX], *title;
     return (status);
 }
 
-void expose_sbox(sb, w, pos, col) STRING_BOX sb;
-Window w;
-int pos, col;
+void 
+expose_sbox (STRING_BOX sb, Window w, int pos, int col)
 {
     int i, flag;
 
@@ -303,10 +302,8 @@ int pos, col;
     }
 }
 
-void do_hilite_text(name, value, flag, w, pos, col) char *name, *value;
-Window w;
-int pos, col;
-int flag;
+void 
+do_hilite_text (char *name, char *value, int flag, Window w, int pos, int col)
 {
     int l = strlen(name);
     int m = strlen(value);
@@ -325,8 +322,8 @@ int flag;
         put_cursor_at(w, DCURX * l, pos);
 }
 
-void reset_hot(inew, sb) int inew;
-STRING_BOX *sb;
+void 
+reset_hot (int inew, STRING_BOX *sb)
 {
     int i = sb->hot;
     sb->hot = inew;
@@ -338,10 +335,8 @@ STRING_BOX *sb;
                    strlen(sb->value[i]), 0);
 }
 
-void new_editable(sb, inew, pos, col, done, w) int inew;
-STRING_BOX *sb;
-int *pos, *col, *done;
-Window *w;
+void 
+new_editable (STRING_BOX *sb, int inew, int *pos, int *col, int *done, Window *w)
 {
 
     reset_hot(inew, sb);
@@ -361,10 +356,8 @@ void set_sbox_item(STRING_BOX *sb, int item) {
        i,item, sb->hh[i]); */
 }
 
-int s_box_event_loop(sb, pos, col, scrb)
-STRING_BOX *sb;
-SCROLLBOX *scrb;
-int *col, *pos;
+int 
+s_box_event_loop (STRING_BOX *sb, int *pos, int *col, SCROLLBOX *scrb)
 {
     XEvent ev;
     int status = -1, inew;
@@ -464,9 +457,8 @@ int *col, *pos;
     return (status);
 }
 
-void make_sbox_windows(sb, row, col, title, maxchar) int row, col, maxchar;
-char *title;
-STRING_BOX *sb;
+void 
+make_sbox_windows (STRING_BOX *sb, int row, int col, char *title, int maxchar)
 {
     int width, height;
     int i;
@@ -540,9 +532,8 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
          }
 */
 
-Window make_fancy_window(root, x, y, width, height, bw, fc, bc)
-Window root;
-int x, y, width, height, bw, fc, bc;
+Window 
+make_fancy_window (Window root, int x, int y, int width, int height, int bw, int fc, int bc)
 {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
@@ -630,9 +621,8 @@ int x, y, width, height, bw, fc, bc;
     return (win);
 }
 
-Window make_unmapped_window(root, x, y, width, height, bw)
-Window root;
-int x, y, width, height, bw;
+Window 
+make_unmapped_window (Window root, int x, int y, int width, int height, int bw)
 {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
@@ -736,12 +726,8 @@ void bin_prnt_byte(int x, int *arr) {
 }
 
 /*Convenience function for making buttons with icons on them*/
-Window make_unmapped_icon_window(root, x, y, width, height, bw, icx, icy,
-                                 icdata)
-Window root;
-int x, y, width, height, bw;
-int icx, icy;
-unsigned char *icdata;
+Window 
+make_unmapped_icon_window (Window root, int x, int y, int width, int height, int bw, int icx, int icy, unsigned char *icdata)
 {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
@@ -889,9 +875,8 @@ unsigned char *icdata;
     return (win);
 }
 
-Window make_plain_unmapped_window(root, x, y, width, height, bw)
-Window root;
-int x, y, width, height, bw;
+Window 
+make_plain_unmapped_window (Window root, int x, int y, int width, int height, int bw)
 {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
@@ -905,11 +890,8 @@ int x, y, width, height, bw;
     return (win);
 }
 
-Window make_icon_window(root, x, y, width, height, bw, icx, icy, icdata)
-Window root;
-int x, y, width, height, bw;
-int icx, icy;
-unsigned char *icdata;
+Window 
+make_icon_window (Window root, int x, int y, int width, int height, int bw, int icx, int icy, unsigned char *icdata)
 {
     Window win;
     win = make_unmapped_icon_window(root, x, y, width, height, bw, icx, icy,
@@ -920,9 +902,8 @@ unsigned char *icdata;
     return (win);
 }
 
-Window make_window(root, x, y, width, height, bw)
-Window root;
-int x, y, width, height, bw;
+Window 
+make_window (Window root, int x, int y, int width, int height, int bw)
 {
     Window win;
     win = make_unmapped_window(root, x, y, width, height, bw);
@@ -932,9 +913,8 @@ int x, y, width, height, bw;
     return (win);
 }
 
-Window make_plain_window(root, x, y, width, height, bw)
-Window root;
-int x, y, width, height, bw;
+Window 
+make_plain_window (Window root, int x, int y, int width, int height, int bw)
 {
     Window win;
     win = make_plain_unmapped_window(root, x, y, width, height, bw);
@@ -944,8 +924,8 @@ int x, y, width, height, bw;
     return (win);
 }
 
-void expose_resp_box(button, message, wb, wm, w) Window w, wb, wm;
-char *button, *message;
+void 
+expose_resp_box (char *button, char *message, Window wb, Window wm, Window w)
 {
     if (w == wb)
         Ftext(0, 0, button, wb);
@@ -953,7 +933,8 @@ char *button, *message;
         Ftext(0, 0, message, wm);
 }
 
-void respond_box(button, message) char *button, *message;
+void 
+respond_box (char *button, char *message)
 {
     int l1 = strlen(message);
     int l2 = strlen(button);
@@ -1010,9 +991,8 @@ void respond_box(button, message) char *button, *message;
     XDestroyWindow(display, wmain);
 }
 
-void message_box(w, x, y, message) Window *w;
-int x, y;
-char *message;
+void 
+message_box (Window *w, int x, int y, char *message)
 {
     int wid = strlen(message) * DCURX;
     int hgt = 4 * DCURY;
@@ -1024,8 +1004,8 @@ char *message;
     *w = z;
 }
 
-void expose_choice(choice1, choice2, msg, c1, c2, wm, w) Window c1, c2, wm, w;
-char *choice1, *choice2, *msg;
+void 
+expose_choice (char *choice1, char *choice2, char *msg, Window c1, Window c2, Window wm, Window w)
 {
     if (w == wm)
         Ftext(0, 0, msg, wm);
@@ -1035,10 +1015,8 @@ char *choice1, *choice2, *msg;
         Ftext(0, 0, choice2, c2);
 }
 
-int two_choice(choice1, choice2, string, key, x, y, w, title)
-char *choice1, *choice2, *string, *key, *title;
-int x, y;
-Window w;
+int 
+two_choice (char *choice1, char *choice2, char *string, char *key, int x, int y, Window w, char *title)
 {
     Window base, c1, c2, wm;
     XEvent ev;
@@ -1121,7 +1099,8 @@ Window w;
     return (value);
 }
 
-int yes_no_box() {
+int 
+yes_no_box (void) {
     char ans;
     ans = (char)TwoChoice("YES", "NO", "Are you sure?", "yn");
     if (ans == 'y')
@@ -1131,10 +1110,8 @@ int yes_no_box() {
 
 /*  new pop_up_list   */
 
-int pop_up_list(root, title, list, key, n, max, def, x, y, hints, hwin, httxt)
-int def, n, max, x, y;
-char *title, **list, *key, **hints, *httxt;
-Window *root, hwin;
+int 
+pop_up_list (Window *root, char *title, char **list, char *key, int n, int max, int def, int x, int y, char **hints, Window hwin, char *httxt)
 
 {
     POP_UP p;
@@ -1217,8 +1194,8 @@ Window *root, hwin;
     return (value);
 }
 
-void draw_pop_up(p, w) POP_UP p;
-Window w;
+void 
+draw_pop_up (POP_UP p, Window w)
 {
     int i;
 

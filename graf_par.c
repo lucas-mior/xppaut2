@@ -112,8 +112,8 @@ void change_view_com(int com) {
     redraw_the_graph();
 }
 
-void ind_to_sym(ind, str) char *str;
-int ind;
+void 
+ind_to_sym (int ind, char *str)
 {
     if (ind == 0)
         strcpy(str, "T");
@@ -121,7 +121,8 @@ int ind;
         strcpy(str, uvar_names[ind - 1]);
 }
 
-void check_flags() {
+void 
+check_flags (void) {
     if (MyGraph->grtype > 4)
         MyGraph->ThreeDFlag = 1;
     else
@@ -133,7 +134,8 @@ void check_flags() {
         MyGraph->TimeFlag = 0;
 }
 
-void get_2d_view(ind) int ind;
+void 
+get_2d_view (int ind)
 {
     static char *n[] = {"*0X-axis", "*0Y-axis", "Xmin",   "Ymin",
                         "Xmax",     "Ymax",     "Xlabel", "Ylabel"};
@@ -180,7 +182,8 @@ void get_2d_view(ind) int ind;
     }
 }
 
-void axes_opts() {
+void 
+axes_opts (void) {
     static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
                         "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
     char values[7][MAX_LEN_SBOX];
@@ -205,7 +208,8 @@ void axes_opts() {
     }
 }
 
-void get_3d_view(ind) int ind;
+void 
+get_3d_view (int ind)
 {
     static char *n[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "Xmin",
                         "Xmax",     "Ymin",     "Ymax",     "Zmin",
@@ -272,7 +276,8 @@ void get_3d_view(ind) int ind;
     }
 }
 
-void check_val(x1, x2, xb, xd) double *x1, *x2, *xb, *xd;
+void 
+check_val (double *x1, double *x2, double *xb, double *xd)
 {
     double temp;
 
@@ -294,8 +299,8 @@ void check_val(x1, x2, xb, xd) double *x1, *x2, *xb, *xd;
     *xd = 2.0 / (*x2 - *x1);
 }
 
-void get_max(index, vmin, vmax) double *vmax, *vmin;
-int index;
+void 
+get_max (int index, double *vmin, double *vmax)
 {
     float x0, x1, z;
     double temp;
@@ -318,15 +323,18 @@ int index;
     }
 }
 
-void pretty(x1, x2) /* this was always pretty ugly */
+void 
+pretty ( /* this was always pretty ugly */
     double *x1,
-    *x2;
+    double *x2
+)
 {
     /* if(fabs(*x1-*x2)<1.e-12)
      *x2=*x1+max(.1*fabs(*x2),1.0); */
 }
 
-void corner_cube(xlo, xhi, ylo, yhi) double *xlo, *ylo, *xhi, *yhi;
+void 
+corner_cube (double *xlo, double *xhi, double *ylo, double *yhi)
 {
     float x, y;
     float x1, x2, y1, y2;
@@ -404,7 +412,8 @@ void corner_cube(xlo, xhi, ylo, yhi) double *xlo, *ylo, *xhi, *yhi;
     *yhi = y2;
 }
 
-void default_window() {
+void 
+default_window (void) {
     if (MyGraph->ThreeDFlag) {
         MyGraph->xmax = x_3d[1];
         MyGraph->ymax = y_3d[1];
@@ -440,7 +449,8 @@ void default_window() {
     redraw_the_graph();
 }
 
-void fit_window() {
+void 
+fit_window (void) {
     double Mx = -1.e25, My = -1.e25, Mz = -1.e25, mx = -Mx, my = -My, mz = -Mz;
     int i, n = MyGraph->nvars;
     if (storind < 2)
@@ -502,7 +512,8 @@ void fit_window() {
     redraw_the_graph();
 }
 
-void check_windows() {
+void 
+check_windows (void) {
     double zip, zap;
     check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar, &MyGraph->dx);
     check_val(&MyGraph->ymin, &MyGraph->ymax, &MyGraph->ybar, &MyGraph->dy);
@@ -511,7 +522,8 @@ void check_windows() {
     check_val(&MyGraph->ylo, &MyGraph->yhi, &zip, &zap);
 }
 
-void user_window() {
+void 
+user_window (void) {
     static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
     char values[4][MAX_LEN_SBOX];
     int status;
@@ -537,7 +549,8 @@ void user_window() {
     redraw_the_graph();
 }
 
-void xi_vs_t() /*  a short cut   */
+void 
+xi_vs_t (void) /*  a short cut   */
 {
     char name[20], value[20];
     int i = MyGraph->yv[0];
@@ -572,7 +585,8 @@ void xi_vs_t() /*  a short cut   */
     }
 }
 
-void redraw_the_graph() {
+void 
+redraw_the_graph (void) {
     blank_screen(draw_win);
     set_normal_scale();
     do_axes();
@@ -585,8 +599,8 @@ void redraw_the_graph() {
         restore_nullclines();
 }
 
-void movie_rot(start, increment, nclip, angle) int nclip, angle;
-double start, increment;
+void 
+movie_rot (double start, double increment, int nclip, int angle)
 {
     int i;
     double thetaold = MyGraph->Theta, phiold = MyGraph->Phi;
@@ -604,7 +618,8 @@ double start, increment;
     MyGraph->Phi = phiold;
 }
 
-void test_rot() {
+void 
+test_rot (void) {
     int done = 0;
     int kp;
     XEvent ev;
@@ -647,7 +662,8 @@ void test_rot() {
     redraw_the_graph();
 }
 
-void get_3d_par_com() {
+void 
+get_3d_par_com (void) {
 
     static char *n[] = {"Persp (1=On)",
                         "ZPlane",
@@ -707,7 +723,8 @@ void get_3d_par_com() {
     }
 }
 
-void get_3d_par_noper() {
+void 
+get_3d_par_noper (void) {
 
     static char *n[] = {
         "Theta",       "Phi",       "Movie(Y/N)",       "Vary (theta/phi)",
@@ -772,7 +789,8 @@ void update_view(float xlo, float xhi, float ylo, float yhi) {
 
     redraw_the_graph();
 }
-void scroll_window() {
+void 
+scroll_window (void) {
     XEvent ev;
     int i = 0, j = 0;
     int state = 0;
@@ -864,7 +882,8 @@ void window_zoom_com(int c) {
     set_normal_scale();
 }
 
-void zoom_in(i1, j1, i2, j2) int i1, j1, i2, j2;
+void 
+zoom_in (int i1, int j1, int i2, int j2)
 {
     float x1, y1, x2, y2;
     float dx = MyGraph->xhi - MyGraph->xlo;
@@ -906,7 +925,8 @@ void zoom_in(i1, j1, i2, j2) int i1, j1, i2, j2;
     draw_help();
 }
 
-void zoom_out(i1, j1, i2, j2) int i1, j1, i2, j2;
+void 
+zoom_out (int i1, int j1, int i2, int j2)
 {
 
     float x1, y1, x2, y2;
@@ -974,7 +994,8 @@ void zoom_out(i1, j1, i2, j2) int i1, j1, i2, j2;
     draw_help();
 }
 
-void graph_all(list, n, type) int *list, n, type;
+void 
+graph_all (int *list, int n, int type)
 {
     int i;
     if (type == 0) {
@@ -1004,8 +1025,8 @@ void graph_all(list, n, type) int *list, n, type;
     fit_window();
 }
 
-int find_color(in)
-int in;
+int 
+find_color (int in)
 {
     int i;
     for (i = 0; i <= 10; i++)
@@ -1014,9 +1035,8 @@ int in;
     return (0);
 }
 
-int alter_curve(title, in_it, n)
-char *title;
-int in_it, n;
+int 
+alter_curve (char *title, int in_it, int n)
 {
     static char *nn[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "*4Color",
                          "Line type"};
@@ -1057,7 +1077,8 @@ int in_it, n;
     return (0);
 }
 
-void edit_curve() {
+void 
+edit_curve (void) {
     char bob[20];
     int crv = 0;
     sprintf(bob, "Edit 0-%d :", MyGraph->nvars - 1);
@@ -1069,12 +1090,14 @@ void edit_curve() {
     }
 }
 
-void new_curve() {
+void 
+new_curve (void) {
     if (alter_curve("New Curve", 0, MyGraph->nvars))
         MyGraph->nvars = MyGraph->nvars + 1;
 }
 
-void create_ps() {
+void 
+create_ps (void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
@@ -1143,7 +1166,8 @@ void dump_ps(int i) {
     }
 }
 
-void create_svg() {
+void 
+create_svg (void) {
 
     char filename[XPP_MAX_NAME];
     strcpy(filename, this_file);
@@ -1203,7 +1227,8 @@ void freeze_com(int c) {
     }
 }
 
-void set_key(x, y) int x, y;
+void 
+set_key (int x, int y)
 {
     float xp, yp;
     scale_to_real(x, y, &xp, &yp);
@@ -1212,7 +1237,8 @@ void set_key(x, y) int x, y;
     FreezeKeyFlag = 1;
 }
 
-void draw_freeze_key() {
+void 
+draw_freeze_key (void) {
     int ix, iy;
     int i, y0;
     int ix2;
@@ -1251,7 +1277,8 @@ void key_frz_com(int c) {
     }
 }
 
-void edit_frz() {
+void 
+edit_frz (void) {
     int i;
     i = get_frz_index(draw_win);
     if (i < 0)
@@ -1259,7 +1286,8 @@ void edit_frz() {
     edit_frz_crv(i);
 }
 
-void delete_frz_crv(i) int i;
+void 
+delete_frz_crv (int i)
 {
     if (frz[i].use == 0)
         return;
@@ -1272,7 +1300,8 @@ void delete_frz_crv(i) int i;
         free(frz[i].zv);
 }
 
-void delete_frz() {
+void 
+delete_frz (void) {
     int i;
     i = get_frz_index(draw_win);
     if (i < 0)
@@ -1280,7 +1309,8 @@ void delete_frz() {
     delete_frz_crv(i);
 }
 
-void kill_frz() {
+void 
+kill_frz (void) {
     int i;
     for (i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].w == draw_win)
@@ -1288,8 +1318,8 @@ void kill_frz() {
     }
 }
 
-int freeze_crv(ind)
-int ind;
+int 
+freeze_crv (int ind)
 {
     int i;
     i = create_crv(ind);
@@ -1299,14 +1329,15 @@ int ind;
     return (1);
 }
 
-void auto_freeze_it() {
+void 
+auto_freeze_it (void) {
     if (AutoFreezeFlag == 0)
         return;
     create_crv(0);
 }
 
-int create_crv(ind)
-int ind;
+int 
+create_crv (int ind)
 {
     int i, type, j;
     int ix, iy, iz;
@@ -1348,7 +1379,8 @@ int ind;
     return (-1);
 }
 
-void edit_frz_crv(i) int i;
+void 
+edit_frz_crv (int i)
 {
     static char *nn[] = {"*4Color", "Key", "Name"};
     char values[3][MAX_LEN_SBOX];
@@ -1364,14 +1396,15 @@ void edit_frz_crv(i) int i;
     }
 }
 
-void draw_frozen_cline(index, w) int index;
-Window w;
+void 
+draw_frozen_cline (int index, Window w)
 {
     if (nclines[index].use == 0 || nclines[index].w != w)
         return;
 }
 
-void draw_freeze(w) Window w;
+void 
+draw_freeze (Window w)
 {
     int i, j, type = MyGraph->grtype, lt = 0;
     float oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
@@ -1421,9 +1454,11 @@ void draw_freeze(w) Window w;
 
 /*  Bifurcation curve importing */
 
-void init_bd() { my_bd.nbifcrv = 0; }
+void 
+init_bd (void) { my_bd.nbifcrv = 0; }
 
-void draw_bd(w) Window w;
+void 
+draw_bd (Window w)
 {
     int i, j, len;
     float oldxpl, oldypl, xpl, ypl, *x, *y;
@@ -1446,7 +1481,8 @@ void draw_bd(w) Window w;
     }
 }
 
-void free_bd() {
+void 
+free_bd (void) {
     int i;
     if (my_bd.nbifcrv > 0) {
         for (i = 0; i < my_bd.nbifcrv; i++) {
@@ -1457,8 +1493,8 @@ void free_bd() {
     }
 }
 
-void add_bd_crv(x, y, len, type, ncrv) float *x, *y;
-int len, ncrv, type;
+void 
+add_bd_crv (float *x, float *y, int len, int type, int ncrv)
 {
     int i;
     if (ncrv >= MAXBIFCRV)
@@ -1480,7 +1516,8 @@ int len, ncrv, type;
     my_bd.color[ncrv] = i;
 }
 
-void frz_bd() {
+void 
+frz_bd (void) {
     FILE *fp;
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
@@ -1495,7 +1532,8 @@ void frz_bd() {
     }
     read_bd(fp);
 }
-void read_bd(fp) FILE *fp;
+void 
+read_bd (FILE *fp)
 {
     int oldtype, type, oldbr, br, ncrv = 0, len, f2;
     float x[8000], ylo[8000], yhi[8000];
@@ -1542,8 +1580,8 @@ void read_bd(fp) FILE *fp;
     my_bd.w = draw_win;
 }
 
-int get_frz_index(w)
-Window w;
+int 
+get_frz_index (Window w)
 {
     char *n[MAXFRZ];
     char key[MAXFRZ], ch;
@@ -1570,7 +1608,8 @@ Window w;
     return ((int)(ch - 'a'));
 }
 
-void export_graf_data() {
+void 
+export_graf_data (void) {
     FILE *fp;
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];

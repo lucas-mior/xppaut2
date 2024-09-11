@@ -257,9 +257,8 @@ void add_vectorizer_name(char *name, char *rhs) {
         exit(0);
     n_vector++;
 }
-double vector_value(x, i)
-double x;
-int i;
+double 
+vector_value (double x, int i)
 {
     int il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length, k = (int)x;
     int root = my_vec[i].root;
@@ -278,9 +277,8 @@ int i;
         return variables[2 * n - k - 1 + root];
     }
 }
-double network_value(x, i)
-double x;
-int i;
+double 
+network_value (double x, int i)
 {
     int j = (int)x;
     if (my_net[i].type == INTERP) {
@@ -297,9 +295,8 @@ void init_net(double *v, int n) {
         v[i] = 0.0;
 }
 
-int add_spec_fun(name, rhs)
-char *name;
-char *rhs;
+int 
+add_spec_fun (char *name, char *rhs)
 {
     int i, ind, elen, err;
     int type;
@@ -1045,8 +1042,8 @@ char *rhs;
     }
     return 0;
 }
-void add_special_name(name, rhs) char *name;
-char *rhs;
+void 
+add_special_name (char *name, char *rhs)
 {
     if (is_network(rhs)) {
         plintf(" netrhs = |%s| \n", rhs);
@@ -1060,8 +1057,8 @@ char *rhs;
         plintf(" No such special type ...\n");
 }
 
-int is_network(s)
-char *s;
+int 
+is_network (char *s)
 {
     /*int n;
      */
@@ -1098,13 +1095,15 @@ char *s;
     return 0;
 }
 
-void eval_all_nets() {
+void 
+eval_all_nets (void) {
     int i;
     for (i = 0; i < n_network; i++)
         evaluate_network(i);
 }
 
-void evaluate_network(ind) int ind;
+void 
+evaluate_network (int ind)
 {
     int i, j, k, ij;
     int imin, imax;
@@ -1373,7 +1372,8 @@ void evaluate_network(ind) int ind;
     }
 }
 
-void update_all_ffts() {
+void 
+update_all_ffts (void) {
     int i;
 
     for (i = 0; i < n_network; i++)
@@ -1604,7 +1604,8 @@ int getimpstr(char *in, int *i, char *out) {
     return k;
 }
 
-int import_error() {
+int 
+import_error (void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
 }

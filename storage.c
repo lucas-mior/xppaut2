@@ -24,7 +24,8 @@ typedef struct {
 
 extern XPPVEC xpv;
 
-void init_alloc_info() {
+void 
+init_alloc_info (void) {
     int i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
@@ -34,7 +35,8 @@ void init_alloc_info() {
         xpv.x[i] = 0.0;
 }
 
-void alloc_meth() {
+void 
+alloc_meth (void) {
     int nn = xpv.node + xpv.nvec;
     int sz = 30 * nn;
     switch (METHOD) {
@@ -71,7 +73,8 @@ int reallocstor(int ncol, int nrow) {
     return 0;
 }
 
-void init_stor(nrow, ncol) int nrow, ncol;
+void 
+init_stor (int nrow, int ncol)
 {
     int i;
     /* WORK=(double *)malloc(WORKSIZE*sizeof(double));
@@ -94,7 +97,8 @@ void init_stor(nrow, ncol) int nrow, ncol;
     exit(0);
 }
 
-void free_storage(ncol) int ncol;
+void 
+free_storage (int ncol)
 {
     int i;
     for (i = 0; i < ncol; i++)

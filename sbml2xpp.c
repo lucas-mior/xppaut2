@@ -432,7 +432,8 @@ add_product(int i, int j, char *name, double s) {
     r->spr[j] = s;
 }
 
-dump_reactions() {
+int 
+dump_reactions (void) {
     int i, j;
     int npr, nre;
     RXN *r;
@@ -451,7 +452,8 @@ dump_reactions() {
         plintf("\n");
     }
 }
-dump_events() {
+int 
+dump_events (void) {
     int i, j, na;
     EVENT *ev;
     if (Nevent == 0)
@@ -465,7 +467,8 @@ dump_events() {
         plintf("%s}\n", ev->a[na - 1]);
     }
 }
-dump_funs() {
+int 
+dump_funs (void) {
     int i, j;
     FUN_DEF *f;
     for (i = 0; i < Nfuns; i++) {
@@ -476,7 +479,8 @@ dump_funs() {
         plintf(")=%s\n", f->formula);
     }
 }
-dump_rules() {
+int 
+dump_rules (void) {
     RULE *r;
     int i;
     if (Nrule > 0)
@@ -486,7 +490,8 @@ dump_rules() {
         plintf("%s=%s\n", r->v, r->f);
     }
 }
-dump_species() {
+int 
+dump_species (void) {
     SPECIES *x;
     int i;
     plintf("SPECIES: n i t\n");
@@ -497,7 +502,8 @@ dump_species() {
     }
 }
 
-dump_parameters() {
+int 
+dump_parameters (void) {
     int i;
     plintf("PARAMETERS:\n");
     for (i = 0; i < Npar; i++)
@@ -801,7 +807,8 @@ find_species(char *s) {
     }
     return -1;
 }
-mark_rule_pars() {
+int 
+mark_rule_pars (void) {
     int i, j;
     RULE *r;
     for (i = 0; i < Nrule; i++) {
@@ -829,7 +836,8 @@ is_blank(char *s) {
 /* this searches all reactions and finds the
    partici[ating species and marks them
 */
-species_participation() {
+int 
+species_participation (void) {
     int i, j, k, l;
     RXN *r;
     SPECIES *s;
@@ -952,14 +960,15 @@ fix_long_names(char *big, char *bigp) {
     }
     strcpy(bigp, z);
 }
-static int z_sort(sy1, sy2)
-LONG_NAMES *sy1, *sy2;
+static int 
+z_sort (LONG_NAMES *sy1, LONG_NAMES *sy2)
 {
     if (strlen(sy1->src) > strlen(sy2->src))
         return -1;
     return 1;
 }
-sort_long_names() {
+int 
+sort_long_names (void) {
     int i;
     if (lnum < 2)
         return; /* nothing to sort ! */

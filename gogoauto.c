@@ -15,7 +15,8 @@ int global_verbose_flag = 0;
 extern int fp8_is_open;
 extern char fort3[200], fort7[200], fort8[200], fort9[200];
 
-int go_go_auto() /* this is the entry  at this point, xAuto has been set */
+int 
+go_go_auto (void) /* this is the entry  at this point, xAuto has been set */
 {
     double time0, time1;
     integer icp[NPARX2];

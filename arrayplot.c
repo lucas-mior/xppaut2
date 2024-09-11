@@ -101,7 +101,8 @@ void draw_one_array_plot(char *bob) {
     aplot_range_count++;
 }
 
-void set_up_aplot_range() {
+void 
+set_up_aplot_range (void) {
     static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
     char values[3][MAX_LEN_SBOX];
     int status;
@@ -120,7 +121,8 @@ void set_up_aplot_range() {
         do_range(x, 0);
     }
 }
-void fit_aplot() {
+void 
+fit_aplot (void) {
     double zmax, zmin;
     scale_aplot(&aplot, &zmax, &zmin);
     aplot.zmin = zmin;
@@ -156,7 +158,8 @@ void optimize_aplot(int *plist) {
     redraw_aplot(aplot);
 }
 
-void make_my_aplot(name) char *name;
+void 
+make_my_aplot (char *name)
 {
     if (aplot.alive == 1)
         return;
@@ -218,13 +221,15 @@ void init_arrayplot(ap) APLOT *ap;
     ap->type = -1;
 }
 
-void expose_aplot(w) Window w;
+void 
+expose_aplot (Window w)
 {
     if (aplot.alive)
         display_aplot(w, aplot);
 }
 
-void do_array_plot_events(ev) XEvent ev;
+void 
+do_array_plot_events (XEvent ev)
 {
     int x, y;
     if (aplot.alive == 0)
@@ -282,14 +287,16 @@ APLOT ap;
         XSetWindowBorderWidth(display, w, i);
 }
 
-void destroy_aplot() {
+void 
+destroy_aplot (void) {
     aplot.alive = 0;
     waitasec(ClickTime);
     XDestroySubwindows(display, aplot.base);
     XDestroyWindow(display, aplot.base);
 }
 
-void init_my_aplot() { init_arrayplot(&aplot); }
+void 
+init_my_aplot (void) { init_arrayplot(&aplot); }
 
 void create_arrayplot(ap, wname, iname) APLOT *ap;
 char *wname, *iname;
@@ -393,7 +400,8 @@ void print_aplot(ap) APLOT *ap;
     }
 }
 
-void apbutton(w) Window w;
+void 
+apbutton (Window w)
 {
     if (w == aplot.wedit) {
         editaplot(&aplot);
@@ -436,10 +444,11 @@ void draw_aplot(ap) APLOT ap;
     redraw_aplot(ap);
 }
 
-void edit_aplot() { editaplot(&aplot); }
+void 
+edit_aplot (void) { editaplot(&aplot); }
 
-void get_root(s, sroot, num) char *s, *sroot;
-int *num;
+void 
+get_root (char *s, char *sroot, int *num)
 {
     int n = strlen(s);
     int i = n - 1, j;
@@ -488,8 +497,8 @@ void reset_aplot_axes(ap) APLOT ap;
     gtitle_text(bob, ap.base);
 }
 
-void dump_aplot(fp, f) FILE *fp;
-int f;
+void 
+dump_aplot (FILE *fp, int f)
 {
     char bob[256];
     if (f == READEM)
@@ -552,7 +561,8 @@ APLOT *ap;
     }
     return 1;
 }
-void close_aplot_files() {
+void 
+close_aplot_files (void) {
     if (aplot_still == 0)
         fclose(ap_fp);
 }
@@ -601,7 +611,8 @@ void gif_aplot_all(char *filename, int still) {
     }
 }
 
-void gif_aplot() {
+void 
+gif_aplot (void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     sprintf(filename, "%s.gif", this_file);
@@ -685,7 +696,8 @@ void tag_aplot(char *bob) {
     XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob, strlen(bob));
 }
 
-void set_acolor(col) int col;
+void 
+set_acolor (int col)
 {
     if (col < 0)
         XSetForeground(display, aplot_gc, GrBack);

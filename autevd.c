@@ -45,12 +45,8 @@ EIGVAL my_ev;
 double sign();
 int imin();
 
-void init_auto(ndim, nicp, nbc, ips, irs, ilp, ntst, isp, isw, nmx, npr, ds,
-               dsmin, dsmax, rl0, rl1, a0, a1, ip1, ip2, ip3, ip4, ip5, nuzr,
-               epsl, epsu, epss, ncol) int ndim,
-    nicp, nbc, ips, irs, ilp, ntst, isp, isw, nmx, npr, ip1, ip2;
-int nuzr, ncol, ip3, ip4, ip5;
-double ds, dsmin, dsmax, rl0, rl1, a0, a1, epsl, epsu, epss;
+void 
+init_auto (int ndim, int nicp, int nbc, int ips, int irs, int ilp, int ntst, int isp, int isw, int nmx, int npr, double ds, double dsmin, double dsmax, double rl0, double rl1, double a0, double a1, int ip1, int ip2, int ip3, int ip4, int ip5, int nuzr, double epsl, double epsu, double epss, int ncol)
 {
 
     /* here are the constants that we do not allow the user to change */
@@ -110,8 +106,8 @@ double ds, dsmin, dsmax, rl0, rl1, a0, a1, epsl, epsu, epss;
     }
 }
 
-void send_eigen(ibr, ntot, n, ev) int ibr, ntot, n;
-doublecomplex *ev;
+void 
+send_eigen (int ibr, int ntot, int n, doublecomplex *ev)
 {
     int i;
     double er, cs, sn;
@@ -126,8 +122,8 @@ doublecomplex *ev;
     }
 }
 
-void send_mult(ibr, ntot, n, ev) int ibr, ntot, n;
-doublecomplex *ev;
+void 
+send_mult (int ibr, int ntot, int n, doublecomplex *ev)
 {
     int i;
     my_ev.pt = abs(ntot);
@@ -140,8 +136,8 @@ doublecomplex *ev;
 
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
 
-int get_bif_type(ibr, ntot, lab)
-int ibr, ntot, lab;
+int 
+get_bif_type (int ibr, int ntot, int lab)
 {
     int type = SEQ;
 
@@ -188,14 +184,12 @@ void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs,
                 my_ev.evr, my_ev.evi);
 }
 
-double etime_(z)
-double *z;
+double 
+etime_ (double *z)
 { return (0.0); }
 
-int eigrf_(a, n, m, ecv, work, ier)
-double *a, *work;
-int *n, *m, *ier;
-doublecomplex *ecv;
+int 
+eigrf_ (double *a, int *n, int *m, doublecomplex *ecv, double *work, int *ier)
 {
     double ev[400];
     int i;

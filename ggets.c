@@ -46,7 +46,8 @@ int xor_flag;
 extern FILE *logfile;
 extern int XPPVERBOSE;
 
-void ping() {
+void 
+ping (void) {
     if (tfBell && !XPPBatch) {
         /*
         XkbBell allows window managers to react
@@ -60,13 +61,15 @@ void ping() {
     is not. if(tfBell&&!XPPBatch) XBell(display,100);
    */
 }
-void reset_graphics() {
+void 
+reset_graphics (void) {
     blank_screen(draw_win);
     do_axes();
     hi_lite(draw_win);
 }
 
-void blank_screen(w) Window w;
+void 
+blank_screen (Window w)
 
 {
 
@@ -76,13 +79,14 @@ void blank_screen(w) Window w;
     XClearWindow(display, w);
 }
 
-void set_fore() { XSetForeground(display, gc, MyForeColor); }
+void 
+set_fore (void) { XSetForeground(display, gc, MyForeColor); }
 
-void set_back() { XSetForeground(display, gc, MyBackColor); }
+void 
+set_back (void) { XSetForeground(display, gc, MyBackColor); }
 
-void showchar(ch, col, row, or) int col, row;
-Window or ;
-char ch;
+void 
+showchar (int ch, int col, int row, Window or)
 {
     char bob[2];
     bob[0] = ch;
@@ -90,22 +94,26 @@ char ch;
     XDrawString(display, or, gc, col, row + CURY_OFF, bob, 1);
 }
 
-void chk_xor() {
+void 
+chk_xor (void) {
     if (xor_flag == 1)
         XSetFunction(display, gc, GXxor);
     else
         XSetFunction(display, gc, GXcopy);
 }
 
-void set_gcurs(y, x) int y, x;
+void 
+set_gcurs (int y, int x)
 {
     CURS_X = x;
     CURS_Y = y;
 }
 
-void clr_command() { blank_screen(command_pop); }
+void 
+clr_command (void) { blank_screen(command_pop); }
 
-void draw_info_pop(win) Window win;
+void 
+draw_info_pop (Window win)
 {
     if (win == info_pop) {
         XClearWindow(display, info_pop);
@@ -115,8 +123,8 @@ void draw_info_pop(win) Window win;
     }
 }
 
-void bottom_msg(line, msg) int line;
-char *msg;
+void 
+bottom_msg (int line, char *msg)
 {
     XClearWindow(display, info_pop);
     BaseCol();
@@ -129,15 +137,16 @@ clr_menbar()
   blank_screen(menu_pop);
  }
 */
-void gputs(string, win) char *string;
-Window win;
+void 
+gputs (char *string, Window win)
 {
     int xloc = CURS_X * DCURX, yloc = CURS_Y * DCURY;
     Ftext(xloc, yloc, string, win);
     CURS_X += strlen(string);
 }
 
-void err_msg(string) char *string;
+void 
+err_msg (char *string)
 {
     if (Xup)
         respond_box("OK", string);
@@ -169,9 +178,8 @@ int plintf(char *fmt, ...) {
     return (nchar);
 }
 
-int show_position(ev, com)
-XEvent ev;
-int *com;
+int 
+show_position (XEvent ev, int *com)
 {
 
     /*int i,j;
@@ -195,23 +203,24 @@ int *com;
     return (0);
 }
 
-void gpos_prn(string, row, col) int row, col;
-char *string;
+void 
+gpos_prn (char *string, int row, int col)
 {
     clr_command();
     Ftext(0, row * DCURY, string, command_pop);
     CURS_X = strlen(string);
 }
 
-void put_command(string) char *string;
+void 
+put_command (char *string)
 {
     clr_command();
     Ftext(0, 0, string, command_pop);
     CURS_X = strlen(string);
 }
 
-int get_key_press(ev)
-XEvent *ev;
+int 
+get_key_press (XEvent *ev)
 {
     int maxlen = 64;
     char buf[65];
@@ -260,7 +269,8 @@ XEvent *ev;
     }
 }
 
-void cput_text() {
+void 
+cput_text (void) {
     char string[256], new[256];
     int x, y, size = 2, font = 0;
     Window temp;
@@ -304,9 +314,8 @@ are_you_sure()
 }
 */
 
-int get_mouse_xy(x, y, w)
-Window w;
-int *x, *y;
+int 
+get_mouse_xy (int *x, int *y, Window w)
 {
     int no_but = 1;
     char ch;
@@ -340,20 +349,19 @@ int *x, *y;
     return (0);
 }
 
-void Ftext(x, y, string, o) int x, y;
-Window o;
-char *string;
+void 
+Ftext (int x, int y, char *string, Window o)
 {
     chk_xor();
     XDrawString(display, o, gc, x, y + CURY_OFF, string, strlen(string));
 }
 
-void bar(x, y, x2, y2, w) int x, y, x2, y2;
-Window w;
+void 
+bar (int x, int y, int x2, int y2, Window w)
 { XFillRectangle(display, w, gc, x, y, x2 - x, y2 - y); }
 
-void rectangle(x, y, x2, y2, w) int x, y, x2, y2;
-Window w;
+void 
+rectangle (int x, int y, int x2, int y2, Window w)
 { XDrawRectangle(display, w, gc, x, y, x2 - x, y2 - y); }
 
 /*
@@ -366,7 +374,8 @@ getuch()
 }
 
 */
-void setfillstyle(type, color) int type, color;
+void 
+setfillstyle (int type, int color)
 {
     if (type > -1)
         XSetFillStyle(display, gc, FillSolid);
@@ -376,20 +385,19 @@ void setfillstyle(type, color) int type, color;
         XSetForeground(display, gc, MyBackColor);
 }
 
-void circle(x, y, radius, w) int x, y, radius;
-Window w;
+void 
+circle (int x, int y, int radius, Window w)
 {
     XDrawArc(display, w, gc, x - radius, y - radius, 2 * radius, 2 * radius, 0,
              360 * 64);
 }
 
-void xline(x0, y0, x1, y1, w) int x0, y0, x1, y1;
-Window w;
+void 
+xline (int x0, int y0, int x1, int y1, Window w)
 { XDrawLine(display, w, gc_graph, x0, y0, x1, y1); }
 
-int new_float(name, value)
-char *name;
-double *value;
+int 
+new_float (char *name, double *value)
 {
     int done;
     int flag;
@@ -421,9 +429,8 @@ double *v;
 
  */
 
-int new_int(name, value)
-char *name;
-int *value;
+int 
+new_int (char *name, int *value)
 {
     char svalue[200];
     sprintf(svalue, "%d", *value);
@@ -433,8 +440,8 @@ int *value;
     return (0);
 }
 
-void display_command(name, value, pos, col) char *name, *value;
-int pos, col;
+void 
+display_command (char *name, char *value, int pos, int col)
 {
     int l = strlen(name);
     int m = strlen(value);
@@ -451,15 +458,15 @@ int pos, col;
     }
 }
 
-void clr_line_at(w, col0, pos, n) Window w;
-int col0, pos, n;
+void 
+clr_line_at (Window w, int col0, int pos, int n)
 {
     XClearArea(display, w, col0 + pos * DCURX, 0, (n + 2) * DCURX, 2 * DCURY,
                False);
 }
 
-void put_cursor_at(w, col0, pos) Window w;
-int pos, col0;
+void 
+put_cursor_at (Window w, int col0, int pos)
 {
     int x1 = col0 + pos * DCURX;
     int x2 = x1 + 1;
@@ -469,35 +476,32 @@ int pos, col0;
     XDrawLine(display, w, gc, x2, y1, x2, y2);
 }
 
-void put_string_at(w, col, s, off) Window w;
-char *s;
-int off, col;
+void 
+put_string_at (Window w, int col, char *s, int off)
 {
     int l = strlen(s) - off;
 
     XDrawString(display, w, gc, col, CURY_OFF, s + off, l);
 }
 
-void movmem(s1, s2, len) char *s1, *s2;
-int len;
+void 
+movmem (char *s1, char *s2, int len)
 {
     int i;
     for (i = len - 1; i >= 0; i--)
         s1[i] = s2[i];
 }
 
-void memmov(s1, s2, len) char *s1, *s2;
-int len;
+void 
+memmov (char *s1, char *s2, int len)
 {
     int i;
     for (i = 0; i < len; i++)
         s1[i] = s2[i];
 }
 
-void edit_window(w, pos, value, col, done, ch) Window w;
-int *pos, *col, *done;
-char *value;
-int ch;
+void 
+edit_window (Window w, int *pos, char *value, int *col, int *done, int ch)
 {
     int col0 = *col - *pos * DCURX;
 
@@ -580,9 +584,8 @@ int ch;
     XFlush(display);
 }
 
-void do_backspace(pos, value, col, w) int *pos, *col;
-char *value;
-Window w;
+void 
+do_backspace (int *pos, char *value, int *col, Window w)
 {
     char oldch;
     *pos = *pos - 1;
@@ -597,9 +600,8 @@ Window w;
     showchar('_', *col, 0, w);
 }
 
-void edit_command_string(ev, name, value, done, pos, col) XEvent ev;
-char *name, *value;
-int *done, *pos, *col;
+void 
+edit_command_string (XEvent ev, char *name, char *value, int *done, int *pos, int *col)
 {
     char ch;
     switch (ev.type) {
@@ -622,9 +624,8 @@ int *done, *pos, *col;
     } /* end event cases */
 }
 
-int new_string(name, value)
-char *name;
-char *value;
+int 
+new_string (char *name, char *value)
 {
     char old_value[80];
     int done = 0;

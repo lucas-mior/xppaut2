@@ -101,7 +101,8 @@ int REPLACE = 0, R_COL = 0;
 
 extern float **storage;
 
-float **get_browser_data() { return my_browser.data; }
+float **
+get_browser_data (void) { return my_browser.data; }
 
 void set_browser_data(float **data, int col0) {
     my_browser.data = data;
@@ -118,7 +119,8 @@ occurrence of this field in the kernel source (other than the declaration) is a
 bug."
 */
 
-int gettimenow() {
+int 
+gettimenow (void) {
     struct timeval now;
     /*struct timezone tz;
     gettimeofday(&now,&tz);
@@ -127,7 +129,8 @@ int gettimenow() {
     return now.tv_usec;
 }
 
-void waitasec(msec) int msec;
+void 
+waitasec (int msec)
 {
     struct timeval tim;
     /*struct timezone tz;*/
@@ -146,7 +149,8 @@ void waitasec(msec) int msec;
     }
 }
 
-int get_maxrow_browser() { return my_browser.maxrow; }
+int 
+get_maxrow_browser (void) { return my_browser.maxrow; }
 
 void write_mybrowser_data(FILE *fp) { write_browser_data(fp, &my_browser); }
 
@@ -169,8 +173,8 @@ BROWSER *b;
     }
 }
 
-int check_for_stor(data)
-float **data;
+int 
+check_for_stor (float **data)
 {
     if (data != storage) {
         err_msg("Only data can be in browser");
@@ -334,9 +338,8 @@ void chk_seq(char *f, int *seq, double *a1, double *a2) {
     /*      plintf("seq=%d a1=%g a2=%g\n",*seq,*a1,*a2); */
 }
 
-void replace_column(var, form, dat, n) char *form, *var;
-float **dat;
-int n;
+void 
+replace_column (char *var, char *form, float **dat, int n)
 {
     int com[200], i, j;
     int intflag = 0;
@@ -442,14 +445,16 @@ int n;
     NSYM = NSYM_START;
 }
 
-void wipe_rep() {
+void 
+wipe_rep (void) {
     if (!REPLACE)
         return;
     free(old_rep);
     REPLACE = 0;
 }
 
-void unreplace_column()
+void 
+unreplace_column (void)
 
 {
     int i, n = my_browser.maxrow;
@@ -499,8 +504,8 @@ BROWSER b;
     *row = ihot;
 }
 
-void find_variable(s, col) char *s;
-int *col;
+void 
+find_variable (char *s, int *col)
 {
     *col = -1;
     if (strcasecmp("T", s) == 0) {
@@ -639,14 +644,15 @@ void redraw_browser(b) BROWSER b;
     }
 }
 
-void new_browse_dat(new_dat, dat_len) int dat_len;
-float **new_dat;
+void 
+new_browse_dat (float **new_dat, int dat_len)
 {
     my_browser.data = new_dat;
     refresh_browser(dat_len);
 }
 
-void refresh_browser(length) int length;
+void 
+refresh_browser (int length)
 {
     my_browser.dataflag = 1;
     my_browser.maxrow = length;
@@ -655,7 +661,8 @@ void refresh_browser(length) int length;
         draw_data(my_browser);
 }
 
-void reset_browser() {
+void 
+reset_browser (void) {
     my_browser.maxrow = 0;
     my_browser.dataflag = 0;
 }
@@ -699,7 +706,8 @@ void draw_data(b) BROWSER b;
     }
 }
 
-void init_browser() {
+void 
+init_browser (void) {
 
     my_browser.dataflag = 0;
     my_browser.data = storage;
@@ -719,7 +727,8 @@ void kill_browser(BROWSER *b) {
     XDestroyWindow(display, b->base);
 }
 
-void make_new_browser() {
+void 
+make_new_browser (void) {
     if (my_browser.xflag == 1) {
         XRaiseWindow(display, my_browser.base);
         return;
@@ -727,10 +736,8 @@ void make_new_browser() {
     make_browser(&my_browser, "Data Viewer", "Data", 20, 5);
     my_browser.xflag = 1;
 }
-Window br_button(root, row, col, name, iflag)
-int row, col, iflag;
-Window root;
-char *name;
+Window 
+br_button (Window root, int row, int col, char *name, int iflag)
 {
     Window win;
     int dcol = 12 * DCURXs;
@@ -748,10 +755,8 @@ char *name;
     XSelectInput(display, win, MYMASK);
     return (win);
 }
-Window br_button_data(root, row, col, name, iflag)
-int row, col, iflag;
-Window root;
-char *name;
+Window 
+br_button_data (Window root, int row, int col, char *name, int iflag)
 {
     Window win;
     int dcol = 12 * DCURXs;
@@ -862,37 +867,40 @@ char *wname, *iname;
 
 /*   These are the global exporters ...   */
 
-void expose_my_browser(ev) XEvent ev;
+void 
+expose_my_browser (XEvent ev)
 {
     if (my_browser.xflag == 0)
         return;
     expose_browser(ev, my_browser);
 }
 
-void enter_my_browser(ev, yn) XEvent ev;
-int yn;
+void 
+enter_my_browser (XEvent ev, int yn)
 {
     if (my_browser.xflag == 0)
         return;
     enter_browser(ev, &my_browser, yn);
 }
 
-void my_browse_button(ev) XEvent ev;
+void 
+my_browse_button (XEvent ev)
 {
     if (my_browser.xflag == 0)
         return;
     browse_button(ev, &my_browser);
 }
 
-void my_browse_keypress(ev, used) int *used;
-XEvent ev;
+void 
+my_browse_keypress (XEvent ev, int *used)
 {
     if (my_browser.xflag == 0)
         return;
     browse_keypress(ev, used, &my_browser);
 }
 
-void resize_my_browser(win) Window win;
+void 
+resize_my_browser (Window win)
 {
     if (my_browser.xflag == 0)
         return;
@@ -1259,8 +1267,8 @@ void data_end(b) BROWSER *b;
     draw_data(*b);
 }
 
-void get_data_xyz(x, y, z, i1, i2, i3, off) int i1, i2, i3, off;
-float *x, *y, *z;
+void 
+get_data_xyz (float *x, float *y, float *z, int i1, int i2, int i3, int off)
 {
     int in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
@@ -1373,9 +1381,8 @@ void data_find(b) BROWSER *b;
     }
 }
 
-void open_write_file(fp, fil, ok) FILE **fp;
-char *fil;
-int *ok;
+void 
+open_write_file (FILE **fp, char *fil, int *ok)
 {
     char ans;
     *ok = 0;
@@ -1519,8 +1526,8 @@ void data_last(b) BROWSER *b;
 void data_restore(b) BROWSER *b;
 { restore(b->istart, b->iend); }
 
-void get_col_list(s, cl, n) int *n, *cl;
-char *s;
+void 
+get_col_list (char *s, int *cl, int *n)
 {
     int len, i;
 

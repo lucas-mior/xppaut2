@@ -25,17 +25,16 @@ double evaluate(/* int *ar */);
 }
 */
 
-int main(argc, argv)
-char **argv;
-int argc;
+int 
+main (int argc, char **argv)
 {
     do_main(argc, argv);
 
     exit(0);
 }
 
-void extra(y__y, t, nod, neq) double *y__y, t;
-int nod, neq;
+void 
+extra (double *y__y, double t, int nod, int neq)
 {
     int i;
     if (nod >= neq)
@@ -68,7 +67,8 @@ int nod, neq;
   eval_all_nets();
   do_in_out();
   } */
-void set_fix_rhs(t, y) double t, *y;
+void 
+set_fix_rhs (double t, double *y)
 {
     int i;
     SETVAR(0, t);
@@ -83,9 +83,8 @@ void set_fix_rhs(t, y) double t, *y;
     do_in_out();
 }
 
-int my_rhs(t, y, ydot, neq)
-double t, *y, *ydot;
-int neq;
+int 
+my_rhs (double t, double *y, double *ydot, int neq)
 {
     int i;
     SETVAR(0, t);
@@ -112,7 +111,8 @@ int neq;
     return (1);
 }
 
-void update_based_on_current() {
+void 
+update_based_on_current (void) {
     int i;
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
@@ -121,7 +121,8 @@ void update_based_on_current() {
     do_in_out();
 }
 
-void fix_only() {
+void 
+fix_only (void) {
     int i;
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
@@ -134,8 +135,8 @@ void rhs_only(double *y, double *ydot) {
     }
 }
 
-void vec_rhs(t, y, ydot, neq) double t, *y, *ydot;
-int neq;
+void 
+vec_rhs (double t, double *y, double *ydot, int neq)
 {}
 
 /***

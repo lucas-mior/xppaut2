@@ -31,10 +31,8 @@ double amax();
    a delay differential equation.
 */
 
-void do_delay_sing(x, eps, err, big, maxit, n, ierr, stabinfo) double *x, eps,
-    err, big;
-int *ierr, n, maxit;
-float *stabinfo;
+void 
+do_delay_sing (double *x, double eps, double err, double big, int maxit, int n, int *ierr, float *stabinfo)
 {
     double rr[2];
 
@@ -320,11 +318,8 @@ int n, m;
     }
 }
 
-int find_positive_root(coef, delay, n, m, rad, err, eps, big, maxit, rr)
-double *coef, *delay, *rr;
-int n, m, maxit;
-double rad;
-double eps, err, big;
+int 
+find_positive_root (double *coef, double *delay, int n, int m, double rad, double err, double eps, double big, int maxit, double *rr)
 {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
@@ -404,7 +399,8 @@ double eps, err, big;
     plintf("Max iterates exceeded \n");
     return -1;
 }
-void process_root(real, im) double real, im;
+void 
+process_root (double real, double im)
 { plintf("Root: %g + I %g \n", real, im); }
 double get_arg(delay, coef, m, n, lambda)
 COMPLEX lambda;
@@ -451,7 +447,8 @@ int m, n;
     return (arg);
 }
 
-int test_sign(old, new) double old, new;
+int 
+test_sign (double old, double new)
 {
     if (old > 0.0 && new < 0.0) {
         if (old > 2.9 && new < -2.9)
@@ -484,10 +481,8 @@ int test_sign(old, new) double old, new;
      principle
 */
 
-int plot_args(coef, delay, n, m, npts, almax, wmax)
-double *coef;
-int n, m, npts;
-double almax, wmax, *delay;
+int 
+plot_args (double *coef, double *delay, int n, int m, int npts, double almax, double wmax)
 {
     int i;
     int sign = 0;

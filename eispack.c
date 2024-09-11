@@ -7356,7 +7356,8 @@ int get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
     return (ier);
 }
 
-void test_matrix_stuff() {
+void 
+test_matrix_stuff (void) {
     /* what is called At (a-transpose) gives the eigenvectors
        for what I would call A
     */

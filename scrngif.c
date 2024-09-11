@@ -96,7 +96,8 @@ void get_global_colormap(Window win) {
     gif_stuff(win, junk, GET_GLOBAL_CMAP);
 }
 
-void local_to_global() {
+void 
+local_to_global (void) {
     int i;
     for (i = 0; i < 256; i++) {
         gifcol[i].r = gifGcol[i].r;

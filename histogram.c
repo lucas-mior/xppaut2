@@ -55,7 +55,8 @@ extern int NEQ, NODE, NMarkov, FIX_VAR;
 extern char *no_hint[], *info_message;
 
 int twod_hist();
-void new_2dhist() {}
+void 
+new_2dhist (void) {}
 int two_d_hist(int col1, int col2, int ndat, int n1, int n2, double xlo,
                double xhi, double ylo, double yhi)
 /*
@@ -102,7 +103,8 @@ EXAMPLE of binning
     return 0;
 }
 
-void four_back() {
+void 
+four_back (void) {
     if (FOUR_HERE) {
         set_browser_data(my_four, 1);
         /*   my_browser.data=my_four;
@@ -111,7 +113,8 @@ void four_back() {
     }
 }
 
-void hist_back() {
+void 
+hist_back (void) {
     if (HIST_HERE) {
         set_browser_data(my_hist, 1);
         /*
@@ -121,7 +124,8 @@ void hist_back() {
     }
 }
 
-void new_four(nmodes, col) int nmodes, col;
+void 
+new_four (int nmodes, int col)
 {
     int i;
     int length = nmodes + 1;
@@ -158,7 +162,8 @@ void new_four(nmodes, col) int nmodes, col;
     ping();
 }
 
-void post_process_stuff() {
+void 
+post_process_stuff (void) {
 
     if (post_process == 0)
         return;
@@ -190,7 +195,8 @@ void post_process_stuff() {
     }
 }
 
-int twod_hist()
+int 
+twod_hist (void)
 
 {
     int length, i;
@@ -231,7 +237,8 @@ int twod_hist()
 
     return (1);
 }
-int new_2d_hist() {
+int 
+new_2d_hist (void) {
 
     if ((NEQ < 2) || (storind < 3)) {
         err_msg("Need more data and at least 3 columns");
@@ -269,10 +276,8 @@ int new_2d_hist() {
     return (twod_hist());
 }
 
-void new_hist(nbins, zlo, zhi, col, col2, condition, which) int nbins;
-int col, col2, which;
-double zlo, zhi;
-char *condition;
+void 
+new_hist (int nbins, double zlo, double zhi, int col, int col2, char *condition, int which)
 
 {
     int i, j, index;
@@ -379,7 +384,8 @@ char *condition;
     }
 }
 
-void column_mean() {
+void 
+column_mean (void) {
     int i;
     char bob[100];
     double sum, sum2, ss;
@@ -403,9 +409,8 @@ void column_mean() {
     err_msg(bob);
 }
 
-int get_col_info(col, prompt)
-int *col;
-char *prompt;
+int 
+get_col_info (int *col, char *prompt)
 {
     char variable[20];
     if (*col == 0)
@@ -421,7 +426,8 @@ char *prompt;
     return (1);
 }
 
-void compute_power() {
+void 
+compute_power (void) {
     int i;
     double s, c;
     float *datx, *daty, ptot = 0;
@@ -676,7 +682,8 @@ void just_sd(int flag) {
     hist_back();
     ping();
 }
-void compute_sd() {
+void 
+compute_sd (void) {
     int length, i, j;
     float total = storage[0][storind - 1] - storage[0][0];
     new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
@@ -740,7 +747,8 @@ void just_fourier(int flag) {
     }
 }
 
-void compute_fourier() {
+void 
+compute_fourier (void) {
     int nmodes = 10;
     if (NEQ < 2) {
         err_msg("Need at least three data columns");
@@ -756,7 +764,8 @@ void compute_fourier() {
     new_four(nmodes, spec_col);
 }
 
-void compute_correl() {
+void 
+compute_correl (void) {
     int lag;
     float total = storage[0][storind - 1] - storage[0][0], dta;
     dta = total / (float)(storind - 1);
@@ -788,7 +797,8 @@ void compute_correl() {
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col,
              hist_inf.col2, hist_inf.cond, 2 + hist_inf.fftc);
 }
-void compute_stacor() {
+void 
+compute_stacor (void) {
     new_int("Number of bins ", &hist_inf.nbins);
     new_float("Low ", &hist_inf.xlo);
     new_float("Hi ", &hist_inf.xhi);
@@ -858,7 +868,8 @@ void mycor2(float *x, float *y, int n, int nbins, float *z, int flag) {
     }
 }
 
-void compute_hist() {
+void 
+compute_hist (void) {
 
     new_int("Number of bins ", &hist_inf.nbins);
     new_float("Low ", &hist_inf.xlo);
@@ -870,8 +881,8 @@ void compute_hist() {
              hist_inf.cond, 0);
 }
 
-void sft(data, ct, st, nmodes, grid) int grid, nmodes;
-float *data, *ct, *st;
+void 
+sft (float *data, float *ct, float *st, int nmodes, int grid)
 {
     int i, j;
     double sums, sumc;
@@ -955,8 +966,8 @@ void fftxcorr(float *data1, float *data2, int length, int nlag, float *cr,
     plintf("residual = %g\n", sum);
 }
 
-void fft(data, ct, st, nmodes, length) float *data, *ct, *st;
-int nmodes, length;
+void 
+fft (float *data, float *ct, float *st, int nmodes, int length)
 {
     double *im, *re;
     int dim[2], i;

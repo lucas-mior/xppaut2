@@ -89,7 +89,8 @@ main()
  free_finfo(&my_ff);
 }
 */
-void free_finfo(ff) FILEINFO *ff;
+void 
+free_finfo (FILEINFO *ff)
 {
     int i;
     for (i = 0; i < ff->ndirs; i++)
@@ -108,9 +109,8 @@ int cmpstringp(const void *p1, const void *p2) {
     return strcmp(*(char *const *)p1, *(char *const *)p2);
 }
 
-int get_fileinfo_tab(wild, direct, ff, wild2)
-char *wild, *direct, *wild2;
-FILEINFO *ff;
+int 
+get_fileinfo_tab (char *wild, char *direct, FILEINFO *ff, char *wild2)
 {
     int i, ans;
     DIR *dirp;
@@ -165,9 +165,8 @@ FILEINFO *ff;
     return 1;
 }
 
-int get_fileinfo(wild, direct, ff)
-char *wild, *direct;
-FILEINFO *ff;
+int 
+get_fileinfo (char *wild, char *direct, FILEINFO *ff)
 {
     int i, ans;
     DIR *dirp;
@@ -213,9 +212,8 @@ FILEINFO *ff;
     return 1;
 }
 
-int fil_count(direct, ndir, nfil, wild, mld, mlf)
-char *wild, *direct;
-int *ndir, *nfil, *mld, *mlf;
+int 
+fil_count (char *direct, int *ndir, int *nfil, char *wild, int *mld, int *mlf)
 {
     DIR *dirp;
     int l;
@@ -250,8 +248,8 @@ int *ndir, *nfil, *mld, *mlf;
     return 1;
 }
 
-int change_directory(path)
-char *path;
+int 
+change_directory (char *path)
 {
     if (path == NULL) {
         *cur_dir = '\0';
@@ -267,8 +265,8 @@ char *path;
         return (1);
 }
 
-int get_directory(direct)
-char *direct;
+int 
+get_directory (char *direct)
 {
 #if defined(SYSV) || defined(SVR4)
     extern char *getcwd();

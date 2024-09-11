@@ -136,7 +136,8 @@ char *get_next(/* char *src */);
 char *getsi();
 double atof();
 
-int make_eqn() {
+int 
+make_eqn (void) {
 
     int okay;
     NEQ = 2;
@@ -161,7 +162,8 @@ int make_eqn() {
     return (okay);
 }
 
-void strip_saveqn() {
+void 
+strip_saveqn (void) {
     int i;
     int j, n;
     for (i = 0; i < NLINES; i++) {
@@ -172,8 +174,8 @@ void strip_saveqn() {
     }
 }
 
-int disc(string)
-char *string;
+int 
+disc (char *string)
 {
     char c;
     int i = 0, l = strlen(string), j = 0, flag = 0;
@@ -197,13 +199,15 @@ char *string;
     return (0);
 }
 
-void dump_src() {
+void 
+dump_src (void) {
     int i;
     for (i = 0; i < NLINES; i++)
         plintf("%s", save_eqn[i]);
 }
 
-void dump_comments() {
+void 
+dump_comments (void) {
     int i;
     for (i = 0; i < n_comments; i++)
         plintf("%s\n", comments[i].text);
@@ -323,7 +327,8 @@ void list_em(char *wild) {
 
     free_finfo(&my_ff);
 }
-int read_eqn() {
+int 
+read_eqn (void) {
     char wild[256], string[256];
     FILE *fptr;
     int okay;
@@ -359,8 +364,8 @@ get_dir()
 
  */
 
-int get_eqn(fptr)
-FILE *fptr;
+int 
+get_eqn (FILE *fptr)
 {
     char bob[MAXEXPLEN];
     /*char filename[256];*/
@@ -570,9 +575,8 @@ write_eqn()
   }
 
 */
-int compiler(bob, fptr)
-char *bob;
-FILE *fptr;
+int 
+compiler (char *bob, FILE *fptr)
 {
     double value, xlo, xhi;
     int narg, done, nn, iflg = 0, VFlag = 0, nstates, alt, index, sign;
@@ -980,13 +984,15 @@ FILE *fptr;
     return (done);
 }
 
-void list_upar() {
+void 
+list_upar (void) {
     int i;
     for (i = 0; i < NUPAR; i++)
         printf(" %s", upar_names[i]);
 }
 
-void welcome() {
+void 
+welcome (void) {
     plintf("\n The commands are: \n");
     plintf(" P(arameter) -- declare parameters "
            "<name1>=<value1>,<name2>=<value2>,...\n");
@@ -1010,7 +1016,8 @@ void welcome() {
         "____\n");
 }
 
-void show_syms() {
+void 
+show_syms (void) {
     plintf("(    ,    )    +    -      *    ^    **    / \n");
     plintf("sin  cos  tan  atan  atan2 acos asin\n");
     plintf("exp  ln   log  log10 tanh  cosh sinh \n");
@@ -1019,8 +1026,8 @@ void show_syms() {
 }
 
 /* ram: do I need to strip the name of any whitespace? */
-void take_apart(bob, value, name) char *bob, *name;
-double *value;
+void 
+take_apart (char *bob, double *value, char *name)
 {
     int k, i, l;
     char number[40];
@@ -1039,25 +1046,26 @@ double *value;
     }
 }
 
-char *get_first(string, src)
-char *string, *src;
+char *
+get_first (char *string, char *src)
 {
     char *ptr;
     ptr = strtok(string, src);
     return (ptr);
 }
-char *get_next(src)
-char *src;
+char *
+get_next (char *src)
 {
     char *ptr;
     ptr = strtok(NULL, src);
     return (ptr);
 }
 
-void find_ker(string,
-              alt) /* this extracts the integral operators from the string */
-    char *string;
-int *alt;
+void 
+find_ker ( /* this extracts the integral operators from the string */
+    char *string,
+    int *alt
+)
 {
     char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
     double mu = 0.0;
@@ -1120,13 +1128,15 @@ int *alt;
     strcpy(string, new);
 }
 
-void pos_prn(s, x, y) char *s;
-int x, y;
+void 
+pos_prn (char *s, int x, int y)
 { plintf("%s\n", s); }
 
-void clrscr() { system("clear"); }
+void 
+clrscr (void) { system("clear"); }
 
-int getuch() {
+int 
+getuch (void) {
     int ch;
     ch = getchi();
     if (ch > 64 && ch < 96)
@@ -1136,7 +1146,8 @@ int getuch() {
 
 /***   remove this for full PP   ***/
 
-int getchi() { return (getchar()); }
+int 
+getchi (void) { return (getchar()); }
 
 /*   This is the new improved parser for input files.
      It is much more natural.  The format is as follows:
@@ -1230,8 +1241,8 @@ int if_include_file(char *old, char *nf) {
     return 0;
 }
 
-int if_end_include(old)
-char *old;
+int 
+if_end_include (char *old)
 {
     if (IN_INCLUDED_FILE > 0) {
         if (strncmp(old, "#done", 5) == 0)
@@ -1271,16 +1282,15 @@ void count_object(int type) {
     }
 }
 
-void print_count_of_object() {
+void 
+print_count_of_object (void) {
     printf("NUMODES=%d \n NUMFIX=%d \n NUMPARAM=%d \n NUMMARK=%d \n NUMVOLT=%d "
            "\n NUMAUX=%d \n NUMSOL=%d \n",
            NUMODES, NUMFIX, NUMPARAM, NUMMARK, NUMVOLT, NUMAUX, NUMSOL);
 }
 
-int do_new_parser(fp, first, nnn)
-FILE *fp;
-char *first;
-int nnn;
+int 
+do_new_parser (FILE *fp, char *first, int nnn)
 {
     VAR_INFO v;
     char **markovarrays = NULL;
@@ -1621,7 +1631,8 @@ int nnn;
     return 1;
 }
 
-void create_plot_list() {
+void 
+create_plot_list (void) {
     int i, j = 0, k;
     if (N_only == 0)
         return;
@@ -1666,9 +1677,8 @@ void break_up_list(char *rhs) {
     add_only(s);
 }
 
-int find_the_name(list, n, name)
-char list[MAXODE1][MAXVNAM], *name;
-int n;
+int 
+find_the_name (char list[MAXODE1][MAXVNAM], int n, char *name)
 {
     int i;
 
@@ -1680,7 +1690,8 @@ int n;
     return (-1);
 }
 
-void compile_em() /* Now we try to keep track of markov, fixed, etc as
+void 
+compile_em (void) /* Now we try to keep track of markov, fixed, etc as
                 well as their names  */
 {
     VAR_INFO *v;
@@ -2131,8 +2142,8 @@ int formula_or_number(char *expr, double *z) {
         return 0; /* 0 is a number */
     return 1;     /* 1 is a formula */
 }
-void strpiece(dest, src, i0, ie) int i0, ie;
-char *dest, *src;
+void 
+strpiece (char *dest, char *src, int i0, int ie)
 {
     int i;
     for (i = i0; i <= ie; i++)
@@ -2140,9 +2151,8 @@ char *dest, *src;
     dest[ie - i0 + 1] = 0;
 }
 
-int parse_a_string(s1, v)
-char *s1;
-VAR_INFO *v;
+int 
+parse_a_string (char *s1, VAR_INFO *v)
 {
     int i0 = 0, i1, i2, i3;
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
@@ -2304,18 +2314,16 @@ good_type:
     return 1;
 }
 
-void init_varinfo() {
+void 
+init_varinfo (void) {
     my_varinfo = (VAR_INFO *)malloc(sizeof(VAR_INFO));
     my_varinfo->next = NULL;
     my_varinfo->prev = NULL;
     start_var_info = 0;
 }
 
-void add_varinfo(type, lhs, rhs, nargs, args) int type;
-char *lhs;
-char *rhs;
-int nargs;
-char args[MAXARG][NAMLEN + 1];
+void 
+add_varinfo (int type, char *lhs, char *rhs, int nargs, char args[MAXARG][NAMLEN + 1])
 {
     VAR_INFO *v, *vnew;
     int i;
@@ -2345,7 +2353,8 @@ char args[MAXARG][NAMLEN + 1];
     }
 }
 
-void free_varinfo() {
+void 
+free_varinfo (void) {
     VAR_INFO *v, *vnew;
     v = my_varinfo;
     while (v->next != NULL) {
@@ -2361,9 +2370,12 @@ void free_varinfo() {
     init_varinfo();
 }
 
-int extract_ode(s1, ie, i1) /* name is char 1-i1  ie is start of rhs */
-int i1, *ie;
-char *s1;
+int 
+extract_ode ( /* name is char 1-i1  ie is start of rhs */
+    char *s1,
+    int *ie,
+    int i1
+)
 {
     int i = 0, n = strlen(s1);
 
@@ -2378,9 +2390,8 @@ char *s1;
     return 0;
 }
 
-int strparse(s1, s2, i0, i1)
-int i0, *i1;
-char *s1, *s2;
+int 
+strparse (char *s1, char *s2, int i0, int *i1)
 {
     int i = i0;
     int n = strlen(s1);
@@ -2423,10 +2434,8 @@ char *s1, *s2;
     return (0);
 }
 
-int extract_args(s1, i0, ie, narg, args)
-char args[MAXARG][NAMLEN + 1];
-int *narg, *ie, i0;
-char *s1;
+int 
+extract_args (char *s1, int i0, int *ie, int *narg, char args[MAXARG][NAMLEN + 1])
 {
     int k, i = i0, n = strlen(s1);
     int type, na = 0, i1;
@@ -2454,9 +2463,8 @@ char *s1;
     return (0);
 }
 
-int find_char(s1, s2, i0, i1)
-int i0, *i1;
-char *s1, *s2;
+int 
+find_char (char *s1, char *s2, int i0, int *i1)
 {
     int m = strlen(s2), n = strlen(s1);
     int i = i0;
@@ -2475,9 +2483,8 @@ char *s1, *s2;
     return (-1);
 }
 
-int next_nonspace(s1, i0, i1)
-int i0, *i1;
-char *s1;
+int 
+next_nonspace (char *s1, int i0, int *i1)
 {
     int i = i0;
     int n = strlen(s1);
@@ -2495,7 +2502,8 @@ char *s1;
 }
 
 /* removes starting blanks from s  */
-void remove_blanks(s1) char *s1;
+void 
+remove_blanks (char *s1)
 {
     int i = 0, n = strlen(s1), l;
     int j;
@@ -2517,8 +2525,8 @@ void remove_blanks(s1) char *s1;
     }
 }
 
-void read_a_line(fp, s) char *s;
-FILE *fp;
+void 
+read_a_line (FILE *fp, char *s)
 {
     char temp[MAXEXPLEN];
     int i, n, nn, ok, ihat = 0;
@@ -2566,9 +2574,8 @@ FILE *fp;
     s[n + 1] = 0;
 }
 
-int search_array(old, new, i1, i2, flag)
-char *old, *new;
-int *i1, *i2, *flag;
+int 
+search_array (char *old, char *new, int *i1, int *i2, int *flag)
 {
     int i, j, k, l;
     int ileft, iright;
@@ -2692,9 +2699,11 @@ int check_if_ic(char *big) {
     return 0;
 }
 
-int not_ker(s, i) /* returns 1 if string is not 'int[' */
-char *s;
-int i;
+int 
+not_ker ( /* returns 1 if string is not 'int[' */
+    char *s,
+    int i
+)
 {
     if (i < 3)
         return 1;
@@ -2721,8 +2730,8 @@ int is_comment(char *s) {
     }
 }
 
-void subsk(big, new, k, flag) char *big, *new;
-int k, flag;
+void 
+subsk (char *big, char *new, int k, int flag)
 {
     int i, n = strlen(big), inew, add, inum, j, m, isign, ok, multflag = 0;
     char ch, chp, num[20];
@@ -2837,7 +2846,8 @@ int k, flag;
     new[inew] = 0;
 }
 
-void keep_orig_comments() {
+void 
+keep_orig_comments (void) {
     int i;
 
     if (orig_ncomments > 0)
@@ -2857,7 +2867,8 @@ void keep_orig_comments() {
     }
 }
 
-void default_comments() {
+void 
+default_comments (void) {
     int i;
     if (orig_ncomments == 0)
         return;
@@ -2875,7 +2886,8 @@ void default_comments() {
     }
 }
 
-void free_comments() {
+void 
+free_comments (void) {
     int i;
     for (i = 0; i < n_comments; i++) {
         free(comments[i].text);

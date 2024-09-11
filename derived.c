@@ -22,7 +22,8 @@ DERIVED derived[MAXDERIVED];
 int nderived = 0;
 
 /* clean up derived stuff */
-void free_derived() {
+void 
+free_derived (void) {
     int i;
     for (i = 0; i < nderived; i++) {
         free(derived[i].form);
@@ -34,7 +35,8 @@ void free_derived() {
 /* This compiles all of the formulae
 It is called only once during the session
 */
-int compile_derived() {
+int 
+compile_derived (void) {
     int i, k;
     int f[256], n;
     for (i = 0; i < nderived; i++) {
@@ -54,7 +56,8 @@ int compile_derived() {
 called before any integration or numerical computation
 and after changing parameters and constants
 */
-void evaluate_derived() {
+void 
+evaluate_derived (void) {
     int i;
     for (i = 0; i < nderived; i++) {
         derived[i].value = evaluate(derived[i].form);
@@ -63,8 +66,8 @@ void evaluate_derived() {
 }
 
 /* this adds a derived quantity  */
-int add_derived(name, rhs)
-char *name, *rhs;
+int 
+add_derived (char *name, char *rhs)
 {
     int n = strlen(rhs) + 2;
     int i0;

@@ -343,8 +343,8 @@ void notBothOptions(OptionsSet nasA, OptionsSet nasB) {
     nasA.NULL_HERE = (nasA.NULL_HERE & nasB.NULL_HERE);
 }
 
-void dump_torus(fp, f) FILE *fp;
-int f;
+void 
+dump_torus (FILE *fp, int f)
 {
     int i;
     char bob[256];
@@ -360,7 +360,8 @@ int f;
     }
 }
 
-void load_eqn() {
+void 
+load_eqn (void) {
     int no_eqn = 1, okay = 0;
     int i;
     int std = 0;
@@ -470,7 +471,8 @@ load_eqn()
 
 */
 
-void set_X_vals() {
+void 
+set_X_vals (void) {
     /*
     Set up the default look here.
     */
@@ -514,7 +516,8 @@ void set_X_vals() {
     }
 }
 
-void set_all_vals() {
+void 
+set_all_vals (void) {
     int i;
 
     FILE *fp;
@@ -833,7 +836,8 @@ void set_all_vals() {
     arr_ic_start(); /* take care of all predefined array ics */
 }
 
-void read_defaults(fp) FILE *fp;
+void 
+read_defaults (FILE *fp)
 {
     char bob[100];
     char *ptr;
@@ -947,16 +951,16 @@ void read_defaults(fp) FILE *fp;
     };
 }
 
-void fil_flt(fpt, val) FILE *fpt;
-double *val;
+void 
+fil_flt (FILE *fpt, double *val)
 {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atof(bob);
 }
 
-void fil_int(fpt, val) int *val;
-FILE *fpt;
+void 
+fil_int (FILE *fpt, int *val)
 {
     char bob[80];
     fgets(bob, 80, fpt);
@@ -968,7 +972,8 @@ FILE *fpt;
    { x=y, z=w, q=p , .... }
 */
 
-void add_intern_set(name, does) char *name, *does;
+void 
+add_intern_set (char *name, char *does)
 {
     char bob[1024], ch;
     int i, n, j = Nintern_set, k = 0;
@@ -1023,10 +1028,12 @@ void extract_action(char *ptr) {
     }
 }
 
-void extract_internset(j) int j;
+void 
+extract_internset (int j)
 { extract_action(intern_set[j].does); }
 
-void do_intern_set(name1, value) char *name1, *value;
+void 
+do_intern_set (char *name1, char *value)
 {
     int i;
     char name[20];
@@ -1049,8 +1056,8 @@ void do_intern_set(name1, value) char *name1, *value;
 }
 /*  ODE options stuff  here !!   */
 
-int msc(s1, s2)
-char *s1, *s2;
+int 
+msc (char *s1, char *s2)
 {
 
     int n = strlen(s1), i;
@@ -1145,7 +1152,8 @@ void set_internopts(OptionsSet *mask) {
     Nopts = 0;
 }
 
-void set_internopts_xpprc_and_comline() {
+void 
+set_internopts_xpprc_and_comline (void) {
     int i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
@@ -1209,7 +1217,8 @@ void set_internopts_xpprc_and_comline() {
     Nopts = 0;
 }
 
-void split_apart(bob, name, value) char *bob, *name, *value;
+void 
+split_apart (char *bob, char *name, char *value)
 {
     int k, i, l;
 
@@ -1227,7 +1236,8 @@ void split_apart(bob, name, value) char *bob, *name, *value;
     }
 }
 
-void check_for_xpprc() {
+void 
+check_for_xpprc (void) {
     FILE *fp;
     char rc[256];
     char bob[256];
@@ -1247,7 +1257,8 @@ void check_for_xpprc() {
     fclose(fp);
 }
 
-void stor_internopts(s1) char *s1;
+void 
+stor_internopts (char *s1)
 {
     int n = strlen(s1);
     if (Nopts > MAXOPT) {

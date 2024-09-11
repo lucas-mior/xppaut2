@@ -204,8 +204,8 @@ void silent_nullclines();
 
 int popped = 0;
 
-void do_main(argc, argv) char **argv;
-int argc;
+void 
+do_main (int argc, char **argv)
 {
     /* Moved to init_X() */
     /*  char *icon_name="xpp"; */
@@ -550,8 +550,8 @@ int argc;
     do_events(min_wid, min_hgt);
 }
 
-void check_for_quiet(argc, argv) char **argv;
-int argc;
+void 
+check_for_quiet (int argc, char **argv)
 {
     /*First scan, check for any QUIET option set...*/
     int i = 0;
@@ -585,13 +585,15 @@ int argc;
     }
 }
 
-void do_vis_env() {
+void 
+do_vis_env (void) {
     set_X_vals();
     check_for_xpprc();
     set_internopts_xpprc_and_comline();
 }
 
-void init_X() {
+void 
+init_X (void) {
     char *icon_name = "xpp";
     char *win_name = "XPPAUT";
     unsigned int x = 0, y = 0;
@@ -807,14 +809,16 @@ void init_X() {
      */
 }
 
-void set_big_font() {
+void 
+set_big_font (void) {
     DCURX = DCURXb;
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
     XSetFont(display, gc, big_font->fid);
 }
 
-void set_small_font() {
+void 
+set_small_font (void) {
     DCURX = DCURXs;
     DCURY = DCURYs;
     CURY_OFF = CURY_OFFs;
@@ -885,7 +889,8 @@ int script_make(char *s, int *k) {
     return j;
 }
 
-void scripty() {
+void 
+scripty (void) {
     /*  char scr[100]="piapp#r#b#b#b#b.12#r#rig"; */
     /* char scr[100]="eir#t"; */
     char scr[100] = "edf#b#b8#r";
@@ -1027,7 +1032,8 @@ void xpp_events(XEvent report, int min_wid, int min_hgt) {
     } /* end switch */
 }
 
-void do_events(min_wid, min_hgt) unsigned int min_wid, min_hgt;
+void 
+do_events (unsigned int min_wid, unsigned int min_hgt)
 {
     XEvent report;
 
@@ -1044,7 +1050,8 @@ void do_events(min_wid, min_hgt) unsigned int min_wid, min_hgt;
     } /* end while */
 }
 
-void bye_bye() {
+void 
+bye_bye (void) {
     int i;
     yes_reset_auto();
     XUnloadFont(display, big_font->fid);
@@ -1060,13 +1067,15 @@ void bye_bye() {
     exit(1);
 }
 
-void clr_scrn() {
+void 
+clr_scrn (void) {
     blank_screen(draw_win);
     restore_off();
     do_axes();
 }
 
-void redraw_all() {
+void 
+redraw_all (void) {
     if (manual_expose == 0) {
         redraw_dfield();
         restore(0, my_browser.maxrow);
@@ -1076,7 +1085,8 @@ void redraw_all() {
     }
 }
 
-void commander(ch) char ch;
+void 
+commander (int ch)
 {
     switch (help_menu) {
     case MAIN_HELP: {
@@ -1348,12 +1358,8 @@ XKeyEvent createKeyEvent(Window win, Window winRoot, int press, int keycode,
     return event;
 }
 
-Window init_win(bw, icon_name, win_name, x, y, min_wid, min_hgt, argc, argv)
-int argc;
-int x, y;
-char **argv;
-unsigned int min_wid, min_hgt, bw;
-char *icon_name, *win_name;
+Window 
+init_win (unsigned int bw, char *icon_name, char *win_name, int x, int y, unsigned int min_wid, unsigned int min_hgt, int argc, char **argv)
 {
     /*  XSetWindowAttributes xswa;
      XWindowAttributes xwa;
@@ -1502,7 +1508,8 @@ void top_button_events(XEvent report) {
     }
     user_button_events(report);
 }
-void make_top_buttons() {
+void 
+make_top_buttons (void) {
     int x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
     TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
                                      ColorMap(20), ColorMap(TOPBUTTONCOLOR));
@@ -1528,7 +1535,8 @@ void make_top_buttons() {
     x1 = x1 + x2 + dx;
     create_user_buttons(x1, 1, main_win);
 }
-void getGC(gc) GC *gc;
+void 
+getGC (GC *gc)
 {
     unsigned int valuemask = 0;
     XGCValues values;
@@ -1545,7 +1553,8 @@ void getGC(gc) GC *gc;
        XSetDashes(display,*gc,dash_off,dash,ll);  */
 }
 
-void load_fonts() {
+void 
+load_fonts (void) {
 
     int i;
     /*printf("\n\nFONTS %s %s \n",big_font_name,small_font_name);
@@ -1586,7 +1595,8 @@ void load_fonts() {
     plintf("\n");
 }
 
-void make_pops()
+void 
+make_pops (void)
 
 {
     int x, y;
@@ -1620,8 +1630,8 @@ void make_pops()
     get_draw_area();
 }
 
-void FixWindowSize(w, width, height, flag) Window w;
-int width, height, flag;
+void 
+FixWindowSize (Window w, int width, int height, int flag)
 {
     XSizeHints size_hints;
     switch (flag) {
@@ -1650,9 +1660,8 @@ int width, height, flag;
     XSetWMProperties(display, w, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
 }
 
-int getxcolors(win_info, colors)
-XWindowAttributes *win_info;
-XColor **colors;
+int 
+getxcolors (XWindowAttributes *win_info, XColor **colors)
 {
 
     int i, ncolors;
@@ -1710,7 +1719,8 @@ XColor **colors;
     return (ncolors);
 }
 
-void test_color_info() {
+void 
+test_color_info (void) {
     XColor *colors;
     XWindowAttributes xwa;
     /*int n;

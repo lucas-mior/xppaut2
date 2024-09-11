@@ -70,7 +70,8 @@ void auto_load_dll() {
     }
 }
 
-void load_new_dll() {
+void 
+load_new_dll (void) {
     int status;
     if (dlf.loaded != 0 && dlhandle != NULL)
         dlclose(dlhandle);
@@ -154,13 +155,16 @@ int my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
 
 void get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
                        double *wgt[MAXW], double *var, double *con) {}
-load_new_dll() {}
+int 
+load_new_dll (void) {}
 my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {}
 
-auto_load_dll() {}
+int 
+auto_load_dll (void) {}
 #endif
 
-void do_in_out() {
+void 
+do_in_out (void) {
     int i;
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
@@ -201,7 +205,8 @@ void add_export_list(char *in, char *out) {
     /* plintf(" in %d out %d \n",in_out.nin,in_out.nout); */
 }
 
-void check_inout() {
+void 
+check_inout (void) {
     int i;
     for (i = 0; i < in_out.nin; i++)
         plintf(" type=%d index=%d \n", in_out.intype[i], in_out.in[i]);
@@ -219,7 +224,8 @@ int get_export_count(char *s) {
     return (i);
 }
 
-void do_export_list() {
+void 
+do_export_list (void) {
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
     parse_inout(in_out.lin, 0);

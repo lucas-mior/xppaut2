@@ -39,9 +39,8 @@ void dp_err(int k) {
     }
 }
 
-int dp(istart, y, t, n, tout, tol, atol, flag, kflag)
-double *y, *t, tout, *tol, *atol;
-int flag, *istart, *kflag, n;
+int 
+dp (int *istart, double *y, double *t, int n, double tout, double *tol, double *atol, int flag, int *kflag)
 {
     int err = 0;
     if (NFlags == 0)
@@ -59,9 +58,8 @@ int flag, *istart, *kflag, n;
   istart=1 for first time
   istart=0 for continuation
 */
-int dormprin(istart, y, t, n, tout, tol, atol, flag, kflag)
-double *y, *t, tout, *tol, *atol;
-int flag, *istart, *kflag, n;
+int 
+dormprin (int *istart, double *y, double *t, int n, double tout, double *tol, double *atol, int flag, int *kflag)
 {
     double hg = 0.0;
     if (*istart == 0)

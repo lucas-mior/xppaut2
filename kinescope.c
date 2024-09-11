@@ -69,7 +69,8 @@ void do_movie_com(int c)
     }
 }
 
-void reset_film() {
+void 
+reset_film (void) {
     int i;
     if (mov_ind == 0)
         return;
@@ -78,7 +79,8 @@ void reset_film() {
     mov_ind = 0;
 }
 
-int film_clip() {
+int 
+film_clip (void) {
     int x, y;
     unsigned int h, w, bw, d;
     Window root;
@@ -105,7 +107,8 @@ int show_frame(int i, int h, int w) {
     return 0;
 }
 
-void play_back() {
+void 
+play_back (void) {
     int x, y;
     unsigned int h, w, bw, d;
 
@@ -165,7 +168,8 @@ void play_back() {
     }
 }
 
-void save_kine() {
+void 
+save_kine (void) {
     char base[128];
     int fmat = 2;
     sprintf(base, "frame");
@@ -179,7 +183,8 @@ void save_kine() {
         save_movie(base, fmat);
 }
 
-void make_anigif() {
+void 
+make_anigif (void) {
     int i = 0;
     int x, y;
     FILE *fp;
@@ -214,8 +219,8 @@ void make_anigif() {
     set_global_map(0);
 }
 
-void save_movie(basename, fmat) char *basename;
-int fmat;
+void 
+save_movie (char *basename, int fmat)
 {
     /*char file[256];
      */
@@ -258,7 +263,8 @@ int fmat;
     }
 }
 
-void auto_play() {
+void 
+auto_play (void) {
     int x, y;
     unsigned int h, w, bw, d, key;
     Window root;
@@ -335,4 +341,5 @@ void auto_play() {
     } /*  Big loop   */
 }
 
-void too_small() { respond_box("Okay", "Window too small for film!"); }
+void 
+too_small (void) { respond_box("Okay", "Window too small for film!"); }

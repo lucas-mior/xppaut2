@@ -220,7 +220,8 @@ void save_batch_shoot();
 
 int (*solver)();
 
-void init_ar_ic() {
+void 
+init_ar_ic (void) {
     int i;
     for (i = 0; i < NAR_IC; i++) {
         ar_ic[i].index0 = -1;
@@ -231,8 +232,8 @@ void init_ar_ic() {
     }
 }
 
-void dump_range(fp, f) FILE *fp;
-int f;
+void 
+dump_range (FILE *fp, int f)
 {
     char bob[256];
     if (f == READEM)
@@ -259,7 +260,8 @@ int f;
     if (f == READEM)
         range.steps2 = range.steps;
 }
-void init_range() {
+void 
+init_range (void) {
     eq_range.col = -1;
     eq_range.mc = 0;
     eq_range.shoot = 0;
@@ -304,7 +306,8 @@ void init_range() {
     init_monte_carlo();
 }
 
-int set_up_eq_range() {
+int 
+set_up_eq_range (void) {
     static char *n[] = {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
@@ -355,7 +358,8 @@ int set_up_eq_range() {
     return (0);
 }
 
-void cont_integ() {
+void 
+cont_integ (void) {
     double tetemp;
     double *x;
     double dif;
@@ -378,7 +382,8 @@ void cont_integ() {
     refresh_browser(storind);
 }
 
-int range_item() {
+int 
+range_item (void) {
     int i;
     char bob[256];
     i = find_user_name(PARAM, range.item);
@@ -398,7 +403,8 @@ int range_item() {
     return 1;
 }
 
-int range_item2() {
+int 
+range_item2 (void) {
     int i;
     char bob[256];
     i = find_user_name(PARAM, range.item2);
@@ -418,7 +424,8 @@ int range_item2() {
     return 1;
 }
 
-int set_up_range() {
+int 
+set_up_range (void) {
     static char *n[] = {"*3Range over",
                         "Steps",
                         "Start",
@@ -494,7 +501,8 @@ int set_up_range() {
     return (0);
 }
 
-int set_up_range2() {
+int 
+set_up_range2 (void) {
     static char *n[] = {"*3Vary1",
                         "Start1",
                         "End1",
@@ -575,7 +583,8 @@ int set_up_range2() {
     return (0);
 }
 
-void init_monte_carlo() {
+void 
+init_monte_carlo (void) {
     int i;
     fixptguess.tol = .001;
     fixptguess.n = 100;
@@ -587,7 +596,8 @@ void init_monte_carlo() {
     fixptlist.n = 0;
 }
 
-void monte_carlo() {
+void 
+monte_carlo (void) {
     int append = 0;
     int i = 0, done = 0, ishoot = 0;
     double z;
@@ -703,7 +713,8 @@ void do_monte_carlo_search(int append, int stuffbrowse, int ishoot) {
     }
 }
 
-void do_eq_range(x) double *x;
+void 
+do_eq_range (double *x)
 {
     double parlo, parhi, dpar, temp;
     int npar, stabcol, i, j, ierr;
@@ -780,7 +791,8 @@ void do_eq_range(x) double *x;
     PAR_FOL = 0;
 }
 
-void swap_color(col, rorw) int *col, rorw;
+void 
+swap_color (int *col, int rorw)
 {
     if (rorw)
         MyGraph->color[0] = *col;
@@ -788,7 +800,8 @@ void swap_color(col, rorw) int *col, rorw;
         *col = MyGraph->color[0];
 }
 
-void set_cycle(flag, icol) int flag, *icol;
+void 
+set_cycle (int flag, int *icol)
 {
     if (flag == 0)
         return;
@@ -798,15 +811,18 @@ void set_cycle(flag, icol) int flag, *icol;
         *icol = 0;
 }
 
-int do_auto_range_go() {
+int 
+do_auto_range_go (void) {
     double *x;
     x = &MyData[0];
     return (do_range(x, 2));
 }
 
-int do_range(x, flag)
-double *x;
-int flag; /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
+int 
+do_range (
+    double *x,
+    int flag /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
+)
 {
 
     char bob[256], parn[256];
@@ -1010,7 +1026,8 @@ int flag; /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
     return (ierr);
 }
 
-void silent_equilibria() {
+void 
+silent_equilibria (void) {
     double x[MAXODE], er[MAXODE], em[MAXODE];
     int ierr, i;
     FILE *fp;
@@ -1092,7 +1109,8 @@ void find_equilib_com(int com) {
     TRANS = oldtrans;
 }
 
-void batch_integrate() {
+void 
+batch_integrate (void) {
 
     int i;
 
@@ -1125,7 +1143,8 @@ void batch_integrate() {
     }
 }
 
-void do_batch_dry_run() {
+void 
+do_batch_dry_run (void) {
     if (!dryrun) {
         return;
     }
@@ -1168,7 +1187,8 @@ void do_batch_dry_run() {
     return;
 }
 
-void batch_integrate_once() {
+void 
+batch_integrate_once (void) {
     if (dryrun) {
         return;
     }
@@ -1244,9 +1264,8 @@ void batch_integrate_once() {
     */
 }
 
-int write_this_run(file, i)
-char *file;
-int i;
+int 
+write_this_run (char *file, int i)
 {
     /*char outfile[256];*/
     char outfile[XPP_MAX_NAME];
@@ -1481,7 +1500,8 @@ void run_from_x(double *x) {
     reset_browser();
     usual_integrate_stuff(x);
 }
-void run_now() {
+void 
+run_now (void) {
 
     double *x;
     MyStart = 1;
@@ -1504,7 +1524,8 @@ void do_start_flags(double *x, double *t) {
     double sss;
     one_flag_step(x, x, &iflagstart, *t, &tnew, NODE, &sss);
 }
-void usual_integrate_stuff(x) double *x;
+void 
+usual_integrate_stuff (double *x)
 {
     int i;
 
@@ -1532,8 +1553,8 @@ void usual_integrate_stuff(x) double *x;
     u[5..20]=f([j])
 */
 
-void do_new_array_ic(new, j1, j2) char *new;
-int j1, j2;
+void 
+do_new_array_ic (char *new, int j1, int j2)
 {
     int i;
     int ihot = -1;
@@ -1566,8 +1587,8 @@ int j1, j2;
                    ar_ic[ihot].j2);
 }
 
-void store_new_array_ic(new, j1, j2, formula) char *new, *formula;
-int j1, j2;
+void 
+store_new_array_ic (char *new, int j1, int j2, char *formula)
 {
     int i;
     int ihot = -1;
@@ -1597,8 +1618,8 @@ int j1, j2;
     strcpy(ar_ic[ihot].formula, formula);
 }
 
-void evaluate_ar_ic(v, f, j1, j2) char *v, *f;
-int j1, j2;
+void 
+evaluate_ar_ic (char *v, char *f, int j1, int j2)
 {
     int j;
     int i, flag;
@@ -1656,7 +1677,8 @@ int extract_ic_data(char *big) {
     return (1);
 }
 
-void arr_ic_start() {
+void 
+arr_ic_start (void) {
     int i;
     if (ar_ic_defined == 0)
         return;
@@ -1668,7 +1690,8 @@ void arr_ic_start() {
     }
 }
 
-int set_array_ic() {
+int 
+set_array_ic (void) {
     char junk[50];
     char new[50];
     int i, index0, myar = -1;
@@ -1731,7 +1754,8 @@ int set_array_ic() {
     return 1;
 }
 
-int form_ic() {
+int 
+form_ic (void) {
     int ans;
     while (1) {
         ans = set_array_ic();
@@ -1741,8 +1765,8 @@ int form_ic() {
     return 1;
 }
 
-void get_ic(it, x) int it;
-double *x;
+void 
+get_ic (int it, double *x)
 {
     int i;
     switch (it) {
@@ -1758,9 +1782,8 @@ double *x;
     }
 }
 
-int ode_int(y, t, istart, ishow)
-double *y, *t;
-int *istart, ishow;
+int 
+ode_int (double *y, double *t, int *istart, int ishow)
 {
     double error[MAXODE];
 
@@ -1903,9 +1926,8 @@ int *istart, ishow;
     return (1);
 }
 
-int integrate(t, x, tend, dt, count, nout, start)
-double *t, *x, tend, dt;
-int count, nout, *start;
+int 
+integrate (double *t, double *x, double tend, double dt, int count, int nout, int *start)
 {
 
     float xv[MAXODE + 1], xvold[MAXODE + 1];
@@ -2486,8 +2508,8 @@ void send_output(double *y, double t) {
     }
 }
 
-void do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl) float *oldxpl, *oldypl,
-    *oldzpl, *xpl, *ypl, *zpl;
+void 
+do_plot (float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl, float *zpl)
 {
     int ip, np = MyGraph->nvars;
 
@@ -2520,7 +2542,8 @@ void do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl) float *oldxpl, *oldypl,
 
 */
 
-void export_data(fp) FILE *fp;
+void 
+export_data (FILE *fp)
 {
 
     int ip, np = MyGraph->nvars;
@@ -2617,7 +2640,8 @@ void plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
         comp_color(xv, xvold, NODE, (float)ddt);
     do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
 }
-void restore(i1, i2) int i1, i2;
+void 
+restore (int i1, int i2)
 {
     int ip, np = MyGraph->nvars;
     int ZSHFT, YSHFT, XSHFT;
@@ -2708,9 +2732,8 @@ void restore(i1, i2) int i1, i2;
 }
 
 /*  Sets the color according to the velocity or z-value */
-void comp_color(v1, v2, n, dt) float *v1, *v2;
-int n;
-float dt;
+void 
+comp_color (float *v1, float *v2, int n, double dt)
 {
     int i, cur_color;
     float sum;
@@ -2742,7 +2765,8 @@ float dt;
     }
 }
 
-void shoot_easy(x) double *x;
+void 
+shoot_easy (double *x)
 {
     double t = 0.0;
     int i;
@@ -2752,8 +2776,8 @@ void shoot_easy(x) double *x;
     SuppressBounds = 0;
 }
 
-void shoot(x, xg, evec, sgn) double *x, *xg, *evec;
-int sgn;
+void 
+shoot (double *x, double *xg, double *evec, int sgn)
 {
     int i;
     double t = 0.0;
@@ -2766,14 +2790,16 @@ int sgn;
     SuppressBounds = 0;
 }
 
-void stop_integration() {
+void 
+stop_integration (void) {
     /*  set some global error here... */
     if (DelayErr == 0)
         err_msg("Delay too large or negative");
     DelayErr = 1;
 }
 
-int stor_full() {
+int 
+stor_full (void) {
 
     char ch;
     int nrow = 2 * MAXSTOR;

@@ -63,7 +63,8 @@ struct {
 extern int HomoFlag, sparity;
 extern double homo_l[100], homo_r[100];
 
-void draw_eq_list(w) Window w;
+void 
+draw_eq_list (Window w)
 {
     int i;
     char bob[300];
@@ -99,7 +100,8 @@ void draw_eq_list(w) Window w;
     }
 }
 
-void create_eq_list() {
+void 
+create_eq_list (void) {
 
     int width, height, hlist, hmain;
     Window base;
@@ -160,8 +162,8 @@ void create_eq_list() {
     eq_list.flag = 1;
 }
 
-void eq_list_keypress(ev, used) int *used;
-XEvent ev;
+void 
+eq_list_keypress (XEvent ev, int *used)
 {
     Window w = ev.xkey.window;
 
@@ -219,7 +221,8 @@ void eq_list_button(XEvent ev) {
     }
 }
 
-void eq_list_up() {
+void 
+eq_list_up (void) {
     if (eq_list.istart > 0) {
         eq_list.istart--;
         XClearWindow(display, eq_list.list);
@@ -227,7 +230,8 @@ void eq_list_up() {
     }
 }
 
-void eq_list_down() {
+void 
+eq_list_down (void) {
     if (eq_list.istart < (NEQ - 1)) {
         eq_list.istart++;
         XClearWindow(display, eq_list.list);
@@ -235,7 +239,8 @@ void eq_list_down() {
     }
 }
 
-void eq_box_import() {
+void 
+eq_box_import (void) {
     int n = eq_box.n, i;
     for (i = 0; i < n; i++)
         last_ic[i] = eq_box.y[i];
@@ -256,8 +261,8 @@ void eq_box_import() {
     redraw_ics();
 }
 
-void get_new_size(win, wid, hgt) Window win;
-unsigned int *wid, *hgt;
+void 
+get_new_size (Window win, unsigned int *wid, unsigned int *hgt)
 {
     int x, y;
     unsigned int bw, de;
@@ -265,7 +270,8 @@ unsigned int *wid, *hgt;
     XGetGeometry(display, win, &root, &x, &y, wid, hgt, &bw, &de);
 }
 
-void resize_eq_list(win) Window win;
+void 
+resize_eq_list (Window win)
 {
 
     int nlines;
@@ -300,8 +306,8 @@ void eq_box_button(Window w) {
     }
 }
 
-void create_eq_box(cp, cm, rp, rm, im, y, ev, n) int n, cp, rp, cm, rm, im;
-double *y, *ev;
+void 
+create_eq_box (int cp, int cm, int rp, int rm, int im, double *y, double *ev, int n)
 {
     int width, hstab, hequil, height, i;
     static char *name[] = {"Equilibria"};
@@ -376,7 +382,8 @@ double *y, *ev;
     }
 }
 
-void draw_eq_box(w) Window w;
+void 
+draw_eq_box (Window w)
 {
     int i, j, ncol, n = eq_box.n, nrow;
     int in;

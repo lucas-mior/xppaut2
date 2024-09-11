@@ -95,8 +95,8 @@ void set_auto_eval_flags(int f) {
     for (i = 0; i < MAX_TAB; i++)
         my_table[i].autoeval = f;
 }
-void set_table_name(name, index) char *name;
-int index;
+void 
+set_table_name (char *name, int index)
 { strcpy(my_table[index].name, name); }
 
 void view_table(int index) {
@@ -152,7 +152,8 @@ void new_lookup_com(int i) {
     }
 }
 
-void new_lookup_ok() {
+void 
+new_lookup_ok (void) {
     char file[128];
     char name[10];
     int index, ok;
@@ -195,9 +196,8 @@ void new_lookup_ok() {
     }
 }
 
-double lookupxy(x, n, xv, yv)
-double x, *xv, *yv;
-int n;
+double 
+lookupxy (double x, int n, double *xv, double *yv)
 {
     double dx, dy, x1, y1, x2, y2;
     int i;
@@ -222,9 +222,8 @@ int n;
     return (yv[n - 1]);
 }
 
-double tab_interp(xlo, h, x, y, n, i)
-double h, x, xlo, *y;
-int n, i;
+double 
+tab_interp (double xlo, double h, double x, double *y, int n, int i)
 {
     double a, b, c, d;
     double ym, y0, y1, y2;
@@ -240,9 +239,8 @@ int n, i;
     tt = (x - xlo) / h - i;
     return d + tt * (c + tt * (b + tt * a));
 }
-double lookup(x, index)
-int index;
-double x;
+double 
+lookup (double x, int index)
 {
     double xlo = my_table[index].xlo, xhi = my_table[index].xhi,
            dx = my_table[index].dx;
@@ -283,7 +281,8 @@ double x;
     return (0.0);
 }
 
-void init_table() {
+void 
+init_table (void) {
     int i;
     for (i = 0; i < MAX_TAB; i++) {
         my_table[i].flag = 0;
@@ -292,7 +291,8 @@ void init_table() {
     }
 }
 
-void redo_all_fun_tables() {
+void 
+redo_all_fun_tables (void) {
     int i;
     for (i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
@@ -302,10 +302,8 @@ void redo_all_fun_tables() {
     update_all_ffts();
 }
 
-int eval_fun_table(n, xlo, xhi, formula, y)
-int n;
-char *formula;
-double xlo, xhi, *y;
+int 
+eval_fun_table (int n, double xlo, double xhi, char *formula, double *y)
 {
     int i;
 
@@ -330,11 +328,8 @@ double xlo, xhi, *y;
     return (1);
 }
 
-int create_fun_table(npts, xlo, xhi, formula, index)
-int npts;
-int index;
-double xlo, xhi;
-char *formula;
+int 
+create_fun_table (int npts, double xlo, double xhi, char *formula, int index)
 {
     int length = npts;
 
@@ -372,9 +367,8 @@ char *formula;
     return (0);
 }
 
-int load_table(filename, index)
-char *filename;
-int index;
+int 
+load_table (char *filename, int index)
 {
     int i;
     char bobtab[100];

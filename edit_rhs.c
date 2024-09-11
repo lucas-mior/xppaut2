@@ -89,9 +89,8 @@ int *pos, *col;
     put_cursor_at(sb->win[0], DCURX * strlen(sb->name[0]), *pos);
 }
 
-int do_edit_box(n, title, names, values)
-int n;
-char **names, **values, *title;
+int 
+do_edit_box (int n, char *title, char **names, char **values)
 {
     EDIT_BOX sb;
     int i, status;
@@ -309,7 +308,8 @@ EDIT_BOX *sb;
     XRaiseWindow(display, base);
 }
 
-void edit_menu() {
+void 
+edit_menu (void) {
     Window temp = main_win;
     static char *n[] = {"RHS's", "Functions", "Save as", "Load DLL"};
     static char key[] = "rfsl";
@@ -337,7 +337,8 @@ void edit_menu() {
     }
 }
 
-void edit_rhs() {
+void 
+edit_rhs (void) {
     char **names, **values;
     int **command;
     int i, status, err, len, i0, j;
@@ -398,7 +399,8 @@ void edit_rhs() {
     free(command);
 }
 
-void user_fun_info(fp) FILE *fp;
+void 
+user_fun_info (FILE *fp)
 {
     char fundef[256];
     int i, j;
@@ -415,7 +417,8 @@ void user_fun_info(fp) FILE *fp;
     }
 }
 
-void edit_functions() {
+void 
+edit_functions (void) {
     char **names, **values;
     int **command;
     int i, status, err, len, j;
@@ -475,7 +478,8 @@ void edit_functions() {
     free(command);
 }
 
-int save_as() {
+int 
+save_as (void) {
     int i, ok;
     FILE *fp;
     double z;

@@ -54,8 +54,8 @@ int nsvar = 0, naeqn = 0;
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
 
-int add_svar(name, rhs)
-char *name, *rhs;
+int 
+add_svar (char *name, char *rhs)
 {
     if (nsvar >= MAXDAE) {
         plintf(" Too many variables\n");
@@ -73,7 +73,8 @@ char *name, *rhs;
 
 /* adds algebraically define name to name list */
 
-int add_svar_names() {
+int 
+add_svar_names (void) {
     int i;
     for (i = 0; i < nsvar; i++) {
         svar[i].index = NVAR;
@@ -85,8 +86,8 @@ int add_svar_names() {
 
 /* adds a right-hand side to slove for zero */
 
-int add_aeqn(rhs)
-char *rhs;
+int 
+add_aeqn (char *rhs)
 {
     if (naeqn >= MAXDAE) {
         plintf(" Too many equations\n");
@@ -99,7 +100,8 @@ char *rhs;
 }
 
 /* this compiles formulas to set to zero */
-int compile_svars() {
+int 
+compile_svars (void) {
     int i, f[256], n, k;
     if (nsvar != naeqn) {
         plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar, naeqn);
@@ -129,8 +131,10 @@ int compile_svars() {
     return 0;
 }
 
-void reset_dae() { dae_work.status = 1; }
-void set_init_guess() {
+void 
+reset_dae (void) { dae_work.status = 1; }
+void 
+set_init_guess (void) {
     int i;
     double z;
     dae_work.status = 1;
@@ -143,7 +147,8 @@ void set_init_guess() {
         svar[i].last = z;
     }
 }
-void err_dae() {
+void 
+err_dae (void) {
 
     switch (dae_work.status) {
     case 2:
@@ -164,7 +169,8 @@ void err_dae() {
     dae_work.status = 1;
 }
 
-void init_dae_work() {
+void 
+init_dae_work (void) {
 
     dae_work.work =
         (double *)malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
@@ -172,7 +178,8 @@ void init_dae_work() {
     dae_work.status = 1;
 }
 
-void get_dae_fun(y, f) double *f, *y;
+void 
+get_dae_fun (double *y, double *f)
 {
     int i;
     /* better do this in case fixed variables depend on sol_var */
@@ -184,7 +191,8 @@ void get_dae_fun(y, f) double *f, *y;
         f[i] = evaluate(aeqn[i].form);
 }
 
-void do_daes() {
+void 
+do_daes (void) {
     int ans;
     ans = solve_dae();
     dae_work.status = ans;
@@ -194,7 +202,8 @@ void do_daes() {
 }
 
 /* Newton solver for algebraic stuff */
-int solve_dae() {
+int 
+solve_dae (void) {
     int i, j, n;
     int info;
     double err, del, z, yold;
@@ -281,7 +290,8 @@ int solve_dae() {
 
 /* interface shit -- different for Win95 */
 
-void get_new_guesses() {
+void 
+get_new_guesses (void) {
     int i, n;
     char name[30];
     double z;

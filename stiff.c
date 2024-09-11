@@ -51,9 +51,8 @@ extern int NFlags;
 #define ERRCON2 1.89e-4
 double sdot();
 extern int (*rhs)();
-void jacobn(x, y, dfdx, dermat, eps, work, n) double x, *y, *dermat, *dfdx, eps,
-    *work;
-int n;
+void 
+jacobn (double x, double *y, double *dfdx, double *dermat, double eps, double *work, int n)
 {
     int i, j;
     double r;
@@ -81,10 +80,8 @@ int n;
     }
 }
 
-int adaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier, epjac, iflag,
-             jstart)
-double *ystart, *xs, x2, eps, *hguess, hmin, *work, epjac;
-int nvar, *ier, iflag, *jstart;
+int 
+adaptive (double *ystart, int nvar, double *xs, double x2, double eps, double *hguess, double hmin, double *work, int *ier, double epjac, int iflag, int *jstart)
 {
     if (NFlags == 0)
         return (gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
@@ -93,10 +90,8 @@ int nvar, *ier, iflag, *jstart;
                                ier, epjac, iflag, jstart));
 }
 
-int gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier, epjac, iflag,
-              jstart)
-double *ystart, *xs, x2, eps, *hguess, hmin, *work, epjac;
-int nvar, *ier, iflag, *jstart;
+int 
+gadaptive (double *ystart, int nvar, double *xs, double x2, double eps, double *hguess, double hmin, double *work, int *ier, double epjac, int iflag, int *jstart)
 {
     double h1 = *hguess;
     int nstp, i;
@@ -150,9 +145,8 @@ int nvar, *ier, iflag, *jstart;
 
 /*  Need work size of 2n^2+12n  */
 /*  This will integrate a maximum of htry and actually do hmin  */
-int stiff(y, dydx, n, x, htry, eps, yscal, hdid, hnext, work, epjac, ier)
-double *work, *hdid, *hnext, *x, dydx[], eps, htry, y[], yscal[], epjac;
-int n, *ier;
+int 
+stiff (double y[], double dydx[], int n, double *x, double htry, double eps, double yscal[], double *hdid, double *hnext, double *work, double epjac, int *ier)
 {
 
     int i, j, jtry, indx[700];
@@ -245,9 +239,8 @@ int n, *ier;
     return -1;
 }
 
-int rkqs(y, dydx, n, x, htry, eps, yscal, hdid, hnext, work, ier)
-double *hdid, *hnext, *x, *dydx, eps, htry, *y, *yscal, *work;
-int n, *ier;
+int 
+rkqs (double *y, double *dydx, int n, double *x, double htry, double eps, double *yscal, double *hdid, double *hnext, double *work, int *ier)
 {
     int i;
     double errmax, h, htemp, xnew, *yerr, *ytemp;
@@ -288,9 +281,8 @@ int n, *ier;
 }
 
 /* This takes one step of Cash-Karp RK method */
-void rkck(y, dydx, n, x, h, yout, yerr, work) double *dydx, h, x, *y, *yerr,
-    *yout, *work;
-int n;
+void 
+rkck (double *y, double *dydx, int n, double x, double h, double *yout, double *yerr, double *work)
 {
     int i;
     static double a2 = 0.2, a3 = 0.3, a4 = 0.6, a5 = 1.0, a6 = 0.875, b21 = 0.2,

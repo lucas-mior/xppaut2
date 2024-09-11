@@ -122,7 +122,8 @@ extern int NTable;
 
 extern INTERN_SET intern_set[MAX_INTERN_SET];
 extern int Nintern_set;
-int select_table() {
+int 
+select_table (void) {
     int i, j;
     Window temp = main_win;
     char *n[MAX_TAB], key[MAX_TAB], ch;
@@ -144,7 +145,8 @@ int select_table() {
     return j;
 }
 
-void get_intern_set() {
+void 
+get_intern_set (void) {
     char *n[MAX_INTERN_SET], key[MAX_INTERN_SET], ch;
     int i, j;
     int count = Nintern_set;
@@ -175,9 +177,8 @@ void get_intern_set() {
     reset_graph();
 }
 
-void make_icon(icon, wid, hgt, w) char *icon;
-Window w;
-int wid, hgt;
+void 
+make_icon (char *icon, int wid, int hgt, Window w)
 {
     Pixmap icon_map;
     XWMHints wm_hints;
@@ -194,11 +195,12 @@ int wid, hgt;
                      &class_hints);
 }
 
-void title_text(string) char *string;
+void 
+title_text (char *string)
 { gtitle_text(string, draw_win); }
 
-void gtitle_text(string, win) Window win;
-char *string;
+void 
+gtitle_text (char *string, Window win)
 {
     XTextProperty wname, iname;
     GrCol();
@@ -224,18 +226,20 @@ char *string;
     BaseCol();
 }
 
-void restore_off() {
+void 
+restore_off (void) {
     MyGraph->Restore = 0;
     /* MyGraph->Nullrestore=0; */
 }
 
-void restore_on() {
+void 
+restore_on (void) {
     MyGraph->Restore = 1;
     /*  MyGraph->Nullrestore=1; */
 }
 
-void add_label(s, x, y, size, font) char *s;
-int x, y, size, font;
+void 
+add_label (char *s, int x, int y, int size, int font)
 {
     int i;
     float xp, yp;
@@ -254,8 +258,8 @@ int x, y, size, font;
     }
 }
 
-void draw_marker(x, y, size, type) float x, y, size;
-int type;
+void 
+draw_marker (double x, double y, double size, int type)
 {
     int pen = 0;
     float x1 = x, y1 = y, x2, y2;
@@ -580,7 +584,8 @@ int type;
     }
 }
 
-void draw_grob(i) int i;
+void 
+draw_grob (int i)
 {
     float xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
     set_linestyle(grob[i].color);
@@ -592,8 +597,8 @@ void draw_grob(i) int i;
         draw_marker(xs, ys, grob[i].size, grob[i].type - 2);
 }
 
-void arrow_head(xs, ys, xe, ye, size) float xs, ys, xe, ye;
-double size;
+void 
+arrow_head (double xs, double ys, double xe, double ye, double size)
 {
     float l = xe - xs, h = ye - ys;
     float ar = (MyGraph->xhi - MyGraph->xlo) / (MyGraph->yhi - MyGraph->ylo);
@@ -606,7 +611,8 @@ double size;
     line_abs(xs, ys, xm, ym);
 }
 
-void destroy_grob(w) Window w;
+void 
+destroy_grob (Window w)
 {
     int i;
     for (i = 0; i < MAXGROB; i++) {
@@ -617,7 +623,8 @@ void destroy_grob(w) Window w;
     }
 }
 
-void destroy_label(w) Window w;
+void 
+destroy_label (Window w)
 {
     int i;
     for (i = 0; i < MAXLAB; i++) {
@@ -628,7 +635,8 @@ void destroy_label(w) Window w;
     }
 }
 
-void draw_label(w) Window w;
+void 
+draw_label (Window w)
 {
     int i;
     GrCol();
@@ -643,9 +651,8 @@ void draw_label(w) Window w;
     BaseCol();
 }
 
-void add_grob(xs, ys, xe, ye, size, type, color) double size;
-float xs, ys, xe, ye;
-int type, color;
+void 
+add_grob (double xs, double ys, double xe, double ye, double size, int type, int color)
 {
     int i;
     for (i = 0; i < MAXGROB; i++) {
@@ -665,8 +672,8 @@ int type, color;
     }
 }
 
-int select_marker_type(type)
-int *type;
+int 
+select_marker_type (int *type)
 {
     int ival = *type - MARKER;
     int i;
@@ -688,8 +695,8 @@ int *type;
     return (1);
 }
 
-int man_xy(xe, ye)
-float *xe, *ye;
+int 
+man_xy (float *xe, float *ye)
 {
     double x = 0, y = 0;
     if (new_float("x: ", &x))
@@ -701,7 +708,8 @@ float *xe, *ye;
     return 1;
 }
 
-int get_marker_info() {
+int 
+get_marker_info (void) {
     static char *n[] = {"*5Type", "*4Color", "Size"};
     char values[3][MAX_LEN_SBOX];
     int status;
@@ -718,7 +726,8 @@ int get_marker_info() {
     return 0;
 }
 
-int get_markers_info() {
+int 
+get_markers_info (void) {
     static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
     char values[6][MAX_LEN_SBOX];
     int status;
@@ -742,7 +751,8 @@ int get_markers_info() {
     return 0;
 }
 
-void add_marker() {
+void 
+add_marker (void) {
     int flag, i1, j1, status;
     float xe = 0.0, ye = 0.0, xs, ys;
     status = get_marker_info();
@@ -759,7 +769,8 @@ void add_marker() {
     redraw_all();
 }
 
-void add_marker_old() {
+void 
+add_marker_old (void) {
     double size = 1;
     int i1, j1, color = 0, flag;
     float xe = 0.0, ye = 0.0, xs, ys;
@@ -797,7 +808,8 @@ void add_marker_old() {
     add_grob(xs, ys, xe, ye, size, type, color);
     redraw_all();
 }
-void add_markers() {
+void 
+add_markers (void) {
     int i;
     float xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
@@ -817,7 +829,8 @@ void add_markers() {
     redraw_all();
 }
 
-void add_markers_old() {
+void 
+add_markers_old (void) {
     double size = 1;
     int i;
     int color = 0;
@@ -851,7 +864,8 @@ void add_markers_old() {
     redraw_all();
 }
 
-void add_pntarr(type) int type;
+void 
+add_pntarr (int type)
 {
     double size = .1;
     int i1, j1, i2, j2, color = 0;
@@ -1045,7 +1059,8 @@ void do_gr_objs_com(int com) {
     }
 }
 
-void set_active_windows() {
+void 
+set_active_windows (void) {
     int i, np = 0;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use == 1) {
@@ -1098,8 +1113,8 @@ void set_restore(int flag) {
     }
 }
 
-int is_col_plotted(nc)
-int nc;
+int 
+is_col_plotted (int nc)
 {
     int i;
     int j, nv;
@@ -1119,7 +1134,8 @@ int nc;
     return 0;
 }
 
-void destroy_a_pop() {
+void 
+destroy_a_pop (void) {
     int i;
     if (draw_win == graph[0].w) {
         respond_box("Okay", "Can't destroy big window!");
@@ -1141,7 +1157,8 @@ void destroy_a_pop() {
     num_pops--;
 }
 
-void init_grafs(x, y, w, h) int x, y, w, h;
+void 
+init_grafs (int x, int y, int w, int h)
 {
     int i;
     int botmen = DCURYs + DCURYb + 10 + 21 * (DCURY + 2);
@@ -1200,7 +1217,8 @@ void init_grafs(x, y, w, h) int x, y, w, h;
 }
 */
 
-void ps_restore() {
+void 
+ps_restore (void) {
     if (Xup) {
         redraw_dfield();
         ps_do_color(0);
@@ -1225,7 +1243,8 @@ void ps_restore() {
     ps_end();
 }
 
-void svg_restore() {
+void 
+svg_restore (void) {
 
     /* restore(0,my_browser.maxrow);
      */
@@ -1250,8 +1269,8 @@ void svg_restore() {
     svg_end();
 }
 
-int rotate3dcheck(ev)
-XEvent ev;
+int 
+rotate3dcheck (XEvent ev)
 {
     Window w = ev.xbutton.window;
     XEvent z;
@@ -1283,7 +1302,8 @@ XEvent ev;
     return 0;
 }
 
-void do_motion_events(ev) XEvent ev;
+void 
+do_motion_events (XEvent ev)
 {
     int i = ev.xmotion.x;
     int j = ev.xmotion.y;
@@ -1300,7 +1320,8 @@ void do_motion_events(ev) XEvent ev;
     }
 }
 
-void do_expose(ev) XEvent ev;
+void 
+do_expose (XEvent ev)
 {
     int i;
     int cp = current_pop;
@@ -1373,7 +1394,8 @@ void do_expose(ev) XEvent ev;
     SmallBase();
 }
 
-void resize_all_pops(wid, hgt) int wid, hgt;
+void 
+resize_all_pops (int wid, int hgt)
 {
     int nw = wid - 16 - 16 * DCURX + 7, nh = hgt - 3 * DCURYb - 4 * DCURYs - 24;
     nw = 4 * ((nw / 4));
@@ -1384,7 +1406,8 @@ void resize_all_pops(wid, hgt) int wid, hgt;
     get_draw_area();
 }
 
-void kill_all_pops() {
+void 
+kill_all_pops (void) {
     int i;
     select_window(graph[0].w);
 
@@ -1400,7 +1423,8 @@ void kill_all_pops() {
     num_pops = 1;
 }
 
-void create_a_pop() {
+void 
+create_a_pop (void) {
     int i, index;
 
     for (i = 1; i < MAXPOP; i++)
@@ -1440,22 +1464,26 @@ void create_a_pop() {
     /*  XDestroyWindow(display,temp); */
 }
 
-void GrCol() {
+void 
+GrCol (void) {
     XSetForeground(display, gc, GrFore);
     XSetBackground(display, gc, GrBack);
 }
 
-void BaseCol() {
+void 
+BaseCol (void) {
     XSetForeground(display, gc, MyForeColor);
     XSetBackground(display, gc, MyBackColor);
 }
 
-void SmallGr() {
+void 
+SmallGr (void) {
     XSetForeground(display, small_gc, GrFore);
     XSetBackground(display, small_gc, GrBack);
 }
 
-void SmallBase() {
+void 
+SmallBase (void) {
     XSetForeground(display, small_gc, MyForeColor);
     XSetBackground(display, small_gc, MyBackColor);
 }
@@ -1503,7 +1531,8 @@ void make_active(int i, int flag) {
     get_draw_area_flag(flag);
 }
 
-void select_window(w) Window w;
+void 
+select_window (Window w)
 {
     int i;
 
@@ -1527,26 +1556,32 @@ void select_window(w) Window w;
     BaseCol();
 }
 
-void set_gr_fore() { XSetForeground(display, gc, GrFore); }
+void 
+set_gr_fore (void) { XSetForeground(display, gc, GrFore); }
 
-void set_gr_back() { XSetForeground(display, gc, GrBack); }
+void 
+set_gr_back (void) { XSetForeground(display, gc, GrBack); }
 
-void hi_lite(wi) Window wi;
+void 
+hi_lite (Window wi)
 {
     set_gr_fore();
     select_sym(wi);
 }
 
-void lo_lite(wi) Window wi;
+void 
+lo_lite (Window wi)
 {
     set_gr_back();
     bar(0, 0, 5, 5, wi);
 }
 
-void select_sym(w) Window w;
+void 
+select_sym (Window w)
 { bar(0, 0, 5, 5, w); }
 
-void canvas_xy(buf) char *buf;
+void 
+canvas_xy (char *buf)
 {
     XClearWindow(display, MyGraph->w_info);
     strcpy(MyGraph->gr_info, buf);
@@ -1562,7 +1597,8 @@ void canvas_xy(buf) char *buf;
     }
 }
 
-void check_draw_button(ev) XEvent ev;
+void 
+check_draw_button (XEvent ev)
 {
     int k;
     char buf[256];

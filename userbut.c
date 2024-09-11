@@ -49,7 +49,8 @@ void user_button_press(Window w) {
     }
 }
 
-void draw_all_user_buttons() {
+void 
+draw_all_user_buttons (void) {
     int i = 0;
     for (i = 0; i < nuserbut; i++) {
         user_button_draw(userbut[i].w);
