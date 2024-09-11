@@ -59,17 +59,17 @@
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int flowkm(integer *ndim, double *c0, double *c1,
-                            integer *iid, double *rwork,
+/* Subroutine */ int flowkm(int64 *ndim, double *c0, double *c1,
+                            int64 *iid, double *rwork,
                             doublecomplex *ev) {
 
     /* System generated locals */
-    integer c0_dim1, c1_dim1, rwork_dim1;
+    int64 c0_dim1, c1_dim1, rwork_dim1;
 
     /* Local variables */
     double beta, *svde, *svds, svdu[1], *svdv;
 
-    integer i, j;
+    int64 i, j;
 
     double *v, *x;
 
@@ -77,11 +77,11 @@
 
     double const__;
 
-    integer ndimm1;
+    int64 ndimm1;
     double nrmc0x, nrmc1x, *qzalfi, *qzbeta;
-    integer svdinf;
+    int64 svdinf;
     double *qzalfr;
-    integer qzierr;
+    int64 qzierr;
     double *svdwrk, qzz[1];
 
     svde = (double *)malloc(sizeof(double) * (*ndim));
@@ -198,7 +198,7 @@
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        integer tmp = 1;
+        int64 tmp = 1;
         double tmp_tol = 1.0E-16;
         ezsvd(rwork, ndim, ndim, ndim, svds, svde, svdu, &tmp, svdv, ndim,
               svdwrk, &tmp, &svdinf, &tmp_tol);
@@ -236,7 +236,7 @@
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        integer tmp = 1;
+        int64 tmp = 1;
         nrmc0x = dnrm2(ndim, &ARRAY2D(c0, 0, (*ndim - 1)), &tmp);
         nrmc1x = dnrm2(ndim, &ARRAY2D(c1, 0, (*ndim - 1)), &tmp);
     }
@@ -248,8 +248,8 @@
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        integer tmp = 1;
-        integer tmp_left = LEFT;
+        int64 tmp = 1;
+        int64 tmp_left = LEFT;
         dhhpr(&tmp, ndim, ndim, x, &tmp, &beta, v);
         dhhap(&tmp, ndim, ndim, ndim, &beta, v, &tmp_left, c0, ndim);
         dhhap(&tmp, ndim, ndim, ndim, &beta, v, &tmp_left, c1, ndim);
@@ -381,16 +381,16 @@
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int dhhpr(integer *k, integer *j, integer *n, double *x,
-                           integer *incx, double *beta, double *v) {
+/* Subroutine */ int dhhpr(int64 *k, int64 *j, int64 *n, double *x,
+                           int64 *incx, double *beta, double *v) {
 
     /* Local variables */
-    static integer iend, jmkp1;
+    static int64 iend, jmkp1;
 
-    static integer i, l;
+    static int64 i, l;
     static double m, alpha;
 
-    static integer istart;
+    static int64 istart;
 
     /*     IMPLICIT UNDEFINED (A-Z,a-z) */
     /*     .. Scalar Arguments .. */
@@ -509,7 +509,7 @@
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        integer tmp = 1;
+        int64 tmp = 1;
         alpha = dnrm2(&jmkp1, &v[-1 + *k], &tmp);
     }
     /*  beta := 1/(alpha(alpha + |V_k|)) */
@@ -528,17 +528,17 @@
 
 } /* dhhpr_ */
 
-/* Subroutine */ int dhhap(integer *k, integer *j, integer *n, integer *q,
-                           double *beta, double *v, integer *job,
-                           double *a, integer *lda) {
+/* Subroutine */ int dhhap(int64 *k, int64 *j, int64 *n, int64 *q,
+                           double *beta, double *v, int64 *job,
+                           double *a, int64 *lda) {
     /* System generated locals */
-    integer a_dim1;
+    int64 a_dim1;
 
     /* Local variables */
 
-    static integer jmkp1;
+    static int64 jmkp1;
     static double s;
-    static integer col, row;
+    static int64 col, row;
 
     /*     IMPLICIT LOGICAL (A-Z) */
     /*     .. Scalar Arguments .. */
@@ -661,7 +661,7 @@
             {
                 /* This is here since I don't want to change the calling
                    sequence of the BLAS routines. */
-                integer tmp = 1;
+                int64 tmp = 1;
                 s = *beta * ddot(&jmkp1, &v[-1 + *k], &tmp,
                                  &ARRAY2D(a, -1 + *k, col), &tmp);
             }
@@ -674,7 +674,7 @@
             {
                 /* This is here since I don't want to change the calling
                    sequence of the BLAS routines. */
-                integer tmp = 1;
+                int64 tmp = 1;
                 s = *beta * ddot(&jmkp1, &v[-1 + *k], &tmp,
                                  &ARRAY2D(a, row, (*k - 1)), lda);
             }

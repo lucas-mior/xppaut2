@@ -49,15 +49,15 @@ typedef struct {
 
     CVBandJacFn b_jac; /* jac = Jacobian routine to be called      */
 
-    integer b_ml; /* b_ml = lower bandwidth of savedJ         */
+    int64 b_ml; /* b_ml = lower bandwidth of savedJ         */
 
-    integer b_mu; /* b_mu = upper bandwidth of savedJ         */
+    int64 b_mu; /* b_mu = upper bandwidth of savedJ         */
 
-    integer b_storage_mu; /* upper bandwith of M = MIN(N-1,b_mu+b_ml) */
+    int64 b_storage_mu; /* upper bandwith of M = MIN(N-1,b_mu+b_ml) */
 
     BandMat b_M; /* M = I - gamma J, gamma = h / l1          */
 
-    integer *b_pivots; /* pivots = pivot array for PM = LU         */
+    int64 *b_pivots; /* pivots = pivot array for PM = LU         */
 
     BandMat b_savedJ; /* savedJ = old Jacobian                    */
 
@@ -93,13 +93,13 @@ static void CVBandFree(CVodeMem cv_mem);
 
 **********************************************************************/
 
-void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J, RhsFn f,
+void CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
                  void *f_data, real tn, N_Vector y, N_Vector fy, N_Vector ewt,
                  real h, real uround, void *jac_data, int *nfePtr,
                  N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     real fnorm, minInc, inc, inc_inv, srur;
     N_Vector ftemp, ytemp;
-    integer group, i, j, width, ngroups, i1, i2;
+    int64 group, i, j, width, ngroups, i1, i2;
     real *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
 
     /* Rename work vectors for use as temporary values of y and f */
@@ -207,7 +207,7 @@ void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J, RhsFn f,
 
 **********************************************************************/
 
-void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
+void CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
             void *jac_data) {
     CVodeMem cv_mem;
     CVBandMem cvband_mem;
@@ -321,7 +321,7 @@ static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
                        N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
     real dgamma;
-    integer ier;
+    int64 ier;
     CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;

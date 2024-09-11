@@ -1765,7 +1765,7 @@ add_ani_comet (ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col, ch
     a->zthick = atoi(thick);
     n = atoi(x2);
     if (n <= 0) {
-        plintf("4th argument of comet must be positive integer!\n");
+        plintf("4th argument of comet must be positive int64!\n");
         return (-1);
     }
     err = add_ani_expr(x1, a->x1);

@@ -95,7 +95,7 @@ enum { NORMAL, ONE_STEP }; /* itask */
  *                                                                *
  ******************************************************************/
 
-typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
+typedef void (*RhsFn)(int64 N, real t, N_Vector y, N_Vector ydot,
                       void *f_data);
 
 /******************************************************************
@@ -149,9 +149,9 @@ typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
  *            to indicate that optional inputs are present.       *
  *                                                                *
  * iopt    is the user-allocated array (of size OPT_SIZE given    *
- *            later) that will hold optional integer inputs and   *
+ *            later) that will hold optional int64 inputs and   *
  *            outputs.  The user can pass NULL if he/she does not *
- *            wish to use optional integer inputs or outputs.     *
+ *            wish to use optional int64 inputs or outputs.     *
  *            If optIn is TRUE, the user should preset to 0 those *
  *            locations for which default values are to be used.  *
  *                                                                *
@@ -178,7 +178,7 @@ typedef void (*RhsFn)(integer N, real t, N_Vector y, N_Vector ydot,
  *                                                                *
  ******************************************************************/
 
-void *CVodeMalloc(integer N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
+void *CVodeMalloc(int64 N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
                   int itol, real *reltol, void *abstol, void *f_data,
                   FILE *errfp, bool optIn, int iopt[], real ropt[],
                   void *machEnv);
@@ -333,7 +333,7 @@ void CVodeFree(void *cvode_mem);
  * Optional Inputs and Outputs                                    *
  *----------------------------------------------------------------*
  * The user should declare two arrays for optional input and      *
- * output, an iopt array for optional integer input and output    *
+ * output, an iopt array for optional int64 input and output    *
  * and an ropt array for optional real input and output. The      *
  * size of both these arrays should be OPT_SIZE.                  *
  * So the user's declaration should look like:                    *
@@ -384,8 +384,8 @@ void CVodeFree(void *cvode_mem);
  * iopt[LENRW]   : size of required CVODE internal real work      *
  *                 space, in real words.  Optional output.        *
  *                                                                *
- * iopt[LENIW]   : size of required CVODE internal integer work   *
- *                 space, in integer words.  Optional output.     *
+ * iopt[LENIW]   : size of required CVODE internal int64 work   *
+ *                 space, in int64 words.  Optional output.     *
  *                                                                *
  * ropt[H0]      : initial step size. Optional input.             *
  *                                                                *
@@ -417,7 +417,7 @@ void CVodeFree(void *cvode_mem);
 
 /* iopt and ropt offsets                                          *
  * The constants CVODE_IOPT_SIZE and CVODE_ROPT_SIZE are equal to *
- * the number of integer and real optional inputs and outputs     *
+ * the number of int64 and real optional inputs and outputs     *
  * actually accessed in cvode.c.  The locations beyond these      *
  * values are used by the linear solvers.                         */
 
@@ -469,7 +469,7 @@ typedef struct CVodeMemRec {
 
     /* Problem Specification Data */
 
-    integer cv_N;    /* ODE system size             */
+    int64 cv_N;    /* ODE system size             */
     RhsFn cv_f;      /* y' = f(t,y(t))              */
     void *cv_f_data; /* user pointer passed to f    */
     int cv_lmm;      /* lmm = ADAMS or BDF          */
@@ -552,7 +552,7 @@ typedef struct CVodeMemRec {
     int cv_nhnil;   /* number of messages issued to the user that */
                     /* t + h == t for the next iternal step       */
     int cv_lrw;     /* number of real words in CVODE work vectors */
-    int cv_liw;     /* no. of integer words in CVODE work vectors */
+    int cv_liw;     /* no. of int64 words in CVODE work vectors */
 
     /* Linear Solver Data */
 
@@ -583,7 +583,7 @@ typedef struct CVodeMemRec {
     int cv_nstlp;         /* step number of last setup call */
     real cv_hu;           /* last successful h value used   */
     real cv_saved_tq5;    /* saved value of tq[5]           */
-    integer cv_imxer;     /* index of max value of          */
+    int64 cv_imxer;     /* index of max value of          */
                           /* |acor[i]|*ewt[i]               */
     bool cv_jcur;         /* Is the Jacobian info used by   */
                           /* linear solver current?         */

@@ -22,11 +22,11 @@ extern struct {
    the Homcont code.
 */
 struct {
-    integer itwist, istart, iequib, nfixed, npsi, nunstab, nstab, nrev;
+    int64 itwist, istart, iequib, nfixed, npsi, nunstab, nstab, nrev;
 } blhom_1;
 
 struct {
-    integer *ipsi, *ifixed, *irev;
+    int64 *ipsi, *ifixed, *irev;
 } blhmp_1 = {NULL, NULL, NULL};
 
 struct {
@@ -34,7 +34,7 @@ struct {
 } blhmu_1 = {NULL, NULL};
 
 struct {
-    integer nbcn;
+    int64 nbcn;
 } bcnn_1;
 
 struct {
@@ -43,17 +43,17 @@ struct {
 
 struct {
     double *rr, *ri, *v, *vt, *xequib;
-    integer ineig;
+    int64 ineig;
 } bleig_1 = {NULL, NULL, NULL, NULL, NULL, 0};
 
 struct {
     double *vrprev;
-    integer *ieigc;
+    int64 *ieigc;
 } blhme_1 = {NULL, NULL};
 
 struct {
     double *cprev;
-    integer *iflag;
+    int64 *iflag;
 } beyn_1 = {NULL, NULL};
 
 /* ----------------------------------------------------------------------- */
@@ -65,20 +65,20 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fnho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const double *u,
-                          const double *uold, const integer *icp,
-                          double *par, integer ijac, double *f,
+                          int64 ndim, const double *u,
+                          const double *uold, const int64 *icp,
+                          double *par, int64 ijac, double *f,
                           double *dfdu, double *dfdp) {
     /* System generated locals */
-    integer dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
-    integer nfpr;
+    int64 nfpr;
     double rtmp;
-    integer i, j;
+    int64 i, j;
     double ep;
-    integer ndm;
+    int64 ndm;
     double umx;
 
     /* Generates the equations for homoclinic bifurcation analysis */
@@ -149,16 +149,16 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int ffho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, const double *u,
-                          const double *uold, const integer *icp,
-                          double *par, double *f, integer ndm,
+                          int64 ndim, const double *u,
+                          const double *uold, const int64 *icp,
+                          double *par, double *f, int64 ndm,
                           double *dfdu, double *dfdp) {
     /* System generated locals */
-    integer dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
 
-    integer i, j;
+    int64 i, j;
     double dum1;
 
     /* Parameter adjustments */
@@ -203,20 +203,20 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int bcho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, double *par, const integer *icp,
-                          integer nbc, const double *u0,
-                          const double *u1, double *f, integer ijac,
+                          int64 ndim, double *par, const int64 *icp,
+                          int64 nbc, const double *u0,
+                          const double *u1, double *f, int64 ijac,
                           double *dbc) {
     /* System generated locals */
-    integer dbc_dim1;
+    int64 dbc_dim1;
 
     /* Local variables */
 
-    integer nfpr;
+    int64 nfpr;
     double rtmp;
-    integer i, j;
+    int64 i, j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
-    integer nbc0;
+    int64 nbc0;
 
     ff1 = (double *)malloc(sizeof(double) * (iap->nbc));
     ff2 = (double *)malloc(sizeof(double) * (iap->nbc));
@@ -321,26 +321,26 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fbho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, double *par, const integer *icp,
-                          integer nbc, integer nbc0, const double *u0,
+                          int64 ndim, double *par, const int64 *icp,
+                          int64 nbc, int64 nbc0, const double *u0,
                           const double *u1, double *fb,
                           double *dbc) {
     /* System generated locals */
-    integer dbc_dim1;
+    int64 dbc_dim1;
 
     /* Local variables */
 
-    integer ieig;
+    int64 ieig;
 
-    integer i, j, k;
+    int64 i, j, k;
 
-    integer ineig;
+    int64 ineig;
 
-    integer jb;
-    integer ip;
-    integer kp;
+    int64 jb;
+    int64 ip;
+    int64 kp;
 
-    integer ijc = 0, ndm;
+    int64 ijc = 0, ndm;
     double dum, dum1, dum2;
 
     double *f;
@@ -638,21 +638,21 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int icho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, double *par, const integer *icp,
-                          integer nint, const double *u,
+                          int64 ndim, double *par, const int64 *icp,
+                          int64 nint, const double *u,
                           const double *uold, const double *udot,
-                          const double *upold, double *f, integer ijac,
+                          const double *upold, double *f, int64 ijac,
                           double *dint) {
     /* System generated locals */
-    integer dint_dim1;
+    int64 dint_dim1;
 
     /* Local variables */
 
-    integer nfpr;
+    int64 nfpr;
     double rtmp;
-    integer i, j;
+    int64 i, j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
-    integer nnt0;
+    int64 nnt0;
 
     ff1 = (double *)malloc(sizeof(double) * (iap->nint));
     ff2 = (double *)malloc(sizeof(double) * (iap->nint));
@@ -739,20 +739,20 @@ struct {
 
 /*     ---------- ---- */
 /* Subroutine */ int fiho(const iap_type *iap, const rap_type *rap,
-                          integer ndim, double *par, const integer *icp,
-                          integer nint, integer nnt0, const double *u,
+                          int64 ndim, double *par, const int64 *icp,
+                          int64 nint, int64 nnt0, const double *u,
                           const double *uold, const double *udot,
                           const double *upold, double *fi,
                           double *dint) {
     /* System generated locals */
-    integer dint_dim1;
+    int64 dint_dim1;
 
     /* Local variables */
-    integer ijac = 0;
+    int64 ijac = 0;
 
-    integer i, jb;
+    int64 i, jb;
     double *fj;
-    integer ndm;
+    int64 ndm;
     double dum;
 
     fj = (double *)malloc(sizeof(double) * (iap->ndim));
@@ -806,10 +806,10 @@ struct {
 } /* fiho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int inho(iap_type *iap, integer *icp, double *par) {
+/* Subroutine */ int inho(iap_type *iap, int64 *icp, double *par) {
 
     /* Local variables */
-    integer ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
+    int64 ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
 
     /* Allocate memory for global structures. */
     free(blhmp_1.ipsi);
@@ -831,13 +831,13 @@ struct {
     free(beyn_1.cprev);
     free(beyn_1.iflag);
 
-    blhmp_1.ipsi = (integer *)malloc(sizeof(integer) * NPARX);
-    blhmp_1.ifixed = (integer *)malloc(sizeof(integer) * NPARX);
-    blhmp_1.irev = (integer *)malloc(sizeof(integer) * (iap->ndim));
+    blhmp_1.ipsi = (int64 *)malloc(sizeof(int64) * NPARX);
+    blhmp_1.ifixed = (int64 *)malloc(sizeof(int64) * NPARX);
+    blhmp_1.irev = (int64 *)malloc(sizeof(int64) * (iap->ndim));
 
-    blhme_1.ieigc = (integer *)malloc(sizeof(integer) * 2);
+    blhme_1.ieigc = (int64 *)malloc(sizeof(int64) * 2);
 
-    beyn_1.iflag = (integer *)malloc(sizeof(integer) * 4);
+    beyn_1.iflag = (int64 *)malloc(sizeof(int64) * 4);
 
     /* the prjctn_ function uses this array to test if this is
          the first time the prjctn_ function has been called.
@@ -969,21 +969,21 @@ struct {
 } /* inho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int preho(integer *ndx, integer *ntsr, integer *nar,
-                           integer *ndim, integer *ncolrs, double *ups,
+/* Subroutine */ int preho(int64 *ndx, int64 *ntsr, int64 *nar,
+                           int64 *ndim, int64 *ncolrs, double *ups,
                            double *udotps, double *tm,
                            double *par) {
     /* System generated locals */
-    integer ups_dim1, udotps_dim1;
+    int64 ups_dim1, udotps_dim1;
 
     /* Local variables */
-    integer jmin;
+    int64 jmin;
     double upsi;
-    integer i, j, k;
+    int64 i, j, k;
     double tmmin;
-    integer k1, k2, ii;
+    int64 k1, k2, ii;
     double upsmin;
-    integer ist;
+    int64 ist;
 
     /* Preprocesses (perturbs) restart data to enable */
     /* initial computation of the adjoint variable */
@@ -1080,22 +1080,22 @@ struct {
 
 /*     ---------- ------ */
 /* Subroutine */ int stpnho(iap_type *iap, rap_type *rap, double *par,
-                            integer *icp, integer *ntsr, integer *ncolrs,
+                            int64 *icp, int64 *ntsr, int64 *ncolrs,
                             double *rlcur, double *rldot,
-                            integer *ndxloc, double *ups,
+                            int64 *ndxloc, double *ups,
                             double *udotps, double *upoldp,
-                            double *tm, double *dtm, integer *nodir,
+                            double *tm, double *dtm, int64 *nodir,
                             double *thl, double *thu) {
     /* System generated locals */
-    integer ups_dim1, udotps_dim1;
+    int64 ups_dim1, udotps_dim1;
 
     /* Local variables */
-    integer ndim, ncol, nfpr, ntst, ncol1, i, j, k;
+    int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
     double t, *u;
-    integer k1, k2;
+    int64 k1, k2;
 
     double dt;
-    integer lab, ibr;
+    int64 lab, ibr;
 
     u = (double *)malloc(sizeof(double) * (iap->ndim));
     /* Generates a starting point for the continuation of a branch of */
@@ -1158,15 +1158,15 @@ struct {
 } /* stpnho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int stpho(iap_type *iap, integer *icp, double *u,
+/* Subroutine */ int stpho(iap_type *iap, int64 *icp, double *u,
                            double *par, double *t) {
     /* Local variables */
 
-    integer i, j;
+    int64 i, j;
 
-    integer ip;
-    integer kp;
-    integer ndm;
+    int64 ip;
+    int64 kp;
+    int64 ndm;
 
     double *ri;
     double *rr, *vr, *vt, *xequib;
@@ -1296,20 +1296,20 @@ L3:
 } /* stpho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int pvlsho(iap_type *iap, rap_type *rap, integer *icp,
-                            double *dtm, integer *ndxloc, double *ups,
-                            integer *ndim, double *p0, double *p1,
+/* Subroutine */ int pvlsho(iap_type *iap, rap_type *rap, int64 *icp,
+                            double *dtm, int64 *ndxloc, double *ups,
+                            int64 *ndim, double *p0, double *p1,
                             double *par) {
 
     /* System generated locals */
-    integer ups_dim1, p0_dim1, p1_dim1;
+    int64 ups_dim1, p0_dim1, p1_dim1;
 
     /* Local variables */
-    integer i, j;
+    int64 i, j;
 
     double orient;
 
-    integer iid, ndm;
+    int64 iid, ndm;
 
     /* Parameter adjustments */
     /*--icp;*/
@@ -1372,17 +1372,17 @@ L3:
 } /* pvlsho_ */
 
 /*     -------- ------- -------- ----- */
-double psiho(const iap_type *iap, integer is, double *rr,
+double psiho(const iap_type *iap, int64 is, double *rr,
                  double *ri, double *v, double *vt,
-                 const integer *icp, double *par) {
+                 const int64 *icp, double *par) {
     /* System generated locals */
     double ret_val;
 
     /* Local variables */
 
-    integer i, j;
+    int64 i, j;
     double *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
-    integer ndm;
+    int64 ndm;
     double dum1, dum2;
 
     f0 = (double *)malloc(sizeof(double) * (iap->ndm));
@@ -1634,9 +1634,9 @@ L16:
 } /* psiho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int eighi(integer isign, integer itrans, double *rr,
+/* Subroutine */ int eighi(int64 isign, int64 itrans, double *rr,
                            double *ri, double *vret, double *xequib,
-                           const integer *icp, double *par, integer *ndm) {
+                           const int64 *icp, double *par, int64 *ndm) {
     double *dfdp, *dfdu;
     double *zz;
 
@@ -1654,23 +1654,23 @@ L16:
 } /* eighi */
 
 /*     ---------- ----- */
-/* Subroutine */ int eigho(integer *isign, integer *itrans, double *rr,
+/* Subroutine */ int eigho(int64 *isign, int64 *itrans, double *rr,
                            double *ri, double *vret, double *xequib,
-                           const integer *icp, double *par, integer *ndm,
+                           const int64 *icp, double *par, int64 *ndm,
                            double *dfdu, double *dfdp, double *zz) {
     /* System generated locals */
-    integer dfdu_dim1, dfdp_dim1, zz_dim1;
+    int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
     /* Local variables */
 
-    integer i, j, k, ifail;
+    int64 i, j, k, ifail;
     double vdot;
 
     double *f;
     double *ridum, *vidum, *rrdum, *vrdum;
 
     double *vi, *vr, *fv1;
-    integer *iv1;
+    int64 *iv1;
 
     f = (double *)malloc(sizeof(double) * (*ndm));
     ridum = (double *)malloc(sizeof(double) * (*ndm));
@@ -1680,7 +1680,7 @@ L16:
     vi = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
     vr = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
     fv1 = (double *)malloc(sizeof(double) * (*ndm));
-    iv1 = (integer *)malloc(sizeof(integer) * (*ndm));
+    iv1 = (int64 *)malloc(sizeof(int64) * (*ndm));
 
     /* Uses EISPACK routine RG to calculate the eigenvalues/eigenvectors */
     /* of the linearization matrix a (obtained from DFHO) and orders them */
@@ -1797,7 +1797,7 @@ L16:
 #define GCC_2_96_FIX
 #ifdef GCC_2_96_FIX
         {
-            integer tmp;
+            int64 tmp;
             tmp = *ndm;
             for (j = 0; j < tmp; ++j) {
                 vdot += vr[j + i * tmp] *
@@ -1843,8 +1843,8 @@ L16:
 
 /*     ---------- ------ */
 /* Subroutine */ int prjcti(double *bound, double *xequib,
-                            const integer *icp, double *par, integer imfd,
-                            integer is, integer itrans, integer *ndm) {
+                            const int64 *icp, double *par, int64 imfd,
+                            int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
 
     dfdp = (double *)malloc(sizeof(double) * (*ndm) * NPARX);
@@ -1859,21 +1859,21 @@ L16:
 
 /*     ---------- ------ */
 /* Subroutine */ int prjctn(double *bound, double *xequib,
-                            const integer *icp, double *par, integer *imfd,
-                            integer *is, integer *itrans, integer *ndm,
+                            const int64 *icp, double *par, int64 *imfd,
+                            int64 *is, int64 *itrans, int64 *ndm,
                             double *dfdu, double *dfdp) {
     /* System generated locals */
-    integer dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
-    integer i, j, k;
-    integer mcond, k1, k2, m0;
+    int64 i, j, k;
+    int64 mcond, k1, k2, m0;
 
     double det, eps;
 
     double *fdum;
     double *cnow;
-    integer *type__;
+    int64 *type__;
     double *a, *d;
     double *v;
     double *ei, *er;
@@ -1881,7 +1881,7 @@ L16:
 
     fdum = (double *)malloc(sizeof(double) * (*ndm));
     cnow = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    type__ = (integer *)malloc(sizeof(integer) * (*ndm));
+    type__ = (int64 *)malloc(sizeof(int64) * (*ndm));
     a = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
     d = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
     v = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
@@ -1938,7 +1938,7 @@ L16:
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        integer tmp = 1;
+        int64 tmp = 1;
         orthes((ndm), ndm, &tmp, ndm, a, ort);
         ortran((ndm), ndm, &tmp, ndm, a, ort, v);
     }
@@ -1958,7 +1958,7 @@ L16:
     {
         /* This is here since I don't want to change the calling sequence of the
            BLAS routines. */
-        integer tmp = 1;
+        int64 tmp = 1;
         hqr3lc(a, v, ndm, &tmp, ndm, &eps, er, ei, type__, (ndm), (ndm), imfd);
     }
     /* Put the basis in the appropriate part of the matrix CNOW */
@@ -2017,7 +2017,7 @@ L16:
 #define GCC_2_96_FIX
 #ifdef GCC_2_96_FIX
             {
-                integer tmp;
+                int64 tmp;
                 tmp = *ndm;
                 for (k = 0; k < tmp; ++k) {
                     dum1[i + j * (tmp)] +=

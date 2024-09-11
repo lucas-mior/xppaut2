@@ -6,7 +6,7 @@
 #include "fio.h"
 
 /* endfile.c */
-integer f_end(alist *a);
+int64 f_end(alist *a);
 int t_runc(alist *a);
 
 #endif

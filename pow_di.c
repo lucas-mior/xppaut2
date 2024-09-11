@@ -3,13 +3,13 @@
 #ifdef KR_headers
 double pow_di(ap, bp)
 double *ap;
-integer *bp;
+int64 *bp;
 #else
-double pow_di(double *ap, integer *bp)
+double pow_di(double *ap, int64 *bp)
 #endif
 {
     double pow, x;
-    integer n;
+    int64 n;
     unsigned long u;
 
     pow = 1;

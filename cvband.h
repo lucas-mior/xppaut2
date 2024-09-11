@@ -7,7 +7,7 @@
  * This is the header file for the CVODE band linear solver,      *
  * CVBAND.                                                        *
  *                                                                *
- * Note: The type integer must be large enough to store the value *
+ * Note: The type int64 must be large enough to store the value *
  * N + mupper + mlower, where N is the linear system size and     *
  * mupper and mlower are the upper and lower bandwidths,          *
  * respectively, passed to CVBand.                                *
@@ -39,7 +39,7 @@
  * iopt[BAND_LRW] : size (in real words) of real workspace        *
  *                  matrices and vectors used by this solver.     *
  *                                                                *
- * iopt[BAND_LIW] : size (in integer words) of integer            *
+ * iopt[BAND_LIW] : size (in int64 words) of int64            *
  *                  workspace vectors used by this solver.        *
  *                                                                *
  ******************************************************************/
@@ -151,7 +151,7 @@ enum { BAND_NJE = CVODE_IOPT_SIZE, BAND_LRW, BAND_LIW };
  *                                                                *
  ******************************************************************/
 
-typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
+typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower,
                             BandMat J, RhsFn f, void *f_data, real t,
                             N_Vector y, N_Vector fy, N_Vector ewt, real h,
                             real uround, void *jac_data, int *nfePtr,
@@ -185,7 +185,7 @@ typedef void (*CVBandJacFn)(integer N, integer mupper, integer mlower,
  *                                                                *
  ******************************************************************/
 
-void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
+void CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
             void *jac_data);
 
 /******************************************************************
@@ -197,7 +197,7 @@ void CVBand(void *cvode_mem, integer mupper, integer mlower, CVBandJacFn bjac,
  *                                                                *
  ******************************************************************/
 
-void CVBandDQJac(integer N, integer mupper, integer mlower, BandMat J, RhsFn f,
+void CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
                  void *f_data, real t, N_Vector y, N_Vector fy, N_Vector ewt,
                  real h, real uround, void *jac_data, int *nfePtr,
                  N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);

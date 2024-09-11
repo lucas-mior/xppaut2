@@ -68,7 +68,7 @@
 
 typedef struct {
 
-    integer N;
+    int64 N;
     int l_max;
 
     N_Vector *V;
@@ -96,7 +96,7 @@ typedef struct {
  *                                                                *
  ******************************************************************/
 
-SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv);
+SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv);
 
 /******************************************************************
  *                                                                *

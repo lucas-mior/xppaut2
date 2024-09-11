@@ -24,7 +24,7 @@
 #define MAXDIMHOM 24
 
 extern double outperiod[20];
-extern integer UzrPar[20];
+extern int64 UzrPar[20];
 extern int NAutoUzr;
 
 extern ADVAUTO aauto;
@@ -152,8 +152,8 @@ get_bif_type (int ibr, int ntot, int lab)
     /* if(lab>0)type=SPECIAL; */
     return (type);
 }
-void addbif(iap_type *iap, rap_type *rap, integer ntots, integer ibrs,
-            double *par, integer *icp, int lab, double *a, double *uhigh,
+void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs,
+            double *par, int64 *icp, int lab, double *a, double *uhigh,
             double *ulow, double *u0, double *ubar) {
     int type;
     /*int evflag=0; Not used*/

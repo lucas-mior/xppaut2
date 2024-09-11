@@ -14,9 +14,9 @@ extern int (*rhs)();
 
 static double c_b81 = 0.;
 static double c_b170 = 1.;
-static integer c__1 = 1;
+static int64 c__1 = 1;
 static double c_b367 = -1.;
-static integer c__2 = 2;
+static int64 c__2 = 2;
 
 void sgefa(double *a, int n, int m, int *ip, int *ier);
 void sgesl(double *a, int n, int m, int *ip, double *b, int);
@@ -25,15 +25,15 @@ void sgesl(double *a, int n, int m, int *ip, double *b, int);
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int rg(integer nm, integer n, double *a, double *wr,
-                        double *wi, integer matz, double *z__,
-                        integer *iv1, double *fv1, integer *ierr) {
+/* Subroutine */ int rg(int64 nm, int64 n, double *a, double *wr,
+                        double *wi, int64 matz, double *z__,
+                        int64 *iv1, double *fv1, int64 *ierr) {
     /* System generated locals */
-    integer a_dim1, a_offset, z_dim1, z_offset;
+    int64 a_dim1, a_offset, z_dim1, z_offset;
 
     /* Local variables */
 
-    static integer is1, is2;
+    static int64 is1, is2;
 
     /*     THIS SUBROUTINE CALLS THE RECOMMENDED SEQUENCE OF */
     /*     SUBROUTINES FROM THE EIGENSYSTEM SUBROUTINE PACKAGE (EISPACK) */
@@ -49,9 +49,9 @@ void sgesl(double *a, int n, int m, int *ip, double *b, int);
 
     /*        A  CONTAINS THE REAL GENERAL MATRIX. */
 
-    /*        MATZ  IS AN INTEGER VARIABLE SET EQUAL TO ZERO IF */
+    /*        MATZ  IS AN int64 VARIABLE SET EQUAL TO ZERO IF */
     /*        ONLY EIGENVALUES ARE DESIRED.  OTHERWISE IT IS SET TO */
-    /*        ANY NON-ZERO INTEGER FOR BOTH EIGENVALUES AND EIGENVECTORS. */
+    /*        ANY NON-ZERO int64 FOR BOTH EIGENVALUES AND EIGENVECTORS. */
 
     /*     ON OUTPUT */
 
@@ -68,7 +68,7 @@ void sgesl(double *a, int n, int m, int *ip, double *b, int);
     /*        IMAGINARY PARTS OF ITS EIGENVECTOR.  THE CONJUGATE OF THIS */
     /*        VECTOR IS THE EIGENVECTOR FOR THE CONJUGATE EIGENVALUE. */
 
-    /*        IERR  IS AN INTEGER OUTPUT VARIABLE SET EQUAL TO AN ERROR */
+    /*        IERR  IS AN int64 OUTPUT VARIABLE SET EQUAL TO AN ERROR */
     /*           COMPLETION CODE DESCRIBED IN THE DOCUMENTATION FOR HQR */
     /*           AND HQR2.  THE NORMAL COMPLETION CODE IS ZERO. */
 
@@ -126,21 +126,21 @@ L50:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int hqr(integer *nm, integer *n, integer *low, integer *igh,
+/* Subroutine */ int hqr(int64 *nm, int64 *n, int64 *low, int64 *igh,
                          double *h__, double *wr, double *wi,
-                         integer *ierr) {
+                         int64 *ierr) {
     /* System generated locals */
-    integer h_dim1, h_offset, i__1, i__2, i__3;
+    int64 h_dim1, h_offset, i__1, i__2, i__3;
     double d__1, d__2;
 
     /* Local variables */
     static double norm;
-    static integer i__, j, k, l, m;
+    static int64 i__, j, k, l, m;
     static double p, q, r__, s, t, w, x, y;
-    static integer na, en, ll, mm;
+    static int64 na, en, ll, mm;
     static double zz;
     static logical notlas;
-    static integer mp2, itn, its, enm2;
+    static int64 mp2, itn, its, enm2;
     static double tst1, tst2;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR, */
@@ -472,24 +472,24 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int hqr2(integer *nm, integer *n, integer *low, integer *igh,
+/* Subroutine */ int hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh,
                           double *h__, double *wr, double *wi,
-                          double *z__, integer *ierr) {
+                          double *z__, int64 *ierr) {
     /* System generated locals */
-    integer h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
+    int64 h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
     double d__1, d__2, d__3, d__4;
 
     /* Local variables */
 
     static double norm;
-    static integer i__, j, k, l, m;
+    static int64 i__, j, k, l, m;
     static double p, q, r__, s, t, w, x, y;
-    static integer na, ii, en, jj;
+    static int64 na, ii, en, jj;
     static double ra, sa;
-    static integer ll, mm, nn;
+    static int64 ll, mm, nn;
     static double vi, vr, zz;
     static logical notlas;
-    static integer mp2, itn, its, enm2;
+    static int64 mp2, itn, its, enm2;
     static double tst1, tst2;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE HQR2, */
@@ -1184,18 +1184,18 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int balanc(integer *nm, integer *n, double *a,
-                            integer *low, integer *igh, double *scale) {
+/* Subroutine */ int balanc(int64 *nm, int64 *n, double *a,
+                            int64 *low, int64 *igh, double *scale) {
     /* System generated locals */
-    integer a_dim1, a_offset, i__1, i__2;
+    int64 a_dim1, a_offset, i__1, i__2;
     double d__1;
 
     /* Local variables */
-    static integer iexc;
+    static int64 iexc;
     static double c__, f, g;
-    static integer i__, j, k, l, m;
+    static int64 i__, j, k, l, m;
     static double r__, s, radix, b2;
-    static integer jj;
+    static int64 jj;
     static logical noconv;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALANCE, */
@@ -1435,15 +1435,15 @@ L280:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int balbak(integer *nm, integer *n, integer *low, integer *igh,
-                            double *scale, integer *m, double *z__) {
+/* Subroutine */ int balbak(int64 *nm, int64 *n, int64 *low, int64 *igh,
+                            double *scale, int64 *m, double *z__) {
     /* System generated locals */
-    integer z_dim1, z_offset, i__1, i__2;
+    int64 z_dim1, z_offset, i__1, i__2;
 
     /* Local variables */
-    static integer i__, j, k;
+    static int64 i__, j, k;
     static double s;
-    static integer ii;
+    static int64 ii;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALBAK, */
     /*     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. */
@@ -1524,7 +1524,7 @@ L120:
         if (i__ < *low) {
             i__ = *low - ii;
         }
-        k = (integer)scale[i__];
+        k = (int64)scale[i__];
         if (k == i__) {
             goto L140;
         }
@@ -1546,16 +1546,16 @@ L200:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int elmhes(integer *nm, integer *n, integer *low, integer *igh,
-                            double *a, integer *int__) {
+/* Subroutine */ int elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh,
+                            double *a, int64 *int__) {
     /* System generated locals */
-    integer a_dim1, a_offset, i__1, i__2, i__3;
+    int64 a_dim1, a_offset, i__1, i__2, i__3;
     double d__1;
 
     /* Local variables */
-    static integer i__, j, m;
+    static int64 i__, j, m;
     static double x, y;
-    static integer la, mm1, kp1, mp1;
+    static int64 la, mm1, kp1, mp1;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMHES, */
     /*     NUM. MATH. 12, 349-368(1968) BY MARTIN AND WILKINSON. */
@@ -1687,13 +1687,13 @@ L200:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int eltran(integer *nm, integer *n, integer *low, integer *igh,
-                            double *a, integer *int__, double *z__) {
+/* Subroutine */ int eltran(int64 *nm, int64 *n, int64 *low, int64 *igh,
+                            double *a, int64 *int__, double *z__) {
     /* System generated locals */
-    integer a_dim1, a_offset, z_dim1, z_offset, i__1, i__2;
+    int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2;
 
     /* Local variables */
-    static integer i__, j, kl, mm, mp, mp1;
+    static int64 i__, j, kl, mm, mp, mp1;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMTRANS,
      */
@@ -1802,19 +1802,19 @@ L200:
 /*  EISPACK routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzhes(integer nm, integer n, double *a, double *b,
+/* Subroutine */ int qzhes(int64 nm, int64 n, double *a, double *b,
                            logical matz, double *z__) {
     /* System generated locals */
-    integer a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
+    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
     double d__1, d__2;
 
     /* Local variables */
-    static integer i__, j, k, l;
+    static int64 i__, j, k, l;
     static double r__, s, t;
-    static integer l1;
+    static int64 l1;
     static double u1, u2, v1, v2;
-    static integer lb, nk1, nm1, nm2;
+    static int64 lb, nk1, nm1, nm2;
     static double rho;
 
     /*     THIS SUBROUTINE IS THE FIRST STEP OF THE QZ ALGORITHM */
@@ -2084,34 +2084,34 @@ L170:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzit(integer nm, integer n, double *a, double *b,
+/* Subroutine */ int qzit(int64 nm, int64 n, double *a, double *b,
                           double eps1, logical matz, double *z__,
-                          integer *ierr) {
+                          int64 *ierr) {
     /* System generated locals */
-    integer a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
+    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
     double d__1, d__2, d__3;
 
     /* Local variables */
     static double epsa, epsb;
-    static integer i__, j, k, l;
+    static int64 i__, j, k, l;
     static double r__, s, t, anorm, bnorm;
-    static integer enorn;
+    static int64 enorn;
     static double a1, a2, a3;
-    static integer k1, k2, l1;
+    static int64 k1, k2, l1;
     static double u1, u2, u3, v1, v2, v3, a11, a12, a21, a22, a33, a34, a43,
         a44, b11, b12, b22, b33;
-    static integer na, ld;
+    static int64 na, ld;
     static double b34, b44;
-    static integer en;
+    static int64 en;
     static double ep;
-    static integer ll;
+    static int64 ll;
     static double sh;
 
     static logical notlas;
-    static integer km1, lm1;
+    static int64 km1, lm1;
     static double ani, bni;
-    static integer ish, itn, its, enm2, lor1;
+    static int64 ish, itn, its, enm2, lor1;
 
     /*     THIS SUBROUTINE IS THE SECOND STEP OF THE QZ ALGORITHM */
     /*     FOR SOLVING GENERALIZED MATRIX EIGENVALUE PROBLEMS, */
@@ -2611,26 +2611,26 @@ L1001:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int qzval(integer nm, integer n, double *a, double *b,
+/* Subroutine */ int qzval(int64 nm, int64 n, double *a, double *b,
                            double *alfr, double *alfi, double *beta,
                            logical matz, double *z__) {
     /* System generated locals */
-    integer a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
+    int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
     double d__1, d__2, d__3, d__4;
 
     /* Local variables */
     static double epsb, c__, d__, e;
-    static integer i__, j;
+    static int64 i__, j;
     static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22,
         b11, b12, b22, di, ei;
-    static integer na;
+    static int64 na;
     static double an, bn;
-    static integer en;
+    static int64 en;
     static double cq, dr;
-    static integer nn;
+    static int64 nn;
     static double cz, ti, tr, a1i, a2i, a11i, a12i, a22i, a11r, a12r, a22r,
         sqi, ssi;
-    static integer isw;
+    static int64 isw;
     static double sqr, szi, ssr, szr;
 
     /*     THIS SUBROUTINE IS THE THIRD STEP OF THE QZ ALGORITHM */
@@ -3045,7 +3045,7 @@ L10:
 /*  BLAS-1 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-double dnrm2(integer *n, double *dx, integer *incx) {
+double dnrm2(int64 *n, double *dx, int64 *incx) {
     /* Initialized data */
 
     static double zero = 0.;
@@ -3056,12 +3056,12 @@ double dnrm2(integer *n, double *dx, integer *incx) {
     /* Format strings */
 
     /* System generated locals */
-    integer i__1, i__2;
+    int64 i__1, i__2;
     double ret_val, d__1;
 
     /* Local variables */
     static double xmax;
-    static integer next, i__, j, nn;
+    static int64 next, i__, j, nn;
     static double hitest, sum;
 
     /* Parameter adjustments */
@@ -3233,16 +3233,16 @@ L300:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-double ddot(integer *n, double *dx, integer *incx, double *dy,
-                integer *incy) {
+double ddot(int64 *n, double *dx, int64 *incx, double *dy,
+                int64 *incy) {
     /* System generated locals */
-    integer i__1;
+    int64 i__1;
     double ret_val;
 
     /* Local variables */
-    static integer i__, m;
+    static int64 i__, m;
     static double dtemp;
-    static integer ix, iy, mp1;
+    static int64 ix, iy, mp1;
 
     /*     FORMS THE DOT PRODUCT OF TWO VECTORS. */
     /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. */
@@ -3316,13 +3316,13 @@ L60:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dscal(integer *n, double *da, double *dx,
-                           integer *incx) {
+/* Subroutine */ int dscal(int64 *n, double *da, double *dx,
+                           int64 *incx) {
     /* System generated locals */
-    integer i__1, i__2;
+    int64 i__1, i__2;
 
     /* Local variables */
-    static integer i__, m, nincx, mp1;
+    static int64 i__, m, nincx, mp1;
 
     /*     SCALES A VECTOR BY A CONSTANT. */
     /*     USES UNROLLED LOOPS FOR INCREMENT EQUAL TO ONE. */
@@ -3383,14 +3383,14 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-integer idamax(integer *n, double *dx, integer *incx) {
+int64 idamax(int64 *n, double *dx, int64 *incx) {
     /* System generated locals */
-    integer ret_val, i__1;
+    int64 ret_val, i__1;
     double d__1;
 
     /* Local variables */
     static double dmax__;
-    static integer i__, ix;
+    static int64 i__, ix;
 
     /*     FINDS THE INDEX OF ELEMENT HAVING MAX. ABSOLUTE VALUE. */
     /*     JACK DONGARRA, LINPACK, 3/11/78. */
@@ -3447,13 +3447,13 @@ L20:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int daxpy(integer *n, double *da, double *dx,
-                           integer *incx, double *dy, integer *incy) {
+/* Subroutine */ int daxpy(int64 *n, double *da, double *dx,
+                           int64 *incx, double *dy, int64 *incy) {
     /* System generated locals */
-    integer i__1;
+    int64 i__1;
 
     /* Local variables */
-    static integer i__, m, ix, iy, mp1;
+    static int64 i__, m, ix, iy, mp1;
 
     /*     CONSTANT TIMES A VECTOR PLUS A VECTOR. */
     /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL TO ONE. */
@@ -3526,16 +3526,16 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int drot(integer *n, double *dx, integer *incx,
-                          double *dy, integer *incy, double *c__,
+/* Subroutine */ int drot(int64 *n, double *dx, int64 *incx,
+                          double *dy, int64 *incy, double *c__,
                           double *s) {
     /* System generated locals */
-    integer i__1;
+    int64 i__1;
 
     /* Local variables */
-    static integer i__;
+    static int64 i__;
     static double dtemp;
-    static integer ix, iy;
+    static int64 ix, iy;
 
     /*     APPLIES A PLANE ROTATION. */
     /*     JACK DONGARRA, LINPACK, 3/11/78. */
@@ -3589,15 +3589,15 @@ L20:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dswap(integer *n, double *dx, integer *incx,
-                           double *dy, integer *incy) {
+/* Subroutine */ int dswap(int64 *n, double *dx, int64 *incx,
+                           double *dy, int64 *incy) {
     /* System generated locals */
-    integer i__1;
+    int64 i__1;
 
     /* Local variables */
-    static integer i__, m;
+    static int64 i__, m;
     static double dtemp;
-    static integer ix, iy, mp1;
+    static int64 ix, iy, mp1;
 
     /*     INTERCHANGES TWO VECTORS. */
     /*     USES UNROLLED LOOPS FOR INCREMENTS EQUAL ONE. */
@@ -3676,13 +3676,13 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dgemc(integer *m, integer *n, double *a, integer *lda,
-                           double *b, integer *ldb, logical *trans) {
+/* Subroutine */ int dgemc(int64 *m, int64 *n, double *a, int64 *lda,
+                           double *b, int64 *ldb, logical *trans) {
     /* System generated locals */
-    integer a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
+    int64 a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
 
     /* Local variables */
-    static integer i__, j, mm, mmp1;
+    static int64 i__, j, mm, mmp1;
 
     /*  This subroutine copies a double precision real */
     /*  M by N matrix stored in A to double precision real B. */
@@ -3778,7 +3778,7 @@ L40:
 /*  BLAS-2 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int xerbla(char *srname, integer *info, integer srname_len) {
+/* Subroutine */ int xerbla(char *srname, int64 *info, int64 srname_len) {
     /* Format strings */
 
     /* Builtin functions */
@@ -3806,7 +3806,7 @@ L40:
     /*           On entry, SRNAME specifies the name of the routine which */
     /*           called XERBLA. */
 
-    /*  INFO   - INTEGER. */
+    /*  INFO   - int64. */
     /*           On entry, INFO specifies the position of the invalid */
     /*           parameter in the parameter-list of the calling routine. */
 
@@ -3829,7 +3829,7 @@ L40:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
+logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
     /* System generated locals */
     logical ret_val;
 
@@ -3884,13 +3884,13 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     /*  representations. */
 
     /*     .. Parameters .. */
-    /*     INTEGER                ICIRFX */
+    /*     int64                ICIRFX */
     /*     .. Scalar Arguments .. */
     /*     CHARACTER*1            CB */
     /*     .. Array Arguments .. */
     /*     CHARACTER*1            CA(*) */
     /*     .. Local Scalars .. */
-    /*     INTEGER                IVAL */
+    /*     int64                IVAL */
     /*     .. Intrinsic Functions .. */
     /*     INTRINSIC              ICHAR, CHAR */
     /*     .. Executable Statements .. */
@@ -3922,22 +3922,22 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 /*  BLAS-3 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int dgemm(char *transa, char *transb, integer *m, integer *n,
-                           integer *k, double *alpha, double *a,
-                           integer *lda, double *b, integer *ldb,
-                           double *beta, double *c__, integer *ldc,
-                           integer transa_len, integer transb_len) {
+/* Subroutine */ int dgemm(char *transa, char *transb, int64 *m, int64 *n,
+                           int64 *k, double *alpha, double *a,
+                           int64 *lda, double *b, int64 *ldb,
+                           double *beta, double *c__, int64 *ldc,
+                           int64 transa_len, int64 transb_len) {
     /* System generated locals */
-    integer a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
+    int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
         i__3;
 
     /* Local variables */
-    static integer info;
+    static int64 info;
     static logical nota, notb;
     static double temp;
-    static integer i__, j, l, ncola;
+    static int64 i__, j, l, ncola;
 
-    static integer nrowa, nrowb;
+    static int64 nrowa, nrowb;
 
     /*     .. Scalar Arguments .. */
     /*     .. Array Arguments .. */
@@ -3988,14 +3988,14 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 
     /*           Unchanged on exit. */
 
-    /*  M      - INTEGER. */
+    /*  M      - int64. */
     /*           On entry,  M  specifies  the number  of rows  of the  matrix
      */
     /*           op( A )  and of the  matrix  C.  M  must  be at least  zero.
      */
     /*           Unchanged on exit. */
 
-    /*  N      - INTEGER. */
+    /*  N      - int64. */
     /*           On entry,  N  specifies the number  of columns of the matrix
      */
     /*           op( B ) and the number of columns of the matrix C. N must be
@@ -4003,7 +4003,7 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     /*           at least zero. */
     /*           Unchanged on exit. */
 
-    /*  K      - INTEGER. */
+    /*  K      - int64. */
     /*           On entry,  K  specifies  the number of columns of the matrix
      */
     /*           op( A ) and the number of rows of the matrix op( B ). K must
@@ -4027,7 +4027,7 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     /*           matrix A. */
     /*           Unchanged on exit. */
 
-    /*  LDA    - INTEGER. */
+    /*  LDA    - int64. */
     /*           On entry, LDA specifies the first dimension of A as declared
      */
     /*           in the calling (sub) program. When  TRANSA = 'N' or 'n' then
@@ -4049,7 +4049,7 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     /*           matrix B. */
     /*           Unchanged on exit. */
 
-    /*  LDB    - INTEGER. */
+    /*  LDB    - int64. */
     /*           On entry, LDB specifies the first dimension of B as declared
      */
     /*           in the calling (sub) program. When  TRANSB = 'N' or 'n' then
@@ -4075,7 +4075,7 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
      */
     /*           ( alpha*op( A )*op( B ) + beta*C ). */
 
-    /*  LDC    - INTEGER. */
+    /*  LDC    - int64. */
     /*           On entry, LDC specifies the first dimension of C as declared
      */
     /*           in  the  calling  (sub)  program.   LDC  must  be  at  least
@@ -4325,20 +4325,20 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ezsvd(double *x, integer *ldx, integer *n, integer *p,
+/* Subroutine */ int ezsvd(double *x, int64 *ldx, int64 *n, int64 *p,
                            double *s, double *e, double *u,
-                           integer *ldu, double *v, integer *ldv,
-                           double *work, integer *job, integer *info,
+                           int64 *ldu, double *v, int64 *ldv,
+                           double *work, int64 *job, int64 *info,
                            double *tol) {
     /* System generated locals */
-    integer x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset;
+    int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset;
 
     /* Local variables */
-    static integer idbg, skip, iidir, ifull;
+    static int64 idbg, skip, iidir, ifull;
 
-    static integer kount, kount1, kount2, limshf;
+    static int64 kount, kount1, kount2, limshf;
     static double maxsin;
-    static integer maxitr;
+    static int64 maxitr;
 
     /*     new svd by J. Demmel, W. Kahan */
     /*     finds singular values of bidiagonal matrices with guaranteed high
@@ -4456,58 +4456,58 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ndsvd(double *x, integer *ldx, integer *n, integer *p,
+/* Subroutine */ int ndsvd(double *x, int64 *ldx, int64 *n, int64 *p,
                            double *s, double *e, double *u,
-                           integer *ldu, double *v, integer *ldv,
-                           double *work, integer *job, integer *info,
-                           integer *maxitr, double *tol, integer *idbg,
-                           integer *ifull, integer *kount, integer *kount1,
-                           integer *kount2, integer *skip, integer *limshf,
-                           double *maxsin, integer *iidir) {
+                           int64 *ldu, double *v, int64 *ldv,
+                           double *work, int64 *job, int64 *info,
+                           int64 *maxitr, double *tol, int64 *idbg,
+                           int64 *ifull, int64 *kount, int64 *kount1,
+                           int64 *kount2, int64 *skip, int64 *limshf,
+                           double *maxsin, int64 *iidir) {
     /* System generated locals */
-    integer x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2,
+    int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset, i__1, i__2,
         i__3;
     double d__1, d__2, d__3, d__4;
 
     /* Local variables */
     static double abse;
 
-    static integer idir;
+    static int64 idir;
     static double abss;
 
-    static integer oldm, jobu;
+    static int64 oldm, jobu;
     static double cosl;
-    static integer iter;
+    static int64 iter;
     static double temp, smin, smax, cosr, sinl, sinr;
 
     static double test;
 
-    static integer nctp1, nrtp1;
+    static int64 nctp1, nrtp1;
     static double f, g;
-    static integer i__, j, k, l, m;
+    static int64 i__, j, k, l, m;
     static double t;
 
     static double oldcs;
-    static integer oldll, iisub;
+    static int64 oldll, iisub;
     static double shift, oldsn, sigmn;
-    static integer minnp, maxit;
+    static int64 minnp, maxit;
     static double sminl;
 
     static double sigmx;
     static logical wantu, wantv;
     static double gg, lambda;
-    static integer oldacc;
+    static int64 oldacc;
     static double cs;
-    static integer ll, mm;
+    static int64 ll, mm;
     static double sm;
-    static integer lu;
+    static int64 lu;
     static double sn, mu;
 
     static double thresh;
 
-    static integer lm1, lp1, lll, nct, ncu;
+    static int64 lm1, lp1, lll, nct, ncu;
     static double sll;
-    static integer nrt;
+    static int64 nrt;
     static double emm1, smm1;
 
     /* Fortran I/O blocks */
@@ -4586,27 +4586,27 @@ logical lsame(char *ca, char *cb, integer ca_len, integer cb_len) {
     /*                   decomposition is to be computed.  x is */
     /*                   destroyed by dsvdc. */
 
-    /*         ldx       integer. */
+    /*         ldx       int64. */
     /*                   ldx is the leading dimension of the array x. */
 
-    /*         n         integer. */
+    /*         n         int64. */
     /*                   n is the number of rows of the matrix x. */
 
-    /*         p         integer. */
+    /*         p         int64. */
     /*                   p is the number of columns of the matrix x. */
 
-    /*         ldu       integer. */
+    /*         ldu       int64. */
     /*                   ldu is the leading dimension of the array u. */
     /*                   (see below). */
 
-    /*         ldv       integer. */
+    /*         ldv       int64. */
     /*                   ldv is the leading dimension of the array v. */
     /*                   (see below). */
 
     /*         work      double precision(n). */
     /*                   work is a scratch array. */
 
-    /*         job       integer. */
+    /*         job       int64. */
     /*                   job controls the computation of the singular */
     /*                   vectors.  it has the decimal expansion ab */
     /*                   with the following meaning */
@@ -5747,17 +5747,17 @@ L996:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int prse(integer *ll, integer *m, integer *nrow, integer *ncol,
+/* Subroutine */ int prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol,
                           double *s, double *e) {
     /* Format strings */
 
     /* System generated locals */
-    integer i__1;
+    int64 i__1;
 
     /* Builtin functions */
 
     /* Local variables */
-    static integer i__;
+    static int64 i__;
 
     /* Fortran I/O blocks */
 
@@ -5797,9 +5797,9 @@ L996:
     /* Local variables */
     static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl,
         sinl, cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
-    static integer ia;
+    static int64 ia;
     static double absbac;
-    static integer ib;
+    static int64 ib;
     static double as, at, au;
 
     static double bac;
@@ -6140,20 +6140,20 @@ double sigmin(double *a, double *b, double *c__) {
 
 /*  hqr3_loc.f orthes.f ortran.f   for computing triangular matrix */
 
-/* Subroutine */ int hqr3lc(double *a, double *v, integer *n,
-                            integer *nlow, integer *nup, double *eps,
-                            double *er, double *ei, integer *type__,
-                            integer *na, integer *nv, integer *imfd) {
+/* Subroutine */ int hqr3lc(double *a, double *v, int64 *n,
+                            int64 *nlow, int64 *nup, double *eps,
+                            double *er, double *ei, int64 *type__,
+                            int64 *na, int64 *nv, int64 *imfd) {
     /* System generated locals */
-    integer a_dim1, a_offset, v_dim1, v_offset, i__1;
+    int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
 
     /* Local variables */
     static logical fail;
-    static integer i__, l;
+    static int64 i__, l;
     static double p, q, r__, s, t, w, x, y, z__, e1, e2;
 
-    static integer nl, it, mu, nu;
+    static int64 nl, it, mu, nu;
     /* HQR3 REDUCES THE UPPER HESSENBERG MATRIX A TO QUASI- */
     /* TRIANGULAR FORM BY UNITARY SIMILARITY TRANSFORMATIONS. */
     /* THE EIGENVALUES OF A, WHICH ARE CONTAINED IN THE 1X1 */
@@ -6181,7 +6181,7 @@ double sigmin(double *a, double *b, double *c__) {
     /*             PARTS OF THE EIGENVALUES. */
     /*    *EI      AN ARRAY THAT ON RETURN CONTAINS THE */
     /*             IMAGINARY PARTS OF THE EIGENVALUES. */
-    /*    *TYPE    AN INTEGER ARRAY WHOSE I-TH ENTRY IS */
+    /*    *TYPE    AN int64 ARRAY WHOSE I-TH ENTRY IS */
     /*               0   IF THE I-TH EIGENVALUE IS REAL, */
     /*               1   IF THE I-TH EIGENVALUE IS COMPLEX */
     /*                   WITH POSITIVE IMAGINARY PART. */
@@ -6540,17 +6540,17 @@ L310:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int split(double *a, double *v, integer *n, integer *l,
-                           double *e1, double *e2, integer *na,
-                           integer *nv) {
+/* Subroutine */ int split(double *a, double *v, int64 *n, int64 *l,
+                           double *e1, double *e2, int64 *na,
+                           int64 *nv) {
     /* System generated locals */
-    integer a_dim1, a_offset, v_dim1, v_offset, i__1;
+    int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2;
 
     /* Local variables */
-    static integer i__, j;
+    static int64 i__, j;
     static double p, q, r__, t, u, w, x, y, z__;
-    static integer l1;
+    static int64 l1;
 
     /* GIVEN THE UPPER HESSENBERG MATRIX A WITH A 2X2 BLOCK */
     /* STARTING AT A(L,L), SPLIT DETERMINES IF THE */
@@ -6682,18 +6682,18 @@ L80:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int exchng(double *a, double *v, integer *n,
-                            integer *l, integer *b1, integer *b2,
-                            double *eps, logical *fail, integer *na,
-                            integer *nv) {
+/* Subroutine */ int exchng(double *a, double *v, int64 *n,
+                            int64 *l, int64 *b1, int64 *b2,
+                            double *eps, logical *fail, int64 *na,
+                            int64 *nv) {
     /* System generated locals */
-    integer a_dim1, a_offset, v_dim1, v_offset, i__1;
+    int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
 
     /* Local variables */
-    static integer i__, j, m;
+    static int64 i__, j, m;
     static double p, q, r__, s, w, x, y, z__;
-    static integer l1, it;
+    static int64 l1, it;
 
     /* GIVEN THE UPPER HESSENBERG MATRIX A WITH CONSECUTIVE */
     /* B1XB1 AND B2XB2 DIAGONAL BLOCKS (B1,B2 .LE. 2) */
@@ -6707,9 +6707,9 @@ L80:
     /*             ARE TO BE ACCUMULATED. */
     /*     N       THE ORDER OF THE MATRIX A. */
     /*     L       THE POSITION OF THE BLOCKS. */
-    /*     B1      AN INTEGER CONTAINING THE SIZE OF THE */
+    /*     B1      AN int64 CONTAINING THE SIZE OF THE */
     /*             FIRST BLOCK. */
-    /*     B2      AN INTEGER CONTAINING THE SIZE OF THE */
+    /*     B2      AN int64 CONTAINING THE SIZE OF THE */
     /*             SECOND BLOCK. */
     /*     EPS     A CONVERGENCE CRITERION (CF. HQR3). */
     /*    *FAIL    A LOGICAL VARIABLE WHICH IS FALSE ON A */
@@ -6855,17 +6855,17 @@ L90:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* Subroutine */ int qrstep(double *a, double *v, double *p,
-                            double *q, double *r__, integer *nl,
-                            integer *nu, integer *n, integer *na, integer *nv) {
+                            double *q, double *r__, int64 *nl,
+                            int64 *nu, int64 *n, int64 *na, int64 *nv) {
     /* System generated locals */
-    integer a_dim1, a_offset, v_dim1, v_offset, i__1, i__2;
+    int64 a_dim1, a_offset, v_dim1, v_offset, i__1, i__2;
     double d__1, d__2, d__3;
 
     /* Local variables */
     static logical last;
-    static integer i__, j, k;
+    static int64 i__, j, k;
     static double s, x, y, z__;
-    static integer nl2, nl3, num1;
+    static int64 nl2, nl3, num1;
 
     /* QRSTEP PERFORMS ONE IMPLICIT QR STEP ON THE */
     /* UPPER HESSENBERG MATRIX A.  THE SHIFT IS DETERMINED */
@@ -7010,17 +7010,17 @@ L30:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int orthes(integer *nm, integer *n, integer *low, integer *igh,
+/* Subroutine */ int orthes(int64 *nm, int64 *n, int64 *low, int64 *igh,
                             double *a, double *ort) {
     /* System generated locals */
-    integer a_dim1, a_offset, i__1, i__2, i__3;
+    int64 a_dim1, a_offset, i__1, i__2, i__3;
     double d__1;
 
     /* Local variables */
     static double f, g, h__;
-    static integer i__, j, m;
+    static int64 i__, j, m;
     static double scale;
-    static integer la, ii, jj, mp, kp1;
+    static int64 la, ii, jj, mp, kp1;
 
     /*     this subroutine is a translation of the algol procedure orthes, */
     /*     num. math. 12, 349-368(1968) by martin and wilkinson. */
@@ -7163,14 +7163,14 @@ L200:
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int ortran(integer *nm, integer *n, integer *low, integer *igh,
+/* Subroutine */ int ortran(int64 *nm, int64 *n, int64 *low, int64 *igh,
                             double *a, double *ort, double *z__) {
     /* System generated locals */
-    integer a_dim1, a_offset, z_dim1, z_offset, i__1, i__2, i__3;
+    int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2, i__3;
 
     /* Local variables */
     static double g;
-    static integer i__, j, kl, mm, mp, mp1;
+    static int64 i__, j, kl, mm, mp, mp1;
 
     /*     this subroutine is a translation of the algol procedure ortrans, */
     /*     num. math. 16, 181-204(1970) by peters and wilkinson. */
@@ -7320,7 +7320,7 @@ int get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
             printf(" %d %d %g %g \n", i, j, at[k], a[k]);
         }
     }
-    rg(n, n, at, wr, wi, 1, z, (integer *)iv1, fv1, (integer *)&ier);
+    rg(n, n, at, wr, wi, 1, z, (int64 *)iv1, fv1, (int64 *)&ier);
     j = -1;
     for (i = 0; i < n; i++)
         if ((fabs(wr[i]) < eps) && (wi[i] > 0))
@@ -7330,10 +7330,10 @@ int get_qp(double *a1, int n, double *qr, double *qi, double *pr, double *pi) {
         qr[i] = z[n * j + i];
         qi[i] = z[n * (j + 1) + i];
     }
-    /* rg(integer nm, integer n, double *a, double *wr, double *wi,
-     * integer matz, double *z__, integer *iv1, double *fv1, integer
+    /* rg(int64 nm, int64 n, double *a, double *wr, double *wi,
+     * int64 matz, double *z__, int64 *iv1, double *fv1, int64
      * *ierr) */
-    rg(n, n, a, wr, wi, 1, z, (integer *)iv1, fv1, (integer *)&ier);
+    rg(n, n, a, wr, wi, 1, z, (int64 *)iv1, fv1, (int64 *)&ier);
     j = -1;
     for (i = 0; i < n; i++)
         if ((fabs(wr[i]) < eps) && (wi[i] > 0))

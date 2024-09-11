@@ -19,10 +19,10 @@ int
 go_go_auto (void) /* this is the entry  at this point, xAuto has been set */
 {
     double time0, time1;
-    integer icp[NPARX2];
+    int64 icp[NPARX2];
     double par[NPARX2], thl[NPARX];
     double *thu;
-    integer iuz[100];
+    int64 iuz[100];
     double vuz[100];
     iap_type iap;
     rap_type rap;

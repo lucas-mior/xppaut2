@@ -29,26 +29,26 @@ static double time_end(double start) {
   routine for message passing*/
 
 void *conpar_process(void *arg) {
-    integer icf_dim1, irf_dim1, d_dim1;
-    integer a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
+    int64 icf_dim1, irf_dim1, d_dim1;
+    int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
 
     /* Local variables */
-    integer ipiv, jpiv, itmp;
+    int64 ipiv, jpiv, itmp;
     double tpiv;
-    integer i, l, k1, k2, m1, m2, ic, ir;
+    int64 i, l, k1, k2, m1, m2, ic, ir;
     double rm;
-    integer ir1, irp;
+    int64 ir1, irp;
     double piv;
-    integer icp1;
+    int64 icp1;
 
-    integer *nov, *nra, *nca;
+    int64 *nov, *nra, *nca;
     double *a;
-    integer *ncb;
+    int64 *ncb;
     double *b;
-    integer *nbc, *nrc;
+    int64 *nbc, *nrc;
     double *c, *d;
-    integer *irf, *icf;
-    integer loop_start, loop_end;
+    int64 *irf, *icf;
+    int64 loop_start, loop_end;
 
     nov = ((conpar_parallel_arglist *)arg)->nov;
     nra = ((conpar_parallel_arglist *)arg)->nra;
@@ -224,11 +224,11 @@ void *conpar_process(void *arg) {
     return NULL;
 }
 
-int conpar_default_wrapper(integer *nov, integer *na, integer *nra,
-                           integer *nca, double *a, integer *ncb,
-                           double *b, integer *nbc, integer *nrc,
-                           double *c, double *d, integer *irf,
-                           integer *icf)
+int conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra,
+                           int64 *nca, double *a, int64 *ncb,
+                           double *b, int64 *nbc, int64 *nrc,
+                           double *c, double *d, int64 *irf,
+                           int64 *icf)
 
 {
     conpar_parallel_arglist data;
@@ -250,15 +250,15 @@ int conpar_default_wrapper(integer *nov, integer *na, integer *nra,
     return 0;
 }
 
-int conpar(integer *nov, integer *na, integer *nra, integer *nca, double *a,
-           integer *ncb, double *b, integer *nbc, integer *nrc,
-           double *c, double *d, integer *irf, integer *icf) {
+int conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
+           int64 *ncb, double *b, int64 *nbc, int64 *nrc,
+           double *c, double *d, int64 *irf, int64 *icf) {
     /* Aliases for the dimensions of the arrays */
-    integer icf_dim1, irf_dim1;
+    int64 icf_dim1, irf_dim1;
 
     /* Local variables */
-    integer i, j;
-    integer nex;
+    int64 i, j;
+    int64 nex;
 
     /*<	      NEX=NCA-2*NOV >*/
     irf_dim1 = *nra;

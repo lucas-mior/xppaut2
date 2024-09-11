@@ -4,13 +4,13 @@
  * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL    *
  * Last Modified : 1 September 1994                               *
  *----------------------------------------------------------------*
- * This header file exports three types: real, integer, and bool  *
+ * This header file exports three types: real, int64, and bool  *
  * (short for boolean), as well as the constants TRUE and FALSE.  *
  *                                                                *
  * Users should #include "llnltyps.h" in any file that should     *
- * be easily modifiable to work with different real or integer    *
- * types and use the exported names real and integer within such  *
- * a file. The types for real and integer below have been set to  *
+ * be easily modifiable to work with different real or int64    *
+ * types and use the exported names real and int64 within such  *
+ * a file. The types for real and int64 below have been set to  *
  * double and int, respectively. A user should modify these       *
  * type declarations as he/she sees fit. For example, if a user   *
  * wants the work with type float because double precision        *
@@ -24,10 +24,10 @@
  * on type int and   int on your machine), then the user       *
  * should change the definition below to:                         *
  *                                                                *
- * typedef   int integer;                                      *
+ * typedef   int int64;                                      *
  *                                                                *
  * The constants FLOAT, DOUBLE, INT, LONG_INT indicate the        *
- * underlying types for real and integer. They should be set as   *
+ * underlying types for real and int64. They should be set as   *
  * follows:                                                       *
  *                                                                *
  * (1) #define FLOAT 1                                            *
@@ -37,13 +37,13 @@
  *     #define DOUBLE 1     (real is double)                      *
  *                                                                *
  * (3) #define INT 1                                              *
- *     #define LONG_INT 0   (integer is int)                      *
+ *     #define LONG_INT 0   (int64 is int)                      *
  *                                                                *
  * (4) #define INT 0                                              *
- *     #define LONG_INT 1   (integer is   int)                 *
+ *     #define LONG_INT 1   (int64 is   int)                 *
  *                                                                *
  * Thus the legal types for real are float and double, while      *
- * the legal types for integer are int and   int. The macro    *
+ * the legal types for int64 are int and   int. The macro    *
  * RCONST gives a user a convenient way to define real            *
  * constants. To use the real constant 1.0, for example, the      *
  * user should write                                              *
@@ -61,9 +61,9 @@
 
 /******************************************************************
  *                                                                *
- * Types : real, integer                                          *
+ * Types : real, int64                                          *
  *----------------------------------------------------------------*
- * The types real and integer are currently set to double and     *
+ * The types real and int64 are currently set to double and     *
  * int, respectively. See the documentation at the top for        *
  * usage details and a description of associated constants and    *
  * macros.                                                        *
@@ -71,7 +71,7 @@
  ******************************************************************/
 
 typedef double real;
-typedef int integer;
+typedef int int64;
 
 #define FLOAT 0
 #define DOUBLE 1

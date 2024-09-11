@@ -26,19 +26,19 @@ static double time_end(double start) {
 
 void *setubv_make_aa_bb_cc(void *arg) {
     /* System generated locals */
-    integer aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, ups_dim1,
+    int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, ups_dim1,
         uoldps_dim1, udotps_dim1, upoldp_dim1, dbc_dim1, dicd_dim1, wploc_dim1,
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
 
     /* Local variables */
-    integer i, j, k, l, m;
-    integer k1, l1;
-    integer i1, j1;
+    int64 i, j, k, l, m;
+    int64 k1, l1;
+    int64 i1, j1;
 
-    integer ib, ic, jj;
+    int64 ib, ic, jj;
     double dt;
-    integer ib1, ic1;
-    integer jp1;
+    int64 ib1, ic1;
+    int64 jp1;
     double ddt;
 
     setubv_parallel_arglist *larg = (setubv_parallel_arglist *)arg;
@@ -281,21 +281,21 @@ int setubv_default_wrapper(setubv_parallel_arglist data) {
     return 0;
 }
 
-int setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc,
-           integer nint, integer ncb, integer nrc, integer nra, integer nca,
+int setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc,
+           int64 nint, int64 ncb, int64 nrc, int64 nra, int64 nca,
            FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
-           integer ndxloc, iap_type *iap, rap_type *rap, double *par,
-           integer *icp, double rds, double *aa, double *bb,
+           int64 ndxloc, iap_type *iap, rap_type *rap, double *par,
+           int64 *icp, double rds, double *aa, double *bb,
            double *cc, double *dd, double *fa, double *fc,
            double *rlcur, double *rlold, double *rldot,
            double *ups, double *uoldps, double *udotps,
            double *upoldp, double *dups, double *dtm,
            double *thl, double *thu, double *p0, double *p1) {
     /* System generated locals */
-    integer aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
+    int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
     /* Local variables */
-    integer i, j, k;
+    int64 i, j, k;
 
     double *wi, *wp, *wt;
 
@@ -379,29 +379,29 @@ int setubv(integer ndim, integer ips, integer na, integer ncol, integer nbc,
 }
 
 void setubv_make_fa(setubv_parallel_arglist larg) {
-    integer i, j, k, l;
-    integer ic, k1, ib;
-    integer jj, jp1, l1, ic1;
+    int64 i, j, k, l;
+    int64 ic, k1, ib;
+    int64 jj, jp1, l1, ic1;
     double dt, ddt;
 
     double *ups = larg.ups;
-    integer ups_dim1 = larg.ndxloc;
+    int64 ups_dim1 = larg.ndxloc;
 
     double *uoldps = larg.uoldps;
-    integer uoldps_dim1 = larg.ndxloc;
+    int64 uoldps_dim1 = larg.ndxloc;
 
     double *wp = larg.wp;
-    integer wp_dim1 = larg.ncol + 1;
+    int64 wp_dim1 = larg.ncol + 1;
 
     double *wt = larg.wt;
-    integer wt_dim1 = larg.ncol + 1;
+    int64 wt_dim1 = larg.ncol + 1;
 
     double *fa = larg.fa;
-    integer fa_dim1 = larg.nra;
+    int64 fa_dim1 = larg.nra;
 
     double *wploc = (double *)malloc(sizeof(double) * (larg.ncol) *
                                              (larg.ncol + 1));
-    integer wploc_dim1 = larg.ncol + 1;
+    int64 wploc_dim1 = larg.ncol + 1;
 
     double *dfdp =
         (double *)malloc(sizeof(double) * (larg.ndim) * NPARX);
@@ -466,33 +466,33 @@ void setubv_make_fa(setubv_parallel_arglist larg) {
 
 void setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups,
                        double *rlcur, double *rlold, double rds) {
-    integer i, j, jj, jp1, k, i1, m, j1;
+    int64 i, j, jj, jp1, k, i1, m, j1;
     double rlsum;
 
-    integer dups_dim1 = larg.ndxloc;
+    int64 dups_dim1 = larg.ndxloc;
 
     double *dd = larg.dd;
-    integer dd_dim1 = larg.ncb;
+    int64 dd_dim1 = larg.ncb;
 
     double *ups = larg.ups;
-    integer ups_dim1 = larg.ndxloc;
+    int64 ups_dim1 = larg.ndxloc;
 
     double *uoldps = larg.uoldps;
-    integer uoldps_dim1 = larg.ndxloc;
+    int64 uoldps_dim1 = larg.ndxloc;
 
     double *udotps = larg.udotps;
-    integer udotps_dim1 = larg.ndxloc;
+    int64 udotps_dim1 = larg.ndxloc;
 
     double *upoldp = larg.upoldp;
-    integer upoldp_dim1 = larg.ndxloc;
+    int64 upoldp_dim1 = larg.ndxloc;
 
-    integer dbc_dim1 = larg.nbc;
+    int64 dbc_dim1 = larg.nbc;
     double *dbc = (double *)malloc(sizeof(double) * (larg.nbc) *
                                            (2 * larg.ndim + NPARX));
     double *fbc = (double *)malloc(sizeof(double) * (larg.nbc));
     double *ubc0 = (double *)malloc(sizeof(double) * (larg.ndim));
     double *ubc1 = (double *)malloc(sizeof(double) * (larg.ndim));
-    integer dicd_dim1 = larg.nint;
+    int64 dicd_dim1 = larg.nint;
     double *dicd = (double *)malloc(sizeof(double) * (larg.nint) *
                                             (larg.ndim + NPARX));
     double *ficd = (double *)malloc(sizeof(double) * (larg.nint));
@@ -597,10 +597,10 @@ void setubv_parallel_arglist_copy(setubv_parallel_arglist *output,
 
 /* Fill in a setubv_parallel_arglist for the individual variables */
 void setubv_parallel_arglist_constructor(
-    integer ndim, integer ips, integer na, integer ncol, integer nbc,
-    integer nint, integer ncb, integer nrc, integer nra, integer nca,
-    FUNI_TYPE((*funi)), ICNI_TYPE((*icni)), integer ndxloc, iap_type *iap,
-    rap_type *rap, double *par, integer *icp, double *aa,
+    int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc,
+    int64 nint, int64 ncb, int64 nrc, int64 nra, int64 nca,
+    FUNI_TYPE((*funi)), ICNI_TYPE((*icni)), int64 ndxloc, iap_type *iap,
+    rap_type *rap, double *par, int64 *icp, double *aa,
     double *bb, double *cc, double *dd, double *fa,
     double *fc, double *ups, double *uoldps, double *udotps,
     double *upoldp, double *dtm, double *wp, double *wt,

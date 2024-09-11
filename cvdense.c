@@ -46,7 +46,7 @@ typedef struct {
 
     DenseMat d_M; /* M = I - gamma J, gamma = h / l1        */
 
-    integer *d_pivots; /* pivots = pivot array for PM = LU       */
+    int64 *d_pivots; /* pivots = pivot array for PM = LU       */
 
     DenseMat d_savedJ; /* savedJ = old Jacobian                  */
 
@@ -84,14 +84,14 @@ static void CVDenseFree(CVodeMem cv_mem);
 
 **********************************************************************/
 
-void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real tn,
+void CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, real tn,
                   N_Vector y, N_Vector fy, N_Vector ewt, real h, real uround,
                   void *jac_data, int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
                   N_Vector vtemp3) {
     real fnorm, minInc, inc, inc_inv, yjsaved, srur;
     real *y_data, *ewt_data;
     N_Vector ftemp, jthCol;
-    integer j;
+    int64 j;
 
     ftemp = vtemp1; /* Rename work vector for use as f vector value */
 
@@ -278,7 +278,7 @@ static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
                         N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
     real dgamma;
-    integer ier;
+    int64 ier;
     CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;

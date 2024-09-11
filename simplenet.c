@@ -101,7 +101,7 @@ special f=interp(type,n,root)
         x \in [0,n)
         type =0 for linear (all that works now)
         root0,....rootn-1  are values at the integers
-        Like a table, but the integer values are variables
+        Like a table, but the int64 values are variables
 
 special f=findext(type,n,skip,root)
 if type=1  mx(0)=maximum mx(1)=index

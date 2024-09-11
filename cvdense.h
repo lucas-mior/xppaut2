@@ -7,7 +7,7 @@
  * This is the header file for the CVODE dense linear solver,     *
  * CVDENSE.                                                       *
  *                                                                *
- * Note: The type integer must be large enough to store the value *
+ * Note: The type int64 must be large enough to store the value *
  * of the linear system size N.                                   *
  *                                                                *
  ******************************************************************/
@@ -37,7 +37,7 @@
  * iopt[DENSE_LRW] : size (in real words) of real workspace       *
  *                   matrices and vectors used by this solver.    *
  *                                                                *
- * iopt[DENSE_LIW] : size (in integer words) of integer           *
+ * iopt[DENSE_LIW] : size (in int64 words) of int64           *
  *                   workspace vectors used by this solver.       *
  *                                                                *
  ******************************************************************/
@@ -130,7 +130,7 @@ enum { DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  *                                                                *
  ******************************************************************/
 
-typedef void (*CVDenseJacFn)(integer N, DenseMat J, RhsFn f, void *f_data,
+typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data,
                              real t, N_Vector y, N_Vector fy, N_Vector ewt,
                              real h, real uround, void *jac_data, int *nfePtr,
                              N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
@@ -167,7 +167,7 @@ void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
  *                                                                *
  ******************************************************************/
 
-void CVDenseDQJac(integer N, DenseMat J, RhsFn f, void *f_data, real t,
+void CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, real t,
                   N_Vector y, N_Vector fy, N_Vector ewt, real h, real uround,
                   void *jac_data, int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
                   N_Vector vtemp3);

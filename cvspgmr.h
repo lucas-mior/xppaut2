@@ -7,7 +7,7 @@
  * This is the header file for the CVODE scaled, preconditioned   *
  * GMRES linear solver, CVSPGMR.                                  *
  *                                                                *
- * Note: The type integer must be large enough to store the value *
+ * Note: The type int64 must be large enough to store the value *
  * of the linear system size N.                                   *
  *                                                                *
  ******************************************************************/
@@ -45,7 +45,7 @@
  *                    vectors and small matrices used by this     *
  *                    solver.                                     *
  *                                                                *
- * iopt[SPGMR_LIW]  : size (in integer words) of integer          *
+ * iopt[SPGMR_LIW]  : size (in int64 words) of int64          *
  *                    workspace vectors used by this solver.      *
  *                                                                *
  ******************************************************************/
@@ -145,7 +145,7 @@ enum {
  *         A Precond call with jok == TRUE can only occur after   *
  *         a call with jok == FALSE.                              *
  *                                                                *
- * jcurPtr is a pointer to an output integer flag which is        *
+ * jcurPtr is a pointer to an output int64 flag which is        *
  *         to be set by Precond as follows:                       *
  *         Set *jcurPtr = TRUE if Jacobian data was recomputed.   *
  *         Set *jcurPtr = FALSE if Jacobian data was not          *
@@ -184,7 +184,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef int (*CVSpgmrPrecondFn)(integer N, real t, N_Vector y, N_Vector fy,
+typedef int (*CVSpgmrPrecondFn)(int64 N, real t, N_Vector y, N_Vector fy,
                                 bool jok, bool *jcurPtr, real gamma,
                                 N_Vector ewt, real h, real uround, int *nfePtr,
                                 void *P_data, N_Vector vtemp1, N_Vector vtemp2,
@@ -251,7 +251,7 @@ typedef int (*CVSpgmrPrecondFn)(integer N, real t, N_Vector y, N_Vector fy,
  *                                                                *
  ******************************************************************/
 
-typedef int (*CVSpgmrPSolveFn)(integer N, real t, N_Vector y, N_Vector fy,
+typedef int (*CVSpgmrPSolveFn)(int64 N, real t, N_Vector y, N_Vector fy,
                                N_Vector vtemp, real gamma, N_Vector ewt,
                                real delta, int *nfePtr, N_Vector r, int lr,
                                void *P_data, N_Vector z);

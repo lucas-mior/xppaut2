@@ -28,7 +28,7 @@ static void FreeVectorArray(N_Vector *A, int indMax);
 
 /*************** SpgmrMalloc *****************************************/
 
-SpgmrMem SpgmrMalloc(integer N, int l_max, void *machEnv) {
+SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv) {
     SpgmrMem mem;
     N_Vector *V, xcor, vtemp;
     real **Hes, *givens, *yg;

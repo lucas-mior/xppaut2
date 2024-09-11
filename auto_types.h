@@ -4,15 +4,15 @@
 #ifndef AUTO_TYPES_H
 #define AUTO_TYPES_H
 typedef struct {
-    integer ndim, ips, ncol, nbc, nint, ncb, nrc, nra, nca,
+    int64 ndim, ips, ncol, nbc, nint, ncb, nrc, nra, nca,
         na;             /*scalar input */
     FUNI_TYPE((*funi)); /*scalar input*/
     ICNI_TYPE((*icni)); /*scalar input*/
-    integer ndxloc;     /*scalar input*/
+    int64 ndxloc;     /*scalar input*/
     iap_type *iap;      /*array input size: NIAP*/
     rap_type *rap;      /*array input size: NRAP*/
     double *par;    /*array input size: NPARX2*/
-    integer *icp;       /*array input size:  NPARX2*/
+    int64 *icp;       /*array input size:  NPARX2*/
     double *aa; /*array output (but must be initialized to 0) size: *nca X
                      *nra X *na */
     double *bb; /*array output (but must be initialized to 0) size: *ncb X
@@ -29,9 +29,9 @@ typedef struct {
     double *udotps;  /*array input size: *ndxloc X (*ndim X *ncol) */
     double *upoldp;  /*array input size: *ndxloc X (*ndim X *ncol) */
     double *dtm;     /*array input size: *na */
-    integer loop_start;  /*scalar input*/
-    integer loop_end;    /*scalar input*/
-    integer loop_offset; /*scalar input*/
+    int64 loop_start;  /*scalar input*/
+    int64 loop_end;    /*scalar input*/
+    int64 loop_offset; /*scalar input*/
     double *wp;      /*array input size: MCL2*MCL1 */
     double *wt;      /*array input size: MCL2*MCL1 */
     double *wi; /*array input size: MCL2*MCL1??? Not sure of this one yet */
@@ -45,16 +45,16 @@ typedef struct {
    Those values which are arrays and those
    which are input and output are markered as such*/
 typedef struct {
-    integer *nov, *nra, *nca; /*scalars input*/
+    int64 *nov, *nra, *nca; /*scalars input*/
     double *a;            /*array input and output size: nca X nra X na */
-    integer *ncb;             /*scalar input */
+    int64 *ncb;             /*scalar input */
     double *b;            /*array input and output size: ncb X nra X na*/
-    integer *nbc, *nrc;       /*scalar input */
+    int64 *nbc, *nrc;       /*scalar input */
     double *c;            /*array input and output size: nca X nrc X *na*/
     double *d;            /*array input and output size: ncb X nrc*/
-    integer *irf;             /*array input size: na X nra*/
-    integer *icf;             /*array input: na X nca*/
-    integer loop_start;       /*scalar input*/
-    integer loop_end;         /*scalar output*/
+    int64 *irf;             /*array input size: na X nra*/
+    int64 *icf;             /*array input: na X nca*/
+    int64 loop_start;       /*scalar input*/
+    int64 loop_end;         /*scalar output*/
 } conpar_parallel_arglist;
 #endif

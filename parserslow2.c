@@ -209,7 +209,7 @@ double (*fun2[50])(/* double,double */);
  *
  *
  *     parses any algebraic expression
- *     and converts to an integer array
+ *     and converts to an int64 array
  *     to be interpreted by the rpe_val
  *     function.
  *
@@ -1872,7 +1872,7 @@ do_delay (double delay, double i)
 
     int variable;
     /* ram - this was a little weird, since i is a double... except I think it's
-     * secretely an integer */
+     * secretely an int64 */
     variable = ((int)i) % MAXTYPE;
 
     if (del_stab_flag > 0) {

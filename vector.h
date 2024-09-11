@@ -21,7 +21,7 @@
  * Part II of this file contains the prototypes for the vector  *
  * kernels which operate on the type N_Vector. These prototypes *
  * are fixed for all implementations of the vector package. The *
- * definitions of the types real and integer are in the header  *
+ * definitions of the types real and int64 are in the header  *
  * file llnltyps.h and these may be changed according to the    *
  * user's needs. The llnltyps.h file also contains the          *
  * definition for the type bool (short for boolean) that is the *
@@ -65,7 +65,7 @@
  ***************************************************************/
 
 typedef struct {
-    integer length;
+    int64 length;
     real *data;
 } *N_Vector;
 
@@ -76,7 +76,7 @@ typedef struct {
  * In the descriptions below, the following user               *
  * declarations are assumed:                                   *
  *                                                             *
- * N_Vector v; real *v_data, r; integer v_len, i;              *
+ * N_Vector v; real *v_data, r; int64 v_len, i;              *
  *                                                             *
  * (1) N_VMAKE, N_VDISPOSE                                     *
  *                                                             *
@@ -176,7 +176,7 @@ typedef struct {
  *                                                             *
  ***************************************************************/
 
-N_Vector N_VNew(integer n, void *machEnv);
+N_Vector N_VNew(int64 n, void *machEnv);
 
 /***************************************************************
  *                                                             *

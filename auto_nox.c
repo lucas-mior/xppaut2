@@ -195,7 +195,7 @@ void auto_scroll_window();
 double atof();
 
 double outperiod[20];
-integer UzrPar[20];
+int64 UzrPar[20];
 int NAutoUzr;
 
 char *get_first();

@@ -304,16 +304,16 @@
 /********* BEGIN Private Helper Functions Prototypes **********/
 /**************************************************************/
 
-static bool CVAllocVectors(CVodeMem cv_mem, integer neq, int maxord,
+static bool CVAllocVectors(CVodeMem cv_mem, int64 neq, int maxord,
                            void *machEnv);
 static void CVFreeVectors(CVodeMem cv_mem, int maxord);
 
 static bool CVEwtSet(CVodeMem cv_mem, real *rtol, void *atol, int tol_type,
-                     N_Vector ycur, N_Vector ewtvec, integer neq);
+                     N_Vector ycur, N_Vector ewtvec, int64 neq);
 static bool CVEwtSetSS(CVodeMem cv_mem, real *rtol, real *atol, N_Vector ycur,
-                       N_Vector ewtvec, integer neq);
+                       N_Vector ewtvec, int64 neq);
 static bool CVEwtSetSV(CVodeMem cv_mem, real *rtol, N_Vector atol,
-                       N_Vector ycur, N_Vector ewtvec, integer neq);
+                       N_Vector ycur, N_Vector ewtvec, int64 neq);
 
 static bool CVHin(CVodeMem cv_mem, real tout);
 static real CVUpperBoundH0(CVodeMem cv_mem, real tdist);
@@ -451,7 +451,7 @@ static int CVHandleFailure(CVodeMem cv_mem, int kflag);
 
 *****************************************************************/
 
-void *CVodeMalloc(integer N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
+void *CVodeMalloc(int64 N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
                   int itol, real *reltol, void *abstol, void *f_data,
                   FILE *errfp, bool optIn, int iopt[], real ropt[],
                   void *machEnv) {
@@ -1032,12 +1032,12 @@ void CVodeFree(void *cvode_mem) {
  CVAllocVectors returns TRUE. Otherwise all allocated memory is freed
  and CVAllocVectors returns FALSE.
  This routine also sets the optional outputs lrw and liw, which are
- (respectively) the lengths of the real and integer work spaces
+ (respectively) the lengths of the real and int64 work spaces
  allocated here.
 
 **********************************************************************/
 
-static bool CVAllocVectors(CVodeMem cv_mem, integer neq, int maxord,
+static bool CVAllocVectors(CVodeMem cv_mem, int64 neq, int maxord,
                            void *machEnv) {
     int i, j;
 
@@ -1124,7 +1124,7 @@ static void CVFreeVectors(CVodeMem cv_mem, int maxord) {
 ***********************************************************************/
 
 static bool CVEwtSet(CVodeMem cv_mem, real *rtol, void *atol, int tol_type,
-                     N_Vector ycur, N_Vector ewtvec, integer neq) {
+                     N_Vector ycur, N_Vector ewtvec, int64 neq) {
     switch (tol_type) {
     case SS:
         return (CVEwtSetSS(cv_mem, rtol, (real *)atol, ycur, ewtvec, neq));
@@ -1145,7 +1145,7 @@ static bool CVEwtSet(CVodeMem cv_mem, real *rtol, void *atol, int tol_type,
 ********************************************************************/
 
 static bool CVEwtSetSS(CVodeMem cv_mem, real *rtol, real *atol, N_Vector ycur,
-                       N_Vector ewtvec, integer neq) {
+                       N_Vector ewtvec, int64 neq) {
     real rtoli, atoli;
 
     rtoli = *rtol;
@@ -1170,7 +1170,7 @@ static bool CVEwtSetSS(CVodeMem cv_mem, real *rtol, real *atol, N_Vector ycur,
 ********************************************************************/
 
 static bool CVEwtSetSV(CVodeMem cv_mem, real *rtol, N_Vector atol,
-                       N_Vector ycur, N_Vector ewtvec, integer neq) {
+                       N_Vector ycur, N_Vector ewtvec, int64 neq) {
     real rtoli;
 
     rtoli = *rtol;

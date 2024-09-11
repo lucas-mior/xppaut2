@@ -32,6 +32,6 @@ extern struct {
 
 /* The memory for these are taken care of in autobv_ and autoae_ */
 extern struct {
-    integer irtn;
-    integer *nrtn;
+    int64 irtn;
+    int64 *nrtn;
 } global_rotations;

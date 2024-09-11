@@ -7,7 +7,7 @@
  * This is the header file for the CVODE diagonal linear solver,  *
  * CVDIAG.                                                        *
  *                                                                *
- * Note: The type integer must be large enough to store the value *
+ * Note: The type int64 must be large enough to store the value *
  * of the linear system size N.                                   *
  *                                                                *
  ******************************************************************/
@@ -32,7 +32,7 @@
  * iopt[DIAG_LRW] : size (in real words) of real workspace        *
  *                  vectors used by this solver.                  *
  *                                                                *
- * iopt[DIAG_LIW] : size (in integer words) of integer            *
+ * iopt[DIAG_LIW] : size (in int64 words) of int64            *
  *                  workspace vectors used by this solver.        *
  *                                                                *
  * The number of diagonal approximate Jacobians formed is equal   *

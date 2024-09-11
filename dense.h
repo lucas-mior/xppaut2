@@ -78,7 +78,7 @@
  ******************************************************************/
 
 typedef struct {
-    integer size;
+    int64 size;
     real **data;
 } *DenseMat;
 
@@ -128,7 +128,7 @@ typedef struct {
  *                                                                *
  ******************************************************************/
 
-DenseMat DenseAllocMat(integer N);
+DenseMat DenseAllocMat(int64 N);
 
 /******************************************************************
  *                                                                *
@@ -145,7 +145,7 @@ DenseMat DenseAllocMat(integer N);
  *                                                                *
  ******************************************************************/
 
-integer *DenseAllocPiv(integer N);
+int64 *DenseAllocPiv(int64 N);
 
 /******************************************************************
  *                                                                *
@@ -177,7 +177,7 @@ integer *DenseAllocPiv(integer N);
  *                                                                *
  ******************************************************************/
 
-integer DenseFactor(DenseMat A, integer *p);
+int64 DenseFactor(DenseMat A, int64 *p);
 
 /******************************************************************
  *                                                                *
@@ -192,7 +192,7 @@ integer DenseFactor(DenseMat A, integer *p);
  *                                                                *
  ******************************************************************/
 
-void DenseBacksolve(DenseMat A, integer *p, N_Vector b);
+void DenseBacksolve(DenseMat A, int64 *p, N_Vector b);
 
 /******************************************************************
  *                                                                *
@@ -263,7 +263,7 @@ void DenseFreeMat(DenseMat A);
  *                                                                *
  ******************************************************************/
 
-void DenseFreePiv(integer *p);
+void DenseFreePiv(int64 *p);
 
 /******************************************************************
  *                                                                *
@@ -302,12 +302,12 @@ void DensePrint(DenseMat A);
  *                                                                *
  ******************************************************************/
 
-real **denalloc(integer n);
+real **denalloc(int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : denallocpiv                                         *
- * Usage    : integer *pivot;                                     *
+ * Usage    : int64 *pivot;                                     *
  *            pivot = denallocpiv(n);                             *
  *            if (pivot == NULL) ... memory request failed        *
  *----------------------------------------------------------------*
@@ -317,12 +317,12 @@ real **denalloc(integer n);
  *                                                                *
  ******************************************************************/
 
-integer *denallocpiv(integer n);
+int64 *denallocpiv(int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : gefa                                                *
- * Usage    : integer ier;                                        *
+ * Usage    : int64 ier;                                        *
  *            ier = gefa(a,n,p);                                  *
  *            if (ier > 0) ... zero element encountered during    *
  *                             the factorization                  *
@@ -351,7 +351,7 @@ integer *denallocpiv(integer n);
  *                                                                *
  ******************************************************************/
 
-integer gefa(real **a, integer n, integer *p);
+int64 gefa(real **a, int64 n, int64 *p);
 
 /******************************************************************
  *                                                                *
@@ -367,7 +367,7 @@ integer gefa(real **a, integer n, integer *p);
  *                                                                *
  ******************************************************************/
 
-void gesl(real **a, integer n, integer *p, real *b);
+void gesl(real **a, int64 n, int64 *p, real *b);
 
 /******************************************************************
  *                                                                *
@@ -379,7 +379,7 @@ void gesl(real **a, integer n, integer *p, real *b);
  *                                                                *
  ******************************************************************/
 
-void denzero(real **a, integer n);
+void denzero(real **a, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -391,7 +391,7 @@ void denzero(real **a, integer n);
  *                                                                *
  ******************************************************************/
 
-void dencopy(real **a, real **b, integer n);
+void dencopy(real **a, real **b, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -403,7 +403,7 @@ void dencopy(real **a, real **b, integer n);
  *                                                                *
  ******************************************************************/
 
-void denscale(real c, real **a, integer n);
+void denscale(real c, real **a, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -415,7 +415,7 @@ void denscale(real c, real **a, integer n);
  *                                                                *
  ******************************************************************/
 
-void denaddI(real **a, integer n);
+void denaddI(real **a, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -427,7 +427,7 @@ void denaddI(real **a, integer n);
  *                                                                *
  ******************************************************************/
 
-void denfreepiv(integer *p);
+void denfreepiv(int64 *p);
 
 /******************************************************************
  *                                                                *
@@ -453,6 +453,6 @@ void denfree(real **a);
  *                                                                *
  ******************************************************************/
 
-void denprint(real **a, integer n);
+void denprint(real **a, int64 n);
 
 #endif

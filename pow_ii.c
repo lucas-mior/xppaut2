@@ -1,13 +1,13 @@
 #include "auto_f2c.h"
 
 #ifdef KR_headers
-integer pow_ii(ap, bp)
-integer ap, bp;
+int64 pow_ii(ap, bp)
+int64 ap, bp;
 #else
-integer pow_ii(integer ap, integer bp)
+int64 pow_ii(int64 ap, int64 bp)
 #endif
 {
-    integer pow, x, n;
+    int64 pow, x, n;
     unsigned long u;
 
     x = ap;

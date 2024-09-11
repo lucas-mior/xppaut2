@@ -8,16 +8,17 @@
 #define F2C_INCLUDE
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <math.h>
 
-typedef long int integer;
+typedef int64_t int64;
 typedef struct {
     float r, i;
 } complex;
 typedef struct {
     double r, i;
 } doublecomplex;
-typedef integer logical;
+typedef int64 logical;
 
 #define TRUE_ (1)
 #define FALSE_ (0)
@@ -53,15 +54,15 @@ double d_sign(double a, double b);
 /* etime_.c */
 double etime(float *tarray);
 /* i_dnnt.c */
-integer i_dnnt(double *x);
+int64 i_dnnt(double *x);
 /* i_nint.c */
-integer i_nint(float *x);
+int64 i_nint(float *x);
 /* pow_dd.c */
 double pow_dd(double *ap, double *bp);
 /* pow_di.c */
-double pow_di(double *ap, integer *bp);
+double pow_di(double *ap, int64 *bp);
 /* pow_ii.c */
-integer pow_ii(integer ap, integer bp);
+int64 pow_ii(int64 ap, int64 bp);
 /* r_lg10.c */
 double r_lg10(float x);
 /* z_abs.c */
