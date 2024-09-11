@@ -38,7 +38,7 @@
 
 typedef struct {
 
-    real di_gammasv; /* gammasv = gamma at the last call to setup */
+    double di_gammasv; /* gammasv = gamma at the last call to setup */
                      /* or solve                                  */
 
     N_Vector di_M; /* M = (I - gamma J)^{-1} , gamma = h / l1   */
@@ -187,7 +187,7 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 static int
 CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    real r;
+    double r;
     N_Vector ftemp, y;
     bool invOK;
     CVDiagMem cvdiag_mem;
@@ -241,7 +241,7 @@ CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
 static int
 CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     bool invOK;
-    real r;
+    double r;
     CVDiagMem cvdiag_mem;
 
     cvdiag_mem = (CVDiagMem)lmem;

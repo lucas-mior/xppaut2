@@ -57,10 +57,10 @@ typedef struct {
 
     int g_pretype; /* type of preconditioning                      */
     int g_gstype;  /* type of Gram-Schmidt orthogonalization       */
-    real g_srqtN;  /* sqrt(N)                                      */
-    real g_delt;   /* delt = user specified or DELT_DEFAULT        */
-    real g_deltar; /* deltar = delt * tq4                          */
-    real g_delta;  /* delta = deltar * sqrtN                       */
+    double g_srqtN;  /* sqrt(N)                                      */
+    double g_delt;   /* delt = user specified or DELT_DEFAULT        */
+    double g_deltar; /* deltar = delt * tq4                          */
+    double g_delta;  /* delta = deltar * sqrtN                       */
     int g_maxl;    /* maxl = maximum dimension of the Krylov space */
 
     int g_nstlpre; /* value of nst at the last precond call       */
@@ -167,7 +167,7 @@ static int CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int lr);
 **********************************************************************/
 
 void
-CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
+CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, double delt,
         CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
 
 {
@@ -306,7 +306,7 @@ static int
 CVSpgmrSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
              bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
-    real dgamma;
+    double dgamma;
     int ier;
     CVSpgmrMem cvspgmr_mem;
 
@@ -359,7 +359,7 @@ CVSpgmrSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
 
 static int
 CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
-    real bnorm, res_norm;
+    double bnorm, res_norm;
     CVSpgmrMem cvspgmr_mem;
     int nli_inc, nps_inc, ier;
 
@@ -438,7 +438,7 @@ CVSpgmrFree(CVodeMem cv_mem) {
 
 static int
 CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
-    real rho;
+    double rho;
     CVodeMem cv_mem;
     CVSpgmrMem cvspgmr_mem;
 

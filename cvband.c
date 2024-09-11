@@ -95,13 +95,13 @@ static void CVBandFree(CVodeMem cv_mem);
 
 void
 CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
-            void *f_data, real tn, N_Vector y, N_Vector fy, N_Vector ewt,
-            real h, real uround, void *jac_data, int *nfePtr, N_Vector vtemp1,
+            void *f_data, double tn, N_Vector y, N_Vector fy, N_Vector ewt,
+            double h, double uround, void *jac_data, int *nfePtr, N_Vector vtemp1,
             N_Vector vtemp2, N_Vector vtemp3) {
-    real fnorm, minInc, inc, inc_inv, srur;
+    double fnorm, minInc, inc, inc_inv, srur;
     N_Vector ftemp, ytemp;
     int64 group, i, j, width, ngroups, i1, i2;
-    real *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
+    double *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
 
     /* Rename work vectors for use as temporary values of y and f */
     ftemp = vtemp1;
@@ -323,7 +323,7 @@ static int
 CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
-    real dgamma;
+    double dgamma;
     int64 ier;
     CVBandMem cvband_mem;
 

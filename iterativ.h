@@ -136,7 +136,7 @@ typedef int (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int lr);
  *                                                                *
  ******************************************************************/
 
-int ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm);
+int ModifiedGS(N_Vector *v, double **h, int k, int p, double *new_vk_norm);
 
 /******************************************************************
  *                                                                *
@@ -158,8 +158,8 @@ int ModifiedGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm);
  *                                                                *
  ******************************************************************/
 
-int ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
-                N_Vector temp, real *s);
+int ClassicalGS(N_Vector *v, double **h, int k, int p, double *new_vk_norm,
+                N_Vector temp, double *s);
 
 /******************************************************************
  *                                                                *
@@ -193,7 +193,7 @@ int ClassicalGS(N_Vector *v, real **h, int k, int p, real *new_vk_norm,
  *                                                                *
  ******************************************************************/
 
-int QRfact(int n, real **h, real *q, int job);
+int QRfact(int n, double **h, double *q, int job);
 
 /******************************************************************
  *                                                                *
@@ -227,6 +227,6 @@ int QRfact(int n, real **h, real *q, int job);
  *                                                                *
  ******************************************************************/
 
-int QRsol(int n, real **h, real *q, real *b);
+int QRsol(int n, double **h, double *q, double *b);
 
 #endif

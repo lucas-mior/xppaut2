@@ -41,7 +41,7 @@
  *                                                                *
  * iopt[SPGMR_NCFL] : number of linear convergence failures.      *
  *                                                                *
- * iopt[SPGMR_LRW]  : size (in real words) of real workspace      *
+ * iopt[SPGMR_LRW]  : size (in double words) of double workspace      *
  *                    vectors and small matrices used by this     *
  *                    solver.                                     *
  *                                                                *
@@ -184,9 +184,9 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef int (*CVSpgmrPrecondFn)(int64 N, real t, N_Vector y, N_Vector fy,
-                                bool jok, bool *jcurPtr, real gamma,
-                                N_Vector ewt, real h, real uround, int *nfePtr,
+typedef int (*CVSpgmrPrecondFn)(int64 N, double t, N_Vector y, N_Vector fy,
+                                bool jok, bool *jcurPtr, double gamma,
+                                N_Vector ewt, double h, double uround, int *nfePtr,
                                 void *P_data, N_Vector vtemp1, N_Vector vtemp2,
                                 N_Vector vtemp3);
 
@@ -251,9 +251,9 @@ typedef int (*CVSpgmrPrecondFn)(int64 N, real t, N_Vector y, N_Vector fy,
  *                                                                *
  ******************************************************************/
 
-typedef int (*CVSpgmrPSolveFn)(int64 N, real t, N_Vector y, N_Vector fy,
-                               N_Vector vtemp, real gamma, N_Vector ewt,
-                               real delta, int *nfePtr, N_Vector r, int lr,
+typedef int (*CVSpgmrPSolveFn)(int64 N, double t, N_Vector y, N_Vector fy,
+                               N_Vector vtemp, double gamma, N_Vector ewt,
+                               double delta, int *nfePtr, N_Vector r, int lr,
                                void *P_data, N_Vector z);
 
 /******************************************************************
@@ -314,7 +314,7 @@ typedef int (*CVSpgmrPSolveFn)(int64 N, real t, N_Vector y, N_Vector fy,
  *                                                                *
  ******************************************************************/
 
-void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, real delt,
+void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, double delt,
              CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data);
 
 #endif

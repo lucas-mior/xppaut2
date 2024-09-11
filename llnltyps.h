@@ -4,20 +4,20 @@
  * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL    *
  * Last Modified : 1 September 1994                               *
  *----------------------------------------------------------------*
- * This header file exports three types: real, int64, and bool  *
+ * This header file exports three types: double, int64, and bool  *
  * (short for boolean), as well as the constants TRUE and FALSE.  *
  *                                                                *
  * Users should #include "llnltyps.h" in any file that should     *
- * be easily modifiable to work with different real or int64    *
- * types and use the exported names real and int64 within such  *
- * a file. The types for real and int64 below have been set to  *
+ * be easily modifiable to work with different double or int64    *
+ * types and use the exported names double and int64 within such  *
+ * a file. The types for double and int64 below have been set to  *
  * double and int, respectively. A user should modify these       *
  * type declarations as he/she sees fit. For example, if a user   *
  * wants the work with type float because double precision        *
  * floating point arithmetic is too expensive on the user's       *
  * machine, then the definition below should be changed to:       *
  *                                                                *
- * typedef float real;                                            *
+ * typedef float double;                                            *
  *                                                                *
  * Similarly, if a user needs to work with extremely large        *
  * integers (see the system header file <limits.h> for the limits *
@@ -27,14 +27,14 @@
  * typedef   int int64;                                      *
  *                                                                *
  * The constants FLOAT, DOUBLE, INT, LONG_INT indicate the        *
- * underlying types for real and int64. They should be set as   *
+ * underlying types for double and int64. They should be set as   *
  * follows:                                                       *
  *                                                                *
  * (1) #define FLOAT 1                                            *
- *     #define DOUBLE 0     (real is float)                       *
+ *     #define DOUBLE 0     (double is float)                       *
  *                                                                *
  * (2) #define FLOAT 0                                            *
- *     #define DOUBLE 1     (real is double)                      *
+ *     #define DOUBLE 1     (double is double)                      *
  *                                                                *
  * (3) #define INT 1                                              *
  *     #define LONG_INT 0   (int64 is int)                      *
@@ -42,17 +42,17 @@
  * (4) #define INT 0                                              *
  *     #define LONG_INT 1   (int64 is   int)                 *
  *                                                                *
- * Thus the legal types for real are float and double, while      *
+ * Thus the legal types for double are float and double, while      *
  * the legal types for int64 are int and   int. The macro    *
- * RCONST gives a user a convenient way to define real            *
- * constants. To use the real constant 1.0, for example, the      *
+ * RCONST gives a user a convenient way to define double            *
+ * constants. To use the double constant 1.0, for example, the      *
  * user should write                                              *
  *                                                                *
  * #define ONE RCONST(1.0)                                        *
  *                                                                *
- * If real is double, then RCONST(1.0) expands to 1.0. If real is *
+ * If double is double, then RCONST(1.0) expands to 1.0. If double is *
  * float, then RCONST(1.0) expands to 1.0F. There is never a      *
- * need to explicitely cast 1.0 to (real).                        *
+ * need to explicitely cast 1.0 to (double).                        *
  *                                                                *
  ******************************************************************/
 
@@ -61,16 +61,15 @@
 
 /******************************************************************
  *                                                                *
- * Types : real, int64                                          *
+ * Types : double, int64                                          *
  *----------------------------------------------------------------*
- * The types real and int64 are currently set to double and     *
+ * The types double and int64 are currently set to double and     *
  * int, respectively. See the documentation at the top for        *
  * usage details and a description of associated constants and    *
  * macros.                                                        *
  *                                                                *
  ******************************************************************/
 
-typedef double real;
 typedef int int64;
 
 #define FLOAT 0

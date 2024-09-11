@@ -5,7 +5,7 @@
 #include "ggets.h"
 #include <stdio.h>
 #include <string.h>
-#include "llnltyps.h" /* definitions of types real (set to double) and     */
+#include "llnltyps.h" /* definitions of types double (set to double) and     */
                       /* int64 (set to int), and the constant FALSE      */
 #include "cvode.h"    /* prototypes for CVodeMalloc, CVode, and CVodeFree, */
                       /* constants OPT_SIZE, BDF, NEWTON, SV, SUCCESS,     */

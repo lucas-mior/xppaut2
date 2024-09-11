@@ -72,10 +72,10 @@ typedef struct {
     int l_max;
 
     N_Vector *V;
-    real **Hes;
-    real *givens;
+    double **Hes;
+    double *givens;
     N_Vector xcor;
-    real *yg;
+    double *yg;
     N_Vector vtemp;
 
 } SpgmrMemRec, *SpgmrMem;
@@ -185,9 +185,9 @@ SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv);
  ******************************************************************/
 
 int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
-               int gstype, real delta, int max_restarts, void *P_data,
+               int gstype, double delta, int max_restarts, void *P_data,
                N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
-               real *res_norm, int *nli, int *nps);
+               double *res_norm, int *nli, int *nps);
 
 /* Return values for SpgmrSolve */
 

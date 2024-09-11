@@ -8,7 +8,7 @@
  * This is the header file for a generic DENSE linear solver      *
  * package. There are two sets of dense solver routines listed in *
  * this file: one set uses type DenseMat defined below and the    *
- * other set uses the type real ** for dense matrix arguments.    *
+ * other set uses the type double ** for dense matrix arguments.    *
  * The two sets of dense solver routines make it easy to work     *
  * with two types of dense matrices:                              *
  *                                                                *
@@ -20,7 +20,7 @@
  *     then all the routines that use DenseMat must be modified   *
  *     to reflect the new data structure.                         *
  *                                                                *
- * (2) The set of routines that use real ** (and NOT the DenseMat *
+ * (2) The set of routines that use double ** (and NOT the DenseMat *
  *     type) is intended for use with small matrices which can    *
  *     easily be allocated within a contiguous block of memory    *
  *     on a single processor.                                     *
@@ -41,7 +41,7 @@
  * implementation of DenseBacksolve may need to change if the     *
  * type N_Vector is changed.                                      *
  *                                                                *
- * Routines that work with real ** begin with "den" (except for   *
+ * Routines that work with double ** begin with "den" (except for   *
  * the factor and solve routines which are called gefa and gesl,  *
  * respectively). The underlying matrix storage is described in   *
  * the documentation for denalloc.                                *
@@ -79,7 +79,7 @@
 
 typedef struct {
     int64 size;
-    real **data;
+    double **data;
 } *DenseMat;
 
 /* DenseMat accessor macros */
@@ -104,7 +104,7 @@ typedef struct {
  *----------------------------------------------------------------*
  * DENSE_COL(A,j) references the jth column of the N by N         *
  * DenseMat A, 0 <= j <= N-1. The type of the expression          *
- * DENSE_COL(A,j) is real *. After the assignment in the usage    *
+ * DENSE_COL(A,j) is double *. After the assignment in the usage    *
  * above, col_j may be treated as an array indexed from 0 to N-1. *
  * The (i,j)th element of A is referenced by col_j[i].            *
  *                                                                *
@@ -227,7 +227,7 @@ void DenseCopy(DenseMat A, DenseMat B);
  *                                                                *
  ******************************************************************/
 
-void DenseScale(real c, DenseMat A);
+void DenseScale(double c, DenseMat A);
 
 /******************************************************************
  *                                                                *
@@ -280,12 +280,12 @@ void DenseFreePiv(int64 *p);
 
 void DensePrint(DenseMat A);
 
-/* Functions that use the real ** representation for a dense matrix */
+/* Functions that use the double ** representation for a dense matrix */
 
 /******************************************************************
  *                                                                *
  * Function : denalloc                                            *
- * Usage    : real **a;                                           *
+ * Usage    : double **a;                                           *
  *            a = denalloc(n);                                    *
  *            if (a == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
@@ -293,7 +293,7 @@ void DensePrint(DenseMat A);
  * returns a pointer to the newly allocated storage if            *
  * successful. If the memory request cannot be satisfied, then    *
  * denalloc returns NULL. The underlying type of the dense matrix *
- * returned is real **. If we allocate a dense matrix real **a by *
+ * returned is double **. If we allocate a dense matrix double **a by *
  * a = denalloc(n), then a[j][i] references the (i,j)th element   *
  * of the matrix a, 0 <= i,j <= n-1, and a[j] is a pointer to the *
  * first element in the jth column of a. The location a[0]        *
@@ -302,7 +302,7 @@ void DensePrint(DenseMat A);
  *                                                                *
  ******************************************************************/
 
-real **denalloc(int64 n);
+double **denalloc(int64 n);
 
 /******************************************************************
  *                                                                *
@@ -351,12 +351,12 @@ int64 *denallocpiv(int64 n);
  *                                                                *
  ******************************************************************/
 
-int64 gefa(real **a, int64 n, int64 *p);
+int64 gefa(double **a, int64 n, int64 *p);
 
 /******************************************************************
  *                                                                *
  * Function : gesl                                                *
- * Usage    : real *b;                                            *
+ * Usage    : double *b;                                            *
  *            ier = gefa(a,n,p);                                  *
  *            if (ier == 0) gesl(a,n,p,b);                        *
  *----------------------------------------------------------------*
@@ -367,7 +367,7 @@ int64 gefa(real **a, int64 n, int64 *p);
  *                                                                *
  ******************************************************************/
 
-void gesl(real **a, int64 n, int64 *p, real *b);
+void gesl(double **a, int64 n, int64 *p, double *b);
 
 /******************************************************************
  *                                                                *
@@ -379,7 +379,7 @@ void gesl(real **a, int64 n, int64 *p, real *b);
  *                                                                *
  ******************************************************************/
 
-void denzero(real **a, int64 n);
+void denzero(double **a, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -391,7 +391,7 @@ void denzero(real **a, int64 n);
  *                                                                *
  ******************************************************************/
 
-void dencopy(real **a, real **b, int64 n);
+void dencopy(double **a, double **b, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -403,7 +403,7 @@ void dencopy(real **a, real **b, int64 n);
  *                                                                *
  ******************************************************************/
 
-void denscale(real c, real **a, int64 n);
+void denscale(double c, double **a, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -415,7 +415,7 @@ void denscale(real c, real **a, int64 n);
  *                                                                *
  ******************************************************************/
 
-void denaddI(real **a, int64 n);
+void denaddI(double **a, int64 n);
 
 /******************************************************************
  *                                                                *
@@ -438,7 +438,7 @@ void denfreepiv(int64 *p);
  *                                                                *
  ******************************************************************/
 
-void denfree(real **a);
+void denfree(double **a);
 
 /******************************************************************
  *                                                                *
@@ -453,6 +453,6 @@ void denfree(real **a);
  *                                                                *
  ******************************************************************/
 
-void denprint(real **a, int64 n);
+void denprint(double **a, int64 n);
 
 #endif

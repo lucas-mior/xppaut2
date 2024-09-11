@@ -29,7 +29,7 @@
  * the iopt and ropt arrays passed to CVodeMalloc.                *
  * The CVDIAG statistics are:                                     *
  *                                                                *
- * iopt[DIAG_LRW] : size (in real words) of real workspace        *
+ * iopt[DIAG_LRW] : size (in double words) of double workspace        *
  *                  vectors used by this solver.                  *
  *                                                                *
  * iopt[DIAG_LIW] : size (in int64 words) of int64            *

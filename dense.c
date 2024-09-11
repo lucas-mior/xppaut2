@@ -73,7 +73,7 @@ DenseCopy(DenseMat A, DenseMat B) {
 }
 
 void
-DenseScale(real c, DenseMat A) {
+DenseScale(double c, DenseMat A) {
     denscale(c, A->data, A->size);
 }
 
@@ -98,19 +98,19 @@ DensePrint(DenseMat A) {
     denprint(A->data, A->size);
 }
 
-real **
+double **
 denalloc(int64 n) {
     int64 j;
-    real **a;
+    double **a;
 
     if (n <= 0)
         return (NULL);
 
-    a = (real **)malloc(n * sizeof(real *));
+    a = (double **)malloc(n * sizeof(double *));
     if (a == NULL)
         return (NULL);
 
-    a[0] = (real *)malloc(n * n * sizeof(real));
+    a[0] = (double *)malloc(n * n * sizeof(double));
     if (a[0] == NULL) {
         free(a);
         return (NULL);
@@ -131,10 +131,10 @@ denallocpiv(int64 n) {
 }
 
 int64
-gefa(real **a, int64 n, int64 *p) {
+gefa(double **a, int64 n, int64 *p) {
     int64 i, j, k, l;
-    real *col_j, *col_k, *diag_k;
-    real temp, mult, a_kj;
+    double *col_j, *col_k, *diag_k;
+    double temp, mult, a_kj;
     bool swap;
 
     /* k = elimination step number */
@@ -214,9 +214,9 @@ gefa(real **a, int64 n, int64 *p) {
 }
 
 void
-gesl(real **a, int64 n, int64 *p, real *b) {
+gesl(double **a, int64 n, int64 *p, double *b) {
     int64 k, l, i;
-    real mult, *col_k;
+    double mult, *col_k;
 
     /* Solve Ly = Pb, store solution y in b */
 
@@ -244,9 +244,9 @@ gesl(real **a, int64 n, int64 *p, real *b) {
 }
 
 void
-denzero(real **a, int64 n) {
+denzero(double **a, int64 n) {
     int64 i, j;
-    real *col_j;
+    double *col_j;
 
     for (j = 0; j < n; j++) {
         col_j = a[j];
@@ -256,9 +256,9 @@ denzero(real **a, int64 n) {
 }
 
 void
-dencopy(real **a, real **b, int64 n) {
+dencopy(double **a, double **b, int64 n) {
     int64 i, j;
-    real *a_col_j, *b_col_j;
+    double *a_col_j, *b_col_j;
 
     for (j = 0; j < n; j++) {
         a_col_j = a[j];
@@ -269,9 +269,9 @@ dencopy(real **a, real **b, int64 n) {
 }
 
 void
-denscale(real c, real **a, int64 n) {
+denscale(double c, double **a, int64 n) {
     int64 i, j;
-    real *col_j;
+    double *col_j;
 
     for (j = 0; j < n; j++) {
         col_j = a[j];
@@ -281,7 +281,7 @@ denscale(real c, real **a, int64 n) {
 }
 
 void
-denaddI(real **a, int64 n) {
+denaddI(double **a, int64 n) {
     int64 i;
 
     for (i = 0; i < n; i++)
@@ -294,13 +294,13 @@ denfreepiv(int64 *p) {
 }
 
 void
-denfree(real **a) {
+denfree(double **a) {
     free(a[0]);
     free(a);
 }
 
 void
-denprint(real **a, int64 n) {
+denprint(double **a, int64 n) {
     int64 i, j;
 
     plintf("\n");

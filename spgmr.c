@@ -32,7 +32,7 @@ SpgmrMem
 SpgmrMalloc(int64 N, int l_max, void *machEnv) {
     SpgmrMem mem;
     N_Vector *V, xcor, vtemp;
-    real **Hes, *givens, *yg;
+    double **Hes, *givens, *yg;
     int k, i;
 
     /* Check the input parameters */
@@ -56,14 +56,14 @@ SpgmrMalloc(int64 N, int l_max, void *machEnv) {
 
     /* Get memory for the Hessenberg matrix Hes */
 
-    Hes = (real **)malloc((l_max + 1) * sizeof(real *));
+    Hes = (double **)malloc((l_max + 1) * sizeof(double *));
     if (Hes == NULL) {
         FreeVectorArray(V, l_max);
         return (NULL);
     }
 
     for (k = 0; k <= l_max; k++) {
-        Hes[k] = (real *)malloc(l_max * sizeof(real));
+        Hes[k] = (double *)malloc(l_max * sizeof(double));
         if (Hes[k] == NULL) {
             for (i = 0; i < k; i++)
                 free(Hes[i]);
@@ -74,7 +74,7 @@ SpgmrMalloc(int64 N, int l_max, void *machEnv) {
 
     /* Get memory for Givens rotation components */
 
-    givens = (real *)malloc(2 * l_max * sizeof(real));
+    givens = (double *)malloc(2 * l_max * sizeof(double));
     if (givens == NULL) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -95,7 +95,7 @@ SpgmrMalloc(int64 N, int l_max, void *machEnv) {
 
     /* Get memory to hold SPGMR y and g vectors */
 
-    yg = (real *)malloc((l_max + 1) * sizeof(real));
+    yg = (double *)malloc((l_max + 1) * sizeof(double));
     if (yg == NULL) {
         N_VFree(xcor);
         free(givens);
@@ -152,13 +152,13 @@ SpgmrMalloc(int64 N, int l_max, void *machEnv) {
 
 int
 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
-           int gstype, real delta, int max_restarts, void *P_data, N_Vector sx,
-           N_Vector sb, ATimesFn atimes, PSolveFn psolve, real *res_norm,
+           int gstype, double delta, int max_restarts, void *P_data, N_Vector sx,
+           N_Vector sb, ATimesFn atimes, PSolveFn psolve, double *res_norm,
            int *nli, int *nps) {
     N_Vector *V, xcor, vtemp;
-    real **Hes, *givens, *yg;
-    /*real s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
-    real beta, rotation_product, r_norm, s_product, rho = 0.0;
+    double **Hes, *givens, *yg;
+    /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
+    double beta, rotation_product, r_norm, s_product, rho = 0.0;
     bool preOnLeft, preOnRight, scale_x, scale_b, converged;
     int i, j, k, l, l_plus_1, l_max, krydim = 0, ier, ntries;
 
@@ -428,7 +428,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
 void
 SpgmrFree(SpgmrMem mem) {
     int i, l_max;
-    real **Hes;
+    double **Hes;
 
     if (mem == NULL)
         return;

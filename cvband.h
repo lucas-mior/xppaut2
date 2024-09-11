@@ -36,7 +36,7 @@
  *                  calls made to the band Jacobian routine       *
  *                  (default or user-supplied).                   *
  *                                                                *
- * iopt[BAND_LRW] : size (in real words) of real workspace        *
+ * iopt[BAND_LRW] : size (in double words) of double workspace        *
  *                  matrices and vectors used by this solver.     *
  *                                                                *
  * iopt[BAND_LIW] : size (in int64 words) of int64            *
@@ -156,8 +156,8 @@ enum {
  ******************************************************************/
 
 typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
-                            RhsFn f, void *f_data, real t, N_Vector y,
-                            N_Vector fy, N_Vector ewt, real h, real uround,
+                            RhsFn f, void *f_data, double t, N_Vector y,
+                            N_Vector fy, N_Vector ewt, double h, double uround,
                             void *jac_data, int *nfePtr, N_Vector vtemp1,
                             N_Vector vtemp2, N_Vector vtemp3);
 
@@ -202,8 +202,8 @@ void CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
  ******************************************************************/
 
 void CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
-                 void *f_data, real t, N_Vector y, N_Vector fy, N_Vector ewt,
-                 real h, real uround, void *jac_data, int *nfePtr,
+                 void *f_data, double t, N_Vector y, N_Vector fy, N_Vector ewt,
+                 double h, double uround, void *jac_data, int *nfePtr,
                  N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
 #endif

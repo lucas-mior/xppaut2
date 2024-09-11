@@ -107,7 +107,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef void (*RhsFn)(int64 N, real t, N_Vector y, N_Vector ydot, void *f_data);
+typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot, void *f_data);
 
 /******************************************************************
  *                                                                *
@@ -167,9 +167,9 @@ typedef void (*RhsFn)(int64 N, real t, N_Vector y, N_Vector ydot, void *f_data);
  *            locations for which default values are to be used.  *
  *                                                                *
  * ropt    is the user-allocated array (of size OPT_SIZE given    *
- *            later) that will hold optional real inputs and      *
+ *            later) that will hold optional double inputs and      *
  *            outputs.  The user can pass NULL if he/she does not *
- *            wish to use optional real inputs or outputs.        *
+ *            wish to use optional double inputs or outputs.        *
  *            If optIn is TRUE, the user should preset to 0.0 the *
  *            locations for which default values are to be used.  *
  *                                                                *
@@ -189,9 +189,9 @@ typedef void (*RhsFn)(int64 N, real t, N_Vector y, N_Vector ydot, void *f_data);
  *                                                                *
  ******************************************************************/
 
-void *CVodeMalloc(int64 N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
-                  int itol, real *reltol, void *abstol, void *f_data,
-                  FILE *errfp, bool optIn, int iopt[], real ropt[],
+void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int lmm, int iter,
+                  int itol, double *reltol, void *abstol, void *f_data,
+                  FILE *errfp, bool optIn, int iopt[], double ropt[],
                   void *machEnv);
 
 /******************************************************************
@@ -218,7 +218,7 @@ void *CVodeMalloc(int64 N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
  * yout  is the computed solution vector. In NORMAL mode with no  *
  *          errors, yout=y(tout).                                 *
  *                                                                *
- * t     is a pointer to a real location. CVode sets (*t) to the  *
+ * t     is a pointer to a double location. CVode sets (*t) to the  *
  *          time reached by the solver and returns yout=y(*t).    *
  *                                                                *
  * itask is either NORMAL or ONE_STEP mode. These two modes have  *
@@ -266,7 +266,7 @@ void *CVodeMalloc(int64 N, RhsFn f, real t0, N_Vector y0, int lmm, int iter,
  *                                                                *
  ******************************************************************/
 
-int CVode(void *cvode_mem, real tout, N_Vector yout, real *t, int itask);
+int CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int itask);
 
 /* CVode return values */
 
@@ -321,7 +321,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-int CVodeDky(void *cvode_mem, real t, int k, N_Vector dky);
+int CVodeDky(void *cvode_mem, double t, int k, N_Vector dky);
 
 /* CVodeDky return values */
 
@@ -351,12 +351,12 @@ void CVodeFree(void *cvode_mem);
  *----------------------------------------------------------------*
  * The user should declare two arrays for optional input and      *
  * output, an iopt array for optional int64 input and output    *
- * and an ropt array for optional real input and output. The      *
+ * and an ropt array for optional double input and output. The      *
  * size of both these arrays should be OPT_SIZE.                  *
  * So the user's declaration should look like:                    *
  *                                                                *
  *   int iopt[OPT_SIZE];                                       *
- * real     ropt[OPT_SIZE];                                       *
+ * double     ropt[OPT_SIZE];                                       *
  *                                                                *
  * The enumerations below the OPT_SIZE definition                 *
  * are indices into the iopt and ropt arrays. Here is a brief     *
@@ -398,8 +398,8 @@ void CVodeFree(void *cvode_mem);
  * iopt[QCUR]    : order to be used on the next internal step.    *
  *                 Optional output.                               *
  *                                                                *
- * iopt[LENRW]   : size of required CVODE internal real work      *
- *                 space, in real words.  Optional output.        *
+ * iopt[LENRW]   : size of required CVODE internal double work      *
+ *                 space, in double words.  Optional output.        *
  *                                                                *
  * iopt[LENIW]   : size of required CVODE internal int64 work   *
  *                 space, in int64 words.  Optional output.     *
@@ -434,7 +434,7 @@ void CVodeFree(void *cvode_mem);
 
 /* iopt and ropt offsets                                          *
  * The constants CVODE_IOPT_SIZE and CVODE_ROPT_SIZE are equal to *
- * the number of int64 and real optional inputs and outputs     *
+ * the number of int64 and double optional inputs and outputs     *
  * actually accessed in cvode.c.  The locations beyond these      *
  * values are used by the linear solvers.                         */
 
@@ -490,7 +490,7 @@ enum {
 
 typedef struct CVodeMemRec {
 
-    real cv_uround; /* machine unit roundoff */
+    double cv_uround; /* machine unit roundoff */
 
     /* Problem Specification Data */
 
@@ -500,7 +500,7 @@ typedef struct CVodeMemRec {
     int cv_lmm;      /* lmm = ADAMS or BDF          */
     int cv_iter;     /* iter = FUNCTIONAL or NEWTON */
     int cv_itol;     /* itol = SS or SV             */
-    real *cv_reltol; /* ptr to relative tolerance   */
+    double *cv_reltol; /* ptr to relative tolerance   */
     void *cv_abstol; /* ptr to absolute tolerance   */
 
     /* Nordsieck History Array */
@@ -532,25 +532,25 @@ typedef struct CVodeMemRec {
                    /* considering a change in q               */
     int cv_L;      /* L = q + 1                               */
 
-    real cv_h;      /* current step size                     */
-    real cv_hprime; /* step size to be used on the next step */
-    real cv_eta;    /* eta = hprime / h                      */
-    real cv_hscale; /* value of h used in zn                 */
-    real cv_tn;     /* current internal value of t           */
+    double cv_h;      /* current step size                     */
+    double cv_hprime; /* step size to be used on the next step */
+    double cv_eta;    /* eta = hprime / h                      */
+    double cv_hscale; /* value of h used in zn                 */
+    double cv_tn;     /* current internal value of t           */
 
-    real cv_tau[L_MAX + 1];    /* vector of previous q+1 successful step    */
+    double cv_tau[L_MAX + 1];    /* vector of previous q+1 successful step    */
                                /* sizes indexed from 1 to q+1               */
-    real cv_tq[NUM_TESTS + 1]; /* vector of test quantities indexed from    */
+    double cv_tq[NUM_TESTS + 1]; /* vector of test quantities indexed from    */
                                /* 1 to NUM_TESTS(=5)                        */
-    real cv_l[L_MAX];          /* coefficients of l(x) (degree q poly)      */
+    double cv_l[L_MAX];          /* coefficients of l(x) (degree q poly)      */
 
-    real cv_rl1;    /* 1 / l[1]                     */
-    real cv_gamma;  /* gamma = h * rl1              */
-    real cv_gammap; /* gamma at the last setup call */
-    real cv_gamrat; /* gamma / gammap               */
+    double cv_rl1;    /* 1 / l[1]                     */
+    double cv_gamma;  /* gamma = h * rl1              */
+    double cv_gammap; /* gamma at the last setup call */
+    double cv_gamrat; /* gamma / gammap               */
 
-    real cv_crate; /* estimated corrector convergence rate */
-    real cv_acnrm; /* | acor | wrms                        */
+    double cv_crate; /* estimated corrector convergence rate */
+    double cv_acnrm; /* | acor | wrms                        */
     int cv_mnewt;  /* Newton iteration counter             */
 
     /* Limits */
@@ -562,9 +562,9 @@ typedef struct CVodeMemRec {
     int cv_mxhnil; /* maximum number of warning messages issued to the   */
                    /* user that t + h == t for the next internal step    */
 
-    real cv_hmin;     /* |h| >= hmin       */
-    real cv_hmax_inv; /* |h| <= 1/hmax_inv */
-    real cv_etamax;   /* eta <= etamax     */
+    double cv_hmin;     /* |h| >= hmin       */
+    double cv_hmax_inv; /* |h| <= 1/hmax_inv */
+    double cv_etamax;   /* eta <= etamax     */
 
     /* Counters */
 
@@ -576,7 +576,7 @@ typedef struct CVodeMemRec {
     int cv_nsetups; /* number of setup calls                      */
     int cv_nhnil;   /* number of messages issued to the user that */
                     /* t + h == t for the next iternal step       */
-    int cv_lrw;     /* number of real words in CVODE work vectors */
+    int cv_lrw;     /* number of double words in CVODE work vectors */
     int cv_liw;     /* no. of int64 words in CVODE work vectors */
 
     /* Linear Solver Data */
@@ -606,19 +606,19 @@ typedef struct CVodeMemRec {
 
     int cv_qu;            /* last successful q value used   */
     int cv_nstlp;         /* step number of last setup call */
-    real cv_hu;           /* last successful h value used   */
-    real cv_saved_tq5;    /* saved value of tq[5]           */
+    double cv_hu;           /* last successful h value used   */
+    double cv_saved_tq5;    /* saved value of tq[5]           */
     int64 cv_imxer;       /* index of max value of          */
                           /* |acor[i]|*ewt[i]               */
     bool cv_jcur;         /* Is the Jacobian info used by   */
                           /* linear solver current?         */
-    real cv_tolsf;        /* tolerance scale factor         */
+    double cv_tolsf;        /* tolerance scale factor         */
     bool cv_setupNonNull; /* Does setup do something?       */
 
     /* Arrays for Optional Input and Optional Output */
 
     int *cv_iopt;  /*   int optional input, output */
-    real *cv_ropt; /* real optional input, output     */
+    double *cv_ropt; /* double optional input, output     */
 
     /* Error File */
 

@@ -85,11 +85,11 @@ static void CVDenseFree(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, real tn, N_Vector y,
-             N_Vector fy, N_Vector ewt, real h, real uround, void *jac_data,
+CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
+             N_Vector fy, N_Vector ewt, double h, double uround, void *jac_data,
              int *nfePtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    real fnorm, minInc, inc, inc_inv, yjsaved, srur;
-    real *y_data, *ewt_data;
+    double fnorm, minInc, inc, inc_inv, yjsaved, srur;
+    double *y_data, *ewt_data;
     N_Vector ftemp, jthCol;
     int64 j;
 
@@ -279,7 +279,7 @@ static int
 CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
              bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
-    real dgamma;
+    double dgamma;
     int64 ier;
     CVDenseMem cvdense_mem;
 

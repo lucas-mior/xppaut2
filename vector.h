@@ -21,7 +21,7 @@
  * Part II of this file contains the prototypes for the vector  *
  * kernels which operate on the type N_Vector. These prototypes *
  * are fixed for all implementations of the vector package. The *
- * definitions of the types real and int64 are in the header  *
+ * definitions of the types double and int64 are in the header  *
  * file llnltyps.h and these may be changed according to the    *
  * user's needs. The llnltyps.h file also contains the          *
  * definition for the type bool (short for boolean) that is the *
@@ -66,7 +66,7 @@
 
 typedef struct {
     int64 length;
-    real *data;
+    double *data;
 } *N_Vector;
 
 /***************************************************************
@@ -76,7 +76,7 @@ typedef struct {
  * In the descriptions below, the following user               *
  * declarations are assumed:                                   *
  *                                                             *
- * N_Vector v; real *v_data, r; int64 v_len, i;              *
+ * N_Vector v; double *v_data, r; int64 v_len, i;              *
  *                                                             *
  * (1) N_VMAKE, N_VDISPOSE                                     *
  *                                                             *
@@ -206,7 +206,7 @@ void N_VFree(N_Vector x);
  *                                                             *
  ***************************************************************/
 
-void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z);
+void N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z);
 
 /***************************************************************
  *                                                             *
@@ -215,7 +215,7 @@ void N_VLinearSum(real a, N_Vector x, real b, N_Vector y, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VConst(real c, N_Vector z);
+void N_VConst(double c, N_Vector z);
 
 /***************************************************************
  *                                                             *
@@ -242,7 +242,7 @@ void N_VDiv(N_Vector x, N_Vector y, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VScale(real c, N_Vector x, N_Vector z);
+void N_VScale(double c, N_Vector x, N_Vector z);
 
 /***************************************************************
  *                                                             *
@@ -274,7 +274,7 @@ void N_VInv(N_Vector x, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VAddConst(N_Vector x, real b, N_Vector z);
+void N_VAddConst(N_Vector x, double b, N_Vector z);
 
 /***************************************************************
  *                                                             *
@@ -297,7 +297,7 @@ void N_VAddConst(N_Vector x, real b, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-real N_VDotProd(N_Vector x, N_Vector y);
+double N_VDotProd(N_Vector x, N_Vector y);
 
 /***************************************************************
  *                                                             *
@@ -313,7 +313,7 @@ real N_VDotProd(N_Vector x, N_Vector y);
  *                                                             *
  ***************************************************************/
 
-real N_VMaxNorm(N_Vector x);
+double N_VMaxNorm(N_Vector x);
 
 /***************************************************************
  *                                                             *
@@ -330,7 +330,7 @@ real N_VMaxNorm(N_Vector x);
  *                                                             *
  ***************************************************************/
 
-real N_VWrmsNorm(N_Vector x, N_Vector w);
+double N_VWrmsNorm(N_Vector x, N_Vector w);
 
 /***************************************************************
  *                                                             *
@@ -343,7 +343,7 @@ real N_VWrmsNorm(N_Vector x, N_Vector w);
  *                                                             *
  ***************************************************************/
 
-real N_VMin(N_Vector x);
+double N_VMin(N_Vector x);
 
 /***************************************************************
  *                                                             *
@@ -359,7 +359,7 @@ real N_VMin(N_Vector x);
  *                                                             *
  ***************************************************************/
 
-void N_VCompare(real c, N_Vector x, N_Vector z);
+void N_VCompare(double c, N_Vector x, N_Vector z);
 
 /***************************************************************
  *                                                             *

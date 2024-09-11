@@ -78,7 +78,7 @@ BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
 }
 
 void
-BandScale(real c, BandMat A) {
+BandScale(double c, BandMat A) {
     bandscale(c, A->data, A->size, A->mu, A->ml, A->smu);
 }
 
@@ -103,20 +103,20 @@ BandPrint(BandMat A) {
     bandprint(A->data, A->size, A->mu, A->ml, A->smu);
 }
 
-real **
+double **
 bandalloc(int64 n, int64 smu, int64 ml) {
-    real **a;
+    double **a;
     int64 j, colSize;
 
     if (n <= 0)
         return (NULL);
 
-    a = (real **)malloc(n * sizeof(real *));
+    a = (double **)malloc(n * sizeof(double *));
     if (a == NULL)
         return (NULL);
 
     colSize = smu + ml + 1;
-    a[0] = (real *)malloc(n * colSize * sizeof(real));
+    a[0] = (double *)malloc(n * colSize * sizeof(double));
     if (a[0] == NULL) {
         free(a);
         return (NULL);
@@ -137,11 +137,11 @@ bandallocpiv(int64 n) {
 }
 
 int64
-gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
+gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     int64 c, r, num_rows;
     int64 i, j, k, l, storage_l, storage_k, last_col_k, last_row_k;
-    real *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
-    real max, temp, mult, a_kj;
+    double *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
+    double max, temp, mult, a_kj;
     bool swap;
 
     /* zero out the first smu - mu rows of the rectangular array a */
@@ -245,9 +245,9 @@ gbfa(real **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 }
 
 void
-gbsl(real **a, int64 n, int64 smu, int64 ml, int64 *p, real *b) {
+gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
     int64 k, l, i, first_row_k, last_row_k;
-    real mult, *diag_k;
+    double mult, *diag_k;
 
     /* Solve Ly = Pb, store solution y in b */
 
@@ -277,9 +277,9 @@ gbsl(real **a, int64 n, int64 smu, int64 ml, int64 *p, real *b) {
 }
 
 void
-bandzero(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
+bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, colSize;
-    real *col_j;
+    double *col_j;
 
     colSize = mu + ml + 1;
     for (j = 0; j < n; j++) {
@@ -290,10 +290,10 @@ bandzero(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
 }
 
 void
-bandcopy(real **a, real **b, int64 n, int64 a_smu, int64 b_smu, int64 copymu,
+bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu, int64 copymu,
          int64 copyml) {
     int64 i, j, copySize;
-    real *a_col_j, *b_col_j;
+    double *a_col_j, *b_col_j;
 
     copySize = copymu + copyml + 1;
 
@@ -306,9 +306,9 @@ bandcopy(real **a, real **b, int64 n, int64 a_smu, int64 b_smu, int64 copymu,
 }
 
 void
-bandscale(real c, real **a, int64 n, int64 mu, int64 ml, int64 smu) {
+bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, colSize;
-    real *col_j;
+    double *col_j;
 
     colSize = mu + ml + 1;
 
@@ -320,7 +320,7 @@ bandscale(real c, real **a, int64 n, int64 mu, int64 ml, int64 smu) {
 }
 
 void
-bandaddI(real **a, int64 n, int64 smu) {
+bandaddI(double **a, int64 n, int64 smu) {
     int64 j;
 
     for (j = 0; j < n; j++)
@@ -333,13 +333,13 @@ bandfreepiv(int64 *p) {
 }
 
 void
-bandfree(real **a) {
+bandfree(double **a) {
     free(a[0]);
     free(a);
 }
 
 void
-bandprint(real **a, int64 n, int64 mu, int64 ml, int64 smu) {
+bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, start, finish;
 
     plintf("\n");

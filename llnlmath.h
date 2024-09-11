@@ -5,13 +5,13 @@
  * Last Modified : 1 September 1994                               *
  *----------------------------------------------------------------*
  * This is the header file for a C math library. The routines     *
- * listed here work with the type real as defined in llnltyps.h.  *
+ * listed here work with the type double as defined in llnltyps.h.  *
  * To do single precision floating point arithmetic, set the type *
- * real to be float. To do double precision arithmetic, set the   *
- * type real to be double. The default implementations for        *
+ * double to be float. To do double precision arithmetic, set the   *
+ * type double to be double. The default implementations for        *
  * RPowerR and RSqrt call standard math library functions which   *
  * do double precision arithmetic. If this is unacceptable when   *
- * real is float, then the user should re-implement these two     *
+ * double is float, then the user should re-implement these two     *
  * routines by calling single precision routines available on     *
  * his/her machine.                                               *
  *                                                                *
@@ -47,35 +47,35 @@
 /******************************************************************
  *                                                                *
  * Function : UnitRoundoff                                        *
- * Usage    : real uround;                                        *
+ * Usage    : double uround;                                        *
  *            uround = UnitRoundoff();                            *
  *----------------------------------------------------------------*
- * UnitRoundoff returns the unit roundoff u for real floating     *
+ * UnitRoundoff returns the unit roundoff u for double floating     *
  * point arithmetic, where u is defined to be the largest         *
- * positive real such that 1.0 + u != 1.0.                        *
+ * positive double such that 1.0 + u != 1.0.                        *
  *                                                                *
  ******************************************************************/
 
-real UnitRoundoff(void);
+double UnitRoundoff(void);
 
 /******************************************************************
  *                                                                *
  * Function : RPowerI                                             *
  * Usage    : int exponent;                                       *
- *            real base, ans;                                     *
+ *            double base, ans;                                     *
  *            ans = RPowerI(base,exponent);                       *
  *----------------------------------------------------------------*
- * RPowerI returns the value base^exponent, where base is a real  *
+ * RPowerI returns the value base^exponent, where base is a double  *
  * and exponent is an int.                                        *
  *                                                                *
  ******************************************************************/
 
-real RPowerI(real base, int exponent);
+double RPowerI(double base, int exponent);
 
 /******************************************************************
  *                                                                *
  * Function : RPowerR                                             *
- * Usage    : real base, exponent, ans;                           *
+ * Usage    : double base, exponent, ans;                           *
  *            ans = RPowerI(base,exponent);                       *
  *----------------------------------------------------------------*
  * RPowerR returns the value base^exponent, where both base and   *
@@ -83,12 +83,12 @@ real RPowerI(real base, int exponent);
  *                                                                *
  ******************************************************************/
 
-real RPowerR(real base, real exponent);
+double RPowerR(double base, double exponent);
 
 /******************************************************************
  *                                                                *
  * Function : RSqrt                                               *
- * Usage    : real sqrt_x;                                        *
+ * Usage    : double sqrt_x;                                        *
  *            sqrt_x = RSqrt(x);                                  *
  *----------------------------------------------------------------*
  * RSqrt(x) returns the square root of x. If x < 0.0, then RSqrt  *
@@ -96,6 +96,6 @@ real RPowerR(real base, real exponent);
  *                                                                *
  ******************************************************************/
 
-real RSqrt(real x);
+double RSqrt(double x);
 
 #endif
