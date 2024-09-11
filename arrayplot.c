@@ -97,7 +97,7 @@ draw_one_array_plot(char *bob) {
     if (aplot_tag)
         tag_aplot(bob);
     XFlush(display);
-    sprintf(filename, "%s.%d.gif", aplot_range_stem, aplot_range_count);
+    snprintf(filename, sizeof(filename), "%s.%d.gif", aplot_range_stem, aplot_range_count);
     gif_aplot_all(filename, aplot_still);
     aplot_range_count++;
     return;
@@ -109,12 +109,12 @@ set_up_aplot_range(void) {
     char values[3][MAX_LEN_SBOX];
     int status;
     double *x;
-    sprintf(values[0], "%s", aplot_range_stem);
-    sprintf(values[1], "%d", aplot_still);
-    sprintf(values[2], "%d", aplot_tag);
+    snprintf(values[0], sizeof(values[0]), "%s", aplot_range_stem);
+    snprintf(values[1], sizeof(values[1]), "%d", aplot_still);
+    snprintf(values[2], sizeof(values[2]), "%d", aplot_tag);
     status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
     if (status != 0) {
-        sprintf(aplot_range_stem, "%s", values[0]);
+        snprintf(aplot_range_stem, sizeof(aplot_range_stem), "%s", values[0]);
         aplot_still = atoi(values[1]);
         aplot_tag = atoi(values[2]);
         aplot_range = 1;
@@ -388,11 +388,11 @@ void print_aplot(ap) APLOT *ap;
         jb = nrows - 1;
     if (jb >= 0)
         thi = my_browser.data[0][jb];
-    sprintf(values[0], "%s", ap->filename);
-    sprintf(values[1], "%s", ap->xtitle);
-    sprintf(values[2], "%s", ap->ytitle);
-    sprintf(values[3], "%s", ap->bottom);
-    sprintf(values[4], "%d", ap->type);
+    snprintf(values[0], sizeof(values[0]), "%s", ap->filename);
+    snprintf(values[1], sizeof(values[1]), "%s", ap->xtitle);
+    snprintf(values[2], sizeof(values[2]), "%s", ap->ytitle);
+    snprintf(values[3], sizeof(values[3]), "%s", ap->bottom);
+    snprintf(values[4], sizeof(values[4]), "%d", ap->type);
     status = do_string_box(5, 5, 1, "Print arrayplot", n, values, 40);
     if (status != 0) {
         strcpy(ap->filename, values[0]);
@@ -504,7 +504,7 @@ void reset_aplot_axes(ap) APLOT ap;
     if (ap.alive == 0)
         return;
     get_root(ap.name, sroot, &num);
-    sprintf(bob, "%s%d..%d", sroot, num, num + ap.nacross - 1);
+    snprintf(bob, sizeof(bob), "%s%d..%d", sroot, num, num + ap.nacross - 1);
     XClearWindow(display, ap.wmax);
     XClearWindow(display, ap.wmin);
     display_aplot(ap.wmax, ap);
@@ -538,15 +538,15 @@ APLOT *ap;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
                  "Zmin",       "Zmax",  "Autoplot(0/1)", "ColSkip"};
     char values[9][MAX_LEN_SBOX];
-    sprintf(values[0], "%s", ap->name);
-    sprintf(values[1], "%d", ap->nacross);
-    sprintf(values[2], "%d", ap->nstart);
-    sprintf(values[3], "%d", ap->ndown);
-    sprintf(values[4], "%d", ap->nskip);
-    sprintf(values[5], "%g", ap->zmin);
-    sprintf(values[6], "%g", ap->zmax);
-    sprintf(values[7], "%d", plot3d_auto_redraw);
-    sprintf(values[8], "%d", ap->ncskip);
+    snprintf(values[0], sizeof(values[0]), "%s", ap->name);
+    snprintf(values[1], sizeof(values[1]), "%d", ap->nacross);
+    snprintf(values[2], sizeof(values[2]), "%d", ap->nstart);
+    snprintf(values[3], sizeof(values[3]), "%d", ap->ndown);
+    snprintf(values[4], sizeof(values[4]), "%d", ap->nskip);
+    snprintf(values[5], sizeof(values[5]), "%g", ap->zmin);
+    snprintf(values[6], sizeof(values[6]), "%g", ap->zmax);
+    snprintf(values[7], sizeof(values[7]), "%d", plot3d_auto_redraw);
+    snprintf(values[8], sizeof(values[8]), "%d", ap->ncskip);
     status = do_string_box(9, 9, 1, "Edit arrayplot", n, values, 40);
     if (status != 0) {
         find_variable(values[0], &i);
@@ -636,7 +636,7 @@ void
 gif_aplot(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    sprintf(filename, "%s.gif", this_file);
+    snprintf(filename, sizeof(filename), "%s.gif", this_file);
     if (!file_selector("GIF plot", filename, "*.gif"))
         return;
     gif_aplot_all(filename, 1);
@@ -678,7 +678,7 @@ void redraw_aplot(ap) APLOT ap;
         jb = nrows - 1;
     if (jb >= 0)
         thi = my_browser.data[0][jb];
-    sprintf(bob, " %g < t < %g ", tlo, thi);
+    snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
     XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob, strlen(bob));
     dx = (double)ap.plotw / (double)(ap.nacross / ap.ncskip);
     dy = (double)ap.ploth / (double)ap.ndown;
@@ -751,12 +751,12 @@ Window w;
         return;
     }
     if (w == ap.wmin) {
-        sprintf(bob, "%g", ap.zmin);
+        snprintf(bob, sizeof(bob), "%g", ap.zmin);
         XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, strlen(bob));
         return;
     }
     if (w == ap.wmax) {
-        sprintf(bob, "%g", ap.zmax);
+        snprintf(bob, sizeof(bob), "%g", ap.zmax);
         XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, strlen(bob));
         return;
     }

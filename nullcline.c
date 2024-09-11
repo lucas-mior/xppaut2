@@ -141,10 +141,10 @@ do_range_clines(void) {
       col1=1;
       col2=9;
       } */
-    sprintf(values[0], "%s", ncrange.rv);
-    sprintf(values[1], "%d", ncrange.nstep);
-    sprintf(values[2], "%g", ncrange.xlo);
-    sprintf(values[3], "%g", ncrange.xhi);
+    snprintf(values[0], sizeof(values[0]), "%s", ncrange.rv);
+    snprintf(values[1], sizeof(values[1]), "%d", ncrange.nstep);
+    snprintf(values[2], sizeof(values[2]), "%g", ncrange.xlo);
+    snprintf(values[3], sizeof(values[3]), "%g", ncrange.xhi);
     status = do_string_box(4, 4, 1, "Range Clines", n, values, 45);
     if (status != 0) {
         strcpy(ncrange.rv, values[0]);
@@ -219,7 +219,7 @@ start_ncline(void) {
     ncrange.xlo = 0;
     ncrange.xhi = 1;
     ncrange.nstep = 10;
-    sprintf(ncrange.rv, " ");
+    snprintf(ncrange.rv, sizeof(ncrange.rv), " ");
     return;
 }
 
@@ -312,7 +312,7 @@ save_frozen_clines(char *fn) {
     while (1) {
         if (z == NULL || (z->nmx == 0 && z->nmy == 0))
             return;
-        sprintf(fnx, "%s.%d", fn, i);
+        snprintf(fnx, sizeof(fnx), "%s.%d", fn, i);
         fp = fopen(fnx, "w");
         if (fp == NULL) {
             err_msg("Cant open file!");
@@ -736,7 +736,7 @@ save_the_nullclines(void) {
     char filename[256];
     if (NULL_HERE == 0)
         return;
-    sprintf(filename, "nc.dat");
+    snprintf(filename, sizeof(filename), "nc.dat");
     ping();
     if (!file_selector("Save nullclines", filename, "*.dat"))
         return;

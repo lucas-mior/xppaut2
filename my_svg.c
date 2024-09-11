@@ -379,7 +379,7 @@ svg_init(char *filename, int color) {
                                                                  v0.48.2*/
     fprintf(svgfile, "                 }\n");
 
-    sprintf(css, "%s/xppaut-stylesheet.css", getenv("HOME"));
+    snprintf(css, sizeof(css), "%s/xppaut-stylesheet.css", getenv("HOME"));
     fp = fopen(css, "r");
     if (fp != NULL) {
         plintf("Styling svg image according to %s\n", css);
@@ -594,7 +594,7 @@ svg_point(int x, int y) {
     char svgcol[8];
     char svgfill[8];
 
-    sprintf(svgfill, "none");
+    snprintf(svgfill, sizeof(svgfill), "none");
     svgcol[0] = '\0';
 
     int number = PointType;
@@ -606,13 +606,13 @@ svg_point(int x, int y) {
         number = 7;
 
     if (number == 7) {
-        sprintf(svgcol, "00FF00");
-        sprintf(svgfill, "#00FF00");
+        snprintf(svgcol, sizeof(svgcol), "00FF00");
+        snprintf(svgfill, sizeof(svgfill), "#00FF00");
     } else if (number == 6) {
-        sprintf(svgcol, "0000FF");
+        snprintf(svgcol, sizeof(svgcol), "0000FF");
     } else {
-        sprintf(svgcol, "000000");
-        sprintf(svgfill, "#000000");
+        snprintf(svgcol, sizeof(svgcol), "000000");
+        snprintf(svgfill, sizeof(svgfill), "#000000");
     }
 
     if (DOING_SVG_COLOR) {
@@ -728,16 +728,16 @@ special_put_text_svg(int x, int y, char *str, int size) {
 
     switch (TextJustify) {
     case LEFT:
-        sprintf(anchor, "start");
+        snprintf(anchor, sizeof(anchor), "start");
         break;
     case CENTER:
-        sprintf(anchor, "middle");
+        snprintf(anchor, sizeof(anchor), "middle");
         break;
     case RIGHT:
-        sprintf(anchor, "end");
+        snprintf(anchor, sizeof(anchor), "end");
         break;
     default:
-        sprintf(anchor, "start");
+        snprintf(anchor, sizeof(anchor), "start");
         break;
     }
 
@@ -759,16 +759,16 @@ svg_text(int x, int y, char *str) {
 
     switch (TextJustify) {
     case LEFT:
-        sprintf(anchor, "start");
+        snprintf(anchor, sizeof(anchor), "start");
         break;
     case CENTER:
-        sprintf(anchor, "middle");
+        snprintf(anchor, sizeof(anchor), "middle");
         break;
     case RIGHT:
-        sprintf(anchor, "end");
+        snprintf(anchor, sizeof(anchor), "end");
         break;
     default:
-        sprintf(anchor, "start");
+        snprintf(anchor, sizeof(anchor), "start");
         break;
     }
 

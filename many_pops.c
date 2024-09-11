@@ -703,9 +703,9 @@ get_marker_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size"};
     char values[3][MAX_LEN_SBOX];
     int status;
-    sprintf(values[0], "%d", markinfo.type);
-    sprintf(values[1], "%d", markinfo.color);
-    sprintf(values[2], "%g", markinfo.size);
+    snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
+    snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
+    snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
     status = do_string_box(3, 3, 1, "Add Marker", n, values, 25);
     if (status != 0) {
         markinfo.type = atoi(values[0]);
@@ -721,12 +721,12 @@ get_markers_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
     char values[6][MAX_LEN_SBOX];
     int status;
-    sprintf(values[0], "%d", markinfo.type);
-    sprintf(values[1], "%d", markinfo.color);
-    sprintf(values[2], "%g", markinfo.size);
-    sprintf(values[3], "%d", markinfo.number);
-    sprintf(values[4], "%d", markinfo.start);
-    sprintf(values[5], "%d", markinfo.skip);
+    snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
+    snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
+    snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
+    snprintf(values[3], sizeof(values[3]), "%d", markinfo.number);
+    snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
+    snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
     status = do_string_box(6, 6, 1, "Add Markers", n, values, 25);
     if (status != 0) {
         markinfo.type = atoi(values[0]);
@@ -923,7 +923,7 @@ edit_object_com(int com) {
         if (ilab >= 0 && type == 0) {
             switch (com) {
             case 0:
-                sprintf(str, "Move %s ?", lb[ilab].s);
+                snprintf(str, sizeof(str), "Move %s ?", lb[ilab].s);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
 
@@ -942,7 +942,7 @@ edit_object_com(int com) {
                 }
                 break;
             case 1:
-                sprintf(str, "Change %s ?", lb[ilab].s);
+                snprintf(str, sizeof(str), "Change %s ?", lb[ilab].s);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     new_string("Text: ", lb[ilab].s);
@@ -957,7 +957,7 @@ edit_object_com(int com) {
                 }
                 break;
             case 2:
-                sprintf(str, "Delete %s ?", lb[ilab].s);
+                snprintf(str, sizeof(str), "Delete %s ?", lb[ilab].s);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     lb[ilab].w = 0;
@@ -971,7 +971,7 @@ edit_object_com(int com) {
         if (ilab >= 0 && type == 1) {
             switch (com) {
             case 0:
-                sprintf(str, "Move graphic at (%f,%f)", grob[ilab].xs,
+                snprintf(str, sizeof(str), "Move graphic at (%f,%f)", grob[ilab].xs,
                         grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
@@ -993,7 +993,7 @@ edit_object_com(int com) {
                 }
                 break;
             case 1:
-                sprintf(str, "Change graphic at (%f,%f)", grob[ilab].xs,
+                snprintf(str, sizeof(str), "Change graphic at (%f,%f)", grob[ilab].xs,
                         grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
@@ -1006,7 +1006,7 @@ edit_object_com(int com) {
                 }
                 break;
             case 2:
-                sprintf(str, "Delete graphic at (%f,%f)", grob[ilab].xs,
+                snprintf(str, sizeof(str), "Delete graphic at (%f,%f)", grob[ilab].xs,
                         grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
@@ -1306,7 +1306,7 @@ do_motion_events(XEvent ev) {
 #endif
     if (ev.xmotion.window == draw_win) {
         scale_to_real(i, j, &x, &y);
-        sprintf(buf, "x=%f y=%f ", x, y);
+        snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         canvas_xy(buf);
     }
 }
@@ -1619,7 +1619,7 @@ check_draw_button(XEvent ev) {
         if (w != draw_win)
             return;
         scale_to_real(i, j, &x, &y);
-        sprintf(buf, "x=%f y=%f ", x, y);
+        snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         canvas_xy(buf);
     }
 }

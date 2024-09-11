@@ -105,13 +105,13 @@ edit_xpprc(void) {
 
         return;
     } else {
-        sprintf(editor, ed);
+        snprintf(editor, sizeof(editor), ed);
     }
 
     child_pid = fork();
 
     if (child_pid == 0) {
-        sprintf(rc, "%s/.xpprc", getenv("HOME"));
+        snprintf(rc, sizeof(rc), "%s/.xpprc", getenv("HOME"));
 
         char *const args[] = {editor, rc, NULL};
         execvp(editor, args);
@@ -141,7 +141,7 @@ xpp_hlp(void) {
         return;
     }
 
-    sprintf(cmd, "file:///%s", getenv("XPPHELP"));
+    snprintf(cmd, sizeof(cmd), "file:///%s", getenv("XPPHELP"));
 
     if (fork() == 0) {
 

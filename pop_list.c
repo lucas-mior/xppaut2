@@ -266,9 +266,9 @@ do_string_box(int n, int row, int col, char *title, char **names,
         sb.hh[i] = -1;
         if (names[i][0] == '*') {
             sb.hh[i] = atoi(names[i] + 1);
-            sprintf(sb.name[i], "*%s:", names[i] + 2);
+            snprintf(sb.name[i], sizeof(sb.name[i]), "*%s:", names[i] + 2);
         } else
-            sprintf(sb.name[i], "%s:", names[i]);
+            snprintf(sb.name[i], sizeof(sb.name[i]), "%s:", names[i]);
         strcpy(sb.value[i], values[i]);
     }
     sb.n = n;

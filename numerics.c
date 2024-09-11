@@ -429,7 +429,7 @@ init_numerics(void)
     my_pmap.sos = 0;
     my_pmap.sign = 1;
     my_pmap.tmod = 8. * atan(1.0);
-    sprintf(my_pmap.section, " ");
+    snprintf(my_pmap.section, sizeof(my_pmap.section), " ");
 
     POIMAP = 0;
     POIVAR = 1;
@@ -443,9 +443,9 @@ meth_dialog(void) {
     /*static char *n[]={"*6Method","Abs tol","Rel Tol","DtMin","DtMax",
                       "Banded(y/n)","UpperBand","LowerBand"};*/
     char values[8][MAX_LEN_SBOX];
-    sprintf(values[0], "%d", METHOD);
-    sprintf(values[1], "%g", ATOLER);
-    sprintf(values[2], "%g", TOLER);
+    snprintf(values[0], sizeof(values[0]), "%d", METHOD);
+    snprintf(values[1], sizeof(values[1]), "%g", ATOLER);
+    snprintf(values[2], sizeof(values[2]), "%g", TOLER);
     return;
 }
 
@@ -463,7 +463,7 @@ compute_one_period(double period, double *x, char *name) {
     reset_browser();
 
     usual_integrate_stuff(x);
-    sprintf(filename, "orbit.%s.dat", name);
+    snprintf(filename, sizeof(filename), "orbit.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
         write_mybrowser_data(fp);
@@ -476,7 +476,7 @@ compute_one_period(double period, double *x, char *name) {
         return;
     }
     new_adjoint();
-    sprintf(filename, "adjoint.%s.dat", name);
+    snprintf(filename, sizeof(filename), "adjoint.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
         write_mybrowser_data(fp);
@@ -484,7 +484,7 @@ compute_one_period(double period, double *x, char *name) {
         data_back();
     }
     new_h_fun(1);
-    sprintf(filename, "hfun.%s.dat", name);
+    snprintf(filename, sizeof(filename), "hfun.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
         write_mybrowser_data(fp);
@@ -526,10 +526,10 @@ get_pmap_pars_com(int l) {
         return;
 
     ind_to_sym(i1, n1);
-    sprintf(values[0], "%s", n1);
-    sprintf(values[1], "%.16g", POIPLN);
-    sprintf(values[2], "%d", POISGN);
-    sprintf(values[3], "%s", yn[SOS]);
+    snprintf(values[0], sizeof(values[0]), "%s", n1);
+    snprintf(values[1], sizeof(values[1]), "%.16g", POIPLN);
+    snprintf(values[2], sizeof(values[2]), "%d", POISGN);
+    snprintf(values[3], sizeof(values[3]), "%s", yn[SOS]);
     status = do_string_box(4, 4, 1, "Poincare map", n, values, 45);
     if (status != 0) {
         find_variable(values[0], &i1);

@@ -374,7 +374,7 @@ do_main(int argc, char **argv) {
 
     /*  unsigned int x=0,y=0; */
     /*
-    sprintf(myfile,"lecar.ode");
+    snprintf(myfile, sizeof(myfile),"lecar.ode");
     */
     get_directory(myfile);
 
@@ -382,8 +382,8 @@ do_main(int argc, char **argv) {
     SCALEY = 480;
 
     Xup = 0;
-    sprintf(batchout, "output.dat");
-    sprintf(PlotFormat, "ps");
+    snprintf(batchout, sizeof(batchout), "output.dat");
+    snprintf(PlotFormat, sizeof(PlotFormat), "ps");
 
     /*Read visualization environement variables here
     since some may be overridden by command line
@@ -461,10 +461,10 @@ do_main(int argc, char **argv) {
     xppvermaj = (float)cstringmaj;
     xppvermin = (float)cstringmin;
     if (strlen(this_file) < 60)
-        sprintf(pptitle, "XPP Ver %g.%g >> %s", xppvermaj, xppvermin,
+        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj, xppvermin,
                 this_file);
     else
-        sprintf(pptitle, "XPP Version %g.%g", xppvermaj, xppvermin);
+        snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj, xppvermin);
     /*  win_name=pptitle; */
     do_meth();
 

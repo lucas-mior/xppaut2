@@ -211,7 +211,7 @@ ps_setcolor(int color) {
     else
         i = 3 * (color - 19);
 
-    sprintf(bob, " %.3f %.3f %.3f setrgbcolor", pscolor[i], pscolor[i + 1],
+    snprintf(bob, sizeof(bob), " %.3f %.3f %.3f setrgbcolor", pscolor[i], pscolor[i + 1],
             pscolor[i + 2]);
     ps_write(bob);
 }

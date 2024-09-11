@@ -606,7 +606,7 @@ void
 set_old_arg_names(int narg) {
     int i;
     for (i = 0; i < narg; i++) {
-        sprintf(my_symb[FIRST_ARG + i].name, "ARG%d", i + 1);
+        snprintf(my_symb[FIRST_ARG + i].name, sizeof(my_symb[FIRST_ARG + i].name), "ARG%d", i + 1);
         my_symb[FIRST_ARG + i].len = 4;
     }
     return;
@@ -747,7 +747,7 @@ add_ufun(char *junk, char *expr, int narg) {
         strcpy(ufun_names[NFUN], junk);
         narg_fun[NFUN] = narg;
         for (i = 0; i < narg; i++) {
-            sprintf(ufun_arg[NFUN].args[i], "ARG%d", i + 1);
+            snprintf(ufun_arg[NFUN].args[i], sizeof(ufun_arg[NFUN].args[i]), "ARG%d", i + 1);
         }
         NFUN++;
         return (0);

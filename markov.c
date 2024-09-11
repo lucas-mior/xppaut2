@@ -133,7 +133,7 @@ build_markov(
     plintf(" Building %s %d states...\n", name, nstates);
     for (i = 0; i < nstates; i++) {
         /* fgets(line,256,fptr); */
-        sprintf(line, "%s", ma[i]);
+        snprintf(line, sizeof(line), "%s", ma[i]);
         if (ConvertStyle)
             fprintf(convertf, "%s", line);
         /*nn=strlen(line)+1;*/

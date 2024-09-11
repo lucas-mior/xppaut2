@@ -152,7 +152,7 @@ reset_bvp()
                       }
  for(i=BVP_NL;i<NODE;i++){
    my_bc[i].side=1;
-   sprintf(my_bc[i].name,"At t1 0=");
+   snprintf(my_bc[i].name, sizeof(my_bc[i].name),"At t1 0=");
  }
  redraw_bcs();
 }
