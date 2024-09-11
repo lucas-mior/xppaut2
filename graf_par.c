@@ -6,12 +6,10 @@
 #include "menudrive.h"
 #include "aniparse.h"
 #include "arrayplot.h"
-#include "auto_x11.h"
 #include "color.h"
 #include "init_conds.h"
 #include "rubber.h"
 
-#include "auto_x11.h"
 #include "ggets.h"
 #include "graphics.h"
 #include "menu.h"
@@ -320,13 +318,6 @@ get_max(int index, double *vmin, double *vmax) {
 }
 
 void
-pretty(/* this was always pretty ugly */
-       double *x1, double *x2) {
-    /* if(fabs(*x1-*x2)<1.e-12)
-     *x2=*x1+max(.1*fabs(*x2),1.0); */
-}
-
-void
 corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
     float x, y;
     float x1, x2, y1, y2;
@@ -414,13 +405,8 @@ default_window(void) {
         MyGraph->ymin = y_3d[0];
         MyGraph->zmin = z_3d[0];
 
-        pretty(&(MyGraph->ymin), &(MyGraph->ymax));
-        pretty(&(MyGraph->xmin), &(MyGraph->xmax));
-        pretty(&(MyGraph->zmin), &(MyGraph->zmax));
         corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
                     &(MyGraph->yhi));
-        pretty(&(MyGraph->xlo), &(MyGraph->xhi));
-        pretty(&(MyGraph->ylo), &(MyGraph->yhi));
         check_windows();
     } else {
         MyGraph->xmax = x_3d[1];
@@ -429,8 +415,6 @@ default_window(void) {
         MyGraph->xmin = x_3d[0];
         MyGraph->ymin = y_3d[0];
 
-        pretty(&(MyGraph->ymin), &(MyGraph->ymax));
-        pretty(&(MyGraph->xmin), &(MyGraph->xmax));
         MyGraph->xlo = MyGraph->xmin;
         MyGraph->ylo = MyGraph->ymin;
         MyGraph->xhi = MyGraph->xmax;
@@ -469,13 +453,8 @@ fit_window(void) {
         MyGraph->ymin = my;
         MyGraph->zmin = mz;
 
-        pretty(&(MyGraph->ymin), &(MyGraph->ymax));
-        pretty(&(MyGraph->xmin), &(MyGraph->xmax));
-        pretty(&(MyGraph->zmin), &(MyGraph->zmax));
         corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
                     &(MyGraph->yhi));
-        pretty(&(MyGraph->xlo), &(MyGraph->xhi));
-        pretty(&(MyGraph->ylo), &(MyGraph->yhi));
         check_windows();
     } else {
         for (i = 0; i < n; i++) {
@@ -493,8 +472,6 @@ fit_window(void) {
         MyGraph->xmin = mx;
         MyGraph->ymin = my;
 
-        pretty(&(MyGraph->ymin), &(MyGraph->ymax));
-        pretty(&(MyGraph->xmin), &(MyGraph->xmax));
         MyGraph->xlo = MyGraph->xmin;
         MyGraph->ylo = MyGraph->ymin;
         MyGraph->xhi = MyGraph->xmax;
@@ -558,9 +535,7 @@ xi_vs_t(void) /*  a short cut   */
         MyGraph->xv[0] = 0;
         if (storind >= 2) {
             get_max(MyGraph->xv[0], &(MyGraph->xmin), &(MyGraph->xmax));
-            pretty(&(MyGraph->xmin), &(MyGraph->xmax));
             get_max(MyGraph->yv[0], &(MyGraph->ymin), &(MyGraph->ymax));
-            pretty(&(MyGraph->ymin), &(MyGraph->ymax));
 
         } else {
             MyGraph->xmin = T0;
