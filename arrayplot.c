@@ -733,9 +733,7 @@ set_acolor(int32 col) {
     return;
 }
 
-void display_aplot(w, ap) APLOT ap;
-Window w;
-{
+void display_aplot(Window w, APLOT ap) {
     char bob[200];
 
     if (w == ap.wplot) {
