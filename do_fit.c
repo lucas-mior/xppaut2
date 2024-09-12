@@ -720,16 +720,16 @@ get_fit_params(void) {
                         "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
     int32 status;
     char values[10][MAX_LEN_SBOX];
-    sprintf(values[0], "%s", fin.file);
-    sprintf(values[1], "%s", fin.varlist);
-    sprintf(values[2], "%s", fin.parlist1);
-    sprintf(values[3], "%g", fin.tol);
-    sprintf(values[4], "%d", fin.npts);
-    sprintf(values[5], "%d", fin.dim);
-    sprintf(values[6], "%s", fin.collist);
-    sprintf(values[7], "%s", fin.parlist2);
-    sprintf(values[8], "%g", fin.eps);
-    sprintf(values[9], "%d", fin.maxiter);
+    snprintf(values[0], sizeof(values[0]), "%s", fin.file);
+    snprintf(values[1], sizeof(values[1]), "%s", fin.varlist);
+    snprintf(values[2], sizeof(values[2]), "%s", fin.parlist1);
+    snprintf(values[3], sizeof(values[3]), "%g", fin.tol);
+    snprintf(values[4], sizeof(values[4]), "%d", fin.npts);
+    snprintf(values[5], sizeof(values[5]), "%d", fin.dim);
+    snprintf(values[6], sizeof(values[6]), "%s", fin.collist);
+    snprintf(values[7], sizeof(values[7]), "%s", fin.parlist2);
+    snprintf(values[8], sizeof(values[8]), "%g", fin.eps);
+    snprintf(values[9], sizeof(values[9]), "%d", fin.maxiter);
     status = do_string_box(10, 5, 2, "Fit", n, values, 45);
     if (status != 0) {
         fin.tol = atof(values[3]);
@@ -737,11 +737,11 @@ get_fit_params(void) {
         fin.dim = atoi(values[5]);
         fin.eps = atof(values[8]);
         fin.maxiter = atoi(values[9]);
-        sprintf(fin.file, "%s", values[0]);
-        sprintf(fin.varlist, "%s", values[1]);
-        sprintf(fin.parlist1, "%s", values[2]);
-        sprintf(fin.collist, "%s", values[6]);
-        sprintf(fin.parlist2, "%s", values[7]);
+        snprintf(fin.file, sizeof(fin.file), "%s", values[0]);
+        snprintf(fin.varlist, sizeof(fin.varlist), "%s", values[1]);
+        snprintf(fin.parlist1, sizeof(fin.parlist1), "%s", values[2]);
+        snprintf(fin.collist, sizeof(fin.collist), "%s", values[6]);
+        snprintf(fin.parlist2, sizeof(fin.parlist2), "%s", values[7]);
         return (1);
     }
     return (0);
