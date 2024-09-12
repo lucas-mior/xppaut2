@@ -7,7 +7,6 @@
 #include "xAuto.h"
 #include "integers.h"
 
-void redo_all_fun_tables();
 void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
                  double *d, int32 n);
 extern XAUTO xAuto;
@@ -27,10 +26,8 @@ extern int32 UzrPar[], NAutoUzr;
 
 extern double NEWT_ERR;
 int32
-func(ndim, u, icp, par, ijac, f, dfdu, dfdp)
-int64 ndim, *icp, ijac;
-double *u, *par, *f, *dfdu, *dfdp;
-{
+func(int64 ndim, double *u, int64 *icp,
+     double *par, int64 ijac, double *f, double *dfdu, double *dfdp) {
     int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
@@ -56,10 +53,7 @@ double *u, *par, *f, *dfdu, *dfdp;
 } /* func_ */
 
 int32
-stpnt(ndim, t, u, par)
-int64 ndim;
-double *u, *par, t;
-{
+stpnt(int64 ndim, double t, double *u, double *par) {
     int32 i;
 
     double p;
@@ -95,15 +89,9 @@ double *u, *par, t;
 
 } /* stpnt_ */
 
-/* Subroutine */ int32
-bcnd(ndim, par, icp, nbc, u0, u1, ijac, fb, dbc)
-int64 ndim;
-double *par;
-int64 *icp, nbc;
-double *u0, *u1, *fb;
-int64 ijac;
-double *dbc;
-{
+int32
+bcnd(int64 ndim, double *par, int64 *icp, int64 nbc,
+     double *u0, double *u1, int64 ijac, double *fb, double *dbc) {
     int32 i;
     /* Hooks to the XPP bc parser!! */
 
@@ -118,15 +106,10 @@ double *dbc;
     return 0;
 } /* bcnd_ */
 
-/* Subroutine */ int32
-icnd(ndim, par, icp, nint, u, uold, udot, upold, fi, ijac, dint)
-int64 *ndim;
-double *par;
-int64 *icp, *nint;
-double *u, *uold, *udot, *upold, *fi;
-int64 *ijac;
-double *dint;
-{
+int32
+icnd(int64 ndim, double *par, int64 *icp, int64 *nint,
+     double *u, double *uold, double *udot, double *upold, double *fi,
+     int64 *ijac, double *dint) {
     int32 i;
     double dum = 0.0;
     /*
@@ -137,15 +120,9 @@ double *dint;
     return 0;
 } /* icnd_ */
 
-/* Subroutine */ int32
-fopt(ndim, u, icp, par, ijac, fs, dfdu, dfdp)
-int64 *ndim;
-double *u;
-int64 *icp;
-double *par;
-int64 *ijac;
-double *fs, *dfdu, *dfdp;
-{
+int32
+fopt(int64 *ndim, double *u, int64 *icp, double *par,
+     int64 *ijac, double *fs, double *dfdu, double *dfdp) {
     /*     ---------- ---- */
     return 0;
 } /* fopt_ */
