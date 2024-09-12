@@ -47,9 +47,6 @@ struct {
 FILE *fp8;
 int32 fp8_is_open = 0;
 extern char fort8[200], fort3[200];
-void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
-            int64 *icp, int32 labw, double *a, double *uhigh, double *ulow,
-            double *u0, double *ubar);
 
 int32
 init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
@@ -2790,9 +2787,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
             ntots = -ntot;
         }
     }
-    addbif(iap, rap, ntots, iap->ibr, par, icp, labw, &amp, u, u, u, u);
-    /* addbif_(ibr, ntot, itp, labw,
-     npar,amp, u, u, u, u,ndim);  */
+    addbif(iap, ntots, iap->ibr, par, icp, labw, &amp, u, u, u, u);
     wrline(iap, rap, par, icp, &icp[NPARX], &ibr, &ntots, &labw, &amp, u);
 
     /* Write restart information for multi-parameter analysis : */
@@ -6973,10 +6968,8 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
         }
     }
     jtmp = NPARX;
-    /* addbif max min  of variables & initial data
-
-    */
-    addbif(iap, rap, ntots, ibrs, par, icp, labw, &amp, u_high, u_low, u_0,
+    /* addbif max min  of variables & initial data */
+    addbif(iap, ntots, ibrs, par, icp, labw, &amp, u_high, u_low, u_0,
            u_bar);
 
     wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots, &labw, &amp, umx);

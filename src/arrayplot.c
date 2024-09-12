@@ -29,40 +29,39 @@
 
 */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-
-#include "arrayplot.h"
-#include "array_print.h"
-#include "integers.h"
-
-#include "ggets.h"
-#include "main.h"
-#include "many_pops.h"
-#include "pop_list.h"
-#include "kinescope.h"
-#include "scrngif.h"
-#include "lunch-new.h"
-#include "color.h"
-#include "init_conds.h"
-#include "load_eqn.h"
-
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
-#include <math.h>
-#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "array.bitmap"
+#include "array_print.h"
+#include "arrayplot.h"
+#include "color.h"
+#include "ggets.h"
+#include "init_conds.h"
+#include "integers.h"
+#include "kinescope.h"
+#include "load_eqn.h"
+#include "lunch-new.h"
+#include "main.h"
+#include "many_pops.h"
+#include "max_len_sbox.h"
+#include "pop_list.h"
+#include "scrngif.h"
+#include "xpplim.h"
+
 #ifndef WCTYPE
 #include <ctype.h>
 #else
 #include <wctype.h>
 #endif
-#include "array.bitmap"
-#include "xpplim.h"
+
 #define READEM 1
 #include "browse.h"
-#include "max_len_sbox.h"
 
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2

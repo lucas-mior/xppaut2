@@ -212,7 +212,7 @@ redraw_diagram(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
 
         if (d->ntot == 1)
             flag = 0;
@@ -259,7 +259,7 @@ write_info_out(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
 
         /*if(d->ntot==1)flag=0;
         else flag=1;
@@ -321,7 +321,7 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
         return;
     j = 0;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
         pt = abs(d->ntot);
         if ((d->ibr == ibr) && (pt >= first) && (pt <= last)) {
             icp1 = d->icp1;
@@ -379,7 +379,7 @@ write_init_data_file(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
 
         /*if(d->ntot==1)flag=0;
         else flag=1;
@@ -450,7 +450,7 @@ write_pts(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
 
         /*if(d->ntot==1)flag=0;
         else flag=1;
@@ -504,7 +504,7 @@ post_auto(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
             plintf("Unable to get bifurcation type.\n");
         }
@@ -543,7 +543,7 @@ svg_auto(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
             plintf("Unable to get bifurcation type.\n");
         }
@@ -580,7 +580,7 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
     *xhi = -*xlo;
     *yhi = -*ylo;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot, d->lab);
+        type = get_bif_type(d->ibr, d->ntot);
         if (type < 1) {
             plintf("Unable to get bifurcation type.\n");
         }
