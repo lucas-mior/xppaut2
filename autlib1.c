@@ -4168,7 +4168,7 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
             fprintf(fp9, "\n Pivots in GE");
         if ((jj % 6) == 0)
             fprintf(fp9, "\n");
-        fprintf(fp9, " %4d %12.3e ", jj, fabs(ARRAY2D(a, ir[ipiv], ic[jpiv])));
+        fprintf(fp9, " %4ld %12.3e ", jj, fabs(ARRAY2D(a, ir[ipiv], ic[jpiv])));
 #endif
         if (ipiv != jj) {
             *det = -(*det);
