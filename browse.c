@@ -1286,8 +1286,7 @@ void data_home(b) BROWSER *b;
     return;
 }
 
-void data_end(b) BROWSER *b;
-{
+void data_end(BROWSER *b) {
     b->row0 = b->maxrow - 1;
     draw_data(*b);
     return;
@@ -1310,8 +1309,7 @@ data_get_mybrowser(int32 row) {
     return;
 }
 
-void data_get(b) BROWSER *b;
-{
+void data_get(BROWSER *b) {
     int32 i, in = b->row0;
     set_ivar(0, (double)storage[0][in]);
     for (i = 0; i < NODE; i++) {
@@ -1328,8 +1326,7 @@ void data_get(b) BROWSER *b;
     redraw_ics();
 }
 
-void data_replace(b) BROWSER *b;
-{
+void data_replace(BROWSER *b) {
     Window w;
     int32 rev, status;
     char var[20], form[80];
@@ -1349,15 +1346,13 @@ void data_replace(b) BROWSER *b;
     return;
 }
 
-void data_unreplace(b) BROWSER *b;
-{
+void data_unreplace(BROWSER *b) {
     unreplace_column();
     draw_data(*b);
     return;
 }
 
-void data_table(b) BROWSER *b;
-{
+void data_table(BROWSER *b) {
     Window w;
     int32 rev, status;
 
@@ -1383,8 +1378,7 @@ void data_table(b) BROWSER *b;
     return;
 }
 
-void data_find(b) BROWSER *b;
-{
+void data_find(BROWSER *b) {
     Window w;
     int32 rev, status;
 
@@ -1435,8 +1429,7 @@ open_write_file(FILE **fp, char *fil, int32 *ok) {
     return;
 }
 
-void data_read(b) BROWSER *b;
-{
+void data_read(BROWSER *b) {
 
     int32 status;
     char fil[256];
@@ -1498,8 +1491,7 @@ void data_read(b) BROWSER *b;
     return;
 }
 
-void data_write(b) BROWSER *b;
-{
+void data_write(BROWSER *b) {
 
     int32 status;
     char fil[256];
@@ -1533,8 +1525,7 @@ void data_write(b) BROWSER *b;
     return;
 }
 
-void data_left(b) BROWSER *b;
-{
+void data_left(BROWSER *b) {
     int32 i = b->col0;
     if (i > 1) {
         b->col0--;
@@ -1543,8 +1534,7 @@ void data_left(b) BROWSER *b;
     return;
 }
 
-void data_right(b) BROWSER *b;
-{
+void data_right(BROWSER *b) {
     int32 i = b->col0 + b->ncol;
     if (i <= b->maxcol) {
         b->col0++;
@@ -1553,14 +1543,17 @@ void data_right(b) BROWSER *b;
     return;
 }
 
-void data_first(b) BROWSER *b;
-{ b->istart = b->row0; }
+void data_first(BROWSER *b) {
+    b->istart = b->row0;
+}
 
-void data_last(b) BROWSER *b;
-{ b->iend = b->row0 + 1; }
+void data_last(BROWSER *b) {
+    b->iend = b->row0 + 1;
+}
 
-void data_restore(b) BROWSER *b;
-{ restore(b->istart, b->iend); }
+void data_restore(BROWSER *b) {
+    restore(b->istart, b->iend);
+}
 
 void
 get_col_list(char *s, int32 *cl, int32 *n) {
