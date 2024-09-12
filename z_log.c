@@ -2,6 +2,7 @@
 
 #include "math.h"
 extern double f__cabs(double, double);
+
 void
 z_log(doublecomplex *r, doublecomplex *z) {
     double zi = z->i, zr = z->r;

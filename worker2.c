@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+
 static double
 time_start(void) {
     struct rusage time;

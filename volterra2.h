@@ -2,7 +2,6 @@
 #define _volterra2_h_
 #include "integers.h"
 
-/* volterra2.c */
 double ker_val(int32 in);
 void alloc_v_memory(void);
 void allocate_volterra(int32 npts, int32 flag);

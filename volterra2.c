@@ -59,8 +59,7 @@ ker_val(int32 in) {
 }
 
 void
-alloc_v_memory(void) /* allocate stuff for volterra equations */
-{
+alloc_v_memory(void) {
     int32 i, len, formula[256], j;
 
     /* First parse the kernels   since these were deferred */
