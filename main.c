@@ -31,6 +31,7 @@
 #include "do_fit.h"
 #include "graf_par.h"
 #include "auto_x11.h"
+#include "my_rhs.h"
 
 #include "nullcline.h"
 #include "lunch-new.h"
@@ -122,7 +123,6 @@ char batchout[256];
 char UserOUTFILE[256];
 XKeyEvent createKeyEvent(Window w, Window wr, int p, int kc, int m);
 void scripty();
-int my_rhs();
 extern int xorfix;
 int DisplayHeight, DisplayWidth;
 int TrueColorFlag;

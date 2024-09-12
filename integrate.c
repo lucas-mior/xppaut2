@@ -187,7 +187,7 @@ extern char UserOUTFILE[256];
 extern double DELAY;
 extern int R_COL;
 extern int colorline[11];
-extern int (*rhs)();
+extern int (*rhs)(double t, double *y, double *ydot, int neq);
 int STOP_FLAG = 0;
 int PSLineStyle;
 struct {

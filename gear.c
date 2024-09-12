@@ -15,7 +15,7 @@
 int UnstableManifoldColor = 5;
 int StableManifoldColor = 8;
 double ndrand48();
-extern int (*rhs)();
+extern int (*rhs)(double t, double *y, double *ydot, int neq);
 extern int Xup;
 
 extern double DELTA_T;

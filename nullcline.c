@@ -41,7 +41,7 @@ int NCBatch = 0;
 extern int XPPBatch;
 
 int NullStyle = 0; /* 1 is with little vertical/horizontal lines */
-extern int (*rhs)();
+extern int (*rhs)(double t, double *y, double *ydot, int neq);
 int user_set_color_par();
 extern int DRight, DLeft, DTop, DBottom;
 extern int STORFLAG;

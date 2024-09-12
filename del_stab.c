@@ -18,7 +18,7 @@ extern double variable_shift[2][MAXODE], AlphaMax, OmegaMax;
 
 extern double delay_list[MAXDELAY];
 extern int NDelay, del_stab_flag, WhichDelay, DelayGrid;
-extern int (*rhs)();
+extern int (*rhs)(double t, double *y, double *ydot, int neq);
 double amax();
 
 /*typedef struct{

@@ -12,8 +12,7 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 extern XAUTO xAuto;
 
 /*    Hooks to xpp RHS     */
-
-extern int (*rhs)();
+extern int (*rhs)(double t, double *y, double *ydot, int neq);
 extern double constants[], last_ic[];
 
 extern int Auto_index_to_array[8];

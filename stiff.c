@@ -50,7 +50,7 @@ extern int NFlags;
 #define PSHRNK2 -0.25
 #define ERRCON2 1.89e-4
 double sdot();
-extern int (*rhs)();
+extern int (*rhs)(double t, double *y, double *ydot, int neq);
 void
 jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
        double *work, int n) {

@@ -11,7 +11,7 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int (*rhs)();
+int (*rhs)(double t, double *y, double *ydot, int neq);
 int mod_euler(/* double *,double *,double,int,int,int *,double * */);
 int rung_kut(/* double *,double *,double,int,int,int *,double * */);
 int adams(/* double *,double *,double,int,int, int*,double * */);
