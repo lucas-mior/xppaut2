@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
-/* #include <malloc.h> */
 #include <limits.h>
 #include <memory.h>
 #include "dormpri.h"

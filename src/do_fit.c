@@ -1,4 +1,3 @@
-
 #include "do_fit.h"
 
 #include "form_ode.h"

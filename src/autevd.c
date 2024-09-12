@@ -1,7 +1,6 @@
 #include "autevd.h"
 #include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
 #include "integers.h"
 
 #include "auto_nox.h"

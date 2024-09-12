@@ -1,4 +1,3 @@
-#include "auto_f2c.h"
 #include "tabular.h"
 #include "auto_nox.h"
 #include "autlim.h"

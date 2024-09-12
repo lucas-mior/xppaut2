@@ -11,8 +11,6 @@
 #include "my_rhs.h"
 #include <libgen.h>
 #include <stdbool.h>
-/* #include "f2c.h" */
-#include "auto_f2c.h"
 #include "auto_c.h"
 #include "graf_par.h"
 
