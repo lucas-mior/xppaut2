@@ -311,7 +311,8 @@ IsDirectory(char *root, char *path) {
  * Notes:
  */
 
-void MakeFullPath(char *root, char *filename, char *pathname) {
+void
+MakeFullPath(char *root, char *filename, char *pathname) {
     strcpy(pathname, root);
     strcat(pathname, "/");
     strcat(pathname, filename);

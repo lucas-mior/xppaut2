@@ -176,7 +176,8 @@ make_my_aplot(char *name) {
     return;
 }
 
-void scale_aplot(APLOT *ap, double *zmax, double *zmin) {
+void
+scale_aplot(APLOT *ap, double *zmax, double *zmin) {
     int32 i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
@@ -206,7 +207,8 @@ void scale_aplot(APLOT *ap, double *zmax, double *zmin) {
     return;
 }
 
-void init_arrayplot(APLOT *ap) {
+void
+init_arrayplot(APLOT *ap) {
     ap->height = 400;
     ap->width = 400;
     ap->zmin = 0.0;
@@ -285,7 +287,8 @@ do_array_plot_events(XEvent ev) {
     return;
 }
 
-void wborder(Window w, int32 i, APLOT ap) {
+void
+wborder(Window w, int32 i, APLOT ap) {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
      */
     if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
@@ -309,7 +312,8 @@ init_my_aplot(void) {
     return;
 }
 
-void create_arrayplot(APLOT *ap, char *wname, char *iname) {
+void
+create_arrayplot(APLOT *ap, char *wname, char *iname) {
     Window base;
     int32 width, height;
     uint32 valuemask = 0;
@@ -360,7 +364,8 @@ void create_arrayplot(APLOT *ap, char *wname, char *iname) {
     return;
 }
 
-void print_aplot(APLOT *ap) {
+void
+print_aplot(APLOT *ap) {
     double tlo, thi;
     int32 status, errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
@@ -435,7 +440,8 @@ apbutton(Window w) {
     return;
 }
 
-void draw_scale(APLOT ap) {
+void
+draw_scale(APLOT ap) {
     int32 i, y;
     Window w = ap.wscale;
     for (i = 0; i < color_total; i++) {
@@ -446,7 +452,8 @@ void draw_scale(APLOT ap) {
     return;
 }
 
-void draw_aplot(APLOT ap) {
+void
+draw_aplot(APLOT ap) {
     if (plot3d_auto_redraw != 1)
         return;
     redraw_aplot(ap);
@@ -492,8 +499,8 @@ get_root(char *s, char *sroot, int32 *num) {
     return;
 }
 
-void reset_aplot_axes(APLOT ap)
-{
+void
+reset_aplot_axes(APLOT ap) {
     char bob[200];
     char sroot[100];
     int32 num;
@@ -638,8 +645,8 @@ gif_aplot(void) {
     return;
 }
 
-void grab_aplot_screen(APLOT ap)
-{
+void
+grab_aplot_screen(APLOT ap) {
 
     Window temp = draw_win;
     draw_win = ap.wplot;
@@ -649,8 +656,8 @@ void grab_aplot_screen(APLOT ap)
     return;
 }
 
-void redraw_aplot(APLOT ap)
-{
+void
+redraw_aplot(APLOT ap) {
     int32 i, j, w = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
     char bob[100];
@@ -734,7 +741,8 @@ set_acolor(int32 col) {
     return;
 }
 
-void display_aplot(Window w, APLOT ap) {
+void
+display_aplot(Window w, APLOT ap) {
     char bob[200];
 
     if (w == ap.wplot) {

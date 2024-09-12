@@ -39,7 +39,8 @@ extern double DELAY;
 extern int32 DelayFlag;
 FITINFO fin;
 
-extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart, double *work);
+extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
+                       int32 *istart, double *work);
 
 void
 init_fit_info(void) {

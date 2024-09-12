@@ -195,9 +195,9 @@ KillMessageBox(void) {
 
 int32
 TwoChoice(char *c1, char *c2, char *q, char *key) {
-    int32 choice = two_choice(c1, c2, q, key,
-                              DisplayWidth / 2, DisplayHeight / 2,
-                              RootWindow(display, screen), NULL);
+    int32 choice =
+        two_choice(c1, c2, q, key, DisplayWidth / 2, DisplayHeight / 2,
+                   RootWindow(display, screen), NULL);
     return choice;
 }
 

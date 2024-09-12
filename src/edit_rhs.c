@@ -64,7 +64,8 @@ extern BC_STRUCT my_bc[MAXODE];
 
 extern int32 NFUN;
 
-void reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
+void
+reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
     int32 i, l;
     Window w;
@@ -125,7 +126,8 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     return status;
 }
 
-void expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col) {
+void
+expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col) {
     int32 i, flag;
 
     if (w == sb->ok) {
@@ -151,7 +153,8 @@ void expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col) {
     return;
 }
 
-void ereset_hot(int32 inew, EDIT_BOX *sb) {
+void
+ereset_hot(int32 inew, EDIT_BOX *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
@@ -251,7 +254,8 @@ e_box_event_loop(EDIT_BOX *sb, int32 *pos, int32 *col) {
     return status;
 }
 
-void make_ebox_windows(EDIT_BOX *sb, char *title) {
+void
+make_ebox_windows(EDIT_BOX *sb, char *title) {
     int32 width, height;
     int32 i;
     int32 xpos, ypos, n = sb->n;

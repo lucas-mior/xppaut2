@@ -26,8 +26,8 @@ extern int32 UzrPar[], NAutoUzr;
 
 extern double NEWT_ERR;
 int32
-func(int64 ndim, double *u, int64 *icp,
-     double *par, int64 ijac, double *f, double *dfdu, double *dfdp) {
+func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
+     double *dfdu, double *dfdp) {
     int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
@@ -90,8 +90,8 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 } /* stpnt_ */
 
 int32
-bcnd(int64 ndim, double *par, int64 *icp, int64 nbc,
-     double *u0, double *u1, int64 ijac, double *fb, double *dbc) {
+bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
+     int64 ijac, double *fb, double *dbc) {
     int32 i;
     /* Hooks to the XPP bc parser!! */
 
@@ -107,9 +107,8 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc,
 } /* bcnd_ */
 
 int32
-icnd(int64 ndim, double *par, int64 *icp, int64 *nint,
-     double *u, double *uold, double *udot, double *upold, double *fi,
-     int64 *ijac, double *dint) {
+icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
+     double *udot, double *upold, double *fi, int64 *ijac, double *dint) {
     int32 i;
     double dum = 0.0;
     /*
@@ -121,8 +120,8 @@ icnd(int64 ndim, double *par, int64 *icp, int64 *nint,
 } /* icnd_ */
 
 int32
-fopt(int64 *ndim, double *u, int64 *icp, double *par,
-     int64 *ijac, double *fs, double *dfdu, double *dfdp) {
+fopt(int64 *ndim, double *u, int64 *icp, double *par, int64 *ijac, double *fs,
+     double *dfdu, double *dfdp) {
     /*     ---------- ---- */
     return 0;
 } /* fopt_ */

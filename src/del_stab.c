@@ -185,7 +185,8 @@ cexp2(COMPLEX z) {
     return sum;
 }
 
-void switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n) {
+void
+switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n) {
     COMPLEX zt;
     int32 j;
     for (j = 0; j < n; j++) {
@@ -204,15 +205,18 @@ rtoc(double x, double y) {
     return sum;
 }
 
-void cprintn(COMPLEX z) {
+void
+cprintn(COMPLEX z) {
     plintf(" %g + i %g \n", z.r, z.i);
 }
 
-void cprint(COMPLEX z) {
+void
+cprint(COMPLEX z) {
     printf("(%g,%g) ", z.r, z.i);
 }
 
-void cprintarr(COMPLEX *z, int32 n, int32 m) {
+void
+cprintarr(COMPLEX *z, int32 n, int32 m) {
     int32 i, j;
     for (i = 0; i < m; i++) {
         for (j = 0; j < n; j++)
@@ -281,8 +285,9 @@ cxdeterm(COMPLEX *z, int32 n) {
     return sum;
 }
 
-void make_z(COMPLEX *z, double *delay,
-            int32 n, int32 m, double *coef, COMPLEX lambda) {
+void
+make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
+       COMPLEX lambda) {
     int32 i, j, k, km;
     COMPLEX temp, eld;
 

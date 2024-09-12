@@ -1876,7 +1876,7 @@ double z;
 
 double
 hom_bcs(int32 i) {
-    (void) i;
+    (void)i;
     return 0.0; /* this is deprecated so no longer used */
 }
 
