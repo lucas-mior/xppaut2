@@ -49,14 +49,7 @@ extern int32 NVAR;
 extern int32 MaxEulIter;
 extern double EulTol, NEWT_ERR;
 
-double evaluate();
-double ker_val();
-double alpha1n();
-double alpbetjn();
-double betnn();
-
 extern int32 *my_ode[];
-double get_ivar();
 
 double
 ker_val(int32 in) {
@@ -265,7 +258,7 @@ alpbetjn(double mu, double dt, int32 l) {
 }
 
 double
-betnn(double mu, double dt, double t0, double t) {
+betnn(double mu, double dt, double t) {
     double m1;
     if (mu == .5)
         return (sqrt(dt));
@@ -321,7 +314,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
             if (mu == 0.0)
                 bet = .5 * dt;
             else
-                bet = betnn(mu, dt, *t, *t);
+                bet = betnn(mu, dt, *t);
             kernel[i].betnn = bet;
         }
         SETVAR(0, *t);
