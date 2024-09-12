@@ -3,7 +3,6 @@
 #include "integers.h"
 
 #include <stdio.h>
-#include "xpplim.h"
 #include "autlim.h"
 #define MAX_AUT_PER 10
 

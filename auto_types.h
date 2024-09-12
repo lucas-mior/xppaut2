@@ -3,6 +3,7 @@
    which are input and output are markered as such*/
 #ifndef AUTO_TYPES_H
 #define AUTO_TYPES_H
+#include "integers.h"
 typedef struct {
     int64 ndim, ips, ncol, nbc, nint, ncb, nrc, nra, nca, na; /*scalar input */
     FUNI_TYPE((*funi));                                       /*scalar input*/
