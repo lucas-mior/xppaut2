@@ -1,6 +1,7 @@
 #ifndef _browse_h_
 #define _browse_h_
 #include "integers.h"
+#include "max_len_sbox.h"
 
 #define BMAXCOL 20
 

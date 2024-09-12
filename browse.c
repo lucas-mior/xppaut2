@@ -1332,7 +1332,7 @@ void data_table(b) BROWSER *b;
     int32 rev, status;
 
     static char *name[] = {"Variable", "Xlo", "Xhi", "File"};
-    char value[4][25];
+    char value[4][MAX_LEN_SBOX];
 
     double xlo = 0, xhi = 1;
     int32 col;
@@ -1358,7 +1358,7 @@ void data_find(b) BROWSER *b;
     int32 rev, status;
 
     static char *name[] = {"*0Variable", "Value"};
-    char value[2][25];
+    char value[2][MAX_LEN_SBOX];
     int32 col, row;
 
     float val;

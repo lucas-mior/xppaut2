@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "pop_list.h"
 #include "integers.h"
 

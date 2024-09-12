@@ -4,6 +4,7 @@
 #include "nullcline.h"
 #include "menudrive.h"
 #include "integers.h"
+#include "pop_list.h"
 
 #include "arrayplot.h"
 #include "lunch-new.h"
@@ -34,7 +35,6 @@ This also has the clone gadget
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <stdio.h>
-#include <math.h>
 #ifndef WCTYPE
 #include <ctype.h>
 #else
@@ -134,7 +134,6 @@ extern double SLIDER3HI;
 
 extern BC_STRUCT my_bc[MAXODE];
 
-Window make_window();
 BoxList *HotBox;
 int32 HotBoxItem = -1;
 BoxList ICBox;
@@ -343,8 +342,8 @@ clone_ode(void) {
 int32
 find_user_name(int32 type, char *oname) {
     char name[25];
-    int32 j = 0, k = 0, i = -1;
-    for (j = 0; j < strlen(oname); j++) {
+    int32 k = 0, i = -1;
+    for (size_t j = 0; j < strlen(oname); j++) {
         if (!isspace(oname[j])) {
             name[k] = oname[j];
             k++;
