@@ -490,7 +490,8 @@ memmov(char *s1, char *s2, int32 len) {
 }
 
 void
-edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done, int32 ch) {
+edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
+            int32 ch) {
     int32 col0 = *col - *pos * DCURX;
 
     *done = 0;

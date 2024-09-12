@@ -18,8 +18,8 @@ void arrow_head(double xs, double ys, double xe, double ye, double size);
 void destroy_grob(Window w);
 void destroy_label(Window w);
 void draw_label(Window w);
-void add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
-              int32 color);
+void add_grob(double xs, double ys, double xe, double ye, double size,
+              int32 type, int32 color);
 int32 select_marker_type(int32 *type);
 int32 man_xy(float *xe, float *ye);
 int32 get_marker_info(void);

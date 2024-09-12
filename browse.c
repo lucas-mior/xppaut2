@@ -60,8 +60,8 @@ extern Display *display;
 extern int32 screen, storind;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
-    GrFore, GrBack;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
+    GrBack;
 
 extern Window command_pop;
 
@@ -1269,7 +1269,8 @@ void data_end(b) BROWSER *b;
 }
 
 void
-get_data_xyz(float *x, float *y, float *z, int32 i1, int32 i2, int32 i3, int32 off) {
+get_data_xyz(float *x, float *y, float *z, int32 i1, int32 i2, int32 i3,
+             int32 off) {
     int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
     *y = my_browser.data[i2][in];

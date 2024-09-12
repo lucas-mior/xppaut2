@@ -56,13 +56,13 @@
 
 typedef struct {
 
-    int32 g_pretype;   /* type of preconditioning                      */
-    int32 g_gstype;    /* type of Gram-Schmidt orthogonalization       */
+    int32 g_pretype; /* type of preconditioning                      */
+    int32 g_gstype;  /* type of Gram-Schmidt orthogonalization       */
     double g_srqtN;  /* sqrt(N)                                      */
     double g_delt;   /* delt = user specified or DELT_DEFAULT        */
     double g_deltar; /* deltar = delt * tq4                          */
     double g_delta;  /* delta = deltar * sqrtN                       */
-    int32 g_maxl;      /* maxl = maximum dimension of the Krylov space */
+    int32 g_maxl;    /* maxl = maximum dimension of the Krylov space */
 
     int32 g_nstlpre; /* value of nst at the last precond call       */
     int32 g_npe;     /* npe = total number of precond calls         */
@@ -92,11 +92,11 @@ typedef struct {
 static int32 CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
-                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                        N_Vector vtemp2, N_Vector vtemp3);
+                          N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
+                          N_Vector vtemp2, N_Vector vtemp3);
 
 static int32 CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                        N_Vector fcur);
+                          N_Vector fcur);
 
 static void CVSpgmrFree(CVodeMem cv_mem);
 

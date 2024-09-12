@@ -83,8 +83,8 @@ extern char *no_hint[];
 extern Display *display;
 extern Window main_win, draw_win, command_pop, info_pop;
 int32 current_pop;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
-    GrFore, GrBack;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
+    GrBack;
 extern GC gc, gc_graph, small_gc;
 extern int32 COLOR, color_min;
 extern int32 xor_flag, DCURX, DCURY;
@@ -1386,7 +1386,8 @@ do_expose(XEvent ev) {
 
 void
 resize_all_pops(int32 wid, int32 hgt) {
-    int32 nw = wid - 16 - 16 * DCURX + 7, nh = hgt - 3 * DCURYb - 4 * DCURYs - 24;
+    int32 nw = wid - 16 - 16 * DCURX + 7,
+          nh = hgt - 3 * DCURYb - 4 * DCURYs - 24;
     nw = 4 * ((nw / 4));
     nh = 4 * ((nh / 4));
     XResizeWindow(display, graph[0].w, nw, nh);

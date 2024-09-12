@@ -40,8 +40,8 @@ void reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col);
 int32 do_edit_box(int32 n, char *title, char **names, char **values);
 void expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col);
 void ereset_hot(int32 inew, EDIT_BOX *sb);
-void enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
-                   Window *w);
+void enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col,
+                   int32 *done, Window *w);
 int32 e_box_event_loop(EDIT_BOX *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EDIT_BOX *sb, char *title);
 void edit_menu(void);

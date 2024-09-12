@@ -503,8 +503,8 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
 }
 
 int32
-one_flag_step_discrete(double *y, double dt, double *work, int32 neq, double *tim,
-                       int32 *istart) {
+one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
+                       double *tim, int32 *istart) {
     double yold[MAXODE], told;
     int32 i, hit;
     double s, dtt = dt;
@@ -529,8 +529,8 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq, double *ti
 }
 
 int32
-one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim,
-                   int32 *istart) {
+one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
+                   double *tim, int32 *istart) {
     double yold[MAXODE], told;
     int32 i, hit;
     double s, dtt = dt;
@@ -593,8 +593,8 @@ printflaginfo(void) {
 
 int32
 one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
-                   double hmax, double eps, int32 mf, double *error, int32 *kflag,
-                   int32 *jstart, double *work, int32 *iwork) {
+                   double hmax, double eps, int32 mf, double *error,
+                   int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
     double yold[MAXODE], told;
     int32 i, hit;
     double s;

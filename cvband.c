@@ -75,11 +75,11 @@ typedef struct {
 static int32 CVBandInit(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
-                       N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                       N_Vector vtemp2, N_Vector vtemp3);
+                         N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
+                         N_Vector vtemp2, N_Vector vtemp3);
 
 static int32 CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                       N_Vector fcur);
+                         N_Vector fcur);
 
 static void CVBandFree(CVodeMem cv_mem);
 
@@ -269,8 +269,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Test ml and mu for legality */
     if ((ml < 0) || (mu < 0) || (ml >= N) || (mu >= N)) {
-        fprintf(errfp, MSG_BAD_SIZES, (int64)ml, (int64)mu,
-                (int64)(N - 1));
+        fprintf(errfp, MSG_BAD_SIZES, (int64)ml, (int64)mu, (int64)(N - 1));
         return (LINIT_ERR);
     }
 

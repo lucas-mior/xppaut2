@@ -137,7 +137,8 @@ typedef int32 (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int32 lr);
  *                                                                *
  ******************************************************************/
 
-int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm);
+int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p,
+                 double *new_vk_norm);
 
 /******************************************************************
  *                                                                *
@@ -159,8 +160,8 @@ int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm)
  *                                                                *
  ******************************************************************/
 
-int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
-                N_Vector temp, double *s);
+int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p,
+                  double *new_vk_norm, N_Vector temp, double *s);
 
 /******************************************************************
  *                                                                *

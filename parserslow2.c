@@ -1785,7 +1785,8 @@ do_shift(double shift, double variable) {
     int32 i = (int32)(variable), ish = (int32)shift;
 
     /* plintf( "shifting %d (%s) by %d to %d (%s)\n",
-     *	(int32)variable, com_name((int32)variable), (int32)shift, i, com_name(i) );
+     *	(int32)variable, com_name((int32)variable), (int32)shift, i, com_name(i)
+     *);
      */
 
     if (i < 0)
@@ -1815,7 +1816,8 @@ double
 do_ishift(double shift, double variable) {
 
     /* plintf( "shifting %d (%s) by %d to %d (%s)\n",
-     *	(int32)variable, com_name((int32)variable), (int32)shift, i, com_name(i) );
+     *	(int32)variable, com_name((int32)variable), (int32)shift, i, com_name(i)
+     *);
      */
     return variable + shift;
 }

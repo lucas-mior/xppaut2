@@ -754,10 +754,11 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 /* front-end */
 int32
 dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler, int32 itoler, SolTrait solout, int32 iout,
-       FILE *fileout, double uround, double safe, double fac1, double fac2,
-       double beta, double hmax, double h, long nmax, int32 meth, long nstiff,
-       unsigned nrdens, unsigned *icont, unsigned licont, double *work) {
+       double *rtoler, double *atoler, int32 itoler, SolTrait solout,
+       int32 iout, FILE *fileout, double uround, double safe, double fac1,
+       double fac2, double beta, double hmax, double h, long nmax, int32 meth,
+       long nstiff, unsigned nrdens, unsigned *icont, unsigned licont,
+       double *work) {
     int32 arret, idid;
     unsigned i;
 
@@ -1295,10 +1296,11 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 /* front-end */
 int32
 dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler, int32 itoler, SolTrait solout, int32 iout,
-       FILE *fileout, double uround, double safe, double fac1, double fac2,
-       double beta, double hmax, double h, long nmax, int32 meth, long nstiff,
-       unsigned nrdens, unsigned *icont, unsigned licont, double *work) {
+       double *rtoler, double *atoler, int32 itoler, SolTrait solout,
+       int32 iout, FILE *fileout, double uround, double safe, double fac1,
+       double fac2, double beta, double hmax, double h, long nmax, int32 meth,
+       long nstiff, unsigned nrdens, unsigned *icont, unsigned licont,
+       double *work) {
     int32 arret, idid;
     unsigned i;
 

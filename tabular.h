@@ -16,7 +16,7 @@ void init_table(void);
 void redo_all_fun_tables(void);
 int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y);
 int32 create_fun_table(int32 npts, double xlo, double xhi, char *formula,
-                     int32 index);
+                       int32 index);
 int32 load_table(char *filename, int32 index);
 int32 get_lookup_len(int32 i);
 

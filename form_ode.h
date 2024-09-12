@@ -68,7 +68,8 @@ void add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
 void free_varinfo(void);
 int32 extract_ode(char *s1, int32 *ie, int32 i1);
 int32 strparse(char *s1, char *s2, int32 i0, int32 *i1);
-int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg, char args[20][13 + 1]);
+int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
+                   char args[20][13 + 1]);
 int32 find_char(char *s1, char *s2, int32 i0, int32 *i1);
 int32 next_nonspace(char *s1, int32 i0, int32 *i1);
 void remove_blanks(char *s1);

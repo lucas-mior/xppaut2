@@ -185,10 +185,10 @@ SpgmrMem SpgmrMalloc(int64 N, int32 l_max, void *machEnv);
  *                                                                *
  ******************************************************************/
 
-int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
-               int32 gstype, double delta, int32 max_restarts, void *P_data,
-               N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
-               double *res_norm, int32 *nli, int32 *nps);
+int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
+                 int32 pretype, int32 gstype, double delta, int32 max_restarts,
+                 void *P_data, N_Vector sx, N_Vector sb, ATimesFn atimes,
+                 PSolveFn psolve, double *res_norm, int32 *nli, int32 *nps);
 
 /* Return values for SpgmrSolve */
 

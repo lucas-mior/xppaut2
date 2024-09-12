@@ -2689,7 +2689,8 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
 
             return (-1);
         }
-        ani_grab[igrab].start.comrhs[i] = (int32 *)malloc(sizeof(int32) * (nc + 1));
+        ani_grab[igrab].start.comrhs[i] =
+            (int32 *)malloc(sizeof(int32) * (nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 
@@ -2714,7 +2715,8 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             plintf("should return -1\n");
             return (-1);
         }
-        ani_grab[igrab].end.comrhs[i] = (int32 *)malloc(sizeof(int32) * (nc + 1));
+        ani_grab[igrab].end.comrhs[i] =
+            (int32 *)malloc(sizeof(int32) * (nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;

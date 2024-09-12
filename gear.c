@@ -52,8 +52,8 @@ double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
 void write_mybrowser_data();
 
 void
-silent_fixpt(double *x, double eps, double err, double big, int32 maxit, int32 n,
-             double *er, double *em, int32 *ierr) {
+silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
+             int32 n, double *er, double *em, int32 *ierr) {
     int32 kmem, i, j;
 
     double *work, *eval, *b, *bp, *oldwork, *ework;
@@ -408,8 +408,8 @@ shoot_this_now(void) /* this uses the current labeled saddle point stuff to
 
 /* fixed point with no requests and store manifolds */
 void
-do_sing_info(double *x, double eps, double err, double big, int32 maxit, int32 n,
-             double *er, double *em, int32 *ierr) {
+do_sing_info(double *x, double eps, double err, double big, int32 maxit,
+             int32 n, double *er, double *em, int32 *ierr) {
     int32 kmem, i, j, ipivot[MAXODE];
 
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
@@ -1089,8 +1089,8 @@ sqr2(double z) {
 
 int32
 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
-     double eps, int32 mf, double *error, int32 *kflag, int32 *jstart, double *work,
-     int32 *iwork) {
+     double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
+     double *work, int32 *iwork) {
     if (NFlags == 0)
         return (ggear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart,
                       work, iwork));
@@ -1100,8 +1100,8 @@ gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
 
 int32
 ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
-      double eps, int32 mf, double *error, int32 *kflag, int32 *jstart, double *work,
-      int32 *iwork)
+      double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
+      double *work, int32 *iwork)
 
 {
     /* int32 ipivot[MAXODE]; */
@@ -1113,9 +1113,9 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
            eup = 0.0, bnd = 0.0;
     double *ytable[8], *ymax, *work2;
     int32 i, iret = 0, maxder = 0, j = 0, k = 0, iret1 = 0, nqold = 0, nq = 0,
-           newq = 0;
+             newq = 0;
     int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
-        job = 0, nt = 0;
+          job = 0, nt = 0;
     /* plintf("entering gear ... with start=%d \n",*jstart);*/
     for (i = 0; i < 8; i++) {
         save[i] = work + i * n;

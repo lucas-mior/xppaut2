@@ -346,10 +346,10 @@ dop853(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
        double xend,     /* final x-value (xend-x may be positive or negative) */
        double *rtoler,  /* relative error tolerance */
        double *atoler,  /* absolute error tolerance */
-       int32 itoler,      /* switch for rtoler and atoler */
+       int32 itoler,    /* switch for rtoler and atoler */
        SolTrait solout, /* function providing the numerical solution during
                            integration */
-       int32 iout,        /* switch for calling solout */
+       int32 iout,      /* switch for calling solout */
        FILE *fileout,   /* messages stream */
        double uround,   /* rounding unit */
        double safe,     /* safety factor */
@@ -358,7 +358,7 @@ dop853(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
        double hmax,              /* maximal step size */
        double h,                 /* initial step size */
        long nmax,                /* maximal number of allowed steps */
-       int32 meth,                 /* switch for the choice of the coefficients */
+       int32 meth,               /* switch for the choice of the coefficients */
        long nstiff,              /* test for stiffness */
        unsigned nrdens, /* number of components for which dense outpout is
                            required */
@@ -379,10 +379,10 @@ dopri5(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
        double xend,     /* final x-value (xend-x may be positive or negative) */
        double *rtoler,  /* relative error tolerance */
        double *atoler,  /* absolute error tolerance */
-       int32 itoler,      /* switch for rtoler and atoler */
+       int32 itoler,    /* switch for rtoler and atoler */
        SolTrait solout, /* function providing the numerical solution during
                            integration */
-       int32 iout,        /* switch for calling solout */
+       int32 iout,      /* switch for calling solout */
        FILE *fileout,   /* messages stream */
        double uround,   /* rounding unit */
        double safe,     /* safety factor */
@@ -391,7 +391,7 @@ dopri5(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
        double hmax,              /* maximal step size */
        double h,                 /* initial step size */
        long nmax,                /* maximal number of allowed steps */
-       int32 meth,                 /* switch for the choice of the coefficients */
+       int32 meth,               /* switch for the choice of the coefficients */
        long nstiff,              /* test for stiffness */
        unsigned nrdens, /* number of components for which dense outpout is
                            required */
@@ -407,9 +407,9 @@ extern double contd5(unsigned ii, /* index of desired component */
 void dprhs(unsigned n, double t, double *y, double *f);
 void dp_err(int32 k);
 int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
-       double *atol, int32 flag, int32 *kflag);
-int32 dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
-             double *atol, int32 flag, int32 *kflag);
+         double *atol, int32 flag, int32 *kflag);
+int32 dormprin(int32 *istart, double *y, double *t, int32 n, double tout,
+               double *tol, double *atol, int32 flag, int32 *kflag);
 long nfcnRead(void);
 long nstepRead(void);
 long naccptRead(void);
@@ -417,18 +417,18 @@ long nrejctRead(void);
 double hRead(void);
 double xRead(void);
 int32 dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-           double *rtoler, double *atoler, int32 itoler, SolTrait solout,
-           int32 iout, FILE *fileout, double uround, double safe, double fac1,
-           double fac2, double beta, double hmax, double h, long nmax, int32 meth,
-           long nstiff, unsigned nrdens, unsigned *icont, unsigned licont,
-           double *work);
+             double *rtoler, double *atoler, int32 itoler, SolTrait solout,
+             int32 iout, FILE *fileout, double uround, double safe, double fac1,
+             double fac2, double beta, double hmax, double h, long nmax,
+             int32 meth, long nstiff, unsigned nrdens, unsigned *icont,
+             unsigned licont, double *work);
 double contd8(unsigned ii, double x);
 int32 dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-           double *rtoler, double *atoler, int32 itoler, SolTrait solout,
-           int32 iout, FILE *fileout, double uround, double safe, double fac1,
-           double fac2, double beta, double hmax, double h, long nmax, int32 meth,
-           long nstiff, unsigned nrdens, unsigned *icont, unsigned licont,
-           double *work);
+             double *rtoler, double *atoler, int32 itoler, SolTrait solout,
+             int32 iout, FILE *fileout, double uround, double safe, double fac1,
+             double fac2, double beta, double hmax, double h, long nmax,
+             int32 meth, long nstiff, unsigned nrdens, unsigned *icont,
+             unsigned licont, double *work);
 double contd5(unsigned ii, double x);
 
 extern long nfcnRead(void); /* encapsulation of statistical data */

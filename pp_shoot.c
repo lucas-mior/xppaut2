@@ -447,8 +447,9 @@ set_up_sh_range(void) {
 }
 
 void
-bvshoot(double *y, double *yend, double err, double eps, int32 maxit, int32 *iret,
-        int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar, double sect) {
+bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
+        int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar,
+        double sect) {
     double *jac, *f, *fdev, *y0, *y1;
     double dev, error, ytemp;
 

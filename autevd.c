@@ -47,11 +47,11 @@ double sign();
 int32 imin();
 
 void
-init_auto(int32 ndim, int32 nicp, int32 nbc, int32 ips, int32 irs, int32 ilp, int32 ntst,
-          int32 isp, int32 isw, int32 nmx, int32 npr, double ds, double dsmin,
-          double dsmax, double rl0, double rl1, double a0, double a1, int32 ip1,
-          int32 ip2, int32 ip3, int32 ip4, int32 ip5, int32 nuzr, double epsl,
-          double epsu, double epss, int32 ncol) {
+init_auto(int32 ndim, int32 nicp, int32 nbc, int32 ips, int32 irs, int32 ilp,
+          int32 ntst, int32 isp, int32 isw, int32 nmx, int32 npr, double ds,
+          double dsmin, double dsmax, double rl0, double rl1, double a0,
+          double a1, int32 ip1, int32 ip2, int32 ip3, int32 ip4, int32 ip5,
+          int32 nuzr, double epsl, double epsu, double epss, int32 ncol) {
 
     /* here are the constants that we do not allow the user to change */
     int32 nnbc;
@@ -156,8 +156,8 @@ get_bif_type(int32 ibr, int32 ntot, int32 lab) {
 
 void
 addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
-       int64 *icp, int32 lab, double *a, double *uhigh, double *ulow, double *u0,
-       double *ubar) {
+       int64 *icp, int32 lab, double *a, double *uhigh, double *ulow,
+       double *u0, double *ubar) {
     int32 type;
     /*int32 evflag=0; Not used*/
     int32 icp1 = icp[0], icp2 = icp[1], icp3 = icp[2], icp4 = icp[3];
@@ -193,7 +193,8 @@ etime_(double *z) {
 }
 
 int32
-eigrf_(double *a, int32 *n, int32 *m, doublecomplex *ecv, double *work, int32 *ier) {
+eigrf_(double *a, int32 *n, int32 *m, doublecomplex *ecv, double *work,
+       int32 *ier) {
     double ev[400];
     int32 i;
     eigen(*n, a, ev, work, ier);

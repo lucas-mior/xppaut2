@@ -5,7 +5,8 @@
 #include <X11/Xlib.h>
 
 void flash(int32 num);
-void add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint);
+void add_menu(Window base, int32 j, int32 n, char **names, char *key,
+              char **hint);
 void create_the_menus(Window base);
 void show_menu(int32 j);
 void unshow_menu(int32 j);

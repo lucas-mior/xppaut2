@@ -117,7 +117,8 @@ special ydot=import(soname,sofun,nret,root,w1,w2,...wm)
  nret is the number of return values
  root is the name of the first variable
 
-sofun(int32 nret, int32 root, double *con, double *var, double *z[50],double *ydot)
+sofun(int32 nret, int32 root, double *con, double *var, double *z[50],double
+*ydot)
 
 *z[50] contains a list of pointers  z[0] -> w1, .... 50 is hard coded
 
@@ -137,12 +138,12 @@ extern double get_delay(int32 in, double td);
 
 void get_import_values();
 int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
-                 int32 *m, char *tname[MAXW]);
-int32 get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
-                    int32 *ir);
+                   int32 *m, char *tname[MAXW]);
+int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
+                      int32 *il, int32 *ir);
 #define IC 2
 extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
-                double /* Im */[], int32 /* isign */, double /* scaling */);
+                  double /* Im */[], int32 /* isign */, double /* scaling */);
 
 /* simple network stuff */
 
@@ -268,7 +269,8 @@ add_vectorizer_name(char *name, char *rhs) {
 
 double
 vector_value(double x, int32 i) {
-    int32 il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length, k = (int32)x;
+    int32 il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length,
+          k = (int32)x;
     int32 root = my_vec[i].root;
     if ((k >= 0) && (k < n))
         return variables[root + k];
@@ -1442,8 +1444,8 @@ update_fft(int32 ind) {
 }
 
 void
-fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr, double *ffti,
-         double *dr, double *di) {
+fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
+         double *ffti, double *dr, double *di) {
     int32 i;
     int32 dims[2];
     double x, y;
@@ -1630,8 +1632,8 @@ import_error(void) {
 }
 
 int32
-parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname, int32 *m,
-             char *tname[MAXW]) {
+parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
+             int32 *m, char *tname[MAXW]) {
     char temp[256];
     int32 j;
     char c;

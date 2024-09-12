@@ -434,8 +434,8 @@ abmpc(double *y, double *t, double dt, int32 neq) {
 /* this is rosen  - rosenbock step
     This uses banded routines as well */
 int32
-rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n, double *work,
-     int32 *ierr) {
+rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
+     double *work, int32 *ierr) {
     int32 out = -1;
     if (NFlags == 0) {
         out = rosen(y, tstart, tfinal, istart, n, work, ierr);
@@ -458,7 +458,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double d = 1 / (2. + sqrt(2.)), e32 = 6. + sqrt(2.), tnew;
     /*double ninf;  Is this needed?*/
     int32 i, n2 = n * n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
-           mt = ml + mr + 1;
+             mt = ml + mr + 1;
     int32 ipivot[MAXODE1], nofailed;
     double temp, err, tdel;
     double *ypnew, *k1, *k2, *k3, *f0, *f1, *f2, *dfdt, *ynew, *dfdy;

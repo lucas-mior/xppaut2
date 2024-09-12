@@ -123,8 +123,8 @@ int32 EqType[MAXODE];
 int32 Naux = 0;
 char aux_names[MAXODE][12];
 
-int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0, NUMMARK = 0, NUMAUX = 0, NUMVOLT = 0,
-    NUMSOL = 0;
+int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0, NUMMARK = 0, NUMAUX = 0,
+      NUMVOLT = 0, NUMSOL = 0;
 
 FIXINFO fixinfo[MAXODE];
 extern char cur_dir[];
@@ -908,7 +908,8 @@ compiler(char *bob, FILE *fptr) {
         strcpy(formula, my_string);
         nn = strlen(formula) + 1;
         /* if(nn>79)nn=79;  */
-        if ((my_ode[NODE] = (int32 *)malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
+        if ((my_ode[NODE] = (int32 *)malloc(MAXEXPLEN * sizeof(int32))) ==
+            NULL) {
             printf("Out of memory at line %d\n", NLINES);
             exit(0);
         }
@@ -1705,7 +1706,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
     char tmp[50], big[MAXEXPLEN], formula[MAXEXPLEN], *my_string, *junk, *ptr,
         name[10];
     int32 nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
-        nufun = 0;
+          nufun = 0;
     int32 in1, in2, iflag;
     int32 fon;
     FILE *fp = NULL;

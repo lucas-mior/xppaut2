@@ -61,8 +61,8 @@ new_2dhist(void) {
 }
 
 int32
-two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo, double xhi,
-           double ylo, double yhi)
+two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo,
+           double xhi, double ylo, double yhi)
 /*
   col1,2 are the data you want to histogram
   ndat - number of points in the data
@@ -281,8 +281,8 @@ new_2d_hist(void) {
 }
 
 void
-new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *condition,
-         int32 which)
+new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
+         char *condition, int32 which)
 
 {
     int32 i, j, index;
@@ -819,8 +819,8 @@ compute_stacor(void) {
 }
 
 void
-mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins, float *z,
-      int32 flag) {
+mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins,
+      float *z, int32 flag) {
     int32 i, j;
     int32 k, count = 0;
     float sum, avx = 0.0, avy = 0.0;

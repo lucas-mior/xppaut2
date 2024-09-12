@@ -91,8 +91,8 @@ make_calc(double z)
         my_calc.answer =
             make_window(base, 10, DCURYs / 2, 24 * DCURXs, DCURYs, 0);
         width = (width - 4 * DCURXs) / 2;
-        my_calc.quit = make_window(base, width, (int32)(2.5 * DCURYs), 4 * DCURXs,
-                                   DCURYs, 1);
+        my_calc.quit = make_window(base, width, (int32)(2.5 * DCURYs),
+                                   4 * DCURXs, DCURYs, 1);
         XSelectInput(display, my_calc.quit, MYMASK);
         my_calc.use = 1;
     }

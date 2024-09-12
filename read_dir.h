@@ -12,7 +12,7 @@ int32 cmpstringp(const void *p1, const void *p2);
 int32 get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2);
 int32 get_fileinfo(char *wild, char *direct, FILEINFO *ff);
 int32 fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
-              int32 *mlf);
+                int32 *mlf);
 int32 change_directory(char *path);
 int32 get_directory(char *direct);
 int32 IsDirectory(char *root, char *path);

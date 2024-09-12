@@ -310,7 +310,8 @@ GifLoop(FILE *fout, uint32 repeats) {
 }
 
 void
-write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag, int32 delay) {
+write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
+                   int32 delay) {
     int32 i;
     fputc(0x21, fout);
     fputc(0xF9, fout);

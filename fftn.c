@@ -194,11 +194,11 @@ static size_t SpaceAlloced = 0;
 static size_t MaxPermAlloced = 0;
 
 /* temp space, (void *) since both float and double routines use it */
-static void *Tmp0 = NULL; /* temp space for real part */
-static void *Tmp1 = NULL; /* temp space for imaginary part */
-static void *Tmp2 = NULL; /* temp space for Cosine values */
-static void *Tmp3 = NULL; /* temp space for Sine values */
-static int32 *Perm = NULL;  /* Permutation vector */
+static void *Tmp0 = NULL;  /* temp space for real part */
+static void *Tmp1 = NULL;  /* temp space for imaginary part */
+static void *Tmp2 = NULL;  /* temp space for Cosine values */
+static void *Tmp3 = NULL;  /* temp space for Sine values */
+static int32 *Perm = NULL; /* Permutation vector */
 
 #define NFACTOR 11
 static int32 factor[NFACTOR];
@@ -304,7 +304,8 @@ factorize(int32 nPass, int32 *kt) {
 #define FFTRADIXS "fftradix"
 /* double precision routine */
 static int32 fftradix(double Re[], double Im[], size_t nTotal, size_t nPass,
-                    size_t nSpan, int32 isign, int32 maxFactors, int32 maxPerm);
+                      size_t nSpan, int32 isign, int32 maxFactors,
+                      int32 maxPerm);
 #include __FILE__ /* include this file again */
 #endif
 /*}}}*/
@@ -324,7 +325,8 @@ static int32 fftradix(double Re[], double Im[], size_t nTotal, size_t nPass,
 #define FFTRADIXS "fftradixf" /* name for error message */
 /* float precision routine */
 static int32 fftradixf(float Re[], float Im[], size_t nTotal, size_t nPass,
-                     size_t nSpan, int32 isign, int32 maxFactors, int32 maxPerm);
+                       size_t nSpan, int32 isign, int32 maxFactors,
+                       int32 maxPerm);
 #include __FILE__ /* include this file again */
 #endif
 /*}}}*/

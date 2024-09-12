@@ -58,10 +58,10 @@ void text_abs(double x, double y, char *text);
 void fillintext(char *old, char *new);
 void fancy_text_abs(double x, double y, char *old, int32 size, int32 font);
 int32 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
-           float *x1p, float *y1p, float *z1p, float *x2p, float *y2p,
-           float *z2p);
+             float *x1p, float *y1p, float *z1p, float *x2p, float *y2p,
+             float *z2p);
 int32 clip(double x1, double x2, double y1, double y2, float *x1_out,
-         float *y1_out, float *x2_out, float *y2_out);
+           float *y1_out, float *x2_out, float *y2_out);
 void eq_symb(double *x, int32 type);
 void draw_symbol(double x, double y, double size, int32 my_symb);
 void reset_all_line_type();

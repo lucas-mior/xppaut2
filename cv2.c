@@ -27,7 +27,8 @@ N_Vector ycv;
 extern int32 NFlags;
 extern double TOLER, ATOLER;
 void
-start_cv(double *y, double t, int32 n, double tout, double *atol, double *rtol) {
+start_cv(double *y, double t, int32 n, double tout, double *atol,
+         double *rtol) {
     int32 i;
 
     ycv = N_VNew(n, NULL);

@@ -21,13 +21,13 @@ void new_adjoint(void);
 void test_test(void);
 void compute_one_orbit(double *ic, double per);
 int32 adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
-            double minerr, int32 maxit, int32 node);
+              double minerr, int32 maxit, int32 node);
 void eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
               int32 node);
-int32 rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
-              double del, int32 nstep);
-int32 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work, int32 node,
-             double dt);
+int32 rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work,
+                int32 neq, double del, int32 nstep);
+int32 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
+               int32 node, double dt);
 void do_liapunov(void);
 void alloc_liap(int32 n);
 void do_this_liaprun(int32 i, double p);

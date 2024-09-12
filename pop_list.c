@@ -120,8 +120,8 @@ destroy_scroll_box(SCROLLBOX *sb) {
 }
 
 void
-create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw, char **list,
-                  SCROLLBOX *sb) {
+create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
+                  char **list, SCROLLBOX *sb) {
     int32 slen = 0;
     int32 i, hgt, wid;
     int32 ww, len;
@@ -323,7 +323,8 @@ expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col) {
 }
 
 void
-do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos, int32 col) {
+do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos,
+               int32 col) {
     int32 l = strlen(name);
     int32 m = strlen(value);
     if (flag) {
@@ -480,7 +481,8 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
 }
 
 void
-make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title, int32 maxchar) {
+make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
+                  int32 maxchar) {
     int32 width, height;
     int32 i;
     int32 xpos, ypos, n = sb->n;
@@ -555,8 +557,8 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 */
 
 Window
-make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw,
-                  int32 fc, int32 bc) {
+make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                  int32 bw, int32 fc, int32 bc) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -644,7 +646,8 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height, int3
 }
 
 Window
-make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) {
+make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                     int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -749,8 +752,9 @@ bin_prnt_byte(int32 x, int32 *arr) {
 
 /*Convenience function for making buttons with icons on them*/
 Window
-make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                          int32 bw, int32 icx, int32 icy, unsigned char *icdata) {
+make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
+                          int32 height, int32 bw, int32 icx, int32 icy,
+                          unsigned char *icdata) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -898,8 +902,8 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width, int32 heig
 }
 
 Window
-make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                           int32 bw) {
+make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
+                           int32 height, int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -913,8 +917,8 @@ make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 hei
 }
 
 Window
-make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw,
-                 int32 icx, int32 icy, unsigned char *icdata) {
+make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                 int32 bw, int32 icx, int32 icy, unsigned char *icdata) {
     Window win;
     win = make_unmapped_icon_window(root, x, y, width, height, bw, icx, icy,
                                     icdata);
@@ -925,7 +929,8 @@ make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height, int32
 }
 
 Window
-make_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) {
+make_window(Window root, int32 x, int32 y, int32 width, int32 height,
+            int32 bw) {
     Window win;
     win = make_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen))
@@ -935,7 +940,8 @@ make_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) 
 }
 
 Window
-make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) {
+make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                  int32 bw) {
     Window win;
     win = make_plain_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen))
@@ -1037,8 +1043,8 @@ expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
 }
 
 int32
-two_choice(char *choice1, char *choice2, char *string, char *key, int32 x, int32 y,
-           Window w, char *title) {
+two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
+           int32 y, Window w, char *title) {
     Window base, c1, c2, wm;
     XEvent ev;
     int32 not_done = 1;
@@ -1132,8 +1138,9 @@ yes_no_box(void) {
 /*  new pop_up_list   */
 
 int32
-pop_up_list(Window *root, char *title, char **list, char *key, int32 n, int32 max,
-            int32 def, int32 x, int32 y, char **hints, Window hwin, char *httxt)
+pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
+            int32 max, int32 def, int32 x, int32 y, char **hints, Window hwin,
+            char *httxt)
 
 {
     POP_UP p;

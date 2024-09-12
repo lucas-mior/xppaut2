@@ -18,8 +18,7 @@ void clr_scrn(void);
 void redraw_all(void);
 void commander(int32 ch);
 Window init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
-                uint32 min_wid, uint32 min_hgt, int32 argc,
-                char **argv);
+                uint32 min_wid, uint32 min_hgt, int32 argc, char **argv);
 void top_button_draw(Window w);
 void top_button_cross(Window w, int32 b);
 void top_button_press(Window w);

@@ -120,7 +120,8 @@ make_tics(double tmin, double tmax) {
     xr = fabs(tmin - tmax);
 
     l10 = log10(xr);
-    xnorm = pow(10.0, l10 - (double)((l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1)));
+    xnorm =
+        pow(10.0, l10 - (double)((l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1)));
     if (xnorm <= 2)
         tics = 0.2;
     else if (xnorm <= 5)

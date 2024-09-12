@@ -64,11 +64,11 @@ typedef struct {
 static int32 CVDenseInit(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
-                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                        N_Vector vtemp2, N_Vector vtemp3);
+                          N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
+                          N_Vector vtemp2, N_Vector vtemp3);
 
 static int32 CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                        N_Vector fcur);
+                          N_Vector fcur);
 
 static void CVDenseFree(CVodeMem cv_mem);
 

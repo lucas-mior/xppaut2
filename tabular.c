@@ -338,7 +338,8 @@ eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
 }
 
 int32
-create_fun_table(int32 npts, double xlo, double xhi, char *formula, int32 index) {
+create_fun_table(int32 npts, double xlo, double xhi, char *formula,
+                 int32 index) {
     int32 length = npts;
 
     if (my_table[index].flag == 1) {

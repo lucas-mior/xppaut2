@@ -62,8 +62,8 @@ typedef struct {
     int32 mc, *off, *pos;
 } BoxList;
 
-void create_scroll_list(Window base, int32 x, int32 y, int32 width, int32 height,
-                        SCROLL_LIST *sl);
+void create_scroll_list(Window base, int32 x, int32 y, int32 width,
+                        int32 height, SCROLL_LIST *sl);
 void free_scroll_list(SCROLL_LIST *sl);
 void add_scroll_item(char *v, SCROLL_LIST *sl);
 int32 expose_scroll_list(Window w, SCROLL_LIST sl);
@@ -87,7 +87,8 @@ void crossing_selector(Window w, int32 c);
 int32 do_file_select_events(void);
 void create_file_selector(char *title, char *file, char *wild);
 void stringintersect(char *target, char *sother);
-int32 edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1, int32 mc);
+int32 edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
+                 int32 mc);
 int32 selector_key(XEvent ev);
 void destroy_selector(void);
 int32 file_selector(char *title, char *file, char *wild);

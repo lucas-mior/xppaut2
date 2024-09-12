@@ -33,8 +33,8 @@ double amax();
 */
 
 void
-do_delay_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
-              int32 *ierr, float *stabinfo) {
+do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
+              int32 n, int32 *ierr, float *stabinfo) {
     double rr[2];
 
     double colnorm = 0, colmax, colsum;
@@ -322,7 +322,8 @@ int32 n, m;
 
 int32
 find_positive_root(double *coef, double *delay, int32 n, int32 m, double rad,
-                   double err, double eps, double big, int32 maxit, double *rr) {
+                   double err, double eps, double big, int32 maxit,
+                   double *rr) {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
@@ -487,8 +488,8 @@ test_sign(double old, double new) {
 */
 
 int32
-plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts, double almax,
-          double wmax) {
+plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
+          double almax, double wmax) {
     int32 i;
     int32 sign = 0;
     COMPLEX lambda;

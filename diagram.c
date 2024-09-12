@@ -50,10 +50,10 @@ start_diagram(int32 n) {
 }
 
 int32
-find_diagram(int32 irs, int32 n, int32 *index, int32 *ibr, int32 *ntot, int32 *itp,
-             int32 *nfpar, double *a, double *uhi, double *ulo, double *u0,
-             double *par, double *per, int32 *icp1, int32 *icp2, int32 *icp3,
-             int32 *icp4) {
+find_diagram(int32 irs, int32 n, int32 *index, int32 *ibr, int32 *ntot,
+             int32 *itp, int32 *nfpar, double *a, double *uhi, double *ulo,
+             double *u0, double *par, double *per, int32 *icp1, int32 *icp2,
+             int32 *icp3, int32 *icp4) {
     int32 i, found = 0;
     DIAGRAM *d;
     d = bifd;
@@ -99,10 +99,11 @@ edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
 }
 
 void
-edit_diagram(DIAGRAM *d, int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
-             double a, double *uhi, double *ulo, double *u0, double *ubar,
-             double *par, double per, int32 n, int32 icp1, int32 icp2, int32 icp3,
-             int32 icp4, int32 flag2, double *evr, double *evi, double tp) {
+edit_diagram(DIAGRAM *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
+             int32 nfpar, double a, double *uhi, double *ulo, double *u0,
+             double *ubar, double *par, double per, int32 n, int32 icp1,
+             int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
+             double *evi, double tp) {
     int32 i;
     d->calc = TypeOfCalc;
     d->ibr = ibr;
@@ -626,7 +627,8 @@ load_diagram(FILE *fp, int32 node) {
         evi[NAUTO], norm, par[8], per;
     int32 i, flag = 0;
     int32 n;
-    int32 calc, ibr, ntot, itp, lab, index, nfpar, icp1, icp2, icp3, icp4, flag2;
+    int32 calc, ibr, ntot, itp, lab, index, nfpar, icp1, icp2, icp3, icp4,
+        flag2;
     fscanf(fp, "%d", &n);
     if (n == 0) {
         /*    start_diagram(NODE); */

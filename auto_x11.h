@@ -26,7 +26,7 @@ void autocol(int32 col);
 void autobw(void);
 int32 auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag);
 int32 auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
-                     int32 def, int32 x, int32 y, char **hints, char *httxt);
+                       int32 def, int32 x, int32 y, char **hints, char *httxt);
 void MarkAuto(int32 x, int32 y);
 void XORCross(int32 x, int32 y);
 void FillCircle(int32 x, int32 y, int32 r);

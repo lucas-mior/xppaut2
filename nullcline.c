@@ -367,7 +367,8 @@ redraw_froz_cline(int32 flag) {
 }
 
 void
-add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy, int32 n_iy) {
+add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
+               int32 n_iy) {
     NCLINES *z, *znew;
     int32 i;
     z = ncperm;

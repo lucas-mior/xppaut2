@@ -769,7 +769,8 @@ int32 add_net_name(int32 index, char *name);
 int32 add_2d_table(char *name, char *file);
 int32 add_file_table(int32 index, char *file);
 int32 add_table_name(int32 index, char *name);
-int32 add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula);
+int32 add_form_table(int32 index, int32 nn, double xlo, double xhi,
+                     char *formula);
 int32 set_old_arg_names(int32 narg);
 int32 set_new_arg_names(int32 narg, char args[10][11]);
 int32 fixup_endfun(int32 *u, int32 l, int32 narg);

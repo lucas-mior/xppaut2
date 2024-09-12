@@ -180,7 +180,8 @@ add_reaction(int32 i, char *f, int32 npr, int32 nre);
 add_rule(int32 i, char *v, char *f, char *tc);
 add_reactant(int32 i, int32 j, char *name, double s);
 add_product(int32 i, int32 j, char *name, double s);
-add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c, char *tc);
+add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c,
+            char *tc);
 
 int32
 main(int32 argc, char *argv[]) {
@@ -525,7 +526,8 @@ dump_parameters(void) {
                par[i].z);
 }
 
-add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c, char *tc) {
+add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c,
+            char *tc) {
     SPECIES *x;
     x = X_spec + i;
     if (strlen(name) > 0) {
@@ -713,8 +715,7 @@ TypecodeToChar(SBMLTypeCode_t typecode) {
 }
 
 void
-GetListRule(Model_t *pModel, uint32 unSBMLLevel,
-            uint32 unSBMLVersion) {
+GetListRule(Model_t *pModel, uint32 unSBMLLevel, uint32 unSBMLVersion) {
     int32 n = Model_getNumRules(pModel);
     /* determine the values */
     const char *pacTypecode;

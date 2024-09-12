@@ -94,8 +94,8 @@ extern int32 AutoPar[8];
 extern int32 xorfix;
 
 extern int32 TipsFlag;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
-    GrFore, GrBack;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
+    GrBack;
 
 extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
     *no_hint[], *aspecial_hint[];
@@ -173,7 +173,7 @@ query_special(char *title, char *nsymb) {
     static char *m[] = {"BP", "EP", "HB", "LP", "MX", "PD", "TR", "UZ"};
     static char key[] = "behlmptu";
     int32 ch = (char)auto_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
-                                    aspecial_hint, Auto.hinttxt);
+                                      aspecial_hint, Auto.hinttxt);
     if (ch == 'b') {
         sprintf(nsymb, "BP");
     } else if (ch == 'e') {
@@ -706,8 +706,8 @@ auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
 }
 
 int32
-auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max, int32 def,
-                 int32 x, int32 y, char **hints, char *httxt) {
+auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
+                 int32 def, int32 x, int32 y, char **hints, char *httxt) {
     Window temp = AutoW.base;
     return pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
                        AutoW.hint, httxt);
@@ -950,7 +950,7 @@ make_auto(/* this makes the auto window  */
 
 {
     int32 x, y, wid, hgt, addwid = 16 * DCURX, addhgt = 3.0 * DCURY,
-                        hinthgt = DCURY + 6;
+                          hinthgt = DCURY + 6;
     Window base = 0;
     int32 dely = DCURY + 5;
     STD_HGT_var = 20 * DCURY;

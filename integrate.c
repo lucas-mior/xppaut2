@@ -824,7 +824,7 @@ do_range(double *x,
     char bob[256], parn[256];
     int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
     int32 nit = 20, i = 0, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
-        nit2 = 0, iii = 0;
+          nit2 = 0, iii = 0;
     int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
                     p2 = 0.0, dpar2 = 0.0;
@@ -2602,8 +2602,8 @@ export_data(FILE *fp) {
 }
 
 void
-plot_the_graphs(float *xv, float *xvold, int32 node, int32 neq, double ddt, int32 *tc,
-                int32 flag) {
+plot_the_graphs(float *xv, float *xvold, int32 node, int32 neq, double ddt,
+                int32 *tc, int32 flag) {
     int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {

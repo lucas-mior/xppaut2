@@ -421,9 +421,9 @@ test_fit(void) {
 
 int32
 run_fit(/* double arrays */
-        char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter, int32 ndim,
-        double eps, double tol, int32 *ipar, int32 *ivar, int32 *icols, double *y0,
-        double *a, double *yfit)
+        char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
+        int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
+        int32 *icols, double *y0, double *a, double *yfit)
 
 /*
    filename is where the data file is -- it is of the form:
@@ -562,10 +562,11 @@ run_fit(/* double arrays */
 }
 
 int32
-marlevstep(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
-           int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *covar,
-           double *alpha, double *chisq, double *alambda, double *work,
-           double **yderv, double *yfit, double *ochisq, int32 ictrl, double eps)
+marlevstep(double *t0, double *y0, double *y, double *sig, double *a,
+           int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
+           double *covar, double *alpha, double *chisq, double *alambda,
+           double *work, double **yderv, double *yfit, double *ochisq,
+           int32 ictrl, double eps)
 /*   One step of Levenberg-Marquardt
 
 nvars  the number of variables to fit
@@ -665,8 +666,8 @@ sigma  weights on nvars
 
 int32
 mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
-       int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *alpha, double *chisq,
-       double *beta, double **yderv, double *yfit, double eps) {
+       int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *alpha,
+       double *chisq, double *beta, double **yderv, double *yfit, double eps) {
     int32 flag, i, j, k, l, k0;
     double sig2i, dy, wt;
 

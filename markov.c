@@ -56,7 +56,7 @@ typedef struct {
     double *fixed;
     int32 nstates;
     double *states;
-    int32 type; /* 0 is default and state dependent.  1 is fixed for all time  */
+    int32 type; /* 0 is default and state dependent.  1 is fixed for all time */
     char name[12];
 } MARKOV;
 

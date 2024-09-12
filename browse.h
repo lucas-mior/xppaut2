@@ -59,7 +59,8 @@ void init_browser(void);
 void kill_browser(BROWSER *b);
 void make_new_browser(void);
 Window br_button(Window root, int32 row, int32 col, char *name, int32 iflag);
-Window br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag);
+Window br_button_data(Window root, int32 row, int32 col, char *name,
+                      int32 iflag);
 void make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col);
 void expose_my_browser(XEvent ev);
 void enter_my_browser(XEvent ev, int32 yn);

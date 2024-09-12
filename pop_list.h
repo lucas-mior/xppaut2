@@ -117,26 +117,27 @@ int32 scroll_box_motion(XEvent ev, SCROLLBOX *sb);
 int32 select_scroll_item(Window w, SCROLLBOX sb);
 void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb);
 int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
-                  char values[][25], int32 maxchar);
+                    char values[][25], int32 maxchar);
 void expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col);
 void do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos,
                     int32 col);
 void reset_hot(int32 inew, STRING_BOX *sb);
-void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
-                  Window *w);
+void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col,
+                  int32 *done, Window *w);
 void set_sbox_item(STRING_BOX *sb, int32 item);
 int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb);
 void make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
                        int32 maxchar);
-Window make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                         int32 bw, int32 fc, int32 bc);
-Window make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                            int32 bw);
+Window make_fancy_window(Window root, int32 x, int32 y, int32 width,
+                         int32 height, int32 bw, int32 fc, int32 bc);
+Window make_unmapped_window(Window root, int32 x, int32 y, int32 width,
+                            int32 height, int32 bw);
 Window make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                                   int32 height, int32 bw);
-Window make_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw);
-Window make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                         int32 bw);
+Window make_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                   int32 bw);
+Window make_plain_window(Window root, int32 x, int32 y, int32 width,
+                         int32 height, int32 bw);
 void expose_resp_box(char *button, char *message, Window wb, Window wm,
                      Window w);
 void respond_box(char *button, char *message);
@@ -144,16 +145,17 @@ void message_box(Window *w, int32 x, int32 y, char *message);
 void expose_choice(char *choice1, char *choice2, char *msg, Window c1,
                    Window c2, Window wm, Window w);
 int32 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
-               int32 y, Window w, char *title);
+                 int32 y, Window w, char *title);
 int32 yes_no_box(void);
 int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
-                int32 max, int32 def, int32 x, int32 y, char **hints, Window hwin,
-                char *httxt);
+                  int32 max, int32 def, int32 x, int32 y, char **hints,
+                  Window hwin, char *httxt);
 void draw_pop_up(POP_UP p, Window w);
 Window make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                                  int32 height, int32 bw, int32 icx, int32 icy,
                                  unsigned char *icdata);
-Window make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                        int32 bw, int32 icx, int32 icy, unsigned char *icdata);
+Window make_icon_window(Window root, int32 x, int32 y, int32 width,
+                        int32 height, int32 bw, int32 icx, int32 icy,
+                        unsigned char *icdata);
 
 #endif

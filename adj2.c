@@ -639,8 +639,8 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
 }
 
 int32
-step_eul(double **jac, int32 k, int32 k2, double *yold, double *work, int32 node,
-         double dt) {
+step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
+         int32 node, double dt) {
 
     int32 j, i, n2 = node * node, info;
     int32 ipvt[MAXODE];

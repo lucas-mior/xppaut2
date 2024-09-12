@@ -42,7 +42,8 @@ void put_cursor_at(Window w, int32 col0, int32 pos);
 void put_string_at(Window w, int32 col, char *s, int32 off);
 void movmem(char *s1, char *s2, int32 len);
 void memmov(char *s1, char *s2, int32 len);
-void edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done, int32 ch);
+void edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
+                 int32 ch);
 void do_backspace(int32 *pos, char *value, int32 *col, Window w);
 void edit_command_string(XEvent ev, char *name, char *value, int32 *done,
                          int32 *pos, int32 *col);

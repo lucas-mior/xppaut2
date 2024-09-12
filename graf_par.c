@@ -213,7 +213,7 @@ get_3d_view(int32 ind) {
                         "YHi",      "Xlabel",   "Ylabel",   "Zlabel"};
     char values[16][MAX_LEN_SBOX];
     int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
-                   i3 = MyGraph->zv[ind];
+                     i3 = MyGraph->zv[ind];
     char n1[15], n2[15], n3[15];
     ind_to_sym(i1, n1);
     ind_to_sym(i2, n2);
@@ -1007,7 +1007,7 @@ alter_curve(char *title, int32 in_it, int32 n) {
     char values[5][MAX_LEN_SBOX];
     int32 status, i;
     int32 i1 = MyGraph->xv[in_it], i2 = MyGraph->yv[in_it],
-        i3 = MyGraph->zv[in_it];
+          i3 = MyGraph->zv[in_it];
     char n1[15], n2[15], n3[15];
 
     ind_to_sym(i1, n1);

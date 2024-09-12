@@ -11,7 +11,7 @@ void do_checks(CHOICE_BOX p);
 void base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check,
                  int32 type);
 int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
-                  int32 *check, int32 type);
+                    int32 *check, int32 type);
 int32 choice_box_event_loop(CHOICE_BOX p);
 
 #endif

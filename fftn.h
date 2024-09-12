@@ -97,11 +97,11 @@ extern void fft_free(void);
 
 /* double precision routine */
 extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
-                double /* Im */[], int32 /* isign */, double /* scaling */);
+                  double /* Im */[], int32 /* isign */, double /* scaling */);
 
 /* float precision routine */
 extern int32 fftnf(int32 /* ndim */, const int32 /* dims */[], float /* Re */[],
-                 float /* Im */[], int32 /* isign */, double /* scaling */);
+                   float /* Im */[], int32 /* isign */, double /* scaling */);
 
 #ifdef __cplusplus
 }

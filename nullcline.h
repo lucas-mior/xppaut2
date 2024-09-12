@@ -23,7 +23,8 @@ void clear_froz_cline(void);
 int32 get_nullcline_floats(float **v, int32 *n, int32 who, int32 type);
 void save_frozen_clines(char *fn);
 void redraw_froz_cline(int32 flag);
-void add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy, int32 n_iy);
+void add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
+                    int32 n_iy);
 void get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                     double dv, int32 n, int32 inx, int32 iny, double *mdf);
 void redraw_dfield(void);

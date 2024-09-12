@@ -348,7 +348,7 @@ static int32 CVnlsNewton(CVodeMem cv_mem, int32 nflag);
 static int32 CVNewtonIteration(CVodeMem cv_mem);
 
 static int32 CVHandleNFlag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
-                         int32 *ncfPtr);
+                           int32 *ncfPtr);
 
 static void CVRestore(CVodeMem cv_mem, double saved_t);
 
@@ -1130,8 +1130,8 @@ CVFreeVectors(CVodeMem cv_mem, int32 maxord) {
 ***********************************************************************/
 
 static bool
-CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type, N_Vector ycur,
-         N_Vector ewtvec, int64 neq) {
+CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
+         N_Vector ycur, N_Vector ewtvec, int64 neq) {
     switch (tol_type) {
     case SS:
         return (CVEwtSetSS(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq));

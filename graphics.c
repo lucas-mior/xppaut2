@@ -1147,7 +1147,8 @@ clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
        float *x1p, float *y1p, float *z1p, float *x2p, float *y2p, float *z2p)
 
 {
-    int32 istack, ix1 = 0, ix2 = 0, iy1 = 0, iy2 = 0, iz1 = 0, iz2 = 0, iflag = 0;
+    int32 istack, ix1 = 0, ix2 = 0, iy1 = 0, iy2 = 0, iz1 = 0, iz2 = 0,
+                  iflag = 0;
 
     float wh, wv, wo, xhat, yhat, zhat, del;
 
@@ -1403,7 +1404,7 @@ eq_symb(double *x, int32 type) {
     float dx = 6.0 * (float)(MyGraph->xhi - MyGraph->xlo) * SYMSIZE;
     float dy = 6.0 * (float)(MyGraph->yhi - MyGraph->ylo) * SYMSIZE;
     int32 ix = MyGraph->xv[0] - 1, iy = MyGraph->yv[0] - 1,
-        iz = MyGraph->zv[0] - 1;
+          iz = MyGraph->zv[0] - 1;
     if (!Xup)
         return;
     if (MyGraph->TimeFlag)

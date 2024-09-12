@@ -4,7 +4,8 @@
 
 #include <stdio.h>
 
-void do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n);
+void do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
+           int32 n);
 void compile_bvp(void);
 void reset_bvp(void);
 void init_shoot_range(char *s);
@@ -17,7 +18,7 @@ void find_bvp_com(int32 com);
 void last_shot(int32 flag);
 int32 set_up_sh_range(void);
 void bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
-             int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar,
-             double sect);
+             int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
+             int32 ivar, double sect);
 
 #endif

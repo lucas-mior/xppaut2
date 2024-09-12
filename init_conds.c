@@ -901,7 +901,8 @@ stringintersect(char *target, char *sother) {
 }
 
 int32
-edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1, int32 mc) {
+edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
+           int32 mc) {
     int32 l = strlen(string), cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
     /*  plintf(" pos=%d off=%d s=%s \n",
@@ -1756,7 +1757,8 @@ make_box_list_window(BoxList *b, int32 type) {
 }
 
 void
-make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type, int32 use) {
+make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
+              int32 use) {
     int32 nrow, i;
     char sss[256];
     double z;

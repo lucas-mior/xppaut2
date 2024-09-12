@@ -191,10 +191,10 @@ typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot,
  *                                                                *
  ******************************************************************/
 
-void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
-                  int32 itol, double *reltol, void *abstol, void *f_data,
-                  FILE *errfp, bool optIn, int32 iopt[], double ropt[],
-                  void *machEnv);
+void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm,
+                  int32 iter, int32 itol, double *reltol, void *abstol,
+                  void *f_data, FILE *errfp, bool optIn, int32 iopt[],
+                  double ropt[], void *machEnv);
 
 /******************************************************************
  *                                                                *
@@ -268,7 +268,8 @@ void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 ite
  *                                                                *
  ******************************************************************/
 
-int32 CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask);
+int32 CVode(void *cvode_mem, double tout, N_Vector yout, double *t,
+            int32 itask);
 
 /* CVode return values */
 
@@ -499,9 +500,9 @@ typedef struct CVodeMemRec {
     int64 cv_N;        /* ODE system size             */
     RhsFn cv_f;        /* y' = f(t,y(t))              */
     void *cv_f_data;   /* user pointer passed to f    */
-    int32 cv_lmm;        /* lmm = ADAMS or BDF          */
-    int32 cv_iter;       /* iter = FUNCTIONAL or NEWTON */
-    int32 cv_itol;       /* itol = SS or SV             */
+    int32 cv_lmm;      /* lmm = ADAMS or BDF          */
+    int32 cv_iter;     /* iter = FUNCTIONAL or NEWTON */
+    int32 cv_itol;     /* itol = SS or SV             */
     double *cv_reltol; /* ptr to relative tolerance   */
     void *cv_abstol;   /* ptr to absolute tolerance   */
 
@@ -529,9 +530,9 @@ typedef struct CVodeMemRec {
 
     int32 cv_q;      /* current order                           */
     int32 cv_qprime; /* order to be used on the next step       */
-                   /* = q-1, q, or q+1                        */
+                     /* = q-1, q, or q+1                        */
     int32 cv_qwait;  /* number of internal steps to wait before */
-                   /* considering a change in q               */
+                     /* considering a change in q               */
     int32 cv_L;      /* L = q + 1                               */
 
     double cv_h;      /* current step size                     */
@@ -553,16 +554,16 @@ typedef struct CVodeMemRec {
 
     double cv_crate; /* estimated corrector convergence rate */
     double cv_acnrm; /* | acor | wrms                        */
-    int32 cv_mnewt;    /* Newton iteration counter             */
+    int32 cv_mnewt;  /* Newton iteration counter             */
 
     /* Limits */
 
     int32 cv_qmax;   /* q <= qmax                                          */
     int32 cv_mxstep; /* maximum number of internal steps for one user call */
     int32 cv_maxcor; /* maximum number of corrector iterations for the     */
-                   /* solution of the nonlinear equation                 */
+                     /* solution of the nonlinear equation                 */
     int32 cv_mxhnil; /* maximum number of warning messages issued to the   */
-                   /* user that t + h == t for the next internal step    */
+                     /* user that t + h == t for the next internal step    */
 
     double cv_hmin;     /* |h| >= hmin       */
     double cv_hmax_inv; /* |h| <= 1/hmax_inv */
@@ -577,7 +578,7 @@ typedef struct CVodeMemRec {
     int32 cv_nni;     /* number of Newton iterations performed      */
     int32 cv_nsetups; /* number of setup calls                      */
     int32 cv_nhnil;   /* number of messages issued to the user that */
-                    /* t + h == t for the next iternal step       */
+                      /* t + h == t for the next iternal step       */
     int32 cv_lrw;     /* number of double words in CVODE work vectors */
     int32 cv_liw;     /* no. of int64 words in CVODE work vectors */
 
@@ -587,12 +588,12 @@ typedef struct CVodeMemRec {
 
     int32 (*cv_linit)(struct CVodeMemRec *cv_mem, bool *setupNonNull);
 
-    int32 (*cv_lsetup)(struct CVodeMemRec *cv_mem, int32 convfail, N_Vector ypred,
-                     N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                     N_Vector vtemp2, N_Vector vtemp3);
+    int32 (*cv_lsetup)(struct CVodeMemRec *cv_mem, int32 convfail,
+                       N_Vector ypred, N_Vector fpred, bool *jcurPtr,
+                       N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
     int32 (*cv_lsolve)(struct CVodeMemRec *cv_mem, N_Vector b, N_Vector ycur,
-                     N_Vector fcur);
+                       N_Vector fcur);
 
     void (*cv_lfree)(struct CVodeMemRec *cv_mem);
 
@@ -606,8 +607,8 @@ typedef struct CVodeMemRec {
 
     /* Saved Values */
 
-    int32 cv_qu;            /* last successful q value used   */
-    int32 cv_nstlp;         /* step number of last setup call */
+    int32 cv_qu;          /* last successful q value used   */
+    int32 cv_nstlp;       /* step number of last setup call */
     double cv_hu;         /* last successful h value used   */
     double cv_saved_tq5;  /* saved value of tq[5]           */
     int64 cv_imxer;       /* index of max value of          */
@@ -619,7 +620,7 @@ typedef struct CVodeMemRec {
 
     /* Arrays for Optional Input and Optional Output */
 
-    int32 *cv_iopt;    /*   int32 optional input, output */
+    int32 *cv_iopt;  /*   int32 optional input, output */
     double *cv_ropt; /* double optional input, output     */
 
     /* Error File */
