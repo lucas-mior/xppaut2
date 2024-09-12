@@ -28,7 +28,7 @@ extern int32 DCURY, NDELAYS;
 extern int32 RandSeed;
 #include "struct.h"
 extern GRAPH *MyGraph;
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define VOLTERRA 6
 #define BACKEUL 7
 #define RKQS 8

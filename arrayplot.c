@@ -59,7 +59,7 @@
 #include "xpplim.h"
 #define READEM 1
 #include "browse.h"
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2
 extern int32 COLOR;

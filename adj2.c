@@ -26,8 +26,8 @@
 #include <math.h>
 
 #include "xpplim.h"
+#include "max_len_sbox.h"
 
-#define MAX_LEN_SBOX 25
 #define READEM 1
 
 extern double MyData[MAXODE];

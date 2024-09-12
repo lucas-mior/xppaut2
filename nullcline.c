@@ -23,7 +23,7 @@
 #include "menudrive.h"
 #include <stdio.h>
 
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define DING ping
 #define MAX_NULL 10000
 

@@ -73,7 +73,7 @@ want to alter the ordering below
 #include "toons.h"
 #include "aniwin.bitmap"
 
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 
 #define LINE 0
 #define RLINE 1

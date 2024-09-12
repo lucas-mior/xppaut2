@@ -71,7 +71,7 @@ This also has the clone gadget
 
 #define READEM 1
 #define WRITEM 0
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 
 #define MAXLINES 5000
 extern char *save_eqn[MAXLINES];

@@ -91,7 +91,7 @@ int32 TypeOfCalc = 0;
 
 #define STD_WID 460 /* golden mean  */
 #define STD_HGT 284
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define HI_P 0 /* uhi vs par */
 #define NR_P 1 /* norm vs par */
 #define HL_P 2 /* Hi and Lo vs par  periodic only */

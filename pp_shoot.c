@@ -27,7 +27,7 @@
 #include "xpplim.h"
 #include "getvar.h"
 
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define ESCAPE 27
 
 #define NOCHANGE 2

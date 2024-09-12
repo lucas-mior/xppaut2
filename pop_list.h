@@ -13,7 +13,7 @@
 #include "math.h"
 
 #define MAX_N_SBOX 22
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 
 #define FORGET_ALL 0
 #define DONE_ALL 2

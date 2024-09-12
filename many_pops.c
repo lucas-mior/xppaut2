@@ -34,7 +34,7 @@
 #include "arrayplot.h"
 #include "eig_list.h"
 
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define MAXLAB 50
 #define MAXGROB 400
 #define POINTER 0

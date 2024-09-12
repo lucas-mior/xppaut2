@@ -29,7 +29,7 @@
 #define DP5 11
 #define DP83 12
 #define RB23 13
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 extern double constants[];
 extern double last_ic[MAXODE];

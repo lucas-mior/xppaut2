@@ -84,7 +84,7 @@ extern GRAPH *MyGraph;
 #define ESCAPE 27
 #define FIRSTCOLOR 30
 
-#define MAX_LEN_SBOX 25
+#include "max_len_sbox.h"
 #define PARAM 1
 #define IC 2
 #define BMAXCOL 20
