@@ -83,11 +83,15 @@ int32
 adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
          double *hguess, double hmin, double *work, int32 *ier, double epjac,
          int32 iflag, int32 *jstart) {
-    if (NFlags == 0)
-        return (gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
-                          epjac, iflag, jstart));
-    return (one_flag_step_adap(ystart, nvar, xs, x2, eps, hguess, hmin, work,
-                               ier, epjac, iflag, jstart));
+    int32 value;
+    if (NFlags == 0) {
+        value = gadaptive(ystart, nvar, xs, x2, eps, hguess,
+                          hmin, work, ier, epjac, iflag, jstart);
+        return value;
+    }
+    value = one_flag_step_adap(ystart, nvar, xs, x2, eps, hguess, hmin, work,
+                               ier, epjac, iflag, jstart);
+    return value;
 }
 
 int32
