@@ -14,7 +14,7 @@ void ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
               double sy);
 void ps_convert(double x, double y, float *xs, float *ys);
 void ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
-                  double zlo, double zhi, int32 type, double mx);
+                  double zlo, double zhi, int32 type);
 void ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
               double zhi, char *sx, char *sy, char *sb, int32 type);
 void ps_close(void);

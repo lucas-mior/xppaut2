@@ -26,9 +26,8 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
             int32 nacross, int32 ndown, int32 col0, int32 row0, int32 nskip,
             int32 ncskip, int32 maxrow, int32 maxcol, float **data, double zmin,
             double zmax, double tlo, double thi, int32 type) {
-    float xx, yy;
-    xx = (float)ndown;
-    yy = (float)(nacross / ncskip);
+    float xx = (float)ndown;
+    float yy = (float)(nacross / ncskip);
     my_plot_file = fopen(filename, "w");
     if (my_plot_file == NULL) {
         return -1;
@@ -135,7 +134,7 @@ ps_convert(double x, double y, float *xs, float *ys) {
 
 void
 ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
-             double zhi, int32 type, double mx) {
+             double zhi, int32 type) {
     int32 i;
     char s[100];
 
@@ -161,13 +160,11 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
          char *sx, char *sy, char *sb, int32 type) {
     char str[100];
     int32 i = ps_scale.linewid;
-    float mx = ps_scale.letx;
     float z = ps_scale.linecol;
     float dx = ps_scale.xmax - ps_scale.xmin;
     float dy = ps_scale.ymax - ps_scale.ymin;
     float xlo = .15 * dx, ylo = .05 * dy, xhi = .95 * dx, yhi = .85 * dy;
     /* plintf(" %g %g %g %g %g %g \n",xlo,xhi,ylo,yhi,dx,dy); */
-    mx = (yhi - ylo) * .25 / 5.6;
     ps_setline(0.0, 10);
     ps_rect(xlo, ylo, .8 * dx, .8 * dy);
     ps_setline(z, i);
@@ -183,7 +180,7 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     sprintf(str, "%g", jhi);
     ps_text2(str, xhi + .01 * dx, ylo + .01, 2);
     ps_col_scale(yhi - .15 * dy, xlo - .1 * dx, .025 * dy, .05 * dx, 20, zlo,
-                 zhi, type, mx);
+                 zhi, type);
     ps_text2(sb, xlo - .035 * dx, .5 * (yhi + ylo), 1);
     return;
 }
