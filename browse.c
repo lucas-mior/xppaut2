@@ -235,9 +235,8 @@ char *var;
     redraw_browser(*b);
 }
 
-void data_del_col(b) /*  this only works with storage  */
-    BROWSER *b;
-{
+void data_del_col(BROWSER *b) {
+   /*  this only works with storage  */
     Window w;
     int32 rev, status;
     char var[20];
@@ -253,8 +252,7 @@ void data_del_col(b) /*  this only works with storage  */
     return;
 }
 
-void data_add_col(b) BROWSER *b;
-{
+void data_add_col(BROWSER *b) {
     Window w;
     int32 rev, status;
     char var[20], form[80];

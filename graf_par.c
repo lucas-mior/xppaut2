@@ -528,8 +528,8 @@ user_window(void) {
 }
 
 void
-xi_vs_t(void) /*  a short cut   */
-{
+xi_vs_t(void) {
+    /*  a short cut   */
     char name[20], value[20];
     int32 i = MyGraph->yv[0];
 

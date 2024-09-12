@@ -258,8 +258,8 @@ clear_froz_cline(void) {
 }
 
 int32
-get_nullcline_floats(float **v, int32 *n, int32 who, int32 type) /* type=0,1 */
-{
+get_nullcline_floats(float **v, int32 *n, int32 who, int32 type) {
+    /* type=0,1 */
     NCLINES *z;
     int32 i;
     if (who < 0) {

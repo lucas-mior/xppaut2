@@ -1709,9 +1709,8 @@ find_the_name(char list[MAXODE1][MAXVNAM], int32 n, char *name) {
 }
 
 void
-compile_em(void) /* Now we try to keep track of markov, fixed, etc as
-               well as their names  */
-{
+compile_em(void) {
+    /* Now we try to keep track of markov, fixed, etc as well as their names */
     VAR_INFO *v;
     char vnames[MAXODE1][MAXVNAM], fnames[MAXODE1][MAXVNAM],
         anames[MAXODE1][MAXVNAM];

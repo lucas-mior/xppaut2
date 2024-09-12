@@ -17,8 +17,8 @@ extern int32 fp8_is_open;
 extern char fort3[200], fort7[200], fort8[200], fort9[200];
 
 int32
-go_go_auto(void) /* this is the entry  at this point, xAuto has been set */
-{
+go_go_auto(void) {
+    /* this is the entry  at this point, xAuto has been set */
     double time0, time1;
     int64 icp[NPARX2];
     double par[NPARX2], thl[NPARX];

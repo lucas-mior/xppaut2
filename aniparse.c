@@ -2684,8 +2684,8 @@ search_for_grab(double x, double y) {
 }
 
 void
-do_grab_tasks(int32 which) /* which=1 for start, 2 for end */
-{
+do_grab_tasks(int32 which) {
+    /* which=1 for start, 2 for end */
     int32 i = who_was_grabbed;
     int32 j, n;
     double z;
@@ -2763,8 +2763,8 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
 }
 
 void
-draw_grab_points(void) /* Draw little black x's where the grab points are */
-{
+draw_grab_points(void) {
+    /* Draw little black x's where the grab points are */
     double xc, yc;
     double x1, y1, x2, y2, z;
     int32 i1, j1, i2, j2, ic, jc;

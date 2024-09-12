@@ -377,9 +377,8 @@ save_batch_shoot(void) {
 }
 
 void
-shoot_this_now(void) /* this uses the current labeled saddle point stuff to
-                        integrate */
-{
+shoot_this_now(void) {
+    /* this uses the current labeled saddle point stuff to integrate */
     int32 i, k, type, oldcol, dummy;
     double x[MAXODE], olddt;
     if (ShootIndex < 1)
