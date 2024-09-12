@@ -2,6 +2,7 @@
 #include "integers.h"
 #include "auto_c.h"
 #include "auto_types.h"
+#include <string.h>
 
 #ifdef TIME
 #include <unistd.h>

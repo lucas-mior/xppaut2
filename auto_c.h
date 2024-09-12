@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <signal.h>
 #include <unistd.h>
 #ifdef PTHREADS
 #include <pthread.h>
@@ -8,7 +7,6 @@
 #include <mpi.h>
 #include "auto_mpi.h"
 #endif
-#include <string.h>
 
 #include "integers.h"
 
@@ -208,9 +206,6 @@ typedef struct {
     autobv_function_list bvlist;
     autoae_function_list aelist;
 } function_list;
-
-/* main.c */
-int32 main();
 
 /* autlib1.c */
 double time_start(void);

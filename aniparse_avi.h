@@ -1,6 +1,8 @@
 #ifndef _aniparse_avi_h
 #define _aniparse_avi_h
 #include "integers.h"
+#include "X11/Xlib.h"
+#include <stdio.h>
 
 typedef struct {
     int32 nframe, wid, hgt, fps;

@@ -4,6 +4,7 @@
 #include "auto_c.h"
 #include "xAuto.h"
 #include "integers.h"
+#include <string.h>
 extern XAUTO xAuto;
 extern int32 NODE;
 extern int32 RestartLabel;
