@@ -2,7 +2,6 @@
 #define _array_print_h_
 #include "integers.h"
 
-/* array_print.c */
 int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
                   int32 nacross, int32 ndown, int32 col0, int32 row0,
                   int32 nskip, int32 ncskip, int32 maxrow, int32 maxcol,

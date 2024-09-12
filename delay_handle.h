@@ -3,7 +3,6 @@
 #define _delay_handle_h_
 #include "integers.h"
 
-/* delay_handle.c */
 double delay_stab_eval(double delay, int32 var);
 int32 alloc_delay(double big);
 void free_delay(void);

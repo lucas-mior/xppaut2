@@ -3,7 +3,6 @@
 #define _tabular_h_
 #include "integers.h"
 
-/* tabular.c */
 void set_auto_eval_flags(int32 f);
 void set_table_name(char *name, int32 index);
 void view_table(int32 index);

@@ -2,7 +2,6 @@
 #define _stiff_h_
 #include "integers.h"
 
-/* stiff.c */
 void jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
             double *work, int32 n);
 int32 adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,

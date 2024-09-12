@@ -2,7 +2,6 @@
 #define _my_ps_h_
 #include "integers.h"
 
-/* my_ps.c */
 int32 ps_init(char *filename, int32 color);
 void ps_stroke(void);
 void ps_do_color(int32 color);

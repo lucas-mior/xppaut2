@@ -2,7 +2,6 @@
 #define _my_rhs_h_
 #include "integers.h"
 
-/* my_rhs.c */
 int32 MAIN__(void);
 int32 main(int32 argc, char **argv);
 void extra(double *y__y, double t, int32 nod, int32 neq);

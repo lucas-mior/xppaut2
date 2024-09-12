@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 
-/* markov.c */
 void add_wiener(int32 index);
 void set_wieners(double dt, double *x, double t);
 void add_markov(int32 nstate, char *name);

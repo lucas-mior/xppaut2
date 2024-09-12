@@ -3,7 +3,6 @@
 #define _my_svg_h_
 #include "integers.h"
 
-/* my_ps.c */
 int32 svg_init(char *filename, int32 color);
 void svg_stroke(void);
 void svg_do_color(int32 color);

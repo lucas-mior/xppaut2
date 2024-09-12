@@ -2,7 +2,6 @@
 #define _flags_h_
 #include "integers.h"
 
-/* flags.c */
 int32 add_global(char *cond, int32 sign, char *rest);
 void show_flags(void);
 int32 compile_flags(void);

@@ -43,33 +43,19 @@ typedef int64 logical;
 #define ARRAY3D(array, i, j, k)                                                \
     array[(i) + ((j) + (k) * array##_dim2) * array##_dim1]
 
-/* cabs.c */
 double f__cabs(double, double imag);
-/* d_imag.c */
 double d_imag(doublecomplex *z);
-/* d_lg10.c */
 double d_lg10(double *x);
-/* d_sign.c */
 double d_sign(double a, double b);
-/* etime_.c */
 double etime(float *tarray);
-/* i_dnnt.c */
 int64 i_dnnt(double *x);
-/* i_nint.c */
 int64 i_nint(float *x);
-/* pow_dd.c */
 double pow_dd(double *ap, double *bp);
-/* pow_di.c */
 double pow_di(double *ap, int64 *bp);
-/* pow_ii.c */
 int64 pow_ii(int64 ap, int64 bp);
-/* r_lg10.c */
 double r_lg10(float x);
-/* z_abs.c */
 double z_abs(doublecomplex *z);
-/* z_exp.c */
 void z_exp(doublecomplex *r, doublecomplex *z);
-/* z_log.c */
 void z_log(doublecomplex *r, doublecomplex *z);
 
 #endif

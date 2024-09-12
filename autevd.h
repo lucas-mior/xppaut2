@@ -5,7 +5,6 @@
 #include "autlim.h"
 #include "auto_f2c.h"
 #include "auto_c.h"
-/* autevd.c */
 
 /* typedef struct {double r,i;} doublecomplex; */
 

@@ -2,7 +2,6 @@
 #define _cv2_h_
 #include "integers.h"
 
-/* cv2.c */
 void start_cv(double *y, double t, int32 n, double tout, double *atol,
               double *rtol);
 void end_cv(void);

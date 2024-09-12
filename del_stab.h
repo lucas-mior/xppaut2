@@ -6,7 +6,6 @@ typedef struct {
     double r, i;
 } COMPLEX;
 
-/* del_stab.c */
 void do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
                    int32 n, int32 *ierr, float *stabinfo);
 COMPLEX csum(COMPLEX z, COMPLEX w);

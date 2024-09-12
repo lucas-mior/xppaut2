@@ -2,7 +2,6 @@
 #define _histogram_h_
 #include "integers.h"
 
-/* histogram.c */
 int32 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                  double xlo, double xhi, double ylo, double yhi);
 void four_back(void);

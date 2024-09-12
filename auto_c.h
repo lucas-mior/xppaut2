@@ -207,7 +207,6 @@ typedef struct {
     autoae_function_list aelist;
 } function_list;
 
-/* autlib1.c */
 double time_start(void);
 double time_end(double);
 void allocate_global_memory(const iap_type);
@@ -389,7 +388,6 @@ int32 setpbv(iap_type *iap, rap_type *rap, double *dtm);
 int32 autim0(double *t);
 int32 autim1(double *t);
 double getp(char *code, int64 *ic, double *ups, int64 code_len);
-/* autlib2.c */
 int32 solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
              FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
              double *rds, int64 *nllv, double *rlcur, double *rlold,
@@ -462,7 +460,6 @@ int32 gsendx(void);
 int32 gcol(void);
 int32 led(void);
 int32 setiomode(void);
-/* autlib3.c */
 FUNI_TYPE(fnlp);
 int32 fflp(const iap_type *iap, const rap_type *rap, int64 ndim,
            const double *u, const double *uold, const int64 *icp, double *par,
@@ -584,14 +581,12 @@ ICNI_TYPE(icni);
 int32 fopi(const iap_type *iap, const rap_type *rap, int64 ndim,
            const double *u, const int64 *icp, double *par, int64 ijac,
            double *f, double *dfdu, double *dfdp);
-/* autlib4.c */
 int32 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
              doublecomplex *ev);
 int32 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
             double *v);
 int32 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
             int64 *job, double *a, int64 *lda);
-/* autlib5.c */
 FUNI_TYPE(fnho);
 int32 ffho(const iap_type *iap, const rap_type *rap, int64 ndim,
            const double *u, const double *uold, const int64 *icp, double *par,
@@ -626,7 +621,6 @@ int32 prjcti(double *bound, double *xequib, const int64 *icp, double *par,
 int32 prjctn(double *bound, double *xequib, const int64 *icp, double *par,
              int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
              double *dfdp);
-/* eispack.c */
 int32 rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
          double *z__, int64 *iv1, double *fv1, int64 *ierr);
 int32 hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
@@ -707,7 +701,6 @@ int32 icnd(int64 ndim, const double *par, const int64 *icp, int64 nint,
 int32 fopt(int64 ndim, const double *u, const int64 *icp, const double *par,
            int64 ijac, double *fs, double *dfdu, double *dfdp);
 int32 pvls(int64 ndim, const double *u, double *par);
-/* conpar.c */
 void *conpar_process(void *);
 int32 conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
              int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
