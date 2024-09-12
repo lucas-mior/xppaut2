@@ -547,8 +547,6 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
          win=XCreateSimpleWindow(display,root,x,y,width,height,
                 bw,fc,bc);
 
-
-
          XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask|
                       LeaveWindowMask|EnterWindowMask);
@@ -1299,7 +1297,6 @@ Window *root;
         *root=w;
          return value;
      }
-
 
    draw_pop_list(w,title,list,n,max,def)
    Window w;

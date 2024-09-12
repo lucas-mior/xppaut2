@@ -1594,7 +1594,6 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                  free(strings[i]);
               nstrings=0;
 
-
               } */
             if (done == 2)
                 notdone = 0;
