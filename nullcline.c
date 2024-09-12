@@ -967,10 +967,7 @@ fnull(double x, double y) {
 }
 
 int32
-interpolate(p1, p2, z, x, y)
-Pt p1, p2;
-float z, *x, *y;
-{
+interpolate(Pt p1, Pt p2, double z, float *x, float *y) {
     float scale;
     if (p1.z == p2.z)
         return (0);
@@ -980,8 +977,8 @@ float z, *x, *y;
     return (1);
 }
 
-void quad_contour(p1, p2, p3, p4) Pt p1, p2, p3, p4;
-{
+void
+quad_contour(Pt p1, Pt p2, Pt p3, Pt p4) {
     float x[4], y[4];
     int32 count = 0;
     if (p1.z * p2.z <= 0.0)
@@ -1004,11 +1001,8 @@ void quad_contour(p1, p2, p3, p4) Pt p1, p2, p3, p4;
     }
 }
 
-void triangle_contour(p1, p2, p3)
-
-    Pt p1,
-    p2, p3;
-{
+void
+triangle_contour(Pt p1, Pt p2, Pt p3) {
     float x[3], y[3];
     int32 count = 0;
     if (p1.z * p2.z <= 0.0)
