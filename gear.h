@@ -9,7 +9,7 @@ void do_sing(double *x, double eps, double err, double big, int32 maxit,
 void do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 
-void shoot_this_now();
+void shoot_this_now(void);
 void pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type);
 void get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
                       int32 n, int32 maxit, double err, int32 *ierr);

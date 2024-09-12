@@ -1,4 +1,6 @@
 #include "auto_f2c.h"
+#include "autevd.h"
+#include "auto_x11.h"
 #include "auto_c.h"
 #include "xAuto.h"
 #include "integers.h"
@@ -43,9 +45,6 @@ struct {
 FILE *fp8;
 int32 fp8_is_open = 0;
 extern char fort8[200], fort3[200];
-void send_eigen();
-void send_mult();
-int32 byeauto_();
 void addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
             int64 *icp, int32 labw, double *a, double *uhigh, double *ulow,
             double *u0, double *ubar);
