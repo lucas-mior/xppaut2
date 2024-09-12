@@ -1,12 +1,10 @@
 #include "nullcline.h"
 #include "integers.h"
 #include "my_rhs.h"
-#include "abort.h"
 #include "browse.h"
 #include "ggets.h"
 #include "init_conds.h"
 #include "integrate.h"
-#include "load_eqn.h"
 #include "main.h"
 #include "graf_par.h"
 

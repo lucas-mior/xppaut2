@@ -4,11 +4,7 @@
 
 #include "read_dir.h"
 
-#include "main.h"
 #include "ggets.h"
-#include "dae_fun.h"
-#include "derived.h"
-#include "extra.h"
 #include "init_conds.h"
 #include "browse.h"
 #include "txtread.h"

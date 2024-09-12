@@ -1,8 +1,6 @@
 #include "odesol2.h"
 #include "integers.h"
 #include "gear.h"
-#include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include "xpplim.h"
 #include "flags.h"

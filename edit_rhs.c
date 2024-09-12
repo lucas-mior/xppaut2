@@ -2,7 +2,6 @@
 #include "edit_rhs.h"
 #include "init_conds.h"
 #include "browse.h"
-#include "auto_x11.h"
 #include "extra.h"
 #include "ggets.h"
 #include "many_pops.h"
@@ -16,7 +15,6 @@
 #include <X11/Xutil.h>
 #include <stdio.h>
 #include <X11/cursorfont.h>
-#include <math.h>
 #ifndef WCTYPE
 #include <ctype.h>
 #else
@@ -24,7 +22,6 @@
 #endif
 
 #include "xpplim.h"
-#include "struct.h"
 #include "shoot.h"
 #include "load_eqn.h"
 

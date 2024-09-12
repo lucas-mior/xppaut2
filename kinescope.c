@@ -8,7 +8,6 @@
 #include "load_eqn.h"
 
 #include "ggets.h"
-#include <stdlib.h>
 /*    Kinescope for X  windows       */
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>

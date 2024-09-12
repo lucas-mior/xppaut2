@@ -10,7 +10,6 @@
 #include <X11/keysymdef.h>
 #include <X11/cursorfont.h>
 #include <stdio.h>
-#include <math.h>
 #include "integers.h"
 #define ALL_DONE 2
 #define DONE_WITH_THIS 1

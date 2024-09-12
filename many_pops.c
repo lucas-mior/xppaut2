@@ -10,7 +10,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <stdio.h>
-#include <math.h>
 #include "help_defs.h"
 #include "graph.bitmap"
 #include "struct.h"
@@ -23,7 +22,6 @@
 #include "rubber.h"
 #include "ggets.h"
 #include "axes2.h"
-#include "txtread.h"
 #include "menu.h"
 #include "color.h"
 #include "nullcline.h"

@@ -14,9 +14,7 @@
 
 #include "vector.h" /* definitions of type N_Vector and macro N_VIth,    */
                     /* prototypes for N_VNew, N_VFree                    */
-#include "dense.h"  /* definitions of type DenseMat, macro DENSE_ELEM    */
 #include "cvband.h"
-#include "band.h"
 #include "integers.h"
 double cv_ropt[OPT_SIZE];
 int32 cv_iopt[OPT_SIZE];

@@ -4,7 +4,6 @@
 #include "pop_list.h"
 #include "init_conds.h"
 #include <stdlib.h>
-#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>

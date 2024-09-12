@@ -1,6 +1,4 @@
-#include <stdlib.h>
 #include <math.h>
-#include "xpplim.h"
 #include "stiff.h"
 #include "flags.h"
 #include "gear.h"

@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "xpplim.h"
 #include "getvar.h"
 #include "integers.h"
 #define MAXDAE 400

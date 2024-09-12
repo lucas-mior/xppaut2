@@ -22,7 +22,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 #ifndef WCTYPE
 #include <ctype.h>
 #else
@@ -31,7 +30,6 @@
 
 #include "xpplim.h"
 
-#include "my_pars.h"
 #include "shoot.h"
 #include "newpars.h"
 

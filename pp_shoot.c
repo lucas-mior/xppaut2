@@ -4,7 +4,6 @@
 #include "my_rhs.h"
 #include "main.h"
 #include "adj2.h"
-#include "load_eqn.h"
 #include "abort.h"
 #include "gear.h"
 

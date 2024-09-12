@@ -68,13 +68,11 @@
 #include <X11/Xproto.h>
 #include <X11/Xatom.h>
 /* #include <X11/bitmaps/icon> */
-#include <math.h>
 #include "pp.bitmap"
 #include <stdio.h>
 /* #include <errno.h> */
 #include "help_defs.h"
 #include "browse.h"
-#include "struct.h"
 #include <dirent.h>
 
 #define FIX_SIZE 3

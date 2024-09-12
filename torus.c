@@ -6,7 +6,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <stdio.h>
-#include <math.h>
 #include "xpplim.h"
 #include "ggets.h"
 #include "pop_list.h"

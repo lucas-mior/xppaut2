@@ -65,7 +65,6 @@
 to be added later
 **************************************************************/
 
-#include <math.h>
 #include <stdio.h>
 typedef struct {
     double xlo, xhi, dx;

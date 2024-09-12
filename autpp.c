@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "auto_f2c.h"
 #include "auto_nox.h"
 #include "autlim.h"

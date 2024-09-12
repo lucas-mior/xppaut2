@@ -3,8 +3,6 @@
 #include "main.h"
 #include "integers.h"
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -15,8 +13,6 @@
 #include "ggets.h"
 #include "many_pops.h"
 #include "pop_list.h"
-
-#include "menudrive.h"
 
 int32 help_menu;
 MENUDEF my_menus[3];

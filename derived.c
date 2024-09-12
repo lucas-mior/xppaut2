@@ -1,11 +1,9 @@
 #include "derived.h"
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #include "ggets.h"
 #include "parserslow.h"
-#include "calc.h"
 #include "integers.h"
 
 /* Derived parameter stuff !!  */

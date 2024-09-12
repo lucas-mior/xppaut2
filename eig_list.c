@@ -12,13 +12,10 @@
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
-#include <math.h>
 #include "xpplim.h"
 #include "eqns.bitmap"
 #include "equilib.bitmap"
 #include "browse.h"
-
-#include "newhome.h"
 
 #include "mykeydef.h"
 #define xds(a)                                                                 \

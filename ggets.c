@@ -9,8 +9,6 @@
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
-#include <math.h>
-#include "struct.h"
 #include "newhome.h"
 #include "mykeydef.h"
 #include <stdarg.h>

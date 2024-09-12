@@ -30,7 +30,6 @@
 
 #include "xpplim.h"
 #include "browse.bitmap"
-#include "newhome.h"
 #include "mykeydef.h"
 
 extern char *browse_hint[];

@@ -8,7 +8,6 @@
  *                                                                *
  ******************************************************************/
 
-#include <stdio.h>
 #include <math.h>
 #include "llnlmath.h"
 #include "llnltyps.h"

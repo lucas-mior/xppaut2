@@ -14,13 +14,10 @@
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 #include "auto.bitmap"
-#include "newhome.h"
 #include "mykeydef.h"
-#include "xpplim.h"
 #include "autlim.h"
 #include "math.h"
 #include "rubber.h"
-#include "menudrive.h"
 #include "many_pops.h"
 #include "color.h"
 #include "integrate.h"

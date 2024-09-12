@@ -1,6 +1,5 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
-#include "auto_types.h"
 
 #ifdef TIME
 #include <unistd.h>

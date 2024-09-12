@@ -6,7 +6,6 @@
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
-#include <math.h>
 
 #include "ggets.h"
 #include "graphics.h"
