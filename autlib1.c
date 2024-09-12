@@ -4210,7 +4210,7 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 #ifdef GE_PIVOTS_DEBUG
     if ((jj % 6) == 0)
         fprintf(fp9, "\n");
-    fprintf(fp9, " %4d %12.3e \n", n - 1, ARRAY2D(a, ir[n - 1], ic[n - 1]));
+    fprintf(fp9, " %4ld %12.3e \n", n - 1, ARRAY2D(a, ir[n - 1], ic[n - 1]));
 #endif
 
     if (nrhs == 0) {

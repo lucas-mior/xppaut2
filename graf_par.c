@@ -767,7 +767,8 @@ scroll_window(void) {
     float ylo = MyGraph->ylo;
     float xhi = MyGraph->xhi;
     float yhi = MyGraph->yhi;
-    float dx, dy;
+    float dx = 0;
+    float dy = 0;
     int32 alldone = 0;
     XSelectInput(display, draw_win,
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
