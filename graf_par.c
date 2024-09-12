@@ -1320,7 +1320,7 @@ create_crv(int32 ind) {
             frz[i].type = type;
             frz[i].w = draw_win;
             snprintf(frz[i].name, sizeof(frz[i].name), "crv%c", 'a' + i);
-            snprintf(frz[i].key, sizeof(frz[i].key), "%s", frz[i].name);
+            strncpy(frz[i].key, frz[i].name, sizeof(frz[i].key));
             return (i);
         }
     }
