@@ -34,10 +34,10 @@
 #include "mykeydef.h"
 
 extern char *browse_hint[];
-#define xds(a)                                                                 \
-    {                                                                          \
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
-        return;                                                                \
+#define xds(a)                                                         \
+    {                                                                  \
+        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a)); \
+        return;                                                        \
     }
 
 #define BMAXCOL 20
