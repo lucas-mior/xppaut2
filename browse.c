@@ -737,6 +737,7 @@ make_new_browser(void) {
     make_browser(&my_browser, "Data Viewer", "Data", 20, 5);
     my_browser.xflag = 1;
 }
+
 Window
 br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;
@@ -755,6 +756,7 @@ br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
     XSelectInput(display, win, MYMASK);
     return win;
 }
+
 Window
 br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;

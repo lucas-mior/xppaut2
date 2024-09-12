@@ -270,10 +270,9 @@ int32 n;
         sum = cmlt(sum, Z(j, j));
     return sum;
 }
+
 COMPLEX
-cxdeterm(z, n) COMPLEX *z;
-int32 n;
-{
+cxdeterm(COMPLEX *z, int32 n) {
     int32 i, j, k;
     COMPLEX ajj, sum, mult;
     for (j = 0; j < n; j++) {
