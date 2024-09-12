@@ -272,10 +272,7 @@ void data_add_col(BROWSER *b) {
 }
 
 int32
-add_stor_col(name, formula, b)
-char *name, *formula;
-BROWSER *b;
-{
+add_stor_col(char *name, char *formula, BROWSER *b) {
     int32 com[4000], i, j;
 
     if (add_expr(formula, com, &i)) {
