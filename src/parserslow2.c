@@ -188,8 +188,13 @@ SYMBOL my_symb[MAX_SYMBS] = {
 int32 NCON = 0, NVAR = 0, NFUN = 0;
 int32 NSYM = STDSYM;
 
-double (*fun1[50])(/* double */);
-double (*fun2[50])(/* double,double */);
+typedef double (*FunctionInt32)(int32);
+typedef double (*FunctionInt32Int32)(int32, int32);
+typedef double (*FunctionDouble)(double);
+typedef double (*FunctionDoubleDouble)(double, double);
+
+void *fun1[50];
+void *fun2[50];
 
 /*************************
   RPN COMPILER           *
@@ -1508,25 +1513,25 @@ pmod(double x, double y) {
 
 void
 two_args(void) {
-    fun2[4] = atan2;
-    fun2[5] = pow;
-    fun2[6] = max;
-    fun2[7] = min;
-    /*  fun2[8]=fmod;  */
-    fun2[8] = pmod; /* This always gives an answer in [0,y) for mod(x,y) */
-    fun2[9] = dand;
-    fun2[10] = dor;
-    fun2[11] = dgt;
-    fun2[12] = dlt;
-    fun2[13] = deq;
-    fun2[14] = dge;
-    fun2[15] = dle;
-    fun2[16] = dne;
-    fun2[17] = normal;
-    fun2[18] = bessel_j;
-    fun2[19] = bessel_y;
-    fun2[20] = bessi;
-    fun2[21] = bessis;
+    fun2[4] = (void*)atan2;
+    fun2[5] = (void*)pow;
+    fun2[6] = (void*)max;
+    fun2[7] = (void*)min;
+    /*  fun2[8]= (void*)mod;  */
+    fun2[8] = (void*)pmod; /* This always gives an answer in [0,y) for mod(x,y) */
+    fun2[9] = (void*)dand;
+    fun2[10] = (void*)dor;
+    fun2[11] = (void*)dgt;
+    fun2[12] = (void*)dlt;
+    fun2[13] = (void*)deq;
+    fun2[14] = (void*)dge;
+    fun2[15] = (void*)dle;
+    fun2[16] = (void*)dne;
+    fun2[17] = (void*)normal;
+    fun2[18] = (void*)bessel_j;
+    fun2[19] = (void*)bessel_y;
+    fun2[20] = (void*)bessi;
+    fun2[21] = (void*)bessis;
     return;
 }
 
@@ -1880,32 +1885,32 @@ hom_bcs(int32 i) {
 
 void
 one_arg(void) {
-    fun1[0] = sin;
-    fun1[1] = cos;
-    fun1[2] = tan;
-    fun1[3] = asin;
-    fun1[4] = acos;
-    fun1[5] = atan;
-    fun1[6] = sinh;
-    fun1[7] = tanh;
-    fun1[8] = cosh;
-    fun1[9] = fabs;
-    fun1[10] = exp;
-    fun1[11] = log;
-    fun1[12] = log10;
-    fun1[13] = sqrt;
-    fun1[14] = neg;
-    fun1[15] = recip;
-    fun1[16] = heaviside;
-    fun1[17] = signum;
-    fun1[18] = floor;
-    fun1[19] = rndom;
-    fun1[20] = dnot;
-    fun1[21] = erf;
-    fun1[22] = erfc;
-    fun1[23] = hom_bcs;
-    fun1[24] = poidev;
-    fun1[25] = lgamma;
+    fun1[0] = (void*)sin;
+    fun1[1] = (void*)cos;
+    fun1[2] = (void*)tan;
+    fun1[3] = (void*)asin;
+    fun1[4] = (void*)acos;
+    fun1[5] = (void*)atan;
+    fun1[6] = (void*)sinh;
+    fun1[7] = (void*)tanh;
+    fun1[8] = (void*)cosh;
+    fun1[9] = (void*)fabs;
+    fun1[10] = (void*)exp;
+    fun1[11] = (void*)log;
+    fun1[12] = (void*)log10;
+    fun1[13] = (void*)sqrt;
+    fun1[14] = (void*)neg;
+    fun1[15] = (void*)recip;
+    fun1[16] = (void*)heaviside;
+    fun1[17] = (void*)signum;
+    fun1[18] = (void*)floor;
+    fun1[19] = (void*)rndom;
+    fun1[20] = (void*)dnot;
+    fun1[21] = (void*)erf;
+    fun1[22] = (void*)erfc;
+    fun1[23] = (void*)hom_bcs;
+    fun1[24] = (void*)poidev;
+    fun1[25] = (void*)lgamma;
     return;
 }
 
@@ -2134,7 +2139,7 @@ eval_rpn(int32 *equat) {
             in = i % MAXTYPE;
             switch (it) {
             case FUN1TYPE:
-                PUSH(fun1[in](POP));
+                PUSH(((FunctionDouble)fun1[in])(POP));
                 break;
             case FUN2TYPE: {
 
@@ -2166,7 +2171,7 @@ eval_rpn(int32 *equat) {
                 }
                 temx = POP;
                 temy = POP;
-                PUSH(fun2[in](temy, temx));
+                PUSH(((FunctionDoubleDouble)fun2[in])(temy, temx));
                 break;
             }
             case CONTYPE:
