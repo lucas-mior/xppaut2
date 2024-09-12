@@ -133,7 +133,7 @@ typedef struct {
     int32 j1, j2;
 } ARRAY_IC;
 int32 ar_ic_defined = 0;
-double ndrand48();
+
 ARRAY_IC ar_ic[NAR_IC];
 typedef struct {
     int32 n, flag;
