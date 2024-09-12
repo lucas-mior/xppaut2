@@ -412,61 +412,6 @@ load_eqn(void) {
     }
 }
 
-/*
-load_eqn()
-{
- int32 no_eqn=1,okay=0;
- int32 i;
- int32 std=0;
- FILE *fptr;
-
- init_ar_ic();
-  for(i=0;i<MAXODE;i++)
- {
-  itor[i]=0;
-  strcpy(delay_string[i],"0.0");
- }
-
- if(strcmp(this_file,"/dev/stdin")==0)std=1;
-
-  struct dirent *dp;
-  if(got_file==1)
-  {
-        if ((dp=opendir(this_file))!=NULL)
-        {
-
-                change_directory(this_file);
-                no_eqn=1;
-        }
-        else
-        {
-                if (fptr=fopen(this_file,"r")!=NULL)
-                {
-                plintf("Here we are 2\n");
-                        if(std==1)sprintf(this_file,"console");
-                plintf("Here we are 4\n");
-                        okay=get_eqn(fptr);
-                plintf("Here we are 3\n");
-                        if(std==0)
-                          fclose(fptr);
-
-                        if(okay==1)no_eqn=0;
-                }
-        }
-  }
-  if(no_eqn)
-   {
-     while(okay==0)
-       {
-         okay=make_eqn();
-       }
-
-   }
-
-}
-
-*/
-
 void
 set_X_vals(void) {
     /*

@@ -222,14 +222,8 @@ int32 (*solver)();
 
 void
 init_ar_ic(void) {
-    int32 i;
-    for (i = 0; i < NAR_IC; i++) {
-        ar_ic[i].index0 = -1;
-        ar_ic[i].formula[0] = 0;
-        ar_ic[i].n = 0;
-        ar_ic[i].var[i] = 0;
-        ar_ic[i].type = 0;
-    }
+    memset(&ar_ic, 0, sizeof(ar_ic));
+    return;
 }
 
 void
