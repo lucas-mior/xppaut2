@@ -20,7 +20,6 @@ export {x,y} {xp,yp}
 
 */
 
-#include <math.h>
 #include <stdio.h>
 #define PAR 0
 #define VAR 1
@@ -58,10 +57,10 @@ DLFUN dlf;
 #include <dlfcn.h>
 
 void *dlhandle;
-double (*fun)();
+void *fun;
 int32 dll_loaded = 0;
 void
-auto_load_dll() {
+auto_load_dll(void) {
     if (dll_flag == 3) {
         get_directory(cur_dir);
         plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib, dll_fun);
@@ -87,21 +86,24 @@ load_new_dll(void) {
     return;
 }
 
+typedef double (*Function1)(int32 n, int32 ivar,
+                            double *con, double *var,
+                            double *wgt[MAXW], double *ydot);
+
 void
 get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
-    int32 i;
     char sofullname[256];
     char *error;
     if (dll_loaded == 1) {
-        fun(n, ivar, con, var, wgt, ydot);
+        ((Function1)fun)(n, ivar, con, var, wgt, ydot);
         return;
     }
     if (dll_loaded == -1)
         return;
     printf("soname = %s  sofun = %s \n", soname, sofun);
     get_directory(cur_dir);
-    sprintf(sofullname, "%s/%s", cur_dir, soname);
+    snprintf(sofullname, sizeof(sofullname), "%s/%s", cur_dir, soname);
     dlhandle = dlopen(sofullname, RTLD_LAZY);
     if (!dlhandle) {
         plintf(" Cant find the library %s\n", soname);
@@ -117,7 +119,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
         return;
     }
     dll_loaded = 1;
-    fun(n, ivar, con, var, wgt, ydot);
+    ((Function1)fun)(n, ivar, con, var, wgt, ydot);
     return;
 }
 

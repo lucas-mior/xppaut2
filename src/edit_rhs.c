@@ -1,5 +1,4 @@
 
-#include "form_ode.h"
 #include "edit_rhs.h"
 #include "init_conds.h"
 #include "browse.h"
@@ -166,11 +165,9 @@ ereset_hot(int32 inew, EDIT_BOX *sb) {
     return;
 }
 
-void enew_editable(sb, inew, pos, col, done, w) int32 inew;
-EDIT_BOX *sb;
-int32 *pos, *col, *done;
-Window *w;
-{
+void
+enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col,
+              int32 *done, Window *w) {
 
     ereset_hot(inew, sb);
     *pos = strlen(sb->value[inew]);
