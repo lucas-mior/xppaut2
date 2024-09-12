@@ -89,6 +89,7 @@ do_tutorial(void) {
         tut++;
         tut = tut % N_TUTORIAL;
     }
+    return;
 }
 
 void
@@ -125,6 +126,7 @@ edit_xpprc(void) {
 
         return;
     }
+    return;
 }
 
 void
@@ -153,6 +155,7 @@ xpp_hlp(void) {
     } else {
         wait(&status);
     }
+    return;
 }
 
 void
@@ -167,6 +170,7 @@ MessageBox(char *m) {
     set_window_title(MsgBox.w, "Yo!");
     strcpy(MsgBox.text, m);
     ping();
+    return;
 }
 
 void
@@ -175,6 +179,7 @@ RedrawMessageBox(Window w) {
         /*    plintf("%s \n",MsgBox.text); */
         Ftext(10, 2 * DCURY, MsgBox.text, MsgBox.w);
     }
+    return;
 }
 
 void
@@ -184,6 +189,7 @@ KillMessageBox(void) {
     MsgBox.here = 0;
     waitasec(ClickTime);
     XDestroyWindow(display, MsgBox.w);
+    return;
 }
 
 int32
@@ -200,12 +206,14 @@ GetMouseXY(int32 *x, int32 *y) {
 void
 FlushDisplay(void) {
     XFlush(display);
+    return;
 }
 
 void
 clear_draw_window(void) {
     clr_scrn();
     hi_lite(draw_win);
+    return;
 }
 
 void
@@ -228,6 +236,7 @@ drw_all_scrns(void) {
     make_active(ic, 1);
     hi_lite(draw_win);
     manual_expose = me;
+    return;
 }
 
 void
@@ -247,6 +256,7 @@ clr_all_scrns(void) {
 
     make_active(ic, 1);
     hi_lite(draw_win);
+    return;
 }
 
 void
@@ -391,6 +401,7 @@ run_the_commands(int32 com) {
         do_stochast_com(com - M_UHN);
     if (com >= M_UT && com <= M_UC)
         quick_num(com - M_UT);
+    return;
 }
 
 void
@@ -411,6 +422,7 @@ do_stochast(void) {
 
     if (i >= 0 && i < 16)
         run_the_commands(M_UHN + i);
+    return;
 }
 
 void
@@ -430,6 +442,7 @@ get_pmap_pars(void) {
 
     if (i >= 0 && i < 4)
         run_the_commands(M_UPN + i);
+    return;
 }
 
 void
@@ -446,6 +459,7 @@ set_col_par(void) {
             break;
     if (i >= 0 && i < 3)
         run_the_commands(i + M_UCN);
+    return;
 }
 
 void
@@ -463,6 +477,7 @@ make_adj(void) {
             break;
     if (i >= 0 && i < 7)
         run_the_commands(M_UAN + i);
+    return;
 }
 
 void
@@ -530,6 +545,7 @@ do_file_com(int32 com) {
         clone_ode();
         break;
     }
+    return;
 }
 
 void
@@ -569,6 +585,7 @@ do_gr_objs(void) {
             break;
     if (i >= 0 && i < 7)
         run_the_commands(M_TT + i);
+    return;
 }
 
 void
@@ -585,6 +602,7 @@ new_lookup(void) {
         run_the_commands(M_UKE);
     if (ch == key[1])
         run_the_commands(M_UKV);
+    return;
 }
 
 void
@@ -603,6 +621,7 @@ find_bvp(void) {
             break;
     if (i >= 0 && i < 4)
         run_the_commands(M_BR + i);
+    return;
 }
 
 void
@@ -620,6 +639,7 @@ change_view(void) {
             break;
     if (i >= 0 && i < 4)
         run_the_commands(M_V2 + i);
+    return;
 }
 
 void
@@ -649,6 +669,7 @@ do_windows(void) {
 
     if (i >= 0 && i < 7)
         run_the_commands(M_MC + i);
+    return;
 }
 
 void
@@ -737,6 +758,7 @@ do_movie(void) {
             break;
     if (i >= 0 && i < nkc)
         run_the_commands(i + M_KC);
+    return;
 }
 
 void
@@ -753,6 +775,7 @@ do_torus(void) {
             break;
     if (i >= 0 && i < 3)
         run_the_commands(M_AA + i);
+    return;
 }
 
 void
@@ -771,6 +794,7 @@ window_zoom(void) {
             break;
     if (i >= 0 && i < 6)
         run_the_commands(M_WW + i);
+    return;
 }
 
 void
@@ -789,6 +813,7 @@ direct_field(void) {
             break;
     if (i >= 0 && i < 5)
         run_the_commands(M_DD + i);
+    return;
 }
 
 void
@@ -806,6 +831,7 @@ new_clines(void) {
             break;
     if (i >= 0 && i < 6)
         run_the_commands(M_NN + i);
+    return;
 }
 
 void
@@ -823,6 +849,7 @@ froz_cline_stuff(void) {
     }
     if (i >= 0 && i < 4)
         run_the_commands(M_NFF + i);
+    return;
 }
 
 void
@@ -843,6 +870,7 @@ find_equilibrium(void) {
 
     if (i > -1 && i < 4)
         run_the_commands(i + M_SG);
+    return;
 }
 
 void

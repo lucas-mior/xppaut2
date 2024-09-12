@@ -61,42 +61,50 @@ DenseFactor(DenseMat A, int64 *p) {
 void
 DenseBacksolve(DenseMat A, int64 *p, N_Vector b) {
     gesl(A->data, A->size, p, N_VDATA(b));
+    return;
 }
 
 void
 DenseZero(DenseMat A) {
     denzero(A->data, A->size);
+    return;
 }
 
 void
 DenseCopy(DenseMat A, DenseMat B) {
     dencopy(A->data, B->data, A->size);
+    return;
 }
 
 void
 DenseScale(double c, DenseMat A) {
     denscale(c, A->data, A->size);
+    return;
 }
 
 void
 DenseAddI(DenseMat A) {
     denaddI(A->data, A->size);
+    return;
 }
 
 void
 DenseFreeMat(DenseMat A) {
     denfree(A->data);
     free(A);
+    return;
 }
 
 void
 DenseFreePiv(int64 *p) {
     free(p);
+    return;
 }
 
 void
 DensePrint(DenseMat A) {
     denprint(A->data, A->size);
+    return;
 }
 
 double **
@@ -242,6 +250,7 @@ gesl(double **a, int64 n, int64 *p, double *b) {
         for (i = 0; i < k; i++)
             b[i] += mult * col_k[i];
     }
+    return;
 }
 
 void
@@ -254,6 +263,7 @@ denzero(double **a, int64 n) {
         for (i = 0; i < n; i++)
             col_j[i] = ZERO;
     }
+    return;
 }
 
 void
@@ -267,6 +277,7 @@ dencopy(double **a, double **b, int64 n) {
         for (i = 0; i < n; i++)
             b_col_j[i] = a_col_j[i];
     }
+    return;
 }
 
 void
@@ -279,6 +290,7 @@ denscale(double c, double **a, int64 n) {
         for (i = 0; i < n; i++)
             col_j[i] *= c;
     }
+    return;
 }
 
 void
@@ -287,17 +299,20 @@ denaddI(double **a, int64 n) {
 
     for (i = 0; i < n; i++)
         a[i][i] += ONE;
+    return;
 }
 
 void
 denfreepiv(int64 *p) {
     free(p);
+    return;
 }
 
 void
 denfree(double **a) {
     free(a[0]);
     free(a);
+    return;
 }
 
 void

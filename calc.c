@@ -55,6 +55,7 @@ draw_calc(Window w) {
         XDrawString(display, w, small_gc, 0, CURY_OFFs, "Quit", 4);
         return;
     }
+    return;
 }
 
 void
@@ -97,6 +98,7 @@ make_calc(double z)
     }
     draw_calc(my_calc.answer);
     XFlush(display);
+    return;
 }
 
 void
@@ -107,6 +109,7 @@ quit_calc(void) {
     XDestroySubwindows(display, my_calc.base);
     XDestroyWindow(display, my_calc.base);
     clr_command();
+    return;
 }
 
 void
@@ -117,6 +120,7 @@ ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     *col = (*pos + strlen(name)) * DCURX;
     clr_command();
     display_command(name, value, 2, 0);
+    return;
 }
 
 void
@@ -151,6 +155,7 @@ q_calc(void) {
             break;
     }
     quit_calc();
+    return;
 }
 
 int32

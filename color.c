@@ -58,6 +58,7 @@ tst_color(Window w) {
         set_color(i + color_min);
         XDrawLine(display, w, gc_graph, 0, 2 * i + 20, 50, 2 * i + 20);
     }
+    return;
 }
 
 void
@@ -73,6 +74,7 @@ set_scolor(int32 col) {
         else
             XSetForeground(display, small_gc, GrFore);
     }
+    return;
 }
 
 void
@@ -88,6 +90,7 @@ set_color(int32 col) {
         else
             XSetForeground(display, gc_graph, GrFore);
     }
+    return;
 }
 
 /* this makes alot of nice color maps */
@@ -195,6 +198,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
         break;
     }
+    return;
 }
 
 /* this loads a color_map file and counts the
@@ -263,6 +267,7 @@ NewColormap(int32 type) {
     }
     custom_color = type;
     MakeColormap();
+    return;
 }
 
 void
@@ -271,6 +276,7 @@ get_ps_color(int32 i, float *r, float *g, float *b) {
     *r = z * (float)color[i].red;
     *g = z * (float)color[i].green;
     *b = z * (float)color[i].blue;
+    return;
 }
 
 void
@@ -279,6 +285,7 @@ get_svg_color(int32 i, int32 *r, int32 *g, int32 *b) {
     *r = color[i].red / 255;
     *g = color[i].green / 255;
     *b = color[i].blue / 255;
+    return;
 }
 
 int32
@@ -356,6 +363,7 @@ MakeColormap(void) {
             XAllocColor(display, cmap, &color[i]);
         }
     }
+    return;
 }
 
 int32

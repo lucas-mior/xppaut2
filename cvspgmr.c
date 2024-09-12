@@ -199,6 +199,7 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
     cvspgmr_mem->g_P_data = P_data;
     cvspgmr_mem->g_precond = precond;
     cvspgmr_mem->g_psolve = psolve;
+    return;
 }
 
 /* Additional readability Replacements */
@@ -426,6 +427,7 @@ CVSpgmrFree(CVodeMem cv_mem) {
     N_VFree(x);
     SpgmrFree(spgmr_mem);
     free(lmem);
+    return;
 }
 
 /*************** CVSpgmrAtimesDQ *************************************

@@ -52,6 +52,7 @@ re_title(void) {
     char bob[40];
     make_title(bob);
     title_text(bob);
+    return;
 }
 
 void
@@ -71,6 +72,7 @@ get_title_str(char *s1, char *s2, char *s3) {
         strcpy(s3, "T");
     else
         strcpy(s3, uvar_names[i - 1]);
+    return;
 }
 
 void
@@ -98,6 +100,7 @@ make_title(char *str) {
         sprintf(str, "%s vs %s vs %s", name3, name2, name1);
     else
         sprintf(str, "%s vs %s", name2, name1);
+    return;
 }
 
 double
@@ -143,6 +146,7 @@ find_max_min_tic(double *tmin, double *tmax, double tic) {
     if (t1 > *tmax)
         t1 -= tic;
     *tmax = t1;
+    return;
 }
 
 void
@@ -154,6 +158,7 @@ redraw_cube_pt(double theta, double phi) {
 
     sprintf(bob, "theta=%g phi=%g", theta, phi);
     canvas_xy(bob);
+    return;
 }
 
 void
@@ -177,6 +182,7 @@ do_axes(void) {
     }
     if (Xup)
         SmallBase();
+    return;
 }
 
 void
@@ -188,6 +194,7 @@ redraw_cube(double theta, double phi) {
     draw_unit_cube();
     sprintf(bob, "theta=%g phi=%g", theta, phi);
     canvas_xy(bob);
+    return;
 }
 
 void
@@ -204,6 +211,7 @@ draw_unit_cube(void) {
     line3d(-1., 1., 1., -1., 1., -1.);
     line3d(-1., -1., 1., -1., -1., -1.);
     line3d(1., -1., 1., 1., -1., -1.);
+    return;
 }
 
 void
@@ -288,6 +296,7 @@ Frame_3d(void) {
     TextJustify = 0;
 
     DOING_AXES = 0;
+    return;
 }
 
 void
@@ -331,6 +340,7 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
     set_linestyle(0);
 
     DOING_AXES = 0;
+    return;
 }
 
 void
@@ -377,6 +387,7 @@ draw_ytics(char *s1, double start, double incr, double end)
     } else {
         put_text(DLeft - HChar, yt + 2 * s * VChar, s1);
     }
+    return;
 }
 
 void

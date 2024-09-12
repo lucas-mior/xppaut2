@@ -402,6 +402,7 @@ svg_init(char *filename, int32 color) {
 void
 svg_write(char *str) {
     fprintf(svgfile, "%s\n", str);
+    return;
 }
 
 void
@@ -424,6 +425,7 @@ svg_do_color(int32 color) {
     cur_RGB[2] = b;
 
     DOING_SVG_COLOR = 1;
+    return;
 }
 
 void
@@ -438,11 +440,13 @@ svg_end(void) {
     DOING_SVG_COLOR = 0;
     if (Xup)
         init_x11();
+    return;
 }
 
 void
 svg_bead(int32 x, int32 y) {
     DO_MARKER = 1;
+    return;
 }
 
 void
@@ -462,11 +466,13 @@ svg_frect(int32 x, int32 y, int32 w, int32 h) {
                 x, y, w, h, (int32)gray, (int32)gray, (int32)gray, (int32)gray,
                 (int32)gray, (int32)gray);
     }
+    return;
 }
 
 void
 svg_last_pt_off(void) {
     LastPtLine = 0;
+    return;
 }
 
 void
@@ -566,6 +572,7 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 
     DOING_SVG_COLOR = 0;
     DO_MARKER = 0;
+    return;
 }
 
 void
@@ -575,6 +582,7 @@ chk_svg_lines(void) {
       fprintf(psfile,"currentpoint stroke moveto\n");
       PSLines=0;
     } */
+    return;
 }
 
 void
@@ -587,6 +595,7 @@ svg_linetype(int32 linetype) {
     /* LastPSX=-100000000;
      LastPSY=-100000000;
      */
+    return;
 }
 
 void
@@ -631,6 +640,7 @@ svg_point(int32 x, int32 y) {
     PSLines = 0;
     LastPtLine = 0;
     DOING_SVG_COLOR = 0;
+    return;
 }
 
 void
@@ -747,6 +757,7 @@ special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
             size, anchor, x, y);
 
     fprintf(svgfile, "      >%s</text>\n", str);
+    return;
 }
 
 void

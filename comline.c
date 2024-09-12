@@ -393,6 +393,7 @@ do_comline(int32 argc, char **argv) {
             printf(" Batch equilibria %d \n", BatchEquil);
         }
     }
+    return;
 }
 
 int32

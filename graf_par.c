@@ -117,6 +117,7 @@ ind_to_sym(int32 ind, char *str) {
         strcpy(str, "T");
     else
         strcpy(str, uvar_names[ind - 1]);
+    return;
 }
 
 void
@@ -130,6 +131,7 @@ check_flags(void) {
         MyGraph->TimeFlag = 1;
     else
         MyGraph->TimeFlag = 0;
+    return;
 }
 
 void
@@ -177,6 +179,7 @@ get_2d_view(int32 ind) {
                              MyGraph->ylo,MyGraph->xhi,MyGraph->yhi);
         */
     }
+    return;
 }
 
 void
@@ -203,6 +206,7 @@ axes_opts(void) {
         PS_FONTSIZE = atoi(values[6]);
         redraw_the_graph();
     }
+    return;
 }
 
 void
@@ -270,6 +274,7 @@ get_3d_view(int32 ind) {
                      MyGraph->ylo,MyGraph->yhi);
     */
     }
+    return;
 }
 
 void
@@ -292,6 +297,7 @@ check_val(double *x1, double *x2, double *xb, double *xd) {
     }
     *xb = .5 * (*x1 + *x2);
     *xd = 2.0 / (*x2 - *x1);
+    return;
 }
 
 void
@@ -315,6 +321,7 @@ get_max(int32 index, double *vmin, double *vmax) {
         *vmin = *vmin - temp;
         *vmax = *vmax + temp;
     }
+    return;
 }
 
 void
@@ -393,6 +400,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
     *ylo = y1;
     *xhi = x2;
     *yhi = y2;
+    return;
 }
 
 void
@@ -489,6 +497,7 @@ check_windows(void) {
     check_val(&MyGraph->zmin, &MyGraph->zmax, &MyGraph->zbar, &MyGraph->dz);
     check_val(&MyGraph->xlo, &MyGraph->xhi, &zip, &zap);
     check_val(&MyGraph->ylo, &MyGraph->yhi, &zip, &zap);
+    return;
 }
 
 void
@@ -550,6 +559,7 @@ xi_vs_t(void) /*  a short cut   */
         set_normal_scale();
         redraw_the_graph();
     }
+    return;
 }
 
 void
@@ -564,6 +574,7 @@ redraw_the_graph(void) {
     redraw_dfield();
     if (MyGraph->Nullrestore)
         restore_nullclines();
+    return;
 }
 
 void
@@ -582,6 +593,7 @@ movie_rot(double start, double increment, int32 nclip, int32 angle) {
     }
     MyGraph->Theta = thetaold;
     MyGraph->Phi = phiold;
+    return;
 }
 
 void
@@ -687,6 +699,7 @@ get_3d_par_com(void) {
         /*  Redraw the picture   */
         redraw_the_graph();
     }
+    return;
 }
 
 void
@@ -738,6 +751,7 @@ get_3d_par_noper(void) {
         /*  Redraw the picture   */
         redraw_the_graph();
     }
+    return;
 }
 
 void
@@ -810,6 +824,7 @@ scroll_window(void) {
             break;
         }
     }
+    return;
 }
 
 void
@@ -850,6 +865,7 @@ window_zoom_com(int32 c) {
         break;
     }
     set_normal_scale();
+    return;
 }
 
 void
@@ -892,6 +908,7 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     check_windows();
     redraw_the_graph();
     draw_help();
+    return;
 }
 
 void
@@ -960,6 +977,7 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     check_windows();
     redraw_the_graph();
     draw_help();
+    return;
 }
 
 void
@@ -990,6 +1008,7 @@ graph_all(int32 *list, int32 n, int32 type) {
     }
     check_flags();
     fit_window();
+    return;
 }
 
 int32
@@ -1053,12 +1072,14 @@ edit_curve(void) {
         snprintf(bob, sizeof(bob), "Edit curve %d", crv);
         alter_curve(bob, crv, crv);
     }
+    return;
 }
 
 void
 new_curve(void) {
     if (alter_curve("New Curve", 0, MyGraph->nvars))
         MyGraph->nvars = MyGraph->nvars + 1;
+    return;
 }
 
 void
@@ -1091,6 +1112,7 @@ create_ps(void) {
             ping();
         }
     }
+    return;
 }
 
 void
@@ -1113,6 +1135,7 @@ dump_ps(int32 i) {
             svg_restore();
         }
     }
+    return;
 }
 
 void
@@ -1129,6 +1152,7 @@ create_svg(void) {
         svg_restore();
         ping();
     }
+    return;
 }
 
 /*
@@ -1147,6 +1171,7 @@ ps_test()
 void
 change_cmap_com(int32 i) {
     NewColormap(i);
+    return;
 }
 
 void
@@ -1178,6 +1203,7 @@ freeze_com(int32 c) {
         AutoFreezeFlag = 1 - AutoFreezeFlag;
         break;
     }
+    return;
 }
 
 void
@@ -1187,6 +1213,7 @@ set_key(int32 x, int32 y) {
     FreezeKeyX = xp;
     FreezeKeyY = yp;
     FreezeKeyFlag = 1;
+    return;
 }
 
 void
@@ -1211,6 +1238,7 @@ draw_freeze_key(void) {
             y0 += dy;
         }
     }
+    return;
 }
 
 void
@@ -1228,6 +1256,7 @@ key_frz_com(int32 c) {
         }
         KillMessageBox();
     }
+    return;
 }
 
 void
@@ -1237,6 +1266,7 @@ edit_frz(void) {
     if (i < 0)
         return;
     edit_frz_crv(i);
+    return;
 }
 
 void
@@ -1250,6 +1280,7 @@ delete_frz_crv(int32 i) {
     free(frz[i].yv);
     if (frz[i].type > 0)
         free(frz[i].zv);
+    return;
 }
 
 void
@@ -1259,6 +1290,7 @@ delete_frz(void) {
     if (i < 0)
         return;
     delete_frz_crv(i);
+    return;
 }
 
 void
@@ -1268,6 +1300,7 @@ kill_frz(void) {
         if (frz[i].use == 1 && frz[i].w == draw_win)
             delete_frz_crv(i);
     }
+    return;
 }
 
 int32
@@ -1285,6 +1318,7 @@ auto_freeze_it(void) {
     if (AutoFreezeFlag == 0)
         return;
     create_crv(0);
+    return;
 }
 
 int32
@@ -1343,12 +1377,14 @@ edit_frz_crv(int32 i) {
         snprintf(frz[i].key, sizeof(frz[i].key), "%s", values[1]);
         snprintf(frz[i].name, sizeof(frz[i].name), "%s", values[2]);
     }
+    return;
 }
 
 void
 draw_frozen_cline(int32 index, Window w) {
     if (nclines[index].use == 0 || nclines[index].w != w)
         return;
+    return;
 }
 
 void
@@ -1397,6 +1433,7 @@ draw_freeze(Window w) {
     }
     draw_freeze_key();
     draw_bd(w);
+    return;
 }
 
 /*  Bifurcation curve importing */
@@ -1404,6 +1441,7 @@ draw_freeze(Window w) {
 void
 init_bd(void) {
     my_bd.nbifcrv = 0;
+    return;
 }
 
 void
@@ -1427,6 +1465,7 @@ draw_bd(Window w) {
             }
         }
     }
+    return;
 }
 
 void
@@ -1439,6 +1478,7 @@ free_bd(void) {
         }
         my_bd.nbifcrv = 0;
     }
+    return;
 }
 
 void
@@ -1461,6 +1501,7 @@ add_bd_crv(float *x, float *y, int32 len, int32 type, int32 ncrv) {
     if (type == UEQ)
         i = lsUEQ;
     my_bd.color[ncrv] = i;
+    return;
 }
 
 void
@@ -1525,6 +1566,7 @@ read_bd(FILE *fp) {
     fclose(fp);
     my_bd.nbifcrv = ncrv;
     my_bd.w = draw_win;
+    return;
 }
 
 int32
@@ -1570,6 +1612,7 @@ export_graf_data(void) {
     }
     export_data(fp);
     fclose(fp);
+    return;
 }
 
 void

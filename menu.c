@@ -47,6 +47,7 @@ add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     my_menus[j].visible = 0;
     XMapRaised(display, my_menus[j].base);
     XMapSubwindows(display, my_menus[j].base);
+    return;
 }
 
 void
@@ -62,6 +63,7 @@ create_the_menus(Window base) {
     strcpy(key, "pwracesbhqtiglxu");
     add_menu(base, FILE_MENU, FILE_ENTRIES, fileon_menu, key, file_hint);
     help_menu = -1;
+    return;
 }
 
 void
@@ -72,6 +74,7 @@ show_menu(int32 j) {
     XRaiseWindow(display, my_menus[j].base);
     my_menus[j].visible = 1;
     help_menu = j;
+    return;
 }
 
 void
@@ -82,18 +85,21 @@ unshow_menu(int32 j) {
     my_menus[j].visible = 0;
     /* XUnmapSubwindows(display,my_menus[j].base);
      XUnmapWindow(display,my_menus[j].base); */
+    return;
 }
 
 void
 help(void) {
     unshow_menu(help_menu);
     show_menu(MAIN_MENU);
+    return;
 }
 
 void
 help_num(void) {
     unshow_menu(help_menu);
     show_menu(NUM_MENU);
+    return;
 }
 
 void
@@ -104,6 +110,7 @@ help_file(void) {
         my_menus[FILE_MENU].names = fileoff_menu;
     unshow_menu(help_menu);
     show_menu(FILE_MENU);
+    return;
 }
 
 void
@@ -124,6 +131,7 @@ menu_crossing(Window win, int32 yn) {
             return;
         }
     }
+    return;
 }
 
 void
@@ -156,6 +164,7 @@ menu_expose(Window win) {
             return;
         }
     }
+    return;
 }
 
 void
@@ -173,6 +182,7 @@ menu_button(Window win) {
             return;
         }
     }
+    return;
 }
 
 void

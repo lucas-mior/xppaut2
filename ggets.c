@@ -65,6 +65,7 @@ reset_graphics(void) {
     blank_screen(draw_win);
     do_axes();
     hi_lite(draw_win);
+    return;
 }
 
 void
@@ -76,16 +77,19 @@ blank_screen(Window w)
     CURS_Y = 0;
     xor_flag = 0;
     XClearWindow(display, w);
+    return;
 }
 
 void
 set_fore(void) {
     XSetForeground(display, gc, MyForeColor);
+    return;
 }
 
 void
 set_back(void) {
     XSetForeground(display, gc, MyBackColor);
+    return;
 }
 
 void
@@ -94,6 +98,7 @@ showchar(int32 ch, int32 col, int32 row, Window or) {
     bob[0] = ch;
     chk_xor();
     XDrawString(display, or, gc, col, row + CURY_OFF, bob, 1);
+    return;
 }
 
 void
@@ -102,17 +107,20 @@ chk_xor(void) {
         XSetFunction(display, gc, GXxor);
     else
         XSetFunction(display, gc, GXcopy);
+    return;
 }
 
 void
 set_gcurs(int32 y, int32 x) {
     CURS_X = x;
     CURS_Y = y;
+    return;
 }
 
 void
 clr_command(void) {
     blank_screen(command_pop);
+    return;
 }
 
 void
@@ -123,6 +131,7 @@ draw_info_pop(Window win) {
         XDrawString(display, info_pop, gc, 5, CURY_OFF, info_message,
                     strlen(info_message));
     }
+    return;
 }
 
 void
@@ -143,6 +152,7 @@ gputs(char *string, Window win) {
     int32 xloc = CURS_X * DCURX, yloc = CURS_Y * DCURY;
     Ftext(xloc, yloc, string, win);
     CURS_X += strlen(string);
+    return;
 }
 
 void
@@ -152,6 +162,7 @@ err_msg(char *string) {
     else {
         plintf("%s\n", string);
     }
+    return;
 }
 
 int32
@@ -207,6 +218,7 @@ gpos_prn(char *string, int32 row, int32 col) {
     clr_command();
     Ftext(0, row * DCURY, string, command_pop);
     CURS_X = strlen(string);
+    return;
 }
 
 void
@@ -214,6 +226,7 @@ put_command(char *string) {
     clr_command();
     Ftext(0, 0, string, command_pop);
     CURS_X = strlen(string);
+    return;
 }
 
 int32
@@ -260,7 +273,6 @@ get_key_press(XEvent *ev) {
     else if (ks == XK_PgDn)
         return PGDN;
     else {
-
         return BADKEY;
     }
 }
@@ -296,6 +308,7 @@ cput_text(void) {
     }
     waitasec(ClickTime);
     XDestroyWindow(display, temp);
+    return;
 }
 
 /*
@@ -348,16 +361,19 @@ void
 Ftext(int32 x, int32 y, char *string, Window o) {
     chk_xor();
     XDrawString(display, o, gc, x, y + CURY_OFF, string, strlen(string));
+    return;
 }
 
 void
 bar(int32 x, int32 y, int32 x2, int32 y2, Window w) {
     XFillRectangle(display, w, gc, x, y, x2 - x, y2 - y);
+    return;
 }
 
 void
 rectangle(int32 x, int32 y, int32 x2, int32 y2, Window w) {
     XDrawRectangle(display, w, gc, x, y, x2 - x, y2 - y);
+    return;
 }
 
 /*
@@ -378,17 +394,20 @@ setfillstyle(int32 type, int32 color) {
         XSetForeground(display, gc, MyForeColor);
     else
         XSetForeground(display, gc, MyBackColor);
+    return;
 }
 
 void
 circle(int32 x, int32 y, int32 radius, Window w) {
     XDrawArc(display, w, gc, x - radius, y - radius, 2 * radius, 2 * radius, 0,
              360 * 64);
+    return;
 }
 
 void
 xline(int32 x0, int32 y0, int32 x1, int32 y1, Window w) {
     XDrawLine(display, w, gc_graph, x0, y0, x1, y1);
+    return;
 }
 
 int32
@@ -448,12 +467,14 @@ display_command(char *name, char *value, int32 pos, int32 col) {
         /* showchar('_',DCURX*(l+m),0,command_pop); */
         put_cursor_at(command_pop, DCURX * l, pos);
     }
+    return;
 }
 
 void
 clr_line_at(Window w, int32 col0, int32 pos, int32 n) {
     XClearArea(display, w, col0 + pos * DCURX, 0, (n + 2) * DCURX, 2 * DCURY,
                False);
+    return;
 }
 
 void
@@ -464,6 +485,7 @@ put_cursor_at(Window w, int32 col0, int32 pos) {
     /* XDrawString(display,w,gc,col0+pos*DCURX-1,DCURY,"^",1);*/
     XDrawLine(display, w, gc, x1, y1, x1, y2);
     XDrawLine(display, w, gc, x2, y1, x2, y2);
+    return;
 }
 
 void
@@ -471,6 +493,7 @@ put_string_at(Window w, int32 col, char *s, int32 off) {
     int32 l = strlen(s) - off;
 
     XDrawString(display, w, gc, col, CURY_OFF, s + off, l);
+    return;
 }
 
 void
@@ -478,6 +501,7 @@ movmem(char *s1, char *s2, int32 len) {
     int32 i;
     for (i = len - 1; i >= 0; i--)
         s1[i] = s2[i];
+    return;
 }
 
 void
@@ -485,6 +509,7 @@ memmov(char *s1, char *s2, int32 len) {
     int32 i;
     for (i = 0; i < len; i++)
         s1[i] = s2[i];
+    return;
 }
 
 void
@@ -569,6 +594,7 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
     /*  plintf(" on ret %d %d %d %s %d\n",*pos,*col,ch,value,col0);*/
 
     XFlush(display);
+    return;
 }
 
 void
@@ -584,6 +610,7 @@ do_backspace(int32 *pos, char *value, int32 *col, Window w) {
     showchar(oldch, *col, 0, w);
     set_fore();
     showchar('_', *col, 0, w);
+    return;
 }
 
 void
@@ -608,6 +635,7 @@ edit_command_string(XEvent ev, char *name, char *value, int32 *done, int32 *pos,
         edit_window(command_pop, pos, value, col, done, ch);
 
     } /* end event cases */
+    return;
 }
 
 int32

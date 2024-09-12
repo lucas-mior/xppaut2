@@ -217,6 +217,7 @@ main(int32 argc, char *argv[]) {
     dump_funs();
     dump_events();
     write_ode_file(argv[1]);
+    return;
 }
 
 add_reaction(int32 i, char *f, int32 npr, int32 nre) {
@@ -238,6 +239,7 @@ add_rule(int32 i, char *v, char *f, char *tc) {
     r->v = (char *)malloc(strlen(v) + 1);
     strcpy(r->v, v);
     check_name_len(r->v);
+    return;
 }
 
 add_parameter(char *name, char *id, double z, int32 f) {
@@ -273,6 +275,7 @@ add_parameter(char *name, char *id, double z, int32 f) {
     par[Npar].fixed = f;
     par[Npar].unique = 1;
     Npar++;
+    return;
 }
 
 void
@@ -462,6 +465,7 @@ dump_reactions(void) {
             plintf("%s(%g), ", r->pr[j], r->spr[j]);
         plintf("\n");
     }
+    return;
 }
 
 int32
@@ -478,6 +482,7 @@ dump_events(void) {
             plintf("%s;", ev->a[j]);
         plintf("%s}\n", ev->a[na - 1]);
     }
+    return;
 }
 
 int32
@@ -491,6 +496,7 @@ dump_funs(void) {
             plintf("%s,", f->arg[j]);
         plintf(")=%s\n", f->formula);
     }
+    return;
 }
 
 int32
@@ -503,6 +509,7 @@ dump_rules(void) {
         r = rule + i;
         plintf("%s=%s\n", r->v, r->f);
     }
+    return;
 }
 
 int32
@@ -515,6 +522,7 @@ dump_species(void) {
         plintf("%s %s %s %g %d %d \n", x->name, x->id, x->tc, x->x0, x->bc,
                x->c);
     }
+    return;
 }
 
 int32
@@ -524,6 +532,7 @@ dump_parameters(void) {
     for (i = 0; i < Npar; i++)
         plintf("%d %s %s = %g \n", par[i].fixed, par[i].name, par[i].id,
                par[i].z);
+    return;
 }
 
 add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c,
@@ -552,6 +561,7 @@ add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c,
     x->c = c;
     x->nrx = 0;
     x->rule = 0;
+    return;
 }
 
 void
@@ -849,6 +859,7 @@ mark_rule_pars(void) {
             plintf("found %s as %d \n", r->v, j);
         }
     }
+    return;
 }
 
 is_blank(char *s) {
@@ -916,6 +927,7 @@ check_name_len(char *s) {
                long_names[lnum].rep);
         lnum++;
     }
+    return;
 }
 
 /* replaces copies snew = sold with sfnd replaced by srep */
@@ -976,6 +988,7 @@ strfnd(char *s1, char *s2, int32 j0) {
         if (i >= n2)
             return -1;
     }
+    return;
 }
 
 fix_long_names(char *big, char *bigp) {
@@ -987,6 +1000,7 @@ fix_long_names(char *big, char *bigp) {
         strcpy(z, zp);
     }
     strcpy(bigp, z);
+    return;
 }
 
 static int32
@@ -1004,6 +1018,7 @@ sort_long_names(void) {
     qsort(long_names, lnum, sizeof(LONG_NAMES), z_sort);
     for (i = 0; i < lnum; i++)
         plintf("%d: %s -> %s \n", i, long_names[i].src, long_names[i].rep);
+    return;
 }
 
 write_ode_file(char *base) {

@@ -95,6 +95,7 @@ draw_eq_list(Window w) {
                         strlen(bob));
         }
     }
+    return;
 }
 
 void
@@ -157,6 +158,7 @@ create_eq_list(void) {
     XSelectInput(display, eq_list.close, MYMASK);
     /* if(noicon==0)XIconifyWindow(display,base,screen); */
     eq_list.flag = 1;
+    return;
 }
 
 void
@@ -183,6 +185,7 @@ eq_list_keypress(XEvent ev, int32 *used) {
             return;
         }
     }
+    return;
 }
 
 void
@@ -193,6 +196,7 @@ enter_eq_stuff(Window w, int32 b) {
     }
     if (eq_box.flag == 1 && (w == eq_box.close || w == eq_box.import))
         XSetWindowBorderWidth(display, w, b);
+    return;
 }
 
 void
@@ -217,6 +221,7 @@ eq_list_button(XEvent ev) {
         XDestroySubwindows(display, eq_list.base);
         XDestroyWindow(display, eq_list.base);
     }
+    return;
 }
 
 void
@@ -226,6 +231,7 @@ eq_list_up(void) {
         XClearWindow(display, eq_list.list);
         draw_eq_list(eq_list.list);
     }
+    return;
 }
 
 void
@@ -235,6 +241,7 @@ eq_list_down(void) {
         XClearWindow(display, eq_list.list);
         draw_eq_list(eq_list.list);
     }
+    return;
 }
 
 void
@@ -265,6 +272,7 @@ get_new_size(Window win, uint32 *wid, uint32 *hgt) {
     uint32 bw, de;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, wid, hgt, &bw, &de);
+    return;
 }
 
 void
@@ -285,6 +293,7 @@ resize_eq_list(Window win) {
     XResizeWindow(display, eq_list.base, w, h);
     XResizeWindow(display, eq_list.list, w, h - 2 * DCURYs);
     XResizeWindow(display, eq_list.main, w, 2 * DCURYs);
+    return;
 }
 
 void
@@ -301,6 +310,7 @@ eq_box_button(Window w) {
         XDestroySubwindows(display, eq_box.base);
         XDestroyWindow(display, eq_box.base);
     }
+    return;
 }
 
 void
@@ -377,6 +387,7 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
         XClearWindow(display, eq_box.rest);
         draw_eq_box(eq_box.rest);
     }
+    return;
 }
 
 void

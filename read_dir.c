@@ -321,6 +321,7 @@ char *pathname;
     strcpy(pathname, root);
     strcat(pathname, "/");
     strcat(pathname, filename);
+    return;
 }
 
 /* wildmatch.c - Unix-style command line wildcards

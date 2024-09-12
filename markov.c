@@ -75,6 +75,7 @@ void
 add_wiener(int32 index) {
     Wiener[NWiener] = index;
     NWiener++;
+    return;
 }
 
 void
@@ -83,6 +84,7 @@ set_wieners(double dt, double *x, double t) {
     update_markov(x, t, fabs(dt));
     for (i = 0; i < NWiener; i++)
         constants[Wiener[i]] = normal(0.00, 1.00) / sqrt(fabs(dt));
+    return;
 }
 
 void
@@ -92,6 +94,7 @@ add_markov(int32 nstate, char *name) {
     for (i = 0; i < 50; i++)
         st[i] = (double)i;
     create_markov(nstate, st, 0, name);
+    return;
 }
 
 int32
@@ -214,6 +217,7 @@ extract_expr(char *source, char *dest, int32 *i0) {
         }
     }
     dest[len] = 0;
+    return;
 }
 
 void
@@ -239,6 +243,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
         markov[j].states[i] = st[i];
     strcpy(markov[j].name, name);
     NMarkov++;
+    return;
 }
 
 void
@@ -267,6 +272,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
     } else {
         markov[index].fixed[l0] = atof(expr);
     }
+    return;
 }
 
 void
@@ -287,6 +293,7 @@ compile_all_markov(void) {
             }
         }
     }
+    return;
 }
 
 int32
@@ -327,6 +334,7 @@ update_markov(double *x, double t, double dt) {
         x[NODE + i] = yp[i];
         set_ivar(i + NODE + FIX_VAR + 1, yp[i]);
     }
+    return;
 }
 
 double
@@ -405,6 +413,7 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     free(y);
     free(yp);
     free(yold);
+    return;
 }
 
 void
@@ -442,6 +451,7 @@ one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
             */
         break;
     }
+    return;
 }
 
 void
@@ -505,6 +515,7 @@ do_stochast_com(int32 i) {
         new_2d_hist();
         break;
     }
+    return;
 }
 
 void
@@ -516,6 +527,7 @@ mean_back(void) {
         refresh_browser(stoch_len);
         storind = stoch_len;
     }
+    return;
 }
 
 void
@@ -527,6 +539,7 @@ variance_back(void) {
         refresh_browser(stoch_len);
         storind = stoch_len;
     }
+    return;
 }
 
 void
@@ -550,6 +563,7 @@ free_stoch(void) {
         }
         STOCH_HERE = 0;
     }
+    return;
 }
 
 void
@@ -570,6 +584,7 @@ init_stoch(int32 len) {
         my_variance[0][j] = storage[0][j];
     }
     STOCH_HERE = 1;
+    return;
 }
 
 void
@@ -588,6 +603,7 @@ append_stoch(int32 first, int32 length) {
         }
     }
     N_TRIALS++;
+    return;
 }
 
 void
@@ -605,6 +621,7 @@ do_stats(int32 ierr) {
             }
         }
     }
+    return;
 }
 
 double
@@ -668,6 +685,7 @@ ndrand48(void) {
 void
 nsrand48(int32 seed) {
     myrandomseed = -seed;
+    return;
 }
 
 double

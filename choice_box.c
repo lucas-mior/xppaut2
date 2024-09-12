@@ -33,6 +33,7 @@ destroy_choice(CHOICE_BOX p) {
     waitasec(ClickTime);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
+    return;
 }
 
 void
@@ -57,6 +58,7 @@ display_choice(Window w, CHOICE_BOX p) {
         XDrawString(display, w, gc, (p.mc + 1) * DCURX, CURY_OFF, "X", 1);
     }
     set_fore();
+    return;
 }
 
 void
@@ -71,6 +73,7 @@ do_checks(CHOICE_BOX p) {
         XDrawString(display, p.cw[i], gc, (p.mc + 1) * DCURX, CURY_OFF, "X", 1);
     }
     set_fore();
+    return;
 }
 
 void
@@ -78,6 +81,7 @@ base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check,
             int32 type) {
     do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check,
                   type);
+    return;
 }
 
 int32

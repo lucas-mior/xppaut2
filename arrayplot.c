@@ -204,6 +204,7 @@ double *zmax, *zmin;
     }
     if (*zmin >= *zmax)
         *zmax = fabs(*zmin) + 1 + *zmin;
+    return;
 }
 
 void init_arrayplot(ap) APLOT *ap;
@@ -228,6 +229,7 @@ void init_arrayplot(ap) APLOT *ap;
     strcpy(ap->ytitle, "time");
     strcpy(ap->bottom, "");
     ap->type = -1;
+    return;
 }
 
 void
@@ -294,6 +296,7 @@ APLOT ap;
     if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
         w == ap.wgif || w == ap.wrange || w == ap.wfit)
         XSetWindowBorderWidth(display, w, i);
+    return;
 }
 
 void
@@ -362,6 +365,7 @@ char *wname, *iname;
     ap->ploth = height - 55;
     ap->alive = 1;
     aplot_gc = XCreateGC(display, ap->wplot, valuemask, &values);
+    return;
 }
 
 void print_aplot(ap) APLOT *ap;
@@ -411,6 +415,7 @@ void print_aplot(ap) APLOT *ap;
         if (errflag == -1)
             err_msg("Couldn't open file");
     }
+    return;
 }
 
 void
@@ -448,6 +453,7 @@ void draw_scale(ap) APLOT ap;
         set_color(i + FIRSTCOLOR);
         XDrawLine(display, w, gc_graph, 0, y, 2 * DCURXs, y);
     }
+    return;
 }
 
 void draw_aplot(ap) APLOT ap;
@@ -511,6 +517,7 @@ void reset_aplot_axes(ap) APLOT ap;
     display_aplot(ap.wmax, ap);
     display_aplot(ap.wmin, ap);
     gtitle_text(bob, ap.base);
+    return;
 }
 
 void
@@ -652,6 +659,7 @@ void grab_aplot_screen(ap) APLOT ap;
     if (film_clip() == 0)
         err_msg("Out of film!");
     draw_win = temp;
+    return;
 }
 
 void redraw_aplot(ap) APLOT ap;
@@ -713,6 +721,7 @@ void redraw_aplot(ap) APLOT ap;
         }
     }
     XFlush(display);
+    return;
 }
 
 void

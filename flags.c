@@ -186,6 +186,7 @@ show_flags(void) {
                flag[i].rhs[j]);
     }
     */
+    return;
 }
 
 int32
@@ -589,6 +590,7 @@ printflaginfo(void) {
                flag[i].tstar, flag[i].f0, flag[i].f1, flag[i].hit,
                fabs(flag[i].f0 - flag[i].f1));
     }
+    return;
 }
 
 int32

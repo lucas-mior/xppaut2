@@ -29,6 +29,7 @@ free_derived(void) {
         free(derived[i].rhs);
     }
     nderived = 0;
+    return;
 }
 
 /* This compiles all of the formulae
@@ -62,6 +63,7 @@ evaluate_derived(void) {
         derived[i].value = evaluate(derived[i].form);
         constants[derived[i].index] = derived[i].value;
     }
+    return;
 }
 
 /* this adds a derived quantity  */

@@ -23,6 +23,7 @@ extern int32 NFlags;
 void
 dprhs(unsigned n, double t, double *y, double *f) {
     my_rhs(t, y, f, n);
+    return;
 }
 
 void
@@ -42,6 +43,7 @@ dp_err(int32 k) {
         err_msg("Problem became stiff");
         break;
     }
+    return;
 }
 
 int32

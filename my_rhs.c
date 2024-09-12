@@ -23,7 +23,7 @@ int32
 main(int32 argc, char **argv) {
     do_main(argc, argv);
 
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 void
@@ -44,6 +44,7 @@ extra(double *y__y, double t, int32 nod, int32 neq) {
 
     for (i = nod + NMarkov; i < neq; i++)
         y__y[i] = evaluate(my_ode[i + FIX_VAR - NMarkov]);
+    return;
 }
 
 /* set_fix_rhs(t,y,neq)
@@ -72,6 +73,7 @@ set_fix_rhs(double t, double *y) {
     eval_all_nets();
 
     do_in_out();
+    return;
 }
 
 int32
@@ -107,6 +109,7 @@ update_based_on_current(void) {
 
     eval_all_nets();
     do_in_out();
+    return;
 }
 
 void
@@ -114,6 +117,7 @@ fix_only(void) {
     int32 i;
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
+    return;
 }
 
 void
@@ -122,6 +126,7 @@ rhs_only(double *ydot) {
     for (i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }
+    return;
 }
 
 /***

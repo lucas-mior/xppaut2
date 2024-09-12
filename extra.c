@@ -70,6 +70,7 @@ auto_load_dll() {
         sprintf(dlf.fun, "%s", dll_fun);
         dlf.loaded = 0;
     }
+    return;
 }
 
 void
@@ -83,6 +84,7 @@ load_new_dll(void) {
     sprintf(dlf.libname, "%s/%s", cur_dir, dlf.libfile);
     new_string("Function name:", dlf.fun);
     dlf.loaded = 0;
+    return;
 }
 
 void
@@ -116,6 +118,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
     }
     dll_loaded = 1;
     fun(n, ivar, con, var, wgt, ydot);
+    return;
 }
 
 int32
@@ -159,6 +162,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
 void
 get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
+    return;
 }
 
 int32
@@ -192,6 +196,7 @@ do_in_out(void) {
         else
             variables[in_out.out[i]] = in_out.vout[i];
     }
+    return;
 }
 
 void
@@ -214,6 +219,7 @@ add_export_list(char *in, char *out) {
     in_out.vout = (double *)malloc((i + 1) * sizeof(double));
     in_out.nout = i;
     /* plintf(" in %d out %d \n",in_out.nin,in_out.nout); */
+    return;
 }
 
 void
@@ -223,6 +229,7 @@ check_inout(void) {
         plintf(" type=%d index=%d \n", in_out.intype[i], in_out.in[i]);
     for (i = 0; i < in_out.nout; i++)
         plintf(" type=%d index=%d \n", in_out.outtype[i], in_out.out[i]);
+    return;
 }
 
 int32
@@ -244,6 +251,7 @@ do_export_list(void) {
     parse_inout(in_out.lin, 0);
     parse_inout(in_out.lout, 1);
     /* check_inout(); */
+    return;
 }
 
 void

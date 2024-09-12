@@ -122,6 +122,7 @@ CVDiag(void *cvode_mem) {
     lmem = cvdiag_mem = (CVDiagMem)malloc(sizeof(CVDiagMemRec));
     if (cvdiag_mem == NULL)
         return; /* CVDiagInit reports this error */
+    return;
 }
 
 /*************** CVDiagInit ******************************************

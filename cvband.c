@@ -155,6 +155,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 
     /* Increment counter nfe = *nfePtr */
     *nfePtr += ngroups;
+    return;
 }
 
 /* Readability Replacements */
@@ -242,6 +243,7 @@ CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
     /* Load half-bandwiths in cvband_mem */
     ml = mlower;
     mu = mupper;
+    return;
 }
 
 /*************** CVBandInit ******************************************

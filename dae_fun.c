@@ -132,6 +132,7 @@ compile_svars(void) {
 void
 reset_dae(void) {
     dae_work.status = 1;
+    return;
 }
 
 void
@@ -147,6 +148,7 @@ set_init_guess(void) {
         svar[i].value = z;
         svar[i].last = z;
     }
+    return;
 }
 
 void
@@ -169,6 +171,7 @@ err_dae(void) {
         break;
     }
     dae_work.status = 1;
+    return;
 }
 
 void
@@ -178,6 +181,7 @@ init_dae_work(void) {
         (double *)malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
     dae_work.iwork = (int32 *)malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;
+    return;
 }
 
 void
@@ -190,6 +194,7 @@ get_dae_fun(double *y, double *f) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     for (i = 0; i < naeqn; i++)
         f[i] = evaluate(aeqn[i].form);
+    return;
 }
 
 void
@@ -200,6 +205,7 @@ do_daes(void) {
     if (ans == 1 || ans == 2)
         return; /* accepts a no change error! */
     DelayErr = 1;
+    return;
 }
 
 /* Newton solver for algebraic stuff */
@@ -287,6 +293,7 @@ solve_dae(void) {
             return -2; /* too many iterates */
         }
     }
+    exit(EXIT_FAILURE);
 }
 
 /* interface shit -- different for Win95 */

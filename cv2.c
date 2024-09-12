@@ -38,17 +38,20 @@ start_cv(double *y, double t, int32 n, double tout, double *atol,
         CVBand(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
     else
         CVDense(cvode_mem, NULL, NULL);
+    return;
 }
 
 void
 end_cv(void) {
     N_VFree(ycv);
     CVodeFree(cvode_mem);
+    return;
 }
 
 static void
 cvf(int32 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
     my_rhs(t, y->data, ydot->data, n);
+    return;
 }
 
 void
@@ -90,6 +93,7 @@ cvode_err_msg(int32 kflag) {
     }
     if (strlen(s) > 0)
         err_msg(s);
+    return;
 }
 
 int32

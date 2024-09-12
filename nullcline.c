@@ -999,6 +999,7 @@ quad_contour(Pt p1, Pt p2, Pt p3, Pt p4) {
             line_abs(x[0], y[0], x[1], y[1]);
         stor_null(x[0], y[0], x[1], y[1]);
     }
+    return;
 }
 
 void
@@ -1026,6 +1027,7 @@ triangle_contour(Pt p1, Pt p2, Pt p3) {
         line_abs(x[0], y[0], x[1], y[1]);
         stor_null(x[0], y[0], x[1], y[1]);
     }
+    return;
 }
 
 void

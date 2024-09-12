@@ -816,7 +816,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
     /* Looping point for internal steps */
 
     nstloc = 0;
-    loop {
+    while (1) {
 
         next_h = h;
         next_q = q;
@@ -1018,6 +1018,7 @@ CVodeFree(void *cvode_mem) {
     if ((iter == NEWTON) && linitOK)
         lfree(cv_mem);
     free(cv_mem);
+    return;
 }
 
 /***************************************************************/
@@ -1109,6 +1110,7 @@ CVFreeVectors(CVodeMem cv_mem, int32 maxord) {
     N_VFree(ftemp);
     for (j = 0; j <= maxord; j++)
         N_VFree(zn[j]);
+    return;
 }
 
 /*********************** CVEwtSet **************************************
@@ -1240,7 +1242,7 @@ CVHin(CVodeMem cv_mem, double tout) {
        that the ydd value is bad because of cancellation error.        */
 
     count = 0;
-    loop {
+    while (1) {
         hgs = hg * sign;
         yddnrm = CVYddNorm(cv_mem, hgs);
         hnew =
@@ -1359,7 +1361,7 @@ CVStep(CVodeMem cv_mem) {
         CVAdjustParams(cv_mem);
 
     /* Looping point for attempts to take a step */
-    loop {
+    while (1) {
         CVPredict(cv_mem);
         CVSet(cv_mem);
 
@@ -1408,6 +1410,7 @@ CVAdjustParams(CVodeMem cv_mem) {
         qwait = L;
     }
     CVRescale(cv_mem);
+    return;
 }
 
 /********************* CVAdjustOrder *****************************
@@ -1433,6 +1436,7 @@ CVAdjustOrder(CVodeMem cv_mem, int32 deltaq) {
         CVAdjustBDF(cv_mem, deltaq);
         break;
     }
+    return;
 }
 
 /*************** CVAdjustAdams ***********************************
@@ -1475,6 +1479,7 @@ CVAdjustAdams(CVodeMem cv_mem, int32 deltaq) {
 
     for (j = 2; j < q; j++)
         N_VLinearSum(-l[j], zn[q], ONE, zn[j], zn[j]);
+    return;
 }
 
 /********************** CVAdjustBDF *******************************
@@ -1496,6 +1501,7 @@ CVAdjustBDF(CVodeMem cv_mem, int32 deltaq) {
         CVDecreaseBDF(cv_mem);
         return;
     }
+    return;
 }
 
 /******************** CVIncreaseBDF **********************************
@@ -1537,6 +1543,7 @@ CVIncreaseBDF(CVodeMem cv_mem) {
     for (j = 2; j <= q; j++) {
         N_VLinearSum(l[j], zn[L], ONE, zn[j], zn[j]);
     }
+    return;
 }
 
 /********************* CVDecreaseBDF ******************************
@@ -1567,6 +1574,7 @@ CVDecreaseBDF(CVodeMem cv_mem) {
 
     for (j = 2; j < q; j++)
         N_VLinearSum(-l[j], zn[q], ONE, zn[j], zn[j]);
+    return;
 }
 
 /**************** CVRescale ***********************************
@@ -1589,6 +1597,7 @@ CVRescale(CVodeMem cv_mem) {
     }
     h = hscale * eta;
     hscale = h;
+    return;
 }
 
 /********************* CVPredict *************************************
@@ -1607,6 +1616,7 @@ CVPredict(CVodeMem cv_mem) {
     for (k = 1; k <= q; k++)
         for (j = q; j >= k; j--)
             N_VLinearSum(ONE, zn[j - 1], ONE, zn[j], zn[j - 1]);
+    return;
 }
 
 /************************** CVSet *********************************
@@ -1632,6 +1642,7 @@ CVSet(CVodeMem cv_mem) {
     if (nst == 0)
         gammap = gamma;
     gamrat = (nst > 0) ? gamma / gammap : ONE; /* protect x / x != 1.0 */
+    return;
 }
 
 /******************** CVSetAdams *********************************
@@ -1670,6 +1681,7 @@ CVSetAdams(CVodeMem cv_mem) {
     M[1] = CVAltSum(q - 1, m, 2);
 
     CVAdamsFinish(cv_mem, m, M, hsum);
+    return;
 }
 
 /****************** CVAdamsStart ********************************
@@ -1732,6 +1744,7 @@ CVAdamsFinish(CVodeMem cv_mem, double m[], double M[], double hsum) {
     }
 
     tq[4] = CORTES * tq[2];
+    return;
 }
 
 /****************** CVAltSum **************************************
@@ -1810,6 +1823,7 @@ CVSetBDF(CVodeMem cv_mem) {
     }
 
     CVSetTqBDF(cv_mem, hsum, alpha0, alpha0_hat, xi_inv, xistar_inv);
+    return;
 }
 
 /****************** CVSetTqBDF ************************************
@@ -1843,6 +1857,7 @@ CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
         tq[3] = ABS(CPrimePrime * xi_inv * (q + 2) * A5);
     }
     tq[4] = CORTES * tq[2];
+    return;
 }
 
 /****************** CVnls *****************************************
@@ -1887,7 +1902,7 @@ CVnlsFunctional(CVodeMem cv_mem) {
 
     /* Loop until convergence; accumulate corrections in acor */
 
-    loop {
+    while (1) {
         /* Correct y directly from the last f value */
         N_VLinearSum(h, tempv, -ONE, zn[1], tempv);
         N_VScale(rl1, tempv, tempv);
@@ -1916,6 +1931,7 @@ CVnlsFunctional(CVodeMem cv_mem) {
         f(N, tn, y, tempv, f_data);
         nfe++;
     }
+    exit(EXIT_FAILURE);
 }
 
 /*********************** CVnlsNewton **********************************
@@ -1955,7 +1971,7 @@ CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
        Evaluate f at the predicted y, call lsetup if indicated, and
        call CVNewtonIteration for the Newton iteration itself.      */
 
-    loop {
+    while (1) {
 
         f(N, tn, zn[0], ftemp, f_data);
         nfe++;
@@ -1991,6 +2007,7 @@ CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
         callSetup = TRUE;
         convfail = FAIL_BAD_J;
     }
+    exit(EXIT_FAILURE);
 }
 
 /********************** CVNewtonIteration ****************************
@@ -2014,7 +2031,7 @@ CVNewtonIteration(CVodeMem cv_mem) {
     mnewt = m = 0;
 
     /* Looping point for Newton iteration */
-    loop {
+    while (1) {
 
         /* Evaluate the residual of the nonlinear system*/
         N_VLinearSum(rl1, zn[1], ONE, acor, tempv);
@@ -2070,6 +2087,7 @@ CVNewtonIteration(CVodeMem cv_mem) {
         f(N, tn, y, ftemp, f_data);
         nfe++;
     }
+    exit(EXIT_FAILURE);
 }
 
 /********************** CVHandleNFlag *******************************
@@ -2149,6 +2167,7 @@ CVRestore(CVodeMem cv_mem, double saved_t) {
     for (k = 1; k <= q; k++)
         for (j = q; j >= k; j--)
             N_VLinearSum(ONE, zn[j - 1], -ONE, zn[j], zn[j - 1]);
+    return;
 }
 
 /******************* CVDoErrorTest ********************************
@@ -2263,6 +2282,7 @@ CVCompleteStep(CVodeMem cv_mem) {
         N_VScale(ONE, acor, zn[qmax]);
         saved_tq5 = tq[5];
     }
+    return;
 }
 
 /************* CVPrepareNextStep **********************************
@@ -2309,6 +2329,7 @@ CVPrepareNextStep(CVodeMem cv_mem, double dsm) {
     etaqp1 = CVComputeEtaqp1(cv_mem);
     CVChooseEta(cv_mem, etaqm1, etaq, etaqp1);
     CVSetEta(cv_mem);
+    return;
 }
 
 /***************** CVSetEta ***************************************
@@ -2336,6 +2357,7 @@ CVSetEta(CVodeMem cv_mem) {
     /* Reset etamx for the next step size change, and scale acor */
     etamax = (nst <= SMALL_NST) ? ETAMX2 : ETAMX3;
     N_VScale(ONE / tq[2], acor, acor);
+    return;
 }
 
 /*************** CVComputeEtaqm1 **********************************
@@ -2414,6 +2436,7 @@ CVChooseEta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1) {
         qprime = q + 1;
         N_VScale(ONE, acor, zn[qmax]);
     }
+    return;
 }
 
 /****************** CVHandleFailure ******************************

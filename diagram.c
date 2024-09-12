@@ -47,6 +47,7 @@ start_diagram(int32 n) {
     bifd->lab = 0;
 
     DiagFlag = 0;
+    return;
 }
 
 int32
@@ -96,6 +97,7 @@ edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     edit_diagram(bifd, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
                  per, n, icp1, icp2, icp3, icp4, AutoTwoParam, evr, evi,
                  blrtn.torper);
+    return;
 }
 
 void
@@ -133,6 +135,7 @@ edit_diagram(DIAGRAM *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
         d->evi[i] = evi[i];
     }
     d->torper = tp;
+    return;
 }
 
 void
@@ -160,6 +163,7 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     NBifs++;
     edit_diagram(dnew, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
                  per, n, icp1, icp2, icp3, icp4, flag2, evr, evi, blrtn.torper);
+    return;
 }
 
 void
@@ -195,6 +199,7 @@ kill_diagrams(void) {
     free(bifd->evi);
     free(bifd);
     start_diagram(NODE);
+    return;
 }
 
 void
@@ -219,6 +224,7 @@ redraw_diagram(void) {
         if (d == NULL)
             break;
     }
+    return;
 }
 
 void
@@ -286,6 +292,7 @@ write_info_out(void) {
             break;
     }
     fclose(fp);
+    return;
 }
 
 void
@@ -411,6 +418,7 @@ write_init_data_file(void) {
             break;
     }
     fclose(fp);
+    return;
 }
 
 void
@@ -473,6 +481,7 @@ write_pts(void) {
             break;
     }
     fclose(fp);
+    return;
 }
 
 void
@@ -511,6 +520,7 @@ post_auto(void) {
     }
     ps_end();
     set_normal_scale();
+    return;
 }
 
 void
@@ -550,6 +560,7 @@ svg_auto(void) {
     svg_end();
 
     set_normal_scale();
+    return;
 }
 
 void
@@ -593,6 +604,7 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
         if (d == NULL)
             break;
     }
+    return;
 }
 
 int32

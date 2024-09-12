@@ -244,6 +244,7 @@ colset(int32 type) {
         autocol(UPc);
         break;
     }
+    return;
 }
 
 void
@@ -273,6 +274,7 @@ pscolset2(int32 flag2) {
     default:
         set_linestyle(0);
     }
+    return;
 }
 
 void
@@ -303,6 +305,7 @@ colset2(int32 flag2) {
     default:
         autocol(0);
     }
+    return;
 }
 
 void
@@ -312,6 +315,7 @@ storeautopoint(double x, double y) {
         YfromAuto = y;
         FromAutoFlag = 1;
     }
+    return;
 }
 
 void
@@ -324,6 +328,7 @@ setautopoint(void) {
         redo_all_fun_tables();
         redraw_params();
     }
+    return;
 }
 
 void
@@ -351,6 +356,7 @@ get_auto_str(char *xlabel, char *ylabel) {
         sprintf(ylabel, "%s_bar", uvar_names[Auto.var]);
         break;
     }
+    return;
 }
 
 void
@@ -359,6 +365,7 @@ draw_ps_axes(void) {
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
     Box_axis(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
+    return;
 }
 
 void
@@ -367,6 +374,7 @@ draw_svg_axes(void) {
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
     Box_axis(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
+    return;
 }
 
 void
@@ -435,6 +443,7 @@ cat_fp(FILE *fo) {
     while ((c = getc(fo)) != EOF) {
         printf("%c", c);
     }
+    return;
 }
 
 void
@@ -447,6 +456,7 @@ cat_file(char *f) {
         printf("%c", c);
     }
     fclose(fo);
+    return;
 }
 
 void
@@ -461,6 +471,7 @@ copyf(char *old, char *new) {
     }
     fclose(fo);
     fclose(fn);
+    return;
 }
 
 void
@@ -491,6 +502,7 @@ appendf(char *old, char *new) {
     fclose(ft);
     copyf(TMPSWAP, new);
     deletef(TMPSWAP);
+    return;
 }
 
 void
@@ -530,6 +542,7 @@ close_auto(/* labels compatible with A2K  */
     deletef(fort7);
     deletef(fort9);
     deletef(fort3);
+    return;
 }
 
 void
@@ -548,6 +561,7 @@ create_auto_file_name(void) {
     }
 
     sprintf(this_auto_file, "%s/%s", HOME, bname);
+    return;
 }
 
 void
@@ -578,6 +592,7 @@ open_auto(/* compatible with new auto */
         sprintf(string, "%s.s", this_auto_file);
         copyf(string, fort3);
     }
+    return;
 }
 
 /* MAIN Running routine  Assumes that Auto structure is set up */
@@ -623,6 +638,7 @@ set_auto(void) /* Caution - need to include NICP here */
               Auto.dsmin, Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0, Auto.a1,
               Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4, Auto.icp5, Auto.nper,
               Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
+    return;
 }
 
 int32
@@ -689,6 +705,7 @@ auto_per_par(void) {
         outperiod[i] = Auto.period[i];
         UzrPar[i] = Auto.uzrpar[i];
     }
+    return;
 }
 
 /* auto parameters are 1-8 (0-7) and since there are only 8, need to associate
@@ -720,6 +737,7 @@ auto_params(void) {
             }
         }
     }
+    return;
 }
 
 void
@@ -779,6 +797,7 @@ auto_num_par(void) {
         aauto.iads = atoi(values[20]);
         SuppressBP = atoi(values[21]);
     }
+    return;
 }
 
 void
@@ -896,6 +915,7 @@ auto_plot_par(void) {
         if (Auto.plot == 4)
             keep_last_plot(2);
     }
+    return;
 }
 
 void
@@ -904,6 +924,7 @@ auto_default(void) {
     Auto.xmax = auto_xmax;
     Auto.ymin = auto_ymin;
     Auto.ymax = auto_ymax;
+    return;
 }
 
 void
@@ -914,6 +935,7 @@ auto_fit(void) {
     Auto.xmax = xhi;
     Auto.ymin = ylo;
     Auto.ymax = yhi;
+    return;
 }
 
 void
@@ -959,6 +981,7 @@ auto_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
         Auto.xmax = x2;
         Auto.ymax = y2;
     }
+    return;
 }
 
 void
@@ -1010,6 +1033,7 @@ auto_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
         Auto.xmax = x2;
         Auto.ymax = y2;
     }
+    return;
 }
 
 void
@@ -1055,6 +1079,7 @@ auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
         *y2 = *y1;
         break;
     }
+    return;
 }
 
 int32
@@ -1159,6 +1184,7 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
 
     Auto.lastx = x;
     Auto.lasty = y1;
+    return;
 }
 
 void
@@ -1354,6 +1380,7 @@ get_bif_sym(char *at, int32 itp) {
         sprintf(at, "  ");
         break;
     }
+    return;
 }
 
 void
@@ -1370,6 +1397,7 @@ info_header(int32 flag2, int32 icp1, int32 icp2) {
     sprintf(bob, "  Br  Pt Ty  Lab %10s %10s       norm %10s     period",
             p1name, p2name, uvar_names[Auto.var]);
     draw_auto_info(bob, 10, DCURYs + 1);
+    return;
 }
 
 void
@@ -1430,6 +1458,7 @@ traverse_out(DIAGRAM *d, int32 *ix, int32 *iy, int32 dodraw) {
     }
     if (lab > 0 && load_all_labeled_orbits > 0)
         load_auto_orbitx(ibr, 1, lab, per);
+    return;
 }
 
 void
@@ -1444,6 +1473,7 @@ do_auto_win(void) {
         make_auto("It's AUTO man!", "AUTO");
         Auto.exist = 1;
     }
+    return;
 }
 
 void
@@ -1468,6 +1498,7 @@ load_last_plot(int32 flg) {
         Auto.plot = Old2p.plot;
         Auto.var = Old2p.var;
     }
+    return;
 }
 
 void
@@ -1492,6 +1523,7 @@ keep_last_plot(int32 flg) {
         Old2p.plot = P_P;
         Old2p.var = Auto.var;
     }
+    return;
 }
 
 void
@@ -1580,6 +1612,7 @@ init_auto_win(void) {
     aauto.iads = 1;
     xAuto.nunstab = 1;
     xAuto.nstab = NODE - 1;
+    return;
 }
 
 void
@@ -1608,6 +1641,7 @@ plot_stab(double *evr, double *evi, int32 n) {
         auto_stab_line(ix - 2, iy, ix + 2, iy);
         auto_stab_line(ix, iy - 2, ix, iy + 2);
     }
+    return;
 }
 
 int32
@@ -1646,6 +1680,7 @@ auto_grab(void) {
     traverse_diagram();
     /* redraw_auto_menus();
      */
+    return;
 }
 
 void
@@ -1690,11 +1725,13 @@ auto_next(void) {
      */
     /* redraw_auto_menus();
      */
+    return;
 }
 
 void
 get_start_period(double *p) {
     *p = storage[0][storind - 1];
+    return;
 }
 
 void
@@ -1721,6 +1758,7 @@ find_best_homo_shift(int32 n)
     }
     HOMO_SHIFT = tshift;
     printf("shifting %g\n", HOMO_SHIFT);
+    return;
 }
 
 void
@@ -1745,6 +1783,7 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
             break;
         }
     }
+    return;
 }
 
 void
@@ -1764,6 +1803,7 @@ get_start_orbit(double *u, double t, double p, int32 n) {
 
     for (j = 0; j < n; j++)
         u[j] = (1.0 - lam) * storage[j + 1][i1] + lam * storage[j + 1][i2];
+    return;
 }
 
 void
@@ -1998,6 +2038,7 @@ auto_run(void) {
         ping();
         return;
     }
+    return;
 }
 
 void
@@ -2005,6 +2046,7 @@ auto_homo_choice(int32 itp) {
     /* printf("in choice: itp=%d\n",itp); */
     if (itp != 5)
         auto_extend_homoclinic();
+    return;
 }
 
 void
@@ -2096,6 +2138,7 @@ auto_start_diff_ss(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     do_auto(NO_OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2119,6 +2162,7 @@ auto_start_at_bvp(void) {
     AutoTwoParam = 0;
     NewPeriodFlag = 2;
     do_auto(opn, cls, Auto.itp);
+    return;
 }
 
 void
@@ -2139,6 +2183,7 @@ auto_start_at_per(void) {
     AutoTwoParam = 0;
     NewPeriodFlag = 1;
     do_auto(opn, cls, Auto.itp);
+    return;
 }
 
 void
@@ -2170,6 +2215,7 @@ auto_new_ss(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     do_auto(opn, cls, Auto.itp);
+    return;
 }
 
 void
@@ -2199,6 +2245,7 @@ auto_new_discrete(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     do_auto(opn, cls, Auto.itp);
+    return;
 }
 
 void
@@ -2235,6 +2282,7 @@ auto_extend_ss(void) {
 
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 int32
@@ -2299,6 +2347,7 @@ three_parameter_homoclinic(void) {
         xAuto.iequib = -2;
 
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2323,6 +2372,7 @@ auto_extend_homoclinic(void) {
         xAuto.iequib = -2;
 
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2354,6 +2404,7 @@ auto_start_at_homoclinic(void) {
         get_homo_info(HomoFlag, &xAuto.nunstab, &xAuto.nstab, homo_l, homo_r);
     if (flag)
         do_auto(opn, (int32)close, Auto.itp);
+    return;
 }
 
 void
@@ -2389,6 +2440,7 @@ auto_new_per(void) /* same for extending periodic  */
     Auto.ips = 2;
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2406,6 +2458,7 @@ auto_extend_bvp(void) /* extending bvp */
     Auto.ips = 4;
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2423,6 +2476,7 @@ auto_switch_per(void) {
     Auto.ips = 2;
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2439,6 +2493,7 @@ auto_switch_bvp(void) {
     Auto.ips = 4;
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2458,6 +2513,7 @@ auto_switch_ss(void) {
         Auto.ips = -1;
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2493,6 +2549,7 @@ auto_2p_limit(int32 ips) {
     /* printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp); */
     /* plintf(" IPS = %d \n",ips); */
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2509,6 +2566,7 @@ auto_twopar_double(void) {
     Auto.isw = 2;
     Auto.isp = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2524,6 +2582,7 @@ auto_torus(void) {
     Auto.isw = 2;
     Auto.isp = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2552,6 +2611,7 @@ auto_2p_branch(int32 ips) {
     AutoTwoParam = BR2;
     TypeOfCalc = BR2;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2566,6 +2626,7 @@ auto_2p_fixper(void) {
     AutoTwoParam = FP2;
     TypeOfCalc = FP2;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2599,6 +2660,7 @@ auto_2p_hopf(void) {
     AutoTwoParam = HB2;
     TypeOfCalc = HB2;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 void
@@ -2619,6 +2681,7 @@ auto_period_double(void) {
     Auto.ips = 2;
     AutoTwoParam = 0;
     do_auto(OPEN_3, APPEND, Auto.itp);
+    return;
 }
 
 /**********   END RUN AUTO *********************/
@@ -2631,6 +2694,7 @@ auto_err(char *s) {
 void
 load_auto_orbit(void) {
     load_auto_orbitx(grabpt.ibr, grabpt.flag, grabpt.lab, grabpt.per);
+    return;
 }
 
 void
@@ -2691,6 +2755,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
         clr_all_scrns();
     drw_all_scrns();
     fclose(fp);
+    return;
 }
 
 void
@@ -2722,6 +2787,7 @@ save_auto(void) {
     }
     save_q_file(fp);
     fclose(fp);
+    return;
 }
 
 void
@@ -2738,6 +2804,7 @@ save_auto_numerics(FILE *fp) {
     fprintf(fp, "%g %g %g %g\n", Auto.rl0, Auto.rl1, Auto.a0, Auto.a1);
     fprintf(fp, "%d %d %d %d %d %d %d\n", aauto.iad, aauto.mxbf, aauto.iid,
             aauto.itmx, aauto.itnw, aauto.nwtn, aauto.iads);
+    return;
 }
 
 void
@@ -2763,18 +2830,21 @@ load_auto_numerics(FILE *fp) {
     fscanf(fp, "%lg %lg %lg %lg\n", &Auto.rl0, &Auto.rl1, &Auto.a0, &Auto.a1);
     fscanf(fp, "%d %d %d %d %d %d %d\n", &aauto.iad, &aauto.mxbf, &aauto.iid,
            &aauto.itmx, &aauto.itnw, &aauto.nwtn, &aauto.iads);
+    return;
 }
 
 void
 save_auto_graph(FILE *fp) {
     fprintf(fp, "%g %g %g %g %d %d \n", Auto.xmin, Auto.ymin, Auto.xmax,
             Auto.ymax, Auto.var, Auto.plot);
+    return;
 }
 
 void
 load_auto_graph(FILE *fp) {
     fscanf(fp, "%lg %lg %lg %lg %d %d \n", &Auto.xmin, &Auto.ymin, &Auto.xmax,
            &Auto.ymax, &Auto.var, &Auto.plot);
+    return;
 }
 
 void
@@ -2794,6 +2864,7 @@ save_q_file(/* I am keeping the name q_file even though they are s_files */
         /* break; */
     }
     fclose(fq);
+    return;
 }
 
 void
@@ -2815,6 +2886,7 @@ make_q_file(FILE *fp) {
         }
     }
     fclose(fq);
+    return;
 }
 
 int32
@@ -2865,6 +2937,7 @@ load_auto(void) {
     }
     make_q_file(fp);
     fclose(fp);
+    return;
 }
 
 int32
@@ -2895,6 +2968,7 @@ get_a_row(double *u, double *t, int32 n, FILE *fp) {
     fscanf(fp, "%lg ", t);
     for (i = 0; i < n; i++)
         fscanf(fp, "%lg ", &u[i]);
+    return;
 }
 
 void

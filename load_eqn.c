@@ -338,6 +338,7 @@ notBothOptions(OptionsSet nasA, OptionsSet nasB) {
     nasA.NULL_ERR = (nasA.NULL_ERR & nasB.NULL_ERR);
     nasA.NEWT_ERR = (nasA.NEWT_ERR & nasB.NEWT_ERR);
     nasA.NULL_HERE = (nasA.NULL_HERE & nasB.NULL_HERE);
+    return;
 }
 
 void
@@ -354,6 +355,7 @@ dump_torus(FILE *fp, int32 f) {
         for (i = 0; i < NEQ; i++)
             io_int(&itor[i], fp, f, uvar_names[i]);
     }
+    return;
 }
 
 void
@@ -410,6 +412,7 @@ load_eqn(void) {
             okay = make_eqn();
         }
     }
+    return;
 }
 
 void
@@ -455,6 +458,7 @@ set_X_vals(void) {
     if (UserGradients < 0) {
         UserGradients = 1;
     }
+    return;
 }
 
 void
@@ -775,6 +779,7 @@ set_all_vals(void) {
     alloc_v_memory(); /* allocate stuff for volterra equations */
     alloc_meth();
     arr_ic_start(); /* take care of all predefined array ics */
+    return;
 }
 
 void
@@ -889,6 +894,7 @@ read_defaults(FILE *fp) {
         fil_flt(fp, &MY_YHI);
         notAlreadySet.YHI = 0;
     };
+    return;
 }
 
 void
@@ -896,6 +902,7 @@ fil_flt(FILE *fpt, double *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atof(bob);
+    return;
 }
 
 void
@@ -903,6 +910,7 @@ fil_int(FILE *fpt, int32 *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atoi(bob);
+    return;
 }
 
 /* here is some new code for internal set files:
@@ -945,6 +953,7 @@ add_intern_set(char *name, char *does) {
     strcpy(intern_set[j].does, bob);
     plintf(" added %s doing %s \n", intern_set[j].name, intern_set[j].does);
     Nintern_set++;
+    return;
 }
 
 void
@@ -964,11 +973,13 @@ extract_action(char *ptr) {
         if (strlen(name) > 0 && strlen(value) > 0)
             do_intern_set(name, value);
     }
+    return;
 }
 
 void
 extract_internset(int32 j) {
     extract_action(intern_set[j].does);
+    return;
 }
 
 void
@@ -1088,6 +1099,7 @@ set_internopts(OptionsSet *mask) {
         free(interopt[i]);
     }
     Nopts = 0;
+    return;
 }
 
 void
@@ -1153,6 +1165,7 @@ set_internopts_xpprc_and_comline(void) {
     }
 
     Nopts = 0;
+    return;
 }
 
 void
@@ -1171,6 +1184,7 @@ split_apart(char *bob, char *name, char *value) {
             value[i - k - 1] = bob[i];
         value[l - k - 1] = '\0';
     }
+    return;
 }
 
 void
@@ -1192,6 +1206,7 @@ check_for_xpprc(void) {
         }
     }
     fclose(fp);
+    return;
 }
 
 void
@@ -1204,6 +1219,7 @@ stor_internopts(char *s1) {
     interopt[Nopts] = (char *)malloc(n + 1);
     sprintf(interopt[Nopts], "%s", s1);
     Nopts++;
+    return;
 }
 
 void set_option(s1, s2, force, mask) char *s1, *s2;

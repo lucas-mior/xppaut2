@@ -119,16 +119,19 @@ extern int32 NBifs;
 void
 ALINE(int32 a, int32 b, int32 c, int32 d) {
     XDrawLine(display, AutoW.canvas, small_gc, (a), (b), (c), (d));
+    return;
 }
 
 void
 DLINE(double a, double b, double c, double d) {
     ALINE(IXVal(a), IYVal(b), IXVal(c), IYVal(d));
+    return;
 }
 
 void
 ATEXT(int32 a, int32 b, char *c) {
     XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), strlen(c));
+    return;
 }
 
 void
@@ -136,11 +139,13 @@ clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, AutoW.stab);
     XDrawArc(display, AutoW.stab, small_gc, r, r, 2 * r, 2 * r, 0, 360 * 64);
+    return;
 }
 
 void
 auto_stab_line(int32 x, int32 y, int32 xp, int32 yp) {
     XDrawLine(display, AutoW.stab, small_gc, x, y, xp, yp);
+    return;
 }
 
 void
@@ -162,6 +167,7 @@ redraw_auto_menus(void) {
     display_auto(AutoW.kill);
     display_auto(AutoW.file);
     display_auto(AutoW.abort);
+    return;
 }
 
 int32
@@ -202,6 +208,7 @@ do_auto_range(void) {
     if (mark_flag == 2)
         do_auto_range_go();
     TEND = t;
+    return;
 }
 
 void
@@ -228,6 +235,7 @@ auto_get_info(int32 *n, char *pname) {
             d = dnew;
         }
     }
+    return;
 }
 
 void
@@ -241,6 +249,7 @@ auto_set_mark(int32 i) {
             pt = abs(mark_ipte) + i;
         find_point(ibr, pt);
     }
+    return;
 }
 
 void
@@ -276,6 +285,7 @@ find_point(int32 ibr, int32 pt) {
         }
         d = dnew;
     }
+    return;
 }
 
 void
@@ -633,16 +643,19 @@ traverse_diagram(void) {
 void
 clear_auto_info(void) {
     XClearWindow(display, AutoW.info);
+    return;
 }
 
 void
 draw_auto_info(char *bob, int32 x, int32 y) {
     XDrawString(display, AutoW.info, small_gc, x, y, bob, strlen(bob));
+    return;
 }
 
 void
 refreshdisplay(void) {
     XFlush(display);
+    return;
 }
 
 int32
@@ -684,17 +697,20 @@ void
 Circle(int32 x, int32 y, int32 r) {
     XDrawArc(display, AutoW.canvas, small_gc, x - r, y - r, r << 1, r << 1, 0,
              360 * 64);
+    return;
 }
 
 void
 autocol(int32 col) {
     set_scolor(col);
+    return;
 }
 
 void
 autobw(void) {
     XSetBackground(display, small_gc, MyBackColor);
     XSetForeground(display, small_gc, MyForeColor);
+    return;
 }
 
 int32
@@ -716,6 +732,7 @@ RedrawMark(void) {
         MarkAuto(mark_ixs, mark_iys);
         MarkAuto(mark_ixe, mark_iye);
     }
+    return;
 }
 
 void
@@ -725,6 +742,7 @@ MarkAuto(int32 x, int32 y) {
     ALINE(x - 8, y - 8, x + 8, y + 8);
     ALINE(x + 8, y - 8, x - 8, y + 8);
     LineWidth(1);
+    return;
 }
 
 void
@@ -751,6 +769,7 @@ XORCross(int32 x, int32 y) {
     }
 
     XFlush(display);
+    return;
 }
 
 void
@@ -761,6 +780,7 @@ FillCircle(int32 x, int32 y, int32 r) {
 
     XFillArc(display, AutoW.canvas, small_gc, x - r2, y - r2, wh, wh, 0,
              360 * 64);
+    return;
 }
 
 void
@@ -845,6 +865,7 @@ auto_scroll_window(void) {
             break;
         }
     }
+    return;
 }
 
 void
@@ -853,6 +874,7 @@ LineWidth(int32 wid) {
     int32 cs = CapButt;
     int32 js = JoinRound;
     XSetLineAttributes(display, small_gc, wid, ls, cs, js);
+    return;
 }
 
 void
@@ -872,6 +894,7 @@ auto_motion(XEvent ev) {
         storeautopoint(x, y);
         display_auto(AutoW.hint);
     }
+    return;
 }
 
 void
@@ -922,6 +945,7 @@ display_auto(Window w) {
                     strlen(Auto.hinttxt));
         return;
     }
+    return;
 }
 
 Window
@@ -939,6 +963,7 @@ void
 aw(void) {
     XFlush(display);
     sleep(5);
+    return;
 }
 
 void
@@ -1037,6 +1062,7 @@ make_auto(/* this makes the auto window  */
                                    STD_WID_var + xmargin, DCURY + 2, 2);
 
     draw_bif_axes();
+    return;
 }
 
 void
@@ -1085,6 +1111,7 @@ resize_auto_window(XEvent ev) {
             return;
         traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
     }
+    return;
 }
 
 void
@@ -1093,12 +1120,14 @@ a_msg(int32 i, int32 v) {
         return;
     snprintf(Auto.hinttxt, 255, auto_hint[i]);
     display_auto(AutoW.hint);
+    return;
 }
 
 void
 clear_msg(void) {
     Auto.hinttxt[0] = '\0';
     display_auto(AutoW.hint);
+    return;
 }
 
 /*  Auto event handlers   */
@@ -1156,6 +1185,7 @@ auto_enter(Window w, int32 v) {
         a_msg(8, v);
         return;
     }
+    return;
 }
 
 void
@@ -1213,6 +1243,7 @@ auto_button(XEvent ev) {
         auto_file();
         return;
     }
+    return;
 }
 
 void
@@ -1221,6 +1252,7 @@ auto_kill(void) {
     waitasec(ClickTime);
     XDestroySubwindows(display, AutoW.base);
     XDestroyWindow(display, AutoW.base);
+    return;
 }
 
 void

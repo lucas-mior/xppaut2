@@ -115,6 +115,7 @@ four_back(void) {
              my_browser.col0=1; */
         refresh_browser(four_len);
     }
+    return;
 }
 
 void
@@ -126,6 +127,7 @@ hist_back(void) {
         my_browser.col0=1; */
         refresh_browser(hist_len);
     }
+    return;
 }
 
 void
@@ -163,6 +165,7 @@ new_four(int32 nmodes, int32 col) {
     fft(bob, my_four[1], my_four[2], nmodes, storind);
     four_back();
     ping();
+    return;
 }
 
 void
@@ -196,6 +199,7 @@ post_process_stuff(void) {
         just_sd(post_process - 4);
         return;
     }
+    return;
 }
 
 int32
@@ -387,6 +391,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         ping();
         return;
     }
+    return;
 }
 
 void
@@ -412,6 +417,7 @@ column_mean(void) {
     sdev = sqrt(sum2 / (double)storind - mean * mean);
     sprintf(bob, "Mean=%g Std. Dev. = %g ", mean, sdev);
     err_msg(bob);
+    return;
 }
 
 int32
@@ -688,6 +694,7 @@ just_sd(int32 flag) {
                        spec_win, my_hist[1], spec_type);
     hist_back();
     ping();
+    return;
 }
 
 void
@@ -732,6 +739,7 @@ compute_sd(void) {
                        spec_win, my_hist[1], spec_type);
     hist_back();
     ping();
+    return;
 }
 
 void
@@ -754,6 +762,7 @@ just_fourier(int32 flag) {
             daty[i] = atan2(s, c);
         }
     }
+    return;
 }
 
 void
@@ -771,6 +780,7 @@ compute_fourier(void) {
     if (get_col_info(&spec_col, "Variable ") == 1)
         nmodes = storind / 2 - 1;
     new_four(nmodes, spec_col);
+    return;
 }
 
 void
@@ -805,6 +815,7 @@ compute_correl(void) {
         return;
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col,
              hist_inf.col2, hist_inf.cond, 2 + hist_inf.fftc);
+    return;
 }
 
 void
@@ -816,6 +827,7 @@ compute_stacor(void) {
         return;
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
              hist_inf.cond, 1);
+    return;
 }
 
 void
@@ -848,6 +860,7 @@ mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins,
             sum = sum / count;
         z[j] = sum;
     }
+    return;
 }
 
 void
@@ -878,6 +891,7 @@ mycor2(float *x, float *y, int32 n, int32 nbins, float *z, int32 flag) {
             sum = sum / count;
         z[j] = sum;
     }
+    return;
 }
 
 void
@@ -891,6 +905,7 @@ compute_hist(void) {
     new_string("Condition ", hist_inf.cond);
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
              hist_inf.cond, 0);
+    return;
 }
 
 void
@@ -976,6 +991,7 @@ fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
     free(im1);
     free(im2);
     plintf("residual = %g\n", sum);
+    return;
 }
 
 void

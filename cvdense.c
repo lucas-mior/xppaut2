@@ -127,6 +127,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
 
     /* Increment counter nfe = *nfePtr */
     *nfePtr += N;
+    return;
 }
 
 /* Readability Replacements */
@@ -206,6 +207,7 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
         jac = djac;
     }
     J_data = jac_data;
+    return;
 }
 
 /*************** CVDenseInit *****************************************

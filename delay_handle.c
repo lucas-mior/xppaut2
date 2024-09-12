@@ -85,6 +85,7 @@ free_delay(void) {
     if (DelayFlag)
         free(DelayWork);
     DelayFlag = 0;
+    return;
 }
 
 void
@@ -99,6 +100,7 @@ stor_delay(double *y) {
     in = LatestDelay * (nodes);
     for (i = 0; i < (nodes); i++)
         DelayWork[i + in] = y[i];
+    return;
 }
 
 double
@@ -149,6 +151,7 @@ polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
         }
         *y += (*dy = (2 * ns < (n - m) ? c[ns] : d[ns-- - 1]));
     }
+    return;
 }
 
 /* this is like get_delay but uses cubic interpolation */

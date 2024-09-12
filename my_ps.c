@@ -170,6 +170,7 @@ ps_init(char *filename, int32 color) {
 void
 ps_stroke(void) {
     fprintf(psfile, "stroke\n");
+    return;
 }
 
 void
@@ -188,6 +189,7 @@ ps_do_color(int32 color) {
       fprintf(psfile,"%f %f %f RGB\n",r,g,b);
       else */
     fprintf(psfile, "%f %f %f RGb\n", r, g, b);
+    return;
 }
 
 void
@@ -215,6 +217,7 @@ ps_setcolor(int32 color) {
     snprintf(bob, sizeof(bob), " %.3f %.3f %.3f setrgbcolor", pscolor[i],
              pscolor[i + 1], pscolor[i + 2]);
     ps_write(bob);
+    return;
 }
 
 void
@@ -228,6 +231,7 @@ ps_end(void) {
     PltFmtFlag = 0;
     if (Xup)
         init_x11();
+    return;
 }
 
 void
@@ -239,11 +243,13 @@ ps_frect(int32 x, int32 y, int32 w, int32 h) {
 
     fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n",
             x, y, 0, -h, w, 0, 0, h);
+    return;
 }
 
 void
 ps_last_pt_off(void) {
     LastPtLine = 0;
+    return;
 }
 
 void
@@ -274,6 +280,7 @@ ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     LastPSX = xp2;
     LastPSY = yp2;
     chk_ps_lines();
+    return;
 }
 
 void
@@ -283,6 +290,7 @@ chk_ps_lines(void) {
         fprintf(psfile, "currentpoint stroke moveto\n");
         PSLines = 0;
     }
+    return;
 }
 
 void
@@ -293,6 +301,7 @@ ps_linetype(int32 linetype) {
     PSLines = 0;
     LastPSX = -100000000;
     LastPSY = -100000000;
+    return;
 }
 
 void
@@ -309,11 +318,13 @@ ps_point(int32 x, int32 y)
     fprintf(psfile, "%d %d %c\n", x, y, point[number + 1]);
     PSLines = 0;
     LastPtLine = 0;
+    return;
 }
 
 void
 ps_write(char *str) {
     fprintf(psfile, "%s\n", str);
+    return;
 }
 
 void
@@ -322,6 +333,7 @@ ps_fnt(int32 cf, int32 scale) {
         fprintf(psfile, "/%s findfont %d scalefont setfont \n", PS_FONT, scale);
     else
         fprintf(psfile, "%d Symfnt\n", scale);
+    return;
 }
 
 void
@@ -340,16 +352,19 @@ ps_show(char *str, int32 type) {
     else
         fprintf(psfile, ") show\n");
     PSLines = 0;
+    return;
 }
 
 void
 ps_abs(int32 x, int32 y) {
     fprintf(psfile, "%d %d moveto \n", x, y);
+    return;
 }
 
 void
 ps_rel(int32 x, int32 y) {
     fprintf(psfile, "%d %d rmoveto \n", x, y);
+    return;
 }
 
 void
@@ -423,6 +438,7 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
     tmp[j] = 0;
     if (strlen(tmp) > 0)
         ps_show(tmp, type);
+    return;
 }
 
 void
@@ -453,6 +469,7 @@ fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font) {
     }
     fprintf(psfile, ") Lshow\n");
     PSLines = 0;
+    return;
 }
 
 void

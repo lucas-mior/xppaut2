@@ -2,6 +2,7 @@
 #include "integers.h"
 #include "gear.h"
 #include <math.h>
+#include <stdlib.h>
 #include "xpplim.h"
 #include "flags.h"
 #include "markov.h"
@@ -149,6 +150,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
         if (iter > MaxEulIter)
             return -2;
     }
+    exit(EXIT_FAILURE);
 }
 
 void

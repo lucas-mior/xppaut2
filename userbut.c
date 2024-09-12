@@ -5,6 +5,7 @@
 #include "color.h"
 #include "ggets.h"
 #include <string.h>
+#include <stdlib.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include "kbs.h"
@@ -129,6 +130,7 @@ find_kbs(char *sc) {
         if (kbs[i].com == 0)
             return -1;
     }
+    exit(EXIT_FAILURE);
 }
 
 void

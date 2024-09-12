@@ -170,6 +170,7 @@ strip_saveqn(void) {
             if (save_eqn[i][j] < 32)
                 save_eqn[i][j] = 32;
     }
+    return;
 }
 
 int32
@@ -201,6 +202,7 @@ dump_src(void) {
     int32 i;
     for (i = 0; i < NLINES; i++)
         plintf("%s", save_eqn[i]);
+    return;
 }
 
 void
@@ -208,6 +210,7 @@ dump_comments(void) {
     int32 i;
     for (i = 0; i < n_comments; i++)
         plintf("%s\n", comments[i].text);
+    return;
 }
 
 /*
@@ -267,6 +270,7 @@ format_list(char **s, int32 n) {
     for (i = 0; i < j; i++)
         plintf(fmat, s[k * ncol + i]);
     plintf("\n");
+    return;
 }
 
 int32
@@ -326,6 +330,7 @@ list_em(char *wild) {
     format_list(my_ff.filenames, my_ff.nfiles);
 
     free_finfo(&my_ff);
+    return;
 }
 
 int32
@@ -990,6 +995,7 @@ list_upar(void) {
     int32 i;
     for (i = 0; i < NUPAR; i++)
         printf(" %s", upar_names[i]);
+    return;
 }
 
 void
@@ -1015,6 +1021,7 @@ welcome(void) {
     plintf(
         "_____________________________________________________________________"
         "____\n");
+    return;
 }
 
 void
@@ -1024,6 +1031,7 @@ show_syms(void) {
     plintf("exp  ln   log  log10 tanh  cosh sinh \n");
     plintf("max  min  heav flr   mod   sign sqrt \n");
     plintf("t    pi   ran  \n");
+    return;
 }
 
 /* ram: do I need to strip the name of any whitespace? */
@@ -1044,6 +1052,7 @@ take_apart(char *bob, double *value, char *name) {
         number[l - k - 1] = '\0';
         *value = atof(number);
     }
+    return;
 }
 
 char *
@@ -1122,16 +1131,19 @@ find_ker(/* this extracts the integral operators from the string */
     }
     new[in] = 0;
     strcpy(string, new);
+    return;
 }
 
 void
 pos_prn(char *s, int32 x, int32 y) {
     plintf("%s\n", s);
+    return;
 }
 
 void
 clrscr(void) {
     system("clear");
+    return;
 }
 
 int32
@@ -1282,6 +1294,7 @@ count_object(int32 type) {
         NUMSOL++;
         break;
     }
+    return;
 }
 
 void
@@ -1289,6 +1302,7 @@ print_count_of_object(void) {
     printf("NUMODES=%d \n NUMFIX=%d \n NUMPARAM=%d \n NUMMARK=%d \n NUMVOLT=%d "
            "\n NUMAUX=%d \n NUMSOL=%d \n",
            NUMODES, NUMFIX, NUMPARAM, NUMMARK, NUMVOLT, NUMAUX, NUMSOL);
+    return;
 }
 
 int32
@@ -1645,6 +1659,7 @@ create_plot_list(void) {
         }
         N_plist = j;
     }
+    return;
 }
 
 void
@@ -1657,6 +1672,7 @@ add_only(char *s) {
     strcpy(onlylist[N_only], s);
 
     N_only++;
+    return;
 }
 
 void
@@ -1677,6 +1693,7 @@ break_up_list(char *rhs) {
     }
     s[j] = 0;
     add_only(s);
+    return;
 }
 
 int32
@@ -2123,6 +2140,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
     NODE = nvar + naux + nfix;
     plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar, naux,
            nfix, nmark, NEQ, NODE);
+    return;
 }
 
 /* this code checks if the right-hand side for an initial
@@ -2151,6 +2169,7 @@ strpiece(char *dest, char *src, int32 i0, int32 ie) {
     for (i = i0; i <= ie; i++)
         dest[i - i0] = src[i];
     dest[ie - i0 + 1] = 0;
+    return;
 }
 
 int32
@@ -2321,6 +2340,7 @@ init_varinfo(void) {
     my_varinfo->next = NULL;
     my_varinfo->prev = NULL;
     start_var_info = 0;
+    return;
 }
 
 void
@@ -2352,6 +2372,7 @@ add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
         vnew->next = NULL;
         vnew->prev = v;
     }
+    return;
 }
 
 void
@@ -2369,6 +2390,7 @@ free_varinfo(void) {
         v = vnew;
     }
     init_varinfo();
+    return;
 }
 
 int32
@@ -2516,6 +2538,7 @@ remove_blanks(char *s1) {
             s1[j] = s1[j + i];
         s1[l] = 0;
     }
+    return;
 }
 
 void
@@ -2564,6 +2587,7 @@ read_a_line(FILE *fp, char *s) {
         s[n - 1] = ' ';
     s[n] = ' ';
     s[n + 1] = 0;
+    return;
 }
 
 int32
@@ -2718,6 +2742,7 @@ is_comment(char *s) {
         } else
             return 0;
     }
+    exit(EXIT_FAILURE);
 }
 
 void
@@ -2833,6 +2858,7 @@ subsk(char *big, char *new, int32 k, int32 flag) {
             break;
     }
     new[inew] = 0;
+    return;
 }
 
 void
@@ -2854,6 +2880,7 @@ keep_orig_comments(void) {
             strcpy(orig_comments[i].action, comments[i].action);
         orig_comments[i].aflag = comments[i].aflag;
     }
+    return;
 }
 
 void
@@ -2873,6 +2900,7 @@ default_comments(void) {
         }
         comments[i].aflag = orig_comments[i].aflag;
     }
+    return;
 }
 
 void
@@ -2884,6 +2912,7 @@ free_comments(void) {
             free(comments[i].action);
     }
     n_comments = 0;
+    return;
 }
 
 void
@@ -2897,6 +2926,7 @@ new_comment(FILE *f) {
         snprintf(ted, sizeof(ted), "@%s", bob);
         add_comment(ted);
     }
+    return;
 }
 
 void
@@ -2956,6 +2986,7 @@ add_comment(char *s) {
     if (comments[n_comments].aflag == 1)
         plintf("action=%s \n", comments[n_comments].action);
     n_comments++;
+    return;
 }
 
 void
@@ -2965,6 +2996,7 @@ advance_past_first_word(char **sptr) {
        strtok */
     int32 len = strlen(*sptr);
     (*sptr) += len + 1;
+    return;
 }
 
 char *
@@ -3091,6 +3123,7 @@ strcpy_trim(char *dest, char *source) {
     }
     strncpy(dest, source, i + 1);
     dest[i + 1] = '\0';
+    return;
 }
 
 void

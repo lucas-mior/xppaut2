@@ -73,6 +73,7 @@ file_inf(void) {
     redraw_params();
     do_info(fp);
     fclose(fp);
+    return;
 }
 
 void
@@ -96,6 +97,7 @@ ps_write_pars(FILE *fp) {
     }
 
     fprintf(fp, "\n");
+    return;
 }
 
 void
@@ -176,6 +178,7 @@ do_info(FILE *fp) {
     }
 
     fprintf(fp, "\n");
+    return;
 }
 
 int32
@@ -297,6 +300,7 @@ do_lunch(/* f=1 to read and 0 to write */
     dump_range(fp, f);
     dump_eqn(fp);
     fclose(fp);
+    return;
 }
 
 void
@@ -324,6 +328,7 @@ dump_eqn(FILE *fp) {
         fprintf(fp, "\nUser-defined functions:\n");
         user_fun_info(fp);
     }
+    return;
 }
 
 void
@@ -382,6 +387,7 @@ io_numerics(int32 f, FILE *fp) {
     io_double(&LastTime, fp, f, "Last Time");
     io_int(&MyStart, fp, f, "MyStart");
     io_int(&INFLAG, fp, f, "INFLAG");
+    return;
 }
 
 void
@@ -429,6 +435,7 @@ io_parameter_file(char *fn, int32 flag) {
     ttt = time(0);
     fprintf(fp, "\n\nFile:%s\n%s", this_file, ctime(&ttt));
     fclose(fp);
+    return;
 }
 
 void
@@ -530,6 +537,7 @@ io_parameters(int32 f, FILE *fp) {
     if (!XPPBatch) {
         reset_sliders();
     }
+    return;
 }
 
 void
@@ -586,6 +594,7 @@ io_exprs(int32 f, FILE *fp) {
         redraw_delays();
         redraw_params();
     }
+    return;
 }
 
 void
@@ -646,6 +655,7 @@ io_graph(int32 f, FILE *fp) {
     io_double(&(MyGraph->oldyhi), fp, f, " ");
     if (f == READEM && Xup)
         redraw_the_graph();
+    return;
 }
 
 void
@@ -656,6 +666,7 @@ io_int(int32 *i, FILE *fp, int32 f, char *ss) {
         *i = atoi(bob);
     } else
         fprintf(fp, "%d   %s\n", *i, ss);
+    return;
 }
 
 void
@@ -666,6 +677,7 @@ io_double(double *z, FILE *fp, int32 f, char *ss) {
         *z = atof(bob);
     } else
         fprintf(fp, "%.16g  %s\n", *z, ss);
+    return;
 }
 
 void

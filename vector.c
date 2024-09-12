@@ -388,6 +388,7 @@ VCopy(N_Vector x, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = *xd++;
+    return;
 }
 
 static void
@@ -402,6 +403,7 @@ VSum(N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = (*xd++) + (*yd++);
+    return;
 }
 
 static void
@@ -416,6 +418,7 @@ VDiff(N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = (*xd++) - (*yd++);
+    return;
 }
 
 static void
@@ -429,6 +432,7 @@ VNeg(N_Vector x, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = -(*xd++);
+    return;
 }
 
 static void
@@ -443,6 +447,7 @@ VScaleSum(double c, N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = c * ((*xd++) + (*yd++));
+    return;
 }
 
 void
@@ -472,6 +477,7 @@ VLin1(double a, N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = a * (*xd++) + (*yd++);
+    return;
 }
 
 static void
@@ -486,6 +492,7 @@ VLin2(double a, N_Vector x, N_Vector y, N_Vector z) {
 
     for (i = 0; i < N; i++)
         *zd++ = a * (*xd++) - (*yd++);
+    return;
 }
 
 static void
@@ -511,6 +518,7 @@ Vaxpy(double a, N_Vector x, N_Vector y) {
 
     for (i = 0; i < N; i++)
         *yd++ += a * (*xd++);
+    return;
 }
 
 static void

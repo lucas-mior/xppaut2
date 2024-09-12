@@ -252,6 +252,7 @@ dump_range(FILE *fp, int32 f) {
     dump_shoot_range(fp, f);
     if (f == READEM)
         range.steps2 = range.steps;
+    return;
 }
 
 void
@@ -298,6 +299,7 @@ init_range(void) {
     sprintf(range.item2, "%s", uvar_names[0]);
     init_shoot_range(upar_names[0]);
     init_monte_carlo();
+    return;
 }
 
 int32
@@ -588,6 +590,7 @@ init_monte_carlo(void) {
     }
     fixptlist.flag = 0;
     fixptlist.n = 0;
+    return;
 }
 
 void
@@ -620,6 +623,7 @@ monte_carlo(void) {
             break;
     }
     do_monte_carlo_search(append, 1, ishoot);
+    return;
 }
 
 void
@@ -706,6 +710,7 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         }
         refresh_browser(storind);
     }
+    return;
 }
 
 void
@@ -783,6 +788,7 @@ do_eq_range(double *x) {
     }
     refresh_browser(storind);
     PAR_FOL = 0;
+    return;
 }
 
 void
@@ -791,6 +797,7 @@ swap_color(int32 *col, int32 rorw) {
         MyGraph->color[0] = *col;
     else
         *col = MyGraph->color[0];
+    return;
 }
 
 void
@@ -801,6 +808,7 @@ set_cycle(int32 flag, int32 *icol) {
     *icol = *icol + 1;
     if (*icol == 10)
         *icol = 0;
+    return;
 }
 
 int32
@@ -1035,6 +1043,7 @@ silent_equilibria(void) {
         if (BatchEquil == 1)
             save_batch_shoot();
     }
+    return;
 }
 
 void
@@ -1098,6 +1107,7 @@ find_equilib_com(int32 com) {
         do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
                 &stabinfo);
     TRANS = oldtrans;
+    return;
 }
 
 void
@@ -1132,6 +1142,7 @@ batch_integrate(void) {
             batch_integrate_once();
         }
     }
+    return;
 }
 
 void
@@ -1253,6 +1264,7 @@ batch_integrate_once(void) {
     fclose(fp);
     system("gnuplot run.gpl");
     */
+    return;
 }
 
 int32
@@ -1475,6 +1487,7 @@ do_init_data(int32 com) {
     }
     usual_integrate_stuff(x);
     DELTA_T = old_dt;
+    return;
 }
 
 void
@@ -1492,6 +1505,7 @@ run_from_x(double *x) {
     storind = 0;
     reset_browser();
     usual_integrate_stuff(x);
+    return;
 }
 
 void
@@ -1510,6 +1524,7 @@ run_now(void) {
     storind = 0;
     reset_browser();
     usual_integrate_stuff(x);
+    return;
 }
 
 void
@@ -1518,6 +1533,7 @@ do_start_flags(double *x, double *t) {
     double tnew = *t;
     double sss;
     one_flag_step(x, x, &iflagstart, *t, &tnew, NODE, &sss);
+    return;
 }
 
 void
@@ -1579,6 +1595,7 @@ do_new_array_ic(char *new, int32 j1, int32 j2) {
     /* now we have everything we need */
     evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula, ar_ic[ihot].j1,
                    ar_ic[ihot].j2);
+    return;
 }
 
 void
@@ -1609,6 +1626,7 @@ store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
         ar_ic[ihot].j2 = j2;
     }
     strcpy(ar_ic[ihot].formula, formula);
+    return;
 }
 
 void
@@ -1630,6 +1648,7 @@ evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
                 return;
         }
     }
+    return;
 }
 
 int32
@@ -1682,6 +1701,7 @@ arr_ic_start(void) {
                            ar_ic[i].j2);
         }
     }
+    return;
 }
 
 int32
@@ -1773,6 +1793,7 @@ get_ic(int32 it, double *x) {
             x[i] = last_ic[i];
         break;
     }
+    return;
 }
 
 int32
@@ -2488,6 +2509,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 void
 send_halt(double *y, double t) {
     STOP_FLAG = 1;
+    return;
 }
 
 void
@@ -2504,6 +2526,7 @@ send_output(double *y, double t) {
         storage[0][storind] = (float)t;
         storind++;
     }
+    return;
 }
 
 void
@@ -2533,6 +2556,7 @@ do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
                         zpl[ip]);
         }
     }
+    return;
 }
 
 /*
@@ -2610,6 +2634,7 @@ plot_the_graphs(float *xv, float *xvold, int32 node, int32 neq, double ddt,
         plot_one_graph(xv, xvold, node, neq, ddt, tc);
     }
     make_active(ic, flag);
+    return;
 }
 
 void
@@ -2638,6 +2663,7 @@ plot_one_graph(float *xv, float *xvold, int32 node, int32 neq, double ddt,
     if (MyGraph->ColorFlag)
         comp_color(xv, xvold, NODE, (float)ddt);
     do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
+    return;
 }
 
 void
@@ -2728,6 +2754,7 @@ restore(int32 i1, int32 i2) {
             fprintf(svgfile, "</g>\n");
         }
     }
+    return;
 }
 
 /*  Sets the color according to the velocity or z-value */
@@ -2761,6 +2788,7 @@ comp_color(float *v1, float *v2, int32 n, double dt) {
     } else if (PltFmtFlag == SVGFMT) {
         svg_do_color(cur_color);
     }
+    return;
 }
 
 void
@@ -2771,6 +2799,7 @@ shoot_easy(double *x) {
     /* printf(" %g %g \n",x[0],x[1]); */
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
     SuppressBounds = 0;
+    return;
 }
 
 void
@@ -2784,6 +2813,7 @@ shoot(double *x, double *xg, double *evec, int32 sgn) {
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
     ping();
     SuppressBounds = 0;
+    return;
 }
 
 void
@@ -2792,6 +2822,7 @@ stop_integration(void) {
     if (DelayErr == 0)
         err_msg("Delay too large or negative");
     DelayErr = 1;
+    return;
 }
 
 int32

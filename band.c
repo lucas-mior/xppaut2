@@ -66,42 +66,50 @@ BandFactor(BandMat A, int64 *p) {
 void
 BandBacksolve(BandMat A, int64 *p, N_Vector b) {
     gbsl(A->data, A->size, A->smu, A->ml, p, N_VDATA(b));
+    return;
 }
 
 void
 BandZero(BandMat A) {
     bandzero(A->data, A->size, A->mu, A->ml, A->smu);
+    return;
 }
 
 void
 BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
     bandcopy(A->data, B->data, A->size, A->smu, B->smu, copymu, copyml);
+    return;
 }
 
 void
 BandScale(double c, BandMat A) {
     bandscale(c, A->data, A->size, A->mu, A->ml, A->smu);
+    return;
 }
 
 void
 BandAddI(BandMat A) {
     bandaddI(A->data, A->size, A->smu);
+    return;
 }
 
 void
 BandFreeMat(BandMat A) {
     bandfree(A->data);
     free(A);
+    return;
 }
 
 void
 BandFreePiv(int64 *p) {
     free(p);
+    return;
 }
 
 void
 BandPrint(BandMat A) {
     bandprint(A->data, A->size, A->mu, A->ml, A->smu);
+    return;
 }
 
 double **
@@ -275,6 +283,7 @@ gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
         for (i = first_row_k; i <= k - 1; i++)
             b[i] += mult * diag_k[i - k];
     }
+    return;
 }
 
 void
@@ -288,6 +297,7 @@ bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
         for (i = 0; i < colSize; i++)
             col_j[i] = ZERO;
     }
+    return;
 }
 
 void
@@ -304,6 +314,7 @@ bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
         for (i = 0; i < copySize; i++)
             b_col_j[i] = a_col_j[i];
     }
+    return;
 }
 
 void
@@ -318,6 +329,7 @@ bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
         for (i = 0; i < colSize; i++)
             col_j[i] *= c;
     }
+    return;
 }
 
 void
@@ -326,17 +338,20 @@ bandaddI(double **a, int64 n, int64 smu) {
 
     for (j = 0; j < n; j++)
         a[j][smu] += ONE;
+    return;
 }
 
 void
 bandfreepiv(int64 *p) {
     free(p);
+    return;
 }
 
 void
 bandfree(double **a) {
     free(a[0]);
     free(a);
+    return;
 }
 
 void

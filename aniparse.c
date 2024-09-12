@@ -987,6 +987,7 @@ ani_disk_warn(void) {
         if (ans != 'y')
             mpeg.flag = 0;
     }
+    return;
 }
 
 int32
@@ -1177,6 +1178,7 @@ ani_zero(void) {
         snprintf(vcr.file, sizeof(vcr.file), "%s/", dirname(vcr.file));
         /*strcpy(vcr.file,"foo.ani");*/
     }
+    return;
 }
 
 void
@@ -1203,6 +1205,7 @@ get_ani_file(char *fname) {
         ani_grab_flag = 0;
         /* err_msg(bob); */
     }
+    return;
 }
 
 int32
@@ -1562,6 +1565,7 @@ set_ani_dimension(char *x1, char *y1, char *x2, char *y2) {
         ani_ylo = yy1;
         ani_yhi = yy2;
     }
+    return;
 }
 
 int32
@@ -1647,6 +1651,7 @@ init_ani_stuff(void) {
     vcr.pos = 0;
     ani_grab_flag = 0; /*********** GRABBER *******************/
     n_ani_grab = 0;
+    return;
 }
 
 void
@@ -1669,6 +1674,7 @@ free_ani(void) {
     free_grabber();
 
     init_ani_stuff();
+    return;
 }
 
 int32
@@ -1749,6 +1755,7 @@ reset_comets(void) {
     for (i = 0; i < n_anicom; i++)
         if (my_ani[i].type == COMET)
             my_ani[i].c.i = 0;
+    return;
 }
 
 void
@@ -1773,6 +1780,7 @@ roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col) {
     a->c.x[n - 1] = xn;
     a->c.y[n - 1] = yn;
     a->c.col[n - 1] = col;
+    return;
 }
 
 int32
@@ -2078,6 +2086,7 @@ render_ani(void) {
     }
     if (show_grab_points == 1)
         draw_grab_points();
+    return;
 }
 
 void
@@ -2104,6 +2113,7 @@ set_ani_perm(void) {
                 eval_ani_color(i);
         }
     }
+    return;
 }
 
 void
@@ -2118,6 +2128,7 @@ eval_ani_color(int32 j) {
             z = 0.0;
         my_ani[j].zcol = z;
     }
+    return;
 }
 
 void
@@ -2149,6 +2160,7 @@ eval_ani_com(int32 j) {
 
     if (my_ani[j].type == AXNULL || my_ani[j].type == AYNULL)
         my_ani[j].zval = evaluate(my_ani[j].who);
+    return;
 }
 
 void
@@ -2156,6 +2168,7 @@ set_ani_thick(int32 t) {
     if (t < 0)
         t = 0;
     XSetLineAttributes(display, ani_gc, t, LineSolid, CapButt, JoinRound);
+    return;
 }
 
 void
@@ -2169,6 +2182,7 @@ set_ani_font_stuff(int32 size, int32 font, int32 color) {
         XSetFont(display, ani_gc, romfonts[size]->fid);
     else
         XSetFont(display, ani_gc, symfonts[size]->fid);
+    return;
 }
 
 void
@@ -2186,6 +2200,7 @@ set_ani_col(int32 j) {
     else
         XSetForeground(display, ani_gc, ColorMap(icol));
     LastAniColor = icol;
+    return;
 }
 
 void
@@ -2195,6 +2210,7 @@ xset_ani_col(int32 icol) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
         XSetForeground(display, ani_gc, ColorMap(icol));
+    return;
 }
 
 /**************   DRAWING ROUTINES   *******************/
@@ -2206,6 +2222,7 @@ ani_rad2scale(double rx, double ry, int32 *ix, int32 *iy) {
     double r1 = rx * dx, r2 = ry * dy;
     *ix = (int32)r1;
     *iy = (int32)r2;
+    return;
 }
 
 void
@@ -2215,6 +2232,7 @@ ani_radscale(double rad, int32 *ix, int32 *iy) {
     double r1 = rad * dx, r2 = rad * dy;
     *ix = (int32)r1;
     *iy = (int32)r2;
+    return;
 }
 
 void
@@ -2223,6 +2241,7 @@ ani_ij_to_xy(int32 ix, int32 iy, double *x, double *y) {
     double dy = (ani_yhi - ani_ylo) / (double)vcr.hgt;
     *x = ani_xlo + (double)ix * dx;
     *y = ani_ylo + (double)(vcr.hgt - iy) * dy;
+    return;
 }
 
 void
@@ -2241,6 +2260,7 @@ ani_xyscale(double x, double y, int32 *ix, int32 *iy) {
         *iy = 0;
     if (*iy >= vcr.hgt)
         *iy = vcr.hgt - 1;
+    return;
 }
 
 void
@@ -2276,6 +2296,7 @@ draw_ani_comet(int32 j) {
             }
         }
     }
+    return;
 }
 
 void
@@ -2305,6 +2326,7 @@ draw_ani_null(int32 j, int32 id) {
         ani_xyscale(x2, y2, &i2, &j2);
         XDrawLine(display, ani_pixmap, ani_gc, i1, j1, i2, j2);
     }
+    return;
 }
 
 void
@@ -2320,6 +2342,7 @@ draw_ani_line(int32 j) {
     XDrawLine(display, ani_pixmap, ani_gc, i1, j1, i2, j2);
     ani_lastx = x2;
     ani_lasty = y2;
+    return;
 }
 
 void
@@ -2334,6 +2357,7 @@ draw_ani_rline(int32 j) {
     XDrawLine(display, ani_pixmap, ani_gc, i1, j1, i2, j2);
     ani_lastx = x1;
     ani_lasty = y1;
+    return;
 }
 
 void
@@ -2348,6 +2372,7 @@ draw_ani_circ(int32 j) {
     ir = (i2 + j2) / 2;
     XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2 * ir, 2 * ir, 0,
              360 * 64);
+    return;
 }
 
 void
@@ -2364,6 +2389,7 @@ draw_ani_fcirc(int32 j) {
     /*  XFillArc(display,ani_pixmap,ani_gc,i1-i2,j1-j2,2*i2,2*j2,0,360*64); */
     XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2 * ir, 2 * ir, 0,
              360 * 64);
+    return;
 }
 
 void
@@ -2383,6 +2409,7 @@ draw_ani_rect(int32 j) {
     if (j1 > j2)
         j1 = j2;
     XDrawRectangle(display, ani_pixmap, ani_gc, i1, j1, w, h);
+    return;
 }
 
 void
@@ -2404,6 +2431,7 @@ draw_ani_frect(int32 j) {
         j1 = j2;
 
     XFillRectangle(display, ani_pixmap, ani_gc, i1, j1, w, h);
+    return;
 }
 
 void
@@ -2417,6 +2445,7 @@ draw_ani_ellip(int32 j) {
     ani_rad2scale(x2, y2, &i2, &j2);
     XDrawArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2 * i2, 2 * j2, 0,
              360 * 64);
+    return;
 }
 
 void
@@ -2430,6 +2459,7 @@ draw_ani_fellip(int32 j) {
     ani_rad2scale(x2, y2, &i2, &j2);
     XFillArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2 * i2, 2 * j2, 0,
              360 * 64);
+    return;
 }
 
 void
@@ -2442,6 +2472,7 @@ draw_ani_text(int32 j) {
     s = (char *)my_ani[j].y2;
     n = strlen(s);
     XDrawString(display, ani_pixmap, ani_gc, i1, j1, s, n);
+    return;
 }
 
 void
@@ -2456,6 +2487,7 @@ draw_ani_vtext(int32 j) {
     n = strlen(s2);
     ani_xyscale(x1, y1, &i1, &j1);
     XDrawString(display, ani_pixmap, ani_gc, i1, j1, s2, n);
+    return;
 }
 
 /* tst_pix_draw()
@@ -2488,6 +2520,7 @@ tst_pix_draw(void) {
     XDrawString(display, ani_pixmap, ani_gc, 10, vcr.hgt - (DCURYs + 6),
                 "THIS SPACE FOR RENT", 20);
     /* plintf(" color_tot=%d \n",color_total); */
+    return;
 }
 
 void
@@ -2517,6 +2550,7 @@ read_ani_line(FILE *fp, char *s) {
         s[n - 1] = ' ';
     s[n] = ' ';
     s[n + 1] = 0;
+    return;
 }
 
 void
@@ -2532,6 +2566,7 @@ de_space(char *s) {
         }
     }
     s[j] = 0;
+    return;
 }
 
 /*************************  GRABBER CODE *****************************/
@@ -2589,6 +2624,7 @@ info_grab_stuff(void) {
         n = ani_grab[i].end.n;
         plintf("end n=%d\n", n);
     }
+    return;
 }
 
 int32
@@ -2672,6 +2708,7 @@ do_grab_tasks(int32 which) /* which=1 for start, 2 for end */
         }
         return;
     }
+    return;
 }
 
 int32

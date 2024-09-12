@@ -547,6 +547,7 @@ do_main(int32 argc, char **argv) {
     default_window();
 
     do_events(min_wid, min_hgt);
+    return;
 }
 
 void
@@ -581,6 +582,7 @@ check_for_quiet(int32 argc, char **argv) {
     if (logfile_specified_once == 1) {
         OVERRIDE_LOGFILE = 1;
     }
+    return;
 }
 
 void
@@ -588,6 +590,7 @@ do_vis_env(void) {
     set_X_vals();
     check_for_xpprc();
     set_internopts_xpprc_and_comline();
+    return;
 }
 
 void
@@ -805,6 +808,7 @@ init_X(void) {
     XResizeWindow(display, main_win, SCALEX, SCALEY);
     /*FixWindowSize (main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
      */
+    return;
 }
 
 void
@@ -813,6 +817,7 @@ set_big_font(void) {
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
     XSetFont(display, gc, big_font->fid);
+    return;
 }
 
 void
@@ -821,6 +826,7 @@ set_small_font(void) {
     DCURY = DCURYs;
     CURY_OFF = CURY_OFFs;
     XSetFont(display, gc, small_font->fid);
+    return;
 }
 
 /* not sure what to do with this - but it works pretty well!
@@ -903,6 +909,7 @@ scripty(void) {
             createKeyEvent(main_win, RootWindow(display, screen), 1, bob[i], 0);
         XSendEvent(display, main_win, 1, KeyPressMask, (XEvent *)&ev);
     }
+    return;
 }
 
 void
@@ -1030,6 +1037,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         break;
 
     } /* end switch */
+    return;
 }
 
 void
@@ -1047,6 +1055,7 @@ do_events(uint32 min_wid, uint32 min_hgt) {
         XNextEvent(display, &report);
         xpp_events(report, min_wid, min_hgt);
     } /* end while */
+    return;
 }
 
 void
@@ -1064,6 +1073,7 @@ bye_bye(void) {
     XFreeGC(display, gc);
     XCloseDisplay(display);
     exit(1);
+    return;
 }
 
 void
@@ -1071,6 +1081,7 @@ clr_scrn(void) {
     blank_screen(draw_win);
     restore_off();
     do_axes();
+    return;
 }
 
 void
@@ -1082,6 +1093,7 @@ redraw_all(void) {
         draw_freeze(draw_win);
         restore_on();
     }
+    return;
 }
 
 void
@@ -1313,6 +1325,7 @@ commander(int32 ch) {
 
     } /* end help_menu switch  */
     /* redraw_menu(); */
+    return;
 }
 
 /*
@@ -1459,6 +1472,7 @@ top_button_draw(Window w) {
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Eqns ", 5);
     if (w == TopButton[5])
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Data ", 5);
+    return;
 }
 
 void
@@ -1469,6 +1483,7 @@ top_button_cross(Window w, int32 b) {
             XSetWindowBorderWidth(display, w, b);
             return;
         }
+    return;
 }
 
 void
@@ -1491,6 +1506,7 @@ top_button_press(Window w) {
     if (w == TopButton[5]) {
         make_new_browser();
     }
+    return;
 }
 
 void
@@ -1511,6 +1527,7 @@ top_button_events(XEvent report) {
         break;
     }
     user_button_events(report);
+    return;
 }
 
 void
@@ -1539,6 +1556,7 @@ make_top_buttons(void) {
                                      ColorMap(20), ColorMap(TOPBUTTONCOLOR));
     x1 = x1 + x2 + dx;
     create_user_buttons(x1, 1, main_win);
+    return;
 }
 
 void
@@ -1556,6 +1574,7 @@ getGC(GC *gc) {
     XSetForeground(display, *gc, MyForeColor);
     /* XSetLineAttributes(display,*gc,lw,ls,cs,js);
        XSetDashes(display,*gc,dash_off,dash,ll);  */
+    return;
 }
 
 void
@@ -1598,6 +1617,7 @@ load_fonts(void) {
         }
     }
     plintf("\n");
+    return;
 }
 
 void
@@ -1633,6 +1653,7 @@ make_pops(void)
                h - 6 * DCURY - 16);
     create_par_sliders(main_win, 0, h - 5 * DCURY + 8);
     get_draw_area();
+    return;
 }
 
 void
@@ -1662,6 +1683,7 @@ FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
         break;
     }
     XSetWMProperties(display, w, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
+    return;
 }
 
 int32
@@ -1737,6 +1759,7 @@ test_color_info(void) {
 
     if (colors)
         free((char *)colors);
+    return;
 }
 
 /*   this is stuff for ndrand48(), nsrand48()

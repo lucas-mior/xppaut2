@@ -170,6 +170,7 @@ create_scroll_list(Window base, int32 x, int32 y, int32 width, int32 height,
                            y + height - 2 * SB_DIM - SB_SPC, SB_DIM, SB_DIM, 1);
     sl->npos = height - 2 * (SB_DIM + SB_SPC);
     sl->max = height / (DCURYs + 3);
+    return;
 }
 
 void
@@ -181,6 +182,7 @@ free_scroll_list(SCROLL_LIST *sl) {
     free(sl->v);
     sl->v = NULL;
     sl->n = 0;
+    return;
 }
 
 void
@@ -191,6 +193,7 @@ add_scroll_item(char *v, SCROLL_LIST *sl) {
     sl->v[n] = (char *)malloc((m + 1));
     strcpy(sl->v[n], v);
     sl->n = n + 1;
+    return;
 }
 
 int32
@@ -241,6 +244,7 @@ redraw_scroll_list(SCROLL_LIST sl) {
             }
         }
     }
+    return;
 }
 
 void
@@ -337,6 +341,7 @@ clone_ode(void) {
     fprintf(fp, "\n");
     fprintf(fp, "done \n");
     fclose(fp);
+    return;
 }
 
 int32
@@ -369,6 +374,7 @@ create_par_sliders(Window base, int32 x0, int32 h0) {
     int32 i;
     for (i = 0; i < 3; i++)
         make_par_slider(base, x0 + i * 36 * DCURXs, h0, 100, i);
+    return;
 }
 
 void
@@ -378,6 +384,7 @@ resize_par_slides(int32 h) {
         XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36 * i * DCURXs,
                           h, 32 * DCURXs, 3 * (DCURYs + 2));
     }
+    return;
 }
 
 void
@@ -387,6 +394,7 @@ slide_button_press(Window w)
     int32 i;
     for (i = 0; i < 3; i++)
         do_slide_button(w, &my_par_slide[i]);
+    return;
 }
 
 void
@@ -450,6 +458,7 @@ do_slide_button(int32 w, PAR_SLIDER *p)
 void
 expose_selector(Window w) {
     display_file_sel(filesel, w);
+    return;
 }
 
 /* this is rather lazy and slow but hey it works */
@@ -458,6 +467,7 @@ void
 redraw_directory(void) {
     XClearWindow(display, filesel.dir);
     expose_selector(filesel.dir);
+    return;
 }
 
 void
@@ -467,6 +477,7 @@ redraw_file_list(void) {
         XClearWindow(display, filesel.w[i]);
         expose_selector(filesel.w[i]);
     }
+    return;
 }
 
 void
@@ -478,6 +489,7 @@ redraw_fs_text(char *string, Window w, int32 flag) {
     XDrawString(display, w, small_gc, 0, CURY_OFF, string, strlen(string));
     if (flag)
         put_edit_cursor(w, DCURXs * strlen(string));
+    return;
 }
 
 void
@@ -566,6 +578,7 @@ display_file_sel(FILESEL f, Window w) {
             }
         }
     }
+    return;
 }
 
 void
@@ -576,6 +589,7 @@ new_wild(void) {
     filesel.n = my_ff.ndirs + my_ff.nfiles;
     redraw_file_list();
     XFlush(display);
+    return;
 }
 
 void
@@ -744,6 +758,7 @@ crossing_selector(Window w, int32 c) {
         w == filesel.file || w == filesel.wild || w == filesel.home ||
         w == filesel.start)
         XSetWindowBorderWidth(display, w, t2);
+    return;
 }
 
 int32
@@ -783,6 +798,7 @@ do_file_select_events(void) {
             break;
         }
     }
+    return -1;
 }
 
 void
@@ -880,6 +896,7 @@ create_file_selector(char *title, char *file, char *wild) {
     filesel.hot = HOTFILE;
     filesel.pos = strlen(filesel.filetxt);
     filesel.off = 0;
+    return;
 }
 
 void
@@ -897,6 +914,7 @@ stringintersect(char *target, char *sother) {
         j++;
     }
     target[j] = '\0';
+    return;
 }
 
 int32
@@ -1198,6 +1216,7 @@ destroy_selector(void) {
     XDestroySubwindows(display, filesel.base);
     XDestroyWindow(display, filesel.base);
     free_finfo(&my_ff);
+    return;
 }
 
 int32
@@ -1237,6 +1256,7 @@ reset_sliders(void) {
             expose_slider(p->top, p);
         }
     }
+    return;
 }
 
 void
@@ -1245,6 +1265,7 @@ redraw_slide(PAR_SLIDER *p) {
     expose_slider(p->top, p);
     expose_slider(p->left, p);
     expose_slider(p->right, p);
+    return;
 }
 
 void
@@ -1258,6 +1279,7 @@ set_slide_pos(PAR_SLIDER *p) {
     if (ip > (p->l - 2))
         ip = p->l - 2;
     p->pos = ip;
+    return;
 }
 
 void
@@ -1265,6 +1287,7 @@ slide_release(Window w) {
     int32 i;
     for (i = 0; i < 3; i++)
         do_slide_release(w, &my_par_slide[i]);
+    return;
 }
 
 void
@@ -1278,6 +1301,7 @@ do_slide_release(int32 w, PAR_SLIDER *p) {
         redraw_ics();
         redraw_params();
     }
+    return;
 }
 
 void
@@ -1289,6 +1313,7 @@ slider_motion(XEvent ev) {
     /* printf(" state=%d\n",ev.xmotion.state); */
     for (i = 0; i < 3; i++)
         do_slide_motion(w, x, &my_par_slide[i], ev.xmotion.state);
+    return;
 }
 
 void
@@ -1319,6 +1344,7 @@ do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 s) {
             }
         }
     }
+    return;
 }
 
 void
@@ -1326,12 +1352,14 @@ enter_slides(Window w, int32 val) {
     int32 i;
     for (i = 0; i < 3; i++)
         enter_slider(w, &my_par_slide[i], val);
+    return;
 }
 
 void
 enter_slider(Window w, PAR_SLIDER *p, int32 val) {
     if (w == p->top || w == p->go)
         XSetWindowBorderWidth(display, w, val + 1);
+    return;
 }
 
 void
@@ -1339,6 +1367,7 @@ expose_slides(Window w) {
     int32 i;
     for (i = 0; i < 3; i++)
         expose_slider(w, &my_par_slide[i]);
+    return;
 }
 
 void
@@ -1385,6 +1414,7 @@ expose_slider(Window w, PAR_SLIDER *p) {
             XDrawString(display, w, small_gc, x, CURY_OFFs, top, strlen(top));
         }
     }
+    return;
 }
 
 void
@@ -1397,6 +1427,7 @@ draw_slider(Window w, int32 x, int32 hgt, int32 l) {
     XClearWindow(display, w);
     for (i = 0; i < 4; i++)
         XDrawLine(display, w, small_gc, x0 + i, 0, x0 + i, hgt);
+    return;
 }
 
 void
@@ -1453,6 +1484,7 @@ make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
         my_par_slide[index].hi = SLIDER3HI;
         get_val(my_par_slide[index].parname, &my_par_slide[index].val);
     }
+    return;
 }
 
 /*     The rest of the code is good
@@ -1468,6 +1500,7 @@ make_new_ic_box(void) {
     }
     make_box_list_window(&ICBox, ICBOX);
     make_icon((char *)ic_bits, ic_width, ic_height, ICBox.base);
+    return;
 }
 
 void
@@ -1478,6 +1511,7 @@ make_new_bc_box(void) {
     }
     make_box_list_window(&BCBox, BCBOX);
     make_icon((char *)bc_bits, bc_width, bc_height, BCBox.base);
+    return;
 }
 
 void
@@ -1490,6 +1524,7 @@ make_new_delay_box(void) {
     }
     make_box_list_window(&DelayBox, DELAYBOX);
     make_icon((char *)delay_bits, delay_width, delay_height, DelayBox.base);
+    return;
 }
 
 void
@@ -1502,6 +1537,7 @@ make_new_param_box(void) {
     }
     make_box_list_window(&ParamBox, PARAMBOX);
     make_icon((char *)param_bits, param_width, param_height, ParamBox.base);
+    return;
 }
 
 void
@@ -1525,6 +1561,7 @@ initialize_box(void) {
     if(ParamBox.xuse) XIconifyWindow(display,ParamBox.base,screen);
      if(BCBox.xuse)XIconifyWindow(display,BCBox.base,screen);
      } */
+    return;
 }
 
 void
@@ -1599,6 +1636,7 @@ resize_par_box(Window win) {
         make_new_delay_box();
         break;
     }
+    return;
 }
 
 /* this returns the fixed width, the number of entries
@@ -1610,6 +1648,7 @@ get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
     int32 hgt = DCURYs + 4;
     *w = 28 * DCURXs;
     *n = h / (hgt + 4) - 5;
+    return;
 }
 
 void
@@ -1641,6 +1680,7 @@ destroy_box(BoxList *b) {
     }
     waitasec(200);
     XFlush(display);
+    return;
 }
 
 void
@@ -1753,6 +1793,7 @@ make_box_list_window(BoxList *b, int32 type) {
     }
 
     b->xuse = 1;
+    return;
 }
 
 void
@@ -1801,6 +1842,7 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
             break;
         }
     }
+    return;
 }
 
 /* this is added to take care of making sure
@@ -1818,6 +1860,7 @@ do_box_expose(Window w) {
         display_box(ParamBox, w);
     if (DelayBox.xuse)
         display_box(DelayBox, w);
+    return;
 }
 
 void
@@ -1828,6 +1871,7 @@ justify_string(Window w1, char *s1) {
         i = nt - n1;
     XClearWindow(display, w1);
     XDrawString(display, w1, small_gc, i, CURY_OFFs, s1, strlen(s1));
+    return;
 }
 
 /* new code is a bit tricky here - we dont want
@@ -1869,6 +1913,7 @@ draw_one_box(BoxList b, int32 index) {
         draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         break;
     }
+    return;
 }
 
 void
@@ -1891,6 +1936,7 @@ redraw_delays(void) {
     if (DelayBox.use)
         for (i = 0; i < NODE; i++)
             draw_one_box(DelayBox, i);
+    return;
 }
 
 void
@@ -1910,6 +1956,7 @@ redraw_ics(void) {
         else
             XClearWindow(display, ICBox.ck[i]);
     }
+    return;
 }
 
 void
@@ -1917,6 +1964,7 @@ redraw_bcs(void) {
     int32 i;
     for (i = 0; i < NODE; i++)
         draw_one_box(BCBox, i);
+    return;
 }
 
 void
@@ -1977,6 +2025,7 @@ display_box(BoxList b, Window w) {
             }
         }
     }
+    return;
 }
 
 void
@@ -2002,6 +2051,7 @@ box_enter_events(Window w, int32 yn) {
     for (i = 0; i < ICBox.nwin; i++)
         if (w == ICBox.ck[i])
             XSetWindowBorderWidth(display, w, val);
+    return;
 }
 
 void
@@ -2009,6 +2059,7 @@ box_enter(BoxList b, Window w, int32 val) {
     if (w == b.ok || w == b.cancel || w == b.def || w == b.go || w == b.close ||
         w == b.dn || w == b.up || w == b.pgdn || w == b.pgup)
         XSetWindowBorderWidth(display, w, val);
+    return;
 }
 
 int32
@@ -2042,6 +2093,7 @@ set_up_xvt(void) {
         XClearWindow(display, ICBox.ck[i]);
     if (n > 0)
         graph_all(plot_list, n, 0);
+    return;
 }
 
 void
@@ -2061,6 +2113,7 @@ set_up_pp(void) {
         XClearWindow(display, ICBox.ck[i]);
     if (n > 1)
         graph_all(plot_list, n, 1);
+    return;
 }
 
 void
@@ -2080,6 +2133,7 @@ set_up_arry(void) {
         XClearWindow(display, ICBox.ck[i]);
     if (n == 2)
         optimize_aplot(plot_list);
+    return;
 }
 
 void
@@ -2100,6 +2154,7 @@ redraw_entire_box(BoxList *b) {
         redraw_delays();
         return;
     }
+    return;
 }
 
 void
@@ -2166,6 +2221,7 @@ do_box_button(BoxList *b, Window w) {
             set_up_arry();
         }
     }
+    return;
 }
 
 void
@@ -2204,6 +2260,7 @@ box_list_scroll(BoxList *b, int32 i) {
         redraw_delays();
         break;
     }
+    return;
 }
 
 void
@@ -2217,6 +2274,7 @@ box_buttons(Window w) {
         do_box_button(&DelayBox, w);
     if (ParamBox.xuse)
         do_box_button(&ParamBox, w);
+    return;
 }
 
 void
@@ -2242,6 +2300,7 @@ box_keypress(XEvent ev, int32 *used) {
         if (*used)
             return;
     }
+    return;
 }
 
 void
@@ -2291,6 +2350,7 @@ do_box_key(BoxList *b, XEvent ev, int32 *used) {
             }
         }
     }
+    return;
 }
 
 void
@@ -2314,6 +2374,7 @@ man_ic(void) {
         if (done == -1)
             return;
     }
+    return;
 }
 
 void
@@ -2362,6 +2423,7 @@ new_parameter(void) {
             }
         }
     }
+    return;
 }
 
 void
@@ -2370,6 +2432,7 @@ redo_stuff(void) {
     re_evaluate_kernels();
     redo_all_fun_tables();
     evaluate_derived();
+    return;
 }
 
 void
@@ -2413,6 +2476,7 @@ draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc)
         cp = DCURXs * (cursor - off); /* must be fixed */
         put_edit_cursor(win, cp);
     }
+    return;
 }
 
 void
@@ -2421,6 +2485,7 @@ put_edit_cursor(Window w, int32 pos) {
     int32 x2 = x1 + 1;
     XDrawLine(display, w, small_gc, x1, 1, x1, DCURYs - 1);
     XDrawLine(display, w, small_gc, x2, 1, x2, DCURYs - 1);
+    return;
 }
 
 int32
@@ -2548,6 +2613,7 @@ add_edit_float(BoxList *b, int32 i, double z) {
     char junk[256];
     sprintf(junk, "%.16g", z);
     add_editval(b, i, junk);
+    return;
 }
 
 void
@@ -2559,6 +2625,7 @@ set_edit_params(BoxList *b, int32 i, char *string) {
         b->pos[i] = b->mc;
     else
         b->pos[i] = l;
+    return;
 }
 
 void
@@ -2571,6 +2638,7 @@ add_editval(BoxList *b, int32 i, char *string) {
     iw = i - n0;
     if (b->xuse)
         draw_editable(b->we[iw], string, b->off[i], b->pos[i], b->mc);
+    return;
 }
 
 void
@@ -2582,6 +2650,7 @@ check_box_cursor(void) {
     draw_editable(HotBox->we[HotBoxItem], HotBox->value[HotBoxItem + n0],
                   HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem], HotBox->mc);
     HotBoxItem = -1;
+    return;
 }
 
 void
@@ -2590,6 +2659,7 @@ prt_focus(void) {
     int32 rev;
     XGetInputFocus(display, &focus, &rev);
     plintf(" focus=%d\n", focus);
+    return;
 }
 
 int32
@@ -2634,6 +2704,7 @@ set_value_from_box(BoxList *b, int32 i) {
         add_editval(b, i, s);
         break;
     }
+    return;
 }
 
 void

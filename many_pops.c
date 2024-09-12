@@ -190,11 +190,13 @@ make_icon(char *icon, int32 wid, int32 hgt, Window w) {
     class_hints.res_class = "";
     XSetWMProperties(display, w, NULL, NULL, NULL, 0, NULL, &wm_hints,
                      &class_hints);
+    return;
 }
 
 void
 title_text(char *string) {
     gtitle_text(string, draw_win);
+    return;
 }
 
 void
@@ -221,18 +223,21 @@ gtitle_text(char *string, Window win) {
         xline(0, 18, w, 18, win);
     }
     BaseCol();
+    return;
 }
 
 void
 restore_off(void) {
     MyGraph->Restore = 0;
     /* MyGraph->Nullrestore=0; */
+    return;
 }
 
 void
 restore_on(void) {
     MyGraph->Restore = 1;
     /*  MyGraph->Nullrestore=1; */
+    return;
 }
 
 void
@@ -252,6 +257,7 @@ add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
             return;
         }
     }
+    return;
 }
 
 void
@@ -577,6 +583,7 @@ draw_marker(double x, double y, double size, int32 type) {
         y1 = y2;
         ind++;
     }
+    return;
 }
 
 void
@@ -589,6 +596,7 @@ draw_grob(int32 i) {
         arrow_head(xs, ys, xe, ye, grob[i].size);
     if (grob[i].type >= MARKER)
         draw_marker(xs, ys, grob[i].size, grob[i].type - 2);
+    return;
 }
 
 void
@@ -602,6 +610,7 @@ arrow_head(double xs, double ys, double xe, double ye, double size) {
     float xm = x0 - .5 * size * h * ar, ym = y0 + .5 * size * l / ar;
     line_abs(xs, ys, xp, yp);
     line_abs(xs, ys, xm, ym);
+    return;
 }
 
 void
@@ -613,6 +622,7 @@ destroy_grob(Window w) {
             grob[i].w = (Window)0;
         }
     }
+    return;
 }
 
 void
@@ -624,6 +634,7 @@ destroy_label(Window w) {
             lb[i].w = (Window)0;
         }
     }
+    return;
 }
 
 void
@@ -639,6 +650,7 @@ draw_label(Window w) {
             draw_grob(i);
     }
     BaseCol();
+    return;
 }
 
 void
@@ -660,6 +672,7 @@ add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
             return;
         }
     }
+    return;
 }
 
 int32
@@ -879,6 +892,7 @@ add_pntarr(int32 type) {
         add_grob(xs, ys, xe, ye, size, type, color);
         redraw_all();
     }
+    return;
 }
 
 void
@@ -1017,6 +1031,7 @@ edit_object_com(int32 com) {
             }
         }
     }
+    return;
 }
 
 void
@@ -1047,6 +1062,7 @@ do_gr_objs_com(int32 com) {
         redraw_all();
         break;
     }
+    return;
 }
 
 void
@@ -1059,6 +1075,7 @@ set_active_windows(void) {
         }
     }
     num_pops = np;
+    return;
 }
 
 void
@@ -1092,6 +1109,7 @@ do_windows_com(int32 c) {
     }
 
     set_active_windows();
+    return;
 }
 
 void
@@ -1104,6 +1122,7 @@ set_restore(int32 flag) {
             return;
         }
     }
+    return;
 }
 
 int32
@@ -1147,6 +1166,7 @@ destroy_a_pop(void) {
     XDestroySubwindows(display, graph[i].w);
     XDestroyWindow(display, graph[i].w);
     num_pops--;
+    return;
 }
 
 void
@@ -1232,6 +1252,7 @@ ps_restore(void) {
         draw_freeze(draw_win);
     }
     ps_end();
+    return;
 }
 
 void
@@ -1258,6 +1279,7 @@ svg_restore(void) {
     do_batch_nclines();
     do_batch_dfield();
     svg_end();
+    return;
 }
 
 int32
@@ -1307,6 +1329,7 @@ do_motion_events(XEvent ev) {
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         canvas_xy(buf);
     }
+    return;
 }
 
 void
@@ -1380,6 +1403,7 @@ do_expose(XEvent ev) {
     get_draw_area();
     BaseCol();
     SmallBase();
+    return;
 }
 
 void
@@ -1392,6 +1416,7 @@ resize_all_pops(int32 wid, int32 hgt) {
     graph[0].Width = nw;
     graph[0].Height = nh;
     get_draw_area();
+    return;
 }
 
 void
@@ -1409,6 +1434,7 @@ kill_all_pops(void) {
             XDestroyWindow(display, graph[i].w);
         }
     num_pops = 1;
+    return;
 }
 
 void
@@ -1450,30 +1476,35 @@ create_a_pop(void) {
         select_window(graph[index].w); */
     XRaiseWindow(display, graph[0].w);
     /*  XDestroyWindow(display,temp); */
+    return;
 }
 
 void
 GrCol(void) {
     XSetForeground(display, gc, GrFore);
     XSetBackground(display, gc, GrBack);
+    return;
 }
 
 void
 BaseCol(void) {
     XSetForeground(display, gc, MyForeColor);
     XSetBackground(display, gc, MyBackColor);
+    return;
 }
 
 void
 SmallGr(void) {
     XSetForeground(display, small_gc, GrFore);
     XSetBackground(display, small_gc, GrBack);
+    return;
 }
 
 void
 SmallBase(void) {
     XSetForeground(display, small_gc, MyForeColor);
     XSetBackground(display, small_gc, MyBackColor);
+    return;
 }
 
 void
@@ -1493,6 +1524,7 @@ change_plot_vars(int32 k) {
             }
         }
     }
+    return;
 }
 
 int32
@@ -1523,6 +1555,7 @@ make_active(int32 i, int32 flag) {
     MyGraph = &graph[current_pop];
     draw_win = MyGraph->w;
     get_draw_area_flag(flag);
+    return;
 }
 
 void
@@ -1547,33 +1580,39 @@ select_window(Window w) {
     XRaiseWindow(display, w);
     get_draw_area();
     BaseCol();
+    return;
 }
 
 void
 set_gr_fore(void) {
     XSetForeground(display, gc, GrFore);
+    return;
 }
 
 void
 set_gr_back(void) {
     XSetForeground(display, gc, GrBack);
+    return;
 }
 
 void
 hi_lite(Window wi) {
     set_gr_fore();
     select_sym(wi);
+    return;
 }
 
 void
 lo_lite(Window wi) {
     set_gr_back();
     bar(0, 0, 5, 5, wi);
+    return;
 }
 
 void
 select_sym(Window w) {
     bar(0, 0, 5, 5, w);
+    return;
 }
 
 void
@@ -1590,6 +1629,7 @@ canvas_xy(char *buf) {
                     strlen(buf));
         /* SmallGr(); */
     }
+    return;
 }
 
 void

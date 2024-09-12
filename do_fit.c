@@ -57,6 +57,7 @@ init_fit_info(void) {
     fin.npts = 0;
     fin.maxiter = 20;
     fin.file[0] = 0;
+    return;
 }
 
 void
@@ -189,6 +190,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         y[i] = yold[i];
 
     /*printem(yderv,yfit,t0,npars,nvars,npts);  */
+    return;
 }
 
 void
@@ -206,6 +208,7 @@ printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
         }
         plintf(" \n");
     }
+    return;
 }
 
 int32
@@ -332,6 +335,7 @@ print_fit_info(void) {
         plintf(" variable %d to col %d \n", fin.ivar[i], fin.icols[i]);
     for (i = 0; i < fin.npars; i++)
         plintf(" P[%d]=%d \n", i, fin.ipar[i]);
+    return;
 }
 
 void
@@ -417,6 +421,7 @@ test_fit(void) {
         else
             last_ic[fin.ipar[i]] = a[i];
     }
+    return;
 }
 
 int32
@@ -768,6 +773,7 @@ parse_collist(char *collist, int32 *icols, int32 *n) {
         i++;
     }
     *n = i;
+    return;
 }
 
 void
@@ -791,6 +797,7 @@ parse_varlist(char *varlist, int32 *ivars, int32 *n) {
         i++;
     }
     *n = i;
+    return;
 }
 
 void

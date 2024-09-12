@@ -68,6 +68,7 @@ do_movie_com(int32 c)
     case 6: /* test_keys(); */
         break;
     }
+    return;
 }
 
 void
@@ -78,6 +79,7 @@ reset_film(void) {
     for (i = 0; i < mov_ind; i++)
         XFreePixmap(display, movie[i].xi);
     mov_ind = 0;
+    return;
 }
 
 int32
@@ -168,6 +170,7 @@ play_back(void) {
             }
         }
     }
+    return;
 }
 
 void
@@ -183,6 +186,7 @@ save_kine(void) {
     new_string("Base file name", base);
     if (strlen(base) > 0)
         save_movie(base, fmat);
+    return;
 }
 
 void
@@ -219,6 +223,7 @@ make_anigif(void) {
     end_ani_gif(fp);
     fclose(fp);
     set_global_map(0);
+    return;
 }
 
 void
@@ -262,6 +267,7 @@ save_movie(char *basename, int32 fmat) {
         }
 #endif
     }
+    return;
 }
 
 void
@@ -340,6 +346,7 @@ auto_play(void) {
             return;
 
     } /*  Big loop   */
+    return;
 }
 
 void

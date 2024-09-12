@@ -85,6 +85,7 @@ int32 *pos, *col;
     *pos = strlen(sb->value[0]);
     *col = (*pos + strlen(sb->name[0])) * DCURX;
     put_cursor_at(sb->win[0], DCURX * strlen(sb->name[0]), *pos);
+    return;
 }
 
 int32
@@ -153,6 +154,7 @@ int32 pos, col;
             flag = 1;
         do_hilite_text(sb->name[i], sb->value[i], flag, w, pos, col);
     }
+    return;
 }
 
 void ereset_hot(inew, sb) int32 inew;
@@ -166,6 +168,7 @@ EDIT_BOX *sb;
     XClearWindow(display, sb->win[i]);
     do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
                    strlen(sb->value[i]), 0);
+    return;
 }
 
 void enew_editable(sb, inew, pos, col, done, w) int32 inew;
@@ -179,6 +182,7 @@ Window *w;
     *col = (*pos + strlen(sb->name[inew])) * DCURX;
     *done = 0;
     *w = sb->win[inew];
+    return;
 }
 
 int32
@@ -304,6 +308,7 @@ EDIT_BOX *sb;
     (sb->reset) =
         make_window(base, xpos + 12 * DCURX, ypos, 5 * DCURX, DCURY, 1);
     XRaiseWindow(display, base);
+    return;
 }
 
 void
@@ -333,6 +338,7 @@ edit_menu(void) {
         load_new_dll();
         break;
     }
+    return;
 }
 
 void
@@ -395,6 +401,7 @@ edit_rhs(void) {
     free(values);
     free(names);
     free(command);
+    return;
 }
 
 void
@@ -412,6 +419,7 @@ user_fun_info(FILE *fp) {
         strcat(fundef, ufun_def[j]);
         fprintf(fp, "%s\n", fundef);
     }
+    return;
 }
 
 void
@@ -473,6 +481,7 @@ edit_functions(void) {
     free(values);
     free(names);
     free(command);
+    return;
 }
 
 int32

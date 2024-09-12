@@ -373,6 +373,7 @@ save_batch_shoot(void) {
         }
     }
     DELTA_T = olddt;
+    return;
 }
 
 void
@@ -404,6 +405,7 @@ shoot_this_now(void) /* this uses the current labeled saddle point stuff to
         }
     }
     DELTA_T = olddt;
+    return;
 }
 
 /* fixed point with no requests and store manifolds */
@@ -582,6 +584,7 @@ pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
 
     }
     */
+    return;
 }
 
 void
@@ -626,6 +629,7 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
     free(b);
     free(bp);
     free(ipivot);
+    return;
 }
 
 void
@@ -706,6 +710,7 @@ eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
 
     orthesx(n, 1, n, a, work);
     hqrx(n, 1, n, a, ev, ierr);
+    return;
 }
 
 void
@@ -872,6 +877,7 @@ l330:
 
 l1000:
     *ierr = en;
+    return;
 }
 
 void
@@ -929,6 +935,7 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
         ort[m - 1] = scale * ort[m - 1];
         a[m - 1 + (m - 2) * n] = scale * g;
     }
+    return;
 }
 
 double
@@ -984,6 +991,7 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
             /*    plintf("dm=%g \n",dermat[j*n+i]); */
         }
     }
+    return;
 }
 
 void
@@ -1010,6 +1018,7 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
             /*    plintf("dm=%g \n",dermat[j*n+i]); */
         }
     }
+    return;
 }
 
 void
@@ -1080,6 +1089,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
             return;
         }
     }
+    return;
 }
 
 double
@@ -1654,6 +1664,7 @@ sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
     ipvt[n - 1] = n - 1;
     if (a[(n - 1) * lda + n - 1] == 0.0)
         *info = n - 1;
+    return;
 }
 
 void
@@ -1701,6 +1712,7 @@ sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
             }
         }
     }
+    return;
 }
 
 void
@@ -1718,6 +1730,7 @@ saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy) {
         iy = -n * incy;
     for (i = 0; i < n; i++, ix += incx, iy += incy)
         sy[iy] = sy[iy] + sa * sx[ix];
+    return;
 }
 
 int32

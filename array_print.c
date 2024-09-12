@@ -76,6 +76,7 @@ ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
             }
         }
     }
+    return;
 }
 
 void
@@ -122,12 +123,14 @@ ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
     fprintf(my_plot_file, ".2 .2 scale\n");
     fprintf(my_plot_file, "/basefont /Times-Roman findfont def\n");
     ps_setline(0.0, 4);
+    return;
 }
 
 void
 ps_convert(double x, double y, float *xs, float *ys) {
     *xs = (x - ps_scale.xmin) * ps_scale.xscale + ps_scale.xoff;
     *ys = (y - ps_scale.ymin) * ps_scale.yscale + ps_scale.yoff;
+    return;
 }
 
 void
@@ -150,6 +153,7 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
     ps_text2(s, x0 + .5 * dx, y0 + .01 * dx, 2);
     sprintf(s, "%g", zhi);
     ps_text2(s, x0 + .5 * dx, y0 - n * dy - dy / 2, 0);
+    return;
 }
 
 void
@@ -181,6 +185,7 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     ps_col_scale(yhi - .15 * dy, xlo - .1 * dx, .025 * dy, .05 * dx, 20, zlo,
                  zhi, type, mx);
     ps_text2(sb, xlo - .035 * dx, .5 * (yhi + ylo), 1);
+    return;
 }
 
 void
@@ -189,6 +194,7 @@ ps_close(void) {
     fprintf(my_plot_file, "grestore\n");
     fprintf(my_plot_file, "end\n");
     fclose(my_plot_file);
+    return;
 }
 
 void
@@ -196,6 +202,7 @@ ps_setline(double fill, int32 thick) {
     fprintf(my_plot_file, "%f G\n %d setlinewidth \n", fill, thick);
     ps_scale.linewid = thick;
     ps_scale.linecol = fill;
+    return;
 }
 
 void
@@ -205,6 +212,7 @@ ps_put_char(int32 ch, float *x, float *y) {
     str[0] = ch;
     str[1] = '\0';
     ps_text2(str, xp, yp, 0);
+    return;
 }
 
 void
@@ -240,6 +248,7 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
                 "(%s) dup stringwidth pop  0 rmoveto show \n grestore\n", str);
         break;
     }
+    return;
 }
 
 void
@@ -249,6 +258,7 @@ ps_line2(double x1r, double y1r, double x2r, double y2r) {
     ps_convert(x2r, y2r, &x2, &y2);
     fprintf(my_plot_file, "%d %d m \n %d %d l S\n", (int32)x1, (int32)y1,
             (int32)x2, (int32)y2);
+    return;
 }
 
 void
@@ -257,6 +267,7 @@ ps_set_text(double angle, double slant, double x_size, double y_size) {
     ps_scale.ty = y_size * 5.0;
     ps_scale.angle = angle;
     ps_scale.slant = slant;
+    return;
 }
 
 void
@@ -268,6 +279,7 @@ ps_rect(double x, double y, double wid, double len) {
             "%d %d m \n %d %d l \n %d %d l \n %d %d l \n %d %d l \n S \n",
             (int32)x1, (int32)y1, (int32)x2, (int32)y1, (int32)x2, (int32)y2,
             (int32)x1, (int32)y2, (int32)x1, (int32)y1);
+    return;
 }
 
 void
@@ -284,6 +296,7 @@ ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
         fprintf(my_plot_file, "0 G\n");
         ps_rect(x, y, wid, len);
     }
+    return;
 }
 
 void
@@ -330,6 +343,7 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
         fprintf(my_plot_file, "0 G\n");
         ps_rect(x, y, wid, len);
     }
+    return;
 }
 
 void

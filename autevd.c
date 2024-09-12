@@ -108,6 +108,7 @@ init_auto(int32 ndim, int32 nicp, int32 nbc, int32 ips, int32 irs, int32 ilp,
         xAuto.iuz[i] = UzrPar[i];
         xAuto.vuz[i] = outperiod[i];
     }
+    return;
 }
 
 void
@@ -123,6 +124,7 @@ send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
         my_ev.evr[i] = er * cs;
         my_ev.evi[i] = er * sn;
     }
+    return;
 }
 
 void
@@ -134,6 +136,7 @@ send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
         my_ev.evr[i] = (ev + i)->r;
         my_ev.evi[i] = (ev + i)->i;
     }
+    return;
 }
 
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
@@ -185,6 +188,7 @@ addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
     add_diagram(ibrs, ntots, iap->itp, lab, iap->nfpr, *a, uhigh, ulow, u0,
                 ubar, par, per, iap->ndim, icp1, icp2, icp3, icp4, AutoTwoParam,
                 my_ev.evr, my_ev.evi);
+    return;
 }
 
 double

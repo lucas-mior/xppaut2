@@ -114,6 +114,7 @@ print_jacobian(iap_type iap, main_auto_storage_type data) {
     }
 
     fclose(fp);
+    return;
 }
 
 void
@@ -132,6 +133,7 @@ print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
         fprintf(fp, "%18.10e\n", rlcur[i]);
 
     fclose(fp);
+    return;
 }
 
 void
@@ -150,6 +152,7 @@ print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
         fprintf(fp, "%10.10e\n", fc[i]);
 
     fclose(fp);
+    return;
 }
 
 /* ----------------------------------------------------------------------- */

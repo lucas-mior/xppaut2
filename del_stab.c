@@ -141,6 +141,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     free(ev);
     if (okroot == 1)
         *stabinfo = AlphaMax;
+    return;
 }
 
 COMPLEX
@@ -200,6 +201,7 @@ int32 i1, i2, n;
         Z(i1, j) = Z(i2, j);
         Z(i2, j) = zt;
     }
+    return;
 }
 
 COMPLEX
@@ -226,6 +228,7 @@ int32 n, m;
             cprint(z[i + m * j]);
         plintf("\n");
     }
+    return;
 }
 
 double
@@ -318,6 +321,7 @@ int32 n, m;
                 z[i + j * n] = cdif(z[i + j * n],
                                     cmlt(eld, rtoc(coef[km + i + n * j], 0.0)));
     }
+    return;
 }
 
 int32
@@ -406,6 +410,7 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m, double rad,
 void
 process_root(double real, double im) {
     plintf("Root: %g + I %g \n", real, im);
+    return;
 }
 
 double
