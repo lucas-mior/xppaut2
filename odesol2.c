@@ -11,11 +11,6 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
-int32 mod_euler(/* double *,double *,double,int32,int32,int32 *,double * */);
-int32 rung_kut(/* double *,double *,double,int32,int32,int32 *,double * */);
-int32 adams(/* double *,double *,double,int32,int32, int32*,double * */);
-int32 abmpc(/* double *,double *,double,int32 */);
-double pow(), sqrt();
 
 double coefp[] = {6.875 / 3.00, -7.375 / 3.00, 4.625 / 3.00, -.375},
        coefc[] = {.375, 2.375 / 3.00, -.625 / 3.00, 0.125 / 3.00};
