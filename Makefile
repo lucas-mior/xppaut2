@@ -1,6 +1,8 @@
 MAJOR_VERSION = 8.0
 MINOR_VERSION = 1
 
+PREFIX ?= /usr/local
+
 CC = clang
 
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors -Werror
@@ -33,3 +35,7 @@ $(TARGET): $(OBJECTS) Makefile
 
 clean:
 	rm -f *.o src/*.o $(TARGET)
+
+install:
+	install -Dm755 xppaut   ${DESTDIR}${PREFIX}/bin/clipsim
+	install -Dm644 xppaut.1 ${DESTDIR}${PREFIX}/man/man1/clipsim.1
