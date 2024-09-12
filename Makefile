@@ -2,9 +2,9 @@ MAJOR_VERSION = 8.0
 MINOR_VERSION = 1
 
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Wpedantic
 CFLAGS += -DMYSTR1=$(MAJOR_VERSION) -DMYSTR2=$(MINOR_VERSION)
-CFLAGS += -g -pedantic -O2
+CFLAGS += -g -O2
 CFLAGS += -DNOERRNO -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
 CFLAGS += -D_DEFAULT_SOURCE -std=c99
 CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./
