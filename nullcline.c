@@ -10,6 +10,7 @@
 
 #include "parserslow.h"
 #include "pop_list.h"
+#include "numerics.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -41,7 +42,6 @@ extern int32 XPPBatch;
 
 int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
-int32 user_set_color_par();
 extern int32 DRight, DLeft, DTop, DBottom;
 extern int32 STORFLAG;
 extern double last_ic[MAXODE];
