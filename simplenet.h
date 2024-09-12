@@ -19,5 +19,6 @@ void fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
               double *ffti, double *dr, double *di);
 int32 gilparse(char *s, int32 *ind, int32 *nn);
 int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
+double vector_value(double x, int32 i);
 
 #endif

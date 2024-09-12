@@ -4,6 +4,10 @@
 #include <time.h>
 #include "ggets.h"
 #include "tabular.h"
+#include "delay_handle.h"
+#include "markov.h"
+#include "simplenet.h"
+#include "volterra2.h"
 
 #include <stdlib.h>
 
@@ -36,8 +40,6 @@ double lgamma();
 
 extern int32 NODE;
 
-int32 nsrand48(int32 seed);
-
 #define DFNORMAL 1
 #define DFFP 2
 #define DFSTAB 3
@@ -47,14 +49,8 @@ int32 ERROUT;
 extern int32 DelayFlag;
 int32 NDELAYS = 0;
 /*double pow2(); */
-double get_delay();
 double delay_stab_eval(double, int32);
 double lookup(double, int32);
-double network_value();
-double vector_value();
-double poidev();
-double ndrand48();
-double ker_val();
 double hom_bcs(int32);
 double BoxMuller;
 int32 BoxMullerFlag = 0;
@@ -70,13 +66,6 @@ extern int32 del_stab_flag;
 double CurrentIndex = 0;
 int32 SumIndex = 1;
 
-double evaluate(/* int32* */);
-
-double get_ivar(/* int32 i */);
-
-double eval_rpn(/* int32* */);
-double ker_val();
-double pop();
 /* FIXXX */
 int32 stack_pointer, uptr;
 double constants[MAXPAR];
