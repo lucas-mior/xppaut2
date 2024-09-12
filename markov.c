@@ -17,10 +17,9 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-/* #include <X11/Xlib.h> */
 #include "xpplim.h"
 #include "parserslow.h"
-/* #include "browse.h" */
+#include "markov.h"
 
 extern int32 ConvertStyle;
 extern FILE *convertf;
@@ -36,7 +35,6 @@ extern FILE *convertf;
 #define PI 3.1415926
 
 int64 myrandomseed = -1;
-double ndrand48();
 double ran1(long *);
 double new_state(double, int32, double);
 
@@ -71,7 +69,6 @@ int32 stoch_len;
 int32 STOCH_FLAG, STOCH_HERE, N_TRIALS;
 int32 Wiener[MAXPAR];
 int32 NWiener;
-double normal();
 extern double constants[];
 
 void
