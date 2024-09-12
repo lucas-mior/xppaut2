@@ -722,8 +722,9 @@ int32
 auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
                  int32 def, int32 x, int32 y, char **hints, char *httxt) {
     Window temp = AutoW.base;
-    return pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
-                       AutoW.hint, httxt);
+    int32 value = pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
+                              AutoW.hint, httxt);
+    return value;
 }
 
 void
