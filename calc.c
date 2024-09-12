@@ -199,10 +199,10 @@ do_calc(char *temp, double *z) {
 int32
 has_eq(char *z, char *w, int32 *where) {
     int32 i;
-    for (i = 0; i < strlen(z); i++)
+    for (i = 0; i < (int32)strlen(z); i++)
         if (z[i] == ':')
             break;
-    if (i == strlen(z))
+    if (i == (int32)strlen(z))
         return (0);
     strncpy(w, z, i);
     w[i] = 0;
