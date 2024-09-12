@@ -41,8 +41,6 @@ extern int32 DCURY, DCURX, CURY_OFF, xor_flag;
 extern GC gc;
 extern uint32 MyBackColor, MyForeColor;
 
-char *get_next(), *get_first();
-
 extern char uvar_names[MAXODE][12];
 extern char *ode_names[MAXODE];
 extern int32 METHOD, NEQ, NODE, NMarkov, FIX_VAR;
@@ -65,7 +63,6 @@ extern UFUN_ARG ufun_arg[MAXUFUN];
 extern BC_STRUCT my_bc[MAXODE];
 
 extern int32 NFUN;
-Window make_window();
 
 void reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
@@ -154,9 +151,7 @@ void expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col) {
     return;
 }
 
-void ereset_hot(inew, sb) int32 inew;
-EDIT_BOX *sb;
-{
+void ereset_hot(int32 inew, EDIT_BOX *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);

@@ -256,8 +256,8 @@ do_comline(int32 argc, char **argv) {
         }
         if (k == 5) {
             plintf(argv[i + 1]);
-            sprintf(batchout, argv[i + 1]);
-            sprintf(UserOUTFILE, argv[i + 1]);
+            strncpy(batchout, argv[i + 1], sizeof(batchout));
+            strncpy(UserOUTFILE, argv[i + 1], sizeof(UserOUTFILE));
             i++;
         }
         if (k == 6) {

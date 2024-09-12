@@ -1329,10 +1329,10 @@ void data_table(BROWSER *b) {
 
     double xlo = 0, xhi = 1;
     int32 col;
-    sprintf(value[0], uvar_names[0]);
-    sprintf(value[1], "0.00");
-    sprintf(value[2], "1.00");
-    sprintf(value[3], "%s.tab", value[0]);
+    strncpy(value[0], uvar_names[0], sizeof(value[0]));
+    snprintf(value[1], sizeof(value[0]), "0.00");
+    snprintf(value[2], sizeof(value[0]), "1.00");
+    snprintf(value[3], sizeof(value[0]), "%s.tab", value[0]);
     XGetInputFocus(display, &w, &rev);
     status = do_string_box(4, 4, 1, "Tabulate", name, value, 40);
     XSetInputFocus(display, w, rev, CurrentTime);
@@ -1352,11 +1352,11 @@ void data_find(BROWSER *b) {
 
     static char *name[] = {"*0Variable", "Value"};
     char value[2][MAX_LEN_SBOX];
-    int32 col, row;
+    int32 col, row = 0;
 
     float val;
 
-    sprintf(value[0], uvar_names[0]);
+    strncpy(value[0], uvar_names[0], sizeof(value[0]));
     sprintf(value[1], "0.00");
     XGetInputFocus(display, &w, &rev);
     status = do_string_box(2, 2, 1, "Find Data", name, value, 40);

@@ -32,7 +32,6 @@ extern uint32 MyBackColor, MyForeColor;
 extern int32 screen;
 extern GC gc;
 extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
-Window make_window();
 
 int32
 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,

@@ -23,7 +23,6 @@ int32 NDelay, del_stab_flag, WhichDelay, DelayGrid = 1000;
 double variable_shift[2][MAXODE];
 double delay_list[MAXDELAY];
 
-double evaluate();
 extern double DELTA_T, T0, DELAY;
 extern int32 NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
 

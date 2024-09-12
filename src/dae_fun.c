@@ -20,11 +20,9 @@ extern int32 DelayErr;
 
 extern double EVEC_ERR, NEWT_ERR, BOUND;
 extern int32 EVEC_ITER;
-double evaluate();
 
 extern int32 NODE, FIX_VAR;
 extern int32 *my_ode[];
-double sdot();
 
 /*    will have more stuff someday */
 

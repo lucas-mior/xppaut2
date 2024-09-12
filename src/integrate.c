@@ -219,7 +219,7 @@ void create_new_cline();
 void data_get_mybrowser();
 void save_batch_shoot();
 
-int32 (*solver)();
+int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart, double *work);
 
 void
 init_ar_ic(void) {

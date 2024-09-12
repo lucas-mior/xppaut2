@@ -39,10 +39,7 @@ extern double DELAY;
 extern int32 DelayFlag;
 FITINFO fin;
 
-char *get_first();
-char *get_next();
-
-extern int32 (*solver)();
+extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart, double *work);
 
 void
 init_fit_info(void) {
@@ -349,10 +346,10 @@ test_fit(void) {
     if (get_fit_params() == 0)
         return;
 
-    sprintf(collist, fin.collist);
-    sprintf(varlist, fin.varlist);
-    sprintf(parlist1, fin.parlist1);
-    sprintf(parlist2, fin.parlist2);
+    strncpy(collist, fin.collist, sizeof(collist));
+    strncpy(varlist, fin.varlist, sizeof(varlist));
+    strncpy(parlist1, fin.parlist1, sizeof(parlist1));
+    strncpy(parlist2, fin.parlist2, sizeof(parlist2));
 
     parse_collist(collist, fin.icols, &nvars);
 

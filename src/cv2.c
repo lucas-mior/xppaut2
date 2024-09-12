@@ -20,7 +20,8 @@
 double cv_ropt[OPT_SIZE];
 int32 cv_iopt[OPT_SIZE];
 extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
-static void cvf();
+
+static void cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata);
 void *cvode_mem;
 N_Vector ycv;
 extern int32 NFlags;
@@ -49,8 +50,8 @@ end_cv(void) {
     return;
 }
 
-static void
-cvf(int32 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
+void
+cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
     my_rhs(t, y->data, ydot->data, n);
     return;
 }

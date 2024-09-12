@@ -10,7 +10,6 @@
 #define MAXDERIVED 200
 extern double constants[];
 extern int32 NCON;
-double evaluate();
 typedef struct {
     int32 index, *form;
     char *rhs;
