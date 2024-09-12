@@ -400,7 +400,6 @@ if_needed_load_ext_options(void) {
     FILE *fp;
     char myopts[1024];
     char myoptsx[1026];
-    /*   printf("flag=%d file=%s\n",externaloptionsflag,readsetfile); */
     if (externaloptionsflag == 0)
         return 1;
     if (externaloptionsflag == 1) {
@@ -422,6 +421,7 @@ if_needed_load_ext_options(void) {
         extract_action(myoptsx);
         return 1;
     }
+    return -1;
 }
 
 int32
