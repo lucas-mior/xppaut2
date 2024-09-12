@@ -117,7 +117,7 @@ int32 scroll_box_motion(XEvent ev, SCROLLBOX *sb);
 int32 select_scroll_item(Window w, SCROLLBOX sb);
 void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb);
 int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
-                    char values[][25], int32 maxchar);
+                    char values[][MAX_LEN_SBOX], int32 maxchar);
 void expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col);
 void do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos,
                     int32 col);
