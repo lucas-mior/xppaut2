@@ -1189,8 +1189,8 @@ show_where(char *string, int32 index) {
 }
 
 int32
-function_sym(int32 token) /* functions should have ( after them  */
-{
+function_sym(int32 token) {
+    /* functions should have ( after them  */
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
 
@@ -1875,6 +1875,7 @@ double z;
 
 double
 hom_bcs(int32 i) {
+    (void) i;
     return 0.0; /* this is deprecated so no longer used */
 }
 
