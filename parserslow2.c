@@ -374,7 +374,7 @@ int32
 add_kernel(char *name, double mu, char *expr) {
     char string[100];
 
-    int32 len, i, in = -1;
+    int32 len, in = -1;
     if (duplicate_name(name) == 1)
         return 1;
     if (NKernel == MAXKER) {
@@ -400,7 +400,7 @@ add_kernel(char *name, double mu, char *expr) {
     kernel[NKernel].k_n = 0.0;
     kernel[NKernel].k_n1 = 0.0;
     kernel[NKernel].flag = 0;
-    for (i = 0; i < strlen(expr); i++)
+    for (size_t i = 0; i < strlen(expr); i++)
         if (expr[i] == '#')
             in = i;
     if (in == 0 || in == (strlen(expr) - 1)) {
@@ -411,10 +411,10 @@ add_kernel(char *name, double mu, char *expr) {
         kernel[NKernel].flag = CONV;
         kernel[NKernel].expr = (char *)malloc(strlen(expr) + 2 - in);
         kernel[NKernel].kerexpr = (char *)malloc(in + 1);
-        for (i = 0; i < in; i++)
+        for (int32 i = 0; i < in; i++)
             kernel[NKernel].kerexpr[i] = expr[i];
         kernel[NKernel].kerexpr[in] = 0;
-        for (i = in + 1; i < strlen(expr); i++)
+        for (int32 i = in + 1; i < strlen(expr); i++)
             kernel[NKernel].expr[i - in - 1] = expr[i];
         kernel[NKernel].expr[strlen(expr) - in - 1] = 0;
         plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
