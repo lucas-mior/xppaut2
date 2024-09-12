@@ -1780,9 +1780,8 @@ roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col) {
 int32
 add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
               char *thick) {
-
     int32 err, n, index;
-    /* plintf("<<%s>>\n",col); */
+
     err = chk_ani_color(col, &index);
     if (err == 1) {
         a->col[0] = -index;
