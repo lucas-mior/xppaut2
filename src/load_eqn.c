@@ -1222,7 +1222,8 @@ stor_internopts(char *s1) {
     return;
 }
 
-void set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
+void
+set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     int32 i, j, f;
     char xx[4], yy[4], zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];

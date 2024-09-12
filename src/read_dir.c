@@ -269,10 +269,10 @@ change_directory(char *path) {
 int32
 get_directory(char *direct) {
 #if defined(SYSV) || defined(SVR4)
-    extern char *getcwd (char *, size_t);
+    extern char *getcwd(char *, size_t);
 
 #else
-    extern char *getwd (char *);
+    extern char *getwd(char *);
 
 #endif
 

@@ -86,11 +86,9 @@ load_new_dll(void) {
     return;
 }
 
-typedef double (*Function1)(int32 n, int32 ivar,
-                            double *con, double *var,
+typedef double (*Function1)(int32 n, int32 ivar, double *con, double *var,
                             double *wgt[MAXW], double *ydot);
-typedef double (*Function2)(double *in, double *out,
-                            int32 nin, int32 nout,
+typedef double (*Function2)(double *in, double *out, int32 nin, int32 nout,
                             double *v, double *c);
 
 void

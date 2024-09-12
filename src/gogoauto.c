@@ -506,11 +506,11 @@ dump_params(iap_type iap, rap_type rap, int32 *icp, double *thl) {
     for (i = 0; i < iap.nicp; i++)
         printf("%d ", icp[i]);
     printf("\n");
-    printf("%ld %ld %ld %ld %ld %ld %ld %ld\n", iap.ntst, iap.ncol, iap.iad, iap.isp,
-           iap.isw, iap.iplt, iap.nbc, iap.nint);
+    printf("%ld %ld %ld %ld %ld %ld %ld %ld\n", iap.ntst, iap.ncol, iap.iad,
+           iap.isp, iap.isw, iap.iplt, iap.nbc, iap.nint);
     printf("%ld %g %g %g %g\n", iap.nmx, rap.rl0, rap.rl1, rap.a0, rap.a1);
-    printf("%ld %ld %ld %ld %ld %ld %ld\n", iap.npr, iap.mxbf, iap.iid, iap.itmx,
-           iap.itnw, iap.nwtn, iap.jac);
+    printf("%ld %ld %ld %ld %ld %ld %ld\n", iap.npr, iap.mxbf, iap.iid,
+           iap.itmx, iap.itnw, iap.nwtn, iap.jac);
     printf("%g %g %g\n", rap.epsl, rap.epsu, rap.epss);
     printf("%g %g %g %ld\n", rap.ds, rap.dsmin, rap.dsmax, iap.iads);
     for (i = 0; i < 5; i++)
