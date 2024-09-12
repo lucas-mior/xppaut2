@@ -258,7 +258,7 @@ alpbetjn(double mu, double dt, int32 l) {
 }
 
 double
-betnn(double mu, double dt, double t) {
+betnn(double mu, double dt) {
     double m1;
     if (mu == .5)
         return (sqrt(dt));
@@ -314,7 +314,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
             if (mu == 0.0)
                 bet = .5 * dt;
             else
-                bet = betnn(mu, dt, *t);
+                bet = betnn(mu, dt);
             kernel[i].betnn = bet;
         }
         SETVAR(0, *t);
