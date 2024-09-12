@@ -7,8 +7,8 @@ CFLAGS += -DMYSTR1=$(MAJOR_VERSION) -DMYSTR2=$(MINOR_VERSION)
 CFLAGS += -g -pedantic -O2
 CFLAGS += -DNOERRNO -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
 CFLAGS += -D_DEFAULT_SOURCE -std=c99
-CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include
-LDFLAGS = -lX11 -lm -ldl
+CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./
+LDFLAGS = -lX11 -lm -ldl -L.
 SOURCES = $(wildcard src/*.c)
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = xppaut
@@ -16,13 +16,13 @@ TARGET = xppaut
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) -o $@ $^ $(LDFLAGS) 
+	$(CC) $(CFLAGS) -o $(TARGET) $^ $(LDFLAGS) 
 
 %.o: %.c %.h
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -f src/*.o $(TARGET)
+	rm -f *.o src/*.o $(TARGET)
