@@ -797,7 +797,7 @@ void
 parse_parlist(char *parlist, int32 *ipars, int32 *n) {
     char *item;
     int32 v, i = 0;
-    int32 j;
+    size_t j;
     for (j = 0; j < strlen(parlist); j++) {
         if (parlist[j] != ' ')
             break;
