@@ -89,7 +89,7 @@ int32 add_ani_expr(char *x, int32 *c);
 int32 add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick);
 void reset_comets(void);
 void roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col);
-int32 add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2,
                     char *col, char *thick);
 int32 add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
                    char *col, char *thick);

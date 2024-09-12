@@ -1584,7 +1584,7 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
         break;
 
     case COMET:
-        err = add_ani_comet(&my_ani[n_anicom], x1, y1, x2, y2, col, thick);
+        err = add_ani_comet(&my_ani[n_anicom], x1, y1, x2, col, thick);
         break;
     case LINE:
         err = add_ani_line(&my_ani[n_anicom], x1, y1, x2, y2, col, thick);
@@ -1778,7 +1778,7 @@ roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col) {
 }
 
 int32
-add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
               char *thick) {
     int32 err, n, index;
 
