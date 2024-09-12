@@ -1067,7 +1067,7 @@ text_abs(double x, double y, char *text) {
 void
 fillintext(char *old, char *new) {
     int32 i, l = strlen(old);
-    int32 j, m, k, ans;
+    int32 j, m, ans;
     char name[256], c, c2;
     double z;
     char val[25];
@@ -1091,7 +1091,7 @@ fillintext(char *old, char *new) {
                         if (ans != -1) {
                             sprintf(val, "%g", z);
 
-                            for (k = 0; k < strlen(val); k++) {
+                            for (size_t k = 0; k < strlen(val); k++) {
                                 new[j] = val[k];
                                 j++;
                             }
