@@ -591,7 +591,6 @@ init_X(void) {
     char *win_name = "XPPAUT";
     uint32 x = 0, y = 0;
     uint32 min_wid = 450, min_hgt = 360;
-    char *getenv();
 
     char teststr[] = "The Quick Brown Fox Jumped Over The Lazy Dog?";
 

@@ -33,5 +33,6 @@ void alloc_liap(int32 n);
 void do_this_liaprun(int32 i, double p);
 void norm_vec(double *v, double *mu, int32 n);
 int32 hrw_liapunov(double *liap, int32 batch, double eps);
+void new_adjoint(void);
 
 #endif

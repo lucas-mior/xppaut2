@@ -188,8 +188,6 @@ SYMBOL my_symb[MAX_SYMBS] = {
 int32 NCON = 0, NVAR = 0, NFUN = 0;
 int32 NSYM = STDSYM;
 
-/*     pointers to functions    */
-
 double (*fun1[50])(/* double */);
 double (*fun2[50])(/* double,double */);
 

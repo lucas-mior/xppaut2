@@ -1,5 +1,8 @@
 
 #include "integers.h"
+#include "integrate.h"
+#include "odesol2.h"
+#include "adj2.h"
 #include "numerics.h"
 #include <strings.h>
 
@@ -18,10 +21,7 @@
 #include "storage.h"
 #include "delay_handle.h"
 #include "graf_par.h"
-void data_back();
-void usual_integrate_stuff();
-void new_adjoint();
-void new_h_fun();
+
 extern Window main_win, info_pop;
 extern Display *display;
 extern int32 DCURY, NDELAYS;
@@ -64,7 +64,8 @@ typedef struct {
 
 POINCARE_MAP my_pmap;
 
-extern int32 (*solver)();
+extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
+                       int32 *istart, double *work);
 extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern double BOUND, DELAY, TOLER, ATOLER, HMIN, HMAX;
 float *fft_data, *hist_data, color_scale, min_scale;
@@ -83,16 +84,6 @@ extern int32 MaxEulIter;
 extern double EulTol;
 
 extern int32 AutoEvaluate;
-
-int32 gear();
-int32 discrete();
-int32 euler();
-int32 mod_euler();
-int32 rung_kut();
-int32 adams();
-int32 volterra();
-int32 bak_euler();
-int32 symplect3();
 
 int32 cv_bandflag = 0, cv_bandupper = 1, cv_bandlower = 1;
 extern int32 COLOR, color_total, color_min;

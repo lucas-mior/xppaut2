@@ -20,7 +20,7 @@ extern Display *display;
 extern int32 tfBell, TipsFlag;
 extern int32 DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
 extern GC gc;
-Window make_unmapped_window();
+
 void
 flash(int32 num) {
 }

@@ -71,8 +71,6 @@ typedef struct {
 
 MSGBOXSTRUCT MsgBox;
 
-char *getenv();
-
 void
 do_tutorial(void) {
 
@@ -108,7 +106,7 @@ edit_xpprc(void) {
 
         return;
     } else {
-        snprintf(editor, sizeof(editor), ed);
+        strncpy(editor, ed, sizeof(editor));
     }
 
     child_pid = fork();

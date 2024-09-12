@@ -57,5 +57,6 @@ void shoot_easy(double *x);
 void stop_integration(void);
 int32 stor_full(void);
 int32 do_auto_range_go(void);
+void silent_equilibria(void);
 
 #endif

@@ -93,9 +93,6 @@ int32 MINI_W = 450;
 
 extern int32 Xup;
 int32 ActiveWinList[MAXPOP];
-double signum();
-
-Window make_window();
 
 typedef struct {
     char *name;
