@@ -1,7 +1,6 @@
 #include <string.h>
 #include "parserslow.h"
 #include "autevd.h"
-#include "run_auto.h"
 #include "auto_nox.h"
 #include "auto_x11.h"
 #include "integers.h"
@@ -13,14 +12,10 @@
 
 #include "load_eqn.h"
 
-#include "read_dir.h"
 #include "pp_shoot.h"
 
-#include "read_dir.h"
 /*#include "chunk.h"
  */
-
-#include "kinescope.h"
 
 #include "parserslow.h"
 /*#include "graf_par.h"
@@ -546,7 +541,6 @@ close_auto(/* labels compatible with A2K  */
 
 void
 create_auto_file_name(void) {
-    char string[200];
     char *basec, *bname, *dirc, *dname;
 
     basec = strdup(this_file);

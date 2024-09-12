@@ -2,3 +2,5 @@
 xppaut
 tags
 .tags.vim
+/.cache/
+compile_commands.json
