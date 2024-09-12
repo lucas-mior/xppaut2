@@ -157,7 +157,7 @@ make_eqn(void) {
     */
     okay = read_eqn();
 
-    return (okay);
+    return okay;
 }
 
 void
@@ -178,7 +178,7 @@ disc(char *string) {
     int32 i = 0, l = strlen(string), j = 0, flag = 0;
     char end[256];
     if (is_a_map == 1)
-        return (1);
+        return 1;
     while (i < l) {
         c = string[i];
         if (flag == 1) {
@@ -192,8 +192,8 @@ disc(char *string) {
     end[j] = 0;
 
     if (strcmp(end, "dis") == 0 || strcmp(end, "dif") == 0)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 void
@@ -228,14 +228,14 @@ getfile:
    if((fptr=fopen(string,"r"))==NULL)
    {
     plintf("\n Cannot open %s \n",string);
-    return(0);
+    return 0;
    }
    strcpy(this_file,string);
    clrscr();
    okay=get_eqn(fptr);
    close(fptr);
    for(i=0;i<NLINES;i++)free(save_eqn[i]);
-   return(okay);
+   return okay;
  }
 */
 
@@ -312,7 +312,7 @@ get_a_filename(char *filename, char *wild) {
         else
             return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -338,7 +338,7 @@ read_eqn(void) {
     get_a_filename(string, wild);
     if ((fptr = fopen(string, "r")) == NULL) {
         plintf("\n Cannot open %s \n", string);
-        return (0);
+        return 0;
     }
     strcpy(this_file, string);
     clrscr();
@@ -346,7 +346,7 @@ read_eqn(void) {
     /*close(fptr);*/
     fclose(fptr);
     /* for(i=0;i<NLINES;i++)free(save_eqn[i]); */
-    return (okay);
+    return okay;
 }
 
 /*
@@ -520,7 +520,7 @@ get_eqn(FILE *fptr) {
     plintf("Used %d constants and %d symbols \n", NCON, NSYM);
     plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n", xppvermaj,
            xppvermin);
-    return (1);
+    return 1;
 }
 /*
 write_eqn()
@@ -561,7 +561,7 @@ write_eqn()
    fgets(junk,10,fptr);
    okay=get_eqn(fptr);
    if(okay==1)write_eqn();
-   return(okay);
+   return okay;
   }
 
   wipe_out()
@@ -592,7 +592,7 @@ compiler(char *bob, FILE *fptr) {
         stor_internopts(bob);
         if (ConvertStyle)
             fprintf(convertf, "%s\n", bob);
-        return (done);
+        return done;
     }
     command = get_first(ptr, " ,");
     strlwr(command);
@@ -982,7 +982,7 @@ compiler(char *bob, FILE *fptr) {
         break;
     }
 
-    return (done);
+    return done;
 }
 
 void
@@ -1050,14 +1050,14 @@ char *
 get_first(char *string, char *src) {
     char *ptr;
     ptr = strtok(string, src);
-    return (ptr);
+    return ptr;
 }
 
 char *
 get_next(char *src) {
     char *ptr;
     ptr = strtok(NULL, src);
-    return (ptr);
+    return ptr;
 }
 
 void
@@ -1140,7 +1140,7 @@ getuch(void) {
     ch = getchi();
     if (ch > 64 && ch < 96)
         ch += 32;
-    return (ch);
+    return ch;
 }
 
 /***   remove this for full PP   ***/
@@ -1603,7 +1603,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                 {
                         plintf("End of include file reached NOW \n");
                         IN_INCLUDED_FILE--;
-                        return(1);
+                        return 1;
                 }*/
                 notdone = 0;
             }
@@ -1687,9 +1687,9 @@ find_the_name(char list[MAXODE1][MAXVNAM], int32 n, char *name) {
     for (i = 0; i < n; i++) {
 
         if (strcmp(list[i], name) == 0)
-            return (i);
+            return i;
     }
-    return (-1);
+    return -1;
 }
 
 void
@@ -2407,7 +2407,7 @@ strparse(char *s1, char *s2, int32 i0, int32 *i1) {
                 i++;
                 if (j == m) {
                     *i1 = i;
-                    return (1);
+                    return 1;
                 }
             } else {
                 start = 0;
@@ -2422,13 +2422,13 @@ strparse(char *s1, char *s2, int32 i0, int32 *i1) {
                 start = 1;
                 if (j == m) { /* only one char */
                     *i1 = i;
-                    return (1);
+                    return 1;
                 }
             } else
                 i++;
         }
     }
-    return (0);
+    return 0;
 }
 
 int32
@@ -2457,7 +2457,7 @@ extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
             return 1;
         }
     }
-    return (0);
+    return 0;
 }
 
 int32
@@ -2471,12 +2471,12 @@ find_char(char *s1, char *s2, int32 i0, int32 *i1) {
         for (j = 0; j < m; j++) {
             if (ch == s2[j]) {
                 *i1 = i;
-                return (j);
+                return j;
             }
         }
         i++;
     }
-    return (-1);
+    return -1;
 }
 
 int32
@@ -2493,7 +2493,7 @@ next_nonspace(char *s1, int32 i0, int32 *i1) {
         }
         i++;
     }
-    return (-1);
+    return -1;
 }
 
 /* removes starting blanks from s  */
@@ -2621,7 +2621,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     strcpy(new, old);
                     plintf(" Possible error in array %s -- ignoring it \n",
                            old);
-                    return (0); /* error in array  */
+                    return 0; /* error in array  */
                 }
             }
             j = 2;
@@ -2644,7 +2644,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     strcpy(new, old);
                     plintf(" Possible error in array  %s -- ignoring it \n",
                            old);
-                    return (0); /* error again   */
+                    return 0; /* error again   */
                 }
             }
         }
@@ -2978,7 +2978,7 @@ new_string2(char *old, int32 length) {
         s[length - 1] = '\0';
     }
     /* printf("s = %s; length = %d\n", s, length); */
-    return (s);
+    return s;
 }
 
 char *

@@ -43,21 +43,21 @@ N_VNew(int64 N, void *machEnv) {
     N_Vector v;
 
     if (N <= 0)
-        return (NULL);
+        return NULL;
 
     v = (N_Vector)malloc(sizeof *v);
     if (v == NULL)
-        return (NULL);
+        return NULL;
 
     v->data = (double *)malloc(N * sizeof(double));
     if (v->data == NULL) {
         free(v);
-        return (NULL);
+        return NULL;
     }
 
     v->length = N;
 
-    return (v);
+    return v;
 }
 
 void
@@ -274,7 +274,7 @@ N_VDotProd(N_Vector x, N_Vector y) {
     for (i = 0; i < N; i++)
         sum += (*xd++) * (*yd++);
 
-    return (sum);
+    return sum;
 }
 
 double
@@ -290,7 +290,7 @@ N_VMaxNorm(N_Vector x) {
             max = ABS(*xd);
     }
 
-    return (max);
+    return max;
 }
 
 double
@@ -324,7 +324,7 @@ N_VMin(N_Vector x) {
             min = *xd;
     }
 
-    return (min);
+    return min;
 }
 
 void
@@ -353,11 +353,11 @@ N_VInvTest(N_Vector x, N_Vector z) {
 
     for (i = 0; i < N; i++) {
         if (*xd == ZERO)
-            return (FALSE);
+            return FALSE;
         *zd++ = ONE / (*xd++);
     }
 
-    return (TRUE);
+    return TRUE;
 }
 
 void

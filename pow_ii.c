@@ -24,5 +24,5 @@ pow_ii(int64 ap, int64 bp) {
         else
             break;
     }
-    return (pow);
+    return pow;
 }

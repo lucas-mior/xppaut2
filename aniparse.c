@@ -385,8 +385,8 @@ check_ani_pause(XEvent ev) {
     if ((vcr.iexist == 0) || (!animation_on_the_fly))
         return 0;
     if (ev.type == ButtonPress && ev.xbutton.window == vcr.wpause)
-        return (27);
-    return (0);
+        return 27;
+    return 0;
 }
 
 void
@@ -1066,7 +1066,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, unsigned char *out) {
     }
     /* XDestroyImage(ximage); */
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -1333,7 +1333,7 @@ parse_ani_string(char *s, FILE *fp) {
             return -1;
         strcpy(x3, nxt);
         anss = add_grab_command(x1, x2, x3, fp);
-        return (anss);
+        return anss;
     case AXNULL:
     case AYNULL:
         nxt = get_next(";");
@@ -1793,7 +1793,7 @@ add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
     n = atoi(x2);
     if (n <= 0) {
         plintf("4th argument of comet must be positive int64!\n");
-        return (-1);
+        return -1;
     }
     err = add_ani_expr(x1, a->x1);
     if (err)
@@ -2548,7 +2548,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
 
     if (n_ani_grab >= MAX_ANI_GRAB) {
         plintf("Too many grabbables! \n");
-        return (-1);
+        return -1;
     }
     j = n_ani_grab;
     z = atof(ts);
@@ -2557,7 +2557,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     ani_grab[j].tol = z;
     if (add_expr(xs, com, &nc)) {
         plintf("Bad grab x %s \n", xs);
-        return (-1);
+        return -1;
     }
     ani_grab[j].x = (int32 *)malloc(sizeof(int32) * (nc + 1));
     for (k = 0; k <= nc; k++)
@@ -2565,19 +2565,19 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
 
     if (add_expr(ys, com, &nc)) {
         plintf("Bad grab y %s \n", ys);
-        return (-1);
+        return -1;
     }
     ani_grab[j].y = (int32 *)malloc(sizeof(int32) * (nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].y[k] = com[k];
     ans = ani_grab_tasks(start, j, 1);
     if (ans < 0)
-        return (-1);
+        return -1;
     if (ani_grab_tasks(end, j, 2) == (-1))
-        return (-1);
+        return -1;
     n_ani_grab++;
     /*   info_grab_stuff(); */
-    return (1);
+    return 1;
 }
 
 void
@@ -2606,7 +2606,7 @@ ani_grab_tasks(char *line, int32 igrab, int32 which) {
             form[k] = 0;
             strcpy(rhs, form);
             if (add_grab_task(lhs, rhs, igrab, which) < 0)
-                return (-1);
+                return -1;
             k = 0;
             continue;
         }
@@ -2619,14 +2619,14 @@ ani_grab_tasks(char *line, int32 igrab, int32 which) {
         form[k] = c;
         k++;
     }
-    return (1);
+    return 1;
 }
 
 int32
 run_now_grab(void) {
     if (who_was_grabbed < 0)
-        return (0);
-    return (ani_grab[who_was_grabbed].end.runnow);
+        return 0;
+    return ani_grab[who_was_grabbed].end.runnow;
 }
 
 int32
@@ -2644,7 +2644,7 @@ search_for_grab(double x, double y) {
             imin = i;
         }
     }
-    return (imin);
+    return imin;
 }
 
 void
@@ -2682,12 +2682,12 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
     if (which == 1) {
         i = ani_grab[igrab].start.n;
         if (i >= MAX_GEVENTS)
-            return (-1); /* too many events */
+            return -1; /* too many events */
         strcpy(ani_grab[igrab].start.lhsname[i], lhs);
         if (add_expr(rhs, com, &nc)) {
             plintf("Bad right-hand side for grab event %s\n", rhs);
 
-            return (-1);
+            return -1;
         }
         ani_grab[igrab].start.comrhs[i] =
             (int32 *)malloc(sizeof(int32) * (nc + 1));
@@ -2695,7 +2695,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 
         ani_grab[igrab].start.n = ani_grab[igrab].start.n + 1;
-        return (1);
+        return 1;
     }
     if (which == 2) {
 
@@ -2703,26 +2703,26 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             rn = atoi(rhs);
             ani_grab[igrab].end.runnow = rn;
             /* printf("run now set to %d \n",rn); */
-            return (1);
+            return 1;
         }
         i = ani_grab[igrab].end.n;
         if (i >= MAX_GEVENTS)
-            return (-1); /* too many events */
+            return -1; /* too many events */
 
         strcpy(ani_grab[igrab].end.lhsname[i], lhs);
         if (add_expr(rhs, com, &nc)) {
             plintf("Bad right-hand side for grab event %s\n", rhs);
             plintf("should return -1\n");
-            return (-1);
+            return -1;
         }
         ani_grab[igrab].end.comrhs[i] =
             (int32 *)malloc(sizeof(int32) * (nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;
-        return (1);
+        return 1;
     }
-    return (-1);
+    return -1;
 }
 
 void

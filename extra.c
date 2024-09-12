@@ -122,7 +122,7 @@ int32
 my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
     char *error;
     if (dlf.loaded == -1)
-        return (0);
+        return 0;
     if (dlf.loaded == 0) {
         dlhandle = dlopen(dlf.libname, RTLD_LAZY);
         if (!dlhandle) {
@@ -152,7 +152,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
 
     } /* Ok we have a nice function */
     fun(in, out, nin, nout, v, c);
-    return (1);
+    return 1;
 }
 #else
 
@@ -234,7 +234,7 @@ get_export_count(char *s) {
         if (s[j] == ',')
             i++;
     i++;
-    return (i);
+    return i;
 }
 
 void

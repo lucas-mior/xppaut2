@@ -630,24 +630,24 @@ auto_name_to_index(char *s) {
     int32 i, in;
     find_variable(s, &in);
     if (in == 0)
-        return (10);
+        return 10;
     in = find_user_name(PARAM_BOX, s);
     for (i = 0; i < NAutoPar; i++)
         if (AutoPar[i] == in)
-            return (i);
-    return (-1);
+            return i;
+    return -1;
 }
 
 int32
 auto_par_to_name(int32 index, char *s) {
     if (index == 10) {
         sprintf(s, "T");
-        return (1);
+        return 1;
     }
     if (index < 0 || index > 8)
-        return (0);
+        return 0;
     sprintf(s, "%s", upar_names[AutoPar[index]]);
-    return (1);
+    return 1;
 }
 
 void
@@ -1064,7 +1064,7 @@ plot_point(int32 flag2, int32 icp1, int32 icp2) {
         j = 0;
     if (flag2 > 0 && icp2 != Auto.icp2)
         j = 0;
-    return (j);
+    return j;
 }
 
 void
@@ -1614,7 +1614,7 @@ int32
 yes_reset_auto(void) {
     char string[256];
     if (NBifs <= 1)
-        return (0);
+        return 0;
     kill_diagrams();
     FromAutoFlag = 0;
     NBifs = 1;
@@ -1633,10 +1633,10 @@ int32
 reset_auto(void) {
     char ch;
     if (NBifs <= 1)
-        return (0);
+        return 0;
     ch = (char)TwoChoice("YES", "NO", "Destroy AUTO diagram & files", "yn");
     if (ch != 'y')
-        return (0);
+        return 0;
 
     return (yes_reset_auto());
 }
@@ -2823,12 +2823,12 @@ noinfo(/* get rid of any blank lines  */
     int32 n = strlen(s);
     int32 i;
     if (n == 0)
-        return (1);
+        return 1;
     for (i = 0; i < n; i++) {
         if (!isspace(s[i]))
-            return (0);
+            return 0;
     }
-    return (1);
+    return 1;
 }
 
 void
@@ -2879,14 +2879,14 @@ move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
         if (mylab == lab) {
             *nrow = ntpl;
             *ndim = nar - 1;
-            return (1);
+            return 1;
         }
         for (i = 0; i < nskip; i++)
             fgets(line, MAXLINELENGTH, fp);
         if (feof(fp))
             break;
     }
-    return (0);
+    return 0;
 }
 
 void

@@ -84,7 +84,7 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
         *t = tout;
         return 1;
     }
-    return (-1);
+    return -1;
 }
 
 long

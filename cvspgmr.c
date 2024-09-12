@@ -228,37 +228,37 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     /* Print error message and return if cvspgmr_mem is NULL */
     if (cvspgmr_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Check for legal pretype, precond, and psolve */
     if ((pretype != NONE) && (pretype != LEFT) && (pretype != RIGHT) &&
         (pretype != BOTH)) {
         fprintf(errfp, MSG_BAD_PRETYPE, pretype, NONE, LEFT, RIGHT, BOTH);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     if ((pretype != NONE) && (psolve == NULL)) {
         fprintf(errfp, MSG_PSOLVE_REQ);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Check for legal gstype */
     if ((gstype != MODIFIED_GS) && (gstype != CLASSICAL_GS)) {
         fprintf(errfp, MSG_BAD_GSTYPE, gstype, MODIFIED_GS, CLASSICAL_GS);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Allocate memory for ytemp and x */
     ytemp = N_VNew(N, machenv);
     if (ytemp == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     x = N_VNew(N, machenv);
     if (x == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(ytemp);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Call SpgmrMalloc to allocate workspace for Spgmr */
@@ -267,7 +267,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(ytemp);
         N_VFree(x);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Initialize sqrtN and counters, and set workspace lengths */
@@ -289,7 +289,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     /* (precond != NULL)                                            */
     *setupNonNull = (pretype != NONE) && (precond != NULL);
 
-    return (LINIT_OK);
+    return LINIT_OK;
 }
 
 /*************** CVSpgmrSetup ****************************************
@@ -336,7 +336,7 @@ CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
     /* Set npe, and return the same value ier that precond returned */
     if (iopt != NULL)
         iopt[SPGMR_NPE] = npe;
-    return (ier);
+    return ier;
 }
 
 /*************** CVSpgmrSolve ****************************************
@@ -372,7 +372,7 @@ CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
     if (bnorm <= deltar) {
         if (mnewt > 0)
             N_VConst(ZERO, b);
-        return (0);
+        return 0;
     }
 
     /* Set vectors ycur and fcur for use by the Atimes and Psolve routines */
@@ -404,10 +404,10 @@ CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
 
     /* Set return value to -1, 0, or 1 */
     if (ier < 0)
-        return (-1);
+        return -1;
     if ((ier == SPGMR_SUCCESS) || ((ier == SPGMR_RES_REDUCED) && (mnewt == 0)))
-        return (0);
-    return (1);
+        return 0;
+    return 1;
 }
 
 /*************** CVSpgmrFree *****************************************
@@ -450,7 +450,7 @@ CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
     rho = N_VWrmsNorm(v, ewt);
     if (rho == ZERO) {
         N_VConst(ZERO, z);
-        return (0);
+        return 0;
     }
 
     /* Set ytemp = ycur + (1/rho) v */
@@ -464,7 +464,7 @@ CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
     N_VLinearSum(ONE, z, -ONE, fcur, z);
     N_VLinearSum(-gamma * rho, z, ONE, v, z);
 
-    return (0);
+    return 0;
 }
 
 /*************** CVSpgmrPSolve ***************************************
@@ -492,5 +492,5 @@ CVSpgmrPSolve(void *cvode_mem, N_Vector r, N_Vector z, int32 lr) {
                  P_data, z);
     /* This call is counted in nps within the CVSpgmrSolve routine */
 
-    return (ier);
+    return ier;
 }

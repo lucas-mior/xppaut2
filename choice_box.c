@@ -144,7 +144,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     if (status == FORGET_ALL)
         for (i = 0; i < n; i++)
             check[i] = oldcheck[i];
-    return (status);
+    return status;
 }
 
 int32
@@ -193,5 +193,5 @@ choice_box_event_loop(CHOICE_BOX p)
         break;
     }
 
-    return (status);
+    return status;
 }

@@ -103,8 +103,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask);
     if (error)
-        return (0);
-    return (1);
+        return 0;
+    return 1;
 }
 
 void

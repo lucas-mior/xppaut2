@@ -225,7 +225,7 @@ lookupxy(double x, int32 n, double *xv, double *yv) {
         x1 = xv[i];
         y1 = yv[i];
     }
-    return (yv[n - 1]);
+    return yv[n - 1];
 }
 
 double
@@ -255,7 +255,7 @@ lookup(double x, int32 index) {
     y = my_table[index].y;
 
     if (my_table[index].flag == 0)
-        return (0.0); /* Not defined   */
+        return 0.0; /* Not defined   */
     if (my_table[index].xyvals == 1)
         return (lookupxy(x, n, my_table[index].x, y));
 
@@ -275,7 +275,7 @@ lookup(double x, int32 index) {
             plintf("index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
                    index, x, i1, i2, x1, y1, y2);
 #endif
-            return (y1);
+            return y1;
         };
     }
     if (i1 < 0)
@@ -283,7 +283,7 @@ lookup(double x, int32 index) {
     if (i2 >= n)
         return (y[n - 1] + (y[n - 1] - y[n - 2]) * (x - xhi) / dx);
 
-    return (0.0);
+    return 0.0;
 }
 
 void
@@ -320,7 +320,7 @@ eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
         err_msg("Illegal formula...");
         NCON = ncold;
         NSYM = nsym;
-        return (0);
+        return 0;
     }
     oldt = get_ivar(0);
     dx = (xhi - xlo) / ((double)(n - 1));
@@ -331,7 +331,7 @@ eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
     set_ivar(0, oldt);
     NCON = ncold;
     NSYM = nsym;
-    return (1);
+    return 1;
 }
 
 int32
@@ -341,15 +341,15 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
 
     if (my_table[index].flag == 1) {
         err_msg("Not a function table...");
-        return (0);
+        return 0;
     }
     if (xlo > xhi) {
         err_msg("Xlo > Xhi ???");
-        return (0);
+        return 0;
     }
     if (npts < 2) {
         err_msg("Too few points...");
-        return (0);
+        return 0;
     }
     if (my_table[index].flag == 0) {
         my_table[index].y = (double *)malloc(length * sizeof(double));
@@ -359,7 +359,7 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
     }
     if (my_table[index].y == NULL) {
         err_msg("Unable to allocate table");
-        return (0);
+        return 0;
     }
     my_table[index].flag = 2;
     if (eval_fun_table(npts, xlo, xhi, formula, my_table[index].y)) {
@@ -368,9 +368,9 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
         my_table[index].n = npts;
         my_table[index].dx = (xhi - xlo) / ((double)(npts - 1));
         strcpy(my_table[index].filename, formula);
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 int32
@@ -403,7 +403,7 @@ load_table(char *filename, int32 index) {
 
     if (my_table[index].flag == 2) {
         err_msg("Not a file table...");
-        return (0);
+        return 0;
     }
     fp = fopen(filename2, "r");
     if (fp == NULL) {
@@ -411,7 +411,7 @@ load_table(char *filename, int32 index) {
         snprintf(error, sizeof(error), "File<%s> not found in %s", filename2,
                  cur_dir);
         err_msg(error);
-        return (0);
+        return 0;
     }
     my_table[index].interp = 0;
     fgets(bob, 100, fp);
@@ -429,7 +429,7 @@ load_table(char *filename, int32 index) {
     if (length < 2) {
         err_msg("Length too small");
         fclose(fp);
-        return (0);
+        return 0;
     }
     fgets(bob, 100, fp);
     xlo = atof(bob);
@@ -438,14 +438,14 @@ load_table(char *filename, int32 index) {
     if (xlo >= xhi) {
         err_msg("xlo >= xhi ??? ");
         fclose(fp);
-        return (0);
+        return 0;
     }
     if (my_table[index].flag == 0) {
         my_table[index].y = (double *)malloc(length * sizeof(double));
         if (my_table[index].y == NULL) {
             err_msg("Unable to allocate table");
             fclose(fp);
-            return (0);
+            return 0;
         }
         for (i = 0; i < length; i++) {
             fgets(bob, 100, fp);
@@ -458,14 +458,14 @@ load_table(char *filename, int32 index) {
         my_table[index].flag = 1;
         strcpy(my_table[index].filename, filename2);
         fclose(fp);
-        return (1);
+        return 1;
     }
     my_table[index].y =
         (double *)realloc((void *)my_table[index].y, length * sizeof(double));
     if (my_table[index].y == NULL) {
         err_msg("Unable to reallocate table");
         fclose(fp);
-        return (0);
+        return 0;
     }
     for (i = 0; i < length; i++) {
         fgets(bob, 100, fp);
@@ -477,7 +477,7 @@ load_table(char *filename, int32 index) {
     my_table[index].dx = (xhi - xlo) / (length - 1);
     my_table[index].flag = 1;
     fclose(fp);
-    return (1);
+    return 1;
 }
 
 int32

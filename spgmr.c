@@ -39,19 +39,19 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
     /* Check the input parameters */
 
     if ((N <= 0) || (l_max <= 0))
-        return (NULL);
+        return NULL;
 
     /* Get memory for the Krylov basis vectors V[0], ..., V[l_max] */
 
     V = (N_Vector *)malloc((l_max + 1) * sizeof(N_Vector));
     if (V == NULL)
-        return (NULL);
+        return NULL;
 
     for (k = 0; k <= l_max; k++) {
         V[k] = N_VNew(N, machEnv);
         if (V[k] == NULL) {
             FreeVectorArray(V, k - 1);
-            return (NULL);
+            return NULL;
         }
     }
 
@@ -60,7 +60,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
     Hes = (double **)malloc((l_max + 1) * sizeof(double *));
     if (Hes == NULL) {
         FreeVectorArray(V, l_max);
-        return (NULL);
+        return NULL;
     }
 
     for (k = 0; k <= l_max; k++) {
@@ -69,7 +69,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
             for (i = 0; i < k; i++)
                 free(Hes[i]);
             FreeVectorArray(V, l_max);
-            return (NULL);
+            return NULL;
         }
     }
 
@@ -80,7 +80,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
         FreeVectorArray(V, l_max);
-        return (NULL);
+        return NULL;
     }
 
     /* Get memory to hold the correction to z_tilde */
@@ -91,7 +91,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
         FreeVectorArray(V, l_max);
-        return (NULL);
+        return NULL;
     }
 
     /* Get memory to hold SPGMR y and g vectors */
@@ -103,7 +103,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
         FreeVectorArray(V, l_max);
-        return (NULL);
+        return NULL;
     }
 
     /* Get an array to hold a temporary vector */
@@ -116,7 +116,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
         FreeVectorArray(V, l_max);
-        return (NULL);
+        return NULL;
     }
 
     /* Get memory for an SpgmrMemRec containing SPGMR matrices and vectors */
@@ -130,7 +130,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
         FreeVectorArray(V, l_max);
-        return (NULL);
+        return NULL;
     }
 
     /* Set the fields of mem */
@@ -146,7 +146,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
 
     /* Return the pointer to SPGMR memory */
 
-    return (mem);
+    return mem;
 }
 
 /*************** SpgmrSolve ******************************************/
@@ -164,7 +164,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     int32 i, j, k, l, l_plus_1, l_max, krydim = 0, ier, ntries;
 
     if (mem == NULL)
-        return (SPGMR_MEM_NULL);
+        return SPGMR_MEM_NULL;
 
     /* Make local copies of mem variables */
 
@@ -196,7 +196,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         N_VScale(ONE, b, vtemp);
     } else {
         if (atimes(A_data, x, vtemp) != 0)
-            return (SPGMR_ATIMES_FAIL);
+            return SPGMR_ATIMES_FAIL;
         N_VLinearSum(ONE, b, -ONE, vtemp, vtemp);
     }
     N_VScale(ONE, vtemp, V[0]);
@@ -205,7 +205,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     /*
       if (scale_b) N_VProd(sb, vtemp, vtemp);
       s_r0_norm = RSqrt(N_VDotProd(vtemp, vtemp));
-      if (s_r0_norm <= delta) return(SPGMR_SUCCESS);
+      if (s_r0_norm <= delta) return SPGMR_SUCCESS;
     */
     /* Apply left preconditioner and b-scaling to V[0] = r_0 */
 
@@ -230,7 +230,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
 
     *res_norm = r_norm = beta = RSqrt(N_VDotProd(V[0], V[0]));
     if (r_norm <= delta)
-        return (SPGMR_SUCCESS);
+        return SPGMR_SUCCESS;
 
     /* Set xcor = 0 */
 
@@ -281,7 +281,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
 
             /* Apply A: V[l+1] = A P2_inv sx_inv V[l] */
             if (atimes(A_data, vtemp, V[l_plus_1]) != 0)
-                return (SPGMR_ATIMES_FAIL);
+                return SPGMR_ATIMES_FAIL;
 
             /* Apply left preconditioning: vtemp = P1_inv A P2_inv sx_inv V[l]
              */
@@ -307,17 +307,17 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
             if (gstype == CLASSICAL_GS) {
                 if (ClassicalGS(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l]),
                                 vtemp, yg) != 0)
-                    return (SPGMR_GS_FAIL);
+                    return SPGMR_GS_FAIL;
             } else {
                 if (ModifiedGS(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) !=
                     0)
-                    return (SPGMR_GS_FAIL);
+                    return SPGMR_GS_FAIL;
             }
 
             /*  Update the QR factorization of Hes  */
 
             if (QRfact(krydim, Hes, givens, l) != 0)
-                return (SPGMR_QRFACT_FAIL);
+                return SPGMR_QRFACT_FAIL;
 
             /*  Update residual norm estimate; break if convergence test passes
              */
@@ -340,7 +340,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         for (i = 1; i <= krydim; i++)
             yg[i] = ZERO;
         if (QRsol(krydim, Hes, givens, yg) != 0)
-            return (SPGMR_QRSOL_FAIL);
+            return SPGMR_QRSOL_FAIL;
 
         /* Add correction vector V_l y to xcor */
         for (k = 0; k < krydim; k++)
@@ -367,7 +367,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
              */
             N_VLinearSum(ONE, x, ONE, vtemp, x);
 
-            return (SPGMR_SUCCESS);
+            return SPGMR_SUCCESS;
         }
 
         /* Not yet converged; if allowed, prepare for restart */
@@ -418,10 +418,10 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         /* Add vtemp to initial x to get final solution x, and return */
         N_VLinearSum(ONE, x, ONE, vtemp, x);
 
-        return (SPGMR_RES_REDUCED);
+        return SPGMR_RES_REDUCED;
     }
 
-    return (SPGMR_CONV_FAIL);
+    return SPGMR_CONV_FAIL;
 }
 
 /*************** SpgmrFree *******************************************/

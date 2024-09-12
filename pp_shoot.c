@@ -282,23 +282,23 @@ set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
             *ipar = i;
         else {
             err_msg("No such parameter");
-            return (0);
+            return 0;
         }
         i = find_user_name(IC, values[1]);
         if (i > -1)
             *ivar = i;
         else {
             err_msg("No such variable");
-            return (0);
+            return 0;
         }
         *sect = atof(values[2]);
         if (values[3][0] == 'Y' || values[3][0] == 'y')
             *ishow = 1;
         else
             *ishow = 0;
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -420,7 +420,7 @@ set_up_sh_range(void) {
         i = find_user_name(PARAM, shoot_range.item);
         if (i < 0) {
             err_msg("No such parameter");
-            return (0);
+            return 0;
         }
 
         shoot_range.steps = atoi(values[1]);
@@ -439,10 +439,10 @@ set_up_sh_range(void) {
 
         shoot_range.side = atoi(values[5]);
 
-        return (1);
+        return 1;
     }
 
-    return (0);
+    return 0;
 }
 
 void

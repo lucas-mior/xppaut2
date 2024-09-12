@@ -997,8 +997,8 @@ find_color(int32 in) {
     int32 i;
     for (i = 0; i <= 10; i++)
         if (in == colorline[i])
-            return (i);
-    return (0);
+            return i;
+    return 0;
 }
 
 int32
@@ -1037,9 +1037,9 @@ alter_curve(char *title, int32 in_it, int32 n) {
             i = 0;
         MyGraph->color[n] = i;
 
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -1275,9 +1275,9 @@ freeze_crv(int32 ind) {
     int32 i;
     i = create_crv(ind);
     if (i < 0)
-        return (-1);
+        return -1;
     edit_frz_crv(i);
-    return (1);
+    return 1;
 }
 
 void
@@ -1299,7 +1299,7 @@ create_crv(int32 ind) {
             iz = MyGraph->zv[ind];
             if (my_browser.maxrow <= 2) {
                 err_msg("No Curve to freeze");
-                return (-1);
+                return -1;
             }
             frz[i].xv = (float *)malloc(sizeof(float) * my_browser.maxrow);
             frz[i].yv = (float *)malloc(sizeof(float) * my_browser.maxrow);
@@ -1308,7 +1308,7 @@ create_crv(int32 ind) {
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
                 err_msg("Cant allocate storage for curve");
-                return (-1);
+                return -1;
             }
             frz[i].use = 1;
             frz[i].len = my_browser.maxrow;
@@ -1322,11 +1322,11 @@ create_crv(int32 ind) {
             frz[i].w = draw_win;
             snprintf(frz[i].name, sizeof(frz[i].name), "crv%c", 'a' + i);
             strncpy(frz[i].key, frz[i].name, sizeof(frz[i].key));
-            return (i);
+            return i;
         }
     }
     err_msg("All curves used");
-    return (-1);
+    return -1;
 }
 
 void
@@ -1545,7 +1545,7 @@ get_frz_index(Window w) {
         }
     }
     if (count == 0)
-        return (-1);
+        return -1;
     key[count] = 0;
     ch = (char)pop_up_list(&temp, "Curves", n, key, count, 12, 0, 10,
                            8 * DCURY + 8, no_hint, info_pop, info_message);

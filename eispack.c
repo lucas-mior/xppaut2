@@ -7360,7 +7360,7 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     free(fv1);
     free(iv1);
     free(wi);
-    return (ier);
+    return ier;
 }
 
 void

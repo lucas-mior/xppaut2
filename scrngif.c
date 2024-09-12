@@ -136,13 +136,13 @@ use_global_map(unsigned char *pixels, unsigned char *ppm, int32 h, int32 w) {
             b = ppm[k + 2];
             pix = ppmtopix(r, g, b, &nc);
             if (pix < 0)
-                return (0);
+                return 0;
             pixels[l] = pix;
             k += 3;
             l++;
         }
     }
-    return (1);
+    return 1;
 }
 
 int32

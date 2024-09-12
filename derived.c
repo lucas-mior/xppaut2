@@ -41,7 +41,7 @@ compile_derived(void) {
     for (i = 0; i < nderived; i++) {
         if (add_expr(derived[i].rhs, f, &n) == 1) {
             plintf(" Bad right-hand side for derived parameters \n");
-            return (1);
+            return 1;
         }
         derived[i].form = (int32 *)malloc(sizeof(int32) * (n + 2));
         for (k = 0; k < n; k++)
@@ -71,7 +71,7 @@ add_derived(char *name, char *rhs) {
     int32 i0;
     if (nderived >= MAXDERIVED) {
         plintf(" Too many derived constants! \n");
-        return (1);
+        return 1;
     }
     i0 = nderived;
     derived[i0].rhs = (char *)malloc(n);

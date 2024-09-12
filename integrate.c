@@ -323,7 +323,7 @@ set_up_eq_range(void) {
         i = find_user_name(PARAM, eq_range.item);
         if (i < 0) {
             err_msg("No such parameter");
-            return (0);
+            return 0;
         }
 
         eq_range.steps = atoi(values[1]);
@@ -347,9 +347,9 @@ set_up_eq_range(void) {
         if (eq_range.col <= 1 || eq_range.col > (NEQ + 1))
             eq_range.col = -1;
 
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -389,7 +389,7 @@ range_item(void) {
         if (i <= -1) {
             sprintf(bob, " %s is not a parameter or variable !", range.item);
             err_msg(bob);
-            return (0);
+            return 0;
         }
         range.type = IC;
         range.index = i;
@@ -410,7 +410,7 @@ range_item2(void) {
         if (i <= -1) {
             sprintf(bob, " %s is not a parameter or variable !", range.item2);
             err_msg(bob);
-            return (0);
+            return 0;
         }
         range.type2 = IC;
         range.index2 = i;
@@ -456,7 +456,7 @@ set_up_range(void) {
           i=find_user_name(IC,range.item);
           if(i<=-1){
             err_msg("No such name!");
-            return(0);
+            return 0;
           }
           range.type=IC;
           range.index=i;
@@ -490,9 +490,9 @@ set_up_range(void) {
               range.reset,range.oldic,range.type,range.index,
               range.plow,range.phigh); */
         RANGE_FLAG = 1;
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 int32
@@ -572,9 +572,9 @@ set_up_range2(void) {
         range.rtype = atoi(values[11]);
 
         RANGE_FLAG = 1;
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -827,7 +827,7 @@ do_range(double *x,
     if (flag == 0 || flag == 2) {
         range.rtype = 0;
         if (set_up_range() == 0)
-            return (-1);
+            return -1;
     }
     if (flag == 1) {
 
@@ -1013,7 +1013,7 @@ do_range(double *x,
     if (STOCH_FLAG)
         do_stats(ierr);
 
-    return (ierr);
+    return ierr;
 }
 
 void
@@ -1272,7 +1272,7 @@ write_this_run(char *file, int32 i) {
     }
     if (MakePlotFlag)
         dump_ps(i);
-    return (1);
+    return 1;
 }
 
 void
@@ -1649,7 +1649,7 @@ extract_ic_data(char *big) {
         front[i] = c;
         i++;
         if (i >= n) {
-            return (-1);
+            return -1;
         }
     }
     front[i] = 0;
@@ -1668,7 +1668,7 @@ extract_ic_data(char *big) {
         store_new_array_ic(new, j1, j2, back);
         ar_ic_defined = 1;
     }
-    return (1);
+    return 1;
 }
 
 void
@@ -1793,7 +1793,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 
         integrate(t, y, tend, dt, 1, nout, istart);
 
-        return (1);
+        return 1;
     }
     MSWTCH(xpv.x, y);
     evaluate_derived();
@@ -1805,7 +1805,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
         if (kflag < 0) {
             ping();
             if (RANGE_FLAG)
-                return (0);
+                return 0;
             switch (kflag) {
             case -1:
                 err_msg(" Singular Jacobian ");
@@ -1815,7 +1815,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                 break;
             }
 
-            return (0);
+            return 0;
         }
     } else {
         tout = *t + tend * dt / fabs(dt);
@@ -1829,7 +1829,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             if (kflag < 0) {
                 ping();
                 if (RANGE_FLAG)
-                    return (0);
+                    return 0;
                 switch (kflag) {
                 case -1:
                     err_msg("kflag=-1: minimum step too big");
@@ -1845,7 +1845,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                     break;
                 }
 
-                return (0);
+                return 0;
             }
             break;
 #ifdef CVODE_YES
@@ -1854,7 +1854,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 cvode_err_msg(kflag);
-                return (0);
+                return 0;
             }
             end_cv();
             break;
@@ -1866,7 +1866,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
                 if (RANGE_FLAG)
-                    return (0);
+                    return 0;
                 dp_err(kflag);
                 return 0;
             }
@@ -1878,7 +1878,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             if (kflag < 0) {
                 ping();
                 if (RANGE_FLAG)
-                    return (0);
+                    return 0;
                 err_msg("Step size too small");
                 return 0;
             }
@@ -1891,7 +1891,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             if (kflag) {
                 ping();
                 if (RANGE_FLAG)
-                    return (0);
+                    return 0;
                 switch (kflag) {
                 case 2:
                     err_msg("Step size too small");
@@ -1909,13 +1909,13 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                     err_msg("exceeded MAXTRY in stiff");
                     break;
                 }
-                return (0);
+                return 0;
             }
             break;
         }
     }
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -1964,7 +1964,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     /* else nit=tend/fabs(dt); */
     nit = (nit + nout - 1) / nout;
     if (nit == 0)
-        return (rval);
+        return rval;
     one_flag_step(xpv.x, xpv.x, &iflagstart, *t, &tnew, nodes, &sss);
     MSWTCH(x, xpv.x);
     extra(x, *t, NODE,
@@ -1997,7 +1997,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             tout = tzero + dt * (icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
-                return (1);
+                return 1;
             }
 
             MSWTCH(xpv.x, x);
@@ -2011,13 +2011,13 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 DelayErr = 0;
                 LastTime = *t;
                 err_dae();
-                return (1);
+                return 1;
             }
             if (kflag < 0) {
                 ping();
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
-                    return (1);
+                    return 1;
                 }
                 switch (kflag) {
                 case -1:
@@ -2035,7 +2035,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
 
                 LastTime = *t;
-                return (1);
+                return 1;
             }
         } break;
 #ifdef CVODE_YES
@@ -2045,7 +2045,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
                 end_cv();
-                return (1);
+                return 1;
             }
             MSWTCH(xpv.x, x);
             cvode(start, xpv.x, t, nodes, tout, &kflag, &TOLER, &ATOLER);
@@ -2055,17 +2055,17 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 DelayErr = 0;
                 err_dae();
                 LastTime = *t;
-                return (1);
+                return 1;
             }
             if (kflag < 0) {
                 ping();
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
-                    return (1);
+                    return 1;
                 }
                 cvode_err_msg(kflag);
                 LastTime = *t;
-                return (1);
+                return 1;
             }
 
             break;
@@ -2077,7 +2077,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
 
-                return (1);
+                return 1;
             }
             MSWTCH(xpv.x, x);
             dp(start, xpv.x, t, nodes, tout, &TOLER, &ATOLER, METHOD - DP5,
@@ -2088,17 +2088,17 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 DelayErr = 0;
                 err_dae();
                 LastTime = *t;
-                return (1);
+                return 1;
             }
             if (kflag < 0) {
 
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
-                    return (1);
+                    return 1;
                 }
                 dp_err(kflag);
                 LastTime = *t;
-                return (1);
+                return 1;
             }
 
             break;
@@ -2107,7 +2107,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
 
-                return (1);
+                return 1;
             }
             MSWTCH(xpv.x, x);
             rb23(xpv.x, t, tout, start, nodes, WORK, &kflag);
@@ -2117,17 +2117,17 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 DelayErr = 0;
                 err_dae();
                 LastTime = *t;
-                return (1);
+                return 1;
             }
             if (kflag < 0) {
 
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
-                    return (1);
+                    return 1;
                 }
                 err_msg("Step size too small");
                 LastTime = *t;
-                return (1);
+                return 1;
             }
 
             break;
@@ -2137,7 +2137,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             tout = tzero + dt * (icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
-                return (1);
+                return 1;
             }
             MSWTCH(xpv.x, x);
             adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK, &kflag,
@@ -2148,13 +2148,13 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 DelayErr = 0;
                 err_dae();
                 LastTime = *t;
-                return (1);
+                return 1;
             }
             if (kflag) {
                 ping();
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
-                    return (1);
+                    return 1;
                 }
                 switch (kflag) {
                 case 2:
@@ -2174,7 +2174,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     break;
                 }
                 LastTime = *t;
-                return (1);
+                return 1;
             }
 
             break;
@@ -2200,7 +2200,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
 
                 LastTime = *t;
-                return (1);
+                return 1;
             }
         }
         }
@@ -2358,7 +2358,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     dxp = xprime[POIVAR - 1] - oldxprime[POIVAR - 1];
                     if (dxp == 0.0) {
                         err_msg("Cannot zero RHS for max/min - use a variable");
-                        return (1);
+                        return 1;
                     }
                     dint = xprime[POIVAR - 1] / dxp;
 
@@ -2482,7 +2482,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     if (METHOD == CVODE)
         end_cv();
 #endif
-    return (rval);
+    return rval;
 }
 
 void
@@ -2806,7 +2806,7 @@ stor_full(void) {
 
     if (!Xup) {
         plintf(" Storage full -- increase maxstor \n");
-        return (0);
+        return 0;
     }
     if (FOREVER)
         goto ov;
@@ -2815,7 +2815,7 @@ stor_full(void) {
     if (ch == 'y') {
     ov:
         storind = 0;
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }

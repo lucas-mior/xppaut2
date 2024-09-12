@@ -83,9 +83,9 @@ find_diagram(int32 irs, int32 n, int32 *index, int32 *ibr, int32 *ntot,
             ulo[i] = d->ulo[i];
             uhi[i] = d->uhi[i];
         }
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -601,7 +601,7 @@ save_diagram(FILE *fp, int32 n) {
     DIAGRAM *d;
     fprintf(fp, "%d\n", NBifs - 1);
     if (NBifs == 1)
-        return (-1);
+        return -1;
     d = bifd;
     while (1) {
         fprintf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d\n", d->calc, d->ibr,
@@ -618,7 +618,7 @@ save_diagram(FILE *fp, int32 n) {
         if (d == NULL)
             break;
     }
-    return (1);
+    return 1;
 }
 
 int32
@@ -632,7 +632,7 @@ load_diagram(FILE *fp, int32 node) {
     fscanf(fp, "%d", &n);
     if (n == 0) {
         /*    start_diagram(NODE); */
-        return (-1);
+        return -1;
     }
 
     while (1) {
@@ -656,5 +656,5 @@ load_diagram(FILE *fp, int32 node) {
         if (index >= n)
             break;
     }
-    return (1);
+    return 1;
 }

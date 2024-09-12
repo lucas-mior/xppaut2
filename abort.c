@@ -24,7 +24,7 @@ get_command_width(void) {
     Window root;
     XGetGeometry(display, command_pop, &root, &x, &y, &w, &h, &bw, &de);
     XClearWindow(display, command_pop);
-    return (w);
+    return w;
 }
 
 void
@@ -47,7 +47,7 @@ my_abort(void) {
     while (XPending(display) > 0) {
         XNextEvent(display, &event);
         if (check_ani_pause(event) == 27)
-            return (27);
+            return 27;
         switch (event.type) {
         case Expose:
             do_expose(event);
@@ -56,10 +56,10 @@ my_abort(void) {
             break;
         case KeyPress:
             ch = get_key_press(&event);
-            return (ch);
+            return ch;
         }
-        return (0);
+        return 0;
     }
 
-    return (64);
+    return 64;
 }

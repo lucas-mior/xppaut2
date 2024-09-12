@@ -225,7 +225,7 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     /* Print error message and return if cvdense_mem is NULL */
     if (cvdense_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Set flag setupNonNull = TRUE */
@@ -236,20 +236,20 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     M = DenseAllocMat(N);
     if (M == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     savedJ = DenseAllocMat(N);
     if (savedJ == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         DenseFreeMat(M);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     pivots = DenseAllocPiv(N);
     if (pivots == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         DenseFreeMat(M);
         DenseFreeMat(savedJ);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Initialize nje and nstlj, and set workspace lengths */
@@ -262,7 +262,7 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
     nstlj = 0;
 
-    return (LINIT_OK);
+    return LINIT_OK;
 }
 
 /*************** CVDenseSetup ****************************************
@@ -320,8 +320,8 @@ CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 
     /* Return 0 if the LU was complete; otherwise return 1 */
     if (ier > 0)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 /*************** CVDenseSolve ****************************************
@@ -344,7 +344,7 @@ CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
         N_VScale(TWO / (ONE + gamrat), b, b);
     }
 
-    return (0);
+    return 0;
 }
 
 /*************** CVDenseFree *****************************************

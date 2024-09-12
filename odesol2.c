@@ -40,13 +40,13 @@ symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
             one_step_symp(y, dt, work, neq, tim);
         }
         stor_delay(y);
-        return (0);
+        return 0;
     }
     for (i = 0; i < nt; i++) {
         one_flag_step_symp(y, dt, work, neq, tim, istart);
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 /*   DISCRETE    */
@@ -60,13 +60,13 @@ discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
             one_step_discrete(y, dt, work, neq, tim);
             stor_delay(y);
         }
-        return (0);
+        return 0;
     }
     for (i = 0; i < nt; i++) {
         one_flag_step_discrete(y, dt, work, neq, tim, istart);
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 /* Backward Euler  */
@@ -87,19 +87,19 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
 
             if ((j = one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp, errvec,
                                   jac, istart)) != 0)
-                return (j);
+                return j;
             stor_delay(y);
         }
-        return (0);
+        return 0;
     }
     for (i = 0; i < nt; i++) {
 
         if ((j = one_flag_step_backeul(y, tim, dt, neq, yg, yp, yp2, ytemp,
                                        errvec, jac, istart)) != 0)
-            return (j);
+            return j;
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 int32
@@ -137,7 +137,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
             sgefa(jac, neq, neq, ipivot, &info);
             if (info != -1) {
 
-                return (-1);
+                return -1;
             }
             sgesl(jac, neq, neq, ipivot, errvec, 0);
         }
@@ -148,11 +148,11 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
         if (err < EulTol || err1 < EulTol) {
             for (i = 0; i < neq; i++)
                 y[i] = yg[i];
-            return (0);
+            return 0;
         }
         iter++;
         if (iter > MaxEulIter)
-            return (-2);
+            return -2;
     }
 }
 
@@ -252,13 +252,13 @@ euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
             one_step_euler(y, dt, work, neq, tim);
             stor_delay(y);
         }
-        return (0);
+        return 0;
     }
     for (i = 0; i < nt; i++) {
         one_flag_step_euler(y, dt, work, neq, tim, istart);
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 /* Modified Euler  */
@@ -276,13 +276,13 @@ mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
             one_step_heun(y, dt, yval, neq, tim);
             stor_delay(y);
         }
-        return (0);
+        return 0;
     }
     for (j = 0; j < nt; j++) {
         one_flag_step_heun(y, dt, yval, neq, tim, istart);
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 /*  Runge Kutta    */
@@ -302,14 +302,14 @@ rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
             one_step_rk4(y, dt, yval, neq, tim);
             stor_delay(y);
         }
-        return (0);
+        return 0;
     }
 
     for (j = 0; j < nt; j++) {
         one_flag_step_rk4(y, dt, yval, neq, tim, istart);
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 /*   ABM   */
@@ -397,7 +397,7 @@ n1000:
 
     *tim = *tim + nstep * dt;
     *ist = istart;
-    return (0);
+    return 0;
 }
 
 int32
@@ -426,7 +426,7 @@ abmpc(double *y, double *t, double dt, int32 neq) {
     *t = x1;
     rhs(x1, y, y_p[0], neq);
 
-    return (1);
+    return 1;
 }
 
 /* this is rosen  - rosenbock step
@@ -440,7 +440,7 @@ rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     } else {
         out = one_flag_step_rosen(y, tstart, tfinal, istart, n, work, ierr);
     }
-    return (out);
+    return out;
 }
 
 int32
@@ -552,7 +552,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                     /* plintf("rosen failed at t=%g. Step size too small
                      * \n",t);*/
                     *ierr = -1;
-                    return (-1);
+                    return -1;
                 }
                 absh = MAX(hmin,
                            absh * MAX(0.1, pow(0.8 * (rtol / err), 1. / 3.)));
@@ -584,7 +584,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     *tstart = t;
     htry = h;
     *istart = 0;
-    return (0);
+    return 0;
 }
 
 /* wait_for_key()
@@ -655,7 +655,7 @@ bandfac(/*   factors the matrix    */
     for (row = 0; row < n; row++) {
         r0 = row * mt + ml;
         if ((al = a[r0]) == 0.0)
-            return (-1 - row);
+            return -1 - row;
         al = 1.0 / al;
         m = MIN(mr, n1 - row);
         for (j = 1; j <= m; j++)
@@ -674,7 +674,7 @@ bandfac(/*   factors the matrix    */
             a[ri0 - i] = -al;
         }
     }
-    return (0);
+    return 0;
 }
 
 void

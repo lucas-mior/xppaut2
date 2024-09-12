@@ -96,7 +96,7 @@ my_rhs(double t, double *y, double *ydot, int32 neq) {
         ydot[i] = evaluate(my_ode[i]);
     }
 
-    return (1);
+    return 1;
 }
 
 void

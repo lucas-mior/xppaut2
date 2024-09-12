@@ -999,11 +999,11 @@ msc(char *s1, char *s2) {
 
     int32 n = strlen(s1), i;
     if (strlen(s2) < n)
-        return (0);
+        return 0;
     for (i = 0; i < n; i++)
         if (s1[i] != s2[i])
-            return (0);
-    return (1);
+            return 0;
+    return 1;
 }
 
 void

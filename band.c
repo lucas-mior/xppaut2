@@ -30,16 +30,16 @@ BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
     BandMat A;
 
     if (N <= 0)
-        return (NULL);
+        return NULL;
 
     A = (BandMat)malloc(sizeof *A);
     if (A == NULL)
-        return (NULL);
+        return NULL;
 
     A->data = bandalloc(N, smu, ml);
     if (A->data == NULL) {
         free(A);
-        return (NULL);
+        return NULL;
     }
 
     A->size = N;
@@ -47,13 +47,13 @@ BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
     A->ml = ml;
     A->smu = smu;
 
-    return (A);
+    return A;
 }
 
 int64 *
 BandAllocPiv(int64 N) {
     if (N <= 0)
-        return (NULL);
+        return NULL;
 
     return ((int64 *)malloc(N * sizeof(int64)));
 }
@@ -110,29 +110,29 @@ bandalloc(int64 n, int64 smu, int64 ml) {
     int64 j, colSize;
 
     if (n <= 0)
-        return (NULL);
+        return NULL;
 
     a = (double **)malloc(n * sizeof(double *));
     if (a == NULL)
-        return (NULL);
+        return NULL;
 
     colSize = smu + ml + 1;
     a[0] = (double *)malloc(n * colSize * sizeof(double));
     if (a[0] == NULL) {
         free(a);
-        return (NULL);
+        return NULL;
     }
 
     for (j = 1; j < n; j++)
         a[j] = a[0] + j * colSize;
 
-    return (a);
+    return a;
 }
 
 int64 *
 bandallocpiv(int64 n) {
     if (n <= 0)
-        return (NULL);
+        return NULL;
 
     return ((int64 *)malloc(n * sizeof(int64)));
 }
@@ -182,7 +182,7 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
         /* check for zero pivot element */
 
         if (col_k[storage_l] == ZERO)
-            return (k + 1);
+            return k + 1;
 
         /* swap a(l,k) and a(k,k) if necessary */
 
@@ -238,11 +238,11 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
     *p = n - 1;
     if (a[n - 1][smu] == ZERO)
-        return (n);
+        return n;
 
     /* return 0 to indicate success */
 
-    return (0);
+    return 0;
 }
 
 void

@@ -24,5 +24,5 @@ pow_di(double *ap, int64 *bp) {
                 break;
         }
     }
-    return (pow);
+    return pow;
 }

@@ -1669,7 +1669,7 @@ parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
     *m = 0;
     if (j == 1) {
         printf("No weights....\n");
-        return (1);
+        return 1;
     }
 
     done = 1;

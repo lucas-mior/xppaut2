@@ -107,7 +107,7 @@ get_x_coord_win(Window win) {
     uint32 h, w, bw, d;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &d);
-    return (x);
+    return x;
 }
 
 void
@@ -295,10 +295,10 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     XDestroyWindow(display, sb.base);
 
     if (status == FORGET_ALL)
-        return (status);
+        return status;
     for (i = 0; i < n; i++)
         strcpy(values[i], sb.value[i]);
-    return (status);
+    return status;
 }
 
 void
@@ -479,7 +479,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
         }
         break;
     }
-    return (status);
+    return status;
 }
 
 void
@@ -554,7 +554,7 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
                       LeaveWindowMask|EnterWindowMask);
          XMapWindow(display,win);
 
-         return(win);
+         return win;
          }
 */
 
@@ -644,7 +644,7 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                      ButtonMotionMask | LeaveWindowMask | EnterWindowMask);
     XMapWindow(display, win);
 
-    return (win);
+    return win;
 }
 
 Window
@@ -733,7 +733,7 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
                      StructureNotifyMask | ButtonReleaseMask |
                      ButtonMotionMask | LeaveWindowMask | EnterWindowMask);
 
-    return (win);
+    return win;
 }
 
 void
@@ -900,7 +900,7 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                      StructureNotifyMask | ButtonReleaseMask |
                      ButtonMotionMask | LeaveWindowMask | EnterWindowMask);
 
-    return (win);
+    return win;
 }
 
 Window
@@ -915,7 +915,7 @@ make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                      StructureNotifyMask | ButtonReleaseMask |
                      ButtonMotionMask | LeaveWindowMask | EnterWindowMask);
 
-    return (win);
+    return win;
 }
 
 Window
@@ -927,7 +927,7 @@ make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
     if (root == RootWindow(display, screen))
         XSetWMProtocols(display, win, &deleteWindowAtom, 1);
     XMapWindow(display, win);
-    return (win);
+    return win;
 }
 
 Window
@@ -938,7 +938,7 @@ make_window(Window root, int32 x, int32 y, int32 width, int32 height,
     if (root == RootWindow(display, screen))
         XSetWMProtocols(display, win, &deleteWindowAtom, 1);
     XMapWindow(display, win);
-    return (win);
+    return win;
 }
 
 Window
@@ -949,7 +949,7 @@ make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
     if (root == RootWindow(display, screen))
         XSetWMProtocols(display, win, &deleteWindowAtom, 1);
     XMapWindow(display, win);
-    return (win);
+    return win;
 }
 
 void
@@ -1125,7 +1125,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     XFlush(display);
     XDestroySubwindows(display, base);
     XDestroyWindow(display, base);
-    return (value);
+    return value;
 }
 
 int32
@@ -1133,8 +1133,8 @@ yes_no_box(void) {
     char ans;
     ans = (char)TwoChoice("YES", "NO", "Are you sure?", "yn");
     if (ans == 'y')
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 /*  new pop_up_list   */
@@ -1222,7 +1222,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     XFlush(display);
     if (value == 13)
         value = (int32)key[def];
-    return (value);
+    return value;
 }
 
 void
@@ -1297,7 +1297,7 @@ Window *root;
          if(value==13&&def>=0)value=key[def];
         XDestroyWindow(display,w);
         *root=w;
-         return(value);
+         return value;
      }
 
 

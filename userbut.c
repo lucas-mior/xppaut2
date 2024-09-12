@@ -91,7 +91,7 @@ get_button_info(char *s, char *bname, char *sc) {
     int32 i = 0, j = 0, f = 0, n = strlen(s);
     char c;
     if (n == 0)
-        return (-1);
+        return -1;
     bname[0] = 0;
     sc[0] = 0;
     while (1) {
@@ -116,7 +116,7 @@ get_button_info(char *s, char *bname, char *sc) {
     }
     sc[j] = 0;
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -127,7 +127,7 @@ find_kbs(char *sc) {
             return kbs[i].com;
         i++;
         if (kbs[i].com == 0)
-            return (-1);
+            return -1;
     }
 }
 

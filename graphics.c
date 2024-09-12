@@ -818,23 +818,23 @@ proj3d(double theta, double phi, double x, double y, double z, int32 in) {
 int32
 threedproj(double x2p, double y2p, double z2p, float *xp, float *yp) {
     float x1p, y1p, z1p, s;
-    /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return(0); */
+    /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {
         *xp = x1p;
         *yp = y1p;
-        return (1);
+        return 1;
     }
     if ((z1p >= (float)(MyGraph->ZView)) || (z1p < (float)(MyGraph->ZPlane)))
-        return (0);
+        return 0;
     s = (float)(MyGraph->ZView - MyGraph->ZPlane) /
         ((float)(MyGraph->ZView) - z1p);
     x1p = s * x1p;
     y1p = s * y1p;
     *xp = x1p;
     *yp = y1p;
-    return (1);
+    return 1;
 }
 
 void
@@ -856,23 +856,23 @@ threed_proj(double x, double y, double z, float *xp, float *yp) {
     float x1p, y1p, z1p, s;
     float x2p, y2p, z2p;
     scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
-    /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return(0); */
+    /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {
         *xp = x1p;
         *yp = y1p;
-        return (1);
+        return 1;
     }
     if ((z1p >= (float)(MyGraph->ZView)) || (z1p < (float)(MyGraph->ZPlane)))
-        return (0);
+        return 0;
     s = (float)(MyGraph->ZView - MyGraph->ZPlane) /
         ((float)(MyGraph->ZView) - z1p);
     x1p = s * x1p;
     y1p = s * y1p;
     *xp = x1p;
     *yp = y1p;
-    return (1);
+    return 1;
 }
 
 void
@@ -1185,16 +1185,16 @@ clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
         iz2 = 1;
 
     if ((abs(ix1) + abs(ix2) + abs(iy1) + abs(iy2) + abs(iz1) + abs(iz2)) == 0)
-        return (1);
+        return 1;
 
     /*  Both are outside the cube  */
 
     if ((ix1 == ix2) && (ix1 != 0))
-        return (0);
+        return 0;
     if ((iy1 == iy2) && (iy1 != 0))
-        return (0);
+        return 0;
     if ((iz1 == iz2) && (iz1 != 0))
-        return (0);
+        return 0;
 
     if (ix1 == 0)
         goto C2;
@@ -1261,7 +1261,7 @@ C3:
     if (fabs(yhat) <= EP1 && fabs(zhat) <= EP1) {
         *y2p = yhat;
         *z2p = zhat;
-        return (1);
+        return 1;
     }
 C44:
     if (iy2 == 0 || istack == 0)
@@ -1276,11 +1276,11 @@ C44:
     if (fabs(xhat) <= EP1 && fabs(zhat) <= EP1) {
         *z2p = zhat;
         *x2p = xhat;
-        return (1);
+        return 1;
     }
 C4:
     if (iz2 == 0 || istack == 0)
-        return (iflag);
+        return iflag;
     wo = -1;
     if (iz2 > 0)
         wo = 1;
@@ -1291,9 +1291,9 @@ C4:
     if (fabs(xhat) <= EP1 && fabs(yhat) <= EP1) {
         *x2p = xhat;
         *y2p = yhat;
-        return (1);
+        return 1;
     }
-    return (iflag);
+    return iflag;
 }
 
 int32
@@ -1340,10 +1340,10 @@ clip(double x1, double x2, double y1, double y2, float *x1_out, float *y1_out,
         iy1 = 1;
     isum = abs(ix1) + abs(ix2) + abs(iy1) + abs(iy2);
     if (isum == 0)
-        return (1); /* both inside window so plottem' */
+        return 1; /* both inside window so plottem' */
 
     if (((ix1 == ix2) && (ix1 != 0)) || ((iy1 == iy2) && (iy1 != 0)))
-        return (0);
+        return 0;
     if (ix1 == 0)
         goto C2;
     wv = x_left;
@@ -1381,11 +1381,11 @@ C3:
     yhat = (y2 - y1) * (wv - x1) / (x2 - x1) + y1;
     if ((yhat <= y_top) && (yhat >= y_bottom)) {
         *y2_out = yhat;
-        return (1);
+        return 1;
     }
 C4:
     if ((iy2 == 0) || (istack == 0))
-        return (iflag);
+        return iflag;
     wh = y_bottom;
     if (iy2 > 0)
         wh = y_top;
@@ -1393,9 +1393,9 @@ C4:
     xhat = (x2 - x1) * (wh - y1) / (y2 - y1) + x1;
     if ((xhat <= x_right) && (xhat >= x_left)) {
         *x2_out = xhat;
-        return (1);
+        return 1;
     }
-    return (iflag);
+    return iflag;
 }
 
 void

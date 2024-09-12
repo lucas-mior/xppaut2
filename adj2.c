@@ -379,7 +379,7 @@ make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
 bye:
     NSYM = NSYM_START;
     NCON = NCON_START;
-    return (rval);
+    return rval;
 }
 
 void
@@ -470,7 +470,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
         jac[i] = (double *)malloc(nt * sizeof(double));
         if (jac[i] == NULL) {
             err_msg("Insufficient storage");
-            return (0);
+            return 0;
         }
     }
 
@@ -584,7 +584,7 @@ bye:
     for (i = 0; i < n2; i++)
         free(jac[i]);
     free(jac);
-    return (rval);
+    return rval;
 }
 
 void
@@ -634,7 +634,7 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
             y[i] = yval[0][i] + dt * yval[1][i] / 6.00;
         t = t2;
     }
-    return (1);
+    return 1;
 }
 
 int32
@@ -662,10 +662,10 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
     if (info != -1) {
 
         err_msg("Univertible Jacobian");
-        return (0);
+        return 0;
     }
     sgesl(mat, node, node, ipvt, yold, 0);
-    return (1);
+    return 1;
 }
 
 /* this is some code for the maximal liapunov exponent
@@ -754,7 +754,7 @@ hrw_liapunov(double *liap, int32 batch, double eps) {
     if (storind < 2) {
         if (batch == 0)
             err_msg("You need to compute an orbit first");
-        return (0);
+        return 0;
     }
 
     /* lets make an initial random perturbation */

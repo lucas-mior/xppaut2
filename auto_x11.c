@@ -192,7 +192,7 @@ query_special(char *title, char *nsymb) {
         sprintf(nsymb, "  ");
     }
     redraw_auto_menus();
-    return (status);
+    return status;
 }
 
 void
@@ -651,7 +651,7 @@ byeauto_(int32 *iflag) {
     Window w;
     char ch;
     if (Auto.exist == 0)
-        return (1);
+        return 1;
     *iflag = 0;
     while (XPending(display) > 0) {
         XNextEvent(display, &event);
@@ -664,20 +664,20 @@ byeauto_(int32 *iflag) {
             if (w == AutoW.abort) {
                 SBW;
                 *iflag = 1;
-                return (1);
+                return 1;
             }
             break;
         case KeyPress:
             ch = get_key_press(&event);
             if (ch == ESC) {
                 *iflag = 1;
-                return (0);
+                return 0;
             }
             break;
         }
     }
 
-    return (0);
+    return 0;
 }
 
 void
@@ -932,7 +932,7 @@ lil_button(Window root, int32 x, int32 y, char *name) {
     int32 width = 12 * DCURX;
     win = make_window(root, x, y, width, DCURY + 1, 1);
     XSelectInput(display, win, MYMASK);
-    return (win);
+    return win;
 }
 
 void

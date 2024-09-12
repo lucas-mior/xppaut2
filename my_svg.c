@@ -48,7 +48,7 @@ svg_init(char *filename, int32 color) {
 
     if ((svgfile = fopen(filename, "w")) == NULL) {
         err_msg("Cannot open file ");
-        return (0);
+        return 0;
     }
     PltFmtFlag = SVGFMT;
 
@@ -396,7 +396,7 @@ svg_init(char *filename, int32 color) {
     fprintf(svgfile, "           ]]>\n");
     fprintf(svgfile, "      </style>\n\n");
 
-    return (1);
+    return 1;
 }
 
 void

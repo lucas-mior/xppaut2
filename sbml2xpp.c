@@ -970,7 +970,7 @@ strfnd(char *s1, char *s2, int32 j0) {
                 i++;
             }
             if (false == 0)
-                return (l);
+                return l;
         }
         i++;
         if (i >= n2)

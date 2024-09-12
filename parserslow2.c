@@ -308,9 +308,9 @@ duplicate_name(char *junk) {
     if (i >= 0) {
         if (ERROUT)
             printf("%s is a duplicate name\n", junk);
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 /*  ADD_CONSTANT   */
@@ -320,11 +320,11 @@ add_constant(char *junk) {
     int32 len;
     char string[100];
     if (duplicate_name(junk) == 1)
-        return (1);
+        return 1;
     if (NCON >= MAXPAR) {
         if (ERROUT)
             printf("too many constants !!\n");
-        return (1);
+        return 1;
     }
     convert(junk, string);
     len = strlen(string);
@@ -341,7 +341,7 @@ add_constant(char *junk) {
     my_symb[NSYM].arg = 0;
     my_symb[NSYM].com = COM(CONTYPE, NCON - 1);
     NSYM++;
-    return (0);
+    return 0;
 }
 
 int32
@@ -353,16 +353,16 @@ get_var_index(char *name) {
         return -1;
     com = my_symb[type].com;
     if (is_uvar(com)) {
-        return (com % MAXTYPE);
+        return com % MAXTYPE;
     }
-    return (-1);
+    return -1;
 }
 
 /* GET_TYPE   */
 
 int32
 get_type(int32 index) {
-    return (my_symb[index].com);
+    return my_symb[index].com;
 }
 
 /*   ADD_CON      */
@@ -374,7 +374,7 @@ add_con(char *name, double value) {
     if (NCON >= MAXPAR) {
         if (ERROUT)
             printf("too many constants !!\n");
-        return (1);
+        return 1;
     }
     constants[NCON] = value;
     NCON++;
@@ -387,14 +387,14 @@ add_kernel(char *name, double mu, char *expr) {
 
     int32 len, i, in = -1;
     if (duplicate_name(name) == 1)
-        return (1);
+        return 1;
     if (NKernel == MAXKER) {
         plintf("Too many kernels..\n");
-        return (1);
+        return 1;
     }
     if (mu < 0 || mu >= 1.0) {
         plintf(" mu must lie in [0,1.0) \n");
-        return (1);
+        return 1;
     }
     convert(name, string);
     len = strlen(string);
@@ -416,7 +416,7 @@ add_kernel(char *name, double mu, char *expr) {
             in = i;
     if (in == 0 || in == (strlen(expr) - 1)) {
         plintf("Illegal use of convolution...\n");
-        return (1);
+        return 1;
     }
     if (in > 0) {
         kernel[NKernel].flag = CONV;
@@ -436,7 +436,7 @@ add_kernel(char *name, double mu, char *expr) {
     }
     NSYM++;
     NKernel++;
-    return (0);
+    return 0;
 }
 
 /*  ADD_VAR          */
@@ -447,11 +447,11 @@ add_var(char *junk, double value) {
     int32 len;
     /*   plintf(" variable - %s \n",junk); */
     if (duplicate_name(junk) == 1)
-        return (1);
+        return 1;
     if (NVAR >= MAXODE1) {
         if (ERROUT)
             printf("too many variables !!\n");
-        return (1);
+        return 1;
     }
     convert(junk, string);
     len = strlen(string);
@@ -466,7 +466,7 @@ add_var(char *junk, double value) {
     NSYM++;
     variables[NVAR] = value;
     NVAR++;
-    return (0);
+    return 0;
 }
 
 /* ADD_EXPR   */
@@ -487,16 +487,16 @@ add_expr(char *expr, int32 *command, int32 *length) {
       i++;
     } */
     if (err != 0)
-        return (1);
+        return 1;
     err = alg_to_rpn(my_token, command);
     if (err != 0)
-        return (1);
+        return 1;
     i = 0;
     while (command[i] != ENDEXP)
         i++;
     *length = i + 1;
     /*  for(i=0;i<*length;i++)printf("%d \n",command[i]);  */
-    return (0);
+    return 0;
 }
 
 int32
@@ -506,7 +506,7 @@ add_vector_name(int32 index, char *name) {
     int32 len = strlen(name);
     plintf(" Adding vectorizer %s %d \n", name, index);
     if (duplicate_name(name) == 1)
-        return (1);
+        return 1;
     convert(name, string);
     printf(" 1\n");
     if (len > MXLEN)
@@ -519,7 +519,7 @@ add_vector_name(int32 index, char *name) {
     my_symb[NSYM].com = COM(VECTYPE, index);
 
     NSYM++;
-    return (0);
+    return 0;
 }
 
 int32
@@ -528,7 +528,7 @@ add_net_name(int32 index, char *name) {
     int32 len = strlen(name);
     plintf(" Adding net %s %d \n", name, index);
     if (duplicate_name(name) == 1)
-        return (1);
+        return 1;
     convert(name, string);
     if (len > MXLEN)
         len = MXLEN;
@@ -539,7 +539,7 @@ add_net_name(int32 index, char *name) {
     my_symb[NSYM].arg = 1;
     my_symb[NSYM].com = COM(NETTYPE, index);
     NSYM++;
-    return (0);
+    return 0;
 }
 
 /* ADD LOOKUP TABLE   */
@@ -547,7 +547,7 @@ add_net_name(int32 index, char *name) {
 int32
 add_2d_table(char *name, char *file) {
     plintf(" TWO D NOT HERE YET \n");
-    return (1);
+    return 1;
 }
 
 int32
@@ -567,10 +567,10 @@ add_file_table(int32 index, char *file) {
     if (load_table(file2, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
-        return (1);
+        return 1;
     }
 
-    return (0);
+    return 0;
 }
 
 int32
@@ -578,7 +578,7 @@ add_table_name(int32 index, char *name) {
     char string[50];
     int32 len = strlen(name);
     if (duplicate_name(name) == 1)
-        return (1);
+        return 1;
     convert(name, string);
     if (len > MXLEN)
         len = MXLEN;
@@ -590,7 +590,7 @@ add_table_name(int32 index, char *name) {
     my_symb[NSYM].com = COM(TABTYPE, index);
     set_table_name(name, index);
     NSYM++;
-    return (0);
+    return 0;
 }
 /* ADD LOOKUP TABLE   */
 
@@ -600,9 +600,9 @@ add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
     if (create_fun_table(nn, xlo, xhi, formula, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -633,11 +633,11 @@ add_ufun_name(char *name, int32 index, int32 narg) {
     char string[50];
     int32 len = strlen(name);
     if (duplicate_name(name) == 1)
-        return (1);
+        return 1;
     if (index >= MAXUFUN) {
         if (ERROUT)
             printf("too many functions !!\n");
-        return (1);
+        return 1;
     }
     plintf(" Added user fun %s \n", name);
     convert(name, string);
@@ -651,7 +651,7 @@ add_ufun_name(char *name, int32 index, int32 narg) {
     my_symb[NSYM].com = COM(UFUNTYPE, index);
     NSYM++;
     strcpy(ufun_names[index], name);
-    return (0);
+    return 0;
 }
 
 void
@@ -669,17 +669,17 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
     int32 end;
     if (narg > MAXARG) {
         plintf("Maximal arguments exceeded \n");
-        return (1);
+        return 1;
     }
     if ((ufun[index] = (int32 *)malloc(1024)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
-        return (1);
+        return 1;
     }
     if ((ufun_def[index] = (char *)malloc(MAXEXPLEN)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
-        return (1);
+        return 1;
     }
     ufun_arg[index].narg = narg;
     for (i = 0; i < narg; i++)
@@ -695,13 +695,13 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
         ufun_def[index][l] = 0;
         narg_fun[index] = narg;
         set_old_arg_names(narg);
-        return (0);
+        return 0;
     }
 
     set_old_arg_names(narg);
     if (ERROUT)
         printf(" ERROR IN FUNCTION DEFINITION\n");
-    return (1);
+    return 1;
 }
 
 /* ADD_UFUN   */
@@ -714,21 +714,21 @@ add_ufun(char *junk, char *expr, int32 narg) {
     int32 len = strlen(junk);
 
     if (duplicate_name(junk) == 1)
-        return (1);
+        return 1;
     if (NFUN >= MAXUFUN) {
         if (ERROUT)
             printf("too many functions !!\n");
-        return (1);
+        return 1;
     }
     if ((ufun[NFUN] = (int32 *)malloc(1024)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
-        return (1);
+        return 1;
     }
     if ((ufun_def[NFUN] = (char *)malloc(MAXEXPLEN)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
-        return (1);
+        return 1;
     }
 
     convert(junk, string);
@@ -755,11 +755,11 @@ add_ufun(char *junk, char *expr, int32 narg) {
                      "ARG%d", i + 1);
         }
         NFUN++;
-        return (0);
+        return 0;
     }
     if (ERROUT)
         printf(" ERROR IN FUNCTION DEFINITION\n");
-    return (1);
+    return 1;
 }
 
 int32
@@ -774,11 +774,11 @@ check_num(int32 *tok, double value) {
             /*m=bob/MAXTYPE;*/
             if (constants[in] == value) {
                 *tok = i;
-                return (1);
+                return 1;
             }
         }
     }
-    return (0);
+    return 0;
 }
 
 /* is_ufun         */
@@ -786,9 +786,9 @@ check_num(int32 *tok, double value) {
 int32
 is_ufun(int32 x) {
     if ((x / MAXTYPE) == UFUNTYPE)
-        return (1);
+        return 1;
     else
-        return (0);
+        return 0;
 }
 
 /* IS_UCON        */
@@ -796,9 +796,9 @@ is_ufun(int32 x) {
 int32
 is_ucon(int32 x) {
     if (x / MAXTYPE == CONTYPE)
-        return (1);
+        return 1;
     else
-        return (0);
+        return 0;
 }
 
 /* IS_UVAR       */
@@ -806,40 +806,40 @@ is_ucon(int32 x) {
 int32
 is_uvar(int32 x) {
     if (x / MAXTYPE == VARTYPE)
-        return (1);
+        return 1;
     else
-        return (0);
+        return 0;
 }
 
 int32
 isvar(int32 y) {
-    return (y == VARTYPE);
+    return y == VARTYPE;
 }
 
 int32
 iscnst(int32 y) {
-    return (y == CONTYPE);
+    return y == CONTYPE;
 }
 
 int32
 isker(int32 y) {
-    return (y == KERTYPE);
+    return y == KERTYPE;
 }
 
 int32
 is_kernel(int32 x) {
     if ((x / MAXTYPE) == KERTYPE)
-        return (1);
+        return 1;
     else
-        return (0);
+        return 0;
 }
 
 int32
 is_lookup(int32 x) {
     if ((x / MAXTYPE) == TABTYPE)
-        return (1);
+        return 1;
     else
-        return (0);
+        return 0;
 }
 
 int32
@@ -847,11 +847,11 @@ find_lookup(char *name) {
     int32 index, com;
     find_name(name, &index);
     if (index == -1)
-        return (-1);
+        return -1;
     com = my_symb[index].com;
     if (is_lookup(com))
-        return (com % MAXTYPE);
-    return (-1);
+        return com % MAXTYPE;
+    return -1;
 }
 
 /* FIND_NAME    */
@@ -879,12 +879,12 @@ get_param_index(char *name) {
     int32 type, com;
     find_name(name, &type);
     if (type < 0)
-        return (-1);
+        return -1;
     com = my_symb[type].com;
     if (is_ucon(com)) {
-        return (com % MAXTYPE);
+        return com % MAXTYPE;
     }
-    return (-1);
+    return -1;
 }
 
 /* GET_VAL   */
@@ -895,17 +895,17 @@ get_val(char *name, double *value) {
     *value = 0.0;
     find_name(name, &type);
     if (type < 0)
-        return (0);
+        return 0;
     com = my_symb[type].com;
     if (is_ucon(com)) {
         *value = constants[com % MAXTYPE];
-        return (1);
+        return 1;
     }
     if (is_uvar(com)) {
         *value = variables[com % MAXTYPE];
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 /* SET_VAL         */
@@ -915,19 +915,19 @@ set_val(char *name, double value) {
     int32 type, com;
     find_name(name, &type);
     if (type < 0)
-        return (0);
+        return 0;
     com = my_symb[type].com;
     if (is_ucon(com)) {
         constants[com % MAXTYPE] = value;
 
-        return (1);
+        return 1;
     }
     if (is_uvar(com)) {
 
         variables[com % MAXTYPE] = value;
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -975,7 +975,7 @@ alg_to_rpn(int32 *toklist, int32 *command) {
 
             } else {
                 printf("Illegal use of DELAY \n");
-                return (1);
+                return 1;
             }
         }
 
@@ -993,7 +993,7 @@ alg_to_rpn(int32 *toklist, int32 *command) {
 
             } else {
                 printf("Illegal use of DELAY Shift \n");
-                return (1);
+                return 1;
             }
         }
 
@@ -1008,7 +1008,7 @@ alg_to_rpn(int32 *toklist, int32 *command) {
                 my_symb[LASTTOK].pri = 10;
             } else {
                 printf("Illegal use of set - variables only\n");
-                return (1);
+                return 1;
             }
         }
 
@@ -1029,7 +1029,7 @@ alg_to_rpn(int32 *toklist, int32 *command) {
 
             } else {
                 printf("Illegal use of SHIFT \n");
-                return (1);
+                return 1;
             }
         }
 
@@ -1160,16 +1160,16 @@ alg_to_rpn(int32 *toklist, int32 *command) {
     }
     if (ncomma != 0) {
         plintf("Illegal number of arguments\n");
-        return (1);
+        return 1;
     }
     if ((nif != nelse) || (nif != nthen)) {
         plintf("If statement missing ELSE or THEN \n");
-        return (1);
+        return 1;
     }
     command[comptr] = my_symb[ENDTOK].com;
 
     /* pr_command(command);  */
-    return (0);
+    return 0;
 }
 
 void
@@ -1206,39 +1206,39 @@ function_sym(int32 token) /* functions should have ( after them  */
     int32 i1 = com / MAXTYPE;
 
     if (i1 == FUN1TYPE && !unary_sym(token))
-        return (1); /* single variable functions */
+        return 1; /* single variable functions */
     if (i1 == FUN2TYPE && !binary_sym(token))
-        return (1); /* two-variable function */
-    /* ram this was: if(i1==UFUN||i1==7||i1==6||i1==5)return(1); recall: 5 was
+        return 1; /* two-variable function */
+    /* ram this was: if(i1==UFUN||i1==7||i1==6||i1==5)return 1; recall: 5 was
      * bad
      */
     if (i1 == UFUNTYPE || i1 == TABTYPE || i1 == VECTYPE || i1 == NETTYPE)
-        return (1);
+        return 1;
     if (token == DELSHFTSYM || token == SETSYM || token == DELSYM ||
         token == SHIFTSYM || token == ISHIFTSYM || com == MYIF ||
         com == MYTHEN || com == MYELSE || com == SUMSYM || com == ENDSUM)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 int32
 unary_sym(int32 token) {
     /* ram: these are tokens not byte code, so no change here? */
     if (token == 9 || token == 55)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 int32
 binary_sym(int32 token) {
     /* ram: these are tokens not byte code, so no change here? */
     if (token > 2 && token < 9)
-        return (1);
+        return 1;
     if (token > 43 && token < 51)
-        return (1);
+        return 1;
     if (token == 54)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 int32
@@ -1247,8 +1247,8 @@ pure_number(int32 token) {
     int32 i1 = com / MAXTYPE;
     /* !! */ if (token == NUMTOK || isvar(i1) || iscnst(i1) || isker(i1) ||
                  i1 == USTACKTYPE || token == INDX)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 int32
@@ -1256,25 +1256,25 @@ gives_number(int32 token) {
     int32 com = my_symb[token].com;
     int32 i1 = com / MAXTYPE;
     if (token == INDX)
-        return (1);
+        return 1;
     if (token == NUMTOK)
-        return (1);
+        return 1;
     if (i1 == FUN1TYPE && !unary_sym(token))
-        return (1); /* single variable functions */
+        return 1; /* single variable functions */
     if (i1 == FUN2TYPE && !binary_sym(token))
-        return (1); /* two-variable function */
+        return 1; /* two-variable function */
     /* !! */
     /* ram: 5 issue; was
-     * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return(1);
+     * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return 1;
      */
     if (i1 == USTACKTYPE || isvar(i1) || iscnst(i1) || i1 == TABTYPE ||
         i1 == VECTYPE || i1 == NETTYPE || isker(i1) || i1 == UFUNTYPE)
-        return (1);
+        return 1;
     if (com == MYIF || token == DELSHFTSYM || token == SETSYM ||
         token == DELSYM || token == SHIFTSYM || token == ISHIFTSYM ||
         com == SUMSYM)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 int32
@@ -1289,8 +1289,8 @@ check_syntax(/* 1 is BAD!   */
     if (unary_sym(oldtoken) || oldtoken == COMMA || oldtoken == STARTTOK ||
         oldtoken == LPAREN || binary_sym(oldtoken)) {
         if (unary_sym(newtoken) || gives_number(newtoken) || newtoken == LPAREN)
-            return (0);
-        return (1);
+            return 0;
+        return 1;
     }
 
     /* if this is a regular function, then better have (
@@ -1298,8 +1298,8 @@ check_syntax(/* 1 is BAD!   */
 
     if (function_sym(oldtoken)) {
         if (newtoken == LPAREN)
-            return (0);
-        return (1);
+            return 0;
+        return 1;
     }
 
     /* if we have a constant or variable or ) or kernel then better
@@ -1309,23 +1309,23 @@ check_syntax(/* 1 is BAD!   */
     if (pure_number(oldtoken)) {
         if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA ||
             newtoken == ENDTOK)
-            return (0);
+            return 0;
 
-        return (1);
+        return 1;
     }
 
     if (oldtoken == RPAREN) {
         if (binary_sym(newtoken) || newtoken == RPAREN || newtoken == COMMA ||
             newtoken == ENDTOK)
-            return (0);
+            return 0;
         if (com2 == MYELSE || com2 == MYTHEN || com2 == ENDSUM)
-            return (0);
+            return 0;
 
-        return (1);
+        return 1;
     }
 
     plintf("Bad token %d \n", oldtoken);
-    return (1);
+    return 1;
 }
 
 /******************************
@@ -1363,7 +1363,7 @@ make_toks(char *dest, int32 *my_token) {
         if (token == NSYM) {
             if (do_num(dest, num, &value, &index)) {
                 show_where(dest, index);
-                return (1);
+                return 1;
             }
             /*    new code        3/95      */
             encoder.num.z = value;
@@ -1373,7 +1373,7 @@ make_toks(char *dest, int32 *my_token) {
             if (check_syntax(old_tok, NUMTOK) == 1) {
                 plintf("Illegal syntax \n");
                 show_where(dest, lastindex);
-                return (1);
+                return 1;
             }
             old_tok = NUMTOK;
 
@@ -1386,7 +1386,7 @@ make_toks(char *dest, int32 *my_token) {
                 show_where(dest, lastindex);
                 tokeninfo(old_tok);
                 tokeninfo(token);
-                return (1);
+                return 1;
             }
 
             old_tok = token;
@@ -1397,14 +1397,14 @@ make_toks(char *dest, int32 *my_token) {
     if (check_syntax(old_tok, ENDTOK) == 1) {
         plintf("Premature end of expression \n");
         show_where(dest, lastindex);
-        return (1);
+        return 1;
     }
     if (nparen != 0) {
         if (ERROUT)
             printf(" parentheses don't match\n");
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -1463,7 +1463,7 @@ do_num(char *source, char *num, double *value, int32 *ind) {
     else if (ERROUT)
         printf(" illegal expression: %s\n", num);
     *ind = i;
-    return (error);
+    return error;
 }
 
 void
@@ -1514,7 +1514,7 @@ pmod(double x, double y) {
     double z = fmod(x, y);
     if (z < 0)
         z += y;
-    return (z);
+    return z;
 }
 
 void
@@ -1790,7 +1790,7 @@ do_shift(double shift, double variable) {
      */
 
     if (i < 0)
-        return (0.0);
+        return 0.0;
     it = i / MAXTYPE;
     in = (i % MAXTYPE) + ish;
     switch (it) {
@@ -1827,7 +1827,7 @@ do_delay_shift(double delay, double shift, double variable) {
     int32 in;
     int32 i = (int32)(variable), ish = (int32)shift;
     if (i < 0)
-        return (0.0);
+        return 0.0;
     in = (i % MAXTYPE) + ish;
 
     if (in > MAXODE)
@@ -1836,7 +1836,7 @@ do_delay_shift(double delay, double shift, double variable) {
     if (del_stab_flag > 0) {
         if (DelayFlag && delay > 0.0)
             return (get_delay(in - 1, delay));
-        return (variables[in]);
+        return variables[in];
     }
 
     return (delay_stab_eval(delay, in));
@@ -1855,7 +1855,7 @@ do_delay(double delay, double i) {
             /* printf("do_delay for var #%d, delay %f\n", variable-1, delay); */
             return (get_delay(variable - 1, delay));
         }
-        return (variables[variable]);
+        return variables[variable];
     }
 
     return (delay_stab_eval(delay, (int32)variable));
@@ -1864,21 +1864,21 @@ do_delay(double delay, double i) {
 double Exp(z)
 double z;
 {
- if(z>700)return(1.01423e+304);
+ if(z>700)return 1.01423e+304;
  return(exp(z));
 }
 
 double Ln(z)
 double z;
 {
- if(z<1e-320)return(-736.82724);
+ if(z<1e-320)return -736.82724;
  return(log(z));
 }
 
 double Log10(z)
 double z;
 {
- if(z<1e-320)return(-320.);
+ if(z<1e-320)return -320.;
  return(log10(z));
 }
 */
@@ -1931,10 +1931,10 @@ normal(double mean, double std) {
         fac = sqrt(-2.0 * log(r) / r);
         BoxMuller = v1 * fac;
         BoxMullerFlag = 1;
-        return (v2 * fac * std + mean);
+        return v2 * fac * std + mean;
     } else {
         BoxMullerFlag = 0;
-        return (BoxMuller * std + mean);
+        return BoxMuller * std + mean;
     }
 }
 
@@ -1950,12 +1950,12 @@ min(double x, double y) {
 
 double
 neg(double z) {
-    return (-z);
+    return -z;
 }
 
 double
 recip(double z) {
-    return (1.00 / z);
+    return 1.00 / z;
 }
 
 double
@@ -1963,7 +1963,7 @@ heaviside(double z) {
     float w = 1.0;
     if (z < 0)
         w = 0.0;
-    return (w);
+    return w;
 }
 
 double
@@ -1977,10 +1977,10 @@ signum(double z)
 
 {
     if (z < 0.0)
-        return (-1.0);
+        return -1.0;
     if (z > 0.0)
-        return (1.0);
-    return (0.0);
+        return 1.0;
+    return 0.0;
 }
 
 /*  logical stuff  */
@@ -2137,7 +2137,7 @@ eval_rpn(int32 *equat) {
             break;
 
         case ENDSUM:
-            return (POP);
+            return POP;
         case INDXCOM:
             PUSH(CurrentIndex);
             break;
@@ -2232,7 +2232,7 @@ eval_rpn(int32 *equat) {
         }
         }
     }
-    return (POP);
+    return POP;
 }
 
 /* code for log-gamma if you dont have it */

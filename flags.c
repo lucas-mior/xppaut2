@@ -117,7 +117,7 @@ add_global(char *cond, int32 sign, char *rest) {
     char ch;
     if (NFlags >= MAXFLAG) {
         plintf("Too many global conditions\n");
-        return (1);
+        return 1;
     }
     l = strlen(cond);
     flag[j].cond = (char *)malloc(l + 1);
@@ -133,13 +133,13 @@ add_global(char *cond, int32 sign, char *rest) {
         if (ch == '}' || ch == ';') {
             if (nevents == MAX_EVENTS) {
                 printf(" Too many events per flag \n");
-                return (1);
+                return 1;
             }
             temp[k] = 0;
             lt = strlen(temp);
             if (flag[j].lhsname[nevents][0] == 0) {
                 printf(" No event variable named for %s \n", temp);
-                return (1);
+                return 1;
             }
             flag[j].rhs[nevents] = (char *)malloc(lt + 1);
             strcpy(flag[j].rhs[nevents], temp);
@@ -164,13 +164,13 @@ add_global(char *cond, int32 sign, char *rest) {
     }
     if (nevents == 0) {
         plintf(" No events for condition %s \n", cond);
-        return (1);
+        return 1;
     }
     /*  we now have the condition, the names, and the formulae */
     flag[j].sign = sign;
     flag[j].nevents = nevents;
     NFlags++;
-    return (0);
+    return 0;
 }
 
 void
@@ -194,11 +194,11 @@ compile_flags(void) {
     int32 i, k, index, nc;
     int32 command[256];
     if (NFlags == 0)
-        return (0);
+        return 0;
     for (j = 0; j < NFlags; j++) {
         if (add_expr(flag[j].cond, command, &nc)) {
             plintf("Illegal global condition:  %s\n", flag[j].cond);
-            return (1);
+            return 1;
         }
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
@@ -230,7 +230,7 @@ compile_flags(void) {
                                 plintf(" <%s> is not a valid "
                                        "variable/parameter name \n",
                                        flag[j].lhsname[i]);
-                                return (1);
+                                return 1;
                             }
                         }
                     }
@@ -246,14 +246,14 @@ compile_flags(void) {
             if (add_expr(flag[j].rhs[i], command, &nc)) {
                 printf("Illegal event %s for global %s\n", flag[j].rhs[i],
                        flag[j].cond);
-                return (1);
+                return 1;
             }
             flag[j].comrhs[i] = (int32 *)malloc(sizeof(int32) * (nc + 1));
             for (k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }
     }
-    return (0);
+    return 0;
 }
 
 /*  here is the shell code for a loop around  integration step  */
@@ -267,9 +267,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     int32 sign, i, j, in, ncycle = 0, newhit, nevents;
 
     if (NFlags == 0)
-        return (0);
+        return 0;
     /* printf("dt=%g yold= %g ynew = %g \n",dt,yold[0],ynew[0]); */
-    /*  if(abs(dt)<MY_DBL_EPS) return(0);  */
+    /*  if(abs(dt)<MY_DBL_EPS) return 0;  */
     for (i = 0; i < NFlags; i++) {
         flag[i].tstar = 2.0;
         flag[i].hit = 0;
@@ -335,7 +335,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     else
         smin = (1 + STOL) * smin;
     if (smin > 1.0)
-        return (0);
+        return 0;
 
     *tnew = told + dt * smin;
     SETVAR(0, *tnew);
@@ -443,7 +443,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     *s = smin;
     /* for(i=0;i<neq;i++)
        printf("step 10 %d %g %g \n",i,ynew[i],GETVAR(i+1)); */
-    return (1);
+    return 1;
 }
 
 /*  here are the ODE drivers */
@@ -472,7 +472,7 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
         }
     }
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -499,7 +499,7 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
         }
     }
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -525,7 +525,7 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
             break;
         }
     }
-    return (1);
+    return 1;
 }
 
 int32
@@ -551,7 +551,7 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
             break;
         }
     }
-    return (1);
+    return 1;
 }
 
 int32
@@ -578,7 +578,7 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
             break;
         }
     }
-    return (1);
+    return 1;
 }
 
 void
@@ -768,7 +768,7 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
         told = *t;
         if ((j = one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec, jac,
                               istart)) != 0)
-            return (j);
+            return j;
         if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0)
             break;
         /* Its a hit !! */

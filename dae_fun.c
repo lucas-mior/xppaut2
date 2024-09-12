@@ -109,7 +109,7 @@ compile_svars(void) {
     for (i = 0; i < naeqn; i++) {
         if (add_expr(aeqn[i].rhs, f, &n) == 1) {
             plintf(" Bad right-hand side for alg-eqn \n");
-            return (1);
+            return 1;
         }
         aeqn[i].form = (int32 *)malloc(sizeof(int32) * (n + 2));
         for (k = 0; k < n; k++)
@@ -119,7 +119,7 @@ compile_svars(void) {
     for (i = 0; i < nsvar; i++) {
         if (add_expr(svar[i].rhs, f, &n) == 1) {
             plintf(" Bad initial guess for sol-var \n");
-            return (1);
+            return 1;
         }
         svar[i].form = (int32 *)malloc(100 * sizeof(int32));
         for (k = 0; k < n; k++)
@@ -268,7 +268,7 @@ solve_dae(void) {
         if (err > (n * BOUND)) {
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
-            return (-3); /* getting too big */
+            return -3; /* getting too big */
         }
         if (err < tol) /* not much change */
         {
@@ -284,7 +284,7 @@ solve_dae(void) {
             /* plintf(" Too many iterates ... \n"); */
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
-            return (-2); /* too many iterates */
+            return -2; /* too many iterates */
         }
     }
 }

@@ -115,7 +115,7 @@ ccvode(
     *kflag = 0;
     if (*command == 2) {
         end_cv();
-        return (1);
+        return 1;
     }
     if (*command == 1) {
         start_cv(y, *t, n, tout, atol, rtol);
@@ -125,12 +125,12 @@ ccvode(
             *kflag = flag;
             end_cv();
             *command = 1;
-            return (-1);
+            return -1;
         }
         *command = 0;
         for (i = 0; i < n; i++)
             y[i] = ycv->data[i];
-        return (0);
+        return 0;
     }
     flag = CVode(cvode_mem, tout, ycv, t, NORMAL);
     if (flag != SUCCESS) {
@@ -138,9 +138,9 @@ ccvode(
         end_cv();
         *command = 1;
 
-        return (-1);
+        return -1;
     }
     for (i = 0; i < n; i++)
         y[i] = ycv->data[i];
-    return (0);
+    return 0;
 }

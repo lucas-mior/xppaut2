@@ -28,27 +28,27 @@ DenseAllocMat(int64 N) {
     DenseMat A;
 
     if (N <= 0)
-        return (NULL);
+        return NULL;
 
     A = (DenseMat)malloc(sizeof *A);
     if (A == NULL)
-        return (NULL);
+        return NULL;
 
     A->data = denalloc(N);
     if (A->data == NULL) {
         free(A);
-        return (NULL);
+        return NULL;
     }
 
     A->size = N;
 
-    return (A);
+    return A;
 }
 
 int64 *
 DenseAllocPiv(int64 N) {
     if (N <= 0)
-        return (NULL);
+        return NULL;
 
     return ((int64 *)malloc(N * sizeof(int64)));
 }
@@ -105,28 +105,28 @@ denalloc(int64 n) {
     double **a;
 
     if (n <= 0)
-        return (NULL);
+        return NULL;
 
     a = (double **)malloc(n * sizeof(double *));
     if (a == NULL)
-        return (NULL);
+        return NULL;
 
     a[0] = (double *)malloc(n * n * sizeof(double));
     if (a[0] == NULL) {
         free(a);
-        return (NULL);
+        return NULL;
     }
 
     for (j = 1; j < n; j++)
         a[j] = a[0] + j * n;
 
-    return (a);
+    return a;
 }
 
 int64 *
 denallocpiv(int64 n) {
     if (n <= 0)
-        return (NULL);
+        return NULL;
 
     return ((int64 *)malloc(n * sizeof(int64)));
 }
@@ -156,7 +156,7 @@ gefa(double **a, int64 n, int64 *p) {
         /* check for zero pivot element */
 
         if (col_k[l] == ZERO)
-            return (k + 1);
+            return k + 1;
 
         /* swap a(l,k) and a(k,k) if necessary */
 
@@ -207,11 +207,11 @@ gefa(double **a, int64 n, int64 *p) {
 
     *p = n - 1;
     if (a[n - 1][n - 1] == ZERO)
-        return (n);
+        return n;
 
     /* return 0 to indicate success */
 
-    return (0);
+    return 0;
 }
 
 void

@@ -69,7 +69,7 @@ alloc_delay(double big) {
     DelayWork = (double *)calloc(n * (NODE), sizeof(double));
     if (DelayWork == NULL) {
         err_msg("Could not allocate memory for Delay");
-        return (0);
+        return 0;
     }
     DelayFlag = 1;
     NDelay = 0;
@@ -77,7 +77,7 @@ alloc_delay(double big) {
     del_stab_flag = 1;
     for (i = 0; i < n * (NODE); i++)
         DelayWork[i] = 0.0;
-    return (1);
+    return 1;
 }
 
 void
@@ -112,7 +112,7 @@ get_delay_old(int32 in, double tau) {
     if (tau < 0.0 || tau > DELAY) {
         err_msg("Delay negative or too large");
         stop_integration();
-        return (0.0);
+        return 0.0;
     }
     i1 = (n1 + LatestDelay) % MaxDelay;
     i2 = (n2 + LatestDelay) % MaxDelay;
@@ -167,7 +167,7 @@ get_delay(int32 in, double tau) {
     if (tau < 0.0 || tau > DELAY) {
         err_msg("Delay negative or too large");
         stop_integration();
-        return (0.0);
+        return 0.0;
     }
     if (tau == 0.0) /* check fro zero delay and ignore the rest */
         return DelayWork[in + nodes * (LatestDelay % MaxDelay)];
@@ -194,7 +194,7 @@ get_delay(int32 in, double tau) {
     ya[3] = DelayWork[in + (nodes)*i3];
     polint(xa, ya, 4, tau, &y, &dy);
 
-    return (y);
+    return y;
 }
 
 /*  Handling of the initial data  */
@@ -216,7 +216,7 @@ do_init_delay(double big) {
                 free(del_form[j]);
             NCON = NCON_START;
             NSYM = NSYM_START;
-            return (0);
+            return 0;
         }
 
         if (add_expr(delay_string[i], del_form[i], &len)) {
@@ -225,7 +225,7 @@ do_init_delay(double big) {
                 free(del_form[j]);
             NCON = NCON_START;
             NSYM = NSYM_START;
-            return (0);
+            return 0;
         }
     } /*  Okay all formulas are cool... */
     LatestDelay = 1;
@@ -244,5 +244,5 @@ do_init_delay(double big) {
     NCON = NCON_START;
     NSYM = NSYM_START;
     set_val("t", old_t);
-    return (1);
+    return 1;
 }

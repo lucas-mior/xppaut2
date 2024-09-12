@@ -141,7 +141,7 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
     /* Print error message and return if cvdiag_mem is NULL */
     if (cvdiag_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Set flag setupNonNull = TRUE */
@@ -152,20 +152,20 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
     M = N_VNew(N, machenv);
     if (M == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     bit = N_VNew(N, machenv);
     if (bit == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(M);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     bitcomp = N_VNew(N, machenv);
     if (bitcomp == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(M);
         N_VFree(bit);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Set workspace lengths */
@@ -174,7 +174,7 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
         iopt[DIAG_LIW] = 0;
     }
 
-    return (LINIT_OK);
+    return LINIT_OK;
 }
 
 /*************** CVDiagSetup *****************************************
@@ -224,12 +224,12 @@ CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
     /* Invert M with test for zero components */
     invOK = N_VInvTest(M, M);
     if (!invOK)
-        return (1);
+        return 1;
 
     /* Set jcur = TRUE, save gamma in gammasv, and return */
     *jcurPtr = TRUE;
     gammasv = gamma;
-    return (0);
+    return 0;
 }
 
 /*************** CVDiagSolve *****************************************
@@ -257,14 +257,14 @@ CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
         N_VAddConst(M, ONE, M);
         invOK = N_VInvTest(M, M);
         if (!invOK)
-            return (1);
+            return 1;
 
         gammasv = gamma;
     }
 
     /* Apply M-inverse to b */
     N_VProd(b, M, b);
-    return (0);
+    return 0;
 }
 
 /*************** CVDiagFree ******************************************

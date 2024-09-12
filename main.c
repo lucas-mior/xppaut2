@@ -1326,7 +1326,7 @@ Window make_unmapped_window(root,x,y,width,height,bw)
                 bw,MyForeColor,MyBackColor);
          XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
               StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask);
-         return(win);
+         return win;
          }
 
          */
@@ -1442,7 +1442,7 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         XSetWMProtocols(display, wine, &deleteWindowAtom, 1);
     }
 #endif
-    return (wine);
+    return wine;
 }
 
 void
@@ -1719,7 +1719,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
 
     XQueryColors(display, win_info->colormap, *colors, ncolors);
 
-    return (ncolors);
+    return ncolors;
 }
 
 void

@@ -121,10 +121,10 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     XDestroyWindow(display, sb.base);
 
     if (status == FORGET_ALL)
-        return (status);
+        return status;
     for (i = 0; i < n; i++)
         strcpy(values[i], sb.value[i]);
-    return (status);
+    return status;
 }
 
 void expose_ebox(sb, w, pos, col) EDIT_BOX *sb;
@@ -255,7 +255,7 @@ int32 *col, *pos;
         }
         break;
     }
-    return (status);
+    return status;
 }
 
 void make_ebox_windows(sb, title) char *title;
@@ -485,13 +485,13 @@ save_as(void) {
     ping();
     /* if(new_string("Filename: ",filename)==0)return; */
     if (!file_selector("Save As", filename, "*.ode"))
-        return (-1);
+        return -1;
     open_write_file(&fp, filename, &ok);
     if (!ok)
-        return (-1);
+        return -1;
     fp = fopen(filename, "w");
     if (fp == NULL)
-        return (0);
+        return 0;
     fprintf(fp, "%d", NEQ);
     for (i = 0; i < NODE; i++) {
         if (i % 5 == 0)
@@ -529,5 +529,5 @@ save_as(void) {
     fprintf(fp, "done\n");
     fclose(fp);
 
-    return (1);
+    return 1;
 }

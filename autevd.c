@@ -151,7 +151,7 @@ get_bif_type(int32 ibr, int32 ntot, int32 lab) {
     if (ibr > 0 && ntot < 0)
         type = SEQ;
     /* if(lab>0)type=SPECIAL; */
-    return (type);
+    return type;
 }
 
 void
@@ -189,7 +189,7 @@ addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
 
 double
 etime_(double *z) {
-    return (0.0);
+    return 0.0;
 }
 
 int32

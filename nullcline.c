@@ -970,11 +970,11 @@ int32
 interpolate(Pt p1, Pt p2, double z, float *x, float *y) {
     float scale;
     if (p1.z == p2.z)
-        return (0);
+        return 0;
     scale = (z - p1.z) / (p2.z - p1.z);
     *x = p1.x + scale * (p2.x - p1.x);
     *y = p1.y + scale * (p2.y - p1.y);
-    return (1);
+    return 1;
 }
 
 void

@@ -102,7 +102,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     XFlush(display);
     if (status == ALL_DONE || status == DONE_WITH_THIS)
         strcpy(value, d.input_s);
-    return (status);
+    return status;
 }
 
 int32
@@ -152,7 +152,7 @@ dialog_event_loop(DIALOG *d, int32 max, int32 *pos, int32 *col) {
 
         break;
     }
-    return (status);
+    return status;
 }
 
 void

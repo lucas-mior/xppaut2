@@ -219,7 +219,7 @@ expose_scroll_list(Window w, SCROLL_LIST sl) {
         redraw_scroll_list(sl);
         return 1;
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -355,13 +355,13 @@ find_user_name(int32 type, char *oname) {
         if ((type == PARAMBOX) && (strcasecmp(upar_names[i], name) == 0))
             break;
     if (i < NUPAR)
-        return (i);
+        return i;
     for (i = 0; i < NEQ; i++)
         if ((type == ICBOX) && (strcasecmp(uvar_names[i], name) == 0))
             break;
     if (i < NEQ)
-        return (i);
-    return (-1);
+        return i;
+    return -1;
 }
 
 void
@@ -1016,7 +1016,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
                 redraw_file_list();
                 XFlush(display);
             }
-            return (EDIT_WAIT); /*Wait for further instruction...*/
+            return EDIT_WAIT; /*Wait for further instruction...*/
         }
 
         int32 m = strlen(filesel.filetxt) + 1;
@@ -1050,7 +1050,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         int32 n = 0;
         ft[0] = '\0';
         if (m > strlen(filesel.filetxt)) {
-            return (EDIT_WAIT);
+            return EDIT_WAIT;
         }
         for (n = 0; n < strlen(filesel.filetxt) - m; n++) {
             ft[n] = filesel.filetxt[m + n + 1];
@@ -1176,7 +1176,7 @@ selector_key(XEvent ev) {
             return 1;
         if (flag == EDIT_ESC)
             return 2;
-        return (0);
+        return 0;
     case HOTWILD:
         flag = edit_fitem(ch, filesel.wildtxt, filesel.wild, &(filesel.off),
                           &(filesel.pos), 29);
@@ -2015,14 +2015,14 @@ int32
 find_the_box(BoxList b, Window w, int32 *index) {
     int32 i;
     if (b.xuse == 0)
-        return (0);
+        return 0;
     for (i = 0; i < b.nwin; i++)
         if (w == b.we[i]) {
             *index = i + b.n0;
-            return (1);
+            return 1;
         }
     *index = -1;
-    return (0);
+    return 0;
 }
 
 void
@@ -2603,7 +2603,7 @@ to_float(char *s, double *z) {
         return 0;
     }
     *z = atof(s);
-    return (0);
+    return 0;
 }
 
 void

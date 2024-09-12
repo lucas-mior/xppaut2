@@ -157,7 +157,7 @@ VOCAB my_cmd[NCMD] = {
 int32
 is_set_name(SET_NAME *set, char *nam) {
     if (set == NULL) {
-        return (0);
+        return 0;
     }
     SET_NAME *curr;
 
@@ -165,12 +165,12 @@ is_set_name(SET_NAME *set, char *nam) {
 
     while (curr) {
         if (strcmp(curr->name, nam) == 0) {
-            return (1);
+            return 1;
         }
         curr = (SET_NAME *)curr->next;
     }
 
-    return (0);
+    return 0;
 }
 
 SET_NAME *
@@ -183,7 +183,7 @@ add_set(SET_NAME *set, char *nam) {
         set = curr;
     }
 
-    return (set);
+    return set;
 }
 
 SET_NAME *
@@ -192,7 +192,7 @@ rm_set(SET_NAME *set, char *nam) {
     SET_NAME *prev = NULL;
 
     if (set == NULL) {
-        return (NULL);
+        return NULL;
     }
 
     curr = set;
@@ -210,7 +210,7 @@ rm_set(SET_NAME *set, char *nam) {
         i++;
     }
 
-    return (set);
+    return set;
 }
 
 void
@@ -491,7 +491,7 @@ if_needed_load_ic(void) {
     }
     plintf("Loading external initial condition file: %s\n", icfilename);
     io_ic_file(icfilename, 1);
-    return (1);
+    return 1;
 }
 
 int32

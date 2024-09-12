@@ -161,14 +161,14 @@ do_calc(char *temp, double *z) {
     double newz;
     if (strlen(temp) == 0) {
         *z = 0.0;
-        return (1);
+        return 1;
     }
     if (has_eq(temp, val, &i)) {
 
         newz = calculate(&temp[i], &ok); /*  calculate quantity  */
 
         if (ok == 0)
-            return (-1);
+            return -1;
         i = find_user_name(PARAM, val);
         if (i > -1) {
             set_val(val, newz); /* a parameter set to value  */
@@ -178,7 +178,7 @@ do_calc(char *temp, double *z) {
             i = find_user_name(IC, val);
             if (i < 0) {
                 err_msg("No such name!");
-                return (-1);
+                return -1;
             }
             set_val(val, newz);
 
@@ -186,14 +186,14 @@ do_calc(char *temp, double *z) {
             *z = newz;
             redraw_ics();
         }
-        return (0);
+        return 0;
     }
 
     newz = calculate(temp, &ok);
     if (ok == 0)
-        return (-1);
+        return -1;
     *z = newz;
-    return (1);
+    return 1;
 }
 
 int32
@@ -203,11 +203,11 @@ has_eq(char *z, char *w, int32 *where) {
         if (z[i] == ':')
             break;
     if (i == (int32)strlen(z))
-        return (0);
+        return 0;
     strncpy(w, z, i);
     w[i] = 0;
     *where = i + 1;
-    return (1);
+    return 1;
 }
 
 double
@@ -226,5 +226,5 @@ bye:
     /* plintf(" old=%d %d  new = %d %d \n",NCON,NSYM,NCON_START,NSYM_START);  */
     NCON = NCON_START;
     NSYM = NSYM_START;
-    return (z);
+    return z;
 }

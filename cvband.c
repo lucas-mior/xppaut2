@@ -261,7 +261,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     /* Print error message and return if cvband_mem is NULL */
     if (cvband_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Set flag setupNonNull = TRUE */
@@ -270,7 +270,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     /* Test ml and mu for legality */
     if ((ml < 0) || (mu < 0) || (ml >= N) || (mu >= N)) {
         fprintf(errfp, MSG_BAD_SIZES, (int64)ml, (int64)mu, (int64)(N - 1));
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Set extended upper half-bandwith for M (required for pivoting) */
@@ -280,20 +280,20 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     M = BandAllocMat(N, mu, ml, storage_mu);
     if (M == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     savedJ = BandAllocMat(N, mu, ml, mu);
     if (savedJ == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         BandFreeMat(M);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
     pivots = BandAllocPiv(N);
     if (pivots == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         BandFreeMat(M);
         BandFreeMat(savedJ);
-        return (LINIT_ERR);
+        return LINIT_ERR;
     }
 
     /* Initialize nje and nstlj, and set workspace lengths */
@@ -305,7 +305,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
     nstlj = 0;
 
-    return (LINIT_OK);
+    return LINIT_OK;
 }
 
 /*************** CVBandSetup *****************************************
@@ -363,8 +363,8 @@ CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 
     /* Return 0 if the LU was complete; otherwise return 1 */
     if (ier > 0)
-        return (1);
-    return (0);
+        return 1;
+    return 0;
 }
 
 /*************** CVBandSolve *****************************************
@@ -387,7 +387,7 @@ CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
         N_VScale(TWO / (ONE + gamrat), b, b);
     }
 
-    return (0);
+    return 0;
 }
 
 /*************** CVBandFree ******************************************

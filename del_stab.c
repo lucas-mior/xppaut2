@@ -420,7 +420,7 @@ int32 m, n;
     COMPLEX temp, eld;
     double arg;
     if (m == 0)
-        return (0); /* no delays so don't use this! */
+        return 0; /* no delays so don't use this! */
     z = (COMPLEX *)malloc(sizeof(COMPLEX) * n * n);
     for (j = 0; j < n; j++)
         for (i = 0; i < n; i++) {
@@ -451,7 +451,7 @@ int32 m, n;
     free(z);
     arg = atan2(temp.i, temp.r);
     /*   plintf("%g %g %g \n",lambda.r,lambda.i,arg); */
-    return (arg);
+    return arg;
 }
 
 int32
@@ -459,7 +459,7 @@ test_sign(double old, double new) {
     if (old > 0.0 && new < 0.0) {
         if (old > 2.9 && new < -2.9)
             return 1;
-        return (0); /* doesnt pass threshold */
+        return 0; /* doesnt pass threshold */
     }
     if (old < 0.0 && new > 0.0) {
         if (old < -2.9 && new > 2.9)

@@ -252,16 +252,16 @@ int32
 change_directory(char *path) {
     if (path == NULL) {
         *cur_dir = '\0';
-        return (0);
+        return 0;
     }
     if (chdir(path) == -1) {
         put_msg("Can't go to directory %s\n", path);
-        return (1);
+        return 1;
     }
     if (get_directory(cur_dir) != 0) /* get cwd */
-        return (0);
+        return 0;
     else
-        return (1);
+        return 1;
 }
 
 int32
@@ -296,15 +296,15 @@ char *path;
     struct stat statbuf;
 
     if (path == NULL)
-        return (0);
+        return 0;
     MakeFullPath(root, path, fullpath);
     if (stat(fullpath, &statbuf)) /* some error, report that it is not
                                    * a directory */
-        return (0);
+        return 0;
     if (statbuf.st_mode & S_IFDIR)
-        return (1);
+        return 1;
     else
-        return (0);
+        return 0;
 }
 
 /* Function:	MakeFullPath() creates the full pathname for the given file.

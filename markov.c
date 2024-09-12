@@ -345,7 +345,7 @@ new_state(double old, int32 index, double dt) {
             break;
         }
     if (row == -1)
-        return (old);
+        return old;
     rns = row * ns;
     sum = 0.0;
     if (type == 0) {
@@ -356,7 +356,7 @@ new_state(double old, int32 index, double dt) {
                 if (coin <= sum) {
                     /*	   plintf("index %d switched state to %d \n",index,i);
                      */
-                    return (st[i]);
+                    return st[i];
                 }
             }
         }
@@ -368,13 +368,13 @@ new_state(double old, int32 index, double dt) {
                 if (coin <= sum) {
                     /*	   plintf("index %d switched state to %d \n",index,i);
                      */
-                    return (st[i]);
+                    return st[i];
                 }
             }
         }
     }
 
-    return (old);
+    return old;
 }
 
 void

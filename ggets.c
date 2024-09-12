@@ -160,7 +160,7 @@ plintf(char *fmt, ...) {
     va_list arglist;
 
     if (!XPPVERBOSE)
-        return (nchar); /*Don't print at all!*/
+        return nchar; /*Don't print at all!*/
 
     if (logfile == NULL) {
         printf("The log file is NULL!\n");
@@ -175,7 +175,7 @@ plintf(char *fmt, ...) {
     Then maybe user can figure out what happened and when.*/
     fflush(logfile);
 
-    return (nchar);
+    return nchar;
 }
 
 int32
@@ -195,11 +195,11 @@ show_position(XEvent ev, int32 *com) {
     if(w==menu_pop)
      {
       *com=(j-DCURY-2)/DCURY;
-      return(1);
+      return 1;
     }
     */
     check_draw_button(ev);
-    return (0);
+    return 0;
 }
 
 void
@@ -228,40 +228,40 @@ get_key_press(XEvent *ev) {
 
     /*    plintf("h=%d e=%d ks=%d \n",XK_Home,XK_End,ks); */
     if (ks == XK_Escape)
-        return (ESC);
+        return ESC;
     if ((ks == XK_Return) || (ks == XK_KP_Enter) || (ks == XK_Linefeed))
-        return (FINE);
+        return FINE;
     else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||
              ((ks >= XK_space) && (ks <= XK_asciitilde)))
         return ((int32)buf[0]);
-    /*   else if ((ks>=XK_Shift_L)&&(ks<=XK_Hyper_R)) return(0);
-       else if ((ks>=XK_F1)&&(ks<=XK_F35))  return(0); */
+    /*   else if ((ks>=XK_Shift_L)&&(ks<=XK_Hyper_R)) return 0;
+       else if ((ks>=XK_F1)&&(ks<=XK_F35))  return 0; */
 
     else if (ks == XK_BackSpace)
-        return (BKSP);
+        return BKSP;
     else if (ks == XK_Delete)
-        return (DEL);
+        return DEL;
     else if (ks == XK_Tab)
-        return (TAB);
+        return TAB;
     else if (ks == XK_Home)
-        return (HOME);
+        return HOME;
     else if (ks == XK_End)
-        return (END);
+        return END;
     else if (ks == XK_Left)
-        return (LEFT);
+        return LEFT;
     else if (ks == XK_Right)
-        return (RIGHT);
+        return RIGHT;
     else if (ks == XK_Up)
-        return (UP);
+        return UP;
     else if (ks == XK_Down)
-        return (DOWN);
+        return DOWN;
     else if (ks == XK_PgUp)
-        return (PGUP);
+        return PGUP;
     else if (ks == XK_PgDn)
-        return (PGDN);
+        return PGDN;
     else {
 
-        return (BADKEY);
+        return BADKEY;
     }
 }
 
@@ -305,8 +305,8 @@ are_you_sure()
  gpos_prn("Are you sure? (Y/N)<N>",0,0);
  ping();
  ch = (char)getchi();
- if(ch=='y'||ch=='Y')return(1);
- return(0);
+ if(ch=='y'||ch=='Y')return 1;
+ return 0;
 }
 */
 
@@ -334,14 +334,14 @@ get_mouse_xy(int32 *x, int32 *y, Window w) {
             break;
         case ButtonPress:
             if (ev.xbutton.window != w)
-                return (0);
+                return 0;
             no_but = 0;
             *x = ev.xbutton.x;
             *y = ev.xbutton.y;
-            return (1);
+            return 1;
         }
     }
-    return (0);
+    return 0;
 }
 
 void
@@ -366,7 +366,7 @@ getuch()
  int32 ch;
  ch=getchi();
  if(ch>64&&ch<96)ch+=32;
- return(ch);
+ return ch;
 }
 
 */
@@ -406,11 +406,11 @@ new_float(char *name, double *value) {
         flag = do_calc(&tvalue[1], &newz);
         if (flag != -1)
             *value = newz;
-        return (0);
+        return 0;
     }
     *value = atof(tvalue);
 
-    return (0);
+    return 0;
 }
 
 /*
@@ -418,7 +418,7 @@ do_calc(s,v)
 char *s;
 double *v;
 {
- return(1);
+ return 1;
 }
 
  */
@@ -428,9 +428,9 @@ new_int(char *name, int32 *value) {
     char svalue[200];
     snprintf(svalue, sizeof(svalue), "%d", *value);
     if (new_string(name, svalue) == 0 || strlen(svalue) == 0)
-        return (-1);
+        return -1;
     *value = atoi(svalue);
-    return (0);
+    return 0;
 }
 
 void
@@ -627,7 +627,7 @@ new_string(char *name, char *value) {
     }
     clr_command();
     if (done == 1 || done == 2)
-        return (done);
+        return done;
     strcpy(value, old_value);
-    return (0);
+    return 0;
 }

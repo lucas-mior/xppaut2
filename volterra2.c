@@ -54,8 +54,8 @@ extern int32 *my_ode[];
 double
 ker_val(int32 in) {
     if (KnFlag)
-        return (kernel[in].k_n);
-    return (kernel[in].k_n1);
+        return kernel[in].k_n;
+    return kernel[in].k_n1;
 }
 
 void
@@ -344,10 +344,10 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
         set_wieners(dt, y, *t);
         if ((j = volt_step(y, *t, dt, neq, yg, yp, yp2, ytemp, errvec, jac)) !=
             0)
-            return (j);
+            return j;
         stor_delay(y);
     }
-    return (0);
+    return 0;
 }
 
 int32
@@ -414,7 +414,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         sgefa(jac, NODE, NODE, ipivot, &info);
         if (info != -1) {
 
-            return (-1); /* Jacobian is singular   */
+            return -1; /* Jacobian is singular   */
         }
         err = 0.0;
         sgesl(jac, NODE, NODE, ipivot, errvec, 0);
@@ -426,7 +426,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             break;
         iter++;
         if (iter > MaxEulIter)
-            return (-2); /* too many iterates   */
+            return -2; /* too many iterates   */
     }
     /* We have a good point; lets save it    */
     get_kn(yg, t);
@@ -439,5 +439,5 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         Memory[i][ind] = GETVAR(i + 1);
     CurrentPoint++;
 
-    return (0);
+    return 0;
 }

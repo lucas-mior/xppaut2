@@ -109,8 +109,8 @@ dbl_raise(double x, int32 y) {
     for (i = 0; i < abs(y); i++)
         val *= x;
     if (y < 0)
-        return (1.0 / val);
-    return (val);
+        return 1.0 / val;
+    return val;
 }
 
 double
@@ -129,7 +129,7 @@ make_tics(double tmin, double tmax) {
     else
         tics = 1.0;
     tic = tics * dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
-    return (tic);
+    return tic;
 }
 
 void

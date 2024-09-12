@@ -236,21 +236,21 @@ rfun(double y, int32 per) {
         x = 1. - y;
 
     if (x > .33333333333)
-        return (0);
+        return 0;
     return ((int32)(3. * 255 * sqrt((.333334 - x) * (x + .33334))));
 }
 
 int32
 gfun(double y, int32 per) {
     if (y > .666666)
-        return (0);
+        return 0;
     return ((int32)(3. * 255 * sqrt((.6666667 - y) * (y))));
 }
 
 int32
 bfun(double y, int32 per) {
     if (y < .333334)
-        return (0);
+        return 0;
     return ((int32)(2.79 * 255 * sqrt((1.05 - y) * (y - .333333333))));
 }
 
@@ -361,16 +361,16 @@ MakeColormap(void) {
 int32
 ColorMap(int32 i) {
     if (i == -1)
-        return (GrBack);
+        return GrBack;
     if (i == 0)
-        return (GrFore);
+        return GrFore;
     if (color_mode) {
         if (i < 0)
             i = 0;
         if (i >= color_max)
             i = color_max;
-        return (color[i].pixel);
+        return color[i].pixel;
     } else {
-        return (i);
+        return i;
     }
 }

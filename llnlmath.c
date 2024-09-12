@@ -30,7 +30,7 @@ UnitRoundoff(void) {
     }
     u *= TWO;
 
-    return (u);
+    return u;
 }
 
 double
@@ -44,14 +44,14 @@ RPowerI(double base, int32 exponent) {
         prod *= base;
     if (exponent < 0)
         prod = ONE / prod;
-    return (prod);
+    return prod;
 }
 
 double
 RPowerR(double base, double exponent) {
 
     if (base <= ZERO)
-        return (ZERO);
+        return ZERO;
 
     return ((double)pow((double)base, (double)exponent));
 }
@@ -59,7 +59,7 @@ RPowerR(double base, double exponent) {
 double
 RSqrt(double x) {
     if (x <= ZERO)
-        return (ZERO);
+        return ZERO;
 
     return ((double)sqrt((double)x));
 }

@@ -123,7 +123,7 @@ ps_init(char *filename, int32 color) {
     int32 i;
     if ((psfile = fopen(filename, "w")) == NULL) {
         err_msg("Cannot open file ");
-        return (0);
+        return 0;
     }
     init_ps();
     PltFmtFlag = 1;
@@ -164,7 +164,7 @@ ps_init(char *filename, int32 color) {
     fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE * PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "newpath\n");
-    return (1);
+    return 1;
 }
 
 void

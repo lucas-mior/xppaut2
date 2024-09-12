@@ -186,9 +186,9 @@ int32
 check_for_stor(float **data) {
     if (data != storage) {
         err_msg("Only data can be in browser");
-        return (0);
+        return 0;
     } else
-        return (1);
+        return 1;
 }
 
 void del_stor_col(var, b) BROWSER *b;
@@ -276,23 +276,23 @@ BROWSER *b;
 
     if (add_expr(formula, com, &i)) {
         err_msg("Bad Formula .... ");
-        return (0);
+        return 0;
     }
     if ((my_ode[NEQ + FIX_VAR] = (int32 *)malloc((i + 2) * sizeof(int32))) ==
         NULL) {
         err_msg("Cant allocate formula space");
-        return (0);
+        return 0;
     }
     if ((storage[NEQ + 1] = (float *)malloc(MAXSTOR * sizeof(float))) == NULL) {
         err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
-        return (0);
+        return 0;
     }
     if ((ode_names[NEQ] = (char *)malloc(80)) == NULL) {
         err_msg("Cannot allocate space ...");
         free(my_ode[NEQ]);
         free(storage[NEQ + 1]);
-        return (0);
+        return 0;
     }
     strcpy(ode_names[NEQ], formula);
     strupr(ode_names[NEQ]);
@@ -313,7 +313,7 @@ BROWSER *b;
     NEQ++;
     b->maxcol = NEQ + 1;
     redraw_browser(*b);
-    return (1);
+    return 1;
 }
 
 void
@@ -759,7 +759,7 @@ br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
     y = drow * row + 4;
     win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
     XSelectInput(display, win, MYMASK);
-    return (win);
+    return win;
 }
 Window
 br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
@@ -776,7 +776,7 @@ br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     y = drow * row + 4;
     win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
     XSelectInput(display, win, MYMASK);
-    return (win);
+    return win;
 }
 
 void make_browser(b, wname, iname, row, col) BROWSER *b;

@@ -61,7 +61,7 @@ go_go_auto(void) /* this is the entry  at this point, xAuto has been set */
             if (iap.mynode == 0) {
                 fprintf(stderr, "\nRestart label %4ld not found\n", iap.irs);
             }
-            return (0); /* bad retrun */
+            return 0; /* bad retrun */
         }
     }
     /*     dump_params(iap,rap,icp,thl); */

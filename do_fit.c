@@ -221,7 +221,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
         cvode(istart, y, &t, NODE, t1, &kflag, &TOLER, &ATOLER);
         if (kflag < 0) {
             cvode_err_msg(kflag);
-            return (0);
+            return 0;
         }
         stor_delay(y);
         return 1;
@@ -231,7 +231,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
         dp(istart, y, &t, NODE, t1, &TOLER, &ATOLER, METHOD - DP5, &kflag);
         if (kflag != 1) {
             dp_err(kflag);
-            return (0);
+            return 0;
         }
         stor_delay(y);
         return 1;
@@ -240,7 +240,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
         rb23(y, &t, t1, istart, NODE, WORK, &kflag);
         if (kflag < 0) {
             err_msg("Step size too small");
-            return (0);
+            return 0;
         }
         stor_delay(y);
         return 1;
@@ -267,10 +267,10 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
                 err_msg("exceeded MAXTRY in stiff");
                 break;
             }
-            return (0);
+            return 0;
         }
         stor_delay(y);
-        return (1);
+        return 1;
     }
     /* cvode(command,y,t,n,tout,kflag,atol,rtol)
    command =0 continue, 1 is start 2 finish   */
@@ -294,32 +294,32 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
                 break;
             }
 
-            return (0);
+            return 0;
         }
         stor_delay(y);
-        return (1);
+        return 1;
     }
     if (METHOD == 0) {
         nit = fabs(t0 - t1);
         dt = dt / fabs(dt);
         kflag = solver(y, &t, dt, nit, NODE, istart, WORK);
 
-        return (1);
+        return 1;
     }
     z = (t1 - t0) / dt;
     nit = (int32)z;
     kflag = solver(y, &t, dt, nit, NODE, istart, WORK);
 
     if (kflag < 0)
-        return (0);
+        return 0;
     if ((dt < 0 && t > t1) || (dt > 0 && t < t1)) {
         dt = t1 - t;
         kflag = solver(y, &t, dt, 1, NODE, istart, WORK);
         if (kflag < 0)
-            return (0);
+            return 0;
     }
 
-    return (1);
+    return 1;
 }
 
 void
@@ -451,7 +451,7 @@ run_fit(/* double arrays */
 
     if ((fp = fopen(filename, "r")) == NULL) {
         err_msg("No such file...");
-        return (0);
+        return 0;
     }
     t0 = (double *)malloc((npts + 1) * sizeof(double));
     y = (double *)malloc((npts + 1) * nvars * sizeof(double));
@@ -521,7 +521,7 @@ run_fit(/* double arrays */
         free(t0);
         free(y);
 
-        return (0);
+        return 0;
     }
     if (niter >= maxiter) {
         err_msg("Max iterations exceeded...");
@@ -535,7 +535,7 @@ run_fit(/* double arrays */
         free(t0);
         free(y);
 
-        return (1);
+        return 1;
     }
     ictrl = 2;
     marlevstep(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha,
@@ -558,7 +558,7 @@ run_fit(/* double arrays */
     free(t0);
     free(y);
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -604,7 +604,7 @@ sigma  weights on nvars
         *alambda = .001;
         if (mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, alpha,
                    chisq, beta, yderv, yfit, eps) == 0)
-            return (0);
+            return 0;
         for (i = 0; i < npars; i++)
             atry[i] = a[i];
         *ochisq = (*chisq);
@@ -618,7 +618,7 @@ sigma  weights on nvars
     sgefa(covar, npars, npars, ipivot, &ierr);
     if (ierr != -1) {
         err_msg(" Singular matrix encountered...");
-        return (0);
+        return 0;
     }
 
     sgesl(covar, npars, npars, ipivot, oneda, 0);
@@ -637,7 +637,7 @@ sigma  weights on nvars
             for (k = 0; k < npars; k++)
                 covar[j + k * npars] = oneda[k];
         }
-        return (1);
+        return 1;
     }
     for (j = 0; j < npars; j++) {
         atry[j] = a[j] + da[j];
@@ -646,7 +646,7 @@ sigma  weights on nvars
     }
     if (mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar, covar,
                chisq, da, yderv, yfit, eps) == 0)
-        return (0);
+        return 0;
 
     if (*chisq < *ochisq) {
         /* *ochisq=*chisq; */
@@ -661,7 +661,7 @@ sigma  weights on nvars
         *alambda *= 10.0;
         /* *chisq=*ochisq; */
     }
-    return (1);
+    return 1;
 }
 
 int32
@@ -675,7 +675,7 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
                  ipar);
     if (flag == 0) {
         err_msg(" Integration error ...\n");
-        return (0);
+        return 0;
     }
     for (i = 0; i < npars; i++) {
         beta[i] = 0.0;
@@ -711,7 +711,7 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
                plintf(" alpha[%d][%d]=%g ",j,k,alpha[j+k*npars]);
            }
            */
-    return (1);
+    return 1;
 }
 
 int32
@@ -742,9 +742,9 @@ get_fit_params(void) {
         snprintf(fin.parlist1, sizeof(fin.parlist1), "%s", values[2]);
         snprintf(fin.collist, sizeof(fin.collist), "%s", values[6]);
         snprintf(fin.parlist2, sizeof(fin.parlist2), "%s", values[7]);
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 }
 
 /* gets a list of the data columns to use ... */

@@ -941,15 +941,15 @@ sign(double x, double y) {
 int32
 imin(int32 x, int32 y) {
     if (x < y)
-        return (x);
-    return (y);
+        return x;
+    return y;
 }
 
 double
 amax(double u, double v) {
     if (u > v)
-        return (u);
-    return (v);
+        return u;
+    return v;
 }
 
 void
@@ -1084,7 +1084,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
 
 double
 sqr2(double z) {
-    return (z * z);
+    return z * z;
 }
 
 int32
@@ -1159,7 +1159,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     if (*jstart == 0)
         h = sgnum(hmin, deltat);
     if (fabs(deltat) < hmin) {
-        return (-1);
+        return -1;
     }
     maxder = 6;
     for (i = 0; i < n; i++)
@@ -1594,7 +1594,7 @@ L860:
     iwork[6] = newq;
     iwork[7] = iweval;
 
-    return (1);
+    return 1;
 }
 
 double
@@ -1608,15 +1608,15 @@ sgnum(double x, double y) {
 double
 Max(double x, double y) {
     if (x > y)
-        return (x);
-    return (y);
+        return x;
+    return y;
 }
 
 double
 Min(double x, double y) {
     if (x < y)
-        return (x);
-    return (y);
+        return x;
+    return y;
 }
 
 void
@@ -1725,9 +1725,9 @@ isamax(int32 n, double *sx, int32 incx) {
     int32 i, ix, imax;
     double smax;
     if (n < 1)
-        return (-1);
+        return -1;
     if (n == 1)
-        return (0);
+        return 0;
     if (incx != 1) {
         ix = 0;
         imax = 0;
@@ -1739,7 +1739,7 @@ isamax(int32 n, double *sx, int32 incx) {
                 smax = fabs(sx[ix]);
             }
         }
-        return (imax);
+        return imax;
     }
     imax = 0;
     smax = fabs(sx[0]);
@@ -1749,7 +1749,7 @@ isamax(int32 n, double *sx, int32 incx) {
             smax = fabs(sx[i]);
         }
     }
-    return (imax);
+    return imax;
 }
 
 double
@@ -1757,7 +1757,7 @@ sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy) {
     int32 i, ix, iy;
     double stemp = 0.0;
     if (n <= 0)
-        return (0.0);
+        return 0.0;
     ix = 0;
     iy = 0;
     if (incx < 0)
@@ -1766,7 +1766,7 @@ sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy) {
         iy = -n * incy;
     for (i = 0; i < n; i++, ix += incx, iy += incy)
         stemp += sx[ix] * sx[iy];
-    return (stemp);
+    return stemp;
 }
 
 void

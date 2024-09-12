@@ -673,7 +673,7 @@ select_marker_type(int32 *type) {
     ch = (char)pop_up_list(&temp, "Markers", list, key, 6, 9, ival, 10,
                            4 * DCURY + 8, no_hint, info_pop, info_message);
     if (ch == 27)
-        return (0);
+        return 0;
     for (i = 0; i < 6; i++) {
         if (ch == key[i])
             ival = i;
@@ -681,7 +681,7 @@ select_marker_type(int32 *type) {
     if (ival < 6)
         *type = MARKER + ival;
 
-    return (1);
+    return 1;
 }
 
 int32

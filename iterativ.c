@@ -53,7 +53,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
 
     temp = FACTOR * vk_norm;
     if ((temp + (*new_vk_norm)) != temp)
-        return (0);
+        return 0;
 
     new_norm_2 = ZERO;
 
@@ -72,7 +72,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
         *new_vk_norm = (new_product > ZERO) ? RSqrt(new_product) : ZERO;
     }
 
-    return (0);
+    return 0;
 }
 
 /************************ ClassicalGS ********************************
@@ -126,7 +126,7 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
         *new_vk_norm = RSqrt(N_VDotProd(v[k], v[k]));
     }
 
-    return (0);
+    return 0;
 }
 
 /*************** QRfact **********************************************
@@ -219,7 +219,7 @@ QRfact(int32 n, double **h, double *q, int32 job) {
             code = n;
     }
 
-    return (code);
+    return code;
 }
 
 /*************** QRsol ************************************************
@@ -256,5 +256,5 @@ QRsol(int32 n, double **h, double *q, double *b) {
             b[i] -= b[k] * h[i][k];
     }
 
-    return (code);
+    return code;
 }

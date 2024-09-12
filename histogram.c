@@ -224,7 +224,7 @@ twod_hist(void)
         free(my_hist[0]);
         free(my_hist[1]);
         err_msg("Cannot allocate enough...");
-        return (-1);
+        return -1;
     }
     HIST_HERE = 2;
     for (i = 3; i <= NEQ; i++)
@@ -238,7 +238,7 @@ twod_hist(void)
 
     ping();
 
-    return (1);
+    return 1;
 }
 
 int32
@@ -249,32 +249,32 @@ new_2d_hist(void) {
         return 0;
     }
     if (get_col_info(&hist_inf.col, "Variable 1 ") == 0)
-        return (-1);
+        return -1;
     new_int("Number of bins ", &hist_inf.nbins);
     new_float("Low ", &hist_inf.xlo);
     new_float("Hi ", &hist_inf.xhi);
     if (hist_inf.nbins < 2) {
         err_msg("At least 2 bins\n");
-        return (0);
+        return 0;
     }
     if (hist_inf.xlo >= hist_inf.xhi) {
         err_msg("Low must be less than hi");
-        return (0);
+        return 0;
     }
 
     if (get_col_info(&hist_inf.col2, "Variable 2 ") == 0)
-        return (-1);
+        return -1;
     new_int("Number of bins ", &hist_inf.nbins2);
     new_float("Low ", &hist_inf.ylo);
     new_float("Hi ", &hist_inf.yhi);
 
     if (hist_inf.nbins2 < 2) {
         err_msg("At least 2 bins\n");
-        return (0);
+        return 0;
     }
     if (hist_inf.ylo >= hist_inf.yhi) {
         err_msg("Low must be less than hi");
-        return (0);
+        return 0;
     }
 
     return (twod_hist());
@@ -425,9 +425,9 @@ get_col_info(int32 *col, char *prompt) {
     find_variable(variable, col);
     if (*col < 0) {
         err_msg("No such variable...");
-        return (0);
+        return 0;
     }
-    return (1);
+    return 1;
 }
 
 void
@@ -474,9 +474,9 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
     /*float sum;
      */
     if (nr < 2)
-        return (0);
+        return 0;
     if (kwin < 1)
-        return (0);
+        return 0;
     ct = (float *)malloc(sizeof(float) * win);
     d = (float *)malloc(sizeof(float) * win);
     st = (float *)malloc(sizeof(float) * win);
@@ -533,7 +533,7 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
     free(st);
     free(d);
 
-    return (1);
+    return 1;
 }
 
 /*  here is what we do - I think it is what MatLab does as well
@@ -564,9 +564,9 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
     float *pxx, *pyy;
     float *pxyr, *pxym;
     if (nr < 2)
-        return (0);
+        return 0;
     if (kwin < 1)
-        return (0);
+        return 0;
     ct = (float *)malloc(sizeof(float) * win);
     d = (float *)malloc(sizeof(float) * win);
     st = (float *)malloc(sizeof(float) * win);
@@ -651,7 +651,7 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
     free(pxyr);
     free(pxym);
 
-    return (1);
+    return 1;
 }
 
 void
