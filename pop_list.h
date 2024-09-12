@@ -2,15 +2,10 @@
 #define _pop_list_h
 #include "integers.h"
 
-#include "phsplan.h"
-#include <stdlib.h>
-#include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/cursorfont.h>
-#include <stdio.h>
 #include "xpplim.h"
-#include "math.h"
 
 #define MAX_N_SBOX 22
 #include "max_len_sbox.h"
