@@ -1,6 +1,9 @@
 
 
 #include <stdbool.h>
+#include <unistd.h>
+#include "parserslow.h"
+#include "tabular.h"
 #include "auto_x11.h"
 #include "auto_nox.h"
 #include "init_conds.h"
@@ -59,10 +62,6 @@
 #define SIMPMASK                                                               \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
-void set_ivar();
-void sleep();
-void storeautopoint();
-void redo_all_fun_tables();
 extern Display *display;
 extern int32 TrueColorFlag;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
@@ -1120,7 +1119,7 @@ void
 a_msg(int32 i, int32 v) {
     if (v == 0 || TipsFlag == 0)
         return;
-    snprintf(Auto.hinttxt, 255, auto_hint[i]);
+    strncpy(Auto.hinttxt, auto_hint[i], sizeof(Auto.hinttxt));
     display_auto(AutoW.hint);
     return;
 }

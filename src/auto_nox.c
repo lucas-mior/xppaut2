@@ -2404,8 +2404,12 @@ auto_start_at_homoclinic(void) {
         xAuto.iequib = -2;
     flag =
         get_homo_info(HomoFlag, &xAuto.nunstab, &xAuto.nstab, homo_l, homo_r);
-    if (flag)
-        do_auto(opn, (int32)close, Auto.itp);
+    if (flag) {
+        /* TODO: for some reason, the second argument was `close`, which maps
+         * to the libc function with this name. That does not make any sense
+         * so I changed it to 1 */
+        do_auto(opn, 1, Auto.itp);
+    }
     return;
 }
 
@@ -2800,7 +2804,7 @@ save_auto_numerics(FILE *fp) {
         fprintf(fp, "%d ", AutoPar[i]);
     fprintf(fp, "%d\n", NAutoUzr);
     for (i = 0; i < 9; i++)
-        fprintf(fp, "%g %d\n", outperiod[i], UzrPar[i]);
+        fprintf(fp, "%g %ld\n", outperiod[i], UzrPar[i]);
     fprintf(fp, "%d %d %d \n", Auto.ntst, Auto.nmx, Auto.npr);
     fprintf(fp, "%g %g %g \n", Auto.ds, Auto.dsmin, Auto.dsmax);
     fprintf(fp, "%g %g %g %g\n", Auto.rl0, Auto.rl1, Auto.a0, Auto.a1);
@@ -2821,7 +2825,7 @@ load_auto_numerics(FILE *fp) {
     fscanf(fp, "%d ", &NAutoUzr);
     for (i = 0; i < 9; i++) {
         Auto.nper = NAutoUzr;
-        fscanf(fp, "%lg %d\n", &outperiod[i], &UzrPar[i]);
+        fscanf(fp, "%lg %ld\n", &outperiod[i], &UzrPar[i]);
         Auto.period[i] = outperiod[i];
         Auto.uzrpar[i] = UzrPar[i];
         /*    printf("%g %d\n",Auto.period[i],Auto.uzrpar[i]); */

@@ -173,5 +173,6 @@ int32 move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp);
 void get_a_row(double *u, double *t, int32 n, FILE *fp);
 void auto_file(void);
 int32 check_plot_type(int32 flag2, int32 icp1, int32 icp2);
+void storeautopoint(double x, double y);
 
 #endif
