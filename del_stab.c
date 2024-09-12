@@ -145,8 +145,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
 }
 
 COMPLEX
-csum(z, w) COMPLEX z, w;
-{
+csum(COMPLEX z, COMPLEX w) {
     COMPLEX sum;
     sum.r = z.r + w.r;
     sum.i = z.i + w.i;
@@ -154,8 +153,7 @@ csum(z, w) COMPLEX z, w;
 }
 
 COMPLEX
-cdif(z, w) COMPLEX z, w;
-{
+cdif(COMPLEX z, COMPLEX w) {
     COMPLEX sum;
     sum.r = z.r - w.r;
     sum.i = z.i - w.i;
@@ -163,8 +161,7 @@ cdif(z, w) COMPLEX z, w;
 }
 
 COMPLEX
-cmlt(z, w) COMPLEX z, w;
-{
+cmlt(COMPLEX z, COMPLEX w) {
     COMPLEX sum;
     sum.r = z.r * w.r - z.i * w.i;
     sum.i = z.r * w.i + z.i * w.r;
@@ -172,8 +169,7 @@ cmlt(z, w) COMPLEX z, w;
 }
 
 COMPLEX
-cdivv(z, w) COMPLEX z, w;
-{
+cdivv(COMPLEX z, COMPLEX w) {
     COMPLEX sum;
     double amp = w.r * w.r + w.i * w.i;
     sum.r = (z.r * w.r + z.i * w.i) / amp;
@@ -182,8 +178,7 @@ cdivv(z, w) COMPLEX z, w;
 }
 
 COMPLEX
-cexp2(z) COMPLEX z;
-{
+cexp2(COMPLEX z) {
     COMPLEX sum;
     double ex = exp(z.r);
     sum.r = ex * cos(z.i);
@@ -191,9 +186,7 @@ cexp2(z) COMPLEX z;
     return sum;
 }
 
-void switch_rows(z, i1, i2, n) COMPLEX *z;
-int32 i1, i2, n;
-{
+void switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n) {
     COMPLEX zt;
     int32 j;
     for (j = 0; j < n; j++) {
@@ -205,23 +198,22 @@ int32 i1, i2, n;
 }
 
 COMPLEX
-rtoc(x, y) double x, y;
-{
+rtoc(double x, double y) {
     COMPLEX sum;
     sum.i = y;
     sum.r = x;
     return sum;
 }
 
-void cprintn(z) COMPLEX z;
-{ plintf(" %g + i %g \n", z.r, z.i); }
+void cprintn(COMPLEX z) {
+    plintf(" %g + i %g \n", z.r, z.i);
+}
 
-void cprint(z) COMPLEX z;
-{ printf("(%g,%g) ", z.r, z.i); }
+void cprint(COMPLEX z) {
+    printf("(%g,%g) ", z.r, z.i);
+}
 
-void cprintarr(z, n, m) COMPLEX *z;
-int32 n, m;
-{
+void cprintarr(COMPLEX *z, int32 n, int32 m) {
     int32 i, j;
     for (i = 0; i < m; i++) {
         for (j = 0; j < n; j++)
@@ -232,14 +224,12 @@ int32 n, m;
 }
 
 double
-c_abs(z)
-COMPLEX z;
-{ return (sqrt(z.i * z.i + z.r * z.r)); }
+c_abs(COMPLEX z) {
+    return (sqrt(z.i * z.i + z.r * z.r));
+}
 
 COMPLEX
-cdeterm(z, n) COMPLEX *z;
-int32 n;
-{
+cdeterm(COMPLEX *z, int32 n) {
     int32 i, j, imax = 0, k;
     double q, qmax;
     COMPLEX sign = rtoc(1.0, 0.0), mult, sum, zd;
