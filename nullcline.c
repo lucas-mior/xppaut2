@@ -53,7 +53,6 @@ extern int32 NULL_HERE;
 int32 num_x_n, num_y_n, num_index, null_ix, null_iy, WHICH_CRV;
 float null_dist, *X_n, *Y_n, *saver, *NTop, *NBot;
 extern int32 NMESH, NODE, NJMP, NMarkov, FIX_VAR, NEQ;
-float fnull();
 int32 DF_GRID = 16, DF_FLAG = 0, DF_IX = -1, DF_IY = -1;
 int32 DFIELD_TYPE = 0;
 
