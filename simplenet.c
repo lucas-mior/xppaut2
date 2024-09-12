@@ -1,5 +1,6 @@
 #include "simplenet.h"
 #include "integers.h"
+#include "extra.h"
 
 #include "aniparse.h"
 #include "ggets.h"
@@ -136,7 +137,6 @@ including derived parameters but XPP takes care of this so start at 0
 extern int32 NODE, NDELAYS;
 extern double get_delay(int32 in, double td);
 
-void get_import_values();
 int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
                    int32 *m, char *tname[MAXW]);
 int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
