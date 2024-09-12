@@ -479,11 +479,8 @@ unreplace_column(void)
     return;
 }
 
-void make_d_table(xlo, xhi, col, filename, b) int32 col;
-double xlo, xhi;
-char *filename;
-BROWSER b;
-{
+void make_d_table(double xlo, double xhi, int32 col,
+                  char *filename, BROWSER b) {
     int32 i, npts, ok;
     FILE *fp;
     open_write_file(&fp, filename, &ok);
@@ -500,10 +497,7 @@ BROWSER b;
     return;
 }
 
-void find_value(col, val, row, b) int32 col, *row;
-float val;
-BROWSER b;
-{
+void find_value(int32 col, float val, int32 *row, BROWSER b) {
     int32 n = b.maxrow;
     int32 i;
     int32 ihot = 0;

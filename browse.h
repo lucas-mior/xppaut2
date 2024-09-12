@@ -46,7 +46,7 @@ void replace_column(char *var, char *form, float **dat, int32 n);
 void wipe_rep(void);
 void unreplace_column(void);
 void make_d_table(double xlo, double xhi, int32 col, char *filename, BROWSER b);
-void find_value(int32 col, double val, int32 *row, BROWSER b);
+void find_value(int32 col, float val, int32 *row, BROWSER b);
 void find_variable(char *s, int32 *col);
 void browse_but_on(BROWSER *b, int32 i, Window w, int32 yn);
 void enter_browser(XEvent ev, BROWSER *b, int32 yn);
