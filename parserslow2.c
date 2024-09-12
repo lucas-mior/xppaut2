@@ -1265,7 +1265,8 @@ gives_number(int32 token) {
         return 1; /* two-variable function */
     /* !! */
     /* ram: 5 issue; was
-     * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return 1;
+     * if(i1==8||isvar(i1)||iscnst(i1)||i1==7||i1==6||i1==5||isker(i1)||i1==UFUN)return
+     * 1;
      */
     if (i1 == USTACKTYPE || isvar(i1) || iscnst(i1) || i1 == TABTYPE ||
         i1 == VECTYPE || i1 == NETTYPE || isker(i1) || i1 == UFUNTYPE)
