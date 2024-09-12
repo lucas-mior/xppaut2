@@ -9,6 +9,7 @@
 #include "integrate.h"
 #include "parserslow.h"
 #include "integers.h"
+#include "markov.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -28,8 +29,6 @@
 
 #define MAX_LEN_SBOX 25
 #define READEM 1
-
-double ndrand48();
 
 extern double MyData[MAXODE];
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
