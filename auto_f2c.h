@@ -10,8 +10,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include "integers.h"
 
-typedef int64_t int64;
 typedef struct {
     float r, i;
 } floatcomplex;
