@@ -185,14 +185,9 @@ int32 AutoPar[8];
 extern int32 TipsFlag;
 extern uint32 MyBackColor, MyForeColor, GrFore, GrBack;
 
-void auto_scroll_window();
-
 double outperiod[20];
 int64 UzrPar[20];
 int32 NAutoUzr;
-
-char *get_first();
-char *get_next();
 
 /*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
