@@ -89,6 +89,9 @@ load_new_dll(void) {
 typedef double (*Function1)(int32 n, int32 ivar,
                             double *con, double *var,
                             double *wgt[MAXW], double *ydot);
+typedef double (*Function2)(double *in, double *out,
+                            int32 nin, int32 nout,
+                            double *v, double *c);
 
 void
 get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
@@ -156,7 +159,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
         dlf.loaded = 1;
 
     } /* Ok we have a nice function */
-    fun(in, out, nin, nout, v, c);
+    ((Function2)fun)(in, out, nin, nout, v, c);
     return 1;
 }
 #else
