@@ -626,7 +626,7 @@ void display_browser(w, b) Window w; BROWSER b; {
     return;
 }
 
-void redraw_browser(b) BROWSER b; {
+void redraw_browser(BROWSER b) {
     int32 i, i0;
     Window w;
     draw_data(b);
@@ -665,7 +665,7 @@ reset_browser(void) {
     return;
 }
 
-void draw_data(b) BROWSER b; {
+void draw_data(BROWSER b) {
     int32 i, i0, j, j0;
     int32 x0;
     char string[50];
@@ -1208,7 +1208,7 @@ void browse_keypress(ev, used, b) BROWSER *b; XEvent ev; int32 *used; {
     return;
 }
 
-void data_up(b) BROWSER *b; {
+void data_up(BROWSER *b) {
     if (b->row0 > 0) {
         b->row0--;
         draw_data(*b);
@@ -1216,7 +1216,7 @@ void data_up(b) BROWSER *b; {
     return;
 }
 
-void data_down(b) BROWSER *b; {
+void data_down(BROWSER *b) {
     if (b->row0 < (b->maxrow - 1)) {
         b->row0++;
         draw_data(*b);
@@ -1224,7 +1224,7 @@ void data_down(b) BROWSER *b; {
     return;
 }
 
-void data_pgup(b) BROWSER *b; {
+void data_pgup(BROWSER *b) {
     int32 i = b->row0 - b->nrow;
     if (i > 0)
         b->row0 = i;
@@ -1234,7 +1234,7 @@ void data_pgup(b) BROWSER *b; {
     return;
 }
 
-void data_pgdn(b) BROWSER *b; {
+void data_pgdn(BROWSER *b) {
     int32 i = b->row0 + b->nrow;
     if (i < (b->maxrow - 1))
         b->row0 = i;
@@ -1244,7 +1244,7 @@ void data_pgdn(b) BROWSER *b; {
     return;
 }
 
-void data_home(b) BROWSER *b; {
+void data_home(BROWSER *b) {
     b->row0 = 0;
     b->istart = 0;
     b->iend = b->maxrow;
