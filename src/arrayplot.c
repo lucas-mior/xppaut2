@@ -1,10 +1,3 @@
-#include "arrayplot.h"
-#include "array_print.h"
-#include "integers.h"
-
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
 /*   routines for plotting arrays as functions of time
 
      makes a window
@@ -35,6 +28,15 @@
     and it creates a color plot
 
 */
+
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#include "arrayplot.h"
+#include "array_print.h"
+#include "integers.h"
+
 #include "ggets.h"
 #include "main.h"
 #include "many_pops.h"
@@ -61,8 +63,10 @@
 #define READEM 1
 #include "browse.h"
 #include "max_len_sbox.h"
+
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2
+
 extern int32 COLOR;
 extern uint32 GrFore, GrBack;
 /*extern char this_file[100];*/

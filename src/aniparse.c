@@ -1,25 +1,26 @@
-#include "aniparse.h"
-#include "color.h"
-#include "parserslow.h"
-#include "form_ode.h"
-#include "my_rhs.h"
-#include "nullcline.h"
-#include "dialog_box.h"
-#include "ggets.h"
-#include "init_conds.h"
-#include "many_pops.h"
-#include "menudrive.h"
-#include "pop_list.h"
-#include <unistd.h>
-#include "scrngif.h"
-#include "load_eqn.h"
-#include "integrate.h"
-#include <sys/time.h>
 #include <fcntl.h>
+#include <libgen.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libgen.h>
+#include <sys/time.h>
+#include <unistd.h>
+
+#include "aniparse.h"
+#include "color.h"
+#include "dialog_box.h"
+#include "form_ode.h"
+#include "ggets.h"
+#include "init_conds.h"
 #include "integers.h"
+#include "integrate.h"
+#include "load_eqn.h"
+#include "many_pops.h"
+#include "menudrive.h"
+#include "my_rhs.h"
+#include "nullcline.h"
+#include "parserslow.h"
+#include "pop_list.h"
+#include "scrngif.h"
 /*  A simple animator
 
 */

@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+
 #include "adj2.h"
 #include "my_rhs.h"
 #include "pop_list.h"
@@ -10,23 +15,16 @@
 #include "parserslow.h"
 #include "integers.h"
 #include "markov.h"
+#include "xpplim.h"
+#include "max_len_sbox.h"
 
-#include <stdlib.h>
-#include <string.h>
 /*
   this has a bunch of numerical routines
   averaging
   adjoints
   transpose
   maximal liapunov exponent
-
 */
-
-#include <stdio.h>
-#include <math.h>
-
-#include "xpplim.h"
-#include "max_len_sbox.h"
 
 #define READEM 1
 
