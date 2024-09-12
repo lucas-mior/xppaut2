@@ -60,6 +60,6 @@ void lo_lite(Window wi);
 void select_sym(Window w);
 void canvas_xy(char *buf);
 void check_draw_button(XEvent ev);
-void set_active_windows();
+void set_active_windows(void);
 
 #endif

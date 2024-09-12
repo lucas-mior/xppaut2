@@ -248,7 +248,7 @@ void clear_screens(void);
 void x_vs_t(void);
 void redraw_them_all(void);
 void get_3d_par(void);
-void edit_xpprc();
-void do_tutorial();
+void edit_xpprc(void);
+void do_tutorial(void);
 
 #endif

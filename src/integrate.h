@@ -56,6 +56,6 @@ void shoot(double *x, double *xg, double *evec, int32 sgn);
 void shoot_easy(double *x);
 void stop_integration(void);
 int32 stor_full(void);
-int32 do_auto_range_go();
+int32 do_auto_range_go(void);
 
 #endif

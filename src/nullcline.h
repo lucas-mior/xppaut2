@@ -15,7 +15,7 @@ typedef struct nclines {
     struct nclines *n, *p;
 } NCLINES;
 
-void create_new_cline();
+void create_new_cline(void);
 void froz_cline_stuff_com(int32 i);
 void do_range_clines(void);
 void start_ncline(void);
@@ -43,7 +43,7 @@ int32 interpolate(Pt p1, Pt p2, double z, float *x, float *y);
 void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
 void triangle_contour(Pt p1, Pt p2, Pt p3);
 void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
-void do_batch_nclines();
-void do_batch_dfield();
+void do_batch_nclines(void);
+void do_batch_dfield(void);
 
 #endif

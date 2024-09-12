@@ -32,13 +32,9 @@ extern GC gc, small_gc;
 extern uint32 MyBackColor, MyForeColor;
 
 extern int32 TipsFlag;
-char *get_next(), *get_first();
 extern char UserBlack[8];
 extern char UserWhite[8];
 extern int32 UserGradients;
-
-Window make_window();
-Window make_plain_window();
 
 /*  This is a string box widget which handles a list of
         editable strings

@@ -138,7 +138,6 @@ extern int32 color_total, screen;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, NODE;
 extern int32 FIX_VAR, NMarkov;
 extern GC small_gc;
-double evaluate();
 extern BROWSER my_browser;
 
 int32 aniflag;
@@ -208,9 +207,6 @@ GC ani_gc;
 
 extern int32 use_ani_file;
 extern char anifile[256];
-
-char *get_first(/* char *string,char *src */);
-char *get_next(/* char *src */);
 
 /* Colors
   no color given is default black on white background or white on black
@@ -529,7 +525,7 @@ ani_buttonx(XEvent ev, int32 flag) {
 
 void
 ani_button(Window w) {
-    if ((ani_grab_flag == 1))
+    if (ani_grab_flag == 1)
         return;
     /* Grab button resets and shows first frame */
     if (w == vcr.wgrab) {
