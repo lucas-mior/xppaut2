@@ -34,7 +34,6 @@
 
 unsigned char *AddCodeToBuffer(int32, short, unsigned char *);
 void ClearTree(int32, GifTree *);
-int32 GifEncode();
 uint32 debugFlag;
 int32 UseGlobalMap = 0;
 int32 GifFrameDelay = 5, GifFrameLoop = 1000;

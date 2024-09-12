@@ -81,8 +81,6 @@ struct {
 extern char upar_names[MAXPAR][14];
 extern char uvar_names[MAXODE][12];
 
-double evaluate();
-
 /*   more general mixed boundary types   */
 
 void

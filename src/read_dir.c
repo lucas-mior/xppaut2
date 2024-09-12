@@ -74,6 +74,8 @@ static char	CurrentSelectionName[MAXPATHLEN];
 */
 char cur_dir[MAXPATHLEN];
 
+static int32 star(char *string, char *pattern);
+
 FILEINFO my_ff;
 /*
 main()
@@ -267,10 +269,10 @@ change_directory(char *path) {
 int32
 get_directory(char *direct) {
 #if defined(SYSV) || defined(SVR4)
-    extern char *getcwd();
+    extern char *getcwd (char *, size_t);
 
 #else
-    extern char *getwd();
+    extern char *getwd (char *);
 
 #endif
 
@@ -356,8 +358,6 @@ MakeFullPath(char *root, char *filename, char *pathname) {
 
 /* The character that inverts a character class; '!' or '^'. */
 #define INVERT '!'
-
-static int32 star();
 
 /* Return nonzero if `string' matches Unix-style wildcard pattern
    `pattern'; zero if not. */
