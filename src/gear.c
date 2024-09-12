@@ -1,5 +1,7 @@
 #include "gear.h"
 #include "integers.h"
+#include "browse.h"
+#include "markov.h"
 #include "ggets.h"
 #include "menudrive.h"
 #include "eig_list.h"
@@ -16,7 +18,6 @@
 #define DING ping()
 int32 UnstableManifoldColor = 5;
 int32 StableManifoldColor = 8;
-double ndrand48();
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern int32 Xup;
 
@@ -33,15 +34,6 @@ int32 ShootType[8];
 int32 gear_pivot[MAXODE];
 extern int32 storind, STORFLAG;
 
-double amax(/* double,double */);
-double sign(/* double,double */);
-char status();
-
-double sdot(/* int32 n,double *sx,int32 incx,double *sy,int32 incy */);
-
-double sgnum(/* double x,double y */);
-double Max(/* double x,double y */);
-double Min(/* double x,double y */);
 double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
                           {{4.5, 6, 1}, {12, 24, 1}},
                           {{7.333, 9.167, .5}, {24, 37.89, 2}},
@@ -49,8 +41,6 @@ double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
                           {{13.7, 15.98, .04133}, {53.33, 70.08, .3157}},
                           {{17.15, 1, .008267}, {70.08, 87.97, .07407}},
                           {{1, 1, 1}, {87.97, 1, .0139}}};
-
-void write_mybrowser_data();
 
 void
 silent_fixpt(double *x, double eps, double err, double big, int32 maxit,

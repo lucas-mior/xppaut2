@@ -111,7 +111,7 @@ extern int32 NCBatch, DFBatch;
 /*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
 extern int32 METHOD, storind;
-extern int32 (*rhs)();
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern int32 SuppressOut;
 extern XFontStruct *symfonts[5], *romfonts[5];
 extern int32 avsymfonts[5], avromfonts[5];
@@ -122,7 +122,6 @@ int32 XPPBatch = 0, batch_range = 0, BatchEquil = -1;
 char batchout[256];
 char UserOUTFILE[256];
 XKeyEvent createKeyEvent(Window w, Window wr, int32 p, int32 kc, int32 m);
-void scripty();
 extern int32 xorfix;
 int32 DisplayHeight, DisplayWidth;
 int32 TrueColorFlag;
@@ -134,11 +133,8 @@ extern int32 DF_FLAG;
 char mycommand[100];
 
 Window TopButton[6];
-Window init_win();
-Window make_fancy_window();
 /* Window win; */
 Window draw_win;
-Window make_input_strip();
 Window main_win;
 Window command_pop, info_pop;
 GC gc, gc_graph, small_gc, font_gc, mygc;
@@ -196,11 +192,6 @@ int32 DoTutorial = 0;
 OptionsSet notAlreadySet;
 
 XFontStruct *big_font, *small_font;
-void draw_many_lines();
-void set_colorization_stuff();
-void silent_equilibria();
-void silent_dfields();
-void silent_nullclines();
 
 int32 popped = 0;
 

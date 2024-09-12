@@ -45,5 +45,8 @@ void triangle_contour(Pt p1, Pt p2, Pt p3);
 void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
 void do_batch_nclines(void);
 void do_batch_dfield(void);
+void set_colorization_stuff(void);
+void silent_nullclines(void);
+void silent_dfields(void);
 
 #endif

@@ -94,5 +94,7 @@ void data_first(BROWSER *b);
 void data_last(BROWSER *b);
 void data_restore(BROWSER *b);
 void get_col_list(char *s, int32 *cl, int32 *n);
+void write_mybrowser_data(FILE *fp);
+void data_get_mybrowser(int32 row);
 
 #endif

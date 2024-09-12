@@ -28,8 +28,8 @@ void sft(float *data, float *ct, float *st, int32 nmodes, int32 grid);
 void fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
               int32 flag);
 void fft(float *data, float *ct, float *st, int32 nmodes, int32 length);
-void post_process_stuff();
 void just_fourier(int32 flag);
 void just_sd(int32 flag);
+void post_process_stuff(void);
 
 #endif

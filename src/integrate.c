@@ -1,5 +1,6 @@
 #include "integrate.h"
 #include "integers.h"
+#include "nullcline.h"
 #include <stdbool.h>
 
 #include "load_eqn.h"
@@ -172,8 +173,6 @@ extern int32 NMarkov, STOCH_FLAG;
 extern int32 color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
 int32 DelayErr;
 
-float **get_browser_data();
-double get_ivar();
 double MyData[MAXODE], MyTime;
 int32 MyStart;
 extern int32 DelayFlag, DCURY, NKernel;
@@ -213,11 +212,6 @@ typedef struct {
 
 extern INTERN_SET intern_set[MAX_INTERN_SET];
 extern int32 Nintern_set;
-
-void redraw_dfield();
-void create_new_cline();
-void data_get_mybrowser();
-void save_batch_shoot();
 
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);

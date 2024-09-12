@@ -43,5 +43,6 @@ void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
 int32 isamax(int32 n, double *sx, int32 incx);
 double sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy);
 void sscal(int32 n, double sa, double *sx, int32 incx);
+void save_batch_shoot(void);
 
 #endif

@@ -14,11 +14,6 @@
 #include "fftn.h"
 #include "parserslow.h"
 
-double evaluate();
-double ndrand48();
-
-void mycor(), mycor2();
-float *get_data_col();
 extern int32 DCURY, MAXSTOR;
 extern char uvar_names[MAXODE][12];
 typedef struct {
@@ -55,7 +50,7 @@ extern int32 NEQ, NODE, NMarkov, FIX_VAR;
 
 extern char *no_hint[], *info_message;
 
-int32 twod_hist();
+int32 twod_hist(void);
 void
 new_2dhist(void) {
 }

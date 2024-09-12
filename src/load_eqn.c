@@ -2,6 +2,7 @@
 #include "form_ode.h"
 #include "parserslow.h"
 #include "integers.h"
+#include "odesol2.h"
 
 #include "read_dir.h"
 
@@ -126,8 +127,6 @@ extern int32 DoTutorial;
 /*void set_option(char *s1,char *s2);
  */
 
-char *get_first();
-char *get_next();
 /*   this file has all of the phaseplane parameters defined
      and created.  All other files should use external stuff
     to use them. (Except eqn forming stuff)
@@ -145,9 +144,9 @@ extern char PS_FONT[100];
 extern double PS_LW;
 
 extern int32 SEc, UEc, SPc, UPc;
-extern int32 (*solver)();
+extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
+                       int32 *istart, double *work);
 
-int32 rung_kut();
 char delay_string[MAXODE][80];
 int32 itor[MAXODE];
 /*char this_file[100];
@@ -1223,10 +1222,7 @@ stor_internopts(char *s1) {
     return;
 }
 
-void set_option(s1, s2, force, mask) char *s1, *s2;
-int32 force;
-OptionsSet *mask;
-{
+void set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     int32 i, j, f;
     char xx[4], yy[4], zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];
