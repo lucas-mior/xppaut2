@@ -33,5 +33,6 @@ void svg_auto(void);
 void bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi);
 int32 save_diagram(FILE *fp, int32 n);
 int32 load_diagram(FILE *fp, int32 node);
+void load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 
 #endif

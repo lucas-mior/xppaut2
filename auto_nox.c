@@ -4,6 +4,10 @@
 #include "auto_nox.h"
 #include "auto_x11.h"
 #include "integers.h"
+#include "derived.h"
+#include "tabular.h"
+#include "gogoauto.h"
+#include "my_rhs.h"
 #include <libgen.h>
 /* #include "f2c.h" */
 #include "auto_f2c.h"
@@ -166,12 +170,6 @@ int32 load_all_labeled_orbits = 0;
 
 int32 SuppressBP = 0;
 ROTCHK blrtn;
-
-void evaluate_derived();
-void redo_all_fun_tables();
-void go_go_auto();
-void extra();
-void load_browser_with_branch();
 
 GRABPT grabpt;
 
