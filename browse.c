@@ -166,9 +166,7 @@ write_mybrowser_data(FILE *fp) {
     return;
 }
 
-void write_browser_data(fp, b) FILE *fp;
-BROWSER *b;
-{
+void write_browser_data(fp, b) FILE *fp; BROWSER *b; {
     int32 i, j, l;
 
     for (i = b->istart; i < b->iend; i++) {
@@ -195,9 +193,7 @@ check_for_stor(float **data) {
         return 1;
 }
 
-void del_stor_col(var, b) BROWSER *b;
-char *var;
-{
+void del_stor_col(var, b) BROWSER *b; char *var; {
     int32 nc;
     int32 i, j;
 
@@ -467,9 +463,7 @@ wipe_rep(void) {
 }
 
 void
-unreplace_column(void)
-
-{
+unreplace_column(void) {
     int32 i, n = my_browser.maxrow;
     if (!REPLACE)
         return;
@@ -527,11 +521,7 @@ find_variable(char *s, int32 *col) {
     return;
 }
 
-void browse_but_on(b, i, w, yn) int32 i;
-Window w;
-int32 yn;
-BROWSER *b;
-{
+void browse_but_on(b, i, w, yn) int32 i; Window w; int32 yn; BROWSER *b; {
     int32 val = 1;
     if (yn)
         val = 2;
@@ -543,10 +533,7 @@ BROWSER *b;
     return;
 }
 
-void enter_browser(ev, b, yn) XEvent ev;
-BROWSER *b;
-int32 yn;
-{
+void enter_browser(ev, b, yn) XEvent ev; BROWSER *b; int32 yn; {
     Window w = ev.xexpose.window;
     if (w == b->find)
         browse_but_on(b, 0, w, yn);
@@ -595,9 +582,7 @@ int32 yn;
     return;
 }
 
-void display_browser(w, b) Window w;
-BROWSER b;
-{
+void display_browser(w, b) Window w; BROWSER b; {
     int32 i, i0;
     if (w == b.hint) {
         XClearWindow(display, b.hint);
@@ -641,8 +626,7 @@ BROWSER b;
     return;
 }
 
-void redraw_browser(b) BROWSER b;
-{
+void redraw_browser(b) BROWSER b; {
     int32 i, i0;
     Window w;
     draw_data(b);
@@ -681,8 +665,7 @@ reset_browser(void) {
     return;
 }
 
-void draw_data(b) BROWSER b;
-{
+void draw_data(b) BROWSER b; {
     int32 i, i0, j, j0;
     int32 x0;
     char string[50];
@@ -790,10 +773,7 @@ br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     return win;
 }
 
-void make_browser(b, wname, iname, row, col) BROWSER *b;
-int32 row, col;
-char *wname, *iname;
-{
+void make_browser(b, wname, iname, row, col) BROWSER *b; int32 row, col; char *wname, *iname; {
     int32 i;
     int32 ncol = col;
     int32 width, height;
@@ -923,9 +903,7 @@ resize_my_browser(Window win) {
     resize_browser(win, &my_browser);
 }
 
-void expose_browser(ev, b) XEvent ev;
-BROWSER b;
-{
+void expose_browser(ev, b) XEvent ev; BROWSER b; {
     if (my_browser.xflag == 0)
         return;
     if (ev.type != Expose)
@@ -934,9 +912,7 @@ BROWSER b;
     return;
 }
 
-void resize_browser(win, b) Window win;
-BROWSER *b;
-{
+void resize_browser(win, b) Window win; BROWSER *b; {
     uint32 w, h, hreal;
     int32 dcol = 17 * DCURXs, drow = DCURYs + 6;
     int32 i0;
@@ -988,9 +964,7 @@ BROWSER *b;
 /*  if button is pressed in the browser
     then do the following  */
 
-void browse_button(ev, b) BROWSER *b;
-XEvent ev;
-{
+void browse_button(ev, b) BROWSER *b; XEvent ev; {
     XEvent zz;
     int32 done = 1;
     Window w = ev.xbutton.window;
@@ -1103,10 +1077,7 @@ XEvent ev;
     return;
 }
 
-void browse_keypress(ev, used, b) BROWSER *b;
-XEvent ev;
-int32 *used;
-{
+void browse_keypress(ev, used, b) BROWSER *b; XEvent ev; int32 *used; {
     Window w = ev.xkey.window;
 
     char ks;
@@ -1237,8 +1208,7 @@ int32 *used;
     return;
 }
 
-void data_up(b) BROWSER *b;
-{
+void data_up(b) BROWSER *b; {
     if (b->row0 > 0) {
         b->row0--;
         draw_data(*b);
@@ -1246,8 +1216,7 @@ void data_up(b) BROWSER *b;
     return;
 }
 
-void data_down(b) BROWSER *b;
-{
+void data_down(b) BROWSER *b; {
     if (b->row0 < (b->maxrow - 1)) {
         b->row0++;
         draw_data(*b);
@@ -1255,8 +1224,7 @@ void data_down(b) BROWSER *b;
     return;
 }
 
-void data_pgup(b) BROWSER *b;
-{
+void data_pgup(b) BROWSER *b; {
     int32 i = b->row0 - b->nrow;
     if (i > 0)
         b->row0 = i;
@@ -1266,8 +1234,7 @@ void data_pgup(b) BROWSER *b;
     return;
 }
 
-void data_pgdn(b) BROWSER *b;
-{
+void data_pgdn(b) BROWSER *b; {
     int32 i = b->row0 + b->nrow;
     if (i < (b->maxrow - 1))
         b->row0 = i;
@@ -1277,8 +1244,7 @@ void data_pgdn(b) BROWSER *b;
     return;
 }
 
-void data_home(b) BROWSER *b;
-{
+void data_home(b) BROWSER *b; {
     b->row0 = 0;
     b->istart = 0;
     b->iend = b->maxrow;
