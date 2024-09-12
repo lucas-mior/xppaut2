@@ -110,7 +110,7 @@ int32 NFlags = 0;
 double STOL = 1.e-10;
 extern double variables[];
 extern int32 NVAR;
-double evaluate();
+
 int32
 add_global(char *cond, int32 sign, char *rest) {
     char temp[256];

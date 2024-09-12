@@ -1,4 +1,5 @@
 #include "form_ode.h"
+#include "init_conds.h"
 #include "integers.h"
 #include "aniparse.h"
 #include <stdbool.h>
@@ -65,13 +66,9 @@ typedef struct {
 
 char errmsg[256];
 extern int32 XPPBatch;
-extern int32 file_selector();
 extern int32 loadincludefile;
 /*extern char includefilename[MaxIncludeFiles][100];*/
 extern char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
-extern double initialize_pH();
-extern double initialize_ionicstr();
-extern void deblank();
 
 char *onlylist[MAXONLY];
 int32 *plotlist;
@@ -129,11 +126,6 @@ FIXINFO fixinfo[MAXODE];
 extern char cur_dir[];
 
 extern FILEINFO my_ff;
-
-char *get_first(/* char *string,char *src */);
-char *get_next(/* char *src */);
-
-char *getsi();
 
 int32
 make_eqn(void) {

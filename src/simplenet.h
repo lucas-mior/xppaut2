@@ -2,7 +2,6 @@
 #define _simplenet_h_
 #include "integers.h"
 
-int32 get_vector_info();
 double net_interp(double x, int32 i);
 double network_value(double x, int32 i);
 void init_net(double *v, int32 n);
