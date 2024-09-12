@@ -282,11 +282,8 @@ cxdeterm(COMPLEX *z, int32 n) {
     return sum;
 }
 
-void make_z(z, delay, n, m, coef, lambda) COMPLEX lambda;
-COMPLEX *z;
-double *coef, *delay;
-int32 n, m;
-{
+void make_z(COMPLEX *z, double *delay,
+            int32 n, int32 m, double *coef, COMPLEX lambda) {
     int32 i, j, k, km;
     COMPLEX temp, eld;
 
@@ -403,12 +400,7 @@ process_root(double real, double im) {
 }
 
 double
-get_arg(delay, coef, m, n, lambda)
-COMPLEX lambda;
-double *coef;
-double *delay;
-int32 m, n;
-{
+get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     int32 i, j, k, km;
     COMPLEX *z;
     COMPLEX temp, eld;

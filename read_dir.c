@@ -288,10 +288,7 @@ get_directory(char *direct) {
 }
 
 int32
-IsDirectory(root, path)
-char *root;
-char *path;
-{
+IsDirectory(char *root, char *path) {
     char fullpath[MAXPATHLEN];
     struct stat statbuf;
 
@@ -314,10 +311,7 @@ char *path;
  * Notes:
  */
 
-void MakeFullPath(root, filename, pathname) char *root;
-char *filename;
-char *pathname;
-{
+void MakeFullPath(char *root, char *filename, char *pathname) {
     strcpy(pathname, root);
     strcat(pathname, "/");
     strcat(pathname, filename);
@@ -368,9 +362,7 @@ static int32 star();
    `pattern'; zero if not. */
 
 int32
-wild_match(string, pattern)
-char *string, *pattern;
-{
+wild_match(char *string, char *pattern) {
     int32 prev;    /* Previous character in character class. */
     int32 matched; /* If 1, character class has been matched. */
     int32 reverse; /* If 1, character class is inverted. */
@@ -411,9 +403,7 @@ char *string, *pattern;
 }
 
 static int32
-star(string, pattern)
-char *string, *pattern;
-{
+star(char *string, char *pattern) {
     while (wild_match(string, pattern) == 0)
         if (*++string == '\0')
             return 0;

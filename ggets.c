@@ -432,16 +432,6 @@ new_float(char *name, double *value) {
     return 0;
 }
 
-/*
-do_calc(s,v)
-char *s;
-double *v;
-{
- return 1;
-}
-
- */
-
 int32
 new_int(char *name, int32 *value) {
     char svalue[200];
