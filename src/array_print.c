@@ -164,7 +164,7 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     float dx = ps_scale.xmax - ps_scale.xmin;
     float dy = ps_scale.ymax - ps_scale.ymin;
     float xlo = .15 * dx, ylo = .05 * dy, xhi = .95 * dx, yhi = .85 * dy;
-    /* plintf(" %g %g %g %g %g %g \n",xlo,xhi,ylo,yhi,dx,dy); */
+
     ps_setline(0.0, 10);
     ps_rect(xlo, ylo, .8 * dx, .8 * dy);
     ps_setline(z, i);
