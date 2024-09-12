@@ -492,7 +492,7 @@ redraw_dfield(void) {
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAXODE], ydot[MAXODE], xv1, xv2;
     float v1[MAXODE], v2[MAXODE];
-    FILE *fp;
+    FILE *fp = NULL;
 
     double amp, mdf;
 
@@ -561,9 +561,8 @@ redraw_dfield(void) {
                     line_abs((float)y[inx], (float)y[iny], (float)xv1,
                              (float)xv2);
                 } else {
-                    /*  printf("dz=%g x0=%g y0=%g\n",dz,ydot[inx],ydot[iny]); */
-
-                    fprintf(fp, "%g %g %g %g\n", y[inx], y[iny], xv1, xv2);
+                    if (fp)
+                        fprintf(fp, "%g %g %g %g\n", y[inx], y[iny], xv1, xv2);
                 }
             }
             if (DF_FLAG == 2 && j > 0 && i < grid) {
