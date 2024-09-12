@@ -43,11 +43,11 @@ typedef struct {
 EIGVAL my_ev;
 
 void
-init_auto(int32 ndim, int32 nicp, int32 nbc, int32 ips, int32 irs, int32 ilp,
+init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
           int32 ntst, int32 isp, int32 isw, int32 nmx, int32 npr, double ds,
           double dsmin, double dsmax, double rl0, double rl1, double a0,
           double a1, int32 ip1, int32 ip2, int32 ip3, int32 ip4, int32 ip5,
-          int32 nuzr, double epsl, double epsu, double epss, int32 ncol) {
+          double epsl, double epsu, double epss, int32 ncol) {
 
     /* here are the constants that we do not allow the user to change */
     int32 nnbc;
