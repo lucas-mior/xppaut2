@@ -1,5 +1,6 @@
 #include "userbut.h"
 #include "integers.h"
+#include "pop_list.h"
 
 #include "color.h"
 #include "ggets.h"
@@ -18,7 +19,6 @@ USERBUT userbut[USERBUTMAX];
 extern int32 MyAddedButtonColor;
 extern Display *display;
 extern Window main_win;
-Window make_fancy_window();
 extern int32 DCURYs, DCURXs, CURY_OFFs;
 extern GC small_gc;
 
