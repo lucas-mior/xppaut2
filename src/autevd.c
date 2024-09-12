@@ -138,7 +138,7 @@ send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
 
 int32
-get_bif_type(int32 ibr, int32 ntot, int32 lab) {
+get_bif_type(int32 ibr, int32 ntot) {
     int32 type = SEQ;
 
     if (ibr < 0 && ntot < 0)
@@ -154,7 +154,7 @@ get_bif_type(int32 ibr, int32 ntot, int32 lab) {
 }
 
 void
-addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
+addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par,
        int64 *icp, int32 lab, double *a, double *uhigh, double *ulow,
        double *u0, double *ubar) {
     int32 type;
@@ -162,7 +162,7 @@ addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
     int32 icp1 = icp[0], icp2 = icp[1], icp3 = icp[2], icp4 = icp[3];
     double per = par[10];
     /* printf("In add bif \n"); */
-    type = get_bif_type(ibrs, ntots, lab);
+    type = get_bif_type(ibrs, ntots);
 
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
@@ -185,11 +185,6 @@ addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
                 ubar, par, per, iap->ndim, icp1, icp2, icp3, icp4, AutoTwoParam,
                 my_ev.evr, my_ev.evi);
     return;
-}
-
-double
-etime_(double *z) {
-    return 0.0;
 }
 
 int32
