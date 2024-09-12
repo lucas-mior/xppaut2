@@ -1,14 +1,15 @@
 #ifndef _cv2_h_
 #define _cv2_h_
+#include "integers.h"
 
 /* cv2.c */
-void start_cv(double *y, double t, int n, double tout, double *atol,
+void start_cv(double *y, double t, int32 n, double tout, double *atol,
               double *rtol);
 void end_cv(void);
-void cvode_err_msg(int kflag);
-int cvode(int *command, double *y, double *t, int n, double tout, int *kflag,
+void cvode_err_msg(int32 kflag);
+int32 cvode(int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
           double *atol, double *rtol);
-int ccvode(int *command, double *y, double *t, int n, double tout, int *kflag,
+int32 ccvode(int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
            double *atol, double *rtol);
 
 #endif

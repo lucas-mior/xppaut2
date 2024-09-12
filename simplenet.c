@@ -1,4 +1,5 @@
 #include "simplenet.h"
+#include "integers.h"
 
 #include "aniparse.h"
 #include "ggets.h"
@@ -116,7 +117,7 @@ special ydot=import(soname,sofun,nret,root,w1,w2,...wm)
  nret is the number of return values
  root is the name of the first variable
 
-sofun(int nret, int root, double *con, double *var, double *z[50],double *ydot)
+sofun(int32 nret, int32 root, double *con, double *var, double *z[50],double *ydot)
 
 *z[50] contains a list of pointers  z[0] -> w1, .... 50 is hard coded
 
@@ -131,17 +132,17 @@ including derived parameters but XPP takes care of this so start at 0
 #define ZERO 1
 #define PERIODIC 2
 #define MAXW 50
-extern int NODE, NDELAYS;
-extern double get_delay(int in, double td);
+extern int32 NODE, NDELAYS;
+extern double get_delay(int32 in, double td);
 
 void get_import_values();
-int parse_import(char *s, char *soname, char *sofun, int *n, char *vname,
-                 int *m, char *tname[MAXW]);
-int get_vector_info(char *str, char *name, int *root, int *length, int *il,
-                    int *ir);
+int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
+                 int32 *m, char *tname[MAXW]);
+int32 get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
+                    int32 *ir);
 #define IC 2
-extern int fftn(int /* ndim */, const int /* dims */[], double /* Re */[],
-                double /* Im */[], int /* isign */, double /* scaling */);
+extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
+                double /* Im */[], int32 /* isign */, double /* scaling */);
 
 /* simple network stuff */
 
@@ -149,17 +150,17 @@ extern int fftn(int /* ndim */, const int /* dims */[], double /* Re */[],
 
 typedef struct {
     char name[20];
-    int root, length, il, ir;
+    int32 root, length, il, ir;
 } VECTORIZER;
 
 VECTORIZER my_vec[MAXVEC];
-int n_vector = 0;
+int32 n_vector = 0;
 
 typedef struct {
     double xlo, xhi, dx;
     double *y, *x;
-    int n, flag, interp, autoeval;
-    int xyvals;
+    int32 n, flag, interp, autoeval;
+    int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
                              interp=0 for normal interpolation, interp=1 for
        'step' table   and finally, xyvals=1 if both x and y vals are needed
@@ -170,14 +171,14 @@ typedef struct {
 extern TABULAR my_table[MAX_TAB];
 
 typedef struct {
-    int type, ncon, n;
+    int32 type, ncon, n;
     char name[20];
     char soname[256], sofun[256];
 
-    int root, root2;
-    int f[20];
-    int iwgt;
-    int *gcom; /* for group commands */
+    int32 root, root2;
+    int32 f[20];
+    int32 iwgt;
+    int32 *gcom; /* for group commands */
 
     double *values, *weight, *index, *taud; /* for delays  */
     double *fftr, *ffti, *dr, *di;
@@ -208,15 +209,15 @@ extern double variables[], constants[];
 char *get_first(char *string, char *src);
 char *get_next(char *src);
 
-double evaluate(int *);
+double evaluate(int32 *);
 
 NETWORK my_net[MAXNET];
-int n_network = 0;
+int32 n_network = 0;
 double
-net_interp(double x, int i) {
-    int jlo = (int)x;
+net_interp(double x, int32 i) {
+    int32 jlo = (int32)x;
     double *y;
-    int n = my_net[i].n;
+    int32 n = my_net[i].n;
     double dx = x - (double)jlo;
     y = &variables[my_net[i].root];
     if (jlo < 0 || jlo > (n - 1))
@@ -224,12 +225,12 @@ net_interp(double x, int i) {
     return (1 - dx) * y[jlo] + dx * y[jlo + 1];
 }
 
-int
+int32
 add_vectorizer(char *name, char *rhs) {
-    int i, ivar, il, ir;
-    int ind;
-    int len;
-    int flag;
+    int32 i, ivar, il, ir;
+    int32 ind;
+    int32 len;
+    int32 flag;
 
     for (i = 0; i < n_vector; i++)
         if (strcmp(name, my_vec[i].name) == 0)
@@ -266,9 +267,9 @@ add_vectorizer_name(char *name, char *rhs) {
 }
 
 double
-vector_value(double x, int i) {
-    int il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length, k = (int)x;
-    int root = my_vec[i].root;
+vector_value(double x, int32 i) {
+    int32 il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length, k = (int32)x;
+    int32 root = my_vec[i].root;
     if ((k >= 0) && (k < n))
         return variables[root + k];
     if (il == PERIODIC)
@@ -287,8 +288,8 @@ vector_value(double x, int i) {
 }
 
 double
-network_value(double x, int i) {
-    int j = (int)x;
+network_value(double x, int32 i) {
+    int32 j = (int32)x;
     if (my_net[i].type == INTERP) {
         return net_interp(x, i);
     }
@@ -298,19 +299,19 @@ network_value(double x, int i) {
 }
 
 void
-init_net(double *v, int n) {
-    int i;
+init_net(double *v, int32 n) {
+    int32 i;
     for (i = 0; i < n; i++)
         v[i] = 0.0;
     return;
 }
 
-int
+int32
 add_spec_fun(char *name, char *rhs) {
-    int i, ind, elen, err;
-    int type;
-    int iwgt, itau, iind, ivar, ivar2;
-    int ntype, ntot, ncon, ntab;
+    int32 i, ind, elen, err;
+    int32 type;
+    int32 iwgt, itau, iind, ivar, ivar2;
+    int32 ntype, ntot, ncon, ntab;
     char *str;
     char junk[256];
     char rootname[20], wgtname[20], tauname[20], indname[20];
@@ -346,13 +347,13 @@ add_spec_fun(char *name, char *rhs) {
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -388,14 +389,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -454,13 +455,13 @@ add_spec_fun(char *name, char *rhs) {
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -515,14 +516,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -600,7 +601,7 @@ add_spec_fun(char *name, char *rhs) {
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
 
@@ -656,14 +657,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -703,14 +704,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -869,14 +870,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -927,14 +928,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int \n", str);
+            plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -1014,7 +1015,7 @@ add_spec_fun(char *name, char *rhs) {
             ivar = 0;
         }
         my_net[ind].iwgt = ivar;
-        my_net[ind].gcom = (int *)malloc(1000 * sizeof(int));
+        my_net[ind].gcom = (int32 *)malloc(1000 * sizeof(int32));
         if (gilparse(str, my_net[ind].gcom, &ivar2) == 0)
             return 0;
         my_net[ind].root = ivar2;
@@ -1067,9 +1068,9 @@ add_special_name(char *name, char *rhs) {
     return;
 }
 
-int
+int32
 is_network(char *s) {
-    /*int n;
+    /*int32 n;
      */
     de_space(s);
     strupr(s);
@@ -1106,25 +1107,25 @@ is_network(char *s) {
 
 void
 eval_all_nets(void) {
-    int i;
+    int32 i;
     for (i = 0; i < n_network; i++)
         evaluate_network(i);
     return;
 }
 
 void
-evaluate_network(int ind) {
-    int i, j, k, ij;
-    int imin, imax;
+evaluate_network(int32 ind) {
+    int32 i, j, k, ij;
+    int32 imin, imax;
     double ymin, ymax;
-    int skip;
-    int mmt;
-    int in0;
+    int32 skip;
+    int32 mmt;
+    int32 in0;
     double sum, z;
-    int n = my_net[ind].n, *f;
-    int ncon = my_net[ind].ncon;
+    int32 n = my_net[ind].n, *f;
+    int32 ncon = my_net[ind].ncon;
     double *w, *y, *cc, *values, *yp, *tau;
-    int twon = 2 * n, root = my_net[ind].root, root2 = my_net[ind].root2;
+    int32 twon = 2 * n, root = my_net[ind].root, root2 = my_net[ind].root2;
     cc = my_net[ind].index;
     w = my_net[ind].weight;
     values = my_net[ind].values;
@@ -1264,7 +1265,7 @@ evaluate_network(int ind) {
             sum = 0.0;
             for (j = 0; j < ncon; j++) {
                 ij = i * ncon + j;
-                k = (int)cc[ij];
+                k = (int32)cc[ij];
                 if (k >= 0)
                     sum += (w[ij] * get_delay(k + in0, tau[ij]));
             }
@@ -1277,7 +1278,7 @@ evaluate_network(int ind) {
             sum = 0.0;
             for (j = 0; j < ncon; j++) {
                 ij = i * ncon + j;
-                k = (int)cc[ij];
+                k = (int32)cc[ij];
                 if (k >= 0)
                     sum += (w[ij] * y[k]);
             }
@@ -1347,7 +1348,7 @@ evaluate_network(int ind) {
             sum = 0.0;
             for (j = 0; j < ncon; j++) {
                 ij = i * ncon + j;
-                k = (int)cc[ij];
+                k = (int32)cc[ij];
                 if (k >= 0) {
                     f[0] = root2 + k;
                     z = evaluate(f);
@@ -1384,7 +1385,7 @@ evaluate_network(int ind) {
 
 void
 update_all_ffts(void) {
-    int i;
+    int32 i;
 
     for (i = 0; i < n_network; i++)
         if (my_net[i].type == FFTCON0 || my_net[i].type == FFTCONP)
@@ -1400,14 +1401,14 @@ update_all_ffts(void) {
  fftr[i+k]=wgt[i] i=1 .. k-1
 */
 void
-update_fft(int ind) {
-    int i;
-    int dims[2];
+update_fft(int32 ind) {
+    int32 i;
+    int32 dims[2];
     double *w = my_net[ind].weight;
     double *fftr = my_net[ind].fftr;
     double *ffti = my_net[ind].ffti;
-    int n, n2;
-    int type = my_net[ind].type;
+    int32 n, n2;
+    int32 type = my_net[ind].type;
     if (type == FFTCONP) {
         n = my_net[ind].n;
         n2 = n / 2;
@@ -1441,12 +1442,12 @@ update_fft(int ind) {
 }
 
 void
-fft_conv(int it, int n, double *values, double *yy, double *fftr, double *ffti,
+fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr, double *ffti,
          double *dr, double *di) {
-    int i;
-    int dims[2];
+    int32 i;
+    int32 dims[2];
     double x, y;
-    int n2 = 2 * n;
+    int32 n2 = 2 * n;
     switch (it) {
     case 0:
         dims[0] = n;
@@ -1495,13 +1496,13 @@ fft_conv(int it, int n, double *values, double *yy, double *fftr, double *ffti,
 
 /* parsing stuff to get gillespie code quickly */
 
-int
-gilparse(char *s, int *ind, int *nn) {
-    int i = 0, n = strlen(s);
+int32
+gilparse(char *s, int32 *ind, int32 *nn) {
+    int32 i = 0, n = strlen(s);
     char piece[50], b[20], bn[25], c;
-    int i1, i2, jp = 0, f;
-    int k = 0, iv;
-    int id, m;
+    int32 i1, i2, jp = 0, f;
+    int32 k = 0, iv;
+    int32 id, m;
     plintf("s=|%s|", s);
     while (1) {
         c = s[i];
@@ -1550,9 +1551,9 @@ gilparse(char *s, int *ind, int *nn) {
 }
 
 /* plucks info out of  xxx{aa-bb}  or returns string */
-int
-g_namelist(char *s, char *root, int *flag, int *i1, int *i2) {
-    int i, n = strlen(s), ir = -1, j = 0;
+int32
+g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
+    int32 i, n = strlen(s), ir = -1, j = 0;
     char c, num[20];
     *flag = 0;
     for (i = 0; i < n; i++)
@@ -1594,12 +1595,12 @@ g_namelist(char *s, char *root, int *flag, int *i1, int *i2) {
     return 1;
 }
 
-int
-getimpstr(char *in, int *i, char *out) {
-    int j = 0;
-    int done = 1;
+int32
+getimpstr(char *in, int32 *i, char *out) {
+    int32 j = 0;
+    int32 done = 1;
     char c;
-    int k = 0;
+    int32 k = 0;
     while (done > 0) {
         c = in[*i];
 
@@ -1622,21 +1623,21 @@ getimpstr(char *in, int *i, char *out) {
     return k;
 }
 
-int
+int32
 import_error(void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
 }
 
-int
-parse_import(char *s, char *soname, char *sofun, int *n, char *vname, int *m,
+int32
+parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname, int32 *m,
              char *tname[MAXW]) {
     char temp[256];
-    int j;
+    int32 j;
     char c;
 
-    int i = 0;
-    int done = 1;
+    int32 i = 0;
+    int32 done = 1;
 
     while (done > 0) {
         c = s[i];
@@ -1681,15 +1682,15 @@ parse_import(char *s, char *soname, char *sofun, int *n, char *vname, int *m,
     return 1;
 }
 
-int
-get_vector_info(char *str, char *name, int *root, int *length, int *il,
-                int *ir) {
+int32
+get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
+                int32 *ir) {
 
-    int i = 0;
-    int ivar;
-    int n = strlen(str);
+    int32 i = 0;
+    int32 ivar;
+    int32 n = strlen(str);
     char c;
-    int j;
+    int32 j;
     char temp[100];
     de_space(str);
     for (i = 0; i < n; i++)

@@ -11,6 +11,7 @@
 #include <X11/cursorfont.h>
 #include <stdio.h>
 #include <math.h>
+#include "integers.h"
 #define ALL_DONE 2
 #define DONE_WITH_THIS 1
 #define FORGET_ALL 0
@@ -27,22 +28,22 @@
 
 extern Display *display;
 extern Window main_win;
-extern unsigned int MyBackColor, MyForeColor;
-extern int screen;
+extern uint32 MyBackColor, MyForeColor;
+extern int32 screen;
 extern GC gc;
-extern int xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
+extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
 Window make_window();
 
-int
+int32
 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
-           int max) {
-    int lm = strlen(name) * DCURX;
-    int lv = max * DCURX;
-    int pos, colm;
-    int lo = strlen(ok) * DCURX;
-    int lc = strlen(cancel) * DCURX;
+           int32 max) {
+    int32 lm = strlen(name) * DCURX;
+    int32 lv = max * DCURX;
+    int32 pos, colm;
+    int32 lo = strlen(ok) * DCURX;
+    int32 lc = strlen(cancel) * DCURX;
 
-    int status;
+    int32 status;
     XTextProperty winname;
 
     DIALOG d;
@@ -105,11 +106,11 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     return (status);
 }
 
-int
-dialog_event_loop(DIALOG *d, int max, int *pos, int *col) {
-    int status = -1;
-    int done = 0;
-    int ch;
+int32
+dialog_event_loop(DIALOG *d, int32 max, int32 *pos, int32 *col) {
+    int32 status = -1;
+    int32 done = 0;
+    int32 ch;
     XEvent ev;
 
     XNextEvent(display, &ev);
@@ -156,7 +157,7 @@ dialog_event_loop(DIALOG *d, int max, int *pos, int *col) {
 }
 
 void
-display_dialog(Window w, DIALOG d, int pos, int col) {
+display_dialog(Window w, DIALOG d, int32 pos, int32 col) {
     if (w == d.ok)
         XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s, strlen(d.ok_s));
     if (w == d.cancel)
@@ -178,7 +179,7 @@ char *name;
 double *value;
 {
  char tvalue[100];
- int status;
+ int32 status;
  sprintf(tvalue,"%.16g",*value);
 
  status=get_dialog(name,name,tvalue,"Ok","Cancel",30);
@@ -194,10 +195,10 @@ double *value;
  */
 /* new_int(name,value)
 char *name;
-int *value;
+int32 *value;
 {
  char tvalue[100];
- int status;
+ int32 status;
  sprintf(tvalue,"%d",*value);
  status=get_dialog(name,name,tvalue,"Ok","Cancel",30);
  if(status==FORGET_ALL||strlen(tvalue)==0)return;

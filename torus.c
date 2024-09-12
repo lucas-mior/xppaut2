@@ -1,4 +1,5 @@
 #include "torus.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -13,7 +14,7 @@
 #include "info.bitmap"
 #include "browse.h"
 
-extern int DisplayHeight, DisplayWidth;
+extern int32 DisplayHeight, DisplayWidth;
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
@@ -24,17 +25,17 @@ extern int DisplayHeight, DisplayWidth;
 
 extern Display *display;
 
-extern int screen;
+extern int32 screen;
 extern GC gc, small_gc;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
-extern int NUPAR, NODE, NEQ;
+extern int32 NUPAR, NODE, NEQ;
 extern char upar_names[MAXPAR][14], uvar_names[MAXODE][12];
 
 extern Window main_win, info_pop;
-extern int TORUS;
+extern int32 TORUS;
 extern double TOR_PERIOD;
-extern int itor[MAXODE];
+extern int32 itor[MAXODE];
 
 struct {
     Window base, done, cancel;
@@ -42,8 +43,8 @@ struct {
 } torbox;
 
 void
-do_torus_com(int c) {
-    int i;
+do_torus_com(int32 c) {
+    int32 i;
     TORUS = 0;
     if (c == 0 || c == 2) {
         new_float("Period :", &TOR_PERIOD);
@@ -68,7 +69,7 @@ do_torus_com(int c) {
 }
 
 void
-draw_tor_var(int i) {
+draw_tor_var(int32 i) {
     char strng[15];
     XClearWindow(display, torbox.w[i]);
     if (itor[i] == 1)
@@ -82,7 +83,7 @@ draw_tor_var(int i) {
 
 void
 draw_torus_box(Window win) {
-    int i;
+    int32 i;
 
     if (win == torbox.cancel) {
         XDrawString(display, win, small_gc, 5, CURY_OFFs, "Cancel", 6);
@@ -102,7 +103,7 @@ draw_torus_box(Window win) {
 
 void
 choose_torus(void) {
-    int i;
+    int32 i;
     make_tor_box("Fold which");
     do_torus_events();
     for (i = 0; i < NEQ; i++)
@@ -114,12 +115,12 @@ choose_torus(void) {
 void
 make_tor_box(char *title) {
 
-    int ndn, nac, width, height;
-    int nv;
-    /*int nh; Not used anywhere*/
-    int i, i1, j1, xpos, ypos;
-    int xstart = DCURXs;
-    int ystart = DCURYs;
+    int32 ndn, nac, width, height;
+    int32 nv;
+    /*int32 nh; Not used anywhere*/
+    int32 i, i1, j1, xpos, ypos;
+    int32 xstart = DCURXs;
+    int32 ystart = DCURYs;
     Window base;
     XTextProperty winname;
     XSizeHints size_hints;
@@ -184,11 +185,11 @@ make_tor_box(char *title) {
 void
 do_torus_events(void) {
     XEvent ev;
-    int status = -1;
-    int done = 0;
+    int32 status = -1;
+    int32 done = 0;
     Window wt;
-    int i;
-    int oldit[MAXODE];
+    int32 i;
+    int32 oldit[MAXODE];
     for (i = 0; i < NEQ; i++)
         oldit[i] = itor[i];
     while (!done) {

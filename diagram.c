@@ -13,24 +13,25 @@
 #include <stdio.h>
 #include "autlim.h"
 #include "load_eqn.h"
+#include "integers.h"
 #define DALLOC(a) (double *)malloc((a) * sizeof(double))
-extern int TypeOfCalc;
+extern int32 TypeOfCalc;
 extern ROTCHK blrtn;
-extern int PS_Color;
+extern int32 PS_Color;
 
 extern float **storage;
-extern int storind;
+extern int32 storind;
 #define PACK_AUTO 0
 #define PACK_LBF 1
-extern int AutoTwoParam;
-extern int NODE;
-extern int DiagFlag;
-int NBifs = 0;
-extern int NAutoPar;
+extern int32 AutoTwoParam;
+extern int32 NODE;
+extern int32 DiagFlag;
+int32 NBifs = 0;
+extern int32 NAutoPar;
 DIAGRAM *bifd;
 
 void
-start_diagram(int n) {
+start_diagram(int32 n) {
     NBifs = 1;
     bifd = (DIAGRAM *)malloc(sizeof(DIAGRAM));
     bifd->prev = NULL;
@@ -48,12 +49,12 @@ start_diagram(int n) {
     DiagFlag = 0;
 }
 
-int
-find_diagram(int irs, int n, int *index, int *ibr, int *ntot, int *itp,
-             int *nfpar, double *a, double *uhi, double *ulo, double *u0,
-             double *par, double *per, int *icp1, int *icp2, int *icp3,
-             int *icp4) {
-    int i, found = 0;
+int32
+find_diagram(int32 irs, int32 n, int32 *index, int32 *ibr, int32 *ntot, int32 *itp,
+             int32 *nfpar, double *a, double *uhi, double *ulo, double *u0,
+             double *par, double *per, int32 *icp1, int32 *icp2, int32 *icp3,
+             int32 *icp4) {
+    int32 i, found = 0;
     DIAGRAM *d;
     d = bifd;
 
@@ -88,9 +89,9 @@ find_diagram(int irs, int n, int *index, int *ibr, int *ntot, int *itp,
 }
 
 void
-edit_start(int ibr, int ntot, int itp, int lab, int nfpar, double a,
+edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
            double *uhi, double *ulo, double *u0, double *ubar, double *par,
-           double per, int n, int icp1, int icp2, int icp3, int icp4,
+           double per, int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
            double *evr, double *evi) {
     edit_diagram(bifd, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
                  per, n, icp1, icp2, icp3, icp4, AutoTwoParam, evr, evi,
@@ -98,11 +99,11 @@ edit_start(int ibr, int ntot, int itp, int lab, int nfpar, double a,
 }
 
 void
-edit_diagram(DIAGRAM *d, int ibr, int ntot, int itp, int lab, int nfpar,
+edit_diagram(DIAGRAM *d, int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
              double a, double *uhi, double *ulo, double *u0, double *ubar,
-             double *par, double per, int n, int icp1, int icp2, int icp3,
-             int icp4, int flag2, double *evr, double *evi, double tp) {
-    int i;
+             double *par, double per, int32 n, int32 icp1, int32 icp2, int32 icp3,
+             int32 icp4, int32 flag2, double *evr, double *evi, double tp) {
+    int32 i;
     d->calc = TypeOfCalc;
     d->ibr = ibr;
     d->ntot = ntot;
@@ -134,10 +135,10 @@ edit_diagram(DIAGRAM *d, int ibr, int ntot, int itp, int lab, int nfpar,
 }
 
 void
-add_diagram(int ibr, int ntot, int itp, int lab, int nfpar, double a,
+add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
             double *uhi, double *ulo, double *u0, double *ubar, double *par,
-            double per, int n, int icp1, int icp2, int icp3, int icp4,
-            int flag2, double *evr, double *evi) {
+            double per, int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
+            int32 flag2, double *evr, double *evi) {
     DIAGRAM *d, *dnew;
 
     d = bifd;
@@ -198,7 +199,7 @@ kill_diagrams(void) {
 void
 redraw_diagram(void) {
     DIAGRAM *d;
-    int type, flag = 0;
+    int32 type, flag = 0;
     draw_bif_axes();
     d = bifd;
     if (d->next == NULL)
@@ -224,11 +225,11 @@ write_info_out(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
-    int type, i;
-    /*int flag=0
+    int32 type, i;
+    /*int32 flag=0
      */
-    int status;
-    int icp1, icp2;
+    int32 status;
+    int32 icp1, icp2;
     double *par;
     double par1, par2 = 0, *uhigh, *ulow, per;
     /*double a,*ubar,*u0;*/
@@ -287,16 +288,16 @@ write_info_out(void) {
 }
 
 void
-load_browser_with_branch(int ibr, int pts, int pte) {
+load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     DIAGRAM *d;
-    int type, i, j, pt;
-    /*int flag=0;
+    int32 type, i, j, pt;
+    /*int32 flag=0;
      */
-    int status;
-    int icp1, icp2;
+    int32 status;
+    int32 icp1, icp2;
     double *par;
     double par1, par2 = 0, *u0, per;
-    int first, last, nrows;
+    int32 first, last, nrows;
     first = abs(pts);
     last = abs(pte);
     if (last <
@@ -343,11 +344,11 @@ write_init_data_file(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
-    int type, i;
-    /*int flag=0;
+    int32 type, i;
+    /*int32 flag=0;
      */
-    int status;
-    int icp1, icp2;
+    int32 status;
+    int32 icp1, icp2;
     double *par;
     double par1, par2 = 0, *u0, per;
     /*double a,*uhigh,*ulow,*ubar;*/
@@ -416,11 +417,11 @@ write_pts(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
-    int type;
-    /*int flag=0;
+    int32 type;
+    /*int32 flag=0;
      */
-    int status;
-    int icp1, icp2;
+    int32 status;
+    int32 icp1, icp2;
     double *par;
     double x, y1, y2, par1, par2 = 0, a, *uhigh, *ulow, *ubar, per;
     FILE *fp;
@@ -478,8 +479,8 @@ post_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
-    int type, flag = 0;
-    int status;
+    int32 type, flag = 0;
+    int32 status;
     sprintf(filename, "auto.ps");
     /* status=get_dialog("Postscript","Filename",filename,"Ok","Cancel",60); */
     status = file_selector("Postscript", filename, "*.ps");
@@ -516,8 +517,8 @@ svg_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
-    int type, flag = 0;
-    int status;
+    int32 type, flag = 0;
+    int32 status;
     sprintf(filename, "auto.svg");
     /* status=get_dialog("Postscript","Filename",filename,"Ok","Cancel",60); */
     status = file_selector("SVG", filename, "*.svg");
@@ -553,9 +554,9 @@ svg_auto(void) {
 void
 bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
     DIAGRAM *d;
-    int type;
+    int32 type;
 
-    /*int flag=0;
+    /*int32 flag=0;
      */
     double x, y1, y2, par1, par2 = 0.0;
     d = bifd;
@@ -593,9 +594,9 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
     }
 }
 
-int
-save_diagram(FILE *fp, int n) {
-    int i;
+int32
+save_diagram(FILE *fp, int32 n) {
+    int32 i;
     DIAGRAM *d;
     fprintf(fp, "%d\n", NBifs - 1);
     if (NBifs == 1)
@@ -619,13 +620,13 @@ save_diagram(FILE *fp, int n) {
     return (1);
 }
 
-int
-load_diagram(FILE *fp, int node) {
+int32
+load_diagram(FILE *fp, int32 node) {
     double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO], evr[NAUTO],
         evi[NAUTO], norm, par[8], per;
-    int i, flag = 0;
-    int n;
-    int calc, ibr, ntot, itp, lab, index, nfpar, icp1, icp2, icp3, icp4, flag2;
+    int32 i, flag = 0;
+    int32 n;
+    int32 calc, ibr, ntot, itp, lab, index, nfpar, icp1, icp2, icp3, icp4, flag2;
     fscanf(fp, "%d", &n);
     if (n == 0) {
         /*    start_diagram(NODE); */

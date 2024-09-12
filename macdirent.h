@@ -56,6 +56,7 @@
 
 #ifndef _DIRENT_H_
 #define _DIRENT_H_
+#include "integers.h"
 
 /*
  * The kernel defines the format of directory entries returned by
@@ -74,14 +75,14 @@ typedef void *DIR;
 
 /* structure describing an open directory. */
 typedef struct _dirdesc {
-    int dd_fd;      /* file descriptor associated with directory */
+    int32 dd_fd;      /* file descriptor associated with directory */
     long dd_loc;    /* offset in current buffer */
     long dd_size;   /* amount of data returned by getdirentries */
     char *dd_buf;   /* data buffer */
-    int dd_len;     /* size of data buffer */
+    int32 dd_len;     /* size of data buffer */
     long dd_seek;   /* magic cookie returned by getdirentries */
     long dd_rewind; /* magic cookie for rewinding */
-    int dd_flags;   /* flags for readdir */
+    int32 dd_flags;   /* flags for readdir */
 } DIR;
 
 #define dirfd(dirp) ((dirp)->dd_fd)
@@ -106,15 +107,15 @@ __BEGIN_DECLS
 DIR *opendir __P((const char *));
 struct dirent *readdir __P((DIR *));
 void rewinddir __P((DIR *));
-int closedir __P((DIR *));
+int32 closedir __P((DIR *));
 #ifndef _POSIX_SOURCE
-DIR *__opendir2 __P((const char *, int));
+DIR *__opendir2 __P((const char *, int32));
 long telldir __P((const DIR *));
 void seekdir __P((DIR *, long));
-int scandir __P((const char *, struct dirent ***, int (*)(struct dirent *),
-                 int (*)(const void *, const void *)));
-int alphasort __P((const void *, const void *));
-int getdirentries __P((int, char *, int, long *));
+int32 scandir __P((const char *, struct dirent ***, int32 (*)(struct dirent *),
+                 int32 (*)(const void *, const void *)));
+int32 alphasort __P((const void *, const void *));
+int32 getdirentries __P((int32, char *, int32, long *));
 #endif /* not POSIX */
 __END_DECLS
 

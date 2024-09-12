@@ -20,6 +20,7 @@
 #ifndef _llnlmath_h
 #define _llnlmath_h
 
+#include "integers.h"
 #include "llnltyps.h"
 
 /******************************************************************
@@ -61,16 +62,16 @@ double UnitRoundoff(void);
 /******************************************************************
  *                                                                *
  * Function : RPowerI                                             *
- * Usage    : int exponent;                                       *
+ * Usage    : int32 exponent;                                       *
  *            double base, ans;                                     *
  *            ans = RPowerI(base,exponent);                       *
  *----------------------------------------------------------------*
  * RPowerI returns the value base^exponent, where base is a double  *
- * and exponent is an int.                                        *
+ * and exponent is an int32.                                        *
  *                                                                *
  ******************************************************************/
 
-double RPowerI(double base, int exponent);
+double RPowerI(double base, int32 exponent);
 
 /******************************************************************
  *                                                                *

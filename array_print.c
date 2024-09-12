@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "array_print.h"
+#include "integers.h"
 
 #define GREYSCALE -1
 #define REDBLUE 0
@@ -13,18 +14,18 @@ typedef struct {
     float xscale, yscale, xoff, yoff;
     float tx, ty, angle, slant; /* text attributes   */
     float linecol, letx, lety;
-    int linewid;
+    int32 linewid;
 } DEVSCALE;
 
 FILE *my_plot_file;
 
 DEVSCALE ps_scale;
 
-int
+int32
 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
-            int nacross, int ndown, int col0, int row0, int nskip, int ncskip,
-            int maxrow, int maxcol, float **data, double zmin, double zmax,
-            double tlo, double thi, int type) {
+            int32 nacross, int32 ndown, int32 col0, int32 row0, int32 nskip, int32 ncskip,
+            int32 maxrow, int32 maxcol, float **data, double zmin, double zmax,
+            double tlo, double thi, int32 type) {
     float xx, yy;
     xx = (float)ndown;
     yy = (float)(nacross / ncskip);
@@ -41,10 +42,10 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
 }
 
 void
-ps_replot(float **z, int col0, int row0, int nskip, int ncskip, int maxrow,
-          int maxcol, int nacross, int ndown, double zmin, double zmax,
-          int type) {
-    int i, j, ib, jb;
+ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip, int32 maxrow,
+          int32 maxcol, int32 nacross, int32 ndown, double zmin, double zmax,
+          int32 type) {
+    int32 i, j, ib, jb;
 
     float fill, x, y;
     float dx = (ps_scale.xmax - ps_scale.xmin);
@@ -130,9 +131,9 @@ ps_convert(double x, double y, float *xs, float *ys) {
 }
 
 void
-ps_col_scale(double y0, double x0, double dy, double dx, int n, double zlo,
-             double zhi, int type, double mx) {
-    int i;
+ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
+             double zhi, int32 type, double mx) {
+    int32 i;
     char s[100];
 
     float dz = 1. / (float)(n - 1);
@@ -153,9 +154,9 @@ ps_col_scale(double y0, double x0, double dy, double dx, int n, double zlo,
 
 void
 ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
-         char *sx, char *sy, char *sb, int type) {
+         char *sx, char *sy, char *sb, int32 type) {
     char str[100];
-    int i = ps_scale.linewid;
+    int32 i = ps_scale.linewid;
     float mx = ps_scale.letx;
     float z = ps_scale.linecol;
     float dx = ps_scale.xmax - ps_scale.xmin;
@@ -191,14 +192,14 @@ ps_close(void) {
 }
 
 void
-ps_setline(double fill, int thick) {
+ps_setline(double fill, int32 thick) {
     fprintf(my_plot_file, "%f G\n %d setlinewidth \n", fill, thick);
     ps_scale.linewid = thick;
     ps_scale.linecol = fill;
 }
 
 void
-ps_put_char(int ch, float *x, float *y) {
+ps_put_char(int32 ch, float *x, float *y) {
     float xp = *x, yp = *y;
     char str[4];
     str[0] = ch;
@@ -207,7 +208,7 @@ ps_put_char(int ch, float *x, float *y) {
 }
 
 void
-ps_text2(char *str, double xr, double yr, int icent /* ignores for now  */
+ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 ) {
     double slant = .0174532 * ps_scale.slant;
     float x, y;
@@ -215,7 +216,7 @@ ps_text2(char *str, double xr, double yr, int icent /* ignores for now  */
     double a = sizex * cos(slant), b = sizey * sin(slant),
            c = -sizex * sin(slant), d = sizey * cos(slant);
     ps_convert(xr, yr, &x, &y);
-    fprintf(my_plot_file, "%d %d m\n", (int)x, (int)y);
+    fprintf(my_plot_file, "%d %d m\n", (int32)x, (int32)y);
     fprintf(my_plot_file, "gsave \n %f rotate \n", rot);
     fprintf(my_plot_file,
             "basefont [%.4f %.4f %.4f %.4f 0 0] makefont setfont\n", a, b, c,
@@ -246,8 +247,8 @@ ps_line2(double x1r, double y1r, double x2r, double y2r) {
     float x1, y1, x2, y2;
     ps_convert(x1r, y1r, &x1, &y1);
     ps_convert(x2r, y2r, &x2, &y2);
-    fprintf(my_plot_file, "%d %d m \n %d %d l S\n", (int)x1, (int)y1, (int)x2,
-            (int)y2);
+    fprintf(my_plot_file, "%d %d m \n %d %d l S\n", (int32)x1, (int32)y1, (int32)x2,
+            (int32)y2);
 }
 
 void
@@ -265,19 +266,19 @@ ps_rect(double x, double y, double wid, double len) {
     ps_convert(x + wid, y + len, &x2, &y2);
     fprintf(my_plot_file,
             "%d %d m \n %d %d l \n %d %d l \n %d %d l \n %d %d l \n S \n",
-            (int)x1, (int)y1, (int)x2, (int)y1, (int)x2, (int)y2, (int)x1,
-            (int)y2, (int)x1, (int)y1);
+            (int32)x1, (int32)y1, (int32)x2, (int32)y1, (int32)x2, (int32)y2, (int32)x1,
+            (int32)y2, (int32)x1, (int32)y1);
 }
 
 void
-ps_bar(double x, double y, double wid, double len, double fill, int flag) {
+ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
     float x1, y1, x2, y2;
     fprintf(my_plot_file, "%f G\n", fill);
     ps_convert(x, y, &x1, &y1);
     ps_convert(x + wid, y + len, &x2, &y2);
     fprintf(my_plot_file, "%d %d m \n %d %d l \n %d %d l \n %d %d l \n FS\n",
-            (int)x1, (int)y1, (int)x2, (int)y1, (int)x2, (int)y2, (int)x1,
-            (int)y2);
+            (int32)x1, (int32)y1, (int32)x2, (int32)y1, (int32)x2, (int32)y2, (int32)x1,
+            (int32)y2);
 
     if (flag) {
         fprintf(my_plot_file, "0 G\n");
@@ -286,8 +287,8 @@ ps_bar(double x, double y, double wid, double len, double fill, int flag) {
 }
 
 void
-ps_rgb_bar(double x, double y, double wid, double len, double fill, int flag,
-           int rgb) {
+ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
+           int32 rgb) {
     float x1, y1, x2, y2;
     float r = 0.0, g = 0.0, b = 0.0;
     if (rgb == 2) {
@@ -323,8 +324,8 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int flag,
     /*   fprintf(my_plot_file,"%f %f m \n %f %f l \n %f %f l \n %f %f l \n
        FS\n", x1,y1,x2,y1,x2,y2,x1,y2); */
     fprintf(my_plot_file, "%d %d m \n %d %d l \n %d %d l \n %d %d l \n FS\n",
-            (int)x1, (int)y1, (int)x2, (int)y1, (int)x2, (int)y2, (int)x1,
-            (int)y2);
+            (int32)x1, (int32)y1, (int32)x2, (int32)y1, (int32)x2, (int32)y2, (int32)x1,
+            (int32)y2);
     if (flag) {
         fprintf(my_plot_file, "0 G\n");
         ps_rect(x, y, wid, len);
@@ -332,7 +333,7 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int flag,
 }
 
 void
-ps_hsb_bar(double x, double y, double wid, double len, double fill, int flag) {
+ps_hsb_bar(double x, double y, double wid, double len, double fill, int32 flag) {
     float x1, y1, x2, y2;
     fprintf(my_plot_file, "%f 1.0 1.0 HSB\n", fill);
     ps_convert(x, y, &x1, &y1);
@@ -340,8 +341,8 @@ ps_hsb_bar(double x, double y, double wid, double len, double fill, int flag) {
     /* fprintf(my_plot_file,"%f %f m \n %f %f l \n %f %f l \n %f %f l \n FS\n",
              x1,y1,x2,y1,x2,y2,x1,y2); */
     fprintf(my_plot_file, "%d %d m \n %d %d l \n %d %d l \n %d %d l \n FS\n",
-            (int)x1, (int)y1, (int)x2, (int)y1, (int)x2, (int)y2, (int)x1,
-            (int)y2);
+            (int32)x1, (int32)y1, (int32)x2, (int32)y1, (int32)x2, (int32)y2, (int32)x1,
+            (int32)y2);
     if (flag) {
         fprintf(my_plot_file, "0 G\n");
         ps_rect(x, y, wid, len);

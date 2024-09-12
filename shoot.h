@@ -1,11 +1,12 @@
 #ifndef _shoot_h_
 #define _shoot_h_
+#include "integers.h"
 
 typedef struct {
-    int *com;
+    int32 *com;
     char *string;
     char *name;
-    int side;
+    int32 side;
 } BC_STRUCT;
 
 #endif

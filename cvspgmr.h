@@ -15,6 +15,7 @@
 #ifndef _cvspgmr_h
 #define _cvspgmr_h
 
+#include "integers.h"
 #include <stdio.h>
 #include "cvode.h"
 #include "spgmr.h"
@@ -184,10 +185,10 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef int (*CVSpgmrPrecondFn)(int64 N, double t, N_Vector y, N_Vector fy,
+typedef int32 (*CVSpgmrPrecondFn)(int64 N, double t, N_Vector y, N_Vector fy,
                                 bool jok, bool *jcurPtr, double gamma,
                                 N_Vector ewt, double h, double uround,
-                                int *nfePtr, void *P_data, N_Vector vtemp1,
+                                int32 *nfePtr, void *P_data, N_Vector vtemp1,
                                 N_Vector vtemp2, N_Vector vtemp3);
 
 /******************************************************************
@@ -251,9 +252,9 @@ typedef int (*CVSpgmrPrecondFn)(int64 N, double t, N_Vector y, N_Vector fy,
  *                                                                *
  ******************************************************************/
 
-typedef int (*CVSpgmrPSolveFn)(int64 N, double t, N_Vector y, N_Vector fy,
+typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, N_Vector y, N_Vector fy,
                                N_Vector vtemp, double gamma, N_Vector ewt,
-                               double delta, int *nfePtr, N_Vector r, int lr,
+                               double delta, int32 *nfePtr, N_Vector r, int32 lr,
                                void *P_data, N_Vector z);
 
 /******************************************************************
@@ -314,7 +315,7 @@ typedef int (*CVSpgmrPSolveFn)(int64 N, double t, N_Vector y, N_Vector fy,
  *                                                                *
  ******************************************************************/
 
-void CVSpgmr(void *cvode_mem, int pretype, int gstype, int maxl, double delt,
+void CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
              CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data);
 
 #endif

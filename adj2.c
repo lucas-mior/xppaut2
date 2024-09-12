@@ -8,6 +8,7 @@
 #include "gear.h"
 #include "integrate.h"
 #include "parserslow.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -31,40 +32,40 @@
 double ndrand48();
 
 extern double MyData[MAXODE];
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern float **storage;
-extern int storind, FOUR_HERE;
-extern int NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
+extern int32 storind, FOUR_HERE;
+extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
 extern char uvar_names[MAXODE][12];
 float **my_adj;
-int adj_len;
+int32 adj_len;
 float **my_h;
 float *my_liap[2];
 
 extern char *info_message;
 struct {
-    int here, col0, ncol, colskip;
-    int row0, nrow, rowskip;
+    int32 here, col0, ncol, colskip;
+    int32 row0, nrow, rowskip;
     float **data;
     char firstcol[11];
 } my_trans;
 
-int TRANPOSE_HERE = 0;
-int LIAP_FLAG = 0;
-int LIAP_N, LIAP_I;
+int32 TRANPOSE_HERE = 0;
+int32 LIAP_FLAG = 0;
+int32 LIAP_N, LIAP_I;
 extern double NEWT_ERR;
 double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
-int ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
-int AdjRange = 0;
+int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
+int32 AdjRange = 0;
 extern double DELTA_T, BOUND;
-int *coup_fun[MAXODE];
+int32 *coup_fun[MAXODE];
 char *coup_string[MAXODE];
 
-extern int *my_ode[];
-extern int NSYM, NSYM_START, NCON, NCON_START;
+extern int32 *my_ode[];
+extern int32 NSYM, NSYM_START, NCON, NCON_START;
 /* extern Window main_win; */
-extern int DCURY;
+extern int32 DCURY;
 
 void
 init_trans(void) {
@@ -80,7 +81,7 @@ init_trans(void) {
 }
 
 void
-dump_transpose_info(FILE *fp, int f) {
+dump_transpose_info(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -95,9 +96,9 @@ dump_transpose_info(FILE *fp, int f) {
     return;
 }
 
-int
+int32
 do_transpose(void) {
-    int i, status;
+    int32 i, status;
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};
     char values[6][MAX_LEN_SBOX];
@@ -138,10 +139,10 @@ do_transpose(void) {
     return 0;
 }
 
-int
+int32
 create_transpose(void) {
-    int i, j;
-    int inrow, incol;
+    int32 i, j;
+    int32 inrow, incol;
     my_trans.data = (float **)malloc(sizeof(float *) * (NEQ + 1));
     for (i = 0; i <= my_trans.nrow; i++)
         my_trans.data[i] = (float *)malloc(sizeof(float) * my_trans.ncol);
@@ -172,9 +173,9 @@ create_transpose(void) {
 
 void
 alloc_h_stuff(void) {
-    int i;
+    int32 i;
     for (i = 0; i < NODE; i++) {
-        coup_fun[i] = (int *)malloc(100 * sizeof(int));
+        coup_fun[i] = (int32 *)malloc(100 * sizeof(int32));
         coup_string[i] = (char *)malloc(80);
         strcpy(coup_string[i], "0");
     }
@@ -233,7 +234,7 @@ h_back(void) {
     orbit.parname_parvalue.dat etc
 */
 void
-make_adj_com(int com) {
+make_adj_com(int32 com) {
     static char key[] = "nmaohpr";
     switch (key[com]) {
     case 'n':
@@ -269,9 +270,9 @@ adjoint_parameters(void) {
 }
 
 void
-new_h_fun(int silent) {
+new_h_fun(int32 silent) {
 
-    int i, n = 2;
+    int32 i, n = 2;
     if (!ADJ_HERE) {
         err_msg("Must compute adjoint first!");
         return;
@@ -311,9 +312,9 @@ new_h_fun(int silent) {
 }
 
 void
-dump_h_stuff(FILE *fp, int f) {
+dump_h_stuff(FILE *fp, int32 f) {
     char bob[256];
-    int i;
+    int32 i;
     if (f == READEM)
         fgets(bob, 255, fp);
     else
@@ -323,13 +324,13 @@ dump_h_stuff(FILE *fp, int f) {
     return;
 }
 
-int
-make_h(float **orb, float **adj, int nt, int node, int silent) {
+int32
+make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
 
-    int i, j, rval = 0;
+    int32 i, j, rval = 0;
     float sum;
     double z;
-    int n0 = node + 1 + FIX_VAR, k2, k;
+    int32 n0 = node + 1 + FIX_VAR, k2, k;
     char name[30];
     if (silent == 0) {
         for (i = 0; i < NODE; i++) {
@@ -384,7 +385,7 @@ bye:
 
 void
 new_adjoint(void) {
-    int i, n = NODE + 1;
+    int32 i, n = NODE + 1;
     if (ADJ_HERE) {
         data_back();
         for (i = 0; i < n; i++)
@@ -449,14 +450,14 @@ compute_one_orbit(double *ic, double per) {
     t in the first column.
   */
 
-int
-adjoint(float **orbit, float **adjnt, int nt, double dt, double eps,
-        double minerr, int maxit, int node) {
+int32
+adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
+        double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
     double t, prod, del;
-    int i, j, k, l, k2, rval = 0;
-    int n2 = node * node;
+    int32 i, j, k, l, k2, rval = 0;
+    int32 n2 = node * node;
     double error;
 
     work = (double *)malloc((n2 + 4 * node) * sizeof(double));
@@ -588,10 +589,10 @@ bye:
 }
 
 void
-eval_rhs(double **jac, int k1, int k2, double t, double *y, double *yp,
-         int node) {
-    int i;
-    int j;
+eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
+         int32 node) {
+    int32 i;
+    int32 j;
     for (j = 0; j < node; j++) {
         yp[j] = 0.0;
         for (i = 0; i < node; i++)
@@ -602,10 +603,10 @@ eval_rhs(double **jac, int k1, int k2, double t, double *y, double *yp,
     return;
 }
 
-int
-rk_interp(double **jac, int k1, int k2, double *y, double *work, int neq,
-          double del, int nstep) {
-    int i, j;
+int32
+rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
+          double del, int32 nstep) {
+    int32 i, j;
     double *yval[3], dt = del / nstep;
     double t = 0.0, t1, t2;
     yval[0] = work;
@@ -637,12 +638,12 @@ rk_interp(double **jac, int k1, int k2, double *y, double *work, int neq,
     return (1);
 }
 
-int
-step_eul(double **jac, int k, int k2, double *yold, double *work, int node,
+int32
+step_eul(double **jac, int32 k, int32 k2, double *yold, double *work, int32 node,
          double dt) {
 
-    int j, i, n2 = node * node, info;
-    int ipvt[MAXODE];
+    int32 j, i, n2 = node * node, info;
+    int32 ipvt[MAXODE];
     double *mat, *fold;
     fold = work;
     mat = work + node;
@@ -681,7 +682,7 @@ step_eul(double **jac, int k, int k2, double *yold, double *work, int node,
 void
 do_liapunov(void) {
     double z;
-    int i;
+    int32 i;
     double *x;
     new_int("Range over parameters?(0/1)", &LIAP_FLAG);
     if (LIAP_FLAG != 1) {
@@ -704,7 +705,7 @@ do_liapunov(void) {
 }
 
 void
-alloc_liap(int n) {
+alloc_liap(int32 n) {
     if (LIAP_FLAG == 0)
         return;
     my_liap[0] = (float *)malloc(sizeof(float) * (n + 1));
@@ -715,7 +716,7 @@ alloc_liap(int n) {
 }
 
 void
-do_this_liaprun(int i, double p) {
+do_this_liaprun(int32 i, double p) {
     double liap;
     if (LIAP_FLAG == 0)
         return;
@@ -729,8 +730,8 @@ do_this_liaprun(int i, double p) {
 
 void
 norm_vec(/* returns the length of the vector and the unit vector */
-         double *v, double *mu, int n) {
-    int i;
+         double *v, double *mu, int32 n) {
+    int32 i;
     double sum = 0.0;
     for (i = 0; i < n; i++)
         sum += (v[i] * v[i]);
@@ -742,15 +743,15 @@ norm_vec(/* returns the length of the vector and the unit vector */
     return;
 }
 
-int
-hrw_liapunov(double *liap, int batch, double eps) {
+int32
+hrw_liapunov(double *liap, int32 batch, double eps) {
     double y[MAXODE];
     double yp[MAXODE], nrm, dy[MAXODE];
     double t0, t1;
     double sum = 0.0;
     char bob[256];
-    int istart = 1;
-    int i, j;
+    int32 istart = 1;
+    int32 i, j;
     if (storind < 2) {
         if (batch == 0)
             err_msg("You need to compute an orbit first");

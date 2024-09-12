@@ -1,4 +1,5 @@
 
+#include "integers.h"
 #include "numerics.h"
 #include <strings.h>
 
@@ -23,8 +24,8 @@ void new_adjoint();
 void new_h_fun();
 extern Window main_win, info_pop;
 extern Display *display;
-extern int DCURY, NDELAYS;
-extern int RandSeed;
+extern int32 DCURY, NDELAYS;
+extern int32 RandSeed;
 #include "struct.h"
 extern GRAPH *MyGraph;
 #define MAX_LEN_SBOX 25
@@ -39,12 +40,12 @@ extern GRAPH *MyGraph;
 #define RB23 13
 #define SYMPLECT 14
 
-extern int NKernel, MyStart, MaxPoints;
-extern int NFlags;
+extern int32 NKernel, MyStart, MaxPoints;
+extern int32 NFlags;
 extern double STOL;
 extern double MyTime;
 extern char *info_message, *meth_hint[];
-extern int DelayGrid;
+extern int32 DelayGrid;
 extern double OmegaMax, AlphaMax;
 extern BROWSER my_browser;
 
@@ -56,14 +57,14 @@ extern BROWSER my_browser;
 
 typedef struct {
     double tmod;
-    int maxvar, sos, type, sign;
+    int32 maxvar, sos, type, sign;
     char section[256];
-    int formula[256];
+    int32 formula[256];
 } POINCARE_MAP;
 
 POINCARE_MAP my_pmap;
 
-extern int (*solver)();
+extern int32 (*solver)();
 extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern double BOUND, DELAY, TOLER, ATOLER, HMIN, HMAX;
 float *fft_data, *hist_data, color_scale, min_scale;
@@ -71,30 +72,30 @@ extern double POIPLN;
 
 extern double BVP_TOL, BVP_EPS;
 
-extern int NMESH, NJMP, METHOD, NC_ITER;
-extern int EVEC_ITER;
-extern int BVP_MAXIT, BVP_NL, BVP_NR;
+extern int32 NMESH, NJMP, METHOD, NC_ITER;
+extern int32 EVEC_ITER;
+extern int32 BVP_MAXIT, BVP_NL, BVP_NR;
 
-extern int POIMAP, POIVAR, POISGN, SOS;
+extern int32 POIMAP, POIVAR, POISGN, SOS;
 
-extern int HIST, HVAR, hist_ind, FOREVER, INFLAG;
-extern int MaxEulIter;
+extern int32 HIST, HVAR, hist_ind, FOREVER, INFLAG;
+extern int32 MaxEulIter;
 extern double EulTol;
 
-extern int AutoEvaluate;
+extern int32 AutoEvaluate;
 
-int gear();
-int discrete();
-int euler();
-int mod_euler();
-int rung_kut();
-int adams();
-int volterra();
-int bak_euler();
-int symplect3();
+int32 gear();
+int32 discrete();
+int32 euler();
+int32 mod_euler();
+int32 rung_kut();
+int32 adams();
+int32 volterra();
+int32 bak_euler();
+int32 symplect3();
 
-int cv_bandflag = 0, cv_bandupper = 1, cv_bandlower = 1;
-extern int COLOR, color_total, color_min;
+int32 cv_bandflag = 0, cv_bandupper = 1, cv_bandlower = 1;
+extern int32 COLOR, color_total, color_min;
 extern Window command_pop;
 
 /*   This is the input for the various functions */
@@ -102,9 +103,9 @@ extern Window command_pop;
 /*   I will need access to storage  */
 
 extern float **storage;
-extern int storind;
+extern int32 storind;
 
-extern int NODE, NEQ; /* as well as the number of odes etc  */
+extern int32 NODE, NEQ; /* as well as the number of odes etc  */
 
 void
 chk_volterra(void) {
@@ -114,14 +115,14 @@ chk_volterra(void) {
 }
 
 void
-check_pos(int *j) {
+check_pos(int32 *j) {
     if (*j <= 0)
         *j = 1;
     return;
 }
 
 void
-quick_num(int com) {
+quick_num(int32 com) {
     char key[] = "tsrdnviobec";
     if (com >= 0 && com < 11)
         get_num_par(key[com]);
@@ -130,18 +131,18 @@ quick_num(int com) {
 
 void
 set_total(double total) {
-    int n;
+    int32 n;
     n = (total / fabs(DELTA_T)) + 1;
     TEND = n * fabs(DELTA_T);
     return;
 }
 
 void
-get_num_par(int ch)
+get_num_par(int32 ch)
 
 {
     double temp;
-    int tmp;
+    int32 tmp;
     switch (ch) {
     case 'a':
         make_adj();
@@ -450,7 +451,7 @@ meth_dialog(void) {
 
 void
 compute_one_period(double period, double *x, char *name) {
-    int opm = POIMAP;
+    int32 opm = POIMAP;
     char filename[256];
     double ot = TRANS, ote = TEND;
     FILE *fp;
@@ -500,16 +501,16 @@ compute_one_period(double period, double *x, char *name) {
 }
 
 void
-get_pmap_pars_com(int l) {
+get_pmap_pars_com(int32 l) {
     static char mkey[] = "nsmp";
     char ch;
     static char *n[] = {"*0Variable", "Section", "Direction (+1,-1,0)",
                         "Stop on sect(y/n)"};
     char values[4][MAX_LEN_SBOX];
     static char *yn[] = {"N", "Y"};
-    int status;
+    int32 status;
     char n1[15];
-    int i1 = POIVAR;
+    int32 i1 = POIVAR;
 
     ch = mkey[l];
 
@@ -551,8 +552,8 @@ get_pmap_pars_com(int l) {
 void
 get_method(void) {
     char ch;
-    int i;
-    int nmeth;
+    int32 i;
+    int32 nmeth;
 
     Window temp = main_win;
     static char *n[] = {"(D)iscrete",    "(E)uler",   "(M)od. Euler",
@@ -579,8 +580,8 @@ get_method(void) {
 }
 
 void
-user_set_color_par(int flag, char *via, double lo, double hi) {
-    int ivar;
+user_set_color_par(int32 flag, char *via, double lo, double hi) {
+    int32 ivar;
     MyGraph->min_scale = lo;
     if (hi > lo)
         MyGraph->color_scale = (hi - lo);
@@ -605,8 +606,8 @@ user_set_color_par(int flag, char *via, double lo, double hi) {
 }
 
 void
-set_col_par_com(int i) {
-    int j, ivar;
+set_col_par_com(int32 i) {
+    int32 j, ivar;
     double temp[2];
     float maxder = 0.0, minder = 0.0, sum = 0.0;
     char ch, name[20];

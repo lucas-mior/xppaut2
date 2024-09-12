@@ -10,31 +10,32 @@
 #include <math.h>
 #include "xpplim.h"
 #include "getvar.h"
+#include "integers.h"
 
 double AlphaMax = 2, OmegaMax = 2;
 
 double *DelayWork;
-int LatestDelay;
-int MaxDelay;
-int DelayFlag = 0;
+int32 LatestDelay;
+int32 MaxDelay;
+int32 DelayFlag = 0;
 
-int NDelay, del_stab_flag, WhichDelay, DelayGrid = 1000;
+int32 NDelay, del_stab_flag, WhichDelay, DelayGrid = 1000;
 double variable_shift[2][MAXODE];
 double delay_list[MAXDELAY];
 
 double evaluate();
 extern double DELTA_T, T0, DELAY;
-extern int NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
+extern int32 NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
 
 extern char delay_string[MAXODE][80];
 extern double variables[];
-extern int NVAR;
+extern int32 NVAR;
 
 double
 delay_stab_eval(
     /* this returns appropriate values for delay jacobian */
-    double delay, int var) {
-    int i;
+    double delay, int32 var) {
+    int32 i;
 
     if (del_stab_flag == 0) /* search for all delays  */
     {
@@ -56,11 +57,11 @@ delay_stab_eval(
     return variable_shift[0][var - 1];
 }
 
-int
+int32
 alloc_delay(double big) {
-    int n, i;
+    int32 n, i;
 
-    n = (int)(big / fabs(DELTA_T)) + 1;
+    n = (int32)(big / fabs(DELTA_T)) + 1;
 
     MaxDelay = n;
     LatestDelay = 1;
@@ -88,8 +89,8 @@ free_delay(void) {
 
 void
 stor_delay(double *y) {
-    int i, in;
-    int nodes = NODE;
+    int32 i, in;
+    int32 nodes = NODE;
     if (DelayFlag == 0)
         return;
     --LatestDelay;
@@ -101,12 +102,12 @@ stor_delay(double *y) {
 }
 
 double
-get_delay_old(int in, double tau) {
+get_delay_old(int32 in, double tau) {
     double x = tau / fabs(DELTA_T);
-    int n1 = (int)x;
-    int n2 = n1 + 1;
-    int nodes = NODE;
-    int i1, i2;
+    int32 n1 = (int32)x;
+    int32 n2 = n1 + 1;
+    int32 nodes = NODE;
+    int32 i1, i2;
     double x1, x2;
     if (tau < 0.0 || tau > DELAY) {
         err_msg("Delay negative or too large");
@@ -121,8 +122,8 @@ get_delay_old(int in, double tau) {
 }
 
 void
-polint(double *xa, double *ya, int n, double x, double *y, double *dy) {
-    int i, m, ns = 1;
+polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
+    int32 i, m, ns = 1;
     double den, dif, dift, h0, hp, w;
     double c[10], d[10];
     dif = fabs(x - xa[0]);
@@ -152,16 +153,16 @@ polint(double *xa, double *ya, int n, double x, double *y, double *dy) {
 
 /* this is like get_delay but uses cubic interpolation */
 double
-get_delay(int in, double tau) {
+get_delay(int32 in, double tau) {
     double x = tau / fabs(DELTA_T);
     double dd = fabs(DELTA_T);
     double y, ya[4], xa[4], dy;
-    int n1 = (int)x;
-    int n2 = n1 + 1;
-    int nodes = NODE;
-    int n0 = n1;
-    int n3 = n2 + 1;
-    int i0, i1, i2, i3;
+    int32 n1 = (int32)x;
+    int32 n2 = n1 + 1;
+    int32 nodes = NODE;
+    int32 n0 = n1;
+    int32 n3 = n2 + 1;
+    int32 i0, i1, i2, i3;
 
     if (tau < 0.0 || tau > DELAY) {
         err_msg("Delay negative or too large");
@@ -197,18 +198,18 @@ get_delay(int in, double tau) {
 }
 
 /*  Handling of the initial data  */
-int
+int32
 do_init_delay(double big) {
     double t = T0, old_t, y[MAXODE];
-    int i, nt, j;
-    int len;
+    int32 i, nt, j;
+    int32 len;
 
-    int *del_form[MAXODE];
-    nt = (int)(big / fabs(DELTA_T));
+    int32 *del_form[MAXODE];
+    nt = (int32)(big / fabs(DELTA_T));
     NCON = NCON_START;
     NSYM = NSYM_START;
     for (i = 0; i < (NODE); i++) {
-        del_form[i] = (int *)calloc(200, sizeof(int));
+        del_form[i] = (int32 *)calloc(200, sizeof(int32));
         if (del_form[i] == NULL) {
             err_msg("Failed to allocate delay formula ...");
             for (j = 0; j < i; j++)

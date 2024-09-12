@@ -1,4 +1,5 @@
 #include "histogram.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -18,49 +19,49 @@ double ndrand48();
 
 void mycor(), mycor2();
 float *get_data_col();
-extern int DCURY, MAXSTOR;
+extern int32 DCURY, MAXSTOR;
 extern char uvar_names[MAXODE][12];
 typedef struct {
-    int nbins, nbins2, type, col, col2, fftc;
+    int32 nbins, nbins2, type, col, col2, fftc;
     double xlo, xhi;
     double ylo, yhi;
     char cond[80];
 } HIST_INFO;
 
-int spec_col = 1, spec_wid = 512, spec_win = 2, spec_col2 = 1, spec_type = 0;
+int32 spec_col = 1, spec_wid = 512, spec_win = 2, spec_col2 = 1, spec_type = 0;
 /* type =0 for PSD
    type =1 for crossspectrum
    type =2 for coherence
 
 */
 
-extern int *plotlist, N_plist;
+extern int32 *plotlist, N_plist;
 
-int post_process = 0;
+int32 post_process = 0;
 
 HIST_INFO hist_inf = {100, 100, 0, 1, 1, 0, 0, 1, 0, 1, ""};
 
-extern int NCON, NSYM, NCON_START, NSYM_START;
+extern int32 NCON, NSYM, NCON_START, NSYM_START;
 
 extern float **storage;
-extern int storind;
-int hist_len, four_len;
+extern int32 storind;
+int32 hist_len, four_len;
 float *my_hist[MAXODE + 1];
 float *my_four[MAXODE + 1];
-int HIST_HERE, FOUR_HERE;
+int32 HIST_HERE, FOUR_HERE;
 
 float total_time;
-extern int NEQ, NODE, NMarkov, FIX_VAR;
+extern int32 NEQ, NODE, NMarkov, FIX_VAR;
 
 extern char *no_hint[], *info_message;
 
-int twod_hist();
+int32 twod_hist();
 void
 new_2dhist(void) {
 }
 
-int
-two_d_hist(int col1, int col2, int ndat, int n1, int n2, double xlo, double xhi,
+int32
+two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo, double xhi,
            double ylo, double yhi)
 /*
   col1,2 are the data you want to histogram
@@ -75,12 +76,12 @@ EXAMPLE of binning
   if xl0 = 0 and xhi=1 and nbin=10
   dx=1/10
   then bins are [0,1/10), [1/10,2/10), ....,[9/10,1)
-  thus  bin j = int ((x-xlo)/dx)
-        bin k = int ((y-ylo)/dy)
+  thus  bin j = int32 ((x-xlo)/dx)
+        bin k = int32 ((y-ylo)/dy)
         if j<0 or j>=nxbin then skip etc
 */
 {
-    int i, j, k;
+    int32 i, j, k;
     double dx, dy, norm;
     double x, y;
     dx = (xhi - xlo) / (double)n1;
@@ -98,8 +99,8 @@ EXAMPLE of binning
     for (k = 0; k < ndat; k++) {
         x = (storage[col1][k] - xlo) / dx;
         y = (storage[col2][k] - ylo) / dy;
-        i = (int)x;
-        j = (int)y;
+        i = (int32)x;
+        j = (int32)y;
         if ((i >= 0) && (i < n1) && (j >= 0) && (j < n2))
             my_hist[2][i + j * n1] += norm;
     }
@@ -128,9 +129,9 @@ hist_back(void) {
 }
 
 void
-new_four(int nmodes, int col) {
-    int i;
-    int length = nmodes + 1;
+new_four(int32 nmodes, int32 col) {
+    int32 i;
+    int32 length = nmodes + 1;
     float total = storage[0][storind - 1] - storage[0][0];
     float *bob;
     if (FOUR_HERE) {
@@ -170,7 +171,7 @@ post_process_stuff(void) {
     if (post_process == 0)
         return;
     if (N_plist < 1)
-        plotlist = (int *)malloc(sizeof(int) * 10);
+        plotlist = (int32 *)malloc(sizeof(int32) * 10);
     N_plist = 2;
     plotlist[0] = 0;
     plotlist[1] = 1;
@@ -197,11 +198,11 @@ post_process_stuff(void) {
     }
 }
 
-int
+int32
 twod_hist(void)
 
 {
-    int length, i;
+    int32 length, i;
     length = hist_inf.nbins * hist_inf.nbins2;
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
@@ -240,7 +241,7 @@ twod_hist(void)
     return (1);
 }
 
-int
+int32
 new_2d_hist(void) {
 
     if ((NEQ < 2) || (storind < 3)) {
@@ -280,17 +281,17 @@ new_2d_hist(void) {
 }
 
 void
-new_hist(int nbins, double zlo, double zhi, int col, int col2, char *condition,
-         int which)
+new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2, char *condition,
+         int32 which)
 
 {
-    int i, j, index;
-    int command[256];
-    int cond = 0, flag = 1;
+    int32 i, j, index;
+    int32 command[256];
+    int32 cond = 0, flag = 1;
     double z, y;
     double dz;
-    int length = nbins + 1;
-    int count = 0;
+    int32 length = nbins + 1;
+    int32 count = 0;
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
     dz = (zhi - zlo) / (double)(length - 1);
@@ -345,7 +346,7 @@ new_hist(int nbins, double zlo, double zhi, int col, int col2, char *condition,
                     flag = 0;
             }
             z = (storage[col][i] - zlo) / dz;
-            index = (int)z;
+            index = (int32)z;
             if (index >= 0 && index < length && flag == 1) {
                 my_hist[1][index] += 1.0;
                 count++;
@@ -362,7 +363,7 @@ new_hist(int nbins, double zlo, double zhi, int col, int col2, char *condition,
             for (j = 0; j < storind; j++) {
                 y = storage[col][i] - storage[col][j];
                 z = (y - zlo) / dz;
-                index = (int)z;
+                index = (int32)z;
                 if (index >= 0 && index < length)
                     my_hist[1][index] += 1.0;
             }
@@ -390,7 +391,7 @@ new_hist(int nbins, double zlo, double zhi, int col, int col2, char *condition,
 
 void
 column_mean(void) {
-    int i;
+    int32 i;
     char bob[100];
     double sum, sum2, ss;
     double mean, sdev;
@@ -413,8 +414,8 @@ column_mean(void) {
     err_msg(bob);
 }
 
-int
-get_col_info(int *col, char *prompt) {
+int32
+get_col_info(int32 *col, char *prompt) {
     char variable[20];
     if (*col == 0)
         strcpy(variable, "t");
@@ -431,7 +432,7 @@ get_col_info(int *col, char *prompt) {
 
 void
 compute_power(void) {
-    int i;
+    int32 i;
     double s, c;
     float *datx, *daty, ptot = 0;
     compute_fourier();
@@ -463,12 +464,12 @@ compute_power(void) {
       size = win/2
 */
 
-int
-spectrum(float *data, int nr, int win, int w_type, float *pow) {
+int32
+spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
     /* assumes 50% overlap */
-    int shift = win / 2;
-    int kwin = (nr - win + 1) / shift;
-    int i, j, kk;
+    int32 shift = win / 2;
+    int32 kwin = (nr - win + 1) / shift;
+    int32 i, j, kk;
     float *ct, *st, *f, *d, x, nrmf;
     /*float sum;
      */
@@ -550,13 +551,13 @@ spectrum(float *data, int nr, int win, int w_type, float *pow) {
 
 */
 
-int
-cross_spectrum(float *data, float *data2, int nr, int win, int w_type,
-               float *pow, int type) {
-    int shift = win / 2;
-    int kwin = (nr - win + 1) / shift;
-    /*  int kwin=nr/shift; */
-    int i, j, kk;
+int32
+cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
+               float *pow, int32 type) {
+    int32 shift = win / 2;
+    int32 kwin = (nr - win + 1) / shift;
+    /*  int32 kwin=nr/shift; */
+    int32 i, j, kk;
     float *ct, *st, *f, *d, x, nrmwin;
     /*float sum; Not used anywhere*/
     float *ct2, *st2, *d2;
@@ -654,8 +655,8 @@ cross_spectrum(float *data, float *data2, int nr, int win, int w_type,
 }
 
 void
-just_sd(int flag) {
-    int length, i, j;
+just_sd(int32 flag) {
+    int32 length, i, j;
     float total = storage[0][storind - 1] - storage[0][0];
     spec_type = flag;
     if (HIST_HERE) {
@@ -691,7 +692,7 @@ just_sd(int flag) {
 
 void
 compute_sd(void) {
-    int length, i, j;
+    int32 length, i, j;
     float total = storage[0][storind - 1] - storage[0][0];
     new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
 
@@ -734,11 +735,11 @@ compute_sd(void) {
 }
 
 void
-just_fourier(int flag) {
-    int i;
+just_fourier(int32 flag) {
+    int32 i;
     double s, c;
     float *datx, *daty;
-    int nmodes = storind / 2 - 1;
+    int32 nmodes = storind / 2 - 1;
     if (NEQ < 2 || storind <= 1)
         return;
     new_four(nmodes, spec_col);
@@ -757,7 +758,7 @@ just_fourier(int flag) {
 
 void
 compute_fourier(void) {
-    int nmodes = 10;
+    int32 nmodes = 10;
     if (NEQ < 2) {
         err_msg("Need at least three data columns");
         return;
@@ -774,7 +775,7 @@ compute_fourier(void) {
 
 void
 compute_correl(void) {
-    int lag;
+    int32 lag;
     float total = storage[0][storind - 1] - storage[0][0], dta;
     dta = total / (float)(storind - 1);
     /*  new_int("(0) Xcor (1) Xspec (2) Coher ",&flag);
@@ -818,10 +819,10 @@ compute_stacor(void) {
 }
 
 void
-mycor(float *x, float *y, int n, double zlo, double zhi, int nbins, float *z,
-      int flag) {
-    int i, j;
-    int k, count = 0;
+mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins, float *z,
+      int32 flag) {
+    int32 i, j;
+    int32 k, count = 0;
     float sum, avx = 0.0, avy = 0.0;
     double dz = (zhi - zlo) / (double)nbins, jz;
     if (flag) {
@@ -837,7 +838,7 @@ mycor(float *x, float *y, int n, double zlo, double zhi, int nbins, float *z,
         count = 0;
         jz = dz * j + zlo;
         for (i = 0; i < n; i++) {
-            k = i + (int)jz;
+            k = i + (int32)jz;
             if ((k >= 0) && (k < n)) {
                 count++;
                 sum += (x[i] - avx) * (y[k] - avy);
@@ -850,9 +851,9 @@ mycor(float *x, float *y, int n, double zlo, double zhi, int nbins, float *z,
 }
 
 void
-mycor2(float *x, float *y, int n, int nbins, float *z, int flag) {
-    int i, j;
-    int k, count = 0, lag = nbins / 2;
+mycor2(float *x, float *y, int32 n, int32 nbins, float *z, int32 flag) {
+    int32 i, j;
+    int32 k, count = 0, lag = nbins / 2;
     float sum, avx = 0.0, avy = 0.0;
     if (flag) {
         for (i = 0; i < n; i++) {
@@ -893,8 +894,8 @@ compute_hist(void) {
 }
 
 void
-sft(float *data, float *ct, float *st, int nmodes, int grid) {
-    int i, j;
+sft(float *data, float *ct, float *st, int32 nmodes, int32 grid) {
+    int32 i, j;
     double sums, sumc;
     double tpi = 6.28318530717959;
     double dx, xi, x;
@@ -920,12 +921,12 @@ sft(float *data, float *ct, float *st, int nmodes, int grid) {
 /* experimental -- does it work */
 /* nlag should be less than length/2 */
 void
-fftxcorr(float *data1, float *data2, int length, int nlag, float *cr,
-         int flag) {
+fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
+         int32 flag) {
     double *re1, *re2, *im1, *im2, x, y, sum;
     float av1 = 0.0, av2 = 0.0;
-    int dim[2], i;
-    /*int n2; Not used anywhere*/
+    int32 dim[2], i;
+    /*int32 n2; Not used anywhere*/
     if (flag) {
         for (i = 0; i < length; i++) {
             av1 += data1[i];
@@ -978,9 +979,9 @@ fftxcorr(float *data1, float *data2, int length, int nlag, float *cr,
 }
 
 void
-fft(float *data, float *ct, float *st, int nmodes, int length) {
+fft(float *data, float *ct, float *st, int32 nmodes, int32 length) {
     double *im, *re;
-    int dim[2], i;
+    int32 dim[2], i;
     dim[0] = length;
     re = (double *)malloc(length * sizeof(double));
     im = (double *)malloc(length * sizeof(double));

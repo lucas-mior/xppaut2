@@ -16,6 +16,7 @@
 #include "vector.h"
 #include "llnlmath.h"
 #include "ggets.h"
+#include "integers.h"
 
 #define ZERO RCONST(0.0)
 #define ONE RCONST(1.0)

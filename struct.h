@@ -1,5 +1,6 @@
 #ifndef _struct_h_
 #define _struct_h_
+#include "integers.h"
 
 #include "xpplim.h"
 #define MAXCHAR 60
@@ -20,7 +21,7 @@
 typedef struct {
     double xlo, xhi;
     char rv[10];
-    int nstep, ic, stor;
+    int32 nstep, ic, stor;
 } RANGE_INFO;
 
 typedef struct {
@@ -28,8 +29,8 @@ typedef struct {
     Window wrlo, wrhi, wstep, wreset, woldic;
     RANGE_INFO *rinf;
     double *yold, *y, *ylast;
-    int n;
-    int node;
+    int32 n;
+    int32 node;
     char **name;
     char ascval[MAXODE][ICLENGTH];
     Window wname[ICMAX], wval[ICMAX];
@@ -38,38 +39,38 @@ typedef struct {
 typedef struct {
     Window w, w_info;
 
-    int Use;
-    int state;
-    int Restore;
-    int Nullrestore;
-    int x0;
-    int y0;
-    int Width;
-    int Height;
-    int x11Wid;
-    int x11Hgt;
-    int nvars;
+    int32 Use;
+    int32 state;
+    int32 Restore;
+    int32 Nullrestore;
+    int32 x0;
+    int32 y0;
+    int32 Width;
+    int32 Height;
+    int32 x11Wid;
+    int32 x11Hgt;
+    int32 nvars;
     double rm[3][3];
     double min_scale, color_scale;
     double xmin, ymin, zmin, xmax, ymax, zmax, xorg, yorg, zorg;
     double xbar, ybar, zbar, dx, dy, dz;
-    int xv[MAXPERPLOT], yv[MAXPERPLOT], zv[MAXPERPLOT];
-    int line[MAXPERPLOT], color[MAXPERPLOT];
+    int32 xv[MAXPERPLOT], yv[MAXPERPLOT], zv[MAXPERPLOT];
+    int32 line[MAXPERPLOT], color[MAXPERPLOT];
     double Theta, Phi;
     double ZPlane, ZView;
     double xlo, ylo, xhi, yhi, oldxlo, oldxhi, oldylo, oldyhi;
-    int grtype, ThreeDFlag, TimeFlag, PerspFlag;
-    int xshft, yshft, zshft;
-    int xorgflag, yorgflag, zorgflag;
-    int ColorFlag, ColorValue;
+    int32 grtype, ThreeDFlag, TimeFlag, PerspFlag;
+    int32 xshft, yshft, zshft;
+    int32 xorgflag, yorgflag, zorgflag;
+    int32 ColorFlag, ColorValue;
     char xlabel[30], ylabel[30], zlabel[30];
     char gr_info[256];
 } GRAPH;
 
 typedef struct {
     GC gc;
-    int dx, dy, yoff;
-    unsigned int fcol, bcol;
+    int32 dx, dy, yoff;
+    uint32 fcol, bcol;
 } TEXTGC;
 
 typedef struct {
@@ -78,7 +79,7 @@ typedef struct {
     float y;
     char s[MAXCHAR];
     short use;
-    int font, size;
+    int32 font, size;
 } LABEL;
 
 typedef struct {
@@ -86,7 +87,7 @@ typedef struct {
     char key[20], name[10];
     short use, type;
     float *xv, *yv, *zv;
-    int len, color;
+    int32 len, color;
 } CURVE;
 
 typedef struct {
@@ -94,7 +95,7 @@ typedef struct {
     char name[10];
     short use;
     float *x_n, *y_n;
-    int ix, iy, num_x, num_y;
+    int32 ix, iy, num_x, num_y;
 } NCLINE;
 
 typedef struct {
@@ -111,15 +112,15 @@ typedef struct {
 
 typedef struct {
     char title[MAXCHAR];
-    int n;
+    int32 n;
     Window base;
     Window ok;
     Window cancel;
     short type;
-    int mc;
+    int32 mc;
     Window cw[MAXENTRY];
     char **name;
-    int *flag;
+    int32 *flag;
 } CHOICE_BOX;
 
 typedef struct {
@@ -132,7 +133,7 @@ typedef struct {
     Window base;
     char title[MAXCHAR];
     PARAM *p;
-    int n;
+    int32 n;
     Window ok;
     Window cancel;
 } PARAM_BOX;

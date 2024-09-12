@@ -1,4 +1,5 @@
 
+#include "integers.h"
 #include "storage.h"
 #include "ggets.h"
 #include <stdlib.h>
@@ -6,10 +7,10 @@
 #include "xpplim.h"
 float **storage;
 double *WORK;
-extern int MAXSTOR, storind;
-int IWORK[10000];
-extern int NODE, NMarkov;
-extern int METHOD;
+extern int32 MAXSTOR, storind;
+int32 IWORK[10000];
+extern int32 NODE, NMarkov;
+extern int32 METHOD;
 
 #define BACKEUL 7
 #define VOLTERRA 6
@@ -18,7 +19,7 @@ extern int METHOD;
 #define RB23 13
 #define SYMPLECT 14
 typedef struct {
-    int nvec, node;
+    int32 nvec, node;
     double *x;
 } XPPVEC;
 
@@ -26,7 +27,7 @@ extern XPPVEC xpv;
 
 void
 init_alloc_info(void) {
-    int i;
+    int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
     xpv.x = (double *)malloc((xpv.nvec + xpv.node) * sizeof(double));
@@ -38,8 +39,8 @@ init_alloc_info(void) {
 
 void
 alloc_meth(void) {
-    int nn = xpv.node + xpv.nvec;
-    int sz = 30 * nn;
+    int32 nn = xpv.node + xpv.nvec;
+    int32 sz = 30 * nn;
     switch (METHOD) {
     case STIFF:
         sz = 2 * nn * nn + 13 * nn + 100;
@@ -63,9 +64,9 @@ alloc_meth(void) {
     return;
 }
 
-int
-reallocstor(int ncol, int nrow) {
-    int i = 0;
+int32
+reallocstor(int32 ncol, int32 nrow) {
+    int32 i = 0;
     while ((storage[i] = (float *)realloc(storage[i], nrow * sizeof(float))) !=
            NULL) {
         i++;
@@ -77,8 +78,8 @@ reallocstor(int ncol, int nrow) {
 }
 
 void
-init_stor(int nrow, int ncol) {
-    int i;
+init_stor(int32 nrow, int32 ncol) {
+    int32 i;
     /* WORK=(double *)malloc(WORKSIZE*sizeof(double));
        if(WORK!=NULL){ */
     WORK = NULL;
@@ -101,8 +102,8 @@ init_stor(int nrow, int ncol) {
 }
 
 void
-free_storage(int ncol) {
-    int i;
+free_storage(int32 ncol) {
+    int32 i;
     for (i = 0; i < ncol; i++)
         free(storage[i]);
     free(storage);

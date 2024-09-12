@@ -1,4 +1,5 @@
 #include "auto_f2c.h"
+#include "integers.h"
 #include "auto_c.h"
 #include "auto_types.h"
 
@@ -278,13 +279,13 @@ setubv_make_aa_bb_cc(void *arg) {
     return NULL;
 }
 
-int
+int32
 setubv_default_wrapper(setubv_parallel_arglist data) {
     setubv_make_aa_bb_cc((void *)&data);
     return 0;
 }
 
-int
+int32
 setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        int64 ncb, int64 nrc, int64 nra, int64 nca, FUNI_TYPE((*funi)),
        BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), int64 ndxloc, iap_type *iap,

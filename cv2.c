@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "llnltyps.h" /* definitions of types double (set to double) and     */
-                      /* int64 (set to int), and the constant FALSE      */
+                      /* int64 (set to int32), and the constant FALSE      */
 #include "cvode.h"    /* prototypes for CVodeMalloc, CVode, and CVodeFree, */
                       /* constants OPT_SIZE, BDF, NEWTON, SV, SUCCESS,     */
                       /* NST, NFE, NSETUPS, NNI, NCFN, NETF                */
@@ -17,17 +17,18 @@
 #include "dense.h"  /* definitions of type DenseMat, macro DENSE_ELEM    */
 #include "cvband.h"
 #include "band.h"
+#include "integers.h"
 double cv_ropt[OPT_SIZE];
-int cv_iopt[OPT_SIZE];
-extern int cv_bandflag, cv_bandupper, cv_bandlower;
+int32 cv_iopt[OPT_SIZE];
+extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
 static void cvf();
 void *cvode_mem;
 N_Vector ycv;
-extern int NFlags;
+extern int32 NFlags;
 extern double TOLER, ATOLER;
 void
-start_cv(double *y, double t, int n, double tout, double *atol, double *rtol) {
-    int i;
+start_cv(double *y, double t, int32 n, double tout, double *atol, double *rtol) {
+    int32 i;
 
     ycv = N_VNew(n, NULL);
     for (i = 0; i < n; i++)
@@ -47,12 +48,12 @@ end_cv(void) {
 }
 
 static void
-cvf(int n, double t, N_Vector y, N_Vector ydot, void *fdata) {
+cvf(int32 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
     my_rhs(t, y->data, ydot->data, n);
 }
 
 void
-cvode_err_msg(int kflag) {
+cvode_err_msg(int32 kflag) {
     char s[256];
     strcpy(s, "");
     switch (kflag) {
@@ -92,12 +93,12 @@ cvode_err_msg(int kflag) {
         err_msg(s);
 }
 
-int
+int32
 cvode(
     /* command =0 continue, 1 is start 2 finish */
-    int *command, double *y, double *t, int n, double tout, int *kflag,
+    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
-    int err = 0;
+    int32 err = 0;
     if (NFlags == 0)
         return (ccvode(command, y, t, n, tout, kflag, atol, rtol));
     err = one_flag_step_cvode(command, y, t, n, tout, kflag, atol, rtol);
@@ -106,12 +107,12 @@ cvode(
     return 1;
 }
 /* rtol is like our TOLER and atol is something else ?? */
-int
+int32
 ccvode(
     /* command =0 continue, 1 is start 2 finish */
-    int *command, double *y, double *t, int n, double tout, int *kflag,
+    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
-    int i, flag;
+    int32 i, flag;
     *kflag = 0;
     if (*command == 2) {
         end_cv();

@@ -1,4 +1,5 @@
 #include "volterra2.h"
+#include "integers.h"
 #include "delay_handle.h"
 #include "gear.h"
 #include "ggets.h"
@@ -33,19 +34,19 @@
 
 #define CONV 2
 extern KERNEL kernel[MAXKER];
-extern int NODE, NMarkov, FIX_VAR, PrimeStart;
-extern int NKernel;
+extern int32 NODE, NMarkov, FIX_VAR, PrimeStart;
+extern int32 NKernel;
 extern double *Memory[MAXODE];
 extern double T0, DELTA_T;
-extern int MaxPoints;
-extern int EqType[MAXODE];
-int CurrentPoint;
-int KnFlag;
+extern int32 MaxPoints;
+extern int32 EqType[MAXODE];
+int32 CurrentPoint;
+int32 KnFlag;
 
-int AutoEvaluate = 0;
+int32 AutoEvaluate = 0;
 extern double variables[];
-extern int NVAR;
-extern int MaxEulIter;
+extern int32 NVAR;
+extern int32 MaxEulIter;
 extern double EulTol, NEWT_ERR;
 
 double evaluate();
@@ -54,11 +55,11 @@ double alpha1n();
 double alpbetjn();
 double betnn();
 
-extern int *my_ode[];
+extern int32 *my_ode[];
 double get_ivar();
 
 double
-ker_val(int in) {
+ker_val(int32 in) {
     if (KnFlag)
         return (kernel[in].k_n);
     return (kernel[in].k_n1);
@@ -67,7 +68,7 @@ ker_val(int in) {
 void
 alloc_v_memory(void) /* allocate stuff for volterra equations */
 {
-    int i, len, formula[256], j;
+    int32 i, len, formula[256], j;
 
     /* First parse the kernels   since these were deferred */
     for (i = 0; i < NKernel; i++) {
@@ -76,7 +77,7 @@ alloc_v_memory(void) /* allocate stuff for volterra equations */
             plintf("Illegal kernel %s=%s\n", kernel[i].name, kernel[i].expr);
             exit(0); /* fatal error ... */
         }
-        kernel[i].formula = (int *)malloc((len + 2) * sizeof(int));
+        kernel[i].formula = (int32 *)malloc((len + 2) * sizeof(int32));
         for (j = 0; j < len; j++) {
 
             kernel[i].formula[j] = formula[j];
@@ -87,7 +88,7 @@ alloc_v_memory(void) /* allocate stuff for volterra equations */
                        kernel[i].kerexpr);
                 exit(0); /* fatal error ... */
             }
-            kernel[i].kerform = (int *)malloc((len + 2) * sizeof(int));
+            kernel[i].kerform = (int32 *)malloc((len + 2) * sizeof(int32));
             for (j = 0; j < len; j++) {
                 kernel[i].kerform[j] = formula[j];
             }
@@ -98,9 +99,9 @@ alloc_v_memory(void) /* allocate stuff for volterra equations */
 }
 
 void
-allocate_volterra(int npts, int flag) {
-    int i, oldmem = MaxPoints, j;
-    int ntot = NODE + FIX_VAR + NMarkov;
+allocate_volterra(int32 npts, int32 flag) {
+    int32 i, oldmem = MaxPoints, j;
+    int32 ntot = NODE + FIX_VAR + NMarkov;
     npts = abs(npts);
     MaxPoints = npts;
     /* now allocate the memory   */
@@ -135,7 +136,7 @@ allocate_volterra(int npts, int flag) {
 
 void
 re_evaluate_kernels(void) {
-    int i, j, n = MaxPoints;
+    int32 i, j, n = MaxPoints;
 
     if (AutoEvaluate == 0)
         return;
@@ -151,9 +152,9 @@ re_evaluate_kernels(void) {
 }
 
 void
-alloc_kernels(int flag) {
-    int i, n = MaxPoints;
-    int j;
+alloc_kernels(int32 flag) {
+    int32 i, n = MaxPoints;
+    int32 j;
     double mu;
     for (i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
@@ -192,11 +193,11 @@ alloc_kernels(int flag) {
 ***/
 
 void
-init_sums(double t0, int n, double dt, int i0, int iend, int ishift) {
+init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
     double t = t0 + n * dt, tp = t0 + i0 * dt;
     double sum[MAXODE], al, alpbet, mu;
-    int nvar = FIX_VAR + NODE + NMarkov;
-    int l, ioff, ker, i;
+    int32 nvar = FIX_VAR + NODE + NMarkov;
+    int32 l, ioff, ker, i;
     SETVAR(0, t);
     SETVAR(PrimeStart, tp);
     for (l = 0; l < nvar; l++)
@@ -254,7 +255,7 @@ alpha1n(double mu, double dt, double t, double t0) {
 }
 
 double
-alpbetjn(double mu, double dt, int l) {
+alpbetjn(double mu, double dt, int32 l) {
     double m1;
     double dif = l * dt;
     if (mu == .5)
@@ -275,7 +276,7 @@ betnn(double mu, double dt, double t0, double t) {
 void
 get_kn(/* uses the guessed value y to update Kn  */
        double *y, double t) {
-    int i;
+    int32 i;
 
     SETVAR(0, t);
     SETVAR(PrimeStart, t);
@@ -296,12 +297,12 @@ get_kn(/* uses the guessed value y to update Kn  */
     return;
 }
 
-int
-volterra(double *y, double *t, double dt, int nt, int neq, int *istart,
+int32
+volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
          double *work) {
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     double z, mu, bet;
-    int i, j;
+    int32 i, j;
     yp = work;
     yg = yp + neq;
     ytemp = yg + neq;
@@ -357,11 +358,11 @@ volterra(double *y, double *t, double dt, int nt, int neq, int *istart,
     return (0);
 }
 
-int
-volt_step(double *y, double t, double dt, int neq, double *yg, double *yp,
+int32
+volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
           double *yp2, double *ytemp, double *errvec, double *jac) {
-    int i0, iend, ishift, i, iter = 0, info, ipivot[MAXODE1], j, ind;
-    int n1 = NODE + 1;
+    int32 i0, iend, ishift, i, iter = 0, info, ipivot[MAXODE1], j, ind;
+    int32 n1 = NODE + 1;
     double dt2 = .5 * dt, err;
     double del, yold, fac, delinv;
     i0 = MAX(0, CurrentPoint - MaxPoints);

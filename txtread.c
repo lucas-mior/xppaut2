@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "integers.h"
 #include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>
@@ -36,24 +37,24 @@
     }
 typedef struct {
     char *text, *action;
-    int aflag;
+    int32 aflag;
 } ACTION;
 extern char *save_eqn[MAXLINES];
 extern ACTION comments[MAXCOMMENTS];
-extern int n_comments, NLINES;
-extern int tfBell;
+extern int32 n_comments, NLINES;
+extern int32 tfBell;
 extern Display *display;
-extern int screen;
+extern int32 screen;
 extern GC gc, small_gc;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 #define MYMASK                                                                 \
     (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \
      StructureNotifyMask | LeaveWindowMask | EnterWindowMask)
 
 typedef struct {
     Window up, down, pgup, pgdn, kill, home, end, base, text, src, action;
-    int here, first, hgt, wid, nlines, which;
-    int dh, dw;
+    int32 here, first, hgt, wid, nlines, which;
+    int32 dh, dw;
 } TXTVIEW;
 
 TXTVIEW txtview;
@@ -63,7 +64,7 @@ TXTVIEW txtview;
 */
 void
 txt_view_events(XEvent ev) {
-    int x, y;
+    int32 x, y;
     if (txtview.here == 0)
         return;
 
@@ -131,7 +132,7 @@ txtview_keypress(XEvent ev) {
 }
 
 void
-enter_txtview(Window w, int val) {
+enter_txtview(Window w, int32 val) {
     if (w == txtview.up || w == txtview.down || w == txtview.pgup ||
         w == txtview.pgdn || w == txtview.home || w == txtview.end ||
         w == txtview.src || w == txtview.action || w == txtview.kill)
@@ -141,7 +142,7 @@ enter_txtview(Window w, int val) {
 
 void
 do_txt_action(char *s) {
-    int tb = tfBell;
+    int32 tb = tfBell;
     tfBell = 1;
     get_graph();
     extract_action(s);
@@ -155,18 +156,18 @@ do_txt_action(char *s) {
 }
 
 void
-resize_txtview(int w, int h) {
-    int hgt = h - 8 - 3 * DCURYs;
+resize_txtview(int32 w, int32 h) {
+    int32 hgt = h - 8 - 3 * DCURYs;
     XMoveResizeWindow(display, txtview.text, 2, 3 * DCURYs + 5, w - 4, hgt);
-    txtview.nlines = (int)(hgt / DCURY);
+    txtview.nlines = (int32)(hgt / DCURY);
     /*   plintf(" nlines=%d \n",txtview.nlines); */
     return;
 }
 
 void
-txtview_press(Window w, int x, int y) {
-    int j;
-    int nt;
+txtview_press(Window w, int32 x, int32 y) {
+    int32 j;
+    int32 nt;
     if (txtview.which == 1)
         nt = n_comments;
     else
@@ -271,7 +272,7 @@ redraw_txtview(Window w) {
 
 void
 redraw_txtview_text(void) {
-    int i, j;
+    int32 i, j;
     XClearWindow(display, txtview.text);
     for (i = 0; i < txtview.nlines; i++) {
         /* plintf("lines=%d NLINES=%d first=%d \n",
@@ -309,9 +310,9 @@ init_txtview(void) {
 
 void
 make_txtview(void) {
-    int minwid = DCURXs * 60, minlen = 3 * DCURYs + 8 + 10 * DCURY;
+    int32 minwid = DCURXs * 60, minlen = 3 * DCURYs + 8 + 10 * DCURY;
     Window base;
-    int ww = 9 * DCURXs, hh = DCURYs + 4;
+    int32 ww = 9 * DCURXs, hh = DCURYs + 4;
     static char *wname[] = {"Text Viewer"}, *iname[] = {"Txtview"};
 
     /*XWMHints wm_hints;

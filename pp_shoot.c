@@ -1,4 +1,5 @@
 #include "pp_shoot.h"
+#include "integers.h"
 
 #include "my_rhs.h"
 #include "main.h"
@@ -43,37 +44,37 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-extern int DCURY;
-extern int RANGE_FLAG;
+extern int32 DCURY;
+extern int32 RANGE_FLAG;
 
-extern int INFLAG;
+extern int32 INFLAG;
 
-extern int NUPAR;
-extern int storind;
+extern int32 NUPAR;
+extern int32 storind;
 extern float **storage;
 
-extern int *my_ode[];
+extern int32 *my_ode[];
 
-extern int BVP_NL, BVP_NR, BVP_N, BVP_MAXIT;
-extern int FFT, HIST, DelayFlag, STORFLAG, POIMAP;
-extern int NCON, NCON_START, NSYM, NSYM_START;
-extern int BVP_FLAG, NODE, NEQ, NJMP, NMarkov, FIX_VAR, PrimeStart;
+extern int32 BVP_NL, BVP_NR, BVP_N, BVP_MAXIT;
+extern int32 FFT, HIST, DelayFlag, STORFLAG, POIMAP;
+extern int32 NCON, NCON_START, NSYM, NSYM_START;
+extern int32 BVP_FLAG, NODE, NEQ, NJMP, NMarkov, FIX_VAR, PrimeStart;
 extern double T0, TEND, DELTA_T;
 extern double BVP_TOL;
 extern double TRANS;
 extern double BVP_EPS;
 extern double variables[];
-extern int NVAR;
+extern int32 NVAR;
 extern BC_STRUCT my_bc[MAXODE];
 
-extern int color_line[11], MyStart;
+extern int32 color_line[11], MyStart;
 
-extern int NKernel;
+extern int32 NKernel;
 
 extern double MyData[MAXODE], MyTime;
 struct {
     char item[30];
-    int steps, side, cycle, movie;
+    int32 steps, side, cycle, movie;
     double plow, phigh;
 } shoot_range;
 
@@ -85,9 +86,9 @@ double evaluate();
 /*   more general mixed boundary types   */
 
 void
-do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int n) {
-    int n0 = PrimeStart;
-    int i;
+do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n) {
+    int32 n0 = PrimeStart;
+    int32 i;
 
     SETVAR(0, t0);
     SETVAR(n0, t1);
@@ -106,8 +107,8 @@ do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int n) {
 
 void
 compile_bvp(void) {
-    int i;
-    int len;
+    int32 i;
+    int32 len;
     char badcom[50];
     reset_bvp();
     if (BVP_FLAG == 0)
@@ -138,8 +139,8 @@ reset_bvp(void) {
 
 reset_bvp()
 {
- int i;
- int sum=BVP_NL+BVP_NR;
+ int32 i;
+ int32 sum=BVP_NL+BVP_NR;
  if(sum!=NODE){
    err_msg("Number BCs not equal to number ODES !");
    BVP_FLAG=0;
@@ -172,7 +173,7 @@ init_shoot_range(char *s) {
 }
 
 void
-dump_shoot_range(FILE *fp, int f) {
+dump_shoot_range(FILE *fp, int32 f) {
     io_string(shoot_range.item, 11, fp, f);
     io_int(&shoot_range.side, fp, f, "BVP side");
     io_int(&shoot_range.cycle, fp, f, "color cycle flag 1=on");
@@ -183,7 +184,7 @@ dump_shoot_range(FILE *fp, int f) {
 }
 
 void
-bad_shoot(int iret) {
+bad_shoot(int32 iret) {
     switch (iret) {
     case NOCHANGE:
         err_msg("No change from last point. Saving anyway");
@@ -207,8 +208,8 @@ bad_shoot(int iret) {
 void
 do_sh_range(double *ystart, double *yend) {
     double parlo, parhi, dpar, temp;
-    int npar, i, j, ierr;
-    int side, cycle, icol, color;
+    int32 npar, i, j, ierr;
+    int32 side, cycle, icol, color;
     char bob[50];
 
     if (set_up_sh_range() == 0)
@@ -264,11 +265,11 @@ do_sh_range(double *ystart, double *yend) {
     return;
 }
 
-int
-set_up_periodic(int *ipar, int *ivar, double *sect, int *ishow) {
+int32
+set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
     static char *n[] = {"Freq. Par.", "*1Sect. Var", "Section", "Show(Y/N)"};
     char values[4][MAX_LEN_SBOX];
-    int status, i;
+    int32 status, i;
     static char *yn[] = {"N", "Y"};
     snprintf(values[0], sizeof(values[0]), "%s", upar_names[*ipar]);
     snprintf(values[1], sizeof(values[1]), "%s", uvar_names[*ivar]);
@@ -302,9 +303,9 @@ set_up_periodic(int *ipar, int *ivar, double *sect, int *ishow) {
 }
 
 void
-find_bvp_com(int com) {
-    int ishow = 0, iret;
-    int iper = 0, ivar = 0, ipar = 0, pflag;
+find_bvp_com(int32 com) {
+    int32 ishow = 0, iret;
+    int32 iper = 0, ivar = 0, ipar = 0, pflag;
     double sect = 0.0;
     double oldpar;
     double ystart[MAXODE], oldtrans;
@@ -375,8 +376,8 @@ bye:
 }
 
 void
-last_shot(int flag) {
-    int i;
+last_shot(int32 flag) {
+    int32 i;
     double *x;
     x = &MyData[0];
     MyStart = 1;
@@ -399,12 +400,12 @@ last_shot(int flag) {
     return;
 }
 
-int
+int32
 set_up_sh_range(void) {
     static char *n[] = {"*2Range over",     "Steps",     "Start",     "End",
                         "Cycle color(Y/N)", "Side(0/1)", "Movie(Y/N)"};
     char values[7][MAX_LEN_SBOX];
-    int status, i;
+    int32 status, i;
     static char *yn[] = {"N", "Y"};
     snprintf(values[0], sizeof(values[0]), "%s", shoot_range.item);
     snprintf(values[1], sizeof(values[1]), "%d", shoot_range.steps);
@@ -446,16 +447,16 @@ set_up_sh_range(void) {
 }
 
 void
-bvshoot(double *y, double *yend, double err, double eps, int maxit, int *iret,
-        int n, int ishow, int iper, int ipar, int ivar, double sect) {
+bvshoot(double *y, double *yend, double err, double eps, int32 maxit, int32 *iret,
+        int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar, double sect) {
     double *jac, *f, *fdev, *y0, *y1;
     double dev, error, ytemp;
 
-    int ntot = n;
-    int i, istart = 1, j;
-    int ipvt[MAXODE1];
+    int32 ntot = n;
+    int32 i, istart = 1, j;
+    int32 ipvt[MAXODE1];
     char esc;
-    int info, niter = 0;
+    int32 info, niter = 0;
     double dt = DELTA_T, t;
     double t0 = T0;
     double t1 = T0 + TEND * dt / fabs(dt);

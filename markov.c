@@ -1,4 +1,5 @@
 #include "markov.h"
+#include "integers.h"
 
 #include "integrate.h"
 #include "browse.h"
@@ -21,7 +22,7 @@
 #include "parserslow.h"
 /* #include "browse.h" */
 
-extern int ConvertStyle;
+extern int32 ConvertStyle;
 extern FILE *convertf;
 #define IA 16807
 #define IM 2147483647
@@ -34,28 +35,28 @@ extern FILE *convertf;
 #define RNMX (1.0 - EPS)
 #define PI 3.1415926
 
-long int myrandomseed = -1;
+int64 myrandomseed = -1;
 double ndrand48();
 double ran1(long *);
-double new_state(double, int, double);
+double new_state(double, int32, double);
 
-extern int DCURY;
-extern int *my_ode[];
+extern int32 DCURY;
+extern int32 *my_ode[];
 extern char *ode_names[MAXODE];
-extern int NMarkov, FIX_VAR, NODE, NEQ;
+extern int32 NMarkov, FIX_VAR, NODE, NEQ;
 
 extern double MyData[MAXODE];
 
-extern int NLINES;
+extern int32 NLINES;
 extern char *save_eqn[1000];
-extern int RandSeed;
+extern int32 RandSeed;
 typedef struct {
-    int **command;
+    int32 **command;
     char **trans;
     double *fixed;
-    int nstates;
+    int32 nstates;
     double *states;
-    int type; /* 0 is default and state dependent.  1 is fixed for all time  */
+    int32 type; /* 0 is default and state dependent.  1 is fixed for all time  */
     char name[12];
 } MARKOV;
 
@@ -63,50 +64,50 @@ MARKOV markov[MAXMARK];
 
 extern float **storage;
 
-extern int storind;
+extern int32 storind;
 float *my_mean[MAXODE], *my_variance[MAXODE];
-int stoch_len;
+int32 stoch_len;
 
-int STOCH_FLAG, STOCH_HERE, N_TRIALS;
-int Wiener[MAXPAR];
-int NWiener;
+int32 STOCH_FLAG, STOCH_HERE, N_TRIALS;
+int32 Wiener[MAXPAR];
+int32 NWiener;
 double normal();
 extern double constants[];
 
 void
-add_wiener(int index) {
+add_wiener(int32 index) {
     Wiener[NWiener] = index;
     NWiener++;
 }
 
 void
 set_wieners(double dt, double *x, double t) {
-    int i;
+    int32 i;
     update_markov(x, t, fabs(dt));
     for (i = 0; i < NWiener; i++)
         constants[Wiener[i]] = normal(0.00, 1.00) / sqrt(fabs(dt));
 }
 
 void
-add_markov(int nstate, char *name) {
+add_markov(int32 nstate, char *name) {
     double st[50];
-    int i;
+    int32 i;
     for (i = 0; i < 50; i++)
         st[i] = (double)i;
     create_markov(nstate, st, 0, name);
 }
 
-int
+int32
 build_markov(
     /*   FILE *fptr; */
     char **ma, char *name) {
-    /*int nn;
+    /*int32 nn;
      */
-    int len = 0, ll;
+    int32 len = 0, ll;
     char line[256], expr[256];
-    int istart;
+    int32 istart;
 
-    int i, j, nstates, index;
+    int32 i, j, nstates, index;
     index = -1;
     /* find it -- if not defined, then abort  */
     for (i = 0; i < NMarkov; i++) {
@@ -148,14 +149,14 @@ build_markov(
     return index;
 }
 
-int
+int32
 old_build_markov(FILE *fptr, char *name) {
-    /*int nn;*/
-    int len = 0, ll;
+    /*int32 nn;*/
+    int32 len = 0, ll;
     char line[256], expr[256];
-    int istart;
+    int32 istart;
 
-    int i, j, nstates, index;
+    int32 i, j, nstates, index;
     index = -1;
     /* find it -- if not defined, then abort  */
     for (i = 0; i < NMarkov; i++) {
@@ -197,10 +198,10 @@ old_build_markov(FILE *fptr, char *name) {
 }
 
 void
-extract_expr(char *source, char *dest, int *i0) {
+extract_expr(char *source, char *dest, int32 *i0) {
     char ch;
-    int len = 0;
-    int flag = 0;
+    int32 len = 0;
+    int32 flag = 0;
     while (1) {
         ch = source[*i0];
         *i0 = *i0 + 1;
@@ -219,10 +220,10 @@ extract_expr(char *source, char *dest, int *i0) {
 }
 
 void
-create_markov(int nstates, double *st, int type, char *name) {
-    int i;
-    int n2 = nstates * nstates;
-    int j = NMarkov;
+create_markov(int32 nstates, double *st, int32 type, char *name) {
+    int32 i;
+    int32 n2 = nstates * nstates;
+    int32 j = NMarkov;
     if (j >= MAXMARK) {
         plintf("Too many Markov chains...\n");
         exit(0);
@@ -232,7 +233,7 @@ create_markov(int nstates, double *st, int type, char *name) {
     markov[j].states = (double *)malloc(nstates * sizeof(double));
     if (type == 0) {
         markov[j].trans = (char **)malloc(n2 * sizeof(char *));
-        markov[j].command = (int **)malloc(n2 * sizeof(int *));
+        markov[j].command = (int32 **)malloc(n2 * sizeof(int32 *));
     } else {
         markov[j].fixed = (double *)malloc(n2 * sizeof(double));
     }
@@ -244,10 +245,10 @@ create_markov(int nstates, double *st, int type, char *name) {
 }
 
 void
-add_markov_entry(int index, int j, int k, char *expr) {
+add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 
-    int l0 = markov[index].nstates * j + k;
-    int type = markov[index].type;
+    int32 l0 = markov[index].nstates * j + k;
+    int32 type = markov[index].type;
     if (type == 0) {
         markov[index].trans[l0] =
             (char *)malloc(sizeof(char) * (strlen(expr) + 1));
@@ -258,7 +259,7 @@ add_markov_entry(int index, int j, int k, char *expr) {
            plintf("Illegal expression %s\n",expr);
            exit(0);
          }
-         markov[index].command[l0]=(int *)malloc(sizeof(int)*(leng+2));
+         markov[index].command[l0]=(int32 *)malloc(sizeof(int32)*(leng+2));
          for(i=0;i<leng;i++){
            markov[index].command[l0][i]=com[i];
 
@@ -273,7 +274,7 @@ add_markov_entry(int index, int j, int k, char *expr) {
 
 void
 compile_all_markov(void) {
-    int index, j, k, ns, l0;
+    int32 index, j, k, ns, l0;
     if (NMarkov == 0)
         return;
     for (index = 0; index < NMarkov; index++) {
@@ -291,17 +292,17 @@ compile_all_markov(void) {
     }
 }
 
-int
-compile_markov(int index, int j, int k) {
+int32
+compile_markov(int32 index, int32 j, int32 k) {
     char *expr;
-    int l0 = markov[index].nstates * j + k, leng;
-    int i;
-    int com[256];
+    int32 l0 = markov[index].nstates * j + k, leng;
+    int32 i;
+    int32 com[256];
     expr = markov[index].trans[l0];
 
     if (add_expr(expr, com, &leng))
         return -1;
-    markov[index].command[l0] = (int *)malloc(sizeof(int) * (leng + 2));
+    markov[index].command[l0] = (int32 *)malloc(sizeof(int32) * (leng + 2));
     for (i = 0; i < leng; i++) {
         markov[index].command[l0][i] = com[i];
     }
@@ -311,7 +312,7 @@ compile_markov(int index, int j, int k) {
 
 void
 update_markov(double *x, double t, double dt) {
-    int i;
+    int32 i;
     double yp[MAXODE];
     /*  plintf(" NODE=%d x=%g \n",NODE,x[0]); */
     if (NMarkov == 0)
@@ -332,13 +333,13 @@ update_markov(double *x, double t, double dt) {
 }
 
 double
-new_state(double old, int index, double dt) {
+new_state(double old, int32 index, double dt) {
     double prob, sum;
     double coin = ndrand48();
-    int row = -1, rns;
+    int32 row = -1, rns;
     double *st;
-    int i, ns = markov[index].nstates;
-    int type = markov[index].type;
+    int32 i, ns = markov[index].nstates;
+    int32 type = markov[index].type;
     st = markov[index].states;
     /*  plintf(" old=%g i=%d st=%g\n",old,index,st); */
     for (i = 0; i < ns; i++)
@@ -380,13 +381,13 @@ new_state(double old, int index, double dt) {
 }
 
 void
-make_gill_nu(double *nu, int n, int m, double *v) {
+make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     /* nu[j+m*i] = nu_{i,j} i=1,n-1 -- assume first eqn is tr'=tr+z(0)
        i species j reaction
       need this for improved tau stepper
      */
     double *y, *yp, *yold;
-    int ir, iy;
+    int32 ir, iy;
 
     y = (double *)malloc(n * sizeof(double));
     yold = (double *)malloc(n * sizeof(double));
@@ -410,12 +411,12 @@ make_gill_nu(double *nu, int n, int m, double *v) {
 }
 
 void
-one_gill_step(int meth, int nrxn, int *rxn, double *v) {
+one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
     double rate = 0, test;
     double r[1000];
     /*double rold[1000]; Not used*/
 
-    int i;
+    int32 i;
     switch (meth) {
     case 0: /* std gillespie method */
         for (i = 0; i < nrxn; i++) {
@@ -447,7 +448,7 @@ one_gill_step(int meth, int nrxn, int *rxn, double *v) {
 }
 
 void
-do_stochast_com(int i) {
+do_stochast_com(int32 i) {
     static char key[] = "ncdmvhofpislaxe2";
     char ch = key[i];
 
@@ -543,7 +544,7 @@ compute_em(void) {
 
 void
 free_stoch(void) {
-    int i;
+    int32 i;
     if (STOCH_HERE) {
         data_back();
         for (i = 0; i < (NEQ + 1); i++) {
@@ -555,8 +556,8 @@ free_stoch(void) {
 }
 
 void
-init_stoch(int len) {
-    int i, j;
+init_stoch(int32 len) {
+    int32 i, j;
     N_TRIALS = 0;
     stoch_len = len;
     for (i = 0; i < (NEQ + 1); i++) {
@@ -575,8 +576,8 @@ init_stoch(int len) {
 }
 
 void
-append_stoch(int first, int length) {
-    int i, j;
+append_stoch(int32 first, int32 length) {
+    int32 i, j;
     float z;
     if (first == 0)
         init_stoch(length);
@@ -593,8 +594,8 @@ append_stoch(int first, int length) {
 }
 
 void
-do_stats(int ierr) {
-    int i, j;
+do_stats(int32 ierr) {
+    int32 i, j;
     float ninv, mean;
     /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {
@@ -615,7 +616,7 @@ gammln(double xx) {
     static double cof[6] = {76.18009172947146,     -86.50532032941677,
                             24.01409824083091,     -1.231739572450155,
                             0.1208650973866179e-2, -0.5395239384953e-5};
-    int j;
+    int32 j;
 
     y = x = xx;
     tmp = x + 5.5;
@@ -668,13 +669,13 @@ ndrand48(void) {
 }
 
 void
-nsrand48(int seed) {
+nsrand48(int32 seed) {
     myrandomseed = -seed;
 }
 
 double
 ran1(long *idum) {
-    int j;
+    int32 j;
     long k;
     static long iy = 0;
     static long iv[NTAB];

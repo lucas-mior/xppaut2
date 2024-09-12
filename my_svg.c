@@ -1,4 +1,5 @@
 #include "my_svg.h"
+#include "integers.h"
 #include "lunch-new.h"
 #include "ggets.h"
 #include "graphics.h"
@@ -16,28 +17,28 @@
 
 char SVGLINETYPE;
 
-extern int TextJustify;
-extern int TextAngle;
+extern int32 TextJustify;
+extern int32 TextAngle;
 
-extern int PointType;
-extern int PointRadius;
+extern int32 PointType;
+extern int32 PointRadius;
 FILE *svgfile;
-extern int PltFmtFlag, PSColorFlag;
-extern int PSLines;
-extern int LastPtLine;
-int cur_RGB[3];
-extern int LastPSX, LastPSY;
-extern int NoBreakLine;
-int DOING_SVG_COLOR = 0;
-extern int DOING_AXES, DOING_BOX_AXES;
+extern int32 PltFmtFlag, PSColorFlag;
+extern int32 PSLines;
+extern int32 LastPtLine;
+int32 cur_RGB[3];
+extern int32 LastPSX, LastPSY;
+extern int32 NoBreakLine;
+int32 DOING_SVG_COLOR = 0;
+extern int32 DOING_AXES, DOING_BOX_AXES;
 
-int DO_MARKER = 0;
-extern int DOING_DFIELD;
+int32 DO_MARKER = 0;
+extern int32 DOING_DFIELD;
 
-extern int Xup;
+extern int32 Xup;
 
-int
-svg_init(char *filename, int color) {
+int32
+svg_init(char *filename, int32 color) {
     FILE *fp;
 
     init_svg();
@@ -409,8 +410,8 @@ svg_stroke(void) {
 }
 
 void
-svg_do_color(int color) {
-    int r, g, b;
+svg_do_color(int32 color) {
+    int32 r, g, b;
 
     if (PltFmtFlag == SCRNFMT)
         return;
@@ -427,7 +428,7 @@ svg_do_color(int color) {
 }
 
 void
-svg_setcolor(int color) {
+svg_setcolor(int32 color) {
 }
 
 void
@@ -441,12 +442,12 @@ svg_end(void) {
 }
 
 void
-svg_bead(int x, int y) {
+svg_bead(int32 x, int32 y) {
     DO_MARKER = 1;
 }
 
 void
-svg_frect(int x, int y, int w, int h) {
+svg_frect(int32 x, int32 y, int32 w, int32 h) {
     double gray = 0;
     if (DOING_SVG_COLOR) {
         fprintf(svgfile,
@@ -459,8 +460,8 @@ svg_frect(int x, int y, int w, int h) {
         fprintf(svgfile,
                 "      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d);fill:rgb(%d,%d,%d);\"/>",
-                x, y, w, h, (int)gray, (int)gray, (int)gray, (int)gray,
-                (int)gray, (int)gray);
+                x, y, w, h, (int32)gray, (int32)gray, (int32)gray, (int32)gray,
+                (int32)gray, (int32)gray);
     }
 }
 
@@ -470,7 +471,7 @@ svg_last_pt_off(void) {
 }
 
 void
-svg_line(int xp1, int yp1, int xp2, int yp2) {
+svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     if (DOING_SVG_COLOR) {
         if (DOING_AXES) {
             if (DOING_BOX_AXES) {
@@ -578,7 +579,7 @@ chk_svg_lines(void) {
 }
 
 void
-svg_linetype(int linetype) {
+svg_linetype(int32 linetype) {
     char *line = "ba0123456789c";
 
     SVGLINETYPE = line[(linetype % 11) + 2];
@@ -590,14 +591,14 @@ svg_linetype(int linetype) {
 }
 
 void
-svg_point(int x, int y) {
+svg_point(int32 x, int32 y) {
     char svgcol[8];
     char svgfill[8];
 
     snprintf(svgfill, sizeof(svgfill), "none");
     svgcol[0] = '\0';
 
-    int number = PointType;
+    int32 number = PointType;
     char *point = "PDABCTSKF";
     number %= POINT_TYPES;
     if (number < -1)
@@ -634,31 +635,31 @@ svg_point(int x, int y) {
 }
 
 void
-svg_fnt(int cf, int scale) {
+svg_fnt(int32 cf, int32 scale) {
 }
 
 void
-svg_show(char *str, int type) {
+svg_show(char *str, int32 type) {
 }
 
 void
-svg_abs(int x, int y) {
+svg_abs(int32 x, int32 y) {
 }
 
 void
-svg_rel(int x, int y) {
+svg_rel(int32 x, int32 y) {
 }
 
 void
-special_put_text_svg(int x, int y, char *str, int size) {
-    /*int i=0,j=0,type=1;
-    int cf=0;
+special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
+    /*int32 i=0,j=0,type=1;
+    int32 cf=0;
 
-    int n=strlen(str);
-    int cy=0;
+    int32 n=strlen(str);
+    int32 cy=0;
     char tmp[256],c;
-    int sub,sup,pssz;
-    static int sz[]={8,10,14,18,24};
+    int32 sub,sup,pssz;
+    static int32 sz[]={8,10,14,18,24};
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     ps_abs(x,y);
     pssz=sz[size]*PS_SC;
@@ -750,11 +751,11 @@ special_put_text_svg(int x, int y, char *str, int size) {
 }
 
 void
-fancy_svg_text(int x, int y, char *str, int size, int font) {
+fancy_svg_text(int32 x, int32 y, char *str, int32 size, int32 font) {
 }
 
 void
-svg_text(int x, int y, char *str) {
+svg_text(int32 x, int32 y, char *str) {
     char anchor[7];
 
     switch (TextJustify) {

@@ -12,6 +12,7 @@
 #include <math.h>
 #include "llnlmath.h"
 #include "llnltyps.h"
+#include "integers.h"
 
 #define ZERO RCONST(0.0)
 #define ONE RCONST(1.0)
@@ -34,8 +35,8 @@ UnitRoundoff(void) {
 }
 
 double
-RPowerI(double base, int exponent) {
-    int i, expt;
+RPowerI(double base, int32 exponent) {
+    int32 i, expt;
     double prod;
 
     prod = ONE;

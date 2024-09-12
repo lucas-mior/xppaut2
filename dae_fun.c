@@ -10,51 +10,52 @@
 #include <math.h>
 #include "xpplim.h"
 #include "getvar.h"
+#include "integers.h"
 #define MAXDAE 400
 
 extern double variables[];
-extern int NVAR;
+extern int32 NVAR;
 
-extern int DelayErr;
+extern int32 DelayErr;
 
 extern double EVEC_ERR, NEWT_ERR, BOUND;
-extern int EVEC_ITER;
+extern int32 EVEC_ITER;
 double evaluate();
 
-extern int NODE, FIX_VAR;
-extern int *my_ode[];
+extern int32 NODE, FIX_VAR;
+extern int32 *my_ode[];
 double sdot();
 
 /*    will have more stuff someday */
 
 typedef struct {
     double *work;
-    int *iwork;
-    int status;
+    int32 *iwork;
+    int32 status;
 } DAEWORK;
 DAEWORK dae_work;
 
 typedef struct {
     char name[12], *rhs;
-    int *form;
-    int index;
+    int32 *form;
+    int32 index;
     double value, last;
 } SOL_VAR;
 
 typedef struct {
     char *rhs;
-    int *form;
+    int32 *form;
 } DAE_EQN;
 
 SOL_VAR svar[MAXDAE];
 DAE_EQN aeqn[MAXDAE];
 
-int nsvar = 0, naeqn = 0;
+int32 nsvar = 0, naeqn = 0;
 
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
 
-int
+int32
 add_svar(char *name, char *rhs) {
     if (nsvar >= MAXDAE) {
         plintf(" Too many variables\n");
@@ -72,9 +73,9 @@ add_svar(char *name, char *rhs) {
 
 /* adds algebraically define name to name list */
 
-int
+int32
 add_svar_names(void) {
-    int i;
+    int32 i;
     for (i = 0; i < nsvar; i++) {
         svar[i].index = NVAR;
         if (add_var(svar[i].name, 0.0) == 1)
@@ -85,7 +86,7 @@ add_svar_names(void) {
 
 /* adds a right-hand side to slove for zero */
 
-int
+int32
 add_aeqn(char *rhs) {
     if (naeqn >= MAXDAE) {
         plintf(" Too many equations\n");
@@ -98,9 +99,9 @@ add_aeqn(char *rhs) {
 }
 
 /* this compiles formulas to set to zero */
-int
+int32
 compile_svars(void) {
-    int i, f[256], n, k;
+    int32 i, f[256], n, k;
     if (nsvar != naeqn) {
         plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar, naeqn);
         return 1;
@@ -111,7 +112,7 @@ compile_svars(void) {
             plintf(" Bad right-hand side for alg-eqn \n");
             return (1);
         }
-        aeqn[i].form = (int *)malloc(sizeof(int) * (n + 2));
+        aeqn[i].form = (int32 *)malloc(sizeof(int32) * (n + 2));
         for (k = 0; k < n; k++)
             aeqn[i].form[k] = f[k];
     }
@@ -121,7 +122,7 @@ compile_svars(void) {
             plintf(" Bad initial guess for sol-var \n");
             return (1);
         }
-        svar[i].form = (int *)malloc(100 * sizeof(int));
+        svar[i].form = (int32 *)malloc(100 * sizeof(int32));
         for (k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }
@@ -136,7 +137,7 @@ reset_dae(void) {
 
 void
 set_init_guess(void) {
-    int i;
+    int32 i;
     double z;
     dae_work.status = 1;
     if (nsvar == 0)
@@ -176,13 +177,13 @@ init_dae_work(void) {
 
     dae_work.work =
         (double *)malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
-    dae_work.iwork = (int *)malloc(sizeof(int) * nsvar);
+    dae_work.iwork = (int32 *)malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;
 }
 
 void
 get_dae_fun(double *y, double *f) {
-    int i;
+    int32 i;
     /* better do this in case fixed variables depend on sol_var */
     for (i = 0; i < nsvar; i++)
         SETVAR(svar[i].index, y[i]);
@@ -194,7 +195,7 @@ get_dae_fun(double *y, double *f) {
 
 void
 do_daes(void) {
-    int ans;
+    int32 ans;
     ans = solve_dae();
     dae_work.status = ans;
     if (ans == 1 || ans == 2)
@@ -203,13 +204,13 @@ do_daes(void) {
 }
 
 /* Newton solver for algebraic stuff */
-int
+int32
 solve_dae(void) {
-    int i, j, n;
-    int info;
+    int32 i, j, n;
+    int32 info;
     double err, del, z, yold;
     double tol = EVEC_ERR, eps = NEWT_ERR;
-    int maxit = EVEC_ITER, iter = 0;
+    int32 maxit = EVEC_ITER, iter = 0;
     double *y, *ynew, *f, *fnew, *jac, *errvec;
     n = nsvar;
     if (nsvar == 0)
@@ -293,7 +294,7 @@ solve_dae(void) {
 
 void
 get_new_guesses(void) {
-    int i, n;
+    int32 i, n;
     char name[30];
     double z;
     if (nsvar < 1)

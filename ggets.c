@@ -1,4 +1,5 @@
 #include "ggets.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,27 +24,27 @@
 
 #define ESCAPE 27
 char *info_message;
-extern int XPPBatch;
+extern int32 XPPBatch;
 /* do_calc();
 new_float();
 new_int();
 */
-extern int SCALEX, SCALEY;
-int MSStyle = 0;
-extern int Xup;
+extern int32 SCALEX, SCALEY;
+int32 MSStyle = 0;
+extern int32 Xup;
 
-extern int tfBell;
-int done = 0;
+extern int32 tfBell;
+int32 done = 0;
 extern Display *display;
-extern int screen;
-int CURS_X, CURS_Y;
-extern int DCURY, DCURX, CURY_OFF;
+extern int32 screen;
+int32 CURS_X, CURS_Y;
+extern int32 DCURY, DCURX, CURY_OFF;
 extern Window win, command_pop, info_pop, draw_win, main_win;
 extern GC gc, gc_graph;
-extern unsigned int MyBackColor, MyForeColor;
-int xor_flag;
+extern uint32 MyBackColor, MyForeColor;
+int32 xor_flag;
 extern FILE *logfile;
-extern int XPPVERBOSE;
+extern int32 XPPVERBOSE;
 
 void
 ping(void) {
@@ -90,7 +91,7 @@ set_back(void) {
 }
 
 void
-showchar(int ch, int col, int row, Window or) {
+showchar(int32 ch, int32 col, int32 row, Window or) {
     char bob[2];
     bob[0] = ch;
     chk_xor();
@@ -106,7 +107,7 @@ chk_xor(void) {
 }
 
 void
-set_gcurs(int y, int x) {
+set_gcurs(int32 y, int32 x) {
     CURS_X = x;
     CURS_Y = y;
 }
@@ -127,7 +128,7 @@ draw_info_pop(Window win) {
 }
 
 void
-bottom_msg(int line, char *msg) {
+bottom_msg(int32 line, char *msg) {
     XClearWindow(display, info_pop);
     BaseCol();
     strcpy(info_message, msg);
@@ -141,7 +142,7 @@ clr_menbar()
 */
 void
 gputs(char *string, Window win) {
-    int xloc = CURS_X * DCURX, yloc = CURS_Y * DCURY;
+    int32 xloc = CURS_X * DCURX, yloc = CURS_Y * DCURY;
     Ftext(xloc, yloc, string, win);
     CURS_X += strlen(string);
 }
@@ -155,9 +156,9 @@ err_msg(char *string) {
     }
 }
 
-int
+int32
 plintf(char *fmt, ...) {
-    int nchar = 0;
+    int32 nchar = 0;
     va_list arglist;
 
     if (!XPPVERBOSE)
@@ -179,10 +180,10 @@ plintf(char *fmt, ...) {
     return (nchar);
 }
 
-int
-show_position(XEvent ev, int *com) {
+int32
+show_position(XEvent ev, int32 *com) {
 
-    /*int i,j;
+    /*int32 i,j;
 
     Window w;
     */
@@ -204,7 +205,7 @@ show_position(XEvent ev, int *com) {
 }
 
 void
-gpos_prn(char *string, int row, int col) {
+gpos_prn(char *string, int32 row, int32 col) {
     clr_command();
     Ftext(0, row * DCURY, string, command_pop);
     CURS_X = strlen(string);
@@ -217,15 +218,15 @@ put_command(char *string) {
     CURS_X = strlen(string);
 }
 
-int
+int32
 get_key_press(XEvent *ev) {
-    int maxlen = 64;
+    int32 maxlen = 64;
     char buf[65];
     XComposeStatus comp;
     KeySym ks;
 
     XLookupString((XKeyEvent *)ev, buf, maxlen, &ks, &comp);
-    /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int)buf[0],buf[0]); */
+    /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int32)buf[0],buf[0]); */
 
     /*    plintf("h=%d e=%d ks=%d \n",XK_Home,XK_End,ks); */
     if (ks == XK_Escape)
@@ -234,7 +235,7 @@ get_key_press(XEvent *ev) {
         return (FINE);
     else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||
              ((ks >= XK_space) && (ks <= XK_asciitilde)))
-        return ((int)buf[0]);
+        return ((int32)buf[0]);
     /*   else if ((ks>=XK_Shift_L)&&(ks<=XK_Hyper_R)) return(0);
        else if ((ks>=XK_F1)&&(ks<=XK_F35))  return(0); */
 
@@ -269,7 +270,7 @@ get_key_press(XEvent *ev) {
 void
 cput_text(void) {
     char string[256], new[256];
-    int x, y, size = 2, font = 0;
+    int32 x, y, size = 2, font = 0;
     Window temp;
     temp = main_win;
     strcpy(string, "");
@@ -311,9 +312,9 @@ are_you_sure()
 }
 */
 
-int
-get_mouse_xy(int *x, int *y, Window w) {
-    int no_but = 1;
+int32
+get_mouse_xy(int32 *x, int32 *y, Window w) {
+    int32 no_but = 1;
     char ch;
     XEvent ev;
     *x = 0;
@@ -346,25 +347,25 @@ get_mouse_xy(int *x, int *y, Window w) {
 }
 
 void
-Ftext(int x, int y, char *string, Window o) {
+Ftext(int32 x, int32 y, char *string, Window o) {
     chk_xor();
     XDrawString(display, o, gc, x, y + CURY_OFF, string, strlen(string));
 }
 
 void
-bar(int x, int y, int x2, int y2, Window w) {
+bar(int32 x, int32 y, int32 x2, int32 y2, Window w) {
     XFillRectangle(display, w, gc, x, y, x2 - x, y2 - y);
 }
 
 void
-rectangle(int x, int y, int x2, int y2, Window w) {
+rectangle(int32 x, int32 y, int32 x2, int32 y2, Window w) {
     XDrawRectangle(display, w, gc, x, y, x2 - x, y2 - y);
 }
 
 /*
 getuch()
 {
- int ch;
+ int32 ch;
  ch=getchi();
  if(ch>64&&ch<96)ch+=32;
  return(ch);
@@ -372,7 +373,7 @@ getuch()
 
 */
 void
-setfillstyle(int type, int color) {
+setfillstyle(int32 type, int32 color) {
     if (type > -1)
         XSetFillStyle(display, gc, FillSolid);
     if (color > 0)
@@ -382,20 +383,20 @@ setfillstyle(int type, int color) {
 }
 
 void
-circle(int x, int y, int radius, Window w) {
+circle(int32 x, int32 y, int32 radius, Window w) {
     XDrawArc(display, w, gc, x - radius, y - radius, 2 * radius, 2 * radius, 0,
              360 * 64);
 }
 
 void
-xline(int x0, int y0, int x1, int y1, Window w) {
+xline(int32 x0, int32 y0, int32 x1, int32 y1, Window w) {
     XDrawLine(display, w, gc_graph, x0, y0, x1, y1);
 }
 
-int
+int32
 new_float(char *name, double *value) {
-    int done;
-    int flag;
+    int32 done;
+    int32 flag;
     double newz;
     char tvalue[200];
     snprintf(tvalue, sizeof(tvalue), "%.16g", *value);
@@ -424,8 +425,8 @@ double *v;
 
  */
 
-int
-new_int(char *name, int *value) {
+int32
+new_int(char *name, int32 *value) {
     char svalue[200];
     snprintf(svalue, sizeof(svalue), "%d", *value);
     if (new_string(name, svalue) == 0 || strlen(svalue) == 0)
@@ -435,9 +436,9 @@ new_int(char *name, int *value) {
 }
 
 void
-display_command(char *name, char *value, int pos, int col) {
-    int l = strlen(name);
-    int m = strlen(value);
+display_command(char *name, char *value, int32 pos, int32 col) {
+    int32 l = strlen(name);
+    int32 m = strlen(value);
 
     set_fore();
     bar(0, 0, l * DCURX, DCURY + 4, command_pop);
@@ -452,45 +453,45 @@ display_command(char *name, char *value, int pos, int col) {
 }
 
 void
-clr_line_at(Window w, int col0, int pos, int n) {
+clr_line_at(Window w, int32 col0, int32 pos, int32 n) {
     XClearArea(display, w, col0 + pos * DCURX, 0, (n + 2) * DCURX, 2 * DCURY,
                False);
 }
 
 void
-put_cursor_at(Window w, int col0, int pos) {
-    int x1 = col0 + pos * DCURX;
-    int x2 = x1 + 1;
-    int y1 = DCURY - 2, y2 = 2;
+put_cursor_at(Window w, int32 col0, int32 pos) {
+    int32 x1 = col0 + pos * DCURX;
+    int32 x2 = x1 + 1;
+    int32 y1 = DCURY - 2, y2 = 2;
     /* XDrawString(display,w,gc,col0+pos*DCURX-1,DCURY,"^",1);*/
     XDrawLine(display, w, gc, x1, y1, x1, y2);
     XDrawLine(display, w, gc, x2, y1, x2, y2);
 }
 
 void
-put_string_at(Window w, int col, char *s, int off) {
-    int l = strlen(s) - off;
+put_string_at(Window w, int32 col, char *s, int32 off) {
+    int32 l = strlen(s) - off;
 
     XDrawString(display, w, gc, col, CURY_OFF, s + off, l);
 }
 
 void
-movmem(char *s1, char *s2, int len) {
-    int i;
+movmem(char *s1, char *s2, int32 len) {
+    int32 i;
     for (i = len - 1; i >= 0; i--)
         s1[i] = s2[i];
 }
 
 void
-memmov(char *s1, char *s2, int len) {
-    int i;
+memmov(char *s1, char *s2, int32 len) {
+    int32 i;
     for (i = 0; i < len; i++)
         s1[i] = s2[i];
 }
 
 void
-edit_window(Window w, int *pos, char *value, int *col, int *done, int ch) {
-    int col0 = *col - *pos * DCURX;
+edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done, int32 ch) {
+    int32 col0 = *col - *pos * DCURX;
 
     *done = 0;
     /* plintf(" po=%d cl=%d ch=%d ||%s|| c0=%d\n",*pos,*col,ch,value,col0); */
@@ -572,7 +573,7 @@ edit_window(Window w, int *pos, char *value, int *col, int *done, int ch) {
 }
 
 void
-do_backspace(int *pos, char *value, int *col, Window w) {
+do_backspace(int32 *pos, char *value, int32 *col, Window w) {
     char oldch;
     *pos = *pos - 1;
     oldch = value[*pos];
@@ -587,8 +588,8 @@ do_backspace(int *pos, char *value, int *col, Window w) {
 }
 
 void
-edit_command_string(XEvent ev, char *name, char *value, int *done, int *pos,
-                    int *col) {
+edit_command_string(XEvent ev, char *name, char *value, int32 *done, int32 *pos,
+                    int32 *col) {
     char ch;
     switch (ev.type) {
     case ConfigureNotify:
@@ -610,12 +611,12 @@ edit_command_string(XEvent ev, char *name, char *value, int *done, int *pos,
     } /* end event cases */
 }
 
-int
+int32
 new_string(char *name, char *value) {
     char old_value[80];
-    int done = 0;
-    int pos = strlen(value);
-    int col = (pos + strlen(name)) * DCURX;
+    int32 done = 0;
+    int32 pos = strlen(value);
+    int32 col = (pos + strlen(name)) * DCURX;
 
     XEvent ev;
     strcpy(old_value, value);

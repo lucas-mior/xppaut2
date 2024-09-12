@@ -79,6 +79,7 @@ so i dont have to parse the event trigger
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
+#include "integers.h"
 
 #define MAXLNAM 1024
 
@@ -93,7 +94,7 @@ typedef struct {
 } LONG_NAMES;
 
 LONG_NAMES long_names[1024];
-int lnum = 0;
+int32 lnum = 0;
 typedef struct {
     char *f;
     char *tc;
@@ -101,12 +102,12 @@ typedef struct {
 } RULE;
 
 RULE *rule;
-int Nrule = 0;
+int32 Nrule = 0;
 
 typedef struct {
     char *ev;
     char *a[MAXPEREV];
-    int na;
+    int32 na;
 } EVENT;
 
 EVENT *event;
@@ -117,16 +118,16 @@ typedef struct {
     double x0;
     char *id;
     char *tc;
-    int c;
-    int bc;
-    int r[MAXR];
+    int32 c;
+    int32 bc;
+    int32 r[MAXR];
     double s[MAXR];
-    int nrx;
-    int rule;
+    int32 nrx;
+    int32 rule;
 } SPECIES;
 
 SPECIES *X_spec;
-int N_spec = 0;
+int32 N_spec = 0;
 
 /* for each reaction, we have a formula
    reactants,products, and stoichiometry
@@ -138,54 +139,54 @@ typedef struct {
     char *formula;
     double spr[NP];
     double sre[NP];
-    int npr;
-    int nre;
+    int32 npr;
+    int32 nre;
 } RXN;
 
 typedef struct {
     char *name;
     char *formula;
-    int nargs;
+    int32 nargs;
     char *arg[32];
 } FUN_DEF;
 
 FUN_DEF *funs;
-int Nfuns = 0;
+int32 Nfuns = 0;
 
 RXN *rxn;
-int Nrxn = 0;
+int32 Nrxn = 0;
 typedef struct {
     char *name;
     char *id;
-    int fixed;
+    int32 fixed;
     double z;
     char *formula;
-    int unique;
+    int32 unique;
 } PAR;
 
 /* dont always know how many */
 
 PAR par[NPMAX];
-int Npar = 0;
+int32 Npar = 0;
 
-void GetParameter(Model_t *, unsigned int, unsigned int);
-void GetReaction(Model_t *, unsigned int, unsigned int);
-void GetSpecies(Model_t *, unsigned int, unsigned int);
-void GetListRule(Model_t *, unsigned int, unsigned int);
+void GetParameter(Model_t *, uint32, uint32);
+void GetReaction(Model_t *, uint32, uint32);
+void GetSpecies(Model_t *, uint32, uint32);
+void GetListRule(Model_t *, uint32, uint32);
 void GetFunctions(Model_t *m);
 void GetEvents(Model_t *m);
-add_parameter(char *name, char *id, double z, int f);
-add_reaction(int i, char *f, int npr, int nre);
-add_rule(int i, char *v, char *f, char *tc);
-add_reactant(int i, int j, char *name, double s);
-add_product(int i, int j, char *name, double s);
-add_species(int i, char *name, char *id, double x0, int bc, int c, char *tc);
+add_parameter(char *name, char *id, double z, int32 f);
+add_reaction(int32 i, char *f, int32 npr, int32 nre);
+add_rule(int32 i, char *v, char *f, char *tc);
+add_reactant(int32 i, int32 j, char *name, double s);
+add_product(int32 i, int32 j, char *name, double s);
+add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c, char *tc);
 
-int
-main(int argc, char *argv[]) {
+int32
+main(int32 argc, char *argv[]) {
     SBMLDocument_t *d;
     Model_t *m;
-    unsigned int level, version;
+    uint32 level, version;
 
     if (argc != 2) {
         plintf("\n  usage: s2x <filename>\n\n");
@@ -217,7 +218,7 @@ main(int argc, char *argv[]) {
     write_ode_file(argv[1]);
 }
 
-add_reaction(int i, char *f, int npr, int nre) {
+add_reaction(int32 i, char *f, int32 npr, int32 nre) {
     RXN *r;
     r = rxn + i;
     r->formula = (char *)malloc(strlen(f) + 1);
@@ -226,7 +227,7 @@ add_reaction(int i, char *f, int npr, int nre) {
     r->nre = nre;
 }
 
-add_rule(int i, char *v, char *f, char *tc) {
+add_rule(int32 i, char *v, char *f, char *tc) {
     RULE *r;
     r = rule + i;
     r->f = (char *)malloc(strlen(f) + 1);
@@ -238,8 +239,8 @@ add_rule(int i, char *v, char *f, char *tc) {
     check_name_len(r->v);
 }
 
-add_parameter(char *name, char *id, double z, int f) {
-    int i;
+add_parameter(char *name, char *id, double z, int32 f) {
+    int32 i;
     if (!is_blank(name)) {
         for (i = 0; i < Npar; i++)
             if (strcmp(name, par[i].name) == 0) {
@@ -277,10 +278,10 @@ void
 GetEvents(Model_t *m) {
     const Event_t *e;
     const EventAssignment_t *ea;
-    int n, na;
+    int32 n, na;
     char *ev;
     char *a;
-    int i, j;
+    int32 i, j;
     const char *variable;
     char *formula;
     char big[256];
@@ -325,8 +326,8 @@ GetFunctions(Model_t *m) {
     char *sa;
     char *name;
     FUN_DEF *f;
-    int i, j;
-    int n, narg;
+    int32 i, j;
+    int32 n, narg;
     n = Model_getNumFunctionDefinitions(m);
     if (n == 0)
         return;
@@ -367,16 +368,16 @@ GetFunctions(Model_t *m) {
 /* reaction stuff  */
 
 void
-GetReaction(Model_t *m, unsigned int level, unsigned int version) {
-    int n = Model_getNumReactions(m);
-    int i;
+GetReaction(Model_t *m, uint32 level, uint32 version) {
+    int32 n = Model_getNumReactions(m);
+    int32 i;
     Reaction_t *r;
     char *formula;
     KineticLaw_t *kl;
     Parameter_t *p;
     SpeciesReference_t *s;
-    int np, j;
-    int npr, nre;
+    int32 np, j;
+    int32 npr, nre;
     char *name, *id;
     double value, st;
     Nrxn = n;
@@ -425,7 +426,7 @@ GetReaction(Model_t *m, unsigned int level, unsigned int version) {
 /* i=reactin #, j=reactant number or product number
   name is variable and s is stoichiometry */
 
-add_reactant(int i, int j, char *name, double s) {
+add_reactant(int32 i, int32 j, char *name, double s) {
     RXN *r;
     r = rxn + i;
     r->re[j] = (char *)malloc(strlen(name) + 1);
@@ -433,7 +434,7 @@ add_reactant(int i, int j, char *name, double s) {
     r->sre[j] = s;
 }
 
-add_product(int i, int j, char *name, double s) {
+add_product(int32 i, int32 j, char *name, double s) {
     RXN *r;
     r = rxn + i;
     r->pr[j] = (char *)malloc(strlen(name) + 1);
@@ -441,10 +442,10 @@ add_product(int i, int j, char *name, double s) {
     r->spr[j] = s;
 }
 
-int
+int32
 dump_reactions(void) {
-    int i, j;
-    int npr, nre;
+    int32 i, j;
+    int32 npr, nre;
     RXN *r;
     plintf("REACTIONS:\n");
     for (i = 0; i < Nrxn; i++) {
@@ -462,9 +463,9 @@ dump_reactions(void) {
     }
 }
 
-int
+int32
 dump_events(void) {
-    int i, j, na;
+    int32 i, j, na;
     EVENT *ev;
     if (Nevent == 0)
         return;
@@ -478,9 +479,9 @@ dump_events(void) {
     }
 }
 
-int
+int32
 dump_funs(void) {
-    int i, j;
+    int32 i, j;
     FUN_DEF *f;
     for (i = 0; i < Nfuns; i++) {
         f = funs + i;
@@ -491,10 +492,10 @@ dump_funs(void) {
     }
 }
 
-int
+int32
 dump_rules(void) {
     RULE *r;
-    int i;
+    int32 i;
     if (Nrule > 0)
         plintf("RULES:\n");
     for (i = 0; i < Nrule; i++) {
@@ -503,10 +504,10 @@ dump_rules(void) {
     }
 }
 
-int
+int32
 dump_species(void) {
     SPECIES *x;
-    int i;
+    int32 i;
     plintf("SPECIES: n i t\n");
     for (i = 0; i < N_spec; i++) {
         x = X_spec + i;
@@ -515,16 +516,16 @@ dump_species(void) {
     }
 }
 
-int
+int32
 dump_parameters(void) {
-    int i;
+    int32 i;
     plintf("PARAMETERS:\n");
     for (i = 0; i < Npar; i++)
         plintf("%d %s %s = %g \n", par[i].fixed, par[i].name, par[i].id,
                par[i].z);
 }
 
-add_species(int i, char *name, char *id, double x0, int bc, int c, char *tc) {
+add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c, char *tc) {
     SPECIES *x;
     x = X_spec + i;
     if (strlen(name) > 0) {
@@ -552,16 +553,16 @@ add_species(int i, char *name, char *id, double x0, int bc, int c, char *tc) {
 }
 
 void
-GetSpecies(Model_t *pModel, unsigned int level, unsigned int version) {
-    int n = Model_getNumSpecies(pModel);
+GetSpecies(Model_t *pModel, uint32 level, uint32 version) {
+    int32 n = Model_getNumSpecies(pModel);
     char *pacTypecode;
     char *pacName;
     char *pacId = NULL;
     double dInitialAmount;
-    int nBoundaryCondition;
-    int nConstant = 0;
+    int32 nBoundaryCondition;
+    int32 nConstant = 0;
 
-    int i;
+    int32 i;
     Species_t *pSpecies;
 
     X_spec = (SPECIES *)malloc(n * sizeof(SPECIES));
@@ -589,20 +590,20 @@ GetSpecies(Model_t *pModel, unsigned int level, unsigned int version) {
 }
 
 void
-GetParameter(Model_t *pModel, unsigned int level, unsigned int version)
+GetParameter(Model_t *pModel, uint32 level, uint32 version)
 
 {
 
-    int n = Model_getNumParameters(pModel);
+    int32 n = Model_getNumParameters(pModel);
     char *pacTypecode;
     char *pacName;
     char *pacId = NULL;
     double dValue;
-    int nConstant = 1;
+    int32 nConstant = 1;
 
     Parameter_t *pParameter;
 
-    int i;
+    int32 i;
     for (i = 0; i < n; i++) {
         /* determine the values */
         pParameter = Model_getParameter(pModel, i);
@@ -712,16 +713,16 @@ TypecodeToChar(SBMLTypeCode_t typecode) {
 }
 
 void
-GetListRule(Model_t *pModel, unsigned int unSBMLLevel,
-            unsigned int unSBMLVersion) {
-    int n = Model_getNumRules(pModel);
+GetListRule(Model_t *pModel, uint32 unSBMLLevel,
+            uint32 unSBMLVersion) {
+    int32 n = Model_getNumRules(pModel);
     /* determine the values */
     const char *pacTypecode;
     const char *pacFormula = NULL;
     const char *pacVariable = NULL;
 
     Rule_t *pRule;
-    int i;
+    int32 i;
     Nrule = n;
     rule = (RULE *)malloc(n * sizeof(RULE));
 
@@ -811,7 +812,7 @@ GetListRule(Model_t *pModel, unsigned int unSBMLLevel,
 }
 
 find_parameter(char *s) {
-    int i;
+    int32 i;
     for (i = 0; i < Npar; i++) {
         if ((strcmp(s, par[i].name) == 0) || (strcmp(s, par[i].id) == 0))
             return i;
@@ -821,7 +822,7 @@ find_parameter(char *s) {
 
 find_species(char *s) {
     SPECIES *sp;
-    int i;
+    int32 i;
     for (i = 0; i < N_spec; i++) {
         sp = X_spec + i;
         if ((strcmp(s, sp->name) == 0) || (strcmp(s, sp->id) == 0))
@@ -830,9 +831,9 @@ find_species(char *s) {
     return -1;
 }
 
-int
+int32
 mark_rule_pars(void) {
-    int i, j;
+    int32 i, j;
     RULE *r;
     for (i = 0; i < Nrule; i++) {
         r = rule + i;
@@ -850,7 +851,7 @@ mark_rule_pars(void) {
 }
 
 is_blank(char *s) {
-    int i;
+    int32 i;
     for (i = 0; i < strlen(s); i++)
         if (s[i] != ' ')
             return 0;
@@ -860,9 +861,9 @@ is_blank(char *s) {
 /* this searches all reactions and finds the
    partici[ating species and marks them
 */
-int
+int32
 species_participation(void) {
-    int i, j, k, l;
+    int32 i, j, k, l;
     RXN *r;
     SPECIES *s;
     for (i = 0; i < Nrxn; i++) {
@@ -919,9 +920,9 @@ check_name_len(char *s) {
 /* replaces copies snew = sold with sfnd replaced by srep */
 strrep(char *sold, char *snew, char *sfnd, char *srep) {
 
-    int i = 0, j = 0, k, nf = strlen(sfnd), nr = strlen(srep);
-    int m = strlen(sold);
-    int l = 0, lold = 0;
+    int32 i = 0, j = 0, k, nf = strlen(sfnd), nr = strlen(srep);
+    int32 m = strlen(sold);
+    int32 l = 0, lold = 0;
     while (1) {
         l = strfnd(sfnd, sold, lold);
         if (l == -1) {
@@ -946,11 +947,11 @@ strrep(char *sold, char *snew, char *sfnd, char *srep) {
     }
 }
 /* finds s1 in s2  starting at j0 */
-int
-strfnd(char *s1, char *s2, int j0) {
-    int r = -1, false;
-    int i = 0, k = 0, l;
-    int n1 = strlen(s1), n2 = strlen(s2);
+int32
+strfnd(char *s1, char *s2, int32 j0) {
+    int32 r = -1, false;
+    int32 i = 0, k = 0, l;
+    int32 n1 = strlen(s1), n2 = strlen(s2);
     if (n2 < (n1 + j0))
         return -1; /* cant happen */
     while (1) {
@@ -977,7 +978,7 @@ strfnd(char *s1, char *s2, int j0) {
 }
 
 fix_long_names(char *big, char *bigp) {
-    int i = 0;
+    int32 i = 0;
     char z[2048], zp[2048];
     strcpy(z, big);
     for (i = 0; i < lnum; i++) {
@@ -987,16 +988,16 @@ fix_long_names(char *big, char *bigp) {
     strcpy(bigp, z);
 }
 
-static int
+static int32
 z_sort(LONG_NAMES *sy1, LONG_NAMES *sy2) {
     if (strlen(sy1->src) > strlen(sy2->src))
         return -1;
     return 1;
 }
 
-int
+int32
 sort_long_names(void) {
-    int i;
+    int32 i;
     if (lnum < 2)
         return; /* nothing to sort ! */
     qsort(long_names, lnum, sizeof(LONG_NAMES), z_sort);
@@ -1013,7 +1014,7 @@ write_ode_file(char *base) {
     FUN_DEF *fn;
     SPECIES *x;
     EVENT *ev;
-    int i, j, k, na;
+    int32 i, j, k, na;
     snprintf(fname, sizeof(fname), "%s.ode", base);
     fp = fopen(fname, "w");
     fprintf(fp, "# %s\n", fname);

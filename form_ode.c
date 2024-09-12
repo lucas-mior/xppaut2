@@ -1,4 +1,5 @@
 #include "form_ode.h"
+#include "integers.h"
 #include "aniparse.h"
 
 #include "parserslow.h"
@@ -38,35 +39,35 @@
 
 #define MAXCOMMENTS 500
 
-int IN_INCLUDED_FILE = 0;
+int32 IN_INCLUDED_FILE = 0;
 char uvar_names[MAXODE][12];
 char *ode_names[MAXODE];
 char upar_names[MAXPAR][11];
 char *save_eqn[MAXLINES];
 double default_val[MAXPAR];
-extern int NODE;
-extern int NUPAR;
-extern int NLINES;
-extern int IN_VARS;
-extern int leng[MAXODE];
-extern int NincludedFiles;
+extern int32 NODE;
+extern int32 NUPAR;
+extern int32 NLINES;
+extern int32 IN_VARS;
+extern int32 leng[MAXODE];
+extern int32 NincludedFiles;
 
 VAR_INFO *my_varinfo;
-int start_var_info = 0;
+int32 start_var_info = 0;
 
-int *my_ode[MAXODE];
+int32 *my_ode[MAXODE];
 
-int leng[MAXODE];
+int32 leng[MAXODE];
 
 typedef struct {
     char *text, *action;
-    int aflag;
+    int32 aflag;
 } ACTION;
 
 char errmsg[256];
-extern int XPPBatch;
-extern int file_selector();
-extern int loadincludefile;
+extern int32 XPPBatch;
+extern int32 file_selector();
+extern int32 loadincludefile;
 /*extern char includefilename[MaxIncludeFiles][100];*/
 extern char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
 extern double initialize_pH();
@@ -74,55 +75,55 @@ extern double initialize_ionicstr();
 extern void deblank();
 
 char *onlylist[MAXONLY];
-int *plotlist;
-int N_only = 0, N_plist;
+int32 *plotlist;
+int32 N_only = 0, N_plist;
 
 ACTION comments[MAXCOMMENTS];
 ACTION *orig_comments;
-int orig_ncomments = 0;
-int is_a_map = 0;
-int n_comments = 0;
+int32 orig_ncomments = 0;
+int32 is_a_map = 0;
+int32 n_comments = 0;
 extern char delay_string[MAXODE][80];
 BC_STRUCT my_bc[MAXODE];
 
 double default_ic[MAXODE];
 extern double last_ic[];
-int NODE, NUPAR, NLINES;
-int PrimeStart;
-int NCON_START, NSYM_START;
-int BVP_NL, BVP_NR, BVP_N;
-extern int BVP_FLAG;
+int32 NODE, NUPAR, NLINES;
+int32 PrimeStart;
+int32 NCON_START, NSYM_START;
+int32 BVP_NL, BVP_NR, BVP_N;
+extern int32 BVP_FLAG;
 
 #define cstringmaj MYSTR1
 #define cstringmin MYSTR2
 extern float xppvermaj, xppvermin;
 
-int ConvertStyle = 0;
+int32 ConvertStyle = 0;
 FILE *convertf;
-extern int ERROUT;
-extern int NTable;
-int OldStyle = 1;
-int NCON_ORIG, NSYM_ORIG;
-int IN_VARS;
-int NMarkov;
+extern int32 ERROUT;
+extern int32 NTable;
+int32 OldStyle = 1;
+int32 NCON_ORIG, NSYM_ORIG;
+int32 IN_VARS;
+int32 NMarkov;
 
-int FIX_VAR;
+int32 FIX_VAR;
 
-int ICREATE = 0;
-extern int NEQ, NVAR, NKernel;
-extern int NFUN;
-int NEQ_MIN;
-extern int NCON, NSYM;
-extern int NWiener;
+int32 ICREATE = 0;
+extern int32 NEQ, NVAR, NKernel;
+extern int32 NFUN;
+int32 NEQ_MIN;
+extern int32 NCON, NSYM;
+extern int32 NWiener;
 /*extern char this_file[100];
  */
 extern char this_file[XPP_MAX_NAME];
 extern char options[100];
-int EqType[MAXODE];
-int Naux = 0;
+int32 EqType[MAXODE];
+int32 Naux = 0;
 char aux_names[MAXODE][12];
 
-int NUMODES = 0, NUMFIX = 0, NUMPARAM = 0, NUMMARK = 0, NUMAUX = 0, NUMVOLT = 0,
+int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0, NUMMARK = 0, NUMAUX = 0, NUMVOLT = 0,
     NUMSOL = 0;
 
 FIXINFO fixinfo[MAXODE];
@@ -135,10 +136,10 @@ char *get_next(/* char *src */);
 
 char *getsi();
 
-int
+int32
 make_eqn(void) {
 
-    int okay;
+    int32 okay;
     NEQ = 2;
     FIX_VAR = 0;
     NMarkov = 0;
@@ -163,8 +164,8 @@ make_eqn(void) {
 
 void
 strip_saveqn(void) {
-    int i;
-    int j, n;
+    int32 i;
+    int32 j, n;
     for (i = 0; i < NLINES; i++) {
         n = strlen(save_eqn[i]);
         for (j = 0; j < n; j++)
@@ -173,10 +174,10 @@ strip_saveqn(void) {
     }
 }
 
-int
+int32
 disc(char *string) {
     char c;
-    int i = 0, l = strlen(string), j = 0, flag = 0;
+    int32 i = 0, l = strlen(string), j = 0, flag = 0;
     char end[256];
     if (is_a_map == 1)
         return (1);
@@ -199,14 +200,14 @@ disc(char *string) {
 
 void
 dump_src(void) {
-    int i;
+    int32 i;
     for (i = 0; i < NLINES; i++)
         plintf("%s", save_eqn[i]);
 }
 
 void
 dump_comments(void) {
-    int i;
+    int32 i;
     for (i = 0; i < n_comments; i++)
         plintf("%s\n", comments[i].text);
 }
@@ -216,7 +217,7 @@ dump_comments(void) {
   {
    char string[200];
    FILE *fptr;
-   int okay,i;
+   int32 okay,i;
    okay=0;
 getfile:
    pos_prn("File to read or <Enter> for directory:",0,0);
@@ -241,12 +242,12 @@ getfile:
 */
 
 void
-format_list(char **s, int n) {
-    int i, ip;
-    int ncol;
-    int k, j;
+format_list(char **s, int32 n) {
+    int32 i, ip;
+    int32 ncol;
+    int32 k, j;
     char fmat[30];
-    int lmax = 0, l = 0;
+    int32 lmax = 0, l = 0;
     for (i = 0; i < n; i++) {
         l = strlen(s[i]);
         if (lmax < l)
@@ -270,7 +271,7 @@ format_list(char **s, int n) {
     plintf("\n");
 }
 
-int
+int32
 get_a_filename(char *filename, char *wild) {
     if (XPPBatch) {
         char string[MAXEXPLEN];
@@ -299,11 +300,11 @@ get_a_filename(char *filename, char *wild) {
             }
         }
     } else {
-        int status;
+        int32 status;
         /*strcpy (filename, "lecar.ode");
          */
         get_directory(filename);
-        int m = strlen(filename);
+        int32 m = strlen(filename);
         if (filename[m - 1] != '/') {
             strcat(filename, "/");
         }
@@ -329,11 +330,11 @@ list_em(char *wild) {
     free_finfo(&my_ff);
 }
 
-int
+int32
 read_eqn(void) {
     char wild[256], string[256];
     FILE *fptr;
-    int okay;
+    int32 okay;
     okay = 0;
     snprintf(wild, sizeof(wild), "*.ode");
     get_a_filename(string, wild);
@@ -366,13 +367,13 @@ get_dir()
 
  */
 
-int
+int32
 get_eqn(FILE *fptr) {
     char bob[MAXEXPLEN];
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    int done = 1, nn, i;
-    int flag;
+    int32 done = 1, nn, i;
+    int32 flag;
     char prim[15];
     init_rpn();
     NLINES = 0;
@@ -453,7 +454,7 @@ get_eqn(FILE *fptr) {
         if (BVP_N > 0)
             printf("Warning: Too few boundary conditions\n");
         for (i = BVP_N; i < IN_VARS; i++) {
-            my_bc[i].com = (int *)malloc(200 * sizeof(int));
+            my_bc[i].com = (int32 *)malloc(200 * sizeof(int32));
             my_bc[i].string = (char *)malloc(256);
             my_bc[i].name = (char *)malloc(10);
             my_bc[i].side = 0;
@@ -528,7 +529,7 @@ write_eqn()
 {
     char string[100];
     FILE *fptr;
-    int i;
+    int32 i;
     if(NLINES==0)
     {
      plintf(" There is no current equation!\n");
@@ -553,7 +554,7 @@ write_eqn()
 
   create_eqn()
   {
-    int okay;
+    int32 okay;
     FILE *fptr;
     char junk[10];
     wipe_out();
@@ -577,15 +578,15 @@ write_eqn()
   }
 
 */
-int
+int32
 compiler(char *bob, FILE *fptr) {
     double value, xlo, xhi;
-    int narg, done, nn, iflg = 0, VFlag = 0, nstates, alt, index, sign;
+    int32 narg, done, nn, iflg = 0, VFlag = 0, nstates, alt, index, sign;
     char *ptr, *my_string, *command;
     char name[20], formula[MAXEXPLEN];
     char condition[MAXEXPLEN];
     char fixname[MAXODE1][12];
-    int nlin, i;
+    int32 nlin, i;
     ptr = bob;
     done = 1;
     if (bob[0] == '@') {
@@ -787,7 +788,7 @@ compiler(char *bob, FILE *fptr) {
         break;
     case 'b':
         my_string = get_next("\n");
-        my_bc[BVP_N].com = (int *)malloc(200 * sizeof(int));
+        my_bc[BVP_N].com = (int32 *)malloc(200 * sizeof(int32));
         /*         plintf(" adding boundary condition %s \n",my_string);
          */
         my_bc[BVP_N].string = (char *)malloc(256);
@@ -907,7 +908,7 @@ compiler(char *bob, FILE *fptr) {
         strcpy(formula, my_string);
         nn = strlen(formula) + 1;
         /* if(nn>79)nn=79;  */
-        if ((my_ode[NODE] = (int *)malloc(MAXEXPLEN * sizeof(int))) == NULL) {
+        if ((my_ode[NODE] = (int32 *)malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
             printf("Out of memory at line %d\n", NLINES);
             exit(0);
         }
@@ -987,7 +988,7 @@ compiler(char *bob, FILE *fptr) {
 
 void
 list_upar(void) {
-    int i;
+    int32 i;
     for (i = 0; i < NUPAR; i++)
         printf(" %s", upar_names[i]);
 }
@@ -1029,7 +1030,7 @@ show_syms(void) {
 /* ram: do I need to strip the name of any whitespace? */
 void
 take_apart(char *bob, double *value, char *name) {
-    int k, i, l;
+    int32 k, i, l;
     char number[40];
     l = strlen(bob);
     k = strcspn(bob, "=");
@@ -1062,11 +1063,11 @@ get_next(char *src) {
 
 void
 find_ker(/* this extracts the integral operators from the string */
-         char *string, int *alt) {
+         char *string, int32 *alt) {
     char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
     double mu = 0.0;
-    int fflag = 0, in = 0, i = 0, ifr = 0, inum = 0;
-    int n = strlen(string), j;
+    int32 fflag = 0, in = 0, i = 0, ifr = 0, inum = 0;
+    int32 n = strlen(string), j;
     char name[20], ch;
     *alt = 0;
     while (i < n) {
@@ -1125,7 +1126,7 @@ find_ker(/* this extracts the integral operators from the string */
 }
 
 void
-pos_prn(char *s, int x, int y) {
+pos_prn(char *s, int32 x, int32 y) {
     plintf("%s\n", s);
 }
 
@@ -1134,9 +1135,9 @@ clrscr(void) {
     system("clear");
 }
 
-int
+int32
 getuch(void) {
-    int ch;
+    int32 ch;
     ch = getchi();
     if (ch > 64 && ch < 96)
         ch += 32;
@@ -1145,7 +1146,7 @@ getuch(void) {
 
 /***   remove this for full PP   ***/
 
-int
+int32
 getchi(void) {
     return (getchar());
 }
@@ -1177,7 +1178,7 @@ du/dt = expression /
 
 u(t+1) = expression >--- Difference equation   (replace o v)
 
-u(t) = expression with int{} or int[]  <--- volterra equation (replaces i v)
+u(t) = expression with int32{} or int32[]  <--- volterra equation (replaces i v)
 
 f(x,y,...) = expression >----   function (replaces u)
 
@@ -1220,10 +1221,10 @@ u(0) = value >---  initial data (replaces v, init is also OK )
 
 */
 
-int
+int32
 if_include_file(char *old, char *nf) {
-    int i = 0, j = 0;
-    int n = strlen(old);
+    int32 i = 0, j = 0;
+    int32 n = strlen(old);
     char c;
     if (strncmp(old, "#include", 8) == 0) {
         while (1) {
@@ -1243,7 +1244,7 @@ if_include_file(char *old, char *nf) {
     return 0;
 }
 
-int
+int32
 if_end_include(char *old) {
     if (IN_INCLUDED_FILE > 0) {
         if (strncmp(old, "#done", 5) == 0)
@@ -1259,7 +1260,7 @@ if_end_include(char *old) {
 }
 
 void
-count_object(int type) {
+count_object(int32 type) {
     switch (type) {
     case ODE:
     case MAP:
@@ -1291,24 +1292,24 @@ print_count_of_object(void) {
            NUMODES, NUMFIX, NUMPARAM, NUMMARK, NUMVOLT, NUMAUX, NUMSOL);
 }
 
-int
-do_new_parser(FILE *fp, char *first, int nnn) {
+int32
+do_new_parser(FILE *fp, char *first, int32 nnn) {
     VAR_INFO v;
     char **markovarrays = NULL;
     char *strings[256];
-    int nstrings, ns;
+    int32 nstrings, ns;
     char **markovarrays2 = NULL;
-    int done = 0, start = 0, i0, i1, i2, istates;
-    int jj1 = 0, jj2 = 0, jj, notdone = 1, jjsgn = 1;
+    int32 done = 0, start = 0, i0, i1, i2, istates;
+    int32 jj1 = 0, jj2 = 0, jj, notdone = 1, jjsgn = 1;
     char name[20], nstates = 0;
     /*char newfile[256];*/
     char newfile[XPP_MAX_NAME];
     FILE *fnew;
-    /*int nlin;
+    /*int32 nlin;
      */
     char big[MAXEXPLEN], old[MAXEXPLEN], new[MAXEXPLEN];
     char *my_string;
-    int is_array = 0;
+    int32 is_array = 0;
     if (nnn == 0) {
         init_varinfo();
     }
@@ -1321,7 +1322,7 @@ do_new_parser(FILE *fp, char *first, int nnn) {
         } else {
             if (loadincludefile) {
                 loadincludefile = 0; /*Only do this once*/
-                int j = 0;
+                int32 j = 0;
                 for (j = 0; j < NincludedFiles; j++) {
                     printf("Trying to open %d %s\n", NincludedFiles,
                            includefilename[j]);
@@ -1634,10 +1635,10 @@ do_new_parser(FILE *fp, char *first, int nnn) {
 
 void
 create_plot_list(void) {
-    int i, j = 0, k;
+    int32 i, j = 0, k;
     if (N_only == 0)
         return;
-    plotlist = (int *)malloc(sizeof(int) * (N_only + 1));
+    plotlist = (int32 *)malloc(sizeof(int32) * (N_only + 1));
     for (i = 0; i < N_only; i++) {
         find_variable(onlylist[i], &k);
         if (k >= 0) {
@@ -1662,7 +1663,7 @@ add_only(char *s) {
 
 void
 break_up_list(char *rhs) {
-    int i = 0, j = 0, l = strlen(rhs);
+    int32 i = 0, j = 0, l = strlen(rhs);
     char s[20], c;
     while (i < l) {
         c = rhs[i];
@@ -1680,9 +1681,9 @@ break_up_list(char *rhs) {
     add_only(s);
 }
 
-int
-find_the_name(char list[MAXODE1][MAXVNAM], int n, char *name) {
-    int i;
+int32
+find_the_name(char list[MAXODE1][MAXVNAM], int32 n, char *name) {
+    int32 i;
 
     for (i = 0; i < n; i++) {
 
@@ -1703,10 +1704,10 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
     double z, xlo, xhi;
     char tmp[50], big[MAXEXPLEN], formula[MAXEXPLEN], *my_string, *junk, *ptr,
         name[10];
-    int nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
+    int32 nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
         nufun = 0;
-    int in1, in2, iflag;
-    int fon;
+    int32 in1, in2, iflag;
+    int32 fon;
     FILE *fp = NULL;
 
     v = my_varinfo;
@@ -1963,7 +1964,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
             EqType[nvar] = iflag;
             nn = strlen(v->rhs) + 1;
             if ((ode_names[nvar] = (char *)malloc(nn + 2)) == NULL ||
-                (my_ode[nvar] = (int *)malloc(MAXEXPLEN * sizeof(int))) ==
+                (my_ode[nvar] = (int32 *)malloc(MAXEXPLEN * sizeof(int32))) ==
                     NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
@@ -1991,7 +1992,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
         case FIXED:
             find_ker(v->rhs, &alt);
             if ((my_ode[nfix + IN_VARS] =
-                     (int *)malloc(MAXEXPLEN * sizeof(int))) == NULL ||
+                     (int32 *)malloc(MAXEXPLEN * sizeof(int32))) == NULL ||
                 add_expr(v->rhs, my_ode[nfix + IN_VARS],
                          &leng[IN_VARS + nfix]) != 0) {
                 plintf(" Error allocating or compiling %s\n", v->lhs);
@@ -2011,7 +2012,7 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
             in2 = IN_VARS + FIX_VAR + naux;
             nn = strlen(v->rhs) + 1;
             if ((ode_names[in1] = (char *)malloc(nn + 2)) == NULL ||
-                (my_ode[in2] = (int *)malloc(MAXEXPLEN * sizeof(int))) ==
+                (my_ode[in2] = (int32 *)malloc(MAXEXPLEN * sizeof(int32))) ==
                     NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
@@ -2129,11 +2130,11 @@ compile_em(void) /* Now we try to keep track of markov, fixed, etc as
 /* this code checks if the right-hand side for an initial
    condition is a formula (for delays) or a number
 */
-int
+int32
 formula_or_number(char *expr, double *z) {
     char num[80], form[80];
-    int flag, i = 0;
-    int olderr = ERROUT;
+    int32 flag, i = 0;
+    int32 olderr = ERROUT;
     ERROUT = 0;
     *z = 0.0; /* initial it to 0 */
     convert(expr, form);
@@ -2147,20 +2148,20 @@ formula_or_number(char *expr, double *z) {
 }
 
 void
-strpiece(char *dest, char *src, int i0, int ie) {
-    int i;
+strpiece(char *dest, char *src, int32 i0, int32 ie) {
+    int32 i;
     for (i = i0; i <= ie; i++)
         dest[i - i0] = src[i];
     dest[ie - i0 + 1] = 0;
 }
 
-int
+int32
 parse_a_string(char *s1, VAR_INFO *v) {
-    int i0 = 0, i1, i2, i3;
+    int32 i0 = 0, i1, i2, i3;
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
-    int i, type, type2;
-    int narg = 0;
-    int n1 = strlen(s1) - 1;
+    int32 i, type, type2;
+    int32 narg = 0;
+    int32 n1 = strlen(s1) - 1;
     char s1old[MAXEXPLEN];
     char ch;
     if (s1[0] == '"') {
@@ -2325,10 +2326,10 @@ init_varinfo(void) {
 }
 
 void
-add_varinfo(int type, char *lhs, char *rhs, int nargs,
+add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
             char args[MAXARG][NAMLEN + 1]) {
     VAR_INFO *v, *vnew;
-    int i;
+    int32 i;
     v = my_varinfo;
     if (start_var_info == 0) {
         v->type = type;
@@ -2372,10 +2373,10 @@ free_varinfo(void) {
     init_varinfo();
 }
 
-int
+int32
 extract_ode(/* name is char 1-i1  ie is start of rhs */
-            char *s1, int *ie, int i1) {
-    int i = 0, n = strlen(s1);
+            char *s1, int32 *ie, int32 i1) {
+    int32 i = 0, n = strlen(s1);
 
     i = i1;
     while (i < n) {
@@ -2388,14 +2389,14 @@ extract_ode(/* name is char 1-i1  ie is start of rhs */
     return 0;
 }
 
-int
-strparse(char *s1, char *s2, int i0, int *i1) {
-    int i = i0;
-    int n = strlen(s1);
-    int m = strlen(s2);
-    int j = 0;
+int32
+strparse(char *s1, char *s2, int32 i0, int32 *i1) {
+    int32 i = i0;
+    int32 n = strlen(s1);
+    int32 m = strlen(s2);
+    int32 j = 0;
     char ch;
-    int start = 0;
+    int32 start = 0;
 
     while (i < n) {
         ch = s1[i];
@@ -2431,11 +2432,11 @@ strparse(char *s1, char *s2, int i0, int *i1) {
     return (0);
 }
 
-int
-extract_args(char *s1, int i0, int *ie, int *narg,
+int32
+extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
              char args[MAXARG][NAMLEN + 1]) {
-    int k, i = i0, n = strlen(s1);
-    int type, na = 0, i1;
+    int32 k, i = i0, n = strlen(s1);
+    int32 type, na = 0, i1;
     while (i < n) {
         type = find_char(s1, ",)", i, &i1);
         if (type == 0) {
@@ -2460,12 +2461,12 @@ extract_args(char *s1, int i0, int *ie, int *narg,
     return (0);
 }
 
-int
-find_char(char *s1, char *s2, int i0, int *i1) {
-    int m = strlen(s2), n = strlen(s1);
-    int i = i0;
+int32
+find_char(char *s1, char *s2, int32 i0, int32 *i1) {
+    int32 m = strlen(s2), n = strlen(s1);
+    int32 i = i0;
     char ch;
-    int j;
+    int32 j;
     while (i < n) {
         ch = s1[i];
         for (j = 0; j < m; j++) {
@@ -2479,17 +2480,17 @@ find_char(char *s1, char *s2, int i0, int *i1) {
     return (-1);
 }
 
-int
-next_nonspace(char *s1, int i0, int *i1) {
-    int i = i0;
-    int n = strlen(s1);
+int32
+next_nonspace(char *s1, int32 i0, int32 *i1) {
+    int32 i = i0;
+    int32 n = strlen(s1);
     char ch;
     *i1 = n - 1;
     while (i < n) {
         ch = s1[i];
         if (ch != ' ') {
             *i1 = i;
-            return ((int)ch);
+            return ((int32)ch);
         }
         i++;
     }
@@ -2499,8 +2500,8 @@ next_nonspace(char *s1, int i0, int *i1) {
 /* removes starting blanks from s  */
 void
 remove_blanks(char *s1) {
-    int i = 0, n = strlen(s1), l;
-    int j;
+    int32 i = 0, n = strlen(s1), l;
+    int32 j;
     char ch;
     while (i < n) {
         ch = s1[i];
@@ -2522,7 +2523,7 @@ remove_blanks(char *s1) {
 void
 read_a_line(FILE *fp, char *s) {
     char temp[MAXEXPLEN];
-    int i, n, nn, ok, ihat = 0;
+    int32 i, n, nn, ok, ihat = 0;
     s[0] = 0;
     ok = 1;
 
@@ -2567,11 +2568,11 @@ read_a_line(FILE *fp, char *s) {
     s[n + 1] = 0;
 }
 
-int
-search_array(char *old, char *new, int *i1, int *i2, int *flag) {
-    int i, j, k, l;
-    int ileft, iright;
-    int n = strlen(old);
+int32
+search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
+    int32 i, j, k, l;
+    int32 ileft, iright;
+    int32 n = strlen(old);
     char num1[20], num2[20];
     char ch, chp;
     ileft = n - 1;
@@ -2670,11 +2671,11 @@ search_array(char *old, char *new, int *i1, int *i2, int *flag) {
     return 1;
 }
 
-int
+int32
 check_if_ic(char *big) {
     char c;
-    int n = strlen(big);
-    int j;
+    int32 n = strlen(big);
+    int32 j;
     j = 0;
     while (1) {
         c = big[j];
@@ -2692,9 +2693,9 @@ check_if_ic(char *big) {
     return 0;
 }
 
-int
-not_ker(/* returns 1 if string is not 'int[' */
-        char *s, int i) {
+int32
+not_ker(/* returns 1 if string is not 'int32[' */
+        char *s, int32 i) {
     if (i < 3)
         return 1;
     if (s[i - 3] == 'i' && s[i - 2] == 'n' && s[i - 1] == 't')
@@ -2702,10 +2703,10 @@ not_ker(/* returns 1 if string is not 'int[' */
     return 1;
 }
 
-int
+int32
 is_comment(char *s) {
-    int n = strlen(s);
-    int i = 0;
+    int32 n = strlen(s);
+    int32 i = 0;
     char c;
     while (1) {
         c = s[i];
@@ -2722,8 +2723,8 @@ is_comment(char *s) {
 }
 
 void
-subsk(char *big, char *new, int k, int flag) {
-    int i, n = strlen(big), inew, add, inum, j, m, isign, ok, multflag = 0;
+subsk(char *big, char *new, int32 k, int32 flag) {
+    int32 i, n = strlen(big), inew, add, inum, j, m, isign, ok, multflag = 0;
     char ch, chp, num[20];
     inew = 0;
     i = 0;
@@ -2838,7 +2839,7 @@ subsk(char *big, char *new, int k, int flag) {
 
 void
 keep_orig_comments(void) {
-    int i;
+    int32 i;
 
     if (orig_ncomments > 0)
         return; /* already stored these so return */
@@ -2859,7 +2860,7 @@ keep_orig_comments(void) {
 
 void
 default_comments(void) {
-    int i;
+    int32 i;
     if (orig_ncomments == 0)
         return;
     /* first free up the comments */
@@ -2878,7 +2879,7 @@ default_comments(void) {
 
 void
 free_comments(void) {
-    int i;
+    int32 i;
     for (i = 0; i < n_comments; i++) {
         free(comments[i].text);
         if (comments[i].aflag)
@@ -2903,8 +2904,8 @@ new_comment(FILE *f) {
 void
 add_comment(char *s) {
     char text[256], action[256], ch;
-    int n = strlen(s);
-    int i, j1 = 0, ja = 0, noact = 1;
+    int32 n = strlen(s);
+    int32 i, j1 = 0, ja = 0, noact = 1;
     if (n_comments >= MAXCOMMENTS)
         return;
     for (i = 0; i < n; i++) {
@@ -2964,12 +2965,12 @@ advance_past_first_word(char **sptr) {
     /* changes the string pointed to by sptr to start after the end of the
        string... this may seem odd, but it has to do with avoiding \0's added by
        strtok */
-    int len = strlen(*sptr);
+    int32 len = strlen(*sptr);
     (*sptr) += len + 1;
 }
 
 char *
-new_string2(char *old, int length) {
+new_string2(char *old, int32 length) {
     /*cout << "new_string2(\"" << old << "\", " << length << ")\n"; */
     char *s = (char *)malloc((length + 1) * sizeof(char));
     strncpy(s, old, length);
@@ -2989,8 +2990,8 @@ get_next2(char **tokens_ptr) {
     /* returns NULL if no more text */
     /* advances tokens_ptr */
     /* modified 2012-10-12 to also work if no = */
-    int success = 0;
-    int i = 0;
+    int32 success = 0;
+    int32 i = 0;
     char *tokens = *tokens_ptr;
     for (; *tokens; tokens++) {
         if (!isspace(tokens[i]))
@@ -3000,7 +3001,7 @@ get_next2(char **tokens_ptr) {
         (*tokens_ptr) = tokens;
         return NULL;
     }
-    int len = strlen(tokens);
+    int32 len = strlen(tokens);
     /* advance past space/the equal sign/comma */
     success = 0;
     for (i = 1; i < len; i++) {
@@ -3085,7 +3086,7 @@ strcpy_trim(char *dest, char *source) {
     while (*source && isspace(*source)) {
         source++;
     }
-    int len = strlen(source), i;
+    int32 len = strlen(source), i;
     for (i = len - 1; i >= 0; i--) {
         if (!isspace(source[i]))
             break;
@@ -3095,14 +3096,14 @@ strcpy_trim(char *dest, char *source) {
 }
 
 void
-strncpy_trim(char *dest, char *source, int n) {
+strncpy_trim(char *dest, char *source, int32 n) {
     /* like strncpy, except removes leading and trailing whitespace (and always
      * ends with a \0) */
     while (*source && isspace(*source)) {
         source++;
         n--;
     }
-    int i;
+    int32 i;
     for (i = n - 1; i >= 0; i--) {
         if (!isspace(source[i]))
             break;

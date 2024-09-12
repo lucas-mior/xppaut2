@@ -1,4 +1,5 @@
 #include "gear.h"
+#include "integers.h"
 #include "ggets.h"
 #include "menudrive.h"
 #include "eig_list.h"
@@ -12,30 +13,30 @@
 #include <stdio.h>
 #include "xpplim.h"
 #define DING ping()
-int UnstableManifoldColor = 5;
-int StableManifoldColor = 8;
+int32 UnstableManifoldColor = 5;
+int32 StableManifoldColor = 8;
 double ndrand48();
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
-extern int Xup;
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 Xup;
 
 extern double DELTA_T;
-extern int METHOD;
-extern int ENDSING, PAR_FOL, SHOOT, PAUSER;
+extern int32 METHOD;
+extern int32 ENDSING, PAR_FOL, SHOOT, PAUSER;
 
-extern int NODE;
-extern int NFlags;
+extern int32 NODE;
+extern int32 NFlags;
 double ShootIC[8][MAXODE];
-int ShootICFlag;
-int ShootIndex;
-int ShootType[8];
-int gear_pivot[MAXODE];
-extern int storind, STORFLAG;
+int32 ShootICFlag;
+int32 ShootIndex;
+int32 ShootType[8];
+int32 gear_pivot[MAXODE];
+extern int32 storind, STORFLAG;
 
 double amax(/* double,double */);
 double sign(/* double,double */);
 char status();
 
-double sdot(/* int n,double *sx,int incx,double *sy,int incy */);
+double sdot(/* int32 n,double *sx,int32 incx,double *sy,int32 incy */);
 
 double sgnum(/* double x,double y */);
 double Max(/* double x,double y */);
@@ -51,9 +52,9 @@ double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
 void write_mybrowser_data();
 
 void
-silent_fixpt(double *x, double eps, double err, double big, int maxit, int n,
-             double *er, double *em, int *ierr) {
-    int kmem, i, j;
+silent_fixpt(double *x, double eps, double err, double big, int32 maxit, int32 n,
+             double *er, double *em, int32 *ierr) {
+    int32 kmem, i, j;
 
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAXODE];
@@ -105,19 +106,19 @@ silent_fixpt(double *x, double eps, double err, double big, int maxit, int n,
 
 /* main fixed point finder */
 void
-do_sing(double *x, double eps, double err, double big, int maxit, int n,
-        int *ierr, float *stabinfo) {
-    int kmem, i, j, ipivot[MAXODE];
-    int oldcol, dummy;
-    int rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
-    int pose = 0, nege = 0, pr;
+do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
+        int32 *ierr, float *stabinfo) {
+    int32 kmem, i, j, ipivot[MAXODE];
+    int32 oldcol, dummy;
+    int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
+    int32 pose = 0, nege = 0, pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, oldt = DELTA_T, old_x[MAXODE];
 
     char ch;
     double real, imag;
     double bigpos = -1e10, bigneg = 1e10;
-    int bpos = 0, bneg = 0;
+    int32 bpos = 0, bneg = 0;
     /* float xl[MAXODE]; */
     kmem = n * (2 * n + 5) + 50;
     if ((work = (double *)malloc(sizeof(double) * kmem)) == NULL) {
@@ -337,7 +338,7 @@ do_sing(double *x, double eps, double err, double big, int maxit, int n,
 
 void
 save_batch_shoot(void) {
-    int i, k, type, oldcol, dummy;
+    int32 i, k, type, oldcol, dummy;
     double x[MAXODE], olddt;
     char name[256];
     FILE *fp;
@@ -378,7 +379,7 @@ void
 shoot_this_now(void) /* this uses the current labeled saddle point stuff to
                         integrate */
 {
-    int i, k, type, oldcol, dummy;
+    int32 i, k, type, oldcol, dummy;
     double x[MAXODE], olddt;
     if (ShootIndex < 1)
         return;
@@ -407,12 +408,12 @@ shoot_this_now(void) /* this uses the current labeled saddle point stuff to
 
 /* fixed point with no requests and store manifolds */
 void
-do_sing_info(double *x, double eps, double err, double big, int maxit, int n,
-             double *er, double *em, int *ierr) {
-    int kmem, i, j, ipivot[MAXODE];
+do_sing_info(double *x, double eps, double err, double big, int32 maxit, int32 n,
+             double *er, double *em, int32 *ierr) {
+    int32 kmem, i, j, ipivot[MAXODE];
 
-    int rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
-    int pose = 0, nege = 0, pr = 0;
+    int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
+    int32 pose = 0, nege = 0, pr = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAXODE];
 
@@ -557,9 +558,9 @@ do_sing_info(double *x, double eps, double err, double big, int maxit, int n,
 }
 
 void
-pr_evec(double *x, double *ev, int n, int pr, double eval, int type) {
+pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
 
-    int i;
+    int32 i;
     double d = fabs(DELTA_T) * .1;
     ShootICFlag = 1;
     if (ShootIndex < 7) {
@@ -585,17 +586,17 @@ pr_evec(double *x, double *ev, int n, int pr, double eval, int type) {
 
 void
 get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
-                 int n, int maxit, double err, int *ierr) {
+                 int32 n, int32 maxit, double err, int32 *ierr) {
     double *a, *anew;
-    int *ipivot;
+    int32 *ipivot;
     double *b, *bp;
-    int nn = 2 * n;
-    int i, j, k;
+    int32 nn = 2 * n;
+    int32 i, j, k;
     a = (double *)malloc(nn * nn * sizeof(double));
     anew = (double *)malloc(nn * nn * sizeof(double));
     b = (double *)malloc(nn * sizeof(double));
     bp = (double *)malloc(nn * sizeof(double));
-    ipivot = (int *)malloc(nn * sizeof(int));
+    ipivot = (int32 *)malloc(nn * sizeof(int32));
     for (i = 0; i < nn; i++) {
         for (j = 0; j < nn; j++) {
             k = j * nn + i;
@@ -628,9 +629,9 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
 }
 
 void
-get_evec(double *a, double *anew, double *b, double *bp, int n, int maxit,
-         double err, int *ipivot, double eval, int *ierr) {
-    int j, iter, jmax;
+get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
+         double err, int32 *ipivot, double eval, int32 *ierr) {
+    int32 j, iter, jmax;
     double temp;
     double zz = fabs(eval);
     if (zz < err)
@@ -701,17 +702,17 @@ get_evec(double *a, double *anew, double *b, double *bp, int n, int maxit,
 }
 
 void
-eigen(int n, double *a, double *ev, double *work, int *ierr) {
+eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
 
     orthesx(n, 1, n, a, work);
     hqrx(n, 1, n, a, ev, ierr);
 }
 
 void
-hqrx(int n, int low, int igh, double *h, double *ev, int *ierr) {
-    int i, j, k, l = 0, m = 0, en, ll, mm, na, its, mp2, enm2;
+hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr) {
+    int32 i, j, k, l = 0, m = 0, en, ll, mm, na, its, mp2, enm2;
     double p = 0.0, q = 0.0, r = 0.0, s, t, w, x, y, zz, norm, machep = 1.e-10;
-    int notlas;
+    int32 notlas;
     *ierr = 0;
     norm = 0.0;
     k = 1;
@@ -874,8 +875,8 @@ l1000:
 }
 
 void
-orthesx(int n, int low, int igh, double *a, double *ort) {
-    int i, j, m, ii, jj, la, mp, kp1;
+orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
+    int32 i, j, m, ii, jj, la, mp, kp1;
     double f, g, h, scale;
     la = igh - 1;
     kp1 = low + 1;
@@ -937,8 +938,8 @@ sign(double x, double y) {
     return (-fabs(x));
 }
 
-int
-imin(int x, int y) {
+int32
+imin(int32 x, int32 y) {
     if (x < y)
         return (x);
     return (y);
@@ -953,10 +954,10 @@ amax(double u, double v) {
 
 void
 getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
-       int n)
+       int32 n)
 
 {
-    int i, j, k;
+    int32 i, j, k;
     double r;
     rhs(0.0, x, y, n);
     if (METHOD == 0)
@@ -987,10 +988,10 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
 
 void
 getjactrans(double *x, double *y, double *yp, double *xp, double eps,
-            double *dermat, int n)
+            double *dermat, int32 n)
 
 {
-    int i, j, k;
+    int32 i, j, k;
     double r;
     rhs(0.0, x, y, n);
     for (i = 0; i < n; i++) {
@@ -1012,9 +1013,9 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 }
 
 void
-rooter(double *x, double err, double eps, double big, double *work, int *ierr,
-       int maxit, int n) {
-    int i, iter, ipivot[MAXODE], info;
+rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
+       int32 maxit, int32 n) {
+    int32 i, iter, ipivot[MAXODE], info;
     char ch;
     double *xp, *yp, *y, *xg, *dermat, *dely;
     double r;
@@ -1086,10 +1087,10 @@ sqr2(double z) {
     return (z * z);
 }
 
-int
-gear(int n, double *t, double tout, double *y, double hmin, double hmax,
-     double eps, int mf, double *error, int *kflag, int *jstart, double *work,
-     int *iwork) {
+int32
+gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
+     double eps, int32 mf, double *error, int32 *kflag, int32 *jstart, double *work,
+     int32 *iwork) {
     if (NFlags == 0)
         return (ggear(n, t, tout, y, hmin, hmax, eps, mf, error, kflag, jstart,
                       work, iwork));
@@ -1097,13 +1098,13 @@ gear(int n, double *t, double tout, double *y, double hmin, double hmax,
                                jstart, work, iwork));
 }
 
-int
-ggear(int n, double *t, double tout, double *y, double hmin, double hmax,
-      double eps, int mf, double *error, int *kflag, int *jstart, double *work,
-      int *iwork)
+int32
+ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
+      double eps, int32 mf, double *error, int32 *kflag, int32 *jstart, double *work,
+      int32 *iwork)
 
 {
-    /* int ipivot[MAXODE]; */
+    /* int32 ipivot[MAXODE]; */
     double deltat = 0.0, hnew = 0.0, hold = 0.0, h = 0.0, racum = 0.0,
            told = 0.0, r = 0.0, d = 0.0;
     double *a, pr1, pr2, pr3, r1;
@@ -1111,9 +1112,9 @@ ggear(int n, double *t, double tout, double *y, double hmin, double hmax,
     double enq1 = 0.0, enq2 = 0.0, enq3 = 0.0, pepsh = 0.0, e = 0.0, edwn = 0.0,
            eup = 0.0, bnd = 0.0;
     double *ytable[8], *ymax, *work2;
-    int i, iret = 0, maxder = 0, j = 0, k = 0, iret1 = 0, nqold = 0, nq = 0,
+    int32 i, iret = 0, maxder = 0, j = 0, k = 0, iret1 = 0, nqold = 0, nq = 0,
            newq = 0;
-    int idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
+    int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
         job = 0, nt = 0;
     /* plintf("entering gear ... with start=%d \n",*jstart);*/
     for (i = 0; i < 8; i++) {
@@ -1619,8 +1620,8 @@ Min(double x, double y) {
 }
 
 void
-sgefa(double *a, int lda, int n, int *ipvt, int *info) {
-    int j, k, kp1, l, nm1;
+sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
+    int32 j, k, kp1, l, nm1;
     double t;
     *info = -1;
     nm1 = n - 1;
@@ -1656,8 +1657,8 @@ sgefa(double *a, int lda, int n, int *ipvt, int *info) {
 }
 
 void
-sgesl(double *a, int lda, int n, int *ipvt, double *b, int job) {
-    int k, kb, l, nm1;
+sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
+    int32 k, kb, l, nm1;
     double t;
     nm1 = n - 1;
     /* for(k=0;k<n;k++)printf("ipiv=%d  b=%f \n",
@@ -1703,8 +1704,8 @@ sgesl(double *a, int lda, int n, int *ipvt, double *b, int job) {
 }
 
 void
-saxpy(int n, double sa, double *sx, int incx, double *sy, int incy) {
-    int i, ix, iy;
+saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy) {
+    int32 i, ix, iy;
     if (n <= 0)
         return;
     if (sa == 0.0)
@@ -1719,9 +1720,9 @@ saxpy(int n, double sa, double *sx, int incx, double *sy, int incy) {
         sy[iy] = sy[iy] + sa * sx[ix];
 }
 
-int
-isamax(int n, double *sx, int incx) {
-    int i, ix, imax;
+int32
+isamax(int32 n, double *sx, int32 incx) {
+    int32 i, ix, imax;
     double smax;
     if (n < 1)
         return (-1);
@@ -1752,8 +1753,8 @@ isamax(int n, double *sx, int incx) {
 }
 
 double
-sdot(int n, double *sx, int incx, double *sy, int incy) {
-    int i, ix, iy;
+sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy) {
+    int32 i, ix, iy;
     double stemp = 0.0;
     if (n <= 0)
         return (0.0);
@@ -1769,8 +1770,8 @@ sdot(int n, double *sx, int incx, double *sy, int incy) {
 }
 
 void
-sscal(int n, double sa, double *sx, int incx) {
-    int i, nincx;
+sscal(int32 n, double sa, double *sx, int32 incx) {
+    int32 i, nincx;
     if (n <= 0)
         return;
     nincx = n * incx;

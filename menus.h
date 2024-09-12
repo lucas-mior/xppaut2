@@ -1,5 +1,6 @@
 #ifndef _menus_h_
 #define _menus_h_
+#include "integers.h"
 
 #include <X11/Xlib.h>
 
@@ -42,7 +43,7 @@ typedef struct {
     char key[25];
     char **names;
     char **hints;
-    int n, visible;
+    int32 n, visible;
 } MENUDEF;
 
 /* hints for the main menus */

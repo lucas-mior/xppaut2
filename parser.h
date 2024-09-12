@@ -1,5 +1,6 @@
 #ifndef _parser_h_
 #define _parser_h_
+#include "integers.h"
 
 #include "volterra.h"
 #include "xpplim.h"
@@ -60,11 +61,11 @@
 
 typedef struct {
     char name[MXLEN + 1];
-    int len;
-    int com;
-    int arg;
-    int pri;
-    int id;
+    int32 len;
+    int32 com;
+    int32 arg;
+    int32 pri;
+    int32 id;
 } SYMBOL;
 
 SYMBOL my_symb[MAX_SYMBS] = {
@@ -671,7 +672,7 @@ SYMBOL my_symb[MAX_SYMBS] = {
 #define I_INDX 27
 #define VECT_ROOT 500
 
-int NSYM = STDSYM, NCON = 0, NVAR = 0, NFUN = 0;
+int32 NSYM = STDSYM, NCON = 0, NVAR = 0, NFUN = 0;
 
 /*     pointers to functions    */
 
@@ -680,27 +681,27 @@ void (*fun2[50])();
 
 /*****************************************************/
 
-double eval_rpn(/* int* */);
+double eval_rpn(/* int32* */);
 double ker_val();
 double pop();
 
-int stack_pointer, uptr;
+int32 stack_pointer, uptr;
 double constants[MAXPAR];
 double variables[MAXODE1];
-int *ufun[MAXUFUN];
+int32 *ufun[MAXUFUN];
 char *ufun_def[MAXUFUN];
 char ufun_names[MAXUFUN][12];
-int narg_fun[MAXUFUN];
+int32 narg_fun[MAXUFUN];
 double stack[200], ustack[200];
 
 KERNEL kernel[MAXKER];
-int NKernel;
-int MaxPoints;
+int32 NKernel;
+int32 MaxPoints;
 double *Memory[MAXKER];
-int NTable;
+int32 NTable;
 
 typedef struct {
-    int narg;
+    int32 narg;
     char args[MAXARG][11];
 } UFUN_ARG;
 
@@ -753,74 +754,74 @@ void zz_erfc(void);
 void zz_hom_bcs(void);
 void zz_rndom(void);
 void zz_lgamma(void);
-int init_rpn(void);
-int free_ufuns(void);
-int duplicate_name(char *junk);
-int add_constant(char *junk);
-int get_type(int index);
-int add_con(char *name, double value);
-int add_kernel(char *name, double mu, char *expr);
-int add_var(char *junk, double value);
-int add_expr(char *expr, int *command, int *length);
-int add_expr_no3(char *expr, int *command, int *length);
-int add_vect_name(int index, char *name);
-int add_net_name(int index, char *name);
-int add_2d_table(char *name, char *file);
-int add_file_table(int index, char *file);
-int add_table_name(int index, char *name);
-int add_form_table(int index, int nn, double xlo, double xhi, char *formula);
-int set_old_arg_names(int narg);
-int set_new_arg_names(int narg, char args[10][11]);
-int fixup_endfun(int *u, int l, int narg);
-int add_ufun_name(char *name, int index, int narg);
-int add_ufun_new(int index, int narg, char *rhs, char args[20][11]);
-int add_ufun(char *junk, char *expr, int narg);
-int check_num(int *tok, double value);
-int is_ufun(int x);
-int is_ucon(int x);
-int is_uvar(int x);
-int isvar(int y);
-int iscnst(int y);
-int isker(int y);
-int is_kernel(int x);
-int is_lookup(int x);
-int find_lookup(char *name);
-int find_name(char *string, int *index);
-int get_param_index(char *name);
-int get_val(char *name, double *value);
-int get_var_index(char *name);
-int set_val(char *name, double value);
-int set_ivar(int i, double value);
-double get_ivar(int i);
-int alg_to_rpn(int *toklist, int *command);
-int pr_command(int *command);
-int fpr_command(int *command);
-int show_where(char *string, int index);
-int function_sym(int token);
-int unary_sym(int token);
-int binary_sym(int token);
-int pure_number(int token);
-int gives_number(int token);
-int check_syntax(int oldtoken, int newtoken);
-int make_toks(char *dest, int *my_token);
-int tokeninfo(int tok);
-int do_num(char *source, char *num, double *value, int *ind);
-int convert(char *source, char *dest);
-int find_tok(char *source, int *index, int *tok);
+int32 init_rpn(void);
+int32 free_ufuns(void);
+int32 duplicate_name(char *junk);
+int32 add_constant(char *junk);
+int32 get_type(int32 index);
+int32 add_con(char *name, double value);
+int32 add_kernel(char *name, double mu, char *expr);
+int32 add_var(char *junk, double value);
+int32 add_expr(char *expr, int32 *command, int32 *length);
+int32 add_expr_no3(char *expr, int32 *command, int32 *length);
+int32 add_vect_name(int32 index, char *name);
+int32 add_net_name(int32 index, char *name);
+int32 add_2d_table(char *name, char *file);
+int32 add_file_table(int32 index, char *file);
+int32 add_table_name(int32 index, char *name);
+int32 add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula);
+int32 set_old_arg_names(int32 narg);
+int32 set_new_arg_names(int32 narg, char args[10][11]);
+int32 fixup_endfun(int32 *u, int32 l, int32 narg);
+int32 add_ufun_name(char *name, int32 index, int32 narg);
+int32 add_ufun_new(int32 index, int32 narg, char *rhs, char args[20][11]);
+int32 add_ufun(char *junk, char *expr, int32 narg);
+int32 check_num(int32 *tok, double value);
+int32 is_ufun(int32 x);
+int32 is_ucon(int32 x);
+int32 is_uvar(int32 x);
+int32 isvar(int32 y);
+int32 iscnst(int32 y);
+int32 isker(int32 y);
+int32 is_kernel(int32 x);
+int32 is_lookup(int32 x);
+int32 find_lookup(char *name);
+int32 find_name(char *string, int32 *index);
+int32 get_param_index(char *name);
+int32 get_val(char *name, double *value);
+int32 get_var_index(char *name);
+int32 set_val(char *name, double value);
+int32 set_ivar(int32 i, double value);
+double get_ivar(int32 i);
+int32 alg_to_rpn(int32 *toklist, int32 *command);
+int32 pr_command(int32 *command);
+int32 fpr_command(int32 *command);
+int32 show_where(char *string, int32 index);
+int32 function_sym(int32 token);
+int32 unary_sym(int32 token);
+int32 binary_sym(int32 token);
+int32 pure_number(int32 token);
+int32 gives_number(int32 token);
+int32 check_syntax(int32 oldtoken, int32 newtoken);
+int32 make_toks(char *dest, int32 *my_token);
+int32 tokeninfo(int32 tok);
+int32 do_num(char *source, char *num, double *value, int32 *ind);
+int32 convert(char *source, char *dest);
+int32 find_tok(char *source, int32 *index, int32 *tok);
 double pmod(double x, double y);
-int two_args(void);
+int32 two_args(void);
 double bessel_j(double x, double y);
 double bessel_y(double x, double y);
-double bessi(int n, double x);
+double bessi(int32 n, double x);
 double bessi0(double x);
 double bessi1(double x);
-char *com_name(int com);
+char *com_name(int32 com);
 double do_set_shift(double value, double shift, double variable);
 double do_ishift(double shift, double variable);
 double do_shift(double shift, double variable);
 double do_delay_shift(double delay, double shift, double variable);
 double do_delay(double delay, double i);
-int one_arg(void);
+int32 one_arg(void);
 double normal(double mean, double std);
 double max(double x, double y);
 double min(double x, double y);
@@ -838,10 +839,10 @@ double deq(double x, double y);
 double dne(double x, double y);
 double dgt(double x, double y);
 double dlt(double x, double y);
-double evaluate(int *equat);
-int pass3(int *com1, int *com2, int *len);
-double feval_rpn(int *comz);
-int strupr(char *s);
-int strlwr(char *s);
+double evaluate(int32 *equat);
+int32 pass3(int32 *com1, int32 *com2, int32 *len);
+double feval_rpn(int32 *comz);
+int32 strupr(char *s);
+int32 strlwr(char *s);
 
 #endif

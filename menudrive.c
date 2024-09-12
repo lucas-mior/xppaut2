@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "integers.h"
 
 #include <sys/wait.h>
 #include <unistd.h>
@@ -39,7 +40,7 @@
 #include "menudrive.h"
 #include "tutor.h"
 #include "load_eqn.h"
-extern int manual_expose;
+extern int32 manual_expose;
 extern char this_file[XPP_MAX_NAME];
 extern char *info_message, *ic_hint[], *sing_hint[], *null_hint[], *flow_hint[],
     *null_freeze[], *bvp_hint[], *color_hint[], *stoch_hint[];
@@ -50,21 +51,21 @@ extern char *edit_hint[];
 extern char *adj_hint[];
 extern char *phas_hint[], *kin_hint[], *view_hint[], *tab_hint[];
 extern Window info_pop, main_win, draw_win;
-extern int POIMAP;
-extern int DCURY, DCURX;
-extern int DF_FLAG, tfBell, TipsFlag;
-extern int SimulPlotFlag, current_pop, num_pops, ActiveWinList[];
-extern int DisplayHeight, DisplayWidth;
-extern int AutoFreezeFlag, NTable;
+extern int32 POIMAP;
+extern int32 DCURY, DCURX;
+extern int32 DF_FLAG, tfBell, TipsFlag;
+extern int32 SimulPlotFlag, current_pop, num_pops, ActiveWinList[];
+extern int32 DisplayHeight, DisplayWidth;
+extern int32 AutoFreezeFlag, NTable;
 extern Display *display;
-extern int screen;
-int status;
+extern int32 screen;
+int32 status;
 
-extern int TORUS;
+extern int32 TORUS;
 typedef struct {
     Window w;
     char text[256];
-    int here;
+    int32 here;
 } MSGBOXSTRUCT;
 
 MSGBOXSTRUCT MsgBox;
@@ -75,7 +76,7 @@ void
 do_tutorial(void) {
 
     printf("Running tutorial!\n");
-    int tut = 0;
+    int32 tut = 0;
     while (1) {
 
         char ans = (char)two_choice("Next", "Done", tutorial[tut], "nd",
@@ -96,7 +97,7 @@ edit_xpprc(void) {
 
     char rc[256];
     char editor[256];
-    int child_status;
+    int32 child_status;
 
     char *ed = getenv("XPPEDITOR");
 
@@ -156,8 +157,8 @@ xpp_hlp(void) {
 
 void
 MessageBox(char *m) {
-    int wid = strlen(m) * DCURX + 20;
-    int hgt = 4 * DCURY;
+    int32 wid = strlen(m) * DCURX + 20;
+    int32 hgt = 4 * DCURY;
     MsgBox.w = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                                  DisplayHeight / 2, wid, hgt, 4);
 
@@ -185,14 +186,14 @@ KillMessageBox(void) {
     XDestroyWindow(display, MsgBox.w);
 }
 
-int
+int32
 TwoChoice(char *c1, char *c2, char *q, char *key) {
     return two_choice(c1, c2, q, key, DisplayWidth / 2, DisplayHeight / 2,
                       RootWindow(display, screen), NULL);
 }
 
-int
-GetMouseXY(int *x, int *y) {
+int32
+GetMouseXY(int32 *x, int32 *y) {
     return get_mouse_xy(x, y, draw_win);
 }
 
@@ -209,9 +210,9 @@ clear_draw_window(void) {
 
 void
 drw_all_scrns(void) {
-    int i;
-    int me = manual_expose;
-    int ic = current_pop;
+    int32 i;
+    int32 me = manual_expose;
+    int32 ic = current_pop;
     manual_expose = 0;
     if (SimulPlotFlag == 0) {
         redraw_all();
@@ -231,8 +232,8 @@ drw_all_scrns(void) {
 
 void
 clr_all_scrns(void) {
-    int i;
-    int ic = current_pop;
+    int32 i;
+    int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
         clr_scrn();
         hi_lite(draw_win);
@@ -249,7 +250,7 @@ clr_all_scrns(void) {
 }
 
 void
-run_the_commands(int com) {
+run_the_commands(int32 com) {
     if (com < 0)
         return;
     if (com <= MAX_M_I) {
@@ -401,7 +402,7 @@ do_stochast(void) {
     static char key[] = "ncdmvhofpislaxe2";
     Window temp = main_win;
     char ch;
-    int i;
+    int32 i;
     ch = (char)pop_up_list(&temp, "Stochastic", n, key, 16, 10, 0, 10,
                            2 * DCURY + 8, stoch_hint, info_pop, info_message);
     for (i = 0; i < 16; i++)
@@ -418,7 +419,7 @@ get_pmap_pars(void) {
     static char mkey[] = "nsmp";
     char ch;
     Window temp = main_win;
-    int i;
+    int32 i;
 
     ch = (char)pop_up_list(&temp, "Poincare map", map, mkey, 4, 13, POIMAP, 10,
                            6 * DCURY + 8, map_hint, info_pop, info_message);
@@ -437,7 +438,7 @@ set_col_par(void) {
     Window tempw = main_win;
     static char *n[] = {"(N)o color", "(V)elocity", "(A)nother quantity"};
     static char key[] = "nva";
-    int i;
+    int32 i;
     ch = (char)pop_up_list(&tempw, "Color code", n, key, 3, 11, 0, 10,
                            12 * DCURY + 8, color_hint, info_pop, info_message);
     for (i = 0; i < 3; i++)
@@ -454,7 +455,7 @@ make_adj(void) {
                         "(H)fun",    "(P)arameters", "(R)ange"};
     static char key[] = "nmaohpr";
     char ch;
-    int i;
+    int32 i;
     ch = (char)pop_up_list(&temp, "Adjoint", n, key, 7, 10, 0, 10,
                            11 * DCURY + 8, adj_hint, info_pop, info_message);
     for (i = 0; i < 7; i++)
@@ -465,7 +466,7 @@ make_adj(void) {
 }
 
 void
-do_file_com(int com) {
+do_file_com(int32 com) {
     switch (com) {
     case M_FT:
         do_transpose();
@@ -534,7 +535,7 @@ do_file_com(int com) {
 void
 do_gr_objs(void) {
     char ch;
-    int i;
+    int32 i;
     static char *list[] = {"(T)ext", "(A)rrow",      "(P)ointer", "(M)arker",
                            "(E)dit", "(D)elete all", "marker(S)"};
     static char key[] = "tapmeds";
@@ -591,7 +592,7 @@ find_bvp(void) {
     static char *n[] = {"(R)ange", "(N)o show", "(S)how", "(P)eriodic"};
     static char key[] = "rnsp";
     char ch;
-    int i;
+    int32 i;
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Bndry Value Prob", n, key, 4, 16, 1, 10,
                            6 * DCURY + 8, bvp_hint, info_pop, info_message);
@@ -610,7 +611,7 @@ change_view(void) {
     static char *n[] = {"2D", "3D", "Array", "Toon"};
     static char key[] = "23at";
     char ch;
-    int i;
+    int32 i;
 
     ch = (char)pop_up_list(&temp, "Axes", n, key, 4, 5, 0, 10, 13 * DCURY + 8,
                            view_hint, info_pop, info_message);
@@ -623,7 +624,7 @@ change_view(void) {
 
 void
 do_windows(void) {
-    int i;
+    int32 i;
     char ch;
     static char *list[] = {"(C)reate", "(K)ill all", "(D)estroy",   "(B)ottom",
                            "(A)uto",   "(M)anual",   "(S)imPlot On"};
@@ -652,7 +653,7 @@ do_windows(void) {
 
 void
 add_a_curve(void) {
-    int com = -1;
+    int32 com = -1;
     static char *na[] = {"(A)dd curve",  "(D)elete last", "(R)emove all",
                          "(E)dit curve", "(P)ostscript",  "S(V)G",
                          "(F)reeze",     "a(X)es opts",   "exp(O)rt data",
@@ -671,7 +672,7 @@ add_a_curve(void) {
     static char keyk[] = "nk";
     Window temp = main_win;
     char ch;
-    int i, j;
+    int32 i, j;
     ch = (char)pop_up_list(&temp, "Curves", na, keya, 10, 15, 0, 10,
                            8 * DCURY + 8, graf_hint, info_pop, info_message);
     for (i = 0; i < 10; i++)
@@ -721,9 +722,9 @@ add_a_curve(void) {
 
 void
 do_movie(void) {
-    int i;
+    int32 i;
     char ch;
-    int nkc = 6;
+    int32 nkc = 6;
     static char *list[] = {"(C)apture",  "(R)eset", "(P)layback",
                            "(A)utoplay", "(S)ave",  "(M)ake AniGif",
                            "(X)tra"};
@@ -744,7 +745,7 @@ do_torus(void) {
     static char *n[] = {"(A)ll", "(N)one", "(C)hoose"};
     static char key[] = "anc";
     char ch;
-    int i;
+    int32 i;
     ch = (char)pop_up_list(&temp, "Torus", n, key, 3, 9, 1 - TORUS, 10,
                            4 * DCURY + 8, phas_hint, info_pop, info_message);
     for (i = 0; i < 3; i++)
@@ -761,7 +762,7 @@ window_zoom(void) {
                         "(F)it",    "(D)efault", "(S)croll"};
     static char key[] = "wzofds";
     char ch;
-    int i;
+    int32 i;
     Window temp = main_win;
     ch = (char)pop_up_list(&temp, "Window", n, key, 6, 13, 0, 10,
                            13 * DCURY + 8, wind_hint, info_pop, info_message);
@@ -774,7 +775,7 @@ window_zoom(void) {
 
 void
 direct_field(void) {
-    int i;
+    int32 i;
     static char *n[] = {"(D)irect Field", "(F)low", "(N)o dir. fld.",
                         "(C)olorize", "(S)caled Dir.Fld"};
     static char key[] = "dfncs";
@@ -792,7 +793,7 @@ direct_field(void) {
 
 void
 new_clines(void) {
-    int i;
+    int32 i;
     Window temp = main_win;
     static char *n[] = {"(N)ew",    "(R)estore", "(A)uto",
                         "(M)anual", "(F)reeze",  "(S)ave"};
@@ -813,7 +814,7 @@ froz_cline_stuff(void) {
     static char *n[] = {"(F)reeze", "(D)elete all", "(R)ange", "(A)nimate"};
     static char key[] = "fdra";
     char ch;
-    int i;
+    int32 i;
     ch = (char)pop_up_list(&temp, "Freeze cline", n, key, 4, 10, 0, 10,
                            6 * DCURY + 8, null_freeze, info_pop, info_message);
     for (i = 0; i < 4; i++) {
@@ -826,7 +827,7 @@ froz_cline_stuff(void) {
 
 void
 find_equilibrium(void) {
-    int i;
+    int32 i;
     static char *n[] = {"(G)o", "(M)ouse", "(R)ange", "monte(C)ar"};
     static char key[] = "gmrc";
     char ch;
@@ -847,7 +848,7 @@ find_equilibrium(void) {
 void
 ini_data_menu(void) {
 
-    int i;
+    int32 i;
     Window temp = main_win;
     static char *n[] = {"(R)ange",   "(2)par range", "(L)ast",    "(O)ld",
                         "(G)o",      "(M)ouse",      "(S)hift",   "(N)ew",

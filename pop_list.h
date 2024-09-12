@@ -1,5 +1,6 @@
 #ifndef _pop_list_h
 #define _pop_list_h
+#include "integers.h"
 
 #include "phsplan.h"
 #include <stdlib.h>
@@ -27,19 +28,19 @@
      EnterWindowMask | LeaveWindowMask)
 
 extern Display *display;
-extern int DisplayWidth, DisplayHeight;
-extern int screen;
+extern int32 DisplayWidth, DisplayHeight;
+extern int32 screen;
 extern Atom deleteWindowAtom;
 extern Window main_win, info_pop, draw_win;
-extern int DCURY, DCURX, CURY_OFF, DCURXs, DCURYs, CURY_OFFs, xor_flag;
+extern int32 DCURY, DCURX, CURY_OFF, DCURXs, DCURYs, CURY_OFFs, xor_flag;
 extern GC gc, small_gc;
-extern unsigned int MyBackColor, MyForeColor;
+extern uint32 MyBackColor, MyForeColor;
 
-extern int TipsFlag;
+extern int32 TipsFlag;
 char *get_next(), *get_first();
 extern char UserBlack[8];
 extern char UserWhite[8];
-extern int UserGradients;
+extern int32 UserGradients;
 
 Window make_window();
 Window make_plain_window();
@@ -52,17 +53,17 @@ typedef struct {
     Window base, ok, cancel;
     Window win[MAX_N_SBOX];
     char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
-    int n, hot;
-    int hgt, wid;
-    int hh[MAX_N_SBOX];
+    int32 n, hot;
+    int32 hgt, wid;
+    int32 hh[MAX_N_SBOX];
 } STRING_BOX;
 
 typedef struct {
     char **list;
-    int n;
+    int32 n;
 } SCRBOX_LIST;
 
-extern int NUPAR, NEQ, NODE, NMarkov;
+extern int32 NUPAR, NEQ, NODE, NMarkov;
 extern char upar_names[MAXPAR][14], uvar_names[MAXODE][12];
 extern char *color_names[];
 extern SCRBOX_LIST scrbox_list[10];
@@ -74,23 +75,23 @@ typedef struct {
     char *title;
     char **entries;
     char **hints;
-    int n, max;
+    int32 n, max;
     char *key;
-    int hot;
+    int32 hot;
 } POP_UP;
 
 typedef struct {
     Window base, slide, close, text;
-    int i0;
-    int exist, len, nlines;
+    int32 i0;
+    int32 exist, len, nlines;
     char **list;
 } TEXTWIN;
 
 typedef struct {
     Window base, slide;
     Window *w;
-    int nw, nent, i0;
-    int len, exist;
+    int32 nw, nent, i0;
+    int32 len, exist;
     char **list;
 } SCROLLBOX;
 
@@ -105,54 +106,54 @@ extern TEXTWIN mytext;
 
 void set_window_title(Window win, char *string);
 void make_scrbox_lists(void);
-int get_x_coord_win(Window win);
+int32 get_x_coord_win(Window win);
 void destroy_scroll_box(SCROLLBOX *sb);
-void create_scroll_box(Window root, int x0, int y0, int nent, int nw,
+void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
                        char **list, SCROLLBOX *sb);
 void expose_scroll_box(Window w, SCROLLBOX sb);
 void redraw_scroll_box(SCROLLBOX sb);
-void crossing_scroll_box(Window w, int c, SCROLLBOX sb);
-int scroll_box_motion(XEvent ev, SCROLLBOX *sb);
-int select_scroll_item(Window w, SCROLLBOX sb);
+void crossing_scroll_box(Window w, int32 c, SCROLLBOX sb);
+int32 scroll_box_motion(XEvent ev, SCROLLBOX *sb);
+int32 select_scroll_item(Window w, SCROLLBOX sb);
 void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb);
-int do_string_box(int n, int row, int col, char *title, char **names,
-                  char values[][25], int maxchar);
-void expose_sbox(STRING_BOX sb, Window w, int pos, int col);
-void do_hilite_text(char *name, char *value, int flag, Window w, int pos,
-                    int col);
-void reset_hot(int inew, STRING_BOX *sb);
-void new_editable(STRING_BOX *sb, int inew, int *pos, int *col, int *done,
+int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
+                  char values[][25], int32 maxchar);
+void expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col);
+void do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos,
+                    int32 col);
+void reset_hot(int32 inew, STRING_BOX *sb);
+void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
                   Window *w);
-void set_sbox_item(STRING_BOX *sb, int item);
-int s_box_event_loop(STRING_BOX *sb, int *pos, int *col, SCROLLBOX *scrb);
-void make_sbox_windows(STRING_BOX *sb, int row, int col, char *title,
-                       int maxchar);
-Window make_fancy_window(Window root, int x, int y, int width, int height,
-                         int bw, int fc, int bc);
-Window make_unmapped_window(Window root, int x, int y, int width, int height,
-                            int bw);
-Window make_plain_unmapped_window(Window root, int x, int y, int width,
-                                  int height, int bw);
-Window make_window(Window root, int x, int y, int width, int height, int bw);
-Window make_plain_window(Window root, int x, int y, int width, int height,
-                         int bw);
+void set_sbox_item(STRING_BOX *sb, int32 item);
+int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb);
+void make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
+                       int32 maxchar);
+Window make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                         int32 bw, int32 fc, int32 bc);
+Window make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                            int32 bw);
+Window make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
+                                  int32 height, int32 bw);
+Window make_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw);
+Window make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                         int32 bw);
 void expose_resp_box(char *button, char *message, Window wb, Window wm,
                      Window w);
 void respond_box(char *button, char *message);
-void message_box(Window *w, int x, int y, char *message);
+void message_box(Window *w, int32 x, int32 y, char *message);
 void expose_choice(char *choice1, char *choice2, char *msg, Window c1,
                    Window c2, Window wm, Window w);
-int two_choice(char *choice1, char *choice2, char *string, char *key, int x,
-               int y, Window w, char *title);
-int yes_no_box(void);
-int pop_up_list(Window *root, char *title, char **list, char *key, int n,
-                int max, int def, int x, int y, char **hints, Window hwin,
+int32 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
+               int32 y, Window w, char *title);
+int32 yes_no_box(void);
+int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
+                int32 max, int32 def, int32 x, int32 y, char **hints, Window hwin,
                 char *httxt);
 void draw_pop_up(POP_UP p, Window w);
-Window make_unmapped_icon_window(Window root, int x, int y, int width,
-                                 int height, int bw, int icx, int icy,
+Window make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
+                                 int32 height, int32 bw, int32 icx, int32 icy,
                                  unsigned char *icdata);
-Window make_icon_window(Window root, int x, int y, int width, int height,
-                        int bw, int icx, int icy, unsigned char *icdata);
+Window make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                        int32 bw, int32 icx, int32 icy, unsigned char *icdata);
 
 #endif

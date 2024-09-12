@@ -20,6 +20,7 @@
 
 #include "llnltyps.h"
 #include "vector.h"
+#include "integers.h"
 
 /******************************************************************
  *                                                                *
@@ -78,7 +79,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef int (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
+typedef int32 (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
 
 /******************************************************************
  *                                                                *
@@ -98,7 +99,7 @@ typedef int (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
  *                                                                *
  ******************************************************************/
 
-typedef int (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int lr);
+typedef int32 (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int32 lr);
 
 /******************************************************************
  *                                                                *
@@ -136,7 +137,7 @@ typedef int (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int lr);
  *                                                                *
  ******************************************************************/
 
-int ModifiedGS(N_Vector *v, double **h, int k, int p, double *new_vk_norm);
+int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm);
 
 /******************************************************************
  *                                                                *
@@ -158,7 +159,7 @@ int ModifiedGS(N_Vector *v, double **h, int k, int p, double *new_vk_norm);
  *                                                                *
  ******************************************************************/
 
-int ClassicalGS(N_Vector *v, double **h, int k, int p, double *new_vk_norm,
+int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
                 N_Vector temp, double *s);
 
 /******************************************************************
@@ -193,7 +194,7 @@ int ClassicalGS(N_Vector *v, double **h, int k, int p, double *new_vk_norm,
  *                                                                *
  ******************************************************************/
 
-int QRfact(int n, double **h, double *q, int job);
+int32 QRfact(int32 n, double **h, double *q, int32 job);
 
 /******************************************************************
  *                                                                *
@@ -227,6 +228,6 @@ int QRfact(int n, double **h, double *q, int job);
  *                                                                *
  ******************************************************************/
 
-int QRsol(int n, double **h, double *q, double *b);
+int32 QRsol(int32 n, double **h, double *q, double *b);
 
 #endif

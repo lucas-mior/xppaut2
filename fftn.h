@@ -54,8 +54,8 @@
  *
  * ----------------------------------------------------------------------*
  *
- * int fftn (int ndim, const int dims[], REAL Re[], REAL Im[],
- *	    int iSign, double scaling);
+ * int32 fftn (int32 ndim, const int32 dims[], REAL Re[], REAL Im[],
+ *	    int32 iSign, double scaling);
  *
  * NDIM = the total number dimensions
  * DIMS = a vector of array sizes
@@ -78,27 +78,30 @@
  * example:
  * tri-variate transform with Re[n3][n2][n1], Im[n3][n2][n1]
  *
- *	int dims[3] = {n1,n2,n3}
+ *	int32 dims[3] = {n1,n2,n3}
  *	fftn (3, dims, Re, Im, 1, scaling);
  *
  * or, using a null terminated dimension list
- *	int dims[4] = {n1,n2,n3,0}
+ *	int32 dims[4] = {n1,n2,n3,0}
  *	fftn (0, dims, Re, Im, 1, scaling);
  * ----------------------------------------------------------------------*/
 #ifndef _FFTN_H
 #define _FFTN_H
+
+#include "integers.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 extern void fft_free(void);
 
 /* double precision routine */
-extern int fftn(int /* ndim */, const int /* dims */[], double /* Re */[],
-                double /* Im */[], int /* isign */, double /* scaling */);
+extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
+                double /* Im */[], int32 /* isign */, double /* scaling */);
 
 /* float precision routine */
-extern int fftnf(int /* ndim */, const int /* dims */[], float /* Re */[],
-                 float /* Im */[], int /* isign */, double /* scaling */);
+extern int32 fftnf(int32 /* ndim */, const int32 /* dims */[], float /* Re */[],
+                 float /* Im */[], int32 /* isign */, double /* scaling */);
 
 #ifdef __cplusplus
 }

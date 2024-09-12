@@ -1,36 +1,37 @@
 #ifndef _adj2_h_
 #define _adj2_h_
+#include "integers.h"
 
 #include <stdio.h>
 
 void init_trans(void);
-void dump_transpose_info(FILE *fp, int f);
-int do_transpose(void);
-int create_transpose(void);
+void dump_transpose_info(FILE *fp, int32 f);
+int32 do_transpose(void);
+int32 create_transpose(void);
 void alloc_h_stuff(void);
 void data_back(void);
 void adj_back(void);
 void h_back(void);
-void make_adj_com(int com);
+void make_adj_com(int32 com);
 void adjoint_parameters(void);
-void new_h_fun(int silent);
-void dump_h_stuff(FILE *fp, int f);
-int make_h(float **orb, float **adj, int nt, int node, int silent);
+void new_h_fun(int32 silent);
+void dump_h_stuff(FILE *fp, int32 f);
+int32 make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent);
 void new_adjoint(void);
 void test_test(void);
 void compute_one_orbit(double *ic, double per);
-int adjoint(float **orbit, float **adjnt, int nt, double dt, double eps,
-            double minerr, int maxit, int node);
-void eval_rhs(double **jac, int k1, int k2, double t, double *y, double *yp,
-              int node);
-int rk_interp(double **jac, int k1, int k2, double *y, double *work, int neq,
-              double del, int nstep);
-int step_eul(double **jac, int k, int k2, double *yold, double *work, int node,
+int32 adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
+            double minerr, int32 maxit, int32 node);
+void eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
+              int32 node);
+int32 rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
+              double del, int32 nstep);
+int32 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work, int32 node,
              double dt);
 void do_liapunov(void);
-void alloc_liap(int n);
-void do_this_liaprun(int i, double p);
-void norm_vec(double *v, double *mu, int n);
-int hrw_liapunov(double *liap, int batch, double eps);
+void alloc_liap(int32 n);
+void do_this_liaprun(int32 i, double p);
+void norm_vec(double *v, double *mu, int32 n);
+int32 hrw_liapunov(double *liap, int32 batch, double eps);
 
 #endif

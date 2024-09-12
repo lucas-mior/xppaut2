@@ -1,4 +1,5 @@
 #include "pop_list.h"
+#include "integers.h"
 
 #include "many_pops.h"
 #include "ggets.h"
@@ -28,7 +29,7 @@ set_window_title(Window win, char *string) {
 
 void
 make_scrbox_lists(void) {
-    int i, n;
+    int32 i, n;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
         "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
@@ -98,10 +99,10 @@ make_scrbox_lists(void) {
     return;
 }
 
-int
+int32
 get_x_coord_win(Window win) {
-    int x, y;
-    unsigned int h, w, bw, d;
+    int32 x, y;
+    uint32 h, w, bw, d;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &d);
     return (x);
@@ -119,12 +120,12 @@ destroy_scroll_box(SCROLLBOX *sb) {
 }
 
 void
-create_scroll_box(Window root, int x0, int y0, int nent, int nw, char **list,
+create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw, char **list,
                   SCROLLBOX *sb) {
-    int slen = 0;
-    int i, hgt, wid;
-    int ww, len;
-    int hw = DCURYs + 4;
+    int32 slen = 0;
+    int32 i, hgt, wid;
+    int32 ww, len;
+    int32 hw = DCURYs + 4;
     for (i = 0; i < nent; i++)
         if (slen < strlen(list[i]))
             slen = strlen(list[i]);
@@ -150,8 +151,8 @@ create_scroll_box(Window root, int x0, int y0, int nent, int nw, char **list,
 
 void
 expose_scroll_box(Window w, SCROLLBOX sb) {
-    int i;
-    /*int flag=-1;*/
+    int32 i;
+    /*int32 flag=-1;*/
     for (i = 0; i < sb.nw; i++)
         if (w == sb.w[i]) {
             redraw_scroll_box(sb);
@@ -164,8 +165,8 @@ expose_scroll_box(Window w, SCROLLBOX sb) {
 
 void
 redraw_scroll_box(SCROLLBOX sb) {
-    int i, p;
-    int i0 = sb.i0;
+    int32 i, p;
+    int32 i0 = sb.i0;
     for (i = 0; i < sb.nw; i++) {
         XClearWindow(display, sb.w[i]);
         XDrawString(display, sb.w[i], small_gc, 0, CURY_OFFs, sb.list[i + i0],
@@ -182,8 +183,8 @@ redraw_scroll_box(SCROLLBOX sb) {
 }
 
 void
-crossing_scroll_box(Window w, int c, SCROLLBOX sb) {
-    int i;
+crossing_scroll_box(Window w, int32 c, SCROLLBOX sb) {
+    int32 i;
     for (i = 0; i < sb.nw; i++) {
         if (w == sb.w[i]) {
             XSetWindowBorderWidth(display, w, c);
@@ -193,11 +194,11 @@ crossing_scroll_box(Window w, int c, SCROLLBOX sb) {
     return;
 }
 
-int
+int32
 scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
-    int x;
+    int32 x;
     Window w;
-    int pos, len;
+    int32 pos, len;
     w = ev.xmotion.window;
     x = ev.xmotion.y;
     if (sb->nw >= sb->nent)
@@ -219,10 +220,10 @@ scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
     return 1;
 }
 
-int
+int32
 select_scroll_item(Window w, SCROLLBOX sb) {
-    int i;
-    int item = -1;
+    int32 i;
+    int32 item = -1;
     for (i = 0; i < sb.nw; i++) {
         if (w == sb.w[i]) {
             item = i + sb.i0;
@@ -234,12 +235,12 @@ select_scroll_item(Window w, SCROLLBOX sb) {
 
 void
 scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb) {
-    int hw = DCURYs + 4;
-    int ihot = sb->hot;
-    int id = sb->hh[ihot];
-    int xx;
-    int maxhgt = sb->hgt;
-    int maxw;
+    int32 hw = DCURYs + 4;
+    int32 ihot = sb->hot;
+    int32 id = sb->hh[ihot];
+    int32 xx;
+    int32 maxhgt = sb->hgt;
+    int32 maxw;
     if (id < 0)
         return; /* shouldnt happen */
     maxw = maxhgt / hw - 1;
@@ -251,14 +252,14 @@ scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb) {
     return;
 }
 
-int
-do_string_box(int n, int row, int col, char *title, char **names,
-              char values[][MAX_LEN_SBOX], int maxchar)
+int32
+do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
+              char values[][MAX_LEN_SBOX], int32 maxchar)
 
 {
     STRING_BOX sb;
-    int i, status;
-    int colm, pos;
+    int32 i, status;
+    int32 colm, pos;
     SCROLLBOX scrb;
     scrb.exist = 0;
 
@@ -299,8 +300,8 @@ do_string_box(int n, int row, int col, char *title, char **names,
 }
 
 void
-expose_sbox(STRING_BOX sb, Window w, int pos, int col) {
-    int i, flag;
+expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col) {
+    int32 i, flag;
 
     if (w == sb.ok) {
         XDrawString(display, w, gc, 5, CURY_OFF, "Ok", 2);
@@ -322,9 +323,9 @@ expose_sbox(STRING_BOX sb, Window w, int pos, int col) {
 }
 
 void
-do_hilite_text(char *name, char *value, int flag, Window w, int pos, int col) {
-    int l = strlen(name);
-    int m = strlen(value);
+do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos, int32 col) {
+    int32 l = strlen(name);
+    int32 m = strlen(value);
     if (flag) {
         set_fore();
         bar(0, 0, l * DCURX, DCURY + 4, w);
@@ -342,8 +343,8 @@ do_hilite_text(char *name, char *value, int flag, Window w, int pos, int col) {
 }
 
 void
-reset_hot(int inew, STRING_BOX *sb) {
-    int i = sb->hot;
+reset_hot(int32 inew, STRING_BOX *sb) {
+    int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
     do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
@@ -355,7 +356,7 @@ reset_hot(int inew, STRING_BOX *sb) {
 }
 
 void
-new_editable(STRING_BOX *sb, int inew, int *pos, int *col, int *done,
+new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
              Window *w) {
 
     reset_hot(inew, sb);
@@ -367,9 +368,9 @@ new_editable(STRING_BOX *sb, int inew, int *pos, int *col, int *done,
 }
 
 void
-set_sbox_item(STRING_BOX *sb, int item) {
-    int i = sb->hot;
-    int id = sb->hh[i];
+set_sbox_item(STRING_BOX *sb, int32 item) {
+    int32 i = sb->hot;
+    int32 id = sb->hh[i];
     if (id < 0)
         return;
     strcpy(sb->value[i], scrbox_list[id].list[item]);
@@ -378,15 +379,15 @@ set_sbox_item(STRING_BOX *sb, int item) {
     return;
 }
 
-int
-s_box_event_loop(STRING_BOX *sb, int *pos, int *col, SCROLLBOX *scrb) {
+int32
+s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
     XEvent ev;
-    int status = -1, inew;
-    int nn = sb->n;
-    int done = 0, i, j;
-    int item;
+    int32 status = -1, inew;
+    int32 nn = sb->n;
+    int32 done = 0, i, j;
+    int32 item;
     char ch;
-    int ihot = sb->hot;
+    int32 ihot = sb->hot;
     Window wt;
     Window w = sb->win[ihot]; /* active window   */
     char *s;
@@ -479,11 +480,11 @@ s_box_event_loop(STRING_BOX *sb, int *pos, int *col, SCROLLBOX *scrb) {
 }
 
 void
-make_sbox_windows(STRING_BOX *sb, int row, int col, char *title, int maxchar) {
-    int width, height;
-    int i;
-    int xpos, ypos, n = sb->n;
-    int xstart, ystart;
+make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title, int32 maxchar) {
+    int32 width, height;
+    int32 i;
+    int32 xpos, ypos, n = sb->n;
+    int32 xstart, ystart;
 
     XTextProperty winname;
     XSizeHints size_hints;
@@ -536,7 +537,7 @@ consistent use of colors for a themed look.
 
 Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
         Window root;
-        int x,y,width,height,bw;
+        int32 x,y,width,height,bw;
         {
          Window win;
          win=XCreateSimpleWindow(display,root,x,y,width,height,
@@ -554,8 +555,8 @@ Window make_fancy_window(root,x,y,width,height,bw,fc,bc)
 */
 
 Window
-make_fancy_window(Window root, int x, int y, int width, int height, int bw,
-                  int fc, int bc) {
+make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw,
+                  int32 fc, int32 bc) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -566,7 +567,7 @@ make_fancy_window(Window root, int x, int y, int width, int height, int bw,
             XCreatePixmap(display, root, width, height,
                           DefaultDepth(display, DefaultScreen(display)));
 
-        int xx, yy;
+        int32 xx, yy;
         double cosine;
         /*double l2rads;*/
         xx = 0;
@@ -643,7 +644,7 @@ make_fancy_window(Window root, int x, int y, int width, int height, int bw,
 }
 
 Window
-make_unmapped_window(Window root, int x, int y, int width, int height, int bw) {
+make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -656,7 +657,7 @@ make_unmapped_window(Window root, int x, int y, int width, int height, int bw) {
             XCreatePixmap(display, root, width, height,
                           DefaultDepth(display, DefaultScreen(display)));
 
-        int xx, yy;
+        int32 xx, yy;
         double cosine;
         /*double l2rads;
          */
@@ -731,8 +732,8 @@ make_unmapped_window(Window root, int x, int y, int width, int height, int bw) {
 }
 
 void
-bin_prnt_byte(int x, int *arr) {
-    int n = 0;
+bin_prnt_byte(int32 x, int32 *arr) {
+    int32 n = 0;
     for (n = 7; n >= 0; n--) {
         if ((x & 0x80) != 0) {
             arr[n] = 1;
@@ -748,8 +749,8 @@ bin_prnt_byte(int x, int *arr) {
 
 /*Convenience function for making buttons with icons on them*/
 Window
-make_unmapped_icon_window(Window root, int x, int y, int width, int height,
-                          int bw, int icx, int icy, unsigned char *icdata) {
+make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                          int32 bw, int32 icx, int32 icy, unsigned char *icdata) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -758,7 +759,7 @@ make_unmapped_icon_window(Window root, int x, int y, int width, int height,
 
     Pixmap pmap = XCreatePixmap(display, root, width, height,
                                 DefaultDepth(display, DefaultScreen(display)));
-    int xx, yy;
+    int32 xx, yy;
     XColor bcolour, col2, diffcol;
     Colormap cmap = DefaultColormap(display, DefaultScreen(display));
     XParseColor(display, cmap, UserWhite, &bcolour);
@@ -836,7 +837,7 @@ make_unmapped_icon_window(Window root, int x, int y, int width, int height,
         }
     }
 
-    int z = 0, row = 0, col = 0;
+    int32 z = 0, row = 0, col = 0;
 
     if (icdata == NULL) {
         /*Don't do anything...*/
@@ -851,7 +852,7 @@ make_unmapped_icon_window(Window root, int x, int y, int width, int height,
 
         unsigned char *ps = icdata;
 
-        int intstack[8];
+        int32 intstack[8];
 
         col = 0;
         row = -1;
@@ -863,7 +864,7 @@ make_unmapped_icon_window(Window root, int x, int y, int width, int height,
                 bin_prnt_byte(*ps, intstack);
                 ps++;
 
-                int q = 0;
+                int32 q = 0;
                 for (q = 0; q < 8; q++) /*8 bits per byte*/
                 {
                     if (col >= width) {
@@ -897,8 +898,8 @@ make_unmapped_icon_window(Window root, int x, int y, int width, int height,
 }
 
 Window
-make_plain_unmapped_window(Window root, int x, int y, int width, int height,
-                           int bw) {
+make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
+                           int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -912,8 +913,8 @@ make_plain_unmapped_window(Window root, int x, int y, int width, int height,
 }
 
 Window
-make_icon_window(Window root, int x, int y, int width, int height, int bw,
-                 int icx, int icy, unsigned char *icdata) {
+make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw,
+                 int32 icx, int32 icy, unsigned char *icdata) {
     Window win;
     win = make_unmapped_icon_window(root, x, y, width, height, bw, icx, icy,
                                     icdata);
@@ -924,7 +925,7 @@ make_icon_window(Window root, int x, int y, int width, int height, int bw,
 }
 
 Window
-make_window(Window root, int x, int y, int width, int height, int bw) {
+make_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) {
     Window win;
     win = make_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen))
@@ -934,7 +935,7 @@ make_window(Window root, int x, int y, int width, int height, int bw) {
 }
 
 Window
-make_plain_window(Window root, int x, int y, int width, int height, int bw) {
+make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height, int32 bw) {
     Window win;
     win = make_plain_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen))
@@ -954,11 +955,11 @@ expose_resp_box(char *button, char *message, Window wb, Window wm, Window w) {
 
 void
 respond_box(char *button, char *message) {
-    int l1 = strlen(message);
-    int l2 = strlen(button);
-    int width;
-    int height;
-    int done = 0;
+    int32 l1 = strlen(message);
+    int32 l2 = strlen(button);
+    int32 width;
+    int32 height;
+    int32 done = 0;
     XEvent ev;
     Window wmain, wb, wm;
     width = l1;
@@ -1011,9 +1012,9 @@ respond_box(char *button, char *message) {
 }
 
 void
-message_box(Window *w, int x, int y, char *message) {
-    int wid = strlen(message) * DCURX;
-    int hgt = 4 * DCURY;
+message_box(Window *w, int32 x, int32 y, char *message) {
+    int32 wid = strlen(message) * DCURX;
+    int32 hgt = 4 * DCURY;
     Window z;
     z = make_plain_window(*w, x, y, wid + 50, hgt, 4);
     XSelectInput(display, z, 0);
@@ -1035,17 +1036,17 @@ expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
     return;
 }
 
-int
-two_choice(char *choice1, char *choice2, char *string, char *key, int x, int y,
+int32
+two_choice(char *choice1, char *choice2, char *string, char *key, int32 x, int32 y,
            Window w, char *title) {
     Window base, c1, c2, wm;
     XEvent ev;
-    int not_done = 1;
-    int value = 0;
-    int l1 = strlen(choice1) * DCURX;
-    int l2 = strlen(choice2) * DCURX;
-    int lm = strlen(string) * DCURX;
-    int tot = lm, xm, x1, x2;
+    int32 not_done = 1;
+    int32 value = 0;
+    int32 l1 = strlen(choice1) * DCURX;
+    int32 l2 = strlen(choice2) * DCURX;
+    int32 lm = strlen(string) * DCURX;
+    int32 tot = lm, xm, x1, x2;
 
     if (lm < (l1 + l2 + 4 * DCURX))
         tot = (l1 + l2 + 4 * DCURX);
@@ -1085,11 +1086,11 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int x, int y,
 
         case ButtonPress:
             if (ev.xbutton.window == c1) {
-                value = (int)key[0];
+                value = (int32)key[0];
                 not_done = 0;
             }
             if (ev.xbutton.window == c2) {
-                value = (int)key[1];
+                value = (int32)key[1];
                 not_done = 0;
             }
             break;
@@ -1119,7 +1120,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int x, int y,
     return (value);
 }
 
-int
+int32
 yes_no_box(void) {
     char ans;
     ans = (char)TwoChoice("YES", "NO", "Are you sure?", "yn");
@@ -1130,18 +1131,18 @@ yes_no_box(void) {
 
 /*  new pop_up_list   */
 
-int
-pop_up_list(Window *root, char *title, char **list, char *key, int n, int max,
-            int def, int x, int y, char **hints, Window hwin, char *httxt)
+int32
+pop_up_list(Window *root, char *title, char **list, char *key, int32 n, int32 max,
+            int32 def, int32 x, int32 y, char **hints, Window hwin, char *httxt)
 
 {
     POP_UP p;
     XEvent ev;
     Window w;
     Cursor txt;
-    int i, done = 0, value;
-    int width = DCURX * (max + 5);
-    int length = (DCURY + 6) * (n + 2);
+    int32 i, done = 0, value;
+    int32 width = DCURX * (max + 5);
+    int32 length = (DCURY + 6) * (n + 2);
     w = make_plain_window(*root, x, y, width, length, 2);
     txt = XCreateFontCursor(display, XC_hand2);
     XDefineCursor(display, w, txt);
@@ -1153,7 +1154,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int n, int max,
     p.max = max;
     p.key = key;
     p.hot = def;
-    value = (int)key[def];
+    value = (int32)key[def];
     p.w = (Window *)malloc(n * sizeof(Window));
     p.tit = make_window(w, 0, 0, width, DCURY + 7, 0);
     for (i = 0; i < n; i++) {
@@ -1177,7 +1178,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int n, int max,
         case ButtonPress:
             for (i = 0; i < n; i++) {
                 if (ev.xbutton.window == p.w[i]) {
-                    value = (int)p.key[i];
+                    value = (int32)p.key[i];
                     done = 1;
                 }
             }
@@ -1211,13 +1212,13 @@ pop_up_list(Window *root, char *title, char **list, char *key, int n, int max,
     XDestroyWindow(display, p.base);
     XFlush(display);
     if (value == 13)
-        value = (int)key[def];
+        value = (int32)key[def];
     return (value);
 }
 
 void
 draw_pop_up(POP_UP p, Window w) {
-    int i;
+    int32 i;
 
     if (w == p.tit) {
         set_fore();
@@ -1241,18 +1242,18 @@ draw_pop_up(POP_UP p, Window w) {
 /*   Note that this will be improved later -- it is pretty dumb
 
 pop_up_list(root,title,list,key,n,max,def,x,y)
-int def,n,max,x,y;
+int32 def,n,max,x,y;
  char *title,**list,*key;
 Window *root;
 {
         Window w;
         Cursor txt;
         XEvent ev;
-        int width=DCURX*(max+4);
-        int not_done=1;
-        int value=-1;
-        int com;
-        int length=(DCURY+6)*(n+2);
+        int32 width=DCURX*(max+4);
+        int32 not_done=1;
+        int32 value=-1;
+        int32 com;
+        int32 length=(DCURY+6)*(n+2);
         w=make_window(*root,x,y,width,length,2);
         txt=XCreateFontCursor(display,XC_hand2);
          XDefineCursor(display,w,txt);
@@ -1276,7 +1277,7 @@ Window *root;
                            if(ev.xbutton.window==w){
                                 com=ev.xbutton.y/(DCURY+8)-1;
                                 if(com>-1&&com<n){
-                                        value=(int)key[com];
+                                        value=(int32)key[com];
                                         not_done=0;
 
                                         }
@@ -1294,11 +1295,11 @@ Window *root;
    draw_pop_list(w,title,list,n,max,def)
    Window w;
    char **list,*title;
-   int n,max;
-   int def;
+   int32 n,max;
+   int32 def;
    {
 
-        int i,xi,yi;
+        int32 i,xi,yi;
         xi=2*DCURX;
         yi=4;
         set_fore();

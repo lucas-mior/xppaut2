@@ -11,7 +11,7 @@
  * be easily modifiable to work with different double or int64    *
  * types and use the exported names double and int64 within such  *
  * a file. The types for double and int64 below have been set to  *
- * double and int, respectively. A user should modify these       *
+ * double and int32, respectively. A user should modify these       *
  * type declarations as he/she sees fit. For example, if a user   *
  * wants the work with type float because double precision        *
  * floating point arithmetic is too expensive on the user's       *
@@ -21,10 +21,10 @@
  *                                                                *
  * Similarly, if a user needs to work with extremely large        *
  * integers (see the system header file <limits.h> for the limits *
- * on type int and   int on your machine), then the user       *
+ * on type int32 and   int32 on your machine), then the user       *
  * should change the definition below to:                         *
  *                                                                *
- * typedef   int int64;                                      *
+ * typedef   int32 int64;                                      *
  *                                                                *
  * The constants FLOAT, DOUBLE, INT, LONG_INT indicate the        *
  * underlying types for double and int64. They should be set as   *
@@ -37,13 +37,13 @@
  *     #define DOUBLE 1     (double is double)                      *
  *                                                                *
  * (3) #define INT 1                                              *
- *     #define LONG_INT 0   (int64 is int)                      *
+ *     #define LONG_INT 0   (int64 is int32)                      *
  *                                                                *
  * (4) #define INT 0                                              *
- *     #define LONG_INT 1   (int64 is   int)                 *
+ *     #define LONG_INT 1   (int64 is   int32)                 *
  *                                                                *
  * Thus the legal types for double are float and double, while      *
- * the legal types for int64 are int and   int. The macro    *
+ * the legal types for int64 are int32 and   int32. The macro    *
  * RCONST gives a user a convenient way to define double            *
  * constants. To use the double constant 1.0, for example, the      *
  * user should write                                              *
@@ -64,13 +64,13 @@
  * Types : double, int64                                          *
  *----------------------------------------------------------------*
  * The types double and int64 are currently set to double and     *
- * int, respectively. See the documentation at the top for        *
+ * int32, respectively. See the documentation at the top for        *
  * usage details and a description of associated constants and    *
  * macros.                                                        *
  *                                                                *
  ******************************************************************/
 #include <stdint.h>
-typedef int64_t int64;
+#include "integers.h"
 
 #define FLOAT 0
 #define DOUBLE 1
@@ -95,8 +95,8 @@ typedef int64_t int64;
  *----------------------------------------------------------------*
  * ANSI C does not have a built-in boolean type. Below is the     *
  * definition for a new type bool. The advantage of using the     *
- * name bool (instead of int) is an increase in code readability. *
- * It allows the programmer to make a distinction between int and *
+ * name bool (instead of int32) is an increase in code readability. *
+ * It allows the programmer to make a distinction between int32 and *
  * boolean data. Variables of type bool are intended to have only *
  * the two values FALSE and TRUE which are defined below to be    *
  * equal to 0 and 1, respectively.                                *
@@ -104,7 +104,7 @@ typedef int64_t int64;
  ******************************************************************/
 
 #ifndef bool
-#define bool int
+#define bool int32
 #endif
 
 #ifndef FALSE

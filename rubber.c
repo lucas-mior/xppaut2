@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "integers.h"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
@@ -12,20 +13,20 @@
 
 extern Window draw_win;
 extern Display *display;
-extern int screen;
-extern int xor_flag, xorfix;
+extern int32 screen;
+extern int32 xor_flag, xorfix;
 extern GC gc, gc_graph;
-extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
     GrFore, GrBack;
 
-int
-rubber(int *x1, int *y1, int *x2, int *y2, Window w, int f) {
+int32
+rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
     XEvent ev;
-    int there = 0;
-    int error = 0;
-    int dragx = 0, dragy = 0;
-    int oldx = 0, oldy = 0;
-    int state = 0;
+    int32 there = 0;
+    int32 error = 0;
+    int32 dragx = 0, dragy = 0;
+    int32 oldx = 0, oldy = 0;
+    int32 state = 0;
     xor_flag = 1;
     XFlush(display);
     chk_xor();
@@ -109,8 +110,8 @@ rubber(int *x1, int *y1, int *x2, int *y2, Window w, int f) {
 }
 
 void
-rbox(int i1, int j1, int i2, int j2, Window w, int f) {
-    int x1 = i1, x2 = i2, y1 = j1, y2 = j2;
+rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f) {
+    int32 x1 = i1, x2 = i2, y1 = j1, y2 = j2;
     if (f == RUBLINE) {
         XDrawLine(display, w, gc, i1, j1, i2, j2);
         return;

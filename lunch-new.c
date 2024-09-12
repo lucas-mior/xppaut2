@@ -7,6 +7,7 @@
 #include "volterra2.h"
 #include "storage.h"
 #include "init_conds.h"
+#include "integers.h"
 
 #include "numerics.h"
 #include <stdlib.h>
@@ -29,28 +30,28 @@
 #define MAXUFUN 50
 #define PARAMBOX 1
 
-extern int XPPBatch;
+extern int32 XPPBatch;
 extern BoxList ParamBox;
 
-extern int Xup;
+extern int32 Xup;
 extern Window main_win;
 extern GRAPH *MyGraph;
 
 extern BC_STRUCT my_bc[MAXODE];
 
-int set_type = 0;
+int32 set_type = 0;
 
 extern FIXINFO fixinfo[MAXODE];
-extern int FIX_VAR, NFUN;
+extern int32 FIX_VAR, NFUN;
 
-extern int NJMP, NMESH, METHOD, NODE, POIMAP, POIVAR, POISGN, SOS, INFLAG,
+extern int32 NJMP, NMESH, METHOD, NODE, POIMAP, POIVAR, POISGN, SOS, INFLAG,
     NMarkov;
-extern int NUPAR, NEQ, BVP_MAXIT, EVEC_ITER, DelayFlag, MyStart;
+extern int32 NUPAR, NEQ, BVP_MAXIT, EVEC_ITER, DelayFlag, MyStart;
 extern double last_ic[MAXODE], MyData[MAXODE], MyTime, LastTime;
 extern double TEND, DELTA_T, T0, TRANS, BOUND, HMIN, HMAX, TOLER, ATOLER, DELAY;
 extern double POIPLN, EVEC_ERR, NEWT_ERR;
 extern double BVP_TOL, BVP_EPS;
-extern int MaxPoints;
+extern int32 MaxPoints;
 
 extern char upar_names[MAXPAR][11], this_file[100], delay_string[MAXODE][80];
 extern char uvar_names[MAXODE][12];
@@ -58,7 +59,7 @@ extern char *ode_names[MAXODE], *fix_names[MAXODE];
 
 void
 file_inf(void) {
-    int ok;
+    int32 ok;
     FILE *fp;
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
@@ -77,7 +78,7 @@ file_inf(void) {
 
 void
 ps_write_pars(FILE *fp) {
-    int div, rem, i, j;
+    int32 div, rem, i, j;
     double z;
 
     fprintf(fp, "\n %%%% %s \n %%%% Parameters ...\n", this_file);
@@ -100,13 +101,13 @@ ps_write_pars(FILE *fp) {
 
 void
 do_info(FILE *fp) {
-    int i;
+    int32 i;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
         "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
         "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
-    int div, rem;
-    int j;
+    int32 div, rem;
+    int32 j;
     double z;
     char bob[200];
     char fstr[15];
@@ -178,9 +179,9 @@ do_info(FILE *fp) {
     fprintf(fp, "\n");
 }
 
-int
+int32
 read_lunch(FILE *fp) {
-    int f = READEM, ne, np, temp;
+    int32 f = READEM, ne, np, temp;
     char bob[256];
 
     fgets(bob, 255, fp);
@@ -219,10 +220,10 @@ read_lunch(FILE *fp) {
 
 void
 do_lunch(/* f=1 to read and 0 to write */
-         int f)
+         int32 f)
 
 {
-    int ne, np, ok, temp;
+    int32 ne, np, ok, temp;
     char bob[256];
     FILE *fp;
     time_t ttt;
@@ -301,7 +302,7 @@ do_lunch(/* f=1 to read and 0 to write */
 
 void
 dump_eqn(FILE *fp) {
-    int i;
+    int32 i;
 
     char fstr[15];
     fprintf(fp, "RHS etc ...\n");
@@ -327,7 +328,7 @@ dump_eqn(FILE *fp) {
 }
 
 void
-io_numerics(int f, FILE *fp) {
+io_numerics(int32 f, FILE *fp) {
     char *method[] = {"Discrete",  "Euler", "Mod. Euler", "Runge-Kutta",
                       "Adams",     "Gear",  "Volterra",   "BackEul",
                       "Qual RK",   "Stiff", "CVode",      "DorPrin5",
@@ -385,10 +386,10 @@ io_numerics(int f, FILE *fp) {
 }
 
 void
-io_parameter_file(char *fn, int flag) {
+io_parameter_file(char *fn, int32 flag) {
     char fnx[256], c;
-    int i, j = 0;
-    int np;
+    int32 i, j = 0;
+    int32 np;
     FILE *fp;
     time_t ttt;
     for (i = 6; i < strlen(fn); i++) {
@@ -432,10 +433,10 @@ io_parameter_file(char *fn, int flag) {
 }
 
 void
-io_ic_file(char *fn, int flag) {
+io_ic_file(char *fn, int32 flag) {
     char fnx[256], c;
-    int i, j = 0;
-    int chk = 0;
+    int32 i, j = 0;
+    int32 chk = 0;
     FILE *fp;
     char msg[256];
 
@@ -504,8 +505,8 @@ io_ic_file(char *fn, int flag) {
 }
 
 void
-io_parameters(int f, FILE *fp) {
-    int i, index;
+io_parameters(int32 f, FILE *fp) {
+    int32 i, index;
     char junk[256];
     double z;
     for (i = 0; i < NUPAR; i++) {
@@ -533,8 +534,8 @@ io_parameters(int f, FILE *fp) {
 }
 
 void
-io_exprs(int f, FILE *fp) {
-    int i;
+io_exprs(int32 f, FILE *fp) {
+    int32 i;
     char temp[256];
     double z;
     if (f == READEM && set_type == 1) {
@@ -589,8 +590,8 @@ io_exprs(int f, FILE *fp) {
 }
 
 void
-io_graph(int f, FILE *fp) {
-    int j, k;
+io_graph(int32 f, FILE *fp) {
+    int32 j, k;
     char temp[256];
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
@@ -649,7 +650,7 @@ io_graph(int f, FILE *fp) {
 }
 
 void
-io_int(int *i, FILE *fp, int f, char *ss) {
+io_int(int32 *i, FILE *fp, int32 f, char *ss) {
     char bob[256];
     if (f == READEM) {
         fgets(bob, 255, fp);
@@ -659,7 +660,7 @@ io_int(int *i, FILE *fp, int f, char *ss) {
 }
 
 void
-io_double(double *z, FILE *fp, int f, char *ss) {
+io_double(double *z, FILE *fp, int32 f, char *ss) {
     char bob[256];
     if (f == READEM) {
         fgets(bob, 255, fp);
@@ -669,7 +670,7 @@ io_double(double *z, FILE *fp, int f, char *ss) {
 }
 
 void
-io_float(float *z, FILE *fp, int f, char *ss) {
+io_float(float *z, FILE *fp, int32 f, char *ss) {
     char bob[256];
     if (f == READEM) {
         fgets(bob, 255, fp);
@@ -679,26 +680,26 @@ io_float(float *z, FILE *fp, int f, char *ss) {
 }
 /*
 io_int_array(k,n,fp,f)
-int n,f,*k;
+int32 n,f,*k;
 FILE *fp;
 {
-int i;
+int32 i;
  for(i=0;i<n;i++)io_int(fp,&k[i],f);
 }
 
 io_double_array(z,n,fp,f)
 double *z;
-int n,f;
+int32 n,f;
 FILE *fp;
 {
- int i;
+ int32 i;
  for(i=0;i<n;i++)io_double(fp,&z[i],f);
 
 }
 */
 void
-io_string(char *s, int len, FILE *fp, int f) {
-    int i;
+io_string(char *s, int32 len, FILE *fp, int32 f) {
+    int32 i;
     if (f == READEM) {
         fgets(s, len, fp);
         i = 0;

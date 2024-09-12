@@ -11,6 +11,7 @@
 #include "init_conds.h"
 #include "many_pops.h"
 #include "pop_list.h"
+#include "integers.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -41,25 +42,25 @@ extern char *browse_hint[];
 
 #define BMAXCOL 20
 
-extern int *my_ode[];
+extern int32 *my_ode[];
 
-extern int *plotlist, N_plist;
+extern int32 *plotlist, N_plist;
 
 extern char *ode_names[MAXODE];
 double evaluate();
-extern int NEQ, MAXSTOR, NMarkov, FIX_VAR;
-extern int NEQ_MIN;
-extern int NODE, NJMP;
-extern int Xup, TipsFlag;
+extern int32 NEQ, MAXSTOR, NMarkov, FIX_VAR;
+extern int32 NEQ_MIN;
+extern int32 NODE, NJMP;
+extern int32 Xup, TipsFlag;
 extern double last_ic[MAXODE], DELTA_T;
 
-extern int NSYM, NSYM_START, NCON, NCON_START;
+extern int32 NSYM, NSYM_START, NCON, NCON_START;
 
 extern Display *display;
-extern int screen, storind;
+extern int32 screen, storind;
 extern GC gc, small_gc;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
-extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
     GrFore, GrBack;
 
 extern Window command_pop;
@@ -84,19 +85,19 @@ extern Window command_pop;
                 Window time;
                 Window hint;
                 char hinttxt[256];
-                int dataflag,xflag;
-                int col0,row0,ncol,nrow;
-                int maxrow,maxcol;
+                int32 dataflag,xflag;
+                int32 col0,row0,ncol,nrow;
+                int32 maxrow,maxcol;
                 float **data;
-                int istart,iend;
+                int32 istart,iend;
                 } BROWSER;
 */
 BROWSER my_browser;
 
-extern int noicon;
+extern int32 noicon;
 extern char uvar_names[MAXODE][12];
 float *old_rep;
-int REPLACE = 0, R_COL = 0;
+int32 REPLACE = 0, R_COL = 0;
 
 extern float **storage;
 
@@ -106,13 +107,13 @@ get_browser_data(void) {
 }
 
 void
-set_browser_data(float **data, int col0) {
+set_browser_data(float **data, int32 col0) {
     my_browser.data = data;
     my_browser.col0 = col0;
 }
 
 float *
-get_data_col(int c) {
+get_data_col(int32 c) {
     return my_browser.data[c];
 }
 
@@ -124,7 +125,7 @@ occurrence of this field in the kernel source (other than the declaration) is a
 bug."
 */
 
-int
+int32
 gettimenow(void) {
     struct timeval now;
     /*struct timezone tz;
@@ -135,7 +136,7 @@ gettimenow(void) {
 }
 
 void
-waitasec(int msec) {
+waitasec(int32 msec) {
     struct timeval tim;
     /*struct timezone tz;*/
     double sec = (double)msec / 1000;
@@ -153,7 +154,7 @@ waitasec(int msec) {
     }
 }
 
-int
+int32
 get_maxrow_browser(void) {
     return my_browser.maxrow;
 }
@@ -166,7 +167,7 @@ write_mybrowser_data(FILE *fp) {
 void write_browser_data(fp, b) FILE *fp;
 BROWSER *b;
 {
-    int i, j, l;
+    int32 i, j, l;
 
     for (i = b->istart; i < b->iend; i++) {
         if (N_plist > 0) {
@@ -182,7 +183,7 @@ BROWSER *b;
     }
 }
 
-int
+int32
 check_for_stor(float **data) {
     if (data != storage) {
         err_msg("Only data can be in browser");
@@ -194,8 +195,8 @@ check_for_stor(float **data) {
 void del_stor_col(var, b) BROWSER *b;
 char *var;
 {
-    int nc;
-    int i, j;
+    int32 nc;
+    int32 i, j;
 
     find_variable(var, &nc);
 
@@ -235,7 +236,7 @@ void data_del_col(b) /*  this only works with storage  */
     BROWSER *b;
 {
     Window w;
-    int rev, status;
+    int32 rev, status;
     char var[20];
     if (check_for_stor(b->data) == 0)
         return;
@@ -251,7 +252,7 @@ void data_del_col(b) /*  this only works with storage  */
 void data_add_col(b) BROWSER *b;
 {
     Window w;
-    int rev, status;
+    int32 rev, status;
     char var[20], form[80];
     if (check_for_stor(b->data) == 0)
         return;
@@ -267,18 +268,18 @@ void data_add_col(b) BROWSER *b;
     }
 }
 
-int
+int32
 add_stor_col(name, formula, b)
 char *name, *formula;
 BROWSER *b;
 {
-    int com[4000], i, j;
+    int32 com[4000], i, j;
 
     if (add_expr(formula, com, &i)) {
         err_msg("Bad Formula .... ");
         return (0);
     }
-    if ((my_ode[NEQ + FIX_VAR] = (int *)malloc((i + 2) * sizeof(int))) ==
+    if ((my_ode[NEQ + FIX_VAR] = (int32 *)malloc((i + 2) * sizeof(int32))) ==
         NULL) {
         err_msg("Cant allocate formula space");
         return (0);
@@ -317,10 +318,10 @@ BROWSER *b;
 }
 
 void
-chk_seq(char *f, int *seq, double *a1, double *a2) {
-    int i, j = -1;
+chk_seq(char *f, int32 *seq, double *a1, double *a2) {
+    int32 i, j = -1;
     char n1[256], n2[256];
-    int n = strlen(f);
+    int32 n = strlen(f);
     *seq = 0;
     *a1 = 0.0;
     *a2 = 0.0;
@@ -349,11 +350,11 @@ chk_seq(char *f, int *seq, double *a1, double *a2) {
 }
 
 void
-replace_column(char *var, char *form, float **dat, int n) {
-    int com[200], i, j;
-    int intflag = 0;
-    int dif_var = -1;
-    int seq = 0;
+replace_column(char *var, char *form, float **dat, int32 n) {
+    int32 com[200], i, j;
+    int32 intflag = 0;
+    int32 dif_var = -1;
+    int32 seq = 0;
     double a1, a2, da = 0.0;
     float old = 0.0, dt, derv = 0.0;
     float sum = 0.0;
@@ -466,7 +467,7 @@ void
 unreplace_column(void)
 
 {
-    int i, n = my_browser.maxrow;
+    int32 i, n = my_browser.maxrow;
     if (!REPLACE)
         return;
     for (i = 0; i < n; i++)
@@ -474,12 +475,12 @@ unreplace_column(void)
     wipe_rep();
 }
 
-void make_d_table(xlo, xhi, col, filename, b) int col;
+void make_d_table(xlo, xhi, col, filename, b) int32 col;
 double xlo, xhi;
 char *filename;
 BROWSER b;
 {
-    int i, npts, ok;
+    int32 i, npts, ok;
     FILE *fp;
     open_write_file(&fp, filename, &ok);
     if (!ok)
@@ -494,13 +495,13 @@ BROWSER b;
     ping();
 }
 
-void find_value(col, val, row, b) int col, *row;
+void find_value(col, val, row, b) int32 col, *row;
 float val;
 BROWSER b;
 {
-    int n = b.maxrow;
-    int i;
-    int ihot = 0;
+    int32 n = b.maxrow;
+    int32 i;
+    int32 ihot = 0;
     float err, errm;
     errm = fabs(b.data[col][0] - val);
     for (i = b.row0; i < n; i++) {
@@ -514,7 +515,7 @@ BROWSER b;
 }
 
 void
-find_variable(char *s, int *col) {
+find_variable(char *s, int32 *col) {
     *col = -1;
     if (strcasecmp("T", s) == 0) {
         *col = 0;
@@ -525,12 +526,12 @@ find_variable(char *s, int *col) {
         *col = *col + 1;
 }
 
-void browse_but_on(b, i, w, yn) int i;
+void browse_but_on(b, i, w, yn) int32 i;
 Window w;
-int yn;
+int32 yn;
 BROWSER *b;
 {
-    int val = 1;
+    int32 val = 1;
     if (yn)
         val = 2;
     XSetWindowBorderWidth(display, w, val);
@@ -542,7 +543,7 @@ BROWSER *b;
 
 void enter_browser(ev, b, yn) XEvent ev;
 BROWSER *b;
-int yn;
+int32 yn;
 {
     Window w = ev.xexpose.window;
     if (w == b->find)
@@ -594,7 +595,7 @@ int yn;
 void display_browser(w, b) Window w;
 BROWSER b;
 {
-    int i, i0;
+    int32 i, i0;
     if (w == b.hint) {
         XClearWindow(display, b.hint);
         XDrawString(display, w, small_gc, 8, CURY_OFFs, b.hinttxt,
@@ -638,7 +639,7 @@ BROWSER b;
 
 void redraw_browser(b) BROWSER b;
 {
-    int i, i0;
+    int32 i, i0;
     Window w;
     draw_data(b);
     for (i = 0; i < BMAXCOL; i++) {
@@ -653,13 +654,13 @@ void redraw_browser(b) BROWSER b;
 }
 
 void
-new_browse_dat(float **new_dat, int dat_len) {
+new_browse_dat(float **new_dat, int32 dat_len) {
     my_browser.data = new_dat;
     refresh_browser(dat_len);
 }
 
 void
-refresh_browser(int length) {
+refresh_browser(int32 length) {
     my_browser.dataflag = 1;
     my_browser.maxrow = length;
     my_browser.iend = length;
@@ -675,11 +676,11 @@ reset_browser(void) {
 
 void draw_data(b) BROWSER b;
 {
-    int i, i0, j, j0;
-    int x0;
+    int32 i, i0, j, j0;
+    int32 x0;
     char string[50];
-    int dcol = DCURXs * 14;
-    int drow = (DCURYs + 6);
+    int32 dcol = DCURXs * 14;
+    int32 drow = (DCURYs + 6);
     if (b.dataflag == 0)
         return; /*   no data  */
     XClearWindow(display, b.main);
@@ -744,15 +745,15 @@ make_new_browser(void) {
     my_browser.xflag = 1;
 }
 Window
-br_button(Window root, int row, int col, char *name, int iflag) {
+br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;
-    int dcol = 12 * DCURXs;
-    int drow = (DCURYs + 6);
-    /*int width=strlen(name)*DCURXs;
+    int32 dcol = 12 * DCURXs;
+    int32 drow = (DCURYs + 6);
+    /*int32 width=strlen(name)*DCURXs;
      */
-    int width = 8 * DCURXs;
-    int x;
-    int y;
+    int32 width = 8 * DCURXs;
+    int32 x;
+    int32 y;
     if (iflag == 1)
         dcol = 14 * DCURXs;
     x = dcol * col + 4;
@@ -762,14 +763,14 @@ br_button(Window root, int row, int col, char *name, int iflag) {
     return (win);
 }
 Window
-br_button_data(Window root, int row, int col, char *name, int iflag) {
+br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;
-    int dcol = 12 * DCURXs;
-    int drow = (DCURYs + 6);
-    int width = strlen(name) * DCURXs;
+    int32 dcol = 12 * DCURXs;
+    int32 drow = (DCURYs + 6);
+    int32 width = strlen(name) * DCURXs;
 
-    int x;
-    int y;
+    int32 x;
+    int32 y;
     if (iflag == 1)
         dcol = 14 * DCURXs;
     x = dcol * col + 4;
@@ -780,20 +781,20 @@ br_button_data(Window root, int row, int col, char *name, int iflag) {
 }
 
 void make_browser(b, wname, iname, row, col) BROWSER *b;
-int row, col;
+int32 row, col;
 char *wname, *iname;
 {
-    int i;
-    int ncol = col;
-    int width, height;
+    int32 i;
+    int32 ncol = col;
+    int32 width, height;
     Window base;
     /* XWMHints wm_hints;
      */
     XTextProperty winname, iconname;
     XSizeHints size_hints;
-    int dcol = DCURXs * 17;
-    int drow = (DCURYs + 6);
-    int ystart = 8;
+    int32 dcol = DCURXs * 17;
+    int32 drow = (DCURYs + 6);
+    int32 ystart = 8;
 
     if (ncol < 5)
         ncol = 5;
@@ -880,7 +881,7 @@ expose_my_browser(XEvent ev) {
 }
 
 void
-enter_my_browser(XEvent ev, int yn) {
+enter_my_browser(XEvent ev, int32 yn) {
     if (my_browser.xflag == 0)
         return;
     enter_browser(ev, &my_browser, yn);
@@ -894,7 +895,7 @@ my_browse_button(XEvent ev) {
 }
 
 void
-my_browse_keypress(XEvent ev, int *used) {
+my_browse_keypress(XEvent ev, int32 *used) {
     if (my_browser.xflag == 0)
         return;
     browse_keypress(ev, used, &my_browser);
@@ -920,10 +921,10 @@ BROWSER b;
 void resize_browser(win, b) Window win;
 BROWSER *b;
 {
-    unsigned int w, h, hreal;
-    int dcol = 17 * DCURXs, drow = DCURYs + 6;
-    int i0;
-    int newrow, newcol;
+    uint32 w, h, hreal;
+    int32 dcol = 17 * DCURXs, drow = DCURYs + 6;
+    int32 i0;
+    int32 newrow, newcol;
     if (my_browser.xflag == 0)
         return;
     if (win != b->base)
@@ -974,7 +975,7 @@ void browse_button(ev, b) BROWSER *b;
 XEvent ev;
 {
     XEvent zz;
-    int done = 1;
+    int32 done = 1;
     Window w = ev.xbutton.window;
     if (my_browser.xflag == 0)
         return;
@@ -1086,13 +1087,13 @@ XEvent ev;
 
 void browse_keypress(ev, used, b) BROWSER *b;
 XEvent ev;
-int *used;
+int32 *used;
 {
     Window w = ev.xkey.window;
 
     char ks;
     Window w2;
-    int rev;
+    int32 rev;
 
     *used = 0;
     if (my_browser.xflag == 0)
@@ -1235,7 +1236,7 @@ void data_down(b) BROWSER *b;
 
 void data_pgup(b) BROWSER *b;
 {
-    int i = b->row0 - b->nrow;
+    int32 i = b->row0 - b->nrow;
     if (i > 0)
         b->row0 = i;
     else
@@ -1245,7 +1246,7 @@ void data_pgup(b) BROWSER *b;
 
 void data_pgdn(b) BROWSER *b;
 {
-    int i = b->row0 + b->nrow;
+    int32 i = b->row0 + b->nrow;
     if (i < (b->maxrow - 1))
         b->row0 = i;
     else
@@ -1268,22 +1269,22 @@ void data_end(b) BROWSER *b;
 }
 
 void
-get_data_xyz(float *x, float *y, float *z, int i1, int i2, int i3, int off) {
-    int in = my_browser.row0 + off;
+get_data_xyz(float *x, float *y, float *z, int32 i1, int32 i2, int32 i3, int32 off) {
+    int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
     *y = my_browser.data[i2][in];
     *z = my_browser.data[i3][in];
 }
 
 void
-data_get_mybrowser(int row) {
+data_get_mybrowser(int32 row) {
     my_browser.row0 = row;
     data_get(&my_browser);
 }
 
 void data_get(b) BROWSER *b;
 {
-    int i, in = b->row0;
+    int32 i, in = b->row0;
     set_ivar(0, (double)storage[0][in]);
     for (i = 0; i < NODE; i++) {
         last_ic[i] = (double)storage[i + 1][in];
@@ -1302,7 +1303,7 @@ void data_get(b) BROWSER *b;
 void data_replace(b) BROWSER *b;
 {
     Window w;
-    int rev, status;
+    int32 rev, status;
     char var[20], form[80];
     XGetInputFocus(display, &w, &rev);
     strcpy(var, uvar_names[0]);
@@ -1328,13 +1329,13 @@ void data_unreplace(b) BROWSER *b;
 void data_table(b) BROWSER *b;
 {
     Window w;
-    int rev, status;
+    int32 rev, status;
 
     static char *name[] = {"Variable", "Xlo", "Xhi", "File"};
     char value[4][25];
 
     double xlo = 0, xhi = 1;
-    int col;
+    int32 col;
     sprintf(value[0], uvar_names[0]);
     sprintf(value[1], "0.00");
     sprintf(value[2], "1.00");
@@ -1354,11 +1355,11 @@ void data_table(b) BROWSER *b;
 void data_find(b) BROWSER *b;
 {
     Window w;
-    int rev, status;
+    int32 rev, status;
 
     static char *name[] = {"*0Variable", "Value"};
     char value[2][25];
-    int col, row;
+    int32 col, row;
 
     float val;
 
@@ -1382,7 +1383,7 @@ void data_find(b) BROWSER *b;
 }
 
 void
-open_write_file(FILE **fp, char *fil, int *ok) {
+open_write_file(FILE **fp, char *fil, int32 *ok) {
     char ans;
     *ok = 0;
     *fp = fopen(fil, "r");
@@ -1405,12 +1406,12 @@ open_write_file(FILE **fp, char *fil, int *ok) {
 void data_read(b) BROWSER *b;
 {
 
-    int status;
+    int32 status;
     char fil[256];
     char ch;
     FILE *fp;
-    int k;
-    int len, count = 0, white = 1;
+    int32 k;
+    int32 len, count = 0, white = 1;
     float z;
 
     strcpy(fil, "test.dat");
@@ -1438,11 +1439,11 @@ void data_read(b) BROWSER *b;
 
     do {
         fscanf(fp, "%c", &ch);
-        if (!isspace((int)ch) && (white)) {
+        if (!isspace((int32)ch) && (white)) {
             white = 0;
             ++count;
         }
-        if (isspace((int)ch) && (1 - white))
+        if (isspace((int32)ch) && (1 - white))
             white = 1;
     } while (ch != '\n');
     rewind(fp);
@@ -1467,11 +1468,11 @@ void data_read(b) BROWSER *b;
 void data_write(b) BROWSER *b;
 {
 
-    int status;
+    int32 status;
     char fil[256];
     FILE *fp;
-    int i, j;
-    int ok;
+    int32 i, j;
+    int32 ok;
 
     strcpy(fil, "test.dat");
 
@@ -1500,7 +1501,7 @@ void data_write(b) BROWSER *b;
 
 void data_left(b) BROWSER *b;
 {
-    int i = b->col0;
+    int32 i = b->col0;
     if (i > 1) {
         b->col0--;
         redraw_browser(*b);
@@ -1509,7 +1510,7 @@ void data_left(b) BROWSER *b;
 
 void data_right(b) BROWSER *b;
 {
-    int i = b->col0 + b->ncol;
+    int32 i = b->col0 + b->ncol;
     if (i <= b->maxcol) {
         b->col0++;
         redraw_browser(*b);
@@ -1526,8 +1527,8 @@ void data_restore(b) BROWSER *b;
 { restore(b->istart, b->iend); }
 
 void
-get_col_list(char *s, int *cl, int *n) {
-    int len, i;
+get_col_list(char *s, int32 *cl, int32 *n) {
+    int32 len, i;
 
     char sp[256];
     convert(s, sp);

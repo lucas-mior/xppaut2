@@ -1,5 +1,6 @@
 #include "load_eqn.h"
 #include "parserslow.h"
+#include "integers.h"
 
 #include "read_dir.h"
 
@@ -42,23 +43,23 @@
 extern OptionsSet notAlreadySet;
 
 typedef struct {
-    int nbins, nbins2, type, col, col2, fftc;
+    int32 nbins, nbins2, type, col, col2, fftc;
     double xlo, xhi;
     double ylo, yhi;
     char cond[80];
 } HIST_INFO;
 
 extern HIST_INFO hist_inf;
-extern int spec_col, spec_wid, spec_win, spec_col2, post_process;
+extern int32 spec_col, spec_wid, spec_win, spec_col2, post_process;
 
-int nsrand48(int seed);
+int32 nsrand48(int32 seed);
 
 char *interopt[MAXOPT];
-int Nopts = 0;
-int RunImmediately = 0;
+int32 Nopts = 0;
+int32 RunImmediately = 0;
 extern char dll_lib[256];
 extern char dll_fun[256];
-extern int dll_flag;
+extern int32 dll_flag;
 
 extern char UserBlack[8];
 extern char UserWhite[8];
@@ -67,18 +68,18 @@ extern char UserDrawWinColor[8];
 /*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
 
-extern int UserGradients;
-extern int UserMinWidth;
-extern int UserMinHeight;
-extern int XPPVERBOSE;
+extern int32 UserGradients;
+extern int32 UserMinWidth;
+extern int32 UserMinHeight;
+extern int32 XPPVERBOSE;
 extern FILE *logfile;
 
-extern int OVERRIDE_QUIET;
-extern int OVERRIDE_LOGFILE;
+extern int32 OVERRIDE_QUIET;
+extern int32 OVERRIDE_LOGFILE;
 
-extern int SLIDER1;
-extern int SLIDER2;
-extern int SLIDER3;
+extern int32 SLIDER1;
+extern int32 SLIDER2;
+extern int32 SLIDER3;
 extern char SLIDER1VAR[20];
 extern char SLIDER2VAR[20];
 extern char SLIDER3VAR[20];
@@ -92,39 +93,39 @@ extern double SLIDER1INIT;
 extern double SLIDER2INIT;
 extern double SLIDER3INIT;
 
-extern int NCBatch, DFBatch;
-extern int DF_GRID;
+extern int32 NCBatch, DFBatch;
+extern int32 DF_GRID;
 
 typedef struct {
     char *name;
     char *does;
-    unsigned int use;
+    uint32 use;
 } INTERN_SET;
 
-extern int XNullColor, YNullColor, StableManifoldColor, UnstableManifoldColor;
-int IX_PLT[10], IY_PLT[10], IZ_PLT[10], NPltV;
-int MultiWin = 0;
-extern int SimulPlotFlag;
+extern int32 XNullColor, YNullColor, StableManifoldColor, UnstableManifoldColor;
+int32 IX_PLT[10], IY_PLT[10], IZ_PLT[10], NPltV;
+int32 MultiWin = 0;
+extern int32 SimulPlotFlag;
 double X_LO[10], Y_LO[10], X_HI[10], Y_HI[10];
-int START_LINE_TYPE = 1;
+int32 START_LINE_TYPE = 1;
 INTERN_SET intern_set[MAX_INTERN_SET];
-int Nintern_set = 0;
+int32 Nintern_set = 0;
 
-extern int STOCH_FLAG;
+extern int32 STOCH_FLAG;
 extern char uvar_names[MAXODE][12];
 extern struct {
     char item[30], item2[30];
-    int steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
+    int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
     double plow, phigh, plow2, phigh2;
-    int rtype;
+    int32 rtype;
 } range;
 
-extern int custom_color;
-extern int del_stab_flag;
-extern int MaxPoints;
+extern int32 custom_color;
+extern int32 del_stab_flag;
+extern int32 MaxPoints;
 extern double THETA0, PHI0;
-extern int tfBell;
-extern int DoTutorial;
+extern int32 tfBell;
+extern int32 DoTutorial;
 /*void set_option(char *s1,char *s2);
  */
 
@@ -136,36 +137,36 @@ char *get_next();
  */
 
 extern char batchout[256];
-extern int batch_range;
+extern int32 batch_range;
 double last_ic[MAXODE];
 extern char PlotFormat[100];
 extern char big_font_name[100], small_font_name[100];
-extern int PaperWhite;
+extern int32 PaperWhite;
 
-extern int PSColorFlag, PS_FONTSIZE, PS_Color;
+extern int32 PSColorFlag, PS_FONTSIZE, PS_Color;
 extern char PS_FONT[100];
 extern double PS_LW;
 
-extern int SEc, UEc, SPc, UPc;
-extern int (*solver)();
+extern int32 SEc, UEc, SPc, UPc;
+extern int32 (*solver)();
 
-int rung_kut();
+int32 rung_kut();
 char delay_string[MAXODE][80];
-int itor[MAXODE];
+int32 itor[MAXODE];
 /*char this_file[100];
  */
 char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
 float oldhp_x, oldhp_y, my_pl_wid, my_pl_ht;
-int mov_ind;
-int storind, STORFLAG, INFLAG, MAXSTOR;
+int32 mov_ind;
+int32 storind, STORFLAG, INFLAG, MAXSTOR;
 double x_3d[2], y_3d[2], z_3d[2];
-int IXPLT, IYPLT, IZPLT;
-int AXES, TIMPLOT, PLOT_3D;
+int32 IXPLT, IYPLT, IZPLT;
+int32 AXES, TIMPLOT, PLOT_3D;
 double MY_XLO, MY_YLO, MY_XHI, MY_YHI;
 double TOR_PERIOD = 6.2831853071795864770;
-int TORUS = 0;
-int NEQ;
+int32 TORUS = 0;
+int32 NEQ;
 char options[100];
 
 /*   Numerical stuff ....   */
@@ -176,39 +177,39 @@ double BVP_EPS, BVP_TOL;
 
 double POIPLN;
 
-extern int RandSeed;
-int MaxEulIter;
+extern int32 RandSeed;
+int32 MaxEulIter;
 double EulTol;
-extern int cv_bandflag, cv_bandupper, cv_bandlower;
-int NMESH, NJMP, METHOD, color_flag, NC_ITER;
-int EVEC_ITER;
-int BVP_MAXIT, BVP_FLAG;
+extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
+int32 NMESH, NJMP, METHOD, color_flag, NC_ITER;
+int32 EVEC_ITER;
+int32 BVP_MAXIT, BVP_FLAG;
 
-int POIMAP, POIVAR, POISGN, SOS;
-int FFT, NULL_HERE, POIEXT;
-int HIST, HVAR, hist_ind, FOREVER;
+int32 POIMAP, POIVAR, POISGN, SOS;
+int32 FFT, NULL_HERE, POIEXT;
+int32 HIST, HVAR, hist_ind, FOREVER;
 
 /*  control of range stuff  */
 
-int PAUSER, ENDSING, SHOOT, PAR_FOL;
+int32 PAUSER, ENDSING, SHOOT, PAR_FOL;
 
 /*  custon color stuff  */
 
 extern char ColorVia[15];
 extern double ColorViaLo, ColorViaHi;
-extern int ColorizeFlag;
+extern int32 ColorizeFlag;
 
 /* AUTO STUFF  */
-extern int auto_ntst, auto_nmx, auto_npr, auto_ncol;
+extern int32 auto_ntst, auto_nmx, auto_npr, auto_ncol;
 extern double auto_ds, auto_dsmax, auto_dsmin;
 extern double auto_rl0, auto_rl1, auto_a0, auto_a1;
 extern double auto_epss, auto_epsl, auto_epsu;
-extern int auto_var;
+extern int32 auto_var;
 extern double auto_xmin, auto_xmax, auto_ymin, auto_ymax;
 
-extern int PltFmtFlag;
+extern int32 PltFmtFlag;
 
-int xorfix, silent, got_file;
+int32 xorfix, silent, got_file;
 
 /*Logical negate OR on options set. Result overwrites the first OptionsSet
 in the argument list.*/
@@ -344,8 +345,8 @@ notBothOptions(OptionsSet nasA, OptionsSet nasB) {
 }
 
 void
-dump_torus(FILE *fp, int f) {
-    int i;
+dump_torus(FILE *fp, int32 f) {
+    int32 i;
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -361,9 +362,9 @@ dump_torus(FILE *fp, int f) {
 
 void
 load_eqn(void) {
-    int no_eqn = 1, okay = 0;
-    int i;
-    int std = 0;
+    int32 no_eqn = 1, okay = 0;
+    int32 i;
+    int32 std = 0;
     FILE *fptr;
     init_ar_ic();
     for (i = 0; i < MAXODE; i++) {
@@ -418,9 +419,9 @@ load_eqn(void) {
 /*
 load_eqn()
 {
- int no_eqn=1,okay=0;
- int i;
- int std=0;
+ int32 no_eqn=1,okay=0;
+ int32 i;
+ int32 std=0;
  FILE *fptr;
 
  init_ar_ic();
@@ -517,7 +518,7 @@ set_X_vals(void) {
 
 void
 set_all_vals(void) {
-    int i;
+    int32 i;
 
     FILE *fp;
 
@@ -957,7 +958,7 @@ fil_flt(FILE *fpt, double *val) {
 }
 
 void
-fil_int(FILE *fpt, int *val) {
+fil_int(FILE *fpt, int32 *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atoi(bob);
@@ -971,7 +972,7 @@ fil_int(FILE *fpt, int *val) {
 void
 add_intern_set(char *name, char *does) {
     char bob[1024], ch;
-    int i, n, j = Nintern_set, k = 0;
+    int32 i, n, j = Nintern_set, k = 0;
     if (Nintern_set >= MAX_INTERN_SET) {
         plintf(" %s not added -- too many must be less than %d \n", name,
                MAX_INTERN_SET);
@@ -1025,13 +1026,13 @@ extract_action(char *ptr) {
 }
 
 void
-extract_internset(int j) {
+extract_internset(int32 j) {
     extract_action(intern_set[j].does);
 }
 
 void
 do_intern_set(char *name1, char *value) {
-    int i;
+    int32 i;
     char name[20];
     convert(name1, name);
 
@@ -1052,10 +1053,10 @@ do_intern_set(char *name1, char *value) {
 }
 /*  ODE options stuff  here !!   */
 
-int
+int32
 msc(char *s1, char *s2) {
 
-    int n = strlen(s1), i;
+    int32 n = strlen(s1), i;
     if (strlen(s2) < n)
         return (0);
     for (i = 0; i < n; i++)
@@ -1066,7 +1067,7 @@ msc(char *s1, char *s2) {
 
 void
 set_internopts(OptionsSet *mask) {
-    int i;
+    int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
         return;
@@ -1150,7 +1151,7 @@ set_internopts(OptionsSet *mask) {
 
 void
 set_internopts_xpprc_and_comline(void) {
-    int i;
+    int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
         return;
@@ -1215,7 +1216,7 @@ set_internopts_xpprc_and_comline(void) {
 
 void
 split_apart(char *bob, char *name, char *value) {
-    int k, i, l;
+    int32 k, i, l;
 
     l = strlen(bob);
     k = strcspn(bob, "=");
@@ -1254,7 +1255,7 @@ check_for_xpprc(void) {
 
 void
 stor_internopts(char *s1) {
-    int n = strlen(s1);
+    int32 n = strlen(s1);
     if (Nopts > MAXOPT) {
         plintf("WARNING -- to many options set %s ignored\n", s1);
         return;
@@ -1265,10 +1266,10 @@ stor_internopts(char *s1) {
 }
 
 void set_option(s1, s2, force, mask) char *s1, *s2;
-int force;
+int32 force;
 OptionsSet *mask;
 {
-    int i, j, f;
+    int32 i, j, f;
     char xx[4], yy[4], zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];
     static char mkey[] = "demragvbqsc582y";

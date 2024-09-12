@@ -8,6 +8,7 @@
 #include "many_pops.h"
 #include "pop_list.h"
 #include "parserslow.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -35,43 +36,43 @@
      EnterWindowMask | LeaveWindowMask)
 
 extern Display *display;
-extern int screen;
+extern int32 screen;
 extern Window main_win, info_pop, draw_win, main_win;
-extern int DCURY, DCURX, CURY_OFF, xor_flag;
+extern int32 DCURY, DCURX, CURY_OFF, xor_flag;
 extern GC gc;
-extern unsigned int MyBackColor, MyForeColor;
+extern uint32 MyBackColor, MyForeColor;
 
 char *get_next(), *get_first();
 
 extern char uvar_names[MAXODE][12];
 extern char *ode_names[MAXODE];
-extern int METHOD, NEQ, NODE, NMarkov, FIX_VAR;
+extern int32 METHOD, NEQ, NODE, NMarkov, FIX_VAR;
 
 extern char *info_message, *edrh_hint[];
-extern int *my_ode[];
-extern int NUPAR;
+extern int32 *my_ode[];
+extern int32 NUPAR;
 extern double last_ic[MAXODE];
 
 /*extern char upar_names[MAXPAR][11],this_file[100];*/
 
 extern char upar_names[MAXPAR][14], this_file[XPP_MAX_NAME];
-extern int EqType[MAXODE];
+extern int32 EqType[MAXODE];
 
 extern char *ufun_def[MAXUFUN];
 extern char ufun_names[MAXUFUN][12];
-extern int narg_fun[MAXUFUN], *ufun[MAXUFUN];
+extern int32 narg_fun[MAXUFUN], *ufun[MAXUFUN];
 
 extern UFUN_ARG ufun_arg[MAXUFUN];
 extern BC_STRUCT my_bc[MAXODE];
 
-extern int NFUN;
+extern int32 NFUN;
 Window make_window();
 
 void reset_ebox(sb, pos, col) EDIT_BOX *sb;
-int *pos, *col;
+int32 *pos, *col;
 {
-    int n = sb->n;
-    int i, l;
+    int32 n = sb->n;
+    int32 i, l;
     Window w;
     for (i = 0; i < n; i++) {
         strcpy(sb->value[i], sb->rval[i]);
@@ -89,11 +90,11 @@ int *pos, *col;
     put_cursor_at(sb->win[0], DCURX * strlen(sb->name[0]), *pos);
 }
 
-int
-do_edit_box(int n, char *title, char **names, char **values) {
+int32
+do_edit_box(int32 n, char *title, char **names, char **values) {
     EDIT_BOX sb;
-    int i, status;
-    int colm, pos;
+    int32 i, status;
+    int32 colm, pos;
 
     for (i = 0; i < n; i++) {
         sprintf(sb.name[i], "%s=", names[i]);
@@ -131,9 +132,9 @@ do_edit_box(int n, char *title, char **names, char **values) {
 
 void expose_ebox(sb, w, pos, col) EDIT_BOX *sb;
 Window w;
-int pos, col;
+int32 pos, col;
 {
-    int i, flag;
+    int32 i, flag;
 
     if (w == sb->ok) {
         XDrawString(display, w, gc, 0, CURY_OFF, "Ok", 2);
@@ -157,10 +158,10 @@ int pos, col;
     }
 }
 
-void ereset_hot(inew, sb) int inew;
+void ereset_hot(inew, sb) int32 inew;
 EDIT_BOX *sb;
 {
-    int i = sb->hot;
+    int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
     do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
@@ -170,9 +171,9 @@ EDIT_BOX *sb;
                    strlen(sb->value[i]), 0);
 }
 
-void enew_editable(sb, inew, pos, col, done, w) int inew;
+void enew_editable(sb, inew, pos, col, done, w) int32 inew;
 EDIT_BOX *sb;
-int *pos, *col, *done;
+int32 *pos, *col, *done;
 Window *w;
 {
 
@@ -183,17 +184,17 @@ Window *w;
     *w = sb->win[inew];
 }
 
-int
+int32
 e_box_event_loop(sb, pos, col)
 EDIT_BOX *sb;
-int *col, *pos;
+int32 *col, *pos;
 {
     XEvent ev;
-    int status = -1, inew;
-    int nn = sb->n;
-    int done = 0, i;
+    int32 status = -1, inew;
+    int32 nn = sb->n;
+    int32 done = 0, i;
     char ch;
-    int ihot = sb->hot;
+    int32 ihot = sb->hot;
     Window wt;
     Window w = sb->win[ihot]; /* active window   */
     char *s;
@@ -263,10 +264,10 @@ int *col, *pos;
 void make_ebox_windows(sb, title) char *title;
 EDIT_BOX *sb;
 {
-    int width, height;
-    int i;
-    int xpos, ypos, n = sb->n;
-    int xstart, ystart;
+    int32 width, height;
+    int32 i;
+    int32 xpos, ypos, n = sb->n;
+    int32 xstart, ystart;
 
     XTextProperty winname;
     XSizeHints size_hints;
@@ -314,7 +315,7 @@ edit_menu(void) {
     static char *n[] = {"RHS's", "Functions", "Save as", "Load DLL"};
     static char key[] = "rfsl";
     char ch;
-    int edtype = 0, i;
+    int32 edtype = 0, i;
     ch = (char)pop_up_list(&temp, "Edit Stuff", n, key, 4, 11, edtype, 10,
                            13 * DCURY + 8, edrh_hint, info_pop, info_message);
     edtype = -1;
@@ -340,19 +341,19 @@ edit_menu(void) {
 void
 edit_rhs(void) {
     char **names, **values;
-    int **command;
-    int i, status, err, len, i0, j;
-    int n = NEQ;
+    int32 **command;
+    int32 i, status, err, len, i0, j;
+    int32 n = NEQ;
     char fstr[20], msg[200];
     if (NEQ > NEQMAXFOREDIT)
         return;
     names = (char **)malloc(n * sizeof(char *));
     values = (char **)malloc(n * sizeof(char *));
-    command = (int **)malloc(n * sizeof(int *));
+    command = (int32 **)malloc(n * sizeof(int32 *));
     for (i = 0; i < n; i++) {
         values[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
         names[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
-        command[i] = (int *)malloc(200 * sizeof(int));
+        command[i] = (int32 *)malloc(200 * sizeof(int32));
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT");
         if (i < NODE && METHOD == 0)
@@ -402,7 +403,7 @@ edit_rhs(void) {
 void
 user_fun_info(FILE *fp) {
     char fundef[256];
-    int i, j;
+    int32 i, j;
     for (j = 0; j < NFUN; j++) {
         sprintf(fundef, "%s(", ufun_names[j]);
         for (i = 0; i < narg_fun[j]; i++) {
@@ -419,19 +420,19 @@ user_fun_info(FILE *fp) {
 void
 edit_functions(void) {
     char **names, **values;
-    int **command;
-    int i, status, err, len, j;
-    int n = NFUN;
+    int32 **command;
+    int32 i, status, err, len, j;
+    int32 n = NFUN;
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)
         return;
     names = (char **)malloc(n * sizeof(char *));
     values = (char **)malloc(n * sizeof(char *));
-    command = (int **)malloc(n * sizeof(int *));
+    command = (int32 **)malloc(n * sizeof(int32 *));
     for (i = 0; i < n; i++) {
         values[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
         names[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
-        command[i] = (int *)malloc(200 * sizeof(int));
+        command[i] = (int32 *)malloc(200 * sizeof(int32));
         sprintf(values[i], "%s", ufun_def[i]);
 
         if (narg_fun[i] == 0) {
@@ -477,9 +478,9 @@ edit_functions(void) {
     free(command);
 }
 
-int
+int32
 save_as(void) {
-    int i, ok;
+    int32 i, ok;
     FILE *fp;
     double z;
     char filename[256];

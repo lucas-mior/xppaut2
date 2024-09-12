@@ -15,6 +15,7 @@
 #include "main.h"
 #include "many_pops.h"
 #include "graf_par.h"
+#include "integers.h"
 
 #define NOAXES 0
 #define CROSS 1
@@ -31,19 +32,19 @@
 
 extern GRAPH *MyGraph;
 extern GC small_gc;
-extern int DCURXs, DCURYs;
+extern int32 DCURXs, DCURYs;
 extern Display *display;
 extern Window draw_win;
-extern int DX_0, DY_0, D_WID, D_HGT;
-extern int PltFmtFlag;
+extern int32 DX_0, DY_0, D_WID, D_HGT;
+extern int32 PltFmtFlag;
 extern char uvar_names[MAXODE][12];
-extern int DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
-extern int TextJustify, TextAngle;
+extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
+extern int32 TextJustify, TextAngle;
 extern double XMin, XMax, YMin, YMax;
-extern int Xup;
+extern int32 Xup;
 
-int DOING_AXES = 0;
-int DOING_BOX_AXES = 0;
+int32 DOING_AXES = 0;
+int32 DOING_BOX_AXES = 0;
 extern FILE *svgfile;
 
 void
@@ -55,7 +56,7 @@ re_title(void) {
 
 void
 get_title_str(char *s1, char *s2, char *s3) {
-    int i;
+    int32 i;
     if ((i = MyGraph->xv[0]) == 0)
         strcpy(s1, "T");
     else
@@ -74,7 +75,7 @@ get_title_str(char *s1, char *s2, char *s3) {
 
 void
 make_title(char *str) {
-    int i;
+    int32 i;
     char name1[20];
     char name2[20];
     char name3[20];
@@ -100,8 +101,8 @@ make_title(char *str) {
 }
 
 double
-dbl_raise(double x, int y) {
-    register int i;
+dbl_raise(double x, int32 y) {
+    register int32 i;
     double val;
 
     val = 1.0;
@@ -119,14 +120,14 @@ make_tics(double tmin, double tmax) {
     xr = fabs(tmin - tmax);
 
     l10 = log10(xr);
-    xnorm = pow(10.0, l10 - (double)((l10 >= 0.0) ? (int)l10 : ((int)l10 - 1)));
+    xnorm = pow(10.0, l10 - (double)((l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1)));
     if (xnorm <= 2)
         tics = 0.2;
     else if (xnorm <= 5)
         tics = 0.5;
     else
         tics = 1.0;
-    tic = tics * dbl_raise(10.0, (l10 >= 0.0) ? (int)l10 : ((int)l10 - 1));
+    tic = tics * dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
     return (tic);
 }
 
@@ -290,13 +291,13 @@ Frame_3d(void) {
 
 void
 Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
-         char *sy, int flag) {
+         char *sy, int32 flag) {
     double ytic, xtic;
 
-    int xaxis_y, yaxis_x;
+    int32 xaxis_y, yaxis_x;
 
-    int ybot = DBottom, ytop = DTop;
-    int xleft = DLeft, xright = DRight;
+    int32 ybot = DBottom, ytop = DTop;
+    int32 xleft = DLeft, xright = DRight;
 
     DOING_AXES = 1;
 
@@ -338,7 +339,7 @@ draw_ytics(char *s1, double start, double incr, double end)
     double ticvalue, place;
     double y_min = YMin, y_max = YMax, x_min = XMin;
     char bob[100];
-    int xt, yt, s = 1;
+    int32 xt, yt, s = 1;
     TextJustify = 2; /* Right justification  */
     for (ticvalue = start; ticvalue <= end; ticvalue += incr) {
         place = CheckZero(ticvalue, incr);
@@ -351,7 +352,7 @@ draw_ytics(char *s1, double start, double incr, double end)
         DOING_BOX_AXES = 1;
         line(DRight, yt, DRight - HTic, yt);
         DOING_BOX_AXES = 0;
-        put_text(DLeft - (int)(1.25 * HChar), yt, bob);
+        put_text(DLeft - (int32)(1.25 * HChar), yt, bob);
     }
     scale_to_screen((float)x_min, (float)y_max, &xt, &yt);
     if (DTop < DBottom)
@@ -385,8 +386,8 @@ draw_xtics(char *s2, double start, double incr, double end)
     double y_min = YMin, x_min = XMin, x_max = XMax;
 
     char bob[100];
-    int xt, yt;
-    int s = 1;
+    int32 xt, yt;
+    int32 s = 1;
     if (DTop < DBottom)
         s = -1;
     TextJustify = 1; /* Center justification  */
@@ -401,7 +402,7 @@ draw_xtics(char *s2, double start, double incr, double end)
         DOING_BOX_AXES = 1;
         line(xt, DTop, xt, DTop - s * VTic);
         DOING_BOX_AXES = 0;
-        put_text(xt, yt - (int)(1.25 * VChar * s), bob);
+        put_text(xt, yt - (int32)(1.25 * VChar * s), bob);
     }
-    put_text((DLeft + DRight) / 2, yt - (int)(2.5 * VChar * s), s2);
+    put_text((DLeft + DRight) / 2, yt - (int32)(2.5 * VChar * s), s2);
 }

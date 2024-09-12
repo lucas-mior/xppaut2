@@ -1,4 +1,5 @@
 #include "flags.h"
+#include "integers.h"
 
 #include "cv2.h"
 #include "stiff.h"
@@ -86,33 +87,33 @@ extern char upar_names[MAXPAR][11];
 typedef struct {
     double f0, f1;
     double tstar;
-    int lhs[MAX_EVENTS];
+    int32 lhs[MAX_EVENTS];
     double vrhs[MAX_EVENTS];
     char lhsname[MAX_EVENTS][11];
     char *rhs[MAX_EVENTS];
-    int *comrhs[MAX_EVENTS];
+    int32 *comrhs[MAX_EVENTS];
     char *cond;
-    int *comcond;
-    int sign, nevents;
-    int hit, type[MAX_EVENTS];
-    int anypars;
-    int nointerp;
+    int32 *comcond;
+    int32 sign, nevents;
+    int32 hit, type[MAX_EVENTS];
+    int32 anypars;
+    int32 nointerp;
 } FLAG;
 
 #define IC 2
 #define PARAM 1
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 FLAG flag[MAXFLAG];
-int NFlags = 0;
+int32 NFlags = 0;
 
 double STOL = 1.e-10;
 extern double variables[];
-extern int NVAR;
+extern int32 NVAR;
 double evaluate();
-int
-add_global(char *cond, int sign, char *rest) {
+int32
+add_global(char *cond, int32 sign, char *rest) {
     char temp[256];
-    int nevents, ii, k, l, lt, j = NFlags;
+    int32 nevents, ii, k, l, lt, j = NFlags;
     char ch;
     if (NFlags >= MAXFLAG) {
         plintf("Too many global conditions\n");
@@ -187,11 +188,11 @@ show_flags(void) {
     */
 }
 
-int
+int32
 compile_flags(void) {
-    int j;
-    int i, k, index, nc;
-    int command[256];
+    int32 j;
+    int32 i, k, index, nc;
+    int32 command[256];
     if (NFlags == 0)
         return (0);
     for (j = 0; j < NFlags; j++) {
@@ -201,7 +202,7 @@ compile_flags(void) {
         }
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
-        flag[j].comcond = (int *)malloc(sizeof(int) * (nc + 1));
+        flag[j].comcond = (int32 *)malloc(sizeof(int32) * (nc + 1));
         for (k = 0; k <= nc; k++)
             flag[j].comcond[k] = command[k];
         for (i = 0; i < flag[j].nevents; i++) {
@@ -247,7 +248,7 @@ compile_flags(void) {
                        flag[j].cond);
                 return (1);
             }
-            flag[j].comrhs[i] = (int *)malloc(sizeof(int) * (nc + 1));
+            flag[j].comrhs[i] = (int32 *)malloc(sizeof(int32) * (nc + 1));
             for (k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }
@@ -257,13 +258,13 @@ compile_flags(void) {
 
 /*  here is the shell code for a loop around  integration step  */
 
-int
-one_flag_step(double *yold, double *ynew, int *istart, double told,
-              double *tnew, int neq, double *s) {
+int32
+one_flag_step(double *yold, double *ynew, int32 *istart, double told,
+              double *tnew, int32 neq, double *s) {
     double dt = *tnew - told;
     double f0, f1, tol, tolmin = 1e-10;
     double smin = 2;
-    int sign, i, j, in, ncycle = 0, newhit, nevents;
+    int32 sign, i, j, in, ncycle = 0, newhit, nevents;
 
     if (NFlags == 0)
         return (0);
@@ -447,13 +448,13 @@ one_flag_step(double *yold, double *ynew, int *istart, double told,
 
 /*  here are the ODE drivers */
 
-int
-one_flag_step_symp(double *y, double dt, double *work, int neq, double *tim,
-                   int *istart) {
+int32
+one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
+                   int32 *istart) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s, dtt = dt;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -474,13 +475,13 @@ one_flag_step_symp(double *y, double dt, double *work, int neq, double *tim,
     return (1);
 }
 
-int
-one_flag_step_euler(double *y, double dt, double *work, int neq, double *tim,
-                    int *istart) {
+int32
+one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
+                    int32 *istart) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s, dtt = dt;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -501,13 +502,13 @@ one_flag_step_euler(double *y, double dt, double *work, int neq, double *tim,
     return (1);
 }
 
-int
-one_flag_step_discrete(double *y, double dt, double *work, int neq, double *tim,
-                       int *istart) {
+int32
+one_flag_step_discrete(double *y, double dt, double *work, int32 neq, double *tim,
+                       int32 *istart) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s, dtt = dt;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -527,13 +528,13 @@ one_flag_step_discrete(double *y, double dt, double *work, int neq, double *tim,
     return (1);
 }
 
-int
-one_flag_step_heun(double *y, double dt, double *yval[2], int neq, double *tim,
-                   int *istart) {
+int32
+one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim,
+                   int32 *istart) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s, dtt = dt;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -553,13 +554,13 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int neq, double *tim,
     return (1);
 }
 
-int
-one_flag_step_rk4(double *y, double dt, double *yval[3], int neq, double *tim,
-                  int *istart) {
+int32
+one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
+                  int32 *istart) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s, dtt = dt;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -582,7 +583,7 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int neq, double *tim,
 
 void
 printflaginfo(void) {
-    int i;
+    int32 i;
     for (i = 0; i < NFlags; i++) {
         plintf(" flag %d: tstart=%g f0=%g f1=%g hit=%d tol=%g\n", i,
                flag[i].tstar, flag[i].f0, flag[i].f1, flag[i].hit,
@@ -590,14 +591,14 @@ printflaginfo(void) {
     }
 }
 
-int
-one_flag_step_gear(int neq, double *t, double tout, double *y, double hmin,
-                   double hmax, double eps, int mf, double *error, int *kflag,
-                   int *jstart, double *work, int *iwork) {
+int32
+one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
+                   double hmax, double eps, int32 mf, double *error, int32 *kflag,
+                   int32 *jstart, double *work, int32 *iwork) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -622,13 +623,13 @@ one_flag_step_gear(int neq, double *t, double tout, double *y, double hmin,
     return 0;
 }
 
-int
-one_flag_step_rosen(double *y, double *tstart, double tfinal, int *istart,
-                    int n, double *work, int *ierr) {
+int32
+one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
+                    int32 n, double *work, int32 *ierr) {
     double yold[MAXODE], told;
-    int i, ok, hit;
+    int32 i, ok, hit;
     double s;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < n; i++)
             yold[i] = y[i];
@@ -654,13 +655,13 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int *istart,
     return 0;
 }
 
-int
-one_flag_step_dp(int *istart, double *y, double *t, int n, double tout,
-                 double *tol, double *atol, int flag, int *kflag) {
+int32
+one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
+                 double *tol, double *atol, int32 flag, int32 *kflag) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < n; i++)
             yold[i] = y[i];
@@ -686,15 +687,15 @@ one_flag_step_dp(int *istart, double *y, double *t, int n, double tout,
 }
 
 #ifdef CVODE_YES
-int
+int32
 one_flag_step_cvode(
     /* command =0 continue, 1 is start 2 finish */
-    int *command, double *y, double *t, int n, double tout, int *kflag,
+    int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
     double yold[MAXODE], told;
-    int i, hit, neq = n;
+    int32 i, hit, neq = n;
     double s;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -720,14 +721,14 @@ one_flag_step_cvode(
 }
 
 #endif
-int
-one_flag_step_adap(double *y, int neq, double *t, double tout, double eps,
-                   double *hguess, double hmin, double *work, int *ier,
-                   double epjac, int iflag, int *jstart) {
+int32
+one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
+                   double *hguess, double hmin, double *work, int32 *ier,
+                   double epjac, int32 iflag, int32 *jstart) {
     double yold[MAXODE], told;
-    int i, hit;
+    int32 i, hit;
     double s;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
@@ -752,15 +753,15 @@ one_flag_step_adap(double *y, int neq, double *t, double tout, double eps,
     return 0;
 }
 
-int
-one_flag_step_backeul(double *y, double *t, double dt, int neq, double *yg,
+int32
+one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
                       double *yp, double *yp2, double *ytemp, double *errvec,
-                      double *jac, int *istart) {
+                      double *jac, int32 *istart) {
     double yold[MAXODE], told;
-    int i, hit, j;
+    int32 i, hit, j;
     double s;
     double dtt = dt;
-    int nstep = 0;
+    int32 nstep = 0;
     while (1) {
         for (i = 0; i < neq; i++)
             yold[i] = y[i];

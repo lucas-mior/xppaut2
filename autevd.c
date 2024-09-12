@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include "integers.h"
 
 #include "auto_nox.h"
 #include "diagram.h"
@@ -25,36 +26,36 @@
 
 extern double outperiod[20];
 extern int64 UzrPar[20];
-extern int NAutoUzr;
+extern int32 NAutoUzr;
 
 extern ADVAUTO aauto;
 
 XAUTO xAuto;
 
-extern int AutoTwoParam;
-int DiagFlag = 0;
+extern int32 AutoTwoParam;
+int32 DiagFlag = 0;
 /*typedef struct {double r,i;} ddoublecomplex;
 
 typedef struct {
-  int pt,br;
+  int32 pt,br;
   double evr[NAUTO],evi[NAUTO];
 } EIGVAL;
 */
 EIGVAL my_ev;
 
 double sign();
-int imin();
+int32 imin();
 
 void
-init_auto(int ndim, int nicp, int nbc, int ips, int irs, int ilp, int ntst,
-          int isp, int isw, int nmx, int npr, double ds, double dsmin,
-          double dsmax, double rl0, double rl1, double a0, double a1, int ip1,
-          int ip2, int ip3, int ip4, int ip5, int nuzr, double epsl,
-          double epsu, double epss, int ncol) {
+init_auto(int32 ndim, int32 nicp, int32 nbc, int32 ips, int32 irs, int32 ilp, int32 ntst,
+          int32 isp, int32 isw, int32 nmx, int32 npr, double ds, double dsmin,
+          double dsmax, double rl0, double rl1, double a0, double a1, int32 ip1,
+          int32 ip2, int32 ip3, int32 ip4, int32 ip5, int32 nuzr, double epsl,
+          double epsu, double epss, int32 ncol) {
 
     /* here are the constants that we do not allow the user to change */
-    int nnbc;
-    int i;
+    int32 nnbc;
+    int32 i;
     xAuto.iad = aauto.iad;
     xAuto.iplt = 0;
     xAuto.mxbf = aauto.mxbf;
@@ -110,8 +111,8 @@ init_auto(int ndim, int nicp, int nbc, int ips, int irs, int ilp, int ntst,
 }
 
 void
-send_eigen(int ibr, int ntot, int n, doublecomplex *ev) {
-    int i;
+send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
+    int32 i;
     double er, cs, sn;
     my_ev.pt = abs(ntot);
     my_ev.br = abs(ibr);
@@ -125,8 +126,8 @@ send_eigen(int ibr, int ntot, int n, doublecomplex *ev) {
 }
 
 void
-send_mult(int ibr, int ntot, int n, doublecomplex *ev) {
-    int i;
+send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
+    int32 i;
     my_ev.pt = abs(ntot);
     my_ev.br = abs(ibr);
     for (i = 0; i < n; i++) {
@@ -137,9 +138,9 @@ send_mult(int ibr, int ntot, int n, doublecomplex *ev) {
 
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
 
-int
-get_bif_type(int ibr, int ntot, int lab) {
-    int type = SEQ;
+int32
+get_bif_type(int32 ibr, int32 ntot, int32 lab) {
+    int32 type = SEQ;
 
     if (ibr < 0 && ntot < 0)
         type = SPER;
@@ -155,11 +156,11 @@ get_bif_type(int ibr, int ntot, int lab) {
 
 void
 addbif(iap_type *iap, rap_type *rap, int64 ntots, int64 ibrs, double *par,
-       int64 *icp, int lab, double *a, double *uhigh, double *ulow, double *u0,
+       int64 *icp, int32 lab, double *a, double *uhigh, double *ulow, double *u0,
        double *ubar) {
-    int type;
-    /*int evflag=0; Not used*/
-    int icp1 = icp[0], icp2 = icp[1], icp3 = icp[2], icp4 = icp[3];
+    int32 type;
+    /*int32 evflag=0; Not used*/
+    int32 icp1 = icp[0], icp2 = icp[1], icp3 = icp[2], icp4 = icp[3];
     double per = par[10];
     /* printf("In add bif \n"); */
     type = get_bif_type(ibrs, ntots, lab);
@@ -191,10 +192,10 @@ etime_(double *z) {
     return (0.0);
 }
 
-int
-eigrf_(double *a, int *n, int *m, doublecomplex *ecv, double *work, int *ier) {
+int32
+eigrf_(double *a, int32 *n, int32 *m, doublecomplex *ecv, double *work, int32 *ier) {
     double ev[400];
-    int i;
+    int32 i;
     eigen(*n, a, ev, work, ier);
     for (i = 0; i < *n; i++) {
         (ecv + i)->r = ev[2 * i];

@@ -1,5 +1,6 @@
 #ifndef _newpars_h
 #define _newpars_h
+#include "integers.h"
 
 /*#define LPAREN 1
  */
@@ -39,12 +40,12 @@
 #define MAXEXPLEN 1024
 typedef struct var_info {
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
-    int type, nargs;
+    int32 type, nargs;
     double value;
     struct var_info *next, *prev;
 } VAR_INFO;
 
-/*int start_var_info=0;
+/*int32 start_var_info=0;
 
 VAR_INFO *my_varinfo;
 */

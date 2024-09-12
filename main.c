@@ -1,4 +1,5 @@
 #include "main.h"
+#include "integers.h"
 
 #include "aniparse.h"
 #include "adj2.h"
@@ -94,43 +95,43 @@
 #define cstringmin MYSTR2
 
 #ifdef NOERRNO
-int errno;
+int32 errno;
 #endif
 
-int allwinvis = 0;
-int use_intern_sets = 1;
-int use_ani_file = 0;
+int32 allwinvis = 0;
+int32 use_intern_sets = 1;
+int32 use_ani_file = 0;
 /*char anifile[256]; */
 char anifile[XPP_MAX_NAME];
-extern int ani_grab_flag;
+extern int32 ani_grab_flag;
 
 float xppvermaj, xppvermin;
 
-extern int manual_expose;
-extern int NCBatch, DFBatch;
+extern int32 manual_expose;
+extern int32 NCBatch, DFBatch;
 /*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
-extern int METHOD, storind;
-extern int (*rhs)();
-extern int SuppressOut;
+extern int32 METHOD, storind;
+extern int32 (*rhs)();
+extern int32 SuppressOut;
 extern XFontStruct *symfonts[5], *romfonts[5];
-extern int avsymfonts[5], avromfonts[5];
-extern int RunImmediately;
-int Xup, TipsFlag = 1;
+extern int32 avsymfonts[5], avromfonts[5];
+extern int32 RunImmediately;
+int32 Xup, TipsFlag = 1;
 Atom deleteWindowAtom = 0;
-int XPPBatch = 0, batch_range = 0, BatchEquil = -1;
+int32 XPPBatch = 0, batch_range = 0, BatchEquil = -1;
 char batchout[256];
 char UserOUTFILE[256];
-XKeyEvent createKeyEvent(Window w, Window wr, int p, int kc, int m);
+XKeyEvent createKeyEvent(Window w, Window wr, int32 p, int32 kc, int32 m);
 void scripty();
-extern int xorfix;
-int DisplayHeight, DisplayWidth;
-int TrueColorFlag;
+extern int32 xorfix;
+int32 DisplayHeight, DisplayWidth;
+int32 TrueColorFlag;
 char big_font_name[100], small_font_name[100];
 char PlotFormat[100];
 
-int PaperWhite = -1;
-extern int DF_FLAG;
+int32 PaperWhite = -1;
+extern int32 DF_FLAG;
 char mycommand[100];
 
 Window TopButton[6];
@@ -142,8 +143,8 @@ Window make_input_strip();
 Window main_win;
 Window command_pop, info_pop;
 GC gc, gc_graph, small_gc, font_gc, mygc;
-extern int help_menu, current_pop;
-unsigned int Black, White;
+extern int32 help_menu, current_pop;
+uint32 Black, White;
 char UserBlack[8];
 char UserWhite[8];
 char UserMainWinColor[8];
@@ -151,28 +152,28 @@ char UserDrawWinColor[8];
 /*char UserBGBitmap[100];*/
 char UserBGBitmap[XPP_MAX_NAME];
 
-int UserGradients = -1;
-int UserMinWidth = 0, UserMinHeight = 0;
-unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
-unsigned int GrFore, GrBack;
-int SCALEX, SCALEY;
-extern int COLOR;
+int32 UserGradients = -1;
+int32 UserMinWidth = 0, UserMinHeight = 0;
+uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+uint32 GrFore, GrBack;
+int32 SCALEX, SCALEY;
+extern int32 COLOR;
 Display *display;
-int screen;
-extern int periodic;
-int DCURYb, DCURXb, CURY_OFFb;
-int DCURYs, DCURXs, CURY_OFFs;
-int DCURY, DCURX, CURY_OFF;
+int32 screen;
+extern int32 periodic;
+int32 DCURYb, DCURXb, CURY_OFFb;
+int32 DCURYs, DCURXs, CURY_OFFs;
+int32 DCURY, DCURX, CURY_OFF;
 FILE *logfile;
-int XPPVERBOSE = 1;
-int OVERRIDE_QUIET = 0;
-int OVERRIDE_LOGFILE = 0;
+int32 XPPVERBOSE = 1;
+int32 OVERRIDE_QUIET = 0;
+int32 OVERRIDE_LOGFILE = 0;
 extern BROWSER my_browser;
-int tfBell;
+int32 tfBell;
 
-int SLIDER1 = -1;
-int SLIDER2 = -1;
-int SLIDER3 = -1;
+int32 SLIDER1 = -1;
+int32 SLIDER2 = -1;
+int32 SLIDER3 = -1;
 char SLIDER1VAR[20];
 char SLIDER2VAR[20];
 char SLIDER3VAR[20];
@@ -186,12 +187,12 @@ double SLIDER1INIT = 0.5;
 double SLIDER2INIT = 0.5;
 double SLIDER3INIT = 0.5;
 
-int ALREADY_SWAPPED = 0;
+int32 ALREADY_SWAPPED = 0;
 
 /*Set this to 1 if you want the tutorial to come up at start-up
 as default behavior
 */
-int DoTutorial = 0;
+int32 DoTutorial = 0;
 
 OptionsSet notAlreadySet;
 
@@ -202,10 +203,10 @@ void silent_equilibria();
 void silent_dfields();
 void silent_nullclines();
 
-int popped = 0;
+int32 popped = 0;
 
 void
-do_main(int argc, char **argv) {
+do_main(int32 argc, char **argv) {
     /* Moved to init_X() */
     /*  char *icon_name="xpp"; */
     /*char myfile[256];*/
@@ -370,9 +371,9 @@ do_main(int argc, char **argv) {
     notAlreadySet.COLORHI = 1;
     notAlreadySet.COLORLO = 1;
 
-    unsigned int min_wid = 450, min_hgt = 360;
+    uint32 min_wid = 450, min_hgt = 360;
 
-    /*  unsigned int x=0,y=0; */
+    /*  uint32 x=0,y=0; */
     /*
     snprintf(myfile, sizeof(myfile),"lecar.ode");
     */
@@ -551,16 +552,16 @@ do_main(int argc, char **argv) {
 }
 
 void
-check_for_quiet(int argc, char **argv) {
+check_for_quiet(int32 argc, char **argv) {
     /*First scan, check for any QUIET option set...*/
-    int i = 0;
+    int32 i = 0;
     /*Allow for multiple calls to the QUIET and LOGFILE options
     on the command line. The last setting is the one that will stick.
     Settings of logfile and quiet in the xpprc file will be ignored
     if they are set on the command line.
     */
-    int quiet_specified_once = 0;
-    int logfile_specified_once = 0;
+    int32 quiet_specified_once = 0;
+    int32 logfile_specified_once = 0;
 
     for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-quiet") == 0) {
@@ -595,8 +596,8 @@ void
 init_X(void) {
     char *icon_name = "xpp";
     char *win_name = "XPPAUT";
-    unsigned int x = 0, y = 0;
-    unsigned int min_wid = 450, min_hgt = 360;
+    uint32 x = 0, y = 0;
+    uint32 min_wid = 450, min_hgt = 360;
     char *getenv();
 
     char teststr[] = "The Quick Brown Fox Jumped Over The Lazy Dog?";
@@ -751,11 +752,11 @@ init_X(void) {
          * pmap=XCreatePixmapFromBitmapData(display,main_win,lines_bits,lines_width,lines_height,MyForeColor,MyBackColor,DefaultDepth(display,
          * DefaultScreen(display)));
          */
-        unsigned int width_return, height_return;
-        int x_hot, y_hot;
+        uint32 width_return, height_return;
+        int32 x_hot, y_hot;
         unsigned char *pixdata;
 
-        int success =
+        int32 success =
             XReadBitmapFileData(UserBGBitmap, &width_return, &height_return,
                                 &pixdata, &x_hot, &y_hot);
 
@@ -846,12 +847,12 @@ set_small_font(void) {
    ig  runs XPP
 
 */
-int
-script_make(char *s, int *k) {
-    int l = strlen(s);
-    int i = 0;
+int32
+script_make(char *s, int32 *k) {
+    int32 l = strlen(s);
+    int32 i = 0;
     char c;
-    int j = 0;
+    int32 j = 0;
     while (i < l) {
         c = s[i];
         if (c == '#') {
@@ -881,7 +882,7 @@ script_make(char *s, int *k) {
             }
             j++;
         } else {
-            k[j] = (int)c;
+            k[j] = (int32)c;
             j++;
         }
         i++;
@@ -894,10 +895,10 @@ scripty(void) {
     /*  char scr[100]="piapp#r#b#b#b#b.12#r#rig"; */
     /* char scr[100]="eir#t"; */
     char scr[100] = "edf#b#b8#r";
-    int bob[200];
+    int32 bob[200];
     XKeyEvent ev;
-    int i;
-    int k;
+    int32 i;
+    int32 k;
     k = script_make(scr, bob);
     for (i = 0; i < k; i++) {
         ev =
@@ -907,14 +908,14 @@ scripty(void) {
 }
 
 void
-xpp_events(XEvent report, int min_wid, int min_hgt) {
-    /*int window_size,com;
+xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
+    /*int32 window_size,com;
      */
 
-    int com;
+    int32 com;
     char ch;
 
-    int used = 0;
+    int32 used = 0;
 
     /*  put_command("Command:");  */
 
@@ -1034,7 +1035,7 @@ xpp_events(XEvent report, int min_wid, int min_hgt) {
 }
 
 void
-do_events(unsigned int min_wid, unsigned int min_hgt) {
+do_events(uint32 min_wid, uint32 min_hgt) {
     XEvent report;
 
     blank_screen(main_win);
@@ -1052,7 +1053,7 @@ do_events(unsigned int min_wid, unsigned int min_hgt) {
 
 void
 bye_bye(void) {
-    int i;
+    int32 i;
     yes_reset_auto();
     XUnloadFont(display, big_font->fid);
     XUnloadFont(display, small_font->fid);
@@ -1086,7 +1087,7 @@ redraw_all(void) {
 }
 
 void
-commander(int ch) {
+commander(int32 ch) {
     switch (help_menu) {
     case MAIN_HELP: {
         switch (ch) {
@@ -1320,7 +1321,7 @@ commander(int ch) {
 
 Window make_unmapped_window(root,x,y,width,height,bw)
         Window root;
-        int x,y,width,height,bw;
+        int32 x,y,width,height,bw;
         {
          Window win;
          win=XCreateSimpleWindow(display,root,x,y,width,height,
@@ -1333,8 +1334,8 @@ Window make_unmapped_window(root,x,y,width,height,bw)
          */
 
 XKeyEvent
-createKeyEvent(Window win, Window winRoot, int press, int keycode,
-               int modifiers) {
+createKeyEvent(Window win, Window winRoot, int32 press, int32 keycode,
+               int32 modifiers) {
     XKeyEvent event;
 
     event.display = display;
@@ -1359,13 +1360,13 @@ createKeyEvent(Window win, Window winRoot, int press, int keycode,
 }
 
 Window
-init_win(unsigned int bw, char *icon_name, char *win_name, int x, int y,
-         unsigned int min_wid, unsigned int min_hgt, int argc, char **argv) {
+init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
+         uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
     /*  XSetWindowAttributes xswa;
      XWindowAttributes xwa;
       */
     Window wine;
-    int count;
+    int32 count;
     unsigned dp_h, dp_w;
     Pixmap icon_map;
     XIconSize *size_list;
@@ -1463,8 +1464,8 @@ top_button_draw(Window w) {
 }
 
 void
-top_button_cross(Window w, int b) {
-    int i;
+top_button_cross(Window w, int32 b) {
+    int32 i;
     for (i = 0; i < 6; i++)
         if (w == TopButton[i]) {
             XSetWindowBorderWidth(display, w, b);
@@ -1516,7 +1517,7 @@ top_button_events(XEvent report) {
 
 void
 make_top_buttons(void) {
-    int x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
+    int32 x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
     TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
                                      ColorMap(20), ColorMap(TOPBUTTONCOLOR));
     x1 = x1 + x2 + dx;
@@ -1544,15 +1545,15 @@ make_top_buttons(void) {
 
 void
 getGC(GC *gc) {
-    unsigned int valuemask = 0;
+    uint32 valuemask = 0;
     XGCValues values;
-    unsigned int lw = 6;
-    int ls = LineOnOffDash;
-    int cs = CapRound;
-    int js = JoinRound;
-    int dash_off = 0;
+    uint32 lw = 6;
+    int32 ls = LineOnOffDash;
+    int32 cs = CapRound;
+    int32 js = JoinRound;
+    int32 dash_off = 0;
     static char dash[] = {12, 24};
-    int ll = 2;
+    int32 ll = 2;
     *gc = XCreateGC(display, main_win, valuemask, &values);
     XSetForeground(display, *gc, MyForeColor);
     /* XSetLineAttributes(display,*gc,lw,ls,cs,js);
@@ -1562,7 +1563,7 @@ getGC(GC *gc) {
 void
 load_fonts(void) {
 
-    int i;
+    int32 i;
     /*printf("\n\nFONTS %s %s \n",big_font_name,small_font_name);
      */
     if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
@@ -1605,8 +1606,8 @@ void
 make_pops(void)
 
 {
-    int x, y;
-    unsigned int h, w, bw, d;
+    int32 x, y;
+    uint32 h, w, bw, d;
     Window wn;
     /*Cursor cursor;*/
     XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
@@ -1637,7 +1638,7 @@ make_pops(void)
 }
 
 void
-FixWindowSize(Window w, int width, int height, int flag) {
+FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
     XSizeHints size_hints;
     switch (flag) {
     case FIX_SIZE:
@@ -1665,10 +1666,10 @@ FixWindowSize(Window w, int width, int height, int flag) {
     XSetWMProperties(display, w, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
 }
 
-int
+int32
 getxcolors(XWindowAttributes *win_info, XColor **colors) {
 
-    int i, ncolors;
+    int32 i, ncolors;
 
     *colors = (XColor *)NULL;
     TrueColorFlag = 0;
@@ -1690,7 +1691,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     xorfix = 0;
 
     if (win_info->visual->class == DirectColor) {
-        int red, green, blue, red1, green1, blue1;
+        int32 red, green, blue, red1, green1, blue1;
 
         plintf("DirectColor visual\n");
 
@@ -1727,7 +1728,7 @@ void
 test_color_info(void) {
     XColor *colors;
     XWindowAttributes xwa;
-    /*int n;
+    /*int32 n;
      */
     TrueColorFlag = 0;
 
@@ -1752,7 +1753,7 @@ double ndrand48()
 }
 
 nsrand48(seed)
-int seed;
+int32 seed;
 {
   srand(seed);
 }

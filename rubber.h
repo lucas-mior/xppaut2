@@ -1,10 +1,11 @@
 
 #ifndef _rubber_h
 #define _rubber_h
+#include "integers.h"
 
 #include <X11/Xlib.h>
 
-int rubber(int *x1, int *y1, int *x2, int *y2, Window w, int f);
-void rbox(int i1, int j1, int i2, int j2, Window w, int f);
+int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f);
+void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f);
 
 #endif

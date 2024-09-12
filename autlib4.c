@@ -5,6 +5,7 @@
 
 #include "auto_f2c.h"
 #include "auto_c.h"
+#include "integers.h"
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -59,7 +60,7 @@
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int
+/* Subroutine */ int32
 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
        doublecomplex *ev) {
 
@@ -381,7 +382,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int
+/* Subroutine */ int32
 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
       double *v) {
 
@@ -529,7 +530,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 
 } /* dhhpr_ */
 
-/* Subroutine */ int
+/* Subroutine */ int32
 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
       int64 *job, double *a, int64 *lda) {
     /* System generated locals */

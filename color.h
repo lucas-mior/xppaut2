@@ -1,19 +1,20 @@
 #ifndef _color_h_
 #define _color_h_
+#include "integers.h"
 
 #include <X11/Xlib.h>
 
 void tst_color(Window w);
-void set_scolor(int col);
-void set_color(int col);
-void make_cmaps(int *r, int *g, int *b, int n, int type);
-int rfun(double y, int per);
-int gfun(double y, int per);
-int bfun(double y, int per);
-void NewColormap(int type);
-void get_ps_color(int i, float *r, float *g, float *b);
-void get_svg_color(int i, int *r, int *g, int *b);
+void set_scolor(int32 col);
+void set_color(int32 col);
+void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
+int32 rfun(double y, int32 per);
+int32 gfun(double y, int32 per);
+int32 bfun(double y, int32 per);
+void NewColormap(int32 type);
+void get_ps_color(int32 i, float *r, float *g, float *b);
+void get_svg_color(int32 i, int32 *r, int32 *g, int32 *b);
 void MakeColormap(void);
-int ColorMap(int i);
+int32 ColorMap(int32 i);
 
 #endif

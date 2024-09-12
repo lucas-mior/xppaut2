@@ -1,5 +1,6 @@
 #include "xpplim.h"
 #include "many_pops.h"
+#include "integers.h"
 
 #include "menudrive.h"
 #include "pop_list.h"
@@ -50,18 +51,18 @@ typedef struct {
     double size;
     short use;
     Window w;
-    int type, color;
+    int32 type, color;
 } GROB;
 
 typedef struct {
-    int type, color;
-    int number, start, skip;
+    int32 type, color;
+    int32 number, start, skip;
     double size;
 } MARKINFO;
 
 MARKINFO markinfo = {2, 0, 1, 0, 1, 1.0};
 
-int manual_expose = 0;
+int32 manual_expose = 0;
 extern char *info_message;
 extern BROWSER my_browser;
 extern Atom deleteWindowAtom;
@@ -71,28 +72,28 @@ GRAPH graph[MAXPOP];
 CURVE frz[MAXFRZ];
 extern NCLINE nclines[MAXNCLINE];
 GRAPH *MyGraph;
-extern int help_menu, screen;
-extern int SCALEY, CURY_OFF, CURY_OFFs, DCURYs, DCURXs, DCURYb;
-int SimulPlotFlag = 0;
-extern int storind;
-extern int PltFmtFlag;
+extern int32 help_menu, screen;
+extern int32 SCALEY, CURY_OFF, CURY_OFFs, DCURYs, DCURXs, DCURYb;
+int32 SimulPlotFlag = 0;
+extern int32 storind;
+extern int32 PltFmtFlag;
 extern char *text_hint[];
 extern char *edit_hint[];
 extern char *no_hint[];
 extern Display *display;
 extern Window main_win, draw_win, command_pop, info_pop;
-int current_pop;
-extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
+int32 current_pop;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
     GrFore, GrBack;
 extern GC gc, gc_graph, small_gc;
-extern int COLOR, color_min;
-extern int xor_flag, DCURX, DCURY;
-int num_pops;
-int MINI_H = 300;
-int MINI_W = 450;
+extern int32 COLOR, color_min;
+extern int32 xor_flag, DCURX, DCURY;
+int32 num_pops;
+int32 MINI_H = 300;
+int32 MINI_W = 450;
 
-extern int Xup;
-int ActiveWinList[MAXPOP];
+extern int32 Xup;
+int32 ActiveWinList[MAXPOP];
 double signum();
 
 Window make_window();
@@ -100,14 +101,14 @@ Window make_window();
 typedef struct {
     char *name;
     char *does;
-    unsigned int use;
+    uint32 use;
 } INTERN_SET;
 
 typedef struct {
     double xlo, xhi, dx;
     double *y, *x;
-    int n, flag, interp, autoeval;
-    int xyvals;
+    int32 n, flag, interp, autoeval;
+    int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
                              interp=0 for normal interpolation, interp=1 for
        'step' interp=2 for cubic spline table   and finally, xyvals=1 if both x
@@ -117,13 +118,13 @@ typedef struct {
 
 extern TABULAR my_table[MAX_TAB];
 
-extern int NTable;
+extern int32 NTable;
 
 extern INTERN_SET intern_set[MAX_INTERN_SET];
-extern int Nintern_set;
-int
+extern int32 Nintern_set;
+int32
 select_table(void) {
-    int i, j;
+    int32 i, j;
     Window temp = main_win;
     char *n[MAX_TAB], key[MAX_TAB], ch;
     for (i = 0; i < NTable; i++) {
@@ -136,7 +137,7 @@ select_table(void) {
                            no_hint, info_pop, info_message);
     for (i = 0; i < NTable; i++)
         free(n[i]);
-    j = (int)(ch - 'a');
+    j = (int32)(ch - 'a');
     if (j < 0 || j >= NTable) {
         err_msg("Not a valid table");
         return -1;
@@ -147,8 +148,8 @@ select_table(void) {
 void
 get_intern_set(void) {
     char *n[MAX_INTERN_SET], key[MAX_INTERN_SET], ch;
-    int i, j;
-    int count = Nintern_set;
+    int32 i, j;
+    int32 count = Nintern_set;
     Window temp = main_win;
     if (count == 0)
         return;
@@ -162,7 +163,7 @@ get_intern_set(void) {
                            no_hint, info_pop, info_message);
     for (i = 0; i < count; i++)
         free(n[i]);
-    j = (int)(ch - 'a');
+    j = (int32)(ch - 'a');
     if (j < 0 || j >= Nintern_set) {
         err_msg("Not a valid set");
         return;
@@ -177,7 +178,7 @@ get_intern_set(void) {
 }
 
 void
-make_icon(char *icon, int wid, int hgt, Window w) {
+make_icon(char *icon, int32 wid, int32 hgt, Window w) {
     Pixmap icon_map;
     XWMHints wm_hints;
     icon_map = XCreateBitmapFromData(display, w, icon, wid, hgt);
@@ -208,10 +209,10 @@ gtitle_text(char *string, Window win) {
         XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
                          NULL);
     } else {
-        int len = strlen(string);
-        int x, y;
-        unsigned int w, h, bw, de;
-        int xs, ys = 2;
+        int32 len = strlen(string);
+        int32 x, y;
+        uint32 w, h, bw, de;
+        int32 xs, ys = 2;
         Window root;
         XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &de);
         xs = (w - len * DCURX) / 2;
@@ -237,8 +238,8 @@ restore_on(void) {
 }
 
 void
-add_label(char *s, int x, int y, int size, int font) {
-    int i;
+add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
+    int32 i;
     float xp, yp;
     scale_to_real(x, y, &xp, &yp);
     for (i = 0; i < MAXLAB; i++) {
@@ -256,13 +257,13 @@ add_label(char *s, int x, int y, int size, int font) {
 }
 
 void
-draw_marker(double x, double y, double size, int type) {
-    int pen = 0;
+draw_marker(double x, double y, double size, int32 type) {
+    int32 pen = 0;
     float x1 = x, y1 = y, x2, y2;
-    int ind = 0;
-    int offset;
+    int32 ind = 0;
+    int32 offset;
 
-    static int sym_dir[] = {
+    static int32 sym_dir[] = {
         /*          box              */
         0,
         -6,
@@ -581,7 +582,7 @@ draw_marker(double x, double y, double size, int type) {
 }
 
 void
-draw_grob(int i) {
+draw_grob(int32 i) {
     float xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
     set_linestyle(grob[i].color);
     if (grob[i].type == POINTER)
@@ -607,7 +608,7 @@ arrow_head(double xs, double ys, double xe, double ye, double size) {
 
 void
 destroy_grob(Window w) {
-    int i;
+    int32 i;
     for (i = 0; i < MAXGROB; i++) {
         if ((grob[i].use == 1) && (grob[i].w == w)) {
             grob[i].use = 0;
@@ -618,7 +619,7 @@ destroy_grob(Window w) {
 
 void
 destroy_label(Window w) {
-    int i;
+    int32 i;
     for (i = 0; i < MAXLAB; i++) {
         if ((lb[i].use == 1) && (lb[i].w == w)) {
             lb[i].use = 0;
@@ -629,7 +630,7 @@ destroy_label(Window w) {
 
 void
 draw_label(Window w) {
-    int i;
+    int32 i;
     GrCol();
     for (i = 0; i < MAXLAB; i++) {
         if ((lb[i].use == 1) && (lb[i].w == w))
@@ -643,9 +644,9 @@ draw_label(Window w) {
 }
 
 void
-add_grob(double xs, double ys, double xe, double ye, double size, int type,
-         int color) {
-    int i;
+add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
+         int32 color) {
+    int32 i;
     for (i = 0; i < MAXGROB; i++) {
         if (grob[i].use == 0) {
             grob[i].use = 1;
@@ -663,10 +664,10 @@ add_grob(double xs, double ys, double xe, double ye, double size, int type,
     }
 }
 
-int
-select_marker_type(int *type) {
-    int ival = *type - MARKER;
-    int i;
+int32
+select_marker_type(int32 *type) {
+    int32 ival = *type - MARKER;
+    int32 i;
     char *list[] = {"Box", "Diamond", "Triangle", "Plus", "X", "Circle"};
     static char key[] = "bdtpxc";
     Window temp = main_win;
@@ -685,7 +686,7 @@ select_marker_type(int *type) {
     return (1);
 }
 
-int
+int32
 man_xy(float *xe, float *ye) {
     double x = 0, y = 0;
     if (new_float("x: ", &x))
@@ -697,11 +698,11 @@ man_xy(float *xe, float *ye) {
     return 1;
 }
 
-int
+int32
 get_marker_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size"};
     char values[3][MAX_LEN_SBOX];
-    int status;
+    int32 status;
     snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
     snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
     snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
@@ -715,11 +716,11 @@ get_marker_info(void) {
     return 0;
 }
 
-int
+int32
 get_markers_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
     char values[6][MAX_LEN_SBOX];
-    int status;
+    int32 status;
     snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
     snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
     snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
@@ -742,7 +743,7 @@ get_markers_info(void) {
 
 void
 add_marker(void) {
-    int flag, i1, j1, status;
+    int32 flag, i1, j1, status;
     float xe = 0.0, ye = 0.0, xs, ys;
     status = get_marker_info();
     if (status == 0)
@@ -761,10 +762,10 @@ add_marker(void) {
 void
 add_marker_old(void) {
     double size = 1;
-    int i1, j1, color = 0, flag;
+    int32 i1, j1, color = 0, flag;
     float xe = 0.0, ye = 0.0, xs, ys;
     /*Window temp=main_win;*/
-    int type = MARKER;
+    int32 type = MARKER;
     if (select_marker_type(&type) == 0)
         return;
     if (new_float("Size: ", &size))
@@ -800,7 +801,7 @@ add_marker_old(void) {
 
 void
 add_markers(void) {
-    int i;
+    int32 i;
     float xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
     if (get_markers_info() == 0)
@@ -822,12 +823,12 @@ add_markers(void) {
 void
 add_markers_old(void) {
     double size = 1;
-    int i;
-    int color = 0;
-    int nm = 1, nskip = 1, nstart = 0;
+    int32 i;
+    int32 color = 0;
+    int32 nm = 1, nskip = 1, nstart = 0;
     float xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
-    int type = MARKER;
+    int32 type = MARKER;
     if (select_marker_type(&type) == 0)
         return;
     if (new_float("Size: ", &size))
@@ -855,12 +856,12 @@ add_markers_old(void) {
 }
 
 void
-add_pntarr(int type) {
+add_pntarr(int32 type) {
     double size = .1;
-    int i1, j1, i2, j2, color = 0;
+    int32 i1, j1, i2, j2, color = 0;
     float xe, ye, xs, ys;
     /*Window temp;*/
-    int flag;
+    int32 flag;
     /*temp=main_win;*/
     if (new_float("Size: ", &size))
         return;
@@ -883,9 +884,9 @@ add_pntarr(int type) {
 }
 
 void
-edit_object_com(int com) {
+edit_object_com(int32 com) {
     char ans, str[80];
-    int i, j, ilab = -1, flag, type;
+    int32 i, j, ilab = -1, flag, type;
     float x, y;
     float dist = 1e20, dd;
 
@@ -1021,7 +1022,7 @@ edit_object_com(int com) {
 }
 
 void
-do_gr_objs_com(int com) {
+do_gr_objs_com(int32 com) {
     switch (com) {
     case 0:
         cput_text();
@@ -1052,7 +1053,7 @@ do_gr_objs_com(int com) {
 
 void
 set_active_windows(void) {
-    int i, np = 0;
+    int32 i, np = 0;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use == 1) {
             ActiveWinList[np] = i;
@@ -1063,7 +1064,7 @@ set_active_windows(void) {
 }
 
 void
-do_windows_com(int c) {
+do_windows_com(int32 c) {
     switch (c) {
 
     case 0:
@@ -1096,8 +1097,8 @@ do_windows_com(int c) {
 }
 
 void
-set_restore(int flag) {
-    int i;
+set_restore(int32 flag) {
+    int32 i;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].w == draw_win) {
             graph[i].Restore = flag;
@@ -1107,10 +1108,10 @@ set_restore(int flag) {
     }
 }
 
-int
-is_col_plotted(int nc) {
-    int i;
-    int j, nv;
+int32
+is_col_plotted(int32 nc) {
+    int32 i;
+    int32 j, nv;
 
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use == 1) {
@@ -1129,7 +1130,7 @@ is_col_plotted(int nc) {
 
 void
 destroy_a_pop(void) {
-    int i;
+    int32 i;
     if (draw_win == graph[0].w) {
         respond_box("Okay", "Can't destroy big window!");
         /*respond_box(main_win,0,0,"Okay","Can't destroy big window!");*/
@@ -1151,9 +1152,9 @@ destroy_a_pop(void) {
 }
 
 void
-init_grafs(int x, int y, int w, int h) {
-    int i;
-    int botmen = DCURYs + DCURYb + 10 + 21 * (DCURY + 2);
+init_grafs(int32 x, int32 y, int32 w, int32 h) {
+    int32 i;
+    int32 botmen = DCURYs + DCURYb + 10 + 21 * (DCURY + 2);
     GrCol();
     for (i = 0; i < MAXLAB; i++) {
         lb[i].use = 0;
@@ -1261,11 +1262,11 @@ svg_restore(void) {
     svg_end();
 }
 
-int
+int32
 rotate3dcheck(XEvent ev) {
     Window w = ev.xbutton.window;
     XEvent z;
-    int xini, yini, dx, dy;
+    int32 xini, yini, dx, dy;
     double theta, phi;
     double xm, ym, xn, yn;
     if (w == draw_win && MyGraph->ThreeDFlag) {
@@ -1295,8 +1296,8 @@ rotate3dcheck(XEvent ev) {
 
 void
 do_motion_events(XEvent ev) {
-    int i = ev.xmotion.x;
-    int j = ev.xmotion.y;
+    int32 i = ev.xmotion.x;
+    int32 j = ev.xmotion.y;
     float x, y;
     char buf[256];
     slider_motion(ev);
@@ -1312,8 +1313,8 @@ do_motion_events(XEvent ev) {
 
 void
 do_expose(XEvent ev) {
-    int i;
-    int cp = current_pop;
+    int32 i;
+    int32 cp = current_pop;
     Window temp;
 
     temp = draw_win;
@@ -1384,8 +1385,8 @@ do_expose(XEvent ev) {
 }
 
 void
-resize_all_pops(int wid, int hgt) {
-    int nw = wid - 16 - 16 * DCURX + 7, nh = hgt - 3 * DCURYb - 4 * DCURYs - 24;
+resize_all_pops(int32 wid, int32 hgt) {
+    int32 nw = wid - 16 - 16 * DCURX + 7, nh = hgt - 3 * DCURYb - 4 * DCURYs - 24;
     nw = 4 * ((nw / 4));
     nh = 4 * ((nh / 4));
     XResizeWindow(display, graph[0].w, nw, nh);
@@ -1396,7 +1397,7 @@ resize_all_pops(int wid, int hgt) {
 
 void
 kill_all_pops(void) {
-    int i;
+    int32 i;
     select_window(graph[0].w);
 
     for (i = 1; i < MAXPOP; i++)
@@ -1413,7 +1414,7 @@ kill_all_pops(void) {
 
 void
 create_a_pop(void) {
-    int i, index;
+    int32 i, index;
 
     for (i = 1; i < MAXPOP; i++)
         if (graph[i].Use == 0)
@@ -1477,9 +1478,9 @@ SmallBase(void) {
 }
 
 void
-change_plot_vars(int k) {
-    int i, ip;
-    int np;
+change_plot_vars(int32 k) {
+    int32 i, ip;
+    int32 np;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use) {
             np = graph[i].nvars;
@@ -1495,10 +1496,10 @@ change_plot_vars(int k) {
     }
 }
 
-int
-check_active_plot(int k) {
-    int i, ip;
-    int np;
+int32
+check_active_plot(int32 k) {
+    int32 i, ip;
+    int32 np;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use) {
             np = graph[i].nvars;
@@ -1512,13 +1513,13 @@ check_active_plot(int k) {
     return 0;
 }
 
-int
-graph_used(int i) {
+int32
+graph_used(int32 i) {
     return graph[i].Use;
 }
 
 void
-make_active(int i, int flag) {
+make_active(int32 i, int32 flag) {
     current_pop = i;
     MyGraph = &graph[current_pop];
     draw_win = MyGraph->w;
@@ -1527,7 +1528,7 @@ make_active(int i, int flag) {
 
 void
 select_window(Window w) {
-    int i;
+    int32 i;
 
     if (w == draw_win)
         return;
@@ -1594,13 +1595,13 @@ canvas_xy(char *buf) {
 
 void
 check_draw_button(XEvent ev) {
-    int k;
+    int32 k;
     char buf[256];
 
-    int button;
-    int i, j;
+    int32 button;
+    int32 i, j;
     float x, y;
-    int flag = 0;
+    int32 flag = 0;
     Window w;
     button = ev.xbutton.button;
     w = ev.xbutton.window;

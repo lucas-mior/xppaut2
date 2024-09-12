@@ -1,4 +1,5 @@
 #include "tabular.h"
+#include "integers.h"
 
 #include "browse.h"
 #include "ggets.h"
@@ -69,8 +70,8 @@ to be added later
 typedef struct {
     double xlo, xhi, dx;
     double *y, *x;
-    int n, flag, interp, autoeval;
-    int xyvals;
+    int32 n, flag, interp, autoeval;
+    int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
                              interp=0 for normal interpolation, interp=1 for
        'step' interp=2 for cubic spline table   and finally, xyvals=1 if both x
@@ -83,30 +84,30 @@ TABULAR my_table[MAX_TAB];
 double get_ivar();
 double evaluate();
 extern char cur_dir[];
-extern int NTable;
+extern int32 NTable;
 
-extern int NCON, NSYM, NCON_START, NSYM_START;
+extern int32 NCON, NSYM, NCON_START, NSYM_START;
 
-extern int MAXSTOR;
+extern int32 MAXSTOR;
 extern float **storage;
 void
-set_auto_eval_flags(int f) {
-    int i;
+set_auto_eval_flags(int32 f) {
+    int32 i;
     for (i = 0; i < MAX_TAB; i++)
         my_table[i].autoeval = f;
     return;
 }
 
 void
-set_table_name(char *name, int index) {
+set_table_name(char *name, int32 index) {
     strcpy(my_table[index].name, name);
     return;
 }
 
 void
-view_table(int index) {
-    int i;
-    int n = my_table[index].n, len;
+view_table(int32 index) {
+    int32 i;
+    int32 n = my_table[index].n, len;
     double *y = my_table[index].y;
     double xlo = my_table[index].xlo, dx = my_table[index].dx;
     len = n;
@@ -121,11 +122,11 @@ view_table(int index) {
 }
 
 void
-new_lookup_com(int i) {
+new_lookup_com(int32 i) {
     char file[128];
-    int index, ok, status;
+    int32 index, ok, status;
     double xlo, xhi;
-    int npts;
+    int32 npts;
     char newform[80];
 
     index = select_table();
@@ -164,9 +165,9 @@ void
 new_lookup_ok(void) {
     char file[128];
     char name[10];
-    int index, ok;
+    int32 index, ok;
     double xlo, xhi;
-    int npts;
+    int32 npts;
     char newform[80];
     if (NTable == 0)
         return;
@@ -206,9 +207,9 @@ new_lookup_ok(void) {
 }
 
 double
-lookupxy(double x, int n, double *xv, double *yv) {
+lookupxy(double x, int32 n, double *xv, double *yv) {
     double dx, dy, x1, y1, x2, y2;
-    int i;
+    int32 i;
     if (x <= xv[0])
         return (yv[0] + (yv[1] - yv[0]) * (x - xv[0]) / (xv[1] - xv[0]));
     if (x >= xv[n - 1])
@@ -231,7 +232,7 @@ lookupxy(double x, int n, double *xv, double *yv) {
 }
 
 double
-tab_interp(double xlo, double h, double x, double *y, int n, int i) {
+tab_interp(double xlo, double h, double x, double *y, int32 n, int32 i) {
     double a, b, c, d;
     double ym, y0, y1, y2;
     double tt;
@@ -248,12 +249,12 @@ tab_interp(double xlo, double h, double x, double *y, int n, int i) {
 }
 
 double
-lookup(double x, int index) {
+lookup(double x, int32 index) {
     double xlo = my_table[index].xlo, xhi = my_table[index].xhi,
            dx = my_table[index].dx;
     double *y;
     double x1, y1, y2;
-    int i1, i2, n = my_table[index].n;
+    int32 i1, i2, n = my_table[index].n;
     y = my_table[index].y;
 
     if (my_table[index].flag == 0)
@@ -261,7 +262,7 @@ lookup(double x, int index) {
     if (my_table[index].xyvals == 1)
         return (lookupxy(x, n, my_table[index].x, y));
 
-    i1 = (int)((x - xlo) / dx); /* (int)floor(x) instead of (int)x ??? */
+    i1 = (int32)((x - xlo) / dx); /* (int32)floor(x) instead of (int32)x ??? */
     if (my_table[index].interp == 2 && i1 > 0 && i1 < (n - 2))
         return tab_interp(xlo, dx, x, y, n,
                           i1); /* if it is on the edge - use linear */
@@ -290,7 +291,7 @@ lookup(double x, int index) {
 
 void
 init_table(void) {
-    int i;
+    int32 i;
     for (i = 0; i < MAX_TAB; i++) {
         my_table[i].flag = 0;
         my_table[i].autoeval = 1;
@@ -301,7 +302,7 @@ init_table(void) {
 
 void
 redo_all_fun_tables(void) {
-    int i;
+    int32 i;
     for (i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
             eval_fun_table(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
@@ -311,13 +312,13 @@ redo_all_fun_tables(void) {
     return;
 }
 
-int
-eval_fun_table(int n, double xlo, double xhi, char *formula, double *y) {
-    int i;
+int32
+eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
+    int32 i;
 
     double dx;
     double oldt;
-    int command[200], ncold = NCON, nsym = NSYM;
+    int32 command[200], ncold = NCON, nsym = NSYM;
     if (add_expr(formula, command, &i)) {
         err_msg("Illegal formula...");
         NCON = ncold;
@@ -336,9 +337,9 @@ eval_fun_table(int n, double xlo, double xhi, char *formula, double *y) {
     return (1);
 }
 
-int
-create_fun_table(int npts, double xlo, double xhi, char *formula, int index) {
-    int length = npts;
+int32
+create_fun_table(int32 npts, double xlo, double xhi, char *formula, int32 index) {
+    int32 length = npts;
 
     if (my_table[index].flag == 1) {
         err_msg("Not a function table...");
@@ -374,18 +375,18 @@ create_fun_table(int npts, double xlo, double xhi, char *formula, int index) {
     return (0);
 }
 
-int
-load_table(char *filename, int index) {
-    int i;
+int32
+load_table(char *filename, int32 index) {
+    int32 i;
     char bobtab[100];
     char *bob;
     char error[512];
-    int length;
+    int32 length;
     double xlo, xhi;
     FILE *fp;
     char filename2[512], ch;
-    int n = strlen(filename);
-    int j = 0, flag = 0;
+    int32 n = strlen(filename);
+    int32 j = 0, flag = 0;
     for (i = 0; i < n; i++) {
         ch = filename[i];
         if ((ch == '"') && flag == 1) {
@@ -481,8 +482,8 @@ load_table(char *filename, int index) {
     return (1);
 }
 
-int
-get_lookup_len(int i) {
+int32
+get_lookup_len(int32 i) {
     return my_table[i].n;
 }
 

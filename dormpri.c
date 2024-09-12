@@ -7,6 +7,7 @@
 #include "dormpri.h"
 #include "flags.h"
 #include "ggets.h"
+#include "integers.h"
 
 extern double *WORK;
 
@@ -17,7 +18,7 @@ static double *yy1, *k1, *k2, *k3, *k4, *k5, *k6, *k7, *k8, *k9, *k10, *ysti;
 static double *rcont1, *rcont2, *rcont3, *rcont4;
 static double *rcont5, *rcont6, *rcont7, *rcont8;
 
-extern int NFlags;
+extern int32 NFlags;
 
 void
 dprhs(unsigned n, double t, double *y, double *f) {
@@ -25,7 +26,7 @@ dprhs(unsigned n, double t, double *y, double *f) {
 }
 
 void
-dp_err(int k) {
+dp_err(int32 k) {
     ping();
     switch (k) {
     case -1:
@@ -43,10 +44,10 @@ dp_err(int k) {
     }
 }
 
-int
-dp(int *istart, double *y, double *t, int n, double tout, double *tol,
-   double *atol, int flag, int *kflag) {
-    int err = 0;
+int32
+dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
+   double *atol, int32 flag, int32 *kflag) {
+    int32 err = 0;
     if (NFlags == 0)
         return (dormprin(istart, y, t, n, tout, tol, atol, flag, kflag));
     err = one_flag_step_dp(istart, y, t, n, tout, tol, atol, flag, kflag);
@@ -62,9 +63,9 @@ dp(int *istart, double *y, double *t, int n, double tout, double *tol,
   istart=1 for first time
   istart=0 for continuation
 */
-int
-dormprin(int *istart, double *y, double *t, int n, double tout, double *tol,
-         double *atol, int flag, int *kflag) {
+int32
+dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
+         double *atol, int32 flag, int32 *kflag) {
     double hg = 0.0;
     if (*istart == 0)
         hg = hout;
@@ -134,8 +135,8 @@ max_d(double a, double b) {
 
 static double
 hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
-      double *f1, double *yy1, int iord, double hmax, double *atoler,
-      double *rtoler, int itoler) {
+      double *f1, double *yy1, int32 iord, double hmax, double *atoler,
+      double *rtoler, int32 itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     unsigned i;
 
@@ -205,16 +206,16 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 } /* hinit */
 
 /* core integrator */
-static int
+static int32
 dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
-       double h, double *rtoler, double *atoler, int itoler, FILE *fileout,
-       SolTrait solout, int iout, long nmax, double uround, int meth,
+       double h, double *rtoler, double *atoler, int32 itoler, FILE *fileout,
+       SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
        long nstiff, double safe, double beta, double fac1, double fac2,
        unsigned *icont) {
     double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
     double atoli, rtoli, hlamb, err, sk, hnew, ydiff, bspl;
     double stnum, stden, sqr, err2, erri, deno;
-    int iasti, iord, irtrn, reject, last, nonsti = 0;
+    int32 iasti, iord, irtrn, reject, last, nonsti = 0;
     unsigned i, j;
     double c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c14, c15, c16;
     double b1, b6, b7, b8, b9, b10, b11, b12, bhh1, bhh2, bhh3;
@@ -751,13 +752,13 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 } /* dopcor */
 
 /* front-end */
-int
+int32
 dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler, int itoler, SolTrait solout, int iout,
+       double *rtoler, double *atoler, int32 itoler, SolTrait solout, int32 iout,
        FILE *fileout, double uround, double safe, double fac1, double fac2,
-       double beta, double hmax, double h, long nmax, int meth, long nstiff,
+       double beta, double hmax, double h, long nmax, int32 meth, long nstiff,
        unsigned nrdens, unsigned *icont, unsigned licont, double *work) {
-    int arret, idid;
+    int32 arret, idid;
     unsigned i;
 
     /* initialisations */
@@ -944,8 +945,8 @@ contd8(unsigned ii, double x) {
 /************    dopri5  ***************************/
 static double
 hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
-       double *f0, double *f1, double *yy1, int iord, double hmax,
-       double *atoler, double *rtoler, int itoler) {
+       double *f0, double *f1, double *yy1, int32 iord, double hmax,
+       double *atoler, double *rtoler, int32 itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     unsigned i;
 
@@ -1015,16 +1016,16 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
 } /* hinit */
 
 /* core integrator */
-static int
+static int32
 dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-        double hmax, double h, double *rtoler, double *atoler, int itoler,
-        FILE *fileout, SolTrait solout, int iout, long nmax, double uround,
-        int meth, long nstiff, double safe, double beta, double fac1,
+        double hmax, double h, double *rtoler, double *atoler, int32 itoler,
+        FILE *fileout, SolTrait solout, int32 iout, long nmax, double uround,
+        int32 meth, long nstiff, double safe, double beta, double fac1,
         double fac2, unsigned *icont) {
     double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
     double atoli, rtoli, hlamb, err, sk, hnew, yd0, ydiff, bspl;
     double stnum, stden, sqr;
-    int iasti, iord, irtrn, reject, last, nonsti = 0;
+    int32 iasti, iord, irtrn, reject, last, nonsti = 0;
     unsigned i, j;
     double c2, c3, c4, c5, e1, e3, e4, e5, e6, e7, d1, d3, d4, d5, d6, d7;
     double a21, a31, a32, a41, a42, a43, a51, a52, a53, a54;
@@ -1292,13 +1293,13 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 } /* dopcor5 */
 
 /* front-end */
-int
+int32
 dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
-       double *rtoler, double *atoler, int itoler, SolTrait solout, int iout,
+       double *rtoler, double *atoler, int32 itoler, SolTrait solout, int32 iout,
        FILE *fileout, double uround, double safe, double fac1, double fac2,
-       double beta, double hmax, double h, long nmax, int meth, long nstiff,
+       double beta, double hmax, double h, long nmax, int32 meth, long nstiff,
        unsigned nrdens, unsigned *icont, unsigned licont, double *work) {
-    int arret, idid;
+    int32 arret, idid;
     unsigned i;
 
     /* initialisations */

@@ -16,16 +16,17 @@
 #include "pop_list.h"
 #include "ggets.h"
 #include "browse.h"
+#include "integers.h"
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 extern Display *display;
 extern Window main_win;
-extern unsigned int MyBackColor, MyForeColor;
-extern int screen;
+extern uint32 MyBackColor, MyForeColor;
+extern int32 screen;
 extern GC gc;
-extern int xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
+extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
 
 void
 destroy_choice(CHOICE_BOX p) {
@@ -36,8 +37,8 @@ destroy_choice(CHOICE_BOX p) {
 
 void
 display_choice(Window w, CHOICE_BOX p) {
-    int i;
-    int n = p.n;
+    int32 i;
+    int32 n = p.n;
     XSetFillStyle(display, gc, FillSolid);
     XSetForeground(display, gc, MyForeColor);
 
@@ -60,7 +61,7 @@ display_choice(Window w, CHOICE_BOX p) {
 
 void
 do_checks(CHOICE_BOX p) {
-    int i;
+    int32 i;
 
     for (i = 0; i < p.n; i++) {
         if (p.flag[i] == 1)
@@ -73,22 +74,22 @@ do_checks(CHOICE_BOX p) {
 }
 
 void
-base_choice(char *wname, int n, int mcc, char **names, int *check, int type) {
+base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check, int32 type) {
     do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check,
                   type);
 }
 
-int
-do_choice_box(Window root, char *wname, int n, int mcc, char **names,
-              int *check, int type) {
+int32
+do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
+              int32 *check, int32 type) {
     CHOICE_BOX p;
 
-    int i;
-    int width, height;
-    int maxchar;
-    int oldcheck[MAXENTRY];
-    int xpos, ypos, status;
-    int xstart, ystart;
+    int32 i;
+    int32 width, height;
+    int32 maxchar;
+    int32 oldcheck[MAXENTRY];
+    int32 xpos, ypos, status;
+    int32 xstart, ystart;
     XTextProperty winname;
     XSizeHints size_hints;
     Window base;
@@ -145,12 +146,12 @@ do_choice_box(Window root, char *wname, int n, int mcc, char **names,
     return (status);
 }
 
-int
+int32
 choice_box_event_loop(CHOICE_BOX p)
 
 {
-    int i, j, nn = p.n;
-    int status = -1;
+    int32 i, j, nn = p.n;
+    int32 status = -1;
 
     XEvent ev;
 

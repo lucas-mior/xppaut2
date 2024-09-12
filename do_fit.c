@@ -16,6 +16,7 @@
 #include "pop_list.h"
 #include "gear.h"
 #include "browse.h"
+#include "integers.h"
 
 #include "phsplan.h"
 
@@ -34,13 +35,13 @@ extern double constants[];
 extern double last_ic[MAXODE];
 
 extern double DELAY;
-extern int DelayFlag;
+extern int32 DelayFlag;
 FITINFO fin;
 
 char *get_first();
 char *get_next();
 
-extern int (*solver)();
+extern int32 (*solver)();
 
 void
 init_fit_info(void) {
@@ -59,9 +60,9 @@ init_fit_info(void) {
 }
 
 void
-get_fit_info(double *y, double *a, double *t0, int *flag, double eps,
-             double *yfit, double **yderv, int npts, int npars, int nvars,
-             int *ivar, int *ipar)
+get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
+             double *yfit, double **yderv, int32 npts, int32 npars, int32 nvars,
+             int32 *ivar, int32 *ipar)
 /*
   y     initial condition
   a     initial guesses for the parameters
@@ -70,7 +71,7 @@ get_fit_info(double *y, double *a, double *t0, int *flag, double eps,
   eps   derivative step
   yfit  has y[i1](t0),...,y[im](t0), ..., y[i1](tn),...,y[im](tn)
         which are the values of the test functions at the npts
-        times.  yfit is (npts)*nvars int
+        times.  yfit is (npts)*nvars int32
   yderv[npar][nvars*(npts)] is the derivative of yfit with rrspect
         to the parameter
 
@@ -83,7 +84,7 @@ get_fit_info(double *y, double *a, double *t0, int *flag, double eps,
 
  */
 {
-    int i, iv, ip, istart = 1, j, k, l, k0, ok;
+    int32 i, iv, ip, istart = 1, j, k, l, k0, ok;
     double yold[MAXODE], dp;
     double par;
     *flag = 0;
@@ -191,10 +192,10 @@ get_fit_info(double *y, double *a, double *t0, int *flag, double eps,
 }
 
 void
-printem(double **yderv, double *yfit, double *t0, int npars, int nvars,
-        int npts) {
-    int i, j, k;
-    int ioff;
+printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
+        int32 npts) {
+    int32 i, j, k;
+    int32 ioff;
     for (i = 0; i < npts; i++) {
         plintf(" %8.5g ", t0[i]);
         ioff = nvars * i;
@@ -207,10 +208,10 @@ printem(double **yderv, double *yfit, double *t0, int npars, int nvars,
     }
 }
 
-int
-one_step_int(double *y, double t0, double t1, int *istart) {
-    int nit;
-    int kflag;
+int32
+one_step_int(double *y, double t0, double t1, int32 *istart) {
+    int32 nit;
+    int32 kflag;
     double dt = DELTA_T;
     double z;
     double error[MAXODE];
@@ -306,7 +307,7 @@ one_step_int(double *y, double t0, double t1, int *istart) {
         return (1);
     }
     z = (t1 - t0) / dt;
-    nit = (int)z;
+    nit = (int32)z;
     kflag = solver(y, &t, dt, nit, NODE, istart, WORK);
 
     if (kflag < 0)
@@ -323,7 +324,7 @@ one_step_int(double *y, double t0, double t1, int *istart) {
 
 void
 print_fit_info(void) {
-    int i;
+    int32 i;
     plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fin.dim,
            fin.maxiter, fin.npts, fin.file, fin.tol, fin.eps);
 
@@ -336,7 +337,7 @@ print_fit_info(void) {
 void
 test_fit(void) {
     double *yfit, a[1000], y0[1000];
-    int nvars, npars, i, ok;
+    int32 nvars, npars, i, ok;
     char collist[30], parlist1[30], parlist2[30], varlist[30];
     fin.nvars = 0;
     fin.npars = 0;
@@ -418,10 +419,10 @@ test_fit(void) {
     }
 }
 
-int
+int32
 run_fit(/* double arrays */
-        char *filename, int npts, int npars, int nvars, int maxiter, int ndim,
-        double eps, double tol, int *ipar, int *ivar, int *icols, double *y0,
+        char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter, int32 ndim,
+        double eps, double tol, int32 *ipar, int32 *ivar, int32 *icols, double *y0,
         double *a, double *yfit)
 
 /*
@@ -439,9 +440,9 @@ run_fit(/* double arrays */
 {
     double *t0, *y, sig[MAXODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
-    int i, j, k, ioff, ictrl = 0, ok;
+    int32 i, j, k, ioff, ictrl = 0, ok;
     FILE *fp;
-    int niter = 0, good_flag = 0;
+    int32 niter = 0, good_flag = 0;
     double tol10 = 10 * tol;
     double t, ytemp[MAXODE];
     /*printf(" %s %d %d %d %d %d \n",
@@ -560,11 +561,11 @@ run_fit(/* double arrays */
     return (1);
 }
 
-int
-marlevstep(double *t0, double *y0, double *y, double *sig, double *a, int npts,
-           int nvars, int npars, int *ivar, int *ipar, double *covar,
+int32
+marlevstep(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
+           int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *covar,
            double *alpha, double *chisq, double *alambda, double *work,
-           double **yderv, double *yfit, double *ochisq, int ictrl, double eps)
+           double **yderv, double *yfit, double *ochisq, int32 ictrl, double eps)
 /*   One step of Levenberg-Marquardt
 
 nvars  the number of variables to fit
@@ -590,7 +591,7 @@ eps   control numerical derivative
 sigma  weights on nvars
 */
 {
-    int i, j, k, ierr, ipivot[1000];
+    int32 i, j, k, ierr, ipivot[1000];
 
     double *da, *atry, *beta, *oneda;
     da = work;
@@ -662,11 +663,11 @@ sigma  weights on nvars
     return (1);
 }
 
-int
-mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int npts,
-       int nvars, int npars, int *ivar, int *ipar, double *alpha, double *chisq,
+int32
+mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
+       int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *alpha, double *chisq,
        double *beta, double **yderv, double *yfit, double eps) {
-    int flag, i, j, k, l, k0;
+    int32 flag, i, j, k, l, k0;
     double sig2i, dy, wt;
 
     get_fit_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars, ivar,
@@ -712,11 +713,11 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int npts,
     return (1);
 }
 
-int
+int32
 get_fit_params(void) {
     static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
                         "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
-    int status;
+    int32 status;
     char values[10][MAX_LEN_SBOX];
     sprintf(values[0], "%s", fin.file);
     sprintf(values[1], "%s", fin.varlist);
@@ -748,9 +749,9 @@ get_fit_params(void) {
 /* gets a list of the data columns to use ... */
 
 void
-parse_collist(char *collist, int *icols, int *n) {
+parse_collist(char *collist, int32 *icols, int32 *n) {
     char *item;
-    int v, i = 0;
+    int32 v, i = 0;
 
     item = get_first(collist, " ,");
 
@@ -769,9 +770,9 @@ parse_collist(char *collist, int *icols, int *n) {
 }
 
 void
-parse_varlist(char *varlist, int *ivars, int *n) {
+parse_varlist(char *varlist, int32 *ivars, int32 *n) {
     char *item;
-    int v, i = 0;
+    int32 v, i = 0;
 
     item = get_first(varlist, " ,");
     if (item[0] == 0)
@@ -792,10 +793,10 @@ parse_varlist(char *varlist, int *ivars, int *n) {
 }
 
 void
-parse_parlist(char *parlist, int *ipars, int *n) {
+parse_parlist(char *parlist, int32 *ipars, int32 *n) {
     char *item;
-    int v, i = 0;
-    int j;
+    int32 v, i = 0;
+    int32 j;
     for (j = 0; j < strlen(parlist); j++) {
         if (parlist[j] != ' ')
             break;

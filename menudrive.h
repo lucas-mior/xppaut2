@@ -1,5 +1,6 @@
 #ifndef _menudrive_h_
 #define _menudrive_h_
+#include "integers.h"
 
 #include <X11/Xlib.h>
 
@@ -216,18 +217,18 @@ void xpp_hlp(void);
 void MessageBox(char *m);
 void RedrawMessageBox(Window w);
 void KillMessageBox(void);
-int TwoChoice(char *c1, char *c2, char *q, char *key);
-int GetMouseXY(int *x, int *y);
+int32 TwoChoice(char *c1, char *c2, char *q, char *key);
+int32 GetMouseXY(int32 *x, int32 *y);
 void FlushDisplay(void);
 void clear_draw_window(void);
 void drw_all_scrns(void);
 void clr_all_scrns(void);
-void run_the_commands(int com);
+void run_the_commands(int32 com);
 void do_stochast(void);
 void get_pmap_pars(void);
 void set_col_par(void);
 void make_adj(void);
-void do_file_com(int com);
+void do_file_com(int32 com);
 void do_gr_objs(void);
 void new_lookup(void);
 void find_bvp(void);

@@ -1,6 +1,7 @@
 #include "menus.h"
 #include "menu.h"
 #include "main.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,21 +18,21 @@
 
 #include "menudrive.h"
 
-int help_menu;
+int32 help_menu;
 MENUDEF my_menus[3];
 extern Display *display;
-extern int tfBell, TipsFlag;
-extern int DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
+extern int32 tfBell, TipsFlag;
+extern int32 DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
 extern GC gc;
 Window make_unmapped_window();
 void
-flash(int num) {
+flash(int32 num) {
 }
 
 void
-add_menu(Window base, int j, int n, char **names, char *key, char **hint) {
+add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     Window w;
-    int i;
+    int32 i;
     Cursor cursor;
     cursor = XCreateFontCursor(display, XC_hand2);
     w = make_plain_unmapped_window(base, 0, DCURYs + DCURYb + 10, 16 * DCURX,
@@ -68,7 +69,7 @@ create_the_menus(Window base) {
 }
 
 void
-show_menu(int j) {
+show_menu(int32 j) {
     /*  XMapRaised(display,my_menus[j].base);
     XMapSubwindows(display,my_menus[j].base);
     */
@@ -78,7 +79,7 @@ show_menu(int j) {
 }
 
 void
-unshow_menu(int j) {
+unshow_menu(int32 j) {
 
     if (j < 0)
         return;
@@ -110,8 +111,8 @@ help_file(void) {
 }
 
 void
-menu_crossing(Window win, int yn) {
-    int i, n, j = help_menu;
+menu_crossing(Window win, int32 yn) {
+    int32 i, n, j = help_menu;
     char **z;
     if (j < 0)
         return;
@@ -131,7 +132,7 @@ menu_crossing(Window win, int yn) {
 
 void
 menu_expose(Window win) {
-    int i, n, j = help_menu;
+    int32 i, n, j = help_menu;
     char **z;
     if (j < 0)
         return;
@@ -163,7 +164,7 @@ menu_expose(Window win) {
 
 void
 menu_button(Window win) {
-    int i, n, j = help_menu;
+    int32 i, n, j = help_menu;
     if (j < 0)
         return;
     if (my_menus[j].visible == 0)
@@ -180,7 +181,7 @@ menu_button(Window win) {
 
 void
 draw_help(void) {
-    int i, j = help_menu, n;
+    int32 i, j = help_menu, n;
     /*char **z;
      */
     if (j < 0)

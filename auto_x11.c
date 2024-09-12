@@ -26,6 +26,7 @@
 #include "integrate.h"
 #include "browse.h"
 #include "numerics.h"
+#include "integers.h"
 
 #include "pop_list.h"
 
@@ -65,35 +66,35 @@ void sleep();
 void storeautopoint();
 void redo_all_fun_tables();
 extern Display *display;
-extern int TrueColorFlag;
-extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
-int AutoRedrawFlag = 1;
+extern int32 TrueColorFlag;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+int32 AutoRedrawFlag = 1;
 
-extern int screen, storind, NODE;
+extern int32 screen, storind, NODE;
 extern GC gc, small_gc;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFFb, CURY_OFF;
-int STD_HGT_var = 0;
-int STD_WID_var = 0;
-int Auto_extra_wid, Auto_extra_hgt;
-int Auto_x0, Auto_y0;
-extern int load_all_labeled_orbits;
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFFb, CURY_OFF;
+int32 STD_HGT_var = 0;
+int32 STD_WID_var = 0;
+int32 Auto_extra_wid, Auto_extra_hgt;
+int32 Auto_x0, Auto_y0;
+extern int32 load_all_labeled_orbits;
 /* stuff for marking a branch  */
-int mark_flag = 0;
-int mark_ibrs, mark_ibre;
-int mark_ipts, mark_ipte;
-int mark_ixs, mark_ixe, mark_iys, mark_iye;
+int32 mark_flag = 0;
+int32 mark_ibrs, mark_ibre;
+int32 mark_ipts, mark_ipte;
+int32 mark_ixs, mark_ixe, mark_iys, mark_iye;
 extern Window command_pop;
 
 extern double TEND;
-extern int AutoTwoParam;
-extern int NAutoPar;
-extern int Auto_index_to_array[8];
-extern int AutoPar[8];
+extern int32 AutoTwoParam;
+extern int32 NAutoPar;
+extern int32 Auto_index_to_array[8];
+extern int32 AutoPar[8];
 
-extern int xorfix;
+extern int32 xorfix;
 
-extern int TipsFlag;
-extern unsigned int MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
+extern int32 TipsFlag;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor,
     GrFore, GrBack;
 
 extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
@@ -101,7 +102,7 @@ extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
 
 extern double constants[];
 
-extern int DONT_XORCross;
+extern int32 DONT_XORCross;
 
 AUTOWIN AutoW;
 
@@ -112,14 +113,14 @@ extern GRABPT grabpt;
 extern DIAGRAM *bifd;
 DIAGRAM *CUR_DIAGRAM;
 
-extern int NBifs;
+extern int32 NBifs;
 
 /* ****************************************************
    Code here
 *****************************************************/
 
 void
-ALINE(int a, int b, int c, int d) {
+ALINE(int32 a, int32 b, int32 c, int32 d) {
     XDrawLine(display, AutoW.canvas, small_gc, (a), (b), (c), (d));
 }
 
@@ -129,19 +130,19 @@ DLINE(double a, double b, double c, double d) {
 }
 
 void
-ATEXT(int a, int b, char *c) {
+ATEXT(int32 a, int32 b, char *c) {
     XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), strlen(c));
 }
 
 void
 clr_stab(void) {
-    int r = Auto.st_wid / 4;
+    int32 r = Auto.st_wid / 4;
     XClearWindow(display, AutoW.stab);
     XDrawArc(display, AutoW.stab, small_gc, r, r, 2 * r, 2 * r, 0, 360 * 64);
 }
 
 void
-auto_stab_line(int x, int y, int xp, int yp) {
+auto_stab_line(int32 x, int32 y, int32 xp, int32 yp) {
     XDrawLine(display, AutoW.stab, small_gc, x, y, xp, yp);
 }
 
@@ -166,12 +167,12 @@ redraw_auto_menus(void) {
     display_auto(AutoW.abort);
 }
 
-int
+int32
 query_special(char *title, char *nsymb) {
-    int status = 1;
+    int32 status = 1;
     static char *m[] = {"BP", "EP", "HB", "LP", "MX", "PD", "TR", "UZ"};
     static char key[] = "behlmptu";
-    int ch = (char)auto_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
+    int32 ch = (char)auto_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
                                     aspecial_hint, Auto.hinttxt);
     if (ch == 'b') {
         sprintf(nsymb, "BP");
@@ -207,8 +208,8 @@ do_auto_range(void) {
 }
 
 void
-auto_get_info(int *n, char *pname) {
-    int i1, i2, ibr;
+auto_get_info(int32 *n, char *pname) {
+    int32 i1, i2, ibr;
     DIAGRAM *d, *dnew;
 
     if (mark_flag == 2) {
@@ -233,8 +234,8 @@ auto_get_info(int *n, char *pname) {
 }
 
 void
-auto_set_mark(int i) {
-    int pt, ibr;
+auto_set_mark(int32 i) {
+    int32 pt, ibr;
     if (mark_flag == 2) {
         ibr = mark_ibrs;
         if (abs(mark_ipts) < abs(mark_ipte))
@@ -246,8 +247,8 @@ auto_set_mark(int i) {
 }
 
 void
-find_point(int ibr, int pt) {
-    int i;
+find_point(int32 ibr, int32 pt) {
+    int32 i;
     DIAGRAM *d, *dnew;
     if (NBifs < 2)
         return;
@@ -283,11 +284,11 @@ find_point(int ibr, int pt) {
 void
 traverse_diagram(void) {
     DIAGRAM *d, *dnew, *dold;
-    int done = 0;
-    int ix, iy, i;
-    int lalo;
+    int32 done = 0;
+    int32 ix, iy, i;
+    int32 lalo;
     XEvent ev;
-    int kp;
+    int32 kp;
     mark_flag = 0;
     if (NBifs < 2)
         return;
@@ -300,8 +301,8 @@ traverse_diagram(void) {
         XNextEvent(display, &ev);
         if (ev.type == ButtonPress) {
 
-            int xm = ev.xmotion.x;
-            int ym = ev.xmotion.y;
+            int32 xm = ev.xmotion.x;
+            int32 ym = ev.xmotion.y;
 
             Window w = ev.xmotion.window;
 
@@ -331,7 +332,7 @@ traverse_diagram(void) {
                 /*
                 GO END
                 */
-                int mindex = 0;
+                int32 mindex = 0;
                 double dist;
                 double ndist = Auto.wid * Auto.hgt;
                 XORCross(ix, iy);
@@ -392,7 +393,7 @@ traverse_diagram(void) {
             kp = get_key_press(&ev);
             char symb[3], nsymb[3];
 
-            int found = 0;
+            int32 found = 0;
 
             switch (kp) {
             case RIGHT:
@@ -638,7 +639,7 @@ clear_auto_info(void) {
 }
 
 void
-draw_auto_info(char *bob, int x, int y) {
+draw_auto_info(char *bob, int32 x, int32 y) {
     XDrawString(display, AutoW.info, small_gc, x, y, bob, strlen(bob));
 }
 
@@ -647,8 +648,8 @@ refreshdisplay(void) {
     XFlush(display);
 }
 
-int
-byeauto_(int *iflag) {
+int32
+byeauto_(int32 *iflag) {
     XEvent event;
     Window w;
     char ch;
@@ -683,13 +684,13 @@ byeauto_(int *iflag) {
 }
 
 void
-Circle(int x, int y, int r) {
+Circle(int32 x, int32 y, int32 r) {
     XDrawArc(display, AutoW.canvas, small_gc, x - r, y - r, r << 1, r << 1, 0,
              360 * 64);
 }
 
 void
-autocol(int col) {
+autocol(int32 col) {
     set_scolor(col);
 }
 
@@ -699,14 +700,14 @@ autobw(void) {
     XSetForeground(display, small_gc, MyForeColor);
 }
 
-int
-auto_rubber(int *i1, int *j1, int *i2, int *j2, int flag) {
+int32
+auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
     return (rubber(i1, j1, i2, j2, AutoW.canvas, flag));
 }
 
-int
-auto_pop_up_list(char *title, char **list, char *key, int n, int max, int def,
-                 int x, int y, char **hints, char *httxt) {
+int32
+auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max, int32 def,
+                 int32 x, int32 y, char **hints, char *httxt) {
     Window temp = AutoW.base;
     return pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
                        AutoW.hint, httxt);
@@ -721,7 +722,7 @@ RedrawMark(void) {
 }
 
 void
-MarkAuto(int x, int y) {
+MarkAuto(int32 x, int32 y) {
 
     LineWidth(2);
     ALINE(x - 8, y - 8, x + 8, y + 8);
@@ -730,7 +731,7 @@ MarkAuto(int x, int y) {
 }
 
 void
-XORCross(int x, int y) {
+XORCross(int32 x, int32 y) {
 
     if (DONT_XORCross) {
         return;
@@ -756,10 +757,10 @@ XORCross(int x, int y) {
 }
 
 void
-FillCircle(int x, int y, int r) {
+FillCircle(int32 x, int32 y, int32 r) {
 
-    int r2 = (int)(r / 1.41421356 + 0.5);
-    int wh = 2 * r2;
+    int32 r2 = (int32)(r / 1.41421356 + 0.5);
+    int32 wh = 2 * r2;
 
     XFillArc(display, AutoW.canvas, small_gc, x - r2, y - r2, wh, wh, 0,
              360 * 64);
@@ -777,16 +778,16 @@ auto_update_view(float xlo, float xhi, float ylo, float yhi) {
 void
 auto_scroll_window(void) {
     XEvent ev;
-    int i = 0, j = 0;
-    int i0 = 0, j0 = 0;
-    int state = 0;
+    int32 i = 0, j = 0;
+    int32 i0 = 0, j0 = 0;
+    int32 state = 0;
     float x, y, x0, y0;
     float xlo = Auto.xmin;
     float ylo = Auto.ymin;
     float xhi = Auto.xmax;
     float yhi = Auto.ymax;
     float dx, dy;
-    int alldone = 0;
+    int32 alldone = 0;
     /*    printf("xin: %g %g %g %g\n",xlo,xhi,ylo,yhi); */
     XSelectInput(display, AutoW.canvas,
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
@@ -850,17 +851,17 @@ auto_scroll_window(void) {
 }
 
 void
-LineWidth(int wid) {
-    int ls = LineSolid;
-    int cs = CapButt;
-    int js = JoinRound;
+LineWidth(int32 wid) {
+    int32 ls = LineSolid;
+    int32 cs = CapButt;
+    int32 js = JoinRound;
     XSetLineAttributes(display, small_gc, wid, ls, cs, js);
 }
 
 void
 auto_motion(XEvent ev) {
-    int i = ev.xmotion.x;
-    int j = ev.xmotion.y;
+    int32 i = ev.xmotion.x;
+    int32 j = ev.xmotion.y;
     double x, y;
     Window w = ev.xmotion.window;
     if (Auto.exist == 0)
@@ -879,7 +880,7 @@ auto_motion(XEvent ev) {
 void
 display_auto(Window w) {
 
-    int ix, iy;
+    int32 ix, iy;
     if (Auto.exist == 0)
         return;
     if (w == AutoW.canvas) {
@@ -888,7 +889,7 @@ display_auto(Window w) {
     };
     if (w == AutoW.stab) {
         XFlush(display);
-        int r = Auto.st_wid / 4;
+        int32 r = Auto.st_wid / 4;
         XDrawArc(display, AutoW.stab, small_gc, r, r, 2 * r, 2 * r, 0,
                  360 * 64);
         if (CUR_DIAGRAM != NULL) {
@@ -927,11 +928,11 @@ display_auto(Window w) {
 }
 
 Window
-lil_button(Window root, int x, int y, char *name) {
+lil_button(Window root, int32 x, int32 y, char *name) {
     Window win;
-    /*int width=strlen(name)*DCURX+5;
+    /*int32 width=strlen(name)*DCURX+5;
      */
-    int width = 12 * DCURX;
+    int32 width = 12 * DCURX;
     win = make_window(root, x, y, width, DCURY + 1, 1);
     XSelectInput(display, win, MYMASK);
     return (win);
@@ -948,14 +949,14 @@ make_auto(/* this makes the auto window  */
           char *wname, char *iname)
 
 {
-    int x, y, wid, hgt, addwid = 16 * DCURX, addhgt = 3.0 * DCURY,
+    int32 x, y, wid, hgt, addwid = 16 * DCURX, addhgt = 3.0 * DCURY,
                         hinthgt = DCURY + 6;
     Window base = 0;
-    int dely = DCURY + 5;
+    int32 dely = DCURY + 5;
     STD_HGT_var = 20 * DCURY;
     /*STD_WID_var =1.62*STD_HGT_var;*/
     STD_WID_var = 67 * DCURX;
-    int ymargin = 4 * DCURYs, xmargin = 12 * DCURXs;
+    int32 ymargin = 4 * DCURYs, xmargin = 12 * DCURXs;
     XTextProperty winname, iconname;
     XSizeHints size_hints;
     Auto_extra_wid = 10 + addwid;
@@ -1044,11 +1045,11 @@ make_auto(/* this makes the auto window  */
 void
 resize_auto_window(XEvent ev) {
 
-    int wid, hgt, addhgt = 3.5 * DCURY;
+    int32 wid, hgt, addhgt = 3.5 * DCURY;
     STD_HGT_var = 20 * DCURY;
     /*STD_WID_var =1.62*STD_HGT_var;*/
     STD_WID_var = 50 * DCURX;
-    int ymargin = 4 * DCURYs, xmargin = 12 * DCURXs;
+    int32 ymargin = 4 * DCURYs, xmargin = 12 * DCURXs;
     if (ev.xconfigure.window == AutoW.base) {
         wid = ev.xconfigure.width - Auto_extra_wid;
         hgt = ev.xconfigure.height - Auto_extra_hgt;
@@ -1057,12 +1058,12 @@ resize_auto_window(XEvent ev) {
 
         XResizeWindow(display, AutoW.canvas, wid, hgt);
         Window root;
-        int xloc;
-        int yloc;
-        unsigned int cwid;
-        unsigned int chgt;
-        unsigned int cbwid;
-        unsigned int cdepth;
+        int32 xloc;
+        int32 yloc;
+        uint32 cwid;
+        uint32 chgt;
+        uint32 cbwid;
+        uint32 cdepth;
 
         XGetGeometry(display, AutoW.canvas, &root, &xloc, &yloc, &cwid, &chgt,
                      &cbwid, &cdepth);
@@ -1081,7 +1082,7 @@ resize_auto_window(XEvent ev) {
                               yloc + chgt + addhgt + 10, wid, DCURY + 2);
         }
 
-        int ix, iy;
+        int32 ix, iy;
 
         if (NBifs < 2)
             return;
@@ -1090,7 +1091,7 @@ resize_auto_window(XEvent ev) {
 }
 
 void
-a_msg(int i, int v) {
+a_msg(int32 i, int32 v) {
     if (v == 0 || TipsFlag == 0)
         return;
     snprintf(Auto.hinttxt, 255, auto_hint[i]);
@@ -1106,7 +1107,7 @@ clear_msg(void) {
 /*  Auto event handlers   */
 
 void
-auto_enter(Window w, int v) {
+auto_enter(Window w, int32 v) {
     if (Auto.exist == 0)
         return;
     if (w == AutoW.axes) {
@@ -1226,16 +1227,16 @@ auto_kill(void) {
 }
 
 void
-auto_keypress(XEvent ev, int *used) {
+auto_keypress(XEvent ev, int32 *used) {
     Window w = ev.xkey.window;
     /*
-     int maxlen=64;
+     int32 maxlen=64;
      char buf[65];
      XComposeStatus comp;
      KeySym ks;  */
     char ks;
     Window w2;
-    int rev;
+    int32 rev;
 
     *used = 0;
     if (Auto.exist == 0)

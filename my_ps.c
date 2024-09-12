@@ -3,6 +3,7 @@
 #include "ggets.h"
 #include "graphics.h"
 #include "color.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,27 +28,27 @@
 #define RIGHT 2
 #define CENTER 1
 #define POINT_TYPES 8
-extern int PointType;
-extern int PointRadius;
-extern int PS_Port;
-extern int TextJustify;
-extern int TextAngle;
-int LastPtLine;
-int NoBreakLine = 0;
-int PS_FONTSIZE = 14;
+extern int32 PointType;
+extern int32 PointRadius;
+extern int32 PS_Port;
+extern int32 TextJustify;
+extern int32 TextAngle;
+int32 LastPtLine;
+int32 NoBreakLine = 0;
+int32 PS_FONTSIZE = 14;
 double PS_LW = 5;
 char PS_FONT[100] = "Times-Roman";
 FILE *psfile;
 /*Default is now with color*/
-int PltFmtFlag, PSColorFlag = 1;
-int PSLines;
-int LastPSX, LastPSY;
+int32 PltFmtFlag, PSColorFlag = 1;
+int32 PSLines;
+int32 LastPSX, LastPSY;
 /* this header stuff was stolen from GNUPLOT I have added  filled circles
     and open circles for bifurcation diagrams I also use Times Roman
     since Courier is an ugly font!!
 */
 
-extern int Xup;
+extern int32 Xup;
 char *PS_header[] = {
     "/vpt2 vpt 2 mul def\n", "/hpt2 hpt 2 mul def\n",
     "/Romfnt {/Times-Roman findfont exch scalefont setfont} def ",
@@ -117,9 +118,9 @@ char *PS_header[] = {
                                                                   */
     NULL};
 
-int
-ps_init(char *filename, int color) {
-    int i;
+int32
+ps_init(char *filename, int32 color) {
+    int32 i;
     if ((psfile = fopen(filename, "w")) == NULL) {
         err_msg("Cannot open file ");
         return (0);
@@ -132,8 +133,8 @@ ps_init(char *filename, int color) {
     fprintf(psfile, "%%!PS-Adobe-2.0\n");
     fprintf(psfile, "%%Creator: xppaut\n");
     fprintf(psfile, "%%%%BoundingBox: %d %d %d %d\n", PS_XOFF, PS_YOFF,
-            (int)(PS_YMAX / PS_SC + .5 + PS_YOFF + 0.1 * PS_VCHAR),
-            (int)(PS_XMAX / PS_SC + .5 + PS_XOFF + 0.1 * PS_VCHAR));
+            (int32)(PS_YMAX / PS_SC + .5 + PS_YOFF + 0.1 * PS_VCHAR),
+            (int32)(PS_XMAX / PS_SC + .5 + PS_XOFF + 0.1 * PS_VCHAR));
     fprintf(psfile, "/xppdict 40 dict def\nxppdict begin\n");
     if (color == 0) {
         fprintf(psfile, "/Color false def \n");
@@ -145,7 +146,7 @@ ps_init(char *filename, int color) {
         PSColorFlag = 1;
     }
     fprintf(psfile, "/xpplinewidth %.3f def\n", PS_LW);
-    fprintf(psfile, "/vshift %d def\n", (int)(PS_VCHAR) / (-3));
+    fprintf(psfile, "/vshift %d def\n", (int32)(PS_VCHAR) / (-3));
     fprintf(psfile, "/dl {%d mul} def\n", PS_SC); /* dash length */
     fprintf(psfile, "/hpt %.1f def\n", PS_HTIC / 2.0);
     fprintf(psfile, "/vpt %.1f def\n", PS_VTIC / 2.0);
@@ -172,7 +173,7 @@ ps_stroke(void) {
 }
 
 void
-ps_do_color(int color) {
+ps_do_color(int32 color) {
     float r, g, b;
     /* this doesn work very well */
     if (PltFmtFlag == 0)
@@ -190,8 +191,8 @@ ps_do_color(int color) {
 }
 
 void
-ps_setcolor(int color) {
-    int i;
+ps_setcolor(int32 color) {
+    int32 i;
     static float pscolor[] = {
         0.0,  0.0,  0.0,  /* BLACK */
         1.,   0.,   0.,   /*RED*/
@@ -230,11 +231,11 @@ ps_end(void) {
 }
 
 void
-ps_bead(int x, int y) { /*fprintf(psfile,"%d %d F\n",x,y);*/
+ps_bead(int32 x, int32 y) { /*fprintf(psfile,"%d %d F\n",x,y);*/
 }
 
 void
-ps_frect(int x, int y, int w, int h) {
+ps_frect(int32 x, int32 y, int32 w, int32 h) {
 
     fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n",
             x, y, 0, -h, w, 0, 0, h);
@@ -246,7 +247,7 @@ ps_last_pt_off(void) {
 }
 
 void
-ps_line(int xp1, int yp1, int xp2, int yp2) {
+ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     LastPtLine = 1;
     if (NoBreakLine == 1) {
         fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
@@ -285,7 +286,7 @@ chk_ps_lines(void) {
 }
 
 void
-ps_linetype(int linetype) {
+ps_linetype(int32 linetype) {
     char *line = "ba0123456789c";
 
     fprintf(psfile, "LT%c\n", line[(linetype % 11) + 2]);
@@ -295,10 +296,10 @@ ps_linetype(int linetype) {
 }
 
 void
-ps_point(int x, int y)
+ps_point(int32 x, int32 y)
 
 {
-    int number = PointType;
+    int32 number = PointType;
     char *point = "PDABCTSKF";
     number %= POINT_TYPES;
     if (number < -1)
@@ -316,7 +317,7 @@ ps_write(char *str) {
 }
 
 void
-ps_fnt(int cf, int scale) {
+ps_fnt(int32 cf, int32 scale) {
     if (cf == 0)
         fprintf(psfile, "/%s findfont %d scalefont setfont \n", PS_FONT, scale);
     else
@@ -324,7 +325,7 @@ ps_fnt(int cf, int scale) {
 }
 
 void
-ps_show(char *str, int type) {
+ps_show(char *str, int32 type) {
     char ch;
     putc('(', psfile);
     ch = *str++;
@@ -342,25 +343,25 @@ ps_show(char *str, int type) {
 }
 
 void
-ps_abs(int x, int y) {
+ps_abs(int32 x, int32 y) {
     fprintf(psfile, "%d %d moveto \n", x, y);
 }
 
 void
-ps_rel(int x, int y) {
+ps_rel(int32 x, int32 y) {
     fprintf(psfile, "%d %d rmoveto \n", x, y);
 }
 
 void
-special_put_text_ps(int x, int y, char *str, int size) {
-    int i = 0, j = 0, type = 1;
-    int cf = 0;
-    /*int cs;*/
-    int n = strlen(str);
-    int cy = 0;
+special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
+    int32 i = 0, j = 0, type = 1;
+    int32 cf = 0;
+    /*int32 cs;*/
+    int32 n = strlen(str);
+    int32 cy = 0;
     char tmp[256], c;
-    int sub, sup, pssz;
-    static int sz[] = {8, 10, 14, 18, 24};
+    int32 sub, sup, pssz;
+    static int32 sz[] = {8, 10, 14, 18, 24};
     /*cs=size; Not used anywhere*/
     /* plintf(" %s size %d \n",str,size); */
     fprintf(psfile, "0 0 0 setrgbcolor \n");
@@ -425,9 +426,9 @@ special_put_text_ps(int x, int y, char *str, int size) {
 }
 
 void
-fancy_ps_text(int x, int y, char *str, int size, int font) {
+fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font) {
 
-    static int sz[] = {8, 10, 14, 18, 24};
+    static int32 sz[] = {8, 10, 14, 18, 24};
     char ch;
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     switch (font) {
@@ -455,7 +456,7 @@ fancy_ps_text(int x, int y, char *str, int size, int font) {
 }
 
 void
-ps_text(int x, int y, char *str) {
+ps_text(int32 x, int32 y, char *str) {
     char ch;
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE * PS_SC);

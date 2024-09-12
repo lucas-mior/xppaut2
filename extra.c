@@ -4,6 +4,7 @@
 #include "ggets.h"
 #include "read_dir.h"
 #include "parserslow.h"
+#include "integers.h"
 #include <stdlib.h>
 #include <string.h>
 /* this is a way to communicate XPP with other stuff
@@ -25,13 +26,13 @@ export {x,y} {xp,yp}
 #define VAR 1
 char dll_lib[256];
 char dll_fun[256];
-int dll_flag = 0;
+int32 dll_flag = 0;
 
 typedef struct {
     char *lin, *lout;
-    int *in, *intype;
-    int *out, *outtype;
-    int nin, nout;
+    int32 *in, *intype;
+    int32 *out, *outtype;
+    int32 nin, nout;
     double *vin, *vout;
 } IN_OUT;
 
@@ -45,7 +46,7 @@ typedef struct {
     char libname[1024];
     char libfile[256];
     char fun[256];
-    int loaded;
+    int32 loaded;
 } DLFUN;
 
 DLFUN dlf;
@@ -58,7 +59,7 @@ DLFUN dlf;
 
 void *dlhandle;
 double (*fun)();
-int dll_loaded = 0;
+int32 dll_loaded = 0;
 void
 auto_load_dll() {
     if (dll_flag == 3) {
@@ -73,7 +74,7 @@ auto_load_dll() {
 
 void
 load_new_dll(void) {
-    int status;
+    int32 status;
     if (dlf.loaded != 0 && dlhandle != NULL)
         dlclose(dlhandle);
     status = file_selector("Library:", dlf.libfile, "*.so");
@@ -85,9 +86,9 @@ load_new_dll(void) {
 }
 
 void
-get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
+get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
-    int i;
+    int32 i;
     char sofullname[256];
     char *error;
     if (dll_loaded == 1) {
@@ -117,8 +118,8 @@ get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
     fun(n, ivar, con, var, wgt, ydot);
 }
 
-int
-my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
+int32
+my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
     char *error;
     if (dlf.loaded == -1)
         return (0);
@@ -156,25 +157,25 @@ my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
 #else
 
 void
-get_import_values(int n, double *ydot, char *soname, char *sofun, int ivar,
+get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
 }
 
-int
+int32
 load_new_dll(void) {
 }
 
-my_fun(double *in, double *out, int nin, int nout, double *v, double *c) {
+my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
 }
 
-int
+int32
 auto_load_dll(void) {
 }
 #endif
 
 void
 do_in_out(void) {
-    int i;
+    int32 i;
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
     for (i = 0; i < in_out.nin; i++) {
@@ -195,21 +196,21 @@ do_in_out(void) {
 
 void
 add_export_list(char *in, char *out) {
-    int l1 = strlen(in);
-    int l2 = strlen(out);
-    int i;
+    int32 l1 = strlen(in);
+    int32 l2 = strlen(out);
+    int32 i;
     in_out.lin = (char *)malloc(l1);
     in_out.lout = (char *)malloc(l2);
     strcpy(in_out.lin, in);
     strcpy(in_out.lout, out);
     i = get_export_count(in);
-    in_out.in = (int *)malloc((i + 1) * sizeof(int));
-    in_out.intype = (int *)malloc((i + 1) * sizeof(int));
+    in_out.in = (int32 *)malloc((i + 1) * sizeof(int32));
+    in_out.intype = (int32 *)malloc((i + 1) * sizeof(int32));
     in_out.vin = (double *)malloc((i + 1) * sizeof(double));
     in_out.nin = i;
     i = get_export_count(out);
-    in_out.out = (int *)malloc((i + 1) * sizeof(int));
-    in_out.outtype = (int *)malloc((i + 1) * sizeof(int));
+    in_out.out = (int32 *)malloc((i + 1) * sizeof(int32));
+    in_out.outtype = (int32 *)malloc((i + 1) * sizeof(int32));
     in_out.vout = (double *)malloc((i + 1) * sizeof(double));
     in_out.nout = i;
     /* plintf(" in %d out %d \n",in_out.nin,in_out.nout); */
@@ -217,18 +218,18 @@ add_export_list(char *in, char *out) {
 
 void
 check_inout(void) {
-    int i;
+    int32 i;
     for (i = 0; i < in_out.nin; i++)
         plintf(" type=%d index=%d \n", in_out.intype[i], in_out.in[i]);
     for (i = 0; i < in_out.nout; i++)
         plintf(" type=%d index=%d \n", in_out.outtype[i], in_out.out[i]);
 }
 
-int
+int32
 get_export_count(char *s) {
-    int i = 0;
-    int j;
-    int l = strlen(s);
+    int32 i = 0;
+    int32 j;
+    int32 l = strlen(s);
     for (j = 0; j < l; j++)
         if (s[j] == ',')
             i++;
@@ -246,11 +247,11 @@ do_export_list(void) {
 }
 
 void
-parse_inout(char *l, int flag) {
-    int i = 0, j = 0;
-    int k = 0, index;
+parse_inout(char *l, int32 flag) {
+    int32 i = 0, j = 0;
+    int32 k = 0, index;
     char new[20], c;
-    int done = 1;
+    int32 done = 1;
     while (done) {
         c = l[i];
         switch (c) {

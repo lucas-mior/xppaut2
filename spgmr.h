@@ -12,6 +12,7 @@
 #ifndef _spgmr_h
 #define _spgmr_h
 
+#include "integers.h"
 #include "llnltyps.h"
 #include "iterativ.h"
 #include "vector.h"
@@ -69,7 +70,7 @@
 typedef struct {
 
     int64 N;
-    int l_max;
+    int32 l_max;
 
     N_Vector *V;
     double **Hes;
@@ -96,7 +97,7 @@ typedef struct {
  *                                                                *
  ******************************************************************/
 
-SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv);
+SpgmrMem SpgmrMalloc(int64 N, int32 l_max, void *machEnv);
 
 /******************************************************************
  *                                                                *
@@ -184,10 +185,10 @@ SpgmrMem SpgmrMalloc(int64 N, int l_max, void *machEnv);
  *                                                                *
  ******************************************************************/
 
-int SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int pretype,
-               int gstype, double delta, int max_restarts, void *P_data,
+int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
+               int32 gstype, double delta, int32 max_restarts, void *P_data,
                N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
-               double *res_norm, int *nli, int *nps);
+               double *res_norm, int32 *nli, int32 *nps);
 
 /* Return values for SpgmrSolve */
 

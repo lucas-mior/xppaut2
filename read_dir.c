@@ -1,4 +1,5 @@
 #include "read_dir.h"
+#include "integers.h"
 
 #include <unistd.h>
 #include "ggets.h"
@@ -65,7 +66,7 @@ any strings that may hold a path name (e.g. dialog message etc.)*/
 
 #define put_msg plintf
 
-/*static int	file_entry_cnt, dir_entry_cnt;
+/*static int32	file_entry_cnt, dir_entry_cnt;
 static char   **file_list, **dir_list;
 static char   **filelist, **dirlist;
 static char    *dirmask;
@@ -77,7 +78,7 @@ FILEINFO my_ff;
 /*
 main()
 {
- int i;
+ int32 i;
  change_directory("../xtc");
  get_directory(cur_dir);
  plintf("direct = %s \n",cur_dir);
@@ -91,7 +92,7 @@ main()
 */
 void
 free_finfo(FILEINFO *ff) {
-    int i;
+    int32 i;
     for (i = 0; i < ff->ndirs; i++)
         free(ff->dirnames[i]);
     free(ff->dirnames);
@@ -101,7 +102,7 @@ free_finfo(FILEINFO *ff) {
     return;
 }
 
-int
+int32
 cmpstringp(const void *p1, const void *p2) {
     /* The actual arguments to this function are "pointers to
        pointers to char", but strcmp(3) arguments are "pointers
@@ -110,12 +111,12 @@ cmpstringp(const void *p1, const void *p2) {
     return strcmp(*(char *const *)p1, *(char *const *)p2);
 }
 
-int
+int32
 get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
-    int i, ans;
+    int32 i, ans;
     DIR *dirp;
-    int mlf, mld;
-    int nf, nd;
+    int32 mlf, mld;
+    int32 nf, nd;
     struct dirent *dp;
     ans = fil_count(direct, &nd, &nf, wild, &mld, &mlf);
     if (ans == 0)
@@ -165,12 +166,12 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
     return 1;
 }
 
-int
+int32
 get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
-    int i, ans;
+    int32 i, ans;
     DIR *dirp;
-    int mlf, mld;
-    int nf, nd;
+    int32 mlf, mld;
+    int32 nf, nd;
     struct dirent *dp;
     ans = fil_count(direct, &nd, &nf, wild, &mld, &mlf);
     if (ans == 0)
@@ -211,10 +212,10 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
     return 1;
 }
 
-int
-fil_count(char *direct, int *ndir, int *nfil, char *wild, int *mld, int *mlf) {
+int32
+fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld, int32 *mlf) {
     DIR *dirp;
-    int l;
+    int32 l;
     struct dirent *dp;
     *mld = 0;
     *mlf = 0;
@@ -246,7 +247,7 @@ fil_count(char *direct, int *ndir, int *nfil, char *wild, int *mld, int *mlf) {
     return 1;
 }
 
-int
+int32
 change_directory(char *path) {
     if (path == NULL) {
         *cur_dir = '\0';
@@ -262,7 +263,7 @@ change_directory(char *path) {
         return (1);
 }
 
-int
+int32
 get_directory(char *direct) {
 #if defined(SYSV) || defined(SVR4)
     extern char *getcwd();
@@ -285,7 +286,7 @@ get_directory(char *direct) {
     return 1;
 }
 
-int
+int32
 IsDirectory(root, path)
 char *root;
 char *path;
@@ -359,18 +360,18 @@ char *pathname;
 /* The character that inverts a character class; '!' or '^'. */
 #define INVERT '!'
 
-static int star();
+static int32 star();
 
 /* Return nonzero if `string' matches Unix-style wildcard pattern
    `pattern'; zero if not. */
 
-int
+int32
 wild_match(string, pattern)
 char *string, *pattern;
 {
-    int prev;    /* Previous character in character class. */
-    int matched; /* If 1, character class has been matched. */
-    int reverse; /* If 1, character class is inverted. */
+    int32 prev;    /* Previous character in character class. */
+    int32 matched; /* If 1, character class has been matched. */
+    int32 reverse; /* If 1, character class is inverted. */
 
     for (; *pattern; string++, pattern++)
         switch (*pattern) {
@@ -407,7 +408,7 @@ char *string, *pattern;
     return *string == '\0';
 }
 
-static int
+static int32
 star(string, pattern)
 char *string, *pattern;
 {

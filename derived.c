@@ -6,25 +6,26 @@
 #include "ggets.h"
 #include "parserslow.h"
 #include "calc.h"
+#include "integers.h"
 
 /* Derived parameter stuff !!  */
 #define MAXDERIVED 200
 extern double constants[];
-extern int NCON;
+extern int32 NCON;
 double evaluate();
 typedef struct {
-    int index, *form;
+    int32 index, *form;
     char *rhs;
     double value;
 } DERIVED;
 
 DERIVED derived[MAXDERIVED];
-int nderived = 0;
+int32 nderived = 0;
 
 /* clean up derived stuff */
 void
 free_derived(void) {
-    int i;
+    int32 i;
     for (i = 0; i < nderived; i++) {
         free(derived[i].form);
         free(derived[i].rhs);
@@ -35,16 +36,16 @@ free_derived(void) {
 /* This compiles all of the formulae
 It is called only once during the session
 */
-int
+int32
 compile_derived(void) {
-    int i, k;
-    int f[256], n;
+    int32 i, k;
+    int32 f[256], n;
     for (i = 0; i < nderived; i++) {
         if (add_expr(derived[i].rhs, f, &n) == 1) {
             plintf(" Bad right-hand side for derived parameters \n");
             return (1);
         }
-        derived[i].form = (int *)malloc(sizeof(int) * (n + 2));
+        derived[i].form = (int32 *)malloc(sizeof(int32) * (n + 2));
         for (k = 0; k < n; k++)
             derived[i].form[k] = f[k];
     }
@@ -58,7 +59,7 @@ and after changing parameters and constants
 */
 void
 evaluate_derived(void) {
-    int i;
+    int32 i;
     for (i = 0; i < nderived; i++) {
         derived[i].value = evaluate(derived[i].form);
         constants[derived[i].index] = derived[i].value;
@@ -66,10 +67,10 @@ evaluate_derived(void) {
 }
 
 /* this adds a derived quantity  */
-int
+int32
 add_derived(char *name, char *rhs) {
-    int n = strlen(rhs) + 2;
-    int i0;
+    int32 n = strlen(rhs) + 2;
+    int32 i0;
     if (nderived >= MAXDERIVED) {
         plintf(" Too many derived constants! \n");
         return (1);

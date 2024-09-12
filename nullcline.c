@@ -1,4 +1,5 @@
 #include "nullcline.h"
+#include "integers.h"
 #include "my_rhs.h"
 #include "abort.h"
 #include "browse.h"
@@ -28,51 +29,51 @@
 #define DING ping
 #define MAX_NULL 10000
 
-int OutPutNC = 0;
-extern int SuppressBounds;
+int32 OutPutNC = 0;
+extern int32 SuppressBounds;
 extern GRAPH *MyGraph;
-extern int PltFmtFlag;
+extern int32 PltFmtFlag;
 extern FILE *svgfile;
 
-int NCSuppress = 0;
-int DFSuppress = 0;
-int DFBatch = 0;
-int NCBatch = 0;
-extern int XPPBatch;
+int32 NCSuppress = 0;
+int32 DFSuppress = 0;
+int32 DFBatch = 0;
+int32 NCBatch = 0;
+extern int32 XPPBatch;
 
-int NullStyle = 0; /* 1 is with little vertical/horizontal lines */
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
-int user_set_color_par();
-extern int DRight, DLeft, DTop, DBottom;
-extern int STORFLAG;
+int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+int32 user_set_color_par();
+extern int32 DRight, DLeft, DTop, DBottom;
+extern int32 STORFLAG;
 extern double last_ic[MAXODE];
 
 extern double DELTA_T, TEND, TRANS;
-extern int PaperWhite, DCURY;
-int XNullColor = 2, YNullColor = 7;
-extern int NULL_HERE;
-int num_x_n, num_y_n, num_index, null_ix, null_iy, WHICH_CRV;
+extern int32 PaperWhite, DCURY;
+int32 XNullColor = 2, YNullColor = 7;
+extern int32 NULL_HERE;
+int32 num_x_n, num_y_n, num_index, null_ix, null_iy, WHICH_CRV;
 float null_dist, *X_n, *Y_n, *saver, *NTop, *NBot;
-extern int NMESH, NODE, NJMP, NMarkov, FIX_VAR, NEQ;
+extern int32 NMESH, NODE, NJMP, NMarkov, FIX_VAR, NEQ;
 float fnull();
-int DF_GRID = 16, DF_FLAG = 0, DF_IX = -1, DF_IY = -1;
-int DFIELD_TYPE = 0;
+int32 DF_GRID = 16, DF_FLAG = 0, DF_IX = -1, DF_IY = -1;
+int32 DFIELD_TYPE = 0;
 
-int DOING_DFIELD = 0;
+int32 DOING_DFIELD = 0;
 
 char ColorVia[15] = "speed";
 double ColorViaLo = 0, ColorViaHi = 1;
-int ColorizeFlag = 0;
+int32 ColorizeFlag = 0;
 
 RANGE_INFO ncrange;
 
 NCLINES *ncperm;
-int n_nstore = 0;
-int ncline_cnt;
+int32 n_nstore = 0;
+int32 ncline_cnt;
 
 void
-froz_cline_stuff_com(int i) {
-    int delay = 200;
+froz_cline_stuff_com(int32 i) {
+    int32 delay = 200;
     if (n_nstore == 0)
         start_ncline();
     switch (i) {
@@ -131,11 +132,11 @@ void
 do_range_clines(void) {
     static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
     char values[4][MAX_LEN_SBOX];
-    int status, i;
+    int32 status, i;
     double z, dz, zold;
     float xmin, xmax, y_tp, y_bot;
-    int col1 = XNullColor, col2 = YNullColor;
-    int course = NMESH;
+    int32 col1 = XNullColor, col2 = YNullColor;
+    int32 course = NMESH;
     /* if(PaperWhite){
       col1=1;
       col2=9;
@@ -259,11 +260,11 @@ clear_froz_cline(void) {
     return;
 }
 
-int
-get_nullcline_floats(float **v, int *n, int who, int type) /* type=0,1 */
+int32
+get_nullcline_floats(float **v, int32 *n, int32 who, int32 type) /* type=0,1 */
 {
     NCLINES *z;
-    int i;
+    int32 i;
     if (who < 0) {
         if (type == 0) {
             *v = X_n;
@@ -301,7 +302,7 @@ save_frozen_clines(char *fn) {
     FILE *fp;
     char fnx[256];
     char ch;
-    int i = 1;
+    int32 i = 1;
     if (n_nstore == 0)
         return;
     ch = (char)TwoChoice("YES", "NO", "Save Frozen Clines?", "yn");
@@ -328,9 +329,9 @@ save_frozen_clines(char *fn) {
 }
 
 void
-redraw_froz_cline(int flag) {
+redraw_froz_cline(int32 flag) {
     NCLINES *z;
-    int col1 = XNullColor, col2 = YNullColor;
+    int32 col1 = XNullColor, col2 = YNullColor;
     /* if(PaperWhite){
       col1=1;
       col2=9;
@@ -366,9 +367,9 @@ redraw_froz_cline(int flag) {
 }
 
 void
-add_froz_cline(float *xn, int nmx, int n_ix, float *yn, int nmy, int n_iy) {
+add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy, int32 n_iy) {
     NCLINES *z, *znew;
-    int i;
+    int32 i;
     z = ncperm;
     /* move to end */
     while (z->n != NULL) {
@@ -398,8 +399,8 @@ add_froz_cline(float *xn, int nmx, int n_ix, float *yn, int nmy, int n_iy) {
 
 void
 get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
-               double dv, int n, int inx, int iny, double *mdf) {
-    int i, j;
+               double dv, int32 n, int32 inx, int32 iny, double *mdf) {
+    int32 i, j;
     double amp, dxp, dyp;
     *mdf = 0.0;
     for (i = 0; i <= n; i++) {
@@ -487,9 +488,9 @@ do_batch_dfield(void) {
 
 void
 redraw_dfield(void) {
-    int i, j, k;
-    int inx = MyGraph->xv[0] - 1;
-    int iny = MyGraph->yv[0] - 1;
+    int32 i, j, k;
+    int32 inx = MyGraph->xv[0] - 1;
+    int32 iny = MyGraph->yv[0] - 1;
     double y[MAXODE], ydot[MAXODE], xv1, xv2;
     float v1[MAXODE], v2[MAXODE];
     FILE *fp;
@@ -498,7 +499,7 @@ redraw_dfield(void) {
 
     double du, dv, u0, v0, dxp, dyp, dz, dup, dvp;
 
-    int grid = DF_GRID;
+    int32 grid = DF_GRID;
     if (DF_FLAG == 0 || MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
         MyGraph->ThreeDFlag || DF_IX != MyGraph->xv[0] ||
         DF_IY != MyGraph->yv[0])
@@ -583,11 +584,11 @@ redraw_dfield(void) {
 }
 
 void
-direct_field_com(int c) {
+direct_field_com(int32 c) {
 
-    int i, j, start, k;
-    int inx = MyGraph->xv[0] - 1;
-    int iny = MyGraph->yv[0] - 1;
+    int32 i, j, start, k;
+    int32 inx = MyGraph->xv[0] - 1;
+    int32 iny = MyGraph->yv[0] - 1;
     double y[MAXODE], ydot[MAXODE], xv1, xv2;
     double dtold = DELTA_T;
     float v1[MAXODE], v2[MAXODE];
@@ -597,7 +598,7 @@ direct_field_com(int c) {
     double du, dv, u0, v0, dxp, dyp, dz, dup, dvp;
     double oldtrans = TRANS;
 
-    int grid = DF_GRID;
+    int32 grid = DF_GRID;
 
     if (MyGraph->TimeFlag || MyGraph->xv[0] == MyGraph->yv[0] ||
         MyGraph->ThreeDFlag)
@@ -752,7 +753,7 @@ save_the_nullclines(void) {
 
 void
 restore_nullclines(void) {
-    int col1 = XNullColor, col2 = YNullColor;
+    int32 col1 = XNullColor, col2 = YNullColor;
     /* if(PaperWhite){
       col1=1;
       col2=9;
@@ -772,8 +773,8 @@ restore_nullclines(void) {
 
 void
 dump_clines(/* gnuplot format */
-            FILE *fp, float *x, int nx, float *y, int ny) {
-    int i;
+            FILE *fp, float *x, int32 nx, float *y, int32 ny) {
+    int32 i;
     fprintf(fp, "# X-nullcline\n");
     for (i = 0; i < nx - 1; i++) {
         fprintf(fp, "%g %g 1 \n", x[4 * i], x[4 * i + 1]);
@@ -790,9 +791,9 @@ dump_clines(/* gnuplot format */
 }
 
 void
-dump_clines_old(FILE *fp, float *x, int nx, float *y, int ny) {
-    int i, ix, iy;
-    int n;
+dump_clines_old(FILE *fp, float *x, int32 nx, float *y, int32 ny) {
+    int32 i, ix, iy;
+    int32 n;
     n = nx;
     if (n < ny)
         n = ny;
@@ -815,11 +816,11 @@ dump_clines_old(FILE *fp, float *x, int nx, float *y, int ny) {
 
 void
 restor_null(/* d=1 for x and 2 for y  */
-            float *v, int n, int d) {
+            float *v, int32 n, int32 d) {
 
-    int i, i4;
+    int32 i, i4;
     float xm, ym;
-    int x1, y1;
+    int32 x1, y1;
     if (PltFmtFlag == SVGFMT) {
         fprintf(svgfile, "<g>\n");
     }
@@ -857,10 +858,10 @@ create_new_cline(void) {
 }
 
 void
-new_clines_com(int c) {
-    int course = NMESH, i;
+new_clines_com(int32 c) {
+    int32 course = NMESH, i;
     float xmin, xmax, y_tp, y_bot;
-    int col1 = XNullColor, col2 = YNullColor;
+    int32 col1 = XNullColor, col2 = YNullColor;
 
     if (MyGraph->ThreeDFlag || MyGraph->TimeFlag ||
         MyGraph->xv[0] == MyGraph->yv[0])
@@ -931,8 +932,8 @@ new_clines_com(int c) {
 }
 
 void
-new_nullcline(int course, double xlo, double ylo, double xhi, double yhi,
-              float *stor, int *npts) {
+new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
+              float *stor, int32 *npts) {
     num_index = 0;
     saver = stor;
     do_cline(course, xlo, ylo, xhi, yhi);
@@ -942,7 +943,7 @@ new_nullcline(int course, double xlo, double ylo, double xhi, double yhi,
 
 void
 stor_null(double x1, double y1, double x2, double y2) {
-    int i;
+    int32 i;
     if (num_index >= MAX_NULL)
         return;
     i = 4 * num_index;
@@ -957,7 +958,7 @@ stor_null(double x1, double y1, double x2, double y2) {
 float
 fnull(double x, double y) {
     double y1[MAXODE], ydot[MAXODE];
-    int i;
+    int32 i;
     for (i = 0; i < NODE; i++)
         y1[i] = last_ic[i];
 
@@ -968,7 +969,7 @@ fnull(double x, double y) {
     return ((float)ydot[WHICH_CRV - 1]);
 }
 
-int
+int32
 interpolate(p1, p2, z, x, y)
 Pt p1, p2;
 float z, *x, *y;
@@ -985,7 +986,7 @@ float z, *x, *y;
 void quad_contour(p1, p2, p3, p4) Pt p1, p2, p3, p4;
 {
     float x[4], y[4];
-    int count = 0;
+    int32 count = 0;
     if (p1.z * p2.z <= 0.0)
         if (interpolate(p1, p2, 0.0, &x[count], &y[count]))
             count++;
@@ -1012,7 +1013,7 @@ void triangle_contour(p1, p2, p3)
     p2, p3;
 {
     float x[3], y[3];
-    int count = 0;
+    int32 count = 0;
     if (p1.z * p2.z <= 0.0)
         /* if(((0.0<=p1.z)&&(0.0>=p2.z))||
                ((0.0>=p1.z)&&(0.0<=p2.z))) */
@@ -1037,14 +1038,14 @@ void triangle_contour(p1, p2, p3)
 }
 
 void
-do_cline(int ngrid, double x1, double y1, double x2, double y2) {
+do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     float dx = (x2 - x1) / (float)ngrid;
     float dy = (y2 - y1) / (float)ngrid;
     float x, y;
     Pt p[5];
-    int i, j;
-    int nx = ngrid + 1;
-    int ny = ngrid + 1;
+    int32 i, j;
+    int32 nx = ngrid + 1;
+    int32 ny = ngrid + 1;
 
     y = y2;
     for (i = 0; i < nx; i++) {

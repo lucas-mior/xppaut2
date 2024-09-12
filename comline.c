@@ -3,6 +3,7 @@
 #include "ggets.h"
 #include "load_eqn.h"
 #include "lunch-new.h"
+#include "integers.h"
 #include <stdlib.h>
 #include <string.h>
 /* command-line stuff for xpp */
@@ -59,12 +60,12 @@ extern OptionsSet notAlreadySet;
 
 extern char big_font_name[100], small_font_name[100];
 extern FILE *logfile;
-extern int XPPVERBOSE;
-extern int SuppressOut;
-extern int RunImmediately;
-extern int PaperWhite;
-extern int MSStyle;
-extern int got_file;
+extern int32 XPPVERBOSE;
+extern int32 SuppressOut;
+extern int32 RunImmediately;
+extern int32 PaperWhite;
+extern int32 MSStyle;
+extern int32 got_file;
 
 /*
 char setfilename[100];
@@ -78,9 +79,9 @@ char icfilename[XPP_MAX_NAME];
 char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
 
 char readsetfile[XPP_MAX_NAME];
-int externaloptionsflag = 0;
+int32 externaloptionsflag = 0;
 char externaloptionsstring[1024];
-int NincludedFiles = 0;
+int32 NincludedFiles = 0;
 extern char UserBlack[8];
 extern char UserWhite[8];
 extern char UserMainWinColor[8];
@@ -88,23 +89,23 @@ extern char UserDrawWinColor[8];
 /*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
 
-extern int UserGradients;
-extern int UserMinWidth;
-extern int UserMinHeight;
-extern int UserMinHeight;
+extern int32 UserGradients;
+extern int32 UserMinWidth;
+extern int32 UserMinHeight;
+extern int32 UserMinHeight;
 /*extern char UserOUTFILE[256];
  */
 extern char UserOUTFILE[XPP_MAX_NAME];
-extern int tfBell;
-extern int use_intern_sets;
-extern int use_ani_file;
+extern int32 tfBell;
+extern int32 use_intern_sets;
+extern int32 use_ani_file;
 /*extern char anifile[256];
  */
 extern char anifile[XPP_MAX_NAME];
-int select_intern_sets = 0;
+int32 select_intern_sets = 0;
 
-extern int Nintern_set;
-int Nintern_2_use = 0;
+extern int32 Nintern_set;
+int32 Nintern_2_use = 0;
 
 SET_NAME *sets2use, *setsNOTuse;
 
@@ -114,28 +115,28 @@ extern INTERN_SET intern_set[MAX_INTERN_SET];
  */
 extern char batchout[XPP_MAX_NAME];
 
-int loadsetfile = 0;
-int loadparfile = 0;
-int loadicfile = 0;
-int loadincludefile = 0;
-int querysets = 0;
-int querypars = 0;
-int queryics = 0;
-int dryrun = 0;
+int32 loadsetfile = 0;
+int32 loadparfile = 0;
+int32 loadicfile = 0;
+int32 loadincludefile = 0;
+int32 querysets = 0;
+int32 querypars = 0;
+int32 queryics = 0;
+int32 dryrun = 0;
 /*extern char this_file[100];
  */
 extern char this_file[XPP_MAX_NAME];
-extern int XPPBatch, MakePlotFlag, BatchEquil;
-extern int xorfix;
-extern int newseeed;
-extern int silent;
-extern int allwinvis;
-extern int ConvertStyle;
-int noicon = 1;
-int newseed = 0;
+extern int32 XPPBatch, MakePlotFlag, BatchEquil;
+extern int32 xorfix;
+extern int32 newseeed;
+extern int32 silent;
+extern int32 allwinvis;
+extern int32 ConvertStyle;
+int32 noicon = 1;
+int32 newseed = 0;
 typedef struct {
     char name[10];
-    int len;
+    int32 len;
 
 } VOCAB;
 
@@ -153,7 +154,7 @@ VOCAB my_cmd[NCMD] = {
     {"-ncdraw", 7},     {"-def", 4},        {"-readset", 8},    {"-with", 5},
     {"-equil", 6}};
 
-int
+int32
 is_set_name(SET_NAME *set, char *nam) {
     if (set == NULL) {
         return (0);
@@ -195,7 +196,7 @@ rm_set(SET_NAME *set, char *nam) {
     }
 
     curr = set;
-    int i = 1;
+    int32 i = 1;
     while (curr) {
         if (strcmp(curr->name, nam) == 0) {
             if (i == 1) {
@@ -213,8 +214,8 @@ rm_set(SET_NAME *set, char *nam) {
 }
 
 void
-do_comline(int argc, char **argv) {
-    int i, k;
+do_comline(int32 argc, char **argv) {
+    int32 i, k;
 
     silent = 0;
     got_file = 0;
@@ -394,7 +395,7 @@ do_comline(int argc, char **argv) {
     }
 }
 
-int
+int32
 if_needed_load_ext_options(void) {
     FILE *fp;
     char myopts[1024];
@@ -423,12 +424,12 @@ if_needed_load_ext_options(void) {
     }
 }
 
-int
+int32
 if_needed_select_sets(void) {
     if (!select_intern_sets) {
         return 1;
     }
-    int j;
+    int32 j;
     for (j = 0; j < Nintern_set; j++) {
         intern_set[j].use = use_intern_sets;
         Nintern_2_use += use_intern_sets;
@@ -455,7 +456,7 @@ if_needed_select_sets(void) {
     return 1;
 }
 
-int
+int32
 if_needed_load_set(void) {
     FILE *fp;
     if (!loadsetfile) {
@@ -471,7 +472,7 @@ if_needed_load_set(void) {
     return 1;
 }
 
-int
+int32
 if_needed_load_par(void) {
 
     if (!loadparfile) {
@@ -482,7 +483,7 @@ if_needed_load_par(void) {
     return 1;
 }
 
-int
+int32
 if_needed_load_ic(void) {
 
     if (!loadicfile) {
@@ -493,9 +494,9 @@ if_needed_load_ic(void) {
     return (1);
 }
 
-int
+int32
 parse_it(char *com) {
-    int j;
+    int32 j;
     for (j = 0; j < NCMD; j++) {
         if (strncmp(com, my_cmd[j].name, my_cmd[j].len) == 0) {
             break;

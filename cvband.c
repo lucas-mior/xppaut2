@@ -17,6 +17,7 @@
 #include "llnltyps.h"
 #include "vector.h"
 #include "llnlmath.h"
+#include "integers.h"
 
 /* Error Messages */
 
@@ -61,9 +62,9 @@ typedef struct {
 
     BandMat b_savedJ; /* savedJ = old Jacobian                    */
 
-    int b_nstlj; /* nstlj = nst at last Jacobian eval.       */
+    int32 b_nstlj; /* nstlj = nst at last Jacobian eval.       */
 
-    int b_nje; /* nje = no. of calls to jac                */
+    int32 b_nje; /* nje = no. of calls to jac                */
 
     void *b_J_data; /* J_data is passed to jac                  */
 
@@ -71,13 +72,13 @@ typedef struct {
 
 /* CVBAND linit, lsetup, lsolve, and lfree routines */
 
-static int CVBandInit(CVodeMem cv_mem, bool *setupNonNull);
+static int32 CVBandInit(CVodeMem cv_mem, bool *setupNonNull);
 
-static int CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
+static int32 CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
                        N_Vector vtemp2, N_Vector vtemp3);
 
-static int CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
+static int32 CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                        N_Vector fcur);
 
 static void CVBandFree(CVodeMem cv_mem);
@@ -96,7 +97,7 @@ static void CVBandFree(CVodeMem cv_mem);
 void
 CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             void *f_data, double tn, N_Vector y, N_Vector fy, N_Vector ewt,
-            double h, double uround, void *jac_data, int *nfePtr,
+            double h, double uround, void *jac_data, int32 *nfePtr,
             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     double fnorm, minInc, inc, inc_inv, srur;
     N_Vector ftemp, ytemp;
@@ -251,7 +252,7 @@ CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
 
 **********************************************************************/
 
-static int
+static int32
 CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     CVBandMem cvband_mem;
 
@@ -268,8 +269,8 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Test ml and mu for legality */
     if ((ml < 0) || (mu < 0) || (ml >= N) || (mu >= N)) {
-        fprintf(errfp, MSG_BAD_SIZES, (long int)ml, (long int)mu,
-                (long int)(N - 1));
+        fprintf(errfp, MSG_BAD_SIZES, (int64)ml, (int64)mu,
+                (int64)(N - 1));
         return (LINIT_ERR);
     }
 
@@ -319,8 +320,8 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 
 **********************************************************************/
 
-static int
-CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
+static int32
+CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad, jok;
     double dgamma;
@@ -374,7 +375,7 @@ CVBandSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
 
 **********************************************************************/
 
-static int
+static int32
 CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     CVBandMem cvband_mem;
 

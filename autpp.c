@@ -5,32 +5,33 @@
 #include "derived.h"
 #include "pp_shoot.h"
 #include "xAuto.h"
+#include "integers.h"
 
 void redo_all_fun_tables();
 void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
-                 double *d, int n);
+                 double *d, int32 n);
 extern XAUTO xAuto;
 
 /*    Hooks to xpp RHS     */
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern double constants[], last_ic[];
 
-extern int Auto_index_to_array[8];
-extern int NewPeriodFlag;
-extern int AutoTwoParam, NAutoPar;
-extern int HomoFlag;
+extern int32 Auto_index_to_array[8];
+extern int32 NewPeriodFlag;
+extern int32 AutoTwoParam, NAutoPar;
+extern int32 HomoFlag;
 extern double homo_l[100], homo_r[100];
-extern int METHOD, NJMP;
+extern int32 METHOD, NJMP;
 extern double outperiod[];
-extern int UzrPar[], NAutoUzr;
+extern int32 UzrPar[], NAutoUzr;
 
 extern double NEWT_ERR;
-int
+int32
 func(ndim, u, icp, par, ijac, f, dfdu, dfdp)
 int64 ndim, *icp, ijac;
 double *u, *par, *f, *dfdu, *dfdp;
 {
-    int i, j;
+    int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
     for (i = 0; i < NAutoPar; i++) {
@@ -54,12 +55,12 @@ double *u, *par, *f, *dfdu, *dfdp;
 
 } /* func_ */
 
-int
+int32
 stpnt(ndim, t, u, par)
 int64 ndim;
 double *u, *par, t;
 {
-    int i;
+    int32 i;
 
     double p;
 
@@ -94,7 +95,7 @@ double *u, *par, t;
 
 } /* stpnt_ */
 
-/* Subroutine */ int
+/* Subroutine */ int32
 bcnd(ndim, par, icp, nbc, u0, u1, ijac, fb, dbc)
 int64 ndim;
 double *par;
@@ -103,7 +104,7 @@ double *u0, *u1, *fb;
 int64 ijac;
 double *dbc;
 {
-    int i;
+    int32 i;
     /* Hooks to the XPP bc parser!! */
 
     for (i = 0; i < NAutoPar; i++) {
@@ -117,7 +118,7 @@ double *dbc;
     return 0;
 } /* bcnd_ */
 
-/* Subroutine */ int
+/* Subroutine */ int32
 icnd(ndim, par, icp, nint, u, uold, udot, upold, fi, ijac, dint)
 int64 *ndim;
 double *par;
@@ -126,7 +127,7 @@ double *u, *uold, *udot, *upold, *fi;
 int64 *ijac;
 double *dint;
 {
-    int i;
+    int32 i;
     double dum = 0.0;
     /*
    for(i=0;i<Homo_n;i++)
@@ -136,7 +137,7 @@ double *dint;
     return 0;
 } /* icnd_ */
 
-/* Subroutine */ int
+/* Subroutine */ int32
 fopt(ndim, u, icp, par, ijac, fs, dfdu, dfdp)
 int64 *ndim;
 double *u;
@@ -152,7 +153,7 @@ double *fs, *dfdu, *dfdp;
 /*  Not sure what to do here; I think  do nothing  since IEQUIB is always
     -2
 */
-int
+int32
 pvls(int64 ndim, const double *u, double *par) {
     return 0;
 }

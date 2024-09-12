@@ -1,4 +1,5 @@
 #include "integrate.h"
+#include "integers.h"
 
 #include "load_eqn.h"
 #include "my_rhs.h"
@@ -99,54 +100,54 @@ extern GRAPH *MyGraph;
 #define DP5 11
 #define DP83 12
 #define RB23 13
-extern int animation_on_the_fly;
+extern int32 animation_on_the_fly;
 extern double ShootIC[8][MAXODE];
-extern int ShootType[8];
-extern int ShootICFlag;
-extern int ShootIndex;
-extern int SimulPlotFlag, current_pop, num_pops, ActiveWinList[];
-extern int use_intern_sets;
-extern int dryrun;
-extern int querysets;
-extern int querypars;
-extern int queryics;
-extern int aplot_range;
-extern int Nintern_2_use;
-extern int AdjRange;
-extern int BatchEquil;
+extern int32 ShootType[8];
+extern int32 ShootICFlag;
+extern int32 ShootIndex;
+extern int32 SimulPlotFlag, current_pop, num_pops, ActiveWinList[];
+extern int32 use_intern_sets;
+extern int32 dryrun;
+extern int32 querysets;
+extern int32 querypars;
+extern int32 queryics;
+extern int32 aplot_range;
+extern int32 Nintern_2_use;
+extern int32 AdjRange;
+extern int32 BatchEquil;
 extern Window draw_win;
 extern char this_internset[XPP_MAX_NAME];
 
-int MakePlotFlag = 0;
+int32 MakePlotFlag = 0;
 
-int OnTheFly = 1;
+int32 OnTheFly = 1;
 extern FILE *svgfile;
 
 extern OptionsSet notAlreadySet;
 
 typedef struct {
-    int index0, type;
+    int32 index0, type;
     char formula[256];
-    int n;
+    int32 n;
     char var[20];
-    int j1, j2;
+    int32 j1, j2;
 } ARRAY_IC;
-int ar_ic_defined = 0;
+int32 ar_ic_defined = 0;
 double ndrand48();
 ARRAY_IC ar_ic[NAR_IC];
 typedef struct {
-    int n, flag;
+    int32 n, flag;
     double *x[MAXFP];
     double *er[MAXFP];
     double *em[MAXFP];
     double *x1[MAXFP], *x2[MAXFP], *x3[MAXFP], *x4[MAXFP];
-    int t1, t2, t3, t4;
+    int32 t1, t2, t3, t4;
 } FIXPTLIST;
 
 FIXPTLIST fixptlist;
 
 typedef struct {
-    int n;
+    int32 n;
     double tol;
     double xlo[MAXODE], xhi[MAXODE];
 } FIXPTGUESS;
@@ -154,29 +155,29 @@ typedef struct {
 FIXPTGUESS fixptguess;
 
 typedef struct {
-    int nvec, node;
+    int32 nvec, node;
     double *x;
 } XPPVEC;
 
 XPPVEC xpv;
-int SuppressOut = 0;
-int SuppressBounds = 0;
-extern int NUPAR;
+int32 SuppressOut = 0;
+int32 SuppressBounds = 0;
+extern int32 NUPAR;
 
 extern char *info_message, *ic_hint[], *sing_hint[];
-extern int Xup, batch_range;
+extern int32 Xup, batch_range;
 extern char batchout[256];
-extern int NMarkov, STOCH_FLAG;
-extern int color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
-int DelayErr;
+extern int32 NMarkov, STOCH_FLAG;
+extern int32 color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
+int32 DelayErr;
 
 float **get_browser_data();
 double get_ivar();
 double MyData[MAXODE], MyTime;
-int MyStart;
-extern int DelayFlag, DCURY, NKernel;
-int RANGE_FLAG;
-extern int PAR_FOL, SHOOT;
+int32 MyStart;
+extern int32 DelayFlag, DCURY, NKernel;
+int32 RANGE_FLAG;
+extern int32 PAR_FOL, SHOOT;
 extern char upar_names[MAXPAR][14];
 extern double default_val[MAXPAR];
 extern double last_ic[MAXODE];
@@ -185,43 +186,43 @@ double LastTime;
 extern char UserOUTFILE[256];
 
 extern double DELAY;
-extern int R_COL;
-extern int colorline[11];
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
-int STOP_FLAG = 0;
-int PSLineStyle;
+extern int32 R_COL;
+extern int32 colorline[11];
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+int32 STOP_FLAG = 0;
+int32 PSLineStyle;
 struct {
     char item[30];
-    int steps, shoot, col, movie, mc;
+    int32 steps, shoot, col, movie, mc;
     double plow, phigh;
 } eq_range;
 
 struct {
     char item[30], item2[30];
-    int steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
+    int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
     double plow, phigh, plow2, phigh2;
-    int rtype;
+    int32 rtype;
 } range;
 
 typedef struct {
     char *name;
     char *does;
-    unsigned int use;
+    uint32 use;
 } INTERN_SET;
 
 extern INTERN_SET intern_set[MAX_INTERN_SET];
-extern int Nintern_set;
+extern int32 Nintern_set;
 
 void redraw_dfield();
 void create_new_cline();
 void data_get_mybrowser();
 void save_batch_shoot();
 
-int (*solver)();
+int32 (*solver)();
 
 void
 init_ar_ic(void) {
-    int i;
+    int32 i;
     for (i = 0; i < NAR_IC; i++) {
         ar_ic[i].index0 = -1;
         ar_ic[i].formula[0] = 0;
@@ -232,7 +233,7 @@ init_ar_ic(void) {
 }
 
 void
-dump_range(FILE *fp, int f) {
+dump_range(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -305,13 +306,13 @@ init_range(void) {
     init_monte_carlo();
 }
 
-int
+int32
 set_up_eq_range(void) {
     static char *n[] = {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
     char values[8][MAX_LEN_SBOX];
-    int status, i;
+    int32 status, i;
     static char *yn[] = {"N", "Y"};
     sprintf(values[0], "%s", eq_range.item);
     sprintf(values[1], "%d", eq_range.steps);
@@ -381,9 +382,9 @@ cont_integ(void) {
     refresh_browser(storind);
 }
 
-int
+int32
 range_item(void) {
-    int i;
+    int32 i;
     char bob[256];
     i = find_user_name(PARAM, range.item);
     if (i > -1) {
@@ -402,9 +403,9 @@ range_item(void) {
     return 1;
 }
 
-int
+int32
 range_item2(void) {
-    int i;
+    int32 i;
     char bob[256];
     i = find_user_name(PARAM, range.item2);
     if (i > -1) {
@@ -423,7 +424,7 @@ range_item2(void) {
     return 1;
 }
 
-int
+int32
 set_up_range(void) {
     static char *n[] = {"*3Range over",
                         "Steps",
@@ -434,7 +435,7 @@ set_up_range(void) {
                         "Cycle color (Y/N)",
                         "Movie(Y/N)"};
     char values[8][MAX_LEN_SBOX];
-    int status;
+    int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup) {
         return (range_item());
@@ -500,7 +501,7 @@ set_up_range(void) {
     return (0);
 }
 
-int
+int32
 set_up_range2(void) {
     static char *n[] = {"*3Vary1",
                         "Start1",
@@ -516,7 +517,7 @@ set_up_range2(void) {
                         "Crv(1) Array(2)",
                         "Steps2"};
     char values[13][MAX_LEN_SBOX];
-    int status;
+    int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup) {
         return (range_item());
@@ -584,7 +585,7 @@ set_up_range2(void) {
 
 void
 init_monte_carlo(void) {
-    int i;
+    int32 i;
     fixptguess.tol = .001;
     fixptguess.n = 100;
     for (i = 0; i < NODE; i++) {
@@ -597,8 +598,8 @@ init_monte_carlo(void) {
 
 void
 monte_carlo(void) {
-    int append = 0;
-    int i = 0, done = 0, ishoot = 0;
+    int32 append = 0;
+    int32 i = 0, done = 0, ishoot = 0;
     double z;
     char name[256];
     new_int("Append(1/0", &append);
@@ -628,9 +629,9 @@ monte_carlo(void) {
 }
 
 void
-do_monte_carlo_search(int append, int stuffbrowse, int ishoot) {
-    int i, j, k, m, n = fixptguess.n;
-    int ierr, new = 1;
+do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
+    int32 i, j, k, m, n = fixptguess.n;
+    int32 ierr, new = 1;
     double x[MAXODE], sum;
     double er[MAXODE], em[MAXODE];
     if (append == 0)
@@ -716,8 +717,8 @@ do_monte_carlo_search(int append, int stuffbrowse, int ishoot) {
 void
 do_eq_range(double *x) {
     double parlo, parhi, dpar, temp;
-    int npar, stabcol, i, j, ierr;
-    int mc;
+    int32 npar, stabcol, i, j, ierr;
+    int32 mc;
     char bob[256];
     float stabinfo;
 
@@ -791,7 +792,7 @@ do_eq_range(double *x) {
 }
 
 void
-swap_color(int *col, int rorw) {
+swap_color(int32 *col, int32 rorw) {
     if (rorw)
         MyGraph->color[0] = *col;
     else
@@ -799,7 +800,7 @@ swap_color(int *col, int rorw) {
 }
 
 void
-set_cycle(int flag, int *icol) {
+set_cycle(int32 flag, int32 *icol) {
     if (flag == 0)
         return;
     MyGraph->color[0] = *icol + 1;
@@ -808,27 +809,27 @@ set_cycle(int flag, int *icol) {
         *icol = 0;
 }
 
-int
+int32
 do_auto_range_go(void) {
     double *x;
     x = &MyData[0];
     return (do_range(x, 2));
 }
 
-int
+int32
 do_range(double *x,
-         int flag /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
+         int32 flag /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
 ) {
 
     char bob[256], parn[256];
-    int ivar = 0, ivar2 = 0, res = 0, oldic = 0;
-    int nit = 20, i = 0, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
+    int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
+    int32 nit = 20, i = 0, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
         nit2 = 0, iii = 0;
-    int color = MyGraph->color[0];
+    int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
                     p2 = 0.0, dpar2 = 0.0;
     double temp, temp2;
-    int ierr = 0;
+    int32 ierr = 0;
     if (flag == 0 || flag == 2) {
         range.rtype = 0;
         if (set_up_range() == 0)
@@ -1024,7 +1025,7 @@ do_range(double *x,
 void
 silent_equilibria(void) {
     double x[MAXODE], er[MAXODE], em[MAXODE];
-    int ierr, i;
+    int32 ierr, i;
     FILE *fp;
     if (BatchEquil < 0)
         return;
@@ -1043,11 +1044,11 @@ silent_equilibria(void) {
 }
 
 void
-find_equilib_com(int com) {
-    int ierr;
+find_equilib_com(int32 com) {
+    int32 ierr;
     float xm, ym;
-    int im, jm;
-    int iv, jv;
+    int32 im, jm;
+    int32 iv, jv;
     float stabinfo;
     double *x, oldtrans;
 
@@ -1108,7 +1109,7 @@ find_equilib_com(int com) {
 void
 batch_integrate(void) {
 
-    int i;
+    int32 i;
 
     if ((Nintern_set == 0) | (Nintern_2_use == 0)) {
         this_internset[0] = '\0';
@@ -1156,7 +1157,7 @@ do_batch_dry_run(void) {
 
     if (querysets) {
         fprintf(fp, "#Internal sets query:\n");
-        int i;
+        int32 i;
         for (i = 0; i < Nintern_set; i++) {
             fprintf(fp, "%s %d %s\n", intern_set[i].name, intern_set[i].use,
                     intern_set[i].does);
@@ -1165,7 +1166,7 @@ do_batch_dry_run(void) {
 
     if (querypars) {
         fprintf(fp, "#Parameters query:\n");
-        int i;
+        int32 i;
         for (i = 0; i < NUPAR; i++) {
             fprintf(fp, "%s %f\n", upar_names[i], default_val[i]);
         }
@@ -1173,7 +1174,7 @@ do_batch_dry_run(void) {
 
     if (queryics) {
         fprintf(fp, "#Initial conditions query:\n");
-        int i;
+        int32 i;
         for (i = 0; i < NEQ; i++) {
             fprintf(fp, "%s %f\n", uvar_names[i], last_ic[i]);
         }
@@ -1190,7 +1191,7 @@ batch_integrate_once(void) {
     }
     FILE *fp;
     double *x;
-    int i;
+    int32 i;
     MyStart = 1;
     x = &MyData[0];
     RANGE_FLAG = 0;
@@ -1260,8 +1261,8 @@ batch_integrate_once(void) {
     */
 }
 
-int
-write_this_run(char *file, int i) {
+int32
+write_this_run(char *file, int32 i) {
     /*char outfile[256];*/
     char outfile[XPP_MAX_NAME];
     FILE *fp;
@@ -1281,16 +1282,16 @@ write_this_run(char *file, int i) {
 }
 
 void
-do_init_data(int com) {
+do_init_data(int32 com) {
     char sr[20], ch;
-    int i, si;
+    int32 i, si;
     double *x;
     double old_dt = DELTA_T;
     FILE *fp;
     /*char icfile[256];*/
     char icfile[XPP_MAX_NAME];
     float xm, ym;
-    int im, jm, oldstart, iv, jv, badmouse;
+    int32 im, jm, oldstart, iv, jv, badmouse;
 
     oldstart = MyStart;
     MyStart = 1;
@@ -1519,7 +1520,7 @@ run_now(void) {
 
 void
 do_start_flags(double *x, double *t) {
-    int iflagstart = 1;
+    int32 iflagstart = 1;
     double tnew = *t;
     double sss;
     one_flag_step(x, x, &iflagstart, *t, &tnew, NODE, &sss);
@@ -1527,7 +1528,7 @@ do_start_flags(double *x, double *t) {
 
 void
 usual_integrate_stuff(double *x) {
-    int i;
+    int32 i;
 
     do_start_flags(x, &MyTime);
     if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
@@ -1554,10 +1555,10 @@ usual_integrate_stuff(double *x) {
 */
 
 void
-do_new_array_ic(char *new, int j1, int j2) {
-    int i;
-    int ihot = -1;
-    int ifree = -1;
+do_new_array_ic(char *new, int32 j1, int32 j2) {
+    int32 i;
+    int32 ihot = -1;
+    int32 ifree = -1;
     /* first check to see if this is
        one that has already been used and also find the first free one
     */
@@ -1587,10 +1588,10 @@ do_new_array_ic(char *new, int j1, int j2) {
 }
 
 void
-store_new_array_ic(char *new, int j1, int j2, char *formula) {
-    int i;
-    int ihot = -1;
-    int ifree = -1;
+store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
+    int32 i;
+    int32 ihot = -1;
+    int32 ifree = -1;
     /* first check to see if this is
        one that has already been used and also find the first free one
     */
@@ -1617,9 +1618,9 @@ store_new_array_ic(char *new, int j1, int j2, char *formula) {
 }
 
 void
-evaluate_ar_ic(char *v, char *f, int j1, int j2) {
-    int j;
-    int i, flag;
+evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
+    int32 j;
+    int32 i, flag;
     double z;
     char vp[25], fp[256];
     for (j = j1; j <= j2; j++) {
@@ -1637,10 +1638,10 @@ evaluate_ar_ic(char *v, char *f, int j1, int j2) {
     }
 }
 
-int
+int32
 extract_ic_data(char *big) {
-    int i, n, j;
-    int j1, j2, flag2;
+    int32 i, n, j;
+    int32 j1, j2, flag2;
     char front[40], new[50], c;
     char back[256];
     de_space(big);
@@ -1678,7 +1679,7 @@ extract_ic_data(char *big) {
 
 void
 arr_ic_start(void) {
-    int i;
+    int32 i;
     if (ar_ic_defined == 0)
         return;
     for (i = 0; i < NAR_IC; i++) {
@@ -1689,15 +1690,15 @@ arr_ic_start(void) {
     }
 }
 
-int
+int32
 set_array_ic(void) {
     char junk[50];
     char new[50];
-    int i, index0, myar = -1;
-    int i1, in;
-    int j1, j2, flag2;
+    int32 i, index0, myar = -1;
+    int32 i1, in;
+    int32 j1, j2, flag2;
     double z;
-    int flag;
+    int32 flag;
     junk[0] = 0;
     if (new_string("Variable: ", junk) == 0)
         return 0;
@@ -1753,9 +1754,9 @@ set_array_ic(void) {
     return 1;
 }
 
-int
+int32
 form_ic(void) {
-    int ans;
+    int32 ans;
     while (1) {
         ans = set_array_ic();
         if (ans == 0)
@@ -1765,8 +1766,8 @@ form_ic(void) {
 }
 
 void
-get_ic(int it, double *x) {
-    int i;
+get_ic(int32 it, double *x) {
+    int32 i;
     switch (it) {
     case 0:
         for (i = 0; i < NODE + NMarkov; i++)
@@ -1780,13 +1781,13 @@ get_ic(int it, double *x) {
     }
 }
 
-int
-ode_int(double *y, double *t, int *istart, int ishow) {
+int32
+ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     double error[MAXODE];
 
-    int kflag;
-    int nodes = xpv.node + xpv.nvec;
-    int nit, nout = NJMP;
+    int32 kflag;
+    int32 nodes = xpv.node + xpv.nvec;
+    int32 nit, nout = NJMP;
     double tend = TEND;
     double dt = DELTA_T, tout;
     if (METHOD == 0) {
@@ -1923,34 +1924,34 @@ ode_int(double *y, double *t, int *istart, int ishow) {
     return (1);
 }
 
-int
-integrate(double *t, double *x, double tend, double dt, int count, int nout,
-          int *start) {
+int32
+integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
+          int32 *start) {
 
     float xv[MAXODE + 1], xvold[MAXODE + 1];
     float oldperiod = 0.0;
     double error[MAXODE];
     double xprime[MAXODE], oldxprime[MAXODE], hguess = dt;
-    int kflag;
+    int32 kflag;
 
-    int torcross[MAXODE];
-    int nodes = xpv.node + xpv.nvec - NMarkov;
+    int32 torcross[MAXODE];
+    int32 nodes = xpv.node + xpv.nvec - NMarkov;
 
-    int rval = 0;
+    int32 rval = 0;
     double oldx[MAXODE], oldt = 0, dint, dxp, sect, sect1, tout, tzero = *t;
     double sss, tnew = *t;
-    int iflagstart = 1;
+    int32 iflagstart = 1;
     float tscal = tend, tv;
 
     char esc;
     char error_message[50];
-    int ieqn, i, pflag = 0;
-    int icount = 0;
-    int nit;
-    int cwidth = 0;
+    int32 ieqn, i, pflag = 0;
+    int32 icount = 0;
+    int32 nit;
+    int32 cwidth = 0;
     /* new poincare map stuff */
 
-    int i_nan = 0; /* NaN */
+    int32 i_nan = 0; /* NaN */
     MSWTCH(xpv.x, x);
 
     if (Xup)
@@ -2394,7 +2395,7 @@ integrate(double *t, double *x, double tend, double dt, int count, int nout,
                 sect = fmod(fabs(*t), fabs(POIPLN));
                 if (sect < sect1) {
                     dint = sect / (POIPLN + sect - sect1);
-                    i = (int)(fabs(*t) / fabs(POIPLN));
+                    i = (int32)(fabs(*t) / fabs(POIPLN));
                     tv = (float)POIPLN * i;
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
@@ -2498,7 +2499,7 @@ send_halt(double *y, double t) {
 void
 send_output(double *y, double t) {
     double yy[MAXODE];
-    int i;
+    int32 i;
     for (i = 0; i < NODE; i++)
         yy[i] = y[i];
     extra(yy, t, NODE, NEQ);
@@ -2514,7 +2515,7 @@ send_output(double *y, double t) {
 void
 do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
         float *zpl) {
-    int ip, np = MyGraph->nvars;
+    int32 ip, np = MyGraph->nvars;
 
     for (ip = 0; ip < np; ip++) {
         if (MyGraph->ColorFlag == 0) {
@@ -2548,12 +2549,12 @@ do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
 void
 export_data(FILE *fp) {
 
-    int ip, np = MyGraph->nvars;
-    int ZSHFT, YSHFT, XSHFT;
-    int j, kxoff, kyoff, kzoff;
-    int iiXPLT, iiYPLT, iiZPLT;
-    int strind = get_maxrow_browser();
-    int i1 = 0;
+    int32 ip, np = MyGraph->nvars;
+    int32 ZSHFT, YSHFT, XSHFT;
+    int32 j, kxoff, kyoff, kzoff;
+    int32 iiXPLT, iiYPLT, iiZPLT;
+    int32 strind = get_maxrow_browser();
+    int32 i1 = 0;
     float **data;
     data = get_browser_data();
     XSHFT = MyGraph->xshft;
@@ -2601,10 +2602,10 @@ export_data(FILE *fp) {
 }
 
 void
-plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt, int *tc,
-                int flag) {
-    int i;
-    int ic = current_pop;
+plot_the_graphs(float *xv, float *xvold, int32 node, int32 neq, double ddt, int32 *tc,
+                int32 flag) {
+    int32 i;
+    int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
         plot_one_graph(xv, xvold, node, neq, ddt, tc);
         return;
@@ -2618,10 +2619,10 @@ plot_the_graphs(float *xv, float *xvold, int node, int neq, double ddt, int *tc,
 }
 
 void
-plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
-               int *tc) {
-    int *IXPLT, *IYPLT, *IZPLT;
-    int NPlots, ip;
+plot_one_graph(float *xv, float *xvold, int32 node, int32 neq, double ddt,
+               int32 *tc) {
+    int32 *IXPLT, *IYPLT, *IZPLT;
+    int32 NPlots, ip;
     float oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
     float xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
     NPlots = MyGraph->nvars;
@@ -2646,11 +2647,11 @@ plot_one_graph(float *xv, float *xvold, int node, int neq, double ddt,
 }
 
 void
-restore(int i1, int i2) {
-    int ip, np = MyGraph->nvars;
-    int ZSHFT, YSHFT, XSHFT;
-    int i, j, kxoff, kyoff, kzoff;
-    int iiXPLT, iiYPLT, iiZPLT;
+restore(int32 i1, int32 i2) {
+    int32 ip, np = MyGraph->nvars;
+    int32 ZSHFT, YSHFT, XSHFT;
+    int32 i, j, kxoff, kyoff, kzoff;
+    int32 iiXPLT, iiYPLT, iiZPLT;
     float oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
     float v1[MAXODE + 1], v2[MAXODE + 1];
     float **data;
@@ -2737,8 +2738,8 @@ restore(int i1, int i2) {
 
 /*  Sets the color according to the velocity or z-value */
 void
-comp_color(float *v1, float *v2, int n, double dt) {
-    int i, cur_color;
+comp_color(float *v1, float *v2, int32 n, double dt) {
+    int32 i, cur_color;
     float sum;
     float min_scale = (float)(MyGraph->min_scale);
     float color_scale = (float)(MyGraph->color_scale);
@@ -2750,7 +2751,7 @@ comp_color(float *v1, float *v2, int n, double dt) {
             sum += (float)fabs((double)(v1[i + 1] - v2[i + 1]));
         sum = sum / (dt);
     }
-    cur_color = (int)((sum - min_scale) * (float)color_total / color_scale);
+    cur_color = (int32)((sum - min_scale) * (float)color_total / color_scale);
     /*  plintf("min=%f max=%f col = %d val = %f \n",min_scale,color_scale,
             cur_color,sum); */
     if (cur_color < 0)
@@ -2771,7 +2772,7 @@ comp_color(float *v1, float *v2, int n, double dt) {
 void
 shoot_easy(double *x) {
     double t = 0.0;
-    int i;
+    int32 i;
     SuppressBounds = 1;
     /* printf(" %g %g \n",x[0],x[1]); */
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
@@ -2779,8 +2780,8 @@ shoot_easy(double *x) {
 }
 
 void
-shoot(double *x, double *xg, double *evec, int sgn) {
-    int i;
+shoot(double *x, double *xg, double *evec, int32 sgn) {
+    int32 i;
     double t = 0.0;
     SuppressBounds = 1;
     for (i = 0; i < NODE; i++)
@@ -2799,11 +2800,11 @@ stop_integration(void) {
     DelayErr = 1;
 }
 
-int
+int32
 stor_full(void) {
 
     char ch;
-    int nrow = 2 * MAXSTOR;
+    int32 nrow = 2 * MAXSTOR;
     if (reallocstor(NEQ + 1, nrow)) {
         MAXSTOR = nrow;
         return 1;

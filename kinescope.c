@@ -1,4 +1,5 @@
 #include "kinescope.h"
+#include "integers.h"
 
 #include "scrngif.h"
 #include "pop_list.h"
@@ -21,23 +22,23 @@
 #include "mykeydef.h"
 extern Display *display;
 extern Window draw_win, main_win, info_pop;
-extern int DCURY;
+extern int32 DCURY;
 extern GC gc_graph;
 #define MAXFILM 250
-int ks_ncycle = 1;
-int ks_speed = 50;
+int32 ks_ncycle = 1;
+int32 ks_speed = 50;
 extern char *info_message, *kin_hint[];
-extern int screen;
-extern int mov_ind;
+extern int32 screen;
+extern int32 mov_ind;
 typedef struct {
-    unsigned int h, w;
+    uint32 h, w;
     Pixmap xi;
 } MOVIE;
 
 MOVIE movie[MAXFILM];
 
 void
-do_movie_com(int c)
+do_movie_com(int32 c)
 
 {
 
@@ -72,7 +73,7 @@ do_movie_com(int c)
 
 void
 reset_film(void) {
-    int i;
+    int32 i;
     if (mov_ind == 0)
         return;
     for (i = 0; i < mov_ind; i++)
@@ -80,10 +81,10 @@ reset_film(void) {
     mov_ind = 0;
 }
 
-int
+int32
 film_clip(void) {
-    int x, y;
-    unsigned int h, w, bw, d;
+    int32 x, y;
+    uint32 h, w, bw, d;
     Window root;
     if (mov_ind >= MAXFILM)
         return (0);
@@ -97,8 +98,8 @@ film_clip(void) {
     return 1;
 }
 
-int
-show_frame(int i, int h, int w) {
+int32
+show_frame(int32 i, int32 h, int32 w) {
     if (h < movie[i].h || w < movie[i].w) {
         too_small();
         return 1;
@@ -111,12 +112,12 @@ show_frame(int i, int h, int w) {
 
 void
 play_back(void) {
-    int x, y;
-    unsigned int h, w, bw, d;
+    int32 x, y;
+    uint32 h, w, bw, d;
 
     Window root;
     XEvent ev;
-    int i = 0;
+    int32 i = 0;
     XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
     if (mov_ind == 0)
         return;
@@ -173,7 +174,7 @@ play_back(void) {
 void
 save_kine(void) {
     char base[128];
-    int fmat = 2;
+    int32 fmat = 2;
     sprintf(base, "frame");
     /* #ifdef NOGIF
    #else
@@ -187,11 +188,11 @@ save_kine(void) {
 
 void
 make_anigif(void) {
-    int i = 0;
-    int x, y;
+    int32 i = 0;
+    int32 x, y;
     FILE *fp;
     Window root;
-    unsigned int h, w, bw, d;
+    uint32 h, w, bw, d;
     XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
     if (mov_ind == 0)
         return;
@@ -222,16 +223,16 @@ make_anigif(void) {
 }
 
 void
-save_movie(char *basename, int fmat) {
+save_movie(char *basename, int32 fmat) {
     /*char file[256];
      */
     char file[XPP_MAX_NAME];
-    int i = 0;
-    int x, y;
+    int32 i = 0;
+    int32 x, y;
     FILE *fp;
     Window root;
     Pixmap xi;
-    unsigned int h, w, bw, d;
+    uint32 h, w, bw, d;
     XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
     if (mov_ind == 0)
         return;
@@ -266,14 +267,14 @@ save_movie(char *basename, int fmat) {
 
 void
 auto_play(void) {
-    int x, y;
-    unsigned int h, w, bw, d, key;
+    int32 x, y;
+    uint32 h, w, bw, d, key;
     Window root;
 
-    int dt = 20;
-    int smax = 500;
+    int32 dt = 20;
+    int32 smax = 500;
     XEvent ev;
-    int i = 0, cycle = 0;
+    int32 i = 0, cycle = 0;
 
     new_int("Number of cycles", &ks_ncycle);
     new_int("Msec between frames", &ks_speed);

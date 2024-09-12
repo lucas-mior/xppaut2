@@ -1,4 +1,5 @@
 #include "my_rhs.h"
+#include "integers.h"
 #include "dae_fun.h"
 #include "main.h"
 #include "extra.h"
@@ -12,22 +13,22 @@
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
 extern BC_STRUCT my_bc[MAXODE];
-extern int FIX_VAR, NMarkov, PrimeStart;
-extern int *my_ode[];
+extern int32 FIX_VAR, NMarkov, PrimeStart;
+extern int32 *my_ode[];
 
 extern double variables[];
-extern int NVAR, NODE;
+extern int32 NVAR, NODE;
 
-int
-main(int argc, char **argv) {
+int32
+main(int32 argc, char **argv) {
     do_main(argc, argv);
 
     exit(0);
 }
 
 void
-extra(double *y__y, double t, int nod, int neq) {
-    int i;
+extra(double *y__y, double t, int32 nod, int32 neq) {
+    int32 i;
     if (nod >= neq)
         return;
     SETVAR(0, t);
@@ -46,10 +47,10 @@ extra(double *y__y, double t, int nod, int neq) {
 }
 
 /* set_fix_rhs(t,y,neq)
-     int neq;
+     int32 neq;
      double t,*y;
 {
-  int i;
+  int32 i;
   SETVAR(0,t);
   for(i=0;i<neq;i++)
     SETVAR(i+1,y[i]);
@@ -60,7 +61,7 @@ extra(double *y__y, double t, int nod, int neq) {
   } */
 void
 set_fix_rhs(double t, double *y) {
-    int i;
+    int32 i;
     SETVAR(0, t);
     for (i = 0; i < NODE; i++)
         SETVAR(i + 1, y[i]);
@@ -73,9 +74,9 @@ set_fix_rhs(double t, double *y) {
     do_in_out();
 }
 
-int
-my_rhs(double t, double *y, double *ydot, int neq) {
-    int i;
+int32
+my_rhs(double t, double *y, double *ydot, int32 neq) {
+    int32 i;
     SETVAR(0, t);
     for (i = 0; i < NODE; i++)
         SETVAR(i + 1, y[i]);
@@ -100,7 +101,7 @@ my_rhs(double t, double *y, double *ydot, int neq) {
 
 void
 update_based_on_current(void) {
-    int i;
+    int32 i;
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
 
@@ -110,14 +111,14 @@ update_based_on_current(void) {
 
 void
 fix_only(void) {
-    int i;
+    int32 i;
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
 }
 
 void
 rhs_only(double *ydot) {
-    int i;
+    int32 i;
     for (i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }

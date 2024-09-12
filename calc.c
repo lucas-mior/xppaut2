@@ -12,18 +12,19 @@
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 #include "xpplim.h"
+#include "integers.h"
 #define PARAM 1
 #define IC 2
 #include "browse.h"
 
 #include "parserslow.h"
 
-extern int NCON, NSYM, NCON_START, NSYM_START;
+extern int32 NCON, NSYM, NCON_START, NSYM_START;
 
 extern Display *display;
-extern int screen;
+extern int32 screen;
 extern GC gc, small_gc;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
@@ -39,7 +40,7 @@ extern double last_ic[MAXODE];
 struct {
     Window base, quit, answer;
     double last_val;
-    int use;
+    int32 use;
 } my_calc;
 
 void
@@ -61,7 +62,7 @@ void
 make_calc(double z)
 
 {
-    int width, height;
+    int32 width, height;
     static char *name[] = {"Answer"};
     Window base;
     XTextProperty winname;
@@ -90,7 +91,7 @@ make_calc(double z)
         my_calc.answer =
             make_window(base, 10, DCURYs / 2, 24 * DCURXs, DCURYs, 0);
         width = (width - 4 * DCURXs) / 2;
-        my_calc.quit = make_window(base, width, (int)(2.5 * DCURYs), 4 * DCURXs,
+        my_calc.quit = make_window(base, width, (int32)(2.5 * DCURYs), 4 * DCURXs,
                                    DCURYs, 1);
         XSelectInput(display, my_calc.quit, MYMASK);
         my_calc.use = 1;
@@ -110,7 +111,7 @@ quit_calc(void) {
 }
 
 void
-ini_calc_string(char *name, char *value, int *pos, int *col) {
+ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     strcpy(value, " ");
     strcpy(name, "Formula:");
     *pos = strlen(value);
@@ -124,7 +125,7 @@ q_calc(void) {
     char value[80], name[10];
     double z = 0.0;
     XEvent ev;
-    int done = 0, pos, col, flag;
+    int32 done = 0, pos, col, flag;
     my_calc.use = 0;
     make_calc(z);
     ini_calc_string(name, value, &pos, &col);
@@ -153,11 +154,11 @@ q_calc(void) {
     quit_calc();
 }
 
-int
+int32
 do_calc(char *temp, double *z) {
     char val[15];
-    int ok;
-    int i;
+    int32 ok;
+    int32 i;
     double newz;
     if (strlen(temp) == 0) {
         *z = 0.0;
@@ -196,9 +197,9 @@ do_calc(char *temp, double *z) {
     return (1);
 }
 
-int
-has_eq(char *z, char *w, int *where) {
-    int i;
+int32
+has_eq(char *z, char *w, int32 *where) {
+    int32 i;
     for (i = 0; i < strlen(z); i++)
         if (z[i] == ':')
             break;
@@ -211,8 +212,8 @@ has_eq(char *z, char *w, int *where) {
 }
 
 double
-calculate(char *expr, int *ok) {
-    int com[400], i;
+calculate(char *expr, int32 *ok) {
+    int32 com[400], i;
     double z = 0.0;
     if (add_expr(expr, com, &i)) {
         err_msg("Illegal formula ..");

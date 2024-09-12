@@ -1,32 +1,32 @@
-
+#include "integers.h"
 struct {
-    int ndim, ips, irs, ilp, icp[20];
+    int32 ndim, ips, irs, ilp, icp[20];
     double par[20];
 } blbcn_;
 
 #define blbcn_1 blbcn_
 struct {
-    int ntst, ncol, iad, isp, isw, iplt, nbc, nint;
+    int32 ntst, ncol, iad, isp, isw, iplt, nbc, nint;
 } blcde_;
 
 #define blcde_1 blcde_
 
 struct {
     double ds, dsmin, dsmax;
-    int iads;
+    int32 iads;
 } bldls_;
 
 #define bldls_1 bldls_
 
 struct {
-    int nmx, nuzr;
+    int32 nmx, nuzr;
     double rl0, rl1, a0, a1;
 } bllim_;
 
 #define bllim_1 bllim_
 
 struct {
-    int npr, mxbf, iid, itmx, itnw, nwtn, jac;
+    int32 npr, mxbf, iid, itmx, itnw, nwtn, jac;
 } blmax_;
 
 #define blmax_1 blmax_

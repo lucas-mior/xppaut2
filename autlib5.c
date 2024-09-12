@@ -6,6 +6,7 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
 #include "xAuto.h"
+#include "integers.h"
 
 extern XAUTO xAuto;
 
@@ -64,7 +65,7 @@ struct {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -147,7 +148,7 @@ fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 } /* fnho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -200,7 +201,7 @@ ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 } /* ffho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -317,7 +318,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 } /* bcho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
      const double *u1, double *fb, double *dbc) {
@@ -633,7 +634,7 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 } /* fbho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -732,7 +733,7 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 } /* icho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *fi,
@@ -799,7 +800,7 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 } /* fiho_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int
+/* Subroutine */ int32
 inho(iap_type *iap, int64 *icp, double *par) {
 
     /* Local variables */
@@ -961,7 +962,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
 } /* inho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
+/* Subroutine */ int32
 preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
       double *ups, double *udotps, double *tm, double *par) {
     /* System generated locals */
@@ -1070,7 +1071,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
 } /* preho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
+/* Subroutine */ int32
 stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -1147,7 +1148,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 } /* stpnho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
+/* Subroutine */ int32
 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     /* Local variables */
 
@@ -1185,7 +1186,7 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
 
     /* Initialize solution and additional parameters */
 
-    switch ((int)blhom_1.istart) {
+    switch ((int32)blhom_1.istart) {
     case 1:
         goto L1;
     case 2:
@@ -1285,7 +1286,7 @@ L3:
 } /* stpho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
+/* Subroutine */ int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
 
@@ -1440,7 +1441,7 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
         free(f1);
     }
 
-    switch ((int)is) {
+    switch ((int32)is) {
     case 1:
         goto L1;
     case 2:
@@ -1622,7 +1623,7 @@ L16:
 } /* psiho_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int
+/* Subroutine */ int32
 eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
       double *xequib, const int64 *icp, double *par, int64 *ndm) {
     double *dfdp, *dfdu;
@@ -1642,7 +1643,7 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
 } /* eighi */
 
 /*     ---------- ----- */
-/* Subroutine */ int
+/* Subroutine */ int32
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
@@ -1830,7 +1831,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 } /* eigho_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int
+/* Subroutine */ int32
 prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
@@ -1846,7 +1847,7 @@ prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
 } /* prjcti */
 
 /*     ---------- ------ */
-/* Subroutine */ int
+/* Subroutine */ int32
 prjctn(double *bound, double *xequib, const int64 *icp, double *par,
        int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
        double *dfdp) {

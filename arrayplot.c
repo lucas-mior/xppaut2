@@ -1,5 +1,6 @@
 #include "arrayplot.h"
 #include "array_print.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -61,27 +62,27 @@
 #define MAX_LEN_SBOX 25
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2
-extern int COLOR;
-extern unsigned int GrFore, GrBack;
+extern int32 COLOR;
+extern uint32 GrFore, GrBack;
 /*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
 extern Display *display;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
     screen;
 extern GC gc, small_gc, gc_graph;
 extern char uvar_names[MAXODE][12];
 extern BROWSER my_browser;
-int aplot_range;
-int aplot_range_count = 0;
+int32 aplot_range;
+int32 aplot_range_count = 0;
 char aplot_range_stem[256] = "rangearray";
-int aplot_still = 1, aplot_tag = 0;
+int32 aplot_still = 1, aplot_tag = 0;
 APLOT aplot;
 extern Window draw_win;
-int plot3d_auto_redraw = 0;
+int32 plot3d_auto_redraw = 0;
 FILE *ap_fp;
 GC aplot_gc;
-int first_aplot_press;
-int do_range(double *, int);
+int32 first_aplot_press;
+int32 do_range(double *, int32);
 extern double MyData[MAXODE];
 
 #define MYMASK                                                                 \
@@ -107,7 +108,7 @@ void
 set_up_aplot_range(void) {
     static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
     char values[3][MAX_LEN_SBOX];
-    int status;
+    int32 status;
     double *x;
     snprintf(values[0], sizeof(values[0]), "%s", aplot_range_stem);
     snprintf(values[1], sizeof(values[1]), "%d", aplot_still);
@@ -136,13 +137,13 @@ fit_aplot(void) {
 }
 
 void
-optimize_aplot(int *plist) {
-    int i0 = plist[0] - 1;
-    int i1 = plist[1] - 1;
-    int nr, ns;
+optimize_aplot(int32 *plist) {
+    int32 i0 = plist[0] - 1;
+    int32 i1 = plist[1] - 1;
+    int32 nr, ns;
     double zmax, zmin;
-    int nrows = my_browser.maxrow;
-    int ncol = i1 + 1 - i0;
+    int32 nrows = my_browser.maxrow;
+    int32 ncol = i1 + 1 - i0;
     if (ncol < 2 || nrows < 2)
         return;
     make_my_aplot("Array!");
@@ -177,8 +178,8 @@ make_my_aplot(char *name) {
 void scale_aplot(ap, zmax, zmin) APLOT *ap;
 double *zmax, *zmin;
 {
-    int i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
-    int nrows = my_browser.maxrow;
+    int32 i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
+    int32 nrows = my_browser.maxrow;
     double z;
     ib = col0;
     jb = row0;
@@ -238,7 +239,7 @@ expose_aplot(Window w) {
 
 void
 do_array_plot_events(XEvent ev) {
-    int x, y;
+    int32 x, y;
     if (aplot.alive == 0)
         return;
     switch (ev.type) {
@@ -285,7 +286,7 @@ do_array_plot_events(XEvent ev) {
 }
 
 void wborder(w, i, ap) Window w;
-int i;
+int32 i;
 APLOT ap;
 {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
@@ -315,8 +316,8 @@ char *wname, *iname;
 
 {
     Window base;
-    int width, height;
-    unsigned int valuemask = 0;
+    int32 width, height;
+    uint32 valuemask = 0;
     XGCValues values;
     XTextProperty winname, iconname;
     XSizeHints size_hints;
@@ -366,14 +367,14 @@ char *wname, *iname;
 void print_aplot(ap) APLOT *ap;
 {
     double tlo, thi;
-    int status, errflag;
+    int32 status, errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
                         "Render(-1,0,1,2)"};
     char values[5][MAX_LEN_SBOX];
-    int nrows = my_browser.maxrow;
-    int row0 = ap->nstart;
-    int col0 = ap->index0;
-    int jb;
+    int32 nrows = my_browser.maxrow;
+    int32 row0 = ap->nstart;
+    int32 col0 = ap->index0;
+    int32 jb;
     if (nrows <= 2)
         return;
     if (ap->plotdef == 0 || ap->nacross < 2 || ap->ndown < 2)
@@ -440,7 +441,7 @@ apbutton(Window w) {
 
 void draw_scale(ap) APLOT ap;
 {
-    int i, y;
+    int32 i, y;
     Window w = ap.wscale;
     for (i = 0; i < color_total; i++) {
         y = color_total - i - 1;
@@ -463,9 +464,9 @@ edit_aplot(void) {
 }
 
 void
-get_root(char *s, char *sroot, int *num) {
-    int n = strlen(s);
-    int i = n - 1, j;
+get_root(char *s, char *sroot, int32 *num) {
+    int32 n = strlen(s);
+    int32 i = n - 1, j;
 
     char me[100];
     *num = 0;
@@ -500,7 +501,7 @@ void reset_aplot_axes(ap) APLOT ap;
 {
     char bob[200];
     char sroot[100];
-    int num;
+    int32 num;
     if (ap.alive == 0)
         return;
     get_root(ap.name, sroot, &num);
@@ -513,7 +514,7 @@ void reset_aplot_axes(ap) APLOT ap;
 }
 
 void
-dump_aplot(FILE *fp, int f) {
+dump_aplot(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -529,11 +530,11 @@ dump_aplot(FILE *fp, int f) {
     return;
 }
 
-int
+int32
 editaplot(ap)
 APLOT *ap;
 {
-    int i, status;
+    int32 i, status;
     double zmax, zmin;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
                  "Zmin",       "Zmax",  "Autoplot(0/1)", "ColSkip"};
@@ -586,10 +587,10 @@ close_aplot_files(void) {
 }
 
 void
-gif_aplot_all(char *filename, int still) {
+gif_aplot_all(char *filename, int32 still) {
     Pixmap xi;
-    int x, y;
-    unsigned int h, w, bw, d;
+    int32 x, y;
+    uint32 h, w, bw, d;
     Window root;
     /* FILE *fp; */
     if (still == 0) {
@@ -655,13 +656,13 @@ void grab_aplot_screen(ap) APLOT ap;
 
 void redraw_aplot(ap) APLOT ap;
 {
-    int i, j, w = ap.wplot;
+    int32 i, j, w = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
     char bob[100];
-    int nrows = my_browser.maxrow, colr, cmax = FIRSTCOLOR + color_total;
-    int row0 = ap.nstart;
-    int col0 = ap.index0, delx, dely;
-    int ib, jb, ix, iy;
+    int32 nrows = my_browser.maxrow, colr, cmax = FIRSTCOLOR + color_total;
+    int32 row0 = ap.nstart;
+    int32 col0 = ap.index0, delx, dely;
+    int32 ib, jb, ix, iy;
     if (nrows <= 2)
         return;
     if (ap.plotdef == 0 || ap.nacross < 2 || ap.ndown < 2)
@@ -682,12 +683,12 @@ void redraw_aplot(ap) APLOT ap;
     XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob, strlen(bob));
     dx = (double)ap.plotw / (double)(ap.nacross / ap.ncskip);
     dy = (double)ap.ploth / (double)ap.ndown;
-    delx = (int)dx + 1;
-    dely = (int)dy + 1;
+    delx = (int32)dx + 1;
+    dely = (int32)dy + 1;
     for (i = 0; i < ap.nacross / ap.ncskip; i++) {
         ib = col0 + i * ap.ncskip;
         x = dx * i;
-        ix = (int)x;
+        ix = (int32)x;
 
         if (ib >= my_browser.maxcol)
             return;
@@ -696,12 +697,12 @@ void redraw_aplot(ap) APLOT ap;
 
             if (jb < nrows && jb >= 0) {
                 y = j * dy;
-                iy = (int)y;
+                iy = (int32)y;
                 /*	  if(j==0)
                           plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */
                 z = (double)color_total * (my_browser.data[ib][jb] - ap.zmin) /
                     (ap.zmax - ap.zmin);
-                colr = (int)z + FIRSTCOLOR;
+                colr = (int32)z + FIRSTCOLOR;
                 if (colr < FIRSTCOLOR)
                     colr = FIRSTCOLOR;
                 if (colr > cmax)
@@ -722,7 +723,7 @@ tag_aplot(char *bob) {
 }
 
 void
-set_acolor(int col) {
+set_acolor(int32 col) {
     if (col < 0)
         XSetForeground(display, aplot_gc, GrBack);
     if (col == 0)

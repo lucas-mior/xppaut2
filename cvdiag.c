@@ -15,6 +15,7 @@
 #include "cvode.h"
 #include "llnltyps.h"
 #include "vector.h"
+#include "integers.h"
 
 /* Error Messages */
 
@@ -51,13 +52,13 @@ typedef struct {
 
 /* CVDIAG linit, lsetup, lsolve, and lfree routines */
 
-static int CVDiagInit(CVodeMem cv_mem, bool *setupNonNull);
+static int32 CVDiagInit(CVodeMem cv_mem, bool *setupNonNull);
 
-static int CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
+static int32 CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
                        N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
                        N_Vector vtemp2, N_Vector vtemp3);
 
-static int CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
+static int32 CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                        N_Vector fcur);
 
 static void CVDiagFree(CVodeMem cv_mem);
@@ -131,7 +132,7 @@ CVDiag(void *cvode_mem) {
 
 **********************************************************************/
 
-static int
+static int32
 CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
     CVDiagMem cvdiag_mem;
 
@@ -184,8 +185,8 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 
 **********************************************************************/
 
-static int
-CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
+static int32
+CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     double r;
     N_Vector ftemp, y;
@@ -238,7 +239,7 @@ CVDiagSetup(CVodeMem cv_mem, int convfail, N_Vector ypred, N_Vector fpred,
 
 **********************************************************************/
 
-static int
+static int32
 CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     bool invOK;
     double r;

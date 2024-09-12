@@ -1,4 +1,5 @@
 #include "userbut.h"
+#include "integers.h"
 
 #include "color.h"
 #include "ggets.h"
@@ -12,15 +13,15 @@
 #define USERBUTCOLOR 24
 #define USERBUTMAX 20
 
-int nuserbut = 0;
+int32 nuserbut = 0;
 
 USERBUT userbut[USERBUTMAX];
 
-extern int MyAddedButtonColor;
+extern int32 MyAddedButtonColor;
 extern Display *display;
 extern Window main_win;
 Window make_fancy_window();
-extern int DCURYs, DCURXs, CURY_OFFs;
+extern int32 DCURYs, DCURXs, CURY_OFFs;
 extern GC small_gc;
 
 void
@@ -45,7 +46,7 @@ user_button_events(XEvent report) {
 
 void
 user_button_press(Window w) {
-    int i;
+    int32 i;
     for (i = 0; i < nuserbut; i++) {
         if (w == userbut[i].w) {
             run_the_commands(userbut[i].com);
@@ -56,7 +57,7 @@ user_button_press(Window w) {
 
 void
 draw_all_user_buttons(void) {
-    int i = 0;
+    int32 i = 0;
     for (i = 0; i < nuserbut; i++) {
         user_button_draw(userbut[i].w);
     }
@@ -65,7 +66,7 @@ draw_all_user_buttons(void) {
 
 void
 user_button_draw(Window w) {
-    int i;
+    int32 i;
     for (i = 0; i < nuserbut; i++) {
         if (w == userbut[i].w) {
 
@@ -77,8 +78,8 @@ user_button_draw(Window w) {
 }
 
 void
-user_button_cross(Window w, int b) {
-    int i;
+user_button_cross(Window w, int32 b) {
+    int32 i;
     for (i = 0; i < nuserbut; i++)
         if (w == userbut[i].w) {
             XSetWindowBorderWidth(display, w, b);
@@ -87,9 +88,9 @@ user_button_cross(Window w, int b) {
     return;
 }
 
-int
+int32
 get_button_info(char *s, char *bname, char *sc) {
-    int i = 0, j = 0, f = 0, n = strlen(s);
+    int32 i = 0, j = 0, f = 0, n = strlen(s);
     char c;
     if (n == 0)
         return (-1);
@@ -120,9 +121,9 @@ get_button_info(char *s, char *bname, char *sc) {
     return (1);
 }
 
-int
+int32
 find_kbs(char *sc) {
-    int i = 0;
+    int32 i = 0;
     while (1) {
         if (strcmp(sc, kbs[i].seq) == 0)
             return kbs[i].com;
@@ -135,7 +136,7 @@ find_kbs(char *sc) {
 void
 add_user_button(char *s) {
     char bname[10], sc[10];
-    int z;
+    int32 z;
     if (nuserbut >= USERBUTMAX)
         return;
     if (strlen(s) == 0)
@@ -149,7 +150,7 @@ add_user_button(char *s) {
         return;
     }
     /*Don't add buttons with same functionality twice*/
-    int i;
+    int32 i;
     for (i = 0; i < nuserbut; i++) {
         if (userbut[i].com == z) {
             /*		plintf("But=%s:%s already implemented as button
@@ -166,10 +167,10 @@ add_user_button(char *s) {
 }
 
 void
-create_user_buttons(int x0, int y0, Window base) {
-    int i;
-    int x = x0;
-    int l;
+create_user_buttons(int32 x0, int32 y0, Window base) {
+    int32 i;
+    int32 x = x0;
+    int32 l;
     if (nuserbut == 0)
         return;
     for (i = 0; i < nuserbut; i++) {

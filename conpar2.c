@@ -1,6 +1,7 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
 #include "auto_types.h"
+#include "integers.h"
 
 #ifdef TIME
 #include <unistd.h>
@@ -120,9 +121,9 @@ conpar_process(void *arg) {
             ipiv = irp;
             jpiv = ic;
             for (k1 = irp; k1 <= *nra; ++k1) {
-                int irf_k1_i = irf[-1 + k1 + i * irf_dim1];
+                int32 irf_k1_i = irf[-1 + k1 + i * irf_dim1];
                 for (k2 = ic; k2 <= m2; ++k2) {
-                    int icf_k2_i = icf[-1 + k2 + i * icf_dim1];
+                    int32 icf_k2_i = icf[-1 + k2 + i * icf_dim1];
                     tpiv = a[-1 + icf_k2_i +
                              a_dim1 * (-1 + irf_k1_i + a_dim2 * i)];
                     if (tpiv < 0.0) {
@@ -143,15 +144,15 @@ conpar_process(void *arg) {
             irf[-1 + irp + i * irf_dim1] = irf[-1 + ipiv + i * irf_dim1];
             irf[-1 + ipiv + i * irf_dim1] = itmp;
             {
-                int icf_ic_i = icf[-1 + ic + i * icf_dim1];
-                int irf_irp_i = irf[-1 + irp + i * irf_dim1];
-                int a_offset2 = a_dim1 * (-1 + irf_irp_i + a_dim2 * i);
-                int b_offset2 = b_dim1 * (-1 + irf_irp_i + b_dim2 * i);
+                int32 icf_ic_i = icf[-1 + ic + i * icf_dim1];
+                int32 irf_irp_i = irf[-1 + irp + i * irf_dim1];
+                int32 a_offset2 = a_dim1 * (-1 + irf_irp_i + a_dim2 * i);
+                int32 b_offset2 = b_dim1 * (-1 + irf_irp_i + b_dim2 * i);
                 /*	     **End of pivoting; elimination starts here */
                 for (ir = ir1; ir <= *nra; ++ir) {
-                    int irf_ir_i = irf[-1 + ir + i * irf_dim1];
-                    int a_offset1 = a_dim1 * (-1 + irf_ir_i + a_dim2 * i);
-                    int b_offset1 = b_dim1 * (-1 + irf_ir_i + b_dim2 * i);
+                    int32 irf_ir_i = irf[-1 + ir + i * irf_dim1];
+                    int32 a_offset1 = a_dim1 * (-1 + irf_ir_i + a_dim2 * i);
+                    int32 b_offset1 = b_dim1 * (-1 + irf_ir_i + b_dim2 * i);
                     rm = a[-1 + icf_ic_i +
                            a_dim1 * (-1 + irf_ir_i + a_dim2 * i)] /
                          a[-1 + icf_ic_i +
@@ -163,7 +164,7 @@ conpar_process(void *arg) {
                             a[l + a_offset1] -= rm * a[l + a_offset2];
                         }
                         for (l = icp1 - 1; l < *nca; ++l) {
-                            int icf_l_i = icf[l + i * icf_dim1];
+                            int32 icf_l_i = icf[l + i * icf_dim1];
                             a[-1 + icf_l_i + a_offset1] -=
                                 rm * a[-1 + icf_l_i + a_offset2];
                         }
@@ -173,8 +174,8 @@ conpar_process(void *arg) {
                     }
                 }
                 for (ir = *nbc + 1; ir <= *nrc; ++ir) {
-                    int c_offset1 = c_dim1 * (-1 + ir + c_dim2 * i);
-                    int d_offset1 = (-1 + ir) * d_dim1;
+                    int32 c_offset1 = c_dim1 * (-1 + ir + c_dim2 * i);
+                    int32 d_offset1 = (-1 + ir) * d_dim1;
                     rm = c[-1 + icf_ic_i + c_dim1 * (-1 + ir + c_dim2 * i)] /
                          a[-1 + icf_ic_i +
                            a_dim1 * (-1 + irf_irp_i + a_dim2 * i)];
@@ -184,7 +185,7 @@ conpar_process(void *arg) {
                             c[l + c_offset1] -= rm * a[l + a_offset2];
                         }
                         for (l = icp1 - 1; l < *nca; ++l) {
-                            int icf_l_i = icf[l + i * icf_dim1];
+                            int32 icf_l_i = icf[l + i * icf_dim1];
                             c[-1 + icf_l_i + c_offset1] -=
                                 rm * a[-1 + icf_l_i + a_offset2];
                         }
@@ -228,7 +229,7 @@ conpar_process(void *arg) {
     return NULL;
 }
 
-int
+int32
 conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
                        int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
                        double *d, int64 *irf, int64 *icf)
@@ -253,7 +254,7 @@ conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
     return 0;
 }
 
-int
+int32
 conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
        int64 *icf) {

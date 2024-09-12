@@ -3,6 +3,7 @@
 #include "pop_list.h"
 #include "ggets.h"
 #include "init_conds.h"
+#include "integers.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,17 +28,17 @@
     }
 
 extern double last_ic[MAXODE];
-extern int noicon;
+extern int32 noicon;
 extern Display *display;
-extern int screen;
+extern int32 screen;
 extern GC gc, small_gc;
-extern int DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 extern char uvar_names[MAXODE][12];
 extern char *ode_names[MAXODE];
-extern int METHOD, NEQ, NODE, NMarkov;
+extern int32 METHOD, NEQ, NODE, NMarkov;
 
-extern int EqType[MAXODE];
+extern int32 EqType[MAXODE];
 
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
@@ -49,23 +50,23 @@ extern int EqType[MAXODE];
 struct {
     Window base, stab, rest, top, close, import;
     double y[MAXODE], ev[MAXODE + MAXODE];
-    int n, flag;
-    int info[5];
+    int32 n, flag;
+    int32 info[5];
     char type[15];
 } eq_box;
 
 struct {
     Window base, up, down, list, main, close;
-    int istart, nlines, flag;
+    int32 istart, nlines, flag;
 
 } eq_list;
 
-extern int HomoFlag, sparity;
+extern int32 HomoFlag, sparity;
 extern double homo_l[100], homo_r[100];
 
 void
 draw_eq_list(Window w) {
-    int i;
+    int32 i;
     char bob[300];
     char fstr[15];
     if (eq_list.flag == 0)
@@ -102,7 +103,7 @@ draw_eq_list(Window w) {
 void
 create_eq_list(void) {
 
-    int width, height, hlist, hmain;
+    int32 width, height, hlist, hmain;
     Window base;
     static char *wname[] = {"Equations"};
     static char *iname[] = {"Eqns"};
@@ -162,7 +163,7 @@ create_eq_list(void) {
 }
 
 void
-eq_list_keypress(XEvent ev, int *used) {
+eq_list_keypress(XEvent ev, int32 *used) {
     Window w = ev.xkey.window;
 
     char ks;
@@ -188,7 +189,7 @@ eq_list_keypress(XEvent ev, int *used) {
 }
 
 void
-enter_eq_stuff(Window w, int b) {
+enter_eq_stuff(Window w, int32 b) {
     if (eq_list.flag == 1) {
         if (w == eq_list.close || w == eq_list.up || w == eq_list.down)
             XSetWindowBorderWidth(display, w, b);
@@ -241,7 +242,7 @@ eq_list_down(void) {
 
 void
 eq_box_import(void) {
-    int n = eq_box.n, i;
+    int32 n = eq_box.n, i;
     for (i = 0; i < n; i++)
         last_ic[i] = eq_box.y[i];
 
@@ -262,9 +263,9 @@ eq_box_import(void) {
 }
 
 void
-get_new_size(Window win, unsigned int *wid, unsigned int *hgt) {
-    int x, y;
-    unsigned int bw, de;
+get_new_size(Window win, uint32 *wid, uint32 *hgt) {
+    int32 x, y;
+    uint32 bw, de;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, wid, hgt, &bw, &de);
 }
@@ -272,8 +273,8 @@ get_new_size(Window win, unsigned int *wid, unsigned int *hgt) {
 void
 resize_eq_list(Window win) {
 
-    int nlines;
-    unsigned int w, h;
+    int32 nlines;
+    uint32 w, h;
     if (eq_list.flag == 0)
         return;
     if (win != eq_list.base)
@@ -306,12 +307,12 @@ eq_box_button(Window w) {
 }
 
 void
-create_eq_box(int cp, int cm, int rp, int rm, int im, double *y, double *ev,
-              int n) {
-    int width, hstab, hequil, height, i;
+create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y, double *ev,
+              int32 n) {
+    int32 width, hstab, hequil, height, i;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};
-    int tpos, tpos2;
+    int32 tpos, tpos2;
     Window base;
     XTextProperty winname, iconame;
     XSizeHints size_hints;
@@ -333,7 +334,7 @@ create_eq_box(int cp, int cm, int rp, int rm, int im, double *y, double *ev,
         sprintf(eq_box.type, "STABLE");
 
     if (eq_box.flag == 0) { /*   the box is not made yet    */
-        width = (30 + 30 * (int)(n / 20)) * DCURXs;
+        width = (30 + 30 * (int32)(n / 20)) * DCURXs;
         if (n >= 20)
             hequil = 20 * (DCURYs + 4);
         else
@@ -383,8 +384,8 @@ create_eq_box(int cp, int cm, int rp, int rm, int im, double *y, double *ev,
 
 void
 draw_eq_box(Window w) {
-    int i, j, ncol, n = eq_box.n, nrow;
-    int in;
+    int32 i, j, ncol, n = eq_box.n, nrow;
+    int32 in;
     char temp[50];
     if (eq_box.flag == 0)
         return;

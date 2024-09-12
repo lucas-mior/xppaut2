@@ -6,19 +6,20 @@
 #include "ggets.h"
 
 #include "aniparse.h"
+#include "integers.h"
 
 extern Window command_pop;
 extern GC gc, gc_graph, small_gc;
 extern Display *display;
 
-extern int DCURYb, DCURXb, CURY_OFFb;
-extern int DCURYs, DCURXs, CURY_OFFs;
-extern int DCURY, DCURX, CURY_OFF;
+extern int32 DCURYb, DCURXb, CURY_OFFb;
+extern int32 DCURYs, DCURXs, CURY_OFFs;
+extern int32 DCURY, DCURX, CURY_OFF;
 
-int
+int32
 get_command_width(void) {
-    int x, y;
-    unsigned int w, h, bw, de;
+    int32 x, y;
+    uint32 w, h, bw, de;
 
     Window root;
     XGetGeometry(display, command_pop, &root, &x, &y, &w, &h, &bw, &de);
@@ -27,21 +28,21 @@ get_command_width(void) {
 }
 
 void
-plot_command(int nit, int icount, int cwidth) {
-    int i;
+plot_command(int32 nit, int32 icount, int32 cwidth) {
+    int32 i;
     float dx;
     if (nit == 0)
         return;
     dx = (float)icount * (float)cwidth / (float)nit;
-    i = (int)dx;
+    i = (int32)dx;
 
     XDrawPoint(display, command_pop, gc, i, 5);
     return;
 }
 
-int
+int32
 my_abort(void) {
-    int ch;
+    int32 ch;
     XEvent event;
     while (XPending(display) > 0) {
         XNextEvent(display, &event);

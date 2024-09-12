@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "xpplim.h"
 #include "del_stab.h"
+#include "integers.h"
 
 #define Z(a, b) z[(a) + n * (b)]
 #define DING ping()
@@ -17,8 +18,8 @@
 extern double variable_shift[2][MAXODE], AlphaMax, OmegaMax;
 
 extern double delay_list[MAXDELAY];
-extern int NDelay, del_stab_flag, WhichDelay, DelayGrid;
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
+extern int32 NDelay, del_stab_flag, WhichDelay, DelayGrid;
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 double amax();
 
 /*typedef struct{
@@ -32,14 +33,14 @@ double amax();
 */
 
 void
-do_delay_sing(double *x, double eps, double err, double big, int maxit, int n,
-              int *ierr, float *stabinfo) {
+do_delay_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
+              int32 *ierr, float *stabinfo) {
     double rr[2];
 
     double colnorm = 0, colmax, colsum;
     double *work, old_x[MAXODE], sign;
     double *coef, yp[MAXODE], y[MAXODE], xp[MAXODE], dx;
-    int kmem = n * (2 * n + 5) + 50, i, j, k, okroot;
+    int32 kmem = n * (2 * n + 5) + 50, i, j, k, okroot;
 
     double *ev;
     ev = (double *)malloc(2 * n * sizeof(double));
@@ -130,7 +131,7 @@ do_delay_sing(double *x, double eps, double err, double big, int maxit, int n,
     free(coef);
     *stabinfo = (float)fabs(sign);
     /* if(*stabinfo>0) */
-    i = (int)sign;
+    i = (int32)sign;
     if (i == 0 && okroot == 1 && AlphaMax > 0)
         i = 2;
 
@@ -190,10 +191,10 @@ cexp2(z) COMPLEX z;
 }
 
 void switch_rows(z, i1, i2, n) COMPLEX *z;
-int i1, i2, n;
+int32 i1, i2, n;
 {
     COMPLEX zt;
-    int j;
+    int32 j;
     for (j = 0; j < n; j++) {
         zt = Z(i1, j);
         Z(i1, j) = Z(i2, j);
@@ -217,9 +218,9 @@ void cprint(z) COMPLEX z;
 { printf("(%g,%g) ", z.r, z.i); }
 
 void cprintarr(z, n, m) COMPLEX *z;
-int n, m;
+int32 n, m;
 {
-    int i, j;
+    int32 i, j;
     for (i = 0; i < m; i++) {
         for (j = 0; j < n; j++)
             cprint(z[i + m * j]);
@@ -234,9 +235,9 @@ COMPLEX z;
 
 COMPLEX
 cdeterm(z, n) COMPLEX *z;
-int n;
+int32 n;
 {
-    int i, j, imax = 0, k;
+    int32 i, j, imax = 0, k;
     double q, qmax;
     COMPLEX sign = rtoc(1.0, 0.0), mult, sum, zd;
     for (j = 0; j < n; j++) {
@@ -268,9 +269,9 @@ int n;
 }
 COMPLEX
 cxdeterm(z, n) COMPLEX *z;
-int n;
+int32 n;
 {
-    int i, j, k;
+    int32 i, j, k;
     COMPLEX ajj, sum, mult;
     for (j = 0; j < n; j++) {
         ajj = Z(j, j);
@@ -292,9 +293,9 @@ int n;
 void make_z(z, delay, n, m, coef, lambda) COMPLEX lambda;
 COMPLEX *z;
 double *coef, *delay;
-int n, m;
+int32 n, m;
 {
-    int i, j, k, km;
+    int32 i, j, k, km;
     COMPLEX temp, eld;
 
     for (j = 0; j < n; j++)
@@ -319,15 +320,15 @@ int n, m;
     }
 }
 
-int
-find_positive_root(double *coef, double *delay, int n, int m, double rad,
-                   double err, double eps, double big, int maxit, double *rr) {
+int32
+find_positive_root(double *coef, double *delay, int32 n, int32 m, double rad,
+                   double err, double eps, double big, int32 maxit, double *rr) {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
     double xl, yl, r, xlp, ylp;
 
-    int k;
+    int32 k;
 
     lambda.r = AlphaMax;
     lambda.i = OmegaMax;
@@ -411,9 +412,9 @@ get_arg(delay, coef, m, n, lambda)
 COMPLEX lambda;
 double *coef;
 double *delay;
-int m, n;
+int32 m, n;
 {
-    int i, j, k, km;
+    int32 i, j, k, km;
     COMPLEX *z;
     COMPLEX temp, eld;
     double arg;
@@ -452,7 +453,7 @@ int m, n;
     return (arg);
 }
 
-int
+int32
 test_sign(double old, double new) {
     if (old > 0.0 && new < 0.0) {
         if (old > 2.9 && new < -2.9)
@@ -485,11 +486,11 @@ test_sign(double old, double new) {
      principle
 */
 
-int
-plot_args(double *coef, double *delay, int n, int m, int npts, double almax,
+int32
+plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts, double almax,
           double wmax) {
-    int i;
-    int sign = 0;
+    int32 i;
+    int32 sign = 0;
     COMPLEX lambda;
     double x, y, arg, oldarg = 0.0;
     double ds; /* steplength */

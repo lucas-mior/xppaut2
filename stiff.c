@@ -5,8 +5,9 @@
 #include "flags.h"
 #include "gear.h"
 #include "markov.h"
+#include "integers.h"
 
-extern int NFlags;
+extern int32 NFlags;
 #define RKQS 8
 #define STIFF 9
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -50,11 +51,11 @@ extern int NFlags;
 #define PSHRNK2 -0.25
 #define ERRCON2 1.89e-4
 double sdot();
-extern int (*rhs)(double t, double *y, double *ydot, int neq);
+extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 void
 jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
-       double *work, int n) {
-    int i, j;
+       double *work, int32 n) {
+    int32 i, j;
     double r;
     double *yval, *ynew, ytemp;
     yval = work;
@@ -81,10 +82,10 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
     return;
 }
 
-int
-adaptive(double *ystart, int nvar, double *xs, double x2, double eps,
-         double *hguess, double hmin, double *work, int *ier, double epjac,
-         int iflag, int *jstart) {
+int32
+adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
+         double *hguess, double hmin, double *work, int32 *ier, double epjac,
+         int32 iflag, int32 *jstart) {
     if (NFlags == 0)
         return (gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
                           epjac, iflag, jstart));
@@ -92,12 +93,12 @@ adaptive(double *ystart, int nvar, double *xs, double x2, double eps,
                                ier, epjac, iflag, jstart));
 }
 
-int
-gadaptive(double *ystart, int nvar, double *xs, double x2, double eps,
-          double *hguess, double hmin, double *work, int *ier, double epjac,
-          int iflag, int *jstart) {
+int32
+gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
+          double *hguess, double hmin, double *work, int32 *ier, double epjac,
+          int32 iflag, int32 *jstart) {
     double h1 = *hguess;
-    int nstp, i;
+    int32 nstp, i;
     double x1 = *xs;
     double x, hnext, hdid, h;
     double *yscal, *y, *dydx, *work2;
@@ -148,13 +149,13 @@ gadaptive(double *ystart, int nvar, double *xs, double x2, double eps,
 
 /*  Need work size of 2n^2+12n  */
 /*  This will integrate a maximum of htry and actually do hmin  */
-int
-stiff(double y[], double dydx[], int n, double *x, double htry, double eps,
+int32
+stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
       double yscal[], double *hdid, double *hnext, double *work, double epjac,
-      int *ier) {
+      int32 *ier) {
 
-    int i, j, jtry, indx[700];
-    int info;
+    int32 i, j, jtry, indx[700];
+    int32 info;
     double errmax, h, xsav, *a, *dfdx, *dfdy, *dysav, *err;
     double *g1, *g2, *g3, *g4, *ysav, *work2;
     *ier = 0;
@@ -243,10 +244,10 @@ stiff(double y[], double dydx[], int n, double *x, double htry, double eps,
     return -1;
 }
 
-int
-rkqs(double *y, double *dydx, int n, double *x, double htry, double eps,
-     double *yscal, double *hdid, double *hnext, double *work, int *ier) {
-    int i;
+int32
+rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
+     double *yscal, double *hdid, double *hnext, double *work, int32 *ier) {
+    int32 i;
     double errmax, h, htemp, xnew, *yerr, *ytemp;
     double *work2;
     yerr = work;
@@ -286,9 +287,9 @@ rkqs(double *y, double *dydx, int n, double *x, double htry, double eps,
 
 /* This takes one step of Cash-Karp RK method */
 void
-rkck(double *y, double *dydx, int n, double x, double h, double *yout,
+rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
      double *yerr, double *work) {
-    int i;
+    int32 i;
     static double a2 = 0.2, a3 = 0.3, a4 = 0.6, a5 = 1.0, a6 = 0.875, b21 = 0.2,
                   b31 = 3.0 / 40.0, b32 = 9.0 / 40.0, b41 = 0.3, b42 = -0.9,
                   b43 = 1.2, b51 = -11.0 / 54.0, b52 = 2.5, b53 = -70.0 / 27.0,
