@@ -1964,9 +1964,7 @@ rndom(double z) {
 }
 
 double
-signum(double z)
-
-{
+signum(double z) {
     if (z < 0.0)
         return -1.0;
     if (z > 0.0)
