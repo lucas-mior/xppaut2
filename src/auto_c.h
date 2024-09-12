@@ -731,10 +731,6 @@ void setubv_make_fa(setubv_parallel_arglist larg);
 void setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups,
                        double *rlcur, double *rlold, double rds);
 
-/*worker.c*/
-int32 mpi_worker();
-int32 mpi_setubv_worker();
-int32 mpi_conpar_worker();
 #include "auto_types.h"
 int32 set_funi_and_icni(iap_type *, setubv_parallel_arglist *);
 int32 set_function_pointers(const iap_type, function_list *);

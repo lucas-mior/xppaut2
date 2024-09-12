@@ -43,9 +43,6 @@ typedef struct {
 */
 EIGVAL my_ev;
 
-double sign();
-int32 imin();
-
 void
 init_auto(int32 ndim, int32 nicp, int32 nbc, int32 ips, int32 irs, int32 ilp,
           int32 ntst, int32 isp, int32 isw, int32 nmx, int32 npr, double ds,

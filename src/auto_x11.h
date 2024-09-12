@@ -43,11 +43,11 @@ void auto_button(XEvent ev);
 void auto_kill(void);
 void auto_keypress(XEvent ev, int32 *used);
 int32 query_special(char *title, char *nsymb);
-void clear_msg();
+void clear_msg(void);
 void find_point(int32 ibr, int32 pt);
 void auto_get_info(int32 *n, char *pname);
 void auto_set_mark(int32 i);
-void do_auto_range();
-void RedrawMark();
+void do_auto_range(void);
+void RedrawMark(void);
 
 #endif

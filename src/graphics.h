@@ -64,6 +64,6 @@ int32 clip(double x1, double x2, double y1, double y2, float *x1_out,
            float *y1_out, float *x2_out, float *y2_out);
 void eq_symb(double *x, int32 type);
 void draw_symbol(double x, double y, double size, int32 my_symb);
-void reset_all_line_type();
+void reset_all_line_type(void);
 
 #endif

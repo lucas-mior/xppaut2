@@ -1,4 +1,5 @@
 #include <string.h>
+#include "form_ode.h"
 #include "parserslow.h"
 #include "autevd.h"
 #include "auto_nox.h"

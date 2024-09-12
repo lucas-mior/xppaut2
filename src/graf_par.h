@@ -83,7 +83,7 @@ void read_bd(FILE *fp);
 int32 get_frz_index(Window w);
 void export_graf_data(void);
 void add_a_curve_com(int32 c);
-void default_window();
+void default_window(void);
 void dump_ps(int32 i);
 
 #endif

@@ -1,4 +1,5 @@
 #include "simplenet.h"
+#include "form_ode.h"
 #include "integers.h"
 #include "extra.h"
 #include <stdbool.h>

@@ -1,4 +1,5 @@
 #include "load_eqn.h"
+#include "form_ode.h"
 #include "parserslow.h"
 #include "integers.h"
 

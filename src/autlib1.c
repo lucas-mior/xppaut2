@@ -2205,7 +2205,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     double det;
     int64 nit, mxt;
     double umx, rlm1;
-    int64 nit1;
+    int64 nit1 = 0;
 
     u1 = (double *)malloc(sizeof(double) * (iap->ndim + 1));
 

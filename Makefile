@@ -4,6 +4,9 @@ MINOR_VERSION = 1
 CC = clang
 
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors -Werror
+CFLAGS += -Wno-unused-parameter -Wno-unused-variable
+CFLAGS += -Wno-unused-but-set-variable
+CFLAGS += -Wno-tautological-compare
 CFLAGS += -g -O2
 CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./
 CFLAGS += -DMYSTR1=$(MAJOR_VERSION) -DMYSTR2=$(MINOR_VERSION)

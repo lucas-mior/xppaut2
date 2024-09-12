@@ -1,6 +1,7 @@
 
 #include "do_fit.h"
 
+#include "form_ode.h"
 #include "cv2.h"
 #include "dormpri.h"
 #include "stiff.h"
