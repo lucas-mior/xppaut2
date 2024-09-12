@@ -1,5 +1,6 @@
 #include "markov.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "integrate.h"
 #include "browse.h"
@@ -202,7 +203,7 @@ extract_expr(char *source, char *dest, int32 *i0) {
     char ch;
     int32 len = 0;
     int32 flag = 0;
-    while (1) {
+    while (true) {
         ch = source[*i0];
         *i0 = *i0 + 1;
         if (ch == '}')

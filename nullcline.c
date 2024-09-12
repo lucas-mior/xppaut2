@@ -7,6 +7,7 @@
 #include "integrate.h"
 #include "main.h"
 #include "graf_par.h"
+#include <stdbool.h>
 
 #include "parserslow.h"
 #include "pop_list.h"
@@ -306,7 +307,7 @@ save_frozen_clines(char *fn) {
     if (ch == 'n')
         return;
     z = ncperm;
-    while (1) {
+    while (true) {
         if (z == NULL || (z->nmx == 0 && z->nmy == 0))
             return;
         snprintf(fnx, sizeof(fnx), "%s.%d", fn, i);
@@ -336,7 +337,7 @@ redraw_froz_cline(int32 flag) {
     if (n_nstore == 0)
         return;
     z = ncperm;
-    while (1) {
+    while (true) {
         if (z == NULL || (z->nmx == 0 && z->nmy == 0))
             return;
 

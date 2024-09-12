@@ -1,5 +1,6 @@
 
 
+#include <stdbool.h>
 #include "auto_x11.h"
 #include "auto_nox.h"
 #include "init_conds.h"
@@ -222,7 +223,7 @@ auto_get_info(int32 *n, char *pname) {
         i2 = abs(mark_ipte);
         *n = abs(i2 - i1);
         d = bifd;
-        while (1) {
+        while (true) {
             if (d->ibr == ibr && ((d->ntot == i1) || (d->ntot == (-i1)))) {
                 strcpy(pname, upar_names[AutoPar[d->icp1]]);
                 break;
@@ -259,7 +260,7 @@ find_point(int32 ibr, int32 pt) {
     if (NBifs < 2)
         return;
     d = bifd;
-    while (1) {
+    while (true) {
         if (d->ibr == ibr &&
             ((d->ntot == pt) ||
              (d->ntot ==
@@ -320,7 +321,7 @@ traverse_diagram(void) {
                 */
                 XORCross(ix, iy);
                 DONT_XORCross = 1;
-                while (1) {
+                while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
                         dnew = d;
@@ -345,7 +346,7 @@ traverse_diagram(void) {
                 XORCross(ix, iy);
                 lalo = load_all_labeled_orbits;
                 load_all_labeled_orbits = 0;
-                while (1) {
+                while (true) {
                     dist = sqrt(((double)(xm - ix)) * ((double)(xm - ix)) +
                                 ((double)(ym - iy)) * ((double)(ym - iy)));
                     if (dist < ndist) {
@@ -374,7 +375,7 @@ traverse_diagram(void) {
                 GO HOME
                 */
                 XORCross(ix, iy);
-                while (1) {
+                while (true) {
                     if (d->index == mindex) {
                         dnew = d;
                         break;
@@ -429,7 +430,7 @@ traverse_diagram(void) {
                 XORCross(ix, iy);
                 found = 0;
                 dold = d;
-                while (1) {
+                while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
                         dnew = d;
@@ -461,7 +462,7 @@ traverse_diagram(void) {
                 XORCross(ix, iy);
                 found = 0;
                 dold = d;
-                while (1) {
+                while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
                         dnew = d;
@@ -487,7 +488,7 @@ traverse_diagram(void) {
                 break;
             case TAB:
                 XORCross(ix, iy);
-                while (1) {
+                while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
                         dnew = bifd;
@@ -524,7 +525,7 @@ traverse_diagram(void) {
                 break;
             case END: /*All the way to end*/
                 XORCross(ix, iy);
-                while (1) {
+                while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
                         dnew = d;
@@ -539,7 +540,7 @@ traverse_diagram(void) {
                 break;
             case HOME: /*All the way to beginning*/
                 XORCross(ix, iy);
-                while (1) {
+                while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
                         dnew = d;
@@ -554,7 +555,7 @@ traverse_diagram(void) {
                 break;
             case PGUP: /*Same as TAB except we don't wrap*/
                 XORCross(ix, iy);
-                while (1) {
+                while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
                         dnew = d;
@@ -570,7 +571,7 @@ traverse_diagram(void) {
                 break;
             case PGDN: /*REVERSE TAB*/
                 XORCross(ix, iy);
-                while (1) {
+                while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
                         dnew = d;

@@ -1,5 +1,6 @@
 #include "pp_shoot.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "my_rhs.h"
 #include "main.h"
@@ -475,7 +476,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         get_val(upar_names[ipar], &y0[n]);
 
     /* dt=(t1-t0)/nt;  */
-    while (1) {
+    while (true) {
         esc = my_abort();
 
         {

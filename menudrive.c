@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "integers.h"
+#include <stdbool.h>
 
 #include <sys/wait.h>
 #include <unistd.h>
@@ -77,7 +78,7 @@ do_tutorial(void) {
 
     printf("Running tutorial!\n");
     int32 tut = 0;
-    while (1) {
+    while (true) {
 
         char ans = (char)two_choice("Next", "Done", tutorial[tut], "nd",
                                     DisplayWidth / 2, DisplayHeight / 2,

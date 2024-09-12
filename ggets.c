@@ -1,5 +1,6 @@
 #include "ggets.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include <stdio.h>

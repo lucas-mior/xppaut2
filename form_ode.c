@@ -1,6 +1,7 @@
 #include "form_ode.h"
 #include "integers.h"
 #include "aniparse.h"
+#include <stdbool.h>
 
 #include "parserslow.h"
 #include "markov.h"
@@ -278,7 +279,7 @@ get_a_filename(char *filename, char *wild) {
     if (XPPBatch) {
         char string[MAXEXPLEN];
         list_em(wild);
-        while (1) {
+        while (true) {
             plintf("(r)un (c)d (l)ist ");
             scanf("%s", string);
             if (string[0] == 'r') {
@@ -1238,7 +1239,7 @@ if_include_file(char *old, char *nf) {
     int32 n = strlen(old);
     char c;
     if (strncmp(old, "#include", 8) == 0) {
-        while (1) {
+        while (true) {
             c = old[i];
             if (c == ' ')
                 break;
@@ -1400,7 +1401,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
             break;
         case 2: /*  a for loop, so we will ignore the first line */
             /* is_array=1; */
-            while (1) {
+            while (true) {
                 read_a_line(fp, old);
                 if (old[0] == '%')
                     break;
@@ -1414,7 +1415,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
             break;
         }
 
-        while (1) {
+        while (true) {
             for (ns = 0; ns < nstrings; ns++) {
                 strcpy(new, strings[ns]);
                 subsk(new, big, jj, is_array);
@@ -1730,7 +1731,7 @@ compile_em(void) {
        and parameters, functions and tables.  Once this pass is
        completed all the names will be known to the compiler.
     */
-    while (1) {
+    while (true) {
 
         if (v->type == COMMAND && v->lhs[0] == 'P') {
             snprintf(big, sizeof(big), "par %s \n", v->rhs);
@@ -1897,7 +1898,7 @@ compile_em(void) {
     nmark = 0;
 
     v = my_varinfo;
-    while (1) {
+    while (true) {
 
         if (v->type == COMMAND && v->lhs[0] == 'I') {
             snprintf(big, sizeof(big), "i %s \n", v->rhs);
@@ -2623,7 +2624,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
             *flag = 1;
             if (old[0] == '%')
                 *flag = 2; /*   FOR LOOP CONSTRUCTION  */
-            while (1) {
+            while (true) {
                 ch = old[i + j];
                 /*        plintf(" %d %c \n",j,ch); */
                 if (ch == '[') {
@@ -2647,7 +2648,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                 }
             }
             j = 2;
-            while (1) {
+            while (true) {
                 ch = old[i + j];
                 if (ch == ']') {
                     iright = i + j;
@@ -2698,7 +2699,7 @@ check_if_ic(char *big) {
     int32 n = strlen(big);
     int32 j;
     j = 0;
-    while (1) {
+    while (true) {
         c = big[j];
         if (c == ']') {
             /*  plintf(" %c %c %c \n",big[j+1],big[j+2],big[j+3]); */
@@ -2729,7 +2730,7 @@ is_comment(char *s) {
     int32 n = strlen(s);
     int32 i = 0;
     char c;
-    while (1) {
+    while (true) {
         c = s[i];
         if (c == '#')
             return 1;
@@ -2757,7 +2758,7 @@ subsk(char *big, char *new, int32 k, int32 flag) {
         return;
     }
 
-    while (1) {
+    while (true) {
         ch = big[i];
         chp = big[i + 1];
         if (ch == '[' && chp != 'j' && not_ker(big, i)) {

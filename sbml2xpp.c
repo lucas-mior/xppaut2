@@ -76,6 +76,7 @@ so i dont have to parse the event trigger
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
@@ -936,7 +937,7 @@ strrep(char *sold, char *snew, char *sfnd, char *srep) {
     int32 i = 0, j = 0, k, nf = strlen(sfnd), nr = strlen(srep);
     int32 m = strlen(sold);
     int32 l = 0, lold = 0;
-    while (1) {
+    while (true) {
         l = strfnd(sfnd, sold, lold);
         if (l == -1) {
             for (k = lold; k < m; k++)
@@ -967,7 +968,7 @@ strfnd(char *s1, char *s2, int32 j0) {
     int32 n1 = strlen(s1), n2 = strlen(s2);
     if (n2 < (n1 + j0))
         return -1; /* cant happen */
-    while (1) {
+    while (true) {
         if (s2[j0 + i] == s1[0]) {
             if ((j0 + i + n1) > n2)
                 return -1; /* cant be included */

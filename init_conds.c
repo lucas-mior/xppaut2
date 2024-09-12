@@ -5,6 +5,7 @@
 #include "menudrive.h"
 #include "integers.h"
 #include "pop_list.h"
+#include <stdbool.h>
 
 #include "arrayplot.h"
 #include "lunch-new.h"
@@ -766,7 +767,7 @@ do_file_select_events(void) {
     int32 done;
     XEvent ev;
     /* plintf("Xup=%d\n",Xup); */
-    while (1) {
+    while (true) {
         XNextEvent(display, &ev);
         switch (ev.type) {
         case ConfigureNotify:
@@ -2358,7 +2359,7 @@ man_ic(void) {
     int32 done, index = 0;
     double z;
     char name[256], junk[256];
-    while (1) {
+    while (true) {
         sprintf(name, "%s :", uvar_names[index]);
         z = last_ic[index];
         done = new_float(name, &z);
@@ -2382,7 +2383,7 @@ new_parameter(void) {
     int32 done, index;
     double z;
     char name[256], value[256], junk[256];
-    while (1) {
+    while (true) {
         name[0] = 0;
         done = new_string("Parameter:", name);
         if (strlen(name) == 0 || done == 0) {

@@ -4,6 +4,7 @@
 #include "gear.h"
 #include "ggets.h"
 #include "markov.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include "xpplim.h"
@@ -379,7 +380,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             yp2[i] = 0.0;
     }
     KnFlag = 1;
-    while (1) {
+    while (true) {
         get_kn(yg, t);
         for (i = NODE; i < NODE + FIX_VAR; i++)
             SETVAR(i + 1, evaluate(my_ode[i]));

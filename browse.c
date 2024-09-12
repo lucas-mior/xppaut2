@@ -1,4 +1,5 @@
 #include "browse.h"
+#include <stdbool.h>
 #include <string.h>
 #include <strings.h>
 #include "parserslow.h"
@@ -143,7 +144,7 @@ waitasec(int32 msec) {
     gettimeofday(&tim, NULL);
     t1 = tim.tv_sec + (tim.tv_usec / 1000000.0);
 
-    while (1) {
+    while (true) {
         gettimeofday(&tim, NULL);
         t2 = tim.tv_sec + (tim.tv_usec / 1000000.0);
 

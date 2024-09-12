@@ -1,4 +1,5 @@
 #include "calc.h"
+#include <stdbool.h>
 
 #include "ggets.h"
 #include "pop_list.h"
@@ -132,7 +133,7 @@ q_calc(void) {
     my_calc.use = 0;
     make_calc(z);
     ini_calc_string(name, value, &pos, &col);
-    while (1) {
+    while (true) {
         XNextEvent(display, &ev);
         draw_calc(ev.xany.window);
         if (ev.type == ButtonPress)

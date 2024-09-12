@@ -1,5 +1,6 @@
 #include "main.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "aniparse.h"
 #include "adj2.h"
@@ -1050,7 +1051,7 @@ do_events(uint32 min_wid, uint32 min_hgt) {
         run_the_commands(4);
         RunImmediately = 0;
     }
-    while (1) {
+    while (true) {
         /*  put_command("Command:");  */
         XNextEvent(display, &report);
         xpp_events(report, min_wid, min_hgt);

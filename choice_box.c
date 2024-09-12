@@ -1,4 +1,5 @@
 #include "choice_box.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -139,7 +140,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     p.type = type;
     p.mc = mcc;
     do_checks(p);
-    while (1) {
+    while (true) {
         status = choice_box_event_loop(p);
         if (status != -1)
             break;

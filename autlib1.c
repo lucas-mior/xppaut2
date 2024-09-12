@@ -5,6 +5,7 @@
 #include "xAuto.h"
 #include "integers.h"
 #include <string.h>
+#include <stdbool.h>
 extern XAUTO xAuto;
 extern int32 NODE;
 extern int32 RestartLabel;
@@ -4353,7 +4354,7 @@ findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
     rewind(fp3);
     isw = iap->isw;
 
-    while (1) {
+    while (true) {
         if (fscanf(fp3, "%ld", &ibr) != 1) {
             break;
         }
@@ -4468,7 +4469,7 @@ skip3(int64 *nskip, logical *eof3) {
     for (i = 0; i < *nskip; ++i) {
         /* NOTE from Randy:  I am not 100% happy with this.  I am
            not sure if this properly simulates the Fortran behavior */
-        while (1) {
+        while (true) {
             int32 tmp = fgetc(fp3);
             if (tmp == EOF) {
                 *eof3 = TRUE_;

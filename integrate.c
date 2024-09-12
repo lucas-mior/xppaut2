@@ -1,5 +1,6 @@
 #include "integrate.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "load_eqn.h"
 #include "my_rhs.h"
@@ -603,7 +604,7 @@ monte_carlo(void) {
     new_int("Shoot (1/0)", &ishoot);
     new_int("# Guesses:", &fixptguess.n);
     new_float("Tolerance:", &fixptguess.tol);
-    while (1) {
+    while (true) {
         sprintf(name, "%s_lo :", uvar_names[i]);
         z = fixptguess.xlo[i];
         done = new_float(name, &z);
@@ -1394,7 +1395,7 @@ do_init_data(int32 com) {
             SuppressBounds = 1;
 
             MessageBox("Click on initial data -- ESC to quit");
-            while (1) {
+            while (true) {
                 get_ic(1, x);
                 badmouse = GetMouseXY(&im, &jm);
                 if (badmouse == 0)
@@ -1661,7 +1662,7 @@ extract_ic_data(char *big) {
     i = 0;
     n = strlen(big);
 
-    while (1) {
+    while (true) {
         c = big[i];
         if (c == '(')
             break;
@@ -1771,7 +1772,7 @@ set_array_ic(void) {
 int32
 form_ic(void) {
     int32 ans;
-    while (1) {
+    while (true) {
         ans = set_array_ic();
         if (ans == 0)
             break;
@@ -2010,7 +2011,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         tscal = 1.0;
     stor_delay(x);
 
-    while (1) {
+    while (true) {
 
         switch (METHOD) {
         case GEAR: {

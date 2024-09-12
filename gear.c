@@ -7,6 +7,7 @@
 #include "flags.h"
 #include "integrate.h"
 #include "abort.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include <math.h>
@@ -658,7 +659,7 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
     }
     iter = 0;
     *ierr = 0;
-    while (1) {
+    while (true) {
         sgesl(anew, n, n, ipivot, b, 0);
         temp = fabs(b[0]);
         jmax = 0;
@@ -1036,7 +1037,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
     iter = 0;
     *ierr = 0;
 
-    while (1) {
+    while (true) {
         if (Xup) {
             ch = my_abort();
 

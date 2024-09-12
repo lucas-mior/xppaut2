@@ -1,5 +1,6 @@
 #include "dialog_box.h"
 
+#include <stdbool.h>
 #include "many_pops.h"
 #include "ggets.h"
 #include <stdlib.h>
@@ -88,7 +89,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     /* showchar('_', DCURX*CURS_X, 0, d.input); */
     pos = strlen(d.input_s);
     colm = DCURX * pos;
-    while (1) {
+    while (true) {
         status = dialog_event_loop(&d, max, &pos, &colm);
         if (status != -1)
             break;

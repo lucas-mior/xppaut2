@@ -1,5 +1,6 @@
 #include "kinescope.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "scrngif.h"
 #include "pop_list.h"
@@ -129,7 +130,7 @@ play_back(void) {
 
     XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, w, h, 0, 0);
     XFlush(display);
-    while (1) {
+    while (true) {
         XNextEvent(display, &ev);
         switch (ev.type) {
         case ButtonPress:
@@ -298,7 +299,7 @@ auto_play(void) {
     XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, w, h, 0, 0);
     XFlush(display);
 
-    while (1) {
+    while (true) {
 
         /* check for events    */
         if (XPending(display) > 0) {

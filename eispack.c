@@ -11,6 +11,7 @@ extern int32 (*rhs)();
 #include "auto_f2c.h"
 #include "math.h"
 #include "auto_c.h"
+#include <stdbool.h>
 /* Table of constant values */
 
 static double c_b81 = 0.;

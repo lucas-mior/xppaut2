@@ -1,6 +1,7 @@
 #include "simplenet.h"
 #include "integers.h"
 #include "extra.h"
+#include <stdbool.h>
 
 #include "aniparse.h"
 #include "ggets.h"
@@ -1506,7 +1507,7 @@ gilparse(char *s, int32 *ind, int32 *nn) {
     int32 k = 0, iv;
     int32 id, m;
     plintf("s=|%s|", s);
-    while (1) {
+    while (true) {
         c = s[i];
         if (c == ',' || i > (n - 1)) {
             piece[jp] = 0;
@@ -1700,7 +1701,7 @@ get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
             break;
     i++;
     j = 0;
-    while (1) {
+    while (true) {
         c = str[i];
         if (c == ',') {
             i++;
@@ -1719,7 +1720,7 @@ get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
     }
     *root = ivar;
     j = 0;
-    while (1) {
+    while (true) {
         c = str[i];
         if (c == ',') {
             i++;

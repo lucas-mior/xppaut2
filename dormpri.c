@@ -8,6 +8,7 @@
 #include "flags.h"
 #include "ggets.h"
 #include "integers.h"
+#include <stdbool.h>
 
 extern double *WORK;
 
@@ -445,7 +446,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     }
 
     /* basic integration step */
-    while (1) {
+    while (true) {
         if (nstep > nmax) {
             if (fileout)
                 fprintf(fileout,
@@ -1092,7 +1093,7 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
     }
 
     /* basic integration step */
-    while (1) {
+    while (true) {
         if (nstep > nmax) {
             if (fileout)
                 fprintf(fileout,

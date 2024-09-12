@@ -9,6 +9,7 @@
  *                                                                *
  ******************************************************************/
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvode.h"
@@ -796,7 +797,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
     /* Looping point for internal steps */
 
     nstloc = 0;
-    while (1) {
+    while (true) {
 
         next_h = h;
         next_q = q;
@@ -1222,7 +1223,7 @@ CVHin(CVodeMem cv_mem, double tout) {
        that the ydd value is bad because of cancellation error.        */
 
     count = 0;
-    while (1) {
+    while (true) {
         hgs = hg * sign;
         yddnrm = CVYddNorm(cv_mem, hgs);
         hnew =
@@ -1341,7 +1342,7 @@ CVStep(CVodeMem cv_mem) {
         CVAdjustParams(cv_mem);
 
     /* Looping point for attempts to take a step */
-    while (1) {
+    while (true) {
         CVPredict(cv_mem);
         CVSet(cv_mem);
 
@@ -1882,7 +1883,7 @@ CVnlsFunctional(CVodeMem cv_mem) {
 
     /* Loop until convergence; accumulate corrections in acor */
 
-    while (1) {
+    while (true) {
         /* Correct y directly from the last f value */
         N_VLinearSum(h, tempv, -ONE, zn[1], tempv);
         N_VScale(rl1, tempv, tempv);
@@ -1951,7 +1952,7 @@ CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
        Evaluate f at the predicted y, call lsetup if indicated, and
        call CVNewtonIteration for the Newton iteration itself.      */
 
-    while (1) {
+    while (true) {
 
         f(N, tn, zn[0], ftemp, f_data);
         nfe++;
@@ -2011,7 +2012,7 @@ CVNewtonIteration(CVodeMem cv_mem) {
     mnewt = m = 0;
 
     /* Looping point for Newton iteration */
-    while (1) {
+    while (true) {
 
         /* Evaluate the residual of the nonlinear system*/
         N_VLinearSum(rl1, zn[1], ONE, acor, tempv);

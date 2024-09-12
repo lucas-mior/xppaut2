@@ -3,6 +3,7 @@
 #include "gear.h"
 #include "parserslow.h"
 
+#include <stdbool.h>
 #include "ggets.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -232,7 +233,7 @@ solve_dae(void) {
         y[i] = svar[i].last;
         ynew[i] = y[i]; /* keep old guess */
     }
-    while (1) {
+    while (true) {
         get_dae_fun(y, f);
         err = 0.0;
         for (i = 0; i < n; i++) {

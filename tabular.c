@@ -1,5 +1,6 @@
 #include "tabular.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "browse.h"
 #include "ggets.h"
@@ -168,7 +169,7 @@ new_lookup_ok(void) {
     char newform[80];
     if (NTable == 0)
         return;
-    while (1) {
+    while (true) {
         name[0] = 0;
         new_string("Lookup name ", name);
         if (strlen(name) == 0)

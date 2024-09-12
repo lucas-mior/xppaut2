@@ -1,5 +1,6 @@
 #include "parserslow.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include <time.h>
 #include "ggets.h"
@@ -943,7 +944,7 @@ alg_to_rpn(int32 *toklist, int32 *command) {
     tokstak[0] = STARTTOK;
     tokptr = 1;
     oldtok = STARTTOK;
-    while (1) {
+    while (true) {
     getnew:
         newtok = toklist[lstptr++];
         /*    for(zip=0;zip<tokptr;zip++)
@@ -1165,7 +1166,7 @@ void
 pr_command(int32 *command) {
     int32 i = 0;
     int32 token;
-    while (1) {
+    while (true) {
         token = command[i];
         plintf("%d %d \n", i, token);
         if (token == ENDEXP)
@@ -1411,7 +1412,7 @@ do_num(char *source, char *num, double *value, int32 *ind) {
     char ch, oldch;
     oldch = '\0';
     *value = 0.0;
-    while (1) {
+    while (true) {
         ch = source[i];
         if (((ch == '+') || (ch == '-')) && (oldch != 'E'))
             break;
@@ -1460,7 +1461,7 @@ void
 convert(char *source, char *dest) {
     char ch;
     int32 i = 0, j = 0;
-    while (1) {
+    while (true) {
         ch = source[i];
         if (!isspace(ch))
             dest[j++] = ch;

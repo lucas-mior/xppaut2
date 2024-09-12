@@ -9,6 +9,7 @@
 #include "gogoauto.h"
 #include "my_rhs.h"
 #include <libgen.h>
+#include <stdbool.h>
 /* #include "f2c.h" */
 #include "auto_f2c.h"
 #include "auto_c.h"
@@ -2945,7 +2946,7 @@ move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
     int32 ibr, ntot, itp, lab, nfpar, isw, ntpl, nar, nskip;
     int32 i;
     char line[MAXLINELENGTH];
-    while (1) {
+    while (true) {
         fgets(line, MAXLINELENGTH, fp);
         sscanf(line, "%d%d %d %d %d %d %d %d %d", &ibr, &ntot, &itp, &lab,
                &nfpar, &isw, &ntpl, &nar, &nskip);

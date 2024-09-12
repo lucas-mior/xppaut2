@@ -4,6 +4,7 @@
 #include "graphics.h"
 #include "color.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include <stdio.h>

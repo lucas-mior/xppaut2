@@ -2,6 +2,7 @@
 #include "my_ps.h"
 #include "my_svg.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include <math.h>
@@ -1121,7 +1122,7 @@ fillintext(char *old, char *new) {
     char val[25];
     i = 0;
     j = 0;
-    while (1) {
+    while (true) {
         c = old[i];
 
         if (c == '\\') {
@@ -1131,7 +1132,7 @@ fillintext(char *old, char *new) {
             if (c2 == '{') {
                 m = 0;
                 i = i + 2;
-                while (1) {
+                while (true) {
                     c2 = old[i];
                     if (c2 == '}') {
                         name[m] = 0;

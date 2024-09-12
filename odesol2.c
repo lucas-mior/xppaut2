@@ -7,6 +7,7 @@
 #include "flags.h"
 #include "markov.h"
 #include "delay_handle.h"
+#include <stdbool.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -112,7 +113,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
     rhs(*t, y, yp2, neq);
     for (i = 0; i < neq; i++)
         yg[i] = y[i];
-    while (1) {
+    while (true) {
         err1 = 0.0;
         err = 0.0;
         rhs(*t, yg, yp, neq);
@@ -492,7 +493,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
         rhs(t + tdel, y, f1, n);
         for (i = 0; i < n; i++)
             dfdt[i] = (f1[i] - f0[i]) / tdel;
-        while (1) { /* advance a step  */
+        while (true) { /* advance a step  */
             for (i = 0; i < n2; i++)
                 dfdy[i] = -h * d * dfdy[i];
             for (i = 0; i < n; i++)

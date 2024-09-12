@@ -1,6 +1,7 @@
 #include "userbut.h"
 #include "integers.h"
 #include "pop_list.h"
+#include <stdbool.h>
 
 #include "color.h"
 #include "ggets.h"
@@ -95,7 +96,7 @@ get_button_info(char *s, char *bname, char *sc) {
         return -1;
     bname[0] = 0;
     sc[0] = 0;
-    while (1) {
+    while (true) {
         if (i == n)
             break;
         c = s[i];
@@ -123,7 +124,7 @@ get_button_info(char *s, char *bname, char *sc) {
 int32
 find_kbs(char *sc) {
     int32 i = 0;
-    while (1) {
+    while (true) {
         if (strcmp(sc, kbs[i].seq) == 0)
             return kbs[i].com;
         i++;

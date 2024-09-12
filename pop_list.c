@@ -2,6 +2,7 @@
 #include <string.h>
 #include "pop_list.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "many_pops.h"
 #include "ggets.h"
@@ -282,7 +283,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     pos = strlen(sb.value[0]);
     colm = (pos + strlen(sb.name[0])) * DCURX;
 
-    while (1) {
+    while (true) {
         status = s_box_event_loop(&sb, &pos, &colm, &scrb);
         if (status != -1)
             break;
@@ -864,7 +865,7 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         while (row < height) {
             col = 0;
             row++;
-            while (1) {
+            while (true) {
                 bin_prnt_byte(*ps, intstack);
                 ps++;
 

@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 /*   routines for plotting arrays as functions of time
 
      makes a window
@@ -464,7 +465,7 @@ get_root(char *s, char *sroot, int32 *num) {
 
     char me[100];
     *num = 0;
-    while (1) {
+    while (true) {
 
         if (!isdigit(s[i])) {
 

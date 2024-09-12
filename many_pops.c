@@ -1,6 +1,7 @@
 #include "xpplim.h"
 #include "many_pops.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include "menudrive.h"
 #include "pop_list.h"
@@ -570,7 +571,7 @@ draw_marker(double x, double y, double size, int32 type) {
     };
     float dx = (MyGraph->xhi - MyGraph->xlo) * WDMARK * size;
     float dy = (MyGraph->yhi - MyGraph->ylo) * HTMARK * size;
-    while (1) {
+    while (true) {
         offset = 48 * type + 3 * ind;
         pen = sym_dir[offset];
         if (pen == 3)
@@ -1294,7 +1295,7 @@ rotate3dcheck(XEvent ev) {
         yini = ev.xbutton.y;
         phi = MyGraph->Phi;
         theta = MyGraph->Theta;
-        while (1) {
+        while (true) {
             XNextEvent(display, &z);
             if (z.type == ButtonRelease) {
                 do_axes();

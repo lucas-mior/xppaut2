@@ -45,6 +45,7 @@
 #define vector_h
 
 #include "llnltyps.h"
+#include <stdbool.h>
 
 /* Part I: Machine Environment-Dependent Declarations */
 

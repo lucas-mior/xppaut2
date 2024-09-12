@@ -8,6 +8,7 @@
 #include "pop_list.h"
 #include "parserslow.h"
 #include "integers.h"
+#include <stdbool.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -106,7 +107,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     pos = strlen(sb.value[0]);
     colm = (pos + strlen(sb.name[0])) * DCURX;
 
-    while (1) {
+    while (true) {
         status = e_box_event_loop(&sb, &pos, &colm);
         if (status != -1)
             break;

@@ -1,4 +1,5 @@
 #include "cv2.h"
+#include <stdbool.h>
 
 #include "flags.h"
 #include "my_rhs.h"

@@ -4,6 +4,7 @@
 #include "ggets.h"
 #include "browse.h"
 
+#include <stdbool.h>
 #include "my_svg.h"
 #include "my_ps.h"
 #include "my_ps.h"
@@ -210,7 +211,7 @@ redraw_diagram(void) {
     d = bifd;
     if (d->next == NULL)
         return;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
 
         if (d->ntot == 1)
@@ -257,7 +258,7 @@ write_info_out(void) {
     d = bifd;
     if (d->next == NULL)
         return;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
 
         /*if(d->ntot==1)flag=0;
@@ -319,7 +320,7 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     if (d->next == NULL)
         return;
     j = 0;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
         pt = abs(d->ntot);
         if ((d->ibr == ibr) && (pt >= first) && (pt <= last)) {
@@ -377,7 +378,7 @@ write_init_data_file(void) {
     d = bifd;
     if (d->next == NULL)
         return;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
 
         /*if(d->ntot==1)flag=0;
@@ -448,7 +449,7 @@ write_pts(void) {
     d = bifd;
     if (d->next == NULL)
         return;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
 
         /*if(d->ntot==1)flag=0;
@@ -502,7 +503,7 @@ post_auto(void) {
     d = bifd;
     if (d->next == NULL)
         return;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
         if (type < 0) {
             plintf("Unable to get bifurcation type.\n");
@@ -541,7 +542,7 @@ svg_auto(void) {
     d = bifd;
     if (d->next == NULL)
         return;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
         if (type < 0) {
             plintf("Unable to get bifurcation type.\n");
@@ -578,7 +579,7 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
     *ylo = *xlo;
     *xhi = -*xlo;
     *yhi = -*ylo;
-    while (1) {
+    while (true) {
         type = get_bif_type(d->ibr, d->ntot, d->lab);
         if (type < 1) {
             plintf("Unable to get bifurcation type.\n");
@@ -615,7 +616,7 @@ save_diagram(FILE *fp, int32 n) {
     if (NBifs == 1)
         return -1;
     d = bifd;
-    while (1) {
+    while (true) {
         fprintf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d\n", d->calc, d->ibr,
                 d->ntot, d->itp, d->lab, d->index, d->nfpar, d->icp1, d->icp2,
                 d->icp3, d->icp4, d->flag2);
@@ -647,7 +648,7 @@ load_diagram(FILE *fp, int32 node) {
         return -1;
     }
 
-    while (1) {
+    while (true) {
         fscanf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d", &calc, &ibr, &ntot,
                &itp, &lab, &index, &nfpar, &icp1, &icp2, &icp3, &icp4, &flag2);
         for (i = 0; i < 8; i++)
