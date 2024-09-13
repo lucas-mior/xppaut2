@@ -429,12 +429,12 @@ io_parameter_file(char *fn, int32 flag) {
 void
 io_ic_file(char *fn, int32 flag) {
     char fnx[256], c;
-    int32 i, j = 0;
+    int32 j = 0;
     int32 chk = 0;
     FILE *fp;
     char msg[256];
 
-    for (i = 0; i < strlen(fn); i++) {
+    for (size_t i = 0; i < strlen(fn); i++) {
         c = fn[i];
         if (c != ' ') {
             fnx[j] = c;
@@ -448,7 +448,7 @@ io_ic_file(char *fn, int32 flag) {
             err_msg("Cannot open file");
             return;
         }
-        for (i = 0; i < NODE; i++) {
+        for (int32 i = 0; i < NODE; i++) {
             chk = fscanf(fp, "%lg", &last_ic[i]);
             if (chk != 1) {
                 sprintf(
@@ -462,7 +462,7 @@ io_ic_file(char *fn, int32 flag) {
         }
 
         while (chk != EOF) {
-            chk = fscanf(fp, "%lg", &last_ic[i]);
+            chk = fscanf(fp, "%lg", &last_ic[NODE]);
             if (chk != EOF) {
                 sprintf(msg, "Found more than %d initial conditions in %s.",
                         NODE, fn);
