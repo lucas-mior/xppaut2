@@ -12,17 +12,6 @@ extern int32 DCURYb, DCURXb, CURY_OFFb;
 extern int32 DCURYs, DCURXs, CURY_OFFs;
 extern int32 DCURY, DCURX, CURY_OFF;
 
-int32
-get_command_width(void) {
-    int32 x, y;
-    uint32 w, h, bw, de;
-
-    Window root;
-    XGetGeometry(display, command_pop, &root, &x, &y, &w, &h, &bw, &de);
-    XClearWindow(display, command_pop);
-    return w;
-}
-
 void
 plot_command(int32 nit, int32 icount, int32 cwidth) {
     int32 i;

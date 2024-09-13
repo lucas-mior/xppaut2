@@ -1718,6 +1718,17 @@ test_color_info(void) {
     return;
 }
 
+int32
+get_command_width(void) {
+    int32 x, y;
+    uint32 w, h, bw, de;
+
+    Window root;
+    XGetGeometry(display, command_pop, &root, &x, &y, &w, &h, &bw, &de);
+    XClearWindow(display, command_pop);
+    return w;
+}
+
 /*   this is stuff for ndrand48(), nsrand48()
      uncomment if you dont have it
      RAND_MAX is either 2^16-1 or 2^32-1
