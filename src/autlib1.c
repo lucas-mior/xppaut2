@@ -250,37 +250,22 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     rap->a1 = a1;
 
     amp = 0.;
-
     det = 0.;
-
     tivp = 0.;
-
     fldf = 0.;
-
     hbff = 0.;
-
     biff = 0.;
-
     spbf = 0.;
 
     rap->amp = amp;
-
     rap->epsl = epsl;
-
     rap->epsu = epsu;
-
     rap->epss = epss;
-
     rap->det = det;
-
     rap->tivp = tivp;
-
     rap->fldf = fldf;
-
     rap->hbff = hbff;
-
     rap->biff = biff;
-
     rap->spbf = spbf;
 
     return 0;
