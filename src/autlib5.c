@@ -321,6 +321,8 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
      const double *u1, double *fb, double *dbc) {
+    (void) nbc0;
+    (void) rap;
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -737,6 +739,9 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *fi,
      double *dint) {
+    (void) nnt0;
+    (void) ndim;
+    (void) rap;
     /* System generated locals */
     int64 dint_dim1;
 
@@ -1075,6 +1080,13 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
+    (void) thu;
+    (void) thl;
+    (void) dtm;
+    (void) upoldp;
+    (void) udotps;
+    (void) rldot;
+    (void) rap;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -1646,6 +1658,7 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
+    (void) isign;
     /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
