@@ -6649,7 +6649,6 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /*                    Output (Boundary Value Problems) */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
 int32
 stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm,
@@ -6835,7 +6834,6 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     return 0;
 } /* stplbv_ */
 
-/*     ---------- ------ */
 int32
 wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm) {
@@ -7016,7 +7014,6 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     return 0;
 } /* wrtbv8_ */
 
-/*     ---------- ------ */
 int32
 wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        int64 *ndxloc, double *ups, double *tm, double *dtm, double *thl,
@@ -7107,7 +7104,6 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     return 0;
 } /* wrtbv9_ */
 
-/*     ---------- ------ */
 int32
 pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
 
@@ -7120,7 +7116,6 @@ pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
     return 0;
 } /* pvlsae_ */
 
-/*     ---------- ------ */
 int32
 pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
@@ -7133,7 +7128,6 @@ pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
     return 0;
 } /* pvlsbv_ */
 
-/*     ---------- ------ */
 int32
 setpae(iap_type *iap, rap_type *rap) {
     global_parameters.iav = iap;
@@ -7142,7 +7136,6 @@ setpae(iap_type *iap, rap_type *rap) {
     return 0;
 } /* setpae_ */
 
-/*     ---------- ------ */
 int32
 setpbv(iap_type *iap, rap_type *rap, double *dtm) {
     global_parameters.iav = iap;
