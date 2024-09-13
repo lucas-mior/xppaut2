@@ -1078,14 +1078,11 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         Auto.lastx = x;
         Auto.lasty = y1;
     }
-    if (flag2 == 0 && Auto.plot == P_P) {
 
+    if (flag2 == 0 && Auto.plot == P_P)
         return;
-    }
-    if (flag2 > 0 && Auto.plot != P_P) {
-
+    if (flag2 > 0 && Auto.plot != P_P)
         return;
-    }
 
     if ((flag2 > 0) && (Auto.plot == P_P))
         type1 = CSEQ;
