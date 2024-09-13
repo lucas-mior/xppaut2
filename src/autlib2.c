@@ -161,7 +161,7 @@ print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *rds,
        int64 *nllv, double *rlcur, double *rlold, double *rldot, int64 *ndxloc,
@@ -433,7 +433,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
 } /* solvbv_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int32
+int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     /* System generated locals */
     int64 dd_dim1;
@@ -458,7 +458,7 @@ setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
 } /* setfcdd_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int32
+int32
 faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     /* System generated locals */
     int64 fa_dim1, ff_dim1;
@@ -480,7 +480,7 @@ faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
 } /* faft_ */
 
 /*     ---------- --------- */
-/* Subroutine */ int32
+int32
 partition(int64 *n, int64 *kwt, int64 *m) {
     /* Local variables */
     int64 i, s, t;
@@ -528,7 +528,7 @@ mypart(int64 *iam, int64 *np) {
 } /* mypart_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
        int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc, int64 *nra, int64 *nca,
        int64 *iam, int64 *kwt, logical *ipar, FUNI_TYPE((*funi)),
@@ -758,7 +758,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
 } /* setrhs_ */
 
 /*     ---------- ---- */
-/* Subroutine */ int32
+int32
 brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
      double *p0, double *p1, int64 *ifst, int64 *idb, int64 *nllv, double *det,
      int64 *nov, int64 *na, int64 *nbc, int64 *nra, int64 *nca, int64 *ncb,
@@ -867,7 +867,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
 } /* brbd_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int32
+int32
 setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
     /* System generated locals */
     int64 fa_dim1;
@@ -893,7 +893,7 @@ setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
 } /* setzero_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
        int64 *iam) {
@@ -951,7 +951,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
 } /* conrhs_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        double *a, int64 *ncb, double *b, int64 *nrc, double *c, double *a1,
        double *a2, double *bb, double *cc, int64 *irf) {
@@ -1017,7 +1017,7 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
 } /* copycp_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     /* System generated locals */
     int64 irf_dim1, fa_dim1, faa_dim1;
@@ -1042,7 +1042,7 @@ cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
 } /* cpyrhs_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
        double *cc, double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
        double *s1, double *s2, double *ca1, int64 *icf1, int64 *icf2,
@@ -1809,7 +1809,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
 } /* reduce_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
        double *faa, double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
        double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr,
@@ -1986,7 +1986,7 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
 } /* redrhs_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
        double *fc, int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb,
        int64 *idb, int64 *nllv, double *fcc, double *p0, double *p1,
@@ -2183,7 +2183,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
 } /* dimrge_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
        double *bb, double *faa, double *fc, double *fcc, double *sol1,
        double *sol2, double *sol3, int64 *na, int64 *nov, int64 *ncb,
@@ -2433,7 +2433,7 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
 } /* bcksub_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
        double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        int64 *ncb, int64 *irf, int64 *icf) {
@@ -2506,7 +2506,7 @@ infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
 } /* infpar_ */
 
 /*     ---------- --- */
-/* Subroutine */ int32
+int32
 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 
     /* Local variables */
@@ -2583,7 +2583,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 } /* rd0_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
        double *a, double *b, double *c, double *d, double *fa, double *fc) {
 
@@ -2680,7 +2680,7 @@ numnodes(void) {
     return ret_val;
 }
 
-/* Subroutine */ int32
+int32
 gsync(void) {
     return 0;
 } /* gsync_ */
@@ -2693,37 +2693,37 @@ dclock(void) {
     return ret_val;
 }
 
-/* Subroutine */ int32
+int32
 csend(void) {
     return 0;
 } /* csend_ */
 
-/* Subroutine */ int32
+int32
 crecv(void) {
     return 0;
 } /* crecv_ */
 
-/* Subroutine */ int32
+int32
 gdsum(void) {
     return 0;
 } /* gdsum_ */
 
-/* Subroutine */ int32
+int32
 gsendx(void) {
     return 0;
 } /* gsendx_ */
 
-/* Subroutine */ int32
+int32
 gcol(void) {
     return 0;
 } /* gcol_ */
 
-/* Subroutine */ int32
+int32
 led(void) {
     return 0;
 } /* led_ */
 
-/* Subroutine */ int32
+int32
 setiomode(void) {
     return 0;
 } /* setiomode_ */
