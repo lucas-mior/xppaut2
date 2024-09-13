@@ -449,7 +449,6 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         esc = my_abort();
 
         {
-
             if (esc == ESCAPE) {
                 *iret = -5;
                 break;
