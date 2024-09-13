@@ -30,8 +30,7 @@ extern struct {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnlp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -107,8 +106,7 @@ fnlp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fflp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -148,7 +146,7 @@ fflp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     /* Local variables */
     int64 ndim;
@@ -203,8 +201,7 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnc1(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -264,7 +261,7 @@ fnc1(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
 
@@ -290,8 +287,7 @@ stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -362,8 +358,7 @@ fnc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -422,7 +417,7 @@ ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     /* Local variables */
@@ -504,8 +499,7 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnds(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -545,8 +539,7 @@ fnds(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnti(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -595,8 +588,7 @@ fnti(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -674,8 +666,7 @@ fnhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -732,7 +723,7 @@ ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     /* Local variables */
@@ -824,8 +815,7 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -903,8 +893,7 @@ fnhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -957,7 +946,7 @@ ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     /* Local variables */
@@ -1042,8 +1031,7 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -1122,8 +1110,7 @@ fnhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -1175,7 +1162,7 @@ ffhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     /* Local variables */
     int64 ijac, ndim;
@@ -1267,8 +1254,7 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -1330,8 +1316,7 @@ fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -1381,8 +1366,7 @@ bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -1432,7 +1416,7 @@ icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 /*     ---------- ----- */
-/* Subroutine */ int32
+int32
 pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
       int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
       double *par) {
@@ -1481,7 +1465,7 @@ pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -1624,8 +1608,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -1657,8 +1640,7 @@ fnws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
@@ -1733,8 +1715,7 @@ ffws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnwp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -1798,7 +1779,7 @@ fnwp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -1944,8 +1925,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -1974,8 +1954,7 @@ fnsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
@@ -2037,8 +2016,7 @@ ffsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -2066,8 +2044,7 @@ fnpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
@@ -2127,8 +2104,7 @@ ffpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icpe(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -2158,8 +2134,7 @@ icpe(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -2235,8 +2210,7 @@ fnpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -2279,8 +2253,7 @@ ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -2330,8 +2303,7 @@ bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -2395,7 +2367,7 @@ icpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -2549,8 +2521,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -2626,8 +2597,7 @@ fnpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -2659,8 +2629,7 @@ ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -2718,8 +2687,7 @@ bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -2775,7 +2743,7 @@ icpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -2910,8 +2878,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fntr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -2990,8 +2957,7 @@ fntr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -3028,8 +2994,7 @@ fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -3101,8 +3066,7 @@ bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ictr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -3164,7 +3128,7 @@ ictr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -3305,8 +3269,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -3396,8 +3359,7 @@ fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const double *upold, const int64 *icp, double *par,
      double *f, int64 ndm, double *dfdu, double *dfdp) {
@@ -3445,8 +3407,7 @@ ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -3496,8 +3457,7 @@ bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -3586,8 +3546,7 @@ icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *fi,
@@ -3666,7 +3625,7 @@ fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -3859,8 +3818,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fnbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -3939,8 +3897,7 @@ fnbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
@@ -3977,8 +3934,7 @@ ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -4088,8 +4044,7 @@ bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
      const double *u1, double *f, double *dbc) {
@@ -4126,8 +4081,7 @@ fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -4219,8 +4173,7 @@ icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fibl(const iap_type *iap, const rap_type *rap, const int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *f,
@@ -4272,7 +4225,7 @@ fibl(const iap_type *iap, const rap_type *rap, const int64 ndim, double *par,
     return 0;
 }
 
-/* Subroutine */ int32
+int32
 stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
@@ -4399,8 +4352,7 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
@@ -4504,8 +4456,7 @@ funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
@@ -4627,8 +4578,7 @@ bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
@@ -4727,8 +4677,7 @@ icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     return 0;
 }
 
-/*     ---------- ---- */
-/* Subroutine */ int32
+int32
 fopi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
