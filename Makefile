@@ -7,8 +7,10 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
 CFLAGS += -Werror
-CFLAGS += -Wno-unused-parameter -Wno-unused-variable
+# CFLAGS += -Wno-unused-parameter
+CFLAGS += -Wno-unused-variable
 CFLAGS += -Wno-unused-but-set-variable
+CFLAGS += -Wno-unused-but-set-parameter
 # CFLAGS += -Wno-tautological-compare
 # CFLAGS += -Wno-sign-compare
 # CFLAGS += -g -O2
