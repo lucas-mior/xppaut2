@@ -12,14 +12,14 @@ CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
 # CFLAGS += -Wno-tautological-compare
 # CFLAGS += -Wno-sign-compare
 CFLAGS += -g -O2
-CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./
+CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./ -I./src/cvode/
 CFLAGS += -DMYSTR1=$(MAJOR_VERSION) -DMYSTR2=$(MINOR_VERSION)
 CFLAGS += -DNOERRNO -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
 CFLAGS += -D_DEFAULT_SOURCE -std=c99
 
 LDFLAGS = -lX11 -lm -ldl -L.
 
-SOURCES = $(wildcard src/*.c)
+SOURCES = $(wildcard src/*.c src/cvode/*.c)
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = xppaut
 
