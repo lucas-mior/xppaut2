@@ -430,7 +430,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     free(ff);
     free(ft);
     return 0;
-} /* solvbv_ */
+}
 
 /*     ---------- ------- */
 int32
@@ -455,7 +455,7 @@ setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     }
 
     return 0;
-} /* setfcdd_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -477,7 +477,7 @@ faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     }
 
     return 0;
-} /* faft_ */
+}
 
 /*     ---------- --------- */
 int32
@@ -502,7 +502,7 @@ partition(int64 *n, int64 *kwt, int64 *m) {
     }
 
     return 0;
-} /* partition_ */
+}
 
 /*     ------- -------- ------ */
 int64
@@ -525,7 +525,7 @@ mypart(int64 *iam, int64 *np) {
     ret_val = k;
 
     return ret_val;
-} /* mypart_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -755,7 +755,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     free(ubc1);
 
     return 0;
-} /* setrhs_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -864,7 +864,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     free(sol2);
     free(sol3);
     return 0;
-} /* brbd_ */
+}
 
 /*     ---------- ------- */
 int32
@@ -890,7 +890,7 @@ setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
     }
 
     return 0;
-} /* setzero_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -948,7 +948,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
     }
 
     return 0;
-} /* conrhs_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -1014,7 +1014,7 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     }
 
     return 0;
-} /* copycp_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -1039,7 +1039,7 @@ cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     }
 
     return 0;
-} /* cpyrhs_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -1806,7 +1806,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
     }
 
     return 0;
-} /* reduce_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -1983,7 +1983,7 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
     }
 
     return 0;
-} /* redrhs_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -2180,7 +2180,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
     free(xe);
 
     return 0;
-} /* dimrge_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -2430,7 +2430,7 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
     }
 
     return 0;
-} /* bcksub_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -2503,7 +2503,7 @@ infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
     free(x);
 
     return 0;
-} /* infpar_ */
+}
 
 /*     ---------- --- */
 int32
@@ -2580,7 +2580,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     }
     free(buf);
     return 0;
-} /* rd0_ */
+}
 
 /*     ---------- ------ */
 int32
@@ -2659,7 +2659,7 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
     }
 
     return 0;
-} /* print1_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -2683,7 +2683,7 @@ numnodes(void) {
 int32
 gsync(void) {
     return 0;
-} /* gsync_ */
+}
 
 double
 dclock(void) {
@@ -2696,34 +2696,34 @@ dclock(void) {
 int32
 csend(void) {
     return 0;
-} /* csend_ */
+}
 
 int32
 crecv(void) {
     return 0;
-} /* crecv_ */
+}
 
 int32
 gdsum(void) {
     return 0;
-} /* gdsum_ */
+}
 
 int32
 gsendx(void) {
     return 0;
-} /* gsendx_ */
+}
 
 int32
 gcol(void) {
     return 0;
-} /* gcol_ */
+}
 
 int32
 led(void) {
     return 0;
-} /* led_ */
+}
 
 int32
 setiomode(void) {
     return 0;
-} /* setiomode_ */
+}
