@@ -1371,8 +1371,9 @@ info_header(int32 icp1, int32 icp2) {
 }
 
 void
-new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
-         double u0, double per, int32 flag2, int32 icp1, int32 icp2) {
+new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
+         double norm, double u0, double per,
+         int32 flag2, int32 icp1, int32 icp2) {
     char bob[80];
     double p1, p2 = 0.0;
     clear_auto_info();
