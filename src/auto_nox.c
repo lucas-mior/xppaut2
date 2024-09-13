@@ -29,19 +29,17 @@
 #include "pop_list.h"
 #include "pp_shoot.h"
 #include "menudrive.h"
+#include "axes2.h"
+#include "graphics.h"
+#include "xpplim.h"
+#include "autlim.h"
+#include "xAuto.h"
 
 #ifndef WCTYPE
 #include <ctype.h>
 #else
 #include <wctype.h>
 #endif
-
-#include "axes2.h"
-#include "graphics.h"
-
-#include "xpplim.h"
-#include "autlim.h"
-#include "xAuto.h"
 
 #define MAXLINELENGTH 100000
 #define PACK_AUTO 0
