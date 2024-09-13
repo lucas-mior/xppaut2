@@ -1,34 +1,30 @@
-#include "pp_shoot.h"
-#include "integers.h"
-#include <stdbool.h>
-
-#include "my_rhs.h"
-#include "main.h"
-#include "adj2.h"
-#include "abort.h"
-#include "gear.h"
-
-#include "parserslow.h"
-#include "browse.h"
-#include "graf_par.h"
-#include "integrate.h"
-#include "init_conds.h"
-#include "pop_list.h"
-#include "ggets.h"
-#include "lunch-new.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "shoot.h"
-#include "kinescope.h"
-/*#include <X11/Xlib.h>
-  #include <X11/Xutil.h> */
 #include <math.h>
-#include "xpplim.h"
-#include "getvar.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#include "abort.h"
+#include "adj2.h"
+#include "browse.h"
+#include "gear.h"
+#include "getvar.h"
+#include "ggets.h"
+#include "graf_par.h"
+#include "init_conds.h"
+#include "integers.h"
+#include "integrate.h"
+#include "kinescope.h"
+#include "lunch-new.h"
+#include "main.h"
 #include "max_len_sbox.h"
+#include "my_rhs.h"
+#include "parserslow.h"
+#include "pop_list.h"
+#include "pp_shoot.h"
+#include "shoot.h"
+#include "xpplim.h"
+
 #define ESCAPE 27
 
 #define NOCHANGE 2
