@@ -116,7 +116,7 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
     case Expose:
     case MapNotify:
         do_expose(ev);
-        display_dialog(ev.xany.window, *d, *pos, *col);
+        display_dialog(ev.xany.window, *d, *col);
         break;
     case ButtonPress:
         if (ev.xbutton.window == d->ok) {
@@ -153,7 +153,7 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
 }
 
 void
-display_dialog(Window w, DIALOG d, int32 pos, int32 col) {
+display_dialog(Window w, DIALOG d, int32 col) {
     if (w == d.ok)
         XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s, strlen(d.ok_s));
     if (w == d.cancel)
