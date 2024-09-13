@@ -512,7 +512,7 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
             ping();
         break;
     case RIGHT:
-        if (*pos < strlen(value)) {
+        if (*pos < (int32)strlen(value)) {
             *pos = *pos + 1;
             *col += DCURX;
         } else
