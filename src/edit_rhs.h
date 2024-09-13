@@ -16,7 +16,7 @@
 #define DONE_THIS 1
 #define RESET_ALL 4
 
-#define MAXUFUN 50
+#define MAX_UFUN 50
 
 /*typedef struct {
   int32 narg;

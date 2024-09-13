@@ -68,7 +68,7 @@ float *my_mean[MAX_ODE], *my_variance[MAX_ODE];
 int32 stoch_len;
 
 int32 STOCH_FLAG, STOCH_HERE, N_TRIALS;
-int32 Wiener[MAXPAR];
+int32 Wiener[MAX_PAR];
 int32 NWiener;
 extern double constants[];
 

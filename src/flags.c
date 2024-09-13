@@ -84,7 +84,7 @@ type =3 halt
 
 #define MAX_EVENTS 20 /*  this is the maximum number of events per flag */
 
-extern char upar_names[MAXPAR][11];
+extern char upar_names[MAX_PAR][11];
 typedef struct {
     double f0, f1;
     double tstar;

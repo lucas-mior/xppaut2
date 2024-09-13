@@ -70,12 +70,12 @@ int32 SumIndex = 1;
 
 /* FIXXX */
 int32 stack_pointer, uptr;
-double constants[MAXPAR];
+double constants[MAX_PAR];
 double variables[MAX_ODE1];
-int32 *ufun[MAXUFUN];
-char *ufun_def[MAXUFUN];
-char ufun_names[MAXUFUN][12];
-int32 narg_fun[MAXUFUN];
+int32 *ufun[MAX_UFUN];
+char *ufun_def[MAX_UFUN];
+char ufun_names[MAX_UFUN][12];
+int32 narg_fun[MAX_UFUN];
 double stack[200], ustack[200];
 
 KERNEL kernel[MAXKER];
@@ -84,7 +84,7 @@ int32 MaxPoints;
 double *Memory[MAXKER];
 int32 NTable;
 
-UFUN_ARG ufun_arg[MAXUFUN];
+UFUN_ARG ufun_arg[MAX_UFUN];
 
 SYMBOL my_symb[MAX_SYMBS] = {
     {"(", 1, 999, 0, 1}, /*  0   */
@@ -315,7 +315,7 @@ add_constant(char *junk) {
     char string[100];
     if (duplicate_name(junk) == 1)
         return 1;
-    if (NCON >= MAXPAR) {
+    if (NCON >= MAX_PAR) {
         if (ERROUT)
             printf("too many constants !!\n");
         return 1;
@@ -365,7 +365,7 @@ int32
 add_con(char *name, double value) {
 
     /*  printf("Adding constant %s # %d\n",name,NCON); */
-    if (NCON >= MAXPAR) {
+    if (NCON >= MAX_PAR) {
         if (ERROUT)
             printf("too many constants !!\n");
         return 1;
@@ -628,7 +628,7 @@ add_ufun_name(char *name, int32 index, int32 narg) {
     int32 len = strlen(name);
     if (duplicate_name(name) == 1)
         return 1;
-    if (index >= MAXUFUN) {
+    if (index >= MAX_UFUN) {
         if (ERROUT)
             printf("too many functions !!\n");
         return 1;
@@ -709,7 +709,7 @@ add_ufun(char *junk, char *expr, int32 narg) {
 
     if (duplicate_name(junk) == 1)
         return 1;
-    if (NFUN >= MAXUFUN) {
+    if (NFUN >= MAX_UFUN) {
         if (ERROUT)
             printf("too many functions !!\n");
         return 1;

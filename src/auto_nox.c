@@ -188,7 +188,7 @@ char fort9[200];
 char TMPSWAP[200];
 
 extern char uvar_names[MAX_ODE][12];
-extern char upar_names[MAXPAR][14];
+extern char upar_names[MAX_PAR][14];
 extern int32 NUPAR;
 uint32 DONT_XORCross = 0;
 

@@ -14,7 +14,7 @@
 #define STARTTOK 10
 #define ENDTOK 11
 #define UFUN 24
-#define MAXUFUN 50
+#define MAX_UFUN 50
 #define ENDEXP 999
 #define ENDFUN 998
 #define STARTDELAY 980
@@ -686,12 +686,12 @@ double ker_val();
 double pop();
 
 int32 stack_pointer, uptr;
-double constants[MAXPAR];
+double constants[MAX_PAR];
 double variables[MAX_ODE1];
-int32 *ufun[MAXUFUN];
-char *ufun_def[MAXUFUN];
-char ufun_names[MAXUFUN][12];
-int32 narg_fun[MAXUFUN];
+int32 *ufun[MAX_UFUN];
+char *ufun_def[MAX_UFUN];
+char ufun_names[MAX_UFUN][12];
+int32 narg_fun[MAX_UFUN];
 double stack[200], ustack[200];
 
 KERNEL kernel[MAXKER];
@@ -705,7 +705,7 @@ typedef struct {
     char args[MAXARG][11];
 } UFUN_ARG;
 
-UFUN_ARG ufun_arg[MAXUFUN];
+UFUN_ARG ufun_arg[MAX_UFUN];
 
 void zz_pmod(void);
 void zz_atan2(void);

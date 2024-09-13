@@ -42,9 +42,9 @@
 int32 IN_INCLUDED_FILE = 0;
 char uvar_names[MAX_ODE][12];
 char *ode_names[MAX_ODE];
-char upar_names[MAXPAR][11];
+char upar_names[MAX_PAR][11];
 char *save_eqn[MAXLINES];
-double default_val[MAXPAR];
+double default_val[MAX_PAR];
 extern int32 NODE;
 extern int32 NUPAR;
 extern int32 NLINES;

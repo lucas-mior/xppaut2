@@ -48,16 +48,16 @@ extern int32 *my_ode[];
 extern int32 NUPAR;
 extern double last_ic[MAX_ODE];
 
-/*extern char upar_names[MAXPAR][11],this_file[100];*/
+/*extern char upar_names[MAX_PAR][11],this_file[100];*/
 
-extern char upar_names[MAXPAR][14], this_file[XPP_MAX_NAME];
+extern char upar_names[MAX_PAR][14], this_file[XPP_MAX_NAME];
 extern int32 EqType[MAX_ODE];
 
-extern char *ufun_def[MAXUFUN];
-extern char ufun_names[MAXUFUN][12];
-extern int32 narg_fun[MAXUFUN], *ufun[MAXUFUN];
+extern char *ufun_def[MAX_UFUN];
+extern char ufun_names[MAX_UFUN][12];
+extern int32 narg_fun[MAX_UFUN], *ufun[MAX_UFUN];
 
-extern UFUN_ARG ufun_arg[MAXUFUN];
+extern UFUN_ARG ufun_arg[MAX_UFUN];
 extern BC_STRUCT my_bc[MAX_ODE];
 
 extern int32 NFUN;

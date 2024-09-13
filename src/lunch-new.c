@@ -26,7 +26,7 @@
 
 #define READEM 1
 #define VOLTERRA 6
-#define MAXUFUN 50
+#define MAX_UFUN 50
 #define PARAMBOX 1
 
 extern int32 XPPBatch;
@@ -52,7 +52,7 @@ extern double POIPLN, EVEC_ERR, NEWT_ERR;
 extern double BVP_TOL, BVP_EPS;
 extern int32 MaxPoints;
 
-extern char upar_names[MAXPAR][11], this_file[100], delay_string[MAX_ODE][80];
+extern char upar_names[MAX_PAR][11], this_file[100], delay_string[MAX_ODE][80];
 extern char uvar_names[MAX_ODE][12];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
 

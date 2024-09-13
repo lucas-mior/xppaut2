@@ -29,7 +29,7 @@ extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 extern int32 NUPAR, NODE, NEQ;
-extern char upar_names[MAXPAR][14], uvar_names[MAX_ODE][12];
+extern char upar_names[MAX_PAR][14], uvar_names[MAX_ODE][12];
 
 extern Window main_win, info_pop;
 extern int32 TORUS;
