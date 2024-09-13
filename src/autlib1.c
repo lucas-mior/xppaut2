@@ -7291,13 +7291,14 @@ allocate_global_memory(const iap_type iap) {
     free(global_scratch.uu2);
     free(global_scratch.ff1);
     free(global_scratch.ff2);
-    global_scratch.dfu =
-        (double *)malloc(sizeof(double) * (iap.ndim) * (iap.ndim));
-    global_scratch.dfp = (double *)malloc(sizeof(double) * (iap.ndim) * NPARX);
-    global_scratch.uu1 = (double *)malloc(sizeof(double) * (iap.ndim));
-    global_scratch.uu2 = (double *)malloc(sizeof(double) * (iap.ndim));
-    global_scratch.ff1 = (double *)malloc(sizeof(double) * (iap.ndim));
-    global_scratch.ff2 = (double *)malloc(sizeof(double) * (iap.ndim));
+
+    global_scratch.dfu = malloc(sizeof(double) * (iap.ndim) * (iap.ndim));
+
+    global_scratch.dfp = malloc(sizeof(double) * (iap.ndim) * NPARX);
+    global_scratch.uu1 = malloc(sizeof(double) * (iap.ndim));
+    global_scratch.uu2 = malloc(sizeof(double) * (iap.ndim));
+    global_scratch.ff1 = malloc(sizeof(double) * (iap.ndim));
+    global_scratch.ff2 = malloc(sizeof(double) * (iap.ndim));
 
     free(global_rotations.nrtn);
     global_rotations.nrtn = (int64 *)malloc(sizeof(int64) * (iap.nbc));
