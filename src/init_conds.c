@@ -370,8 +370,7 @@ resize_par_slides(int32 h) {
 
 void
 slide_button_press(Window w) {
-    int32 i;
-    for (i = 0; i < 3; i++)
+    for (int32 i = 0; i < 3; i++)
         do_slide_button(w, &my_par_slide[i]);
     return;
 }
