@@ -208,77 +208,45 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     }
 
     iuzr = 1;
-
     itp = 0;
-
     itpst = 0;
-
     nfpr = 1;
-
     ibr = 1;
-
     nit = 0;
-
     ntot = 0;
-
     nins = 0;
-
     istop = 0;
-
     nbif = 0;
-
     ipos = 1;
-
     lab = 0;
 
     iap->ndm = ndm;
-
     iap->nbc0 = nbc0;
-
     iap->nnt0 = nnt0;
-
     iap->iuzr = iuzr;
-
     iap->itp = itp;
-
     iap->itpst = itpst;
-
     iap->nfpr = nfpr;
-
     iap->ibr = ibr;
-
     iap->nit = nit;
-
     iap->ntot = ntot;
-
     iap->nins = nins;
-
     iap->istop = istop;
-
     iap->nbif = nbif;
-
     iap->ipos = ipos;
-
     iap->lab = lab;
-
     iap->nicp = nicp;
 
     rap->ds = ds;
-
     rap->dsmin = dsmin;
-
     rap->dsmax = dsmax;
 
     dsold = ds;
 
     rap->dsold = dsold;
-
     rap->rl0 = rl0;
-
     rap->rl1 = rl1;
-
     rap->a0 = a0;
-
     rap->a1 = a1;
 
     amp = 0.;
