@@ -169,36 +169,3 @@ display_dialog(Window w, DIALOG d, int32 pos, int32 col) {
     return;
 }
 /*  Uses Dialog boxes for input of numbers  */
-/*
-
-new_float(name,value)
-char *name;
-double *value;
-{
- char tvalue[100];
- int32 status;
- sprintf(tvalue,"%.16g",*value);
-
- status=get_dialog(name,name,tvalue,"Ok","Cancel",30);
- if(status==FORGET_ALL||strlen(tvalue)==0)return;
- if(tvalue[0]=='%')
-  {
-        do_calc(&tvalue[1],value);
-        return;
-  }
- *value=atof(tvalue);
- }
-
- */
-/* new_int(name,value)
-char *name;
-int32 *value;
-{
- char tvalue[100];
- int32 status;
- sprintf(tvalue,"%d",*value);
- status=get_dialog(name,name,tvalue,"Ok","Cancel",30);
- if(status==FORGET_ALL||strlen(tvalue)==0)return;
- *value=atoi(tvalue);
- }
- */
