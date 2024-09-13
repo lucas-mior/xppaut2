@@ -1,5 +1,6 @@
 #include <math.h>
-#include "auto_f2c.h"
+
+#include "integers.h"
 
 int64
 i_nint(float *x) {
