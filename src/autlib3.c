@@ -1341,6 +1341,9 @@ fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
+    (void) iap;
+    (void) rap;
+    (void) icp;
     /* System generated locals */
     int64 dbc_dim1;
 
@@ -1390,6 +1393,12 @@ icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
+    (void) iap;
+    (void) rap;
+    (void) par;
+    (void) icp;
+    (void) uold;
+    (void) udot;
     /* System generated locals */
     int64 dint_dim1;
 
@@ -1433,6 +1442,7 @@ icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
       int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
       double *par) {
+    (void) iap;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
