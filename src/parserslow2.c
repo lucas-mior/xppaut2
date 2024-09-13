@@ -404,7 +404,7 @@ add_kernel(char *name, double mu, char *expr) {
         if (expr[i] == '#')
             in = i;
     }
-    if (in == 0 || in == (strlen(expr) - 1)) {
+    if (in == 0 || in == ((int32)strlen(expr) - 1)) {
         plintf("Illegal use of convolution...\n");
         return 1;
     }
