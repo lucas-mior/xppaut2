@@ -12,7 +12,6 @@ extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 #include "math.h"
 #include "auto_c.h"
 #include <stdbool.h>
-/* Table of constant values */
 
 static double c_b81 = 0.;
 static double c_b170 = 1.;
