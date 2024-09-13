@@ -214,7 +214,7 @@ char *get_next(char *src);
 
 double evaluate(int32 *);
 
-NETWORK my_net[MAXNET];
+NETWORK my_net[MAX_NET];
 int32 n_network = 0;
 double
 net_interp(double x, int32 i) {
@@ -1061,7 +1061,7 @@ void
 add_special_name(char *name, char *rhs) {
     if (is_network(rhs)) {
         plintf(" netrhs = |%s| \n", rhs);
-        if (n_network >= MAXNET) {
+        if (n_network >= MAX_NET) {
             return;
         }
         strcpy(my_net[n_network].name, name);

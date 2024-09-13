@@ -694,10 +694,10 @@ char ufun_names[MAX_UFUN][12];
 int32 narg_fun[MAX_UFUN];
 double stack[200], ustack[200];
 
-KERNEL kernel[MAXKER];
+KERNEL kernel[MAX_KER];
 int32 NKernel;
 int32 MaxPoints;
-double *Memory[MAXKER];
+double *Memory[MAX_KER];
 int32 NTable;
 
 typedef struct {

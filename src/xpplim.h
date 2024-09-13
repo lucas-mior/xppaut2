@@ -10,8 +10,8 @@
 #define MAX_SYMBS 10000
 #define MAX_UFUN 50
 #define MAX_TAB 50
-#define MAXKER 50
-#define MAXNET 50
+#define MAX_KER 50
+#define MAX_NET 50
 #define MAXMARK 200
 #define MAX_ANI_LINES 2000
 #define MAX_INTERN_SET 500

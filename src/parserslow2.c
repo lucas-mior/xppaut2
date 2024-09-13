@@ -78,10 +78,10 @@ char ufun_names[MAX_UFUN][12];
 int32 narg_fun[MAX_UFUN];
 double stack[200], ustack[200];
 
-KERNEL kernel[MAXKER];
+KERNEL kernel[MAX_KER];
 int32 NKernel;
 int32 MaxPoints;
-double *Memory[MAXKER];
+double *Memory[MAX_KER];
 int32 NTable;
 
 UFUN_ARG ufun_arg[MAX_UFUN];
@@ -382,7 +382,7 @@ add_kernel(char *name, double mu, char *expr) {
     int32 len, in = -1;
     if (duplicate_name(name) == 1)
         return 1;
-    if (NKernel == MAXKER) {
+    if (NKernel == MAX_KER) {
         plintf("Too many kernels..\n");
         return 1;
     }

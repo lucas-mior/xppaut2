@@ -34,7 +34,7 @@
 */
 
 #define CONV 2
-extern KERNEL kernel[MAXKER];
+extern KERNEL kernel[MAX_KER];
 extern int32 NODE, NMarkov, FIX_VAR, PrimeStart;
 extern int32 NKernel;
 extern double *Memory[MAX_ODE];
