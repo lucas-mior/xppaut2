@@ -195,7 +195,7 @@ do_sh_range(double *ystart, double *yend) {
     if (shoot_range.movie == 1)
         reset_film();
     for (i = 0; i <= npar; i++) {
-        temp = parlo + dpar * (double)i;
+        temp = parlo + dpar*(double)i;
         set_val(shoot_range.item, temp);
         snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
         bottom_msg(2, bob);
@@ -429,15 +429,15 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
     int32 info, niter = 0;
     double dt = DELTA_T, t;
     double t0 = T0;
-    double t1 = T0 + TEND * dt / fabs(dt);
+    double t1 = T0 + TEND*dt / fabs(dt);
 
     if (iper)
         ntot = n + 1;
-    jac = malloc(ntot * ntot * sizeof(double));
-    f = malloc(ntot * sizeof(double));
-    fdev = malloc(ntot * sizeof(double));
-    y0 = malloc(ntot * sizeof(double));
-    y1 = malloc(ntot * sizeof(double));
+    jac = malloc(ntot*ntot*sizeof(double));
+    f = malloc(ntot*sizeof(double));
+    fdev = malloc(ntot*sizeof(double));
+    y0 = malloc(ntot*sizeof(double));
+    y1 = malloc(ntot*sizeof(double));
 
     for (i = 0; i < n; i++)
         y0[i] = y[i];
@@ -504,9 +504,9 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             for (i = 0; i < n; i++)
                 y[i] = y0[i];
             if (fabs(y0[j]) < eps)
-                dev = eps * eps;
+                dev = eps*eps;
             else
-                dev = eps * fabs(y0[j]);
+                dev = eps*fabs(y0[j]);
 
             if (j < n)
                 y[j] = y[j] + dev;
@@ -529,7 +529,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
                 fdev[n] = y[ivar] - sect;
             y0[j] = ytemp;
             for (i = 0; i < ntot; i++)
-                jac[j + i * ntot] = (fdev[i] - f[i]) / dev;
+                jac[j + i*ntot] = (fdev[i] - f[i]) / dev;
         }
 
         sgefa(jac, ntot, ntot, ipvt, &info);
