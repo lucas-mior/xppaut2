@@ -271,8 +271,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     return 0;
 }
 
-/*     ---------- ----- */
-/* Subroutine */ int32
+int32
 chdim(iap_type *iap) {
     int64 npar;
 
@@ -294,17 +293,13 @@ chdim(iap_type *iap) {
 } /* chdim_ */
 
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /*               The leading subroutines of AUTO */
-/* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
 int32
 autoae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
-       double *thl, double *thu, int64 *iuz, double *vuz)
-
-{
+       double *thl, double *thu, int64 *iuz, double *vuz) {
     /* This is the entry subroutine for algebraic systems. */
 
     cnrlae(iap, rap, par, icp, funi, stpnt, pvli, thl, thu, iuz, vuz);
@@ -324,8 +319,7 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ----- */
-/* Subroutine */ int32
+int32
 init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
 
     /* Local variables */
@@ -688,13 +682,10 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
 } /* init1 */
 
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /*                    Algebraic Problems */
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
-/* Subroutine */ int32
+int32
 cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
        double *thl, double *thu, int64 *iuz, double *vuz) {
@@ -1048,8 +1039,7 @@ L6:
     return 0;
 } /* cnrlae_ */
 
-/*     ---------- ------ */
-/* Subroutine */ int32
+int32
 stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
     (void) rap;
@@ -1064,8 +1054,7 @@ stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     return 0;
 } /* stpnus_ */
 
-/*     ---------- ------ */
-/* Subroutine */ int32
+int32
 stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     logical found;
     int64 nfprs;
@@ -1081,8 +1070,7 @@ stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     return 0;
 } /* stpnae_ */
 
-/*     ---------- ------ */
-/* Subroutine */ int32
+int32
 stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rds, int64 *m1aaloc, double *aa, double *rhs,
        double *rlcur, double *rlold, double *rldot, double *u, double *du,
@@ -1171,8 +1159,7 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 } /* stprae_ */
 
-/*     ---------- ------ */
-/* Subroutine */ int32
+int32
 contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
        double *rldot, double *u, double *uold, double *udot) {
     /* Local variables */
@@ -1208,8 +1195,7 @@ contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
     return 0;
 } /* contae_ */
 
-/*     ---------- ----- */
-/* Subroutine */ int32
+int32
 solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rds, int64 *m1aaloc, double *aa, double *rhs,
        double *rlcur, double *rlold, double *rldot, double *u, double *du,
@@ -1445,8 +1431,7 @@ L5:
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
-/* Subroutine */ int32
+int32
 lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FNCS_TYPE_AE((*fncs)), FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,
        double *rhs, double *rlcur, double *rlold, double *rldot, double *u,
@@ -1562,7 +1547,7 @@ L1:
 } /* lcspae_ */
 
 /*     ---------- ------- */
-/* Subroutine */ int32
+int32
 mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
         double *rds) {
     /* Local variables */
@@ -1943,7 +1928,7 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ----- */
-/* Subroutine */ int32
+int32
 stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *aa, int64 m1sbloc, double *stud, double *stu, double *stla,
       double *stld, double *rlcur, double *rlold, double *rldot, double *u,
@@ -2051,7 +2036,7 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
 } /* stbif_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int32
+int32
 swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
       int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
       double *rlcur, double *rlold, double *rldot, double *u, double *udot) {
@@ -2126,7 +2111,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
 } /* swpnt_ */
 
 /*     ---------- ----- */
-/* Subroutine */ int32
+int32
 swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
       int64 *m1aaloc, double *aa, double *rhs, double *rlcur, double *rlold,
       double *rldot, double *u, double *du, double *uold, double *udot,
@@ -2363,7 +2348,7 @@ L5:
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- ---- */
-/* Subroutine */ int32
+int32
 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double *thu) {
     (void) par;
@@ -2481,7 +2466,7 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 } /* sthd_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
     (void) rap;
@@ -2604,7 +2589,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
 } /* headng_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *u) {
 
@@ -2753,7 +2738,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 } /* stplae_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
     (void) icp;
@@ -2928,7 +2913,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 } /* wrline_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
        double *rlcur, double *u) {
     /* Local variables */
@@ -3011,7 +2996,7 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
 } /* wrtsp8_ */
 
 /*     ---------- ------ */
-/* Subroutine */ int32
+int32
 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
     /* System generated locals */
     int64 aa_dim1;
@@ -3050,7 +3035,7 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 /* ----------------------------------------------------------------------- */
 
 /*     ---------- --- */
-/* Subroutine */ int32
+int32
 msh(const iap_type *iap, const rap_type *rap, double *tm) {
 
     /* Local variables */
