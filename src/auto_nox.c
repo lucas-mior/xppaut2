@@ -1,6 +1,10 @@
 #include <string.h>
 #include <stdbool.h>
 #include <libgen.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
 
 #include "graf_par.h"
 #include "form_ode.h"
@@ -24,12 +28,8 @@
 #include "parserslow.h"
 #include "pop_list.h"
 #include "pp_shoot.h"
-
 #include "menudrive.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
+
 #ifndef WCTYPE
 #include <ctype.h>
 #else
