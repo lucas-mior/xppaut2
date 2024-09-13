@@ -25,7 +25,7 @@ void sgesl(double *a, int32 n, int32 m, int32 *ip, double *b, int32);
 /* ----------------------------------------------------------------------- */
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int32
+int32
 rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
    double *z__, int64 *iv1, double *fv1, int64 *ierr) {
     /* System generated locals */
@@ -124,7 +124,7 @@ L50:
     return 0;
 } /* rg_ */
 
-/* Subroutine */ int32
+int32
 hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     double *wi, int64 *ierr) {
     /* System generated locals */
@@ -468,7 +468,7 @@ L1001:
     return 0;
 } /* hqr_ */
 
-/* Subroutine */ int32
+int32
 hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
      double *wi, double *z__, int64 *ierr) {
     /* System generated locals */
@@ -1151,7 +1151,7 @@ L1001:
     return 0;
 } /* hqr2_ */
 
-/* Subroutine */ int32
+int32
 cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
     /* System generated locals */
     double d__1, d__2;
@@ -1176,7 +1176,7 @@ cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
     return 0;
 } /* cdiv_ */
 
-/* Subroutine */ int32
+int32
 balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
     /* System generated locals */
     int64 a_dim1, a_offset, i__1, i__2;
@@ -1425,7 +1425,7 @@ L280:
     return 0;
 } /* balanc_ */
 
-/* Subroutine */ int32
+int32
 balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
        double *z__) {
     /* System generated locals */
@@ -1535,7 +1535,7 @@ L200:
     return 0;
 } /* balbak_ */
 
-/* Subroutine */ int32
+int32
 elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
     /* System generated locals */
     int64 a_dim1, a_offset, i__1, i__2, i__3;
@@ -1674,7 +1674,7 @@ L200:
     return 0;
 } /* elmhes_ */
 
-/* Subroutine */ int32
+int32
 eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
        double *z__) {
     /* System generated locals */
@@ -1788,7 +1788,7 @@ L200:
 /* ----------------------------------------------------------------------- */
 /*  EISPACK routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int32
+int32
 qzhes(int64 nm, int64 n, double *a, double *b, logical matz, double *z__) {
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
@@ -2068,7 +2068,7 @@ L170:
     return 0;
 } /* qzhes_ */
 
-/* Subroutine */ int32
+int32
 qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
      double *z__, int64 *ierr) {
     /* System generated locals */
@@ -2593,7 +2593,7 @@ L1001:
     return 0;
 } /* qzit_ */
 
-/* Subroutine */ int32
+int32
 qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
       double *beta, logical matz, double *z__) {
     /* System generated locals */
@@ -3292,7 +3292,7 @@ L60:
     return ret_val;
 } /* ddot_ */
 
-/* Subroutine */ int32
+int32
 dscal(int64 *n, double *da, double *dx, int64 *incx) {
     /* System generated locals */
     int64 i__1, i__2;
@@ -3420,7 +3420,7 @@ L20:
     return ret_val;
 } /* idamax_ */
 
-/* Subroutine */ int32
+int32
 daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
     /* System generated locals */
     int64 i__1;
@@ -3497,7 +3497,7 @@ L40:
     return 0;
 } /* daxpy_ */
 
-/* Subroutine */ int32
+int32
 drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
      double *s) {
     /* System generated locals */
@@ -3558,7 +3558,7 @@ L20:
     return 0;
 } /* drot_ */
 
-/* Subroutine */ int32
+int32
 dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     /* System generated locals */
     int64 i__1;
@@ -3643,7 +3643,7 @@ L40:
     return 0;
 } /* dswap_ */
 
-/* Subroutine */ int32
+int32
 dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
       logical *trans) {
     /* System generated locals */
@@ -3744,7 +3744,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
 /* ----------------------------------------------------------------------- */
 /*  BLAS-2 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int32
+int32
 xerbla(char *srname, int64 *info, int64 srname_len) {
     /* Format strings */
 
@@ -3886,7 +3886,7 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 /* ----------------------------------------------------------------------- */
 /*  BLAS-3 routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int32
+int32
 dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
       double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
       int64 *ldc, int64 transa_len, int64 transb_len) {
@@ -4286,7 +4286,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
 /* ----------------------------------------------------------------------- */
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
 /* ----------------------------------------------------------------------- */
-/* Subroutine */ int32
+int32
 ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
       double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
       int64 *info, double *tol) {
@@ -4361,7 +4361,7 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     return 0;
 } /* ezsvd_ */
 
-/* Subroutine */ int32
+int32
 ndrotg(double *f, double *g, double *cs, double *sn) {
 
     /* Local variables */
@@ -4412,7 +4412,7 @@ ndrotg(double *f, double *g, double *cs, double *sn) {
     return 0;
 } /* ndrotg_ */
 
-/* Subroutine */ int32
+int32
 ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
       double *u, int64 *ldu, double *v, int64 *ldv, double *work, int64 *job,
       int64 *info, int64 *maxitr, double *tol, int64 *idbg, int64 *ifull,
@@ -5699,7 +5699,7 @@ L996:
     return 0;
 } /* ndsvd_ */
 
-/* Subroutine */ int32
+int32
 prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
     /* Format strings */
 
@@ -5737,7 +5737,7 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
     return 0;
 } /* prse_ */
 
-/* Subroutine */ int32
+int32
 sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
       double *snr, double *csr, double *snl, double *csl) {
     /* System generated locals */
@@ -6042,7 +6042,7 @@ sigmin(double *a, double *b, double *c__) {
     return ret_val;
 } /* sigmin_ */
 
-/* Subroutine */ int32
+int32
 sndrtg(double *f, double *g, double *cs, double *sn) {
     /* System generated locals */
     double d__1;
@@ -6082,7 +6082,7 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
 
 /*  hqr3_loc.f orthes.f ortran.f   for computing triangular matrix */
 
-/* Subroutine */ int32
+int32
 hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
        double *er, double *ei, int64 *type__, int64 *na, int64 *nv,
        int64 *imfd) {
@@ -6480,7 +6480,7 @@ L310:
     return 0;
 } /* hqr3lc_ */
 
-/* Subroutine */ int32
+int32
 split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
       int64 *na, int64 *nv) {
     /* System generated locals */
@@ -6620,7 +6620,7 @@ L80:
     return 0;
 } /* split_ */
 
-/* Subroutine */ int32
+int32
 exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
        double *eps, logical *fail, int64 *na, int64 *nv) {
     /* System generated locals */
@@ -6789,7 +6789,7 @@ L90:
     return 0;
 } /* exchng_ */
 
-/* Subroutine */ int32
+int32
 qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
        int64 *nu, int64 *n, int64 *na, int64 *nv) {
     /* System generated locals */
@@ -6943,7 +6943,7 @@ L30:
     return 0;
 } /* qrstep_ */
 
-/* Subroutine */ int32
+int32
 orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
     /* System generated locals */
     int64 a_dim1, a_offset, i__1, i__2, i__3;
@@ -7094,7 +7094,7 @@ L200:
     return 0;
 } /* orthes_ */
 
-/* Subroutine */ int32
+int32
 ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
        double *z__) {
     /* System generated locals */
