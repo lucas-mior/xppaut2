@@ -1,44 +1,10 @@
-#include "main.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
-#include "aniparse.h"
-#include "adj2.h"
-#include "storage.h"
-#include "load_eqn.h"
-#include "ggets.h"
-#include "many_pops.h"
 #include "read_dir.h"
-#include "comline.h"
-#include "simplenet.h"
-#include "dae_fun.h"
-#include "auto_x11.h"
 #include "auto_nox.h"
-#include "extra.h"
-#include "menudrive.h"
-#include "init_conds.h"
-#include "graphics.h"
-#include "integrate.h"
-#include "numerics.h"
-#include "form_ode.h"
-#include "pop_list.h"
-#include "arrayplot.h"
-#include "menu.h"
-#include "userbut.h"
-#include "color.h"
-#include "eig_list.h"
-#include "txtread.h"
-#include "edit_rhs.h"
-#include "axes2.h"
-#include "do_fit.h"
-#include "graf_par.h"
-#include "auto_x11.h"
-#include "my_rhs.h"
 
-#include "nullcline.h"
-#include "lunch-new.h"
-
-#include "calc.h"
 #include <stdlib.h>
 
 /*
@@ -73,7 +39,6 @@
 #include <stdio.h>
 /* #include <errno.h> */
 #include "help_defs.h"
-#include "browse.h"
 #include <dirent.h>
 
 #define FIX_SIZE 3

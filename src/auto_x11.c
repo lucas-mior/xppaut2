@@ -8,26 +8,14 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "functions.h"
 #include "autlim.h"
 #include "auto.bitmap"
 #include "auto_nox.h"
-#include "auto_x11.h"
-#include "browse.h"
-#include "color.h"
-#include "derived.h"
-#include "diagram.h"
-#include "ggets.h"
-#include "init_conds.h"
 #include "integers.h"
-#include "integrate.h"
-#include "many_pops.h"
 #include "math.h"
 #include "mykeydef.h"
-#include "numerics.h"
 #include "parserslow.h"
-#include "pop_list.h"
-#include "rubber.h"
-#include "tabular.h"
 
 #define RUBBOX 0
 #define RUBLINE 1

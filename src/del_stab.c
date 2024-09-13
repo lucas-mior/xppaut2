@@ -1,13 +1,10 @@
 #include <stdlib.h>
 
-#include "eig_list.h"
-#include "gear.h"
-#include "ggets.h"
+#include "functions.h"
 
 #include <math.h>
 #include <stdio.h>
 #include "xpplim.h"
-#include "del_stab.h"
 #include "integers.h"
 
 #define Z(a, b) z[(a) + n * (b)]

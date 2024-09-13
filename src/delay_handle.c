@@ -1,7 +1,5 @@
-#include "delay_handle.h"
+#include "functions.h"
 #include "parserslow.h"
-#include "ggets.h"
-#include "integrate.h"
 
 #include <stdlib.h>
 /*   This handles the delay stuff    */

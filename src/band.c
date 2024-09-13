@@ -11,10 +11,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "band.h"
-#include "ggets.h"
+#include "functions.h".h"
 #include "integers.h"
-#include "llnlmath.h"
 #include "llnltyps.h"
 #include "vector.h"
 

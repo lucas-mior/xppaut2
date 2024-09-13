@@ -38,20 +38,9 @@
 #include <string.h>
 
 #include "array.bitmap"
-#include "array_print.h"
-#include "arrayplot.h"
-#include "color.h"
-#include "ggets.h"
-#include "init_conds.h"
+#include "functions.h"
 #include "integers.h"
-#include "kinescope.h"
-#include "load_eqn.h"
-#include "lunch-new.h"
-#include "main.h"
-#include "many_pops.h"
 #include "max_len_sbox.h"
-#include "pop_list.h"
-#include "scrngif.h"
 #include "xpplim.h"
 
 #ifndef WCTYPE
@@ -61,7 +50,6 @@
 #endif
 
 #define READEM 1
-#include "browse.h"
 
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2

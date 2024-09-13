@@ -409,10 +409,10 @@ void CVodeFree(void *cvode_mem);
  *                                                                *
  * ropt[H0]      : initial step size. Optional input.             *
  *                                                                *
- * ropt[HMAX]    : maximum absolute value of step size allowed.   *
+ * ropt[CV_HMAX]    : maximum absolute value of step size allowed.   *
  *                 Optional input. (Default is infinity).         *
  *                                                                *
- * ropt[HMIN]    : minimum absolute value of step size allowed.   *
+ * ropt[CV_HMIN]    : minimum absolute value of step size allowed.   *
  *                 Optional input. (Default is 0.0).              *
  *                                                                *
  * ropt[HU]      : step size for the last internal step.          *
@@ -466,8 +466,8 @@ enum {
 
 enum {
     H0,
-    HMAX,
-    HMIN,
+    CV_HMAX,
+    CV_HMIN,
     HU,
     HCUR,
     TCUR,

@@ -5,13 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "axes2.h"
-#include "ggets.h"
-#include "graf_par.h"
-#include "graphics.h"
+#include "functions.h"
 #include "integers.h"
-#include "main.h"
-#include "many_pops.h"
 #include "struct.h"
 #include "xpplim.h"
 

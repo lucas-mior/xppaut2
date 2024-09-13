@@ -1,9 +1,5 @@
-#include "volterra2.h"
+#include "functions.h"
 #include "integers.h"
-#include "delay_handle.h"
-#include "gear.h"
-#include "ggets.h"
-#include "markov.h"
 #include <stdbool.h>
 
 #include <stdlib.h>
@@ -14,8 +10,6 @@
 #include <stdio.h>
 #include "parserslow.h"
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
 /*  This is an implicit solver for volterra integral and integro-differential

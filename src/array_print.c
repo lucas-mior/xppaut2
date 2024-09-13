@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "array_print.h"
+#include "functions.h"
 #include "integers.h"
 
 #define GREYSCALE -1

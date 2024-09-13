@@ -8,16 +8,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "choice_box.h"
+#include "functions.h"
 
 #define ALL_DONE 2
 #define DONE_WITH_THIS 1
 #define FORGET_ALL 0
 #define FORGET_THIS 3
 #include "struct.h"
-#include "pop_list.h"
-#include "ggets.h"
-#include "browse.h"
 #include "integers.h"
 
 #define EV_MASK                                                                \

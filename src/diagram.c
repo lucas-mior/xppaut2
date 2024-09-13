@@ -1,19 +1,11 @@
-#include "diagram.h"
+#include "functions.h"
 #include "autevd.h"
-#include "init_conds.h"
-#include "ggets.h"
-#include "browse.h"
 
 #include <stdbool.h>
-#include "my_svg.h"
-#include "my_ps.h"
-#include "my_ps.h"
-#include "graphics.h"
 #include "auto_nox.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "autlim.h"
-#include "load_eqn.h"
 #include "integers.h"
 #define DALLOC(a) malloc((a) * sizeof(double))
 extern int32 TypeOfCalc;

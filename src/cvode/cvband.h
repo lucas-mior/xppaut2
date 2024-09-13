@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "cvode.h"
 #include "llnltyps.h"
-#include "band.h"
+#include "functions.h"
 #include "vector.h"
 #include "integers.h"
 

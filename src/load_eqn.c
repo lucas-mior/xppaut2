@@ -1,30 +1,13 @@
-#include "load_eqn.h"
-#include "form_ode.h"
+#include "functions.h"
 #include "parserslow.h"
 #include "integers.h"
-#include "odesol2.h"
 
 #include "read_dir.h"
-
-#include "ggets.h"
-#include "init_conds.h"
-#include "browse.h"
-#include "txtread.h"
-#include "numerics.h"
-#include "integrate.h"
-#include "adj2.h"
-#include "arrayplot.h"
-#include "lunch-new.h"
-#include "graphics.h"
 
 /*#include "macdirent.h"
  */
 
 #include <dirent.h>
-#include "userbut.h"
-#include "volterra2.h"
-#include "storage.h"
-#include "tabular.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -49,8 +32,6 @@ typedef struct {
 
 extern HIST_INFO hist_inf;
 extern int32 spec_col, spec_wid, spec_win, spec_col2, post_process;
-
-int32 nsrand48(int32 seed);
 
 char *interopt[MAXOPT];
 int32 Nopts = 0;
@@ -98,7 +79,7 @@ typedef struct {
     char *name;
     char *does;
     uint32 use;
-} INTERN_SET;
+} InternSet;
 
 extern int32 XNullColor, YNullColor, StableManifoldColor, UnstableManifoldColor;
 int32 IX_PLT[10], IY_PLT[10], IZ_PLT[10], NPltV;
@@ -106,7 +87,7 @@ int32 MultiWin = 0;
 extern int32 SimulPlotFlag;
 double X_LO[10], Y_LO[10], X_HI[10], Y_HI[10];
 int32 START_LINE_TYPE = 1;
-INTERN_SET intern_set[MAX_INTERN_SET];
+InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
 extern int32 STOCH_FLAG;

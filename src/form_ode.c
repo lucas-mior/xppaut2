@@ -1,24 +1,11 @@
-#include "form_ode.h"
-#include "init_conds.h"
+#include "functions.h"
 #include "integers.h"
-#include "aniparse.h"
 #include <stdbool.h>
 
 #include "parserslow.h"
-#include "markov.h"
 #include "read_dir.h"
 #include <unistd.h>
-#include "flags.h"
 
-#include "main.h"
-#include "ggets.h"
-#include "load_eqn.h"
-#include "dae_fun.h"
-#include "derived.h"
-#include "extra.h"
-#include "browse.h"
-#include "simplenet.h"
-#include "integrate.h"
 #include "newpars.h"
 
 #include <stdlib.h>
@@ -42,7 +29,7 @@
 int32 IN_INCLUDED_FILE = 0;
 char uvar_names[MAX_ODE][12];
 char *ode_names[MAX_ODE];
-char upar_names[MAX_PAR][11];
+char upar_names[MAX_PAR][14];
 char *save_eqn[MAXLINES];
 double default_val[MAX_PAR];
 extern int32 NODE;

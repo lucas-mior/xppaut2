@@ -14,10 +14,9 @@
 #include <stdlib.h>
 #include "cvband.h"
 #include "cvode.h"
-#include "band.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
 #include "integers.h"
 
 /* Error Messages */

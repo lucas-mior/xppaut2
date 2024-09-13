@@ -1,9 +1,6 @@
-#include "scrngif.h"
+#include "functions.h"
 #include "integers.h"
 
-#include "aniparse.h"
-
-#include "ggets.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>

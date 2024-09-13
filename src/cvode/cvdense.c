@@ -14,10 +14,9 @@
 #include <stdlib.h>
 #include "cvdense.h"
 #include "cvode.h"
-#include "dense.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
 #include "integers.h"
 
 /* Error Messages */

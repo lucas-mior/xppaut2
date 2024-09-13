@@ -1,10 +1,7 @@
-#include "userbut.h"
 #include "integers.h"
-#include "pop_list.h"
+#include "functions.h"
 #include <stdbool.h>
 
-#include "color.h"
-#include "ggets.h"
 #include <string.h>
 #include <stdlib.h>
 #include <X11/Xlib.h>

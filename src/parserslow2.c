@@ -3,12 +3,7 @@
 #include <stdbool.h>
 
 #include <time.h>
-#include "ggets.h"
-#include "tabular.h"
-#include "delay_handle.h"
-#include "markov.h"
-#include "simplenet.h"
-#include "volterra2.h"
+#include "functions.h"
 #include "volterra.h"
 
 #include <stdlib.h>

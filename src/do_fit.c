@@ -1,21 +1,11 @@
-#include "do_fit.h"
+#include "functions.h"
 
-#include "form_ode.h"
 #include "cv2.h"
-#include "dormpri.h"
-#include "stiff.h"
 #include "parserslow.h"
-#include "derived.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "ggets.h"
-#include "odesol2.h"
-#include "delay_handle.h"
-#include "pop_list.h"
-#include "gear.h"
-#include "browse.h"
 #include "integers.h"
 
 #include "phsplan.h"

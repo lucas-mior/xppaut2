@@ -4,12 +4,11 @@
 #include <X11/Xatom.h>
 
 #include "integers.h"
-#include "ggets.h"
-#include "many_pops.h"
 
 #define RUBBOX 0
 #define RUBLINE 1
-#include "rubber.h"
+
+#include "functions.h"
 
 extern Window draw_win;
 extern Display *display;

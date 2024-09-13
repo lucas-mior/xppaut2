@@ -1,4 +1,4 @@
-#include "ggets.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
@@ -13,13 +13,6 @@
 #include "newhome.h"
 #include "mykeydef.h"
 #include <stdarg.h>
-#include "graphics.h"
-#include "axes2.h"
-#include "many_pops.h"
-#include "menudrive.h"
-#include "pop_list.h"
-#include "calc.h"
-#include "browse.h"
 
 #define ESCAPE 27
 char *info_message;

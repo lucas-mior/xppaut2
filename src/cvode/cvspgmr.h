@@ -18,7 +18,7 @@
 #include "integers.h"
 #include <stdio.h>
 #include "cvode.h"
-#include "spgmr.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "vector.h"
 

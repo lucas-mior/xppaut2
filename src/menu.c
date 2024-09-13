@@ -1,6 +1,5 @@
 #include "menus.h"
-#include "menu.h"
-#include "main.h"
+#include "functions.h"
 #include "integers.h"
 
 #include <string.h>
@@ -9,10 +8,6 @@
 #include <X11/Xos.h>
 #include <X11/Xatom.h>
 #include <X11/cursorfont.h>
-
-#include "ggets.h"
-#include "many_pops.h"
-#include "pop_list.h"
 
 int32 help_menu;
 MENUDEF my_menus[3];

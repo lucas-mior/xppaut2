@@ -7,17 +7,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "calc.h"
-#include "ggets.h"
-#include "init_conds.h"
+#include "functions.h"
 #include "integers.h"
 #include "parserslow.h"
-#include "pop_list.h"
 #include "xpplim.h"
 
 #define PARAM 1
 #define IC 2
-#include "browse.h"
 
 extern int32 NCON, NSYM, NCON_START, NSYM_START;
 

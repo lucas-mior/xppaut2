@@ -1,6 +1,4 @@
-#include "graphics.h"
-#include "my_ps.h"
-#include "my_svg.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
@@ -11,10 +9,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include "struct.h"
-#include "color.h"
-#include "graf_par.h"
-#include "calc.h"
-#include "many_pops.h"
 
 #define MAXPERPLOT 10
 #define MAXPLOTS 20

@@ -12,11 +12,9 @@
 #include "integers.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "iterativ.h"
-#include "spgmr.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
 #include <stdbool.h>
 
 #define ZERO RCONST(0.0)

@@ -175,7 +175,7 @@ eg, something like -D__FILE__=\"fftn.c\"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "fftn.h"
+#include "functions.h"
 
 /*{{{ defines/constants */
 #ifndef M_PI

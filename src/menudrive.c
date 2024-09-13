@@ -10,37 +10,13 @@
 
 */
 
-#include "browse.h"
-#include "calc.h"
-#include "init_conds.h"
-#include "kinescope.h"
-#include "main.h"
+#include "functions.h"
 #include "alert.bitmap"
-
-#include "graf_par.h"
-#include "integrate.h"
-#include "lunch-new.h"
-#include "edit_rhs.h"
-#include "many_pops.h"
-#include "torus.h"
-#include "nullcline.h"
-#include "numerics.h"
-#include "markov.h"
-#include "extra.h"
-#include "pop_list.h"
-#include "tabular.h"
-#include "pp_shoot.h"
-#include "adj2.h"
-#include "txtread.h"
-#include "auto.h"
-#include "ggets.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>
-#include "menudrive.h"
 #include "tutor.h"
-#include "load_eqn.h"
 extern int32 manual_expose;
 extern char this_file[XPP_MAX_NAME];
 extern char *info_message, *ic_hint[], *sing_hint[], *null_hint[], *flow_hint[],

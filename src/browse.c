@@ -13,18 +13,10 @@
 #include <unistd.h>
 
 #include "browse.bitmap"
-#include "browse.h"
-#include "dialog_box.h"
-#include "eig_list.h"
-#include "ggets.h"
-#include "init_conds.h"
+#include "functions.h"
 #include "integers.h"
-#include "integrate.h"
-#include "many_pops.h"
-#include "menudrive.h"
 #include "mykeydef.h"
 #include "parserslow.h"
-#include "pop_list.h"
 #include "xpplim.h"
 
 #ifndef WCTYPE

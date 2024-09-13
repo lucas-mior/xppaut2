@@ -1,17 +1,8 @@
-#include "nullcline.h"
+#include "functions.h"
 #include "integers.h"
-#include "my_rhs.h"
-#include "browse.h"
-#include "ggets.h"
-#include "init_conds.h"
-#include "integrate.h"
-#include "main.h"
-#include "graf_par.h"
 #include <stdbool.h>
 
 #include "parserslow.h"
-#include "pop_list.h"
-#include "numerics.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -21,8 +12,6 @@
 #include <X11/Xutil.h>
 #include "xpplim.h"
 #include "struct.h"
-#include "graphics.h"
-#include "menudrive.h"
 #include <stdio.h>
 
 #include "max_len_sbox.h"

@@ -1,26 +1,11 @@
-#include "init_conds.h"
+#include "functions.h"
 #include "parserslow.h"
-#include "tabular.h"
-#include "nullcline.h"
-#include "menudrive.h"
 #include "integers.h"
-#include "pop_list.h"
 #include <stdbool.h>
-
-#include "arrayplot.h"
-#include "lunch-new.h"
-#include "volterra2.h"
-#include "calc.h"
-#include "delay_handle.h"
-#include "integrate.h"
-#include "eig_list.h"
-#include "graf_par.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include "browse.h"
-#include "load_eqn.h"
 
 /*    This makes a big box with windows that have the names of the
        variables and their current initial data, parameters, BCs
@@ -58,13 +43,8 @@ This also has the clone gadget
 
 #include "bc.bitmap"
 #include "shoot.h"
-#include "ggets.h"
 
-#include "pop_list.h"
 #include "read_dir.h"
-#include "derived.h"
-#include "form_ode.h"
-#include "many_pops.h"
 
 #include "mykeydef.h"
 #define HOTWILD 2

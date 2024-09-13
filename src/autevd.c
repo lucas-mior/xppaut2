@@ -1,14 +1,12 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "functions.h"
 #include "autevd.h"
 #include "autlim.h"
 #include "auto_c.h"
 #include "auto_def2.h"
 #include "auto_nox.h"
-#include "diagram.h"
-#include "diagram.h"
-#include "gear.h"
 #include "integers.h"
 #include "xAuto.h"
 

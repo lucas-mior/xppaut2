@@ -1,4 +1,4 @@
-#include "menudrive.h"
+#include "functions.h"
 #include "integers.h"
 typedef struct {
     int32 com;

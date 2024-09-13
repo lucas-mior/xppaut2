@@ -1,15 +1,10 @@
 #include <math.h>
-#include "stiff.h"
-#include "flags.h"
-#include "gear.h"
-#include "markov.h"
+#include "functions.h"
 #include "integers.h"
 
 extern int32 NFlags;
 #define RKQS 8
 #define STIFF 9
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define SIGN(a, b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
 /* #define MAX_ODE 100 */
 #define SAFETY 0.9

@@ -16,9 +16,7 @@
 #include "cvode.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
-#include "iterativ.h"
-#include "spgmr.h"
+#include "functions.h"
 #include "integers.h"
 
 /* Error Messages */

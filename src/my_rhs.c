@@ -1,13 +1,9 @@
-#include "my_rhs.h"
+#include "functions.h"
 #include "integers.h"
-#include "dae_fun.h"
-#include "main.h"
-#include "extra.h"
 #include <stdlib.h>
 #include "xpplim.h"
 #include "shoot.h"
 #include "getvar.h"
-#include "simplenet.h"
 #include "parserslow.h"
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */

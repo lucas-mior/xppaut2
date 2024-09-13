@@ -1,9 +1,7 @@
-#include "dae_fun.h"
-#include "gear.h"
+#include "functions.h"
 #include "parserslow.h"
 
 #include <stdbool.h>
-#include "ggets.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -37,14 +35,14 @@ typedef struct {
     int32 *form;
     int32 index;
     double value, last;
-} SOL_VAR;
+} SolVar;
 
 typedef struct {
     char *rhs;
     int32 *form;
 } DAE_EQN;
 
-SOL_VAR svar[MAXDAE];
+SolVar svar[MAXDAE];
 DAE_EQN aeqn[MAXDAE];
 
 int32 nsvar = 0, naeqn = 0;

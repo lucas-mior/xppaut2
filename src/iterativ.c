@@ -10,10 +10,9 @@
  *                                                                *
  ******************************************************************/
 
-#include "iterativ.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
 #include "integers.h"
 
 #define FACTOR RCONST(1000.0)

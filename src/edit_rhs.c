@@ -1,10 +1,4 @@
-#include "edit_rhs.h"
-#include "init_conds.h"
-#include "browse.h"
-#include "extra.h"
-#include "ggets.h"
-#include "many_pops.h"
-#include "pop_list.h"
+#include "functions.h"
 #include "parserslow.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -23,7 +17,6 @@
 
 #include "xpplim.h"
 #include "shoot.h"
-#include "load_eqn.h"
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)

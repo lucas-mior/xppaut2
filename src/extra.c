@@ -1,7 +1,5 @@
-#include "extra.h"
+#include "functions.h"
 
-#include "init_conds.h"
-#include "ggets.h"
 #include "read_dir.h"
 #include "parserslow.h"
 #include "integers.h"

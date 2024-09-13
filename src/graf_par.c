@@ -1,18 +1,5 @@
-#include "graf_par.h"
+#include "functions.h"
 
-#include "integrate.h"
-
-#include "menudrive.h"
-#include "aniparse.h"
-#include "arrayplot.h"
-#include "color.h"
-#include "init_conds.h"
-#include "rubber.h"
-
-#include "ggets.h"
-#include "graphics.h"
-#include "menu.h"
-#include "pop_list.h"
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
@@ -21,15 +8,7 @@
 #include <math.h>
 #include "xpplim.h"
 #include "struct.h"
-#include "browse.h"
 #include "mykeydef.h"
-#include "many_pops.h"
-#include "kinescope.h"
-#include "nullcline.h"
-#include "axes2.h"
-#include "my_ps.h"
-#include "my_svg.h"
-#include "load_eqn.h"
 #include "integers.h"
 #include <libgen.h>
 

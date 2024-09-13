@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "cvode.h"
 #include "llnltyps.h"
-#include "dense.h"
+#include "functions.h"
 #include "vector.h"
 #include "integers.h"
 

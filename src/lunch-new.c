@@ -1,28 +1,16 @@
-#include "lunch-new.h"
+#include "functions.h"
 #include "parserslow.h"
-#include "edit_rhs.h"
-#include "browse.h"
-#include "ggets.h"
-#include "graf_par.h"
-#include "volterra2.h"
-#include "storage.h"
-#include "init_conds.h"
 #include "integers.h"
 
-#include "numerics.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "arrayplot.h"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <time.h>
 #include "xpplim.h"
 #include "struct.h"
 #include "shoot.h"
-#include "load_eqn.h"
-#include "adj2.h"
-#include "integrate.h"
 
 #define READEM 1
 #define VOLTERRA 6
@@ -52,7 +40,7 @@ extern double POIPLN, EVEC_ERR, NEWT_ERR;
 extern double BVP_TOL, BVP_EPS;
 extern int32 MaxPoints;
 
-extern char upar_names[MAX_PAR][11], this_file[100], delay_string[MAX_ODE][80];
+extern char upar_names[MAX_PAR][14], this_file[100], delay_string[MAX_ODE][80];
 extern char uvar_names[MAX_ODE][12];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
 

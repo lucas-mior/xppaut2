@@ -1,52 +1,11 @@
-#include "integrate.h"
+#include "functions.h"
 #include "integers.h"
-#include "nullcline.h"
 #include <stdbool.h>
-
-#include "load_eqn.h"
-#include "my_rhs.h"
-#include "dormpri.h"
-#include "stiff.h"
 #include "cv2.h"
-#include "storage.h"
 
 #include "parserslow.h"
-#include "markov.h"
-#include "tabular.h"
-#include "adj2.h"
-#include "browse.h"
-#include "derived.h"
-#include "gear.h"
-#include "ggets.h"
-#include "graf_par.h"
-#include "graphics.h"
-#include "init_conds.h"
-#include "kinescope.h"
-#include "lunch-new.h"
-#include "del_stab.h"
-#include "flags.h"
-#include "histogram.h"
-#include "auto_x11.h"
 
-#include "odesol2.h"
-
-#include "abort.h"
-
-#include "pp_shoot.h"
-#include "color.h"
-#include "dae_fun.h"
-#include "load_eqn.h"
-#include "many_pops.h"
-#include "my_ps.h"
-#include "my_svg.h"
-#include "numerics.h"
-#include "volterra2.h"
 #include <stdlib.h>
-#include "calc.h"
-#include "aniparse.h"
-#include "pop_list.h"
-#include "delay_handle.h"
-#include "load_eqn.h"
 
 /*    this is the main integrator routine
       for phase-plane
@@ -77,8 +36,6 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #include "struct.h"
 #include "phsplan.h"
 extern GRAPH *MyGraph;
-#include "menudrive.h"
-#include "arrayplot.h"
 #define MSWTCH(u, v) memcpy((void *)(u), (void *)(v), xpv.node*sizeof(double))
 
 #define READEM 1
@@ -208,9 +165,9 @@ typedef struct {
     char *name;
     char *does;
     uint32 use;
-} INTERN_SET;
+} InternSet;
 
-extern INTERN_SET intern_set[MAX_INTERN_SET];
+extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 Nintern_set;
 
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,

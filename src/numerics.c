@@ -1,25 +1,11 @@
-#include "integers.h"
-#include "integrate.h"
-#include "odesol2.h"
-#include "adj2.h"
-#include "numerics.h"
+#include "functions.h"
 #include <strings.h>
 
-#include "menudrive.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <math.h>
-#include "browse.h"
-#include "pop_list.h"
-#include "volterra2.h"
-#include "menu.h"
-#include "ggets.h"
-#include "pp_shoot.h"
-#include "storage.h"
-#include "delay_handle.h"
-#include "graf_par.h"
 
 extern Window main_win, info_pop;
 extern Display *display;

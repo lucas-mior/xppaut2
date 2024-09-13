@@ -2,10 +2,9 @@
 #include "integers.h"
 
 #include <unistd.h>
-#include "ggets.h"
+#include "functions.h"
 #include <stdlib.h>
 #include <string.h>
-#include "load_eqn.h"
 
 /* OSX note:
 

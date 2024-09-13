@@ -7,16 +7,7 @@
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 
-#include "ggets.h"
-#include "graphics.h"
-#include "load_eqn.h"
-#include "numerics.h"
-#include "pop_list.h"
-#include "init_conds.h"
-#include "many_pops.h"
-
-#include "txtread.h"
-#include "browse.h"
+#include "functions.h"
 
 #ifndef WCTYPE
 #include <ctype.h>

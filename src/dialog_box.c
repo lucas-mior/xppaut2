@@ -1,8 +1,6 @@
-#include "dialog_box.h"
+#include "functions.h"
 
 #include <stdbool.h>
-#include "many_pops.h"
-#include "ggets.h"
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
@@ -17,7 +15,6 @@
 #define FORGET_ALL 0
 #define FORGET_THIS 3
 #include "struct.h"
-#include "browse.h"
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)

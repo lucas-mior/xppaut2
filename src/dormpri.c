@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <memory.h>
-#include "dormpri.h"
-#include "flags.h"
-#include "ggets.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
@@ -120,7 +118,7 @@ xRead(void) {
 } /* xRead */
 
 static double
-sign(double a, double b) {
+dormpri_sign(double a, double b) {
     return (b < 0.0) ? -fabs(a) : fabs(a);
 
 } /* sign */
@@ -170,7 +168,7 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         h = sqrt(dny / dnf) * 0.01;
 
     h = min_d(h, hmax);
-    h = sign(h, posneg);
+    h = dormpri_sign(h, posneg);
 
     /* perform an explicit Euler step */
     for (i = 0; i < n; i++)
@@ -203,7 +201,7 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         h1 = pow(0.01 / der12, 1.0 / (double)iord);
     h = min_d(100.0*h, min_d(h1, hmax));
 
-    return sign(h, posneg);
+    return dormpri_sign(h, posneg);
 
 } /* hinit */
 
@@ -414,7 +412,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     expo1 = 1.0 / 8.0 - beta*0.2;
     facc1 = 1.0 / fac1;
     facc2 = 1.0 / fac2;
-    posneg = sign(1.0, xend - x);
+    posneg = dormpri_sign(1.0, xend - x);
 
     /* initial preparations */
     atoli = atoler[0];
@@ -981,7 +979,7 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
         h = sqrt(dny / dnf) * 0.01;
 
     h = min_d(h, hmax);
-    h = sign(h, posneg);
+    h = dormpri_sign(h, posneg);
 
     /* perform an explicit Euler step */
     for (i = 0; i < n; i++)
@@ -1014,7 +1012,7 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
         h1 = pow(0.01 / der12, 1.0 / (double)iord);
     h = min_d(100.0*h, min_d(h1, hmax));
 
-    return sign(h, posneg);
+    return dormpri_sign(h, posneg);
 
 } /* hinit */
 
@@ -1062,7 +1060,7 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
     expo1 = 0.2 - beta*0.75;
     facc1 = 1.0 / fac1;
     facc2 = 1.0 / fac2;
-    posneg = sign(1.0, xend - x);
+    posneg = dormpri_sign(1.0, xend - x);
 
     /* initial preparations */
     atoli = atoler[0];

@@ -1,16 +1,9 @@
-#include "odesol2.h"
+#include "functions.h"
 #include "integers.h"
-#include "gear.h"
 #include <math.h>
 #include <stdlib.h>
 #include "xpplim.h"
-#include "flags.h"
-#include "markov.h"
-#include "delay_handle.h"
 #include <stdbool.h>
-
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 

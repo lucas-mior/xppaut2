@@ -1,14 +1,7 @@
-#include "kinescope.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
-#include "scrngif.h"
-#include "pop_list.h"
-#include "aniparse.h"
-#include "browse.h"
-#include "load_eqn.h"
-
-#include "ggets.h"
 /*    Kinescope for X  windows       */
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>

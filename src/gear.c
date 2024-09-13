@@ -1,14 +1,5 @@
-#include "gear.h"
+#include "functions.h"
 #include "integers.h"
-#include "browse.h"
-#include "markov.h"
-#include "ggets.h"
-#include "menudrive.h"
-#include "eig_list.h"
-#include "graphics.h"
-#include "flags.h"
-#include "integrate.h"
-#include "abort.h"
 #include <stdbool.h>
 
 #include <stdlib.h>

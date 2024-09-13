@@ -1,15 +1,11 @@
 #include <stdlib.h>
 #include <string.h>
-#include "pop_list.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
-#include "many_pops.h"
-#include "ggets.h"
-#include "menudrive.h"
 #include "info.bitmap"
 #include "alert.bitmap"
-#include "browse.h"
 
 TEXTWIN mytext;
 SCRBOX_LIST scrbox_list[10];

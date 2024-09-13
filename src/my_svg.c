@@ -1,9 +1,5 @@
-#include "my_svg.h"
+#include "functions.h"
 #include "integers.h"
-#include "ggets.h"
-#include "graphics.h"
-#include "color.h"
-#include "graf_par.h"
 
 #include <stdlib.h>
 #include <stdio.h>

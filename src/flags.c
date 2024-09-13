@@ -1,15 +1,8 @@
-#include "flags.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
 #include "cv2.h"
-#include "stiff.h"
-#include "derived.h"
-#include "dormpri.h"
-#include "gear.h"
-#include "ggets.h"
-#include "init_conds.h"
-#include "integrate.h"
 #include "parserslow.h"
 
 #include <stdlib.h>
@@ -20,8 +13,6 @@
 #include "xpplim.h"
 #include "getvar.h"
 #define MY_DBL_EPS 5e-16
-
-#include "odesol2.h"
 
 /*  this is a new (Summer 1995) addition to XPP that allows one to
     do things like delta functions and other discontinuous
@@ -84,7 +75,7 @@ type =3 halt
 
 #define MAX_EVENTS 20 /*  this is the maximum number of events per flag */
 
-extern char upar_names[MAX_PAR][11];
+extern char upar_names[MAX_PAR][14];
 typedef struct {
     double f0, f1;
     double tstar;

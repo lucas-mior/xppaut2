@@ -1,11 +1,8 @@
 #include "xpplim.h"
-#include "many_pops.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
-#include "menudrive.h"
-#include "pop_list.h"
-#include "graphics.h"
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
@@ -14,26 +11,6 @@
 #include "help_defs.h"
 #include "graph.bitmap"
 #include "struct.h"
-#include "browse.h"
-#include "init_conds.h"
-#include "main.h"
-#include "aniparse.h"
-
-#include "load_eqn.h"
-#include "rubber.h"
-#include "ggets.h"
-#include "axes2.h"
-#include "menu.h"
-#include "color.h"
-#include "nullcline.h"
-#include "my_ps.h"
-#include "my_svg.h"
-#include "graf_par.h"
-#include "numerics.h"
-#include "auto_x11.h"
-#include "integrate.h"
-#include "arrayplot.h"
-#include "eig_list.h"
 
 #include "max_len_sbox.h"
 #define MAXLAB 50
@@ -98,7 +75,7 @@ typedef struct {
     char *name;
     char *does;
     uint32 use;
-} INTERN_SET;
+} InternSet;
 
 typedef struct {
     double xlo, xhi, dx;
@@ -116,7 +93,7 @@ extern TABULAR my_table[MAX_TAB];
 
 extern int32 NTable;
 
-extern INTERN_SET intern_set[MAX_INTERN_SET];
+extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 Nintern_set;
 int32
 select_table(void) {

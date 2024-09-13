@@ -15,7 +15,7 @@
 #include "cvode.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
+#include "functions.h"
 #include "integers.h"
 
 /************************************************************/
@@ -181,7 +181,7 @@
 #define MSG_BAD_OPT CVM "optIn=TRUE, but iopt=ropt=NULL.\n\n"
 
 #define MSG_BAD_HMIN_HMAX_1 CVM "Inconsistent step size limits:\n"
-#define MSG_BAD_HMIN_HMAX_2 "ropt[HMIN]=%g > ropt[HMAX]=%g.\n\n"
+#define MSG_BAD_HMIN_HMAX_2 "ropt[CV_HMIN]=%g > ropt[CV_HMAX]=%g.\n\n"
 #define MSG_BAD_HMIN_HMAX MSG_BAD_HMIN_HMAX_1 MSG_BAD_HMIN_HMAX_2
 
 #define MSG_MEM_FAIL CVM "A memory request failed.\n\n"
@@ -516,8 +516,8 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
     roptExists = (ropt != NULL);
 
     if (optIn && roptExists) {
-        if ((ropt[HMAX] > ZERO) && (ropt[HMIN] > ropt[HMAX])) {
-            fprintf(fp, MSG_BAD_HMIN_HMAX, ropt[HMIN], ropt[HMAX]);
+        if ((ropt[CV_HMAX] > ZERO) && (ropt[CV_HMIN] > ropt[CV_HMAX])) {
+            fprintf(fp, MSG_BAD_HMIN_HMAX, ropt[CV_HMIN], ropt[CV_HMAX]);
             return NULL;
         }
     }
@@ -607,10 +607,10 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
     hmin = HMIN_DEFAULT;
     hmax_inv = HMAX_INV_DEFAULT;
     if (optIn && roptExists) {
-        if (ropt[HMIN] > ZERO)
-            hmin = ropt[HMIN];
-        if (ropt[HMAX] > ZERO)
-            hmax_inv = ONE / ropt[HMAX];
+        if (ropt[CV_HMIN] > ZERO)
+            hmin = ropt[CV_HMIN];
+        if (ropt[CV_HMAX] > ZERO)
+            hmax_inv = ONE / ropt[CV_HMAX];
     }
 
     mxhnil = MXHNIL_DEFAULT;

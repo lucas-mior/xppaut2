@@ -15,8 +15,7 @@
 #include <stdlib.h>
 #include "vector.h"
 #include "llnltyps.h"
-#include "llnlmath.h"
-#include "ggets.h"
+#include "functions.h"
 #include <stdbool.h>
 
 #define ZERO RCONST(0.0)

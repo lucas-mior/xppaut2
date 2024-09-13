@@ -11,11 +11,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "dense.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "vector.h"
-#include "llnlmath.h"
-#include "ggets.h"
 #include "integers.h"
 
 #define ZERO RCONST(0.0)

@@ -5,22 +5,9 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#include "aniparse.h"
-#include "color.h"
-#include "dialog_box.h"
-#include "form_ode.h"
-#include "ggets.h"
-#include "init_conds.h"
+#include "functions.h"
 #include "integers.h"
-#include "integrate.h"
-#include "load_eqn.h"
-#include "many_pops.h"
-#include "menudrive.h"
-#include "my_rhs.h"
-#include "nullcline.h"
 #include "parserslow.h"
-#include "pop_list.h"
-#include "scrngif.h"
 
 /*  A simple animator
 
@@ -67,7 +54,6 @@ want to alter the ordering below
 #include <wctype.h>
 #endif
 #include "xpplim.h"
-#include "browse.h"
 #include "toons.h"
 #include "aniwin.bitmap"
 

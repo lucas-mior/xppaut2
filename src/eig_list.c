@@ -1,8 +1,4 @@
-#include "eig_list.h"
-#include "many_pops.h"
-#include "pop_list.h"
-#include "ggets.h"
-#include "init_conds.h"
+#include "functions.h"
 #include "integers.h"
 
 #include <stdlib.h>
@@ -15,7 +11,6 @@
 #include "xpplim.h"
 #include "eqns.bitmap"
 #include "equilib.bitmap"
-#include "browse.h"
 
 #include "mykeydef.h"
 #define xds(a)                                                                 \

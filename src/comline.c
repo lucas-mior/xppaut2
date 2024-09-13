@@ -2,11 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "comline.h"
-#include "ggets.h"
 #include "integers.h"
-#include "load_eqn.h"
-#include "lunch-new.h"
+#include "functions.h"
 #include "xpplim.h"
 
 #define NCMD 45 /* add new commands as needed  */

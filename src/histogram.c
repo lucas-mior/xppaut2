@@ -1,4 +1,4 @@
-#include "histogram.h"
+#include "functions.h"
 #include "integers.h"
 
 #include <stdlib.h>
@@ -7,11 +7,6 @@
 #include <string.h>
 #include "xpplim.h"
 
-#include "adj2.h"
-#include "browse.h"
-#include "ggets.h"
-
-#include "fftn.h"
 #include "parserslow.h"
 
 extern int32 DCURY, MAXSTOR;

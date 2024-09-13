@@ -1,6 +1,5 @@
 #include "integers.h"
-#include "storage.h"
-#include "ggets.h"
+#include "functions.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "xpplim.h"

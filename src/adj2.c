@@ -3,18 +3,9 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "adj2.h"
-#include "my_rhs.h"
-#include "pop_list.h"
-#include "browse.h"
-#include "ggets.h"
-#include "do_fit.h"
-#include "lunch-new.h"
-#include "gear.h"
-#include "integrate.h"
+#include "functions.h"
 #include "parserslow.h"
 #include "integers.h"
-#include "markov.h"
 #include "xpplim.h"
 #include "max_len_sbox.h"
 

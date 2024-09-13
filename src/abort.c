@@ -1,10 +1,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-#include "abort.h"
-#include "many_pops.h"
-#include "ggets.h"
-#include "aniparse.h"
+#include "functions.h"
 #include "integers.h"
 
 extern Window command_pop;

@@ -1,18 +1,8 @@
-#include "markov.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 
-#include "integrate.h"
-#include "browse.h"
-#include "do_fit.h"
-#include "ggets.h"
-#include "my_rhs.h"
-
 #include <stdlib.h>
-#include "init_conds.h"
-#include "adj2.h"
-#include "histogram.h"
-#include "browse.h"
 
 #include <strings.h>
 #include <math.h>
@@ -20,7 +10,6 @@
 #include <string.h>
 #include "xpplim.h"
 #include "parserslow.h"
-#include "markov.h"
 
 extern int32 ConvertStyle;
 extern FILE *convertf;

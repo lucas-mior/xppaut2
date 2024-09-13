@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "color.h"
-#include "ggets.h"
+#include "functions.h"
 #include "integers.h"
 
 #define COLOR_SCALE 0

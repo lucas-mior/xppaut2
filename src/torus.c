@@ -1,5 +1,5 @@
-#include "torus.h"
 #include "integers.h"
+#include "functions.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -7,11 +7,7 @@
 #include <X11/Xutil.h>
 #include <stdio.h>
 #include "xpplim.h"
-#include "ggets.h"
-#include "pop_list.h"
-#include "many_pops.h"
 #include "info.bitmap"
-#include "browse.h"
 
 extern int32 DisplayHeight, DisplayWidth;
 

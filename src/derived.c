@@ -1,8 +1,7 @@
-#include "derived.h"
+#include "functions.h"
 
 #include <stdlib.h>
 #include <string.h>
-#include "ggets.h"
 #include "parserslow.h"
 #include "integers.h"
 

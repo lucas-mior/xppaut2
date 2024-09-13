@@ -6,11 +6,9 @@
 #include "cvband.h"
 #include "cvdense.h"
 #include "cvode.h"
-#include "flags.h"
-#include "ggets.h"
+#include "functions.h"
 #include "integers.h"
 #include "llnltyps.h"
-#include "my_rhs.h"
 #include "vector.h"
 
 double cv_ropt[OPT_SIZE];

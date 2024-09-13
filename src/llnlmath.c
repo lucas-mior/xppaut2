@@ -9,7 +9,7 @@
  ******************************************************************/
 
 #include <math.h>
-#include "llnlmath.h"
+#include "functions.h"
 #include "llnltyps.h"
 #include "integers.h"
 

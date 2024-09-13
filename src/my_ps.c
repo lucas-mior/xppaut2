@@ -1,8 +1,4 @@
-#include "my_ps.h"
-#include "lunch-new.h"
-#include "ggets.h"
-#include "graphics.h"
-#include "color.h"
+#include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
 

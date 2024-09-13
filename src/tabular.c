@@ -1,12 +1,6 @@
-#include "tabular.h"
 #include "integers.h"
+#include "functions.h"
 #include <stdbool.h>
-
-#include "browse.h"
-#include "ggets.h"
-#include "init_conds.h"
-#include "many_pops.h"
-#include "simplenet.h"
 
 #include "parserslow.h"
 
