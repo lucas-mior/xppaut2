@@ -740,7 +740,7 @@ make_new_browser(void) {
 }
 
 Window
-br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
+br_button(Window root, int32 row, int32 col, int32 iflag) {
     Window win;
     int32 dcol = 12 * DCURXs;
     int32 drow = (DCURYs + 6);
@@ -827,28 +827,28 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     b->main =
         make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
-    b->find = br_button(base, 0, 0, "find", 0);
-    b->get = br_button(base, 1, 0, "get ", 0);
-    b->repl = br_button(base, 2, 0, "replace", 0);
-    b->restore = br_button(base, 0, 1, "restore", 0);
-    b->write = br_button(base, 1, 1, " write ", 0);
-    b->load = br_button(base, 2, 1, " load  ", 0);
-    b->first = br_button(base, 0, 2, "first", 0);
-    b->last = br_button(base, 1, 2, "last ", 0);
-    b->unrepl = br_button(base, 2, 2, "unrepl", 0);
-    b->table = br_button(base, 2, 3, "table", 0);
-    b->up = br_button(base, 0, 3, " up ", 0);
-    b->down = br_button(base, 1, 3, "down", 0);
-    b->pgup = br_button(base, 0, 4, "pgup", 0);
-    b->pgdn = br_button(base, 1, 4, "pgdn", 0);
-    b->left = br_button(base, 0, 5, "left ", 0);
-    b->right = br_button(base, 1, 5, "right", 0);
-    b->home = br_button(base, 0, 6, "home", 0);
-    b->end = br_button(base, 1, 6, "end ", 0);
-    b->addcol = br_button(base, 2, 4, "addcol", 0);
-    b->delcol = br_button(base, 2, 5, "delcol", 0);
-    b->close = br_button(base, 2, 6, "close", 0);
-    b->time = br_button(base, 5, 0, "time ", 1);
+    b->find = br_button(base, 0, 0, 0);
+    b->get = br_button(base, 1, 0, 0);
+    b->repl = br_button(base, 2, 0, 0);
+    b->restore = br_button(base, 0, 1, 0);
+    b->write = br_button(base, 1, 1, 0);
+    b->load = br_button(base, 2, 1, 0);
+    b->first = br_button(base, 0, 2, 0);
+    b->last = br_button(base, 1, 2, 0);
+    b->unrepl = br_button(base, 2, 2, 0);
+    b->table = br_button(base, 2, 3, 0);
+    b->up = br_button(base, 0, 3, 0);
+    b->down = br_button(base, 1, 3, 0);
+    b->pgup = br_button(base, 0, 4, 0);
+    b->pgdn = br_button(base, 1, 4, 0);
+    b->left = br_button(base, 0, 5, 0);
+    b->right = br_button(base, 1, 5, 0);
+    b->home = br_button(base, 0, 6, 0);
+    b->end = br_button(base, 1, 6, 0);
+    b->addcol = br_button(base, 2, 4, 0);
+    b->delcol = br_button(base, 2, 5, 0);
+    b->close = br_button(base, 2, 6, 0);
+    b->time = br_button(base, 5, 0, 1);
     b->hint = make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
     XSelectInput(display, b->time, SIMPMASK);
 

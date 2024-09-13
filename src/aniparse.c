@@ -260,22 +260,22 @@ create_vcr(char *name) {
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
     make_icon((char *)aniwin_bits, aniwin_width, aniwin_height, base);
-    vcr.wfile = br_button(base, 0, 0, "File", 0);
-    vcr.wgo = br_button(base, 0, 1, "Go", 0);
-    vcr.wreset = br_button(base, 0, 2, "Reset", 0);
-    vcr.wskip = br_button(base, 0, 3, "Skip", 0);
-    vcr.wfast = br_button(base, 1, 0, "Fast", 0);
-    vcr.wslow = br_button(base, 1, 1, "Slow", 0);
-    vcr.wup = br_button(base, 1, 2, ">>>>", 0);
-    vcr.wdn = br_button(base, 1, 3, "<<<<", 0);
-    vcr.wgrab = br_button(base, 2, 3, "Grab", 0);
+    vcr.wfile = br_button(base, 0, 0, 0);
+    vcr.wgo = br_button(base, 0, 1, 0);
+    vcr.wreset = br_button(base, 0, 2, 0);
+    vcr.wskip = br_button(base, 0, 3, 0);
+    vcr.wfast = br_button(base, 1, 0, 0);
+    vcr.wslow = br_button(base, 1, 1, 0);
+    vcr.wup = br_button(base, 1, 2, 0);
+    vcr.wdn = br_button(base, 1, 3, 0);
+    vcr.wgrab = br_button(base, 2, 3, 0);
     vcr.slider =
         make_window(base, DCURXs, 7 + 4 * DCURYs, 48 * DCURXs, DCURYs + 4, 1);
     vcr.slipos = 0;
     vcr.sliwid = 48 * DCURXs;
-    vcr.wpause = br_button(base, 2, 0, "Pause", 0);
-    vcr.wmpeg = br_button(base, 2, 1, "MPeg", 0);
-    vcr.kill = br_button(base, 2, 2, "Close", 0);
+    vcr.wpause = br_button(base, 2, 0, 0);
+    vcr.wmpeg = br_button(base, 2, 1, 0);
+    vcr.kill = br_button(base, 2, 2, 0);
 
     vcr.wfly = make_window(base, 4*12 * DCURXs, 4, 5 + DCURXs + 5,
                            (DCURYs + 6) - 4, 1);

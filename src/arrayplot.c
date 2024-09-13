@@ -333,13 +333,13 @@ create_arrayplot(APLOT *ap, char *wname, char *iname) {
     FixWindowSize(base, width, height, FIX_MIN_SIZE);
     make_icon((char *)array_bits, array_width, array_height, base);
 
-    ap->wredraw = br_button(base, 0, 0, "Redraw", 0);
-    ap->wedit = br_button(base, 0, 1, "Edit", 0);
-    ap->wprint = br_button(base, 0, 2, "Print", 0);
-    ap->wclose = br_button(base, 0, 3, "Close", 0);
-    ap->wfit = br_button(base, 0, 4, "Fit", 0);
-    ap->wrange = br_button(base, 0, 5, "Range", 0);
-    ap->wgif = br_button(base, 1, 0, "GIF", 0);
+    ap->wredraw = br_button(base, 0, 0, 0);
+    ap->wedit = br_button(base, 0, 1, 0);
+    ap->wprint = br_button(base, 0, 2, 0);
+    ap->wclose = br_button(base, 0, 3, 0);
+    ap->wfit = br_button(base, 0, 4, 0);
+    ap->wrange = br_button(base, 0, 5, 0);
+    ap->wgif = br_button(base, 1, 0, 0);
     ap->wmax = make_window(base, 10, 45, 10 * DCURXs, DCURYs, 1);
     ap->wmin = make_window(base, 10, 51 + DCURYs + color_total, 10 * DCURXs,
                            DCURYs, 1);
