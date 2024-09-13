@@ -3745,6 +3745,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
 /* ----------------------------------------------------------------------- */
 int32
 xerbla(char *srname, int64 *info, int64 srname_len) {
+    (void) srname_len;
     /* Format strings */
 
     /* Builtin functions */
@@ -3795,6 +3796,8 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
 
 logical
 lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
+    (void) cb_len;
+    (void) ca_len;
     /* System generated locals */
     logical ret_val;
 
@@ -3889,6 +3892,8 @@ int32
 dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
       double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
       int64 *ldc, int64 transa_len, int64 transb_len) {
+    (void) transb_len;
+    (void) transa_len;
     /* System generated locals */
     int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
         i__3;
@@ -5700,6 +5705,7 @@ L996:
 
 int32
 prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
+    (void) nrow;
     /* Format strings */
 
     /* System generated locals */
