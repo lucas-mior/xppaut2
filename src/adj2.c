@@ -97,7 +97,6 @@ do_transpose(void) {
     snprintf(values[4], sizeof(values[0]), "%d", my_trans.nrow);
     snprintf(values[5], sizeof(values[0]), "%d", my_trans.rowskip);
     if (my_trans.here) {
-
         for (i = 0; i <= my_trans.nrow; i++)
             free(my_trans.data[i]);
         free(my_trans.data);
@@ -259,7 +258,6 @@ adjoint_parameters(void) {
 
 void
 new_h_fun(int32 silent) {
-
     int32 i, n = 2;
     if (!ADJ_HERE) {
         err_msg("Must compute adjoint first!");
@@ -314,7 +312,6 @@ dump_h_stuff(FILE *fp, int32 f) {
 
 int32
 make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
-
     int32 i, j, rval = 0;
     float sum;
     double z;
@@ -347,7 +344,6 @@ make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
             update_based_on_current();
 
             for (i = 0; i < node; i++) {
-
                 z = evaluate(coup_fun[i]);
 
                 sum = sum + (float)z*adj[i + 1][k];
@@ -514,7 +510,6 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
 
         for (i = 0; i < node; i++) {
             if (fabs(yold[i]) > BOUND) {
-
                 rval = 0;
                 err_msg("Out of bounds");
                 goto bye;
@@ -629,7 +624,6 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
 int32
 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
          int32 node, double dt) {
-
     int32 j, i, n2 = node*node, info;
     int32 ipvt[MAX_ODE];
     double *mat, *fold;
@@ -649,7 +643,6 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
         mat[i + i*node] = 1. + mat[i + i*node];
     sgefa(mat, node, node, ipvt, &info);
     if (info != -1) {
-
         err_msg("Univertible Jacobian");
         return 0;
     }

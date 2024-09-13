@@ -415,7 +415,6 @@ ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-
     /* Local variables */
     int64 ndim;
 
@@ -715,7 +714,6 @@ ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-
     /* Local variables */
     int64 ndim;
     double thta;
@@ -936,7 +934,6 @@ ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-
     /* Local variables */
     int64 ndim;
 

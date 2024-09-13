@@ -464,9 +464,7 @@ get_root(char *s, char *sroot, int32 *num) {
     char me[100];
     *num = 0;
     while (true) {
-
         if (!isdigit(s[i])) {
-
             break;
         }
         i--;
@@ -586,9 +584,7 @@ gif_aplot_all(char *filename, int32 still) {
     Window root;
     /* FILE *fp; */
     if (still == 0) {
-
         if (aplot_range_count == 0) {
-
             if ((ap_fp = fopen(filename, "w")) == NULL) {
                 err_msg("Cannot open file ");
                 return;
@@ -638,7 +634,6 @@ gif_aplot(void) {
 
 void
 grab_aplot_screen(APLOT ap) {
-
     Window temp = draw_win;
     draw_win = ap.wplot;
     if (film_clip() == 0)

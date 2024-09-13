@@ -206,7 +206,6 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     /*                AND COMPUTE MATRIX NORM .......... */
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             /* L40: */
@@ -573,7 +572,6 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     /*                AND COMPUTE MATRIX NORM .......... */
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             /* L40: */
@@ -1325,7 +1323,6 @@ L130:
 L140:
     i__1 = l;
     for (j = k; j <= i__1; ++j) {
-
         i__2 = l;
         for (i__ = k; i__ <= i__2; ++i__) {
             if (i__ == j) {
@@ -1737,7 +1734,6 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
     /* Function Body */
     i__1 = *n;
     for (j = 1; j <= i__1; ++j) {
-
         i__2 = *n;
         for (i__ = 1; i__ <= i__2; ++i__) {
             /* L60: */
@@ -1867,7 +1863,6 @@ qzhes(int64 nm, int64 n, double *a, double *b, logical matz, double *z__) {
 
     i__1 = n;
     for (j = 1; j <= i__1; ++j) {
-
         i__2 = n;
         for (i__ = 1; i__ <= i__2; ++i__) {
             z__[i__ + j*z_dim1] = 0.;
@@ -3667,7 +3662,6 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
     if (*trans) {
         i__1 = *n;
         for (j = 1; j <= i__1; ++j) {
-
             /*         USES UNROLLED LOOPS */
             /*         from JACK DONGARRA, LINPACK, 3/11/78. */
 
@@ -3703,7 +3697,6 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
     } else {
         i__1 = *n;
         for (j = 1; j <= i__1; ++j) {
-
             /*         USES UNROLLED LOOPS */
             /*         from JACK DONGARRA, LINPACK, 3/11/78. */
 
@@ -4163,7 +4156,6 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
 
     if (notb) {
         if (nota) {
-
             /*           Form  C := alpha*A*B + beta*C. */
 
             i__1 = *n;
@@ -4222,7 +4214,6 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
         }
     } else {
         if (nota) {
-
             /*           Form  C := alpha*A*B' + beta*C */
 
             i__1 = *n;
@@ -4367,7 +4358,6 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
 
 int32
 ndrotg(double *f, double *g, double *cs, double *sn) {
-
     /* Local variables */
     static double t, tt;
 
@@ -7166,7 +7156,6 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
     /* Function Body */
     i__1 = *n;
     for (j = 1; j <= i__1; ++j) {
-
         i__2 = *n;
         for (i__ = 1; i__ <= i__2; ++i__) {
             /* L60: */

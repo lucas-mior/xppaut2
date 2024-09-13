@@ -167,7 +167,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *ups, double *dups, double *uoldps, double *udotps,
        double *upoldp, double *dtm, double *fa, double *fc, double *p0,
        double *p1, double *thl, double *thu) {
-
     /* Local variables */
 
     int64 ndim;
@@ -1122,9 +1121,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
     /* The message type at each level in the recursion is also determined. */
 
     if (*par) {
-
         for (i = 0; i < nlev; ++i) {
-
             oddc[i] = FALSE_;
             evenc[i] = FALSE_;
             master[i] = FALSE_;
@@ -1135,9 +1132,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
             niam = *iam / k1;
 
             if (notsend) {
-
                 if (niam % 2 == 0) {
-
                     master[i] = TRUE_;
                     notsend = FALSE_;
                     ism[i] = (i + 1) + *iam;
@@ -1193,7 +1188,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
 
     /* The reduction process is done concurrently */
     for (i1 = 0; i1 < nam1; ++i1) {
-
         i2 = i1 + 1;
         i3 = i2 + 1;
 
@@ -1382,9 +1376,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
     /*neighboring nodes in the condensation of parameters is delayed until her
     e.*/
     if (*par) {
-
         for (i = 0; i < nlev; ++i) {
-
             if (master[i]) {
                 crecv();
                 for (ir = nbcp1; ir <= *nrc; ++ir) {
@@ -1420,7 +1412,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
             }
 
             for (ic = 0; ic < *nov; ++ic) {
-
                 icp1 = ic + 1;
                 iprow = *nov - ic + 1;
                 iprown = iprow + *nov;
@@ -1431,7 +1422,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
                 ibuf1 = (ib2 + *nrc - *nbc) * 8;
 
                 if (master[i]) {
-
                     /* PIVOTING (COMPLETE PIVOTING) */
 
                     piv1 = zero;
@@ -1463,7 +1453,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
                     }
 
                     if (piv1 >= piv2) {
-
                         ARRAY2D(ipr, ic, (*na - 1)) = ipiv1;
                         itmp = ARRAY2D(icf2, ic, (*na - 1));
                         ARRAY2D(icf2, ic, (*na - 1)) =
@@ -1643,7 +1632,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
                 }
 
                 if (worker[i]) {
-
                     /* Pivoting */
                     piv2 = zero;
                     ipiv2 = 1;
@@ -2090,7 +2078,6 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
         }
 
         if (*idb >= 4) {
-
             fprintf(fp9, " Reduced Jacobian matrix:\n");
 
             for (i = 0; i < ncrloc; ++i) {
@@ -2253,7 +2240,6 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
     }
 
     if (*par) {
-
         /*Initialization for the master or sender node at the last recursion l
           evel.*/
         if (master[nlev - 1]) {
@@ -2505,7 +2491,6 @@ infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
 /*     ---------- --- */
 int32
 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
-
     /* Local variables */
     int64 niam;
     logical even[KREDO];

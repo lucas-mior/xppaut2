@@ -103,7 +103,6 @@ build_markov(
     for (i = 0; i < NMarkov; i++) {
         ll = strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, ll) == 0) {
-
             if (len < ll) {
                 index = i;
                 len = ll;
@@ -152,7 +151,6 @@ old_build_markov(FILE *fptr, char *name) {
     for (i = 0; i < NMarkov; i++) {
         ll = strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, ll) == 0) {
-
             if (len < ll) {
                 index = i;
                 len = ll;
@@ -238,7 +236,6 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
 
 void
 add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
-
     int32 l0 = markov[index].nstates*j + k;
     int32 type = markov[index].type;
     if (type == 0) {

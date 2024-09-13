@@ -120,7 +120,6 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
         break;
     case ButtonPress:
         if (ev.xbutton.window == d->ok) {
-
             status = ALL_DONE;
         }
         if (ev.xbutton.window == d->cancel) {

@@ -775,7 +775,6 @@ int32
 do_range(double *x,
          int32 flag /* 0 for 1-param 1 for 2 parameter 2 for Auto range */
 ) {
-
     char bob[256], parn[256];
     int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
     int32 nit = 20, i = 0, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
@@ -791,7 +790,6 @@ do_range(double *x,
             return -1;
     }
     if (flag == 1) {
-
         if (set_up_range2() == 0)
             return -1;
     }
@@ -1065,7 +1063,6 @@ find_equilib_com(int32 com) {
 
 void
 batch_integrate(void) {
-
     int32 i;
 
     if ((Nintern_set == 0) | (Nintern_2_use == 0)) {
@@ -1076,7 +1073,6 @@ batch_integrate(void) {
     }
 
     for (i = 0; i < Nintern_set; i++) {
-
         sprintf(this_internset, "_%s", intern_set[i].name);
         if (strlen(UserOUTFILE) == 0) /*Use the set name for outfile name*/
         {
@@ -1445,7 +1441,6 @@ do_init_data(int32 com) {
 
 void
 run_from_x(double *x) {
-
     plintf(" %g %g \n", x[0], x[1]);
     MyStart = 1;
     RANGE_FLAG = 0;
@@ -1463,7 +1458,6 @@ run_from_x(double *x) {
 
 void
 run_now(void) {
-
     double *x;
     MyStart = 1;
     x = &MyData[0];
@@ -1764,7 +1758,6 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     } else
         nit = (tend + .1*fabs(dt)) / fabs(dt);
     if (ishow == 1) {
-
         integrate(t, y, tend, dt, 1, nout, istart);
 
         return 1;
@@ -1772,7 +1765,6 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     MSWTCH(xpv.x, y);
     evaluate_derived();
     if (METHOD < GEAR || METHOD == BACKEUL) {
-
         kflag = solver(xpv.x, t, dt, nit, nodes, istart, WORK);
         MSWTCH(y, xpv.x);
 
@@ -1895,7 +1887,6 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 int32
 integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
           int32 *start) {
-
     float xv[MAX_ODE + 1], xvold[MAX_ODE + 1];
     float oldperiod = 0.0;
     double error[MAX_ODE];
@@ -1964,7 +1955,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     stor_delay(x);
 
     while (true) {
-
         switch (METHOD) {
         case GEAR: {
 
@@ -2065,7 +2055,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
                     return 1;
@@ -2094,7 +2083,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
                     return 1;
@@ -2350,7 +2338,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         /*  here is code for a formula type map --  F(X,t)=0
          */
         if (POIMAP == 4) {
-
             /*  pmapf=get_map_value(x,*t);
              */
         }
@@ -2473,7 +2460,6 @@ send_output(double *y, double t) {
         yy[i] = y[i];
     extra(yy, t, NODE, NEQ);
     if ((STORFLAG == 1) && (storind < MAXSTOR)) {
-
         for (i = 0; i < NEQ; i++)
             storage[i + 1][storind] = (float)yy[i];
         storage[0][storind] = (float)t;
@@ -2489,7 +2475,6 @@ do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
 
     for (ip = 0; ip < np; ip++) {
         if (MyGraph->ColorFlag == 0) {
-
             set_linestyle(MyGraph->color[ip]);
         }
         /*	   if(MyGraph->line[ip]<0)
@@ -2502,7 +2487,6 @@ do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
                 point_3d(xpl[ip], ypl[ip], zpl[ip]);
         } else {
             if (MyGraph->ThreeDFlag == 0) {
-
                 line_abs(oldxpl[ip], oldypl[ip], xpl[ip], ypl[ip]);
             } else
                 line_3d(oldxpl[ip], oldypl[ip], oldzpl[ip], xpl[ip], ypl[ip],
@@ -2519,7 +2503,6 @@ do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
 
 void
 export_data(FILE *fp) {
-
     int32 ip, np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
     int32 j, kxoff, kyoff, kzoff;
@@ -2546,7 +2529,6 @@ export_data(FILE *fp) {
     iiXPLT = MyGraph->xv[0];
     iiYPLT = MyGraph->yv[0];
     if (MyGraph->ThreeDFlag > 0) {
-
         iiZPLT = MyGraph->zv[0];
         for (j = i1; j < strind; j++) {
             fprintf(fp, "%g %g %g \n", data[iiXPLT][kxoff], data[iiYPLT][kyoff],
@@ -2780,7 +2762,6 @@ stop_integration(void) {
 
 int32
 stor_full(void) {
-
     char ch;
     int32 nrow = 2 * MAXSTOR;
     if (reallocstor(NEQ + 1, nrow)) {

@@ -166,7 +166,6 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     /* k = elimination step number */
 
     for (k = 0; k < n - 1; k++, p++) {
-
         col_k = a[k];
         diag_k = col_k + smu;
         sub_diag_k = diag_k + 1;
@@ -215,7 +214,6 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 
         last_col_k = MIN(k + smu, n - 1);
         for (j = k + 1; j <= last_col_k; j++) {
-
             col_j = a[j];
             storage_l = ROW(l, j, smu);
             storage_k = ROW(k, j, smu);

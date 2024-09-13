@@ -913,7 +913,6 @@ edit_object_com(int32 com) {
                 snprintf(str, sizeof(str), "Move %s ?", lb[ilab].s);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-
                     MessageBox("Click on new position");
                     flag = GetMouseXY(&i, &j);
 
@@ -962,7 +961,6 @@ edit_object_com(int32 com) {
                          grob[ilab].xs, grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-
                     MessageBox("Reposition");
                     flag = GetMouseXY(&i, &j);
 
@@ -1056,7 +1054,6 @@ set_active_windows(void) {
 void
 do_windows_com(int32 c) {
     switch (c) {
-
     case 0:
         create_a_pop();
         break;
@@ -1111,7 +1108,6 @@ is_col_plotted(int32 nc) {
             for (j = 0; j < nv; j++) {
                 if (graph[i].xv[j] == nc || graph[i].yv[j] == nc ||
                     graph[i].zv[j] == nc) {
-
                     return 1;
                 }
             }
@@ -1232,7 +1228,6 @@ ps_restore(void) {
 
 void
 svg_restore(void) {
-
     /* restore(0,my_browser.maxrow);
      */
     /*ps_do_color(0);

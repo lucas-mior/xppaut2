@@ -107,7 +107,6 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
     /* Reorthogonalize if necessary */
 
     if ((FACTOR * (*new_vk_norm)) < vk_norm) {
-
         for (i = i0; i < k; i++) {
             s[i] = N_VDotProd(v[i], v[k]);
         }
@@ -143,7 +142,6 @@ QRfact(int32 n, double **h, double *q, int32 job) {
         /* Compute a new factorization of H. */
         code = 0;
         for (k = 0; k < n; k++) {
-
             /* Multiply column k by the previous k-1 Givens rotations. */
             for (j = 0; j < k - 1; j++) {
                 i = 2*j;

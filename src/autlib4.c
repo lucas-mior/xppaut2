@@ -63,7 +63,6 @@
 /* Subroutine */ int32
 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
        doublecomplex *ev) {
-
     /* System generated locals */
     int64 c0_dim1, c1_dim1, rwork_dim1;
 
@@ -385,7 +384,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 /* Subroutine */ int32
 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
       double *v) {
-
     /* Local variables */
     static int64 iend, jmkp1;
 

@@ -74,7 +74,6 @@ show_menu(int32 j) {
 
 void
 unshow_menu(int32 j) {
-
     if (j < 0)
         return;
     my_menus[j].visible = 0;

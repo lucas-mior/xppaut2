@@ -237,7 +237,6 @@ ps_bead(int32 x, int32 y) { /*fprintf(psfile,"%d %d F\n",x,y);*/
 
 void
 ps_frect(int32 x, int32 y, int32 w, int32 h) {
-
     fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n",
             x, y, 0, -h, w, 0, 0, h);
     return;
@@ -400,14 +399,12 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
                 ps_fnt(cf, pssz);
             }
             if (c == 'n') {
-
                 ps_rel(0, -cy);
                 cy = 0;
                 pssz = PS_SC * sz[size];
                 ps_fnt(cf, pssz);
             }
             if (c == 's') {
-
                 cy = cy - sub;
                 ps_rel(0, -sub);
                 pssz = 3 * PS_SC * sz[size] / 5;
@@ -420,7 +417,6 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
                 ps_fnt(cf, pssz);
             }
             if (c == '1') {
-
                 cf = 1;
                 ps_fnt(cf, pssz);
             }
@@ -440,12 +436,10 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
 
 void
 fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font) {
-
     static int32 sz[] = {8, 10, 14, 18, 24};
     char ch;
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     switch (font) {
-
     case 1:
         fprintf(psfile, "/Symbol findfont %d ", sz[size] * PS_SC);
         fprintf(psfile, "scalefont setfont\n");

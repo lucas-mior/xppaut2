@@ -301,7 +301,6 @@ setautopoint(void) {
 
 void
 get_auto_str(char *xlabel, char *ylabel) {
-
     sprintf(xlabel, "%s", upar_names[AutoPar[Auto.icp1]]);
     switch (Auto.plot) {
     case HI_P:
@@ -637,7 +636,6 @@ auto_par_to_name(int32 index, char *s) {
 
 void
 auto_per_par(void) {
-
     static char *m[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     static char key[] = "0123456789";
     char values[10][MAX_LEN_SBOX];
@@ -771,7 +769,6 @@ auto_num_par(void) {
 
 void
 auto_plot_par(void) {
-
     static char *m[] = {"Hi",         "Norm",      "hI-lo",      "Period",
                         "Two par",    "(Z)oom in", "Zoom (O)ut", "last 1 par",
                         "last 2 par", "Fit",       "fRequency",  "Average",
@@ -1229,7 +1226,6 @@ add_point(double *par, double per,
     if ((flag2 > 0) && (Auto.plot == P_P))
         type1 = CSEQ;
     switch (type1) {
-
     case CSEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
             break;
@@ -1653,7 +1649,6 @@ auto_grab(void) {
 
 void
 auto_next(void) {
-
     static char *m[] = {"EP", "HB", "LP", "PD", "MX"};
     /*static char *m[]={"Fixed period","Extend"}; */
     static char key[] = "ehlpm";
@@ -2019,7 +2014,6 @@ auto_homo_choice(int32 itp) {
 
 void
 auto_branch_choice(int32 ibr, int32 ips) {
-
     static char *m[] = {"Switch", "Extend", "New Point", "Two Param"};
     static char key[] = "sent";
     char ch;
@@ -2045,7 +2039,6 @@ auto_branch_choice(int32 ibr, int32 ips) {
         return;
     }
     if (ch == 't') {
-
         ipsuse = 1;
         if (ips == 4)
             ipsuse = 4;
@@ -2203,7 +2196,6 @@ auto_new_discrete(void) {
 
 void
 auto_extend_ss(void) {
-
     /*Prevent crash on hopf of infinite period. here
 
     Typical abort message after crash is currently something like:
@@ -2454,7 +2446,6 @@ auto_switch_bvp(void) {
 
 void
 auto_switch_ss(void) {
-
     TypeOfCalc = EQ1;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
@@ -2510,7 +2501,6 @@ auto_2p_limit(int32 ips) {
 
 void
 auto_twopar_double(void) {
-
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
@@ -2587,7 +2577,6 @@ auto_2p_fixper(void) {
 
 void
 auto_2p_hopf(void) {
-
     /*Prevent crash on hopf of infinite period. here
 
     Typical abort message after crash is currently something like:
@@ -2621,7 +2610,6 @@ auto_2p_hopf(void) {
 
 void
 auto_period_double(void) {
-
     blrtn.torper = grabpt.torper;
     Auto.ntst = 2 * Auto.ntst;
     Auto.irs = grabpt.lab;
@@ -2716,7 +2704,6 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
 
 void
 save_auto(void) {
-
     int32 ok;
     FILE *fp;
     /*char filename[256];*/
@@ -2861,7 +2848,6 @@ noinfo(/* get rid of any blank lines  */
 
 void
 load_auto(void) {
-
     int32 ok;
     FILE *fp;
     /*char filename[256];*/
@@ -2929,7 +2915,6 @@ get_a_row(double *u, double *t, int32 n, FILE *fp) {
 
 void
 auto_file(void) {
-
     static char *m[] = {"Import orbit",   "Save diagram",  "Load diagram",
                         "Postscript",     "SVG",           "Reset diagram",
                         "Clear grab",     "Write pts",     "All info",

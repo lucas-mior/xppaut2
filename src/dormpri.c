@@ -812,7 +812,6 @@ dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
             fprintf(fileout, "Curious input, nrdens = %u\r\n", nrdens);
         arret = 1;
     } else if (nrdens) {
-
         /* is there enough memory to allocate rcont12345678&indir ? */
         rcont1 = work;
         rcont2 = rcont1 + nrdens;

@@ -428,28 +428,23 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
             cx += dx;
             j = 0;
             if (c == '0') {
-
                 cf = 0;
             }
             if (c == 'n') {
-
                 cy = y;
                 cs = size;
             }
             if (c == 's') {
-
                 cy = cy + sub;
                 if (size > 0)
                     cs = size - 1;
             }
             if (c == 'S') {
-
                 if (size > 0)
                     cs = size - 1;
                 cy = cy - sup;
             }
             if (c == '1') {
-
                 cf = 1;
             }
 
@@ -472,7 +467,6 @@ fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
     if (strlen(str) == 0)
         return;
     switch (font) {
-
     case 1:
         if (avsymfonts[size] == 1) {
             XSetFont(display, font_gc, symfonts[size]->fid);
@@ -1049,7 +1043,6 @@ point_abs(double x1, double y1) {
 
 void
 line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
-
     int32 xp1, yp1, xp2, yp2;
 
     scale_to_screen(x1_out, y1_out, &xp1, &yp1);
@@ -1444,7 +1437,6 @@ C4:
 
 void
 eq_symb(double *x, int32 type) {
-
     float dx = 6.0 * (float)(MyGraph->xhi - MyGraph->xlo) * SYMSIZE;
     float dy = 6.0 * (float)(MyGraph->yhi - MyGraph->ylo) * SYMSIZE;
     int32 ix = MyGraph->xv[0] - 1, iy = MyGraph->yv[0] - 1,

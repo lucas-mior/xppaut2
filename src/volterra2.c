@@ -66,7 +66,6 @@ alloc_v_memory(void) {
         }
         kernel[i].formula = malloc((len + 2) * sizeof(int32));
         for (j = 0; j < len; j++) {
-
             kernel[i].formula[j] = formula[j];
         }
         if (kernel[i].flag == CONV) {
@@ -408,7 +407,6 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             jac[n1*i] -= 1.0;
         sgefa(jac, NODE, NODE, ipivot, &info);
         if (info != -1) {
-
             return -1; /* Jacobian is singular   */
         }
         err = 0.0;

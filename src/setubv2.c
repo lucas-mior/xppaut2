@@ -366,7 +366,6 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
             udotps, upoldp, dtm, wp, wt, wi, thu, thl, rldot, bcni, &arglist);
 
         switch (global_setubv_type) {
-
         default:
             setubv_default_wrapper(arglist);
             break;

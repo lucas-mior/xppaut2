@@ -66,7 +66,6 @@ user_button_draw(Window w) {
     int32 i;
     for (i = 0; i < nuserbut; i++) {
         if (w == userbut[i].w) {
-
             XDrawString(display, w, small_gc, 5, CURY_OFFs, userbut[i].bname,
                         strlen(userbut[i].bname));
         }

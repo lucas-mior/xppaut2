@@ -1141,7 +1141,6 @@ evaluate_network(int32 ind) {
 
         if (mmt == 1 || mmt == 0) { /* get max  */
             while (i < n) {
-
                 if (y[i] > ymax) {
                     imax = i;
                     ymax = y[i];
@@ -1152,7 +1151,6 @@ evaluate_network(int32 ind) {
         if (mmt == (-1) || mmt == 0) { /* get min */
             i = 0;
             while (i < n) {
-
                 if (y[i] < ymin) {
                     imin = i;
                     ymin = y[i];
@@ -1314,7 +1312,6 @@ evaluate_network(int32 ind) {
             for (j = -ncon; j <= ncon; j++) {
                 k = i + j;
                 if (k < n && k >= 0) {
-
                     f[0] = root2 + k;
                     z = evaluate(f);
                     sum += (w[j + ncon] * z);
@@ -1360,7 +1357,6 @@ evaluate_network(int32 ind) {
         f = my_net[ind].f;
 
         for (j = 0; j < n; j++) {
-
             f[1] = root + j;
 
             sum = 0.0;
@@ -1683,7 +1679,6 @@ parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
 int32
 get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
                 int32 *ir) {
-
     int32 i = 0;
     int32 ivar;
     int32 n = strlen(str);

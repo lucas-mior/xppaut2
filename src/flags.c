@@ -362,7 +362,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
             nevents = flag[i].nevents;
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
                 for (j = 0; j < nevents; j++) {
-
                     in = flag[i].lhs[j];
                     if (flag[i].type[j] == 0) {
                         ynew[in] = flag[i].vrhs[j];

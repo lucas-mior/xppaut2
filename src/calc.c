@@ -164,7 +164,6 @@ do_calc(char *temp, double *z) {
         return 1;
     }
     if (has_eq(temp, val, &i)) {
-
         newz = calculate(&temp[i], &ok); /*  calculate quantity  */
 
         if (ok == 0)

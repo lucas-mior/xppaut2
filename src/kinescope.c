@@ -39,7 +39,6 @@ do_movie_com(int32 c)
       draw_help();
       XFlush(display); */
     switch (c) {
-
     case 0:
         if (film_clip() == 0)
             respond_box("Okay", "Out of film!");
@@ -297,10 +296,8 @@ auto_play(void) {
     XFlush(display);
 
     while (true) {
-
         /* check for events    */
         if (XPending(display) > 0) {
-
             XNextEvent(display, &ev);
             switch (ev.type) {
             case ButtonPress:

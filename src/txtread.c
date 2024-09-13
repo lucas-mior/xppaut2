@@ -88,7 +88,6 @@ txt_view_events(XEvent ev) {
 
 void
 txtview_keypress(XEvent ev) {
-
     Window w = ev.xkey.window;
     char ks;
     if (w == txtview.base || w == txtview.text) {
@@ -236,7 +235,6 @@ txtview_press(Window w, int32 x, int32 y) {
 
 void
 redraw_txtview(Window w) {
-
     if (w == txtview.text)
         redraw_txtview_text();
     if (w == txtview.up)

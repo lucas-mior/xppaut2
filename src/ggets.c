@@ -185,7 +185,6 @@ plintf(char *fmt, ...) {
 
 int32
 show_position(XEvent ev, int32 *com) {
-
     /*int32 i,j;
 
     Window w;

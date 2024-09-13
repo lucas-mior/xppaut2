@@ -899,7 +899,6 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         resize_eq_list(report.xany.window);
         resize_auto_window(report);
         if (report.xconfigure.window == main_win) {
-
             SCALEX = report.xconfigure.width;
             SCALEY = report.xconfigure.height;
             if ((SCALEX < min_wid) || (SCALEY < min_hgt)) {
@@ -1535,7 +1534,6 @@ getGC(GC *gc) {
 
 void
 load_fonts(void) {
-
     int32 i;
     /*printf("\n\nFONTS %s %s \n",big_font_name,small_font_name);
      */
@@ -1644,7 +1642,6 @@ FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
 
 int32
 getxcolors(XWindowAttributes *win_info, XColor **colors) {
-
     int32 i, ncolors;
 
     *colors = (XColor *)NULL;

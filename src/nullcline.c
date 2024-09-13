@@ -87,7 +87,6 @@ froz_cline_stuff_com(int32 i) {
 
 void
 silent_dfields(void) {
-
     if (DFBatch == 5 || DFBatch == 4) {
         DFSuppress = 1;
         init_ps();
@@ -407,7 +406,6 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
 
 void
 do_batch_nclines(void) {
-
     if (!XPPBatch)
         return;
     if (!NCBatch)
@@ -570,7 +568,6 @@ redraw_dfield(void) {
 
 void
 direct_field_com(int32 c) {
-
     int32 i, j, start, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
@@ -611,7 +608,6 @@ direct_field_com(int32 c) {
     v0 = MyGraph->ylo;
     set_linestyle(MyGraph->color[0]);
     if (c != 1) {
-
         DF_FLAG = 1;
         if (c == 3) {
             DF_FLAG = 2;
@@ -802,7 +798,6 @@ dump_clines_old(FILE *fp, float *x, int32 nx, float *y, int32 ny) {
 void
 restor_null(/* d=1 for x and 2 for y  */
             float *v, int32 n, int32 d) {
-
     int32 i, i4;
     float xm, ym;
     int32 x1, y1;

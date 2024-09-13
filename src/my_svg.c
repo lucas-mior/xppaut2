@@ -538,7 +538,6 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
         } else {
 
             if (DOING_DFIELD) {
-
                 if (DO_MARKER) {
                     fprintf(svgfile, "<g>\n");
                 }

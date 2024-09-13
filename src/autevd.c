@@ -45,7 +45,6 @@ init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
           double dsmax, double rl0, double rl1, double a0, double a1, int32 ip1,
           int32 ip2, int32 ip3, int32 ip4, int32 ip5, double epsl, double epsu,
           double epss, int32 ncol) {
-
     /* here are the constants that we do not allow the user to change */
     int32 nnbc;
     int32 i;

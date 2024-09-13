@@ -249,7 +249,6 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     err_msg("Failed to compute eigenvector");
             }
             if (rn == 1) {
-
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                          eval[2*nege], ierr);
                 if (*ierr == 0) {
@@ -334,7 +333,6 @@ save_batch_shoot(void) {
 
         type = ShootType[k];
         if (type > 0) {
-
             DELTA_T = fabs(DELTA_T);
             usual_integrate_stuff(x);
             snprintf(name, sizeof(name), "UM%d.dat", k);
@@ -344,7 +342,6 @@ save_batch_shoot(void) {
             fclose(fp);
         }
         if (type < 0) {
-
             DELTA_T = -fabs(DELTA_T);
             usual_integrate_stuff(x);
             snprintf(name, sizeof(name), "SM%d.dat", k);
@@ -445,7 +442,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     }
     eigen(n, work, eval, ework, ierr);
     if (*ierr != 0) {
-
         free(work);
         return;
     }
@@ -511,7 +507,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     }
 
     if ((n > 1)) {
-
         if (rp == 1) {
             /* plintf(" One real positive -- pos=%d lam=%g
              * \n",pose,eval[2*pose]); */
@@ -526,7 +521,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         }
 
         if (rn == 1) {
-
             get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                      eval[2*nege], ierr);
 
@@ -542,7 +536,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
 void
 pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
-
     int32 i;
     double d = fabs(DELTA_T) * .1;
     ShootICFlag = 1;
@@ -646,7 +639,6 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
         jmax = 0;
 
         for (j = 0; j < n; j++) {
-
             if (fabs(b[j]) > temp) {
                 temp = fabs(b[j]);
                 jmax = j;
@@ -688,7 +680,6 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
 
 void
 eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
-
     orthesx(n, 1, n, a, work);
     hqrx(n, 1, n, a, ev, ierr);
     return;
@@ -1121,7 +1112,6 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     a = work + 21*n + n*n;
     work2 = work + 21*n + n*n + 10;
     if (*jstart != 0) {
-
         k = iwork[0];
         nq = iwork[1];
         nqold = iwork[2];
@@ -1226,7 +1216,6 @@ L150:
         goto L860;
     }
     switch (nq) {
-
     case 1:
         a[0] = -1.00;
         a[1] = -1.00;

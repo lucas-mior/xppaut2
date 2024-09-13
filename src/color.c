@@ -216,7 +216,6 @@ read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
     if (fp == NULL)
         return 0;
     while (!feof(fp)) {
-
         fscanf(fp, "%g %g %g %g \n", &x, &r[i], &g[i], &b[i]);
         i++;
     }
@@ -283,7 +282,6 @@ get_ps_color(int32 i, float *r, float *g, float *b) {
 
 void
 get_svg_color(int32 i, int32 *r, int32 *g, int32 *b) {
-
     *r = color[i].red / 255;
     *g = color[i].green / 255;
     *b = color[i].blue / 255;
@@ -298,7 +296,6 @@ print_cust(void) {
 
 void
 MakeColormap(void) {
-
     Colormap cmap;
     int32 i;
     int32 clo = 20;

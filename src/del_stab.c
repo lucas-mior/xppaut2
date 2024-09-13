@@ -329,7 +329,6 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m,
 
     /* now Newtons Method for maxit times */
     for (k = 0; k < maxit; k++) {
-
         make_z(z, delay, n, m, coef, lambda);
         det = cdeterm(z, n);
 

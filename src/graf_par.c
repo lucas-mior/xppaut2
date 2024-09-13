@@ -69,7 +69,6 @@ char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
 
 void
 change_view_com(int32 com) {
-
     if (com == 2) {
         make_my_aplot("Array!");
         edit_aplot();
@@ -419,7 +418,6 @@ fit_window(void) {
         return;
     if (MyGraph->ThreeDFlag) {
         for (i = 0; i < n; i++) {
-
             get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
             Mx = lmax(MyGraph->xmax, Mx);
             mx = -lmax(-MyGraph->xmin, -mx);
@@ -489,7 +487,6 @@ user_window(void) {
     snprintf(values[3], sizeof(values[3]), "%g", MyGraph->yhi);
     status = do_string_box(4, 2, 2, "Window", n, values, 28);
     if (status != 0) {
-
         MyGraph->xlo = atof(values[0]);
         MyGraph->ylo = atof(values[2]);
         MyGraph->xhi = atof(values[1]);
@@ -561,7 +558,6 @@ movie_rot(double start, double increment, int32 nclip, int32 angle) {
     double thetaold = MyGraph->Theta, phiold = MyGraph->Phi;
     reset_film();
     for (i = 0; i <= nclip; i++) {
-
         if (angle == 0)
             make_rot(start + i*increment, phiold);
         else
@@ -620,7 +616,6 @@ test_rot(void) {
 
 void
 get_3d_par_com(void) {
-
     static char *n[] = {"Persp (1=On)",
                         "ZPlane",
                         "ZView",
@@ -682,7 +677,6 @@ get_3d_par_com(void) {
 
 void
 get_3d_par_noper(void) {
-
     static char *n[] = {
         "Theta",       "Phi",       "Movie(Y/N)",       "Vary (theta/phi)",
         "Start angle", "Increment", "Number increments"};
@@ -854,7 +848,6 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     scale_to_real(i1, j1, &x1, &y1);
     scale_to_real(i2, j2, &x2, &y2);
     if (x1 == x2 || y1 == y2) {
-
         if (dx < 0) {
             dx = -dx;
         }
@@ -891,7 +884,6 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
 
 void
 zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
-
     float x1, y1, x2, y2;
     float bx, mux, by, muy;
     float dx = MyGraph->xhi - MyGraph->xlo;
@@ -908,7 +900,6 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     \n",MyGraph->xlo,MyGraph->ylo,MyGraph->xhi,MyGraph->yhi);
    */
     if (x1 == x2 || y1 == y2) {
-
         if (dx < 0) {
             dx = -dx;
         }
@@ -1118,7 +1109,6 @@ dump_ps(int32 i) {
 
 void
 create_svg(void) {
-
     char filename[XPP_MAX_NAME];
     strcpy(filename, this_file);
     filename[strlen(filename) - 4] = '\0';
@@ -1154,7 +1144,6 @@ change_cmap_com(int32 i) {
 
 void
 freeze_com(int32 c) {
-
     switch (c) {
     case 0:
         freeze_crv(0);
@@ -1595,7 +1584,6 @@ export_graf_data(void) {
 
 void
 add_a_curve_com(int32 c) {
-
     switch (c) {
     case 0:
         if (MyGraph->nvars >= MAXPERPLOT) {

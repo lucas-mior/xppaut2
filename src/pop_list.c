@@ -359,7 +359,6 @@ reset_hot(int32 inew, STRING_BOX *sb) {
 void
 new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
              Window *w) {
-
     reset_hot(inew, sb);
     *pos = strlen(sb->value[inew]);
     *col = (*pos + strlen(sb->name[inew])) * DCURX;
@@ -562,7 +561,6 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                               MyForeColor, MyBackColor);
 
     if (UserGradients == 1) {
-
         Pixmap pmap =
             XCreatePixmap(display, root, width, height,
                           DefaultDepth(display, DefaultScreen(display)));
@@ -585,7 +583,6 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
         */
 
         for (yy = 0; yy < height; yy += 1) {
-
             if (yy < 1.0) {
                 col2.red = 65535;
                 col2.green = 65355;
@@ -607,7 +604,6 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
             XSetForeground(display, gc, col2.pixel);
 
             for (xx = 1; xx < width - 1; xx += 1) {
-
                 XDrawPoint(display, pmap, gc, xx, yy);
             }
 
@@ -653,7 +649,6 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
     /*Gradient stuff*/
 
     if (UserGradients == 1) {
-
         Pixmap pmap =
             XCreatePixmap(display, root, width, height,
                           DefaultDepth(display, DefaultScreen(display)));
@@ -676,7 +671,6 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
          */
 
         for (yy = 0; yy < height; yy += 1) {
-
             if (yy < 1.0) {
                 col2.red = 65535;
                 col2.green = 65355;
@@ -698,7 +692,6 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
             XSetForeground(display, gc, col2.pixel);
 
             for (xx = 1; xx < width - 1; xx += 1) {
-
                 XDrawPoint(display, pmap, gc, xx, yy);
             }
 
@@ -768,7 +761,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
     XParseColor(display, cmap, UserBlack, &diffcol);
 
     if (UserGradients == 1) {
-
         double cosine;
 
         /*double l2rads;
@@ -782,7 +774,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
          */
 
         for (yy = 0; yy < height; yy += 1) {
-
             if (yy < 1.0) {
                 col2.red = 65535;
                 col2.green = 65355;
@@ -881,7 +872,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                 }
 
                 if (col >= width) {
-
                     break;
                 }
             }

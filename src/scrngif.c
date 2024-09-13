@@ -292,7 +292,6 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
 
 void
 GifLoop(FILE *fout, uint32 repeats) {
-
     fputc(0x21, fout);
     fputc(0xFF, fout);
     fputc(0x0B, fout);
@@ -338,7 +337,6 @@ write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
 
 void
 make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
-
     int32 i, depth = 8;
 
     uchar *pos, *buffer;
@@ -431,7 +429,6 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     end = pixels + siz;
     curNode = first;
     while (pixels < end) {
-
         if (curNode->node[*pixels] != NULL) {
             curNode = curNode->node[*pixels];
             tel++;

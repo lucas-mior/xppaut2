@@ -133,7 +133,6 @@ extern char this_file[100];
 void
 create_scroll_list(Window base, int32 x, int32 y, int32 width, int32 height,
                    SCROLL_LIST *sl) {
-
     int32 tst = (DCURYs + 3) + 2 * (SB_DIM + SB_SPC);
     if (height < tst)
         height = tst;
@@ -307,7 +306,6 @@ clone_ode(void) {
     }
     j = 0;
     if (NUPAR > 0) {
-
         fprintf(fp, "par ");
         for (i = 0; i < NUPAR; i++) {
             if (j == 8) {
@@ -470,7 +468,6 @@ redraw_fs_text(char *string, Window w, int32 flag) {
 
 void
 display_file_sel(FILESEL f, Window w) {
-
     int32 i, i0;
     Window root;
     int32 xloc;
@@ -602,7 +599,6 @@ button_selector(Window w) {
     if (w == filesel.pgdn)
         fs_scroll(-filesel.nwin);
     if (w == filesel.home) {
-
         char *HOMEDIR = getenv("HOME");
         if ((HOMEDIR == NULL) || (strlen(HOMEDIR) == 0)) {
             plintf("User's HOME environment variable not set.\n");
@@ -631,7 +627,6 @@ button_selector(Window w) {
         return 0;
     }
     if (w == filesel.start) {
-
         char *START = getenv("XPPSTART");
 
         if ((START == NULL) || (strlen(START) == 0)) {
@@ -1156,7 +1151,6 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
 
 int32
 selector_key(XEvent ev) {
-
     char ch;
     int32 flag;
     /* plintf(" hot=%d pos=%d \n",filesel.hot,filesel.pos); */
@@ -1346,7 +1340,6 @@ expose_slides(Window w) {
 
 void
 expose_slider(Window w, PAR_SLIDER *p) {
-
     int32 x, len = 12 * DCURXs;
     char top[256];
     if (w == p->slide) {
@@ -1358,7 +1351,6 @@ expose_slider(Window w, PAR_SLIDER *p) {
         return;
     }
     if (p->use) {
-
         if (w == p->left) {
             sprintf(top, "%.16g", p->lo);
             x = 1;
@@ -1406,7 +1398,6 @@ draw_slider(Window w, int32 x, int32 hgt, int32 l) {
 
 void
 make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
-
     int32 mainhgt = 3 * (DCURYs + 2);
     int32 mainwid = 32 * DCURXs;
     int32 xs;
@@ -1516,7 +1507,6 @@ make_new_param_box(void) {
 
 void
 initialize_box(void) {
-
     make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov, ICBOX, 1);
     if (NUPAR > 0)
         make_box_list(&ParamBox, "Parameters", "Par", NUPAR, PARAMBOX, 1);
@@ -1627,7 +1617,6 @@ get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
 
 void
 destroy_box(BoxList *b) {
-
     /*int32 n,nrow;
      */
     if (b->xuse == 0)
@@ -1825,7 +1814,6 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
 
 void
 do_box_expose(Window w) {
-
     if (ICBox.xuse)
         display_box(ICBox, w);
     if (BCBox.xuse)
@@ -2239,7 +2227,6 @@ box_list_scroll(BoxList *b, int32 i) {
 
 void
 box_buttons(Window w) {
-
     if (ICBox.xuse)
         do_box_button(&ICBox, w);
     if (BCBox.xuse)
@@ -2253,7 +2240,6 @@ box_buttons(Window w) {
 
 void
 box_keypress(XEvent ev, int32 *used) {
-
     if (ICBox.xuse) {
         do_box_key(&ICBox, ev, used);
         if (*used)
@@ -2419,7 +2405,6 @@ set_default_ics(void) {
 
 void
 set_default_params(void) {
-
     int32 i;
     char junk[256];
     for (i = 0; i < NUPAR; i++) {

@@ -132,7 +132,6 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
             return 0;
         }
         if (fabs(hnext) <= hmin) {
-
             *ier = 2;
             return -1;
         }
@@ -149,7 +148,6 @@ int32
 stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
       double yscal[], double *hdid, double *hnext, double *work, double epjac,
       int32 *ier) {
-
     int32 i, j, jtry, indx[700];
     int32 info;
     double errmax, h, xsav, *a, *dfdx, *dfdy, *dysav, *err;
@@ -182,7 +180,6 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         }
         sgefa(a, n, n, indx, &info);
         if (info != -1) {
-
             *ier = -1;
             return -1;
         }
@@ -215,7 +212,6 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         }
         *x = xsav + h;
         if (*x == xsav) {
-
             *ier = 1;
             return -1;
         }
@@ -262,7 +258,6 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
             h = (h >= 0.0 ? MAX(htemp, 0.1*h) : MIN(htemp, 0.1*h));
             xnew = (*x) + h;
             if (xnew == *x) {
-
                 *ier = 1;
                 return -1;
             }

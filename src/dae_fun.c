@@ -149,7 +149,6 @@ set_init_guess(void) {
 
 void
 err_dae(void) {
-
     switch (dae_work.status) {
     case 2:
         err_msg(" Warning - no change in Iterates");
@@ -172,7 +171,6 @@ err_dae(void) {
 
 void
 init_dae_work(void) {
-
     dae_work.work = malloc(sizeof(double)*(nsvar*nsvar + 10*nsvar));
     dae_work.iwork = malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;

@@ -806,7 +806,6 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 /*     ---------- ---- */
 /* Subroutine */ int32
 inho(iap_type *iap, int64 *icp, double *par) {
-
     /* Local variables */
     int64 ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
 
@@ -1009,7 +1008,6 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
     /* a periodic orbit into a homoclinic one */
 
     if (blhom_1.istart == 1) {
-
         /* First find smallest value in norm */
 
         upsmin = 1e20;
@@ -1298,7 +1296,6 @@ L3:
 /* Subroutine */ int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
-
     /* System generated locals */
     int64 ups_dim1, p0_dim1, p1_dim1;
 

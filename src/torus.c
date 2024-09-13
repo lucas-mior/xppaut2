@@ -109,7 +109,6 @@ choose_torus(void) {
 
 void
 make_tor_box(char *title) {
-
     int32 ndn, nac, width, height;
     int32 nv;
     /*int32 nh; Not used anywhere*/
@@ -188,10 +187,8 @@ do_torus_events(void) {
     for (i = 0; i < NEQ; i++)
         oldit[i] = itor[i];
     while (!done) {
-
         XNextEvent(display, &ev);
         switch (ev.type) {
-
         case Expose:
 
             do_expose(ev); /*  menus and graphs etc  */

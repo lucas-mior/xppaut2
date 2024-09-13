@@ -49,7 +49,6 @@ RPowerI(double base, int32 exponent) {
 
 double
 RPowerR(double base, double exponent) {
-
     if (base <= ZERO)
         return ZERO;
 

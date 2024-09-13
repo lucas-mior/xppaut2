@@ -302,7 +302,6 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
        STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
        double *thu, int64 *iuz, double *vuz) {
-
     /* THIS IS THE ENTRY ROUTINE FOR GENERAL BOUNDARY VALUE PROBLEMS. */
 
     cnrlbv(iap, rap, par, icp,
@@ -313,7 +312,6 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
 int32
 init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
-
     int64 ndim, ncol, nicp;
 
     int64 nneg, nfpr, nint, jtmp, nuzr, i;
@@ -680,7 +678,6 @@ int32
 cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
        double *thl, double *thu, int64 *iuz, double *vuz) {
-
     int64 nbfc;
     double *dfdp;
     int64 nbif, iads;
@@ -975,7 +972,6 @@ L3:
                thu, iuz, vuz);
         istop = iap->istop;
         if (istop == 1) {
-
             goto L5;
         }
         itp = iap->itp;
@@ -1268,7 +1264,6 @@ L1:
     /* differential equation and its derivatives : */
 
     for (nit1 = 1; nit1 <= itnw; ++nit1) {
-
         nit = nit1;
         iap->nit = nit;
         par[icp[0]] = rlcur[0];
@@ -1331,7 +1326,6 @@ L1:
 
         if (iid >= 2 && iap->mynode == 0) {
             if (iap->mynode == 0) {
-
                 fprintf(fp9, "%4li%6li%4li    %14.6E              ", ibr, ntop,
                         nit, rlcur[0]);
                 for (i = 0; i < ndmr; ++i) {
@@ -1423,7 +1417,6 @@ lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *du, double *uold, double *udot, double *f, double *dfdu,
        double *dfdp, double *q, double *thl, double *thu, int64 *iuz,
        double *vuz) {
-
     logical chng;
     double epss, rrds;
     int64 itmx;
@@ -2183,7 +2176,6 @@ L2:
     }
 
     for (nit = 0; nit < itnw; ++nit) {
-
         iap->nit = nit + 1;
         par[icp[0]] = rlcur[0];
         (*funi)(iap, rap, ndim, u, uold, icp, par, 2, f, dfdu, dfdp);
@@ -2551,7 +2543,6 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
 int32
 stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *u) {
-
     int64 labw, ndim, nins, iplt, ntot, i;
     double a0, a1;
     int64 istop, itpst, ntots;
@@ -2707,7 +2698,6 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     int64 nt, ndm, itp, lb;
     lb = *lab;
     if ((restart_flag == 1) && (lb != 0)) {
-
         restart_flag = 0;
         RestartLabel = *lab;
     }
@@ -2986,7 +2976,6 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 
 int32
 msh(const iap_type *iap, double *tm) {
-
     int64 ntst, j;
     double dt;
 
@@ -3175,7 +3164,6 @@ L7:
 
 int32
 cntdif(int64 *n, double *d) {
-
     int64 i, k, k1;
     double sc;
 
@@ -3511,7 +3499,6 @@ int32
 newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
        int64 *ncold, double *tmold, double *dtmold, int64 *nnew, double *tmnew,
        int64 *iper) {
-
     int64 ndim;
 
     int64 j;
@@ -4030,7 +4017,6 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 
         jjp1 = jj + 1;
         for (l = jjp1; l < n; ++l) {
-
             rm = ARRAY2D(a, ir[l], ic[jj]) / ARRAY2D(a, ir[jj], ic[jj]);
             if (rm != 0.) {
                 for (i = jjp1; i < n; ++i) {
@@ -4290,7 +4276,6 @@ readlb(double *u, double *par) {
 
 int32
 skip3(int64 *nskip, logical *eof3) {
-
     int64 i;
 
     /* Skips the specified number of lines on unit 3. */
@@ -5268,7 +5253,6 @@ L1:
     /* Generate the Jacobian matrix and the right hand side. */
 
     for (nit1 = 1; nit1 <= itnw; ++nit1) {
-
         nitps = nit1;
         iap->nit = nitps;
         nllv = 0;
@@ -7108,7 +7092,6 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
 int32
 pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
-
     int64 ndm;
 
     setpae(iap, rap);

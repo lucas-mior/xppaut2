@@ -73,7 +73,6 @@ stpnt(int64 ndim, double t, double *u, double *par) {
         get_start_orbit(u, t, ndim);
     /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
     if (HomoFlag == 1) {
-
         get_shifted_orbit(u, t, p, ndim);
         for (i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];

@@ -116,7 +116,6 @@ extern FILEINFO my_ff;
 
 int32
 make_eqn(void) {
-
     int32 okay;
     NEQ = 2;
     FIX_VAR = 0;
@@ -572,7 +571,6 @@ compiler(char *bob, FILE *fptr) {
         advance_past_first_word(&ptr);
 
         while ((my_string = get_next2(&ptr)) != NULL) {
-
             take_apart(my_string, &value, name);
             free(my_string);
             default_val[NUPAR] = value;
@@ -1363,7 +1361,6 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                                 /* fgets(markovarrays[istates],MAXEXPLEN,fp); */
 
                                 if (is_array == 2) {
-
                                     strcpy(markovarrays[istates],
                                            strings[ns + 1 + istates]);
 
@@ -1443,7 +1440,6 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                     if (v.type == COMMAND && v.lhs[0] == 'O' &&
                         v.lhs[1] == 'N') {
-
                         break_up_list(v.rhs);
                         v.type = ONLY;
                     }
@@ -1579,7 +1575,6 @@ find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
     int32 i;
 
     for (i = 0; i < n; i++) {
-
         if (strcmp(list[i], name) == 0)
             return i;
     }
@@ -1609,7 +1604,6 @@ compile_em(void) {
        completed all the names will be known to the compiler.
     */
     while (true) {
-
         if (v->type == COMMAND && v->lhs[0] == 'P') {
             snprintf(big, sizeof(big), "par %s \n", v->rhs);
             compiler(big, fp);
@@ -1776,7 +1770,6 @@ compile_em(void) {
 
     v = my_varinfo;
     while (true) {
-
         if (v->type == COMMAND && v->lhs[0] == 'I') {
             snprintf(big, sizeof(big), "i %s \n", v->rhs);
             ptr = big;
@@ -1815,10 +1808,8 @@ compile_em(void) {
             fon = formula_or_number(v->rhs, &z);
 
             if (fon == 1) {
-
                 if (v->rhs[0] == '-' &&
                     (isdigit(v->rhs[1]) || (v->rhs[1] == '.'))) {
-
                     z = atof(v->rhs);
                 }
             }
@@ -2154,14 +2145,12 @@ parse_a_string(char *s1, VAR_INFO *v) {
             break;
         }
         if (strparse(s1, "(0)=", i0 - 1, &i2)) {
-
             type2 = IC;
             strpiece(lhs, s1, 0, i1 - 1);
             strpiece(rhs, s1, i2, n1);
             break;
         }
         if (strparse(s1, "T)=", i0, &i2)) {
-
             if (strparse(s1, "INT{", 0, &i3) == 1 ||
                 strparse(s1, "INT[", 0, &i3) == 1) {
                 type2 = VEQ;
@@ -2296,7 +2285,6 @@ strparse(char *s1, char *s2, int32 i0, int32 *i1) {
     while (i < n) {
         ch = s1[i];
         if (start == 1) {
-
             if (ch == s2[j] || ch == ' ') {
                 if (ch == s2[j])
                     j++;
@@ -2435,7 +2423,6 @@ read_a_line(FILE *fp, char *s) {
         /* plintf(" NLINES = %d \n",NLINES); */
         n = strlen(temp);
         for (i = n - 1; i >= 0; i--) {
-
             if (temp[i] == '\\') {
                 ok = 1;
                 ihat = i;
@@ -2486,7 +2473,6 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
         return 1;
     }
     if (check_if_ic(old) == 1) {
-
         extract_ic_data(old);
         strcpy(new, old);
         return 1;
@@ -2628,7 +2614,6 @@ subsk(char *big, char *new, int32 k, int32 flag) {
     i = 0;
     /*  if(big[0]=='#'){   */
     if (is_comment(big)) {
-
         strcpy(new, big);
         return;
     }

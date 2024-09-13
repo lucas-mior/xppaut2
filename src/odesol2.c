@@ -74,7 +74,6 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     jac = yp2 + neq;
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
-
             if ((j = one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp, errvec,
                                   jac, istart)) != 0)
                 return j;
@@ -83,7 +82,6 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
         return 0;
     }
     for (i = 0; i < nt; i++) {
-
         if ((j = one_flag_step_backeul(y, tim, dt, neq, yg, yp, yp2, ytemp,
                                        errvec, jac, istart)) != 0)
             return j;
@@ -126,7 +124,6 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
                 jac[i*neq + i] += 1.0;
             sgefa(jac, neq, neq, ipivot, &info);
             if (info != -1) {
-
                 return -1;
             }
             sgesl(jac, neq, neq, ipivot, errvec, 0);
@@ -176,7 +173,6 @@ one_step_symp(double *y, double h, double *f, int32 n, double *t) {
 
 void
 one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
-
     int32 j;
 
     set_wieners(dt, y, *t);

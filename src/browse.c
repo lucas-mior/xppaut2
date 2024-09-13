@@ -612,7 +612,6 @@ display_browser(Window w, BROWSER b) {
         xds("Time") if (w == b.addcol) xds("Add col") if (w == b.close)
             xds("Close") if (w == b.delcol)
                 xds("Del col") for (i = 0; i < BMAXCOL; i++) {
-
             if (w == b.label[i]) {
                 i0 = i + b.col0 - 1;
                 if (i0 < b.maxcol - 1)
@@ -707,7 +706,6 @@ draw_data(BROWSER b) {
 
 void
 init_browser(void) {
-
     my_browser.dataflag = 0;
     my_browser.data = storage;
     my_browser.maxcol = NEQ + 1;
@@ -993,7 +991,6 @@ browse_button(XEvent ev, BROWSER *b) {
                 data_right(b);
             waitasec(100);
             if (XPending(display) > 0) {
-
                 XNextEvent(display, &zz);
                 switch (zz.type) {
                 case ButtonRelease:
@@ -1414,7 +1411,6 @@ open_write_file(FILE **fp, char *fil, int32 *ok) {
 
 void
 data_read(BROWSER *b) {
-
     int32 status;
     char fil[256];
     char ch;
@@ -1477,7 +1473,6 @@ data_read(BROWSER *b) {
 
 void
 data_write(BROWSER *b) {
-
     int32 status;
     char fil[256];
     FILE *fp;

@@ -754,7 +754,6 @@ parse_collist(char *collist, int32 *icols, int32 *n) {
     icols[i] = v;
     i++;
     while ((item = get_next(" ,")) != NULL) {
-
         v = atoi(item);
         icols[i] = v;
         i++;
@@ -816,7 +815,6 @@ parse_parlist(char *parlist, int32 *ipars, int32 *n) {
         i++;
     }
     while ((item = get_next(" ,")) != NULL) {
-
         find_variable(item, &v);
         if (v > 0) {
             ipars[i + *n] = v - 1;

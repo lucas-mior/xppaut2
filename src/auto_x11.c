@@ -214,7 +214,6 @@ auto_get_info(int32 *n, char *pname) {
             }
             dnew = d->next;
             if (dnew == NULL) {
-
                 break;
             }
             d = dnew;
@@ -265,7 +264,6 @@ find_point(int32 ibr, int32 pt) {
         }
         dnew = d->next;
         if (dnew == NULL) {
-
             break;
         }
         d = dnew;
@@ -292,7 +290,6 @@ traverse_diagram(void) {
     while (done == 0) {
         XNextEvent(display, &ev);
         if (ev.type == ButtonPress) {
-
             int32 xm = ev.xmotion.x;
             int32 ym = ev.xmotion.y;
 
@@ -723,7 +720,6 @@ RedrawMark(void) {
 
 void
 MarkAuto(int32 x, int32 y) {
-
     LineWidth(2);
     ALINE(x - 8, y - 8, x + 8, y + 8);
     ALINE(x + 8, y - 8, x - 8, y + 8);
@@ -733,7 +729,6 @@ MarkAuto(int32 x, int32 y) {
 
 void
 XORCross(int32 x, int32 y) {
-
     if (DONT_XORCross) {
         return;
     }
@@ -760,7 +755,6 @@ XORCross(int32 x, int32 y) {
 
 void
 FillCircle(int32 x, int32 y, int32 r) {
-
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     int32 wh = 2*r2;
 
@@ -885,7 +879,6 @@ auto_motion(XEvent ev) {
 
 void
 display_auto(Window w) {
-
     int32 ix, iy;
     if (Auto.exist == 0)
         return;
@@ -1051,7 +1044,6 @@ make_auto(/* this makes the auto window  */
 
 void
 resize_auto_window(XEvent ev) {
-
     int32 wid, hgt, addhgt = 3.5 * DCURY;
     STD_HGT_var = 20 * DCURY;
     /*STD_WID_var =1.62*STD_HGT_var;*/

@@ -209,7 +209,6 @@ draw_unit_cube(void) {
 
 void
 Frame_3d(void) {
-
     double tx, ty, tz;
     float x1, y1, z1, x2, y2, z2, dt = .03;
     float x0 = MyGraph->xorg, y0 = MyGraph->yorg, z0 = MyGraph->zorg;
@@ -362,7 +361,6 @@ draw_ytics(char *s1, double start, double incr, double end)
     if (DTop < DBottom)
         s = -1;
     if (PltFmtFlag == SVGFMT) {
-
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelv\" text-anchor=\"middle\" "
                 "x=\"%d\"  y=\"%d\"\n",

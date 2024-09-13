@@ -358,7 +358,6 @@ load_eqn(void) {
     struct dirent *dp;
     if (got_file == 1 && (std == 0) &&
         (dp = (struct dirent *)opendir(this_file)) != NULL) {
-
         no_eqn = 1;
         okay = 0;
         change_directory(this_file);
@@ -382,7 +381,6 @@ load_eqn(void) {
             struct dirent *dp;
             char odeclassrm[256];
             if (getenv("XPPSTART") != NULL) {
-
                 sprintf(odeclassrm, "%s", getenv("XPPSTART"));
 
                 if ((dp = (struct dirent *)opendir(odeclassrm)) != NULL) {
@@ -777,7 +775,6 @@ read_defaults(FILE *fp) {
     fgets(bob, 80, fp);
     ptr = get_first(bob, " ");
     if (notAlreadySet.SMALL_FONT_NAME) {
-
         strcpy(small_font_name, ptr);
         notAlreadySet.SMALL_FONT_NAME = 0;
     }
@@ -988,7 +985,6 @@ do_intern_set(char *name1, char *value) {
 
 int32
 msc(char *s1, char *s2) {
-
     size_t n = strlen(s1);
     if (n > strlen(s2))
         return 0;
@@ -1366,10 +1362,8 @@ set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     }
 
     if (msc("SMC", s1)) {
-
         if ((notAlreadySet.StableManifoldColor || force) ||
             ((mask != NULL) && (mask->StableManifoldColor == 1))) {
-
             i = atoi(s2);
             if (i > -1 && i < 11) {
                 StableManifoldColor = i;
@@ -1393,7 +1387,6 @@ set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (msc("LT", s1)) {
         if ((notAlreadySet.START_LINE_TYPE || force) ||
             ((mask != NULL) && (mask->START_LINE_TYPE == 1))) {
-
             i = atoi(s2);
             if (i < 2 && i > -6) {
                 START_LINE_TYPE = i;
@@ -1948,7 +1941,6 @@ set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if (msc("RANGESTEP", s1)) {
         if ((notAlreadySet.RANGESTEP || force) ||
             ((mask != NULL) && (mask->RANGESTEP == 1))) {
-
             range.steps = atoi(s2);
             notAlreadySet.RANGESTEP = 0;
         }

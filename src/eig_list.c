@@ -70,7 +70,6 @@ draw_eq_list(Window w) {
     if (w == eq_list.close)
         xds("Close");
     if (w == eq_list.list) {
-
         for (i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
             if (i >= NEQ)
                 break;
@@ -95,7 +94,6 @@ draw_eq_list(Window w) {
 
 void
 create_eq_list(void) {
-
     int32 width, height, hlist, hmain;
     Window base;
     static char *wname[] = {"Equations"};
@@ -272,7 +270,6 @@ get_new_size(Window win, uint32 *wid, uint32 *hgt) {
 
 void
 resize_eq_list(Window win) {
-
     int32 nlines;
     uint32 w, h;
     if (eq_list.flag == 0)

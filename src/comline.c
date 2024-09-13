@@ -371,7 +371,6 @@ do_comline(int32 argc, char **argv) {
             i++;
         }
         if (k == 27) {
-
             set_option("NCDRAW", argv[i + 1], 1, NULL);
             i++;
         }
@@ -473,7 +472,6 @@ if_needed_load_set(void) {
 
 int32
 if_needed_load_par(void) {
-
     if (!loadparfile) {
         return 1;
     }
@@ -484,7 +482,6 @@ if_needed_load_par(void) {
 
 int32
 if_needed_load_ic(void) {
-
     if (!loadicfile) {
         return 1;
     }

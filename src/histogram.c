@@ -160,7 +160,6 @@ new_four(int32 nmodes, int32 col) {
 
 void
 post_process_stuff(void) {
-
     if (post_process == 0)
         return;
     if (N_plist < 1)
@@ -237,7 +236,6 @@ twod_hist(void)
 
 int32
 new_2d_hist(void) {
-
     if ((NEQ < 2) || (storind < 3)) {
         err_msg("Need more data and at least 3 columns");
         return 0;
@@ -886,7 +884,6 @@ mycor2(float *x, float *y, int32 n, int32 nbins, float *z, int32 flag) {
 
 void
 compute_hist(void) {
-
     new_int("Number of bins ", &hist_inf.nbins);
     new_float("Low ", &hist_inf.xlo);
     new_float("Hi ", &hist_inf.xhi);

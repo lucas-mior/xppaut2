@@ -88,7 +88,6 @@ conpar_process(void *arg) {
        sum, then we do a final sum into shared memory
        at the end */
     else if (global_conpar_type == CONPAR_PTHREADS) {
-
         ;
     }
 
@@ -218,7 +217,6 @@ conpar_process(void *arg) {
                                variable our contribution, and then sum
                                into shared memory at the end (inside a mutex */
                             else if (global_conpar_type == CONPAR_PTHREADS) {
-
                                 ;
                             }
                         }

@@ -147,7 +147,6 @@ gefa(double **a, int64 n, int64 *p) {
     /* k = elimination step number */
 
     for (k = 0; k < n - 1; k++, p++) {
-
         col_k = a[k];
         diag_k = col_k + k;
 
@@ -188,7 +187,6 @@ gefa(double **a, int64 n, int64 *p) {
         /* column j=k+1, ..., n-1.                                */
 
         for (j = k + 1; j < n; j++) {
-
             col_j = a[j];
             a_kj = col_j[l];
 

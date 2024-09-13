@@ -244,7 +244,6 @@ char *c;
 
 void
 init_rpn(void) {
-
     ERROUT = 1;
     NCON = 0;
     NFUN = 0;
@@ -335,7 +334,6 @@ add_constant(char *junk) {
 
 int32
 get_var_index(char *name) {
-
     int32 type, com;
     find_name(name, &type);
     if (type < 0)
@@ -358,7 +356,6 @@ get_type(int32 index) {
 
 int32
 add_con(char *name, double value) {
-
     /*  printf("Adding constant %s # %d\n",name,NCON); */
     if (NCON >= MAX_PAR) {
         if (ERROUT)
@@ -491,7 +488,6 @@ add_expr(char *expr, int32 *command, int32 *length) {
 
 int32
 add_vector_name(int32 index, char *name) {
-
     char string[50];
     int32 len = strlen(name);
     plintf(" Adding vectorizer %s %d \n", name, index);
@@ -586,7 +582,6 @@ add_table_name(int32 index, char *name) {
 
 int32
 add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
-
     if (create_fun_table(nn, xlo, xhi, formula, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
@@ -654,7 +649,6 @@ fixup_endfun(int32 *u, int32 l, int32 narg) {
 
 int32
 add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
-
     int32 i, l;
     int32 end;
     if (narg > MAXARG) {
@@ -676,7 +670,6 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
         strcpy(ufun_arg[index].args[i], args[i]);
     set_new_arg_names(narg, args);
     if (add_expr(rhs, ufun[index], &end) == 0) {
-
         ufun[index][end - 1] = ENDFUN;
         ufun[index][end] = narg;
         ufun[index][end + 1] = ENDEXP;
@@ -757,7 +750,6 @@ check_num(int32 *tok, double value) {
     int32 bob, in, i;
     /*int32 m;*/
     for (i = 0; i < NSYM; i++) {
-
         if (strncmp(my_symb[i].name, "NUM##", 5) == 0) {
             bob = my_symb[i].com;
             in = bob % MAXTYPE;
@@ -913,7 +905,6 @@ set_val(char *name, double value) {
         return 1;
     }
     if (is_uvar(com)) {
-
         variables[com % MAXTYPE] = value;
         return 1;
     }
@@ -1116,7 +1107,6 @@ alg_to_rpn(int32 *toklist, int32 *command) {
 
             if (my_com == ENDDELAY || my_com == ENDSHIFT ||
                 my_com == ENDISHIFT) {
-
                 ncomma -= 1;
             }
             if (my_com == ENDDELSHFT || my_com == ENDSET)
@@ -1806,7 +1796,6 @@ do_shift(double shift, double variable) {
 
 double
 do_ishift(double shift, double variable) {
-
     /* plintf( "shifting %d (%s) by %d to %d (%s)\n",
      *	(int32)variable, com_name((int32)variable), (int32)shift, i, com_name(i)
      *);
@@ -1836,7 +1825,6 @@ do_delay_shift(double delay, double shift, double variable) {
 
 double
 do_delay(double delay, double i) {
-
     int32 variable;
     /* ram - this was a little weird, since i is a double... except I think it's
      * secretely an int64 */
@@ -2050,7 +2038,6 @@ eval_rpn(int32 *equat) {
     } encoder;
 
     while ((i = *equat++) != ENDEXP) {
-
         switch (i) {
         case NUMSYM:
             encoder.pieces.int2 = *equat++;

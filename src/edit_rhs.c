@@ -160,7 +160,6 @@ ereset_hot(int32 inew, EDIT_BOX *sb) {
 void
 enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
               Window *w) {
-
     ereset_hot(inew, sb);
     *pos = strlen(sb->value[inew]);
     *col = (*pos + strlen(sb->name[inew])) * DCURX;
@@ -350,10 +349,8 @@ edit_rhs(void) {
     }
     status = do_edit_box(n, "Right Hand Sides", names, values);
     if (status != 0) {
-
         for (i = 0; i < n; i++) {
             if (i < NODE || (i >= (NODE + NMarkov))) {
-
                 err = add_expr(values[i], command[i], &len);
                 if (err == 1) {
                     sprintf(msg, "Bad rhs:%s=%s", names[i], values[i]);
@@ -433,7 +430,6 @@ edit_functions(void) {
 
     status = do_edit_box(n, "Functions", names, values);
     if (status != 0) {
-
         for (i = 0; i < n; i++) {
             set_new_arg_names(narg_fun[i], ufun_arg[i].args);
             err = add_expr(values[i], command[i], &len);

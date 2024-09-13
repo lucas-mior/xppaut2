@@ -238,7 +238,6 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     /* Begin outer iterations: up to (max_restarts + 1) attempts */
 
     for (ntries = 0; ntries <= max_restarts; ntries++) {
-
         /* Initialize the Hessenberg matrix Hes and Givens rotation
            product.  Normalize the initial vector V[0].             */
 
@@ -253,7 +252,6 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         /* Inner loop: generate Krylov sequence and Arnoldi basis */
 
         for (l = 0; l < l_max; l++) {
-
             (*nli)++;
 
             krydim = l_plus_1 = l + 1;
@@ -347,7 +345,6 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
 
         /* If converged, construct the final solution vector x */
         if (converged) {
-
             /* Apply x-scaling and right precond.: vtemp = P2_inv sx_inv xcor */
 
             if (scale_x)
@@ -399,7 +396,6 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
        and return x anyway.  Otherwise return failure flag.              */
 
     if (rho < beta) {
-
         /* Apply the x-scaling and right precond.: vtemp = P2_inv sx_inv xcor */
 
         if (scale_x)

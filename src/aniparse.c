@@ -441,7 +441,6 @@ ani_buttonx(XEvent ev, int32 flag) {
     /*   ADDED FOR THE GRAB FEATURE IN ANIMATOR  This is BUTTON PRESS */
     if ((w == vcr.view) && (ani_grab_flag == 1)) {
         if (flag == 1) {
-
             ami.t1 = get_current_time();
             ami.tstart = ami.t1;
             ani_ij_to_xy(ev.xbutton.x, ev.xbutton.y, &ami.x, &ami.y);
@@ -723,7 +722,6 @@ on_the_fly(int32 task) {
 
 void
 ani_frame(int32 task) {
-
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
     XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
@@ -963,7 +961,6 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     ximage = XGetImage(display, window, 0, 0, *wid, *hgt, AllPlanes, ZPixmap);
 
     if (!ximage) {
-
         return -1;
     }
     /* this is only good for 256 color displays */
@@ -987,7 +984,6 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     for (y = 0; y < (unsigned)(ximage->height); y++) {
         for (x = 0; x < (unsigned)(ximage->width); x++) {
             if (TrueColorFlag == 1) {
-
                 /*  use the slow way to get the pixel
                     but then you dont need to screw around
                     with byte order etc
@@ -1079,7 +1075,6 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     for (y = 0; y < (unsigned)(ximage->height); y++) {
         for (x = 0; x < (unsigned)(ximage->width); x++) {
             if (TrueColorFlag == 1) {
-
                 /*  use the slow way to get the pixel
                     but then you dont need to screw around
                     with byte order etc
@@ -1137,7 +1132,6 @@ ani_zero(void) {
 
 void
 get_ani_file(char *fname) {
-
     int32 status;
     int32 err;
 
@@ -1590,7 +1584,6 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
 
 void
 init_ani_stuff(void) {
-
     ani_text_size = 1;
     ani_text_font = 0;
     ani_text_color = 0;
@@ -1680,7 +1673,6 @@ add_ani_expr(char *x, int32 *c) {
 
 int32
 add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick) {
-
     int32 err, index;
     err = chk_ani_color(col, &index);
     if (err == 1) {
@@ -1773,7 +1765,6 @@ add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
 int32
 add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
              char *thick) {
-
     int32 err, index;
     err = chk_ani_color(col, &index);
     if (err == 1) {
@@ -1808,7 +1799,6 @@ add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
 int32
 add_ani_null(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
              char *who) {
-
     int32 err, index;
     err = chk_ani_color(col, &index);
     if (err == 1) {
@@ -1865,7 +1855,6 @@ add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
 int32
 add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
                char *thick) {
-
     int32 err, index;
     err = chk_ani_color(col, &index);
     if (err == 1) {
@@ -2086,7 +2075,6 @@ eval_ani_color(int32 j) {
 
 void
 eval_ani_com(int32 j) {
-
     my_ani[j].zx1 = evaluate(my_ani[j].x1);
 
     my_ani[j].zy1 = evaluate(my_ani[j].y1);
@@ -2126,7 +2114,6 @@ set_ani_thick(int32 t) {
 
 void
 set_ani_font_stuff(int32 size, int32 font, int32 color) {
-
     if (color == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
@@ -2158,7 +2145,6 @@ set_ani_col(int32 j) {
 
 void
 xset_ani_col(int32 icol) {
-
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
@@ -2687,7 +2673,6 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         return 1;
     }
     if (which == 2) {
-
         if (strncmp("runnow", lhs, 6) == 0) {
             rn = atoi(rhs);
             ani_grab[igrab].end.runnow = rn;

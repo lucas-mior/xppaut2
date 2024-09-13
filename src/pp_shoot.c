@@ -99,7 +99,6 @@ compile_bvp(void) {
     NSYM = NSYM_START;
     BVP_FLAG = 0;
     for (i = 0; i < NODE; i++) {
-
         if (add_expr(my_bc[i].string, my_bc[i].com, &len)) {
             snprintf(badcom, sizeof(badcom), "Bad syntax on %d th BC", i + 1);
             err_msg(badcom);

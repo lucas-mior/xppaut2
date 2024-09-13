@@ -49,11 +49,9 @@ MSGBOXSTRUCT MsgBox;
 
 void
 do_tutorial(void) {
-
     printf("Running tutorial!\n");
     int32 tut = 0;
     while (true) {
-
         char ans = (char)two_choice("Next", "Done", tutorial[tut], "nd",
                                     DisplayWidth / 2, DisplayHeight / 2,
                                     RootWindow(display, screen),
@@ -106,7 +104,6 @@ edit_xpprc(void) {
 
 void
 xpp_hlp(void) {
-
     char cmd[256];
 
     if (getenv("XPPHELP") == NULL) {
@@ -122,7 +119,6 @@ xpp_hlp(void) {
     snprintf(cmd, sizeof(cmd), "file:///%s", getenv("XPPHELP"));
 
     if (fork() == 0) {
-
         execlp(getenv("XPPBROWSER"), getenv("XPPHELP"), cmd, (char *)0);
         perror("Unable to open browser. Check your XPPBROWSER and XPPHELP "
                "environement variables.");
@@ -757,7 +753,6 @@ do_torus(void) {
 
 void
 window_zoom(void) {
-
     static char *n[] = {"(W)indow", "(Z)oom In", "Zoom (O)ut",
                         "(F)it",    "(D)efault", "(S)croll"};
     static char key[] = "wzofds";
@@ -852,7 +847,6 @@ find_equilibrium(void) {
 
 void
 ini_data_menu(void) {
-
     int32 i;
     Window temp = main_win;
     static char *n[] = {"(R)ange",   "(2)par range", "(L)ast",    "(O)ld",
