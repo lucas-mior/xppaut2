@@ -21,11 +21,10 @@
 #include "parserslow.h"
 #include "pop_list.h"
 #include "scrngif.h"
+
 /*  A simple animator
 
-*/
-
-/***************   NOTES ON MPEG STUFF   ********************
+***************   NOTES ON MPEG STUFF   ********************
 To prepare for mpeg encoding in order to make your movies
 permanent, I have to do some image manipulation - the main
 routine is writeframe()
