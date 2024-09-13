@@ -1089,8 +1089,8 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
 
     if ((flag2 > 0) && (Auto.plot == P_P))
         type1 = CSEQ;
-    switch (type1) {
 
+    switch (type1) {
     case CSEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
             break;
