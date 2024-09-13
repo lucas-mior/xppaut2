@@ -7308,4 +7308,5 @@ allocate_global_memory(const iap_type iap) {
 
     free(global_rotations.nrtn);
     global_rotations.nrtn = (int64 *)malloc(sizeof(int64) * (iap.nbc));
+    return;
 }
