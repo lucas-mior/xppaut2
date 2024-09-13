@@ -3056,4 +3056,5 @@ auto_file(void) {
             return;
         }
     }
+    return;
 }
