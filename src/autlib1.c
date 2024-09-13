@@ -305,8 +305,9 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* THIS IS THE ENTRY ROUTINE FOR GENERAL BOUNDARY VALUE PROBLEMS. */
 
-    cnrlbv(iap, rap, par, icp, funi, bcni, icni, stpnt, pvli, thl, thu, iuz,
-           vuz);
+    cnrlbv(iap, rap, par, icp,
+           funi, bcni, icni, stpnt,
+           pvli, thl, thu, iuz, vuz);
     return 0;
 }
 
