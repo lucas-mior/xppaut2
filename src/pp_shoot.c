@@ -492,7 +492,6 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             *iret = 1;
             goto bye;
         }
-        /* plintf("err1 = %f tol= %f \n",error,err); */
         niter++;
         if (niter > maxit) {
             *iret = -2;
