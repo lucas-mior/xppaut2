@@ -1542,7 +1542,6 @@ L1:
 
 } /* lcspae_ */
 
-/*     ---------- ------- */
 int32
 mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
         double *rds) {
@@ -1582,7 +1581,6 @@ mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
     return 0;
 } /* mueller_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
@@ -1630,7 +1628,6 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnbpae_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
@@ -1697,7 +1694,6 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnlpae_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
@@ -1869,7 +1865,6 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnhbae_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
@@ -1921,7 +1916,6 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 /*                   Branch Switching for Algebraic Problems */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ----- */
 int32
 stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *aa, int64 m1sbloc, double *stud, double *stu, double *stla,
