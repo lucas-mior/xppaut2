@@ -305,7 +305,7 @@ int32 nrmlz(int64 *ndim, double *v);
 double pi(double r__);
 int32 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
          int64 m1f, double *f, double *det);
-int32 newlab(iap_type *iap, rap_type *rap);
+int32 newlab(iap_type *iap);
 int32 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
              logical *found);
 int32 readlb(const iap_type *iap, const rap_type *rap, double *u, double *par);

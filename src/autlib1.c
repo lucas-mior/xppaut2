@@ -786,7 +786,7 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* Determine a suitable starting label and branch number */
 
-    newlab(iap, rap);
+    newlab(iap);
 
     /* Write constants */
 
@@ -4130,7 +4130,7 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 } /* ge_ */
 
 int32
-newlab(iap_type *iap, rap_type *rap) {
+newlab(iap_type *iap) {
 
     /* Local variables */
     int64 mlab, ibrs, nars;
@@ -5572,7 +5572,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                  thu);
         /* Determine a suitable starting label and branch number. */
 
-        newlab(iap, rap);
+        newlab(iap);
 
         for (j = 0; j < ntsrs; ++j) {
             dtm_new[j] = tm_new[j + 1] - tm_new[j];
