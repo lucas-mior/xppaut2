@@ -989,10 +989,10 @@ do_intern_set(char *name1, char *value) {
 int32
 msc(char *s1, char *s2) {
 
-    int32 n = strlen(s1), i;
-    if (strlen(s2) < n)
+    size_t n = strlen(s1);
+    if (n > strlen(s2))
         return 0;
-    for (i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++)
         if (s1[i] != s2[i])
             return 0;
     return 1;
