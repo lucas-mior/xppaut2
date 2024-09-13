@@ -5,5 +5,5 @@
 #include "math.h"
 double
 d_lg10(double *x) {
-    return (log10e*log(*x));
+    return log10e*log(*x);
 }

@@ -1653,17 +1653,17 @@ parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
     j = getimpstr(s, &i, temp);
     strcpy(soname, temp);
     if (j == 1)
-        return (import_error());
+        return import_error();
 
     j = getimpstr(s, &i, temp);
     strcpy(sofun, temp);
     if (j == 1)
-        return (import_error());
+        return import_error();
 
     j = getimpstr(s, &i, temp);
     *n = atoi(temp);
     if (j == 1 || *n <= 0)
-        return (import_error());
+        return import_error();
 
     j = getimpstr(s, &i, temp);
     strcpy(vname, temp);

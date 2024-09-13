@@ -83,5 +83,5 @@ add_derived(char *name, char *rhs) {
     /* add the name to the recognized symbols */
     plintf(" derived constant[%d] is %s = %s\n", NCON, name, rhs);
     nderived++;
-    return (add_con(name, 0.0));
+    return add_con(name, 0.0);
 }

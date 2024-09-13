@@ -276,7 +276,7 @@ new_2d_hist(void) {
         return 0;
     }
 
-    return (twod_hist());
+    return twod_hist();
 }
 
 void

@@ -712,7 +712,7 @@ autobw(void) {
 
 int32
 auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
-    return (rubber(i1, j1, i2, j2, AutoW.canvas, flag));
+    return rubber(i1, j1, i2, j2, AutoW.canvas, flag);
 }
 
 int32

@@ -55,12 +55,12 @@ BandAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return (malloc(N * sizeof(int64)));
+    return malloc(N * sizeof(int64));
 }
 
 int64
 BandFactor(BandMat A, int64 *p) {
-    return (gbfa(A->data, A->size, A->mu, A->ml, A->smu, p));
+    return gbfa(A->data, A->size, A->mu, A->ml, A->smu, p);
 }
 
 void
@@ -142,7 +142,7 @@ bandallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return (malloc(n*sizeof(int64)));
+    return malloc(n*sizeof(int64));
 }
 
 int64

@@ -430,7 +430,7 @@ set_up_range(void) {
     int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup) {
-        return (range_item());
+        return range_item();
     }
 
     sprintf(values[0], "%s", range.item);
@@ -512,7 +512,7 @@ set_up_range2(void) {
     int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup) {
-        return (range_item());
+        return range_item();
     }
     sprintf(values[0], "%s", range.item);
     sprintf(values[1], "%.16g", range.plow);
@@ -811,7 +811,7 @@ int32
 do_auto_range_go(void) {
     double *x;
     x = &MyData[0];
-    return (do_range(x, 2));
+    return do_range(x, 2);
 }
 
 int32

@@ -247,7 +247,7 @@ get_key_press(XEvent *ev) {
         return FINE;
     else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||
              ((ks >= XK_space) && (ks <= XK_asciitilde)))
-        return ((int32)buf[0]);
+        return (int32)buf[0];
     /*   else if ((ks>=XK_Shift_L)&&(ks<=XK_Hyper_R)) return 0;
        else if ((ks>=XK_F1)&&(ks<=XK_F35))  return 0; */
 

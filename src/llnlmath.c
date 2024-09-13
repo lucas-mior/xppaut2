@@ -53,7 +53,7 @@ RPowerR(double base, double exponent) {
     if (base <= ZERO)
         return ZERO;
 
-    return ((double)pow((double)base, (double)exponent));
+    return (double)pow((double)base, (double)exponent);
 }
 
 double
@@ -61,5 +61,5 @@ RSqrt(double x) {
     if (x <= ZERO)
         return ZERO;
 
-    return ((double)sqrt((double)x));
+    return (double)sqrt((double)x);
 }

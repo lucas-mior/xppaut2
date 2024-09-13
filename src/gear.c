@@ -931,8 +931,8 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
 double
 sign(double x, double y) {
     if (y >= 0.0)
-        return (fabs(x));
-    return (-fabs(x));
+        return fabs(x);
+    return -fabs(x);
 }
 
 int32
@@ -1600,9 +1600,9 @@ L860:
 double
 sgnum(double x, double y) {
     if (y < 0.0)
-        return (-fabs(x));
+        return -fabs(x);
     else
-        return (fabs(x));
+        return fabs(x);
 }
 
 double

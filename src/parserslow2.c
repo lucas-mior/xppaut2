@@ -372,7 +372,7 @@ add_con(char *name, double value) {
     }
     constants[NCON] = value;
     NCON++;
-    return (add_constant(name));
+    return add_constant(name);
 }
 
 int32
@@ -932,7 +932,7 @@ set_ivar(int32 i, double value) {
 
 double
 get_ivar(int32 i) {
-    return (GETVAR(i));
+    return GETVAR(i);
 }
 
 int32
@@ -1545,13 +1545,13 @@ two_args(void) {
 double
 bessel_j(double x, double y) {
     int32 n = (int32)x;
-    return (jn(n, y));
+    return jn(n, y);
 }
 
 double
 bessel_y(double x, double y) {
     int32 n = (int32)x;
-    return (yn(n, y));
+    return yn(n, y);
 }
 
 #define ACC 40.0
@@ -1831,11 +1831,11 @@ do_delay_shift(double delay, double shift, double variable) {
 
     if (del_stab_flag > 0) {
         if (DelayFlag && delay > 0.0)
-            return (get_delay(in - 1, delay));
+            return get_delay(in - 1, delay);
         return variables[in];
     }
 
-    return (delay_stab_eval(delay, in));
+    return delay_stab_eval(delay, in);
 }
 
 double
@@ -1849,12 +1849,12 @@ do_delay(double delay, double i) {
     if (del_stab_flag > 0) {
         if (DelayFlag && delay > 0.0) {
             /* printf("do_delay for var #%d, delay %f\n", variable-1, delay); */
-            return (get_delay(variable - 1, delay));
+            return get_delay(variable - 1, delay);
         }
         return variables[variable];
     }
 
-    return (delay_stab_eval(delay, (int32)variable));
+    return delay_stab_eval(delay, (int32)variable);
 }
 /*
 double Exp(z)
@@ -1937,12 +1937,12 @@ normal(double mean, double std) {
 
 double
 max(double x, double y) {
-    return (((x > y) ? x : y));
+    return ((x > y) ? x : y);
 }
 
 double
 min(double x, double y) {
-    return (((x < y) ? x : y));
+    return ((x < y) ? x : y);
 }
 
 double
@@ -1965,8 +1965,8 @@ heaviside(double z) {
 
 double
 rndom(double z) {
-    /* return (z*(double)rand()/32767.00); */
-    return (z*ndrand48());
+    /* return z*(double)rand()/32767.00; */
+    return z*ndrand48();
 }
 
 double
@@ -1982,47 +1982,47 @@ signum(double z) {
 
 double
 dnot(double x) {
-    return ((double)(x == 0.0));
+    return (double)(x == 0.0);
 }
 
 double
 dand(double x, double y) {
-    return ((double)(x && y));
+    return (double)(x && y);
 }
 
 double
 dor(double x, double y) {
-    return ((double)(x || y));
+    return (double)(x || y);
 }
 
 double
 dge(double x, double y) {
-    return ((double)(x >= y));
+    return (double)(x >= y);
 }
 
 double
 dle(double x, double y) {
-    return ((double)(x <= y));
+    return (double)(x <= y);
 }
 
 double
 deq(double x, double y) {
-    return ((double)(x == y));
+    return (double)(x == y);
 }
 
 double
 dne(double x, double y) {
-    return ((double)(x != y));
+    return (double)(x != y);
 }
 
 double
 dgt(double x, double y) {
-    return ((double)(x > y));
+    return (double)(x > y);
 }
 
 double
 dlt(double x, double y) {
-    return ((double)(x < y));
+    return (double)(x < y);
 }
 
 /*              end of logical stuff    */
@@ -2031,7 +2031,7 @@ double
 evaluate(int32 *equat) {
     uptr = 0;
     stack_pointer = 0;
-    return (eval_rpn(equat));
+    return eval_rpn(equat);
 }
 
 double

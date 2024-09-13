@@ -50,12 +50,12 @@ DenseAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return (malloc(N * sizeof(int64)));
+    return malloc(N * sizeof(int64));
 }
 
 int64
 DenseFactor(DenseMat A, int64 *p) {
-    return (gefa(A->data, A->size, p));
+    return gefa(A->data, A->size, p);
 }
 
 void
@@ -136,7 +136,7 @@ denallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return (malloc(n*sizeof(int64)));
+    return malloc(n*sizeof(int64));
 }
 
 int64

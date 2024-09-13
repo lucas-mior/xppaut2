@@ -1543,7 +1543,7 @@ parse_ani_string(char *s, FILE *fp) {
     }
     /*  plintf(" %d %s %s %s %s %s %s\n",
             type,x1,x2,x3,x4,col,thick);  */
-    return (add_ani_com(type, x1, x2, x3, x4, col, thick));
+    return add_ani_com(type, x1, x2, x3, x4, col, thick);
 }
 
 void
@@ -1882,25 +1882,25 @@ add_ani_null(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
 int32
 add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
              char *thick) {
-    return (add_ani_line(a, x1, y1, x2, y2, col, thick));
+    return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
 add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
               char *thick) {
-    return (add_ani_line(a, x1, y1, x2, y2, col, thick));
+    return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
 add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
               char *thick) {
-    return (add_ani_line(a, x1, y1, x2, y2, col, thick));
+    return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
 add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
                char *thick) {
-    return (add_ani_line(a, x1, y1, x2, y2, col, thick));
+    return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
@@ -1936,7 +1936,7 @@ add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
 int32
 add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
                 char *thick) {
-    return (add_ani_circle(a, x1, y1, x2, col, thick));
+    return add_ani_circle(a, x1, y1, x2, col, thick);
 }
 
 int32

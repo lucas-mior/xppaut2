@@ -308,7 +308,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w) {
         sum += prodi*prodi;
     }
 
-    return (RSqrt(sum / N));
+    return RSqrt(sum / N);
 }
 
 double

@@ -5,5 +5,5 @@
 #include "math.h"
 double
 r_lg10(float x) {
-    return (log10e*log(x));
+    return log10e*log(x);
 }

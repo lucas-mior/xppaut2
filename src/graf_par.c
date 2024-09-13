@@ -1593,7 +1593,7 @@ get_frz_index(Window w) {
                            8 * DCURY + 8, no_hint, info_pop, info_message);
     for (i = 0; i < count; i++)
         free(n[i]);
-    return ((int32)(ch - 'a'));
+    return (int32)(ch - 'a');
 }
 
 void

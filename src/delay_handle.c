@@ -40,11 +40,11 @@ delay_stab_eval(
     {
         for (i = 0; i < NDelay; i++) {
             if (delay == delay_list[i])
-                return (GETVAR(var));
+                return GETVAR(var);
         }
         delay_list[NDelay] = delay;
         NDelay++;
-        return (GETVAR(var));
+        return GETVAR(var);
     }
     /*  now we must determine the value to return  */
     /*  del_stab_flag =-1 */
@@ -119,7 +119,7 @@ get_delay_old(int32 in, double tau) {
     i2 = (n2 + LatestDelay) % MaxDelay;
     x1 = DelayWork[in + (nodes)*i1];
     x2 = DelayWork[in + (nodes)*i2];
-    return (x1 + (x - n1) * (x2 - x1));
+    return x1 + (x - n1) * (x2 - x1);
 }
 
 void

@@ -242,9 +242,9 @@ double
 alpha1n(double mu, double dt, double t, double t0) {
     double m1;
     if (mu == .5)
-        return (sqrt(fabs(t - t0)) - sqrt(fabs(t - t0 - dt)));
+        return sqrt(fabs(t - t0)) - sqrt(fabs(t - t0 - dt));
     m1 = 1 - mu;
-    return (.5 * (pow(fabs(t - t0), m1) - pow(fabs(t - t0 - dt), m1)) / m1);
+    return .5 * (pow(fabs(t - t0), m1) - pow(fabs(t - t0 - dt), m1)) / m1;
 }
 
 double
@@ -252,18 +252,18 @@ alpbetjn(double mu, double dt, int32 l) {
     double m1;
     double dif = l*dt;
     if (mu == .5)
-        return (sqrt(dif + dt) - sqrt(fabs(dif - dt)));
+        return sqrt(dif + dt) - sqrt(fabs(dif - dt));
     m1 = 1 - mu;
-    return (.5 * (pow(dif + dt, m1) - pow(fabs(dif - dt), m1)) / m1);
+    return .5 * (pow(dif + dt, m1) - pow(fabs(dif - dt), m1)) / m1;
 }
 
 double
 betnn(double mu, double dt) {
     double m1;
     if (mu == .5)
-        return (sqrt(dt));
+        return sqrt(dt);
     m1 = 1 - mu;
-    return (.5 * pow(dt, m1) / m1);
+    return .5 * pow(dt, m1) / m1;
 }
 
 void

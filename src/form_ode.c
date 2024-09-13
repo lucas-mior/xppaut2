@@ -1150,7 +1150,7 @@ getuch(void) {
 
 int32
 getchi(void) {
-    return (getchar());
+    return getchar();
 }
 
 /*   This is the new improved parser for input files.
@@ -2494,7 +2494,7 @@ next_nonspace(char *s1, int32 i0, int32 *i1) {
         ch = s1[i];
         if (ch != ' ') {
             *i1 = i;
-            return ((int32)ch);
+            return (int32)ch;
         }
         i++;
     }

@@ -402,13 +402,13 @@ draw_bif_axes(void) {
 int32
 IXVal(double x) {
     double temp = (double)Auto.wid * (x - Auto.xmin) / (Auto.xmax - Auto.xmin);
-    return ((int32)temp + Auto.x0);
+    return (int32)temp + Auto.x0;
 }
 
 int32
 IYVal(double y) {
     double temp = (double)Auto.hgt * (y - Auto.ymin) / (Auto.ymax - Auto.ymin);
-    return (Auto.hgt - (int32)temp + Auto.y0);
+    return Auto.hgt - (int32)temp + Auto.y0;
 }
 
 int32
@@ -1661,7 +1661,7 @@ reset_auto(void) {
     if (ch != 'y')
         return 0;
 
-    return (yes_reset_auto());
+    return yes_reset_auto();
 }
 
 void

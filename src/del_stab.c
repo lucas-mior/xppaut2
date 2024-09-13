@@ -228,7 +228,7 @@ cprintarr(COMPLEX *z, int32 n, int32 m) {
 
 double
 c_abs(COMPLEX z) {
-    return (sqrt(z.i*z.i + z.r*z.r));
+    return sqrt(z.i*z.i + z.r*z.r);
 }
 
 COMPLEX
@@ -246,7 +246,7 @@ cdeterm(COMPLEX *z, int32 n) {
             }
         }
         if (qmax == 0.0)
-            return (rtoc(0.0, 0.0));
+            return rtoc(0.0, 0.0);
         switch_rows(z, imax, j, n);
         if (imax > j)
             sign = cmlt(rtoc(-1.0, 0.0), sign);

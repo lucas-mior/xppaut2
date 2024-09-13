@@ -962,7 +962,7 @@ fnull(double x, double y) {
     y1[null_iy - 1] = (double)y;
     rhs(0.0, y1, ydot, NODE);
     /*  plintf(" %f  %f %f \n ", x,y,ydot[WHICH_CRV-1]); */
-    return ((float)ydot[WHICH_CRV - 1]);
+    return (float)ydot[WHICH_CRV - 1];
 }
 
 int32

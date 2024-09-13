@@ -659,7 +659,7 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
 
     /* Problem has been successfully initialized */
 
-    return ((void *)cv_mem);
+    return (void *)cv_mem;
 }
 
 /**************************************************************/
@@ -1117,9 +1117,9 @@ CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
          N_Vector ycur, N_Vector ewtvec, int64 neq) {
     switch (tol_type) {
     case SS:
-        return (CVEwtSetSS(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq));
+        return CVEwtSetSS(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
     case SV:
-        return (CVEwtSetSV(cv_mem, rtol, (N_Vector)atol, ycur, ewtvec, neq));
+        return CVEwtSetSV(cv_mem, rtol, (N_Vector)atol, ycur, ewtvec, neq);
     }
     return 0;
 }
@@ -1854,9 +1854,9 @@ static int32
 CVnls(CVodeMem cv_mem, int32 nflag) {
     switch (iter) {
     case FUNCTIONAL:
-        return (CVnlsFunctional(cv_mem));
+        return CVnlsFunctional(cv_mem);
     case NEWTON:
-        return (CVnlsNewton(cv_mem, nflag));
+        return CVnlsNewton(cv_mem, nflag);
     }
     return 0;
 }

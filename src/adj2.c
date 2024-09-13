@@ -131,7 +131,7 @@ do_transpose(void) {
         my_trans.colskip = atoi(values[2]);
         my_trans.row0 = atoi(values[3]);
         my_trans.rowskip = atoi(values[5]);
-        return (create_transpose());
+        return create_transpose();
     }
     return 0;
 }

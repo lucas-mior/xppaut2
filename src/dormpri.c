@@ -51,7 +51,7 @@ dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
    double *atol, int32 flag, int32 *kflag) {
     int32 err = 0;
     if (NFlags == 0)
-        return (dormprin(istart, y, t, n, tout, tol, atol, flag, kflag));
+        return dormprin(istart, y, t, n, tout, tol, atol, flag, kflag);
     err = one_flag_step_dp(istart, y, t, n, tout, tol, atol, flag, kflag);
     if (err == 1)
         *kflag = -9;
@@ -121,7 +121,7 @@ xRead(void) {
 
 static double
 sign(double a, double b) {
-    return (b < 0.0) ? -fabs(a) : fabs(a);
+    return b < 0.0) ? -fabs(a) : fabs(a;
 
 } /* sign */
 
