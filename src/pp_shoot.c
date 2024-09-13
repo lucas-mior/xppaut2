@@ -129,31 +129,6 @@ reset_bvp(void) {
     return;
 }
 
-/*
-
-reset_bvp()
-{
- int32 i;
- int32 sum=BVP_NL+BVP_NR;
- if(sum!=NODE){
-   err_msg("Number BCs not equal to number ODES !");
-   BVP_FLAG=0;
-   return;
- }
- BVP_FLAG=1;
- for(i=0;i<BVP_NL;i++){ my_bc[i].side=0;
-                        snprintf(my_bc[i].name, sizeof(my_bc[i].name),"At t0
-0=");
-                      }
- for(i=BVP_NL;i<NODE;i++){
-   my_bc[i].side=1;
-   snprintf(my_bc[i].name, sizeof(my_bc[i].name),"At t1 0=");
- }
- redraw_bcs();
-}
-
-*/
-
 void
 init_shoot_range(char *s) {
     strcpy(shoot_range.item, s);
