@@ -570,7 +570,7 @@ open_auto(/* compatible with new auto */
 /* MAIN Running routine  Assumes that Auto structure is set up */
 
 void
-do_auto(int32 iold, int32 isave, int32 itp) {
+do_auto(int32 iold, int32 isave) {
     redraw_auto_menus();
 
     set_auto(); /* this sets up all the continuation initialization
@@ -595,7 +595,7 @@ do_auto(int32 iold, int32 isave, int32 itp) {
                Auto.isp, AutoTwoParam);
         Auto.irs = RestartLabel;
         RestartLabel = 0;
-        do_auto(iold, isave, Auto.itp);
+        do_auto(iold, isave);
     }
     ping();
     redraw_params();
@@ -2109,7 +2109,7 @@ auto_start_diff_ss(void) {
         Auto.isp = 0;
     Auto.nfpar = 1;
     AutoTwoParam = 0;
-    do_auto(NO_OPEN_3, APPEND, Auto.itp);
+    do_auto(NO_OPEN_3, APPEND);
     return;
 }
 
@@ -2133,7 +2133,7 @@ auto_start_at_bvp(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     NewPeriodFlag = 2;
-    do_auto(opn, cls, Auto.itp);
+    do_auto(opn, cls);
     return;
 }
 
@@ -2154,7 +2154,7 @@ auto_start_at_per(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     NewPeriodFlag = 1;
-    do_auto(opn, cls, Auto.itp);
+    do_auto(opn, cls);
     return;
 }
 
@@ -2186,7 +2186,7 @@ auto_new_ss(void) {
     ;
     Auto.nfpar = 1;
     AutoTwoParam = 0;
-    do_auto(opn, cls, Auto.itp);
+    do_auto(opn, cls);
     return;
 }
 
@@ -2216,7 +2216,7 @@ auto_new_discrete(void) {
         Auto.isp = 0;
     Auto.nfpar = 1;
     AutoTwoParam = 0;
-    do_auto(opn, cls, Auto.itp);
+    do_auto(opn, cls);
     return;
 }
 
@@ -2253,7 +2253,7 @@ auto_extend_ss(void) {
         Auto.isp = 0;
 
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2318,7 +2318,7 @@ three_parameter_homoclinic(void) {
     if (HomoFlag == 2)
         x_auto.iequib = -2;
 
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2343,7 +2343,7 @@ auto_extend_homoclinic(void) {
     if (HomoFlag == 2)
         x_auto.iequib = -2;
 
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2378,7 +2378,7 @@ auto_start_at_homoclinic(void) {
         /* TODO: for some reason, the second argument was `close`, which maps
          * to the libc function with this name. That does not make any sense
          * so I changed it to 1 */
-        do_auto(opn, 1, Auto.itp);
+        do_auto(opn, 1);
     }
     return;
 }
@@ -2415,7 +2415,7 @@ auto_new_per(void) /* same for extending periodic  */
         Auto.isp = 0;
     Auto.ips = 2;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2433,7 +2433,7 @@ auto_extend_bvp(void) /* extending bvp */
         Auto.isp = 0;
     Auto.ips = 4;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2451,7 +2451,7 @@ auto_switch_per(void) {
         Auto.isp = 0;
     Auto.ips = 2;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2468,7 +2468,7 @@ auto_switch_bvp(void) {
         Auto.isp = 0;
     Auto.ips = 4;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2488,7 +2488,7 @@ auto_switch_ss(void) {
     if (METHOD == DISCRETE)
         Auto.ips = -1;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2524,7 +2524,7 @@ auto_2p_limit(int32 ips) {
     }
     /* printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp); */
     /* plintf(" IPS = %d \n",ips); */
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2541,7 +2541,7 @@ auto_twopar_double(void) {
     Auto.ilp = 0;
     Auto.isw = 2;
     Auto.isp = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2557,7 +2557,7 @@ auto_torus(void) {
     Auto.ilp = 0;
     Auto.isw = 2;
     Auto.isp = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2586,7 +2586,7 @@ auto_2p_branch(int32 ips) {
         Auto.ips = -1;
     AutoTwoParam = BR2;
     TypeOfCalc = BR2;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2601,7 +2601,7 @@ auto_2p_fixper(void) {
     Auto.ips = 2;
     AutoTwoParam = FP2;
     TypeOfCalc = FP2;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2635,7 +2635,7 @@ auto_2p_hopf(void) {
         Auto.ips = -1;
     AutoTwoParam = HB2;
     TypeOfCalc = HB2;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 
@@ -2656,7 +2656,7 @@ auto_period_double(void) {
         Auto.isp = 0;
     Auto.ips = 2;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND, Auto.itp);
+    do_auto(OPEN_3, APPEND);
     return;
 }
 

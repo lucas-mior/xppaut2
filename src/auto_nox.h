@@ -84,7 +84,7 @@ void appendf(char *old, char *new);
 void deletef(char *old);
 void close_auto(int32 flag);
 void open_auto(int32 flag);
-void do_auto(int32 iold, int32 isave, int32 itp);
+void do_auto(int32 iold, int32 isave);
 void set_auto(void);
 int32 auto_name_to_index(char *s);
 int32 auto_par_to_name(int32 index, char *s);

@@ -21,7 +21,7 @@ int32 appendf(char *old, char *new);
 int32 deletef(char *old);
 int32 close_auto(int32 flag);
 int32 open_auto(int32 flag);
-int32 do_auto(int32 iold, int32 isave, int32 itp);
+int32 do_auto(int32 iold, int32 isave);
 int32 set_auto(void);
 int32 auto_name_to_index(char *s);
 int32 auto_par_to_name(int32 index, char *s);
