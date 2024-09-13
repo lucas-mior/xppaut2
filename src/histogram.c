@@ -843,7 +843,7 @@ mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins,
             k = i + (int32)jz;
             if ((k >= 0) && (k < n)) {
                 count++;
-                sum += (x[i] - avx) * (y[k] - avy);
+                sum += (x[i] - avx)*(y[k] - avy);
             }
         }
         if (count > 0)
@@ -874,7 +874,7 @@ mycor2(float *x, float *y, int32 n, int32 nbins, float *z, int32 flag) {
             k = (k + n) % n;
             if ((k >= 0) && (k < n)) {
                 count++;
-                sum += (x[i] - avx) * (y[k] - avy);
+                sum += (x[i] - avx)*(y[k] - avy);
             }
         }
         if (count > 0)

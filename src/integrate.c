@@ -603,7 +603,7 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     for (i = 0; i < n; i++) {
         /*  plintf("Guess:\n"); */
         for (j = 0; j < NODE; j++) {
-            x[j] = ndrand48() * (fixptguess.xhi[j] - fixptguess.xlo[j]) +
+            x[j] = ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
                    fixptguess.xlo[j];
             /*      plintf("x[%d]=%g \n",j,x[j]); */
         }
@@ -2725,7 +2725,7 @@ comp_color(float *v1, float *v2, int32 n, double dt) {
             sum += (float)fabs((double)(v1[i + 1] - v2[i + 1]));
         sum = sum / (dt);
     }
-    cur_color = (int32)((sum - min_scale) * (float)color_total / color_scale);
+    cur_color = (int32)((sum - min_scale)*(float)color_total / color_scale);
     /*  plintf("min=%f max=%f col = %d val = %f \n",min_scale,color_scale,
             cur_color,sum); */
     if (cur_color < 0)

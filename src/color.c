@@ -241,21 +241,21 @@ rfun(double y, int32 per) {
 
     if (x > .33333333333)
         return 0;
-    return (int32)(3. * 255*sqrt((.333334 - x) * (x + .33334)));
+    return (int32)(3. * 255*sqrt((.333334 - x)*(x + .33334)));
 }
 
 int32
 gfun(double y, int32 per) {
     if (y > .666666)
         return 0;
-    return (int32)(3. * 255*sqrt((.6666667 - y) * (y)));
+    return (int32)(3. * 255*sqrt((.6666667 - y)*(y)));
 }
 
 int32
 bfun(double y, int32 per) {
     if (y < .333334)
         return 0;
-    return (int32)(2.79*255*sqrt((1.05 - y) * (y - .333333333)));
+    return (int32)(2.79*255*sqrt((1.05 - y)*(y - .333333333)));
 }
 
 void

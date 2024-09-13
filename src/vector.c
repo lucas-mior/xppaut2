@@ -177,7 +177,7 @@ N_VProd(N_Vector x, N_Vector y, N_Vector z) {
     zd = z->data;
 
     for (i = 0; i < N; i++)
-        *zd++ = (*xd++) * (*yd++);
+        *zd++ = (*xd++)*(*yd++);
     return;
 }
 
@@ -272,7 +272,7 @@ N_VDotProd(N_Vector x, N_Vector y) {
     yd = y->data;
 
     for (i = 0; i < N; i++)
-        sum += (*xd++) * (*yd++);
+        sum += (*xd++)*(*yd++);
 
     return sum;
 }
@@ -303,7 +303,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w) {
     wd = w->data;
 
     for (i = 0; i < N; i++) {
-        prodi = (*xd++) * (*wd++);
+        prodi = (*xd++)*(*wd++);
         sum += prodi*prodi;
     }
 

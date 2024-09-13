@@ -36,7 +36,7 @@ add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     strcpy(my_menus[j].key, key);
     my_menus[j].title = make_unmapped_window(w, 0, 0, 16 * DCURX, DCURY, 1);
     for (i = 0; i < n; i++) {
-        my_menus[j].w[i] = make_unmapped_window(w, 0, (i + 1) * (DCURY + 2),
+        my_menus[j].w[i] = make_unmapped_window(w, 0, (i + 1)*(DCURY + 2),
                                                 16 * DCURX, DCURY, 0);
     }
     my_menus[j].visible = 0;

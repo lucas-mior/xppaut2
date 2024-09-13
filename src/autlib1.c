@@ -716,18 +716,18 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 aa_first_dimension = iap->ndim + 1;
 
-    dfdp = malloc(sizeof(double) * (iap->ndim) * NPARX);
-    dfdu = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
-    uold = malloc(sizeof(double) * (iap->ndim));
-    udot = malloc(sizeof(double) * (iap->ndim));
-    stud = malloc(sizeof(double) * (iap->ndim) * NBIFX);
-    f = malloc(sizeof(double) * (iap->ndim));
-    u = malloc(sizeof(double) * (iap->ndim));
-    aa = malloc(sizeof(double) * (iap->ndim + 1) * (iap->ndim + 1));
-    du = malloc(sizeof(double) * (iap->ndim + 1));
-    rhs = malloc(sizeof(double) * (iap->ndim + 1));
-    stu = malloc(sizeof(double) * (iap->ndim) * NBIFX);
-    uzr = malloc(sizeof(double) * (iap->nuzr));
+    dfdp = malloc(sizeof(double)*(iap->ndim) * NPARX);
+    dfdu = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
+    uold = malloc(sizeof(double)*(iap->ndim));
+    udot = malloc(sizeof(double)*(iap->ndim));
+    stud = malloc(sizeof(double)*(iap->ndim) * NBIFX);
+    f = malloc(sizeof(double)*(iap->ndim));
+    u = malloc(sizeof(double)*(iap->ndim));
+    aa = malloc(sizeof(double)*(iap->ndim + 1)*(iap->ndim + 1));
+    du = malloc(sizeof(double)*(iap->ndim + 1));
+    rhs = malloc(sizeof(double)*(iap->ndim + 1));
+    stu = malloc(sizeof(double)*(iap->ndim) * NBIFX);
+    uzr = malloc(sizeof(double)*(iap->nuzr));
 
     /* Controls the bifurcation analysis of algebraic problems */
 
@@ -1291,12 +1291,12 @@ L1:
         ss = 0.;
         for (i = 0; i < ndim; ++i) {
             /* Computing 2nd power */
-            ss += thu[i] * ((u[i] - uold[i]) * (u[i] - uold[i]));
+            ss += thu[i] * ((u[i] - uold[i])*(u[i] - uold[i]));
         }
         /* Computing 2nd power */
         rhs[ndim] =
             *rds - dds*ss -
-            thl[icp[0]] * dds * ((rlcur[0] - rlold[0]) * (rlcur[0] - rlold[0]));
+            thl[icp[0]] * dds * ((rlcur[0] - rlold[0])*(rlcur[0] - rlold[0]));
 
         /* Use Gauss elimination with pivoting to solve the linearized system
            : */
@@ -1632,7 +1632,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     int64 iid, ibr;
     double det;
 
-    ud = malloc(sizeof(double) * (iap->ndim + 1));
+    ud = malloc(sizeof(double)*(iap->ndim + 1));
 
     /* Local */
 
@@ -1716,7 +1716,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     double rev;
     int64 isw;
 
-    ev = malloc(sizeof(doublecomplex) * (iap->ndim));
+    ev = malloc(sizeof(doublecomplex)*(iap->ndim));
 
     ndim = iap->ndim;
     ndm = iap->ndm;
@@ -2108,7 +2108,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     int64 nit, mxt;
     double umx, rlm1;
 
-    u1 = malloc(sizeof(double) * (iap->ndim + 1));
+    u1 = malloc(sizeof(double)*(iap->ndim + 1));
 
     /* Controls the computation of the second point on a bifurcating branch. */
     /* This point is required to lie in a hyper-plane at distance DS from the */
@@ -3019,8 +3019,8 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     double *xm, *zm, sum;
     int64 ncp1;
 
-    xm = malloc(sizeof(double) * (ncol + 1));
-    zm = malloc(sizeof(double) * (ncol));
+    xm = malloc(sizeof(double)*(ncol + 1));
+    zm = malloc(sizeof(double)*(ncol));
 
     /* Generates weights of the collocation method. The user selected */
     /* number of collocation points (ncol) must be one of { 2,...,7 }. */
@@ -3359,10 +3359,10 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     double *tm2;
     int64 *itm;
 
-    uint = malloc(sizeof(double) * (*ndxloc) * (iap->ndim*iap->ncol));
-    tint = malloc(sizeof(double) * (*ndxloc));
-    tm2 = malloc(sizeof(double) * (*ndxloc));
-    itm = malloc(sizeof(int64) * (*ndxloc));
+    uint = malloc(sizeof(double)*(*ndxloc)*(iap->ndim*iap->ncol));
+    tint = malloc(sizeof(double)*(*ndxloc));
+    tm2 = malloc(sizeof(double)*(*ndxloc));
+    itm = malloc(sizeof(int64)*(*ndxloc));
 
     /* Adapts the distribution of the mesh points so that the increase of the */
     /* monotone function EQDF becomes approximately equidistributed over the */
@@ -3454,8 +3454,8 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
 
     int64 n1m1, ncp1;
 
-    w = malloc(sizeof(double) * (*nc + 1));
-    x = malloc(sizeof(double) * (*nc + 1));
+    w = malloc(sizeof(double)*(*nc + 1));
+    x = malloc(sizeof(double)*(*nc + 1));
 
     /* Finds interpolant (TM(.) , UPS(.) ) on new mesh TM1. */
 
@@ -3523,9 +3523,9 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     double *eqf;
     int64 *ial;
 
-    uneq = malloc(sizeof(double) * (*nnew + 1));
-    eqf = malloc(sizeof(double) * (*nold + 1));
-    ial = malloc(sizeof(int64) * (*nnew + 1));
+    uneq = malloc(sizeof(double)*(*nnew + 1));
+    eqf = malloc(sizeof(double)*(*nold + 1));
+    ial = malloc(sizeof(int64)*(*nnew + 1));
 
     /* Redistributes the mesh according to the function EQDF. */
 
@@ -3649,8 +3649,8 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     int64 jp1;
     double pwr;
 
-    hd = malloc(sizeof(double) * (*ntst + 1) * (*ndim * *ncol));
-    wh = malloc(sizeof(double) * (*ncol + 1));
+    hd = malloc(sizeof(double)*(*ntst + 1)*(*ndim * *ncol));
+    wh = malloc(sizeof(double)*(*ncol + 1));
 
     /* Compute approximation to NCOL-th derivative : */
     /* Parameter adjustments */
@@ -3748,11 +3748,11 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     double *wi, *wr, *fv1;
     int64 *iv1, ibr;
 
-    z__ = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
-    wi = malloc(sizeof(double) * (iap->ndim));
-    wr = malloc(sizeof(double) * (iap->ndim));
-    fv1 = malloc(sizeof(double) * (iap->ndim));
-    iv1 = malloc(sizeof(int64) * (iap->ndim));
+    z__ = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
+    wi = malloc(sizeof(double)*(iap->ndim));
+    wr = malloc(sizeof(double)*(iap->ndim));
+    fv1 = malloc(sizeof(double)*(iap->ndim));
+    iv1 = malloc(sizeof(int64)*(iap->ndim));
 
     /* This subroutine uses the EISPACK subroutine RG to compute the */
     /* eigenvalues of the general real matrix A. */
@@ -3803,8 +3803,8 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     int64 jjp1;
 
     int64 *ir, *ic;
-    ir = malloc(sizeof(int64) * (n));
-    ic = malloc(sizeof(int64) * (n));
+    ir = malloc(sizeof(int64)*(n));
+    ic = malloc(sizeof(int64)*(n));
 
     /* Finds a null-vector of a singular matrix A. */
     /* The null space of A is assumed to be K-dimensional. */
@@ -3948,8 +3948,8 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
     int64 jjp1;
 
     int64 *ic, *ir;
-    ic = malloc(sizeof(int64) * (n));
-    ir = malloc(sizeof(int64) * (n));
+    ic = malloc(sizeof(int64)*(n));
+    ir = malloc(sizeof(int64)*(n));
 
     /* Solves the linear system  A U = F by Gauss elimination */
     /* with complete pivoting. */
@@ -4328,7 +4328,7 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
     double sj, *wi;
     int64 jp1;
 
-    wi = malloc(sizeof(double) * (iap->ncol + 1));
+    wi = malloc(sizeof(double)*(iap->ncol + 1));
 
     /* Computes the L2 inner product of UPS and VPS. */
     /* (Using the first NDIM1 components only.) */
@@ -4401,7 +4401,7 @@ rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
     double sj, *wi;
     int64 jp1;
 
-    wi = malloc(sizeof(double) * (iap->ncol + 1));
+    wi = malloc(sizeof(double)*(iap->ncol + 1));
 
     /* Computes the integral of the IC'th component of UPS. */
 
@@ -4449,7 +4449,7 @@ rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
     double sj, *wi;
     int64 jp1;
 
-    wi = malloc(sizeof(double) * (iap->ncol + 1));
+    wi = malloc(sizeof(double)*(iap->ncol + 1));
 
     /* Computes the L2-norm of the IC'th component of UPS. */
 
@@ -4643,19 +4643,19 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *p0;
     double *p1;
     doublecomplex *ev;
-    ups = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim*iap->ncol));
-    upoldp = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim*iap->ncol));
-    uoldps = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim*iap->ncol));
-    udotps = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim*iap->ncol));
-    dups = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim*iap->ncol));
-    fa = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim*iap->ncol));
-    dtm = malloc(sizeof(double) * (iap->ntst + 1));
-    tm = malloc(sizeof(double) * (iap->ntst + 1));
-    fc = malloc(sizeof(double) * (iap->nbc + iap->nint + 1));
-    p0 = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
-    p1 = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
-    ev = malloc(sizeof(doublecomplex) * (iap->ndim));
-    uzr = malloc(sizeof(double) * (iap->nuzr));
+    ups = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    upoldp = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    uoldps = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    udotps = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    dups = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    fa = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    dtm = malloc(sizeof(double)*(iap->ntst + 1));
+    tm = malloc(sizeof(double)*(iap->ntst + 1));
+    fc = malloc(sizeof(double)*(iap->nbc + iap->nint + 1));
+    p0 = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
+    p1 = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
+    ev = malloc(sizeof(doublecomplex)*(iap->ndim));
+    uzr = malloc(sizeof(double)*(iap->nuzr));
 
     /* INITIALIZE COMPUTATION OF BRANCH */
 
@@ -4805,9 +4805,9 @@ L1:
 #else
     {
         double *uolddotps, *rlolddot;
-        uolddotps = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim) *
+        uolddotps = malloc(sizeof(double)*(iap->ntst + 1)*(iap->ndim) *
                            (iap->ncol));
-        rlolddot = malloc(sizeof(double) * (iap->nfpr));
+        rlolddot = malloc(sizeof(double)*(iap->nfpr));
 
         for (i = 0; i < iap->nfpr; ++i) {
             rlolddot[i] = rldot[i];
@@ -5108,11 +5108,11 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 n1, ips;
     double *dfdp, *dfdu, *uold, *f, *u;
 
-    dfdp = malloc(sizeof(double) * (iap->ndim) * NPARX);
-    dfdu = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
-    uold = malloc(sizeof(double) * (iap->ndim));
-    f = malloc(sizeof(double) * (iap->ndim));
-    u = malloc(sizeof(double) * (iap->ndim));
+    dfdp = malloc(sizeof(double)*(iap->ndim) * NPARX);
+    dfdu = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
+    uold = malloc(sizeof(double)*(iap->ndim));
+    f = malloc(sizeof(double)*(iap->ndim));
+    u = malloc(sizeof(double)*(iap->ndim));
 
     /* Stores U-prime (derivative with respect to T) in UPOLDP. */
 
@@ -5497,13 +5497,13 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             ncol_used = ncol;
 
         *ndxloc = (ntst_used + 1) * 4;
-        ups_new = malloc(sizeof(double) * (*ndxloc) * (iap->ndim*ncol_used));
+        ups_new = malloc(sizeof(double)*(*ndxloc)*(iap->ndim*ncol_used));
         upoldp_new =
-            malloc(sizeof(double) * (*ndxloc) * (iap->ndim*ncol_used));
+            malloc(sizeof(double)*(*ndxloc)*(iap->ndim*ncol_used));
         udotps_new =
-            malloc(sizeof(double) * (*ndxloc) * (iap->ndim*ncol_used));
-        tm_new = malloc(sizeof(double) * (*ndxloc));
-        dtm_new = malloc(sizeof(double) * (*ndxloc));
+            malloc(sizeof(double)*(*ndxloc)*(iap->ndim*ncol_used));
+        tm_new = malloc(sizeof(double)*(*ndxloc));
+        dtm_new = malloc(sizeof(double)*(*ndxloc));
 
         /*initialize arrays*/
         for (i = 0; i < *ndxloc; i++) {
@@ -5772,7 +5772,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     double dt;
     int64 lab, ibr;
 
-    u = malloc(sizeof(double) * (iap->ndim));
+    u = malloc(sizeof(double)*(iap->ndim));
 
     /* Generates a starting point for the continuation of a branch of */
     /* of solutions to general boundary value problems by calling the user */
@@ -6222,7 +6222,7 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     int64 ibr;
     double det0;
 
-    pp = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
+    pp = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
 
     ndim = iap->ndim;
     iid = iap->iid;
@@ -6289,7 +6289,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     int64 iid, ibr, loc = 0, isp, isw;
     double *wrk, azm1;
 
-    wrk = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
+    wrk = malloc(sizeof(double)*(iap->ndim)*(iap->ndim));
 
     /* This function returns a quantity that changes sign when a floatcomplex */
     /* pair of eigenvalues of the linearized Poincare map moves in or out */
@@ -7151,9 +7151,9 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
         } else if (strcmp(code, "MIN") == 0 || strcmp(code, "min") == 0) {
             ret_val = rmnups(global_parameters.iav, &nxloc, ic, ups);
         } else if (strcmp(code, "BV0") == 0 || strcmp(code, "bv0") == 0) {
-            ret_val = ups[(*ic - 1) * (global_parameters.iav->ntst + 1)];
+            ret_val = ups[(*ic - 1)*(global_parameters.iav->ntst + 1)];
         } else if (strcmp(code, "BV1") == 0 || strcmp(code, "bv1") == 0) {
-            ret_val = ups[ntst + (*ic - 1) * (global_parameters.iav->ntst + 1)];
+            ret_val = ups[ntst + (*ic - 1)*(global_parameters.iav->ntst + 1)];
         } else if (strcmp(code, "STP") == 0 || strcmp(code, "stp") == 0) {
             ret_val = global_parameters.rav->dsold;
         } else if (strcmp(code, "FLD") == 0 || strcmp(code, "fld") == 0) {
@@ -7179,15 +7179,15 @@ allocate_global_memory(const iap_type iap) {
     free(global_scratch.ff1);
     free(global_scratch.ff2);
 
-    global_scratch.dfu = malloc(sizeof(double) * (iap.ndim) * (iap.ndim));
+    global_scratch.dfu = malloc(sizeof(double)*(iap.ndim)*(iap.ndim));
 
-    global_scratch.dfp = malloc(sizeof(double) * (iap.ndim) * NPARX);
-    global_scratch.uu1 = malloc(sizeof(double) * (iap.ndim));
-    global_scratch.uu2 = malloc(sizeof(double) * (iap.ndim));
-    global_scratch.ff1 = malloc(sizeof(double) * (iap.ndim));
-    global_scratch.ff2 = malloc(sizeof(double) * (iap.ndim));
+    global_scratch.dfp = malloc(sizeof(double)*(iap.ndim) * NPARX);
+    global_scratch.uu1 = malloc(sizeof(double)*(iap.ndim));
+    global_scratch.uu2 = malloc(sizeof(double)*(iap.ndim));
+    global_scratch.ff1 = malloc(sizeof(double)*(iap.ndim));
+    global_scratch.ff2 = malloc(sizeof(double)*(iap.ndim));
 
     free(global_rotations.nrtn);
-    global_rotations.nrtn = malloc(sizeof(int64) * (iap.nbc));
+    global_rotations.nrtn = malloc(sizeof(int64)*(iap.nbc));
     return;
 }

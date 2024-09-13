@@ -326,7 +326,7 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
         if (fill < .5001)
             b = 0.0;
         else
-            b = (float)sqrt((float)(4 * (fill - .5) * (1.5 - fill)));
+            b = (float)sqrt((float)(4 * (fill - .5)*(1.5 - fill)));
         break;
     }
     fprintf(my_plot_file, "%f %f %f RGB\n", r, g, b);

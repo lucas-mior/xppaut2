@@ -203,9 +203,9 @@ lookupxy(double x, int32 n, double *xv, double *yv) {
     double dx, dy, x1, y1, x2, y2;
     int32 i;
     if (x <= xv[0])
-        return yv[0] + (yv[1] - yv[0]) * (x - xv[0]) / (xv[1] - xv[0]);
+        return yv[0] + (yv[1] - yv[0])*(x - xv[0]) / (xv[1] - xv[0]);
     if (x >= xv[n - 1])
-        return (yv[n - 1] + (yv[n - 2] - yv[n - 1]) * (x - xv[n - 1]) /
+        return (yv[n - 1] + (yv[n - 2] - yv[n - 1])*(x - xv[n - 1]) /
                                 (xv[n - 1] - xv[n - 2]));
     x1 = xv[0];
     y1 = yv[0];
@@ -264,7 +264,7 @@ lookup(double x, int32 index) {
         y1 = y[i1];
         y2 = y[i2];
         if (my_table[index].interp == 0 || my_table[index].interp == 2)
-            return y1 + (y2 - y1) * (x - x1) / dx;
+            return y1 + (y2 - y1)*(x - x1) / dx;
         else {
 #ifdef DEBUG
             plintf("index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
@@ -274,9 +274,9 @@ lookup(double x, int32 index) {
         };
     }
     if (i1 < 0)
-        return y[0] + (y[1] - y[0]) * (x - xlo) / dx;
+        return y[0] + (y[1] - y[0])*(x - xlo) / dx;
     if (i2 >= n)
-        return y[n - 1] + (y[n - 1] - y[n - 2]) * (x - xhi) / dx;
+        return y[n - 1] + (y[n - 1] - y[n - 2])*(x - xhi) / dx;
 
     return 0.0;
 }

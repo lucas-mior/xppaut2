@@ -117,7 +117,7 @@ get_delay_old(int32 in, double tau) {
     i2 = (n2 + LatestDelay) % MaxDelay;
     x1 = DelayWork[in + (nodes)*i1];
     x2 = DelayWork[in + (nodes)*i2];
-    return x1 + (x - n1) * (x2 - x1);
+    return x1 + (x - n1)*(x2 - x1);
 }
 
 void

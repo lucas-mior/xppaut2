@@ -502,7 +502,7 @@ redraw_dfield(void) {
     dup = (double)(DRight - DLeft) / (double)grid;
     dvp = (double)(DTop - DBottom) / (double)grid;
     /* printf("dup=%g dvp=  %g \n",dup,dvp); */
-    dz = hypot(dup, dvp) * (.25 + .75 * DFIELD_TYPE);
+    dz = hypot(dup, dvp)*(.25 + .75 * DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     if (!DFSuppress)
@@ -606,7 +606,7 @@ direct_field_com(int32 c) {
 
     dup = (double)(DRight - DLeft) / (double)grid;
     dvp = (double)(DTop - DBottom) / (double)grid;
-    dz = hypot(dup, dvp) * (.25 + .75 * DFIELD_TYPE);
+    dz = hypot(dup, dvp)*(.25 + .75 * DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     set_linestyle(MyGraph->color[0]);

@@ -131,7 +131,7 @@ int32
 create_transpose(void) {
     int32 i, j;
     int32 inrow, incol;
-    my_trans.data = malloc(sizeof(float *) * (NEQ + 1));
+    my_trans.data = malloc(sizeof(float *)*(NEQ + 1));
     for (i = 0; i <= my_trans.nrow; i++)
         my_trans.data[i] = malloc(sizeof(float) * my_trans.ncol);
     for (i = my_trans.nrow + 1; i <= NEQ; i++)
@@ -286,7 +286,7 @@ new_h_fun(int32 silent) {
     }
     h_len = storind;
     data_back();
-    my_h = malloc(sizeof(float *) * (NEQ + 1));
+    my_h = malloc(sizeof(float *)*(NEQ + 1));
     for (i = 0; i < n; i++)
         my_h[i] = malloc(sizeof(float) * h_len);
     for (i = n; i <= NEQ; i++)
@@ -696,8 +696,8 @@ void
 alloc_liap(int32 n) {
     if (LIAP_FLAG == 0)
         return;
-    my_liap[0] = malloc(sizeof(float) * (n + 1));
-    my_liap[1] = malloc(sizeof(float) * (n + 1));
+    my_liap[0] = malloc(sizeof(float)*(n + 1));
+    my_liap[1] = malloc(sizeof(float)*(n + 1));
     LIAP_N = (n + 1);
     LIAP_I = 0;
     return;

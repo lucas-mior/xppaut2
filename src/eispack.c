@@ -956,7 +956,7 @@ L340:
         L640:
             x = h__[i__ + (i__ + 1) * h_dim1];
             y = h__[i__ + 1 + i__ * h_dim1];
-            q = (wr[i__] - p) * (wr[i__] - p) + wi[i__] * wi[i__];
+            q = (wr[i__] - p)*(wr[i__] - p) + wi[i__] * wi[i__];
             t = (x*s - zz*r__) / q;
             h__[i__ + en*h_dim1] = t;
             if (fabs(x) <= fabs(zz)) {
@@ -1049,7 +1049,7 @@ L340:
         L780:
             x = h__[i__ + (i__ + 1) * h_dim1];
             y = h__[i__ + 1 + i__ * h_dim1];
-            vr = (wr[i__] - p) * (wr[i__] - p) + wi[i__] * wi[i__] - q*q;
+            vr = (wr[i__] - p)*(wr[i__] - p) + wi[i__] * wi[i__] - q*q;
             vi = (wr[i__] - p) * 2. * q;
             if (vr != 0. || vi != 0.) {
                 goto L784;
@@ -2400,7 +2400,7 @@ L150:
     a12 = a[l + l1*a_dim1] / b22;
     a22 = a[l1 + l1*a_dim1] / b22;
     b12 = b[l + l1*b_dim1] / b22;
-    a1 = ((a33 - a11) * (a44 - a11) - a34*a43 + a43*b34*a11) / a21 + a12 -
+    a1 = ((a33 - a11)*(a44 - a11) - a34*a43 + a43*b34*a11) / a21 + a12 -
          a11*b12;
     a2 = a22 - a11 - a21*b12 - (a33 - a11) - (a44 - a11) + a43*b34;
     a3 = a[l1 + 1 + l1*a_dim1] / b22;
@@ -6006,7 +6006,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
             /*             absa-sigmin; overflow extremely unlikely, and in an
             y */
             /*             event only if sigmax overflows as well */
-            cosr = (absa - *sigmin) * (d_sign(c_b170, *a) + *sigmin / *a);
+            cosr = (absa - *sigmin)*(d_sign(c_b170, *a) + *sigmin / *a);
             ia = 1;
         }
         if (absc == 0.) {
@@ -6020,7 +6020,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
             /*             absc-sigmin; overflow extremely unlikely, and in an
             y */
             /*             event only if sigmax overflows as well */
-            sinl = (absc - *sigmin) * (d_sign(c_b170, *c__) + *sigmin / *c__);
+            sinl = (absc - *sigmin)*(d_sign(c_b170, *c__) + *sigmin / *c__);
             ib = 1;
         }
         if (ia == 0 && ib == 0) {

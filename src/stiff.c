@@ -115,7 +115,7 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
                 yscal[i] = MAX(1, fabs(y[i]));
             else
                 yscal[i] = fabs(y[i]) + fabs(dydx[i] * h) + TINY;
-        if ((x + h - x2) * (x + h - x1) > 0.0)
+        if ((x + h - x2)*(x + h - x1) > 0.0)
             h = x2 - x;
         if (iflag == STIFF)
             stiff(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2, epjac,
@@ -124,7 +124,7 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
             rkqs(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2, ier);
         if (*ier > 0)
             return -1;
-        if ((x - x2) * (x2 - x1) >= 0.0) {
+        if ((x - x2)*(x2 - x1) >= 0.0) {
             for (i = 0; i < nvar; i++)
                 ystart[i] = y[i];
             *hguess = SIGN(hnext, x2 - x1);

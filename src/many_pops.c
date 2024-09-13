@@ -888,8 +888,8 @@ edit_object_com(int32 com) {
         type = 0; /* label =  0, arrows, etc =1 */
         for (i = 0; i < MAXLAB; i++) {
             if (lb[i].use == 1 && lb[i].w == draw_win) {
-                dd = (x - lb[i].x) * (x - lb[i].x) +
-                     (y - lb[i].y) * (y - lb[i].y);
+                dd = (x - lb[i].x)*(x - lb[i].x) +
+                     (y - lb[i].y)*(y - lb[i].y);
                 if (dd < dist) {
                     ilab = i;
                     dist = dd;
@@ -898,8 +898,8 @@ edit_object_com(int32 com) {
         }
         for (i = 0; i < MAXGROB; i++) {
             if (grob[i].use == 1 && grob[i].w == draw_win) {
-                dd = (x - grob[i].xs) * (x - grob[i].xs) +
-                     (y - grob[i].ys) * (y - grob[i].ys);
+                dd = (x - grob[i].xs)*(x - grob[i].xs) +
+                     (y - grob[i].ys)*(y - grob[i].ys);
                 if (dd < dist) {
                     ilab = i;
                     dist = dd;

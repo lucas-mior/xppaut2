@@ -254,7 +254,7 @@ make_ebox_windows(EDIT_BOX *sb, char *title) {
     XSizeHints size_hints;
     Window base;
     width = (MAX_LEN_EBOX + 4) * DCURX;
-    height = (n + 4) * (DCURY + 16);
+    height = (n + 4)*(DCURY + 16);
     base =
         make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
     XStringListToTextProperty(&title, 1, &winname);

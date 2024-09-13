@@ -80,7 +80,7 @@ conpar_process(void *arg) {
        sum (with the true copy of d) in the
        master */
     else if (global_conpar_type == CONPAR_MPI) {
-        for (i = 0; i < (*ncb) * (*nrc); i++)
+        for (i = 0; i < (*ncb)*(*nrc); i++)
             d[i] = 0.0;
     }
     /* In the shared memory case we create a local

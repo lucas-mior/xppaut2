@@ -101,7 +101,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     if (mcc < 10)
         maxchar = 10;
     width = (maxchar + 5) * DCURX;
-    height = (n + 4) * (DCURY + 16);
+    height = (n + 4)*(DCURY + 16);
     base = make_plain_window(root, 0, 0, width, height, 4);
     XStringListToTextProperty(&wname, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;

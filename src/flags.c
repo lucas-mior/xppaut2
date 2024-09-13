@@ -195,7 +195,7 @@ compile_flags(void) {
         }
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
-        flag[j].comcond = malloc(sizeof(int32) * (nc + 1));
+        flag[j].comcond = malloc(sizeof(int32)*(nc + 1));
         for (k = 0; k <= nc; k++)
             flag[j].comcond[k] = command[k];
         for (i = 0; i < flag[j].nevents; i++) {
@@ -241,7 +241,7 @@ compile_flags(void) {
                        flag[j].cond);
                 return 1;
             }
-            flag[j].comrhs[i] = malloc(sizeof(int32) * (nc + 1));
+            flag[j].comrhs[i] = malloc(sizeof(int32)*(nc + 1));
             for (k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }

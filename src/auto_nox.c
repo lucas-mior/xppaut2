@@ -926,12 +926,12 @@ auto_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     }
     double dx = (Auto.xmax - Auto.xmin);
     double dy = (Auto.ymax - Auto.ymin);
-    x1 = Auto.xmin + (double)(i1 - Auto.x0) * (dx) / (double)Auto.wid;
-    x2 = Auto.xmin + (double)(i2 - Auto.x0) * (dx) / (double)Auto.wid;
+    x1 = Auto.xmin + (double)(i1 - Auto.x0)*(dx) / (double)Auto.wid;
+    x2 = Auto.xmin + (double)(i2 - Auto.x0)*(dx) / (double)Auto.wid;
     y1 =
-        Auto.ymin + (double)(Auto.hgt + Auto.y0 - j1) * (dy) / (double)Auto.hgt;
+        Auto.ymin + (double)(Auto.hgt + Auto.y0 - j1)*(dy) / (double)Auto.hgt;
     y2 =
-        Auto.ymin + (double)(Auto.hgt + Auto.y0 - j2) * (dy) / (double)Auto.hgt;
+        Auto.ymin + (double)(Auto.hgt + Auto.y0 - j2)*(dy) / (double)Auto.hgt;
 
     if ((i1 == i2) || (j1 == j2)) {
         if (dx < 0) {

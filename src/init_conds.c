@@ -219,7 +219,7 @@ redraw_scroll_list(SCROLL_LIST sl) {
             XDrawString(display, sl.text, small_gc, 0,
                         CURY_OFFs + i * (DCURYs + 3), sl.v[j], strlen(sl.v[j]));
             if (j == sl.ihot) {
-                y = CURY_OFFs + (i + 1) * (DCURYs + 3) - 3;
+                y = CURY_OFFs + (i + 1)*(DCURYs + 3) - 3;
                 XDrawLine(display, sl.text, small_gc, 0, y, sl.twid, y);
                 XDrawLine(display, sl.text, small_gc, 0, y + 1, sl.twid, y + 1);
             }
@@ -1253,7 +1253,7 @@ void
 set_slide_pos(PAR_SLIDER *p) {
     double pos;
     int32 ip;
-    pos = 2. + (p->l - 4) * (p->val - p->lo) / (p->hi - p->lo);
+    pos = 2. + (p->l - 4)*(p->val - p->lo) / (p->hi - p->lo);
     ip = (int32)pos;
     if (ip < 2)
         ip = 2;
@@ -1308,7 +1308,7 @@ do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 s) {
             p->pos = p->l - 2;
         expose_slider(p->slide, p);
         if (p->use) {
-            p->val = p->lo + (p->hi - p->lo) * (double)(p->pos - 2) /
+            p->val = p->lo + (p->hi - p->lo)*(double)(p->pos - 2) /
                                  (double)(p->l - 4);
             expose_slider(p->top, p);
             set_val(p->parname, p->val);
@@ -1682,7 +1682,7 @@ make_box_list_window(BoxList *b, int32 type) {
     wid2 = 22 * DCURXs;
     wid = wid1 + wid2 + DCURXs;
     hgt = DCURYs + 4;
-    height = (nrow + 4) * (hgt + 4) + 2*hgt;
+    height = (nrow + 4)*(hgt + 4) + 2*hgt;
     width = wid + 8 * DCURXs;
     b->minwid = width;
     b->minhgt = height;

@@ -86,7 +86,7 @@ draw_eq_list(Window w) {
 
             bob[299] = 0;
             XDrawString(display, w, small_gc, 0,
-                        CURY_OFFs + (i - eq_list.istart) * (DCURYs + 2), bob,
+                        CURY_OFFs + (i - eq_list.istart)*(DCURYs + 2), bob,
                         strlen(bob));
         }
     }

@@ -331,8 +331,8 @@ traverse_diagram(void) {
                 lalo = load_all_labeled_orbits;
                 load_all_labeled_orbits = 0;
                 while (true) {
-                    dist = sqrt(((double)(xm - ix)) * ((double)(xm - ix)) +
-                                ((double)(ym - iy)) * ((double)(ym - iy)));
+                    dist = sqrt(((double)(xm - ix))*((double)(xm - ix)) +
+                                ((double)(ym - iy))*((double)(ym - iy)));
                     if (dist < ndist) {
                         ndist = dist;
                         mindex = d->index;
@@ -835,9 +835,9 @@ auto_scroll_window(void) {
                 dx=-(x-x0)/2;
                 dy=-(y-y0)/2; */
                 dx =
-                    (float)(i0 - i) * (Auto.xmax - Auto.xmin) / (float)Auto.wid;
+                    (float)(i0 - i)*(Auto.xmax - Auto.xmin) / (float)Auto.wid;
                 dy =
-                    (float)(j - j0) * (Auto.ymax - Auto.ymin) / (float)Auto.hgt;
+                    (float)(j - j0)*(Auto.ymax - Auto.ymin) / (float)Auto.hgt;
                 /*    printf("%d %d %d %d %g %g\n",i,j,i0,j0,dx,dy); */
                 auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }
@@ -873,7 +873,7 @@ auto_motion(XEvent ev) {
         return;
     if (w == AutoW.canvas) {
         x = Auto.xmin +
-            (double)(i - Auto.x0) * (Auto.xmax - Auto.xmin) / (double)Auto.wid;
+            (double)(i - Auto.x0)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
         y = Auto.ymin + (double)(Auto.y0 - j + Auto.hgt) *
                             (Auto.ymax - Auto.ymin) / (double)Auto.hgt;
         sprintf(Auto.hinttxt, "x=%g,y=%g", x, y);

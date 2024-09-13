@@ -128,7 +128,7 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
     for (i = 0; i < nent; i++)
         if (slen < strlen(list[i]))
             slen = strlen(list[i]);
-    wid = (slen + 2) * (DCURXs);
+    wid = (slen + 2)*(DCURXs);
     ww = slen * DCURXs + DCURXs / 2;
     hgt = hw * (nw + 1);
     len = hgt - 6;
@@ -208,7 +208,7 @@ scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
             x = 2;
         if (x > (len + 2))
             x = len + 2;
-        pos = ((x - 2) * (sb->nent - sb->nw)) / len;
+        pos = ((x - 2)*(sb->nent - sb->nw)) / len;
         if (pos < 0)
             pos = 0;
         if (pos > (sb->nent - sb->nw))
@@ -491,7 +491,7 @@ make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
     XSizeHints size_hints;
     Window base;
     width = (maxchar + 4) * col * DCURX;
-    height = (row + 4) * (DCURY + 16);
+    height = (row + 4)*(DCURY + 16);
     base =
         make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
     XStringListToTextProperty(&title, 1, &winname);
@@ -519,7 +519,7 @@ make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
     xstart = DCURX;
     for (i = 0; i < n; i++) {
         xpos = xstart + (maxchar + 4) * DCURX * (i / row);
-        ypos = ystart + (i % row) * (DCURY + 10);
+        ypos = ystart + (i % row)*(DCURY + 10);
         sb->win[i] = make_window(base, xpos, ypos, maxchar * DCURX, DCURY, 1);
     }
 
@@ -1146,7 +1146,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     Cursor txt;
     int32 i, done = 0, value;
     int32 width = DCURX * (max + 5);
-    int32 length = (DCURY + 6) * (n + 2);
+    int32 length = (DCURY + 6)*(n + 2);
     w = make_plain_window(*root, x, y, width, length, 2);
     txt = XCreateFontCursor(display, XC_hand2);
     XDefineCursor(display, w, txt);

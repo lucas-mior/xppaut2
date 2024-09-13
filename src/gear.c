@@ -764,7 +764,7 @@ l130:
         r = r / s;
         if (m == l)
             break;
-        if ((fabs(h[m - 1 + (m - 2) * n]) * (fabs(q) + fabs(r))) <=
+        if ((fabs(h[m - 1 + (m - 2) * n])*(fabs(q) + fabs(r))) <=
             (machep*fabs(p) *
              (fabs(h[m - 2 + (m - 2) * n]) + fabs(zz) + fabs(h[m + m*n]))))
             break;

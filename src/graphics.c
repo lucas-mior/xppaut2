@@ -1394,7 +1394,7 @@ clip(double x1, double x2, double y1, double y2, float *x1_out, float *y1_out,
     if (ix1 > 0)
         wv = x_right;
     *x1_out = wv;
-    yhat = (y1 - y2) * (wv - x2) / (x1 - x2) + y2;
+    yhat = (y1 - y2)*(wv - x2) / (x1 - x2) + y2;
     if ((yhat <= y_top) && (yhat >= y_bottom)) {
         *y1_out = yhat;
         iflag = 1;
@@ -1408,7 +1408,7 @@ C2:
     if (iy1 > 0)
         wh = y_top;
     *y1_out = wh;
-    xhat = (x1 - x2) * (wh - y2) / (y1 - y2) + x2;
+    xhat = (x1 - x2)*(wh - y2) / (y1 - y2) + x2;
     if ((xhat <= x_right) && (xhat >= x_left)) {
         *x1_out = xhat;
         iflag = 1;
@@ -1422,7 +1422,7 @@ C3:
     if (ix2 > 0)
         wv = x_right;
     *x2_out = wv;
-    yhat = (y2 - y1) * (wv - x1) / (x2 - x1) + y1;
+    yhat = (y2 - y1)*(wv - x1) / (x2 - x1) + y1;
     if ((yhat <= y_top) && (yhat >= y_bottom)) {
         *y2_out = yhat;
         return 1;
@@ -1434,7 +1434,7 @@ C4:
     if (iy2 > 0)
         wh = y_top;
     *y2_out = wh;
-    xhat = (x2 - x1) * (wh - y1) / (y2 - y1) + x1;
+    xhat = (x2 - x1)*(wh - y1) / (y2 - y1) + x1;
     if ((xhat <= x_right) && (xhat >= x_left)) {
         *x2_out = xhat;
         return 1;

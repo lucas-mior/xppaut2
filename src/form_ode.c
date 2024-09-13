@@ -1624,7 +1624,7 @@ create_plot_list(void) {
     int32 i, j = 0, k;
     if (N_only == 0)
         return;
-    plotlist = malloc(sizeof(int32) * (N_only + 1));
+    plotlist = malloc(sizeof(int32)*(N_only + 1));
     for (i = 0; i < N_only; i++) {
         find_variable(onlylist[i], &k);
         if (k >= 0) {
