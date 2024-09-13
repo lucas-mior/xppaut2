@@ -315,7 +315,7 @@ parse_inout(char *l, int32 flag) {
             j++;
             i++;
         }
-        if (i > strlen(l))
+        if (i > (int32)strlen(l))
             done = 0;
     }
 }

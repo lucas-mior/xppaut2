@@ -20,7 +20,6 @@
 #define DP83 12
 #define RB23 13
 #include "max_len_sbox.h"
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 extern double constants[];
 extern double last_ic[MAX_ODE];
 
