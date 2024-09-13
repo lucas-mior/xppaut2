@@ -381,11 +381,11 @@ io_numerics(int32 f, FILE *fp) {
 void
 io_parameter_file(char *fn, int32 flag) {
     char fnx[256], c;
-    int32 i, j = 0;
+    int32 j = 0;
     int32 np;
     FILE *fp;
     time_t ttt;
-    for (i = 6; i < strlen(fn); i++) {
+    for (size_t i = 6; i < strlen(fn); i++) {
         c = fn[i];
         if (c != ' ') {
             fnx[j] = c;
