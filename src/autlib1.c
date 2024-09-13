@@ -3329,7 +3329,7 @@ adptds(iap_type *iap, rap_type *rap, double *rds) {
     double ards;
     int64 ntop, itnw, ntot;
     double dsmax;
-    int64 n1, iid, ibr, nit;
+    int64 n1, ibr, nit;
 
     /* The stepsize along the branch of solutions is adapted depending on the
      */
@@ -3337,7 +3337,6 @@ adptds(iap_type *iap, rap_type *rap, double *rds) {
      */
 
     dsmax = rap->dsmax;
-    iid = iap->iid;
     itnw = iap->itnw;
     ibr = iap->ibr;
     nit = iap->nit;
