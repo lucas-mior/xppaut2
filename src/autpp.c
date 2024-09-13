@@ -112,6 +112,13 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 int32
 icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
      double *udot, double *upold, double *fi, int64 *ijac, double *dint) {
+    (void) dint;
+    (void) ijac;
+    (void) fi;
+    (void) upold;
+    (void) udot;
+    (void) uold;
+    (void) u;
     (void) nint;
     (void) icp;
     (void) par;
@@ -129,6 +136,14 @@ icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
 int32
 fopt(int64 *ndim, double *u, int64 *icp, double *par, int64 *ijac, double *fs,
      double *dfdu, double *dfdp) {
+    (void) dfdp;
+    (void) dfdu;
+    (void) fs;
+    (void) ijac;
+    (void) par;
+    (void) icp;
+    (void) u;
+    (void) ndim;
     /*     ---------- ---- */
     return 0;
 }
