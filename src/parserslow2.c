@@ -400,9 +400,10 @@ add_kernel(char *name, double mu, char *expr) {
     kernel[NKernel].k_n = 0.0;
     kernel[NKernel].k_n1 = 0.0;
     kernel[NKernel].flag = 0;
-    for (size_t i = 0; i < strlen(expr); i++)
+    for (size_t i = 0; i < strlen(expr); i++) {
         if (expr[i] == '#')
             in = i;
+    }
     if (in == 0 || in == (strlen(expr) - 1)) {
         plintf("Illegal use of convolution...\n");
         return 1;
