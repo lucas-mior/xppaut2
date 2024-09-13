@@ -337,13 +337,13 @@ edit_rhs(void) {
     char fstr[20], msg[200];
     if (NEQ > NEQMAXFOREDIT)
         return;
-    names = (char **)malloc(n * sizeof(char *));
-    values = (char **)malloc(n * sizeof(char *));
-    command = (int32 **)malloc(n * sizeof(int32 *));
+    names = malloc(n * sizeof(char *));
+    values = malloc(n * sizeof(char *));
+    command = malloc(n * sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
-        names[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
-        command[i] = (int32 *)malloc(200 * sizeof(int32));
+        values[i] = malloc(MAX_LEN_EBOX * sizeof(char));
+        names[i] = malloc(MAX_LEN_EBOX * sizeof(char));
+        command[i] = malloc(200 * sizeof(int32));
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT");
         if (i < NODE && METHOD == 0)
@@ -367,7 +367,7 @@ edit_rhs(void) {
                     err_msg(msg);
                 } else {
                     free(ode_names[i]);
-                    ode_names[i] = (char *)malloc(strlen(values[i]) + 5);
+                    ode_names[i] = malloc(strlen(values[i]) + 5);
                     strcpy(ode_names[i], values[i]);
                     i0 = i;
                     if (i >= NODE)
@@ -418,13 +418,13 @@ edit_functions(void) {
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)
         return;
-    names = (char **)malloc(n * sizeof(char *));
-    values = (char **)malloc(n * sizeof(char *));
-    command = (int32 **)malloc(n * sizeof(int32 *));
+    names = malloc(n * sizeof(char *));
+    values = malloc(n * sizeof(char *));
+    command = malloc(n * sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
-        names[i] = (char *)malloc(MAX_LEN_EBOX * sizeof(char));
-        command[i] = (int32 *)malloc(200 * sizeof(int32));
+        values[i] = malloc(MAX_LEN_EBOX * sizeof(char));
+        names[i] = malloc(MAX_LEN_EBOX * sizeof(char));
+        command[i] = malloc(200 * sizeof(int32));
         sprintf(values[i], "%s", ufun_def[i]);
 
         if (narg_fun[i] == 0) {

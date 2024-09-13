@@ -201,9 +201,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        and setubv).
     */
 
-    ff = (double *)malloc(
+    ff = malloc(
         sizeof(double) * ((iap->ndim * iap->ncol)) * iap->ntst + 1);
-    ft = (double *)malloc(sizeof(double) * ((iap->ndim * iap->ncol)) *
+    ft = malloc(sizeof(double) * ((iap->ndim * iap->ncol)) *
                           (iap->ntst + 1));
 
     if (*ifst == 1) {
@@ -251,69 +251,69 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(main_auto_storage.np);
 
         /*(M 1AAR*M 2AA*N AX) */
-        main_auto_storage.a = (double *)malloc(
+        main_auto_storage.a = malloc(
             sizeof(double) * ((((iap->ndim * iap->ncol) + iap->ndim)) *
                               ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1BB*M 2BB*N AX)*/
-        main_auto_storage.b = (double *)malloc(
+        main_auto_storage.b = malloc(
             sizeof(double) *
             ((NPARX) * ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
-        main_auto_storage.c = (double *)malloc(
+        main_auto_storage.c = malloc(
             sizeof(double) * (((((iap->ndim * iap->ncol) + iap->ndim))) *
                               ((iap->nbc + iap->nint + 1)) * (iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
-        main_auto_storage.d = (double *)malloc(
+        main_auto_storage.d = malloc(
             sizeof(double) * (((iap->nbc + iap->nint + 1)) * (NPARX)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.a1 = (double *)malloc(
+        main_auto_storage.a1 = malloc(
             sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.a2 = (double *)malloc(
+        main_auto_storage.a2 = malloc(
             sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.s1 = (double *)malloc(
+        main_auto_storage.s1 = malloc(
             sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.s2 = (double *)malloc(
+        main_auto_storage.s2 = malloc(
             sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim *N PARX*N AX)*/
-        main_auto_storage.bb = (double *)malloc(
+        main_auto_storage.bb = malloc(
             sizeof(double) * (iap->ndim * NPARX * (iap->ntst + 1)));
         /*(N RCX* iap->ndim *N AX+1)*/
-        main_auto_storage.cc = (double *)malloc(
+        main_auto_storage.cc = malloc(
             sizeof(double) *
             ((iap->nbc + iap->nint + 1) * iap->ndim * (iap->ntst + 1) + 1));
 
         /*(iap->ndim *N AX)*/
         main_auto_storage.faa =
-            (double *)malloc(sizeof(double) * (iap->ndim * (iap->ntst + 1)));
+            malloc(sizeof(double) * (iap->ndim * (iap->ntst + 1)));
 
         /*(iap->ndim * iap->ndim *K REDO)*/
         main_auto_storage.ca1 =
-            (double *)malloc(sizeof(double) * (iap->ndim * iap->ndim * KREDO));
+            malloc(sizeof(double) * (iap->ndim * iap->ndim * KREDO));
 
         /*(N CLMX*N AX)*/
-        main_auto_storage.icf = (int64 *)malloc(
+        main_auto_storage.icf = malloc(
             sizeof(int64) *
             (((iap->ndim * iap->ncol) + iap->ndim) * (iap->ntst + 1)));
         /*(N ROWX*N AX)*/
-        main_auto_storage.irf = (int64 *)malloc(
+        main_auto_storage.irf = malloc(
             sizeof(int64) * ((iap->ndim * iap->ncol) * (iap->ntst + 1)));
         /*(iap->ndim *N AX)*/
         main_auto_storage.ipr =
-            (int64 *)malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
+            malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim *K REDO)*/
         main_auto_storage.icf11 =
-            (int64 *)malloc(sizeof(int64) * (iap->ndim * KREDO));
+            malloc(sizeof(int64) * (iap->ndim * KREDO));
         /*(iap->ndim *N AX)*/
         main_auto_storage.icf1 =
-            (int64 *)malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
+            malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim *N AX)*/
         main_auto_storage.icf2 =
-            (int64 *)malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
+            malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
         /*(2)*/
-        main_auto_storage.np = (int64 *)malloc(sizeof(int64) * (2));
+        main_auto_storage.np = malloc(sizeof(int64) * (2));
     }
 
     iam = iap->mynode;
@@ -561,27 +561,27 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     double *wi, *wp, *wt;
     double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
-    dicd = (double *)malloc(sizeof(double) * (iap->nint) * (iap->ndim + NPARX));
-    ficd = (double *)malloc(sizeof(double) * (iap->nint));
-    dfdp = (double *)malloc(sizeof(double) * (iap->ndim) * NPARX);
-    dfdu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
-    uold = (double *)malloc(sizeof(double) * (iap->ndim));
-    f = (double *)malloc(sizeof(double) * (iap->ndim));
-    u = (double *)malloc(sizeof(double) * (iap->ndim));
-    wploc = (double *)malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
-    wi = (double *)malloc(sizeof(double) * (iap->ncol + 1));
-    wp = (double *)malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
-    wt = (double *)malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
+    dicd = malloc(sizeof(double) * (iap->nint) * (iap->ndim + NPARX));
+    ficd = malloc(sizeof(double) * (iap->nint));
+    dfdp = malloc(sizeof(double) * (iap->ndim) * NPARX);
+    dfdu = malloc(sizeof(double) * (iap->ndim) * (iap->ndim));
+    uold = malloc(sizeof(double) * (iap->ndim));
+    f = malloc(sizeof(double) * (iap->ndim));
+    u = malloc(sizeof(double) * (iap->ndim));
+    wploc = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
+    wi = malloc(sizeof(double) * (iap->ncol + 1));
+    wp = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
+    wt = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
     dbc =
-        (double *)malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
-    fbc = (double *)malloc(sizeof(double) * (iap->nbc));
-    uic = (double *)malloc(sizeof(double) * (iap->ndim));
-    uio = (double *)malloc(sizeof(double) * (iap->ndim));
-    prm = (double *)malloc(sizeof(double) * NPARX);
-    uid = (double *)malloc(sizeof(double) * (iap->ndim));
-    uip = (double *)malloc(sizeof(double) * (iap->ndim));
-    ubc0 = (double *)malloc(sizeof(double) * (iap->ndim));
-    ubc1 = (double *)malloc(sizeof(double) * (iap->ndim));
+        malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+    fbc = malloc(sizeof(double) * (iap->nbc));
+    uic = malloc(sizeof(double) * (iap->ndim));
+    uio = malloc(sizeof(double) * (iap->ndim));
+    prm = malloc(sizeof(double) * NPARX);
+    uid = malloc(sizeof(double) * (iap->ndim));
+    uip = malloc(sizeof(double) * (iap->ndim));
+    ubc0 = malloc(sizeof(double) * (iap->ndim));
+    ubc1 = malloc(sizeof(double) * (iap->ndim));
 
     /* Parameter adjustments */
     /*--np;*/
@@ -770,13 +770,13 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     double *fcc;
     double *sol1, *sol2, *sol3;
 
-    e = (double *)malloc(sizeof(double) * (*nov + *nrc) * (*nov + *nrc));
-    fcc = (double *)malloc(sizeof(double) *
+    e = malloc(sizeof(double) * (*nov + *nrc) * (*nov + *nrc));
+    fcc = malloc(sizeof(double) *
                            ((*nov + *nrc) + (2 * (*nov) * (*nov)) + 1));
 
-    sol1 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
-    sol2 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
-    sol3 = (double *)malloc(sizeof(double) * (*nov) * (*na + 1));
+    sol1 = malloc(sizeof(double) * (*nov) * (*na + 1));
+    sol2 = malloc(sizeof(double) * (*nov) * (*na + 1));
+    sol3 = malloc(sizeof(double) * (*nov) * (*na + 1));
 
     /* Local */
 
@@ -2006,7 +2006,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
     int64 novpj2, kc, kr, ncrloc, msglen1, msglen2, nap1;
 
     double *xe;
-    xe = (double *)malloc(sizeof(double) * (*nov + *nrc));
+    xe = malloc(sizeof(double) * (*nov + *nrc));
 
     /* Parameter adjustments */
     /*--fc;*/
@@ -2449,7 +2449,7 @@ infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
     double sm;
     int64 novpir, irp1;
 
-    x = (double *)malloc(sizeof(double) * (*nra));
+    x = malloc(sizeof(double) * (*nra));
 
     /* Determine the local varables by backsubstitition. */
 
@@ -2524,7 +2524,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     logical notsend;
     int64 myright[KREDO];
 
-    buf = (double *)malloc(sizeof(double) * (*nrc));
+    buf = malloc(sizeof(double) * (*nrc));
 
     /*     RECURSIVE DOUBLING PROCEDURE TO GET */
     /*     THE GLOBAL SUM OF VECTORS FROM */

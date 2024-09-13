@@ -61,7 +61,7 @@ add_svar(char *name, char *rhs) {
     }
 
     strcpy(svar[nsvar].name, name);
-    svar[nsvar].rhs = (char *)malloc(80);
+    svar[nsvar].rhs = malloc(80);
     strcpy(svar[nsvar].rhs, rhs);
     plintf(" Added sol-var[%d] %s = %s \n", nsvar, svar[nsvar].name,
            svar[nsvar].rhs);
@@ -90,7 +90,7 @@ add_aeqn(char *rhs) {
         plintf(" Too many equations\n");
         return 1;
     }
-    aeqn[naeqn].rhs = (char *)malloc(strlen(rhs) + 5);
+    aeqn[naeqn].rhs = malloc(strlen(rhs) + 5);
     strcpy(aeqn[naeqn].rhs, rhs);
     naeqn++;
     return 0;
@@ -110,7 +110,7 @@ compile_svars(void) {
             plintf(" Bad right-hand side for alg-eqn \n");
             return 1;
         }
-        aeqn[i].form = (int32 *)malloc(sizeof(int32) * (n + 2));
+        aeqn[i].form = malloc(sizeof(int32) * (n + 2));
         for (k = 0; k < n; k++)
             aeqn[i].form[k] = f[k];
     }
@@ -120,7 +120,7 @@ compile_svars(void) {
             plintf(" Bad initial guess for sol-var \n");
             return 1;
         }
-        svar[i].form = (int32 *)malloc(100 * sizeof(int32));
+        svar[i].form = malloc(100 * sizeof(int32));
         for (k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }
@@ -177,8 +177,8 @@ void
 init_dae_work(void) {
 
     dae_work.work =
-        (double *)malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
-    dae_work.iwork = (int32 *)malloc(sizeof(int32) * nsvar);
+        malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
+    dae_work.iwork = malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;
     return;
 }

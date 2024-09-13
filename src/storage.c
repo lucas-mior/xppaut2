@@ -30,7 +30,7 @@ init_alloc_info(void) {
     int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
-    xpv.x = (double *)malloc((xpv.nvec + xpv.node) * sizeof(double));
+    xpv.x = malloc((xpv.nvec + xpv.node) * sizeof(double));
     /* plintf(" node=%d nvec=%d \n",xpv.node,xpv.nvec); */
     for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
@@ -59,7 +59,7 @@ alloc_meth(void) {
     }
     if (WORK)
         free(WORK);
-    WORK = (double *)malloc(sz * sizeof(double));
+    WORK = malloc(sz * sizeof(double));
     /* plintf(" I have allocated %d doubles \n",sz); */
     return;
 }
@@ -80,15 +80,15 @@ reallocstor(int32 ncol, int32 nrow) {
 void
 init_stor(int32 nrow, int32 ncol) {
     int32 i;
-    /* WORK=(double *)malloc(WORKSIZE*sizeof(double));
+    /* WORK=malloc(WORKSIZE*sizeof(double));
        if(WORK!=NULL){ */
     WORK = NULL;
-    storage = (float **)malloc((MAXODE + 1) * sizeof(float *));
+    storage = malloc((MAXODE + 1) * sizeof(float *));
     MAXSTOR = nrow;
     storind = 0;
     if (storage != NULL) {
         i = 0;
-        while ((storage[i] = (float *)malloc(nrow * sizeof(float))) != NULL) {
+        while ((storage[i] = malloc(nrow * sizeof(float))) != NULL) {
             i++;
             if (i == ncol)
                 return;

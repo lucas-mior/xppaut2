@@ -402,7 +402,7 @@ do_main(int32 argc, char **argv) {
     if (!XPPBatch) {
         /*Swap out the current options for a temporary place holder
          */
-        OptionsSet *tempNS = (OptionsSet *)malloc(sizeof(OptionsSet));
+        OptionsSet *tempNS = malloc(sizeof(OptionsSet));
         *tempNS = notAlreadySet;
         /*Initialize what's needed to open a browser based on
         the current options.
@@ -420,7 +420,7 @@ do_main(int32 argc, char **argv) {
 
     load_eqn();
 
-    OptionsSet *tempNS = (OptionsSet *)malloc(sizeof(OptionsSet));
+    OptionsSet *tempNS = malloc(sizeof(OptionsSet));
     *tempNS = notAlreadySet;
     set_internopts(tempNS);
     free(tempNS);
@@ -1698,7 +1698,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     ncolors = win_info->visual->map_entries;
     plintf("%d entries in colormap\n", ncolors);
 
-    *colors = (XColor *)malloc(sizeof(XColor) * ncolors);
+    *colors = malloc(sizeof(XColor) * ncolors);
     xorfix = 0;
 
     if (win_info->visual->class == DirectColor) {

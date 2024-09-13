@@ -136,7 +136,7 @@ build_markov(
         if (ConvertStyle)
             fprintf(convertf, "%s", line);
         /*nn=strlen(line)+1;*/
-        /* if((save_eqn[NLINES]=(char *)malloc(nn))==NULL){
+        /* if((save_eqn[NLINES]=malloc(nn))==NULL){
           plintf("saveeqn-prob\n");exit(0);}
           strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
@@ -185,7 +185,7 @@ old_build_markov(FILE *fptr, char *name) {
         if (ConvertStyle)
             fprintf(convertf, "%s", line);
         /*nn=strlen(line)+1;*/
-        /* if((save_eqn[NLINES]=(char *)malloc(nn))==NULL)exit(0);
+        /* if((save_eqn[NLINES]=malloc(nn))==NULL)exit(0);
            strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
         for (j = 0; j < nstates; j++) {
@@ -232,12 +232,12 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     }
 
     markov[j].nstates = nstates;
-    markov[j].states = (double *)malloc(nstates * sizeof(double));
+    markov[j].states = malloc(nstates * sizeof(double));
     if (type == 0) {
-        markov[j].trans = (char **)malloc(n2 * sizeof(char *));
-        markov[j].command = (int32 **)malloc(n2 * sizeof(int32 *));
+        markov[j].trans = malloc(n2 * sizeof(char *));
+        markov[j].command = malloc(n2 * sizeof(int32 *));
     } else {
-        markov[j].fixed = (double *)malloc(n2 * sizeof(double));
+        markov[j].fixed = malloc(n2 * sizeof(double));
     }
 
     for (i = 0; i < nstates; i++)
@@ -254,7 +254,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
     int32 type = markov[index].type;
     if (type == 0) {
         markov[index].trans[l0] =
-            (char *)malloc(sizeof(char) * (strlen(expr) + 1));
+            malloc(sizeof(char) * (strlen(expr) + 1));
         strcpy(markov[index].trans[l0], expr);
         /*  compilation step -- can be delayed */
         /*
@@ -262,7 +262,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
            plintf("Illegal expression %s\n",expr);
            exit(0);
          }
-         markov[index].command[l0]=(int32 *)malloc(sizeof(int32)*(leng+2));
+         markov[index].command[l0]=malloc(sizeof(int32)*(leng+2));
          for(i=0;i<leng;i++){
            markov[index].command[l0][i]=com[i];
 
@@ -307,7 +307,7 @@ compile_markov(int32 index, int32 j, int32 k) {
 
     if (add_expr(expr, com, &leng))
         return -1;
-    markov[index].command[l0] = (int32 *)malloc(sizeof(int32) * (leng + 2));
+    markov[index].command[l0] = malloc(sizeof(int32) * (leng + 2));
     for (i = 0; i < leng; i++) {
         markov[index].command[l0][i] = com[i];
     }
@@ -395,9 +395,9 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     double *y, *yp, *yold;
     int32 ir, iy;
 
-    y = (double *)malloc(n * sizeof(double));
-    yold = (double *)malloc(n * sizeof(double));
-    yp = (double *)malloc(n * sizeof(double));
+    y = malloc(n * sizeof(double));
+    yold = malloc(n * sizeof(double));
+    yp = malloc(n * sizeof(double));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
     rhs_only(yold);
@@ -573,8 +573,8 @@ init_stoch(int32 len) {
     N_TRIALS = 0;
     stoch_len = len;
     for (i = 0; i < (NEQ + 1); i++) {
-        my_mean[i] = (float *)malloc(sizeof(float) * stoch_len);
-        my_variance[i] = (float *)malloc(sizeof(float) * stoch_len);
+        my_mean[i] = malloc(sizeof(float) * stoch_len);
+        my_variance[i] = malloc(sizeof(float) * stoch_len);
         for (j = 0; j < stoch_len; j++) {
             my_mean[i][j] = 0.0;
             my_variance[i][j] = 0.0;

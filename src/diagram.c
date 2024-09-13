@@ -15,7 +15,7 @@
 #include "autlim.h"
 #include "load_eqn.h"
 #include "integers.h"
-#define DALLOC(a) (double *)malloc((a) * sizeof(double))
+#define DALLOC(a) malloc((a) * sizeof(double))
 extern int32 TypeOfCalc;
 extern ROTCHK blrtn;
 extern int32 PS_Color;
@@ -34,7 +34,7 @@ DIAGRAM *bifd;
 void
 start_diagram(int32 n) {
     NBifs = 1;
-    bifd = (DIAGRAM *)malloc(sizeof(DIAGRAM));
+    bifd = malloc(sizeof(DIAGRAM));
     bifd->prev = NULL;
     bifd->next = NULL;
     bifd->index = 0;
@@ -150,7 +150,7 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     while (d->next != NULL) {
         d = (d->next);
     }
-    d->next = (DIAGRAM *)malloc(sizeof(DIAGRAM));
+    d->next = malloc(sizeof(DIAGRAM));
     dnew = d->next;
     dnew->next = NULL;
     dnew->prev = d;

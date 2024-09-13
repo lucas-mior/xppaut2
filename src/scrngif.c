@@ -186,8 +186,8 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     /*  plintf("stog !! \n");*/
 
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
-    ppm = (unsigned char *)malloc(w * h * 3);
-    pixels = (unsigned char *)malloc(h * w);
+    ppm = malloc(w * h * 3);
+    pixels = malloc(h * w);
     /* plintf(" h=%d w=%d \n",h,w);*/
 
     getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);
@@ -262,7 +262,7 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
 
     unsigned char *pos, *buffer;
 
-    buffer = (unsigned char *)malloc((BUFLEN + 1) * sizeof(unsigned char)) + 1;
+    buffer = malloc((BUFLEN + 1) * sizeof(unsigned char)) + 1;
 
     pos = buffer;
 
@@ -345,7 +345,7 @@ make_gif(unsigned char *pixels, int32 cols, int32 rows, FILE *dst) {
 
     unsigned char *pos, *buffer;
 
-    buffer = (unsigned char *)malloc((BUFLEN + 1) * sizeof(unsigned char)) + 1;
+    buffer = malloc((BUFLEN + 1) * sizeof(unsigned char)) + 1;
 
     pos = buffer;
 
@@ -405,7 +405,7 @@ GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
 
     nodeArray = empty;
     memmove(++nodeArray, empty, 255 * sizeof(GifTree **));
-    if ((buffer = (unsigned char *)malloc((BUFLEN + 1) *
+    if ((buffer = malloc((BUFLEN + 1) *
                                           sizeof(unsigned char))) == NULL)
         return 0;
     buffer++;
@@ -420,11 +420,11 @@ GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
 
     cLength = (depth == 1) ? 3 : depth + 1;
 
-    if ((topNode = baseNode = (GifTree *)malloc(sizeof(GifTree) * 4094)) ==
+    if ((topNode = baseNode = malloc(sizeof(GifTree) * 4094)) ==
         NULL)
         return 0;
     if ((nodeArray = first->node =
-             (GifTree **)malloc(256 * sizeof(GifTree *) * noOfArrays)) == NULL)
+             malloc(256 * sizeof(GifTree *) * noOfArrays)) == NULL)
         return 0;
     lastArray = nodeArray + (256 * noOfArrays - cc);
     ClearTree(cc, first);

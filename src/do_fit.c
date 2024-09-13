@@ -392,7 +392,7 @@ test_fit(void) {
             return;
         }
     }
-    yfit = (double *)malloc(fin.npts * fin.nvars * sizeof(double));
+    yfit = malloc(fin.npts * fin.nvars * sizeof(double));
     for (i = 0; i < NODE; i++)
         y0[i] = last_ic[i];
     for (i = 0; i < fin.npars; i++) {
@@ -456,8 +456,8 @@ run_fit(/* double arrays */
         err_msg("No such file...");
         return 0;
     }
-    t0 = (double *)malloc((npts + 1) * sizeof(double));
-    y = (double *)malloc((npts + 1) * nvars * sizeof(double));
+    t0 = malloc((npts + 1) * sizeof(double));
+    y = malloc((npts + 1) * nvars * sizeof(double));
     /* load up the data to fit   */
 
     for (i = 0; i < npts; i++) {
@@ -475,15 +475,15 @@ run_fit(/* double arrays */
     plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
            y[npts * nvars - 2], y[npts * nvars - 1]);
 
-    work = (double *)malloc(sizeof(double) * (4 * npars + npars * npars));
-    yderv = (double **)malloc(npars * sizeof(double *));
+    work = malloc(sizeof(double) * (4 * npars + npars * npars));
+    yderv = malloc(npars * sizeof(double *));
     for (i = 0; i < npars; i++)
-        yderv[i] = (double *)malloc((npts + 1) * nvars * sizeof(double));
+        yderv[i] = malloc((npts + 1) * nvars * sizeof(double));
     for (i = 0; i < nvars; i++)
         sig[i] = 1.0;
 
-    covar = (double *)malloc(npars * npars * sizeof(double));
-    alpha = (double *)malloc(npars * npars * sizeof(double));
+    covar = malloc(npars * npars * sizeof(double));
+    alpha = malloc(npars * npars * sizeof(double));
 
     while (good_flag < 3) { /* take 3 good steps after convergence  */
 

@@ -1335,10 +1335,10 @@ create_crv(int32 ind) {
                 err_msg("No Curve to freeze");
                 return -1;
             }
-            frz[i].xv = (float *)malloc(sizeof(float) * my_browser.maxrow);
-            frz[i].yv = (float *)malloc(sizeof(float) * my_browser.maxrow);
+            frz[i].xv = malloc(sizeof(float) * my_browser.maxrow);
+            frz[i].yv = malloc(sizeof(float) * my_browser.maxrow);
             if ((type = MyGraph->grtype) > 0)
-                frz[i].zv = (float *)malloc(sizeof(float) * my_browser.maxrow);
+                frz[i].zv = malloc(sizeof(float) * my_browser.maxrow);
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
                 err_msg("Cant allocate storage for curve");
@@ -1486,8 +1486,8 @@ add_bd_crv(float *x, float *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
     if (ncrv >= MAXBIFCRV)
         return;
-    my_bd.x[ncrv] = (float *)malloc(sizeof(float) * len);
-    my_bd.y[ncrv] = (float *)malloc(sizeof(float) * len);
+    my_bd.x[ncrv] = malloc(sizeof(float) * len);
+    my_bd.y[ncrv] = malloc(sizeof(float) * len);
     for (i = 0; i < len; i++) {
         my_bd.x[ncrv][i] = x[i];
         my_bd.y[ncrv][i] = y[i];
@@ -1579,7 +1579,7 @@ get_frz_index(Window w) {
     Window temp = main_win;
     for (i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && w == frz[i].w) {
-            n[count] = (char *)malloc(20);
+            n[count] = malloc(20);
             sprintf(n[count], "%s", frz[i].name);
             key[count] = 'a' + i;
 

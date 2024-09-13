@@ -52,7 +52,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
 
     kmem = n * (2 * n + 5) + 50;
     *ierr = 0;
-    if ((work = (double *)malloc(sizeof(double) * kmem)) == NULL) {
+    if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         err_msg("Insufficient core ");
         *ierr = 1;
         return;
@@ -112,7 +112,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     int32 bpos = 0, bneg = 0;
     /* float xl[MAXODE]; */
     kmem = n * (2 * n + 5) + 50;
-    if ((work = (double *)malloc(sizeof(double) * kmem)) == NULL) {
+    if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         err_msg("Insufficient core ");
         return;
     }
@@ -414,7 +414,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     /* float xl[MAXODE]; */
     kmem = n * (2 * n + 5) + 50;
-    if ((work = (double *)malloc(sizeof(double) * kmem)) == NULL) {
+    if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         /* printf("Insufficient core \n");  */
         return;
     }
@@ -585,11 +585,11 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
     double *b, *bp;
     int32 nn = 2 * n;
     int32 i, j, k;
-    a = (double *)malloc(nn * nn * sizeof(double));
-    anew = (double *)malloc(nn * nn * sizeof(double));
-    b = (double *)malloc(nn * sizeof(double));
-    bp = (double *)malloc(nn * sizeof(double));
-    ipivot = (int32 *)malloc(nn * sizeof(int32));
+    a = malloc(nn * nn * sizeof(double));
+    anew = malloc(nn * nn * sizeof(double));
+    b = malloc(nn * sizeof(double));
+    bp = malloc(nn * sizeof(double));
+    ipivot = malloc(nn * sizeof(int32));
     for (i = 0; i < nn; i++) {
         for (j = 0; j < nn; j++) {
             k = j * nn + i;

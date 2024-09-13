@@ -633,13 +633,13 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
 
     if (fixptlist.flag == 0) {
         for (i = 0; i < MAXFP; i++) {
-            fixptlist.x[i] = (double *)malloc(NODE * sizeof(double));
-            fixptlist.er[i] = (double *)malloc(NODE * sizeof(double));
-            fixptlist.em[i] = (double *)malloc(NODE * sizeof(double));
-            /* fixptlist.x1[i]=(double *)malloc(NODE*sizeof(double));
-            fixptlist.x2[i]=(double *)malloc(NODE*sizeof(double));
-            fixptlist.x3[i]=(double *)malloc(NODE*sizeof(double));
-            fixptlist.x4[i]=(double *)malloc(NODE*sizeof(double)); */
+            fixptlist.x[i] = malloc(NODE * sizeof(double));
+            fixptlist.er[i] = malloc(NODE * sizeof(double));
+            fixptlist.em[i] = malloc(NODE * sizeof(double));
+            /* fixptlist.x1[i]=malloc(NODE*sizeof(double));
+            fixptlist.x2[i]=malloc(NODE*sizeof(double));
+            fixptlist.x3[i]=malloc(NODE*sizeof(double));
+            fixptlist.x4[i]=malloc(NODE*sizeof(double)); */
         }
         fixptlist.flag = 1;
     }

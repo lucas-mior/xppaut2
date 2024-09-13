@@ -121,7 +121,7 @@ add_global(char *cond, int32 sign, char *rest) {
         return 1;
     }
     l = strlen(cond);
-    flag[j].cond = (char *)malloc(l + 1);
+    flag[j].cond = malloc(l + 1);
     strcpy(flag[j].cond, cond);
     nevents = 0;
     flag[j].lhsname[0][0] = 0;
@@ -142,7 +142,7 @@ add_global(char *cond, int32 sign, char *rest) {
                 printf(" No event variable named for %s \n", temp);
                 return 1;
             }
-            flag[j].rhs[nevents] = (char *)malloc(lt + 1);
+            flag[j].rhs[nevents] = malloc(lt + 1);
             strcpy(flag[j].rhs[nevents], temp);
             nevents++;
             k = 0;
@@ -204,7 +204,7 @@ compile_flags(void) {
         }
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
-        flag[j].comcond = (int32 *)malloc(sizeof(int32) * (nc + 1));
+        flag[j].comcond = malloc(sizeof(int32) * (nc + 1));
         for (k = 0; k <= nc; k++)
             flag[j].comcond[k] = command[k];
         for (i = 0; i < flag[j].nevents; i++) {
@@ -250,7 +250,7 @@ compile_flags(void) {
                        flag[j].cond);
                 return 1;
             }
-            flag[j].comrhs[i] = (int32 *)malloc(sizeof(int32) * (nc + 1));
+            flag[j].comrhs[i] = malloc(sizeof(int32) * (nc + 1));
             for (k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }

@@ -30,7 +30,7 @@ DenseAllocMat(int64 N) {
     if (N <= 0)
         return NULL;
 
-    A = (DenseMat)malloc(sizeof *A);
+    A = malloc(sizeof *A);
     if (A == NULL)
         return NULL;
 
@@ -50,7 +50,7 @@ DenseAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return ((int64 *)malloc(N * sizeof(int64)));
+    return (malloc(N * sizeof(int64)));
 }
 
 int64
@@ -115,11 +115,11 @@ denalloc(int64 n) {
     if (n <= 0)
         return NULL;
 
-    a = (double **)malloc(n * sizeof(double *));
+    a = malloc(n * sizeof(double *));
     if (a == NULL)
         return NULL;
 
-    a[0] = (double *)malloc(n * n * sizeof(double));
+    a[0] = malloc(n * n * sizeof(double));
     if (a[0] == NULL) {
         free(a);
         return NULL;
@@ -136,7 +136,7 @@ denallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return ((int64 *)malloc(n * sizeof(int64)));
+    return (malloc(n * sizeof(int64)));
 }
 
 int64

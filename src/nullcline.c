@@ -169,21 +169,21 @@ do_range_clines(void) {
             z = (double)i * dz + ncrange.xlo;
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
-                if ((X_n = (float *)malloc(4 * MAX_NULL * sizeof(float))) !=
+                if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) !=
                         NULL &&
-                    (Y_n = (float *)malloc(4 * MAX_NULL * sizeof(float))) !=
+                    (Y_n = malloc(4 * MAX_NULL * sizeof(float))) !=
                         NULL)
 
                     NULL_HERE = 1;
-                NTop = (float *)malloc((course + 1) * sizeof(float));
-                NBot = (float *)malloc((course + 1) * sizeof(float));
+                NTop = malloc((course + 1) * sizeof(float));
+                NBot = malloc((course + 1) * sizeof(float));
                 if (NTop == NULL || NBot == NULL)
                     NULL_HERE = 0;
             } else {
                 free(NTop);
                 free(NBot);
-                NTop = (float *)malloc((course + 1) * sizeof(float));
-                NBot = (float *)malloc((course + 1) * sizeof(float));
+                NTop = malloc((course + 1) * sizeof(float));
+                NBot = malloc((course + 1) * sizeof(float));
                 if (NTop == NULL || NBot == NULL) {
                     NULL_HERE = 0;
                     return;
@@ -207,7 +207,7 @@ do_range_clines(void) {
 void
 start_ncline(void) {
     n_nstore = 1;
-    ncperm = (NCLINES *)malloc(sizeof(NCLINES));
+    ncperm = malloc(sizeof(NCLINES));
     ncperm->p = NULL;
     ncperm->n = NULL;
     ncperm->nmx = 0;
@@ -374,17 +374,17 @@ add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
     while (z->n != NULL) {
         z = (z->n);
     }
-    z->xn = (float *)malloc(4 * nmx * sizeof(float));
+    z->xn = malloc(4 * nmx * sizeof(float));
     for (i = 0; i < 4 * nmx; i++)
         z->xn[i] = xn[i];
-    z->yn = (float *)malloc(4 * nmy * sizeof(float));
+    z->yn = malloc(4 * nmy * sizeof(float));
     for (i = 0; i < 4 * nmy; i++)
         z->yn[i] = yn[i];
     z->nmx = nmx;
     z->nmy = nmy;
     z->n_ix = n_ix;
     z->n_iy = n_iy;
-    z->n = (NCLINES *)malloc(sizeof(NCLINES));
+    z->n = malloc(sizeof(NCLINES));
     znew = z->n;
     znew->n = NULL;
     znew->p = z;
@@ -895,19 +895,19 @@ new_clines_com(int32 c) {
         null_ix = MyGraph->xv[0];
         null_iy = MyGraph->yv[0];
         if (NULL_HERE == 0) {
-            if ((X_n = (float *)malloc(4 * MAX_NULL * sizeof(float))) != NULL &&
-                (Y_n = (float *)malloc(4 * MAX_NULL * sizeof(float))) != NULL)
+            if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL &&
+                (Y_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL)
 
                 NULL_HERE = 1;
-            NTop = (float *)malloc((course + 1) * sizeof(float));
-            NBot = (float *)malloc((course + 1) * sizeof(float));
+            NTop = malloc((course + 1) * sizeof(float));
+            NBot = malloc((course + 1) * sizeof(float));
             if (NTop == NULL || NBot == NULL)
                 NULL_HERE = 0;
         } else {
             free(NTop);
             free(NBot);
-            NTop = (float *)malloc((course + 1) * sizeof(float));
-            NBot = (float *)malloc((course + 1) * sizeof(float));
+            NTop = malloc((course + 1) * sizeof(float));
+            NBot = malloc((course + 1) * sizeof(float));
             if (NTop == NULL || NBot == NULL) {
                 NULL_HERE = 0;
                 return;

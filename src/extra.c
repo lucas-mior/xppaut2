@@ -207,19 +207,19 @@ add_export_list(char *in, char *out) {
     int32 l1 = strlen(in);
     int32 l2 = strlen(out);
     int32 i;
-    in_out.lin = (char *)malloc(l1);
-    in_out.lout = (char *)malloc(l2);
+    in_out.lin = malloc(l1);
+    in_out.lout = malloc(l2);
     strcpy(in_out.lin, in);
     strcpy(in_out.lout, out);
     i = get_export_count(in);
-    in_out.in = (int32 *)malloc((i + 1) * sizeof(int32));
-    in_out.intype = (int32 *)malloc((i + 1) * sizeof(int32));
-    in_out.vin = (double *)malloc((i + 1) * sizeof(double));
+    in_out.in = malloc((i + 1) * sizeof(int32));
+    in_out.intype = malloc((i + 1) * sizeof(int32));
+    in_out.vin = malloc((i + 1) * sizeof(double));
     in_out.nin = i;
     i = get_export_count(out);
-    in_out.out = (int32 *)malloc((i + 1) * sizeof(int32));
-    in_out.outtype = (int32 *)malloc((i + 1) * sizeof(int32));
-    in_out.vout = (double *)malloc((i + 1) * sizeof(double));
+    in_out.out = malloc((i + 1) * sizeof(int32));
+    in_out.outtype = malloc((i + 1) * sizeof(int32));
+    in_out.vout = malloc((i + 1) * sizeof(double));
     in_out.nout = i;
     /* plintf(" in %d out %d \n",in_out.nin,in_out.nout); */
     return;

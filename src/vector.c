@@ -46,11 +46,11 @@ N_VNew(int64 N, void *machEnv) {
     if (N <= 0)
         return NULL;
 
-    v = (N_Vector)malloc(sizeof *v);
+    v = malloc(sizeof *v);
     if (v == NULL)
         return NULL;
 
-    v->data = (double *)malloc(N * sizeof(double));
+    v->data = malloc(N * sizeof(double));
     if (v->data == NULL) {
         free(v);
         return NULL;

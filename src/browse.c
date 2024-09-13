@@ -279,17 +279,17 @@ add_stor_col(char *name, char *formula, BROWSER *b) {
         err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + FIX_VAR] = (int32 *)malloc((i + 2) * sizeof(int32))) ==
+    if ((my_ode[NEQ + FIX_VAR] = malloc((i + 2) * sizeof(int32))) ==
         NULL) {
         err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = (float *)malloc(MAXSTOR * sizeof(float))) == NULL) {
+    if ((storage[NEQ + 1] = malloc(MAXSTOR * sizeof(float))) == NULL) {
         err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
     }
-    if ((ode_names[NEQ] = (char *)malloc(80)) == NULL) {
+    if ((ode_names[NEQ] = malloc(80)) == NULL) {
         err_msg("Cannot allocate space ...");
         free(my_ode[NEQ]);
         free(storage[NEQ + 1]);
@@ -422,7 +422,7 @@ replace_column(char *var, char *form, float **dat, int32 n) {
     /* Okay the formula is cool so lets allocate and replace  */
 
     wipe_rep();
-    old_rep = (float *)malloc(sizeof(float) * n);
+    old_rep = malloc(sizeof(float) * n);
     REPLACE = 1;
     for (i = 0; i < n; i++) {
         old_rep[i] = dat[R_COL][i];

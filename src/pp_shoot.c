@@ -462,11 +462,11 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
     if (iper)
         ntot = n + 1;
-    jac = (double *)malloc(ntot * ntot * sizeof(double));
-    f = (double *)malloc(ntot * sizeof(double));
-    fdev = (double *)malloc(ntot * sizeof(double));
-    y0 = (double *)malloc(ntot * sizeof(double));
-    y1 = (double *)malloc(ntot * sizeof(double));
+    jac = malloc(ntot * ntot * sizeof(double));
+    f = malloc(ntot * sizeof(double));
+    fdev = malloc(ntot * sizeof(double));
+    y0 = malloc(ntot * sizeof(double));
+    y1 = malloc(ntot * sizeof(double));
 
     for (i = 0; i < n; i++)
         y0[i] = y[i];

@@ -32,7 +32,7 @@ BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
     if (N <= 0)
         return NULL;
 
-    A = (BandMat)malloc(sizeof *A);
+    A = malloc(sizeof *A);
     if (A == NULL)
         return NULL;
 
@@ -55,7 +55,7 @@ BandAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return ((int64 *)malloc(N * sizeof(int64)));
+    return (malloc(N * sizeof(int64)));
 }
 
 int64
@@ -120,12 +120,12 @@ bandalloc(int64 n, int64 smu, int64 ml) {
     if (n <= 0)
         return NULL;
 
-    a = (double **)malloc(n * sizeof(double *));
+    a = malloc(n * sizeof(double *));
     if (a == NULL)
         return NULL;
 
     colSize = smu + ml + 1;
-    a[0] = (double *)malloc(n * colSize * sizeof(double));
+    a[0] = malloc(n * colSize * sizeof(double));
     if (a[0] == NULL) {
         free(a);
         return NULL;
@@ -142,7 +142,7 @@ bandallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return ((int64 *)malloc(n * sizeof(int64)));
+    return (malloc(n * sizeof(int64)));
 }
 
 int64

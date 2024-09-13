@@ -188,7 +188,7 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
     lfree = CVSpgmrFree;
 
     /* Get memory for CVSpgmrMemRec */
-    lmem = cvspgmr_mem = (CVSpgmrMem)malloc(sizeof(CVSpgmrMemRec));
+    lmem = cvspgmr_mem = malloc(sizeof(CVSpgmrMemRec));
     if (cvspgmr_mem == NULL)
         return; /* CVSpgmrInit reports this error */
 

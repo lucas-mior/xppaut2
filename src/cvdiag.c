@@ -120,7 +120,7 @@ CVDiag(void *cvode_mem) {
     lfree = CVDiagFree;
 
     /* Get memory for CVDiagMemRec */
-    lmem = cvdiag_mem = (CVDiagMem)malloc(sizeof(CVDiagMemRec));
+    lmem = cvdiag_mem = malloc(sizeof(CVDiagMemRec));
     if (cvdiag_mem == NULL)
         return; /* CVDiagInit reports this error */
     return;
