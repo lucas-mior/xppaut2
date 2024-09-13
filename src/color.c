@@ -1,11 +1,12 @@
-#include "color.h"
+#include <X11/Xlib.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <X11/Xlib.h>
+#include "color.h"
 #include "ggets.h"
-#include <math.h>
 #include "integers.h"
+
 #define COLOR_SCALE 0
 #define GRAYSCALE 1
 #define RGRAYSCALE 2

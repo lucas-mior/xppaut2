@@ -1,21 +1,19 @@
-#include "axes2.h"
-
-#include <stdlib.h>
-#include <string.h>
-/* All new improved axes !!  */
-
-#include <math.h>
-#include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include "xpplim.h"
-#include "struct.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "axes2.h"
 #include "ggets.h"
+#include "graf_par.h"
 #include "graphics.h"
+#include "integers.h"
 #include "main.h"
 #include "many_pops.h"
-#include "graf_par.h"
-#include "integers.h"
+#include "struct.h"
+#include "xpplim.h"
 
 #define NOAXES 0
 #define CROSS 1

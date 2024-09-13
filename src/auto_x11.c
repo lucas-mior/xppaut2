@@ -1,35 +1,33 @@
-
-
-#include <stdbool.h>
-#include <unistd.h>
-#include "parserslow.h"
-#include "tabular.h"
-#include "auto_x11.h"
-#include "auto_nox.h"
-#include "init_conds.h"
-#include "derived.h"
-#include "diagram.h"
-#include "ggets.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
-#include "auto.bitmap"
-#include "mykeydef.h"
-#include "autlim.h"
-#include "math.h"
-#include "rubber.h"
-#include "many_pops.h"
-#include "color.h"
-#include "integrate.h"
-#include "browse.h"
-#include "numerics.h"
-#include "integers.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
+#include "autlim.h"
+#include "auto.bitmap"
+#include "auto_nox.h"
+#include "auto_x11.h"
+#include "browse.h"
+#include "color.h"
+#include "derived.h"
+#include "diagram.h"
+#include "ggets.h"
+#include "init_conds.h"
+#include "integers.h"
+#include "integrate.h"
+#include "many_pops.h"
+#include "math.h"
+#include "mykeydef.h"
+#include "numerics.h"
+#include "parserslow.h"
 #include "pop_list.h"
+#include "rubber.h"
+#include "tabular.h"
 
 #define RUBBOX 0
 #define RUBLINE 1

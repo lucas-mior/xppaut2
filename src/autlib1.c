@@ -1,11 +1,13 @@
+#include <string.h>
+#include <stdbool.h>
+
 #include "auto_f2c.h"
 #include "autevd.h"
 #include "auto_x11.h"
 #include "auto_c.h"
 #include "xAuto.h"
 #include "integers.h"
-#include <string.h>
-#include <stdbool.h>
+
 extern XAUTO xAuto;
 extern int32 NODE;
 extern int32 RestartLabel;

@@ -1,23 +1,23 @@
-#include "calc.h"
-#include <stdbool.h>
-
-#include "ggets.h"
-#include "pop_list.h"
-#include "init_conds.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
-#include "xpplim.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "calc.h"
+#include "ggets.h"
+#include "init_conds.h"
 #include "integers.h"
+#include "parserslow.h"
+#include "pop_list.h"
+#include "xpplim.h"
+
 #define PARAM 1
 #define IC 2
 #include "browse.h"
-
-#include "parserslow.h"
 
 extern int32 NCON, NSYM, NCON_START, NSYM_START;
 

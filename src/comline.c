@@ -1,13 +1,14 @@
-#include "xpplim.h"
-#include "comline.h"
-#include "ggets.h"
-#include "load_eqn.h"
-#include "lunch-new.h"
-#include "integers.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-/* command-line stuff for xpp */
-#include <stdio.h>
+
+#include "comline.h"
+#include "ggets.h"
+#include "integers.h"
+#include "load_eqn.h"
+#include "lunch-new.h"
+#include "xpplim.h"
+
 #define NCMD 45 /* add new commands as needed  */
 
 #define MAKEC 0

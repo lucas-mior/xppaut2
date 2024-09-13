@@ -1,22 +1,18 @@
-#include "cv2.h"
 #include <stdbool.h>
-
-#include "flags.h"
-#include "my_rhs.h"
-#include "ggets.h"
 #include <stdio.h>
 #include <string.h>
-#include "llnltyps.h" /* definitions of types double (set to double) and     */
-                      /* int64 (set to int32), and the constant FALSE      */
-#include "cvode.h"    /* prototypes for CVodeMalloc, CVode, and CVodeFree, */
-                      /* constants OPT_SIZE, BDF, NEWTON, SV, SUCCESS,     */
-                      /* NST, NFE, NSETUPS, NNI, NCFN, NETF                */
-#include "cvdense.h"  /* prototype for CVDense, constant DENSE_NJE         */
 
-#include "vector.h" /* definitions of type N_Vector and macro N_VIth,    */
-                    /* prototypes for N_VNew, N_VFree                    */
+#include "cv2.h"
 #include "cvband.h"
+#include "cvdense.h"
+#include "cvode.h"
+#include "flags.h"
+#include "ggets.h"
 #include "integers.h"
+#include "llnltyps.h"
+#include "my_rhs.h"
+#include "vector.h"
+
 double cv_ropt[OPT_SIZE];
 int32 cv_iopt[OPT_SIZE];
 extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
@@ -26,6 +22,7 @@ void *cvode_mem;
 N_Vector ycv;
 extern int32 NFlags;
 extern double TOLER, ATOLER;
+
 void
 start_cv(double *y, double t, int32 n, double tout, double *atol,
          double *rtol) {
