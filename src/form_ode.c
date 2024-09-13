@@ -122,21 +122,7 @@ make_eqn(void) {
     FIX_VAR = 0;
     NMarkov = 0;
 
-    /* initscr(); */
-    /*
-    pos_prn("*(r)ead or (c)reate:",0,0);
-    ch=getuch();
-    pos_prn("",0,0);
-    okay=0;
-    switch(ch)
-    {
-     case 'r':okay=read_eqn(); break;
-     case 'c': okay=create_eqn();break;
-       default : read_eqn();break;
-    }
-    */
     okay = read_eqn();
-
     return okay;
 }
 
@@ -192,35 +178,6 @@ dump_comments(void) {
         plintf("%s\n", comments[i].text);
     return;
 }
-
-/*
-  read_eqn()
-  {
-   char string[200];
-   FILE *fptr;
-   int32 okay,i;
-   okay=0;
-getfile:
-   pos_prn("File to read or <Enter> for directory:",0,0);
-   getsi(string);
-   if(strlen(string)==0)
-   {
-    get_dir();
-    goto getfile;
-   }
-   if((fptr=fopen(string,"r"))==NULL)
-   {
-    plintf("\n Cannot open %s \n",string);
-    return 0;
-   }
-   strcpy(this_file,string);
-   clrscr();
-   okay=get_eqn(fptr);
-   close(fptr);
-   for(i=0;i<NLINES;i++)free(save_eqn[i]);
-   return okay;
- }
-*/
 
 void
 format_list(char **s, int32 n) {
@@ -507,60 +464,7 @@ get_eqn(FILE *fptr) {
            xppvermin);
     return 1;
 }
-/*
-write_eqn()
-{
-    char string[100];
-    FILE *fptr;
-    int32 i;
-    if(NLINES==0)
-    {
-     plintf(" There is no current equation!\n");
-     exit(0);
-    }
-    wipe_out();
-    pos_prn("Name of file to save:",0,0);
-    getsi(string);
-    if((fptr=fopen(string,"w"))==NULL)
-    {
-     plintf("\nCannot open %s\n",string);
-     return;
-    }
-    strcpy(this_file,string);
-    for(i=0;i<NLINES;i++)
-    {
-     fputs(save_eqn[i],fptr);
-     free(save_eqn[i]);
-    }
-    fclose(fptr);
-   }
 
-  create_eqn()
-  {
-    int32 okay;
-    FILE *fptr;
-    char junk[10];
-    wipe_out();
-     fptr=stdin;
-   welcome();
-   fgets(junk,10,fptr);
-   okay=get_eqn(fptr);
-   if(okay==1)write_eqn();
-   return okay;
-  }
-
-  wipe_out()
-{
-   clrscr();
-  }
-
-  char *getsi( bob)
-  char *bob;
-  {
-   return(gets(bob));
-  }
-
-*/
 int32
 compiler(char *bob, FILE *fptr) {
     double value, xlo, xhi;
@@ -1113,7 +1017,7 @@ find_ker(/* this extracts the integral operators from the string */
 }
 
 void
-pos_prn(char *s, int32 x, int32 y) {
+pos_prn(char *s) {
     plintf("%s\n", s);
     return;
 }

@@ -2457,7 +2457,7 @@ void take_apart(char *bob, double *value, char *name);
 char *get_first(char *string, char *src);
 char *get_next(char *src);
 void find_ker(char *string, int32 *alt);
-void pos_prn(char *s, int32 x, int32 y);
+void pos_prn(char *s);
 void clrscr(void);
 int32 getuch(void);
 int32 getchi(void);
