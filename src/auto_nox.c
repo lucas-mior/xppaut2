@@ -6,7 +6,23 @@
 #include <math.h>
 #include <string.h>
 
+#include "autlim.h"
+#include "axes2.h"
+#include "browse.h"
+#include "diagram.h"
+#include "ggets.h"
 #include "graf_par.h"
+#include "graphics.h"
+#include "init_conds.h"
+#include "load_eqn.h"
+#include "many_pops.h"
+#include "menudrive.h"
+#include "parserslow.h"
+#include "pop_list.h"
+#include "pp_shoot.h"
+#include "xAuto.h"
+#include "xpplim.h"
+
 #include "form_ode.h"
 #include "parserslow.h"
 #include "autevd.h"
@@ -18,22 +34,6 @@
 #include "gogoauto.h"
 #include "my_rhs.h"
 #include "auto_c.h"
-
-#include "autlim.h"
-#include "axes2.h"
-#include "browse.h"
-#include "diagram.h"
-#include "ggets.h"
-#include "graphics.h"
-#include "init_conds.h"
-#include "load_eqn.h"
-#include "many_pops.h"
-#include "menudrive.h"
-#include "parserslow.h"
-#include "pop_list.h"
-#include "pp_shoot.h"
-#include "xAuto.h"
-#include "xpplim.h"
 
 #ifndef WCTYPE
 #include <ctype.h>
