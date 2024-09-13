@@ -59,7 +59,7 @@ typedef struct {
     char name[12];
 } MARKOV;
 
-MARKOV markov[MAXMARK];
+MARKOV markov[MAX_MARK];
 
 extern float **storage;
 
@@ -226,7 +226,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     int32 i;
     int32 n2 = nstates*nstates;
     int32 j = NMarkov;
-    if (j >= MAXMARK) {
+    if (j >= MAX_MARK) {
         plintf("Too many Markov chains...\n");
         exit(0);
     }
