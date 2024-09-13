@@ -122,7 +122,7 @@ L20:
     balbak(&nm, &n, &is1, &is2, &fv1[1], &n, &z__[z_offset]);
 L50:
     return 0;
-} /* rg_ */
+}
 
 int32
 hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
@@ -466,7 +466,7 @@ L1000:
     *ierr = en;
 L1001:
     return 0;
-} /* hqr_ */
+}
 
 int32
 hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
@@ -1149,7 +1149,7 @@ L1000:
     *ierr = en;
 L1001:
     return 0;
-} /* hqr2_ */
+}
 
 int32
 cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
@@ -1174,7 +1174,7 @@ cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
     *cr = (ars*brs + ais*bis) / s;
     *ci = (ais*brs - ars*bis) / s;
     return 0;
-} /* cdiv_ */
+}
 
 int32
 balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
@@ -1423,7 +1423,7 @@ L280:
     *low = k;
     *igh = l;
     return 0;
-} /* balanc_ */
+}
 
 int32
 balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
@@ -1533,7 +1533,7 @@ L120:
 
 L200:
     return 0;
-} /* balbak_ */
+}
 
 int32
 elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
@@ -1672,7 +1672,7 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
 
 L200:
     return 0;
-} /* elmhes_ */
+}
 
 int32
 eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
@@ -1783,7 +1783,7 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
 
 L200:
     return 0;
-} /* eltran_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*  EISPACK routines needed in the computation of Floquet multipliers */
@@ -2066,7 +2066,7 @@ L10:
 
 L170:
     return 0;
-} /* qzhes_ */
+}
 
 int32
 qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
@@ -2591,7 +2591,7 @@ L1001:
         b[n + b_dim1] = epsb;
     }
     return 0;
-} /* qzit_ */
+}
 
 int32
 qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
@@ -2976,7 +2976,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     b[n + b_dim1] = epsb;
 
     return 0;
-} /* qzval_ */
+}
 
 double
 epslon(double x) {
@@ -3019,7 +3019,7 @@ L10:
     }
     ret_val = eps*fabs(x);
     return ret_val;
-} /* epslon_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*  BLAS-1 routines needed in the computation of Floquet multipliers */
@@ -3209,7 +3209,7 @@ L200:
     ret_val = xmax*sqrt(sum);
 L300:
     return ret_val;
-} /* dnrm2_ */
+}
 
 double
 ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
@@ -3290,7 +3290,7 @@ L40:
 L60:
     ret_val = dtemp;
     return ret_val;
-} /* ddot_ */
+}
 
 int32
 dscal(int64 *n, double *da, double *dx, int64 *incx) {
@@ -3355,7 +3355,7 @@ L40:
         /* L50: */
     }
     return 0;
-} /* dscal_ */
+}
 
 int64
 idamax(int64 *n, double *dx, int64 *incx) {
@@ -3418,7 +3418,7 @@ L20:
     L30:;
     }
     return ret_val;
-} /* idamax_ */
+}
 
 int32
 daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
@@ -3495,7 +3495,7 @@ L40:
         /* L50: */
     }
     return 0;
-} /* daxpy_ */
+}
 
 int32
 drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
@@ -3556,7 +3556,7 @@ L20:
         /* L30: */
     }
     return 0;
-} /* drot_ */
+}
 
 int32
 dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
@@ -3641,7 +3641,7 @@ L40:
         /* L50: */
     }
     return 0;
-} /* dswap_ */
+}
 
 int32
 dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
@@ -3739,7 +3739,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
         }
     }
     return 0;
-} /* dgemc_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*  BLAS-2 routines needed in the computation of Floquet multipliers */
@@ -3792,7 +3792,7 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
 
     /*     End of XERBLA. */
 
-} /* xerbla_ */
+}
 
 logical
 lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
@@ -3881,7 +3881,7 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 
     /*     End of LSAME. */
 
-} /* lsame_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*  BLAS-3 routines needed in the computation of Floquet multipliers */
@@ -4281,7 +4281,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
 
     /*     End of DGEMM . */
 
-} /* dgemm_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /* Demmel-Kahan SVD routines needed for computing the Floquet multipliers */
@@ -4359,7 +4359,7 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
           &v[v_offset], ldv, &work[1], job, info, &maxitr, tol, &idbg, &ifull,
           &kount, &kount1, &kount2, &skip, &limshf, &maxsin, &iidir);
     return 0;
-} /* ezsvd_ */
+}
 
 int32
 ndrotg(double *f, double *g, double *cs, double *sn) {
@@ -4410,7 +4410,7 @@ ndrotg(double *f, double *g, double *cs, double *sn) {
         }
     }
     return 0;
-} /* ndrotg_ */
+}
 
 int32
 ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
@@ -5697,7 +5697,7 @@ L997:
     }
 L996:
     return 0;
-} /* ndsvd_ */
+}
 
 int32
 prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
@@ -5735,7 +5735,7 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
         printf("%26.17f %26.17f\n", s[*m], e[*m]);
     }
     return 0;
-} /* prse_ */
+}
 
 int32
 sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
@@ -5986,7 +5986,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
     sndrtg(&cosr, &sinr, csr, snr);
     sndrtg(&cosl, &sinl, csl, snl);
     return 0;
-} /* sig22_ */
+}
 
 double
 sigmin(double *a, double *b, double *c__) {
@@ -6040,7 +6040,7 @@ sigmin(double *a, double *b, double *c__) {
         }
     }
     return ret_val;
-} /* sigmin_ */
+}
 
 int32
 sndrtg(double *f, double *g, double *cs, double *sn) {
@@ -6074,7 +6074,7 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
         }
     }
     return 0;
-} /* sndrtg_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*              LINPACK and LAPACK routines */
@@ -6478,7 +6478,7 @@ L310:
         goto L270;
     }
     return 0;
-} /* hqr3lc_ */
+}
 
 int32
 split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
@@ -6618,7 +6618,7 @@ L80:
     *e1 = a[*l + *l*a_dim1];
     *e2 = a[*l + 1 + (*l + 1) * a_dim1];
     return 0;
-} /* split_ */
+}
 
 int32
 exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
@@ -6787,7 +6787,7 @@ L90:
     }
     a[m - 1 + (m - 2) * a_dim1] = 0.;
     return 0;
-} /* exchng_ */
+}
 
 int32
 qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
@@ -6941,7 +6941,7 @@ L30:
     L130:;
     }
     return 0;
-} /* qrstep_ */
+}
 
 int32
 orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
@@ -7092,7 +7092,7 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
 
 L200:
     return 0;
-} /* orthes_ */
+}
 
 int32
 ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
@@ -7220,7 +7220,7 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
 
 L200:
     return 0;
-} /* ortran_ */
+}
 
 double
 dotp(double *p, double *q, int32 n) {
