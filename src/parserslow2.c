@@ -415,7 +415,7 @@ add_kernel(char *name, double mu, char *expr) {
         for (int32 i = 0; i < in; i++)
             kernel[NKernel].kerexpr[i] = expr[i];
         kernel[NKernel].kerexpr[in] = 0;
-        for (int32 i = in + 1; i < strlen(expr); i++)
+        for (int32 i = in + 1; i < (int32)strlen(expr); i++)
             kernel[NKernel].expr[i - in - 1] = expr[i];
         kernel[NKernel].expr[strlen(expr) - in - 1] = 0;
         plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
