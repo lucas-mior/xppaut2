@@ -281,7 +281,7 @@ chdim(iap_type *iap) {
     }
 
     return 0;
-} /* chdim_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*               The leading subroutines of AUTO */
@@ -670,7 +670,7 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     printf("dim=%d ps=%d rs=%d lp=%d sp=%d sw=%d nbc=%d nint=%d nfpr=%d
     nicp=%d\n", ndim,ips,irs,ilp,isp,isw,nbc,nint,nfpr,nicp); */
     return 0;
-} /* init1 */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                    Algebraic Problems */
@@ -1027,7 +1027,7 @@ L6:
     free(uzr);
 
     return 0;
-} /* cnrlae_ */
+}
 
 int32
 stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
@@ -1042,7 +1042,7 @@ stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     stpnt(ndim, 0.0, u, par);
 
     return 0;
-} /* stpnus_ */
+}
 
 int32
 stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
@@ -1058,7 +1058,7 @@ stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     findlb(iap, rap, irs, &nfprs, &found);
     readlb(u, par);
     return 0;
-} /* stpnae_ */
+}
 
 int32
 stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -1146,7 +1146,7 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
            u, du, uold, udot, f, dfdu, dfdp, thl, thu);
 
     return 0;
-} /* stprae_ */
+}
 
 int32
 contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
@@ -1181,7 +1181,7 @@ contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
     }
 
     return 0;
-} /* contae_ */
+}
 
 int32
 solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -1410,7 +1410,7 @@ L5:
     istop = 1;
     iap->istop = istop;
     return 0;
-} /* solvae_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*               Detection of Singular Points */
@@ -1528,7 +1528,7 @@ L1:
         return 0;
     }
 
-} /* lcspae_ */
+}
 
 int32
 mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
@@ -1566,7 +1566,7 @@ mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
     *s1 = *s;
 
     return 0;
-} /* mueller_ */
+}
 
 double
 fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -1612,7 +1612,7 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     }
 
     return ret_val;
-} /* fnbpae_ */
+}
 
 double
 fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -1677,7 +1677,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     }
     free(ud);
     return ret_val;
-} /* fnlpae_ */
+}
 
 double
 fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -1847,7 +1847,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 
     free(ev);
     return ret_val;
-} /* fnhbae_ */
+}
 
 double
 fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -1893,7 +1893,7 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     }
 
     return ret_val;
-} /* fnuzae_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                   Branch Switching for Algebraic Problems */
@@ -2003,7 +2003,7 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
     stla[-1 + nbif] = rlcur[0];
 
     return 0;
-} /* stbif_ */
+}
 
 int32
 swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
@@ -2076,7 +2076,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     }
 
     return 0;
-} /* swpnt_ */
+}
 
 int32
 swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
@@ -2305,7 +2305,7 @@ L5:
 
     return 0;
 
-} /* swprc_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                    Output (Algebraic Problems) */
@@ -2425,7 +2425,7 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     }
 
     return 0;
-} /* sthd_ */
+}
 
 int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
@@ -2546,7 +2546,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     }
 
     return 0;
-} /* headng_ */
+}
 
 int32
 stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
@@ -2693,7 +2693,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     }
 
     return 0;
-} /* stplae_ */
+}
 
 int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
@@ -2866,7 +2866,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     }
 
     return 0;
-} /* wrline_ */
+}
 
 int32
 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
@@ -2947,7 +2947,7 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     fflush(fp8);
 
     return 0;
-} /* wrtsp8_ */
+}
 
 int32
 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
@@ -2978,7 +2978,7 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
     }
 
     return 0;
-} /* wrjac_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                    Mesh and Weight Generation */
@@ -3004,7 +3004,7 @@ msh(const iap_type *iap, double *tm) {
     }
 
     return 0;
-} /* msh_ */
+}
 
 int32
 genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
@@ -3083,7 +3083,7 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     free(zm);
 
     return 0;
-} /* genwts_ */
+}
 
 int32
 cpnts(const int64 ncol, double *zm) {
@@ -3171,7 +3171,7 @@ L7:
     zm[5] = c2 + .5;
     zm[6] = c1 + .5;
     return 0;
-} /* cpnts_ */
+}
 
 int32
 cntdif(int64 *n, double *d) {
@@ -3209,7 +3209,7 @@ cntdif(int64 *n, double *d) {
     }
 
     return 0;
-} /* cntdif_ */
+}
 
 int32
 wint(const int64 n, double *wi) {
@@ -3287,7 +3287,7 @@ L8:
     wi[7] = wi[0];
 
     return 0;
-} /* wint_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*          Stepsize and Mesh Adaption */
@@ -3340,7 +3340,7 @@ adptds(iap_type *iap, rap_type *rap, double *rds) {
             (*rds));
 
     return 0;
-} /* adptds_ */
+}
 
 int32
 adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
@@ -3436,7 +3436,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     free(itm);
 
     return 0;
-} /* adapt_ */
+}
 
 int32
 interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
@@ -3505,7 +3505,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
     free(x);
 
     return 0;
-} /* interp_ */
+}
 
 int32
 newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
@@ -3565,7 +3565,7 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     free(eqf);
     free(ial);
     return 0;
-} /* newmsh_ */
+}
 
 int32
 ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
@@ -3599,7 +3599,7 @@ ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
     }
 
     return 0;
-} /* ordr_ */
+}
 
 int32
 intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
@@ -3630,7 +3630,7 @@ intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
     }
 
     return 0;
-} /* intwts_ */
+}
 
 int32
 eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
@@ -3731,7 +3731,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     free(hd);
     free(wh);
     return 0;
-} /* eqdf_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                    General Support Routines */
@@ -3787,7 +3787,7 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     free(fv1);
     free(iv1);
     return 0;
-} /* eig_ */
+}
 
 int32
 nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
@@ -3897,7 +3897,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     free(ir);
     free(ic);
     return 0;
-} /* nlvc_ */
+}
 
 int32
 nrmlz(int64 *ndim, double *v) {
@@ -3920,7 +3920,7 @@ nrmlz(int64 *ndim, double *v) {
     }
 
     return 0;
-} /* nrmlz_ */
+}
 
 double
 pi(double r) {
@@ -3930,7 +3930,7 @@ pi(double r) {
     ret_val = r*4. * atan(1.);
 
     return ret_val;
-} /* pi */
+}
 
 /*     ---------- -- */
 int32
@@ -4092,7 +4092,7 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
     free(ic);
 
     return 0;
-} /* ge_ */
+}
 
 int32
 newlab(iap_type *iap) {
@@ -4170,7 +4170,7 @@ L2:
     }
 
     return 0;
-} /* newlab_ */
+}
 
 int32
 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
@@ -4311,7 +4311,7 @@ skip3(int64 *nskip, logical *eof3) {
         }
     }
     return 0;
-} /* skip3_ */
+}
 
 double
 rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
@@ -4368,7 +4368,7 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
     free(wi);
 
     return ret_val;
-} /* rinpr_ */
+}
 
 double
 rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
@@ -4385,7 +4385,7 @@ rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
     ret_val = rinpr(iap, ndim1, ndxloc, ups, ups, dtm, thu);
 
     return ret_val;
-} /* rnrmsq_ */
+}
 
 double
 rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
@@ -4433,7 +4433,7 @@ rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
 
     free(wi);
     return ret_val;
-} /* rintg_ */
+}
 
 double
 rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
@@ -4484,7 +4484,7 @@ rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
     free(wi);
 
     return ret_val;
-} /* rnrm2_ */
+}
 
 double
 rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
@@ -4518,7 +4518,7 @@ rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     }
 
     return ret_val;
-} /* rmxups_ */
+}
 
 double
 rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
@@ -4552,7 +4552,7 @@ rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     }
 
     return ret_val;
-} /* rmnups_ */
+}
 
 int32
 scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
@@ -4602,7 +4602,7 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
     }
 
     return 0;
-} /* scaleb_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                    General Boundary Value Problems */
@@ -4990,7 +4990,7 @@ L3:
         return 0;
     }
 
-} /* cnrlbv_ */
+}
 
 int32
 contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -5052,7 +5052,7 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
            upoldp);
 
     return 0;
-} /* contbv_ */
+}
 
 int32
 extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
@@ -5093,7 +5093,7 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
     }
 
     return 0;
-} /* extrbv_ */
+}
 
 int32
 stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -5182,7 +5182,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     free(u);
 
     return 0;
-} /* stupbv_ */
+}
 
 int32
 stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -5399,7 +5399,7 @@ L13:
     iap->istop = istop;
 
     return 0;
-} /* stepbv_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*      Restart of Solution Branches ( Differential Equations ) */
@@ -5576,7 +5576,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     }
 
     return 0;
-} /* rsptbv_ */
+}
 
 int32
 stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
@@ -5755,7 +5755,7 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     }
 
     return 0;
-} /* stpnbv_ */
+}
 
 int32
 stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
@@ -5832,7 +5832,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     free(u);
     return 0;
-} /* stpnub_ */
+}
 
 int32
 setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
@@ -5863,7 +5863,7 @@ setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
     }
 
     return 0;
-} /* setrtn_ */
+}
 
 int32
 stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -5979,7 +5979,7 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     }
 
     return 0;
-} /* stdrbv_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*  Detection and Location of Branch Points in Boundary Value Problems */
@@ -6120,7 +6120,7 @@ L1:
     *q = 0.;
 
     return 0;
-} /* lcspbv_ */
+}
 
 double
 fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -6198,7 +6198,7 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     rap->fldf = ret_val;
 
     return ret_val;
-} /* fnlpbv_ */
+}
 
 double
 fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -6266,7 +6266,7 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     }
     free(pp);
     return ret_val;
-} /* fnbpbv_ */
+}
 
 double
 fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -6470,7 +6470,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     }
 
     return ret_val;
-} /* fnspbv_ */
+}
 
 double
 fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
@@ -6500,7 +6500,7 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     }
 
     return ret_val;
-} /* fnuzbv_ */
+}
 
 int32
 tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
@@ -6570,7 +6570,7 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     }
 
     return 0;
-} /* tpspbv_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*                    Output (Boundary Value Problems) */
@@ -6757,7 +6757,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     }
 
     return 0;
-} /* stplbv_ */
+}
 
 int32
 wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
@@ -6936,7 +6936,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     fprintf(fp8, "\n");
     fflush(fp8);
     return 0;
-} /* wrtbv8_ */
+}
 
 int32
 wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
@@ -7025,7 +7025,7 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
         fprintf(fp9, "\n");
     }
     return 0;
-} /* wrtbv9_ */
+}
 
 int32
 pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
@@ -7037,7 +7037,7 @@ pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
     pvls(ndm, u, par);
 
     return 0;
-} /* pvlsae_ */
+}
 
 int32
 pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
@@ -7049,7 +7049,7 @@ pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
     pvls(ndm, ups, par);
 
     return 0;
-} /* pvlsbv_ */
+}
 
 int32
 setpae(iap_type *iap, rap_type *rap) {
@@ -7057,7 +7057,7 @@ setpae(iap_type *iap, rap_type *rap) {
     global_parameters.rav = rap;
 
     return 0;
-} /* setpae_ */
+}
 
 int32
 setpbv(iap_type *iap, rap_type *rap, double *dtm) {
@@ -7066,7 +7066,7 @@ setpbv(iap_type *iap, rap_type *rap, double *dtm) {
 
     global_parameters.dtv = dtm;
     return 0;
-} /* setpbv_ */
+}
 
 /* ----------------------------------------------------------------------- */
 /*          System Dependent Subroutines for Timing AUTO */
@@ -7159,23 +7159,15 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
     } else {
 
         if (strcmp(code, "NRM") == 0 || strcmp(code, "nrm") == 0) {
-
             ret_val = rnrm2(global_parameters.iav, &nxloc, ic, ups,
                             global_parameters.dtv);
-
         } else if (strcmp(code, "INT") == 0 || strcmp(code, "int32") == 0) {
-
             ret_val = rintg(global_parameters.iav, &nxloc, *ic, ups,
                             global_parameters.dtv);
-
         } else if (strcmp(code, "MAX") == 0 || strcmp(code, "max") == 0) {
-
             ret_val = rmxups(global_parameters.iav, &nxloc, ic, ups);
-
         } else if (strcmp(code, "MIN") == 0 || strcmp(code, "min") == 0) {
-
             ret_val = rmnups(global_parameters.iav, &nxloc, ic, ups);
-
         } else if (strcmp(code, "BV0") == 0 || strcmp(code, "bv0") == 0) {
 
             ret_val = ups[(*ic - 1) * (global_parameters.iav->ntst + 1)];
