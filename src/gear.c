@@ -550,14 +550,6 @@ pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
     }
     if (pr == 0)
         return;
-    /* plintf("Initial conditions for %f \n",eval);
-
-    for(i=0;i<n;i++)
-    {
-     plintf(" %.16g   %.16g   %.16g \n",ev[i],x[i]+d*ev[i],x[i]-d*ev[i]);
-
-    }
-    */
     return;
 }
 
