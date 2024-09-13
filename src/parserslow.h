@@ -1,7 +1,7 @@
 #ifndef _parserslow_h_
 #define _parserslow_h_
-#include "integers.h"
 
+#include "integers.h"
 #include "volterra.h"
 #include "xpplim.h"
 
