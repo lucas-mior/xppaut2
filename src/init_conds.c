@@ -369,9 +369,7 @@ resize_par_slides(int32 h) {
 }
 
 void
-slide_button_press(Window w)
-
-{
+slide_button_press(Window w) {
     int32 i;
     for (i = 0; i < 3; i++)
         do_slide_button(w, &my_par_slide[i]);
@@ -379,9 +377,7 @@ slide_button_press(Window w)
 }
 
 void
-do_slide_button(int32 w, PAR_SLIDER *p)
-
-{
+do_slide_button(int32 w, PAR_SLIDER *p) {
     static char *n[] = {"*3Par/Var", "Value", "Low", "High"};
     char values[4][MAX_LEN_SBOX];
     int32 status;
