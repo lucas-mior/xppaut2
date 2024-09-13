@@ -25,6 +25,9 @@ extern double NEWT_ERR;
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
+    (void) icp;
+    (void) dfdu;
+    (void) dfdp;
     int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
@@ -47,7 +50,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
 
     return 0;
 
-} /* func_ */
+}
 
 int32
 stpnt(int64 ndim, double t, double *u, double *par) {
@@ -84,7 +87,7 @@ stpnt(int64 ndim, double t, double *u, double *par) {
     }
     return 0;
 
-} /* stpnt_ */
+}
 
 int32
 bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
@@ -101,7 +104,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
     do_bc(u0, 0.0, u1, 1.0, fb, nbc);
 
     return 0;
-} /* bcnd_ */
+}
 
 int32
 icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
@@ -114,14 +117,14 @@ icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
    fi[0]=dum;
     */
     return 0;
-} /* icnd_ */
+}
 
 int32
 fopt(int64 *ndim, double *u, int64 *icp, double *par, int64 *ijac, double *fs,
      double *dfdu, double *dfdp) {
     /*     ---------- ---- */
     return 0;
-} /* fopt_ */
+}
 
 /*  Not sure what to do here; I think  do nothing  since IEQUIB is always
     -2
