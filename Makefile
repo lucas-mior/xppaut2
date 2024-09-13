@@ -37,5 +37,5 @@ clean:
 	rm -f *.o src/*.o $(TARGET)
 
 install:
-	install -Dm755 xppaut   ${DESTDIR}${PREFIX}/bin/clipsim
-	install -Dm644 xppaut.1 ${DESTDIR}${PREFIX}/man/man1/clipsim.1
+	install -Dm755 xppaut   ${DESTDIR}${PREFIX}/bin/xppaut
+	install -Dm644 xppaut.1 ${DESTDIR}${PREFIX}/man/man1/xppaut.1

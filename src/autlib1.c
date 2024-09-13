@@ -57,11 +57,11 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     double hbff, biff;
     int64 nbif;
     double fldf;
-    int64 iads, ndim, nicp, ncol, mxbf, ithl;
+    int64 iads, ndim, nicp, ncol, mxbf;
     double epsl;
     int64 nthl, nfpr, nins, iplt, nint, jtmp;
     double epsu, epss;
-    int64 nthu, itmx, itnw, ithu, ntot, ipos, nwtn;
+    int64 itmx, itnw, ntot, ipos, nwtn;
     double tivp;
     int64 ntst, iuzr;
     double spbf;
@@ -158,7 +158,6 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
             thl[xAuto.ithl[i]] = xAuto.thl[i];
     }
 
-    nthu = 0;
     nuzr = xAuto.nuzr;
     for (i = 0; i < nuzr; i++) {
         iuz[i] = xAuto.iuz[i];
@@ -404,7 +403,6 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     int64 nneg, nfpr, nint, jtmp, nuzr, i;
     double dsmin, dsmax, fc;
     int64 ic, jc;
-    int32 ii;
     double ds;
     int64 nxploc, jac, nbc, ndm, ict[NPARX], ilp, ips, isp, irs, itp, isw, nmx;
 
@@ -794,13 +792,12 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     double ds, *du;
 
-    int64 lab, ibr, ndm;
+    int64 lab, ibr;
     double rbp, rds;
     int64 ips;
     double *rhs;
     int64 irs, isp;
     double rev;
-    int64 isw;
     double rlp;
     int64 nit, itp;
     double *stu, *uzr;
@@ -828,10 +825,8 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     irs = iap->irs;
     iads = iap->iads;
     isp = iap->isp;
-    isw = iap->isw;
     nuzr = iap->nuzr;
     mxbf = iap->mxbf;
-    ndm = iap->ndm;
     itpst = iap->itpst;
     ibr = iap->ibr;
 
@@ -1126,6 +1121,8 @@ L6:
 /* Subroutine */ int32
 stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
+    (void) rap;
+    (void) icp;
 
     /* Gets the starting data from user supplied STPNT */
 
@@ -1141,6 +1138,7 @@ stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     logical found;
     int64 nfprs;
+    (void) icp;
 
     int64 irs;
 
@@ -1297,7 +1295,6 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ntop, itnw, ntot, i, k;
     double dsold, dsmin;
 
-    double dsmax;
     double rdrlm, rdumx;
     int64 istop;
 
@@ -1306,7 +1303,7 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 iid;
     double dds;
-    int64 ibr, ndm;
+    int64 ibr;
     double det, adu;
     int64 nit, mxt;
     double umx;
@@ -1327,11 +1324,9 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     iads = iap->iads;
     iid = iap->iid;
     itnw = iap->itnw;
-    ndm = iap->ndm;
     ibr = iap->ibr;
 
     dsmin = rap->dsmin;
-    dsmax = rap->dsmax;
     epsl = rap->epsl;
     epsu = rap->epsu;
 
@@ -1531,7 +1526,7 @@ lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* Local variables */
     logical chng;
     double epss, rrds;
-    int64 ntop, itmx;
+    int64 itmx;
     double rtmp;
     int64 ntot;
     double s, dsold, dsmax;
@@ -1568,7 +1563,6 @@ lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                  rldot, u, uold, udot, rhs, dfdu, dfdp, iuz, vuz);
     pq = q0 * q1;
     ntot = iap->ntot;
-    ntop = (ntot + 1) % 10000;
     if (pq >= 0. || !chng) {
         *q = q1;
         return 0;
@@ -1684,6 +1678,22 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     double ret_val;
+    (void) par;
+    (void) icp;
+    (void) funi;
+    (void) m1aaloc;
+    (void) aa;
+    (void) rlcur;
+    (void) rlold;
+    (void) rldot;
+    (void) u;
+    (void) uold;
+    (void) udot;
+    (void) rhs;
+    (void) dfdu;
+    (void) dfdp;
+    (void) iuz;
+    (void) vuz;
 
     /* Local variables */
     int64 ntop, ntot, iid, ibr;
@@ -1715,6 +1725,9 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
+    (void) rlold;
+    (void) iuz;
+    (void) vuz;
     int64 aa_dim1;
     double ret_val;
 
@@ -1729,18 +1742,6 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--u;*/
-    /*--uold;*/
-    /*--udot;*/
-    /*--rhs;*/
-    /*--dfdu;*/
-    /*--dfdp;*/
     aa_dim1 = *m1aaloc;
 
     ndim = iap->ndim;
@@ -1791,7 +1792,20 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
-    int64 aa_dim1;
+    (void) icp;
+    (void) funi;
+    (void) m1aaloc;
+    (void) aa;
+    (void) rlcur;
+    (void) rlold;
+    (void) rldot;
+    (void) u;
+    (void) uold;
+    (void) udot;
+    (void) rhs;
+    (void) dfdp;
+    (void) iuz;
+    (void) vuz;
     double ret_val;
 
     /* Local variables */
@@ -1811,17 +1825,6 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     int64 isw;
 
     ev = (doublecomplex *)malloc(sizeof(doublecomplex) * (iap->ndim));
-
-    /* Local */
-
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--u;*/
-    /*--uold;*/
-    /*--udot;*/
-    /*--rhs;*/
-    aa_dim1 = *m1aaloc;
 
     ndim = iap->ndim;
     ndm = iap->ndm;
