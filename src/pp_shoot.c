@@ -424,7 +424,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
     int32 ntot = n;
     int32 i, istart = 1, j;
-    int32 ipvt[MAXODE1];
+    int32 ipvt[MAX_ODE1];
     char esc;
     int32 info, niter = 0;
     double dt = DELTA_T, t;

@@ -57,7 +57,7 @@ int32 do_new_parser(FILE *fp, char *first, int32 nnn);
 void create_plot_list(void);
 void add_only(char *s);
 void break_up_list(char *rhs);
-int32 find_the_name(char list[MAXODE1][MAXVNAM], int32 n, char *name);
+int32 find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name);
 void compile_em(void);
 int32 formula_or_number(char *expr, double *z);
 void strpiece(char *dest, char *src, int32 i0, int32 ie);

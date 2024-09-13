@@ -581,7 +581,7 @@ compiler(char *bob, FILE *fptr) {
     char *ptr, *my_string, *command;
     char name[20], formula[MAXEXPLEN];
     char condition[MAXEXPLEN];
-    char fixname[MAXODE1][12];
+    char fixname[MAX_ODE1][12];
     int32 nlin, i;
     ptr = bob;
     done = 1;
@@ -1684,7 +1684,7 @@ break_up_list(char *rhs) {
 }
 
 int32
-find_the_name(char list[MAXODE1][MAXVNAM], int32 n, char *name) {
+find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
     int32 i;
 
     for (i = 0; i < n; i++) {
@@ -1699,9 +1699,9 @@ void
 compile_em(void) {
     /* Now we try to keep track of markov, fixed, etc as well as their names */
     VAR_INFO *v;
-    char vnames[MAXODE1][MAXVNAM], fnames[MAXODE1][MAXVNAM],
-        anames[MAXODE1][MAXVNAM];
-    char mnames[MAXODE1][MAXVNAM];
+    char vnames[MAX_ODE1][MAXVNAM], fnames[MAX_ODE1][MAXVNAM],
+        anames[MAX_ODE1][MAXVNAM];
+    char mnames[MAX_ODE1][MAXVNAM];
     double z, xlo, xhi;
     char tmp[50], big[MAXEXPLEN], formula[MAXEXPLEN], *my_string, *junk, *ptr,
         name[10];

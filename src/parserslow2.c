@@ -71,7 +71,7 @@ int32 SumIndex = 1;
 /* FIXXX */
 int32 stack_pointer, uptr;
 double constants[MAXPAR];
-double variables[MAXODE1];
+double variables[MAX_ODE1];
 int32 *ufun[MAXUFUN];
 char *ufun_def[MAXUFUN];
 char ufun_names[MAXUFUN][12];
@@ -442,7 +442,7 @@ add_var(char *junk, double value) {
     /*   plintf(" variable - %s \n",junk); */
     if (duplicate_name(junk) == 1)
         return 1;
-    if (NVAR >= MAXODE1) {
+    if (NVAR >= MAX_ODE1) {
         if (ERROUT)
             printf("too many variables !!\n");
         return 1;

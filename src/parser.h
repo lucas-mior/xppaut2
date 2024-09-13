@@ -687,7 +687,7 @@ double pop();
 
 int32 stack_pointer, uptr;
 double constants[MAXPAR];
-double variables[MAXODE1];
+double variables[MAX_ODE1];
 int32 *ufun[MAXUFUN];
 char *ufun_def[MAXUFUN];
 char ufun_names[MAXUFUN][12];

@@ -2,7 +2,7 @@
 #define _xpplim_h_
 
 #define MAX_ODE 5000
-#define MAXODE1 4999
+#define MAX_ODE1 4999
 #define MAXDELAY 50
 #define MAXPRIMEVAR (MAX_ODE - 10) / 2
 #define MAXPAR 400

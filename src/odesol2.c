@@ -106,7 +106,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
     int32 i;
     double err = 0.0, err1 = 0.0;
 
-    int32 iter = 0, info, ipivot[MAXODE1];
+    int32 iter = 0, info, ipivot[MAX_ODE1];
     int32 ml = cv_bandlower, mr = cv_bandupper, mt = ml + mr + 1;
     set_wieners(dt, y, *t);
     *t = *t + dt;
@@ -455,7 +455,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     /*double ninf;  Is this needed?*/
     int32 i, n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
              mt = ml + mr + 1;
-    int32 ipivot[MAXODE1], nofailed;
+    int32 ipivot[MAX_ODE1], nofailed;
     double temp, err, tdel;
     double *ypnew, *k1, *k2, *k3, *f0, *f1, *f2, *dfdt, *ynew, *dfdy;
     *ierr = 1;
