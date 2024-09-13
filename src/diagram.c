@@ -211,8 +211,7 @@ redraw_diagram(void) {
         else
             flag = 1;
         add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type, flag,
-                  d->lab, d->icp1, d->icp2,
-                  d->flag2, d->evr, d->evi);
+                  d->lab, d->icp1, d->icp2, d->flag2, d->evr, d->evi);
         d = d->next;
         if (d == NULL)
             break;
