@@ -216,12 +216,12 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
 
-    ff1 = (double *)malloc(sizeof(double) * (iap->nbc));
-    ff2 = (double *)malloc(sizeof(double) * (iap->nbc));
-    uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
-    uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
+    ff1 = malloc(sizeof(double) * (iap->nbc));
+    ff2 = malloc(sizeof(double) * (iap->nbc));
+    uu1 = malloc(sizeof(double) * (iap->ndim));
+    uu2 = malloc(sizeof(double) * (iap->ndim));
     dfu =
-        (double *)malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+        malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */
@@ -356,15 +356,15 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
        also depend on these arrays, and more importantly the algorithm,
        having N X.  So, they all need to be changed at once.
     */
-    f = (double *)malloc(sizeof(double) * (iap->ndm));
-    bound = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
-    fj = (double *)malloc(sizeof(double) * (iap->ndm));
-    ri = (double *)malloc(sizeof(double) * (iap->ndm));
-    rr = (double *)malloc(sizeof(double) * (iap->ndm));
-    vr = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
-    vt = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
-    xequib1 = (double *)malloc(sizeof(double) * (iap->ndm));
-    xequib2 = (double *)malloc(sizeof(double) * (iap->ndm));
+    f = malloc(sizeof(double) * (iap->ndm));
+    bound = malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    fj = malloc(sizeof(double) * (iap->ndm));
+    ri = malloc(sizeof(double) * (iap->ndm));
+    rr = malloc(sizeof(double) * (iap->ndm));
+    vr = malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    vt = malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    xequib1 = malloc(sizeof(double) * (iap->ndm));
+    xequib2 = malloc(sizeof(double) * (iap->ndm));
 
     /* Generates the boundary conditions for homoclinic orbits. */
 
@@ -650,11 +650,11 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
 
-    ff1 = (double *)malloc(sizeof(double) * (iap->nint));
-    ff2 = (double *)malloc(sizeof(double) * (iap->nint));
-    uu1 = (double *)malloc(sizeof(double) * (iap->ndim));
-    uu2 = (double *)malloc(sizeof(double) * (iap->ndim));
-    dfu = (double *)malloc(sizeof(double) * (iap->ndim) * (iap->ndim + NPARX));
+    ff1 = malloc(sizeof(double) * (iap->nint));
+    ff2 = malloc(sizeof(double) * (iap->nint));
+    uu1 = malloc(sizeof(double) * (iap->ndim));
+    uu2 = malloc(sizeof(double) * (iap->ndim));
+    dfu = malloc(sizeof(double) * (iap->ndim) * (iap->ndim + NPARX));
 
     /* Generates integral conditions for homoclinic bifurcation analysis */
 
@@ -749,7 +749,7 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     int64 ndm;
     double dum;
 
-    fj = (double *)malloc(sizeof(double) * (iap->ndim));
+    fj = malloc(sizeof(double) * (iap->ndim));
     /* Generates the integral conditions for homoclinic orbits. */
 
     /* Parameter adjustments */
@@ -826,13 +826,13 @@ inho(iap_type *iap, int64 *icp, double *par) {
     free(beyn_1.cprev);
     free(beyn_1.iflag);
 
-    blhmp_1.ipsi = (int64 *)malloc(sizeof(int64) * NPARX);
-    blhmp_1.ifixed = (int64 *)malloc(sizeof(int64) * NPARX);
-    blhmp_1.irev = (int64 *)malloc(sizeof(int64) * (iap->ndim));
+    blhmp_1.ipsi = malloc(sizeof(int64) * NPARX);
+    blhmp_1.ifixed = malloc(sizeof(int64) * NPARX);
+    blhmp_1.irev = malloc(sizeof(int64) * (iap->ndim));
 
-    blhme_1.ieigc = (int64 *)malloc(sizeof(int64) * 2);
+    blhme_1.ieigc = malloc(sizeof(int64) * 2);
 
-    beyn_1.iflag = (int64 *)malloc(sizeof(int64) * 4);
+    beyn_1.iflag = malloc(sizeof(int64) * 4);
 
     /* the prjctn_ function uses this array to test if this is
          the first time the prjctn_ function has been called.
@@ -877,18 +877,18 @@ inho(iap_type *iap, int64 *icp, double *par) {
     /* Allocate memory for global structures.  We didn't know the
        size for these until ndim was computed. */
 
-    blhmu_1.pu0 = (double *)malloc(sizeof(double) * (ndim));
-    blhmu_1.pu1 = (double *)malloc(sizeof(double) * (ndim));
+    blhmu_1.pu0 = malloc(sizeof(double) * (ndim));
+    blhmu_1.pu1 = malloc(sizeof(double) * (ndim));
 
-    bleig_1.rr = (double *)malloc(sizeof(double) * (ndim));
-    bleig_1.ri = (double *)malloc(sizeof(double) * (ndim));
-    bleig_1.v = (double *)malloc(sizeof(double) * (ndim) * (ndim));
-    bleig_1.vt = (double *)malloc(sizeof(double) * (ndim) * (ndim));
-    bleig_1.xequib = (double *)malloc(sizeof(double) * (ndim));
+    bleig_1.rr = malloc(sizeof(double) * (ndim));
+    bleig_1.ri = malloc(sizeof(double) * (ndim));
+    bleig_1.v = malloc(sizeof(double) * (ndim) * (ndim));
+    bleig_1.vt = malloc(sizeof(double) * (ndim) * (ndim));
+    bleig_1.xequib = malloc(sizeof(double) * (ndim));
 
-    blhme_1.vrprev = (double *)malloc(sizeof(double) * 2 * (ndim) * (ndim));
+    blhme_1.vrprev = malloc(sizeof(double) * 2 * (ndim) * (ndim));
 
-    beyn_1.cprev = (double *)malloc(sizeof(double) * 2 * 2 * (ndim) * (ndim));
+    beyn_1.cprev = malloc(sizeof(double) * 2 * 2 * (ndim) * (ndim));
 
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
@@ -1087,7 +1087,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double dt;
     int64 lab, ibr;
 
-    u = (double *)malloc(sizeof(double) * (iap->ndim));
+    u = malloc(sizeof(double) * (iap->ndim));
     /* Generates a starting point for the continuation of a branch of */
     /* of solutions to general boundary value problems by calling the user */
     /* supplied subroutine STPNT where an analytical solution is given. */
@@ -1161,11 +1161,11 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     double *ri;
     double *rr, *vr, *vt, *xequib;
 
-    ri = (double *)malloc(sizeof(double) * (iap->ndm));
-    rr = (double *)malloc(sizeof(double) * (iap->ndm));
-    vr = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
-    vt = (double *)malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
-    xequib = (double *)malloc(sizeof(double) * (iap->ndm));
+    ri = malloc(sizeof(double) * (iap->ndm));
+    rr = malloc(sizeof(double) * (iap->ndm));
+    vr = malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    vt = malloc(sizeof(double) * (iap->ndm) * (iap->ndm));
+    xequib = malloc(sizeof(double) * (iap->ndm));
 
     /* Generates a starting point for homoclinic continuation */
     /* If ISTART=2 it calls STPNHO. */
@@ -1374,8 +1374,8 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
     int64 ndm;
     double dum1, dum2;
 
-    f0 = (double *)malloc(sizeof(double) * (iap->ndm));
-    f1 = (double *)malloc(sizeof(double) * (iap->ndm));
+    f0 = malloc(sizeof(double) * (iap->ndm));
+    f1 = malloc(sizeof(double) * (iap->ndm));
 
     /* The conditions for degenerate homoclinic orbits are given by PSI(IS)=0.
      */
@@ -1629,9 +1629,9 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
     double *dfdp, *dfdu;
     double *zz;
 
-    dfdp = (double *)malloc(sizeof(double) * (*ndm) * NPARX);
-    dfdu = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    zz = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    dfdp = malloc(sizeof(double) * (*ndm) * NPARX);
+    dfdu = malloc(sizeof(double) * (*ndm) * (*ndm));
+    zz = malloc(sizeof(double) * (*ndm) * (*ndm));
 
     eigho(&isign, &itrans, rr, ri, vret, xequib, icp, par, ndm, dfdu, dfdp, zz);
 
@@ -1661,15 +1661,15 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     double *vi, *vr, *fv1;
     int64 *iv1;
 
-    f = (double *)malloc(sizeof(double) * (*ndm));
-    ridum = (double *)malloc(sizeof(double) * (*ndm));
-    vidum = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    rrdum = (double *)malloc(sizeof(double) * (*ndm));
-    vrdum = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    vi = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    vr = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    fv1 = (double *)malloc(sizeof(double) * (*ndm));
-    iv1 = (int64 *)malloc(sizeof(int64) * (*ndm));
+    f = malloc(sizeof(double) * (*ndm));
+    ridum = malloc(sizeof(double) * (*ndm));
+    vidum = malloc(sizeof(double) * (*ndm) * (*ndm));
+    rrdum = malloc(sizeof(double) * (*ndm));
+    vrdum = malloc(sizeof(double) * (*ndm) * (*ndm));
+    vi = malloc(sizeof(double) * (*ndm) * (*ndm));
+    vr = malloc(sizeof(double) * (*ndm) * (*ndm));
+    fv1 = malloc(sizeof(double) * (*ndm));
+    iv1 = malloc(sizeof(int64) * (*ndm));
 
     /* Uses EISPACK routine RG to calculate the eigenvalues/eigenvectors */
     /* of the linearization matrix a (obtained from DFHO) and orders them */
@@ -1836,8 +1836,8 @@ prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
 
-    dfdp = (double *)malloc(sizeof(double) * (*ndm) * NPARX);
-    dfdu = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    dfdp = malloc(sizeof(double) * (*ndm) * NPARX);
+    dfdu = malloc(sizeof(double) * (*ndm) * (*ndm));
 
     prjctn(bound, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
 
@@ -1868,17 +1868,17 @@ prjctn(double *bound, double *xequib, const int64 *icp, double *par,
     double *ei, *er;
     double *ort, *dum1, *dum2;
 
-    fdum = (double *)malloc(sizeof(double) * (*ndm));
-    cnow = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    type__ = (int64 *)malloc(sizeof(int64) * (*ndm));
-    a = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    d = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    v = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    ei = (double *)malloc(sizeof(double) * (*ndm));
-    er = (double *)malloc(sizeof(double) * (*ndm));
-    ort = (double *)malloc(sizeof(double) * (*ndm));
-    dum1 = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
-    dum2 = (double *)malloc(sizeof(double) * (*ndm) * (*ndm));
+    fdum = malloc(sizeof(double) * (*ndm));
+    cnow = malloc(sizeof(double) * (*ndm) * (*ndm));
+    type__ = malloc(sizeof(int64) * (*ndm));
+    a = malloc(sizeof(double) * (*ndm) * (*ndm));
+    d = malloc(sizeof(double) * (*ndm) * (*ndm));
+    v = malloc(sizeof(double) * (*ndm) * (*ndm));
+    ei = malloc(sizeof(double) * (*ndm));
+    er = malloc(sizeof(double) * (*ndm));
+    ort = malloc(sizeof(double) * (*ndm));
+    dum1 = malloc(sizeof(double) * (*ndm) * (*ndm));
+    dum2 = malloc(sizeof(double) * (*ndm) * (*ndm));
 
     /* Compute NUNSTAB (or NSTAB) projection boundary condition functions */
     /*onto to the UNSTABLE (or STABLE) manifold of the appropriate equilibrium

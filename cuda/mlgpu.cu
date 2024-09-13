@@ -105,20 +105,19 @@ __global__ void update_rhs(real *y,real *yp,real *stot, int n)
 /*  I will assume for now that the weights do not change throughout the simulation
     so they will only be loaded into the device once
 */
-void allocate_ram(int n, double *w)
-{
+void allocate_ram(int n, double *w) {
   int n3=3*n,nn=n*n;
   int i;
   if(allocflag==1)return;  /* already allocated */
-  hostwgt=(real *)malloc(nn*sizeof(float));
+  hostwgt = malloc(nn*sizeof(float));
   cudaMalloc((void**)&devwgt,nn*sizeof(real));
   /*  copy one time only for now */
   for(i=0;i<nn;i++)
       hostwgt[i]=(real)w[i];
   cudaMemcpy(devwgt,hostwgt,nn*sizeof(real),cudaMemcpyHostToDevice); 
-  hosty=(real *)malloc(n3*sizeof(real));
+  hosty=malloc(n3*sizeof(real));
   cudaMalloc((void**)&devy,n3*sizeof(real));
-  hostyp=(real *)malloc(n3*sizeof(real));
+  hostyp=malloc(n3*sizeof(real));
   cudaMalloc((void**)&devyp,n3*sizeof(real));
     
   cudaMalloc((void**)&devsum,n*sizeof(real));
