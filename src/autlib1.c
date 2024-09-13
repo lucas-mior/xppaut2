@@ -6202,6 +6202,10 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
+    (void) ev;
+    (void) tm;
+    (void) iuz;
+    (void) vuz;
     /* System generated locals */
     int64 udotps_dim1, fa_dim1;
     double ret_val;
