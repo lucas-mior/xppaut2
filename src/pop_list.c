@@ -126,8 +126,8 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
     int32 ww, len;
     int32 hw = DCURYs + 4;
     for (int32 i = 0; i < nent; i++) {
-        if (slen < strlen(list[i]))
-            slen = strlen(list[i]);
+        if (slen < (int32)strlen(list[i]))
+            slen = (int32)strlen(list[i]);
     }
     wid = (slen + 2)*(DCURXs);
     ww = slen * DCURXs + DCURXs / 2;
