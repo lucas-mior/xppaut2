@@ -151,32 +151,6 @@ double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
 double ani_lastx, ani_lasty;
 Pixmap ani_pixmap;
 
-/*
-typedef struct {
-  int32 flag;
- int32 skip;
-  char root[100];
- char filter[256];
- int32 aviflag,filflag;
-} MPEG_SAVE;
-
-MPEG_SAVE mpeg;
-
-typedef struct {
-  int32 n;
-  int32 *x,*y,*col;
-  int32 i;
-} Comet;
-
-typedef struct {
-  Comet c;
-  int32 type, flag;
-  int32 *col,*x1,*y1,*x2,*y2,*who;
-  double zcol,zx1,zy1,zx2,zy2,zrad,zval;
-  int32 zthick,tfont,tsize,tcolor;
-} ANI_COM;
-*/
-
 MPEG_SAVE mpeg;
 
 ANI_COM my_ani[MAX_ANI_LINES];
