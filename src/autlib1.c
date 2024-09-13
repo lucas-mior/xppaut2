@@ -4131,12 +4131,10 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 
 int32
 newlab(iap_type *iap) {
-
-    /* Local variables */
     int64 mlab, ibrs, nars;
 
-    int64 labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs, lab, ibr, mbr, ips,
-        itp, irs, isw;
+    int64 labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs;
+    int64 lab, ibr, mbr, ips, itp, irs, isw;
     logical eof3;
 
     /* Determine a suitable label when restarting. */
