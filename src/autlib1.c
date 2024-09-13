@@ -1964,6 +1964,20 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
+    (void) rap;
+    (void) icp;
+    (void) funi;
+    (void) m1aaloc;
+    (void) aa;
+    (void) rlcur;
+    (void) rlold;
+    (void) rldot;
+    (void) u;
+    (void) uold;
+    (void) udot;
+    (void) rhs;
+    (void) dfdu;
+    (void) dfdp;
     double ret_val;
 
     /* Local variables */
@@ -2004,6 +2018,9 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *stld, double *rlcur, double *rlold, double *rldot, double *u,
       double *du, double *udot, double *dfdu, double *dfdp, double *thl,
       double *thu) {
+    (void) par;
+    (void) rap;
+    (void) rlold;
     /* System generated locals */
     int64 aa_dim1, stud_dim1, stu_dim1;
 
@@ -2108,6 +2125,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
       int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
       double *rlcur, double *rlold, double *rldot, double *u, double *udot) {
     /* System generated locals */
+    (void) rlold;
     int64 stud_dim1, stu_dim1;
 
     /* Local variables */
@@ -2194,7 +2212,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     int64 ntop, itnw, ntot, i, k;
     double dsold, dsmin;
 
-    double dsmax, rdrlm, rdumx;
+    double rdrlm, rdumx;
     int64 istop;
     double *u1;
 
@@ -2207,7 +2225,6 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     double det;
     int64 nit, mxt;
     double umx, rlm1;
-    int64 nit1 = 0;
 
     u1 = (double *)malloc(sizeof(double) * (iap->ndim + 1));
 
@@ -2245,7 +2262,6 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     ntop = (ntot + 1) % 10000;
 
     dsmin = rap->dsmin;
-    dsmax = rap->dsmax;
     epsl = rap->epsl;
     epsu = rap->epsu;
 
@@ -2284,7 +2300,7 @@ L2:
         u1[i] = u[i];
     }
 
-    for (nit = 0; nit < itnw; ++nit1) {
+    for (nit = 0; nit < itnw; ++nit) {
 
         iap->nit = nit + 1;
         par[icp[0]] = rlcur[0];
@@ -2419,6 +2435,9 @@ L5:
 /* Subroutine */ int32
 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double *thu) {
+    (void) par;
+    (void) thl;
+    (void) thu;
     /* Local variables */
     int64 ndim, ncol, mxbf, nicp;
     double epsl;
@@ -2534,11 +2553,12 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 /* Subroutine */ int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
+    (void) rap;
+    (void) par;
     /* Local variables */
-    int64 iplt, itmp, i, j;
+    int64 iplt, i, j;
     char col[9][14 + 1];
-    int64 ndm, ips, itp;
-    int64 isw;
+    int64 ndm, ips;
 
     /* Prints headings above columns on unit 6 and 7. */
 
@@ -2547,10 +2567,8 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     /*--par;*/
 
     ips = iap->ips;
-    isw = iap->isw;
     iplt = iap->iplt;
     ndm = iap->ndm;
-    itp = iap->itp;
 
     /*initialize strings*/
     for (i = 0; i < 9; ++i) {
@@ -2605,7 +2623,6 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     if (*n2 > 0) {
         for (i = 0; i < *n2; ++i) {
             sprintf(col[i + 2], "     U(%ld)     ", i + 1);
-            itmp = i;
         }
         if ((ips >= 2 && ips <= 4) || (ips >= 6 && ips <= 9) ||
             (ips >= 12 && ips <= 17)) {
@@ -2808,13 +2825,14 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 /* Subroutine */ int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
+    (void) icp;
 
     /* Local variables */
-    int64 nicp, nfpr, mtot, i;
+    int64 nicp, mtot, i;
     char atype[3];
     int64 n1, n2;
 
-    int64 nt, ndm, ips, itp, isw, lb;
+    int64 nt, ndm, itp, lb;
     lb = *lab;
     if ((restart_flag == 1) && (lb != 0)) {
 
@@ -2824,17 +2842,8 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 
     /* Write one line of output on unit 6 and 7. */
 
-    /* Parameter adjustments */
-    /*--u;*/
-    /*--icu;*/
-    /*--icp;*/
-    /*--par;*/
-
-    ips = iap->ips;
-    isw = iap->isw;
     ndm = iap->ndm;
     itp = iap->itp;
-    nfpr = iap->nfpr;
     nicp = iap->nicp;
 
     n1 = nicp;
