@@ -744,8 +744,6 @@ br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;
     int32 dcol = 12 * DCURXs;
     int32 drow = (DCURYs + 6);
-    /*int32 width=strlen(name)*DCURXs;
-     */
     int32 width = 8 * DCURXs;
     int32 x;
     int32 y;
