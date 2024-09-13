@@ -1,4 +1,5 @@
 #include "integers.h"
+
 typedef struct {
     int32 ndim;
     int32 ips;
