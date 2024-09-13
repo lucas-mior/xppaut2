@@ -15,18 +15,15 @@
 #include "my_rhs.h"
 #include "auto_c.h"
 
-#include "load_eqn.h"
-
-#include "pp_shoot.h"
-
-#include "parserslow.h"
-#include "ggets.h"
-
-#include "init_conds.h"
-#include "diagram.h"
-#include "many_pops.h"
 #include "browse.h"
+#include "diagram.h"
+#include "ggets.h"
+#include "init_conds.h"
+#include "load_eqn.h"
+#include "many_pops.h"
+#include "parserslow.h"
 #include "pop_list.h"
+#include "pp_shoot.h"
 
 #include "menudrive.h"
 #include <stdlib.h>
