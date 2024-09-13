@@ -1259,14 +1259,13 @@ set_slide_pos(PAR_SLIDER *p) {
 
 void
 slide_release(Window w) {
-    int32 i;
-    for (i = 0; i < 3; i++)
+    for (int32 i = 0; i < 3; i++)
         do_slide_release(w, &my_par_slide[i]);
     return;
 }
 
 void
-do_slide_release(int32 w, PAR_SLIDER *p) {
+do_slide_release(uint32 w, PAR_SLIDER *p) {
     if (p->use == 0)
         return;
     if (p->slide == w) {
