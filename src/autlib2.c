@@ -537,6 +537,10 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
        double *fc, double *rlcur, double *rlold, double *rldot, double *ups,
        double *uoldps, double *udotps, double *upoldp, double *dups,
        double *dtm, double *thl, double *thu, double *p0, double *p1) {
+    (void) nbc;
+    (void) nca;
+    (void) p0;
+    (void) p1;
     /* System generated locals */
     int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1, fa_dim1,
         wt_dim1, wp_dim1, wploc_dim1;
