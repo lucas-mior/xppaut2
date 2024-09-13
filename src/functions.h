@@ -1163,7 +1163,7 @@ COMPLEX cxdeterm(COMPLEX *z, int32 n);
 void make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
             COMPLEX lambda);
 int32 find_positive_root(double *coef, double *delay, int32 n, int32 m,
-                         double rad, double err, double eps, double big,
+                         double err, double eps, double big,
                          int32 maxit, double *rr);
 void process_root(double real, double im);
 double get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda);

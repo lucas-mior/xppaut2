@@ -118,7 +118,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     /* sign=plot_args(coef,delay_list,n,NDelay,DelayGrid,AlphaMax,OmegaMax); */
     sign = plot_args(coef, delay_list, n, NDelay, DelayGrid, colnorm, colnorm);
 
-    okroot = find_positive_root(coef, delay_list, n, NDelay, colnorm, err, eps,
+    okroot = find_positive_root(coef, delay_list, n, NDelay, err, eps,
                                 big, maxit, rr);
     if (okroot > 0) {
         ev[0] = rr[0];
@@ -313,7 +313,7 @@ make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
 
 int32
 find_positive_root(double *coef, double *delay, int32 n, int32 m,
-                   double rad, double err, double eps, double big,
+                   double err, double eps, double big,
                    int32 maxit, double *rr) {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
