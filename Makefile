@@ -11,8 +11,6 @@ CFLAGS += -Werror
 CFLAGS += -Wno-unused-variable
 CFLAGS += -Wno-unused-but-set-variable
 CFLAGS += -Wno-unused-but-set-parameter
-# CFLAGS += -Wno-tautological-compare
-# CFLAGS += -Wno-sign-compare
 # CFLAGS += -g -O2
 CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./ -I./src/cvode/
 CFLAGS += -DMYSTR1=$(MAJOR_VERSION) -DMYSTR2=$(MINOR_VERSION)
