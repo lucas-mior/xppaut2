@@ -86,7 +86,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     pos = strlen(d.input_s);
     colm = DCURX * pos;
     while (true) {
-        status = dialog_event_loop(&d, max, &pos, &colm);
+        status = dialog_event_loop(&d, &pos, &colm);
         if (status != -1)
             break;
     }
@@ -103,7 +103,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
 }
 
 int32
-dialog_event_loop(DIALOG *d, int32 max, int32 *pos, int32 *col) {
+dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
     int32 status = -1;
     int32 done = 0;
     int32 ch;
