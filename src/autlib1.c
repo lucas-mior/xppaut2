@@ -3113,7 +3113,6 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     return 0;
 } /* genwts_ */
 
-/*     ---------- ----- */
 int32
 cpnts(const int64 ncol, double *zm) {
     /* Local variables */
@@ -3203,7 +3202,6 @@ L7:
     return 0;
 } /* cpnts_ */
 
-/*     ---------- ------ */
 int32
 cntdif(int64 *n, double *d) {
 
@@ -3243,7 +3241,6 @@ cntdif(int64 *n, double *d) {
     return 0;
 } /* cntdif_ */
 
-/*     ---------- ---- */
 int32
 wint(const int64 n, double *wi) {
     double c;
@@ -3326,7 +3323,6 @@ L8:
 /*          Stepsize and Mesh Adaption */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
 int32
 adptds(iap_type *iap, rap_type *rap, double *rds) {
     /* Local variables */
@@ -3378,7 +3374,6 @@ adptds(iap_type *iap, rap_type *rap, double *rds) {
     return 0;
 } /* adptds_ */
 
-/*     ---------- ----- */
 int32
 adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
       int64 *ncnew, double *tm, double *dtm, int64 *ndxloc, double *ups,
@@ -3477,7 +3472,6 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     return 0;
 } /* adapt_ */
 
-/*     ---------- ------ */
 int32
 interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
        double *tm, int64 *ndxloc, double *ups, int64 *n1, int64 *nc1,
@@ -3548,7 +3542,6 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
     return 0;
 } /* interp_ */
 
-/*     ---------- ------ */
 int32
 newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
        int64 *ncold, double *tmold, double *dtmold, int64 *nnew, double *tmnew,
@@ -3610,7 +3603,6 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     return 0;
 } /* newmsh_ */
 
-/*     ---------- ---- */
 int32
 ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
      int64 *itm1) {
@@ -3644,7 +3636,6 @@ ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
     return 0;
 } /* ordr_ */
 
-/*     ---------- ------ */
 int32
 intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
        double *wts) {
@@ -3675,7 +3666,6 @@ intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
     return 0;
 } /* intwts_ */
 
-/*     ---------- ---- */
 int32
 eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
      double *dtm, int64 *ndxloc, double *ups, double *eqf, int64 *iper) {
@@ -3780,7 +3770,6 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 /*                    General Support Routines */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- --- */
 int32
 eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     int64 *ier) {
@@ -3841,7 +3830,6 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     return 0;
 } /* eig_ */
 
-/*     ---------- ---- */
 int32
 nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     /* System generated locals */
@@ -3953,7 +3941,6 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     return 0;
 } /* nlvc_ */
 
-/*     ---------- ----- */
 int32
 nrmlz(int64 *ndim, double *v) {
     /* Local variables */
@@ -3978,7 +3965,6 @@ nrmlz(int64 *ndim, double *v) {
     return 0;
 } /* nrmlz_ */
 
-/*     ------ --------- -------- */
 double
 pi(double r) {
     /* System generated locals */
@@ -4152,7 +4138,6 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
     return 0;
 } /* ge_ */
 
-/*     ---------- ------ */
 int32
 newlab(iap_type *iap, rap_type *rap) {
 
@@ -4311,7 +4296,6 @@ findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 readlb(const iap_type *iap, const rap_type *rap, double *u, double *par) {
     /* Local variables */
@@ -4351,7 +4335,6 @@ readlb(const iap_type *iap, const rap_type *rap, double *u, double *par) {
     return 0;
 } /* readlb_ */
 
-/*     ---------- ----- */
 int32
 skip3(int64 *nskip, logical *eof3) {
 
@@ -4378,7 +4361,6 @@ skip3(int64 *nskip, logical *eof3) {
     return 0;
 } /* skip3_ */
 
-/*     ------ --------- -------- ----- */
 double
 rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
       double *dtm, double *thu) {
@@ -4437,7 +4419,6 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
     return ret_val;
 } /* rinpr_ */
 
-/*     ------ --------- -------- ------ */
 double
 rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
        double *thu) {
@@ -4456,7 +4437,6 @@ rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
     return ret_val;
 } /* rnrmsq_ */
 
-/*     ------ --------- -------- ----- */
 double
 rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
     /* System generated locals */
