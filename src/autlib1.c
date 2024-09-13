@@ -4486,7 +4486,6 @@ rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
     return ret_val;
 } /* rintg_ */
 
-/*     ------ --------- -------- ----- */
 double
 rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
     /* System generated locals */
@@ -4539,7 +4538,6 @@ rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
     return ret_val;
 } /* rnrm2_ */
 
-/*     ------ --------- -------- ------ */
 double
 rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     /* System generated locals */
@@ -4575,7 +4573,6 @@ rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     return ret_val;
 } /* rmxups_ */
 
-/*     ------ --------- -------- ------ */
 double
 rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     /* System generated locals */
@@ -4611,7 +4608,6 @@ rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
     return ret_val;
 } /* rmnups_ */
 
-/*     ---------- ------ */
 int32
 scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
        double *dtm, double *thl, double *thu) {
@@ -4667,7 +4663,6 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
 /*                    General Boundary Value Problems */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
 int32
 cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
@@ -5059,7 +5054,6 @@ L3:
 
 } /* cnrlbv_ */
 
-/*     ---------- ------ */
 int32
 contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rds, double *rlcur, double *rlold,
@@ -5123,7 +5117,6 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 } /* contbv_ */
 
-/*     ---------- ------ */
 int32
 extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
        double *rlcur, double *rlold, double *rldot, int64 *ndxloc, double *ups,
@@ -5166,7 +5159,6 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
     return 0;
 } /* extrbv_ */
 
-/*     ---------- ------ */
 int32
 stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rlcur, double *rlold, double *rldot,
@@ -5257,7 +5249,6 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 } /* stupbv_ */
 
-/*     ---------- ------ */
 int32
 stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
@@ -5480,7 +5471,6 @@ L13:
 /*      Restart of Solution Branches ( Differential Equations ) */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
 int32
 rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), STPNT_TYPE_BVP((*stpnt)), double *rds, double *rlcur,
@@ -5656,7 +5646,6 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 } /* rsptbv_ */
 
-/*     ---------- ------ */
 int32
 stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
@@ -5837,7 +5826,6 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     return 0;
 } /* stpnbv_ */
 
-/*     ---------- ------ */
 int32
 stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
@@ -5916,7 +5904,6 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     return 0;
 } /* stpnub_ */
 
-/*     ---------- ------ */
 int32
 setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
     /* System generated locals */
@@ -5949,7 +5936,6 @@ setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
     return 0;
 } /* setrtn_ */
 
-/*     ---------- ------ */
 int32
 stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
@@ -6070,7 +6056,6 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /*  Detection and Location of Branch Points in Boundary Value Problems */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
 int32
 lcspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FNCS_TYPE_BVP((*fncs)), FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),
@@ -6209,7 +6194,6 @@ L1:
     return 0;
 } /* lcspbv_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
@@ -6285,7 +6269,6 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnlpbv_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
@@ -6355,7 +6338,6 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnbpbv_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
@@ -6561,7 +6543,6 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnspbv_ */
 
-/*     ------ --------- -------- ------ */
 double
 fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
@@ -6593,7 +6574,6 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     return ret_val;
 } /* fnuzbv_ */
 
-/*     ---------- ------ */
 int32
 tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        doublecomplex *ev) {
