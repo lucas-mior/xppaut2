@@ -104,7 +104,7 @@ typedef struct {
 #define IC 2
 #define PARAM 1
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
-FLAG flag[MAXFLAG];
+FLAG flag[MAX_FLAG];
 int32 NFlags = 0;
 
 double STOL = 1.e-10;
@@ -116,7 +116,7 @@ add_global(char *cond, int32 sign, char *rest) {
     char temp[256];
     int32 nevents, ii, k, l, lt, j = NFlags;
     char ch;
-    if (NFlags >= MAXFLAG) {
+    if (NFlags >= MAX_FLAG) {
         plintf("Too many global conditions\n");
         return 1;
     }
