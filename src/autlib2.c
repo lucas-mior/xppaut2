@@ -160,7 +160,6 @@ print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ------ */
 int32
 solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *rds,
@@ -527,7 +526,6 @@ mypart(int64 *iam, int64 *np) {
     return ret_val;
 }
 
-/*     ---------- ------ */
 int32
 setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
        int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc, int64 *nra, int64 *nca,
@@ -892,7 +890,6 @@ setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
@@ -951,7 +948,6 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        double *a, int64 *ncb, double *b, int64 *nrc, double *c, double *a1,
@@ -1019,7 +1015,6 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     /* System generated locals */
@@ -1044,7 +1039,6 @@ cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
        double *cc, double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
@@ -1811,7 +1805,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
        double *faa, double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
@@ -1989,7 +1982,6 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
        double *fc, int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb,
@@ -2187,7 +2179,6 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
        double *bb, double *faa, double *fc, double *fcc, double *sol1,
@@ -2437,7 +2428,6 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
        double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
@@ -2589,7 +2579,6 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     return 0;
 }
 
-/*     ---------- ------ */
 int32
 print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
        double *a, double *b, double *c, double *d, double *fa, double *fc) {
