@@ -680,7 +680,7 @@ io_float(float *z, FILE *fp, int32 f, char *ss) {
 
 void
 io_string(char *s, int32 len, FILE *fp, int32 f) {
-    int32 i;
+    size_t i;
     if (f == READEM) {
         fgets(s, len, fp);
         i = 0;
