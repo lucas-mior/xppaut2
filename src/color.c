@@ -246,6 +246,7 @@ rfun(double y, int32 per) {
 
 int32
 gfun(double y, int32 per) {
+    (void) per;
     if (y > .666666)
         return 0;
     return (int32)(3. * 255*sqrt((.6666667 - y)*(y)));
@@ -253,6 +254,7 @@ gfun(double y, int32 per) {
 
 int32
 bfun(double y, int32 per) {
+    (void) per;
     if (y < .333334)
         return 0;
     return (int32)(2.79*255*sqrt((1.05 - y)*(y - .333333333)));
