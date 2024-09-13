@@ -677,25 +677,7 @@ io_float(float *z, FILE *fp, int32 f, char *ss) {
     } else
         fprintf(fp, "%.16g   %s\n", *z, ss);
 }
-/*
-io_int_array(k,n,fp,f)
-int32 n,f,*k;
-FILE *fp;
-{
-int32 i;
- for(i=0;i<n;i++)io_int(fp,&k[i],f);
-}
 
-io_double_array(z,n,fp,f)
-double *z;
-int32 n,f;
-FILE *fp;
-{
- int32 i;
- for(i=0;i<n;i++)io_double(fp,&z[i],f);
-
-}
-*/
 void
 io_string(char *s, int32 len, FILE *fp, int32 f) {
     int32 i;
