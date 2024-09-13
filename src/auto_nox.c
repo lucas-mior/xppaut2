@@ -2182,19 +2182,12 @@ auto_new_ss(void) {
 
 void
 auto_new_discrete(void) {
-    int32 ans;
     int32 opn = NO_OPEN_3, cls = OVERWRITE;
     NewPeriodFlag = 0;
-    if (NBifs > 1) {
-        ans = reset_auto();
-        if ((ans != 0) || (ans != 1)) {
-            plintf("Boolean response expected.\n");
-        }
-        /* if(ans==0){
-           opn=OPEN_3;
-           cls=APPEND;
-         } */
-    }
+
+    if (NBifs > 1)
+        reset_auto();
+
     TypeOfCalc = DI1;
     Auto.ips = -1;
     Auto.irs = 0;
