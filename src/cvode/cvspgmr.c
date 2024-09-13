@@ -497,4 +497,3 @@ CVSpgmrPSolve(void *cvode_mem, N_Vector r, N_Vector z, int32 lr) {
 
     return ier;
 }
-#undef x
