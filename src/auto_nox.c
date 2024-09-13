@@ -18,12 +18,7 @@
 
 #include "pp_shoot.h"
 
-/*#include "chunk.h"
- */
-
 #include "parserslow.h"
-/*#include "graf_par.h"
- */
 #include "ggets.h"
 
 #include "init_conds.h"
