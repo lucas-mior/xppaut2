@@ -343,7 +343,8 @@ make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(uchar)) + 1;
+    buffer = malloc((BUFLEN + 1) * sizeof(uchar));
+    buffer += 1;
 
     pos = buffer;
 
