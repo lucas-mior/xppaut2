@@ -15,4 +15,5 @@
 #define MAXMARK 200
 #define MAX_ANI_LINES 2000
 #define MAX_INTERN_SET 500
+
 #endif
