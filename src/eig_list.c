@@ -311,7 +311,7 @@ eq_box_button(Window w) {
 void
 create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
               double *ev, int32 n) {
-    int32 width, hstab, hequil, height, i;
+    int32 width, hstab, hequil, height;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};
     int32 tpos, tpos2;
@@ -320,7 +320,7 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
     XSizeHints size_hints;
     /*    Do this every time   */
     redraw_ics();
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         eq_box.y[i] = y[i];
     eq_box.n = n;
     eq_box.info[0] = cp;
