@@ -486,7 +486,7 @@ get_eqn(FILE *fptr) {
     /*
        add primed variables                              */
     PrimeStart = NVAR;
-    if (NVAR < MAXPRIMEVAR) {
+    if (NVAR < MAX_PRIME_VAR) {
         add_var("t'", 0.0);
         for (i = 0; i < NODE; i++) {
             snprintf(prim, sizeof(prim), "%s'", uvar_names[i]);
@@ -495,7 +495,7 @@ get_eqn(FILE *fptr) {
     } else {
         plintf(
             " Warning: primed variables not added must have < %d variables\n",
-            MAXPRIMEVAR);
+            MAX_PRIME_VAR);
         plintf(" Averaging and boundary value problems cannot be done\n");
     }
     if (NMarkov > 0)
