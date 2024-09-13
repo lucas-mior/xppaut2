@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "functions.h".h"
+#include "functions.h"
 #include "integers.h"
 #include "llnltyps.h"
 #include "vector.h"
