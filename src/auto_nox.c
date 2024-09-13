@@ -6,6 +6,7 @@
 #include <math.h>
 #include <string.h>
 
+#include "auto_nox.h"
 #include "autlim.h"
 #include "axes2.h"
 #include "browse.h"
@@ -13,6 +14,7 @@
 #include "ggets.h"
 #include "graf_par.h"
 #include "graphics.h"
+#include "form_ode.h"
 #include "init_conds.h"
 #include "load_eqn.h"
 #include "many_pops.h"
@@ -23,10 +25,7 @@
 #include "xAuto.h"
 #include "xpplim.h"
 
-#include "form_ode.h"
-#include "parserslow.h"
 #include "autevd.h"
-#include "auto_nox.h"
 #include "auto_x11.h"
 #include "integers.h"
 #include "derived.h"
