@@ -7118,41 +7118,23 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
             ret_val = fabs(ups[*ic - 1]);
         } else if (strcmp(code, "INT") == 0 || strcmp(code, "int32") == 0) {
             ret_val = ups[*ic - 1];
-
         } else if (strcmp(code, "MAX") == 0 || strcmp(code, "max") == 0) {
-
             ret_val = ups[*ic - 1];
-
         } else if (strcmp(code, "MIN") == 0 || strcmp(code, "min") == 0) {
-
             ret_val = ups[*ic - 1];
-
         } else if (strcmp(code, "BV0") == 0 || strcmp(code, "bv0") == 0) {
-
             ret_val = ups[*ic - 1];
-
         } else if (strcmp(code, "BV1") == 0 || strcmp(code, "bv1") == 0) {
-
             ret_val = ups[*ic - 1];
-
         } else if (strcmp(code, "STP") == 0 || strcmp(code, "stp") == 0) {
-
             ret_val = global_parameters.rav->dsold;
-
         } else if (strcmp(code, "FLD") == 0 || strcmp(code, "fld") == 0) {
-
             ret_val = global_parameters.rav->fldf;
-
         } else if (strcmp(code, "HBF") == 0 || strcmp(code, "hbf") == 0) {
-
             ret_val = global_parameters.rav->hbff;
-
         } else if (strcmp(code, "BIF") == 0 || strcmp(code, "bif") == 0) {
-
             ret_val = global_parameters.rav->biff;
-
         } else if (strcmp(code, "SPB") == 0 || strcmp(code, "spb") == 0) {
-
             ret_val = (double)0.0;
         }
 
