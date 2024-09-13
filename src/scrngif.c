@@ -405,8 +405,7 @@ GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
 
     nodeArray = empty;
     memmove(++nodeArray, empty, 255 * sizeof(GifTree **));
-    if ((buffer = malloc((BUFLEN + 1) *
-                                          sizeof(unsigned char))) == NULL)
+    if ((buffer = malloc((BUFLEN + 1) * sizeof(unsigned char))) == NULL)
         return 0;
     buffer++;
 
@@ -420,8 +419,7 @@ GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
 
     cLength = (depth == 1) ? 3 : depth + 1;
 
-    if ((topNode = baseNode = malloc(sizeof(GifTree) * 4094)) ==
-        NULL)
+    if ((topNode = baseNode = malloc(sizeof(GifTree) * 4094)) == NULL)
         return 0;
     if ((nodeArray = first->node =
              malloc(256 * sizeof(GifTree *) * noOfArrays)) == NULL)

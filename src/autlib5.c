@@ -220,8 +220,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(double) * (iap->nbc));
     uu1 = malloc(sizeof(double) * (iap->ndim));
     uu2 = malloc(sizeof(double) * (iap->ndim));
-    dfu =
-        malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+    dfu = malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */

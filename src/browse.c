@@ -279,8 +279,7 @@ add_stor_col(char *name, char *formula, BROWSER *b) {
         err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + FIX_VAR] = malloc((i + 2) * sizeof(int32))) ==
-        NULL) {
+    if ((my_ode[NEQ + FIX_VAR] = malloc((i + 2) * sizeof(int32))) == NULL) {
         err_msg("Cant allocate formula space");
         return 0;
     }

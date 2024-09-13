@@ -66,8 +66,7 @@ setubv_make_aa_bb_cc(void *arg) {
     double *wp = larg->wp;
     double *wt = larg->wt;
 
-    dicd =
-        malloc(sizeof(double) * (larg->nint) * (larg->ndim + NPARX));
+    dicd = malloc(sizeof(double) * (larg->nint) * (larg->ndim + NPARX));
     ficd = malloc(sizeof(double) * (larg->nint));
     dfdp = malloc(sizeof(double) * (larg->ndim) * NPARX);
     dfdu = malloc(sizeof(double) * (larg->ndim) * (larg->ndim));
@@ -75,8 +74,7 @@ setubv_make_aa_bb_cc(void *arg) {
     f = malloc(sizeof(double) * (larg->ndim));
     u = malloc(sizeof(double) * (larg->ndim));
     wploc = malloc(sizeof(double) * (larg->ncol) * (larg->ncol + 1));
-    dbc = malloc(sizeof(double) * (larg->nbc) *
-                           (2 * larg->ndim + NPARX));
+    dbc = malloc(sizeof(double) * (larg->nbc) * (2 * larg->ndim + NPARX));
     fbc = malloc(sizeof(double) * (larg->nbc));
     uic = malloc(sizeof(double) * (larg->ndim));
     uio = malloc(sizeof(double) * (larg->ndim));
@@ -404,8 +402,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     double *fa = larg.fa;
     int64 fa_dim1 = larg.nra;
 
-    double *wploc =
-        malloc(sizeof(double) * (larg.ncol) * (larg.ncol + 1));
+    double *wploc = malloc(sizeof(double) * (larg.ncol) * (larg.ncol + 1));
     int64 wploc_dim1 = larg.ncol + 1;
 
     double *dfdp = malloc(sizeof(double) * (larg.ndim) * NPARX);
@@ -492,14 +489,12 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     int64 upoldp_dim1 = larg.ndxloc;
 
     int64 dbc_dim1 = larg.nbc;
-    double *dbc =
-        malloc(sizeof(double) * (larg.nbc) * (2 * larg.ndim + NPARX));
+    double *dbc = malloc(sizeof(double) * (larg.nbc) * (2 * larg.ndim + NPARX));
     double *fbc = malloc(sizeof(double) * (larg.nbc));
     double *ubc0 = malloc(sizeof(double) * (larg.ndim));
     double *ubc1 = malloc(sizeof(double) * (larg.ndim));
     int64 dicd_dim1 = larg.nint;
-    double *dicd =
-        malloc(sizeof(double) * (larg.nint) * (larg.ndim + NPARX));
+    double *dicd = malloc(sizeof(double) * (larg.nint) * (larg.ndim + NPARX));
     double *ficd = malloc(sizeof(double) * (larg.nint));
     double *uic = malloc(sizeof(double) * (larg.ndim));
     double *uio = malloc(sizeof(double) * (larg.ndim));

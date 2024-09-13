@@ -904,8 +904,7 @@ compiler(char *bob, FILE *fptr) {
         strcpy(formula, my_string);
         nn = strlen(formula) + 1;
         /* if(nn>79)nn=79;  */
-        if ((my_ode[NODE] = malloc(MAXEXPLEN * sizeof(int32))) ==
-            NULL) {
+        if ((my_ode[NODE] = malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
             printf("Out of memory at line %d\n", NLINES);
             exit(0);
         }
@@ -939,8 +938,7 @@ compiler(char *bob, FILE *fptr) {
 
         if (NODE >= (IN_VARS + FIX_VAR)) {
             i = NODE - (IN_VARS + FIX_VAR);
-            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc(nn)) ==
-                NULL) {
+            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc(nn)) == NULL) {
                 plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
@@ -1465,16 +1463,12 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         add_markov(nstates, name);
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
-                            markovarrays =
-                                malloc(nstates * sizeof(char *));
-                            markovarrays2 =
-                                malloc(nstates * sizeof(char *));
+                            markovarrays = malloc(nstates * sizeof(char *));
+                            markovarrays2 = malloc(nstates * sizeof(char *));
 
                             for (istates = 0; istates < nstates; istates++) {
-                                markovarrays[istates] =
-                                    malloc(MAXEXPLEN);
-                                markovarrays2[istates] =
-                                    malloc(MAXEXPLEN);
+                                markovarrays[istates] = malloc(MAXEXPLEN);
+                                markovarrays2[istates] = malloc(MAXEXPLEN);
                                 /* fgets(markovarrays[istates],MAXEXPLEN,fp); */
 
                                 if (is_array == 2) {
@@ -1971,8 +1965,7 @@ compile_em(void) {
             EqType[nvar] = iflag;
             nn = strlen(v->rhs) + 1;
             if ((ode_names[nvar] = malloc(nn + 2)) == NULL ||
-                (my_ode[nvar] = malloc(MAXEXPLEN * sizeof(int32))) ==
-                    NULL) {
+                (my_ode[nvar] = malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
@@ -1998,8 +1991,8 @@ compile_em(void) {
             break;
         case FIXED:
             find_ker(v->rhs, &alt);
-            if ((my_ode[nfix + IN_VARS] =
-                     malloc(MAXEXPLEN * sizeof(int32))) == NULL ||
+            if ((my_ode[nfix + IN_VARS] = malloc(MAXEXPLEN * sizeof(int32))) ==
+                    NULL ||
                 add_expr(v->rhs, my_ode[nfix + IN_VARS],
                          &leng[IN_VARS + nfix]) != 0) {
                 plintf(" Error allocating or compiling %s\n", v->lhs);
@@ -2019,8 +2012,7 @@ compile_em(void) {
             in2 = IN_VARS + FIX_VAR + naux;
             nn = strlen(v->rhs) + 1;
             if ((ode_names[in1] = malloc(nn + 2)) == NULL ||
-                (my_ode[in2] = malloc(MAXEXPLEN * sizeof(int32))) ==
-                    NULL) {
+                (my_ode[in2] = malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
@@ -2865,8 +2857,7 @@ keep_orig_comments(void) {
     for (i = 0; i < n_comments; i++) {
         orig_comments[i].text = malloc(strlen(comments[i].text) + 1);
         if (comments[i].aflag)
-            orig_comments[i].action =
-                malloc(strlen(comments[i].action) + 1);
+            orig_comments[i].action = malloc(strlen(comments[i].action) + 1);
         strcpy(orig_comments[i].text, comments[i].text);
         if (comments[i].aflag)
             strcpy(orig_comments[i].action, comments[i].action);
@@ -2886,8 +2877,7 @@ default_comments(void) {
         comments[i].text = malloc(strlen(orig_comments[i].text) + 1);
         strcpy(comments[i].text, orig_comments[i].text);
         if (orig_comments[i].aflag) {
-            comments[i].action =
-                malloc(strlen(orig_comments[i].action) + 1);
+            comments[i].action = malloc(strlen(orig_comments[i].action) + 1);
             strcpy(comments[i].action, orig_comments[i].action);
         }
         comments[i].aflag = orig_comments[i].aflag;

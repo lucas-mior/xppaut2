@@ -17,8 +17,7 @@ int32 get_bif_type(int32 ibr, int32 ntot);
 void addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
             int32 labw, double *a, double *uhigh, double *ulow, double *u0,
             double *ubar);
-int32 eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work,
-             int32 *ier);
+int32 eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier);
 void init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
                int32 ntst, int32 isp, int32 isw, int32 nmx, int32 npr,
                double ds, double dsmin, double dsmax, double rl0, double rl1,

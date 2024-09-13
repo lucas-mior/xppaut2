@@ -201,10 +201,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        and setubv).
     */
 
-    ff = malloc(
-        sizeof(double) * ((iap->ndim * iap->ncol)) * iap->ntst + 1);
-    ft = malloc(sizeof(double) * ((iap->ndim * iap->ncol)) *
-                          (iap->ntst + 1));
+    ff = malloc(sizeof(double) * ((iap->ndim * iap->ncol)) * iap->ntst + 1);
+    ft = malloc(sizeof(double) * ((iap->ndim * iap->ncol)) * (iap->ntst + 1));
 
     if (*ifst == 1) {
         /* printf("I am freeing and allocating stuff \n");  */
@@ -255,31 +253,31 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
             sizeof(double) * ((((iap->ndim * iap->ncol) + iap->ndim)) *
                               ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1BB*M 2BB*N AX)*/
-        main_auto_storage.b = malloc(
-            sizeof(double) *
-            ((NPARX) * ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
+        main_auto_storage.b =
+            malloc(sizeof(double) *
+                   ((NPARX) * ((iap->ndim * iap->ncol)) * (iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
         main_auto_storage.c = malloc(
             sizeof(double) * (((((iap->ndim * iap->ncol) + iap->ndim))) *
                               ((iap->nbc + iap->nint + 1)) * (iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
-        main_auto_storage.d = malloc(
-            sizeof(double) * (((iap->nbc + iap->nint + 1)) * (NPARX)));
+        main_auto_storage.d =
+            malloc(sizeof(double) * (((iap->nbc + iap->nint + 1)) * (NPARX)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.a1 = malloc(
-            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.a1 =
+            malloc(sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.a2 = malloc(
-            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.a2 =
+            malloc(sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.s1 = malloc(
-            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.s1 =
+            malloc(sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim * iap->ndim *N AX)*/
-        main_auto_storage.s2 = malloc(
-            sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
+        main_auto_storage.s2 =
+            malloc(sizeof(double) * (iap->ndim * iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim *N PARX*N AX)*/
-        main_auto_storage.bb = malloc(
-            sizeof(double) * (iap->ndim * NPARX * (iap->ntst + 1)));
+        main_auto_storage.bb =
+            malloc(sizeof(double) * (iap->ndim * NPARX * (iap->ntst + 1)));
         /*(N RCX* iap->ndim *N AX+1)*/
         main_auto_storage.cc = malloc(
             sizeof(double) *
@@ -294,18 +292,17 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
             malloc(sizeof(double) * (iap->ndim * iap->ndim * KREDO));
 
         /*(N CLMX*N AX)*/
-        main_auto_storage.icf = malloc(
-            sizeof(int64) *
-            (((iap->ndim * iap->ncol) + iap->ndim) * (iap->ntst + 1)));
+        main_auto_storage.icf =
+            malloc(sizeof(int64) *
+                   (((iap->ndim * iap->ncol) + iap->ndim) * (iap->ntst + 1)));
         /*(N ROWX*N AX)*/
-        main_auto_storage.irf = malloc(
-            sizeof(int64) * ((iap->ndim * iap->ncol) * (iap->ntst + 1)));
+        main_auto_storage.irf =
+            malloc(sizeof(int64) * ((iap->ndim * iap->ncol) * (iap->ntst + 1)));
         /*(iap->ndim *N AX)*/
         main_auto_storage.ipr =
             malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
         /*(iap->ndim *K REDO)*/
-        main_auto_storage.icf11 =
-            malloc(sizeof(int64) * (iap->ndim * KREDO));
+        main_auto_storage.icf11 = malloc(sizeof(int64) * (iap->ndim * KREDO));
         /*(iap->ndim *N AX)*/
         main_auto_storage.icf1 =
             malloc(sizeof(int64) * (iap->ndim * (iap->ntst + 1)));
@@ -572,8 +569,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     wi = malloc(sizeof(double) * (iap->ncol + 1));
     wp = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
     wt = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
-    dbc =
-        malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+    dbc = malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
     fbc = malloc(sizeof(double) * (iap->nbc));
     uic = malloc(sizeof(double) * (iap->ndim));
     uio = malloc(sizeof(double) * (iap->ndim));
@@ -771,8 +767,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     double *sol1, *sol2, *sol3;
 
     e = malloc(sizeof(double) * (*nov + *nrc) * (*nov + *nrc));
-    fcc = malloc(sizeof(double) *
-                           ((*nov + *nrc) + (2 * (*nov) * (*nov)) + 1));
+    fcc = malloc(sizeof(double) * ((*nov + *nrc) + (2 * (*nov) * (*nov)) + 1));
 
     sol1 = malloc(sizeof(double) * (*nov) * (*na + 1));
     sol2 = malloc(sizeof(double) * (*nov) * (*na + 1));

@@ -622,11 +622,11 @@ void
 set_auto(void) /* Caution - need to include NICP here */
 {
     NAutoUzr = Auto.nper;
-    init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp,
-              Auto.ntst, Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds,
-              Auto.dsmin, Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0, Auto.a1,
-              Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4, Auto.icp5,
-              Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
+    init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
+              Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds, Auto.dsmin,
+              Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0, Auto.a1, Auto.icp1,
+              Auto.icp2, Auto.icp3, Auto.icp4, Auto.icp5, Auto.epsl, Auto.epsu,
+              Auto.epss, Auto.ncol);
     return;
 }
 

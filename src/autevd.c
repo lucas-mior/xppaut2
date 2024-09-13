@@ -187,8 +187,7 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
 }
 
 int32
-eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work,
-       int32 *ier) {
+eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier) {
     double ev[400];
     int32 i;
     eigen(*n, a, ev, work, ier);

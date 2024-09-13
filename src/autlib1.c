@@ -1034,8 +1034,8 @@ L6:
 int32
 stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
-    (void) rap;
-    (void) icp;
+    (void)rap;
+    (void)icp;
 
     /* Gets the starting data from user supplied STPNT */
 
@@ -1050,7 +1050,7 @@ int32
 stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     logical found;
     int64 nfprs;
-    (void) icp;
+    (void)icp;
 
     int64 irs;
 
@@ -1582,22 +1582,22 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     double ret_val;
-    (void) par;
-    (void) icp;
-    (void) funi;
-    (void) m1aaloc;
-    (void) aa;
-    (void) rlcur;
-    (void) rlold;
-    (void) rldot;
-    (void) u;
-    (void) uold;
-    (void) udot;
-    (void) rhs;
-    (void) dfdu;
-    (void) dfdp;
-    (void) iuz;
-    (void) vuz;
+    (void)par;
+    (void)icp;
+    (void)funi;
+    (void)m1aaloc;
+    (void)aa;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)u;
+    (void)uold;
+    (void)udot;
+    (void)rhs;
+    (void)dfdu;
+    (void)dfdp;
+    (void)iuz;
+    (void)vuz;
 
     /* Local variables */
     int64 ntop, ntot, iid, ibr;
@@ -1628,9 +1628,9 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
-    (void) rlold;
-    (void) iuz;
-    (void) vuz;
+    (void)rlold;
+    (void)iuz;
+    (void)vuz;
     int64 aa_dim1;
     double ret_val;
 
@@ -1694,20 +1694,20 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
-    (void) icp;
-    (void) funi;
-    (void) m1aaloc;
-    (void) aa;
-    (void) rlcur;
-    (void) rlold;
-    (void) rldot;
-    (void) u;
-    (void) uold;
-    (void) udot;
-    (void) rhs;
-    (void) dfdp;
-    (void) iuz;
-    (void) vuz;
+    (void)icp;
+    (void)funi;
+    (void)m1aaloc;
+    (void)aa;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)u;
+    (void)uold;
+    (void)udot;
+    (void)rhs;
+    (void)dfdp;
+    (void)iuz;
+    (void)vuz;
     double ret_val;
 
     /* Local variables */
@@ -1865,20 +1865,20 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
-    (void) rap;
-    (void) icp;
-    (void) funi;
-    (void) m1aaloc;
-    (void) aa;
-    (void) rlcur;
-    (void) rlold;
-    (void) rldot;
-    (void) u;
-    (void) uold;
-    (void) udot;
-    (void) rhs;
-    (void) dfdu;
-    (void) dfdp;
+    (void)rap;
+    (void)icp;
+    (void)funi;
+    (void)m1aaloc;
+    (void)aa;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)u;
+    (void)uold;
+    (void)udot;
+    (void)rhs;
+    (void)dfdu;
+    (void)dfdp;
     double ret_val;
 
     /* Local variables */
@@ -1916,9 +1916,9 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *stld, double *rlcur, double *rlold, double *rldot, double *u,
       double *du, double *udot, double *dfdu, double *dfdp, double *thl,
       double *thu) {
-    (void) par;
-    (void) rap;
-    (void) rlold;
+    (void)par;
+    (void)rap;
+    (void)rlold;
     /* System generated locals */
     int64 aa_dim1, stud_dim1, stu_dim1;
 
@@ -2022,7 +2022,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
       int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
       double *rlcur, double *rlold, double *rldot, double *u, double *udot) {
     /* System generated locals */
-    (void) rlold;
+    (void)rlold;
     int64 stud_dim1, stu_dim1;
 
     /* Local variables */
@@ -2328,9 +2328,9 @@ L5:
 int32
 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double *thu) {
-    (void) par;
-    (void) thl;
-    (void) thu;
+    (void)par;
+    (void)thl;
+    (void)thu;
     /* Local variables */
     int64 ndim, ncol, mxbf, nicp;
     double epsl;
@@ -2445,8 +2445,8 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
-    (void) rap;
-    (void) par;
+    (void)rap;
+    (void)par;
     /* Local variables */
     int64 iplt, i, j;
     char col[9][14 + 1];
@@ -2715,7 +2715,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
-    (void) icp;
+    (void)icp;
 
     /* Local variables */
     int64 nicp, mtot, i;
@@ -3385,8 +3385,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     double *tm2;
     int64 *itm;
 
-    uint =
-        malloc(sizeof(double) * (*ndxloc) * (iap->ndim * iap->ncol));
+    uint = malloc(sizeof(double) * (*ndxloc) * (iap->ndim * iap->ncol));
     tint = malloc(sizeof(double) * (*ndxloc));
     tm2 = malloc(sizeof(double) * (*ndxloc));
     itm = malloc(sizeof(int64) * (*ndxloc));
@@ -3599,8 +3598,8 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
 int32
 ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
      int64 *itm1) {
-    (void) iap;
-    (void) rap;
+    (void)iap;
+    (void)rap;
 
     /* Local variables */
     int64 j, k0, j1, k1 = 0;
@@ -3634,8 +3633,8 @@ ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
 int32
 intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
        double *wts) {
-    (void) iap;
-    (void) rap;
+    (void)iap;
+    (void)rap;
 
     /* Local variables */
     int64 k;
@@ -3666,8 +3665,8 @@ intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
 int32
 eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
      double *dtm, int64 *ndxloc, double *ups, double *eqf, int64 *iper) {
-    (void) iap;
-    (void) rap;
+    (void)iap;
+    (void)rap;
     /* System generated locals */
     int64 ups_dim1;
 
@@ -4691,18 +4690,12 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *p0;
     double *p1;
     doublecomplex *ev;
-    ups = malloc(sizeof(double) * (iap->ntst + 1) *
-                           (iap->ndim * iap->ncol));
-    upoldp = malloc(sizeof(double) * (iap->ntst + 1) *
-                              (iap->ndim * iap->ncol));
-    uoldps = malloc(sizeof(double) * (iap->ntst + 1) *
-                              (iap->ndim * iap->ncol));
-    udotps = malloc(sizeof(double) * (iap->ntst + 1) *
-                              (iap->ndim * iap->ncol));
-    dups = malloc(sizeof(double) * (iap->ntst + 1) *
-                            (iap->ndim * iap->ncol));
-    fa = malloc(sizeof(double) * (iap->ntst + 1) *
-                          (iap->ndim * iap->ncol));
+    ups = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim * iap->ncol));
+    upoldp = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim * iap->ncol));
+    uoldps = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim * iap->ncol));
+    udotps = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim * iap->ncol));
+    dups = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim * iap->ncol));
+    fa = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim * iap->ncol));
     dtm = malloc(sizeof(double) * (iap->ntst + 1));
     tm = malloc(sizeof(double) * (iap->ntst + 1));
     fc = malloc(sizeof(double) * (iap->nbc + iap->nint + 1));
@@ -4859,8 +4852,8 @@ L1:
 #else
     {
         double *uolddotps, *rlolddot;
-        uolddotps = malloc(sizeof(double) * (iap->ntst + 1) *
-                                     (iap->ndim) * (iap->ncol));
+        uolddotps = malloc(sizeof(double) * (iap->ntst + 1) * (iap->ndim) *
+                           (iap->ncol));
         rlolddot = malloc(sizeof(double) * (iap->nfpr));
 
         for (i = 0; i < iap->nfpr; ++i) {
@@ -5556,12 +5549,11 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             ncol_used = ncol;
 
         *ndxloc = (ntst_used + 1) * 4;
-        ups_new = malloc(sizeof(double) * (*ndxloc) *
-                                   (iap->ndim * ncol_used));
-        upoldp_new = malloc(sizeof(double) * (*ndxloc) *
-                                      (iap->ndim * ncol_used));
-        udotps_new = malloc(sizeof(double) * (*ndxloc) *
-                                      (iap->ndim * ncol_used));
+        ups_new = malloc(sizeof(double) * (*ndxloc) * (iap->ndim * ncol_used));
+        upoldp_new =
+            malloc(sizeof(double) * (*ndxloc) * (iap->ndim * ncol_used));
+        udotps_new =
+            malloc(sizeof(double) * (*ndxloc) * (iap->ndim * ncol_used));
         tm_new = malloc(sizeof(double) * (*ndxloc));
         dtm_new = malloc(sizeof(double) * (*ndxloc));
 
@@ -6194,10 +6186,10 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
-    (void) ev;
-    (void) tm;
-    (void) iuz;
-    (void) vuz;
+    (void)ev;
+    (void)tm;
+    (void)iuz;
+    (void)vuz;
     /* System generated locals */
     int64 udotps_dim1, fa_dim1;
     double ret_val;
@@ -6816,8 +6808,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     }
     jtmp = NPARX;
     /* addbif max min  of variables & initial data */
-    addbif(iap, ntots, ibrs, par, icp, labw, &amp, u_high, u_low, u_0,
-           u_bar);
+    addbif(iap, ntots, ibrs, par, icp, labw, &amp, u_high, u_low, u_0, u_bar);
 
     wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots, &labw, &amp, umx);
 

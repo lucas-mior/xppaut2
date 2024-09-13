@@ -176,8 +176,7 @@ err_dae(void) {
 void
 init_dae_work(void) {
 
-    dae_work.work =
-        malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
+    dae_work.work = malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
     dae_work.iwork = malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;
     return;

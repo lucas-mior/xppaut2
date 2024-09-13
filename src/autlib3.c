@@ -1505,8 +1505,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 irs;
 
     smat = malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
-    rnllv =
-        malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
+    rnllv = malloc(sizeof(double) * (iap->ndim * 2) * (iap->ndim * 2));
     f = malloc(sizeof(double) * (iap->ndim));
     u = malloc(sizeof(double) * (iap->ndim));
     /* Generates starting data for the continuation of a branch of periodic */
@@ -3943,8 +3942,7 @@ bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(double) * (iap->nbc));
     uu1 = malloc(sizeof(double) * (iap->ndim));
     uu2 = malloc(sizeof(double) * (iap->ndim));
-    dfu =
-        malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+    dfu = malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
 
     /* Generates the boundary conditions for the 2-parameter continuation */
     /* of folds (BVP). */

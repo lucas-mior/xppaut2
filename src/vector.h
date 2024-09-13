@@ -142,7 +142,7 @@ typedef struct {
  ***************************************************************/
 
 #define N_VMAKE(v, v_data, v_len)                                              \
-    v = malloc(sizeof(*v));                                          \
+    v = malloc(sizeof(*v));                                                    \
     v->data = v_data;                                                          \
     v->length = v_len
 

@@ -169,10 +169,8 @@ do_range_clines(void) {
             z = (double)i * dz + ncrange.xlo;
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
-                if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) !=
-                        NULL &&
-                    (Y_n = malloc(4 * MAX_NULL * sizeof(float))) !=
-                        NULL)
+                if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL &&
+                    (Y_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL)
 
                     NULL_HERE = 1;
                 NTop = malloc((course + 1) * sizeof(float));

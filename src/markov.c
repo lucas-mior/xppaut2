@@ -253,8 +253,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
     int32 l0 = markov[index].nstates * j + k;
     int32 type = markov[index].type;
     if (type == 0) {
-        markov[index].trans[l0] =
-            malloc(sizeof(char) * (strlen(expr) + 1));
+        markov[index].trans[l0] = malloc(sizeof(char) * (strlen(expr) + 1));
         strcpy(markov[index].trans[l0], expr);
         /*  compilation step -- can be delayed */
         /*
