@@ -186,8 +186,8 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     /*  plintf("stog !! \n");*/
 
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
-    ppm = malloc(w * h * 3);
-    pixels = malloc(h * w);
+    ppm = malloc(w*h * 3);
+    pixels = malloc(h*w);
     /* plintf(" h=%d w=%d \n",h,w);*/
 
     getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);
@@ -213,7 +213,7 @@ gif_stuff(Window win, FILE *fp, int32 task) {
                 local_to_global();
                 write_global_header(w, h, fp);
                 write_local_header(w, h, fp, 0, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w * h);
+                GifEncode(fp, pixels, 8, w*h);
             } else /* first map cant be encoded */
             {
                 UseGlobalMap = 0;
@@ -221,14 +221,14 @@ gif_stuff(Window win, FILE *fp, int32 task) {
                 write_global_header(w, h, fp); /* write global header */
                 make_local_map(pixels, ppm, h, w);
                 write_local_header(w, h, fp, 1, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w * h);
+                GifEncode(fp, pixels, 8, w*h);
                 UseGlobalMap = 1;
             }
         } else {
             make_local_map(pixels, ppm, h, w);
             write_global_header(w, h, fp);
             write_local_header(w, h, fp, 0, GifFrameDelay);
-            GifEncode(fp, pixels, 8, w * h);
+            GifEncode(fp, pixels, 8, w*h);
         }
         break;
     case NEXT_ANI_GIF:
@@ -236,18 +236,18 @@ gif_stuff(Window win, FILE *fp, int32 task) {
             ok = use_global_map(pixels, ppm, h, w);
             if (ok == 1) {
                 write_local_header(w, h, fp, 0, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w * h);
+                GifEncode(fp, pixels, 8, w*h);
             } else {
                 UseGlobalMap = 0;
                 make_local_map(pixels, ppm, h, w);
                 write_local_header(w, h, fp, 1, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w * h);
+                GifEncode(fp, pixels, 8, w*h);
                 UseGlobalMap = 1;
             }
         } else {
             make_local_map(pixels, ppm, h, w);
             write_local_header(w, h, fp, 1, GifFrameDelay);
-            GifEncode(fp, pixels, 8, w * h);
+            GifEncode(fp, pixels, 8, w*h);
         }
         break;
     }
@@ -385,7 +385,7 @@ make_gif(unsigned char *pixels, int32 cols, int32 rows, FILE *dst) {
 
     /* header info done */
 
-    GifEncode(dst, pixels, depth, rows * cols);
+    GifEncode(dst, pixels, depth, rows*cols);
     fputc(';', dst);
     free(buffer - 1);
     return;

@@ -124,7 +124,7 @@ void
 set_total(double total) {
     int32 n;
     n = (total / fabs(DELTA_T)) + 1;
-    TEND = n * fabs(DELTA_T);
+    TEND = n*fabs(DELTA_T);
     return;
 }
 

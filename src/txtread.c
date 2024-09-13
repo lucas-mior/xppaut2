@@ -281,7 +281,7 @@ redraw_txtview_text(void) {
         case 0:
             if (j < NLINES) {
                 XDrawString(display, txtview.text, gc, txtview.dw,
-                            i * txtview.dh + CURY_OFFs, save_eqn[j],
+                            i*txtview.dh + CURY_OFFs, save_eqn[j],
                             strlen(save_eqn[j]));
                 /* plintf("line: %d\n",j); */
             }

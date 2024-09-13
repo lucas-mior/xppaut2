@@ -145,7 +145,7 @@ polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
             if ((den = h0 - hp) == 0.0)
                 return;
             den = w / den;
-            d[i - 1] = hp * den;
+            d[i - 1] = hp*den;
             c[i - 1] = h0 * den;
         }
         *y += (*dy = (2 * ns < (n - m) ? c[ns] : d[ns-- - 1]));

@@ -585,9 +585,9 @@ movie_rot(double start, double increment, int32 nclip, int32 angle) {
     for (i = 0; i <= nclip; i++) {
 
         if (angle == 0)
-            make_rot(start + i * increment, phiold);
+            make_rot(start + i*increment, phiold);
         else
-            make_rot(thetaold, start + i * increment);
+            make_rot(thetaold, start + i*increment);
         redraw_the_graph();
         film_clip();
     }
@@ -958,14 +958,14 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
             y2 = by;
         }
 
-        bx = dx * dx / (x2 - x1);
+        bx = dx*dx / (x2 - x1);
         mux = (x1 - MyGraph->xlo) / dx;
-        MyGraph->xlo = MyGraph->xlo - bx * mux;
+        MyGraph->xlo = MyGraph->xlo - bx*mux;
         MyGraph->xhi = MyGraph->xlo + bx;
 
-        by = dy * dy / (y2 - y1);
+        by = dy*dy / (y2 - y1);
         muy = (y1 - MyGraph->ylo) / dy;
-        MyGraph->ylo = MyGraph->ylo - by * muy;
+        MyGraph->ylo = MyGraph->ylo - by*muy;
         MyGraph->yhi = MyGraph->ylo + by;
     }
     if (MyGraph->grtype < 5) {

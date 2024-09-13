@@ -116,8 +116,8 @@ send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
         er = exp((ev + i)->r);
         cs = cos((ev + i)->i);
         sn = sin((ev + i)->i);
-        my_ev.evr[i] = er * cs;
-        my_ev.evi[i] = er * sn;
+        my_ev.evr[i] = er*cs;
+        my_ev.evi[i] = er*sn;
     }
     return;
 }

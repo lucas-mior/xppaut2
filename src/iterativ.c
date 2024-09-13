@@ -152,8 +152,8 @@ QRfact(int32 n, double **h, double *q, int32 job) {
                 temp2 = h[j + 1][k];
                 c = q[i];
                 s = q[i + 1];
-                h[j][k] = c * temp1 - s * temp2;
-                h[j + 1][k] = s * temp1 + c * temp2;
+                h[j][k] = c*temp1 - s*temp2;
+                h[j + 1][k] = s*temp1 + c*temp2;
             }
 
             /* Compute the Givens rotation components c and s */
@@ -166,15 +166,15 @@ QRfact(int32 n, double **h, double *q, int32 job) {
             } else if (ABS(temp2) >= ABS(temp1)) {
                 temp3 = temp1 / temp2;
                 s = -ONE / RSqrt(ONE + SQR(temp3));
-                c = -s * temp3;
+                c = -s*temp3;
             } else {
                 temp3 = temp2 / temp1;
                 c = ONE / RSqrt(ONE + SQR(temp3));
-                s = -c * temp3;
+                s = -c*temp3;
             }
             q[q_ptr] = c;
             q[q_ptr + 1] = s;
-            if ((h[k][k] = c * temp1 - s * temp2) == ZERO)
+            if ((h[k][k] = c*temp1 - s*temp2) == ZERO)
                 code = k + 1;
         }
         break;
@@ -191,8 +191,8 @@ QRfact(int32 n, double **h, double *q, int32 job) {
             temp2 = h[k + 1][n_minus_1];
             c = q[i];
             s = q[i + 1];
-            h[k][n_minus_1] = c * temp1 - s * temp2;
-            h[k + 1][n_minus_1] = s * temp1 + c * temp2;
+            h[k][n_minus_1] = c*temp1 - s*temp2;
+            h[k + 1][n_minus_1] = s*temp1 + c*temp2;
         }
 
         /* Compute new Givens rotation and multiply it times the last two
@@ -206,16 +206,16 @@ QRfact(int32 n, double **h, double *q, int32 job) {
         } else if (ABS(temp2) >= ABS(temp1)) {
             temp3 = temp1 / temp2;
             s = -ONE / RSqrt(ONE + SQR(temp3));
-            c = -s * temp3;
+            c = -s*temp3;
         } else {
             temp3 = temp2 / temp1;
             c = ONE / RSqrt(ONE + SQR(temp3));
-            s = -c * temp3;
+            s = -c*temp3;
         }
         q_ptr = 2 * n_minus_1;
         q[q_ptr] = c;
         q[q_ptr + 1] = s;
-        if ((h[n_minus_1][n_minus_1] = c * temp1 - s * temp2) == ZERO)
+        if ((h[n_minus_1][n_minus_1] = c*temp1 - s*temp2) == ZERO)
             code = n;
     }
 
@@ -240,8 +240,8 @@ QRsol(int32 n, double **h, double *q, double *b) {
         s = q[q_ptr + 1];
         temp1 = b[k];
         temp2 = b[k + 1];
-        b[k] = c * temp1 - s * temp2;
-        b[k + 1] = s * temp1 + c * temp2;
+        b[k] = c*temp1 - s*temp2;
+        b[k + 1] = s*temp1 + c*temp2;
     }
 
     /* Solve  R*x = Q*b. */

@@ -1111,7 +1111,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Generate the (initially uniform) mesh. */
 
     msh(iap, tm);
-    dt = 1. / (ntst * ncol);
+    dt = 1. / (ntst*ncol);
 
     for (j = 0; j < ntst + 1; ++j) {
         if (j == ntst) {
@@ -1120,8 +1120,8 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
             ncol1 = ncol;
         }
         for (i = 0; i < ncol1; ++i) {
-            t = tm[j] + i * dt;
-            k1 = i * ndim;
+            t = tm[j] + i*dt;
+            k1 = i*ndim;
             k2 = (i + 1) * ndim - 1;
             stpho(iap, icp, u, par, &t);
             for (k = k1; k <= k2; ++k) {
@@ -1255,7 +1255,7 @@ L3:
 
     for (i = 0; i < ndm; ++i) {
         u[i] = xequib[i] + vr[blhom_1.nstab + i * (iap->ndm)] * par[-1 + kp] *
-                               par[kp] * exp(rr[blhom_1.nstab] * *t * par[10]);
+                               par[kp] * exp(rr[blhom_1.nstab] * *t*par[10]);
     }
     for (i = 0; i < ndm; ++i) {
         fprintf(fp9, "stpho %20.10f\n", u[i]);
@@ -1426,7 +1426,7 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
             /* Computing 2nd power */
             u1norm += blhmu_1.pu1[j + ndm] * blhmu_1.pu1[j + ndm];
         }
-        droot = sqrt(f0norm * f1norm * u0norm * u1norm);
+        droot = sqrt(f0norm*f1norm*u0norm*u1norm);
         if (droot != 0.) {
             ret_val = -s1 * s2 / droot;
         } else {
@@ -1489,11 +1489,11 @@ L2:
     if (fabs(ri[-1 + blhom_1.nstab]) > blhma_1.compzero) {
         /* Computing 2nd power */
         double tmp = ri[-1 + blhom_1.nstab] - ri[-1 + blhom_1.nstab - 1];
-        ret_val = -(tmp * tmp);
+        ret_val = -(tmp*tmp);
     } else {
         /* Computing 2nd power */
         double tmp = rr[-1 + blhom_1.nstab] - rr[-1 + blhom_1.nstab - 1];
-        ret_val = tmp * tmp;
+        ret_val = tmp*tmp;
     }
     return ret_val;
 
@@ -1504,11 +1504,11 @@ L3:
     if (fabs(ri[blhom_1.nstab]) > blhma_1.compzero) {
         /* Computing 2nd power */
         double tmp = ri[blhom_1.nstab] - ri[blhom_1.nstab + 1];
-        ret_val = -(tmp * tmp);
+        ret_val = -(tmp*tmp);
     } else {
         /* Computing 2nd power */
         double tmp = rr[blhom_1.nstab] - rr[blhom_1.nstab + 1];
-        ret_val = tmp * tmp;
+        ret_val = tmp*tmp;
     }
     return ret_val;
 
@@ -1788,8 +1788,8 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
             int64 tmp;
             tmp = *ndm;
             for (j = 0; j < tmp; ++j) {
-                vdot += vr[j + i * tmp] *
-                        blhme_1.vrprev[*itrans + (j * 2 + i * tmp * 2) - 1];
+                vdot += vr[j + i*tmp] *
+                        blhme_1.vrprev[*itrans + (j * 2 + i*tmp * 2) - 1];
             }
         }
 #else

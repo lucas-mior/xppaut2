@@ -252,7 +252,7 @@ factorize(int32 nPass, int32 *kt) {
             nPass /= jj;
         }
         j += 2;
-        jj = j * j;
+        jj = j*j;
     } while (jj <= nPass);
     if (nPass <= 4) {
         *kt = nFactor;
@@ -501,18 +501,18 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
         return 0;
 
     /* allocate storage */
-    if (SpaceAlloced < maxFactors * sizeof(REAL)) {
+    if (SpaceAlloced < maxFactors*sizeof(REAL)) {
 #ifdef SUN_BROKEN_REALLOC
         if (!SpaceAlloced) /* first time */
         {
-            SpaceAlloced = maxFactors * sizeof(REAL);
+            SpaceAlloced = maxFactors*sizeof(REAL);
             Tmp0 = malloc(SpaceAlloced);
             Tmp1 = malloc(SpaceAlloced);
             Tmp2 = malloc(SpaceAlloced);
             Tmp3 = malloc(SpaceAlloced);
         } else {
 #endif
-            SpaceAlloced = maxFactors * sizeof(REAL);
+            SpaceAlloced = maxFactors*sizeof(REAL);
             Tmp0 = realloc(Tmp0, SpaceAlloced);
             Tmp1 = realloc(Tmp1, SpaceAlloced);
             Tmp2 = realloc(Tmp2, SpaceAlloced);
@@ -527,10 +527,10 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
     if (MaxPermAlloced < maxPerm) {
 #ifdef SUN_BROKEN_REALLOC
         if (!MaxPermAlloced) /* first time */
-            Perm = malloc(maxPerm * sizeof(int32));
+            Perm = malloc(maxPerm*sizeof(int32));
         else
 #endif
-            Perm = realloc(Perm, maxPerm * sizeof(int32));
+            Perm = realloc(Perm, maxPerm*sizeof(int32));
         MaxPermAlloced = maxPerm;
     } else {
         /* allow full use of alloc'd space */
@@ -559,8 +559,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
     }
 
     /* adjust for strange increments */
-    nt = inc * nTotal;
-    ns = inc * nSpan;
+    nt = inc*nTotal;
+    ns = inc*nSpan;
     kspan = ns;
 
     nn = nt - inc;
@@ -584,7 +584,7 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
     for (;;) {
         sd = radf / (double)kspan;
         cd = sin(sd);
-        cd = 2.0 * cd * cd;
+        cd = 2.0 * cd*cd;
         sd = sin(sd + sd);
         kk = 1;
         ii++;
@@ -638,9 +638,9 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         c1 = -c1;
                         kk = k1 - k2;
                     } while (kk > k2);
-                    tmp = c1 - (cd * c1 + sd * s1);
-                    s1 = sd * c1 - cd * s1 + s1;
-                    c1 = 2.0 - (tmp * tmp + s1 * s1);
+                    tmp = c1 - (cd*c1 + sd*s1);
+                    s1 = sd*c1 - cd*s1 + s1;
+                    c1 = 2.0 - (tmp*tmp + s1 * s1);
                     s1 *= c1;
                     c1 *= tmp;
                     kk += jc;
@@ -702,18 +702,18 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                             Im_Data(k2) = bjp;
                             Im_Data(k3) = bkm;
                         } else {
-                            Re_Data(k1) = akp * c1 - bkp * s1;
-                            Re_Data(k2) = ajp * c2 - bjp * s2;
-                            Re_Data(k3) = akm * c3 - bkm * s3;
-                            Im_Data(k1) = akp * s1 + bkp * c1;
-                            Im_Data(k2) = ajp * s2 + bjp * c2;
-                            Im_Data(k3) = akm * s3 + bkm * c3;
+                            Re_Data(k1) = akp*c1 - bkp*s1;
+                            Re_Data(k2) = ajp*c2 - bjp*s2;
+                            Re_Data(k3) = akm*c3 - bkm*s3;
+                            Im_Data(k1) = akp*s1 + bkp*c1;
+                            Im_Data(k2) = ajp*s2 + bjp*c2;
+                            Im_Data(k3) = akm*s3 + bkm*c3;
                         }
                         kk = k3 + kspan;
                     } while (kk <= nt);
 
-                    c2 = c1 - (cd * c1 + sd * s1);
-                    s1 = sd * c1 - cd * s1 + s1;
+                    c2 = c1 - (cd*c1 + sd*s1);
+                    s1 = sd*c1 - cd*s1 + s1;
                     c1 = 2.0 - (c2 * c2 + s1 * s1);
                     s1 *= c1;
                     c1 *= c2;
@@ -798,18 +798,18 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         bb = Im_Data(kk);
                         Re_Data(kk) = aa + akp + ajp;
                         Im_Data(kk) = bb + bkp + bjp;
-                        ak = akp * c72 + ajp * c2 + aa;
-                        bk = bkp * c72 + bjp * c2 + bb;
-                        aj = akm * s72 + ajm * s2;
-                        bj = bkm * s72 + bjm * s2;
+                        ak = akp*c72 + ajp*c2 + aa;
+                        bk = bkp*c72 + bjp*c2 + bb;
+                        aj = akm*s72 + ajm*s2;
+                        bj = bkm*s72 + bjm*s2;
                         Re_Data(k1) = ak - bj;
                         Re_Data(k4) = ak + bj;
                         Im_Data(k1) = bk + aj;
                         Im_Data(k4) = bk - aj;
-                        ak = akp * c2 + ajp * c72 + aa;
-                        bk = bkp * c2 + bjp * c72 + bb;
-                        aj = akm * s2 - ajm * s72;
-                        bj = bkm * s2 - bjm * s72;
+                        ak = akp*c2 + ajp*c72 + aa;
+                        bk = bkp*c2 + bjp*c72 + bb;
+                        aj = akm*s2 - ajm*s72;
+                        bj = bkm*s2 - bjm*s72;
                         Re_Data(k2) = ak - bj;
                         Re_Data(k3) = ak + bj;
                         Im_Data(k2) = bk + aj;
@@ -931,8 +931,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         c2 = c1 * c2 - tmp;
                         kk = kk - nt + kspan;
                     } while (kk <= ispan);
-                    c2 = c1 - (cd * c1 + sd * s1);
-                    s1 += sd * c1 - cd * s1;
+                    c2 = c1 - (cd*c1 + sd*s1);
+                    s1 += sd*c1 - cd*s1;
                     c1 = 2.0 - (c2 * c2 + s1 * s1);
                     s1 *= c1;
                     c2 *= c1;
@@ -1124,7 +1124,7 @@ Permute_Results:
 
                 jj -= kspan;
                 k = Perm[j - 1];
-                kk = jc * k + ii + jj;
+                kk = jc*k + ii + jj;
 
                 k1 = kk + kspan;
                 k2 = 0;

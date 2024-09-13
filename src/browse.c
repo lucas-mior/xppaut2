@@ -433,11 +433,11 @@ replace_column(char *var, char *form, float **dat, int32 n) {
                     set_val(uvar_names[j], (double)dat[j + 1][i]);
                 if (intflag) {
                     sum += (float)evaluate(com);
-                    dat[R_COL][i] = sum * dt;
+                    dat[R_COL][i] = sum*dt;
                 } else
                     dat[R_COL][i] = (float)evaluate(com);
             } else {
-                dat[R_COL][i] = (float)(a1 + i * da);
+                dat[R_COL][i] = (float)(a1 + i*da);
             }
         } else {
             if (i == 0)
@@ -691,7 +691,7 @@ draw_data(BROWSER b) {
         if (i0 < b.maxrow) {
             sprintf(string, "%.8g", b.data[0][i0]);
             XDrawString(display, b.main, small_gc, DCURXs / 2 + 5,
-                        i * drow + DCURYs, string, strlen(string));
+                        i*drow + DCURYs, string, strlen(string));
         }
     }
 
@@ -706,7 +706,7 @@ draw_data(BROWSER b) {
             if (i0 < b.maxrow) {
                 sprintf(string, "%.7g", b.data[j0][i0]);
                 XDrawString(display, b.main, small_gc, x0 + 5,
-                            i * drow + DCURYs, string, strlen(string));
+                            i*drow + DCURYs, string, strlen(string));
             }
         }
     }
@@ -759,8 +759,8 @@ br_button(Window root, int32 row, int32 col, char *name, int32 iflag) {
     int32 y;
     if (iflag == 1)
         dcol = 14 * DCURXs;
-    x = dcol * col + 4;
-    y = drow * row + 4;
+    x = dcol*col + 4;
+    y = drow*row + 4;
     win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
     XSelectInput(display, win, MYMASK);
     return win;
@@ -777,8 +777,8 @@ br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     int32 y;
     if (iflag == 1)
         dcol = 14 * DCURXs;
-    x = dcol * col + 4;
-    y = drow * row + 4;
+    x = dcol*col + 4;
+    y = drow*row + 4;
     win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
     XSelectInput(display, win, MYMASK);
     return win;
@@ -802,7 +802,7 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
         ncol = 5;
 
     height = drow * (row + 6);
-    width = ncol * dcol;
+    width = ncol*dcol;
     b->nrow = row;
     b->ncol = ncol;
     base =
@@ -835,7 +835,7 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     b->upper = make_window(base, 0, 0, width, ystart + drow * 6, 1);
     XSetWindowBackground(display, b->upper, MyMainWinColor);
     b->main =
-        make_plain_window(base, 0, ystart + drow * 6, width, row * drow, 1);
+        make_plain_window(base, 0, ystart + drow * 6, width, row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
     b->find = br_button(base, 0, 0, "find", 0);
     b->get = br_button(base, 1, 0, "get ", 0);

@@ -60,8 +60,8 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
 
     for (i = 0; i < n; i++)
         old_x[i] = x[i];
-    oldwork = work + n * n;
-    eval = oldwork + n * n;
+    oldwork = work + n*n;
+    eval = oldwork + n*n;
     b = eval + 2 * n;
     bp = b + n;
     ework = bp + n;
@@ -73,15 +73,15 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
         return;
     }
 
-    for (i = 0; i < n * n; i++) {
+    for (i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
     }
     /* Transpose for Eigen        */
     for (i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
-            temp = work[i + j * n];
-            work[i + j * n] = work[i * n + j];
-            work[i * n + j] = temp;
+            temp = work[i + j*n];
+            work[i + j*n] = work[i*n + j];
+            work[i*n + j] = temp;
         }
     }
     eigen(n, work, eval, ework, ierr);
@@ -120,8 +120,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     ShootIndex = 0;
     for (i = 0; i < n; i++)
         old_x[i] = x[i];
-    oldwork = work + n * n;
-    eval = oldwork + n * n;
+    oldwork = work + n*n;
+    eval = oldwork + n*n;
     b = eval + 2 * n;
     bp = b + n;
     ework = bp + n;
@@ -136,16 +136,16 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     DING;
     /* for(i=0;i<n;i++)xl[i]=(float)x[i]; */
 
-    for (i = 0; i < n * n; i++) {
+    for (i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
         /* plintf("dm=%g\n",oldwork[i]); */
     }
     /* Transpose for Eigen        */
     for (i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
-            temp = work[i + j * n];
-            work[i + j * n] = work[i * n + j];
-            work[i * n + j] = temp;
+            temp = work[i + j*n];
+            work[i + j*n] = work[i*n + j];
+            work[i*n + j] = temp;
         }
     }
     eigen(n, work, eval, ework, ierr);
@@ -172,7 +172,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             plintf(" %f  +  i  %f \n", real, imag);
         }
         if (METHOD == 0)
-            real = real * real + imag * imag - 1.00;
+            real = real*real + imag*imag - 1.00;
         if (fabs(imag) < .00000001)
             imag = 0.0;
         if (real < 0.0) {
@@ -224,9 +224,9 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     /* Lets change Work back to transposed oldwork */
     for (i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
-            temp = oldwork[i + j * n];
-            work[i + j * n] = oldwork[i * n + j];
-            work[i * n + j] = temp;
+            temp = oldwork[i + j*n];
+            work[i + j*n] = oldwork[i*n + j];
+            work[i*n + j] = temp;
         }
     }
     create_eq_box(cp, cn, rp, rn, im, x, eval, n);
@@ -424,8 +424,8 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     for (i = 0; i < n; i++) {
         old_x[i] = x[i];
     }
-    oldwork = work + n * n;
-    eval = oldwork + n * n;
+    oldwork = work + n*n;
+    eval = oldwork + n*n;
     b = eval + 2 * n;
     bp = b + n;
     ework = bp + n;
@@ -440,16 +440,16 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     /* for(i=0;i<n;i++)xl[i]=(float)x[i]; */
 
-    for (i = 0; i < n * n; i++) {
+    for (i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
         /* plintf("dm=%g\n",oldwork[i]); */
     }
     /* Transpose for Eigen        */
     for (i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
-            temp = work[i + j * n];
-            work[i + j * n] = work[i * n + j];
-            work[i * n + j] = temp;
+            temp = work[i + j*n];
+            work[i + j*n] = work[i*n + j];
+            work[i*n + j] = temp;
         }
     }
     eigen(n, work, eval, ework, ierr);
@@ -467,7 +467,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         em[i] = imag;
 
         if (METHOD == 0)
-            real = real * real + imag * imag - 1.00;
+            real = real*real + imag*imag - 1.00;
         if (fabs(imag) < .00000001)
             imag = 0.0;
         if (real < 0.0) {
@@ -513,9 +513,9 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     /* Lets change Work back to transposed oldwork */
     for (i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
-            temp = oldwork[i + j * n];
-            work[i + j * n] = oldwork[i * n + j];
-            work[i * n + j] = temp;
+            temp = oldwork[i + j*n];
+            work[i + j*n] = oldwork[i*n + j];
+            work[i*n + j] = temp;
         }
     }
 
@@ -557,9 +557,9 @@ pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
     ShootICFlag = 1;
     if (ShootIndex < 7) {
         for (i = 0; i < n; i++) {
-            ShootIC[ShootIndex][i] = x[i] + d * ev[i];
+            ShootIC[ShootIndex][i] = x[i] + d*ev[i];
             ShootType[ShootIndex] = type;
-            ShootIC[ShootIndex + 1][i] = x[i] - d * ev[i];
+            ShootIC[ShootIndex + 1][i] = x[i] - d*ev[i];
             ShootType[ShootIndex + 1] = type;
         }
         ShootIndex += 2;
@@ -585,14 +585,14 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
     double *b, *bp;
     int32 nn = 2 * n;
     int32 i, j, k;
-    a = malloc(nn * nn * sizeof(double));
-    anew = malloc(nn * nn * sizeof(double));
-    b = malloc(nn * sizeof(double));
-    bp = malloc(nn * sizeof(double));
-    ipivot = malloc(nn * sizeof(int32));
+    a = malloc(nn*nn*sizeof(double));
+    anew = malloc(nn*nn*sizeof(double));
+    b = malloc(nn*sizeof(double));
+    bp = malloc(nn*sizeof(double));
+    ipivot = malloc(nn*sizeof(int32));
     for (i = 0; i < nn; i++) {
         for (j = 0; j < nn; j++) {
-            k = j * nn + i;
+            k = j*nn + i;
             a[k] = 0.0;
             if ((j < n) && (i < n))
                 a[k] = m[k];
@@ -631,12 +631,12 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
     if (zz < err)
         zz = err;
     *ierr = 0;
-    for (j = 0; j < n * n; j++) {
+    for (j = 0; j < n*n; j++) {
         anew[j] = a[j];
         /*  plintf(" %d %g \n",j,a[j]);   */
     }
     for (j = 0; j < n; j++)
-        anew[j * (1 + n)] = anew[j * (1 + n)] - eval - err * err * zz;
+        anew[j * (1 + n)] = anew[j * (1 + n)] - eval - err*err*zz;
 
     sgefa(anew, n, n, ipivot, ierr);
     if (*ierr != -1) {
@@ -736,7 +736,7 @@ l70:
         s = fabs(h[l - 2 + (l - 2) * n]) + fabs(h[l - 1 + (l - 1) * n]);
         if (s == 0.0)
             s = norm;
-        if (fabs(h[l - 1 + (l - 2) * n]) <= machep * s)
+        if (fabs(h[l - 1 + (l - 2) * n]) <= machep*s)
             break;
     }
     x = h[en - 1 + (en - 1) * n];
@@ -756,7 +756,7 @@ l70:
     s = fabs(h[en - 1 + (na - 1) * n]) + fabs(h[na - 1 + (enm2 - 1) * n]);
     x = 0.75 * s;
     y = x;
-    w = -0.4375 * s * s;
+    w = -0.4375 * s*s;
 l130:
     its++; /*its = its++; This may be undefined. Use its++ instead.*/
     for (mm = l; mm <= enm2; mm++) {
@@ -764,9 +764,9 @@ l130:
         zz = h[m - 1 + (m - 1) * n];
         r = x - zz;
         s = y - zz;
-        p = (r * s - w) / h[m + (m - 1) * n] + h[m - 1 + m * n];
-        q = h[m + m * n] - zz - r - s;
-        r = h[m + 1 + m * n];
+        p = (r*s - w) / h[m + (m - 1) * n] + h[m - 1 + m*n];
+        q = h[m + m*n] - zz - r - s;
+        r = h[m + 1 + m*n];
         s = fabs(p) + fabs(q) + fabs(r);
         p = p / s;
         q = q / s;
@@ -774,8 +774,8 @@ l130:
         if (m == l)
             break;
         if ((fabs(h[m - 1 + (m - 2) * n]) * (fabs(q) + fabs(r))) <=
-            (machep * fabs(p) *
-             (fabs(h[m - 2 + (m - 2) * n]) + fabs(zz) + fabs(h[m + m * n]))))
+            (machep*fabs(p) *
+             (fabs(h[m - 2 + (m - 2) * n]) + fabs(zz) + fabs(h[m + m*n]))))
             break;
     }
     mp2 = m + 2;
@@ -804,9 +804,9 @@ l130:
         q = q / x;
         r = r / x;
     l170:
-        s = sign(sqrt(p * p + q * q + r * r), p);
+        s = sign(sqrt(p*p + q*q + r*r), p);
         if (k != m)
-            h[k - 1 + (k - 2) * n] = -s * x;
+            h[k - 1 + (k - 2) * n] = -s*x;
         else if (l != m)
             h[k - 1 + (k - 2) * n] = -h[k - 1 + (k - 2) * n];
         p = p + s;
@@ -816,22 +816,22 @@ l130:
         q = q / p;
         r = r / p;
         for (j = k; j <= en; j++) {
-            p = h[k - 1 + (j - 1) * n] + q * h[k + (j - 1) * n];
+            p = h[k - 1 + (j - 1) * n] + q*h[k + (j - 1) * n];
             if (notlas) {
-                p = p + r * h[k + 1 + (j - 1) * n];
-                h[k + 1 + (j - 1) * n] = h[k + 1 + (j - 1) * n] - p * zz;
+                p = p + r*h[k + 1 + (j - 1) * n];
+                h[k + 1 + (j - 1) * n] = h[k + 1 + (j - 1) * n] - p*zz;
             }
-            h[k + (j - 1) * n] = h[k + (j - 1) * n] - p * y;
-            h[k - 1 + (j - 1) * n] = h[k - 1 + (j - 1) * n] - p * x;
+            h[k + (j - 1) * n] = h[k + (j - 1) * n] - p*y;
+            h[k - 1 + (j - 1) * n] = h[k - 1 + (j - 1) * n] - p*x;
         }
         j = imin(en, k + 3);
         for (i = l; i <= j; i++) {
-            p = x * h[i - 1 + (k - 1) * n] + y * h[i - 1 + k * n];
+            p = x*h[i - 1 + (k - 1) * n] + y*h[i - 1 + k*n];
             if (notlas) {
-                p = p + zz * h[i - 1 + (k + 1) * n];
-                h[i - 1 + (k + 1) * n] = h[i - 1 + (k + 1) * n] - p * r;
+                p = p + zz*h[i - 1 + (k + 1) * n];
+                h[i - 1 + (k + 1) * n] = h[i - 1 + (k + 1) * n] - p*r;
             }
-            h[i - 1 + k * n] = h[i - 1 + k * n] - p * q;
+            h[i - 1 + k*n] = h[i - 1 + k*n] - p*q;
             h[i - 1 + (k - 1) * n] = h[i - 1 + (k - 1) * n] - p;
         }
     }
@@ -843,7 +843,7 @@ l270:
     goto l60;
 l280:
     p = (y - x) / 2.0;
-    q = p * p + w;
+    q = p*p + w;
     zz = sqrt(fabs(q));
     x = x + t;
     if (q < 0.0)
@@ -907,7 +907,7 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             f = f / h;
             for (i = m; i <= igh; i++)
                 a[i - 1 + (j - 1) * n] =
-                    a[i - 1 + (j - 1) * n] - f * ort[i - 1];
+                    a[i - 1 + (j - 1) * n] - f*ort[i - 1];
         }
         for (i = 1; i <= igh; i++) /*160*/
         {
@@ -920,10 +920,10 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             f = f / h;
             for (j = m; j <= igh; j++)
                 a[i - 1 + (j - 1) * n] =
-                    a[i - 1 + (j - 1) * n] - f * ort[j - 1];
+                    a[i - 1 + (j - 1) * n] - f*ort[j - 1];
         }
-        ort[m - 1] = scale * ort[m - 1];
-        a[m - 1 + (m - 2) * n] = scale * g;
+        ort[m - 1] = scale*ort[m - 1];
+        a[m - 1 + (m - 2) * n] = scale*g;
     }
     return;
 }
@@ -965,7 +965,7 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
         /*    plintf(" y=%g x=%g\n",y[i],x[i]); */
         for (k = 0; k < n; k++)
             xp[k] = x[k];
-        r = eps * amax(eps, fabs(x[i]));
+        r = eps*amax(eps, fabs(x[i]));
         xp[i] = xp[i] + r;
         rhs(0.0, xp, yp, n);
         /*
@@ -977,7 +977,7 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
                 yp[j] = yp[j] - xp[j];
         }
         for (j = 0; j < n; j++) {
-            dermat[j * n + i] = (yp[j] - y[j]) / r;
+            dermat[j*n + i] = (yp[j] - y[j]) / r;
             /*    plintf("dm=%g \n",dermat[j*n+i]); */
         }
     }
@@ -996,7 +996,7 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
         /*    plintf(" y=%g x=%g\n",y[i],x[i]); */
         for (k = 0; k < n; k++)
             xp[k] = x[k];
-        r = eps * amax(eps, fabs(x[i]));
+        r = eps*amax(eps, fabs(x[i]));
         xp[i] = xp[i] + r;
         rhs(0.0, xp, yp, n);
         /*
@@ -1004,7 +1004,7 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
            plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
         */
         for (j = 0; j < n; j++) {
-            dermat[j + n * i] = (yp[j] - y[j]) / r;
+            dermat[j + n*i] = (yp[j] - y[j]) / r;
             /*    plintf("dm=%g \n",dermat[j*n+i]); */
         }
     }
@@ -1019,7 +1019,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
     double *xp, *yp, *y, *xg, *dermat, *dely;
     double r;
     dermat = work;
-    xg = dermat + n * n;
+    xg = dermat + n*n;
     yp = xg + n;
     xp = yp + n;
     y = xp + n;
@@ -1084,7 +1084,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
 
 double
 sqr2(double z) {
-    return z * z;
+    return z*z;
 }
 
 int32
@@ -1118,7 +1118,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
           job = 0, nt = 0;
     /* plintf("entering gear ... with start=%d \n",*jstart);*/
     for (i = 0; i < 8; i++) {
-        save[i] = work + i * n;
+        save[i] = work + i*n;
         ytable[i] = work + (8 + i) * n;
     }
     save9 = work + 16 * n;
@@ -1127,8 +1127,8 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     save12 = work + 19 * n;
     ymax = work + 20 * n;
     dermat = work + 21 * n;
-    a = work + 21 * n + n * n;
-    work2 = work + 21 * n + n * n + 10;
+    a = work + 21 * n + n*n;
+    work2 = work + 21 * n + n*n + 10;
     if (*jstart != 0) {
 
         k = iwork[0];
@@ -1291,7 +1291,7 @@ L150:
     edwn = sqr2(pertst[nq - 1][0][2] * pepsh);
     if (edwn == 0.0)
         goto L850;
-    bnd = eps * enq3 / (double)n;
+    bnd = eps*enq3 / (double)n;
 
     /*L320:*/
 
@@ -1326,11 +1326,11 @@ L330:
             d = a[0] * h / r;
             rhs(*t, ytable[0], save12, n);
             for (i = 0; i < n; i++)
-                dermat[n * i + j] = (save12[i] - save11[i]) * d;
+                dermat[n*i + j] = (save12[i] - save11[i]) * d;
             ytable[0][j] = save9[j];
         }
         for (i = 0; i < n; i++)
-            dermat[n * i + i] += 1.0;
+            dermat[n*i + i] += 1.0;
         iweval = -1;
         /*      plintf(" Jac = %f %f %f %f
          * \n",dermat[0],dermat[1],dermat[2],dermat[3]);
@@ -1357,7 +1357,7 @@ L330:
             ytable[0][i] = ytable[0][i] + a[0] * save9[i];
             ytable[1][i] = ytable[1][i] - save9[i];
             error[i] += save9[i];
-            if (fabs(save9[i]) <= (bnd * ymax[i]))
+            if (fabs(save9[i]) <= (bnd*ymax[i]))
                 nt--;
         }
         if (nt <= 0)
@@ -1464,7 +1464,7 @@ L700:
     k = newq + 1;
     if (*kflag == 1)
         goto L740;
-    racum = racum * r;
+    racum = racum*r;
     iret1 = 3;
     goto L820;
 
@@ -1492,7 +1492,7 @@ L730:
 L740:
 
     iret = 2;
-    h = h * r;
+    h = h*r;
     hnew = h;
     if (nq == newq)
         goto L750;
@@ -1528,8 +1528,8 @@ L790:
     r = h / hold;
     for (i = 0; i < n; i++) {
         ytable[0][i] = save[0][i];
-        save[1][i] = hold * save11[i];
-        ytable[1][i] = r * save[1][i];
+        save[1][i] = hold*save11[i];
+        ytable[1][i] = r*save[1][i];
     }
     nq = 1;
     *kflag = 1;
@@ -1552,7 +1552,7 @@ L820:
         for (i = 0; i < n; i++)
             ytable[j - 1][i] = save[j - 1][i] * r1;
     }
-    h = hold * racum;
+    h = hold*racum;
     for (i = 0; i < n; i++)
         ytable[0][i] = save[0][i];
     idoub = k;
@@ -1630,22 +1630,22 @@ sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
             kp1 = k + 1;
             l = isamax(n - k + 1, &a[(k - 1) * lda + k - 1], lda) + k - 1;
             ipvt[k - 1] = l;
-            if (a[l * lda + k - 1] != 0.0) {
+            if (a[l*lda + k - 1] != 0.0) {
                 if (l != (k - 1)) {
-                    t = a[l * lda + k - 1];
-                    a[l * lda + k - 1] = a[(k - 1) * lda + k - 1];
+                    t = a[l*lda + k - 1];
+                    a[l*lda + k - 1] = a[(k - 1) * lda + k - 1];
                     a[(k - 1) * lda + k - 1] = t;
                 }
                 t = -1.0 / a[(k - 1) * lda + k - 1];
-                sscal(n - k, t, (a + k * lda + k - 1), lda);
+                sscal(n - k, t, (a + k*lda + k - 1), lda);
                 for (j = kp1; j <= n; j++) {
-                    t = a[l * lda + j - 1];
+                    t = a[l*lda + j - 1];
                     if (l != (k - 1)) {
-                        a[l * lda + j - 1] = a[(k - 1) * lda + j - 1];
+                        a[l*lda + j - 1] = a[(k - 1) * lda + j - 1];
                         a[(k - 1) * lda + j - 1] = t;
                     }
-                    saxpy(n - k, t, (a + k * lda + k - 1), lda,
-                          (a + k * lda + j - 1), lda);
+                    saxpy(n - k, t, (a + k*lda + k - 1), lda,
+                          (a + k*lda + j - 1), lda);
                 }
             } else
                 *info = k - 1;
@@ -1674,7 +1674,7 @@ sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
                     b[l] = b[k - 1];
                     b[k - 1] = t;
                 }
-                saxpy(n - k, t, (a + lda * k + k - 1), lda, (b + k), 1);
+                saxpy(n - k, t, (a + lda*k + k - 1), lda, (b + k), 1);
             }
         }
         for (kb = 1; kb <= n; kb++) {
@@ -1693,7 +1693,7 @@ sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
         for (kb = 1; kb <= nm1; kb++) {
             k = n - kb;
             b[k - 1] =
-                b[k - 1] + sdot(n - k, (a + k * lda + k - 1), lda, b + k, 1);
+                b[k - 1] + sdot(n - k, (a + k*lda + k - 1), lda, b + k, 1);
             l = ipvt[k - 1];
             if (l != (k - 1)) {
                 t = b[l];
@@ -1715,11 +1715,11 @@ saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy) {
     ix = 0;
     iy = 0;
     if (incx < 0)
-        ix = -n * incx;
+        ix = -n*incx;
     if (incy < 0)
-        iy = -n * incy;
+        iy = -n*incy;
     for (i = 0; i < n; i++, ix += incx, iy += incy)
-        sy[iy] = sy[iy] + sa * sx[ix];
+        sy[iy] = sy[iy] + sa*sx[ix];
     return;
 }
 
@@ -1764,9 +1764,9 @@ sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy) {
     ix = 0;
     iy = 0;
     if (incx < 0)
-        ix = -n * incx;
+        ix = -n*incx;
     if (incy < 0)
-        iy = -n * incy;
+        iy = -n*incy;
     for (i = 0; i < n; i++, ix += incx, iy += incy)
         stemp += sx[ix] * sx[iy];
     return stemp;
@@ -1777,7 +1777,7 @@ sscal(int32 n, double sa, double *sx, int32 incx) {
     int32 i, nincx;
     if (n <= 0)
         return;
-    nincx = n * incx;
+    nincx = n*incx;
     for (i = 0; i < nincx; i += incx)
         sx[i] *= sa;
 }

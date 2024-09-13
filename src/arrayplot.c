@@ -189,12 +189,12 @@ scale_aplot(APLOT *ap, double *zmax, double *zmin) {
     *zmax = my_browser.data[ib][jb];
     *zmin = *zmax;
     for (i = 0; i < ap->nacross / ap->ncskip; i++) {
-        ib = col0 + i * ap->ncskip;
+        ib = col0 + i*ap->ncskip;
         if (ib <= my_browser.maxcol)
             ;
         {
             for (j = 0; j < ap->ndown; j++) {
-                jb = row0 + ap->nskip * j;
+                jb = row0 + ap->nskip*j;
                 if (jb < nrows && jb >= 0) {
                     z = my_browser.data[ib][jb];
                     if (z < *zmin)
@@ -691,17 +691,17 @@ redraw_aplot(APLOT ap) {
     delx = (int32)dx + 1;
     dely = (int32)dy + 1;
     for (i = 0; i < ap.nacross / ap.ncskip; i++) {
-        ib = col0 + i * ap.ncskip;
-        x = dx * i;
+        ib = col0 + i*ap.ncskip;
+        x = dx*i;
         ix = (int32)x;
 
         if (ib >= my_browser.maxcol)
             return;
         for (j = 0; j < ap.ndown; j++) {
-            jb = row0 + ap.nskip * j;
+            jb = row0 + ap.nskip*j;
 
             if (jb < nrows && jb >= 0) {
-                y = j * dy;
+                y = j*dy;
                 iy = (int32)y;
                 /*	  if(j==0)
                           plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */

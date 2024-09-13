@@ -176,7 +176,7 @@ err_dae(void) {
 void
 init_dae_work(void) {
 
-    dae_work.work = malloc(sizeof(double) * (nsvar * nsvar + 10 * nsvar));
+    dae_work.work = malloc(sizeof(double) * (nsvar*nsvar + 10 * nsvar));
     dae_work.iwork = malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;
     return;
@@ -249,12 +249,12 @@ solve_dae(void) {
             z = fabs(y[i]);
             if (z < eps)
                 z = eps;
-            del = eps * z;
+            del = eps*z;
             yold = y[i];
             y[i] = y[i] + del;
             get_dae_fun(y, fnew);
             for (j = 0; j < n; j++)
-                jac[j * n + i] = (fnew[j] - f[j]) / del;
+                jac[j*n + i] = (fnew[j] - f[j]) / del;
             y[i] = yold;
         }
         sgefa(jac, n, n, dae_work.iwork, &info);

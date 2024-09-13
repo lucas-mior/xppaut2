@@ -129,18 +129,18 @@ make_tics(double tmin, double tmax) {
         tics = 0.5;
     else
         tics = 1.0;
-    tic = tics * dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
+    tic = tics*dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
     return tic;
 }
 
 void
 find_max_min_tic(double *tmin, double *tmax, double tic) {
     double t1 = *tmin;
-    t1 = tic * floor(*tmin / tic);
+    t1 = tic*floor(*tmin / tic);
     if (t1 < *tmin)
         t1 += tic;
     *tmin = t1;
-    t1 = tic * ceil(*tmax / tic);
+    t1 = tic*ceil(*tmax / tic);
     if (t1 > *tmax)
         t1 -= tic;
     *tmax = t1;
@@ -332,8 +332,8 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
     DOING_BOX_AXES = 0;
     line(xright, ytop, xleft, ytop);
     line(xleft, ytop, xleft, ybot);
-    draw_ytics(sy, ytic * floor(y_min / ytic), ytic, ytic * ceil(y_max / ytic));
-    draw_xtics(sx, xtic * floor(x_min / xtic), xtic, xtic * ceil(x_max / xtic));
+    draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
+    draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
     TextJustify = 0;
     set_linestyle(0);
 
@@ -412,7 +412,7 @@ draw_xtics(char *s2, double start, double incr, double end)
         DOING_BOX_AXES = 1;
         line(xt, DTop, xt, DTop - s * VTic);
         DOING_BOX_AXES = 0;
-        put_text(xt, yt - (int32)(1.25 * VChar * s), bob);
+        put_text(xt, yt - (int32)(1.25 * VChar*s), bob);
     }
-    put_text((DLeft + DRight) / 2, yt - (int32)(2.5 * VChar * s), s2);
+    put_text((DLeft + DRight) / 2, yt - (int32)(2.5 * VChar*s), s2);
 }

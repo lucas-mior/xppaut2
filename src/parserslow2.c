@@ -1574,7 +1574,7 @@ bessi(double nn, double x) {
         bip = ans = 0.0;
         bi = 1.0;
         for (j = 2 * (n + (int32)sqrt(ACC * n)); j > 0; j--) {
-            bim = bip + j * tox * bi;
+            bim = bip + j*tox*bi;
             bip = bi;
             bi = bim;
             if (fabs(bi) > BIGNO) {
@@ -1640,7 +1640,7 @@ bessi1(double x) {
         ans = 0.39894228 +
               y * (-0.3988024e-1 +
                    y * (-0.362018e-2 +
-                        y * (0.163801e-2 + y * (-0.1031555e-1 + y * ans))));
+                        y * (0.163801e-2 + y * (-0.1031555e-1 + y*ans))));
         ans *= (exp(ax) / sqrt(ax));
     }
     return x < 0.0 ? -ans : ans;
@@ -1662,7 +1662,7 @@ bessis(double nn, double x) {
         bip = ans = 0.0;
         bi = 1.0;
         for (j = 2 * (n + (int32)sqrt(ACC * n)); j > 0; j--) {
-            bim = bip + j * tox * bi;
+            bim = bip + j*tox*bi;
             bip = bi;
             bi = bim;
             if (fabs(bi) > BIGNO) {
@@ -1730,7 +1730,7 @@ bessis1(double x) {
         ans = 0.39894228 +
               y * (-0.3988024e-1 +
                    y * (-0.362018e-2 +
-                        y * (0.163801e-2 + y * (-0.1031555e-1 + y * ans))));
+                        y * (0.163801e-2 + y * (-0.1031555e-1 + y*ans))));
         ans *= (1. / sqrt(ax));
     }
     return x < 0.0 ? -ans : ans;
@@ -1928,10 +1928,10 @@ normal(double mean, double std) {
         fac = sqrt(-2.0 * log(r) / r);
         BoxMuller = v1 * fac;
         BoxMullerFlag = 1;
-        return v2 * fac * std + mean;
+        return v2 * fac*std + mean;
     } else {
         BoxMullerFlag = 0;
-        return BoxMuller * std + mean;
+        return BoxMuller*std + mean;
     }
 }
 
@@ -1966,7 +1966,7 @@ heaviside(double z) {
 double
 rndom(double z) {
     /* return (z*(double)rand()/32767.00); */
-    return (z * ndrand48());
+    return (z*ndrand48());
 }
 
 double
@@ -2154,7 +2154,7 @@ eval_rpn(int32 *equat) {
                 if (in == 2) {
                     temx = POP;
                     temy = POP;
-                    PUSH(temx * temy);
+                    PUSH(temx*temy);
                     goto bye;
                 }
                 if (in == 1) {

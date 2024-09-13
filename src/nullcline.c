@@ -166,7 +166,7 @@ do_range_clines(void) {
         null_iy = MyGraph->yv[0];
 
         for (i = 0; i <= ncrange.nstep; i++) {
-            z = (double)i * dz + ncrange.xlo;
+            z = (double)i*dz + ncrange.xlo;
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
                 if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL &&
@@ -372,10 +372,10 @@ add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
     while (z->n != NULL) {
         z = (z->n);
     }
-    z->xn = malloc(4 * nmx * sizeof(float));
+    z->xn = malloc(4 * nmx*sizeof(float));
     for (i = 0; i < 4 * nmx; i++)
         z->xn[i] = xn[i];
-    z->yn = malloc(4 * nmy * sizeof(float));
+    z->yn = malloc(4 * nmy*sizeof(float));
     for (i = 0; i < 4 * nmy; i++)
         z->yn[i] = yn[i];
     z->nmx = nmx;
@@ -401,9 +401,9 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
     double amp, dxp, dyp;
     *mdf = 0.0;
     for (i = 0; i <= n; i++) {
-        y[inx] = u0 + du * i;
+        y[inx] = u0 + du*i;
         for (j = 0; j <= n; j++) {
-            y[iny] = v0 + dv * j;
+            y[iny] = v0 + dv*j;
             rhs(0.0, y, ydot, NODE);
             extra(y, 0.0, NODE, NEQ);
             scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
@@ -525,9 +525,9 @@ redraw_dfield(void) {
         fprintf(svgfile, "<g>\n");
     }
     for (i = 0; i <= grid; i++) {
-        y[inx] = u0 + du * i;
+        y[inx] = u0 + du*i;
         for (j = 0; j <= grid; j++) {
-            y[iny] = v0 + dv * j;
+            y[iny] = v0 + dv*j;
             rhs(0.0, y, ydot, NODE);
             extra(y, 0.0, NODE, NEQ);
             if (MyGraph->ColorFlag || DF_FLAG == 2) {
@@ -639,9 +639,9 @@ direct_field_com(int32 c) {
         }
 
         for (i = 0; i <= grid; i++) {
-            y[inx] = u0 + du * i;
+            y[inx] = u0 + du*i;
             for (j = 0; j <= grid; j++) {
-                y[iny] = v0 + dv * j;
+                y[iny] = v0 + dv*j;
                 rhs(0.0, y, ydot, NODE);
                 extra(y, 0.0, NODE, NEQ);
                 if (MyGraph->ColorFlag || DF_FLAG == 2) {
@@ -691,8 +691,8 @@ direct_field_com(int32 c) {
         for (i = 0; i <= grid; i++)
             for (j = 0; j <= grid; j++) {
                 get_ic(2, y);
-                y[inx] = u0 + du * i;
-                y[iny] = v0 + dv * j;
+                y[inx] = u0 + du*i;
+                y[iny] = v0 + dv*j;
                 t = 0.0;
                 start = 1;
                 /*if(integrate(&t,y,TEND,DELTA_T,1,NJMP,&start)==1){
@@ -980,16 +980,16 @@ void
 quad_contour(Pt p1, Pt p2, Pt p3, Pt p4) {
     float x[4], y[4];
     int32 count = 0;
-    if (p1.z * p2.z <= 0.0)
+    if (p1.z*p2.z <= 0.0)
         if (interpolate(p1, p2, 0.0, &x[count], &y[count]))
             count++;
-    if (p2.z * p3.z <= 0.0)
+    if (p2.z*p3.z <= 0.0)
         if (interpolate(p3, p2, 0.0, &x[count], &y[count]))
             count++;
-    if (p3.z * p4.z <= 0.0)
+    if (p3.z*p4.z <= 0.0)
         if (interpolate(p3, p4, 0.0, &x[count], &y[count]))
             count++;
-    if (p1.z * p4.z <= 0.0)
+    if (p1.z*p4.z <= 0.0)
         if (interpolate(p1, p4, 0.0, &x[count], &y[count]))
             count++;
 
@@ -1005,18 +1005,18 @@ void
 triangle_contour(Pt p1, Pt p2, Pt p3) {
     float x[3], y[3];
     int32 count = 0;
-    if (p1.z * p2.z <= 0.0)
+    if (p1.z*p2.z <= 0.0)
         /* if(((0.0<=p1.z)&&(0.0>=p2.z))||
                ((0.0>=p1.z)&&(0.0<=p2.z))) */
         if (interpolate(p1, p2, 0.0, &x[count], &y[count]))
             count++;
-    if (p1.z * p3.z <= 0.0)
+    if (p1.z*p3.z <= 0.0)
         /*  if(((0.0<=p1.z)&&(0.0>=p3.z))||
                 ((0.0>=p1.z)&&(0.0<=p3.z))) */
 
         if (interpolate(p1, p3, 0.0, &x[count], &y[count]))
             count++;
-    if (p2.z * p3.z <= 0.0)
+    if (p2.z*p3.z <= 0.0)
         /* if(((0.0<=p3.z)&&(0.0>=p2.z))||
               ((0.0>=p3.z)&&(0.0<=p2.z))) */
         if (interpolate(p3, p2, 0.0, &x[count], &y[count]))
@@ -1041,16 +1041,16 @@ do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
 
     y = y2;
     for (i = 0; i < nx; i++) {
-        x = x1 + i * dx;
+        x = x1 + i*dx;
         NBot[i] = fnull(x, y);
     }
 
     for (j = 1; j < ny; j++) {
-        y = y2 - j * dy;
+        y = y2 - j*dy;
         NTop[0] = NBot[0];
         NBot[0] = fnull(x1, y);
         for (i = 1; i < nx; i++) {
-            x = x1 + i * dx;
+            x = x1 + i*dx;
             NTop[i] = NBot[i];
             NBot[i] = fnull(x, y);
             p[0].x = x - dx;

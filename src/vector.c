@@ -305,7 +305,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w) {
 
     for (i = 0; i < N; i++) {
         prodi = (*xd++) * (*wd++);
-        sum += prodi * prodi;
+        sum += prodi*prodi;
     }
 
     return (RSqrt(sum / N));

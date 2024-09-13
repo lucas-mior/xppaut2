@@ -125,8 +125,8 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
         return 0;
     ff->nfiles = nf;
     ff->ndirs = nd;
-    ff->dirnames = malloc(nd * sizeof(char *));
-    ff->filenames = malloc(nf * sizeof(char *));
+    ff->dirnames = malloc(nd*sizeof(char *));
+    ff->filenames = malloc(nf*sizeof(char *));
     for (i = 0; i < nd; i++)
         ff->dirnames[i] = malloc(mld + 2);
     for (i = 0; i < nf; i++)
@@ -180,8 +180,8 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
         return 0;
     ff->nfiles = nf;
     ff->ndirs = nd;
-    ff->dirnames = malloc(nd * sizeof(char *));
-    ff->filenames = malloc(nf * sizeof(char *));
+    ff->dirnames = malloc(nd*sizeof(char *));
+    ff->filenames = malloc(nf*sizeof(char *));
     for (i = 0; i < nd; i++)
         ff->dirnames[i] = malloc(mld + 2);
     for (i = 0; i < nf; i++)
@@ -351,7 +351,7 @@ MakeFullPath(char *root, char *filename, char *pathname) {
    Major performance enhancements and bug fixes, and source cleanup,
    by David MacKenzie, djm@ai.mit.edu. */
 
-/* Shell-style pattern matching for ?, \, [], and * characters.
+/* Shell-style pattern matching for ?, \, [], and*characters.
    I'm putting this replacement in the public domain.
 
    Written by Rich $alz, mirror!rs, Wed Nov 26 19:03:17 EST 1986. */

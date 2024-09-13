@@ -253,15 +253,15 @@ format_list(char **s, int32 n) {
     if (ncol > 8)
         ncol = 8;
     k = n / ncol;
-    j = n - ncol * k;
+    j = n - ncol*k;
     snprintf(fmat, sizeof(fmat), "%s%d%s", "%", lmax + 2, "s");
     for (ip = 0; ip < k; ip++) {
         for (i = 0; i < ncol; i++)
-            plintf(fmat, s[ip * ncol + i]);
+            plintf(fmat, s[ip*ncol + i]);
         plintf("\n");
     }
     for (i = 0; i < j; i++)
-        plintf(fmat, s[k * ncol + i]);
+        plintf(fmat, s[k*ncol + i]);
     plintf("\n");
     return;
 }
@@ -1463,8 +1463,8 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         add_markov(nstates, name);
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
-                            markovarrays = malloc(nstates * sizeof(char *));
-                            markovarrays2 = malloc(nstates * sizeof(char *));
+                            markovarrays = malloc(nstates*sizeof(char *));
+                            markovarrays2 = malloc(nstates*sizeof(char *));
 
                             for (istates = 0; istates < nstates; istates++) {
                                 markovarrays[istates] = malloc(MAXEXPLEN);

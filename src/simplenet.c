@@ -225,7 +225,7 @@ net_interp(double x, int32 i) {
     y = &variables[my_net[i].root];
     if (jlo < 0 || jlo > (n - 1))
         return 0.0; /* out of range */
-    return (1 - dx) * y[jlo] + dx * y[jlo + 1];
+    return (1 - dx) * y[jlo] + dx*y[jlo + 1];
 }
 
 int32
@@ -1245,7 +1245,7 @@ evaluate_network(int32 ind) {
         for (j = 0; j < n; j++) {
             sum = 0.0;
             for (i = 0; i < ncon; i++) {
-                ij = j * ncon + i;
+                ij = j*ncon + i;
                 sum += (w[ij] * get_delay(i + in0, tau[ij]));
             }
             values[j] = sum;
@@ -1256,7 +1256,7 @@ evaluate_network(int32 ind) {
         for (j = 0; j < n; j++) {
             sum = 0.0;
             for (i = 0; i < ncon; i++) {
-                ij = j * ncon + i;
+                ij = j*ncon + i;
                 sum += (w[ij] * y[i]);
             }
             values[j] = sum;
@@ -1268,7 +1268,7 @@ evaluate_network(int32 ind) {
         for (i = 0; i < n; i++) {
             sum = 0.0;
             for (j = 0; j < ncon; j++) {
-                ij = i * ncon + j;
+                ij = i*ncon + j;
                 k = (int32)cc[ij];
                 if (k >= 0)
                     sum += (w[ij] * get_delay(k + in0, tau[ij]));
@@ -1281,7 +1281,7 @@ evaluate_network(int32 ind) {
         for (i = 0; i < n; i++) {
             sum = 0.0;
             for (j = 0; j < ncon; j++) {
-                ij = i * ncon + j;
+                ij = i*ncon + j;
                 k = (int32)cc[ij];
                 if (k >= 0)
                     sum += (w[ij] * y[k]);
@@ -1351,7 +1351,7 @@ evaluate_network(int32 ind) {
             f[1] = root + i;
             sum = 0.0;
             for (j = 0; j < ncon; j++) {
-                ij = i * ncon + j;
+                ij = i*ncon + j;
                 k = (int32)cc[ij];
                 if (k >= 0) {
                     f[0] = root2 + k;
@@ -1371,7 +1371,7 @@ evaluate_network(int32 ind) {
 
             sum = 0.0;
             for (i = 0; i < ncon; i++) {
-                ij = j * ncon + i;
+                ij = j*ncon + i;
 
                 f[0] = root2 + i;
 

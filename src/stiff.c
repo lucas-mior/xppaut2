@@ -71,7 +71,7 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
         y[i] = ytemp + r;
         rhs(x, y, ynew, n);
         for (j = 0; j < n; j++) {
-            dermat[j * n + i] = (ynew[j] - yval[j]) / r;
+            dermat[j*n + i] = (ynew[j] - yval[j]) / r;
             /* plintf(" %g ",dermat[j*n+i]); */
         }
         y[i] = ytemp;
@@ -161,9 +161,9 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
     double *g1, *g2, *g3, *g4, *ysav, *work2;
     *ier = 0;
     a = work;
-    dfdx = work + n * n;
+    dfdx = work + n*n;
     dfdy = dfdx + n;
-    dysav = dfdy + n * n;
+    dysav = dfdy + n*n;
     err = dysav + n;
     g1 = err + n;
     g2 = g1 + n;
@@ -182,8 +182,8 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
     for (jtry = 1; jtry <= MAXTRY; jtry++) {
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++)
-                a[i + n * j] = -dfdy[i + n * j];
-            a[i + n * i] += 1.0 / (GAM * h);
+                a[i + n*j] = -dfdy[i + n*j];
+            a[i + n*i] += 1.0 / (GAM * h);
         }
         sgefa(a, n, n, indx, &info);
         if (info != -1) {
@@ -232,11 +232,11 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         if (errmax <= 1.0) {
             *hdid = h;
             *hnext =
-                (errmax > ERRCON ? SAFETY * h * pow(errmax, PGROW) : GROW * h);
+                (errmax > ERRCON ? SAFETY * h*pow(errmax, PGROW) : GROW * h);
 
             return 0;
         } else {
-            *hnext = SAFETY * h * pow(errmax, PSHRNK);
+            *hnext = SAFETY * h*pow(errmax, PSHRNK);
             h = (h >= 0.0 ? MAX(*hnext, SHRNK * h) : MIN(*hnext, SHRNK * h));
         }
     }
@@ -263,7 +263,7 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
             errmax = MAX(errmax, fabs(yerr[i] / yscal[i]));
         errmax /= eps;
         if (errmax > 1.0) {
-            htemp = SAFETY * h * pow(errmax, PSHRNK2);
+            htemp = SAFETY * h*pow(errmax, PSHRNK2);
             h = (h >= 0.0 ? MAX(htemp, 0.1 * h) : MIN(htemp, 0.1 * h));
             xnew = (*x) + h;
             if (xnew == *x) {
@@ -274,7 +274,7 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
             continue;
         } else {
             if (errmax > ERRCON2)
-                *hnext = SAFETY * h * pow(errmax, PGROW2);
+                *hnext = SAFETY * h*pow(errmax, PGROW2);
             else
                 *hnext = 5.0 * h;
             *x += (*hdid = h);
@@ -309,7 +309,7 @@ rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
     ak6 = ak5 + n;
     ytemp = ak6 + n;
     for (i = 0; i < n; i++)
-        ytemp[i] = y[i] + b21 * h * dydx[i];
+        ytemp[i] = y[i] + b21 * h*dydx[i];
     rhs(x + a2 * h, ytemp, ak2, n);
     for (i = 0; i < n; i++)
         ytemp[i] = y[i] + h * (b31 * dydx[i] + b32 * ak2[i]);

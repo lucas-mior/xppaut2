@@ -624,7 +624,7 @@ redraw_ani_slider(void) {
     int32 mr = my_browser.maxrow;
     if (mr < 2)
         return;
-    xx = (k * l) / mr;
+    xx = (k*l) / mr;
     draw_ani_slider(vcr.slider, xx);
     return;
 }
@@ -971,7 +971,7 @@ ani_flip(void) {
 void
 ani_disk_warn(void) {
     uint32 total =
-        (my_browser.maxrow * vcr.wid * vcr.hgt * 3) / (mpeg.skip * vcr.inc);
+        (my_browser.maxrow*vcr.wid*vcr.hgt * 3) / (mpeg.skip*vcr.inc);
     char junk[256];
     char ans;
     total = total / (1024 * 1024);
@@ -1113,7 +1113,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width,
              ximage->height);
     write(fd, head, strlen(head));
-    area = ximage->width * ximage->height;
+    area = ximage->width*ximage->height;
     pixel = (unsigned char *)ximage->data;
     out = malloc(3 * area);
     dst = out;
@@ -1804,9 +1804,9 @@ add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
     if (err)
         return -1;
     a->c.n = n;
-    a->c.x = malloc(n * sizeof(int32));
-    a->c.y = malloc(n * sizeof(int32));
-    a->c.col = malloc(n * sizeof(int32));
+    a->c.x = malloc(n*sizeof(int32));
+    a->c.y = malloc(n*sizeof(int32));
+    a->c.col = malloc(n*sizeof(int32));
     a->c.i = 0;
     return 1;
 }
@@ -2187,7 +2187,7 @@ set_ani_col(int32 j) {
     if (c <= 0)
         icol = -c;
     else
-        icol = (int32)(color_total * my_ani[j].zcol) + FIRSTCOLOR;
+        icol = (int32)(color_total*my_ani[j].zcol) + FIRSTCOLOR;
     /* plintf(" t=%d j=%d col=%d \n",vcr.pos,j,icol); */
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
@@ -2213,7 +2213,7 @@ void
 ani_rad2scale(double rx, double ry, int32 *ix, int32 *iy) {
     double dx = (double)vcr.wid / (ani_xhi - ani_xlo),
            dy = (double)vcr.hgt / (ani_yhi - ani_ylo);
-    double r1 = rx * dx, r2 = ry * dy;
+    double r1 = rx*dx, r2 = ry*dy;
     *ix = (int32)r1;
     *iy = (int32)r2;
     return;
@@ -2223,7 +2223,7 @@ void
 ani_radscale(double rad, int32 *ix, int32 *iy) {
     double dx = (double)vcr.wid / (ani_xhi - ani_xlo),
            dy = (double)vcr.hgt / (ani_yhi - ani_ylo);
-    double r1 = rad * dx, r2 = rad * dy;
+    double r1 = rad*dx, r2 = rad*dy;
     *ix = (int32)r1;
     *iy = (int32)r2;
     return;
@@ -2233,7 +2233,7 @@ void
 ani_ij_to_xy(int32 ix, int32 iy, double *x, double *y) {
     double dx = (ani_xhi - ani_xlo) / (double)vcr.wid;
     double dy = (ani_yhi - ani_ylo) / (double)vcr.hgt;
-    *x = ani_xlo + (double)ix * dx;
+    *x = ani_xlo + (double)ix*dx;
     *y = ani_ylo + (double)(vcr.hgt - iy) * dy;
     return;
 }

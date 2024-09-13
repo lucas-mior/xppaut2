@@ -512,8 +512,8 @@ void
 scale_dxdy(double x, double y, double *i, double *j) {
     float dx = (DRight - DLeft) / (XMax - XMin);
     float dy = (DTop - DBottom) / (YMax - YMin);
-    *i = x * dx;
-    *j = y * dy;
+    *i = x*dx;
+    *j = y*dy;
     return;
 }
 
@@ -804,11 +804,11 @@ make_rot(double theta, double phi) {
     MyGraph->rm[0][0] = ct;
     MyGraph->rm[0][1] = st;
     MyGraph->rm[0][2] = 0.0;
-    MyGraph->rm[1][0] = -cp * st;
-    MyGraph->rm[1][1] = cp * ct;
+    MyGraph->rm[1][0] = -cp*st;
+    MyGraph->rm[1][1] = cp*ct;
     MyGraph->rm[1][2] = sp;
-    MyGraph->rm[2][0] = st * sp;
-    MyGraph->rm[2][1] = -sp * ct;
+    MyGraph->rm[2][0] = st*sp;
+    MyGraph->rm[2][1] = -sp*ct;
     MyGraph->rm[2][2] = cp;
     return;
 }
@@ -831,11 +831,11 @@ proj3d(double theta, double phi, double x, double y, double z, int32 in) {
     rm[0][0] = ct;
     rm[0][1] = st;
     rm[0][2] = 0.0;
-    rm[1][0] = -cp * st;
-    rm[1][1] = cp * ct;
+    rm[1][0] = -cp*st;
+    rm[1][1] = cp*ct;
     rm[1][2] = sp;
-    rm[2][0] = st * sp;
-    rm[2][1] = -sp * ct;
+    rm[2][0] = st*sp;
+    rm[2][1] = -sp*ct;
     rm[2][2] = cp;
     vt[0] = x;
     vt[1] = y;
@@ -865,8 +865,8 @@ threedproj(double x2p, double y2p, double z2p, float *xp, float *yp) {
         return 0;
     s = (float)(MyGraph->ZView - MyGraph->ZPlane) /
         ((float)(MyGraph->ZView) - z1p);
-    x1p = s * x1p;
-    y1p = s * y1p;
+    x1p = s*x1p;
+    y1p = s*y1p;
     *xp = x1p;
     *yp = y1p;
     return 1;
@@ -905,8 +905,8 @@ threed_proj(double x, double y, double z, float *xp, float *yp) {
         return 0;
     s = (float)(MyGraph->ZView - MyGraph->ZPlane) /
         ((float)(MyGraph->ZView) - z1p);
-    x1p = s * x1p;
-    y1p = s * y1p;
+    x1p = s*x1p;
+    y1p = s*y1p;
     *xp = x1p;
     *yp = y1p;
     return 1;
@@ -1010,11 +1010,11 @@ pers_line(double x, double y, double z, double xp, double yp, double zp)
         x = xp + s * (x - xp);
     }
     s = d / (Zv - zp);
-    xp = xp * s;
-    yp = yp * s;
+    xp = xp*s;
+    yp = yp*s;
     s = d / (Zv - z);
-    x = s * x;
-    y = s * y;
+    x = s*x;
+    y = s*y;
     line_abs(x, y, xp, yp);
     return;
 }
@@ -1354,7 +1354,7 @@ clip(double x1, double x2, double y1, double y2, float *x1_out, float *y1_out,
  *  Clipping algorithm                                         *
  *   on input,                                                 *
  *           (x1,y1) and (x2,y2) are endpoints for line        *
- *           (x_left,y_bottom) and (x_right,y_top) is window * output: * value
+ *           (x_left,y_bottom) and (x_right,y_top) is window*output: * value
  *is 1 for drawing, 0 for no drawing          * (x1_out,y1_out),(x2_out,y2_out)
  *are endpoints     * of clipped line                                  *
  ***************************************************************/

@@ -55,11 +55,11 @@ ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
     delx = .8 * dx / (float)ndown;
     dely = .8 * dy / (float)(nacross / ncskip);
     for (i = 0; i < nacross / ncskip; i++) {
-        ib = col0 + i * ncskip;
+        ib = col0 + i*ncskip;
         if (ib > maxcol)
             return;
         for (j = 0; j < ndown; j++) {
-            jb = row0 + j * nskip;
+            jb = row0 + j*nskip;
             if (jb < maxrow && jb >= 0) {
                 fill = (z[ib][jb] - zmin) / (zmax - zmin);
                 if (fill < 0.0)
@@ -67,8 +67,8 @@ ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
                 if (fill > 1.0)
                     fill = 1.0;
                 fill = 1 - fill;
-                x = xhi - delx - j * delx;
-                y = yhi - dely - i * dely;
+                x = xhi - delx - j*delx;
+                y = yhi - dely - i*dely;
                 if (type == GREYSCALE)
                     ps_bar(x, y, delx, dely, fill, 0);
                 else
@@ -143,16 +143,16 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
 
     for (i = 0; i < n; i++) {
         if (type == GREYSCALE)
-            ps_bar(x0, y0 - (i + 1) * dy, dx, dy, 1 - (float)i * dz, 0);
+            ps_bar(x0, y0 - (i + 1) * dy, dx, dy, 1 - (float)i*dz, 0);
         else
-            ps_rgb_bar(x0, y0 - (i + 1) * dy, dx, dy, 1. - (float)i * dz, 0,
+            ps_rgb_bar(x0, y0 - (i + 1) * dy, dx, dy, 1. - (float)i*dz, 0,
                        type);
     }
     fprintf(my_plot_file, "0 G\n");
     sprintf(s, "%g", zlo);
     ps_text2(s, x0 + .5 * dx, y0 + .01 * dx, 2);
     sprintf(s, "%g", zhi);
-    ps_text2(s, x0 + .5 * dx, y0 - n * dy - dy / 2, 0);
+    ps_text2(s, x0 + .5 * dx, y0 - n*dy - dy / 2, 0);
     return;
 }
 
@@ -219,8 +219,8 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
     double slant = .0174532 * ps_scale.slant;
     float x, y;
     float sizex = ps_scale.tx, sizey = ps_scale.ty, rot = ps_scale.angle;
-    double a = sizex * cos(slant), b = sizey * sin(slant),
-           c = -sizex * sin(slant), d = sizey * cos(slant);
+    double a = sizex*cos(slant), b = sizey*sin(slant),
+           c = -sizex*sin(slant), d = sizey*cos(slant);
     ps_convert(xr, yr, &x, &y);
     fprintf(my_plot_file, "%d %d m\n", (int32)x, (int32)y);
     fprintf(my_plot_file, "gsave \n %f rotate \n", rot);
@@ -313,14 +313,14 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
     switch (rgb) {
     case 0:
         fill = 1. - fill;
-        b = (float)sqrt((double)(1.0 - fill * fill));
+        b = (float)sqrt((double)(1.0 - fill*fill));
         r = (float)sqrt((double)(fill * (2.0 - fill)));
         break;
     case 1:
         if (fill > .4999)
             r = 0.0;
         else
-            r = (float)sqrt((float)(1. - 4 * fill * fill));
+            r = (float)sqrt((float)(1. - 4 * fill*fill));
         g = (float)2 * sqrt((double)fill * (1. - fill));
 
         if (fill < .5001)

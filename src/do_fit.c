@@ -112,7 +112,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         yfit[i] = y[iv];
     }
     for (k = 1; k < npts; k++) {
-        k0 = k * nvars;
+        k0 = k*nvars;
         ok = one_step_int(y, t0[k - 1], t0[k], &istart);
         if (ok == 0) {
             for (i = 0; i < NODE; i++)
@@ -161,7 +161,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         evaluate_derived();
         /* now loop through all the points */
         for (k = 1; k < npts; k++) {
-            k0 = k * nvars;
+            k0 = k*nvars;
             ok = one_step_int(y, t0[k - 1], t0[k], &istart);
             if (ok == 0) {
                 for (i = 0; i < NODE; i++)
@@ -198,7 +198,7 @@ printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
     int32 ioff;
     for (i = 0; i < npts; i++) {
         plintf(" %8.5g ", t0[i]);
-        ioff = nvars * i;
+        ioff = nvars*i;
         for (j = 0; j < nvars; j++) {
             plintf(" %g ", yfit[ioff + j]);
             for (k = 0; k < npars; k++)
@@ -392,7 +392,7 @@ test_fit(void) {
             return;
         }
     }
-    yfit = malloc(fin.npts * fin.nvars * sizeof(double));
+    yfit = malloc(fin.npts*fin.nvars*sizeof(double));
     for (i = 0; i < NODE; i++)
         y0[i] = last_ic[i];
     for (i = 0; i < fin.npars; i++) {
@@ -457,7 +457,7 @@ run_fit(/* double arrays */
         return 0;
     }
     t0 = malloc((npts + 1) * sizeof(double));
-    y = malloc((npts + 1) * nvars * sizeof(double));
+    y = malloc((npts + 1) * nvars*sizeof(double));
     /* load up the data to fit   */
 
     for (i = 0; i < npts; i++) {
@@ -467,23 +467,23 @@ run_fit(/* double arrays */
             fscanf(fp, "%lg ", &ytemp[j]);
         t0[i] = t;
 
-        ioff = nvars * i;
+        ioff = nvars*i;
         for (k = 0; k < nvars; k++) {
             y[ioff + k] = ytemp[icols[k] - 2];
         }
     }
     plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
-           y[npts * nvars - 2], y[npts * nvars - 1]);
+           y[npts*nvars - 2], y[npts*nvars - 1]);
 
-    work = malloc(sizeof(double) * (4 * npars + npars * npars));
-    yderv = malloc(npars * sizeof(double *));
+    work = malloc(sizeof(double) * (4 * npars + npars*npars));
+    yderv = malloc(npars*sizeof(double *));
     for (i = 0; i < npars; i++)
-        yderv[i] = malloc((npts + 1) * nvars * sizeof(double));
+        yderv[i] = malloc((npts + 1) * nvars*sizeof(double));
     for (i = 0; i < nvars; i++)
         sig[i] = 1.0;
 
-    covar = malloc(npars * npars * sizeof(double));
-    alpha = malloc(npars * npars * sizeof(double));
+    covar = malloc(npars*npars*sizeof(double));
+    alpha = malloc(npars*npars*sizeof(double));
 
     while (good_flag < 3) { /* take 3 good steps after convergence  */
 
@@ -548,7 +548,7 @@ run_fit(/* double arrays */
     plintf(" covariance: \n");
     for (i = 0; i < npars; i++) {
         for (j = 0; j < npars; j++)
-            plintf(" %g ", covar[i + npars * j]);
+            plintf(" %g ", covar[i + npars*j]);
         plintf("\n");
     }
 
@@ -614,8 +614,8 @@ sigma  weights on nvars
     }
     for (j = 0; j < npars; j++) {
         for (k = 0; k < npars; k++)
-            covar[j + k * npars] = alpha[j + k * npars];
-        covar[j + j * npars] = alpha[j + j * npars] * (1 + (*alambda));
+            covar[j + k*npars] = alpha[j + k*npars];
+        covar[j + j*npars] = alpha[j + j*npars] * (1 + (*alambda));
         oneda[j] = beta[j];
     }
     sgefa(covar, npars, npars, ipivot, &ierr);
@@ -630,7 +630,7 @@ sigma  weights on nvars
         /* plintf(" da[%d]=%g \n",j,da[j]); */
     }
     if (ictrl == 2) { /* all done invert alpha to get the covariance */
-        for (j = 0; j < (npars * npars); j++)
+        for (j = 0; j < (npars*npars); j++)
             alpha[j] = covar[j];
         for (j = 0; j < npars; j++) {
             for (k = 0; k < npars; k++)
@@ -638,7 +638,7 @@ sigma  weights on nvars
             oneda[j] = 1.0;
             sgesl(alpha, npars, npars, ipivot, oneda, 0);
             for (k = 0; k < npars; k++)
-                covar[j + k * npars] = oneda[k];
+                covar[j + k*npars] = oneda[k];
         }
         return 1;
     }
@@ -656,7 +656,7 @@ sigma  weights on nvars
         *alambda *= 0.1;
         for (j = 0; j < npars; j++) {
             for (k = 0; k < npars; k++)
-                alpha[j + k * npars] = covar[j + k * npars];
+                alpha[j + k*npars] = covar[j + k*npars];
             beta[j] = da[j];
             a[j] = atry[j];
         }
@@ -683,23 +683,23 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
     for (i = 0; i < npars; i++) {
         beta[i] = 0.0;
         for (j = 0; j < npars; j++) {
-            alpha[i + j * npars] = 0.0;
+            alpha[i + j*npars] = 0.0;
         }
     }
     *chisq = 0.0;
     for (i = 0; i < nvars; i++) {
         sig2i = 1.0 / (sig[i] * sig[i]);
         for (k = 0; k < npts; k++) {
-            k0 = k * nvars + i;
+            k0 = k*nvars + i;
             dy = y[k0] - yfit[k0];
             /*           plintf(" i=%d k=%d dy = %f \n",i,k,dy); */
             for (j = 0; j < npars; j++) {
                 wt = yderv[j][k0] * sig2i;
                 for (l = 0; l < npars; l++)
-                    alpha[j + l * npars] += wt * yderv[l][k0];
-                beta[j] += dy * wt;
+                    alpha[j + l*npars] += wt*yderv[l][k0];
+                beta[j] += dy*wt;
             }
-            (*chisq) += dy * dy * sig2i;
+            (*chisq) += dy*dy*sig2i;
 
             /* the last loop could be halved because of symmetry, but I am lazy
                and this is an insignificiant amount of the CPU time since

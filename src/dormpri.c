@@ -149,19 +149,19 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
     if (!itoler)
         for (i = 0; i < n; i++) {
-            sk = atoli + rtoli * fabs(y[i]);
+            sk = atoli + rtoli*fabs(y[i]);
             sqr = f0[i] / sk;
-            dnf += sqr * sqr;
+            dnf += sqr*sqr;
             sqr = y[i] / sk;
-            dny += sqr * sqr;
+            dny += sqr*sqr;
         }
     else
         for (i = 0; i < n; i++) {
             sk = atoler[i] + rtoler[i] * fabs(y[i]);
             sqr = f0[i] / sk;
-            dnf += sqr * sqr;
+            dnf += sqr*sqr;
             sqr = y[i] / sk;
-            dny += sqr * sqr;
+            dny += sqr*sqr;
         }
 
     if ((dnf <= 1.0E-10) || (dny <= 1.0E-10))
@@ -174,26 +174,26 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
     /* perform an explicit Euler step */
     for (i = 0; i < n; i++)
-        yy1[i] = y[i] + h * f0[i];
+        yy1[i] = y[i] + h*f0[i];
     fcn(n, x + h, yy1, f1);
 
     /* estimate the second derivative of the solution */
     der2 = 0.0;
     if (!itoler)
         for (i = 0; i < n; i++) {
-            sk = atoli + rtoli * fabs(y[i]);
+            sk = atoli + rtoli*fabs(y[i]);
             sqr = (f1[i] - f0[i]) / sk;
-            der2 += sqr * sqr;
+            der2 += sqr*sqr;
         }
     else
         for (i = 0; i < n; i++) {
             sk = atoler[i] + rtoler[i] * fabs(y[i]);
             sqr = (f1[i] - f0[i]) / sk;
-            der2 += sqr * sqr;
+            der2 += sqr*sqr;
         }
     der2 = sqrt(der2) / h;
 
-    /* step size is computed such that h**iord * max_d(norm(f0),norm(der2)) =
+    /* step size is computed such that h**iord*max_d(norm(f0),norm(der2)) =
      * 0.01
      */
     der12 = max_d(fabs(der2), sqrt(dnf));
@@ -477,7 +477,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
         /* the twelve stages */
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * a21 * k1[i];
+            yy1[i] = y[i] + h*a21 * k1[i];
         fcn(n, x + c2 * h, yy1, k2);
         for (i = 0; i < n; i++)
             yy1[i] = y[i] + h * (a31 * k1[i] + a32 * k2[i]);
@@ -523,7 +523,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         for (i = 0; i < n; i++) {
             k4[i] = b1 * k1[i] + b6 * k6[i] + b7 * k7[i] + b8 * k8[i] +
                     b9 * k9[i] + b10 * k10[i] + b11 * k2[i] + b12 * k3[i];
-            k5[i] = y[i] + h * k4[i];
+            k5[i] = y[i] + h*k4[i];
         }
 
         /* error estimation */
@@ -531,32 +531,32 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         err2 = 0.0;
         if (!itoler)
             for (i = 0; i < n; i++) {
-                sk = atoli + rtoli * max_d(fabs(y[i]), fabs(k5[i]));
+                sk = atoli + rtoli*max_d(fabs(y[i]), fabs(k5[i]));
                 erri = k4[i] - bhh1 * k1[i] - bhh2 * k9[i] - bhh3 * k3[i];
                 sqr = erri / sk;
-                err2 += sqr * sqr;
+                err2 += sqr*sqr;
                 erri = er1 * k1[i] + er6 * k6[i] + er7 * k7[i] + er8 * k8[i] +
                        er9 * k9[i] + er10 * k10[i] + er11 * k2[i] +
                        er12 * k3[i];
                 sqr = erri / sk;
-                err += sqr * sqr;
+                err += sqr*sqr;
             }
         else
             for (i = 0; i < n; i++) {
                 sk = atoler[i] + rtoler[i] * max_d(fabs(y[i]), fabs(k5[i]));
                 erri = k4[i] - bhh1 * k1[i] - bhh2 * k9[i] - bhh3 * k3[i];
                 sqr = erri / sk;
-                err2 += sqr * sqr;
+                err2 += sqr*sqr;
                 erri = er1 * k1[i] + er6 * k6[i] + er7 * k7[i] + er8 * k8[i] +
                        er9 * k9[i] + er10 * k10[i] + er11 * k2[i] +
                        er12 * k3[i];
                 sqr = erri / sk;
-                err += sqr * sqr;
+                err += sqr*sqr;
             }
         deno = err + 0.01 * err2;
         if (deno <= 0.0)
             deno = 1.0;
-        err = fabs(h) * err * sqrt(1.0 / (deno * (double)n));
+        err = fabs(h) * err*sqrt(1.0 / (deno * (double)n));
 
         /* computation of hnew */
         fac11 = pow(err, expo1);
@@ -580,12 +580,12 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                 stden = 0.0;
                 for (i = 0; i < n; i++) {
                     sqr = k4[i] - k3[i];
-                    stnum += sqr * sqr;
+                    stnum += sqr*sqr;
                     sqr = k5[i] - yy1[i];
-                    stden += sqr * sqr;
+                    stden += sqr*sqr;
                 }
                 if (stden > 0.0)
-                    hlamb = h * sqrt(stnum / stden);
+                    hlamb = h*sqrt(stnum / stden);
                 if (hlamb > 6.1) {
                     nonsti = 0;
                     iasti++;
@@ -616,9 +616,9 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                         rcont1[i] = y[i];
                         ydiff = k5[i] - y[i];
                         rcont2[i] = ydiff;
-                        bspl = h * k1[i] - ydiff;
+                        bspl = h*k1[i] - ydiff;
                         rcont3[i] = bspl;
-                        rcont4[i] = ydiff - h * k4[i] - bspl;
+                        rcont4[i] = ydiff - h*k4[i] - bspl;
                         rcont5[i] = d41 * k1[i] + d46 * k6[i] + d47 * k7[i] +
                                     d48 * k8[i] + d49 * k9[i] + d410 * k10[i] +
                                     d411 * k2[i] + d412 * k3[i];
@@ -638,9 +638,9 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                         rcont1[j] = y[i];
                         ydiff = k5[i] - y[i];
                         rcont2[j] = ydiff;
-                        bspl = h * k1[i] - ydiff;
+                        bspl = h*k1[i] - ydiff;
                         rcont3[j] = bspl;
-                        rcont4[j] = ydiff - h * k4[i] - bspl;
+                        rcont4[j] = ydiff - h*k4[i] - bspl;
                         rcont5[j] = d41 * k1[i] + d46 * k6[i] + d47 * k7[i] +
                                     d48 * k8[i] + d49 * k9[i] + d410 * k10[i] +
                                     d411 * k2[i] + d412 * k3[i];
@@ -710,8 +710,8 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                     }
             }
 
-            memcpy(k1, k4, n * sizeof(double));
-            memcpy(y, k5, n * sizeof(double));
+            memcpy(k1, k4, n*sizeof(double));
+            memcpy(y, k5, n*sizeof(double));
             xold = x;
             x = xph;
 
@@ -734,9 +734,9 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
             }
 
             if (fabs(hnew) > hmax)
-                hnew = posneg * hmax;
+                hnew = posneg*hmax;
             if (reject)
-                hnew = posneg * min_d(fabs(hnew), fabs(h));
+                hnew = posneg*min_d(fabs(hnew), fabs(h));
 
             reject = 0;
         } else {
@@ -825,7 +825,7 @@ dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         rcont7 = rcont6 + nrdens;
         rcont8 = rcont7 + nrdens;
         if (nrdens < n)
-            indir = malloc(n * sizeof(unsigned));
+            indir = malloc(n*sizeof(unsigned));
 
         /* control of length of icont */
         if (nrdens == n) {
@@ -941,7 +941,7 @@ contd8(unsigned ii, double x) {
                       s * (rcont4[i] +
                            s1 * (rcont5[i] +
                                  s * (rcont6[i] +
-                                      s1 * (rcont7[i] + s * rcont8[i]))))));
+                                      s1 * (rcont7[i] + s*rcont8[i]))))));
 
 } /* contd8 */
 
@@ -960,19 +960,19 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
 
     if (!itoler)
         for (i = 0; i < n; i++) {
-            sk = atoli + rtoli * fabs(y[i]);
+            sk = atoli + rtoli*fabs(y[i]);
             sqr = f0[i] / sk;
-            dnf += sqr * sqr;
+            dnf += sqr*sqr;
             sqr = y[i] / sk;
-            dny += sqr * sqr;
+            dny += sqr*sqr;
         }
     else
         for (i = 0; i < n; i++) {
             sk = atoler[i] + rtoler[i] * fabs(y[i]);
             sqr = f0[i] / sk;
-            dnf += sqr * sqr;
+            dnf += sqr*sqr;
             sqr = y[i] / sk;
-            dny += sqr * sqr;
+            dny += sqr*sqr;
         }
 
     if ((dnf <= 1.0E-10) || (dny <= 1.0E-10))
@@ -985,26 +985,26 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
 
     /* perform an explicit Euler step */
     for (i = 0; i < n; i++)
-        yy1[i] = y[i] + h * f0[i];
+        yy1[i] = y[i] + h*f0[i];
     fcn(n, x + h, yy1, f1);
 
     /* estimate the second derivative of the solution */
     der2 = 0.0;
     if (!itoler)
         for (i = 0; i < n; i++) {
-            sk = atoli + rtoli * fabs(y[i]);
+            sk = atoli + rtoli*fabs(y[i]);
             sqr = (f1[i] - f0[i]) / sk;
-            der2 += sqr * sqr;
+            der2 += sqr*sqr;
         }
     else
         for (i = 0; i < n; i++) {
             sk = atoler[i] + rtoler[i] * fabs(y[i]);
             sqr = (f1[i] - f0[i]) / sk;
-            der2 += sqr * sqr;
+            der2 += sqr*sqr;
         }
     der2 = sqrt(der2) / h;
 
-    /* step size is computed such that h**iord * max_d(norm(f0),norm(der2)) =
+    /* step size is computed such that h**iord*max_d(norm(f0),norm(der2)) =
      * 0.01
      */
     der12 = max_d(fabs(der2), sqrt(dnf));
@@ -1124,7 +1124,7 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 
         /* the first 6 stages */
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * a21 * k1[i];
+            yy1[i] = y[i] + h*a21 * k1[i];
         fcn(n, x + c2 * h, yy1, k2);
         for (i = 0; i < n; i++)
             yy1[i] = y[i] + h * (a31 * k1[i] + a32 * k2[i]);
@@ -1168,15 +1168,15 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         err = 0.0;
         if (!itoler)
             for (i = 0; i < n; i++) {
-                sk = atoli + rtoli * max_d(fabs(y[i]), fabs(yy1[i]));
+                sk = atoli + rtoli*max_d(fabs(y[i]), fabs(yy1[i]));
                 sqr = k4[i] / sk;
-                err += sqr * sqr;
+                err += sqr*sqr;
             }
         else
             for (i = 0; i < n; i++) {
                 sk = atoler[i] + rtoler[i] * max_d(fabs(y[i]), fabs(yy1[i]));
                 sqr = k4[i] / sk;
-                err += sqr * sqr;
+                err += sqr*sqr;
             }
         err = sqrt(err / (double)n);
 
@@ -1200,12 +1200,12 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
                 stden = 0.0;
                 for (i = 0; i < n; i++) {
                     sqr = k2[i] - k6[i];
-                    stnum += sqr * sqr;
+                    stnum += sqr*sqr;
                     sqr = yy1[i] - ysti[i];
-                    stden += sqr * sqr;
+                    stden += sqr*sqr;
                 }
                 if (stden > 0.0)
-                    hlamb = h * sqrt(stnum / stden);
+                    hlamb = h*sqrt(stnum / stden);
                 if (hlamb > 3.25) {
                     nonsti = 0;
                     iasti++;
@@ -1233,27 +1233,27 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
                     for (i = 0; i < n; i++) {
                         yd0 = y[i];
                         ydiff = yy1[i] - yd0;
-                        bspl = h * k1[i] - ydiff;
+                        bspl = h*k1[i] - ydiff;
                         rcont1[i] = y[i];
                         rcont2[i] = ydiff;
                         rcont3[i] = bspl;
-                        rcont4[i] = -h * k2[i] + ydiff - bspl;
+                        rcont4[i] = -h*k2[i] + ydiff - bspl;
                     }
                 } else {
                     for (j = 0; j < nrds; j++) {
                         i = icont[j];
                         yd0 = y[i];
                         ydiff = yy1[i] - yd0;
-                        bspl = h * k1[i] - ydiff;
+                        bspl = h*k1[i] - ydiff;
                         rcont1[j] = y[i];
                         rcont2[j] = ydiff;
                         rcont3[j] = bspl;
-                        rcont4[j] = -h * k2[i] + ydiff - bspl;
+                        rcont4[j] = -h*k2[i] + ydiff - bspl;
                     }
                 }
             }
-            memcpy(k1, k2, n * sizeof(double));
-            memcpy(y, yy1, n * sizeof(double));
+            memcpy(k1, k2, n*sizeof(double));
+            memcpy(y, yy1, n*sizeof(double));
             xold = x;
             x = xph;
 
@@ -1276,9 +1276,9 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
             }
 
             if (fabs(hnew) > hmax)
-                hnew = posneg * hmax;
+                hnew = posneg*hmax;
             if (reject)
-                hnew = posneg * min_d(fabs(hnew), fabs(h));
+                hnew = posneg*min_d(fabs(hnew), fabs(h));
 
             reject = 0;
         } else {
@@ -1362,7 +1362,7 @@ dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         rcont4 = rcont3 + nrdens;
         rcont5 = rcont4 + nrdens;
         if (nrdens < n)
-            indir = malloc(n * sizeof(unsigned));
+            indir = malloc(n*sizeof(unsigned));
 
         /* control of length of icont */
         if (nrdens == n) {

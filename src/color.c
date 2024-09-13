@@ -174,9 +174,9 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     case C_CUBHLX:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            angle = 2 * pii * (start / 3.0 + 1 + rots * x);
+            angle = 2 * pii * (start / 3.0 + 1 + rots*x);
             x = pow(x, gamma);
-            amp = hue * x * (1 - x) / 2.0;
+            amp = hue*x * (1 - x) / 2.0;
             rr = x + amp * (-.14861 * cos(angle) + 1.78277 * sin(angle));
             gg = x + amp * (-.29227 * cos(angle) - .90649 * sin(angle));
             bb = x + amp * (1.97294 * cos(angle));
@@ -225,7 +225,7 @@ read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
     m = i;
     printf(" read %d entries \n", m);
     for (i = 0; i < n; i++) {
-        j = i * m / n;
+        j = i*m / n;
         rr[i] = 256 * 255 * r[j];
         bb[i] = 256 * 255 * b[j];
         gg[i] = 256 * 255 * g[j];

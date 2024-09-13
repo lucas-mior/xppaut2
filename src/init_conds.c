@@ -489,7 +489,7 @@ redraw_fs_text(char *string, Window w, int32 flag) {
         filesel.pos = strlen(string);
     XDrawString(display, w, small_gc, 0, CURY_OFF, string, strlen(string));
     if (flag)
-        put_edit_cursor(w, DCURXs * strlen(string));
+        put_edit_cursor(w, DCURXs*strlen(string));
     return;
 }
 
@@ -1397,7 +1397,7 @@ expose_slider(Window w, PAR_SLIDER *p) {
             sprintf(top, "%.16g", p->hi);
             x = 1;
             if (strlen(top) < 12)
-                x = len - DCURXs * strlen(top) - 1;
+                x = len - DCURXs*strlen(top) - 1;
             XClearWindow(display, w);
             XDrawString(display, w, small_gc, x, CURY_OFFs, top, strlen(top));
             return;
@@ -1725,11 +1725,11 @@ make_box_list_window(BoxList *b, int32 type) {
     class_hints.res_class = "";
     XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints,
                      NULL, &class_hints);
-    b->w = malloc(nrow * sizeof(Window));
-    b->we = malloc(nrow * sizeof(Window));
+    b->w = malloc(nrow*sizeof(Window));
+    b->we = malloc(nrow*sizeof(Window));
     if (type == ICBOX) {
-        b->ck = malloc(nrow * sizeof(Window));
-        b->isck = malloc(n * sizeof(int32));
+        b->ck = malloc(nrow*sizeof(Window));
+        b->isck = malloc(n*sizeof(int32));
         for (i = 0; i < n; i++)
             b->isck[i] = 0;
     }
@@ -1815,9 +1815,9 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
     b->n = n;
     b->n0 = 0;
     b->nwin = nrow;
-    b->value = malloc(n * sizeof(char *));
-    b->pos = malloc(n * sizeof(int32));
-    b->off = malloc(n * sizeof(int32));
+    b->value = malloc(n*sizeof(char *));
+    b->pos = malloc(n*sizeof(int32));
+    b->off = malloc(n*sizeof(int32));
     b->iname = malloc(strlen(iname) + 5);
     strcpy(b->iname, iname);
     b->wname = malloc(strlen(wname) + 5);

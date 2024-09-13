@@ -664,11 +664,11 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
                 /* This is here since I don't want to change the calling
                    sequence of the BLAS routines. */
                 int64 tmp = 1;
-                s = *beta * ddot(&jmkp1, &v[-1 + *k], &tmp,
+                s = *beta*ddot(&jmkp1, &v[-1 + *k], &tmp,
                                  &ARRAY2D(a, -1 + *k, col), &tmp);
             }
             for (row = *k - 1; row < *j; ++row) {
-                ARRAY2D(a, row, col) -= s * v[row];
+                ARRAY2D(a, row, col) -= s*v[row];
             }
         }
     } else {
@@ -677,11 +677,11 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
                 /* This is here since I don't want to change the calling
                    sequence of the BLAS routines. */
                 int64 tmp = 1;
-                s = *beta * ddot(&jmkp1, &v[-1 + *k], &tmp,
+                s = *beta*ddot(&jmkp1, &v[-1 + *k], &tmp,
                                  &ARRAY2D(a, row, (*k - 1)), lda);
             }
             for (col = *k - 1; col < *j; ++col) {
-                ARRAY2D(a, row, col) -= s * v[col];
+                ARRAY2D(a, row, col) -= s*v[col];
             }
         }
     }

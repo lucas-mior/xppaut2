@@ -125,12 +125,12 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
         get_the_jac(*t, yg, yp, ytemp, jac, neq, NEWT_ERR, -.5 * dt);
         if (cv_bandflag) {
             for (i = 0; i < neq; i++)
-                jac[i * mt + ml] += 1;
+                jac[i*mt + ml] += 1;
             bandfac(jac, ml, mr, neq);
             bandsol(jac, errvec, ml, mr, neq);
         } else {
             for (i = 0; i < neq; i++)
-                jac[i * neq + i] += 1.0;
+                jac[i*neq + i] += 1.0;
             sgefa(jac, neq, neq, ipivot, &info);
             if (info != -1) {
 
@@ -172,10 +172,10 @@ one_step_symp(double *y, double h, double *f, int32 n, double *t) {
     int32 s, j;
     for (s = 0; s < 3; s++) {
         for (j = 0; j < n; j += 2)
-            y[j] += (h * symp_b[s] * y[j + 1]);
+            y[j] += (h*symp_b[s] * y[j + 1]);
         rhs(*t, y, f, n);
         for (j = 0; j < n; j += 2)
-            y[j + 1] += (h * symp_B[s] * f[j + 1]);
+            y[j + 1] += (h*symp_B[s] * f[j + 1]);
     }
     *t += h;
     return;
@@ -190,7 +190,7 @@ one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
     rhs(*t, y, yp, neq);
     *t += dt;
     for (j = 0; j < neq; j++)
-        y[j] = y[j] + dt * yp[j];
+        y[j] = y[j] + dt*yp[j];
     return;
 }
 
@@ -201,24 +201,24 @@ one_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim) {
     set_wieners(dt, y, t);
     rhs(t, y, yval[1], neq);
     for (i = 0; i < neq; i++) {
-        yval[0][i] = y[i] + dt * yval[1][i] / 6.00;
-        yval[2][i] = y[i] + dt * yval[1][i] * 0.5;
+        yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
+        yval[2][i] = y[i] + dt*yval[1][i] * 0.5;
     }
     t1 = t + .5 * dt;
     rhs(t1, yval[2], yval[1], neq);
     for (i = 0; i < neq; i++) {
-        yval[0][i] = yval[0][i] + dt * yval[1][i] / 3.00;
-        yval[2][i] = y[i] + .5 * dt * yval[1][i];
+        yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.00;
+        yval[2][i] = y[i] + .5 * dt*yval[1][i];
     }
     rhs(t1, yval[2], yval[1], neq);
     for (i = 0; i < neq; i++) {
-        yval[0][i] = yval[0][i] + dt * yval[1][i] / 3.000;
-        yval[2][i] = y[i] + dt * yval[1][i];
+        yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.000;
+        yval[2][i] = y[i] + dt*yval[1][i];
     }
     t2 = t + dt;
     rhs(t2, yval[2], yval[1], neq);
     for (i = 0; i < neq; i++)
-        y[i] = yval[0][i] + dt * yval[1][i] / 6.00;
+        y[i] = yval[0][i] + dt*yval[1][i] / 6.00;
     *tim = t2;
     return;
 }
@@ -230,11 +230,11 @@ one_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim) {
     set_wieners(dt, y, *tim);
     rhs(t, y, yval[0], neq);
     for (i = 0; i < neq; i++)
-        yval[0][i] = dt * yval[0][i] + y[i];
+        yval[0][i] = dt*yval[0][i] + y[i];
     t1 = t + dt;
     rhs(t1, yval[0], yval[1], neq);
     for (i = 0; i < neq; i++)
-        y[i] = .5 * (y[i] + yval[0][i] + dt * yval[1][i]);
+        y[i] = .5 * (y[i] + yval[0][i] + dt*yval[1][i]);
     *tim = t1;
     return;
 }
@@ -352,7 +352,7 @@ n20:
     ik = 4 - nstep;
     for (i = 0; i < neq; i++)
         y[i] = y_s[ik - 1][i];
-    xst = xst + nstep * dt;
+    xst = xst + nstep*dt;
     istart = ik;
     goto n1000;
 
@@ -363,7 +363,7 @@ n350:
         goto n370;
     for (i = 0; i < neq; i++)
         y[i] = y_s[ik - 1][i];
-    xst = xst + nstep * dt;
+    xst = xst + nstep*dt;
     istart = ik;
     goto n1000;
 
@@ -371,7 +371,7 @@ n370:
     for (i = 0; i < neq; i++)
         y[i] = y_s[0][i];
     if (ik == 1) {
-        x0 = xst + dt * nstep;
+        x0 = xst + dt*nstep;
         goto n450;
     }
 
@@ -393,7 +393,7 @@ n450:
 
 n1000:
 
-    *tim = *tim + nstep * dt;
+    *tim = *tim + nstep*dt;
     *ist = istart;
     return 0;
 }
@@ -406,7 +406,7 @@ abmpc(double *y, double *t, double dt, int32 neq) {
         ypred[i] = 0;
         for (k = 0; k < 4; k++)
             ypred[i] = ypred[i] + coefp[k] * y_p[k][i];
-        ypred[i] = y[i] + dt * ypred[i];
+        ypred[i] = y[i] + dt*ypred[i];
     }
 
     for (i = 0; i < neq; i++)
@@ -419,7 +419,7 @@ abmpc(double *y, double *t, double dt, int32 neq) {
         ypred[i] = 0;
         for (k = 0; k < 4; k++)
             ypred[i] = ypred[i] + coefc[k] * y_p[k][i];
-        y[i] = y[i] + dt * ypred[i];
+        y[i] = y[i] + dt*ypred[i];
     }
     *t = x1;
     rhs(x1, y, y_p[0], neq);
@@ -453,7 +453,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double thresh = atol / rtol, absh, h;
     double d = 1 / (2. + sqrt(2.)), e32 = 6. + sqrt(2.), tnew;
     /*double ninf;  Is this needed?*/
-    int32 i, n2 = n * n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
+    int32 i, n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
              mt = ml + mr + 1;
     int32 ipivot[MAXODE1], nofailed;
     double temp, err, tdel;
@@ -476,13 +476,13 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     if (*istart == 1)
         htry = hmax;
     rhs(t0, y, f0, n);
-    hmin = 16 * eps * fabs(t);
+    hmin = 16 * eps*fabs(t);
     absh = MIN(hmax, MAX(hmin, htry));
     while (!done) {
         nofailed = 1;
-        hmin = 16 * eps * fabs(t);
+        hmin = 16 * eps*fabs(t);
         absh = MIN(hmax, MAX(hmin, absh));
-        h = tdir * absh;
+        h = tdir*absh;
         if (1.1 * absh >= fabs(tfinal - t)) {
             h = tfinal - t;
             absh = fabs(h);
@@ -495,24 +495,24 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             dfdt[i] = (f1[i] - f0[i]) / tdel;
         while (true) { /* advance a step  */
             for (i = 0; i < n2; i++)
-                dfdy[i] = -h * d * dfdy[i];
+                dfdy[i] = -h*d * dfdy[i];
             for (i = 0; i < n; i++)
-                k1[i] = f0[i] + (h * d) * dfdt[i];
+                k1[i] = f0[i] + (h*d) * dfdt[i];
             if (cv_bandflag) {
                 for (i = 0; i < n; i++)
-                    dfdy[i * mt + ml] += 1;
+                    dfdy[i*mt + ml] += 1;
 
                 bandfac(dfdy, ml, mr, n);
                 bandsol(dfdy, k1, ml, mr, n);
             } else {
                 for (i = 0; i < n; i++)
-                    dfdy[i * n + i] += 1;
+                    dfdy[i*n + i] += 1;
 
                 sgefa(dfdy, n, n, ipivot, &info);
                 sgesl(dfdy, n, n, ipivot, k1, 0);
             }
             for (i = 0; i < n; i++)
-                ynew[i] = y[i] + .5 * h * k1[i];
+                ynew[i] = y[i] + .5 * h*k1[i];
             rhs(t + .5 * h, ynew, f1, n);
             for (i = 0; i < n; i++)
                 k2[i] = f1[i] - k1[i];
@@ -522,13 +522,13 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 sgesl(dfdy, n, n, ipivot, k2, 0);
             for (i = 0; i < n; i++) {
                 k2[i] = k2[i] + k1[i];
-                ynew[i] = y[i] + h * k2[i];
+                ynew[i] = y[i] + h*k2[i];
             }
             tnew = t + h;
             rhs(tnew, ynew, f2, n);
             for (i = 0; i < n; i++)
                 k3[i] = f2[i] - e32 * (k2[i] - f1[i]) - 2 * (k1[i] - f0[i]) +
-                        (h * d) * dfdt[i];
+                        (h*d) * dfdt[i];
             if (cv_bandflag)
                 bandsol(dfdy, k3, ml, mr, n);
             else
@@ -555,7 +555,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 absh = MAX(hmin,
                            absh * MAX(0.1, pow(0.8 * (rtol / err), 1. / 3.)));
                 /* plintf(" absh=%g  %g  \n",absh,0.8*(rtol/err)); */
-                h = tdir * absh;
+                h = tdir*absh;
                 nofailed = 0;
                 done = 0;
             } else {
@@ -609,7 +609,7 @@ get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
             y[i] = y[i] + del;
             rhs(t, y, ypnew, neq);
             for (j = 0; j < neq; j++)
-                dfdy[j * neq + i] = dsy * (ypnew[j] - yp[j]);
+                dfdy[j*neq + i] = dsy * (ypnew[j] - yp[j]);
             y[i] = yold;
         }
     }
@@ -625,7 +625,7 @@ get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
     double dy;
     double dsy;
     /* plintf("Getting banded! \n"); */
-    for (i = 0; i < (n * mt); i++)
+    for (i = 0; i < (n*mt); i++)
         a[i] = 0.0;
     for (i = 0; i < n; i++) {
         yhat = y[i];
@@ -637,7 +637,7 @@ get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
             k = i - j;
             if (k < 0 || k > n1)
                 continue;
-            a[k * mt + j + ml] = dsy * (ypnew[k] - ypold[k]);
+            a[k*mt + j + ml] = dsy * (ypnew[k] - ypold[k]);
         }
         y[i] = yhat;
     }
@@ -651,7 +651,7 @@ bandfac(/*   factors the matrix    */
     int32 n1 = n - 1, mt = ml + mr + 1, row, rowi, m, r0, ri0;
     double al;
     for (row = 0; row < n; row++) {
-        r0 = row * mt + ml;
+        r0 = row*mt + ml;
         if ((al = a[r0]) == 0.0)
             return -1 - row;
         al = 1.0 / al;
@@ -663,12 +663,12 @@ bandfac(/*   factors the matrix    */
             rowi = row + i;
             if (rowi > n1)
                 break;
-            ri0 = rowi * mt + ml;
+            ri0 = rowi*mt + ml;
             al = a[ri0 - i];
             if (al == 0.0)
                 continue;
             for (k = 1; k <= m; k++)
-                a[ri0 - i + k] = a[ri0 - i + k] - (al * a[r0 + k]);
+                a[ri0 - i + k] = a[ri0 - i + k] - (al*a[r0 + k]);
             a[ri0 - i] = -al;
         }
     }
@@ -682,7 +682,7 @@ bandsol(/* requires that the matrix be factored   */
     int32 mt = ml + mr + 1;
     int32 m, n1 = n - 1, row;
     for (i = 0; i < n; i++) {
-        r0 = i * mt + ml;
+        r0 = i*mt + ml;
         m = MAX(-ml, -i);
         for (j = m; j < 0; j++)
             b[i] += a[r0 + j] * b[i + j];
@@ -690,7 +690,7 @@ bandsol(/* requires that the matrix be factored   */
     }
     for (row = n1 - 1; row >= 0; row--) {
         m = MIN(mr, n1 - row);
-        r0 = row * mt + ml;
+        r0 = row*mt + ml;
         for (k = 1; k <= m; k++)
             b[row] = b[row] - a[r0 + k] * b[row + k];
     }

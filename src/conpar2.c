@@ -122,9 +122,9 @@ conpar_process(void *arg) {
             ipiv = irp;
             jpiv = ic;
             for (k1 = irp; k1 <= *nra; ++k1) {
-                int32 irf_k1_i = irf[-1 + k1 + i * irf_dim1];
+                int32 irf_k1_i = irf[-1 + k1 + i*irf_dim1];
                 for (k2 = ic; k2 <= m2; ++k2) {
-                    int32 icf_k2_i = icf[-1 + k2 + i * icf_dim1];
+                    int32 icf_k2_i = icf[-1 + k2 + i*icf_dim1];
                     tpiv = a[-1 + icf_k2_i +
                              a_dim1 * (-1 + irf_k1_i + a_dim2 * i)];
                     if (tpiv < 0.0) {
@@ -138,20 +138,20 @@ conpar_process(void *arg) {
                 }
             }
             /*	     **Move indices */
-            itmp = icf[-1 + ic + i * icf_dim1];
-            icf[-1 + ic + i * icf_dim1] = icf[-1 + jpiv + i * icf_dim1];
-            icf[-1 + jpiv + i * icf_dim1] = itmp;
-            itmp = irf[-1 + irp + i * irf_dim1];
-            irf[-1 + irp + i * irf_dim1] = irf[-1 + ipiv + i * irf_dim1];
-            irf[-1 + ipiv + i * irf_dim1] = itmp;
+            itmp = icf[-1 + ic + i*icf_dim1];
+            icf[-1 + ic + i*icf_dim1] = icf[-1 + jpiv + i*icf_dim1];
+            icf[-1 + jpiv + i*icf_dim1] = itmp;
+            itmp = irf[-1 + irp + i*irf_dim1];
+            irf[-1 + irp + i*irf_dim1] = irf[-1 + ipiv + i*irf_dim1];
+            irf[-1 + ipiv + i*irf_dim1] = itmp;
             {
-                int32 icf_ic_i = icf[-1 + ic + i * icf_dim1];
-                int32 irf_irp_i = irf[-1 + irp + i * irf_dim1];
+                int32 icf_ic_i = icf[-1 + ic + i*icf_dim1];
+                int32 irf_irp_i = irf[-1 + irp + i*irf_dim1];
                 int32 a_offset2 = a_dim1 * (-1 + irf_irp_i + a_dim2 * i);
                 int32 b_offset2 = b_dim1 * (-1 + irf_irp_i + b_dim2 * i);
                 /*	     **End of pivoting; elimination starts here */
                 for (ir = ir1; ir <= *nra; ++ir) {
-                    int32 irf_ir_i = irf[-1 + ir + i * irf_dim1];
+                    int32 irf_ir_i = irf[-1 + ir + i*irf_dim1];
                     int32 a_offset1 = a_dim1 * (-1 + irf_ir_i + a_dim2 * i);
                     int32 b_offset1 = b_dim1 * (-1 + irf_ir_i + b_dim2 * i);
                     rm = a[-1 + icf_ic_i +
@@ -162,15 +162,15 @@ conpar_process(void *arg) {
                         rm;
                     if (rm != (double)0.) {
                         for (l = 0; l < *nov; ++l) {
-                            a[l + a_offset1] -= rm * a[l + a_offset2];
+                            a[l + a_offset1] -= rm*a[l + a_offset2];
                         }
                         for (l = icp1 - 1; l < *nca; ++l) {
-                            int32 icf_l_i = icf[l + i * icf_dim1];
+                            int32 icf_l_i = icf[l + i*icf_dim1];
                             a[-1 + icf_l_i + a_offset1] -=
-                                rm * a[-1 + icf_l_i + a_offset2];
+                                rm*a[-1 + icf_l_i + a_offset2];
                         }
                         for (l = 0; l < *ncb; ++l) {
-                            b[l + b_offset1] -= rm * b[l + b_offset2];
+                            b[l + b_offset1] -= rm*b[l + b_offset2];
                         }
                     }
                 }
@@ -183,12 +183,12 @@ conpar_process(void *arg) {
                     c[-1 + icf_ic_i + c_dim1 * (-1 + ir + c_dim2 * i)] = rm;
                     if (rm != (double)0.) {
                         for (l = 0; l < *nov; ++l) {
-                            c[l + c_offset1] -= rm * a[l + a_offset2];
+                            c[l + c_offset1] -= rm*a[l + a_offset2];
                         }
                         for (l = icp1 - 1; l < *nca; ++l) {
-                            int32 icf_l_i = icf[l + i * icf_dim1];
+                            int32 icf_l_i = icf[l + i*icf_dim1];
                             c[-1 + icf_l_i + c_offset1] -=
-                                rm * a[-1 + icf_l_i + a_offset2];
+                                rm*a[-1 + icf_l_i + a_offset2];
                         }
                         for (l = 0; l < *ncb; ++l) {
                             /*
@@ -205,14 +205,14 @@ conpar_process(void *arg) {
                             */
                             /* Nothing special for the default case */
                             if (global_conpar_type == CONPAR_DEFAULT) {
-                                d[l + d_offset1] -= rm * b[l + b_offset2];
+                                d[l + d_offset1] -= rm*b[l + b_offset2];
                             }
                             /* In the message passing case we sum into d,
                                which is a local variable initialized to 0.0.
                                We then sum our part with the masters part
                                in the master. */
                             else if (global_conpar_type == CONPAR_MPI) {
-                                d[l + d_offset1] -= rm * b[l + b_offset2];
+                                d[l + d_offset1] -= rm*b[l + b_offset2];
                             }
                             /* In the shared memory case we sum into a local
                                variable our contribution, and then sum
@@ -279,10 +279,10 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     /*     Initialization */
     for (i = 0; i < *na; ++i) {
         for (j = 0; j < *nra; ++j) {
-            irf[j + i * irf_dim1] = j + 1;
+            irf[j + i*irf_dim1] = j + 1;
         }
         for (j = 0; j < *nca; ++j) {
-            icf[j + i * icf_dim1] = j + 1;
+            icf[j + i*icf_dim1] = j + 1;
         }
     }
 

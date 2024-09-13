@@ -79,7 +79,7 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 extern GRAPH *MyGraph;
 #include "menudrive.h"
 #include "arrayplot.h"
-#define MSWTCH(u, v) memcpy((void *)(u), (void *)(v), xpv.node * sizeof(double))
+#define MSWTCH(u, v) memcpy((void *)(u), (void *)(v), xpv.node*sizeof(double))
 
 #define READEM 1
 
@@ -1835,7 +1835,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             return 0;
         }
     } else {
-        tout = *t + tend * dt / fabs(dt);
+        tout = *t + tend*dt / fabs(dt);
         switch (METHOD) {
         case GEAR:
             if (*istart == 1)
@@ -2379,10 +2379,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     }
                     dint = xprime[POIVAR - 1] / dxp;
 
-                    tv = (1 - dint) * *t + dint * oldt;
+                    tv = (1 - dint) * *t + dint*oldt;
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
-                        xv[i] = dint * oldx[i - 1] + (1 - dint) * x[i - 1];
+                        xv[i] = dint*oldx[i - 1] + (1 - dint) * x[i - 1];
                     pflag = 1;
                 }
                 POIEXT = -POIEXT;
@@ -2411,7 +2411,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
                         xv[i] =
-                            (float)(dint * oldx[i - 1] + (1 - dint) * x[i - 1]);
+                            (float)(dint*oldx[i - 1] + (1 - dint) * x[i - 1]);
                     pflag = 1;
                 } else
                     pflag = 0;
@@ -2425,10 +2425,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         !(x[POIVAR - 1] < POIPLN)) {
                         dint = (x[POIVAR - 1] - POIPLN) /
                                (x[POIVAR - 1] - oldx[POIVAR - 1]);
-                        tv = (1 - dint) * *t + dint * oldt;
+                        tv = (1 - dint) * *t + dint*oldt;
                         xv[0] = tv;
                         for (i = 1; i <= NEQ; i++)
-                            xv[i] = dint * oldx[i - 1] + (1 - dint) * x[i - 1];
+                            xv[i] = dint*oldx[i - 1] + (1 - dint) * x[i - 1];
                         pflag = 1;
                         goto poi;
 
@@ -2440,10 +2440,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         !(x[POIVAR - 1] > POIPLN)) {
                         dint = (x[POIVAR - 1] - POIPLN) /
                                (x[POIVAR - 1] - oldx[POIVAR - 1]);
-                        tv = (1 - dint) * *t + dint * oldt;
+                        tv = (1 - dint) * *t + dint*oldt;
                         xv[0] = tv;
                         for (i = 1; i <= NEQ; i++)
-                            xv[i] = dint * oldx[i - 1] + (1 - dint) * x[i - 1];
+                            xv[i] = dint*oldx[i - 1] + (1 - dint) * x[i - 1];
                         pflag = 1;
                     } else
                         pflag = 0;
@@ -2804,7 +2804,7 @@ shoot(double *x, double *xg, double *evec, int32 sgn) {
     double t = 0.0;
     SuppressBounds = 1;
     for (i = 0; i < NODE; i++)
-        x[i] = xg[i] + sgn * evec[i] * DELTA_T * .1;
+        x[i] = xg[i] + sgn*evec[i] * DELTA_T * .1;
     i = 1;
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
     ping();

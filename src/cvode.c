@@ -1209,7 +1209,7 @@ CVHin(CVodeMem cv_mem, double tout) {
 
     hlb = HLB_FACTOR * tround;
     hub = CVUpperBoundH0(cv_mem, tdist);
-    hg = RSqrt(hlb * hub);
+    hg = RSqrt(hlb*hub);
     if (hub < hlb) {
         if (sign == -1)
             hg = -hg;
@@ -1224,10 +1224,10 @@ CVHin(CVodeMem cv_mem, double tout) {
 
     count = 0;
     while (true) {
-        hgs = hg * sign;
+        hgs = hg*sign;
         yddnrm = CVYddNorm(cv_mem, hgs);
         hnew =
-            (yddnrm * hub * hub > TWO) ? RSqrt(TWO / yddnrm) : RSqrt(hg * hub);
+            (yddnrm*hub*hub > TWO) ? RSqrt(TWO / yddnrm) : RSqrt(hg*hub);
         count++;
         if (count >= MAX_ITERS)
             break;
@@ -1283,7 +1283,7 @@ CVUpperBoundH0(CVodeMem cv_mem, double tdist) {
     N_VDiv(temp2, temp1, temp1);
     hub_inv = N_VMaxNorm(temp1);
     hub = HUB_FACTOR * tdist;
-    if (hub * hub_inv > ONE)
+    if (hub*hub_inv > ONE)
         hub = ONE / hub_inv;
     return hub;
 }
@@ -1576,7 +1576,7 @@ CVRescale(CVodeMem cv_mem) {
         N_VScale(factor, zn[j], zn[j]);
         factor *= eta;
     }
-    h = hscale * eta;
+    h = hscale*eta;
     hscale = h;
     return;
 }
@@ -1619,7 +1619,7 @@ CVSet(CVodeMem cv_mem) {
         break;
     }
     rl1 = ONE / l[1];
-    gamma = h * rl1;
+    gamma = h*rl1;
     if (nst == 0)
         gammap = gamma;
     gamrat = (nst > 0) ? gamma / gammap : ONE; /* protect x / x != 1.0 */
@@ -1684,7 +1684,7 @@ CVAdamsStart(CVodeMem cv_mem, double m[]) {
     for (j = 1; j < q; j++) {
         if ((j == q - 1) && (qwait == 1)) {
             sum = CVAltSum(q - 2, m, 2);
-            tq[1] = m[q - 2] / (q * sum);
+            tq[1] = m[q - 2] / (q*sum);
         }
         xi_inv = h / hsum;
         for (i = j; i >= 1; i--)
@@ -1835,7 +1835,7 @@ CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
         A5 = alpha0 - (ONE / (q + 1));
         A6 = alpha0_hat - xi_inv;
         CPrimePrime = A2 / (ONE - A6 + A5);
-        tq[3] = ABS(CPrimePrime * xi_inv * (q + 2) * A5);
+        tq[3] = ABS(CPrimePrime*xi_inv * (q + 2) * A5);
     }
     tq[4] = CORTES * tq[2];
     return;
@@ -2331,8 +2331,8 @@ CVSetEta(CVodeMem cv_mem) {
     } else {
         /* Limit eta by etamax and hmax, then set hprime */
         eta = MIN(eta, etamax);
-        eta /= MAX(ONE, ABS(h) * hmax_inv * eta);
-        hprime = h * eta;
+        eta /= MAX(ONE, ABS(h) * hmax_inv*eta);
+        hprime = h*eta;
     }
 
     /* Reset etamx for the next step size change, and scale acor */

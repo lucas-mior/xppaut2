@@ -224,7 +224,7 @@ extract_expr(char *source, char *dest, int32 *i0) {
 void
 create_markov(int32 nstates, double *st, int32 type, char *name) {
     int32 i;
-    int32 n2 = nstates * nstates;
+    int32 n2 = nstates*nstates;
     int32 j = NMarkov;
     if (j >= MAXMARK) {
         plintf("Too many Markov chains...\n");
@@ -232,7 +232,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     }
 
     markov[j].nstates = nstates;
-    markov[j].states = malloc(nstates * sizeof(double));
+    markov[j].states = malloc(nstates*sizeof(double));
     if (type == 0) {
         markov[j].trans = malloc(n2 * sizeof(char *));
         markov[j].command = malloc(n2 * sizeof(int32 *));
@@ -250,7 +250,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
 void
 add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 
-    int32 l0 = markov[index].nstates * j + k;
+    int32 l0 = markov[index].nstates*j + k;
     int32 type = markov[index].type;
     if (type == 0) {
         markov[index].trans[l0] = malloc(sizeof(char) * (strlen(expr) + 1));
@@ -284,7 +284,7 @@ compile_all_markov(void) {
         ns = markov[index].nstates;
         for (j = 0; j < ns; j++) {
             for (k = 0; k < ns; k++) {
-                l0 = ns * j + k;
+                l0 = ns*j + k;
                 if (compile_markov(index, j, k) == -1) {
                     plintf("Bad expression %s[%d][%d] = %s \n",
                            markov[index].name, j, k, markov[index].trans[l0]);
@@ -299,7 +299,7 @@ compile_all_markov(void) {
 int32
 compile_markov(int32 index, int32 j, int32 k) {
     char *expr;
-    int32 l0 = markov[index].nstates * j + k, leng;
+    int32 l0 = markov[index].nstates*j + k, leng;
     int32 i;
     int32 com[256];
     expr = markov[index].trans[l0];
@@ -354,7 +354,7 @@ new_state(double old, int32 index, double dt) {
         }
     if (row == -1)
         return old;
-    rns = row * ns;
+    rns = row*ns;
     sum = 0.0;
     if (type == 0) {
         for (i = 0; i < ns; i++) {
@@ -394,9 +394,9 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     double *y, *yp, *yold;
     int32 ir, iy;
 
-    y = malloc(n * sizeof(double));
-    yold = malloc(n * sizeof(double));
-    yp = malloc(n * sizeof(double));
+    y = malloc(n*sizeof(double));
+    yold = malloc(n*sizeof(double));
+    yp = malloc(n*sizeof(double));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
     rhs_only(yold);
@@ -404,7 +404,7 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
         v[ir + 1] = 1;
         rhs_only(yp);
         for (iy = 0; iy < n; iy++) {
-            nu[ir + m * iy] = yp[iy];
+            nu[ir + m*iy] = yp[iy];
             plintf("ir=%d iy=%d nu=%g\n", ir + 1, iy, yp[iy] - yold[iy]);
         }
         v[ir + 1] = 0;
@@ -434,7 +434,7 @@ one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
             return;
         /* plintf("rate=%g \n",rate); */
         v[0] = -log(ndrand48()) / rate; /* next step */
-        test = rate * ndrand48();
+        test = rate*ndrand48();
         rate = r[0];
         for (i = 0; i < nrxn; i++) {
             if (test < rate) {
@@ -599,7 +599,7 @@ append_stoch(int32 first, int32 length) {
         for (j = 1; j <= NEQ; j++) {
             z = storage[j][i];
             my_mean[j][i] = my_mean[j][i] + z;
-            my_variance[j][i] = my_variance[j][i] + z * z;
+            my_variance[j][i] = my_variance[j][i] + z*z;
         }
     }
     N_TRIALS++;
@@ -617,7 +617,7 @@ do_stats(int32 ierr) {
             for (j = 1; j <= NEQ; j++) {
                 mean = my_mean[j][i] * ninv;
                 my_mean[j][i] = mean;
-                my_variance[j][i] = (my_variance[j][i] * ninv - mean * mean);
+                my_variance[j][i] = (my_variance[j][i] * ninv - mean*mean);
             }
         }
     }
@@ -663,15 +663,15 @@ poidev(double xm) {
             oldm = xm;
             sq = sqrt(2.0 * xm);
             alxm = log(xm);
-            g = xm * alxm - gammln(xm + 1.0);
+            g = xm*alxm - gammln(xm + 1.0);
         }
         do {
             do {
                 y = tan(PI * ndrand48());
-                em = sq * y + xm;
+                em = sq*y + xm;
             } while (em < 0.0);
             em = floor(em);
-            t = 0.9 * (1.0 + y * y) * exp(em * alxm - gammln(em + 1.0) - g);
+            t = 0.9 * (1.0 + y*y) * exp(em*alxm - gammln(em + 1.0) - g);
         } while (ndrand48() > t);
     }
     return em;

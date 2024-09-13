@@ -573,8 +573,8 @@ draw_marker(double x, double y, double size, int32 type) {
         pen = sym_dir[offset];
         if (pen == 3)
             break;
-        x2 = dx * sym_dir[offset + 1] + x1;
-        y2 = dy * sym_dir[offset + 2] + y1;
+        x2 = dx*sym_dir[offset + 1] + x1;
+        y2 = dy*sym_dir[offset + 2] + y1;
         if (pen == 1)
             line_abs(x1, y1, x2, y2);
         x1 = x2;
@@ -601,11 +601,11 @@ void
 arrow_head(double xs, double ys, double xe, double ye, double size) {
     float l = xe - xs, h = ye - ys;
     float ar = (MyGraph->xhi - MyGraph->xlo) / (MyGraph->yhi - MyGraph->ylo);
-    float x0 = xs + size * l, y0 = ys + size * h;
+    float x0 = xs + size*l, y0 = ys + size*h;
     /* float tot=(float)sqrt((double)(l*l+h*h)); */
 
-    float xp = x0 + .5 * size * h * ar, yp = y0 - .5 * size * l / ar;
-    float xm = x0 - .5 * size * h * ar, ym = y0 + .5 * size * l / ar;
+    float xp = x0 + .5 * size*h * ar, yp = y0 - .5 * size*l / ar;
+    float xm = x0 - .5 * size*h * ar, ym = y0 + .5 * size*l / ar;
     line_abs(xs, ys, xp, yp);
     line_abs(xs, ys, xm, ym);
     return;
@@ -817,7 +817,7 @@ add_markers(void) {
         return;
     for (i = 0; i < markinfo.number; i++) {
         get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0], MyGraph->zv[0],
-                     markinfo.start + i * markinfo.skip);
+                     markinfo.start + i*markinfo.skip);
         if (MyGraph->ThreeDFlag == 0) {
             xs = x;
             ys = y;
@@ -852,7 +852,7 @@ add_markers_old(void) {
         return;
     for (i = 0; i < nm; i++) {
         get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0], MyGraph->zv[0],
-                     nstart + i * nskip);
+                     nstart + i*nskip);
         if (MyGraph->ThreeDFlag == 0) {
             xs = x;
             ys = y;

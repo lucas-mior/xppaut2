@@ -17,6 +17,6 @@ f__cabs(double real, double imag) {
         return real;
 
     temp = imag / real;
-    temp = real * sqrt(1.0 + temp * temp); /*overflow!!*/
+    temp = real*sqrt(1.0 + temp*temp); /*overflow!!*/
     return temp;
 }

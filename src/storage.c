@@ -43,23 +43,23 @@ alloc_meth(void) {
     int32 sz = 30 * nn;
     switch (METHOD) {
     case STIFF:
-        sz = 2 * nn * nn + 13 * nn + 100;
+        sz = 2 * nn*nn + 13 * nn + 100;
 
         break;
     case GEAR:
-        sz = 30 * nn + nn * nn + 100;
+        sz = 30 * nn + nn*nn + 100;
         break;
     case BACKEUL:
     case VOLTERRA:
-        sz = 10 * nn + nn * nn + 100;
+        sz = 10 * nn + nn*nn + 100;
         break;
     case RB23:
-        sz = 12 * nn + 100 + nn * nn;
+        sz = 12 * nn + 100 + nn*nn;
         break;
     }
     if (WORK)
         free(WORK);
-    WORK = malloc(sz * sizeof(double));
+    WORK = malloc(sz*sizeof(double));
     /* plintf(" I have allocated %d doubles \n",sz); */
     return;
 }
@@ -67,7 +67,7 @@ alloc_meth(void) {
 int32
 reallocstor(int32 ncol, int32 nrow) {
     int32 i = 0;
-    while ((storage[i] = (float *)realloc(storage[i], nrow * sizeof(float))) !=
+    while ((storage[i] = (float *)realloc(storage[i], nrow*sizeof(float))) !=
            NULL) {
         i++;
         if (i == ncol)
@@ -88,7 +88,7 @@ init_stor(int32 nrow, int32 ncol) {
     storind = 0;
     if (storage != NULL) {
         i = 0;
-        while ((storage[i] = malloc(nrow * sizeof(float))) != NULL) {
+        while ((storage[i] = malloc(nrow*sizeof(float))) != NULL) {
             i++;
             if (i == ncol)
                 return;

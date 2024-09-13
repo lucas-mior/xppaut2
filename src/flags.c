@@ -339,7 +339,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     if (smin > 1.0)
         return 0;
 
-    *tnew = told + dt * smin;
+    *tnew = told + dt*smin;
     SETVAR(0, *tnew);
     for (i = 0; i < neq; i++) {
         ynew[i] = yold[i] + smin * (ynew[i] - yold[i]);

@@ -120,19 +120,19 @@ bandalloc(int64 n, int64 smu, int64 ml) {
     if (n <= 0)
         return NULL;
 
-    a = malloc(n * sizeof(double *));
+    a = malloc(n*sizeof(double *));
     if (a == NULL)
         return NULL;
 
     colSize = smu + ml + 1;
-    a[0] = malloc(n * colSize * sizeof(double));
+    a[0] = malloc(n*colSize*sizeof(double));
     if (a[0] == NULL) {
         free(a);
         return NULL;
     }
 
     for (j = 1; j < n; j++)
-        a[j] = a[0] + j * colSize;
+        a[j] = a[0] + j*colSize;
 
     return a;
 }
@@ -142,7 +142,7 @@ bandallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return (malloc(n * sizeof(int64)));
+    return (malloc(n*sizeof(int64)));
 }
 
 int64
@@ -270,7 +270,7 @@ gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
         diag_k = a[k] + smu;
         last_row_k = MIN(n - 1, k + ml);
         for (i = k + 1; i <= last_row_k; i++)
-            b[i] += mult * diag_k[i - k];
+            b[i] += mult*diag_k[i - k];
     }
 
     /* Solve Ux = y, store solution x in b */
@@ -281,7 +281,7 @@ gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
         b[k] /= (*diag_k);
         mult = -b[k];
         for (i = first_row_k; i <= k - 1; i++)
-            b[i] += mult * diag_k[i - k];
+            b[i] += mult*diag_k[i - k];
     }
     return;
 }

@@ -149,11 +149,11 @@ create_transpose(void) {
         my_trans.data[0][j] = j + 1;
 
     for (i = 0; i < my_trans.ncol; i++) {
-        incol = my_trans.col0 - 1 + i * my_trans.colskip;
+        incol = my_trans.col0 - 1 + i*my_trans.colskip;
         if (incol > NEQ)
             incol = NEQ;
         for (j = 0; j < my_trans.nrow; j++) {
-            inrow = my_trans.row0 + j * my_trans.rowskip;
+            inrow = my_trans.row0 + j*my_trans.rowskip;
             if (inrow > storind)
                 inrow = storind;
             my_trans.data[j + 1][i] = storage[incol][inrow];
@@ -359,7 +359,7 @@ make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
 
                 z = evaluate(coup_fun[i]);
 
-                sum = sum + (float)z * adj[i + 1][k];
+                sum = sum + (float)z*adj[i + 1][k];
             }
         }
         my_h[0][j] = orb[0][j];
@@ -454,18 +454,18 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
     double *yprime, *work;
     double t, prod, del;
     int32 i, j, k, l, k2, rval = 0;
-    int32 n2 = node * node;
+    int32 n2 = node*node;
     double error;
 
     work = malloc((n2 + 4 * node) * sizeof(double));
-    yprime = malloc(node * sizeof(double));
-    yold = malloc(node * sizeof(double));
-    fold = malloc(node * sizeof(double));
-    fdev = malloc(node * sizeof(double));
+    yprime = malloc(node*sizeof(double));
+    yold = malloc(node*sizeof(double));
+    fold = malloc(node*sizeof(double));
+    fdev = malloc(node*sizeof(double));
     jac = malloc(n2 * sizeof(double *));
 
     for (i = 0; i < n2; i++) {
-        jac[i] = malloc(nt * sizeof(double));
+        jac[i] = malloc(nt*sizeof(double));
         if (jac[i] == NULL) {
             err_msg("Insufficient storage");
             return 0;
@@ -481,7 +481,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
         rhs(0.0, yold, fold, node);
         for (j = 0; j < node; j++) {
             ytemp = yold[j];
-            del = eps * fabs(ytemp);
+            del = eps*fabs(ytemp);
             if (del < eps)
                 del = eps;
 
@@ -489,7 +489,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
             rhs(0.0, yold, fdev, node);
             yold[j] = ytemp;
             for (i = 0; i < node; i++)
-                jac[i + node * j][k] = (fdev[i] - fold[i]) / del;
+                jac[i + node*j][k] = (fdev[i] - fold[i]) / del;
         }
     }
 
@@ -593,8 +593,8 @@ eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
     for (j = 0; j < node; j++) {
         yp[j] = 0.0;
         for (i = 0; i < node; i++)
-            yp[j] = yp[j] + (jac[i + j * node][k1] * (1.0 - t) +
-                             jac[i + j * node][k2] * t) *
+            yp[j] = yp[j] + (jac[i + j*node][k1] * (1.0 - t) +
+                             jac[i + j*node][k2] * t) *
                                 y[i];
     }
     return;
@@ -612,24 +612,24 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
     for (j = 0; j < nstep; j++) {
         eval_rhs(jac, k1, k2, t / del, y, yval[1], neq);
         for (i = 0; i < neq; i++) {
-            yval[0][i] = y[i] + dt * yval[1][i] / 6.00;
-            yval[2][i] = y[i] + dt * yval[1][i] * 0.5;
+            yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
+            yval[2][i] = y[i] + dt*yval[1][i] * 0.5;
         }
         t1 = t + .5 * dt;
         eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
         for (i = 0; i < neq; i++) {
-            yval[0][i] = yval[0][i] + dt * yval[1][i] / 3.00;
-            yval[2][i] = y[i] + .5 * dt * yval[1][i];
+            yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.00;
+            yval[2][i] = y[i] + .5 * dt*yval[1][i];
         }
         eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
         for (i = 0; i < neq; i++) {
-            yval[0][i] = yval[0][i] + dt * yval[1][i] / 3.000;
-            yval[2][i] = y[i] + dt * yval[1][i];
+            yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.000;
+            yval[2][i] = y[i] + dt*yval[1][i];
         }
         t2 = t + dt;
         eval_rhs(jac, k1, k2, t2 / del, yval[2], yval[1], neq);
         for (i = 0; i < neq; i++)
-            y[i] = yval[0][i] + dt * yval[1][i] / 6.00;
+            y[i] = yval[0][i] + dt*yval[1][i] / 6.00;
         t = t2;
     }
     return 1;
@@ -639,7 +639,7 @@ int32
 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
          int32 node, double dt) {
 
-    int32 j, i, n2 = node * node, info;
+    int32 j, i, n2 = node*node, info;
     int32 ipvt[MAXODE];
     double *mat, *fold;
     fold = work;
@@ -648,14 +648,14 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
     for (j = 0; j < node; j++) {
         fold[j] = 0.0;
         for (i = 0; i < node; i++)
-            fold[j] = fold[j] + jac[i + j * node][k] * yold[i];
+            fold[j] = fold[j] + jac[i + j*node][k] * yold[i];
     }
     for (j = 0; j < node; j++)
-        yold[j] = yold[j] + .5 * dt * fold[j];
+        yold[j] = yold[j] + .5 * dt*fold[j];
     for (i = 0; i < n2; i++)
         mat[i] = -jac[i][k2] * dt * .5;
     for (i = 0; i < node; i++)
-        mat[i + i * node] = 1. + mat[i + i * node];
+        mat[i + i*node] = 1. + mat[i + i*node];
     sgefa(mat, node, node, ipvt, &info);
     if (info != -1) {
 
@@ -778,7 +778,7 @@ hrw_liapunov(double *liap, int32 batch, double eps) {
         }
         sum = sum + log(nrm);
         for (i = 0; i < NODE; i++)
-            dy[i] = eps * yp[i];
+            dy[i] = eps*yp[i];
         /*  plintf("%d %g %g %g %g %g  \n",j,nrm,log(nrm),sum/((double)(j+1)),
             yp[0],yp[1]); */
     }

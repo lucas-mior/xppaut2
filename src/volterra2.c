@@ -187,7 +187,7 @@ alloc_kernels(int32 flag) {
 
 void
 init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
-    double t = t0 + n * dt, tp = t0 + i0 * dt;
+    double t = t0 + n*dt, tp = t0 + i0 * dt;
     double sum[MAXODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
     int32 l, ioff, ker, i;
@@ -202,7 +202,7 @@ init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
             al = .5 * dt;
         else
             al = alpha1n(mu, dt, t, tp);
-        sum[ker] = al * evaluate(kernel[ker].formula);
+        sum[ker] = al*evaluate(kernel[ker].formula);
         if (kernel[ker].flag == CONV)
             sum[ker] = sum[ker] * kernel[ker].cnv[n - i0];
     }
@@ -219,10 +219,10 @@ init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
             else
                 alpbet = kernel[ker].al[n - i0 - i]; /* alpbetjn(mu,dt,t,tp); */
             if (kernel[ker].flag == CONV)
-                sum[ker] += (alpbet * evaluate(kernel[ker].formula) *
+                sum[ker] += (alpbet*evaluate(kernel[ker].formula) *
                              kernel[ker].cnv[n - i0 - i]);
             else
-                sum[ker] += (alpbet * evaluate(kernel[ker].formula));
+                sum[ker] += (alpbet*evaluate(kernel[ker].formula));
         }
     }
     for (ker = 0; ker < NKernel; ker++) {
@@ -250,7 +250,7 @@ alpha1n(double mu, double dt, double t, double t0) {
 double
 alpbetjn(double mu, double dt, int32 l) {
     double m1;
-    double dif = l * dt;
+    double dif = l*dt;
     if (mu == .5)
         return (sqrt(dif + dt) - sqrt(fabs(dif - dt)));
     m1 = 1 - mu;
@@ -284,7 +284,7 @@ get_kn(/* uses the guessed value y to update Kn  */
                                                 kernel[i].cnv[0];
         else
             kernel[i].k_n =
-                kernel[i].sum + kernel[i].betnn * evaluate(kernel[i].formula);
+                kernel[i].sum + kernel[i].betnn*evaluate(kernel[i].formula);
         /* plintf(" Value t=%g %d =%g %g\n",t,i,kernel[i].k_n,y[i]); */
     }
     return;

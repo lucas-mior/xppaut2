@@ -115,18 +115,18 @@ denalloc(int64 n) {
     if (n <= 0)
         return NULL;
 
-    a = malloc(n * sizeof(double *));
+    a = malloc(n*sizeof(double *));
     if (a == NULL)
         return NULL;
 
-    a[0] = malloc(n * n * sizeof(double));
+    a[0] = malloc(n*n * sizeof(double));
     if (a[0] == NULL) {
         free(a);
         return NULL;
     }
 
     for (j = 1; j < n; j++)
-        a[j] = a[0] + j * n;
+        a[j] = a[0] + j*n;
 
     return a;
 }
@@ -136,7 +136,7 @@ denallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return (malloc(n * sizeof(int64)));
+    return (malloc(n*sizeof(int64)));
 }
 
 int64
@@ -206,7 +206,7 @@ gefa(double **a, int64 n, int64 *p) {
 
             if (a_kj != ZERO) {
                 for (i = k + 1; i < n; i++)
-                    col_j[i] += a_kj * col_k[i];
+                    col_j[i] += a_kj*col_k[i];
             }
         }
     }
@@ -238,7 +238,7 @@ gesl(double **a, int64 n, int64 *p, double *b) {
         }
         col_k = a[k];
         for (i = k + 1; i < n; i++)
-            b[i] += mult * col_k[i];
+            b[i] += mult*col_k[i];
     }
 
     /* Solve Ux = y, store solution x in b */
@@ -248,7 +248,7 @@ gesl(double **a, int64 n, int64 *p, double *b) {
         b[k] /= col_k[k];
         mult = -b[k];
         for (i = 0; i < k; i++)
-            b[i] += mult * col_k[i];
+            b[i] += mult*col_k[i];
     }
     return;
 }

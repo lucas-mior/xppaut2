@@ -87,9 +87,9 @@ EXAMPLE of binning
     */
     for (i = 0; i < n1; i++)
         for (j = 0; j < n2; j++) {
-            my_hist[0][i + j * n1] = xlo + (i + .5) * dx;
-            my_hist[1][i + j * n1] = ylo + (j + .5) * dy;
-            my_hist[2][i + j * n1] = 0.0;
+            my_hist[0][i + j*n1] = xlo + (i + .5) * dx;
+            my_hist[1][i + j*n1] = ylo + (j + .5) * dy;
+            my_hist[2][i + j*n1] = 0.0;
         }
     for (k = 0; k < ndat; k++) {
         x = (storage[col1][k] - xlo) / dx;
@@ -97,7 +97,7 @@ EXAMPLE of binning
         i = (int32)x;
         j = (int32)y;
         if ((i >= 0) && (i < n1) && (j >= 0) && (j < n2))
-            my_hist[2][i + j * n1] += norm;
+            my_hist[2][i + j*n1] += norm;
     }
     return 0;
 }
@@ -202,7 +202,7 @@ twod_hist(void)
 
 {
     int32 length, i;
-    length = hist_inf.nbins * hist_inf.nbins2;
+    length = hist_inf.nbins*hist_inf.nbins2;
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
 
@@ -314,7 +314,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     for (i = 2; i <= NEQ; i++)
         my_hist[i] = storage[i];
     for (i = 0; i < length; i++) {
-        my_hist[0][i] = (float)(zlo + dz * i);
+        my_hist[0][i] = (float)(zlo + dz*i);
         my_hist[1][i] = 0.0;
     }
     if (which == 0) {
@@ -406,10 +406,10 @@ column_mean(void) {
     for (i = 0; i < storind; i++) {
         ss = storage[hist_inf.col][i];
         sum += ss;
-        sum2 += (ss * ss);
+        sum2 += (ss*ss);
     }
     mean = sum / (double)storind;
-    sdev = sqrt(sum2 / (double)storind - mean * mean);
+    sdev = sqrt(sum2 / (double)storind - mean*mean);
     sprintf(bob, "Mean=%g Std. Dev. = %g ", mean, sdev);
     err_msg(bob);
     return;
@@ -445,7 +445,7 @@ compute_power(void) {
     for (i = 0; i < four_len; i++) {
         c = datx[i];
         s = daty[i];
-        datx[i] = sqrt(s * s + c * c);
+        datx[i] = sqrt(s*s + c*c);
         daty[i] = atan2(s, c);
         ptot += (datx[i] * datx[i]);
     }
@@ -515,7 +515,7 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
 
     for (j = 0; j < kwin; j++) {
         for (i = 0; i < win; i++) {
-            kk = (j * shift + i + nr) % nr;
+            kk = (j*shift + i + nr) % nr;
             d[i] = f[i] * data[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
@@ -615,7 +615,7 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
     for (j = 0; j <= kwin; j++) {
         for (i = 0; i < win; i++) {
             /* kk=kk=(-shift+j*shift+i+nr)%nr; */
-            kk = (i + j * shift) % nr;
+            kk = (i + j*shift) % nr;
             d[i] = f[i] * data[kk];
             d2[i] = f[i] * data2[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
@@ -681,7 +681,7 @@ just_sd(int32 flag) {
     for (i = 2; i <= NEQ; i++)
         my_hist[i] = storage[i];
     for (j = 0; j < hist_len; j++)
-        my_hist[0][j] = ((float)j * storind / spec_wid) / total;
+        my_hist[0][j] = ((float)j*storind / spec_wid) / total;
     if (spec_type == 0)
         spectrum(storage[spec_col], storind, spec_wid, spec_win, my_hist[1]);
     else
@@ -726,7 +726,7 @@ compute_sd(void) {
     for (i = 2; i <= NEQ; i++)
         my_hist[i] = storage[i];
     for (j = 0; j < hist_len; j++)
-        my_hist[0][j] = ((float)j * storind / spec_wid) / total;
+        my_hist[0][j] = ((float)j*storind / spec_wid) / total;
     if (spec_type == 0)
         spectrum(storage[spec_col], storind, spec_wid, spec_win, my_hist[1]);
     else
@@ -753,7 +753,7 @@ just_fourier(int32 flag) {
         for (i = 0; i < four_len; i++) {
             c = datx[i];
             s = daty[i];
-            datx[i] = sqrt(s * s + c * c);
+            datx[i] = sqrt(s*s + c*c);
             daty[i] = atan2(s, c);
         }
     }
@@ -801,8 +801,8 @@ compute_correl(void) {
     /* new_float("Low ",&hist_inf.xlo);
        new_float("Hi ",&hist_inf.xhi); */
     /* lets try to get the lags correct for plotting */
-    hist_inf.xlo = -lag * dta;
-    hist_inf.xhi = lag * dta;
+    hist_inf.xlo = -lag*dta;
+    hist_inf.xhi = lag*dta;
 
     if (get_col_info(&hist_inf.col, "Variable 1 ") == 0)
         return;
@@ -843,7 +843,7 @@ mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins,
     for (j = 0; j <= nbins; j++) {
         sum = 0.0;
         count = 0;
-        jz = dz * j + zlo;
+        jz = dz*j + zlo;
         for (i = 0; i < n; i++) {
             k = i + (int32)jz;
             if ((k >= 0) && (k < n)) {
@@ -913,9 +913,9 @@ sft(float *data, float *ct, float *st, int32 nmodes, int32 grid) {
     for (j = 0; j < nmodes; j++) {
         sums = 0.0;
         sumc = 0.0;
-        xi = j * dx;
+        xi = j*dx;
         for (i = 0; i < grid; i++) {
-            x = i * xi;
+            x = i*xi;
             sumc += (cos(x) * data[i]);
             sums += (sin(x) * data[i]);
         }
@@ -948,10 +948,10 @@ fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
     /* n2=length/2;*/
 
     dim[0] = length;
-    re1 = malloc(length * sizeof(double));
-    im1 = malloc(length * sizeof(double));
-    re2 = malloc(length * sizeof(double));
-    im2 = malloc(length * sizeof(double));
+    re1 = malloc(length*sizeof(double));
+    im1 = malloc(length*sizeof(double));
+    re2 = malloc(length*sizeof(double));
+    im2 = malloc(length*sizeof(double));
 
     for (i = 0; i < length; i++) {
         im1[i] = 0.0;
@@ -994,8 +994,8 @@ fft(float *data, float *ct, float *st, int32 nmodes, int32 length) {
     double *im, *re;
     int32 dim[2], i;
     dim[0] = length;
-    re = malloc(length * sizeof(double));
-    im = malloc(length * sizeof(double));
+    re = malloc(length*sizeof(double));
+    im = malloc(length*sizeof(double));
     for (i = 0; i < length; i++) {
         im[i] = 0.0;
         re[i] = data[i];

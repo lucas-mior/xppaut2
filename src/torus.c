@@ -132,10 +132,10 @@ make_tor_box(char *title) {
     else
         ndn = nv;
     nac = NEQ / ndn;
-    if (nac * ndn < NEQ)
+    if (nac*ndn < NEQ)
         nac++;
 
-    width = 24 * DCURXs * nac + 10;
+    width = 24 * DCURXs*nac + 10;
     height = 3 * DCURYs + ndn * (DCURYs + 8);
 
     base =
@@ -164,7 +164,7 @@ make_tor_box(char *title) {
     for (i = 0; i < NEQ; i++) {
         i1 = i / nv;
         j1 = i % nv;
-        xpos = xstart + 18 * DCURXs * i1;
+        xpos = xstart + 18 * DCURXs*i1;
         ypos = ystart + j1 * (DCURYs + 8);
         torbox.w[i] = make_window(base, xpos, ypos, 15 * DCURXs, DCURYs, 1);
     }

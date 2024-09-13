@@ -1759,7 +1759,7 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
         t -= 1.0;
     if (t < 0.0)
         t += 1.0;
-    ts = fmod(t * p + HOMO_SHIFT, p);
+    ts = fmod(t*p + HOMO_SHIFT, p);
     for (i = 0; i < storind; i++) {
         ip = (i + 1) % storind;
         if ((ts >= storage[0][i]) && (ts < storage[0][ip])) {
@@ -1768,7 +1768,7 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
             lam = ts - storage[0][i];
             for (j = 0; j < n; j++)
                 u[j] =
-                    (1.0 - lam) * storage[j + 1][i1] + lam * storage[j + 1][i2];
+                    (1.0 - lam) * storage[j + 1][i1] + lam*storage[j + 1][i2];
             break;
         }
     }
@@ -1791,7 +1791,7 @@ get_start_orbit(double *u, double t, double p, int32 n) {
     lam = (tnorm - (double)i1);
 
     for (j = 0; j < n; j++)
-        u[j] = (1.0 - lam) * storage[j + 1][i1] + lam * storage[j + 1][i2];
+        u[j] = (1.0 - lam) * storage[j + 1][i1] + lam*storage[j + 1][i2];
     return;
 }
 
@@ -2281,7 +2281,7 @@ get_homo_info(int32 flg, int32 *nun, int32 *nst, double *ul, double *ur) {
     int32 n = 2 + 2 * NODE;
     int32 i;
     int32 flag = 0;
-    s = malloc(n * sizeof(char *));
+    s = malloc(n*sizeof(char *));
     for (i = 0; i < n; i++) {
         s[i] = malloc(100);
     }
@@ -2729,7 +2729,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     for (i = 0; i < nrow; i++) {
         get_a_row(u, &t, ndim, fp);
         if (Auto.ips != 4)
-            storage[0][i] = t * period;
+            storage[0][i] = t*period;
         else
             storage[0][i] = t;
 
