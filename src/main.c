@@ -1334,7 +1334,7 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
       */
     Window wine;
     int32 count;
-    unsigned dp_h, dp_w;
+    int32 dp_h, dp_w;
     Pixmap icon_map;
     XIconSize *size_list;
     XSizeHints size_hints;
@@ -1679,13 +1679,13 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
             (*colors)[i].pixel = red | green | blue;
             (*colors)[i].pad = 0;
             red += red1;
-            if (red > win_info->visual->red_mask)
+            if (red > (int32)win_info->visual->red_mask)
                 red = 0;
             green += green1;
-            if (green > win_info->visual->green_mask)
+            if (green > (int32)win_info->visual->green_mask)
                 green = 0;
             blue += blue1;
-            if (blue > win_info->visual->blue_mask)
+            if (blue > (int32)win_info->visual->blue_mask)
                 blue = 0;
         }
     } else {
