@@ -1041,12 +1041,11 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
             }
         }
 
-        int32 n = 0;
         ft[0] = '\0';
-        if (m > strlen(filesel.filetxt)) {
+        if (m > (int32)strlen(filesel.filetxt)) {
             return EDIT_WAIT;
         }
-        for (n = 0; n < strlen(filesel.filetxt) - m; n++) {
+        for (size_t n = 0; n < strlen(filesel.filetxt) - m; n++) {
             ft[n] = filesel.filetxt[m + n + 1];
             ft[n + 1] = '\0';
         }
