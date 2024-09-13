@@ -3799,11 +3799,6 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     /* M1A is the first dimension of A as in the DIMENSION statement. */
     /* The eigenvalues are to be returned in the floatcomplex vector EV. */
 
-    /* Local */
-
-    /* Parameter adjustments */
-    /*--ev;*/
-
     ibr = iap->ibr;
     ntot = iap->ntot;
     ntop = (ntot + 1) % 10000;
