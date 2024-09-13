@@ -1074,7 +1074,6 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
     return 0;
 } /* preho_ */
 
-/*     ---------- ------ */
 /* Subroutine */ int32
 stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
@@ -1296,7 +1295,6 @@ L3:
      */
 } /* stpho_ */
 
-/*     ---------- ------ */
 /* Subroutine */ int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
@@ -1842,7 +1840,6 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     return 0;
 } /* eigho_ */
 
-/*     ---------- ------ */
 /* Subroutine */ int32
 prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
@@ -1858,7 +1855,6 @@ prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
     return 0;
 } /* prjcti */
 
-/*     ---------- ------ */
 /* Subroutine */ int32
 prjctn(double *bound, double *xequib, const int64 *icp, double *par,
        int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
