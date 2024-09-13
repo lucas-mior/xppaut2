@@ -505,7 +505,7 @@ post_auto(void) {
         else
             flag = 1;
         add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
-                     flag, d->lab, d->nfpar, d->icp1, d->icp2, d->flag2, d->evr,
+                     flag, d->nfpar, d->icp1, d->icp2, d->flag2, d->evr,
                      d->evi);
         d = d->next;
         if (d == NULL)
@@ -544,7 +544,7 @@ svg_auto(void) {
         else
             flag = 1;
         add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
-                     flag, d->lab, d->nfpar, d->icp1, d->icp2, d->flag2, d->evr,
+                     flag, d->nfpar, d->icp1, d->icp2, d->flag2, d->evr,
                      d->evi);
         d = d->next;
         if (d == NULL)
