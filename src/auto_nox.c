@@ -128,11 +128,11 @@ int32 HBc = 0;
 int32 LPc = 20;
 /*  two parameter colors  need to do this
     LP is 20 (red)
-    HB  is  28 blue
-    TR  is  26 (green)
-    PD  is 24  (orange)
-    BR  is  27 (turquoise)
-    FP  is 25  (olive)
+    HB is 28 (blue)
+    TR is 26 (green)
+    PD is 24 (orange)
+    BR is 27 (turquoise)
+    FP is 25 (olive)
 */
 
 int32 LPP_color = 0;
