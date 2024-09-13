@@ -43,45 +43,6 @@ start_diagram(int32 n) {
     return;
 }
 
-int32
-find_diagram(int32 irs, int32 n, int32 *index, int32 *ibr, int32 *ntot,
-             int32 *itp, int32 *nfpar, double *a, double *uhi, double *ulo,
-             double *u0, double *par, double *per, int32 *icp1, int32 *icp2,
-             int32 *icp3, int32 *icp4) {
-    int32 i, found = 0;
-    DIAGRAM *d;
-    d = bifd;
-
-    while (d->next != NULL) {
-        if (d->lab == irs) {
-            found = 1;
-            break;
-        }
-        d = d->next;
-    }
-    if (found) {
-        *ibr = d->ibr;
-        *ntot = d->ntot;
-        *index = d->index;
-        *itp = d->itp;
-        *nfpar = d->nfpar;
-        *a = d->norm;
-        par = d->par;
-        *icp1 = d->icp1;
-        *icp2 = d->icp2;
-        *icp3 = d->icp3;
-        *icp4 = d->icp4;
-        *per = d->per;
-        for (i = 0; i < n; i++) {
-            u0[i] = d->u0[i];
-            ulo[i] = d->ulo[i];
-            uhi[i] = d->uhi[i];
-        }
-        return 1;
-    }
-    return 0;
-}
-
 void
 edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
            double *uhi, double *ulo, double *u0, double *ubar, double *par,

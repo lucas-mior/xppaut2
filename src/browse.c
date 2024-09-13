@@ -356,7 +356,7 @@ replace_column(char *var, char *form, float **dat, int32 n) {
     dt = NJMP * DELTA_T;
     /* first check for derivative or integral symbol */
     i = 0;
-    while (i < strlen(form)) {
+    while (i < (int32)strlen(form)) {
         if (!isspace(form[i]))
             break;
         i++;
