@@ -312,9 +312,9 @@ make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
 }
 
 int32
-find_positive_root(double *coef, double *delay, int32 n, int32 m, double rad,
-                   double err, double eps, double big, int32 maxit,
-                   double *rr) {
+find_positive_root(double *coef, double *delay, int32 n, int32 m,
+                   double rad, double err, double eps, double big,
+                   int32 maxit, double *rr) {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
