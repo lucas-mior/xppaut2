@@ -105,10 +105,11 @@ void add_ps_point(double *par, double per,
                   double a, int32 type, int32 flag,
                   int32 icp1, int32 icp2, int32 flag2);
 void auto_line(double x1i, double y1i, double x2i, double y2i);
-void add_point(double *par, double per, double *uhigh, double *ulow,
-               double *ubar, double a, int32 type, int32 flag, int32 lab,
-               int32 npar, int32 icp1, int32 icp2, int32 flag2, int32 icp3,
-               int32 icp4, double *evr, double *evi);
+void add_point(double *par, double per,
+               double *uhigh, double *ulow, double *ubar,
+               double a, int32 type, int32 flg, int32 lab, int32 npar,
+               int32 icp1, int32 icp2, int32 icp3, int32 icp4,
+               int32 flag2, double *evr, double *evi);
 void get_bif_sym(char *at, int32 itp);
 void info_header(int32 flag2, int32 icp1, int32 icp2);
 void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
