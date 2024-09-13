@@ -1354,7 +1354,7 @@ get_bif_sym(char *at, int32 itp) {
 }
 
 void
-info_header(int32 flag2, int32 icp1, int32 icp2) {
+info_header(int32 icp1, int32 icp2) {
     char bob[80];
     char p1name[12], p2name[12];
 
@@ -1376,7 +1376,7 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
     char bob[80];
     double p1, p2 = 0.0;
     clear_auto_info();
-    info_header(flag2, icp1, icp2);
+    info_header(icp1, icp2);
     p1 = par[icp1];
     if (icp2 < NAutoPar)
         p2 = par[icp2];

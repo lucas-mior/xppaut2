@@ -111,7 +111,7 @@ void add_point(double *par, double per,
                int32 icp1, int32 icp2,
                int32 flag2, double *evr, double *evi);
 void get_bif_sym(char *at, int32 itp);
-void info_header(int32 flag2, int32 icp1, int32 icp2);
+void info_header(int32 icp1, int32 icp2);
 void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
               double norm, double u0, double per, int32 flag2, int32 icp1,
               int32 icp2);

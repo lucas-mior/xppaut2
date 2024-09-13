@@ -45,7 +45,7 @@ int32 add_point(double *par, double per, double *uhigh, double *ulow,
                 double *evi);
 int32 redraw_auto_menus(void);
 int32 get_bif_sym(char *at, int32 itp);
-int32 info_header(int32 flag2, int32 icp1, int32 icp2);
+int32 info_header(int32 icp1, int32 icp2);
 int32 new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
                double norm, double u0, double per, int32 flag2, int32 icp1,
                int32 icp2);
