@@ -131,7 +131,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     if (i == 0 && okroot == 1 && AlphaMax > 0)
         i = 2;
 
-    create_eq_box(abs(i), 2, 0, 0, 0, x, ev, n);
+    create_eq_box(abs(i), 2, 0, 0, 0, x, n);
     /* DING; */
     del_stab_flag = 1;
     free(ev);

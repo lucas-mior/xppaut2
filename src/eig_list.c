@@ -310,7 +310,7 @@ eq_box_button(Window w) {
 
 void
 create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
-              double *ev, int32 n) {
+              int32 n) {
     int32 width, hstab, hequil, height;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};
