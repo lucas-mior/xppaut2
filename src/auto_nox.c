@@ -396,6 +396,7 @@ draw_bif_axes(void) {
     ATEXT((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
     ATEXT(10 * DCURXs, DCURYs, ylabel);
     refreshdisplay();
+    return;
 }
 
 int32
