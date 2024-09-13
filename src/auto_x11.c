@@ -937,8 +937,6 @@ display_auto(Window w) {
 Window
 lil_button(Window root, int32 x, int32 y, char *name) {
     Window win;
-    /*int32 width=strlen(name)*DCURX+5;
-     */
     int32 width = 12 * DCURX;
     win = make_window(root, x, y, width, DCURY + 1, 1);
     XSelectInput(display, win, MYMASK);
