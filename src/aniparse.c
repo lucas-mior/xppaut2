@@ -119,7 +119,7 @@ int32 ani_grab_flag = 0;
 int32 who_was_grabbed;
 double get_ivar(int32);
 
-extern double last_ic[MAXODE], T0;
+extern double last_ic[MAX_ODE], T0;
 
 /************************8  end grabber **********************/
 
@@ -776,7 +776,7 @@ set_to_init_data(void) {
 
 void
 set_from_init_data(void) {
-    double y[MAXODE];
+    double y[MAX_ODE];
     int32 i;
     for (i = 0; i < NODE + NMarkov; i++) {
         y[i] = last_ic[i];
@@ -789,7 +789,7 @@ void
 ani_flip1(int32 n) {
     int32 row;
     float **ss;
-    double y[MAXODE];
+    double y[MAX_ODE];
     double t;
     int32 i;
     if (n_anicom == 0)
@@ -830,7 +830,7 @@ ani_flip1(int32 n) {
 
 void
 ani_flip(void) {
-    double y[MAXODE];
+    double y[MAX_ODE];
     double t;
     char fname[256];
     FILE *angiffile = NULL;
@@ -2059,7 +2059,7 @@ render_ani(void) {
 void
 set_ani_perm(void) {
     /*double t;
-    double y[MAXODE];
+    double y[MAX_ODE];
     float **ss;
     */
     int32 i, type;

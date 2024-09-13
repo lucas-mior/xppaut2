@@ -32,7 +32,7 @@ typedef struct {
     int32 n;
     int32 node;
     char **name;
-    char ascval[MAXODE][ICLENGTH];
+    char ascval[MAX_ODE][ICLENGTH];
     Window wname[ICMAX], wval[ICMAX];
 } IC_BOX;
 

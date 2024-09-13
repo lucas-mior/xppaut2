@@ -39,26 +39,26 @@ extern int32 DCURY, DCURX, CURY_OFF, xor_flag;
 extern GC gc;
 extern uint32 MyBackColor, MyForeColor;
 
-extern char uvar_names[MAXODE][12];
-extern char *ode_names[MAXODE];
+extern char uvar_names[MAX_ODE][12];
+extern char *ode_names[MAX_ODE];
 extern int32 METHOD, NEQ, NODE, NMarkov, FIX_VAR;
 
 extern char *info_message, *edrh_hint[];
 extern int32 *my_ode[];
 extern int32 NUPAR;
-extern double last_ic[MAXODE];
+extern double last_ic[MAX_ODE];
 
 /*extern char upar_names[MAXPAR][11],this_file[100];*/
 
 extern char upar_names[MAXPAR][14], this_file[XPP_MAX_NAME];
-extern int32 EqType[MAXODE];
+extern int32 EqType[MAX_ODE];
 
 extern char *ufun_def[MAXUFUN];
 extern char ufun_names[MAXUFUN][12];
 extern int32 narg_fun[MAXUFUN], *ufun[MAXUFUN];
 
 extern UFUN_ARG ufun_arg[MAXUFUN];
-extern BC_STRUCT my_bc[MAXODE];
+extern BC_STRUCT my_bc[MAX_ODE];
 
 extern int32 NFUN;
 

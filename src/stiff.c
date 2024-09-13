@@ -11,7 +11,7 @@ extern int32 NFlags;
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define SIGN(a, b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
-/* #define MAXODE 100 */
+/* #define MAX_ODE 100 */
 #define SAFETY 0.9
 #define GROW 1.5
 #define PGROW -0.25

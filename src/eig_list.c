@@ -24,18 +24,18 @@
         return;                                                                \
     }
 
-extern double last_ic[MAXODE];
+extern double last_ic[MAX_ODE];
 extern int32 noicon;
 extern Display *display;
 extern int32 screen;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
-extern char uvar_names[MAXODE][12];
-extern char *ode_names[MAXODE];
+extern char uvar_names[MAX_ODE][12];
+extern char *ode_names[MAX_ODE];
 extern int32 METHOD, NEQ, NODE, NMarkov;
 
-extern int32 EqType[MAXODE];
+extern int32 EqType[MAX_ODE];
 
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
@@ -46,7 +46,7 @@ extern int32 EqType[MAXODE];
 
 struct {
     Window base, stab, rest, top, close, import;
-    double y[MAXODE], ev[MAXODE + MAXODE];
+    double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];
     int32 n, flag;
     int32 info[5];
     char type[15];

@@ -32,7 +32,7 @@
 #include "max_len_sbox.h"
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 extern double constants[];
-extern double last_ic[MAXODE];
+extern double last_ic[MAX_ODE];
 
 extern double DELAY;
 extern int32 DelayFlag;
@@ -84,7 +84,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
  */
 {
     int32 i, iv, ip, istart = 1, j, k, l, k0, ok;
-    double yold[MAXODE], dp;
+    double yold[MAX_ODE], dp;
     double par;
     *flag = 0;
     /* set up all initial data and parameter guesses  */
@@ -215,7 +215,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
     int32 kflag;
     double dt = DELTA_T;
     double z;
-    double error[MAXODE];
+    double error[MAX_ODE];
     double t = t0;
 #ifdef CVODE_YES
     if (METHOD == CVODE) {
@@ -441,13 +441,13 @@ run_fit(/* double arrays */
 */
 
 {
-    double *t0, *y, sig[MAXODE], *covar, *alpha, chisq, ochisq, alambda,
+    double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
     int32 i, j, k, ioff, ictrl = 0, ok;
     FILE *fp;
     int32 niter = 0, good_flag = 0;
     double tol10 = 10*tol;
-    double t, ytemp[MAXODE];
+    double t, ytemp[MAX_ODE];
     /*printf(" %s %d %d %d %d %d \n",
               filename,
             npts,npars,nvars,maxiter,ndim); */

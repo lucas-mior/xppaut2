@@ -74,7 +74,7 @@ extern Display *display;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
     screen;
 extern GC gc, small_gc, gc_graph;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 extern BROWSER my_browser;
 int32 aplot_range;
 int32 aplot_range_count = 0;
@@ -87,7 +87,7 @@ FILE *ap_fp;
 GC aplot_gc;
 int32 first_aplot_press;
 int32 do_range(double *, int32);
-extern double MyData[MAXODE];
+extern double MyData[MAX_ODE];
 
 #define MYMASK                                                                 \
     (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \

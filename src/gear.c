@@ -27,11 +27,11 @@ extern int32 ENDSING, PAR_FOL, SHOOT, PAUSER;
 
 extern int32 NODE;
 extern int32 NFlags;
-double ShootIC[8][MAXODE];
+double ShootIC[8][MAX_ODE];
 int32 ShootICFlag;
 int32 ShootIndex;
 int32 ShootType[8];
-int32 gear_pivot[MAXODE];
+int32 gear_pivot[MAX_ODE];
 extern int32 storind, STORFLAG;
 
 double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
@@ -48,7 +48,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
     int32 kmem, i, j;
 
     double *work, *eval, *b, *bp, *oldwork, *ework;
-    double temp, old_x[MAXODE];
+    double temp, old_x[MAX_ODE];
 
     kmem = n * (2*n + 5) + 50;
     *ierr = 0;
@@ -99,18 +99,18 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
 void
 do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         int32 *ierr, float *stabinfo) {
-    int32 kmem, i, j, ipivot[MAXODE];
+    int32 kmem, i, j, ipivot[MAX_ODE];
     int32 oldcol, dummy;
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
     int32 pose = 0, nege = 0, pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
-    double temp, oldt = DELTA_T, old_x[MAXODE];
+    double temp, oldt = DELTA_T, old_x[MAX_ODE];
 
     char ch;
     double real, imag;
     double bigpos = -1e10, bigneg = 1e10;
     int32 bpos = 0, bneg = 0;
-    /* float xl[MAXODE]; */
+    /* float xl[MAX_ODE]; */
     kmem = n * (2*n + 5) + 50;
     if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         err_msg("Insufficient core ");
@@ -330,7 +330,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
 void
 save_batch_shoot(void) {
     int32 i, k, type, oldcol, dummy;
-    double x[MAXODE], olddt;
+    double x[MAX_ODE], olddt;
     char name[256];
     FILE *fp;
     if (ShootIndex < 1)
@@ -371,7 +371,7 @@ void
 shoot_this_now(void) {
     /* this uses the current labeled saddle point stuff to integrate */
     int32 i, k, type, oldcol, dummy;
-    double x[MAXODE], olddt;
+    double x[MAX_ODE], olddt;
     if (ShootIndex < 1)
         return;
     olddt = DELTA_T;
@@ -402,17 +402,17 @@ shoot_this_now(void) {
 void
 do_sing_info(double *x, double eps, double err, double big, int32 maxit,
              int32 n, double *er, double *em, int32 *ierr) {
-    int32 kmem, i, j, ipivot[MAXODE];
+    int32 kmem, i, j, ipivot[MAX_ODE];
 
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
     int32 pose = 0, nege = 0, pr = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
-    double temp, old_x[MAXODE];
+    double temp, old_x[MAX_ODE];
 
     double real, imag;
     double bigpos = -1e10, bigneg = 1e10;
 
-    /* float xl[MAXODE]; */
+    /* float xl[MAX_ODE]; */
     kmem = n * (2*n + 5) + 50;
     if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         /* printf("Insufficient core \n");  */
@@ -1014,7 +1014,7 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 void
 rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
        int32 maxit, int32 n) {
-    int32 i, iter, ipivot[MAXODE], info;
+    int32 i, iter, ipivot[MAX_ODE], info;
     char ch;
     double *xp, *yp, *y, *xg, *dermat, *dely;
     double r;
@@ -1104,7 +1104,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
       double *work, int32 *iwork)
 
 {
-    /* int32 ipivot[MAXODE]; */
+    /* int32 ipivot[MAX_ODE]; */
     double deltat = 0.0, hnew = 0.0, hold = 0.0, h = 0.0, racum = 0.0,
            told = 0.0, r = 0.0, d = 0.0;
     double *a, pr1, pr2, pr3, r1;

@@ -46,12 +46,12 @@ extern int32 *my_ode[];
 
 extern int32 *plotlist, N_plist;
 
-extern char *ode_names[MAXODE];
+extern char *ode_names[MAX_ODE];
 extern int32 NEQ, MAXSTOR, NMarkov, FIX_VAR;
 extern int32 NEQ_MIN;
 extern int32 NODE, NJMP;
 extern int32 Xup, TipsFlag;
-extern double last_ic[MAXODE], DELTA_T;
+extern double last_ic[MAX_ODE], DELTA_T;
 
 extern int32 NSYM, NSYM_START, NCON, NCON_START;
 
@@ -94,7 +94,7 @@ extern Window command_pop;
 BROWSER my_browser;
 
 extern int32 noicon;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 float *old_rep;
 int32 REPLACE = 0, R_COL = 0;
 

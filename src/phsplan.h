@@ -39,7 +39,7 @@ extern double TEND, DELTA_T, T0, TRANS;
 extern double *WORK;
 extern int32 IWORK[1000];
 
-extern int32 TORUS, itor[MAXODE];
+extern int32 TORUS, itor[MAX_ODE];
 extern double TOR_PERIOD;
 
 extern int32 POIMAP, POISGN, POIEXT, SOS, POIVAR;
@@ -48,6 +48,6 @@ extern double POIPLN;
 extern int32 NULL_HERE;
 extern float *X_n, *Y_n;
 
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 
 #endif

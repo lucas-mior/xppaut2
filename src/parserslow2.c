@@ -1797,7 +1797,7 @@ do_shift(double shift, double variable) {
             return constants[in];
         break;
     case VARTYPE:
-        if (in > MAXODE)
+        if (in > MAX_ODE)
             return 0.0;
         else
             return variables[in];
@@ -1826,7 +1826,7 @@ do_delay_shift(double delay, double shift, double variable) {
         return 0.0;
     in = (i % MAXTYPE) + ish;
 
-    if (in > MAXODE)
+    if (in > MAX_ODE)
         return 0.0;
 
     if (del_stab_flag > 0) {

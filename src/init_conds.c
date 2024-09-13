@@ -111,11 +111,11 @@ FILESEL filesel;
 extern FILEINFO my_ff;
 
 extern int32 NUPAR, NODE, NEQ, NMarkov;
-extern char upar_names[MAXPAR][14], uvar_names[MAXODE][12];
-extern char delay_string[MAXODE][80];
+extern char upar_names[MAXPAR][14], uvar_names[MAX_ODE][12];
+extern char delay_string[MAX_ODE][80];
 extern double default_val[MAXPAR];
-extern double last_ic[MAXODE];
-extern double default_ic[MAXODE];
+extern double last_ic[MAX_ODE];
+extern double default_ic[MAX_ODE];
 
 PAR_SLIDER my_par_slide[3];
 extern OptionsSet notAlreadySet;
@@ -133,7 +133,7 @@ extern double SLIDER1HI;
 extern double SLIDER2HI;
 extern double SLIDER3HI;
 
-extern BC_STRUCT my_bc[MAXODE];
+extern BC_STRUCT my_bc[MAX_ODE];
 
 BoxList *HotBox;
 int32 HotBoxItem = -1;

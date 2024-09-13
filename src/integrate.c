@@ -103,7 +103,7 @@ extern GRAPH *MyGraph;
 #define DP83 12
 #define RB23 13
 extern int32 animation_on_the_fly;
-extern double ShootIC[8][MAXODE];
+extern double ShootIC[8][MAX_ODE];
 extern int32 ShootType[8];
 extern int32 ShootICFlag;
 extern int32 ShootIndex;
@@ -151,7 +151,7 @@ FIXPTLIST fixptlist;
 typedef struct {
     int32 n;
     double tol;
-    double xlo[MAXODE], xhi[MAXODE];
+    double xlo[MAX_ODE], xhi[MAX_ODE];
 } FIXPTGUESS;
 
 FIXPTGUESS fixptguess;
@@ -173,14 +173,14 @@ extern int32 NMarkov, STOCH_FLAG;
 extern int32 color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
 int32 DelayErr;
 
-double MyData[MAXODE], MyTime;
+double MyData[MAX_ODE], MyTime;
 int32 MyStart;
 extern int32 DelayFlag, DCURY, NKernel;
 int32 RANGE_FLAG;
 extern int32 PAR_FOL, SHOOT;
 extern char upar_names[MAXPAR][14];
 extern double default_val[MAXPAR];
-extern double last_ic[MAXODE];
+extern double last_ic[MAX_ODE];
 double LastTime;
 
 extern char UserOUTFILE[256];
@@ -626,8 +626,8 @@ void
 do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     int32 i, j, k, m, n = fixptguess.n;
     int32 ierr, new = 1;
-    double x[MAXODE], sum;
-    double er[MAXODE], em[MAXODE];
+    double x[MAX_ODE], sum;
+    double er[MAX_ODE], em[MAX_ODE];
     if (append == 0)
         fixptlist.n = 0;
 
@@ -1022,7 +1022,7 @@ do_range(double *x,
 
 void
 silent_equilibria(void) {
-    double x[MAXODE], er[MAXODE], em[MAXODE];
+    double x[MAX_ODE], er[MAX_ODE], em[MAX_ODE];
     int32 ierr, i;
     FILE *fp;
     if (BatchEquil < 0)
@@ -1794,7 +1794,7 @@ get_ic(int32 it, double *x) {
 
 int32
 ode_int(double *y, double *t, int32 *istart, int32 ishow) {
-    double error[MAXODE];
+    double error[MAX_ODE];
 
     int32 kflag;
     int32 nodes = xpv.node + xpv.nvec;
@@ -1939,17 +1939,17 @@ int32
 integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
           int32 *start) {
 
-    float xv[MAXODE + 1], xvold[MAXODE + 1];
+    float xv[MAX_ODE + 1], xvold[MAX_ODE + 1];
     float oldperiod = 0.0;
-    double error[MAXODE];
-    double xprime[MAXODE], oldxprime[MAXODE], hguess = dt;
+    double error[MAX_ODE];
+    double xprime[MAX_ODE], oldxprime[MAX_ODE], hguess = dt;
     int32 kflag;
 
-    int32 torcross[MAXODE];
+    int32 torcross[MAX_ODE];
     int32 nodes = xpv.node + xpv.nvec - NMarkov;
 
     int32 rval = 0;
-    double oldx[MAXODE], oldt = 0, dint, dxp, sect, sect1, tout, tzero = *t;
+    double oldx[MAX_ODE], oldt = 0, dint, dxp, sect, sect1, tout, tzero = *t;
     double sss, tnew = *t;
     int32 iflagstart = 1;
     float tscal = tend, tv;
@@ -2510,7 +2510,7 @@ send_halt(double *y, double t) {
 
 void
 send_output(double *y, double t) {
-    double yy[MAXODE];
+    double yy[MAX_ODE];
     int32 i;
     for (i = 0; i < NODE; i++)
         yy[i] = y[i];
@@ -2669,7 +2669,7 @@ restore(int32 i1, int32 i2) {
     int32 i, j, kxoff, kyoff, kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
     float oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
-    float v1[MAXODE + 1], v2[MAXODE + 1];
+    float v1[MAX_ODE + 1], v2[MAX_ODE + 1];
     float **data;
 
     data = get_browser_data();

@@ -36,25 +36,25 @@ extern int32 Xup;
 extern Window main_win;
 extern GRAPH *MyGraph;
 
-extern BC_STRUCT my_bc[MAXODE];
+extern BC_STRUCT my_bc[MAX_ODE];
 
 int32 set_type = 0;
 
-extern FIXINFO fixinfo[MAXODE];
+extern FIXINFO fixinfo[MAX_ODE];
 extern int32 FIX_VAR, NFUN;
 
 extern int32 NJMP, NMESH, METHOD, NODE, POIMAP, POIVAR, POISGN, SOS, INFLAG,
     NMarkov;
 extern int32 NUPAR, NEQ, BVP_MAXIT, EVEC_ITER, DelayFlag, MyStart;
-extern double last_ic[MAXODE], MyData[MAXODE], MyTime, LastTime;
+extern double last_ic[MAX_ODE], MyData[MAX_ODE], MyTime, LastTime;
 extern double TEND, DELTA_T, T0, TRANS, BOUND, HMIN, HMAX, TOLER, ATOLER, DELAY;
 extern double POIPLN, EVEC_ERR, NEWT_ERR;
 extern double BVP_TOL, BVP_EPS;
 extern int32 MaxPoints;
 
-extern char upar_names[MAXPAR][11], this_file[100], delay_string[MAXODE][80];
-extern char uvar_names[MAXODE][12];
-extern char *ode_names[MAXODE], *fix_names[MAXODE];
+extern char upar_names[MAXPAR][11], this_file[100], delay_string[MAX_ODE][80];
+extern char uvar_names[MAX_ODE][12];
+extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
 
 void
 file_inf(void) {

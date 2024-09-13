@@ -28,13 +28,13 @@
 
 #define READEM 1
 
-extern double MyData[MAXODE];
+extern double MyData[MAX_ODE];
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern float **storage;
 extern int32 storind, FOUR_HERE;
 extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 float **my_adj;
 int32 adj_len;
 float **my_h;
@@ -56,8 +56,8 @@ double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
 int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
 int32 AdjRange = 0;
 extern double DELTA_T, BOUND;
-int32 *coup_fun[MAXODE];
-char *coup_string[MAXODE];
+int32 *coup_fun[MAX_ODE];
+char *coup_string[MAX_ODE];
 
 extern int32 *my_ode[];
 extern int32 NSYM, NSYM_START, NCON, NCON_START;
@@ -640,7 +640,7 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
          int32 node, double dt) {
 
     int32 j, i, n2 = node*node, info;
-    int32 ipvt[MAXODE];
+    int32 ipvt[MAX_ODE];
     double *mat, *fold;
     fold = work;
     mat = work + node;
@@ -742,8 +742,8 @@ norm_vec(/* returns the length of the vector and the unit vector */
 
 int32
 hrw_liapunov(double *liap, int32 batch, double eps) {
-    double y[MAXODE];
-    double yp[MAXODE], nrm, dy[MAXODE];
+    double y[MAX_ODE];
+    double yp[MAX_ODE], nrm, dy[MAX_ODE];
     double t0, t1;
     double sum = 0.0;
     char bob[256];

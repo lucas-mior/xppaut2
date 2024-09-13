@@ -8,7 +8,7 @@
 
 #define NEQMAXFOREDIT 20
 #define MAXARG 20
-#define MAX_N_EBOX MAXODE
+#define MAX_N_EBOX MAX_ODE
 #define MAX_LEN_EBOX 86
 #define FORGET_ALL 0
 #define DONE_ALL 2

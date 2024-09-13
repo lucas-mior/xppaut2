@@ -29,16 +29,16 @@ extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 extern int32 NUPAR, NODE, NEQ;
-extern char upar_names[MAXPAR][14], uvar_names[MAXODE][12];
+extern char upar_names[MAXPAR][14], uvar_names[MAX_ODE][12];
 
 extern Window main_win, info_pop;
 extern int32 TORUS;
 extern double TOR_PERIOD;
-extern int32 itor[MAXODE];
+extern int32 itor[MAX_ODE];
 
 struct {
     Window base, done, cancel;
-    Window w[MAXODE];
+    Window w[MAX_ODE];
 } torbox;
 
 void
@@ -52,7 +52,7 @@ do_torus_com(int32 c) {
             return;
         }
         if (c == 0) {
-            for (i = 0; i < MAXODE; i++)
+            for (i = 0; i < MAX_ODE; i++)
                 itor[i] = 1;
             TORUS = 1;
             return;
@@ -61,7 +61,7 @@ do_torus_com(int32 c) {
         choose_torus();
         return;
     }
-    for (i = 0; i < MAXODE; i++)
+    for (i = 0; i < MAX_ODE; i++)
         itor[i] = 0;
     TORUS = 0;
     return;
@@ -188,7 +188,7 @@ do_torus_events(void) {
     int32 done = 0;
     Window wt;
     int32 i;
-    int32 oldit[MAXODE];
+    int32 oldit[MAX_ODE];
     for (i = 0; i < NEQ; i++)
         oldit[i] = itor[i];
     while (!done) {

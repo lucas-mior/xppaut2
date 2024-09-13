@@ -41,10 +41,10 @@ double new_state(double, int32, double);
 
 extern int32 DCURY;
 extern int32 *my_ode[];
-extern char *ode_names[MAXODE];
+extern char *ode_names[MAX_ODE];
 extern int32 NMarkov, FIX_VAR, NODE, NEQ;
 
-extern double MyData[MAXODE];
+extern double MyData[MAX_ODE];
 
 extern int32 NLINES;
 extern char *save_eqn[1000];
@@ -64,7 +64,7 @@ MARKOV markov[MAXMARK];
 extern float **storage;
 
 extern int32 storind;
-float *my_mean[MAXODE], *my_variance[MAXODE];
+float *my_mean[MAX_ODE], *my_variance[MAX_ODE];
 int32 stoch_len;
 
 int32 STOCH_FLAG, STOCH_HERE, N_TRIALS;
@@ -317,7 +317,7 @@ compile_markov(int32 index, int32 j, int32 k) {
 void
 update_markov(double *x, double t, double dt) {
     int32 i;
-    double yp[MAXODE];
+    double yp[MAX_ODE];
     /*  plintf(" NODE=%d x=%g \n",NODE,x[0]); */
     if (NMarkov == 0)
         return;

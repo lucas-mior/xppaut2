@@ -110,7 +110,7 @@ INTERN_SET intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
 extern int32 STOCH_FLAG;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 extern struct {
     char item[30], item2[30];
     int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
@@ -134,7 +134,7 @@ extern int32 DoTutorial;
 
 extern char batchout[256];
 extern int32 batch_range;
-double last_ic[MAXODE];
+double last_ic[MAX_ODE];
 extern char PlotFormat[100];
 extern char big_font_name[100], small_font_name[100];
 extern int32 PaperWhite;
@@ -147,8 +147,8 @@ extern int32 SEc, UEc, SPc, UPc;
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 
-char delay_string[MAXODE][80];
-int32 itor[MAXODE];
+char delay_string[MAX_ODE][80];
+int32 itor[MAX_ODE];
 /*char this_file[100];
  */
 char this_file[XPP_MAX_NAME];
@@ -365,7 +365,7 @@ load_eqn(void) {
     int32 std = 0;
     FILE *fptr;
     init_ar_ic();
-    for (i = 0; i < MAXODE; i++) {
+    for (i = 0; i < MAX_ODE; i++) {
         itor[i] = 0;
         /*  last_ic[i]=0.0; */
         strcpy(delay_string[i], "0.0");

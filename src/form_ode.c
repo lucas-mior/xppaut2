@@ -40,8 +40,8 @@
 #define MAXCOMMENTS 500
 
 int32 IN_INCLUDED_FILE = 0;
-char uvar_names[MAXODE][12];
-char *ode_names[MAXODE];
+char uvar_names[MAX_ODE][12];
+char *ode_names[MAX_ODE];
 char upar_names[MAXPAR][11];
 char *save_eqn[MAXLINES];
 double default_val[MAXPAR];
@@ -49,15 +49,15 @@ extern int32 NODE;
 extern int32 NUPAR;
 extern int32 NLINES;
 extern int32 IN_VARS;
-extern int32 leng[MAXODE];
+extern int32 leng[MAX_ODE];
 extern int32 NincludedFiles;
 
 VAR_INFO *my_varinfo;
 int32 start_var_info = 0;
 
-int32 *my_ode[MAXODE];
+int32 *my_ode[MAX_ODE];
 
-int32 leng[MAXODE];
+int32 leng[MAX_ODE];
 
 typedef struct {
     char *text, *action;
@@ -79,10 +79,10 @@ ACTION *orig_comments;
 int32 orig_ncomments = 0;
 int32 is_a_map = 0;
 int32 n_comments = 0;
-extern char delay_string[MAXODE][80];
-BC_STRUCT my_bc[MAXODE];
+extern char delay_string[MAX_ODE][80];
+BC_STRUCT my_bc[MAX_ODE];
 
-double default_ic[MAXODE];
+double default_ic[MAX_ODE];
 extern double last_ic[];
 int32 NODE, NUPAR, NLINES;
 int32 PrimeStart;
@@ -115,14 +115,14 @@ extern int32 NWiener;
  */
 extern char this_file[XPP_MAX_NAME];
 extern char options[100];
-int32 EqType[MAXODE];
+int32 EqType[MAX_ODE];
 int32 Naux = 0;
-char aux_names[MAXODE][12];
+char aux_names[MAX_ODE][12];
 
 int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0, NUMMARK = 0, NUMAUX = 0,
       NUMVOLT = 0, NUMSOL = 0;
 
-FIXINFO fixinfo[MAXODE];
+FIXINFO fixinfo[MAX_ODE];
 extern char cur_dir[];
 
 extern FILEINFO my_ff;
@@ -754,7 +754,7 @@ compiler(char *bob, FILE *fptr) {
         }
         advance_past_first_word(&ptr);
         while ((my_string = get_next2(&ptr)) != NULL) {
-            if ((IN_VARS > NEQ) || (IN_VARS == MAXODE)) {
+            if ((IN_VARS > NEQ) || (IN_VARS == MAX_ODE)) {
                 plintf(" too many variables at line %d\n", NLINES);
                 exit(0);
             }

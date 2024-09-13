@@ -33,7 +33,7 @@ extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 #define SIMPMASK                                                               \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
-extern double last_ic[MAXODE];
+extern double last_ic[MAX_ODE];
 
 struct {
     Window base, quit, answer;

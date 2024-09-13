@@ -35,7 +35,7 @@ extern Display *display;
 extern Window draw_win;
 extern int32 DX_0, DY_0, D_WID, D_HGT;
 extern int32 PltFmtFlag;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
 extern int32 TextJustify, TextAngle;
 extern double XMin, XMax, YMin, YMax;

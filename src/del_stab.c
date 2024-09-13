@@ -15,7 +15,7 @@
 /* this code takes the determinant of a floatcomplex valued matrix
  */
 
-extern double variable_shift[2][MAXODE], AlphaMax, OmegaMax;
+extern double variable_shift[2][MAX_ODE], AlphaMax, OmegaMax;
 
 extern double delay_list[MAXDELAY];
 extern int32 NDelay, del_stab_flag, WhichDelay, DelayGrid;
@@ -37,8 +37,8 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     double rr[2];
 
     double colnorm = 0, colmax, colsum;
-    double *work, old_x[MAXODE], sign;
-    double *coef, yp[MAXODE], y[MAXODE], xp[MAXODE], dx;
+    double *work, old_x[MAX_ODE], sign;
+    double *coef, yp[MAX_ODE], y[MAX_ODE], xp[MAX_ODE], dx;
     int32 kmem = n * (2*n + 5) + 50, i, j, k, okroot;
 
     double *ev;

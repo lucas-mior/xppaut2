@@ -15,7 +15,7 @@
 #include "parserslow.h"
 
 extern int32 DCURY, MAXSTOR;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 typedef struct {
     int32 nbins, nbins2, type, col, col2, fftc;
     double xlo, xhi;
@@ -41,8 +41,8 @@ extern int32 NCON, NSYM, NCON_START, NSYM_START;
 extern float **storage;
 extern int32 storind;
 int32 hist_len, four_len;
-float *my_hist[MAXODE + 1];
-float *my_four[MAXODE + 1];
+float *my_hist[MAX_ODE + 1];
+float *my_four[MAX_ODE + 1];
 int32 HIST_HERE, FOUR_HERE;
 
 float total_time;

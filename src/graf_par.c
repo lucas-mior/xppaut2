@@ -79,7 +79,7 @@ extern char this_file[XPP_MAX_NAME];
 extern char this_internset[XPP_MAX_NAME];
 
 extern int32 PltFmtFlag;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 
 extern char *info_message, *no_hint[], *wind_hint[], *view_hint[], *frz_hint[];
 extern char *graf_hint[], *cmap_hint[];

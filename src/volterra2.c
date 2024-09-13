@@ -37,10 +37,10 @@
 extern KERNEL kernel[MAXKER];
 extern int32 NODE, NMarkov, FIX_VAR, PrimeStart;
 extern int32 NKernel;
-extern double *Memory[MAXODE];
+extern double *Memory[MAX_ODE];
 extern double T0, DELTA_T;
 extern int32 MaxPoints;
-extern int32 EqType[MAXODE];
+extern int32 EqType[MAX_ODE];
 int32 CurrentPoint;
 int32 KnFlag;
 
@@ -188,7 +188,7 @@ alloc_kernels(int32 flag) {
 void
 init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
     double t = t0 + n*dt, tp = t0 + i0*dt;
-    double sum[MAXODE], al, alpbet, mu;
+    double sum[MAX_ODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
     int32 l, ioff, ker, i;
     SETVAR(0, t);

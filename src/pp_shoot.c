@@ -61,13 +61,13 @@ extern double TRANS;
 extern double BVP_EPS;
 extern double variables[];
 extern int32 NVAR;
-extern BC_STRUCT my_bc[MAXODE];
+extern BC_STRUCT my_bc[MAX_ODE];
 
 extern int32 color_line[11], MyStart;
 
 extern int32 NKernel;
 
-extern double MyData[MAXODE], MyTime;
+extern double MyData[MAX_ODE], MyTime;
 struct {
     char item[30];
     int32 steps, side, cycle, movie;
@@ -75,7 +75,7 @@ struct {
 } shoot_range;
 
 extern char upar_names[MAXPAR][14];
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 
 /*   more general mixed boundary types   */
 
@@ -277,8 +277,8 @@ find_bvp_com(int32 com) {
     int32 iper = 0, ivar = 0, ipar = 0, pflag;
     double sect = 0.0;
     double oldpar;
-    double ystart[MAXODE], oldtrans;
-    double yend[MAXODE];
+    double ystart[MAX_ODE], oldtrans;
+    double yend[MAX_ODE];
     /*  Window temp=main_win; */
     if (NMarkov > 0 || NKernel > 0) {
         err_msg("Can't do BVP with integral or markov eqns");

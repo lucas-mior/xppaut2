@@ -96,7 +96,7 @@ int32 TypeOfCalc = 0;
 
 #define DISCRETE 0
 extern XAUTO xAuto;
-extern int32 leng[MAXODE];
+extern int32 leng[MAX_ODE];
 extern int32 PS_Color;
 extern double TOR_PERIOD;
 extern float **storage;
@@ -161,7 +161,7 @@ ROTCHK blrtn;
 
 GRABPT grabpt;
 
-extern double MyData[MAXODE];
+extern double MyData[MAX_ODE];
 extern DIAGRAM *bifd;
 
 extern int32 NBifs;
@@ -187,7 +187,7 @@ char fort8[200];
 char fort9[200];
 char TMPSWAP[200];
 
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 extern char upar_names[MAXPAR][14];
 extern int32 NUPAR;
 uint32 DONT_XORCross = 0;
@@ -202,7 +202,7 @@ int32 HomoFlag = 0;
 int32 sparity = 0;
 double homo_l[100], homo_r[100];
 double HOMO_SHIFT = 0.0;
-extern char uvar_names[MAXODE][12];
+extern char uvar_names[MAX_ODE][12];
 
 extern int32 storind;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;

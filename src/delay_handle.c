@@ -20,13 +20,13 @@ int32 MaxDelay;
 int32 DelayFlag = 0;
 
 int32 NDelay, del_stab_flag, WhichDelay, DelayGrid = 1000;
-double variable_shift[2][MAXODE];
+double variable_shift[2][MAX_ODE];
 double delay_list[MAXDELAY];
 
 extern double DELTA_T, T0, DELAY;
 extern int32 NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
 
-extern char delay_string[MAXODE][80];
+extern char delay_string[MAX_ODE][80];
 extern double variables[];
 extern int32 NVAR;
 
@@ -202,11 +202,11 @@ get_delay(int32 in, double tau) {
 /*  Handling of the initial data  */
 int32
 do_init_delay(double big) {
-    double t = T0, old_t, y[MAXODE];
+    double t = T0, old_t, y[MAX_ODE];
     int32 i, nt, j;
     int32 len;
 
-    int32 *del_form[MAXODE];
+    int32 *del_form[MAX_ODE];
     nt = (int32)(big / fabs(DELTA_T));
     NCON = NCON_START;
     NSYM = NSYM_START;

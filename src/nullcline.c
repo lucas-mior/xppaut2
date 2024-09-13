@@ -45,7 +45,7 @@ int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern int32 DRight, DLeft, DTop, DBottom;
 extern int32 STORFLAG;
-extern double last_ic[MAXODE];
+extern double last_ic[MAX_ODE];
 
 extern double DELTA_T, TEND, TRANS;
 extern int32 PaperWhite, DCURY;
@@ -488,8 +488,8 @@ redraw_dfield(void) {
     int32 i, j, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
-    double y[MAXODE], ydot[MAXODE], xv1, xv2;
-    float v1[MAXODE], v2[MAXODE];
+    double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
+    float v1[MAX_ODE], v2[MAX_ODE];
     FILE *fp = NULL;
 
     double amp, mdf;
@@ -585,9 +585,9 @@ direct_field_com(int32 c) {
     int32 i, j, start, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
-    double y[MAXODE], ydot[MAXODE], xv1, xv2;
+    double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
     double dtold = DELTA_T;
-    float v1[MAXODE], v2[MAXODE];
+    float v1[MAX_ODE], v2[MAX_ODE];
 
     double amp, mdf;
     double t;
@@ -953,7 +953,7 @@ stor_null(double x1, double y1, double x2, double y2) {
 
 float
 fnull(double x, double y) {
-    double y1[MAXODE], ydot[MAXODE];
+    double y1[MAX_ODE], ydot[MAX_ODE];
     int32 i;
     for (i = 0; i < NODE; i++)
         y1[i] = last_ic[i];
