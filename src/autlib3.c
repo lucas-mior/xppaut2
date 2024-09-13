@@ -1443,6 +1443,7 @@ pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
       int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
       double *par) {
     (void) iap;
+    (void) rap;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -2140,6 +2141,19 @@ icpe(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
+     (void) iap;
+     (void) rap;
+     (void) ndim;
+     (void) par;
+     (void) icp;
+     (void) nint;
+     (void) u;
+     (void) uold;
+     (void) udot;
+     (void) upold;
+     (void) f;
+     (void) ijac;
+     (void) dint;
 
     /* Dummy integral condition subroutine for parabolic systems. */
 
