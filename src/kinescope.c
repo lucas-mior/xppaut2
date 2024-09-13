@@ -108,12 +108,13 @@ show_frame(int32 i, int32 h, int32 w) {
 void
 play_back(void) {
     int32 x, y;
-    uint32 h, w, bw, d;
+    int32 h, w, bw, d;
 
     Window root;
     XEvent ev;
     int32 i = 0;
-    XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
+    XGetGeometry(display, draw_win, &root, &x, &y,
+                 (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
@@ -189,8 +190,9 @@ make_anigif(void) {
     int32 x, y;
     FILE *fp;
     Window root;
-    uint32 h, w, bw, d;
-    XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
+    int32 h, w, bw, d;
+    XGetGeometry(display, draw_win, &root, &x, &y,
+                 (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
@@ -222,16 +224,15 @@ make_anigif(void) {
 
 void
 save_movie(char *basename, int32 fmat) {
-    /*char file[256];
-     */
     char file[XPP_MAX_NAME];
     int32 i = 0;
     int32 x, y;
     FILE *fp;
     Window root;
     Pixmap xi;
-    uint32 h, w, bw, d;
-    XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
+    int32 h, w, bw, d;
+    XGetGeometry(display, draw_win, &root, &x, &y,
+                (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
