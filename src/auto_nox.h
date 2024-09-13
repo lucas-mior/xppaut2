@@ -102,7 +102,7 @@ void auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
 int32 plot_point(int32 flag2, int32 icp1, int32 icp2);
 void add_ps_point(double *par, double per,
                   double *uhigh, double *ulow, double *ubar,
-                  double a, int32 type, int32 flag, int32 npar,
+                  double a, int32 type, int32 flag,
                   int32 icp1, int32 icp2, int32 flag2, double *evr, double *evi);
 void auto_line(double x1i, double y1i, double x2i, double y2i);
 void add_point(double *par, double per, double *uhigh, double *ulow,
