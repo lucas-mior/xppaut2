@@ -122,10 +122,10 @@ void
 create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
                   char **list, SCROLLBOX *sb) {
     int32 slen = 0;
-    int32 i, hgt, wid;
+    int32 hgt, wid;
     int32 ww, len;
     int32 hw = DCURYs + 4;
-    for (i = 0; i < nent; i++) {
+    for (int32 i = 0; i < nent; i++) {
         if (slen < strlen(list[i]))
             slen = strlen(list[i]);
     }
@@ -135,7 +135,7 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
     len = hgt - 6;
     sb->base = (Window)make_plain_window(root, x0, y0, wid, hgt, 2);
     sb->w = malloc(nw*sizeof(Window));
-    for (i = 0; i < nw; i++)
+    for (int32 i = 0; i < nw; i++)
         sb->w[i] = make_window(sb->base, 1, hw / 2 + i*hw, ww, DCURYs, 0);
     sb->i0 = 0;
     sb->nw = nw;
