@@ -5758,6 +5758,13 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
+    (void) rap;
+    (void) rldot;
+    (void) udotps;
+    (void) upoldp;
+    (void) dtm;
+    (void) thl;
+    (void) thu;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -6204,6 +6211,30 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
+    (void) par;
+    (void) icp;
+    (void) funi;
+    (void) bcni;
+    (void) icni;
+    (void) p0;
+    (void) ev;
+    (void) rlcur;
+    (void) rlold;
+    (void) rldot;
+    (void) ndxloc;
+    (void) ups;
+    (void) uoldps;
+    (void) udotps;
+    (void) upoldp;
+    (void) fa;
+    (void) fc;
+    (void) dups;
+    (void) tm;
+    (void) dtm;
+    (void) thl;
+    (void) thu;
+    (void) iuz;
+    (void) vuz;
     /* System generated locals */
     double ret_val;
 
