@@ -6,8 +6,8 @@ PREFIX ?= /usr/local
 CC = clang
 
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
-# CFLAGS += -Werror
-CFLAGS += -Wno-unused-parameter -Wno-unused-variable
+CFLAGS += -Werror
+# CFLAGS += -Wno-unused-parameter -Wno-unused-variable
 CFLAGS += -Wno-unused-but-set-variable
 # CFLAGS += -Wno-tautological-compare
 # CFLAGS += -Wno-sign-compare
