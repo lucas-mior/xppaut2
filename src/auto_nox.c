@@ -2239,7 +2239,7 @@ auto_extend_ss(void) {
 }
 
 int32
-get_homo_info(int32 flg, int32 *nun, int32 *nst, double *ul, double *ur) {
+get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     char **s;
     char v[100][MAX_LEN_SBOX];
     int32 n = 2 + 2 * NODE;
@@ -2353,8 +2353,7 @@ auto_start_at_homoclinic(void) {
     }
     if (HomoFlag == 2)
         x_auto.iequib = -2;
-    flag =
-        get_homo_info(HomoFlag, &x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
+    flag = get_homo_info(&x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
     if (flag) {
         /* TODO: for some reason, the second argument was `close`, which maps
          * to the libc function with this name. That does not make any sense

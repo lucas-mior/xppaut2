@@ -142,7 +142,7 @@ void periodic_choice(void);
 void hopf_choice(void);
 void auto_new_per(void);
 void auto_start_at_homoclinic(void);
-int32 get_homo_info(int32 flg, int32 *nun, int32 *nst, double *ul, double *ur);
+int32 get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur);
 void auto_extend_homoclinic(void);
 void auto_extend_bvp(void);
 void auto_switch_per(void);
