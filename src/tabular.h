@@ -1,4 +1,3 @@
-
 #ifndef _tabular_h_
 #define _tabular_h_
 #include "integers.h"

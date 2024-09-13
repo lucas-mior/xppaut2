@@ -1,4 +1,3 @@
-
 #ifndef _ggets_h
 #define _ggets_h
 #include "integers.h"

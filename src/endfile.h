@@ -1,4 +1,3 @@
-
 #ifndef _endfile_h_
 #define _endfile_h_
 

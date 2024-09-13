@@ -1,4 +1,3 @@
-
 #ifndef _dialog_box_h
 #define _dialog_box_h
 #include "integers.h"

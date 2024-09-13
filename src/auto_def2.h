@@ -1,4 +1,3 @@
-
 #define EPSU rap->epsu
 #define EPSS rap->epss
 #define EPSL rap->epsl

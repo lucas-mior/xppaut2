@@ -1,4 +1,3 @@
-
 #define SETVAR(i, x)                                                           \
     if ((i) < NVAR)                                                            \
         variables[(i)] = (x);

@@ -1,4 +1,3 @@
-
 #include "graf_par.h"
 
 #include "integrate.h"

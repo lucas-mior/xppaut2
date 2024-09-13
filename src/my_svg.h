@@ -1,4 +1,3 @@
-
 #ifndef _my_svg_h_
 #define _my_svg_h_
 #include "integers.h"

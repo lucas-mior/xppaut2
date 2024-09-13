@@ -1,4 +1,3 @@
-
 #ifndef _rubber_h
 #define _rubber_h
 #include "integers.h"

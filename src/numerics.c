@@ -1,4 +1,3 @@
-
 #include "integers.h"
 #include "integrate.h"
 #include "odesol2.h"
