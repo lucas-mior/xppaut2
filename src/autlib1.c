@@ -6529,6 +6529,29 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
+    (void) rap;
+    (void) icp;
+    (void) funi;
+    (void) bcni;
+    (void) icni;
+    (void) p0;
+    (void) p1;
+    (void) ev;
+    (void) rlcur;
+    (void) rlold;
+    (void) rldot;
+    (void) ndxloc;
+    (void) ups;
+    (void) uoldps;
+    (void) udotps;
+    (void) upoldp;
+    (void) fa;
+    (void) fc;
+    (void) dups;
+    (void) tm;
+    (void) dtm;
+    (void) thl;
+    (void) thu;
     /* System generated locals */
     double ret_val;
 
