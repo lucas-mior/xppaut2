@@ -177,7 +177,7 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     ndm = iap->ndm;
 
     findlb(iap, rap, irs, &nfpr1, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     if (ips == -1) {
         fnds(iap, rap, ndm, u, &uold, icp, par, 1, f, global_scratch.dfu,
@@ -462,7 +462,7 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     findlb(iap, rap, irs, &nfpr, &found);
     ++nfpr;
     iap->nfpr = nfpr;
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     if (nfpr == 3) {
         funi(iap, rap, ndm, u, &uold, icp, par, 2, f, global_scratch.dfu,
@@ -771,7 +771,7 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     ndm = iap->ndm;
 
     findlb(iap, rap, irs, &nfpr1, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     thta = pi(2.0) / par[10];
     s1 = sin(thta);
@@ -994,7 +994,7 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     ndm = iap->ndm;
 
     findlb(iap, rap, irs, &nfpr1, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     period = par[10];
     rom = period / pi(2.0);
@@ -1216,7 +1216,7 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     ndm = iap->ndm;
 
     findlb(iap, rap, irs, &nfpr1, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     ijac = 1;
     period = par[10];
@@ -1525,7 +1525,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nfpr = iap->nfpr;
 
     findlb(iap, rap, irs, &nfpr1, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     for (i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
@@ -1848,7 +1848,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nfpr = iap->nfpr;
 
     findlb(iap, rap, irs, &nfpr1, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
 
     for (i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];

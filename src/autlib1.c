@@ -5,10 +5,10 @@
 #include "auto_f2c.h"
 #include "autevd.h"
 #include "auto_c.h"
-#include "xAuto.h"
+#include "x_auto.h"
 #include "integers.h"
 
-extern XAUTO xAuto;
+extern XAuto x_auto;
 extern int32 NODE;
 extern int32 RestartLabel;
 int32 restart_flag = 0;
@@ -80,10 +80,10 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
         thl[icp[i]] = 1.;
     }
 
-    ndim = xAuto.ndim;
-    ips = xAuto.ips;
-    irs = xAuto.irs;
-    ilp = xAuto.ilp;
+    ndim = x_auto.ndim;
+    ips = x_auto.ips;
+    irs = x_auto.irs;
+    ilp = x_auto.ilp;
 
     thu = *thu_pointer = malloc(sizeof(double) * 8*ndim);
 
@@ -92,10 +92,10 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     }
 
     jtmp = NPARX;
-    nicp = xAuto.nicp;
+    nicp = x_auto.nicp;
 
     for (i = 0; i < nicp; ++i) {
-        icp[jtmp + i] = xAuto.icp[i];
+        icp[jtmp + i] = x_auto.icp[i];
     }
 
     if (nicp > 0) {
@@ -109,33 +109,33 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
         icp[jtmp] = icp[0];
     }
 
-    ntst = xAuto.ntst;
-    ncol = xAuto.ncol;
-    iad = xAuto.iad;
-    isp = xAuto.isp;
-    isw = xAuto.isw;
-    iplt = xAuto.iplt;
-    nbc = xAuto.nbc;
-    nint = xAuto.nint;
-    nmx = xAuto.nmx;
-    rl0 = xAuto.rl0;
-    rl1 = xAuto.rl1;
-    a0 = xAuto.a0;
-    a1 = xAuto.a1;
-    npr = xAuto.npr;
-    mxbf = xAuto.mxbf;
-    iid = xAuto.iid;
-    itmx = xAuto.itmx;
-    itnw = xAuto.itnw;
-    nwtn = xAuto.nwtn;
-    jac = xAuto.jac;
-    epsl = xAuto.epsl;
-    epss = xAuto.epss;
-    epsu = xAuto.epsu;
-    ds = xAuto.ds;
-    dsmin = xAuto.dsmin;
-    dsmax = xAuto.dsmax;
-    iads = xAuto.iads;
+    ntst = x_auto.ntst;
+    ncol = x_auto.ncol;
+    iad = x_auto.iad;
+    isp = x_auto.isp;
+    isw = x_auto.isw;
+    iplt = x_auto.iplt;
+    nbc = x_auto.nbc;
+    nint = x_auto.nint;
+    nmx = x_auto.nmx;
+    rl0 = x_auto.rl0;
+    rl1 = x_auto.rl1;
+    a0 = x_auto.a0;
+    a1 = x_auto.a1;
+    npr = x_auto.npr;
+    mxbf = x_auto.mxbf;
+    iid = x_auto.iid;
+    itmx = x_auto.itmx;
+    itnw = x_auto.itnw;
+    nwtn = x_auto.nwtn;
+    jac = x_auto.jac;
+    epsl = x_auto.epsl;
+    epss = x_auto.epss;
+    epsu = x_auto.epsu;
+    ds = x_auto.ds;
+    dsmin = x_auto.dsmin;
+    dsmax = x_auto.dsmax;
+    iads = x_auto.iads;
 
     if (dsmin < 0.0) {
         printf(
@@ -148,17 +148,17 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
             "Warning : DSMAX less then 0.0, will use absolute value instead.");
         dsmax = fabs(dsmax);
     }
-    nthl = xAuto.nthl;
+    nthl = x_auto.nthl;
 
     if (nthl > 0) {
         for (i = 0; i < nthl; ++i)
-            thl[xAuto.ithl[i]] = xAuto.thl[i];
+            thl[x_auto.ithl[i]] = x_auto.thl[i];
     }
 
-    nuzr = xAuto.nuzr;
+    nuzr = x_auto.nuzr;
     for (i = 0; i < nuzr; i++) {
-        iuz[i] = xAuto.iuz[i];
-        vuz[i] = xAuto.vuz[i];
+        iuz[i] = x_auto.iuz[i];
+        vuz[i] = x_auto.vuz[i];
     }
 
     iap->ndim = ndim;

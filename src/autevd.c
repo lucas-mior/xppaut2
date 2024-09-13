@@ -8,7 +8,7 @@
 #include "auto_def2.h"
 #include "auto_nox.h"
 #include "integers.h"
-#include "xAuto.h"
+#include "x_auto.h"
 
 #define SPECIAL 5
 #define SPER 3
@@ -26,7 +26,7 @@ extern int32 NAutoUzr;
 
 extern ADVAUTO aauto;
 
-XAUTO xAuto;
+XAuto x_auto;
 
 extern int32 AutoTwoParam;
 int32 DiagFlag = 0;
@@ -49,57 +49,57 @@ init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
     /* here are the constants that we do not allow the user to change */
     int32 nnbc;
     int32 i;
-    xAuto.iad = aauto.iad;
-    xAuto.iplt = 0;
-    xAuto.mxbf = aauto.mxbf;
-    xAuto.iid = aauto.iid;
-    xAuto.itmx = aauto.itmx;
-    xAuto.itnw = aauto.itnw;
-    xAuto.nwtn = aauto.nwtn;
-    xAuto.jac = 0;
-    xAuto.iads = aauto.iads;
-    xAuto.nthl = 1;
-    xAuto.ithl[0] = 10;
-    xAuto.thl[0] = 0.0;
-    xAuto.nint = 0;
+    x_auto.iad = aauto.iad;
+    x_auto.iplt = 0;
+    x_auto.mxbf = aauto.mxbf;
+    x_auto.iid = aauto.iid;
+    x_auto.itmx = aauto.itmx;
+    x_auto.itnw = aauto.itnw;
+    x_auto.nwtn = aauto.nwtn;
+    x_auto.jac = 0;
+    x_auto.iads = aauto.iads;
+    x_auto.nthl = 1;
+    x_auto.ithl[0] = 10;
+    x_auto.thl[0] = 0.0;
+    x_auto.nint = 0;
 
     if (ips == 4)
         nnbc = ndim;
     else
         nnbc = 0;
-    xAuto.ndim = ndim;
-    xAuto.nbc = nnbc;
-    xAuto.ips = ips;
-    xAuto.irs = irs;
-    xAuto.ilp = ilp;
-    xAuto.nicp = nicp;
-    xAuto.icp[0] = ip1;
-    xAuto.icp[1] = ip2;
-    xAuto.icp[2] = ip3;
-    xAuto.icp[3] = ip4;
-    xAuto.icp[4] = ip5;
-    xAuto.ntst = ntst;
-    xAuto.ncol = ncol;
-    xAuto.isp = isp;
-    xAuto.isw = isw;
-    xAuto.nmx = nmx;
-    xAuto.rl0 = rl0;
-    xAuto.rl1 = rl1;
-    xAuto.a0 = a0;
-    xAuto.a1 = a1;
-    xAuto.npr = npr;
+    x_auto.ndim = ndim;
+    x_auto.nbc = nnbc;
+    x_auto.ips = ips;
+    x_auto.irs = irs;
+    x_auto.ilp = ilp;
+    x_auto.nicp = nicp;
+    x_auto.icp[0] = ip1;
+    x_auto.icp[1] = ip2;
+    x_auto.icp[2] = ip3;
+    x_auto.icp[3] = ip4;
+    x_auto.icp[4] = ip5;
+    x_auto.ntst = ntst;
+    x_auto.ncol = ncol;
+    x_auto.isp = isp;
+    x_auto.isw = isw;
+    x_auto.nmx = nmx;
+    x_auto.rl0 = rl0;
+    x_auto.rl1 = rl1;
+    x_auto.a0 = a0;
+    x_auto.a1 = a1;
+    x_auto.npr = npr;
 
-    xAuto.epsl = epsl;
-    xAuto.epss = epss;
-    xAuto.epsu = epsu;
-    xAuto.ds = ds;
-    xAuto.dsmax = dsmax;
-    xAuto.dsmin = dsmin;
+    x_auto.epsl = epsl;
+    x_auto.epss = epss;
+    x_auto.epsu = epsu;
+    x_auto.ds = ds;
+    x_auto.dsmax = dsmax;
+    x_auto.dsmin = dsmin;
 
-    xAuto.nuzr = NAutoUzr;
+    x_auto.nuzr = NAutoUzr;
     for (i = 0; i < NAutoUzr; i++) {
-        xAuto.iuz[i] = UzrPar[i];
-        xAuto.vuz[i] = outperiod[i];
+        x_auto.iuz[i] = UzrPar[i];
+        x_auto.vuz[i] = outperiod[i];
     }
     return;
 }

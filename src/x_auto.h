@@ -45,6 +45,6 @@ typedef struct {
     int32 nstab;
     int32 iequib; /* +1 homoclinic   -2 heteroclinic */
 
-} XAUTO;
+} XAuto;
 
 /*  for homcont  - itwist=0, istart=2, nrev=0,nfixed=0,npsi=0 */

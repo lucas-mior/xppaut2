@@ -5,10 +5,10 @@
 
 #include "auto_f2c.h"
 #include "auto_c.h"
-#include "xAuto.h"
+#include "x_auto.h"
 #include "integers.h"
 
-extern XAUTO xAuto;
+extern XAuto x_auto;
 
 /* The memory for these are taken care of in main, and setubv for the
    mpi parallel case.  These are global since the they are used many times
@@ -858,9 +858,9 @@ inho(iap_type *iap, int64 *icp, double *par) {
     nuzr = iap->nuzr;
     ndm = ndim;
     blhma_1.compzero = HMACHHO;
-    blhom_1.nunstab = xAuto.nunstab;
-    blhom_1.nstab = xAuto.nstab;
-    blhom_1.iequib = xAuto.iequib;
+    blhom_1.nunstab = x_auto.nunstab;
+    blhom_1.nstab = x_auto.nstab;
+    blhom_1.iequib = x_auto.iequib;
     blhom_1.itwist = 0;
     blhom_1.istart = 2;
     blhom_1.nrev = 0;

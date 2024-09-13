@@ -10,7 +10,7 @@
 #include "auto_nox.h"
 #include "autlim.h"
 #include "parserslow.h"
-#include "xAuto.h"
+#include "x_auto.h"
 #include "xpplim.h"
 
 #include "autevd.h"
@@ -78,7 +78,7 @@ int32 TypeOfCalc = 0;
 #define CUEQ 2
 
 #define DISCRETE 0
-extern XAUTO xAuto;
+extern XAuto x_auto;
 extern int32 leng[MAX_ODE];
 extern int32 PS_Color;
 extern double TOR_PERIOD;
@@ -1582,8 +1582,8 @@ init_auto_win(void) {
     aauto.itnw = 7;
     aauto.nwtn = 3;
     aauto.iads = 1;
-    xAuto.nunstab = 1;
-    xAuto.nstab = NODE - 1;
+    x_auto.nunstab = 1;
+    x_auto.nstab = NODE - 1;
     return;
 }
 
@@ -2314,9 +2314,9 @@ three_parameter_homoclinic(void) {
     Auto.nbc = 0;
 
     if (HomoFlag == 1)
-        xAuto.iequib = 1;
+        x_auto.iequib = 1;
     if (HomoFlag == 2)
-        xAuto.iequib = -2;
+        x_auto.iequib = -2;
 
     do_auto(OPEN_3, APPEND, Auto.itp);
     return;
@@ -2339,9 +2339,9 @@ auto_extend_homoclinic(void) {
     Auto.nbc = 0;
 
     if (HomoFlag == 1)
-        xAuto.iequib = 1;
+        x_auto.iequib = 1;
     if (HomoFlag == 2)
-        xAuto.iequib = -2;
+        x_auto.iequib = -2;
 
     do_auto(OPEN_3, APPEND, Auto.itp);
     return;
@@ -2367,13 +2367,13 @@ auto_start_at_homoclinic(void) {
     Auto.nbc = 0;
 
     if (HomoFlag == 1) {
-        xAuto.iequib = 1;
+        x_auto.iequib = 1;
         find_best_homo_shift(NODE);
     }
     if (HomoFlag == 2)
-        xAuto.iequib = -2;
+        x_auto.iequib = -2;
     flag =
-        get_homo_info(HomoFlag, &xAuto.nunstab, &xAuto.nstab, homo_l, homo_r);
+        get_homo_info(HomoFlag, &x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
     if (flag) {
         /* TODO: for some reason, the second argument was `close`, which maps
          * to the libc function with this name. That does not make any sense

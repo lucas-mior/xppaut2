@@ -1,9 +1,9 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
-#include "xAuto.h"
+#include "x_auto.h"
 #include "integers.h"
 
-extern XAUTO xAuto;
+extern XAuto x_auto;
 FILE *fp3;
 FILE *fp7;
 FILE *fp9;
@@ -17,7 +17,7 @@ extern char fort3[200], fort7[200], fort8[200], fort9[200];
 
 int32
 go_go_auto(void) {
-    /* this is the entry  at this point, xAuto has been set */
+    /* this is the entry  at this point, x_auto has been set */
     double time0, time1;
     int64 icp[NPARX2];
     double par[NPARX2], thl[NPARX];
@@ -27,7 +27,7 @@ go_go_auto(void) {
     iap_type iap;
     rap_type rap;
     function_list list;
-    int32 irs = xAuto.irs;
+    int32 irs = x_auto.irs;
     if (irs > 0) {
         fp3 = fopen(fort3, "r");
     } else {
@@ -47,7 +47,7 @@ go_go_auto(void) {
         iap.parallel_flag = 0;
     }
 
-    /* here is the feeder code from xAuto structure */
+    /* here is the feeder code from x_auto structure */
 
     init(&iap, &rap, par, icp, thl, &thu, iuz, vuz);
 
