@@ -2023,7 +2023,6 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
     return 0;
 } /* stbif_ */
 
-/*     ---------- ----- */
 int32
 swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
       int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
@@ -2098,7 +2097,6 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     return 0;
 } /* swpnt_ */
 
-/*     ---------- ----- */
 int32
 swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
       int64 *m1aaloc, double *aa, double *rhs, double *rlcur, double *rlold,
@@ -2333,7 +2331,6 @@ L5:
 /*                    Output (Algebraic Problems) */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
 int32
 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double *thu) {
@@ -2451,7 +2448,6 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     return 0;
 } /* sthd_ */
 
-/*     ---------- ------ */
 int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
@@ -2574,7 +2570,6 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     return 0;
 } /* headng_ */
 
-/*     ---------- ------ */
 int32
 stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *u) {
@@ -2723,7 +2718,6 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     return 0;
 } /* stplae_ */
 
-/*     ---------- ------ */
 int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
@@ -2898,7 +2892,6 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     return 0;
 } /* wrline_ */
 
-/*     ---------- ------ */
 int32
 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
        double *rlcur, double *u) {
@@ -2981,7 +2974,6 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     return 0;
 } /* wrtsp8_ */
 
-/*     ---------- ------ */
 int32
 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
     /* System generated locals */
@@ -3018,7 +3010,6 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 /*                    Mesh and Weight Generation */
 /* ----------------------------------------------------------------------- */
 
-/*     ---------- --- */
 int32
 msh(const iap_type *iap, const rap_type *rap, double *tm) {
 
@@ -3042,7 +3033,6 @@ msh(const iap_type *iap, const rap_type *rap, double *tm) {
     return 0;
 } /* msh_ */
 
-/*     ---------- ------ */
 int32
 genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     /* System generated locals */
