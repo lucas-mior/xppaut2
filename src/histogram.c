@@ -495,13 +495,13 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
             f[i] = x * (1 - x) * 4.0;
             break;
         case 2:
-            f[i] = .54 - .46 * cos(2 * M_PI * x);
+            f[i] = .54 - .46*cos(2 * M_PI * x);
             break;
         case 4:
             f[i] = .5 * (1 - cos(2 * M_PI * x));
             break;
         case 3:
-            f[i] = 1 - 2 * fabs(x - .5);
+            f[i] = 1 - 2*fabs(x - .5);
             break;
         }
         nrmf += (f[i] * f[i] / win);
@@ -595,10 +595,10 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
             f[i] = .5 * (1 - cos(2 * M_PI * x));
             break;
         case 2:
-            f[i] = .54 - .46 * cos(2 * M_PI * x);
+            f[i] = .54 - .46*cos(2 * M_PI * x);
             break;
         case 3:
-            f[i] = 1 - 2 * fabs(x - .5);
+            f[i] = 1 - 2*fabs(x - .5);
             break;
         }
         nrmwin += f[i] * f[i];

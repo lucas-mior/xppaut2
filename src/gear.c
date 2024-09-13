@@ -50,7 +50,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAXODE];
 
-    kmem = n * (2 * n + 5) + 50;
+    kmem = n * (2*n + 5) + 50;
     *ierr = 0;
     if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         err_msg("Insufficient core ");
@@ -62,7 +62,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
         old_x[i] = x[i];
     oldwork = work + n*n;
     eval = oldwork + n*n;
-    b = eval + 2 * n;
+    b = eval + 2*n;
     bp = b + n;
     ework = bp + n;
     rooter(x, err, eps, big, work, ierr, maxit, n);
@@ -90,8 +90,8 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
         return;
     }
     for (i = 0; i < n; i++) {
-        er[i] = eval[2 * i];
-        em[i] = eval[2 * i + 1];
+        er[i] = eval[2*i];
+        em[i] = eval[2*i + 1];
     }
 } /* end silent fixed point  */
 
@@ -111,7 +111,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     double bigpos = -1e10, bigneg = 1e10;
     int32 bpos = 0, bneg = 0;
     /* float xl[MAXODE]; */
-    kmem = n * (2 * n + 5) + 50;
+    kmem = n * (2*n + 5) + 50;
     if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         err_msg("Insufficient core ");
         return;
@@ -122,7 +122,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         old_x[i] = x[i];
     oldwork = work + n*n;
     eval = oldwork + n*n;
-    b = eval + 2 * n;
+    b = eval + 2*n;
     bp = b + n;
     ework = bp + n;
     rooter(x, err, eps, big, work, ierr, maxit, n);
@@ -166,8 +166,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         pr = 1;
     }
     for (i = 0; i < n; i++) {
-        real = eval[2 * i];
-        imag = eval[2 * i + 1];
+        real = eval[2*i];
+        imag = eval[2*i + 1];
         if (pr == 1) {
             plintf(" %f  +  i  %f \n", real, imag);
         }
@@ -245,10 +245,10 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 /*     for(i=0;i<n*n;i++)printf(" w=%g o=%g
                  * \n",work[i],oldwork[i]); */
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                         eval[2 * pose], ierr);
+                         eval[2*pose], ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(UnstableManifoldColor, &oldcol);
-                    pr_evec(x, b, n, pr, eval[2 * pose], 1);
+                    pr_evec(x, b, n, pr, eval[2*pose], 1);
                     DELTA_T = fabs(DELTA_T);
                     shoot(bp, x, b, 1);
                     shoot(bp, x, b, -1);
@@ -260,10 +260,10 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             if (rn == 1) {
 
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                         eval[2 * nege], ierr);
+                         eval[2*nege], ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(StableManifoldColor, &oldcol);
-                    pr_evec(x, b, n, pr, eval[2 * nege], -1);
+                    pr_evec(x, b, n, pr, eval[2*nege], -1);
                     DELTA_T = -fabs(DELTA_T);
                     shoot(bp, x, b, 1);
                     shoot(bp, x, b, -1);
@@ -413,7 +413,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     double bigpos = -1e10, bigneg = 1e10;
 
     /* float xl[MAXODE]; */
-    kmem = n * (2 * n + 5) + 50;
+    kmem = n * (2*n + 5) + 50;
     if ((work = malloc(sizeof(double) * kmem)) == NULL) {
         /* printf("Insufficient core \n");  */
         return;
@@ -426,7 +426,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     }
     oldwork = work + n*n;
     eval = oldwork + n*n;
-    b = eval + 2 * n;
+    b = eval + 2*n;
     bp = b + n;
     ework = bp + n;
     rooter(x, err, eps, big, work, ierr, maxit, n);
@@ -461,8 +461,8 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     /* succesfully computed evals now lets work with them */
 
     for (i = 0; i < n; i++) {
-        real = eval[2 * i];
-        imag = eval[2 * i + 1];
+        real = eval[2*i];
+        imag = eval[2*i + 1];
         er[i] = real;
         em[i] = imag;
 
@@ -527,20 +527,20 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
             /*     for(i=0;i<n*n;i++)printf(" w=%g o=%g \n",work[i],oldwork[i]);
              */
             get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                     eval[2 * pose], ierr);
+                     eval[2*pose], ierr);
 
             if (*ierr == 0) {
-                pr_evec(x, b, n, pr, eval[2 * pose], 1);
+                pr_evec(x, b, n, pr, eval[2*pose], 1);
             }
         }
 
         if (rn == 1) {
 
             get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                     eval[2 * nege], ierr);
+                     eval[2*nege], ierr);
 
             if (*ierr == 0) {
-                pr_evec(x, b, n, pr, eval[2 * nege], -1);
+                pr_evec(x, b, n, pr, eval[2*nege], -1);
             }
         }
     }
@@ -583,7 +583,7 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
     double *a, *anew;
     int32 *ipivot;
     double *b, *bp;
-    int32 nn = 2 * n;
+    int32 nn = 2*n;
     int32 i, j, k;
     a = malloc(nn*nn*sizeof(double));
     anew = malloc(nn*nn*sizeof(double));
@@ -644,7 +644,7 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
         return;
     }
     for (j = 0; j < n; j++) {
-        b[j] = 1 + .1 * ndrand48();
+        b[j] = 1 + .1*ndrand48();
         bp[j] = b[j];
     }
     iter = 0;
@@ -754,9 +754,9 @@ l70:
     for (i = low; i <= en; i++)
         h[i - 1 + (i - 1) * n] = h[i - 1 + (i - 1) * n] - x;
     s = fabs(h[en - 1 + (na - 1) * n]) + fabs(h[na - 1 + (enm2 - 1) * n]);
-    x = 0.75 * s;
+    x = 0.75*s;
     y = x;
-    w = -0.4375 * s*s;
+    w = -0.4375*s*s;
 l130:
     its++; /*its = its++; This may be undefined. Use its++ instead.*/
     for (mm = l; mm <= enm2; mm++) {
@@ -1121,14 +1121,14 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
         save[i] = work + i*n;
         ytable[i] = work + (8 + i) * n;
     }
-    save9 = work + 16 * n;
-    save10 = work + 17 * n;
-    save11 = work + 18 * n;
-    save12 = work + 19 * n;
-    ymax = work + 20 * n;
-    dermat = work + 21 * n;
-    a = work + 21 * n + n*n;
-    work2 = work + 21 * n + n*n + 10;
+    save9 = work + 16*n;
+    save10 = work + 17*n;
+    save11 = work + 18*n;
+    save12 = work + 19*n;
+    ymax = work + 20*n;
+    dermat = work + 21*n;
+    a = work + 21*n + n*n;
+    work2 = work + 21*n + n*n + 10;
     if (*jstart != 0) {
 
         k = iwork[0];
@@ -1368,7 +1368,7 @@ L520:
 
     /*        UH Oh */
     *t = told;
-    if ((h <= (hmin * 1.000001)) && ((iweval - mtyp) < -1))
+    if ((h <= (hmin*1.000001)) && ((iweval - mtyp) < -1))
         goto L530;
     if (iweval != 0)
         racum *= .25;
@@ -1416,7 +1416,7 @@ L560:
 L610:
 
     *kflag -= 2;
-    if (h <= hmin * 1.00001)
+    if (h <= hmin*1.00001)
         goto L810;
     *t = told;
     if (*kflag <= -5)
@@ -1424,20 +1424,20 @@ L610:
 
 L620:
 
-    pr2 = 1.2 * pow(d / e, enq2);
+    pr2 = 1.2*pow(d / e, enq2);
     pr3 = 1.0e20;
     if ((nq < maxder) && (*kflag > -1)) {
         d = 0.0;
         for (i = 0; i < n; i++)
             d += sqr2((error[i] - save10[i]) / ymax[i]);
-        pr3 = 1.4 * pow(d / eup, enq3);
+        pr3 = 1.4*pow(d / eup, enq3);
     }
     pr1 = 1.0e20;
     if (nq > 1) {
         d = 0.0;
         for (i = 0; i < n; i++)
             d += sqr2(ytable[k - 1][i] / ymax[i]);
-        pr1 = 1.3 * pow(d / edwn, enq1);
+        pr1 = 1.3*pow(d / edwn, enq1);
     }
     if (pr2 <= pr3)
         goto L720;
@@ -1503,7 +1503,7 @@ L750:
 
     r1 = 1.0;
     for (j = 2; j <= k; j++) {
-        r1 = r1 * r;
+        r1 = r1*r;
         for (i = 0; i < n; i++)
             ytable[j - 1][i] = ytable[j - 1][i] * r1;
     }
@@ -1548,7 +1548,7 @@ L820:
     racum = Min(racum, fabs(hmax / hold));
     r1 = 1.0;
     for (j = 2; j <= k; j++) {
-        r1 = r1 * racum;
+        r1 = r1*racum;
         for (i = 0; i < n; i++)
             ytable[j - 1][i] = save[j - 1][i] * r1;
     }

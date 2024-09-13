@@ -434,11 +434,11 @@ draw_eq_box(Window w) {
 
         for (j = 0; j < ncol; j++) {
             for (i = 0; i < nrow; i++) {
-                in = j * 20 + i;
+                in = j*20 + i;
                 if (in >= n)
                     continue;
                 sprintf(temp, "%s=%.5g", uvar_names[in], eq_box.y[in]);
-                XDrawString(display, eq_box.rest, small_gc, j * 28 * DCURXs + 8,
+                XDrawString(display, eq_box.rest, small_gc, j*28 * DCURXs + 8,
                             i * (DCURYs + 3) + 13, temp, strlen(temp));
             }
         }

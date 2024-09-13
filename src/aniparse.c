@@ -290,7 +290,7 @@ create_vcr(char *name) {
     XTextProperty winname, iconname;
 
     base = make_plain_window(RootWindow(display, screen), 0, 0,
-                             5 * 12 * DCURXs + 8 * DCURXs + 4,
+                             5*12 * DCURXs + 8 * DCURXs + 4,
                              20 * (DCURYs + 6), 1);
     vcr.base = base;
     size_hints.flags = PPosition | PSize | PMinSize;
@@ -318,7 +318,7 @@ create_vcr(char *name) {
     vcr.wmpeg = br_button(base, 2, 1, "MPeg", 0);
     vcr.kill = br_button(base, 2, 2, "Close", 0);
 
-    vcr.wfly = make_window(base, 4 * 12 * DCURXs, 4, 5 + DCURXs + 5,
+    vcr.wfly = make_window(base, 4*12 * DCURXs, 4, 5 + DCURXs + 5,
                            (DCURYs + 6) - 4, 1);
     /*   vcr.kill=make_window(base,5*12*DCURXs,(DCURYs+6)+4,8*DCURXs,DCURYs+1,1);
      */
@@ -397,9 +397,9 @@ do_ani_events(XEvent ev) {
         x = ev.xconfigure.width;
         y = ev.xconfigure.height;
         x = (x) / 8;
-        x = 8 * x;
+        x = 8*x;
         y = (y) / 8;
-        y = y * 8;
+        y = y*8;
         ani_resize(x, y);
         break;
     case EnterNotify:
@@ -609,7 +609,7 @@ do_ani_slider_motion(Window w, int32 x) {
         x0 = l - 2;
     vcr.slipos = x0;
     draw_ani_slider(w, x0);
-    k = x0 * mr / l;
+    k = x0*mr / l;
     vcr.pos = 0;
     ani_flip1(0);
     ani_flip1(k);
@@ -686,14 +686,14 @@ ani_expose(Window w) {
 
 void
 ani_resize(int32 x, int32 y) {
-    int32 ww = x - (2 * 4);
+    int32 ww = x - (2*4);
     int32 hh = y - ((2.5 * (DCURYs + 6)) + 5);
     if (ww == vcr.wid && hh == vcr.hgt)
         return;
     XFreePixmap(display, ani_pixmap);
 
     vcr.hgt = 5 * ((y - ((4.5 * (DCURYs + 6)) + 5)) / 5);
-    vcr.wid = 4 * ((x - (2 * 4)) / 4);
+    vcr.wid = 4 * ((x - (2*4)) / 4);
 
     /*This little safety check prevents a <X Error of failed request:  BadValue>
     from occuring if the user shrinks the window size smaller than the vcr.hgt |
@@ -933,7 +933,7 @@ ani_flip(void) {
 
         waitasec(ani_speed);
         if (mpeg.aviflag == 1 || mpeg.flag > 0)
-            waitasec(5 * ani_speed);
+            waitasec(5*ani_speed);
         vcr.pos = vcr.pos + vcr.inc;
         if (vcr.pos >= my_browser.maxrow) {
             done = 1;
@@ -971,10 +971,10 @@ ani_flip(void) {
 void
 ani_disk_warn(void) {
     uint32 total =
-        (my_browser.maxrow*vcr.wid*vcr.hgt * 3) / (mpeg.skip*vcr.inc);
+        (my_browser.maxrow*vcr.wid*vcr.hgt*3) / (mpeg.skip*vcr.inc);
     char junk[256];
     char ans;
-    total = total / (1024 * 1024);
+    total = total / (1024*1024);
     if (total > 10) {
         snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?",
                  total);
@@ -1115,7 +1115,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     write(fd, head, strlen(head));
     area = ximage->width*ximage->height;
     pixel = (unsigned char *)ximage->data;
-    out = malloc(3 * area);
+    out = malloc(3*area);
     dst = out;
     for (y = 0; y < (unsigned)(ximage->height); y++) {
         for (x = 0; x < (unsigned)(ximage->width); x++) {
@@ -1149,7 +1149,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
             }
         }
     }
-    write(fd, out, area * 3);
+    write(fd, out, area*3);
     close(fd);
     free(out);
     free(ximage);
@@ -1572,12 +1572,12 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
         return 1;
     my_ani[n_anicom].type = type;
     my_ani[n_anicom].flag = aniflag;
-    my_ani[n_anicom].x1 = malloc(256 * sizeof(int32));
-    my_ani[n_anicom].y1 = malloc(256 * sizeof(int32));
-    my_ani[n_anicom].x2 = malloc(256 * sizeof(int32));
-    my_ani[n_anicom].y2 = malloc(256 * sizeof(int32));
-    my_ani[n_anicom].col = malloc(256 * sizeof(int32));
-    my_ani[n_anicom].who = malloc(256 * sizeof(int32));
+    my_ani[n_anicom].x1 = malloc(256*sizeof(int32));
+    my_ani[n_anicom].y1 = malloc(256*sizeof(int32));
+    my_ani[n_anicom].x2 = malloc(256*sizeof(int32));
+    my_ani[n_anicom].y2 = malloc(256*sizeof(int32));
+    my_ani[n_anicom].col = malloc(256*sizeof(int32));
+    my_ani[n_anicom].who = malloc(256*sizeof(int32));
     switch (type) {
     case AXNULL:
     case AYNULL:
@@ -2275,8 +2275,8 @@ draw_ani_comet(int32 j) {
             i1 = my_ani[j].c.x[k];
             j1 = my_ani[j].c.y[k];
             xset_ani_col(my_ani[j].c.col[k]);
-            XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2 * ir,
-                     2 * ir, 0, 360 * 64);
+            XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir,
+                     2*ir, 0, 360*64);
         }
     } else {
         if (nn > 2) {
@@ -2311,7 +2311,7 @@ draw_ani_null(int32 j, int32 id) {
     if (err == 1)
         return;
     for (i = 0; i < n; i++) {
-        i4 = 4 * i;
+        i4 = 4*i;
         x1 = (v[i4] - xl) / dx;
         y1 = (v[i4 + 1] - yl) / dy;
         x2 = (v[i4 + 2] - xl) / dx;
@@ -2364,8 +2364,8 @@ draw_ani_circ(int32 j) {
     ani_xyscale(x1, y1, &i1, &j1);
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
-    XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2 * ir, 2 * ir, 0,
-             360 * 64);
+    XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir, 2*ir, 0,
+             360*64);
     return;
 }
 
@@ -2381,8 +2381,8 @@ draw_ani_fcirc(int32 j) {
     ir = (i2 + j2) / 2;
     /*  plintf(" arc %d %d %d %d \n",i1,j1,i2,j2); */
     /*  XFillArc(display,ani_pixmap,ani_gc,i1-i2,j1-j2,2*i2,2*j2,0,360*64); */
-    XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2 * ir, 2 * ir, 0,
-             360 * 64);
+    XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir, 2*ir, 0,
+             360*64);
     return;
 }
 
@@ -2437,8 +2437,8 @@ draw_ani_ellip(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_rad2scale(x2, y2, &i2, &j2);
-    XDrawArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2 * i2, 2 * j2, 0,
-             360 * 64);
+    XDrawArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2*i2, 2*j2, 0,
+             360*64);
     return;
 }
 
@@ -2451,8 +2451,8 @@ draw_ani_fellip(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_rad2scale(x2, y2, &i2, &j2);
-    XFillArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2 * i2, 2 * j2, 0,
-             360 * 64);
+    XFillArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2*i2, 2*j2, 0,
+             360*64);
     return;
 }
 

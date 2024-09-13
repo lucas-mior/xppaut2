@@ -172,7 +172,7 @@ void
 alloc_h_stuff(void) {
     int32 i;
     for (i = 0; i < NODE; i++) {
-        coup_fun[i] = malloc(100 * sizeof(int32));
+        coup_fun[i] = malloc(100*sizeof(int32));
         coup_string[i] = malloc(80);
         strcpy(coup_string[i], "0");
     }
@@ -457,12 +457,12 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
     int32 n2 = node*node;
     double error;
 
-    work = malloc((n2 + 4 * node) * sizeof(double));
+    work = malloc((n2 + 4*node) * sizeof(double));
     yprime = malloc(node*sizeof(double));
     yold = malloc(node*sizeof(double));
     fold = malloc(node*sizeof(double));
     fdev = malloc(node*sizeof(double));
-    jac = malloc(n2 * sizeof(double *));
+    jac = malloc(n2*sizeof(double *));
 
     for (i = 0; i < n2; i++) {
         jac[i] = malloc(nt*sizeof(double));
@@ -615,11 +615,11 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
             yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
             yval[2][i] = y[i] + dt*yval[1][i] * 0.5;
         }
-        t1 = t + .5 * dt;
+        t1 = t + .5*dt;
         eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
         for (i = 0; i < neq; i++) {
             yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.00;
-            yval[2][i] = y[i] + .5 * dt*yval[1][i];
+            yval[2][i] = y[i] + .5*dt*yval[1][i];
         }
         eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
         for (i = 0; i < neq; i++) {
@@ -651,7 +651,7 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
             fold[j] = fold[j] + jac[i + j*node][k] * yold[i];
     }
     for (j = 0; j < node; j++)
-        yold[j] = yold[j] + .5 * dt*fold[j];
+        yold[j] = yold[j] + .5*dt*fold[j];
     for (i = 0; i < n2; i++)
         mat[i] = -jac[i][k2] * dt * .5;
     for (i = 0; i < node; i++)

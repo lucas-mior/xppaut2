@@ -101,7 +101,7 @@ rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
     if (n <= nm) {
         goto L10;
     }
-    *ierr = n * 10;
+    *ierr = n*10;
     goto L50;
 
 L10:
@@ -229,7 +229,7 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
 
     en = *igh;
     t = 0.;
-    itn = *n * 30;
+    itn = *n*30;
 /*     .......... SEARCH FOR NEXT EIGENVALUES .......... */
 L60:
     if (en < *low) {
@@ -286,10 +286,10 @@ L100:
     }
 
     s = (d__1 = h__[en + na*h_dim1], fabs(d__1)) +
-        (d__2 = h__[na + enm2 * h_dim1], fabs(d__2));
+        (d__2 = h__[na + enm2*h_dim1], fabs(d__2));
     x = s * .75;
     y = x;
-    w = s * -.4375 * s;
+    w = s * -.4375*s;
 L130:
     ++its;
     --itn;
@@ -598,7 +598,7 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
 
     en = *igh;
     t = 0.;
-    itn = *n * 30;
+    itn = *n*30;
 /*     .......... SEARCH FOR NEXT EIGENVALUES .......... */
 L60:
     if (en < *low) {
@@ -655,10 +655,10 @@ L100:
     }
 
     s = (d__1 = h__[en + na*h_dim1], fabs(d__1)) +
-        (d__2 = h__[na + enm2 * h_dim1], fabs(d__2));
+        (d__2 = h__[na + enm2*h_dim1], fabs(d__2));
     x = s * .75;
     y = x;
-    w = s * -.4375 * s;
+    w = s * -.4375*s;
 L130:
     ++its;
     --itn;
@@ -1178,7 +1178,7 @@ cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
     d__1 = brs;
     /* Computing 2nd power */
     d__2 = bis;
-    s = d__1 * d__1 + d__2 * d__2;
+    s = d__1*d__1 + d__2*d__2;
     *cr = (ars*brs + ais*bis) / s;
     *ci = (ais*brs - ars*bis) / s;
     return 0;
@@ -1622,10 +1622,10 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
 
         i__2 = *igh;
         for (j = m; j <= i__2; ++j) {
-            if ((d__1 = a[j + mm1 * a_dim1], fabs(d__1)) <= fabs(x)) {
+            if ((d__1 = a[j + mm1*a_dim1], fabs(d__1)) <= fabs(x)) {
                 goto L100;
             }
-            x = a[j + mm1 * a_dim1];
+            x = a[j + mm1*a_dim1];
             i__ = j;
         L100:;
         }
@@ -1659,12 +1659,12 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
 
         i__2 = *igh;
         for (i__ = mp1; i__ <= i__2; ++i__) {
-            y = a[i__ + mm1 * a_dim1];
+            y = a[i__ + mm1*a_dim1];
             if (y == 0.) {
                 goto L160;
             }
             y /= x;
-            a[i__ + mm1 * a_dim1] = y;
+            a[i__ + mm1*a_dim1] = y;
 
             i__3 = *n;
             for (j = m; j <= i__3; ++j) {
@@ -1925,7 +1925,7 @@ L10:
             b[i__ + l*b_dim1] /= s;
             /* Computing 2nd power */
             d__1 = b[i__ + l*b_dim1];
-            r__ += d__1 * d__1;
+            r__ += d__1*d__1;
             /* L25: */
         }
 
@@ -2009,7 +2009,7 @@ L10:
             }
             u1 = a[l + k*a_dim1] / s;
             u2 = a[l1 + k*a_dim1] / s;
-            d__1 = sqrt(u1 * u1 + u2 * u2);
+            d__1 = sqrt(u1*u1 + u2*u2);
             r__ = d_sign(d__1, u1);
             v1 = -(u1 + r__) / r__;
             v2 = -u2 / r__;
@@ -2017,7 +2017,7 @@ L10:
 
             i__3 = n;
             for (j = k; j <= i__3; ++j) {
-                t = a[l + j*a_dim1] + u2 * a[l1 + j*a_dim1];
+                t = a[l + j*a_dim1] + u2*a[l1 + j*a_dim1];
                 a[l + j*a_dim1] += t*v1;
                 a[l1 + j*a_dim1] += t*v2;
                 /* L110: */
@@ -2027,20 +2027,20 @@ L10:
 
             i__3 = n;
             for (j = l; j <= i__3; ++j) {
-                t = b[l + j*b_dim1] + u2 * b[l1 + j*b_dim1];
+                t = b[l + j*b_dim1] + u2*b[l1 + j*b_dim1];
                 b[l + j*b_dim1] += t*v1;
                 b[l1 + j*b_dim1] += t*v2;
                 /* L120: */
             }
             /*     .......... ZERO B(L+1,L) .......... */
-            s = (d__1 = b[l1 + l1 * b_dim1], fabs(d__1)) +
+            s = (d__1 = b[l1 + l1*b_dim1], fabs(d__1)) +
                 (d__2 = b[l1 + l*b_dim1], fabs(d__2));
             if (s == 0.) {
                 goto L150;
             }
-            u1 = b[l1 + l1 * b_dim1] / s;
+            u1 = b[l1 + l1*b_dim1] / s;
             u2 = b[l1 + l*b_dim1] / s;
-            d__1 = sqrt(u1 * u1 + u2 * u2);
+            d__1 = sqrt(u1*u1 + u2*u2);
             r__ = d_sign(d__1, u1);
             v1 = -(u1 + r__) / r__;
             v2 = -u2 / r__;
@@ -2048,8 +2048,8 @@ L10:
 
             i__3 = l1;
             for (i__ = 1; i__ <= i__3; ++i__) {
-                t = b[i__ + l1 * b_dim1] + u2 * b[i__ + l*b_dim1];
-                b[i__ + l1 * b_dim1] += t*v1;
+                t = b[i__ + l1*b_dim1] + u2*b[i__ + l*b_dim1];
+                b[i__ + l1*b_dim1] += t*v1;
                 b[i__ + l*b_dim1] += t*v2;
                 /* L130: */
             }
@@ -2058,8 +2058,8 @@ L10:
 
             i__3 = n;
             for (i__ = 1; i__ <= i__3; ++i__) {
-                t = a[i__ + l1 * a_dim1] + u2 * a[i__ + l*a_dim1];
-                a[i__ + l1 * a_dim1] += t*v1;
+                t = a[i__ + l1*a_dim1] + u2*a[i__ + l*a_dim1];
+                a[i__ + l1*a_dim1] += t*v1;
                 a[i__ + l*a_dim1] += t*v2;
                 /* L140: */
             }
@@ -2070,8 +2070,8 @@ L10:
 
             i__3 = n;
             for (i__ = 1; i__ <= i__3; ++i__) {
-                t = z__[i__ + l1 * z_dim1] + u2 * z__[i__ + l*z_dim1];
-                z__[i__ + l1 * z_dim1] += t*v1;
+                t = z__[i__ + l1*z_dim1] + u2*z__[i__ + l*z_dim1];
+                z__[i__ + l1*z_dim1] += t*v1;
                 z__[i__ + l*z_dim1] += t*v2;
                 /* L145: */
             }
@@ -2248,7 +2248,7 @@ L50:
     lor1 = 1;
     enorn = n;
     en = n;
-    itn = n * 30;
+    itn = n*30;
 /*     .......... BEGIN QZ STEP .......... */
 L60:
     if (en <= 2) {
@@ -2271,14 +2271,14 @@ L70:
         if (l == 1) {
             goto L95;
         }
-        if ((d__1 = a[l + lm1 * a_dim1], fabs(d__1)) <= epsa) {
+        if ((d__1 = a[l + lm1*a_dim1], fabs(d__1)) <= epsa) {
             goto L90;
         }
         /* L80: */
     }
 
 L90:
-    a[l + lm1 * a_dim1] = 0.;
+    a[l + lm1*a_dim1] = 0.;
     if (l < na) {
         goto L95;
     }
@@ -2299,7 +2299,7 @@ L100:
         (d__2 = a[l1 + l*a_dim1], fabs(d__2));
     u1 = a[l + l*a_dim1] / s;
     u2 = a[l1 + l*a_dim1] / s;
-    d__1 = sqrt(u1 * u1 + u2 * u2);
+    d__1 = sqrt(u1*u1 + u2*u2);
     r__ = d_sign(d__1, u1);
     v1 = -(u1 + r__) / r__;
     v2 = -u2 / r__;
@@ -2307,17 +2307,17 @@ L100:
 
     i__1 = enorn;
     for (j = l; j <= i__1; ++j) {
-        t = a[l + j*a_dim1] + u2 * a[l1 + j*a_dim1];
+        t = a[l + j*a_dim1] + u2*a[l1 + j*a_dim1];
         a[l + j*a_dim1] += t*v1;
         a[l1 + j*a_dim1] += t*v2;
-        t = b[l + j*b_dim1] + u2 * b[l1 + j*b_dim1];
+        t = b[l + j*b_dim1] + u2*b[l1 + j*b_dim1];
         b[l + j*b_dim1] += t*v1;
         b[l1 + j*b_dim1] += t*v2;
         /* L110: */
     }
 
     if (l != 1) {
-        a[l + lm1 * a_dim1] = -a[l + lm1 * a_dim1];
+        a[l + lm1*a_dim1] = -a[l + lm1*a_dim1];
     }
     lm1 = l;
     l = l1;
@@ -2336,7 +2336,7 @@ L120:
         goto L155;
     }
     /*     .......... DETERMINE TYPE OF SHIFT .......... */
-    b22 = b[l1 + l1 * b_dim1];
+    b22 = b[l1 + l1*b_dim1];
     if (fabs(b22) < epsb) {
         b22 = epsb;
     }
@@ -2353,8 +2353,8 @@ L120:
     a43 = a[en + na*a_dim1] / b33;
     a44 = a[en + en*a_dim1] / b44;
     b34 = b[na + en*b_dim1] / b44;
-    t = (a43 * b34 - a33 - a44) * .5;
-    r__ = t*t + a34 * a43 - a33 * a44;
+    t = (a43*b34 - a33 - a44) * .5;
+    r__ = t*t + a34*a43 - a33*a44;
     if (r__ < 0.) {
         goto L150;
     }
@@ -2381,7 +2381,7 @@ L120:
         if ((d__1 = b[l + l*b_dim1], fabs(d__1)) > epsb) {
             t -= sh*b[l + l*b_dim1];
         }
-        if ((d__1 = a[l + lm1 * a_dim1], fabs(d__1)) <=
+        if ((d__1 = a[l + lm1*a_dim1], fabs(d__1)) <=
             (d__2 = t / a[l1 + l*a_dim1], fabs(d__2)) * epsa) {
             goto L100;
         }
@@ -2392,18 +2392,18 @@ L140:
     a1 = a11 - sh;
     a2 = a21;
     if (l != ld) {
-        a[l + lm1 * a_dim1] = -a[l + lm1 * a_dim1];
+        a[l + lm1*a_dim1] = -a[l + lm1*a_dim1];
     }
     goto L160;
 /*     .......... DETERMINE DOUBLE SHIFT ZEROTH COLUMN OF A .......... */
 L150:
-    a12 = a[l + l1 * a_dim1] / b22;
-    a22 = a[l1 + l1 * a_dim1] / b22;
-    b12 = b[l + l1 * b_dim1] / b22;
-    a1 = ((a33 - a11) * (a44 - a11) - a34 * a43 + a43 * b34 * a11) / a21 + a12 -
-         a11 * b12;
-    a2 = a22 - a11 - a21 * b12 - (a33 - a11) - (a44 - a11) + a43 * b34;
-    a3 = a[l1 + 1 + l1 * a_dim1] / b22;
+    a12 = a[l + l1*a_dim1] / b22;
+    a22 = a[l1 + l1*a_dim1] / b22;
+    b12 = b[l + l1*b_dim1] / b22;
+    a1 = ((a33 - a11) * (a44 - a11) - a34*a43 + a43*b34*a11) / a21 + a12 -
+         a11*b12;
+    a2 = a22 - a11 - a21*b12 - (a33 - a11) - (a44 - a11) + a43*b34;
+    a3 = a[l1 + 1 + l1*a_dim1] / b22;
     goto L160;
 /*     .......... AD HOC SHIFT .......... */
 L155:
@@ -2435,8 +2435,8 @@ L160:
         if (k == l) {
             goto L170;
         }
-        a1 = a[k + km1 * a_dim1];
-        a2 = a[k1 + km1 * a_dim1];
+        a1 = a[k + km1*a_dim1];
+        a2 = a[k1 + km1*a_dim1];
     L170:
         s = fabs(a1) + fabs(a2);
         if (s == 0.) {
@@ -2444,7 +2444,7 @@ L160:
         }
         u1 = a1 / s;
         u2 = a2 / s;
-        d__1 = sqrt(u1 * u1 + u2 * u2);
+        d__1 = sqrt(u1*u1 + u2*u2);
         r__ = d_sign(d__1, u1);
         v1 = -(u1 + r__) / r__;
         v2 = -u2 / r__;
@@ -2452,17 +2452,17 @@ L160:
 
         i__2 = enorn;
         for (j = km1; j <= i__2; ++j) {
-            t = a[k + j*a_dim1] + u2 * a[k1 + j*a_dim1];
+            t = a[k + j*a_dim1] + u2*a[k1 + j*a_dim1];
             a[k + j*a_dim1] += t*v1;
             a[k1 + j*a_dim1] += t*v2;
-            t = b[k + j*b_dim1] + u2 * b[k1 + j*b_dim1];
+            t = b[k + j*b_dim1] + u2*b[k1 + j*b_dim1];
             b[k + j*b_dim1] += t*v1;
             b[k1 + j*b_dim1] += t*v2;
             /* L180: */
         }
 
         if (k != l) {
-            a[k1 + km1 * a_dim1] = 0.;
+            a[k1 + km1*a_dim1] = 0.;
         }
         goto L240;
     /*     .......... ZERO A(K+1,K-1) AND A(K+2,K-1) .......... */
@@ -2470,9 +2470,9 @@ L160:
         if (k == l) {
             goto L200;
         }
-        a1 = a[k + km1 * a_dim1];
-        a2 = a[k1 + km1 * a_dim1];
-        a3 = a[k2 + km1 * a_dim1];
+        a1 = a[k + km1*a_dim1];
+        a2 = a[k1 + km1*a_dim1];
+        a3 = a[k2 + km1*a_dim1];
     L200:
         s = fabs(a1) + fabs(a2) + fabs(a3);
         if (s == 0.) {
@@ -2481,7 +2481,7 @@ L160:
         u1 = a1 / s;
         u2 = a2 / s;
         u3 = a3 / s;
-        d__1 = sqrt(u1 * u1 + u2 * u2 + u3 * u3);
+        d__1 = sqrt(u1*u1 + u2*u2 + u3*u3);
         r__ = d_sign(d__1, u1);
         v1 = -(u1 + r__) / r__;
         v2 = -u2 / r__;
@@ -2491,13 +2491,13 @@ L160:
 
         i__2 = enorn;
         for (j = km1; j <= i__2; ++j) {
-            t = a[k + j*a_dim1] + u2 * a[k1 + j*a_dim1] +
-                u3 * a[k2 + j*a_dim1];
+            t = a[k + j*a_dim1] + u2*a[k1 + j*a_dim1] +
+                u3*a[k2 + j*a_dim1];
             a[k + j*a_dim1] += t*v1;
             a[k1 + j*a_dim1] += t*v2;
             a[k2 + j*a_dim1] += t*v3;
-            t = b[k + j*b_dim1] + u2 * b[k1 + j*b_dim1] +
-                u3 * b[k2 + j*b_dim1];
+            t = b[k + j*b_dim1] + u2*b[k1 + j*b_dim1] +
+                u3*b[k2 + j*b_dim1];
             b[k + j*b_dim1] += t*v1;
             b[k1 + j*b_dim1] += t*v2;
             b[k2 + j*b_dim1] += t*v3;
@@ -2507,20 +2507,20 @@ L160:
         if (k == l) {
             goto L220;
         }
-        a[k1 + km1 * a_dim1] = 0.;
-        a[k2 + km1 * a_dim1] = 0.;
+        a[k1 + km1*a_dim1] = 0.;
+        a[k2 + km1*a_dim1] = 0.;
     /*     .......... ZERO B(K+2,K+1) AND B(K+2,K) .......... */
     L220:
-        s = (d__1 = b[k2 + k2 * b_dim1], fabs(d__1)) +
-            (d__2 = b[k2 + k1 * b_dim1], fabs(d__2)) +
+        s = (d__1 = b[k2 + k2*b_dim1], fabs(d__1)) +
+            (d__2 = b[k2 + k1*b_dim1], fabs(d__2)) +
             (d__3 = b[k2 + k*b_dim1], fabs(d__3));
         if (s == 0.) {
             goto L240;
         }
-        u1 = b[k2 + k2 * b_dim1] / s;
-        u2 = b[k2 + k1 * b_dim1] / s;
+        u1 = b[k2 + k2*b_dim1] / s;
+        u2 = b[k2 + k1*b_dim1] / s;
         u3 = b[k2 + k*b_dim1] / s;
-        d__1 = sqrt(u1 * u1 + u2 * u2 + u3 * u3);
+        d__1 = sqrt(u1*u1 + u2*u2 + u3*u3);
         r__ = d_sign(d__1, u1);
         v1 = -(u1 + r__) / r__;
         v2 = -u2 / r__;
@@ -2530,44 +2530,44 @@ L160:
 
         i__2 = ll;
         for (i__ = lor1; i__ <= i__2; ++i__) {
-            t = a[i__ + k2 * a_dim1] + u2 * a[i__ + k1 * a_dim1] +
-                u3 * a[i__ + k*a_dim1];
-            a[i__ + k2 * a_dim1] += t*v1;
-            a[i__ + k1 * a_dim1] += t*v2;
+            t = a[i__ + k2*a_dim1] + u2*a[i__ + k1*a_dim1] +
+                u3*a[i__ + k*a_dim1];
+            a[i__ + k2*a_dim1] += t*v1;
+            a[i__ + k1*a_dim1] += t*v2;
             a[i__ + k*a_dim1] += t*v3;
-            t = b[i__ + k2 * b_dim1] + u2 * b[i__ + k1 * b_dim1] +
-                u3 * b[i__ + k*b_dim1];
-            b[i__ + k2 * b_dim1] += t*v1;
-            b[i__ + k1 * b_dim1] += t*v2;
+            t = b[i__ + k2*b_dim1] + u2*b[i__ + k1*b_dim1] +
+                u3*b[i__ + k*b_dim1];
+            b[i__ + k2*b_dim1] += t*v1;
+            b[i__ + k1*b_dim1] += t*v2;
             b[i__ + k*b_dim1] += t*v3;
             /* L230: */
         }
 
         b[k2 + k*b_dim1] = 0.;
-        b[k2 + k1 * b_dim1] = 0.;
+        b[k2 + k1*b_dim1] = 0.;
         if (!(matz)) {
             goto L240;
         }
 
         i__2 = n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            t = z__[i__ + k2 * z_dim1] + u2 * z__[i__ + k1 * z_dim1] +
-                u3 * z__[i__ + k*z_dim1];
-            z__[i__ + k2 * z_dim1] += t*v1;
-            z__[i__ + k1 * z_dim1] += t*v2;
+            t = z__[i__ + k2*z_dim1] + u2*z__[i__ + k1*z_dim1] +
+                u3*z__[i__ + k*z_dim1];
+            z__[i__ + k2*z_dim1] += t*v1;
+            z__[i__ + k1*z_dim1] += t*v2;
             z__[i__ + k*z_dim1] += t*v3;
             /* L235: */
         }
     /*     .......... ZERO B(K+1,K) .......... */
     L240:
-        s = (d__1 = b[k1 + k1 * b_dim1], fabs(d__1)) +
+        s = (d__1 = b[k1 + k1*b_dim1], fabs(d__1)) +
             (d__2 = b[k1 + k*b_dim1], fabs(d__2));
         if (s == 0.) {
             goto L260;
         }
-        u1 = b[k1 + k1 * b_dim1] / s;
+        u1 = b[k1 + k1*b_dim1] / s;
         u2 = b[k1 + k*b_dim1] / s;
-        d__1 = sqrt(u1 * u1 + u2 * u2);
+        d__1 = sqrt(u1*u1 + u2*u2);
         r__ = d_sign(d__1, u1);
         v1 = -(u1 + r__) / r__;
         v2 = -u2 / r__;
@@ -2575,11 +2575,11 @@ L160:
 
         i__2 = ll;
         for (i__ = lor1; i__ <= i__2; ++i__) {
-            t = a[i__ + k1 * a_dim1] + u2 * a[i__ + k*a_dim1];
-            a[i__ + k1 * a_dim1] += t*v1;
+            t = a[i__ + k1*a_dim1] + u2*a[i__ + k*a_dim1];
+            a[i__ + k1*a_dim1] += t*v1;
             a[i__ + k*a_dim1] += t*v2;
-            t = b[i__ + k1 * b_dim1] + u2 * b[i__ + k*b_dim1];
-            b[i__ + k1 * b_dim1] += t*v1;
+            t = b[i__ + k1*b_dim1] + u2*b[i__ + k*b_dim1];
+            b[i__ + k1*b_dim1] += t*v1;
             b[i__ + k*b_dim1] += t*v2;
             /* L250: */
         }
@@ -2591,8 +2591,8 @@ L160:
 
         i__2 = n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            t = z__[i__ + k1 * z_dim1] + u2 * z__[i__ + k*z_dim1];
-            z__[i__ + k1 * z_dim1] += t*v1;
+            t = z__[i__ + k1*z_dim1] + u2*z__[i__ + k*z_dim1];
+            z__[i__ + k1*z_dim1] += t*v1;
             z__[i__ + k*z_dim1] += t*v2;
             /* L255: */
         }
@@ -2774,7 +2774,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         b22 = b[en + en*b_dim1] / bn;
         e = a11 / b11;
         ei = a22 / b22;
-        s = a21 / (b11 * b22);
+        s = a21 / (b11*b22);
         t = (a22 - e*b22) / b22;
         if (fabs(e) <= fabs(ei)) {
             goto L431;
@@ -2808,7 +2808,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         s = fabs(a1) + fabs(a2);
         u1 = a1 / s;
         u2 = a2 / s;
-        d__1 = sqrt(u1 * u1 + u2 * u2);
+        d__1 = sqrt(u1*u1 + u2*u2);
         r__ = d_sign(d__1, u1);
         v1 = -(u1 + r__) / r__;
         v2 = -u2 / r__;
@@ -2816,10 +2816,10 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
 
         i__2 = en;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            t = a[i__ + en*a_dim1] + u2 * a[i__ + na*a_dim1];
+            t = a[i__ + en*a_dim1] + u2*a[i__ + na*a_dim1];
             a[i__ + en*a_dim1] += t*v1;
             a[i__ + na*a_dim1] += t*v2;
-            t = b[i__ + en*b_dim1] + u2 * b[i__ + na*b_dim1];
+            t = b[i__ + en*b_dim1] + u2*b[i__ + na*b_dim1];
             b[i__ + en*b_dim1] += t*v1;
             b[i__ + na*b_dim1] += t*v2;
             /* L440: */
@@ -2831,7 +2831,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
 
         i__2 = n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            t = z__[i__ + en*z_dim1] + u2 * z__[i__ + na*z_dim1];
+            t = z__[i__ + en*z_dim1] + u2*z__[i__ + na*z_dim1];
             z__[i__ + en*z_dim1] += t*v1;
             z__[i__ + na*z_dim1] += t*v2;
             /* L445: */
@@ -2858,7 +2858,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         }
         u1 = a1 / s;
         u2 = a2 / s;
-        d__1 = sqrt(u1 * u1 + u2 * u2);
+        d__1 = sqrt(u1*u1 + u2*u2);
         r__ = d_sign(d__1, u1);
         v1 = -(u1 + r__) / r__;
         v2 = -u2 / r__;
@@ -2866,10 +2866,10 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
 
         i__2 = n;
         for (j = na; j <= i__2; ++j) {
-            t = a[na + j*a_dim1] + u2 * a[en + j*a_dim1];
+            t = a[na + j*a_dim1] + u2*a[en + j*a_dim1];
             a[na + j*a_dim1] += t*v1;
             a[en + j*a_dim1] += t*v2;
-            t = b[na + j*b_dim1] + u2 * b[en + j*b_dim1];
+            t = b[na + j*b_dim1] + u2*b[en + j*b_dim1];
             b[na + j*b_dim1] += t*v1;
             b[en + j*b_dim1] += t*v2;
             /* L470: */
@@ -2917,12 +2917,12 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         a2i = 0.;
     /*     .......... CHOOSE COMPLEX Z .......... */
     L485:
-        cz = sqrt(a1 * a1 + a1i*a1i);
+        cz = sqrt(a1*a1 + a1i*a1i);
         if (cz == 0.) {
             goto L487;
         }
-        szr = (a1 * a2 + a1i*a2i) / cz;
-        szi = (a1 * a2i - a1i*a2) / cz;
+        szr = (a1*a2 + a1i*a2i) / cz;
+        szi = (a1*a2i - a1i*a2) / cz;
         r__ = sqrt(cz*cz + szr*szr + szi*szi);
         cz /= r__;
         szr /= r__;
@@ -2947,12 +2947,12 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         a2i = szi*a22;
     /*     .......... CHOOSE COMPLEX Q .......... */
     L495:
-        cq = sqrt(a1 * a1 + a1i*a1i);
+        cq = sqrt(a1*a1 + a1i*a1i);
         if (cq == 0.) {
             goto L497;
         }
-        sqr = (a1 * a2 + a1i*a2i) / cq;
-        sqi = (a1 * a2i - a1i*a2) / cq;
+        sqr = (a1*a2 + a1i*a2i) / cq;
+        sqi = (a1*a2i - a1i*a2) / cq;
         r__ = sqrt(cq*cq + sqr*sqr + sqi*sqi);
         cq /= r__;
         sqr /= r__;
@@ -3185,14 +3185,14 @@ L110:
     }
     /* Computing 2nd power */
     d__1 = xmax / dx[i__];
-    sum = one + sum * (d__1 * d__1);
+    sum = one + sum * (d__1*d__1);
     xmax = (d__1 = dx[i__], fabs(d__1));
     goto L200;
 
 L115:
     /* Computing 2nd power */
     d__1 = dx[i__] / xmax;
-    sum += d__1 * d__1;
+    sum += d__1*d__1;
     goto L200;
 
     /*                  PREPARE FOR PHASE 3. */
@@ -3217,7 +3217,7 @@ L85:
         /* L95: */
         /* Computing 2nd power */
         d__1 = dx[j];
-        sum += d__1 * d__1;
+        sum += d__1*d__1;
     }
     ret_val = sqrt(sum);
     goto L300;
@@ -4836,7 +4836,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     nrtp1 = nrt + 1;
     if (*skip <= 0) {
         if (nct < *p) {
-            s[nctp1] = x[nctp1 + nctp1 * x_dim1];
+            s[nctp1] = x[nctp1 + nctp1*x_dim1];
         }
         if (*n < m) {
             s[m] = 0.;
@@ -5001,7 +5001,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
 
     /*     convert maxit to bound on total number of passes through */
     /*     inner loops of qr iteration (half number of rotations) */
-    maxit = *maxitr*m * m / 2;
+    maxit = *maxitr*m*m / 2;
     iter = 0;
     oldll = -1;
     oldm = -1;
@@ -5129,7 +5129,7 @@ L1003:
         /*       if (wantu.and.ll.lt.n) call drot(n,u(1,ll),1,u(1,m),1,cs,sn)
          */
         /*       e(ll) = 0.0d0 */
-        /*       s(m) = shift*dsign(1.0d0,cs) * sg1 * sg2 */
+        /*       s(m) = shift*dsign(1.0d0,cs) * sg1*sg2 */
         /*       if (idbg.gt.0) then */
         /*         print *,'2 by 2 block' */
         /*         print *,'shift=',shift */
@@ -5338,7 +5338,7 @@ L1003:
             }
             /* Computing 2nd power */
             d__1 = temp;
-            test = 1. - d__1 * d__1;
+            test = 1. - d__1*d__1;
             /*         test to see if shift negligible */
             if (*ifull != 1 && test == 1.) {
                 shift = 0.;
@@ -5909,7 +5909,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 d__1 = as*au;
                 /* Computing 2nd power */
                 d__2 = at*au;
-                temp = sqrt(d__1 * d__1 + 1.) + sqrt(d__2 * d__2 + 1.);
+                temp = sqrt(d__1*d__1 + 1.) + sqrt(d__2*d__2 + 1.);
                 /*                 0 < sigmin <= 2 */
                 *sigmin = au + au;
                 /*                 bad underflow possible only if true sigmin
@@ -5956,14 +5956,14 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
         } else {
             /*             at .ne. 0, so eps/2 <= at <= 1 */
             /*             eps/2 <= temp3 <= 1 + sqrt(10) */
-            temp3 = au + temp1 * temp2;
+            temp3 = au + temp1*temp2;
             if (absa < absc) {
                 /*                 fabs(ac) <= 1 */
                 ac = *a / *c__;
                 /*                 eps <= sinr <= sqrt(13)+3 */
                 /* Computing 2nd power */
                 d__1 = as*at + au;
-                sinr = sqrt(d__1 * d__1 + ac * 4. * ac*au) + as*at + au;
+                sinr = sqrt(d__1*d__1 + ac*4. * ac*au) + as*at + au;
                 /*                 fabs(cosr) <= 2; if underflow, true cosr<UF/
                 eps */
                 cosr = ac*bac;
@@ -5989,7 +5989,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 /*                 eps <= cosl <= sqrt(13)+3 */
                 /* Computing 2nd power */
                 d__1 = as*at + au;
-                cosl = sqrt(d__1 * d__1 + ca * 4. * ca*au) + as*at + au;
+                cosl = sqrt(d__1*d__1 + ca*4. * ca*au) + as*at + au;
                 sgnmn = sgna*sgnc;
                 sgnmx = (double)1.;
             }
@@ -6072,7 +6072,7 @@ sigmin(double *a, double *b, double *c__) {
             at = (acmx - acmn) / acmx;
             /* Computing 2nd power */
             d__1 = ab / acmx;
-            au = d__1 * d__1;
+            au = d__1*d__1;
             ret_val = acmn / (sqrt(as*as + au) + sqrt(at*at + au));
             ret_val += ret_val;
         } else {
@@ -6091,7 +6091,7 @@ sigmin(double *a, double *b, double *c__) {
                 /* Computing 2nd power */
                 d__2 = at*au;
                 ret_val =
-                    acmn / (sqrt(d__1 * d__1 + 1.) + sqrt(d__2 * d__2 + 1.));
+                    acmn / (sqrt(d__1*d__1 + 1.) + sqrt(d__2*d__2 + 1.));
                 ret_val = au*ret_val;
                 ret_val += ret_val;
             }
@@ -6288,7 +6288,7 @@ L50:
     y = x;
     /* Computing 2nd power */
     d__1 = s;
-    w = d__1 * d__1 * -.4375;
+    w = d__1*d__1 * -.4375;
 L70:
     ++it;
     /* LOOK FOR TWO CONSECUTIVE SMALL SUB-DIAGONAL */
@@ -6596,7 +6596,7 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
     p = (y - x) / 2.;
     /* Computing 2nd power */
     d__1 = p;
-    q = d__1 * d__1 + w;
+    q = d__1*d__1 + w;
     if (q >= 0.) {
         goto L10;
     }
@@ -6644,7 +6644,7 @@ L70:
     d__1 = p;
     /* Computing 2nd power */
     d__2 = q;
-    r__ = sqrt(d__1 * d__1 + d__2 * d__2);
+    r__ = sqrt(d__1*d__1 + d__2*d__2);
     if (r__ > 0.) {
         goto L80;
     }
@@ -6757,7 +6757,7 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     d__1 = p;
     /* Computing 2nd power */
     d__2 = q;
-    r__ = sqrt(d__1 * d__1 + d__2 * d__2);
+    r__ = sqrt(d__1*d__1 + d__2*d__2);
     p /= r__;
     q /= r__;
     i__1 = *n;
@@ -6943,7 +6943,7 @@ L30:
         d__2 = *q;
         /* Computing 2nd power */
         d__3 = *r__;
-        s = sqrt(d__1 * d__1 + d__2 * d__2 + d__3 * d__3);
+        s = sqrt(d__1*d__1 + d__2*d__2 + d__3*d__3);
         if (*p < 0.) {
             s = -s;
         }
@@ -7310,9 +7310,9 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     double *at, *a, *z, *wr, *wi, *fv1;
     int32 i, j, k, kt, *iv1, ier;
     double eps = 1e-8;
-    at = malloc(n*n * sizeof(double));
-    a = malloc(n*n * sizeof(double));
-    z = malloc(n*n * sizeof(double));
+    at = malloc(n*n*sizeof(double));
+    a = malloc(n*n*sizeof(double));
+    z = malloc(n*n*sizeof(double));
     wr = malloc(n*sizeof(double));
     wi = malloc(n*sizeof(double));
     fv1 = malloc(n*sizeof(double));

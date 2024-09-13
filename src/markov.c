@@ -234,10 +234,10 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     markov[j].nstates = nstates;
     markov[j].states = malloc(nstates*sizeof(double));
     if (type == 0) {
-        markov[j].trans = malloc(n2 * sizeof(char *));
-        markov[j].command = malloc(n2 * sizeof(int32 *));
+        markov[j].trans = malloc(n2*sizeof(char *));
+        markov[j].command = malloc(n2*sizeof(int32 *));
     } else {
-        markov[j].fixed = malloc(n2 * sizeof(double));
+        markov[j].fixed = malloc(n2*sizeof(double));
     }
 
     for (i = 0; i < nstates; i++)
@@ -638,7 +638,7 @@ gammln(double xx) {
     ser = 1.000000000190015;
     for (j = 0; j <= 5; j++)
         ser += cof[j] / ++y;
-    return -tmp + log(2.5066282746310005 * ser / x);
+    return -tmp + log(2.5066282746310005*ser / x);
 }
 
 double
@@ -661,7 +661,7 @@ poidev(double xm) {
     } else {
         if (xm != oldm) {
             oldm = xm;
-            sq = sqrt(2.0 * xm);
+            sq = sqrt(2.0*xm);
             alxm = log(xm);
             g = xm*alxm - gammln(xm + 1.0);
         }

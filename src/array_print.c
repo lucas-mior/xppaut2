@@ -50,10 +50,10 @@ ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
     float fill, x, y;
     float dx = (ps_scale.xmax - ps_scale.xmin);
     float dy = (ps_scale.ymax - ps_scale.ymin);
-    float xhi = .95 * dx, yhi = .85 * dy;
+    float xhi = .95*dx, yhi = .85*dy;
     float delx, dely;
-    delx = .8 * dx / (float)ndown;
-    dely = .8 * dy / (float)(nacross / ncskip);
+    delx = .8*dx / (float)ndown;
+    dely = .8*dy / (float)(nacross / ncskip);
     for (i = 0; i < nacross / ncskip; i++) {
         ib = col0 + i*ncskip;
         if (ib > maxcol)
@@ -98,8 +98,8 @@ ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
     ps_convert(xlo, ylo, &x0, &y0);
     ps_convert(xhi, yhi, &x1, &y1);
     fprintf(my_plot_file, "%s\n", "%!");
-    fprintf(my_plot_file, "%s %g %g %g %g\n", "%%BoundingBox: ", .2 * x0,
-            .2 * y0, .2 * x1, .2 * y1);
+    fprintf(my_plot_file, "%s %g %g %g %g\n", "%%BoundingBox: ", .2*x0,
+            .2*y0, .2*x1, .2*y1);
     fprintf(my_plot_file, "20 dict begin\n");
     fprintf(my_plot_file, "gsave\n");
     fprintf(my_plot_file, "/m {moveto} def\n");
@@ -150,9 +150,9 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
     }
     fprintf(my_plot_file, "0 G\n");
     sprintf(s, "%g", zlo);
-    ps_text2(s, x0 + .5 * dx, y0 + .01 * dx, 2);
+    ps_text2(s, x0 + .5*dx, y0 + .01*dx, 2);
     sprintf(s, "%g", zhi);
-    ps_text2(s, x0 + .5 * dx, y0 - n*dy - dy / 2, 0);
+    ps_text2(s, x0 + .5*dx, y0 - n*dy - dy / 2, 0);
     return;
 }
 
@@ -164,25 +164,25 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     float z = ps_scale.linecol;
     float dx = ps_scale.xmax - ps_scale.xmin;
     float dy = ps_scale.ymax - ps_scale.ymin;
-    float xlo = .15 * dx, ylo = .05 * dy, xhi = .95 * dx, yhi = .85 * dy;
+    float xlo = .15*dx, ylo = .05*dy, xhi = .95*dx, yhi = .85*dy;
 
     ps_setline(0.0, 10);
-    ps_rect(xlo, ylo, .8 * dx, .8 * dy);
+    ps_rect(xlo, ylo, .8*dx, .8*dy);
     ps_setline(z, i);
 
-    ps_text2(sx, xhi + .01 * dx, .5 * (yhi + ylo), 1);
-    ps_text2(sy, .5 * (xhi + xlo), yhi + .01 * dy, 2);
+    ps_text2(sx, xhi + .01*dx, .5 * (yhi + ylo), 1);
+    ps_text2(sy, .5 * (xhi + xlo), yhi + .01*dy, 2);
     sprintf(str, "%g", tlo);
-    ps_text2(str, xhi - .01 * dx, yhi + .01 * dy, 2);
+    ps_text2(str, xhi - .01*dx, yhi + .01*dy, 2);
     sprintf(str, "%g", thi);
-    ps_text2(str, xlo, yhi + .01 * dy, 2);
+    ps_text2(str, xlo, yhi + .01*dy, 2);
     sprintf(str, "%g", jlo);
-    ps_text2(str, xhi + .01 * dx, yhi, 0);
+    ps_text2(str, xhi + .01*dx, yhi, 0);
     sprintf(str, "%g", jhi);
-    ps_text2(str, xhi + .01 * dx, ylo + .01, 2);
-    ps_col_scale(yhi - .15 * dy, xlo - .1 * dx, .025 * dy, .05 * dx, 20, zlo,
+    ps_text2(str, xhi + .01*dx, ylo + .01, 2);
+    ps_col_scale(yhi - .15*dy, xlo - .1*dx, .025*dy, .05*dx, 20, zlo,
                  zhi, type);
-    ps_text2(sb, xlo - .035 * dx, .5 * (yhi + ylo), 1);
+    ps_text2(sb, xlo - .035*dx, .5 * (yhi + ylo), 1);
     return;
 }
 
@@ -216,7 +216,7 @@ ps_put_char(int32 ch, float *x, float *y) {
 void
 ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 ) {
-    double slant = .0174532 * ps_scale.slant;
+    double slant = .0174532*ps_scale.slant;
     float x, y;
     float sizex = ps_scale.tx, sizey = ps_scale.ty, rot = ps_scale.angle;
     double a = sizex*cos(slant), b = sizey*sin(slant),
@@ -261,8 +261,8 @@ ps_line2(double x1r, double y1r, double x2r, double y2r) {
 
 void
 ps_set_text(double angle, double slant, double x_size, double y_size) {
-    ps_scale.tx = x_size * 5.0;
-    ps_scale.ty = y_size * 5.0;
+    ps_scale.tx = x_size*5.0;
+    ps_scale.ty = y_size*5.0;
     ps_scale.angle = angle;
     ps_scale.slant = slant;
     return;
@@ -320,8 +320,8 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
         if (fill > .4999)
             r = 0.0;
         else
-            r = (float)sqrt((float)(1. - 4 * fill*fill));
-        g = (float)2 * sqrt((double)fill * (1. - fill));
+            r = (float)sqrt((float)(1. - 4*fill*fill));
+        g = (float)2*sqrt((double)fill * (1. - fill));
 
         if (fill < .5001)
             b = 0.0;

@@ -1003,8 +1003,8 @@ auto_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
         if (dy < 0) {
             dy = -dy;
         }
-        dx = dx * 2;
-        dy = dy * 2;
+        dx = dx*2;
+        dy = dy*2;
         /*Shrink by thirds and center (track) about the point clicked*/
         Auto.xmin = x1 - dx / 2;
         Auto.xmax = x1 + dx / 2;

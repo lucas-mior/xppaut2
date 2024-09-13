@@ -569,7 +569,7 @@ draw_marker(double x, double y, double size, int32 type) {
     float dx = (MyGraph->xhi - MyGraph->xlo) * WDMARK * size;
     float dy = (MyGraph->yhi - MyGraph->ylo) * HTMARK * size;
     while (true) {
-        offset = 48 * type + 3 * ind;
+        offset = 48*type + 3*ind;
         pen = sym_dir[offset];
         if (pen == 3)
             break;
@@ -604,8 +604,8 @@ arrow_head(double xs, double ys, double xe, double ye, double size) {
     float x0 = xs + size*l, y0 = ys + size*h;
     /* float tot=(float)sqrt((double)(l*l+h*h)); */
 
-    float xp = x0 + .5 * size*h * ar, yp = y0 - .5 * size*l / ar;
-    float xm = x0 - .5 * size*h * ar, ym = y0 + .5 * size*l / ar;
+    float xp = x0 + .5*size*h*ar, yp = y0 - .5*size*l / ar;
+    float xm = x0 - .5*size*h*ar, ym = y0 + .5*size*l / ar;
     line_abs(xs, ys, xp, yp);
     line_abs(xs, ys, xm, ym);
     return;

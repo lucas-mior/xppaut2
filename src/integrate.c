@@ -1805,7 +1805,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
         nit = tend;
         dt = dt / fabs(dt);
     } else
-        nit = (tend + .1 * fabs(dt)) / fabs(dt);
+        nit = (tend + .1*fabs(dt)) / fabs(dt);
     if (ishow == 1) {
 
         integrate(t, y, tend, dt, 1, nout, istart);

@@ -146,9 +146,9 @@ polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
                 return;
             den = w / den;
             d[i - 1] = hp*den;
-            c[i - 1] = h0 * den;
+            c[i - 1] = h0*den;
         }
-        *y += (*dy = (2 * ns < (n - m) ? c[ns] : d[ns-- - 1]));
+        *y += (*dy = (2*ns < (n - m) ? c[ns] : d[ns-- - 1]));
     }
     return;
 }
@@ -173,7 +173,7 @@ get_delay(int32 in, double tau) {
     }
     if (tau == 0.0) /* check fro zero delay and ignore the rest */
         return DelayWork[in + nodes * (LatestDelay % MaxDelay)];
-    xa[1] = n1 * dd;
+    xa[1] = n1*dd;
     xa[0] = xa[1] - dd;
     xa[2] = xa[1] + dd;
     xa[3] = xa[2] + dd;

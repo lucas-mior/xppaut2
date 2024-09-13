@@ -75,7 +75,7 @@ setubv_make_aa_bb_cc(void *arg) {
     f = malloc(sizeof(double) * (larg->ndim));
     u = malloc(sizeof(double) * (larg->ndim));
     wploc = malloc(sizeof(double) * (larg->ncol) * (larg->ncol + 1));
-    dbc = malloc(sizeof(double) * (larg->nbc) * (2 * larg->ndim + NPARX));
+    dbc = malloc(sizeof(double) * (larg->nbc) * (2*larg->ndim + NPARX));
     fbc = malloc(sizeof(double) * (larg->nbc));
     uic = malloc(sizeof(double) * (larg->ndim));
     uio = malloc(sizeof(double) * (larg->ndim));
@@ -490,7 +490,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     int64 upoldp_dim1 = larg.ndxloc;
 
     int64 dbc_dim1 = larg.nbc;
-    double *dbc = malloc(sizeof(double) * (larg.nbc) * (2 * larg.ndim + NPARX));
+    double *dbc = malloc(sizeof(double) * (larg.nbc) * (2*larg.ndim + NPARX));
     double *fbc = malloc(sizeof(double) * (larg.nbc));
     double *ubc0 = malloc(sizeof(double) * (larg.ndim));
     double *ubc1 = malloc(sizeof(double) * (larg.ndim));
@@ -515,7 +515,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
             larg.fc[i] = -fbc[i];
             for (k = 0; k < larg.ncb; ++k) {
                 ARRAY2D(dd, k, i) =
-                    ARRAY2D(dbc, i, (larg.ndim * 2) + larg.icp[k]);
+                    ARRAY2D(dbc, i, (larg.ndim*2) + larg.icp[k]);
             }
         }
         /*       Save difference : */

@@ -1652,7 +1652,7 @@ CVSetAdams(CVodeMem cv_mem) {
         l[0] = l[1] = tq[1] = tq[5] = ONE;
         tq[2] = TWO;
         tq[3] = TWELVE;
-        tq[4] = CORTES * tq[2]; /* = 0.1 * tq[2] */
+        tq[4] = CORTES * tq[2]; /* = 0.1*tq[2] */
         return;
     }
 
@@ -2200,7 +2200,7 @@ CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
 
     /* Set h ratio eta from dsm, rescale, and return for retry of step */
     if (*nefPtr <= MXNEF1) {
-        eta = ONE / (RPowerR(BIAS2 * dsm, ONE / L) + ADDON);
+        eta = ONE / (RPowerR(BIAS2*dsm, ONE / L) + ADDON);
         eta = MAX(ETAMIN, MAX(eta, hmin / ABS(h)));
         if (*nefPtr >= SMALL_NEF)
             eta = MIN(eta, ETAMXF);
@@ -2292,7 +2292,7 @@ CVPrepareNextStep(CVodeMem cv_mem, double dsm) {
     }
 
     /* etaq is the ratio of new to old h at the current order */
-    etaq = ONE / (RPowerR(BIAS2 * dsm, ONE / L) + ADDON);
+    etaq = ONE / (RPowerR(BIAS2*dsm, ONE / L) + ADDON);
 
     /* If no order change, adjust eta and acor in CVSetEta and return */
     if (qwait != 0) {
@@ -2355,7 +2355,7 @@ CVComputeEtaqm1(CVodeMem cv_mem) {
     etaqm1 = ZERO;
     if (q > 1) {
         ddn = N_VWrmsNorm(zn[q], ewt) / tq[1];
-        etaqm1 = ONE / (RPowerR(BIAS1 * ddn, ONE / q) + ADDON);
+        etaqm1 = ONE / (RPowerR(BIAS1*ddn, ONE / q) + ADDON);
     }
     return etaqm1;
 }
@@ -2376,7 +2376,7 @@ CVComputeEtaqp1(CVodeMem cv_mem) {
         cquot = (tq[5] / saved_tq5) * RPowerI(h / tau[2], L);
         N_VLinearSum(-cquot, zn[qmax], ONE, acor, tempv);
         dup = N_VWrmsNorm(tempv, ewt) / tq[3];
-        etaqp1 = ONE / (RPowerR(BIAS3 * dup, ONE / (L + 1)) + ADDON);
+        etaqp1 = ONE / (RPowerR(BIAS3*dup, ONE / (L + 1)) + ADDON);
     }
     return etaqp1;
 }

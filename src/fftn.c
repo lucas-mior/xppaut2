@@ -584,7 +584,7 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
     for (;;) {
         sd = radf / (double)kspan;
         cd = sin(sd);
-        cd = 2.0 * cd*cd;
+        cd = 2.0*cd*cd;
         sd = sin(sd + sd);
         kk = 1;
         ii++;
@@ -630,8 +630,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                             tmpi = Im_Data(kk) - Im_Data(k2);
                             Re_Data(kk) += Re_Data(k2);
                             Im_Data(kk) += Im_Data(k2);
-                            Re_Data(k2) = c1 * tmpr - s1 * tmpi;
-                            Im_Data(k2) = s1 * tmpr + c1 * tmpi;
+                            Re_Data(k2) = c1*tmpr - s1*tmpi;
+                            Im_Data(k2) = s1*tmpr + c1*tmpi;
                             kk = k2 + kspan;
                         } while (kk < nt);
                         k2 = kk - nt;
@@ -640,7 +640,7 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                     } while (kk > k2);
                     tmp = c1 - (cd*c1 + sd*s1);
                     s1 = sd*c1 - cd*s1 + s1;
-                    c1 = 2.0 - (tmp*tmp + s1 * s1);
+                    c1 = 2.0 - (tmp*tmp + s1*s1);
                     s1 *= c1;
                     c1 *= tmp;
                     kk += jc;
@@ -714,14 +714,14 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
 
                     c2 = c1 - (cd*c1 + sd*s1);
                     s1 = sd*c1 - cd*s1 + s1;
-                    c1 = 2.0 - (c2 * c2 + s1 * s1);
+                    c1 = 2.0 - (c2*c2 + s1*s1);
                     s1 *= c1;
                     c1 *= c2;
                     /* values of c2, c3, s2, s3 that will get used next time */
-                    c2 = c1 * c1 - s1 * s1;
-                    s2 = 2.0 * c1 * s1;
-                    c3 = c2 * c1 - s2 * s1;
-                    s3 = c2 * s1 + s2 * c1;
+                    c2 = c1*c1 - s1*s1;
+                    s2 = 2.0*c1*s1;
+                    c3 = c2*c1 - s2*s1;
+                    s3 = c2*s1 + s2*c1;
                     kk = kk - nt + jc;
                 } while (kk <= kspan);
                 kk = kk - kspan + inc;
@@ -759,8 +759,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         bj = Im_Data(k1) + Im_Data(k2);
                         Re_Data(kk) = tmpr + aj;
                         Im_Data(kk) = tmpi + bj;
-                        tmpr -= 0.5 * aj;
-                        tmpi -= 0.5 * bj;
+                        tmpr -= 0.5*aj;
+                        tmpi -= 0.5*bj;
                         aj = (Re_Data(k1) - Re_Data(k2)) * s60;
                         bj = (Im_Data(k1) - Im_Data(k2)) * s60;
                         Re_Data(k1) = tmpr - bj;
@@ -774,8 +774,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                 break;
 
             case 5: /* transform for factor of 5 (optional code) */
-                c2 = c72 * c72 - s72 * s72;
-                s2 = 2.0 * c72 * s72;
+                c2 = c72*c72 - s72*s72;
+                s2 = 2.0*c72*s72;
                 do {
                     do {
                         REAL aa, aj, ak, ajm, ajp, akm, akp;
@@ -922,18 +922,18 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         do {
                             REAL ak;
                             ak = Re_Data(kk);
-                            Re_Data(kk) = c2 * ak - s2 * Im_Data(kk);
-                            Im_Data(kk) = s2 * ak + c2 * Im_Data(kk);
+                            Re_Data(kk) = c2*ak - s2 * Im_Data(kk);
+                            Im_Data(kk) = s2*ak + c2 * Im_Data(kk);
                             kk += ispan;
                         } while (kk <= nt);
-                        tmp = s1 * s2;
-                        s2 = s1 * c2 + c1 * s2;
-                        c2 = c1 * c2 - tmp;
+                        tmp = s1*s2;
+                        s2 = s1*c2 + c1*s2;
+                        c2 = c1*c2 - tmp;
                         kk = kk - nt + kspan;
                     } while (kk <= ispan);
                     c2 = c1 - (cd*c1 + sd*s1);
                     s1 += sd*c1 - cd*s1;
-                    c1 = 2.0 - (c2 * c2 + s1 * s1);
+                    c1 = 2.0 - (c2*c2 + s1*s1);
                     s1 *= c1;
                     c2 *= c1;
                     kk = kk - ispan + jc;

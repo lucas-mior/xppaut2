@@ -76,16 +76,16 @@ make_scrbox_lists(void) {
     }
     /* color list */
     scrbox_list[4].n = 11;
-    scrbox_list[4].list = malloc(11 * sizeof(char *));
+    scrbox_list[4].list = malloc(11*sizeof(char *));
     for (i = 0; i < 11; i++) {
         scrbox_list[4].list[i] = malloc(20);
         sprintf(scrbox_list[4].list[i], "%d %s", i, color_names[i]);
     }
     /* marker list */
     scrbox_list[5].n = 6;
-    scrbox_list[5].list = malloc(6 * sizeof(char *));
+    scrbox_list[5].list = malloc(6*sizeof(char *));
     for (i = 0; i < 6; i++)
-        scrbox_list[5].list[i] = malloc(13 * sizeof(char));
+        scrbox_list[5].list[i] = malloc(13*sizeof(char));
     strcpy(scrbox_list[5].list[0], "2 Box");
     strcpy(scrbox_list[5].list[1], "3 Diamond");
     strcpy(scrbox_list[5].list[2], "4 Triangle");
@@ -93,10 +93,10 @@ make_scrbox_lists(void) {
     strcpy(scrbox_list[5].list[4], "6 X");
     strcpy(scrbox_list[5].list[5], "7 Circle");
     /* method list */
-    scrbox_list[6].list = malloc(15 * sizeof(char *));
+    scrbox_list[6].list = malloc(15*sizeof(char *));
     scrbox_list[6].n = 15;
     for (i = 0; i < 15; i++) {
-        scrbox_list[6].list[i] = malloc(22 * sizeof(char));
+        scrbox_list[6].list[i] = malloc(22*sizeof(char));
         sprintf(scrbox_list[6].list[i], "%d %s", i, method[i]);
     }
     return;
@@ -178,7 +178,7 @@ redraw_scroll_box(SCROLLBOX sb) {
     if (sb.nw < sb.nent) {
         XClearWindow(display, sb.slide);
         /* now calculate the slide position */
-        p = 2 + (sb.i0 * sb.len) / (sb.nent - sb.nw);
+        p = 2 + (sb.i0*sb.len) / (sb.nent - sb.nw);
         for (i = -2; i <= 2; i++)
             XDrawLine(display, sb.slide, small_gc, 0, p + i, 5, p + i);
     }

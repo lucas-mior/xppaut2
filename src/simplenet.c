@@ -286,7 +286,7 @@ vector_value(double x, int32 i) {
     if (k >= n) {
         if (ir == ZERO)
             return 0.0;
-        return variables[2 * n - k - 1 + root];
+        return variables[2*n - k - 1 + root];
     }
     return 0;
 }
@@ -621,8 +621,8 @@ add_spec_fun(char *name, char *rhs) {
             plintf(" In %s, weight is length %d < %d \n", name, ntab, ntot);
             return 0;
         }
-        if (type == FFTCON0 && ntab < (2 * ntot)) {
-            plintf(" In %s, weight is length %d < %d \n", name, ntab, 2 * ntot);
+        if (type == FFTCON0 && ntab < (2*ntot)) {
+            plintf(" In %s, weight is length %d < %d \n", name, ntab, 2*ntot);
             return 0;
         }
         str = get_next(")");
@@ -633,7 +633,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
         if (ntype == FFTCON0)
-            ncon = 2 * ntot;
+            ncon = 2*ntot;
         else
             ncon = ntot;
         my_net[ind].fftr = malloc((ncon + 2) * sizeof(double));
@@ -795,7 +795,7 @@ add_spec_fun(char *name, char *rhs) {
             plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
-        my_net[ind].values = malloc(6 * sizeof(double));
+        my_net[ind].values = malloc(6*sizeof(double));
         my_net[ind].type = FINDEXT;
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
@@ -1019,7 +1019,7 @@ add_spec_fun(char *name, char *rhs) {
             ivar = 0;
         }
         my_net[ind].iwgt = ivar;
-        my_net[ind].gcom = malloc(1000 * sizeof(int32));
+        my_net[ind].gcom = malloc(1000*sizeof(int32));
         if (gilparse(str, my_net[ind].gcom, &ivar2) == 0)
             return 0;
         my_net[ind].root = ivar2;
@@ -1129,7 +1129,7 @@ evaluate_network(int32 ind) {
     int32 n = my_net[ind].n, *f;
     int32 ncon = my_net[ind].ncon;
     double *w, *y, *cc, *values, *yp, *tau;
-    int32 twon = 2 * n, root = my_net[ind].root, root2 = my_net[ind].root2;
+    int32 twon = 2*n, root = my_net[ind].root, root2 = my_net[ind].root2;
     cc = my_net[ind].index;
     w = my_net[ind].weight;
     values = my_net[ind].values;
@@ -1429,7 +1429,7 @@ update_fft(int32 ind) {
         plintf("(%g , %g)\n",fftr[i],ffti[i]); */
     }
     if (type == FFTCON0) {
-        n = 2 * my_net[ind].n;
+        n = 2*my_net[ind].n;
         n2 = n / 2;
         for (i = 0; i < n; i++)
             ffti[i] = 0.0;
@@ -1451,7 +1451,7 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
     int32 i;
     int32 dims[2];
     double x, y;
-    int32 n2 = 2 * n;
+    int32 n2 = 2*n;
     switch (it) {
     case 0:
         dims[0] = n;

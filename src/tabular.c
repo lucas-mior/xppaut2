@@ -239,9 +239,9 @@ tab_interp(double xlo, double h, double x, double *y, int32 n, int32 i) {
     y1 = y[i + 1];
     y2 = y[i + 2];
     d = y0;
-    b = .5 * (y1 + ym - 2 * y0);
+    b = .5 * (y1 + ym - 2*y0);
     a = (3 * (y0 - y1) + y2 - ym) / 6;
-    c = (6 * y1 - y2 - 3 * y0 - 2 * ym) / 6;
+    c = (6*y1 - y2 - 3*y0 - 2*ym) / 6;
     tt = (x - xlo) / h - i;
     return d + tt * (c + tt * (b + tt*a));
 }

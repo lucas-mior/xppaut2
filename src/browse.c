@@ -678,7 +678,7 @@ draw_data(BROWSER b) {
     int32 i, i0, j, j0;
     int32 x0;
     char string[50];
-    int32 dcol = DCURXs * 14;
+    int32 dcol = DCURXs*14;
     int32 drow = (DCURYs + 6);
     if (b.dataflag == 0)
         return; /*   no data  */
@@ -794,7 +794,7 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
      */
     XTextProperty winname, iconname;
     XSizeHints size_hints;
-    int32 dcol = DCURXs * 17;
+    int32 dcol = DCURXs*17;
     int32 drow = (DCURYs + 6);
     int32 ystart = 8;
 
@@ -832,10 +832,10 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, &class_hints);
     make_icon((char *)browse_bits, browse_width, browse_height, base);
-    b->upper = make_window(base, 0, 0, width, ystart + drow * 6, 1);
+    b->upper = make_window(base, 0, 0, width, ystart + drow*6, 1);
     XSetWindowBackground(display, b->upper, MyMainWinColor);
     b->main =
-        make_plain_window(base, 0, ystart + drow * 6, width, row*drow, 1);
+        make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
     b->find = br_button(base, 0, 0, "find", 0);
     b->get = br_button(base, 1, 0, "get ", 0);
@@ -859,7 +859,7 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     b->delcol = br_button(base, 2, 5, "delcol", 0);
     b->close = br_button(base, 2, 6, "close", 0);
     b->time = br_button(base, 5, 0, "time ", 1);
-    b->hint = make_window(base, 0, 4 * drow, width - 17, drow - 3, 1);
+    b->hint = make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
     XSelectInput(display, b->time, SIMPMASK);
 
     for (i = 0; i < BMAXCOL; i++) {
@@ -949,17 +949,17 @@ resize_browser(Window win, BROWSER *b) {
     if (i0 > b->maxcol)
         i0 = b->maxcol;
 
-    w = i0 * dcol;
+    w = i0*dcol;
     if (i0 < 5)
-        w = 5 * dcol;
+        w = 5*dcol;
     newcol = i0;
-    h = hreal - 8 - 5 * drow;
+    h = hreal - 8 - 5*drow;
     i0 = h / drow;
     if ((h % drow) > 0)
         i0++;
     if (i0 > b->maxrow)
         i0 = b->maxrow;
-    h = i0 * drow + DCURXs / 2;
+    h = i0*drow + DCURXs / 2;
     newrow = i0;
     /*  Now resize everything   */
     if (b->ncol == newcol && b->nrow == newrow)
@@ -968,7 +968,7 @@ resize_browser(Window win, BROWSER *b) {
     b->nrow = newrow;
 
     XResizeWindow(display, b->base, w - 17, hreal);
-    XResizeWindow(display, b->upper, w - 17, 8 + drow * 3);
+    XResizeWindow(display, b->upper, w - 17, 8 + drow*3);
     XResizeWindow(display, b->main, w - 17, h);
 
     /* Let the browser know how many rows and columns of data  */

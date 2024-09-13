@@ -86,7 +86,7 @@ print_jacobian(iap_type iap, main_auto_storage_type data) {
         for (k = 0; k < (num_columns_A - iap.ndim); k++)
             fprintf(
                 fp, "%18.10e ",
-                data.c[k + j*num_columns_A + 0 * num_rows_C * num_columns_A]);
+                data.c[k + j*num_columns_A + 0*num_rows_C * num_columns_A]);
         /* Now print out the rest of the blocks, doing a summation at the
          * beginning of each */
         for (i = 1; i < numblocks; i++) {
@@ -399,7 +399,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
       This is some stuff from the parallel version that isn't needed anymore
       ----------------------------------------------------------------------
       lenft = ntst*nrow << 3;
-      lenff = ntst0 * nrow << 3;
+      lenff = ntst0*nrow << 3;
       jtmp1 = M 2AA;   I added spaces so these don't get flagged as header file
       macro dependancies jtmp2 = M 3AA;   I added spaces so these don't get
       flagged as header file macro dependancies lenff2 = jtmp1 * (jtmp2 + 1) <<
@@ -569,7 +569,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     wi = malloc(sizeof(double) * (iap->ncol + 1));
     wp = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
     wt = malloc(sizeof(double) * (iap->ncol) * (iap->ncol + 1));
-    dbc = malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+    dbc = malloc(sizeof(double) * (iap->nbc) * (2*iap->ndim + NPARX));
     fbc = malloc(sizeof(double) * (iap->nbc));
     uic = malloc(sizeof(double) * (iap->ndim));
     uio = malloc(sizeof(double) * (iap->ndim));
@@ -909,7 +909,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
     c_dim1 = *nca;
     c_dim2 = *nrc;
 
-    nex = *nca - (*nov * 2);
+    nex = *nca - (*nov*2);
     if (nex == 0) {
         return 0;
     }
@@ -1130,7 +1130,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
             worker[i] = FALSE_;
 
             k1 = pow_ii(2, i);
-            k2 = k1 * 2;
+            k2 = k1*2;
             niam = *iam / k1;
 
             if (notsend) {
@@ -1142,7 +1142,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
                     ism[i] = (i + 1) + *iam;
                     irm[i] = ism[i] + k1;
                     myright[i] = *iam + k1;
-                    irmm[i] = (i + 1) + *iam + 1 + (*kwt * 2);
+                    irmm[i] = (i + 1) + *iam + 1 + (*kwt*2);
                     ismc[i] = (i + 1) + *iam + *kwt;
                     myleftc[i] = *iam - (k1 - 1);
 
@@ -1158,7 +1158,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
             k = *iam % k2;
             if (k == k1) {
                 evenc[i] = TRUE_;
-                ismm[i] = (i + 1) + *iam + (*kwt * 2);
+                ismm[i] = (i + 1) + *iam + (*kwt*2);
             }
 
             if (*iam % k2 == 0) {
@@ -2022,7 +2022,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
     d_dim1 = *ncb;
 
     nap1 = *na + 1;
-    msglen1 = (*nrc * 8) * *nov;
+    msglen1 = (*nrc*8) * *nov;
     /* Computing 2nd power */
     msglen2 = (*nov + *nrc + ((*nov * *nov) * 2) + 1) * 8;
     ncrloc = *nrc + *nov;
@@ -2049,7 +2049,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
                 ARRAY2D(p1, i, j) = ARRAY3D(a2, i, j, (*na - 1));
             }
             for (j = 0; j < *ncb; ++j) {
-                novpj2 = (*nov * 2) + j;
+                novpj2 = (*nov*2) + j;
                 ARRAY2D(e, i, novpj2) = ARRAY3D(bb, i, j, (*na - 1));
             }
         }
@@ -2062,7 +2062,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
                 ARRAY2D(e, novpi, novpj) = ARRAY3D(cc, j, i, (nap1 - 1));
             }
             for (j = 0; j < *ncb; ++j) {
-                novpj2 = (*nov * 2) + j;
+                novpj2 = (*nov*2) + j;
                 ARRAY2D(e, novpi, novpj2) = ARRAY2D(d, j, i);
             }
         }
@@ -2230,8 +2230,8 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
         double tmp = d_lg10(&xkwt) / r_lg10(2.0);
         nlev = i_dnnt(&tmp);
     }
-    nov2 = *nov * 2;
-    nov3 = *nov * 3;
+    nov2 = *nov*2;
+    nov3 = *nov*3;
     ibuf = (nov3 + 1) * 8;
 
     /* The backsubstitution in the reduction process is recursive. */
@@ -2265,7 +2265,7 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
 
         for (i = nlev - 1; i >= 0; --i) {
             if (master[i]) {
-                ism = i + nlev + (*kwt * 4);
+                ism = i + nlev + (*kwt*4);
                 irm = ism + 1;
                 k = pow_ii(2, i - 1);
                 /*              **Compute the ID of the receiving node */
@@ -2558,7 +2558,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     }
 
     niam = *nrc;
-    msglen = niam * 8;
+    msglen = niam*8;
     for (n = 0; n < nredo; ++n) {
         /*        **Even nodes send and odd nodes receive from left to right
          */

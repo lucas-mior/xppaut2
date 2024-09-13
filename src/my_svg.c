@@ -459,7 +459,7 @@ svg_frect(int32 x, int32 y, int32 w, int32 h) {
                 x, y, w, h, cur_RGB[0], cur_RGB[1], cur_RGB[2], cur_RGB[0],
                 cur_RGB[1], cur_RGB[2]);
     } else {
-        gray = (0.299 * cur_RGB[0] + 0.587 * cur_RGB[1] + 0.114 * cur_RGB[2]);
+        gray = (0.299*cur_RGB[0] + 0.587*cur_RGB[1] + 0.114*cur_RGB[2]);
         fprintf(svgfile,
                 "      <rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" "
                 "style=\"stroke:rgb(%d,%d,%d);fill:rgb(%d,%d,%d);\"/>",

@@ -400,8 +400,8 @@ setfillstyle(int32 type, int32 color) {
 
 void
 circle(int32 x, int32 y, int32 radius, Window w) {
-    XDrawArc(display, w, gc, x - radius, y - radius, 2 * radius, 2 * radius, 0,
-             360 * 64);
+    XDrawArc(display, w, gc, x - radius, y - radius, 2*radius, 2*radius, 0,
+             360*64);
     return;
 }
 

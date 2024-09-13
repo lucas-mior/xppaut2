@@ -76,7 +76,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
 
     /* Get memory for Givens rotation components */
 
-    givens = malloc(2 * l_max*sizeof(double));
+    givens = malloc(2*l_max*sizeof(double));
     if (givens == NULL) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -323,7 +323,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
             /*  Update residual norm estimate; break if convergence test passes
              */
 
-            rotation_product *= givens[2 * l + 1];
+            rotation_product *= givens[2*l + 1];
 
             if ((*res_norm = rho = ABS(rotation_product*r_norm)) <= delta) {
                 converged = TRUE;
@@ -379,8 +379,8 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         /* Construct last column of Q in yg */
         s_product = ONE;
         for (i = krydim; i > 0; i--) {
-            yg[i] = s_product*givens[2 * i - 2];
-            s_product *= givens[2 * i - 1];
+            yg[i] = s_product*givens[2*i - 2];
+            s_product *= givens[2*i - 1];
         }
         yg[0] = s_product;
 

@@ -446,7 +446,7 @@ run_fit(/* double arrays */
     int32 i, j, k, ioff, ictrl = 0, ok;
     FILE *fp;
     int32 niter = 0, good_flag = 0;
-    double tol10 = 10 * tol;
+    double tol10 = 10*tol;
     double t, ytemp[MAXODE];
     /*printf(" %s %d %d %d %d %d \n",
               filename,
@@ -475,7 +475,7 @@ run_fit(/* double arrays */
     plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
            y[npts*nvars - 2], y[npts*nvars - 1]);
 
-    work = malloc(sizeof(double) * (4 * npars + npars*npars));
+    work = malloc(sizeof(double) * (4*npars + npars*npars));
     yderv = malloc(npars*sizeof(double *));
     for (i = 0; i < npars; i++)
         yderv[i] = malloc((npts + 1) * nvars*sizeof(double));
@@ -600,8 +600,8 @@ sigma  weights on nvars
     double *da, *atry, *beta, *oneda;
     da = work;
     atry = work + npars;
-    beta = work + 2 * npars;
-    oneda = work + 3 * npars;
+    beta = work + 2*npars;
+    oneda = work + 3*npars;
 
     if (ictrl == 0) {
         *alambda = .001;

@@ -102,7 +102,7 @@ change_view_com(int32 com) {
         return;
     }
 
-    MyGraph->grtype = 5 * com;
+    MyGraph->grtype = 5*com;
     if (MyGraph->grtype < 5)
         get_2d_view(CurrentCurve);
     else
@@ -286,7 +286,7 @@ check_val(double *x1, double *x2, double *xb, double *xd) {
     */
 
     if (*x1 == *x2) {
-        temp = .05 * lmax(fabs(*x1), 1.0);
+        temp = .05*lmax(fabs(*x1), 1.0);
         *x1 = *x1 - temp;
         *x2 = *x2 + temp;
     }
@@ -317,7 +317,7 @@ get_max(int32 index, double *vmin, double *vmax) {
     *vmin = (double)x0;
     *vmax = (double)x1;
     if (fabs(*vmin - *vmax) < REAL_SMALL) {
-        temp = .05 * lmax(fabs(*vmin), 1.0);
+        temp = .05*lmax(fabs(*vmin), 1.0);
         *vmin = *vmin - temp;
         *vmax = *vmax + temp;
     }
@@ -938,8 +938,8 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
             dy = -dy;
         }
         /*Grow by thirds and center (track) about the point clicked*/
-        dx = dx * 2;
-        dy = dy * 2;
+        dx = dx*2;
+        dy = dy*2;
 
         MyGraph->xlo = x1 - dx / 2;
         MyGraph->xhi = x1 + dx / 2;

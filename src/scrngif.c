@@ -25,7 +25,7 @@
 /* defines the amount of memory set aside in the encoding for the
  * LOOKUP type nodes; for a 256 color GIF, the number of LOOKUP
  * nodes will be <= noOfArrays, for a 128 color GIF the number of
- * LOOKUP nodes will be <= 2 * noOfArrays, etc.  */
+ * LOOKUP nodes will be <= 2*noOfArrays, etc.  */
 #define GifPutShort(i, fout)                                                   \
     {                                                                          \
         fputc(i & 0xff, fout);                                                 \
@@ -186,7 +186,7 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     /*  plintf("stog !! \n");*/
 
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
-    ppm = malloc(w*h * 3);
+    ppm = malloc(w*h*3);
     pixels = malloc(h*w);
     /* plintf(" h=%d w=%d \n",h,w);*/
 
@@ -404,7 +404,7 @@ GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
     need = 8;
 
     nodeArray = empty;
-    memmove(++nodeArray, empty, 255 * sizeof(GifTree **));
+    memmove(++nodeArray, empty, 255*sizeof(GifTree **));
     if ((buffer = malloc((BUFLEN + 1) * sizeof(unsigned char))) == NULL)
         return 0;
     buffer++;
@@ -422,9 +422,9 @@ GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
     if ((topNode = baseNode = malloc(sizeof(GifTree) * 4094)) == NULL)
         return 0;
     if ((nodeArray = first->node =
-             malloc(256 * sizeof(GifTree *) * noOfArrays)) == NULL)
+             malloc(256*sizeof(GifTree *) * noOfArrays)) == NULL)
         return 0;
-    lastArray = nodeArray + (256 * noOfArrays - cc);
+    lastArray = nodeArray + (256*noOfArrays - cc);
     ClearTree(cc, first);
 
     pos = AddCodeToBuffer(cc, cLength, pos);
@@ -585,7 +585,7 @@ ClearTree(int32 cc, GifTree *root) {
     nodeArray = root->node;
     xx = nodeArray;
     for (i = 0; i < noOfArrays; i++) {
-        memmove(xx, empty, 256 * sizeof(GifTree **));
+        memmove(xx, empty, 256*sizeof(GifTree **));
         xx += 256;
     }
     topNode = baseNode;

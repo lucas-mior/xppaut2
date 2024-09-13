@@ -39,11 +39,11 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     double colnorm = 0, colmax, colsum;
     double *work, old_x[MAXODE], sign;
     double *coef, yp[MAXODE], y[MAXODE], xp[MAXODE], dx;
-    int32 kmem = n * (2 * n + 5) + 50, i, j, k, okroot;
+    int32 kmem = n * (2*n + 5) + 50, i, j, k, okroot;
 
     double *ev;
-    ev = malloc(2 * n*sizeof(double));
-    for (i = 0; i < (2 * n); i++)
+    ev = malloc(2*n*sizeof(double));
+    for (i = 0; i < (2*n); i++)
         ev[i] = 0.0;
     /* first we establish how many delays there are */
     del_stab_flag = 0;
@@ -486,7 +486,7 @@ plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     double x, y, arg, oldarg = 0.0;
     double ds; /* steplength */
     /* first the contour from i wmax -- -i wmax */
-    ds = 2 * wmax / npts;
+    ds = 2*wmax / npts;
     x = 0.0;
     for (i = 0; i < npts; i++) {
         y = wmax - i*ds;
@@ -509,7 +509,7 @@ plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     }
     /* right contour */
     x = almax;
-    ds = 2 * wmax / npts;
+    ds = 2*wmax / npts;
     for (i = 0; i < npts; i++) {
         y = -wmax + i*ds;
         lambda = rtoc(x, y);

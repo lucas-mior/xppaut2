@@ -29,10 +29,10 @@
 #define MAXLINES 5000
 #define MAXCOMMENTS 500
 
-#define xds(a)                                                                 \
-    {                                                                          \
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
-        return;                                                                \
+#define xds(a)                                                          \
+    {                                                                   \
+        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));  \
+        return;                                                         \
     }
 typedef struct {
     char *text, *action;
@@ -175,7 +175,7 @@ txtview_press(Window w, int32 x, int32 y) {
     if (w == txtview.text) {
         if (txtview.which == 0)
             return;
-        if (x > (2 * txtview.dw))
+        if (x > (2*txtview.dw))
             return;
         j = txtview.first + y / txtview.dh;
         if ((j < n_comments) && (comments[j].aflag > 0))
@@ -309,7 +309,7 @@ init_txtview(void) {
 
 void
 make_txtview(void) {
-    int32 minwid = DCURXs * 60, minlen = 3 * DCURYs + 8 + 10 * DCURY;
+    int32 minwid = DCURXs*60, minlen = 3 * DCURYs + 8 + 10 * DCURY;
     Window base;
     int32 ww = 9 * DCURXs, hh = DCURYs + 4;
     static char *wname[] = {"Text Viewer"}, *iname[] = {"Txtview"};
@@ -342,15 +342,15 @@ make_txtview(void) {
     make_icon((char *)txtview_bits, txtview_width, txtview_height, base);
     txtview.up = make_window(base, DCURXs, 2, 8 * DCURXs, DCURYs, 1);
     txtview.down = make_window(base, DCURXs + ww, 2, 8 * DCURXs, DCURYs, 1);
-    txtview.pgup = make_window(base, DCURXs + 2 * ww, 2, 8 * DCURXs, DCURYs, 1);
-    txtview.pgdn = make_window(base, DCURXs + 3 * ww, 2, 8 * DCURXs, DCURYs, 1);
-    txtview.kill = make_window(base, DCURXs + 4 * ww, 2, 8 * DCURXs, DCURYs, 1);
+    txtview.pgup = make_window(base, DCURXs + 2*ww, 2, 8 * DCURXs, DCURYs, 1);
+    txtview.pgdn = make_window(base, DCURXs + 3*ww, 2, 8 * DCURXs, DCURYs, 1);
+    txtview.kill = make_window(base, DCURXs + 4*ww, 2, 8 * DCURXs, DCURYs, 1);
     txtview.home = make_window(base, DCURXs, 2 + hh, 8 * DCURXs, DCURYs, 1);
     txtview.end = make_window(base, DCURXs + ww, 2 + hh, 8 * DCURXs, DCURYs, 1);
     txtview.src =
-        make_window(base, DCURXs + 2 * ww, 2 + hh, 8 * DCURXs, DCURYs, 1);
+        make_window(base, DCURXs + 2*ww, 2 + hh, 8 * DCURXs, DCURYs, 1);
     txtview.action =
-        make_window(base, DCURXs + 3 * ww, 2 + hh, 8 * DCURXs, DCURYs, 1);
+        make_window(base, DCURXs + 3*ww, 2 + hh, 8 * DCURXs, DCURYs, 1);
     txtview.text =
         make_plain_window(base, 2, 3 * DCURYs + 5, minwid - 4, 10 * DCURY, 1);
     txtview.here = 1;

@@ -430,7 +430,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 }
                 break;
             case 0:
-                if (f0 * f1 <= 0 && (f1 != 0 || f0 != 0) && tol > tolmin) {
+                if (f0*f1 <= 0 && (f1 != 0 || f0 != 0) && tol > tolmin) {
                     flag[i].tstar = smin;
                     flag[i].hit = ncycle + 1;
                     newhit = 1;

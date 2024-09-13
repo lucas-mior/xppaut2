@@ -40,21 +40,21 @@ init_alloc_info(void) {
 void
 alloc_meth(void) {
     int32 nn = xpv.node + xpv.nvec;
-    int32 sz = 30 * nn;
+    int32 sz = 30*nn;
     switch (METHOD) {
     case STIFF:
-        sz = 2 * nn*nn + 13 * nn + 100;
+        sz = 2*nn*nn + 13*nn + 100;
 
         break;
     case GEAR:
-        sz = 30 * nn + nn*nn + 100;
+        sz = 30*nn + nn*nn + 100;
         break;
     case BACKEUL:
     case VOLTERRA:
-        sz = 10 * nn + nn*nn + 100;
+        sz = 10*nn + nn*nn + 100;
         break;
     case RB23:
-        sz = 12 * nn + 100 + nn*nn;
+        sz = 12*nn + 100 + nn*nn;
         break;
     }
     if (WORK)

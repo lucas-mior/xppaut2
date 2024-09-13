@@ -57,7 +57,7 @@ tst_color(Window w) {
     int32 i;
     for (i = 0; i < color_total; i++) {
         set_color(i + color_min);
-        XDrawLine(display, w, gc_graph, 0, 2 * i + 20, 50, 2 * i + 20);
+        XDrawLine(display, w, gc_graph, 0, 2*i + 20, 50, 2*i + 20);
     }
     return;
 }
@@ -123,12 +123,12 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
         break;
     case C_HOT:
-        i1 = .375 * n;
-        i2 = 2 * i1;
+        i1 = .375*n;
+        i2 = 2*i1;
         i3 = n - i2;
 
         for (i = 0; i < i1; i++) {
-            x = 256 * 255 * (double)i / ((double)i1);
+            x = 256*255 * (double)i / ((double)i1);
 
             r[i] = (int32)x;
             g[i] = 0;
@@ -138,48 +138,48 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
 
         for (i = i1; i < n; i++)
-            r[i] = 256 * 255;
+            r[i] = 256*255;
         for (i = i2; i < n; i++) {
-            x = 256 * 255 * (double)(i - i2) / ((double)i3);
+            x = 256*255 * (double)(i - i2) / ((double)i3);
 
-            g[i] = 256 * 255;
+            g[i] = 256*255;
             b[i] = (int32)x;
         }
         break;
     case C_COOL:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            r[i] = (int32)(256 * 255 * x);
-            b[i] = (int32)(256 * 255 * (1 - x));
-            g[i] = 256 * 255;
+            r[i] = (int32)(256*255*x);
+            b[i] = (int32)(256*255 * (1 - x));
+            g[i] = 256*255;
         }
         break;
     case C_REDBLUE:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            r[i] = (int32)(256 * 255 * x);
-            b[i] = (int32)(256 * 255 * (1 - x));
+            r[i] = (int32)(256*255*x);
+            b[i] = (int32)(256*255 * (1 - x));
             g[i] = 0;
         }
         break;
 
     case C_GRAY:
         for (i = 0; i < n; i++) {
-            r[i] = i * 256 * 255 / n;
-            b[i] = i * 256 * 255 / n;
-            g[i] = i * 256 * 255 / n;
+            r[i] = i*256*255 / n;
+            b[i] = i*256*255 / n;
+            g[i] = i*256*255 / n;
         }
         break;
         /* https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/ */
     case C_CUBHLX:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            angle = 2 * pii * (start / 3.0 + 1 + rots*x);
+            angle = 2*pii * (start / 3.0 + 1 + rots*x);
             x = pow(x, gamma);
             amp = hue*x * (1 - x) / 2.0;
-            rr = x + amp * (-.14861 * cos(angle) + 1.78277 * sin(angle));
-            gg = x + amp * (-.29227 * cos(angle) - .90649 * sin(angle));
-            bb = x + amp * (1.97294 * cos(angle));
+            rr = x + amp * (-.14861*cos(angle) + 1.78277*sin(angle));
+            gg = x + amp * (-.29227*cos(angle) - .90649*sin(angle));
+            bb = x + amp * (1.97294*cos(angle));
             /* printf("%d %g %g %g\n",i,rr,gg,bb); */
             if (rr < 0.0)
                 rr = 0.0;
@@ -193,9 +193,9 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
                 bb = 0.0;
             if (bb > 1.0)
                 bb = 1.0;
-            r[i] = 256 * 255 * rr;
-            b[i] = 256 * 255 * bb;
-            g[i] = 256 * 255 * gg;
+            r[i] = 256*255*rr;
+            b[i] = 256*255*bb;
+            g[i] = 256*255*gg;
         }
         break;
     }
@@ -226,9 +226,9 @@ read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
     printf(" read %d entries \n", m);
     for (i = 0; i < n; i++) {
         j = i*m / n;
-        rr[i] = 256 * 255 * r[j];
-        bb[i] = 256 * 255 * b[j];
-        gg[i] = 256 * 255 * g[j];
+        rr[i] = 256*255*r[j];
+        bb[i] = 256*255*b[j];
+        gg[i] = 256*255*g[j];
     }
     return m;
 }
@@ -242,21 +242,21 @@ rfun(double y, int32 per) {
 
     if (x > .33333333333)
         return 0;
-    return (int32)(3. * 255 * sqrt((.333334 - x) * (x + .33334)));
+    return (int32)(3. * 255*sqrt((.333334 - x) * (x + .33334)));
 }
 
 int32
 gfun(double y, int32 per) {
     if (y > .666666)
         return 0;
-    return (int32)(3. * 255 * sqrt((.6666667 - y) * (y)));
+    return (int32)(3. * 255*sqrt((.6666667 - y) * (y)));
 }
 
 int32
 bfun(double y, int32 per) {
     if (y < .333334)
         return 0;
-    return (int32)(2.79 * 255 * sqrt((1.05 - y) * (y - .333333333)));
+    return (int32)(2.79*255*sqrt((1.05 - y) * (y - .333333333)));
 }
 
 void

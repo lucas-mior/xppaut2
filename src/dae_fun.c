@@ -120,7 +120,7 @@ compile_svars(void) {
             plintf(" Bad initial guess for sol-var \n");
             return 1;
         }
-        svar[i].form = malloc(100 * sizeof(int32));
+        svar[i].form = malloc(100*sizeof(int32));
         for (k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }
@@ -176,7 +176,7 @@ err_dae(void) {
 void
 init_dae_work(void) {
 
-    dae_work.work = malloc(sizeof(double) * (nsvar*nsvar + 10 * nsvar));
+    dae_work.work = malloc(sizeof(double) * (nsvar*nsvar + 10*nsvar));
     dae_work.iwork = malloc(sizeof(int32) * nsvar);
     dae_work.status = 1;
     return;

@@ -145,8 +145,8 @@ get_draw_area_flag(int32 flag) {
 
     DLeft = 12 * HChar;
     DRight = XDMax - 3 * HChar - HTic;
-    DBottom = YDMax - 1 - VChar * 7 / 2;
-    DTop = VChar * 5 / 2 + 1;
+    DBottom = YDMax - 1 - VChar*7 / 2;
+    DTop = VChar*5 / 2 + 1;
     h = DBottom - DTop;
     w = DRight - DLeft;
     if (h > 0 && w > 0)
@@ -250,8 +250,8 @@ init_ps(void) {
         HChar = 84;
         DLeft = 12 * HChar;
         DRight = XDMax - 3 * HChar - HTic;
-        DTop = YDMax - 1 - VChar * 7 / 2;
-        DBottom = VChar * 5 / 2 + 1;
+        DTop = YDMax - 1 - VChar*7 / 2;
+        DBottom = VChar*5 / 2 + 1;
     } else {
         YDMax = 7200;
         XDMax = 5040;
@@ -261,8 +261,8 @@ init_ps(void) {
         HChar = 84;
         DLeft = 12 * HChar;
         DRight = XDMax - 3 * HChar - HTic;
-        DTop = YDMax - 1 - VChar * 7 / 2;
-        DBottom = VChar * 5 / 2 + 1;
+        DTop = YDMax - 1 - VChar*7 / 2;
+        DBottom = VChar*5 / 2 + 1;
     }
     return;
 }
@@ -277,8 +277,8 @@ init_svg(void) {
     HChar = 12;
     DLeft = 12 * HChar;
     DRight = XDMax - 3 * HChar - HTic;
-    DBottom = YDMax - 1 - VChar * 7 / 2;
-    DTop = VChar * 5 / 2 + 1;
+    DBottom = YDMax - 1 - VChar*7 / 2;
+    DTop = VChar*5 / 2 + 1;
     return;
 }
 
@@ -286,12 +286,12 @@ void
 point_x11(int32 xp, int32 yp) {
     int32 r = PointRadius;
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
-    int32 wh = 2 * r2;
+    int32 wh = 2*r2;
     if (PointRadius == 0)
         XDrawPoint(display, draw_win, gc_graph, xp, yp);
     else
         XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, wh, wh, 0,
-                 360 * 64);
+                 360*64);
     return;
 }
 
@@ -345,7 +345,7 @@ set_line_style_x11(int32 ls) {
 
 void
 bead_x11(int32 x, int32 y) {
-    XFillArc(display, draw_win, gc_graph, x - 2, y - 2, 4, 4, 0, 360 * 64);
+    XFillArc(display, draw_win, gc_graph, x - 2, y - 2, 4, 4, 0, 360*64);
     return;
 }
 
@@ -981,7 +981,7 @@ pers_line(double x, double y, double z, double xp, double yp, double zp)
 {
     float Zv = (float)MyGraph->ZView, Zp = (float)MyGraph->ZPlane;
     float d = Zv - Zp, s;
-    float eps = .005 * d;
+    float eps = .005*d;
 
     if (((zp >= Zv) && (z >= Zv)) || ((zp < Zp) && (z < Zp)))
         return;
@@ -1503,9 +1503,9 @@ draw_symbol(double x, double y, double size, int32 my_symb) {
     float x1 = x, y1 = y, x2, y2;
 
     while (pen != 3) {
-        x2 = sym_dir[my_symb][3 * ind + 1] * dx + x1;
-        y2 = sym_dir[my_symb][3 * ind + 2] * dy + y1;
-        pen = sym_dir[my_symb][3 * ind];
+        x2 = sym_dir[my_symb][3*ind + 1] * dx + x1;
+        y2 = sym_dir[my_symb][3*ind + 2] * dy + y1;
+        pen = sym_dir[my_symb][3*ind];
         if (pen != 0)
             line_abs(x1, y1, x2, y2);
         x1 = x2;

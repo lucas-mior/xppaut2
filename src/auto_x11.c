@@ -135,7 +135,7 @@ void
 clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, AutoW.stab);
-    XDrawArc(display, AutoW.stab, small_gc, r, r, 2 * r, 2 * r, 0, 360 * 64);
+    XDrawArc(display, AutoW.stab, small_gc, r, r, 2*r, 2*r, 0, 360*64);
     return;
 }
 
@@ -693,7 +693,7 @@ byeauto_(int32 *iflag) {
 void
 Circle(int32 x, int32 y, int32 r) {
     XDrawArc(display, AutoW.canvas, small_gc, x - r, y - r, r << 1, r << 1, 0,
-             360 * 64);
+             360*64);
     return;
 }
 
@@ -774,10 +774,10 @@ void
 FillCircle(int32 x, int32 y, int32 r) {
 
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
-    int32 wh = 2 * r2;
+    int32 wh = 2*r2;
 
     XFillArc(display, AutoW.canvas, small_gc, x - r2, y - r2, wh, wh, 0,
-             360 * 64);
+             360*64);
     return;
 }
 
@@ -908,8 +908,8 @@ display_auto(Window w) {
     if (w == AutoW.stab) {
         XFlush(display);
         int32 r = Auto.st_wid / 4;
-        XDrawArc(display, AutoW.stab, small_gc, r, r, 2 * r, 2 * r, 0,
-                 360 * 64);
+        XDrawArc(display, AutoW.stab, small_gc, r, r, 2*r, 2*r, 0,
+                 360*64);
         if (CUR_DIAGRAM != NULL) {
             traverse_out(CUR_DIAGRAM, &ix, &iy, 1); /*clr_stab();*/
         }
@@ -1049,7 +1049,7 @@ make_auto(/* this makes the auto window  */
     y += dely;
     AutoW.file = lil_button(base, x, y, "File");
 
-    y += 3 * dely;
+    y += 3*dely;
     AutoW.abort = lil_button(base, x, y, "ABORT");
 
     y = DCURY + STD_HGT_var + ymargin + 5;

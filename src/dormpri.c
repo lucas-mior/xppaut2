@@ -121,7 +121,7 @@ xRead(void) {
 
 static double
 sign(double a, double b) {
-    return b < 0.0) ? -fabs(a) : fabs(a;
+    return (b < 0.0) ? -fabs(a) : fabs(a);
 
 } /* sign */
 
@@ -201,7 +201,7 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
         h1 = max_d(1.0E-6, fabs(h) * 1.0E-3);
     else
         h1 = pow(0.01 / der12, 1.0 / (double)iord);
-    h = min_d(100.0 * h, min_d(h1, hmax));
+    h = min_d(100.0*h, min_d(h1, hmax));
 
     return sign(h, posneg);
 
@@ -411,7 +411,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     }
 
     facold = 1.0E-4;
-    expo1 = 1.0 / 8.0 - beta * 0.2;
+    expo1 = 1.0 / 8.0 - beta*0.2;
     facc1 = 1.0 / fac1;
     facc2 = 1.0 / fac2;
     posneg = sign(1.0, xend - x);
@@ -457,7 +457,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
             return -2;
         }
 
-        if (0.1 * fabs(h) <= fabs(x) * uround) {
+        if (0.1*fabs(h) <= fabs(x) * uround) {
             if (fileout)
                 fprintf(fileout,
                         "Exit of dop853 at t = %.16e, step size too small h = "
@@ -468,7 +468,7 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
             return -3;
         }
 
-        if ((x + 1.01 * h - xend) * posneg > 0.0) {
+        if ((x + 1.01*h - xend) * posneg > 0.0) {
             h = xend - x;
             last = 1;
         }
@@ -477,52 +477,52 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
         /* the twelve stages */
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h*a21 * k1[i];
-        fcn(n, x + c2 * h, yy1, k2);
+            yy1[i] = y[i] + h*a21*k1[i];
+        fcn(n, x + c2*h, yy1, k2);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a31 * k1[i] + a32 * k2[i]);
-        fcn(n, x + c3 * h, yy1, k3);
+            yy1[i] = y[i] + h * (a31*k1[i] + a32*k2[i]);
+        fcn(n, x + c3*h, yy1, k3);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a41 * k1[i] + a43 * k3[i]);
-        fcn(n, x + c4 * h, yy1, k4);
+            yy1[i] = y[i] + h * (a41*k1[i] + a43*k3[i]);
+        fcn(n, x + c4*h, yy1, k4);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a51 * k1[i] + a53 * k3[i] + a54 * k4[i]);
-        fcn(n, x + c5 * h, yy1, k5);
+            yy1[i] = y[i] + h * (a51*k1[i] + a53*k3[i] + a54*k4[i]);
+        fcn(n, x + c5*h, yy1, k5);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a61 * k1[i] + a64 * k4[i] + a65 * k5[i]);
-        fcn(n, x + c6 * h, yy1, k6);
+            yy1[i] = y[i] + h * (a61*k1[i] + a64*k4[i] + a65*k5[i]);
+        fcn(n, x + c6*h, yy1, k6);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a71 * k1[i] + a74 * k4[i] + a75 * k5[i] +
-                                 a76 * k6[i]);
-        fcn(n, x + c7 * h, yy1, k7);
+            yy1[i] = y[i] + h * (a71*k1[i] + a74*k4[i] + a75*k5[i] +
+                                 a76*k6[i]);
+        fcn(n, x + c7*h, yy1, k7);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a81 * k1[i] + a84 * k4[i] + a85 * k5[i] +
-                                 a86 * k6[i] + a87 * k7[i]);
-        fcn(n, x + c8 * h, yy1, k8);
+            yy1[i] = y[i] + h * (a81*k1[i] + a84*k4[i] + a85*k5[i] +
+                                 a86*k6[i] + a87*k7[i]);
+        fcn(n, x + c8*h, yy1, k8);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a91 * k1[i] + a94 * k4[i] + a95 * k5[i] +
-                                 a96 * k6[i] + a97 * k7[i] + a98 * k8[i]);
-        fcn(n, x + c9 * h, yy1, k9);
+            yy1[i] = y[i] + h * (a91*k1[i] + a94*k4[i] + a95*k5[i] +
+                                 a96*k6[i] + a97*k7[i] + a98*k8[i]);
+        fcn(n, x + c9*h, yy1, k9);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a101 * k1[i] + a104 * k4[i] + a105 * k5[i] +
-                                 a106 * k6[i] + a107 * k7[i] + a108 * k8[i] +
-                                 a109 * k9[i]);
-        fcn(n, x + c10 * h, yy1, k10);
+            yy1[i] = y[i] + h * (a101*k1[i] + a104*k4[i] + a105*k5[i] +
+                                 a106*k6[i] + a107*k7[i] + a108*k8[i] +
+                                 a109*k9[i]);
+        fcn(n, x + c10*h, yy1, k10);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a111 * k1[i] + a114 * k4[i] + a115 * k5[i] +
-                                 a116 * k6[i] + a117 * k7[i] + a118 * k8[i] +
-                                 a119 * k9[i] + a1110 * k10[i]);
-        fcn(n, x + c11 * h, yy1, k2);
+            yy1[i] = y[i] + h * (a111*k1[i] + a114*k4[i] + a115*k5[i] +
+                                 a116*k6[i] + a117*k7[i] + a118*k8[i] +
+                                 a119*k9[i] + a1110*k10[i]);
+        fcn(n, x + c11*h, yy1, k2);
         xph = x + h;
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a121 * k1[i] + a124 * k4[i] + a125 * k5[i] +
-                                 a126 * k6[i] + a127 * k7[i] + a128 * k8[i] +
-                                 a129 * k9[i] + a1210 * k10[i] + a1211 * k2[i]);
+            yy1[i] = y[i] + h * (a121*k1[i] + a124*k4[i] + a125*k5[i] +
+                                 a126*k6[i] + a127*k7[i] + a128*k8[i] +
+                                 a129*k9[i] + a1210*k10[i] + a1211*k2[i]);
         fcn(n, xph, yy1, k3);
         nfcn += 11;
         for (i = 0; i < n; i++) {
-            k4[i] = b1 * k1[i] + b6 * k6[i] + b7 * k7[i] + b8 * k8[i] +
-                    b9 * k9[i] + b10 * k10[i] + b11 * k2[i] + b12 * k3[i];
+            k4[i] = b1*k1[i] + b6*k6[i] + b7*k7[i] + b8*k8[i] +
+                    b9*k9[i] + b10*k10[i] + b11*k2[i] + b12*k3[i];
             k5[i] = y[i] + h*k4[i];
         }
 
@@ -532,28 +532,28 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         if (!itoler)
             for (i = 0; i < n; i++) {
                 sk = atoli + rtoli*max_d(fabs(y[i]), fabs(k5[i]));
-                erri = k4[i] - bhh1 * k1[i] - bhh2 * k9[i] - bhh3 * k3[i];
+                erri = k4[i] - bhh1*k1[i] - bhh2*k9[i] - bhh3*k3[i];
                 sqr = erri / sk;
                 err2 += sqr*sqr;
-                erri = er1 * k1[i] + er6 * k6[i] + er7 * k7[i] + er8 * k8[i] +
-                       er9 * k9[i] + er10 * k10[i] + er11 * k2[i] +
-                       er12 * k3[i];
+                erri = er1*k1[i] + er6*k6[i] + er7*k7[i] + er8*k8[i] +
+                       er9*k9[i] + er10*k10[i] + er11*k2[i] +
+                       er12*k3[i];
                 sqr = erri / sk;
                 err += sqr*sqr;
             }
         else
             for (i = 0; i < n; i++) {
                 sk = atoler[i] + rtoler[i] * max_d(fabs(y[i]), fabs(k5[i]));
-                erri = k4[i] - bhh1 * k1[i] - bhh2 * k9[i] - bhh3 * k3[i];
+                erri = k4[i] - bhh1*k1[i] - bhh2*k9[i] - bhh3*k3[i];
                 sqr = erri / sk;
                 err2 += sqr*sqr;
-                erri = er1 * k1[i] + er6 * k6[i] + er7 * k7[i] + er8 * k8[i] +
-                       er9 * k9[i] + er10 * k10[i] + er11 * k2[i] +
-                       er12 * k3[i];
+                erri = er1*k1[i] + er6*k6[i] + er7*k7[i] + er8*k8[i] +
+                       er9*k9[i] + er10*k10[i] + er11*k2[i] +
+                       er12*k3[i];
                 sqr = erri / sk;
                 err += sqr*sqr;
             }
-        deno = err + 0.01 * err2;
+        deno = err + 0.01*err2;
         if (deno <= 0.0)
             deno = 1.0;
         err = fabs(h) * err*sqrt(1.0 / (deno * (double)n));
@@ -619,18 +619,18 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                         bspl = h*k1[i] - ydiff;
                         rcont3[i] = bspl;
                         rcont4[i] = ydiff - h*k4[i] - bspl;
-                        rcont5[i] = d41 * k1[i] + d46 * k6[i] + d47 * k7[i] +
-                                    d48 * k8[i] + d49 * k9[i] + d410 * k10[i] +
-                                    d411 * k2[i] + d412 * k3[i];
-                        rcont6[i] = d51 * k1[i] + d56 * k6[i] + d57 * k7[i] +
-                                    d58 * k8[i] + d59 * k9[i] + d510 * k10[i] +
-                                    d511 * k2[i] + d512 * k3[i];
-                        rcont7[i] = d61 * k1[i] + d66 * k6[i] + d67 * k7[i] +
-                                    d68 * k8[i] + d69 * k9[i] + d610 * k10[i] +
-                                    d611 * k2[i] + d612 * k3[i];
-                        rcont8[i] = d71 * k1[i] + d76 * k6[i] + d77 * k7[i] +
-                                    d78 * k8[i] + d79 * k9[i] + d710 * k10[i] +
-                                    d711 * k2[i] + d712 * k3[i];
+                        rcont5[i] = d41*k1[i] + d46*k6[i] + d47*k7[i] +
+                                    d48*k8[i] + d49*k9[i] + d410*k10[i] +
+                                    d411*k2[i] + d412*k3[i];
+                        rcont6[i] = d51*k1[i] + d56*k6[i] + d57*k7[i] +
+                                    d58*k8[i] + d59*k9[i] + d510*k10[i] +
+                                    d511*k2[i] + d512*k3[i];
+                        rcont7[i] = d61*k1[i] + d66*k6[i] + d67*k7[i] +
+                                    d68*k8[i] + d69*k9[i] + d610*k10[i] +
+                                    d611*k2[i] + d612*k3[i];
+                        rcont8[i] = d71*k1[i] + d76*k6[i] + d77*k7[i] +
+                                    d78*k8[i] + d79*k9[i] + d710*k10[i] +
+                                    d711*k2[i] + d712*k3[i];
                     }
                 else
                     for (j = 0; j < nrds; j++) {
@@ -641,72 +641,72 @@ dopcor(unsigned n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
                         bspl = h*k1[i] - ydiff;
                         rcont3[j] = bspl;
                         rcont4[j] = ydiff - h*k4[i] - bspl;
-                        rcont5[j] = d41 * k1[i] + d46 * k6[i] + d47 * k7[i] +
-                                    d48 * k8[i] + d49 * k9[i] + d410 * k10[i] +
-                                    d411 * k2[i] + d412 * k3[i];
-                        rcont6[j] = d51 * k1[i] + d56 * k6[i] + d57 * k7[i] +
-                                    d58 * k8[i] + d59 * k9[i] + d510 * k10[i] +
-                                    d511 * k2[i] + d512 * k3[i];
-                        rcont7[j] = d61 * k1[i] + d66 * k6[i] + d67 * k7[i] +
-                                    d68 * k8[i] + d69 * k9[i] + d610 * k10[i] +
-                                    d611 * k2[i] + d612 * k3[i];
-                        rcont8[j] = d71 * k1[i] + d76 * k6[i] + d77 * k7[i] +
-                                    d78 * k8[i] + d79 * k9[i] + d710 * k10[i] +
-                                    d711 * k2[i] + d712 * k3[i];
+                        rcont5[j] = d41*k1[i] + d46*k6[i] + d47*k7[i] +
+                                    d48*k8[i] + d49*k9[i] + d410*k10[i] +
+                                    d411*k2[i] + d412*k3[i];
+                        rcont6[j] = d51*k1[i] + d56*k6[i] + d57*k7[i] +
+                                    d58*k8[i] + d59*k9[i] + d510*k10[i] +
+                                    d511*k2[i] + d512*k3[i];
+                        rcont7[j] = d61*k1[i] + d66*k6[i] + d67*k7[i] +
+                                    d68*k8[i] + d69*k9[i] + d610*k10[i] +
+                                    d611*k2[i] + d612*k3[i];
+                        rcont8[j] = d71*k1[i] + d76*k6[i] + d77*k7[i] +
+                                    d78*k8[i] + d79*k9[i] + d710*k10[i] +
+                                    d711*k2[i] + d712*k3[i];
                     }
 
                 /* the next three function evaluations */
                 for (i = 0; i < n; i++)
-                    yy1[i] = y[i] + h * (a141 * k1[i] + a147 * k7[i] +
-                                         a148 * k8[i] + a149 * k9[i] +
-                                         a1410 * k10[i] + a1411 * k2[i] +
-                                         a1412 * k3[i] + a1413 * k4[i]);
-                fcn(n, x + c14 * h, yy1, k10);
+                    yy1[i] = y[i] + h * (a141*k1[i] + a147*k7[i] +
+                                         a148*k8[i] + a149*k9[i] +
+                                         a1410*k10[i] + a1411*k2[i] +
+                                         a1412*k3[i] + a1413*k4[i]);
+                fcn(n, x + c14*h, yy1, k10);
                 for (i = 0; i < n; i++)
                     yy1[i] = y[i] +
-                             h * (a151 * k1[i] + a156 * k6[i] + a157 * k7[i] +
-                                  a158 * k8[i] + a1511 * k2[i] + a1512 * k3[i] +
-                                  a1513 * k4[i] + a1514 * k10[i]);
-                fcn(n, x + c15 * h, yy1, k2);
+                             h * (a151*k1[i] + a156*k6[i] + a157*k7[i] +
+                                  a158*k8[i] + a1511*k2[i] + a1512*k3[i] +
+                                  a1513*k4[i] + a1514*k10[i]);
+                fcn(n, x + c15*h, yy1, k2);
                 for (i = 0; i < n; i++)
                     yy1[i] = y[i] +
-                             h * (a161 * k1[i] + a166 * k6[i] + a167 * k7[i] +
-                                  a168 * k8[i] + a169 * k9[i] + a1613 * k4[i] +
-                                  a1614 * k10[i] + a1615 * k2[i]);
-                fcn(n, x + c16 * h, yy1, k3);
+                             h * (a161*k1[i] + a166*k6[i] + a167*k7[i] +
+                                  a168*k8[i] + a169*k9[i] + a1613*k4[i] +
+                                  a1614*k10[i] + a1615*k2[i]);
+                fcn(n, x + c16*h, yy1, k3);
                 nfcn += 3;
 
                 /* final preparation */
                 if (nrds == n)
                     for (i = 0; i < n; i++) {
                         rcont5[i] =
-                            h * (rcont5[i] + d413 * k4[i] + d414 * k10[i] +
-                                 d415 * k2[i] + d416 * k3[i]);
+                            h * (rcont5[i] + d413*k4[i] + d414*k10[i] +
+                                 d415*k2[i] + d416*k3[i]);
                         rcont6[i] =
-                            h * (rcont6[i] + d513 * k4[i] + d514 * k10[i] +
-                                 d515 * k2[i] + d516 * k3[i]);
+                            h * (rcont6[i] + d513*k4[i] + d514*k10[i] +
+                                 d515*k2[i] + d516*k3[i]);
                         rcont7[i] =
-                            h * (rcont7[i] + d613 * k4[i] + d614 * k10[i] +
-                                 d615 * k2[i] + d616 * k3[i]);
+                            h * (rcont7[i] + d613*k4[i] + d614*k10[i] +
+                                 d615*k2[i] + d616*k3[i]);
                         rcont8[i] =
-                            h * (rcont8[i] + d713 * k4[i] + d714 * k10[i] +
-                                 d715 * k2[i] + d716 * k3[i]);
+                            h * (rcont8[i] + d713*k4[i] + d714*k10[i] +
+                                 d715*k2[i] + d716*k3[i]);
                     }
                 else
                     for (j = 0; j < nrds; j++) {
                         i = icont[j];
                         rcont5[j] =
-                            h * (rcont5[j] + d413 * k4[i] + d414 * k10[i] +
-                                 d415 * k2[i] + d416 * k3[i]);
+                            h * (rcont5[j] + d413*k4[i] + d414*k10[i] +
+                                 d415*k2[i] + d416*k3[i]);
                         rcont6[j] =
-                            h * (rcont6[j] + d513 * k4[i] + d514 * k10[i] +
-                                 d515 * k2[i] + d516 * k3[i]);
+                            h * (rcont6[j] + d513*k4[i] + d514*k10[i] +
+                                 d515*k2[i] + d516*k3[i]);
                         rcont7[j] =
-                            h * (rcont7[j] + d613 * k4[i] + d614 * k10[i] +
-                                 d615 * k2[i] + d616 * k3[i]);
+                            h * (rcont7[j] + d613*k4[i] + d614*k10[i] +
+                                 d615*k2[i] + d616*k3[i]);
                         rcont8[j] =
-                            h * (rcont8[j] + d713 * k4[i] + d714 * k10[i] +
-                                 d715 * k2[i] + d716 * k3[i]);
+                            h * (rcont8[j] + d713*k4[i] + d714*k10[i] +
+                                 d715*k2[i] + d716*k3[i]);
                     }
             }
 
@@ -893,7 +893,7 @@ dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         hmax = xend - x;
 
     /* is there enough free memory for the method ? */
-    yy1 = work + 8 * nrdens;
+    yy1 = work + 8*nrdens;
     k1 = yy1 + n;
     k2 = k1 + n;
     k3 = k2 + n;
@@ -1012,7 +1012,7 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
         h1 = max_d(1.0E-6, fabs(h) * 1.0E-3);
     else
         h1 = pow(0.01 / der12, 1.0 / (double)iord);
-    h = min_d(100.0 * h, min_d(h1, hmax));
+    h = min_d(100.0*h, min_d(h1, hmax));
 
     return sign(h, posneg);
 
@@ -1059,7 +1059,7 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
     }
 
     facold = 1.0E-4;
-    expo1 = 0.2 - beta * 0.75;
+    expo1 = 0.2 - beta*0.75;
     facc1 = 1.0 / fac1;
     facc2 = 1.0 / fac2;
     posneg = sign(1.0, xend - x);
@@ -1104,7 +1104,7 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
             return -2;
         }
 
-        if (0.1 * fabs(h) <= fabs(x) * uround) {
+        if (0.1*fabs(h) <= fabs(x) * uround) {
             if (fileout)
                 fprintf(fileout,
                         "Exit of dopri5 at t = %.16e, step size too small h = "
@@ -1115,7 +1115,7 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
             return -3;
         }
 
-        if ((x + 1.01 * h - xend) * posneg > 0.0) {
+        if ((x + 1.01*h - xend) * posneg > 0.0) {
             h = xend - x;
             last = 1;
         }
@@ -1124,44 +1124,44 @@ dopcor5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
 
         /* the first 6 stages */
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h*a21 * k1[i];
-        fcn(n, x + c2 * h, yy1, k2);
+            yy1[i] = y[i] + h*a21*k1[i];
+        fcn(n, x + c2*h, yy1, k2);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a31 * k1[i] + a32 * k2[i]);
-        fcn(n, x + c3 * h, yy1, k3);
+            yy1[i] = y[i] + h * (a31*k1[i] + a32*k2[i]);
+        fcn(n, x + c3*h, yy1, k3);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a41 * k1[i] + a42 * k2[i] + a43 * k3[i]);
-        fcn(n, x + c4 * h, yy1, k4);
+            yy1[i] = y[i] + h * (a41*k1[i] + a42*k2[i] + a43*k3[i]);
+        fcn(n, x + c4*h, yy1, k4);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a51 * k1[i] + a52 * k2[i] + a53 * k3[i] +
-                                 a54 * k4[i]);
-        fcn(n, x + c5 * h, yy1, k5);
+            yy1[i] = y[i] + h * (a51*k1[i] + a52*k2[i] + a53*k3[i] +
+                                 a54*k4[i]);
+        fcn(n, x + c5*h, yy1, k5);
         for (i = 0; i < n; i++)
-            ysti[i] = y[i] + h * (a61 * k1[i] + a62 * k2[i] + a63 * k3[i] +
-                                  a64 * k4[i] + a65 * k5[i]);
+            ysti[i] = y[i] + h * (a61*k1[i] + a62*k2[i] + a63*k3[i] +
+                                  a64*k4[i] + a65*k5[i]);
         xph = x + h;
         fcn(n, xph, ysti, k6);
         for (i = 0; i < n; i++)
-            yy1[i] = y[i] + h * (a71 * k1[i] + a73 * k3[i] + a74 * k4[i] +
-                                 a75 * k5[i] + a76 * k6[i]);
+            yy1[i] = y[i] + h * (a71*k1[i] + a73*k3[i] + a74*k4[i] +
+                                 a75*k5[i] + a76*k6[i]);
         fcn(n, xph, yy1, k2);
         if (iout == 2) {
             if (nrds == n) {
                 for (i = 0; i < n; i++) {
-                    rcont5[i] = h * (d1 * k1[i] + d3 * k3[i] + d4 * k4[i] +
-                                     d5 * k5[i] + d6 * k6[i] + d7 * k2[i]);
+                    rcont5[i] = h * (d1*k1[i] + d3*k3[i] + d4*k4[i] +
+                                     d5*k5[i] + d6*k6[i] + d7*k2[i]);
                 }
             } else {
                 for (j = 0; j < nrds; j++) {
                     i = icont[j];
-                    rcont5[j] = h * (d1 * k1[i] + d3 * k3[i] + d4 * k4[i] +
-                                     d5 * k5[i] + d6 * k6[i] + d7 * k2[i]);
+                    rcont5[j] = h * (d1*k1[i] + d3*k3[i] + d4*k4[i] +
+                                     d5*k5[i] + d6*k6[i] + d7*k2[i]);
                 }
             }
         }
         for (i = 0; i < n; i++)
-            k4[i] = h * (e1 * k1[i] + e3 * k3[i] + e4 * k4[i] + e5 * k5[i] +
-                         e6 * k6[i] + e7 * k2[i]);
+            k4[i] = h * (e1*k1[i] + e3*k3[i] + e4*k4[i] + e5*k5[i] +
+                         e6*k6[i] + e7*k2[i]);
         nfcn += 6;
 
         /* error estimation */
@@ -1430,7 +1430,7 @@ dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         hmax = xend - x;
 
     /* is there enough free memory for the method ? */
-    yy1 = work + 5 * nrdens;
+    yy1 = work + 5*nrdens;
     k1 = yy1 + n;
     k2 = k1 + n;
     k3 = k2 + n;
@@ -1474,6 +1474,6 @@ contd5(unsigned ii, double x) {
     return rcont1[i] +
            theta * (rcont2[i] +
                     theta1 *
-                        (rcont3[i] + theta * (rcont4[i] + theta1 * rcont5[i])));
+                        (rcont3[i] + theta * (rcont4[i] + theta1*rcont5[i])));
 
 } /* contd5 */

@@ -187,7 +187,7 @@ alloc_kernels(int32 flag) {
 
 void
 init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
-    double t = t0 + n*dt, tp = t0 + i0 * dt;
+    double t = t0 + n*dt, tp = t0 + i0*dt;
     double sum[MAXODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
     int32 l, ioff, ker, i;
@@ -199,7 +199,7 @@ init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
         kernel[ker].k_n1 = kernel[ker].k_n;
         mu = kernel[ker].mu;
         if (mu == 0.0)
-            al = .5 * dt;
+            al = .5*dt;
         else
             al = alpha1n(mu, dt, t, tp);
         sum[ker] = al*evaluate(kernel[ker].formula);
@@ -263,7 +263,7 @@ betnn(double mu, double dt) {
     if (mu == .5)
         return sqrt(dt);
     m1 = 1 - mu;
-    return .5 * pow(dt, m1) / m1;
+    return .5*pow(dt, m1) / m1;
 }
 
 void
@@ -312,7 +312,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
             kernel[i].k_n1 = 0.0;
             mu = kernel[i].mu; /*  compute bet_nn                 */
             if (mu == 0.0)
-                bet = .5 * dt;
+                bet = .5*dt;
             else
                 bet = betnn(mu, dt);
             kernel[i].betnn = bet;
@@ -356,7 +356,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
           double *yp2, double *ytemp, double *errvec, double *jac) {
     int32 i0, iend, ishift, i, iter = 0, info, ipivot[MAXODE1], j, ind;
     int32 n1 = NODE + 1;
-    double dt2 = .5 * dt, err;
+    double dt2 = .5*dt, err;
     double del, yold, fac, delinv;
     i0 = MAX(0, CurrentPoint - MaxPoints);
     iend = MIN(CurrentPoint - 1, MaxPoints - 1);
@@ -375,7 +375,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         SETVAR(i + 1, evaluate(my_ode[i]));
     for (i = 0; i < NODE; i++) {
         if (!EqType[i])
-            yp2[i] = y[i] + dt2 * evaluate(my_ode[i]);
+            yp2[i] = y[i] + dt2*evaluate(my_ode[i]);
         else
             yp2[i] = 0.0;
     }
@@ -390,7 +390,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             if (EqType[i])
                 errvec[i] = -yg[i] + yp[i];
             else
-                errvec[i] = -yg[i] + dt2 * yp[i] + yp2[i];
+                errvec[i] = -yg[i] + dt2*yp[i] + yp2[i];
         }
         /*   Compute Jacobian     */
         for (i = 0; i < NODE; i++) {
@@ -411,7 +411,7 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         }
 
         for (i = 0; i < NODE; i++)
-            jac[n1 * i] -= 1.0;
+            jac[n1*i] -= 1.0;
         sgefa(jac, NODE, NODE, ipivot, &info);
         if (info != -1) {
 

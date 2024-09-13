@@ -383,8 +383,8 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     ps_abs(x, y);
     pssz = sz[size] * PS_SC;
-    sub = .3 * pssz;
-    sup = .6 * pssz;
+    sub = .3*pssz;
+    sup = .6*pssz;
     /* set the size here! */
     ps_fnt(cf, pssz);
     while (i < n) {
@@ -482,7 +482,7 @@ ps_text(int32 x, int32 y, char *str) {
     fprintf(psfile, "%d %d moveto\n", x, y);
     if (TextAngle != 0)
         fprintf(psfile, "currentpoint gsave translate %d rotate 0 0 moveto\n",
-                TextAngle * 90);
+                TextAngle*90);
     putc('(', psfile);
     ch = *str++;
     while (ch != '\0') {

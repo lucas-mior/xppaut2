@@ -130,7 +130,7 @@ fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
              global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
         for (j = 0; j < ndim; ++j) {
             ARRAY2D(dfdu, j, i) =
-                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep * 2);
+                (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
     }
 
@@ -220,7 +220,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(double) * (iap->nbc));
     uu1 = malloc(sizeof(double) * (iap->ndim));
     uu2 = malloc(sizeof(double) * (iap->ndim));
-    dfu = malloc(sizeof(double) * (iap->nbc) * (2 * iap->ndim + NPARX));
+    dfu = malloc(sizeof(double) * (iap->nbc) * (2*iap->ndim + NPARX));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */
@@ -271,7 +271,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu1, u1, ff1, dfu);
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu2, u1, ff2, dfu);
         for (j = 0; j < nbc; ++j) {
-            ARRAY2D(dbc, j, i) = (ff2[j] - ff1[j]) / (ep * 2);
+            ARRAY2D(dbc, j, i) = (ff2[j] - ff1[j]) / (ep*2);
         }
     }
 
@@ -295,7 +295,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu1, ff1, dfu);
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu2, ff2, dfu);
         for (j = 0; j < nbc; ++j) {
-            ARRAY2D(dbc, j, (ndim + i)) = (ff2[j] - ff1[j]) / (ep * 2);
+            ARRAY2D(dbc, j, (ndim + i)) = (ff2[j] - ff1[j]) / (ep*2);
         }
     }
 
@@ -303,7 +303,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         par[icp[i]] += ep;
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, u1, ff2, dfu);
         for (j = 0; j < nbc; ++j) {
-            ARRAY2D(dbc, j, (ndim * 2) + icp[i]) = (ff2[j] - f[j]) / ep;
+            ARRAY2D(dbc, j, (ndim*2) + icp[i]) = (ff2[j] - f[j]) / ep;
         }
         par[icp[i]] -= ep;
     }
@@ -709,7 +709,7 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         fiho(iap, rap, ndim, par, icp, nint, nnt0, uu2, uold, udot, upold, ff2,
              dfu);
         for (j = 0; j < nint; ++j) {
-            ARRAY2D(dint, j, i) = (ff2[j] - ff1[j]) / (ep * 2);
+            ARRAY2D(dint, j, i) = (ff2[j] - ff1[j]) / (ep*2);
         }
     }
 
@@ -887,7 +887,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
 
     blhme_1.vrprev = malloc(sizeof(double) * 2 * (ndim) * (ndim));
 
-    beyn_1.cprev = malloc(sizeof(double) * 2 * 2 * (ndim) * (ndim));
+    beyn_1.cprev = malloc(sizeof(double) * 2*2 * (ndim) * (ndim));
 
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
@@ -931,7 +931,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
             nbc = nbc - ndm + 1;
         }
         if (blhom_1.iequib < 0) {
-            nbc -= (blhom_1.iequib * 3 + 2) * ndm;
+            nbc -= (blhom_1.iequib*3 + 2) * ndm;
         }
     } else {
         /*     *starting solutions using homotopy */
@@ -944,7 +944,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
             fprintf(fp9, "WARNING: IEQUIB=2 NOT ALLOWED WITH ISTART=3\n");
         }
         if (blhom_1.iequib < 0) {
-            nbc -= ndm * (blhom_1.iequib * 3 + 2);
+            nbc -= ndm * (blhom_1.iequib*3 + 2);
         }
         nint = 0;
     }
@@ -1236,7 +1236,7 @@ L3:
     if (blhom_1.iequib >= 0) {
         ip += ndm;
     } else {
-        ip += ndm * 2;
+        ip += ndm*2;
     }
     kp = ip;
 
@@ -1428,7 +1428,7 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
         }
         droot = sqrt(f0norm*f1norm*u0norm*u1norm);
         if (droot != 0.) {
-            ret_val = -s1 * s2 / droot;
+            ret_val = -s1*s2 / droot;
         } else {
             ret_val = 0.;
         }
@@ -1774,7 +1774,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     if (blhme_1.ieigc[*itrans - 1] == 0) {
         for (j = 0; j < *ndm; ++j) {
             for (i = 0; i < *ndm; ++i) {
-                blhme_1.vrprev[*itrans + (i * 2 + j * (*ndm) * 2) - 1] =
+                blhme_1.vrprev[*itrans + (i*2 + j * (*ndm) * 2) - 1] =
                     vr[i + j * (*ndm)];
             }
         }
@@ -1789,13 +1789,13 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
             tmp = *ndm;
             for (j = 0; j < tmp; ++j) {
                 vdot += vr[j + i*tmp] *
-                        blhme_1.vrprev[*itrans + (j * 2 + i*tmp * 2) - 1];
+                        blhme_1.vrprev[*itrans + (j*2 + i*tmp*2) - 1];
             }
         }
 #else
         for (j = 0; j < *ndm; ++j) {
             vdot += vr[j + i * (*ndm)] *
-                    blhme_1.vrprev[*itrans + (j * 2 + i * (*ndm) * 2) - 1];
+                    blhme_1.vrprev[*itrans + (j*2 + i * (*ndm) * 2) - 1];
         }
 #endif
         if (vdot < 0.) {
@@ -1805,7 +1805,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
             }
         }
         for (j = 0; j < *ndm; ++j) {
-            blhme_1.vrprev[*itrans + (j * 2 + i * (*ndm) * 2) - 1] =
+            blhme_1.vrprev[*itrans + (j*2 + i * (*ndm) * 2) - 1] =
                 vr[j + i * (*ndm)];
         }
     }
@@ -1973,7 +1973,7 @@ prjctn(double *bound, double *xequib, const int64 *icp, double *par,
        hence its value is, in general, undefined.  It has
        worked because the just happened to be filled
        with zeros, even though this is not guaranteed.*/
-    if (beyn_1.iflag[*is + (*itrans * 2) - 3] == 0) {
+    if (beyn_1.iflag[*is + (*itrans*2) - 3] == 0) {
         for (i = k1 - 1; i < k2; ++i) {
             for (j = 0; j < *ndm; ++j) {
                 beyn_1.cprev[i +
@@ -1982,7 +1982,7 @@ prjctn(double *bound, double *xequib, const int64 *icp, double *par,
                 bound[(i + 1) + (j + 1) * (*ndm)] = cnow[i + j * (*ndm)];
             }
         }
-        beyn_1.iflag[*is + (*itrans * 2) - 3] = 1;
+        beyn_1.iflag[*is + (*itrans*2) - 3] = 1;
         free(fdum);
         free(cnow);
         free(type__);

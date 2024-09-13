@@ -118,11 +118,11 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
         err = 0.0;
         rhs(*t, yg, yp, neq);
         for (i = 0; i < neq; i++) {
-            errvec[i] = yg[i] - .5 * dt * (yp[i] + yp2[i]) - y[i];
+            errvec[i] = yg[i] - .5*dt * (yp[i] + yp2[i]) - y[i];
             err1 += fabs(errvec[i]);
             ytemp[i] = yg[i];
         }
-        get_the_jac(*t, yg, yp, ytemp, jac, neq, NEWT_ERR, -.5 * dt);
+        get_the_jac(*t, yg, yp, ytemp, jac, neq, NEWT_ERR, -.5*dt);
         if (cv_bandflag) {
             for (i = 0; i < neq; i++)
                 jac[i*mt + ml] += 1;
@@ -204,11 +204,11 @@ one_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim) {
         yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
         yval[2][i] = y[i] + dt*yval[1][i] * 0.5;
     }
-    t1 = t + .5 * dt;
+    t1 = t + .5*dt;
     rhs(t1, yval[2], yval[1], neq);
     for (i = 0; i < neq; i++) {
         yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.00;
-        yval[2][i] = y[i] + .5 * dt*yval[1][i];
+        yval[2][i] = y[i] + .5*dt*yval[1][i];
     }
     rhs(t1, yval[2], yval[1], neq);
     for (i = 0; i < neq; i++) {
@@ -327,7 +327,7 @@ adams(double *y, double *tim, double dt, int32 nstep, int32 neq, int32 *ist,
             y_p[i] = work + (4 + i) * neq;
             y_s[i] = work + (8 + i) * neq;
         }
-        ypred = work + 3 * neq;
+        ypred = work + 3*neq;
         goto n20;
     }
     if (istart > 1)
@@ -476,14 +476,14 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     if (*istart == 1)
         htry = hmax;
     rhs(t0, y, f0, n);
-    hmin = 16 * eps*fabs(t);
+    hmin = 16*eps*fabs(t);
     absh = MIN(hmax, MAX(hmin, htry));
     while (!done) {
         nofailed = 1;
-        hmin = 16 * eps*fabs(t);
+        hmin = 16*eps*fabs(t);
         absh = MIN(hmax, MAX(hmin, absh));
         h = tdir*absh;
-        if (1.1 * absh >= fabs(tfinal - t)) {
+        if (1.1*absh >= fabs(tfinal - t)) {
             h = tfinal - t;
             absh = fabs(h);
             done = 1;
@@ -495,7 +495,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             dfdt[i] = (f1[i] - f0[i]) / tdel;
         while (true) { /* advance a step  */
             for (i = 0; i < n2; i++)
-                dfdy[i] = -h*d * dfdy[i];
+                dfdy[i] = -h*d*dfdy[i];
             for (i = 0; i < n; i++)
                 k1[i] = f0[i] + (h*d) * dfdt[i];
             if (cv_bandflag) {
@@ -512,8 +512,8 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 sgesl(dfdy, n, n, ipivot, k1, 0);
             }
             for (i = 0; i < n; i++)
-                ynew[i] = y[i] + .5 * h*k1[i];
-            rhs(t + .5 * h, ynew, f1, n);
+                ynew[i] = y[i] + .5*h*k1[i];
+            rhs(t + .5*h, ynew, f1, n);
             for (i = 0; i < n; i++)
                 k2[i] = f1[i] - k1[i];
             if (cv_bandflag)
@@ -538,7 +538,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             err = 0.0;
             for (i = 0; i < n; i++) {
                 temp = MAX(MAX(fabs(y[i]), fabs(ynew[i])), thresh);
-                temp = fabs(k1[i] - 2 * k2[i] + k3[i]) / temp;
+                temp = fabs(k1[i] - 2*k2[i] + k3[i]) / temp;
                 if (err < temp)
                     err = temp;
             }
@@ -566,11 +566,11 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
         }
         if (nofailed == 1) {
             /* plintf(" I didn't fail! \n"); */
-            temp = 1.25 * pow(err / rtol, 1. / 3.);
+            temp = 1.25*pow(err / rtol, 1. / 3.);
             if (temp > 0.2)
                 absh = absh / temp;
             else
-                absh = 5 * absh;
+                absh = 5*absh;
         }
         /* plintf("  absh=%g \n",absh); */
         t = tnew;

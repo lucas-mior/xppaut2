@@ -192,8 +192,8 @@ eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier) {
     int32 i;
     eigen(*n, a, ev, work, ier);
     for (i = 0; i < *n; i++) {
-        (ecv + i)->r = ev[2 * i];
-        (ecv + i)->i = ev[2 * i + 1];
+        (ecv + i)->r = ev[2*i];
+        (ecv + i)->i = ev[2*i + 1];
     }
     return 0;
 }

@@ -372,11 +372,11 @@ add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
     while (z->n != NULL) {
         z = (z->n);
     }
-    z->xn = malloc(4 * nmx*sizeof(float));
-    for (i = 0; i < 4 * nmx; i++)
+    z->xn = malloc(4*nmx*sizeof(float));
+    for (i = 0; i < 4*nmx; i++)
         z->xn[i] = xn[i];
-    z->yn = malloc(4 * nmy*sizeof(float));
-    for (i = 0; i < 4 * nmy; i++)
+    z->yn = malloc(4*nmy*sizeof(float));
+    for (i = 0; i < 4*nmy; i++)
         z->yn[i] = yn[i];
     z->nmx = nmx;
     z->nmy = nmy;
@@ -773,14 +773,14 @@ dump_clines(/* gnuplot format */
     int32 i;
     fprintf(fp, "# X-nullcline\n");
     for (i = 0; i < nx - 1; i++) {
-        fprintf(fp, "%g %g 1 \n", x[4 * i], x[4 * i + 1]);
-        fprintf(fp, "%g %g 1 \n", x[4 * i + 2], x[4 * i + 3]);
+        fprintf(fp, "%g %g 1 \n", x[4*i], x[4*i + 1]);
+        fprintf(fp, "%g %g 1 \n", x[4*i + 2], x[4*i + 3]);
         fprintf(fp, "\n");
     }
     fprintf(fp, "\n# Y-nullcline\n");
     for (i = 0; i < ny - 1; i++) {
-        fprintf(fp, "%g %g 2 \n", y[4 * i], y[4 * i + 1]);
-        fprintf(fp, "%g %g 2 \n", y[4 * i + 2], y[4 * i + 3]);
+        fprintf(fp, "%g %g 2 \n", y[4*i], y[4*i + 1]);
+        fprintf(fp, "%g %g 2 \n", y[4*i + 2], y[4*i + 3]);
         fprintf(fp, "\n");
     }
     return;
@@ -802,10 +802,10 @@ dump_clines_old(FILE *fp, float *x, int32 nx, float *y, int32 ny) {
             iy = ny - 1;
         else
             iy = i;
-        fprintf(fp, "%g %g %g %g \n", x[4 * ix], x[4 * ix + 1], y[4 * iy],
-                y[4 * iy + 1]);
-        fprintf(fp, "%g %g %g %g \n", x[4 * ix + 2], x[4 * ix + 3],
-                y[4 * iy + 2], y[4 * iy + 3]);
+        fprintf(fp, "%g %g %g %g \n", x[4*ix], x[4*ix + 1], y[4*iy],
+                y[4*iy + 1]);
+        fprintf(fp, "%g %g %g %g \n", x[4*ix + 2], x[4*ix + 3],
+                y[4*iy + 2], y[4*iy + 3]);
     }
     return;
 }
@@ -822,7 +822,7 @@ restor_null(/* d=1 for x and 2 for y  */
     }
 
     for (i = 0; i < n; i++) {
-        i4 = 4 * i;
+        i4 = 4*i;
         line_abs(v[i4], v[i4 + 1], v[i4 + 2], v[i4 + 3]);
         if (NullStyle == 1) {
             xm = .5 * (v[i4] + v[i4 + 2]);
@@ -942,7 +942,7 @@ stor_null(double x1, double y1, double x2, double y2) {
     int32 i;
     if (num_index >= MAX_NULL)
         return;
-    i = 4 * num_index;
+    i = 4*num_index;
     saver[i] = x1;
     saver[i + 1] = y1;
     saver[i + 2] = x2;

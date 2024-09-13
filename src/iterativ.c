@@ -147,7 +147,7 @@ QRfact(int32 n, double **h, double *q, int32 job) {
 
             /* Multiply column k by the previous k-1 Givens rotations. */
             for (j = 0; j < k - 1; j++) {
-                i = 2 * j;
+                i = 2*j;
                 temp1 = h[j][k];
                 temp2 = h[j + 1][k];
                 c = q[i];
@@ -157,7 +157,7 @@ QRfact(int32 n, double **h, double *q, int32 job) {
             }
 
             /* Compute the Givens rotation components c and s */
-            q_ptr = 2 * k;
+            q_ptr = 2*k;
             temp1 = h[k][k];
             temp2 = h[k + 1][k];
             if (temp2 == ZERO) {
@@ -186,7 +186,7 @@ QRfact(int32 n, double **h, double *q, int32 job) {
 
         /* Multiply the new column by the previous n-1 Givens rotations. */
         for (k = 0; k < n_minus_1; k++) {
-            i = 2 * k;
+            i = 2*k;
             temp1 = h[k][n_minus_1];
             temp2 = h[k + 1][n_minus_1];
             c = q[i];
@@ -212,7 +212,7 @@ QRfact(int32 n, double **h, double *q, int32 job) {
             c = ONE / RSqrt(ONE + SQR(temp3));
             s = -c*temp3;
         }
-        q_ptr = 2 * n_minus_1;
+        q_ptr = 2*n_minus_1;
         q[q_ptr] = c;
         q[q_ptr + 1] = s;
         if ((h[n_minus_1][n_minus_1] = c*temp1 - s*temp2) == ZERO)
@@ -235,7 +235,7 @@ QRsol(int32 n, double **h, double *q, double *b) {
     /* Compute Q*b. */
 
     for (k = 0; k < n; k++) {
-        q_ptr = 2 * k;
+        q_ptr = 2*k;
         c = q[q_ptr];
         s = q[q_ptr + 1];
         temp1 = b[k];

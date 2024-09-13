@@ -86,9 +86,9 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     irs = xAuto.irs;
     ilp = xAuto.ilp;
 
-    thu = *thu_pointer = malloc(sizeof(double) * 8 * ndim);
+    thu = *thu_pointer = malloc(sizeof(double) * 8*ndim);
 
-    for (i = 0; i < ndim * 8; ++i) {
+    for (i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;
     }
 
@@ -505,7 +505,7 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
 
         } else if ((itp == 3 || abs(itp) / 10 == 3) && abs(ips) <= 1) {
             /*          ** Hopf bifurcation continuation (Maps, ODE, Waves) */
-            ndim = ndim * 3 + 2;
+            ndim = ndim*3 + 2;
             nfpr = 2;
 
         } else if ((itp == 5 || itp == 6) && ips == 2) {
@@ -797,7 +797,7 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     istop = 0;
     iap->istop = istop;
     if (irs == 0) {
-        itp = itpst * 10 + 9;
+        itp = itpst*10 + 9;
     } else {
         itp = 0;
     }
@@ -915,7 +915,7 @@ L3:
             itp = iap->itp;
             if (itp == -1) {
                 if (iuz[iuzr] >= 0) {
-                    itp = -4 - itpst * 10;
+                    itp = -4 - itpst*10;
                     iap->itp = itp;
                     for (k = 0; k < nuzr; ++k) {
                         uzr[k] = 0.;
@@ -936,7 +936,7 @@ L3:
                thu, iuz, vuz);
         itp = iap->itp;
         if (itp == -1) {
-            itp = itpst * 10 + 2;
+            itp = itpst*10 + 2;
             iap->itp = itp;
             rlp = 0.;
             rbp = 0.;
@@ -956,7 +956,7 @@ L3:
         }
         itp = iap->itp;
         if (itp == -1) {
-            itp = itpst * 10 + 1;
+            itp = itpst*10 + 1;
             iap->itp = itp;
             ++nbif;
             iap->nbif = nbif;
@@ -982,7 +982,7 @@ L3:
         }
         itp = iap->itp;
         if (itp == -1) {
-            itp = itpst * 10 + 3;
+            itp = itpst*10 + 3;
             iap->itp = itp;
             rev = 0.;
             /***  HERE IS WHERE Hopf IS FOUND */
@@ -1467,7 +1467,7 @@ lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     q0 = *q;
     q1 = (*fncs)(iap, rap, par, icp, &chng, funi, m1aaloc, aa, rlcur, rlold,
                  rldot, u, uold, udot, rhs, dfdu, dfdp, iuz, vuz);
-    pq = q0 * q1;
+    pq = q0*q1;
     ntot = iap->ntot;
     if (pq >= 0. || !chng) {
         *q = q1;
@@ -1546,15 +1546,15 @@ mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
 
     h0 = *s0 - *s;
     h1 = *s1 - *s;
-    d = h0 * h1 * (h1 - h0);
+    d = h0*h1 * (h1 - h0);
     /* Computing 2nd power */
 
-    a = (h1 * h1 * (*q0 - *q) - h0 * h0 * (*q1 - *q)) / d;
+    a = (h1*h1 * (*q0 - *q) - h0*h0 * (*q1 - *q)) / d;
     b = (-h1 * (*q0 - *q) + h0 * (*q1 - *q)) / d;
     if (fabs(b) <= RSMALL) {
         *rds = -(*q) / a;
     } else {
-        c = a / (b * 2);
+        c = a / (b*2);
         /* Computing 2nd power */
         r = sqrt(c*c - *q / b);
         if (c < 0.) {
@@ -2494,8 +2494,8 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
 
     if (iplt > ndm && iplt <= ndm << 1) {
         sprintf(col[1], " INTEGRAL U(%ld)", iplt - ndm);
-    } else if (iplt > ndm << 1 && iplt <= ndm * 3) {
-        sprintf(col[1], " L2-NORM U(%ld) ", iplt - (ndm * 2));
+    } else if (iplt > ndm << 1 && iplt <= ndm*3) {
+        sprintf(col[1], " L2-NORM U(%ld) ", iplt - (ndm*2));
     } else if (iplt > 0 && iplt <= ndm) {
         if (abs(ips) <= 1 || ips == 5) {
             sprintf(col[1], "     U(%ld)     ", -iplt);
@@ -2640,7 +2640,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
     if (npr != 0) {
         if (ntot % npr == 0 && itp % 10 == 0) {
-            itp = itpst * 10 + 4;
+            itp = itpst*10 + 4;
         }
         iap->itp = itp;
     }
@@ -2651,10 +2651,10 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
     if (iab <= ndim && iab > 0) {
         amp = u[-1 + iab];
-    } else if (iplt > ndim && iplt <= (ndim * 2)) {
+    } else if (iplt > ndim && iplt <= (ndim*2)) {
         amp = u[-1 + iplt - ndim];
-    } else if (iplt > (ndim * 2) && iplt <= ndim * 3) {
-        amp = u[-1 + iplt - (ndim * 2)];
+    } else if (iplt > (ndim*2) && iplt <= ndim*3) {
+        amp = u[-1 + iplt - (ndim*2)];
     } else {
         ss = 0.;
         for (i = 0; i < ndm; ++i) {
@@ -2667,18 +2667,18 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     istop = iap->istop;
     if (istop == 1) {
         /*        Maximum number of iterations reached somewhere. */
-        itp = -9 - itpst * 10;
+        itp = -9 - itpst*10;
         iap->itp = itp;
     } else if (istop == -1) {
         /*        ** UZR endpoint */
-        itp = itpst * 10 + 9;
+        itp = itpst*10 + 9;
         iap->itp = itp;
     } else {
         if (rlcur[0] < rl0 || rlcur[0] > rl1 || amp < a0 || amp > a1 ||
             ntot == nmx || iflag == 1) {
             istop = 1;
             iap->istop = istop;
-            itp = itpst * 10 + 9;
+            itp = itpst*10 + 9;
             iap->itp = itp;
         }
     }
@@ -3260,23 +3260,23 @@ wint(const int64 n, double *wi) {
 L3:
     c = .16666666666666666;
     wi[0] = c;
-    wi[1] = c * 4.;
+    wi[1] = c*4.;
     wi[2] = c;
     return 0;
 
 L4:
     c = .125;
     wi[0] = c;
-    wi[1] = c * 3.;
+    wi[1] = c*3.;
     wi[2] = wi[1];
     wi[3] = c;
     return 0;
 
 L5:
     c = .011111111111111112;
-    wi[0] = c * 7.;
-    wi[1] = c * 32.;
-    wi[2] = c * 12.;
+    wi[0] = c*7.;
+    wi[1] = c*32.;
+    wi[2] = c*12.;
     wi[3] = wi[1];
     wi[4] = wi[0];
     return 0;
@@ -3961,7 +3961,7 @@ pi(double r) {
     /* System generated locals */
     double ret_val;
 
-    ret_val = r * 4. * atan(1.);
+    ret_val = r*4. * atan(1.);
 
     return ret_val;
 } /* pi */
@@ -4786,7 +4786,7 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     sthd(iap, rap, par, icp, thl, thu);
     if (irs == 0) {
-        itp = itpst * 10 + 9;
+        itp = itpst*10 + 9;
     } else {
         itp = 0;
     }
@@ -4937,7 +4937,7 @@ L2:
             itp = iap->itp;
             if (itp == -1) {
                 if (iuz[iuzr] >= 0) {
-                    itp = -4 - itpst * 10;
+                    itp = -4 - itpst*10;
                     iap->itp = itp;
                     for (k = 0; k < nuzr; ++k) {
                         uzr[k] = 0.;
@@ -4962,7 +4962,7 @@ L2:
         }
         itp = iap->itp;
         if (itp == -1) {
-            itp = itpst * 10 + 5;
+            itp = itpst*10 + 5;
             iap->itp = itp;
             rlp = 0.;
             bp1 = 0.;
@@ -4982,7 +4982,7 @@ L2:
         }
         itp = iap->itp;
         if (itp == -1) {
-            itp = itpst * 10 + 6;
+            itp = itpst*10 + 6;
             iap->itp = itp;
             rlp = 0.;
             bp1 = 0.;
@@ -6102,7 +6102,7 @@ lcspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                  rlold, rldot, ndxloc, ups, uoldps, udotps, upoldp, fa, fc,
                  dups, tm, dtm, thl, thu, iuz, vuz);
 
-    pq = q0 * q1;
+    pq = q0*q1;
     if (pq >= 0. || !chng) {
         *q = q1;
         return 0;
@@ -6614,14 +6614,14 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     if (fabs(d_imag(&ev[loc1])) > sqrt(epss)) {
         /*       ** torus bifurcation */
-        itp = itpst * 10 + 8;
+        itp = itpst*10 + 8;
         iap->itp = itp;
         par[11] = fabs(atan2(d_imag(&ev[loc1]), ev[loc1].r));
 
     } else /* if(complicated condition) */ {
         if (ev[loc1].r < -.5) {
             /*       ** period doubling */
-            itp = itpst * 10 + 7;
+            itp = itpst*10 + 7;
             iap->itp = itp;
         } else {
             /*       ** something else... */
@@ -6717,7 +6717,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     if (npr != 0) {
         if (ntot % npr == 0 && itp % 10 == 0) {
-            itp = itpst * 10 + 4;
+            itp = itpst*10 + 4;
         }
         iap->itp = itp;
     }
@@ -6725,17 +6725,17 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* Check whether limits of the bifurcation diagram have been reached : */
 
     iab = abs(iplt);
-    if (iab == 0 || iab > ndm * 3) {
+    if (iab == 0 || iab > ndm*3) {
         amp = sqrt(rnrmsq(iap, &ndm, ndxloc, ups, dtm, thu));
     }
     if (iplt > 0 && iab <= ndm) {
         amp = rmxups(iap, ndxloc, &iab, ups);
     }
-    if (iplt > ndm && iab <= (ndm * 2)) {
+    if (iplt > ndm && iab <= (ndm*2)) {
         amp = rintg(iap, ndxloc, iab - ndm, ups, dtm);
     }
-    if (iplt > (ndm * 2) && iab <= ndm * 3) {
-        int64 tmp = iab - (ndm * 2);
+    if (iplt > (ndm*2) && iab <= ndm*3) {
+        int64 tmp = iab - (ndm*2);
         amp = rnrm2(iap, ndxloc, &tmp, ups, dtm);
     }
     if (iplt < 0 && iab <= ndm) {
@@ -6749,18 +6749,18 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     istop = iap->istop;
     if (istop == 1) {
         /*        ** Maximum number of iterations reached somewhere. */
-        itp = -9 - itpst * 10;
+        itp = -9 - itpst*10;
         iap->itp = itp;
     } else if (istop == -1) {
         /*        ** UZR endpoint */
-        itp = itpst * 10 + 9;
+        itp = itpst*10 + 9;
         iap->itp = itp;
     } else {
         if (par[icp[0]] < rl0 || par[icp[0]] > rl1 || amp < a0 || amp > a1 ||
             ntot >= nmx || iflag == 1) { /* more bye auto */
             istop = 1;
             iap->istop = istop;
-            itp = itpst * 10 + 9;
+            itp = itpst*10 + 9;
             iap->itp = itp;
         }
     }

@@ -303,7 +303,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     nje = 0;
     if (iopt != NULL) {
         iopt[BAND_NJE] = nje;
-        iopt[BAND_LRW] = N * (storage_mu + mu + 2 * ml + 2);
+        iopt[BAND_LRW] = N * (storage_mu + mu + 2*ml + 2);
         iopt[BAND_LIW] = N;
     }
     nstlj = 0;

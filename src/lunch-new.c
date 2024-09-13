@@ -86,14 +86,14 @@ ps_write_pars(FILE *fp) {
     rem = NUPAR % 4;
     for (j = 0; j < div; j++) {
         for (i = 0; i < 4; i++) {
-            get_val(upar_names[i + 4 * j], &z);
-            fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4 * j], z);
+            get_val(upar_names[i + 4*j], &z);
+            fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4*j], z);
         }
         fprintf(fp, "\n");
     }
     for (i = 0; i < rem; i++) {
-        get_val(upar_names[i + 4 * div], &z);
-        fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4 * div], z);
+        get_val(upar_names[i + 4*div], &z);
+        fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4*div], z);
     }
 
     fprintf(fp, "\n");
@@ -167,14 +167,14 @@ do_info(FILE *fp) {
     rem = NUPAR % 4;
     for (j = 0; j < div; j++) {
         for (i = 0; i < 4; i++) {
-            get_val(upar_names[i + 4 * j], &z);
-            fprintf(fp, "%s=%.16g   ", upar_names[i + 4 * j], z);
+            get_val(upar_names[i + 4*j], &z);
+            fprintf(fp, "%s=%.16g   ", upar_names[i + 4*j], z);
         }
         fprintf(fp, "\n");
     }
     for (i = 0; i < rem; i++) {
-        get_val(upar_names[i + 4 * div], &z);
-        fprintf(fp, "%s=%.16g   ", upar_names[i + 4 * div], z);
+        get_val(upar_names[i + 4*div], &z);
+        fprintf(fp, "%s=%.16g   ", upar_names[i + 4*div], z);
     }
 
     fprintf(fp, "\n");
