@@ -1,12 +1,10 @@
 #ifndef _autevd_h_
 #define _autevd_h_
-#include "integers.h"
 
 #include "autlim.h"
 #include "auto_f2c.h"
 #include "auto_c.h"
-
-/* typedef struct {double r,i;} doublecomplex; */
+#include "integers.h"
 
 typedef struct {
     int32 pt, br;

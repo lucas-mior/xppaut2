@@ -1,4 +1,8 @@
 #include <string.h>
+#include <stdbool.h>
+#include <libgen.h>
+
+#include "graf_par.h"
 #include "form_ode.h"
 #include "parserslow.h"
 #include "autevd.h"
@@ -9,10 +13,7 @@
 #include "tabular.h"
 #include "gogoauto.h"
 #include "my_rhs.h"
-#include <libgen.h>
-#include <stdbool.h>
 #include "auto_c.h"
-#include "graf_par.h"
 
 #include "load_eqn.h"
 
