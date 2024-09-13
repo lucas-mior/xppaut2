@@ -7171,21 +7171,16 @@ double
 getp(char *code, int64 *ic, double *ups, int64 code_len) {
     /* System generated locals */
     double ret_val = 0.0;
-
     int64 ntst;
-
     int64 nxloc;
-
     int64 ips;
 
     nxloc = global_parameters.iav->ntst + 1;
 
     ips = global_parameters.iav->ips;
-
     ntst = global_parameters.iav->ntst;
 
     if (abs(ips) <= 1 || ips == 5) {
-
         if (strcmp(code, "NRM") == 0 || strcmp(code, "nrm") == 0) {
             ret_val = fabs(ups[*ic - 1]);
         } else if (strcmp(code, "INT") == 0 || strcmp(code, "int32") == 0) {
@@ -7209,9 +7204,7 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
         } else if (strcmp(code, "SPB") == 0 || strcmp(code, "spb") == 0) {
             ret_val = (double)0.0;
         }
-
     } else {
-
         if (strcmp(code, "NRM") == 0 || strcmp(code, "nrm") == 0) {
             ret_val = rnrm2(global_parameters.iav, &nxloc, ic, ups,
                             global_parameters.dtv);
