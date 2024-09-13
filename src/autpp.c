@@ -92,6 +92,10 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 int32
 bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
      int64 ijac, double *fb, double *dbc) {
+    (void) dbc;
+    (void) ijac;
+    (void) icp;
+    (void) ndim;
     /* Hooks to the XPP bc parser!! */
 
     for (int32 i = 0; i < NAutoPar; i++) {
@@ -108,6 +112,10 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 int32
 icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
      double *udot, double *upold, double *fi, int64 *ijac, double *dint) {
+    (void) nint;
+    (void) icp;
+    (void) par;
+    (void) ndim;
     int32 i;
     double dum = 0.0;
     /*
