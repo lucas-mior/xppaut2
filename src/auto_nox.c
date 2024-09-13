@@ -95,9 +95,6 @@ extern int32 BVP_FLAG;
 extern int32 fp8_is_open;
 extern FILE *fp8;
 
-/*extern char *strdup(const char *s);
- */
-
 extern int32 AutoRedrawFlag;
 extern int32 FLOWK;
 extern int32 mark_flag;
