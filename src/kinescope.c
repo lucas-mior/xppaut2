@@ -24,7 +24,7 @@ extern char *info_message, *kin_hint[];
 extern int32 screen;
 extern int32 mov_ind;
 typedef struct {
-    uint32 h, w;
+    int32 h, w;
     Pixmap xi;
 } MOVIE;
 
