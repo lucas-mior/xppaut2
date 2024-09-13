@@ -92,10 +92,9 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 int32
 bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
      int64 ijac, double *fb, double *dbc) {
-    int32 i;
     /* Hooks to the XPP bc parser!! */
 
-    for (i = 0; i < NAutoPar; i++) {
+    for (int32 i = 0; i < NAutoPar; i++) {
         constants[Auto_index_to_array[i]] = par[i];
     }
 
