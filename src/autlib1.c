@@ -6577,6 +6577,7 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 int32
 tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        doublecomplex *ev) {
+    (void) icp;
 
     double amin;
     int64 ndim;
@@ -6652,6 +6653,8 @@ int32
 stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm,
        double *thl, double *thu) {
+    (void) thl;
+    (void) rap;
     int64 labw, ndim, ibrs, nins, iplt, itmp, jtmp, ntot;
     int32 iflag = 0;
     int64 i;
@@ -6834,6 +6837,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 int32
 wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm) {
+    (void) rap;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -7014,6 +7018,9 @@ int32
 wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        int64 *ndxloc, double *ups, double *tm, double *dtm, double *thl,
        double *thu) {
+    (void) par;
+    (void) icp;
+    (void) thl;
 
     /* System generated locals */
     int64 ups_dim1;
@@ -7114,6 +7121,11 @@ pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
 int32
 pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
+    (void) icp;
+    (void) ndxloc;
+    (void) ndim;
+    (void) p0;
+    (void) p1;
     int64 ndm;
 
     setpbv(iap, rap, dtm);
@@ -7169,6 +7181,7 @@ time_end(double start) {
 
 double
 getp(char *code, int64 *ic, double *ups, int64 code_len) {
+    (void) code_len;
     /* System generated locals */
     double ret_val = 0.0;
     int64 ntst;
