@@ -3011,7 +3011,7 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 /* ----------------------------------------------------------------------- */
 
 int32
-msh(const iap_type *iap, const rap_type *rap, double *tm) {
+msh(const iap_type *iap, double *tm) {
 
     /* Local variables */
     int64 ntst, j;
@@ -5867,7 +5867,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     /* Generate the (initially uniform) mesh. */
 
-    msh(iap, rap, tm);
+    msh(iap, tm);
     dt = 1. / (ntst * ncol);
 
     for (j = 0; j < ntst + 1; ++j) {

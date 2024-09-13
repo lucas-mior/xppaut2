@@ -1111,7 +1111,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     /* Generate the (initially uniform) mesh. */
 
-    msh(iap, rap, tm);
+    msh(iap, tm);
     dt = 1. / (ntst * ncol);
 
     for (j = 0; j < ntst + 1; ++j) {

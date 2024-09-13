@@ -277,7 +277,7 @@ int32 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 int32 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
              double *rlcur, double *u);
 int32 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs);
-int32 msh(const iap_type *iap, const rap_type *rap, double *tm);
+int32 msh(const iap_type *iap, double *tm);
 int32 genwts(const int64 ncol, const int64 n1, double *wt, double *wp);
 int32 cpnts(const int64 ncol, double *zm);
 int32 cntdif(int64 *n, double *d);
