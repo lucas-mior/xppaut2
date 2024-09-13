@@ -9,6 +9,7 @@
 #include "markov.h"
 #include "simplenet.h"
 #include "volterra2.h"
+#include "volterra.h"
 
 #include <stdlib.h>
 
