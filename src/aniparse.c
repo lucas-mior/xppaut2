@@ -257,7 +257,7 @@ create_vcr(char *name) {
     XGCValues values;
     Window base;
     int32 wid = 280, hgt = 350;
-    /*XWMHints wm_hints;*/
+
     XSizeHints size_hints;
 
     XTextProperty winname, iconname;
