@@ -274,7 +274,6 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 /*     ---------- ----- */
 /* Subroutine */ int32
 chdim(iap_type *iap) {
-    /* Local variables */
     int64 npar;
 
     /* Check dimensions. */
