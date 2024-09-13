@@ -68,7 +68,7 @@ int32 auto_start_diff_ss(void);
 int32 auto_start_at_bvp(void);
 int32 auto_start_at_per(void);
 int32 get_start_period(double *p);
-int32 get_start_orbit(double *u, double t, double p, int32 n);
+void get_start_orbit(double *u, double t, double p, int32 n);
 int32 auto_new_ss(void);
 int32 auto_new_discrete(void);
 int32 auto_extend_ss(void);
