@@ -1053,7 +1053,7 @@ find_ker(/* this extracts the integral operators from the string */
     char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
     double mu = 0.0;
     int32 fflag = 0, in = 0, i = 0, ifr = 0, inum = 0;
-    int32 n = strlen(string), j;
+    int32 n = strlen(string);
     char name[20], ch;
     *alt = 0;
     while (i < n) {
@@ -1088,7 +1088,7 @@ find_ker(/* this extracts the integral operators from the string */
             plintf("Kernel mu=%f %s = %s \n", mu, name, form);
             if (add_kernel(name, mu, form))
                 exit(0);
-            for (j = 0; j < strlen(name); j++) {
+            for (size_t j = 0; j < strlen(name); j++) {
                 new[in] = name[j];
                 in++;
             }
@@ -2126,7 +2126,7 @@ formula_or_number(char *expr, double *z) {
     *z = 0.0; /* initial it to 0 */
     convert(expr, form);
     flag = do_num(form, num, z, &i);
-    if (i < strlen(form))
+    if (i < (int32)strlen(form))
         flag = 1;
     ERROUT = olderr;
     if (flag == 0)
