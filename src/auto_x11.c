@@ -935,7 +935,7 @@ display_auto(Window w) {
 }
 
 Window
-lil_button(Window root, int32 x, int32 y, char *name) {
+lil_button(Window root, int32 x, int32 y) {
     Window win;
     int32 width = 12 * DCURX;
     win = make_window(root, x, y, width, DCURY + 1, 1);
@@ -1016,27 +1016,27 @@ make_auto(/* this makes the auto window  */
     Auto.wid = STD_WID_var;
     Auto.x0 = 10 * DCURXs;
     Auto.y0 = 2 * DCURYs;
-    AutoW.kill = lil_button(base, 2, 2, "Close");
-    AutoW.param = lil_button(base, x, y, "Parameter");
+    AutoW.kill = lil_button(base, 2, 2);
+    AutoW.param = lil_button(base, x, y);
     y += dely;
-    AutoW.axes = lil_button(base, x, y, "Axes");
+    AutoW.axes = lil_button(base, x, y);
     y += dely;
-    AutoW.numerics = lil_button(base, x, y, "Numerics");
+    AutoW.numerics = lil_button(base, x, y);
     y += dely;
-    AutoW.run = lil_button(base, x, y, "Run");
+    AutoW.run = lil_button(base, x, y);
     y += dely;
-    AutoW.grab = lil_button(base, x, y, "Grab");
+    AutoW.grab = lil_button(base, x, y);
     y += dely;
-    AutoW.per = lil_button(base, x, y, "Usr Function");
+    AutoW.per = lil_button(base, x, y);
     y += dely;
-    AutoW.clear = lil_button(base, x, y, "Clear");
+    AutoW.clear = lil_button(base, x, y);
     y += dely;
-    AutoW.redraw = lil_button(base, x, y, "reDraw");
+    AutoW.redraw = lil_button(base, x, y);
     y += dely;
-    AutoW.file = lil_button(base, x, y, "File");
+    AutoW.file = lil_button(base, x, y);
 
     y += 3*dely;
-    AutoW.abort = lil_button(base, x, y, "ABORT");
+    AutoW.abort = lil_button(base, x, y);
 
     y = DCURY + STD_HGT_var + ymargin + 5;
     x = addwid + 5;

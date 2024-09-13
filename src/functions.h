@@ -319,7 +319,7 @@ void FillCircle(int32 x, int32 y, int32 r);
 void LineWidth(int32 wid);
 void auto_motion(XEvent ev);
 void display_auto(Window w);
-Window lil_button(Window root, int32 x, int32 y, char *name);
+Window lil_button(Window root, int32 x, int32 y);
 void make_auto(char *wname, char *iname);
 void resize_auto_window(XEvent ev);
 void a_msg(int32 i, int32 v);

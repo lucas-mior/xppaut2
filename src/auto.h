@@ -59,7 +59,7 @@ int32 plot_stab(double *evr, double *evi, int32 n);
 int32 clr_stab(void);
 int32 auto_motion(XEvent ev);
 int32 display_auto(Window w);
-Window lil_button(Window root, int32 x, int32 y, char *name);
+Window lil_button(Window root, int32 x, int32 y);
 int32 make_auto(char *wname, char *iname);
 int32 yes_reset_auto(void);
 int32 reset_auto(void);
