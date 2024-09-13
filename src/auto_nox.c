@@ -1067,7 +1067,7 @@ plot_point(int32 flag2, int32 icp1, int32 icp2) {
 void
 add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
              double a, int32 type, int32 flag,
-             int32 icp1, int32 icp2, int32 flag2, double *evr, double *evi) {
+             int32 icp1, int32 icp2, int32 flag2) {
     double x, y1, y2, par1, par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
