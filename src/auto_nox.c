@@ -1758,7 +1758,7 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
 }
 
 void
-get_start_orbit(double *u, double t, double p, int32 n) {
+get_start_orbit(double *u, double t, int32 n) {
     double tnorm, lam;
     int32 i1, i2, j;
     if (t > 1.0)

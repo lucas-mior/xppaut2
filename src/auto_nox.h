@@ -130,7 +130,7 @@ void auto_start_at_bvp(void);
 void auto_start_at_per(void);
 void find_best_homo_shift(int32 n);
 void get_start_period(double *p);
-void get_start_orbit(double *u, double t, double p, int32 n);
+void get_start_orbit(double *u, double t, int32 n);
 void get_shifted_orbit(double *u, double t, double p, int32 n);
 void auto_new_ss(void);
 void auto_new_discrete(void);
