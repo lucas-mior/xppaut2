@@ -1187,7 +1187,7 @@ check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
         return 0;
     if (icp1 != Auto.icp1)
         return 0;
-    if (flag2 > 0 && icp2 != icp2)
+    if (flag2 > 0 && icp1 != icp2)
         return 0;
     return 1;
 }
