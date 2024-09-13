@@ -536,11 +536,10 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
 void
 pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
-    int32 i;
     double d = fabs(DELTA_T) * .1;
     ShootICFlag = 1;
     if (ShootIndex < 7) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             ShootIC[ShootIndex][i] = x[i] + d*ev[i];
             ShootType[ShootIndex] = type;
             ShootIC[ShootIndex + 1][i] = x[i] - d*ev[i];
