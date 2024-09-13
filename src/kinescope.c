@@ -251,7 +251,9 @@ save_movie(char *basename, int32 fmat) {
             writeframe(file, draw_win, w, h);
 #ifndef NOGIF
         else {
-            XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
+            XGetGeometry(display, draw_win, &root, &x, &y,
+                        (uint32 *)&w, (uint32 *)&h,
+                        (uint32 *)&bw, (uint32 *)&d);
             xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                                DefaultDepth(display, screen));
             XCopyArea(display, draw_win, xi, gc_graph, 0, 0, w, h, 0, 0);
@@ -268,7 +270,7 @@ save_movie(char *basename, int32 fmat) {
 void
 auto_play(void) {
     int32 x, y;
-    uint32 h, w, bw, d, key;
+    int32 h, w, bw, d, key;
     Window root;
 
     int32 dt = 20;
@@ -282,7 +284,8 @@ auto_play(void) {
         ks_speed = 0;
     if (ks_ncycle <= 0)
         return;
-    XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &d);
+    XGetGeometry(display, draw_win, &root, &x, &y,
+                 (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
