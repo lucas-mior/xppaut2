@@ -548,8 +548,6 @@ pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
         }
         ShootIndex += 2;
     }
-    if (pr == 0)
-        return;
     return;
 }
 
