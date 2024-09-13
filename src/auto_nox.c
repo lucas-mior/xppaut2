@@ -1066,15 +1066,15 @@ plot_point(int32 flag2, int32 icp1, int32 icp2) {
 
 void
 add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
-             double a, int32 type, int32 flg, int32 lab, int32 npar, int32 icp1,
-             int32 icp2, int32 flag2, double *evr, double *evi) {
+             double a, int32 type, int32 flag, int32 lab, int32 npar,
+             int32 icp1, int32 icp2, int32 flag2, double *evr, double *evi) {
     double x, y1, y2, par1, par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
     if (icp2 < NAutoPar)
         par2 = par[icp2];
     auto_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar, a);
-    if (flg == 0) {
+    if (flag == 0) {
         Auto.lastx = x;
         Auto.lasty = y1;
     }
