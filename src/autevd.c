@@ -164,10 +164,10 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
         add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab,
-                  icp1, icp2, icp3, icp4, AutoTwoParam, my_ev.evr, my_ev.evi);
+                  icp1, icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
     } else {
         add_point(par, per, uhigh, ulow, ubar, *a, type, 1, lab,
-                  icp1, icp2, icp3, icp4, AutoTwoParam, my_ev.evr, my_ev.evi);
+                  icp1, icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
     }
 
     if (DiagFlag == 0) {
