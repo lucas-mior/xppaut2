@@ -5058,6 +5058,8 @@ int32
 extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
        double *rlcur, double *rlold, double *rldot, int64 *ndxloc, double *ups,
        double *uoldps, double *udotps) {
+    (void) rap;
+    (void) funi;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
@@ -5099,6 +5101,7 @@ int32
 stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rlcur, double *rlold, double *rldot,
        int64 *ndxloc, double *ups, double *uoldps, double *upoldp) {
+    (void) rldot;
     /* System generated locals */
     int64 ups_dim1, uoldps_dim1, upoldp_dim1;
 
@@ -5411,6 +5414,9 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *rlold, double *rldot, int64 *ndxloc, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dups, double *tm, double *dtm,
        doublecomplex *ev, int64 *nodir, double *thl, double *thu) {
+    (void) rds;
+    (void) dups;
+    (void) ev;
     /* System generated locals */
     int64 ups_dim1, uoldps_dim1;
 
@@ -5419,8 +5425,6 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ntsrs;
 
     int64 ncolrs;
-
-    int64 irs, isw;
 
     int64 ntst_fort8, ncol_fort8, junk;
 
@@ -5445,10 +5449,8 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ups_dim1 = *ndxloc;
 
     ndim = iap->ndim;
-    irs = iap->irs;
     ntst = iap->ntst;
     ncol = iap->ncol;
-    isw = iap->isw;
     nfpr = iap->nfpr;
 
     /* Get restart data : */
@@ -5568,7 +5570,6 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     if (*nodir == -1) {
         /*        ** Restart from a Hopf bifurcation. */
         *nodir = 0;
-        isw = 1;
     } else {
         /*        ** Restart from orbit. */
         stupbv(iap, rap, par, icp, funi, rlcur, rlold, rldot, ndxloc, ups,
@@ -5583,6 +5584,10 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
+    (void) upoldp;
+    (void) dtm;
+    (void) thl;
+    (void) thu;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
@@ -5604,15 +5609,6 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     /* restart computation at the point with label IRS. */
     /* This information is expected on unit 3. */
 
-    /* Local */
-
-    /* Parameter adjustments */
-    /*--tm;*/
-    /*--dtm;*/
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rldot;*/
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
