@@ -165,47 +165,26 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     }
 
     iap->ndim = ndim;
-
     iap->ips = ips;
-
     iap->irs = irs;
-
     iap->ilp = ilp;
-
     iap->ntst = ntst;
-
     iap->ncol = ncol;
-
     iap->iad = iad;
-
     iap->iads = iads;
-
     iap->isp = isp;
-
     iap->isw = isw;
-
     iap->iplt = iplt;
-
     iap->nbc = nbc;
-
     iap->nint = nint;
-
     iap->nmx = nmx;
-
     iap->nuzr = nuzr;
-
     iap->npr = npr;
-
     iap->mxbf = mxbf;
-
     iap->iid = iid;
-
     iap->itmx = itmx;
-
     iap->itnw = itnw;
-
     iap->nwtn = nwtn;
-
     iap->jac = jac;
 
     ndm = ndim;
