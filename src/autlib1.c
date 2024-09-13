@@ -3605,6 +3605,8 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
 int32
 ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
      int64 *itm1) {
+    (void) iap;
+    (void) rap;
 
     /* Local variables */
     int64 j, k0, j1, k1 = 0;
@@ -3638,6 +3640,8 @@ ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
 int32
 intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
        double *wts) {
+    (void) iap;
+    (void) rap;
 
     /* Local variables */
     int64 k;
@@ -3668,6 +3672,8 @@ intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
 int32
 eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
      double *dtm, int64 *ndxloc, double *ups, double *eqf, int64 *iper) {
+    (void) iap;
+    (void) rap;
     /* System generated locals */
     int64 ups_dim1;
 
@@ -3773,7 +3779,6 @@ int32
 eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     int64 *ier) {
     /* System generated locals */
-    int64 a_dim1;
 
     /* Local variables */
     int64 matz, ntop, ntot, i;
@@ -3798,7 +3803,6 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
 
     /* Parameter adjustments */
     /*--ev;*/
-    a_dim1 = *m1a;
 
     ibr = iap->ibr;
     ntot = iap->ntot;
