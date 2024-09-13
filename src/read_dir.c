@@ -36,8 +36,8 @@ statement to call your local copy of sysdirent.h
 
   unsigned long d_fileno;
   unsigned short d_reclen;
-  unsigned char d_type;
-  unsigned char d_namlen;
+  uchar d_type;
+  uchar d_namlen;
 (These occur in the {\tt struct dirent}  declaration)
 and save the file.
 

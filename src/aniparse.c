@@ -945,7 +945,7 @@ ani_disk_warn(void) {
 }
 
 int32
-getppmbits(Window window, int32 *wid, int32 *hgt, unsigned char *out) {
+getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     XImage *ximage;
     Colormap cmap;
     unsigned long value;
@@ -957,7 +957,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, unsigned char *out) {
     unsigned x, y;
     XColor palette[256];
     XColor pix;
-    unsigned char *dst, *pixel;
+    uchar *dst, *pixel;
     cmap = DefaultColormap(display, screen);
 
     ximage = XGetImage(display, window, 0, 0, *wid, *hgt, AllPlanes, ZPixmap);
@@ -982,7 +982,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, unsigned char *out) {
     /* plintf("CMULT=%d CMSK=%d CSHIFT=%d \n",CMULT,CMSK,CSHIFT); */
     *wid = ximage->width;
     *hgt = ximage->height;
-    pixel = (unsigned char *)ximage->data;
+    pixel = (uchar *)ximage->data;
     dst = out;
     for (y = 0; y < (unsigned)(ximage->height); y++) {
         for (x = 0; x < (unsigned)(ximage->width); x++) {
@@ -1039,9 +1039,9 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     char head[100];
     XColor palette[256];
     XColor pix;
-    unsigned char *pixel;
+    uchar *pixel;
     unsigned area;
-    unsigned char *out, *dst;
+    uchar *out, *dst;
     cmap = DefaultColormap(display, screen);
     ximage = XGetImage(display, window, 0, 0, wid, hgt, AllPlanes, ZPixmap);
     if (!ximage) {
@@ -1073,7 +1073,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
              ximage->height);
     write(fd, head, strlen(head));
     area = ximage->width*ximage->height;
-    pixel = (unsigned char *)ximage->data;
+    pixel = (uchar *)ximage->data;
     out = malloc(3*area);
     dst = out;
     for (y = 0; y < (unsigned)(ximage->height); y++) {

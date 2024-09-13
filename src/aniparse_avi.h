@@ -6,7 +6,7 @@
 
 typedef struct {
     int32 nframe, wid, hgt, fps;
-    unsigned char *image;
+    uchar *image;
     int32 cur_frame;
     int32 task;
 } AVI_INFO;
@@ -46,7 +46,7 @@ int32 ani_newskip(void);
 int32 ani_flip1(int32 n);
 int32 ani_flip(void);
 int32 ani_disk_warn(void);
-int32 getppmbits(Window window, int32 *wid, int32 *hgt, unsigned char *out);
+int32 getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out);
 int32 writeframe(char *filename, Window window, int32 wid, int32 hgt);
 int32 ani_zero(void);
 int32 get_ani_file(void);

@@ -3880,12 +3880,12 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 
     /*     Test if the characters are equal */
 
-    ret_val = *(unsigned char *)ca == *(unsigned char *)cb;
+    ret_val = *(uchar *)ca == *(uchar *)cb;
 
     /*     Now test for equivalence */
 
     if (!ret_val) {
-        ret_val = *(unsigned char *)ca - 32 == *(unsigned char *)cb;
+        ret_val = *(uchar *)ca - 32 == *(uchar *)cb;
     }
 
     return ret_val;

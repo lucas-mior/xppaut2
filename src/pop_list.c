@@ -752,7 +752,7 @@ bin_prnt_byte(int32 x, int32 *arr) {
 Window
 make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, int32 icx, int32 icy,
-                          unsigned char *icdata) {
+                          uchar *icdata) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);
@@ -852,7 +852,7 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         XAllocColor(display, cmap, &col2);
         XSetForeground(display, gc, col2.pixel);
 
-        unsigned char *ps = icdata;
+        uchar *ps = icdata;
 
         int32 intstack[8];
 
@@ -916,7 +916,7 @@ make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
 
 Window
 make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                 int32 bw, int32 icx, int32 icy, unsigned char *icdata) {
+                 int32 bw, int32 icx, int32 icy, uchar *icdata) {
     Window win;
     win = make_unmapped_icon_window(root, x, y, width, height, bw, icx, icy,
                                     icdata);

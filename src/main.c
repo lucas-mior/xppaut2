@@ -711,7 +711,7 @@ init_X(void) {
          */
         uint32 width_return, height_return;
         int32 x_hot, y_hot;
-        unsigned char *pixdata;
+        uchar *pixdata;
 
         int32 success =
             XReadBitmapFileData(UserBGBitmap, &width_return, &height_return,

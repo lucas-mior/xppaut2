@@ -121,7 +121,7 @@ void set_from_init_data(void);
 void ani_flip1(int32 n);
 void ani_flip(void);
 void ani_disk_warn(void);
-int32 getppmbits(Window window, int32 *wid, int32 *hgt, unsigned char *out);
+int32 getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out);
 int32 writeframe(char *filename, Window window, int32 wid, int32 hgt);
 void ani_zero(void);
 void get_ani_file(char *fname);
@@ -4354,10 +4354,10 @@ int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 void draw_pop_up(POP_UP p, Window w);
 Window make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                                  int32 height, int32 bw, int32 icx, int32 icy,
-                                 unsigned char *icdata);
+                                 uchar *icdata);
 Window make_icon_window(Window root, int32 x, int32 y, int32 width,
                         int32 height, int32 bw, int32 icx, int32 icy,
-                        unsigned char *icdata);
+                        uchar *icdata);
 
 #endif
 #ifndef _pp_shoot_h_
@@ -4426,34 +4426,34 @@ void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f);
 typedef struct GifTree {
     char typ;         /* terminating, lookup, or search */
     int32 code;       /* the code to be output */
-    unsigned char ix; /* the color map index */
+    uchar ix; /* the color map index */
     struct GifTree **node, *nxt, *alt;
 } GifTree;
 
 typedef struct {
-    unsigned char r, g, b;
+    uchar r, g, b;
 } GIFCOL;
 
 void set_global_map(int32 flag);
-int32 ppmtopix(unsigned char r, unsigned char g, unsigned char b, int32 *n);
+int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 void end_ani_gif(FILE *fp);
 void add_ani_gif(Window win, FILE *fp, int32 count);
 void screen_to_gif(Window win, FILE *fp);
 void get_global_colormap(Window win);
 void local_to_global(void);
-int32 use_global_map(unsigned char *pixels, unsigned char *ppm, int32 h,
+int32 use_global_map(uchar *pixels, uchar *ppm, int32 h,
                      int32 w);
-int32 make_local_map(unsigned char *pixels, unsigned char *ppm, int32 h,
+int32 make_local_map(uchar *pixels, uchar *ppm, int32 h,
                      int32 w);
 void gif_stuff(Window win, FILE *fp, int32 task);
 void write_global_header(int32 cols, int32 rows, FILE *dst);
 void GifLoop(FILE *fout, uint32 repeats);
 void write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
                         int32 delay);
-void make_gif(unsigned char *pixels, int32 cols, int32 rows, FILE *dst);
-int32 GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz);
+void make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
+int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
 void ClearTree(int32 cc, GifTree *root);
-unsigned char *AddCodeToBuffer(int32 code, short n, unsigned char *buf);
+uchar *AddCodeToBuffer(int32 code, short n, uchar *buf);
 
 #endif
 #ifndef _simplenet_h_

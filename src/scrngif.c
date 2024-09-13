@@ -29,7 +29,7 @@
         fputc(i >> 8, fout);                                                   \
     }
 
-unsigned char *AddCodeToBuffer(int32, short, unsigned char *);
+uchar *AddCodeToBuffer(int32, short, uchar *);
 void ClearTree(int32, GifTree *);
 uint32 debugFlag;
 int32 UseGlobalMap = 0;
@@ -55,7 +55,7 @@ set_global_map(int32 flag) {
 }
 
 int32
-ppmtopix(unsigned char r, unsigned char g, unsigned char b, int32 *n) {
+ppmtopix(uchar r, uchar g, uchar b, int32 *n) {
     int32 i, nc = *n;
     if (UseGlobalMap == 1) {
         for (i = 0; i < NGlobalColors; i++) {
@@ -121,8 +121,8 @@ local_to_global(void) {
 }
 
 int32
-use_global_map(unsigned char *pixels, unsigned char *ppm, int32 h, int32 w) {
-    unsigned char r, g, b;
+use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
+    uchar r, g, b;
     int32 i, j, k = 0, l = 0;
     int32 pix, nc;
     for (i = 0; i < h; i++) {
@@ -142,8 +142,8 @@ use_global_map(unsigned char *pixels, unsigned char *ppm, int32 h, int32 w) {
 }
 
 int32
-make_local_map(unsigned char *pixels, unsigned char *ppm, int32 h, int32 w) {
-    unsigned char r, g, b;
+make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
+    uchar r, g, b;
     int32 i, j, k = 0, l = 0;
     int32 pix, ncol = 0;
     for (i = 0; i < h; i++) {
@@ -173,9 +173,9 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     Window root;
     uint32 h, w, bw, d;
     int32 x0, y0;
-    unsigned char *ppm;
+    uchar *ppm;
 
-    unsigned char *pixels;
+    uchar *pixels;
     int32 i;
     int32 ncol = 0;
 
@@ -257,9 +257,9 @@ void
 write_global_header(int32 cols, int32 rows, FILE *dst) {
     int32 i;
 
-    unsigned char *pos, *buffer;
+    uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(unsigned char)) + 1;
+    buffer = malloc((BUFLEN + 1) * sizeof(uchar)) + 1;
 
     pos = buffer;
 
@@ -336,13 +336,13 @@ write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
 }
 
 void
-make_gif(unsigned char *pixels, int32 cols, int32 rows, FILE *dst) {
+make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     int32 i, depth = 8;
 
-    unsigned char *pos, *buffer;
+    uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(unsigned char)) + 1;
+    buffer = malloc((BUFLEN + 1) * sizeof(uchar)) + 1;
 
     pos = buffer;
 
@@ -389,20 +389,20 @@ make_gif(unsigned char *pixels, int32 cols, int32 rows, FILE *dst) {
 }
 
 int32
-GifEncode(FILE *fout, unsigned char *pixels, int32 depth, int32 siz) {
+GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     GifTree *first = &GifRoot, *newNode, *curNode;
-    unsigned char *end;
+    uchar *end;
     int32 cc, eoi, next, tel = 0;
     short cLength;
 
-    unsigned char *pos, *buffer;
+    uchar *pos, *buffer;
 
     empty[0] = NULL;
     need = 8;
 
     nodeArray = empty;
     memmove(++nodeArray, empty, 255*sizeof(GifTree **));
-    if ((buffer = malloc((BUFLEN + 1) * sizeof(unsigned char))) == NULL)
+    if ((buffer = malloc((BUFLEN + 1) * sizeof(uchar))) == NULL)
         return 0;
     buffer++;
 
@@ -599,8 +599,8 @@ ClearTree(int32 cc, GifTree *root) {
     return;
 }
 
-unsigned char *
-AddCodeToBuffer(int32 code, short n, unsigned char *buf) {
+uchar *
+AddCodeToBuffer(int32 code, short n, uchar *buf) {
     int32 mask;
 
     if (n < 0) {
