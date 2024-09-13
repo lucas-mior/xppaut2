@@ -308,7 +308,7 @@ int32 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 int32 newlab(iap_type *iap);
 int32 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
              logical *found);
-int32 readlb(const iap_type *iap, const rap_type *rap, double *u, double *par);
+int32 readlb(double *u, double *par);
 int32 skip3(int64 *nskip, logical *eof3);
 double rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups,
              double *vps, double *dtm, double *thu);

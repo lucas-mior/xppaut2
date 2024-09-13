@@ -1058,7 +1058,7 @@ stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     irs = iap->irs;
     findlb(iap, rap, irs, &nfprs, &found);
-    readlb(iap, rap, u, par);
+    readlb(u, par);
     return 0;
 } /* stpnae_ */
 
@@ -4210,7 +4210,7 @@ L2:
 int32
 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
        logical *found) {
-    /* Local variables */
+    (void) rap;
     int64 nars;
 
     int64 labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
@@ -4286,8 +4286,7 @@ findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
 }
 
 int32
-readlb(const iap_type *iap, const rap_type *rap, double *u, double *par) {
-    /* Local variables */
+readlb(double *u, double *par) {
     int64 labr, ndim, ibrr, itpr, iswr, i;
     double t;
     int64 nparr, nfprr, n1, n2, ntotr, nskipr, ntplrs, nar;
@@ -4322,7 +4321,7 @@ readlb(const iap_type *iap, const rap_type *rap, double *u, double *par) {
     }
 
     return 0;
-} /* readlb_ */
+}
 
 int32
 skip3(int64 *nskip, logical *eof3) {
