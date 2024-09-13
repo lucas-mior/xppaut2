@@ -188,20 +188,14 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     ndm = ndim;
 
     if (nbc != 0) {
-
         nbc0 = nbc;
-
     } else {
-
         nbc0 = 1;
     }
 
     if (nint != 0) {
-
         nnt0 = nint;
-
     } else {
-
         nnt0 = 1;
     }
 
