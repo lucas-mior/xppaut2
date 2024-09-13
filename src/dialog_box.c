@@ -166,6 +166,7 @@ display_dialog(Window w, DIALOG d, int32 pos, int32 col) {
         put_cursor_at(w, col, 0);
         /* showchar('_',DCURX*strlen(d.input_s),0,d.input); */
     }
+    return;
 }
 /*  Uses Dialog boxes for input of numbers  */
 /*
