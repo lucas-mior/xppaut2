@@ -90,7 +90,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
 void
 do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         int32 *ierr, float *stabinfo) {
-    int32 kmem, i, j, ipivot[MAX_ODE];
+    int32 kmem, j, ipivot[MAX_ODE];
     int32 oldcol, dummy;
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
     int32 pose = 0, nege = 0, pr;
@@ -109,7 +109,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     }
     ShootICFlag = 0;
     ShootIndex = 0;
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         old_x[i] = x[i];
     oldwork = work + n*n;
     eval = oldwork + n*n;
@@ -120,19 +120,19 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     if (*ierr != 0) {
         free(work);
         err_msg("Could not converge to root");
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             x[i] = old_x[i];
         return;
     }
     DING;
     /* for(i=0;i<n;i++)xl[i]=(float)x[i]; */
 
-    for (i = 0; i < n*n; i++) {
+    for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
         /* plintf("dm=%g\n",oldwork[i]); */
     }
     /* Transpose for Eigen        */
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
             temp = work[i + j*n];
             work[i + j*n] = work[i*n + j];
@@ -156,7 +156,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         plintf("\n Eigenvalues:\n");
         pr = 1;
     }
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         real = eval[2*i];
         imag = eval[2*i + 1];
         if (pr == 1) {
@@ -213,7 +213,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     *stabinfo = (float)(cp + rp) + (float)(cn + rn) / 1000.0;
 
     /* Lets change Work back to transposed oldwork */
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         for (j = i + 1; j < n; j++) {
             temp = oldwork[i + j*n];
             work[i + j*n] = oldwork[i*n + j];
