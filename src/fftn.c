@@ -191,7 +191,7 @@ eg, something like -D__FILE__=\"fftn.c\"
 
 /*{{{ static parameters - for memory management */
 static size_t SpaceAlloced = 0;
-static size_t MaxPermAlloced = 0;
+static long MaxPermAlloced = 0;
 
 /* temp space, (void *) since both float and double routines use it */
 static void *Tmp0 = NULL;  /* temp space for real part */
