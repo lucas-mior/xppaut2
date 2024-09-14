@@ -454,8 +454,8 @@ get_eqn(FILE *fptr) {
     NCON_ORIG = NCON;
     NSYM_ORIG = NSYM;
     NEQ_MIN = NEQ;
-    xppvermaj = (float)MYSTR1;
-    xppvermin = (float)MYSTR2;
+    xppvermaj = (float)MAJOR_VERSION;
+    xppvermin = (float)MINOR_VERSION;
     plintf("Used %d constants and %d symbols \n", NCON, NSYM);
     plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n", xppvermaj,
            xppvermin);

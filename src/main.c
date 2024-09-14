@@ -411,8 +411,8 @@ do_main(int32 argc, char **argv) {
 
     if (disc(this_file))
         METHOD = 0;
-    xppvermaj = (float)MYSTR1;
-    xppvermin = (float)MYSTR2;
+    xppvermaj = (float)MAJOR_VERSION;
+    xppvermin = (float)MINOR_VERSION;
     if (strlen(this_file) < 60)
         snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj,
                  xppvermin, this_file);
