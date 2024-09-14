@@ -1384,7 +1384,7 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
 void
 traverse_out(DIAGRAM *d, int32 *ix, int32 *iy, int32 dodraw) {
     double norm, per, *par, par1, par2 = 0, *evr, *evi;
-    int32 pt, itp, ibr, lab, icp1, icp2, flag2;
+    int32 pt, itp, ibr, lab, icp1, icp2;
     double x, y1, y2;
     char symb[3];
     if (d == NULL) {
@@ -1400,7 +1400,6 @@ traverse_out(DIAGRAM *d, int32 *ix, int32 *iy, int32 dodraw) {
     ibr = d->ibr;
     icp1 = d->icp1;
     icp2 = d->icp2;
-    flag2 = d->flag2;
     pt = d->ntot;
 
     evr = d->evr;
