@@ -251,7 +251,7 @@ write_info_out(void) {
 void
 load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     DIAGRAM *d;
-    int32 type, i, j, pt;
+    int32 i, j, pt;
     /*int32 flag=0;
      */
     int32 icp1, icp2;
@@ -272,7 +272,6 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
         return;
     j = 0;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
         pt = abs(d->ntot);
         if ((d->ibr == ibr) && (pt >= first) && (pt <= last)) {
             icp1 = d->icp1;
