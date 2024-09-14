@@ -178,9 +178,7 @@ scale_aplot(APLOT *ap, double *zmax, double *zmin) {
     *zmin = *zmax;
     for (i = 0; i < ap->nacross / ap->ncskip; i++) {
         ib = col0 + i*ap->ncskip;
-        if (ib <= my_browser.maxcol)
-            ;
-        {
+        if (ib <= my_browser.maxcol) {
             for (j = 0; j < ap->ndown; j++) {
                 jb = row0 + ap->nskip*j;
                 if (jb < nrows && jb >= 0) {
