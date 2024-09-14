@@ -181,14 +181,6 @@ show_position(XEvent ev) {
 }
 
 void
-gpos_prn(char *string, int32 row, int32 col) {
-    clr_command();
-    Ftext(0, row * DCURY, string, command_pop);
-    CURS_X = strlen(string);
-    return;
-}
-
-void
 put_command(char *string) {
     clr_command();
     Ftext(0, 0, string, command_pop);

@@ -2574,7 +2574,6 @@ void gputs(char *string, Window win);
 void err_msg(char *string);
 int32 plintf(char *fmt, ...);
 int32 show_position(XEvent ev);
-void gpos_prn(char *string, int32 row, int32 col);
 void put_command(char *string);
 int32 get_key_press(XEvent *ev);
 void cput_text(void);
