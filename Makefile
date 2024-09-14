@@ -7,6 +7,7 @@ CC ?= gcc
 
 CFLAGS = -D_DEFAULT_SOURCE -std=c99
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
+CFLAGS = -Wno-format-truncation
 CFLAGS += -I./src/ -I./bitmaps/ -I./ -I./src/cvode/
 CFLAGS += -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION)
 CFLAGS += -DNOERRNO -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
