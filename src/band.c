@@ -123,7 +123,7 @@ bandalloc(int64 n, int64 smu, int64 ml) {
         return NULL;
 
     colSize = smu + ml + 1;
-    a[0] = malloc(n*colSize*sizeof(double));
+    a[0] = malloc(n*colSize*sizeof(*(a[0])));
     if (a[0] == NULL) {
         free(a);
         return NULL;

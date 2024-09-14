@@ -360,10 +360,10 @@ add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
     while (z->n != NULL) {
         z = (z->n);
     }
-    z->xn = malloc(4*nmx*sizeof(float));
+    z->xn = malloc(4*nmx*sizeof(*(z->xn)));
     for (i = 0; i < 4*nmx; i++)
         z->xn[i] = xn[i];
-    z->yn = malloc(4*nmy*sizeof(float));
+    z->yn = malloc(4*nmy*sizeof(*(z->yn)));
     for (i = 0; i < 4*nmy; i++)
         z->yn[i] = yn[i];
     z->nmx = nmx;

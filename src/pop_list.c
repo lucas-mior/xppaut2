@@ -134,7 +134,7 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
     hgt = hw * (nw + 1);
     len = hgt - 6;
     sb->base = (Window)make_plain_window(root, x0, y0, wid, hgt, 2);
-    sb->w = malloc(nw*sizeof(Window));
+    sb->w = malloc(nw*sizeof(*(sb->w)));
     for (int32 i = 0; i < nw; i++)
         sb->w[i] = make_window(sb->base, 1, hw / 2 + i*hw, ww, DCURYs, 0);
     sb->i0 = 0;
@@ -1121,7 +1121,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     p.key = key;
     p.hot = def;
     value = (int32)key[def];
-    p.w = malloc(n*sizeof(Window));
+    p.w = malloc(n*sizeof(*(p.w)));
     p.tit = make_window(w, 0, 0, width, DCURY + 7, 0);
     for (i = 0; i < n; i++) {
         p.w[i] = make_window(w, DCURX, DCURY + 10 + i * (DCURY + 6),

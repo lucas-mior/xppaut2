@@ -935,10 +935,10 @@ fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
     /* n2=length/2;*/
 
     dim[0] = length;
-    re1 = malloc(length*sizeof(double));
-    im1 = malloc(length*sizeof(double));
-    re2 = malloc(length*sizeof(double));
-    im2 = malloc(length*sizeof(double));
+    re1 = malloc(length*sizeof(*(re1)));
+    im1 = malloc(length*sizeof(*(im1)));
+    re2 = malloc(length*sizeof(*(re2)));
+    im2 = malloc(length*sizeof(*(im2)));
 
     for (i = 0; i < length; i++) {
         im1[i] = 0.0;
@@ -981,8 +981,8 @@ fft(float *data, float *ct, float *st, int32 nmodes, int32 length) {
     double *im, *re;
     int32 dim[2], i;
     dim[0] = length;
-    re = malloc(length*sizeof(double));
-    im = malloc(length*sizeof(double));
+    re = malloc(length*sizeof(*(re)));
+    im = malloc(length*sizeof(*(im)));
     for (i = 0; i < length; i++) {
         im[i] = 0.0;
         re[i] = data[i];

@@ -1683,8 +1683,8 @@ make_box_list_window(BoxList *b, int32 type) {
     class_hints.res_class = "";
     XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints,
                      NULL, &class_hints);
-    b->w = malloc(nrow*sizeof(Window));
-    b->we = malloc(nrow*sizeof(Window));
+    b->w = malloc(nrow*sizeof(*(b->w)));
+    b->we = malloc(nrow*sizeof(*(b->we)));
     if (type == ICBOX) {
         b->ck = malloc(nrow*sizeof(Window));
         b->isck = malloc(n*sizeof(int32));
@@ -1774,8 +1774,8 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
     b->n0 = 0;
     b->nwin = nrow;
     b->value = malloc(n*sizeof(char *));
-    b->pos = malloc(n*sizeof(int32));
-    b->off = malloc(n*sizeof(int32));
+    b->pos = malloc(n*sizeof(*(b->pos)));
+    b->off = malloc(n*sizeof(*(b->off)));
     b->iname = malloc(strlen(iname) + 5);
     strcpy(b->iname, iname);
     b->wname = malloc(strlen(wname) + 5);

@@ -292,7 +292,7 @@ GetEvents(Model_t *m) {
     char big[256];
     EVENT *x;
     n = Model_getNumEvents(m);
-    event = malloc(n * sizeof(EVENT));
+    event = malloc(n * sizeof(*(event)));
     Nevent = n;
     if (n == 0)
         return;
@@ -386,7 +386,7 @@ GetReaction(Model_t *m, uint32 level, uint32 version) {
     char *name, *id;
     double value, st;
     Nrxn = n;
-    rxn = malloc(n * sizeof(RXN));
+    rxn = malloc(n * sizeof(*(rxn)));
     for (i = 0; i < n; i++) {
         r = Model_getReaction(m, i);
         if (Reaction_isSetKineticLaw(r)) {
@@ -578,7 +578,7 @@ GetSpecies(Model_t *pModel, uint32 level, uint32 version) {
     int32 i;
     Species_t *pSpecies;
 
-    X_spec = malloc(n * sizeof(SPECIES));
+    X_spec = malloc(n * sizeof(*(X_spec)));
     N_spec = n;
     for (i = 0; i < n; i++) {
         pSpecies = Model_getSpecies(pModel, i);
@@ -736,7 +736,7 @@ GetListRule(Model_t *pModel, uint32 unSBMLLevel, uint32 unSBMLVersion) {
     Rule_t *pRule;
     int32 i;
     Nrule = n;
-    rule = malloc(n * sizeof(RULE));
+    rule = malloc(n * sizeof(*(rule)));
 
     for (i = 0; i < n; i++) {
         /* determine the values */

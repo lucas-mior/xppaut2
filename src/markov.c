@@ -219,7 +219,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     }
 
     markov[j].nstates = nstates;
-    markov[j].states = malloc(nstates*sizeof(double));
+    markov[j].states = malloc(nstates*sizeof(*(markov[j].states)));
     if (type == 0) {
         markov[j].trans = malloc(n2*sizeof(char *));
         markov[j].command = malloc(n2*sizeof(int32 *));
@@ -380,9 +380,9 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     double *y, *yp, *yold;
     int32 ir, iy;
 
-    y = malloc(n*sizeof(double));
-    yold = malloc(n*sizeof(double));
-    yp = malloc(n*sizeof(double));
+    y = malloc(n*sizeof(*(y)));
+    yold = malloc(n*sizeof(*(yold)));
+    yp = malloc(n*sizeof(*(yp)));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
     rhs_only(yold);

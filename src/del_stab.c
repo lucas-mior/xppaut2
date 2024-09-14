@@ -39,14 +39,14 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 kmem = n * (2*n + 5) + 50, i, j, k, okroot;
 
     double *ev;
-    ev = malloc(2*n*sizeof(double));
+    ev = malloc(2*n*sizeof(*(ev)));
     for (i = 0; i < (2*n); i++)
         ev[i] = 0.0;
     /* first we establish how many delays there are */
     del_stab_flag = 0;
     for (i = 0; i < n; i++)
         old_x[i] = x[i];
-    work = malloc(kmem*sizeof(double));
+    work = malloc(kmem*sizeof(*(work)));
     rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         del_stab_flag = 1;
@@ -65,7 +65,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     }
     free(work);
     /*  plintf(" Found %d delays \n",NDelay); */
-    coef = malloc(n*n * (NDelay + 1) * sizeof(double));
+    coef = malloc(n*n * (NDelay + 1) * sizeof(*(coef)));
 
     /* now we must compute a bunch of jacobians  */
     /* first the normal one   */

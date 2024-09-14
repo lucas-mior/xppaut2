@@ -75,7 +75,7 @@ void update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s,
 void allocsum(int n) {
     if (allocflag == 1)
         return;
-    sum = malloc(n * sizeof(real));
+    sum = malloc(n * sizeof(*(sum)));
     allocflag = 1;
 }
 void ML(int nn, int ivar, double *par, double *var, double *z[50],

@@ -258,7 +258,7 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(uchar));
+    buffer = malloc((BUFLEN + 1) * sizeof(*(buffer)));
     buffer += 1;
 
     pos = buffer;
@@ -340,7 +340,7 @@ make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(uchar));
+    buffer = malloc((BUFLEN + 1) * sizeof(*(buffer)));
     buffer += 1;
 
     pos = buffer;

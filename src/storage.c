@@ -28,7 +28,7 @@ init_alloc_info(void) {
     int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
-    xpv.x = malloc((xpv.nvec + xpv.node) * sizeof(double));
+    xpv.x = malloc((xpv.nvec + xpv.node) * sizeof(*(xpv.x)));
     for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
     return;
@@ -56,7 +56,7 @@ alloc_meth(void) {
     }
     if (WORK)
         free(WORK);
-    WORK = malloc(sz*sizeof(double));
+    WORK = malloc(sz*sizeof(*(WORK)));
     return;
 }
 

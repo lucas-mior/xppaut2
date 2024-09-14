@@ -7228,13 +7228,13 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     double *at, *a, *z, *wr, *wi, *fv1;
     int32 i, j, k, kt, *iv1, ier;
     double eps = 1e-8;
-    at = malloc(n*n*sizeof(double));
-    a = malloc(n*n*sizeof(double));
-    z = malloc(n*n*sizeof(double));
-    wr = malloc(n*sizeof(double));
-    wi = malloc(n*sizeof(double));
-    fv1 = malloc(n*sizeof(double));
-    iv1 = malloc(n*sizeof(int32));
+    at = malloc(n*n*sizeof(*(at)));
+    a = malloc(n*n*sizeof(*(a)));
+    z = malloc(n*n*sizeof(*(z)));
+    wr = malloc(n*sizeof(*(wr)));
+    wi = malloc(n*sizeof(*(wi)));
+    fv1 = malloc(n*sizeof(*(fv1)));
+    iv1 = malloc(n*sizeof(*(iv1)));
     printf("I am here \n");
 
     for (i = 0; i < n; i++) {

@@ -1524,12 +1524,12 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
         return 1;
     my_ani[n_anicom].type = type;
     my_ani[n_anicom].flag = aniflag;
-    my_ani[n_anicom].x1 = malloc(256*sizeof(int32));
-    my_ani[n_anicom].y1 = malloc(256*sizeof(int32));
-    my_ani[n_anicom].x2 = malloc(256*sizeof(int32));
-    my_ani[n_anicom].y2 = malloc(256*sizeof(int32));
-    my_ani[n_anicom].col = malloc(256*sizeof(int32));
-    my_ani[n_anicom].who = malloc(256*sizeof(int32));
+    my_ani[n_anicom].x1 = malloc(256*sizeof(*(my_ani[n_anicom].x1)));
+    my_ani[n_anicom].y1 = malloc(256*sizeof(*(my_ani[n_anicom].y1)));
+    my_ani[n_anicom].x2 = malloc(256*sizeof(*(my_ani[n_anicom].x2)));
+    my_ani[n_anicom].y2 = malloc(256*sizeof(*(my_ani[n_anicom].y2)));
+    my_ani[n_anicom].col = malloc(256*sizeof(*(my_ani[n_anicom].col)));
+    my_ani[n_anicom].who = malloc(256*sizeof(*(my_ani[n_anicom].who)));
     switch (type) {
     case AXNULL:
     case AYNULL:
@@ -1752,9 +1752,9 @@ add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
     if (err)
         return -1;
     a->c.n = n;
-    a->c.x = malloc(n*sizeof(int32));
-    a->c.y = malloc(n*sizeof(int32));
-    a->c.col = malloc(n*sizeof(int32));
+    a->c.x = malloc(n*sizeof(*(a->c.x)));
+    a->c.y = malloc(n*sizeof(*(a->c.y)));
+    a->c.col = malloc(n*sizeof(*(a->c.col)));
     a->c.i = 0;
     return 1;
 }
