@@ -56,7 +56,7 @@
 
 extern int32 COLOR;
 extern uint32 GrFore, GrBack;
-/*extern char this_file[100];*/
+
 extern char this_file[XPP_MAX_NAME];
 extern Display *display;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
