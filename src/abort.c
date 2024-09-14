@@ -42,6 +42,8 @@ my_abort(void) {
         case KeyPress:
             ch = get_key_press(&event);
             return ch;
+        default:
+            break;
         }
         return 0;
     }
