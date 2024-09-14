@@ -40,10 +40,10 @@ typedef struct {
 typedef struct {
     char *rhs;
     int32 *form;
-} DAE_EQN;
+} DaeEqn;
 
 SolVar svar[MAXDAE];
-DAE_EQN aeqn[MAXDAE];
+DaeEqn aeqn[MAXDAE];
 
 int32 nsvar = 0, naeqn = 0;
 
