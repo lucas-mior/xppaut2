@@ -207,7 +207,7 @@ void
 ps_put_char(int32 ch, double *x, double *y) {
     double xp = *x, yp = *y;
     char str[4];
-    str[0] = ch;
+    str[0] = (char)ch;
     str[1] = '\0';
     ps_text2(str, xp, yp, 0);
     return;
@@ -244,6 +244,8 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
     case 3: /* right edge */
         fprintf(my_plot_file,
                 "(%s) dup stringwidth pop  0 rmoveto show \n grestore\n", str);
+        break;
+    default:
         break;
     }
     return;
@@ -328,6 +330,9 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
         else
             b = (double)sqrt((double)(4*(fill - .5)*(1.5 - fill)));
         break;
+    default:
+        fprintf(stderr, "ps_rgb_bar: rgb is neither 0 nor 1.\n");
+        exit(EXIT_FAILURE);
     }
     fprintf(my_plot_file, "%f %f %f RGB\n", r, g, b);
     ps_convert(x, y, &x1, &y1);
