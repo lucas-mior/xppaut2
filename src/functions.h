@@ -222,6 +222,9 @@ typedef struct {
     char xtitle[256], ytitle[256], filename[256], bottom[256];
     int32 type;
 } APLOT;
+
+extern int32 aplot_range;
+
 void set_acolor(int32);
 void tag_aplot(char *);
 void close_aplot_files(void);
