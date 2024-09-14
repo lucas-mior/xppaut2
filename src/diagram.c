@@ -256,7 +256,7 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
      */
     int32 icp1;
     double *par;
-    double par1, *u0, per;
+    double par1, *u0;
     int32 first, last, nrows;
     first = abs(pts);
     last = abs(pte);
@@ -276,7 +276,6 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
         if ((d->ibr == ibr) && (pt >= first) && (pt <= last)) {
             icp1 = d->icp1;
             par = d->par;
-            per = d->per;
             u0 = d->u0;
 
             par1 = par[icp1];
@@ -298,13 +297,13 @@ write_init_data_file(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     DIAGRAM *d;
-    int32 type, i;
+    int32 i;
     /*int32 flag=0;
      */
     int32 status;
     int32 icp1, icp2;
     double *par;
-    double par1, par2 = 0, *u0, per;
+    double par1, *u0, per;
     /*double a,*uhigh,*ulow,*ubar;*/
     FILE *fp;
     sprintf(filename, "initdata.dat");
@@ -324,8 +323,6 @@ write_init_data_file(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
-
         /*if(d->ntot==1)flag=0;
         else flag=1;
         Unused here?
@@ -348,10 +345,6 @@ write_init_data_file(void) {
         Unused here??
         */
         par1 = par[icp1];
-        if (icp2 < NAutoPar)
-            par2 = par[icp2];
-        else
-            par2 = par1;
 
         /* fprintf(fp,"%d %d %g %g %g ",
            type,d->ibr,par1,par2,per); */
