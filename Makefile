@@ -20,6 +20,7 @@ all: $(TARGET)
 
 clang: C = clang
 clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
+clang: CFLAGS += -Wno-sign-conversion
 clang: all
 
 gcc: C = gcc

@@ -134,7 +134,7 @@ create_transpose(void) {
     for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
         my_trans.data[i] = storage[i];
     for (int32 j = 0; j < my_trans.ncol; j++)
-        my_trans.data[0][j] = j + 1;
+        my_trans.data[0][j] = (float)(j + 1);
 
     for (int32 i = 0; i < my_trans.ncol; i++) {
         incol = my_trans.col0 - 1 + i*my_trans.colskip;
