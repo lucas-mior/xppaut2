@@ -8,9 +8,7 @@
 #include "integers.h"
 
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /*    Floquet Multiplier Computation (Tom Fairgrieve, U. of Toronto) */
-/* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*  References: */
 /*  T. F. Fairgrieve, PhD Thesis, University of Toronto, 1994. */
@@ -22,13 +20,11 @@
 /*  Mailing Address: T.F. Fairgrieve, Department of Computer Science, */
 /*  University of Toronto, Toronto, Ontario, CANADA  M5S 1A4C */
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /*  Routines included in this file: */
 
 /*  subroutine flowkm : new routine to compute floquet multipliers */
 /*  subroutine dhhpr  : compute a Householder matrix */
 /*  subroutine dhhap  : appy a Householder matrix */
-/* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*  Required library routines (included in the file eispack.f) : */
 
@@ -36,7 +32,6 @@
 /* subroutine qzit   : QZ reduction to quasi-upper triangular form (EISPACK)*/
 /* subroutine qzval  : QZ calculation of eigenvalues               (EISPACK)*/
 /* function   epslon : machine constant routine                    (EISPACK)*/
-/* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /* function   dnrm2  : compute l2-norm of a vector                 (BLAS-1)*/
 /* function   ddot   : dot product of two vectors                  (BLAS-1)*/
@@ -46,18 +41,14 @@
 /* subroutine drot   : apply a plane rotation                      (BLAS-1)*/
 /* subroutine dswap  : swap two vectors                            (BLAS-1)*/
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /*  subroutine dgemc  : matrix-matrix copy */
 /* subroutine xerbla : BLAS error handling routine                 (BLAS-2)*/
 /* function   lsame  : compare character strings                   (BLAS-2)*/
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /* subroutine dgemm  : matrix-matrix multiply                      (BLAS-3)*/
-/* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 /*  subroutines ezsvd, ndrotg, ndsvd, prse, sig22, sigmin, sndrtg : */
 /*                      Demmel-Kahan svd routines */
-/* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
 
 /* Subroutine */ int32
@@ -367,7 +358,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     return 0;
 
-} /* flowkm_ */
+}
 
 /* ************************** */
 /* *  Householder routines  * */
@@ -526,7 +517,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 
     /*     End of DHHPR. */
 
-} /* dhhpr_ */
+}
 
 /* Subroutine */ int32
 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
@@ -690,4 +681,4 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
 
     /*     End of DHHAP. */
 
-} /* dhhap_ */
+}
