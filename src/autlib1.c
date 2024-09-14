@@ -6653,7 +6653,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     int64 iab, lab, ibr, ndm;
     double amp;
-    int64 ips, itp, irs, npr, isw, nmx;
+    int64 ips, itp, npr, isw, nmx;
     double umx[7];
 
     /* Writes the bifurcation diagram on unit 7 (Differential Equations) */
@@ -6689,7 +6689,6 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     ndim = iap->ndim;
     ips = iap->ips;
-    irs = iap->irs;
     isw = iap->isw;
     iplt = iap->iplt;
     nmx = iap->nmx;
