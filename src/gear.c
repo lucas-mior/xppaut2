@@ -1655,14 +1655,14 @@ sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
         return;
     }
     for (k = 1; k <= n; k++) {
-        t = sdot(k - 1, (a + k - 1), lda, b, 1);
+        t = sdot(k - 1, (a + k - 1), lda, 1);
         b[k - 1] = (b[k - 1] - t) / a[(k - 1) * lda + k - 1];
     }
     if (nm1 > 0) {
         for (kb = 1; kb <= nm1; kb++) {
             k = n - kb;
             b[k - 1] =
-                b[k - 1] + sdot(n - k, (a + k*lda + k - 1), lda, b + k, 1);
+                b[k - 1] + sdot(n - k, (a + k*lda + k - 1), lda, 1);
             l = ipvt[k - 1];
             if (l != (k - 1)) {
                 t = b[l];
@@ -1725,7 +1725,7 @@ isamax(int32 n, double *sx, int32 incx) {
 }
 
 double
-sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy) {
+sdot(int32 n, double *sx, int32 incx, int32 incy) {
     int32 i, ix, iy;
     double stemp = 0.0;
     if (n <= 0)

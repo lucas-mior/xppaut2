@@ -2545,7 +2545,7 @@ void sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
 void sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job);
 void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
 int32 isamax(int32 n, double *sx, int32 incx);
-double sdot(int32 n, double *sx, int32 incx, double *sy, int32 incy);
+double sdot(int32 n, double *sx, int32 incx, int32 incy);
 void sscal(int32 n, double sa, double *sx, int32 incx);
 void save_batch_shoot(void);
 
