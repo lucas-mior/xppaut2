@@ -319,7 +319,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
 
 void
 save_batch_shoot(void) {
-    int32 i, k, type, oldcol, dummy;
+    int32 i, k, type;
     double x[MAX_ODE], olddt;
     char name[256];
     FILE *fp;
@@ -393,7 +393,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     int32 kmem, i, j, ipivot[MAX_ODE];
 
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
-    int32 pose = 0, nege = 0, pr = 0;
+    int32 pose = 0, nege = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAX_ODE];
 

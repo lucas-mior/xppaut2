@@ -873,7 +873,6 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     /*int32 window_size,com;
      */
 
-    int32 com;
     char ch;
 
     int32 used = 0;
@@ -1467,13 +1466,6 @@ void
 getGC(GC *gc) {
     uint32 valuemask = 0;
     XGCValues values;
-    uint32 lw = 6;
-    int32 ls = LineOnOffDash;
-    int32 cs = CapRound;
-    int32 js = JoinRound;
-    int32 dash_off = 0;
-    static char dash[] = {12, 24};
-    int32 ll = 2;
     *gc = XCreateGC(display, main_win, valuemask, &values);
     XSetForeground(display, *gc, MyForeColor);
     /* XSetLineAttributes(display,*gc,lw,ls,cs,js);

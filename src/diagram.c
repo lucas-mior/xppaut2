@@ -254,7 +254,6 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     int32 type, i, j, pt;
     /*int32 flag=0;
      */
-    int32 status;
     int32 icp1, icp2;
     double *par;
     double par1, par2 = 0, *u0, per;
