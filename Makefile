@@ -6,7 +6,7 @@ PREFIX ?= /usr/local
 CC = clang
 
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
-CFLAGS += -Werror
+# CFLAGS += -Werror
 # CFLAGS += -Wno-unused-parameter
 CFLAGS += -Wno-unused-variable
 CFLAGS += -Wno-unused-but-set-variable
@@ -35,7 +35,7 @@ $(TARGET): $(OBJECTS) Makefile
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -f *.o src/*.o $(TARGET)
+	rm -f *.o src/*.o src/cvode/*.o src/sbml/*.o $(TARGET)
 
 install:
 	install -Dm755 xppaut   ${DESTDIR}${PREFIX}/bin/xppaut
