@@ -45,9 +45,9 @@ ping(void) {
 
         XkbBell(display, command_pop, 100, (Atom)NULL);
     }
-    /* Call to XBell seems to be ignored by many window managers where XkbBell
-    is not. if(tfBell&&!XPPBatch) XBell(display,100);
-   */
+    /* Call to XBell seems to be ignored by many window managers
+     * where XkbBell is not. if(tfBell&&!XPPBatch) XBell(display,100); */
+    return;
 }
 
 void
