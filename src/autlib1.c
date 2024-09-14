@@ -6130,7 +6130,7 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     double rdsz;
     int64 ntot, ntst, i, j;
 
-    int64 iid, ibr, isp;
+    int64 iid, ibr;
 
     /* RETURNS A QUANTITY THAT CHANGES SIGN AT A LIMIT POINT (BVP) */
 
@@ -6140,7 +6140,6 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     ndim = iap->ndim;
     ntst = iap->ntst;
     ncol = iap->ncol;
-    isp = iap->isp;
     iid = iap->iid;
     nfpr = iap->nfpr;
     ibr = iap->ibr;
