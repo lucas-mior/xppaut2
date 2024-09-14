@@ -122,12 +122,6 @@ icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
     (void) icp;
     (void) par;
     (void) ndim;
-    double dum = 0.0;
-    /*
-   for(i=0;i<Homo_n;i++)
-     dum+=upold[i]*(u[i]-uold[i]);
-   fi[0]=dum;
-    */
     return 0;
 }
 
