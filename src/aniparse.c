@@ -230,10 +230,6 @@ extern char anifile[256];
 
 */
 
-#define MYMASK                                                                 \
-    (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \
-     StructureNotifyMask | LeaveWindowMask | EnterWindowMask)
-
 void
 new_vcr(void) {
     int32 tt, i;
@@ -1486,6 +1482,8 @@ parse_ani_string(char *s, FILE *fp) {
             return -1;
         strcpy(x4, nxt);
         break;
+    default:
+        break;
     }
 
     if (type == END)
@@ -1581,6 +1579,8 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
         break;
     case SETTEXT:
         err = add_ani_settext(&my_ani[n_anicom], x1, y1, col);
+        break;
+    default:
         break;
     }
     if (err < 0) {
@@ -2025,6 +2025,8 @@ render_ani(void) {
                 eval_ani_com(i);
             draw_ani_fcirc(i);
             break;
+        default:
+            break;
         }
     }
     if (show_grab_points == 1)
@@ -2097,6 +2099,8 @@ eval_ani_com(int32 j) {
         break;
     case VTEXT:
         my_ani[j].zval = evaluate(my_ani[j].x2);
+        break;
+    default:
         break;
     }
 
@@ -2408,7 +2412,7 @@ draw_ani_text(int32 j) {
     int32 i1, j1;
     ani_xyscale(x1, y1, &i1, &j1);
     s = (char *)my_ani[j].y2;
-    n = strlen(s);
+    n = (int32)strlen(s);
     XDrawString(display, ani_pixmap, ani_gc, i1, j1, s, n);
     return;
 }
@@ -2422,7 +2426,7 @@ draw_ani_vtext(int32 j) {
     int32 i1, j1;
     s = (char *)my_ani[j].y2;
     snprintf(s2, sizeof(s2), "%s%g", s, my_ani[j].zval);
-    n = strlen(s2);
+    n = (int32)strlen(s2);
     ani_xyscale(x1, y1, &i1, &j1);
     XDrawString(display, ani_pixmap, ani_gc, i1, j1, s2, n);
     return;
@@ -2470,7 +2474,7 @@ read_ani_line(FILE *fp, char *s) {
         ok = 0;
         fgets(temp, 256, fp);
         /*nn=strlen(temp)+1;Not used*/
-        n = strlen(temp);
+        n = (int32)strlen(temp);
         for (i = n - 1; i >= 0; i--) {
             if (temp[i] == '\\') {
                 ok = 1;
@@ -2481,7 +2485,7 @@ read_ani_line(FILE *fp, char *s) {
             temp[ihat] = 0;
         strcat(s, temp);
     }
-    n = strlen(s);
+    n = (int32)strlen(s);
     if (s[n - 1] == '\n')
         s[n - 1] = ' ';
     s[n] = ' ';
@@ -2491,7 +2495,7 @@ read_ani_line(FILE *fp, char *s) {
 
 void
 de_space(char *s) {
-    int32 n = strlen(s);
+    int32 n = (int32)strlen(s);
     int32 i, j = 0;
     char ch;
     for (i = 0; i < n; i++) {
@@ -2566,7 +2570,7 @@ info_grab_stuff(void) {
 int32
 ani_grab_tasks(char *line, int32 igrab, int32 which) {
     int32 i, k;
-    int32 n = strlen(line);
+    int32 n = (int32)strlen(line);
     char form[256], c;
     char rhs[256], lhs[20];
     k = 0;
