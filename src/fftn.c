@@ -164,8 +164,8 @@
  *	  files where is will always be available.
  * ----------------------------------------------------------------------*/
 /*}}}*/
-#ifndef _FFTN_C
-#define _FFTN_C
+#ifndef FFTN_C
+#define FFTN_C
 /* we use CPP to re-include this same file for double/float cases
 #if !defined (lint) && !defined (__FILE__)
 Error: your compiler is sick!  define __FILE__ yourself (a string)

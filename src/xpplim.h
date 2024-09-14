@@ -1,5 +1,5 @@
-#ifndef _xpplim_h_
-#define _xpplim_h_
+#ifndef xpplim_h_
+#define xpplim_h_
 
 #define MAX_ODE 5000
 #define MAX_ODE1 4999

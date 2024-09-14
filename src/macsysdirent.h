@@ -66,8 +66,8 @@
  * The maximum length of a name in a directory is MAXNAMLEN.
  */
 
-#ifndef _SYS_DIRENT_H
-#define _SYS_DIRENT_H
+#ifndef SYS_DIRENT_H
+#define SYS_DIRENT_H
 
 struct dirent {
     unsigned long d_fileno;  /* file number of entry */

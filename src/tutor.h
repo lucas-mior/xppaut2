@@ -1,5 +1,5 @@
-#ifndef _tutor_h_
-#define _tutor_h_
+#ifndef tutor_h_
+#define tutor_h_
 
 /*
 When adding items try to keep to the format of using a strong _verb_ to

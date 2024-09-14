@@ -1,5 +1,5 @@
-#ifndef _newpars_h
-#define _newpars_h
+#ifndef newpars_h
+#define newpars_h
 #include "integers.h"
 
 /*#define LPAREN 1

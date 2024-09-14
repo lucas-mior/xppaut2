@@ -1,5 +1,5 @@
-#ifndef _parser_h_
-#define _parser_h_
+#ifndef parser_h_
+#define parser_h_
 #include "integers.h"
 
 #include "volterra.h"

@@ -1,5 +1,5 @@
-#ifndef _volterra_h_
-#define _volterra_h_
+#ifndef volterra_h_
+#define volterra_h_
 #include "integers.h"
 
 #define KN_OLD 1

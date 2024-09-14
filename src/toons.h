@@ -1,5 +1,5 @@
-#ifndef _toons_h_
-#define _toons_h_
+#ifndef toons_h_
+#define toons_h_
 
 char *toons[] = {"Popeye the Sailor",
                  "Betty Boop",

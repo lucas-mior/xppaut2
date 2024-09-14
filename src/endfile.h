@@ -1,5 +1,5 @@
-#ifndef _endfile_h_
-#define _endfile_h_
+#ifndef endfile_h_
+#define endfile_h_
 
 #include "integers.h"
 #include "f2c.h"

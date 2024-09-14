@@ -1,5 +1,5 @@
-#ifndef _mykeydef_h_
-#define _mykeydef_h_
+#ifndef mykeydef_h_
+#define mykeydef_h_
 
 #define RIGHT 6
 #define LEFT 2

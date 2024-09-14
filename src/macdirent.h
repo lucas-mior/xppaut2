@@ -54,8 +54,8 @@
  *	@(#)dirent.h	8.2 (Berkeley) 7/28/94
  */
 
-#ifndef _DIRENT_H_
-#define _DIRENT_H_
+#ifndef DIRENT_H_
+#define DIRENT_H_
 #include "integers.h"
 
 /*
@@ -108,7 +108,7 @@ DIR *opendir __P((const char *));
 struct dirent *readdir __P((DIR *));
 void rewinddir __P((DIR *));
 int32 closedir __P((DIR *));
-#ifndef _POSIX_SOURCE
+#ifndef POSIX_SOURCE
 DIR *__opendir2 __P((const char *, int32));
 long telldir __P((const DIR *));
 void seekdir __P((DIR *, long));

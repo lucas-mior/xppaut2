@@ -1,5 +1,5 @@
-#ifndef _phsplan_h
-#define _phsplan_h
+#ifndef phsplan_h
+#define phsplan_h
 #include "integers.h"
 
 /*          This include file has all of the global phaseplane

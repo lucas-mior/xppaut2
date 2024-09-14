@@ -1,5 +1,5 @@
-#ifndef _aniparse_avi_h
-#define _aniparse_avi_h
+#ifndef aniparse_avi_h
+#define aniparse_avi_h
 #include "integers.h"
 #include "X11/Xlib.h"
 #include <stdio.h>

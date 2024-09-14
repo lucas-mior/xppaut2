@@ -1,5 +1,5 @@
-#ifndef _newhome_h_
-#define _newhome_h_
+#ifndef newhome_h_
+#define newhome_h_
 
 /*    This is for the Sparc II running X11 R4 --
       It is not the usual value given in XKeySymbDefs
