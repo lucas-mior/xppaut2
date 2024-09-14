@@ -946,7 +946,7 @@ int32
 getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     XImage *ximage;
     Colormap cmap;
-    unsigned long value;
+    ulong value;
     int32 i;
     int32 CMSK = 0, CSHIFT = 0, CMULT = 0;
     int32 bbp = 0, bbc = 0;
@@ -1024,7 +1024,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     int32 fd;
     XImage *ximage;
     Colormap cmap;
-    unsigned long value;
+    ulong value;
     int32 i;
     int32 CMSK = 0, CSHIFT = 0, CMULT = 0;
     int32 bbp = 0, bbc = 0;

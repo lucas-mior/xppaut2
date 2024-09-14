@@ -45,7 +45,7 @@ double
 pow_di(double *ap, int64 *bp) {
     double pow, x;
     int64 n;
-    unsigned long u;
+    ulong u;
 
     pow = 1;
     x = *ap;
@@ -71,7 +71,7 @@ pow_di(double *ap, int64 *bp) {
 int64
 pow_ii(int64 ap, int64 bp) {
     int64 pow, x, n;
-    unsigned long u;
+    ulong u;
 
     x = ap;
     n = bp;

@@ -79,8 +79,8 @@ efmx(double *in,double *out,int nin,int nout,double *var,double *con)
   double S=in[0],ibar=in[1],isig=in[2],nsig=in[3],tau=in[4];
   double dt=.05;
   int ntrials=(int)in[6],niter=(int)in[5],nstart=(int)(.25*niter),n=(int)in[7];
-  unsigned long start;
-  unsigned long stop;
+  ulong start;
+  ulong stop;
   
   struct timeval timer;
   gettimeofday(&timer,NULL);
