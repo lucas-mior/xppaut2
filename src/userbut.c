@@ -150,8 +150,6 @@ add_user_button(char *s) {
     int32 i;
     for (i = 0; i < nuserbut; i++) {
         if (userbut[i].com == z) {
-            /*		plintf("But=%s:%s already implemented as button
-             * '%s'\n",bname,sc,userbut[i].bname); */
             return;
         }
     }

@@ -320,8 +320,6 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
                 cond = 1;
             }
         }
-        /* plintf(" cond=%d \n condition=%s \n,node=%d\n",
-           cond,condition,NODE);  */
         for (i = 0; i < storind; i++) {
             flag = 1;
             if (cond) {
@@ -473,8 +471,6 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
     d = malloc(sizeof(*d)*win);
     st = malloc(sizeof(*st)*win);
     f = malloc(sizeof(*f)*win);
-    /*  plintf("nr=%d,win=%d,type=%d,data[10]=%g,kwin=%d\n",
-        nr,win,w_type,data[10],kwin); */
     nrmf = 0.0;
     for (i = 0; i < win; i++) {
         x = (float)i / ((float)win);
@@ -568,8 +564,6 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
     pyy = malloc(sizeof(*pyy)*win);
     pxyr = malloc(sizeof(*pxyr)*win);
     pxym = malloc(sizeof(*pxym)*win);
-    /*  plintf("nr=%d,win=%d,type=%d,data[10]=%g,kwin=%d\n",
-        nr,win,w_type,data[10],kwin); */
     nrmwin = 0.0;
     for (i = 0; i < win; i++) {
         x = (float)i / ((float)win);

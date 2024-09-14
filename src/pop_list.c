@@ -371,8 +371,6 @@ set_sbox_item(STRING_BOX *sb, int32 item) {
     if (id < 0)
         return;
     strcpy(sb->value[i], scrbox_list[id].list[item]);
-    /* plintf("setting %d to be %d in list %d \n",
-       i,item, sb->hh[i]); */
     return;
 }
 

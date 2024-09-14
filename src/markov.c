@@ -304,7 +304,6 @@ void
 update_markov(double *x, double t, double dt) {
     int32 i;
     double yp[MAX_ODE];
-    /*  plintf(" NODE=%d x=%g \n",NODE,x[0]); */
     if (NMarkov == 0)
         return;
     set_ivar(0, t);
@@ -332,7 +331,6 @@ new_state(double old, int32 index, double dt) {
     int32 i, ns = markov[index].nstates;
     int32 type = markov[index].type;
     st = markov[index].states;
-    /*  plintf(" old=%g i=%d st=%g\n",old,index,st); */
     for (i = 0; i < ns; i++)
         if (fabs(st[i] - old) < .0001) {
             row = i;
@@ -348,8 +346,6 @@ new_state(double old, int32 index, double dt) {
                 prob = evaluate(markov[index].command[rns + i])*dt;
                 sum = sum + prob;
                 if (coin <= sum) {
-                    /*	   plintf("index %d switched state to %d \n",index,i);
-                     */
                     return st[i];
                 }
             }
@@ -360,8 +356,6 @@ new_state(double old, int32 index, double dt) {
                 prob = markov[index].fixed[rns + i]*dt;
                 sum = sum + prob;
                 if (coin <= sum) {
-                    /*	   plintf("index %d switched state to %d \n",index,i);
-                     */
                     return st[i];
                 }
             }

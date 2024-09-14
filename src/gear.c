@@ -229,11 +229,6 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             oldt = DELTA_T;
 
             if (rp == 1) {
-                /* plintf(" One real positive -- pos=%d lam=%g
-                 * \n",pose,eval[2*pose]);
-                 */
-                /*     for(i=0;i<n*n;i++)printf(" w=%g o=%g
-                 * \n",work[i],oldwork[i]); */
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                          eval[2*pose], ierr);
                 if (*ierr == 0) {
@@ -504,10 +499,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     if ((n > 1)) {
         if (rp == 1) {
-            /* plintf(" One real positive -- pos=%d lam=%g
-             * \n",pose,eval[2*pose]); */
-            /*     for(i=0;i<n*n;i++)printf(" w=%g o=%g \n",work[i],oldwork[i]);
-             */
             get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                      eval[2*pose], ierr);
 
@@ -602,7 +593,6 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
     *ierr = 0;
     for (j = 0; j < n*n; j++) {
         anew[j] = a[j];
-        /*  plintf(" %d %g \n",j,a[j]);   */
     }
     for (j = 0; j < n; j++)
         anew[j*(1 + n)] = anew[j*(1 + n)] - eval - err*err*zz;
@@ -929,7 +919,6 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
             y[i] = y[i] - x[i];
 
     for (i = 0; i < n; i++) {
-        /*    plintf(" y=%g x=%g\n",y[i],x[i]); */
         for (k = 0; k < n; k++)
             xp[k] = x[k];
         r = eps*amax(eps, fabs(x[i]));
@@ -945,7 +934,6 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
         }
         for (j = 0; j < n; j++) {
             dermat[j*n + i] = (yp[j] - y[j]) / r;
-            /*    plintf("dm=%g \n",dermat[j*n+i]); */
         }
     }
     return;
@@ -960,7 +948,6 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
     double r;
     rhs(0.0, x, y, n);
     for (i = 0; i < n; i++) {
-        /*    plintf(" y=%g x=%g\n",y[i],x[i]); */
         for (k = 0; k < n; k++)
             xp[k] = x[k];
         r = eps*amax(eps, fabs(x[i]));
@@ -972,7 +959,6 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
         */
         for (j = 0; j < n; j++) {
             dermat[j + n*i] = (yp[j] - y[j]) / r;
-            /*    plintf("dm=%g \n",dermat[j*n+i]); */
         }
     }
     return;
@@ -1277,8 +1263,6 @@ L330:
     for (l = 0; l < 3; l++) {
         rhs(*t, ytable[0], save11, n);
         if (iweval < 1) {
-            /*  plintf("iweval=%d \n",iweval);
-              for(i=0;i<n;i++)printf("up piv = %d \n",gear_pivot[i]);*/
             goto L460;
         }
         /*       JACOBIAN COMPUTED   */
@@ -1296,11 +1280,7 @@ L330:
         for (i = 0; i < n; i++)
             dermat[n*i + i] += 1.0;
         iweval = -1;
-        /*      plintf(" Jac = %f %f %f %f
-         * \n",dermat[0],dermat[1],dermat[2],dermat[3]);
-         */
         sgefa(dermat, n, n, gear_pivot, &info);
-        /* for(i=0;i<n;i++)printf("gear_pivot[%d]=%d \n",i,gear_pivot[i]);*/
         if (info == -1)
             j1 = 1;
         else

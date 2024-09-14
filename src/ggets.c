@@ -198,7 +198,6 @@ get_key_press(XEvent *ev) {
     XLookupString((XKeyEvent *)ev, buf, maxlen, &ks, &comp);
     /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int32)buf[0],buf[0]); */
 
-    /*    plintf("h=%d e=%d ks=%d \n",XK_Home,XK_End,ks); */
     if (ks == XK_Escape)
         return ESC;
     if ((ks == XK_Return) || (ks == XK_KP_Enter) || (ks == XK_Linefeed))
@@ -517,7 +516,6 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
     clr_line_at(w, col0, 0, strlen(value));
     put_string_at(w, col0, value, 0);
     put_cursor_at(w, col0, *pos);
-    /*  plintf(" on ret %d %d %d %s %d\n",*pos,*col,ch,value,col0);*/
 
     XFlush(display);
     return;

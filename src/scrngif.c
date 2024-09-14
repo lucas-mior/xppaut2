@@ -180,7 +180,6 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     int32 ncol = 0;
 
     int32 ok;
-    /*  plintf("stog !! \n");*/
 
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
     ppm = malloc(w*h*3);

@@ -1171,7 +1171,6 @@ check_for_xpprc(void) {
     sprintf(rc, "%s/.xpprc", getenv("HOME"));
     fp = fopen(rc, "r");
     if (fp == NULL) {
-        /*   plintf("Didnt find rc \n"); */
         return;
     }
     while (!feof(fp)) {

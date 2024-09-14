@@ -439,10 +439,6 @@ set_up_range(void) {
             range.movie = 1;
         else
             range.movie = 0;
-        /* plintf("%s %d %d %d (%d %d) %f %f ",
-              range.item, range.steps,
-              range.reset,range.oldic,range.type,range.index,
-              range.plow,range.phigh); */
         RANGE_FLAG = 1;
         return 1;
     }
@@ -600,11 +596,9 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         fixptlist.flag = 1;
     }
     for (i = 0; i < n; i++) {
-        /*  plintf("Guess:\n"); */
         for (j = 0; j < NODE; j++) {
             x[j] = ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
                    fixptguess.xlo[j];
-            /*      plintf("x[%d]=%g \n",j,x[j]); */
         }
         do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
                      &ierr);
@@ -798,7 +792,6 @@ do_range(double *x,
     ivar = range.index;
 
     res = range.reset;
-    /*  plintf("Reset=%d \n",res); */
     oldic = range.oldic;
     nit = range.steps;
     plow = range.plow;
@@ -911,7 +904,6 @@ do_range(double *x,
                 ierr = -1;
                 break;
             }
-            /*  plintf("storind = %d \n",storind);  */
             if (STOCH_FLAG)
                 append_stoch(i, storind);
 
@@ -1155,7 +1147,6 @@ batch_integrate_once(void) {
     POIEXT = 0;
     storind = 0;
     reset_browser();
-    /*  plintf("batch_range=%d\n",batch_range); */
     if (batch_range == 1 || STOCH_FLAG > 0) {
         reset_dae();
         RANGE_FLAG = 1;
@@ -2297,7 +2288,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             DelayErr = 0;
             break;
         }
-        /*  plintf(" NEQ=%d ieqn = %d \n",NEQ,ieqn); */
         if (ieqn < (NEQ + 1))
             break;
         tv = (float)*t;
@@ -2698,8 +2688,6 @@ comp_color(float *v1, float *v2, int32 n, double dt) {
         sum = sum / (dt);
     }
     cur_color = (int32)((sum - min_scale)*(float)color_total / color_scale);
-    /*  plintf("min=%f max=%f col = %d val = %f \n",min_scale,color_scale,
-            cur_color,sum); */
     if (cur_color < 0)
         cur_color = 0;
     if (cur_color > color_total)

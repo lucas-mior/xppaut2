@@ -1124,7 +1124,6 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         PointType = UPT;
-        /*  plintf("UP: %g %g %g\n",x,y1,y2); */
         point_abs((float)x, (float)y1);
         point_abs((float)x, (float)y2);
         break;
@@ -1137,7 +1136,6 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        /*  plintf("SP: %g %g %g\n",x,y1,y2); */
         PointType = SPT;
         point_abs((float)x, (float)y1);
         point_abs((float)x, (float)y2);

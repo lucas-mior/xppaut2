@@ -1414,9 +1414,6 @@ update_fft(int32 ind) {
             fftr[n2 + i + 1] = w[i];
         dims[0] = n;
         fftn(1, dims, fftr, ffti, 1, 1.);
-        /* plintf("index=%d n=%d n2=%d \n",ind,n,n2);
-        for(i=0;i<n;i++)
-        plintf("(%g , %g)\n",fftr[i],ffti[i]); */
     }
     if (type == FFTCON0) {
         n = 2*my_net[ind].n;
@@ -1657,7 +1654,6 @@ parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
 
     j = getimpstr(s, &i, temp);
     strcpy(vname, temp);
-    /*  plintf("%s %s %d %s\n",soname,sofun,*n,vname); */
     *m = 0;
     if (j == 1) {
         printf("No weights....\n");

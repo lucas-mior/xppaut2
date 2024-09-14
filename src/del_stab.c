@@ -64,7 +64,6 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         variable_shift[1][i] = x[i];
     }
     free(work);
-    /*  plintf(" Found %d delays \n",NDelay); */
     coef = malloc(n*n*(NDelay + 1)*sizeof(*coef));
 
     /* now we must compute a bunch of jacobians  */
@@ -83,7 +82,6 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         for (j = 0; j < n; j++) {
             coef[j*n + i] = (yp[j] - y[j]) / dx;
             colsum += fabs(coef[j*n + i]);
-            /*      plintf("a(0,%d,%d)=%g \n",i,j,coef[j*n+i]); */
         }
         if (colsum > colmax)
             colmax = colsum;
@@ -433,7 +431,6 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     plintf(" \n"); */
     free(z);
     arg = atan2(temp.i, temp.r);
-    /*   plintf("%g %g %g \n",lambda.r,lambda.i,arg); */
     return arg;
 }
 
@@ -495,7 +492,6 @@ plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         x = i*ds;
         lambda = rtoc(x, y);
         arg = get_arg(delay, coef, m, n, lambda);
-        /*        plintf(" %d %g \n",i+npts,arg); */
         sign = sign + test_sign(oldarg, arg);
         oldarg = arg;
     }
@@ -506,7 +502,6 @@ plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         y = -wmax + i*ds;
         lambda = rtoc(x, y);
         arg = get_arg(delay, coef, m, n, lambda);
-        /*     plintf(" %d %g \n",i+2*npts,arg); */
         sign = sign + test_sign(oldarg, arg);
         oldarg = arg;
     }
@@ -518,7 +513,6 @@ plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         x = almax - i*ds;
         lambda = rtoc(x, y);
         arg = get_arg(delay, coef, m, n, lambda);
-        /*         plintf(" %d %g \n",i+3*npts,arg); */
         sign = sign + test_sign(oldarg, arg);
         oldarg = arg;
     }

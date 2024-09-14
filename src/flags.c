@@ -380,8 +380,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
             }
         }
 
-        /*    plintf(" %g %g %g \n",*tnew,ynew[0],ynew[1]); */
-
         for (i = 0; i < neq; i++) {
             /* printf("step 8 %d %g %g\n",i,ynew[i],GETVAR(i+1)); */
             /*  SETVAR(i+1,ynew[i]); */
@@ -422,11 +420,8 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         if (newhit == 0)
             break;
     }
-    /*  plintf(" Exit flags \n"); */ /* COMMENT */
 
     *s = smin;
-    /* for(i=0;i<neq;i++)
-       printf("step 10 %d %g %g \n",i,ynew[i],GETVAR(i+1)); */
     return 1;
 }
 

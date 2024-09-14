@@ -382,8 +382,6 @@ get_eqn(FILE *fptr) {
         plintf("Too many boundary conditions\n");
         exit(0);
     }
-    /* plintf("BVP_N=%d NODE=%d NVAR=%d IN_VARS=%d\n",BVP_N,NODE,NVAR,IN_VARS);
-     */
     if (BVP_N < IN_VARS) {
         if (BVP_N > 0)
             printf("Warning: Too few boundary conditions\n");
@@ -669,8 +667,6 @@ compiler(char *bob, FILE *fptr) {
     case 'b':
         my_string = get_next("\n");
         my_bc[BVP_N].com = malloc(200*sizeof(*(my_bc[BVP_N].com)));
-        /*         plintf(" adding boundary condition %s \n",my_string);
-         */
         my_bc[BVP_N].string = malloc(256);
         my_bc[BVP_N].name = malloc(10);
         strcpy(my_bc[BVP_N].string, my_string);
@@ -1384,7 +1380,6 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                             strpiece(v.rhs, big, i1 + 1, strlen(big));
                         }
                         v.type = SOL_VAR;
-                        /*    plintf(" Its a sol-var! \n"); */
                     }
 
                     /* take care of special form for auxiliary */
@@ -1633,7 +1628,6 @@ compile_em(void) {
                 exit(0);
             }
 
-            /*  plintf("%d:%s = %s \n",nvar-1,vnames[nvar-1],v->rhs);   */
         }
 
         if (v->type == MARKOV_VAR) {
@@ -1643,7 +1637,6 @@ compile_em(void) {
                 nmark++;
             }
 
-            /*      plintf("%s = %s \n",mnames[nmark-1],v->rhs); */
         }
         if (v->type == EXPORT) {
             add_export_list(v->lhs, v->rhs);
@@ -1704,9 +1697,6 @@ compile_em(void) {
             break;
         v = v->next;
     }
-
-    /*  plintf(" Found\n %d variables\n %d markov\n %d fixed\n %d aux\n %d fun
-       \n %d tab\n ", nvar,nmark,nfix,naux,nufun,ntab); */
 
     /* now we add all the names of the variables and the
        fixed stuff
@@ -2044,9 +2034,7 @@ parse_a_string(char *s1, VAR_INFO *v) {
 
     strcpy(s1old, s1);
     strupr(s1);
-    /*   plintf(" <%s> \n",s1);   */
     if (strlen(s1) < 1) {
-        /*   plintf(" Empty line \n"); */
         return 0;
     }
     if (s1[0] == '0' && s1[1] == '=') { /* ||(s1[1]==' '&&s1[2]=='='))) */
@@ -2059,7 +2047,6 @@ parse_a_string(char *s1, VAR_INFO *v) {
         goto good_type;
     }
     if (s1[0] == '#') {
-        /*  plintf("Comment! \n"); */
         return 0;
     }
 
@@ -2165,16 +2152,6 @@ good_type:
     v->nargs = narg;
     for (i = 0; i < narg; i++)
         strcpy(v->args[i], args[i]);
-
-    /* plintf("type=%d type2 = %d : %s = %s \n",type,v->type,v->lhs,v->rhs);
-     if(type2==FUNCTION){
-      plintf(" %d args \n",v->nargs);
-       for(i=0;i<narg;i++)
-         plintf("(%s) ",v->args[i]);
-      plintf("\n");
-
-    }
-    */
 
     if (lhs[0] == 'D' && type2 == COMMAND)
         return 2;
@@ -2468,7 +2445,6 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                 *flag = 2; /*   FOR LOOP CONSTRUCTION  */
             while (true) {
                 ch = old[i + j];
-                /*        plintf(" %d %c \n",j,ch); */
                 if (ch == '[') {
                     ileft = i + j;
                     l = 0;
@@ -2544,7 +2520,6 @@ check_if_ic(char *big) {
     while (true) {
         c = big[j];
         if (c == ']') {
-            /*  plintf(" %c %c %c \n",big[j+1],big[j+2],big[j+3]); */
             if ((big[j + 1] == '(') && (big[j + 2] == '0') &&
                 (big[j + 3] == ')')) {
                 return 1;
@@ -2649,7 +2624,6 @@ subsk(char *big, char *new, int32 k, int32 flag) {
                     exit(0);
                 }
                 ch = big[i];
-                /*        plintf("i=%d inew=%d new ch= %c \n",i,inew,ch); */
                 switch (ch) {
                 case '+':
                     isign = 1;

@@ -289,7 +289,6 @@ parse_inout(char *l, int32 flag) {
                         in_out.out[k] = index;
                         in_out.outtype[k] = VAR;
                     }
-                    /*  plintf(" variable %s =%d k=%d \n",new,index,k); */
                     k++;
                 }
             } /* it is a parameter */

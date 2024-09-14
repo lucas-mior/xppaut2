@@ -432,7 +432,6 @@ int32
 add_var(char *junk, double value) {
     char string[100];
     int32 len;
-    /*   plintf(" variable - %s \n",junk); */
     if (duplicate_name(junk) == 1)
         return 1;
     if (NVAR >= MAX_ODE1) {
@@ -1051,15 +1050,11 @@ alg_to_rpn(int32 *toklist, int32 *command) {
             comptr++;
             /*   New code   3/95      */
             if (my_com == NUMSYM) {
-                /*             plintf("tp=%d ",tokptr);  */
                 tokptr--;
-                /*     plintf(" ts[%d]=%d ",tokptr,tokstak[tokptr]); */
                 command[comptr] = tokstak[tokptr - 1];
-                /*	     plintf("xcom(%d)=%d\n",comptr,command[comptr]);  */
                 comptr++;
                 tokptr--;
                 command[comptr] = tokstak[tokptr - 1];
-                /*	     plintf("xcom(%d)=%d\n",comptr,command[comptr]);  */
                 comptr++;
             }
             /*   end new code    3/95    */

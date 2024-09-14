@@ -407,7 +407,6 @@ void
 compute_one_orbit(double *ic, double per) {
     double oldtotal = TEND;
     TEND = per;
-    /*   plintf(" %g %g \n",ic[0],ic[1]); */
     run_from_x(ic);
     new_adjoint();
     TEND = oldtotal;
@@ -761,8 +760,6 @@ hrw_liapunov(double *liap, int32 batch, double eps) {
         sum = sum + log(nrm);
         for (i = 0; i < NODE; i++)
             dy[i] = eps*yp[i];
-        /*  plintf("%d %g %g %g %g %g  \n",j,nrm,log(nrm),sum/((double)(j+1)),
-            yp[0],yp[1]); */
     }
     t1 = storage[0][storind - 1] - storage[0][0];
     if (t1 != 0)

@@ -1184,7 +1184,6 @@ load_ani_file(FILE *fp) {
         for (jj = jj1; jj <= jj2; jj++) {
             subsk(new, big, jj, flag);
             /* strupr(big); */
-            /*      plintf(" %s \n",big); */
             ans = parse_ani_string(big, fp);
         }
 
@@ -1491,8 +1490,6 @@ parse_ani_string(char *s, FILE *fp) {
         set_ani_dimension(x1, x2, x3, x4);
         return 1;
     }
-    /*  plintf(" %d %s %s %s %s %s %s\n",
-            type,x1,x2,x3,x4,col,thick);  */
     return add_ani_com(type, x1, x2, x3, x4, col, thick);
 }
 
@@ -1785,9 +1782,6 @@ add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
     err = add_ani_expr(y2, a->y2);
     if (err)
         return -1;
-    /*  plintf(" added line %s %s %s %s \n",
-            x1,y1,x2,y2); */
-
     return 0;
 }
 
@@ -1944,8 +1938,6 @@ render_ani(void) {
     for (i = 0; i < n_anicom; i++) {
         type = my_ani[i].type;
         flag = my_ani[i].flag;
-        /* plintf("type=%d flag=%d i=%d \n",
-               type,flag,i); */
         if (type == LINE || type == RLINE || type == RECT || type == FRECT ||
             type == CIRC || type == FCIRC || type == ELLIP || type == FELLIP ||
             type == COMET || type == AXNULL || type == AYNULL)
@@ -2317,7 +2309,6 @@ draw_ani_fcirc(int32 j) {
     ani_xyscale(x1, y1, &i1, &j1);
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
-    /*  plintf(" arc %d %d %d %d \n",i1,j1,i2,j2); */
     /*  XFillArc(display,ani_pixmap,ani_gc,i1-i2,j1-j2,2*i2,2*j2,0,360*64); */
     XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir, 2*ir, 0,
              360*64);

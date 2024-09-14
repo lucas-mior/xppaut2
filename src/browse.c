@@ -205,7 +205,6 @@ del_stor_col(char *var, BROWSER *b) {
         err_msg("This variable is still actively plotted! - Cant delete!");
         return;
     }
-    /*  plintf(" nc=%d NEQ= %d\n",nc,NEQ); */
     change_plot_vars(nc);
     if (nc < NEQ) {
         for (j = nc; j < NEQ; j++) {
@@ -337,7 +336,6 @@ chk_seq(char *f, int32 *seq, double *a1, double *a2) {
         *a1 = atof(n1);
         *a2 = atof(n2);
     }
-    /*      plintf("seq=%d a1=%g a2=%g\n",*seq,*a1,*a2); */
     return;
 }
 
@@ -850,7 +848,6 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     XSelectInput(display, b->time, SIMPMASK);
 
     for (i = 0; i < BMAXCOL; i++) {
-        /*  plintf("%d ",i); */
         b->label[i] = br_button_data(base, 5, i + 1, "1234567890", 1);
         XSelectInput(display, b->label[i], SIMPMASK);
     }

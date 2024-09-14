@@ -83,11 +83,9 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
             constants[-ip] = a[l];
         else
             y[ip] = a[l];
-        /*  plintf(" par[%d]=%g \n",l,a[l]); */
     }
     for (i = 0; i < NODE; i++) {
         yold[i] = y[i];
-        /*  plintf(" init y[%d]=%g \n",i,y[i]); */
     }
     if (DelayFlag) {
         /* restart initial data */
@@ -632,8 +630,6 @@ sigma  weights on nvars
     }
     for (j = 0; j < npars; j++) {
         atry[j] = a[j] + da[j];
-        /*    plintf(" aold[%d]=%g anew[%d]=%g \n",
-                   j,a[j],j,atry[j]); */
     }
     if (mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar, covar,
                chisq, da, yderv, yfit, eps) == 0)
@@ -680,7 +676,6 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
         for (k = 0; k < npts; k++) {
             k0 = k*nvars + i;
             dy = y[k0] - yfit[k0];
-            /*           plintf(" i=%d k=%d dy = %f \n",i,k,dy); */
             for (j = 0; j < npars; j++) {
                 wt = yderv[j][k0]*sig2i;
                 for (l = 0; l < npars; l++)

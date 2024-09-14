@@ -378,7 +378,6 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             SETVAR(i + 1, evaluate(my_ode[i]));
         for (i = 0; i < NODE; i++) {
             yp[i] = evaluate(my_ode[i]);
-            /*  plintf(" yp[%d]=%g\n",i,yp[i]); */
             if (EqType[i])
                 errvec[i] = -yg[i] + yp[i];
             else

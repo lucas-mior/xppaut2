@@ -327,9 +327,6 @@ redraw_froz_cline(int32 flag) {
         if (z == NULL || (z->nmx == 0 && z->nmy == 0))
             return;
 
-        /*  plintf(" %d %d  %d %d  %d \n",
-                 MyGraph->xv[0],z->n_ix, &MyGraph->yv[0],z->n_iy ,
-                MyGraph->ThreeDFlag==0); */
         if (MyGraph->xv[0] == z->n_ix && MyGraph->yv[0] == z->n_iy &&
             MyGraph->ThreeDFlag == 0) {
             if (flag > 0) {
@@ -945,7 +942,6 @@ fnull(double x, double y) {
     y1[null_ix - 1] = (double)x;
     y1[null_iy - 1] = (double)y;
     rhs(0.0, y1, ydot, NODE);
-    /*  plintf(" %f  %f %f \n ", x,y,ydot[WHICH_CRV-1]); */
     return (float)ydot[WHICH_CRV - 1];
 }
 

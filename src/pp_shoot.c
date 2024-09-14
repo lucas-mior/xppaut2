@@ -456,7 +456,6 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         }
         for (i = 0; i < n; i++) {
             y1[i] = y[i];
-            /*  plintf("%f \n",y[i]); */
         }
 
         do_bc(y0, t0, y1, t1, f, n);

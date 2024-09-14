@@ -149,7 +149,6 @@ resize_txtview(int32 w, int32 h) {
     int32 hgt = h - 8 - 3*DCURYs;
     XMoveResizeWindow(display, txtview.text, 2, 3*DCURYs + 5, w - 4, hgt);
     txtview.nlines = (int32)(hgt / DCURY);
-    /*   plintf(" nlines=%d \n",txtview.nlines); */
     return;
 }
 

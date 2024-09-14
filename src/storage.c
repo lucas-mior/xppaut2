@@ -76,8 +76,6 @@ reallocstor(int32 ncol, int32 nrow) {
 void
 init_stor(int32 nrow, int32 ncol) {
     int32 i;
-    /* WORK=malloc(WORKSIZE*sizeof(double));
-       if(WORK!=NULL){ */
     WORK = NULL;
     storage = malloc((MAX_ODE + 1)*sizeof(float *));
     MAXSTOR = nrow;
@@ -90,8 +88,6 @@ init_stor(int32 nrow, int32 ncol) {
                 return;
         }
     }
-    /*  } */
-    /*  plintf("col=%d\n",i); */
     err_msg("Cannot allocate sufficient storage");
     exit(0);
     return;

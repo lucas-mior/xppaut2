@@ -891,8 +891,6 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
            int32 mc) {
     int32 l = strlen(string), cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
-    /*  plintf(" pos=%d off=%d s=%s \n",
-        pos,off,string); */
     switch (ch) {
     case LEFT:
         if (pos > 0) {

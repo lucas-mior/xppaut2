@@ -151,10 +151,6 @@ get_2d_view(int32 ind) {
         snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[6]);
         snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[7]);
         check_windows();
-        /*	      plintf(" x=%d y=%d xlo=%f ylo=%f xhi=%f yhi=%f \n",
-                             MyGraph->xv[ind],MyGraph->yv[ind],MyGraph->xlo,
-                             MyGraph->ylo,MyGraph->xhi,MyGraph->yhi);
-        */
     }
     return;
 }
@@ -243,13 +239,6 @@ get_3d_view(int32 ind) {
         MyGraph->xhi = atof(values[10]);
         MyGraph->yhi = atof(values[12]);
         check_windows();
-        /*      plintf("%f %f %f %f %f %f \n %f %f %f %f",
-                     MyGraph->xmin,MyGraph->xmax,
-                     MyGraph->ymin,MyGraph->ymax,
-                     MyGraph->zmin,MyGraph->zmax,
-                     MyGraph->xlo,MyGraph->xhi,
-                     MyGraph->ylo,MyGraph->yhi);
-    */
     }
     return;
 }

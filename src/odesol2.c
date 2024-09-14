@@ -151,7 +151,6 @@ one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
     *t = *t + dt;
     for (j = 0; j < neq; j++) {
         y[j] = yp[j];
-        /*                  plintf("%g %d %g \n",*t,j,y[j]); */
     }
     return;
 }
