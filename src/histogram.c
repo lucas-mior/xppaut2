@@ -283,7 +283,6 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     double z, y;
     double dz;
     int32 length = nbins + 1;
-    int32 count = 0;
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
     dz = (zhi - zlo) / (double)(length - 1);
@@ -341,7 +340,6 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
             index = (int32)z;
             if (index >= 0 && index < length && flag == 1) {
                 my_hist[1][index] += 1.0;
-                count++;
             }
         }
         NCON = NCON_START;
