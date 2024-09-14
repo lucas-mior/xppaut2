@@ -10,15 +10,10 @@
 #include "integers.h"
 #include "x_auto.h"
 
-#define SPECIAL 5
 #define SPER 3
 #define UPER 4
 #define SEQ 1
 #define UEQ 2
-
-#define ESCAPE 27
-#define MAXDIMHET 12
-#define MAXDIMHOM 24
 
 extern double outperiod[20];
 extern int64 UzrPar[20];
