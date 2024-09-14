@@ -77,8 +77,6 @@ int32 NCON_START, NSYM_START;
 int32 BVP_NL, BVP_NR, BVP_N;
 extern int32 BVP_FLAG;
 
-#define cstringmaj MYSTR1
-#define cstringmin MYSTR2
 extern float xppvermaj, xppvermin;
 
 int32 ConvertStyle = 0;
@@ -456,8 +454,8 @@ get_eqn(FILE *fptr) {
     NCON_ORIG = NCON;
     NSYM_ORIG = NSYM;
     NEQ_MIN = NEQ;
-    xppvermaj = (float)cstringmaj;
-    xppvermin = (float)cstringmin;
+    xppvermaj = (float)MYSTR1;
+    xppvermin = (float)MYSTR2;
     plintf("Used %d constants and %d symbols \n", NCON, NSYM);
     plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n", xppvermaj,
            xppvermin);

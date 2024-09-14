@@ -55,9 +55,6 @@
 
 #include "myfonts.h"
 
-#define cstringmaj MYSTR1
-#define cstringmin MYSTR2
-
 #ifdef NOERRNO
 int32 errno;
 #endif
@@ -414,8 +411,8 @@ do_main(int32 argc, char **argv) {
 
     if (disc(this_file))
         METHOD = 0;
-    xppvermaj = (float)cstringmaj;
-    xppvermin = (float)cstringmin;
+    xppvermaj = (float)MYSTR1;
+    xppvermin = (float)MYSTR2;
     if (strlen(this_file) < 60)
         snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj,
                  xppvermin, this_file);
