@@ -46,6 +46,7 @@ end_cv(void) {
 
 void
 cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
+    (void) fdata;
     my_rhs(t, y->data, ydot->data, n);
     return;
 }

@@ -1134,6 +1134,7 @@ CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 static bool
 CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
            N_Vector ewtvec, int64 neq) {
+    (void) neq;
     double rtoli, atoli;
 
     rtoli = *rtol;
@@ -1160,6 +1161,7 @@ CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
 static bool
 CVEwtSetSV(CVodeMem cv_mem, double *rtol, N_Vector atol, N_Vector ycur,
            N_Vector ewtvec, int64 neq) {
+    (void) neq;
     double rtoli;
 
     rtoli = *rtol;
