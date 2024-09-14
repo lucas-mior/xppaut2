@@ -1173,7 +1173,6 @@ fancy_text_abs(double x, double y, char *old, int32 size, int32 font) {
         special_put_text_svg(xp, yp, text, size);
     else
         special_put_text_x11(xp, yp, text, size);
-    /* fancy_put_text_x11(xp,yp,text,size,font); */
     return;
 }
 
