@@ -17,10 +17,6 @@
 #define ESCAPE 27
 char *info_message;
 extern int32 XPPBatch;
-/* do_calc();
-new_float();
-new_int();
-*/
 extern int32 SCALEX, SCALEY;
 int32 MSStyle = 0;
 extern int32 Xup;
