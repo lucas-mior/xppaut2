@@ -3895,7 +3895,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     static int64 info;
     static logical nota, notb;
     static double temp;
-    static int64 i__, j, l, ncola;
+    static int64 i__, j, l;
 
     static int64 nrowa, nrowb;
 
@@ -4082,10 +4082,8 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     notb = lsame(transb, "N", 1L, 1L);
     if (nota) {
         nrowa = *m;
-        ncola = *k;
     } else {
         nrowa = *k;
-        ncola = *m;
     }
     if (notb) {
         nrowb = *k;
