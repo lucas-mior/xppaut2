@@ -4056,7 +4056,6 @@ void vec_rhs(double t, double *y, double *ydot, int32 neq);
 int32 svg_init(char *filename);
 void svg_stroke(void);
 void svg_do_color(int32 color);
-void svg_setcolor(int32 color);
 void svg_end(void);
 void svg_bead(int32 x, int32 y);
 void svg_frect(int32 x, int32 y, int32 w, int32 h);

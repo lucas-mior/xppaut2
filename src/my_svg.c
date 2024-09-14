@@ -425,10 +425,6 @@ svg_do_color(int32 color) {
 }
 
 void
-svg_setcolor(int32 color) {
-}
-
-void
 svg_end(void) {
     svg_write("</svg>");
     fclose(svgfile);
