@@ -2995,7 +2995,7 @@ void get_ic(int32 it, double *x);
 int32 ode_int(double *y, double *t, int32 *istart, int32 ishow);
 int32 integrate(double *t, double *x, double tend, double dt, int32 count,
                 int32 nout, int32 *start);
-void send_halt(double *y, double t);
+void send_halt(void);
 void send_output(double *y, double t);
 void do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl,
              float *ypl, float *zpl);

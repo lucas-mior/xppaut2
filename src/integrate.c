@@ -2447,7 +2447,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 }
 
 void
-send_halt(double *y, double t) {
+send_halt(void) {
     STOP_FLAG = 1;
     return;
 }
