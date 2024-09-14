@@ -77,10 +77,6 @@ int32 first_aplot_press;
 int32 do_range(double *, int32);
 extern double MyData[MAX_ODE];
 
-#define MYMASK                                                                 \
-    (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \
-     StructureNotifyMask | LeaveWindowMask | EnterWindowMask)
-
 void
 draw_one_array_plot(char *bob) {
     char filename[300];
@@ -706,7 +702,7 @@ redraw_aplot(APLOT ap) {
 void
 tag_aplot(char *bob) {
     set_color(0);
-    XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob, strlen(bob));
+    XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
     return;
 }
 
@@ -740,12 +736,12 @@ display_aplot(Window w, APLOT ap) {
     }
     if (w == ap.wmin) {
         snprintf(bob, sizeof(bob), "%g", ap.zmin);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, strlen(bob));
+        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
         return;
     }
     if (w == ap.wmax) {
         snprintf(bob, sizeof(bob), "%g", ap.zmax);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, strlen(bob));
+        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
         return;
     }
     if (w == ap.wedit) {
