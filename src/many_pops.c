@@ -618,7 +618,7 @@ draw_label(Window w) {
     GrCol();
     for (i = 0; i < MAXLAB; i++) {
         if ((lb[i].use == 1) && (lb[i].w == w))
-            fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size, lb[i].font);
+            fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
     }
     for (i = 0; i < MAXGROB; i++) {
         if ((grob[i].use == 1) && (grob[i].w == w))

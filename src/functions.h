@@ -2749,7 +2749,7 @@ void frect_abs(double x1, double y1, double w, double h);
 void line_abs(double x1, double y1, double x2, double y2);
 void text_abs(double x, double y, char *text);
 void fillintext(char *old, char *new);
-void fancy_text_abs(double x, double y, char *old, int32 size, int32 font);
+void fancy_text_abs(double x, double y, char *old, int32 size);
 int32 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
              float *x1p, float *y1p, float *z1p, float *x2p, float *y2p,
              float *z2p);

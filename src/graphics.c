@@ -1162,7 +1162,7 @@ fillintext(char *old, char *new) {
 }
 
 void
-fancy_text_abs(double x, double y, char *old, int32 size, int32 font) {
+fancy_text_abs(double x, double y, char *old, int32 size) {
     int32 xp, yp;
     char text[256];
     scale_to_screen(x, y, &xp, &yp);
