@@ -27,12 +27,12 @@ extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
 extern char uvar_names[MAX_ODE][12];
 static double **my_adj;
-int32 adj_len;
-double **my_h;
-double *my_liap[2];
+static int32 adj_len;
+static double **my_h;
+static double *my_liap[2];
 
 extern char *info_message;
-struct {
+static struct {
     int32 here, col0, ncol, colskip;
     int32 row0, nrow, rowskip;
     double **data;
@@ -40,14 +40,14 @@ struct {
 } my_trans;
 
 static int32 LIAP_FLAG = 0;
-int32 LIAP_N, LIAP_I;
+static int32 LIAP_N, LIAP_I;
 extern double NEWT_ERR;
 static double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
 static int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
 int32 AdjRange = 0;
 extern double DELTA_T, BOUND;
-int32 *coup_fun[MAX_ODE];
-char *coup_string[MAX_ODE];
+static int32 *coup_fun[MAX_ODE];
+static char *coup_string[MAX_ODE];
 
 extern int32 *my_ode[];
 extern int32 NSYM, NSYM_START, NCON, NCON_START;
