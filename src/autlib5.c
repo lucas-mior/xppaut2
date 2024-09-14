@@ -145,7 +145,7 @@ fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     }
 
     return 0;
-} /* fnho_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -198,7 +198,7 @@ ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     }
 
     return 0;
-} /* ffho_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -314,7 +314,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     free(dfu);
 
     return 0;
-} /* bcho_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -632,7 +632,7 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     free(xequib2);
 
     return 0;
-} /* fbho_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -731,7 +731,7 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     free(uu2);
     free(dfu);
     return 0;
-} /* icho_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -801,7 +801,7 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     }
     free(fj);
     return 0;
-} /* fiho_ */
+}
 
 /*     ---------- ---- */
 int32
@@ -962,7 +962,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
     iap->ndm = ndm;
 
     return 0;
-} /* inho_ */
+}
 
 /*     ---------- ----- */
 int32
@@ -1070,7 +1070,7 @@ preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
     }
 
     return 0;
-} /* preho_ */
+}
 
 int32
 stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
@@ -1153,7 +1153,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     *nodir = 1;
     free(u);
     return 0;
-} /* stpnho_ */
+}
 
 /*     ---------- ----- */
 int32
@@ -1291,7 +1291,7 @@ L3:
     return 0;
     /* -----------------------------------------------------------------------
      */
-} /* stpho_ */
+}
 
 int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
@@ -1364,7 +1364,7 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
 
     return 0;
 
-} /* pvlsho_ */
+}
 
 /*     -------- ------- -------- ----- */
 double
@@ -1626,7 +1626,7 @@ L16:
     }
     return ret_val;
 
-} /* psiho_ */
+}
 
 /*     ---------- ----- */
 int32
@@ -1646,7 +1646,7 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
     free(zz);
 
     return 0;
-} /* eighi */
+}
 
 /*     ---------- ----- */
 int32
@@ -1835,7 +1835,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     free(fv1);
     free(iv1);
     return 0;
-} /* eigho_ */
+}
 
 int32
 prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
@@ -1850,7 +1850,7 @@ prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
     free(dfdp);
     free(dfdu);
     return 0;
-} /* prjcti */
+}
 
 int32
 prjctn(double *bound, double *xequib, const int64 *icp, double *par,
@@ -2087,4 +2087,4 @@ prjctn(double *bound, double *xequib, const int64 *icp, double *par,
     free(dum2);
 
     return 0;
-} /* prjctn_ */
+}
