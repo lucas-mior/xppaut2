@@ -799,7 +799,6 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     XSelectInput(display, base,
                  ExposureMask | KeyPressMask | ButtonPressMask |
                      StructureNotifyMask);
-    /* plintf("Browser base: %d \n",base); */
     XStringListToTextProperty(&wname, 1, &winname);
     XStringListToTextProperty(&iname, 1, &iconname);
 
@@ -854,7 +853,6 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
         /*  plintf("%d ",i); */
         b->label[i] = br_button_data(base, 5, i + 1, "1234567890", 1);
         XSelectInput(display, b->label[i], SIMPMASK);
-        /* plintf(" %d \n",i); */
     }
     if (noicon == 0)
         XIconifyWindow(display, base, screen);

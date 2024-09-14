@@ -278,7 +278,6 @@ get_kn(/* uses the guessed value y to update Kn  */
         else
             kernel[i].k_n =
                 kernel[i].sum + kernel[i].betnn*evaluate(kernel[i].formula);
-        /* plintf(" Value t=%g %d =%g %g\n",t,i,kernel[i].k_n,y[i]); */
     }
     return;
 }

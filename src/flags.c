@@ -285,7 +285,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         f1 = evaluate(flag[i].comcond);
         flag[i].f1 = f1;
         tol = fabs(f1 - f0);
-        /* plintf(" call1 %g %g %g %g\n",told,f0,f1,smin);  */
         switch (sign) {
         case 1:
             if ((((f0 < 0.0) && (f1 > 0.0)) || ((f0 < 0.0) && (f1 > 0.0))) &&
@@ -378,7 +377,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                         }
                     }
 
-                    /* plintf(" increment it ... \n");  */
                 }
                 if (flag[i].anypars) {
                     evaluate_derived();
@@ -403,7 +401,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
             sign = flag[i].sign;
             f0 = flag[i].f0;
             tol = fabs(f1 - f0);
-            /* plintf(" call2 flag=%d %g %g -- %g \n",i,f0,f1,smin); */
             switch (sign) {
             case 1:
                 if (f0 <= 0.0 && f1 >= 0.0 && tol > tolmin) {
@@ -566,7 +563,6 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard?");
             plintf("smin=%g\n", s);
-            /* plintflaginfo(); */
             break;
         }
     }

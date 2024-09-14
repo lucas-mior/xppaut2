@@ -534,7 +534,6 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
         for (i = 0; i < n; i++)
             y[i] = y0[i];
-        /* plintf("error2 = %f \n",error);  */
         if (error < 1.e-10) {
             for (i = 0; i < n; i++)
                 yend[i] = y1[i];

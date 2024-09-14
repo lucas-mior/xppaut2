@@ -616,7 +616,6 @@ sigma  weights on nvars
     sgesl(covar, npars, npars, ipivot, oneda, 0);
     for (j = 0; j < npars; j++) {
         da[j] = oneda[j];
-        /* plintf(" da[%d]=%g \n",j,da[j]); */
     }
     if (ictrl == 2) { /* all done invert alpha to get the covariance */
         for (j = 0; j < (npars*npars); j++)

@@ -93,7 +93,6 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         xp[j] = x[j];
     /* now the jacobians for the delays */
     for (k = 0; k < NDelay; k++) {
-        /* plintf(" found delay=%g \n",delay_list[k]); */
         WhichDelay = k;
         colmax = 0.0;
         for (i = 0; i < n; i++) {
@@ -107,14 +106,12 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
             for (j = 0; j < n; j++) {
                 coef[j*n + i + n*n * (k + 1)] = (yp[j] - y[j]) / dx;
                 colsum += fabs(coef[j*n + i + n*n * (k + 1)]);
-                /* plintf("a(%d,%d,%d)=%g \n",k+1,i,j,coef[j*n+i+n*n*(k+1)]); */
             }
             if (colsum > colmax)
                 colmax = colsum;
         }
         colnorm += colmax;
     }
-    /* plintf("Norm= %g \n",colnorm); */
     /* sign=plot_args(coef,delay_list,n,NDelay,DelayGrid,AlphaMax,OmegaMax); */
     sign = plot_args(coef, delay_list, n, NDelay, DelayGrid, colnorm, colnorm);
 
@@ -488,7 +485,6 @@ plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
         y = wmax - i*ds;
         lambda = rtoc(x, y);
         arg = get_arg(delay, coef, m, n, lambda);
-        /* plintf(" %d %g \n",i,arg); */
         sign = sign + test_sign(oldarg, arg);
         oldarg = arg;
     }

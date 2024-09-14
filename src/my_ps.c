@@ -178,7 +178,6 @@ ps_do_color(int32 color) {
         return;
     /* if(color==0) */
     /* fprintf(psfile,"0 setgray\n"); */
-    /* plintf("color=%d\n",color); */
     if (PSColorFlag == 0)
         return;
     get_ps_color(color, &r, &g, &b);
@@ -370,7 +369,6 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
     int32 sub, sup, pssz;
     static int32 sz[] = {8, 10, 14, 18, 24};
     /*cs=size; Not used anywhere*/
-    /* plintf(" %s size %d \n",str,size); */
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     ps_abs(x, y);
     pssz = sz[size] * PS_SC;

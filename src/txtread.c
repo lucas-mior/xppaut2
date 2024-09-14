@@ -272,7 +272,6 @@ redraw_txtview_text(void) {
                 XDrawString(display, txtview.text, gc, txtview.dw,
                             i*txtview.dh + CURY_OFFs, save_eqn[j],
                             strlen(save_eqn[j]));
-                /* plintf("line: %d\n",j); */
             }
             break;
         case 1:

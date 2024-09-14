@@ -975,7 +975,6 @@ strfnd(char *s1, char *s2, int32 j0) {
             false = 0;
             l = i + j0;
             for (k = 0; k < n1; k++) {
-                /* plintf("i=%d,k=%d,%c %c \n",i,k,s2[j0+i],s1[k]); */
                 if (s2[j0 + i] != s1[k]) {
                     false = 1;
                     break;

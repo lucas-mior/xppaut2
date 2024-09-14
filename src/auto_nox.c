@@ -578,7 +578,6 @@ do_auto(int32 iold, int32 isave) {
     go_go_auto();    /* this complets the initialization and calls the
                          main routines
                      */
-    /* plintf("AUTO opened it==%d\n",itp); */
     /*     run_aut(Auto.nfpar,itp); THIS WILL CHANGE TO gogoauto stuff */
     close_auto(isave); /* this copies fort.8 to the .s file and other
                           irrelevant stuff
@@ -2493,7 +2492,6 @@ auto_2p_limit(int32 ips) {
         AutoTwoParam = LPP2;
     }
     /* printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp); */
-    /* plintf(" IPS = %d \n",ips); */
     do_auto(OPEN_3, APPEND);
     return;
 }

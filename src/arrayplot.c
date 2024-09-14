@@ -480,7 +480,6 @@ get_root(char *s, char *sroot, int32 *num) {
         for (j = i + 1; j < n; j++)
             me[j - i - 1] = s[j];
         me[n - i] = 0;
-        /* plintf(" i=%d me=%s sroot=%s \n",i,me,sroot); */
         *num = atoi(me);
     }
     return;

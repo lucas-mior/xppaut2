@@ -496,9 +496,7 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
             break;
         }
         nrmf += (f[i] * f[i] / win);
-        /* plintf("f[%d]=%g\n",i,f[i]); */
     }
-    /* plintf("NRMF = %g\n",nrmf); */
     for (i = 0; i < shift; i++)
         pow[i] = 0.0;
     /*sum=0;
@@ -593,7 +591,6 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
             break;
         }
         nrmwin += f[i] * f[i];
-        /* plintf("f[%d]=%g\n",i,f[i]); */
     }
     for (i = 0; i < shift; i++) {
         pxx[i] = 0.0;

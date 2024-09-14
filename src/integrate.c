@@ -1698,7 +1698,6 @@ set_array_ic(void) {
         new_string("u=F(t-i0):", ar_ic[myar].formula);
         i1 = index0 - 1;
         in = i1 + ar_ic[myar].n;
-        /* plintf("i1=%d in=%d \n",i1,in); */
         if (i1 > NODE || in > NODE)
             return 0; /* out of bounds */
         for (i = i1; i < in; i++) {
@@ -2693,7 +2692,6 @@ comp_color(float *v1, float *v2, int32 n, double dt) {
     float color_scale = (float)(MyGraph->color_scale);
     if (MyGraph->ColorFlag == 2) {
         sum = v1[MyGraph->ColorValue];
-        /* plintf(" %d:sum=%g \n",MyGraph->zv[0],sum); */
     } else {
         for (i = 0, sum = 0.0; i < n; i++)
             sum += (float)fabs((double)(v1[i + 1] - v2[i + 1]));

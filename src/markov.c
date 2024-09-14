@@ -418,7 +418,6 @@ one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
         }
         if (rate <= 0.0)
             return;
-        /* plintf("rate=%g \n",rate); */
         v[0] = -log(ndrand48()) / rate; /* next step */
         test = rate*ndrand48();
         rate = r[0];

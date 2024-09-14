@@ -445,7 +445,6 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
     int32 col0 = *col - *pos * DCURX;
 
     *done = 0;
-    /* plintf(" po=%d cl=%d ch=%d ||%s|| c0=%d\n",*pos,*col,ch,value,col0); */
     switch (ch) {
     case LEFT:
         if (*pos > 0) {

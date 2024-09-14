@@ -939,7 +939,6 @@ extract_action(char *ptr) {
     char name[256], value[256];
     char tmp[2048];
     char *junk, *mystring;
-    /* plintf("ptr=%s \n",ptr);  */
     strcpy(tmp, ptr);
     junk = get_first(tmp, " ");
     if (junk == NULL) {

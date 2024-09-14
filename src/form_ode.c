@@ -325,7 +325,6 @@ get_eqn(FILE *fptr) {
      */
     strcpy(options, "default.opt");
     add_var("t", 0.0);
-    /* plintf(" NEQ: "); */
     fgets(bob, MAXEXPLEN, fptr);
     nn = strlen(bob) + 1;
     if (NLINES > MAXLINES) {
@@ -338,7 +337,6 @@ get_eqn(FILE *fptr) {
     }
 
     strncpy(save_eqn[NLINES++], bob, nn);
-    /* plintf("incr NLINE in geteqn  %s \n",bob); */
     i = atoi(bob);
     if (i <= 0) { /* New parser ---   */
 
@@ -368,7 +366,6 @@ get_eqn(FILE *fptr) {
             if ((save_eqn[NLINES] = malloc(nn)) == NULL)
                 exit(0);
             strncpy(save_eqn[NLINES++], bob, nn);
-            /* plintf("inc NLINES in geteqn2 %s \n",bob); */
             done = compiler(bob, fptr);
         }
         if (ConvertStyle) {
@@ -1204,7 +1201,6 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
         nstrings = 0;
         if (start || nnn == 1) {
             read_a_line(fp, old);
-            /* plintf(" read line BVP_N=%d  \n",BVP_N); */
 
         } else {
             if (loadincludefile) {
@@ -1751,7 +1747,6 @@ compile_em(void) {
     FIX_VAR = nfix;
     NTable = ntab;
     NFUN = nufun;
-    /* plintf(" IN_VARS=%d\n",IN_VARS); */
 
     /* Reset all this stuff so we align the indices correctly */
 
@@ -1958,7 +1953,6 @@ compile_em(void) {
                 strcpy(formula, my_string);
                 plintf(" %s has %d pts from %f to %f = %s\n", v->lhs, nn, xlo,
                        xhi, formula);
-                /* plintf(" ntab = %d\n",ntab); */
                 if (add_form_table(ntab, nn, xlo, xhi, formula)) {
                     plintf("ERROR computing %s\n", v->lhs);
                     exit(0);
@@ -2056,7 +2050,6 @@ parse_a_string(char *s1, VAR_INFO *v) {
         return 0;
     }
     if (s1[0] == '0' && s1[1] == '=') { /* ||(s1[1]==' '&&s1[2]=='='))) */
-                                        /* plintf("DAE --- \n");  */
         type2 = DAE;
         snprintf(lhs, sizeof(lhs), "0=");
         strpiece(rhs, s1, 2, n1);
@@ -2409,8 +2402,6 @@ read_a_line(FILE *fp, char *s) {
         if ((save_eqn[NLINES] = malloc(nn)) == NULL)
             exit(0);
         strncpy(save_eqn[NLINES++], temp, nn);
-        /* plintf("inc NLINES in readaline %s \n",temp); */
-        /* plintf(" NLINES = %d \n",NLINES); */
         n = strlen(temp);
         for (i = n - 1; i >= 0; i--) {
             if (temp[i] == '\\') {

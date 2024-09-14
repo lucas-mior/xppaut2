@@ -736,7 +736,6 @@ int32
 do_file_select_events(void) {
     int32 done;
     XEvent ev;
-    /* plintf("Xup=%d\n",Xup); */
     while (true) {
         XNextEvent(display, &ev);
         switch (ev.type) {
@@ -796,7 +795,6 @@ create_file_selector(char *title, char *file, char *wild) {
     height = (5 + nwin) * hgt;
     filesel.minwid = width;
     filesel.minhgt = height;
-    /* plintf("Title=%s\n",title); */
     /* printf("Here now 23!\n");*/
     base =
         make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
@@ -1153,7 +1151,6 @@ int32
 selector_key(XEvent ev) {
     char ch;
     int32 flag;
-    /* plintf(" hot=%d pos=%d \n",filesel.hot,filesel.pos); */
     ch = get_key_press(&ev);
     switch (filesel.hot) {
     case HOTFILE:
@@ -1202,7 +1199,6 @@ file_selector(char *title, char *file, char *wild) {
     XFlush(display); /*Need to do this otherwise the file dialog hangs around*/
     if (i == 0)
         return 0;
-    /* plintf(" Got a file: %s \n",filesel.filetxt); */
     strcpy(file, filesel.filetxt);
     return 1; /* got a file name */
 }

@@ -185,7 +185,6 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
     ppm = malloc(w*h*3);
     pixels = malloc(h*w);
-    /* plintf(" h=%d w=%d \n",h,w);*/
 
     getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);
     switch (task) {

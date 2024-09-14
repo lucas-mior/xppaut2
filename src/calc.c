@@ -222,7 +222,6 @@ calculate(char *expr, int32 *ok) {
     z = evaluate(com);
     *ok = 1;
 bye:
-    /* plintf(" old=%d %d  new = %d %d \n",NCON,NSYM,NCON_START,NSYM_START);  */
     NCON = NCON_START;
     NSYM = NSYM_START;
     return z;

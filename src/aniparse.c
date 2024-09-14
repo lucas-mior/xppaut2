@@ -976,7 +976,6 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
         CSHIFT = bbc;          /*  how far to shift to get the next color */
         CMULT = 8 - bbc;       /* multiply 5 bit color to get to 8 bit */
     }
-    /* plintf("CMULT=%d CMSK=%d CSHIFT=%d \n",CMULT,CMSK,CSHIFT); */
     *wid = ximage->width;
     *hgt = ximage->height;
     pixel = (uchar *)ximage->data;
@@ -1656,13 +1655,11 @@ add_ani_expr(char *x, int32 *c) {
     int32 com[300];
     int32 err;
 
-    /* plintf(" n_ani=%d exp=%s \n",n_anicom,x); */
     err = add_expr(x, com, &n);
     if (err == 1)
         return 1;
     for (i = 0; i < n; i++) {
         c[i] = com[i];
-        /* plintf(" %d %d \n",i,c[i]); */
     }
     /*  z=evaluate(c);
     plintf(" evaluated to %g \n",z); */
@@ -1913,7 +1910,6 @@ add_ani_vtext(ANI_COM *a, char *x1, char *y1, char *x2, char *y2) {
     if (err)
         return -1;
     err = add_ani_expr(x2, a->x2);
-    /* plintf(" txt=%s com1=%d \n",x2,a->x2[0]); */
     if (err)
         return -1;
     s = (char *)(a->y2);
@@ -2134,7 +2130,6 @@ set_ani_col(int32 j) {
         icol = -c;
     else
         icol = (int32)(color_total*my_ani[j].zcol) + FIRSTCOLOR;
-    /* plintf(" t=%d j=%d col=%d \n",vcr.pos,j,icol); */
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
@@ -2457,7 +2452,6 @@ tst_pix_draw(void) {
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     XDrawString(display, ani_pixmap, ani_gc, 10, vcr.hgt - (DCURYs + 6),
                 "THIS SPACE FOR RENT", 20);
-    /* plintf(" color_tot=%d \n",color_total); */
     return;
 }
 

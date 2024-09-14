@@ -271,7 +271,6 @@ solve_dae(void) {
         }
         if (err < tol) /* not much change */
         {
-            /* plintf(" no change .... \n"); */
             for (i = 0; i < n; i++) {
                 SETVAR(svar[i].index, y[i]);
                 svar[i].last = y[i];
@@ -280,7 +279,6 @@ solve_dae(void) {
         }
         iter++;
         if (iter > maxit) {
-            /* plintf(" Too many iterates ... \n"); */
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
             return -2; /* too many iterates */

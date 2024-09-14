@@ -703,7 +703,6 @@ do_this_liaprun(int32 i, double p) {
     my_liap[0][i] = p;
     hrw_liapunov(&liap, 1, NEWT_ERR);
     my_liap[1][i] = liap;
-    /* plintf("p=%g lambda=%g \n",p,liap); */
     LIAP_I++;
     return;
 }

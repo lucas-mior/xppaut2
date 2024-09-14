@@ -141,7 +141,6 @@ get_intern_set(void) {
         err_msg("Not a valid set");
         return;
     }
-    /* plintf(" Got set %d \n",j); */
     get_graph();
     extract_internset(j);
     chk_delay();

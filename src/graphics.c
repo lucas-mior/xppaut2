@@ -182,7 +182,6 @@ point(int32 x, int32 y) {
 
 void
 line(int32 x1, int32 y1, int32 x2, int32 y2) {
-    /* plintf("l %d %d %d %d \n",x1,y1,x2,y2); */
     if (PltFmtFlag == PSFMT)
         ps_line(x1, y1, x2, y2);
     else if (PltFmtFlag == SVGFMT)

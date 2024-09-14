@@ -219,7 +219,6 @@ add_export_list(char *in, char *out) {
     in_out.outtype = malloc((i + 1) * sizeof(int32));
     in_out.vout = malloc((i + 1) * sizeof(double));
     in_out.nout = i;
-    /* plintf(" in %d out %d \n",in_out.nin,in_out.nout); */
     return;
 }
 
@@ -302,7 +301,6 @@ parse_inout(char *l, int32 flag) {
                     in_out.out[k] = index;
                     in_out.outtype[k] = PAR;
                 }
-                /* plintf(" parameter %s =%d k=%d \n",new,index,k); */
                 k++;
             }
             if (c == '}')

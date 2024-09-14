@@ -29,7 +29,6 @@ init_alloc_info(void) {
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
     xpv.x = malloc((xpv.nvec + xpv.node) * sizeof(double));
-    /* plintf(" node=%d nvec=%d \n",xpv.node,xpv.nvec); */
     for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
     return;
@@ -58,7 +57,6 @@ alloc_meth(void) {
     if (WORK)
         free(WORK);
     WORK = malloc(sz*sizeof(double));
-    /* plintf(" I have allocated %d doubles \n",sz); */
     return;
 }
 

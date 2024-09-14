@@ -542,7 +542,6 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 }
                 absh = MAX(hmin,
                            absh * MAX(0.1, pow(0.8 * (rtol / err), 1. / 3.)));
-                /* plintf(" absh=%g  %g  \n",absh,0.8*(rtol/err)); */
                 h = tdir*absh;
                 nofailed = 0;
                 done = 0;
@@ -553,14 +552,12 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             }
         }
         if (nofailed == 1) {
-            /* plintf(" I didn't fail! \n"); */
             temp = 1.25*pow(err / rtol, 1. / 3.);
             if (temp > 0.2)
                 absh = absh / temp;
             else
                 absh = 5*absh;
         }
-        /* plintf("  absh=%g \n",absh); */
         t = tnew;
         for (i = 0; i < n; i++) {
             y[i] = ynew[i];
@@ -611,7 +608,6 @@ get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
     double yhat;
     double dy;
     double dsy;
-    /* plintf("Getting banded! \n"); */
     for (i = 0; i < (n*mt); i++)
         a[i] = 0.0;
     for (i = 0; i < n; i++) {

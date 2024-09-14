@@ -67,7 +67,6 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
         rhs(x, y, ynew, n);
         for (j = 0; j < n; j++) {
             dermat[j*n + i] = (ynew[j] - yval[j]) / r;
-            /* plintf(" %g ",dermat[j*n+i]); */
         }
         y[i] = ytemp;
     }

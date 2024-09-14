@@ -129,7 +129,6 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
 
     for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
-        /* plintf("dm=%g\n",oldwork[i]); */
     }
     /* Transpose for Eigen        */
     for (int32 i = 0; i < n; i++) {
@@ -430,7 +429,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     for (i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
-        /* plintf("dm=%g\n",oldwork[i]); */
     }
     /* Transpose for Eigen        */
     for (i = 0; i < n; i++) {
@@ -1085,7 +1083,6 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
              newq = 0;
     int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
           job = 0, nt = 0;
-    /* plintf("entering gear ... with start=%d \n",*jstart);*/
     for (i = 0; i < 8; i++) {
         save[i] = work + i*n;
         ytable[i] = work + (8 + i) * n;

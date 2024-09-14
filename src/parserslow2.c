@@ -464,7 +464,6 @@ add_expr(char *expr, int32 *command, int32 *length) {
     int32 my_token[1024];
     int32 err, i;
     convert(expr, dest);
-    /* plintf(" Making token ...\n");  */
     err = make_toks(dest, my_token);
 
     /*  i=0;
