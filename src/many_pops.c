@@ -1186,17 +1186,6 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     select_sym(graph[0].w);
     BaseCol();
 }
-/*
- draw_help() {
-        switch(help_menu){
-                case MAIN_HELP: help(); break;
-                case NUM_HELP : help_num();break;
-
-                case FILE_HELP: help_file();break;
-
-}
-}
-*/
 
 void
 ps_restore(void) {
