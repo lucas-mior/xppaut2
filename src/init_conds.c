@@ -831,17 +831,17 @@ create_file_selector(char *title, char *file, char *wild) {
     */
 
     filesel.up = make_icon_window(base, DCURXs, 2 + 3*hgt + 72 + 15, 32, 24,
-                                  1, 0, 0, lineup_bits);
+                                  1, lineup_bits);
     filesel.dn = make_icon_window(base, DCURXs, 2 + 3*hgt + 96 + 18, 32, 24,
-                                  1, 0, 0, linedn_bits);
+                                  1, linedn_bits);
     filesel.pgup = make_icon_window(base, DCURXs, 2 + 3*hgt + 48 + 12, 32, 24,
-                                    1, 0, 0, pageup_bits);
+                                    1, pageup_bits);
     filesel.pgdn = make_icon_window(base, DCURXs, 2 + 3*hgt + 120 + 21, 32,
-                                    24, 1, 0, 0, pagedn_bits);
+                                    24, 1, pagedn_bits);
     filesel.home =
-        make_icon_window(base, DCURXs, 2 + 3*hgt, 32, 24, 1, 0, 0, home_bits);
+        make_icon_window(base, DCURXs, 2 + 3*hgt, 32, 24, 1, home_bits);
     filesel.start = make_icon_window(base, DCURXs, 2 + 3*hgt + 24 + 3, 32, 24,
-                                     1, 0, 0, start_bits);
+                                     1, start_bits);
 
     filesel.dir = make_plain_window(base, 7 * DCURXs, 2, width - 7 * DCURXs - 5,
                                     DCURYs, 0);
@@ -1727,14 +1727,14 @@ make_box_list_window(BoxList *b, int32 type) {
     b->pgdn=make_window(base,xb1,2*DCURYs+3*DCURYs+12,3*DCURXs,DCURYs,1);
   */
 
-    b->up = make_icon_window(base, xb1, 1.75 * DCURYs + 24 + 3, 32, 24, 1, 0, 0,
+    b->up = make_icon_window(base, xb1, 1.75 * DCURYs + 24 + 3, 32, 24, 1,
                              lineup_bits);
-    b->dn = make_icon_window(base, xb1, 1.75 * DCURYs + 48 + 6, 32, 24, 1, 0, 0,
+    b->dn = make_icon_window(base, xb1, 1.75 * DCURYs + 48 + 6, 32, 24, 1,
                              linedn_bits);
-    b->pgup = make_icon_window(base, xb1, 1.75 * DCURYs, 32, 24, 1, 0, 0,
+    b->pgup = make_icon_window(base, xb1, 1.75 * DCURYs, 32, 24, 1,
                                pageup_bits);
-    b->pgdn = make_icon_window(base, xb1, 1.75 * DCURYs + 72 + 9, 32, 24, 1, 0,
-                               0, pagedn_bits);
+    b->pgdn = make_icon_window(base, xb1, 1.75 * DCURYs + 72 + 9, 32, 24, 1,
+                               pagedn_bits);
 
     for (i = 0; i < nrow; i++) {
         x = DCURXs;

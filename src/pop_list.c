@@ -880,7 +880,7 @@ make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
 
 Window
 make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                 int32 bw, int32 icx, int32 icy, uchar *icdata) {
+                 int32 bw, uchar *icdata) {
     Window win;
     win = make_unmapped_icon_window(root, x, y, width, height, bw, icdata);
     if (root == RootWindow(display, screen))

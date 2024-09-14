@@ -4345,8 +4345,7 @@ void draw_pop_up(POP_UP p, Window w);
 Window make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                                  int32 height, int32 bw, uchar *icdata);
 Window make_icon_window(Window root, int32 x, int32 y, int32 width,
-                        int32 height, int32 bw, int32 icx, int32 icy,
-                        uchar *icdata);
+                        int32 height, int32 bw, uchar *icdata);
 
 #endif
 #ifndef _pp_shoot_h_
