@@ -1436,27 +1436,21 @@ top_button_events(XEvent report) {
 void
 make_top_buttons(void) {
     int32 x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
-    TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
-                                     ColorMap(20), ColorMap(TOPBUTTONCOLOR));
+    TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
-    TopButton[1] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
-                                     ColorMap(20), ColorMap(TOPBUTTONCOLOR));
+    TopButton[1] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
 
-    TopButton[2] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
-                                     ColorMap(20), ColorMap(TOPBUTTONCOLOR));
+    TopButton[2] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
 
-    TopButton[3] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
-                                     ColorMap(20), ColorMap(TOPBUTTONCOLOR));
+    TopButton[3] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
 
-    TopButton[4] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
-                                     ColorMap(20), ColorMap(TOPBUTTONCOLOR));
+    TopButton[4] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
 
-    TopButton[5] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1,
-                                     ColorMap(20), ColorMap(TOPBUTTONCOLOR));
+    TopButton[5] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
     create_user_buttons(x1, 1, main_win);
     return;

@@ -533,7 +533,7 @@ make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
 
 Window
 make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                  int32 bw, int32 fc, int32 bc) {
+                  int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
                               MyForeColor, MyBackColor);

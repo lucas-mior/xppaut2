@@ -172,8 +172,7 @@ create_user_buttons(int32 x0, int32 y0, Window base) {
         return;
     for (i = 0; i < nuserbut; i++) {
         l = DCURXs * (strlen(userbut[i].bname) + 2);
-        userbut[i].w = make_fancy_window(base, x, y0, l, DCURYs, 1,
-                                         ColorMap(20), ColorMap(USERBUTCOLOR));
+        userbut[i].w = make_fancy_window(base, x, y0, l, DCURYs, 1);
         x = x + l + DCURXs;
     }
     draw_all_user_buttons();
