@@ -392,6 +392,8 @@ do_ani_events(XEvent ev) {
     case ButtonPress:
         ani_buttonx(ev, 1);
         break;
+    default:
+        break;
     }
     return;
 }
