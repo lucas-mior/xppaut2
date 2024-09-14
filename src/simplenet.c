@@ -306,7 +306,7 @@ init_net(double *v, int32 n) {
 
 int32
 add_spec_fun(char *name, char *rhs) {
-    int32 i, ind, elen, err;
+    int32 i, ind, elen;
     int32 type;
     int32 iwgt, itau, iind, ivar, ivar2;
     int32 ntype, ntot, ncon, ntab;
@@ -831,7 +831,7 @@ add_spec_fun(char *name, char *rhs) {
         ntype = IMPORT;
         for (i = 0; i < MAXW; i++)
             tname[i] = malloc(25);
-        err = parse_import(rhs, soname, sofun, &ncon, rootname, &ntab, tname);
+        parse_import(rhs, soname, sofun, &ncon, rootname, &ntab, tname);
         my_net[ind].values = malloc((ncon + 1) * sizeof(double));
         init_net(my_net[ind].values, ncon);
         my_net[ind].n = ncon;
