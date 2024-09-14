@@ -243,6 +243,8 @@ make_adj_com(int32 com) {
     case 'r':
         AdjRange = 1;
         break;
+    default:
+        break;
     }
     return;
 }
