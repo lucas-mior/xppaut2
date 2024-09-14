@@ -706,7 +706,7 @@ do_eq_range(double *x) {
         set_val(eq_range.item, temp);
         PAR_FOL = 1;
         sprintf(bob, "%s=%.16g", eq_range.item, temp);
-        bottom_msg(2, bob);
+        bottom_msg(bob);
         evaluate_derived();
         /*  I think  */ redo_all_fun_tables();
         if (mc) {
@@ -889,7 +889,7 @@ do_range(double *x,
                                 range.item2, p2);
                     else
                         sprintf(bob, "%s=%.16g  i=%d", range.item, p, i);
-                    bottom_msg(2, bob);
+                    bottom_msg(bob);
                 }
             } /* normal range stuff   */
             else { /* auto range stuff */
@@ -897,7 +897,7 @@ do_range(double *x,
                 get_ic(2, x);
                 get_val(parn, &temp);
                 sprintf(bob, "%s=%.16g", parn, temp);
-                bottom_msg(2, bob);
+                bottom_msg(bob);
             }
             do_start_flags(x, &MyTime);
             if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {

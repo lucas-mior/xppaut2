@@ -2569,7 +2569,7 @@ void chk_xor(void);
 void set_gcurs(int32 y, int32 x);
 void clr_command(void);
 void draw_info_pop(Window win);
-void bottom_msg(int32 line, char *msg);
+void bottom_msg(char *msg);
 void gputs(char *string, Window win);
 void err_msg(char *string);
 int32 plintf(char *fmt, ...);

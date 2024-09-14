@@ -184,7 +184,7 @@ do_sh_range(double *ystart, double *yend) {
         temp = parlo + dpar*(double)i;
         set_val(shoot_range.item, temp);
         snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
-        bottom_msg(2, bob);
+        bottom_msg(bob);
         if (shoot_range.movie == 1)
             clr_scrn();
 

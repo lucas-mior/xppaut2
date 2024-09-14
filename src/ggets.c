@@ -129,7 +129,7 @@ draw_info_pop(Window win) {
 }
 
 void
-bottom_msg(int32 line, char *msg) {
+bottom_msg(char *msg) {
     XClearWindow(display, info_pop);
     BaseCol();
     strcpy(info_message, msg);

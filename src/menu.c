@@ -121,7 +121,7 @@ menu_crossing(Window win, int32 yn) {
         if (win == my_menus[j].w[i]) {
             XSetWindowBorderWidth(display, win, yn);
             if (yn && TipsFlag)
-                bottom_msg(0, z[i]);
+                bottom_msg(z[i]);
             return;
         }
     }
