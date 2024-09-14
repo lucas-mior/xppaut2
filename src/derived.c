@@ -13,9 +13,9 @@ typedef struct {
     int32 index, *form;
     char *rhs;
     double value;
-} DERIVED;
+} Derived;
 
-DERIVED derived[MAXDERIVED];
+Derived derived[MAXDERIVED];
 int32 nderived = 0;
 
 /* clean up derived stuff */
