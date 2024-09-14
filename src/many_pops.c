@@ -1143,7 +1143,6 @@ destroy_a_pop(void) {
 void
 init_grafs(int32 x, int32 y, int32 w, int32 h) {
     int32 i;
-    int32 botmen = DCURYs + DCURYb + 10 + 21 * (DCURY + 2);
     GrCol();
     for (i = 0; i < MAXLAB; i++) {
         lb[i].use = 0;
@@ -1246,7 +1245,6 @@ rotate3dcheck(XEvent ev) {
     XEvent z;
     int32 xini, yini, dx, dy;
     double theta, phi;
-    double xm, ym, xn, yn;
     if (w == draw_win && MyGraph->ThreeDFlag) {
         xini = ev.xbutton.x;
         yini = ev.xbutton.y;

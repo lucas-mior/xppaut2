@@ -1122,7 +1122,7 @@ evaluate_network(int32 ind) {
     double sum, z;
     int32 n = my_net[ind].n, *f;
     int32 ncon = my_net[ind].ncon;
-    double *w, *y, *cc, *values, *yp, *tau;
+    double *w, *y, *cc, *values, *tau;
     int32 twon = 2*n, root = my_net[ind].root, root2 = my_net[ind].root2;
     cc = my_net[ind].index;
     w = my_net[ind].weight;
