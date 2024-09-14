@@ -2726,7 +2726,7 @@ shoot_easy(double *x) {
     double t = 0.0;
     int32 i;
     SuppressBounds = 1;
-    /* printf(" %g %g \n",x[0],x[1]); */
+
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
     SuppressBounds = 0;
     return;
