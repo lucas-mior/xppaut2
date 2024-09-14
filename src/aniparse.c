@@ -165,13 +165,13 @@ typedef struct {
 
 static VCR vcr;
 
-int32 n_anicom;
+static int32 n_anicom;
 
-int32 ani_text_size;
-int32 ani_text_color;
-int32 ani_text_font;
+static int32 ani_text_size;
+static int32 ani_text_color;
+static int32 ani_text_font;
 
-GC ani_gc;
+static GC ani_gc;
 
 extern int32 use_ani_file;
 extern char anifile[256];
