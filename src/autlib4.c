@@ -51,7 +51,7 @@
 /*                      Demmel-Kahan svd routines */
 /* ----------------------------------------------------------------------- */
 
-/* Subroutine */ int32
+int32
 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
        doublecomplex *ev) {
     /* System generated locals */
@@ -372,7 +372,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 /*  Ref: Golub and van Loan, Matrix Calcualtions, */
 /*       First Edition, Pages 38-43 */
 
-/* Subroutine */ int32
+int32
 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
       double *v) {
     /* Local variables */
@@ -519,7 +519,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 
 }
 
-/* Subroutine */ int32
+int32
 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
       int64 *job, double *a, int64 *lda) {
     /* System generated locals */
