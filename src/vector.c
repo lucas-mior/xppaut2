@@ -49,7 +49,7 @@ N_VNew(int64 N) {
     if (v == NULL)
         return NULL;
 
-    v->data = malloc(N * sizeof(double));
+    v->data = malloc(N * sizeof(*(v->data)));
     if (v->data == NULL) {
         free(v);
         return NULL;

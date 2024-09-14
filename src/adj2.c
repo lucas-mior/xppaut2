@@ -129,9 +129,9 @@ int32
 create_transpose(void) {
     int32 i, j;
     int32 inrow, incol;
-    my_trans.data = malloc(sizeof(float *)*(size_t)(NEQ + 1));
+    my_trans.data = malloc(sizeof(*(my_trans.data))*(size_t)(NEQ + 1));
     for (i = 0; i <= my_trans.nrow; i++)
-        my_trans.data[i] = malloc(sizeof(float) * my_trans.ncol);
+        my_trans.data[i] = malloc(sizeof(my_trans.data[i]) * my_trans.ncol);
     for (i = my_trans.nrow + 1; i <= NEQ; i++)
         my_trans.data[i] = storage[i];
     for (j = 0; j < my_trans.ncol; j++)
@@ -161,7 +161,7 @@ void
 alloc_h_stuff(void) {
     int32 i;
     for (i = 0; i < NODE; i++) {
-        coup_fun[i] = malloc(100*sizeof(int32));
+        coup_fun[i] = malloc(100*sizeof(*coup_fun));
         coup_string[i] = malloc(80);
         strcpy(coup_string[i], "0");
     }
@@ -283,9 +283,9 @@ new_h_fun(int32 silent) {
     }
     h_len = storind;
     data_back();
-    my_h = malloc(sizeof(float *)*(NEQ + 1));
+    my_h = malloc(sizeof(*my_h)*(NEQ + 1));
     for (i = 0; i < n; i++)
-        my_h[i] = malloc(sizeof(float) * h_len);
+        my_h[i] = malloc(sizeof(*my_h) * h_len);
     for (i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
     if (make_h(storage, my_adj, h_len, NODE, silent)) {
@@ -377,9 +377,9 @@ new_adjoint(void) {
         ADJ_HERE = 0;
     }
     adj_len = storind;
-    my_adj = malloc((NEQ + 1) * sizeof(float *));
+    my_adj = malloc((NEQ + 1) * sizeof(*my_adj));
     for (i = 0; i < n; i++)
-        my_adj[i] = malloc(sizeof(float) * adj_len);
+        my_adj[i] = malloc(sizeof(*my_adj) * adj_len);
     for (i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
     if (adjoint(storage, my_adj, adj_len, DELTA_T * NJMP, ADJ_EPS, ADJ_ERR,
@@ -443,15 +443,15 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
     int32 n2 = node*node;
     double error;
 
-    work = malloc((n2 + 4*node) * sizeof(double));
-    yprime = malloc(node*sizeof(double));
-    yold = malloc(node*sizeof(double));
-    fold = malloc(node*sizeof(double));
-    fdev = malloc(node*sizeof(double));
-    jac = malloc(n2*sizeof(double *));
+    work = malloc((n2 + 4*node) * sizeof(*work));
+    yprime = malloc(node*sizeof(*yprime));
+    yold = malloc(node*sizeof(*yold));
+    fold = malloc(node*sizeof(*fold));
+    fdev = malloc(node*sizeof(*fdev));
+    jac = malloc(n2*sizeof(*jac));
 
     for (i = 0; i < n2; i++) {
-        jac[i] = malloc(nt*sizeof(double));
+        jac[i] = malloc(nt*sizeof(*jac));
         if (jac[i] == NULL) {
             err_msg("Insufficient storage");
             return 0;
@@ -688,8 +688,8 @@ void
 alloc_liap(int32 n) {
     if (LIAP_FLAG == 0)
         return;
-    my_liap[0] = malloc(sizeof(float)*(n + 1));
-    my_liap[1] = malloc(sizeof(float)*(n + 1));
+    my_liap[0] = malloc(sizeof(*my_liap)*(n + 1));
+    my_liap[1] = malloc(sizeof(*my_liap)*(n + 1));
     LIAP_N = (n + 1);
     LIAP_I = 0;
     return;

@@ -34,8 +34,8 @@ main()
 {
   int i;
   char name[10];
-  v=(double *)malloc(11*sizeof(double));
-  m=(SYMBOL *)malloc(11*sizeof(SYMBOL));
+  v=(double *)malloc(11*sizeof(*v));
+  m=(SYMBOL *)malloc(11*sizeof(*m));
    for(i=0;i<10;i++){
      strcpy(m[i].name,ms[i].name);
      m[i].len=ms[i].len;
