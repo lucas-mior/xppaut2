@@ -2440,7 +2440,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
 
     /*initialize strings*/
     for (i = 0; i < 9; ++i) {
-        sprintf(col[i], "              ");
+        strcpy(col[i], "              ");
     }
 
     if (iap->mynode == 0) {
