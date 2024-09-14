@@ -1,5 +1,5 @@
 /* autlib3.f -- translated by f2c (version 19970805).
-   You must link the resulting object file with the libraries:
+ * You must link the resulting object file with the libraries:
         -lf2c -lm   (in that order)
 */
 
@@ -8,17 +8,17 @@
 #include "integers.h"
 
 /* The memory for these are taken care of in main, and setubv for the
-   mpi parallel case.  These are global since the they are used many times
-   in the wrapper functions in autlib3.c (and autlib5.c) and the cost
-   of allocating and deallocating them is prohibitive. */
+ * mpi parallel case.  These are global since the they are used many times
+ * in the wrapper functions in autlib3.c (and autlib5.c) and the cost
+ * of allocating and deallocating them is prohibitive. */
 extern struct {
     double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
 } global_scratch;
 
 /* The memory for these are taken care of in main, and setubv for the
-   mpi parallel case.  These are global since they only need to be
-   computed once for an entire run, so we do them at the
-   beginning to save the cost later on. */
+ * mpi parallel case.  These are global since they only need to be
+ * computed once for an entire run, so we do them at the
+ * beginning to save the cost later on. */
 extern struct {
     int64 irtn;
     int64 *nrtn;

@@ -166,11 +166,11 @@ alloc_kernels(int32 flag) {
 }
 
 /* the following is the main driver for evaluating the sums in the
-   kernel the results here are used in the implicit solver.  The integral
-   up to t_n-1 is evaluated and placed in sum.  Kn-> Kn-1
+ * kernel the results here are used in the implicit solver.  The integral
+ * up to t_n-1 is evaluated and placed in sum.  Kn-> Kn-1
 
-   the weights al and bet are computed in general, but specifically
-   for mu=0,.5 since these involve no transcendental functions
+ * the weights al and bet are computed in general, but specifically
+ * for mu=0,.5 since these involve no transcendental functions
 
    */
 
@@ -225,10 +225,10 @@ init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
 }
 
 /* the following functions compute integrals for the piecewise
-   -- constant -- product integration rule.  Thus they agree with
-   the trapezoid rule for mu=0 and there is a special case for mu=.5
-   since that involves no transcendentals.  Later I will put in the
-   piecewise --linear-- method
+ * -- constant -- product integration rule.  Thus they agree with
+ * the trapezoid rule for mu=0 and there is a special case for mu=.5
+ * since that involves no transcendentals.  Later I will put in the
+ * piecewise --linear-- method
 */
 
 double

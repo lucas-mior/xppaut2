@@ -20,8 +20,8 @@ typedef struct {
 
 int32 spec_col = 1, spec_wid = 512, spec_win = 2, spec_col2 = 1, spec_type = 0;
 /* type =0 for PSD
-   type =1 for crossspectrum
-   type =2 for coherence
+ * type =1 for crossspectrum
+ * type =2 for coherence
 
 */
 
@@ -443,11 +443,11 @@ compute_power(void) {
     plintf("a0=%g L2norm= %g  \n", datx[0], sqrt(ptot));
 }
 /* short-term fft
-   first apply a window
-   give data, window size, increment size,
-   window type - 0-square, 1=par 2=hamming,4-hanning,3- bartlet
-   returns a two vectors, real and imaginary
-   which have each of the data appended to them
+ * first apply a window
+ * give data, window size, increment size,
+ * window type - 0-square, 1=par 2=hamming,4-hanning,3- bartlet
+ * returns a two vectors, real and imaginary
+ * which have each of the data appended to them
   data is data (not destroyed)
   nr=number of points in data
   win=window size
@@ -531,13 +531,13 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
     psd(x) breaks data into chunks, takes FFT of each chunk,
     power of each chunk, and averages this.
 
-   csd(x,y)
-   break into chunks
-   compute for each frequency fft(y)*fft(x)^*
-   now average these - note that this will be floatcomplex
-   what I call the cross spectrum is |Pxy|
-  the coherence is
-   |Pxy|^2/|Pxx||Pyy|
+ * csd(x,y)
+ * break into chunks
+ * compute for each frequency fft(y)*fft(x)^*
+ * now average these - note that this will be floatcomplex
+ * what I call the cross spectrum is |Pxy|
+ *the coherence is
+ * |Pxy|^2/|Pxx||Pyy|
 
 */
 

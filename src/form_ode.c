@@ -1071,35 +1071,35 @@ u(0) = value >---  initial data (replaces v, init is also OK )
 */
 
 /*
-   XPP INTERNALS DEMAND THE FOLLOWING ORDER CONVENTION:
+ * XPP INTERNALS DEMAND THE FOLLOWING ORDER CONVENTION:
 
-   external names :  ODES MARKOV AUXILLIARY (uvar_names)
-   internal names :  ODES FIXED MARKOV  (variables)
-   internal formula: ODES FIXED AUXILLIARY (my_ode)
-   external formula: odes markov auxilliary (ode_names)
+ * external names :  ODES MARKOV AUXILLIARY (uvar_names)
+ * internal names :  ODES FIXED MARKOV  (variables)
+ * internal formula: ODES FIXED AUXILLIARY (my_ode)
+ * external formula: odes markov auxilliary (ode_names)
 
-   NODE = #ode variables
-   NMarkov = # Markov variables
-   NAux = # named auxiliary variables
-   NEQ = ode+naux   --> plotted quantities
+ * NODE = #ode variables
+ * NMarkov = # Markov variables
+ * NAux = # named auxiliary variables
+ * NEQ = ode+naux   --> plotted quantities
 
-   my_ode[] <---  formulas
-   ode_names[] <---- "rhs"
-   uvar_names[] <----\
-   aux_names[]  <----/ external names
+ * my_ode[] <---  formulas
+ * ode_names[] <---- "rhs"
+ * uvar_names[] <----\
+ * aux_names[]  <----/ external names
 
-   New parser reads in each line storing it in the var_info structure
-   if it is a markov (the only truly multiline command) then it
-   ** immediately ** reads in the markov stuff
+ * New parser reads in each line storing it in the var_info structure
+ * if it is a markov (the only truly multiline command) then it
+ * ** immediately ** reads in the markov stuff
 
-   It makes free use of "compiler"  in the old parser by
-   sending it new strings
+ * It makes free use of "compiler"  in the old parser by
+ * sending it new strings
 
-   On the first pass it does nothing except markov stuff
-   On the second pass it imitates an ode file doing things in the
-   "correct" order
+ * On the first pass it does nothing except markov stuff
+ * On the second pass it imitates an ode file doing things in the
+ * "correct" order
 
-    Only functions have changed syntax ...
+ *  Only functions have changed syntax ...
 
 */
 
@@ -1994,7 +1994,7 @@ compile_em(void) {
 }
 
 /* this code checks if the right-hand side for an initial
-   condition is a formula (for delays) or a number
+ * condition is a formula (for delays) or a number
 */
 int32
 formula_or_number(char *expr, double *z) {

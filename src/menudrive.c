@@ -5,8 +5,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 /* the menu for XPP commands
-   this calls any command
-   it also has lots of the direct X Gui stuff
+ * this calls any command
+ * it also has lots of the direct X Gui stuff
 
 */
 

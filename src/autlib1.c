@@ -13,28 +13,28 @@ extern int32 NODE;
 extern int32 RestartLabel;
 int32 restart_flag = 0;
 /* The memory for these are taken care of in main, and setubv for the
-   mpi parallel case.  These are global since the they are used many times
-   in the wrapper functions in autlib3.c (and autlib5.c) and the cost
-   of allocating and deallocating them is prohibitive. */
+ * mpi parallel case.  These are global since the they are used many times
+ * in the wrapper functions in autlib3.c (and autlib5.c) and the cost
+ * of allocating and deallocating them is prohibitive. */
 struct {
     double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
 } global_scratch = {NULL, NULL, NULL, NULL, NULL, NULL};
 
 /* The memory for these are taken care of in main, and setubv for the
-   mpi parallel case.  These are global since they only need to be
-   computed once for an entire run, so we do them at the
-   beginning to save the cost later on. */
+ * mpi parallel case.  These are global since they only need to be
+ * computed once for an entire run, so we do them at the
+ * beginning to save the cost later on. */
 struct {
     int64 irtn;
     int64 *nrtn;
 } global_rotations = {0, NULL};
 
 /* There are used to short circuit the code.  getp is a user callable function
-   that allows certain parameters to be returned.  Unfortunately, the
-   data that this function works on is NOT user accessible, so cannot
-   be part of its calling sequence.  Accordingly, this global structure is
-   filled in with the necessary data so that getp has access to it when the
-   user calls that routine. */
+ * that allows certain parameters to be returned.  Unfortunately, the
+ * data that this function works on is NOT user accessible, so cannot
+ * be part of its calling sequence.  Accordingly, this global structure is
+ * filled in with the necessary data so that getp has access to it when the
+ * user calls that routine. */
 struct {
     rap_type *rav;
     iap_type *iav;

@@ -49,7 +49,7 @@ typedef struct {
 DLFUN dlf;
 #ifdef HAVEDLL
 /* this loads a dynamically linked library of the
-   users choice
+ * users choice
 */
 
 #include <dlfcn.h>

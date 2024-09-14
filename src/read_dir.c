@@ -321,44 +321,44 @@ MakeFullPath(char *root, char *filename, char *pathname) {
 
 /* wildmatch.c - Unix-style command line wildcards
 
-   This procedure is in the public domain.
+ * This procedure is in the public domain.
 
-   After that, it is just as if the operating system had expanded the
-   arguments, except that they are not sorted.	The program name and all
-   arguments that are expanded from wildcards are lowercased.
+ * After that, it is just as if the operating system had expanded the
+ * arguments, except that they are not sorted.	The program name and all
+ * arguments that are expanded from wildcards are lowercased.
 
-   Syntax for wildcards:
-   *		Matches zero or more of any character (except a '.' at
-                the beginning of a name).
-   ?		Matches any single character.
-   [r3z]	Matches 'r', '3', or 'z'.
-   [a-d]	Matches a single character in the range 'a' through 'd'.
-   [!a-d]	Matches any single character except a character in the
-                range 'a' through 'd'.
+ * Syntax for wildcards:
+ * *		Matches zero or more of any character (except a '.' at
+ *              the beginning of a name).
+ * ?		Matches any single character.
+ * [r3z]	Matches 'r', '3', or 'z'.
+ * [a-d]	Matches a single character in the range 'a' through 'd'.
+ * [!a-d]	Matches any single character except a character in the
+ *              range 'a' through 'd'.
 
-   The period between the filename root and its extension need not be
-   given explicitly.  Thus, the pattern `a*e' will match 'abacus.exe'
-   and 'axyz.e' as well as 'apple'.  Comparisons are not case sensitive.
+ * The period between the filename root and its extension need not be
+ * given explicitly.  Thus, the pattern `a*e' will match 'abacus.exe'
+ * and 'axyz.e' as well as 'apple'.  Comparisons are not case sensitive.
 
-   The wild_match code was written by Rich Salz, rsalz@bbn.com,
-   posted to net.sources in November, 1986.
+ * The wild_match code was written by Rich Salz, rsalz@bbn.com,
+ * posted to net.sources in November, 1986.
 
-   The code connecting the two is by Mike Slomin, bellcore!lcuxa!mike2,
-   posted to comp.sys.ibm.pc in November, 1988.
+ * The code connecting the two is by Mike Slomin, bellcore!lcuxa!mike2,
+ * posted to comp.sys.ibm.pc in November, 1988.
 
-   Major performance enhancements and bug fixes, and source cleanup,
-   by David MacKenzie, djm@ai.mit.edu. */
+ * Major performance enhancements and bug fixes, and source cleanup,
+ * by David MacKenzie, djm@ai.mit.edu. */
 
 /* Shell-style pattern matching for ?, \, [], and*characters.
-   I'm putting this replacement in the public domain.
+ * I'm putting this replacement in the public domain.
 
-   Written by Rich $alz, mirror!rs, Wed Nov 26 19:03:17 EST 1986. */
+ * Written by Rich $alz, mirror!rs, Wed Nov 26 19:03:17 EST 1986. */
 
 /* The character that inverts a character class; '!' or '^'. */
 #define INVERT '!'
 
 /* Return nonzero if `string' matches Unix-style wildcard pattern
-   `pattern'; zero if not. */
+ * `pattern'; zero if not. */
 
 int32
 wild_match(char *string, char *pattern) {

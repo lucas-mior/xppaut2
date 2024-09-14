@@ -1833,10 +1833,10 @@ justify_string(Window w1, char *s1) {
 }
 
 /* new code is a bit tricky here - we dont want
-   to draw it if it is not visible
-    there are nwin windows covering indexes
-    n0,n0+1,...n0+nwin-1
-    if the index is beyond this dont draw it
+ * to draw it if it is not visible
+ *  there are nwin windows covering indexes
+ *  n0,n0+1,...n0+nwin-1
+ *  if the index is beyond this dont draw it
 */
 
 void

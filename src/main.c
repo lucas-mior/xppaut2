@@ -783,25 +783,25 @@ set_small_font(void) {
 }
 
 /* not sure what to do with this - but it works pretty well!
-   it allows you to create a KB script and send it as
-   fake presses to the X11 event handler
+ * it allows you to create a KB script and send it as
+ * fake presses to the X11 event handler
 
-   special keypresses are
-   #t tab
-   #e escape
-   #b backspace
-   #d delete
-   #r return
-  so for example to change a parameter to some numbert and then
-   run the integration, you would script
-   "piapp#r#b#b#b#b.12#r#rig"
+ * special keypresses are
+ * #t tab
+ * #e escape
+ * #b backspace
+ * #d delete
+ * #r return
+ *so for example to change a parameter to some numbert and then
+ * run the integration, you would script
+ * "piapp#r#b#b#b#b.12#r#rig"
 
-   p calls parameter prompt
-   iapp#r  types in iapp with a return
-   #b#b#b#b deletes the current value (assuming no more than 4 numbers)
-   .12# types in the number
-   #r gets out of the parameter picker
-   ig  runs XPP
+ * p calls parameter prompt
+ * iapp#r  types in iapp with a return
+ * #b#b#b#b deletes the current value (assuming no more than 4 numbers)
+ * .12# types in the number
+ * #r gets out of the parameter picker
+ * ig  runs XPP
 
 */
 int32

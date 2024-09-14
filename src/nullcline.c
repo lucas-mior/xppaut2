@@ -700,16 +700,16 @@ direct_field_com(int32 c) {
 }
 
 /* animated nullclines stuff
-   added Aug 31 97
-   just redraws them
-   It will allow you to either freeze a range of them
-   or just one at a time
+ * added Aug 31 97
+ * just redraws them
+ * It will allow you to either freeze a range of them
+ * or just one at a time
 
-   freeze   -   store the current set
-   range_freeze - compute over some range of parameters
-   clear - delete all but the current set
-   animate - replay all frozen ones (not current set )
-   */
+ * freeze   -   store the current set
+ * range_freeze - compute over some range of parameters
+ * clear - delete all but the current set
+ * animate - replay all frozen ones (not current set )
+ */
 
 void
 save_the_nullclines(void) {

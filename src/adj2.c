@@ -392,7 +392,7 @@ new_adjoint(void) {
     return;
 }
 /* this computes the periodic orbit and stores it in
-   the usual place  given initial data and period */
+ * the usual place  given initial data and period */
 
 void
 test_test(void) {
@@ -650,13 +650,13 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
 }
 
 /* this is some code for the maximal liapunov exponent
-   I assume you have computed an orbit and it is in storage
+ * I assume you have computed an orbit and it is in storage
 
-   at each time point, I use y+dy as an initial condition
-   I then integrate for one time step
-   I subtract this from y(t+dt) and divide by the norm of dy.
-   I take the log of this and sum up the logs dividing by Ndt
-   to get an approximation
+ * at each time point, I use y+dy as an initial condition
+ * I then integrate for one time step
+ * I subtract this from y(t+dt) and divide by the norm of dy.
+ * I take the log of this and sum up the logs dividing by Ndt
+ * to get an approximation
 */
 
 void
