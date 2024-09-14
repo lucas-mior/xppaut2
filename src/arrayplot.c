@@ -70,7 +70,7 @@ static char aplot_range_stem[256] = "rangearray";
 static int32 aplot_still = 1, aplot_tag = 0;
 static APLOT aplot;
 extern Window draw_win;
-int32 plot3d_auto_redraw = 0;
+static int32 plot3d_auto_redraw = 0;
 FILE *ap_fp;
 GC aplot_gc;
 int32 first_aplot_press;
@@ -96,7 +96,7 @@ draw_one_array_plot(char *bob) {
     return;
 }
 
-void
+static void
 set_up_aplot_range(void) {
     static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
     char values[3][MAX_LEN_SBOX];
@@ -118,7 +118,7 @@ set_up_aplot_range(void) {
     return;
 }
 
-void
+static void
 fit_aplot(void) {
     double zmax, zmin;
     scale_aplot(&aplot, &zmax, &zmin);
@@ -271,6 +271,8 @@ do_array_plot_events(XEvent ev) {
             first_aplot_press = ev.xbutton.y;
         /*apbutton(ev.xbutton.window,aplot);*/
         apbutton(ev.xbutton.window);
+        break;
+    default:
         break;
     }
     return;
@@ -456,7 +458,7 @@ edit_aplot(void) {
 
 void
 get_root(char *s, char *sroot, int32 *num) {
-    int32 n = strlen(s);
+    int32 n = (int32)strlen(s);
     int32 i = n - 1, j;
 
     char me[100];
@@ -640,7 +642,8 @@ grab_aplot_screen(APLOT ap) {
 
 void
 redraw_aplot(APLOT ap) {
-    int32 i, j, w = ap.wplot;
+    int32 i, j;
+    Window w = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
     char bob[100];
     int32 nrows = my_browser.maxrow, colr, cmax = FIRSTCOLOR + color_total;
@@ -664,7 +667,7 @@ redraw_aplot(APLOT ap) {
     if (jb >= 0)
         thi = my_browser.data[0][jb];
     snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
-    XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob, strlen(bob));
+    XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
     dx = (double)ap.plotw / (double)(ap.nacross / ap.ncskip);
     dy = (double)ap.ploth / (double)ap.ndown;
     delx = (int32)dx + 1;
