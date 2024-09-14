@@ -2413,7 +2413,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
 
         if (!(fabs(*t) < TRANS) && Xup && OnTheFly) {
-            plot_the_graphs(xv, xvold, NEQ, fabs(dt * NJMP), torcross, 0);
+            plot_the_graphs(xv, xvold, fabs(dt * NJMP), torcross, 0);
         }
 
         if ((STORFLAG == 1) && (count != 0) && (storind < MAXSTOR) &&
@@ -2550,26 +2550,24 @@ export_data(FILE *fp) {
 }
 
 void
-plot_the_graphs(float *xv, float *xvold, int32 neq, double ddt,
-                int32 *tc, int32 flag) {
+plot_the_graphs(float *xv, float *xvold, double ddt, int32 *tc, int32 flag) {
     int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
-        plot_one_graph(xv, xvold, neq, ddt, tc);
+        plot_one_graph(xv, xvold, ddt, tc);
         return;
     }
 
     for (i = 0; i < num_pops; i++) {
         make_active(ActiveWinList[i], flag);
-        plot_one_graph(xv, xvold, neq, ddt, tc);
+        plot_one_graph(xv, xvold, ddt, tc);
     }
     make_active(ic, flag);
     return;
 }
 
 void
-plot_one_graph(float *xv, float *xvold, int32 neq, double ddt,
-               int32 *tc) {
+plot_one_graph(float *xv, float *xvold, double ddt, int32 *tc) {
     int32 *IXPLT, *IYPLT, *IZPLT;
     int32 NPlots, ip;
     float oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];

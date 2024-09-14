@@ -3000,10 +3000,9 @@ void send_output(double *y, double t);
 void do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl,
              float *ypl, float *zpl);
 void export_data(FILE *fp);
-void plot_the_graphs(float *xv, float *xvold, int32 neq, double ddt,
+void plot_the_graphs(float *xv, float *xvold, double ddt,
                      int32 *tc, int32 flag);
-void plot_one_graph(float *xv, float *xvold, int32 neq, double ddt,
-                    int32 *tc);
+void plot_one_graph(float *xv, float *xvold, double ddt, int32 *tc);
 void restore(int32 i1, int32 i2);
 void comp_color(float *v1, float *v2, int32 n, double dt);
 void shoot(double *x, double *xg, double *evec, int32 sgn);
