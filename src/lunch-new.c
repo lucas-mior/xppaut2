@@ -353,7 +353,7 @@ io_numerics(int32 f, FILE *fp) {
         if (set_type == 1)
             io_double(&ATOLER, fp, f, "Abs. Tolerance");
         else
-            ATOLER = TOLER * 10;
+            ATOLER = TOLER*10;
     } else
         io_double(&ATOLER, fp, f, "Abs. Tolerance");
 

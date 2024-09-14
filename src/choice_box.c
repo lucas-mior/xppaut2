@@ -54,7 +54,7 @@ display_choice(Window w, CHOICE_BOX p) {
             set_fore();
         else
             set_back();
-        XDrawString(display, w, gc, (p.mc + 1) * DCURX, CURY_OFF, "X", 1);
+        XDrawString(display, w, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     set_fore();
     return;
@@ -69,7 +69,7 @@ do_checks(CHOICE_BOX p) {
             set_fore();
         else
             set_back();
-        XDrawString(display, p.cw[i], gc, (p.mc + 1) * DCURX, CURY_OFF, "X", 1);
+        XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     set_fore();
     return;
@@ -100,7 +100,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     maxchar = mcc;
     if (mcc < 10)
         maxchar = 10;
-    width = (maxchar + 5) * DCURX;
+    width = (maxchar + 5)*DCURX;
     height = (n + 4)*(DCURY + 16);
     base = make_plain_window(root, 0, 0, width, height, 4);
     XStringListToTextProperty(&wname, 1, &winname);
@@ -124,14 +124,14 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     for (i = 0; i < n; i++) {
         oldcheck[i] = check[i];
         xpos = xstart;
-        ypos = ystart + i * (DCURY + 10);
-        p.cw[i] = make_window(base, xpos, ypos, (mcc + 3) * DCURX, DCURY, 1);
+        ypos = ystart + i*(DCURY + 10);
+        p.cw[i] = make_window(base, xpos, ypos, (mcc + 3)*DCURX, DCURY, 1);
     }
 
-    ypos = height - 2 * DCURY;
-    xpos = (width - 12 * DCURX) / 2;
-    p.ok = make_window(base, xpos, ypos, 2 * DCURX, DCURY, 2);
-    p.cancel = make_window(base, xpos + 4 * DCURX, ypos, 6 * DCURX, DCURY, 2);
+    ypos = height - 2*DCURY;
+    xpos = (width - 12*DCURX) / 2;
+    p.ok = make_window(base, xpos, ypos, 2*DCURX, DCURY, 2);
+    p.cancel = make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 2);
     p.base = base;
 
     p.n = n;

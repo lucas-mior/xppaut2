@@ -48,7 +48,7 @@ DenseAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return malloc(N * sizeof(int64));
+    return malloc(N*sizeof(int64));
 }
 
 int64

@@ -219,7 +219,7 @@ net_interp(double x, int32 i) {
     y = &variables[my_net[i].root];
     if (jlo < 0 || jlo > (n - 1))
         return 0.0; /* out of range */
-    return (1 - dx) * y[jlo] + dx*y[jlo + 1];
+    return (1 - dx)*y[jlo] + dx*y[jlo + 1];
 }
 
 int32
@@ -368,7 +368,7 @@ add_spec_fun(char *name, char *rhs) {
             plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
-        my_net[ind].values = malloc((ntot + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
@@ -423,7 +423,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ntot + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
@@ -492,7 +492,7 @@ add_spec_fun(char *name, char *rhs) {
             plintf(" bad function %s \n", fname);
             return 0;
         }
-        my_net[ind].values = malloc((ntot + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
@@ -566,7 +566,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ntot + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
@@ -630,12 +630,12 @@ add_spec_fun(char *name, char *rhs) {
             ncon = 2*ntot;
         else
             ncon = ntot;
-        my_net[ind].fftr = malloc((ncon + 2) * sizeof(*(my_net[ind].fftr)));
-        my_net[ind].ffti = malloc((ncon + 2) * sizeof(*(my_net[ind].ffti)));
-        my_net[ind].dr = malloc((ncon + 2) * sizeof(*(my_net[ind].dr)));
-        my_net[ind].di = malloc((ncon + 2) * sizeof(*(my_net[ind].di)));
+        my_net[ind].fftr = malloc((ncon + 2)*sizeof(*(my_net[ind].fftr)));
+        my_net[ind].ffti = malloc((ncon + 2)*sizeof(*(my_net[ind].ffti)));
+        my_net[ind].dr = malloc((ncon + 2)*sizeof(*(my_net[ind].dr)));
+        my_net[ind].di = malloc((ncon + 2)*sizeof(*(my_net[ind].di)));
         my_net[ind].iwgt = iwgt;
-        my_net[ind].values = malloc((ntot + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
@@ -683,7 +683,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ncon + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
 
@@ -746,7 +746,7 @@ add_spec_fun(char *name, char *rhs) {
         /*for(i=0;i<elen;i++)
           printf("%d %d \n",i,my_net[ind].f[i]);
         */
-        my_net[ind].values = malloc((ncon + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
 
@@ -832,7 +832,7 @@ add_spec_fun(char *name, char *rhs) {
         for (i = 0; i < MAXW; i++)
             tname[i] = malloc(25);
         parse_import(rhs, soname, sofun, &ncon, rootname, &ntab, tname);
-        my_net[ind].values = malloc((ncon + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].n = ncon;
         ivar = get_var_index(rootname);
@@ -904,7 +904,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ncon + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].taud = my_table[itau].y;
@@ -972,7 +972,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ntot + 1) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
@@ -1019,7 +1019,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar2;
         my_net[ind].n = ivar2 + 1;
         my_net[ind].ncon = -1;
-        my_net[ind].values = malloc((ivar2 + 2) * sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((ivar2 + 2)*sizeof(*(my_net[ind].values)));
         plintf("Added gillespie chain with %d reactions \n", ivar2);
         return 1;
 
@@ -1168,7 +1168,7 @@ evaluate_network(int32 ind) {
     case GILLTYPE:
         if (my_net[ind].ncon == -1 && my_net[ind].iwgt > 0) {
             my_net[ind].weight =
-                malloc(my_net[ind].root * NODE * sizeof(double));
+                malloc(my_net[ind].root*NODE*sizeof(double));
             make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
                          my_net[ind].values);
             my_net[ind].ncon = 0;
@@ -1185,7 +1185,7 @@ evaluate_network(int32 ind) {
                 if (k < twon) {
                     if (k >= n)
                         k = abs(twon - 2 - k);
-                    sum += (w[j + ncon] * y[k]);
+                    sum += (w[j + ncon]*y[k]);
                 }
             }
             values[i] = sum;
@@ -1198,7 +1198,7 @@ evaluate_network(int32 ind) {
             for (j = -ncon; j <= ncon; j++) {
                 k = i + j;
                 if (k < n && k >= 0)
-                    sum += (w[j + ncon] * y[k]);
+                    sum += (w[j + ncon]*y[k]);
             }
             values[i] = sum;
         }
@@ -1209,7 +1209,7 @@ evaluate_network(int32 ind) {
             sum = 0.0;
             for (j = -ncon; j <= ncon; j++) {
                 k = ((twon + i + j) % n);
-                sum += (w[j + ncon] * y[k]);
+                sum += (w[j + ncon]*y[k]);
             }
             values[i] = sum;
         }
@@ -1238,7 +1238,7 @@ evaluate_network(int32 ind) {
             sum = 0.0;
             for (i = 0; i < ncon; i++) {
                 ij = j*ncon + i;
-                sum += (w[ij] * get_delay(i + in0, tau[ij]));
+                sum += (w[ij]*get_delay(i + in0, tau[ij]));
             }
             values[j] = sum;
         }
@@ -1249,7 +1249,7 @@ evaluate_network(int32 ind) {
             sum = 0.0;
             for (i = 0; i < ncon; i++) {
                 ij = j*ncon + i;
-                sum += (w[ij] * y[i]);
+                sum += (w[ij]*y[i]);
             }
             values[j] = sum;
         }
@@ -1263,7 +1263,7 @@ evaluate_network(int32 ind) {
                 ij = i*ncon + j;
                 k = (int32)cc[ij];
                 if (k >= 0)
-                    sum += (w[ij] * get_delay(k + in0, tau[ij]));
+                    sum += (w[ij]*get_delay(k + in0, tau[ij]));
             }
             values[i] = sum;
         }
@@ -1276,7 +1276,7 @@ evaluate_network(int32 ind) {
                 ij = i*ncon + j;
                 k = (int32)cc[ij];
                 if (k >= 0)
-                    sum += (w[ij] * y[k]);
+                    sum += (w[ij]*y[k]);
             }
             values[i] = sum;
         }
@@ -1297,7 +1297,7 @@ evaluate_network(int32 ind) {
                     f[0] = root2 + k;
 
                     z = evaluate(f);
-                    sum += (w[j + ncon] * z);
+                    sum += (w[j + ncon]*z);
                 }
             }
             values[i] = sum;
@@ -1314,7 +1314,7 @@ evaluate_network(int32 ind) {
                 if (k < n && k >= 0) {
                     f[0] = root2 + k;
                     z = evaluate(f);
-                    sum += (w[j + ncon] * z);
+                    sum += (w[j + ncon]*z);
                 }
             }
             values[i] = sum;
@@ -1330,7 +1330,7 @@ evaluate_network(int32 ind) {
                 k = ((twon + i + j) % n);
                 f[0] = root2 + k;
                 z = evaluate(f);
-                sum += (w[j + ncon] * z);
+                sum += (w[j + ncon]*z);
             }
             values[i] = sum;
         }
@@ -1347,7 +1347,7 @@ evaluate_network(int32 ind) {
                 if (k >= 0) {
                     f[0] = root2 + k;
                     z = evaluate(f);
-                    sum += (w[ij] * z);
+                    sum += (w[ij]*z);
                 }
             }
             values[i] = sum;
@@ -1367,7 +1367,7 @@ evaluate_network(int32 ind) {
 
                 z = evaluate(f);
 
-                sum += (w[ij] * z);
+                sum += (w[ij]*z);
             }
 
             values[j] = sum;
@@ -1453,8 +1453,8 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
         fftn(1, dims, dr, di, 1, -2.0);
 
         for (i = 0; i < n; i++) {
-            x = dr[i] * fftr[i] - di[i] * ffti[i];
-            y = dr[i] * ffti[i] + di[i] * fftr[i];
+            x = dr[i]*fftr[i] - di[i]*ffti[i];
+            y = dr[i]*ffti[i] + di[i]*fftr[i];
             dr[i] = x;
             di[i] = y;
         }
@@ -1475,8 +1475,8 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
         }
         fftn(1, dims, dr, di, 1, -2.0);
         for (i = 0; i < n2; i++) {
-            x = dr[i] * fftr[i] - di[i] * ffti[i];
-            y = dr[i] * ffti[i] + di[i] * fftr[i];
+            x = dr[i]*fftr[i] - di[i]*ffti[i];
+            y = dr[i]*ffti[i] + di[i]*fftr[i];
             dr[i] = x;
             di[i] = y;
         }

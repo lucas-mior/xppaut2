@@ -589,9 +589,9 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
 
     if (fixptlist.flag == 0) {
         for (i = 0; i < MAXFP; i++) {
-            fixptlist.x[i] = malloc(NODE * sizeof(*(fixptlist.x)));
-            fixptlist.er[i] = malloc(NODE * sizeof(*(fixptlist.er)));
-            fixptlist.em[i] = malloc(NODE * sizeof(*(fixptlist.em)));
+            fixptlist.x[i] = malloc(NODE*sizeof(*(fixptlist.x)));
+            fixptlist.er[i] = malloc(NODE*sizeof(*(fixptlist.er)));
+            fixptlist.em[i] = malloc(NODE*sizeof(*(fixptlist.em)));
             /* fixptlist.x1[i]=malloc(NODE*sizeof(double));
             fixptlist.x2[i]=malloc(NODE*sizeof(double));
             fixptlist.x3[i]=malloc(NODE*sizeof(double));
@@ -701,7 +701,7 @@ do_eq_range(double *x) {
     for (i = 0; i <= npar; i++) {
         if (eq_range.movie)
             clear_draw_window();
-        temp = parlo + dpar * (double)i;
+        temp = parlo + dpar*(double)i;
         set_val(eq_range.item, temp);
         PAR_FOL = 1;
         sprintf(bob, "%s=%.16g", eq_range.item, temp);
@@ -850,11 +850,11 @@ do_range(double *x,
             POIEXT = 0;
 
             if (flag != 2) {
-                p = plow + dpar * (double)i;
+                p = plow + dpar*(double)i;
                 if (range.rtype == 1)
-                    p2 = plow2 + dpar2 * (double)i;
+                    p2 = plow2 + dpar2*(double)i;
                 if (range.rtype == 2)
-                    p2 = plow2 + dpar2 * (double)j;
+                    p2 = plow2 + dpar2*(double)j;
 
                 if (oldic == 1) {
                     get_ic(1, x);
@@ -1923,7 +1923,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         nit = tend;
         dt = dt / fabs(dt);
     } else
-        nit = (tend + fabs(dt) * .1) / fabs(dt);
+        nit = (tend + fabs(dt)*.1) / fabs(dt);
     /* else nit=tend/fabs(dt); */
     nit = (nit + nout - 1) / nout;
     if (nit == 0)
@@ -1956,7 +1956,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         switch (METHOD) {
         case GEAR: {
 
-            tout = tzero + dt * (icount + 1);
+            tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
                 return 1;
@@ -2003,7 +2003,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 #ifdef CVODE_YES
         case CVODE:
 
-            tout = tzero + dt * (icount + 1);
+            tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
                 end_cv();
@@ -2035,7 +2035,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
         case DP5:
         case DP83:
-            tout = tzero + dt * (icount + 1);
+            tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
 
@@ -2064,7 +2064,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
             break;
         case RB23:
-            tout = tzero + dt * (icount + 1);
+            tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
 
@@ -2094,7 +2094,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
         case RKQS:
         case STIFF:
-            tout = tzero + dt * (icount + 1);
+            tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
                 return 1;
@@ -2310,7 +2310,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 POIEXT = -1;
             if ((!(oldx[POIVAR - 1] < x[POIVAR - 1]) && (POIEXT > 0)) ||
                 (!(oldx[POIVAR - 1] > x[POIVAR - 1]) && (POIEXT < 0))) {
-                if (POISGN * POIEXT >= 0) {
+                if (POISGN*POIEXT >= 0) {
                     /*  We will interpolate to get a good local extremum   */
 
                     rhs(*t, x, xprime, NEQ);
@@ -2322,10 +2322,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     }
                     dint = xprime[POIVAR - 1] / dxp;
 
-                    tv = (1 - dint) * *t + dint*oldt;
+                    tv = (1 - dint)**t + dint*oldt;
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
-                        xv[i] = dint*oldx[i - 1] + (1 - dint) * x[i - 1];
+                        xv[i] = dint*oldx[i - 1] + (1 - dint)*x[i - 1];
                     pflag = 1;
                 }
                 POIEXT = -POIEXT;
@@ -2349,11 +2349,11 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 if (sect < sect1) {
                     dint = sect / (POIPLN + sect - sect1);
                     i = (int32)(fabs(*t) / fabs(POIPLN));
-                    tv = (float)POIPLN * i;
+                    tv = (float)POIPLN*i;
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
                         xv[i] =
-                            (float)(dint*oldx[i - 1] + (1 - dint) * x[i - 1]);
+                            (float)(dint*oldx[i - 1] + (1 - dint)*x[i - 1]);
                     pflag = 1;
                 } else
                     pflag = 0;
@@ -2367,10 +2367,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         !(x[POIVAR - 1] < POIPLN)) {
                         dint = (x[POIVAR - 1] - POIPLN) /
                                (x[POIVAR - 1] - oldx[POIVAR - 1]);
-                        tv = (1 - dint) * *t + dint*oldt;
+                        tv = (1 - dint)**t + dint*oldt;
                         xv[0] = tv;
                         for (i = 1; i <= NEQ; i++)
-                            xv[i] = dint*oldx[i - 1] + (1 - dint) * x[i - 1];
+                            xv[i] = dint*oldx[i - 1] + (1 - dint)*x[i - 1];
                         pflag = 1;
                         goto poi;
 
@@ -2382,10 +2382,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         !(x[POIVAR - 1] > POIPLN)) {
                         dint = (x[POIVAR - 1] - POIPLN) /
                                (x[POIVAR - 1] - oldx[POIVAR - 1]);
-                        tv = (1 - dint) * *t + dint*oldt;
+                        tv = (1 - dint)**t + dint*oldt;
                         xv[0] = tv;
                         for (i = 1; i <= NEQ; i++)
-                            xv[i] = dint*oldx[i - 1] + (1 - dint) * x[i - 1];
+                            xv[i] = dint*oldx[i - 1] + (1 - dint)*x[i - 1];
                         pflag = 1;
                     } else
                         pflag = 0;
@@ -2411,7 +2411,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
 
         if (!(fabs(*t) < TRANS) && Xup && OnTheFly) {
-            plot_the_graphs(xv, xvold, fabs(dt * NJMP), torcross, 0);
+            plot_the_graphs(xv, xvold, fabs(dt*NJMP), torcross, 0);
         }
 
         if ((STORFLAG == 1) && (count != 0) && (storind < MAXSTOR) &&
@@ -2576,7 +2576,7 @@ plot_one_graph(float *xv, float *xvold, double ddt, int32 *tc) {
     IZPLT = MyGraph->zv;
     for (ip = 0; ip < NEQ; ip++) {
         if (itor[ip] == 1)
-            xvold[ip + 1] = xvold[ip + 1] + tc[ip] * TOR_PERIOD;
+            xvold[ip + 1] = xvold[ip + 1] + tc[ip]*TOR_PERIOD;
     }
     for (ip = 0; ip < NPlots; ip++) {
         oldxpl[ip] = xvold[IXPLT[ip]];
@@ -2638,11 +2638,11 @@ restore(int32 i1, int32 i2) {
             }
 
             if (TORUS == 1) {
-                if (fabs(oldxpl - xpl) > (float)(.5 * TOR_PERIOD))
+                if (fabs(oldxpl - xpl) > (float)(.5*TOR_PERIOD))
                     oldxpl = xpl;
-                if (fabs(oldypl - ypl) > (float)(.5 * TOR_PERIOD))
+                if (fabs(oldypl - ypl) > (float)(.5*TOR_PERIOD))
                     oldypl = ypl;
-                if (fabs(oldzpl - zpl) > (float)(.5 * TOR_PERIOD))
+                if (fabs(oldzpl - zpl) > (float)(.5*TOR_PERIOD))
                     oldzpl = zpl;
             }
             if (MyGraph->ColorFlag != 0 && i > i1) {
@@ -2733,7 +2733,7 @@ shoot(double *x, double *xg, double *evec, int32 sgn) {
     double t = 0.0;
     SuppressBounds = 1;
     for (i = 0; i < NODE; i++)
-        x[i] = xg[i] + sgn*evec[i] * DELTA_T * .1;
+        x[i] = xg[i] + sgn*evec[i]*DELTA_T*.1;
     i = 1;
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
     ping();
@@ -2753,7 +2753,7 @@ stop_integration(void) {
 int32
 stor_full(void) {
     char ch;
-    int32 nrow = 2 * MAXSTOR;
+    int32 nrow = 2*MAXSTOR;
     if (reallocstor(NEQ + 1, nrow)) {
         MAXSTOR = nrow;
         return 1;

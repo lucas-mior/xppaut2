@@ -130,11 +130,11 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         ip = ipar[l];
         if (ip < 0) {
             par = constants[-ip];
-            dp = eps * MAX(eps, fabs(par));
+            dp = eps*MAX(eps, fabs(par));
             constants[-ip] = par + dp;
         } else {
             par = yold[ip];
-            dp = eps * MAX(eps, fabs(par));
+            dp = eps*MAX(eps, fabs(par));
             y[ip] = par + dp;
             for (j = 0; j < nvars; j++) {
                 if (ip == ivar[j])
@@ -445,8 +445,8 @@ run_fit(/* double arrays */
         err_msg("No such file...");
         return 0;
     }
-    t0 = malloc((npts + 1) * sizeof(*(t0)));
-    y = malloc((npts + 1) * nvars*sizeof(*y));
+    t0 = malloc((npts + 1)*sizeof(*(t0)));
+    y = malloc((npts + 1)*nvars*sizeof(*y));
     /* load up the data to fit   */
 
     for (i = 0; i < npts; i++) {
@@ -467,7 +467,7 @@ run_fit(/* double arrays */
     work = malloc(sizeof(double)*(4*npars + npars*npars));
     yderv = malloc(npars*sizeof(double *));
     for (i = 0; i < npars; i++)
-        yderv[i] = malloc((npts + 1) * nvars*sizeof(*(yderv[i])));
+        yderv[i] = malloc((npts + 1)*nvars*sizeof(*(yderv[i])));
     for (i = 0; i < nvars; i++)
         sig[i] = 1.0;
 
@@ -604,7 +604,7 @@ sigma  weights on nvars
     for (j = 0; j < npars; j++) {
         for (k = 0; k < npars; k++)
             covar[j + k*npars] = alpha[j + k*npars];
-        covar[j + j*npars] = alpha[j + j*npars] * (1 + (*alambda));
+        covar[j + j*npars] = alpha[j + j*npars]*(1 + (*alambda));
         oneda[j] = beta[j];
     }
     sgefa(covar, npars, npars, ipivot, &ierr);
@@ -676,13 +676,13 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
     }
     *chisq = 0.0;
     for (i = 0; i < nvars; i++) {
-        sig2i = 1.0 / (sig[i] * sig[i]);
+        sig2i = 1.0 / (sig[i]*sig[i]);
         for (k = 0; k < npts; k++) {
             k0 = k*nvars + i;
             dy = y[k0] - yfit[k0];
             /*           plintf(" i=%d k=%d dy = %f \n",i,k,dy); */
             for (j = 0; j < npars; j++) {
-                wt = yderv[j][k0] * sig2i;
+                wt = yderv[j][k0]*sig2i;
                 for (l = 0; l < npars; l++)
                     alpha[j + l*npars] += wt*yderv[l][k0];
                 beta[j] += dy*wt;

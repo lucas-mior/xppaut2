@@ -172,7 +172,7 @@ err_dae(void) {
 void
 init_dae_work(void) {
     dae_work.work = malloc(sizeof(double)*(nsvar*nsvar + 10*nsvar));
-    dae_work.iwork = malloc(sizeof(int32) * nsvar);
+    dae_work.iwork = malloc(sizeof(int32)*nsvar);
     dae_work.status = 1;
     return;
 }
@@ -264,7 +264,7 @@ solve_dae(void) {
             y[i] -= errvec[i];
             err += fabs(errvec[i]);
         }
-        if (err > (n * BOUND)) {
+        if (err > (n*BOUND)) {
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
             return -3; /* getting too big */

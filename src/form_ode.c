@@ -784,7 +784,7 @@ compiler(char *bob, FILE *fptr) {
         strcpy(formula, my_string);
         nn = strlen(formula) + 1;
         /* if(nn>79)nn=79;  */
-        if ((my_ode[NODE] = malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
+        if ((my_ode[NODE] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
             printf("Out of memory at line %d\n", NLINES);
             exit(0);
         }
@@ -1836,7 +1836,7 @@ compile_em(void) {
             EqType[nvar] = iflag;
             nn = strlen(v->rhs) + 1;
             if ((ode_names[nvar] = malloc(nn + 2)) == NULL ||
-                (my_ode[nvar] = malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
+                (my_ode[nvar] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
@@ -1862,7 +1862,7 @@ compile_em(void) {
             break;
         case FIXED:
             find_ker(v->rhs, &alt);
-            if ((my_ode[nfix + IN_VARS] = malloc(MAXEXPLEN * sizeof(int32))) ==
+            if ((my_ode[nfix + IN_VARS] = malloc(MAXEXPLEN*sizeof(int32))) ==
                     NULL ||
                 add_expr(v->rhs, my_ode[nfix + IN_VARS],
                          &leng[IN_VARS + nfix]) != 0) {
@@ -1883,7 +1883,7 @@ compile_em(void) {
             in2 = IN_VARS + FIX_VAR + naux;
             nn = strlen(v->rhs) + 1;
             if ((ode_names[in1] = malloc(nn + 2)) == NULL ||
-                (my_ode[in2] = malloc(MAXEXPLEN * sizeof(int32))) == NULL) {
+                (my_ode[in2] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
@@ -2668,9 +2668,9 @@ subsk(char *big, char *new, int32 k, int32 flag) {
                     i++;
                     num[inum] = 0;
                     if (multflag == 0) {
-                        add = atoi(num) * isign + k;
+                        add = atoi(num)*isign + k;
                     } else {
-                        add = atoi(num) * k;
+                        add = atoi(num)*k;
                         multflag = 0;
                     }
                     snprintf(num, sizeof(num), "%d", add);
@@ -2710,7 +2710,7 @@ keep_orig_comments(void) {
         return; /* already stored these so return */
     if (n_comments == 0)
         return; /* nothing to keep ! */
-    orig_comments = malloc(sizeof(ACTION) * n_comments);
+    orig_comments = malloc(sizeof(ACTION)*n_comments);
     for (i = 0; i < n_comments; i++) {
         orig_comments[i].text = malloc(strlen(comments[i].text) + 1);
         if (comments[i].aflag)
@@ -2841,7 +2841,7 @@ advance_past_first_word(char **sptr) {
 char *
 new_string2(char *old, int32 length) {
     /*cout << "new_string2(\"" << old << "\", " << length << ")\n"; */
-    char *s = malloc((length + 1) * sizeof(char));
+    char *s = malloc((length + 1)*sizeof(char));
     strncpy(s, old, length);
     s[length] = '\0';
     if (length > 0 && s[length - 1] == ',') {

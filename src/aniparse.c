@@ -249,11 +249,11 @@ create_vcr(char *name) {
     XTextProperty winname, iconname;
 
     base = make_plain_window(RootWindow(display, screen), 0, 0,
-                             5*12 * DCURXs + 8 * DCURXs + 4,
-                             20 * (DCURYs + 6), 1);
+                             5*12*DCURXs + 8*DCURXs + 4,
+                             20*(DCURYs + 6), 1);
     vcr.base = base;
     size_hints.flags = PPosition | PSize | PMinSize;
-    size_hints.min_width = 51 * DCURXs;
+    size_hints.min_width = 51*DCURXs;
     size_hints.min_height = 300;
     XStringListToTextProperty(&name, 1, &winname);
     XStringListToTextProperty(&name, 1, &iconname);
@@ -270,14 +270,14 @@ create_vcr(char *name) {
     vcr.wdn = br_button(base, 1, 3, 0);
     vcr.wgrab = br_button(base, 2, 3, 0);
     vcr.slider =
-        make_window(base, DCURXs, 7 + 4 * DCURYs, 48 * DCURXs, DCURYs + 4, 1);
+        make_window(base, DCURXs, 7 + 4*DCURYs, 48*DCURXs, DCURYs + 4, 1);
     vcr.slipos = 0;
-    vcr.sliwid = 48 * DCURXs;
+    vcr.sliwid = 48*DCURXs;
     vcr.wpause = br_button(base, 2, 0, 0);
     vcr.wmpeg = br_button(base, 2, 1, 0);
     vcr.kill = br_button(base, 2, 2, 0);
 
-    vcr.wfly = make_window(base, 4*12 * DCURXs, 4, 5 + DCURXs + 5,
+    vcr.wfly = make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
                            (DCURYs + 6) - 4, 1);
     /*   vcr.kill=make_window(base,5*12*DCURXs,(DCURYs+6)+4,8*DCURXs,DCURYs+1,1);
      */
@@ -556,7 +556,7 @@ ani_create_mpeg(void) {
 
 void
 do_ani_slider_motion(Window w, int32 x) {
-    int32 l = 48 * DCURXs, x0 = x;
+    int32 l = 48*DCURXs, x0 = x;
     int32 mr = my_browser.maxrow;
     int32 k;
     if (w != vcr.slider)
@@ -577,7 +577,7 @@ do_ani_slider_motion(Window w, int32 x) {
 void
 redraw_ani_slider(void) {
     int32 k = vcr.pos;
-    int32 l = 48 * DCURXs;
+    int32 l = 48*DCURXs;
     int32 xx;
     int32 mr = my_browser.maxrow;
     if (mr < 2)
@@ -591,7 +591,7 @@ void
 draw_ani_slider(Window w, int32 x)
 
 {
-    int32 hgt = DCURYs + 4, l = 48 * DCURXs;
+    int32 hgt = DCURYs + 4, l = 48*DCURXs;
     int32 x0 = x - 2, i;
     if (x0 < 0)
         x0 = 0;
@@ -645,13 +645,13 @@ ani_expose(Window w) {
 void
 ani_resize(int32 x, int32 y) {
     int32 ww = x - (2*4);
-    int32 hh = y - ((2.5 * (DCURYs + 6)) + 5);
+    int32 hh = y - ((2.5*(DCURYs + 6)) + 5);
     if (ww == vcr.wid && hh == vcr.hgt)
         return;
     XFreePixmap(display, ani_pixmap);
 
-    vcr.hgt = 5 * ((y - ((4.5 * (DCURYs + 6)) + 5)) / 5);
-    vcr.wid = 4 * ((x - (2*4)) / 4);
+    vcr.hgt = 5*((y - ((4.5*(DCURYs + 6)) + 5)) / 5);
+    vcr.wid = 4*((x - (2*4)) / 4);
 
     /*This little safety check prevents a <X Error of failed request:  BadValue>
     from occuring if the user shrinks the window size smaller than the vcr.hgt |
@@ -662,7 +662,7 @@ ani_resize(int32 x, int32 y) {
     if (vcr.wid < 1)
         vcr.wid = 1;
 
-    XMoveResizeWindow(display, vcr.view, 4, 4.5 * (DCURYs + 6), vcr.wid,
+    XMoveResizeWindow(display, vcr.view, 4, 4.5*(DCURYs + 6), vcr.wid,
                       vcr.hgt);
     ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), vcr.wid,
                                vcr.hgt, DefaultDepth(display, screen));
@@ -706,7 +706,7 @@ void
 check_on_the_fly(void) {
     XClearWindow(display, vcr.wfly);
     if (animation_on_the_fly) {
-        XDrawString(display, vcr.wfly, small_gc, 5, 1.5 * CURY_OFFs, "*", 1);
+        XDrawString(display, vcr.wfly, small_gc, 5, 1.5*CURY_OFFs, "*", 1);
     }
     return;
 }
@@ -2174,7 +2174,7 @@ ani_ij_to_xy(int32 ix, int32 iy, double *x, double *y) {
     double dx = (ani_xhi - ani_xlo) / (double)vcr.wid;
     double dy = (ani_yhi - ani_ylo) / (double)vcr.hgt;
     *x = ani_xlo + (double)ix*dx;
-    *y = ani_ylo + (double)(vcr.hgt - iy) * dy;
+    *y = ani_ylo + (double)(vcr.hgt - iy)*dy;
     return;
 }
 
@@ -2182,8 +2182,8 @@ void
 ani_xyscale(double x, double y, int32 *ix, int32 *iy) {
     double dx = (double)vcr.wid / (ani_xhi - ani_xlo),
            dy = (double)vcr.hgt / (ani_yhi - ani_ylo);
-    double xx = (x - ani_xlo) * dx;
-    double yy = vcr.hgt - dy * (y - ani_ylo);
+    double xx = (x - ani_xlo)*dx;
+    double yy = vcr.hgt - dy*(y - ani_ylo);
     *ix = (int32)xx;
     *iy = (int32)yy;
     if (*ix < 0)

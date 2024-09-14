@@ -125,7 +125,7 @@ conpar_process(void *arg) {
                 for (k2 = ic; k2 <= m2; ++k2) {
                     int32 icf_k2_i = icf[-1 + k2 + i*icf_dim1];
                     tpiv = a[-1 + icf_k2_i +
-                             a_dim1 * (-1 + irf_k1_i + a_dim2*i)];
+                             a_dim1*(-1 + irf_k1_i + a_dim2*i)];
                     if (tpiv < 0.0) {
                         tpiv = -tpiv;
                     }
@@ -146,18 +146,18 @@ conpar_process(void *arg) {
             {
                 int32 icf_ic_i = icf[-1 + ic + i*icf_dim1];
                 int32 irf_irp_i = irf[-1 + irp + i*irf_dim1];
-                int32 a_offset2 = a_dim1 * (-1 + irf_irp_i + a_dim2*i);
-                int32 b_offset2 = b_dim1 * (-1 + irf_irp_i + b_dim2*i);
+                int32 a_offset2 = a_dim1*(-1 + irf_irp_i + a_dim2*i);
+                int32 b_offset2 = b_dim1*(-1 + irf_irp_i + b_dim2*i);
                 /*	     **End of pivoting; elimination starts here */
                 for (ir = ir1; ir <= *nra; ++ir) {
                     int32 irf_ir_i = irf[-1 + ir + i*irf_dim1];
-                    int32 a_offset1 = a_dim1 * (-1 + irf_ir_i + a_dim2*i);
-                    int32 b_offset1 = b_dim1 * (-1 + irf_ir_i + b_dim2*i);
+                    int32 a_offset1 = a_dim1*(-1 + irf_ir_i + a_dim2*i);
+                    int32 b_offset1 = b_dim1*(-1 + irf_ir_i + b_dim2*i);
                     rm = a[-1 + icf_ic_i +
-                           a_dim1 * (-1 + irf_ir_i + a_dim2*i)] /
+                           a_dim1*(-1 + irf_ir_i + a_dim2*i)] /
                          a[-1 + icf_ic_i +
-                           a_dim1 * (-1 + irf_irp_i + a_dim2*i)];
-                    a[-1 + icf_ic_i + a_dim1 * (-1 + irf_ir_i + a_dim2*i)] =
+                           a_dim1*(-1 + irf_irp_i + a_dim2*i)];
+                    a[-1 + icf_ic_i + a_dim1*(-1 + irf_ir_i + a_dim2*i)] =
                         rm;
                     if (rm != (double)0.) {
                         for (l = 0; l < *nov; ++l) {
@@ -174,12 +174,12 @@ conpar_process(void *arg) {
                     }
                 }
                 for (ir = *nbc + 1; ir <= *nrc; ++ir) {
-                    int32 c_offset1 = c_dim1 * (-1 + ir + c_dim2*i);
-                    int32 d_offset1 = (-1 + ir) * d_dim1;
-                    rm = c[-1 + icf_ic_i + c_dim1 * (-1 + ir + c_dim2*i)] /
+                    int32 c_offset1 = c_dim1*(-1 + ir + c_dim2*i);
+                    int32 d_offset1 = (-1 + ir)*d_dim1;
+                    rm = c[-1 + icf_ic_i + c_dim1*(-1 + ir + c_dim2*i)] /
                          a[-1 + icf_ic_i +
-                           a_dim1 * (-1 + irf_irp_i + a_dim2*i)];
-                    c[-1 + icf_ic_i + c_dim1 * (-1 + ir + c_dim2*i)] = rm;
+                           a_dim1*(-1 + irf_irp_i + a_dim2*i)];
+                    c[-1 + icf_ic_i + c_dim1*(-1 + ir + c_dim2*i)] = rm;
                     if (rm != (double)0.) {
                         for (l = 0; l < *nov; ++l) {
                             c[l + c_offset1] -= rm*a[l + a_offset2];

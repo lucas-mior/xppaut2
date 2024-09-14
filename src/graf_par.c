@@ -272,7 +272,7 @@ check_val(double *x1, double *x2, double *xb, double *xd) {
         *x2 = *x1;
         *x1 = temp;
     }
-    *xb = .5 * (*x1 + *x2);
+    *xb = .5*(*x1 + *x2);
     *xd = 2.0 / (*x2 - *x1);
     return;
 }
@@ -1187,13 +1187,13 @@ draw_freeze_key(void) {
     int32 ix, iy;
     int32 i, y0;
     int32 ix2;
-    int32 dy = 2 * HChar;
+    int32 dy = 2*HChar;
     if (FreezeKeyFlag == SCRNFMT)
         return;
     if (PltFmtFlag == PSFMT)
         dy = -dy;
     scale_to_screen((float)FreezeKeyX, (float)FreezeKeyY, &ix, &iy);
-    ix2 = ix + 4 * HChar;
+    ix2 = ix + 4*HChar;
     y0 = iy;
     for (i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].w == draw_win && strlen(frz[i].key) > 0) {
@@ -1301,10 +1301,10 @@ create_crv(int32 ind) {
                 err_msg("No Curve to freeze");
                 return -1;
             }
-            frz[i].xv = malloc(sizeof(float) * my_browser.maxrow);
-            frz[i].yv = malloc(sizeof(float) * my_browser.maxrow);
+            frz[i].xv = malloc(sizeof(float)*my_browser.maxrow);
+            frz[i].yv = malloc(sizeof(float)*my_browser.maxrow);
             if ((type = MyGraph->grtype) > 0)
-                frz[i].zv = malloc(sizeof(float) * my_browser.maxrow);
+                frz[i].zv = malloc(sizeof(float)*my_browser.maxrow);
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
                 err_msg("Cant allocate storage for curve");
@@ -1452,8 +1452,8 @@ add_bd_crv(float *x, float *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
     if (ncrv >= MAXBIFCRV)
         return;
-    my_bd.x[ncrv] = malloc(sizeof(float) * len);
-    my_bd.y[ncrv] = malloc(sizeof(float) * len);
+    my_bd.x[ncrv] = malloc(sizeof(float)*len);
+    my_bd.y[ncrv] = malloc(sizeof(float)*len);
     for (i = 0; i < len; i++) {
         my_bd.x[ncrv][i] = x[i];
         my_bd.y[ncrv][i] = y[i];
@@ -1556,7 +1556,7 @@ get_frz_index(Window w) {
         return -1;
     key[count] = 0;
     ch = (char)pop_up_list(&temp, "Curves", n, key, count, 12, 0, 10,
-                           8 * DCURY + 8, no_hint, info_pop, info_message);
+                           8*DCURY + 8, no_hint, info_pop, info_message);
     for (i = 0; i < count; i++)
         free(n[i]);
     return (int32)(ch - 'a');

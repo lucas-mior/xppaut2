@@ -216,7 +216,7 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
         if (i__ >= *low && i__ <= *igh) {
             goto L50;
         }
-        wr[i__] = h__[i__ + i__ * h_dim1];
+        wr[i__] = h__[i__ + i__*h_dim1];
         wi[i__] = 0.;
     L50:;
     }
@@ -241,13 +241,13 @@ L70:
         if (l == *low) {
             goto L100;
         }
-        s = (d__1 = h__[l - 1 + (l - 1) * h_dim1], fabs(d__1)) +
+        s = (d__1 = h__[l - 1 + (l - 1)*h_dim1], fabs(d__1)) +
             (d__2 = h__[l + l*h_dim1], fabs(d__2));
         if (s == 0.) {
             s = norm;
         }
         tst1 = s;
-        tst2 = tst1 + (d__1 = h__[l + (l - 1) * h_dim1], fabs(d__1));
+        tst2 = tst1 + (d__1 = h__[l + (l - 1)*h_dim1], fabs(d__1));
         if (tst2 == tst1) {
             goto L100;
         }
@@ -260,7 +260,7 @@ L100:
         goto L270;
     }
     y = h__[na + na*h_dim1];
-    w = h__[en + na*h_dim1] * h__[na + en*h_dim1];
+    w = h__[en + na*h_dim1]*h__[na + en*h_dim1];
     if (l == na) {
         goto L280;
     }
@@ -276,14 +276,14 @@ L100:
     i__1 = en;
     for (i__ = *low; i__ <= i__1; ++i__) {
         /* L120: */
-        h__[i__ + i__ * h_dim1] -= x;
+        h__[i__ + i__*h_dim1] -= x;
     }
 
     s = (d__1 = h__[en + na*h_dim1], fabs(d__1)) +
         (d__2 = h__[na + enm2*h_dim1], fabs(d__2));
-    x = s * .75;
+    x = s*.75;
     y = x;
-    w = s * -.4375*s;
+    w = s*-.4375*s;
 L130:
     ++its;
     --itn;
@@ -296,9 +296,9 @@ L130:
         zz = h__[m + m*h_dim1];
         r__ = x - zz;
         s = y - zz;
-        p = (r__ * s - w) / h__[m + 1 + m*h_dim1] + h__[m + (m + 1) * h_dim1];
-        q = h__[m + 1 + (m + 1) * h_dim1] - zz - r__ - s;
-        r__ = h__[m + 2 + (m + 1) * h_dim1];
+        p = (r__*s - w) / h__[m + 1 + m*h_dim1] + h__[m + (m + 1)*h_dim1];
+        q = h__[m + 1 + (m + 1)*h_dim1] - zz - r__ - s;
+        r__ = h__[m + 2 + (m + 1)*h_dim1];
         s = fabs(p) + fabs(q) + fabs(r__);
         p /= s;
         q /= s;
@@ -307,9 +307,9 @@ L130:
             goto L150;
         }
         tst1 = fabs(p) *
-               ((d__1 = h__[m - 1 + (m - 1) * h_dim1], fabs(d__1)) + fabs(zz) +
-                (d__2 = h__[m + 1 + (m + 1) * h_dim1], fabs(d__2)));
-        tst2 = tst1 + (d__1 = h__[m + (m - 1) * h_dim1], fabs(d__1)) *
+               ((d__1 = h__[m - 1 + (m - 1)*h_dim1], fabs(d__1)) + fabs(zz) +
+                (d__2 = h__[m + 1 + (m + 1)*h_dim1], fabs(d__2)));
+        tst2 = tst1 + (d__1 = h__[m + (m - 1)*h_dim1], fabs(d__1)) *
                           (fabs(q) + fabs(r__));
         if (tst2 == tst1) {
             goto L150;
@@ -322,11 +322,11 @@ L150:
 
     i__1 = en;
     for (i__ = mp2; i__ <= i__1; ++i__) {
-        h__[i__ + (i__ - 2) * h_dim1] = 0.;
+        h__[i__ + (i__ - 2)*h_dim1] = 0.;
         if (i__ == mp2) {
             goto L160;
         }
-        h__[i__ + (i__ - 3) * h_dim1] = 0.;
+        h__[i__ + (i__ - 3)*h_dim1] = 0.;
     L160:;
     }
     /*     .......... DOUBLE QR STEP INVOLVING ROWS L TO EN AND */
@@ -337,11 +337,11 @@ L150:
         if (k == m) {
             goto L170;
         }
-        p = h__[k + (k - 1) * h_dim1];
-        q = h__[k + 1 + (k - 1) * h_dim1];
+        p = h__[k + (k - 1)*h_dim1];
+        q = h__[k + 1 + (k - 1)*h_dim1];
         r__ = 0.;
         if (notlas) {
-            r__ = h__[k + 2 + (k - 1) * h_dim1];
+            r__ = h__[k + 2 + (k - 1)*h_dim1];
         }
         x = fabs(p) + fabs(q) + fabs(r__);
         if (x == 0.) {
@@ -351,16 +351,16 @@ L150:
         q /= x;
         r__ /= x;
     L170:
-        d__1 = sqrt(p*p + q*q + r__ * r__);
+        d__1 = sqrt(p*p + q*q + r__*r__);
         s = d_sign(d__1, p);
         if (k == m) {
             goto L180;
         }
-        h__[k + (k - 1) * h_dim1] = -s*x;
+        h__[k + (k - 1)*h_dim1] = -s*x;
         goto L190;
     L180:
         if (l != m) {
-            h__[k + (k - 1) * h_dim1] = -h__[k + (k - 1) * h_dim1];
+            h__[k + (k - 1)*h_dim1] = -h__[k + (k - 1)*h_dim1];
         }
     L190:
         p += s;
@@ -387,9 +387,9 @@ L150:
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1) * h_dim1];
+            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1];
             h__[i__ + k*h_dim1] -= p;
-            h__[i__ + (k + 1) * h_dim1] -= p*q;
+            h__[i__ + (k + 1)*h_dim1] -= p*q;
             /* L210: */
         }
         goto L255;
@@ -398,7 +398,7 @@ L150:
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] +
-                r__ * h__[k + 2 + j*h_dim1];
+                r__*h__[k + 2 + j*h_dim1];
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
             h__[k + 2 + j*h_dim1] -= p*zz;
@@ -411,11 +411,11 @@ L150:
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1) * h_dim1] +
-                zz*h__[i__ + (k + 2) * h_dim1];
+            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1] +
+                zz*h__[i__ + (k + 2)*h_dim1];
             h__[i__ + k*h_dim1] -= p;
-            h__[i__ + (k + 1) * h_dim1] -= p*q;
-            h__[i__ + (k + 2) * h_dim1] -= p*r__;
+            h__[i__ + (k + 1)*h_dim1] -= p*q;
+            h__[i__ + (k + 2)*h_dim1] -= p*r__;
             /* L240: */
         }
     L255:
@@ -582,7 +582,7 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
         if (i__ >= *low && i__ <= *igh) {
             goto L50;
         }
-        wr[i__] = h__[i__ + i__ * h_dim1];
+        wr[i__] = h__[i__ + i__*h_dim1];
         wi[i__] = 0.;
     L50:;
     }
@@ -607,13 +607,13 @@ L70:
         if (l == *low) {
             goto L100;
         }
-        s = (d__1 = h__[l - 1 + (l - 1) * h_dim1], fabs(d__1)) +
+        s = (d__1 = h__[l - 1 + (l - 1)*h_dim1], fabs(d__1)) +
             (d__2 = h__[l + l*h_dim1], fabs(d__2));
         if (s == 0.) {
             s = norm;
         }
         tst1 = s;
-        tst2 = tst1 + (d__1 = h__[l + (l - 1) * h_dim1], fabs(d__1));
+        tst2 = tst1 + (d__1 = h__[l + (l - 1)*h_dim1], fabs(d__1));
         if (tst2 == tst1) {
             goto L100;
         }
@@ -626,7 +626,7 @@ L100:
         goto L270;
     }
     y = h__[na + na*h_dim1];
-    w = h__[en + na*h_dim1] * h__[na + en*h_dim1];
+    w = h__[en + na*h_dim1]*h__[na + en*h_dim1];
     if (l == na) {
         goto L280;
     }
@@ -642,14 +642,14 @@ L100:
     i__1 = en;
     for (i__ = *low; i__ <= i__1; ++i__) {
         /* L120: */
-        h__[i__ + i__ * h_dim1] -= x;
+        h__[i__ + i__*h_dim1] -= x;
     }
 
     s = (d__1 = h__[en + na*h_dim1], fabs(d__1)) +
         (d__2 = h__[na + enm2*h_dim1], fabs(d__2));
-    x = s * .75;
+    x = s*.75;
     y = x;
-    w = s * -.4375*s;
+    w = s*-.4375*s;
 L130:
     ++its;
     --itn;
@@ -662,9 +662,9 @@ L130:
         zz = h__[m + m*h_dim1];
         r__ = x - zz;
         s = y - zz;
-        p = (r__ * s - w) / h__[m + 1 + m*h_dim1] + h__[m + (m + 1) * h_dim1];
-        q = h__[m + 1 + (m + 1) * h_dim1] - zz - r__ - s;
-        r__ = h__[m + 2 + (m + 1) * h_dim1];
+        p = (r__*s - w) / h__[m + 1 + m*h_dim1] + h__[m + (m + 1)*h_dim1];
+        q = h__[m + 1 + (m + 1)*h_dim1] - zz - r__ - s;
+        r__ = h__[m + 2 + (m + 1)*h_dim1];
         s = fabs(p) + fabs(q) + fabs(r__);
         p /= s;
         q /= s;
@@ -673,9 +673,9 @@ L130:
             goto L150;
         }
         tst1 = fabs(p) *
-               ((d__1 = h__[m - 1 + (m - 1) * h_dim1], fabs(d__1)) + fabs(zz) +
-                (d__2 = h__[m + 1 + (m + 1) * h_dim1], fabs(d__2)));
-        tst2 = tst1 + (d__1 = h__[m + (m - 1) * h_dim1], fabs(d__1)) *
+               ((d__1 = h__[m - 1 + (m - 1)*h_dim1], fabs(d__1)) + fabs(zz) +
+                (d__2 = h__[m + 1 + (m + 1)*h_dim1], fabs(d__2)));
+        tst2 = tst1 + (d__1 = h__[m + (m - 1)*h_dim1], fabs(d__1)) *
                           (fabs(q) + fabs(r__));
         if (tst2 == tst1) {
             goto L150;
@@ -688,11 +688,11 @@ L150:
 
     i__1 = en;
     for (i__ = mp2; i__ <= i__1; ++i__) {
-        h__[i__ + (i__ - 2) * h_dim1] = 0.;
+        h__[i__ + (i__ - 2)*h_dim1] = 0.;
         if (i__ == mp2) {
             goto L160;
         }
-        h__[i__ + (i__ - 3) * h_dim1] = 0.;
+        h__[i__ + (i__ - 3)*h_dim1] = 0.;
     L160:;
     }
     /*     .......... DOUBLE QR STEP INVOLVING ROWS L TO EN AND */
@@ -703,11 +703,11 @@ L150:
         if (k == m) {
             goto L170;
         }
-        p = h__[k + (k - 1) * h_dim1];
-        q = h__[k + 1 + (k - 1) * h_dim1];
+        p = h__[k + (k - 1)*h_dim1];
+        q = h__[k + 1 + (k - 1)*h_dim1];
         r__ = 0.;
         if (notlas) {
-            r__ = h__[k + 2 + (k - 1) * h_dim1];
+            r__ = h__[k + 2 + (k - 1)*h_dim1];
         }
         x = fabs(p) + fabs(q) + fabs(r__);
         if (x == 0.) {
@@ -717,16 +717,16 @@ L150:
         q /= x;
         r__ /= x;
     L170:
-        d__1 = sqrt(p*p + q*q + r__ * r__);
+        d__1 = sqrt(p*p + q*q + r__*r__);
         s = d_sign(d__1, p);
         if (k == m) {
             goto L180;
         }
-        h__[k + (k - 1) * h_dim1] = -s*x;
+        h__[k + (k - 1)*h_dim1] = -s*x;
         goto L190;
     L180:
         if (l != m) {
-            h__[k + (k - 1) * h_dim1] = -h__[k + (k - 1) * h_dim1];
+            h__[k + (k - 1)*h_dim1] = -h__[k + (k - 1)*h_dim1];
         }
     L190:
         p += s;
@@ -753,17 +753,17 @@ L150:
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1) * h_dim1];
+            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1];
             h__[i__ + k*h_dim1] -= p;
-            h__[i__ + (k + 1) * h_dim1] -= p*q;
+            h__[i__ + (k + 1)*h_dim1] -= p*q;
             /* L210: */
         }
         /*     .......... ACCUMULATE TRANSFORMATIONS .......... */
         i__2 = *igh;
         for (i__ = *low; i__ <= i__2; ++i__) {
-            p = x*z__[i__ + k*z_dim1] + y*z__[i__ + (k + 1) * z_dim1];
+            p = x*z__[i__ + k*z_dim1] + y*z__[i__ + (k + 1)*z_dim1];
             z__[i__ + k*z_dim1] -= p;
-            z__[i__ + (k + 1) * z_dim1] -= p*q;
+            z__[i__ + (k + 1)*z_dim1] -= p*q;
             /* L220: */
         }
         goto L255;
@@ -772,7 +772,7 @@ L150:
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             p = h__[k + j*h_dim1] + q*h__[k + 1 + j*h_dim1] +
-                r__ * h__[k + 2 + j*h_dim1];
+                r__*h__[k + 2 + j*h_dim1];
             h__[k + j*h_dim1] -= p*x;
             h__[k + 1 + j*h_dim1] -= p*y;
             h__[k + 2 + j*h_dim1] -= p*zz;
@@ -785,21 +785,21 @@ L150:
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1) * h_dim1] +
-                zz*h__[i__ + (k + 2) * h_dim1];
+            p = x*h__[i__ + k*h_dim1] + y*h__[i__ + (k + 1)*h_dim1] +
+                zz*h__[i__ + (k + 2)*h_dim1];
             h__[i__ + k*h_dim1] -= p;
-            h__[i__ + (k + 1) * h_dim1] -= p*q;
-            h__[i__ + (k + 2) * h_dim1] -= p*r__;
+            h__[i__ + (k + 1)*h_dim1] -= p*q;
+            h__[i__ + (k + 2)*h_dim1] -= p*r__;
             /* L240: */
         }
         /*     .......... ACCUMULATE TRANSFORMATIONS .......... */
         i__2 = *igh;
         for (i__ = *low; i__ <= i__2; ++i__) {
-            p = x*z__[i__ + k*z_dim1] + y*z__[i__ + (k + 1) * z_dim1] +
-                zz*z__[i__ + (k + 2) * z_dim1];
+            p = x*z__[i__ + k*z_dim1] + y*z__[i__ + (k + 1)*z_dim1] +
+                zz*z__[i__ + (k + 2)*z_dim1];
             z__[i__ + k*z_dim1] -= p;
-            z__[i__ + (k + 1) * z_dim1] -= p*q;
-            z__[i__ + (k + 2) * z_dim1] -= p*r__;
+            z__[i__ + (k + 1)*z_dim1] -= p*q;
+            z__[i__ + (k + 2)*z_dim1] -= p*r__;
             /* L250: */
         }
     L255:
@@ -908,13 +908,13 @@ L340:
         i__2 = na;
         for (ii = 1; ii <= i__2; ++ii) {
             i__ = en - ii;
-            w = h__[i__ + i__ * h_dim1] - p;
+            w = h__[i__ + i__*h_dim1] - p;
             r__ = 0.;
 
             i__3 = en;
             for (j = m; j <= i__3; ++j) {
                 /* L610: */
-                r__ += h__[i__ + j*h_dim1] * h__[j + en*h_dim1];
+                r__ += h__[i__ + j*h_dim1]*h__[j + en*h_dim1];
             }
 
             if (wi[i__] >= 0.) {
@@ -945,9 +945,9 @@ L340:
             goto L680;
         /*     .......... SOLVE REAL EQUATIONS .......... */
         L640:
-            x = h__[i__ + (i__ + 1) * h_dim1];
-            y = h__[i__ + 1 + i__ * h_dim1];
-            q = (wr[i__] - p)*(wr[i__] - p) + wi[i__] * wi[i__];
+            x = h__[i__ + (i__ + 1)*h_dim1];
+            y = h__[i__ + 1 + i__*h_dim1];
+            q = (wr[i__] - p)*(wr[i__] - p) + wi[i__]*wi[i__];
             t = (x*s - zz*r__) / q;
             h__[i__ + en*h_dim1] = t;
             if (fabs(x) <= fabs(zz)) {
@@ -1008,14 +1008,14 @@ L340:
         i__2 = enm2;
         for (ii = 1; ii <= i__2; ++ii) {
             i__ = na - ii;
-            w = h__[i__ + i__ * h_dim1] - p;
+            w = h__[i__ + i__*h_dim1] - p;
             ra = 0.;
             sa = 0.;
 
             i__3 = en;
             for (j = m; j <= i__3; ++j) {
-                ra += h__[i__ + j*h_dim1] * h__[j + na*h_dim1];
-                sa += h__[i__ + j*h_dim1] * h__[j + en*h_dim1];
+                ra += h__[i__ + j*h_dim1]*h__[j + na*h_dim1];
+                sa += h__[i__ + j*h_dim1]*h__[j + en*h_dim1];
                 /* L760: */
             }
 
@@ -1038,14 +1038,14 @@ L340:
             goto L790;
         /*     .......... SOLVE COMPLEX EQUATIONS .......... */
         L780:
-            x = h__[i__ + (i__ + 1) * h_dim1];
-            y = h__[i__ + 1 + i__ * h_dim1];
-            vr = (wr[i__] - p)*(wr[i__] - p) + wi[i__] * wi[i__] - q*q;
-            vi = (wr[i__] - p) * 2. * q;
+            x = h__[i__ + (i__ + 1)*h_dim1];
+            y = h__[i__ + 1 + i__*h_dim1];
+            vr = (wr[i__] - p)*(wr[i__] - p) + wi[i__]*wi[i__] - q*q;
+            vi = (wr[i__] - p)*2.*q;
             if (vr != 0. || vi != 0.) {
                 goto L784;
             }
-            tst1 = norm * (fabs(w) + fabs(q) + fabs(x) + fabs(y) + fabs(zz));
+            tst1 = norm*(fabs(w) + fabs(q) + fabs(x) + fabs(y) + fabs(zz));
             vr = tst1;
         L783:
             vr *= .01;
@@ -1131,7 +1131,7 @@ L340:
             i__3 = m;
             for (k = *low; k <= i__3; ++k) {
                 /* L860: */
-                zz += z__[i__ + k*z_dim1] * h__[k + j*h_dim1];
+                zz += z__[i__ + k*z_dim1]*h__[k + j*h_dim1];
             }
 
             z__[i__ + j*z_dim1] = zz;
@@ -1271,9 +1271,9 @@ L20:
 
     i__1 = *n;
     for (i__ = k; i__ <= i__1; ++i__) {
-        f = a[j + i__ * a_dim1];
-        a[j + i__ * a_dim1] = a[m + i__ * a_dim1];
-        a[m + i__ * a_dim1] = f;
+        f = a[j + i__*a_dim1];
+        a[j + i__*a_dim1] = a[m + i__*a_dim1];
+        a[m + i__*a_dim1] = f;
         /* L40: */
     }
 
@@ -1302,7 +1302,7 @@ L100:
             if (i__ == j) {
                 goto L110;
             }
-            if (a[j + i__ * a_dim1] != 0.) {
+            if (a[j + i__*a_dim1] != 0.) {
                 goto L120;
             }
         L110:;
@@ -1359,7 +1359,7 @@ L190:
             if (j == i__) {
                 goto L200;
             }
-            c__ += (d__1 = a[j + i__ * a_dim1], fabs(d__1));
+            c__ += (d__1 = a[j + i__*a_dim1], fabs(d__1));
             r__ += (d__1 = a[i__ + j*a_dim1], fabs(d__1));
         L200:;
         }
@@ -1379,7 +1379,7 @@ L190:
         c__ *= b2;
         goto L210;
     L220:
-        g = r__ * radix;
+        g = r__*radix;
     L230:
         if (c__ < g) {
             goto L240;
@@ -1389,7 +1389,7 @@ L190:
         goto L230;
     /*     .......... NOW BALANCE .......... */
     L240:
-        if ((c__ + r__) / f >= s * .95) {
+        if ((c__ + r__) / f >= s*.95) {
             goto L270;
         }
         g = 1. / f;
@@ -1405,7 +1405,7 @@ L190:
         i__2 = l;
         for (j = 1; j <= i__2; ++j) {
             /* L260: */
-            a[j + i__ * a_dim1] *= f;
+            a[j + i__*a_dim1] *= f;
         }
 
     L270:;
@@ -1627,8 +1627,8 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
 
         i__2 = *igh;
         for (j = 1; j <= i__2; ++j) {
-            y = a[j + i__ * a_dim1];
-            a[j + i__ * a_dim1] = a[j + m*a_dim1];
+            y = a[j + i__*a_dim1];
+            a[j + i__*a_dim1] = a[j + m*a_dim1];
             a[j + m*a_dim1] = y;
             /* L120: */
         }
@@ -1657,7 +1657,7 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
             i__3 = *igh;
             for (j = 1; j <= i__3; ++j) {
                 /* L150: */
-                a[j + m*a_dim1] += y*a[j + i__ * a_dim1];
+                a[j + m*a_dim1] += y*a[j + i__*a_dim1];
             }
 
         L160:;
@@ -1757,7 +1757,7 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
         i__2 = *igh;
         for (i__ = mp1; i__ <= i__2; ++i__) {
             /* L100: */
-            z__[i__ + mp*z_dim1] = a[i__ + (mp - 1) * a_dim1];
+            z__[i__ + mp*z_dim1] = a[i__ + (mp - 1)*a_dim1];
         }
 
         i__ = int__[mp];
@@ -1908,7 +1908,7 @@ L10:
         d__1 = sqrt(r__);
         r__ = d_sign(d__1, b[l + l*b_dim1]);
         b[l + l*b_dim1] += r__;
-        rho = r__ * b[l + l*b_dim1];
+        rho = r__*b[l + l*b_dim1];
 
         i__2 = n;
         for (j = l1; j <= i__2; ++j) {
@@ -1916,7 +1916,7 @@ L10:
 
             i__3 = n;
             for (i__ = l; i__ <= i__3; ++i__) {
-                t += b[i__ + l*b_dim1] * b[i__ + j*b_dim1];
+                t += b[i__ + l*b_dim1]*b[i__ + j*b_dim1];
                 /* L30: */
             }
 
@@ -1937,7 +1937,7 @@ L10:
 
             i__3 = n;
             for (i__ = l; i__ <= i__3; ++i__) {
-                t += b[i__ + l*b_dim1] * a[i__ + j*a_dim1];
+                t += b[i__ + l*b_dim1]*a[i__ + j*a_dim1];
                 /* L60: */
             }
 
@@ -2182,7 +2182,7 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
     for (i__ = 1; i__ <= i__1; ++i__) {
         ani = 0.;
         if (i__ != 1) {
-            ani = (d__1 = a[i__ + (i__ - 1) * a_dim1], fabs(d__1));
+            ani = (d__1 = a[i__ + (i__ - 1)*a_dim1], fabs(d__1));
         }
         bni = 0.;
 
@@ -2327,7 +2327,7 @@ L120:
     a43 = a[en + na*a_dim1] / b33;
     a44 = a[en + en*a_dim1] / b44;
     b34 = b[na + en*b_dim1] / b44;
-    t = (a43*b34 - a33 - a44) * .5;
+    t = (a43*b34 - a33 - a44)*.5;
     r__ = t*t + a34*a43 - a33*a44;
     if (r__ < 0.) {
         goto L150;
@@ -2356,7 +2356,7 @@ L120:
             t -= sh*b[l + l*b_dim1];
         }
         if ((d__1 = a[l + lm1*a_dim1], fabs(d__1)) <=
-            (d__2 = t / a[l1 + l*a_dim1], fabs(d__2)) * epsa) {
+            (d__2 = t / a[l1 + l*a_dim1], fabs(d__2))*epsa) {
             goto L100;
         }
         /* L130: */
@@ -2754,8 +2754,8 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         e = ei;
         t = (a11 - e*b11) / b11;
     L431:
-        c__ = (t - s*b12) * .5;
-        d__ = c__ * c__ + s * (a12 - e*b12);
+        c__ = (t - s*b12)*.5;
+        d__ = c__*c__ + s*(a12 - e*b12);
         if (d__ < 0.) {
             goto L480;
         }
@@ -2813,7 +2813,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         if (bn == 0.) {
             goto L475;
         }
-        if (an < fabs(e) * bn) {
+        if (an < fabs(e)*bn) {
             goto L455;
         }
         a1 = b[na + na*b_dim1];
@@ -2904,7 +2904,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         szr = 1.;
         szi = 0.;
     L490:
-        if (an < (fabs(e) + ei) * bn) {
+        if (an < (fabs(e) + ei)*bn) {
             goto L492;
         }
         a1 = cz*b11 + szr*b12;
@@ -2958,7 +2958,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         }
         r__ = sqrt(dr*dr + di*di);
         beta[j] = bn*r__;
-        alfr[j] = an * (tr*dr + ti*di) / r__;
+        alfr[j] = an*(tr*dr + ti*di) / r__;
         alfi[j] = an*t / r__;
         if (i__ == 1) {
             goto L502;
@@ -3090,7 +3090,7 @@ dnrm2(int64 *n, double *dx, int64 *incx) {
 L10:
     next = 0;
     sum = zero;
-    nn = *n * *incx;
+    nn = *n**incx;
     /*                                                 BEGIN MAIN LOOP */
     i__ = 1;
 L20:
@@ -3153,7 +3153,7 @@ L110:
     }
     /* Computing 2nd power */
     d__1 = xmax / dx[i__];
-    sum = one + sum * (d__1*d__1);
+    sum = one + sum*(d__1*d__1);
     xmax = (d__1 = dx[i__], fabs(d__1));
     goto L200;
 
@@ -3240,14 +3240,14 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     ix = 1;
     iy = 1;
     if (*incx < 0) {
-        ix = (-(*n) + 1) * *incx + 1;
+        ix = (-(*n) + 1)**incx + 1;
     }
     if (*incy < 0) {
-        iy = (-(*n) + 1) * *incy + 1;
+        iy = (-(*n) + 1)**incy + 1;
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        dtemp += dx[ix] * dy[iy];
+        dtemp += dx[ix]*dy[iy];
         ix += *incx;
         iy += *incy;
         /* L10: */
@@ -3266,7 +3266,7 @@ L20:
     }
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        dtemp += dx[i__] * dy[i__];
+        dtemp += dx[i__]*dy[i__];
         /* L30: */
     }
     if (*n < 5) {
@@ -3276,9 +3276,9 @@ L40:
     mp1 = m + 1;
     i__1 = *n;
     for (i__ = mp1; i__ <= i__1; i__ += 5) {
-        dtemp = dtemp + dx[i__] * dy[i__] + dx[i__ + 1] * dy[i__ + 1] +
-                dx[i__ + 2] * dy[i__ + 2] + dx[i__ + 3] * dy[i__ + 3] +
-                dx[i__ + 4] * dy[i__ + 4];
+        dtemp = dtemp + dx[i__]*dy[i__] + dx[i__ + 1]*dy[i__ + 1] +
+                dx[i__ + 2]*dy[i__ + 2] + dx[i__ + 3]*dy[i__ + 3] +
+                dx[i__ + 4]*dy[i__ + 4];
         /* L50: */
     }
 L60:
@@ -3311,7 +3311,7 @@ dscal(int64 *n, double *da, double *dx, int64 *incx) {
 
     /*        CODE FOR INCREMENT NOT EQUAL TO 1 */
 
-    nincx = *n * *incx;
+    nincx = *n**incx;
     i__1 = nincx;
     i__2 = *incx;
     for (i__ = 1; i__2 < 0 ? i__ >= i__1 : i__ <= i__1; i__ += i__2) {
@@ -3447,10 +3447,10 @@ daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
     ix = 1;
     iy = 1;
     if (*incx < 0) {
-        ix = (-(*n) + 1) * *incx + 1;
+        ix = (-(*n) + 1)**incx + 1;
     }
     if (*incy < 0) {
-        iy = (-(*n) + 1) * *incy + 1;
+        iy = (-(*n) + 1)**incy + 1;
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -3523,15 +3523,15 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
     ix = 1;
     iy = 1;
     if (*incx < 0) {
-        ix = (-(*n) + 1) * *incx + 1;
+        ix = (-(*n) + 1)**incx + 1;
     }
     if (*incy < 0) {
-        iy = (-(*n) + 1) * *incy + 1;
+        iy = (-(*n) + 1)**incy + 1;
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        dtemp = *c__ * dx[ix] + *s*dy[iy];
-        dy[iy] = *c__ * dy[iy] - *s*dx[ix];
+        dtemp = *c__*dx[ix] + *s*dy[iy];
+        dy[iy] = *c__*dy[iy] - *s*dx[ix];
         dx[ix] = dtemp;
         ix += *incx;
         iy += *incy;
@@ -3544,8 +3544,8 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
 L20:
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        dtemp = *c__ * dx[i__] + *s*dy[i__];
-        dy[i__] = *c__ * dy[i__] - *s*dx[i__];
+        dtemp = *c__*dx[i__] + *s*dy[i__];
+        dy[i__] = *c__*dy[i__] - *s*dx[i__];
         dx[i__] = dtemp;
         /* L30: */
     }
@@ -3584,10 +3584,10 @@ dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     ix = 1;
     iy = 1;
     if (*incx < 0) {
-        ix = (-(*n) + 1) * *incx + 1;
+        ix = (-(*n) + 1)**incx + 1;
     }
     if (*incy < 0) {
-        iy = (-(*n) + 1) * *incy + 1;
+        iy = (-(*n) + 1)**incy + 1;
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -3671,7 +3671,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
             }
             i__2 = mm;
             for (i__ = 1; i__ <= i__2; ++i__) {
-                b[j + i__ * b_dim1] = a[i__ + j*a_dim1];
+                b[j + i__*b_dim1] = a[i__ + j*a_dim1];
                 /* L70: */
             }
             if (*m < 7) {
@@ -3681,13 +3681,13 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
             mmp1 = mm + 1;
             i__2 = *m;
             for (i__ = mmp1; i__ <= i__2; i__ += 7) {
-                b[j + i__ * b_dim1] = a[i__ + j*a_dim1];
-                b[j + (i__ + 1) * b_dim1] = a[i__ + 1 + j*a_dim1];
-                b[j + (i__ + 2) * b_dim1] = a[i__ + 2 + j*a_dim1];
-                b[j + (i__ + 3) * b_dim1] = a[i__ + 3 + j*a_dim1];
-                b[j + (i__ + 4) * b_dim1] = a[i__ + 4 + j*a_dim1];
-                b[j + (i__ + 5) * b_dim1] = a[i__ + 5 + j*a_dim1];
-                b[j + (i__ + 6) * b_dim1] = a[i__ + 6 + j*a_dim1];
+                b[j + i__*b_dim1] = a[i__ + j*a_dim1];
+                b[j + (i__ + 1)*b_dim1] = a[i__ + 1 + j*a_dim1];
+                b[j + (i__ + 2)*b_dim1] = a[i__ + 2 + j*a_dim1];
+                b[j + (i__ + 3)*b_dim1] = a[i__ + 3 + j*a_dim1];
+                b[j + (i__ + 4)*b_dim1] = a[i__ + 4 + j*a_dim1];
+                b[j + (i__ + 5)*b_dim1] = a[i__ + 5 + j*a_dim1];
+                b[j + (i__ + 6)*b_dim1] = a[i__ + 6 + j*a_dim1];
                 /* L90: */
             }
         L99:
@@ -4196,7 +4196,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     temp = 0.;
                     i__3 = *k;
                     for (l = 1; l <= i__3; ++l) {
-                        temp += a[l + i__ * a_dim1] * b[l + j*b_dim1];
+                        temp += a[l + i__*a_dim1]*b[l + j*b_dim1];
                         /* L100: */
                     }
                     if (*beta == 0.) {
@@ -4254,7 +4254,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                     temp = 0.;
                     i__3 = *k;
                     for (l = 1; l <= i__3; ++l) {
-                        temp += a[l + i__ * a_dim1] * b[j + l*b_dim1];
+                        temp += a[l + i__*a_dim1]*b[j + l*b_dim1];
                         /* L180: */
                     }
                     if (*beta == 0.) {
@@ -4307,7 +4307,7 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
      */
     /*            if negative, desired absolute precision in singular values
      */
-    /*               (expressed as abs(tol) * sigma-max) */
+    /*               (expressed as abs(tol)*sigma-max) */
     /*            (in both cases, abs(tol) should be less than 1 and */
     /*             greater than macheps) */
 
@@ -4391,13 +4391,13 @@ ndrotg(double *f, double *g, double *cs, double *sn) {
             t = *g / *f;
             tt = sqrt(t*t + 1.);
             *cs = 1. / tt;
-            *sn = t * *cs;
+            *sn = t**cs;
             *f *= tt;
         } else {
             t = *f / *g;
             tt = sqrt(t*t + 1.);
             *sn = 1. / tt;
-            *cs = t * *sn;
+            *cs = t**sn;
             *f = *g*tt;
         }
     }
@@ -4475,7 +4475,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
      */
     /*            if negative, desired absolute precision in singular values
      */
-    /*               (expressed as abs(tol) * sigma-max) */
+    /*               (expressed as abs(tol)*sigma-max) */
     /*            (abs(tol) should be less than 1 and greater than macheps) */
 
     /*     idbg = 0 for no debug output (normal setting) */
@@ -4901,9 +4901,9 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
         minnp = min(*n, *p);
         i__1 = minnp;
         for (i__ = 1; i__ <= i__1; ++i__) {
-            s[i__] = x[i__ + i__ * x_dim1];
+            s[i__] = x[i__ + i__*x_dim1];
             if (i__ < *p) {
-                e[i__] = x[i__ + (i__ + 1) * x_dim1];
+                e[i__] = x[i__ + (i__ + 1)*x_dim1];
             }
             /* L351: */
         }
@@ -4960,7 +4960,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
             smax = max(d__3, d__4);
             /* L1111: */
         }
-        thresh = fabs(*tol) * smax;
+        thresh = fabs(*tol)*smax;
     }
     mm = m;
 
@@ -5069,7 +5069,7 @@ L1003:
         /*       if (wantu.and.ll.lt.n) call drot(n,u(1,ll),1,u(1,m),1,cs,sn)
          */
         /*       e(ll) = 0.0d0 */
-        /*       s(m) = shift*dsign(1.0d0,cs) * sg1*sg2 */
+        /*       s(m) = shift*dsign(1.0d0,cs)*sg1*sg2 */
         /*       if (idbg.gt.0) then */
         /*         print *,'2 by 2 block' */
         /*         print *,'shift=',shift */
@@ -5124,7 +5124,7 @@ L1003:
     /*             abse = abs(e(lll)) */
     /*             abss = abs(s(lll)) */
     /*             if (abss.lt.abse) then */
-    /*               sminl = sminl * (abss/abse) */
+    /*               sminl = sminl*(abss/abse) */
     /*               oldacc = -1 */
     /*             endif */
     /* L1004: */
@@ -5133,7 +5133,7 @@ L1003:
     /*             abse = abs(e(lll)) */
     /*             abss = abs(s(lll+1)) */
     /*             if (abss.lt.abse) then */
-    /*               sminl = sminl * (abss/abse) */
+    /*               sminl = sminl*(abss/abse) */
     /*               oldacc = -1 */
     /*             endif */
     /* L1005: */
@@ -5172,7 +5172,7 @@ L1003:
             /*         forward direction */
             /*         apply test on bottom 2 by 2 only */
             if ((d__1 = e[m - 1], fabs(d__1)) <=
-                *tol * (d__2 = s[m], fabs(d__2))) {
+                *tol*(d__2 = s[m], fabs(d__2))) {
                 /*           convergence of bottom element */
                 e[m - 1] = 0.;
                 goto L999;
@@ -5200,7 +5200,7 @@ L1003:
             /*         idir=2,  backwards direction */
             /*         apply test on top 2 by 2 only */
             if ((d__1 = e[ll], fabs(d__1)) <=
-                *tol * (d__2 = s[ll], fabs(d__2))) {
+                *tol*(d__2 = s[ll], fabs(d__2))) {
                 /*           convergence of top element */
                 e[ll] = 0.;
                 goto L999;
@@ -5232,7 +5232,7 @@ L1003:
     oldm = m;
 
     /*     test for zero shift */
-    test = nct * *tol * (sminl / smax) + 1.;
+    test = nct**tol*(sminl / smax) + 1.;
     if ((test == 1. && *ifull != 1 && *tol > (double)0.) || *ifull == 2) {
         /*       do a zero shift so that roundoff does not contaminate */
         /*       smallest singular value */
@@ -5340,7 +5340,7 @@ L1003:
                 *maxsin = max(d__1, d__2);
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 if (wantv) {
-                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1) * v_dim1 + 1],
+                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1],
                          &c__1, &cs, &sn);
                 }
                 if (k != ll) {
@@ -5364,7 +5364,7 @@ L1003:
                 /*           if wantu and k.eq.n, then s(k+1)=0 so g=0 so cs=1
                  and sn=0 */
                 if (wantu && k < *n) {
-                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1) * u_dim1 + 1],
+                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1],
                          &c__1, &cs, &sn);
                 }
                 s[k] = f;
@@ -5418,7 +5418,7 @@ L1003:
                 /*           k.lt.n necessary */
                 if (wantu) {
                     d__1 = -sn;
-                    drot(n, &u[(k - 1) * u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
+                    drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 if (k != m) {
@@ -5441,7 +5441,7 @@ L1003:
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 if (wantv) {
                     d__1 = -sn;
-                    drot(p, &v[(k - 1) * v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
+                    drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 s[k] = f;
@@ -5509,7 +5509,7 @@ L1003:
                 s[k + 1] = cs*s[k + 1];
                 /*           if (idbg.gt.3) print *,'s(k+1)=',s(k+1) */
                 if (wantv) {
-                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1) * v_dim1 + 1],
+                    drot(p, &v[k*v_dim1 + 1], &c__1, &v[(k + 1)*v_dim1 + 1],
                          &c__1, &cs, &sn);
                 }
                 ndrotg(&f, &g, &cs, &sn);
@@ -5528,7 +5528,7 @@ L1003:
                 s zero */
                 /*           shift, so test removed from original code */
                 if (wantu) {
-                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1) * u_dim1 + 1],
+                    drot(n, &u[k*u_dim1 + 1], &c__1, &u[(k + 1)*u_dim1 + 1],
                          &c__1, &cs, &sn);
                 }
                 /*           if (idbg.gt.2) call prse(ll,m,n,p,s,e) */
@@ -5577,14 +5577,14 @@ L1003:
                 /*           if (idbg.gt.3) print *,'s(k-1)=',s(k-1) */
                 if (wantu && k <= *n) {
                     d__1 = -sn;
-                    drot(n, &u[(k - 1) * u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
+                    drot(n, &u[(k - 1)*u_dim1 + 1], &c__1, &u[k*u_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 ndrotg(&f, &g, &cs, &sn);
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 if (wantv) {
                     d__1 = -sn;
-                    drot(p, &v[(k - 1) * v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
+                    drot(p, &v[(k - 1)*v_dim1 + 1], &c__1, &v[k*v_dim1 + 1],
                          &c__1, &cs, &d__1);
                 }
                 s[k] = f;
@@ -5637,7 +5637,7 @@ L998:
         if (s[i__] < 0.) {
             s[i__] = -s[i__];
             if (wantv) {
-                dscal(p, &c_b367, &v[i__ * v_dim1 + 1], &c__1);
+                dscal(p, &c_b367, &v[i__*v_dim1 + 1], &c__1);
             }
         }
         /* L1010: */
@@ -5664,11 +5664,11 @@ L998:
             s[m + 1 - i__] = s[iisub];
             s[iisub] = temp;
             if (wantv) {
-                dswap(p, &v[(m + 1 - i__) * v_dim1 + 1], &c__1,
+                dswap(p, &v[(m + 1 - i__)*v_dim1 + 1], &c__1,
                       &v[iisub*v_dim1 + 1], &c__1);
             }
             if (wantu) {
-                dswap(n, &u[(m + 1 - i__) * u_dim1 + 1], &c__1,
+                dswap(n, &u[(m + 1 - i__)*u_dim1 + 1], &c__1,
                       &u[iisub*u_dim1 + 1], &c__1);
             }
         }
@@ -5756,7 +5756,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
     /*       snr, csr - real*8 - sin and cos of right rotation (see below) */
     /*       snl, csl - real*8 - sin and cos of left rotation (see below) */
 
-    /*       [  csl  snl ]  * [ a b ] * [ csr  -snr ] = [ sigmax    0   ] */
+    /*       [  csl  snl ]  * [ a b ]*[ csr  -snr ] = [ sigmax    0   ] */
     /*       [ -snl  csl ]    [ 0 c ]   [ snr   csr ]   [    0   sigmin ] */
 
     /*     barring over/underflow all output quantities are correct to */
@@ -5819,7 +5819,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
         temp = temp1 + temp2;
         *sigmin = acmn / temp;
         *sigmin += *sigmin;
-        *sigmax = acmx * (temp / (double)2.);
+        *sigmax = acmx*(temp / (double)2.);
     } else {
         if (absb == (double)0.) {
             /*             matrix identically zero */
@@ -5852,7 +5852,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 /*                 bad underflow possible only if true sigmin
                 near UF */
                 *sigmin *= acmn / temp;
-                *sigmax = absb * (temp / 2.);
+                *sigmax = absb*(temp / 2.);
             }
         }
     }
@@ -5900,7 +5900,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 /*                 eps <= sinr <= sqrt(13)+3 */
                 /* Computing 2nd power */
                 d__1 = as*at + au;
-                sinr = sqrt(d__1*d__1 + ac*4. * ac*au) + as*at + au;
+                sinr = sqrt(d__1*d__1 + ac*4.*ac*au) + as*at + au;
                 /*                 fabs(cosr) <= 2; if underflow, true cosr<UF/
                 eps */
                 cosr = ac*bac;
@@ -5909,7 +5909,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 sinl = (as*at + temp3) / (ac*ac + 1. + temp3);
                 /*                 bad underflow possible only if sigmax < UF/
                 eps */
-                sinl = *c__ * sinl;
+                sinl = *c__*sinl;
                 cosl = *b;
                 sgnmn = sgna*sgnc;
                 sgnmx = (double)1.;
@@ -5926,7 +5926,7 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
                 /*                 eps <= cosl <= sqrt(13)+3 */
                 /* Computing 2nd power */
                 d__1 = as*at + au;
-                cosl = sqrt(d__1*d__1 + ca*4. * ca*au) + as*at + au;
+                cosl = sqrt(d__1*d__1 + ca*4.*ca*au) + as*at + au;
                 sgnmn = sgna*sgnc;
                 sgnmx = (double)1.;
             }
@@ -5974,8 +5974,8 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
             sgnmx = sgnb;
         }
     }
-    *sigmin = sgnmn * *sigmin;
-    *sigmax = sgnmx * *sigmax;
+    *sigmin = sgnmn**sigmin;
+    *sigmax = sgnmx**sigmax;
     sndrtg(&cosr, &sinr, csr, snr);
     sndrtg(&cosl, &sinl, csl, snl);
     return 0;
@@ -6055,14 +6055,14 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
             tt = sqrt(t*t + 1.);
             d__1 = 1. / tt;
             *cs = d_sign(d__1, *f);
-            d__1 = t * *cs;
+            d__1 = t**cs;
             *sn = d_sign(d__1, *g);
         } else {
             t = *f / *g;
             tt = sqrt(t*t + 1.);
             d__1 = 1. / tt;
             *sn = d_sign(d__1, *g);
-            d__1 = t * *sn;
+            d__1 = t**sn;
             *cs = d_sign(d__1, *f);
         }
     }
@@ -6177,8 +6177,8 @@ L40:
     if (l == *nlow) {
         goto L50;
     }
-    if ((d__1 = a[l + (l - 1) * a_dim1], fabs(d__1)) <=
-        *eps * ((d__2 = a[l - 1 + (l - 1) * a_dim1], fabs(d__2)) +
+    if ((d__1 = a[l + (l - 1)*a_dim1], fabs(d__1)) <=
+        *eps*((d__2 = a[l - 1 + (l - 1)*a_dim1], fabs(d__2)) +
                 (d__3 = a[l + l*a_dim1], fabs(d__3)))) {
         goto L50;
     }
@@ -6191,8 +6191,8 @@ L50:
     if (l == nu) {
         goto L160;
     }
-    y = a[nu - 1 + (nu - 1) * a_dim1];
-    w = a[nu + (nu - 1) * a_dim1] * a[nu - 1 + nu*a_dim1];
+    y = a[nu - 1 + (nu - 1)*a_dim1];
+    w = a[nu + (nu - 1)*a_dim1]*a[nu - 1 + nu*a_dim1];
     if (l == nu - 1) {
         goto L100;
     }
@@ -6208,16 +6208,16 @@ L50:
     t += x;
     i__1 = nu;
     for (i__ = *nlow; i__ <= i__1; ++i__) {
-        a[i__ + i__ * a_dim1] -= x;
+        a[i__ + i__*a_dim1] -= x;
         /* L60: */
     }
-    s = (d__1 = a[nu + (nu - 1) * a_dim1], fabs(d__1)) +
-        (d__2 = a[nu - 1 + (nu - 2) * a_dim1], fabs(d__2));
-    x = s * .75;
+    s = (d__1 = a[nu + (nu - 1)*a_dim1], fabs(d__1)) +
+        (d__2 = a[nu - 1 + (nu - 2)*a_dim1], fabs(d__2));
+    x = s*.75;
     y = x;
     /* Computing 2nd power */
     d__1 = s;
-    w = d__1*d__1 * -.4375;
+    w = d__1*d__1*-.4375;
 L70:
     ++it;
     /* LOOK FOR TWO CONSECUTIVE SMALL SUB-DIAGONAL */
@@ -6227,9 +6227,9 @@ L80:
     z__ = a[nl + nl*a_dim1];
     r__ = x - z__;
     s = y - z__;
-    p = (r__ * s - w) / a[nl + 1 + nl*a_dim1] + a[nl + (nl + 1) * a_dim1];
-    q = a[nl + 1 + (nl + 1) * a_dim1] - z__ - r__ - s;
-    r__ = a[nl + 2 + (nl + 1) * a_dim1];
+    p = (r__*s - w) / a[nl + 1 + nl*a_dim1] + a[nl + (nl + 1)*a_dim1];
+    q = a[nl + 1 + (nl + 1)*a_dim1] - z__ - r__ - s;
+    r__ = a[nl + 2 + (nl + 1)*a_dim1];
     s = fabs(p) + fabs(q) + fabs(r__);
     p /= s;
     q /= s;
@@ -6237,11 +6237,11 @@ L80:
     if (nl == l) {
         goto L90;
     }
-    if ((d__1 = a[nl + (nl - 1) * a_dim1], fabs(d__1)) *
+    if ((d__1 = a[nl + (nl - 1)*a_dim1], fabs(d__1)) *
             (fabs(q) + fabs(r__)) <=
         *eps*fabs(p) *
-            ((d__2 = a[nl - 1 + (nl - 1) * a_dim1], fabs(d__2)) + fabs(z__) +
-             (d__3 = a[nl + 1 + (nl + 1) * a_dim1], fabs(d__3)))) {
+            ((d__2 = a[nl - 1 + (nl - 1)*a_dim1], fabs(d__2)) + fabs(z__) +
+             (d__3 = a[nl + 1 + (nl + 1)*a_dim1], fabs(d__3)))) {
         goto L90;
     }
     --nl;
@@ -6253,10 +6253,10 @@ L90:
 /* 2X2 BLOCK FOUND. */
 L100:
     if (nu != *nlow + 1) {
-        a[nu - 1 + (nu - 2) * a_dim1] = 0.;
+        a[nu - 1 + (nu - 2)*a_dim1] = 0.;
     }
     a[nu + nu*a_dim1] += t;
-    a[nu - 1 + (nu - 1) * a_dim1] += t;
+    a[nu - 1 + (nu - 1)*a_dim1] += t;
     type__[nu] = 0;
     type__[nu - 1] = 0;
     mu = nu;
@@ -6268,7 +6268,7 @@ L110:
     split(&a[a_offset], &v[v_offset], n, &nl, &e1, &e2, na, nv);
     /* IF THE SPLIT WAS SUCCESSFUL, GO AND ORDER THE */
     /* REAL EIGENVALUES. */
-    if (a[mu + (mu - 1) * a_dim1] == 0.) {
+    if (a[mu + (mu - 1)*a_dim1] == 0.) {
         goto L170;
     }
     /* TEST TO SEE IF THE BLOCK IS PROPERLY POSITIONED, */
@@ -6279,7 +6279,7 @@ L110:
     if (mu == *nup - 1) {
         goto L130;
     }
-    if (a[mu + 2 + (mu + 1) * a_dim1] == 0.) {
+    if (a[mu + 2 + (mu + 1)*a_dim1] == 0.) {
         goto L130;
     }
     /* THE NEXT BLOCK IS 2X2. */
@@ -6287,13 +6287,13 @@ L110:
     /*    * MU+1)*A(MU+2,MU+2)-A(MU+1,MU+2)*A(MU+2,MU+1)) GO TO 230 */
 
     if (*imfd == 1) {
-        if (a[mu - 1 + (mu - 1) * a_dim1] + a[mu + mu*a_dim1] >=
-            a[mu + 1 + (mu + 1) * a_dim1] + a[mu + 2 + (mu + 2) * a_dim1]) {
+        if (a[mu - 1 + (mu - 1)*a_dim1] + a[mu + mu*a_dim1] >=
+            a[mu + 1 + (mu + 1)*a_dim1] + a[mu + 2 + (mu + 2)*a_dim1]) {
             goto L230;
         }
     } else {
-        if (a[mu - 1 + (mu - 1) * a_dim1] + a[mu + mu*a_dim1] <=
-            a[mu + 1 + (mu + 1) * a_dim1] + a[mu + 2 + (mu + 2) * a_dim1]) {
+        if (a[mu - 1 + (mu - 1)*a_dim1] + a[mu + mu*a_dim1] <=
+            a[mu + 1 + (mu + 1)*a_dim1] + a[mu + 2 + (mu + 2)*a_dim1]) {
             goto L230;
         }
     }
@@ -6317,13 +6317,13 @@ L130:
     /*    * MU+1)**2) GO TO 230 */
 
     if (*imfd == 1) {
-        if (a[mu - 1 + (mu - 1) * a_dim1] + a[mu + mu*a_dim1] >=
-            a[mu + 1 + (mu + 1) * a_dim1] * 2.) {
+        if (a[mu - 1 + (mu - 1)*a_dim1] + a[mu + mu*a_dim1] >=
+            a[mu + 1 + (mu + 1)*a_dim1]*2.) {
             goto L230;
         }
     } else {
-        if (a[mu - 1 + (mu - 1) * a_dim1] + a[mu + mu*a_dim1] <=
-            a[mu + 1 + (mu + 1) * a_dim1] * 2.) {
+        if (a[mu - 1 + (mu - 1)*a_dim1] + a[mu + mu*a_dim1] <=
+            a[mu + 1 + (mu + 1)*a_dim1]*2.) {
             goto L230;
         }
     }
@@ -6346,7 +6346,7 @@ L160:
     nl = 0;
     a[nu + nu*a_dim1] += t;
     if (nu != *nlow) {
-        a[nu + (nu - 1) * a_dim1] = 0.;
+        a[nu + (nu - 1)*a_dim1] = 0.;
     }
     type__[nu] = 0;
     mu = nu;
@@ -6360,7 +6360,7 @@ L180:
     if (mu == *nup - 1) {
         goto L200;
     }
-    if (a[mu + 2 + (mu + 1) * a_dim1] == 0.) {
+    if (a[mu + 2 + (mu + 1)*a_dim1] == 0.) {
         goto L200;
     }
     /* THE NEXT BLOCK IS 2X2. */
@@ -6368,13 +6368,13 @@ L180:
     /*    * A(MU+2,MU+1)) GO TO 220 */
 
     if (*imfd == 1) {
-        if (a[mu + mu*a_dim1] * 2. >=
-            a[mu + 1 + (mu + 1) * a_dim1] + a[mu + 2 + (mu + 2) * a_dim1]) {
+        if (a[mu + mu*a_dim1]*2. >=
+            a[mu + 1 + (mu + 1)*a_dim1] + a[mu + 2 + (mu + 2)*a_dim1]) {
             goto L220;
         }
     } else {
-        if (a[mu + mu*a_dim1] * 2. <=
-            a[mu + 1 + (mu + 1) * a_dim1] + a[mu + 2 + (mu + 2) * a_dim1]) {
+        if (a[mu + mu*a_dim1]*2. <=
+            a[mu + 1 + (mu + 1)*a_dim1] + a[mu + 2 + (mu + 2)*a_dim1]) {
             goto L220;
         }
     }
@@ -6396,11 +6396,11 @@ L200:
     /*      IF (FABS(A(MU,MU)).GE.FABS(A(MU+1,MU+1))) GO TO 220 */
 
     if (*imfd == 1) {
-        if (a[mu + mu*a_dim1] >= a[mu + 1 + (mu + 1) * a_dim1]) {
+        if (a[mu + mu*a_dim1] >= a[mu + 1 + (mu + 1)*a_dim1]) {
             goto L220;
         }
     } else {
-        if (a[mu + mu*a_dim1] <= a[mu + 1 + (mu + 1) * a_dim1]) {
+        if (a[mu + mu*a_dim1] <= a[mu + 1 + (mu + 1)*a_dim1]) {
             goto L220;
         }
     }
@@ -6428,7 +6428,7 @@ L240:
     }
     i__1 = nu;
     for (i__ = *nlow; i__ <= i__1; ++i__) {
-        a[i__ + i__ * a_dim1] += t;
+        a[i__ + i__*a_dim1] += t;
         /* L250: */
     }
 L260:
@@ -6443,13 +6443,13 @@ L280:
     if (nu == *nlow) {
         goto L290;
     }
-    if (a[nu + (nu - 1) * a_dim1] == 0.) {
+    if (a[nu + (nu - 1)*a_dim1] == 0.) {
         goto L290;
     }
     /* 2X2 BLOCK. */
     i__1 = nu - 1;
     split(&a[a_offset], &v[v_offset], n, &i__1, &e1, &e2, na, nv);
-    if (a[nu + (nu - 1) * a_dim1] == 0.) {
+    if (a[nu + (nu - 1)*a_dim1] == 0.) {
         goto L290;
     }
     er[nu] = e1;
@@ -6517,9 +6517,9 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
     v -= v_offset;
 
     /* Function Body */
-    x = a[*l + 1 + (*l + 1) * a_dim1];
+    x = a[*l + 1 + (*l + 1)*a_dim1];
     y = a[*l + *l*a_dim1];
-    w = a[*l + (*l + 1) * a_dim1] * a[*l + 1 + *l*a_dim1];
+    w = a[*l + (*l + 1)*a_dim1]*a[*l + 1 + *l*a_dim1];
     p = (y - x) / 2.;
     /* Computing 2nd power */
     d__1 = p;
@@ -6555,7 +6555,7 @@ L50:
     }
     y = y - x - z__;
     x = -z__;
-    t = a[*l + (*l + 1) * a_dim1];
+    t = a[*l + (*l + 1)*a_dim1];
     u = a[*l + 1 + *l*a_dim1];
     if (fabs(y) + fabs(u) <= fabs(t) + fabs(x)) {
         goto L60;
@@ -6576,7 +6576,7 @@ L70:
         goto L80;
     }
     *e1 = a[*l + *l*a_dim1];
-    *e2 = a[*l + 1 + (*l + 1) * a_dim1];
+    *e2 = a[*l + 1 + (*l + 1)*a_dim1];
     a[*l + 1 + *l*a_dim1] = 0.;
     return 0;
 L80:
@@ -6595,21 +6595,21 @@ L80:
     i__1 = l1;
     for (i__ = 1; i__ <= i__1; ++i__) {
         z__ = a[i__ + *l*a_dim1];
-        a[i__ + *l*a_dim1] = p*z__ + q*a[i__ + (*l + 1) * a_dim1];
-        a[i__ + (*l + 1) * a_dim1] = p*a[i__ + (*l + 1) * a_dim1] - q*z__;
+        a[i__ + *l*a_dim1] = p*z__ + q*a[i__ + (*l + 1)*a_dim1];
+        a[i__ + (*l + 1)*a_dim1] = p*a[i__ + (*l + 1)*a_dim1] - q*z__;
         /* L100: */
     }
     /* ACCUMULATE THE TRANSFORMATION IN V. */
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         z__ = v[i__ + *l*v_dim1];
-        v[i__ + *l*v_dim1] = p*z__ + q*v[i__ + (*l + 1) * v_dim1];
-        v[i__ + (*l + 1) * v_dim1] = p*v[i__ + (*l + 1) * v_dim1] - q*z__;
+        v[i__ + *l*v_dim1] = p*z__ + q*v[i__ + (*l + 1)*v_dim1];
+        v[i__ + (*l + 1)*v_dim1] = p*v[i__ + (*l + 1)*v_dim1] - q*z__;
         /* L110: */
     }
     a[*l + 1 + *l*a_dim1] = 0.;
     *e1 = a[*l + *l*a_dim1];
-    *e2 = a[*l + 1 + (*l + 1) * a_dim1];
+    *e2 = a[*l + 1 + (*l + 1)*a_dim1];
     return 0;
 }
 
@@ -6668,8 +6668,8 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     }
     /* INTERCHANGE 1X1 AND 1X1 BLOCKS. */
     l1 = *l + 1;
-    q = a[*l + 1 + (*l + 1) * a_dim1] - a[*l + *l*a_dim1];
-    p = a[*l + (*l + 1) * a_dim1];
+    q = a[*l + 1 + (*l + 1)*a_dim1] - a[*l + *l*a_dim1];
+    p = a[*l + (*l + 1)*a_dim1];
     /* Computing MAX */
     d__1 = fabs(p), d__2 = fabs(q);
     r__ = max(d__1, d__2);
@@ -6695,17 +6695,17 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     }
     i__1 = l1;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        s = p*a[i__ + *l*a_dim1] + q*a[i__ + (*l + 1) * a_dim1];
-        a[i__ + (*l + 1) * a_dim1] =
-            p*a[i__ + (*l + 1) * a_dim1] - q*a[i__ + *l*a_dim1];
+        s = p*a[i__ + *l*a_dim1] + q*a[i__ + (*l + 1)*a_dim1];
+        a[i__ + (*l + 1)*a_dim1] =
+            p*a[i__ + (*l + 1)*a_dim1] - q*a[i__ + *l*a_dim1];
         a[i__ + *l*a_dim1] = s;
         /* L20: */
     }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-        s = p*v[i__ + *l*v_dim1] + q*v[i__ + (*l + 1) * v_dim1];
-        v[i__ + (*l + 1) * v_dim1] =
-            p*v[i__ + (*l + 1) * v_dim1] - q*v[i__ + *l*v_dim1];
+        s = p*v[i__ + *l*v_dim1] + q*v[i__ + (*l + 1)*v_dim1];
+        v[i__ + (*l + 1)*v_dim1] =
+            p*v[i__ + (*l + 1)*v_dim1] - q*v[i__ + *l*v_dim1];
         v[i__ + *l*v_dim1] = s;
         /* L30: */
     }
@@ -6733,12 +6733,12 @@ L60:
     r__ = 0.;
     i__1 = *l + 2;
     qrstep(&a[a_offset], &v[v_offset], &p, &q, &r__, l, &i__1, n, na, nv);
-    if ((d__1 = a[*l + 2 + (*l + 1) * a_dim1], fabs(d__1)) >
-        *eps * ((d__2 = a[*l + 1 + (*l + 1) * a_dim1], fabs(d__2)) +
-                (d__3 = a[*l + 2 + (*l + 2) * a_dim1], fabs(d__3)))) {
+    if ((d__1 = a[*l + 2 + (*l + 1)*a_dim1], fabs(d__1)) >
+        *eps*((d__2 = a[*l + 1 + (*l + 1)*a_dim1], fabs(d__2)) +
+                (d__3 = a[*l + 2 + (*l + 2)*a_dim1], fabs(d__3)))) {
         goto L50;
     }
-    a[*l + 2 + (*l + 1) * a_dim1] = 0.;
+    a[*l + 2 + (*l + 1)*a_dim1] = 0.;
     return 0;
 L70:
     /* INTERCHANGE 2X2 AND B2XB2 BLOCKS. */
@@ -6746,9 +6746,9 @@ L70:
     if (*b2 == 2) {
         ++m;
     }
-    x = a[*l + 1 + (*l + 1) * a_dim1];
+    x = a[*l + 1 + (*l + 1)*a_dim1];
     y = a[*l + *l*a_dim1];
-    w = a[*l + 1 + *l*a_dim1] * a[*l + (*l + 1) * a_dim1];
+    w = a[*l + 1 + *l*a_dim1]*a[*l + (*l + 1)*a_dim1];
     p = 1.;
     q = 1.;
     r__ = 1.;
@@ -6765,20 +6765,20 @@ L90:
     z__ = a[*l + *l*a_dim1];
     r__ = x - z__;
     s = y - z__;
-    p = (r__ * s - w) / a[*l + 1 + *l*a_dim1] + a[*l + (*l + 1) * a_dim1];
-    q = a[*l + 1 + (*l + 1) * a_dim1] - z__ - r__ - s;
-    r__ = a[*l + 2 + (*l + 1) * a_dim1];
+    p = (r__*s - w) / a[*l + 1 + *l*a_dim1] + a[*l + (*l + 1)*a_dim1];
+    q = a[*l + 1 + (*l + 1)*a_dim1] - z__ - r__ - s;
+    r__ = a[*l + 2 + (*l + 1)*a_dim1];
     s = fabs(p) + fabs(q) + fabs(r__);
     p /= s;
     q /= s;
     r__ /= s;
     qrstep(&a[a_offset], &v[v_offset], &p, &q, &r__, l, &m, n, na, nv);
-    if ((d__1 = a[m - 1 + (m - 2) * a_dim1], fabs(d__1)) >
-        *eps * ((d__2 = a[m - 1 + (m - 1) * a_dim1], fabs(d__2)) +
-                (d__3 = a[m - 2 + (m - 2) * a_dim1], fabs(d__3)))) {
+    if ((d__1 = a[m - 1 + (m - 2)*a_dim1], fabs(d__1)) >
+        *eps*((d__2 = a[m - 1 + (m - 1)*a_dim1], fabs(d__2)) +
+                (d__3 = a[m - 2 + (m - 2)*a_dim1], fabs(d__3)))) {
         goto L80;
     }
-    a[m - 1 + (m - 2) * a_dim1] = 0.;
+    a[m - 1 + (m - 2)*a_dim1] = 0.;
     return 0;
 }
 
@@ -6825,7 +6825,7 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     nl2 = *nl + 2;
     i__1 = *nu;
     for (i__ = nl2; i__ <= i__1; ++i__) {
-        a[i__ + (i__ - 2) * a_dim1] = 0.;
+        a[i__ + (i__ - 2)*a_dim1] = 0.;
         /* L10: */
     }
     if (nl2 == *nu) {
@@ -6834,7 +6834,7 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     nl3 = *nl + 3;
     i__1 = *nu;
     for (i__ = nl3; i__ <= i__1; ++i__) {
-        a[i__ + (i__ - 3) * a_dim1] = 0.;
+        a[i__ + (i__ - 3)*a_dim1] = 0.;
         /* L20: */
     }
 L30:
@@ -6846,11 +6846,11 @@ L30:
         if (k == *nl) {
             goto L40;
         }
-        *p = a[k + (k - 1) * a_dim1];
-        *q = a[k + 1 + (k - 1) * a_dim1];
+        *p = a[k + (k - 1)*a_dim1];
+        *q = a[k + 1 + (k - 1)*a_dim1];
         *r__ = 0.;
         if (!last) {
-            *r__ = a[k + 2 + (k - 1) * a_dim1];
+            *r__ = a[k + 2 + (k - 1)*a_dim1];
         }
         x = fabs(*p) + fabs(*q) + fabs(*r__);
         if (x == 0.) {
@@ -6873,11 +6873,11 @@ L30:
         if (k == *nl) {
             goto L50;
         }
-        a[k + (k - 1) * a_dim1] = -s*x;
+        a[k + (k - 1)*a_dim1] = -s*x;
         goto L60;
     L50:
         if (*nl != 1) {
-            a[k + (k - 1) * a_dim1] = -a[k + (k - 1) * a_dim1];
+            a[k + (k - 1)*a_dim1] = -a[k + (k - 1)*a_dim1];
         }
     L60:
         *p += s;
@@ -6893,7 +6893,7 @@ L30:
             if (last) {
                 goto L70;
             }
-            *p += *r__ * a[k + 2 + j*a_dim1];
+            *p += *r__*a[k + 2 + j*a_dim1];
             a[k + 2 + j*a_dim1] -= *p*z__;
         L70:
             a[k + 1 + j*a_dim1] -= *p*y;
@@ -6906,28 +6906,28 @@ L30:
         j = min(i__2, *nu);
         i__2 = j;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            *p = x*a[i__ + k*a_dim1] + y*a[i__ + (k + 1) * a_dim1];
+            *p = x*a[i__ + k*a_dim1] + y*a[i__ + (k + 1)*a_dim1];
             if (last) {
                 goto L90;
             }
-            *p += z__ * a[i__ + (k + 2) * a_dim1];
-            a[i__ + (k + 2) * a_dim1] -= *p * *r__;
+            *p += z__*a[i__ + (k + 2)*a_dim1];
+            a[i__ + (k + 2)*a_dim1] -= *p**r__;
         L90:
-            a[i__ + (k + 1) * a_dim1] -= *p * *q;
+            a[i__ + (k + 1)*a_dim1] -= *p**q;
             a[i__ + k*a_dim1] -= *p;
             /* L100: */
         }
         /* ACCUMULATE THE TRANSFORMATION IN V. */
         i__2 = *n;
         for (i__ = 1; i__ <= i__2; ++i__) {
-            *p = x*v[i__ + k*v_dim1] + y*v[i__ + (k + 1) * v_dim1];
+            *p = x*v[i__ + k*v_dim1] + y*v[i__ + (k + 1)*v_dim1];
             if (last) {
                 goto L110;
             }
-            *p += z__ * v[i__ + (k + 2) * v_dim1];
-            v[i__ + (k + 2) * v_dim1] -= *p * *r__;
+            *p += z__*v[i__ + (k + 2)*v_dim1];
+            v[i__ + (k + 2)*v_dim1] -= *p**r__;
         L110:
-            v[i__ + (k + 1) * v_dim1] -= *p * *q;
+            v[i__ + (k + 1)*v_dim1] -= *p**q;
             v[i__ + k*v_dim1] -= *p;
             /* L120: */
         }
@@ -7013,7 +7013,7 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
         i__2 = *igh;
         for (i__ = m; i__ <= i__2; ++i__) {
             /* L90: */
-            scale += (d__1 = a[i__ + (m - 1) * a_dim1], fabs(d__1));
+            scale += (d__1 = a[i__ + (m - 1)*a_dim1], fabs(d__1));
         }
 
         if (scale == 0.) {
@@ -7024,16 +7024,16 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
         i__2 = *igh;
         for (ii = m; ii <= i__2; ++ii) {
             i__ = mp - ii;
-            ort[i__] = a[i__ + (m - 1) * a_dim1] / scale;
-            h__ += ort[i__] * ort[i__];
+            ort[i__] = a[i__ + (m - 1)*a_dim1] / scale;
+            h__ += ort[i__]*ort[i__];
             /* L100: */
         }
 
         d__1 = sqrt(h__);
         g = -d_sign(d__1, ort[m]);
-        h__ -= ort[m] * g;
+        h__ -= ort[m]*g;
         ort[m] -= g;
-        /*     .......... form (i-(u*ut)/h) * a .......... */
+        /*     .......... form (i-(u*ut)/h)*a .......... */
         i__2 = *n;
         for (j = m; j <= i__2; ++j) {
             f = 0.;
@@ -7041,7 +7041,7 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
             i__3 = *igh;
             for (ii = m; ii <= i__3; ++ii) {
                 i__ = mp - ii;
-                f += ort[i__] * a[i__ + j*a_dim1];
+                f += ort[i__]*a[i__ + j*a_dim1];
                 /* L110: */
             }
 
@@ -7063,7 +7063,7 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
             i__3 = *igh;
             for (jj = m; jj <= i__3; ++jj) {
                 j = mp - jj;
-                f += ort[j] * a[i__ + j*a_dim1];
+                f += ort[j]*a[i__ + j*a_dim1];
                 /* L140: */
             }
 
@@ -7079,7 +7079,7 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
         }
 
         ort[m] = scale*ort[m];
-        a[m + (m - 1) * a_dim1] = scale*g;
+        a[m + (m - 1)*a_dim1] = scale*g;
     L180:;
     }
 
@@ -7172,7 +7172,7 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
     i__1 = kl;
     for (mm = 1; mm <= i__1; ++mm) {
         mp = *igh - mm;
-        if (a[mp + (mp - 1) * a_dim1] == 0.) {
+        if (a[mp + (mp - 1)*a_dim1] == 0.) {
             goto L140;
         }
         mp1 = mp + 1;
@@ -7180,7 +7180,7 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
         i__2 = *igh;
         for (i__ = mp1; i__ <= i__2; ++i__) {
             /* L100: */
-            ort[i__] = a[i__ + (mp - 1) * a_dim1];
+            ort[i__] = a[i__ + (mp - 1)*a_dim1];
         }
 
         i__2 = *igh;
@@ -7190,13 +7190,13 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
             i__3 = *igh;
             for (i__ = mp; i__ <= i__3; ++i__) {
                 /* L110: */
-                g += ort[i__] * z__[i__ + j*z_dim1];
+                g += ort[i__]*z__[i__ + j*z_dim1];
             }
             /*     .......... divisor below is negative of h formed in orthes.
              */
             /*                double division avoids possible underflow ......
             .... */
-            g = g / ort[mp] / a[mp + (mp - 1) * a_dim1];
+            g = g / ort[mp] / a[mp + (mp - 1)*a_dim1];
 
             i__3 = *igh;
             for (i__ = mp; i__ <= i__3; ++i__) {
@@ -7219,7 +7219,7 @@ dotp(double *p, double *q, int32 n) {
     double z = 0.0;
     int32 i;
     for (i = 0; i < n; i++)
-        z += (p[i] * q[i]);
+        z += (p[i]*q[i]);
     return z;
 }
 
@@ -7254,7 +7254,7 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     printf("%d is imaginary \n", j);
     for (i = 0; i < n; i++) {
         qr[i] = z[n*j + i];
-        qi[i] = z[n * (j + 1) + i];
+        qi[i] = z[n*(j + 1) + i];
     }
     /* rg(int64 nm, int64 n, double *a, double *wr, double *wi,
      * int64 matz, double *z__, int64 *iv1, double *fv1, int64
@@ -7268,7 +7268,7 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     for (i = 0; i < n; i++) {
         pr[i] = z[n*j + i];
         pi[i] =
-            -z[n * (j + 1) +
+            -z[n*(j + 1) +
                i]; /* get AT z = i w z, take CC to get AT zbar = -i w zbar */
     }
 

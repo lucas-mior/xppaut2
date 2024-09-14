@@ -345,7 +345,7 @@ new_state(double old, int32 index, double dt) {
     if (type == 0) {
         for (i = 0; i < ns; i++) {
             if (i != row) {
-                prob = evaluate(markov[index].command[rns + i]) * dt;
+                prob = evaluate(markov[index].command[rns + i])*dt;
                 sum = sum + prob;
                 if (coin <= sum) {
                     /*	   plintf("index %d switched state to %d \n",index,i);
@@ -357,7 +357,7 @@ new_state(double old, int32 index, double dt) {
     } else {
         for (i = 0; i < ns; i++) {
             if (i != row) {
-                prob = markov[index].fixed[rns + i] * dt;
+                prob = markov[index].fixed[rns + i]*dt;
                 sum = sum + prob;
                 if (coin <= sum) {
                     /*	   plintf("index %d switched state to %d \n",index,i);
@@ -557,8 +557,8 @@ init_stoch(int32 len) {
     N_TRIALS = 0;
     stoch_len = len;
     for (i = 0; i < (NEQ + 1); i++) {
-        my_mean[i] = malloc(sizeof(float) * stoch_len);
-        my_variance[i] = malloc(sizeof(float) * stoch_len);
+        my_mean[i] = malloc(sizeof(float)*stoch_len);
+        my_variance[i] = malloc(sizeof(float)*stoch_len);
         for (j = 0; j < stoch_len; j++) {
             my_mean[i][j] = 0.0;
             my_variance[i][j] = 0.0;
@@ -600,9 +600,9 @@ do_stats(int32 ierr) {
         ninv = 1. / (float)(N_TRIALS);
         for (i = 0; i < stoch_len; i++) {
             for (j = 1; j <= NEQ; j++) {
-                mean = my_mean[j][i] * ninv;
+                mean = my_mean[j][i]*ninv;
                 my_mean[j][i] = mean;
-                my_variance[j][i] = (my_variance[j][i] * ninv - mean*mean);
+                my_variance[j][i] = (my_variance[j][i]*ninv - mean*mean);
             }
         }
     }
@@ -619,7 +619,7 @@ gammln(double xx) {
 
     y = x = xx;
     tmp = x + 5.5;
-    tmp -= (x + 0.5) * log(tmp);
+    tmp -= (x + 0.5)*log(tmp);
     ser = 1.000000000190015;
     for (j = 0; j <= 5; j++)
         ser += cof[j] / ++y;
@@ -652,11 +652,11 @@ poidev(double xm) {
         }
         do {
             do {
-                y = tan(PI * ndrand48());
+                y = tan(PI*ndrand48());
                 em = sq*y + xm;
             } while (em < 0.0);
             em = floor(em);
-            t = 0.9 * (1.0 + y*y) * exp(em*alxm - gammln(em + 1.0) - g);
+            t = 0.9*(1.0 + y*y)*exp(em*alxm - gammln(em + 1.0) - g);
         } while (ndrand48() > t);
     }
     return em;
@@ -688,7 +688,7 @@ ran1(long *idum) {
             *idum = -(*idum);
         for (j = NTAB + 7; j >= 0; j--) {
             k = (*idum) / IQ;
-            *idum = IA * (*idum - k * IQ) - IR * k;
+            *idum = IA*(*idum - k*IQ) - IR*k;
             if (*idum < 0)
                 *idum += IM;
             if (j < NTAB)
@@ -697,13 +697,13 @@ ran1(long *idum) {
         iy = iv[0];
     }
     k = (*idum) / IQ;
-    *idum = IA * (*idum - k * IQ) - IR * k;
+    *idum = IA*(*idum - k*IQ) - IR*k;
     if (*idum < 0)
         *idum += IM;
     j = iy / NDIV;
     iy = iv[j];
     iv[j] = *idum;
-    if ((temp = AM * iy) > RNMX)
+    if ((temp = AM*iy) > RNMX)
         return RNMX;
     else
         return temp;

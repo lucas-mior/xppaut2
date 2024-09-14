@@ -323,7 +323,7 @@ traverse_diagram(void) {
                 */
                 int32 mindex = 0;
                 double dist;
-                double ndist = Auto.wid * Auto.hgt;
+                double ndist = Auto.wid*Auto.hgt;
                 XORCross(ix, iy);
                 lalo = load_all_labeled_orbits;
                 load_all_labeled_orbits = 0;
@@ -929,7 +929,7 @@ display_auto(Window w) {
 Window
 lil_button(Window root, int32 x, int32 y) {
     Window win;
-    int32 width = 12 * DCURX;
+    int32 width = 12*DCURX;
     win = make_window(root, x, y, width, DCURY + 1, 1);
     XSelectInput(display, win, MYMASK);
     return win;
@@ -947,20 +947,20 @@ make_auto(/* this makes the auto window  */
           char *wname, char *iname)
 
 {
-    int32 x, y, wid, hgt, addwid = 16 * DCURX, addhgt = 3.0 * DCURY,
+    int32 x, y, wid, hgt, addwid = 16*DCURX, addhgt = 3.0*DCURY,
                           hinthgt = DCURY + 6;
     Window base = 0;
     int32 dely = DCURY + 5;
-    STD_HGT_var = 20 * DCURY;
+    STD_HGT_var = 20*DCURY;
     /*STD_WID_var =1.62*STD_HGT_var;*/
-    STD_WID_var = 67 * DCURX;
-    int32 ymargin = 4 * DCURYs, xmargin = 12 * DCURXs;
+    STD_WID_var = 67*DCURX;
+    int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     XTextProperty winname, iconname;
     XSizeHints size_hints;
     Auto_extra_wid = 10 + addwid;
-    Auto_extra_hgt = addhgt + 2 * DCURY + hinthgt;
+    Auto_extra_hgt = addhgt + 2*DCURY + hinthgt;
     wid = 10 + addwid + STD_WID_var + xmargin;
-    hgt = addhgt + 2 * DCURY + STD_HGT_var + ymargin + hinthgt;
+    hgt = addhgt + 2*DCURY + STD_HGT_var + ymargin + hinthgt;
     x = addwid + 5;
     y = DCURY;
     Auto_x0 = x;
@@ -999,15 +999,15 @@ make_auto(/* this makes the auto window  */
     XSelectInput(display, AutoW.canvas, MYMASK);
 
     x = DCURX;
-    y = DCURY + STD_HGT_var + ymargin - 8 * DCURX;
-    AutoW.stab = make_plain_window(base, x, y, 12 * DCURX, 12 * DCURX, 2);
-    Auto.st_wid = 12 * DCURX;
+    y = DCURY + STD_HGT_var + ymargin - 8*DCURX;
+    AutoW.stab = make_plain_window(base, x, y, 12*DCURX, 12*DCURX, 2);
+    Auto.st_wid = 12*DCURX;
     x = DCURX + 2;
-    y = 2 * DCURY;
+    y = 2*DCURY;
     Auto.hgt = STD_HGT_var;
     Auto.wid = STD_WID_var;
-    Auto.x0 = 10 * DCURXs;
-    Auto.y0 = 2 * DCURYs;
+    Auto.x0 = 10*DCURXs;
+    Auto.y0 = 2*DCURYs;
     AutoW.kill = lil_button(base, 2, 2);
     AutoW.param = lil_button(base, x, y);
     y += dely;
@@ -1043,16 +1043,16 @@ make_auto(/* this makes the auto window  */
 
 void
 resize_auto_window(XEvent ev) {
-    int32 wid, hgt, addhgt = 3.5 * DCURY;
-    STD_HGT_var = 20 * DCURY;
+    int32 wid, hgt, addhgt = 3.5*DCURY;
+    STD_HGT_var = 20*DCURY;
     /*STD_WID_var =1.62*STD_HGT_var;*/
-    STD_WID_var = 50 * DCURX;
-    int32 ymargin = 4 * DCURYs, xmargin = 12 * DCURXs;
+    STD_WID_var = 50*DCURX;
+    int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     if (ev.xconfigure.window == AutoW.base) {
         wid = ev.xconfigure.width - Auto_extra_wid;
         hgt = ev.xconfigure.height - Auto_extra_hgt;
 
-        addhgt = 3.0 * DCURY;
+        addhgt = 3.0*DCURY;
 
         XResizeWindow(display, AutoW.canvas, wid, hgt);
         Window root;

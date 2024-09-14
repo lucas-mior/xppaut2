@@ -210,14 +210,14 @@ add_export_list(char *in, char *out) {
     strcpy(in_out.lin, in);
     strcpy(in_out.lout, out);
     i = get_export_count(in);
-    in_out.in = malloc((i + 1) * sizeof(*(in_out.in)));
-    in_out.intype = malloc((i + 1) * sizeof(*(in_out.intype)));
-    in_out.vin = malloc((i + 1) * sizeof(*(in_out.vin)));
+    in_out.in = malloc((i + 1)*sizeof(*(in_out.in)));
+    in_out.intype = malloc((i + 1)*sizeof(*(in_out.intype)));
+    in_out.vin = malloc((i + 1)*sizeof(*(in_out.vin)));
     in_out.nin = i;
     i = get_export_count(out);
-    in_out.out = malloc((i + 1) * sizeof(*(in_out.out)));
-    in_out.outtype = malloc((i + 1) * sizeof(*(in_out.outtype)));
-    in_out.vout = malloc((i + 1) * sizeof(*(in_out.vout)));
+    in_out.out = malloc((i + 1)*sizeof(*(in_out.out)));
+    in_out.outtype = malloc((i + 1)*sizeof(*(in_out.outtype)));
+    in_out.vout = malloc((i + 1)*sizeof(*(in_out.vout)));
     in_out.nout = i;
     return;
 }

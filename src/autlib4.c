@@ -402,7 +402,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 
     /*  DHHPR  computes a Householder Plane Rotation (G&vL Alg. 3.3-1) */
     /*  defined by v and beta. */
-    /*  (I - beta v vt) * x is such that x_i = 0 for i=k+1 to j. */
+    /*  (I - beta v vt)*x is such that x_i = 0 for i=k+1 to j. */
 
     /*  Parameters */
     /*  ========== */
@@ -496,8 +496,8 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
             v[i] = x[i] / m;
         }
     } else {
-        iend = jmkp1 * *incx;
-        istart = (*k - 1) * *incx + 1;
+        iend = jmkp1**incx;
+        istart = (*k - 1)**incx + 1;
         l = *k;
         for (i = istart; *incx < 0 ? i >= iend : i <= iend; i += *incx) {
             v[-1 + l] = x[-1 + i] / m;
@@ -514,11 +514,11 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
     }
     /*  beta := 1/(alpha(alpha + |V_k|)) */
 
-    *beta = 1. / (alpha * (alpha + fabs(v[-1 + *k])));
+    *beta = 1. / (alpha*(alpha + fabs(v[-1 + *k])));
 
     /*  v_k := v_k + sign(v_k)*alpha */
 
-    v[-1 + *k] += d_sign(1.0, v[-1 + *k]) * alpha;
+    v[-1 + *k] += d_sign(1.0, v[-1 + *k])*alpha;
 
     /*  Done ! */
 

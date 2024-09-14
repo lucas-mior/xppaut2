@@ -21,7 +21,7 @@
 #define CUBE 8
 
 #define SIGNIF (0.01) /* less than one hundredth of a tic mark */
-#define CheckZero(x, tic) (fabs(x) < ((tic) * SIGNIF) ? 0.0 : (x))
+#define CheckZero(x, tic) (fabs(x) < ((tic)*SIGNIF) ? 0.0 : (x))
 
 extern GRAPH *MyGraph;
 extern GC small_gc;
@@ -265,9 +265,9 @@ Frame_3d(void) {
     dt = .06;
     TextJustify = 2;
     sprintf(bob, "%g", xmin);
-    text3d(x1, -1 - 2. * dt, -1.0, bob);
+    text3d(x1, -1 - 2.*dt, -1.0, bob);
     sprintf(bob, "%g", xmax);
-    text3d(x2, -1 - 2. * dt, -1.0, bob);
+    text3d(x2, -1 - 2.*dt, -1.0, bob);
     text3d(0.0, -1 - dt, -1.0, MyGraph->xlabel);
     TextJustify = 0;
     sprintf(bob, "%g", ymin);
@@ -355,7 +355,7 @@ draw_ytics(char *s1, double start, double incr, double end)
         DOING_BOX_AXES = 1;
         line(DRight, yt, DRight - HTic, yt);
         DOING_BOX_AXES = 0;
-        put_text(DLeft - (int32)(1.25 * HChar), yt, bob);
+        put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
     scale_to_screen((float)x_min, (float)y_max, &xt, &yt);
     if (DTop < DBottom)
@@ -372,11 +372,11 @@ draw_ytics(char *s1, double start, double incr, double end)
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelh\" text-anchor=\"end\" "
                 "x=\"%d\"  y=\"%d\"\n",
-                DLeft - HChar, yt + 2*s * VChar);
+                DLeft - HChar, yt + 2*s*VChar);
         fprintf(svgfile, "      >%s</text>\n", s1);
 
     } else {
-        put_text(DLeft - HChar, yt + 2*s * VChar, s1);
+        put_text(DLeft - HChar, yt + 2*s*VChar, s1);
     }
     return;
 }
@@ -401,11 +401,11 @@ draw_xtics(char *s2, double start, double incr, double end)
         sprintf(bob, "%g", place);
         scale_to_screen((float)place, y_min, &xt, &yt);
         DOING_BOX_AXES = 0;
-        line(xt, DBottom, xt, DBottom + s * VTic);
+        line(xt, DBottom, xt, DBottom + s*VTic);
         DOING_BOX_AXES = 1;
-        line(xt, DTop, xt, DTop - s * VTic);
+        line(xt, DTop, xt, DTop - s*VTic);
         DOING_BOX_AXES = 0;
-        put_text(xt, yt - (int32)(1.25 * VChar*s), bob);
+        put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
-    put_text((DLeft + DRight) / 2, yt - (int32)(2.5 * VChar*s), s2);
+    put_text((DLeft + DRight) / 2, yt - (int32)(2.5*VChar*s), s2);
 }

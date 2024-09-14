@@ -33,11 +33,11 @@ extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
 int32
 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
            int32 max) {
-    int32 lm = strlen(name) * DCURX;
-    int32 lv = max * DCURX;
+    int32 lm = strlen(name)*DCURX;
+    int32 lv = max*DCURX;
     int32 pos, colm;
-    int32 lo = strlen(ok) * DCURX;
-    int32 lc = strlen(cancel) * DCURX;
+    int32 lo = strlen(ok)*DCURX;
+    int32 lc = strlen(cancel)*DCURX;
 
     int32 status;
     XTextProperty winname;
@@ -48,7 +48,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     strcpy(d.ok_s, ok);
     strcpy(d.cancel_s, cancel);
     d.base = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                                 lm + lv + 20, 30 + 2 * DCURY, 2, MyForeColor,
+                                 lm + lv + 20, 30 + 2*DCURY, 2, MyForeColor,
                                  MyBackColor);
     XStringListToTextProperty(&wname, 1, &winname);
 
@@ -84,7 +84,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     /*  CURS_X=strlen(d.input_s); */
     /* showchar('_', DCURX*CURS_X, 0, d.input); */
     pos = strlen(d.input_s);
-    colm = DCURX * pos;
+    colm = DCURX*pos;
     while (true) {
         status = dialog_event_loop(&d, &pos, &colm);
         if (status != -1)

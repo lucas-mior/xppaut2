@@ -49,7 +49,7 @@ N_VNew(int64 N) {
     if (v == NULL)
         return NULL;
 
-    v->data = malloc(N * sizeof(*(v->data)));
+    v->data = malloc(N*sizeof(*(v->data)));
     if (v->data == NULL) {
         free(v);
         return NULL;
@@ -149,7 +149,7 @@ N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z) {
     zd = z->data;
 
     for (i = 0; i < N; i++)
-        *zd++ = a * (*xd++) + b * (*yd++);
+        *zd++ = a*(*xd++) + b*(*yd++);
     return;
 }
 
@@ -215,7 +215,7 @@ N_VScale(double c, N_Vector x, N_Vector z) {
         xd = x->data;
         zd = z->data;
         for (i = 0; i < N; i++)
-            *zd++ = c * (*xd++);
+            *zd++ = c*(*xd++);
     }
     return;
 }
@@ -446,7 +446,7 @@ VScaleSum(double c, N_Vector x, N_Vector y, N_Vector z) {
     zd = z->data;
 
     for (i = 0; i < N; i++)
-        *zd++ = c * ((*xd++) + (*yd++));
+        *zd++ = c*((*xd++) + (*yd++));
     return;
 }
 
@@ -461,7 +461,7 @@ VScaleDiff(double c, N_Vector x, N_Vector y, N_Vector z) {
     zd = z->data;
 
     for (i = 0; i < N; i++)
-        *zd++ = c * ((*xd++) - (*yd++));
+        *zd++ = c*((*xd++) - (*yd++));
     return;
 }
 
@@ -476,7 +476,7 @@ VLin1(double a, N_Vector x, N_Vector y, N_Vector z) {
     zd = z->data;
 
     for (i = 0; i < N; i++)
-        *zd++ = a * (*xd++) + (*yd++);
+        *zd++ = a*(*xd++) + (*yd++);
     return;
 }
 
@@ -491,7 +491,7 @@ VLin2(double a, N_Vector x, N_Vector y, N_Vector z) {
     zd = z->data;
 
     for (i = 0; i < N; i++)
-        *zd++ = a * (*xd++) - (*yd++);
+        *zd++ = a*(*xd++) - (*yd++);
     return;
 }
 
@@ -517,7 +517,7 @@ Vaxpy(double a, N_Vector x, N_Vector y) {
     }
 
     for (i = 0; i < N; i++)
-        *yd++ += a * (*xd++);
+        *yd++ += a*(*xd++);
     return;
 }
 

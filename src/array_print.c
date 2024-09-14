@@ -89,8 +89,8 @@ ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
     ps_scale.xoff = 300;
     ps_scale.yoff = 300;
     ps_scale.angle = -90.;
-    ps_scale.xscale = 1800. * sx * .2 / (xhi - xlo);
-    ps_scale.yscale = 1800. * sy * .2 / (yhi - ylo);
+    ps_scale.xscale = 1800.*sx*.2 / (xhi - xlo);
+    ps_scale.yscale = 1800.*sy*.2 / (yhi - ylo);
 
     ps_set_text(-90., 0.0, 18.0, 18.0);
     ps_scale.letx = ps_scale.tx / ps_scale.xscale;
@@ -128,8 +128,8 @@ ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
 
 void
 ps_convert(double x, double y, float *xs, float *ys) {
-    *xs = (x - ps_scale.xmin) * ps_scale.xscale + ps_scale.xoff;
-    *ys = (y - ps_scale.ymin) * ps_scale.yscale + ps_scale.yoff;
+    *xs = (x - ps_scale.xmin)*ps_scale.xscale + ps_scale.xoff;
+    *ys = (y - ps_scale.ymin)*ps_scale.yscale + ps_scale.yoff;
     return;
 }
 
@@ -143,9 +143,9 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
 
     for (i = 0; i < n; i++) {
         if (type == GREYSCALE)
-            ps_bar(x0, y0 - (i + 1) * dy, dx, dy, 1 - (float)i*dz, 0);
+            ps_bar(x0, y0 - (i + 1)*dy, dx, dy, 1 - (float)i*dz, 0);
         else
-            ps_rgb_bar(x0, y0 - (i + 1) * dy, dx, dy, 1. - (float)i*dz, 0,
+            ps_rgb_bar(x0, y0 - (i + 1)*dy, dx, dy, 1. - (float)i*dz, 0,
                        type);
     }
     fprintf(my_plot_file, "0 G\n");
@@ -170,8 +170,8 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     ps_rect(xlo, ylo, .8*dx, .8*dy);
     ps_setline(z, i);
 
-    ps_text2(sx, xhi + .01*dx, .5 * (yhi + ylo), 1);
-    ps_text2(sy, .5 * (xhi + xlo), yhi + .01*dy, 2);
+    ps_text2(sx, xhi + .01*dx, .5*(yhi + ylo), 1);
+    ps_text2(sy, .5*(xhi + xlo), yhi + .01*dy, 2);
     sprintf(str, "%g", tlo);
     ps_text2(str, xhi - .01*dx, yhi + .01*dy, 2);
     sprintf(str, "%g", thi);
@@ -182,7 +182,7 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     ps_text2(str, xhi + .01*dx, ylo + .01, 2);
     ps_col_scale(yhi - .15*dy, xlo - .1*dx, .025*dy, .05*dx, 20, zlo,
                  zhi, type);
-    ps_text2(sb, xlo - .035*dx, .5 * (yhi + ylo), 1);
+    ps_text2(sb, xlo - .035*dx, .5*(yhi + ylo), 1);
     return;
 }
 
@@ -314,19 +314,19 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
     case 0:
         fill = 1. - fill;
         b = (float)sqrt((double)(1.0 - fill*fill));
-        r = (float)sqrt((double)(fill * (2.0 - fill)));
+        r = (float)sqrt((double)(fill*(2.0 - fill)));
         break;
     case 1:
         if (fill > .4999)
             r = 0.0;
         else
             r = (float)sqrt((float)(1. - 4*fill*fill));
-        g = (float)2*sqrt((double)fill * (1. - fill));
+        g = (float)2*sqrt((double)fill*(1. - fill));
 
         if (fill < .5001)
             b = 0.0;
         else
-            b = (float)sqrt((float)(4 * (fill - .5)*(1.5 - fill)));
+            b = (float)sqrt((float)(4*(fill - .5)*(1.5 - fill)));
         break;
     }
     fprintf(my_plot_file, "%f %f %f RGB\n", r, g, b);

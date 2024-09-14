@@ -54,7 +54,7 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
     ynew = work + n;
     rhs(x, y, yval, n);
 
-    r = eps * MAX(eps, fabs(x));
+    r = eps*MAX(eps, fabs(x));
 
     rhs(x + r, y, ynew, n);
     for (i = 0; i < n; i++) {
@@ -62,7 +62,7 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
     }
     for (i = 0; i < n; i++) {
         ytemp = y[i];
-        r = eps * MAX(eps, fabs(ytemp));
+        r = eps*MAX(eps, fabs(ytemp));
         y[i] = ytemp + r;
         rhs(x, y, ynew, n);
         for (j = 0; j < n; j++) {
@@ -113,7 +113,7 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
             if (iflag == STIFF)
                 yscal[i] = MAX(1, fabs(y[i]));
             else
-                yscal[i] = fabs(y[i]) + fabs(dydx[i] * h) + TINY;
+                yscal[i] = fabs(y[i]) + fabs(dydx[i]*h) + TINY;
         if ((x + h - x2)*(x + h - x1) > 0.0)
             h = x2 - x;
         if (iflag == STIFF)
@@ -175,7 +175,7 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++)
                 a[i + n*j] = -dfdy[i + n*j];
-            a[i + n*i] += 1.0 / (GAM * h);
+            a[i + n*i] += 1.0 / (GAM*h);
         }
         sgefa(a, n, n, indx, &info);
         if (info != -1) {
@@ -184,25 +184,25 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         }
 
         for (i = 0; i < n; i++)
-            g1[i] = dysav[i] + h * C1X * dfdx[i];
+            g1[i] = dysav[i] + h*C1X*dfdx[i];
         sgesl(a, n, n, indx, g1, 0);
         for (i = 0; i < n; i++)
             y[i] = ysav[i] + A21*g1[i];
-        *x = xsav + A2X * h;
+        *x = xsav + A2X*h;
         rhs(*x, y, dydx, n);
         for (i = 0; i < n; i++)
-            g2[i] = dydx[i] + h * C2X * dfdx[i] + C21*g1[i] / h;
+            g2[i] = dydx[i] + h*C2X*dfdx[i] + C21*g1[i] / h;
         sgesl(a, n, n, indx, g2, 0);
         for (i = 0; i < n; i++)
             y[i] = ysav[i] + A31*g1[i] + A32*g2[i];
-        *x = xsav + A3X * h;
+        *x = xsav + A3X*h;
         rhs(*x, y, dydx, n);
         for (i = 0; i < n; i++)
             g3[i] =
-                dydx[i] + h * C3X * dfdx[i] + (C31*g1[i] + C32*g2[i]) / h;
+                dydx[i] + h*C3X*dfdx[i] + (C31*g1[i] + C32*g2[i]) / h;
         sgesl(a, n, n, indx, g3, 0);
         for (i = 0; i < n; i++)
-            g4[i] = dydx[i] + h * C4X * dfdx[i] +
+            g4[i] = dydx[i] + h*C4X*dfdx[i] +
                     (C41*g1[i] + C42*g2[i] + C43*g3[i]) / h;
         sgesl(a, n, n, indx, g4, 0);
         for (i = 0; i < n; i++) {
@@ -222,12 +222,12 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         if (errmax <= 1.0) {
             *hdid = h;
             *hnext =
-                (errmax > ERRCON ? SAFETY * h*pow(errmax, PGROW) : GROW * h);
+                (errmax > ERRCON ? SAFETY*h*pow(errmax, PGROW) : GROW*h);
 
             return 0;
         } else {
-            *hnext = SAFETY * h*pow(errmax, PSHRNK);
-            h = (h >= 0.0 ? MAX(*hnext, SHRNK * h) : MIN(*hnext, SHRNK * h));
+            *hnext = SAFETY*h*pow(errmax, PSHRNK);
+            h = (h >= 0.0 ? MAX(*hnext, SHRNK*h) : MIN(*hnext, SHRNK*h));
         }
     }
 
@@ -253,7 +253,7 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
             errmax = MAX(errmax, fabs(yerr[i] / yscal[i]));
         errmax /= eps;
         if (errmax > 1.0) {
-            htemp = SAFETY * h*pow(errmax, PSHRNK2);
+            htemp = SAFETY*h*pow(errmax, PSHRNK2);
             h = (h >= 0.0 ? MAX(htemp, 0.1*h) : MIN(htemp, 0.1*h));
             xnew = (*x) + h;
             if (xnew == *x) {
@@ -263,7 +263,7 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
             continue;
         } else {
             if (errmax > ERRCON2)
-                *hnext = SAFETY * h*pow(errmax, PGROW2);
+                *hnext = SAFETY*h*pow(errmax, PGROW2);
             else
                 *hnext = 5.0*h;
             *x += (*hdid = h);
@@ -301,24 +301,24 @@ rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
         ytemp[i] = y[i] + b21*h*dydx[i];
     rhs(x + a2*h, ytemp, ak2, n);
     for (i = 0; i < n; i++)
-        ytemp[i] = y[i] + h * (b31*dydx[i] + b32*ak2[i]);
+        ytemp[i] = y[i] + h*(b31*dydx[i] + b32*ak2[i]);
     rhs(x + a3*h, ytemp, ak3, n);
     for (i = 0; i < n; i++)
-        ytemp[i] = y[i] + h * (b41*dydx[i] + b42*ak2[i] + b43*ak3[i]);
+        ytemp[i] = y[i] + h*(b41*dydx[i] + b42*ak2[i] + b43*ak3[i]);
     rhs(x + a4*h, ytemp, ak4, n);
     for (i = 0; i < n; i++)
-        ytemp[i] = y[i] + h * (b51*dydx[i] + b52*ak2[i] + b53*ak3[i] +
+        ytemp[i] = y[i] + h*(b51*dydx[i] + b52*ak2[i] + b53*ak3[i] +
                                b54*ak4[i]);
     rhs(x + a5*h, ytemp, ak5, n);
     for (i = 0; i < n; i++)
-        ytemp[i] = y[i] + h * (b61*dydx[i] + b62*ak2[i] + b63*ak3[i] +
+        ytemp[i] = y[i] + h*(b61*dydx[i] + b62*ak2[i] + b63*ak3[i] +
                                b64*ak4[i] + b65*ak5[i]);
     rhs(x + a6*h, ytemp, ak6, n);
     for (i = 0; i < n; i++)
         yout[i] =
-            y[i] + h * (c1*dydx[i] + c3*ak3[i] + c4*ak4[i] + c6*ak6[i]);
+            y[i] + h*(c1*dydx[i] + c3*ak3[i] + c4*ak4[i] + c6*ak6[i]);
     for (i = 0; i < n; i++)
-        yerr[i] = h * (dc1*dydx[i] + dc3*ak3[i] + dc4*ak4[i] +
+        yerr[i] = h*(dc1*dydx[i] + dc3*ak3[i] + dc4*ak4[i] +
                        dc5*ak5[i] + dc6*ak6[i]);
     return;
 }

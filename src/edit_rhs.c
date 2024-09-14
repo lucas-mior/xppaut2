@@ -66,14 +66,14 @@ reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
         l = strlen(sb->name[i]);
         XClearWindow(display, w);
         XDrawString(display, w, gc, 0, CURY_OFF, sb->name[i], l);
-        XDrawString(display, w, gc, l * DCURX, CURY_OFF, sb->value[i],
+        XDrawString(display, w, gc, l*DCURX, CURY_OFF, sb->value[i],
                     strlen(sb->value[i]));
     }
     XFlush(display);
     sb->hot = 0;
     *pos = strlen(sb->value[0]);
-    *col = (*pos + strlen(sb->name[0])) * DCURX;
-    put_cursor_at(sb->win[0], DCURX * strlen(sb->name[0]), *pos);
+    *col = (*pos + strlen(sb->name[0]))*DCURX;
+    put_cursor_at(sb->win[0], DCURX*strlen(sb->name[0]), *pos);
     return;
 }
 
@@ -95,7 +95,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.ok, BUT_MASK);
     XSelectInput(display, sb.reset, BUT_MASK);
     pos = strlen(sb.value[0]);
-    colm = (pos + strlen(sb.name[0])) * DCURX;
+    colm = (pos + strlen(sb.name[0]))*DCURX;
 
     while (true) {
         status = e_box_event_loop(&sb, &pos, &colm);
@@ -162,7 +162,7 @@ enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
               Window *w) {
     ereset_hot(inew, sb);
     *pos = strlen(sb->value[inew]);
-    *col = (*pos + strlen(sb->name[inew])) * DCURX;
+    *col = (*pos + strlen(sb->name[inew]))*DCURX;
     *done = 0;
     *w = sb->win[inew];
     return;
@@ -252,7 +252,7 @@ make_ebox_windows(EDIT_BOX *sb, char *title) {
     XTextProperty winname;
     XSizeHints size_hints;
     Window base;
-    width = (MAX_LEN_EBOX + 4) * DCURX;
+    width = (MAX_LEN_EBOX + 4)*DCURX;
     height = (n + 4)*(DCURY + 16);
     base =
         make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
@@ -274,18 +274,18 @@ make_ebox_windows(EDIT_BOX *sb, char *title) {
     xstart = DCURX;
     for (i = 0; i < n; i++) {
         xpos = xstart;
-        ypos = ystart + i * (DCURY + 10);
+        ypos = ystart + i*(DCURY + 10);
         sb->win[i] =
-            make_window(base, xpos, ypos, MAX_LEN_EBOX * DCURX, DCURY, 1);
+            make_window(base, xpos, ypos, MAX_LEN_EBOX*DCURX, DCURY, 1);
     }
 
-    ypos = height - 2 * DCURY;
-    xpos = (width - 19 * DCURX) / 2;
-    (sb->ok) = make_window(base, xpos, ypos, 2 * DCURX, DCURY, 1);
+    ypos = height - 2*DCURY;
+    xpos = (width - 19*DCURX) / 2;
+    (sb->ok) = make_window(base, xpos, ypos, 2*DCURX, DCURY, 1);
     (sb->cancel) =
-        make_window(base, xpos + 4 * DCURX, ypos, 6 * DCURX, DCURY, 1);
+        make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 1);
     (sb->reset) =
-        make_window(base, xpos + 12 * DCURX, ypos, 5 * DCURX, DCURY, 1);
+        make_window(base, xpos + 12*DCURX, ypos, 5*DCURX, DCURY, 1);
     XRaiseWindow(display, base);
     return;
 }
@@ -298,7 +298,7 @@ edit_menu(void) {
     char ch;
     int32 edtype = 0, i;
     ch = (char)pop_up_list(&temp, "Edit Stuff", n, key, 4, 11, edtype, 10,
-                           13 * DCURY + 8, edrh_hint, info_pop, info_message);
+                           13*DCURY + 8, edrh_hint, info_pop, info_message);
     edtype = -1;
     for (i = 0; i < 4; i++)
         if (ch == key[i])
@@ -333,8 +333,8 @@ edit_rhs(void) {
     values = malloc(n*sizeof(char *));
     command = malloc(n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = malloc(MAX_LEN_EBOX * sizeof(*(values[i])));
-        names[i] = malloc(MAX_LEN_EBOX * sizeof(*(names[i])));
+        values[i] = malloc(MAX_LEN_EBOX*sizeof(*(values[i])));
+        names[i] = malloc(MAX_LEN_EBOX*sizeof(*(names[i])));
         command[i] = malloc(200*sizeof(*(command[i])));
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT");
@@ -412,8 +412,8 @@ edit_functions(void) {
     values = malloc(n*sizeof(char *));
     command = malloc(n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = malloc(MAX_LEN_EBOX * sizeof(*(values[i])));
-        names[i] = malloc(MAX_LEN_EBOX * sizeof(*(names[i])));
+        values[i] = malloc(MAX_LEN_EBOX*sizeof(*(values[i])));
+        names[i] = malloc(MAX_LEN_EBOX*sizeof(*(names[i])));
         command[i] = malloc(200*sizeof(*(command[i])));
         sprintf(values[i], "%s", ufun_def[i]);
 

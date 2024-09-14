@@ -135,8 +135,8 @@ get_draw_area_flag(int32 flag) {
     VChar = DCURYs;
     HChar = DCURXs;
 
-    DLeft = 12 * HChar;
-    DRight = XDMax - 3 * HChar - HTic;
+    DLeft = 12*HChar;
+    DRight = XDMax - 3*HChar - HTic;
     DBottom = YDMax - 1 - VChar*7 / 2;
     DTop = VChar*5 / 2 + 1;
     h = DBottom - DTop;
@@ -239,8 +239,8 @@ init_ps(void) {
         HTic = 63;
         VChar = 140;
         HChar = 84;
-        DLeft = 12 * HChar;
-        DRight = XDMax - 3 * HChar - HTic;
+        DLeft = 12*HChar;
+        DRight = XDMax - 3*HChar - HTic;
         DTop = YDMax - 1 - VChar*7 / 2;
         DBottom = VChar*5 / 2 + 1;
     } else {
@@ -250,8 +250,8 @@ init_ps(void) {
         HTic = 63;
         VChar = 140;
         HChar = 84;
-        DLeft = 12 * HChar;
-        DRight = XDMax - 3 * HChar - HTic;
+        DLeft = 12*HChar;
+        DRight = XDMax - 3*HChar - HTic;
         DTop = YDMax - 1 - VChar*7 / 2;
         DBottom = VChar*5 / 2 + 1;
     }
@@ -266,8 +266,8 @@ init_svg(void) {
     HTic = 9;
     VChar = 20;
     HChar = 12;
-    DLeft = 12 * HChar;
-    DRight = XDMax - 3 * HChar - HTic;
+    DLeft = 12*HChar;
+    DRight = XDMax - 3*HChar - HTic;
     DBottom = YDMax - 1 - VChar*7 / 2;
     DTop = VChar*5 / 2 + 1;
     return;
@@ -365,7 +365,7 @@ line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 
 void
 put_text_x11(int32 x, int32 y, char *str) {
-    int32 sw = strlen(str) * DCURXs;
+    int32 sw = strlen(str)*DCURXs;
     switch (TextJustify) {
     case 0:
         sw = 0;
@@ -507,8 +507,8 @@ scale_to_screen(/* not really the screen!  */
                 double x, double y, int32 *i, int32 *j) {
     float dx = (DRight - DLeft) / (XMax - XMin);
     float dy = (DTop - DBottom) / (YMax - YMin);
-    *i = (int32)((x - XMin) * dx) + DLeft;
-    *j = (int32)((y - YMin) * dy) + DBottom;
+    *i = (int32)((x - XMin)*dx) + DLeft;
+    *j = (int32)((y - YMin)*dy) + DBottom;
     return;
 }
 
@@ -522,9 +522,9 @@ scale_to_real(/* Not needed except for X */
     j1 = j - DBottom;
     x1 = (float)i1;
     y1 = (float)j1;
-    *x = (MyGraph->xhi - MyGraph->xlo) * x1 / ((float)(DRight - DLeft)) +
+    *x = (MyGraph->xhi - MyGraph->xlo)*x1 / ((float)(DRight - DLeft)) +
          MyGraph->xlo;
-    *y = (MyGraph->yhi - MyGraph->ylo) * y1 / ((float)(DTop - DBottom)) +
+    *y = (MyGraph->yhi - MyGraph->ylo)*y1 / ((float)(DTop - DBottom)) +
          MyGraph->ylo;
     return;
 }
@@ -601,9 +601,9 @@ reset_graph(void) {
     MyGraph->xmax = x_3d[1];
     MyGraph->ymax = y_3d[1];
     MyGraph->zmax = z_3d[1];
-    MyGraph->xbar = .5 * (x_3d[1] + x_3d[0]);
-    MyGraph->ybar = .5 * (y_3d[1] + y_3d[0]);
-    MyGraph->zbar = .5 * (z_3d[1] + z_3d[0]);
+    MyGraph->xbar = .5*(x_3d[1] + x_3d[0]);
+    MyGraph->ybar = .5*(y_3d[1] + y_3d[0]);
+    MyGraph->zbar = .5*(z_3d[1] + z_3d[0]);
     MyGraph->dx = 2. / (x_3d[1] - x_3d[0]);
     MyGraph->dy = 2. / (y_3d[1] - y_3d[0]);
     MyGraph->dz = 2. / (z_3d[1] - z_3d[0]);
@@ -689,9 +689,9 @@ init_graph(int32 i) {
     graph[i].xmax = x_3d[1];
     graph[i].ymax = y_3d[1];
     graph[i].zmax = z_3d[1];
-    graph[i].xbar = .5 * (x_3d[1] + x_3d[0]);
-    graph[i].ybar = .5 * (y_3d[1] + y_3d[0]);
-    graph[i].zbar = .5 * (z_3d[1] + z_3d[0]);
+    graph[i].xbar = .5*(x_3d[1] + x_3d[0]);
+    graph[i].ybar = .5*(y_3d[1] + y_3d[0]);
+    graph[i].zbar = .5*(z_3d[1] + z_3d[0]);
     graph[i].dx = 2. / (x_3d[1] - x_3d[0]);
     graph[i].dy = 2. / (y_3d[1] - y_3d[0]);
     graph[i].dz = 2. / (z_3d[1] - z_3d[0]);
@@ -782,8 +782,8 @@ copy_graph(/*  Graph[i]=Graph[l]  */
 
 void
 make_rot(double theta, double phi) {
-    double ct = cos(DEGTORAD * theta), st = sin(DEGTORAD * theta);
-    double sp = sin(DEGTORAD * phi), cp = cos(DEGTORAD * phi);
+    double ct = cos(DEGTORAD*theta), st = sin(DEGTORAD*theta);
+    double sp = sin(DEGTORAD*phi), cp = cos(DEGTORAD*phi);
     MyGraph->Theta = theta;
     MyGraph->Phi = phi;
     MyGraph->rm[0][0] = ct;
@@ -800,16 +800,16 @@ make_rot(double theta, double phi) {
 
 void
 scale3d(double x, double y, double z, float *xp, float *yp, float *zp) {
-    *xp = (x - MyGraph->xbar) * MyGraph->dx;
-    *yp = (y - MyGraph->ybar) * MyGraph->dy;
-    *zp = (z - MyGraph->zbar) * MyGraph->dz;
+    *xp = (x - MyGraph->xbar)*MyGraph->dx;
+    *yp = (y - MyGraph->ybar)*MyGraph->dy;
+    *zp = (z - MyGraph->zbar)*MyGraph->dz;
     return;
 }
 
 double
 proj3d(double theta, double phi, double x, double y, double z, int32 in) {
-    double ct = cos(DEGTORAD * theta), st = sin(DEGTORAD * theta);
-    double sp = sin(DEGTORAD * phi), cp = cos(DEGTORAD * phi);
+    double ct = cos(DEGTORAD*theta), st = sin(DEGTORAD*theta);
+    double sp = sin(DEGTORAD*phi), cp = cos(DEGTORAD*phi);
     double rm[3][3];
     double vt[3], vnew[3];
     int32 i, j;
@@ -829,7 +829,7 @@ proj3d(double theta, double phi, double x, double y, double z, int32 in) {
     for (i = 0; i < 3; i++) {
         vnew[i] = 0.0;
         for (j = 0; j < 3; j++)
-            vnew[i] = vnew[i] + rm[i][j] * vt[j];
+            vnew[i] = vnew[i] + rm[i][j]*vt[j];
     }
 
     return vnew[in];
@@ -973,26 +973,26 @@ pers_line(double x, double y, double z, double xp, double yp, double zp)
     if (zp > Zv) {
         s = (Zv - eps - z) / (zp - z);
         zp = Zv - eps;
-        yp = y + s * (yp - y);
-        xp = x + s * (xp - x);
+        yp = y + s*(yp - y);
+        xp = x + s*(xp - x);
     }
     if (z > Zv) {
         s = (Zv - eps - zp) / (z - zp);
         z = Zv - eps;
-        y = yp + s * (y - yp);
-        x = xp + s * (x - xp);
+        y = yp + s*(y - yp);
+        x = xp + s*(x - xp);
     }
     if (zp < Zp) {
         s = (Zp - z) / (zp - z);
         zp = Zp;
-        yp = y + s * (yp - y);
-        xp = x + s * (xp - x);
+        yp = y + s*(yp - y);
+        xp = x + s*(xp - x);
     }
     if (z < Zp) {
         s = (Zp - zp) / (z - zp);
         z = Zp;
-        y = yp + s * (y - yp);
-        x = xp + s * (x - xp);
+        y = yp + s*(y - yp);
+        x = xp + s*(x - xp);
     }
     s = d / (Zv - zp);
     xp = xp*s;
@@ -1015,7 +1015,7 @@ rot_3dvec(double x, double y, double z, float *xp, float *yp, float *zp) {
     for (i = 0; i < 3; i++) {
         vnew[i] = 0.0;
         for (j = 0; j < 3; j++)
-            vnew[i] = vnew[i] + MyGraph->rm[i][j] * vt[j];
+            vnew[i] = vnew[i] + MyGraph->rm[i][j]*vt[j];
     }
     *xp = vnew[0];
     *yp = vnew[1];
@@ -1234,8 +1234,8 @@ clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
         wv = 1;
     *x1p = wv;
     del = (wv - x2) / (x1 - x2);
-    yhat = (y1 - y2) * del + y2;
-    zhat = (z1 - z2) * del + z2;
+    yhat = (y1 - y2)*del + y2;
+    zhat = (z1 - z2)*del + z2;
     if (fabs(zhat) <= EP1 && fabs(yhat) <= EP1) {
         *y1p = yhat;
         *z1p = zhat;
@@ -1251,8 +1251,8 @@ C2:
         wh = 1;
     *y1p = wh;
     del = (wh - y2) / (y1 - y2);
-    xhat = (x1 - x2) * del + x2;
-    zhat = (z1 - z2) * del + z2;
+    xhat = (x1 - x2)*del + x2;
+    zhat = (z1 - z2)*del + z2;
     if (fabs(zhat) <= EP1 && fabs(xhat) <= EP1) {
         *x1p = xhat;
         *z1p = zhat;
@@ -1269,8 +1269,8 @@ C22:
     *z1p = wo;
 
     del = (wo - z2) / (z1 - z2);
-    xhat = del * (x1 - x2) + x2;
-    yhat = del * (y1 - y2) + y2;
+    xhat = del*(x1 - x2) + x2;
+    yhat = del*(y1 - y2) + y2;
 
     if (fabs(xhat) <= EP1 && fabs(yhat) <= EP1) {
         *x1p = xhat;
@@ -1287,8 +1287,8 @@ C3:
         wv = 1;
     *x2p = wv;
     del = (wv - x1) / (x2 - x1);
-    yhat = (y2 - y1) * del + y1;
-    zhat = (z2 - z1) * del + z1;
+    yhat = (y2 - y1)*del + y1;
+    zhat = (z2 - z1)*del + z1;
     if (fabs(yhat) <= EP1 && fabs(zhat) <= EP1) {
         *y2p = yhat;
         *z2p = zhat;
@@ -1302,8 +1302,8 @@ C44:
         wh = 1;
     *y2p = wh;
     del = (wh - y1) / (y2 - y1);
-    xhat = (x2 - x1) * del + x1;
-    zhat = (z2 - z1) * del + z1;
+    xhat = (x2 - x1)*del + x1;
+    zhat = (z2 - z1)*del + z1;
     if (fabs(xhat) <= EP1 && fabs(zhat) <= EP1) {
         *z2p = zhat;
         *x2p = xhat;
@@ -1317,8 +1317,8 @@ C4:
         wo = 1;
     *z2p = wo;
     del = (wo - z1) / (z2 - z1);
-    xhat = (x2 - x1) * del + x1;
-    yhat = (y2 - y1) * del + y1;
+    xhat = (x2 - x1)*del + x1;
+    yhat = (y2 - y1)*del + y1;
     if (fabs(xhat) <= EP1 && fabs(yhat) <= EP1) {
         *x2p = xhat;
         *y2p = yhat;
@@ -1335,7 +1335,7 @@ clip(double x1, double x2, double y1, double y2, float *x1_out, float *y1_out,
  *  Clipping algorithm                                         *
  *   on input,                                                 *
  *           (x1,y1) and (x2,y2) are endpoints for line        *
- *           (x_left,y_bottom) and (x_right,y_top) is window*output: * value
+ *           (x_left,y_bottom) and (x_right,y_top) is window*output:*value
  *is 1 for drawing, 0 for no drawing          * (x1_out,y1_out),(x2_out,y2_out)
  *are endpoints     * of clipped line                                  *
  ***************************************************************/
@@ -1431,8 +1431,8 @@ C4:
 
 void
 eq_symb(double *x, int32 type) {
-    float dx = 6.0 * (float)(MyGraph->xhi - MyGraph->xlo) * SYMSIZE;
-    float dy = 6.0 * (float)(MyGraph->yhi - MyGraph->ylo) * SYMSIZE;
+    float dx = 6.0*(float)(MyGraph->xhi - MyGraph->xlo)*SYMSIZE;
+    float dy = 6.0*(float)(MyGraph->yhi - MyGraph->ylo)*SYMSIZE;
     int32 ix = MyGraph->xv[0] - 1, iy = MyGraph->yv[0] - 1,
           iz = MyGraph->zv[0] - 1;
     if (!Xup)
@@ -1441,8 +1441,8 @@ eq_symb(double *x, int32 type) {
         return;
     set_color(0);
     if (MyGraph->ThreeDFlag) {
-        dx = 6.0 * SYMSIZE / MyGraph->dx;
-        dy = 6.0 * SYMSIZE / MyGraph->dy;
+        dx = 6.0*SYMSIZE / MyGraph->dx;
+        dy = 6.0*SYMSIZE / MyGraph->dy;
         line_3d((float)x[ix] + dx, (float)x[iy], (float)x[iz],
                 (float)x[ix] - dx, (float)x[iy], (float)x[iz]);
         line_3d((float)x[ix], (float)x[iy] + dy, (float)x[iz], (float)x[ix],
@@ -1456,8 +1456,8 @@ eq_symb(double *x, int32 type) {
 
 void
 draw_symbol(double x, double y, double size, int32 my_symb) {
-    float dx = (float)(MyGraph->xhi - MyGraph->xlo) * size;
-    float dy = (float)(MyGraph->yhi - MyGraph->ylo) * size;
+    float dx = (float)(MyGraph->xhi - MyGraph->xlo)*size;
+    float dy = (float)(MyGraph->yhi - MyGraph->ylo)*size;
     static int32 sym_dir[4][48] = {
         /*          box              */
         {0, -6, -6, 1, 12, 0, 1, 0, 12, 1, -12, 0, 1, 0, -12, 3,
@@ -1483,8 +1483,8 @@ draw_symbol(double x, double y, double size, int32 my_symb) {
     float x1 = x, y1 = y, x2, y2;
 
     while (pen != 3) {
-        x2 = sym_dir[my_symb][3*ind + 1] * dx + x1;
-        y2 = sym_dir[my_symb][3*ind + 2] * dy + y1;
+        x2 = sym_dir[my_symb][3*ind + 1]*dx + x1;
+        y2 = sym_dir[my_symb][3*ind + 2]*dy + y1;
         pen = sym_dir[my_symb][3*ind];
         if (pen != 0)
             line_abs(x1, y1, x2, y2);

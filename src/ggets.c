@@ -134,7 +134,7 @@ bottom_msg(char *msg) {
 
 void
 gputs(char *string, Window win) {
-    int32 xloc = CURS_X * DCURX, yloc = CURS_Y * DCURY;
+    int32 xloc = CURS_X*DCURX, yloc = CURS_Y*DCURY;
     Ftext(xloc, yloc, string, win);
     CURS_X += strlen(string);
     return;
@@ -256,7 +256,7 @@ cput_text(void) {
         size = 4;
     if (size < 0)
         size = 0;
-    message_box(&temp, 0, SCALEY - 5 * DCURY, "Place text with mouse");
+    message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
     if (GetMouseXY(&x, &y)) {
         GrCol();
         /* fancy_put_text_x11(x,y,string,size,font); */
@@ -385,28 +385,28 @@ display_command(char *name, char *value, int32 pos) {
     int32 m = strlen(value);
 
     set_fore();
-    bar(0, 0, l * DCURX, DCURY + 4, command_pop);
+    bar(0, 0, l*DCURX, DCURY + 4, command_pop);
     set_back();
     XDrawString(display, command_pop, gc, 0, CURY_OFF, name, l);
     set_fore();
     if (m > 0) {
-        XDrawString(display, command_pop, gc, l * DCURX, CURY_OFF, value, m);
+        XDrawString(display, command_pop, gc, l*DCURX, CURY_OFF, value, m);
         /* showchar('_',DCURX*(l+m),0,command_pop); */
-        put_cursor_at(command_pop, DCURX * l, pos);
+        put_cursor_at(command_pop, DCURX*l, pos);
     }
     return;
 }
 
 void
 clr_line_at(Window w, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, w, col0 + pos * DCURX, 0, (n + 2) * DCURX, 2 * DCURY,
+    XClearArea(display, w, col0 + pos*DCURX, 0, (n + 2)*DCURX, 2*DCURY,
                False);
     return;
 }
 
 void
 put_cursor_at(Window w, int32 col0, int32 pos) {
-    int32 x1 = col0 + pos * DCURX;
+    int32 x1 = col0 + pos*DCURX;
     int32 x2 = x1 + 1;
     int32 y1 = DCURY - 2, y2 = 2;
     /* XDrawString(display,w,gc,col0+pos*DCURX-1,DCURY,"^",1);*/
@@ -442,7 +442,7 @@ memmov(char *s1, char *s2, int32 len) {
 void
 edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
             int32 ch) {
-    int32 col0 = *col - *pos * DCURX;
+    int32 col0 = *col - *pos*DCURX;
 
     *done = 0;
     switch (ch) {
@@ -466,7 +466,7 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
     } break;
     case END: {
         *pos = strlen(value);
-        *col = *pos * DCURX + col0;
+        *col = *pos*DCURX + col0;
     } break;
     case BADKEY:
     case DOWN:
@@ -569,7 +569,7 @@ new_string(char *name, char *value) {
     char old_value[80];
     int32 done = 0;
     int32 pos = strlen(value);
-    int32 col = (pos + strlen(name)) * DCURX;
+    int32 col = (pos + strlen(name))*DCURX;
 
     XEvent ev;
     strcpy(old_value, value);

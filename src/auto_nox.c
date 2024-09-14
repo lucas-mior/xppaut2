@@ -357,36 +357,36 @@ draw_bif_axes(void) {
     sprintf(junk, "%g", Auto.xmin);
     ATEXT(x0, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.xmax);
-    ii = strlen(junk) * DCURXs;
+    ii = strlen(junk)*DCURXs;
     ATEXT(x1 - ii, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.ymin);
     ii = strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0)
         i0 = 0;
-    ATEXT(i0 * DCURXs, y1, junk);
+    ATEXT(i0*DCURXs, y1, junk);
     sprintf(junk, "%g", Auto.ymax);
     ii = strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0)
         i0 = 0;
-    ATEXT(i0 * DCURXs, y0 + DCURYs, junk);
+    ATEXT(i0*DCURXs, y0 + DCURYs, junk);
     get_auto_str(xlabel, ylabel);
     ATEXT((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
-    ATEXT(10 * DCURXs, DCURYs, ylabel);
+    ATEXT(10*DCURXs, DCURYs, ylabel);
     refreshdisplay();
     return;
 }
 
 int32
 IXVal(double x) {
-    double temp = (double)Auto.wid * (x - Auto.xmin) / (Auto.xmax - Auto.xmin);
+    double temp = (double)Auto.wid*(x - Auto.xmin) / (Auto.xmax - Auto.xmin);
     return (int32)temp + Auto.x0;
 }
 
 int32
 IYVal(double y) {
-    double temp = (double)Auto.hgt * (y - Auto.ymin) / (Auto.ymax - Auto.ymin);
+    double temp = (double)Auto.hgt*(y - Auto.ymin) / (Auto.ymax - Auto.ymin);
     return Auto.hgt - (int32)temp + Auto.y0;
 }
 
@@ -987,11 +987,11 @@ auto_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
         Auto.ymin = y1 - dy / 2;
         Auto.ymax = y1 + dy / 2;
     } else {
-        x1 = (a1 * Auto.xmax - a2 * Auto.xmin) / (a1 - a2);
-        x2 = (Auto.xmin - Auto.xmax + a1 * Auto.xmax - a2 * Auto.xmin) /
+        x1 = (a1*Auto.xmax - a2*Auto.xmin) / (a1 - a2);
+        x2 = (Auto.xmin - Auto.xmax + a1*Auto.xmax - a2*Auto.xmin) /
              (a1 - a2);
-        y1 = (b1 * Auto.ymax - b2 * Auto.ymin) / (b1 - b2);
-        y2 = (Auto.ymin - Auto.ymax + b1 * Auto.ymax - b2 * Auto.ymin) /
+        y1 = (b1*Auto.ymax - b2*Auto.ymin) / (b1 - b2);
+        y2 = (Auto.ymin - Auto.ymax + b1*Auto.ymax - b2*Auto.ymin) /
              (b1 - b2);
         Auto.xmin = x1;
         Auto.ymin = y1;
@@ -1375,7 +1375,7 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
         p2 = par[icp2];
     sprintf(bob, "%4d %4d %2s %4d %10.4g %10.4g %10.4g %10.4g %10.4g", ibr, pt,
             ty, lab, p1, p2, norm, u0, per);
-    draw_auto_info(bob, 10, 2 * DCURYs + 2);
+    draw_auto_info(bob, 10, 2*DCURYs + 2);
     /* SmallGr(); */
     refreshdisplay();
 }
@@ -1495,7 +1495,7 @@ init_auto_win(void) {
         return;
     start_diagram(NODE);
     for (i = 0; i < 10; i++) {
-        Auto.period[i] = 11. + 3. * i;
+        Auto.period[i] = 11. + 3.*i;
         Auto.uzrpar[i] = 10;
         outperiod[i] = Auto.period[i];
         UzrPar[i] = 10;
@@ -1596,8 +1596,8 @@ plot_stab(double *evr, double *evi, int32 n) {
             y = -1.95;
         if (y > 1.95)
             y = 1.95;
-        x = r * (x + 2.0) / 4.0;
-        y = r - r * (y + 2.0) / 4.0;
+        x = r*(x + 2.0) / 4.0;
+        y = r - r*(y + 2.0) / 4.0;
         ix = (int32)x;
         iy = (int32)y;
         auto_stab_line(ix - 2, iy, ix + 2, iy);
@@ -1740,7 +1740,7 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
             lam = ts - storage[0][i];
             for (j = 0; j < n; j++)
                 u[j] =
-                    (1.0 - lam) * storage[j + 1][i1] + lam*storage[j + 1][i2];
+                    (1.0 - lam)*storage[j + 1][i1] + lam*storage[j + 1][i2];
             break;
         }
     }
@@ -1755,7 +1755,7 @@ get_start_orbit(double *u, double t, int32 n) {
         t -= 1.0;
     if (t < 0.0)
         t += 1.0;
-    tnorm = t * (storind - 1);
+    tnorm = t*(storind - 1);
     i1 = (int32)tnorm;
     i2 = i1 + 1;
     if (i2 >= storind)
@@ -1763,7 +1763,7 @@ get_start_orbit(double *u, double t, int32 n) {
     lam = (tnorm - (double)i1);
 
     for (j = 0; j < n; j++)
-        u[j] = (1.0 - lam) * storage[j + 1][i1] + lam*storage[j + 1][i2];
+        u[j] = (1.0 - lam)*storage[j + 1][i1] + lam*storage[j + 1][i2];
     return;
 }
 
@@ -2232,7 +2232,7 @@ int32
 get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     char **s;
     char v[100][MAX_LEN_SBOX];
-    int32 n = 2 + 2 * NODE;
+    int32 n = 2 + 2*NODE;
     int32 i;
     int32 flag = 0;
     s = malloc(n*sizeof(char *));
@@ -2608,7 +2608,7 @@ auto_2p_hopf(void) {
 void
 auto_period_double(void) {
     blrtn.torper = grabpt.torper;
-    Auto.ntst = 2 * Auto.ntst;
+    Auto.ntst = 2*Auto.ntst;
     Auto.irs = grabpt.lab;
     Auto.nfpar = 1; /* grabpt.nfpar; */
 

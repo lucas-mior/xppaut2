@@ -127,7 +127,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         i3 = n - i2;
 
         for (i = 0; i < i1; i++) {
-            x = 256*255 * (double)i / ((double)i1);
+            x = 256*255*(double)i / ((double)i1);
 
             r[i] = (int32)x;
             g[i] = 0;
@@ -139,7 +139,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         for (i = i1; i < n; i++)
             r[i] = 256*255;
         for (i = i2; i < n; i++) {
-            x = 256*255 * (double)(i - i2) / ((double)i3);
+            x = 256*255*(double)(i - i2) / ((double)i3);
 
             g[i] = 256*255;
             b[i] = (int32)x;
@@ -149,7 +149,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             r[i] = (int32)(256*255*x);
-            b[i] = (int32)(256*255 * (1 - x));
+            b[i] = (int32)(256*255*(1 - x));
             g[i] = 256*255;
         }
         break;
@@ -157,7 +157,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             r[i] = (int32)(256*255*x);
-            b[i] = (int32)(256*255 * (1 - x));
+            b[i] = (int32)(256*255*(1 - x));
             g[i] = 0;
         }
         break;
@@ -173,12 +173,12 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     case C_CUBHLX:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            angle = 2*pii * (start / 3.0 + 1 + rots*x);
+            angle = 2*pii*(start / 3.0 + 1 + rots*x);
             x = pow(x, gamma);
-            amp = hue*x * (1 - x) / 2.0;
-            rr = x + amp * (-.14861*cos(angle) + 1.78277*sin(angle));
-            gg = x + amp * (-.29227*cos(angle) - .90649*sin(angle));
-            bb = x + amp * (1.97294*cos(angle));
+            amp = hue*x*(1 - x) / 2.0;
+            rr = x + amp*(-.14861*cos(angle) + 1.78277*sin(angle));
+            gg = x + amp*(-.29227*cos(angle) - .90649*sin(angle));
+            bb = x + amp*(1.97294*cos(angle));
             /* printf("%d %g %g %g\n",i,rr,gg,bb); */
             if (rr < 0.0)
                 rr = 0.0;
@@ -240,7 +240,7 @@ rfun(double y, int32 per) {
 
     if (x > .33333333333)
         return 0;
-    return (int32)(3. * 255*sqrt((.333334 - x)*(x + .33334)));
+    return (int32)(3.*255*sqrt((.333334 - x)*(x + .33334)));
 }
 
 int32
@@ -248,7 +248,7 @@ gfun(double y, int32 per) {
     (void) per;
     if (y > .666666)
         return 0;
-    return (int32)(3. * 255*sqrt((.6666667 - y)*(y)));
+    return (int32)(3.*255*sqrt((.6666667 - y)*(y)));
 }
 
 int32
@@ -274,9 +274,9 @@ NewColormap(int32 type) {
 void
 get_ps_color(int32 i, float *r, float *g, float *b) {
     float z = 1. / (65535);
-    *r = z * (float)color[i].red;
-    *g = z * (float)color[i].green;
-    *b = z * (float)color[i].blue;
+    *r = z*(float)color[i].red;
+    *g = z*(float)color[i].green;
+    *b = z*(float)color[i].blue;
     return;
 }
 

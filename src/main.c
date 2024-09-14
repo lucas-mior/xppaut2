@@ -751,11 +751,11 @@ init_X(void) {
     if they are using wacky fonts...
     */
     if (UserMinWidth <= 0) {
-        SCALEX = 10 + 36*2 * DCURXs + 32 * DCURXs;
+        SCALEX = 10 + 36*2*DCURXs + 32*DCURXs;
     }
 
     if (UserMinHeight <= 0) {
-        SCALEY = 25 * DCURYb + 7 * DCURYs;
+        SCALEY = 25*DCURYb + 7*DCURYs;
     }
 
     XResizeWindow(display, main_win, SCALEX, SCALEY);
@@ -906,7 +906,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                 XResizeWindow(display, command_pop, SCALEX - 4, DCURY + 1);
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
                                   SCALEX - 4, DCURY);
-                resize_par_slides(SCALEY - 3 * DCURYs - 1 * DCURYb - 13);
+                resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
                 resize_all_pops(SCALEX, SCALEY);
                 redraw_all();
             }
@@ -1432,7 +1432,7 @@ top_button_events(XEvent report) {
 
 void
 make_top_buttons(void) {
-    int32 x1 = 2, x2 = 6 * DCURXs + 5, dx = DCURXs;
+    int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
     TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
     TopButton[1] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
@@ -1535,9 +1535,9 @@ make_pops(void)
     XMapWindow(display, info_pop);
     XMapWindow(display, command_pop);
     /* XMapWindow(display,menu_pop); */
-    init_grafs(16 * DCURX + 6, DCURYs + DCURYb + 6, w - 16 - 16 * DCURX,
-               h - 6 * DCURY - 16);
-    create_par_sliders(main_win, 0, h - 5 * DCURY + 8);
+    init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, w - 16 - 16*DCURX,
+               h - 6*DCURY - 16);
+    create_par_sliders(main_win, 0, h - 5*DCURY + 8);
     get_draw_area();
     return;
 }
@@ -1592,7 +1592,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     ncolors = win_info->visual->map_entries;
     plintf("%d entries in colormap\n", ncolors);
 
-    *colors = malloc(sizeof(XColor) * ncolors);
+    *colors = malloc(sizeof(XColor)*ncolors);
     xorfix = 0;
 
     if (win_info->visual->class == DirectColor) {

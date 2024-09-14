@@ -189,7 +189,7 @@ gtitle_text(char *string, Window win) {
         int32 xs, ys = 2;
         Window root;
         XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &de);
-        xs = (w - len * DCURX) / 2;
+        xs = (w - len*DCURX) / 2;
         if (xs < 0)
             xs = 0;
         Ftext(xs, ys, string, win);
@@ -542,8 +542,8 @@ draw_marker(double x, double y, double size, int32 type) {
         0,
 
     };
-    float dx = (MyGraph->xhi - MyGraph->xlo) * WDMARK * size;
-    float dy = (MyGraph->yhi - MyGraph->ylo) * HTMARK * size;
+    float dx = (MyGraph->xhi - MyGraph->xlo)*WDMARK*size;
+    float dy = (MyGraph->yhi - MyGraph->ylo)*HTMARK*size;
     while (true) {
         offset = 48*type + 3*ind;
         pen = sym_dir[offset];
@@ -658,7 +658,7 @@ select_marker_type(int32 *type) {
     Window temp = main_win;
     char ch;
     ch = (char)pop_up_list(&temp, "Markers", list, key, 6, 9, ival, 10,
-                           4 * DCURY + 8, no_hint, info_pop, info_message);
+                           4*DCURY + 8, no_hint, info_pop, info_message);
     if (ch == 27)
         return 0;
     for (i = 0; i < 6; i++) {
@@ -1363,10 +1363,10 @@ do_expose(XEvent ev) {
 
 void
 resize_all_pops(int32 wid, int32 hgt) {
-    int32 nw = wid - 16 - 16 * DCURX + 7,
-          nh = hgt - 3 * DCURYb - 4 * DCURYs - 24;
-    nw = 4 * ((nw / 4));
-    nh = 4 * ((nh / 4));
+    int32 nw = wid - 16 - 16*DCURX + 7,
+          nh = hgt - 3*DCURYb - 4*DCURYs - 24;
+    nw = 4*((nw / 4));
+    nh = 4*((nh / 4));
     XResizeWindow(display, graph[0].w, nw, nh);
     graph[0].Width = nw;
     graph[0].Height = nh;
@@ -1410,7 +1410,7 @@ create_a_pop(void) {
         XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, MINI_W,
                             MINI_H, 2, GrFore, GrBack);
     graph[index].w_info =
-        make_window(graph[index].w, 10, 0, 40 * DCURXs, DCURYs, 0);
+        make_window(graph[index].w, 10, 0, 40*DCURXs, DCURYs, 0);
     XSetWindowBackground(display, graph[i].w, MyDrawWinColor);
 
     copy_graph(index, current_pop);

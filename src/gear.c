@@ -41,9 +41,9 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAX_ODE];
 
-    kmem = n * (2*n + 5) + 50;
+    kmem = n*(2*n + 5) + 50;
     *ierr = 0;
-    if ((work = malloc(sizeof(double) * kmem)) == NULL) {
+    if ((work = malloc(sizeof(double)*kmem)) == NULL) {
         err_msg("Insufficient core ");
         *ierr = 1;
         return;
@@ -102,8 +102,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     double bigpos = -1e10, bigneg = 1e10;
     int32 bpos = 0, bneg = 0;
     /* float xl[MAX_ODE]; */
-    kmem = n * (2*n + 5) + 50;
-    if ((work = malloc(sizeof(double) * kmem)) == NULL) {
+    kmem = n*(2*n + 5) + 50;
+    if ((work = malloc(sizeof(double)*kmem)) == NULL) {
         err_msg("Insufficient core ");
         return;
     }
@@ -400,8 +400,8 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     double bigpos = -1e10, bigneg = 1e10;
 
     /* float xl[MAX_ODE]; */
-    kmem = n * (2*n + 5) + 50;
-    if ((work = malloc(sizeof(double) * kmem)) == NULL) {
+    kmem = n*(2*n + 5) + 50;
+    if ((work = malloc(sizeof(double)*kmem)) == NULL) {
         /* printf("Insufficient core \n");  */
         return;
     }
@@ -532,7 +532,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
 void
 pr_evec(double *x, double *ev, int32 n, int32 type) {
-    double d = fabs(DELTA_T) * .1;
+    double d = fabs(DELTA_T)*.1;
     ShootICFlag = 1;
     if (ShootIndex < 7) {
         for (int32 i = 0; i < n; i++) {
@@ -566,7 +566,7 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
             if ((j < n) && (i < n))
                 a[k] = m[k];
             if ((j >= n) && (i >= n))
-                a[k] = m[(j - n) * nn + (i - n)];
+                a[k] = m[(j - n)*nn + (i - n)];
             if (i == j)
                 a[k] = a[k] - evr;
             if ((i - n) == j)
@@ -605,7 +605,7 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
         /*  plintf(" %d %g \n",j,a[j]);   */
     }
     for (j = 0; j < n; j++)
-        anew[j * (1 + n)] = anew[j * (1 + n)] - eval - err*err*zz;
+        anew[j*(1 + n)] = anew[j*(1 + n)] - eval - err*err*zz;
 
     sgefa(anew, n, n, ipivot, ierr);
     if (*ierr != -1) {
@@ -680,12 +680,12 @@ hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr) {
     k = 1;
     for (i = 1; i <= n; i++) {
         for (j = k; j <= n; j++)
-            norm = norm + fabs(h[i - 1 + (j - 1) * n]);
+            norm = norm + fabs(h[i - 1 + (j - 1)*n]);
         k = i;
         if ((i >= low) && (i <= igh))
             continue;
-        ev[(i - 1) * 2] = h[i - 1 + (i - 1) * n];
-        ev[1 + (i - 1) * 2] = 0.0;
+        ev[(i - 1)*2] = h[i - 1 + (i - 1)*n];
+        ev[1 + (i - 1)*2] = 0.0;
     }
     en = igh;
     t = 0.0;
@@ -700,17 +700,17 @@ l70:
         l = en + low - ll;
         if (l == low)
             break;
-        s = fabs(h[l - 2 + (l - 2) * n]) + fabs(h[l - 1 + (l - 1) * n]);
+        s = fabs(h[l - 2 + (l - 2)*n]) + fabs(h[l - 1 + (l - 1)*n]);
         if (s == 0.0)
             s = norm;
-        if (fabs(h[l - 1 + (l - 2) * n]) <= machep*s)
+        if (fabs(h[l - 1 + (l - 2)*n]) <= machep*s)
             break;
     }
-    x = h[en - 1 + (en - 1) * n];
+    x = h[en - 1 + (en - 1)*n];
     if (l == en)
         goto l270;
-    y = h[na - 1 + (na - 1) * n];
-    w = h[en - 1 + (na - 1) * n] * h[na - 1 + (en - 1) * n];
+    y = h[na - 1 + (na - 1)*n];
+    w = h[en - 1 + (na - 1)*n]*h[na - 1 + (en - 1)*n];
     if (l == na)
         goto l280;
     if (its == 30)
@@ -719,8 +719,8 @@ l70:
         goto l130;
     t = t + x;
     for (i = low; i <= en; i++)
-        h[i - 1 + (i - 1) * n] = h[i - 1 + (i - 1) * n] - x;
-    s = fabs(h[en - 1 + (na - 1) * n]) + fabs(h[na - 1 + (enm2 - 1) * n]);
+        h[i - 1 + (i - 1)*n] = h[i - 1 + (i - 1)*n] - x;
+    s = fabs(h[en - 1 + (na - 1)*n]) + fabs(h[na - 1 + (enm2 - 1)*n]);
     x = 0.75*s;
     y = x;
     w = -0.4375*s*s;
@@ -728,10 +728,10 @@ l130:
     its++; /*its = its++; This may be undefined. Use its++ instead.*/
     for (mm = l; mm <= enm2; mm++) {
         m = enm2 + l - mm;
-        zz = h[m - 1 + (m - 1) * n];
+        zz = h[m - 1 + (m - 1)*n];
         r = x - zz;
         s = y - zz;
-        p = (r*s - w) / h[m + (m - 1) * n] + h[m - 1 + m*n];
+        p = (r*s - w) / h[m + (m - 1)*n] + h[m - 1 + m*n];
         q = h[m + m*n] - zz - r - s;
         r = h[m + 1 + m*n];
         s = fabs(p) + fabs(q) + fabs(r);
@@ -740,17 +740,17 @@ l130:
         r = r / s;
         if (m == l)
             break;
-        if ((fabs(h[m - 1 + (m - 2) * n])*(fabs(q) + fabs(r))) <=
+        if ((fabs(h[m - 1 + (m - 2)*n])*(fabs(q) + fabs(r))) <=
             (machep*fabs(p) *
-             (fabs(h[m - 2 + (m - 2) * n]) + fabs(zz) + fabs(h[m + m*n]))))
+             (fabs(h[m - 2 + (m - 2)*n]) + fabs(zz) + fabs(h[m + m*n]))))
             break;
     }
     mp2 = m + 2;
     for (i = mp2; i <= en; i++) {
-        h[i - 1 + (i - 3) * n] = 0.0;
+        h[i - 1 + (i - 3)*n] = 0.0;
         if (i == mp2)
             continue;
-        h[i - 1 + (i - 4) * n] = 0.0;
+        h[i - 1 + (i - 4)*n] = 0.0;
     }
     for (k = m; k <= na; k++) /*260 */
     {
@@ -759,11 +759,11 @@ l130:
             notlas = 1;
         if (k == m)
             goto l170;
-        p = h[k - 1 + (k - 2) * n];
-        q = h[k + (k - 2) * n];
+        p = h[k - 1 + (k - 2)*n];
+        q = h[k + (k - 2)*n];
         r = 0.0;
         if (notlas)
-            r = h[k + 1 + (k - 2) * n];
+            r = h[k + 1 + (k - 2)*n];
         x = fabs(p) + fabs(q) + fabs(r);
         if (x == 0.0)
             continue;
@@ -773,9 +773,9 @@ l130:
     l170:
         s = sign(sqrt(p*p + q*q + r*r), p);
         if (k != m)
-            h[k - 1 + (k - 2) * n] = -s*x;
+            h[k - 1 + (k - 2)*n] = -s*x;
         else if (l != m)
-            h[k - 1 + (k - 2) * n] = -h[k - 1 + (k - 2) * n];
+            h[k - 1 + (k - 2)*n] = -h[k - 1 + (k - 2)*n];
         p = p + s;
         x = p / s;
         y = q / s;
@@ -783,29 +783,29 @@ l130:
         q = q / p;
         r = r / p;
         for (j = k; j <= en; j++) {
-            p = h[k - 1 + (j - 1) * n] + q*h[k + (j - 1) * n];
+            p = h[k - 1 + (j - 1)*n] + q*h[k + (j - 1)*n];
             if (notlas) {
-                p = p + r*h[k + 1 + (j - 1) * n];
-                h[k + 1 + (j - 1) * n] = h[k + 1 + (j - 1) * n] - p*zz;
+                p = p + r*h[k + 1 + (j - 1)*n];
+                h[k + 1 + (j - 1)*n] = h[k + 1 + (j - 1)*n] - p*zz;
             }
-            h[k + (j - 1) * n] = h[k + (j - 1) * n] - p*y;
-            h[k - 1 + (j - 1) * n] = h[k - 1 + (j - 1) * n] - p*x;
+            h[k + (j - 1)*n] = h[k + (j - 1)*n] - p*y;
+            h[k - 1 + (j - 1)*n] = h[k - 1 + (j - 1)*n] - p*x;
         }
         j = imin(en, k + 3);
         for (i = l; i <= j; i++) {
-            p = x*h[i - 1 + (k - 1) * n] + y*h[i - 1 + k*n];
+            p = x*h[i - 1 + (k - 1)*n] + y*h[i - 1 + k*n];
             if (notlas) {
-                p = p + zz*h[i - 1 + (k + 1) * n];
-                h[i - 1 + (k + 1) * n] = h[i - 1 + (k + 1) * n] - p*r;
+                p = p + zz*h[i - 1 + (k + 1)*n];
+                h[i - 1 + (k + 1)*n] = h[i - 1 + (k + 1)*n] - p*r;
             }
             h[i - 1 + k*n] = h[i - 1 + k*n] - p*q;
-            h[i - 1 + (k - 1) * n] = h[i - 1 + (k - 1) * n] - p;
+            h[i - 1 + (k - 1)*n] = h[i - 1 + (k - 1)*n] - p;
         }
     }
     goto l70;
 l270:
-    ev[(en - 1) * 2] = x + t;
-    ev[1 + (en - 1) * 2] = 0.0;
+    ev[(en - 1)*2] = x + t;
+    ev[1 + (en - 1)*2] = 0.0;
     en = na;
     goto l60;
 l280:
@@ -816,18 +816,18 @@ l280:
     if (q < 0.0)
         goto l320;
     zz = p + sign(zz, p);
-    ev[(na - 1) * 2] = x + zz;
-    ev[(en - 1) * 2] = ev[(na - 1) * 2];
+    ev[(na - 1)*2] = x + zz;
+    ev[(en - 1)*2] = ev[(na - 1)*2];
     if (zz != 0.0)
-        ev[(en - 1) * 2] = x - w / zz;
-    ev[1 + (na - 1) * 2] = 0.0;
-    ev[1 + (en - 1) * 2] = 0.0;
+        ev[(en - 1)*2] = x - w / zz;
+    ev[1 + (na - 1)*2] = 0.0;
+    ev[1 + (en - 1)*2] = 0.0;
     goto l330;
 l320:
-    ev[(na - 1) * 2] = x + p;
-    ev[(en - 1) * 2] = x + p;
-    ev[1 + (na - 1) * 2] = zz;
-    ev[1 + (en - 1) * 2] = -zz;
+    ev[(na - 1)*2] = x + p;
+    ev[(en - 1)*2] = x + p;
+    ev[1 + (na - 1)*2] = zz;
+    ev[1 + (en - 1)*2] = -zz;
 l330:
     en = enm2;
     goto l60;
@@ -851,30 +851,30 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
         ort[m - 1] = 0.0;
         scale = 0.0;
         for (i = m; i <= igh; i++)
-            scale = scale + fabs(a[i - 1 + (m - 2) * n]);
+            scale = scale + fabs(a[i - 1 + (m - 2)*n]);
         if (scale == 0.0)
             continue;
         mp = m + igh;
         for (ii = m; ii <= igh; ii++) /*100*/
         {
             i = mp - ii;
-            ort[i - 1] = a[i - 1 + (m - 2) * n] / scale;
-            h = h + ort[i - 1] * ort[i - 1];
+            ort[i - 1] = a[i - 1 + (m - 2)*n] / scale;
+            h = h + ort[i - 1]*ort[i - 1];
         }
         g = -sign(sqrt(h), ort[m - 1]);
-        h = h - ort[m - 1] * g;
+        h = h - ort[m - 1]*g;
         ort[m - 1] = ort[m - 1] - g;
         for (j = m; j <= n; j++) /*130 */
         {
             f = 0.0;
             for (ii = m; ii <= igh; ii++) {
                 i = mp - ii;
-                f = f + ort[i - 1] * a[i - 1 + (j - 1) * n];
+                f = f + ort[i - 1]*a[i - 1 + (j - 1)*n];
             }
             f = f / h;
             for (i = m; i <= igh; i++)
-                a[i - 1 + (j - 1) * n] =
-                    a[i - 1 + (j - 1) * n] - f*ort[i - 1];
+                a[i - 1 + (j - 1)*n] =
+                    a[i - 1 + (j - 1)*n] - f*ort[i - 1];
         }
         for (i = 1; i <= igh; i++) /*160*/
         {
@@ -882,15 +882,15 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             for (jj = m; jj <= igh; jj++) /*140 */
             {
                 j = mp - jj;
-                f = f + ort[j - 1] * a[i - 1 + (j - 1) * n];
+                f = f + ort[j - 1]*a[i - 1 + (j - 1)*n];
             }
             f = f / h;
             for (j = m; j <= igh; j++)
-                a[i - 1 + (j - 1) * n] =
-                    a[i - 1 + (j - 1) * n] - f*ort[j - 1];
+                a[i - 1 + (j - 1)*n] =
+                    a[i - 1 + (j - 1)*n] - f*ort[j - 1];
         }
         ort[m - 1] = scale*ort[m - 1];
-        a[m - 1 + (m - 2) * n] = scale*g;
+        a[m - 1 + (m - 2)*n] = scale*g;
     }
     return;
 }
@@ -1032,7 +1032,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
             getjac(x, y, yp, xp, eps, dermat, n);
             if (METHOD == 0)
                 for (i = 0; i < n; i++)
-                    dermat[i * (n + 1)] += 1.0;
+                    dermat[i*(n + 1)] += 1.0;
             /* for(i=0;i<n*n;i++)printf("dm=%g \n",dermat[i]); */
             return; /* success !! */
         }
@@ -1085,7 +1085,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
           job = 0, nt = 0;
     for (i = 0; i < 8; i++) {
         save[i] = work + i*n;
-        ytable[i] = work + (8 + i) * n;
+        ytable[i] = work + (8 + i)*n;
     }
     save9 = work + 16*n;
     save10 = work + 17*n;
@@ -1176,7 +1176,7 @@ L120:
     rhs(*t, ytable[0], save11, n);
 
     for (i = 0; i < n; i++) {
-        ytable[1][i] = save11[i] * h;
+        ytable[1][i] = save11[i]*h;
         ymax[i] = 1.00;
     }
 
@@ -1250,9 +1250,9 @@ L150:
     enq3 = .5 / (double)(nq + 2);
     enq1 = .5 / (double)nq;
     pepsh = eps;
-    eup = sqr2(pertst[nq - 1][0][1] * pepsh);
-    e = sqr2(pertst[nq - 1][0][0] * pepsh);
-    edwn = sqr2(pertst[nq - 1][0][2] * pepsh);
+    eup = sqr2(pertst[nq - 1][0][1]*pepsh);
+    e = sqr2(pertst[nq - 1][0][0]*pepsh);
+    edwn = sqr2(pertst[nq - 1][0][2]*pepsh);
     if (edwn == 0.0)
         goto L850;
     bnd = eps*enq3 / (double)n;
@@ -1285,12 +1285,12 @@ L330:
         for (i = 0; i < n; i++)
             save9[i] = ytable[0][i];
         for (j = 0; j < n; j++) {
-            r = eps * Max(eps, fabs(save9[j]));
+            r = eps*Max(eps, fabs(save9[j]));
             ytable[0][j] = ytable[0][j] + r;
-            d = a[0] * h / r;
+            d = a[0]*h / r;
             rhs(*t, ytable[0], save12, n);
             for (i = 0; i < n; i++)
-                dermat[n*i + j] = (save12[i] - save11[i]) * d;
+                dermat[n*i + j] = (save12[i] - save11[i])*d;
             ytable[0][j] = save9[j];
         }
         for (i = 0; i < n; i++)
@@ -1311,14 +1311,14 @@ L330:
     L460:
 
         for (i = 0; i < n; i++)
-            save12[i] = ytable[1][i] - save11[i] * h;
+            save12[i] = ytable[1][i] - save11[i]*h;
         for (i = 0; i < n; i++)
             save9[i] = save12[i];
         job = 0;
         sgesl(dermat, n, n, gear_pivot, save9, job);
         nt = n;
         for (i = 0; i < n; i++) {
-            ytable[0][i] = ytable[0][i] + a[0] * save9[i];
+            ytable[0][i] = ytable[0][i] + a[0]*save9[i];
             ytable[1][i] = ytable[1][i] - save9[i];
             error[i] += save9[i];
             if (fabs(save9[i]) <= (bnd*ymax[i]))
@@ -1365,7 +1365,7 @@ L560:
     if (k >= 3) {
         for (j = 3; j <= k; j++)
             for (i = 0; i < n; i++)
-                ytable[j - 1][i] = ytable[j - 1][i] + a[j - 1] * error[i];
+                ytable[j - 1][i] = ytable[j - 1][i] + a[j - 1]*error[i];
     }
     *kflag = 1;
     hnew = h;
@@ -1421,7 +1421,7 @@ L680:
     if (newq <= nq)
         goto L700;
     for (i = 0; i < n; i++)
-        ytable[newq][i] = error[i] * a[k - 1] / (double)k;
+        ytable[newq][i] = error[i]*a[k - 1] / (double)k;
 
 L700:
 
@@ -1469,7 +1469,7 @@ L750:
     for (j = 2; j <= k; j++) {
         r1 = r1*r;
         for (i = 0; i < n; i++)
-            ytable[j - 1][i] = ytable[j - 1][i] * r1;
+            ytable[j - 1][i] = ytable[j - 1][i]*r1;
     }
     idoub = k;
 
@@ -1514,7 +1514,7 @@ L820:
     for (j = 2; j <= k; j++) {
         r1 = r1*racum;
         for (i = 0; i < n; i++)
-            ytable[j - 1][i] = save[j - 1][i] * r1;
+            ytable[j - 1][i] = save[j - 1][i]*r1;
     }
     h = hold*racum;
     for (i = 0; i < n; i++)
@@ -1592,21 +1592,21 @@ sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
     if (nm1 > 0) {
         for (k = 1; k <= nm1; k++) {
             kp1 = k + 1;
-            l = isamax(n - k + 1, &a[(k - 1) * lda + k - 1], lda) + k - 1;
+            l = isamax(n - k + 1, &a[(k - 1)*lda + k - 1], lda) + k - 1;
             ipvt[k - 1] = l;
             if (a[l*lda + k - 1] != 0.0) {
                 if (l != (k - 1)) {
                     t = a[l*lda + k - 1];
-                    a[l*lda + k - 1] = a[(k - 1) * lda + k - 1];
-                    a[(k - 1) * lda + k - 1] = t;
+                    a[l*lda + k - 1] = a[(k - 1)*lda + k - 1];
+                    a[(k - 1)*lda + k - 1] = t;
                 }
-                t = -1.0 / a[(k - 1) * lda + k - 1];
+                t = -1.0 / a[(k - 1)*lda + k - 1];
                 sscal(n - k, t, (a + k*lda + k - 1), lda);
                 for (j = kp1; j <= n; j++) {
                     t = a[l*lda + j - 1];
                     if (l != (k - 1)) {
-                        a[l*lda + j - 1] = a[(k - 1) * lda + j - 1];
-                        a[(k - 1) * lda + j - 1] = t;
+                        a[l*lda + j - 1] = a[(k - 1)*lda + j - 1];
+                        a[(k - 1)*lda + j - 1] = t;
                     }
                     saxpy(n - k, t, (a + k*lda + k - 1), lda,
                           (a + k*lda + j - 1), lda);
@@ -1616,7 +1616,7 @@ sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
         }
     }
     ipvt[n - 1] = n - 1;
-    if (a[(n - 1) * lda + n - 1] == 0.0)
+    if (a[(n - 1)*lda + n - 1] == 0.0)
         *info = n - 1;
     return;
 }
@@ -1643,7 +1643,7 @@ sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
         }
         for (kb = 1; kb <= n; kb++) {
             k = n + 1 - kb;
-            b[k - 1] = b[k - 1] / a[(k - 1) * lda + k - 1];
+            b[k - 1] = b[k - 1] / a[(k - 1)*lda + k - 1];
             t = -b[k - 1];
             saxpy(k - 1, t, (a + k - 1), lda, b, 1);
         }
@@ -1651,7 +1651,7 @@ sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
     }
     for (k = 1; k <= n; k++) {
         t = sdot(k - 1, (a + k - 1), lda, 1);
-        b[k - 1] = (b[k - 1] - t) / a[(k - 1) * lda + k - 1];
+        b[k - 1] = (b[k - 1] - t) / a[(k - 1)*lda + k - 1];
     }
     if (nm1 > 0) {
         for (kb = 1; kb <= nm1; kb++) {
@@ -1732,7 +1732,7 @@ sdot(int32 n, double *sx, int32 incx, int32 incy) {
     if (incy < 0)
         iy = -n*incy;
     for (i = 0; i < n; i++, ix += incx, iy += incy)
-        stemp += sx[ix] * sx[iy];
+        stemp += sx[ix]*sx[iy];
     return stemp;
 }
 

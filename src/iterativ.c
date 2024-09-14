@@ -50,7 +50,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
        in order to ensure that nonorthogonality is not being masked
        by a very small vector length.           */
 
-    temp = FACTOR * vk_norm;
+    temp = FACTOR*vk_norm;
     if ((temp + (*new_vk_norm)) != temp)
         return 0;
 
@@ -58,7 +58,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
 
     for (i = i0; i < k; i++) {
         new_product = N_VDotProd(v[i], v[k]);
-        temp = FACTOR * h[i][k_minus_1];
+        temp = FACTOR*h[i][k_minus_1];
         if ((temp + new_product) == temp)
             continue;
         h[i][k_minus_1] += new_product;
@@ -106,7 +106,7 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
 
     /* Reorthogonalize if necessary */
 
-    if ((FACTOR * (*new_vk_norm)) < vk_norm) {
+    if ((FACTOR*(*new_vk_norm)) < vk_norm) {
         for (i = i0; i < k; i++) {
             s[i] = N_VDotProd(v[i], v[k]);
         }
@@ -250,7 +250,7 @@ QRsol(int32 n, double **h, double *q, double *b) {
         }
         b[k] /= h[k][k];
         for (i = 0; i < k; i++)
-            b[i] -= b[k] * h[i][k];
+            b[i] -= b[k]*h[i][k];
     }
 
     return code;

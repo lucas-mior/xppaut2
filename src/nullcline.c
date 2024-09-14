@@ -157,19 +157,19 @@ do_range_clines(void) {
             z = (double)i*dz + ncrange.xlo;
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
-                if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL &&
-                    (Y_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL)
+                if ((X_n = malloc(4*MAX_NULL*sizeof(float))) != NULL &&
+                    (Y_n = malloc(4*MAX_NULL*sizeof(float))) != NULL)
 
                     NULL_HERE = 1;
-                NTop = malloc((course + 1) * sizeof(*NTop));
-                NBot = malloc((course + 1) * sizeof(*NBot));
+                NTop = malloc((course + 1)*sizeof(*NTop));
+                NBot = malloc((course + 1)*sizeof(*NBot));
                 if (NTop == NULL || NBot == NULL)
                     NULL_HERE = 0;
             } else {
                 free(NTop);
                 free(NBot);
-                NTop = malloc((course + 1) * sizeof(*NTop));
-                NBot = malloc((course + 1) * sizeof(*NBot));
+                NTop = malloc((course + 1)*sizeof(*NTop));
+                NBot = malloc((course + 1)*sizeof(*NBot));
                 if (NTop == NULL || NBot == NULL) {
                     NULL_HERE = 0;
                     return;
@@ -500,7 +500,7 @@ redraw_dfield(void) {
     dup = (double)(DRight - DLeft) / (double)grid;
     dvp = (double)(DTop - DBottom) / (double)grid;
     /* printf("dup=%g dvp=  %g \n",dup,dvp); */
-    dz = hypot(dup, dvp)*(.25 + .75 * DFIELD_TYPE);
+    dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     if (!DFSuppress)
@@ -539,8 +539,8 @@ redraw_dfield(void) {
                         ydot[iny] /= amp;
                     }
                 }
-                xv1 = y[inx] + ydot[inx] * dz;
-                xv2 = y[iny] + ydot[iny] * dz;
+                xv1 = y[inx] + ydot[inx]*dz;
+                xv2 = y[iny] + ydot[iny]*dz;
                 if (!DFSuppress) {
                     bead_abs((float)xv1, (float)xv2);
                     line_abs((float)y[inx], (float)y[iny], (float)xv1,
@@ -603,7 +603,7 @@ direct_field_com(int32 c) {
 
     dup = (double)(DRight - DLeft) / (double)grid;
     dvp = (double)(DTop - DBottom) / (double)grid;
-    dz = hypot(dup, dvp)*(.25 + .75 * DFIELD_TYPE);
+    dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     set_linestyle(MyGraph->color[0]);
@@ -650,8 +650,8 @@ direct_field_com(int32 c) {
                         ydot[inx] /= mdf;
                         ydot[iny] /= mdf;
                     }
-                    xv1 = y[inx] + ydot[inx] * dz;
-                    xv2 = y[iny] + ydot[iny] * dz;
+                    xv1 = y[inx] + ydot[inx]*dz;
+                    xv2 = y[iny] + ydot[iny]*dz;
                     bead_abs((float)xv1, (float)xv2);
                     line_abs((float)y[inx], (float)y[iny], (float)xv1,
                              (float)xv2);
@@ -809,8 +809,8 @@ restor_null(/* d=1 for x and 2 for y  */
         i4 = 4*i;
         line_abs(v[i4], v[i4 + 1], v[i4 + 2], v[i4 + 3]);
         if (NullStyle == 1) {
-            xm = .5 * (v[i4] + v[i4 + 2]);
-            ym = .5 * (v[i4 + 1] + v[i4 + 3]);
+            xm = .5*(v[i4] + v[i4 + 2]);
+            ym = .5*(v[i4 + 1] + v[i4 + 3]);
             scale_to_screen(xm, ym, &x1, &y1);
             switch (d) {
             case 1:
@@ -877,19 +877,19 @@ new_clines_com(int32 c) {
         null_ix = MyGraph->xv[0];
         null_iy = MyGraph->yv[0];
         if (NULL_HERE == 0) {
-            if ((X_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL &&
-                (Y_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL)
+            if ((X_n = malloc(4*MAX_NULL*sizeof(float))) != NULL &&
+                (Y_n = malloc(4*MAX_NULL*sizeof(float))) != NULL)
 
                 NULL_HERE = 1;
-            NTop = malloc((course + 1) * sizeof(*NTop));
-            NBot = malloc((course + 1) * sizeof(*NBot));
+            NTop = malloc((course + 1)*sizeof(*NTop));
+            NBot = malloc((course + 1)*sizeof(*NBot));
             if (NTop == NULL || NBot == NULL)
                 NULL_HERE = 0;
         } else {
             free(NTop);
             free(NBot);
-            NTop = malloc((course + 1) * sizeof(*NTop));
-            NBot = malloc((course + 1) * sizeof(*NBot));
+            NTop = malloc((course + 1)*sizeof(*NTop));
+            NBot = malloc((course + 1)*sizeof(*NBot));
             if (NTop == NULL || NBot == NULL) {
                 NULL_HERE = 0;
                 return;
@@ -955,8 +955,8 @@ interpolate(Pt p1, Pt p2, double z, float *x, float *y) {
     if (p1.z == p2.z)
         return 0;
     scale = (z - p1.z) / (p2.z - p1.z);
-    *x = p1.x + scale * (p2.x - p1.x);
-    *y = p1.y + scale * (p2.y - p1.y);
+    *x = p1.x + scale*(p2.x - p1.x);
+    *y = p1.y + scale*(p2.y - p1.y);
     return 1;
 }
 

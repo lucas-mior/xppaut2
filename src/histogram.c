@@ -82,8 +82,8 @@ EXAMPLE of binning
     */
     for (i = 0; i < n1; i++)
         for (j = 0; j < n2; j++) {
-            my_hist[0][i + j*n1] = xlo + (i + .5) * dx;
-            my_hist[1][i + j*n1] = ylo + (j + .5) * dy;
+            my_hist[0][i + j*n1] = xlo + (i + .5)*dx;
+            my_hist[1][i + j*n1] = ylo + (j + .5)*dy;
             my_hist[2][i + j*n1] = 0.0;
         }
     for (k = 0; k < ndat; k++) {
@@ -134,9 +134,9 @@ new_four(int32 nmodes, int32 col) {
         FOUR_HERE = 0;
     }
     four_len = nmodes;
-    my_four[0] = malloc(sizeof(float) * length);
-    my_four[1] = malloc(sizeof(float) * length);
-    my_four[2] = malloc(sizeof(float) * length);
+    my_four[0] = malloc(sizeof(float)*length);
+    my_four[1] = malloc(sizeof(float)*length);
+    my_four[2] = malloc(sizeof(float)*length);
     if (my_four[2] == NULL) {
         free(my_four[1]);
         free(my_four[2]);
@@ -163,7 +163,7 @@ post_process_stuff(void) {
     if (post_process == 0)
         return;
     if (N_plist < 1)
-        plotlist = malloc(sizeof(int32) * 10);
+        plotlist = malloc(sizeof(int32)*10);
     N_plist = 2;
     plotlist[0] = 0;
     plotlist[1] = 1;
@@ -210,9 +210,9 @@ twod_hist(void)
     }
 
     hist_len = length;
-    my_hist[0] = malloc(sizeof(float) * length);
-    my_hist[1] = malloc(sizeof(float) * length);
-    my_hist[2] = malloc(sizeof(float) * length);
+    my_hist[0] = malloc(sizeof(float)*length);
+    my_hist[1] = malloc(sizeof(float)*length);
+    my_hist[2] = malloc(sizeof(float)*length);
     if (my_hist[2] == NULL) {
         free(my_hist[0]);
         free(my_hist[1]);
@@ -295,8 +295,8 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         HIST_HERE = 0;
     }
     hist_len = length;
-    my_hist[0] = malloc(sizeof(float) * length);
-    my_hist[1] = malloc(sizeof(float) * length);
+    my_hist[0] = malloc(sizeof(float)*length);
+    my_hist[1] = malloc(sizeof(float)*length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
         err_msg("Cannot allocate enough...");
@@ -438,7 +438,7 @@ compute_power(void) {
         s = daty[i];
         datx[i] = sqrt(s*s + c*c);
         daty[i] = atan2(s, c);
-        ptot += (datx[i] * datx[i]);
+        ptot += (datx[i]*datx[i]);
     }
     plintf("a0=%g L2norm= %g  \n", datx[0], sqrt(ptot));
 }
@@ -469,10 +469,10 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
         return 0;
     if (kwin < 1)
         return 0;
-    ct = malloc(sizeof(float) * win);
-    d = malloc(sizeof(float) * win);
-    st = malloc(sizeof(float) * win);
-    f = malloc(sizeof(float) * win);
+    ct = malloc(sizeof(float)*win);
+    d = malloc(sizeof(float)*win);
+    st = malloc(sizeof(float)*win);
+    f = malloc(sizeof(float)*win);
     /*  plintf("nr=%d,win=%d,type=%d,data[10]=%g,kwin=%d\n",
         nr,win,w_type,data[10],kwin); */
     nrmf = 0.0;
@@ -483,19 +483,19 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
             f[i] = 1;
             break;
         case 1:
-            f[i] = x * (1 - x) * 4.0;
+            f[i] = x*(1 - x)*4.0;
             break;
         case 2:
-            f[i] = .54 - .46*cos(2 * M_PI * x);
+            f[i] = .54 - .46*cos(2*M_PI*x);
             break;
         case 4:
-            f[i] = .5 * (1 - cos(2 * M_PI * x));
+            f[i] = .5*(1 - cos(2*M_PI*x));
             break;
         case 3:
             f[i] = 1 - 2*fabs(x - .5);
             break;
         }
-        nrmf += (f[i] * f[i] / win);
+        nrmf += (f[i]*f[i] / win);
     }
     for (i = 0; i < shift; i++)
         pow[i] = 0.0;
@@ -505,12 +505,12 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
     for (j = 0; j < kwin; j++) {
         for (i = 0; i < win; i++) {
             kk = (j*shift + i + nr) % nr;
-            d[i] = f[i] * data[kk];
+            d[i] = f[i]*data[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
         fft(d, ct, st, shift, win);
         for (i = 0; i < shift; i++) {
-            x = ct[i] * ct[i] + st[i] * st[i];
+            x = ct[i]*ct[i] + st[i]*st[i];
             pow[i] = pow[i] + sqrt(x);
             /* sum+=x; */
         }
@@ -557,17 +557,17 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
         return 0;
     if (kwin < 1)
         return 0;
-    ct = malloc(sizeof(float) * win);
-    d = malloc(sizeof(float) * win);
-    st = malloc(sizeof(float) * win);
-    f = malloc(sizeof(float) * win);
-    ct2 = malloc(sizeof(float) * win);
-    d2 = malloc(sizeof(float) * win);
-    st2 = malloc(sizeof(float) * win);
-    pxx = malloc(sizeof(float) * win);
-    pyy = malloc(sizeof(float) * win);
-    pxyr = malloc(sizeof(float) * win);
-    pxym = malloc(sizeof(float) * win);
+    ct = malloc(sizeof(float)*win);
+    d = malloc(sizeof(float)*win);
+    st = malloc(sizeof(float)*win);
+    f = malloc(sizeof(float)*win);
+    ct2 = malloc(sizeof(float)*win);
+    d2 = malloc(sizeof(float)*win);
+    st2 = malloc(sizeof(float)*win);
+    pxx = malloc(sizeof(float)*win);
+    pyy = malloc(sizeof(float)*win);
+    pxyr = malloc(sizeof(float)*win);
+    pxym = malloc(sizeof(float)*win);
     /*  plintf("nr=%d,win=%d,type=%d,data[10]=%g,kwin=%d\n",
         nr,win,w_type,data[10],kwin); */
     nrmwin = 0.0;
@@ -578,19 +578,19 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
             f[i] = 1;
             break;
         case 1:
-            f[i] = x * (1 - x) * 4.0;
+            f[i] = x*(1 - x)*4.0;
             break;
         case 4:
-            f[i] = .5 * (1 - cos(2 * M_PI * x));
+            f[i] = .5*(1 - cos(2*M_PI*x));
             break;
         case 2:
-            f[i] = .54 - .46*cos(2 * M_PI * x);
+            f[i] = .54 - .46*cos(2*M_PI*x);
             break;
         case 3:
             f[i] = 1 - 2*fabs(x - .5);
             break;
         }
-        nrmwin += f[i] * f[i];
+        nrmwin += f[i]*f[i];
     }
     for (i = 0; i < shift; i++) {
         pxx[i] = 0.0;
@@ -604,17 +604,17 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
         for (i = 0; i < win; i++) {
             /* kk=kk=(-shift+j*shift+i+nr)%nr; */
             kk = (i + j*shift) % nr;
-            d[i] = f[i] * data[kk];
-            d2[i] = f[i] * data2[kk];
+            d[i] = f[i]*data[kk];
+            d2[i] = f[i]*data2[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
         fft(d, ct, st, shift, win);
         fft(d2, ct2, st2, shift, win);
         for (i = 0; i < shift; i++) {
-            pxyr[i] += (ct[i] * ct2[i] + st[i] * st2[i]);
-            pxym[i] += (ct[i] * st2[i] - ct2[i] * st[i]);
-            pxx[i] += (ct[i] * ct[i] + st[i] * st[i]);
-            pyy[i] += (ct2[i] * ct2[i] + st2[i] * st2[i]);
+            pxyr[i] += (ct[i]*ct2[i] + st[i]*st2[i]);
+            pxym[i] += (ct[i]*st2[i] - ct2[i]*st[i]);
+            pxx[i] += (ct[i]*ct[i] + st[i]*st[i]);
+            pyy[i] += (ct2[i]*ct2[i] + st2[i]*st2[i]);
         }
     }
     for (i = 0; i < shift; i++) {
@@ -622,11 +622,11 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
         pyy[i] = pyy[i] / ((kwin)*nrmwin);
         pxyr[i] = pxyr[i] / ((kwin)*nrmwin);
         pxym[i] = pxym[i] / ((kwin)*nrmwin);
-        pxyr[i] = pxyr[i] * pxyr[i] + pxym[i] * pxym[i];
+        pxyr[i] = pxyr[i]*pxyr[i] + pxym[i]*pxym[i];
         if (type == 1)
             pow[i] = log(pxyr[i]);
         else
-            pow[i] = pxyr[i] / (pxx[i] * pyy[i]);
+            pow[i] = pxyr[i] / (pxx[i]*pyy[i]);
     }
     free(f);
     free(ct);
@@ -658,8 +658,8 @@ just_sd(int32 flag) {
     }
     hist_len = spec_wid / 2;
     length = hist_len + 2;
-    my_hist[0] = malloc(sizeof(float) * length);
-    my_hist[1] = malloc(sizeof(float) * length);
+    my_hist[0] = malloc(sizeof(float)*length);
+    my_hist[1] = malloc(sizeof(float)*length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
         err_msg("Cannot allocate enough...");
@@ -703,8 +703,8 @@ compute_sd(void) {
     }
     hist_len = spec_wid / 2;
     length = hist_len + 2;
-    my_hist[0] = malloc(sizeof(float) * length);
-    my_hist[1] = malloc(sizeof(float) * length);
+    my_hist[0] = malloc(sizeof(float)*length);
+    my_hist[1] = malloc(sizeof(float)*length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
         err_msg("Cannot allocate enough...");
@@ -783,7 +783,7 @@ compute_correl(void) {
     if (hist_inf.nbins > (storind / 2 - 1))
         hist_inf.nbins = storind / 2 - 2;
 
-    hist_inf.nbins = 2 * (hist_inf.nbins / 2) + 1;
+    hist_inf.nbins = 2*(hist_inf.nbins / 2) + 1;
     lag = hist_inf.nbins / 2;
 
     /* new_float("Low ",&hist_inf.xlo);
@@ -903,15 +903,15 @@ sft(float *data, float *ct, float *st, int32 nmodes, int32 grid) {
         xi = j*dx;
         for (i = 0; i < grid; i++) {
             x = i*xi;
-            sumc += (cos(x) * data[i]);
-            sums += (sin(x) * data[i]);
+            sumc += (cos(x)*data[i]);
+            sums += (sin(x)*data[i]);
         }
         if (j == 0) {
             ct[j] = sumc / (float)grid;
             st[j] = sums / (float)grid;
         } else {
-            ct[j] = 2. * sumc / (float)grid;
-            st[j] = 2. * sums / (float)grid;
+            ct[j] = 2.*sumc / (float)grid;
+            st[j] = 2.*sums / (float)grid;
         }
     }
 }
@@ -950,8 +950,8 @@ fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
     fftn(1, dim, re1, im1, 1, -1);
     fftn(1, dim, re2, im2, 1, -1);
     for (i = 0; i < length; i++) {
-        x = re1[i] * re2[i] + im1[i] * im2[i];
-        y = im1[i] * re2[i] - im2[i] * re1[i];
+        x = re1[i]*re2[i] + im1[i]*im2[i];
+        y = im1[i]*re2[i] - im2[i]*re1[i];
         re1[i] = x;
         im1[i] = -y;
     }
@@ -962,11 +962,11 @@ fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
     for (i = 0; i < nlag; i++) {
         sum += fabs(im1[i]);
         cr[nlag + i] =
-            (float)re1[i] * length; /* positive part of the correlation */
+            (float)re1[i]*length; /* positive part of the correlation */
     }
     for (i = 0; i < nlag; i++) {
         sum += fabs(im1[length - nlag + i]);
-        cr[i] = (float)re1[length - nlag + i] * length;
+        cr[i] = (float)re1[length - nlag + i]*length;
     }
     free(re1);
     free(re2);
@@ -992,8 +992,8 @@ fft(float *data, float *ct, float *st, int32 nmodes, int32 length) {
     ct[0] = re[0];
     st[0] = 0.0;
     for (i = 1; i < nmodes; i++) {
-        ct[i] = re[i] * 2.0;
-        st[i] = im[i] * 2.0;
+        ct[i] = re[i]*2.0;
+        st[i] = im[i]*2.0;
     }
     free(im);
     free(re);

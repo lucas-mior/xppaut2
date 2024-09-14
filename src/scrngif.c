@@ -258,7 +258,7 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(*buffer));
+    buffer = malloc((BUFLEN + 1)*sizeof(*buffer));
     buffer += 1;
 
     pos = buffer;
@@ -340,7 +340,7 @@ make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1) * sizeof(*buffer));
+    buffer = malloc((BUFLEN + 1)*sizeof(*buffer));
     buffer += 1;
 
     pos = buffer;
@@ -401,7 +401,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
     nodeArray = empty;
     memmove(++nodeArray, empty, 255*sizeof(GifTree **));
-    if ((buffer = malloc((BUFLEN + 1) * sizeof(uchar))) == NULL)
+    if ((buffer = malloc((BUFLEN + 1)*sizeof(uchar))) == NULL)
         return 0;
     buffer++;
 
@@ -415,10 +415,10 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
     cLength = (depth == 1) ? 3 : depth + 1;
 
-    if ((topNode = baseNode = malloc(sizeof(GifTree) * 4094)) == NULL)
+    if ((topNode = baseNode = malloc(sizeof(GifTree)*4094)) == NULL)
         return 0;
     if ((nodeArray = first->node =
-             malloc(256*sizeof(GifTree *) * noOfArrays)) == NULL)
+             malloc(256*sizeof(GifTree *)*noOfArrays)) == NULL)
         return 0;
     lastArray = nodeArray + (256*noOfArrays - cc);
     ClearTree(cc, first);

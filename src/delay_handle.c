@@ -63,7 +63,7 @@ alloc_delay(double big) {
     MaxDelay = n;
     LatestDelay = 1;
     DelayFlag = 0;
-    DelayWork = (double *)calloc(n * (NODE), sizeof(double));
+    DelayWork = (double *)calloc(n*(NODE), sizeof(double));
     if (DelayWork == NULL) {
         err_msg("Could not allocate memory for Delay");
         return 0;
@@ -72,7 +72,7 @@ alloc_delay(double big) {
     NDelay = 0;
     WhichDelay = -1;
     del_stab_flag = 1;
-    for (i = 0; i < n * (NODE); i++)
+    for (i = 0; i < n*(NODE); i++)
         DelayWork[i] = 0.0;
     return 1;
 }
@@ -94,7 +94,7 @@ stor_delay(double *y) {
     --LatestDelay;
     if (LatestDelay < 0)
         LatestDelay += MaxDelay;
-    in = LatestDelay * (nodes);
+    in = LatestDelay*(nodes);
     for (i = 0; i < (nodes); i++)
         DelayWork[i + in] = y[i];
     return;
@@ -170,7 +170,7 @@ get_delay(int32 in, double tau) {
         return 0.0;
     }
     if (tau == 0.0) /* check fro zero delay and ignore the rest */
-        return DelayWork[in + nodes * (LatestDelay % MaxDelay)];
+        return DelayWork[in + nodes*(LatestDelay % MaxDelay)];
     xa[1] = n1*dd;
     xa[0] = xa[1] - dd;
     xa[2] = xa[1] + dd;
@@ -233,7 +233,7 @@ do_init_delay(double big) {
     get_val("t", &old_t);
 
     for (i = nt; i >= 0; i--) {
-        t = T0 - fabs(DELTA_T) * i;
+        t = T0 - fabs(DELTA_T)*i;
         set_val("t", t);
         for (j = 0; j < (NODE); j++)
             y[j] = evaluate(del_form[j]);

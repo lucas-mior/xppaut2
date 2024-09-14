@@ -42,7 +42,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for the Krylov basis vectors V[0], ..., V[l_max] */
 
-    V = malloc((l_max + 1) * sizeof(N_Vector));
+    V = malloc((l_max + 1)*sizeof(N_Vector));
     if (V == NULL)
         return NULL;
 
@@ -56,7 +56,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for the Hessenberg matrix Hes */
 
-    Hes = malloc((l_max + 1) * sizeof(double *));
+    Hes = malloc((l_max + 1)*sizeof(double *));
     if (Hes == NULL) {
         FreeVectorArray(V, l_max);
         return NULL;
@@ -95,7 +95,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory to hold SPGMR y and g vectors */
 
-    yg = malloc((l_max + 1) * sizeof(*yg));
+    yg = malloc((l_max + 1)*sizeof(*yg));
     if (yg == NULL) {
         N_VFree(xcor);
         free(givens);

@@ -215,7 +215,7 @@ lookupxy(double x, int32 n, double *xv, double *yv) {
             y2 = yv[i];
             dx = x2 - x1;
             dy = y2 - y1;
-            return y1 + dy * (x - x1) / dx;
+            return y1 + dy*(x - x1) / dx;
         }
         x1 = xv[i];
         y1 = yv[i];
@@ -233,11 +233,11 @@ tab_interp(double xlo, double h, double x, double *y, int32 i) {
     y1 = y[i + 1];
     y2 = y[i + 2];
     d = y0;
-    b = .5 * (y1 + ym - 2*y0);
-    a = (3 * (y0 - y1) + y2 - ym) / 6;
+    b = .5*(y1 + ym - 2*y0);
+    a = (3*(y0 - y1) + y2 - ym) / 6;
     c = (6*y1 - y2 - 3*y0 - 2*ym) / 6;
     tt = (x - xlo) / h - i;
-    return d + tt * (c + tt * (b + tt*a));
+    return d + tt*(c + tt*(b + tt*a));
 }
 
 double

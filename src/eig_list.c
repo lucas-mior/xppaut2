@@ -107,8 +107,8 @@ create_eq_list(void) {
 
     eq_list.flag = 0; /*  this is to tell that no eq_box is here  */
 
-    hmain = 3 * DCURYs;
-    hlist = NEQ * (DCURYs + 2);
+    hmain = 3*DCURYs;
+    hlist = NEQ*(DCURYs + 2);
     height = hlist + hmain;
     if (height > 300)
         height = 300;
@@ -140,11 +140,11 @@ create_eq_list(void) {
     make_icon((char *)eqns_bits, eqns_width, eqns_height, base);
     eq_list.main = make_plain_window(base, 0, 0, width, hmain, 1);
     eq_list.list = make_plain_window(base, 0, hmain, width, hlist, 1);
-    eq_list.close = make_window(eq_list.main, 10, 5, 7 * DCURXs, DCURYs + 2, 1);
-    eq_list.up = make_window(eq_list.main, 10 + 7 * DCURXs + 14, 5, 7 * DCURXs,
+    eq_list.close = make_window(eq_list.main, 10, 5, 7*DCURXs, DCURYs + 2, 1);
+    eq_list.up = make_window(eq_list.main, 10 + 7*DCURXs + 14, 5, 7*DCURXs,
                              DCURYs + 2, 1);
-    eq_list.down = make_window(eq_list.main, 10 + 14 * DCURXs + 28, 5,
-                               7 * DCURXs, DCURYs + 2, 1);
+    eq_list.down = make_window(eq_list.main, 10 + 14*DCURXs + 28, 5,
+                               7*DCURXs, DCURYs + 2, 1);
 
     XSelectInput(display, eq_list.up, MYMASK);
     XSelectInput(display, eq_list.down, MYMASK);
@@ -210,7 +210,7 @@ eq_list_button(XEvent ev) {
     }
     if (w == eq_list.close) {
         eq_list.flag = 0;
-        waitasec(2 * ClickTime);
+        waitasec(2*ClickTime);
         XDestroySubwindows(display, eq_list.base);
         XDestroyWindow(display, eq_list.base);
     }
@@ -280,11 +280,11 @@ resize_eq_list(Window win) {
      w=ev.xconfigure.width;
      h=ev.xconfigure.height; */
     get_new_size(win, &w, &h);
-    nlines = (h - CURY_OFFs - 2 * DCURYs) / (DCURYs + 2);
+    nlines = (h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
     eq_list.nlines = nlines;
     XResizeWindow(display, eq_list.base, w, h);
-    XResizeWindow(display, eq_list.list, w, h - 2 * DCURYs);
-    XResizeWindow(display, eq_list.main, w, 2 * DCURYs);
+    XResizeWindow(display, eq_list.list, w, h - 2*DCURYs);
+    XResizeWindow(display, eq_list.main, w, 2*DCURYs);
     return;
 }
 
@@ -333,15 +333,15 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
         sprintf(eq_box.type, "STABLE");
 
     if (eq_box.flag == 0) { /*   the box is not made yet    */
-        width = (30 + 30 * (int32)(n / 20)) * DCURXs;
+        width = (30 + 30*(int32)(n / 20))*DCURXs;
         if (n >= 20)
-            hequil = 20 * (DCURYs + 4);
+            hequil = 20*(DCURYs + 4);
         else
-            hequil = n * (DCURYs + 4) + 10;
-        hstab = 2 * DCURY + 4 * DCURYs;
+            hequil = n*(DCURYs + 4) + 10;
+        hstab = 2*DCURY + 4*DCURYs;
         height = hequil + hstab;
-        tpos = (width - 8 * DCURX) / 2;
-        tpos2 = tpos + 9 * DCURX;
+        tpos = (width - 8*DCURX) / 2;
+        tpos2 = tpos + 9*DCURX;
         base = make_plain_window(RootWindow(display, screen), 0, 0, width,
                                  height, 4);
 
@@ -365,11 +365,11 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
         eq_box.stab = make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
         eq_box.rest =
             make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);
-        eq_box.top = make_window(eq_box.stab, tpos, 2, 8 * DCURX, DCURY + 5, 1);
+        eq_box.top = make_window(eq_box.stab, tpos, 2, 8*DCURX, DCURY + 5, 1);
         eq_box.close =
-            make_window(eq_box.base, 2, 2, 8 * DCURXs, DCURYs + 4, 1);
+            make_window(eq_box.base, 2, 2, 8*DCURXs, DCURYs + 4, 1);
         eq_box.import =
-            make_window(eq_box.base, tpos2, 2, 8 * DCURXs, DCURYs + 4, 1);
+            make_window(eq_box.base, tpos2, 2, 8*DCURXs, DCURYs + 4, 1);
         eq_box.flag = 1;
     } else { /*   Already it has been created so we are updating it */
         XClearWindow(display, eq_box.top);
@@ -400,20 +400,20 @@ draw_eq_box(Window w) {
     }
     if (w == eq_box.stab) {
         sprintf(temp, "c+ = %d", eq_box.info[0]);
-        XDrawString(display, eq_box.stab, small_gc, 2, 2 * DCURY + 6, temp,
+        XDrawString(display, eq_box.stab, small_gc, 2, 2*DCURY + 6, temp,
                     strlen(temp));
         sprintf(temp, "c- = %d", eq_box.info[1]);
-        XDrawString(display, eq_box.stab, small_gc, 2 + 9 * DCURXs,
-                    2 * DCURY + 6, temp, strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2 + 9*DCURXs,
+                    2*DCURY + 6, temp, strlen(temp));
         sprintf(temp, "im = %d", eq_box.info[2]);
-        XDrawString(display, eq_box.stab, small_gc, 2 + 18 * DCURXs,
-                    2 * DCURY + 6, temp, strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2 + 18*DCURXs,
+                    2*DCURY + 6, temp, strlen(temp));
         sprintf(temp, "r+ = %d", eq_box.info[3]);
         XDrawString(display, eq_box.stab, small_gc, 2,
-                    2 * DCURY + 2 * DCURYs + 6, temp, strlen(temp));
+                    2*DCURY + 2*DCURYs + 6, temp, strlen(temp));
         sprintf(temp, "r- = %d", eq_box.info[4]);
-        XDrawString(display, eq_box.stab, small_gc, 2 + 9 * DCURXs,
-                    2 * DCURY + 2 * DCURYs + 6, temp, strlen(temp));
+        XDrawString(display, eq_box.stab, small_gc, 2 + 9*DCURXs,
+                    2*DCURY + 2*DCURYs + 6, temp, strlen(temp));
         return;
     }
     if (w == eq_box.rest) {
@@ -430,8 +430,8 @@ draw_eq_box(Window w) {
                 if (in >= n)
                     continue;
                 sprintf(temp, "%s=%.5g", uvar_names[in], eq_box.y[in]);
-                XDrawString(display, eq_box.rest, small_gc, j*28 * DCURXs + 8,
-                            i * (DCURYs + 3) + 13, temp, strlen(temp));
+                XDrawString(display, eq_box.rest, small_gc, j*28*DCURXs + 8,
+                            i*(DCURYs + 3) + 13, temp, strlen(temp));
             }
         }
         return;

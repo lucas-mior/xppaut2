@@ -271,11 +271,11 @@ add_stor_col(char *name, char *formula, BROWSER *b) {
         err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + FIX_VAR] = malloc((i + 2) * sizeof(int32))) == NULL) {
+    if ((my_ode[NEQ + FIX_VAR] = malloc((i + 2)*sizeof(int32))) == NULL) {
         err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = malloc(MAXSTOR * sizeof(float))) == NULL) {
+    if ((storage[NEQ + 1] = malloc(MAXSTOR*sizeof(float))) == NULL) {
         err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
@@ -353,7 +353,7 @@ replace_column(char *var, char *form, float **dat, int32 n) {
     if (n < 2)
         return;
 
-    dt = NJMP * DELTA_T;
+    dt = NJMP*DELTA_T;
     /* first check for derivative or integral symbol */
     i = 0;
     while (i < (int32)strlen(form)) {
@@ -413,7 +413,7 @@ replace_column(char *var, char *form, float **dat, int32 n) {
     /* Okay the formula is cool so lets allocate and replace  */
 
     wipe_rep();
-    old_rep = malloc(sizeof(float) * n);
+    old_rep = malloc(sizeof(float)*n);
     REPLACE = 1;
     for (i = 0; i < n; i++) {
         old_rep[i] = dat[R_COL][i];
@@ -688,7 +688,7 @@ draw_data(BROWSER b) {
 
     /* Do data stuff   */
     for (j = 0; j < b.ncol; j++) {
-        x0 = (j + 1) * dcol + DCURXs / 2;
+        x0 = (j + 1)*dcol + DCURXs / 2;
         j0 = j + b.col0;
         if (j0 >= b.maxcol)
             return; /* if this one is too big, they all are  */
@@ -740,13 +740,13 @@ make_new_browser(void) {
 Window
 br_button(Window root, int32 row, int32 col, int32 iflag) {
     Window win;
-    int32 dcol = 12 * DCURXs;
+    int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
-    int32 width = 8 * DCURXs;
+    int32 width = 8*DCURXs;
     int32 x;
     int32 y;
     if (iflag == 1)
-        dcol = 14 * DCURXs;
+        dcol = 14*DCURXs;
     x = dcol*col + 4;
     y = drow*row + 4;
     win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
@@ -757,14 +757,14 @@ br_button(Window root, int32 row, int32 col, int32 iflag) {
 Window
 br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;
-    int32 dcol = 12 * DCURXs;
+    int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
-    int32 width = strlen(name) * DCURXs;
+    int32 width = strlen(name)*DCURXs;
 
     int32 x;
     int32 y;
     if (iflag == 1)
-        dcol = 14 * DCURXs;
+        dcol = 14*DCURXs;
     x = dcol*col + 4;
     y = drow*row + 4;
     win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
@@ -789,7 +789,7 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     if (ncol < 5)
         ncol = 5;
 
-    height = drow * (row + 6);
+    height = drow*(row + 6);
     width = ncol*dcol;
     b->nrow = row;
     b->ncol = ncol;
@@ -914,7 +914,7 @@ expose_browser(XEvent ev, BROWSER b) {
 void
 resize_browser(Window win, BROWSER *b) {
     uint32 w, h, hreal;
-    int32 dcol = 17 * DCURXs, drow = DCURYs + 6;
+    int32 dcol = 17*DCURXs, drow = DCURYs + 6;
     int32 i0;
     int32 newrow, newcol;
     if (my_browser.xflag == 0)

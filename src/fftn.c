@@ -563,7 +563,7 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
 
     nn = nt - inc;
     jc = ns / nPass;
-    radf = pi2 * (double)jc;
+    radf = pi2*(double)jc;
     pi2 *= 2.0; /* use 2 PI from here on */
 
     ii = 0;
@@ -759,8 +759,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         Im_Data(kk) = tmpi + bj;
                         tmpr -= 0.5*aj;
                         tmpi -= 0.5*bj;
-                        aj = (Re_Data(k1) - Re_Data(k2)) * s60;
-                        bj = (Im_Data(k1) - Im_Data(k2)) * s60;
+                        aj = (Re_Data(k1) - Re_Data(k2))*s60;
+                        bj = (Im_Data(k1) - Im_Data(k2))*s60;
                         Re_Data(k1) = tmpr - bj;
                         Re_Data(k2) = tmpr + bj;
                         Im_Data(k1) = tmpi + aj;
@@ -831,8 +831,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                     Sin[jf - 1] = 0.0;
                     j = 1;
                     do {
-                        Cos[j - 1] = Cos[k - 1] * c1 + Sin[k - 1] * s1;
-                        Sin[j - 1] = Cos[k - 1] * s1 - Sin[k - 1] * c1;
+                        Cos[j - 1] = Cos[k - 1]*c1 + Sin[k - 1]*s1;
+                        Sin[j - 1] = Cos[k - 1]*s1 - Sin[k - 1]*c1;
                         k--;
                         Cos[k - 1] = Cos[j - 1];
                         Sin[k - 1] = -Sin[j - 1];
@@ -881,11 +881,11 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                             bk = bb;
                             k = 1;
                             do {
-                                ak += Rtmp[k] * Cos[jj - 1];
-                                bk += Itmp[k] * Cos[jj - 1];
+                                ak += Rtmp[k]*Cos[jj - 1];
+                                bk += Itmp[k]*Cos[jj - 1];
                                 k++;
-                                aj += Rtmp[k] * Sin[jj - 1];
-                                bj += Itmp[k] * Sin[jj - 1];
+                                aj += Rtmp[k]*Sin[jj - 1];
+                                bj += Itmp[k]*Sin[jj - 1];
                                 k++;
                                 jj += j;
                                 if (jj > jf)
@@ -920,8 +920,8 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
                         do {
                             REAL ak;
                             ak = Re_Data(kk);
-                            Re_Data(kk) = c2*ak - s2 * Im_Data(kk);
-                            Im_Data(kk) = s2*ak + c2 * Im_Data(kk);
+                            Re_Data(kk) = c2*ak - s2*Im_Data(kk);
+                            Im_Data(kk) = s2*ak + c2*Im_Data(kk);
                             kk += ispan;
                         } while (kk <= nt);
                         tmp = s1*s2;
@@ -957,7 +957,7 @@ Permute_Results:
         j = 1;
         do {
             Perm[j] = Perm[j - 1] / factor[j - 1];
-            Perm[k - 1] = Perm[k] * factor[j - 1];
+            Perm[k - 1] = Perm[k]*factor[j - 1];
             j++;
             k--;
         } while (j < k);
@@ -1135,7 +1135,7 @@ Permute_Results:
 
                 do {
                     k1 = kk + kspan;
-                    k2 = k1 - jc * (k + Perm[k - 1]);
+                    k2 = k1 - jc*(k + Perm[k - 1]);
                     k = -Perm[k - 1];
                     do {
                         Re_Data(k1) = Re_Data(k2);

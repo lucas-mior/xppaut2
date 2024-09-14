@@ -18,7 +18,7 @@ plot_command(int32 nit, int32 icount, int32 cwidth) {
     float dx;
     if (nit == 0)
         return;
-    dx = (float)icount * (float)cwidth / (float)nit;
+    dx = (float)icount*(float)cwidth / (float)nit;
     i = (int32)dx;
 
     XDrawPoint(display, command_pop, gc, i, 5);

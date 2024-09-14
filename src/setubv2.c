@@ -69,7 +69,7 @@ setubv_make_aa_bb_cc(void *arg) {
 
     dicd = malloc(sizeof(double)*(larg->nint)*(larg->ndim + NPARX));
     ficd = malloc(sizeof(double)*(larg->nint));
-    dfdp = malloc(sizeof(double)*(larg->ndim) * NPARX);
+    dfdp = malloc(sizeof(double)*(larg->ndim)*NPARX);
     dfdu = malloc(sizeof(double)*(larg->ndim)*(larg->ndim));
     uold = malloc(sizeof(double)*(larg->ndim));
     f = malloc(sizeof(double)*(larg->ndim));
@@ -79,7 +79,7 @@ setubv_make_aa_bb_cc(void *arg) {
     fbc = malloc(sizeof(double)*(larg->nbc));
     uic = malloc(sizeof(double)*(larg->ndim));
     uio = malloc(sizeof(double)*(larg->ndim));
-    prm = malloc(sizeof(double) * NPARX);
+    prm = malloc(sizeof(double)*NPARX);
     uid = malloc(sizeof(double)*(larg->ndim));
     uip = malloc(sizeof(double)*(larg->ndim));
     ubc0 = malloc(sizeof(double)*(larg->ndim));
@@ -118,7 +118,7 @@ setubv_make_aa_bb_cc(void *arg) {
         ddt = 1. / dt;
         for (ic = 0; ic < larg->ncol; ++ic) {
             for (ib = 0; ib < larg->ncol + 1; ++ib) {
-                ARRAY2D(wploc, ib, ic) = ddt * ARRAY2D(wp, ib, ic);
+                ARRAY2D(wploc, ib, ic) = ddt*ARRAY2D(wp, ib, ic);
             }
         }
         /*this loop uses the loop_offset variable since up and uoldps
@@ -158,7 +158,7 @@ setubv_make_aa_bb_cc(void *arg) {
             (*(larg->funi))(larg->iap, larg->rap, larg->ndim, u, uold,
                             larg->icp, prm, 2, f, dfdu, dfdp);
 
-            ic1 = ic * (larg->ndim);
+            ic1 = ic*(larg->ndim);
             for (ib = 0; ib < larg->ncol + 1; ++ib) {
                 double wt_tmp = ARRAY2D(wt, ib, ic);
                 double wploc_tmp = ARRAY2D(wploc, ib, ic);
@@ -167,7 +167,7 @@ setubv_make_aa_bb_cc(void *arg) {
                     ARRAY3D(aa, ib1 + i, ic1 + i, jj) = wploc_tmp;
                     for (k = 0; k < larg->ndim; ++k) {
                         ARRAY3D(aa, ib1 + k, ic1 + i, jj) -=
-                            wt_tmp * ARRAY2D(dfdu, i, k);
+                            wt_tmp*ARRAY2D(dfdu, i, k);
                     }
                 }
             }
@@ -237,7 +237,7 @@ setubv_make_aa_bb_cc(void *arg) {
                     for (i = 0; i < larg->ndim; ++i) {
                         k1 = k*larg->ndim + i;
                         ARRAY3D(cc, k1, larg->nbc + m, jj) =
-                            larg->dtm[j] * larg->wi[k] * ARRAY2D(dicd, m, i);
+                            larg->dtm[j]*larg->wi[k]*ARRAY2D(dicd, m, i);
                     }
                 }
             }
@@ -249,11 +249,11 @@ setubv_make_aa_bb_cc(void *arg) {
             for (k = 0; k < larg->ncol; ++k) {
                 k1 = k*larg->ndim + i;
                 ARRAY3D(cc, k1, larg->nrc - 1, jj) =
-                    larg->dtm[jj] * larg->thu[i] * larg->wi[k] *
+                    larg->dtm[jj]*larg->thu[i]*larg->wi[k] *
                     ARRAY2D(udotps, jj + larg->loop_offset, k1);
             }
             ARRAY3D(cc, larg->nra + i, larg->nrc - 1, jj) =
-                larg->dtm[jj] * larg->thu[i] * larg->wi[larg->ncol] *
+                larg->dtm[jj]*larg->thu[i]*larg->wi[larg->ncol] *
                 ARRAY2D(udotps, jj + 1 + larg->loop_offset, i);
         }
     }
@@ -407,12 +407,12 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     double *wploc = malloc(sizeof(double)*(larg.ncol)*(larg.ncol + 1));
     int64 wploc_dim1 = larg.ncol + 1;
 
-    double *dfdp = malloc(sizeof(double)*(larg.ndim) * NPARX);
+    double *dfdp = malloc(sizeof(double)*(larg.ndim)*NPARX);
     double *dfdu = malloc(sizeof(double)*(larg.ndim)*(larg.ndim));
     double *u = malloc(sizeof(double)*(larg.ndim));
     double *uold = malloc(sizeof(double)*(larg.ndim));
     double *f = malloc(sizeof(double)*(larg.ndim));
-    double *prm = malloc(sizeof(double) * NPARX);
+    double *prm = malloc(sizeof(double)*NPARX);
 
     for (jj = 0; jj < larg.na; ++jj) {
         j = jj;
@@ -421,13 +421,13 @@ setubv_make_fa(setubv_parallel_arglist larg) {
         ddt = 1. / dt;
         for (ic = 0; ic < larg.ncol; ++ic) {
             for (ib = 0; ib < larg.ncol + 1; ++ib) {
-                ARRAY2D(wploc, ib, ic) = ddt * ARRAY2D(wp, ib, ic);
+                ARRAY2D(wploc, ib, ic) = ddt*ARRAY2D(wp, ib, ic);
             }
         }
         for (ic = 0; ic < larg.ncol; ++ic) {
             for (k = 0; k < larg.ndim; ++k) {
-                u[k] = ARRAY2D(wt, larg.ncol, ic) * ARRAY2D(ups, jp1, k);
-                uold[k] = ARRAY2D(wt, larg.ncol, ic) * ARRAY2D(uoldps, jp1, k);
+                u[k] = ARRAY2D(wt, larg.ncol, ic)*ARRAY2D(ups, jp1, k);
+                uold[k] = ARRAY2D(wt, larg.ncol, ic)*ARRAY2D(uoldps, jp1, k);
                 for (l = 0; l < larg.ncol; ++l) {
                     l1 = l*larg.ndim + k;
                     u[k] += ARRAY2D(wt, l, ic) *
@@ -443,7 +443,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
             (*(larg.funi))(larg.iap, larg.rap, larg.ndim, u, uold, larg.icp,
                            prm, 2, f, dfdu, dfdp);
 
-            ic1 = ic * (larg.ndim);
+            ic1 = ic*(larg.ndim);
             for (i = 0; i < larg.ndim; ++i) {
                 ARRAY2D(fa, ic1 + i, jj) =
                     f[i] - ARRAY2D(wploc, larg.ncol, ic) *
@@ -554,10 +554,10 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
                                dicd);
 
                 for (m = 0; m < larg.nint; ++m) {
-                    larg.fc[larg.nbc + m] -= larg.dtm[j] * larg.wi[k] * ficd[m];
+                    larg.fc[larg.nbc + m] -= larg.dtm[j]*larg.wi[k]*ficd[m];
                     for (i = 0; i < larg.ncb; ++i) {
                         ARRAY2D(dd, i, larg.nbc + m) +=
-                            larg.dtm[j] * larg.wi[k] *
+                            larg.dtm[j]*larg.wi[k] *
                             ARRAY2D(dicd, m, larg.ndim + larg.icp[i]);
                     }
                 }
@@ -566,12 +566,12 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     }
 
     for (i = 0; i < larg.ncb; ++i) {
-        ARRAY2D(dd, i, (larg.nrc - 1)) = larg.thl[larg.icp[i]] * larg.rldot[i];
+        ARRAY2D(dd, i, (larg.nrc - 1)) = larg.thl[larg.icp[i]]*larg.rldot[i];
     }
 
     rlsum = 0.;
     for (i = 0; i < larg.ncb; ++i) {
-        rlsum += larg.thl[larg.icp[i]] * (rlcur[i] - rlold[i]) * larg.rldot[i];
+        rlsum += larg.thl[larg.icp[i]]*(rlcur[i] - rlold[i])*larg.rldot[i];
     }
 
     larg.fc[larg.nrc - 1] = rds -

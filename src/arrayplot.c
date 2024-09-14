@@ -256,8 +256,8 @@ do_array_plot_events(XEvent ev) {
         aplot.width = x;
         aplot.height = y;
         aplot.ploth = y - 55;
-        aplot.plotw = x - 30 - 10 * DCURXs;
-        XMoveResizeWindow(display, aplot.wplot, 20 + 10 * DCURXs, 45,
+        aplot.plotw = x - 30 - 10*DCURXs;
+        XMoveResizeWindow(display, aplot.wplot, 20 + 10*DCURXs, 45,
                           aplot.plotw, aplot.ploth);
         break;
     case EnterNotify:
@@ -338,15 +338,15 @@ create_arrayplot(APLOT *ap, char *wname, char *iname) {
     ap->wfit = br_button(base, 0, 4, 0);
     ap->wrange = br_button(base, 0, 5, 0);
     ap->wgif = br_button(base, 1, 0, 0);
-    ap->wmax = make_window(base, 10, 45, 10 * DCURXs, DCURYs, 1);
-    ap->wmin = make_window(base, 10, 51 + DCURYs + color_total, 10 * DCURXs,
+    ap->wmax = make_window(base, 10, 45, 10*DCURXs, DCURYs, 1);
+    ap->wmin = make_window(base, 10, 51 + DCURYs + color_total, 10*DCURXs,
                            DCURYs, 1);
-    ap->wscale = make_window(base, 10 + 4 * DCURXs, 48 + DCURYs, 2 * DCURXs,
+    ap->wscale = make_window(base, 10 + 4*DCURXs, 48 + DCURYs, 2*DCURXs,
                              color_total, 0);
-    ap->wtime = make_window(base, 20 + 10 * DCURXs, 30, 20 * DCURXs, DCURYs, 0);
-    ap->wplot = make_plain_window(base, 20 + 10 * DCURXs, 45,
-                                  width - 30 - 10 * DCURXs, height - 55, 2);
-    ap->plotw = width - 30 - 10 * DCURXs;
+    ap->wtime = make_window(base, 20 + 10*DCURXs, 30, 20*DCURXs, DCURYs, 0);
+    ap->wplot = make_plain_window(base, 20 + 10*DCURXs, 45,
+                                  width - 30 - 10*DCURXs, height - 55, 2);
+    ap->plotw = width - 30 - 10*DCURXs;
     ap->ploth = height - 55;
     ap->alive = 1;
     aplot_gc = XCreateGC(display, ap->wplot, valuemask, &values);
@@ -373,7 +373,7 @@ print_aplot(APLOT *ap) {
     thi = 20.0;
     if (jb > 0 && jb < nrows)
         tlo = my_browser.data[0][jb];
-    jb = row0 + ap->nskip * (ap->ndown - 1);
+    jb = row0 + ap->nskip*(ap->ndown - 1);
     if (jb >= nrows)
         jb = nrows - 1;
     if (jb >= 0)
@@ -436,7 +436,7 @@ draw_scale(APLOT ap) {
     for (i = 0; i < color_total; i++) {
         y = color_total - i - 1;
         set_color(i + FIRSTCOLOR);
-        XDrawLine(display, w, gc_graph, 0, y, 2 * DCURXs, y);
+        XDrawLine(display, w, gc_graph, 0, y, 2*DCURXs, y);
     }
     return;
 }
@@ -658,7 +658,7 @@ redraw_aplot(APLOT ap) {
     thi = 20.0;
     if (jb > 0 && jb < nrows)
         tlo = my_browser.data[0][jb];
-    jb = row0 + ap.nskip * (ap.ndown - 1);
+    jb = row0 + ap.nskip*(ap.ndown - 1);
     if (jb >= nrows)
         jb = nrows - 1;
     if (jb >= 0)
@@ -684,7 +684,7 @@ redraw_aplot(APLOT ap) {
                 iy = (int32)y;
                 /*	  if(j==0)
                           plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */
-                z = (double)color_total * (my_browser.data[ib][jb] - ap.zmin) /
+                z = (double)color_total*(my_browser.data[ib][jb] - ap.zmin) /
                     (ap.zmax - ap.zmin);
                 colr = (int32)z + FIRSTCOLOR;
                 if (colr < FIRSTCOLOR)

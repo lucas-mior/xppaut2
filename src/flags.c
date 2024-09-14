@@ -325,14 +325,14 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     if (smin < STOL)
         smin = STOL;
     else
-        smin = (1 + STOL) * smin;
+        smin = (1 + STOL)*smin;
     if (smin > 1.0)
         return 0;
 
     *tnew = told + dt*smin;
     SETVAR(0, *tnew);
     for (i = 0; i < neq; i++) {
-        ynew[i] = yold[i] + smin * (ynew[i] - yold[i]);
+        ynew[i] = yold[i] + smin*(ynew[i] - yold[i]);
         SETVAR(i + 1, ynew[i]);
     }
     for (i = 0; i < NFlags; i++)
@@ -453,7 +453,7 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
             break;
         /* Its a hit !! */
         nstep++;
-        dtt = (1 - s) * dt;
+        dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard?? ");
             plintf("smin=%g\n", s);
@@ -480,7 +480,7 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
             break;
         /* Its a hit !! */
         nstep++;
-        dtt = (1 - s) * dt;
+        dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard?? ");
             plintf("smin=%g\n", s);
@@ -507,7 +507,7 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
             break;
         /* Its a hit !! */
         nstep++;
-        dtt = (1 - s) * dt;
+        dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard?? ");
             plintf("smin=%g\n", s);
@@ -533,7 +533,7 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
             break;
         /* Its a hit !! */
         nstep++;
-        dtt = (1 - s) * dt;
+        dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard? ");
             plintf(" smin=%g\n", s);
@@ -559,7 +559,7 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
             break;
         /* Its a hit !! */
         nstep++;
-        dtt = (1 - s) * dt;
+        dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard?");
             plintf("smin=%g\n", s);
@@ -761,7 +761,7 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
             break;
         /* Its a hit !! */
         nstep++;
-        dtt = (1 - s) * dt;
+        dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
             plintf(" Working too hard?");
             plintf("smin=%g\n", s);

@@ -18,8 +18,8 @@
 #define PS_SC (10)                   /* scale is 1pt = 10 units */
 /* #define	PS_LW (0.5*PS_SC) */ /* linewidth = 0.5 pts */
 /* #define PS_FONTSIZE 14     */     /* default is 14 point characters */
-#define PS_VCHAR (PS_FONTSIZE * PS_SC)
-#define PS_HCHAR (PS_FONTSIZE * PS_SC * 6 / 10)
+#define PS_VCHAR (PS_FONTSIZE*PS_SC)
+#define PS_HCHAR (PS_FONTSIZE*PS_SC*6 / 10)
 
 #define LEFT 0
 #define RIGHT 2
@@ -130,8 +130,8 @@ ps_init(char *filename, int32 color) {
     fprintf(psfile, "%%!PS-Adobe-2.0\n");
     fprintf(psfile, "%%Creator: xppaut\n");
     fprintf(psfile, "%%%%BoundingBox: %d %d %d %d\n", PS_XOFF, PS_YOFF,
-            (int32)(PS_YMAX / PS_SC + .5 + PS_YOFF + 0.1 * PS_VCHAR),
-            (int32)(PS_XMAX / PS_SC + .5 + PS_XOFF + 0.1 * PS_VCHAR));
+            (int32)(PS_YMAX / PS_SC + .5 + PS_YOFF + 0.1*PS_VCHAR),
+            (int32)(PS_XMAX / PS_SC + .5 + PS_XOFF + 0.1*PS_VCHAR));
     fprintf(psfile, "/xppdict 40 dict def\nxppdict begin\n");
     if (color == 0) {
         fprintf(psfile, "/Color false def \n");
@@ -158,7 +158,7 @@ ps_init(char *filename, int32 color) {
     if (!PS_Port)
         fprintf(psfile, "90 rotate\n0 %d translate\n", -PS_YMAX);
     /* fprintf(psfile,"% 0 setgray\n"); */
-    fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE * PS_SC);
+    fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "newpath\n");
     return 1;
@@ -208,7 +208,7 @@ ps_setcolor(int32 color) {
     if (color == 0)
         i = 0;
     else
-        i = 3 * (color - 19);
+        i = 3*(color - 19);
 
     snprintf(bob, sizeof(bob), " %.3f %.3f %.3f setrgbcolor", pscolor[i],
              pscolor[i + 1], pscolor[i + 2]);
@@ -371,7 +371,7 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
     /*cs=size; Not used anywhere*/
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     ps_abs(x, y);
-    pssz = sz[size] * PS_SC;
+    pssz = sz[size]*PS_SC;
     sub = .3*pssz;
     sup = .6*pssz;
     /* set the size here! */
@@ -395,17 +395,17 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
             if (c == 'n') {
                 ps_rel(0, -cy);
                 cy = 0;
-                pssz = PS_SC * sz[size];
+                pssz = PS_SC*sz[size];
                 ps_fnt(cf, pssz);
             }
             if (c == 's') {
                 cy = cy - sub;
                 ps_rel(0, -sub);
-                pssz = 3 * PS_SC * sz[size] / 5;
+                pssz = 3*PS_SC*sz[size] / 5;
                 ps_fnt(cf, pssz);
             }
             if (c == 'S') {
-                pssz = 3 * PS_SC * sz[size] / 5;
+                pssz = 3*PS_SC*sz[size] / 5;
                 cy = cy + sup;
                 ps_rel(0, sup);
                 ps_fnt(cf, pssz);
@@ -435,11 +435,11 @@ fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font) {
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     switch (font) {
     case 1:
-        fprintf(psfile, "/Symbol findfont %d ", sz[size] * PS_SC);
+        fprintf(psfile, "/Symbol findfont %d ", sz[size]*PS_SC);
         fprintf(psfile, "scalefont setfont\n");
         break;
     default:
-        fprintf(psfile, "/%s findfont %d ", PS_FONT, sz[size] * PS_SC);
+        fprintf(psfile, "/%s findfont %d ", PS_FONT, sz[size]*PS_SC);
         fprintf(psfile, "scalefont setfont\n");
         break;
     }
@@ -461,7 +461,7 @@ void
 ps_text(int32 x, int32 y, char *str) {
     char ch;
     fprintf(psfile, "0 0 0 setrgbcolor \n");
-    fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE * PS_SC);
+    fprintf(psfile, "/%s findfont %d ", PS_FONT, PS_FONTSIZE*PS_SC);
     fprintf(psfile, "scalefont setfont\n");
     fprintf(psfile, "%d %d moveto\n", x, y);
     if (TextAngle != 0)

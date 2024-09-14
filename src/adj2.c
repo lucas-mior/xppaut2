@@ -131,7 +131,7 @@ create_transpose(void) {
     int32 inrow, incol;
     my_trans.data = malloc(sizeof(*(my_trans.data))*(size_t)(NEQ + 1));
     for (i = 0; i <= my_trans.nrow; i++)
-        my_trans.data[i] = malloc(sizeof(my_trans.data[i]) * my_trans.ncol);
+        my_trans.data[i] = malloc(sizeof(my_trans.data[i])*my_trans.ncol);
     for (i = my_trans.nrow + 1; i <= NEQ; i++)
         my_trans.data[i] = storage[i];
     for (j = 0; j < my_trans.ncol; j++)
@@ -285,7 +285,7 @@ new_h_fun(int32 silent) {
     data_back();
     my_h = malloc(sizeof(*my_h)*(NEQ + 1));
     for (i = 0; i < n; i++)
-        my_h[i] = malloc(sizeof(*my_h) * h_len);
+        my_h[i] = malloc(sizeof(*my_h)*h_len);
     for (i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
     if (make_h(storage, my_adj, h_len, NODE, silent)) {
@@ -354,8 +354,8 @@ make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
     if (HODD_EV) {
         for (k = 0; k < nt; k++) {
             k2 = nt - k - 1;
-            my_h[2][k] = .5 * (my_h[1][k] - my_h[1][k2]);
-            my_h[3][k] = .5 * (my_h[1][k] + my_h[1][k2]);
+            my_h[2][k] = .5*(my_h[1][k] - my_h[1][k2]);
+            my_h[3][k] = .5*(my_h[1][k] + my_h[1][k2]);
         }
     }
     rval = 1;
@@ -377,12 +377,12 @@ new_adjoint(void) {
         ADJ_HERE = 0;
     }
     adj_len = storind;
-    my_adj = malloc((NEQ + 1) * sizeof(*my_adj));
+    my_adj = malloc((NEQ + 1)*sizeof(*my_adj));
     for (i = 0; i < n; i++)
-        my_adj[i] = malloc(sizeof(*my_adj) * adj_len);
+        my_adj[i] = malloc(sizeof(*my_adj)*adj_len);
     for (i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
-    if (adjoint(storage, my_adj, adj_len, DELTA_T * NJMP, ADJ_EPS, ADJ_ERR,
+    if (adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
                 ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
         ;
@@ -443,7 +443,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
     int32 n2 = node*node;
     double error;
 
-    work = malloc((n2 + 4*node) * sizeof(*work));
+    work = malloc((n2 + 4*node)*sizeof(*work));
     yprime = malloc(node*sizeof(*yprime));
     yold = malloc(node*sizeof(*yold));
     fold = malloc(node*sizeof(*fold));
@@ -482,7 +482,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
     /* now we iterate to get a good adjoint using implicit Euler's method */
     ytemp = 0.0;
     for (i = 0; i < node; i++) {
-        yold[i] = 1. + .01 * (ndrand48() - .5); /* random initial data */
+        yold[i] = 1. + .01*(ndrand48() - .5); /* random initial data */
 
         ytemp += fabs(yold[i]);
     }
@@ -537,7 +537,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
         rhs(0.0, fdev, yprime, node);
         for (j = 0; j < node; j++) {
             adjnt[j + 1][l] = (float)yold[j];
-            prod += yold[j] * yprime[j] * dt;
+            prod += yold[j]*yprime[j]*dt;
         }
         k2 = k + 1;
         if (k2 >= nt)
@@ -578,8 +578,8 @@ eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
     for (j = 0; j < node; j++) {
         yp[j] = 0.0;
         for (i = 0; i < node; i++)
-            yp[j] = yp[j] + (jac[i + j*node][k1] * (1.0 - t) +
-                             jac[i + j*node][k2] * t) *
+            yp[j] = yp[j] + (jac[i + j*node][k1]*(1.0 - t) +
+                             jac[i + j*node][k2]*t) *
                                 y[i];
     }
     return;
@@ -598,7 +598,7 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
         eval_rhs(jac, k1, k2, t / del, y, yval[1], neq);
         for (i = 0; i < neq; i++) {
             yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
-            yval[2][i] = y[i] + dt*yval[1][i] * 0.5;
+            yval[2][i] = y[i] + dt*yval[1][i]*0.5;
         }
         t1 = t + .5*dt;
         eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
@@ -632,12 +632,12 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
     for (j = 0; j < node; j++) {
         fold[j] = 0.0;
         for (i = 0; i < node; i++)
-            fold[j] = fold[j] + jac[i + j*node][k] * yold[i];
+            fold[j] = fold[j] + jac[i + j*node][k]*yold[i];
     }
     for (j = 0; j < node; j++)
         yold[j] = yold[j] + .5*dt*fold[j];
     for (i = 0; i < n2; i++)
-        mat[i] = -jac[i][k2] * dt * .5;
+        mat[i] = -jac[i][k2]*dt*.5;
     for (i = 0; i < node; i++)
         mat[i + i*node] = 1. + mat[i + i*node];
     sgefa(mat, node, node, ipvt, &info);
@@ -713,7 +713,7 @@ norm_vec(/* returns the length of the vector and the unit vector */
     int32 i;
     double sum = 0.0;
     for (i = 0; i < n; i++)
-        sum += (v[i] * v[i]);
+        sum += (v[i]*v[i]);
     sum = sqrt(sum);
     if (sum > 0)
         for (i = 0; i < n; i++)

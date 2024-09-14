@@ -119,7 +119,7 @@ make_tor_box(char *title) {
     XTextProperty winname;
     XSizeHints size_hints;
 
-    nv = 4 * DisplayHeight / (5 * (DCURYs + 8));
+    nv = 4*DisplayHeight / (5*(DCURYs + 8));
     /*nh=DisplayWidth/(18*DCURXs);*/
 
     if (NEQ < nv)
@@ -130,8 +130,8 @@ make_tor_box(char *title) {
     if (nac*ndn < NEQ)
         nac++;
 
-    width = 24 * DCURXs*nac + 10;
-    height = 3 * DCURYs + ndn * (DCURYs + 8);
+    width = 24*DCURXs*nac + 10;
+    height = 3*DCURYs + ndn*(DCURYs + 8);
 
     base =
         make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
@@ -159,17 +159,17 @@ make_tor_box(char *title) {
     for (i = 0; i < NEQ; i++) {
         i1 = i / nv;
         j1 = i % nv;
-        xpos = xstart + 18 * DCURXs*i1;
-        ypos = ystart + j1 * (DCURYs + 8);
-        torbox.w[i] = make_window(base, xpos, ypos, 15 * DCURXs, DCURYs, 1);
+        xpos = xstart + 18*DCURXs*i1;
+        ypos = ystart + j1*(DCURYs + 8);
+        torbox.w[i] = make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
     }
 
-    xpos = (width - 16 * DCURXs - 10) / 2;
-    ypos = height - 3 * DCURYs / 2;
+    xpos = (width - 16*DCURXs - 10) / 2;
+    ypos = height - 3*DCURYs / 2;
 
-    torbox.cancel = make_window(base, xpos, ypos, 8 * DCURXs, DCURYs, 1);
+    torbox.cancel = make_window(base, xpos, ypos, 8*DCURXs, DCURYs, 1);
     torbox.done =
-        make_window(base, xpos + 8 * DCURXs + 10, ypos, 8 * DCURXs, DCURYs, 1);
+        make_window(base, xpos + 8*DCURXs + 10, ypos, 8*DCURXs, DCURYs, 1);
     XSelectInput(display, torbox.cancel, BUT_MASK);
     XSelectInput(display, torbox.done, BUT_MASK);
     XRaiseWindow(display, torbox.base);

@@ -372,7 +372,7 @@ init_numerics(void)
     my_pmap.type = 0;
     my_pmap.sos = 0;
     my_pmap.sign = 1;
-    my_pmap.tmod = 8. * atan(1.0);
+    my_pmap.tmod = 8.*atan(1.0);
     snprintf(my_pmap.section, sizeof(my_pmap.section), " ");
 
     POIMAP = 0;
@@ -609,8 +609,8 @@ set_col_par_com(int32 i) {
                 maxder = sum;
         }
         if (minder >= 0.0 && maxder > minder) {
-            MyGraph->color_scale = (maxder - minder) / (fabs(DELTA_T * NJMP));
-            MyGraph->min_scale = minder / (fabs(DELTA_T * NJMP));
+            MyGraph->color_scale = (maxder - minder) / (fabs(DELTA_T*NJMP));
+            MyGraph->min_scale = minder / (fabs(DELTA_T*NJMP));
         }
     } else {
         get_max(MyGraph->ColorValue, &temp[0], &temp[1]);

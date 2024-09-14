@@ -53,7 +53,7 @@ BandAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return malloc(N * sizeof(int64));
+    return malloc(N*sizeof(int64));
 }
 
 int64
@@ -233,7 +233,7 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
                 for (i = k + 1, kptr = sub_diag_k,
                     jptr = col_j + ROW(k + 1, j, smu);
                      i <= last_row_k; i++, kptr++, jptr++)
-                    (*jptr) += a_kj * (*kptr);
+                    (*jptr) += a_kj*(*kptr);
             }
         }
     }
