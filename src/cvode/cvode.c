@@ -286,8 +286,7 @@
 /********* BEGIN Private Helper Functions Prototypes **********/
 /**************************************************************/
 
-static bool CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord,
-                           void *machEnv);
+static bool CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord);
 static void CVFreeVectors(CVodeMem cv_mem, int32 maxord);
 
 static bool CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
@@ -410,7 +409,6 @@ static int32 CVHandleFailure(CVodeMem cv_mem, int32 kflag);
 #define jcur (cv_mem->cv_jcur)
 #define tolsf (cv_mem->cv_tolsf)
 #define setupNonNull (cv_mem->cv_setupNonNull)
-#define machenv (cv_mem->cv_machenv)
 
 /**************************************************************/
 /***************** END Readability Constants ******************/
@@ -437,7 +435,7 @@ static int32 CVHandleFailure(CVodeMem cv_mem, int32 kflag);
 void *
 CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
             int32 itol, double *reltol, void *abstol, void *f_data, FILE *errfp,
-            bool optIn, int32 iopt[], double ropt[], void *machEnv) {
+            bool optIn, int32 iopt[], double ropt[]) {
     bool allocOK, ioptExists, roptExists, neg_abstol, ewtsetOK;
     int32 maxord;
     CVodeMem cv_mem;
@@ -539,7 +537,7 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
 
     /* Allocate the vectors */
 
-    allocOK = CVAllocVectors(cv_mem, N, maxord, machEnv);
+    allocOK = CVAllocVectors(cv_mem, N, maxord);
     if (!allocOK) {
         fprintf(fp, MSG_MEM_FAIL);
         free(cv_mem);
@@ -572,7 +570,6 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
     cv_mem->cv_ropt = ropt;
     cv_mem->cv_errfp = fp;
     tn = t0;
-    machenv = machEnv;
 
     /* Set step parameters */
 
@@ -1025,7 +1022,7 @@ CVodeFree(void *cvode_mem) {
 **********************************************************************/
 
 static bool
-CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord, void *machEnv) {
+CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
     int32 i, j;
 
     /* Allocate ewt, acor, tempv, ftemp */

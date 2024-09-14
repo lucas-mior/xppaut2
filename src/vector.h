@@ -164,7 +164,7 @@ typedef struct {
 /***************************************************************
  *                                                             *
  * Function : N_VNew                                           *
- * Usage    : x = N_VNew(N, machEnv);                          *
+ * Usage    : x = N_VNew(N);
  *-------------------------------------------------------------*
  *                                                             *
  * Returns a new N_Vector of length N. The parameter machEnv   *

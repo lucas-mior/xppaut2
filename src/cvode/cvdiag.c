@@ -84,7 +84,6 @@ static void CVDiagFree(CVodeMem cv_mem);
 #define lsolve (cv_mem->cv_lsolve)
 #define lfree (cv_mem->cv_lfree)
 #define lmem (cv_mem->cv_lmem)
-#define machenv (cv_mem->cv_machenv)
 
 #define gammasv (cvdiag_mem->di_gammasv)
 #define M (cvdiag_mem->di_M)

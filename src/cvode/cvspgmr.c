@@ -128,7 +128,6 @@ static int32 CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int32 lr);
 #define lsolve (cv_mem->cv_lsolve)
 #define lfree (cv_mem->cv_lfree)
 #define lmem (cv_mem->cv_lmem)
-#define machenv (cv_mem->cv_machenv)
 
 #define sqrtN (cvspgmr_mem->g_srqtN)
 #define ytemp (cvspgmr_mem->g_ytemp)
@@ -262,7 +261,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Call SpgmrMalloc to allocate workspace for Spgmr */
-    spgmr_mem = SpgmrMalloc(N, maxl, machenv);
+    spgmr_mem = SpgmrMalloc(N, maxl);
     if (spgmr_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(ytemp);

@@ -4565,7 +4565,7 @@ typedef struct {
  *                                                                *
  ******************************************************************/
 
-SpgmrMem SpgmrMalloc(int64 N, int32 l_max, void *machEnv);
+SpgmrMem SpgmrMalloc(int64 N, int32 l_max);
 
 /******************************************************************
  *                                                                *
@@ -4959,7 +4959,7 @@ typedef struct {
 /***************************************************************
  *                                                             *
  * Function : N_VNew                                           *
- * Usage    : x = N_VNew(N, machEnv);                          *
+ * Usage    : x = N_VNew(N);
  *-------------------------------------------------------------*
  *                                                             *
  * Returns a new N_Vector of length N. The parameter machEnv   *
