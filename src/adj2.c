@@ -26,7 +26,7 @@ extern int32 storind, FOUR_HERE;
 extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
 extern char uvar_names[MAX_ODE][12];
-double **my_adj;
+static double **my_adj;
 int32 adj_len;
 double **my_h;
 double *my_liap[2];
@@ -386,7 +386,6 @@ new_adjoint(void) {
     if (adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
                 ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
-        ;
         adj_back();
     }
     ping();
