@@ -392,7 +392,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
              int32 n, double *er, double *em, int32 *ierr) {
     int32 kmem, i, j, ipivot[MAX_ODE];
 
-    int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
+    int32 rp = 0, rn = 0, cp = 0, cn = 0;
     int32 pose = 0, nege = 0;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAX_ODE];
@@ -485,8 +485,6 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                 }
             }
         }
-        if ((real == 0.0) && (imag != 0.0))
-            im++;
     } /* eigenvalue count */
     if (((rp + cp) != 0) && ((rn + cn) != 0))
         eq_symb(x, 1);
