@@ -282,18 +282,6 @@ cput_text(void) {
     return;
 }
 
-/*
-are_you_sure()
-{
- char ch;
- gpos_prn("Are you sure? (Y/N)<N>",0,0);
- ping();
- ch = (char)getchi();
- if(ch=='y'||ch=='Y')return 1;
- return 0;
-}
-*/
-
 int32
 get_mouse_xy(int32 *x, int32 *y, Window w) {
     int32 no_but = 1;
