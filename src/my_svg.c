@@ -635,22 +635,6 @@ svg_point(int32 x, int32 y) {
 }
 
 void
-svg_fnt(int32 cf, int32 scale) {
-}
-
-void
-svg_show(char *str, int32 type) {
-}
-
-void
-svg_abs(int32 x, int32 y) {
-}
-
-void
-svg_rel(int32 x, int32 y) {
-}
-
-void
 special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
     /*int32 i=0,j=0,type=1;
     int32 cf=0;
