@@ -4,3 +4,5 @@ tags
 .tags.vim
 /.cache/
 compile_commands.json
+*.SO
+*.so
