@@ -356,7 +356,7 @@ do_comline(int32 argc, char **argv) {
         }
         if (k == 23) {
             printf("XPPAUT Version %g.%g\nCopyright 2015 Bard Ermentrout\n",
-                   (float)MAJOR_VERSION, (float)MINOR_VERSION);
+                   (double)MAJOR_VERSION, (double)MINOR_VERSION);
             exit(0);
         }
         if (k == 24) {

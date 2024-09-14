@@ -207,7 +207,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
 */
 int32
 read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
-    float x, r[1000], g[1000], b[1000];
+    double x, r[1000], g[1000], b[1000];
     int32 i = 0;
     int32 m;
     int32 j;
@@ -272,11 +272,11 @@ NewColormap(int32 type) {
 }
 
 void
-get_ps_color(int32 i, float *r, float *g, float *b) {
-    float z = 1. / (65535);
-    *r = z*(float)color[i].red;
-    *g = z*(float)color[i].green;
-    *b = z*(float)color[i].blue;
+get_ps_color(int32 i, double *r, double *g, double *b) {
+    double z = 1. / (65535);
+    *r = z*(double)color[i].red;
+    *g = z*(double)color[i].green;
+    *b = z*(double)color[i].blue;
     return;
 }
 

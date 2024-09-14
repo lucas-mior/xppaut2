@@ -669,11 +669,11 @@ io_double(double *z, FILE *fp, int32 f, char *ss) {
 }
 
 void
-io_float(float *z, FILE *fp, int32 f, char *ss) {
+io_float(double *z, FILE *fp, int32 f, char *ss) {
     char bob[256];
     if (f == READEM) {
         fgets(bob, 255, fp);
-        *z = (float)atof(bob);
+        *z = (double)atof(bob);
     } else
         fprintf(fp, "%.16g   %s\n", *z, ss);
 }

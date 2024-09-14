@@ -81,7 +81,7 @@ extern int32 NTable;
 extern int32 NCON, NSYM, NCON_START, NSYM_START;
 
 extern int32 MAXSTOR;
-extern float **storage;
+extern double **storage;
 void
 set_auto_eval_flags(int32 f) {
     int32 i;

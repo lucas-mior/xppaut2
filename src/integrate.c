@@ -649,9 +649,9 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         storind = 0;
         m = fixptlist.n;
         for (i = 0; i < m; i++) {
-            storage[0][storind] = (float)i;
+            storage[0][storind] = (double)i;
             for (j = 0; j < NODE; j++)
-                storage[j + 1][storind] = (float)fixptlist.x[i][j];
+                storage[j + 1][storind] = (double)fixptlist.x[i][j];
             storind++;
         }
         refresh_browser(storind);
@@ -665,7 +665,7 @@ do_eq_range(double *x) {
     int32 npar, stabcol, i, j, ierr;
     int32 mc;
     char bob[256];
-    float stabinfo;
+    double stabinfo;
 
     if (set_up_eq_range() == 0)
         return;
@@ -721,7 +721,7 @@ do_eq_range(double *x) {
         if (mc == 0) {
             storage[0][storind] = temp;
             for (j = 0; j < NODE; j++)
-                storage[j + 1][storind] = (float)x[j];
+                storage[j + 1][storind] = (double)x[j];
             for (j = NODE; j < NODE + NMarkov; j++)
                 storage[j + 1][storind] = 0.0;
             if (stabcol > 0)
@@ -893,10 +893,10 @@ do_range(double *x,
             }
             do_start_flags(x, &MyTime);
             if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
-                storage[0][storind] = (float)MyTime;
+                storage[0][storind] = (double)MyTime;
                 extra(x, MyTime, NODE, NEQ);
                 for (iii = 0; iii < NEQ; iii++)
-                    storage[1 + iii][storind] = (float)x[iii];
+                    storage[1 + iii][storind] = (double)x[iii];
                 storind++;
             }
 
@@ -991,10 +991,10 @@ silent_equilibria(void) {
 void
 find_equilib_com(int32 com) {
     int32 ierr;
-    float xm, ym;
+    double xm, ym;
     int32 im, jm;
     int32 iv, jv;
-    float stabinfo;
+    double stabinfo;
     double *x, oldtrans;
 
     x = &MyData[0];
@@ -1162,10 +1162,10 @@ batch_integrate_once(void) {
         }
         do_start_flags(x, &MyTime);
         if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
-            storage[0][0] = (float)MyTime;
+            storage[0][0] = (double)MyTime;
             extra(x, MyTime, NODE, NEQ);
             for (i = 0; i < NEQ; i++)
-                storage[1 + i][0] = (float)x[i];
+                storage[1 + i][0] = (double)x[i];
             storind = 1;
         }
 
@@ -1235,7 +1235,7 @@ do_init_data(int32 com) {
     FILE *fp;
     /*char icfile[256];*/
     char icfile[XPP_MAX_NAME];
-    float xm, ym;
+    double xm, ym;
     int32 im, jm, oldstart, iv, jv, badmouse;
 
     oldstart = MyStart;
@@ -1479,10 +1479,10 @@ usual_integrate_stuff(double *x) {
 
     do_start_flags(x, &MyTime);
     if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
-        storage[0][0] = (float)MyTime;
+        storage[0][0] = (double)MyTime;
         extra(x, MyTime, NODE, NEQ);
         for (i = 0; i < NEQ; i++)
-            storage[1 + i][0] = (float)x[i];
+            storage[1 + i][0] = (double)x[i];
         storind = 1;
     }
 
@@ -1876,8 +1876,8 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
 int32
 integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
           int32 *start) {
-    float xv[MAX_ODE + 1], xvold[MAX_ODE + 1];
-    float oldperiod = 0.0;
+    double xv[MAX_ODE + 1], xvold[MAX_ODE + 1];
+    double oldperiod = 0.0;
     double error[MAX_ODE];
     double xprime[MAX_ODE], oldxprime[MAX_ODE], hguess = dt;
     int32 kflag;
@@ -1889,7 +1889,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     double oldx[MAX_ODE], oldt = 0, dint, dxp, sect, sect1, tout, tzero = *t;
     double sss, tnew = *t;
     int32 iflagstart = 1;
-    float tscal = tend, tv;
+    double tscal = tend, tv;
 
     char esc;
     char error_message[50];
@@ -1924,9 +1924,9 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     extra(x, *t, NODE,
           NEQ); /* Note this takes care of initializing Markov variables */
     MSWTCH(xpv.x, x);
-    xv[0] = (float)*t;
+    xv[0] = (double)*t;
     for (ieqn = 1; ieqn <= NEQ; ieqn++)
-        xv[ieqn] = (float)x[ieqn - 1];
+        xv[ieqn] = (double)x[ieqn - 1];
     if (animation_on_the_fly)
         on_the_fly(1);
     /* if(POIMAP==4)
@@ -2168,11 +2168,11 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         torcross[ieqn] = -1;
                         /* for (ip = 0; ip < NPlots; ip++) {
                                 if (ieqn == IYPLT[ip]-1)
-                                oldypl[ip] -= (float) TOR_PERIOD;
+                                oldypl[ip] -= (double) TOR_PERIOD;
                                 if (ieqn == IXPLT[ip]-1)
-                                oldxpl[ip] -= (float) TOR_PERIOD;
+                                oldxpl[ip] -= (double) TOR_PERIOD;
                         if ((ieqn == IZPLT[ip]-1) && (PLOT_3D == 1))
-                                oldzpl[ip] -= (float) TOR_PERIOD;
+                                oldzpl[ip] -= (double) TOR_PERIOD;
                                 } */
                     }
                     if (x[ieqn] < 0) {
@@ -2180,12 +2180,12 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                         torcross[ieqn] = 1;
                         /* for (ip = 0; ip < NPlots; ip++) {
                                 if (ieqn == IYPLT[ip]-1)
-                                oldypl[ip] += (float) TOR_PERIOD;
+                                oldypl[ip] += (double) TOR_PERIOD;
                                 if (ieqn == IXPLT[ip]-1)
-                                oldxpl[ip] += (float) TOR_PERIOD;
+                                oldxpl[ip] += (double) TOR_PERIOD;
                         if ((ieqn == IZPLT[ip]-1) &&
                             (MyGraph->ThreeDFlag == 1))
-                                oldzpl[ip] += (float) TOR_PERIOD;
+                                oldzpl[ip] += (double) TOR_PERIOD;
                                 } */
                     }
                 }
@@ -2194,7 +2194,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         xvold[0] = xv[0];
         for (ieqn = 1; ieqn < (NEQ + 1); ieqn++) {
             xvold[ieqn] = xv[ieqn];
-            xv[ieqn] = (float)x[ieqn - 1];
+            xv[ieqn] = (double)x[ieqn - 1];
             /* trap NaN using isnan() in math.h
                modified the out of bounds message as well
                print all the variables on the terminal window, haven't decide
@@ -2215,9 +2215,9 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                             xvold[i_nan], xv[i_nan]);
                 }
                 for (; i_nan <= NEQ; i_nan++) {
-                    /*storage[i_nan][storind]=(float)x[i_nan-1];*/
+                    /*storage[i_nan][storind]=(double)x[i_nan-1];*/
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
-                            xv[i_nan], (float)x[i_nan - 1]);
+                            xv[i_nan], (double)x[i_nan - 1]);
                 }
                 /* storind++;
                  if(!(storind<MAXSTOR))
@@ -2245,9 +2245,9 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                             xvold[i_nan], xv[i_nan]);
                 }
                 for (; i_nan <= NEQ; i_nan++) {
-                    /*storage[i_nan][storind]=(float)x[i_nan-1];*/
+                    /*storage[i_nan][storind]=(double)x[i_nan-1];*/
                     fprintf(stderr, " %s\t%g\t%g\n", uvar_names[i_nan - 1],
-                            xv[i_nan], (float)x[i_nan - 1]);
+                            xv[i_nan], (double)x[i_nan - 1]);
                 }
                 /* storind++;
                  if(!(storind<MAXSTOR))
@@ -2290,7 +2290,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
         if (ieqn < (NEQ + 1))
             break;
-        tv = (float)*t;
+        tv = (double)*t;
         xv[0] = tv;
         if ((POIMAP == 2) && !(POIVAR == 0)) {
             pflag = 0;
@@ -2339,11 +2339,11 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 if (sect < sect1) {
                     dint = sect / (POIPLN + sect - sect1);
                     i = (int32)(fabs(*t) / fabs(POIPLN));
-                    tv = (float)POIPLN*i;
+                    tv = (double)POIPLN*i;
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
                         xv[i] =
-                            (float)(dint*oldx[i - 1] + (1 - dint)*x[i - 1]);
+                            (double)(dint*oldx[i - 1] + (1 - dint)*x[i - 1]);
                     pflag = 1;
                 } else
                     pflag = 0;
@@ -2449,16 +2449,16 @@ send_output(double *y, double t) {
     extra(yy, t, NODE, NEQ);
     if ((STORFLAG == 1) && (storind < MAXSTOR)) {
         for (i = 0; i < NEQ; i++)
-            storage[i + 1][storind] = (float)yy[i];
-        storage[0][storind] = (float)t;
+            storage[i + 1][storind] = (double)yy[i];
+        storage[0][storind] = (double)t;
         storind++;
     }
     return;
 }
 
 void
-do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
-        float *zpl) {
+do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl, double *ypl,
+        double *zpl) {
     int32 ip, np = MyGraph->nvars;
 
     for (ip = 0; ip < np; ip++) {
@@ -2492,7 +2492,7 @@ export_data(FILE *fp) {
     int32 iiXPLT, iiYPLT, iiZPLT;
     int32 strind = get_maxrow_browser();
     int32 i1 = 0;
-    float **data;
+    double **data;
     data = get_browser_data();
     XSHFT = MyGraph->xshft;
     YSHFT = MyGraph->yshft;
@@ -2538,7 +2538,7 @@ export_data(FILE *fp) {
 }
 
 void
-plot_the_graphs(float *xv, float *xvold, double ddt, int32 *tc, int32 flag) {
+plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
     int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
@@ -2555,11 +2555,11 @@ plot_the_graphs(float *xv, float *xvold, double ddt, int32 *tc, int32 flag) {
 }
 
 void
-plot_one_graph(float *xv, float *xvold, double ddt, int32 *tc) {
+plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     int32 *IXPLT, *IYPLT, *IZPLT;
     int32 NPlots, ip;
-    float oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
-    float xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
+    double oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
+    double xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
     NPlots = MyGraph->nvars;
     IXPLT = MyGraph->xv;
     IYPLT = MyGraph->yv;
@@ -2577,7 +2577,7 @@ plot_one_graph(float *xv, float *xvold, double ddt, int32 *tc) {
         zpl[ip] = xv[IZPLT[ip]];
     }
     if (MyGraph->ColorFlag)
-        comp_color(xv, xvold, NODE, (float)ddt);
+        comp_color(xv, xvold, NODE, (double)ddt);
     do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
     return;
 }
@@ -2588,9 +2588,9 @@ restore(int32 i1, int32 i2) {
     int32 ZSHFT, YSHFT, XSHFT;
     int32 i, j, kxoff, kyoff, kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
-    float oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
-    float v1[MAX_ODE + 1], v2[MAX_ODE + 1];
-    float **data;
+    double oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
+    double v1[MAX_ODE + 1], v2[MAX_ODE + 1];
+    double **data;
 
     data = get_browser_data();
     XSHFT = MyGraph->xshft;
@@ -2628,11 +2628,11 @@ restore(int32 i1, int32 i2) {
             }
 
             if (TORUS == 1) {
-                if (fabs(oldxpl - xpl) > (float)(.5*TOR_PERIOD))
+                if (fabs(oldxpl - xpl) > (double)(.5*TOR_PERIOD))
                     oldxpl = xpl;
-                if (fabs(oldypl - ypl) > (float)(.5*TOR_PERIOD))
+                if (fabs(oldypl - ypl) > (double)(.5*TOR_PERIOD))
                     oldypl = ypl;
-                if (fabs(oldzpl - zpl) > (float)(.5*TOR_PERIOD))
+                if (fabs(oldzpl - zpl) > (double)(.5*TOR_PERIOD))
                     oldzpl = zpl;
             }
             if (MyGraph->ColorFlag != 0 && i > i1) {
@@ -2642,7 +2642,7 @@ restore(int32 i1, int32 i2) {
                 }
 
                 comp_color(v1, v2, NODE,
-                           (float)fabs(data[0][i] - data[0][i + 1]));
+                           (double)fabs(data[0][i] - data[0][i + 1]));
             } /* ignored by postscript */
             /* if(MyGraph->line[ip]<0)
                goto noplot; */
@@ -2675,19 +2675,19 @@ restore(int32 i1, int32 i2) {
 
 /*  Sets the color according to the velocity or z-value */
 void
-comp_color(float *v1, float *v2, int32 n, double dt) {
+comp_color(double *v1, double *v2, int32 n, double dt) {
     int32 i, cur_color;
-    float sum;
-    float min_scale = (float)(MyGraph->min_scale);
-    float color_scale = (float)(MyGraph->color_scale);
+    double sum;
+    double min_scale = (double)(MyGraph->min_scale);
+    double color_scale = (double)(MyGraph->color_scale);
     if (MyGraph->ColorFlag == 2) {
         sum = v1[MyGraph->ColorValue];
     } else {
         for (i = 0, sum = 0.0; i < n; i++)
-            sum += (float)fabs((double)(v1[i + 1] - v2[i + 1]));
+            sum += (double)fabs((double)(v1[i + 1] - v2[i + 1]));
         sum = sum / (dt);
     }
-    cur_color = (int32)((sum - min_scale)*(float)color_total / color_scale);
+    cur_color = (int32)((sum - min_scale)*(double)color_total / color_scale);
     if (cur_color < 0)
         cur_color = 0;
     if (cur_color > color_total)

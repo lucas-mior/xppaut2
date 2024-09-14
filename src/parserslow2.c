@@ -1920,7 +1920,7 @@ recip(double z) {
 
 double
 heaviside(double z) {
-    float w = 1.0;
+    double w = 1.0;
     if (z < 0)
         w = 0.0;
     return w;

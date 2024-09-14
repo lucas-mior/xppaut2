@@ -53,7 +53,7 @@ extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern double BOUND, DELAY, TOLER, ATOLER, HMIN, HMAX;
-float *fft_data, *hist_data, color_scale, min_scale;
+double *fft_data, *hist_data, color_scale, min_scale;
 extern double POIPLN;
 
 extern double BVP_TOL, BVP_EPS;
@@ -78,7 +78,7 @@ extern Window command_pop;
 
 /*   I will need access to storage  */
 
-extern float **storage;
+extern double **storage;
 extern int32 storind;
 
 extern int32 NODE, NEQ; /* as well as the number of odes etc  */
@@ -553,7 +553,7 @@ void
 set_col_par_com(int32 i) {
     int32 j, ivar;
     double temp[2];
-    float maxder = 0.0, minder = 0.0, sum = 0.0;
+    double maxder = 0.0, minder = 0.0, sum = 0.0;
     char ch, name[20];
     MyGraph->ColorFlag = i;
     if (MyGraph->ColorFlag == 0) {
@@ -601,7 +601,7 @@ set_col_par_com(int32 i) {
         for (i = 1; i < my_browser.maxrow; i++) {
             sum = 0.0;
             for (j = 0; j < NODE; j++)
-                sum += (float)fabs((double)(my_browser.data[1 + j][i] -
+                sum += (double)fabs((double)(my_browser.data[1 + j][i] -
                                             my_browser.data[1 + j][i - 1]));
             if (sum < minder)
                 minder = sum;

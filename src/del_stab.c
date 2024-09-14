@@ -30,7 +30,7 @@ extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 
 void
 do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
-              int32 n, int32 *ierr, float *stabinfo) {
+              int32 n, int32 *ierr, double *stabinfo) {
     double rr[2];
 
     double colnorm = 0, colmax, colsum;
@@ -120,7 +120,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         ev[1] = rr[1];
     }
     free(coef);
-    *stabinfo = (float)fabs(sign);
+    *stabinfo = (double)fabs(sign);
     /* if(*stabinfo>0) */
     i = (int32)sign;
     if (i == 0 && okroot == 1 && AlphaMax > 0)

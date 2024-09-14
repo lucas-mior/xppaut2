@@ -29,11 +29,11 @@ void make_adj_com(int32 com);
 void adjoint_parameters(void);
 void new_h_fun(int32 silent);
 void dump_h_stuff(FILE *fp, int32 f);
-int32 make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent);
+int32 make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent);
 void new_adjoint(void);
 void test_test(void);
 void compute_one_orbit(double *ic, double per);
-int32 adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
+int32 adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
               double minerr, int32 maxit, int32 node);
 void eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
               int32 node);
@@ -257,21 +257,21 @@ void display_aplot(Window w, APLOT ap);
 int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
                   int32 nacross, int32 ndown, int32 col0, int32 row0,
                   int32 nskip, int32 ncskip, int32 maxrow, int32 maxcol,
-                  float **data, double zmin, double zmax, double tlo,
+                  double **data, double zmin, double zmax, double tlo,
                   double thi, int32 type);
-void ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
+void ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
                int32 maxrow, int32 maxcol, int32 nacross, int32 ndown,
                double zmin, double zmax, int32 type);
 void ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
               double sy);
-void ps_convert(double x, double y, float *xs, float *ys);
+void ps_convert(double x, double y, double *xs, double *ys);
 void ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
                   double zlo, double zhi, int32 type);
 void ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
               double zhi, char *sx, char *sy, char *sb, int32 type);
 void ps_close(void);
 void ps_setline(double fill, int32 thick);
-void ps_put_char(int32 ch, float *x, float *y);
+void ps_put_char(int32 ch, double *x, double *y);
 void ps_text2(char *str, double xr, double yr, int32 icent);
 void ps_line2(double x1r, double y1r, double x2r, double y2r);
 void ps_set_text(double angle, double slant, double x_size, double y_size);
@@ -950,38 +950,38 @@ typedef struct {
     int32 dataflag, xflag;
     int32 col0, row0, ncol, nrow;
     int32 maxrow, maxcol;
-    float **data;
+    double **data;
     int32 istart, iend;
 } BROWSER;
 
 /*extern BROWSER my_browser;
  */
 
-float **get_browser_data(void);
-void set_browser_data(float **data, int32 col0);
-float *get_data_col(int32 c);
+double **get_browser_data(void);
+void set_browser_data(double **data, int32 col0);
+double *get_data_col(int32 c);
 int32 gettimenow(void);
 void waitasec(int32 msec);
 int32 get_maxrow_browser(void);
 void write_mybrowser_data(FILE *fp);
 void write_browser_data(FILE *fp, BROWSER *b);
-int32 check_for_stor(float **data);
+int32 check_for_stor(double **data);
 void del_stor_col(char *var, BROWSER *b);
 void data_del_col(BROWSER *b);
 void data_add_col(BROWSER *b);
 int32 add_stor_col(char *name, char *formula, BROWSER *b);
 void chk_seq(char *f, int32 *seq, double *a1, double *a2);
-void replace_column(char *var, char *form, float **dat, int32 n);
+void replace_column(char *var, char *form, double **dat, int32 n);
 void wipe_rep(void);
 void unreplace_column(void);
 void make_d_table(double xlo, double xhi, int32 col, char *filename, BROWSER b);
-void find_value(int32 col, float val, int32 *row, BROWSER b);
+void find_value(int32 col, double val, int32 *row, BROWSER b);
 void find_variable(char *s, int32 *col);
 void browse_but_on(BROWSER *b, int32 i, Window w, int32 yn);
 void enter_browser(XEvent ev, BROWSER *b, int32 yn);
 void display_browser(Window w, BROWSER b);
 void redraw_browser(BROWSER b);
-void new_browse_dat(float **new_dat, int32 dat_len);
+void new_browse_dat(double **new_dat, int32 dat_len);
 void refresh_browser(int32 length);
 void reset_browser(void);
 void draw_data(BROWSER b);
@@ -1007,7 +1007,7 @@ void data_pgup(BROWSER *b);
 void data_pgdn(BROWSER *b);
 void data_home(BROWSER *b);
 void data_end(BROWSER *b);
-void get_data_xyz(float *x, float *y, float *z, int32 i1, int32 i2, int32 i3,
+void get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
                   int32 off);
 void data_get(BROWSER *b);
 void data_replace(BROWSER *b);
@@ -1074,7 +1074,7 @@ int32 rfun(double y, int32 per);
 int32 gfun(double y, int32 per);
 int32 bfun(double y, int32 per);
 void NewColormap(int32 type);
-void get_ps_color(int32 i, float *r, float *g, float *b);
+void get_ps_color(int32 i, double *r, double *g, double *b);
 void get_svg_color(int32 i, int32 *r, int32 *g, int32 *b);
 void MakeColormap(void);
 int32 ColorMap(int32 i);
@@ -1148,7 +1148,7 @@ typedef struct {
 } COMPLEX;
 
 void do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
-                   int32 n, int32 *ierr, float *stabinfo);
+                   int32 n, int32 *ierr, double *stabinfo);
 COMPLEX csum(COMPLEX z, COMPLEX w);
 COMPLEX cdif(COMPLEX z, COMPLEX w);
 COMPLEX cmlt(COMPLEX z, COMPLEX w);
@@ -1826,7 +1826,7 @@ Sophisticated setting of parameters
          values.
 
 uround   The rounding unit, default 2.3E-16 (this default value can be
-         replaced in the code by DBL_EPSILON providing float.h defines it
+         replaced in the code by DBL_EPSILON providing double.h defines it
          in your system).
 
 safe     Safety factor in the step size prediction, default 0.9.
@@ -1991,7 +1991,7 @@ Sophisticated setting of parameters
          values.
 
 uround   The rounding unit, default 2.3E-16 (this default value can be
-         replaced in the code by DBL_EPSILON providing float.h defines it
+         replaced in the code by DBL_EPSILON providing double.h defines it
          in your system).
 
 safe     Safety factor in the step size prediction, default 0.9.
@@ -2362,9 +2362,9 @@ extern void fft_free(void);
 extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
                   double /* Im */[], int32 /* isign */, double /* scaling */);
 
-/* float precision routine */
-extern int32 fftnf(int32 /* ndim */, const int32 /* dims */[], float /* Re */[],
-                   float /* Im */[], int32 /* isign */, double /* scaling */);
+/* double precision routine */
+extern int32 fftnf(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
+                   double /* Im */[], int32 /* isign */, double /* scaling */);
 
 #ifdef __cplusplus
 }
@@ -2511,7 +2511,7 @@ void strncpy_trim(char *dest, char *source, int32 n);
 void silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 void do_sing(double *x, double eps, double err, double big, int32 maxit,
-             int32 n, int32 *ierr, float *stabinfo);
+             int32 n, int32 *ierr, double *stabinfo);
 void do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 
@@ -2632,7 +2632,7 @@ typedef struct {
 } MOV3D;
 
 typedef struct {
-    float *x[MAXBIFCRV], *y[MAXBIFCRV];
+    double *x[MAXBIFCRV], *y[MAXBIFCRV];
     int32 color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
     Window w;
 } BD;
@@ -2683,7 +2683,7 @@ void draw_freeze(Window w);
 void init_bd(void);
 void draw_bd(Window w);
 void free_bd(void);
-void add_bd_crv(float *x, float *y, int32 len, int32 type, int32 ncrv);
+void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
 void frz_bd(void);
 void read_bd(FILE *fp);
 int32 get_frz_index(Window w);
@@ -2722,7 +2722,7 @@ void special_put_text_x11(int32 x, int32 y, char *str, int32 size);
 void fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font);
 void scale_dxdy(double x, double y, double *i, double *j);
 void scale_to_screen(double x, double y, int32 *i, int32 *j);
-void scale_to_real(int32 i, int32 j, float *x, float *y);
+void scale_to_real(int32 i, int32 j, double *x, double *y);
 void init_all_graph(void);
 void set_extra_graphs(void);
 void reset_graph(void);
@@ -2730,12 +2730,12 @@ void get_graph(void);
 void init_graph(int32 i);
 void copy_graph(int32 i, int32 l);
 void make_rot(double theta, double phi);
-void scale3d(double x, double y, double z, float *xp, float *yp, float *zp);
+void scale3d(double x, double y, double z, double *xp, double *yp, double *zp);
 double proj3d(double theta, double phi, double x, double y, double z, int32 in);
-int32 threedproj(double x2p, double y2p, double z2p, float *xp, float *yp);
+int32 threedproj(double x2p, double y2p, double z2p, double *xp, double *yp);
 void text3d(double x, double y, double z, char *s);
 void text_3d(double x, double y, double z, char *s);
-int32 threed_proj(double x, double y, double z, float *xp, float *yp);
+int32 threed_proj(double x, double y, double z, double *xp, double *yp);
 void point_3d(double x, double y, double z);
 void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
              double zsp1);
@@ -2743,7 +2743,7 @@ void line3d(double x01, double y01, double z01, double x02, double y02,
             double z02);
 void line_3d(double x, double y, double z, double xp, double yp, double zp);
 void pers_line(double x, double y, double z, double xp, double yp, double zp);
-void rot_3dvec(double x, double y, double z, float *xp, float *yp, float *zp);
+void rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp);
 void point_abs(double x1, double y1);
 void line_nabs(double x1_out, double y1_out, double x2_out, double y2_out);
 void bead_abs(double x1, double y1);
@@ -2753,10 +2753,10 @@ void text_abs(double x, double y, char *text);
 void fillintext(char *old, char *new);
 void fancy_text_abs(double x, double y, char *old, int32 size);
 int32 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
-             float *x1p, float *y1p, float *z1p, float *x2p, float *y2p,
-             float *z2p);
-int32 clip(double x1, double x2, double y1, double y2, float *x1_out,
-           float *y1_out, float *x2_out, float *y2_out);
+             double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
+             double *z2p);
+int32 clip(double x1, double x2, double y1, double y2, double *x1_out,
+           double *y1_out, double *x2_out, double *y2_out);
 void eq_symb(double *x, int32 type);
 void draw_symbol(double x, double y, double size, int32 my_symb);
 void reset_all_line_type(void);
@@ -2778,21 +2778,21 @@ void new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
 void column_mean(void);
 int32 get_col_info(int32 *col, char *prompt);
 void compute_power(void);
-int32 spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow);
-int32 cross_spectrum(float *data, float *data2, int32 nr, int32 win,
-                     int32 w_type, float *pow, int32 type);
+int32 spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow);
+int32 cross_spectrum(double *data, double *data2, int32 nr, int32 win,
+                     int32 w_type, double *pow, int32 type);
 void compute_sd(void);
 void compute_fourier(void);
 void compute_correl(void);
 void compute_stacor(void);
-void mycor(float *x, float *y, int32 n, double zlo, double zhi, int32 nbins,
-           float *z, int32 flag);
-void mycor2(float *x, float *y, int32 n, int32 nbins, float *z, int32 flag);
+void mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
+           double *z, int32 flag);
+void mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag);
 void compute_hist(void);
-void sft(float *data, float *ct, float *st, int32 nmodes, int32 grid);
-void fftxcorr(float *data1, float *data2, int32 length, int32 nlag, float *cr,
+void sft(double *data, double *ct, double *st, int32 nmodes, int32 grid);
+void fftxcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
               int32 flag);
-void fft(float *data, float *ct, float *st, int32 nmodes, int32 length);
+void fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
 void just_fourier(int32 flag);
 void just_sd(int32 flag);
 void post_process_stuff(void);
@@ -2999,14 +2999,14 @@ int32 integrate(double *t, double *x, double tend, double dt, int32 count,
                 int32 nout, int32 *start);
 void send_halt(void);
 void send_output(double *y, double t);
-void do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl,
-             float *ypl, float *zpl);
+void do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
+             double *ypl, double *zpl);
 void export_data(FILE *fp);
-void plot_the_graphs(float *xv, float *xvold, double ddt,
+void plot_the_graphs(double *xv, double *xvold, double ddt,
                      int32 *tc, int32 flag);
-void plot_one_graph(float *xv, float *xvold, double ddt, int32 *tc);
+void plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
 void restore(int32 i1, int32 i2);
-void comp_color(float *v1, float *v2, int32 n, double dt);
+void comp_color(double *v1, double *v2, int32 n, double dt);
 void shoot(double *x, double *xg, double *evec, int32 sgn);
 void shoot_easy(double *x);
 void stop_integration(void);
@@ -3274,11 +3274,11 @@ void too_small(void);
  * This is the header file for a C math library. The routines     *
  * listed here work with the type double as defined in llnltyps.h.  *
  * To do single precision floating point arithmetic, set the type *
- * double to be float. To do double precision arithmetic, set the   *
+ * double to be double. To do double precision arithmetic, set the   *
  * type double to be double. The default implementations for        *
  * RPowerR and RSqrt call standard math library functions which   *
  * do double precision arithmetic. If this is unacceptable when   *
- * double is float, then the user should re-implement these two     *
+ * double is double, then the user should re-implement these two     *
  * routines by calling single precision routines available on     *
  * his/her machine.                                               *
  *                                                                *
@@ -3597,7 +3597,7 @@ void io_exprs(int32 f, FILE *fp);
 void io_graph(int32 f, FILE *fp);
 void io_int(int32 *i, FILE *fp, int32 f, char *ss);
 void io_double(double *z, FILE *fp, int32 f, char *ss);
-void io_float(float *z, FILE *fp, int32 f, char *ss);
+void io_float(double *z, FILE *fp, int32 f, char *ss);
 void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #endif
@@ -3659,7 +3659,7 @@ void draw_label(Window w);
 void add_grob(double xs, double ys, double xe, double ye, double size,
               int32 type, int32 color);
 int32 select_marker_type(int32 *type);
-int32 man_xy(float *xe, float *ye);
+int32 man_xy(double *xe, double *ye);
 int32 get_marker_info(void);
 int32 get_markers_info(void);
 void add_marker(void);
@@ -4078,11 +4078,11 @@ void svg_text(int32 x, int32 y, char *str);
 #include <stdio.h>
 
 typedef struct {
-    float x, y, z;
+    double x, y, z;
 } Pt;
 
 typedef struct nclines {
-    float *xn, *yn;
+    double *xn, *yn;
     int32 nmx, nmy;
     int32 n_ix, n_iy;
     struct nclines *n, *p;
@@ -4093,10 +4093,10 @@ void froz_cline_stuff_com(int32 i);
 void do_range_clines(void);
 void start_ncline(void);
 void clear_froz_cline(void);
-int32 get_nullcline_floats(float **v, int32 *n, int32 who, int32 type);
+int32 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type);
 void save_frozen_clines(char *fn);
 void redraw_froz_cline(int32 flag);
-void add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
+void add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                     int32 n_iy);
 void get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                     double dv, int32 n, int32 inx, int32 iny, double *mdf);
@@ -4104,15 +4104,15 @@ void redraw_dfield(void);
 void direct_field_com(int32 c);
 void save_the_nullclines(void);
 void restore_nullclines(void);
-void dump_clines(FILE *fp, float *x, int32 nx, float *y, int32 ny);
-void dump_clines_old(FILE *fp, float *x, int32 nx, float *y, int32 ny);
-void restor_null(float *v, int32 n, int32 d);
+void dump_clines(FILE *fp, double *x, int32 nx, double *y, int32 ny);
+void dump_clines_old(FILE *fp, double *x, int32 nx, double *y, int32 ny);
+void restor_null(double *v, int32 n, int32 d);
 void new_clines_com(int32 c);
 void new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
-                   float *stor, int32 *npts);
+                   double *stor, int32 *npts);
 void stor_null(double x1, double y1, double x2, double y2);
-float fnull(double x, double y);
-int32 interpolate(Pt p1, Pt p2, double z, float *x, float *y);
+double fnull(double x, double y);
+int32 interpolate(Pt p1, Pt p2, double z, double *x, double *y);
 void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
 void triangle_contour(Pt p1, Pt p2, Pt p3);
 void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
@@ -4131,7 +4131,7 @@ void silent_dfields(void);
 
 extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern double BOUND, DELAY, TOLER, HMIN, HMAX;
-extern float *fft_data, *hist_data, color_scale, min_scale;
+extern double *fft_data, *hist_data, color_scale, min_scale;
 extern double POIPLN;
 
 extern int32 NMESH, NJMP, METHOD, color_flag, NC_ITER;

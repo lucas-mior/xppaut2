@@ -12,7 +12,7 @@ extern int32 TypeOfCalc;
 extern ROTCHK blrtn;
 extern int32 PS_Color;
 
-extern float **storage;
+extern double **storage;
 extern int32 storind;
 #define PACK_AUTO 0
 #define PACK_LBF 1

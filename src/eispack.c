@@ -3172,7 +3172,7 @@ L75:
     /*     FOR COMPLEX      SET HITEST = CUTHI/(2*N) */
 
 L85:
-    hitest = cuthi / (float)(*n);
+    hitest = cuthi / (double)(*n);
 
     /*                   PHASE 3.  SUM IS MID-RANGE.  NO SCALING. */
 

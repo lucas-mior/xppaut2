@@ -134,7 +134,7 @@ int32 itor[MAX_ODE];
  */
 char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
-float oldhp_x, oldhp_y, my_pl_wid, my_pl_ht;
+double oldhp_x, oldhp_y, my_pl_wid, my_pl_ht;
 int32 mov_ind;
 int32 storind, STORFLAG, INFLAG, MAXSTOR;
 double x_3d[2], y_3d[2], z_3d[2];

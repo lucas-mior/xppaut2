@@ -50,10 +50,10 @@ typedef struct {
 
 MARKOV markov[MAX_MARK];
 
-extern float **storage;
+extern double **storage;
 
 extern int32 storind;
-float *my_mean[MAX_ODE], *my_variance[MAX_ODE];
+double *my_mean[MAX_ODE], *my_variance[MAX_ODE];
 int32 stoch_len;
 
 int32 STOCH_FLAG, STOCH_HERE, N_TRIALS;
@@ -569,7 +569,7 @@ init_stoch(int32 len) {
 void
 append_stoch(int32 first, int32 length) {
     int32 i, j;
-    float z;
+    double z;
     if (first == 0)
         init_stoch(length);
     if (length != stoch_len || !STOCH_HERE)
@@ -588,10 +588,10 @@ append_stoch(int32 first, int32 length) {
 void
 do_stats(int32 ierr) {
     int32 i, j;
-    float ninv, mean;
+    double ninv, mean;
     /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {
-        ninv = 1. / (float)(N_TRIALS);
+        ninv = 1. / (double)(N_TRIALS);
         for (i = 0; i < stoch_len; i++) {
             for (j = 1; j <= NEQ; j++) {
                 mean = my_mean[j][i]*ninv;

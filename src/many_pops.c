@@ -23,7 +23,7 @@
 #define HTMARK .0016
 
 typedef struct {
-    float xs, ys, xe, ye;
+    double xs, ys, xe, ye;
     double size;
     short use;
     Window w;
@@ -217,7 +217,7 @@ restore_on(void) {
 void
 add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
     int32 i;
-    float xp, yp;
+    double xp, yp;
     scale_to_real(x, y, &xp, &yp);
     for (i = 0; i < MAXLAB; i++) {
         if (lb[i].use == 0) {
@@ -237,7 +237,7 @@ add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
 void
 draw_marker(double x, double y, double size, int32 type) {
     int32 pen = 0;
-    float x1 = x, y1 = y, x2, y2;
+    double x1 = x, y1 = y, x2, y2;
     int32 ind = 0;
     int32 offset;
 
@@ -542,8 +542,8 @@ draw_marker(double x, double y, double size, int32 type) {
         0,
 
     };
-    float dx = (MyGraph->xhi - MyGraph->xlo)*WDMARK*size;
-    float dy = (MyGraph->yhi - MyGraph->ylo)*HTMARK*size;
+    double dx = (MyGraph->xhi - MyGraph->xlo)*WDMARK*size;
+    double dy = (MyGraph->yhi - MyGraph->ylo)*HTMARK*size;
     while (true) {
         offset = 48*type + 3*ind;
         pen = sym_dir[offset];
@@ -562,7 +562,7 @@ draw_marker(double x, double y, double size, int32 type) {
 
 void
 draw_grob(int32 i) {
-    float xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
+    double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
     set_linestyle(grob[i].color);
     if (grob[i].type == POINTER)
         line_abs(xs, ys, xe, ye);
@@ -575,13 +575,13 @@ draw_grob(int32 i) {
 
 void
 arrow_head(double xs, double ys, double xe, double ye, double size) {
-    float l = xe - xs, h = ye - ys;
-    float ar = (MyGraph->xhi - MyGraph->xlo) / (MyGraph->yhi - MyGraph->ylo);
-    float x0 = xs + size*l, y0 = ys + size*h;
-    /* float tot=(float)sqrt((double)(l*l+h*h)); */
+    double l = xe - xs, h = ye - ys;
+    double ar = (MyGraph->xhi - MyGraph->xlo) / (MyGraph->yhi - MyGraph->ylo);
+    double x0 = xs + size*l, y0 = ys + size*h;
+    /* double tot=(double)sqrt((double)(l*l+h*h)); */
 
-    float xp = x0 + .5*size*h*ar, yp = y0 - .5*size*l / ar;
-    float xm = x0 - .5*size*h*ar, ym = y0 + .5*size*l / ar;
+    double xp = x0 + .5*size*h*ar, yp = y0 - .5*size*l / ar;
+    double xm = x0 - .5*size*h*ar, ym = y0 + .5*size*l / ar;
     line_abs(xs, ys, xp, yp);
     line_abs(xs, ys, xm, ym);
     return;
@@ -672,7 +672,7 @@ select_marker_type(int32 *type) {
 }
 
 int32
-man_xy(float *xe, float *ye) {
+man_xy(double *xe, double *ye) {
     double x = 0, y = 0;
     if (new_float("x: ", &x))
         return 0;
@@ -729,7 +729,7 @@ get_markers_info(void) {
 void
 add_marker(void) {
     int32 flag, i1, j1, status;
-    float xe = 0.0, ye = 0.0, xs, ys;
+    double xe = 0.0, ye = 0.0, xs, ys;
     status = get_marker_info();
     if (status == 0)
         return;
@@ -748,7 +748,7 @@ void
 add_marker_old(void) {
     double size = 1;
     int32 i1, j1, color = 0, flag;
-    float xe = 0.0, ye = 0.0, xs, ys;
+    double xe = 0.0, ye = 0.0, xs, ys;
     /*Window temp=main_win;*/
     int32 type = MARKER;
     if (select_marker_type(&type) == 0)
@@ -787,7 +787,7 @@ add_marker_old(void) {
 void
 add_markers(void) {
     int32 i;
-    float xe = 0.0, ye = 0.0, xs, ys, x, y, z;
+    double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
     if (get_markers_info() == 0)
         return;
@@ -811,7 +811,7 @@ add_markers_old(void) {
     int32 i;
     int32 color = 0;
     int32 nm = 1, nskip = 1, nstart = 0;
-    float xe = 0.0, ye = 0.0, xs, ys, x, y, z;
+    double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
     int32 type = MARKER;
     if (select_marker_type(&type) == 0)
@@ -844,7 +844,7 @@ void
 add_pntarr(int32 type) {
     double size = .1;
     int32 i1, j1, i2, j2, color = 0;
-    float xe, ye, xs, ys;
+    double xe, ye, xs, ys;
     /*Window temp;*/
     int32 flag;
     /*temp=main_win;*/
@@ -873,8 +873,8 @@ void
 edit_object_com(int32 com) {
     char ans, str[80];
     int32 i, j, ilab = -1, flag, type;
-    float x, y;
-    float dist = 1e20, dd;
+    double x, y;
+    double dist = 1e20, dd;
 
     MessageBox("Choose Object");
     flag = GetMouseXY(&i, &j);
@@ -1273,7 +1273,7 @@ void
 do_motion_events(XEvent ev) {
     int32 i = ev.xmotion.x;
     int32 j = ev.xmotion.y;
-    float x, y;
+    double x, y;
     char buf[256];
     slider_motion(ev);
 #ifdef AUTO
@@ -1594,7 +1594,7 @@ check_draw_button(XEvent ev) {
 
     int32 button;
     int32 i, j;
-    float x, y;
+    double x, y;
     int32 flag = 0;
     Window w;
     button = ev.xbutton.button;

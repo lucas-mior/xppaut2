@@ -79,7 +79,7 @@ extern Window command_pop;
                 int32 dataflag,xflag;
                 int32 col0,row0,ncol,nrow;
                 int32 maxrow,maxcol;
-                float **data;
+                double **data;
                 int32 istart,iend;
                 } BROWSER;
 */
@@ -87,24 +87,24 @@ BROWSER my_browser;
 
 extern int32 noicon;
 extern char uvar_names[MAX_ODE][12];
-float *old_rep;
+double *old_rep;
 int32 REPLACE = 0, R_COL = 0;
 
-extern float **storage;
+extern double **storage;
 
-float **
+double **
 get_browser_data(void) {
     return my_browser.data;
 }
 
 void
-set_browser_data(float **data, int32 col0) {
+set_browser_data(double **data, int32 col0) {
     my_browser.data = data;
     my_browser.col0 = col0;
     return;
 }
 
-float *
+double *
 get_data_col(int32 c) {
     return my_browser.data[c];
 }
@@ -178,7 +178,7 @@ write_browser_data(FILE *fp, BROWSER *b) {
 }
 
 int32
-check_for_stor(float **data) {
+check_for_stor(double **data) {
     if (data != storage) {
         err_msg("Only data can be in browser");
         return 0;
@@ -274,7 +274,7 @@ add_stor_col(char *name, char *formula, BROWSER *b) {
         err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = malloc(MAXSTOR*sizeof(float))) == NULL) {
+    if ((storage[NEQ + 1] = malloc(MAXSTOR*sizeof(double))) == NULL) {
         err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
@@ -298,7 +298,7 @@ add_stor_col(char *name, char *formula, BROWSER *b) {
             set_ivar(j, (double)storage[j][i]);
         for (j = NODE; j < NEQ; j++)
             set_val(uvar_names[j], (double)storage[j + 1][i]);
-        storage[NEQ + 1][i] = (float)evaluate(com);
+        storage[NEQ + 1][i] = (double)evaluate(com);
     }
     add_var(uvar_names[NEQ], 0.0); /*  this could be trouble .... */
     NEQ++;
@@ -340,14 +340,14 @@ chk_seq(char *f, int32 *seq, double *a1, double *a2) {
 }
 
 void
-replace_column(char *var, char *form, float **dat, int32 n) {
+replace_column(char *var, char *form, double **dat, int32 n) {
     int32 com[200], i, j;
     int32 intflag = 0;
     int32 dif_var = -1;
     int32 seq = 0;
     double a1, a2, da = 0.0;
-    float old = 0.0, dt, derv = 0.0;
-    float sum = 0.0;
+    double old = 0.0, dt, derv = 0.0;
+    double sum = 0.0;
     if (n < 2)
         return;
 
@@ -422,12 +422,12 @@ replace_column(char *var, char *form, float **dat, int32 n) {
                 for (j = NODE; j < NEQ; j++)
                     set_val(uvar_names[j], (double)dat[j + 1][i]);
                 if (intflag) {
-                    sum += (float)evaluate(com);
+                    sum += (double)evaluate(com);
                     dat[R_COL][i] = sum*dt;
                 } else
-                    dat[R_COL][i] = (float)evaluate(com);
+                    dat[R_COL][i] = (double)evaluate(com);
             } else {
-                dat[R_COL][i] = (float)(a1 + i*da);
+                dat[R_COL][i] = (double)(a1 + i*da);
             }
         } else {
             if (i == 0)
@@ -485,11 +485,11 @@ make_d_table(double xlo, double xhi, int32 col, char *filename, BROWSER b) {
 }
 
 void
-find_value(int32 col, float val, int32 *row, BROWSER b) {
+find_value(int32 col, double val, int32 *row, BROWSER b) {
     int32 n = b.maxrow;
     int32 i;
     int32 ihot = 0;
-    float err, errm;
+    double err, errm;
     errm = fabs(b.data[col][0] - val);
     for (i = b.row0; i < n; i++) {
         err = fabs(b.data[col][i] - val);
@@ -640,7 +640,7 @@ redraw_browser(BROWSER b) {
 }
 
 void
-new_browse_dat(float **new_dat, int32 dat_len) {
+new_browse_dat(double **new_dat, int32 dat_len) {
     my_browser.data = new_dat;
     refresh_browser(dat_len);
 }
@@ -1263,7 +1263,7 @@ data_end(BROWSER *b) {
 }
 
 void
-get_data_xyz(float *x, float *y, float *z, int32 i1, int32 i2, int32 i3,
+get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
              int32 off) {
     int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
@@ -1363,7 +1363,7 @@ data_find(BROWSER *b) {
     char value[2][MAX_LEN_SBOX];
     int32 col, row = 0;
 
-    float val;
+    double val;
 
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
     sprintf(value[1], "0.00");
@@ -1374,7 +1374,7 @@ data_find(BROWSER *b) {
 
     if (status == 0)
         return;
-    val = (float)atof(value[1]);
+    val = (double)atof(value[1]);
     find_variable(value[0], &col);
     if (col >= 0)
         find_value(col, val, &row, *b);
@@ -1414,7 +1414,7 @@ data_read(BROWSER *b) {
     FILE *fp;
     int32 k;
     int32 len, count = 0, white = 1;
-    float z;
+    double z;
 
     strcpy(fil, "test.dat");
     /*  XGetInputFocus(display,&w,&rev);

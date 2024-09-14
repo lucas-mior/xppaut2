@@ -13,11 +13,11 @@
  * a file. The types for double and int64 below have been set to  *
  * double and int32, respectively. A user should modify these       *
  * type declarations as he/she sees fit. For example, if a user   *
- * wants the work with type float because double precision        *
+ * wants the work with type double because double precision        *
  * floating point arithmetic is too expensive on the user's       *
  * machine, then the definition below should be changed to:       *
  *                                                                *
- * typedef float double;                                            *
+ * typedef double double;                                            *
  *                                                                *
  * Similarly, if a user needs to work with extremely large        *
  * integers (see the system header file <limits.h> for the limits *
@@ -31,7 +31,7 @@
  * follows:                                                       *
  *                                                                *
  * (1) #define FLOAT 1                                            *
- *     #define DOUBLE 0     (double is float)                       *
+ *     #define DOUBLE 0     (double is double)                       *
  *                                                                *
  * (2) #define FLOAT 0                                            *
  *     #define DOUBLE 1     (double is double)                      *
@@ -42,7 +42,7 @@
  * (4) #define INT 0                                              *
  *     #define LONG_INT 1   (int64 is   int32)                 *
  *                                                                *
- * Thus the legal types for double are float and double, while      *
+ * Thus the legal types for double are double and double, while      *
  * the legal types for int64 are int32 and   int32. The macro    *
  * RCONST gives a user a convenient way to define double            *
  * constants. To use the double constant 1.0, for example, the      *
@@ -51,7 +51,7 @@
  * #define ONE RCONST(1.0)                                        *
  *                                                                *
  * If double is double, then RCONST(1.0) expands to 1.0. If double is *
- * float, then RCONST(1.0) expands to 1.0F. There is never a      *
+ * double, then RCONST(1.0) expands to 1.0F. There is never a      *
  * need to explicitely cast 1.0 to (double).                        *
  *                                                                *
  ******************************************************************/

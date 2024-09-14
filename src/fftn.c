@@ -125,7 +125,7 @@
  *
  *	- use -DFFT_NOFLOAT or -DFFT_NODOUBLE to avoid compiling that
  *	  precision. Note suffix `f' on the function names indicates
- *	  float precision.
+ *	  double precision.
  *
  *	- revised documentation
  *
@@ -149,7 +149,7 @@
  *	- removed unnecessary casts from allocations
  *
  * 10 Dec 96	mj olesen <olesen@me.QueensU.CA>
- *	- changes defines to compile *without* float support by default,
+ *	- changes defines to compile *without* double support by default,
  *	  use -DFFT_FLOAT to enable.
  *	- shifted some variables to local scope	(better hints for optimizer)
  *	- added Michael Steffens <Michael.Steffens@mbox.muk.uni-hannover.de>
@@ -166,7 +166,7 @@
 /*}}}*/
 #ifndef FFTN_C
 #define FFTN_C
-/* we use CPP to re-include this same file for double/float cases
+/* we use CPP to re-include this same file for double/double cases
 #if !defined (lint) && !defined (__FILE__)
 Error: your compiler is sick!  define __FILE__ yourself (a string)
 eg, something like -D__FILE__=\"fftn.c\"
@@ -193,7 +193,7 @@ eg, something like -D__FILE__=\"fftn.c\"
 static size_t SpaceAlloced = 0;
 static long MaxPermAlloced = 0;
 
-/* temp space, (void *) since both float and double routines use it */
+/* temp space, (void *) since both double and double routines use it */
 static void *Tmp0 = NULL;  /* temp space for real part */
 static void *Tmp1 = NULL;  /* temp space for imaginary part */
 static void *Tmp2 = NULL;  /* temp space for Cosine values */
@@ -310,21 +310,21 @@ static int32 fftradix(double Re[], double Im[], size_t nTotal, size_t nPass,
 #endif
 /*}}}*/
 
-/*{{{ defines for re-including float precision */
+/*{{{ defines for re-including double precision */
 #ifdef FFT_FLOAT
 #undef REAL
 #undef FFTN
 #undef FFTNS
 #undef FFTRADIX
 #undef FFTRADIXS
-/* defines for float */
-#define REAL float
-#define FFTN fftnf            /* trailing 'f' for float */
+/* defines for double */
+#define REAL double
+#define FFTN fftnf            /* trailing 'f' for double */
 #define FFTNS "fftnf"         /* name for error message */
-#define FFTRADIX fftradixf    /* trailing 'f' for float */
+#define FFTRADIX fftradixf    /* trailing 'f' for double */
 #define FFTRADIXS "fftradixf" /* name for error message */
-/* float precision routine */
-static int32 fftradixf(float Re[], float Im[], size_t nTotal, size_t nPass,
+/* double precision routine */
+static int32 fftradixf(double Re[], double Im[], size_t nTotal, size_t nPass,
                        size_t nSpan, int32 isign, int32 maxFactors,
                        int32 maxPerm);
 #include __FILE__ /* include this file again */

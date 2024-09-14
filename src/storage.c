@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "xpplim.h"
-float **storage;
+double **storage;
 double *WORK;
 extern int32 MAXSTOR, storind;
 int32 IWORK[10000];
@@ -63,7 +63,7 @@ alloc_meth(void) {
 int32
 reallocstor(int32 ncol, int32 nrow) {
     int32 i = 0;
-    while ((storage[i] = (float *)realloc(storage[i], nrow*sizeof(float))) !=
+    while ((storage[i] = (double *)realloc(storage[i], nrow*sizeof(double))) !=
            NULL) {
         i++;
         if (i == ncol)
@@ -77,12 +77,12 @@ void
 init_stor(int32 nrow, int32 ncol) {
     int32 i;
     WORK = NULL;
-    storage = malloc((MAX_ODE + 1)*sizeof(float *));
+    storage = malloc((MAX_ODE + 1)*sizeof(double *));
     MAXSTOR = nrow;
     storind = 0;
     if (storage != NULL) {
         i = 0;
-        while ((storage[i] = malloc(nrow*sizeof(float))) != NULL) {
+        while ((storage[i] = malloc(nrow*sizeof(double))) != NULL) {
             i++;
             if (i == ncol)
                 return;

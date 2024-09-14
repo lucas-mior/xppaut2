@@ -1053,7 +1053,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
     int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO],
         nlev, itmp;
     double zero, tpiv;
-    float xkwt;
+    double xkwt;
     int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
 
     logical evenc[KREDO];
@@ -1100,9 +1100,9 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
     nrcmnbc = *nrc - *nbc;
     len1 = (*nov*(*nrc - *nbc))*8;
     len2 = (*nov + *nrc - *nbc + 1)*8;
-    xkwt = (float)(*kwt);
+    xkwt = (double)(*kwt);
     {
-        float tmp = r_lg10(xkwt) / r_lg10(2.0);
+        double tmp = r_lg10(xkwt) / r_lg10(2.0);
         nlev = i_nint(&tmp);
     }
     notsend = TRUE_;
@@ -1805,7 +1805,7 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
 
     /* Local variables */
     int64 niam, nlev;
-    float xkwt;
+    double xkwt;
     int64 nbcp1, ipiv1, ipiv2, i;
 
     int64 i1, i2, k1, l1, ic, ir;
@@ -1838,9 +1838,9 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
     nbcp1 = *nbc + 1;
     nap1 = *na + 1;
     nam1 = *na - 1;
-    xkwt = (float)(*kwt);
+    xkwt = (double)(*kwt);
     {
-        float tmp = r_lg10(xkwt) / r_lg10(2.0);
+        double tmp = r_lg10(xkwt) / r_lg10(2.0);
         nlev = i_nint(&tmp);
     }
     notsend = TRUE_;
@@ -2669,7 +2669,7 @@ gsync(void) {
 
 double
 dclock(void) {
-    float ret_val;
+    double ret_val;
 
     ret_val = (double)0.;
     return ret_val;

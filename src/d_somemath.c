@@ -27,7 +27,7 @@ d_sign(double a, double b) {
 }
 
 int64
-i_nint(float *x) {
+i_nint(double *x) {
     return (int64)(*x >= 0 ? floor(*x + .5) : -floor(.5 - *x));
 }
 
@@ -37,7 +37,7 @@ i_dnnt(double *x) {
 }
 
 double
-r_lg10(float x) {
+r_lg10(double x) {
     return log10e*log(x);
 }
 

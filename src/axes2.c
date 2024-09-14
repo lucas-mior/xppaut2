@@ -210,14 +210,14 @@ draw_unit_cube(void) {
 void
 Frame_3d(void) {
     double tx, ty, tz;
-    float x1, y1, z1, x2, y2, z2, dt = .03;
-    float x0 = MyGraph->xorg, y0 = MyGraph->yorg, z0 = MyGraph->zorg;
+    double x1, y1, z1, x2, y2, z2, dt = .03;
+    double x0 = MyGraph->xorg, y0 = MyGraph->yorg, z0 = MyGraph->zorg;
     char bob[20];
 
     double xmin = MyGraph->xmin, xmax = MyGraph->xmax, ymin = MyGraph->ymin;
     double ymax = MyGraph->ymax, zmin = MyGraph->zmin, zmax = MyGraph->zmax;
-    float x4 = xmin, y4 = ymin, z4 = zmin, x5 = xmax, y5 = ymax, z5 = zmax;
-    float x3, y3, z3, x6, y6, z6;
+    double x4 = xmin, y4 = ymin, z4 = zmin, x5 = xmax, y5 = ymax, z5 = zmax;
+    double x3, y3, z3, x6, y6, z6;
 
     DOING_AXES = 1;
 
@@ -227,8 +227,8 @@ Frame_3d(void) {
     find_max_min_tic(&xmin, &xmax, tx);
     find_max_min_tic(&zmin, &zmax, tz);
     find_max_min_tic(&ymin, &ymax, ty);
-    scale3d((float)xmin, (float)ymin, (float)zmin, &x1, &y1, &z1);
-    scale3d((float)xmax, (float)ymax, (float)zmax, &x2, &y2, &z2);
+    scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
+    scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
 
     scale3d(x4, y4, z4, &x3, &y3, &z3);
     scale3d(x5, y5, z5, &x6, &y6, &z6);
@@ -310,7 +310,7 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
 
     ytic = make_tics(y_min, y_max);
     xtic = make_tics(x_min, x_max);
-    scale_to_screen((float)MyGraph->xorg, (float)MyGraph->yorg, &yaxis_x,
+    scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x,
                     &xaxis_y);
     set_linestyle(-1);
     if (MyGraph->xorgflag && flag)
@@ -349,7 +349,7 @@ draw_ytics(char *s1, double start, double incr, double end)
         if (ticvalue < y_min || ticvalue > y_max)
             continue;
         sprintf(bob, "%g", place);
-        scale_to_screen((float)x_min, (float)place, &xt, &yt);
+        scale_to_screen((double)x_min, (double)place, &xt, &yt);
         DOING_BOX_AXES = 0;
         line(DLeft, yt, DLeft + HTic, yt);
         DOING_BOX_AXES = 1;
@@ -357,7 +357,7 @@ draw_ytics(char *s1, double start, double incr, double end)
         DOING_BOX_AXES = 0;
         put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
-    scale_to_screen((float)x_min, (float)y_max, &xt, &yt);
+    scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
     if (DTop < DBottom)
         s = -1;
     if (PltFmtFlag == SVGFMT) {
@@ -399,7 +399,7 @@ draw_xtics(char *s2, double start, double incr, double end)
         if (ticvalue < x_min || ticvalue > x_max)
             continue;
         sprintf(bob, "%g", place);
-        scale_to_screen((float)place, y_min, &xt, &yt);
+        scale_to_screen((double)place, y_min, &xt, &yt);
         DOING_BOX_AXES = 0;
         line(xt, DBottom, xt, DBottom + s*VTic);
         DOING_BOX_AXES = 1;

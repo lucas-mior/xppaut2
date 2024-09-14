@@ -772,7 +772,7 @@ set_from_init_data(void) {
 void
 ani_flip1(int32 n) {
     int32 row;
-    float **ss;
+    double **ss;
     double y[MAX_ODE];
     double t;
     int32 i;
@@ -818,7 +818,7 @@ ani_flip(void) {
     double t;
     char fname[256];
     FILE *angiffile = NULL;
-    float **ss;
+    double **ss;
     int32 i, row, done;
     int32 mpeg_frame = 0, mpeg_write = 0, count = 0;
     XEvent ev;
@@ -2021,7 +2021,7 @@ void
 set_ani_perm(void) {
     /*double t;
     double y[MAX_ODE];
-    float **ss;
+    double **ss;
     */
     int32 i, type;
     set_from_init_data();
@@ -2228,9 +2228,9 @@ draw_ani_null(int32 j, int32 id) {
     double xl = my_ani[j].zx1, xh = my_ani[j].zx2, yl = my_ani[j].zy1,
            yh = my_ani[j].zy2;
     double z = my_ani[j].zval;
-    float *v;
+    double *v;
     int32 n, i, i4, who, i1, j1, i2, j2;
-    float x1, y1, x2, y2, dx = xh - xl, dy = yh - yl;
+    double x1, y1, x2, y2, dx = xh - xl, dy = yh - yl;
     int32 err;
     if (dx == 0.0 || dy == 0.0)
         return;

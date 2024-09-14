@@ -13,7 +13,7 @@
 #include "integers.h"
 
 typedef struct {
-    float r, i;
+    double r, i;
 } floatcomplex;
 typedef struct {
     double r, i;
@@ -47,13 +47,13 @@ double f__cabs(double, double imag);
 double d_imag(doublecomplex *z);
 double d_lg10(double *x);
 double d_sign(double a, double b);
-double etime(float *tarray);
+double etime(double *tarray);
 int64 i_dnnt(double *x);
-int64 i_nint(float *x);
+int64 i_nint(double *x);
 double pow_dd(double *ap, double *bp);
 double pow_di(double *ap, int64 *bp);
 int64 pow_ii(int64 ap, int64 bp);
-double r_lg10(float x);
+double r_lg10(double x);
 double z_abs(doublecomplex *z);
 void z_exp(doublecomplex *r, doublecomplex *z);
 void z_log(doublecomplex *r, doublecomplex *z);

@@ -48,7 +48,7 @@ BD my_bd;
 extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
 
 extern double T0, TEND;
-extern float **storage;
+extern double **storage;
 
 double FreezeKeyX, FreezeKeyY;
 int32 FreezeKeyFlag, AutoFreezeFlag = 0;
@@ -268,7 +268,7 @@ check_val(double *x1, double *x2, double *xb, double *xd) {
 
 void
 get_max(int32 index, double *vmin, double *vmax) {
-    float x0, x1, z;
+    double x0, x1, z;
     double temp;
     int32 i;
     x0 = my_browser.data[index][0];
@@ -292,8 +292,8 @@ get_max(int32 index, double *vmin, double *vmax) {
 
 void
 corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
-    float x, y;
-    float x1, x2, y1, y2;
+    double x, y;
+    double x1, x2, y1, y2;
     threedproj(-1., -1., -1., &x, &y);
     x1 = x;
     x2 = x;
@@ -716,7 +716,7 @@ get_3d_par_noper(void) {
 }
 
 void
-update_view(float xlo, float xhi, float ylo, float yhi) {
+update_view(double xlo, double xhi, double ylo, double yhi) {
     MyGraph->xlo = xlo;
     MyGraph->ylo = ylo;
     MyGraph->xhi = xhi;
@@ -737,13 +737,13 @@ scroll_window(void) {
     XEvent ev;
     int32 i = 0, j = 0;
     int32 state = 0;
-    float x, y, x0, y0;
-    float xlo = MyGraph->xlo;
-    float ylo = MyGraph->ylo;
-    float xhi = MyGraph->xhi;
-    float yhi = MyGraph->yhi;
-    float dx = 0;
-    float dy = 0;
+    double x, y, x0, y0;
+    double xlo = MyGraph->xlo;
+    double ylo = MyGraph->ylo;
+    double xhi = MyGraph->xhi;
+    double yhi = MyGraph->yhi;
+    double dx = 0;
+    double dy = 0;
     int32 alldone = 0;
     XSelectInput(display, draw_win,
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
@@ -831,9 +831,9 @@ window_zoom_com(int32 c) {
 
 void
 zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
-    float x1, y1, x2, y2;
-    float dx = MyGraph->xhi - MyGraph->xlo;
-    float dy = MyGraph->yhi - MyGraph->ylo;
+    double x1, y1, x2, y2;
+    double dx = MyGraph->xhi - MyGraph->xlo;
+    double dy = MyGraph->yhi - MyGraph->ylo;
     scale_to_real(i1, j1, &x1, &y1);
     scale_to_real(i2, j2, &x2, &y2);
     if (x1 == x2 || y1 == y2) {
@@ -873,10 +873,10 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
 
 void
 zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
-    float x1, y1, x2, y2;
-    float bx, mux, by, muy;
-    float dx = MyGraph->xhi - MyGraph->xlo;
-    float dy = MyGraph->yhi - MyGraph->ylo;
+    double x1, y1, x2, y2;
+    double bx, mux, by, muy;
+    double dx = MyGraph->xhi - MyGraph->xlo;
+    double dy = MyGraph->yhi - MyGraph->ylo;
     scale_to_real(i1, j1, &x1, &y1);
     scale_to_real(i2, j2, &x2, &y2);
 
@@ -1115,10 +1115,10 @@ create_svg(void) {
 /*
 ps_test() {
  double xlo=MyGraph->xlo,xhi=MyGraph->xhi,ylo=MyGraph->ylo,yhi=MyGraph->yhi;
- text_abs((float)xlo,(float)ylo,"lolo");
- text_abs((float)xlo,(float)yhi,"lohi");
- text_abs((float)xhi,(float)ylo,"hilo");
- text_abs((float)xhi,(float)yhi,"hihi");
+ text_abs((double)xlo,(double)ylo,"lolo");
+ text_abs((double)xlo,(double)yhi,"lohi");
+ text_abs((double)xhi,(double)ylo,"hilo");
+ text_abs((double)xhi,(double)yhi,"hihi");
  ps_end();
 }
 
@@ -1163,7 +1163,7 @@ freeze_com(int32 c) {
 
 void
 set_key(int32 x, int32 y) {
-    float xp, yp;
+    double xp, yp;
     scale_to_real(x, y, &xp, &yp);
     FreezeKeyX = xp;
     FreezeKeyY = yp;
@@ -1181,7 +1181,7 @@ draw_freeze_key(void) {
         return;
     if (PltFmtFlag == PSFMT)
         dy = -dy;
-    scale_to_screen((float)FreezeKeyX, (float)FreezeKeyY, &ix, &iy);
+    scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
     ix2 = ix + 4*HChar;
     y0 = iy;
     for (i = 0; i < MAXFRZ; i++) {
@@ -1345,8 +1345,8 @@ draw_frozen_cline(int32 index, Window w) {
 void
 draw_freeze(Window w) {
     int32 i, j, type = MyGraph->grtype, lt = 0;
-    float oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
-    float *xv, *yv, *zv;
+    double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
+    double *xv, *yv, *zv;
     for (i = 0; i < MAXNCLINE; i++)
         draw_frozen_cline(i, w);
     for (i = 0; i < MAXFRZ; i++) {
@@ -1402,7 +1402,7 @@ init_bd(void) {
 void
 draw_bd(Window w) {
     int32 i, j, len;
-    float oldxpl, oldypl, xpl, ypl, *x, *y;
+    double oldxpl, oldypl, xpl, ypl, *x, *y;
     if (w == my_bd.w && my_bd.nbifcrv > 0) {
         for (i = 0; i < my_bd.nbifcrv; i++) {
             set_linestyle(my_bd.color[i]);
@@ -1437,7 +1437,7 @@ free_bd(void) {
 }
 
 void
-add_bd_crv(float *x, float *y, int32 len, int32 type, int32 ncrv) {
+add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
     if (ncrv >= MAXBIFCRV)
         return;
@@ -1479,7 +1479,7 @@ frz_bd(void) {
 void
 read_bd(FILE *fp) {
     int32 oldtype, type, oldbr, br, ncrv = 0, len, f2;
-    float x[8000], ylo[8000], yhi[8000];
+    double x[8000], ylo[8000], yhi[8000];
     len = 0;
     fscanf(fp, "%g %g %g %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype,
            &oldbr, &f2);

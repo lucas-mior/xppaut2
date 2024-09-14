@@ -21,21 +21,21 @@
 
 extern double MyData[MAX_ODE];
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
-extern float **storage;
+extern double **storage;
 extern int32 storind, FOUR_HERE;
 extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
 extern char uvar_names[MAX_ODE][12];
-float **my_adj;
+double **my_adj;
 int32 adj_len;
-float **my_h;
-float *my_liap[2];
+double **my_h;
+double *my_liap[2];
 
 extern char *info_message;
 struct {
     int32 here, col0, ncol, colskip;
     int32 row0, nrow, rowskip;
-    float **data;
+    double **data;
     char firstcol[11];
 } my_trans;
 
@@ -134,7 +134,7 @@ create_transpose(void) {
     for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
         my_trans.data[i] = storage[i];
     for (int32 j = 0; j < my_trans.ncol; j++)
-        my_trans.data[0][j] = (float)(j + 1);
+        my_trans.data[0][j] = (double)(j + 1);
 
     for (int32 i = 0; i < my_trans.ncol; i++) {
         incol = my_trans.col0 - 1 + i*my_trans.colskip;
@@ -311,9 +311,9 @@ dump_h_stuff(FILE *fp, int32 f) {
 }
 
 int32
-make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
+make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
     int32 i, j, rval = 0;
-    float sum;
+    double sum;
     double z;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
     char name[30];
@@ -346,7 +346,7 @@ make_h(float **orb, float **adj, int32 nt, int32 node, int32 silent) {
             for (i = 0; i < node; i++) {
                 z = evaluate(coup_fun[i]);
 
-                sum = sum + (float)z*adj[i + 1][k];
+                sum = sum + (double)z*adj[i + 1][k];
             }
         }
         my_h[0][j] = orb[0][j];
@@ -434,7 +434,7 @@ compute_one_orbit(double *ic, double per) {
   */
 
 int32
-adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
+adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
@@ -536,7 +536,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
             fdev[i] = (double)orbit[i + 1][l];
         rhs(0.0, fdev, yprime, node);
         for (j = 0; j < node; j++) {
-            adjnt[j + 1][l] = (float)yold[j];
+            adjnt[j + 1][l] = (double)yold[j];
             prod += yold[j]*yprime[j]*dt;
         }
         k2 = k + 1;
@@ -553,7 +553,7 @@ adjoint(float **orbit, float **adjnt, int32 nt, double dt, double eps,
     plintf(" Multiplying the adjoint by 1/%g to normalize\n", prod);
     for (k = 0; k < nt; k++) {
         for (j = 0; j < node; j++)
-            adjnt[j + 1][k] = adjnt[j + 1][k] / (float)prod;
+            adjnt[j + 1][k] = adjnt[j + 1][k] / (double)prod;
         adjnt[0][k] = orbit[0][k];
     }
     rval = 1;

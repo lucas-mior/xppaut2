@@ -75,8 +75,8 @@ typedef struct {
 
 typedef struct {
     Window w;
-    float x;
-    float y;
+    double x;
+    double y;
     char s[MAXCHAR];
     short use;
     int32 font, size;
@@ -86,7 +86,7 @@ typedef struct {
     Window w;
     char key[20], name[10];
     short use, type;
-    float *xv, *yv, *zv;
+    double *xv, *yv, *zv;
     int32 len, color;
 } CURVE;
 
@@ -94,7 +94,7 @@ typedef struct {
     Window w;
     char name[10];
     short use;
-    float *x_n, *y_n;
+    double *x_n, *y_n;
     int32 ix, iy, num_x, num_y;
 } NCLINE;
 

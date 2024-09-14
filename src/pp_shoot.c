@@ -34,7 +34,7 @@ extern int32 INFLAG;
 
 extern int32 NUPAR;
 extern int32 storind;
-extern float **storage;
+extern double **storage;
 
 extern int32 *my_ode[];
 
@@ -340,10 +340,10 @@ last_shot(int32 flag) {
     STORFLAG = flag;
     MyTime = T0;
     if (flag) {
-        storage[0][0] = (float)T0;
+        storage[0][0] = (double)T0;
         extra(x, T0, NODE, NEQ);
         for (i = 0; i < NEQ; i++)
-            storage[1 + i][0] = (float)x[i];
+            storage[1 + i][0] = (double)x[i];
         storind = 1;
     }
     integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart);

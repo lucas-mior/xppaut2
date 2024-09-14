@@ -89,7 +89,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
 /* main fixed point finder */
 void
 do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
-        int32 *ierr, float *stabinfo) {
+        int32 *ierr, double *stabinfo) {
     int32 kmem, j, ipivot[MAX_ODE];
     int32 oldcol, dummy;
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
@@ -101,7 +101,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     double real, imag;
     double bigpos = -1e10, bigneg = 1e10;
     int32 bpos = 0, bneg = 0;
-    /* float xl[MAX_ODE]; */
+    /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
     if ((work = malloc(sizeof(double)*kmem)) == NULL) {
         err_msg("Insufficient core ");
@@ -125,7 +125,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         return;
     }
     DING;
-    /* for(i=0;i<n;i++)xl[i]=(float)x[i]; */
+    /* for(i=0;i<n;i++)xl[i]=(double)x[i]; */
 
     for (int32 i = 0; i < n*n; i++) {
         oldwork[i] = work[i];
@@ -209,7 +209,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             eq_symb(x, 3);
     }
 
-    *stabinfo = (float)(cp + rp) + (float)(cn + rn) / 1000.0;
+    *stabinfo = (double)(cp + rp) + (double)(cn + rn) / 1000.0;
 
     /* Lets change Work back to transposed oldwork */
     for (int32 i = 0; i < n; i++) {
@@ -394,7 +394,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     double real, imag;
     double bigpos = -1e10, bigneg = 1e10;
 
-    /* float xl[MAX_ODE]; */
+    /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
     if ((work = malloc(sizeof(double)*kmem)) == NULL) {
         /* printf("Insufficient core \n");  */
@@ -420,7 +420,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         return;
     }
 
-    /* for(i=0;i<n;i++)xl[i]=(float)x[i]; */
+    /* for(i=0;i<n;i++)xl[i]=(double)x[i]; */
 
     for (i = 0; i < n*n; i++) {
         oldwork[i] = work[i];

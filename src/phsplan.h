@@ -14,7 +14,7 @@ extern int32 NEQ, NODE;
 
 extern int32 PLOT_3D;
 
-extern float **storage;
+extern double **storage;
 extern int32 storind, MAXSTOR, INFLAG, MY_STOR, STORFLAG;
 
 extern int32 FOREVER;
@@ -28,10 +28,10 @@ extern double HMIN, HMAX, TOLER, ATOLER, BOUND, DELAY;
 extern double NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern int32 EVEC_ITER, NMESH, NC_ITER;
 
-extern float *fft_data;
+extern double *fft_data;
 extern int32 FFT;
 
-extern float *hist_data;
+extern double *hist_data;
 extern int32 HIST, HVAR, hist_ind;
 
 extern double TEND, DELTA_T, T0, TRANS;
@@ -46,7 +46,7 @@ extern int32 POIMAP, POISGN, POIEXT, SOS, POIVAR;
 extern double POIPLN;
 
 extern int32 NULL_HERE;
-extern float *X_n, *Y_n;
+extern double *X_n, *Y_n;
 
 extern char uvar_names[MAX_ODE][12];
 

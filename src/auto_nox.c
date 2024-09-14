@@ -82,7 +82,7 @@ extern XAuto x_auto;
 extern int32 leng[MAX_ODE];
 extern int32 PS_Color;
 extern double TOR_PERIOD;
-extern float **storage;
+extern double **storage;
 extern int32 storind;
 extern double constants[];
 extern int32 PointType;
@@ -1095,7 +1095,7 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
                 pscolset2(flag2);
         } else
             set_linestyle(8);
-        line_abs((float)x, (float)y1, (float)Auto.lastx, (float)Auto.lasty);
+        line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
         break;
     case CUEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
@@ -1112,7 +1112,7 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         } else {
             pscolset2(flag2);
         }
-        line_abs((float)x, (float)y1, (float)Auto.lastx, (float)Auto.lasty);
+        line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
         break;
     case UPER:
         if (PS_Color)
@@ -1124,8 +1124,8 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         PointType = UPT;
-        point_abs((float)x, (float)y1);
-        point_abs((float)x, (float)y2);
+        point_abs((double)x, (double)y1);
+        point_abs((double)x, (double)y2);
         break;
     case SPER:
         if (PS_Color)
@@ -1137,8 +1137,8 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         PointType = SPT;
-        point_abs((float)x, (float)y1);
-        point_abs((float)x, (float)y2);
+        point_abs((double)x, (double)y1);
+        point_abs((double)x, (double)y2);
         break;
     }
 
@@ -1150,9 +1150,9 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
 void
 auto_line(double x1i, double y1i, double x2i, double y2i) {
     double xmin, ymin, xmax, ymax;
-    float x1 = x1i, x2 = x2i, y1 = y1i, y2 = y2i;
+    double x1 = x1i, x2 = x2i, y1 = y1i, y2 = y2i;
     double x1d, x2d, y1d, y2d;
-    float x1_out, y1_out, x2_out, y2_out;
+    double x1_out, y1_out, x2_out, y2_out;
 
     get_scale(&xmin, &ymin, &xmax, &ymax);
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
@@ -2685,7 +2685,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
         }
         extra(x, (double)storage[0][i], nstor, NEQ);
         for (j = nstor; j < NEQ; j++)
-            storage[j + 1][i] = (float)x[j];
+            storage[j + 1][i] = (double)x[j];
     }
     storind = nrow;
     refresh_browser(nrow);

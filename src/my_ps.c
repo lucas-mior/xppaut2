@@ -172,7 +172,7 @@ ps_stroke(void) {
 
 void
 ps_do_color(int32 color) {
-    float r, g, b;
+    double r, g, b;
     /* this doesn work very well */
     if (PltFmtFlag == 0)
         return;
@@ -191,7 +191,7 @@ ps_do_color(int32 color) {
 void
 ps_setcolor(int32 color) {
     int32 i;
-    static float pscolor[] = {
+    static double pscolor[] = {
         0.0,  0.0,  0.0,  /* BLACK */
         1.,   0.,   0.,   /*RED*/
         .94,  .39,  0.0,  /*REDORANGE*/

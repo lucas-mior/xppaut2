@@ -15,10 +15,10 @@ extern int32 DCURY, DCURX, CURY_OFF;
 void
 plot_command(int32 nit, int32 icount, int32 cwidth) {
     int32 i;
-    float dx;
+    double dx;
     if (nit == 0)
         return;
-    dx = (float)icount*(float)cwidth / (float)nit;
+    dx = (double)icount*(double)cwidth / (double)nit;
     i = (int32)dx;
 
     XDrawPoint(display, command_pop, gc, i, 5);

@@ -66,7 +66,7 @@ int32 use_ani_file = 0;
 char anifile[XPP_MAX_NAME];
 extern int32 ani_grab_flag;
 
-float xppvermaj, xppvermin;
+double xppvermaj, xppvermin;
 
 extern int32 manual_expose;
 extern int32 NCBatch, DFBatch;
@@ -411,8 +411,8 @@ do_main(int32 argc, char **argv) {
 
     if (disc(this_file))
         METHOD = 0;
-    xppvermaj = (float)MAJOR_VERSION;
-    xppvermin = (float)MINOR_VERSION;
+    xppvermaj = (double)MAJOR_VERSION;
+    xppvermin = (double)MINOR_VERSION;
     if (strlen(this_file) < 60)
         snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj,
                  xppvermin, this_file);

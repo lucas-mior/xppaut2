@@ -764,7 +764,7 @@ FillCircle(int32 x, int32 y, int32 r) {
 }
 
 void
-auto_update_view(float xlo, float xhi, float ylo, float yhi) {
+auto_update_view(double xlo, double xhi, double ylo, double yhi) {
     Auto.xmin = xlo;
     Auto.ymin = ylo;
     Auto.xmax = xhi;
@@ -778,11 +778,11 @@ auto_scroll_window(void) {
     int32 i = 0, j = 0;
     int32 i0 = 0, j0 = 0;
     int32 state = 0;
-    float xlo = Auto.xmin;
-    float ylo = Auto.ymin;
-    float xhi = Auto.xmax;
-    float yhi = Auto.ymax;
-    float dx, dy;
+    double xlo = Auto.xmin;
+    double ylo = Auto.ymin;
+    double xhi = Auto.xmax;
+    double yhi = Auto.ymax;
+    double dx, dy;
     int32 alldone = 0;
     /*    printf("xin: %g %g %g %g\n",xlo,xhi,ylo,yhi); */
     XSelectInput(display, AutoW.canvas,
@@ -828,9 +828,9 @@ auto_scroll_window(void) {
                 dx=-(x-x0)/2;
                 dy=-(y-y0)/2; */
                 dx =
-                    (float)(i0 - i)*(Auto.xmax - Auto.xmin) / (float)Auto.wid;
+                    (double)(i0 - i)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
                 dy =
-                    (float)(j - j0)*(Auto.ymax - Auto.ymin) / (float)Auto.hgt;
+                    (double)(j - j0)*(Auto.ymax - Auto.ymin) / (double)Auto.hgt;
                 /*    printf("%d %d %d %d %g %g\n",i,j,i0,j0,dx,dy); */
                 auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }

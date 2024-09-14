@@ -11,10 +11,10 @@
 #define PERIODIC 2
 
 typedef struct {
-    float xmin, xmax, ymin, ymax;
-    float xscale, yscale, xoff, yoff;
-    float tx, ty, angle, slant; /* text attributes   */
-    float linecol, letx, lety;
+    double xmin, xmax, ymin, ymax;
+    double xscale, yscale, xoff, yoff;
+    double tx, ty, angle, slant; /* text attributes   */
+    double linecol, letx, lety;
     int32 linewid;
 } DEVSCALE;
 
@@ -25,10 +25,10 @@ DEVSCALE ps_scale;
 int32
 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
             int32 nacross, int32 ndown, int32 col0, int32 row0, int32 nskip,
-            int32 ncskip, int32 maxrow, int32 maxcol, float **data, double zmin,
+            int32 ncskip, int32 maxrow, int32 maxcol, double **data, double zmin,
             double zmax, double tlo, double thi, int32 type) {
-    float xx = (float)ndown;
-    float yy = (float)(nacross / ncskip);
+    double xx = (double)ndown;
+    double yy = (double)(nacross / ncskip);
     my_plot_file = fopen(filename, "w");
     if (my_plot_file == NULL) {
         return -1;
@@ -42,18 +42,18 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
 }
 
 void
-ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
+ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
           int32 maxrow, int32 maxcol, int32 nacross, int32 ndown, double zmin,
           double zmax, int32 type) {
     int32 i, j, ib, jb;
 
-    float fill, x, y;
-    float dx = (ps_scale.xmax - ps_scale.xmin);
-    float dy = (ps_scale.ymax - ps_scale.ymin);
-    float xhi = .95*dx, yhi = .85*dy;
-    float delx, dely;
-    delx = .8*dx / (float)ndown;
-    dely = .8*dy / (float)(nacross / ncskip);
+    double fill, x, y;
+    double dx = (ps_scale.xmax - ps_scale.xmin);
+    double dy = (ps_scale.ymax - ps_scale.ymin);
+    double xhi = .95*dx, yhi = .85*dy;
+    double delx, dely;
+    delx = .8*dx / (double)ndown;
+    dely = .8*dy / (double)(nacross / ncskip);
     for (i = 0; i < nacross / ncskip; i++) {
         ib = col0 + i*ncskip;
         if (ib > maxcol)
@@ -81,7 +81,7 @@ ps_replot(float **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
 
 void
 ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
-    float x0, y0, x1, y1;
+    double x0, y0, x1, y1;
     ps_scale.xmin = xlo;
     ps_scale.ymin = ylo;
     ps_scale.ymax = yhi;
@@ -127,7 +127,7 @@ ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
 }
 
 void
-ps_convert(double x, double y, float *xs, float *ys) {
+ps_convert(double x, double y, double *xs, double *ys) {
     *xs = (x - ps_scale.xmin)*ps_scale.xscale + ps_scale.xoff;
     *ys = (y - ps_scale.ymin)*ps_scale.yscale + ps_scale.yoff;
     return;
@@ -139,13 +139,13 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
     int32 i;
     char s[100];
 
-    float dz = 1. / (float)(n - 1);
+    double dz = 1. / (double)(n - 1);
 
     for (i = 0; i < n; i++) {
         if (type == GREYSCALE)
-            ps_bar(x0, y0 - (i + 1)*dy, dx, dy, 1 - (float)i*dz, 0);
+            ps_bar(x0, y0 - (i + 1)*dy, dx, dy, 1 - (double)i*dz, 0);
         else
-            ps_rgb_bar(x0, y0 - (i + 1)*dy, dx, dy, 1. - (float)i*dz, 0,
+            ps_rgb_bar(x0, y0 - (i + 1)*dy, dx, dy, 1. - (double)i*dz, 0,
                        type);
     }
     fprintf(my_plot_file, "0 G\n");
@@ -161,10 +161,10 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
          char *sx, char *sy, char *sb, int32 type) {
     char str[100];
     int32 i = ps_scale.linewid;
-    float z = ps_scale.linecol;
-    float dx = ps_scale.xmax - ps_scale.xmin;
-    float dy = ps_scale.ymax - ps_scale.ymin;
-    float xlo = .15*dx, ylo = .05*dy, xhi = .95*dx, yhi = .85*dy;
+    double z = ps_scale.linecol;
+    double dx = ps_scale.xmax - ps_scale.xmin;
+    double dy = ps_scale.ymax - ps_scale.ymin;
+    double xlo = .15*dx, ylo = .05*dy, xhi = .95*dx, yhi = .85*dy;
 
     ps_setline(0.0, 10);
     ps_rect(xlo, ylo, .8*dx, .8*dy);
@@ -204,8 +204,8 @@ ps_setline(double fill, int32 thick) {
 }
 
 void
-ps_put_char(int32 ch, float *x, float *y) {
-    float xp = *x, yp = *y;
+ps_put_char(int32 ch, double *x, double *y) {
+    double xp = *x, yp = *y;
     char str[4];
     str[0] = ch;
     str[1] = '\0';
@@ -217,8 +217,8 @@ void
 ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 ) {
     double slant = .0174532*ps_scale.slant;
-    float x, y;
-    float sizex = ps_scale.tx, sizey = ps_scale.ty, rot = ps_scale.angle;
+    double x, y;
+    double sizex = ps_scale.tx, sizey = ps_scale.ty, rot = ps_scale.angle;
     double a = sizex*cos(slant), b = sizey*sin(slant),
            c = -sizex*sin(slant), d = sizey*cos(slant);
     ps_convert(xr, yr, &x, &y);
@@ -251,7 +251,7 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 
 void
 ps_line2(double x1r, double y1r, double x2r, double y2r) {
-    float x1, y1, x2, y2;
+    double x1, y1, x2, y2;
     ps_convert(x1r, y1r, &x1, &y1);
     ps_convert(x2r, y2r, &x2, &y2);
     fprintf(my_plot_file, "%d %d m \n %d %d l S\n", (int32)x1, (int32)y1,
@@ -270,7 +270,7 @@ ps_set_text(double angle, double slant, double x_size, double y_size) {
 
 void
 ps_rect(double x, double y, double wid, double len) {
-    float x1, y1, x2, y2;
+    double x1, y1, x2, y2;
     ps_convert(x, y, &x1, &y1);
     ps_convert(x + wid, y + len, &x2, &y2);
     fprintf(my_plot_file,
@@ -282,7 +282,7 @@ ps_rect(double x, double y, double wid, double len) {
 
 void
 ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
-    float x1, y1, x2, y2;
+    double x1, y1, x2, y2;
     fprintf(my_plot_file, "%f G\n", fill);
     ps_convert(x, y, &x1, &y1);
     ps_convert(x + wid, y + len, &x2, &y2);
@@ -300,8 +300,8 @@ ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
 void
 ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
            int32 rgb) {
-    float x1, y1, x2, y2;
-    float r = 0.0, g = 0.0, b = 0.0;
+    double x1, y1, x2, y2;
+    double r = 0.0, g = 0.0, b = 0.0;
     if (rgb == 2) {
         ps_hsb_bar(x, y, wid, len, fill, flag);
         return;
@@ -313,20 +313,20 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
     switch (rgb) {
     case 0:
         fill = 1. - fill;
-        b = (float)sqrt((double)(1.0 - fill*fill));
-        r = (float)sqrt((double)(fill*(2.0 - fill)));
+        b = (double)sqrt((double)(1.0 - fill*fill));
+        r = (double)sqrt((double)(fill*(2.0 - fill)));
         break;
     case 1:
         if (fill > .4999)
             r = 0.0;
         else
-            r = (float)sqrt((float)(1. - 4*fill*fill));
-        g = (float)2*sqrt((double)fill*(1. - fill));
+            r = (double)sqrt((double)(1. - 4*fill*fill));
+        g = (double)2*sqrt((double)fill*(1. - fill));
 
         if (fill < .5001)
             b = 0.0;
         else
-            b = (float)sqrt((float)(4*(fill - .5)*(1.5 - fill)));
+            b = (double)sqrt((double)(4*(fill - .5)*(1.5 - fill)));
         break;
     }
     fprintf(my_plot_file, "%f %f %f RGB\n", r, g, b);
@@ -347,7 +347,7 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
 void
 ps_hsb_bar(double x, double y, double wid, double len, double fill,
            int32 flag) {
-    float x1, y1, x2, y2;
+    double x1, y1, x2, y2;
     fprintf(my_plot_file, "%f 1.0 1.0 HSB\n", fill);
     ps_convert(x, y, &x1, &y1);
     ps_convert(x + wid, y + len, &x2, &y2);
