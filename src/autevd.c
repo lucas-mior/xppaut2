@@ -97,7 +97,7 @@ init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
 
     x_auto.nuzr = NAutoUzr;
     for (i = 0; i < NAutoUzr; i++) {
-        x_auto.iuz[i] = UzrPar[i];
+        x_auto.iuz[i] = (int32)UzrPar[i];
         x_auto.vuz[i] = outperiod[i];
     }
     return;
@@ -155,10 +155,10 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
        double *ubar) {
     int32 type;
     /*int32 evflag=0; Not used*/
-    int32 icp1 = icp[0], icp2 = icp[1], icp3 = icp[2], icp4 = icp[3];
+    int32 icp1 = (int32)icp[0], icp2 = (int32)icp[1], icp3 = (int32)icp[2], icp4 = (int32)icp[3];
     double per = par[10];
     /* printf("In add bif \n"); */
-    type = get_bif_type(ibrs, ntots);
+    type = get_bif_type((int32)ibrs, (int32)ntots);
 
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
