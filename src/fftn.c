@@ -355,8 +355,6 @@ FFTN(int32 ndim, const int32 dims[], REAL Re[], REAL Im[], int32 iSign,
      * tally the number of elements in the data array
      * and determine the number of dimensions
      */
-    /* plintf("Calling fft with isign=%d scale=%g
-     * dim=%d\n",iSign,scaling,dims[0]);  */
     nTotal = 1;
     if (ndim) {
         if (dims != NULL) {

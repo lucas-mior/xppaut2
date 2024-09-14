@@ -531,12 +531,8 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                     err = temp;
             }
             err = err*(absh / 6);
-            /* plintf(" err=%g hmin=%g absh=%g \n",err,hmin,absh);
-               wait_for_key(); */
             if (err > rtol) {
                 if (absh < hmin) {
-                    /* plintf("rosen failed at t=%g. Step size too small
-                     * \n",t);*/
                     *ierr = -1;
                     return -1;
                 }
@@ -546,8 +542,6 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 nofailed = 0;
                 done = 0;
             } else {
-                /* plintf(" successful step -- nofail=%d absh=%g
-                 * \n",nofailed,absh); */
                 break;
             }
         }

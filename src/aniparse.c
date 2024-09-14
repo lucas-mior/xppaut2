@@ -1061,8 +1061,6 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
         CMSK = (1 << bbc) - 1; /*  make a mask  2^bbc  -1  */
         CSHIFT = bbc;          /*  how far to shift to get the next color */
         CMULT = 8 - bbc;       /* multiply 5 bit color to get to 8 bit */
-        /* plintf(" bbp=%d CMSK=%d CSHIFT=%d CMULT=%d \n",
-           bbp,CMSK,CSHIFT,CMULT); */
     }
     snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width,
              ximage->height);

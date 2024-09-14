@@ -695,13 +695,6 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
             */
         }
     }
-    /* plintf(" chisqr= %g \n",*chisq);
-           for(j=0;j<npars;j++){
-             plintf(" \n beta[%d]=%g \n",j,beta[j]);
-             for(k=0;k<npars;k++)
-               plintf(" alpha[%d][%d]=%g ",j,k,alpha[j+k*npars]);
-           }
-           */
     return 1;
 }
 

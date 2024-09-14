@@ -291,8 +291,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 tol > tolmin) {
                 flag[i].hit = ncycle + 1;
                 flag[i].tstar = f0 / (f0 - f1);
-                /* plintf(" f0=%g, f1=%g tstar=%g at t=%g\n
-                 * tol=%g",f0,f1,flag[i].tstar,*tnew,tol);  */ /* COMMENT! */
             }
             break;
         case -1:
@@ -340,11 +338,8 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     while (true) { /* run through all possible events  */
         ncycle++;
         newhit = 0;
-        /*   plintf(" %g %g %g \n",*tnew,ynew[0],ynew[1]); */
         for (i = 0; i < NFlags; i++) {
             nevents = flag[i].nevents;
-            /* plintf(" hit(%d)=%d,ts=%g\n",i,flag[i].hit,flag[i].tstar); */ /* COMMENT
-                                                                              */
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
                 for (j = 0; j < nevents; j++) {
                     flag[i].vrhs[j] = evaluate(flag[i].comrhs[j]);

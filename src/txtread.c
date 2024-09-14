@@ -263,8 +263,6 @@ redraw_txtview_text(void) {
     int32 i, j;
     XClearWindow(display, txtview.text);
     for (i = 0; i < txtview.nlines; i++) {
-        /* plintf("lines=%d NLINES=%d first=%d \n",
-           txtview.nlines,NLINES,txtview.first); */
         j = i + txtview.first;
         switch (txtview.which) {
         case 0:

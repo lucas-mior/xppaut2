@@ -440,8 +440,6 @@ edit_functions(void) {
             } else {
                 strcpy(ufun_def[i], values[i]);
                 for (j = 0; j <= len; j++) {
-                    /* plintf("f(%d)[%d]=%d %d
-                     * \n",i,j,command[i][j],ufun[i][j]); */
                     ufun[i][j] = command[i][j];
                 }
                 fixup_endfun(ufun[i], len, narg_fun[i]);
