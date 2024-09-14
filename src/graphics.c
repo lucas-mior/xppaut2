@@ -127,7 +127,7 @@ get_draw_area_flag(int32 flag) {
         w = MyGraph->x11Wid;
         h = MyGraph->x11Hgt;
     }
-    /* plintf(" geom:+%d+%d:%dx%d\n",x,y,w,h); */
+
     XDMax = w;
     YDMax = h;
     VTic = max(h / 100, 1);
