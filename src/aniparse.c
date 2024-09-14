@@ -144,12 +144,12 @@ static int32 ani_speed_inc = 2;
 extern char this_file[XPP_MAX_NAME];
 
 static double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
-double ani_lastx, ani_lasty;
-Pixmap ani_pixmap;
+static double ani_lastx, ani_lasty;
+static Pixmap ani_pixmap;
 
-MPEG_SAVE mpeg;
+static MPEG_SAVE mpeg;
 
-ANI_COM my_ani[MAX_ANI_LINES];
+static ANI_COM my_ani[MAX_ANI_LINES];
 
 typedef struct {
     Window base, wfile, wgo, wpause, wreset, wfast, wslow, wmpeg;
@@ -163,7 +163,7 @@ typedef struct {
     /*char file[256];*/
 } VCR;
 
-VCR vcr;
+static VCR vcr;
 
 int32 n_anicom;
 
