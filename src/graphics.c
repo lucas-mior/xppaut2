@@ -195,7 +195,7 @@ line(int32 x1, int32 y1, int32 x2, int32 y2) {
 void
 bead(int32 x1, int32 y1) {
     if (PltFmtFlag == PSFMT)
-        ps_bead(x1, y1);
+        return;
     else if (PltFmtFlag == SVGFMT)
         svg_bead(x1, y1);
     else

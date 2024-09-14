@@ -4018,7 +4018,6 @@ void ps_stroke(void);
 void ps_do_color(int32 color);
 void ps_setcolor(int32 color);
 void ps_end(void);
-void ps_bead(int32 x, int32 y);
 void ps_frect(int32 x, int32 y, int32 w, int32 h);
 void ps_last_pt_off(void);
 void ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2);

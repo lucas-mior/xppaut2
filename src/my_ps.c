@@ -232,10 +232,6 @@ ps_end(void) {
 }
 
 void
-ps_bead(int32 x, int32 y) { /*fprintf(psfile,"%d %d F\n",x,y);*/
-}
-
-void
 ps_frect(int32 x, int32 y, int32 w, int32 h) {
     fprintf(psfile, " newpath %d %d M %d %d R %d %d R %d %d R closepath fill\n",
             x, y, 0, -h, w, 0, 0, h);
