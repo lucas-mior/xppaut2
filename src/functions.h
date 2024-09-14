@@ -101,6 +101,8 @@ typedef struct {
     int32 zthick, tfont, tsize, tcolor;
 } ANI_COM;
 
+extern int32 animation_on_the_fly;
+
 void new_vcr(void);
 void create_vcr(char *name);
 void ani_border(Window w, int32 i);
