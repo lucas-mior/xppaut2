@@ -22,8 +22,7 @@ extern int32 NFlags;
 extern double TOLER, ATOLER;
 
 void
-start_cv(double *y, double t, int32 n, double tout, double *atol,
-         double *rtol) {
+start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     int32 i;
 
     ycv = N_VNew(n);
@@ -119,7 +118,7 @@ ccvode(
         return 1;
     }
     if (*command == 1) {
-        start_cv(y, *t, n, tout, atol, rtol);
+        start_cv(y, *t, n, atol, rtol);
         flag = CVode(cvode_mem, tout, ycv, t, NORMAL);
         if (flag != SUCCESS) {
 
