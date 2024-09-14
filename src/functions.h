@@ -2514,7 +2514,7 @@ void do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 
 void shoot_this_now(void);
-void pr_evec(double *x, double *ev, int32 n, double eval, int32 type);
+void pr_evec(double *x, double *ev, int32 n, int32 type);
 void get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
                       int32 n, int32 maxit, double err, int32 *ierr);
 void get_evec(double *a, double *anew, double *b, double *bp, int32 n,
