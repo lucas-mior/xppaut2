@@ -7,8 +7,7 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
 CFLAGS += -Wno-unused-parameter
-# CFLAGS += -Wno-unused-variable
-CFLAGS += -Wno-unused-but-set-variable
+# CFLAGS += -Wno-unused-but-set-variable
 CFLAGS += -Wno-unused-but-set-parameter
 # CFLAGS += -g -O2
 CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./ -I./src/cvode/

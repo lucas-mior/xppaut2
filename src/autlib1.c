@@ -5751,6 +5751,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     (void) thu;
     /* System generated locals */
     int64 ups_dim1, udotps_dim1;
+    (void) udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
     double t, *u;
