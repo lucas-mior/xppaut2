@@ -981,8 +981,8 @@ fft(float *data, float *ct, float *st, int32 nmodes, int32 length) {
     double *im, *re;
     int32 dim[2], i;
     dim[0] = length;
-    re = malloc(length*sizeof(*(re)));
-    im = malloc(length*sizeof(*(im)));
+    re = malloc(length*sizeof(*re));
+    im = malloc(length*sizeof(*im));
     for (i = 0; i < length; i++) {
         im[i] = 0.0;
         re[i] = data[i];

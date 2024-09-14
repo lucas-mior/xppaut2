@@ -56,7 +56,7 @@ alloc_meth(void) {
     }
     if (WORK)
         free(WORK);
-    WORK = malloc(sz*sizeof(*(WORK)));
+    WORK = malloc(sz*sizeof(*WORK));
     return;
 }
 

@@ -74,7 +74,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for Givens rotation components */
 
-    givens = malloc(2*l_max*sizeof(*(givens)));
+    givens = malloc(2*l_max*sizeof(*givens));
     if (givens == NULL) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -95,7 +95,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory to hold SPGMR y and g vectors */
 
-    yg = malloc((l_max + 1) * sizeof(*(yg)));
+    yg = malloc((l_max + 1) * sizeof(*yg));
     if (yg == NULL) {
         N_VFree(xcor);
         free(givens);

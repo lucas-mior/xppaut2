@@ -380,9 +380,9 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     double *y, *yp, *yold;
     int32 ir, iy;
 
-    y = malloc(n*sizeof(*(y)));
-    yold = malloc(n*sizeof(*(yold)));
-    yp = malloc(n*sizeof(*(yp)));
+    y = malloc(n*sizeof(*y));
+    yold = malloc(n*sizeof(*yold));
+    yp = malloc(n*sizeof(*yp));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
     rhs_only(yold);

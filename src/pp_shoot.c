@@ -419,9 +419,9 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
     if (iper)
         ntot = n + 1;
-    jac = malloc(ntot*ntot*sizeof(*(jac)));
-    f = malloc(ntot*sizeof(*(f)));
-    fdev = malloc(ntot*sizeof(*(fdev)));
+    jac = malloc(ntot*ntot*sizeof(*jac));
+    f = malloc(ntot*sizeof(*f));
+    fdev = malloc(ntot*sizeof(*fdev));
     y0 = malloc(ntot*sizeof(*(y0)));
     y1 = malloc(ntot*sizeof(*(y1)));
 
