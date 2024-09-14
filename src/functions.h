@@ -4730,7 +4730,7 @@ void view_table(int32 index);
 void new_lookup_com(int32 i);
 void new_lookup_ok(void);
 double lookupxy(double x, int32 n, double *xv, double *yv);
-double tab_interp(double xlo, double h, double x, double *y, int32 n, int32 i);
+double tab_interp(double xlo, double h, double x, double *y, int32 i);
 double lookup(double x, int32 index);
 void init_table(void);
 void redo_all_fun_tables(void);

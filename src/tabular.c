@@ -224,7 +224,7 @@ lookupxy(double x, int32 n, double *xv, double *yv) {
 }
 
 double
-tab_interp(double xlo, double h, double x, double *y, int32 n, int32 i) {
+tab_interp(double xlo, double h, double x, double *y, int32 i) {
     double a, b, c, d;
     double ym, y0, y1, y2;
     double tt;
@@ -255,9 +255,10 @@ lookup(double x, int32 index) {
         return lookupxy(x, n, my_table[index].x, y);
 
     i1 = (int32)((x - xlo) / dx); /* (int32)floor(x) instead of (int32)x ??? */
-    if (my_table[index].interp == 2 && i1 > 0 && i1 < (n - 2))
-        return tab_interp(xlo, dx, x, y, n,
-                          i1); /* if it is on the edge - use linear */
+    if (my_table[index].interp == 2 && i1 > 0 && i1 < (n - 2)) {
+        /* if it is on the edge - use linear */
+        return tab_interp(xlo, dx, x, y, i1);
+    }
     i2 = i1 + 1;
     if (i1 > -1 && i2 < n) {
         x1 = dx*i1 + xlo;
