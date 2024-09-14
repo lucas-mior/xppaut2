@@ -380,7 +380,7 @@ new_int(char *name, int32 *value) {
 }
 
 void
-display_command(char *name, char *value, int32 pos, int32 col) {
+display_command(char *name, char *value, int32 pos) {
     int32 l = strlen(name);
     int32 m = strlen(value);
 
@@ -550,7 +550,7 @@ edit_command_string(XEvent ev, char *name, char *value, int32 *done, int32 *pos,
     case MapNotify:
         do_expose(ev);
         if (ev.xexpose.window == command_pop)
-            display_command(name, value, *pos, 0);
+            display_command(name, value, *pos);
         break;
     case ButtonPress:
         if (ev.xbutton.window == command_pop)
@@ -575,7 +575,7 @@ new_string(char *name, char *value) {
     XEvent ev;
     strcpy(old_value, value);
     clr_command();
-    display_command(name, value, pos, 0);
+    display_command(name, value, pos);
     while (done == 0) {
         XNextEvent(display, &ev);
         edit_command_string(ev, name, value, &done, &pos, &col);

@@ -2586,7 +2586,7 @@ void circle(int32 x, int32 y, int32 radius, Window w);
 void xline(int32 x0, int32 y0, int32 x1, int32 y1, Window w);
 int32 new_float(char *name, double *value);
 int32 new_int(char *name, int32 *value);
-void display_command(char *name, char *value, int32 pos, int32 col);
+void display_command(char *name, char *value, int32 pos);
 void clr_line_at(Window w, int32 col0, int32 pos, int32 n);
 void put_cursor_at(Window w, int32 col0, int32 pos);
 void put_string_at(Window w, int32 col, char *s, int32 off);
