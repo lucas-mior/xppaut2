@@ -33,7 +33,7 @@ extern int32 DOING_DFIELD;
 extern int32 Xup;
 
 int32
-svg_init(char *filename, int32 color) {
+svg_init(char *filename) {
     FILE *fp;
 
     init_svg();

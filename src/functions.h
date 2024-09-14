@@ -4053,7 +4053,7 @@ void vec_rhs(double t, double *y, double *ydot, int32 neq);
 #define _my_svg_h_
 #include "integers.h"
 
-int32 svg_init(char *filename, int32 color);
+int32 svg_init(char *filename);
 void svg_stroke(void);
 void svg_do_color(int32 color);
 void svg_setcolor(int32 color);

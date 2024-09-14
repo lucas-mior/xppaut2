@@ -487,7 +487,7 @@ svg_auto(void) {
     status = file_selector("SVG", filename, "*.svg");
     if (status == 0)
         return;
-    if (!svg_init(filename, PS_Color))
+    if (!svg_init(filename))
         return;
     draw_svg_axes();
     d = bifd;

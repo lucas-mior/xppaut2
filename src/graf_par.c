@@ -1100,7 +1100,7 @@ dump_ps(int32 i) {
             ps_restore();
         }
     } else if (strcmp(PlotFormat, "svg") == 0) {
-        if (svg_init(filename, PS_Color)) {
+        if (svg_init(filename)) {
             svg_restore();
         }
     }
@@ -1116,7 +1116,7 @@ create_svg(void) {
     /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
     if (!file_selector("Print svg", filename, "*.svg"))
         return;
-    if (svg_init(filename, PS_Color)) {
+    if (svg_init(filename)) {
         svg_restore();
         ping();
     }
