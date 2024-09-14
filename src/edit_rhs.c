@@ -139,7 +139,7 @@ expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col) {
         flag = 0;
         if (i == sb->hot)
             flag = 1;
-        do_hilite_text(sb->name[i], sb->value[i], flag, w, pos, col);
+        do_hilite_text(sb->name[i], sb->value[i], flag, w, pos);
     }
     return;
 }
@@ -150,10 +150,10 @@ ereset_hot(int32 inew, EDIT_BOX *sb) {
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
     do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
-                   strlen(sb->value[inew]), 0);
+                   strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
     do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
-                   strlen(sb->value[i]), 0);
+                   strlen(sb->value[i]));
     return;
 }
 
