@@ -102,7 +102,7 @@ set_up_aplot_range(void) {
     char values[3][MAX_LEN_SBOX];
     int32 status;
     double *x;
-    snprintf(values[0], sizeof(values[0]), "%s", aplot_range_stem);
+    strncpy(values[0], aplot_range_stem, sizeof(values[0]));
     snprintf(values[1], sizeof(values[1]), "%d", aplot_still);
     snprintf(values[2], sizeof(values[2]), "%d", aplot_tag);
     status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
@@ -378,10 +378,10 @@ print_aplot(APLOT *ap) {
         jb = nrows - 1;
     if (jb >= 0)
         thi = my_browser.data[0][jb];
-    snprintf(values[0], sizeof(values[0]), "%s", ap->filename);
-    snprintf(values[1], sizeof(values[1]), "%s", ap->xtitle);
-    snprintf(values[2], sizeof(values[2]), "%s", ap->ytitle);
-    snprintf(values[3], sizeof(values[3]), "%s", ap->bottom);
+    strncpy(values[0], ap->filename, sizeof(values[0]));
+    strncpy(values[1], ap->xtitle, sizeof(values[1]));
+    strncpy(values[2], ap->ytitle, sizeof(values[2]));
+    strncpy(values[3], ap->bottom, sizeof(values[3]));
     snprintf(values[4], sizeof(values[4]), "%d", ap->type);
     status = do_string_box(5, 5, 1, "Print arrayplot", n, values, 40);
     if (status != 0) {
