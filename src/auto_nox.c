@@ -535,7 +535,7 @@ create_auto_file_name(void) {
 void
 open_auto(/* compatible with new auto */
           int32 flg) {
-    char string[200];
+    char string[202];
     char *basec, *bname, *dirc, *dname;
 
     basec = strdup(this_file);
@@ -557,7 +557,7 @@ open_auto(/* compatible with new auto */
     is_3_there = flg;
 
     if (flg == 1) {
-        sprintf(string, "%s.s", this_auto_file);
+        snprintf(string, sizeof(string), "%s.s", this_auto_file);
         copyf(string, fort3);
     }
     return;
