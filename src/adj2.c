@@ -39,8 +39,7 @@ struct {
     char firstcol[11];
 } my_trans;
 
-int32 TRANPOSE_HERE = 0;
-int32 LIAP_FLAG = 0;
+static int32 LIAP_FLAG = 0;
 int32 LIAP_N, LIAP_I;
 extern double NEWT_ERR;
 double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
