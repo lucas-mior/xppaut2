@@ -254,9 +254,7 @@ scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb) {
 
 int32
 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
-              char values[][MAX_LEN_SBOX], int32 maxchar)
-
-{
+              char values[][MAX_LEN_SBOX], int32 maxchar) {
     STRING_BOX sb;
     int32 i, status;
     int32 colm, pos;
