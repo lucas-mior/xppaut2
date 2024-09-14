@@ -24,8 +24,10 @@ TARGET = xppaut
 
 all: $(TARGET)
 
-fatal: CFLAGS += -Werror
-fatal: all
+test: CFLAGS += -Wno-error
+test: all
+
+CFLAGS += -Werror
 
 $(TARGET): $(OBJECTS) Makefile
 	$(CC) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
