@@ -29,6 +29,13 @@ test: all
 
 CFLAGS += -Werror
 
+# this files contain macros that generate false warnings
+src/autlib1.o: CFLAGS += -Wno-unused-but-set-variable
+src/autlib2.o: CFLAGS += -Wno-unused-but-set-variable
+src/autlib3.o: CFLAGS += -Wno-unused-but-set-variable
+src/autlib4.o: CFLAGS += -Wno-unused-but-set-variable
+src/autlib5.o: CFLAGS += -Wno-unused-but-set-variable
+
 $(TARGET): $(OBJECTS) Makefile
 	$(CC) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
 
