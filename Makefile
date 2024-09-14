@@ -41,6 +41,7 @@ tags: $(OBJECTS)
 	ctags -o tags --kinds-C=+l src/*.c src/*.h
 	vtags.sed tags > .tags.vim
 
+meta: C = $(CC)
 meta: bear tags
 
 test: C = $(CC)
