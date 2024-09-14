@@ -719,7 +719,6 @@ bin_prnt_byte(int32 x, int32 *arr) {
     return;
 }
 
-/*Convenience function for making buttons with icons on them*/
 Window
 make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, int32 icx, int32 icy,
