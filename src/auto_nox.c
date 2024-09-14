@@ -1726,9 +1726,9 @@ find_best_homo_shift(int32 n)
 
 void
 get_shifted_orbit(double *u, double t, double p, int32 n) {
-    double ts, t2;
+    double ts;
     int32 i, i1, i2, ip, j;
-    double v1, v2, lam;
+    double lam;
     if (t > 1.0)
         t -= 1.0;
     if (t < 0.0)
