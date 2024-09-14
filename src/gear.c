@@ -239,7 +239,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                          eval[2*pose], ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(UnstableManifoldColor, &oldcol);
-                    pr_evec(x, b, n, pr, eval[2*pose], 1);
+                    pr_evec(x, b, n, eval[2*pose], 1);
                     DELTA_T = fabs(DELTA_T);
                     shoot(bp, x, b, 1);
                     shoot(bp, x, b, -1);
@@ -253,7 +253,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                          eval[2*nege], ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(StableManifoldColor, &oldcol);
-                    pr_evec(x, b, n, pr, eval[2*nege], -1);
+                    pr_evec(x, b, n, eval[2*nege], -1);
                     DELTA_T = -fabs(DELTA_T);
                     shoot(bp, x, b, 1);
                     shoot(bp, x, b, -1);
@@ -284,7 +284,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                          ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(UnstableManifoldColor, &oldcol);
-                    pr_evec(x, b, n, pr, bigpos, 1);
+                    pr_evec(x, b, n, bigpos, 1);
                     DELTA_T = fabs(DELTA_T);
                     shoot(bp, x, b, 1);
                     shoot(bp, x, b, -1);
@@ -301,7 +301,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                          ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(StableManifoldColor, &oldcol);
-                    pr_evec(x, b, n, pr, bigneg, -1);
+                    pr_evec(x, b, n, bigneg, -1);
                     DELTA_T = -fabs(DELTA_T);
                     shoot(bp, x, b, 1);
                     shoot(bp, x, b, -1);
@@ -516,7 +516,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                      eval[2*pose], ierr);
 
             if (*ierr == 0) {
-                pr_evec(x, b, n, pr, eval[2*pose], 1);
+                pr_evec(x, b, n, eval[2*pose], 1);
             }
         }
 
@@ -525,7 +525,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                      eval[2*nege], ierr);
 
             if (*ierr == 0) {
-                pr_evec(x, b, n, pr, eval[2*nege], -1);
+                pr_evec(x, b, n, eval[2*nege], -1);
             }
         }
     }
@@ -535,7 +535,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 }
 
 void
-pr_evec(double *x, double *ev, int32 n, int32 pr, double eval, int32 type) {
+pr_evec(double *x, double *ev, int32 n, double eval, int32 type) {
     double d = fabs(DELTA_T) * .1;
     ShootICFlag = 1;
     if (ShootIndex < 7) {
