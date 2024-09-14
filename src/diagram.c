@@ -301,9 +301,9 @@ write_init_data_file(void) {
     /*int32 flag=0;
      */
     int32 status;
-    int32 icp1, icp2;
+    int32 icp1;
     double *par;
-    double par1, *u0, per;
+    double par1, *u0;
     /*double a,*uhigh,*ulow,*ubar;*/
     FILE *fp;
     sprintf(filename, "initdata.dat");
@@ -328,9 +328,7 @@ write_init_data_file(void) {
         Unused here?
         */
         icp1 = d->icp1;
-        icp2 = d->icp2;
         par = d->par;
-        per = d->per;
         /*
         uhigh=d->uhi;
         ulow=d->ulo;
