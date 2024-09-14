@@ -163,7 +163,7 @@ post_process_stuff(void) {
     if (post_process == 0)
         return;
     if (N_plist < 1)
-        plotlist = malloc(sizeof(*(plotlist))*10);
+        plotlist = malloc(sizeof(*plotlist)*10);
     N_plist = 2;
     plotlist[0] = 0;
     plotlist[1] = 1;
@@ -469,10 +469,10 @@ spectrum(float *data, int32 nr, int32 win, int32 w_type, float *pow) {
         return 0;
     if (kwin < 1)
         return 0;
-    ct = malloc(sizeof(*(ct))*win);
-    d = malloc(sizeof(*(d))*win);
-    st = malloc(sizeof(*(st))*win);
-    f = malloc(sizeof(*(f))*win);
+    ct = malloc(sizeof(*ct)*win);
+    d = malloc(sizeof(*d)*win);
+    st = malloc(sizeof(*st)*win);
+    f = malloc(sizeof(*f)*win);
     /*  plintf("nr=%d,win=%d,type=%d,data[10]=%g,kwin=%d\n",
         nr,win,w_type,data[10],kwin); */
     nrmf = 0.0;
@@ -557,17 +557,17 @@ cross_spectrum(float *data, float *data2, int32 nr, int32 win, int32 w_type,
         return 0;
     if (kwin < 1)
         return 0;
-    ct = malloc(sizeof(*(ct))*win);
-    d = malloc(sizeof(*(d))*win);
-    st = malloc(sizeof(*(st))*win);
-    f = malloc(sizeof(*(f))*win);
+    ct = malloc(sizeof(*ct)*win);
+    d = malloc(sizeof(*d)*win);
+    st = malloc(sizeof(*st)*win);
+    f = malloc(sizeof(*f)*win);
     ct2 = malloc(sizeof(*(ct2))*win);
     d2 = malloc(sizeof(*(d2))*win);
     st2 = malloc(sizeof(*(st2))*win);
-    pxx = malloc(sizeof(*(pxx))*win);
-    pyy = malloc(sizeof(*(pyy))*win);
-    pxyr = malloc(sizeof(*(pxyr))*win);
-    pxym = malloc(sizeof(*(pxym))*win);
+    pxx = malloc(sizeof(*pxx)*win);
+    pyy = malloc(sizeof(*pyy)*win);
+    pxyr = malloc(sizeof(*pxyr)*win);
+    pxym = malloc(sizeof(*pxym)*win);
     /*  plintf("nr=%d,win=%d,type=%d,data[10]=%g,kwin=%d\n",
         nr,win,w_type,data[10],kwin); */
     nrmwin = 0.0;

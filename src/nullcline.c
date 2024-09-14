@@ -193,7 +193,7 @@ do_range_clines(void) {
 void
 start_ncline(void) {
     n_nstore = 1;
-    ncperm = malloc(sizeof(*(ncperm)));
+    ncperm = malloc(sizeof(*ncperm));
     ncperm->p = NULL;
     ncperm->n = NULL;
     ncperm->nmx = 0;

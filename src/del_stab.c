@@ -322,7 +322,7 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m,
     lambda.r = AlphaMax;
     lambda.i = OmegaMax;
 
-    z = malloc(sizeof(*(z))*n*n);
+    z = malloc(sizeof(*z)*n*n);
 
     /* now Newtons Method for maxit times */
     for (k = 0; k < maxit; k++) {
@@ -404,7 +404,7 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     double arg;
     if (m == 0)
         return 0; /* no delays so don't use this! */
-    z = malloc(sizeof(*(z))*n*n);
+    z = malloc(sizeof(*z)*n*n);
     for (j = 0; j < n; j++)
         for (i = 0; i < n; i++) {
             if (i == j)

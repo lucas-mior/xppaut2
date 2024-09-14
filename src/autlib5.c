@@ -220,7 +220,7 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(*(ff2))*(iap->nbc));
     uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
     uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*(dfu))*(iap->nbc)*(2*iap->ndim + NPARX));
+    dfu = malloc(sizeof(*dfu)*(iap->nbc)*(2*iap->ndim + NPARX));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */
@@ -357,13 +357,13 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
        also depend on these arrays, and more importantly the algorithm,
        having N X.  So, they all need to be changed at once.
     */
-    f = malloc(sizeof(*(f))*(iap->ndm));
-    bound = malloc(sizeof(*(bound))*(iap->ndm)*(iap->ndm));
-    fj = malloc(sizeof(*(fj))*(iap->ndm));
-    ri = malloc(sizeof(*(ri))*(iap->ndm));
-    rr = malloc(sizeof(*(rr))*(iap->ndm));
-    vr = malloc(sizeof(*(vr))*(iap->ndm)*(iap->ndm));
-    vt = malloc(sizeof(*(vt))*(iap->ndm)*(iap->ndm));
+    f = malloc(sizeof(*f)*(iap->ndm));
+    bound = malloc(sizeof(*bound)*(iap->ndm)*(iap->ndm));
+    fj = malloc(sizeof(*fj)*(iap->ndm));
+    ri = malloc(sizeof(*ri)*(iap->ndm));
+    rr = malloc(sizeof(*rr)*(iap->ndm));
+    vr = malloc(sizeof(*vr)*(iap->ndm)*(iap->ndm));
+    vt = malloc(sizeof(*vt)*(iap->ndm)*(iap->ndm));
     xequib1 = malloc(sizeof(*(xequib1))*(iap->ndm));
     xequib2 = malloc(sizeof(*(xequib2))*(iap->ndm));
 
@@ -655,7 +655,7 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(*(ff2))*(iap->nint));
     uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
     uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*(dfu))*(iap->ndim)*(iap->ndim + NPARX));
+    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim + NPARX));
 
     /* Generates integral conditions for homoclinic bifurcation analysis */
 
@@ -753,7 +753,7 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     int64 ndm;
     double dum;
 
-    fj = malloc(sizeof(*(fj))*(iap->ndim));
+    fj = malloc(sizeof(*fj)*(iap->ndim));
     /* Generates the integral conditions for homoclinic orbits. */
 
     /* Parameter adjustments */
@@ -1095,7 +1095,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double dt;
     int64 lab, ibr;
 
-    u = malloc(sizeof(*(u))*(iap->ndim));
+    u = malloc(sizeof(*u)*(iap->ndim));
     /* Generates a starting point for the continuation of a branch of */
     /* of solutions to general boundary value problems by calling the user */
     /* supplied subroutine STPNT where an analytical solution is given. */
@@ -1169,11 +1169,11 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
     double *ri;
     double *rr, *vr, *vt, *xequib;
 
-    ri = malloc(sizeof(*(ri))*(iap->ndm));
-    rr = malloc(sizeof(*(rr))*(iap->ndm));
-    vr = malloc(sizeof(*(vr))*(iap->ndm)*(iap->ndm));
-    vt = malloc(sizeof(*(vt))*(iap->ndm)*(iap->ndm));
-    xequib = malloc(sizeof(*(xequib))*(iap->ndm));
+    ri = malloc(sizeof(*ri)*(iap->ndm));
+    rr = malloc(sizeof(*rr)*(iap->ndm));
+    vr = malloc(sizeof(*vr)*(iap->ndm)*(iap->ndm));
+    vt = malloc(sizeof(*vt)*(iap->ndm)*(iap->ndm));
+    xequib = malloc(sizeof(*xequib)*(iap->ndm));
 
     /* Generates a starting point for homoclinic continuation */
     /* If ISTART=2 it calls STPNHO. */
@@ -1636,9 +1636,9 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
     double *dfdp, *dfdu;
     double *zz;
 
-    dfdp = malloc(sizeof(*(dfdp))*(*ndm)*NPARX);
-    dfdu = malloc(sizeof(*(dfdu))*(*ndm)*(*ndm));
-    zz = malloc(sizeof(*(zz))*(*ndm)*(*ndm));
+    dfdp = malloc(sizeof(*dfdp)*(*ndm)*NPARX);
+    dfdu = malloc(sizeof(*dfdu)*(*ndm)*(*ndm));
+    zz = malloc(sizeof(*zz)*(*ndm)*(*ndm));
 
     eigho(&isign, &itrans, rr, ri, vret, xequib, icp, par, ndm, dfdu, dfdp, zz);
 
@@ -1669,13 +1669,13 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     double *vi, *vr, *fv1;
     int64 *iv1;
 
-    f = malloc(sizeof(*(f))*(*ndm));
-    ridum = malloc(sizeof(*(ridum))*(*ndm));
-    vidum = malloc(sizeof(*(vidum))*(*ndm)*(*ndm));
-    rrdum = malloc(sizeof(*(rrdum))*(*ndm));
-    vrdum = malloc(sizeof(*(vrdum))*(*ndm)*(*ndm));
-    vi = malloc(sizeof(*(vi))*(*ndm)*(*ndm));
-    vr = malloc(sizeof(*(vr))*(*ndm)*(*ndm));
+    f = malloc(sizeof(*f)*(*ndm));
+    ridum = malloc(sizeof(*ridum)*(*ndm));
+    vidum = malloc(sizeof(*vidum)*(*ndm)*(*ndm));
+    rrdum = malloc(sizeof(*rrdum)*(*ndm));
+    vrdum = malloc(sizeof(*vrdum)*(*ndm)*(*ndm));
+    vi = malloc(sizeof(*vi)*(*ndm)*(*ndm));
+    vr = malloc(sizeof(*vr)*(*ndm)*(*ndm));
     fv1 = malloc(sizeof(*(fv1))*(*ndm));
     iv1 = malloc(sizeof(*(iv1))*(*ndm));
 
@@ -1843,8 +1843,8 @@ prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
 
-    dfdp = malloc(sizeof(*(dfdp))*(*ndm)*NPARX);
-    dfdu = malloc(sizeof(*(dfdu))*(*ndm)*(*ndm));
+    dfdp = malloc(sizeof(*dfdp)*(*ndm)*NPARX);
+    dfdu = malloc(sizeof(*dfdu)*(*ndm)*(*ndm));
 
     prjctn(bound, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
 
@@ -1874,15 +1874,15 @@ prjctn(double *bound, double *xequib, const int64 *icp, double *par,
     double *ei, *er;
     double *ort, *dum1, *dum2;
 
-    fdum = malloc(sizeof(*(fdum))*(*ndm));
-    cnow = malloc(sizeof(*(cnow))*(*ndm)*(*ndm));
-    type__ = malloc(sizeof(*(type__))*(*ndm));
-    a = malloc(sizeof(*(a))*(*ndm)*(*ndm));
-    d = malloc(sizeof(*(d))*(*ndm)*(*ndm));
-    v = malloc(sizeof(*(v))*(*ndm)*(*ndm));
-    ei = malloc(sizeof(*(ei))*(*ndm));
-    er = malloc(sizeof(*(er))*(*ndm));
-    ort = malloc(sizeof(*(ort))*(*ndm));
+    fdum = malloc(sizeof(*fdum)*(*ndm));
+    cnow = malloc(sizeof(*cnow)*(*ndm)*(*ndm));
+    type__ = malloc(sizeof(*type__)*(*ndm));
+    a = malloc(sizeof(*a)*(*ndm)*(*ndm));
+    d = malloc(sizeof(*d)*(*ndm)*(*ndm));
+    v = malloc(sizeof(*v)*(*ndm)*(*ndm));
+    ei = malloc(sizeof(*ei)*(*ndm));
+    er = malloc(sizeof(*er)*(*ndm));
+    ort = malloc(sizeof(*ort)*(*ndm));
     dum1 = malloc(sizeof(*(dum1))*(*ndm)*(*ndm));
     dum2 = malloc(sizeof(*(dum2))*(*ndm)*(*ndm));
 

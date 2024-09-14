@@ -158,8 +158,8 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     int64 ndm, ips, irs;
 
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    v = malloc(sizeof(*(v))*(iap->ndim));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    v = malloc(sizeof(*v)*(iap->ndim));
     /* Generates starting data for the continuation of folds. */
 
     /* Local */
@@ -210,7 +210,7 @@ fnc1(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     double ddp[NPARX], *ddu;
     int64 ndm;
 
-    ddu = malloc(sizeof(*(ddu))*(iap->ndim));
+    ddu = malloc(sizeof(*ddu)*(iap->ndim));
     /* Generate the equations for the continuation scheme used for */
     /* the optimization of algebraic systems (one parameter). */
 
@@ -369,7 +369,7 @@ ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     double ddp[NPARX], *ddu, fop;
     int64 ndm2;
 
-    ddu = malloc(sizeof(*(ddu))*(iap->ndim));
+    ddu = malloc(sizeof(*ddu)*(iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -432,10 +432,10 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double fop;
     int64 irs;
 
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    v = malloc(sizeof(*(v))*(iap->ndim));
-    dd = malloc(sizeof(*(dd))*(iap->ndim)*(iap->ndim));
-    du = malloc(sizeof(*(du))*(iap->ndim));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    v = malloc(sizeof(*v)*(iap->ndim));
+    dd = malloc(sizeof(*dd)*(iap->ndim)*(iap->ndim));
+    du = malloc(sizeof(*du)*(iap->ndim));
     /* Generates starting data for the continuation equations for */
     /* optimization of algebraic systems (More than one parameter). */
 
@@ -731,9 +731,9 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     int64 ndm, irs, ndm2;
 
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    v = malloc(sizeof(*(v))*(iap->ndim));
-    smat = malloc(sizeof(*(smat))*(iap->ndim*2)*(iap->ndim*2));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    v = malloc(sizeof(*v)*(iap->ndim));
+    smat = malloc(sizeof(*smat)*(iap->ndim*2)*(iap->ndim*2));
     /* Generates starting data for the continuation of Hopf bifurcation */
     /* points for maps. */
 
@@ -948,9 +948,9 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndm, irs;
     double rom;
     int64 ndm2;
-    smat = malloc(sizeof(*(smat))*(iap->ndim*2)*(iap->ndim*2));
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    v = malloc(sizeof(*(v))*(iap->ndim));
+    smat = malloc(sizeof(*smat)*(iap->ndim*2)*(iap->ndim*2));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    v = malloc(sizeof(*v)*(iap->ndim));
     /* Generates starting data for the 2-parameter continuation of */
     /* Hopf bifurcation point (ODE). */
 
@@ -1163,11 +1163,11 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double rom;
     int64 ndm2;
 
-    smat = malloc(sizeof(*(smat))*(2*iap->ndim)*(2*iap->ndim));
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    v = malloc(sizeof(*(v))*(iap->ndim));
-    dfp = malloc(sizeof(*(dfp))*(iap->ndim)*NPARX);
-    dfu = malloc(sizeof(*(dfu))*(iap->ndim)*(iap->ndim));
+    smat = malloc(sizeof(*smat)*(2*iap->ndim)*(2*iap->ndim));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    v = malloc(sizeof(*v)*(iap->ndim));
+    dfp = malloc(sizeof(*dfp)*(iap->ndim)*NPARX);
+    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim));
 
     /* Generates starting data for the continuation of a bifurcation to a */
     /* traveling wave. */
@@ -1473,10 +1473,10 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double tpi;
     int64 irs;
 
-    smat = malloc(sizeof(*(smat))*(iap->ndim*2)*(iap->ndim*2));
-    rnllv = malloc(sizeof(*(rnllv))*(iap->ndim*2)*(iap->ndim*2));
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    u = malloc(sizeof(*(u))*(iap->ndim));
+    smat = malloc(sizeof(*smat)*(iap->ndim*2)*(iap->ndim*2));
+    rnllv = malloc(sizeof(*rnllv)*(iap->ndim*2)*(iap->ndim*2));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    u = malloc(sizeof(*u)*(iap->ndim));
     /* Generates starting data for the continuation of a branch of periodic */
     /* solutions from a Hopf bifurcation point. */
 
@@ -1787,12 +1787,12 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double tpi;
     int64 irs;
 
-    smat = malloc(sizeof(*(smat))*(2*iap->ndim)*(2*iap->ndim));
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    u = malloc(sizeof(*(u))*(iap->ndim));
-    rnllv = malloc(sizeof(*(rnllv))*2 * (iap->ndim));
-    dfp = malloc(sizeof(*(dfp))*(iap->ndim)*NPARX);
-    dfu = malloc(sizeof(*(dfu))*(iap->ndim)*(iap->ndim));
+    smat = malloc(sizeof(*smat)*(2*iap->ndim)*(2*iap->ndim));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    u = malloc(sizeof(*u)*(iap->ndim));
+    rnllv = malloc(sizeof(*rnllv)*2 * (iap->ndim));
+    dfp = malloc(sizeof(*dfp)*(iap->ndim)*NPARX);
+    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim));
 
     /* Generates starting data for the continuation of a branch of periodic */
     /* solutions starting from a Hopf bifurcation point (Waves). */
@@ -3252,7 +3252,7 @@ fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     int64 ndm;
     double umx;
 
-    upold = malloc(sizeof(*(upold))*(iap->ndim));
+    upold = malloc(sizeof(*upold)*(iap->ndim));
 
     /* Generates the equations for periodic optimization problems. */
 
@@ -3339,7 +3339,7 @@ ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     int64 i, j;
     double gamma, rkappa, period, dfp[NPARX], *dfu, fop;
 
-    dfu = malloc(sizeof(*(dfu))*(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -3444,7 +3444,7 @@ icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 
     f1 = malloc(sizeof(*(f1))*(iap->nint));
     f2 = malloc(sizeof(*(f2))*(iap->nint));
-    dnt = malloc(sizeof(*(dnt))*(iap->nint)*(iap->ndim + NPARX));
+    dnt = malloc(sizeof(*dnt)*(iap->nint)*(iap->ndim + NPARX));
 
     /* Generates integral conditions for periodic optimization problems. */
 
@@ -3533,8 +3533,8 @@ fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     int64 ndm;
     double fop;
 
-    f = malloc(sizeof(*(f))*(iap->ndim));
-    dfu = malloc(sizeof(*(dfu))*(iap->ndim));
+    f = malloc(sizeof(*f)*(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -3639,7 +3639,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     temporary_storage =
         malloc(sizeof(double)*(*ndxloc)*(iap->ndim*iap->ncol));
     ;
-    u = malloc(sizeof(*(u))*(iap->ndim));
+    u = malloc(sizeof(*u)*(iap->ndim));
 
     /* Generates starting data for optimization of periodic solutions. */
 
@@ -3918,7 +3918,7 @@ bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(*(ff2))*(iap->nbc));
     uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
     uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*(dfu))*(iap->nbc)*(2*iap->ndim + NPARX));
+    dfu = malloc(sizeof(*dfu)*(iap->nbc)*(2*iap->ndim + NPARX));
 
     /* Generates the boundary conditions for the 2-parameter continuation */
     /* of folds (BVP). */
@@ -4066,7 +4066,7 @@ icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     ff2 = malloc(sizeof(*(ff2))*(iap->nint));
     uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
     uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*(dfu))*(iap->ndim)*(iap->ndim + NPARX));
+    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim + NPARX));
 
     /* Generates integral conditions for the 2-parameter continuation of */
     /* folds (BVP). */

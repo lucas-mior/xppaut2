@@ -413,7 +413,7 @@ replace_column(char *var, char *form, float **dat, int32 n) {
     /* Okay the formula is cool so lets allocate and replace  */
 
     wipe_rep();
-    old_rep = malloc(sizeof(*(old_rep))*n);
+    old_rep = malloc(sizeof(*old_rep)*n);
     REPLACE = 1;
     for (i = 0; i < n; i++) {
         old_rep[i] = dat[R_COL][i];

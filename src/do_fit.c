@@ -464,7 +464,7 @@ run_fit(/* double arrays */
     plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
            y[npts*nvars - 2], y[npts*nvars - 1]);
 
-    work = malloc(sizeof(*(work))*(4*npars + npars*npars));
+    work = malloc(sizeof(*work)*(4*npars + npars*npars));
     yderv = malloc(npars*sizeof(double *));
     for (i = 0; i < npars; i++)
         yderv[i] = malloc((npts + 1)*nvars*sizeof(*(yderv[i])));
