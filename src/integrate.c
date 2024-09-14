@@ -72,7 +72,6 @@ extern int32 querypars;
 extern int32 queryics;
 extern int32 aplot_range;
 extern int32 Nintern_2_use;
-extern int32 AdjRange;
 extern int32 BatchEquil;
 extern Window draw_win;
 extern char this_internset[XPP_MAX_NAME];

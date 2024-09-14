@@ -15,6 +15,8 @@ int32 my_abort(void);
 
 #include <stdio.h>
 
+extern int32 AdjRange;
+
 void init_trans(void);
 void dump_transpose_info(FILE *fp, int32 f);
 int32 do_transpose(void);

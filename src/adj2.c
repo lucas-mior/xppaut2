@@ -42,8 +42,8 @@ struct {
 static int32 LIAP_FLAG = 0;
 int32 LIAP_N, LIAP_I;
 extern double NEWT_ERR;
-double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
-int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
+static double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
+static int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
 int32 AdjRange = 0;
 extern double DELTA_T, BOUND;
 int32 *coup_fun[MAX_ODE];
