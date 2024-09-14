@@ -8,7 +8,6 @@
 #include "x_auto.h"
 #include "integers.h"
 
-extern XAuto x_auto;
 extern int32 NODE;
 extern int32 RestartLabel;
 int32 restart_flag = 0;

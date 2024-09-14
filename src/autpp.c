@@ -6,7 +6,6 @@
 
 void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
                  double *d, int32 n);
-extern XAuto x_auto;
 
 /*    Hooks to xpp RHS     */
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);

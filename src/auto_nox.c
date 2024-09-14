@@ -78,7 +78,6 @@ int32 TypeOfCalc = 0;
 #define CUEQ 2
 
 #define DISCRETE 0
-extern XAuto x_auto;
 extern int32 leng[MAX_ODE];
 extern int32 PS_Color;
 extern double TOR_PERIOD;

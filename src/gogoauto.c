@@ -3,7 +3,6 @@
 #include "x_auto.h"
 #include "integers.h"
 
-extern XAuto x_auto;
 FILE *fp3;
 FILE *fp7;
 FILE *fp9;
