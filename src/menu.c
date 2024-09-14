@@ -17,10 +17,6 @@ extern int32 DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
 extern GC gc;
 
 void
-flash(int32 num) {
-}
-
-void
 add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     Window w;
     int32 i;

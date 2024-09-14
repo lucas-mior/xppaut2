@@ -125,7 +125,6 @@ get_num_par(int32 ch)
         break;
 
     case 't':
-        flash(0);
         /* total */
         new_float("total :", &TEND);
         FOREVER = 0;
@@ -134,22 +133,16 @@ get_num_par(int32 ch)
             TEND = -TEND;
         }
 
-        flash(0);
         break;
     case 's':
-        flash(1);
         /* start */
         new_float("start time :", &T0);
-        flash(1);
         break;
     case 'r':
-        flash(2);
         /* transient */
         new_float("transient :", &TRANS);
-        flash(2);
         break;
     case 'd':
-        flash(3);
         /* DT */
         temp = DELTA_T;
         new_float("Delta t :", &DELTA_T);
@@ -172,16 +165,13 @@ get_num_par(int32 ch)
            reset_memory();
            INFLAG=0;
          } */
-        flash(3);
         break;
     case 'n':
-        flash(4);
         /* ncline */
         new_int("ncline mesh :", &NMESH);
         /* new_float("Error :",&NULL_ERR); */
         check_pos(&NMESH);
 
-        flash(4);
         break;
     case 'v':
         /*   new_int("Number Left :", &BVP_NL);
@@ -194,7 +184,6 @@ get_num_par(int32 ch)
         reset_bvp();
         break;
     case 'i':
-        flash(5);
         /* sing pt */
         new_int("Maximum iterates :", &EVEC_ITER);
         check_pos(&EVEC_ITER);
@@ -203,26 +192,20 @@ get_num_par(int32 ch)
         if (NFlags > 0)
             new_float("SMIN :", &STOL);
 
-        flash(5);
         break;
     case 'o':
-        flash(6);
         /* noutput */
         new_int("n_out :", &NJMP);
         check_pos(&NJMP);
 
-        flash(6);
         break;
     case 'b':
-        flash(7);
         /* bounds */
         new_float("Bounds :", &BOUND);
         BOUND = fabs(BOUND);
 
-        flash(7);
         break;
     case 'm':
-        flash(8);
         /* method */
         get_method();
         if (METHOD == VOLTERRA && NKernel == 0) {
@@ -266,10 +249,8 @@ get_num_par(int32 ch)
                 METHOD = 4;
             }
         }
-        flash(8);
         break;
     case 'e':
-        flash(9);
         /* delay */
         if (NDELAYS == 0)
             break;
@@ -285,43 +266,30 @@ get_num_par(int32 ch)
         } else
             free_delay();
 
-        flash(9);
         break;
     case 'c':
-        flash(10);
         /* color */
         if (COLOR == 0)
             break;
         set_col_par();
-        flash(10);
         break;
     case 'h':
-        flash(11);
         do_stochast();
-        flash(11);
         break;
     case 'f':
-        flash(11);
         /* FFT */
-        flash(11);
         break;
     case 'p':
-        flash(12);
         /*Poincare map */
         get_pmap_pars();
-        flash(12);
         break;
     case 'u':
-        flash(13);
         /* ruelle */
         ruelle();
-        flash(13);
         break;
     case 'k':
-        flash(14);
         /*lookup table */
         new_lookup();
-        flash(14);
         break;
     case 27:
         do_meth();
