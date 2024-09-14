@@ -778,7 +778,6 @@ auto_scroll_window(void) {
     int32 i = 0, j = 0;
     int32 i0 = 0, j0 = 0;
     int32 state = 0;
-    float x, y, x0, y0;
     float xlo = Auto.xmin;
     float ylo = Auto.ymin;
     float xhi = Auto.xmax;

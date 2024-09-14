@@ -2322,7 +2322,7 @@ auto_extend_homoclinic(void) {
 
 void
 auto_start_at_homoclinic(void) {
-    int32 opn = NO_OPEN_3, cls = OVERWRITE;
+    int32 opn = NO_OPEN_3;
     int32 flag;
     Auto.irs = 0;
     Auto.itp = 0;
