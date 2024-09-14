@@ -987,7 +987,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             auto_button(report);
 #endif
 
-            show_position(report, &com);
+            show_position(report);
         }
         break;
 

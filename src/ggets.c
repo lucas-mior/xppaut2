@@ -179,7 +179,7 @@ plintf(char *fmt, ...) {
 }
 
 int32
-show_position(XEvent ev, int32 *com) {
+show_position(XEvent ev) {
     check_draw_button(ev);
     return 0;
 }
