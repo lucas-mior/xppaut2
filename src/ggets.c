@@ -335,16 +335,6 @@ rectangle(int32 x, int32 y, int32 x2, int32 y2, Window w) {
     return;
 }
 
-/*
-getuch()
-{
- int32 ch;
- ch=getchi();
- if(ch>64&&ch<96)ch+=32;
- return ch;
-}
-
-*/
 void
 setfillstyle(int32 type, int32 color) {
     if (type > -1)
