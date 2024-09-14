@@ -2425,7 +2425,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     (void)rap;
     (void)par;
     int64 iplt, i, j;
-    char col[9][14 + 1];
+    char col[9][34];
     int64 ndm, ips;
 
     /* Prints headings above columns on unit 6 and 7. */
