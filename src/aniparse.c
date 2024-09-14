@@ -81,7 +81,6 @@ static char *toons[] = {"Popeye the Sailor",
 #define ELLIP 9
 #define FELLIP 10
 #define COMET 11
-#define PCURVE 12
 #define AXNULL 13
 #define AYNULL 14
 #define GRAB 25
@@ -107,7 +106,7 @@ typedef struct {
     double vax, vay;
 } ANI_MOTION_INFO;
 
-ANI_MOTION_INFO ami;
+static ANI_MOTION_INFO ami;
 
 ANI_GRAB ani_grab[MAX_ANI_GRAB];
 static int32 n_ani_grab = 0;
