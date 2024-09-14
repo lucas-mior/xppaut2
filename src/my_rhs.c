@@ -81,10 +81,7 @@ my_rhs(double t, double *y, double *ydot, int32 neq) {
 
     for (i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
-        /* plintf("%d %g \n",i+1,GETVAR(i+1)); */
     }
-    /*printf("WTF %g\n",evaluate(my_ode[1]));
-     */
     eval_all_nets();
 
     do_daes();
