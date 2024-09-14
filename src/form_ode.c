@@ -388,7 +388,7 @@ get_eqn(FILE *fptr) {
         if (BVP_N > 0)
             printf("Warning: Too few boundary conditions\n");
         for (i = BVP_N; i < IN_VARS; i++) {
-            my_bc[i].com = malloc(200*sizeof(int32));
+            my_bc[i].com = malloc(200*sizeof(*(my_bc[i].com)));
             my_bc[i].string = malloc(256);
             my_bc[i].name = malloc(10);
             my_bc[i].side = 0;
@@ -668,7 +668,7 @@ compiler(char *bob, FILE *fptr) {
         break;
     case 'b':
         my_string = get_next("\n");
-        my_bc[BVP_N].com = malloc(200*sizeof(int32));
+        my_bc[BVP_N].com = malloc(200*sizeof(*(my_bc[BVP_N].com)));
         /*         plintf(" adding boundary condition %s \n",my_string);
          */
         my_bc[BVP_N].string = malloc(256);

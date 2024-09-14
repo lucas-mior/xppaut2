@@ -224,7 +224,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
         markov[j].trans = malloc(n2*sizeof(char *));
         markov[j].command = malloc(n2*sizeof(int32 *));
     } else {
-        markov[j].fixed = malloc(n2*sizeof(double));
+        markov[j].fixed = malloc(n2*sizeof(*(markov[j].fixed)));
     }
 
     for (i = 0; i < nstates; i++)

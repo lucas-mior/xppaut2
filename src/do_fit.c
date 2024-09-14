@@ -467,7 +467,7 @@ run_fit(/* double arrays */
     work = malloc(sizeof(double)*(4*npars + npars*npars));
     yderv = malloc(npars*sizeof(double *));
     for (i = 0; i < npars; i++)
-        yderv[i] = malloc((npts + 1) * nvars*sizeof(double));
+        yderv[i] = malloc((npts + 1) * nvars*sizeof(*(yderv[i])));
     for (i = 0; i < nvars; i++)
         sig[i] = 1.0;
 

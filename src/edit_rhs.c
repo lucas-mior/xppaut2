@@ -333,9 +333,9 @@ edit_rhs(void) {
     values = malloc(n*sizeof(char *));
     command = malloc(n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = malloc(MAX_LEN_EBOX * sizeof(char));
-        names[i] = malloc(MAX_LEN_EBOX * sizeof(char));
-        command[i] = malloc(200*sizeof(int32));
+        values[i] = malloc(MAX_LEN_EBOX * sizeof(*(values[i])));
+        names[i] = malloc(MAX_LEN_EBOX * sizeof(*(names[i])));
+        command[i] = malloc(200*sizeof(*(command[i])));
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT");
         if (i < NODE && METHOD == 0)
@@ -412,9 +412,9 @@ edit_functions(void) {
     values = malloc(n*sizeof(char *));
     command = malloc(n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = malloc(MAX_LEN_EBOX * sizeof(char));
-        names[i] = malloc(MAX_LEN_EBOX * sizeof(char));
-        command[i] = malloc(200*sizeof(int32));
+        values[i] = malloc(MAX_LEN_EBOX * sizeof(*(values[i])));
+        names[i] = malloc(MAX_LEN_EBOX * sizeof(*(names[i])));
+        command[i] = malloc(200*sizeof(*(command[i])));
         sprintf(values[i], "%s", ufun_def[i]);
 
         if (narg_fun[i] == 0) {

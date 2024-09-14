@@ -822,7 +822,7 @@ dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         rcont7 = rcont6 + nrdens;
         rcont8 = rcont7 + nrdens;
         if (nrdens < n)
-            indir = malloc(n*sizeof(unsigned));
+            indir = malloc(n*sizeof(*(indir)));
 
         /* control of length of icont */
         if (nrdens == n) {
@@ -1359,7 +1359,7 @@ dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         rcont4 = rcont3 + nrdens;
         rcont5 = rcont4 + nrdens;
         if (nrdens < n)
-            indir = malloc(n*sizeof(unsigned));
+            indir = malloc(n*sizeof(*(indir)));
 
         /* control of length of icont */
         if (nrdens == n) {

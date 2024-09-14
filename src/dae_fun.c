@@ -117,7 +117,7 @@ compile_svars(void) {
             plintf(" Bad initial guess for sol-var \n");
             return 1;
         }
-        svar[i].form = malloc(100*sizeof(int32));
+        svar[i].form = malloc(100*sizeof(*(svar[i].form)));
         for (k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }

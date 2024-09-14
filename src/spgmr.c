@@ -63,7 +63,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
     }
 
     for (k = 0; k <= l_max; k++) {
-        Hes[k] = malloc(l_max*sizeof(double));
+        Hes[k] = malloc(l_max*sizeof(*(Hes[k])));
         if (Hes[k] == NULL) {
             for (i = 0; i < k; i++)
                 free(Hes[i]);

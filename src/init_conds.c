@@ -1686,8 +1686,8 @@ make_box_list_window(BoxList *b, int32 type) {
     b->w = malloc(nrow*sizeof(*(b->w)));
     b->we = malloc(nrow*sizeof(*(b->we)));
     if (type == ICBOX) {
-        b->ck = malloc(nrow*sizeof(Window));
-        b->isck = malloc(n*sizeof(int32));
+        b->ck = malloc(nrow*sizeof(*(b->ck)));
+        b->isck = malloc(n*sizeof(*(b->isck)));
         for (i = 0; i < n; i++)
             b->isck[i] = 0;
     }
