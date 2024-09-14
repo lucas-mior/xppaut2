@@ -2496,11 +2496,6 @@ do_plot(float *oldxpl, float *oldypl, float *oldzpl, float *xpl, float *ypl,
     return;
 }
 
-/*
- old restore is in restore.c
-
-*/
-
 void
 export_data(FILE *fp) {
     int32 ip, np = MyGraph->nvars;
