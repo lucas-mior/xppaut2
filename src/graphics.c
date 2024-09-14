@@ -107,8 +107,6 @@ set_scale(double x1, double y1, double x2, double y2) {
     return;
 }
 
-/* SLUGGISH??? */
-
 void
 get_draw_area(void) {
     get_draw_area_flag(1);
