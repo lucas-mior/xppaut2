@@ -129,7 +129,7 @@ int32
 create_transpose(void) {
     int32 i, j;
     int32 inrow, incol;
-    my_trans.data = malloc(sizeof(float *)*(NEQ + 1));
+    my_trans.data = malloc(sizeof(float *)*(size_t)(NEQ + 1));
     for (i = 0; i <= my_trans.nrow; i++)
         my_trans.data[i] = malloc(sizeof(float) * my_trans.ncol);
     for (i = my_trans.nrow + 1; i <= NEQ; i++)
