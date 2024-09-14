@@ -85,7 +85,7 @@ dump_transpose_info(FILE *fp, int32 f) {
 
 int32
 do_transpose(void) {
-    int32 i, status;
+    int32 ii, status;
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};
     char values[6][MAX_LEN_SBOX];
@@ -96,7 +96,7 @@ do_transpose(void) {
     snprintf(values[4], sizeof(values[0]), "%d", my_trans.nrow);
     snprintf(values[5], sizeof(values[0]), "%d", my_trans.rowskip);
     if (my_trans.here) {
-        for (i = 0; i <= my_trans.nrow; i++)
+        for (int32 i = 0; i <= my_trans.nrow; i++)
             free(my_trans.data[i]);
         free(my_trans.data);
         my_trans.here = 0;
@@ -104,18 +104,18 @@ do_transpose(void) {
     }
     status = do_string_box(6, 6, 1, "Transpose Data", n, values, 33);
     if (status != 0) {
-        find_variable(values[0], &i);
-        if (i > -1)
-            my_trans.col0 = i + 1;
+        find_variable(values[0], &ii);
+        if (ii > -1)
+            my_trans.col0 = ii + 1;
         else {
             err_msg("No such columns");
             return 0;
         }
         strcpy(my_trans.firstcol, values[0]);
-        i = atoi(values[4]);
-        if (i >= NEQ)
-            i = NEQ - 1;
-        my_trans.nrow = i;
+        ii = atoi(values[4]);
+        if (ii >= NEQ)
+            ii = NEQ - 1;
+        my_trans.nrow = ii;
         my_trans.ncol = atoi(values[1]);
         my_trans.colskip = atoi(values[2]);
         my_trans.row0 = atoi(values[3]);
