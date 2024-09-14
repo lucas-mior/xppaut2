@@ -5,7 +5,6 @@ PREFIX ?= /usr/local
 
 CFLAGS = -D_DEFAULT_SOURCE -std=c99
 CFLAGS += -Wall -Wextra -Wpedantic -Wfatal-errors
-CFLAGS += -Wno-format-truncation
 CFLAGS += -I./src/ -I./bitmaps/ -I./ -I./src/cvode/
 CFLAGS += -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION)
 CFLAGS += -DNOERRNO -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
@@ -24,6 +23,8 @@ clang: CFLAGS += -Wno-sign-conversion
 clang: all
 
 gcc: C = gcc
+gcc: CFLAGS += -Wno-format-truncation -Wno-format-overflow -Wno-pedantic
+gcc: CFLAGS += -Wno-implicit-fallthrough
 gcc: all
 
 tcc: C = tcc

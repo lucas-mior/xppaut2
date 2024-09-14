@@ -216,7 +216,7 @@ read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
     if (fp == NULL)
         return 0;
     while (!feof(fp)) {
-        fscanf(fp, "%g %g %g %g \n", &x, &r[i], &g[i], &b[i]);
+        fscanf(fp, "%lf %lf %lf %lf \n", &x, &r[i], &g[i], &b[i]);
         i++;
     }
     fclose(fp);

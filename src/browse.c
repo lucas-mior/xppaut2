@@ -1452,7 +1452,7 @@ data_read(BROWSER *b) {
     len = 0;
     while (!feof(fp)) {
         for (k = 0; k < count; k++) {
-            fscanf(fp, "%f ", &z);
+            fscanf(fp, "%lf ", &z);
             if (k < b->maxcol)
                 b->data[k][len] = z;
         }

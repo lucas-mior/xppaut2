@@ -1481,11 +1481,11 @@ read_bd(FILE *fp) {
     int32 oldtype, type, oldbr, br, ncrv = 0, len, f2;
     double x[8000], ylo[8000], yhi[8000];
     len = 0;
-    fscanf(fp, "%g %g %g %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype,
+    fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &oldtype,
            &oldbr, &f2);
     len++;
     while (!feof(fp)) {
-        fscanf(fp, "%g %g %g %d %d %d", &x[len], &ylo[len], &yhi[len], &type,
+        fscanf(fp, "%lf %lf %lf %d %d %d", &x[len], &ylo[len], &yhi[len], &type,
                &br, &f2);
         if (type == oldtype && br == oldbr)
             len++;
