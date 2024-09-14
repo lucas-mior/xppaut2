@@ -736,10 +736,6 @@ special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
 }
 
 void
-fancy_svg_text(int32 x, int32 y, char *str, int32 size, int32 font) {
-}
-
-void
 svg_text(int32 x, int32 y, char *str) {
     char anchor[7];
 

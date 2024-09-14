@@ -4066,7 +4066,6 @@ void svg_linetype(int32 linetype);
 void svg_point(int32 x, int32 y);
 void svg_write(char *str);
 void special_put_text_svg(int32 x, int32 y, char *str, int32 size);
-void fancy_svg_text(int32 x, int32 y, char *str, int32 size, int32 font);
 void svg_text(int32 x, int32 y, char *str);
 
 #endif
