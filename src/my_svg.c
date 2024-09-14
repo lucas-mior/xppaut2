@@ -436,7 +436,7 @@ svg_end(void) {
 }
 
 void
-svg_bead(int32 x, int32 y) {
+svg_bead(void) {
     DO_MARKER = 1;
     return;
 }

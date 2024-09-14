@@ -197,7 +197,7 @@ bead(int32 x1, int32 y1) {
     if (PltFmtFlag == PSFMT)
         return;
     else if (PltFmtFlag == SVGFMT)
-        svg_bead(x1, y1);
+        svg_bead();
     else
         bead_x11(x1, y1);
     return;

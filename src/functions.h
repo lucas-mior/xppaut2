@@ -4057,7 +4057,7 @@ int32 svg_init(char *filename);
 void svg_stroke(void);
 void svg_do_color(int32 color);
 void svg_end(void);
-void svg_bead(int32 x, int32 y);
+void svg_bead(void);
 void svg_frect(int32 x, int32 y, int32 w, int32 h);
 void svg_last_pt_off(void);
 void svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
