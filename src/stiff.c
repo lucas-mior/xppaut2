@@ -81,7 +81,7 @@ adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
     int32 value;
     if (NFlags == 0) {
         value = gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
-                          epjac, iflag, jstart);
+                          epjac, iflag);
         return value;
     }
     value = one_flag_step_adap(ystart, nvar, xs, x2, eps, hguess, hmin, work,
@@ -92,7 +92,7 @@ adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
 int32
 gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
           double *hguess, double hmin, double *work, int32 *ier, double epjac,
-          int32 iflag, int32 *jstart) {
+          int32 iflag) {
     double h1 = *hguess;
     int32 nstp, i;
     double x1 = *xs;

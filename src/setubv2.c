@@ -294,6 +294,8 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *rlcur, double *rlold, double *rldot, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dups, double *dtm, double *thl,
        double *thu, double *p0, double *p1) {
+    (void) p0;
+    (void) p1;
     /* System generated locals */
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
