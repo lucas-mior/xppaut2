@@ -43,7 +43,7 @@ tags: $(OBJECTS)
 
 meta: bear tags
 
-test: C = gcc
+test: C = $(CC)
 test: CFLAGS += -Wno-error
 test: all
 	./xppaut & sleep 1
