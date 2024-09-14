@@ -108,7 +108,7 @@ typedef struct {
 
 static ANI_MOTION_INFO ami;
 
-ANI_GRAB ani_grab[MAX_ANI_GRAB];
+static ANI_GRAB ani_grab[MAX_ANI_GRAB];
 static int32 n_ani_grab = 0;
 static int32 show_grab_points = 0;
 static int32 ani_grab_flag = 0;
@@ -134,9 +134,9 @@ extern int32 FIX_VAR, NMarkov;
 extern GC small_gc;
 extern BROWSER my_browser;
 
-int32 aniflag;
-int32 LastAniColor;
-int32 ani_line;
+static int32 aniflag;
+static int32 LastAniColor;
+static int32 ani_line;
 
 static int32 ani_speed = 10;
 static int32 ani_speed_inc = 2;
