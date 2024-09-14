@@ -109,7 +109,7 @@ void allocate_ram(int n, double *w) {
   int n3=3*n,nn=n*n;
   int i;
   if(allocflag==1)return;  /* already allocated */
-  hostwgt = malloc(nn*sizeof(float));
+  hostwgt = malloc(nn*sizeof(*(hostwgt)));
   cudaMalloc((void**)&devwgt,nn*sizeof(real));
   /*  copy one time only for now */
   for(i=0;i<nn;i++)

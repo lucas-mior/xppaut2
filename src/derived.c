@@ -42,7 +42,7 @@ compile_derived(void) {
             plintf(" Bad right-hand side for derived parameters \n");
             return 1;
         }
-        derived[i].form = malloc(sizeof(int32)*(n + 2));
+        derived[i].form = malloc(sizeof(*(derived[i].form))*(n + 2));
         for (k = 0; k < n; k++)
             derived[i].form[k] = f[k];
     }

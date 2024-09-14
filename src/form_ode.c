@@ -1514,7 +1514,7 @@ create_plot_list(void) {
     int32 i, j = 0, k;
     if (N_only == 0)
         return;
-    plotlist = malloc(sizeof(int32)*(N_only + 1));
+    plotlist = malloc(sizeof(*(plotlist))*(N_only + 1));
     for (i = 0; i < N_only; i++) {
         find_variable(onlylist[i], &k);
         if (k >= 0) {
@@ -2710,7 +2710,7 @@ keep_orig_comments(void) {
         return; /* already stored these so return */
     if (n_comments == 0)
         return; /* nothing to keep ! */
-    orig_comments = malloc(sizeof(ACTION)*n_comments);
+    orig_comments = malloc(sizeof(*(orig_comments))*n_comments);
     for (i = 0; i < n_comments; i++) {
         orig_comments[i].text = malloc(strlen(comments[i].text) + 1);
         if (comments[i].aflag)

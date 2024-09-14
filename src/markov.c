@@ -239,7 +239,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
     int32 l0 = markov[index].nstates*j + k;
     int32 type = markov[index].type;
     if (type == 0) {
-        markov[index].trans[l0] = malloc(sizeof(char)*(strlen(expr) + 1));
+        markov[index].trans[l0] = malloc(sizeof(*(markov[index].trans[l0]))*(strlen(expr) + 1));
         strcpy(markov[index].trans[l0], expr);
         /*  compilation step -- can be delayed */
         /*
@@ -292,7 +292,7 @@ compile_markov(int32 index, int32 j, int32 k) {
 
     if (add_expr(expr, com, &leng))
         return -1;
-    markov[index].command[l0] = malloc(sizeof(int32)*(leng + 2));
+    markov[index].command[l0] = malloc(sizeof(*(markov[index].command[l0]))*(leng + 2));
     for (i = 0; i < leng; i++) {
         markov[index].command[l0][i] = com[i];
     }
@@ -557,8 +557,8 @@ init_stoch(int32 len) {
     N_TRIALS = 0;
     stoch_len = len;
     for (i = 0; i < (NEQ + 1); i++) {
-        my_mean[i] = malloc(sizeof(float)*stoch_len);
-        my_variance[i] = malloc(sizeof(float)*stoch_len);
+        my_mean[i] = malloc(sizeof(*(my_mean[i]))*stoch_len);
+        my_variance[i] = malloc(sizeof(*(my_variance[i]))*stoch_len);
         for (j = 0; j < stoch_len; j++) {
             my_mean[i][j] = 0.0;
             my_variance[i][j] = 0.0;

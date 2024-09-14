@@ -120,7 +120,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for an SpgmrMemRec containing SPGMR matrices and vectors */
 
-    mem = malloc(sizeof(SpgmrMemRec));
+    mem = malloc(sizeof(*(mem)));
     if (mem == NULL) {
         N_VFree(vtemp);
         free(yg);

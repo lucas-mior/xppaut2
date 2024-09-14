@@ -26,7 +26,7 @@ DIAGRAM *bifd;
 void
 start_diagram(int32 n) {
     NBifs = 1;
-    bifd = malloc(sizeof(DIAGRAM));
+    bifd = malloc(sizeof(*(bifd)));
     bifd->prev = NULL;
     bifd->next = NULL;
     bifd->index = 0;
@@ -103,7 +103,7 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     while (d->next != NULL) {
         d = (d->next);
     }
-    d->next = malloc(sizeof(DIAGRAM));
+    d->next = malloc(sizeof(*(d->next)));
     dnew = d->next;
     dnew->next = NULL;
     dnew->prev = d;

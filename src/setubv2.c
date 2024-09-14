@@ -67,23 +67,23 @@ setubv_make_aa_bb_cc(void *arg) {
     double *wp = larg->wp;
     double *wt = larg->wt;
 
-    dicd = malloc(sizeof(double)*(larg->nint)*(larg->ndim + NPARX));
-    ficd = malloc(sizeof(double)*(larg->nint));
-    dfdp = malloc(sizeof(double)*(larg->ndim)*NPARX);
-    dfdu = malloc(sizeof(double)*(larg->ndim)*(larg->ndim));
-    uold = malloc(sizeof(double)*(larg->ndim));
-    f = malloc(sizeof(double)*(larg->ndim));
-    u = malloc(sizeof(double)*(larg->ndim));
-    wploc = malloc(sizeof(double)*(larg->ncol)*(larg->ncol + 1));
-    dbc = malloc(sizeof(double)*(larg->nbc)*(2*larg->ndim + NPARX));
-    fbc = malloc(sizeof(double)*(larg->nbc));
-    uic = malloc(sizeof(double)*(larg->ndim));
-    uio = malloc(sizeof(double)*(larg->ndim));
-    prm = malloc(sizeof(double)*NPARX);
-    uid = malloc(sizeof(double)*(larg->ndim));
-    uip = malloc(sizeof(double)*(larg->ndim));
-    ubc0 = malloc(sizeof(double)*(larg->ndim));
-    ubc1 = malloc(sizeof(double)*(larg->ndim));
+    dicd = malloc(sizeof(*(dicd))*(larg->nint)*(larg->ndim + NPARX));
+    ficd = malloc(sizeof(*(ficd))*(larg->nint));
+    dfdp = malloc(sizeof(*(dfdp))*(larg->ndim)*NPARX);
+    dfdu = malloc(sizeof(*(dfdu))*(larg->ndim)*(larg->ndim));
+    uold = malloc(sizeof(*(uold))*(larg->ndim));
+    f = malloc(sizeof(*(f))*(larg->ndim));
+    u = malloc(sizeof(*(u))*(larg->ndim));
+    wploc = malloc(sizeof(*(wploc))*(larg->ncol)*(larg->ncol + 1));
+    dbc = malloc(sizeof(*(dbc))*(larg->nbc)*(2*larg->ndim + NPARX));
+    fbc = malloc(sizeof(*(fbc))*(larg->nbc));
+    uic = malloc(sizeof(*(uic))*(larg->ndim));
+    uio = malloc(sizeof(*(uio))*(larg->ndim));
+    prm = malloc(sizeof(*(prm))*NPARX);
+    uid = malloc(sizeof(*(uid))*(larg->ndim));
+    uip = malloc(sizeof(*(uip))*(larg->ndim));
+    ubc0 = malloc(sizeof(*(ubc0))*(larg->ndim));
+    ubc1 = malloc(sizeof(*(ubc1))*(larg->ndim));
 
     upoldp_dim1 = larg->ndxloc;
     udotps_dim1 = larg->ndxloc;
@@ -304,9 +304,9 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
 
     double *wi, *wp, *wt;
 
-    wi = malloc(sizeof(double)*(ncol + 1));
-    wp = malloc(sizeof(double)*(ncol)*(ncol + 1));
-    wt = malloc(sizeof(double)*(ncol)*(ncol + 1));
+    wi = malloc(sizeof(*(wi))*(ncol + 1));
+    wp = malloc(sizeof(*(wp))*(ncol)*(ncol + 1));
+    wt = malloc(sizeof(*(wt))*(ncol)*(ncol + 1));
 
     dd_dim1 = ncb;
 

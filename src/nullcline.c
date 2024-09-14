@@ -193,7 +193,7 @@ do_range_clines(void) {
 void
 start_ncline(void) {
     n_nstore = 1;
-    ncperm = malloc(sizeof(NCLINES));
+    ncperm = malloc(sizeof(*(ncperm)));
     ncperm->p = NULL;
     ncperm->n = NULL;
     ncperm->nmx = 0;
@@ -370,7 +370,7 @@ add_froz_cline(float *xn, int32 nmx, int32 n_ix, float *yn, int32 nmy,
     z->nmy = nmy;
     z->n_ix = n_ix;
     z->n_iy = n_iy;
-    z->n = malloc(sizeof(NCLINES));
+    z->n = malloc(sizeof(*(z->n)));
     znew = z->n;
     znew->n = NULL;
     znew->p = z;
