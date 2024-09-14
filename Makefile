@@ -23,6 +23,9 @@ clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
 clang: all
 gcc: C = gcc
 gcc: all
+tcc: C = tcc
+tcc: CFLAGS += -Wno-error
+tcc: all
 
 bear: CFLAGS += -Wno-error
 bear: compile_commands.json
