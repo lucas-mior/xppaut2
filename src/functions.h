@@ -2204,7 +2204,7 @@ typedef struct {
 
 void reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col);
 int32 do_edit_box(int32 n, char *title, char **names, char **values);
-void expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col);
+void expose_ebox(EDIT_BOX *sb, Window w, int32 pos);
 void ereset_hot(int32 inew, EDIT_BOX *sb);
 void enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col,
                    int32 *done, Window *w);
@@ -4310,7 +4310,7 @@ int32 select_scroll_item(Window w, SCROLLBOX sb);
 void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb);
 int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
                     char values[][MAX_LEN_SBOX], int32 maxchar);
-void expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col);
+void expose_sbox(STRING_BOX sb, Window w, int32 pos);
 void do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos);
 void reset_hot(int32 inew, STRING_BOX *sb);
 void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col,

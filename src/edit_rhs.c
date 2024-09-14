@@ -118,7 +118,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
 }
 
 void
-expose_ebox(EDIT_BOX *sb, Window w, int32 pos, int32 col) {
+expose_ebox(EDIT_BOX *sb, Window w, int32 pos) {
     int32 i, flag;
 
     if (w == sb->ok) {
@@ -187,7 +187,7 @@ e_box_event_loop(EDIT_BOX *sb, int32 *pos, int32 *col) {
     case Expose:
     case MapNotify:
         do_expose(ev); /*  menus and graphs etc  */
-        expose_ebox(sb, ev.xany.window, *pos, *col);
+        expose_ebox(sb, ev.xany.window, *pos);
         break;
 
     case ButtonPress:

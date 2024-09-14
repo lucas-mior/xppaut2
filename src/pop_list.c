@@ -300,7 +300,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
 }
 
 void
-expose_sbox(STRING_BOX sb, Window w, int32 pos, int32 col) {
+expose_sbox(STRING_BOX sb, Window w, int32 pos) {
     int32 i, flag;
 
     if (w == sb.ok) {
@@ -398,7 +398,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
     case Expose:
     case MapNotify:
         do_expose(ev); /*  menus and graphs etc  */
-        expose_sbox(*sb, ev.xany.window, *pos, *col);
+        expose_sbox(*sb, ev.xany.window, *pos);
         if (scrb->exist)
             expose_scroll_box(ev.xany.window, *scrb);
         break;
