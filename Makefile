@@ -3,7 +3,7 @@ MINOR_VERSION = 1
 
 PREFIX ?= /usr/local
 
-CC = gcc
+CC ?= gcc
 
 CFLAGS = -D_DEFAULT_SOURCE -std=c99
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
