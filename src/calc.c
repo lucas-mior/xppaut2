@@ -114,7 +114,7 @@ ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     *pos = strlen(value);
     *col = (*pos + strlen(name)) * DCURX;
     clr_command();
-    display_command(name, value, 2, 0);
+    display_command(name, value, 2);
     return;
 }
 
