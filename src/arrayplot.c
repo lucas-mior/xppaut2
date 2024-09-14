@@ -71,10 +71,10 @@ static int32 aplot_still = 1, aplot_tag = 0;
 static APLOT aplot;
 extern Window draw_win;
 static int32 plot3d_auto_redraw = 0;
-FILE *ap_fp;
-GC aplot_gc;
-int32 first_aplot_press;
-int32 do_range(double *, int32);
+static FILE *ap_fp;
+static GC aplot_gc;
+static int32 first_aplot_press;
+
 extern double MyData[MAX_ODE];
 
 void
