@@ -763,7 +763,7 @@ hrw_liapunov(double *liap, int32 batch, double eps) {
             dy[i] = eps*yp[i];
     }
     t1 = storage[0][storind - 1] - storage[0][0];
-    if (t1 != 0)
+    if (fabs(t1) > 1e-12)
         sum = sum / t1;
     *liap = sum;
     if (batch == 0) {
