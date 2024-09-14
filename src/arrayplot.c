@@ -621,7 +621,6 @@ gif_aplot_all(char *filename, int32 still) {
 
 void
 gif_aplot(void) {
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     snprintf(filename, sizeof(filename), "%s.gif", this_file);
     if (!file_selector("GIF plot", filename, "*.gif"))
