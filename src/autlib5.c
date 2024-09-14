@@ -1442,9 +1442,6 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
         free(f0);
         free(f1);
         return ret_val;
-    } else {
-        free(f0);
-        free(f1);
     }
 
     switch ((int32)is) {
@@ -1487,7 +1484,7 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
 L1:
     ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] +
               ri[-1 + blhom_1.nstab] + ri[blhom_1.nstab];
-    return ret_val;
+    goto free_f0f1;
 
     /* Double real leading eigenvalues (stable) */
     /*   (saddle, saddle-focus transition) */
@@ -1502,7 +1499,7 @@ L2:
         double tmp = rr[-1 + blhom_1.nstab] - rr[-1 + blhom_1.nstab - 1];
         ret_val = tmp*tmp;
     }
-    return ret_val;
+    goto free_f0f1;
 
     /* Double real positive eigenvalues (unstable) */
     /*   (saddle, saddle-focus transition) */
@@ -1517,52 +1514,52 @@ L3:
         double tmp = rr[blhom_1.nstab] - rr[blhom_1.nstab + 1];
         ret_val = tmp*tmp;
     }
-    return ret_val;
+    goto free_f0f1;
 
     /* Neutral saddle, saddle-focus or bi-focus (includes 1, above, also) */
 
 L4:
     ret_val = rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab];
-    return ret_val;
+    goto free_f0f1;
 
     /* Neutrally-divergent saddle-focus (stable eigenvalues floatcomplex) */
 
 L5:
     ret_val =
         rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + rr[blhom_1.nstab - 2];
-    return ret_val;
+    goto free_f0f1;
 
     /* Neutrally-divergent saddle-focus (unstable eigenvalues floatcomplex) */
 
 L6:
     ret_val =
         rr[-1 + blhom_1.nstab] + rr[blhom_1.nstab] + rr[blhom_1.nstab + 1];
-    return ret_val;
+    goto free_f0f1;
 
     /* Three leading eigenvalues (stable) */
 
 L7:
     ret_val = rr[-1 + blhom_1.nstab] - rr[blhom_1.nstab - 3];
-    return ret_val;
+    goto free_f0f1;
 
     /* Three leading eigenvalues (ustable) */
 
 L8:
     ret_val = rr[blhom_1.nstab] - rr[blhom_1.nunstab + 2];
-    return ret_val;
+    goto free_f0f1;
 
     /* Local bifurcation (zero eigenvalue or Hopf): NSTAB decreases */
     /*  (nb. the problem becomes ill-posed after a zero of 9 or 10) */
 
 L9:
     ret_val = rr[-1 + blhom_1.nstab];
-    return ret_val;
+    goto free_f0f1;
 
     /* Local bifurcation (zero eigenvalue or Hopf): NSTAB increases */
 
 L10:
     ret_val = rr[blhom_1.nstab];
-    return ret_val;
+    goto free_f0f1;
 
     /* Orbit flip (with respect to leading stable direction) */
     /*     e.g. 1D unstable manifold */
@@ -1572,7 +1569,7 @@ L11:
         ret_val += f1[j] * vt[blhom_1.nstab + (j + 1)*(iap->ndm)];
     }
     ret_val *= exp(-par[10] * rr[-1 + blhom_1.nstab] / 2.);
-    return ret_val;
+    goto free_f0f1;
 
     /* Orbit flip (with respect to leading unstable direction) */
     /*     e.g. 1D stable manifold */
@@ -1582,7 +1579,7 @@ L12:
         ret_val += f0[j] * vt[blhom_1.nstab + 1 + (j + 1)*(iap->ndm)];
     }
     ret_val *= exp(par[10] * rr[blhom_1.nstab] / 2.);
-    return ret_val;
+    goto free_f0f1;
 
     /* Inclination flip (critically twisted) with respect to stable manifold
      */
@@ -1594,7 +1591,7 @@ L13:
             blhmu_1.pu0[ndm + i] * v[blhom_1.nstab + (i + 1)*(iap->ndm)];
     }
     ret_val *= exp(-par[10] * rr[-1 + blhom_1.nstab] / 2.);
-    return ret_val;
+    goto free_f0f1;
 
     /* Inclination flip (critically twisted) with respect to unstable manifold
      */
@@ -1606,7 +1603,7 @@ L14:
             blhmu_1.pu1[ndm + i] * v[blhom_1.nstab + 1 + (i + 1)*(iap->ndm)];
     }
     ret_val *= exp(par[10] * rr[blhom_1.nstab] / 2.);
-    return ret_val;
+    goto free_f0f1;
 
     /* Non-central homoclinic to saddle-node (in stable manifold) */
 
@@ -1615,7 +1612,7 @@ L15:
         ret_val += (par[i + 11] - blhmu_1.pu1[i]) *
                    v[blhom_1.nstab + 1 + (i + 1)*(iap->ndm)];
     }
-    return ret_val;
+    goto free_f0f1;
 
     /* Non-central homoclinic to saddle-node (in unstable manifold) */
 
@@ -1624,8 +1621,12 @@ L16:
         ret_val += (par[i + 11] - blhmu_1.pu0[i]) *
                    v[blhom_1.nstab + 1 + (i + 1)*(iap->ndm)];
     }
-    return ret_val;
+    goto free_f0f1;
 
+free_f0f1:
+    free(f0);
+    free(f1);
+    return ret_val;
 }
 
 /*     ---------- ----- */
