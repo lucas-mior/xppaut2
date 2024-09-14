@@ -254,7 +254,7 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     int32 i, j, pt;
     /*int32 flag=0;
      */
-    int32 icp1, icp2;
+    int32 icp1;
     double *par;
     double par1, *u0, per;
     int32 first, last, nrows;
@@ -275,7 +275,6 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
         pt = abs(d->ntot);
         if ((d->ibr == ibr) && (pt >= first) && (pt <= last)) {
             icp1 = d->icp1;
-            icp2 = d->icp2;
             par = d->par;
             per = d->per;
             u0 = d->u0;
