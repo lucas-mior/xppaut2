@@ -2429,8 +2429,7 @@ draw_ani_vtext(int32 j) {
     return;
 }
 
-/* tst_pix_draw()
-{
+/* tst_pix_draw() {
  int32 i;
  set_ani_thick(2);
  for(i=1;i<10;i++){

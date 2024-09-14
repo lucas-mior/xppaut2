@@ -574,8 +574,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     return 0;
 }
 
-/* wait_for_key()
-{
+/* wait_for_key() {
   char bob[256];
   plintf(" Pause:");
   gets(bob);

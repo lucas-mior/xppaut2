@@ -77,8 +77,7 @@ static int32 star(char *string, char *pattern);
 
 FILEINFO my_ff;
 /*
-main()
-{
+main() {
  int32 i;
  change_directory("../xtc");
  get_directory(cur_dir);

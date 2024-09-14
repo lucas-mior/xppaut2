@@ -1187,8 +1187,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     BaseCol();
 }
 /*
- draw_help()
-{
+ draw_help() {
         switch(help_menu){
                 case MAIN_HELP: help(); break;
                 case NUM_HELP : help_num();break;

@@ -1124,8 +1124,7 @@ create_svg(void) {
 }
 
 /*
-ps_test()
-{
+ps_test() {
  double xlo=MyGraph->xlo,xhi=MyGraph->xhi,ylo=MyGraph->ylo,yhi=MyGraph->yhi;
  text_abs((float)xlo,(float)ylo,"lolo");
  text_abs((float)xlo,(float)yhi,"lohi");

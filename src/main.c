@@ -1732,8 +1732,7 @@ get_command_width(void) {
      it is usually in stdlib.h
 
 #ifdef NORAND48
-double ndrand48()
-{
+double ndrand48() {
   return (double)rand()/(double)RAND_MAX;
 }
 
