@@ -132,8 +132,8 @@ get_draw_area_flag(int32 flag) {
     YDMax = h;
     VTic = max(h / 100, 1);
     HTic = max(w / 150, 1);
-    VChar = DCURYs; /*max(h/25,1);*/
-    HChar = DCURXs; /* max(w/80,1); */
+    VChar = DCURYs;
+    HChar = DCURXs;
 
     DLeft = 12 * HChar;
     DRight = XDMax - 3 * HChar - HTic;
