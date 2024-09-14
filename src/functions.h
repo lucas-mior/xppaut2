@@ -5211,8 +5211,7 @@ void get_kn(double *y, double t);
 int32 volterra(double *y, double *t, double dt, int32 nt, int32 neq,
                int32 *istart, double *work);
 int32 volt_step(double *y, double t, double dt, int32 neq, double *yg,
-                double *yp, double *yp2, double *ytemp, double *errvec,
-                double *jac);
+                double *yp, double *yp2, double *errvec, double *jac);
 
 #endif
 
