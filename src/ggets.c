@@ -135,12 +135,7 @@ bottom_msg(int32 line, char *msg) {
     strcpy(info_message, msg);
     XDrawString(display, info_pop, gc, 5, CURY_OFF, msg, strlen(msg));
 }
-/*
-clr_menbar()
-{
-  blank_screen(menu_pop);
- }
-*/
+
 void
 gputs(char *string, Window win) {
     int32 xloc = CURS_X * DCURX, yloc = CURS_Y * DCURY;
