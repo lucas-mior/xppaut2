@@ -122,7 +122,7 @@ extern double last_ic[MAX_ODE], T0;
 
 #define FIRSTCOLOR 30
 static int32 on_the_fly_speed = 10;
-static int32 animation_on_the_fly = 0;
+int32 animation_on_the_fly = 0;
 extern int32 TrueColorFlag;
 extern char *color_names[11];
 extern int32 colorline[];
@@ -411,7 +411,7 @@ get_current_time(void) {
     double t1;
     struct timeval tim;
     gettimeofday(&tim, NULL);
-    t1 = tim.tv_sec + (tim.tv_usec / 1000000.0);
+    t1 = (double)tim.tv_sec + ((double)tim.tv_usec / 1000000.0);
     return t1;
 }
 
@@ -658,13 +658,13 @@ ani_expose(Window w) {
 void
 ani_resize(int32 x, int32 y) {
     int32 ww = x - (2*4);
-    int32 hh = y - ((2.5*(DCURYs + 6)) + 5);
+    int32 hh = y - (int32)((2.5*(DCURYs + 6)) + 5);
     if (ww == vcr.wid && hh == vcr.hgt)
         return;
     XFreePixmap(display, ani_pixmap);
 
-    vcr.hgt = 5*((y - ((4.5*(DCURYs + 6)) + 5)) / 5);
-    vcr.wid = 4*((x - (2*4)) / 4);
+    vcr.hgt = 5*(int32)((y - ((4.5*(DCURYs + 6)) + 5)) / 5);
+    vcr.wid = 4*(int32)((x - (2*4)) / 4);
 
     /*This little safety check prevents a <X Error of failed request:  BadValue>
     from occuring if the user shrinks the window size smaller than the vcr.hgt |
@@ -675,7 +675,7 @@ ani_resize(int32 x, int32 y) {
     if (vcr.wid < 1)
         vcr.wid = 1;
 
-    XMoveResizeWindow(display, vcr.view, 4, 4.5*(DCURYs + 6), vcr.wid,
+    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6), vcr.wid,
                       vcr.hgt);
     ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), vcr.wid,
                                vcr.hgt, DefaultDepth(display, screen));
@@ -719,7 +719,7 @@ void
 check_on_the_fly(void) {
     XClearWindow(display, vcr.wfly);
     if (animation_on_the_fly) {
-        XDrawString(display, vcr.wfly, small_gc, 5, 1.5*CURY_OFFs, "*", 1);
+        XDrawString(display, vcr.wfly, small_gc, 5, (int32)1.5*CURY_OFFs, "*", 1);
     }
     return;
 }
@@ -875,6 +875,8 @@ ani_flip(void) {
                         ani_speed = 100;
                     break;
                 }
+                break;
+            default:
                 break;
             }
         }
