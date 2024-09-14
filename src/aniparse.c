@@ -54,7 +54,18 @@ want to alter the ordering below
 #include <wctype.h>
 #endif
 #include "xpplim.h"
-#include "toons.h"
+
+static char *toons[] = {"Popeye the Sailor",
+                        "Betty Boop",
+                        "Astroboy",
+                        "Rocky and Bullwinkle",
+                        "Speedracer",
+                        "Felix the Cat",
+                        "Bosko!!",
+                        "The Booze Hangs High",
+                        "Porky in Wackyland",
+                        "The Skeleton Dance"};
+
 #include "aniwin.bitmap"
 
 #include "max_len_sbox.h"
