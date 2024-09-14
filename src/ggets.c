@@ -180,23 +180,6 @@ plintf(char *fmt, ...) {
 
 int32
 show_position(XEvent ev, int32 *com) {
-    /*int32 i,j;
-
-    Window w;
-    */
-    /*w=ev.xbutton.window;*/
-    /* XSetInputFocus(display,w,RevertToParent,CurrentTime); */
-
-    /*i=ev.xbutton.x;
-    j=ev.xbutton.y;
-    */
-    /*
-    if(w==menu_pop)
-     {
-      *com=(j-DCURY-2)/DCURY;
-      return 1;
-    }
-    */
     check_draw_button(ev);
     return 0;
 }
