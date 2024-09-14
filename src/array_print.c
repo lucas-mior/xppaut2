@@ -6,9 +6,6 @@
 #include "integers.h"
 
 #define GREYSCALE -1
-#define REDBLUE 0
-#define ROYGBIV 1
-#define PERIODIC 2
 
 typedef struct {
     double xmin, xmax, ymin, ymax;
@@ -18,9 +15,9 @@ typedef struct {
     int32 linewid;
 } DEVSCALE;
 
-FILE *my_plot_file;
+static FILE *my_plot_file;
 
-DEVSCALE ps_scale;
+static DEVSCALE ps_scale;
 
 int32
 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
