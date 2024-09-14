@@ -75,7 +75,7 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
             if ((j = one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp, errvec,
-                                  jac, istart)) != 0)
+                                  jac)) != 0)
                 return j;
             stor_delay(y);
         }
@@ -92,8 +92,7 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
 
 int32
 one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
-             double *yp2, double *ytemp, double *errvec, double *jac,
-             int32 *istart) {
+             double *yp2, double *ytemp, double *errvec, double *jac) {
     int32 i;
     double err = 0.0, err1 = 0.0;
 

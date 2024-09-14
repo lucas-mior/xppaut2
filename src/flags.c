@@ -759,8 +759,8 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *t;
-        if ((j = one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec, jac,
-                              istart)) != 0)
+        if ((j = one_bak_step(y, t, dtt, neq, yg, yp, yp2, ytemp, errvec,
+                              jac)) != 0)
             return j;
         if ((hit = one_flag_step(yold, y, istart, told, t, neq, &s)) == 0)
             break;

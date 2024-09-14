@@ -4170,7 +4170,7 @@ int32 bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);
 int32 one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
                    double *yp, double *yp2, double *ytemp, double *errvec,
-                   double *jac, int32 *istart);
+                   double *jac);
 void one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t);
 void one_step_symp(double *y, double h, double *f, int32 n, double *t);
 void one_step_euler(double *y, double dt, double *yp, int32 neq, double *t);
