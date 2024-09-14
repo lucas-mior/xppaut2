@@ -808,7 +808,7 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         }
     }
 
-    int32 z = 0, row = 0, col = 0;
+    int32 row = 0, col = 0;
 
     if (icdata == NULL) {
         /*Don't do anything...*/
@@ -827,7 +827,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
 
         col = 0;
         row = -1;
-        z = 0;
         while (row < height) {
             col = 0;
             row++;
@@ -845,7 +844,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                             XDrawPoint(display, pmap, gc, col, row);
                         }
                     }
-                    z++;
                     col++;
                 }
 
