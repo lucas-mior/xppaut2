@@ -26,7 +26,7 @@ start_cv(double *y, double t, int32 n, double tout, double *atol,
          double *rtol) {
     int32 i;
 
-    ycv = N_VNew(n, NULL);
+    ycv = N_VNew(n);
     for (i = 0; i < n; i++)
         ycv->data[i] = y[i];
     cvode_mem = CVodeMalloc(n, cvf, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL,

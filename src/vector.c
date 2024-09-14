@@ -39,7 +39,7 @@ static void VScaleBy(double a, N_Vector x);                      /* x <- ax */
 /********************* Exported Functions ************************/
 
 N_Vector
-N_VNew(int64 N, void *machEnv) {
+N_VNew(int64 N) {
     N_Vector v;
 
     if (N <= 0)

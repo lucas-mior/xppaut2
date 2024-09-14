@@ -249,12 +249,12 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Allocate memory for ytemp and x */
-    ytemp = N_VNew(N, machenv);
+    ytemp = N_VNew(N);
     if (ytemp == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
-    x = N_VNew(N, machenv);
+    x = N_VNew(N);
     if (x == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(ytemp);

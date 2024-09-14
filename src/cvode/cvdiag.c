@@ -151,18 +151,18 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Allocate memory for M, bit, and bitcomp */
 
-    M = N_VNew(N, machenv);
+    M = N_VNew(N);
     if (M == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
-    bit = N_VNew(N, machenv);
+    bit = N_VNew(N);
     if (bit == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(M);
         return LINIT_ERR;
     }
-    bitcomp = N_VNew(N, machenv);
+    bitcomp = N_VNew(N);
     if (bitcomp == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(M);

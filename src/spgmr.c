@@ -47,7 +47,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
         return NULL;
 
     for (k = 0; k <= l_max; k++) {
-        V[k] = N_VNew(N, machEnv);
+        V[k] = N_VNew(N);
         if (V[k] == NULL) {
             FreeVectorArray(V, k - 1);
             return NULL;
@@ -84,7 +84,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
 
     /* Get memory to hold the correction to z_tilde */
 
-    xcor = N_VNew(N, machEnv);
+    xcor = N_VNew(N);
     if (xcor == NULL) {
         free(givens);
         for (i = 0; i <= l_max; i++)
@@ -107,7 +107,7 @@ SpgmrMalloc(int64 N, int32 l_max, void *machEnv) {
 
     /* Get an array to hold a temporary vector */
 
-    vtemp = N_VNew(N, machEnv);
+    vtemp = N_VNew(N);
     if (vtemp == NULL) {
         free(yg);
         N_VFree(xcor);
