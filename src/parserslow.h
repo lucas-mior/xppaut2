@@ -95,7 +95,6 @@ int32 add_var(char *junk, double value);
 int32 add_expr(char *expr, int32 *command, int32 *length);
 int32 add_net_name(int32 index, char *name);
 int32 add_vector_name(int32 index, char *name);
-int32 add_2d_table(char *name, char *file);
 int32 add_file_table(int32 index, char *file);
 int32 add_table_name(int32 index, char *name);
 int32 add_form_table(int32 index, int32 nn, double xlo, double xhi,

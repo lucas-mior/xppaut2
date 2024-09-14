@@ -740,10 +740,6 @@ compiler(char *bob, FILE *fptr) {
             my_string = get_next(" ");
             strcpy(formula, my_string);
             plintf(" %s = %s \n", name, formula);
-            if (add_2d_table(name, formula)) {
-                plintf("ERROR at line %d\n", NLINES);
-                exit(0);
-            }
         } else {
             strcpy(formula, my_string);
             plintf("Lookup table %s = %s \n", name, formula);
@@ -1975,10 +1971,6 @@ compile_em(void) {
                 my_string = get_next(" ");
                 strcpy(formula, my_string);
                 plintf(" %s = %s \n", name, formula);
-                if (add_2d_table(name, formula)) {
-                    plintf("ERROR at line %d\n", NLINES);
-                    exit(0);
-                }
             } else {
                 strcpy(formula, my_string);
                 plintf("Lookup table %s = %s \n", v->lhs, formula);

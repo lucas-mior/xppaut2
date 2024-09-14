@@ -531,12 +531,6 @@ add_net_name(int32 index, char *name) {
 /* ADD LOOKUP TABLE   */
 
 int32
-add_2d_table(char *name, char *file) {
-    plintf(" TWO D NOT HERE YET \n");
-    return 1;
-}
-
-int32
 add_file_table(int32 index, char *file) {
     char file2[1000];
     int32 i2 = 0, i1 = 0, n;
