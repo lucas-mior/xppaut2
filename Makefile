@@ -3,8 +3,6 @@ MINOR_VERSION = 1
 
 PREFIX ?= /usr/local
 
-CC ?= gcc
-
 CFLAGS = -D_DEFAULT_SOURCE -std=c99
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
 CFLAGS = -Wno-format-truncation
@@ -19,6 +17,12 @@ OBJECTS = $(SOURCES:.c=.o)
 TARGET = xppaut
 
 all: $(TARGET)
+
+clang: C = clang
+clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
+clang: all
+gcc: C = gcc
+gcc: all
 
 bear: CFLAGS += -Wno-error
 bear: compile_commands.json
@@ -50,13 +54,13 @@ src/autlib4.o: CFLAGS += -Wno-unused-but-set-variable
 src/autlib5.o: CFLAGS += -Wno-unused-but-set-variable
 
 $(TARGET): $(OBJECTS) Makefile
-	$(CC) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
+	$(C) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
 
 %.o: %.c %.h Makefile
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(C) $(CFLAGS) -o $@ -c $<
 
 %.o: %.c Makefile
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(C) $(CFLAGS) -o $@ -c $<
 
 clean:
 	rm -f *.o src/*.o src/cvode/*.o src/sbml/*.o $(TARGET)
