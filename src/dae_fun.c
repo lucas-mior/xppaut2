@@ -27,8 +27,8 @@ typedef struct {
     double *work;
     int32 *iwork;
     int32 status;
-} DAEWORK;
-DAEWORK dae_work;
+} DaeWork;
+DaeWork dae_work;
 
 typedef struct {
     char name[12], *rhs;
