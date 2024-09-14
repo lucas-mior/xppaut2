@@ -112,15 +112,15 @@ void allocate_ram(int n, double *w)
   int n3=3*n,nn=n*n;
   int i;
   if(allocflag==1)return;  /* already allocated */
-  hostwgt=(real *)malloc(nn*sizeof(real));
+  hostwgt=malloc(nn*sizeof(real));
   cudaMalloc((void**)&devwgt,nn*sizeof(real));
   /*  copy one time only for now */
   for(i=0;i<nn;i++)
       hostwgt[i]=(real)w[i];
   cudaMemcpy(devwgt,hostwgt,nn*sizeof(real),cudaMemcpyHostToDevice); 
-  hosty=(real *)malloc(n3*sizeof(real));
+  hosty=malloc(n3*sizeof(real));
   cudaMalloc((void**)&devy,n3*sizeof(real));
-  hostyp=(real *)malloc(n3*sizeof(real));
+  hostyp=malloc(n3*sizeof(real));
   cudaMalloc((void**)&devyp,n3*sizeof(real));
     
   cudaMalloc((void**)&devsum,n*sizeof(real));

@@ -224,7 +224,7 @@ main(int32 argc, char *argv[]) {
 add_reaction(int32 i, char *f, int32 npr, int32 nre) {
     RXN *r;
     r = rxn + i;
-    r->formula = (char *)malloc(strlen(f) + 1);
+    r->formula = malloc(strlen(f) + 1);
     strcpy(r->formula, f);
     r->npr = npr;
     r->nre = nre;
@@ -233,11 +233,11 @@ add_reaction(int32 i, char *f, int32 npr, int32 nre) {
 add_rule(int32 i, char *v, char *f, char *tc) {
     RULE *r;
     r = rule + i;
-    r->f = (char *)malloc(strlen(f) + 1);
+    r->f = malloc(strlen(f) + 1);
     strcpy(r->f, f);
-    r->tc = (char *)malloc(strlen(tc) + 1);
+    r->tc = malloc(strlen(tc) + 1);
     strcpy(r->tc, tc);
-    r->v = (char *)malloc(strlen(v) + 1);
+    r->v = malloc(strlen(v) + 1);
     strcpy(r->v, v);
     check_name_len(r->v);
     return;
@@ -262,12 +262,12 @@ add_parameter(char *name, char *id, double z, int32 f) {
             }
     }
     if (strlen(name) > 0) {
-        par[Npar].name = (char *)malloc(strlen(name) + 1);
+        par[Npar].name = malloc(strlen(name) + 1);
         strcpy(par[Npar].name, name);
         check_name_len(name);
     }
     if (strlen(id) > 0) {
-        par[Npar].id = (char *)malloc(strlen(id) + 1);
+        par[Npar].id = malloc(strlen(id) + 1);
         strcpy(par[Npar].id, id);
         check_name_len(id);
     }
@@ -292,7 +292,7 @@ GetEvents(Model_t *m) {
     char big[256];
     EVENT *x;
     n = Model_getNumEvents(m);
-    event = (EVENT *)malloc(n * sizeof(EVENT));
+    event = malloc(n * sizeof(EVENT));
     Nevent = n;
     if (n == 0)
         return;
@@ -301,7 +301,7 @@ GetEvents(Model_t *m) {
         e = Model_getEvent(m, i);
         if (Event_isSetTrigger(e)) {
             ev = SBML_formulaToString(Event_getTrigger(e));
-            x->ev = (char *)malloc(strlen(ev) + 1);
+            x->ev = malloc(strlen(ev) + 1);
             strcpy(x->ev, ev);
             free(ev);
         }
@@ -314,7 +314,7 @@ GetEvents(Model_t *m) {
                 variable = EventAssignment_getVariable(ea);
                 formula = SBML_formulaToString(EventAssignment_getMath(ea));
                 snprintf(big, sizeof(big), "%s=%s", variable, formula);
-                x->a[j] = (char *)malloc(strlen(big) + 1);
+                x->a[j] = malloc(strlen(big) + 1);
                 strcpy(x->a[j], big);
                 free(formula);
             }
@@ -337,13 +337,13 @@ GetFunctions(Model_t *m) {
     if (n == 0)
         return;
     Nfuns = n;
-    funs = (FUN_DEF *)malloc(n * sizeof(FUN_DEF));
+    funs = malloc(n * sizeof(FUN_DEF));
     for (i = 0; i < n; i++) {
         f = funs + i;
         fd = Model_getFunctionDefinition(m, i);
         if (FunctionDefinition_isSetMath(fd)) {
             name = FunctionDefinition_getId(fd);
-            f->name = (char *)malloc(strlen(name));
+            f->name = malloc(strlen(name));
             check_name_len(name);
             strcpy(f->name, name);
             math = FunctionDefinition_getMath(fd);
@@ -351,18 +351,18 @@ GetFunctions(Model_t *m) {
             f->nargs = narg;
             if (narg > 0) {
                 sa = ASTNode_getName(ASTNode_getLeftChild(math));
-                f->arg[0] = (char *)malloc(strlen(sa) + 1);
+                f->arg[0] = malloc(strlen(sa) + 1);
                 strcpy(f->arg[0], sa);
                 for (j = 1; j < narg; ++j) {
                     sa = ASTNode_getName(ASTNode_getChild(math, j));
-                    f->arg[j] = (char *)malloc(strlen(sa) + 1);
+                    f->arg[j] = malloc(strlen(sa) + 1);
                     strcpy(f->arg[j], sa);
                 }
             }
 
             math = ASTNode_getChild(math, ASTNode_getNumChildren(math) - 1);
             formula = SBML_formulaToString(math);
-            f->formula = (char *)malloc(strlen(formula) + 1);
+            f->formula = malloc(strlen(formula) + 1);
             strcpy(f->formula, formula);
             free(formula);
         }
@@ -386,7 +386,7 @@ GetReaction(Model_t *m, uint32 level, uint32 version) {
     char *name, *id;
     double value, st;
     Nrxn = n;
-    rxn = (RXN *)malloc(n * sizeof(RXN));
+    rxn = malloc(n * sizeof(RXN));
     for (i = 0; i < n; i++) {
         r = Model_getReaction(m, i);
         if (Reaction_isSetKineticLaw(r)) {
@@ -434,7 +434,7 @@ GetReaction(Model_t *m, uint32 level, uint32 version) {
 add_reactant(int32 i, int32 j, char *name, double s) {
     RXN *r;
     r = rxn + i;
-    r->re[j] = (char *)malloc(strlen(name) + 1);
+    r->re[j] = malloc(strlen(name) + 1);
     strcpy(r->re[j], name);
     r->sre[j] = s;
 }
@@ -442,7 +442,7 @@ add_reactant(int32 i, int32 j, char *name, double s) {
 add_product(int32 i, int32 j, char *name, double s) {
     RXN *r;
     r = rxn + i;
-    r->pr[j] = (char *)malloc(strlen(name) + 1);
+    r->pr[j] = malloc(strlen(name) + 1);
     strcpy(r->pr[j], name);
     r->spr[j] = s;
 }
@@ -541,20 +541,20 @@ add_species(int32 i, char *name, char *id, double x0, int32 bc, int32 c,
     SPECIES *x;
     x = X_spec + i;
     if (strlen(name) > 0) {
-        x->name = (char *)malloc(strlen(name) + 1);
+        x->name = malloc(strlen(name) + 1);
         strcpy(x->name, name);
         check_name_len(name);
     } else
         x->name = NULL;
     x->x0 = x0;
     if (strlen(id) > 0) {
-        x->id = (char *)malloc(strlen(id) + 1);
+        x->id = malloc(strlen(id) + 1);
         check_name_len(id);
         strcpy(x->id, id);
     } else
         x->id = NULL;
     if (strlen(tc) > 0) {
-        x->tc = (char *)malloc(strlen(tc) + 1);
+        x->tc = malloc(strlen(tc) + 1);
         strcpy(x->tc, tc);
     } else
         x->tc = NULL;
@@ -578,7 +578,7 @@ GetSpecies(Model_t *pModel, uint32 level, uint32 version) {
     int32 i;
     Species_t *pSpecies;
 
-    X_spec = (SPECIES *)malloc(n * sizeof(SPECIES));
+    X_spec = malloc(n * sizeof(SPECIES));
     N_spec = n;
     for (i = 0; i < n; i++) {
         pSpecies = Model_getSpecies(pModel, i);
@@ -736,7 +736,7 @@ GetListRule(Model_t *pModel, uint32 unSBMLLevel, uint32 unSBMLVersion) {
     Rule_t *pRule;
     int32 i;
     Nrule = n;
-    rule = (RULE *)malloc(n * sizeof(RULE));
+    rule = malloc(n * sizeof(RULE));
 
     for (i = 0; i < n; i++) {
         /* determine the values */
@@ -918,7 +918,7 @@ species_participation(void) {
 check_name_len(char *s) {
     char temp[9], x[5];
     if (strlen(s) > 9) {
-        long_names[lnum].src = (char *)malloc(strlen(s) + 1);
+        long_names[lnum].src = malloc(strlen(s) + 1);
         strcpy(long_names[lnum].src, s);
         strncpy(x, s, 4);
         x[4] = 0;
