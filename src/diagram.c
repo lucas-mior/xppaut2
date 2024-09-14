@@ -256,7 +256,7 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
      */
     int32 icp1, icp2;
     double *par;
-    double par1, par2 = 0, *u0, per;
+    double par1, *u0, per;
     int32 first, last, nrows;
     first = abs(pts);
     last = abs(pte);
@@ -281,10 +281,6 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
             u0 = d->u0;
 
             par1 = par[icp1];
-            if (icp2 < NAutoPar)
-                par2 = par[icp2];
-            else
-                par2 = par1;
             storage[0][j] = par1;
             for (i = 0; i < NODE; i++)
                 storage[i + 1][j] = u0[i];
