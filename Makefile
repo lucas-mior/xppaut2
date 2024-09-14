@@ -19,6 +19,8 @@ TARGET = xppaut
 
 all: $(TARGET)
 
+bear: compile_commands.json
+
 test: CFLAGS += -Wno-error
 test: all
 	./xppaut & sleep 1
@@ -33,6 +35,10 @@ src/autlib2.o: CFLAGS += -Wno-unused-but-set-variable
 src/autlib3.o: CFLAGS += -Wno-unused-but-set-variable
 src/autlib4.o: CFLAGS += -Wno-unused-but-set-variable
 src/autlib5.o: CFLAGS += -Wno-unused-but-set-variable
+
+compile_commands.json: Makefile
+	rm -f *.o src/*.o src/cvode/*.o src/sbml/*.o $(TARGET)
+	bear -- make -j1 > compile_commands.json
 
 $(TARGET): $(OBJECTS) Makefile
 	$(CC) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
