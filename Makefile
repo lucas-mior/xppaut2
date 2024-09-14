@@ -25,6 +25,9 @@ all: $(TARGET)
 
 test: CFLAGS += -Wno-error
 test: all
+	./xppaut & sleep 1
+	killall xppaut
+	make clean
 
 CFLAGS += -Werror
 
