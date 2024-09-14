@@ -290,6 +290,13 @@ void ps_hsb_bar(double x, double y, double wid, double len, double fill,
 
 #endif
 
+#ifndef autevd_h
+#define autevd_h
+
+extern int32 DiagFlag;
+
+#endif
+
 #ifndef auto_x11_h_
 #define auto_x11_h_
 #include "integers.h"
