@@ -110,10 +110,10 @@ typedef struct {
 ANI_MOTION_INFO ami;
 
 ANI_GRAB ani_grab[MAX_ANI_GRAB];
-int32 n_ani_grab = 0;
-int32 show_grab_points = 0;
-int32 ani_grab_flag = 0;
-int32 who_was_grabbed;
+static int32 n_ani_grab = 0;
+static int32 show_grab_points = 0;
+static int32 ani_grab_flag = 0;
+static int32 who_was_grabbed;
 double get_ivar(int32);
 
 extern double last_ic[MAX_ODE], T0;
@@ -121,8 +121,8 @@ extern double last_ic[MAX_ODE], T0;
 /************************8  end grabber **********************/
 
 #define FIRSTCOLOR 30
-int32 on_the_fly_speed = 10;
-int32 animation_on_the_fly = 0;
+static int32 on_the_fly_speed = 10;
+static int32 animation_on_the_fly = 0;
 extern int32 TrueColorFlag;
 extern char *color_names[11];
 extern int32 colorline[];
@@ -139,12 +139,12 @@ int32 aniflag;
 int32 LastAniColor;
 int32 ani_line;
 
-int32 ani_speed = 10;
-int32 ani_speed_inc = 2;
+static int32 ani_speed = 10;
+static int32 ani_speed_inc = 2;
 /*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
 
-double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
+static double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
 double ani_lastx, ani_lasty;
 Pixmap ani_pixmap;
 
