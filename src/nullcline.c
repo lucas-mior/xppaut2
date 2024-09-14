@@ -161,15 +161,15 @@ do_range_clines(void) {
                     (Y_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL)
 
                     NULL_HERE = 1;
-                NTop = malloc((course + 1) * sizeof(*(NTop)));
-                NBot = malloc((course + 1) * sizeof(*(NBot)));
+                NTop = malloc((course + 1) * sizeof(*NTop));
+                NBot = malloc((course + 1) * sizeof(*NBot));
                 if (NTop == NULL || NBot == NULL)
                     NULL_HERE = 0;
             } else {
                 free(NTop);
                 free(NBot);
-                NTop = malloc((course + 1) * sizeof(*(NTop)));
-                NBot = malloc((course + 1) * sizeof(*(NBot)));
+                NTop = malloc((course + 1) * sizeof(*NTop));
+                NBot = malloc((course + 1) * sizeof(*NBot));
                 if (NTop == NULL || NBot == NULL) {
                     NULL_HERE = 0;
                     return;
@@ -881,15 +881,15 @@ new_clines_com(int32 c) {
                 (Y_n = malloc(4 * MAX_NULL * sizeof(float))) != NULL)
 
                 NULL_HERE = 1;
-            NTop = malloc((course + 1) * sizeof(*(NTop)));
-            NBot = malloc((course + 1) * sizeof(*(NBot)));
+            NTop = malloc((course + 1) * sizeof(*NTop));
+            NBot = malloc((course + 1) * sizeof(*NBot));
             if (NTop == NULL || NBot == NULL)
                 NULL_HERE = 0;
         } else {
             free(NTop);
             free(NBot);
-            NTop = malloc((course + 1) * sizeof(*(NTop)));
-            NBot = malloc((course + 1) * sizeof(*(NBot)));
+            NTop = malloc((course + 1) * sizeof(*NTop));
+            NBot = malloc((course + 1) * sizeof(*NBot));
             if (NTop == NULL || NBot == NULL) {
                 NULL_HERE = 0;
                 return;

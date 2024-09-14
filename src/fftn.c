@@ -525,7 +525,7 @@ FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
     if (MaxPermAlloced < maxPerm) {
 #ifdef SUN_BROKEN_REALLOC
         if (!MaxPermAlloced) /* first time */
-            Perm = malloc(maxPerm*sizeof(*(Perm)));
+            Perm = malloc(maxPerm*sizeof(*Perm));
         else
 #endif
             Perm = realloc(Perm, maxPerm*sizeof(int32));
