@@ -1351,11 +1351,11 @@ info_header(int32 icp1, int32 icp2) {
     char bob[80];
     char p1name[12], p2name[12];
 
-    sprintf(p1name, "%s", upar_names[AutoPar[icp1]]);
+    strncpy(p1name, upar_names[AutoPar[icp1]], sizeof(p1name));
     if (icp2 < NAutoPar)
-        sprintf(p2name, "%s", upar_names[AutoPar[icp2]]);
+        strncpy(p2name, upar_names[AutoPar[icp2]], sizeof(p2name));
     else
-        sprintf(p2name, "   ");
+        strncpy(p2name, "   ", sizeof(p2name));
     SmallBase();
     sprintf(bob, "  Br  Pt Ty  Lab %10s %10s       norm %10s     period",
             p1name, p2name, uvar_names[Auto.var]);
