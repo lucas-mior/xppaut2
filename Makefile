@@ -7,8 +7,6 @@ CC = clang
 
 CFLAGS = -D_DEFAULT_SOURCE -std=c99
 CFLAGS = -Wall -Wextra -Wpedantic -Wfatal-errors
-CFLAGS += -Wno-unused-parameter
-# CFLAGS += -g -O2
 CFLAGS += -I./src/ -I./bitmaps/ -I/opt/X11/include -I./ -I./src/cvode/
 CFLAGS += -DMYSTR1=$(MAJOR_VERSION) -DMYSTR2=$(MINOR_VERSION)
 CFLAGS += -DNOERRNO -DNON_UNIX_STDIO -DAUTO -DCVODE_YES -DHAVEDLL
