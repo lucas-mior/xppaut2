@@ -1017,15 +1017,15 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
                  \n",x,y,vv,MY_RED,MY_GREEN,MY_BLUE);
                 */
                 /* store them for ppm dumping  */
-                *dst++ = (MY_RED << CMULT);
-                *dst++ = (MY_GREEN << CMULT);
-                *dst++ = (MY_BLUE << CMULT);
+                *dst++ = (uchar)(MY_RED << CMULT);
+                *dst++ = (uchar)(MY_GREEN << CMULT);
+                *dst++ = (uchar)(MY_BLUE << CMULT);
             } else {
                 /* 256 color is easier sort of  */
                 pix = palette[*pixel++];
-                *dst++ = pix.red;
-                *dst++ = pix.green;
-                *dst++ = pix.blue;
+                *dst++ = (uchar)pix.red;
+                *dst++ = (uchar)pix.green;
+                *dst++ = (uchar)pix.blue;
             }
         }
     }
@@ -1103,15 +1103,15 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
                 value = value >> CSHIFT;
                 hibits = value & CMSK;
                 /* store them for ppm dumping  */
-                *dst++ = (MY_RED << CMULT);
-                *dst++ = (MY_GREEN << CMULT);
-                *dst++ = (MY_BLUE << CMULT);
+                *dst++ = (uchar)(MY_RED << CMULT);
+                *dst++ = (uchar)(MY_GREEN << CMULT);
+                *dst++ = (uchar)(MY_BLUE << CMULT);
             } else {
                 /* 256 color is easier sort of  */
                 pix = palette[*pixel++];
-                *dst++ = pix.red;
-                *dst++ = pix.green;
-                *dst++ = pix.blue;
+                *dst++ = (uchar)pix.red;
+                *dst++ = (uchar)pix.green;
+                *dst++ = (uchar)pix.blue;
             }
         }
     }
