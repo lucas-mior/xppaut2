@@ -7,6 +7,7 @@
 #include "auto_c.h"
 #include "x_auto.h"
 #include "integers.h"
+#include "autlib.h"
 
 extern int32 NODE;
 extern int32 RestartLabel;
@@ -15,9 +16,7 @@ static int32 restart_flag = 0;
  * mpi parallel case.  These are global since the they are used many times
  * in the wrapper functions in autlib3.c (and autlib5.c) and the cost
  * of allocating and deallocating them is prohibitive. */
-struct {
-    double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
-} global_scratch = {NULL, NULL, NULL, NULL, NULL, NULL};
+GlobalScratch global_scratch = {NULL, NULL, NULL, NULL, NULL, NULL};
 
 /* The memory for these are taken care of in main, and setubv for the
  * mpi parallel case.  These are global since they only need to be

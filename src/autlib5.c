@@ -7,14 +7,13 @@
 #include "auto_c.h"
 #include "x_auto.h"
 #include "integers.h"
+#include "autlib.h"
 
 /* The memory for these are taken care of in main, and setubv for the
    mpi parallel case.  These are global since the they are used many times
    in the wrapper functions in autlib3.c (and autlib5.c) and the cost
    of allocating and deallocating them is prohibitive. */
-extern struct {
-    double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
-} global_scratch;
+extern GlobalScratch global_scratch;
 
 /* All of these global structures correspond to common
    blocks in the original code.  They are ONLY used within

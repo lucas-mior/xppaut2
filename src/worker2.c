@@ -1,5 +1,6 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
+#include "autlib.h"
 
 #ifdef TIME
 #include <unistd.h>
@@ -29,9 +30,7 @@ time_end(double start) {
 
 /* The memory for these are taken care of in autobv_, autoae_, and setubv for
    the mpi parallel case */
-extern struct {
-    double *dfu, *dfp, *uu1, *uu2, *ff1, *ff2;
-} global_scratch;
+extern GlobalScratch global_scratch;
 
 /* The memory for these are taken care of in autobv_ and autoae_ */
 extern struct {
