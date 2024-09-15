@@ -3786,7 +3786,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     /* System generated locals */
     int64 a_dim1;
 
-    int64 ipiv, jpiv, i, j, l;
+    int64 ipiv, jpiv, j, l;
     double p;
     int64 i1, jj, kk;
     double rm, sm;
@@ -3816,7 +3816,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     /*--ic;*/
     a_dim1 = m;
 
-    for (i = 0; i < n; ++i) {
+    for (int32 i = 0; i < n; ++i) {
         ic[i] = i;
         ir[i] = i;
     }
@@ -3829,7 +3829,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
         ipiv = jj;
         jpiv = jj;
         piv = 0.;
-        for (i = jj; i < n; ++i) {
+        for (int32 i = jj; i < n; ++i) {
             for (j = jj; j < n; ++j) {
                 p = fabs(ARRAY2D(a, ir[i], ic[j]));
                 if (p > piv) {
@@ -3859,7 +3859,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
         for (l = jjp1; l < n; ++l) {
             rm = ARRAY2D(a, ir[l], ic[jj]) / ARRAY2D(a, ir[jj], ic[jj]);
             if (rm != 0.) {
-                for (i = jjp1; i < n; ++i) {
+                for (int32 i = jjp1; i < n; ++i) {
                     ARRAY2D(a, ir[l], ic[i]) -= rm*ARRAY2D(a, ir[jj], ic[i]);
                 }
             }
@@ -3868,12 +3868,12 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
 
     /*   Backsubstitution : */
 
-    for (i = 0; i < k; ++i) {
+    for (int32 i = 0; i < k; ++i) {
         u[ic[-1 + n - i]] = 1.;
     }
 
     for (i1 = 0; i1 < nmk; ++i1) {
-        i = nmk - i1 - 1;
+        int32 i = nmk - i1 - 1;
         sm = 0.;
         ip1 = i + 1;
         for (j = ip1; j < n; ++j) {
