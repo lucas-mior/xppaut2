@@ -187,7 +187,7 @@ extern int32 storind;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 BIFUR Auto;
-ADVAUTO aauto;
+AdvAuto aauto;
 
 int32 NewPeriodFlag;
 

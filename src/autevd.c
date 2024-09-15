@@ -19,7 +19,7 @@ extern double outperiod[20];
 extern int64 UzrPar[20];
 extern int32 NAutoUzr;
 
-extern ADVAUTO aauto;
+extern AdvAuto aauto;
 
 XAuto x_auto;
 

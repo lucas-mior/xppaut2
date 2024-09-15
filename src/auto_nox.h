@@ -41,7 +41,7 @@ typedef struct {
     int32 nwtn;
     int32 iads;
 
-} ADVAUTO;
+} AdvAuto;
 
 typedef struct {
     int32 package;
