@@ -11,6 +11,8 @@ typedef struct {
     double evr[NAUTO], evi[NAUTO];
 } EIGVAL;
 
+extern int32 DiagFlag;
+
 void send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
 void send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
 int32 get_bif_type(int32 ibr, int32 ntot);
