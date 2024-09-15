@@ -1728,7 +1728,8 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
                 in.r = ev[i].r + 1.;
                 in.i = ev[i].i;
                 z_log(&out, &in);
-                ev[i].r = out.r, ev[i].i = out.i;
+                ev[i].r = out.r;
+                ev[i].i = out.i;
             } else {
                 ev[i].r = -RLARGE, ev[i].i = 0.;
             }
