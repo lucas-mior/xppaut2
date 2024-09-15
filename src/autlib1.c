@@ -10,7 +10,7 @@
 
 extern int32 NODE;
 extern int32 RestartLabel;
-int32 restart_flag = 0;
+static int32 restart_flag = 0;
 /* The memory for these are taken care of in main, and setubv for the
  * mpi parallel case.  These are global since the they are used many times
  * in the wrapper functions in autlib3.c (and autlib5.c) and the cost
