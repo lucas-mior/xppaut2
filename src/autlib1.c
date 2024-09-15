@@ -1750,9 +1750,12 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
             }
         }
         if (loc != i) {
-            ztmp.r = ev[loc].r, ztmp.i = ev[loc].i;
-            ev[loc].r = ev[i].r, ev[loc].i = ev[i].i;
-            ev[i].r = ztmp.r, ev[i].i = ztmp.i;
+            ztmp.r = ev[loc].r;
+            ztmp.i = ev[loc].i;
+            ev[loc].r = ev[i].r;
+            ev[loc].i = ev[i].i;
+            ev[i].r = ztmp.r;
+            ev[i].i = ztmp.i;
         }
     }
 
