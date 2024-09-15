@@ -2981,7 +2981,7 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 
 int32
 msh(const iap_type *iap, double *tm) {
-    int64 ntst, j;
+    int64 ntst;
     double dt;
 
     /* Generates a uniform mesh on [0,1]. */
@@ -2992,8 +2992,8 @@ msh(const iap_type *iap, double *tm) {
     ntst = iap->ntst;
 
     tm[0] = 0.;
-    dt = 1. / ntst;
-    for (j = 0; j < ntst; ++j) {
+    dt = 1. / (double)ntst;
+    for (int32 j = 0; j < ntst; ++j) {
         tm[j + 1] = (j + 1)*dt;
     }
 
