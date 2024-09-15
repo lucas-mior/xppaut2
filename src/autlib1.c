@@ -1731,7 +1731,8 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
                 ev[i].r = out.r;
                 ev[i].i = out.i;
             } else {
-                ev[i].r = -RLARGE, ev[i].i = 0.;
+                ev[i].r = -RLARGE;
+                ev[i].i = 0.;
             }
         }
     }
