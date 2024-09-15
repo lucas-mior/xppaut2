@@ -1036,9 +1036,9 @@ int32
 stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     logical found;
     int64 nfprs;
-    (void)icp;
-
     int64 irs;
+
+    (void)icp;
 
     /* Gets the starting data from unit 3 */
 
@@ -1560,6 +1560,10 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
     double ret_val;
+
+    int64 ntop, ntot, iid, ibr;
+    double det;
+
     (void)par;
     (void)icp;
     (void)funi;
@@ -1576,9 +1580,6 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void)dfdp;
     (void)iuz;
     (void)vuz;
-
-    int64 ntop, ntot, iid, ibr;
-    double det;
 
     iid = iap->iid;
     ibr = iap->ibr;
@@ -1605,9 +1606,6 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
-    (void)rlold;
-    (void)iuz;
-    (void)vuz;
     int64 aa_dim1;
     double ret_val;
 
@@ -1616,6 +1614,10 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     double *ud;
     int64 iid, ibr;
     double det;
+
+    (void)rlold;
+    (void)iuz;
+    (void)vuz;
 
     ud = malloc(sizeof(*ud)*(iap->ndim + 1));
 
