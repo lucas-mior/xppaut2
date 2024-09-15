@@ -27,13 +27,3 @@ time_end(double start) {
     return (seconds + microseconds / 1e6) - start;
 }
 #endif
-
-/* The memory for these are taken care of in autobv_, autoae_, and setubv for
-   the mpi parallel case */
-extern GlobalScratch global_scratch;
-
-/* The memory for these are taken care of in autobv_ and autoae_ */
-extern struct {
-    int64 irtn;
-    int64 *nrtn;
-} global_rotations;

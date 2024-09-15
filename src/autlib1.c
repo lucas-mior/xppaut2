@@ -23,10 +23,7 @@ GlobalScratch global_scratch = {NULL, NULL, NULL, NULL, NULL, NULL};
  * mpi parallel case.  These are global since they only need to be
  * computed once for an entire run, so we do them at the
  * beginning to save the cost later on. */
-struct {
-    int64 irtn;
-    int64 *nrtn;
-} global_rotations = {0, NULL};
+GlobalRotations global_rotations = {0, NULL};
 
 /* There are used to short circuit the code.  getp is a user callable function
  * that allows certain parameters to be returned.  Unfortunately, the
@@ -34,11 +31,7 @@ struct {
  * be part of its calling sequence.  Accordingly, this global structure is
  * filled in with the necessary data so that getp has access to it when the
  * user calls that routine. */
-struct {
-    rap_type *rav;
-    iap_type *iav;
-    double *dtv;
-} global_parameters = {NULL, NULL, NULL};
+GlobalParameters global_parameters = {NULL, NULL, NULL};
 
 /* ----------------------------------------------------------------------- */
 /*                    Initialization */

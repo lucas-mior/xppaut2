@@ -18,10 +18,7 @@ extern GlobalScratch global_scratch;
  * mpi parallel case.  These are global since they only need to be
  * computed once for an entire run, so we do them at the
  * beginning to save the cost later on. */
-extern struct {
-    int64 irtn;
-    int64 *nrtn;
-} global_rotations;
+extern GlobalRotations global_rotations;
 
 /* ----------------------------------------------------------------------- */
 /*  Subroutines for the Continuation of Folds (Algebraic Problems) */
