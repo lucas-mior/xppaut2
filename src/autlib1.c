@@ -3473,7 +3473,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
 
     for (i = 0; i < *nc1; ++i) {
         ri = (double)(i);
-        d = ri / *nc1;
+        d = ri / (double)*nc1;
         for (j1 = 0; j1 < n1m1; ++j1) {
             tm2[j1] = tm1[j1] + d*(tm1[j1 + 1] - tm1[j1]);
         }
@@ -3481,7 +3481,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
         for (j1 = 0; j1 < n1m1; ++j1) {
             j = itm1[j1];
             z__ = tm2[j1];
-            d = (tm[j] - tm[-1 + j]) / *nc;
+            d = (tm[j] - tm[-1 + j]) / (double)*nc;
             for (l = 0; l < ncp1; ++l) {
                 x[l] = tm[-1 + j] + l*d;
             }
