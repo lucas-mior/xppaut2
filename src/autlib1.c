@@ -3104,6 +3104,9 @@ cpnts(const int64 ncol, double *zm) {
         goto L6;
     case 6:
         goto L7;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 
 L2:
