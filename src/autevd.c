@@ -25,19 +25,11 @@ XAuto x_auto;
 
 extern int32 AutoTwoParam;
 int32 DiagFlag = 0;
-/*typedef struct {double r,i;} ddoublecomplex;
-
-typedef struct {
-  int32 pt,br;
-  double evr[NAUTO],evi[NAUTO];
-} EIGVAL;
-*/
 
 static struct {
     int32 pt, br;
     double evr[NAUTO], evi[NAUTO];
 } my_ev;
-
 
 void
 init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
