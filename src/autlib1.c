@@ -3199,7 +3199,7 @@ cntdif(int64 *n, double *d) {
 
     /* Scale to [0,1]  : */
 
-    sc = (double)pow_ii(*n, *n);
+    sc = (double)(pow_ii(*n, *n));
     for (i = 0; i < *n + 1; ++i) {
         d[i] = sc*d[i];
     }
