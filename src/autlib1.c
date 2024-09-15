@@ -1900,9 +1900,6 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *stld, double *rlcur, double *rlold, double *rldot, double *u,
       double *du, double *udot, double *dfdu, double *dfdp, double *thl,
       double *thu) {
-    (void)par;
-    (void)rap;
-    (void)rlold;
     /* System generated locals */
     int64 aa_dim1, stud_dim1, stu_dim1;
 
@@ -1912,6 +1909,10 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
     double sc;
     double ss;
     int64 ibr;
+
+    (void)par;
+    (void)rap;
+    (void)rlold;
 
     /* Stores branching data in the following arrays : */
     /*        STU    ( the solution vector U ) */
@@ -2005,12 +2006,13 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
       int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
       double *rlcur, double *rlold, double *rldot, double *u, double *udot) {
     /* System generated locals */
-    (void)rlold;
     int64 stud_dim1, stu_dim1;
 
     int64 nbif, ndim, mxbf, ipos, i, i1;
     double ds;
     int64 isw;
+
+    (void)rlold;
 
     /* This subroutine retrieves the branching data U, U-dot, PAR(ICP(1)), */
     /* PAR(ICP(1))-dot. If this initialization corresponds to the computation */
@@ -2307,9 +2309,6 @@ L5:
 int32
 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double *thu) {
-    (void)par;
-    (void)thl;
-    (void)thu;
     int64 ndim, ncol, mxbf, nicp;
     double epsl;
     int64 nfpr, iplt, nint;
@@ -2317,6 +2316,10 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     int64 jtmp, itmx, itnw, nwtn, ntst, nuzr, i;
     double dsmin, dsmax, a0, a1, ds, rl0, rl1;
     int64 iad, jac, nbc, iid, ilp, ips, isp, irs, npr, isw, nmx;
+
+    (void)par;
+    (void)thl;
+    (void)thu;
 
     /* Write the values of the user defined parameters on unit 7. */
     /* This identifying information is preceded by a '   0' on each line. */
@@ -2423,11 +2426,12 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
-    (void)rap;
-    (void)par;
     int64 iplt, i, j;
     char col[9][34];
     int64 ndm, ips;
+
+    (void)rap;
+    (void)par;
 
     /* Prints headings above columns on unit 6 and 7. */
 
@@ -2690,13 +2694,13 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
-    (void)icp;
-
     int64 nicp, mtot, i;
     char atype[3];
     int64 n1, n2;
 
     int64 nt, ndm, itp, lb;
+
+    (void)icp;
     lb = *lab;
     if ((restart_flag == 1) && (lb != 0)) {
         restart_flag = 0;
