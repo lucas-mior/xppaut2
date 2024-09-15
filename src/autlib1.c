@@ -3227,6 +3227,9 @@ wint(const int64 n, double *wi) {
         goto L7;
     case 6:
         goto L8;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 
 L3:
