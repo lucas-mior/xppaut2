@@ -48,7 +48,6 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     }
 
     return 0;
-
 }
 
 int32
@@ -84,7 +83,6 @@ stpnt(int64 ndim, double t, double *u, double *par) {
         }
     }
     return 0;
-
 }
 
 int32

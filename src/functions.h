@@ -3566,7 +3566,6 @@ typedef struct {
     int32 HISTLO2;
     int32 HISTHI2;
     int32 HISTBINS2;
-
 } OptionsSet;
 
 void dump_torus(FILE *fp, int32 f);
@@ -4560,7 +4559,6 @@ typedef struct {
     N_Vector xcor;
     double *yg;
     N_Vector vtemp;
-
 } SpgmrMemRec, *SpgmrMem;
 
 /******************************************************************

@@ -1728,7 +1728,6 @@ double z,w;
  }
  else
  return(pow(fabs(z),w));
-
 }
 
  */

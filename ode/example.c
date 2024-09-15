@@ -20,7 +20,6 @@ vdp(double *in,double *out,int nin,int nout,double *var,double *con)
    double t=in[6];
   out[0]=y;
   out[1]=-x+a*y*(1-x*x);
-
 }
 
 duff(double *in,double *out,int nin,int nout,double *var,double *con)

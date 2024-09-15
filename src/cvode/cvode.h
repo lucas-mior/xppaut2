@@ -630,7 +630,6 @@ typedef struct CVodeMemRec {
     /* Pointer to Machine Environment-Specific Information */
 
     void *cv_machenv;
-
 } *CVodeMem;
 
 /******************************************************************

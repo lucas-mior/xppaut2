@@ -135,7 +135,6 @@ int32 newseed = 0;
 typedef struct {
     char name[10];
     int32 len;
-
 } VOCAB;
 
 VOCAB my_cmd[NCMD] = {

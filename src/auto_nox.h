@@ -40,7 +40,6 @@ typedef struct {
     int32 itnw;
     int32 nwtn;
     int32 iads;
-
 } AdvAuto;
 
 typedef struct {

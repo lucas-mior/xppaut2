@@ -50,7 +50,6 @@ struct {
 struct {
     Window base, up, down, list, main, close;
     int32 istart, nlines, flag;
-
 } eq_list;
 
 extern int32 HomoFlag, sparity;

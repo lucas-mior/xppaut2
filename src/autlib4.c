@@ -357,7 +357,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     free(svdwrk);
 
     return 0;
-
 }
 
 /* ************************** */

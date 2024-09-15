@@ -1361,7 +1361,6 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
     }
 
     return 0;
-
 }
 
 /*     -------- ------- -------- ----- */

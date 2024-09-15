@@ -3,7 +3,6 @@
 typedef struct {
     int32 com;
     char seq[5];
-
 } KBS;
 
 KBS kbs[400] = {

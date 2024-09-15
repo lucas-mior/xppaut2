@@ -120,7 +120,6 @@ xRead(void) {
 static double
 dormpri_sign(double a, double b) {
     return (b < 0.0) ? -fabs(a) : fabs(a);
-
 } /* sign */
 
 static double
@@ -202,7 +201,6 @@ hinit(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
     h = min_d(100.0*h, min_d(h1, hmax));
 
     return dormpri_sign(h, posneg);
-
 } /* hinit */
 
 /* core integrator */
@@ -908,7 +906,6 @@ dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
     if (indir)
         free(indir);
     return idid;
-
 } /* dop853 */
 
 /* dense output function */
@@ -939,7 +936,6 @@ contd8(unsigned ii, double x) {
                            s1*(rcont5[i] +
                                  s*(rcont6[i] +
                                       s1*(rcont7[i] + s*rcont8[i]))))));
-
 } /* contd8 */
 
 /************    dopri5  ***************************/
@@ -1012,7 +1008,6 @@ hinit5(unsigned n, FcnEqDiff fcn, double x, double *y, double posneg,
     h = min_d(100.0*h, min_d(h1, hmax));
 
     return dormpri_sign(h, posneg);
-
 } /* hinit */
 
 /* core integrator */
@@ -1444,7 +1439,6 @@ dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
         free(indir);
 
     return idid;
-
 } /* dopri5 */
 
 /* dense output function */
@@ -1472,5 +1466,4 @@ contd5(unsigned ii, double x) {
            theta*(rcont2[i] +
                     theta1 *
                         (rcont3[i] + theta*(rcont4[i] + theta1*rcont5[i])));
-
 } /* contd5 */
