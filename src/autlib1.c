@@ -3034,7 +3034,7 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     cpnts(ncol, zm);
 
     ncp1 = ncol + 1;
-    d = 1. / ncol;
+    d = 1. / (double)ncol;
     for (int32 i = 0; i < ncp1; ++i) {
         xm[i] = i*d;
     }
