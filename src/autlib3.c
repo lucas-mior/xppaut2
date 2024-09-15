@@ -8,18 +8,6 @@
 #include "integers.h"
 #include "autlib.h"
 
-/* The memory for these are taken care of in main, and setubv for the
- * mpi parallel case.  These are global since the they are used many times
- * in the wrapper functions in autlib3.c (and autlib5.c) and the cost
- * of allocating and deallocating them is prohibitive. */
-extern GlobalScratch global_scratch;
-
-/* The memory for these are taken care of in main, and setubv for the
- * mpi parallel case.  These are global since they only need to be
- * computed once for an entire run, so we do them at the
- * beginning to save the cost later on. */
-extern GlobalRotations global_rotations;
-
 /* ----------------------------------------------------------------------- */
 /*  Subroutines for the Continuation of Folds (Algebraic Problems) */
 /* ----------------------------------------------------------------------- */
