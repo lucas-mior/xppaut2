@@ -54,8 +54,8 @@
  *	@(#)dirent.h	8.2 (Berkeley) 7/28/94
  */
 
-#ifndef DIRENT_H_
-#define DIRENT_H_
+#ifndef DIRENT_H
+#define DIRENT_H
 #include "integers.h"
 
 /*

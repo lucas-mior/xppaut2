@@ -1,5 +1,5 @@
-#ifndef myfonts_h_
-#define myfonts_h_
+#ifndef myfonts_h
+#define myfonts_h
 
 /*
 char *timesfonts[]={

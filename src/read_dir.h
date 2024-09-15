@@ -1,5 +1,5 @@
-#ifndef read_dir_h_
-#define read_dir_h_
+#ifndef read_dir_h
+#define read_dir_h
 #include "integers.h"
 
 typedef struct {

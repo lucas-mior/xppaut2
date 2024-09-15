@@ -1,5 +1,5 @@
-#ifndef _cv2_h_
-#define _cv2_h_
+#ifndef _cv2_h
+#define _cv2_h
 #include "integers.h"
 
 void start_cv(double *y, double t, int32 n, double *atol, double *rtol);

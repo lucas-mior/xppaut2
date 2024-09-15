@@ -1,5 +1,5 @@
-#ifndef auto_h_
-#define auto_h_
+#ifndef auto_h
+#define auto_h
 #include "integers.h"
 
 #include <X11/Xlib.h>

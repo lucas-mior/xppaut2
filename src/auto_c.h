@@ -10,8 +10,8 @@
 
 #include "integers.h"
 
-#ifndef AUTO_C_H_
-#define AUTO_C_H_
+#ifndef AUTO_C_H
+#define AUTO_C_H
 
 #define NPARX (36) /*get rid of*/
 #define NBIFX (20)

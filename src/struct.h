@@ -1,5 +1,5 @@
-#ifndef struct_h_
-#define struct_h_
+#ifndef struct_h
+#define struct_h
 #include "integers.h"
 
 #include "xpplim.h"

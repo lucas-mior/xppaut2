@@ -1,5 +1,5 @@
-#ifndef menus_h_
-#define menus_h_
+#ifndef menus_h
+#define menus_h
 #include "integers.h"
 
 #include <X11/Xlib.h>
