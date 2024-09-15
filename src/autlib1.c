@@ -1672,20 +1672,6 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
-    (void)icp;
-    (void)funi;
-    (void)m1aaloc;
-    (void)aa;
-    (void)rlcur;
-    (void)rlold;
-    (void)rldot;
-    (void)u;
-    (void)uold;
-    (void)udot;
-    (void)rhs;
-    (void)dfdp;
-    (void)iuz;
-    (void)vuz;
     double ret_val;
 
     int64 ndim;
@@ -1702,6 +1688,21 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     int64 iid, ibr, ndm, ier, loc = 0, ips;
     double rev;
     int64 isw;
+
+    (void)icp;
+    (void)funi;
+    (void)m1aaloc;
+    (void)aa;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)u;
+    (void)uold;
+    (void)udot;
+    (void)rhs;
+    (void)dfdp;
+    (void)iuz;
+    (void)vuz;
 
     ev = malloc(sizeof(*ev)*(iap->ndim));
 
