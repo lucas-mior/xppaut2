@@ -1849,6 +1849,10 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
     /* System generated locals */
+    double ret_val;
+
+    int64 ntop, ntot, iuzr, iid, ibr;
+
     (void)rap;
     (void)icp;
     (void)funi;
@@ -1863,9 +1867,6 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void)rhs;
     (void)dfdu;
     (void)dfdp;
-    double ret_val;
-
-    int64 ntop, ntot, iuzr, iid, ibr;
 
     /* Parameter adjustments */
     /*--vuz;*/
