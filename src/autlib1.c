@@ -3006,7 +3006,7 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     int64 wt_dim1, wp_dim1;
 
     double d;
-    int64 i, k, l;
+    int64 k, l;
     double p, denom;
 
     int64 ib, ic;
@@ -3035,7 +3035,7 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
 
     ncp1 = ncol + 1;
     d = 1. / ncol;
-    for (i = 0; i < ncp1; ++i) {
+    for (int32 i = 0; i < ncp1; ++i) {
         xm[i] = i*d;
     }
 
