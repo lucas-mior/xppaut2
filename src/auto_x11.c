@@ -947,8 +947,7 @@ aw(void) {
 }
 
 void
-make_auto(/* this makes the auto window  */
-          char *wname, char *iname) {
+make_auto(char *wname, char *iname) {
     int32 x, y, wid, hgt, addwid = 16*DCURX, addhgt = 3.0*DCURY,
                           hinthgt = DCURY + 6;
     Window base = 0;
