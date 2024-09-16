@@ -202,7 +202,6 @@ CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
     ftemp = vtemp1;
     y = vtemp2;
 
-    /* Form y with perturbation = FRACT*(func. iter. correction) */
     r = FRACT * rl1;
     N_VLinearSum(h, fpred, -ONE, zn[1], ftemp);
     N_VLinearSum(r, ftemp, ONE, ypred, y);
