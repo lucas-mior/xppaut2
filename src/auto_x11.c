@@ -81,7 +81,7 @@ extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
 
 extern double constants[];
 
-extern int32 DONT_XORCross;
+static uint32 DONT_XORCross = 0;
 
 AUTOWIN AutoW;
 
