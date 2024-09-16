@@ -35,15 +35,15 @@ typedef struct {
     int64 *icf1;
     int64 *icf2;
     int64 *np;
-} main_auto_storage_type;
+} MainAutoStorage;
 
-main_auto_storage_type main_auto_storage = {
+MainAutoStorage main_auto_storage = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 void
-print_jacobian(iap_type iap, main_auto_storage_type data) {
+print_jacobian(iap_type iap, MainAutoStorage data) {
     int32 i, j, k, l;
     int32 num_rows_A = iap.ndim*iap.ncol;
     int32 num_columns_A = iap.ndim*(iap.ncol + 1);
