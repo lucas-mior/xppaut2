@@ -27,10 +27,10 @@
 
 extern char *browse_hint[];
 #define xds(a)                                                                 \
-    {                                                                          \
+    do {                                                                          \
         XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
-    }
+    } while (0)
 
 #define BMAXCOL 20
 
@@ -338,7 +338,7 @@ replace_column(char *var, char *form, double **dat, int32 n) {
     int32 intflag = 0;
     int32 dif_var = -1;
     int32 seq = 0;
-    double a1, a2, da = 0.0;
+    double a1 = 0, a2 = 0, da = 0.0;
     double old = 0.0, dt, derv = 0.0;
     double sum = 0.0;
     if (n < 2)
@@ -582,17 +582,35 @@ display_browser(Window w, BROWSER b) {
     }
 
     if (w == b.find)
-        xds("Find") if (w == b.up) xds("Up") if (w == b.down)
-            xds("Down") if (w == b.pgup) xds("PgUp") if (w == b.pgdn)
-                xds("PgDn") if (w == b.left) xds("Left") if (w == b.right)
-                    xds("Right") if (w == b.home) xds("Home") if (w == b.end)
-                        xds("End") if (w == b.first)
-                            xds("First") if (w == b.last)
-                                xds("Last") if (w == b.restore)
-                                    xds("Restore") if (w == b.write)
-                                        xds("Write") if (w == b.get)
-                                            xds("Get") if (w == b.repl)
-                                                xds("Replace");
+        xds("Find");
+    if (w == b.up)
+        xds("Up");
+    if (w == b.down)
+        xds("Down");
+    if (w == b.pgup)
+        xds("PgUp");
+    if (w == b.pgdn)
+        xds("PgDn");
+    if (w == b.left)
+        xds("Left");
+    if (w == b.right)
+        xds("Right");
+    if (w == b.home)
+        xds("Home");
+    if (w == b.end)
+        xds("End");
+    if (w == b.first)
+        xds("First");
+    if (w == b.last)
+        xds("Last");
+    if (w == b.restore)
+        xds("Restore");
+    if (w == b.write)
+        xds("Write");
+    if (w == b.get)
+        xds("Get");
+    if (w == b.repl)
+        xds("Replace");
     if (w == b.unrepl)
         xds("Unrepl");
     if (w == b.table)
@@ -600,16 +618,22 @@ display_browser(Window w, BROWSER b) {
     if (w == b.load)
         xds("Load");
     if (w == b.time)
-        xds("Time") if (w == b.addcol) xds("Add col") if (w == b.close)
-            xds("Close") if (w == b.delcol)
-                xds("Del col") for (i = 0; i < BMAXCOL; i++) {
-            if (w == b.label[i]) {
-                i0 = i + b.col0 - 1;
-                if (i0 < b.maxcol - 1)
-                    XDrawString(display, w, small_gc, 5, CURY_OFFs,
-                                uvar_names[i0], strlen(uvar_names[i0]));
-            }
+        xds("Time");
+    if (w == b.addcol)
+        xds("Add col");
+    if (w == b.close)
+        xds("Close");
+    if (w == b.delcol)
+        xds("Del col");
+
+    for (i = 0; i < BMAXCOL; i++) {
+        if (w == b.label[i]) {
+            i0 = i + b.col0 - 1;
+            if (i0 < b.maxcol - 1)
+                XDrawString(display, w, small_gc, 5, CURY_OFFs,
+                            uvar_names[i0], strlen(uvar_names[i0]));
         }
+    }
     if (w == b.main)
         draw_data(b);
     return;
