@@ -3682,9 +3682,9 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
 
 int64
 lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
+    int64 ret_val;
     (void)cb_len;
     (void)ca_len;
-    int64 ret_val;
 
     /*     .. Scalar Arguments .. */
     /*     .. */
@@ -3775,17 +3775,17 @@ int32
 dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
       double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
       int64 *ldc, int64 transa_len, int64 transb_len) {
-    (void)transb_len;
-    (void)transa_len;
-    int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
-        i__3;
-
+    int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset;
+    int64 i__1, i__2, i__3;
     static int64 info;
     static int64 nota, notb;
     static double temp;
     static int64 i__, j, l;
 
     static int64 nrowa, nrowb;
+
+    (void)transb_len;
+    (void)transa_len;
 
     /*     .. Scalar Arguments .. */
     /*     .. Array Arguments .. */
