@@ -3446,7 +3446,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
 
 
     double d;
-    int64 i, j, k;
+    int64 j, k;
     double *w, *x, z__;
     int64 j1, k1, l1;
     double ri;
@@ -3471,7 +3471,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
     ncp1 = *nc + 1;
     n1m1 = *n1 - 1;
 
-    for (i = 0; i < *nc1; ++i) {
+    for (int64 i = 0; i < *nc1; ++i) {
         ri = (double)(i);
         d = ri / (double)*nc1;
         for (j1 = 0; j1 < n1m1; ++j1) {
@@ -3497,7 +3497,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
         }
     }
 
-    for (i = 0; i < *ndim; ++i) {
+    for (int64 i = 0; i < *ndim; ++i) {
         ARRAY2D(ups1, (*n1 - 1), i) = ARRAY2D(ups, (*n - 1), i);
     }
     free(w);
