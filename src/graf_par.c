@@ -828,6 +828,8 @@ window_zoom_com(int32 c) {
     case 5:
         scroll_window();
         break;
+    default:
+        break;
     }
     set_normal_scale();
     return;
@@ -1161,6 +1163,8 @@ freeze_com(int32 c) {
     case 7:
         AutoFreezeFlag = 1 - AutoFreezeFlag;
         break;
+    default:
+        break;
     }
     return;
 }
@@ -1214,6 +1218,8 @@ key_frz_com(int32 c) {
             draw_freeze_key();
         }
         KillMessageBox();
+    default:
+        break;
     }
     return;
 }
