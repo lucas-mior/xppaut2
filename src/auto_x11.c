@@ -322,7 +322,6 @@ traverse_diagram(void) {
                 GO END
                 */
                 mindex = 0;
-                dist;
                 ndist = Auto.wid*Auto.hgt;
                 XORCross(ix, iy);
                 lalo = load_all_labeled_orbits;
@@ -378,11 +377,10 @@ traverse_diagram(void) {
                 */
             }
         } else if (ev.type == KeyPress) {
+            int32 found = 0;
+            char symb[3], nsymb[3];
             clear_msg();
             kp = get_key_press(&ev);
-            char symb[3], nsymb[3];
-
-            int32 found = 0;
 
             switch (kp) {
             case RIGHT:
@@ -581,6 +579,9 @@ traverse_diagram(void) {
             case ESC:
                 done = -1;
                 break;
+            default:
+                fprintf(stderr, "Unexpected case in %s.\n", __func__);
+                exit(EXIT_FAILURE);
             }
         }
     }
