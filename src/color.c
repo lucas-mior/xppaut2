@@ -122,7 +122,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
         break;
     case C_HOT:
-        i1 = .375*n;
+        i1 = (int32)(.375*(double)n);
         i2 = 2*i1;
         i3 = n - i2;
 
@@ -179,7 +179,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
             rr = x + amp*(-.14861*cos(angle) + 1.78277*sin(angle));
             gg = x + amp*(-.29227*cos(angle) - .90649*sin(angle));
             bb = x + amp*(1.97294*cos(angle));
-            /* printf("%d %g %g %g\n",i,rr,gg,bb); */
+
             if (rr < 0.0)
                 rr = 0.0;
             if (rr > 1.0)
