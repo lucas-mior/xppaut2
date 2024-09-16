@@ -133,9 +133,9 @@ bottom_msg(char *msg) {
 }
 
 void
-gputs(char *string, Window win) {
+gputs(char *string, Window window) {
     int32 xloc = CURS_X*DCURX, yloc = CURS_Y*DCURY;
-    Ftext(xloc, yloc, string, win);
+    Ftext(xloc, yloc, string, window);
     CURS_X += strlen(string);
     return;
 }
