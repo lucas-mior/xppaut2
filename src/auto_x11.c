@@ -1295,4 +1295,5 @@ auto_keypress(XEvent ev, int32 *used) {
             return;
         }
     }
+    return;
 }
