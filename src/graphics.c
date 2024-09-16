@@ -11,14 +11,10 @@
 #include "struct.h"
 
 #define MAXPERPLOT 10
-#define MAXPLOTS 20
 #define DEGTORAD .0174532
 #define EP1 1.000001
-#define TAXIS 2
 #define max(a, b) ((a > b) ? a : b)
 #define min(a, b) ((a < b) ? a : b)
-#define PS_XMAX 7200
-#define PS_YMAX 5040
 #define SYMSIZE .00175
 
 double THETA0 = 45, PHI0 = 45;
@@ -376,6 +372,9 @@ put_text_x11(int32 x, int32 y, char *str) {
     case 2:
         sw = -sw;
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     XSetForeground(display, small_gc, GrFore);
     XDrawString(display, draw_win, small_gc, x + sw, y + DCURYs / 3, str,

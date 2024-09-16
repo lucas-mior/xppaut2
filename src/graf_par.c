@@ -33,7 +33,6 @@ extern char PlotFormat[100];
 
 #define SPER 3
 #define UPER 4
-#define SEQ 1
 #define UEQ 2
 
 #define lsSEQ 0
@@ -1616,6 +1615,8 @@ add_a_curve_com(int32 c) {
         break;
         /*  case 9: change_cmap();
             break; */
+    default:
+        break;
     }
     check_flags();
     redraw_the_graph();
