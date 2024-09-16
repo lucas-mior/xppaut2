@@ -635,7 +635,7 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
 
 int32
 one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
-                 double *tol, double *atol, int32 flag, int32 *kflag) {
+                 double *tol, double *atol, int32 flag2, int32 *kflag) {
     double yold[MAX_ODE], told;
     int32 i, hit;
     double s;
@@ -644,7 +644,7 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
         for (i = 0; i < n; i++)
             yold[i] = y[i];
         told = *t;
-        dormprin(istart, y, t, n, tout, tol, atol, flag, kflag);
+        dormprin(istart, y, t, n, tout, tol, atol, flag2, kflag);
         if (*kflag != 1)
             break;
         if ((hit = one_flag_step(yold, y, istart, told, t, n, &s)) == 0)
