@@ -441,11 +441,11 @@ memmov(char *s1, char *s2, int32 len) {
 }
 
 void
-edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
+edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
             int32 ch) {
     int32 col0 = *col - *pos*DCURX;
 
-    *done = 0;
+    *done2 = 0;
     switch (ch) {
     case LEFT:
         if (*pos > 0) {
@@ -476,13 +476,13 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
     case PGDN:
         return; /* junk key  */
     case ESC:
-        *done = -1; /* quit without saving */
+        *done2 = -1; /* quit without saving */
         return;
     case FINE:
         if (MSStyle == 0)
-            *done = 1;
+            *done2 = 1;
         else
-            *done = 2;
+            *done2 = 2;
         return; /* save this guy */
     case BKSP:
         /*
@@ -501,9 +501,9 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
         break;
     case TAB:
         if (MSStyle == 0)
-            *done = 2;
+            *done2 = 2;
         else
-            *done = 1;
+            *done2 = 1;
         return;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
@@ -540,7 +540,7 @@ do_backspace(int32 *pos, char *value, int32 *col, Window w) {
 }
 
 void
-edit_command_string(XEvent ev, char *name, char *value, int32 *done, int32 *pos,
+edit_command_string(XEvent ev, char *name, char *value, int32 *done2, int32 *pos,
                     int32 *col) {
     char ch;
     switch (ev.type) {
@@ -558,7 +558,7 @@ edit_command_string(XEvent ev, char *name, char *value, int32 *done, int32 *pos,
     case KeyPress:
         ch = get_key_press(&ev);
         /* printf("ch= %ld \n",ch); */
-        edit_window(command_pop, pos, value, col, done, ch);
+        edit_window(command_pop, pos, value, col, done2, ch);
 
     } /* end event cases */
     return;
@@ -567,7 +567,7 @@ edit_command_string(XEvent ev, char *name, char *value, int32 *done, int32 *pos,
 int32
 new_string(char *name, char *value) {
     char old_value[80];
-    int32 done = 0;
+    int32 done2 = 0;
     int32 pos = strlen(value);
     int32 col = (pos + strlen(name))*DCURX;
 
@@ -575,13 +575,13 @@ new_string(char *name, char *value) {
     strcpy(old_value, value);
     clr_command();
     display_command(name, value, pos);
-    while (done == 0) {
+    while (done2 == 0) {
         XNextEvent(display, &ev);
-        edit_command_string(ev, name, value, &done, &pos, &col);
+        edit_command_string(ev, name, value, &done2, &pos, &col);
     }
     clr_command();
-    if (done == 1 || done == 2)
-        return done;
+    if (done2 == 1 || done2 == 2)
+        return done2;
     strcpy(value, old_value);
     return 0;
 }
