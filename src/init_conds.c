@@ -1538,9 +1538,9 @@ initialize_box(void) {
 void
 resize_par_box(Window win) {
     uint32 h, w;
-    int32 nwin;
+    int32 nwin = 0;
     int32 ok = 0;
-    BoxList *b;
+    BoxList *b = NULL;
 
     if (ICBox.xuse == 1 && win == ICBox.base) {
         ok = 1;
@@ -1602,6 +1602,8 @@ resize_par_box(Window win) {
     case 4:
         destroy_box(&DelayBox);
         make_new_delay_box();
+        break;
+    default:
         break;
     }
     return;
@@ -1807,6 +1809,9 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
         case DELAYBOX:
             set_edit_params(b, i, delay_string[i]);
             break;
+        default:
+            fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+            exit(EXIT_FAILURE);
         }
     }
     return;

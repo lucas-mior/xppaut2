@@ -23,6 +23,7 @@ clang: CFLAGS += -Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-float-equal
 clang: CFLAGS += -Wno-missing-variable-declarations -Wno-implicit-int-conversion
 clang: CFLAGS += -Wno-format-nonliteral -Wno-comma -Wno-implicit-fallthrough
 clang: CFLAGS += -Wno-missing-prototypes -Wno-declaration-after-statement
+clang: CFLAGS += -Wno-float-conversion
 clang: all
 
 gcc: C = gcc
