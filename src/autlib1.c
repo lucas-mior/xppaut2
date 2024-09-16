@@ -1868,11 +1868,6 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void)dfdu;
     (void)dfdp;
 
-    /* Parameter adjustments */
-    /*--vuz;*/
-    /*--iuz;*/
-    /*--par;*/
-
     iid = iap->iid;
     iuzr = iap->iuzr;
     ibr = iap->ibr;
@@ -1926,21 +1921,6 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--stla;*/
-    /*--stld;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--u;*/
-    /*--du;*/
-    /*--udot;*/
-    /*--dfdu;*/
-    /*--dfdp;*/
-    /*--thl;*/
-    /*--thu;*/
     aa_dim1 = *m1aaloc;
     stu_dim1 = m1sbloc;
     stud_dim1 = m1sbloc;
@@ -2019,16 +1999,6 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     /* of the bifurcating branch in opposite direction, then only the sign of */
     /*  the stepsize ( DS ) along the branch is reversed. */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--stla;*/
-    /*--stld;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--u;*/
-    /*--udot;*/
     stu_dim1 = m1sbloc;
     stud_dim1 = m1sbloc;
 
@@ -2114,22 +2084,6 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rhs;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--u;*/
-    /*--du;*/
-    /*--uold;*/
-    /*--udot;*/
-    /*--f;*/
-    /*--dfdu;*/
-    /*--dfdp;*/
-    /*--thl;*/
-    /*--thu;*/
     aa_dim1 = *m1aaloc;
 
     ndim = iap->ndim;
@@ -2327,12 +2281,6 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     /* limits of the bifurcation diagram, viz. RL0,RL1,A0 and A1. */
     /* These are often convenient for an initial plot of the diagram. */
 
-    /* Parameter adjustments */
-    /*--thu;*/
-    /*--thl;*/
-    /*--icp;*/
-    /*--par;*/
-
     ndim = iap->ndim;
     ips = iap->ips;
     irs = iap->irs;
@@ -2434,10 +2382,6 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     (void)par;
 
     /* Prints headings above columns on unit 6 and 7. */
-
-    /* Parameter adjustments */
-    /*--icp;*/
-    /*--par;*/
 
     ips = iap->ips;
     iplt = iap->iplt;
@@ -2586,11 +2530,6 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     /*               the solution (see the user-supplied parameter IPLT). */
     /*  U          : The first few components of the solution vector. */
     /*  PAR(ICP(*)): Further free parameters (if any). */
-
-    /* Parameter adjustments */
-    /*--u;*/
-    /*--rlcur;*/
-    /*--icp;*/
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -2886,12 +2825,6 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     /* Write restart information on singular points, plotting points, etc., */
     /* on unit 8. */
 
-    /* Parameter adjustments */
-    /*--u;*/
-    /*--rlcur;*/
-    /*--icp;*/
-    /*--par;*/
-
     ndim = iap->ndim;
     isw = iap->isw;
     itp = iap->itp;
@@ -2951,8 +2884,6 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 
     int64 i, j;
 
-    /* Parameter adjustments */
-    /*--rhs;*/
     aa_dim1 = *m1aaloc;
 
     if (iap->mynode > 0) {
@@ -2985,9 +2916,6 @@ msh(const iap_type *iap, double *tm) {
     double dt;
 
     /* Generates a uniform mesh on [0,1]. */
-
-    /* Parameter adjustments */
-    /*--tm;*/
 
     ntst = iap->ntst;
 
@@ -3027,7 +2955,6 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
     /* Local */
 
     /* Generate the collocation points : */
-    /* Parameter adjustments */
     wp_dim1 = n1;
     wt_dim1 = n1;
 
@@ -3179,9 +3106,6 @@ cntdif(int64 *n, double *d) {
     /* Nth derivative at uniformly spaced points */
     /*              0 = x  < x  < ... < x  = 1. */
     /*                   0    1          N */
-
-    /* Parameter adjustments */
-    /*--d;*/
 
     d[0] = 1.;
     if (*n == 0) {
@@ -3369,9 +3293,6 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--tm;*/
-    /*--dtm;*/
     vps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -3459,11 +3380,6 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--tm;*/
-    /*--tm1;*/
-    /*--tm2;*/
-    /*--itm1;*/
     ups1_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -3527,11 +3443,6 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--tmnew;*/
-    /*--dtmold;*/
-    /*--tmold;*/
-
     ndim = iap->ndim;
 
     /* Put the values of the monotonely increasing function EQDF in EQF. */
@@ -3576,11 +3487,6 @@ ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
     /* value of ITM1( i ) specifies the index of the TM-interval in which */
     /* TM1(i) lies. */
 
-    /* Parameter adjustments */
-    /*--tm;*/
-    /*--itm1;*/
-    /*--tm1;*/
-
     k0 = 2;
     for (j1 = 0; j1 < *n1; ++j1) {
         for (j = k0; j <= *n; ++j) {
@@ -3608,10 +3514,6 @@ intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
     (void)rap;
 
     /* Generates weights for Lagrange interpolation. */
-
-    /* Parameter adjustments */
-    /*--wts;*/
-    /*--x;*/
 
     for (ib = 0; ib < *n; ++ib) {
         p = 1.;
@@ -3649,9 +3551,6 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     wh = malloc(sizeof(*wh)*(*ncol + 1));
 
     /* Compute approximation to NCOL-th derivative : */
-    /* Parameter adjustments */
-    /*--dtm;*/
-    /*--eqf;*/
     ups_dim1 = *ndxloc;
 
     cntdif(ncol, wh);
@@ -3814,10 +3713,6 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     /*     U : on exit U contains the null vector, */
     /* IR,IC : int64 arrays of dimension at least N. */
 
-    /* Parameter adjustments */
-    /*--u;*/
-    /*--ir;*/
-    /*--ic;*/
     a_dim1 = m;
 
     for (int32 i = 0; i < n; ++i) {
@@ -3903,9 +3798,6 @@ nrmlz(int64 *ndim, double *v) {
 
     /* Scale the vector V so that its discrete L2-norm becomes 1. */
 
-    /* Parameter adjustments */
-    /*--v;*/
-
     ss = 0.;
     for (i = 0; i < *ndim; ++i) {
         ss += v[i]*v[i];
@@ -3965,9 +3857,6 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
 
     /* The input matrix A is overwritten. */
 
-    /* Parameter adjustments */
-    /*--ir;*/
-    /*--ic;*/
     a_dim1 = m1a;
     u_dim1 = ndxloc;
     f_dim1 = m1f;
@@ -4329,9 +4218,6 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--dtm;*/
-    /*--thu;*/
     vps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -4373,9 +4259,6 @@ rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
 
     /* Finds the norm of UPS (first NDIM1 components are included only). */
 
-    /* Parameter adjustments */
-    /*--thu;*/
-
     ret_val = rinpr(iap, ndim1, ndxloc, ups, ups, dtm, thu);
 
     return ret_val;
@@ -4401,8 +4284,6 @@ rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--dtm;*/
     ups_dim1 = *ndxloc;
 
     ndim = iap->ndim;
@@ -4449,8 +4330,6 @@ rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--dtm;*/
     ups_dim1 = *ndxloc;
 
     ndim = iap->ndim;
@@ -4490,7 +4369,6 @@ rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 
     /* Computes the maximum of the I'th component of UPS. */
 
-    /* Parameter adjustments */
     ups_dim1 = *ndxloc;
 
     ndim = iap->ndim;
@@ -4524,7 +4402,6 @@ rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 
     /* Computes the minimum of the I'th component of UPS. */
 
-    /* Parameter adjustments */
     ups_dim1 = *ndxloc;
 
     ndim = iap->ndim;
@@ -4559,12 +4436,6 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
 
     /* Scales the vector (DVPS,RLD) so its norm becomes 1. */
 
-    /* Parameter adjustments */
-    /*--icp;*/
-    /*--rld;*/
-    /*--dtm;*/
-    /*--thl;*/
-    /*--thu;*/
     dvps_dim1 = *ndxloc;
 
     ndim = iap->ndim;
@@ -4652,11 +4523,6 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     uzr = malloc(sizeof(*uzr)*(iap->nuzr));
 
     /* INITIALIZE COMPUTATION OF BRANCH */
-
-    /* Parameter adjustments */
-    /*--iuz;*/
-    /*--icp;*/
-    /*--par;*/
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -5003,11 +4869,6 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* by a computation of the null space of the Jacobian. */
     /* The stepsize used in the preceding step has been stored in DSOLD. */
 
-    /* Parameter adjustments */
-    /*--dtm;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
     udotps_dim1 = *ndxloc;
     uoldps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -5063,10 +4924,6 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
     /* a computation of the null space of the Jacobian. */
     /* The stepsize used in the preceding step has been stored in DSOLD. */
 
-    /* Parameter adjustments */
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
     udotps_dim1 = *ndxloc;
     uoldps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -5115,12 +4972,6 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
     upoldp_dim1 = *ndxloc;
     uoldps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
@@ -5219,15 +5070,6 @@ stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
      */
     /* for the next solution (PAR(ICP(*)) , U) on a branch of solutions. */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--fc;*/
-    /*--tm;*/
-    /*--dtm;*/
     fa_dim1 = *ndxloc;
     udotps_dim1 = *ndxloc;
     uoldps_dim1 = *ndxloc;
@@ -5429,15 +5271,6 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
      */
     /* user-supplied subroutine STPNT. */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--tm;*/
-    /*--dtm;*/
-    /*--ev;*/
     uoldps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -5777,13 +5610,6 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rldot;*/
-    /*--tm;*/
-    /*--dtm;*/
     udotps_dim1 = *ndxloc;
     ups_dim1 = *ndxloc;
 
@@ -5842,8 +5668,6 @@ setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
 
     /* Initialization for rotations */
 
-    /* Parameter adjustments */
-    /*--par;*/
     ups_dim1 = *ndxloc;
 
     par[18] = pi(2.0);
@@ -5888,14 +5712,6 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* (Then the last row of the Jacobian will be zero) */
     /* in case the starting direction is to be determined. */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--rlcur;*/
-    /*--rlold;*/
-    /*--rldot;*/
-    /*--fc;*/
-    /*--dtm;*/
     fa_dim1 = ndxloc;
     udotps_dim1 = ndxloc;
 
@@ -6016,14 +5832,6 @@ lcspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* the user-supplied tolerance EPSS. */
     /* This subroutine is called from CNRLB, which controls the computation */
     /* of branches of solutions to general boundary value problems. */
-
-    /* Parameter adjustments */
-    /*--ev;*/
-    /*--dtm;*/
-    /*--tm;*/
-    /*--rldot;*/
-    /*--rlold;*/
-    /*--rlcur;*/
 
     iid = iap->iid;
     itmx = iap->itmx;
@@ -6337,11 +6145,6 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     /* pair of eigenvalues of the linearized Poincare map moves in or out */
     /* of the unit circle or when a real eigenvalues passes through -1. */
     /* Local */
-
-    /* Parameter adjustments */
-    /*--ev;*/
-    /*--p1;*/
-    /*--p0;*/
 
     ndim = iap->ndim;
     isp = iap->isp;
