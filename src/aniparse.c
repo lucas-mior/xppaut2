@@ -966,7 +966,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     uchar *dst, *pixel;
     cmap = DefaultColormap(display, screen);
 
-    ximage = XGetImage(display, window, 0, 0, *wid, *hgt, AllPlanes, ZPixmap);
+    ximage = XGetImage(display, window, 0, 0, (uint)*wid, (uint)*hgt, AllPlanes, ZPixmap);
 
     if (!ximage)
         return -1;
@@ -1032,7 +1032,6 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     XImage *ximage;
     Colormap cmap;
     ulong value;
-    int32 i;
     int32 CMSK = 0, CSHIFT = 0, CMULT = 0;
     int32 bbp = 0, bbc = 0;
     int32 lobits, midbits, hibits;
@@ -1049,7 +1048,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     if (!ximage)
         return -1;
     /* this is only good for 256 color displays */
-    for (i = 0; i < 256; i++)
+    for (int32 i = 0; i < 256; i++)
         palette[i].pixel = i;
     XQueryColors(display, cmap, palette, 256);
     fd = creat(filename, 0666);
@@ -1601,8 +1600,7 @@ init_ani_stuff(void) {
 
 void
 free_ani(void) {
-    int32 i;
-    for (i = 0; i < n_anicom; i++) {
+    for (int32 i = 0; i < n_anicom; i++) {
         free(my_ani[i].x1);
         free(my_ani[i].y1);
         free(my_ani[i].x2);
