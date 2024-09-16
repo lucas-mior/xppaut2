@@ -1652,7 +1652,7 @@ auto_grab(void) {
     return;
 }
 
-void
+static void
 auto_next(void) {
     static char *m[] = {"EP", "HB", "LP", "PD", "MX"};
     /*static char *m[]={"Fixed period","Extend"}; */
@@ -2169,7 +2169,7 @@ auto_new_ss(void) {
     Auto.isp = 1;
     if (SuppressBP == 1)
         Auto.isp = 0;
-    ;
+
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     do_auto(opn, cls);
@@ -2275,7 +2275,7 @@ get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     return flag;
 }
 
-void
+static void
 three_parameter_homoclinic(void) {
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
