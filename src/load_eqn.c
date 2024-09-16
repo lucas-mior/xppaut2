@@ -177,8 +177,6 @@ extern double ColorViaLo, ColorViaHi;
 extern int32 ColorizeFlag;
 
 /* AUTO STUFF  */
-extern int32 auto_ntst, auto_nmx, auto_npr, auto_ncol;
-extern double auto_ds, auto_dsmax, auto_dsmin;
 extern double auto_rl0, auto_rl1, auto_a0, auto_a1;
 extern double auto_epss, auto_epsl, auto_epsu;
 extern int32 auto_var;

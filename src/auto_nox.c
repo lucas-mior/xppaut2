@@ -123,8 +123,10 @@ static int32 BR_color = 27;
 static int32 FP_color = 25;
 
 int32 RestartLabel = 0;
+
 int32 auto_ntst = 15, auto_nmx = 200, auto_npr = 50, auto_ncol = 4;
 double auto_ds = .02, auto_dsmax = .5, auto_dsmin = .001;
+
 double auto_rl0 = 0.0, auto_rl1 = 2, auto_a0 = 0.0, auto_a1 = 1000.;
 double auto_xmax = 2.5, auto_xmin = -.5, auto_ymax = 3.0, auto_ymin = -3.0;
 double auto_epsl = 1e-4, auto_epsu = 1e-4, auto_epss = 1e-4;
