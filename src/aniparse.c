@@ -1021,9 +1021,9 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     XImage *ximage;
     Colormap cmap;
     ulong value;
-    int32 CMSK = 0, CSHIFT = 0, CMULT = 0;
-    int32 bbp = 0, bbc = 0;
-    int32 lobits, midbits, hibits;
+    uint32 CMSK = 0, CSHIFT = 0, CMULT = 0;
+    uint32 bbp = 0, bbc = 0;
+    uint32 lobits, midbits, hibits;
     /*int32 vv; Not used anywhere...*/
     uint32 x, y;
     char head[100];
@@ -1048,7 +1048,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
           it for your machine
     */
     if (TrueColorFlag == 1) {
-        bbp = ximage->bits_per_pixel; /* is it 16 or 24 bit */
+        bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
         if (bbp > 24)
             bbp = 24;
         bbc = bbp / 3; /*  divide up the 3 colors equally to bbc bits  */
@@ -1059,7 +1059,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     snprintf(head, sizeof(head), "P6\n%d %d\n255\n", ximage->width,
              ximage->height);
     write(fd, head, strlen(head));
-    area = ximage->width*ximage->height;
+    area = (uint32)(ximage->width*ximage->height);
     pixel = (uchar *)ximage->data;
     out = malloc(3*area);
     dst = out;
@@ -1739,9 +1739,9 @@ add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
     if (err)
         return -1;
     a->c.n = n;
-    a->c.x = malloc(n*sizeof(*(a->c.x)));
-    a->c.y = malloc(n*sizeof(*(a->c.y)));
-    a->c.col = malloc(n*sizeof(*(a->c.col)));
+    a->c.x = malloc((size_t)n*sizeof(*(a->c.x)));
+    a->c.y = malloc((size_t)n*sizeof(*(a->c.y)));
+    a->c.col = malloc((size_t)n*sizeof(*(a->c.col)));
     a->c.i = 0;
     return 1;
 }
