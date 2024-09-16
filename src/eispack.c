@@ -5107,7 +5107,7 @@ L1003:
     oldm = m;
 
     /*     test for zero shift */
-    test = nct**tol*(sminl / smax) + 1.;
+    test = (double)nct*(*tol)*(sminl / smax) + 1.;
     if ((test == 1. && *ifull != 1 && *tol > (double)0.) || *ifull == 2) {
         /*       do a zero shift so that roundoff does not contaminate */
         /*       smallest singular value */
@@ -5137,9 +5137,9 @@ L1003:
             printf("sigma-min of 2 by 2 corner=%f\n", shift);
         }
         if (*tol > (double)0.) {
-            if (shift > nct*smin) {
+            if (shift > (double)nct*smin) {
                 ++(*limshf);
-                shift = nct*smin;
+                shift = (double)nct*smin;
                 if (*idbg > 0) {
                     printf("shift limited\n");
                 }
@@ -5568,7 +5568,6 @@ L996:
 
 int32
 prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
-    (void)nrow;
     /* Format strings */
 
     int64 i__1;
@@ -5576,6 +5575,8 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
     /* Builtin functions */
 
     static int64 i__;
+
+    (void)nrow;
 
     /* Fortran I/O blocks */
 
@@ -7033,7 +7034,7 @@ L200:
     return 0;
 }
 
-double
+static double
 dotp(double *p, double *q, int32 n) {
     double z = 0.0;
     int32 i;
@@ -7042,10 +7043,11 @@ dotp(double *p, double *q, int32 n) {
     return z;
 }
 
-int32
+static int32
 get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     double *at, *a, *z, *wr, *wi, *fv1;
-    int32 i, j, k, kt, *iv1, ier;
+    int32 i, j, k, kt;
+    int64 *iv1, ier;
     double eps = 1e-8;
     at = malloc(n*n * sizeof(*at));
     a = malloc(n*n * sizeof(*a));
@@ -7101,7 +7103,7 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     return ier;
 }
 
-void
+static void
 test_matrix_stuff(void) {
     /* what is called At (a-transpose) gives the eigenvectors
      * for what I would call A */
