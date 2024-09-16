@@ -426,11 +426,11 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
     }
 
     /* Divide through by the normalizing constant: */
-    if (scaling && scaling != 1.0) {
+    if (scaling != 0.0 && scaling != 1.0) {
         if (iSign < 0)
             iSign = -iSign;
         if (scaling < 0.0)
-            scaling = (scaling < -1.0) ? sqrt(nTotal) : nTotal;
+            scaling = (scaling < -1.0) ? sqrt((double)nTotal) : (double)nTotal;
         scaling = 1.0 / scaling; /* multiply is often faster */
         for (size_t i = 0; i < nTotal; i += iSign) {
             Re_Data(i) *= scaling;
