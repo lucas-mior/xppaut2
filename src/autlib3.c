@@ -1235,12 +1235,13 @@ int32
 bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    (void)iap;
-    (void)rap;
-    (void)icp;
     int64 dbc_dim1;
 
     int64 jtmp, i, j, nn;
+
+    (void)iap;
+    (void)rap;
+    (void)icp;
 
     /* Parameter adjustments */
 
@@ -1254,7 +1255,7 @@ bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     if (global_rotations.irtn != 0) {
         for (i = 0; i < ndim; ++i) {
             if (global_rotations.nrtn[i] != 0) {
-                f[i] += par[18]*global_rotations.nrtn[i];
+                f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
         }
     }
@@ -1283,15 +1284,16 @@ icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
+    int64 dint_dim1;
+
+    int64 jtmp, i, nn;
+
     (void)iap;
     (void)rap;
     (void)par;
     (void)icp;
     (void)uold;
     (void)udot;
-    int64 dint_dim1;
-
-    int64 jtmp, i, nn;
 
     /* Parameter adjustments */
 
@@ -1329,11 +1331,12 @@ int32
 pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
       int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
       double *par) {
-    (void)iap;
-    (void)rap;
     int64 ups_dim1, udotps_dim1;
 
     int64 i, j, i1, i2;
+
+    (void)iap;
+    (void)rap;
 
     /* Preprocesses restart data for switching branches at a period doubling */
 
@@ -1461,7 +1464,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Generate the (initially uniform) mesh. */
 
     msh(iap, tm);
-    dt = 1. / ntst;
+    dt = 1. / (double)ntst;
 
     for (j = 0; j < ntst + 1; ++j) {
         t = tm[j];
@@ -1476,7 +1479,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     for (i = 0; i < ncol - 1; ++i) {
         for (j = 0; j < ntst; ++j) {
-            t = tm[j] + (i + 1)*(tm[j + 1] - tm[j]) / ncol;
+            t = tm[j] + (double)(i + 1)*(tm[j + 1] - tm[j]) / (double)ncol;
             s = sin(tpi*t);
             c = cos(tpi*t);
             for (k = 0; k < ndim; ++k) {
@@ -1761,7 +1764,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Generate the (initially uniform) mesh. */
 
     msh(iap, tm);
-    dt = 1. / ntst;
+    dt = 1. / (double)ntst;
 
     for (j = 0; j < ntst + 1; ++j) {
         t = tm[j];
@@ -1776,7 +1779,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     for (i = 0; i < ncol - 1; ++i) {
         for (j = 0; j < ntst; ++j) {
-            t = tm[j] + (i + 1)*(tm[j + 1] - tm[j]) / ncol;
+            t = tm[j] + (double)(i + 1)*(tm[j + 1] - tm[j]) / (double)ncol;
             s = sin(tpi*t);
             c = cos(tpi*t);
             for (k = 0; k < ndim; ++k) {
@@ -2080,7 +2083,6 @@ int32
 ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
-    (void)ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
     double beta;
@@ -2088,6 +2090,8 @@ ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     int64 i, j;
     double period;
     int64 ips;
+
+    (void)ndim;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndm;
@@ -2121,10 +2125,11 @@ int32
 bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    (void)rap;
-    (void)icp;
     int64 dbc_dim1;
     int64 jtmp, i, j, nn, ndm;
+
+    (void)rap;
+    (void)icp;
 
     /* Boundary conditions for continuing folds (Periodic solutions) */
 
@@ -2140,7 +2145,7 @@ bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         ndm = iap->ndm;
         for (i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
-                f[i] += par[18]*global_rotations.nrtn[i];
+                f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
         }
     }
@@ -2169,13 +2174,14 @@ icpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
+    int64 dint_dim1;
+
+    int64 jtmp, i, j, nn, ndm;
+
     (void)udot;
     (void)rap;
     (void)icp;
     (void)uold;
-    int64 dint_dim1;
-
-    int64 jtmp, i, j, nn, ndm;
 
     /* Integral conditions for continuing folds (Periodic solutions) */
 
@@ -2230,11 +2236,6 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void)thu;
-    (void)thl;
-    (void)dtm;
-    (void)upoldp;
-
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
     int64 ndim;
@@ -2245,6 +2246,11 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     double rd1, rd2;
     int64 ibr, ndm, ips, irs, lab1, nar1, itp1, isw1;
+
+    (void)thu;
+    (void)thl;
+    (void)dtm;
+    (void)upoldp;
 
     /* Generates starting data for the 2-parameter continuation of folds */
     /* on a branch of periodic solutions. */
@@ -2451,11 +2457,12 @@ int32
 ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
-    (void)ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
     double period;
+
+    (void)ndim;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndm;
@@ -2480,11 +2487,12 @@ int32
 bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    (void)icp;
-    (void)rap;
     int64 dbc_dim1;
 
     int64 jtmp, i, j, nn, ndm;
+
+    (void)icp;
+    (void)rap;
 
     /* Generate boundary conditions for the 2-parameter continuation */
     /* of period doubling bifurcations. */
@@ -2503,7 +2511,7 @@ bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     if (global_rotations.irtn != 0) {
         for (i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
-                f[i] += par[18]*global_rotations.nrtn[i];
+                f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
         }
     }
@@ -2536,13 +2544,14 @@ icpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
+    int64 dint_dim1;
+
+    int64 jtmp, i, j, nn, ndm;
+
     (void)udot;
     (void)uold;
     (void)icp;
     (void)rap;
-    int64 dint_dim1;
-
-    int64 jtmp, i, j, nn, ndm;
 
     /* Parameter adjustments */
     dint_dim1 = nint;
@@ -2589,11 +2598,6 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void)thu;
-    (void)thl;
-    (void)dtm;
-    (void)upoldp;
-
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
     int64 ndim;
@@ -2603,6 +2607,11 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
     int64 ibr, ndm, irs, lab1, nar1, itp1, isw1;
+
+    (void)thu;
+    (void)thl;
+    (void)dtm;
+    (void)upoldp;
 
     /* Generates starting data for the 2-parameter continuation of */
     /* period-doubling bifurcations on a branch of periodic solutions. */
@@ -2794,12 +2803,13 @@ int32
 fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
-    (void)ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
     double period;
     int64 ndm2;
+
+    (void)ndim;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndm;
@@ -2828,8 +2838,6 @@ int32
 bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    (void)icp;
-    (void)rap;
     int64 dbc_dim1;
 
     int64 jtmp, i, j;
@@ -2837,6 +2845,9 @@ bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     int64 nn;
     double ss;
     int64 ndm, ndm2;
+
+    (void)icp;
+    (void)rap;
 
     /* Parameter adjustments */
     dbc_dim1 = nbc;
@@ -2859,7 +2870,7 @@ bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     if (global_rotations.irtn != 0) {
         for (i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
-                f[i] += par[18]*global_rotations.nrtn[i];
+                f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
         }
     }
@@ -2898,13 +2909,14 @@ ictr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
+    int64 dint_dim1;
+
+    int64 jtmp, i, j, nn, ndm, ndm2;
+
     (void)udot;
     (void)uold;
     (void)icp;
     (void)rap;
-    int64 dint_dim1;
-
-    int64 jtmp, i, j, nn, ndm, ndm2;
 
     /* Parameter adjustments */
     dint_dim1 = nint;
@@ -2957,11 +2969,6 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void)thu;
-    (void)thl;
-    (void)dtm;
-    (void)upoldp;
-
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim;
@@ -2971,6 +2978,12 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 icprs[NPARX], nparr, k1, k2, k3, nskip1;
 
     int64 ibr, ndm, k2p1, irs, lab1, nar1, itp1, isw1;
+
+    (void)thu;
+    (void)thl;
+    (void)dtm;
+    (void)upoldp;
+
 
     /* Generates starting data for the 2-parameter continuation of torus */
     /* bifurcations. */
@@ -3180,11 +3193,12 @@ int32
 ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const double *upold, const int64 *icp, double *par,
      double *f, int64 ndm, double *dfdu, double *dfdp) {
-    (void)ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
     double gamma, rkappa, period, dfp[NPARX], *dfu, fop;
+
+    (void)ndim;
 
     dfu = malloc(sizeof(*dfu)*(iap->ndim));
     /* Local */
@@ -3225,10 +3239,11 @@ int32
 bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    (void)rap;
     int64 dbc_dim1;
 
     int64 nfpr, i, j, nbc0;
+
+    (void)rap;
 
     /* Generates the boundary conditions for periodic optimization problems.
      */
@@ -3247,7 +3262,7 @@ bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         nbc0 = iap->nbc0;
         for (i = 0; i < nbc0; ++i) {
             if (global_rotations.nrtn[i] != 0) {
-                f[i] += par[18]*global_rotations.nrtn[i];
+                f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
         }
     }
@@ -3359,9 +3374,6 @@ fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *fi,
      double *dint, int64 ndmt, double *dfdu, double *dfdp) {
-    (void)dint;
-    (void)udot;
-    (void)ndim;
     int64 dint_dim1, dfdu_dim1, dfdp_dim1;
 
     int64 nfpr, indx;
@@ -3370,6 +3382,10 @@ fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double dfp[NPARX], *dfu;
     int64 ndm;
     double fop;
+
+    (void)dint;
+    (void)udot;
+    (void)ndim;
 
     f = malloc(sizeof(*f)*(iap->ndim));
     dfu = malloc(sizeof(*dfu)*(iap->ndim));
