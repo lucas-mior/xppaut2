@@ -14,10 +14,10 @@
 
 #include "mykeydef.h"
 #define xds(a)                                                                 \
-    {                                                                          \
+    do {                                                                          \
         XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
-    }
+    } while (0)
 
 extern double last_ic[MAX_ODE];
 extern int32 noicon;
