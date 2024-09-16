@@ -70,7 +70,7 @@ cvode_err_msg(int32 kflag) {
         break;
     case -4:
         sprintf(s, "Tolerance too low-- try TOL=%g ATOL=%g",
-                TOLER * cv_ropt[TOLSF], ATOLER * cv_ropt[TOLSF]);
+                TOLER*cv_ropt[TOLSF], ATOLER*cv_ropt[TOLSF]);
         break;
     case -5:
         strcpy(s, "Error test failure too frequent ??");

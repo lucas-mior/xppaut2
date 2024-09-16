@@ -68,7 +68,6 @@ static char *toons[] = {"Popeye the Sailor",
 
 #include "aniwin.bitmap"
 
-
 #define LINE 0
 #define RLINE 1
 #define CIRC 2

@@ -2867,7 +2867,7 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
 /* ----------------------------------------------------------------------- */
 
 int32
-msh(const iap_type *iap, double *tm) {
+msh(iap_type *iap, double *tm) {
     int64 ntst;
     double dt;
 
@@ -2885,7 +2885,7 @@ msh(const iap_type *iap, double *tm) {
 }
 
 int32
-genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
+genwts(int64 ncol, int64 n1, double *wt, double *wp) {
     int64 wt_dim1, wp_dim1;
 
     double d;
@@ -2962,7 +2962,7 @@ genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
 }
 
 int32
-cpnts(const int64 ncol, double *zm) {
+cpnts(int64 ncol, double *zm) {
     double c, r, c1, c2, c3;
 
     /* Generates the collocation points with respect to [0,1]. */
@@ -3086,7 +3086,7 @@ cntdif(int64 *n, double *d) {
 }
 
 int32
-wint(const int64 n, double *wi) {
+wint(int64 n, double *wi) {
     double c;
 
     /* Generates the weights for the integration formula based on polynomial */
@@ -4000,8 +4000,7 @@ L2:
 }
 
 int32
-findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
-       int64 *found) {
+findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
     int64 nars;
 
     int64 labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
@@ -6968,7 +6967,7 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
 }
 
 void
-allocate_global_memory(const iap_type iap) {
+allocate_global_memory(iap_type iap) {
     free(global_scratch.dfu);
     free(global_scratch.dfp);
     free(global_scratch.uu1);

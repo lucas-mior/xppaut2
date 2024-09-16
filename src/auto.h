@@ -47,8 +47,7 @@ int32 redraw_auto_menus(void);
 int32 get_bif_sym(char *at, int32 itp);
 int32 info_header(int32 icp1, int32 icp2);
 void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
-              double norm, double u0, double per,
-              int32 icp1, int32 icp2);
+              double norm, double u0, double per, int32 icp1, int32 icp2);
 int32 traverse_diagram(void);
 int32 clear_auto_plot(void);
 int32 do_auto_win(void);

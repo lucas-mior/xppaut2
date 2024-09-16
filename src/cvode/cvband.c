@@ -124,7 +124,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
     srur = RSqrt(uround);
     fnorm = N_VWrmsNorm(fy, ewt);
     minInc =
-        (fnorm != ZERO) ? (MIN_INC_MULT * ABS(h) * uround * N * fnorm) : ONE;
+        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N * fnorm) : ONE;
 
     /* Set bandwidth and number of column groups for band differencing */
     width = mlower + mupper + 1;
@@ -134,7 +134,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 
         /* Increment all y_j in group */
         for (j = group - 1; j < N; j += width) {
-            inc = MAX(srur * ABS(y_data[j]), minInc / ewt_data[j]);
+            inc = MAX(srur*ABS(y_data[j]), minInc / ewt_data[j]);
             ytemp_data[j] += inc;
         }
 
@@ -145,13 +145,13 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
         for (j = group - 1; j < N; j += width) {
             ytemp_data[j] = y_data[j];
             col_j = BAND_COL(J, j);
-            inc = MAX(srur * ABS(y_data[j]), minInc / ewt_data[j]);
+            inc = MAX(srur*ABS(y_data[j]), minInc / ewt_data[j]);
             inc_inv = ONE / inc;
             i1 = MAX(0, j - mupper);
             i2 = MIN(j + mlower, N - 1);
             for (i = i1; i <= i2; i++)
                 BAND_COL_ELEM(col_j, i, j) =
-                    inc_inv * (ftemp_data[i] - fy_data[i]);
+                    inc_inv*(ftemp_data[i] - fy_data[i]);
         }
     }
 
@@ -304,7 +304,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     nje = 0;
     if (iopt != NULL) {
         iopt[BAND_NJE] = nje;
-        iopt[BAND_LRW] = N * (storage_mu + mu + 2 * ml + 2);
+        iopt[BAND_LRW] = N*(storage_mu + mu + 2*ml + 2);
         iopt[BAND_LIW] = N;
     }
     nstlj = 0;

@@ -346,7 +346,7 @@ static int32 fftradixf(double Re[], double Im[], size_t nTotal, size_t nPass,
  *
  */
 int32
-FFTN(int32 ndim, const int32 dims[], REAL Re[], REAL Im[], int32 iSign,
+FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
      double scaling) {
     size_t nTotal;
     int32 maxFactors, maxPerm;

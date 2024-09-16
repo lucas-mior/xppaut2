@@ -63,9 +63,9 @@ static struct {
 
 /*     ---------- ---- */
 int32
-fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr;
@@ -142,9 +142,9 @@ fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 /*     ---------- ---- */
 int32
-ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -192,9 +192,8 @@ ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 /*     ---------- ---- */
 int32
-bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr;
@@ -305,9 +304,8 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 
 /*     ---------- ---- */
 int32
-fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
-     const double *u1, double *fb, double *dbc) {
+fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, int64 nbc0, double *u0, double *u1, double *fb, double *dbc) {
     int64 dbc_dim1;
 
     int64 ieig;
@@ -620,10 +618,9 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 
 /*     ---------- ---- */
 int32
-icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr;
@@ -716,10 +713,9 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 
 /*     ---------- ---- */
 int32
-fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, int64 nnt0, const double *u,
-     const double *uold, const double *udot, const double *upold, double *fi,
-     double *dint) {
+fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, int64 nnt0, double *u, double *uold, double *udot,
+     double *upold, double *fi, double *dint) {
     int64 dint_dim1;
 
     int64 ijac = 0;
@@ -1343,8 +1339,8 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
 
 /*     -------- ------- -------- ----- */
 double
-psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
-      double *vt, const int64 *icp, double *par) {
+psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
+      int64 *icp, double *par) {
     double ret_val;
 
     int64 i, j;
@@ -1607,7 +1603,7 @@ free_f0f1:
 /*     ---------- ----- */
 int32
 eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
-      double *xequib, const int64 *icp, double *par, int64 *ndm) {
+      double *xequib, int64 *icp, double *par, int64 *ndm) {
     double *dfdp, *dfdu;
     double *zz;
 
@@ -1627,7 +1623,7 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
 /*     ---------- ----- */
 int32
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
-      double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
+      double *xequib, int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
@@ -1811,7 +1807,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 }
 
 int32
-prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
+prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
 
@@ -1826,9 +1822,8 @@ prjcti(double *bound, double *xequib, const int64 *icp, double *par, int64 imfd,
 }
 
 int32
-prjctn(double *bound, double *xequib, const int64 *icp, double *par,
-       int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
-       double *dfdp) {
+prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
+       int64 *is, int64 *itrans, int64 *ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j, k;

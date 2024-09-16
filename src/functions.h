@@ -1161,8 +1161,8 @@ COMPLEX cxdeterm(COMPLEX *z, int32 n);
 void make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
             COMPLEX lambda);
 int32 find_positive_root(double *coef, double *delay, int32 n, int32 m,
-                         double err, double eps, double big,
-                         int32 maxit, double *rr);
+                         double err, double eps, double big, int32 maxit,
+                         double *rr);
 void process_root(double real, double im);
 double get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda);
 int32 test_sign(double old, double new);
@@ -2305,7 +2305,7 @@ void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
  *
  * ----------------------------------------------------------------------*
  *
- * int32 fftn (int32 ndim, const int32 dims[], REAL Re[], REAL Im[],
+ * int32 fftn (int32 ndim,  int32 dims[], REAL Re[], REAL Im[],
  *	    int32 iSign, double scaling);
  *
  * NDIM = the total number dimensions
@@ -2339,18 +2339,17 @@ void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 #ifndef FFTN_H
 #define FFTN_H
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 extern void fft_free(void);
 
 /* double precision routine */
-extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
+extern int32 fftn(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
                   double /* Im */[], int32 /* isign */, double /* scaling */);
 
 /* double precision routine */
-extern int32 fftnf(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
+extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
                    double /* Im */[], int32 /* isign */, double /* scaling */);
 
 #ifdef __cplusplus
@@ -2722,7 +2721,8 @@ void line3d(double x01, double y01, double z01, double x02, double y02,
             double z02);
 void line_3d(double x, double y, double z, double xp, double yp, double zp);
 void pers_line(double x, double y, double z, double xp, double yp, double zp);
-void rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp);
+void rot_3dvec(double x, double y, double z, double *xp, double *yp,
+               double *zp);
 void point_abs(double x1, double y1);
 void line_nabs(double x1_out, double y1_out, double x2_out, double y2_out);
 void bead_abs(double x1, double y1);
@@ -2768,8 +2768,8 @@ void mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
 void mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag);
 void compute_hist(void);
 void sft(double *data, double *ct, double *st, int32 nmodes, int32 grid);
-void fftxcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
-              int32 flag);
+void fftxcorr(double *data1, double *data2, int32 length, int32 nlag,
+              double *cr, int32 flag);
 void fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
 void just_fourier(int32 flag);
 void just_sd(int32 flag);
@@ -2978,8 +2978,8 @@ void send_output(double *y, double t);
 void do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
              double *ypl, double *zpl);
 void export_data(FILE *fp);
-void plot_the_graphs(double *xv, double *xvold, double ddt,
-                     int32 *tc, int32 flag);
+void plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
+                     int32 flag);
 void plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
 void restore(int32 i1, int32 i2);
 void comp_color(double *v1, double *v2, int32 n, double dt);
@@ -4367,9 +4367,9 @@ void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f);
 #include <X11/Xlib.h>
 
 typedef struct GifTree {
-    char typ;         /* terminating, lookup, or search */
-    int32 code;       /* the code to be output */
-    uchar ix; /* the color map index */
+    char typ;   /* terminating, lookup, or search */
+    int32 code; /* the code to be output */
+    uchar ix;   /* the color map index */
     struct GifTree **node, *nxt, *alt;
 } GifTree;
 
@@ -4384,10 +4384,8 @@ void add_ani_gif(Window win, FILE *fp, int32 count);
 void screen_to_gif(Window win, FILE *fp);
 void get_global_colormap(Window win);
 void local_to_global(void);
-int32 use_global_map(uchar *pixels, uchar *ppm, int32 h,
-                     int32 w);
-int32 make_local_map(uchar *pixels, uchar *ppm, int32 h,
-                     int32 w);
+int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
+int32 make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
 void gif_stuff(Window win, FILE *fp, int32 task);
 void write_global_header(int32 cols, int32 rows, FILE *dst);
 void GifLoop(FILE *fout, uint32 repeats);

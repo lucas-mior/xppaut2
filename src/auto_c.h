@@ -122,24 +122,23 @@ typedef struct {
   which evaluates the right hand side of the equations and generates
   the Jacobian*/
 #define FUNI_TYPE(X)                                                           \
-    int32 X(const iap_type *iap, const rap_type *rap, int64 ndim,              \
-            const double *u, const double *uold, const int64 *icp,             \
-            double *par, int64 ijac, double *f, double *dfdu, double *dfdp)
+    int32 X(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold, \
+            int64 *icp, double *par, int64 ijac, double *f, double *dfdu,      \
+            double *dfdp)
 
 /*This is the type for all functions which can be used as "bcni" the function
   which evaluates the boundary conditions */
 #define BCNI_TYPE(X)                                                           \
-    int32 X(const iap_type *iap, const rap_type *rap, int64 ndim, double *par, \
-            const int64 *icp, int64 nbc, const double *u0, const double *u1,   \
-            double *f, int64 ijac, double *dbc)
+    int32 X(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, \
+            int64 nbc, double *u0, double *u1, double *f, int64 ijac,          \
+            double *dbc)
 
 /*This is the type for all functions which can be used as "icni" the function
   which evaluates kernel of the integral constraints */
 #define ICNI_TYPE(X)                                                           \
-    int32 X(const iap_type *iap, const rap_type *rap, int64 ndim, double *par, \
-            const int64 *icp, int64 nint, const double *u, const double *uold, \
-            const double *udot, const double *upold, double *f, int64 ijac,    \
-            double *dint)
+    int32 X(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp, \
+            int64 nint, double *u, double *uold, double *udot, double *upold,  \
+            double *f, int64 ijac, double *dint)
 
 /*This is the type for all functions which can be used as additional
   output functions for algebraic problems */
@@ -170,7 +169,7 @@ typedef struct {
   special points for algebraic problems */
 #define FNCS_TYPE_AE(X)                                                        \
     double X(iap_type *iap, rap_type *rap, double *par, int64 *icp,            \
-             int64 *chng, FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,    \
+             int64 *chng, FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,      \
              double *rlcur, double *rlold, double *rldot, double *u,           \
              double *uold, double *udot, double *rhs, double *dfdu,            \
              double *dfdp, int64 *iuz, double *vuz)
@@ -179,7 +178,7 @@ typedef struct {
   special points for BVPS */
 #define FNCS_TYPE_BVP(X)                                                       \
     double X(iap_type *iap, rap_type *rap, double *par, int64 *icp,            \
-             int64 *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),            \
+             int64 *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),              \
              ICNI_TYPE((*icni)), double *p0, double *p1, doublecomplex *ev,    \
              double *rlcur, double *rlold, double *rldot, int64 *ndxloc,       \
              double *ups, double *uoldps, double *udotps, double *upoldp,      \
@@ -211,7 +210,7 @@ typedef struct {
 
 double time_start(void);
 double time_end(double);
-void allocate_global_memory(const iap_type);
+void allocate_global_memory(iap_type);
 int32 init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
            double **thu_pointer, int64 *iuz, double *vuz);
 int32 chdim(iap_type *iap);
@@ -279,11 +278,11 @@ int32 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 int32 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
              double *rlcur, double *u);
 int32 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs);
-int32 msh(const iap_type *iap, double *tm);
-int32 genwts(const int64 ncol, const int64 n1, double *wt, double *wp);
-int32 cpnts(const int64 ncol, double *zm);
+int32 msh(iap_type *iap, double *tm);
+int32 genwts(int64 ncol, int64 n1, double *wt, double *wp);
+int32 cpnts(int64 ncol, double *zm);
 int32 cntdif(int64 *n, double *d);
-int32 wint(const int64 n, double *wi);
+int32 wint(int64 n, double *wi);
 int32 adptds(iap_type *iap, rap_type *rap, double *rds);
 int32 adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold,
             int64 *nnew, int64 *ncnew, double *tm, double *dtm, int64 *ndxloc,
@@ -308,7 +307,7 @@ double pi(double r__);
 int32 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
          int64 m1f, double *f, double *det);
 int32 newlab(iap_type *iap);
-int32 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
+int32 findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr,
              int64 *found);
 int32 readlb(double *u, double *par);
 int32 skip3(int64 *nskip, int64 *eof3);
@@ -463,66 +462,63 @@ int32 gcol(void);
 int32 led(void);
 int32 setiomode(void);
 FUNI_TYPE(fnlp);
-int32 fflp(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 STPNT_TYPE_AE(stpnlp);
 FUNI_TYPE(fnc1);
 STPNT_TYPE_AE(stpnc1);
 FUNI_TYPE(fnc2);
-int32 ffc2(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 STPNT_TYPE_AE(stpnc2);
 FUNI_TYPE(fnds);
 FUNI_TYPE(fnti);
 FUNI_TYPE(fnhd);
-int32 ffhd(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 STPNT_TYPE_AE(stpnhd);
 FUNI_TYPE(fnhb);
-int32 ffhb(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 STPNT_TYPE_AE(stpnhb);
 FUNI_TYPE(fnhw);
-int32 ffhw(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 STPNT_TYPE_AE(stpnhw);
 FUNI_TYPE(fnps);
 BCNI_TYPE(bcps);
 ICNI_TYPE(icps);
-int32 pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
-            int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
+int32 pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
+            int64 *ndxloc, double *ups, double *udotps, double *tm,
             double *par);
 STPNT_TYPE_BVP(stpnps);
 FUNI_TYPE(fnws);
-int32 ffws(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           int64 ijac, double *f, double *dfdu, double *dfdp, int64 ndm,
-           double *dfu, double *dfp);
+int32 ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+           double *dfdp, int64 ndm, double *dfu, double *dfp);
 FUNI_TYPE(fnwp);
 int32 stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
              int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc,
              double *ups, double *udotps, double *upoldp, double *tm,
              double *dtm, int64 *nodir, double *thl, double *thu);
 FUNI_TYPE(fnsp);
-int32 ffsp(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           int64 ijac, double *f, double *dfdu, double *dfdp, int64 ndm,
-           double *dfu, double *dfp);
+int32 ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+           double *dfdp, int64 ndm, double *dfu, double *dfp);
 FUNI_TYPE(fnpe);
-int32 ffpe(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           int64 ijac, double *f, double *dfdu, double *dfdp, int64 ndm,
-           double *dfu, double *dfp);
+int32 ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+           double *dfdp, int64 ndm, double *dfu, double *dfp);
 ICNI_TYPE(icpe);
 FUNI_TYPE(fnpl);
-int32 ffpl(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 BCNI_TYPE(bcpl);
 ICNI_TYPE(icpl);
 int32 stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
@@ -530,9 +526,9 @@ int32 stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
              double *ups, double *udotps, double *upoldp, double *tm,
              double *dtm, int64 *nodir, double *thl, double *thu);
 FUNI_TYPE(fnpd);
-int32 ffpd(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 BCNI_TYPE(bcpd);
 ICNI_TYPE(icpd);
 int32 stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
@@ -540,49 +536,46 @@ int32 stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
              double *ups, double *udotps, double *upoldp, double *tm,
              double *dtm, int64 *nodir, double *thl, double *thu);
 FUNI_TYPE(fntr);
-int32 fftr(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
-int32 bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-           const int64 *icp, int64 nbc, const double *u0, const double *u1,
-           double *f, int64 ijac, double *dbc);
+int32 fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
+int32 bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+           int64 nbc, double *u0, double *u1, double *f, int64 ijac,
+           double *dbc);
 ICNI_TYPE(ictr);
 int32 stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
              int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc,
              double *ups, double *udotps, double *upoldp, double *tm,
              double *dtm, int64 *nodir, double *thl, double *thu);
 FUNI_TYPE(fnpo);
-int32 ffpo(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const double *upold,
-           const int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
-           double *dfdp);
+int32 ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           double *upold, int64 *icp, double *par, double *f, int64 ndm,
+           double *dfdu, double *dfdp);
 BCNI_TYPE(bcpo);
 ICNI_TYPE(icpo);
-int32 fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-           const int64 *icp, int64 nint, int64 nnt0, const double *u,
-           const double *uold, const double *udot, const double *upold,
-           double *fi, double *dint, int64 ndmt, double *dfdu, double *dfdp);
+int32 fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+           int64 nint, int64 nnt0, double *u, double *uold, double *udot,
+           double *upold, double *fi, double *dint, int64 ndmt, double *dfdu,
+           double *dfdp);
 STPNT_TYPE_BVP(stpnpo);
 FUNI_TYPE(fnbl);
-int32 ffbl(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 BCNI_TYPE(bcbl);
-int32 fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-           const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
-           const double *u1, double *f, double *dbc);
+int32 fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+           int64 nbc, int64 nbc0, double *u0, double *u1, double *f,
+           double *dbc);
 ICNI_TYPE(icbl);
-int32 fibl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-           const int64 *icp, int64 nint, int64 nnt0, const double *u,
-           const double *uold, const double *udot, const double *upold,
-           double *f, double *dint);
+int32 fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+           int64 nint, int64 nnt0, double *u, double *uold, double *udot,
+           double *upold, double *f, double *dint);
 STPNT_TYPE_BVP(stpnbl);
 FUNI_TYPE(funi);
 BCNI_TYPE(bcni);
 ICNI_TYPE(icni);
-int32 fopi(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const int64 *icp, double *par, int64 ijac,
-           double *f, double *dfdu, double *dfdp);
+int32 fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
+           double *par, int64 ijac, double *f, double *dfdu, double *dfdp);
 int32 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
              doublecomplex *ev);
 int32 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
@@ -590,18 +583,17 @@ int32 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 int32 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
             int64 *job, double *a, int64 *lda);
 FUNI_TYPE(fnho);
-int32 ffho(const iap_type *iap, const rap_type *rap, int64 ndim,
-           const double *u, const double *uold, const int64 *icp, double *par,
-           double *f, int64 ndm, double *dfdu, double *dfdp);
+int32 ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+           int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+           double *dfdp);
 BCNI_TYPE(bcho);
-int32 fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-           const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
-           const double *u1, double *fb, double *dbc);
+int32 fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+           int64 nbc, int64 nbc0, double *u0, double *u1, double *fb,
+           double *dbc);
 ICNI_TYPE(icho);
-int32 fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-           const int64 *icp, int64 nint, int64 nnt0, const double *u,
-           const double *uold, const double *udot, const double *upold,
-           double *fi, double *dint);
+int32 fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+           int64 nint, int64 nnt0, double *u, double *uold, double *udot,
+           double *upold, double *fi, double *dint);
 int32 inho(iap_type *iap, int64 *icp, double *par);
 int32 preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
             double *ups, double *udotps, double *tm, double *par);
@@ -611,16 +603,16 @@ int32 stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
              double *dtm, int64 *nodir, double *thl, double *thu);
 int32 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t);
 PVLI_TYPE_BVP(pvlsho);
-double psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
-             double *vt, const int64 *icp, double *par);
+double psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v,
+             double *vt, int64 *icp, double *par);
 int32 eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
-            double *xequib, const int64 *icp, double *par, int64 *ndm);
+            double *xequib, int64 *icp, double *par, int64 *ndm);
 int32 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
-            double *xequib, const int64 *icp, double *par, int64 *ndm,
-            double *dfdu, double *dfdp, double *zz);
-int32 prjcti(double *bound, double *xequib, const int64 *icp, double *par,
-             int64 imfd, int64 is, int64 itrans, int64 *ndm);
-int32 prjctn(double *bound, double *xequib, const int64 *icp, double *par,
+            double *xequib, int64 *icp, double *par, int64 *ndm, double *dfdu,
+            double *dfdp, double *zz);
+int32 prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
+             int64 is, int64 itrans, int64 *ndm);
+int32 prjctn(double *bound, double *xequib, int64 *icp, double *par,
              int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
              double *dfdp);
 int32 rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
@@ -691,18 +683,17 @@ int32 ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a,
              double *ort, double *z__);
 
 /* problem defined functions*/
-int32 func(int64 ndim, const double *u, const int64 *icp, const double *par,
-           int64 ijac, double *f, double *dfdu, double *dfdp);
+int32 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac,
+           double *f, double *dfdu, double *dfdp);
 int32 stpnt(int64 ndim, double t, double *u, double *par);
-int32 bcnd(int64 ndim, const double *par, const int64 *icp, int64 nbc,
-           const double *u0, const double *u1, int64 ijac, double *f,
-           double *dbc);
-int32 icnd(int64 ndim, const double *par, const int64 *icp, int64 nint,
-           const double *u, const double *uold, const double *udot,
-           const double *upold, int64 ijac, double *fi, double *dint);
-int32 fopt(int64 ndim, const double *u, const int64 *icp, const double *par,
-           int64 ijac, double *fs, double *dfdu, double *dfdp);
-int32 pvls(int64 ndim, const double *u, double *par);
+int32 bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0,
+           double *u1, int64 ijac, double *f, double *dbc);
+int32 icnd(int64 ndim, double *par, int64 *icp, int64 nint, double *u,
+           double *uold, double *udot, double *upold, int64 ijac, double *fi,
+           double *dint);
+int32 fopt(int64 ndim, double *u, int64 *icp, double *par, int64 ijac,
+           double *fs, double *dfdu, double *dfdp);
+int32 pvls(int64 ndim, double *u, double *par);
 void *conpar_process(void *);
 int32 conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
              int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
@@ -720,7 +711,7 @@ int32 setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
              double *dups, double *dtm, double *thl, double *thu, double *p0,
              double *p1);
 void setubv_parallel_arglist_copy(setubv_parallel_arglist *output,
-                                  const setubv_parallel_arglist input);
+                                  setubv_parallel_arglist input);
 void setubv_parallel_arglist_constructor(
     int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     int64 ncb, int64 nrc, int64 nra, int64 nca, FUNI_TYPE((*funi)),
@@ -735,7 +726,7 @@ void setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups,
 
 #include "auto_types.h"
 int32 set_funi_and_icni(iap_type *, setubv_parallel_arglist *);
-int32 set_function_pointers(const iap_type, function_list *);
+int32 set_function_pointers(iap_type, function_list *);
 
 #ifdef AUTO_CONSTRUCT_DESCTRUCT
 int32 user_construct(int32 argc, char **argv);

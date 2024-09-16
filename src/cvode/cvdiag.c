@@ -171,7 +171,7 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Set workspace lengths */
     if (iopt != NULL) {
-        iopt[DIAG_LRW] = N * 3;
+        iopt[DIAG_LRW] = N*3;
         iopt[DIAG_LIW] = 0;
     }
 
@@ -202,7 +202,7 @@ CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
     ftemp = vtemp1;
     y = vtemp2;
 
-    r = FRACT * rl1;
+    r = FRACT*rl1;
     N_VLinearSum(h, fpred, -ONE, zn[1], ftemp);
     N_VLinearSum(r, ftemp, ONE, ypred, y);
 

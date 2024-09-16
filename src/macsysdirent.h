@@ -72,8 +72,8 @@
 struct dirent {
     unsigned long d_fileno;  /* file number of entry */
     unsigned short d_reclen; /* length of this record */
-    uchar d_type;    /* file type, see below */
-    uchar d_namlen;  /* length of string in d_name */
+    uchar d_type;            /* file type, see below */
+    uchar d_namlen;          /* length of string in d_name */
 #ifdef _POSIX_SOURCE
     char d_name[255 + 1]; /* name must be no longer than this */
 #else

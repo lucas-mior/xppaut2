@@ -281,13 +281,13 @@ add_parameter(char *name, char *id, double z, int32 f) {
 
 void
 GetEvents(Model_t *m) {
-    const Event_t *e;
-    const EventAssignment_t *ea;
+     Event_t *e;
+     EventAssignment_t *ea;
     int32 n, na;
     char *ev;
     char *a;
     int32 i, j;
-    const char *variable;
+     char *variable;
     char *formula;
     char big[256];
     EVENT *x;
@@ -325,8 +325,8 @@ GetEvents(Model_t *m) {
 
 void
 GetFunctions(Model_t *m) {
-    const ASTNode_t *math;
-    const FunctionDefinition_t *fd;
+     ASTNode_t *math;
+     FunctionDefinition_t *fd;
     char *formula;
     char *sa;
     char *name;
@@ -729,9 +729,9 @@ void
 GetListRule(Model_t *pModel, uint32 unSBMLLevel, uint32 unSBMLVersion) {
     int32 n = Model_getNumRules(pModel);
     /* determine the values */
-    const char *pacTypecode;
-    const char *pacFormula = NULL;
-    const char *pacVariable = NULL;
+     char *pacTypecode;
+     char *pacFormula = NULL;
+     char *pacVariable = NULL;
 
     Rule_t *pRule;
     int32 i;

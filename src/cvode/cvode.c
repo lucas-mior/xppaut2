@@ -759,7 +759,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
         h = ZERO;
         if (ropt != NULL)
             h = ropt[H0];
-        if ((h != ZERO) && ((tout - tn) * h < ZERO)) {
+        if ((h != ZERO) && ((tout - tn)*h < ZERO)) {
             fprintf(errfp, MSG_BAD_H0, h, tout - tn);
             return ILL_INPUT;
         }
@@ -770,7 +770,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
                 return ILL_INPUT;
             }
         }
-        rh = ABS(h) * hmax_inv;
+        rh = ABS(h)*hmax_inv;
         if (rh > ONE)
             h /= rh;
         if (ABS(h) < hmin)
@@ -781,7 +781,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
 
     /* If not the first call, check if tout already reached */
 
-    if ((itask == NORMAL) && (nst > 0) && ((tn - tout) * h >= ZERO)) {
+    if ((itask == NORMAL) && (nst > 0) && ((tn - tout)*h >= ZERO)) {
         *t = tout;
         ier = CVodeDky(cv_mem, tout, 0, yout);
         if (ier != OKAY) { /* ier must be == BAD_T */
@@ -824,7 +824,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
 
         /* Check for too much accuracy requested */
 
-        if ((tolsf = uround * N_VWrmsNorm(zn[0], ewt)) > ONE) {
+        if ((tolsf = uround*N_VWrmsNorm(zn[0], ewt)) > ONE) {
             fprintf(errfp, MSG_TOO_MUCH_ACC, tn);
             istate = TOO_MUCH_ACC;
             *t = tn;
@@ -871,7 +871,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
 
         /* Check if tout reached, and if so interpolate and exit loop */
 
-        if ((tn - tout) * h >= ZERO) {
+        if ((tn - tout)*h >= ZERO) {
             istate = SUCCESS;
             *t = tout;
             (void)CVodeDky(cv_mem, tout, 0, yout);
@@ -910,7 +910,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
  polynomial at the time t and stores the result in the vector dky.
  The formula is:
           q
-   dky = SUM c(j,k) * (t - tn)^(j-k) * h^(-j) * zn[j] ,
+   dky = SUM c(j,k)*(t - tn)^(j-k)*h^(-j)*zn[j] ,
          j=k
  where c(j,k) = j*(j-1)*...*(j-k+1), q is the current order, and
  zn[j] is the j-th column of the Nordsieck history array.
@@ -946,10 +946,10 @@ CVodeDky(void *cvode_mem, double t, int32 k, N_Vector dky) {
         return BAD_K;
     }
 
-    tfuzz = FUZZ_FACTOR * uround * (tn + hu);
+    tfuzz = FUZZ_FACTOR*uround*(tn + hu);
     tp = tn - hu - tfuzz;
     tn1 = tn + tfuzz;
-    if ((t - tp) * (t - tn1) > ZERO) {
+    if ((t - tp)*(t - tn1) > ZERO) {
         fprintf(errfp, MSG_BAD_T, t, tn - hu, tn);
         return BAD_T;
     }
@@ -1066,7 +1066,7 @@ CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
 
     /* Set solver workspace lengths  */
 
-    lrw = (maxord + 5) * neq;
+    lrw = (maxord + 5)*neq;
     liw = 0;
 
     return TRUE;
@@ -1096,9 +1096,9 @@ CVFreeVectors(CVodeMem cv_mem, int32 maxord) {
  This routine is responsible for setting the error weight vector
  ewtvec, according to tol_type, as follows:
 
- (1) ewtvec[i] = 1 / (*rtol * ABS(ycur[i]) + *atol), i=0,...,neq-1
+ (1) ewtvec[i] = 1 / (*rtol*ABS(ycur[i]) + *atol), i=0,...,neq-1
      if tol_type = SS
- (2) ewtvec[i] = 1 / (*rtol * ABS(ycur[i]) + atol[i]), i=0,...,neq-1
+ (2) ewtvec[i] = 1 / (*rtol*ABS(ycur[i]) + atol[i]), i=0,...,neq-1
      if tol_type = SV
 
   CVEwtSet returns TRUE if ewtvec is successfully set as above to a
@@ -1199,16 +1199,16 @@ CVHin(CVodeMem cv_mem, double tout) {
 
     sign = (tdiff > ZERO) ? 1 : -1;
     tdist = ABS(tdiff);
-    tround = uround * MAX(ABS(tn), ABS(tout));
-    if (tdist < TWO * tround)
+    tround = uround*MAX(ABS(tn), ABS(tout));
+    if (tdist < TWO*tround)
         return FALSE;
 
     /* Set lower and upper bounds on h0, and take geometric mean
        Exit with this value if the bounds cross each other       */
 
-    hlb = HLB_FACTOR * tround;
+    hlb = HLB_FACTOR*tround;
     hub = CVUpperBoundH0(cv_mem, tdist);
-    hg = RSqrt(hlb * hub);
+    hg = RSqrt(hlb*hub);
     if (hub < hlb) {
         if (sign == -1)
             hg = -hg;
@@ -1223,10 +1223,10 @@ CVHin(CVodeMem cv_mem, double tout) {
 
     count = 0;
     while (true) {
-        hgs = hg * sign;
+        hgs = hg*sign;
         yddnrm = CVYddNorm(cv_mem, hgs);
         hnew =
-            (yddnrm * hub * hub > TWO) ? RSqrt(TWO / yddnrm) : RSqrt(hg * hub);
+            (yddnrm*hub*hub > TWO) ? RSqrt(TWO / yddnrm) : RSqrt(hg*hub);
         count++;
         if (count >= MAX_ITERS)
             break;
@@ -1242,7 +1242,7 @@ CVHin(CVodeMem cv_mem, double tout) {
 
     /* Apply bounds, bias factor, and attach sign */
 
-    h0 = H_BIAS * hnew;
+    h0 = H_BIAS*hnew;
     if (h0 < hlb)
         h0 = hlb;
     if (h0 > hub)
@@ -1281,8 +1281,8 @@ CVUpperBoundH0(CVodeMem cv_mem, double tdist) {
     }
     N_VDiv(temp2, temp1, temp1);
     hub_inv = N_VMaxNorm(temp1);
-    hub = HUB_FACTOR * tdist;
-    if (hub * hub_inv > ONE)
+    hub = HUB_FACTOR*tdist;
+    if (hub*hub_inv > ONE)
         hub = ONE / hub_inv;
     return hub;
 }
@@ -1451,11 +1451,11 @@ CVAdjustAdams(CVodeMem cv_mem, int32 deltaq) {
         hsum += tau[j];
         xi = hsum / hscale;
         for (i = j + 1; i >= 1; i--)
-            l[i] = l[i] * xi + l[i - 1];
+            l[i] = l[i]*xi + l[i - 1];
     }
 
     for (j = 1; j <= q - 2; j++)
-        l[j + 1] = q * (l[j] / (j + 1));
+        l[j + 1] = q*(l[j] / (j + 1));
 
     for (j = 2; j < q; j++)
         N_VLinearSum(-l[j], zn[q], ONE, zn[j], zn[j]);
@@ -1514,7 +1514,7 @@ CVIncreaseBDF(CVodeMem cv_mem) {
             alpha0 -= ONE / (j + 1);
             alpha1 += ONE / xi;
             for (i = j + 2; i >= 2; i--)
-                l[i] = l[i] * xiold + l[i - 1];
+                l[i] = l[i]*xiold + l[i - 1];
             xiold = xi;
         }
     }
@@ -1549,7 +1549,7 @@ CVDecreaseBDF(CVodeMem cv_mem) {
         hsum += tau[j];
         xi = hsum / hscale;
         for (i = j + 2; i >= 2; i--)
-            l[i] = l[i] * xi + l[i - 1];
+            l[i] = l[i]*xi + l[i - 1];
     }
 
     for (j = 2; j < q; j++)
@@ -1575,7 +1575,7 @@ CVRescale(CVodeMem cv_mem) {
         N_VScale(factor, zn[j], zn[j]);
         factor *= eta;
     }
-    h = hscale * eta;
+    h = hscale*eta;
     hscale = h;
     return;
 }
@@ -1618,7 +1618,7 @@ CVSet(CVodeMem cv_mem) {
         break;
     }
     rl1 = ONE / l[1];
-    gamma = h * rl1;
+    gamma = h*rl1;
     if (nst == 0)
         gammap = gamma;
     gamrat = (nst > 0) ? gamma / gammap : ONE; /* protect x / x != 1.0 */
@@ -1633,7 +1633,7 @@ CVSet(CVodeMem cv_mem) {
  The components of the vector l are the coefficients of a
  polynomial Lambda(x) = l_0 + l_1 x + ... + l_q x^q, given by
                           q-1
- (d/dx) Lambda(x) = c * PRODUCT (1 + x / xi_i) , where
+ (d/dx) Lambda(x) = c*PRODUCT (1 + x / xi_i) , where
                           i=1
  Lambda(-1) = 0, Lambda(0) = 1, and c is a normalization factor.
  Here xi_i = [t_n - t_(n-i)] / h.
@@ -1651,7 +1651,7 @@ CVSetAdams(CVodeMem cv_mem) {
         l[0] = l[1] = tq[1] = tq[5] = ONE;
         tq[2] = TWO;
         tq[3] = TWELVE;
-        tq[4] = CORTES * tq[2]; /* = 0.1*tq[2] */
+        tq[4] = CORTES*tq[2]; /* = 0.1*tq[2] */
         return;
     }
 
@@ -1683,11 +1683,11 @@ CVAdamsStart(CVodeMem cv_mem, double m[]) {
     for (j = 1; j < q; j++) {
         if ((j == q - 1) && (qwait == 1)) {
             sum = CVAltSum(q - 2, m, 2);
-            tq[1] = m[q - 2] / (q * sum);
+            tq[1] = m[q - 2] / (q*sum);
         }
         xi_inv = h / hsum;
         for (i = j; i >= 1; i--)
-            m[i] += m[i - 1] * xi_inv;
+            m[i] += m[i - 1]*xi_inv;
         hsum += tau[j];
         /* The m[i] are coefficients of product(1 to j) (1 + x/xi_i) */
     }
@@ -1709,28 +1709,28 @@ CVAdamsFinish(CVodeMem cv_mem, double m[], double M[], double hsum) {
 
     l[0] = ONE;
     for (i = 1; i <= q; i++)
-        l[i] = M0_inv * (m[i - 1] / i);
+        l[i] = M0_inv*(m[i - 1] / i);
     xi = hsum / h;
     xi_inv = ONE / xi;
 
-    tq[2] = xi * M[0] / M[1];
+    tq[2] = xi*M[0] / M[1];
     tq[5] = xi / l[q];
 
     if (qwait == 1) {
         for (i = q; i >= 1; i--)
-            m[i] += m[i - 1] * xi_inv;
+            m[i] += m[i - 1]*xi_inv;
         M[2] = CVAltSum(q, m, 2);
-        tq[3] = L * M[0] / M[2];
+        tq[3] = L*M[0] / M[2];
     }
 
-    tq[4] = CORTES * tq[2];
+    tq[4] = CORTES*tq[2];
     return;
 }
 
 /****************** CVAltSum **************************************
 
  CVAltSum returns the value of the alternating sum
-   sum (i= 0 ... iend) [ (-1)^i * (a[i] / (i + k)) ].
+   sum (i= 0 ... iend) [ (-1)^i*(a[i] / (i + k)) ].
  If iend < 0 then CVAltSum returns 0.
  This operation is needed to compute the integral, from -1 to 0,
  of a polynomial x^(k-1) M(x) given the coefficients of M(x).
@@ -1748,7 +1748,7 @@ CVAltSum(int32 iend, double a[], int32 k) {
     sum = ZERO;
     sign = 1;
     for (i = 0; i <= iend; i++) {
-        sum += sign * (a[i] / (i + k));
+        sum += sign*(a[i] / (i + k));
         sign = -sign;
     }
     return sum;
@@ -1763,7 +1763,7 @@ CVAltSum(int32 iend, double a[], int32 k) {
  The components of the vector l are the coefficients of a
  polynomial Lambda(x) = l_0 + l_1 x + ... + l_q x^q, given by
                                  q-1
- Lambda(x) = (1 + x / xi*_q) * PRODUCT (1 + x / xi_i) , where
+ Lambda(x) = (1 + x / xi*_q)*PRODUCT (1 + x / xi_i) , where
                                  i=1
  xi_i = [t_n - t_(n-i)] / h.
 
@@ -1788,7 +1788,7 @@ CVSetBDF(CVodeMem cv_mem) {
             xi_inv = h / hsum;
             alpha0 -= ONE / j;
             for (i = j; i >= 1; i--)
-                l[i] += l[i - 1] * xi_inv;
+                l[i] += l[i - 1]*xi_inv;
             /* The l[i] are coefficients of product(1 to j) (1 + x/xi_i) */
         }
 
@@ -1799,7 +1799,7 @@ CVSetBDF(CVodeMem cv_mem) {
         xi_inv = h / hsum;
         alpha0_hat = -l[1] - xi_inv;
         for (i = q; i >= 1; i--)
-            l[i] += l[i - 1] * xistar_inv;
+            l[i] += l[i - 1]*xistar_inv;
     }
 
     CVSetTqBDF(cv_mem, hsum, alpha0, alpha0_hat, xi_inv, xistar_inv);
@@ -1820,9 +1820,9 @@ CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
     double C, CPrime, CPrimePrime;
 
     A1 = ONE - alpha0_hat + alpha0;
-    A2 = ONE + q * A1;
-    tq[2] = ABS(alpha0 * (A2 / A1));
-    tq[5] = ABS((A2) / (l[q] * xi_inv / xistar_inv));
+    A2 = ONE + q*A1;
+    tq[2] = ABS(alpha0*(A2 / A1));
+    tq[5] = ABS((A2) / (l[q]*xi_inv / xistar_inv));
     if (qwait == 1) {
         C = xistar_inv / l[q];
         A3 = alpha0 + ONE / q;
@@ -1834,9 +1834,9 @@ CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
         A5 = alpha0 - (ONE / (q + 1));
         A6 = alpha0_hat - xi_inv;
         CPrimePrime = A2 / (ONE - A6 + A5);
-        tq[3] = ABS(CPrimePrime * xi_inv * (q + 2) * A5);
+        tq[3] = ABS(CPrimePrime*xi_inv*(q + 2)*A5);
     }
-    tq[4] = CORTES * tq[2];
+    tq[4] = CORTES*tq[2];
     return;
 }
 
@@ -1895,8 +1895,8 @@ CVnlsFunctional(CVodeMem cv_mem) {
         /* Test for convergence.  If m > 0, an estimate of the convergence
            rate constant is stored in crate, and used in the test.        */
         if (m > 0)
-            crate = MAX(CRDOWN * crate, del / delp);
-        dcon = del * MIN(ONE, crate) / tq[4];
+            crate = MAX(CRDOWN*crate, del / delp);
+        dcon = del*MIN(ONE, crate) / tq[4];
         if (dcon <= ONE) {
             acnrm = (m == 0) ? del : N_VWrmsNorm(acor, ewt);
             return SOLVED; /* Convergence achieved */
@@ -1904,7 +1904,7 @@ CVnlsFunctional(CVodeMem cv_mem) {
 
         /* Stop at maxcor iterations or if iter. seems to be diverging */
         m++;
-        if ((m == maxcor) || ((m >= 2) && (del > RDIV * delp)))
+        if ((m == maxcor) || ((m >= 2) && (del > RDIV*delp)))
             return CONV_FAIL;
         /* Save norm of correction, evaluate f, and loop again */
         delp = del;
@@ -2041,9 +2041,9 @@ CVNewtonIteration(CVodeMem cv_mem) {
         /* Test for convergence.  If m > 0, an estimate of the convergence
            rate constant is stored in crate, and used in the test.        */
         if (m > 0) {
-            crate = MAX(CRDOWN * crate, del / delp);
+            crate = MAX(CRDOWN*crate, del / delp);
         }
-        dcon = del * MIN(ONE, crate) / tq[4];
+        dcon = del*MIN(ONE, crate) / tq[4];
 
         if (dcon <= ONE) {
             acnrm = (m == 0) ? del : N_VWrmsNorm(acor, ewt);
@@ -2056,7 +2056,7 @@ CVNewtonIteration(CVodeMem cv_mem) {
         /* Stop at maxcor iterations or if iter. seems to be diverging.
            If still not converged and Jacobian data is not current,
            signal to try the solution again                            */
-        if ((m == maxcor) || ((m >= 2) && (del > RDIV * delp))) {
+        if ((m == maxcor) || ((m >= 2) && (del > RDIV*delp))) {
             if ((!jcur) && (setupNonNull))
                 return TRY_AGAIN;
             return CONV_FAIL;
@@ -2121,7 +2121,7 @@ CVHandleNFlag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr) {
     (*ncfPtr)++;
     etamax = ONE;
     /* If we had MXNCF failures or |h| = hmin, return REP_CONV_FAIL */
-    if ((ABS(h) <= hmin * ONEPSM) || (*ncfPtr == MXNCF))
+    if ((ABS(h) <= hmin*ONEPSM) || (*ncfPtr == MXNCF))
         return REP_CONV_FAIL;
 
     /* Reduce step size; return to reattempt the step */
@@ -2189,7 +2189,7 @@ CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
     CVRestore(cv_mem, saved_t);
 
     /* At MXNEF failures or |h| = hmin, return with kflag = REP_ERR_FAIL */
-    if ((ABS(h) <= hmin * ONEPSM) || (*nefPtr == MXNEF)) {
+    if ((ABS(h) <= hmin*ONEPSM) || (*nefPtr == MXNEF)) {
         *kflagPtr = REP_ERR_FAIL;
         return FALSE;
     }
@@ -2199,7 +2199,7 @@ CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
 
     /* Set h ratio eta from dsm, rescale, and return for retry of step */
     if (*nefPtr <= MXNEF1) {
-        eta = ONE / (RPowerR(BIAS2 * dsm, ONE / L) + ADDON);
+        eta = ONE / (RPowerR(BIAS2*dsm, ONE / L) + ADDON);
         eta = MAX(ETAMIN, MAX(eta, hmin / ABS(h)));
         if (*nefPtr >= SMALL_NEF)
             eta = MIN(eta, ETAMXF);
@@ -2291,7 +2291,7 @@ CVPrepareNextStep(CVodeMem cv_mem, double dsm) {
     }
 
     /* etaq is the ratio of new to old h at the current order */
-    etaq = ONE / (RPowerR(BIAS2 * dsm, ONE / L) + ADDON);
+    etaq = ONE / (RPowerR(BIAS2*dsm, ONE / L) + ADDON);
 
     /* If no order change, adjust eta and acor in CVSetEta and return */
     if (qwait != 0) {
@@ -2330,8 +2330,8 @@ CVSetEta(CVodeMem cv_mem) {
     } else {
         /* Limit eta by etamax and hmax, then set hprime */
         eta = MIN(eta, etamax);
-        eta /= MAX(ONE, ABS(h) * hmax_inv * eta);
-        hprime = h * eta;
+        eta /= MAX(ONE, ABS(h)*hmax_inv*eta);
+        hprime = h*eta;
     }
 
     /* Reset etamx for the next step size change, and scale acor */
@@ -2354,7 +2354,7 @@ CVComputeEtaqm1(CVodeMem cv_mem) {
     etaqm1 = ZERO;
     if (q > 1) {
         ddn = N_VWrmsNorm(zn[q], ewt) / tq[1];
-        etaqm1 = ONE / (RPowerR(BIAS1 * ddn, ONE / q) + ADDON);
+        etaqm1 = ONE / (RPowerR(BIAS1*ddn, ONE / q) + ADDON);
     }
     return etaqm1;
 }
@@ -2372,10 +2372,10 @@ CVComputeEtaqp1(CVodeMem cv_mem) {
 
     etaqp1 = ZERO;
     if (q != qmax) {
-        cquot = (tq[5] / saved_tq5) * RPowerI(h / tau[2], L);
+        cquot = (tq[5] / saved_tq5)*RPowerI(h / tau[2], L);
         N_VLinearSum(-cquot, zn[qmax], ONE, acor, tempv);
         dup = N_VWrmsNorm(tempv, ewt) / tq[3];
-        etaqp1 = ONE / (RPowerR(BIAS3 * dup, ONE / (L + 1)) + ADDON);
+        etaqp1 = ONE / (RPowerR(BIAS3*dup, ONE / (L + 1)) + ADDON);
     }
     return etaqp1;
 }

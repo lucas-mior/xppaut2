@@ -884,7 +884,6 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             show_position(report);
         }
         break;
-
     }
     return;
 }

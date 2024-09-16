@@ -138,7 +138,7 @@ int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
 int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
                       int32 *il, int32 *ir);
 #define IC 2
-extern int32 fftn(int32 /* ndim */, const int32 /* dims */[], double /* Re */[],
+extern int32 fftn(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
                   double /* Im */[], int32 /* isign */, double /* scaling */);
 
 /* simple network stuff */

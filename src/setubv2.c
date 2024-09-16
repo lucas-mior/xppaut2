@@ -590,7 +590,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
 /* Copy a setubv_parallel_arglist */
 void
 setubv_parallel_arglist_copy(setubv_parallel_arglist *output,
-                             const setubv_parallel_arglist input) {
+                             setubv_parallel_arglist input) {
     memcpy(output, &input, sizeof(setubv_parallel_arglist));
     return;
 }

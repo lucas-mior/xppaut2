@@ -96,7 +96,7 @@ go_go_auto(void) {
 }
 
 int32
-set_function_pointers(const iap_type iap, function_list *data) {
+set_function_pointers(iap_type iap, function_list *data) {
     if ((iap.ips == 0 || iap.ips == 1) && abs(iap.isw) != 2) {
         /*	** Algebraic systems. */
         if (iap.irs == 0) {

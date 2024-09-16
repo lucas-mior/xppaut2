@@ -13,9 +13,9 @@
 /* ----------------------------------------------------------------------- */
 
 int32
-fnlp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double rtmp;
@@ -86,9 +86,9 @@ fnlp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-fflp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j, ips;
@@ -175,9 +175,9 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnc1(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -258,9 +258,9 @@ stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 }
 
 int32
-fnc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double rtmp;
@@ -326,9 +326,9 @@ fnc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 icpm;
@@ -460,9 +460,9 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnds(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i;
@@ -494,9 +494,9 @@ fnds(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnti(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double told;
@@ -537,9 +537,9 @@ fnti(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double rtmp;
@@ -611,9 +611,9 @@ fnhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double thta;
@@ -754,9 +754,9 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double rtmp;
@@ -828,9 +828,9 @@ fnhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -959,9 +959,9 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double rtmp;
@@ -1034,9 +1034,9 @@ fnhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 ijac;
@@ -1173,9 +1173,9 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 /* ----------------------------------------------------------------------- */
 
 int32
-fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -1232,9 +1232,8 @@ fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 jtmp, i, j, nn;
@@ -1280,10 +1279,9 @@ bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp, i, nn;
@@ -1328,9 +1326,8 @@ icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 
 /*     ---------- ----- */
 int32
-pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
-      int64 *ncol, int64 *ndxloc, double *ups, double *udotps, double *tm,
-      double *par) {
+pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
+      int64 *ndxloc, double *ups, double *udotps, double *tm, double *par) {
     int64 ups_dim1, udotps_dim1;
 
     int64 i, j, i1, i2;
@@ -1514,9 +1511,9 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 ndm, ndm2;
@@ -1543,9 +1540,9 @@ fnws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
+ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
+     int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
     int64 nfpr;
@@ -1614,9 +1611,9 @@ ffws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-fnwp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -1817,9 +1814,9 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 ndm;
@@ -1843,9 +1840,9 @@ fnsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
+ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
+     int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
     int64 i, j;
@@ -1899,9 +1896,9 @@ ffsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 ndm;
@@ -1924,9 +1921,9 @@ fnpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
+ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu, double *dfdp,
+     int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
     int64 i, j;
@@ -1980,10 +1977,9 @@ ffpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-icpe(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icpe(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     (void)iap;
     (void)rap;
     (void)ndim;
@@ -2008,9 +2004,9 @@ icpe(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr;
@@ -2080,9 +2076,9 @@ fnpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double beta;
@@ -2122,9 +2118,8 @@ ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
     int64 jtmp, i, j, nn, ndm;
 
@@ -2170,10 +2165,9 @@ bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-icpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp, i, j, nn, ndm;
@@ -2382,9 +2376,9 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr;
@@ -2454,9 +2448,9 @@ fnpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -2484,9 +2478,8 @@ ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 jtmp, i, j, nn, ndm;
@@ -2540,10 +2533,9 @@ bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-icpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp, i, j, nn, ndm;
@@ -2725,9 +2717,9 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fntr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr;
@@ -2800,9 +2792,9 @@ fntr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -2835,9 +2827,8 @@ fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 jtmp, i, j;
@@ -2905,10 +2896,9 @@ bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-ictr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 jtmp, i, j, nn, ndm, ndm2;
@@ -2983,7 +2973,6 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void)thl;
     (void)dtm;
     (void)upoldp;
-
 
     /* Generates starting data for the 2-parameter continuation of torus */
     /* bifurcations. */
@@ -3103,9 +3092,9 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr;
@@ -3190,9 +3179,9 @@ fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const double *upold, const int64 *icp, double *par,
-     double *f, int64 ndm, double *dfdu, double *dfdp) {
+ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     double *upold, int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 i, j;
@@ -3236,9 +3225,8 @@ ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr, i, j, nbc0;
@@ -3284,10 +3272,9 @@ bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr;
@@ -3370,10 +3357,10 @@ icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, int64 nnt0, const double *u,
-     const double *uold, const double *udot, const double *upold, double *fi,
-     double *dint, int64 ndmt, double *dfdu, double *dfdp) {
+fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, int64 nnt0, double *u, double *uold, double *udot,
+     double *upold, double *fi, double *dint, int64 ndmt, double *dfdu,
+     double *dfdp) {
     int64 dint_dim1, dfdu_dim1, dfdp_dim1;
 
     int64 nfpr, indx;
@@ -3637,9 +3624,9 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-fnbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr;
@@ -3712,9 +3699,9 @@ fnbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
-     double *dfdu, double *dfdp) {
+ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr, nfpx, i, j;
@@ -3747,9 +3734,8 @@ ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr;
@@ -3854,9 +3840,8 @@ bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
-     const double *u1, double *f, double *dbc) {
+fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, int64 nbc0, double *u0, double *u1, double *f, double *dbc) {
     int64 dbc_dim1;
 
     int64 nfpr, nfpx, i, j, ndm;
@@ -3889,10 +3874,9 @@ fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr;
@@ -3978,10 +3962,9 @@ icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-fibl(const iap_type *iap, const rap_type *rap, const int64 ndim, double *par,
-     const int64 *icp, int64 nint, int64 nnt0, const double *u,
-     const double *uold, const double *udot, const double *upold, double *f,
-     double *dint) {
+fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, int64 nnt0, double *u, double *uold, double *udot,
+     double *upold, double *f, double *dint) {
     int64 dint_dim1;
 
     int64 nfpr, nfpx = 0, i, j, ndm;
@@ -4151,9 +4134,9 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 /* ----------------------------------------------------------------------- */
 
 int32
-funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
+     int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
+     double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
     double *u1zz, *u2zz;
@@ -4254,9 +4237,8 @@ funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 }
 
 int32
-bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
-     int64 ijac, double *dbc) {
+bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
     double *u1zz, *u2zz;
@@ -4373,10 +4355,9 @@ bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
-     const int64 *icp, int64 nint, const double *u, const double *uold,
-     const double *udot, const double *upold, double *f, int64 ijac,
-     double *dint) {
+icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
+     int64 nint, double *u, double *uold, double *udot, double *upold,
+     double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
     double *u1zz, *u2zz;
@@ -4470,9 +4451,8 @@ icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
 }
 
 int32
-fopi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
-     const int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
-     double *dfdp) {
+fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
+     double *par, int64 ijac, double *f, double *dfdu, double *dfdp) {
     double *u1zz, *u2zz;
     int64 nfpr;
 

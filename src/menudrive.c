@@ -88,7 +88,7 @@ edit_xpprc(void) {
     if (child_pid == 0) {
         snprintf(rc, sizeof(rc), "%s/.xpprc", getenv("HOME"));
 
-        char *const args[] = {editor, rc, NULL};
+        char *args[] = {editor, rc, NULL};
         execvp(editor, args);
         wait(&child_status);
         return;

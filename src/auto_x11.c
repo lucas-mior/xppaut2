@@ -24,7 +24,7 @@
 #define FINE 13
 
 #define xds(a)                                                                 \
-    do {                                                                          \
+    do {                                                                       \
         XDrawString(display, w, gc, 5, CURY_OFFb, a, strlen(a));               \
         return;                                                                \
     } while (0)
@@ -931,9 +931,8 @@ make_auto(char *wname, char *iname) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display,
-                         base, &winname, &iconname, NULL, 0, &size_hints,
-                         NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconname, NULL, 0,
+                         &size_hints, NULL, &class_hints);
     }
 
     make_icon((char *)auto_bits, auto_width, auto_height, base);
