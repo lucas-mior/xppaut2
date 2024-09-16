@@ -52,12 +52,14 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
                                  MyBackColor);
     XStringListToTextProperty(&wname, 1, &winname);
 
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
 
-    XSetWMProperties(display, d.base, &winname, NULL, NULL, 0, NULL, NULL,
-                     &class_hints);
+        XSetWMProperties(display, d.base, &winname, NULL, NULL, 0, NULL, NULL,
+                         &class_hints);
+    }
 
     d.mes = XCreateSimpleWindow(display, d.base, 5, 5, lm, DCURY + 8, 1,
                                 MyBackColor, MyBackColor);

@@ -8,7 +8,6 @@
 #include "integers.h"
 
 #define Z(a, b) z[(a) + n*(b)]
-#define DING ping()
 /* this code takes the determinant of a floatcomplex valued matrix
  */
 
