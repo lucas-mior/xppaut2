@@ -38,7 +38,6 @@
 #include "pp.bitmap"
 #include <stdio.h>
 /* #include <errno.h> */
-#include "help_defs.h"
 #include <dirent.h>
 
 #define FIX_SIZE 3
@@ -1045,7 +1044,7 @@ redraw_all(void) {
 void
 commander(int32 ch) {
     switch (help_menu) {
-    case MAIN_HELP: {
+    case MAIN_MENU: {
         switch (ch) {
         case 'i':
             /*  initial data  */
@@ -1139,11 +1138,11 @@ commander(int32 ch) {
 
     } /* MAIN HELP ENDS  */ break;
 
-    case NUM_HELP: {
+    case NUM_MENU: {
         get_num_par(ch);
     } /* end num case   */ break;
 
-    case FILE_HELP: {
+    case FILE_MENU: {
         switch (ch) {
         case 't':
             do_transpose();

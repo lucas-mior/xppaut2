@@ -4,9 +4,6 @@
 
 #include <X11/Xlib.h>
 
-#define MAIN_MENU 0
-#define FILE_MENU 1
-#define NUM_MENU 2
 #define MAIN_ENTRIES 20
 /* CLONE */
 #define FILE_ENTRIES 16

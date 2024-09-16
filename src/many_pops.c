@@ -8,7 +8,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <stdio.h>
-#include "help_defs.h"
 #include "graph.bitmap"
 #include "struct.h"
 

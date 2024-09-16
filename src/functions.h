@@ -2,6 +2,10 @@
 #define FUNCTIONS_H
 #include "integers.h"
 
+#define MAIN_MENU 0
+#define FILE_MENU 1
+#define NUM_MENU 2
+
 #ifndef abort_h
 #define abort_h
 
