@@ -6609,7 +6609,6 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 int32
 wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm) {
-    (void) rap;
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntpl, jtmp, mtot, ntot, ntst, j, k;
@@ -6617,6 +6616,8 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     int64 k1, k2;
     double rn;
     int64 nrowpr, lab, ibr, nar, nrd, itp, isw;
+
+    (void) rap;
 
     if (fp8_is_open == 0) {
         fp8 = fopen(fort8, "w");
@@ -6716,7 +6717,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
         for (int64 i = 0; i < ncol; ++i) {
             k1 = i*ndim;
             k2 = (i + 1)*ndim;
-            t = tm[j] + i*rn*dtm[j];
+            t = tm[j] + (double)i*rn*dtm[j];
             fprintf(fp8, "    %19.10E", t);
             for (k = k1; k < k2; ++k) {
                 if ((k + 1 - k1) % 7 == 0)
@@ -6851,9 +6852,9 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     if (iid >= 5 && iap->mynode == 0) {
         fprintf(fp9, " UPS :\n");
         for (j = 0; j < ntst; ++j) {
-            rn = 1. / ncol;
+            rn = 1. / (double)ncol;
             for (i = 0; i < ncol; ++i) {
-                t = tm[j] + i*rn*dtm[j];
+                t = tm[j] + (double)i*rn*dtm[j];
                 k1 = i*ndim;
                 k2 = (i + 1)*ndim;
                 fprintf(fp9, " %14.6E", t);
