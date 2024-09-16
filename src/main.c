@@ -34,10 +34,8 @@
 #include <X11/Xos.h>
 #include <X11/Xproto.h>
 #include <X11/Xatom.h>
-/* #include <X11/bitmaps/icon> */
 #include "pp.bitmap"
 #include <stdio.h>
-/* #include <errno.h> */
 #include <dirent.h>
 
 #define FIX_SIZE 3
