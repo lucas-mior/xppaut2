@@ -289,8 +289,8 @@ create_vcr(char *name) {
     ani_gc = XCreateGC(display, vcr.view, valuemask, &values);
     vcr.hgt = hgt;
     vcr.wid = wid;
-    ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), vcr.wid,
-                               vcr.hgt, DefaultDepth(display, screen));
+    ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
+                               (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
     if (ani_pixmap == 0) {
         err_msg("Failed to get the required pixmap");
         XFlush(display);
@@ -304,7 +304,7 @@ create_vcr(char *name) {
 
     XSetFunction(display, ani_gc, GXcopy);
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     XSetFont(display, ani_gc, romfonts[0]->fid);
     tst_pix_draw();
@@ -325,7 +325,7 @@ ani_border(Window w, int32 i) {
     if (w == vcr.wgrab || w == vcr.wgo || w == vcr.wreset || w == vcr.wpause ||
         w == vcr.wfast || w == vcr.wfile || w == vcr.wslow || w == vcr.wmpeg ||
         w == vcr.wup || w == vcr.wdn || w == vcr.wskip || w == vcr.kill)
-        XSetWindowBorderWidth(display, w, i);
+        XSetWindowBorderWidth(display, w, (uint)i);
     return;
 }
 
@@ -615,7 +615,7 @@ ani_expose(Window w) {
     if (w == vcr.wgrab)
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Grab", 4);
     if (w == vcr.view)
-        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, vcr.wid, vcr.hgt,
+        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt,
                   0, 0);
     if (w == vcr.wgo)
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Go  ", 4);
@@ -667,10 +667,10 @@ ani_resize(int32 x, int32 y) {
     if (vcr.wid < 1)
         vcr.wid = 1;
 
-    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6), vcr.wid,
-                      vcr.hgt);
-    ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), vcr.wid,
-                               vcr.hgt, DefaultDepth(display, screen));
+    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6), (uint)vcr.wid,
+                      (uint)vcr.hgt);
+    ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
+                               (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
     if (ani_pixmap == 0) {
         err_msg("Failed to get the required pixmap");
         XFlush(display);
@@ -684,7 +684,7 @@ ani_resize(int32 x, int32 y) {
      */
     XSetFunction(display, ani_gc, GXcopy);
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     tst_pix_draw();
     return;
@@ -729,7 +729,7 @@ on_the_fly(int32 task) {
 void
 ani_frame(int32 task) {
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     if (task == 1) {
         set_ani_perm();
@@ -743,7 +743,7 @@ ani_frame(int32 task) {
 
     /*  done drawing   */
 
-    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, vcr.wid, vcr.hgt, 0,
+    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt, 0,
               0);
 
     XFlush(display);
@@ -788,7 +788,7 @@ ani_flip1(int32 n) {
         return;
     ss = my_browser.data;
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     if (vcr.pos == 0)
         set_ani_perm();
@@ -811,7 +811,7 @@ ani_flip1(int32 n) {
 
     /*  done drawing   */
 
-    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, vcr.wid, vcr.hgt, 0,
+    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt, 0,
               0);
 
     XFlush(display);
@@ -877,7 +877,7 @@ ani_flip(void) {
 
         /* first set all the variables */
         XSetForeground(display, ani_gc, WhitePixel(display, screen));
-        XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, vcr.wid, vcr.hgt);
+        XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         row = vcr.pos;
         t = (double)ss[0][row];
@@ -891,7 +891,7 @@ ani_flip(void) {
 
         /*  done drawing   */
 
-        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, vcr.wid, vcr.hgt,
+        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt,
                   0, 0);
 
         XFlush(display);
