@@ -48,7 +48,7 @@ GRAPH graph[MAXPOP];
 CURVE frz[MAXFRZ];
 extern NCLINE nclines[MAXNCLINE];
 GRAPH *MyGraph;
-extern int32 help_menu, screen;
+extern int32 screen;
 extern int32 SCALEY, CURY_OFF, CURY_OFFs, DCURYs, DCURXs, DCURYb;
 int32 SimulPlotFlag = 0;
 extern int32 storind;
