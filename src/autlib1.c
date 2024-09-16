@@ -4040,11 +4040,12 @@ L2:
 int32
 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
        logical *found) {
-    (void) rap;
     int64 nars;
 
     int64 labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
     logical eof3;
+
+    (void) rap;
 
     /* Locates restart point with label IRS and determines type. */
     /* If the label can not be located on unit 3 then FOUND will be .FALSE. */
