@@ -23,12 +23,14 @@ extern double NEWT_ERR;
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    (void)icp;
-    (void)dfdu;
-    (void)dfdp;
     int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
+
+    (void)icp;
+    (void)dfdu;
+    (void)dfdp;
+
     for (i = 0; i < NAutoPar; i++) {
         constants[Auto_index_to_array[i]] = par[i];
     }

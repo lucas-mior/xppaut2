@@ -17,18 +17,11 @@
 #include "mykeydef.h"
 #include "parserslow.h"
 
-#define RUBBOX 0
-#define RUBLINE 1
-
 #define RIGHT 6
 #define LEFT 2
 #define ESC 27
 #define TAB 10
-#define BAD 0
 #define FINE 13
-
-#define STD_WID 460
-#define STD_HGT 284
 
 #define xds(a)                                                                 \
     do {                                                                          \
@@ -38,14 +31,9 @@
 
 #define SBW XSetWindowBorderWidth(display, w, 1)
 
-#define MAX_AUT_PER 10
-
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask | ButtonMotionMask)
-
-#define SIMPMASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 extern Display *display;
 extern int32 TrueColorFlag;
