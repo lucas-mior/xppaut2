@@ -947,7 +947,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     ulong value;
     uint32 CMSK = 0, CSHIFT = 0, CMULT = 0;
     uint32 bbp = 0, bbc = 0;
-    int32 lobits, midbits, hibits;
+    uint32 lobits, midbits, hibits;
     /*int32 vv; Not used anywhere?*/
     uint32 x, y;
     XColor palette[256];
@@ -1033,11 +1033,12 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     uint32 area;
     uchar *out, *dst;
     cmap = DefaultColormap(display, screen);
-    ximage = XGetImage(display, window, 0, 0, wid, hgt, AllPlanes, ZPixmap);
+    ximage = XGetImage(display, window,
+                       0, 0, (uint)wid, (uint)hgt, AllPlanes, ZPixmap);
     if (!ximage)
         return -1;
     /* this is only good for 256 color displays */
-    for (int32 i = 0; i < 256; i++)
+    for (uint32 i = 0; i < 256; i++)
         palette[i].pixel = i;
     XQueryColors(display, cmap, palette, 256);
     fd = creat(filename, 0666);
