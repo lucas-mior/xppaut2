@@ -15,7 +15,6 @@ extern double **storage;
 extern int32 storind;
 #define PACK_AUTO 0
 #define PACK_LBF 1
-extern int32 AutoTwoParam;
 extern int32 NODE;
 int32 NBifs = 0;
 extern int32 NAutoPar;

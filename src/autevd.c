@@ -23,7 +23,6 @@ extern AdvAuto aauto;
 
 XAuto x_auto;
 
-extern int32 AutoTwoParam;
 int32 DiagFlag = 0;
 
 static struct {
