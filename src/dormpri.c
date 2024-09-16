@@ -1050,6 +1050,10 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     double a21, a31, a32, a41, a42, a43, a51, a52, a53, a54;
     double a61, a62, a63, a64, a65, a71, a73, a74, a75, a76;
 
+    c2=c3=c4=c5=e1=e3=e4=e5=e6=e7=d1=d3=d4=d5=d6=d7=0;
+    a21=a31=a32=a41=a42=a43=a51=a52=a53=a54=0;
+    a61=a62=a63=a64=a65=a71=a73=a74=a75=a76=0;
+
     /* initialisations */
     switch (meth) {
     case 1:
