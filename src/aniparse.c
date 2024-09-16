@@ -1137,10 +1137,6 @@ get_ani_file(char *fname) {
     int32 status;
     int32 err;
 
-    /* XGetInputFocus(display,&w,&rev);
-    status=get_dialog("Load ani file","Filename:",vcr.file,"Ok","Cancel",40);
-    XSetInputFocus(display,w,rev,CurrentTime);
-    */
     if (fname == NULL) {
         status = file_selector("Load animation", vcr.file, "*.ani");
         if (status == 0)
