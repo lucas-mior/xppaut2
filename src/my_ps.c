@@ -16,8 +16,6 @@
 #define PS_HTIC (PS_YMAX / 80)
 
 #define PS_SC (10)                   /* scale is 1pt = 10 units */
-/* #define	PS_LW (0.5*PS_SC) */ /* linewidth = 0.5 pts */
-/* #define PS_FONTSIZE 14     */     /* default is 14 point characters */
 #define PS_VCHAR (PS_FONTSIZE*PS_SC)
 #define PS_HCHAR (PS_FONTSIZE*PS_SC*6 / 10)
 
@@ -40,10 +38,10 @@ FILE *psfile;
 int32 PltFmtFlag, PSColorFlag = 1;
 int32 PSLines;
 int32 LastPSX, LastPSY;
+
 /* this header stuff was stolen from GNUPLOT I have added  filled circles
-    and open circles for bifurcation diagrams I also use Times Roman
-    since Courier is an ugly font!!
-*/
+ * and open circles for bifurcation diagrams I also use Times Roman
+ * since Courier is an ugly font!!  */
 
 extern int32 Xup;
 char *PS_header[] = {
