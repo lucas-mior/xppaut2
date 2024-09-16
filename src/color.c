@@ -192,11 +192,14 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
                 bb = 0.0;
             if (bb > 1.0)
                 bb = 1.0;
-            r[i] = 256*255*rr;
-            b[i] = 256*255*bb;
-            g[i] = 256*255*gg;
+            r[i] = 256*(int32)(255.*rr);
+            b[i] = 256*(int32)(255.*bb);
+            g[i] = 256*(int32)(255.*gg);
         }
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -205,7 +208,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
    entries. It then does a simple interpolation to fill
    n copies of rr,gg,bb
 */
-int32
+static int32
 read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
     double x, r[1000], g[1000], b[1000];
     int32 i = 0;
@@ -224,9 +227,9 @@ read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
     printf(" read %d entries \n", m);
     for (i = 0; i < n; i++) {
         j = i*m / n;
-        rr[i] = 256*255*r[j];
-        bb[i] = 256*255*b[j];
-        gg[i] = 256*255*g[j];
+        rr[i] = 256*(uint32)(255.*r[j]);
+        bb[i] = 256*(uint32)(255.*b[j]);
+        gg[i] = 256*(uint32)(255.*g[j]);
     }
     return m;
 }
