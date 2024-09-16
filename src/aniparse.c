@@ -30,16 +30,6 @@ want to alter the ordering below
 #define INIT_C_SHIFT 0
 
 /* who knows how the colors are ordered */
-#ifdef BGR
-#define MY_BLUE hibits
-#define MY_GREEN midbits
-#define MY_RED lobits
-#else
-
-#define MY_BLUE lobits
-#define MY_GREEN midbits
-#define MY_RED hibits
-#endif
 
 /**************************************************************/
 
@@ -955,8 +945,8 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     XImage *ximage;
     Colormap cmap;
     ulong value;
-    int32 CMSK = 0, CSHIFT = 0, CMULT = 0;
-    int32 bbp = 0, bbc = 0;
+    uint32 CMSK = 0, CSHIFT = 0, CMULT = 0;
+    uint32 bbp = 0, bbc = 0;
     int32 lobits, midbits, hibits;
     /*int32 vv; Not used anywhere?*/
     uint32 x, y;
@@ -974,7 +964,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
         palette[i].pixel = i;
     XQueryColors(display, cmap, palette, 256);
     if (TrueColorFlag == 1) {
-        bbp = ximage->bits_per_pixel; /* is it 16 or 24 bit */
+        bbp = (uint32)ximage->bits_per_pixel; /* is it 16 or 24 bit */
         if (bbp > 24)
             bbp = 24;
         bbc = bbp / 3; /*  divide up the 3 colors equally to bbc bits  */
@@ -1005,12 +995,12 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
                 hibits = value & CMSK;
                 /*	       if(y==200&&(x>200)&&(x<400))
                  plintf("(%d,%d): %x %x %x %x
-                 \n",x,y,vv,MY_RED,MY_GREEN,MY_BLUE);
+                 \n",x,y,vv,hibits,midbits,lobits);
                 */
                 /* store them for ppm dumping  */
-                *dst++ = (uchar)(MY_RED << CMULT);
-                *dst++ = (uchar)(MY_GREEN << CMULT);
-                *dst++ = (uchar)(MY_BLUE << CMULT);
+                *dst++ = (uchar)(hibits << CMULT);
+                *dst++ = (uchar)(midbits << CMULT);
+                *dst++ = (uchar)(lobits << CMULT);
             } else {
                 /* 256 color is easier sort of  */
                 pix = palette[*pixel++];
@@ -1091,9 +1081,9 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
                 value = value >> CSHIFT;
                 hibits = value & CMSK;
                 /* store them for ppm dumping  */
-                *dst++ = (uchar)(MY_RED << CMULT);
-                *dst++ = (uchar)(MY_GREEN << CMULT);
-                *dst++ = (uchar)(MY_BLUE << CMULT);
+                *dst++ = (uchar)(hibits << CMULT);
+                *dst++ = (uchar)(midbits << CMULT);
+                *dst++ = (uchar)(lobits << CMULT);
             } else {
                 /* 256 color is easier sort of  */
                 pix = palette[*pixel++];
