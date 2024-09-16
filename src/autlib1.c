@@ -3648,7 +3648,8 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     rg(*m1a, *ndim, a, wr, wi, matz, z__, iv1, fv1, ier);
 
     for (i = 0; i < *ndim; ++i) {
-        ev[i].r = wr[i], ev[i].i = wi[i];
+        ev[i].r = wr[i];
+        ev[i].i = wi[i];
     }
 
     if (*ier != 0) {
