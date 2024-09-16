@@ -3446,7 +3446,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
 
 
     double d;
-    int64 i, j, k, l;
+    int64 i, j, k;
     double *w, *x, z__;
     int64 j1, k1, l1;
     double ri;
@@ -3482,14 +3482,14 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
             j = itm1[j1];
             z__ = tm2[j1];
             d = (tm[j] - tm[-1 + j]) / (double)*nc;
-            for (l = 0; l < ncp1; ++l) {
+            for (int64 l = 0; l < ncp1; ++l) {
                 x[l] = tm[-1 + j] + l*d;
             }
             intwts(iap, rap, &ncp1, &z__, x, w);
             for (k = 0; k < *ndim; ++k) {
                 k1 = i**ndim + k;
                 ARRAY2D(ups1, j1, k1) = w[ncp1 - 1]*ARRAY2D(ups, j, k);
-                for (l = 0; l < *nc; ++l) {
+                for (int64 l = 0; l < *nc; ++l) {
                     l1 = k + l**ndim;
                     ARRAY2D(ups1, j1, k1) += w[l]*ARRAY2D(ups, (j - 1), l1);
                 }
