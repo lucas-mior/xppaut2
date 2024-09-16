@@ -17,12 +17,6 @@
 #include "mykeydef.h"
 #include "parserslow.h"
 
-#define RIGHT 6
-#define LEFT 2
-#define ESC 27
-#define TAB 10
-#define FINE 13
-
 #define xds(a)                                                                 \
     do {                                                                       \
         XDrawString(display, w, gc, 5, CURY_OFFb, a, strlen(a));               \
@@ -347,7 +341,7 @@ traverse_diagram(void) {
             kp = get_key_press(&ev);
 
             switch (kp) {
-            case RIGHT:
+            case KEY_RIGHT:
                 dnew = d->next;
                 if (dnew == NULL)
                     dnew = bifd;
@@ -357,7 +351,7 @@ traverse_diagram(void) {
                 traverse_out(d, &ix, &iy, 1);
                 break;
 
-            case LEFT:
+            case KEY_LEFT:
                 dnew = d->prev;
                 if (dnew == NULL)
                     dnew = bifd;
@@ -366,7 +360,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = dnew;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-            case UP:
+            case KEY_UP:
                 if (!query_special("Next...", nsymb)) {
                     break;
                 }
@@ -397,7 +391,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-            case DOWN:
+            case KEY_DOWN:
                 if (!query_special("Previous...", nsymb)) {
                     break;
                 }
@@ -428,7 +422,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-            case TAB:
+            case KEY_TAB:
                 XORCross(ix, iy);
                 while (true) {
                     dnew = d->next;
@@ -464,7 +458,7 @@ traverse_diagram(void) {
                     mark_iye = iy;
                 }
                 break;
-            case END: /*All the way to end*/
+            case KEY_END: /*All the way to end*/
                 XORCross(ix, iy);
                 while (true) {
                     dnew = d->next;
@@ -478,7 +472,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-            case HOME: /*All the way to beginning*/
+            case KEY_HOME: /*All the way to beginning*/
                 XORCross(ix, iy);
                 while (true) {
                     dnew = d->prev;
@@ -492,7 +486,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-            case PGUP: /*Same as TAB except we don't wrap*/
+            case KEY_PGUP: /*Same as KEY_TAB except we don't wrap*/
                 XORCross(ix, iy);
                 while (true) {
                     dnew = d->next;
@@ -508,7 +502,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-            case PGDN: /*REVERSE TAB*/
+            case KEY_PGDN: /*REVERSE KEY_TAB*/
                 XORCross(ix, iy);
                 while (true) {
                     dnew = d->prev;
@@ -525,7 +519,7 @@ traverse_diagram(void) {
                 traverse_out(d, &ix, &iy, 1);
                 break;
 
-            case FINE:
+            case KEY_FINE:
                 done = 1;
                 XORCross(ix, iy);
                 /*Cross should be erased now that we have made our selection.*/
@@ -536,7 +530,7 @@ traverse_diagram(void) {
                 redraw_diagram();
                 RedrawMark();
                 break;
-            case ESC:
+            case KEY_ESC:
                 done = -1;
                 break;
             default:
@@ -623,7 +617,7 @@ byeauto_(int32 *iflag) {
             break;
         case KeyPress:
             ch = (char)(get_key_press(&event));
-            if (ch == ESC) {
+            if (ch == KEY_ESC) {
                 *iflag = 1;
                 return 0;
             }
@@ -1222,7 +1216,7 @@ auto_keypress(XEvent ev, int32 *used) {
             return;
         }
 
-        if (ks == ESC) {
+        if (ks == KEY_ESC) {
             XSetInputFocus(display, command_pop, RevertToParent, CurrentTime);
             return;
         }

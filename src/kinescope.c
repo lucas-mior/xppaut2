@@ -135,28 +135,28 @@ play_back(void) {
             break;
         case KeyPress:
             switch (get_key_press(&ev)) {
-            case ESC:
+            case KEY_ESC:
                 return;
-            case RIGHT:
+            case KEY_RIGHT:
                 i++;
                 if (i >= mov_ind)
                     i = 0;
                 if (show_frame(i, h, w))
                     return;
                 break;
-            case LEFT:
+            case KEY_LEFT:
                 i--;
                 if (i < 0)
                     i = mov_ind - 1;
                 if (show_frame(i, h, w))
                     return;
                 break;
-            case HOME:
+            case KEY_HOME:
                 i = 0;
                 if (show_frame(i, h, w))
                     return;
                 break;
-            case END:
+            case KEY_END:
                 i = mov_ind - 1;
                 if (show_frame(i, h, w))
                     return;

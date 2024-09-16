@@ -167,12 +167,12 @@ eq_list_keypress(XEvent ev, int32 *used) {
         *used = 1;
         ks = (char)get_key_press(&ev);
 
-        if (ks == UP) {
+        if (ks == KEY_UP) {
             eq_list_up();
             return;
         }
 
-        if (ks == DOWN) {
+        if (ks == KEY_DOWN) {
             eq_list_down();
             return;
         }

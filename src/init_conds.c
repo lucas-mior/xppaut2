@@ -598,9 +598,9 @@ button_selector(Window w) {
     if (w == filesel.pgdn)
         fs_scroll(-filesel.nwin);
     if (w == filesel.home) {
-        char *HOMEDIR = getenv("HOME");
+        char *HOMEDIR = getenv("KEY_HOME");
         if ((HOMEDIR == NULL) || (strlen(HOMEDIR) == 0)) {
-            plintf("User's HOME environment variable not set.\n");
+            plintf("User's KEY_HOME environment variable not set.\n");
             return 0;
         }
         change_directory(HOMEDIR);
@@ -890,7 +890,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
     int32 l = strlen(string), cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
     switch (ch) {
-    case LEFT:
+    case KEY_LEFT:
         if (pos > 0) {
             pos--;
             wpos--;
@@ -903,7 +903,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         } else
             ping();
         break;
-    case RIGHT:
+    case KEY_RIGHT:
         if (pos < l) {
             pos++;
             wpos++;
@@ -916,34 +916,34 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         } else
             ping();
         break;
-    case HOME:
+    case KEY_HOME:
         pos = 0;
         wpos = 0;
         break;
-    case END:
+    case KEY_END:
         pos = l;
         wpos = mc;
         break;
-    case BADKEY:
+    case KEY_BADKEY:
         return 0;
 
-    case DOWN:
+    case KEY_DOWN:
         fs_scroll(-1);
         return 0;
-    case UP:
+    case KEY_UP:
         fs_scroll(1);
         return 0;
-    case PGUP:
+    case KEY_PGUP:
         fs_scroll(filesel.nwin);
         return 0;
-    case PGDN:
+    case KEY_PGDN:
         fs_scroll(-filesel.nwin);
         return 0; /* junk key  */
-    case ESC:
+    case KEY_ESC:
         return EDIT_ESC;
-    case FINE:
+    case KEY_FINE:
         return EDIT_DONE;
-    case BKSP:
+    case KEY_BKSP:
         /*
         if(pos<l){
           memmov(&string[pos],&string[pos+1],l-pos);
@@ -952,7 +952,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         else
          ping();
          break; */
-    case DEL:
+    case KEY_DEL:
 
         if (pos > 0) {
             memmov(&string[pos - 1], &string[pos], l - pos + 1);
@@ -968,7 +968,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         } else
             ping();
         break;
-    case TAB: /*TAB completion of file names */
+    case KEY_TAB: /*KEY_TAB completion of file names */
     {
 
         struct dirent *dp;
@@ -2450,7 +2450,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
     int32 l = strlen(string), wpos = pos - off;
 
     switch (ch) {
-    case LEFT:
+    case KEY_LEFT:
         if (pos > 0) {
             pos--;
             wpos--;
@@ -2463,7 +2463,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
         } else
             ping();
         break;
-    case RIGHT:
+    case KEY_RIGHT:
         if (pos < l) {
             pos++;
             wpos++;
@@ -2476,34 +2476,34 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
         } else
             ping();
         break;
-    case HOME:
+    case KEY_HOME:
         pos = 0;
         wpos = 0;
         break;
-    case END:
+    case KEY_END:
         pos = l;
         wpos = mc;
         break;
-    case BADKEY:
+    case KEY_BADKEY:
         return 0;
 
-    case DOWN:
+    case KEY_DOWN:
         box_list_scroll(b, -1);
         return 0;
-    case UP:
+    case KEY_UP:
         box_list_scroll(b, 1);
         return 0;
-    case PGUP:
+    case KEY_PGUP:
         box_list_scroll(b, b->nwin);
         return 0;
-    case PGDN:
+    case KEY_PGDN:
         box_list_scroll(b, -b->nwin);
         return 0; /* junk key  */
-    case ESC:
+    case KEY_ESC:
         return EDIT_ESC;
-    case FINE:
+    case KEY_FINE:
         return EDIT_NEXT;
-    case BKSP:
+    case KEY_BKSP:
         /*
         if(pos<l){
           memmov(&string[pos],&string[pos+1],l-pos);
@@ -2512,7 +2512,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
         else
          ping();
          break; */
-    case DEL:
+    case KEY_DEL:
 
         if (pos > 0) {
             memmov(&string[pos - 1], &string[pos], l - pos + 1);
@@ -2528,7 +2528,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
         } else
             ping();
         break;
-    case TAB:
+    case KEY_TAB:
         return EDIT_DONE;
     default:
         if ((ch >= ' ') && (ch <= '~')) {

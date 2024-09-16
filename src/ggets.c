@@ -199,9 +199,9 @@ get_key_press(XEvent *ev) {
     /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int32)buf[0],buf[0]); */
 
     if (ks == XK_Escape)
-        return ESC;
+        return KEY_ESC;
     if ((ks == XK_Return) || (ks == XK_KP_Enter) || (ks == XK_Linefeed))
-        return FINE;
+        return KEY_FINE;
     else if (((ks >= XK_KP_Space) && (ks <= XK_KP_9)) ||
              ((ks >= XK_space) && (ks <= XK_asciitilde)))
         return (int32)buf[0];
@@ -209,29 +209,29 @@ get_key_press(XEvent *ev) {
        else if ((ks>=XK_F1)&&(ks<=XK_F35))  return 0; */
 
     else if (ks == XK_BackSpace)
-        return BKSP;
+        return KEY_BKSP;
     else if (ks == XK_Delete)
-        return DEL;
+        return KEY_DEL;
     else if (ks == XK_Tab)
-        return TAB;
+        return KEY_TAB;
     else if (ks == XK_Home)
-        return HOME;
+        return KEY_HOME;
     else if (ks == XK_End)
-        return END;
+        return KEY_END;
     else if (ks == XK_Left)
-        return LEFT;
+        return KEY_LEFT;
     else if (ks == XK_Right)
-        return RIGHT;
+        return KEY_RIGHT;
     else if (ks == XK_Up)
-        return UP;
+        return KEY_UP;
     else if (ks == XK_Down)
-        return DOWN;
+        return KEY_DOWN;
     else if (ks == XK_PgUp)
-        return PGUP;
+        return KEY_PGUP;
     else if (ks == XK_PgDn)
-        return PGDN;
+        return KEY_PGDN;
     else {
-        return BADKEY;
+        return KEY_BADKEY;
     }
 }
 
@@ -286,9 +286,9 @@ get_mouse_xy(int32 *x, int32 *y, Window w) {
             ch = get_key_press(&ev);
             if (ch == ESCAPE)
                 return 0;
-            if (ch == FINE)
+            if (ch == KEY_FINE)
                 return -2;
-            if (ch == TAB)
+            if (ch == KEY_TAB)
                 return -3;
             break;
         case ButtonPress:
@@ -447,51 +447,51 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
 
     *done2 = 0;
     switch (ch) {
-    case LEFT:
+    case KEY_LEFT:
         if (*pos > 0) {
             *pos = *pos - 1;
             *col -= DCURX;
         } else
             ping();
         break;
-    case RIGHT:
+    case KEY_RIGHT:
         if (*pos < (int32)strlen(value)) {
             *pos = *pos + 1;
             *col += DCURX;
         } else
             ping();
         break;
-    case HOME: {
+    case KEY_HOME: {
         *pos = 0;
         *col = col0;
     } break;
-    case END: {
+    case KEY_END: {
         *pos = strlen(value);
         *col = *pos*DCURX + col0;
     } break;
-    case BADKEY:
-    case DOWN:
-    case UP:
-    case PGUP:
-    case PGDN:
+    case KEY_BADKEY:
+    case KEY_DOWN:
+    case KEY_UP:
+    case KEY_PGUP:
+    case KEY_PGDN:
         return; /* junk key  */
-    case ESC:
+    case KEY_ESC:
         *done2 = -1; /* quit without saving */
         return;
-    case FINE:
+    case KEY_FINE:
         if (MSStyle == 0)
             *done2 = 1;
         else
             *done2 = 2;
         return; /* save this guy */
-    case BKSP:
+    case KEY_BKSP:
         /*
         *pos=0;
         *col=col0;
         value[0]=0;
         clr_line_at(w,col0,0,80);
         break; */
-    case DEL:
+    case KEY_DEL:
         if (*pos > 0) {
             memmov(&value[*pos - 1], &value[*pos], strlen(value) - *pos + 1);
             *pos = *pos - 1;
@@ -499,7 +499,7 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         } else
             ping();
         break;
-    case TAB:
+    case KEY_TAB:
         if (MSStyle == 0)
             *done2 = 2;
         else

@@ -1119,42 +1119,42 @@ browse_keypress(XEvent ev, int32 *used, BROWSER *b) {
 
         */
 
-        if (ks == UP) {
+        if (ks == KEY_UP) {
             data_up(b);
             return;
         }
 
-        if (ks == DOWN) {
+        if (ks == KEY_DOWN) {
             data_down(b);
             return;
         }
 
-        if (ks == PGUP) {
+        if (ks == KEY_PGUP) {
             data_pgup(b);
             return;
         }
 
-        if (ks == PGDN) {
+        if (ks == KEY_PGDN) {
             data_pgdn(b);
             return;
         }
 
-        if (ks == LEFT) {
+        if (ks == KEY_LEFT) {
             data_left(b);
             return;
         }
 
-        if (ks == RIGHT) {
+        if (ks == KEY_RIGHT) {
             data_right(b);
             return;
         }
 
-        if (ks == HOME) {
+        if (ks == KEY_HOME) {
             data_home(b);
             return;
         }
 
-        if (ks == END) {
+        if (ks == KEY_END) {
             data_end(b);
             return;
         }
@@ -1219,7 +1219,7 @@ browse_keypress(XEvent ev, int32 *used, BROWSER *b) {
             return;
         }
 
-        if (ks == ESC) {
+        if (ks == KEY_ESC) {
             XSetInputFocus(display, command_pop, RevertToParent, CurrentTime);
             return;
         }

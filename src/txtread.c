@@ -92,27 +92,27 @@ txtview_keypress(XEvent ev) {
     char ks;
     if (w == txtview.base || w == txtview.text) {
         ks = (char)get_key_press(&ev);
-        if (ks == UP) {
+        if (ks == KEY_UP) {
             txtview_press(txtview.up, 0, 0);
             return;
         }
-        if (ks == DOWN) {
+        if (ks == KEY_DOWN) {
             txtview_press(txtview.down, 0, 0);
             return;
         }
-        if (ks == PGUP) {
+        if (ks == KEY_PGUP) {
             txtview_press(txtview.pgup, 0, 0);
             return;
         }
-        if (ks == PGDN) {
+        if (ks == KEY_PGDN) {
             txtview_press(txtview.pgdn, 0, 0);
             return;
         }
-        if (ks == HOME) {
+        if (ks == KEY_HOME) {
             txtview_press(txtview.home, 0, 0);
             return;
         }
-        if (ks == END) {
+        if (ks == KEY_END) {
             txtview_press(txtview.end, 0, 0);
             return;
         }

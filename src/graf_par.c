@@ -571,26 +571,26 @@ test_rot(void) {
         if (ev.type == KeyPress) {
             kp = get_key_press(&ev);
             switch (kp) {
-            case UP:
+            case KEY_UP:
                 phi = phi + 1;
                 redraw_cube(theta, phi);
                 break;
-            case DOWN:
+            case KEY_DOWN:
                 phi = phi - 1;
                 redraw_cube(theta, phi);
                 break;
-            case LEFT:
+            case KEY_LEFT:
                 theta = theta + 1;
                 redraw_cube(theta, phi);
                 break;
-            case RIGHT:
+            case KEY_RIGHT:
                 theta = theta - 1;
                 redraw_cube(theta, phi);
                 break;
-            case FINE:
+            case KEY_FINE:
                 done = 1;
                 break;
-            case ESC:
+            case KEY_ESC:
                 done = -1;
                 break;
             }

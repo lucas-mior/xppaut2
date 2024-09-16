@@ -1,19 +1,19 @@
 #ifndef mykeydef_h
 #define mykeydef_h
 
-#define RIGHT 6
-#define LEFT 2
-#define UP 16
-#define PGUP 22
-#define PGDN 21
-#define DOWN 14
-#define HOME 1
-#define END 5
-#define DEL 9
-#define BKSP 8
-#define FINE 13
-#define ESC 27
-#define TAB 10
-#define BADKEY 0
+#define KEY_RIGHT 6
+#define KEY_LEFT 2
+#define KEY_UP 16
+#define KEY_PGUP 22
+#define KEY_PGDN 21
+#define KEY_DOWN 14
+#define KEY_HOME 1
+#define KEY_END 5
+#define KEY_DEL 9
+#define KEY_BKSP 8
+#define KEY_FINE 13
+#define KEY_ESC 27
+#define KEY_TAB 10
+#define KEY_BADKEY 0
 
 #endif
