@@ -825,7 +825,7 @@ ani_flip(void) {
     char fname[256];
     FILE *angiffile = NULL;
     double **ss;
-    int32 i, row, done;
+    int32 row, done;
     int32 mpeg_frame = 0, mpeg_write = 0, count = 0;
     XEvent ev;
     Window w;
@@ -881,7 +881,7 @@ ani_flip(void) {
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         row = vcr.pos;
         t = (double)ss[0][row];
-        for (i = 0; i < NODE + NMarkov; i++)
+        for (int32 i = 0; i < NODE + NMarkov; i++)
             y[i] = (double)ss[i + 1][row];
         set_fix_rhs(t, y);
 
@@ -955,7 +955,6 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     XImage *ximage;
     Colormap cmap;
     ulong value;
-    int32 i;
     int32 CMSK = 0, CSHIFT = 0, CMULT = 0;
     int32 bbp = 0, bbc = 0;
     int32 lobits, midbits, hibits;
@@ -971,7 +970,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     if (!ximage)
         return -1;
     /* this is only good for 256 color displays */
-    for (i = 0; i < 256; i++)
+    for (int32 i = 0; i < 256; i++)
         palette[i].pixel = i;
     XQueryColors(display, cmap, palette, 256);
     if (TrueColorFlag == 1) {
