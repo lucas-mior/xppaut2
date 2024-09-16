@@ -31,10 +31,10 @@
 #define STD_HGT 284
 
 #define xds(a)                                                                 \
-    {                                                                          \
+    do {                                                                          \
         XDrawString(display, w, gc, 5, CURY_OFFb, a, strlen(a));               \
         return;                                                                \
-    }
+    } while (0)
 
 #define SBW XSetWindowBorderWidth(display, w, 1)
 
@@ -939,7 +939,7 @@ lil_button(Window root, int32 x, int32 y) {
     return win;
 }
 
-void
+static void
 aw(void) {
     XFlush(display);
     sleep(5);
