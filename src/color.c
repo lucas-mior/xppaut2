@@ -6,10 +6,6 @@
 #include "functions.h"
 #include "integers.h"
 
-#define COLOR_SCALE 0
-#define GRAYSCALE 1
-#define RGRAYSCALE 2
-#define SOLID -1
 #define RED 20
 #define REDORANGE 21
 #define ORANGE 22
@@ -291,7 +287,7 @@ get_svg_color(int32 i, int32 *r, int32 *g, int32 *b) {
     return;
 }
 
-int32
+static int32
 print_cust(void) {
     printf("custom map =%d \n", custom_color);
     return 1;
