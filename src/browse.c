@@ -573,7 +573,7 @@ enter_browser(XEvent ev, BROWSER *b, int32 yn) {
 
 void
 display_browser(Window w, BROWSER b) {
-    int32 i, i0;
+    int32 i0;
     if (w == b.hint) {
         XClearWindow(display, b.hint);
         XDrawString(display, w, small_gc, 8, CURY_OFFs, b.hinttxt,
@@ -626,7 +626,7 @@ display_browser(Window w, BROWSER b) {
     if (w == b.delcol)
         xds("Del col");
 
-    for (i = 0; i < BMAXCOL; i++) {
+    for (int32 i = 0; i < BMAXCOL; i++) {
         if (w == b.label[i]) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1)
