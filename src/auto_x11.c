@@ -664,11 +664,13 @@ byeauto_(int32 *iflag) {
             }
             break;
         case KeyPress:
-            ch = get_key_press(&event);
+            ch = (char)(get_key_press(&event));
             if (ch == ESC) {
                 *iflag = 1;
                 return 0;
             }
+            break;
+        default:
             break;
         }
     }
@@ -763,7 +765,7 @@ FillCircle(int32 x, int32 y, int32 r) {
     return;
 }
 
-void
+static void
 auto_update_view(double xlo, double xhi, double ylo, double yhi) {
     Auto.xmin = xlo;
     Auto.ymin = ylo;
@@ -782,7 +784,7 @@ auto_scroll_window(void) {
     double ylo = Auto.ymin;
     double xhi = Auto.xmax;
     double yhi = Auto.ymax;
-    double dx, dy;
+    double dx = 0, dy = 0;
     int32 alldone = 0;
     /*    printf("xin: %g %g %g %g\n",xlo,xhi,ylo,yhi); */
     XSelectInput(display, AutoW.canvas,
@@ -842,6 +844,8 @@ auto_scroll_window(void) {
             ylo = ylo + dy;
             yhi = yhi + dy;
             break;
+        default:
+            break;
         }
     }
     return;
@@ -884,10 +888,10 @@ display_auto(Window w) {
     if (w == AutoW.canvas) {
         if (AutoRedrawFlag == 1)
             redraw_diagram();
-    };
+    }
     if (w == AutoW.stab) {
-        XFlush(display);
         int32 r = Auto.st_wid / 4;
+        XFlush(display);
         XDrawArc(display, AutoW.stab, small_gc, r, r, 2*r, 2*r, 0,
                  360*64);
         if (CUR_DIAGRAM != NULL) {
