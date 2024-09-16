@@ -970,7 +970,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     if (!ximage)
         return -1;
     /* this is only good for 256 color displays */
-    for (int32 i = 0; i < 256; i++)
+    for (uint32 i = 0; i < 256; i++)
         palette[i].pixel = i;
     XQueryColors(display, cmap, palette, 256);
     if (TrueColorFlag == 1) {
