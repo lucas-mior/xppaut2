@@ -168,7 +168,7 @@ typedef struct {
   special points for algebraic problems */
 #define FNCS_TYPE_AE(X)                                                        \
     double X(iap_type *iap, rap_type *rap, double *par, int64 *icp,            \
-             logical *chng, FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,    \
+             int64 *chng, FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,    \
              double *rlcur, double *rlold, double *rldot, double *u,           \
              double *uold, double *udot, double *rhs, double *dfdu,            \
              double *dfdp, int64 *iuz, double *vuz)
@@ -177,7 +177,7 @@ typedef struct {
   special points for BVPS */
 #define FNCS_TYPE_BVP(X)                                                       \
     double X(iap_type *iap, rap_type *rap, double *par, int64 *icp,            \
-             logical *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),            \
+             int64 *chng, FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)),            \
              ICNI_TYPE((*icni)), double *p0, double *p1, doublecomplex *ev,    \
              double *rlcur, double *rlold, double *rldot, int64 *ndxloc,       \
              double *ups, double *uoldps, double *udotps, double *upoldp,      \
@@ -307,9 +307,9 @@ int32 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
          int64 m1f, double *f, double *det);
 int32 newlab(iap_type *iap);
 int32 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
-             logical *found);
+             int64 *found);
 int32 readlb(double *u, double *par);
-int32 skip3(int64 *nskip, logical *eof3);
+int32 skip3(int64 *nskip, int64 *eof3);
 double rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups,
              double *vps, double *dtm, double *thu);
 double rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups,
@@ -401,7 +401,7 @@ int32 partition(int64 *n, int64 *kwt, int64 *m);
 int64 mypart(int64 *iam, int64 *np);
 int32 setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np,
              int64 *ncol, int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc,
-             int64 *nra, int64 *nca, int64 *iam, int64 *kwt, logical *ipar,
+             int64 *nra, int64 *nca, int64 *iam, int64 *kwt, int64 *ipar,
              FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
              int64 *ndxloc, iap_type *iap, rap_type *rap, double *par,
              int64 *icp, double *rds, double *fa, double *fc, double *rlcur,
@@ -412,7 +412,7 @@ int32 brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
            double *p0, double *p1, int64 *ifst, int64 *idb, int64 *nllv,
            double *det, int64 *nov, int64 *na, int64 *nbc, int64 *nra,
            int64 *nca, int64 *ncb, int64 *nrc, int64 *iam, int64 *kwt,
-           logical *par, double *a1, double *a2, double *bb, double *cc,
+           int64 *par, double *a1, double *a2, double *bb, double *cc,
            double *faa, double *ca1, double *s1, double *s2, int64 *icf11,
            int64 *ipr, int64 *icf1, int64 *icf2, int64 *irf, int64 *icf);
 int32 setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc);
@@ -425,24 +425,24 @@ int32 copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra,
              int64 *irf);
 int32 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa,
              int64 *irf);
-int32 reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2,
+int32 reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2,
              double *bb, double *cc, double *dd, int64 *na, int64 *nov,
              int64 *ncb, int64 *nrc, double *s1, double *s2, double *ca1,
              int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr, int64 *nbc);
-int32 redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2,
+int32 redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2,
              double *cc, double *faa, double *fc, int64 *na, int64 *nov,
              int64 *ncb, int64 *nrc, double *ca1, int64 *icf1, int64 *icf2,
              int64 *icf11, int64 *ipr, int64 *nbc);
-int32 dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc,
+int32 dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc,
              double *d, double *fc, int64 *ifst, int64 *na, int64 *nrc,
              int64 *nov, int64 *ncb, int64 *idb, int64 *nllv, double *fcc,
              double *p0, double *p1, double *det, double *s, double *a2,
              double *faa, double *bb);
-int32 bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2,
+int32 bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2,
              double *a2, double *bb, double *faa, double *fc, double *fcc,
              double *sol1, double *sol2, double *sol3, int64 *na, int64 *nov,
              int64 *ncb, int64 *icf2);
-int32 infpar(int64 *iam, logical *par, double *a, double *b, double *fa,
+int32 infpar(int64 *iam, int64 *par, double *a, double *b, double *fa,
              double *sol1, double *sol2, double *fc, int64 *na, int64 *nov,
              int64 *nra, int64 *nca, int64 *ncb, int64 *irf, int64 *icf);
 int32 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc);
@@ -637,11 +637,11 @@ int32 elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a,
              int64 *int__);
 int32 eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a,
              int64 *int__, double *z__);
-int32 qzhes(int64 nm, int64 n, double *a, double *b, logical matz, double *z__);
-int32 qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
+int32 qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__);
+int32 qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
            double *z__, int64 *ierr);
 int32 qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
-            double *beta, logical matz, double *z__);
+            double *beta, int64 matz, double *z__);
 double epslon(double x);
 double dnrm2(int64 *n, double *dx, int64 *incx);
 double ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy);
@@ -653,9 +653,9 @@ int32 drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy,
            double *c, double *s);
 int32 dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy);
 int32 dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
-            logical *trans);
+            int64 *trans);
 int32 xerbla(char *srname, int64 *info, int64 srname_len);
-logical lsame(char *ca, char *cb, int64 ca_len, int64 cb_len);
+int64 lsame(char *ca, char *cb, int64 ca_len, int64 cb_len);
 int32 dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k,
             double *alpha, double *a, int64 *lda, double *b, int64 *ldb,
             double *beta, double *c, int64 *ldc, int64 transa_len,
@@ -680,7 +680,7 @@ int32 hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup,
 int32 split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
             int64 *na, int64 *nv);
 int32 exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
-             double *eps, logical *fail, int64 *na, int64 *nv);
+             double *eps, int64 *fail, int64 *na, int64 *nv);
 int32 qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
              int64 *nu, int64 *n, int64 *na, int64 *nv);
 int32 orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a,

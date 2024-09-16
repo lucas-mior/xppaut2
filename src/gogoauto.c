@@ -51,7 +51,7 @@ go_go_auto(void) {
 
     /* Find restart label and determine type of restart point. */
     if (iap.irs > 0) {
-        logical found = FALSE_;
+        int64 found = FALSE_;
 
         findlb(&iap, &rap, iap.irs, &(iap.nfpr), &found);
         if (!found) {

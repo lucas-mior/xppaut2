@@ -134,7 +134,7 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     static double p, q, r__, s, t, w, x, y;
     static int64 na, en, ll, mm;
     static double zz;
-    static logical notlas;
+    static int64 notlas;
     static int64 mp2, itn, its, enm2;
     static double tst1, tst2;
 
@@ -479,7 +479,7 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     static double ra, sa;
     static int64 ll, mm, nn;
     static double vi, vr, zz;
-    static logical notlas;
+    static int64 notlas;
     static int64 mp2, itn, its, enm2;
     static double tst1, tst2;
 
@@ -1180,7 +1180,7 @@ balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
     static int64 i__, j, k, l, m;
     static double r__, s, radix, b2;
     static int64 jj;
-    static logical noconv;
+    static int64 noconv;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE BALANCE, */
     /*     NUM. MATH. 13, 293-304(1969) BY PARLETT AND REINSCH. */
@@ -1776,7 +1776,7 @@ L200:
 /*  EISPACK routines needed in the computation of Floquet multipliers */
 /* ----------------------------------------------------------------------- */
 int32
-qzhes(int64 nm, int64 n, double *a, double *b, logical matz, double *z__) {
+qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
     double d__1, d__2;
@@ -2054,7 +2054,7 @@ L170:
 }
 
 int32
-qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
+qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
      double *z__, int64 *ierr) {
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
@@ -2076,7 +2076,7 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, logical matz,
     static int64 ll;
     static double sh;
 
-    static logical notlas;
+    static int64 notlas;
     static int64 km1, lm1;
     static double ani, bni;
     static int64 ish, itn, its, enm2, lor1;
@@ -2579,7 +2579,7 @@ L1001:
 
 int32
 qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
-      double *beta, logical matz, double *z__) {
+      double *beta, int64 matz, double *z__) {
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
     double d__1, d__2, d__3, d__4;
 
@@ -3620,7 +3620,7 @@ L40:
 
 int32
 dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
-      logical *trans) {
+      int64 *trans) {
     int64 a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
 
     /* Local variables */
@@ -3767,11 +3767,11 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
 
 }
 
-logical
+int64
 lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
     (void) cb_len;
     (void) ca_len;
-    logical ret_val;
+    int64 ret_val;
 
     /*     .. Scalar Arguments .. */
     /*     .. */
@@ -3871,7 +3871,7 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
 
     /* Local variables */
     static int64 info;
-    static logical nota, notb;
+    static int64 nota, notb;
     static double temp;
     static int64 i__, j, l;
 
@@ -4416,7 +4416,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     static double sminl;
 
     static double sigmx;
-    static logical wantu, wantv;
+    static int64 wantu, wantv;
     static double gg, lambda;
     static int64 oldacc;
     static double cs;
@@ -6055,7 +6055,7 @@ hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
     double d__1, d__2, d__3;
 
     /* Local variables */
-    static logical fail;
+    static int64 fail;
     static int64 i__, l;
     static double p, q, r__, s, t, w, x, y, z__, e1, e2;
 
@@ -6585,7 +6585,7 @@ L80:
 
 int32
 exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
-       double *eps, logical *fail, int64 *na, int64 *nv) {
+       double *eps, int64 *fail, int64 *na, int64 *nv) {
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
 
@@ -6758,7 +6758,7 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     double d__1, d__2, d__3;
 
     /* Local variables */
-    static logical last;
+    static int64 last;
     static int64 i__, j, k;
     static double s, x, y, z__;
     static int64 nl2, nl3, num1;

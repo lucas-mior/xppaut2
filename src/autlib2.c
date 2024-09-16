@@ -170,7 +170,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* Local variables */
 
     int64 ndim;
-    logical ipar;
+    int64 ipar;
     int64 ncol, nclm, nfpr, nint, nrow, ntst, ntst0;
 
     double *ff, *ft;
@@ -525,7 +525,7 @@ mypart(int64 *iam, int64 *np) {
 int32
 setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
        int64 *nbc, int64 *nint, int64 *ncb, int64 *nrc, int64 *nra, int64 *nca,
-       int64 *iam, int64 *kwt, logical *ipar, FUNI_TYPE((*funi)),
+       int64 *iam, int64 *kwt, int64 *ipar, FUNI_TYPE((*funi)),
        BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), int64 *ndxloc, iap_type *iap,
        rap_type *rap, double *par, int64 *icp, double *rds, double *fa,
        double *fc, double *rlcur, double *rlold, double *rldot, double *ups,
@@ -755,7 +755,7 @@ int32
 brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
      double *p0, double *p1, int64 *ifst, int64 *idb, int64 *nllv, double *det,
      int64 *nov, int64 *na, int64 *nbc, int64 *nra, int64 *nca, int64 *ncb,
-     int64 *nrc, int64 *iam, int64 *kwt, logical *par, double *a1, double *a2,
+     int64 *nrc, int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2,
      double *bb, double *cc, double *faa, double *ca1, double *s1, double *s2,
      int64 *icf11, int64 *ipr, int64 *icf1, int64 *icf2, int64 *irf,
      int64 *icf) {
@@ -1031,7 +1031,7 @@ cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
 }
 
 int32
-reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
+reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
        double *cc, double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
        double *s1, double *s2, double *ca1, int64 *icf1, int64 *icf2,
        int64 *icf11, int64 *ipr, int64 *nbc) {
@@ -1040,25 +1040,25 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
         dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
     /* Local variables */
-    logical oddc[KREDO];
+    int64 oddc[KREDO];
     int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO],
         nlev, itmp;
     double zero, tpiv;
     double xkwt;
     int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
 
-    logical evenc[KREDO];
+    int64 evenc[KREDO];
 
     int64 i1, i2, k1, k2, i3, l1, iprow, k3, l2, l3, ic, ir;
     double rm;
-    logical master[KREDO];
+    int64 master[KREDO];
     int64 ib1, ib2, myleft[KREDO];
 
-    logical worker[KREDO];
+    int64 worker[KREDO];
     int64 ir1, iprown, iprown2, ism[KREDO], irm[KREDO], nrcmnbc;
     double tmp;
     int64 myleftc[KREDO];
-    logical notsend;
+    int64 notsend;
     int64 nap1, myright[KREDO], nam1, len1, len2, icp1;
     double piv1, piv2;
     double *buf = NULL;
@@ -1785,7 +1785,7 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
 }
 
 int32
-redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
+redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
        double *faa, double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
        double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr,
        int64 *nbc) {
@@ -1800,13 +1800,13 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
 
     int64 i1, i2, k1, l1, ic, ir;
     double rm;
-    logical master[KREDO];
+    int64 master[KREDO];
     int64 myleft[KREDO];
-    logical worker[KREDO];
+    int64 worker[KREDO];
     double buf[2];
     int64 ism[KREDO], irm[KREDO];
     double tmp;
-    logical notsend;
+    int64 notsend;
     int64 nap1, nam1, myright[KREDO], icp1;
 
     /* Parameter adjustments */
@@ -1961,7 +1961,7 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
 }
 
 int32
-dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
+dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
        double *fc, int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb,
        int64 *idb, int64 *nllv, double *fcc, double *p0, double *p1,
        double *det, double *s, double *a2, double *faa, double *bb) {
@@ -2156,7 +2156,7 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
 }
 
 int32
-bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
+bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
        double *bb, double *faa, double *fc, double *fcc, double *sol1,
        double *sol2, double *sol3, int64 *na, int64 *nov, int64 *ncb,
        int64 *icf2) {
@@ -2165,9 +2165,9 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
 
     /* Local variables */
     int64 niam, ibuf;
-    logical even = FALSE_;
+    int64 even = FALSE_;
     int64 nlev;
-    logical hasright;
+    int64 hasright;
     double xkwt;
     int64 rmsgtype, smsgtype, i, k, l;
 
@@ -2175,11 +2175,11 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
     double sm;
     int64 msglen;
 
-    logical master[KREDO];
+    int64 master[KREDO];
     int64 myleft, kp1;
-    logical odd = FALSE_;
+    int64 odd = FALSE_;
     int64 ism, irm;
-    logical hasleft, notsend;
+    int64 hasleft, notsend;
     int64 nam1, myright, nov2, nov3;
     double *buf = NULL;
 
@@ -2403,7 +2403,7 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
 }
 
 int32
-infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
+infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
        double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        int64 *ncb, int64 *irf, int64 *icf) {
     (void) iam;
@@ -2480,16 +2480,16 @@ int32
 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     /* Local variables */
     int64 niam;
-    logical even[KREDO];
+    int64 even[KREDO];
     double xkwt;
     int64 i, n;
 
     int64 nredo, msglen, rmtype[KREDO], smtype[KREDO];
-    logical odd[KREDO];
+    int64 odd[KREDO];
 
     double *buf;
 
-    logical notsend;
+    int64 notsend;
     int64 myright[KREDO];
 
     buf = malloc(sizeof(*buf)*(*nrc));

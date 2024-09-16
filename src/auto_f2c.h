@@ -18,7 +18,6 @@ typedef struct {
 typedef struct {
     double r, i;
 } doublecomplex;
-typedef int64 logical;
 
 #define TRUE_ (1)
 #define FALSE_ (0)

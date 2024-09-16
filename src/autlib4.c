@@ -63,7 +63,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     double *v, *x;
 
-    logical infev;
+    int64 infev;
 
     double const__;
 
@@ -210,7 +210,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
            BLAS routines. */
         double tmp1 = 1.0;
         double tmp0 = 0.0;
-        logical tmp_false = FALSE_;
+        int64 tmp_false = FALSE_;
 
         dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, ndim, &tmp0,
               rwork, ndim, 1L, 1L);
@@ -408,7 +408,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
     /*           Unchanged on exit. */
 
     /*  N      - INTEGER. */
-    /*           On entry, N specifies the (logical) length of X. */
+    /*           On entry, N specifies the (int64) length of X. */
     /*           Unchanged on exit. */
 
     /*  X      - DOUBLE PRECISION array of DIMENSION at least */

@@ -1031,7 +1031,7 @@ stpnus(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
 int32
 stpnae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    logical found;
+    int64 found;
     int64 nfprs;
     int64 irs;
 
@@ -1404,7 +1404,7 @@ lcspae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *du, double *uold, double *udot, double *f, double *dfdu,
        double *dfdp, double *q, double *thl, double *thu, int64 *iuz,
        double *vuz) {
-    logical chng;
+    int64 chng;
     double epss, rrds;
     int64 itmx;
     double rtmp;
@@ -1549,7 +1549,7 @@ mueller(double *q0, double *q1, double *q, double *s0, double *s1, double *s,
 }
 
 double
-fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
@@ -1595,7 +1595,7 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 }
 
 double
-fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
@@ -1660,7 +1660,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 }
 
 double
-fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
@@ -1836,7 +1836,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 }
 
 double
-fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
@@ -3521,7 +3521,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 
     double dtav, e;
     int64 j, k;
-    logical small;
+    int64 small;
     int64 k1;
     double *hd, sc, *wh;
 
@@ -3965,7 +3965,7 @@ newlab(iap_type *iap) {
 
     int64 labrs, nskip, nfprs, itprs, iswrs, ntplrs, ntotrs;
     int64 lab, ibr, mbr, ips, itp, irs, isw;
-    logical eof3;
+    int64 eof3;
 
     /* Determine a suitable label when restarting. */
 
@@ -4039,11 +4039,11 @@ L2:
 
 int32
 findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
-       logical *found) {
+       int64 *found) {
     int64 nars;
 
     int64 labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
-    logical eof3;
+    int64 eof3;
 
     (void) rap;
 
@@ -4155,7 +4155,7 @@ readlb(double *u, double *par) {
 }
 
 int32
-skip3(int64 *nskip, logical *eof3) {
+skip3(int64 *nskip, int64 *eof3) {
     int64 i;
 
     /* Skips the specified number of lines on unit 3. */
@@ -5015,7 +5015,7 @@ stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 iads;
     double adrl;
-    logical done;
+    int64 done;
     int64 ndim, ncol;
     double epsl, rdrl;
     int64 nfpr, ifst;
@@ -5392,13 +5392,13 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     int64 i, j, k;
 
-    logical found;
+    int64 found;
     int64 icprs[NPARX], nparr, nskip;
 
     int64 nfprs, k1, k2, itprs, iswrs, nskip1, nskip2;
 
     int64 ndimrd, ndimrs, ntplrs, ntotrs, lab, ibr, ips, irs, isw;
-    logical eof3;
+    int64 eof3;
 
     /* This subroutine locates and retrieves the information required to */
     /* restart computation at the point with label IRS. */
@@ -5772,7 +5772,7 @@ lcspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *uoldps, double *udotps, double *upoldp, double *fa, double *fc,
        double *tm, double *dtm, double *p0, double *p1, doublecomplex *ev,
        double *thl, double *thu, int64 *iuz, double *vuz) {
-    logical chng;
+    int64 chng;
     double epss;
     int64 ntop, itmx;
     double rtmp, rrds;
@@ -5894,7 +5894,7 @@ L1:
 }
 
 double
-fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
        double *p1, doublecomplex *ev, double *rlcur, double *rlold,
        double *rldot, int64 *ndxloc, double *ups, double *uoldps,
@@ -5970,7 +5970,7 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 }
 
 double
-fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
        double *p1, doublecomplex *ev, double *rlcur, double *rlold,
        double *rldot, int64 *ndxloc, double *ups, double *uoldps,
@@ -6061,7 +6061,7 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 }
 
 double
-fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
        double *p1, doublecomplex *ev, double *rlcur, double *rlold,
        double *rldot, int64 *ndxloc, double *ups, double *uoldps,
@@ -6281,7 +6281,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
 }
 
 double
-fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
+fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)), double *p0,
        double *p1, doublecomplex *ev, double *rlcur, double *rlold,
        double *rldot, int64 *ndxloc, double *ups, double *uoldps,
