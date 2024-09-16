@@ -7098,8 +7098,7 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
 void
 test_matrix_stuff(void) {
     /* what is called At (a-transpose) gives the eigenvectors
-       for what I would call A
-    */
+     * for what I would call A */
     int32 i;
     double a[] = {-1, 5, 0, -2, 1, 0, 0, 0, -1};
     double pr[3], pi[3], qr[3], qi[3];
@@ -7107,12 +7106,4 @@ test_matrix_stuff(void) {
 
     for (i = 0; i < 3; i++)
         printf(" %g    %g  ||  %g    %g \n", qr[i], qi[i], pr[i], pi[i]);
-
-    /*
-        sgefa(ac,3,3,iv1,&ier);
-      sgesl(ac,3,3,iv1,b,0);
-      printf("Solving....\n");
-      for(i=0;i<3;i++)
-        printf("%g\n",b[i]);
-    */
 }
