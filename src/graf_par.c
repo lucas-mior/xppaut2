@@ -593,6 +593,8 @@ test_rot(void) {
             case KEY_ESC:
                 done = -1;
                 break;
+            default:
+                break;
             }
         }
     }
@@ -737,7 +739,7 @@ scroll_window(void) {
     XEvent ev;
     int32 i = 0, j = 0;
     int32 state = 0;
-    double x, y, x0, y0;
+    double x, y, x0 = 0, y0 = 0;
     double xlo = MyGraph->xlo;
     double ylo = MyGraph->ylo;
     double xhi = MyGraph->xhi;
@@ -782,6 +784,8 @@ scroll_window(void) {
             xhi = xhi + dx;
             ylo = ylo + dy;
             yhi = yhi + dy;
+            break;
+        default:
             break;
         }
     }
