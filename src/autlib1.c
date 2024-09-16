@@ -3600,12 +3600,12 @@ ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
 int32
 intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
        double *wts) {
-    (void)iap;
-    (void)rap;
-
     int64 k;
     double p, denom;
     int64 ib;
+
+    (void)iap;
+    (void)rap;
 
     /* Generates weights for Lagrange interpolation. */
 
