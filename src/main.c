@@ -1426,7 +1426,7 @@ FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
 
 int32
 getxcolors(XWindowAttributes *win_info, XColor **colors) {
-    int32 i, ncolors;
+    int32 ncolors;
 
     *colors = (XColor *)NULL;
     TrueColorFlag = 0;
@@ -1456,7 +1456,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
         red1 = lowbit(win_info->visual->red_mask);
         green1 = lowbit(win_info->visual->green_mask);
         blue1 = lowbit(win_info->visual->blue_mask);
-        for (i = 0; i < ncolors; i++) {
+        for (int32 i = 0; i < ncolors; i++) {
             (*colors)[i].pixel = red | green | blue;
             (*colors)[i].pad = 0;
             red += red1;
@@ -1470,7 +1470,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
                 blue = 0;
         }
     } else {
-        for (i = 0; i < ncolors; i++) {
+        for (int32 i = 0; i < ncolors; i++) {
             (*colors)[i].pixel = i;
             (*colors)[i].pad = 0;
         }
