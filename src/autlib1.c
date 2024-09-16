@@ -1054,7 +1054,6 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *rlcur, double *rlold, double *rldot, double *u, double *du,
        double *uold, double *udot, double *f, double *dfdu, double *dfdp,
        double *thl, double *thu) {
-    /* System generated locals */
     int64 aa_dim1;
 
     int64 ndim;
@@ -1177,7 +1176,6 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *rlcur, double *rlold, double *rldot, double *u, double *du,
        double *uold, double *udot, double *f, double *dfdu, double *dfdp,
        double *thl, double *thu) {
-    /* System generated locals */
     int64 aa_dim1;
 
     int64 iads, ndim;
@@ -1558,7 +1556,6 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
-    /* System generated locals */
     double ret_val;
 
     int64 ntop, ntot, iid, ibr;
@@ -1605,7 +1602,6 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
-    /* System generated locals */
     int64 aa_dim1;
     double ret_val;
 
@@ -1671,7 +1667,6 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
-    /* System generated locals */
     double ret_val;
 
     int64 ndim;
@@ -1848,7 +1843,6 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
        FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rlcur,
        double *rlold, double *rldot, double *u, double *uold, double *udot,
        double *rhs, double *dfdu, double *dfdp, int64 *iuz, double *vuz) {
-    /* System generated locals */
     double ret_val;
 
     int64 ntop, ntot, iuzr, iid, ibr;
@@ -1895,7 +1889,6 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
       double *stld, double *rlcur, double *rlold, double *rldot, double *u,
       double *du, double *udot, double *dfdu, double *dfdp, double *thl,
       double *thu) {
-    /* System generated locals */
     int64 aa_dim1, stud_dim1, stu_dim1;
 
     int64 nbif, ndim;
@@ -1985,7 +1978,6 @@ int32
 swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
       int64 m1sbloc, double *stud, double *stu, double *stla, double *stld,
       double *rlcur, double *rlold, double *rldot, double *u, double *udot) {
-    /* System generated locals */
     int64 stud_dim1, stu_dim1;
 
     int64 nbif, ndim, mxbf, ipos, i, i1;
@@ -2051,7 +2043,6 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
       double *rldot, double *u, double *du, double *uold, double *udot,
       double *f, double *dfdu, double *dfdp, double *rds, double *thl,
       double *thu) {
-    /* System generated locals */
     int64 aa_dim1;
 
     int64 iads, ndim;
@@ -2879,7 +2870,6 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
 
 int32
 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
-    /* System generated locals */
     int64 aa_dim1;
 
     int64 i, j;
@@ -2930,7 +2920,6 @@ msh(const iap_type *iap, double *tm) {
 
 int32
 genwts(const int64 ncol, const int64 n1, double *wt, double *wp) {
-    /* System generated locals */
     int64 wt_dim1, wp_dim1;
 
     double d;
@@ -3269,7 +3258,6 @@ int32
 adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
       int64 *ncnew, double *tm, double *dtm, int64 *ndxloc, double *ups,
       double *vps) {
-    /* System generated locals */
     int64 ups_dim1, vps_dim1;
 
     int64 ndim, iper;
@@ -3362,7 +3350,6 @@ int32
 interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
        double *tm, int64 *ndxloc, double *ups, int64 *n1, int64 *nc1,
        double *tm1, double *ups1, double *tm2, int64 *itm1) {
-    /* System generated locals */
     int64 ups_dim1, ups1_dim1;
 
     double d;
@@ -3535,7 +3522,6 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
      double *dtm, int64 *ndxloc, double *ups, double *eqf, int64 *iper) {
     (void)iap;
     (void)rap;
-    /* System generated locals */
     int64 ups_dim1;
 
     double dtav, e;
@@ -3635,7 +3621,6 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 int32
 eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     int64 *ier) {
-    /* System generated locals */
 
     int64 matz, ntop, ntot, i;
     double *z__;
@@ -3686,7 +3671,6 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
 
 int32
 nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
-    /* System generated locals */
     int64 a_dim1;
 
     int64 ipiv, jpiv, j, l;
@@ -3812,7 +3796,6 @@ nrmlz(int64 *ndim, double *v) {
 
 double
 pi(double r) {
-    /* System generated locals */
     double ret_val;
 
     ret_val = r*4.*atan(1.);
@@ -3824,7 +3807,6 @@ pi(double r) {
 int32
 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
    int64 m1f, double *f, double *det) {
-    /* System generated locals */
     int64 a_dim1, u_dim1, f_dim1;
 
     int64 ipiv, jpiv, i, j, k, l;
@@ -4199,7 +4181,6 @@ skip3(int64 *nskip, logical *eof3) {
 double
 rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
       double *dtm, double *thu) {
-    /* System generated locals */
     int64 ups_dim1, vps_dim1;
     double ret_val;
 
@@ -4253,7 +4234,6 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
 double
 rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
        double *thu) {
-    /* System generated locals */
     double ret_val;
 
 
@@ -4266,7 +4246,6 @@ rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
 
 double
 rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
-    /* System generated locals */
     int64 ups_dim1;
     double ret_val;
 
@@ -4312,7 +4291,6 @@ rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
 
 double
 rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
-    /* System generated locals */
     int64 ups_dim1;
     double ret_val;
 
@@ -4361,7 +4339,6 @@ rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
 
 double
 rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
-    /* System generated locals */
     int64 ups_dim1;
     double ret_val;
 
@@ -4394,7 +4371,6 @@ rmxups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 
 double
 rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
-    /* System generated locals */
     int64 ups_dim1;
     double ret_val;
 
@@ -4428,7 +4404,6 @@ rmnups(iap_type *iap, int64 *ndxloc, int64 *i, double *ups) {
 int32
 scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
        double *dtm, double *thl, double *thu) {
-    /* System generated locals */
     int64 dvps_dim1;
 
     int64 ndim, ncol, nfpr, nrow, ntst, i, j;
@@ -4857,7 +4832,6 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rds, double *rlcur, double *rlold,
        double *rldot, int64 *ndxloc, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dtm, double *thl, double *thu) {
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
     int64 ndim, ncol, nfpr, nrow, ntst, i, j;
@@ -4915,7 +4889,6 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
        double *uoldps, double *udotps) {
     (void) rap;
     (void) funi;
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
     int64 ndim, ncol, nfpr, nrow, ntst, i, j;
@@ -4953,7 +4926,6 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rlcur, double *rlold, double *rldot,
        int64 *ndxloc, double *ups, double *uoldps, double *upoldp) {
     (void) rldot;
-    /* System generated locals */
     int64 ups_dim1, uoldps_dim1, upoldp_dim1;
 
     int64 ndim, ncol;
@@ -5039,7 +5011,6 @@ stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *rldot, int64 *ndxloc, double *ups, double *dups, double *uoldps,
        double *udotps, double *upoldp, double *fa, double *fc, double *tm,
        double *dtm, double *p0, double *p1, double *thl, double *thu) {
-    /* System generated locals */
     int64 ups_dim1, uoldps_dim1, udotps_dim1, fa_dim1;
 
     int64 iads;
@@ -5252,7 +5223,6 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     (void) rds;
     (void) dups;
     (void) ev;
-    /* System generated locals */
     int64 ups_dim1, uoldps_dim1;
 
     int64 ndim, ncol, nfpr, ntst, i, j;
@@ -5414,7 +5384,6 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     (void) dtm;
     (void) thl;
     (void) thu;
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim, nars;
@@ -5591,7 +5560,6 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     (void) dtm;
     (void) thl;
     (void) thu;
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1;
     (void) udotps_dim1;
 
@@ -5659,7 +5627,6 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
 int32
 setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
-    /* System generated locals */
     int64 ups_dim1;
 
     int64 i;
@@ -5693,7 +5660,6 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *dups, double *uoldps, double *udotps, double *upoldp, double *fa,
        double *fc, double *dtm, int64 iperp, double *p0, double *p1,
        double *thl, double *thu) {
-    /* System generated locals */
     int64 udotps_dim1, fa_dim1;
 
     /* Builtin Local */
@@ -5939,7 +5905,6 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void)tm;
     (void)iuz;
     (void)vuz;
-    /* System generated locals */
     int64 udotps_dim1, fa_dim1;
     double ret_val;
 
@@ -6036,7 +6001,6 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void) thu;
     (void) iuz;
     (void) vuz;
-    /* System generated locals */
     double ret_val;
 
     int64 ndim, ntop, ntot;
@@ -6126,7 +6090,6 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void) thu;
     (void) iuz;
     (void) vuz;
-    /* System generated locals */
     double ret_val;
 
     double amin;
@@ -6348,7 +6311,6 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, logical *chng,
     (void) dtm;
     (void) thl;
     (void) thu;
-    /* System generated locals */
     double ret_val;
 
     int64 ntop, ntot, iuzr, iid, ibr;
@@ -6633,7 +6595,6 @@ int32
 wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm) {
     (void) rap;
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntpl, jtmp, mtot, ntot, ntst, i, j, k;
@@ -6817,7 +6778,6 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     (void) icp;
     (void) thl;
 
-    /* System generated locals */
     int64 ups_dim1;
 
     int64 ndim, ncol, nfpr, iplt, mtot, ntot, ntst, i, j, k;
@@ -6976,7 +6936,6 @@ time_end(double start) {
 double
 getp(char *code, int64 *ic, double *ups, int64 code_len) {
     (void) code_len;
-    /* System generated locals */
     double ret_val = 0.0;
     int64 ntst;
     int64 nxloc;

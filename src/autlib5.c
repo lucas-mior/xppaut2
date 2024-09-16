@@ -66,7 +66,6 @@ int32
 fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
@@ -149,7 +148,6 @@ int32
 ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
-    /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
     /* Local variables */
@@ -202,7 +200,6 @@ int32
 bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    /* System generated locals */
     int64 dbc_dim1;
 
     /* Local variables */
@@ -320,7 +317,6 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const double *u1, double *fb, double *dbc) {
     (void) nbc0;
     (void) rap;
-    /* System generated locals */
     int64 dbc_dim1;
 
     /* Local variables */
@@ -637,7 +633,6 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
-    /* System generated locals */
     int64 dint_dim1;
 
     /* Local variables */
@@ -739,7 +734,6 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) nnt0;
     (void) ndim;
     (void) rap;
-    /* System generated locals */
     int64 dint_dim1;
 
     /* Local variables */
@@ -965,7 +959,6 @@ inho(iap_type *iap, int64 *icp, double *par) {
 int32
 preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
       double *ups, double *udotps, double *tm, double *par) {
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
     /* Local variables */
@@ -1081,7 +1074,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     (void) udotps;
     (void) rldot;
     (void) rap;
-    /* System generated locals */
     int64 ups_dim1, udotps_dim1;
 
     /* Local variables */
@@ -1293,7 +1285,6 @@ L3:
 int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
-    /* System generated locals */
     int64 ups_dim1, p0_dim1, p1_dim1;
 
     /* Local variables */
@@ -1366,7 +1357,6 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
 double
 psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
       double *vt, const int64 *icp, double *par) {
-    /* System generated locals */
     double ret_val;
 
     /* Local variables */
@@ -1651,7 +1641,6 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
     (void) isign;
-    /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
     /* Local variables */
@@ -1853,7 +1842,6 @@ int32
 prjctn(double *bound, double *xequib, const int64 *icp, double *par,
        int64 *imfd, int64 *is, int64 *itrans, int64 *ndm, double *dfdu,
        double *dfdp) {
-    /* System generated locals */
     int64 dfdu_dim1, dfdp_dim1;
 
     /* Local variables */

@@ -54,7 +54,6 @@
 int32
 flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
        doublecomplex *ev) {
-    /* System generated locals */
     int64 c0_dim1, c1_dim1, rwork_dim1;
 
     /* Local variables */
@@ -521,7 +520,6 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 int32
 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
       int64 *job, double *a, int64 *lda) {
-    /* System generated locals */
     int64 a_dim1;
 
     /* Local variables */

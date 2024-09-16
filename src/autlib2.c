@@ -433,7 +433,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
 /*     ---------- ------- */
 int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
-    /* System generated locals */
     int64 dd_dim1;
 
     /* Local variables */
@@ -458,7 +457,6 @@ setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
 /*     ---------- ---- */
 int32
 faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
-    /* System generated locals */
     int64 fa_dim1, ff_dim1;
 
     /* Local variables */
@@ -505,7 +503,6 @@ partition(int64 *n, int64 *kwt, int64 *m) {
 /*     ------- -------- ------ */
 int64
 mypart(int64 *iam, int64 *np) {
-    /* System generated locals */
     int64 ret_val;
 
     /* Local variables */
@@ -538,7 +535,6 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     (void) nca;
     (void) p0;
     (void) p1;
-    /* System generated locals */
     int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1, fa_dim1,
         wt_dim1, wp_dim1, wploc_dim1;
 
@@ -866,7 +862,6 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
 /*     ---------- ------- */
 int32
 setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
-    /* System generated locals */
     int64 fa_dim1;
 
     /* Local variables */
@@ -894,7 +889,6 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
        int64 *iam) {
     (void) iam;
-    /* System generated locals */
     int64 icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
 
     /* Local variables */
@@ -953,7 +947,6 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        double *a2, double *bb, double *cc, int64 *irf) {
     (void) iam;
     (void) kwt;
-    /* System generated locals */
     int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
         a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
 
@@ -1016,7 +1009,6 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
 
 int32
 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
-    /* System generated locals */
     int64 irf_dim1, fa_dim1, faa_dim1;
 
     /* Local variables */
@@ -1043,7 +1035,6 @@ reduce(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *bb,
        double *cc, double *dd, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
        double *s1, double *s2, double *ca1, int64 *icf1, int64 *icf2,
        int64 *icf11, int64 *ipr, int64 *nbc) {
-    /* System generated locals */
     int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
         s1_dim1, s1_dim2, s2_dim1, s2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2,
         dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
@@ -1799,7 +1790,6 @@ redrhs(int64 *iam, int64 *kwt, logical *par, double *a1, double *a2, double *cc,
        double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr,
        int64 *nbc) {
     (void) ncb;
-    /* System generated locals */
     int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
         cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
@@ -1977,7 +1967,6 @@ dimrge(int64 *iam, int64 *kwt, logical *par, double *e, double *cc, double *d,
        double *det, double *s, double *a2, double *faa, double *bb) {
     (void) ifst;
 
-    /* System generated locals */
     int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
         faa_dim1, a2_dim1, a2_dim2, bb_dim1, bb_dim2;
 
@@ -2171,7 +2160,6 @@ bcksub(int64 *iam, int64 *kwt, logical *par, double *s1, double *s2, double *a2,
        double *bb, double *faa, double *fc, double *fcc, double *sol1,
        double *sol2, double *sol3, int64 *na, int64 *nov, int64 *ncb,
        int64 *icf2) {
-    /* System generated locals */
     int64 icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2,
         bb_dim1, bb_dim2, sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
 
@@ -2420,7 +2408,6 @@ infpar(int64 *iam, logical *par, double *a, double *b, double *fa, double *sol1,
        int64 *ncb, int64 *irf, int64 *icf) {
     (void) iam;
     (void) par;
-    /* System generated locals */
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
 
@@ -2569,7 +2556,6 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
        double *a, double *b, double *c, double *d, double *fa, double *fc) {
     (void) nov;
 
-    /* System generated locals */
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
 
     /* Local variables */

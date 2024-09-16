@@ -32,7 +32,6 @@ time_end(double start) {
 
 void *
 setubv_make_aa_bb_cc(void *arg) {
-    /* System generated locals */
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, ups_dim1,
         uoldps_dim1, udotps_dim1, upoldp_dim1, dbc_dim1, dicd_dim1, wploc_dim1,
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
@@ -296,7 +295,6 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *thu, double *p0, double *p1) {
     (void) p0;
     (void) p1;
-    /* System generated locals */
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
     /* Local variables */
