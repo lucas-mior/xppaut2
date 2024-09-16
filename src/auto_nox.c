@@ -907,6 +907,9 @@ void
 auto_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     double x1, y1, x2, y2;
     int32 temp;
+    double dx = (Auto.xmax - Auto.xmin);
+    double dy = (Auto.ymax - Auto.ymin);
+
     if (i1 > i2) {
         temp = i1;
         i1 = i2;
@@ -917,8 +920,7 @@ auto_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
         j1 = j2;
         j2 = temp;
     }
-    double dx = (Auto.xmax - Auto.xmin);
-    double dy = (Auto.ymax - Auto.ymin);
+
     x1 = Auto.xmin + (double)(i1 - Auto.x0)*(dx) / (double)Auto.wid;
     x2 = Auto.xmin + (double)(i2 - Auto.x0)*(dx) / (double)Auto.wid;
     y1 =
