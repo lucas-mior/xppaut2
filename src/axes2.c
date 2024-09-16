@@ -172,6 +172,9 @@ do_axes(void) {
     case 5:
         Frame_3d();
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     if (Xup)
         SmallBase();
