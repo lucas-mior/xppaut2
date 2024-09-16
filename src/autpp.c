@@ -3,6 +3,7 @@
 #include "functions.h"
 #include "integers.h"
 #include "x_auto.h"
+#include "auto_c.h"
 
 void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
                  double *d, int32 n);
@@ -21,8 +22,8 @@ extern int32 UzrPar[], NAutoUzr;
 
 extern double NEWT_ERR;
 int32
-func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
-     double *dfdu, double *dfdp) {
+func(int64 ndim, const double *u, const int64 *icp, const double *par,
+     int64 ijac, double *f, double *dfdu, double *dfdp) {
     int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
@@ -86,8 +87,9 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 }
 
 int32
-bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
-     int64 ijac, double *fb, double *dbc) {
+bcnd(int64 ndim, const double *par, const int64 *icp, int64 nbc,
+     const double *u0, const double *u1, int64 ijac, double *fb,
+     double *dbc) {
     (void)dbc;
     (void)ijac;
     (void)icp;
@@ -106,8 +108,9 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 }
 
 int32
-icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
-     double *udot, double *upold, double *fi, int64 *ijac, double *dint) {
+icnd(int64 ndim, const double *par, const int64 *icp, int64 nint,
+     const double *u, const double *uold, const double *udot,
+     const double *upold, int64 ijac, double *fi, double *dint) {
     (void)dint;
     (void)ijac;
     (void)fi;
@@ -123,8 +126,8 @@ icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
 }
 
 int32
-fopt(int64 *ndim, double *u, int64 *icp, double *par, int64 *ijac, double *fs,
-     double *dfdu, double *dfdp) {
+fopt(int64 ndim, const double *u, const int64 *icp, const double *par,
+     int64 ijac, double *fs, double *dfdu, double *dfdp) {
     (void)dfdp;
     (void)dfdu;
     (void)fs;
