@@ -76,8 +76,6 @@ extern int32 noicon;
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask)
 
-#define BOXDONE -2
-
 #define EDIT_WAIT 0
 #define EDIT_NEXT 1
 #define EDIT_ESC 2

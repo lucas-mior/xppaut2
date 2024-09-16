@@ -661,7 +661,7 @@ do_eq_range(double *x) {
     int32 npar, stabcol, i, j, ierr;
     int32 mc;
     char bob[256];
-    double stabinfo;
+    double stabinfo = 0.0;
 
     if (set_up_eq_range() == 0)
         return;
@@ -771,7 +771,7 @@ do_range(double *x,
     int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
                     p2 = 0.0, dpar2 = 0.0;
-    double temp, temp2;
+    double temp = 0.0, temp2 = 0.0;
     int32 ierr = 0;
     if (flag == 0 || flag == 2) {
         range.rtype = 0;
@@ -1722,6 +1722,9 @@ get_ic(int32 it, double *x) {
         for (i = 0; i < NODE + NMarkov; i++)
             x[i] = last_ic[i];
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -1762,6 +1765,8 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             case -2:
                 err_msg("Too many iterates");
                 break;
+            default:
+                break;
             }
 
             return 0;
@@ -1791,6 +1796,8 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                     break;
                 case -4:
                     err_msg("kflag=-4: tolerance too small");
+                    break;
+                default:
                     break;
                 }
 
@@ -1857,9 +1864,13 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                 case 4:
                     err_msg("exceeded MAXTRY in stiff");
                     break;
+                default:
+                    break;
                 }
                 return 0;
             }
+            break;
+        default:
             break;
         }
     }
@@ -1978,6 +1989,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     break;
                 case -4:
                     err_msg("kflag=-4: tolerance too small");
+                    break;
+                default:
                     break;
                 }
 
@@ -2117,6 +2130,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 case 4:
                     err_msg("exceeded MAXTRY in stiff");
                     break;
+                default:
+                    break;
                 }
                 LastTime = *t;
                 return 1;
@@ -2141,6 +2156,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     break;
                 case -2:
                     err_msg("Too many iterates ");
+                    break;
+                default:
                     break;
                 }
 
