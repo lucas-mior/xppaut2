@@ -935,10 +935,10 @@ ani_flip(void) {
 
 void
 ani_disk_warn(void) {
-    uint32 total =
-        (my_browser.maxrow*vcr.wid*vcr.hgt*3) / (mpeg.skip*vcr.inc);
     char junk[256];
     char ans;
+    int32 total;
+    total = (my_browser.maxrow*vcr.wid*vcr.hgt*3) / (mpeg.skip*vcr.inc);
     total = total / (1024*1024);
     if (total > 10) {
         snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?",
