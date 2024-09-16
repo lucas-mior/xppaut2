@@ -2672,9 +2672,9 @@ set_value_from_box(BoxList *b, int32 i) {
 
 void
 load_entire_box(BoxList *b) {
-    int32 i, n = b->n;
+    int32 n = b->n;
 
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         set_value_from_box(b, i);
     if (b->type == PARAMBOX) {
         re_evaluate_kernels();
