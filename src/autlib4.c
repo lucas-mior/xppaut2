@@ -334,7 +334,8 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
             ev[j + 1].r = qzalfr[j] / qzbeta[j];
             ev[j + 1].i = qzalfi[j] / qzbeta[j];
         } else {
-            ev[j + 1].r = 1e30, ev[j + 1].i = 1e30;
+            ev[j + 1].r = 1e30;
+            ev[j + 1].i = 1e30;
             infev = TRUE_;
         }
     }
