@@ -163,6 +163,9 @@ err_dae(void) {
     case -3:
         err_msg(" Newton update out of bounds\n");
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     dae_work.status = 1;
     return;
@@ -284,7 +287,6 @@ solve_dae(void) {
             return -2; /* too many iterates */
         }
     }
-    exit(EXIT_FAILURE);
 }
 
 /* interface shit -- different for Win95 */
