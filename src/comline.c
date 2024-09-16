@@ -153,9 +153,9 @@ VOCAB my_cmd[NCMD] = {
 
 int32
 is_set_name(SET_NAME *set, char *nam) {
+    SET_NAME *curr;
     if (set == NULL)
         return 0;
-    SET_NAME *curr;
 
     curr = set;
 
@@ -186,12 +186,12 @@ SET_NAME *
 rm_set(SET_NAME *set, char *nam) {
     SET_NAME *curr;
     SET_NAME *prev = NULL;
+    int32 i = 1;
 
     if (set == NULL)
         return NULL;
 
     curr = set;
-    int32 i = 1;
     while (curr) {
         if (strcmp(curr->name, nam) == 0) {
             if (i == 1) {
@@ -233,14 +233,14 @@ do_comline(int32 argc, char **argv) {
             if (notAlreadySet.SMALL_FONT_NAME) {
                 strcpy(small_font_name, argv[i + 1]);
                 notAlreadySet.SMALL_FONT_NAME = 0;
-            };
+            }
             i++;
         }
         if (k == 3) {
             if (notAlreadySet.BIG_FONT_NAME) {
                 strcpy(big_font_name, argv[i + 1]);
                 notAlreadySet.BIG_FONT_NAME = 0;
-            };
+            }
             i++;
         }
         if (k == 4) {
@@ -421,9 +421,9 @@ if_needed_load_ext_options(void) {
 
 int32
 if_needed_select_sets(void) {
+    int32 j;
     if (!select_intern_sets)
         return 1;
-    int32 j;
     for (j = 0; j < Nintern_set; j++) {
         intern_set[j].use = use_intern_sets;
         Nintern_2_use += use_intern_sets;
