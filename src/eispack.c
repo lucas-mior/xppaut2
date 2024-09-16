@@ -1258,6 +1258,9 @@ L50:
         goto L80;
     case 2:
         goto L130;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 /*     .......... SEARCH FOR ROWS ISOLATING AN EIGENVALUE */
 /*                AND PUSH THEM DOWN .......... */
@@ -3040,6 +3043,9 @@ L20:
         goto L70;
     case 3:
         goto L110;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 L30:
     if ((d__1 = dx[i__], fabs(d__1)) > cutlo) {
@@ -3672,9 +3678,6 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
         srname[0], srname[1], srname[2], srname[3], srname[4], srname[5],
         (*info));
     exit(0);
-    return 0;
-
-    /*     End of XERBLA. */
 }
 
 int64
