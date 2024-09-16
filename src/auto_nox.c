@@ -54,7 +54,6 @@ int32 TypeOfCalc = 0;
 #define DI1 11
 #define HO2 12
 
-#include "max_len_sbox.h"
 #define HI_P 0 /* uhi vs par */
 #define NR_P 1 /* norm vs par */
 #define HL_P 2 /* Hi and Lo vs par  periodic only */

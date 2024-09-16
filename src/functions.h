@@ -6,6 +6,8 @@
 #define FILE_MENU 1
 #define NUM_MENU 2
 
+#define MAX_LEN_SBOX 30
+
 #ifndef abort_h
 #define abort_h
 
@@ -932,7 +934,6 @@ void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 #endif
 #ifndef browse_h
 #define browse_h
-#include "max_len_sbox.h"
 
 #define BMAXCOL 20
 
@@ -2596,7 +2597,6 @@ int32 go_go_auto(void);
 #define SVGFMT 2
 
 #define REAL_SMALL 1.e-6
-#include "max_len_sbox.h"
 #define MAXBIFCRV 100
 #define lmax(a, b) ((a > b) ? a : b)
 
@@ -4169,7 +4169,6 @@ void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
 #include "xpplim.h"
 
 #define MAX_N_SBOX 22
-#include "max_len_sbox.h"
 
 #define FORGET_ALL 0
 #define DONE_ALL 2

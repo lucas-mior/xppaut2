@@ -40,7 +40,6 @@
 #include "array.bitmap"
 #include "functions.h"
 #include "integers.h"
-#include "max_len_sbox.h"
 #include "xpplim.h"
 
 #ifndef WCTYPE

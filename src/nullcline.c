@@ -14,7 +14,6 @@
 #include "struct.h"
 #include <stdio.h>
 
-#include "max_len_sbox.h"
 #define DING ping
 #define MAX_NULL 10000
 

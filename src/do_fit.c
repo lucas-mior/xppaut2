@@ -19,7 +19,6 @@
 #define DP5 11
 #define DP83 12
 #define RB23 13
-#include "max_len_sbox.h"
 extern double constants[];
 extern double last_ic[MAX_ODE];
 

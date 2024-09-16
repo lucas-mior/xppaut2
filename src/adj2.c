@@ -7,7 +7,6 @@
 #include "parserslow.h"
 #include "integers.h"
 #include "xpplim.h"
-#include "max_len_sbox.h"
 
 /*
   this has a bunch of numerical routines

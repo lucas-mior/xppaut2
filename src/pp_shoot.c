@@ -7,7 +7,6 @@
 #include "functions.h"
 #include "getvar.h"
 #include "integers.h"
-#include "max_len_sbox.h"
 #include "parserslow.h"
 #include "shoot.h"
 #include "xpplim.h"

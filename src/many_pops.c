@@ -11,7 +11,6 @@
 #include "graph.bitmap"
 #include "struct.h"
 
-#include "max_len_sbox.h"
 #define MAXLAB 50
 #define MAXGROB 400
 #define POINTER 0

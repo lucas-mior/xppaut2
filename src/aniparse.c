@@ -68,7 +68,6 @@ static char *toons[] = {"Popeye the Sailor",
 
 #include "aniwin.bitmap"
 
-#include "max_len_sbox.h"
 
 #define LINE 0
 #define RLINE 1
