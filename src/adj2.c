@@ -312,13 +312,13 @@ dump_h_stuff(FILE *fp, int32 f) {
 
 int32
 make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
-    int32 i, j, rval = 0;
+    int32 j, rval = 0;
     double sum;
     double z;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
     char name[30];
     if (silent == 0) {
-        for (i = 0; i < NODE; i++) {
+        for (int32 i = 0; i < NODE; i++) {
             snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
             new_string(name, coup_string[i]);
             if (add_expr(coup_string[i], coup_fun[i], &j)) {
@@ -336,14 +336,14 @@ make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
             k2 = k + j;
             if (k2 >= nt)
                 k2 = k2 - nt + 1;
-            for (i = 0; i < node; i++) {
+            for (int32 i = 0; i < node; i++) {
                 set_ivar(i + 1, (double)orb[i + 1][k]);
                 set_ivar(i + n0 + 1, (double)orb[i + 1][k2]);
             }
             z = 0.0;
             update_based_on_current();
 
-            for (i = 0; i < node; i++) {
+            for (int32 i = 0; i < node; i++) {
                 z = evaluate(coup_fun[i]);
 
                 sum = sum + (double)z*adj[i + 1][k];
