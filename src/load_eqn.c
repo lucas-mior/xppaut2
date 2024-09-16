@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "xpplim.h"
+#include "auto_nox.h"
 
 #define PARAM 1
 #define IC 2
@@ -124,7 +125,6 @@ extern int32 PSColorFlag, PS_FONTSIZE, PS_Color;
 extern char PS_FONT[100];
 extern double PS_LW;
 
-extern int32 SEc, UEc, SPc, UPc;
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 

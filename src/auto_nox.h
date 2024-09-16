@@ -68,6 +68,10 @@ typedef struct {
 } AUTOAX;
 
 extern int32 TypeOfCalc;
+extern int32 SEc;
+extern int32 UEc;
+extern int32 SPc;
+extern int32 UPc;
 
 void colset(int32 type);
 void pscolset2(int32 flag2);
