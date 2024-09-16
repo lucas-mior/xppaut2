@@ -223,8 +223,8 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c14, c15, c16;
     double b1, b6, b7, b8, b9, b10, b11, b12, bhh1, bhh2, bhh3;
     double er1, er6, er7, er8, er9, er10, er11, er12;
-    double a21, a31, a32, a41, a43, a51, a53, a54, a61, a64, a65, a71, a74, a75,
-        a76;
+    double a21, a31, a32, a41, a43, a51, a53, a54;
+    double a61, a64, a65, a71, a74, a75, a76;
     double a81, a84, a85, a86, a87, a91, a94, a95, a96, a97, a98;
     double a101, a104, a105, a106, a107, a108, a109;
     double a111, a114, a115, a116, a117, a118, a119, a1110;
@@ -236,6 +236,19 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double d51, d56, d57, d58, d59, d510, d511, d512, d513, d514, d515, d516;
     double d61, d66, d67, d68, d69, d610, d611, d612, d613, d614, d615, d616;
     double d71, d76, d77, d78, d79, d710, d711, d712, d713, d714, d715, d716;
+
+    a101=a104=a105=a106=a107=a108=a109=0;
+    a111=a114=a115=a116=a117=a118=a119=a1110=0;
+    a121=a124=a125=a126=a127=a128=a129=a1210=a1211=0;
+    a141=a147=a148=a149=a1410=a1411=a1412=a1413=0;
+    a151=a156=a157=a158=a1511=a1512=a1513=a1514=0;
+    a161=a166=a167=a168=a169=a1613=a1614=a1615=0;
+    c2=c3=c4=c5=c6=c7=c8=c9=c10=c11=c14=c15=c16=0;
+    b1=b6=b7=b8=b9=b10=b11=b12=bhh1=bhh2=bhh3=0;
+    d41=d46=d47=d48=d49=d410=d411=d412=d413=d414=d415=d416=0;
+    d51=d56=d57=d58=d59=d510=d511=d512=d513=d514=d515=d516=0;
+    d61=d66=d67=d68=d69=d610=d611=d612=d613=d614=d615=d616=0;
+    d71=d76=d77=d78=d79=d710=d711=d712=d713=d714=d715=d716=0;
 
     /* initialisations */
     switch (meth) {
@@ -408,6 +421,8 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         d715 = -0.39177261675615439165231486172E+02;
         d716 = -0.14972683625798562581422125276E+03;
 
+        break;
+    default:
         break;
     }
 
