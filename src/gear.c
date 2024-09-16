@@ -1031,7 +1031,6 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
             return;
         }
     }
-    return;
 }
 
 double
@@ -1223,6 +1222,8 @@ L150:
         a[4] = -25. / 252.;
         a[5] = -3. / 252.;
         a[6] = -1. / 1764;
+        break;
+    default:
         break;
     }
 

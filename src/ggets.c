@@ -114,8 +114,8 @@ clr_command(void) {
 }
 
 void
-draw_info_pop(Window win) {
-    if (win == info_pop) {
+draw_info_pop(Window window) {
+    if (window == info_pop) {
         XClearWindow(display, info_pop);
         BaseCol();
         XDrawString(display, info_pop, gc, 5, CURY_OFF, info_message,

@@ -1168,14 +1168,6 @@ count_object(int32 type) {
     return;
 }
 
-static void
-print_count_of_object(void) {
-    printf("NUMODES=%d \n NUMFIX=%d \n NUMPARAM=%d \n NUMMARK=%d \n NUMVOLT=%d "
-           "\n NUMAUX=%d \n NUMSOL=%d \n",
-           NUMODES, NUMFIX, NUMPARAM, NUMMARK, NUMVOLT, NUMAUX, NUMSOL);
-    return;
-}
-
 int32
 do_new_parser(FILE *fp, char *first, int32 nnn) {
     VAR_INFO v;
