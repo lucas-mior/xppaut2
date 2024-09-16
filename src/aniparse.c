@@ -2696,9 +2696,8 @@ draw_grab_points(void) {
     double xc, yc;
     double x1, y1, x2, y2, z;
     int32 i1, j1, i2, j2, ic, jc;
-    int32 i;
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    for (i = 0; i < n_ani_grab; i++) {
+    for (int32 i = 0; i < n_ani_grab; i++) {
         xc = evaluate(ani_grab[i].x);
         yc = evaluate(ani_grab[i].y);
         ani_grab[i].zx = xc;
