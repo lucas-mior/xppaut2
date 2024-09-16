@@ -938,12 +938,15 @@ make_auto(char *wname, char *iname) {
     size_hints.min_width = wid;
     size_hints.min_height = hgt;
 
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
 
-    XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
-                     NULL, &class_hints);
+        XSetWMProperties(display,
+                         base, &winname, &iconname, NULL, 0, &size_hints,
+                         NULL, &class_hints);
+    }
 
     make_icon((char *)auto_bits, auto_width, auto_height, base);
 
