@@ -39,7 +39,8 @@ typedef struct {
 
 main_auto_storage_type main_auto_storage = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+};
 
 void
 print_jacobian(iap_type iap, main_auto_storage_type data) {
