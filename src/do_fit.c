@@ -253,6 +253,9 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             case 4:
                 err_msg("exceeded MAXTRY in stiff");
                 break;
+            default:
+                fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+                exit(EXIT_FAILURE);
             }
             return 0;
         }
@@ -279,6 +282,9 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             case -4:
                 err_msg("kflag=-4: tolerance too small");
                 break;
+            default:
+                fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+                exit(EXIT_FAILURE);
             }
 
             return 0;

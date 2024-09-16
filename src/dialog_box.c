@@ -13,7 +13,6 @@
 #define ALL_DONE 2
 #define DONE_WITH_THIS 1
 #define FORGET_ALL 0
-#define FORGET_THIS 3
 #include "struct.h"
 
 #define EV_MASK                                                                \
@@ -148,6 +147,8 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
         if (done == 1 || done == 2)
             status = DONE_WITH_THIS;
 
+        break;
+    default:
         break;
     }
     return status;
