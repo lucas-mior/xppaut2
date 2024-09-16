@@ -3444,7 +3444,6 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
     /* System generated locals */
     int64 ups_dim1, ups1_dim1;
 
-
     double d;
     int64 j, k;
     double *w, *x, z__;
