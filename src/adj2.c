@@ -686,8 +686,8 @@ void
 alloc_liap(int32 n) {
     if (LIAP_FLAG == 0)
         return;
-    my_liap[0] = malloc(sizeof(*my_liap)*(n + 1));
-    my_liap[1] = malloc(sizeof(*my_liap)*(n + 1));
+    my_liap[0] = malloc(sizeof(*my_liap)*(size_t)(n + 1));
+    my_liap[1] = malloc(sizeof(*my_liap)*(size_t)(n + 1));
     LIAP_N = (n + 1);
     LIAP_I = 0;
     return;
