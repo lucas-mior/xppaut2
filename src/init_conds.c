@@ -1588,11 +1588,8 @@ resize_par_box(Window win) {
 
     switch (ok) {
     case 1:
-
         destroy_box(&ICBox);
-
         make_new_ic_box();
-
         break;
     case 2:
         destroy_box(&ParamBox);
