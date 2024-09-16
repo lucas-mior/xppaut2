@@ -200,36 +200,6 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     return;
 }
 
-/* this loads a color_map file and counts the
-   entries. It then does a simple interpolation to fill
-   n copies of rr,gg,bb
-*/
-static int32
-read_cmap_from_file(char *fname, int32 n, int32 *rr, int32 *gg, int32 *bb) {
-    double x, r[1000], g[1000], b[1000];
-    int32 i = 0;
-    int32 m;
-    int32 j;
-    FILE *fp;
-    fp = fopen(fname, "r");
-    if (fp == NULL)
-        return 0;
-    while (!feof(fp)) {
-        fscanf(fp, "%lf %lf %lf %lf \n", &x, &r[i], &g[i], &b[i]);
-        i++;
-    }
-    fclose(fp);
-    m = i;
-    printf(" read %d entries \n", m);
-    for (i = 0; i < n; i++) {
-        j = i*m / n;
-        rr[i] = 256*(uint32)(255.*r[j]);
-        bb[i] = 256*(uint32)(255.*b[j]);
-        gg[i] = 256*(uint32)(255.*g[j]);
-    }
-    return m;
-}
-
 int32
 rfun(double y, int32 per) {
     double x;
@@ -285,12 +255,6 @@ get_svg_color(int32 i, int32 *r, int32 *g, int32 *b) {
     *g = color[i].green / 255;
     *b = color[i].blue / 255;
     return;
-}
-
-static int32
-print_cust(void) {
-    printf("custom map =%d \n", custom_color);
-    return 1;
 }
 
 void
