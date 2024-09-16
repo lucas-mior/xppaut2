@@ -372,7 +372,8 @@ L150:
         }
 
         /* Computing MIN */
-        i__2 = en, i__3 = k + 3;
+        i__2 = en;
+        i__3 = k + 3;
         j = min(i__2, i__3);
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
@@ -396,7 +397,8 @@ L150:
         }
 
         /* Computing MIN */
-        i__2 = en, i__3 = k + 3;
+        i__2 = en;
+        i__3 = k + 3;
         j = min(i__2, i__3);
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
@@ -560,7 +562,8 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             /* L40: */
-            norm += (d__1 = h__[i__ + j*h_dim1], fabs(d__1));
+            d__1 = h__[i__ + j*h_dim1];
+            norm += fabs(d__1);
         }
 
         k = i__;
