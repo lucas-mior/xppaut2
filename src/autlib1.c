@@ -3638,7 +3638,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     int64 ups_dim1;
 
     double dtav, e;
-    int64 i, j, k;
+    int64 j, k;
     logical small;
     int64 k1;
     double *hd, sc, *wh;
@@ -3661,7 +3661,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     for (j = 0; j < *ntst; ++j) {
         jp1 = j + 1;
         sc = 1. / pow_di(&dtm[j], ncol);
-        for (i = 0; i < *ndim; ++i) {
+        for (int64 i = 0; i < *ndim; ++i) {
             hd[j + i*(*ntst + 1)] = wh[*ncol]*ARRAY2D(ups, jp1, i);
             for (k = 0; k < *ncol; ++k) {
                 k1 = i + k**ndim;
@@ -3677,7 +3677,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     /* Take care of "small derivative" case. */
 
     if (small) {
-        for (i = 0; i < *ntst + 1; ++i) {
+        for (int64 i = 0; i < *ntst + 1; ++i) {
             eqf[i] = (double)(i);
         }
         free(hd);
@@ -3687,13 +3687,13 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 
     if (*iper == 1) {
         /*        *Extend by periodicity : */
-        for (i = 0; i < *ndim; ++i) {
+        for (int64 i = 0; i < *ndim; ++i) {
             hd[*ntst + i*(*ntst + 1)] = hd[i*(*ntst + 1)];
         }
         dtm[*ntst] = dtm[0];
     } else {
         /*        *Extend by extrapolation : */
-        for (i = 0; i < *ndim; ++i) {
+        for (int64 i = 0; i < *ndim; ++i) {
             hd[*ntst + i*(*ntst + 1)] =
                 hd[(*ntst - 1) + i*(*ntst + 1)]*2 -
                 hd[(*ntst - 2) + i*(*ntst + 1)];
@@ -3707,7 +3707,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
         jp1 = j + 1;
         dtav = (dtm[j] + dtm[j + 1])*.5;
         sc = 1. / dtav;
-        for (i = 0; i < *ndim; ++i) {
+        for (int64 i = 0; i < *ndim; ++i) {
             hd[j + i*(*ntst + 1)] =
                 sc*(hd[j + 1 + i*(*ntst + 1)] - hd[j + i*(*ntst + 1)]);
         }
@@ -3719,7 +3719,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     eqf[0] = 0.;
     for (j = 0; j < *ntst; ++j) {
         e = 0.;
-        for (i = 0; i < *ndim; ++i) {
+        for (int64 i = 0; i < *ndim; ++i) {
             double tmp = fabs(hd[j + i*(*ntst + 1)]);
             e += pow_dd(&tmp, &pwr);
         }
