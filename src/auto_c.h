@@ -8,6 +8,8 @@
 #include "auto_mpi.h"
 #endif
 
+#include "auto_f2c.h"
+
 #include "integers.h"
 
 #ifndef AUTO_C_H
