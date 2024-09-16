@@ -827,12 +827,15 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
     /* wm_hints.initial_state=IconicState;
     wm_hints.flags=StateHint;
     */
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
 
-    XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
-                     NULL, &class_hints);
+        XSetWMProperties(display,
+                         base, &winname, &iconname, NULL, 0, &size_hints,
+                         NULL, &class_hints);
+    }
     make_icon((char *)browse_bits, browse_width, browse_height, base);
     b->upper = make_window(base, 0, 0, width, ystart + drow*6, 1);
     XSetWindowBackground(display, b->upper, MyMainWinColor);
