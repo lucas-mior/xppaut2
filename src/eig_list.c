@@ -36,9 +36,6 @@ extern int32 EqType[MAX_ODE];
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask)
 
-#define SIMPMASK                                                               \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
-
 struct {
     Window base, stab, rest, top, close, import;
     double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];

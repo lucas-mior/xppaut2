@@ -201,7 +201,8 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
         i__2 = *n;
         for (j = k; j <= i__2; ++j) {
             /* L40: */
-            norm += (d__1 = h__[i__ + j*h_dim1], fabs(d__1));
+            d__1 = h__[i__ + j*h_dim1];
+            norm += fabs(d__1);
         }
 
         k = i__;
@@ -232,13 +233,15 @@ L70:
         if (l == *low) {
             goto L100;
         }
-        s = (d__1 = h__[l - 1 + (l - 1)*h_dim1], fabs(d__1)) +
-            (d__2 = h__[l + l*h_dim1], fabs(d__2));
+        d__1 = h__[l - 1 + (l - 1)*h_dim1];
+        d__2 = h__[l + l*h_dim1];
+        s = fabs(d__1) + fabs(d__2);
         if (s == 0.) {
             s = norm;
         }
         tst1 = s;
-        tst2 = tst1 + (d__1 = h__[l + (l - 1)*h_dim1], fabs(d__1));
+        d__1 = h__[l + (l - 1)*h_dim1];
+        tst2 = tst1 + fabs(d__1);
         if (tst2 == tst1) {
             goto L100;
         }
