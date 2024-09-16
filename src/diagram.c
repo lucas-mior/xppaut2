@@ -17,7 +17,6 @@ extern int32 storind;
 #define PACK_LBF 1
 extern int32 NODE;
 int32 NBifs = 0;
-extern int32 NAutoPar;
 DIAGRAM *bifd;
 
 void

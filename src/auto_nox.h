@@ -85,6 +85,7 @@ extern int32 auto_var;
 extern int32 load_all_labeled_orbits;
 
 extern int32 AutoTwoParam;
+extern int32 NAutoPar;
 
 void colset(int32 type);
 void pscolset2(int32 flag2);

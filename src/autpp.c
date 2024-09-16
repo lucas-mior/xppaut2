@@ -13,7 +13,6 @@ extern double constants[], last_ic[];
 
 extern int32 Auto_index_to_array[8];
 extern int32 NewPeriodFlag;
-extern int32 NAutoPar;
 extern int32 HomoFlag;
 extern double homo_l[100], homo_r[100];
 extern int32 METHOD, NJMP;
