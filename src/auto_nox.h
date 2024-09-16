@@ -82,6 +82,8 @@ extern double auto_xmax, auto_xmin, auto_ymax, auto_ymin;
 extern double auto_epsl, auto_epsu, auto_epss;
 extern int32 auto_var;
 
+extern int32 load_all_labeled_orbits;
+
 void colset(int32 type);
 void pscolset2(int32 flag2);
 void colset2(int32 flag2);

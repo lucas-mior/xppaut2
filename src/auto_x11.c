@@ -59,7 +59,6 @@ int32 STD_HGT_var = 0;
 int32 STD_WID_var = 0;
 int32 Auto_extra_wid, Auto_extra_hgt;
 int32 Auto_x0, Auto_y0;
-extern int32 load_all_labeled_orbits;
 /* stuff for marking a branch  */
 int32 mark_flag = 0;
 int32 mark_ibrs, mark_ibre;
