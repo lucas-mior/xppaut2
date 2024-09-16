@@ -308,8 +308,6 @@ int32
 fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
      const double *u1, double *fb, double *dbc) {
-    (void)nbc0;
-    (void)rap;
     int64 dbc_dim1;
 
     int64 ieig;
@@ -331,6 +329,9 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double *ri;
     double *rr, *vr, *vt;
     double *xequib1, *xequib2;
+
+    (void)nbc0;
+    (void)rap;
 
     /* I am not 100% sure if this is supposed to be iap->ndm or iap->ndim,
        but it appears from looking at the code that it should be iap->ndm.
@@ -719,9 +720,6 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *fi,
      double *dint) {
-    (void)nnt0;
-    (void)ndim;
-    (void)rap;
     int64 dint_dim1;
 
     int64 ijac = 0;
@@ -730,6 +728,10 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double *fj;
     int64 ndm;
     double dum;
+
+    (void)nnt0;
+    (void)ndim;
+    (void)rap;
 
     fj = malloc(sizeof(*fj)*(iap->ndim));
     /* Generates the integral conditions for homoclinic orbits. */
@@ -1052,13 +1054,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void)thu;
-    (void)thl;
-    (void)dtm;
-    (void)upoldp;
-    (void)udotps;
-    (void)rldot;
-    (void)rap;
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
@@ -1067,6 +1062,14 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     double dt;
     int64 lab, ibr;
+
+    (void)thu;
+    (void)thl;
+    (void)dtm;
+    (void)upoldp;
+    (void)udotps;
+    (void)rldot;
+    (void)rap;
 
     u = malloc(sizeof(*u)*(iap->ndim));
     /* Generates a starting point for the continuation of a branch of */
@@ -1093,7 +1096,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Generate the (initially uniform) mesh. */
 
     msh(iap, tm);
-    dt = 1. / (ntst*ncol);
+    dt = 1. / (double)(ntst*ncol);
 
     for (j = 0; j < ntst + 1; ++j) {
         if (j == ntst) {
@@ -1102,7 +1105,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
             ncol1 = ncol;
         }
         for (i = 0; i < ncol1; ++i) {
-            t = tm[j] + i*dt;
+            t = tm[j] + (double)i*dt;
             k1 = i*ndim;
             k2 = (i + 1)*ndim - 1;
             stpho(iap, icp, u, par, &t);
