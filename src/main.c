@@ -1569,23 +1569,3 @@ get_command_width(void) {
     XClearWindow(display, command_pop);
     return w;
 }
-
-/*   this is stuff for ndrand48(), nsrand48()
-     uncomment if you dont have it
-     RAND_MAX is either 2^16-1 or 2^32-1
-     it is usually in stdlib.h
-
-#ifdef NORAND48
-double ndrand48() {
-  return (double)rand()/(double)RAND_MAX;
-}
-
-nsrand48(seed)
-int32 seed;
-{
-  srand(seed);
-}
-
-#endif
-
-*/
