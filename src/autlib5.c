@@ -68,7 +68,6 @@ fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-
     int64 nfpr;
     double rtmp;
     int64 i, j;
@@ -149,7 +148,6 @@ ffho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-
     int64 i, j;
     double dum1;
 
@@ -199,7 +197,6 @@ bcho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
     int64 dbc_dim1;
-
 
     int64 nfpr;
     double rtmp;
@@ -312,10 +309,9 @@ int32
 fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
      const double *u1, double *fb, double *dbc) {
-    (void) nbc0;
-    (void) rap;
+    (void)nbc0;
+    (void)rap;
     int64 dbc_dim1;
-
 
     int64 ieig;
 
@@ -631,7 +627,6 @@ icho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      double *dint) {
     int64 dint_dim1;
 
-
     int64 nfpr;
     double rtmp;
     int64 i, j;
@@ -726,9 +721,9 @@ fiho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *fi,
      double *dint) {
-    (void) nnt0;
-    (void) ndim;
-    (void) rap;
+    (void)nnt0;
+    (void)ndim;
+    (void)rap;
     int64 dint_dim1;
 
     int64 ijac = 0;
@@ -875,7 +870,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
 
     blhme_1.vrprev = malloc(sizeof(*(blhme_1.vrprev))*2 * (ndim)*(ndim));
 
-    beyn_1.cprev = malloc(sizeof(*(beyn_1.cprev))*2*2*(ndim)*(ndim));
+    beyn_1.cprev = malloc(sizeof(*(beyn_1.cprev))*2 * 2*(ndim)*(ndim));
 
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
@@ -1059,13 +1054,13 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void) thu;
-    (void) thl;
-    (void) dtm;
-    (void) upoldp;
-    (void) udotps;
-    (void) rldot;
-    (void) rap;
+    (void)thu;
+    (void)thl;
+    (void)dtm;
+    (void)upoldp;
+    (void)udotps;
+    (void)rldot;
+    (void)rap;
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
@@ -1348,7 +1343,6 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
       double *vt, const int64 *icp, double *par) {
     double ret_val;
 
-
     int64 i, j;
     double *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
     int64 ndm;
@@ -1628,9 +1622,8 @@ int32
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
-    (void) isign;
+    (void)isign;
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
-
 
     int64 i, j, k, ifail;
     double vdot;

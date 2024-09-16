@@ -74,7 +74,7 @@ set_fix_rhs(double t, double *y) {
 
 int32
 my_rhs(double t, double *y, double *ydot, int32 neq) {
-    (void) neq;
+    (void)neq;
     int32 i;
     SETVAR(0, t);
     for (i = 0; i < NODE; i++)

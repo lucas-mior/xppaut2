@@ -147,18 +147,19 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
        double *ubar) {
     int32 type;
     /*int32 evflag=0; Not used*/
-    int32 icp1 = (int32)icp[0], icp2 = (int32)icp[1], icp3 = (int32)icp[2], icp4 = (int32)icp[3];
+    int32 icp1 = (int32)icp[0], icp2 = (int32)icp[1], icp3 = (int32)icp[2],
+          icp4 = (int32)icp[3];
     double per = par[10];
     /* printf("In add bif \n"); */
     type = get_bif_type((int32)ibrs, (int32)ntots);
 
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
-        add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab,
-                  icp1, icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
+        add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab, icp1, icp2,
+                  AutoTwoParam, my_ev.evr, my_ev.evi);
     } else {
-        add_point(par, per, uhigh, ulow, ubar, *a, type, 1, lab,
-                  icp1, icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
+        add_point(par, per, uhigh, ulow, ubar, *a, type, 1, lab, icp1, icp2,
+                  AutoTwoParam, my_ev.evr, my_ev.evi);
     }
 
     if (DiagFlag == 0) {

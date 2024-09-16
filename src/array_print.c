@@ -22,8 +22,8 @@ static DEVSCALE ps_scale;
 int32
 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
             int32 nacross, int32 ndown, int32 col0, int32 row0, int32 nskip,
-            int32 ncskip, int32 maxrow, int32 maxcol, double **data, double zmin,
-            double zmax, double tlo, double thi, int32 type) {
+            int32 ncskip, int32 maxrow, int32 maxcol, double **data,
+            double zmin, double zmax, double tlo, double thi, int32 type) {
     double xx = (double)ndown;
     double yy = (double)(nacross / ncskip);
     my_plot_file = fopen(filename, "w");

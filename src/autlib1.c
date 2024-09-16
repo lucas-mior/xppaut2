@@ -77,7 +77,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     irs = x_auto.irs;
     ilp = x_auto.ilp;
 
-    thu = *thu_pointer = malloc(sizeof(double)*8*ndim);
+    thu = *thu_pointer = malloc(sizeof(double)*8 * ndim);
 
     for (int64 i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;
@@ -296,9 +296,8 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *thu, int64 *iuz, double *vuz) {
     /* THIS IS THE ENTRY ROUTINE FOR GENERAL BOUNDARY VALUE PROBLEMS. */
 
-    cnrlbv(iap, rap, par, icp,
-           funi, bcni, icni, stpnt,
-           pvli, thl, thu, iuz, vuz);
+    cnrlbv(iap, rap, par, icp, funi, bcni, icni, stpnt, pvli, thl, thu, iuz,
+           vuz);
     return 0;
 }
 
@@ -1507,7 +1506,6 @@ L1:
         *q = 0.;
         return 0;
     }
-
 }
 
 int32
@@ -4045,7 +4043,7 @@ findlb(iap_type *iap, const rap_type *rap, int64 irs, int64 *nfpr,
     int64 labrs, nskip, itpst, iswrs, ntplrs, ntotrs, ibr, itp, isw;
     int64 eof3;
 
-    (void) rap;
+    (void)rap;
 
     /* Locates restart point with label IRS and determines type. */
     /* If the label can not be located on unit 3 then FOUND will be .FALSE. */
@@ -4235,7 +4233,6 @@ double
 rnrmsq(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *dtm,
        double *thu) {
     double ret_val;
-
 
     /* Finds the norm of UPS (first NDIM1 components are included only). */
 
@@ -4484,9 +4481,12 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *p1;
     doublecomplex *ev;
     ups = malloc(sizeof(*ups)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    upoldp = malloc(sizeof(*upoldp)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    uoldps = malloc(sizeof(*uoldps)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    udotps = malloc(sizeof(*udotps)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    upoldp =
+        malloc(sizeof(*upoldp)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    uoldps =
+        malloc(sizeof(*uoldps)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
+    udotps =
+        malloc(sizeof(*udotps)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
     dups = malloc(sizeof(*dups)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
     fa = malloc(sizeof(*fa)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
     dtm = malloc(sizeof(*dtm)*(iap->ntst + 1));
@@ -4824,7 +4824,6 @@ L3:
         free(uzr);
         return 0;
     }
-
 }
 
 int32
@@ -4891,8 +4890,8 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
 
     int64 ndim, ncol, nfpr, nrow, ntst, i, j;
 
-    (void) rap;
-    (void) funi;
+    (void)rap;
+    (void)funi;
 
     /* Determines an initial approximation to the next solution by */
     /* a computation of the null space of the Jacobian. */
@@ -4934,7 +4933,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 n1, ips;
     double *dfdp, *dfdu, *uold, *f, *u;
 
-    (void) rldot;
+    (void)rldot;
 
     dfdp = malloc(sizeof(*dfdp)*(iap->ndim)*NPARX);
     dfdu = malloc(sizeof(*dfdu)*(iap->ndim)*(iap->ndim));
@@ -5228,9 +5227,9 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ncolrs;
     int64 ntst_fort8, ncol_fort8, junk;
 
-    (void) rds;
-    (void) dups;
-    (void) ev;
+    (void)rds;
+    (void)dups;
+    (void)ev;
 
     /* Restarts computation of a branch of solutions at point labelled IRS. */
     /* The output written on unit 8 by a previous run is now expected as */
@@ -5294,7 +5293,8 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             ncol_used = ncol;
 
         *ndxloc = (ntst_used + 1)*4;
-        ups_new = malloc(sizeof(*ups_new)*(*ndxloc)*(iap->ndim*ncol_used));
+        ups_new =
+            malloc(sizeof(*ups_new)*(*ndxloc)*(iap->ndim*ncol_used));
         upoldp_new =
             malloc(sizeof(double)*(*ndxloc)*(iap->ndim*ncol_used));
         udotps_new =
@@ -5395,10 +5395,10 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     int64 ndimrd, ndimrs, ntplrs, ntotrs, lab, ibr, ips, irs, isw;
     int64 eof3;
 
-    (void) upoldp;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
+    (void)upoldp;
+    (void)dtm;
+    (void)thl;
+    (void)thu;
 
     /* This subroutine locates and retrieves the information required to */
     /* restart computation at the point with label IRS. */
@@ -5562,14 +5562,14 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     double dt;
     int64 lab, ibr;
 
-    (void) udotps_dim1;
-    (void) rap;
-    (void) rldot;
-    (void) udotps;
-    (void) upoldp;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
+    (void)udotps_dim1;
+    (void)rap;
+    (void)rldot;
+    (void)udotps;
+    (void)upoldp;
+    (void)dtm;
+    (void)thl;
+    (void)thu;
 
     u = malloc(sizeof(*u)*(iap->ndim));
 
@@ -5992,30 +5992,30 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 ibr;
     double det0;
 
-    (void) par;
-    (void) icp;
-    (void) funi;
-    (void) bcni;
-    (void) icni;
-    (void) p0;
-    (void) ev;
-    (void) rlcur;
-    (void) rlold;
-    (void) rldot;
-    (void) ndxloc;
-    (void) ups;
-    (void) uoldps;
-    (void) udotps;
-    (void) upoldp;
-    (void) fa;
-    (void) fc;
-    (void) dups;
-    (void) tm;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
-    (void) iuz;
-    (void) vuz;
+    (void)par;
+    (void)icp;
+    (void)funi;
+    (void)bcni;
+    (void)icni;
+    (void)p0;
+    (void)ev;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)ndxloc;
+    (void)ups;
+    (void)uoldps;
+    (void)udotps;
+    (void)upoldp;
+    (void)fa;
+    (void)fc;
+    (void)dups;
+    (void)tm;
+    (void)dtm;
+    (void)thl;
+    (void)thu;
+    (void)iuz;
+    (void)vuz;
 
     pp = malloc(sizeof(*pp)*(iap->ndim)*(iap->ndim));
 
@@ -6083,28 +6083,28 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 iid, ibr, loc = 0, isp, isw;
     double *wrk, azm1;
 
-    (void) par;
-    (void) icp;
-    (void) funi;
-    (void) bcni;
-    (void) icni;
-    (void) rlcur;
-    (void) rlold;
-    (void) rldot;
-    (void) ndxloc;
-    (void) ups;
-    (void) uoldps;
-    (void) udotps;
-    (void) upoldp;
-    (void) fa;
-    (void) fc;
-    (void) dups;
-    (void) tm;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
-    (void) iuz;
-    (void) vuz;
+    (void)par;
+    (void)icp;
+    (void)funi;
+    (void)bcni;
+    (void)icni;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)ndxloc;
+    (void)ups;
+    (void)uoldps;
+    (void)udotps;
+    (void)upoldp;
+    (void)fa;
+    (void)fc;
+    (void)dups;
+    (void)tm;
+    (void)dtm;
+    (void)thl;
+    (void)thu;
+    (void)iuz;
+    (void)vuz;
 
     wrk = malloc(sizeof(*wrk)*(iap->ndim)*(iap->ndim));
 
@@ -6304,29 +6304,29 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     int64 ntop, ntot, iuzr, iid, ibr;
 
-    (void) rap;
-    (void) icp;
-    (void) funi;
-    (void) bcni;
-    (void) icni;
-    (void) p0;
-    (void) p1;
-    (void) ev;
-    (void) rlcur;
-    (void) rlold;
-    (void) rldot;
-    (void) ndxloc;
-    (void) ups;
-    (void) uoldps;
-    (void) udotps;
-    (void) upoldp;
-    (void) fa;
-    (void) fc;
-    (void) dups;
-    (void) tm;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
+    (void)rap;
+    (void)icp;
+    (void)funi;
+    (void)bcni;
+    (void)icni;
+    (void)p0;
+    (void)p1;
+    (void)ev;
+    (void)rlcur;
+    (void)rlold;
+    (void)rldot;
+    (void)ndxloc;
+    (void)ups;
+    (void)uoldps;
+    (void)udotps;
+    (void)upoldp;
+    (void)fa;
+    (void)fc;
+    (void)dups;
+    (void)tm;
+    (void)dtm;
+    (void)thl;
+    (void)thu;
 
     iid = iap->iid;
     iuzr = iap->iuzr;
@@ -6356,7 +6356,7 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 loc, itp, loc1;
     double azm1;
 
-    (void) icp;
+    (void)icp;
 
     /* Determines type of secondary periodic bifurcation. */
 
@@ -6442,8 +6442,8 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     int64 ips, itp, npr, isw, nmx;
     double umx[7];
 
-    (void) thl;
-    (void) rap;
+    (void)thl;
+    (void)rap;
 
     /* Writes the bifurcation diagram on unit 7 (Differential Equations) */
     /* (Also controls the writing of complete solutions on unit 8). */
@@ -6617,7 +6617,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     double rn;
     int64 nrowpr, lab, ibr, nar, nrd, itp, isw;
 
-    (void) rap;
+    (void)rap;
 
     if (fp8_is_open == 0) {
         fp8 = fopen(fort8, "w");
@@ -6800,9 +6800,9 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     int64 iab, iid, ibr, ndm;
     double amp = 0.0;
 
-    (void) par;
-    (void) icp;
-    (void) thl;
+    (void)par;
+    (void)icp;
+    (void)thl;
 
     /* Writes additional output on unit 9. */
 
@@ -6893,11 +6893,11 @@ pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
     int64 ndm;
 
-    (void) icp;
-    (void) ndxloc;
-    (void) ndim;
-    (void) p0;
-    (void) p1;
+    (void)icp;
+    (void)ndxloc;
+    (void)ndim;
+    (void)p0;
+    (void)p1;
 
     setpbv(iap, rap, dtm);
     ndm = iap->jac;
@@ -6957,7 +6957,7 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
     int64 nxloc;
     int64 ips;
 
-    (void) code_len;
+    (void)code_len;
 
     nxloc = global_parameters.iav->ntst + 1;
 
@@ -7028,15 +7028,18 @@ allocate_global_memory(const iap_type iap) {
     free(global_scratch.ff1);
     free(global_scratch.ff2);
 
-    global_scratch.dfu = malloc(sizeof(*(global_scratch.dfu))*(iap.ndim)*(iap.ndim));
+    global_scratch.dfu =
+        malloc(sizeof(*(global_scratch.dfu))*(iap.ndim)*(iap.ndim));
 
-    global_scratch.dfp = malloc(sizeof(*(global_scratch.dfp))*(iap.ndim)*NPARX);
+    global_scratch.dfp =
+        malloc(sizeof(*(global_scratch.dfp))*(iap.ndim)*NPARX);
     global_scratch.uu1 = malloc(sizeof(*(global_scratch.uu1))*(iap.ndim));
     global_scratch.uu2 = malloc(sizeof(*(global_scratch.uu2))*(iap.ndim));
     global_scratch.ff1 = malloc(sizeof(*(global_scratch.ff1))*(iap.ndim));
     global_scratch.ff2 = malloc(sizeof(*(global_scratch.ff2))*(iap.ndim));
 
     free(global_rotations.nrtn);
-    global_rotations.nrtn = malloc(sizeof(*(global_rotations.nrtn))*(iap.nbc));
+    global_rotations.nrtn =
+        malloc(sizeof(*(global_rotations.nrtn))*(iap.nbc));
     return;
 }

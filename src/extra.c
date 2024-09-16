@@ -50,7 +50,7 @@ DLFUN dlf;
 #ifdef HAVEDLL
 /* this loads a dynamically linked library of the
  * users choice
-*/
+ */
 
 #include <dlfcn.h>
 

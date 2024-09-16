@@ -618,7 +618,7 @@ gif_aplot_all(char *filename, int32 still) {
 
 void
 gif_aplot(void) {
-    char filename[XPP_MAX_NAME+4];
+    char filename[XPP_MAX_NAME + 4];
     snprintf(filename, sizeof(filename), "%s.gif", this_file);
     if (!file_selector("GIF plot", filename, "*.gif"))
         return;
@@ -663,7 +663,8 @@ redraw_aplot(APLOT ap) {
     if (jb >= 0)
         thi = my_browser.data[0][jb];
     snprintf(bob, sizeof(bob), " %g < t < %g ", tlo, thi);
-    XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
+    XDrawString(display, ap.wtime, small_gc, 0, CURY_OFFs, bob,
+                (int32)strlen(bob));
     dx = (double)ap.plotw / (double)(ap.nacross / ap.ncskip);
     dy = (double)ap.ploth / (double)ap.ndown;
     delx = (int32)dx + 1;
@@ -702,7 +703,8 @@ redraw_aplot(APLOT ap) {
 void
 tag_aplot(char *bob) {
     set_color(0);
-    XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
+    XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob,
+                (int32)strlen(bob));
     return;
 }
 
@@ -736,12 +738,14 @@ display_aplot(Window w, APLOT ap) {
     }
     if (w == ap.wmin) {
         snprintf(bob, sizeof(bob), "%g", ap.zmin);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
+        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob,
+                    (int32)strlen(bob));
         return;
     }
     if (w == ap.wmax) {
         snprintf(bob, sizeof(bob), "%g", ap.zmax);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, (int32)strlen(bob));
+        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob,
+                    (int32)strlen(bob));
         return;
     }
     if (w == ap.wedit) {

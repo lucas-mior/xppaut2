@@ -360,7 +360,7 @@ void
 resize_par_slides(int32 h) {
     int32 i;
     for (i = 0; i < 3; i++) {
-        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*DCURXs,
+        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i * DCURXs,
                           h, 32*DCURXs, 3*(DCURYs + 2));
     }
     return;
@@ -1725,8 +1725,8 @@ make_box_list_window(BoxList *b, int32 type) {
                              lineup_bits);
     b->dn = make_icon_window(base, xb1, 1.75*DCURYs + 48 + 6, 32, 24, 1,
                              linedn_bits);
-    b->pgup = make_icon_window(base, xb1, 1.75*DCURYs, 32, 24, 1,
-                               pageup_bits);
+    b->pgup =
+        make_icon_window(base, xb1, 1.75*DCURYs, 32, 24, 1, pageup_bits);
     b->pgdn = make_icon_window(base, xb1, 1.75*DCURYs + 72 + 9, 32, 24, 1,
                                pagedn_bits);
 
@@ -1835,7 +1835,7 @@ justify_string(Window w1, char *s1) {
  *  there are nwin windows covering indexes
  *  n0,n0+1,...n0+nwin-1
  *  if the index is beyond this dont draw it
-*/
+ */
 
 void
 draw_one_box(BoxList b, int32 index) {

@@ -24,9 +24,9 @@ extern double NEWT_ERR;
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    (void) icp;
-    (void) dfdu;
-    (void) dfdp;
+    (void)icp;
+    (void)dfdu;
+    (void)dfdp;
     int32 i, j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
@@ -88,10 +88,10 @@ stpnt(int64 ndim, double t, double *u, double *par) {
 int32
 bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
      int64 ijac, double *fb, double *dbc) {
-    (void) dbc;
-    (void) ijac;
-    (void) icp;
-    (void) ndim;
+    (void)dbc;
+    (void)ijac;
+    (void)icp;
+    (void)ndim;
     /* Hooks to the XPP bc parser!! */
 
     for (int32 i = 0; i < NAutoPar; i++) {
@@ -108,31 +108,31 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 int32
 icnd(int64 ndim, double *par, int64 *icp, int64 *nint, double *u, double *uold,
      double *udot, double *upold, double *fi, int64 *ijac, double *dint) {
-    (void) dint;
-    (void) ijac;
-    (void) fi;
-    (void) upold;
-    (void) udot;
-    (void) uold;
-    (void) u;
-    (void) nint;
-    (void) icp;
-    (void) par;
-    (void) ndim;
+    (void)dint;
+    (void)ijac;
+    (void)fi;
+    (void)upold;
+    (void)udot;
+    (void)uold;
+    (void)u;
+    (void)nint;
+    (void)icp;
+    (void)par;
+    (void)ndim;
     return 0;
 }
 
 int32
 fopt(int64 *ndim, double *u, int64 *icp, double *par, int64 *ijac, double *fs,
      double *dfdu, double *dfdp) {
-    (void) dfdp;
-    (void) dfdu;
-    (void) fs;
-    (void) ijac;
-    (void) par;
-    (void) icp;
-    (void) u;
-    (void) ndim;
+    (void)dfdp;
+    (void)dfdu;
+    (void)fs;
+    (void)ijac;
+    (void)par;
+    (void)icp;
+    (void)u;
+    (void)ndim;
     /*     ---------- ---- */
     return 0;
 }
@@ -142,8 +142,8 @@ fopt(int64 *ndim, double *u, int64 *icp, double *par, int64 *ijac, double *fs,
 */
 int32
 pvls(int64 ndim, const double *u, double *par) {
-    (void) par;
-    (void) u;
-    (void) ndim;
+    (void)par;
+    (void)u;
+    (void)ndim;
     return 0;
 }

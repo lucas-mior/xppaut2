@@ -602,7 +602,7 @@ set_col_par_com(int32 i) {
             sum = 0.0;
             for (j = 0; j < NODE; j++)
                 sum += (double)fabs((double)(my_browser.data[1 + j][i] -
-                                            my_browser.data[1 + j][i - 1]));
+                                             my_browser.data[1 + j][i - 1]));
             if (sum < minder)
                 minder = sum;
             if (sum > maxder)

@@ -580,8 +580,8 @@ arrow_head(double xs, double ys, double xe, double ye, double size) {
     double x0 = xs + size*l, y0 = ys + size*h;
     /* double tot=(double)sqrt((double)(l*l+h*h)); */
 
-    double xp = x0 + .5*size*h*ar, yp = y0 - .5*size*l / ar;
-    double xm = x0 - .5*size*h*ar, ym = y0 + .5*size*l / ar;
+    double xp = x0 + .5*size*h * ar, yp = y0 - .5*size*l / ar;
+    double xm = x0 - .5*size*h * ar, ym = y0 + .5*size*l / ar;
     line_abs(xs, ys, xp, yp);
     line_abs(xs, ys, xm, ym);
     return;

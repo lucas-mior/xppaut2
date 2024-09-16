@@ -350,8 +350,8 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
     if (my_table[index].flag == 0) {
         my_table[index].y = malloc(length*sizeof(*(my_table[index].y)));
     } else {
-        my_table[index].y = (double *)realloc((void *)my_table[index].y,
-                                              length*sizeof(*(my_table[index].y)));
+        my_table[index].y = (double *)realloc(
+            (void *)my_table[index].y, length*sizeof(*(my_table[index].y)));
     }
     if (my_table[index].y == NULL) {
         err_msg("Unable to allocate table");
@@ -456,9 +456,8 @@ load_table(char *filename, int32 index) {
         fclose(fp);
         return 1;
     }
-    my_table[index].y =
-        (double *)realloc((void *)my_table[index].y,
-                          length*sizeof(*(my_table[index].y)));
+    my_table[index].y = (double *)realloc(
+        (void *)my_table[index].y, length*sizeof(*(my_table[index].y)));
     if (my_table[index].y == NULL) {
         err_msg("Unable to reallocate table");
         fclose(fp);

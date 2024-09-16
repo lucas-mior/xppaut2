@@ -371,7 +371,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                                 send_halt();
                         }
                     }
-
                 }
                 if (flag[i].anypars) {
                     evaluate_derived();

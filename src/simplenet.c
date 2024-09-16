@@ -1019,7 +1019,8 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar2;
         my_net[ind].n = ivar2 + 1;
         my_net[ind].ncon = -1;
-        my_net[ind].values = malloc((ivar2 + 2)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values =
+            malloc((ivar2 + 2)*sizeof(*(my_net[ind].values)));
         plintf("Added gillespie chain with %d reactions \n", ivar2);
         return 1;
 

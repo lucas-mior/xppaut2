@@ -1058,8 +1058,8 @@ plot_point(int32 flag2, int32 icp1, int32 icp2) {
 
 void
 add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
-             double a, int32 type, int32 flag,
-             int32 icp1, int32 icp2, int32 flag2) {
+             double a, int32 type, int32 flag, int32 icp1, int32 icp2,
+             int32 flag2) {
     double x, y1, y2, par1, par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
@@ -1183,10 +1183,8 @@ check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
 }
 /* main plotting code  */
 void
-add_point(double *par, double per,
-          double *uhigh, double *ulow, double *ubar,
-          double a, int32 type, int32 flg, int32 lab,
-          int32 icp1, int32 icp2,
+add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
+          double a, int32 type, int32 flg, int32 lab, int32 icp1, int32 icp2,
           int32 flag2, double *evr, double *evi) {
     double x, y1, y2, par1, par2 = 0;
     int32 ix, iy1, iy2, type1 = type;
@@ -1360,9 +1358,8 @@ info_header(int32 icp1, int32 icp2) {
 }
 
 void
-new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
-         double norm, double u0, double per,
-         int32 icp1, int32 icp2) {
+new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
+         double u0, double per, int32 icp1, int32 icp2) {
     char bob[80];
     double p1, p2 = 0.0;
     clear_auto_info();
@@ -1412,8 +1409,8 @@ traverse_out(DIAGRAM *d, int32 *ix, int32 *iy, int32 dodraw) {
     if (dodraw == 1) {
         XORCross(*ix, *iy);
         plot_stab(evr, evi, NODE);
-        new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per,
-                 icp1, icp2);
+        new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per, icp1,
+                 icp2);
     }
     if (lab > 0 && load_all_labeled_orbits > 0)
         load_auto_orbitx(ibr, 1, lab, per);

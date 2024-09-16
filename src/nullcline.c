@@ -548,7 +548,8 @@ redraw_dfield(void) {
                 }
             }
             if (DF_FLAG == 2 && j > 0 && i < grid) {
-                frect_abs((double)y[inx], (double)y[iny], (double)du, (double)dv);
+                frect_abs((double)y[inx], (double)y[iny], (double)du,
+                          (double)dv);
             }
         }
     }

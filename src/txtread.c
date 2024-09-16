@@ -20,10 +20,10 @@
 #define MAXLINES 5000
 #define MAXCOMMENTS 500
 
-#define xds(a)                                                          \
-    {                                                                   \
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));  \
-        return;                                                         \
+#define xds(a)                                                                 \
+    {                                                                          \
+        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        return;                                                                \
     }
 typedef struct {
     char *text, *action;

@@ -29,7 +29,6 @@ rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
    double *z__, int64 *iv1, double *fv1, int64 *ierr) {
     int64 a_dim1, a_offset, z_dim1, z_offset;
 
-
     static int64 is1, is2;
 
     /*     THIS SUBROUTINE CALLS THE RECOMMENDED SEQUENCE OF */
@@ -467,7 +466,6 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
      double *wi, double *z__, int64 *ierr) {
     int64 h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
     double d__1, d__2, d__3, d__4;
-
 
     static double norm;
     static int64 i__, j, k, l, m;
@@ -3698,7 +3696,7 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
 /* ----------------------------------------------------------------------- */
 int32
 xerbla(char *srname, int64 *info, int64 srname_len) {
-    (void) srname_len;
+    (void)srname_len;
     /* Format strings */
 
     /* Builtin functions */
@@ -3744,13 +3742,12 @@ xerbla(char *srname, int64 *info, int64 srname_len) {
     return 0;
 
     /*     End of XERBLA. */
-
 }
 
 int64
 lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
-    (void) cb_len;
-    (void) ca_len;
+    (void)cb_len;
+    (void)ca_len;
     int64 ret_val;
 
     /*     .. Scalar Arguments .. */
@@ -3834,7 +3831,6 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
     /*     RETURN */
 
     /*     End of LSAME. */
-
 }
 
 /* ----------------------------------------------------------------------- */
@@ -3844,8 +3840,8 @@ int32
 dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
       double *a, int64 *lda, double *b, int64 *ldb, double *beta, double *c__,
       int64 *ldc, int64 transa_len, int64 transb_len) {
-    (void) transb_len;
-    (void) transa_len;
+    (void)transb_len;
+    (void)transa_len;
     int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
         i__3;
 
@@ -4230,7 +4226,6 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     return 0;
 
     /*     End of DGEMM . */
-
 }
 
 /* ----------------------------------------------------------------------- */
@@ -4893,7 +4888,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
 
     /*     convert maxit to bound on total number of passes through */
     /*     inner loops of qr iteration (half number of rotations) */
-    maxit = *maxitr*m*m / 2;
+    maxit = *maxitr*m * m / 2;
     iter = 0;
     oldll = -1;
     oldm = -1;
@@ -5645,7 +5640,7 @@ L996:
 
 int32
 prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
-    (void) nrow;
+    (void)nrow;
     /* Format strings */
 
     int64 i__1;
@@ -7160,9 +7155,9 @@ get_qp(double *a1, int32 n, double *qr, double *qi, double *pr, double *pi) {
     double *at, *a, *z, *wr, *wi, *fv1;
     int32 i, j, k, kt, *iv1, ier;
     double eps = 1e-8;
-    at = malloc(n*n*sizeof(*at));
-    a = malloc(n*n*sizeof(*a));
-    z = malloc(n*n*sizeof(*z));
+    at = malloc(n*n * sizeof(*at));
+    a = malloc(n*n * sizeof(*a));
+    z = malloc(n*n * sizeof(*z));
     wr = malloc(n*sizeof(*wr));
     wi = malloc(n*sizeof(*wi));
     fv1 = malloc(n*sizeof(*(fv1)));

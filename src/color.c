@@ -175,7 +175,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
             x = (double)i / ((double)n);
             angle = 2*pii*(start / 3.0 + 1 + rots*x);
             x = pow(x, gamma);
-            amp = hue*x*(1 - x) / 2.0;
+            amp = hue*x * (1 - x) / 2.0;
             rr = x + amp*(-.14861*cos(angle) + 1.78277*sin(angle));
             gg = x + amp*(-.29227*cos(angle) - .90649*sin(angle));
             bb = x + amp*(1.97294*cos(angle));
@@ -245,7 +245,7 @@ rfun(double y, int32 per) {
 
 int32
 gfun(double y, int32 per) {
-    (void) per;
+    (void)per;
     if (y > .666666)
         return 0;
     return (int32)(3.*255*sqrt((.6666667 - y)*(y)));
@@ -253,7 +253,7 @@ gfun(double y, int32 per) {
 
 int32
 bfun(double y, int32 per) {
-    (void) per;
+    (void)per;
     if (y < .333334)
         return 0;
     return (int32)(2.79*255*sqrt((1.05 - y)*(y - .333333333)));

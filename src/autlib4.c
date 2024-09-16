@@ -512,14 +512,12 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
     return 0;
 
     /*     End of DHHPR. */
-
 }
 
 int32
 dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
       int64 *job, double *a, int64 *lda) {
     int64 a_dim1;
-
 
     static int64 jmkp1;
     static double s;
@@ -674,5 +672,4 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
     return 0;
 
     /*     End of DHHAP. */
-
 }

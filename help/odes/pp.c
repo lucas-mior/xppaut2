@@ -12,8 +12,7 @@
 #define xp out[0]
 #define yp out[1]
 
-pp(double * in,double *out, int nin,int nout, double *var,double *con)
-{
-  xp=x*((x+c)*(1-x)-y);
-  yp=y*(x-a);
+pp(double *in, double *out, int nin, int nout, double *var, double *con) {
+    xp = x * ((x + c) * (1 - x) - y);
+    yp = y * (x - a);
 }

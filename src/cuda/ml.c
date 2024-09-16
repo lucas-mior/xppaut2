@@ -43,16 +43,27 @@ double vth=0,vshp=.05;
 real *sum;
 
 int allocflag = 0;
-real minf(real v) { return .5 * (1 + tanh((v - va) / vb)); }
-real ninf(real v) { return .5 * (1 + tanh((v - vc) / vd)); }
-real lamn(real v) { return phi * cosh((v - vc) / (2 * vd)); }
-real s_inf(real v) {
+real
+minf(real v) {
+    return .5 * (1 + tanh((v - va) / vb));
+}
+real
+ninf(real v) {
+    return .5 * (1 + tanh((v - vc) / vd));
+}
+real
+lamn(real v) {
+    return phi * cosh((v - vc) / (2 * vd));
+}
+real
+s_inf(real v) {
 
     return 1.0 / (1.0 + exp(-(v - vth) / vshp));
     /* return 0.0; */
 }
 
-void update_sums(real *s, real *wgt, int n) {
+void
+update_sums(real *s, real *wgt, int n) {
     int i, j;
     for (i = 0; i < n; i++) {
         sum[i] = 0.0;
@@ -61,8 +72,8 @@ void update_sums(real *s, real *wgt, int n) {
     }
 }
 
-void update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s,
-                int n) {
+void
+update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s, int n) {
     int i;
     for (i = 0; i < n; i++) {
         vp[i] = iapp - gl * (v[i] - vl) - gk * w[i] * (v[i] - vk) -
@@ -72,14 +83,15 @@ void update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s,
     }
 }
 
-void allocsum(int n) {
+void
+allocsum(int n) {
     if (allocflag == 1)
         return;
     sum = malloc(n * sizeof(*sum));
     allocflag = 1;
 }
-void ML(int nn, int ivar, double *par, double *var, double *z[50],
-        double *ydot) {
+void
+ML(int nn, int ivar, double *par, double *var, double *z[50], double *ydot) {
     double *s, *w, *v;
     double *sp, *wp, *vp;
     double *wgt;

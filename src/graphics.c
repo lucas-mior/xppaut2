@@ -1177,7 +1177,8 @@ fancy_text_abs(double x, double y, char *old, int32 size) {
 
 int32
 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
-       double *x1p, double *y1p, double *z1p, double *x2p, double *y2p, double *z2p) {
+       double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
+       double *z2p) {
     int32 istack, ix1 = 0, ix2 = 0, iy1 = 0, iy2 = 0, iz1 = 0, iz2 = 0,
                   iflag = 0;
 

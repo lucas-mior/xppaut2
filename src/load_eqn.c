@@ -894,7 +894,7 @@ fil_int(FILE *fpt, int32 *val) {
 /* here is some new code for internal set files:
  * format of the file is a long string of the form:
  * { x=y, z=w, q=p , .... }
-*/
+ */
 
 void
 add_intern_set(char *name, char *does) {

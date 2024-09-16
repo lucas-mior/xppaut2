@@ -112,8 +112,8 @@ play_back(void) {
     Window root;
     XEvent ev;
     int32 i = 0;
-    XGetGeometry(display, draw_win, &root, &x, &y,
-                 (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
+                 (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
@@ -190,8 +190,8 @@ make_anigif(void) {
     FILE *fp;
     Window root;
     int32 h, w, bw, d;
-    XGetGeometry(display, draw_win, &root, &x, &y,
-                 (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
+                 (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
@@ -230,8 +230,8 @@ save_movie(char *basename, int32 fmat) {
     Window root;
     Pixmap xi;
     int32 h, w, bw, d;
-    XGetGeometry(display, draw_win, &root, &x, &y,
-                (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
+                 (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
@@ -250,9 +250,8 @@ save_movie(char *basename, int32 fmat) {
             writeframe(file, draw_win, w, h);
 #ifndef NOGIF
         else {
-            XGetGeometry(display, draw_win, &root, &x, &y,
-                        (uint32 *)&w, (uint32 *)&h,
-                        (uint32 *)&bw, (uint32 *)&d);
+            XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w,
+                         (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
             xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                                DefaultDepth(display, screen));
             XCopyArea(display, draw_win, xi, gc_graph, 0, 0, w, h, 0, 0);
@@ -283,8 +282,8 @@ auto_play(void) {
         ks_speed = 0;
     if (ks_ncycle <= 0)
         return;
-    XGetGeometry(display, draw_win, &root, &x, &y,
-                 (uint32 *)&w, (uint32 *)&h, (uint32 *)&bw, (uint32 *)&d);
+    XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
+                 (uint32 *)&bw, (uint32 *)&d);
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {

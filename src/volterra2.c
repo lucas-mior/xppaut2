@@ -74,7 +74,8 @@ alloc_v_memory(void) {
                        kernel[i].kerexpr);
                 exit(0); /* fatal error ... */
             }
-            kernel[i].kerform = malloc((len + 2)*sizeof(*(kernel[i].kerform)));
+            kernel[i].kerform =
+                malloc((len + 2)*sizeof(*(kernel[i].kerform)));
             for (j = 0; j < len; j++) {
                 kernel[i].kerform[j] = formula[j];
             }
@@ -229,7 +230,7 @@ init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
  * the trapezoid rule for mu=0 and there is a special case for mu=.5
  * since that involves no transcendentals.  Later I will put in the
  * piecewise --linear-- method
-*/
+ */
 
 double
 alpha1n(double mu, double dt, double t, double t0) {
@@ -335,8 +336,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
     {
         *t = *t + dt;
         set_wieners(dt, y, *t);
-        if ((j = volt_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) !=
-            0)
+        if ((j = volt_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) != 0)
             return j;
         stor_delay(y);
     }

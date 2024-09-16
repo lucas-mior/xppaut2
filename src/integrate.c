@@ -2341,8 +2341,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     tv = (double)POIPLN*i;
                     xv[0] = tv;
                     for (i = 1; i <= NEQ; i++)
-                        xv[i] =
-                            (double)(dint*oldx[i - 1] + (1 - dint)*x[i - 1]);
+                        xv[i] = (double)(dint*oldx[i - 1] +
+                                         (1 - dint)*x[i - 1]);
                     pflag = 1;
                 } else
                     pflag = 0;
@@ -2456,8 +2456,8 @@ send_output(double *y, double t) {
 }
 
 void
-do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl, double *ypl,
-        double *zpl) {
+do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
+        double *ypl, double *zpl) {
     int32 ip, np = MyGraph->nvars;
 
     for (ip = 0; ip < np; ip++) {

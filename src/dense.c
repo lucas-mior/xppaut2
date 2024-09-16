@@ -117,7 +117,7 @@ denalloc(int64 n) {
     if (a == NULL)
         return NULL;
 
-    a[0] = malloc(n*n*sizeof(*(a[0])));
+    a[0] = malloc(n*n * sizeof(*(a[0])));
     if (a[0] == NULL) {
         free(a);
         return NULL;

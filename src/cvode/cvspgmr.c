@@ -366,7 +366,7 @@ CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
     cvspgmr_mem = (CVSpgmrMem)lmem;
 
     /* Test norm(b); if small, return x = 0 or x = b */
-    deltar = delt*tq[4];
+    deltar = delt * tq[4];
     bnorm = N_VWrmsNorm(b, ewt);
     if (bnorm <= deltar) {
         if (mnewt > 0)
@@ -379,7 +379,7 @@ CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
     fcur = fnow;
 
     /* Set inputs delta and initial guess x = 0 to SpgmrSolve */
-    delta = deltar*sqrtN;
+    delta = deltar * sqrtN;
     N_VConst(ZERO, x);
 
     /* Call SpgmrSolve and copy x to b */
@@ -462,7 +462,7 @@ CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
 
     /* Replace z by v - (gamma*rho)(z - fcur) */
     N_VLinearSum(ONE, z, -ONE, fcur, z);
-    N_VLinearSum(-gamma*rho, z, ONE, v, z);
+    N_VLinearSum(-gamma * rho, z, ONE, v, z);
 
     return 0;
 }

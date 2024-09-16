@@ -1627,7 +1627,6 @@ compile_em(void) {
                 plintf(" %s is a duplicate name \n", tmp);
                 exit(0);
             }
-
         }
 
         if (v->type == MARKOV_VAR) {
@@ -1636,7 +1635,6 @@ compile_em(void) {
                 strcpy(mnames[nmark], tmp);
                 nmark++;
             }
-
         }
         if (v->type == EXPORT) {
             add_export_list(v->lhs, v->rhs);
@@ -1985,7 +1983,7 @@ compile_em(void) {
 
 /* this code checks if the right-hand side for an initial
  * condition is a formula (for delays) or a number
-*/
+ */
 int32
 formula_or_number(char *expr, double *z) {
     char num[80], form[80];

@@ -751,7 +751,7 @@ init_X(void) {
     if they are using wacky fonts...
     */
     if (UserMinWidth <= 0) {
-        SCALEX = 10 + 36*2*DCURXs + 32*DCURXs;
+        SCALEX = 10 + 36*2 * DCURXs + 32*DCURXs;
     }
 
     if (UserMinHeight <= 0) {

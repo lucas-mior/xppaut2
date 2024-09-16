@@ -714,7 +714,8 @@ void
 check_on_the_fly(void) {
     XClearWindow(display, vcr.wfly);
     if (animation_on_the_fly) {
-        XDrawString(display, vcr.wfly, small_gc, 5, (int32)1.5*CURY_OFFs, "*", 1);
+        XDrawString(display, vcr.wfly, small_gc, 5, (int32)1.5*CURY_OFFs, "*",
+                    1);
     }
     return;
 }
@@ -2665,7 +2666,8 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
 
             return -1;
         }
-        ani_grab[igrab].start.comrhs[i] = malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(nc + 1));
+        ani_grab[igrab].start.comrhs[i] =
+            malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 
@@ -2689,7 +2691,8 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             plintf("should return -1\n");
             return -1;
         }
-        ani_grab[igrab].end.comrhs[i] = malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(nc + 1));
+        ani_grab[igrab].end.comrhs[i] =
+            malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;

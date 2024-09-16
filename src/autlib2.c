@@ -39,8 +39,7 @@ typedef struct {
 
 static MainAutoStorage main_auto_storage = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-};
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 /* ----------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------- */
@@ -187,7 +186,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         main_auto_storage.ipr =
             malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim *K REDO)*/
-        main_auto_storage.icf11 = malloc(sizeof(*(main_auto_storage.icf11))*(iap->ndim*KREDO));
+        main_auto_storage.icf11 =
+            malloc(sizeof(*(main_auto_storage.icf11))*(iap->ndim*KREDO));
         /*(iap->ndim *N AX)*/
         main_auto_storage.icf1 =
             malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
@@ -425,10 +425,10 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     double *wi, *wp, *wt;
     double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
-    (void) nbc;
-    (void) nca;
-    (void) p0;
-    (void) p1;
+    (void)nbc;
+    (void)nca;
+    (void)p0;
+    (void)p1;
 
     dicd = malloc(sizeof(*dicd)*(iap->nint)*(iap->ndim + NPARX));
     ficd = malloc(sizeof(*ficd)*(iap->nint));
@@ -729,7 +729,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
 
     int64 nbcp1, i, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex, irp;
 
-    (void) iam;
+    (void)iam;
 
     irf_dim1 = *nra;
     fa_dim1 = *nra;
@@ -785,8 +785,8 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
 
     int64 i, irfir, ic, ir, ic1, nap1;
 
-    (void) iam;
-    (void) kwt;
+    (void)iam;
+    (void)kwt;
 
     /* Local */
 
@@ -1636,7 +1636,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     int64 notsend;
     int64 nap1, nam1, myright[KREDO], icp1;
 
-    (void) ncb;
+    (void)ncb;
 
     ipr_dim1 = *nov;
     icf11_dim1 = *nov;
@@ -1803,7 +1803,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     double *xe;
 
-    (void) ifst;
+    (void)ifst;
 
     xe = malloc(sizeof(*xe)*(*nov + *nrc));
 
@@ -2233,8 +2233,8 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     double sm;
     int64 novpir, irp1;
 
-    (void) iam;
-    (void) par;
+    (void)iam;
+    (void)par;
 
     x = malloc(sizeof(*x)*(*nra));
 
@@ -2370,7 +2370,7 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
 
     int64 i, ic, ir;
 
-    (void) nov;
+    (void)nov;
 
     fa_dim1 = *nra;
     a_dim1 = *nca;

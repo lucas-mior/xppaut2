@@ -827,10 +827,10 @@ auto_scroll_window(void) {
                printf("%d %d %g %g \n",i,j,x,y,x0,y0);
                 dx=-(x-x0)/2;
                 dy=-(y-y0)/2; */
-                dx =
-                    (double)(i0 - i)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
-                dy =
-                    (double)(j - j0)*(Auto.ymax - Auto.ymin) / (double)Auto.hgt;
+                dx = (double)(i0 - i)*(Auto.xmax - Auto.xmin) /
+                     (double)Auto.wid;
+                dy = (double)(j - j0)*(Auto.ymax - Auto.ymin) /
+                     (double)Auto.hgt;
                 /*    printf("%d %d %d %d %g %g\n",i,j,i0,j0,dx,dy); */
                 auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }

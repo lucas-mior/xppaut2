@@ -39,7 +39,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 kmem = n*(2*n + 5) + 50, i, j, k, okroot;
 
     double *ev;
-    ev = malloc(2*n*sizeof(*ev));
+    ev = malloc(2*n * sizeof(*ev));
     for (i = 0; i < (2*n); i++)
         ev[i] = 0.0;
     /* first we establish how many delays there are */
@@ -64,7 +64,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         variable_shift[1][i] = x[i];
     }
     free(work);
-    coef = malloc(n*n*(NDelay + 1)*sizeof(*coef));
+    coef = malloc(n*n * (NDelay + 1)*sizeof(*coef));
 
     /* now we must compute a bunch of jacobians  */
     /* first the normal one   */
@@ -102,8 +102,8 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
             rhs(0.0, x, yp, n);
             variable_shift[1][i] = x[i];
             for (j = 0; j < n; j++) {
-                coef[j*n + i + n*n*(k + 1)] = (yp[j] - y[j]) / dx;
-                colsum += fabs(coef[j*n + i + n*n*(k + 1)]);
+                coef[j*n + i + n*n * (k + 1)] = (yp[j] - y[j]) / dx;
+                colsum += fabs(coef[j*n + i + n*n * (k + 1)]);
             }
             if (colsum > colmax)
                 colmax = colsum;
@@ -113,8 +113,8 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     /* sign=plot_args(coef,delay_list,n,NDelay,DelayGrid,AlphaMax,OmegaMax); */
     sign = plot_args(coef, delay_list, n, NDelay, DelayGrid, colnorm, colnorm);
 
-    okroot = find_positive_root(coef, delay_list, n, NDelay, err, eps,
-                                big, maxit, rr);
+    okroot = find_positive_root(coef, delay_list, n, NDelay, err, eps, big,
+                                maxit, rr);
     if (okroot > 0) {
         ev[0] = rr[0];
         ev[1] = rr[1];
@@ -294,7 +294,7 @@ make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                 temp, rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
     for (k = 0; k < m; k++) {
-        km = (k + 1)*n*n;
+        km = (k + 1)*n * n;
         temp = rtoc(-delay[k], 0.0); /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
@@ -307,9 +307,8 @@ make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
 }
 
 int32
-find_positive_root(double *coef, double *delay, int32 n, int32 m,
-                   double err, double eps, double big,
-                   int32 maxit, double *rr) {
+find_positive_root(double *coef, double *delay, int32 n, int32 m, double err,
+                   double eps, double big, int32 maxit, double *rr) {
     COMPLEX lambda, lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
@@ -320,7 +319,7 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m,
     lambda.r = AlphaMax;
     lambda.i = OmegaMax;
 
-    z = malloc(sizeof(*z)*n*n);
+    z = malloc(sizeof(*z)*n * n);
 
     /* now Newtons Method for maxit times */
     for (k = 0; k < maxit; k++) {
@@ -402,7 +401,7 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     double arg;
     if (m == 0)
         return 0; /* no delays so don't use this! */
-    z = malloc(sizeof(*z)*n*n);
+    z = malloc(sizeof(*z)*n * n);
     for (j = 0; j < n; j++)
         for (i = 0; i < n; i++) {
             if (i == j)
@@ -414,7 +413,7 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
                 temp, rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
     for (k = 0; k < m; k++) {
-        km = (k + 1)*n*n;
+        km = (k + 1)*n * n;
         temp = rtoc(-delay[k], 0.0); /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
