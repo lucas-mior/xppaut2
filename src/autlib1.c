@@ -656,9 +656,6 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     rap->ds = ds;
     rap->dsmin = dsmin;
     rap->dsmax = dsmax;
-    /* printf("ready to go \n");
-    printf("dim=%d ps=%d rs=%d lp=%d sp=%d sw=%d nbc=%d nint=%d nfpr=%d
-    nicp=%d\n", ndim,ips,irs,ilp,isp,isw,nbc,nint,nfpr,nicp); */
     return 0;
 }
 
