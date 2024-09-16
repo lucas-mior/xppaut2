@@ -40,6 +40,9 @@ dp_err(int32 k) {
     case -4:
         err_msg("Problem became stiff");
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -83,8 +86,10 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
                         NULL, 0, WORK);
         *t = tout;
         return 1;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
-    return -1;
 }
 
 long

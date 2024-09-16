@@ -293,7 +293,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
         return 1;
     }
     if (METHOD == 0) {
-        nit = fabs(t0 - t1);
+        nit = (int32)(fabs(t0 - t1));
         dt = dt / fabs(dt);
         kflag = solver(y, &t, dt, nit, NODE, istart, WORK);
 
@@ -435,7 +435,7 @@ run_fit(/* double arrays */
 {
     double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
-    int32 i, j, k, ioff, ictrl = 0, ok;
+    int32 i, j, k, ioff, ictrl = 0, ok = 0;
     FILE *fp;
     int32 niter = 0, good_flag = 0;
     double tol10 = 10*tol;
