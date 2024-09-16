@@ -37,12 +37,12 @@ typedef struct {
     int64 *np;
 } MainAutoStorage;
 
-MainAutoStorage main_auto_storage = {
+static MainAutoStorage main_auto_storage = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
-void
+static void
 print_jacobian(iap_type iap, MainAutoStorage data) {
     int32 i, j, k, l;
     int32 num_rows_A = iap.ndim*iap.ncol;
@@ -117,7 +117,7 @@ print_jacobian(iap_type iap, MainAutoStorage data) {
     return;
 }
 
-void
+static void
 print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
     FILE *fp;
     static int32 num_calls = 0;
@@ -136,7 +136,7 @@ print_ups_rlcur(iap_type iap, double *ups, double *rlcur) {
     return;
 }
 
-void
+static void
 print_fa_fc(iap_type iap, double *fa, double *fc, char *filename) {
     FILE *fp;
     int32 i, j;
@@ -532,12 +532,8 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
        double *fc, double *rlcur, double *rlold, double *rldot, double *ups,
        double *uoldps, double *udotps, double *upoldp, double *dups,
        double *dtm, double *thl, double *thu, double *p0, double *p1) {
-    (void) nbc;
-    (void) nca;
-    (void) p0;
-    (void) p1;
-    int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1, fa_dim1,
-        wt_dim1, wp_dim1, wploc_dim1;
+    int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1;
+    int64 fa_dim1, wt_dim1, wp_dim1, wploc_dim1;
 
     int64 i, j, k, l, m;
     int64 mpart, i1, j1, k1, l1;
@@ -555,6 +551,11 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     double *u, *wploc;
     double *wi, *wp, *wt;
     double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
+
+    (void) nbc;
+    (void) nca;
+    (void) p0;
+    (void) p1;
 
     dicd = malloc(sizeof(*dicd)*(iap->nint)*(iap->ndim + NPARX));
     ficd = malloc(sizeof(*ficd)*(iap->nint));
