@@ -3714,7 +3714,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 
     /* Define the equidistribution function : */
 
-    pwr = 1. / (*ncol + 1.);
+    pwr = 1. / (double)(*ncol + 1);
     eqf[0] = 0.;
     for (j = 0; j < *ntst; ++j) {
         e = 0.;
