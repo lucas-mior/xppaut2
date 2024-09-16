@@ -238,6 +238,8 @@ e_box_event_loop(EDIT_BOX *sb, int32 *pos, int32 *col) {
             enew_editable(sb, inew, pos, col, &done, &w);
         }
         break;
+    default:
+        break;
     }
     return status;
 }
@@ -316,6 +318,9 @@ edit_menu(void) {
     case 3:
         load_new_dll();
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
