@@ -227,8 +227,7 @@ void
 data_del_col(BROWSER *b) {
     /*  this only works with storage  */
     Window w;
-    int32 rev, status;
-    char var[20];
+    int32 rev;
     if (check_for_stor(b->data) == 0)
         return;
     XGetInputFocus(display, &w, &rev);
