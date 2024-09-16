@@ -27,7 +27,7 @@
 #define BAD 0
 #define FINE 13
 
-#define STD_WID 460 /* golden mean  */
+#define STD_WID 460
 #define STD_HGT 284
 
 #define xds(a)                                                                 \
@@ -93,10 +93,6 @@ extern DIAGRAM *bifd;
 DIAGRAM *CUR_DIAGRAM;
 
 extern int32 NBifs;
-
-/* ****************************************************
-   Code here
-*****************************************************/
 
 void
 ALINE(int32 a, int32 b, int32 c, int32 d) {
@@ -297,9 +293,6 @@ traverse_diagram(void) {
 
             if (w == AutoW.canvas) {
                 clear_msg();
-                /*
-                GO HOME
-                */
                 XORCross(ix, iy);
                 DONT_XORCross = 1;
                 while (true) {
@@ -308,19 +301,12 @@ traverse_diagram(void) {
                         dnew = d;
                         break;
                     }
-                    /*bifd = dnew;*/
                     d = dnew;
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 0);
-                /*
-                END GO HOME
-                */
 
-                /*
-                GO END
-                */
                 mindex = 0;
                 ndist = Auto.wid*Auto.hgt;
                 XORCross(ix, iy);
@@ -347,13 +333,7 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 load_all_labeled_orbits = lalo;
                 traverse_out(d, &ix, &iy, 0);
-                /*
-                END GO END
-                */
 
-                /*
-                GO HOME
-                */
                 XORCross(ix, iy);
                 while (true) {
                     if (d->index == mindex) {
@@ -365,16 +345,12 @@ traverse_diagram(void) {
                         dnew = d;
                         break;
                     }
-                    /*bifd = dnew;*/
                     d = dnew;
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
                 DONT_XORCross = 0;
                 traverse_out(d, &ix, &iy, 1);
-                /*
-                END GO HOME
-                */
             }
         } else if (ev.type == KeyPress) {
             int32 found = 0;
@@ -422,7 +398,6 @@ traverse_diagram(void) {
                         break;
                     }
                     d = dnew;
-                    /*if(d->lab==0)break;*/
                 }
                 if (found) {
                     d = dnew;
@@ -472,7 +447,7 @@ traverse_diagram(void) {
                     if (dnew == NULL) {
                         dnew = bifd;
                         break;
-                    } /*TAB wraps*/
+                    }
                     d = dnew;
                     if (d->lab != 0)
                         break;
@@ -481,7 +456,6 @@ traverse_diagram(void) {
                 CUR_DIAGRAM = d;
                 traverse_out(d, &ix, &iy, 1);
                 break;
-                /* New code */
             case 's': /* mark the start of a branch */
                 if (mark_flag == 0) {
                     MarkAuto(ix, iy);
@@ -510,7 +484,6 @@ traverse_diagram(void) {
                         dnew = d;
                         break;
                     }
-                    /*bifd = dnew;*/
                     d = dnew;
                 }
                 d = dnew;
@@ -525,7 +498,6 @@ traverse_diagram(void) {
                         dnew = d;
                         break;
                     }
-                    /*bifd = dnew;*/
                     d = dnew;
                 }
                 d = dnew;
@@ -585,8 +557,6 @@ traverse_diagram(void) {
             }
         }
     }
-    /*XORCross(ix,iy);
-     */
     /* check mark_flag branch similarity */
     if (mark_flag == 2) {
         if (mark_ibrs != mark_ibre)
@@ -786,7 +756,6 @@ auto_scroll_window(void) {
     double yhi = Auto.ymax;
     double dx = 0, dy = 0;
     int32 alldone = 0;
-    /*    printf("xin: %g %g %g %g\n",xlo,xhi,ylo,yhi); */
     XSelectInput(display, AutoW.canvas,
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
                      PointerMotionMask | ButtonMotionMask | ExposureMask);
@@ -804,9 +773,6 @@ auto_scroll_window(void) {
                 i0 = ev.xkey.x;
                 j0 = ev.xkey.y;
 
-                /*  x0=Auto.xmin+(double)(i-Auto.x0)*(Auto.xmax-Auto.xmin)/(double)Auto.wid;
-                    y0=Auto.ymin+(double)(Auto.y0-j+Auto.hgt)*(Auto.ymax-Auto.ymin)/(double)Auto.hgt;
-                    printf("%d %d %g %g \n",i,j,x0,y0); */
                 state = 1;
             }
             break;
@@ -824,16 +790,10 @@ auto_scroll_window(void) {
             if (state == 2) {
                 i = ev.xmotion.x;
                 j = ev.xmotion.y;
-                /* x=Auto.xmin+(double)(i-Auto.x0)*(Auto.xmax-Auto.xmin)/(double)Auto.wid;
-               y=Auto.ymin+(double)(Auto.y0-j+Auto.hgt)*(Auto.ymax-Auto.ymin)/(double)Auto.hgt;
-               printf("%d %d %g %g \n",i,j,x,y,x0,y0);
-                dx=-(x-x0)/2;
-                dy=-(y-y0)/2; */
                 dx = (double)(i0 - i)*(Auto.xmax - Auto.xmin) /
                      (double)Auto.wid;
                 dy = (double)(j - j0)*(Auto.ymax - Auto.ymin) /
                      (double)Auto.hgt;
-                /*    printf("%d %d %d %d %g %g\n",i,j,i0,j0,dx,dy); */
                 auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }
             break;
@@ -895,7 +855,7 @@ display_auto(Window w) {
         XDrawArc(display, AutoW.stab, small_gc, r, r, 2*r, 2*r, 0,
                  360*64);
         if (CUR_DIAGRAM != NULL) {
-            traverse_out(CUR_DIAGRAM, &ix, &iy, 1); /*clr_stab();*/
+            traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
         }
         XFlush(display);
     }
@@ -946,7 +906,6 @@ make_auto(char *wname, char *iname) {
     Window base = 0;
     int32 dely = DCURY + 5;
     STD_HGT_var = 20*DCURY;
-    /*STD_WID_var =1.62*STD_HGT_var;*/
     STD_WID_var = 67*DCURX;
     int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     XTextProperty winname, iconname;
@@ -1039,7 +998,6 @@ void
 resize_auto_window(XEvent ev) {
     int32 wid, hgt, addhgt = 3.5*DCURY;
     STD_HGT_var = 20*DCURY;
-    /*STD_WID_var =1.62*STD_HGT_var;*/
     STD_WID_var = 50*DCURX;
     int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     if (ev.xconfigure.window == AutoW.base) {
@@ -1062,10 +1020,6 @@ resize_auto_window(XEvent ev) {
 
         Auto.hgt = chgt - ymargin;
         Auto.wid = cwid - xmargin;
-        /*  printf("%l %d %d %d %d\n", AutoW.info,xloc,yloc+chgt+4,wid,addhgt);
-            printf("%l %d %d %d %d\n",
-           AutoW.hint,xloc,yloc+chgt+addhgt+10,wid,DCURY+2);  */
-        /* XMoveWindow(display,AutoW.info,xloc,yloc+chgt+4); */
         if (TrueColorFlag > 0) {
             XMoveResizeWindow(display, AutoW.info, xloc, yloc + chgt + 4, wid,
                               addhgt);
@@ -1098,8 +1052,6 @@ clear_msg(void) {
     display_auto(AutoW.hint);
     return;
 }
-
-/*  Auto event handlers   */
 
 void
 auto_enter(Window w, int32 v) {
@@ -1227,11 +1179,6 @@ auto_kill(void) {
 void
 auto_keypress(XEvent ev, int32 *used) {
     Window w = ev.xkey.window;
-    /*
-     int32 maxlen=64;
-     char buf[65];
-     XComposeStatus comp;
-     KeySym ks;  */
     char ks;
     Window w2;
     int32 rev;
@@ -1244,7 +1191,6 @@ auto_keypress(XEvent ev, int32 *used) {
     if (w == AutoW.base || w == AutoW.canvas || w2 == AutoW.base) {
         *used = 1;
         ks = (char)get_key_press(&ev);
-        /* XLookupString(&ev,buf,maxlen,&ks,&comp); */
 
         if (ks == 'a' || ks == 'A') {
             auto_plot_par();
