@@ -972,35 +972,24 @@ commander(int32 ch) {
     case MAIN_MENU: {
         switch (ch) {
         case 'i':
-            /*  initial data  */
             ini_data_menu();
-
             break;
         case 'c':
-            /* continue */
             cont_integ();
-
             break;
         case 'n':
-            /*nullclines */
-            /* test_color_info(); */
             new_clines();
             break;
         case 'd':
-            /*dir fields */
             direct_field();
-
             break;
         case 'w':
-            /* window */
             window_zoom();
             break;
         case 'a':
-            /*phase-space */
             do_torus();
             break;
         case 'k':
-            /*kinescope */
             do_movie();
             break;
         case 'g':
@@ -1010,33 +999,25 @@ commander(int32 ch) {
             help_num();
             break;
         case 'f':
-            /* files */
             help_file();
             break;
         case 'p':
-            /*parameters */
-            /* change_par(-1); */
             new_param();
             break;
         case 'e':
-            /*erase */
             clear_screens();
             break;
         case 'h':
         case 'm':
             do_windows();
-            /*half windows */
             break;
         case 't':
-            /*text */
             do_gr_objs();
             break;
         case 's':
-            /*sing pts */
             find_equilibrium();
             break;
         case 'v':
-            /*view_axes */
             change_view();
             break;
         case 'b':
@@ -1044,24 +1025,20 @@ commander(int32 ch) {
             break;
 
         case 'x':
-            /*x vs t */
             x_vs_t();
             break;
         case 'r':
-            /*restore*/
             redraw_them_all();
             break;
         case '3':
             get_3d_par();
             break;
         case 'y':
-            /* test_matrix_stuff(); */
             draw_many_lines();
             break;
-
-        } /* End main switch  */
-
-    } /* MAIN HELP ENDS  */ break;
+        }
+        break;
+    }
     case NUM_MENU: {
         get_num_par(ch);
         break;
