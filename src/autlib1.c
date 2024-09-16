@@ -306,7 +306,7 @@ int32
 init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     int64 ndim, ncol, nicp;
 
-    int64 nneg, nfpr, nint, jtmp, nuzr, i;
+    int64 nneg, nfpr, nint, jtmp, nuzr;
     double dsmin, dsmax, fc;
     int64 ic, jc;
     double ds;
@@ -434,11 +434,11 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
 
     } else if (ips == 15) {
         /*          ** Optimization of periodic solutions */
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             ict[i] = icp[i];
         }
         nfpr = 0;
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             if (ict[i] >= 0) {
                 icp[nfpr] = ict[i];
                 ++nfpr;
@@ -453,7 +453,7 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
         nint = nfpr - 1;
         /* overload to define optimality integrals */
         nneg = 0;
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             ic = ict[i];
             jc = abs(ic) - 20;
             if (ic < 0 && jc > 0 && jc <= 11) {
@@ -463,7 +463,7 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
         }
         /* Set indices of output parameters */
         nicp = nfpr - 3;
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             jtmp = NPARX;
             icp[jtmp + i] = icp[i];
         }
@@ -608,7 +608,7 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
             nfpr = nbc + nint - ndim + 1;
             nxploc = nfpr / 2 - 1;
             if (nxploc > 0) {
-                for (i = 0; i < nxploc; ++i) {
+                for (int64 i = 0; i < nxploc; ++i) {
                     icp[nfpr / 2 + i] = i + 10;
                 }
             }
@@ -631,7 +631,7 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
             nfpr = nbc + nint - ndim + 1;
             nxploc = nfpr / 2 - 1;
             if (nxploc > 0) {
-                for (i = 0; i < nxploc; ++i) {
+                for (int64 i = 0; i < nxploc; ++i) {
                     icp[nfpr / 2 + i] = i + 10;
                 }
             }
