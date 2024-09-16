@@ -306,6 +306,8 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 flag[i].tstar = told;
             }
             break;
+        default:
+            break;
         }
         if (flag[i].nointerp == 1) {
             flag[i].tstar = 1.0;
@@ -410,6 +412,9 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                     flag[i].hit = ncycle + 1;
                     newhit = 1;
                 }
+                break;
+            default:
+                break;
             }
         }
         if (newhit == 0)
@@ -623,7 +628,6 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
             plintf("smin=%g\n", s);
             *ierr = -2;
             return 1;
-            break;
         }
     }
     return 0;
