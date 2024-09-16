@@ -1045,6 +1045,9 @@ auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
         *y1 = par2;
         *y2 = *y1;
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -1142,6 +1145,9 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         point_abs((double)x, (double)y1);
         point_abs((double)x, (double)y2);
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 
     Auto.lastx = x;
@@ -1281,7 +1287,11 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             FillCircle(ix, iy2, 3);
         autobw();
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
+
     if (lab != 0) {
         if (icp1 == Auto.icp1) {
             if (flag2 == 0 || (flag2 > 0 && Auto.icp2 == icp2)) {
