@@ -6137,7 +6137,8 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     amin = RLARGE;
     for (j = 0; j < ndim; ++j) {
         doublecomplex tmp;
-        tmp.r = ev[j].r - 1., tmp.i = ev[j].i;
+        tmp.r = ev[j].r - 1.;
+        tmp.i = ev[j].i;
         azm1 = z_abs(&tmp);
         if (azm1 <= amin) {
             amin = azm1;
@@ -6145,9 +6146,12 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         }
     }
     if (loc != 0) {
-        ztmp.r = ev[loc].r, ztmp.i = ev[loc].i;
-        ev[loc].r = ev[0].r, ev[loc].i = ev[0].i;
-        ev[0].r = ztmp.r, ev[0].i = ztmp.i;
+        ztmp.r = ev[loc].r;
+        ztmp.i = ev[loc].i;
+        ev[loc].r = ev[0].r;
+        ev[loc].i = ev[0].i;
+        ev[0].r = ztmp.r;
+        ev[0].i = ztmp.i;
     }
 
     /* Order the remaining Floquet multipliers by distance from |z|=1. */
@@ -6164,9 +6168,12 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
                 }
             }
             if (loc != i) {
-                ztmp.r = ev[loc].r, ztmp.i = ev[loc].i;
-                ev[loc].r = ev[i].r, ev[loc].i = ev[i].i;
-                ev[i].r = ztmp.r, ev[i].i = ztmp.i;
+                ztmp.r = ev[loc].r;
+                ztmp.i = ev[loc].i;
+                ev[loc].r = ev[i].r;
+                ev[loc].i = ev[i].i;
+                ev[i].r = ztmp.r;
+                ev[i].i = ztmp.i;
             }
         }
     }
@@ -6177,7 +6184,8 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     {
         doublecomplex tmp;
-        tmp.r = ev[0].r - 1., tmp.i = ev[0].i;
+        tmp.r = ev[0].r - 1.;
+        tmp.i = ev[0].i;
         amin = z_abs(&tmp);
     }
     if (amin > (double).05 && isp == 2) {
