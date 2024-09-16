@@ -3543,9 +3543,9 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
 
     noldp1 = *nold + 1;
     nnewp1 = *nnew + 1;
-    dal = eqf[noldp1 - 1] / *nnew;
+    dal = eqf[noldp1 - 1] / (double)*nnew;
     for (j = 0; j < nnewp1; ++j) {
-        uneq[j] = (j)*dal;
+        uneq[j] = j*dal;
     }
 
     ordr(iap, rap, &noldp1, eqf, &nnewp1, uneq, ial);
