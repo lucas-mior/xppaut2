@@ -559,8 +559,9 @@ edit_command_string(XEvent ev, char *name, char *value, int32 *done2, int32 *pos
         ch = get_key_press(&ev);
         /* printf("ch= %ld \n",ch); */
         edit_window(command_pop, pos, value, col, done2, ch);
-
-    } /* end event cases */
+    default:
+        break;
+    }
     return;
 }
 
