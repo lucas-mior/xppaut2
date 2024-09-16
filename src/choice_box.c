@@ -11,14 +11,9 @@
 #include "functions.h"
 
 #define ALL_DONE 2
-#define DONE_WITH_THIS 1
 #define FORGET_ALL 0
-#define FORGET_THIS 3
 #include "struct.h"
 #include "integers.h"
-
-#define EV_MASK                                                                \
-    (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
 extern Display *display;
 extern Window main_win;
@@ -191,6 +186,8 @@ choice_box_event_loop(CHOICE_BOX p) {
 
         break;
     case KeyPress:
+        break;
+    default:
         break;
     }
 
