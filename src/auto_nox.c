@@ -395,29 +395,6 @@ renamef(char *old, char *new) {
     rename(old, new);
 }
 
-static void
-cat_fp(FILE *fo) {
-    int32 c;
-    rewind(fo);
-    while ((c = getc(fo)) != EOF) {
-        printf("%c", c);
-    }
-    return;
-}
-
-static void
-cat_file(char *f) {
-    FILE *fo;
-    int32 c;
-    printf(" cat %s \n", f);
-    fo = fopen(f, "r");
-    while ((c = getc(fo)) != EOF) {
-        printf("%c", c);
-    }
-    fclose(fo);
-    return;
-}
-
 void
 copyf(char *old, char *new) {
     FILE *fo, *fn;
@@ -1641,50 +1618,6 @@ auto_grab(void) {
     return;
 }
 
-static void
-auto_next(void) {
-    static char *m[] = {"EP", "HB", "LP", "PD", "MX"};
-    /*static char *m[]={"Fixed period","Extend"}; */
-    static char key[] = "ehlpm";
-    char ch;
-    ch = (char)auto_pop_up_list("Special Point", m, key, 5, 13, 0, 10, 10,
-                                no_hint, Auto.hinttxt);
-    if (ch == 'e') {
-        /*auto_new_per();*/
-        printf("End point\n");
-        return;
-    }
-    if (ch == 'h') {
-        printf("Hopf point\n");
-        /* auto_2p_fixper();*/
-
-        return;
-    }
-    if (ch == 'l') {
-        printf("Limit point\n");
-        /* auto_2p_fixper();*/
-
-        return;
-    }
-    if (ch == 'p') {
-        printf("Periodic point\n");
-        /* auto_2p_fixper();*/
-
-        return;
-    }
-    if (ch == 'm') {
-        printf("Max point\n");
-        /* auto_2p_fixper();*/
-
-        return;
-    }
-    /*traverse_diagram();
-     */
-    /* redraw_auto_menus();
-     */
-    return;
-}
-
 void
 get_start_period(double *p) {
     *p = storage[0][storind - 1];
@@ -2262,31 +2195,6 @@ get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     free(s);
 
     return flag;
-}
-
-static void
-three_parameter_homoclinic(void) {
-    Auto.irs = grabpt.lab;
-    Auto.itp = grabpt.itp;
-
-    TypeOfCalc = HO2;
-    AutoTwoParam = HO2;
-    NewPeriodFlag = 1;
-    Auto.ips = 9;
-
-    Auto.nfpar = 3;
-    Auto.ilp = 0;
-    Auto.isw = 1;
-    Auto.isp = 0;
-    Auto.nbc = 0;
-
-    if (HomoFlag == 1)
-        x_auto.iequib = 1;
-    if (HomoFlag == 2)
-        x_auto.iequib = -2;
-
-    do_auto(OPEN_3, APPEND);
-    return;
 }
 
 void
