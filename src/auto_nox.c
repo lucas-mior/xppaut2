@@ -94,8 +94,6 @@ int32 SEc = 20;
 int32 UEc = 0;
 int32 SPc = 26;
 int32 UPc = 28;
-static int32 HBc = 0;
-static int32 LPc = 20;
 /*  two parameter colors  need to do this
     LP is 20 (red)
     HB is 28 (blue)
