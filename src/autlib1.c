@@ -54,7 +54,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     double tivp;
     int64 ntst, iuzr;
     double spbf;
-    int64 nuzr, i;
+    int64 nuzr;
     double dsold, dsmin, dsmax, a0, a1;
     int64 istop, itpst;
     double ds, rl0, rl1;
@@ -63,7 +63,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     int64 ilp, nit, ips, isp, irs, itp, npr, isw, nmx, nbc0, nnt0;
     double *thu;
 
-    for (i = 0; i < NPARX; ++i) {
+    for (int64 i = 0; i < NPARX; ++i) {
         icp[i] = i;
         jtmp = NPARX;
         icp[jtmp + i] = 0;
@@ -79,19 +79,19 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 
     thu = *thu_pointer = malloc(sizeof(double)*8*ndim);
 
-    for (i = 0; i < ndim*8; ++i) {
+    for (int64 i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;
     }
 
     jtmp = NPARX;
     nicp = x_auto.nicp;
 
-    for (i = 0; i < nicp; ++i) {
+    for (int64 i = 0; i < nicp; ++i) {
         icp[jtmp + i] = x_auto.icp[i];
     }
 
     if (nicp > 0) {
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             jtmp = NPARX;
             icp[i] = icp[jtmp + i];
         }
@@ -143,12 +143,12 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     nthl = x_auto.nthl;
 
     if (nthl > 0) {
-        for (i = 0; i < nthl; ++i)
+        for (int64 i = 0; i < nthl; ++i)
             thl[x_auto.ithl[i]] = x_auto.thl[i];
     }
 
     nuzr = x_auto.nuzr;
-    for (i = 0; i < nuzr; i++) {
+    for (int64 i = 0; i < nuzr; i++) {
         iuz[i] = x_auto.iuz[i];
         vuz[i] = x_auto.vuz[i];
     }
