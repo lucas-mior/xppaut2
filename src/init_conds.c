@@ -771,9 +771,10 @@ do_file_select_events(void) {
             if (done == 1)
                 return 1;
             break;
+        default:
+            break;
         }
     }
-    return -1;
 }
 
 void
@@ -819,12 +820,15 @@ create_file_selector(char *title, char *file, char *wild) {
     make_icon((char *)filebrowse_bits, filebrowse_width, filebrowse_height,
               base);
 
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
 
-    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                     &class_hints);
+        XSetWMProperties(display,
+                         base, &winname, NULL, NULL, 0, &size_hints, NULL,
+                         &class_hints);
+    }
 
     /*
     filesel.up=make_window(base,DCURXs,2+4*hgt,3*DCURXs+5,DCURYs,1);
