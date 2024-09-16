@@ -1011,6 +1011,8 @@ browse_button(XEvent ev, BROWSER *b) {
                 case ButtonRelease:
                     done = 0;
                     break;
+                default:
+                    break;
                 }
             }
         }
