@@ -6071,6 +6071,18 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
+    double ret_val;
+
+    double amin;
+    int64 ndim, nins, ntop, ntot;
+    doublecomplex ztmp;
+    int64 nins1 = 0;
+    double d;
+    int64 i, j;
+
+    int64 iid, ibr, loc = 0, isp, isw;
+    double *wrk, azm1;
+
     (void) par;
     (void) icp;
     (void) funi;
@@ -6093,17 +6105,6 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void) thu;
     (void) iuz;
     (void) vuz;
-    double ret_val;
-
-    double amin;
-    int64 ndim, nins, ntop, ntot;
-    doublecomplex ztmp;
-    int64 nins1 = 0;
-    double d;
-    int64 i, j;
-
-    int64 iid, ibr, loc = 0, isp, isw;
-    double *wrk, azm1;
 
     wrk = malloc(sizeof(*wrk)*(iap->ndim)*(iap->ndim));
 
@@ -6299,6 +6300,10 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
+    double ret_val;
+
+    int64 ntop, ntot, iuzr, iid, ibr;
+
     (void) rap;
     (void) icp;
     (void) funi;
@@ -6322,9 +6327,6 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void) dtm;
     (void) thl;
     (void) thu;
-    double ret_val;
-
-    int64 ntop, ntot, iuzr, iid, ibr;
 
     iid = iap->iid;
     iuzr = iap->iuzr;
