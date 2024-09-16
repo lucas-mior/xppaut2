@@ -890,11 +890,12 @@ int32
 conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *nrc, double *c, double *fa, double *fc, int64 *irf, int64 *icf,
        int64 *iam) {
-    (void) iam;
     int64 icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
 
     /* Local variables */
     int64 nbcp1, i, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex, irp;
+
+    (void) iam;
 
     /* Parameter adjustments */
     /*--fc;*/
@@ -947,13 +948,14 @@ int32
 copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        double *a, int64 *ncb, double *b, int64 *nrc, double *c, double *a1,
        double *a2, double *bb, double *cc, int64 *irf) {
-    (void) iam;
-    (void) kwt;
     int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
         a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
 
     /* Local variables */
     int64 i, irfir, ic, ir, ic1, nap1;
+
+    (void) iam;
+    (void) kwt;
 
     /* Local */
 
@@ -1095,8 +1097,8 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     len2 = (*nov + *nrc - *nbc + 1)*8;
     xkwt = (double)(*kwt);
     {
-        double tmp = r_lg10(xkwt) / r_lg10(2.0);
-        nlev = i_nint(&tmp);
+        double tmp2 = r_lg10(xkwt) / r_lg10(2.0);
+        nlev = i_nint(&tmp2);
     }
     notsend = TRUE_;
 
@@ -1778,8 +1780,8 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
         /* Global sum for D by recursive doubling */
         {
-            int64 tmp = (*nrc - *nbc)**ncb;
-            rd0(iam, kwt, &ARRAY2D(dd, 0, (nbcp1 - 1)), &tmp);
+            int64 tmp2 = (*nrc - *nbc)**ncb;
+            rd0(iam, kwt, &ARRAY2D(dd, 0, (nbcp1 - 1)), &tmp2);
         }
     }
 
@@ -1832,8 +1834,8 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     nam1 = *na - 1;
     xkwt = (double)(*kwt);
     {
-        double tmp = r_lg10(xkwt) / r_lg10(2.0);
-        nlev = i_nint(&tmp);
+        double tmp2 = r_lg10(xkwt) / r_lg10(2.0);
+        nlev = i_nint(&tmp2);
     }
     notsend = TRUE_;
 
