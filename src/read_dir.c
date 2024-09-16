@@ -34,8 +34,8 @@ statement to call your local copy of sysdirent.h
   u_int8_t  d_namlen;
  to the new lines:
 
-  unsigned long d_fileno;
-  unsigned short d_reclen;
+  ulong d_fileno;
+  ushort d_reclen;
   uchar d_type;
   uchar d_namlen;
 (These occur in the {\tt struct dirent}  declaration)

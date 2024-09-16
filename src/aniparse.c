@@ -960,7 +960,7 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     int32 bbp = 0, bbc = 0;
     int32 lobits, midbits, hibits;
     /*int32 vv; Not used anywhere?*/
-    unsigned x, y;
+    uint32 x, y;
     XColor palette[256];
     XColor pix;
     uchar *dst, *pixel;
@@ -987,8 +987,8 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     *hgt = ximage->height;
     pixel = (uchar *)ximage->data;
     dst = out;
-    for (y = 0; y < (unsigned)(ximage->height); y++) {
-        for (x = 0; x < (unsigned)(ximage->width); x++) {
+    for (y = 0; y < (uint32)(ximage->height); y++) {
+        for (x = 0; x < (uint32)(ximage->width); x++) {
             if (TrueColorFlag == 1) {
                 /*  use the slow way to get the pixel
                     but then you dont need to screw around
@@ -1037,12 +1037,12 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     int32 bbp = 0, bbc = 0;
     int32 lobits, midbits, hibits;
     /*int32 vv; Not used anywhere...*/
-    unsigned x, y;
+    uint32 x, y;
     char head[100];
     XColor palette[256];
     XColor pix;
     uchar *pixel;
-    unsigned area;
+    uint32 area;
     uchar *out, *dst;
     cmap = DefaultColormap(display, screen);
     ximage = XGetImage(display, window, 0, 0, wid, hgt, AllPlanes, ZPixmap);
@@ -1074,8 +1074,8 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     pixel = (uchar *)ximage->data;
     out = malloc(3*area);
     dst = out;
-    for (y = 0; y < (unsigned)(ximage->height); y++) {
-        for (x = 0; x < (unsigned)(ximage->width); x++) {
+    for (y = 0; y < (uint32)(ximage->height); y++) {
+        for (x = 0; x < (uint32)(ximage->width); x++) {
             if (TrueColorFlag == 1) {
                 /*  use the slow way to get the pixel
                     but then you dont need to screw around

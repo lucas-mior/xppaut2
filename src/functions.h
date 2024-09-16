@@ -1754,7 +1754,7 @@ n        Dimension of the system (n < UINT_MAX).
 fcn      A pointer the the function definig the differential equation, this
          function must have the following prototype
 
-           void fcn (unsigned n, double x, double *y, double *f)
+           void fcn (uint32 n, double x, double *y, double *f)
 
          where the array f will be filled with the function result.
 
@@ -1781,7 +1781,7 @@ solout   A pointer to the output function called during integration.
          pass a pointer equal to NULL. solout must must have the following
          prototype
 
-           solout (long nr, double xold, double x, double* y, unsigned n, int32*
+           solout (long nr, double xold, double x, double* y, uint32 n, int32*
 irtrn)
 
          where y is the solution the at nr-th grid point x, xold is the
@@ -1854,7 +1854,7 @@ Memory requirements
 
          The function dop853 allocates dynamically 11*n doubles for the method
          stages, 8*nrdens doubles for the interpolation if dense output is
-         performed and n unsigned if 0 < nrdens < n.
+         performed and n uint32 if 0 < nrdens < n.
 
 OUTPUT PARAMETERS
 -----------------
@@ -1919,7 +1919,7 @@ n        Dimension of the system (n < UINT_MAX).
 fcn      A pointer the the function definig the differential equation, this
          function must have the following prototype
 
-           void fcn (unsigned n, double x, double *y, double *f)
+           void fcn (uint32 n, double x, double *y, double *f)
 
          where the array f will be filled with the function result.
 
@@ -1946,7 +1946,7 @@ solout   A pointer to the output function called during integration.
          pass a pointer equal to NULL. solout must must have the following
          prototype
 
-           solout (long nr, double xold, double x, double* y, unsigned n, int32*
+           solout (long nr, double xold, double x, double* y, uint32 n, int32*
 irtrn)
 
          where y is the solution the at nr-th grid point x, xold is the
@@ -2020,7 +2020,7 @@ Memory requirements
 
          The function dopri5 allocates dynamically 8*n doubles for the method
          stages, 5*nrdens doubles for the interpolation if dense output is
-         performed and n unsigned if 0 < nrdens < n.
+         performed and n uint32 if 0 < nrdens < n.
 
 OUTPUT PARAMETERS
 -----------------
@@ -2054,12 +2054,12 @@ nfcnRead    Number of function calls.
 #include <stdio.h>
 #include <limits.h>
 
-typedef void (*FcnEqDiff)(unsigned n, double x, double *y, double *f);
-typedef void (*SolTrait)(long nr, double xold, double x, double *y, unsigned n,
+typedef void (*FcnEqDiff)(uint32 n, double x, double *y, double *f);
+typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
                          int32 *irtrn);
 
 extern int32
-dop853(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
+dop853(uint32 n,      /* dimension of the system <= UINT_MAX-1*/
        FcnEqDiff fcn,   /* function computing the value of f(x,y) */
        double x,        /* initial x-value */
        double *y,       /* initial values for y */
@@ -2080,19 +2080,19 @@ dop853(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
        long nmax,                /* maximal number of allowed steps */
        int32 meth,               /* switch for the choice of the coefficients */
        long nstiff,              /* test for stiffness */
-       unsigned nrdens, /* number of components for which dense outpout is
+       uint32 nrdens, /* number of components for which dense outpout is
                            required */
-       unsigned *icont, /* indexes of components for which dense output is
+       uint32 *icont, /* indexes of components for which dense output is
                            required, >= nrdens */
-       unsigned licont, /* declared length of icon */
+       uint32 licont, /* declared length of icon */
        double *work);
 
-extern double contd8(unsigned ii, /* index of desired component */
+extern double contd8(uint32 ii, /* index of desired component */
                      double x     /* approximation at x */
 );
 
 extern int32
-dopri5(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
+dopri5(uint32 n,      /* dimension of the system <= UINT_MAX-1*/
        FcnEqDiff fcn,   /* function computing the value of f(x,y) */
        double x,        /* initial x-value */
        double *y,       /* initial values for y */
@@ -2113,18 +2113,18 @@ dopri5(unsigned n,      /* dimension of the system <= UINT_MAX-1*/
        long nmax,                /* maximal number of allowed steps */
        int32 meth,               /* switch for the choice of the coefficients */
        long nstiff,              /* test for stiffness */
-       unsigned nrdens, /* number of components for which dense outpout is
+       uint32 nrdens, /* number of components for which dense outpout is
                            required */
-       unsigned *icont, /* indexes of components for which dense output is
+       uint32 *icont, /* indexes of components for which dense output is
                            required, >= nrdens */
-       unsigned licont, /* declared length of icon */
+       uint32 licont, /* declared length of icon */
        double *work);
 
-extern double contd5(unsigned ii, /* index of desired component */
+extern double contd5(uint32 ii, /* index of desired component */
                      double x     /* approximation at x */
 );
 
-void dprhs(unsigned n, double t, double *y, double *f);
+void dprhs(uint32 n, double t, double *y, double *f);
 void dp_err(int32 k);
 int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
          double *atol, int32 flag, int32 *kflag);
@@ -2136,20 +2136,20 @@ long naccptRead(void);
 long nrejctRead(void);
 double hRead(void);
 double xRead(void);
-int32 dop853(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
+int32 dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
              double *rtoler, double *atoler, int32 itoler, SolTrait solout,
              int32 iout, FILE *fileout, double uround, double safe, double fac1,
              double fac2, double beta, double hmax, double h, long nmax,
-             int32 meth, long nstiff, unsigned nrdens, unsigned *icont,
-             unsigned licont, double *work);
-double contd8(unsigned ii, double x);
-int32 dopri5(unsigned n, FcnEqDiff fcn, double x, double *y, double xend,
+             int32 meth, long nstiff, uint32 nrdens, uint32 *icont,
+             uint32 licont, double *work);
+double contd8(uint32 ii, double x);
+int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
              double *rtoler, double *atoler, int32 itoler, SolTrait solout,
              int32 iout, FILE *fileout, double uround, double safe, double fac1,
              double fac2, double beta, double hmax, double h, long nmax,
-             int32 meth, long nstiff, unsigned nrdens, unsigned *icont,
-             unsigned licont, double *work);
-double contd5(unsigned ii, double x);
+             int32 meth, long nstiff, uint32 nrdens, uint32 *icont,
+             uint32 licont, double *work);
+double contd5(uint32 ii, double x);
 
 extern long nfcnRead(void); /* encapsulation of statistical data */
 extern long nstepRead(void);
