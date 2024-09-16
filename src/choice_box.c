@@ -151,9 +151,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
 }
 
 int32
-choice_box_event_loop(CHOICE_BOX p)
-
-{
+choice_box_event_loop(CHOICE_BOX p) {
     int32 i, j, nn = p.n;
     int32 status = -1;
 
