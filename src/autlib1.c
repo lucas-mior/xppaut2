@@ -6438,7 +6438,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     double rl0, rl1;
 
     int64 iab, lab, ibr, ndm;
-    double amp;
+    double amp = 0;
     int64 ips, itp, npr, isw, nmx;
     double umx[7];
 
