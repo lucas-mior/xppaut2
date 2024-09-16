@@ -1883,6 +1883,9 @@ draw_one_box(BoxList b, int32 index) {
         justify_string(w, uvar_names[index]);
         draw_editable(we, b.value[index], b.off[index], b.pos[index], b.mc);
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -2124,8 +2127,10 @@ redraw_entire_box(BoxList *b) {
     case DELAYBOX:
         redraw_delays();
         return;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
-    return;
 }
 
 void
@@ -2230,6 +2235,9 @@ box_list_scroll(BoxList *b, int32 i) {
         load_entire_box(b);
         redraw_delays();
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -2338,10 +2346,10 @@ man_ic(void) {
             draw_one_box(ICBox, index);
             index++;
             if (index >= NODE + NMarkov)
-                return;
+                break;
         }
         if (done == -1)
-            return;
+            break;
     }
     return;
 }
@@ -2387,7 +2395,7 @@ new_parameter(void) {
                 }
                 if (done == -1) {
                     redo_stuff();
-                    return;
+                    break;
                 }
             }
         }
@@ -2671,6 +2679,9 @@ set_value_from_box(BoxList *b, int32 i) {
         strcpy(delay_string[i], s);
         add_editval(b, i, s);
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
