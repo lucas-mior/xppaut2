@@ -965,7 +965,7 @@ contd8(uint32 ii, double x) {
 /************    dopri5  ***************************/
 static double
 hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg,
-       double *f0, double *f1, double *yy1, int32 iord, double hmax,
+       double *f0, double *f1, double *yyy1, int32 iord, double hmax,
        double *atoler, double *rtoler, int32 itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     uint32 i;
@@ -1002,8 +1002,8 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg,
 
     /* perform an explicit Euler step */
     for (i = 0; i < n; i++)
-        yy1[i] = y[i] + h*f0[i];
-    fcn(n, x + h, yy1, f1);
+        yyy1[i] = y[i] + h*f0[i];
+    fcn(n, x + h, yyy1, f1);
 
     /* estimate the second derivative of the solution */
     der2 = 0.0;
@@ -1053,7 +1053,6 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     /* initialisations */
     switch (meth) {
     case 1:
-
         c2 = 0.2, c3 = 0.3, c4 = 0.8, c5 = 8.0 / 9.0;
         a21 = 0.2, a31 = 3.0 / 40.0, a32 = 9.0 / 40.0;
         a41 = 44.0 / 45.0, a42 = -56.0 / 15.0;
@@ -1070,7 +1069,8 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         d4 = -10690763975.0 / 1880347072.0,
         d5 = 701980252875.0 / 199316789632.0;
         d6 = -1453857185.0 / 822651844.0, d7 = 69997945.0 / 29380423.0;
-
+        break;
+    default:
         break;
     }
 
