@@ -56,7 +56,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
        doublecomplex *ev) {
     int64 c0_dim1, c1_dim1, rwork_dim1;
 
-    /* Local variables */
     double beta, *svde, *svds, svdu[1], *svdv;
 
     int64 i, j;
@@ -373,7 +372,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 int32
 dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
       double *v) {
-    /* Local variables */
     static int64 iend, jmkp1;
 
     static int64 i, l;
@@ -522,7 +520,6 @@ dhhap(int64 *k, int64 *j, int64 *n, int64 *q, double *beta, double *v,
       int64 *job, double *a, int64 *lda) {
     int64 a_dim1;
 
-    /* Local variables */
 
     static int64 jmkp1;
     static double s;

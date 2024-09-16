@@ -168,7 +168,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *ups, double *dups, double *uoldps, double *udotps,
        double *upoldp, double *dtm, double *fa, double *fc, double *p0,
        double *p1, double *thl, double *thu) {
-    /* Local variables */
 
     int64 ndim;
     int64 ipar;
@@ -436,7 +435,6 @@ int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     int64 dd_dim1;
 
-    /* Local variables */
     int64 i, j;
 
     /* Parameter adjustments */
@@ -460,7 +458,6 @@ int32
 faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     int64 fa_dim1, ff_dim1;
 
-    /* Local variables */
     int64 i, j;
 
     /* Parameter adjustments */
@@ -479,7 +476,6 @@ faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
 /*     ---------- --------- */
 int32
 partition(int64 *n, int64 *kwt, int64 *m) {
-    /* Local variables */
     int64 i, s, t;
 
     /*     Linear distribution of NTST over all nodes */
@@ -506,7 +502,6 @@ int64
 mypart(int64 *iam, int64 *np) {
     int64 ret_val;
 
-    /* Local variables */
     int64 i, k;
 
     /*     Partition the mesh */
@@ -866,7 +861,6 @@ int32
 setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
     int64 fa_dim1;
 
-    /* Local variables */
     int64 i, j;
 
     /* Parameter adjustments */
@@ -892,7 +886,6 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *iam) {
     int64 icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
 
-    /* Local variables */
     int64 nbcp1, i, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex, irp;
 
     (void) iam;
@@ -951,7 +944,6 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
         a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
 
-    /* Local variables */
     int64 i, irfir, ic, ir, ic1, nap1;
 
     (void) iam;
@@ -1015,7 +1007,6 @@ int32
 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     int64 irf_dim1, fa_dim1, faa_dim1;
 
-    /* Local variables */
     int64 i, irfir, ir;
 
     /*     **Copy the RHS */
@@ -1043,7 +1034,6 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
         s1_dim1, s1_dim2, s2_dim1, s2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2,
         dd_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
-    /* Local variables */
     int64 oddc[KREDO];
     int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO],
         nlev, itmp;
@@ -1797,7 +1787,6 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
         cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
-    /* Local variables */
     int64 niam, nlev;
     double xkwt;
     int64 nbcp1, ipiv1, ipiv2, i;
@@ -1974,7 +1963,6 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
     int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
         faa_dim1, a2_dim1, a2_dim2, bb_dim1, bb_dim2;
 
-    /* Local variables */
 
     int64 i, j, k;
 
@@ -2167,7 +2155,6 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2,
         bb_dim1, bb_dim2, sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
 
-    /* Local variables */
     int64 niam, ibuf;
     int64 even = FALSE_;
     int64 nlev;
@@ -2415,7 +2402,6 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
 
-    /* Local variables */
     int64 nram, icfj1, i, j;
     double *x;
     int64 nrapj, irfir, j1, novpj, icfnovpir, ir;
@@ -2482,7 +2468,6 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
 /*     ---------- --- */
 int32
 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
-    /* Local variables */
     int64 niam;
     int64 even[KREDO];
     double xkwt;
@@ -2562,7 +2547,6 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
 
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
 
-    /* Local variables */
     int64 i, ic, ir;
 
     /* Parameter adjustments */

@@ -38,7 +38,6 @@ conpar_process(void *arg) {
     int64 icf_dim1, irf_dim1, d_dim1;
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
 
-    /* Local variables */
     int64 ipiv, jpiv, itmp;
     double tpiv;
     int64 i, l, k1, k2, m1, m2, ic, ir;
@@ -260,7 +259,6 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     /* Aliases for the dimensions of the arrays */
     int64 icf_dim1, irf_dim1;
 
-    /* Local variables */
     int64 i, j;
     int64 nex;
 

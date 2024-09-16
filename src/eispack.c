@@ -29,7 +29,6 @@ rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
    double *z__, int64 *iv1, double *fv1, int64 *ierr) {
     int64 a_dim1, a_offset, z_dim1, z_offset;
 
-    /* Local variables */
 
     static int64 is1, is2;
 
@@ -128,7 +127,6 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     int64 h_dim1, h_offset, i__1, i__2, i__3;
     double d__1, d__2;
 
-    /* Local variables */
     static double norm;
     static int64 i__, j, k, l, m;
     static double p, q, r__, s, t, w, x, y;
@@ -470,7 +468,6 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     int64 h_dim1, h_offset, z_dim1, z_offset, i__1, i__2, i__3;
     double d__1, d__2, d__3, d__4;
 
-    /* Local variables */
 
     static double norm;
     static int64 i__, j, k, l, m;
@@ -1149,7 +1146,6 @@ int32
 cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
     double d__1, d__2;
 
-    /* Local variables */
     static double s, ais, bis, ars, brs;
 
     /*     COMPLEX DIVISION, (CR,CI) = (AR,AI)/(BR,BI) */
@@ -1174,7 +1170,6 @@ balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
     int64 a_dim1, a_offset, i__1, i__2;
     double d__1;
 
-    /* Local variables */
     static int64 iexc;
     static double c__, f, g;
     static int64 i__, j, k, l, m;
@@ -1421,7 +1416,6 @@ balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
        double *z__) {
     int64 z_dim1, z_offset, i__1, i__2;
 
-    /* Local variables */
     static int64 i__, j, k;
     static double s;
     static int64 ii;
@@ -1530,7 +1524,6 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
     int64 a_dim1, a_offset, i__1, i__2, i__3;
     double d__1;
 
-    /* Local variables */
     static int64 i__, j, m;
     static double x, y;
     static int64 la, mm1, kp1, mp1;
@@ -1668,7 +1661,6 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
        double *z__) {
     int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2;
 
-    /* Local variables */
     static int64 i__, j, kl, mm, mp, mp1;
 
     /*     THIS SUBROUTINE IS A TRANSLATION OF THE ALGOL PROCEDURE ELMTRANS,
@@ -1781,7 +1773,6 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
         i__3;
     double d__1, d__2;
 
-    /* Local variables */
     static int64 i__, j, k, l;
     static double r__, s, t;
     static int64 l1;
@@ -2060,7 +2051,6 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
         i__3;
     double d__1, d__2, d__3;
 
-    /* Local variables */
     static double epsa, epsb;
     static int64 i__, j, k, l;
     static double r__, s, t, anorm, bnorm;
@@ -2583,7 +2573,6 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2;
     double d__1, d__2, d__3, d__4;
 
-    /* Local variables */
     static double epsb, c__, d__, e;
     static int64 i__, j;
     static double r__, s, t, a1, a2, u1, u2, v1, v2, a11, a12, a21, a22, b11,
@@ -2965,7 +2954,6 @@ double
 epslon(double x) {
     double ret_val, d__1;
 
-    /* Local variables */
     static double a, b, c__, eps;
 
     /*     ESTIMATE UNIT ROUNDOFF IN QUANTITIES OF SIZE X. */
@@ -3020,7 +3008,6 @@ dnrm2(int64 *n, double *dx, int64 *incx) {
     int64 i__1, i__2;
     double ret_val, d__1;
 
-    /* Local variables */
     static double xmax;
     static int64 next, i__, j, nn;
     static double hitest, sum;
@@ -3197,7 +3184,6 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     int64 i__1;
     double ret_val;
 
-    /* Local variables */
     static int64 i__, m;
     static double dtemp;
     static int64 ix, iy, mp1;
@@ -3276,7 +3262,6 @@ int32
 dscal(int64 *n, double *da, double *dx, int64 *incx) {
     int64 i__1, i__2;
 
-    /* Local variables */
     static int64 i__, m, nincx, mp1;
 
     /*     SCALES A VECTOR BY A CONSTANT. */
@@ -3341,7 +3326,6 @@ idamax(int64 *n, double *dx, int64 *incx) {
     int64 ret_val, i__1;
     double d__1;
 
-    /* Local variables */
     static double dmax__;
     static int64 i__, ix;
 
@@ -3402,7 +3386,6 @@ int32
 daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
     int64 i__1;
 
-    /* Local variables */
     static int64 i__, m, ix, iy, mp1;
 
     /*     CONSTANT TIMES A VECTOR PLUS A VECTOR. */
@@ -3479,7 +3462,6 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
      double *s) {
     int64 i__1;
 
-    /* Local variables */
     static int64 i__;
     static double dtemp;
     static int64 ix, iy;
@@ -3538,7 +3520,6 @@ int32
 dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     int64 i__1;
 
-    /* Local variables */
     static int64 i__, m;
     static double dtemp;
     static int64 ix, iy, mp1;
@@ -3623,7 +3604,6 @@ dgemc(int64 *m, int64 *n, double *a, int64 *lda, double *b, int64 *ldb,
       int64 *trans) {
     int64 a_dim1, a_offset, b_dim1, b_offset, i__1, i__2;
 
-    /* Local variables */
     static int64 i__, j, mm, mmp1;
 
     /*  This subroutine copies a double precision real */
@@ -3869,7 +3849,6 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
     int64 a_dim1, a_offset, b_dim1, b_offset, c_dim1, c_offset, i__1, i__2,
         i__3;
 
-    /* Local variables */
     static int64 info;
     static int64 nota, notb;
     static double temp;
@@ -4263,7 +4242,6 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
       int64 *info, double *tol) {
     int64 x_dim1, x_offset, u_dim1, u_offset, v_dim1, v_offset;
 
-    /* Local variables */
     static int64 idbg, skip, iidir, ifull;
 
     static int64 kount, kount1, kount2, limshf;
@@ -4333,7 +4311,6 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
 
 int32
 ndrotg(double *f, double *g, double *cs, double *sn) {
-    /* Local variables */
     static double t, tt;
 
     /*     faster version of drotg, except g unchanged on return */
@@ -4391,7 +4368,6 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
         i__3;
     double d__1, d__2, d__3, d__4;
 
-    /* Local variables */
     static double abse;
 
     static int64 idir;
@@ -5676,7 +5652,6 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
 
     /* Builtin functions */
 
-    /* Local variables */
     static int64 i__;
 
     /* Fortran I/O blocks */
@@ -5710,7 +5685,6 @@ sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
       double *snr, double *csr, double *snl, double *csl) {
     double d__1, d__2;
 
-    /* Local variables */
     static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl, sinl,
         cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
     static int64 ia;
@@ -5959,7 +5933,6 @@ double
 sigmin(double *a, double *b, double *c__) {
     double ret_val, d__1, d__2;
 
-    /* Local variables */
     static double acmn, acmx, aa, ab, ac, as, at, au;
 
     /*     compute smallest singular value of 2 by 2 matrix ((a,b);(0,c)) */
@@ -6012,7 +5985,6 @@ int32
 sndrtg(double *f, double *g, double *cs, double *sn) {
     double d__1;
 
-    /* Local variables */
     static double t, tt;
 
     /*     version of ndrotg, in which sign(f)=sign(cs),sign(g)=sign(sn) */
@@ -6054,7 +6026,6 @@ hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
 
-    /* Local variables */
     static int64 fail;
     static int64 i__, l;
     static double p, q, r__, s, t, w, x, y, z__, e1, e2;
@@ -6450,7 +6421,6 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2;
 
-    /* Local variables */
     static int64 i__, j;
     static double p, q, r__, t, u, w, x, y, z__;
     static int64 l1;
@@ -6589,7 +6559,6 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
     double d__1, d__2, d__3;
 
-    /* Local variables */
     static int64 i__, j, m;
     static double p, q, r__, s, w, x, y, z__;
     static int64 l1, it;
@@ -6757,7 +6726,6 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1, i__2;
     double d__1, d__2, d__3;
 
-    /* Local variables */
     static int64 last;
     static int64 i__, j, k;
     static double s, x, y, z__;
@@ -6909,7 +6877,6 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
     int64 a_dim1, a_offset, i__1, i__2, i__3;
     double d__1;
 
-    /* Local variables */
     static double f, g, h__;
     static int64 i__, j, m;
     static double scale;
@@ -7059,7 +7026,6 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
        double *z__) {
     int64 a_dim1, a_offset, z_dim1, z_offset, i__1, i__2, i__3;
 
-    /* Local variables */
     static double g;
     static int64 i__, j, kl, mm, mp, mp1;
 

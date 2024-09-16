@@ -18,7 +18,6 @@ fnlp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
     double rtmp;
     int64 i, j;
     double ep;
@@ -93,7 +92,6 @@ fflp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j, ips;
 
@@ -128,7 +126,6 @@ fflp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    /* Local variables */
     int64 ndim;
 
     double uold;
@@ -185,7 +182,6 @@ fnc1(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double ddp[NPARX], *ddu;
@@ -270,7 +266,6 @@ fnc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
     double rtmp;
     int64 i, j;
     double ep;
@@ -340,7 +335,6 @@ ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 icpm;
 
@@ -394,7 +388,6 @@ ffc2(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    /* Local variables */
     int64 ndim;
 
     double uold;
@@ -477,7 +470,6 @@ fnds(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i;
 
@@ -514,7 +506,6 @@ fnti(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     double told;
     int64 i, j;
@@ -560,7 +551,6 @@ fnhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     double rtmp;
     int64 i, j;
@@ -637,7 +627,6 @@ ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
     double thta;
 
     int64 i, j;
@@ -689,7 +678,6 @@ ffhd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    /* Local variables */
     int64 ndim;
     double thta;
 
@@ -782,7 +770,6 @@ fnhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     double rtmp;
     int64 i, j;
@@ -859,7 +846,6 @@ ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
 
@@ -907,7 +893,6 @@ ffhb(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    /* Local variables */
     int64 ndim;
 
     double uold, *smat;
@@ -993,7 +978,6 @@ fnhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     double rtmp;
     int64 i, j;
@@ -1071,7 +1055,6 @@ ffhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
     int64 ijac;
 
     int64 i, j;
@@ -1118,7 +1101,6 @@ ffhw(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
 
 int32
 stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    /* Local variables */
     int64 ijac, ndim;
 
     double uold, *smat;
@@ -1212,7 +1194,6 @@ fnps(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double period;
@@ -1276,7 +1257,6 @@ bcps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) icp;
     int64 dbc_dim1;
 
-    /* Local variables */
     int64 jtmp, i, j, nn;
 
     /* Parameter adjustments */
@@ -1329,7 +1309,6 @@ icps(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) udot;
     int64 dint_dim1;
 
-    /* Local variables */
     int64 jtmp, i, nn;
 
     /* Parameter adjustments */
@@ -1373,7 +1352,6 @@ pdble(const iap_type *iap, const rap_type *rap, int64 *ndim, int64 *ntst,
     (void) rap;
     int64 ups_dim1, udotps_dim1;
 
-    /* Local variables */
     int64 i, j, i1, i2;
 
     /* Preprocesses restart data for switching branches at a period doubling */
@@ -1420,7 +1398,6 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        double *thl, double *thu) {
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    /* Local variables */
     int64 ndim, ncol;
 
     double uold, *smat;
@@ -1559,7 +1536,6 @@ fnws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 ndm, ndm2;
 
@@ -1590,7 +1566,6 @@ ffws(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double c;
@@ -1664,7 +1639,6 @@ fnwp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double period;
@@ -1728,7 +1702,6 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        double *thl, double *thu) {
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    /* Local variables */
     int64 ndim, ncol;
 
     double uold, *smat;
@@ -1870,7 +1843,6 @@ fnsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 ndm;
 
@@ -1898,7 +1870,6 @@ ffsp(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double period;
@@ -1957,7 +1928,6 @@ fnpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 ndm;
 
@@ -1984,7 +1954,6 @@ ffpe(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp, int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double t, dsmin, rlold, ds, dt, period;
@@ -2071,7 +2040,6 @@ fnpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -2147,7 +2115,6 @@ ffpl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     (void) ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
     double beta;
 
     int64 i, j;
@@ -2189,7 +2156,6 @@ bcpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     (void) icp;
     int64 dbc_dim1;
-    /* Local variables */
     int64 jtmp, i, j, nn, ndm;
 
     /* Boundary conditions for continuing folds (Periodic solutions) */
@@ -2242,7 +2208,6 @@ icpl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) uold;
     int64 dint_dim1;
 
-    /* Local variables */
     int64 jtmp, i, j, nn, ndm;
 
     /* Integral conditions for continuing folds (Periodic solutions) */
@@ -2306,7 +2271,6 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    /* Local variables */
     int64 ndim;
     double temp[7];
     int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
@@ -2451,7 +2415,6 @@ fnpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -2527,7 +2490,6 @@ ffpd(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     (void) ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double period;
@@ -2559,7 +2521,6 @@ bcpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dbc_dim1;
 
-    /* Local variables */
     int64 jtmp, i, j, nn, ndm;
 
     /* Generate boundary conditions for the 2-parameter continuation */
@@ -2619,7 +2580,6 @@ icpd(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dint_dim1;
 
-    /* Local variables */
     int64 jtmp, i, j, nn, ndm;
 
     /* Parameter adjustments */
@@ -2675,7 +2635,6 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    /* Local variables */
     int64 ndim;
     double temp[7];
     int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
@@ -2801,7 +2760,6 @@ fntr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -2880,7 +2838,6 @@ fftr(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     (void) ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double period;
@@ -2917,7 +2874,6 @@ bctr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dbc_dim1;
 
-    /* Local variables */
     int64 jtmp, i, j;
     double theta, cs;
     int64 nn;
@@ -2991,7 +2947,6 @@ ictr(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dint_dim1;
 
-    /* Local variables */
     int64 jtmp, i, j, nn, ndm, ndm2;
 
     /* Parameter adjustments */
@@ -3053,7 +3008,6 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ups_dim1, udotps_dim1;
 
-    /* Local variables */
     int64 ndim;
     double temp[7];
     int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
@@ -3185,7 +3139,6 @@ fnpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -3275,7 +3228,6 @@ ffpo(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     (void) ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 i, j;
     double gamma, rkappa, period, dfp[NPARX], *dfu, fop;
@@ -3322,7 +3274,6 @@ bcpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dbc_dim1;
 
-    /* Local variables */
     int64 nfpr, i, j, nbc0;
 
     /* Generates the boundary conditions for periodic optimization problems.
@@ -3371,7 +3322,6 @@ icpo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      double *dint) {
     int64 dint_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -3462,7 +3412,6 @@ fipo(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) ndim;
     int64 dint_dim1, dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr, indx;
     double *f;
@@ -3542,7 +3491,6 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    /* Local variables */
     int64 ndim;
     double temp[7];
     int64 nfpr;
@@ -3726,7 +3674,6 @@ fnbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -3805,7 +3752,6 @@ ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     (void) ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
 
     int64 nfpr, nfpx, i, j;
 
@@ -3840,7 +3786,6 @@ bcbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -3950,7 +3895,6 @@ fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) nbc;
     int64 dbc_dim1;
 
-    /* Local variables */
 
     int64 nfpr, nfpx, i, j, ndm;
 
@@ -3986,7 +3930,6 @@ icbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      double *dint) {
     int64 dint_dim1;
 
-    /* Local variables */
 
     int64 nfpr;
     double rtmp;
@@ -4078,7 +4021,6 @@ fibl(const iap_type *iap, const rap_type *rap, const int64 ndim, double *par,
     (void) ndim;
     int64 dint_dim1;
 
-    /* Local variables */
 
     int64 nfpr, nfpx = 0, i, j, ndm;
 
@@ -4134,7 +4076,6 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ups_dim1, udotps_dim1;
 
-    /* Local variables */
     int64 ndim;
     double temp[7];
     int64 nfpr, nfpx, nfpr0, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
@@ -4253,7 +4194,6 @@ funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     (void) rap;
     int64 dfdu_dim1, dfdp_dim1;
 
-    /* Local variables */
     double *u1zz, *u2zz;
 
     int64 nfpr;
@@ -4355,7 +4295,6 @@ bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dbc_dim1;
 
-    /* Local variables */
 
     double *u1zz, *u2zz;
     int64 nfpr;
@@ -4477,7 +4416,6 @@ icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     (void) rap;
     int64 dint_dim1;
 
-    /* Local variables */
     double *u1zz, *u2zz;
 
     int64 nfpr;
@@ -4573,7 +4511,6 @@ fopi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      double *dfdp) {
     (void) rap;
 
-    /* Local variables */
     double *u1zz, *u2zz;
     int64 nfpr;
 

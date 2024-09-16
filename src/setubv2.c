@@ -36,7 +36,6 @@ setubv_make_aa_bb_cc(void *arg) {
         uoldps_dim1, udotps_dim1, upoldp_dim1, dbc_dim1, dicd_dim1, wploc_dim1,
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
 
-    /* Local variables */
     int64 i, j, k, l, m;
     int64 k1, l1;
     int64 i1, j1;
@@ -297,7 +296,6 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     (void) p1;
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
-    /* Local variables */
     int64 i, j, k;
 
     double *wi, *wp, *wt;
