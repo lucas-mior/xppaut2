@@ -170,13 +170,12 @@ extern char upar_names[MAX_PAR][14];
 extern int32 NUPAR;
 
 double XfromAuto, YfromAuto;
-int32 FromAutoFlag = 0;
+static int32 FromAutoFlag = 0;
 
 extern int32 NODE, NEQ;
 extern int32 METHOD;
 
 int32 HomoFlag = 0;
-int32 sparity = 0;
 double homo_l[100], homo_r[100];
 double HOMO_SHIFT = 0.0;
 extern char uvar_names[MAX_ODE][12];

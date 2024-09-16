@@ -52,7 +52,8 @@ struct {
     int32 istart, nlines, flag;
 } eq_list;
 
-extern int32 HomoFlag, sparity;
+extern int32 HomoFlag;
+static int32 sparity;
 extern double homo_l[100], homo_r[100];
 
 void
