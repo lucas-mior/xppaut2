@@ -133,12 +133,11 @@ reset_dae(void) {
 
 void
 set_init_guess(void) {
-    int32 i;
     double z;
     dae_work.status = 1;
     if (nsvar == 0)
         return;
-    for (i = 0; i < nsvar; i++) {
+    for (int32 i = 0; i < nsvar; i++) {
         z = evaluate(svar[i].form);
         SETVAR(svar[i].index, z);
         svar[i].value = z;
