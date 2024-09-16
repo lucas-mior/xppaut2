@@ -1179,8 +1179,10 @@ selector_key(XEvent ev) {
         if (flag == EDIT_ESC)
             return 2;
         return 0;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
-    return 0;
 }
 
 void
@@ -1351,7 +1353,8 @@ expose_slider(Window w, PAR_SLIDER *p) {
         return;
     }
     if (w == p->go) {
-        XDrawString(display, w, small_gc, 2, 0.75*CURY_OFFs, "go", 2);
+        XDrawString(display, w, small_gc,
+                    2, (int32)(0.75*(double)CURY_OFFs), "go", 2);
         return;
     }
     if (p->use) {
