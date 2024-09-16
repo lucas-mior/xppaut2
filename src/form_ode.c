@@ -1138,7 +1138,7 @@ if_end_include(char *old) {
     return 0;
 }
 
-void
+static void
 count_object(int32 type) {
     switch (type) {
     case ODE:
@@ -1161,11 +1161,14 @@ count_object(int32 type) {
     case SOL_VAR:
         NUMSOL++;
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
 
-void
+static void
 print_count_of_object(void) {
     printf("NUMODES=%d \n NUMFIX=%d \n NUMPARAM=%d \n NUMMARK=%d \n NUMVOLT=%d "
            "\n NUMAUX=%d \n NUMSOL=%d \n",
@@ -1200,8 +1203,8 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
 
         } else {
             if (loadincludefile) {
-                loadincludefile = 0; /*Only do this once*/
                 int32 j = 0;
+                loadincludefile = 0; /*Only do this once*/
                 for (j = 0; j < NincludedFiles; j++) {
                     printf("Trying to open %d %s\n", NincludedFiles,
                            includefilename[j]);
@@ -1278,6 +1281,9 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
             }
 
             break;
+        default:
+            fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+            exit(EXIT_FAILURE);
         }
 
         while (true) {
