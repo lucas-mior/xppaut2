@@ -257,11 +257,9 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     int64 i, j;
     int64 nex;
 
-    /*<	      NEX=NCA-2*NOV >*/
     irf_dim1 = *nra;
     icf_dim1 = *nca;
 
-    /* Function Body */
     nex = *nca - (*nov << 1);
     if (nex == 0)
         return 0;
