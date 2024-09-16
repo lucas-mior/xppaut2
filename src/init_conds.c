@@ -881,9 +881,9 @@ void
 stringintersect(char *target, char *sother) {
     int32 m = strlen(target);
     int32 n = strlen(sother);
+    int32 j = 0;
     if (n < m)
         m = n;
-    int32 j = 0;
     while (j < m) {
         if (target[j] != sother[j]) {
             break;
@@ -993,6 +993,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         /*Try to change to that new directory if it is one.*/
         if ((dp = (struct dirent *)opendir(filesel.filetxt)) != NULL) {
             if (strcmp(cur_dir, filesel.filetxt) != 0) {
+                int32 m;
                 change_directory(filesel.filetxt);
                 get_directory(cur_dir);
                 redraw_directory();
@@ -1001,7 +1002,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
                 get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
-                int32 m = strlen(filesel.filetxt);
+                m = strlen(filesel.filetxt);
                 if (filesel.filetxt[m - 1] != '/') {
                     strcat(filesel.filetxt, "/");
                 }
@@ -1062,6 +1063,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         if ((my_ff.ndirs + my_ff.nfiles) == 1) {
             if (my_ff.ndirs == 1) /*Only possible directory -- take it.*/
             {
+                int32 m2;
                 change_directory(my_ff.dirnames[0]);
                 get_directory(cur_dir);
                 redraw_directory();
@@ -1070,8 +1072,8 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
                 get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
-                int32 m = strlen(filesel.filetxt);
-                if (filesel.filetxt[m - 1] != '/') {
+                m2 = strlen(filesel.filetxt);
+                if (filesel.filetxt[m2 - 1] != '/') {
                     strcat(filesel.filetxt, "/");
                 }
                 redraw_fs_text(filesel.filetxt, filesel.file, 1);
