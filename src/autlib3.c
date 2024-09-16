@@ -3451,11 +3451,6 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void)thu;
-    (void)thl;
-    (void)upoldp;
-    (void)rldot;
-
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
     int64 ndim;
@@ -3478,6 +3473,13 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     double *temporary_storage;
     int64 temporary_storage_dim1;
+    size_t size;
+
+    (void)thu;
+    (void)thl;
+    (void)upoldp;
+    (void)rldot;
+
     /* This is a little funky.  In the older version, upoldp was used for some
        temporary storage in a loop later on.  I wanted to get rid of that
        my adding a local varialbe.  Unfortunately, things are never that easy.
@@ -3488,7 +3490,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        calculations). So, that is why I use ndxloc here.  Also, iap->ncol MAY BE
        tool small, but I am not sure how to get value from the fort.8 file into
        here. */
-    size_t size = sizeof(*temporary_storage)*(*ndxloc)*(iap->ndim*iap->ncol);
+    size = sizeof(*temporary_storage)*(*ndxloc)*(iap->ndim*iap->ncol);
     temporary_storage = malloc(size);
     u = malloc(sizeof(*u)*(iap->ndim));
 
@@ -3713,10 +3715,11 @@ int32
 ffbl(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, double *f, int64 ndm,
      double *dfdu, double *dfdp) {
-    (void)ndim;
     int64 dfdu_dim1, dfdp_dim1;
 
     int64 nfpr, nfpx, i, j;
+
+    (void)ndim;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndm;
@@ -3854,10 +3857,11 @@ int32
 fbbl(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, int64 nbc0, const double *u0,
      const double *u1, double *f, double *dbc) {
-    (void)nbc;
     int64 dbc_dim1;
 
     int64 nfpr, nfpx, i, j, ndm;
+
+    (void)nbc;
 
     /* Parameter adjustments */
     dbc_dim1 = nbc0;
@@ -3978,10 +3982,11 @@ fibl(const iap_type *iap, const rap_type *rap, const int64 ndim, double *par,
      const int64 *icp, int64 nint, int64 nnt0, const double *u,
      const double *uold, const double *udot, const double *upold, double *f,
      double *dint) {
-    (void)ndim;
     int64 dint_dim1;
 
     int64 nfpr, nfpx = 0, i, j, ndm;
+
+    (void)ndim;
 
     /* Parameter adjustments */
     dint_dim1 = nnt0;
@@ -4027,12 +4032,6 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void)thu;
-    (void)thl;
-    (void)dtm;
-    (void)upoldp;
-    (void)udotps;
-
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim;
@@ -4042,6 +4041,12 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
     int64 ibr, ndm, irs, lab1, nar1, itp1, isw1;
+
+    (void)thu;
+    (void)thl;
+    (void)dtm;
+    (void)upoldp;
+    (void)udotps;
 
     /* Generates starting data for the 2-parameter continuation of folds. */
     /* (BVP). */
@@ -4149,8 +4154,6 @@ int32
 funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const double *uold, const int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    (void)uold;
-    (void)rap;
     int64 dfdu_dim1, dfdp_dim1;
 
     double *u1zz, *u2zz;
@@ -4161,6 +4164,9 @@ funi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     double ep;
     int64 jac, ijc;
     double umx, *f1zz, *f2zz;
+
+    (void)uold;
+    (void)rap;
 
     u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
     u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
@@ -4251,7 +4257,6 @@ int32
 bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nbc, const double *u0, const double *u1, double *f,
      int64 ijac, double *dbc) {
-    (void)rap;
     int64 dbc_dim1;
 
     double *u1zz, *u2zz;
@@ -4261,6 +4266,8 @@ bcni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double ep;
     int64 jac, ijc;
     double umx, *f1zz, *f2zz;
+
+    (void)rap;
 
     u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
     u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
@@ -4370,7 +4377,6 @@ icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
      const int64 *icp, int64 nint, const double *u, const double *uold,
      const double *udot, const double *upold, double *f, int64 ijac,
      double *dint) {
-    (void)rap;
     int64 dint_dim1;
 
     double *u1zz, *u2zz;
@@ -4381,6 +4387,8 @@ icni(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
     double ep;
     int64 jac, ijc;
     double umx, *f1zz, *f2zz;
+
+    (void)rap;
 
     f1zz = malloc(sizeof(*(f1zz))*(iap->nint));
     f2zz = malloc(sizeof(*(f2zz))*(iap->nint));
@@ -4465,8 +4473,6 @@ int32
 fopi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
      const int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    (void)rap;
-
     double *u1zz, *u2zz;
     int64 nfpr;
 
@@ -4475,6 +4481,8 @@ fopi(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     double f1, f2, ep;
     int64 jac, ijc;
     double umx;
+
+    (void)rap;
 
     u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
     u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
