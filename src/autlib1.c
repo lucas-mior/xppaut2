@@ -3482,7 +3482,7 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
             z__ = tm2[j1];
             d = (tm[j] - tm[-1 + j]) / (double)*nc;
             for (int64 l = 0; l < ncp1; ++l) {
-                x[l] = tm[-1 + j] + l*d;
+                x[l] = tm[-1 + j] + (double)l*d;
             }
             intwts(iap, rap, &ncp1, &z__, x, w);
             for (k = 0; k < *ndim; ++k) {
