@@ -6790,10 +6790,6 @@ int32
 wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        int64 *ndxloc, double *ups, double *tm, double *dtm, double *thl,
        double *thu) {
-    (void) par;
-    (void) icp;
-    (void) thl;
-
     int64 ups_dim1;
 
     int64 ndim, ncol, nfpr, iplt, mtot, ntot, ntst, i, j, k;
@@ -6803,6 +6799,10 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
     int64 iab, iid, ibr, ndm;
     double amp = 0.0;
+
+    (void) par;
+    (void) icp;
+    (void) thl;
 
     /* Writes additional output on unit 9. */
 
@@ -6891,12 +6891,13 @@ pvlsae(iap_type *iap, rap_type *rap, double *u, double *par) {
 int32
 pvlsbv(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
+    int64 ndm;
+
     (void) icp;
     (void) ndxloc;
     (void) ndim;
     (void) p0;
     (void) p1;
-    int64 ndm;
 
     setpbv(iap, rap, dtm);
     ndm = iap->jac;
@@ -6951,11 +6952,12 @@ time_end(double start) {
 
 double
 getp(char *code, int64 *ic, double *ups, int64 code_len) {
-    (void) code_len;
     double ret_val = 0.0;
     int64 ntst;
     int64 nxloc;
     int64 ips;
+
+    (void) code_len;
 
     nxloc = global_parameters.iav->ntst + 1;
 
