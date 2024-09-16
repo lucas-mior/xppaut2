@@ -329,9 +329,7 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
 }
 
 void
-draw_ytics(char *s1, double start, double incr, double end)
-
-{
+draw_ytics(char *s1, double start, double incr, double end) {
     double ticvalue, place;
     double y_min = YMin, y_max = YMax, x_min = XMin;
     char bob[100];
@@ -375,9 +373,7 @@ draw_ytics(char *s1, double start, double incr, double end)
 }
 
 void
-draw_xtics(char *s2, double start, double incr, double end)
-
-{
+draw_xtics(char *s2, double start, double incr, double end) {
     double ticvalue, place;
     double y_min = YMin, x_min = XMin, x_max = XMax;
 
@@ -401,4 +397,5 @@ draw_xtics(char *s2, double start, double incr, double end)
         put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
     put_text((DLeft + DRight) / 2, yt - (int32)(2.5*VChar*s), s2);
+    return;
 }
