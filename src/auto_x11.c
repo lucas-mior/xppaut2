@@ -905,11 +905,12 @@ make_auto(char *wname, char *iname) {
     int32 addwid = 16*DCURX, addhgt = 3*DCURY, hinthgt = DCURY + 6;
     Window base = 0;
     int32 dely = DCURY + 5;
-    STD_HGT_var = 20*DCURY;
-    STD_WID_var = 67*DCURX;
     int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     XTextProperty winname, iconname;
     XSizeHints size_hints;
+
+    STD_HGT_var = 20*DCURY;
+    STD_WID_var = 67*DCURX;
     Auto_extra_wid = 10 + addwid;
     Auto_extra_hgt = addhgt + 2*DCURY + hinthgt;
     wid = 10 + addwid + STD_WID_var + xmargin;
