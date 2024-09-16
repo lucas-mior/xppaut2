@@ -3488,7 +3488,8 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        calculations). So, that is why I use ndxloc here.  Also, iap->ncol MAY BE
        tool small, but I am not sure how to get value from the fort.8 file into
        here. */
-    temporary_storage = malloc(sizeof(double)*(*ndxloc)*(iap->ndim*iap->ncol));
+    size_t size = sizeof(*temporary_storage)*(*ndxloc)*(iap->ndim*iap->ncol);
+    temporary_storage = malloc(size);
     u = malloc(sizeof(*u)*(iap->ndim));
 
     /* Generates starting data for optimization of periodic solutions. */
