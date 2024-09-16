@@ -4887,11 +4887,12 @@ int32
 extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
        double *rlcur, double *rlold, double *rldot, int64 *ndxloc, double *ups,
        double *uoldps, double *udotps) {
-    (void) rap;
-    (void) funi;
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
     int64 ndim, ncol, nfpr, nrow, ntst, i, j;
+
+    (void) rap;
+    (void) funi;
 
     /* Determines an initial approximation to the next solution by */
     /* a computation of the null space of the Jacobian. */
@@ -4925,7 +4926,6 @@ int32
 stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        FUNI_TYPE((*funi)), double *rlcur, double *rlold, double *rldot,
        int64 *ndxloc, double *ups, double *uoldps, double *upoldp) {
-    (void) rldot;
     int64 ups_dim1, uoldps_dim1, upoldp_dim1;
 
     int64 ndim, ncol;
@@ -4933,6 +4933,8 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 i, j, k;
     int64 n1, ips;
     double *dfdp, *dfdu, *uold, *f, *u;
+
+    (void) rldot;
 
     dfdp = malloc(sizeof(*dfdp)*(iap->ndim)*NPARX);
     dfdu = malloc(sizeof(*dfdu)*(iap->ndim)*(iap->ndim));
@@ -5220,18 +5222,15 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *rlold, double *rldot, int64 *ndxloc, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dups, double *tm, double *dtm,
        doublecomplex *ev, int64 *nodir, double *thl, double *thu) {
+    int64 ups_dim1, uoldps_dim1;
+    int64 ndim, ncol, nfpr, ntst, i, j;
+    int64 ntsrs;
+    int64 ncolrs;
+    int64 ntst_fort8, ncol_fort8, junk;
+
     (void) rds;
     (void) dups;
     (void) ev;
-    int64 ups_dim1, uoldps_dim1;
-
-    int64 ndim, ncol, nfpr, ntst, i, j;
-
-    int64 ntsrs;
-
-    int64 ncolrs;
-
-    int64 ntst_fort8, ncol_fort8, junk;
 
     /* Restarts computation of a branch of solutions at point labelled IRS. */
     /* The output written on unit 8 by a previous run is now expected as */
@@ -5380,10 +5379,6 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void) upoldp;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
     int64 ups_dim1, udotps_dim1;
 
     int64 ndim, nars;
@@ -5399,6 +5394,11 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     int64 ndimrd, ndimrs, ntplrs, ntotrs, lab, ibr, ips, irs, isw;
     int64 eof3;
+
+    (void) upoldp;
+    (void) dtm;
+    (void) thl;
+    (void) thu;
 
     /* This subroutine locates and retrieves the information required to */
     /* restart computation at the point with label IRS. */
