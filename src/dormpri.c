@@ -237,6 +237,10 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double d61, d66, d67, d68, d69, d610, d611, d612, d613, d614, d615, d616;
     double d71, d76, d77, d78, d79, d710, d711, d712, d713, d714, d715, d716;
 
+    er1=er6=er7=er8=er9=er10=er11=er12=0;
+    a21=a31=a32=a41=a43=a51=a53=a54=0;
+    a61=a64=a65=a71=a74=a75=a76=0;
+    a81=a84=a85=a86=a87=a91=a94=a95=a96=a97=a98=0;
     a101=a104=a105=a106=a107=a108=a109=0;
     a111=a114=a115=a116=a117=a118=a119=a1110=0;
     a121=a124=a125=a126=a127=a128=a129=a1210=a1211=0;
