@@ -5553,15 +5553,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    (void) rap;
-    (void) rldot;
-    (void) udotps;
-    (void) upoldp;
-    (void) dtm;
-    (void) thl;
-    (void) thu;
     int64 ups_dim1, udotps_dim1;
-    (void) udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntst, ncol1, j, k;
     double t, *u;
@@ -5569,6 +5561,15 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     double dt;
     int64 lab, ibr;
+
+    (void) udotps_dim1;
+    (void) rap;
+    (void) rldot;
+    (void) udotps;
+    (void) upoldp;
+    (void) dtm;
+    (void) thl;
+    (void) thu;
 
     u = malloc(sizeof(*u)*(iap->ndim));
 
@@ -5598,7 +5599,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
             ncol1 = ncol;
         }
         for (int64 i = 0; i < ncol1; ++i) {
-            t = tm[j] + i*dt;
+            t = tm[j] + (double)i*dt;
             k1 = i*ndim;
             k2 = (i + 1)*ndim;
             stpnt(ndim, t, u, par);
@@ -5901,10 +5902,6 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
-    (void)ev;
-    (void)tm;
-    (void)iuz;
-    (void)vuz;
     int64 udotps_dim1, fa_dim1;
     double ret_val;
 
@@ -5913,6 +5910,11 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 ntot, ntst, i, j;
 
     int64 iid, ibr;
+
+    (void)ev;
+    (void)tm;
+    (void)iuz;
+    (void)vuz;
 
     /* RETURNS A QUANTITY THAT CHANGES SIGN AT A LIMIT POINT (BVP) */
 
@@ -5977,6 +5979,19 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
        double *udotps, double *upoldp, double *fa, double *fc, double *dups,
        double *tm, double *dtm, double *thl, double *thu, int64 *iuz,
        double *vuz) {
+    double ret_val;
+
+    int64 ndim, ntop, ntot;
+    double f;
+    int64 i;
+    double u;
+
+    double *pp;
+    int64 iid;
+    double det;
+    int64 ibr;
+    double det0;
+
     (void) par;
     (void) icp;
     (void) funi;
@@ -6001,18 +6016,6 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void) thu;
     (void) iuz;
     (void) vuz;
-    double ret_val;
-
-    int64 ndim, ntop, ntot;
-    double f;
-    int64 i;
-    double u;
-
-    double *pp;
-    int64 iid;
-    double det;
-    int64 ibr;
-    double det0;
 
     pp = malloc(sizeof(*pp)*(iap->ndim)*(iap->ndim));
 
