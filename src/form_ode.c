@@ -2937,8 +2937,6 @@ strcpy_trim(char *dest, char *source) {
 
 void
 strncpy_trim(char *dest, char *source, int32 n) {
-    /* like strncpy, except removes leading and trailing whitespace (and always
-     * ends with a \0) */
     while (*source && isspace(*source)) {
         source++;
         n--;
@@ -2952,4 +2950,5 @@ strncpy_trim(char *dest, char *source, int32 n) {
         i = n - 1;
     strncpy(dest, source, i + 1);
     dest[i + 1] = '\0';
+    return;
 }
