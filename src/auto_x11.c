@@ -1000,17 +1000,13 @@ make_auto(char *wname, char *iname) {
 
 void
 resize_auto_window(XEvent ev) {
-    int32 wid, hgt, addhgt = 3.5*DCURY;
+    int32 wid, hgt;
+    int32 addhgt = (int32)(3.5*DCURY);
+    int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     STD_HGT_var = 20*DCURY;
     STD_WID_var = 50*DCURX;
-    int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
+
     if (ev.xconfigure.window == AutoW.base) {
-        wid = ev.xconfigure.width - Auto_extra_wid;
-        hgt = ev.xconfigure.height - Auto_extra_hgt;
-
-        addhgt = 3.0*DCURY;
-
-        XResizeWindow(display, AutoW.canvas, wid, hgt);
         Window root;
         int32 xloc;
         int32 yloc;
@@ -1018,6 +1014,14 @@ resize_auto_window(XEvent ev) {
         uint32 chgt;
         uint32 cbwid;
         uint32 cdepth;
+        int32 ix, iy;
+
+        wid = ev.xconfigure.width - Auto_extra_wid;
+        hgt = ev.xconfigure.height - Auto_extra_hgt;
+
+        addhgt = 3*DCURY;
+
+        XResizeWindow(display, AutoW.canvas, wid, hgt);
 
         XGetGeometry(display, AutoW.canvas, &root, &xloc, &yloc, &cwid, &chgt,
                      &cbwid, &cdepth);
@@ -1031,8 +1035,6 @@ resize_auto_window(XEvent ev) {
             XMoveResizeWindow(display, AutoW.hint, xloc,
                               yloc + chgt + addhgt + 10, wid, DCURY + 2);
         }
-
-        int32 ix, iy;
 
         if (NBifs < 2)
             return;
