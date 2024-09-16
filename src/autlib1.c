@@ -3544,7 +3544,7 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     nnewp1 = *nnew + 1;
     dal = eqf[noldp1 - 1] / (double)*nnew;
     for (int64 j = 0; j < nnewp1; ++j) {
-        uneq[j] = j*dal;
+        uneq[j] = (double)j*dal;
     }
 
     ordr(iap, rap, &noldp1, eqf, &nnewp1, uneq, ial);
@@ -3566,10 +3566,10 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
 int32
 ordr(iap_type *iap, rap_type *rap, int64 *n, double *tm, int64 *n1, double *tm1,
      int64 *itm1) {
+    int64 j, k0, j1, k1 = 0;
+
     (void)iap;
     (void)rap;
-
-    int64 j, k0, j1, k1 = 0;
 
     /* TM and TM1 are two ascending arrays with values in [0,1]. On exit the
      */
