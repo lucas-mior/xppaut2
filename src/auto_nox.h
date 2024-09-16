@@ -67,6 +67,8 @@ typedef struct {
     double xmin, ymin, xmax, ymax;
 } AUTOAX;
 
+extern int32 TypeOfCalc;
+
 void colset(int32 type);
 void pscolset2(int32 flag2);
 void colset2(int32 flag2);

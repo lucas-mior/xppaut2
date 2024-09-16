@@ -1629,7 +1629,6 @@ int32
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, const int64 *icp, double *par, int64 *ndm, double *dfdu,
       double *dfdp, double *zz) {
-    (void)isign;
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
     int64 i, j, k, ifail;
@@ -1640,6 +1639,8 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     double *vi, *vr, *fv1;
     int64 *iv1;
+
+    (void)isign;
 
     f = malloc(sizeof(*f)*(*ndm));
     ridum = malloc(sizeof(*ridum)*(*ndm));
