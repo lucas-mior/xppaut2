@@ -176,12 +176,6 @@ extern char ColorVia[15];
 extern double ColorViaLo, ColorViaHi;
 extern int32 ColorizeFlag;
 
-/* AUTO STUFF  */
-extern double auto_rl0, auto_rl1, auto_a0, auto_a1;
-extern double auto_epss, auto_epsl, auto_epsu;
-extern int32 auto_var;
-extern double auto_xmin, auto_xmax, auto_ymin, auto_ymax;
-
 extern int32 PltFmtFlag;
 
 int32 xorfix, silent, got_file;

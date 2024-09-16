@@ -77,6 +77,10 @@ extern int32 RestartLabel;
 
 extern int32 auto_ntst, auto_nmx, auto_npr, auto_ncol;
 extern double auto_ds, auto_dsmax, auto_dsmin;
+extern double auto_rl0, auto_rl1, auto_a0, auto_a1;
+extern double auto_xmax, auto_xmin, auto_ymax, auto_ymin;
+extern double auto_epsl, auto_epsu, auto_epss;
+extern int32 auto_var;
 
 void colset(int32 type);
 void pscolset2(int32 flag2);
