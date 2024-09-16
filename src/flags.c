@@ -305,10 +305,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                 flag[i].hit = ncycle + 1;
                 flag[i].tstar = told;
             }
-            /* if((f0*f1)<=0&&f0!=0.0&&tol>tolmin){
-            flag[i].hit=ncycle+1;
-            flag[i].tstar=f0/(f0-f1);
-            } */
             break;
         }
         if (flag[i].nointerp == 1) {
