@@ -6612,7 +6612,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     (void) rap;
     int64 ups_dim1, udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntpl, jtmp, mtot, ntot, ntst, i, j, k;
+    int64 ndim, ncol, nfpr, ntpl, jtmp, mtot, ntot, ntst, j, k;
     double t;
     int64 k1, k2;
     double rn;
@@ -6712,8 +6712,8 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* Write the entire solution on unit 8 : */
 
     for (j = 0; j < ntst; ++j) {
-        rn = 1. / ncol;
-        for (i = 0; i < ncol; ++i) {
+        rn = 1. / (double)ncol;
+        for (int64 i = 0; i < ncol; ++i) {
             k1 = i*ndim;
             k2 = (i + 1)*ndim;
             t = tm[j] + i*rn*dtm[j];
@@ -6727,7 +6727,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
         }
     }
     fprintf(fp8, "    %19.10E", tm[ntst]);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if ((i + 1) % 7 == 0)
             fprintf(fp8, "\n    ");
         fprintf(fp8, "%19.10E", ARRAY2D(ups, ntst, i));
@@ -6735,14 +6735,14 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     fprintf(fp8, "\n");
 
     /* Write the free parameter indices: */
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         fprintf(fp8, "%5ld", icp[i]);
     }
     fprintf(fp8, "\n");
 
     /* Write the direction of the branch: */
     fprintf(fp8, "    ");
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         if ((i > 0) && ((i) % 7 == 0))
             fprintf(fp8, "\n    ");
         fprintf(fp8, "%19.10E", rldot[i]);
@@ -6750,7 +6750,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     fprintf(fp8, "\n");
 
     for (j = 0; j < ntst; ++j) {
-        for (i = 0; i < ncol; ++i) {
+        for (int64 i = 0; i < ncol; ++i) {
             k1 = i*ndim;
             k2 = (i + 1)*ndim;
 
@@ -6775,7 +6775,7 @@ wrtbv8(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     /* Write the parameter values. */
 
     fprintf(fp8, "    ");
-    for (i = 0; i < NPARX; ++i) {
+    for (int64 i = 0; i < NPARX; ++i) {
         if ((i > 0) && (i % 7 == 0))
             fprintf(fp8, "\n    ");
         fprintf(fp8, "%19.10E", par[i]);
