@@ -214,7 +214,6 @@ conpar_process(void *arg) {
                                variable our contribution, and then sum
                                into shared memory at the end (inside a mutex */
                             else if (global_conpar_type == CONPAR_PTHREADS) {
-                                ;
                             }
                         }
                     }
@@ -225,12 +224,10 @@ conpar_process(void *arg) {
     return NULL;
 }
 
-int32
+static int32
 conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
                        int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
-                       double *d, int64 *irf, int64 *icf)
-
-{
+                       double *d, int64 *irf, int64 *icf) {
     conpar_parallel_arglist data;
     data.nov = nov;
     data.nra = nra;

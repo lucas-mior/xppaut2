@@ -49,7 +49,6 @@
 #define NOOUT 38
 #define DFDRAW 39
 #define NCDRAW 40
-#define DEFINE 41
 #define READSET 42
 #define WITH 43
 #define EQUIL 44
@@ -607,6 +606,8 @@ parse_it(char *com) {
             XPPBatch = 1;
             queryics = 1;
             dryrun = 1;
+            break;
+        default:
             break;
         }
     } else {
