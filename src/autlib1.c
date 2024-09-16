@@ -6348,8 +6348,6 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 int32
 tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        doublecomplex *ev) {
-    (void) icp;
-
     double amin;
     int64 ndim;
     double epss, d;
@@ -6357,6 +6355,8 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double ad;
     int64 loc, itp, loc1;
     double azm1;
+
+    (void) icp;
 
     /* Determines type of secondary periodic bifurcation. */
 
@@ -6371,7 +6371,8 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     amin = RLARGE;
     for (i = 0; i < ndim; ++i) {
         doublecomplex tmp;
-        tmp.r = ev[i].r - 1., tmp.i = ev[i].i;
+        tmp.r = ev[i].r - 1.;
+        tmp.i = ev[i].i;
         azm1 = z_abs(&tmp);
         if (azm1 <= amin) {
             amin = azm1;
@@ -6424,8 +6425,6 @@ int32
 stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        int64 *ndxloc, double *ups, double *udotps, double *tm, double *dtm,
        double *thl, double *thu) {
-    (void) thl;
-    (void) rap;
     int64 labw, ndim, ibrs, nins, iplt, itmp, jtmp, ntot;
     int32 iflag = 0;
     int64 i;
@@ -6442,6 +6441,9 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     double amp;
     int64 ips, itp, npr, isw, nmx;
     double umx[7];
+
+    (void) thl;
+    (void) rap;
 
     /* Writes the bifurcation diagram on unit 7 (Differential Equations) */
     /* (Also controls the writing of complete solutions on unit 8). */
