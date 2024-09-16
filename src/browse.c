@@ -234,11 +234,6 @@ data_del_col(BROWSER *b) {
     XGetInputFocus(display, &w, &rev);
     err_msg("Sorry - not working very well yet...");
     return;
-    strcpy(var, "");
-    status = get_dialog("Delete", "Name", var, "Ok", "Cancel", 20);
-    if (status != 0)
-        del_stor_col(var, b);
-    return;
 }
 
 void
