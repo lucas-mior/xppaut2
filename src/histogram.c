@@ -490,6 +490,8 @@ spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow) {
         case 3:
             f[i] = 1 - 2*fabs(x - .5);
             break;
+        default:
+            break;
         }
         nrmf += (f[i]*f[i] / win);
     }
@@ -582,6 +584,8 @@ cross_spectrum(double *data, double *data2, int32 nr, int32 win, int32 w_type,
             break;
         case 3:
             f[i] = 1 - 2*fabs(x - .5);
+            break;
+        default:
             break;
         }
         nrmwin += f[i]*f[i];

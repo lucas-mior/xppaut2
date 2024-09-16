@@ -14,7 +14,6 @@
 #define DEGTORAD .0174532
 #define EP1 1.000001
 #define max(a, b) ((a > b) ? a : b)
-#define min(a, b) ((a < b) ? a : b)
 #define SYMSIZE .00175
 
 double THETA0 = 45, PHI0 = 45;

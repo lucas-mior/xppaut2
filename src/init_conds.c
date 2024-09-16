@@ -477,6 +477,9 @@ display_file_sel(FILESEL f, Window w) {
     uint32 cbwid;
     uint32 cdepth;
 
+    char t[256];
+    int32 hgt = DCURYs + 4;
+
     XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid,
                  &cdepth);
     XResizeWindow(display, f.wild, cwid - 7*DCURXs - 5, DCURYs);
@@ -484,13 +487,11 @@ display_file_sel(FILESEL f, Window w) {
     for (i = 0; i < f.nwin; i++) {
         XResizeWindow(display, f.w[i], cwid - 6*DCURXs - 10, DCURYs);
     }
-    int32 hgt = DCURYs + 4;
     XMoveResizeWindow(display, f.ok, cwid / 2 - 7*DCURXs - 3, chgt - hgt,
                       7*DCURXs, DCURYs);
     XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, chgt - hgt, 7*DCURXs,
                       DCURYs);
 
-    char t[256];
     if (f.here != 1)
         return;
     if (f.ok == w)
@@ -528,13 +529,15 @@ display_file_sel(FILESEL f, Window w) {
     if (f.ww == w)
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Wild: ", 6);
     if (f.dir == w) {
+        XTextProperty windowName;
         snprintf(t, sizeof(t), " %s", f.title);
         XDrawString(display, w, small_gc, 0, CURY_OFFs, t, strlen(t));
-        XTextProperty windowName;
         sprintf(t, "%s - %s", f.wildtxt, cur_dir);
-        char *nameit[] = {t};
-        XStringListToTextProperty(nameit, 1, &windowName);
-        XSetWMName(display, f.base, &windowName);
+        {
+            char *nameit[] = {t};
+            XStringListToTextProperty(nameit, 1, &windowName);
+            XSetWMName(display, f.base, &windowName);
+        }
     }
     for (i = 0; i < f.nwin; i++) {
         if (w == f.w[i]) {
