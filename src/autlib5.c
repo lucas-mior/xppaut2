@@ -1176,6 +1176,9 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
         goto L2;
     case 3:
         goto L3;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 
     /* -----------------------------------------------------------------------
@@ -1446,6 +1449,9 @@ psiho(const iap_type *iap, int64 is, double *rr, double *ri, double *v,
         goto L15;
     case 16:
         goto L16;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
 
     /* Resonant eigenvalues (neutral saddle) */
