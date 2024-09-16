@@ -121,7 +121,6 @@ int32 TR_color = 26;
 int32 PD_color = 23;
 int32 BR_color = 27;
 int32 FP_color = 25;
-int32 HO_color = 29;
 
 int32 RestartLabel = 0;
 int32 auto_ntst = 15, auto_nmx = 200, auto_npr = 50, auto_ncol = 4;
