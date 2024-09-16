@@ -129,7 +129,7 @@ create_transpose(void) {
     int32 inrow, incol;
     my_trans.data = malloc(sizeof(*(my_trans.data))*(size_t)(NEQ + 1));
     for (int32 i = 0; i <= my_trans.nrow; i++)
-        my_trans.data[i] = malloc(sizeof(my_trans.data[i])*my_trans.ncol);
+        my_trans.data[i] = malloc(sizeof(my_trans.data[i])*(size_t)my_trans.ncol);
     for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
         my_trans.data[i] = storage[i];
     for (int32 j = 0; j < my_trans.ncol; j++)
@@ -283,9 +283,9 @@ new_h_fun(int32 silent) {
     }
     h_len = storind;
     data_back();
-    my_h = malloc(sizeof(*my_h)*(NEQ + 1));
+    my_h = malloc(sizeof(*my_h)*(size_t)(NEQ + 1));
     for (i = 0; i < n; i++)
-        my_h[i] = malloc(sizeof(*my_h)*h_len);
+        my_h[i] = malloc(sizeof(*my_h)*(size_t)h_len);
     for (i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
     if (make_h(storage, my_adj, h_len, NODE, silent)) {
@@ -377,9 +377,9 @@ new_adjoint(void) {
         ADJ_HERE = 0;
     }
     adj_len = storind;
-    my_adj = malloc((NEQ + 1)*sizeof(*my_adj));
+    my_adj = malloc((size_t)(NEQ + 1)*sizeof(*my_adj));
     for (i = 0; i < n; i++)
-        my_adj[i] = malloc(sizeof(*my_adj)*adj_len);
+        my_adj[i] = malloc(sizeof(*my_adj)*(size_t)adj_len);
     for (i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
     if (adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
@@ -441,15 +441,15 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     int32 n2 = node*node;
     double error;
 
-    work = malloc((n2 + 4*node)*sizeof(*work));
-    yprime = malloc(node*sizeof(*yprime));
-    yold = malloc(node*sizeof(*yold));
-    fold = malloc(node*sizeof(*fold));
-    fdev = malloc(node*sizeof(*fdev));
-    jac = malloc(n2*sizeof(*jac));
+    work = malloc((size_t)(n2 + 4*node)*sizeof(*work));
+    yprime = malloc((size_t)node*sizeof(*yprime));
+    yold = malloc((size_t)node*sizeof(*yold));
+    fold = malloc((size_t)node*sizeof(*fold));
+    fdev = malloc((size_t)node*sizeof(*fdev));
+    jac = malloc((size_t)n2*sizeof(*jac));
 
     for (i = 0; i < n2; i++) {
-        jac[i] = malloc(nt*sizeof(*jac));
+        jac[i] = malloc((size_t)nt*sizeof(*jac));
         if (jac[i] == NULL) {
             err_msg("Insufficient storage");
             return 0;
