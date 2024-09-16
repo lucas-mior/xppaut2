@@ -1062,11 +1062,10 @@ commander(int32 ch) {
         } /* End main switch  */
 
     } /* MAIN HELP ENDS  */ break;
-
     case NUM_MENU: {
         get_num_par(ch);
-    } /* end num case   */ break;
-
+        break;
+    }
     case FILE_MENU: {
         switch (ch) {
         case 't':
@@ -1079,56 +1078,38 @@ commander(int32 ch) {
             TipsFlag = 1 - TipsFlag;
             break;
         case 'p':
-            /* file stuff */
-            /* do_info(stdout); */
             make_txtview();
             break;
         case 'w':
-            /* write set */
             do_lunch(0);
             break;
         case 's':
-            /* make eqn */
             file_inf();
             break;
         case 'a':
-            /* AUTO !! */
 #ifdef AUTO
             do_auto_win();
 #endif
             break;
         case 'c':
-            /* calculator */
             q_calc();
-
             break;
         case 'r':
-            /* read set */
             do_lunch(1);
             break;
         case 'e':
-            /* script */
             edit_menu();
-            /*  Insert generic code here ...  */
             break;
         case 'b':
             tfBell = 1 - tfBell;
             break;
         case 'h':
-            /* c_hints(); */
             xpp_hlp();
-            /*	   make_key_stroke(); */
-
             break;
         case 'q':
             if (yes_no_box())
                 bye_bye();
-
-            /*  if(are_you_sure())bye_bye();  */
-
-            /* quit */
             break;
-            /* CLONE ! */
         case 'l':
             clone_ode();
             break;
@@ -1138,30 +1119,13 @@ commander(int32 ch) {
         case 'u':
             do_tutorial();
             break;
-        } /* end file switch  */
+        }
         help();
-    } /*  end file case   */ break;
-
-    } /* end help_menu switch  */
-    /* redraw_menu(); */
+        break;
+    }
+    }
     return;
 }
-
-/*
-
-Window make_unmapped_window(root,x,y,width,height,bw)
-        Window root;
-        int32 x,y,width,height,bw;
-        {
-         Window win;
-         win=XCreateSimpleWindow(display,root,x,y,width,height,
-                bw,MyForeColor,MyBackColor);
-         XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
-              StructureNotifyMask|ButtonReleaseMask|ButtonMotionMask);
-         return win;
-         }
-
-         */
 
 XKeyEvent
 createKeyEvent(Window win, Window winRoot, int32 press, int32 keycode,
@@ -1192,9 +1156,6 @@ createKeyEvent(Window win, Window winRoot, int32 press, int32 keycode,
 Window
 init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
          uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
-    /*  XSetWindowAttributes xswa;
-     XWindowAttributes xwa;
-      */
     Window wine;
     int32 count;
     int32 dp_h, dp_w;
@@ -1207,9 +1168,6 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         plintf(" Failed to open X-Display \n");
         exit(-1);
     }
-    /*  printf("Display=%s\n",display_name); */
-    /*   Remove after debugging is done */
-    /* XSynchronize(display,1); */
     screen = DefaultScreen(display);
     if (!deleteWindowAtom)
         deleteWindowAtom = XInternAtom(display, "WM_DELETE_WINDOW", 0);
@@ -1223,8 +1181,6 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         SCALEY = dp_h;
     wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
                                SCALEX, SCALEY, bw, MyForeColor, MyBackColor);
-    /*  xswa.override_redirect=1;
-     XChangeWindowAttributes(display,wine,CWOverrideRedirect,&xswa); */
     XGetIconSizes(display, RootWindow(display, screen), &size_list, &count);
     icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width,
                                      pp_height);
@@ -1371,16 +1327,12 @@ getGC(GC *gc) {
     XGCValues values;
     *gc = XCreateGC(display, main_win, valuemask, &values);
     XSetForeground(display, *gc, MyForeColor);
-    /* XSetLineAttributes(display,*gc,lw,ls,cs,js);
-       XSetDashes(display,*gc,dash_off,dash,ll);  */
     return;
 }
 
 void
 load_fonts(void) {
     int32 i;
-    /*printf("\n\nFONTS %s %s \n",big_font_name,small_font_name);
-     */
     if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
         plintf("X Error: Failed to load big font: %s\n", big_font_name);
         exit(-1);
@@ -1419,34 +1371,22 @@ load_fonts(void) {
 }
 
 void
-make_pops(void)
-
-{
+make_pops(void) {
     int32 x, y;
     uint32 h, w, bw, d;
     Window wn;
-    /*Cursor cursor;*/
     XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
-    /* menu_pop=XCreateSimpleWindow(display,main_win,
-      0,DCURY+6,16*DCURX,22*DCURY,2,MyForeColor,
-      MyBackColor);
-      */
     create_the_menus(main_win);
     command_pop = XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
                                       DCURY + 4, 2, MyForeColor, MyBackColor);
     info_pop = XCreateSimpleWindow(display, main_win, 0, h - DCURY - 4, w - 2,
                                    DCURY, 2, MyForeColor, MyBackColor);
-    /*cursor=XCreateFontCursor(display,XC_hand2);*/
     XCreateFontCursor(display, XC_hand2);
-    /* XDefineCursor(display,menu_pop,cursor); */
-    /* XSelectInput(display,menu_pop,KeyPressMask|ButtonPressMask|ExposureMask);
-     */
     XSelectInput(display, command_pop,
                  KeyPressMask | ButtonPressMask | ExposureMask);
     XSelectInput(display, info_pop, ExposureMask);
     XMapWindow(display, info_pop);
     XMapWindow(display, command_pop);
-    /* XMapWindow(display,menu_pop); */
     init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, w - 16 - 16*DCURX,
                h - 6*DCURY - 16);
     create_par_sliders(main_win, 0, h - 5*DCURY + 8);
@@ -1545,13 +1485,9 @@ void
 test_color_info(void) {
     XColor *colors;
     XWindowAttributes xwa;
-    /*int32 n;
-     */
     TrueColorFlag = 0;
 
     XGetWindowAttributes(display, main_win, &xwa);
-    /*n=getxcolors(&xwa,&colors);
-     */
     getxcolors(&xwa, &colors);
 
     if (colors)
