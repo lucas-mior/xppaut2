@@ -237,10 +237,11 @@ get_a_filename(char *filename, char *wild) {
         }
     } else {
         int32 status;
+        int32 m;
         /*strcpy (filename, "lecar.ode");
          */
         get_directory(filename);
-        int32 m = strlen(filename);
+        m = strlen(filename);
         if (filename[m - 1] != '/') {
             strcat(filename, "/");
         }
@@ -330,7 +331,7 @@ get_eqn(FILE *fptr) {
     if (NLINES > MAXLINES) {
         fprintf(stderr, "whoops! NLINES>MAXLINES in form_ode.c ...\n");
         exit(1);
-    };
+    }
     if ((save_eqn[NLINES] = malloc(nn)) == NULL) {
         plintf("Out of memory...");
         exit(0);
@@ -572,8 +573,8 @@ compiler(char *bob, FILE *fptr) {
                 fprintf(convertf, "%s=%g  ", name, value);
             plintf("|%s|=%f ", name, value);
             if (add_con(name, value)) {
-                exit(0);
                 plintf("ERROR at line %d\n", NLINES);
+                exit(0);
             }
         }
         if (ConvertStyle)
@@ -842,7 +843,7 @@ compiler(char *bob, FILE *fptr) {
             strcpy(aux_names[Naux], my_string);
             plintf("|%s| ", aux_names[Naux]);
             Naux++;
-        };
+        }
         plintf("\n");
         break;
 

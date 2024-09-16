@@ -658,7 +658,6 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
             plintf(" Working too hard? ");
             plintf("smin=%g\n", s);
             return 1;
-            break;
         }
     }
     return 0;
