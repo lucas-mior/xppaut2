@@ -298,6 +298,8 @@ get_mouse_xy(int32 *x, int32 *y, Window w) {
             *x = ev.xbutton.x;
             *y = ev.xbutton.y;
             return 1;
+        default:
+            break;
         }
     }
     return 0;
@@ -348,13 +350,13 @@ xline(int32 x0, int32 y0, int32 x1, int32 y1, Window w) {
 
 int32
 new_float(char *name, double *value) {
-    int32 done;
+    int32 done2;
     int32 flag;
     double newz;
     char tvalue[200];
     snprintf(tvalue, sizeof(tvalue), "%.16g", *value);
-    done = new_string(name, tvalue);
-    if (done == 0 || strlen(tvalue) == 0)
+    done2 = new_string(name, tvalue);
+    if (done2 == 0 || strlen(tvalue) == 0)
         return -1;
 
     if (tvalue[0] == '%') {
