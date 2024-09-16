@@ -139,7 +139,7 @@ max_d(double a, double b) {
 
 static double
 hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
-      double *f1, double *yy1, int32 iord, double hmax, double *atoler,
+      double *f1, double *yyy1, int32 iord, double hmax, double *atoler,
       double *rtoler, int32 itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     uint32 i;
@@ -176,8 +176,8 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 
     /* perform an explicit Euler step */
     for (i = 0; i < n; i++)
-        yy1[i] = y[i] + h*f0[i];
-    fcn(n, x + h, yy1, f1);
+        yyy1[i] = y[i] + h*f0[i];
+    fcn(n, x + h, yyy1, f1);
 
     /* estimate the second derivative of the solution */
     der2 = 0.0;
