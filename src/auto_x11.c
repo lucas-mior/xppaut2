@@ -729,9 +729,8 @@ MarkAuto(int32 x, int32 y) {
 
 void
 XORCross(int32 x, int32 y) {
-    if (DONT_XORCross) {
+    if (DONT_XORCross)
         return;
-    }
 
     if (xorfix) {
         XSetForeground(display, small_gc, MyDrawWinColor);

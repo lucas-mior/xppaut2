@@ -1221,9 +1221,8 @@ svg_restore(void) {
      */
 
     redraw_dfield();
-    if (MyGraph->Nullrestore) {
+    if (MyGraph->Nullrestore)
         restore_nullclines();
-    }
     svg_last_pt_off();
     /*ps_do_color(0);*/
     restore(0, my_browser.maxrow);

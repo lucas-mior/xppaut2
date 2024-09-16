@@ -36,9 +36,8 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     evaluate_derived();
     redo_all_fun_tables();
     rhs(0.0, u, f, ndim);
-    if (ijac == 1) {
+    if (ijac == 1)
         getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, ndim);
-    }
     if (METHOD > 0 || NJMP == 1)
         return 0;
     for (i = 1; i < NJMP; i++) {

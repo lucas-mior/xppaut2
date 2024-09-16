@@ -146,9 +146,8 @@ MessageBox(char *m) {
 
 void
 RedrawMessageBox(Window w) {
-    if (w == MsgBox.w) {
+    if (w == MsgBox.w)
         Ftext(10, 2*DCURY, MsgBox.text, MsgBox.w);
-    }
     return;
 }
 

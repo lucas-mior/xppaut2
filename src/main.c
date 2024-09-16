@@ -494,9 +494,8 @@ do_main(int32 argc, char **argv) {
         get_ani_file(anifile);
     }
 
-    if (DoTutorial == 1) {
+    if (DoTutorial == 1)
         do_tutorial();
-    }
 
     default_window();
 
@@ -530,12 +529,10 @@ check_for_quiet(int32 argc, char **argv) {
     /*If -quiet or -logfile were specified at least once on the command line
     we lock those in now...
     */
-    if (quiet_specified_once == 1) {
+    if (quiet_specified_once == 1)
         OVERRIDE_QUIET = 1;
-    }
-    if (logfile_specified_once == 1) {
+    if (logfile_specified_once == 1)
         OVERRIDE_LOGFILE = 1;
-    }
     return;
 }
 
@@ -750,13 +747,11 @@ init_X(void) {
     we try to set the initial size to fit everything nicely especially
     if they are using wacky fonts...
     */
-    if (UserMinWidth <= 0) {
+    if (UserMinWidth <= 0)
         SCALEX = 10 + 36*2 * DCURXs + 32*DCURXs;
-    }
 
-    if (UserMinHeight <= 0) {
+    if (UserMinHeight <= 0)
         SCALEY = 25*DCURYb + 7*DCURYs;
-    }
 
     XResizeWindow(display, main_win, SCALEX, SCALEY);
     /*FixWindowSize (main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
@@ -1292,9 +1287,8 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     /*   Remove after debugging is done */
     /* XSynchronize(display,1); */
     screen = DefaultScreen(display);
-    if (!deleteWindowAtom) {
+    if (!deleteWindowAtom)
         deleteWindowAtom = XInternAtom(display, "WM_DELETE_WINDOW", 0);
-    }
     dp_w = DisplayWidth(display, screen);
     dp_h = DisplayHeight(display, screen);
     DisplayWidth = dp_w;
@@ -1388,24 +1382,18 @@ top_button_cross(Window w, int32 b) {
 
 void
 top_button_press(Window w) {
-    if (w == TopButton[0]) {
+    if (w == TopButton[0])
         make_new_ic_box();
-    }
-    if (w == TopButton[1]) {
+    if (w == TopButton[1])
         make_new_bc_box();
-    }
-    if (w == TopButton[2]) {
+    if (w == TopButton[2])
         make_new_delay_box();
-    }
-    if (w == TopButton[3]) {
+    if (w == TopButton[3])
         make_new_param_box();
-    }
-    if (w == TopButton[4]) {
+    if (w == TopButton[4])
         create_eq_list();
-    }
-    if (w == TopButton[5]) {
+    if (w == TopButton[5])
         make_new_browser();
-    }
     return;
 }
 

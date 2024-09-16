@@ -331,9 +331,8 @@ do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos) {
     }
     XDrawString(display, w, gc, 0, CURY_OFF, name, l);
     set_fore();
-    if (m > 0) {
+    if (m > 0)
         XDrawString(display, w, gc, l*DCURX, CURY_OFF, value, m);
-    }
     /* if(flag) showchar('_',DCURX*(l+m),0,w); */
     if (flag)
         put_cursor_at(w, DCURX*l, pos);

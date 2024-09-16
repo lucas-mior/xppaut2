@@ -92,18 +92,16 @@ rg(int64 nm, int64 n, double *a, double *wr, double *wi, int64 matz,
     a -= a_offset;
 
     /* Function Body */
-    if (n <= nm) {
+    if (n <= nm)
         goto L10;
-    }
     *ierr = n*10;
     goto L50;
 
 L10:
     balanc(&nm, &n, &a[a_offset], &is1, &is2, &fv1[1]);
     elmhes(&nm, &n, &is1, &is2, &a[a_offset], &iv1[1]);
-    if (matz != 0) {
+    if (matz != 0)
         goto L20;
-    }
     /*     .......... FIND EIGENVALUES ONLY .......... */
     hqr(&nm, &n, &is1, &is2, &a[a_offset], &wr[1], &wi[1], ierr);
     goto L50;
@@ -112,9 +110,8 @@ L20:
     eltran(&nm, &n, &is1, &is2, &a[a_offset], &iv1[1], &z__[z_offset]);
     hqr2(&nm, &n, &is1, &is2, &a[a_offset], &wr[1], &wi[1], &z__[z_offset],
          ierr);
-    if (*ierr != 0) {
+    if (*ierr != 0)
         goto L50;
-    }
     balbak(&nm, &n, &is1, &is2, &fv1[1], &n, &z__[z_offset]);
 L50:
     return 0;
@@ -221,9 +218,8 @@ hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     itn = *n*30;
 /*     .......... SEARCH FOR NEXT EIGENVALUES .......... */
 L60:
-    if (en < *low) {
+    if (en < *low)
         goto L1001;
-    }
     its = 0;
     na = en - 1;
     enm2 = na - 1;
@@ -251,20 +247,16 @@ L70:
 /*     .......... FORM SHIFT .......... */
 L100:
     x = h__[en + en*h_dim1];
-    if (l == en) {
+    if (l == en)
         goto L270;
-    }
     y = h__[na + na*h_dim1];
     w = h__[en + na*h_dim1]*h__[na + en*h_dim1];
-    if (l == na) {
+    if (l == na)
         goto L280;
-    }
-    if (itn == 0) {
+    if (itn == 0)
         goto L1000;
-    }
-    if (its != 10 && its != 20) {
+    if (its != 10 && its != 20)
         goto L130;
-    }
     /*     .......... FORM EXCEPTIONAL SHIFT .......... */
     t += x;
 
@@ -431,16 +423,14 @@ L280:
     q = p*p + w;
     zz = sqrt((fabs(q)));
     x += t;
-    if (q < 0.) {
+    if (q < 0.)
         goto L320;
-    }
     /*     .......... REAL PAIR .......... */
     zz = p + d_sign(zz, p);
     wr[na] = x + zz;
     wr[en] = wr[na];
-    if (zz != 0.) {
+    if (zz != 0.)
         wr[en] = x - w / zz;
-    }
     wi[na] = 0.;
     wi[en] = 0.;
     goto L330;
@@ -584,9 +574,8 @@ hqr2(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     itn = *n*30;
 /*     .......... SEARCH FOR NEXT EIGENVALUES .......... */
 L60:
-    if (en < *low) {
+    if (en < *low)
         goto L340;
-    }
     its = 0;
     na = en - 1;
     enm2 = na - 1;
@@ -614,20 +603,16 @@ L70:
 /*     .......... FORM SHIFT .......... */
 L100:
     x = h__[en + en*h_dim1];
-    if (l == en) {
+    if (l == en)
         goto L270;
-    }
     y = h__[na + na*h_dim1];
     w = h__[en + na*h_dim1]*h__[na + en*h_dim1];
-    if (l == na) {
+    if (l == na)
         goto L280;
-    }
-    if (itn == 0) {
+    if (itn == 0)
         goto L1000;
-    }
-    if (its != 10 && its != 20) {
+    if (its != 10 && its != 20)
         goto L130;
-    }
     /*     .......... FORM EXCEPTIONAL SHIFT .......... */
     t += x;
 
@@ -815,16 +800,14 @@ L280:
     h__[en + en*h_dim1] = x + t;
     x = h__[en + en*h_dim1];
     h__[na + na*h_dim1] = y + t;
-    if (q < 0.) {
+    if (q < 0.)
         goto L320;
-    }
     /*     .......... REAL PAIR .......... */
     zz = p + d_sign(zz, p);
     wr[na] = x + zz;
     wr[en] = wr[na];
-    if (zz != 0.) {
+    if (zz != 0.)
         wr[en] = x - w / zz;
-    }
     wi[na] = 0.;
     wi[en] = 0.;
     x = h__[en + na*h_dim1];
@@ -872,9 +855,8 @@ L330:
 /*     .......... ALL ROOTS FOUND.  BACKSUBSTITUTE TO FIND */
 /*                VECTORS OF UPPER TRIANGULAR FORM .......... */
 L340:
-    if (norm == 0.) {
+    if (norm == 0.)
         goto L1001;
-    }
     /*     .......... FOR EN=N STEP -1 UNTIL 1 DO -- .......... */
     i__1 = *n;
     for (nn = 1; nn <= i__1; ++nn) {
@@ -1245,9 +1227,8 @@ balanc(int64 *nm, int64 *n, double *a, int64 *low, int64 *igh, double *scale) {
 /*                COLUMN EXCHANGE .......... */
 L20:
     scale[m] = (double)j;
-    if (j == m) {
+    if (j == m)
         goto L50;
-    }
 
     i__1 = l;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -1275,9 +1256,8 @@ L50:
 /*     .......... SEARCH FOR ROWS ISOLATING AN EIGENVALUE */
 /*                AND PUSH THEM DOWN .......... */
 L80:
-    if (l == 1) {
+    if (l == 1)
         goto L280;
-    }
     --l;
 /*     .......... FOR J=L STEP -1 UNTIL 1 DO -- .......... */
 L100:
@@ -1399,9 +1379,8 @@ L190:
     L270:;
     }
 
-    if (noconv) {
+    if (noconv)
         goto L190;
-    }
 
 L280:
     *low = k;
@@ -1464,12 +1443,10 @@ balbak(int64 *nm, int64 *n, int64 *low, int64 *igh, double *scale, int64 *m,
     z__ -= z_offset;
 
     /* Function Body */
-    if (*m == 0) {
+    if (*m == 0)
         goto L200;
-    }
-    if (*igh == *low) {
+    if (*igh == *low)
         goto L120;
-    }
 
     i__1 = *igh;
     for (i__ = *low; i__ <= i__1; ++i__) {
@@ -1576,9 +1553,8 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
     /* Function Body */
     la = *igh - 1;
     kp1 = *low + 1;
-    if (la < kp1) {
+    if (la < kp1)
         goto L200;
-    }
 
     i__1 = la;
     for (m = kp1; m <= i__1; ++m) {
@@ -1727,9 +1703,8 @@ eltran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__,
     }
 
     kl = *igh - *low - 1;
-    if (kl < 1) {
+    if (kl < 1)
         goto L200;
-    }
     /*     .......... FOR MP=IGH-1 STEP -1 UNTIL LOW+1 DO -- .......... */
     i__1 = kl;
     for (mm = 1; mm <= i__1; ++mm) {
@@ -1854,9 +1829,8 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
     }
 /*     .......... REDUCE B TO UPPER TRIANGULAR FORM .......... */
 L10:
-    if (n <= 1) {
+    if (n <= 1)
         goto L170;
-    }
     nm1 = n - 1;
 
     i__1 = nm1;
@@ -1944,9 +1918,8 @@ L10:
     }
     /*     .......... REDUCE A TO UPPER HESSENBERG FORM, WHILE */
     /*                KEEPING B TRIANGULAR .......... */
-    if (n == 2) {
+    if (n == 2)
         goto L170;
-    }
     nm2 = n - 2;
 
     i__1 = nm2;
@@ -2180,16 +2153,13 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
         /* L30: */
     }
 
-    if (anorm == 0.) {
+    if (anorm == 0.)
         anorm = 1.;
-    }
-    if (bnorm == 0.) {
+    if (bnorm == 0.)
         bnorm = 1.;
-    }
     ep = eps1;
-    if (ep > 0.) {
+    if (ep > 0.)
         goto L50;
-    }
     /*     .......... USE ROUNDOFF LEVEL IF EPS1 IS ZERO .......... */
     ep = epslon(1.0);
 L50:
@@ -2203,9 +2173,8 @@ L50:
     itn = n*30;
 /*     .......... BEGIN QZ STEP .......... */
 L60:
-    if (en <= 2) {
+    if (en <= 2)
         goto L1001;
-    }
     if (!(matz)) {
         enorn = en;
     }
@@ -2231,9 +2200,8 @@ L70:
 
 L90:
     a[l + lm1*a_dim1] = 0.;
-    if (l < na) {
+    if (l < na)
         goto L95;
-    }
     /*     .......... 1-BY-1 OR 2-BY-2 BLOCK ISOLATED .......... */
     en = lm1;
     goto L60;
@@ -2268,25 +2236,21 @@ L100:
         /* L110: */
     }
 
-    if (l != 1) {
+    if (l != 1)
         a[l + lm1*a_dim1] = -a[l + lm1*a_dim1];
-    }
     lm1 = l;
     l = l1;
     goto L90;
 L120:
     a11 = a[l + l*a_dim1] / b11;
     a21 = a[l1 + l*a_dim1] / b11;
-    if (ish == 1) {
+    if (ish == 1)
         goto L140;
-    }
     /*     .......... ITERATION STRATEGY .......... */
-    if (itn == 0) {
+    if (itn == 0)
         goto L1000;
-    }
-    if (its == 10) {
+    if (its == 10)
         goto L155;
-    }
     /*     .......... DETERMINE TYPE OF SHIFT .......... */
     b22 = b[l1 + l1*b_dim1];
     if (fabs(b22) < epsb) {
@@ -2307,9 +2271,8 @@ L120:
     b34 = b[na + en*b_dim1] / b44;
     t = (a43*b34 - a33 - a44)*.5;
     r__ = t*t + a34*a43 - a33*a44;
-    if (r__ < 0.) {
+    if (r__ < 0.)
         goto L150;
-    }
     /*     .......... DETERMINE SINGLE SHIFT ZEROTH COLUMN OF A .......... */
     ish = 1;
     r__ = sqrt(r__);
@@ -2343,9 +2306,8 @@ L120:
 L140:
     a1 = a11 - sh;
     a2 = a21;
-    if (l != ld) {
+    if (l != ld)
         a[l + lm1*a_dim1] = -a[l + lm1*a_dim1];
-    }
     goto L160;
 /*     .......... DETERMINE DOUBLE SHIFT ZEROTH COLUMN OF A .......... */
 L150:
@@ -2559,9 +2521,8 @@ L1000:
     *ierr = en;
 /*     .......... SAVE EPSB FOR USE BY QZVAL AND QZVEC .......... */
 L1001:
-    if (n > 1) {
+    if (n > 1)
         b[n + b_dim1] = epsb;
-    }
     return 0;
 }
 
@@ -2982,9 +2943,8 @@ L10:
     b = a - 1.;
     c__ = b + b + b;
     eps = (d__1 = c__ - 1., fabs(d__1));
-    if (eps == 0.) {
+    if (eps == 0.)
         goto L10;
-    }
     ret_val = eps*fabs(x);
     return ret_val;
 }
@@ -3053,9 +3013,8 @@ dnrm2(int64 *n, double *dx, int64 *incx) {
     /*     DATA CUTLO, CUTHI / 8.232D-11,  1.304D19 / */
     /*     DATA CUTLO, CUTHI / 4.441E-16,  1.304E19 / */
 
-    if (*n > 0) {
+    if (*n > 0)
         goto L10;
-    }
     ret_val = zero;
     goto L300;
 
@@ -3086,9 +3045,8 @@ L30:
     /*                        PHASE 1.  SUM IS ZERO */
 
 L50:
-    if (dx[i__] == zero) {
+    if (dx[i__] == zero)
         goto L200;
-    }
     if ((d__1 = dx[i__], fabs(d__1)) > cutlo) {
         goto L85;
     }
@@ -3164,9 +3122,8 @@ L85:
 
 L200:
     i__ += *incx;
-    if (i__ <= nn) {
+    if (i__ <= nn)
         goto L20;
-    }
 
     /*              END OF MAIN LOOP. */
 
@@ -3197,24 +3154,20 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     /* Function Body */
     ret_val = 0.;
     dtemp = 0.;
-    if (*n <= 0) {
+    if (*n <= 0)
         return ret_val;
-    }
-    if (*incx == 1 && *incy == 1) {
+    if (*incx == 1 && *incy == 1)
         goto L20;
-    }
 
     /*        CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS */
     /*          NOT EQUAL TO 1 */
 
     ix = 1;
     iy = 1;
-    if (*incx < 0) {
+    if (*incx < 0)
         ix = (-(*n) + 1)**incx + 1;
-    }
-    if (*incy < 0) {
+    if (*incy < 0)
         iy = (-(*n) + 1)**incy + 1;
-    }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dtemp += dx[ix]*dy[iy];
@@ -3231,17 +3184,15 @@ ddot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
 
 L20:
     m = *n % 5;
-    if (m == 0) {
+    if (m == 0)
         goto L40;
-    }
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dtemp += dx[i__]*dy[i__];
         /* L30: */
     }
-    if (*n < 5) {
+    if (*n < 5)
         goto L60;
-    }
 L40:
     mp1 = m + 1;
     i__1 = *n;
@@ -3270,12 +3221,10 @@ dscal(int64 *n, double *da, double *dx, int64 *incx) {
     --dx;
 
     /* Function Body */
-    if (*n <= 0) {
+    if (*n <= 0)
         return 0;
-    }
-    if (*incx == 1) {
+    if (*incx == 1)
         goto L20;
-    }
 
     /*        CODE FOR INCREMENT NOT EQUAL TO 1 */
 
@@ -3294,17 +3243,15 @@ dscal(int64 *n, double *da, double *dx, int64 *incx) {
 
 L20:
     m = *n % 5;
-    if (m == 0) {
+    if (m == 0)
         goto L40;
-    }
     i__2 = m;
     for (i__ = 1; i__ <= i__2; ++i__) {
         dx[i__] = *da*dx[i__];
         /* L30: */
     }
-    if (*n < 5) {
+    if (*n < 5)
         return 0;
-    }
 L40:
     mp1 = m + 1;
     i__2 = *n;
@@ -3335,16 +3282,13 @@ idamax(int64 *n, double *dx, int64 *incx) {
 
     /* Function Body */
     ret_val = 0;
-    if (*n < 1) {
+    if (*n < 1)
         return ret_val;
-    }
     ret_val = 1;
-    if (*n == 1) {
+    if (*n == 1)
         return ret_val;
-    }
-    if (*incx == 1) {
+    if (*incx == 1)
         goto L20;
-    }
 
     /*        CODE FOR INCREMENT NOT EQUAL TO 1 */
 
@@ -3395,27 +3339,22 @@ daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
     --dx;
 
     /* Function Body */
-    if (*n <= 0) {
+    if (*n <= 0)
         return 0;
-    }
-    if (*da == 0.) {
+    if (*da == 0.)
         return 0;
-    }
-    if (*incx == 1 && *incy == 1) {
+    if (*incx == 1 && *incy == 1)
         goto L20;
-    }
 
     /*        CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS */
     /*          NOT EQUAL TO 1 */
 
     ix = 1;
     iy = 1;
-    if (*incx < 0) {
+    if (*incx < 0)
         ix = (-(*n) + 1)**incx + 1;
-    }
-    if (*incy < 0) {
+    if (*incy < 0)
         iy = (-(*n) + 1)**incy + 1;
-    }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dy[iy] += *da*dx[ix];
@@ -3431,17 +3370,15 @@ daxpy(int64 *n, double *da, double *dx, int64 *incx, double *dy, int64 *incy) {
 
 L20:
     m = *n % 4;
-    if (m == 0) {
+    if (m == 0)
         goto L40;
-    }
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dy[i__] += *da*dx[i__];
         /* L30: */
     }
-    if (*n < 4) {
+    if (*n < 4)
         return 0;
-    }
 L40:
     mp1 = m + 1;
     i__1 = *n;
@@ -3472,24 +3409,20 @@ drot(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy, double *c__,
     --dx;
 
     /* Function Body */
-    if (*n <= 0) {
+    if (*n <= 0)
         return 0;
-    }
-    if (*incx == 1 && *incy == 1) {
+    if (*incx == 1 && *incy == 1)
         goto L20;
-    }
 
     /*       CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS NOT EQUAL */
     /*         TO 1 */
 
     ix = 1;
     iy = 1;
-    if (*incx < 0) {
+    if (*incx < 0)
         ix = (-(*n) + 1)**incx + 1;
-    }
-    if (*incy < 0) {
+    if (*incy < 0)
         iy = (-(*n) + 1)**incy + 1;
-    }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dtemp = *c__*dx[ix] + *s*dy[iy];
@@ -3531,24 +3464,20 @@ dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
     --dx;
 
     /* Function Body */
-    if (*n <= 0) {
+    if (*n <= 0)
         return 0;
-    }
-    if (*incx == 1 && *incy == 1) {
+    if (*incx == 1 && *incy == 1)
         goto L20;
-    }
 
     /*       CODE FOR UNEQUAL INCREMENTS OR EQUAL INCREMENTS NOT EQUAL */
     /*         TO 1 */
 
     ix = 1;
     iy = 1;
-    if (*incx < 0) {
+    if (*incx < 0)
         ix = (-(*n) + 1)**incx + 1;
-    }
-    if (*incy < 0) {
+    if (*incy < 0)
         iy = (-(*n) + 1)**incy + 1;
-    }
     i__1 = *n;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dtemp = dx[ix];
@@ -3566,9 +3495,8 @@ dswap(int64 *n, double *dx, int64 *incx, double *dy, int64 *incy) {
 
 L20:
     m = *n % 3;
-    if (m == 0) {
+    if (m == 0)
         goto L40;
-    }
     i__1 = m;
     for (i__ = 1; i__ <= i__1; ++i__) {
         dtemp = dx[i__];
@@ -3576,9 +3504,8 @@ L20:
         dy[i__] = dtemp;
         /* L30: */
     }
-    if (*n < 3) {
+    if (*n < 3)
         return 0;
-    }
 L40:
     mp1 = m + 1;
     i__1 = *n;
@@ -3791,9 +3718,8 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
 
     /*     Now test for equivalence */
 
-    if (!ret_val) {
+    if (!ret_val)
         ret_val = *(uchar *)ca - 32 == *(uchar *)cb;
-    }
 
     return ret_val;
 
@@ -4550,15 +4476,12 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     wantv = FALSE_;
     jobu = *job % 100 / 10;
     ncu = *n;
-    if (jobu > 1) {
+    if (jobu > 1)
         ncu = min(*n, *p);
-    }
-    if (jobu != 0) {
+    if (jobu != 0)
         wantu = TRUE_;
-    }
-    if (*job % 10 != 0) {
+    if (*job % 10 != 0)
         wantv = TRUE_;
-    }
 
     /*     reduce x to bidiagonal form, storing the diagonal elements */
     /*     in s and the super-diagonal elements in e. */
@@ -4923,14 +4846,12 @@ L999:
     }
 
     /*     check for being done */
-    if (m == 1) {
+    if (m == 1)
         goto L998;
-    }
 
     /*     check number of iterations */
-    if (iter >= maxit) {
+    if (iter >= maxit)
         goto L997;
-    }
 
     /*     compute minimum s(i) and max of all s(i),e(i) */
     if (*tol <= (double)0. && (d__1 = s[m], fabs(d__1)) <= thresh) {
@@ -4943,9 +4864,8 @@ L999:
     if (m <= oldll && *tol > (double)0.) {
         thresh = 0.;
     }
-    if (*idbg > 0) {
+    if (*idbg > 0)
         printf("thresh=%f\n", thresh);
-    }
     i__1 = m;
     for (lll = 1; lll <= i__1; ++lll) {
         ll = m - lll;
@@ -5055,9 +4975,8 @@ L1003:
             idir = 2;
         }
     }
-    if (*idbg > 0) {
+    if (*idbg > 0)
         printf("idir=%ld\n", idir);
-    }
 
     /*     compute lower bound on smallest singular value */
     /*     if old lower bound still good, do not recompute it */
@@ -5666,12 +5585,10 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
 
         /* L1: */
     }
-    if (*m >= *ncol) {
+    if (*m >= *ncol)
         printf("%26.17f\n", s[*m]);
-    }
-    if (*m < *ncol) {
+    if (*m < *ncol)
         printf("%26.17f %26.17f\n", s[*m], e[*m]);
-    }
     return 0;
 }
 
@@ -6101,9 +6018,8 @@ hqr3lc(double *a, double *v, int64 *n, int64 *nlow, int64 *nup, double *eps,
     /* MAIN LOOP. FIND AND ORDER EIGENVALUES. */
     nu = *nup;
 L20:
-    if (nu < *nlow) {
+    if (nu < *nlow)
         goto L240;
-    }
     it = 0;
 /* QR LOOP.  FIND NEGLIGIBLE ELEMENTS AND PERFORM */
 /* QR STEPS. */
@@ -6111,9 +6027,8 @@ L30:
     /* SEARCH BACK FOR NEGLIGIBLE ELEMENTS. */
     l = nu;
 L40:
-    if (l == *nlow) {
+    if (l == *nlow)
         goto L50;
-    }
     if ((d__1 = a[l + (l - 1)*a_dim1], fabs(d__1)) <=
         *eps*((d__2 = a[l - 1 + (l - 1)*a_dim1], fabs(d__2)) +
                 (d__3 = a[l + l*a_dim1], fabs(d__3)))) {
@@ -6125,22 +6040,18 @@ L50:
     /* TEST TO SEE IF AN EIGENVALUE OR A 2X2 BLOCK */
     /* HAS BEEN FOUND. */
     x = a[nu + nu*a_dim1];
-    if (l == nu) {
+    if (l == nu)
         goto L160;
-    }
     y = a[nu - 1 + (nu - 1)*a_dim1];
     w = a[nu + (nu - 1)*a_dim1]*a[nu - 1 + nu*a_dim1];
-    if (l == nu - 1) {
+    if (l == nu - 1)
         goto L100;
-    }
     /* TEST ITERATION COUNT. IF IT IS 30 QUIT.  IF */
     /* IT IS 10 OR 20 SET UP AN AD-HOC SHIFT. */
-    if (it == 30) {
+    if (it == 30)
         goto L240;
-    }
-    if (it != 10 && it != 20) {
+    if (it != 10 && it != 20)
         goto L70;
-    }
     /* AD-HOC SHIFT. */
     t += x;
     i__1 = nu;
@@ -6171,9 +6082,8 @@ L80:
     p /= s;
     q /= s;
     r__ /= s;
-    if (nl == l) {
+    if (nl == l)
         goto L90;
-    }
     if ((d__1 = a[nl + (nl - 1)*a_dim1], fabs(d__1)) *
             (fabs(q) + fabs(r__)) <=
         *eps*fabs(p) *
@@ -6189,9 +6099,8 @@ L90:
     goto L30;
 /* 2X2 BLOCK FOUND. */
 L100:
-    if (nu != *nlow + 1) {
+    if (nu != *nlow + 1)
         a[nu - 1 + (nu - 2)*a_dim1] = 0.;
-    }
     a[nu + nu*a_dim1] += t;
     a[nu - 1 + (nu - 1)*a_dim1] += t;
     type__[nu] = 0;
@@ -6210,12 +6119,10 @@ L110:
     }
     /* TEST TO SEE IF THE BLOCK IS PROPERLY POSITIONED, */
     /* AND IF NOT EXCHANGE IT */
-    if (mu == *nup) {
+    if (mu == *nup)
         goto L230;
-    }
-    if (mu == *nup - 1) {
+    if (mu == *nup - 1)
         goto L130;
-    }
     if (a[mu + 2 + (mu + 1)*a_dim1] == 0.) {
         goto L130;
     }
@@ -6237,9 +6144,8 @@ L110:
 
     exchng(&a[a_offset], &v[v_offset], n, &nl, &c__2, &c__2, eps, &fail, na,
            nv);
-    if (!fail) {
+    if (!fail)
         goto L120;
-    }
     type__[nl] = -1;
     type__[nl + 1] = -1;
     type__[nl + 2] = -1;
@@ -6267,9 +6173,8 @@ L130:
 
     exchng(&a[a_offset], &v[v_offset], n, &nl, &c__2, &c__1, eps, &fail, na,
            nv);
-    if (!fail) {
+    if (!fail)
         goto L140;
-    }
     type__[nl] = -1;
     type__[nl + 1] = -1;
     type__[nl + 2] = -1;
@@ -6282,21 +6187,18 @@ L150:
 L160:
     nl = 0;
     a[nu + nu*a_dim1] += t;
-    if (nu != *nlow) {
+    if (nu != *nlow)
         a[nu + (nu - 1)*a_dim1] = 0.;
-    }
     type__[nu] = 0;
     mu = nu;
 /* LOOP TO POSITION ONE OR TWO REAL EIGENVALUES. */
 L170:
 /* POSITION THE EIGENVALUE LOCATED AT A(NL,NL). */
 L180:
-    if (mu == *nup) {
+    if (mu == *nup)
         goto L220;
-    }
-    if (mu == *nup - 1) {
+    if (mu == *nup - 1)
         goto L200;
-    }
     if (a[mu + 2 + (mu + 1)*a_dim1] == 0.) {
         goto L200;
     }
@@ -6318,9 +6220,8 @@ L180:
 
     exchng(&a[a_offset], &v[v_offset], n, &mu, &c__1, &c__2, eps, &fail, na,
            nv);
-    if (!fail) {
+    if (!fail)
         goto L190;
-    }
     type__[mu] = -1;
     type__[mu + 1] = -1;
     type__[mu + 2] = -1;
@@ -6350,9 +6251,8 @@ L210:
 L220:
     mu = nl;
     nl = 0;
-    if (mu != 0) {
+    if (mu != 0)
         goto L170;
-    }
 /* GO BACK AND GET THE NEXT EIGENVALUE. */
 L230:
     nu = l - 1;
@@ -6360,9 +6260,8 @@ L230:
 /* ALL THE EIGENVALUES HAVE BEEN FOUND AND ORDERED. */
 /* COMPUTE THEIR VALUES AND TYPE. */
 L240:
-    if (nu < *nlow) {
+    if (nu < *nlow)
         goto L260;
-    }
     i__1 = nu;
     for (i__ = *nlow; i__ <= i__1; ++i__) {
         a[i__ + i__*a_dim1] += t;
@@ -6371,15 +6270,13 @@ L240:
 L260:
     nu = *nup;
 L270:
-    if (type__[nu] != -1) {
+    if (type__[nu] != -1)
         goto L280;
-    }
     --nu;
     goto L310;
 L280:
-    if (nu == *nlow) {
+    if (nu == *nlow)
         goto L290;
-    }
     if (a[nu + (nu - 1)*a_dim1] == 0.) {
         goto L290;
     }
@@ -6404,9 +6301,8 @@ L290:
     --nu;
 L300:
 L310:
-    if (nu >= *nlow) {
+    if (nu >= *nlow)
         goto L270;
-    }
     return 0;
 }
 
@@ -6459,9 +6355,8 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
     /* Computing 2nd power */
     d__1 = p;
     q = d__1*d__1 + w;
-    if (q >= 0.) {
+    if (q >= 0.)
         goto L10;
-    }
     /* COMPLEX EIGENVALUE. */
     *e1 = p + x;
     *e2 = sqrt(-q);
@@ -6469,17 +6364,15 @@ split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
 L10:
     /* TWO REAL EIGENVALUES.  SET UP TRANSFORMATION. */
     z__ = sqrt(q);
-    if (p < 0.) {
+    if (p < 0.)
         goto L20;
-    }
     z__ = p + z__;
     goto L30;
 L20:
     z__ = p - z__;
 L30:
-    if (z__ == 0.) {
+    if (z__ == 0.)
         goto L40;
-    }
     r__ = -w / z__;
     goto L50;
 L40:
@@ -6507,9 +6400,8 @@ L70:
     /* Computing 2nd power */
     d__2 = q;
     r__ = sqrt(d__1*d__1 + d__2*d__2);
-    if (r__ > 0.) {
+    if (r__ > 0.)
         goto L80;
-    }
     *e1 = a[*l + *l*a_dim1];
     *e2 = a[*l + 1 + (*l + 1)*a_dim1];
     a[*l + 1 + *l*a_dim1] = 0.;
@@ -6593,12 +6485,10 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
 
     /* Function Body */
     *fail = FALSE_;
-    if (*b1 == 2) {
+    if (*b1 == 2)
         goto L70;
-    }
-    if (*b2 == 2) {
+    if (*b2 == 2)
         goto L40;
-    }
     /* INTERCHANGE 1X1 AND 1X1 BLOCKS. */
     l1 = *l + 1;
     q = a[*l + 1 + (*l + 1)*a_dim1] - a[*l + *l*a_dim1];
@@ -6606,9 +6496,8 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     /* Computing MAX */
     d__1 = fabs(p), d__2 = fabs(q);
     r__ = max(d__1, d__2);
-    if (r__ == 0.) {
+    if (r__ == 0.)
         return 0;
-    }
     p /= r__;
     q /= r__;
     /* Computing 2nd power */
@@ -6655,9 +6544,8 @@ L40:
     it = 0;
 L50:
     ++it;
-    if (it <= 30) {
+    if (it <= 30)
         goto L60;
-    }
     *fail = TRUE_;
     return 0;
 L60:
@@ -6676,9 +6564,8 @@ L60:
 L70:
     /* INTERCHANGE 2X2 AND B2XB2 BLOCKS. */
     m = *l + 2;
-    if (*b2 == 2) {
+    if (*b2 == 2)
         ++m;
-    }
     x = a[*l + 1 + (*l + 1)*a_dim1];
     y = a[*l + *l*a_dim1];
     w = a[*l + 1 + *l*a_dim1]*a[*l + (*l + 1)*a_dim1];
@@ -6689,9 +6576,8 @@ L70:
     it = 0;
 L80:
     ++it;
-    if (it <= 30) {
+    if (it <= 30)
         goto L90;
-    }
     *fail = TRUE_;
     return 0;
 L90:
@@ -6759,9 +6645,8 @@ qrstep(double *a, double *v, double *p, double *q, double *r__, int64 *nl,
         a[i__ + (i__ - 2)*a_dim1] = 0.;
         /* L10: */
     }
-    if (nl2 == *nu) {
+    if (nl2 == *nu)
         goto L30;
-    }
     nl3 = *nl + 3;
     i__1 = *nu;
     for (i__ = nl3; i__ <= i__1; ++i__) {
@@ -6928,9 +6813,8 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
     /* Function Body */
     la = *igh - 1;
     kp1 = *low + 1;
-    if (la < kp1) {
+    if (la < kp1)
         goto L200;
-    }
 
     i__1 = la;
     for (m = kp1; m <= i__1; ++m) {
@@ -7092,9 +6976,8 @@ ortran(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort,
     }
 
     kl = *igh - *low - 1;
-    if (kl < 1) {
+    if (kl < 1)
         goto L200;
-    }
     /*     .......... for mp=igh-1 step -1 until low+1 do -- .......... */
     i__1 = kl;
     for (mm = 1; mm <= i__1; ++mm) {

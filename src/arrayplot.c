@@ -403,27 +403,20 @@ print_aplot(APLOT *ap) {
 
 void
 apbutton(Window w) {
-    if (w == aplot.wedit) {
+    if (w == aplot.wedit)
         editaplot(&aplot);
-    }
-    if (w == aplot.wfit) {
+    if (w == aplot.wfit)
         fit_aplot();
-    }
-    if (w == aplot.wrange) {
+    if (w == aplot.wrange)
         set_up_aplot_range();
-    }
-    if (w == aplot.wredraw) {
+    if (w == aplot.wredraw)
         redraw_aplot(aplot);
-    }
-    if (w == aplot.wprint) {
+    if (w == aplot.wprint)
         print_aplot(&aplot);
-    }
-    if (w == aplot.wclose) {
+    if (w == aplot.wclose)
         destroy_aplot();
-    }
-    if (w == aplot.wgif) {
+    if (w == aplot.wgif)
         gif_aplot();
-    }
     return;
 }
 

@@ -27,9 +27,8 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
     double xx = (double)ndown;
     double yy = (double)(nacross / ncskip);
     my_plot_file = fopen(filename, "w");
-    if (my_plot_file == NULL) {
+    if (my_plot_file == NULL)
         return -1;
-    }
     ps_begin(0.0, 0.0, xx, yy, 10., 7.);
     ps_replot(data, col0, row0, nskip, ncskip, maxrow, maxcol, nacross, ndown,
               zmin, zmax, type);

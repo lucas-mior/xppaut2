@@ -146,9 +146,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     }
     /* succesfully computed evals now lets work with them */
     ch = 'n';
-    if (!PAR_FOL) {
+    if (!PAR_FOL)
         ch = (char)TwoChoice("YES", "NO", "Print eigenvalues?", "yn");
-    }
     pr = 0;
 
     if (ch == 'y') {

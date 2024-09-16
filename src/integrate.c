@@ -384,9 +384,8 @@ set_up_range(void) {
     char values[8][MAX_LEN_SBOX];
     int32 status;
     static char *yn[] = {"N", "Y"};
-    if (!Xup) {
+    if (!Xup)
         return range_item();
-    }
 
     sprintf(values[0], "%s", range.item);
     sprintf(values[1], "%d", range.steps);
@@ -462,9 +461,8 @@ set_up_range2(void) {
     char values[13][MAX_LEN_SBOX];
     int32 status;
     static char *yn[] = {"N", "Y"};
-    if (!Xup) {
+    if (!Xup)
         return range_item();
-    }
     sprintf(values[0], "%s", range.item);
     sprintf(values[1], "%.16g", range.plow);
     sprintf(values[2], "%.16g", range.phigh);
@@ -1086,9 +1084,8 @@ batch_integrate(void) {
 
 void
 do_batch_dry_run(void) {
-    if (!dryrun) {
+    if (!dryrun)
         return;
-    }
 
     plintf("It's a dry run...\n");
 
@@ -1130,9 +1127,8 @@ do_batch_dry_run(void) {
 
 void
 batch_integrate_once(void) {
-    if (dryrun) {
+    if (dryrun)
         return;
-    }
     FILE *fp;
     double *x;
     int32 i;
@@ -2692,14 +2688,12 @@ comp_color(double *v1, double *v2, int32 n, double dt) {
     if (cur_color > color_total)
         cur_color = color_total - 1;
     cur_color += FIRSTCOLOR;
-    if (Xup) {
+    if (Xup)
         set_color(cur_color);
-    }
     if (PltFmtFlag == 1) {
         ps_do_color(cur_color);
-    } else if (PltFmtFlag == SVGFMT) {
+    } else if (PltFmtFlag == SVGFMT)
         svg_do_color(cur_color);
-    }
     return;
 }
 

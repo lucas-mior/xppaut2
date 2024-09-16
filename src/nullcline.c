@@ -799,9 +799,8 @@ restor_null(/* d=1 for x and 2 for y  */
     int32 i, i4;
     double xm, ym;
     int32 x1, y1;
-    if (PltFmtFlag == SVGFMT) {
+    if (PltFmtFlag == SVGFMT)
         fprintf(svgfile, "<g>\n");
-    }
 
     for (i = 0; i < n; i++) {
         i4 = 4*i;
@@ -822,9 +821,8 @@ restor_null(/* d=1 for x and 2 for y  */
         }
     }
 
-    if (PltFmtFlag == SVGFMT) {
+    if (PltFmtFlag == SVGFMT)
         fprintf(svgfile, "</g>\n");
-    }
     return;
 }
 

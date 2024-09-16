@@ -155,13 +155,11 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
     }
     ff->nfiles = nf;
     ff->ndirs = nd;
-    if (nd > 0) {
+    if (nd > 0)
         qsort(&(ff->dirnames[0]), nd, sizeof(char *), cmpstringp);
-    }
 
-    if (nf > 0) {
+    if (nf > 0)
         qsort(&(ff->filenames[0]), nf, sizeof(char *), cmpstringp);
-    }
     closedir(dirp);
     return 1;
 }
@@ -201,13 +199,11 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
         dp = readdir(dirp);
     }
 
-    if (nd > 0) {
+    if (nd > 0)
         qsort(&(ff->dirnames[0]), nd, sizeof(char *), cmpstringp);
-    }
 
-    if (nf > 0) {
+    if (nf > 0)
         qsort(&(ff->filenames[0]), nf, sizeof(char *), cmpstringp);
-    }
     closedir(dirp);
     return 1;
 }

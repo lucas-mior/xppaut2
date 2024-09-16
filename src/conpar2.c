@@ -71,9 +71,8 @@ conpar_process(void *arg) {
     loop_end = ((conpar_parallel_arglist *)arg)->loop_end;
 
     /* In the default case we don't need to do anything special */
-    if (global_conpar_type == CONPAR_DEFAULT) {
+    if (global_conpar_type == CONPAR_DEFAULT)
         ;
-    }
     /* In the message passing case we set d to be
        0.0, do a sum here, and then do the final
        sum (with the true copy of d) in the
@@ -86,9 +85,8 @@ conpar_process(void *arg) {
        variable for doing this threads part of the
        sum, then we do a final sum into shared memory
        at the end */
-    else if (global_conpar_type == CONPAR_PTHREADS) {
+    else if (global_conpar_type == CONPAR_PTHREADS)
         ;
-    }
 
     /* Note that the summation of the adjacent overlapped part of C */
     /* is delayed until REDUCE, in order to merge it with other
@@ -268,9 +266,8 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
 
     /* Function Body */
     nex = *nca - (*nov << 1);
-    if (nex == 0) {
+    if (nex == 0)
         return 0;
-    }
 
     /*     Initialization */
     for (i = 0; i < *na; ++i) {

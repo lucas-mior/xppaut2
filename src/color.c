@@ -309,9 +309,8 @@ MakeColormap(void) {
     if (color_total > COL_TOTAL)
         color_total = COL_TOTAL;
     color_max = color_min + color_total;
-    if (Xup) {
+    if (Xup)
         cmap = DefaultColormap(display, screen);
-    }
     for (i = 0; i < clo; i++) {
         color[i].pixel = i;
     }

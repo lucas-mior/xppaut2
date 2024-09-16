@@ -872,9 +872,8 @@ void
 stringintersect(char *target, char *sother) {
     int32 m = strlen(target);
     int32 n = strlen(sother);
-    if (n < m) {
+    if (n < m)
         m = n;
-    }
     int32 j = 0;
     while (j < m) {
         if (target[j] != sother[j]) {
@@ -2671,7 +2670,6 @@ load_entire_box(BoxList *b) {
         redo_all_fun_tables();
         reset_sliders();
     }
-    if (b->type == DELAYBOX) {
+    if (b->type == DELAYBOX)
         do_init_delay(DELAY);
-    }
 }

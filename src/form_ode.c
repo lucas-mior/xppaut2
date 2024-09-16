@@ -1190,9 +1190,8 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
     char big[MAXEXPLEN], old[MAXEXPLEN], new[MAXEXPLEN];
     char *my_string;
     int32 is_array = 0;
-    if (nnn == 0) {
+    if (nnn == 0)
         init_varinfo();
-    }
     while (notdone) {
         nstrings = 0;
         if (start || nnn == 1) {
@@ -2044,9 +2043,8 @@ parse_a_string(char *s1, VAR_INFO *v) {
         strcpy(v->rhs, rhs);
         goto good_type;
     }
-    if (s1[0] == '#') {
+    if (s1[0] == '#')
         return 0;
-    }
 
     type = find_char(s1, " =/'(", i0, &i1);
     switch (type) {
@@ -2816,9 +2814,8 @@ new_string2(char *old, int32 length) {
     char *s = malloc((length + 1)*sizeof(char));
     strncpy(s, old, length);
     s[length] = '\0';
-    if (length > 0 && s[length - 1] == ',') {
+    if (length > 0 && s[length - 1] == ',')
         s[length - 1] = '\0';
-    }
     /* printf("s = %s; length = %d\n", s, length); */
     return s;
 }

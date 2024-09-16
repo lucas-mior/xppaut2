@@ -556,9 +556,8 @@ set_extra_graphs(void) {
     int32 i;
     if (NPltV < 2)
         return;
-    if (NPltV > 8) {
+    if (NPltV > 8)
         NPltV = 8;
-    }
     if (MultiWin == 0) {
         MyGraph->nvars = NPltV;
         for (i = 1; i < NPltV; i++) {

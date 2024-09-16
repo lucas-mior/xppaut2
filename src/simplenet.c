@@ -288,9 +288,8 @@ vector_value(double x, int32 i) {
 double
 network_value(double x, int32 i) {
     int32 j = (int32)x;
-    if (my_net[i].type == INTERP) {
+    if (my_net[i].type == INTERP)
         return net_interp(x, i);
-    }
     if (j >= 0 && j < my_net[i].n)
         return my_net[i].values[j];
     return 0.0;

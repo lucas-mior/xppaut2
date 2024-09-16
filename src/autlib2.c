@@ -252,9 +252,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     }
     /*     The matrix D and FC are set to zero for all nodes except the first.
      */
-    if (iam > 0) {
+    if (iam > 0)
         setfcdd(ifst, main_auto_storage.d, fc, &nfpr, &nrc);
-    }
 
 #ifdef MATLAB_OUTPUT
     print_jacobian(*iap, main_auto_storage);
@@ -740,9 +739,8 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
     c_dim2 = *nrc;
 
     nex = *nca - (*nov*2);
-    if (nex == 0) {
+    if (nex == 0)
         return 0;
-    }
 
     /* Condensation of right hand side. */
 

@@ -523,9 +523,8 @@ create_auto_file_name(void) {
 
     char *HOME = getenv("HOME");
 
-    if (HOME == NULL) {
+    if (HOME == NULL)
         HOME = dname;
-    }
 
     sprintf(this_auto_file, "%s/%s", HOME, bname);
     return;
@@ -543,9 +542,8 @@ open_auto(/* compatible with new auto */
     dname = (char *)dirname(dirc);
 
     char *HOME = getenv("HOME");
-    if (HOME == NULL) {
+    if (HOME == NULL)
         HOME = dname;
-    }
 
     sprintf(this_auto_file, "%s/%s", HOME, bname);
     sprintf(fort3, "%s/%s", HOME, "fort.3");
@@ -2927,12 +2925,10 @@ auto_file(void) {
         load_auto();
         return;
     }
-    if (ch == 'r') {
+    if (ch == 'r')
         reset_auto();
-    }
-    if (ch == 'c') {
+    if (ch == 'c')
         grabpt.flag = 0;
-    }
     if (ch == 'p') {
         NoBreakLine = 1;
         post_auto();
@@ -2943,15 +2939,12 @@ auto_file(void) {
         svg_auto();
         NoBreakLine = 0;
     }
-    if (ch == 'w') {
+    if (ch == 'w')
         write_pts();
-    }
-    if (ch == 'a') {
+    if (ch == 'a')
         write_info_out();
-    }
-    if (ch == 'd') {
+    if (ch == 'd')
         write_init_data_file();
-    }
     if (ch == 't') {
         AutoRedrawFlag = 1 - AutoRedrawFlag;
         if (AutoRedrawFlag == 1)

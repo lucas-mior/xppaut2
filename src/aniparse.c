@@ -531,9 +531,8 @@ ani_button(Window w) {
         redraw_ani_slider();
         ani_flip1(0);
     }
-    if (w == vcr.kill) {
+    if (w == vcr.kill)
         destroy_vcr();
-    }
     return;
 }
 
@@ -971,9 +970,8 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
 
     ximage = XGetImage(display, window, 0, 0, *wid, *hgt, AllPlanes, ZPixmap);
 
-    if (!ximage) {
+    if (!ximage)
         return -1;
-    }
     /* this is only good for 256 color displays */
     for (i = 0; i < 256; i++)
         palette[i].pixel = i;
@@ -1050,17 +1048,15 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     uchar *out, *dst;
     cmap = DefaultColormap(display, screen);
     ximage = XGetImage(display, window, 0, 0, wid, hgt, AllPlanes, ZPixmap);
-    if (!ximage) {
+    if (!ximage)
         return -1;
-    }
     /* this is only good for 256 color displays */
     for (i = 0; i < 256; i++)
         palette[i].pixel = i;
     XQueryColors(display, cmap, palette, 256);
     fd = creat(filename, 0666);
-    if (fd == -1) {
+    if (fd == -1)
         return -1;
-    }
     /*    this worked for me - but you may want to change
           it for your machine
     */
@@ -1229,9 +1225,8 @@ parse_ani_string(char *s, FILE *fp) {
     ptr = s;
     type = COMNT;
     command = get_first(ptr, "; ");
-    if (command == NULL) {
+    if (command == NULL)
         return -1;
-    }
     strupr(command);
     /************** GRAB STUFF *****************/
     if (msc("GR", command))

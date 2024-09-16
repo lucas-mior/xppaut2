@@ -95,9 +95,8 @@ fnho(const iap_type *iap, const rap_type *rap, int64 ndim, const double *u,
     ffho(iap, rap, ndim, u, uold, icp, par, f, ndm, global_scratch.dfu,
          global_scratch.dfp);
 
-    if (ijac == 0) {
+    if (ijac == 0)
         return 0;
-    }
 
     /* Generate the Jacobian. */
 
@@ -378,9 +377,8 @@ fbho(const iap_type *iap, const rap_type *rap, int64 ndim, double *par,
         blhmu_1.pu1[i] = u1[i];
     }
 
-    if (blhom_1.iequib == 0 || blhom_1.iequib == -1) {
+    if (blhom_1.iequib == 0 || blhom_1.iequib == -1)
         pvls(ndm, u0, par);
-    }
     /*              write(9,*) 'Xequib:' */
     for (i = 0; i < ndm; ++i) {
         xequib1[i] = par[i + 11];
@@ -1694,9 +1692,8 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     /* EISPACK call for eigenvalues and eigenvectors */
     rg(*ndm, *ndm, dfdu, rr, ri, 1, zz, iv1, fv1, &ifail);
 
-    if (ifail != 0) {
+    if (ifail != 0)
         fprintf(fp9, "EISPACK EIGENVALUE ROUTINE FAILED !\n");
-    }
 
     for (j = 0; j < *ndm; ++j) {
         if (ri[j] > 0.) {
@@ -2017,9 +2014,8 @@ prjctn(double *bound, double *xequib, const int64 *icp, double *par,
         }
     }
 
-    if (mcond > 0) {
+    if (mcond > 0)
         ge(mcond, *ndm, dum1, mcond, *ndm, d, *ndm, dum2, &det);
-    }
 
     for (i = 0; i < mcond; ++i) {
         for (j = 0; j < *ndm; ++j) {

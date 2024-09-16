@@ -153,9 +153,8 @@ VOCAB my_cmd[NCMD] = {
 
 int32
 is_set_name(SET_NAME *set, char *nam) {
-    if (set == NULL) {
+    if (set == NULL)
         return 0;
-    }
     SET_NAME *curr;
 
     curr = set;
@@ -188,9 +187,8 @@ rm_set(SET_NAME *set, char *nam) {
     SET_NAME *curr;
     SET_NAME *prev = NULL;
 
-    if (set == NULL) {
+    if (set == NULL)
         return NULL;
-    }
 
     curr = set;
     int32 i = 1;
@@ -423,9 +421,8 @@ if_needed_load_ext_options(void) {
 
 int32
 if_needed_select_sets(void) {
-    if (!select_intern_sets) {
+    if (!select_intern_sets)
         return 1;
-    }
     int32 j;
     for (j = 0; j < Nintern_set; j++) {
         intern_set[j].use = use_intern_sets;
@@ -456,9 +453,8 @@ if_needed_select_sets(void) {
 int32
 if_needed_load_set(void) {
     FILE *fp;
-    if (!loadsetfile) {
+    if (!loadsetfile)
         return 1;
-    }
     fp = fopen(setfilename, "r");
     if (fp == NULL) {
         plintf("Couldn't load %s\n", setfilename);
@@ -471,9 +467,8 @@ if_needed_load_set(void) {
 
 int32
 if_needed_load_par(void) {
-    if (!loadparfile) {
+    if (!loadparfile)
         return 1;
-    }
     plintf("Loading external parameter file: %s\n", parfilename);
     io_parameter_file(parfilename, 1);
     return 1;
@@ -481,9 +476,8 @@ if_needed_load_par(void) {
 
 int32
 if_needed_load_ic(void) {
-    if (!loadicfile) {
+    if (!loadicfile)
         return 1;
-    }
     plintf("Loading external initial condition file: %s\n", icfilename);
     io_ic_file(icfilename, 1);
     return 1;

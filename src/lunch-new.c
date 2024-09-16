@@ -276,9 +276,8 @@ do_lunch(/* f=1 to read and 0 to write */
     io_int(&NEQ, fp, f, "Number of equations and auxiliaries");
     io_int(&NUPAR, fp, f, "Number of parameters");
     io_numerics(f, fp);
-    if (METHOD == VOLTERRA) {
+    if (METHOD == VOLTERRA)
         io_int(&MaxPoints, fp, f, "Max points for volterra");
-    }
     io_exprs(f, fp);
     io_graph(f, fp);
     dump_transpose_info(fp, f);
@@ -522,9 +521,8 @@ io_parameters(int32 f, FILE *fp) {
         }
     }
 
-    if (!XPPBatch) {
+    if (!XPPBatch)
         reset_sliders();
-    }
     return;
 }
 

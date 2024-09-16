@@ -434,9 +434,8 @@ set_X_vals(void) {
         sprintf(UserDrawWinColor, "#%s", "FFFFFF");
     }
 
-    if (UserGradients < 0) {
+    if (UserGradients < 0)
         UserGradients = 1;
-    }
     return;
 }
 
@@ -1170,9 +1169,8 @@ check_for_xpprc(void) {
     char bob[256];
     sprintf(rc, "%s/.xpprc", getenv("HOME"));
     fp = fopen(rc, "r");
-    if (fp == NULL) {
+    if (fp == NULL)
         return;
-    }
     while (!feof(fp)) {
         bob[0] = '\0';
         fgets(bob, 255, fp);
