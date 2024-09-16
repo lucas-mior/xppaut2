@@ -207,6 +207,9 @@ colset(int32 type) {
     case UPER:
         autocol(UPc);
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -282,7 +285,7 @@ storeautopoint(double x, double y) {
     return;
 }
 
-void
+static void
 setautopoint(void) {
     if (FromAutoFlag) {
         FromAutoFlag = 0;
@@ -318,6 +321,9 @@ get_auto_str(char *xlabel, char *ylabel) {
     case AV_P:
         sprintf(ylabel, "%s_bar", uvar_names[Auto.var]);
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -400,7 +406,7 @@ renamef(char *old, char *new) {
     rename(old, new);
 }
 
-void
+static void
 cat_fp(FILE *fo) {
     int32 c;
     rewind(fo);
@@ -410,7 +416,7 @@ cat_fp(FILE *fo) {
     return;
 }
 
-void
+static void
 cat_file(char *f) {
     FILE *fo;
     int32 c;
