@@ -132,8 +132,6 @@ double auto_xmax = 2.5, auto_xmin = -.5, auto_ymax = 3.0, auto_ymin = -3.0;
 double auto_epsl = 1e-4, auto_epsu = 1e-4, auto_epss = 1e-4;
 int32 auto_var = 0;
 
-int32 is_3_there = 0;
-
 int32 load_all_labeled_orbits = 0;
 
 int32 SuppressBP = 0;
@@ -552,7 +550,6 @@ open_auto(/* compatible with new auto */
     sprintf(fort8, "%s/%s", HOME, "fort.8");
     sprintf(fort9, "%s/%s", HOME, "fort.9");
     sprintf(TMPSWAP, "%s/%s", HOME, "__tmp__");
-    is_3_there = flg;
 
     if (flg == 1) {
         sprintf(string, "%s.s", this_auto_file);
