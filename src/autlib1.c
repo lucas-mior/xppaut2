@@ -3511,7 +3511,6 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
        int64 *iper) {
     int64 ndim;
 
-    int64 j;
     double x;
     int64 j1, noldp1, nnewp1;
     double dal;
@@ -3544,7 +3543,7 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     noldp1 = *nold + 1;
     nnewp1 = *nnew + 1;
     dal = eqf[noldp1 - 1] / (double)*nnew;
-    for (j = 0; j < nnewp1; ++j) {
+    for (int64 j = 0; j < nnewp1; ++j) {
         uneq[j] = j*dal;
     }
 
@@ -3553,7 +3552,7 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     /* Generate the new mesh in TMNEW : */
 
     for (j1 = 0; j1 < nnewp1; ++j1) {
-        j = ial[j1];
+        int64 j = ial[j1];
         x = (uneq[j1] - eqf[j - 1]) / (eqf[j] - eqf[j - 1]);
         tmnew[j1] = (1. - x)*tmold[-1 + j] + x*tmold[j];
     }
