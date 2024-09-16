@@ -515,17 +515,17 @@ close_auto(/* labels compatible with A2K  */
     return;
 }
 
-void
+static void
 create_auto_file_name(void) {
     char *basec, *bname, *dirc, *dname;
+    char *HOME;
 
     basec = strdup(this_file);
     dirc = strdup(this_file);
     bname = (char *)basename(basec);
     dname = (char *)dirname(dirc);
 
-    char *HOME = getenv("HOME");
-
+    HOME = getenv("HOME");
     if (HOME == NULL)
         HOME = dname;
 
@@ -538,13 +538,14 @@ open_auto(/* compatible with new auto */
           int32 flg) {
     char string[200];
     char *basec, *bname, *dirc, *dname;
+    char *HOME;
 
     basec = strdup(this_file);
     dirc = strdup(this_file);
     bname = (char *)basename(basec);
     dname = (char *)dirname(dirc);
 
-    char *HOME = getenv("HOME");
+    HOME = getenv("HOME");
     if (HOME == NULL)
         HOME = dname;
 
