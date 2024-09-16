@@ -3517,8 +3517,6 @@ intwts(iap_type *iap, rap_type *rap, int64 *n, double *z__, double *x,
 int32
 eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
      double *dtm, int64 *ndxloc, double *ups, double *eqf, int64 *iper) {
-    (void)iap;
-    (void)rap;
     int64 ups_dim1;
 
     double dtav, e;
@@ -3529,6 +3527,9 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 
     int64 jp1;
     double pwr;
+
+    (void)iap;
+    (void)rap;
 
     hd = malloc(sizeof(*hd)*(*ntst + 1)*(*ndim**ncol));
     wh = malloc(sizeof(*wh)*(*ncol + 1));
