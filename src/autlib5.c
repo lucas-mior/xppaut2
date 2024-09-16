@@ -19,37 +19,37 @@ extern GlobalScratch global_scratch;
    blocks in the original code.  They are ONLY used within
    the Homcont code.
 */
-struct {
+static struct {
     int64 itwist, istart, iequib, nfixed, npsi, nunstab, nstab, nrev;
 } blhom_1;
 
-struct {
+static struct {
     int64 *ipsi, *ifixed, *irev;
 } blhmp_1 = {NULL, NULL, NULL};
 
-struct {
+static struct {
     double *pu0, *pu1;
 } blhmu_1 = {NULL, NULL};
 
-struct {
+static struct {
     int64 nbcn;
 } bcnn_1;
 
-struct {
+static struct {
     double compzero;
 } blhma_1;
 
-struct {
+static struct {
     double *rr, *ri, *v, *vt, *xequib;
     int64 ineig;
 } bleig_1 = {NULL, NULL, NULL, NULL, NULL, 0};
 
-struct {
+static struct {
     double *vrprev;
     int64 *ieigc;
 } blhme_1 = {NULL, NULL};
 
-struct {
+static struct {
     double *cprev;
     int64 *iflag;
 } beyn_1 = {NULL, NULL};
