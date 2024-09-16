@@ -24,17 +24,11 @@
 #endif
 
 #define MAXLINELENGTH 100000
-#define PACK_AUTO 0
-#define PACK_LBF 1
 #define PARAM_BOX 1
 
 #define RUBBOX 0
-#define RUBLINE 1
 
 #define ESC 27
-#define TAB 10
-#define BAD 0
-#define FINE 13
 
 #define UPT 6
 #define SPT 7
@@ -60,8 +54,6 @@ int32 TypeOfCalc = 0;
 #define DI1 11
 #define HO2 12
 
-#define STD_WID 460 /* golden mean  */
-#define STD_HGT 284
 #include "max_len_sbox.h"
 #define HI_P 0 /* uhi vs par */
 #define NR_P 1 /* norm vs par */
@@ -71,7 +63,6 @@ int32 TypeOfCalc = 0;
 
 #define FR_P 10 /* freq vs par   */
 #define AV_P 11 /* ubar vs par */
-#define SPECIAL 5
 #define SPER 3
 #define UPER 4
 #define CSEQ 1
