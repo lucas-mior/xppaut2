@@ -1181,7 +1181,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
     VAR_INFO v;
     char **markovarrays = NULL;
     char *strings[256];
-    int32 nstrings, ns;
+    int32 nstrings = 0, ns;
     char **markovarrays2 = NULL;
     int32 done = 0, start = 0, i0, i1, i2, istates;
     int32 jj1 = 0, jj2 = 0, jj, notdone = 1, jjsgn = 1;
@@ -1968,6 +1968,8 @@ compile_em(void) {
                 ntab++;
             }
             break;
+        default:
+            break;
         }
 
         if (v->next == NULL)
@@ -2562,7 +2564,6 @@ is_comment(char *s) {
         } else
             return 0;
     }
-    exit(EXIT_FAILURE);
 }
 
 void
@@ -2838,6 +2839,7 @@ get_next2(char **tokens_ptr) {
     int32 success = 0;
     int32 i = 0;
     char *tokens = *tokens_ptr;
+    int32 len;
     for (; *tokens; tokens++) {
         if (!isspace(tokens[i]))
             break;
@@ -2846,7 +2848,7 @@ get_next2(char **tokens_ptr) {
         (*tokens_ptr) = tokens;
         return NULL;
     }
-    int32 len = strlen(tokens);
+    len = strlen(tokens);
     /* advance past space/the equal sign/comma */
     success = 0;
     for (i = 1; i < len; i++) {
@@ -2928,10 +2930,11 @@ get_next2(char **tokens_ptr) {
 void
 strcpy_trim(char *dest, char *source) {
     /* like strcpy, except removes leading and trailing whitespace */
+    int32 len, i;
     while (*source && isspace(*source)) {
         source++;
     }
-    int32 len = strlen(source), i;
+    len = strlen(source);
     for (i = len - 1; i >= 0; i--) {
         if (!isspace(source[i]))
             break;
@@ -2943,11 +2946,11 @@ strcpy_trim(char *dest, char *source) {
 
 void
 strncpy_trim(char *dest, char *source, int32 n) {
+    int32 i;
     while (*source && isspace(*source)) {
         source++;
         n--;
     }
-    int32 i;
     for (i = n - 1; i >= 0; i--) {
         if (!isspace(source[i]))
             break;
