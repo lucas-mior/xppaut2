@@ -5563,7 +5563,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     int64 ups_dim1, udotps_dim1;
     (void) udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
+    int64 ndim, ncol, nfpr, ntst, ncol1, j, k;
     double t, *u;
     int64 k1, k2;
 
@@ -5589,7 +5589,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     /* Generate the (initially uniform) mesh. */
 
     msh(iap, tm);
-    dt = 1. / (ntst*ncol);
+    dt = 1. / (double)(ntst*ncol);
 
     for (j = 0; j < ntst + 1; ++j) {
         if (j == ntst) {
@@ -5597,7 +5597,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
         } else {
             ncol1 = ncol;
         }
-        for (i = 0; i < ncol1; ++i) {
+        for (int64 i = 0; i < ncol1; ++i) {
             t = tm[j] + i*dt;
             k1 = i*ndim;
             k2 = (i + 1)*ndim;
@@ -5615,7 +5615,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     lab = 0;
     iap->lab = lab;
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
