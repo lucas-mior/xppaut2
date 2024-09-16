@@ -939,13 +939,6 @@ lil_button(Window root, int32 x, int32 y) {
     return win;
 }
 
-static void
-aw(void) {
-    XFlush(display);
-    sleep(5);
-    return;
-}
-
 void
 make_auto(char *wname, char *iname) {
     int32 x, y, wid, hgt;
