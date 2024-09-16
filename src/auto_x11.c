@@ -949,7 +949,7 @@ aw(void) {
 void
 make_auto(char *wname, char *iname) {
     int32 x, y, wid, hgt;
-    int32 addwid = 16*DCURX, addhgt = 3.0*DCURY, hinthgt = DCURY + 6;
+    int32 addwid = 16*DCURX, addhgt = 3*DCURY, hinthgt = DCURY + 6;
     Window base = 0;
     int32 dely = DCURY + 5;
     STD_HGT_var = 20*DCURY;
