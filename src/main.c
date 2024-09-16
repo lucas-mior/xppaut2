@@ -59,7 +59,6 @@ int32 errno;
 int32 allwinvis = 0;
 int32 use_intern_sets = 1;
 int32 use_ani_file = 0;
-/*char anifile[256]; */
 char anifile[XPP_MAX_NAME];
 extern int32 ani_grab_flag;
 
@@ -67,7 +66,6 @@ double xppvermaj, xppvermin;
 
 extern int32 manual_expose;
 extern int32 NCBatch, DFBatch;
-/*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
 extern int32 METHOD, storind;
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
@@ -92,7 +90,6 @@ extern int32 DF_FLAG;
 char mycommand[100];
 
 Window TopButton[6];
-/* Window win; */
 Window draw_win;
 Window main_win;
 Window command_pop, info_pop;
@@ -103,7 +100,6 @@ char UserBlack[8];
 char UserWhite[8];
 char UserMainWinColor[8];
 char UserDrawWinColor[8];
-/*char UserBGBitmap[100];*/
 char UserBGBitmap[XPP_MAX_NAME];
 
 int32 UserGradients = -1;
@@ -143,9 +139,8 @@ double SLIDER3INIT = 0.5;
 
 int32 ALREADY_SWAPPED = 0;
 
-/*Set this to 1 if you want the tutorial to come up at start-up
-as default behavior
-*/
+/* Set this to 1 if you want the tutorial to come up at start-up
+ * as default behavior */
 int32 DoTutorial = 0;
 
 OptionsSet notAlreadySet;
@@ -156,14 +151,10 @@ int32 popped = 0;
 
 void
 do_main(int32 argc, char **argv) {
-    /* Moved to init_X() */
-    /*  char *icon_name="xpp"; */
-    /*char myfile[256];*/
     char myfile[XPP_MAX_NAME];
-    /*  char *win_name; */
     char pptitle[80];
 
-    /*Track which options have not been set already*/
+    /* Track which options have not been set already */
     notAlreadySet.BIG_FONT_NAME = 1;
     notAlreadySet.SMALL_FONT_NAME = 1;
     notAlreadySet.BACKGROUND = 1;
@@ -322,10 +313,6 @@ do_main(int32 argc, char **argv) {
 
     uint32 min_wid = 450, min_hgt = 360;
 
-    /*  uint32 x=0,y=0; */
-    /*
-    snprintf(myfile, sizeof(myfile),"lecar.ode");
-    */
     get_directory(myfile);
 
     SCALEX = 640;
@@ -335,44 +322,27 @@ do_main(int32 argc, char **argv) {
     snprintf(batchout, sizeof(batchout), "output.dat");
     snprintf(PlotFormat, sizeof(PlotFormat), "ps");
 
-    /*Read visualization environement variables here
-    since some may be overridden by command line
-    */
+    /* Read visualization environement variables here
+       since some may be overridden by command line */
     logfile = stdout;
     check_for_quiet(argc, argv);
-    /*do_vis_env();*/
-
-    /* Old code did it this way...
-    do_vis_env();
-   do_comline(argc, argv);
-    if(!XPPBatch)
-    {
-         init_X();
-    }
-
-   load_eqn();
-   */
 
     do_comline(argc, argv);
 
-    /*We need to init_X here if there is no file on command line
-    so that a file browser can be opened.
-    */
+    /* We need to init_X here if there is no file on command line
+     * so that a file browser can be opened.  */
     if (!XPPBatch) {
-        /*Swap out the current options for a temporary place holder
-         */
+        /* Swap out the current options for a temporary place holder */
         OptionsSet *tempNS = malloc(sizeof(OptionsSet));
         *tempNS = notAlreadySet;
-        /*Initialize what's needed to open a browser based on
-        the current options.
-        */
+        /* Initialize what's needed to open a browser based on
+         * the current options.  */
         do_vis_env();
         set_all_vals();
         init_X();
         /*       XSynchronize(display,1); */
-        /*
-        Now swap back the options for proper precedence ordering of options.
-        */
+        /* Now swap back the options for proper precedence ordering of options.
+         */
         notAlreadySet = *tempNS;
         free(tempNS);
     }
@@ -388,11 +358,6 @@ do_main(int32 argc, char **argv) {
     do_vis_env();
     set_all_vals();
 
-    /*if(!XPPBatch)
-    {
-         init_X();
-    }*/
-
     init_alloc_info();
     set_init_guess();
     update_all_ffts();
@@ -400,11 +365,6 @@ do_main(int32 argc, char **argv) {
 #ifdef AUTO
     init_auto_win();
 #endif
-
-    /* if(make_kernels()==0){
-      plintf("Illegal kernel -- aborting \n");
-       exit(0);
-       } */
 
     if (disc(this_file))
         METHOD = 0;
@@ -416,7 +376,6 @@ do_main(int32 argc, char **argv) {
     else
         snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj,
                  xppvermin);
-    /*  win_name=pptitle; */
     do_meth();
 
     set_delay();
@@ -437,7 +396,6 @@ do_main(int32 argc, char **argv) {
         if_needed_load_ext_options();
         set_extra_graphs();
         set_colorization_stuff();
-        /* if(!SuppressOut) */
         batch_integrate();
         if (NCBatch > 0)
             silent_nullclines();
@@ -469,16 +427,12 @@ do_main(int32 argc, char **argv) {
         create_eq_list();
     }
 
-    /* create_eq_list(); */
-    /* make_my_aplot("z"); */
     Xup = 1;
     ani_zero();
     set_extra_graphs();
     set_colorization_stuff();
 
     make_scrbox_lists();
-
-    /*   This is for testing widgets  ---    */
 
     /*          MAIN LOOP             */
     test_color_info();
@@ -502,13 +456,12 @@ do_main(int32 argc, char **argv) {
 
 void
 check_for_quiet(int32 argc, char **argv) {
-    /*First scan, check for any QUIET option set...*/
+    /* First scan, check for any QUIET option set... */
     int32 i = 0;
-    /*Allow for multiple calls to the QUIET and LOGFILE options
-    on the command line. The last setting is the one that will stick.
-    Settings of logfile and quiet in the xpprc file will be ignored
-    if they are set on the command line.
-    */
+    /* Allow for multiple calls to the QUIET and LOGFILE options
+     * on the command line. The last setting is the one that will stick.
+     * Settings of logfile and quiet in the xpprc file will be ignored
+     * if they are set on the command line.  */
     int32 quiet_specified_once = 0;
     int32 logfile_specified_once = 0;
 
@@ -523,9 +476,8 @@ check_for_quiet(int32 argc, char **argv) {
             i++;
         }
     }
-    /*If -quiet or -logfile were specified at least once on the command line
-    we lock those in now...
-    */
+    /* If -quiet or -logfile were specified at least once on the command line
+     * we lock those in now...  */
     if (quiet_specified_once == 1)
         OVERRIDE_QUIET = 1;
     if (logfile_specified_once == 1)
@@ -568,7 +520,7 @@ init_X(void) {
     main_win =
         init_win(4, icon_name, win_name, x, y, min_wid, min_hgt, 0, NULL);
 
-    /*Set up foreground and background colors*/
+    /* Set up foreground and background colors */
 
     Black = BlackPixel(display, screen);
     White = WhitePixel(display, screen);
@@ -598,12 +550,9 @@ init_X(void) {
     /*  Switch for reversed video  */
     MyForeColor = GrFore = Black;
     MyBackColor = GrBack = White;
-    /*  This is reversed
-     MyForeColor=White;
-     MyBackColor=Black; */
 
-    if (PaperWhite == 1) /*Respect the swapping implied by the -white option.*/
-    {
+    if (PaperWhite == 1) {
+        /* Respect the swapping implied by the -white option. */
         printf("Doing swap!\n");
         char swapcol[8];
         strcpy(swapcol, UserWhite);
@@ -642,7 +591,6 @@ init_X(void) {
         MyDrawWinColor = MyBackColor;
     }
 
-    /* win = main_win; */
     FixWindowSize(main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
     periodic = 1;
     if (DefaultDepth(display, screen) >= 8) {
@@ -650,10 +598,6 @@ init_X(void) {
     } else {
         COLOR = 0;
     }
-    /* if(DefaultDepth(display,screen)==4){
-       map16();
-       COLOR=1;
-       } */
 
     XSelectInput(display, main_win,
                  ExposureMask | KeyPressMask | ButtonPressMask |
@@ -662,26 +606,20 @@ init_X(void) {
 
     load_fonts();
 
-    /*BETTER SUPPORT FOR VARIABLE WIDTH FONTS
-    Use a statistical average to get average spacing. Some fonts don't
-    or are not able to report this accurately so this is reliable way to
-    get the information. If person only has variable width font on their
-    system they can get by.
-    The average spacing will be too small for some short strings having
-    capital letters (for example "GO"). Thus, we divide by the string
-    length of our test string minus 2 for a little more wiggle room.
-    */
+    /* BETTER SUPPORT FOR VARIABLE WIDTH FONTS
+     * Use a statistical average to get average spacing. Some fonts don't
+     * or are not able to report this accurately so this is reliable way to
+     * get the information. If person only has variable width font on their
+     * system they can get by.
+     * The average spacing will be too small for some short strings having
+     * capital letters (for example "GO"). Thus, we divide by the string
+     * length of our test string minus 2 for a little more wiggle room. */
 
-    /*   DCURXb = XTextWidth (big_font, "#", 1);
-     */
     DCURXb =
         XTextWidth(big_font, teststr, strlen(teststr)) / (strlen(teststr) - 2);
 
     DCURYb = big_font->ascent + big_font->descent;
     CURY_OFFb = big_font->ascent - 1;
-
-    /*  DCURXs = XTextWidth (small_font, "#", 1);
-     */
 
     DCURXs = XTextWidth(small_font, teststr, strlen(teststr)) /
              (strlen(teststr) - 2);
@@ -694,12 +632,7 @@ init_X(void) {
     getGC(&small_gc);
     getGC(&font_gc);
 
-    if (strlen(UserBGBitmap) != 0) /*User supplied */
-    {
-        /*Pixmap
-         * pmap=XCreatePixmapFromBitmapData(display,main_win,lines_bits,lines_width,lines_height,MyForeColor,MyBackColor,DefaultDepth(display,
-         * DefaultScreen(display)));
-         */
+    if (strlen(UserBGBitmap) != 0) {
         uint32 width_return, height_return;
         int32 x_hot, y_hot;
         uchar *pixdata;
@@ -734,16 +667,12 @@ init_X(void) {
         MakeColormap();
 
     set_big_font();
-    /* set_small_font(); */
 
     XSetFont(display, small_gc, small_font->fid);
-    /*make_pops();*/
 
-    /*
-    If the user didn't specify specifically heights and widths
-    we try to set the initial size to fit everything nicely especially
-    if they are using wacky fonts...
-    */
+    /* If the user didn't specify specifically heights and widths
+     * we try to set the initial size to fit everything nicely especially
+     * if they are using wacky fonts...  */
     if (UserMinWidth <= 0)
         SCALEX = 10 + 36*2 * DCURXs + 32*DCURXs;
 
@@ -751,8 +680,6 @@ init_X(void) {
         SCALEY = 25*DCURYb + 7*DCURYs;
 
     XResizeWindow(display, main_win, SCALEX, SCALEY);
-    /*FixWindowSize (main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
-     */
     return;
 }
 
