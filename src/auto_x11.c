@@ -287,6 +287,9 @@ traverse_diagram(void) {
     while (done == 0) {
         XNextEvent(display, &ev);
         if (ev.type == ButtonPress) {
+            int32 mindex;
+            double dist;
+            double ndist;
             int32 xm = ev.xmotion.x;
             int32 ym = ev.xmotion.y;
 
@@ -318,9 +321,9 @@ traverse_diagram(void) {
                 /*
                 GO END
                 */
-                int32 mindex = 0;
-                double dist;
-                double ndist = Auto.wid*Auto.hgt;
+                mindex = 0;
+                dist;
+                ndist = Auto.wid*Auto.hgt;
                 XORCross(ix, iy);
                 lalo = load_all_labeled_orbits;
                 load_all_labeled_orbits = 0;
