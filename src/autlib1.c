@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+#include "auto_nox.h"
 #include "functions.h"
 #include "auto_f2c.h"
 #include "autevd.h"
@@ -10,7 +11,6 @@
 #include "autlib.h"
 
 extern int32 NODE;
-extern int32 RestartLabel;
 static int32 restart_flag = 0;
 
 /* The memory for these are taken care of in main, and setubv for the

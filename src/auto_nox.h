@@ -73,6 +73,8 @@ extern int32 UEc;
 extern int32 SPc;
 extern int32 UPc;
 
+extern int32 RestartLabel;
+
 void colset(int32 type);
 void pscolset2(int32 flag2);
 void colset2(int32 flag2);
