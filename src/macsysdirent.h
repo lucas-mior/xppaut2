@@ -71,7 +71,7 @@
 
 struct dirent {
     ulong d_fileno;  /* file number of entry */
-    ushort d_reclen; /* length of this record */
+    uint16 d_reclen; /* length of this record */
     uchar d_type;            /* file type, see below */
     uchar d_namlen;          /* length of string in d_name */
 #ifdef _POSIX_SOURCE

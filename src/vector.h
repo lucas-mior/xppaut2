@@ -23,7 +23,7 @@
  * definitions of the types double and int64 are in the header  *
  * file llnltyps.h and these may be changed according to the    *
  * user's needs. The llnltyps.h file also contains the          *
- * definition for the type bool (short for boolean) that is the *
+ * definition for the type bool (int16 for boolean) that is the *
  * return type for the routine N_VInvTest.                      *
  *                                                              *
  * Important Note: N_Vector arguments to arithmetic kernels     *

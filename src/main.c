@@ -611,7 +611,7 @@ init_X(void) {
      * or are not able to report this accurately so this is reliable way to
      * get the information. If person only has variable width font on their
      * system they can get by.
-     * The average spacing will be too small for some short strings having
+     * The average spacing will be too small for some int16 strings having
      * capital letters (for example "GO"). Thus, we divide by the string
      * length of our test string minus 2 for a little more wiggle room. */
 

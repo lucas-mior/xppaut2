@@ -23,7 +23,7 @@
 typedef struct {
     double xs, ys, xe, ye;
     double size;
-    short use;
+    int16 use;
     Window w;
     int32 type, color;
 } GROB;

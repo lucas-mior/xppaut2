@@ -4374,7 +4374,7 @@ void write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
 void make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
 int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
 void ClearTree(int32 cc, GifTree *root);
-uchar *AddCodeToBuffer(int32 code, short n, uchar *buf);
+uchar *AddCodeToBuffer(int32 code, int16 n, uchar *buf);
 
 #endif
 #ifndef simplenet_h
@@ -4458,7 +4458,7 @@ double vector_value(double x, int32 i);
  * xcor is a length N vector (type N_Vector) which holds the      *
  * scaled, preconditioned correction to the initial guess.        *
  *                                                                *
- * yg is a length (l_max+1) array of reals used to hold "short"   *
+ * yg is a length (l_max+1) array of reals used to hold "int16"   *
  * vectors (e.g. y and g).                                        *
  *                                                                *
  * vtemp is a length N vector (type N_Vector) used as temporary   *
@@ -4742,7 +4742,7 @@ void create_user_buttons(int32 x0, int32 y0, Window base);
  * definitions of the types double and int64 are in the header  *
  * file llnltyps.h and these may be changed according to the    *
  * user's needs. The llnltyps.h file also contains the          *
- * definition for the type bool (short for boolean) that is the *
+ * definition for the type bool (int16 for boolean) that is the *
  * return type for the routine N_VInvTest.                      *
  *                                                              *
  * Important Note: N_Vector arguments to arithmetic kernels     *

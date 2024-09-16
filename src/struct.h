@@ -78,14 +78,14 @@ typedef struct {
     double x;
     double y;
     char s[MAXCHAR];
-    short use;
+    int16 use;
     int32 font, size;
 } LABEL;
 
 typedef struct {
     Window w;
     char key[20], name[10];
-    short use, type;
+    int16 use, type;
     double *xv, *yv, *zv;
     int32 len, color;
 } CURVE;
@@ -93,7 +93,7 @@ typedef struct {
 typedef struct {
     Window w;
     char name[10];
-    short use;
+    int16 use;
     double *x_n, *y_n;
     int32 ix, iy, num_x, num_y;
 } NCLINE;
@@ -116,7 +116,7 @@ typedef struct {
     Window base;
     Window ok;
     Window cancel;
-    short type;
+    int16 type;
     int32 mc;
     Window cw[MAXENTRY];
     char **name;

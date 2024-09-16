@@ -29,13 +29,13 @@
         fputc(i >> 8, fout);                                                   \
     }
 
-uchar *AddCodeToBuffer(int32, short, uchar *);
+uchar *AddCodeToBuffer(int32, int16, uchar *);
 void ClearTree(int32, GifTree *);
 uint32 debugFlag;
 int32 UseGlobalMap = 0;
 int32 GifFrameDelay = 5, GifFrameLoop = 1000;
 int32 chainlen = 0, maxchainlen = 0, nodecount = 0, lookuptypes = 0, nbits;
-short need = 8;
+int16 need = 8;
 GifTree *empty[256], GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL}, *topNode,
                      *baseNode, **nodeArray, **lastArray;
 
@@ -391,7 +391,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     GifTree *first = &GifRoot, *newNode, *curNode;
     uchar *end;
     int32 cc, eoi, next, tel = 0;
-    short cLength;
+    int16 cLength;
 
     uchar *pos, *buffer;
 
@@ -597,7 +597,7 @@ ClearTree(int32 cc, GifTree *root) {
 }
 
 uchar *
-AddCodeToBuffer(int32 code, short n, uchar *buf) {
+AddCodeToBuffer(int32 code, int16 n, uchar *buf) {
     int32 mask;
 
     if (n < 0) {

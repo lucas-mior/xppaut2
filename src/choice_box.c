@@ -135,7 +135,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     p.base = base;
 
     p.n = n;
-    p.type = (short)type;
+    p.type = (int16)type;
     p.mc = mcc;
     do_checks(p);
     while (true) {
