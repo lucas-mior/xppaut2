@@ -768,8 +768,6 @@ script_make(char *s, int32 *k) {
 
 void
 scripty(void) {
-    /*  char scr[100]="piapp#r#b#b#b#b.12#r#rig"; */
-    /* char scr[100]="eir#t"; */
     char scr[100] = "edf#b#b8#r";
     int32 bob[200];
     XKeyEvent ev;
@@ -786,29 +784,16 @@ scripty(void) {
 
 void
 xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
-    /*int32 window_size,com;
-     */
-
     char ch;
 
     int32 used = 0;
-
-    /*  put_command("Command:");  */
 
     do_array_plot_events(report);
     txt_view_events(report);
     do_ani_events(report);
     top_button_events(report);
     switch (report.type) {
-        /* case ClientMessage:
-                 if(report.xclient.data.l[0]==deleteWindowAtom){
-
-                 break;
-                 }
-                 break; */
-
     case ConfigureNotify: /* this needs to be fixed!!! */
-                          /*    printf("CN %ld \n",report.xany.window); */
         resize_par_box(report.xany.window);
         resize_my_browser(report.xany.window);
         resize_eq_list(report.xany.window);
@@ -817,11 +802,9 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             SCALEX = report.xconfigure.width;
             SCALEY = report.xconfigure.height;
             if ((SCALEX < min_wid) || (SCALEY < min_hgt)) {
-                /*window_size=TOO_SMALL;*/
                 SCALEX = min_wid;
                 SCALEY = min_hgt;
             } else {
-                /*window_size=BIG_ENOUGH;*/
                 XResizeWindow(display, command_pop, SCALEX - 4, DCURY + 1);
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
                                   SCALEX - 4, DCURY);
@@ -858,8 +841,6 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         ch = (char)get_key_press(&report);
         commander(ch);
 
-        /* do_key_stuff(report); */
-
         break;
     case EnterNotify:
         enter_eq_stuff(report.xcrossing.window, 2);
@@ -889,10 +870,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 
         break;
     case ButtonPress:
-        /* check_box_cursor(); */
         if (!rotate3dcheck(report)) {
             menu_button(report.xbutton.window);
-            /* box_select_events(report.xbutton.window,&i1); */
             box_buttons(report.xbutton.window);
 
             slide_button_press(report.xbutton.window);
@@ -906,7 +885,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         }
         break;
 
-    } /* end switch */
+    }
     return;
 }
 
@@ -921,10 +900,9 @@ do_events(uint32 min_wid, uint32 min_hgt) {
         RunImmediately = 0;
     }
     while (true) {
-        /*  put_command("Command:");  */
         XNextEvent(display, &report);
         xpp_events(report, min_wid, min_hgt);
-    } /* end while */
+    }
     return;
 }
 
