@@ -602,6 +602,7 @@ button_selector(Window w) {
         fs_scroll(-filesel.nwin);
     if (w == filesel.home) {
         char *HOMEDIR = getenv("KEY_HOME");
+        int32 m;
         if ((HOMEDIR == NULL) || (strlen(HOMEDIR) == 0)) {
             plintf("User's KEY_HOME environment variable not set.\n");
             return 0;
@@ -617,7 +618,7 @@ button_selector(Window w) {
 
         strcpy(filesel.filetxt, cur_dir);
 
-        int32 m = strlen(filesel.filetxt);
+        m = strlen(filesel.filetxt);
         if (filesel.filetxt[m - 1] != '/') {
             strcat(filesel.filetxt, "/");
         }
@@ -630,6 +631,7 @@ button_selector(Window w) {
     }
     if (w == filesel.start) {
         char *START = getenv("XPPSTART");
+        int32 m;
 
         if ((START == NULL) || (strlen(START) == 0)) {
             plintf("User's XPPSTART environment variable not set.\n");
@@ -647,7 +649,7 @@ button_selector(Window w) {
 
         strcpy(filesel.filetxt, cur_dir);
 
-        int32 m = strlen(filesel.filetxt);
+        m = strlen(filesel.filetxt);
         if (filesel.filetxt[m - 1] != '/') {
             strcat(filesel.filetxt, "/");
         }
@@ -683,6 +685,7 @@ button_selector(Window w) {
     if (i0 > -1) { /* clicked on a file or directory */
         k = i0 + filesel.n0;
         if (k < my_ff.ndirs) { /* it is a directory so we should reset */
+            int32 m;
             change_directory(my_ff.dirnames[k]);
             get_directory(cur_dir);
             redraw_directory();
@@ -693,7 +696,7 @@ button_selector(Window w) {
 
             strcpy(filesel.filetxt, cur_dir);
 
-            int32 m = strlen(filesel.filetxt);
+            m = strlen(filesel.filetxt);
             if (filesel.filetxt[m - 1] != '/') {
                 strcat(filesel.filetxt, "/");
             }
