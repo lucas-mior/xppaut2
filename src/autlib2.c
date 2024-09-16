@@ -1783,7 +1783,6 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
        double *faa, double *fc, int64 *na, int64 *nov, int64 *ncb, int64 *nrc,
        double *ca1, int64 *icf1, int64 *icf2, int64 *icf11, int64 *ipr,
        int64 *nbc) {
-    (void) ncb;
     int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
         cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
@@ -1801,6 +1800,8 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     double tmp;
     int64 notsend;
     int64 nap1, nam1, myright[KREDO], icp1;
+
+    (void) ncb;
 
     /* Parameter adjustments */
     /*--fc;*/
@@ -1958,11 +1959,8 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
        double *fc, int64 *ifst, int64 *na, int64 *nrc, int64 *nov, int64 *ncb,
        int64 *idb, int64 *nllv, double *fcc, double *p0, double *p1,
        double *det, double *s, double *a2, double *faa, double *bb) {
-    (void) ifst;
-
     int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
         faa_dim1, a2_dim1, a2_dim2, bb_dim1, bb_dim2;
-
 
     int64 i, j, k;
 
@@ -1971,6 +1969,9 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
     int64 novpj2, kc, kr, ncrloc, msglen1, msglen2, nap1;
 
     double *xe;
+
+    (void) ifst;
+
     xe = malloc(sizeof(*xe)*(*nov + *nrc));
 
     /* Parameter adjustments */
@@ -2397,8 +2398,6 @@ int32
 infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
        double *sol2, double *fc, int64 *na, int64 *nov, int64 *nra, int64 *nca,
        int64 *ncb, int64 *irf, int64 *icf) {
-    (void) iam;
-    (void) par;
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
 
@@ -2407,6 +2406,9 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     int64 nrapj, irfir, j1, novpj, icfnovpir, ir;
     double sm;
     int64 novpir, irp1;
+
+    (void) iam;
+    (void) par;
 
     x = malloc(sizeof(*x)*(*nra));
 
@@ -2543,11 +2545,11 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
 int32
 print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
        double *a, double *b, double *c, double *d, double *fa, double *fc) {
-    (void) nov;
-
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
 
     int64 i, ic, ir;
+
+    (void) nov;
 
     /* Parameter adjustments */
     /*--fc;*/
