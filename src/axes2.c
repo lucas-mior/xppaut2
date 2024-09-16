@@ -378,7 +378,7 @@ draw_xtics(char *s2, double start, double incr, double end) {
     double y_min = YMin, x_min = XMin, x_max = XMax;
 
     char bob[100];
-    int32 xt, yt;
+    int32 xt, yt = 0;
     int32 s = 1;
     if (DTop < DBottom)
         s = -1;

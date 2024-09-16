@@ -134,15 +134,14 @@ waitasec(int32 msec) {
     double sec = (double)msec / 1000;
     double t1, t2;
     gettimeofday(&tim, NULL);
-    t1 = tim.tv_sec + (tim.tv_usec / 1000000.0);
+    t1 = (double)tim.tv_sec + ((double)tim.tv_usec / 1000000.0);
 
     while (true) {
         gettimeofday(&tim, NULL);
-        t2 = tim.tv_sec + (tim.tv_usec / 1000000.0);
+        t2 = (double)tim.tv_sec + ((double)tim.tv_usec / 1000000.0);
 
         if ((t2 - t1) > sec)
-
-            return;
+            break;
     }
     return;
 }
