@@ -4888,7 +4888,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 ndim, ncol;
     int64 nfpr, ntst;
-    int64 i, j, k;
+    int64 j, k;
     int64 n1, ips;
     double *dfdp, *dfdu, *uold, *f, *u;
 
@@ -4914,12 +4914,12 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ncol = iap->ncol;
     nfpr = iap->nfpr;
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int32 i = 0; i < nfpr; ++i) {
         par[icp[i]] = rlold[i];
     }
 
     for (j = 0; j < ntst + 1; ++j) {
-        for (i = 0; i < ndim; ++i) {
+        for (int32 i = 0; i < ndim; ++i) {
             u[i] = ARRAY2D(uoldps, j, i);
             if (ips == 14 || ips == 16) {
                 uold[i] = ARRAY2D(uoldps, j, i)*2 - ARRAY2D(ups, j, i);
@@ -4928,7 +4928,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             }
         }
         (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f, dfdu, dfdp);
-        for (i = 0; i < ndim; ++i) {
+        for (int32 i = 0; i < ndim; ++i) {
             ARRAY2D(upoldp, j, i) = f[i];
         }
     }
@@ -4936,7 +4936,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     for (k = 1; k <= ncol - 1; ++k) {
         n1 = k*ndim;
         for (j = 0; j < ntst; ++j) {
-            for (i = 0; i < ndim; ++i) {
+            for (int32 i = 0; i < ndim; ++i) {
                 u[i] = ARRAY2D(uoldps, j, (n1 + i));
                 if (ips == 14 || ips == 16) {
                     uold[i] = ARRAY2D(uoldps, j, (n1 + i))*2 -
@@ -4946,13 +4946,13 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                 }
             }
             (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f, dfdu, dfdp);
-            for (i = 0; i < ndim; ++i) {
+            for (int32 i = 0; i < ndim; ++i) {
                 ARRAY2D(upoldp, j, (n1 + i)) = f[i];
             }
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int32 i = 0; i < nfpr; ++i) {
         par[icp[i]] = rlcur[i];
     }
     free(dfdp);
