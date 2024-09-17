@@ -709,7 +709,7 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     du = malloc(sizeof(*du)*(size_t)(iap->ndim + 1));
     rhs = malloc(sizeof(*rhs)*(size_t)(iap->ndim + 1));
     stu = malloc(sizeof(*stu)*(size_t)(iap->ndim)*NBIFX);
-    uzr = malloc(sizeof(*uzr)*(iap->nuzr));
+    uzr = malloc(sizeof(*uzr)*(size_t)(iap->nuzr));
 
     /* Controls the bifurcation analysis of algebraic problems */
 
@@ -1594,7 +1594,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void)iuz;
     (void)vuz;
 
-    ud = malloc(sizeof(*ud)*(iap->ndim + 1));
+    ud = malloc(sizeof(*ud)*(size_t)(iap->ndim + 1));
 
     /* Local */
 
@@ -1678,7 +1678,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void)iuz;
     (void)vuz;
 
-    ev = malloc(sizeof(*ev)*(iap->ndim));
+    ev = malloc(sizeof(*ev)*(size_t)(iap->ndim));
 
     ndim = iap->ndim;
     ndm = iap->ndm;
