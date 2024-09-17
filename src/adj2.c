@@ -170,8 +170,6 @@ void
 data_back(void) {
     FOUR_HERE = 0;
     set_browser_data(storage, 1);
-    /*  my_browser.data=storage;
-        my_browser.col0=1; */
     refresh_browser(storind);
     return;
 }
@@ -180,9 +178,6 @@ void
 adj_back(void) {
     if (ADJ_HERE) {
         set_browser_data(my_adj, 1);
-        /*   my_browser.data=my_adj;
-
-             my_browser.col0=1; */
         refresh_browser(adj_len);
     }
     return;
@@ -192,10 +187,6 @@ void
 h_back(void) {
     if (H_HERE) {
         set_browser_data(my_h, 1);
-        /*
-        my_browser.data=my_h;
-
-        my_browser.col0=1; */
         refresh_browser(h_len);
     }
     return;
