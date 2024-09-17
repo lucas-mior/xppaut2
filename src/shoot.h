@@ -1,5 +1,5 @@
-#ifndef shoot_h
-#define shoot_h
+#ifndef SHOOT_H
+#define SHOOT_H
 #include "integers.h"
 
 typedef struct {
