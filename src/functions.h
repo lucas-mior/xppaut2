@@ -8,16 +8,16 @@
 
 #define MAX_LEN_SBOX 30
 
-#ifndef abort_h
-#define abort_h
+#ifndef ABORT_H
+#define ABORT_H
 
 void plot_command(int32 nit, int32 icount, int32 cwidth);
 int32 my_abort(void);
 
 #endif
 
-#ifndef adj2_h
-#define adj2_h
+#ifndef ADJ2_H
+#define ADJ2_H
 
 #include <stdio.h>
 
@@ -56,8 +56,8 @@ void new_adjoint(void);
 
 #endif
 
-#ifndef aniparse_h
-#define aniparse_h
+#ifndef ANIPARSE_H
+#define ANIPARSE_H
 
 #include <X11/Xlib.h>
 #include <stdio.h>
@@ -212,8 +212,8 @@ void redraw_ani_slider(void);
 
 #endif
 
-#ifndef arrayplot_h
-#define arrayplot_h
+#ifndef ARRAYPLOT_H
+#define ARRAYPLOT_H
 
 #include <X11/Xlib.h>
 #include <stdio.h>
@@ -263,8 +263,8 @@ void display_aplot(Window w, APLOT ap);
 
 #endif
 
-#ifndef array_print_h
-#define array_print_h
+#ifndef ARRAY_PRINT_H
+#define ARRAY_PRINT_H
 
 int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
                   int32 nacross, int32 ndown, int32 col0, int32 row0,
@@ -422,8 +422,8 @@ void draw_xtics(char *s2, double start, double incr, double end);
  *                                                                *
  ******************************************************************/
 
-#ifndef band_h
-#define band_h
+#ifndef BAND_H
+#define BAND_H
 
 #include "llnltyps.h"
 #include "vector.h"
@@ -940,8 +940,8 @@ void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 #endif
 
-#ifndef browse_h
-#define browse_h
+#ifndef BROWSE_H
+#define BROWSE_H
 
 #define BMAXCOL 20
 
@@ -1039,8 +1039,8 @@ void data_get_mybrowser(int32 row);
 
 #endif
 
-#ifndef calc_h
-#define calc_h
+#ifndef CALC_H
+#define CALC_H
 
 #include <X11/Xlib.h>
 
@@ -1055,8 +1055,8 @@ double calculate(char *expr, int32 *ok);
 
 #endif
 
-#ifndef choice_box_h
-#define choice_box_h
+#ifndef CHOICE_BOX_H
+#define CHOICE_BOX_H
 
 #include <X11/Xlib.h>
 #include "struct.h"
@@ -1072,8 +1072,8 @@ int32 choice_box_event_loop(CHOICE_BOX p);
 
 #endif
 
-#ifndef color_h
-#define color_h
+#ifndef COLOR_H
+#define COLOR_H
 
 #include <X11/Xlib.h>
 
@@ -1092,8 +1092,8 @@ int32 ColorMap(int32 i);
 
 #endif
 
-#ifndef comline_h
-#define comline_h
+#ifndef COMLINE_H
+#define COMLINE_H
 
 typedef struct {
     char *name;
@@ -1119,8 +1119,8 @@ int32 parse_it(char *com);
 
 #endif
 
-#ifndef dae_fun_h
-#define dae_fun_h
+#ifndef DAE_FUN_H
+#define DAE_FUN_H
 
 int32 add_svar(char *name, char *rhs);
 int32 add_svar_names(void);
@@ -1137,8 +1137,8 @@ void get_new_guesses(void);
 
 #endif
 
-#ifndef delay_handle_h
-#define delay_handle_h
+#ifndef DELAY_HANDLE_H
+#define DELAY_HANDLE_H
 
 double delay_stab_eval(double delay, int32 var);
 int32 alloc_delay(double big);
@@ -1151,8 +1151,8 @@ int32 do_init_delay(double big);
 
 #endif
 
-#ifndef del_stab_h
-#define del_stab_h
+#ifndef DEL_STAB_H
+#define DEL_STAB_H
 
 typedef struct {
     double r, i;
@@ -1235,8 +1235,8 @@ int32 plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
  *                                                                *
  ******************************************************************/
 
-#ifndef dense_h
-#define dense_h
+#ifndef DENSE_H
+#define DENSE_H
 
 #include "llnltyps.h"
 #include "vector.h"
@@ -1644,8 +1644,8 @@ void denprint(double **a, int64 n);
 
 #endif
 
-#ifndef derived_h
-#define derived_h
+#ifndef DERIVED_H
+#define DERIVED_H
 
 void free_derived(void);
 int32 compile_derived(void);
@@ -1654,8 +1654,8 @@ int32 add_derived(char *name, char *rhs);
 
 #endif
 
-#ifndef diagram_h
-#define diagram_h
+#ifndef DIAGRAM_H
+#define DIAGRAM_H
 #include "auto_nox.h"
 
 #include <stdio.h>
@@ -1688,8 +1688,8 @@ void load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 
 #endif
 
-#ifndef dialog_box_h
-#define dialog_box_h
+#ifndef DIALOG_BOX_H
+#define DIALOG_BOX_H
 
 #include <X11/Xlib.h>
 #include "struct.h"
@@ -1701,8 +1701,8 @@ void display_dialog(Window w, DIALOG d, int32 col);
 
 #endif
 
-#ifndef do_fit_h
-#define do_fit_h
+#ifndef DO_FIT_H
+#define DO_FIT_H
 
 typedef struct {
     char file[25];
@@ -2178,8 +2178,9 @@ extern long naccptRead(void);
 extern long nrejctRead(void);
 extern double hRead(void);
 extern double xRead(void);
-#ifndef edit_rhs_h
-#define edit_rhs_h
+
+#ifndef EDIT_RHS_H
+#define EDIT_RHS_H
 
 #include <X11/Xlib.h>
 #include "xpplim.h"
@@ -2231,8 +2232,8 @@ int32 save_as(void);
 
 #endif
 
-#ifndef eig_list_h
-#define eig_list_h
+#ifndef EIG_LIST_H
+#define EIG_LIST_H
 
 #include <X11/Xlib.h>
 
@@ -2253,8 +2254,8 @@ void draw_eq_box(Window w);
 
 #endif
 
-#ifndef extra_h
-#define extra_h
+#ifndef EXTRA_H
+#define EXTRA_H
 
 #define MAXW 50
 
@@ -2376,8 +2377,8 @@ extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
 #endif /* _FFTN_H */
 
 /*----------------------- end-of-file (C header) -----------------------*/
-#ifndef flags_h
-#define flags_h
+#ifndef FLAGS_H
+#define FLAGS_H
 
 int32 add_global(char *cond, int32 sign, char *rest);
 void show_flags(void);
@@ -2416,8 +2417,8 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 
 #endif
 
-#ifndef form_ode_h
-#define form_ode_h
+#ifndef FORM_ODE_H
+#define FORM_ODE_H
 
 #include "xpplim.h"
 #include "newpars.h"
@@ -2509,8 +2510,8 @@ void strcpy_trim(char *dest, char *source);
 void strncpy_trim(char *dest, char *source, int32 n);
 #endif
 
-#ifndef gear_h
-#define gear_h
+#ifndef GEAR_H
+#define GEAR_H
 
 void silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
@@ -2557,8 +2558,8 @@ void save_batch_shoot(void);
 
 #endif
 
-#ifndef ggets_h
-#define ggets_h
+#ifndef GGETS_H
+#define GGETS_H
 
 #include <X11/Xlib.h>
 
@@ -2608,8 +2609,9 @@ int32 new_string(char *name, char *value);
 #endif
 
 int32 go_go_auto(void);
-#ifndef graf_par_h
-#define graf_par_h
+
+#ifndef GRAF_PAR_H
+#define GRAF_PAR_H
 
 #define RUBBOX 0
 #define RUBLINE 1
@@ -2696,8 +2698,8 @@ void dump_ps(int32 i);
 
 #endif
 
-#ifndef graphics_h
-#define graphics_h
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
 
 void get_scale(double *x1, double *y1, double *x2, double *y2);
 void set_scale(double x1, double y1, double x2, double y2);
@@ -2767,8 +2769,8 @@ void draw_many_lines(void);
 
 #endif
 
-#ifndef histogram_h
-#define histogram_h
+#ifndef HISTOGRAM_H
+#define HISTOGRAM_H
 
 int32 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                  double xlo, double xhi, double ylo, double yhi);
@@ -2802,8 +2804,8 @@ void post_process_stuff(void);
 
 #endif
 
-#ifndef init_conds_h
-#define init_conds_h
+#ifndef INIT_CONDS_H
+#define INIT_CONDS_H
 
 #include <X11/Xlib.h>
 #include "read_dir.h"
@@ -2958,8 +2960,8 @@ void load_entire_box(BoxList *b);
 
 #endif
 
-#ifndef integrate_h
-#define integrate_h
+#ifndef INTEGRATE_H
+#define INTEGRATE_H
 
 #include <stdio.h>
 
@@ -3036,8 +3038,8 @@ void silent_equilibria(void);
  *                                                                *
  ******************************************************************/
 
-#ifndef iterativ_h
-#define iterativ_h
+#ifndef ITERATIV_H
+#define ITERATIV_H
 
 #include "llnltyps.h"
 #include "vector.h"
@@ -3253,8 +3255,8 @@ int32 QRsol(int32 n, double **h, double *q, double *b);
 
 #endif
 
-#ifndef kinescope_h
-#define kinescope_h
+#ifndef KINESCOPE_H
+#define KINESCOPE_H
 
 void do_movie_com(int32 c);
 void reset_film(void);
@@ -3288,8 +3290,8 @@ void too_small(void);
  *                                                                *
  ******************************************************************/
 
-#ifndef llnlmath_h
-#define llnlmath_h
+#ifndef LLNLMATH_H
+#define LLNLMATH_H
 
 #include "llnltyps.h"
 
@@ -3371,8 +3373,8 @@ double RSqrt(double x);
 
 #endif
 
-#ifndef load_eqn_h
-#define load_eqn_h
+#ifndef LOAD_EQN_H
+#define LOAD_EQN_H
 
 #include <stdio.h>
 
@@ -3581,8 +3583,8 @@ void set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
 
 #endif
 
-#ifndef lunch_new_h
-#define lunch_new_h
+#ifndef LUNCH_NEW_H
+#define LUNCH_NEW_H
 
 #include <stdio.h>
 
@@ -3640,8 +3642,8 @@ int32 get_command_width(void);
 
 #endif
 
-#ifndef many_pops_h
-#define many_pops_h
+#ifndef MANY_POPS_H
+#define MANY_POPS_H
 
 #include <X11/Xlib.h>
 
@@ -3705,8 +3707,8 @@ void set_active_windows(void);
 
 #endif
 
-#ifndef markov_h
-#define markov_h
+#ifndef MARKOV_H
+#define MARKOV_H
 
 #include <stdio.h>
 
@@ -3740,8 +3742,8 @@ double ran1(long *idum);
 
 #endif
 
-#ifndef menudrive_h
-#define menudrive_h
+#ifndef MENUDRIVE_H
+#define MENUDRIVE_H
 
 #include <X11/Xlib.h>
 
@@ -3994,8 +3996,8 @@ void do_tutorial(void);
 
 #endif
 
-#ifndef xppmenu_h
-#define xppmenu_h
+#ifndef XPPMENU_H
+#define XPPMENU_H
 
 #include <X11/Xlib.h>
 
@@ -4015,8 +4017,8 @@ void draw_help(void);
 
 #endif
 
-#ifndef my_ps_h
-#define my_ps_h
+#ifndef MY_PS_H
+#define MY_PS_H
 
 int32 ps_init(char *filename, int32 color);
 void ps_stroke(void);
@@ -4040,8 +4042,8 @@ void ps_text(int32 x, int32 y, char *str);
 
 #endif
 
-#ifndef my_rhs_h
-#define my_rhs_h
+#ifndef MY_RHS_H
+#define MY_RHS_H
 
 int32 MAIN__(void);
 int32 main(int32 argc, char **argv);
@@ -4055,8 +4057,8 @@ void vec_rhs(double t, double *y, double *ydot, int32 neq);
 
 #endif
 
-#ifndef my_svg_h
-#define my_svg_h
+#ifndef MY_SVG_H
+#define MY_SVG_H
 
 int32 svg_init(char *filename);
 void svg_stroke(void);
@@ -4075,8 +4077,8 @@ void svg_text(int32 x, int32 y, char *str);
 
 #endif
 
-#ifndef nullcline_h
-#define nullcline_h
+#ifndef NULLCLINE_H
+#define NULLCLINE_H
 
 #include <stdio.h>
 
@@ -4127,8 +4129,8 @@ void silent_dfields(void);
 
 #endif
 
-#ifndef numerics_h
-#define numerics_h
+#ifndef NUMERICS_H
+#define NUMERICS_H
 
 /*       Numerics.h   */
 
@@ -4205,8 +4207,8 @@ void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
 
 #endif
 
-#ifndef pop_list_h
-#define pop_list_h
+#ifndef POP_LIST_H
+#define POP_LIST_H
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -4353,8 +4355,8 @@ Window make_icon_window(Window root, int32 x, int32 y, int32 width,
 
 #endif
 
-#ifndef pp_shoot_h
-#define pp_shoot_h
+#ifndef PP_SHOOT_H
+#define PP_SHOOT_H
 
 #include <stdio.h>
 
@@ -4377,8 +4379,8 @@ void bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
 #endif
 
-#ifndef rubber_h
-#define rubber_h
+#ifndef RUBBER_H
+#define RUBBER_H
 
 #include <X11/Xlib.h>
 
@@ -4387,8 +4389,8 @@ void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f);
 
 #endif
 
-#ifndef scrngif_h
-#define scrngif_h
+#ifndef SCRNGIF_H
+#define SCRNGIF_H
 
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -4425,8 +4427,8 @@ uchar *AddCodeToBuffer(int32 code, int16 n, uchar *buf);
 
 #endif
 
-#ifndef simplenet_h
-#define simplenet_h
+#ifndef SIMPLENET_H
+#define SIMPLENET_H
 
 double net_interp(double x, int32 i);
 double network_value(double x, int32 i);
@@ -4459,8 +4461,8 @@ double vector_value(double x, int32 i);
  *                                                                *
  ******************************************************************/
 
-#ifndef spgmr_h
-#define spgmr_h
+#ifndef SPGMR_H
+#define SPGMR_H
 
 #include "llnltyps.h"
 #include "vector.h"
@@ -4667,8 +4669,8 @@ void SpgmrFree(SpgmrMem mem);
 
 #endif
 
-#ifndef stiff_h
-#define stiff_h
+#ifndef STIFF_H
+#define STIFF_H
 
 void jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
             double *work, int32 n);
@@ -4689,8 +4691,8 @@ void rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
 
 #endif
 
-#ifndef storage_h
-#define storage_h
+#ifndef STORAGE_H
+#define STORAGE_H
 
 void init_alloc_info(void);
 void alloc_meth(void);
@@ -4700,8 +4702,8 @@ int32 reallocstor(int32 ncol, int32 nrow);
 
 #endif
 
-#ifndef tabular_h
-#define tabular_h
+#ifndef TABULAR_H
+#define TABULAR_H
 
 void set_auto_eval_flags(int32 f);
 void set_table_name(char *name, int32 index);
@@ -4721,8 +4723,8 @@ int32 get_lookup_len(int32 i);
 
 #endif
 
-#ifndef torus_h
-#define torus_h
+#ifndef TORUS_H
+#define TORUS_H
 
 #include <X11/Xlib.h>
 
@@ -4735,8 +4737,8 @@ void do_torus_events(void);
 
 #endif
 
-#ifndef txtread_h
-#define txtread_h
+#ifndef TXTREAD_H
+#define TXTREAD_H
 
 void txt_view_events(XEvent ev);
 void txtview_keypress(XEvent ev);
@@ -4751,8 +4753,8 @@ void make_txtview(void);
 
 #endif
 
-#ifndef userbut_h
-#define userbut_h
+#ifndef USERBUT_H
+#define USERBUT_H
 
 #include <X11/Xlib.h>
 
