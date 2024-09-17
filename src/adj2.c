@@ -405,21 +405,20 @@ compute_one_orbit(double *ic, double per) {
 
 /*    ADJOINT ROUTINE
  *
-      This assumes that you have already computed the periodic orbit
-        and have stored in in an array **orbit
-      including time in the first column
+ *    This assumes that you have already computed the periodic orbit
+ *      and have stored in in an array **orbit
+ *    including time in the first column
 
-      The righthand sides of the equations are
-        rhs(t,y,yp,n)
-      and the coupling function for ``H'' functions is
-        couple(y,yhat,f,n)
+ *    The righthand sides of the equations are
+ *      rhs(t,y,yp,n)
+ *    and the coupling function for ``H'' functions is
+ *      couple(y,yhat,f,n)
 
-        where yhat is presynaptic and y is postynaptic
-     variable.  f returns the coupling vector.
+ *      where yhat is presynaptic and y is postynaptic
+ *   variable.  f returns the coupling vector.
 
-    adjoint is the same size as orbit and when returned has
-    t in the first column.
-  */
+ *  adjoint is the same size as orbit and when returned has
+ *  t in the first column.  */
 
 int32
 adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
