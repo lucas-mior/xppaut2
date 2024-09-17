@@ -1,4 +1,6 @@
 #include <math.h>
+
+void
 fun(double *in, double *out, int nin, int nout, double *var, double *con) {
     double z = in[0];
     int nmax = (int)in[1];
