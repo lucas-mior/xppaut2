@@ -67,7 +67,7 @@ int32 orig_ncomments = 0;
 int32 is_a_map = 0;
 int32 n_comments = 0;
 extern char delay_string[MAX_ODE][80];
-BC_STRUCT my_bc[MAX_ODE];
+BcStruct my_bc[MAX_ODE];
 
 double default_ic[MAX_ODE];
 extern double last_ic[];

@@ -110,7 +110,7 @@ extern double SLIDER1HI;
 extern double SLIDER2HI;
 extern double SLIDER3HI;
 
-extern BC_STRUCT my_bc[MAX_ODE];
+extern BcStruct my_bc[MAX_ODE];
 
 BoxList *HotBox;
 int32 HotBoxItem = -1;

@@ -51,7 +51,7 @@ extern char ufun_names[MAX_UFUN][12];
 extern int32 narg_fun[MAX_UFUN], *ufun[MAX_UFUN];
 
 extern UFUN_ARG ufun_arg[MAX_UFUN];
-extern BC_STRUCT my_bc[MAX_ODE];
+extern BcStruct my_bc[MAX_ODE];
 
 extern int32 NFUN;
 

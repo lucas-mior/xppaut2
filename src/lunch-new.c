@@ -24,7 +24,7 @@ extern int32 Xup;
 extern Window main_win;
 extern GRAPH *MyGraph;
 
-extern BC_STRUCT my_bc[MAX_ODE];
+extern BcStruct my_bc[MAX_ODE];
 
 int32 set_type = 0;
 

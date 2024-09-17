@@ -7,6 +7,6 @@ typedef struct {
     char *string;
     char *name;
     int32 side;
-} BC_STRUCT;
+} BcStruct;
 
 #endif

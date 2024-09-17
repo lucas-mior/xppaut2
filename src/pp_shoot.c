@@ -47,7 +47,7 @@ extern double TRANS;
 extern double BVP_EPS;
 extern double variables[];
 extern int32 NVAR;
-extern BC_STRUCT my_bc[MAX_ODE];
+extern BcStruct my_bc[MAX_ODE];
 
 extern int32 color_line[11], MyStart;
 
