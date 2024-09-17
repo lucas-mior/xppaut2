@@ -145,11 +145,9 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
        int32 lab, double *a, double *uhigh, double *ulow, double *u0,
        double *ubar) {
     int32 type;
-    /*int32 evflag=0; Not used*/
     int32 icp1 = (int32)icp[0], icp2 = (int32)icp[1], icp3 = (int32)icp[2],
           icp4 = (int32)icp[3];
     double per = par[10];
-    /* printf("In add bif \n"); */
     type = get_bif_type((int32)ibrs, (int32)ntots);
 
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
