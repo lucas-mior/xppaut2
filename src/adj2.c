@@ -8,13 +8,11 @@
 #include "integers.h"
 #include "xpplim.h"
 
-/*
-  this has a bunch of numerical routines
-  averaging
-  adjoints
-  transpose
-  maximal liapunov exponent
-*/
+/* this has a bunch of numerical routines
+ * averaging
+ * adjoints
+ * transpose
+ * maximal liapunov exponent */
 
 #define READEM 1
 
