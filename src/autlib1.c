@@ -4465,10 +4465,10 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     dtm = malloc(sizeof(*dtm)*(ntst + 1));
     tm = malloc(sizeof(*tm)*(ntst + 1));
     fc = malloc(sizeof(*fc)*(iap->nbc + iap->nint + 1));
-    p0 = malloc(sizeof(*(p0))*(ndim)*(ndim));
-    p1 = malloc(sizeof(*(p1))*(ndim)*(ndim));
-    ev = malloc(sizeof(*ev)*(ndim));
-    uzr = malloc(sizeof(*uzr)*(nuzr));
+    p0 = malloc(sizeof(*(p0))*ndim*ndim);
+    p1 = malloc(sizeof(*(p1))*ndim*ndim);
+    ev = malloc(sizeof(*ev)*ndim);
+    uzr = malloc(sizeof(*uzr)*nuzr);
 
     /* INITIALIZE COMPUTATION OF BRANCH */
 
