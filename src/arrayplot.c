@@ -253,7 +253,7 @@ do_array_plot_events(XEvent ev) {
         aplot.ploth = y - 55;
         aplot.plotw = x - 30 - 10*DCURXs;
         XMoveResizeWindow(display, aplot.wplot, 20 + 10*DCURXs, 45,
-                          aplot.plotw, aplot.ploth);
+                          (uint)aplot.plotw, (uint)aplot.ploth);
         break;
     case EnterNotify:
         wborder(ev.xexpose.window, 2, aplot);
@@ -279,7 +279,7 @@ wborder(Window w, int32 i, APLOT ap) {
      */
     if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
         w == ap.wgif || w == ap.wrange || w == ap.wfit)
-        XSetWindowBorderWidth(display, w, i);
+        XSetWindowBorderWidth(display, w, (uint)i);
     return;
 }
 
@@ -579,7 +579,7 @@ gif_aplot_all(char *filename, int32 still) {
         }
         XGetGeometry(display, aplot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
-                           DefaultDepth(display, screen));
+                           (uint)DefaultDepth(display, screen));
         XCopyArea(display, aplot.wplot, xi, aplot_gc, 0, 0, w, h, 0, 0);
 
         add_ani_gif(xi, ap_fp, aplot_range_count);
@@ -596,7 +596,7 @@ gif_aplot_all(char *filename, int32 still) {
         /* redraw_aplot(aplot); */
         XGetGeometry(display, aplot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
-                           DefaultDepth(display, screen));
+                           (uint)DefaultDepth(display, screen));
         XCopyArea(display, aplot.wplot, xi, aplot_gc, 0, 0, w, h, 0, 0);
         /*  XFlush(display); */
 
@@ -684,7 +684,7 @@ redraw_aplot(APLOT ap) {
                 if (colr > cmax)
                     colr = cmax;
                 set_acolor(colr);
-                XFillRectangle(display, w, aplot_gc, ix, iy, delx, dely);
+                XFillRectangle(display, w, aplot_gc, ix, iy, delx, (uint)dely);
             }
         }
     }

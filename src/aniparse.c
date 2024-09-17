@@ -2434,11 +2434,11 @@ tst_pix_draw(void) {
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     XDrawLine(display, ani_pixmap, ani_gc, 0, 2, vcr.wid, 2);
     for (int32 i = 1; i < 11; i++) {
-        XSetForeground(display, ani_gc, ColorMap(colorline[i]));
+        XSetForeground(display, ani_gc, (uint)ColorMap(colorline[i]));
         XDrawLine(display, ani_pixmap, ani_gc, 0, 2 + i, vcr.wid, 2 + i);
     }
     for (int32 i = 0; i <= color_total; i++) {
-        XSetForeground(display, ani_gc, ColorMap(i + FIRSTCOLOR));
+        XSetForeground(display, ani_gc, (uint)ColorMap(i + FIRSTCOLOR));
         XDrawLine(display, ani_pixmap, ani_gc, 0, 14 + i, vcr.wid, 14 + i);
     }
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
@@ -2518,7 +2518,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         plintf("Bad grab x %s \n", xs);
         return -1;
     }
-    ani_grab[j].x = malloc(sizeof(*(ani_grab[j].x))*(nc + 1));
+    ani_grab[j].x = malloc(sizeof(*(ani_grab[j].x))*(size_t)(nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].x[k] = com[k];
 
@@ -2526,7 +2526,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         plintf("Bad grab y %s \n", ys);
         return -1;
     }
-    ani_grab[j].y = malloc(sizeof(*(ani_grab[j].y))*(nc + 1));
+    ani_grab[j].y = malloc(sizeof(*(ani_grab[j].y))*(size_t)(nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].y[k] = com[k];
     ans = ani_grab_tasks(start, j, 1);
@@ -2651,7 +2651,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return -1;
         }
         ani_grab[igrab].start.comrhs[i] =
-            malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(nc + 1));
+            malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(size_t)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 
@@ -2676,7 +2676,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return -1;
         }
         ani_grab[igrab].end.comrhs[i] =
-            malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(nc + 1));
+            malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(size_t)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;
