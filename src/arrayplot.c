@@ -684,7 +684,7 @@ redraw_aplot(APLOT ap) {
                 if (colr > cmax)
                     colr = cmax;
                 set_acolor(colr);
-                XFillRectangle(display, w, aplot_gc, ix, iy, delx, (uint)dely);
+                XFillRectangle(display, w, aplot_gc, ix, iy, (uint)delx, (uint)dely);
             }
         }
     }
@@ -709,7 +709,7 @@ set_acolor(int32 col) {
     else {
 
         if (COLOR)
-            XSetForeground(display, aplot_gc, ColorMap(col));
+            XSetForeground(display, aplot_gc, (uint)ColorMap(col));
         else
             XSetForeground(display, aplot_gc, GrFore);
     }
