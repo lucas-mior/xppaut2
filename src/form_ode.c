@@ -978,7 +978,7 @@ find_ker(/* this extracts the integral operators from the string */
             plintf("Kernel mu=%f %s = %s \n", mu, name, form);
             if (add_kernel(name, mu, form))
                 exit(0);
-            for (size_t j = 0; j < strlen(name); j++) {
+            for (usize j = 0; j < strlen(name); j++) {
                 new[in] = name[j];
                 in++;
             }

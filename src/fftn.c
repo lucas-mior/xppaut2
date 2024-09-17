@@ -54,9 +54,9 @@
  *	fftradix / fftradixf
  *
  * ----------------------------------------------------------------------*
- * int32 fftradix (REAL Re[], REAL Im[], size_t nTotal, size_t nPass,
- *		 size_t nSpan, int32 iSign, size_t maxFactors,
- *		 size_t maxPerm);
+ * int32 fftradix (REAL Re[], REAL Im[], usize nTotal, usize nPass,
+ *		 usize nSpan, int32 iSign, usize maxFactors,
+ *		 usize maxPerm);
  *
  * RE and IM hold the real and imaginary components of the data, and
  * return the resulting real and imaginary Fourier coefficients.
@@ -190,7 +190,7 @@ eg, something like -D__FILE__=\"fftn.c\"
 /*}}}*/
 
 /*{{{ static parameters - for memory management */
-static size_t SpaceAlloced = 0;
+static usize SpaceAlloced = 0;
 static long MaxPermAlloced = 0;
 
 /* temp space, (void *) since both double and double routines use it */
@@ -303,8 +303,8 @@ factorize(int32 nPass, int32 *kt) {
 #define FFTRADIX fftradix
 #define FFTRADIXS "fftradix"
 /* double precision routine */
-static int32 fftradix(double Re[], double Im[], size_t nTotal, size_t nPass,
-                      size_t nSpan, int32 isign, int32 maxFactors,
+static int32 fftradix(double Re[], double Im[], usize nTotal, usize nPass,
+                      usize nSpan, int32 isign, int32 maxFactors,
                       int32 maxPerm);
 #include __FILE__ /* include this file again */
 #endif
@@ -324,8 +324,8 @@ static int32 fftradix(double Re[], double Im[], size_t nTotal, size_t nPass,
 #define FFTRADIX fftradixf    /* trailing 'f' for double */
 #define FFTRADIXS "fftradixf" /* name for error message */
 /* double precision routine */
-static int32 fftradixf(double Re[], double Im[], size_t nTotal, size_t nPass,
-                       size_t nSpan, int32 isign, int32 maxFactors,
+static int32 fftradixf(double Re[], double Im[], usize nTotal, usize nPass,
+                       usize nSpan, int32 isign, int32 maxFactors,
                        int32 maxPerm);
 #include __FILE__ /* include this file again */
 #endif
@@ -348,7 +348,7 @@ static int32 fftradixf(double Re[], double Im[], size_t nTotal, size_t nPass,
 int32
 FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
      double scaling) {
-    size_t nTotal;
+    usize nTotal;
     int32 maxFactors, maxPerm;
 
     /*
@@ -404,7 +404,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
 #endif
     /* loop over the dimensions: */
     if (dims != NULL) {
-        size_t nSpan = 1;
+        usize nSpan = 1;
         int32 i;
 
         for (i = 0; i < ndim; i++) {
@@ -432,7 +432,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         if (scaling < 0.0)
             scaling = (scaling < -1.0) ? sqrt((double)nTotal) : (double)nTotal;
         scaling = 1.0 / scaling; /* multiply is often faster */
-        for (size_t i = 0; i < nTotal; i += iSign) {
+        for (usize i = 0; i < nTotal; i += iSign) {
             Re_Data(i) *= scaling;
             Im_Data(i) *= scaling;
         }
@@ -453,7 +453,7 @@ Dimension_Error:
  * possible to make this a standalone function
  */
 static int32
-FFTRADIX(REAL Re[], REAL Im[], size_t nTotal, size_t nPass, size_t nSpan,
+FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
          int32 iSign, int32 maxFactors, int32 maxPerm) {
     int32 ii, nFactor, kspan, ispan, inc;
     int32 j, jc, jf, jj, k, k1, k3, kk, kt, nn, ns, nt;

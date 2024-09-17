@@ -1747,9 +1747,9 @@ add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col,
     if (err)
         return -1;
     a->c.n = n;
-    a->c.x = malloc((size_t)n*sizeof(*(a->c.x)));
-    a->c.y = malloc((size_t)n*sizeof(*(a->c.y)));
-    a->c.col = malloc((size_t)n*sizeof(*(a->c.col)));
+    a->c.x = malloc((usize)n*sizeof(*(a->c.x)));
+    a->c.y = malloc((usize)n*sizeof(*(a->c.y)));
+    a->c.col = malloc((usize)n*sizeof(*(a->c.col)));
     a->c.i = 0;
     return 1;
 }
@@ -2518,7 +2518,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         plintf("Bad grab x %s \n", xs);
         return -1;
     }
-    ani_grab[j].x = malloc(sizeof(*(ani_grab[j].x))*(size_t)(nc + 1));
+    ani_grab[j].x = malloc(sizeof(*(ani_grab[j].x))*(usize)(nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].x[k] = com[k];
 
@@ -2526,7 +2526,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         plintf("Bad grab y %s \n", ys);
         return -1;
     }
-    ani_grab[j].y = malloc(sizeof(*(ani_grab[j].y))*(size_t)(nc + 1));
+    ani_grab[j].y = malloc(sizeof(*(ani_grab[j].y))*(usize)(nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].y[k] = com[k];
     ans = ani_grab_tasks(start, j, 1);
@@ -2651,7 +2651,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return -1;
         }
         ani_grab[igrab].start.comrhs[i] =
-            malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(size_t)(nc + 1));
+            malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(usize)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 
@@ -2676,7 +2676,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return -1;
         }
         ani_grab[igrab].end.comrhs[i] =
-            malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(size_t)(nc + 1));
+            malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(usize)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;

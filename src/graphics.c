@@ -1121,7 +1121,7 @@ fillintext(char *old, char *new) {
                         if (ans != -1) {
                             sprintf(val, "%g", z);
 
-                            for (size_t k = 0; k < strlen(val); k++) {
+                            for (usize k = 0; k < strlen(val); k++) {
                                 new[j] = val[k];
                                 j++;
                             }

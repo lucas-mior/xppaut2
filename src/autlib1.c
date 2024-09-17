@@ -77,7 +77,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     irs = x_auto.irs;
     ilp = x_auto.ilp;
 
-    thu = *thu_pointer = malloc(sizeof(double)*8*(size_t)ndim);
+    thu = *thu_pointer = malloc(sizeof(double)*8*(usize)ndim);
 
     for (int64 i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;
@@ -698,18 +698,18 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 aa_first_dimension = iap->ndim + 1;
 
-    dfdp = malloc(sizeof(*dfdp)*(size_t)(iap->ndim)*NPARX);
-    dfdu = malloc(sizeof(*dfdu)*(size_t)(iap->ndim)*(size_t)(iap->ndim));
-    uold = malloc(sizeof(*uold)*(size_t)(iap->ndim));
-    udot = malloc(sizeof(*udot)*(size_t)(iap->ndim));
-    stud = malloc(sizeof(*stud)*(size_t)(iap->ndim)*NBIFX);
-    f = malloc(sizeof(*f)*(size_t)(iap->ndim));
-    u = malloc(sizeof(*u)*(size_t)(iap->ndim));
-    aa = malloc(sizeof(*aa)*(size_t)(iap->ndim + 1)*(size_t)(iap->ndim + 1));
-    du = malloc(sizeof(*du)*(size_t)(iap->ndim + 1));
-    rhs = malloc(sizeof(*rhs)*(size_t)(iap->ndim + 1));
-    stu = malloc(sizeof(*stu)*(size_t)(iap->ndim)*NBIFX);
-    uzr = malloc(sizeof(*uzr)*(size_t)(iap->nuzr));
+    dfdp = malloc(sizeof(*dfdp)*(usize)(iap->ndim)*NPARX);
+    dfdu = malloc(sizeof(*dfdu)*(usize)(iap->ndim)*(usize)(iap->ndim));
+    uold = malloc(sizeof(*uold)*(usize)(iap->ndim));
+    udot = malloc(sizeof(*udot)*(usize)(iap->ndim));
+    stud = malloc(sizeof(*stud)*(usize)(iap->ndim)*NBIFX);
+    f = malloc(sizeof(*f)*(usize)(iap->ndim));
+    u = malloc(sizeof(*u)*(usize)(iap->ndim));
+    aa = malloc(sizeof(*aa)*(usize)(iap->ndim + 1)*(usize)(iap->ndim + 1));
+    du = malloc(sizeof(*du)*(usize)(iap->ndim + 1));
+    rhs = malloc(sizeof(*rhs)*(usize)(iap->ndim + 1));
+    stu = malloc(sizeof(*stu)*(usize)(iap->ndim)*NBIFX);
+    uzr = malloc(sizeof(*uzr)*(usize)(iap->nuzr));
 
     /* Controls the bifurcation analysis of algebraic problems */
 
@@ -1594,7 +1594,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void)iuz;
     (void)vuz;
 
-    ud = malloc(sizeof(*ud)*(size_t)(iap->ndim + 1));
+    ud = malloc(sizeof(*ud)*(usize)(iap->ndim + 1));
 
     /* Local */
 
@@ -1678,7 +1678,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void)iuz;
     (void)vuz;
 
-    ev = malloc(sizeof(*ev)*(size_t)(iap->ndim));
+    ev = malloc(sizeof(*ev)*(usize)(iap->ndim));
 
     ndim = iap->ndim;
     ndm = iap->ndm;
@@ -2041,7 +2041,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     int64 nit, mxt;
     double umx, rlm1;
 
-    u1 = malloc(sizeof(*(u1))*(size_t)(iap->ndim + 1));
+    u1 = malloc(sizeof(*(u1))*(usize)(iap->ndim + 1));
 
     /* Controls the computation of the second point on a bifurcating branch. */
     /* This point is required to lie in a hyper-plane at distance DS from the */
@@ -2896,8 +2896,8 @@ genwts(int64 ncol, int64 n1, double *wt, double *wp) {
     double *xm, *zm, sum;
     int64 ncp1;
 
-    xm = malloc(sizeof(*xm)*(size_t)(ncol + 1));
-    zm = malloc(sizeof(*zm)*(size_t)(ncol));
+    xm = malloc(sizeof(*xm)*(usize)(ncol + 1));
+    zm = malloc(sizeof(*zm)*(usize)(ncol));
 
     /* Generates weights of the collocation method. The user selected */
     /* number of collocation points (ncol) must be one of { 2,...,7 }. */

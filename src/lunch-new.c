@@ -384,7 +384,7 @@ io_parameter_file(char *fn, int32 flag) {
     int32 np;
     FILE *fp;
     time_t ttt;
-    for (size_t i = 6; i < strlen(fn); i++) {
+    for (usize i = 6; i < strlen(fn); i++) {
         c = fn[i];
         if (c != ' ') {
             fnx[j] = c;
@@ -433,7 +433,7 @@ io_ic_file(char *fn, int32 flag) {
     FILE *fp;
     char msg[256];
 
-    for (size_t i = 0; i < strlen(fn); i++) {
+    for (usize i = 0; i < strlen(fn); i++) {
         c = fn[i];
         if (c != ' ') {
             fnx[j] = c;
@@ -678,7 +678,7 @@ io_float(double *z, FILE *fp, int32 f, char *ss) {
 
 void
 io_string(char *s, int32 len, FILE *fp, int32 f) {
-    size_t i;
+    usize i;
     if (f == READEM) {
         fgets(s, len, fp);
         i = 0;

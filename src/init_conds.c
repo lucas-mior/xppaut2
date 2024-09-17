@@ -324,7 +324,7 @@ int32
 find_user_name(int32 type, char *oname) {
     char name[25];
     int32 k = 0, i = -1;
-    for (size_t j = 0; j < strlen(oname); j++) {
+    for (usize j = 0; j < strlen(oname); j++) {
         if (!isspace(oname[j])) {
             name[k] = oname[j];
             k++;
@@ -1042,7 +1042,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         if (m > (int32)strlen(filesel.filetxt)) {
             return EDIT_WAIT;
         }
-        for (size_t n = 0; n < strlen(filesel.filetxt) - m; n++) {
+        for (usize n = 0; n < strlen(filesel.filetxt) - m; n++) {
             ft[n] = filesel.filetxt[m + n + 1];
             ft[n + 1] = '\0';
         }

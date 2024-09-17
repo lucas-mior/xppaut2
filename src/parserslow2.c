@@ -397,7 +397,7 @@ add_kernel(char *name, double mu, char *expr) {
     kernel[NKernel].k_n = 0.0;
     kernel[NKernel].k_n1 = 0.0;
     kernel[NKernel].flag = 0;
-    for (size_t i = 0; i < strlen(expr); i++) {
+    for (usize i = 0; i < strlen(expr); i++) {
         if (expr[i] == '#')
             in = i;
     }

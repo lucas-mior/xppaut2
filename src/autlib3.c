@@ -3460,7 +3460,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     double *temporary_storage;
     int64 temporary_storage_dim1;
-    size_t size;
+    usize size;
 
     (void)thu;
     (void)thl;
