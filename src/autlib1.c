@@ -3385,9 +3385,9 @@ newmsh(iap_type *iap, rap_type *rap, int64 *ndxloc, double *ups, int64 *nold,
     double *eqf;
     int64 *ial;
 
-    uneq = malloc(sizeof(*uneq)*(*nnew + 1));
-    eqf = malloc(sizeof(*eqf)*(*nold + 1));
-    ial = malloc(sizeof(*ial)*(*nnew + 1));
+    uneq = malloc(sizeof(*uneq)*(usize)(*nnew + 1));
+    eqf = malloc(sizeof(*eqf)*(usize)(*nold + 1));
+    ial = malloc(sizeof(*ial)*(usize)(*nnew + 1));
 
     /* Redistributes the mesh according to the function EQDF. */
 
