@@ -77,7 +77,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     irs = x_auto.irs;
     ilp = x_auto.ilp;
 
-    thu = *thu_pointer = malloc(sizeof(double)*8*ndim);
+    thu = *thu_pointer = malloc(sizeof(double)*8*(size_t)ndim);
 
     for (int64 i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;
@@ -698,17 +698,17 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     int64 aa_first_dimension = iap->ndim + 1;
 
-    dfdp = malloc(sizeof(*dfdp)*(iap->ndim)*NPARX);
-    dfdu = malloc(sizeof(*dfdu)*(iap->ndim)*(iap->ndim));
-    uold = malloc(sizeof(*uold)*(iap->ndim));
-    udot = malloc(sizeof(*udot)*(iap->ndim));
-    stud = malloc(sizeof(*stud)*(iap->ndim)*NBIFX);
-    f = malloc(sizeof(*f)*(iap->ndim));
-    u = malloc(sizeof(*u)*(iap->ndim));
-    aa = malloc(sizeof(*aa)*(iap->ndim + 1)*(iap->ndim + 1));
-    du = malloc(sizeof(*du)*(iap->ndim + 1));
-    rhs = malloc(sizeof(*rhs)*(iap->ndim + 1));
-    stu = malloc(sizeof(*stu)*(iap->ndim)*NBIFX);
+    dfdp = malloc(sizeof(*dfdp)*(size_t)(iap->ndim)*NPARX);
+    dfdu = malloc(sizeof(*dfdu)*(size_t)(iap->ndim)*(size_t)(iap->ndim));
+    uold = malloc(sizeof(*uold)*(size_t)(iap->ndim));
+    udot = malloc(sizeof(*udot)*(size_t)(iap->ndim));
+    stud = malloc(sizeof(*stud)*(size_t)(iap->ndim)*NBIFX);
+    f = malloc(sizeof(*f)*(size_t)(iap->ndim));
+    u = malloc(sizeof(*u)*(size_t)(iap->ndim));
+    aa = malloc(sizeof(*aa)*(size_t)(iap->ndim + 1)*(size_t)(iap->ndim + 1));
+    du = malloc(sizeof(*du)*(size_t)(iap->ndim + 1));
+    rhs = malloc(sizeof(*rhs)*(size_t)(iap->ndim + 1));
+    stu = malloc(sizeof(*stu)*(size_t)(iap->ndim)*NBIFX);
     uzr = malloc(sizeof(*uzr)*(iap->nuzr));
 
     /* Controls the bifurcation analysis of algebraic problems */
