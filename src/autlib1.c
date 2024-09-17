@@ -4456,19 +4456,19 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     nuzr = iap->nuzr;
     itpst = iap->itpst;
 
-    ups = malloc(sizeof(*ups)*(usize)((ntst + 1)*(ndim*ncol)));
-    upoldp = malloc(sizeof(*upoldp)*(usize)(ntst + 1)*(ndim*ncol));
-    uoldps = malloc(sizeof(*uoldps)*(usize)(ntst + 1)*(ndim*ncol));
-    udotps = malloc(sizeof(*udotps)*(usize)(ntst + 1)*(ndim*ncol));
-    dups = malloc(sizeof(*dups)*(usize)(ntst + 1)*(ndim*ncol));
-    fa = malloc(sizeof(*fa)*(usize)(ntst + 1)*(ndim*ncol));
+    ups = malloc(sizeof(*ups)*(usize)(((ntst + 1)*(ndim*ncol))));
+    upoldp = malloc(sizeof(*upoldp)*(usize)((ntst + 1)*(ndim*ncol)));
+    uoldps = malloc(sizeof(*uoldps)*(usize)((ntst + 1)*(ndim*ncol)));
+    udotps = malloc(sizeof(*udotps)*(usize)((ntst + 1)*(ndim*ncol)));
+    dups = malloc(sizeof(*dups)*(usize)((ntst + 1)*(ndim*ncol)));
+    fa = malloc(sizeof(*fa)*(usize)((ntst + 1)*(ndim*ncol)));
     dtm = malloc(sizeof(*dtm)*(usize)(ntst + 1));
     tm = malloc(sizeof(*tm)*(usize)(ntst + 1));
-    fc = malloc(sizeof(*fc)*(iap->nbc + iap->nint + 1));
-    p0 = malloc(sizeof(*(p0))*ndim*ndim);
-    p1 = malloc(sizeof(*(p1))*ndim*ndim);
-    ev = malloc(sizeof(*ev)*ndim);
-    uzr = malloc(sizeof(*uzr)*nuzr);
+    fc = malloc(sizeof(*fc)*(usize)(iap->nbc + iap->nint + 1));
+    p0 = malloc(sizeof(*(p0))*(usize)(ndim*ndim));
+    p1 = malloc(sizeof(*(p1))*(usize)(ndim*ndim));
+    ev = malloc(sizeof(*ev)*(usize)ndim);
+    uzr = malloc(sizeof(*uzr)*(usize)nuzr);
 
     /* INITIALIZE COMPUTATION OF BRANCH */
 
