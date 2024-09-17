@@ -4894,11 +4894,11 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     (void)rldot;
 
-    dfdp = malloc(sizeof(*dfdp)*(iap->ndim)*NPARX);
-    dfdu = malloc(sizeof(*dfdu)*(iap->ndim)*(iap->ndim));
-    uold = malloc(sizeof(*uold)*(iap->ndim));
-    f = malloc(sizeof(*f)*(iap->ndim));
-    u = malloc(sizeof(*u)*(iap->ndim));
+    dfdp = malloc(sizeof(*dfdp)*(usize)(iap->ndim)*NPARX);
+    dfdu = malloc(sizeof(*dfdu)*(usize)((iap->ndim)*(iap->ndim)));
+    uold = malloc(sizeof(*uold)*(usize)(iap->ndim));
+    f = malloc(sizeof(*f)*(usize)(iap->ndim));
+    u = malloc(sizeof(*u)*(usize)(iap->ndim));
 
     /* Stores U-prime (derivative with respect to T) in UPOLDP. */
 
@@ -5250,12 +5250,9 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             ncol_used = ncol;
 
         *ndxloc = (ntst_used + 1)*4;
-        ups_new =
-            malloc(sizeof(*ups_new)*(*ndxloc)*(iap->ndim*ncol_used));
-        upoldp_new =
-            malloc(sizeof(double)*(*ndxloc)*(iap->ndim*ncol_used));
-        udotps_new =
-            malloc(sizeof(double)*(*ndxloc)*(iap->ndim*ncol_used));
+        ups_new = malloc(sizeof(*ups_new)*(*ndxloc)*(iap->ndim*ncol_used));
+        upoldp_new = malloc(sizeof(*upoldp_new)*(*ndxloc)*(iap->ndim*ncol_used));
+        udotps_new = malloc(sizeof(*udotps_new)*(*ndxloc)*(iap->ndim*ncol_used));
         tm_new = malloc(sizeof(*tm_new)*(*ndxloc));
         dtm_new = malloc(sizeof(*dtm_new)*(*ndxloc));
 
