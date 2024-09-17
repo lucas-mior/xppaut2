@@ -426,7 +426,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
     double t, prod, del;
-    int32 j, k, l, k2, rval = 0;
+    int32 j, l, k2, rval = 0;
     int32 n2 = node*node;
     double error;
 
@@ -447,7 +447,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
 
     /*  Now we compute the
           transpose time reversed jacobian  --  this is floatcomplex !! */
-    for (k = 0; k < nt; k++) {
+    for (int32 k = 0; k < nt; k++) {
         l = nt - 1 - k; /* reverse the limit cycle  */
         for (int32 i = 0; i < node; i++)
             yold[i] = (double)orbit[i + 1][l];
@@ -481,7 +481,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     plintf("%f %f \n", yold[0], yold[1]);
 
     for (l = 0; l < maxit; l++) {
-        for (k = 0; k < nt - 1; k++) {
+        for (int32 k = 0; k < nt - 1; k++) {
             k2 = k + 1;
             if (k2 >= nt)
                 k2 = k2 - nt;
@@ -516,7 +516,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     /*  onelast time to compute the adjoint  */
     prod = 0.0; /* for normalization   */
     t = 0.0;
-    for (k = 0; k < nt; k++) {
+    for (int32 k = 0; k < nt; k++) {
         l = nt - k - 1;
         t += dt;
         for (int32 i = 0; i < node; i++)
@@ -538,7 +538,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
 
     prod = prod / t;
     plintf(" Multiplying the adjoint by 1/%g to normalize\n", prod);
-    for (k = 0; k < nt; k++) {
+    for (int32 k = 0; k < nt; k++) {
         for (j = 0; j < node; j++)
             adjnt[j + 1][k] = adjnt[j + 1][k] / (double)prod;
         adjnt[0][k] = orbit[0][k];
