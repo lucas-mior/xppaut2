@@ -405,7 +405,6 @@ compute_one_orbit(double *ic, double per) {
 
 /*    ADJOINT ROUTINE
  *
- *
       This assumes that you have already computed the periodic orbit
         and have stored in in an array **orbit
       including time in the first column
