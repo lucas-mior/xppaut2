@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "xpplim.h"
-#include "getvar.h"
 #define MY_DBL_EPS 5e-16
 
 /*  this is a new (Summer 1995) addition to XPP that allows one to

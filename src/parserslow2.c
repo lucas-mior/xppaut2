@@ -20,7 +20,6 @@
 #include <string.h>
 
 #include "xpplim.h"
-#include "getvar.h"
 
 #define MAXEXPLEN 1024
 #define THOUS 10000

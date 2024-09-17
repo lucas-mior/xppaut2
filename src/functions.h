@@ -6,6 +6,13 @@
 #define FILE_MENU 1
 #define NUM_MENU 2
 
+#define SETVAR(i, x)                                                           \
+    do {                                                                       \
+        if ((i) < NVAR)                                                        \
+            variables[(i)] = (x);                                              \
+    } while (0)
+#define GETVAR(i) (i) < NVAR ? variables[(i)] : 0.0
+
 #define MAX_LEN_SBOX 30
 
 #ifndef ABORT_H

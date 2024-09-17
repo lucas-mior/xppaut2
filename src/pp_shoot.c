@@ -5,7 +5,6 @@
 #include <string.h>
 
 #include "functions.h"
-#include "getvar.h"
 #include "integers.h"
 #include "parserslow.h"
 #include "shoot.h"

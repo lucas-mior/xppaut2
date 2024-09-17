@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "xpplim.h"
-#include "getvar.h"
 #include "integers.h"
 
 double AlphaMax = 2, OmegaMax = 2;
