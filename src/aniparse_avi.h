@@ -32,7 +32,7 @@ typedef struct {
     int32 *col, *x1, *y1, *x2, *y2;
     double zcol, zx1, zy1, zx2, zy2, zrad, zval;
     int32 zthick, tfont, tsize, tcolor;
-} ANI_COM;
+} AniCom;
 
 int32 new_vcr(void);
 int32 create_vcr(char *name);
@@ -60,28 +60,28 @@ int32 init_ani_stuff(void);
 int32 free_ani(void);
 int32 chk_ani_color(char *s, int32 *index);
 int32 add_ani_expr(char *x, int32 *c);
-int32 add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick);
+int32 add_ani_rline(AniCom *a, char *x1, char *y1, char *col, char *thick);
 int32 reset_comets(void);
-int32 roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col);
-int32 add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 roll_comet(AniCom *a, int32 xn, int32 yn, int32 col);
+int32 add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                     char *col, char *thick);
-int32 add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                    char *col, char *thick);
-int32 add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 add_ani_rect(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                    char *col, char *thick);
-int32 add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 add_ani_frect(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                     char *col, char *thick);
-int32 add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 add_ani_ellip(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                     char *col, char *thick);
-int32 add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2,
+int32 add_ani_fellip(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                      char *col, char *thick);
-int32 add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+int32 add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col,
                      char *thick);
-int32 add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+int32 add_ani_fcircle(AniCom *a, char *x1, char *y1, char *x2, char *col,
                       char *thick);
-int32 add_ani_text(ANI_COM *a, char *x1, char *y1, char *y2);
-int32 add_ani_vtext(ANI_COM *a, char *x1, char *y1, char *x2, char *y2);
-int32 add_ani_settext(ANI_COM *a, char *x1, char *y1, char *col);
+int32 add_ani_text(AniCom *a, char *x1, char *y1, char *y2);
+int32 add_ani_vtext(AniCom *a, char *x1, char *y1, char *x2, char *y2);
+int32 add_ani_settext(AniCom *a, char *x1, char *y1, char *col);
 int32 render_ani(void);
 int32 set_ani_perm(void);
 int32 eval_ani_color(int32 j);

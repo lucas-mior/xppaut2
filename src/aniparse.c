@@ -137,7 +137,7 @@ static Pixmap ani_pixmap;
 
 static MpegSave mpeg;
 
-static ANI_COM my_ani[MAX_ANI_LINES];
+static AniCom my_ani[MAX_ANI_LINES];
 
 typedef struct {
     Window base, wfile, wgo, wpause, wreset, wfast, wslow, wmpeg;
@@ -1664,7 +1664,7 @@ add_ani_expr(char *x, int32 *c) {
 /*  the commands  */
 
 int32
-add_ani_rline(ANI_COM *a, char *x1, char *y1, char *col, char *thick) {
+add_ani_rline(AniCom *a, char *x1, char *y1, char *col, char *thick) {
     int32 err, index;
     err = chk_ani_color(col, &index);
     if (err == 1) {
@@ -1697,7 +1697,7 @@ reset_comets(void) {
 }
 
 void
-roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col) {
+roll_comet(AniCom *a, int32 xn, int32 yn, int32 col) {
     int32 i;
 
     int32 n = a->c.n;
@@ -1722,7 +1722,7 @@ roll_comet(ANI_COM *a, int32 xn, int32 yn, int32 col) {
 }
 
 int32
-add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col,
               char *thick) {
     int32 err, n, index;
 
@@ -1755,7 +1755,7 @@ add_ani_comet(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
 }
 
 int32
-add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
              char *thick) {
     int32 err, index;
     err = chk_ani_color(col, &index);
@@ -1786,7 +1786,7 @@ add_ani_line(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
 }
 
 int32
-add_ani_null(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_null(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
              char *who) {
     int32 err, index;
     err = chk_ani_color(col, &index);
@@ -1818,31 +1818,31 @@ add_ani_null(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
 }
 
 int32
-add_ani_rect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_rect(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
              char *thick) {
     return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
-add_ani_frect(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_frect(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
               char *thick) {
     return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
-add_ani_ellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_ellip(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
               char *thick) {
     return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
-add_ani_fellip(ANI_COM *a, char *x1, char *y1, char *x2, char *y2, char *col,
+add_ani_fellip(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
                char *thick) {
     return add_ani_line(a, x1, y1, x2, y2, col, thick);
 }
 
 int32
-add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col,
                char *thick) {
     int32 err, index;
     err = chk_ani_color(col, &index);
@@ -1871,13 +1871,13 @@ add_ani_circle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
 }
 
 int32
-add_ani_fcircle(ANI_COM *a, char *x1, char *y1, char *x2, char *col,
+add_ani_fcircle(AniCom *a, char *x1, char *y1, char *x2, char *col,
                 char *thick) {
     return add_ani_circle(a, x1, y1, x2, col, thick);
 }
 
 int32
-add_ani_text(ANI_COM *a, char *x1, char *y1, char *y2) {
+add_ani_text(AniCom *a, char *x1, char *y1, char *y2) {
     int32 err;
     char *s;
     err = add_ani_expr(x1, a->x1);
@@ -1892,7 +1892,7 @@ add_ani_text(ANI_COM *a, char *x1, char *y1, char *y2) {
 }
 
 int32
-add_ani_vtext(ANI_COM *a, char *x1, char *y1, char *x2, char *y2) {
+add_ani_vtext(AniCom *a, char *x1, char *y1, char *x2, char *y2) {
     int32 err;
     char *s;
     err = add_ani_expr(x1, a->x1);
@@ -1910,7 +1910,7 @@ add_ani_vtext(ANI_COM *a, char *x1, char *y1, char *x2, char *y2) {
 }
 
 int32
-add_ani_settext(ANI_COM *a, char *x1, char *y1, char *col) {
+add_ani_settext(AniCom *a, char *x1, char *y1, char *col) {
     int32 size = atoi(x1);
     int32 font = 0;
     int32 index = 0, err;
