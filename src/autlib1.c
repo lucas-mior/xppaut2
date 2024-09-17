@@ -1652,7 +1652,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     double arev, rmax;
     int64 nins, ntop, ntot;
     doublecomplex ztmp;
-    int64 nins1, i, j;
+    int64 nins1, j;
     double rimhb, ar;
     int64 ntotp1;
 
@@ -1697,7 +1697,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     eig(iap, &ndm, &ndim, dfdu, ev, &ier);
     if (ips == -1) {
-        for (i = 0; i < ndm; ++i) {
+        for (int32 i = 0; i < ndm; ++i) {
             if (ev[i].r != -1. || d_imag(&ev[i]) != 0.) {
                 doublecomplex in, out;
                 in.r = ev[i].r + 1.;
@@ -1715,7 +1715,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     send_eigen(ibr, ntot + 1, ndim, (doublecomplex *)&ev[0]);
     /* Order the eigenvalues by real part. */
 
-    for (i = 0; i < ndm - 1; ++i) {
+    for (int32 i = 0; i < ndm - 1; ++i) {
         rmax = -RLARGE;
         for (j = i; j < ndm; ++j) {
             rp = ev[j].r;
@@ -1739,7 +1739,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     rimhb = 0.;
     arev = RLARGE;
     rev = 0.;
-    for (i = 0; i < ndm; ++i) {
+    for (int32 i = 0; i < ndm; ++i) {
         if (d_imag(&ev[i]) != 0.) {
             ar = fabs(ev[i].r);
             if (ar <= arev) {
@@ -1757,13 +1757,13 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     nins1 = 0;
     if (isw != 2) {
-        for (i = 0; i < ndm; ++i) {
+        for (int32 i = 0; i < ndm; ++i) {
             if (ev[i].r <= 0.) {
                 ++nins1;
             }
         }
     } else {
-        for (i = 0; i < ndm; ++i) {
+        for (int32 i = 0; i < ndm; ++i) {
             if (ev[i].r <= HMACH) {
                 ++nins1;
             }
@@ -1797,14 +1797,14 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
                 "Stable:%3li\n",
                 abs(ibr), ntop, nins);
         if (ips == -1) {
-            for (i = 0; i < ndm; ++i) {
+            for (int32 i = 0; i < ndm; ++i) {
                 doublecomplex tmp;
                 z_exp(&tmp, &ev[i]);
                 fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",
                         abs(ibr), ntop, i + 1, tmp.r, tmp.i);
             }
         } else {
-            for (i = 0; i < ndm; ++i) {
+            for (int32 i = 0; i < ndm; ++i) {
                 fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",
                         abs(ibr), ntop, i + 1, ev[i].r, ev[i].i);
             }
