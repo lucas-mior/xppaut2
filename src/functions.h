@@ -2059,7 +2059,7 @@ typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
                          int32 *irtrn);
 
 extern int32
-dop853(uint32 n,      /* dimension of the system <= UINT_MAX-1*/
+dop853(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
        FcnEqDiff fcn,   /* function computing the value of f(x,y) */
        double x,        /* initial x-value */
        double *y,       /* initial values for y */
@@ -2088,11 +2088,11 @@ dop853(uint32 n,      /* dimension of the system <= UINT_MAX-1*/
        double *work);
 
 extern double contd8(uint32 ii, /* index of desired component */
-                     double x     /* approximation at x */
+                     double x   /* approximation at x */
 );
 
 extern int32
-dopri5(uint32 n,      /* dimension of the system <= UINT_MAX-1*/
+dopri5(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
        FcnEqDiff fcn,   /* function computing the value of f(x,y) */
        double x,        /* initial x-value */
        double *y,       /* initial values for y */
@@ -2121,7 +2121,7 @@ dopri5(uint32 n,      /* dimension of the system <= UINT_MAX-1*/
        double *work);
 
 extern double contd5(uint32 ii, /* index of desired component */
-                     double x     /* approximation at x */
+                     double x   /* approximation at x */
 );
 
 void dprhs(uint32 n, double t, double *y, double *f);

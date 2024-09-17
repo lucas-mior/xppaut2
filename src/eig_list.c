@@ -14,7 +14,7 @@
 
 #include "mykeydef.h"
 #define xds(a)                                                                 \
-    do {                                                                          \
+    do {                                                                       \
         XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
     } while (0)
@@ -132,9 +132,8 @@ create_eq_list(void) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display,
-                         base, &winname, &iconame, NULL, 0, &size_hints,
-                         NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconame, NULL, 0,
+                         &size_hints, NULL, &class_hints);
     }
     make_icon((char *)eqns_bits, eqns_width, eqns_height, base);
     eq_list.main = make_plain_window(base, 0, 0, width, hmain, 1);

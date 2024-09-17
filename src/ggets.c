@@ -540,8 +540,8 @@ do_backspace(int32 *pos, char *value, int32 *col, Window w) {
 }
 
 void
-edit_command_string(XEvent ev, char *name, char *value, int32 *done2, int32 *pos,
-                    int32 *col) {
+edit_command_string(XEvent ev, char *name, char *value, int32 *done2,
+                    int32 *pos, int32 *col) {
     char ch;
     switch (ev.type) {
     case ConfigureNotify:

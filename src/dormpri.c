@@ -237,22 +237,26 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double d61, d66, d67, d68, d69, d610, d611, d612, d613, d614, d615, d616;
     double d71, d76, d77, d78, d79, d710, d711, d712, d713, d714, d715, d716;
 
-    er1=er6=er7=er8=er9=er10=er11=er12=0;
-    a21=a31=a32=a41=a43=a51=a53=a54=0;
-    a61=a64=a65=a71=a74=a75=a76=0;
-    a81=a84=a85=a86=a87=a91=a94=a95=a96=a97=a98=0;
-    a101=a104=a105=a106=a107=a108=a109=0;
-    a111=a114=a115=a116=a117=a118=a119=a1110=0;
-    a121=a124=a125=a126=a127=a128=a129=a1210=a1211=0;
-    a141=a147=a148=a149=a1410=a1411=a1412=a1413=0;
-    a151=a156=a157=a158=a1511=a1512=a1513=a1514=0;
-    a161=a166=a167=a168=a169=a1613=a1614=a1615=0;
-    c2=c3=c4=c5=c6=c7=c8=c9=c10=c11=c14=c15=c16=0;
-    b1=b6=b7=b8=b9=b10=b11=b12=bhh1=bhh2=bhh3=0;
-    d41=d46=d47=d48=d49=d410=d411=d412=d413=d414=d415=d416=0;
-    d51=d56=d57=d58=d59=d510=d511=d512=d513=d514=d515=d516=0;
-    d61=d66=d67=d68=d69=d610=d611=d612=d613=d614=d615=d616=0;
-    d71=d76=d77=d78=d79=d710=d711=d712=d713=d714=d715=d716=0;
+    er1 = er6 = er7 = er8 = er9 = er10 = er11 = er12 = 0;
+    a21 = a31 = a32 = a41 = a43 = a51 = a53 = a54 = 0;
+    a61 = a64 = a65 = a71 = a74 = a75 = a76 = 0;
+    a81 = a84 = a85 = a86 = a87 = a91 = a94 = a95 = a96 = a97 = a98 = 0;
+    a101 = a104 = a105 = a106 = a107 = a108 = a109 = 0;
+    a111 = a114 = a115 = a116 = a117 = a118 = a119 = a1110 = 0;
+    a121 = a124 = a125 = a126 = a127 = a128 = a129 = a1210 = a1211 = 0;
+    a141 = a147 = a148 = a149 = a1410 = a1411 = a1412 = a1413 = 0;
+    a151 = a156 = a157 = a158 = a1511 = a1512 = a1513 = a1514 = 0;
+    a161 = a166 = a167 = a168 = a169 = a1613 = a1614 = a1615 = 0;
+    c2 = c3 = c4 = c5 = c6 = c7 = c8 = c9 = c10 = c11 = c14 = c15 = c16 = 0;
+    b1 = b6 = b7 = b8 = b9 = b10 = b11 = b12 = bhh1 = bhh2 = bhh3 = 0;
+    d41 = d46 = d47 = d48 = d49 = d410 = d411 = d412 = d413 = d414 = d415 =
+        d416 = 0;
+    d51 = d56 = d57 = d58 = d59 = d510 = d511 = d512 = d513 = d514 = d515 =
+        d516 = 0;
+    d61 = d66 = d67 = d68 = d69 = d610 = d611 = d612 = d613 = d614 = d615 =
+        d616 = 0;
+    d71 = d76 = d77 = d78 = d79 = d710 = d711 = d712 = d713 = d714 = d715 =
+        d716 = 0;
 
     /* initialisations */
     switch (meth) {
@@ -779,8 +783,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
        double *rtoler, double *atoler, int32 itoler, SolTrait solout,
        int32 iout, FILE *fileout, double uround, double safe, double fac1,
        double fac2, double beta, double hmax, double h, long nmax, int32 meth,
-       long nstiff, uint32 nrdens, uint32 *icont, uint32 licont,
-       double *work) {
+       long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
     int32 arret, idid;
     uint32 i;
 
@@ -964,9 +967,9 @@ contd8(uint32 ii, double x) {
 
 /************    dopri5  ***************************/
 static double
-hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg,
-       double *f0, double *f1, double *yyy1, int32 iord, double hmax,
-       double *atoler, double *rtoler, int32 itoler) {
+hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
+       double *f1, double *yyy1, int32 iord, double hmax, double *atoler,
+       double *rtoler, int32 itoler) {
     double dnf, dny, atoli, rtoli, sk, h, h1, der2, der12, sqr;
     uint32 i;
 
@@ -1036,11 +1039,11 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg,
 
 /* core integrator */
 static int32
-dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-        double hmax, double h, double *rtoler, double *atoler, int32 itoler,
-        FILE *fileout, SolTrait solout, int32 iout, long nmax, double uround,
-        int32 meth, long nstiff, double safe, double beta, double fac1,
-        double fac2, uint32 *icont) {
+dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
+        double h, double *rtoler, double *atoler, int32 itoler, FILE *fileout,
+        SolTrait solout, int32 iout, long nmax, double uround, int32 meth,
+        long nstiff, double safe, double beta, double fac1, double fac2,
+        uint32 *icont) {
     double facold, expo1, fac, facc1, facc2, fac11, posneg, xph;
     double atoli, rtoli, hlamb, err, sk, hnew, yd0, ydiff, bspl;
     double stnum, stden, sqr;
@@ -1050,28 +1053,46 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     double a21, a31, a32, a41, a42, a43, a51, a52, a53, a54;
     double a61, a62, a63, a64, a65, a71, a73, a74, a75, a76;
 
-    c2=c3=c4=c5=e1=e3=e4=e5=e6=e7=d1=d3=d4=d5=d6=d7=0;
-    a21=a31=a32=a41=a42=a43=a51=a52=a53=a54=0;
-    a61=a62=a63=a64=a65=a71=a73=a74=a75=a76=0;
+    c2 = c3 = c4 = c5 = e1 = e3 = e4 = e5 = e6 = e7 = d1 = d3 = d4 = d5 = d6 =
+        d7 = 0;
+    a21 = a31 = a32 = a41 = a42 = a43 = a51 = a52 = a53 = a54 = 0;
+    a61 = a62 = a63 = a64 = a65 = a71 = a73 = a74 = a75 = a76 = 0;
 
     /* initialisations */
     switch (meth) {
     case 1:
-        c2 = 0.2; c3 = 0.3; c4 = 0.8; c5 = 8.0 / 9.0;
-        a21 = 0.2; a31 = 3.0 / 40.0; a32 = 9.0 / 40.0;
-        a41 = 44.0 / 45.0; a42 = -56.0 / 15.0; a43 = 32.0 / 9.0;
-        a51 = 19372.0 / 6561.0; a52 = -25360.0 / 2187.0;
-        a53 = 64448.0 / 6561.0; a54 = -212.0 / 729.0;
-        a61 = 9017.0 / 3168.0; a62 = -355.0 / 33.0;
-        a63 = 46732.0 / 5247.0; a64 = 49.0 / 176.0;
+        c2 = 0.2;
+        c3 = 0.3;
+        c4 = 0.8;
+        c5 = 8.0 / 9.0;
+        a21 = 0.2;
+        a31 = 3.0 / 40.0;
+        a32 = 9.0 / 40.0;
+        a41 = 44.0 / 45.0;
+        a42 = -56.0 / 15.0;
+        a43 = 32.0 / 9.0;
+        a51 = 19372.0 / 6561.0;
+        a52 = -25360.0 / 2187.0;
+        a53 = 64448.0 / 6561.0;
+        a54 = -212.0 / 729.0;
+        a61 = 9017.0 / 3168.0;
+        a62 = -355.0 / 33.0;
+        a63 = 46732.0 / 5247.0;
+        a64 = 49.0 / 176.0;
         a65 = -5103.0 / 18656.0;
-        a71 = 35.0 / 384.0; a73 = 500.0 / 1113.0;
-        a74 = 125.0 / 192.0; a75 = -2187.0 / 6784.0;
+        a71 = 35.0 / 384.0;
+        a73 = 500.0 / 1113.0;
+        a74 = 125.0 / 192.0;
+        a75 = -2187.0 / 6784.0;
         a76 = 11.0 / 84.0;
-        e1 = 71.0 / 57600.0; e3 = -71.0 / 16695.0;
-        e4 = 71.0 / 1920.0; e5 = -17253.0 / 339200.0;
-        e6 = 22.0 / 525.0; e7 = -1.0 / 40.0;
-        d1 = -12715105075.0 / 11282082432.0; d3 = 87487479700.0 / 32700410799.0;
+        e1 = 71.0 / 57600.0;
+        e3 = -71.0 / 16695.0;
+        e4 = 71.0 / 1920.0;
+        e5 = -17253.0 / 339200.0;
+        e6 = 22.0 / 525.0;
+        e7 = -1.0 / 40.0;
+        d1 = -12715105075.0 / 11282082432.0;
+        d3 = 87487479700.0 / 32700410799.0;
         d4 = -10690763975.0 / 1880347072.0;
         d5 = 701980252875.0 / 199316789632.0;
         d6 = -1453857185.0 / 822651844.0;
@@ -1324,8 +1345,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
        double *rtoler, double *atoler, int32 itoler, SolTrait solout,
        int32 iout, FILE *fileout, double uround, double safe, double fac1,
        double fac2, double beta, double hmax, double h, long nmax, int32 meth,
-       long nstiff, uint32 nrdens, uint32 *icont, uint32 licont,
-       double *work) {
+       long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
     int32 arret, idid;
     uint32 i;
 

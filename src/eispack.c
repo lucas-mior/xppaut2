@@ -298,9 +298,9 @@ L130:
         }
         d__1 = h__[m - 1 + (m - 1)*h_dim1];
         d__2 = h__[m + 1 + (m + 1)*h_dim1];
-        tst1 = fabs(p) * fabs(d__1) + fabs(zz) + fabs(d__2);
+        tst1 = fabs(p)*fabs(d__1) + fabs(zz) + fabs(d__2);
         d__1 = h__[m + (m - 1)*h_dim1];
-        tst2 = tst1 + (fabs(d__1)) *(fabs(q) + fabs(r__));
+        tst2 = tst1 + (fabs(d__1))*(fabs(q) + fabs(r__));
         if (tst2 == tst1) {
             goto L150;
         }

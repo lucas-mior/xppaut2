@@ -823,9 +823,8 @@ create_file_selector(char *title, char *file, char *wild) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display,
-                         base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                         &class_hints);
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
+                         NULL, &class_hints);
     }
 
     /*
@@ -1351,8 +1350,8 @@ expose_slider(Window w, PAR_SLIDER *p) {
         return;
     }
     if (w == p->go) {
-        XDrawString(display, w, small_gc,
-                    2, (int32)(0.75*(double)CURY_OFFs), "go", 2);
+        XDrawString(display, w, small_gc, 2, (int32)(0.75*(double)CURY_OFFs),
+                    "go", 2);
         return;
     }
     if (p->use) {

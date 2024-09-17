@@ -15,7 +15,7 @@
 #define PS_VTIC (PS_YMAX / 80)
 #define PS_HTIC (PS_YMAX / 80)
 
-#define PS_SC (10)                   /* scale is 1pt = 10 units */
+#define PS_SC (10) /* scale is 1pt = 10 units */
 #define PS_VCHAR (PS_FONTSIZE*PS_SC)
 #define PS_HCHAR (PS_FONTSIZE*PS_SC*6 / 10)
 

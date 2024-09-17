@@ -27,7 +27,7 @@
 
 extern char *browse_hint[];
 #define xds(a)                                                                 \
-    do {                                                                          \
+    do {                                                                       \
         XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
     } while (0)
@@ -630,8 +630,8 @@ display_browser(Window w, BROWSER b) {
         if (w == b.label[i]) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1)
-                XDrawString(display, w, small_gc, 5, CURY_OFFs,
-                            uvar_names[i0], strlen(uvar_names[i0]));
+                XDrawString(display, w, small_gc, 5, CURY_OFFs, uvar_names[i0],
+                            strlen(uvar_names[i0]));
         }
     }
     if (w == b.main)
@@ -832,9 +832,8 @@ make_browser(BROWSER *b, char *wname, char *iname, int32 row, int32 col) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display,
-                         base, &winname, &iconname, NULL, 0, &size_hints,
-                         NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconname, NULL, 0,
+                         &size_hints, NULL, &class_hints);
     }
     make_icon((char *)browse_bits, browse_width, browse_height, base);
     b->upper = make_window(base, 0, 0, width, ystart + drow*6, 1);

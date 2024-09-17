@@ -279,8 +279,9 @@ create_vcr(char *name) {
     ani_gc = XCreateGC(display, vcr.view, valuemask, &values);
     vcr.hgt = hgt;
     vcr.wid = wid;
-    ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
-                               (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
+    ani_pixmap =
+        XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
+                      (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
     if (ani_pixmap == 0) {
         err_msg("Failed to get the required pixmap");
         XFlush(display);
@@ -294,7 +295,8 @@ create_vcr(char *name) {
 
     XSetFunction(display, ani_gc, GXcopy);
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
+                   (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     XSetFont(display, ani_gc, romfonts[0]->fid);
     tst_pix_draw();
@@ -605,8 +607,8 @@ ani_expose(Window w) {
     if (w == vcr.wgrab)
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Grab", 4);
     if (w == vcr.view)
-        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt,
-                  0, 0);
+        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
+                  (uint)vcr.hgt, 0, 0);
     if (w == vcr.wgo)
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "Go  ", 4);
     if (w == vcr.wup)
@@ -657,10 +659,11 @@ ani_resize(int32 x, int32 y) {
     if (vcr.wid < 1)
         vcr.wid = 1;
 
-    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6), (uint)vcr.wid,
-                      (uint)vcr.hgt);
-    ani_pixmap = XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
-                               (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
+    XMoveResizeWindow(display, vcr.view, 4, (int32)4.5*(DCURYs + 6),
+                      (uint)vcr.wid, (uint)vcr.hgt);
+    ani_pixmap =
+        XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
+                      (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
     if (ani_pixmap == 0) {
         err_msg("Failed to get the required pixmap");
         XFlush(display);
@@ -674,7 +677,8 @@ ani_resize(int32 x, int32 y) {
      */
     XSetFunction(display, ani_gc, GXcopy);
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
+                   (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     tst_pix_draw();
     return;
@@ -719,7 +723,8 @@ on_the_fly(int32 task) {
 void
 ani_frame(int32 task) {
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
+                   (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     if (task == 1) {
         set_ani_perm();
@@ -733,8 +738,8 @@ ani_frame(int32 task) {
 
     /*  done drawing   */
 
-    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt, 0,
-              0);
+    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
+              (uint)vcr.hgt, 0, 0);
 
     XFlush(display);
     return;
@@ -778,7 +783,8 @@ ani_flip1(int32 n) {
         return;
     ss = my_browser.data;
     XSetForeground(display, ani_gc, WhitePixel(display, screen));
-    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
+    XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
+                   (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     if (vcr.pos == 0)
         set_ani_perm();
@@ -801,8 +807,8 @@ ani_flip1(int32 n) {
 
     /*  done drawing   */
 
-    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt, 0,
-              0);
+    XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
+              (uint)vcr.hgt, 0, 0);
 
     XFlush(display);
     return;
@@ -867,7 +873,8 @@ ani_flip(void) {
 
         /* first set all the variables */
         XSetForeground(display, ani_gc, WhitePixel(display, screen));
-        XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt);
+        XFillRectangle(display, ani_pixmap, ani_gc, 0, 0, (uint)vcr.wid,
+                       (uint)vcr.hgt);
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
         row = vcr.pos;
         t = (double)ss[0][row];
@@ -881,8 +888,8 @@ ani_flip(void) {
 
         /*  done drawing   */
 
-        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid, (uint)vcr.hgt,
-                  0, 0);
+        XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
+                  (uint)vcr.hgt, 0, 0);
 
         XFlush(display);
 
@@ -955,7 +962,8 @@ getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     uchar *dst, *pixel;
     cmap = DefaultColormap(display, screen);
 
-    ximage = XGetImage(display, window, 0, 0, (uint)*wid, (uint)*hgt, AllPlanes, ZPixmap);
+    ximage = XGetImage(display, window, 0, 0, (uint)*wid, (uint)*hgt, AllPlanes,
+                       ZPixmap);
 
     if (!ximage)
         return -1;
@@ -1033,8 +1041,8 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     uint32 area;
     uchar *out, *dst;
     cmap = DefaultColormap(display, screen);
-    ximage = XGetImage(display, window,
-                       0, 0, (uint)wid, (uint)hgt, AllPlanes, ZPixmap);
+    ximage = XGetImage(display, window, 0, 0, (uint)wid, (uint)hgt, AllPlanes,
+                       ZPixmap);
     if (!ximage)
         return -1;
     /* this is only good for 256 color displays */
@@ -2201,8 +2209,8 @@ draw_ani_comet(int32 j) {
             i1 = my_ani[j].c.x[k];
             j1 = my_ani[j].c.y[k];
             xset_ani_col(my_ani[j].c.col[k]);
-            XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir),
-                     (uint)(2*ir), 0, 360*64);
+            XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir,
+                     (uint)(2*ir), (uint)(2*ir), 0, 360*64);
         }
     } else {
         if (nn > 2) {
@@ -2290,8 +2298,8 @@ draw_ani_circ(int32 j) {
     ani_xyscale(x1, y1, &i1, &j1);
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
-    XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir), (uint)(2*ir), 0,
-             360*64);
+    XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir),
+             (uint)(2*ir), 0, 360*64);
     return;
 }
 
@@ -2306,8 +2314,8 @@ draw_ani_fcirc(int32 j) {
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
     /*  XFillArc(display,ani_pixmap,ani_gc,i1-i2,j1-j2,2*i2,2*j2,0,360*64); */
-    XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir), (uint)(2*ir), 0,
-             360*64);
+    XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir),
+             (uint)(2*ir), 0, 360*64);
     return;
 }
 
