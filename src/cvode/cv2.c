@@ -23,10 +23,8 @@ extern double TOLER, ATOLER;
 
 void
 start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
-    int32 i;
-
     ycv = N_VNew(n);
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         ycv->data[i] = y[i];
     cvode_mem = CVodeMalloc(n, cvf, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL,
                             NULL, FALSE, cv_iopt, cv_ropt);
@@ -112,7 +110,7 @@ ccvode(
     /* command =0 continue, 1 is start 2 finish */
     int32 *command, double *y, double *t, int32 n, double tout, int32 *kflag,
     double *atol, double *rtol) {
-    int32 i, flag;
+    int32 flag;
     *kflag = 0;
     if (*command == 2) {
         end_cv();
@@ -129,7 +127,7 @@ ccvode(
             return -1;
         }
         *command = 0;
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             y[i] = ycv->data[i];
         return 0;
     }
@@ -141,7 +139,7 @@ ccvode(
 
         return -1;
     }
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         y[i] = ycv->data[i];
     return 0;
 }
