@@ -74,8 +74,6 @@ extern GRABPT grabpt;
 extern DIAGRAM *bifd;
 DIAGRAM *CUR_DIAGRAM;
 
-extern int32 NBifs;
-
 void
 ALINE(int32 a, int32 b, int32 c, int32 d) {
     XDrawLine(display, AutoW.canvas, small_gc, (a), (b), (c), (d));

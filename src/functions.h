@@ -1660,6 +1660,8 @@ int32 add_derived(char *name, char *rhs);
 
 #include <stdio.h>
 
+extern int32 NBifs;
+
 void start_diagram(int32 n);
 void edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
                 double a, double *uhi, double *ulo, double *u0, double *ubar,

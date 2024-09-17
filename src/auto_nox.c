@@ -130,7 +130,6 @@ GRABPT grabpt;
 extern double MyData[MAX_ODE];
 extern DIAGRAM *bifd;
 
-extern int32 NBifs;
 int32 AutoTwoParam = 0;
 int32 NAutoPar = 8;
 int32 Auto_index_to_array[8];
