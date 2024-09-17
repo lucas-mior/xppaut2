@@ -15,6 +15,7 @@ void plot_command(int32 nit, int32 icount, int32 cwidth);
 int32 my_abort(void);
 
 #endif
+
 #ifndef adj2_h
 #define adj2_h
 
@@ -54,6 +55,7 @@ int32 hrw_liapunov(double *liap, int32 batch, double eps);
 void new_adjoint(void);
 
 #endif
+
 #ifndef aniparse_h
 #define aniparse_h
 
@@ -207,7 +209,9 @@ int32 check_ani_pause(XEvent ev);
 void do_ani_slider_motion(Window w, int32 x);
 void draw_ani_slider(Window w, int32 x);
 void redraw_ani_slider(void);
+
 #endif
+
 #ifndef arrayplot_h
 #define arrayplot_h
 
@@ -258,6 +262,7 @@ void redraw_aplot(APLOT ap);
 void display_aplot(Window w, APLOT ap);
 
 #endif
+
 #ifndef array_print_h
 #define array_print_h
 
@@ -344,6 +349,7 @@ void do_auto_range(void);
 void RedrawMark(void);
 
 #endif
+
 #ifndef axes2_h
 #define axes2_h
 
@@ -366,6 +372,7 @@ void draw_ytics(char *s1, double start, double incr, double end);
 void draw_xtics(char *s2, double start, double incr, double end);
 
 #endif
+
 /******************************************************************
  *                                                                *
  * File          : band.h                                         *
@@ -932,6 +939,7 @@ void bandfree(double **a);
 void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 #endif
+
 #ifndef browse_h
 #define browse_h
 
@@ -1030,6 +1038,7 @@ void write_mybrowser_data(FILE *fp);
 void data_get_mybrowser(int32 row);
 
 #endif
+
 #ifndef calc_h
 #define calc_h
 
@@ -1045,6 +1054,7 @@ int32 has_eq(char *z, char *w, int32 *where);
 double calculate(char *expr, int32 *ok);
 
 #endif
+
 #ifndef choice_box_h
 #define choice_box_h
 
@@ -1061,6 +1071,7 @@ int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
 int32 choice_box_event_loop(CHOICE_BOX p);
 
 #endif
+
 #ifndef color_h
 #define color_h
 
@@ -1080,6 +1091,7 @@ void MakeColormap(void);
 int32 ColorMap(int32 i);
 
 #endif
+
 #ifndef comline_h
 #define comline_h
 
@@ -1106,6 +1118,7 @@ int32 if_needed_load_ext_options(void);
 int32 parse_it(char *com);
 
 #endif
+
 #ifndef dae_fun_h
 #define dae_fun_h
 
@@ -1123,6 +1136,7 @@ int32 solve_dae(void);
 void get_new_guesses(void);
 
 #endif
+
 #ifndef delay_handle_h
 #define delay_handle_h
 
@@ -1136,6 +1150,7 @@ double get_delay(int32 in, double tau);
 int32 do_init_delay(double big);
 
 #endif
+
 #ifndef del_stab_h
 #define del_stab_h
 
@@ -1170,6 +1185,7 @@ int32 plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
                 double almax, double wmax);
 
 #endif
+
 /******************************************************************
  *                                                                *
  * File          : dense.h                                        *
@@ -1627,6 +1643,7 @@ void denfree(double **a);
 void denprint(double **a, int64 n);
 
 #endif
+
 #ifndef derived_h
 #define derived_h
 
@@ -1636,6 +1653,7 @@ void evaluate_derived(void);
 int32 add_derived(char *name, char *rhs);
 
 #endif
+
 #ifndef diagram_h
 #define diagram_h
 #include "auto_nox.h"
@@ -1669,6 +1687,7 @@ int32 load_diagram(FILE *fp, int32 node);
 void load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 
 #endif
+
 #ifndef dialog_box_h
 #define dialog_box_h
 
@@ -1681,6 +1700,7 @@ int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);
 void display_dialog(Window w, DIALOG d, int32 col);
 
 #endif
+
 #ifndef do_fit_h
 #define do_fit_h
 
@@ -1720,6 +1740,7 @@ void parse_varlist(char *varlist, int32 *ivars, int32 *n);
 void parse_parlist(char *parlist, int32 *ipars, int32 *n);
 
 #endif
+
 /*      DOP853
         ------
 
@@ -2209,6 +2230,7 @@ void edit_functions(void);
 int32 save_as(void);
 
 #endif
+
 #ifndef eig_list_h
 #define eig_list_h
 
@@ -2230,6 +2252,7 @@ void create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
 void draw_eq_box(Window w);
 
 #endif
+
 #ifndef extra_h
 #define extra_h
 
@@ -2249,6 +2272,7 @@ void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
                        int32 ivar, double *wgt[MAXW], double *var, double *con);
 
 #endif
+
 /*--------------------------------*-C-*---------------------------------*
  * File:
  *	fftn.h
@@ -2342,6 +2366,7 @@ void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 extern void fft_free(void);
 
 /* double precision routine */
@@ -2355,7 +2380,9 @@ extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
 #ifdef __cplusplus
 }
 #endif
+
 #endif /* _FFTN_H */
+
 /*----------------------- end-of-file (C header) -----------------------*/
 #ifndef flags_h
 #define flags_h
@@ -2396,6 +2423,7 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
                           double *rtol);
 
 #endif
+
 #ifndef form_ode_h
 #define form_ode_h
 
@@ -2488,6 +2516,7 @@ char *get_next2(char **tokens_ptr);
 void strcpy_trim(char *dest, char *source);
 void strncpy_trim(char *dest, char *source, int32 n);
 #endif
+
 #ifndef gear_h
 #define gear_h
 
@@ -2535,6 +2564,7 @@ void sscal(int32 n, double sa, double *sx, int32 incx);
 void save_batch_shoot(void);
 
 #endif
+
 #ifndef ggets_h
 #define ggets_h
 
@@ -2584,6 +2614,7 @@ void edit_command_string(XEvent ev, char *name, char *value, int32 *done,
 int32 new_string(char *name, char *value);
 
 #endif
+
 int32 go_go_auto(void);
 #ifndef graf_par_h
 #define graf_par_h
@@ -2672,6 +2703,7 @@ void default_window(void);
 void dump_ps(int32 i);
 
 #endif
+
 #ifndef graphics_h
 #define graphics_h
 
@@ -2742,6 +2774,7 @@ void reset_all_line_type(void);
 void draw_many_lines(void);
 
 #endif
+
 #ifndef histogram_h
 #define histogram_h
 
@@ -2776,6 +2809,7 @@ void just_sd(int32 flag);
 void post_process_stuff(void);
 
 #endif
+
 #ifndef init_conds_h
 #define init_conds_h
 
@@ -2931,6 +2965,7 @@ void set_value_from_box(BoxList *b, int32 i);
 void load_entire_box(BoxList *b);
 
 #endif
+
 #ifndef integrate_h
 #define integrate_h
 
@@ -2991,6 +3026,7 @@ int32 do_auto_range_go(void);
 void silent_equilibria(void);
 
 #endif
+
 /******************************************************************
  *                                                                *
  * File          : iterativ.h                                     *
@@ -3224,6 +3260,7 @@ int32 QRfact(int32 n, double **h, double *q, int32 job);
 int32 QRsol(int32 n, double **h, double *q, double *b);
 
 #endif
+
 #ifndef kinescope_h
 #define kinescope_h
 
@@ -3239,6 +3276,7 @@ void auto_play(void);
 void too_small(void);
 
 #endif
+
 /******************************************************************
  *                                                                *
  * File          : llnlmath.h                                     *
@@ -3340,6 +3378,7 @@ double RPowerR(double base, double exponent);
 double RSqrt(double x);
 
 #endif
+
 #ifndef load_eqn_h
 #define load_eqn_h
 
@@ -3360,6 +3399,7 @@ override the below definition.
 #if (XPP_MAX_NAME > FILENAME_MAX)
 #define XPP_MAX_NAME FILENAME_MAX
 #endif
+
 #endif
 
 /*
@@ -3548,6 +3588,7 @@ void stor_internopts(char *s1);
 void set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
 
 #endif
+
 #ifndef lunch_new_h
 #define lunch_new_h
 
@@ -3571,6 +3612,7 @@ void io_float(double *z, FILE *fp, int32 f, char *ss);
 void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #endif
+
 #ifndef main_h_
 
 #define main_h_
@@ -3605,6 +3647,7 @@ void test_color_info(void);
 int32 get_command_width(void);
 
 #endif
+
 #ifndef many_pops_h
 #define many_pops_h
 
@@ -3669,6 +3712,7 @@ void check_draw_button(XEvent ev);
 void set_active_windows(void);
 
 #endif
+
 #ifndef markov_h
 #define markov_h
 
@@ -3703,6 +3747,7 @@ void nsrand48(int32 seed);
 double ran1(long *idum);
 
 #endif
+
 #ifndef menudrive_h
 #define menudrive_h
 
@@ -3956,6 +4001,7 @@ void edit_xpprc(void);
 void do_tutorial(void);
 
 #endif
+
 #ifndef xppmenu_h
 #define xppmenu_h
 
@@ -3976,6 +4022,7 @@ void menu_button(Window win);
 void draw_help(void);
 
 #endif
+
 #ifndef my_ps_h
 #define my_ps_h
 
@@ -4000,6 +4047,7 @@ void fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font);
 void ps_text(int32 x, int32 y, char *str);
 
 #endif
+
 #ifndef my_rhs_h
 #define my_rhs_h
 
@@ -4014,6 +4062,7 @@ void rhs_only(double *ydot);
 void vec_rhs(double t, double *y, double *ydot, int32 neq);
 
 #endif
+
 #ifndef my_svg_h
 #define my_svg_h
 
@@ -4033,6 +4082,7 @@ void special_put_text_svg(int32 x, int32 y, char *str, int32 size);
 void svg_text(int32 x, int32 y, char *str);
 
 #endif
+
 #ifndef nullcline_h
 #define nullcline_h
 
@@ -4084,6 +4134,7 @@ void silent_nullclines(void);
 void silent_dfields(void);
 
 #endif
+
 #ifndef numerics_h
 #define numerics_h
 
@@ -4120,6 +4171,7 @@ void set_total(double total);
 void user_set_color_par(int32 flag, char *via, double lo, double hi);
 void compute_one_period(double period, double *x, char *name);
 #endif
+
 #ifndef odesol2_h
 #define odesol2_h
 
@@ -4160,6 +4212,7 @@ int32 bandfac(double *a, int32 ml, int32 mr, int32 n);
 void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
 
 #endif
+
 #ifndef pop_list_h
 #define pop_list_h
 
@@ -4307,6 +4360,7 @@ Window make_icon_window(Window root, int32 x, int32 y, int32 width,
                         int32 height, int32 bw, uchar *icdata);
 
 #endif
+
 #ifndef pp_shoot_h
 #define pp_shoot_h
 
@@ -4340,6 +4394,7 @@ int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f);
 void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f);
 
 #endif
+
 #ifndef scrngif_h
 #define scrngif_h
 
@@ -4377,6 +4432,7 @@ void ClearTree(int32 cc, GifTree *root);
 uchar *AddCodeToBuffer(int32 code, int16 n, uchar *buf);
 
 #endif
+
 #ifndef simplenet_h
 #define simplenet_h
 
@@ -4399,6 +4455,7 @@ int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
 double vector_value(double x, int32 i);
 
 #endif
+
 /******************************************************************
  *                                                                *
  * File          : spgmr.h                                        *
@@ -4617,6 +4674,7 @@ int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
 void SpgmrFree(SpgmrMem mem);
 
 #endif
+
 #ifndef stiff_h
 #define stiff_h
 
@@ -4638,6 +4696,7 @@ void rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
           double *yerr, double *work);
 
 #endif
+
 #ifndef storage_h
 #define storage_h
 
@@ -4648,6 +4707,7 @@ void free_storage(int32 ncol);
 int32 reallocstor(int32 ncol, int32 nrow);
 
 #endif
+
 #ifndef tabular_h
 #define tabular_h
 
@@ -4668,6 +4728,7 @@ int32 load_table(char *filename, int32 index);
 int32 get_lookup_len(int32 i);
 
 #endif
+
 #ifndef torus_h
 #define torus_h
 
@@ -4681,6 +4742,7 @@ void make_tor_box(char *title);
 void do_torus_events(void);
 
 #endif
+
 #ifndef txtread_h
 #define txtread_h
 
@@ -4696,6 +4758,7 @@ void init_txtview(void);
 void make_txtview(void);
 
 #endif
+
 #ifndef userbut_h
 #define userbut_h
 
@@ -4717,6 +4780,7 @@ void add_user_button(char *s);
 void create_user_buttons(int32 x0, int32 y0, Window base);
 
 #endif
+
 /****************************************************************
  *                                                              *
  * File          : vector.h                                     *
