@@ -10,9 +10,11 @@
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
-#include "newhome.h"
 #include "mykeydef.h"
 #include <stdarg.h>
+
+#define XK_PgUp XK_Prior
+#define XK_PgDn XK_Next
 
 #define ESCAPE 27
 char *info_message;
