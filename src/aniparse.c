@@ -2099,7 +2099,7 @@ set_ani_font_stuff(int32 size, int32 font, int32 color) {
     if (color == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
-        XSetForeground(display, ani_gc, ColorMap(color));
+        XSetForeground(display, ani_gc, (uint)ColorMap(color));
     if (font == 0)
         XSetFont(display, ani_gc, romfonts[size]->fid);
     else
@@ -2119,7 +2119,7 @@ set_ani_col(int32 j) {
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
-        XSetForeground(display, ani_gc, ColorMap(icol));
+        XSetForeground(display, ani_gc, (uint)ColorMap(icol));
     LastAniColor = icol;
     return;
 }
@@ -2129,7 +2129,7 @@ xset_ani_col(int32 icol) {
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
-        XSetForeground(display, ani_gc, ColorMap(icol));
+        XSetForeground(display, ani_gc, (uint)ColorMap(icol));
     return;
 }
 
@@ -2201,8 +2201,8 @@ draw_ani_comet(int32 j) {
             i1 = my_ani[j].c.x[k];
             j1 = my_ani[j].c.y[k];
             xset_ani_col(my_ani[j].c.col[k]);
-            XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir,
-                     2*ir, 0, 360*64);
+            XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir),
+                     (uint)(2*ir), 0, 360*64);
         }
     } else {
         if (nn > 2) {
@@ -2290,7 +2290,7 @@ draw_ani_circ(int32 j) {
     ani_xyscale(x1, y1, &i1, &j1);
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
-    XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir, 2*ir, 0,
+    XDrawArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir), (uint)(2*ir), 0,
              360*64);
     return;
 }
@@ -2306,7 +2306,7 @@ draw_ani_fcirc(int32 j) {
     ani_radscale(rad, &i2, &j2);
     ir = (i2 + j2) / 2;
     /*  XFillArc(display,ani_pixmap,ani_gc,i1-i2,j1-j2,2*i2,2*j2,0,360*64); */
-    XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, 2*ir, 2*ir, 0,
+    XFillArc(display, ani_pixmap, ani_gc, i1 - ir, j1 - ir, (uint)(2*ir), (uint)(2*ir), 0,
              360*64);
     return;
 }
@@ -2327,7 +2327,7 @@ draw_ani_rect(int32 j) {
         i1 = i2;
     if (j1 > j2)
         j1 = j2;
-    XDrawRectangle(display, ani_pixmap, ani_gc, i1, j1, w, h);
+    XDrawRectangle(display, ani_pixmap, ani_gc, i1, j1, (uint)w, (uint)h);
     return;
 }
 
@@ -2349,7 +2349,7 @@ draw_ani_frect(int32 j) {
     if (j1 > j2)
         j1 = j2;
 
-    XFillRectangle(display, ani_pixmap, ani_gc, i1, j1, w, h);
+    XFillRectangle(display, ani_pixmap, ani_gc, i1, j1, (uint)w, (uint)h);
     return;
 }
 
