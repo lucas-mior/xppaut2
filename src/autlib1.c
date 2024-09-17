@@ -4442,24 +4442,6 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *p0;
     double *p1;
     doublecomplex *ev;
-    ups = malloc(sizeof(*ups)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    upoldp =
-        malloc(sizeof(*upoldp)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    uoldps =
-        malloc(sizeof(*uoldps)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    udotps =
-        malloc(sizeof(*udotps)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    dups = malloc(sizeof(*dups)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    fa = malloc(sizeof(*fa)*(iap->ntst + 1)*(iap->ndim*iap->ncol));
-    dtm = malloc(sizeof(*dtm)*(iap->ntst + 1));
-    tm = malloc(sizeof(*tm)*(iap->ntst + 1));
-    fc = malloc(sizeof(*fc)*(iap->nbc + iap->nint + 1));
-    p0 = malloc(sizeof(*(p0))*(iap->ndim)*(iap->ndim));
-    p1 = malloc(sizeof(*(p1))*(iap->ndim)*(iap->ndim));
-    ev = malloc(sizeof(*ev)*(iap->ndim));
-    uzr = malloc(sizeof(*uzr)*(iap->nuzr));
-
-    /* INITIALIZE COMPUTATION OF BRANCH */
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -4473,6 +4455,22 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     isw = iap->isw;
     nuzr = iap->nuzr;
     itpst = iap->itpst;
+
+    ups = malloc(sizeof(*ups)*(ntst + 1)*(ndim*ncol));
+    upoldp = malloc(sizeof(*upoldp)*(ntst + 1)*(ndim*ncol));
+    uoldps = malloc(sizeof(*uoldps)*(ntst + 1)*(ndim*ncol));
+    udotps = malloc(sizeof(*udotps)*(ntst + 1)*(ndim*ncol));
+    dups = malloc(sizeof(*dups)*(ntst + 1)*(ndim*ncol));
+    fa = malloc(sizeof(*fa)*(ntst + 1)*(ndim*ncol));
+    dtm = malloc(sizeof(*dtm)*(ntst + 1));
+    tm = malloc(sizeof(*tm)*(ntst + 1));
+    fc = malloc(sizeof(*fc)*(iap->nbc + iap->nint + 1));
+    p0 = malloc(sizeof(*(p0))*(ndim)*(ndim));
+    p1 = malloc(sizeof(*(p1))*(ndim)*(ndim));
+    ev = malloc(sizeof(*ev)*(ndim));
+    uzr = malloc(sizeof(*uzr)*(nuzr));
+
+    /* INITIALIZE COMPUTATION OF BRANCH */
 
     ds = rap->ds;
 
