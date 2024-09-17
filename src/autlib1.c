@@ -3323,8 +3323,8 @@ interp(iap_type *iap, rap_type *rap, int64 *ndim, int64 *n, int64 *nc,
 
     int64 n1m1, ncp1;
 
-    w = malloc(sizeof(*w)*(*nc + 1));
-    x = malloc(sizeof(*x)*(*nc + 1));
+    w = malloc(sizeof(*w)*(usize)(*nc + 1));
+    x = malloc(sizeof(*x)*(usize)(*nc + 1));
 
     /* Finds interpolant (TM(.) , UPS(.) ) on new mesh TM1. */
 
