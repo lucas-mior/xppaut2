@@ -5179,7 +5179,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *udotps, double *upoldp, double *dups, double *tm, double *dtm,
        doublecomplex *ev, int64 *nodir, double *thl, double *thu) {
     int64 ups_dim1, uoldps_dim1;
-    int64 ndim, ncol, nfpr, ntst, i, j;
+    int64 ndim, ncol, nfpr, ntst, j;
     int64 ntsrs;
     int64 ncolrs;
     int64 ntst_fort8, ncol_fort8, junk;
@@ -5256,7 +5256,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
         tm_new = malloc(sizeof(*tm_new)*(*ndxloc));
         dtm_new = malloc(sizeof(*dtm_new)*(*ndxloc));
 
-        for (i = 0; i < *ndxloc; i++) {
+        for (int32 i = 0; i < *ndxloc; i++) {
             dtm_new[i] = 0.0;
             tm_new[i] = 0.0;
             for (j = 0; j < ndim*ncol_used; j++) {
@@ -5283,7 +5283,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                   ndxloc, ups_new, udotps_new);
         }
         /* Copy from the temporary large arrays into the normal arrays. */
-        for (i = 0; i < ntst + 1; i++) {
+        for (int32 i = 0; i < ntst + 1; i++) {
             dtm[-1 + i + 1] = dtm_new[i];
             tm[-1 + i + 1] = tm_new[i];
             for (j = 0; j < ndim*ncol; j++) {
@@ -5302,12 +5302,12 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* Set UOLDPS, RLOLD. */
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int32 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
         rlold[i] = rlcur[i];
     }
 
-    for (i = 0; i < ndim*ncol; ++i) {
+    for (int32 i = 0; i < ndim*ncol; ++i) {
         for (j = 0; j < ntst + 1; ++j) {
             ARRAY2D(uoldps, j, i) = ARRAY2D(ups, j, i);
         }
