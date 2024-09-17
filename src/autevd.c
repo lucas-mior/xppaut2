@@ -136,7 +136,6 @@ get_bif_type(int32 ibr, int32 ntot) {
         type = UEQ;
     if (ibr > 0 && ntot < 0)
         type = SEQ;
-    /* if(lab>0)type=SPECIAL; */
     return type;
 }
 
