@@ -2090,7 +2090,7 @@ void
 set_ani_thick(int32 t) {
     if (t < 0)
         t = 0;
-    XSetLineAttributes(display, ani_gc, t, LineSolid, CapButt, JoinRound);
+    XSetLineAttributes(display, ani_gc, (uint)t, LineSolid, CapButt, JoinRound);
     return;
 }
 
