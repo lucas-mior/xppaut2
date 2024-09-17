@@ -5580,9 +5580,6 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 int32
 setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
     int64 ups_dim1;
-
-    int64 i;
-
     int64 nbc;
 
     /* Initialization for rotations */
@@ -5593,7 +5590,7 @@ setrtn(iap_type *iap, int64 *ntst, int64 *ndxloc, double *ups, double *par) {
     nbc = iap->nbc;
 
     global_rotations.irtn = 0;
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         double tmp = (ARRAY2D(ups, *ntst, i) - ARRAY2D(ups, 0, i)) / pi(2.0);
         global_rotations.nrtn[i] = i_dnnt(&tmp);
 
