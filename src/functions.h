@@ -228,7 +228,7 @@ typedef struct {
     double tstart, tend, zmin, zmax, dt;
     char xtitle[256], ytitle[256], filename[256], bottom[256];
     int32 type;
-} APLOT;
+} ArrayPlot;
 
 extern int32 aplot_range;
 
@@ -239,27 +239,27 @@ void draw_one_array_plot(char *);
 void gif_aplot_all(char *, int32);
 void optimize_aplot(int32 *plist);
 void make_my_aplot(char *name);
-void scale_aplot(APLOT *ap, double *zmax, double *zmin);
-void init_arrayplot(APLOT *ap);
+void scale_aplot(ArrayPlot *ap, double *zmax, double *zmin);
+void init_arrayplot(ArrayPlot *ap);
 void expose_aplot(Window w);
 void do_array_plot_events(XEvent ev);
-void wborder(Window w, int32 i, APLOT ap);
+void wborder(Window w, int32 i, ArrayPlot ap);
 void destroy_aplot(void);
 void init_my_aplot(void);
-void create_arrayplot(APLOT *ap, char *wname, char *iname);
-void print_aplot(APLOT *ap);
+void create_arrayplot(ArrayPlot *ap, char *wname, char *iname);
+void print_aplot(ArrayPlot *ap);
 void apbutton(Window w);
-void draw_scale(APLOT ap);
-void draw_aplot(APLOT ap);
+void draw_scale(ArrayPlot ap);
+void draw_aplot(ArrayPlot ap);
 void edit_aplot(void);
 void get_root(char *s, char *sroot, int32 *num);
-void reset_aplot_axes(APLOT ap);
+void reset_aplot_axes(ArrayPlot ap);
 void dump_aplot(FILE *fp, int32 f);
-int32 editaplot(APLOT *ap);
+int32 editaplot(ArrayPlot *ap);
 void gif_aplot(void);
-void grab_aplot_screen(APLOT ap);
-void redraw_aplot(APLOT ap);
-void display_aplot(Window w, APLOT ap);
+void grab_aplot_screen(ArrayPlot ap);
+void redraw_aplot(ArrayPlot ap);
+void display_aplot(Window w, ArrayPlot ap);
 
 #endif
 

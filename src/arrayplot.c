@@ -67,7 +67,7 @@ int32 aplot_range;
 static int32 aplot_range_count = 0;
 static char aplot_range_stem[256] = "rangearray";
 static int32 aplot_still = 1, aplot_tag = 0;
-static APLOT aplot;
+static ArrayPlot aplot;
 extern Window draw_win;
 static int32 plot3d_auto_redraw = 0;
 static FILE *ap_fp;
@@ -163,7 +163,7 @@ make_my_aplot(char *name) {
 }
 
 void
-scale_aplot(APLOT *ap, double *zmax, double *zmin) {
+scale_aplot(ArrayPlot *ap, double *zmax, double *zmin) {
     int32 i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
@@ -192,7 +192,7 @@ scale_aplot(APLOT *ap, double *zmax, double *zmin) {
 }
 
 void
-init_arrayplot(APLOT *ap) {
+init_arrayplot(ArrayPlot *ap) {
     ap->height = 400;
     ap->width = 400;
     ap->zmin = 0.0;
@@ -274,7 +274,7 @@ do_array_plot_events(XEvent ev) {
 }
 
 void
-wborder(Window w, int32 i, APLOT ap) {
+wborder(Window w, int32 i, ArrayPlot ap) {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
      */
     if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
@@ -299,7 +299,7 @@ init_my_aplot(void) {
 }
 
 void
-create_arrayplot(APLOT *ap, char *wname, char *iname) {
+create_arrayplot(ArrayPlot *ap, char *wname, char *iname) {
     Window base;
     int32 width, height;
     uint32 valuemask = 0;
@@ -351,7 +351,7 @@ create_arrayplot(APLOT *ap, char *wname, char *iname) {
 }
 
 void
-print_aplot(APLOT *ap) {
+print_aplot(ArrayPlot *ap) {
     double tlo, thi;
     int32 status, errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
@@ -420,7 +420,7 @@ apbutton(Window w) {
 }
 
 void
-draw_scale(APLOT ap) {
+draw_scale(ArrayPlot ap) {
     int32 i, y;
     Window w = ap.wscale;
     for (i = 0; i < color_total; i++) {
@@ -432,7 +432,7 @@ draw_scale(APLOT ap) {
 }
 
 void
-draw_aplot(APLOT ap) {
+draw_aplot(ArrayPlot ap) {
     if (plot3d_auto_redraw != 1)
         return;
     redraw_aplot(ap);
@@ -476,7 +476,7 @@ get_root(char *s, char *sroot, int32 *num) {
 }
 
 void
-reset_aplot_axes(APLOT ap) {
+reset_aplot_axes(ArrayPlot ap) {
     char bob[200];
     char sroot[100];
     int32 num;
@@ -510,7 +510,7 @@ dump_aplot(FILE *fp, int32 f) {
 }
 
 int32
-editaplot(APLOT *ap) {
+editaplot(ArrayPlot *ap) {
     int32 i, status;
     double zmax, zmin;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
@@ -619,7 +619,7 @@ gif_aplot(void) {
 }
 
 void
-grab_aplot_screen(APLOT ap) {
+grab_aplot_screen(ArrayPlot ap) {
     Window temp = draw_win;
     draw_win = ap.wplot;
     if (film_clip() == 0)
@@ -629,7 +629,7 @@ grab_aplot_screen(APLOT ap) {
 }
 
 void
-redraw_aplot(APLOT ap) {
+redraw_aplot(ArrayPlot ap) {
     int32 i, j;
     Window w = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
@@ -717,7 +717,7 @@ set_acolor(int32 col) {
 }
 
 void
-display_aplot(Window w, APLOT ap) {
+display_aplot(Window w, ArrayPlot ap) {
     char bob[200];
 
     if (w == ap.wplot) {
