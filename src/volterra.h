@@ -1,5 +1,5 @@
-#ifndef volterra_h
-#define volterra_h
+#ifndef VOLTERRA_H
+#define VOLTERRA_H
 #include "integers.h"
 
 typedef struct {
