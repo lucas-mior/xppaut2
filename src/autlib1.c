@@ -5853,7 +5853,7 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     int64 ndim, ncol, nfpr, ifst, nllv, ntop;
     double rdsz;
-    int64 ntot, ntst, i, j;
+    int64 ntot, ntst, j;
 
     int64 iid, ibr;
 
@@ -5886,16 +5886,16 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
            rlold, rldot, ndxloc, ups, dups, uoldps, udotps, upoldp, dtm, fa, fc,
            p0, p1, thl, thu);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int32 i = 0; i < ndim; ++i) {
         ARRAY2D(udotps, ntst, i) = fc[i];
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int32 i = 0; i < nfpr; ++i) {
         rldot[i] = fc[ndim + i];
     }
 
     for (j = 0; j < ntst; ++j) {
-        for (i = 0; i < ndim*ncol; ++i) {
+        for (int32 i = 0; i < ndim*ncol; ++i) {
             ARRAY2D(udotps, j, i) = ARRAY2D(fa, j, i);
         }
     }
