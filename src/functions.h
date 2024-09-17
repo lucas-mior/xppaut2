@@ -2363,10 +2363,6 @@ void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
 #ifndef FFTN_H
 #define FFTN_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern void fft_free(void);
 
 /* double precision routine */
@@ -2376,10 +2372,6 @@ extern int32 fftn(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
 /* double precision routine */
 extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
                    double /* Im */[], int32 /* isign */, double /* scaling */);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _FFTN_H */
 
