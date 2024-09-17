@@ -157,8 +157,7 @@ create_transpose(void) {
 
 void
 alloc_h_stuff(void) {
-    int32 i;
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         coup_fun[i] = malloc(100*sizeof(*coup_fun));
         coup_string[i] = malloc(80);
         strcpy(coup_string[i], "0");
@@ -257,7 +256,7 @@ adjoint_parameters(void) {
 
 void
 new_h_fun(int32 silent) {
-    int32 i, n = 2;
+    int32 n = 2;
     if (!ADJ_HERE) {
         err_msg("Must compute adjoint first!");
         return;
@@ -284,9 +283,9 @@ new_h_fun(int32 silent) {
     h_len = storind;
     data_back();
     my_h = malloc(sizeof(*my_h)*(size_t)(NEQ + 1));
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         my_h[i] = malloc(sizeof(*my_h)*(size_t)h_len);
-    for (i = n; i <= NEQ; i++)
+    for (int32 i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
     if (make_h(storage, my_adj, h_len, NODE, silent)) {
         H_HERE = 1;
@@ -299,12 +298,11 @@ new_h_fun(int32 silent) {
 void
 dump_h_stuff(FILE *fp, int32 f) {
     char bob[256];
-    int32 i;
     if (f == READEM)
         fgets(bob, 255, fp);
     else
         fprintf(fp, "# Coupling stuff for H funs\n");
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         io_string(coup_string[i], 79, fp, f);
     return;
 }
@@ -368,19 +366,19 @@ bye:
 
 void
 new_adjoint(void) {
-    int32 i, n = NODE + 1;
+    int32 n = NODE + 1;
     if (ADJ_HERE) {
         data_back();
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             free(my_adj[i]);
         free(my_adj);
         ADJ_HERE = 0;
     }
     adj_len = storind;
     my_adj = malloc((size_t)(NEQ + 1)*sizeof(*my_adj));
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         my_adj[i] = malloc(sizeof(*my_adj)*(size_t)adj_len);
-    for (i = n; i <= NEQ; i++)
+    for (int32 i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
     if (adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
                 ADJ_MAXIT, NODE)) {
@@ -437,7 +435,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
     double t, prod, del;
-    int32 i, j, k, l, k2, rval = 0;
+    int32 j, k, l, k2, rval = 0;
     int32 n2 = node*node;
     double error;
 
@@ -448,7 +446,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     fdev = malloc((size_t)node*sizeof(*fdev));
     jac = malloc((size_t)n2*sizeof(*jac));
 
-    for (i = 0; i < n2; i++) {
+    for (int32 i = 0; i < n2; i++) {
         jac[i] = malloc((size_t)nt*sizeof(*jac));
         if (jac[i] == NULL) {
             err_msg("Insufficient storage");
@@ -460,7 +458,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
           transpose time reversed jacobian  --  this is floatcomplex !! */
     for (k = 0; k < nt; k++) {
         l = nt - 1 - k; /* reverse the limit cycle  */
-        for (i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++)
             yold[i] = (double)orbit[i + 1][l];
         rhs(0.0, yold, fold, node);
         for (j = 0; j < node; j++) {
@@ -472,19 +470,19 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
             yold[j] += del;
             rhs(0.0, yold, fdev, node);
             yold[j] = ytemp;
-            for (i = 0; i < node; i++)
+            for (int32 i = 0; i < node; i++)
                 jac[i + node*j][k] = (fdev[i] - fold[i]) / del;
         }
     }
 
     /* now we iterate to get a good adjoint using implicit Euler's method */
     ytemp = 0.0;
-    for (i = 0; i < node; i++) {
+    for (int32 i = 0; i < node; i++) {
         yold[i] = 1. + .01*(ndrand48() - .5); /* random initial data */
 
         ytemp += fabs(yold[i]);
     }
-    for (i = 0; i < node; i++) {
+    for (int32 i = 0; i < node; i++) {
         yold[i] = yold[i] / ytemp;
         fdev[i] = yold[i];
     }
@@ -505,7 +503,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         ytemp = 0.0;
         error = 0.0;
 
-        for (i = 0; i < node; i++) {
+        for (int32 i = 0; i < node; i++) {
             if (fabs(yold[i]) > BOUND) {
                 rval = 0;
                 err_msg("Out of bounds");
@@ -515,7 +513,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
             ytemp += fabs(yold[i]);
         }
 
-        for (i = 0; i < node; i++) {
+        for (int32 i = 0; i < node; i++) {
             yold[i] = yold[i] / ytemp;
             fdev[i] = yold[i];
         }
@@ -530,7 +528,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     for (k = 0; k < nt; k++) {
         l = nt - k - 1;
         t += dt;
-        for (i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++)
             fdev[i] = (double)orbit[i + 1][l];
         rhs(0.0, fdev, yprime, node);
         for (j = 0; j < node; j++) {
@@ -562,7 +560,7 @@ bye:
     free(yold);
     free(fold);
     free(fdev);
-    for (i = 0; i < n2; i++)
+    for (int32 i = 0; i < n2; i++)
         free(jac[i]);
     free(jac);
     return rval;
