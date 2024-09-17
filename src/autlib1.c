@@ -5256,7 +5256,6 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
         tm_new = malloc(sizeof(*tm_new)*(*ndxloc));
         dtm_new = malloc(sizeof(*dtm_new)*(*ndxloc));
 
-        /*initialize arrays*/
         for (i = 0; i < *ndxloc; i++) {
             dtm_new[i] = 0.0;
             tm_new[i] = 0.0;
