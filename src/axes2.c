@@ -363,11 +363,11 @@ draw_ytics(char *s1, double start, double incr, double end) {
         fprintf(svgfile,
                 "\n      <text class=\"xppyaxislabelh\" text-anchor=\"end\" "
                 "x=\"%d\"  y=\"%d\"\n",
-                DLeft - HChar, yt + 2*s * VChar);
+                DLeft - HChar, yt + 2*s*VChar);
         fprintf(svgfile, "      >%s</text>\n", s1);
 
     } else {
-        put_text(DLeft - HChar, yt + 2*s * VChar, s1);
+        put_text(DLeft - HChar, yt + 2*s*VChar, s1);
     }
     return;
 }

@@ -77,7 +77,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     irs = x_auto.irs;
     ilp = x_auto.ilp;
 
-    thu = *thu_pointer = malloc(sizeof(double)*8 * ndim);
+    thu = *thu_pointer = malloc(sizeof(double)*8*ndim);
 
     for (int64 i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;

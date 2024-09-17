@@ -712,7 +712,7 @@ l70:
     s = fabs(h[en - 1 + (na - 1)*n]) + fabs(h[na - 1 + (enm2 - 1)*n]);
     x = 0.75*s;
     y = x;
-    w = -0.4375*s * s;
+    w = -0.4375*s*s;
 l130:
     its++; /*its = its++; This may be undefined. Use its++ instead.*/
     for (mm = l; mm <= enm2; mm++) {
