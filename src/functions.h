@@ -74,14 +74,14 @@ typedef struct { /* tasks have the form {name1=formula1;name2=formula2;...} */
     int32 *comrhs[MAX_GEVENTS];
     int32 runnow;
     int32 n; /* number of tasks <= MAX_GEVENTS */
-} GRAB_TASK;
+} GrabTask;
 
 typedef struct {
     int32 ok;
     double zx, zy, tol;
     int32 *x, *y;
-    GRAB_TASK start, end;
-} ANI_GRAB;
+    GrabTask start, end;
+} AniGrab;
 
 /***************  End of grabber stuff  in header **************/
 
@@ -91,7 +91,7 @@ typedef struct {
     char root[100];
     char filter[256];
     int32 aviflag, filflag;
-} MPEG_SAVE;
+} MpegSave;
 
 typedef struct {
     int32 n;

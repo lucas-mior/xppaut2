@@ -96,7 +96,7 @@ typedef struct {
 
 static ANI_MOTION_INFO ami;
 
-static ANI_GRAB ani_grab[MAX_ANI_GRAB];
+static AniGrab ani_grab[MAX_ANI_GRAB];
 static int32 n_ani_grab = 0;
 static int32 show_grab_points = 0;
 static int32 ani_grab_flag = 0;
@@ -135,7 +135,7 @@ static double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
 static double ani_lastx, ani_lasty;
 static Pixmap ani_pixmap;
 
-static MPEG_SAVE mpeg;
+static MpegSave mpeg;
 
 static ANI_COM my_ani[MAX_ANI_LINES];
 

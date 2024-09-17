@@ -18,7 +18,7 @@ typedef struct {
     char root[100];
     char filter[256];
     int32 aviflag, filflag;
-} MPEG_SAVE;
+} MpegSave;
 
 typedef struct {
     int32 n;
