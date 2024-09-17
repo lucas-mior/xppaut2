@@ -13,8 +13,7 @@ double drand48();
 #define Tpi 6.283185307
 
 double
-norm() {
-
+norm(void) {
     double fac, r, v1, v2;
     if (BoxMullerFlag == 0) {
         do {
@@ -73,9 +72,11 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
     return (ssum / (double)ntrials);
 }
 
+void
 efm(double *in, double *out, int nin, int nout, double *var, double *con) {
     double S = in[0], ibar = in[1], isig = in[2], tau = in[3];
     double dt = .05;
     int ntrials = 100, niter = 200, nstart = 50, n = 100;
     out[0] = onerun(dt, n, ntrials, niter, nstart, ibar, isig, S, tau);
+    return;
 }
