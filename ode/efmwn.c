@@ -1,13 +1,15 @@
 /* equation free modeling
-example is due to Carlo Laing */
+ * example is due to Carlo Laing */
+
 #include <math.h>
+#include <stlib.h>
 #define MAXN 500
 
-double x[MAXN], s[MAXN];
+double x[MAXN];
+double s[MAXN];
 
 double BoxMuller;
 int BoxMullerFlag;
-double drand48();
 #define Tpi 6.283185307
 
 double
