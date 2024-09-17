@@ -767,5 +767,5 @@ hrw_liapunov(double *liap, int32 batch, double eps) {
         err_msg(bob);
     }
 
-    return 1; /*  success !! */
+    return 1;
 }
