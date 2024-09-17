@@ -3229,14 +3229,14 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     int64 nrwnew;
     int64 ips, isw;
 
-    double *tint, *uint;
+    double *tint, *uint1;
     double *tm2;
     int64 *itm;
 
-    uint = malloc(sizeof(*uint)*(*ndxloc)*(iap->ndim*iap->ncol));
-    tint = malloc(sizeof(*tint)*(*ndxloc));
-    tm2 = malloc(sizeof(*(tm2))*(*ndxloc));
-    itm = malloc(sizeof(*itm)*(*ndxloc));
+    uint1 = malloc(sizeof(*uint1)*(usize)(*ndxloc)*(usize)(iap->ndim*iap->ncol));
+    tint = malloc(sizeof(*tint)*(usize)(*ndxloc));
+    tm2 = malloc(sizeof(*(tm2))*(usize)(*ndxloc));
+    itm = malloc(sizeof(*itm)*(usize)(*ndxloc));
 
     /* Adapts the distribution of the mesh points so that the increase of the */
     /* monotone function EQDF becomes approximately equidistributed over the */
@@ -3257,7 +3257,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
 
     for (j = 0; j < (*ndxloc); ++j) {
         for (i = 0; i < (iap->ndim*iap->ncol); ++i) {
-            uint[j + i*(*ndxloc)] = 0.;
+            uint1[j + i*(*ndxloc)] = 0.;
         }
     }
 
@@ -3276,20 +3276,20 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     /* Replace UPS by its interpolant on the new mesh : */
 
     interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, ups, &nnewp1, ncnew,
-           tint, uint, tm2, itm);
+           tint, uint1, tm2, itm);
     for (j = 0; j < nnewp1; ++j) {
         for (i = 0; i < nrwnew; ++i) {
-            ARRAY2D(ups, j, i) = uint[j + i*(*ndxloc)];
+            ARRAY2D(ups, j, i) = uint1[j + i*(*ndxloc)];
         }
     }
 
     /* Replace VPS by its interpolant on the new mesh : */
 
     interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, vps, &nnewp1, ncnew,
-           tint, uint, tm2, itm);
+           tint, uint1, tm2, itm);
     for (j = 0; j < nnewp1; ++j) {
         for (i = 0; i < nrwnew; ++i) {
-            ARRAY2D(vps, j, i) = uint[j + i*(*ndxloc)];
+            ARRAY2D(vps, j, i) = uint1[j + i*(*ndxloc)];
         }
     }
 
@@ -3301,7 +3301,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
         tm[j + 1] = tint[j + 1];
     }
 
-    free(uint);
+    free(uint1);
     free(tint);
     free(tm2);
     free(itm);
