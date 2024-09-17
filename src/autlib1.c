@@ -5338,7 +5338,7 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     double temp[7];
     int64 nfpr;
 
-    int64 i, j, k;
+    int64 i, k;
 
     int64 found;
     int64 icprs[NPARX], nparr, nskip;
@@ -5391,7 +5391,7 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
         ndimrd = ndimrs;
     }
 
-    for (j = 0; j < *ntsrs; ++j) {
+    for (int32 j = 0; j < *ntsrs; ++j) {
         for (i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndimrd - 1;
@@ -5428,7 +5428,7 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
 
     /* Read U-dot (deriv. with respect to arclength along solution branch). */
 
-    for (j = 0; j < *ntsrs; ++j) {
+    for (int32 j = 0; j < *ntsrs; ++j) {
         for (i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndimrd - 1;
