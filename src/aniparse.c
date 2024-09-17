@@ -2370,8 +2370,8 @@ draw_ani_ellip(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_rad2scale(x2, y2, &i2, &j2);
-    XDrawArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2*i2, 2*j2, 0,
-             360*64);
+    XDrawArc(display, ani_pixmap, ani_gc,
+             i1 - i2, j1 - j2, (uint)(2*i2), (uint)(2*j2), 0, 360*64);
     return;
 }
 
@@ -2384,8 +2384,8 @@ draw_ani_fellip(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_rad2scale(x2, y2, &i2, &j2);
-    XFillArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, 2*i2, 2*j2, 0,
-             360*64);
+    XFillArc(display, ani_pixmap, ani_gc,
+             i1 - i2, j1 - j2, (uint)(2*i2), (uint)(2*j2), 0, 360*64);
     return;
 }
 
