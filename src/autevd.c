@@ -160,14 +160,14 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
 
     if (DiagFlag == 0) {
         /* start_diagram(*ndim); */
-        edit_start(ibrs, ntots, iap->itp, lab, iap->nfpr, *a, uhigh, ulow, u0,
-                   ubar, par, per, iap->ndim, icp1, icp2, icp3, icp4, my_ev.evr,
+        edit_start((int32)ibrs, (int32)ntots, (int32)iap->itp, lab, (int32)iap->nfpr, *a, uhigh, ulow, u0,
+                   ubar, par, per, (int32)iap->ndim, icp1, icp2, icp3, icp4, my_ev.evr,
                    my_ev.evi);
         DiagFlag = 1;
         return;
     }
-    add_diagram(ibrs, ntots, iap->itp, lab, iap->nfpr, *a, uhigh, ulow, u0,
-                ubar, par, per, iap->ndim, icp1, icp2, icp3, icp4, AutoTwoParam,
+    add_diagram((int32)ibrs, (int32)ntots, (int32)iap->itp, lab, (int32)iap->nfpr, *a, uhigh, ulow, u0,
+                ubar, par, per, (int32)iap->ndim, icp1, icp2, icp3, icp4, AutoTwoParam,
                 my_ev.evr, my_ev.evi);
     return;
 }
