@@ -3497,8 +3497,8 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
     (void)iap;
     (void)rap;
 
-    hd = malloc(sizeof(*hd)*(*ntst + 1)*(*ndim**ncol));
-    wh = malloc(sizeof(*wh)*(*ncol + 1));
+    hd = malloc(sizeof(*hd)*(usize)(*ntst + 1)*(usize)(*ndim**ncol));
+    wh = malloc(sizeof(*wh)*(usize)(*ncol + 1));
 
     /* Compute approximation to NCOL-th derivative : */
     ups_dim1 = *ndxloc;
@@ -3592,11 +3592,11 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     double *wi, *wr, *fv1;
     int64 *iv1, ibr;
 
-    z__ = malloc(sizeof(*z__)*(iap->ndim)*(iap->ndim));
-    wi = malloc(sizeof(*wi)*(iap->ndim));
-    wr = malloc(sizeof(*wr)*(iap->ndim));
-    fv1 = malloc(sizeof(*(fv1))*(iap->ndim));
-    iv1 = malloc(sizeof(*(iv1))*(iap->ndim));
+    z__ = malloc(sizeof(*z__)*(usize)(iap->ndim)*(usize)(iap->ndim));
+    wi = malloc(sizeof(*wi)*(usize)(iap->ndim));
+    wr = malloc(sizeof(*wr)*(usize)(iap->ndim));
+    fv1 = malloc(sizeof(*(fv1))*(usize)(iap->ndim));
+    iv1 = malloc(sizeof(*(iv1))*(usize)(iap->ndim));
 
     /* This subroutine uses the EISPACK subroutine RG to compute the */
     /* eigenvalues of the general real matrix A. */
@@ -3646,8 +3646,8 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     int64 jjp1;
 
     int64 *ir, *ic;
-    ir = malloc(sizeof(*ir)*(n));
-    ic = malloc(sizeof(*ic)*(n));
+    ir = malloc(sizeof(*ir)*(size_t)n);
+    ic = malloc(sizeof(*ic)*(size_t)n);
 
     /* Finds a null-vector of a singular matrix A. */
     /* The null space of A is assumed to be K-dimensional. */
@@ -3676,7 +3676,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
         ipiv = jj;
         jpiv = jj;
         piv = 0.;
-        for (int32 i = jj; i < n; ++i) {
+        for (int64 i = jj; i < n; ++i) {
             for (j = jj; j < n; ++j) {
                 p = fabs(ARRAY2D(a, ir[i], ic[j]));
                 if (p > piv) {
@@ -3706,7 +3706,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
         for (l = jjp1; l < n; ++l) {
             rm = ARRAY2D(a, ir[l], ic[jj]) / ARRAY2D(a, ir[jj], ic[jj]);
             if (rm != 0.) {
-                for (int32 i = jjp1; i < n; ++i) {
+                for (int64 i = jjp1; i < n; ++i) {
                     ARRAY2D(a, ir[l], ic[i]) -= rm*ARRAY2D(a, ir[jj], ic[i]);
                 }
             }
@@ -3720,7 +3720,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
     }
 
     for (i1 = 0; i1 < nmk; ++i1) {
-        int32 i = nmk - i1 - 1;
+        int64 i = nmk - i1 - 1;
         sm = 0.;
         ip1 = i + 1;
         for (j = ip1; j < n; ++j) {
@@ -3782,8 +3782,8 @@ ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
     int64 jjp1;
 
     int64 *ic, *ir;
-    ic = malloc(sizeof(*ic)*(n));
-    ir = malloc(sizeof(*ir)*(n));
+    ic = malloc(sizeof(*ic)*(usize)n);
+    ir = malloc(sizeof(*ir)*(usize)n);
 
     /* Solves the linear system  A U = F by Gauss elimination */
     /* with complete pivoting. */
@@ -4153,7 +4153,7 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
     double sj, *wi;
     int64 jp1;
 
-    wi = malloc(sizeof(*wi)*(iap->ncol + 1));
+    wi = malloc(sizeof(*wi)*(usize)(iap->ncol + 1));
 
     /* Computes the L2 inner product of UPS and VPS. */
     /* (Using the first NDIM1 components only.) */
@@ -4217,7 +4217,7 @@ rintg(iap_type *iap, int64 *ndxloc, int64 ic, double *ups, double *dtm) {
     double sj, *wi;
     int64 jp1;
 
-    wi = malloc(sizeof(*wi)*(iap->ncol + 1));
+    wi = malloc(sizeof(*wi)*(usize)(iap->ncol + 1));
 
     /* Computes the integral of the IC'th component of UPS. */
 
@@ -4262,7 +4262,7 @@ rnrm2(iap_type *iap, int64 *ndxloc, int64 *ic, double *ups, double *dtm) {
     double sj, *wi;
     int64 jp1;
 
-    wi = malloc(sizeof(*wi)*(iap->ncol + 1));
+    wi = malloc(sizeof(*wi)*(usize)(iap->ncol + 1));
 
     /* Computes the L2-norm of the IC'th component of UPS. */
 
