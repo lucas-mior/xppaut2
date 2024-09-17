@@ -1712,7 +1712,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         }
     }
     /* here is where to put send_eigenvalue   */
-    send_eigen(ibr, ntot + 1, ndim, (doublecomplex *)&ev[0]);
+    send_eigen((int32)ibr, (int32)ntot + 1, (int32)ndim, (doublecomplex *)&ev[0]);
     /* Order the eigenvalues by real part. */
 
     for (int32 i = 0; i < ndm - 1; ++i) {
@@ -1797,14 +1797,14 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
                 "Stable:%3li\n",
                 abs(ibr), ntop, nins);
         if (ips == -1) {
-            for (int32 i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 doublecomplex tmp;
                 z_exp(&tmp, &ev[i]);
                 fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",
                         abs(ibr), ntop, i + 1, tmp.r, tmp.i);
             }
         } else {
-            for (int32 i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",
                         abs(ibr), ntop, i + 1, ev[i].r, ev[i].i);
             }
@@ -2041,7 +2041,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     int64 nit, mxt;
     double umx, rlm1;
 
-    u1 = malloc(sizeof(*(u1))*(iap->ndim + 1));
+    u1 = malloc(sizeof(*(u1))*(size_t)(iap->ndim + 1));
 
     /* Controls the computation of the second point on a bifurcating branch. */
     /* This point is required to lie in a hyper-plane at distance DS from the */
@@ -2580,7 +2580,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
             ntots = -ntot;
         }
     }
-    addbif(iap, ntots, iap->ibr, par, icp, labw, &amp, u, u, u, u);
+    addbif(iap, ntots, iap->ibr, par, icp, (int32)labw, &amp, u, u, u, u);
     wrline(iap, rap, par, icp, &icp[NPARX], &ibr, &ntots, &labw, &amp, u);
 
     /* Write restart information for multi-parameter analysis : */
@@ -2604,7 +2604,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     lb = *lab;
     if ((restart_flag == 1) && (lb != 0)) {
         restart_flag = 0;
-        RestartLabel = *lab;
+        RestartLabel = (int32)*lab;
     }
 
     /* Write one line of output on unit 6 and 7. */
@@ -2896,8 +2896,8 @@ genwts(int64 ncol, int64 n1, double *wt, double *wp) {
     double *xm, *zm, sum;
     int64 ncp1;
 
-    xm = malloc(sizeof(*xm)*(ncol + 1));
-    zm = malloc(sizeof(*zm)*(ncol));
+    xm = malloc(sizeof(*xm)*(size_t)(ncol + 1));
+    zm = malloc(sizeof(*zm)*(size_t)(ncol));
 
     /* Generates weights of the collocation method. The user selected */
     /* number of collocation points (ncol) must be one of { 2,...,7 }. */
