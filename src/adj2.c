@@ -92,6 +92,7 @@ do_transpose(void) {
     snprintf(values[3], sizeof(values[0]), "%d", my_trans.row0);
     snprintf(values[4], sizeof(values[0]), "%d", my_trans.nrow);
     snprintf(values[5], sizeof(values[0]), "%d", my_trans.rowskip);
+
     if (my_trans.here) {
         for (int32 i = 0; i <= my_trans.nrow; i++)
             free(my_trans.data[i]);
@@ -99,6 +100,7 @@ do_transpose(void) {
         my_trans.here = 0;
         data_back();
     }
+
     status = do_string_box(6, 6, 1, "Transpose Data", n, values, 33);
     if (status != 0) {
         find_variable(values[0], &ii);
@@ -198,6 +200,7 @@ h_back(void) {
     }
     return;
 }
+
 /*  Here is how to do the range over adjoints and h functions
     unfortunately, h functions are always computed even if you dont want them
     they will just be zeros
@@ -324,8 +327,8 @@ make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
         }
     }
     /*  formulae are fine .. lets do it ... */
-    for (j = 0; j < nt; j++) /* j is phi variable  */
-    {
+    for (j = 0; j < nt; j++) {
+        /* j is phi variable  */
         sum = 0.0;
 
         for (k = 0; k < nt; k++) {
@@ -387,9 +390,9 @@ new_adjoint(void) {
     ping();
     return;
 }
+
 /* this computes the periodic orbit and stores it in
  * the usual place  given initial data and period */
-
 void
 test_test(void) {
     double x[2];
@@ -568,11 +571,9 @@ bye:
 void
 eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
          int32 node) {
-    int32 i;
-    int32 j;
-    for (j = 0; j < node; j++) {
+    for (int32 j = 0; j < node; j++) {
         yp[j] = 0.0;
-        for (i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++)
             yp[j] = yp[j] + (jac[i + j*node][k1]*(1.0 - t) +
                              jac[i + j*node][k2]*t) *
                                 y[i];
