@@ -355,7 +355,6 @@ load_eqn(void) {
         change_directory(this_file);
         okay = make_eqn();
         return;
-
     } else {
         if (got_file == 1 && (fptr = fopen(this_file, "r")) != NULL) {
             if (std == 1)

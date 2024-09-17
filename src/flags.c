@@ -315,7 +315,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
 
         if (smin > flag[i].tstar)
             smin = flag[i].tstar;
-
     } /* run through flags */
 
     if (smin < STOL)

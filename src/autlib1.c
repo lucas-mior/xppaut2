@@ -368,7 +368,6 @@ init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     if (abs(ips) <= 1 && isw == 1) {
         /*        ** Algebraic Systems */
         nfpr = 1;
-
     } else if (ips == -2) {
         /*        ** Time integration */
         nfpr = 1;

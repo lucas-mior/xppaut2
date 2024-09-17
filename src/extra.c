@@ -153,7 +153,6 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
             return 0;
         }
         dlf.loaded = 1;
-
     } /* Ok we have a nice function */
     ((Function2)fun)(in, out, nin, nout, v, c);
     return 1;

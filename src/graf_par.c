@@ -857,7 +857,6 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
 
         MyGraph->ylo = y1 - dy / 2;
         MyGraph->yhi = y1 + dy / 2;
-
     } else {
         MyGraph->xlo = x1;
         MyGraph->ylo = y1;

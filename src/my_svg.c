@@ -668,7 +668,6 @@ special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
     if(c=='0'){
       cf=0;
       ps_fnt(cf,pssz);
-
     }
     if(c=='n'){
 

@@ -394,7 +394,6 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
     if (avromfonts[size] == 1) {
         sup = romfonts[size]->ascent;
         sub = sup / 2;
-
     } else {
         sup = small_font->ascent;
         sub = sup / 2;

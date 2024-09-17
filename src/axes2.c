@@ -365,7 +365,6 @@ draw_ytics(char *s1, double start, double incr, double end) {
                 "x=\"%d\"  y=\"%d\"\n",
                 DLeft - HChar, yt + 2*s*VChar);
         fprintf(svgfile, "      >%s</text>\n", s1);
-
     } else {
         put_text(DLeft - HChar, yt + 2*s*VChar, s1);
     }

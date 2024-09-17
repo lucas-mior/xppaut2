@@ -296,7 +296,6 @@ get_num_par(int32 ch)
         alloc_meth();
         help();
         break;
-
     } /* End num switch */
     return;
 }
