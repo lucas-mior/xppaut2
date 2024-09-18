@@ -13,7 +13,6 @@ typedef struct {
     int32 nrot[1000];
     double torper;
 } Rotchk;
-extern Rotchk blrtn;
 
 typedef struct {
     int32 exist;
@@ -68,6 +67,9 @@ typedef struct {
     int32 plot, var, icp1, icp2, icp3, icp4, icp5;
     double xmin, ymin, xmax, ymax;
 } AUTOAX;
+
+extern GRABPT grabpt;
+extern Rotchk blrtn;
 
 extern int32 TypeOfCalc;
 extern int32 SEc;

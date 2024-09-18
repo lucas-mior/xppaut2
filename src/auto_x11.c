@@ -69,8 +69,6 @@ AUTOWIN AutoW;
 
 extern BIFUR Auto;
 
-extern GRABPT grabpt;
-
 Diagram *CUR_DIAGRAM;
 
 void
