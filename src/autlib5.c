@@ -70,7 +70,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -101,7 +101,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int32 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -110,7 +110,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int32 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -127,7 +127,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int32 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         ffho(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
