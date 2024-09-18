@@ -109,14 +109,6 @@ get_data_col(int32 c) {
     return my_browser.data[c];
 }
 
-/*Excerpt from the man (Section 2) for  gettimeofday:
-"The use of the timezone structure is obsolete; the tz argument should normally
-be spec- ified as NULL.  The tz_dsttime field has never been used under Linux;
-it has  not  been and will not be supported by libc or glibc.  Each and every
-occurrence of this field in the kernel source (other than the declaration) is a
-bug."
-*/
-
 int32
 gettimenow(void) {
     struct timeval now;
