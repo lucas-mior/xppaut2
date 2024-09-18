@@ -1802,8 +1802,8 @@ prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
     double *dfdp, *dfdu;
 
-    dfdp = malloc(sizeof(*dfdp)*(*ndm)*NPARX);
-    dfdu = malloc(sizeof(*dfdu)*(*ndm)*(*ndm));
+    dfdp = malloc(sizeof(*dfdp)*(usize)((*ndm)*NPARX));
+    dfdu = malloc(sizeof(*dfdu)*(usize)((*ndm)*(*ndm)));
 
     prjctn(bound, xequib, icp, par, &imfd, &is, &itrans, ndm, dfdu, dfdp);
 
