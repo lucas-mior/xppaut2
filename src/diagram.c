@@ -14,7 +14,7 @@ extern double **storage;
 extern int32 storind;
 extern int32 NODE;
 int32 NBifs = 0;
-DIAGRAM *bifd;
+Diagram *bifd;
 
 void
 start_diagram(int32 n) {
@@ -48,7 +48,7 @@ edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
 }
 
 void
-edit_diagram(DIAGRAM *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
+edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
              int32 nfpar, double a, double *uhi, double *ulo, double *u0,
              double *ubar, double *par, double per, int32 n, int32 icp1,
              int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
@@ -90,7 +90,7 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
             double *uhi, double *ulo, double *u0, double *ubar, double *par,
             double per, int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
             int32 flag2, double *evr, double *evi) {
-    DIAGRAM *d, *dnew;
+    Diagram *d, *dnew;
 
     d = bifd;
     while (d->next != NULL) {
@@ -115,7 +115,7 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
 
 void
 kill_diagrams(void) {
-    DIAGRAM *d, *dnew;
+    Diagram *d, *dnew;
     d = bifd;
     while (d->next != NULL) { /*  Move to the end of the tree  */
         d = d->next;
@@ -151,7 +151,7 @@ kill_diagrams(void) {
 
 void
 redraw_diagram(void) {
-    DIAGRAM *d;
+    Diagram *d;
     int32 type, flag = 0;
     draw_bif_axes();
     d = bifd;
@@ -177,7 +177,7 @@ void
 write_info_out(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    DIAGRAM *d;
+    Diagram *d;
     int32 type, i;
     /*int32 flag=0
      */
@@ -243,7 +243,7 @@ write_info_out(void) {
 
 void
 load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
-    DIAGRAM *d;
+    Diagram *d;
     int32 i, j, pt;
     /*int32 flag=0;
      */
@@ -289,7 +289,7 @@ void
 write_init_data_file(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    DIAGRAM *d;
+    Diagram *d;
     int32 i;
     /*int32 flag=0;
      */
@@ -355,7 +355,7 @@ void
 write_pts(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    DIAGRAM *d;
+    Diagram *d;
     int32 type;
     /*int32 flag=0;
      */
@@ -418,7 +418,7 @@ void
 post_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    DIAGRAM *d;
+    Diagram *d;
     int32 type, flag = 0;
     int32 status;
     sprintf(filename, "auto.ps");
@@ -456,7 +456,7 @@ void
 svg_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
-    DIAGRAM *d;
+    Diagram *d;
     int32 type, flag = 0;
     int32 status;
     sprintf(filename, "auto.svg");
@@ -493,7 +493,7 @@ svg_auto(void) {
 
 void
 bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
-    DIAGRAM *d;
+    Diagram *d;
     int32 type;
 
     /*int32 flag=0;
@@ -538,7 +538,7 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
 int32
 save_diagram(FILE *fp, int32 n) {
     int32 i;
-    DIAGRAM *d;
+    Diagram *d;
     fprintf(fp, "%d\n", NBifs - 1);
     if (NBifs == 1)
         return -1;

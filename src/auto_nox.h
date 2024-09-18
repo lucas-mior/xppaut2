@@ -62,7 +62,7 @@ typedef struct diagram {
     int32 icp1, icp2, icp3, icp4, icp5, flag2;
     struct diagram *prev;
     struct diagram *next;
-} DIAGRAM;
+} Diagram;
 
 typedef struct {
     int32 plot, var, icp1, icp2, icp3, icp4, icp5;
@@ -132,7 +132,7 @@ void get_bif_sym(char *at, int32 itp);
 void info_header(int32 icp1, int32 icp2);
 void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
               double norm, double u0, double per, int32 icp1, int32 icp2);
-void traverse_out(DIAGRAM *d, int32 *ix, int32 *iy, int32 dodraw);
+void traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw);
 void do_auto_win(void);
 void load_last_plot(int32 flag);
 void keep_last_plot(int32 flag);

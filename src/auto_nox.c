@@ -128,7 +128,7 @@ ROTCHK blrtn;
 GRABPT grabpt;
 
 extern double MyData[MAX_ODE];
-extern DIAGRAM *bifd;
+extern Diagram *bifd;
 
 int32 AutoTwoParam = 0;
 int32 NAutoPar = 8;
@@ -1347,7 +1347,7 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
 }
 
 void
-traverse_out(DIAGRAM *d, int32 *ix, int32 *iy, int32 dodraw) {
+traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     double norm, per, *par, par1, par2 = 0, *evr, *evi;
     int32 pt, itp, ibr, lab, icp1, icp2;
     double x, y1, y2;

@@ -71,8 +71,8 @@ extern BIFUR Auto;
 
 extern GRABPT grabpt;
 
-extern DIAGRAM *bifd;
-DIAGRAM *CUR_DIAGRAM;
+extern Diagram *bifd;
+Diagram *CUR_DIAGRAM;
 
 void
 ALINE(int32 a, int32 b, int32 c, int32 d) {
@@ -172,7 +172,7 @@ do_auto_range(void) {
 void
 auto_get_info(int32 *n, char *pname) {
     int32 i1, i2, ibr;
-    DIAGRAM *d, *dnew;
+    Diagram *d, *dnew;
 
     if (mark_flag == 2) {
         i1 = abs(mark_ipts);
@@ -212,7 +212,7 @@ auto_set_mark(int32 i) {
 void
 find_point(int32 ibr, int32 pt) {
     int32 i;
-    DIAGRAM *d, *dnew;
+    Diagram *d, *dnew;
     if (NBifs < 2)
         return;
     d = bifd;
@@ -246,7 +246,7 @@ find_point(int32 ibr, int32 pt) {
 
 void
 traverse_diagram(void) {
-    DIAGRAM *d, *dnew, *dold;
+    Diagram *d, *dnew, *dold;
     int32 done = 0;
     int32 ix, iy, i;
     int32 lalo;

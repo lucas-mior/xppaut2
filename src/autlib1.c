@@ -2525,7 +2525,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
         iap->itp = itp;
     }
 
-    /* CHECK WHETHER LIMITS OF THE BIFURCATION DIAGRAM HAVE BEEN REACHED : */
+    /* CHECK WHETHER LIMITS OF THE BIFURCATION Diagram HAVE BEEN REACHED : */
 
     iab = abs(iplt);
 
