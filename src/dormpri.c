@@ -95,47 +95,47 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
 long
 nfcnRead(void) {
     return nfcn;
-} /* nfcnRead */
+}
 
 long
 nstepRead(void) {
     return nstep;
-} /* stepRead */
+}
 
 long
 naccptRead(void) {
     return naccpt;
-} /* naccptRead */
+}
 
 long
 nrejctRead(void) {
     return nrejct;
-} /* nrejct */
+}
 
 double
 hRead(void) {
     return hout;
-} /* hRead */
+}
 
 double
 xRead(void) {
     return xout;
-} /* xRead */
+}
 
 static double
 dormpri_sign(double a, double b) {
     return (b < 0.0) ? -fabs(a) : fabs(a);
-} /* sign */
+}
 
 static double
 min_d(double a, double b) {
     return (a < b) ? a : b;
-} /* min_d */
+}
 
 static double
 max_d(double a, double b) {
     return (a > b) ? a : b;
-} /* max_d */
+}
 
 static double
 hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
@@ -206,7 +206,7 @@ hinit(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
     h = min_d(100.0*h, min_d(h1, hmax));
 
     return dormpri_sign(h, posneg);
-} /* hinit */
+}
 
 /* core integrator */
 static int32
@@ -775,7 +775,7 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         h = hnew;
     }
 
-} /* dopcor */
+}
 
 /* front-end */
 int32
@@ -933,7 +933,7 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     if (indir)
         free(indir);
     return idid;
-} /* dop853 */
+}
 
 /* dense output function */
 double
@@ -963,7 +963,7 @@ contd8(uint32 ii, double x) {
                            s1*(rcont5[i] +
                                  s*(rcont6[i] +
                                       s1*(rcont7[i] + s*rcont8[i]))))));
-} /* contd8 */
+}
 
 /************    dopri5  ***************************/
 static double
@@ -1035,7 +1035,7 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
     h = min_d(100.0*h, min_d(h1, hmax));
 
     return dormpri_sign(h, posneg);
-} /* hinit */
+}
 
 /* core integrator */
 static int32
@@ -1337,7 +1337,7 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         h = hnew;
     }
 
-} /* dopcor5 */
+}
 
 /* front-end */
 int32
@@ -1490,7 +1490,7 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         free(indir);
 
     return idid;
-} /* dopri5 */
+}
 
 /* dense output function */
 double
@@ -1517,4 +1517,4 @@ contd5(uint32 ii, double x) {
            theta*(rcont2[i] +
                     theta1 *
                         (rcont3[i] + theta*(rcont4[i] + theta1*rcont5[i])));
-} /* contd5 */
+}
