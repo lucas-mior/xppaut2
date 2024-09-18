@@ -647,19 +647,15 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
 
 int32
 setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
-    int64 fa_dim1;
+    int64 fa_dim1 = *nra;
 
-    int64 i, j;
-
-    fa_dim1 = *nra;
-
-    for (i = 0; i < *na; ++i) {
-        for (j = 0; j < *nra; ++j) {
+    for (int64 i = 0; i < *na; ++i) {
+        for (int64 j = 0; j < *nra; ++j) {
             ARRAY2D(fa, j, i) = 0.;
         }
     }
 
-    for (i = 0; i < *nrc; ++i) {
+    for (int64 i = 0; i < *nrc; ++i) {
         fc[i] = 0.;
     }
 
