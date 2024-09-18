@@ -2666,7 +2666,6 @@ load_auto_numerics(FILE *fp) {
         fscanf(fp, "%lg %ld\n", &outperiod[i], &UzrPar[i]);
         Auto.period[i] = outperiod[i];
         Auto.uzrpar[i] = UzrPar[i];
-        /*    printf("%g %d\n",Auto.period[i],Auto.uzrpar[i]); */
     }
 
     fscanf(fp, "%d %d %d \n", &Auto.ntst, &Auto.nmx, &Auto.npr);
