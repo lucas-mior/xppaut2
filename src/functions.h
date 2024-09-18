@@ -314,6 +314,8 @@ typedef struct {
     Window info, param, file, abort, stab, hint, kill;
 } AUTOWIN;
 
+extern int32 AutoRedrawFlag;
+
 void ALINE(int32 a, int32 b, int32 c, int32 d);
 void DLINE(double a, double b, double c, double d);
 void ATEXT(int32 a, int32 b, char *c);
