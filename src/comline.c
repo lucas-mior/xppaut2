@@ -69,9 +69,9 @@ static char parfilename[XPP_MAX_NAME];
 static char icfilename[XPP_MAX_NAME];
 char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
-char readsetfile[XPP_MAX_NAME];
+static char readsetfile[XPP_MAX_NAME];
 static int32 externaloptionsflag = 0;
-char externaloptionsstring[1024];
+static char externaloptionsstring[1024];
 int32 NincludedFiles = 0;
 extern char UserBlack[8];
 extern char UserWhite[8];
@@ -98,7 +98,7 @@ static int32 select_intern_sets = 0;
 extern int32 Nintern_set;
 int32 Nintern_2_use = 0;
 
-SET_NAME *sets2use, *setsNOTuse;
+static SET_NAME *sets2use, *setsNOTuse;
 
 extern INTERN_SET intern_set[MAX_INTERN_SET];
 
