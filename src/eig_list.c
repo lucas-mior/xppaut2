@@ -274,11 +274,11 @@ resize_eq_list(Window win) {
     if (win != eq_list.base)
         return;
     get_new_size(win, &w, &h);
-    nlines = (h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
+    nlines = ((int32)h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
     eq_list.nlines = nlines;
     XResizeWindow(display, eq_list.base, w, h);
-    XResizeWindow(display, eq_list.list, w, h - 2*DCURYs);
-    XResizeWindow(display, eq_list.main, w, 2*DCURYs);
+    XResizeWindow(display, eq_list.list, w, h - (uint)(2*DCURYs));
+    XResizeWindow(display, eq_list.main, w, (uint)(2*DCURYs));
     return;
 }
 
@@ -389,25 +389,25 @@ draw_eq_box(Window w) {
         xds("Import");
     if (w == eq_box.top) {
         XDrawString(display, eq_box.top, gc, 5, CURY_OFF, eq_box.type,
-                    strlen(eq_box.type));
+                    (int)strlen(eq_box.type));
         return;
     }
     if (w == eq_box.stab) {
         sprintf(temp, "c+ = %d", eq_box.info[0]);
         XDrawString(display, eq_box.stab, small_gc, 2, 2*DCURY + 6, temp,
-                    strlen(temp));
+                    (int)strlen(temp));
         sprintf(temp, "c- = %d", eq_box.info[1]);
         XDrawString(display, eq_box.stab, small_gc, 2 + 9*DCURXs,
-                    2*DCURY + 6, temp, strlen(temp));
+                    2*DCURY + 6, temp, (int)strlen(temp));
         sprintf(temp, "im = %d", eq_box.info[2]);
         XDrawString(display, eq_box.stab, small_gc, 2 + 18*DCURXs,
-                    2*DCURY + 6, temp, strlen(temp));
+                    2*DCURY + 6, temp, (int)strlen(temp));
         sprintf(temp, "r+ = %d", eq_box.info[3]);
         XDrawString(display, eq_box.stab, small_gc, 2,
-                    2*DCURY + 2*DCURYs + 6, temp, strlen(temp));
+                    2*DCURY + 2*DCURYs + 6, temp, (int)strlen(temp));
         sprintf(temp, "r- = %d", eq_box.info[4]);
         XDrawString(display, eq_box.stab, small_gc, 2 + 9*DCURXs,
-                    2*DCURY + 2*DCURYs + 6, temp, strlen(temp));
+                    2*DCURY + 2*DCURYs + 6, temp, (int)strlen(temp));
         return;
     }
     if (w == eq_box.rest) {
@@ -425,7 +425,7 @@ draw_eq_box(Window w) {
                     continue;
                 sprintf(temp, "%s=%.5g", uvar_names[in], eq_box.y[in]);
                 XDrawString(display, eq_box.rest, small_gc, j*28*DCURXs + 8,
-                            i*(DCURYs + 3) + 13, temp, strlen(temp));
+                            i*(DCURYs + 3) + 13, temp, (int)strlen(temp));
             }
         }
         return;
