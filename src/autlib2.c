@@ -141,25 +141,44 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.icf2);
         free(mas.np);
 
-        mas.a = malloc(sizeof(*(mas.a))*(ndim*ncol + ndim)*(ndim*ncol)*(ntst + 1));
-        mas.b = malloc(sizeof(*(mas.b))*NPARX*(ndim*ncol)*(ntst + 1));
-        mas.c = malloc(sizeof(*(mas.c))*(ndim*ncol + ndim)*(nbc + nint + 1)*(ntst + 1));
-        mas.d = malloc(sizeof(*(mas.d))*(nbc + nint + 1)*NPARX);
-        mas.a1 = malloc(sizeof(*(mas.a1))*(ndim*ndim*(ntst + 1)));
-        mas.a2 = malloc(sizeof(*(mas.a2))*(ndim*ndim*(ntst + 1)));
-        mas.s1 = malloc(sizeof(*(mas.s1))*(ndim*ndim*(ntst + 1)));
-        mas.s2 = malloc(sizeof(*(mas.s2))*(ndim*ndim*(ntst + 1)));
-        mas.bb = malloc(sizeof(*(mas.bb))*(ndim*NPARX*(ntst + 1)));
-        mas.cc = malloc(sizeof(*(mas.cc))*((nbc + nint + 1)*ndim*(ntst + 1) + 1));
-        mas.faa = malloc(sizeof(*(mas.faa))*(ndim*(ntst + 1)));
-        mas.ca1 = malloc(sizeof(*(mas.ca1))*(ndim*ndim*KREDO));
-        mas.icf = malloc(sizeof(*(mas.icf))*((ndim*ncol + ndim)*(ntst + 1)));
-        mas.irf = malloc(sizeof(*(mas.irf))*(ndim*ncol*(ntst + 1)));
-        mas.ipr = malloc(sizeof(*(mas.ipr))*(ndim*(ntst + 1)));
-        mas.icf11 = malloc(sizeof(*(mas.icf11))*(ndim*KREDO));
-        mas.icf1 = malloc(sizeof(*(mas.icf1))*(ndim*(ntst + 1)));
-        mas.icf2 = malloc(sizeof(*(mas.icf2))*(ndim*(ntst + 1)));
-        mas.np = malloc(sizeof(*(mas.np))*(2));
+        mas.a = malloc(
+                sizeof(*(mas.a))*(usize)((ndim*ncol + ndim)*(ndim*ncol)*(ntst + 1)));
+        mas.b = malloc(
+                sizeof(*(mas.b))*(usize)(NPARX*(ndim*ncol)*(ntst + 1)));
+        mas.c = malloc(
+                sizeof(*(mas.c))*(usize)((ndim*ncol + ndim)*(nbc + nint + 1)*(ntst + 1)));
+        mas.d = malloc(
+                sizeof(*(mas.d))*(usize)((nbc + nint + 1)*NPARX));
+        mas.a1 = malloc(
+                sizeof(*(mas.a1))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.a2 = malloc(                                      
+                sizeof(*(mas.a2))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.s1 = malloc(                                     
+                sizeof(*(mas.s1))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.s2 = malloc(                                    
+                sizeof(*(mas.s2))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.bb = malloc(
+                sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
+        mas.cc = malloc(
+                sizeof(*(mas.cc))*(usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
+        mas.faa = malloc(
+                sizeof(*(mas.faa))*(usize)(ndim*(ntst + 1)));
+        mas.ca1 = malloc(
+                sizeof(*(mas.ca1))*(usize)(ndim*ndim*KREDO));
+        mas.icf = malloc(
+                sizeof(*(mas.icf))*(usize)((ndim*ncol + ndim)*(ntst + 1)));
+        mas.irf = malloc(
+                sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
+        mas.ipr = malloc(
+                sizeof(*(mas.ipr))*(usize)(ndim*(ntst + 1)));
+        mas.icf11 = malloc(
+                sizeof(*(mas.icf11))*(usize)(ndim*KREDO));
+        mas.icf1 = malloc(
+                sizeof(*(mas.icf1))*(usize)(ndim*(ntst + 1)));
+        mas.icf2 = malloc(
+                sizeof(*(mas.icf2))*(usize)(ndim*(ntst + 1)));
+        mas.np = malloc(
+                sizeof(*(mas.np))*(2));
     }
 
     iam = iap->mynode;
