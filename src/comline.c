@@ -526,10 +526,6 @@ parse_it(char *com) {
             plintf(
                 "-white option is no longer part of this version. \n Sorry \n");
             break;
-            /*PaperWhite=1;
-            notAlreadySet.PaperWhite=0;
-            break;
-            */
         case RUNNOW:
             RunImmediately = 1;
             break;
