@@ -163,7 +163,7 @@ extern int32 METHOD;
 
 int32 HomoFlag = 0;
 double homo_l[100], homo_r[100];
-double HOMO_SHIFT = 0.0;
+static double HOMO_SHIFT = 0.0;
 extern char uvar_names[MAX_ODE][12];
 
 extern int32 storind;
