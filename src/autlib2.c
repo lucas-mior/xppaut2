@@ -36,7 +36,7 @@ typedef struct {
     int64 *np;
 } MainAutoStorage;
 
-static MainAutoStorage main_auto_storage = {
+static MainAutoStorage mas = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
@@ -108,69 +108,69 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         */
 
         /* Free floating point arrays */
-        free(main_auto_storage.a);
-        free(main_auto_storage.b);
-        free(main_auto_storage.c);
-        free(main_auto_storage.d);
-        free(main_auto_storage.a1);
-        free(main_auto_storage.a2);
-        free(main_auto_storage.s1);
-        free(main_auto_storage.s2);
-        free(main_auto_storage.bb);
-        free(main_auto_storage.cc);
-        free(main_auto_storage.faa);
-        free(main_auto_storage.ca1);
+        free(mas.a);
+        free(mas.b);
+        free(mas.c);
+        free(mas.d);
+        free(mas.a1);
+        free(mas.a2);
+        free(mas.s1);
+        free(mas.s2);
+        free(mas.bb);
+        free(mas.cc);
+        free(mas.faa);
+        free(mas.ca1);
 
         /* Free int64 arrays */
-        free(main_auto_storage.icf);
-        free(main_auto_storage.irf);
-        free(main_auto_storage.ipr);
-        free(main_auto_storage.icf11);
-        free(main_auto_storage.icf1);
-        free(main_auto_storage.icf2);
-        free(main_auto_storage.np);
+        free(mas.icf);
+        free(mas.irf);
+        free(mas.ipr);
+        free(mas.icf11);
+        free(mas.icf1);
+        free(mas.icf2);
+        free(mas.np);
 
         /*(M 1AAR*M 2AA*N AX) */
-        main_auto_storage.a = malloc((usize)(sizeof(*(main_auto_storage.a)) * ((((iap->ndim*iap->ncol) + iap->ndim)) * ((iap->ndim*iap->ncol))*(iap->ntst + 1))));
+        mas.a = malloc((usize)(sizeof(*(mas.a)) * ((((iap->ndim*iap->ncol) + iap->ndim)) * ((iap->ndim*iap->ncol))*(iap->ntst + 1))));
         /*(M 1BB*M 2BB*N AX)*/
-        main_auto_storage.b = malloc(sizeof(*(main_auto_storage.b)) * (usize)((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
+        mas.b = malloc(sizeof(*(mas.b)) * (usize)((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
-        main_auto_storage.c = malloc(sizeof(double)*(((((iap->ndim*iap->ncol) + iap->ndim))) * ((iap->nbc + iap->nint + 1))*(iap->ntst + 1)));
+        mas.c = malloc(sizeof(double)*(((((iap->ndim*iap->ncol) + iap->ndim))) * ((iap->nbc + iap->nint + 1))*(iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
-        main_auto_storage.d = malloc(sizeof(double)*(((iap->nbc + iap->nint + 1))*(NPARX)));
+        mas.d = malloc(sizeof(double)*(((iap->nbc + iap->nint + 1))*(NPARX)));
         /*(iap->ndim*iap->ndim *N AX)*/
-        main_auto_storage.a1 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
+        mas.a1 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim*iap->ndim *N AX)*/
-        main_auto_storage.a2 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
+        mas.a2 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim*iap->ndim *N AX)*/
-        main_auto_storage.s1 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
+        mas.s1 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim*iap->ndim *N AX)*/
-        main_auto_storage.s2 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
+        mas.s2 = malloc(sizeof(double)*(iap->ndim*iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim *N PARX*N AX)*/
-        main_auto_storage.bb = malloc(sizeof(double)*(iap->ndim*NPARX*(iap->ntst + 1)));
+        mas.bb = malloc(sizeof(double)*(iap->ndim*NPARX*(iap->ntst + 1)));
         /*(N RCX* iap->ndim *N AX+1)*/
-        main_auto_storage.cc = malloc(sizeof(double) * ((iap->nbc + iap->nint + 1)*iap->ndim*(iap->ntst + 1) + 1));
+        mas.cc = malloc(sizeof(double) * ((iap->nbc + iap->nint + 1)*iap->ndim*(iap->ntst + 1) + 1));
 
         /*(iap->ndim *N AX)*/
-        main_auto_storage.faa = malloc(sizeof(double)*(iap->ndim*(iap->ntst + 1)));
+        mas.faa = malloc(sizeof(double)*(iap->ndim*(iap->ntst + 1)));
 
         /*(iap->ndim*iap->ndim *K REDO)*/
-        main_auto_storage.ca1 = malloc(sizeof(double)*(iap->ndim*iap->ndim*KREDO));
+        mas.ca1 = malloc(sizeof(double)*(iap->ndim*iap->ndim*KREDO));
 
         /*(N CLMX*N AX)*/
-        main_auto_storage.icf = malloc(sizeof(int64) * (((iap->ndim*iap->ncol) + iap->ndim)*(iap->ntst + 1)));
+        mas.icf = malloc(sizeof(int64) * (((iap->ndim*iap->ncol) + iap->ndim)*(iap->ntst + 1)));
         /*(N ROWX*N AX)*/
-        main_auto_storage.irf = malloc(sizeof(int64)*((iap->ndim*iap->ncol)*(iap->ntst + 1)));
+        mas.irf = malloc(sizeof(int64)*((iap->ndim*iap->ncol)*(iap->ntst + 1)));
         /*(iap->ndim *N AX)*/
-        main_auto_storage.ipr = malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
+        mas.ipr = malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim *K REDO)*/
-        main_auto_storage.icf11 = malloc(sizeof(*(main_auto_storage.icf11))*(iap->ndim*KREDO));
+        mas.icf11 = malloc(sizeof(*(mas.icf11))*(iap->ndim*KREDO));
         /*(iap->ndim *N AX)*/
-        main_auto_storage.icf1 = malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
+        mas.icf1 = malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
         /*(iap->ndim *N AX)*/
-        main_auto_storage.icf2 = malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
+        mas.icf2 = malloc(sizeof(int64)*(iap->ndim*(iap->ntst + 1)));
         /*(2)*/
-        main_auto_storage.np = malloc(sizeof(*(main_auto_storage.np))*(2));
+        mas.np = malloc(sizeof(*(mas.np))*(2));
     }
 
     iam = iap->mynode;
@@ -197,30 +197,30 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         printf("NTST is less than the number of nodes\n");
         exit(0);
     } else {
-        partition(&ntst, &kwt, main_auto_storage.np);
+        partition(&ntst, &kwt, mas.np);
     }
 
     /*     NTST0 is the global one, NTST is the local one. */
     /*     The value of NTST may be different in different nodes. */
     ntst0 = ntst;
-    ntst = main_auto_storage.np[iam];
+    ntst = mas.np[iam];
 
     if (*ifst == 1) {
         setubv(ndim, ips, ntst, ncol, nbc, nint, nfpr, nrc, nrow, nclm, funi,
                bcni, icni, *ndxloc, iap, rap, par, icp, *rds,
-               main_auto_storage.a, main_auto_storage.b, main_auto_storage.c,
-               main_auto_storage.d, ft, fc, rlcur, rlold, rldot, ups, uoldps,
+               mas.a, mas.b, mas.c,
+               mas.d, ft, fc, rlcur, rlold, rldot, ups, uoldps,
                udotps, upoldp, dups, dtm, thl, thu, p0, p1);
 #ifdef ACCES_TEST
-        test.a = main_auto_storage.a;
-        test.b = main_auto_storage.b;
-        test.c = main_auto_storage.c;
-        main_auto_storage.a = NULL;
-        main_auto_storage.b = NULL;
-        main_auto_storage.c = NULL;
+        test.a = mas.a;
+        test.b = mas.b;
+        test.c = mas.c;
+        mas.a = NULL;
+        mas.b = NULL;
+        mas.c = NULL;
 #endif
     } else {
-        setrhs(&ndim, &ips, &ntst, &ntst0, main_auto_storage.np, &ncol, &nbc,
+        setrhs(&ndim, &ips, &ntst, &ntst0, mas.np, &ncol, &nbc,
                &nint, &nfpr, &nrc, &nrow, &nclm, &iam, &kwt, &ipar, funi, bcni,
                icni, ndxloc, iap, rap, par, icp, rds, ft, fc, rlcur, rlold,
                rldot, ups, uoldps, udotps, upoldp, dups, dtm, thl, thu, p0, p1);
@@ -228,10 +228,10 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /*     The matrix D and FC are set to zero for all nodes except the first.
      */
     if (iam > 0)
-        setfcdd(ifst, main_auto_storage.d, fc, &nfpr, &nrc);
+        setfcdd(ifst, mas.d, fc, &nfpr, &nrc);
 
 #ifdef MATLAB_OUTPUT
-    print_jacobian(*iap, main_auto_storage);
+    print_jacobian(*iap, mas);
     {
         static num_calls = 0;
         char filename[80];
@@ -240,18 +240,18 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         print_fa_fc(*iap, ft, fc, filename);
     }
 #endif
-    brbd(main_auto_storage.a, main_auto_storage.b, main_auto_storage.c,
-         main_auto_storage.d, ft, fc, p0, p1, ifst, &iid, nllv, &det, &ndim,
+    brbd(mas.a, mas.b, mas.c,
+         mas.d, ft, fc, p0, p1, ifst, &iid, nllv, &det, &ndim,
          &ntst, &nbc, &nrow, &nclm, &nfpr, &nrc, &iam, &kwt, &ipar,
-         main_auto_storage.a1, main_auto_storage.a2, main_auto_storage.bb,
-         main_auto_storage.cc, main_auto_storage.faa, main_auto_storage.ca1,
-         main_auto_storage.s1, main_auto_storage.s2, main_auto_storage.icf11,
-         main_auto_storage.ipr, main_auto_storage.icf1, main_auto_storage.icf2,
-         main_auto_storage.irf, main_auto_storage.icf);
+         mas.a1, mas.a2, mas.bb,
+         mas.cc, mas.faa, mas.ca1,
+         mas.s1, mas.s2, mas.icf11,
+         mas.ipr, mas.icf1, mas.icf2,
+         mas.irf, mas.icf);
 #ifdef ACCES_TEST
-    main_auto_storage.a = test.a;
-    main_auto_storage.b = test.b;
-    main_auto_storage.c = test.c;
+    mas.a = test.a;
+    mas.b = test.b;
+    mas.c = test.c;
 #endif
 
     /*
