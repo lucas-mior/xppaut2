@@ -32,11 +32,11 @@ extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
 int32
 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
            int32 max) {
-    int32 lm = strlen(name)*DCURX;
+    int32 lm = (int32)strlen(name)*DCURX;
     int32 lv = max*DCURX;
     int32 pos, colm;
-    int32 lo = strlen(ok)*DCURX;
-    int32 lc = strlen(cancel)*DCURX;
+    int32 lo = (int32)strlen(ok)*DCURX;
+    int32 lc = (int32)strlen(cancel)*DCURX;
 
     int32 status;
     XTextProperty winname;
@@ -47,7 +47,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     strcpy(d.ok_s, ok);
     strcpy(d.cancel_s, cancel);
     d.base = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                                 lm + lv + 20, 30 + 2*DCURY, 2, MyForeColor,
+                                 (uint)(lm + lv + 20), (uint)(30 + 2*DCURY), 2, MyForeColor,
                                  MyBackColor);
     XStringListToTextProperty(&wname, 1, &winname);
 
@@ -60,15 +60,15 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
                          &class_hints);
     }
 
-    d.mes = XCreateSimpleWindow(display, d.base, 5, 5, lm, DCURY + 8, 1,
+    d.mes = XCreateSimpleWindow(display, d.base, 5, 5, (uint)lm, (uint)DCURY + 8, 1,
                                 MyBackColor, MyBackColor);
-    d.input = XCreateSimpleWindow(display, d.base, 10 + lm, 5, lv, DCURY + 8, 1,
+    d.input = XCreateSimpleWindow(display, d.base, 10 + lm, 5, (uint)lv, (uint)DCURY + 8, 1,
                                   MyBackColor, MyBackColor);
-    d.ok = XCreateSimpleWindow(display, d.base, 5, 10 + DCURY, lo + 4,
-                               DCURY + 8, 1, MyForeColor, MyBackColor);
+    d.ok = XCreateSimpleWindow(display, d.base, 5, 10 + DCURY, (uint)lo + 4,
+                               (uint)DCURY + 8, 1, MyForeColor, MyBackColor);
     d.cancel =
-        XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + DCURY, lc + 4,
-                            DCURY + 8, 1, MyForeColor, MyBackColor);
+        XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + DCURY, (uint)lc + 4,
+                            (uint)DCURY + 8, 1, MyForeColor, MyBackColor);
 
     XSelectInput(display, d.base, EV_MASK);
     XSelectInput(display, d.input, EV_MASK);
@@ -84,7 +84,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     XMapWindow(display, d.cancel);
     /*  CURS_X=strlen(d.input_s); */
     /* showchar('_', DCURX*CURS_X, 0, d.input); */
-    pos = strlen(d.input_s);
+    pos = (int32)strlen(d.input_s);
     colm = DCURX*pos;
     while (true) {
         status = dialog_event_loop(&d, &pos, &colm);
@@ -157,14 +157,14 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
 void
 display_dialog(Window w, DIALOG d, int32 col) {
     if (w == d.ok)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s, strlen(d.ok_s));
+        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s, (int32)strlen(d.ok_s));
     if (w == d.cancel)
         XDrawString(display, w, gc, 0, CURY_OFF + 1, d.cancel_s,
-                    strlen(d.cancel_s));
+                    (int32)strlen(d.cancel_s));
     if (w == d.mes)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.mes_s, strlen(d.mes_s));
+        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.mes_s, (int32)strlen(d.mes_s));
     if (w == d.input) {
-        XDrawString(display, w, gc, 0, CURY_OFF, d.input_s, strlen(d.input_s));
+        XDrawString(display, w, gc, 0, CURY_OFF, d.input_s, (int32)strlen(d.input_s));
         put_cursor_at(w, col, 0);
         /* showchar('_',DCURX*strlen(d.input_s),0,d.input); */
     }

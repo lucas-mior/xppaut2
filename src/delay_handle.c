@@ -62,7 +62,7 @@ alloc_delay(double big) {
     MaxDelay = n;
     LatestDelay = 1;
     DelayFlag = 0;
-    DelayWork = (double *)calloc(n*(NODE), sizeof(double));
+    DelayWork = (double *)calloc((usize)(n*NODE), sizeof(double));
     if (DelayWork == NULL) {
         err_msg("Could not allocate memory for Delay");
         return 0;
