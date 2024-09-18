@@ -219,8 +219,8 @@ void redraw_ani_slider(void);
 
 #endif
 
-#ifndef ARRAYPLOT_H
-#define ARRAYPLOT_H
+#ifndef ARRAY_PLOT_H
+#define ARRAY_PLOT_H
 
 #include <X11/Xlib.h>
 #include <stdio.h>
@@ -247,13 +247,13 @@ void gif_aplot_all(char *, int32);
 void optimize_aplot(int32 *plist);
 void make_my_aplot(char *name);
 void scale_aplot(ArrayPlot *ap, double *zmax, double *zmin);
-void init_arrayplot(ArrayPlot *ap);
+void init_array_plot(ArrayPlot *ap);
 void expose_aplot(Window w);
 void do_array_plot_events(XEvent ev);
 void wborder(Window w, int32 i, ArrayPlot ap);
 void destroy_aplot(void);
 void init_my_aplot(void);
-void create_arrayplot(ArrayPlot *ap, char *wname, char *iname);
+void create_array_plot(ArrayPlot *ap, char *wname, char *iname);
 void print_aplot(ArrayPlot *ap);
 void apbutton(Window w);
 void draw_scale(ArrayPlot ap);

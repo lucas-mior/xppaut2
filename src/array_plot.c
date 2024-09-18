@@ -158,7 +158,7 @@ void
 make_my_aplot(char *name) {
     if (aplot.alive == 1)
         return;
-    create_arrayplot(&aplot, name, name);
+    create_array_plot(&aplot, name, name);
     return;
 }
 
@@ -192,7 +192,7 @@ scale_aplot(ArrayPlot *ap, double *zmax, double *zmin) {
 }
 
 void
-init_arrayplot(ArrayPlot *ap) {
+init_array_plot(ArrayPlot *ap) {
     ap->height = 400;
     ap->width = 400;
     ap->zmin = 0.0;
@@ -294,19 +294,19 @@ destroy_aplot(void) {
 
 void
 init_my_aplot(void) {
-    init_arrayplot(&aplot);
+    init_array_plot(&aplot);
     return;
 }
 
 void
-create_arrayplot(ArrayPlot *ap, char *wname, char *iname) {
+create_array_plot(ArrayPlot *ap, char *wname, char *iname) {
     Window base;
     int32 width, height;
     uint32 valuemask = 0;
     XGCValues values;
     XTextProperty winname, iconname;
     XSizeHints size_hints;
-    /* init_arrayplot(ap); */
+    /* init_array_plot(ap); */
     width = ap->width;
     height = ap->height;
     base = make_plain_window(RootWindow(display, screen), 0, 0, ap->width,
@@ -380,7 +380,7 @@ print_aplot(ArrayPlot *ap) {
     strncpy(values[2], ap->ytitle, sizeof(values[2]));
     strncpy(values[3], ap->bottom, sizeof(values[3]));
     snprintf(values[4], sizeof(values[4]), "%d", ap->type);
-    status = do_string_box(5, 5, 1, "Print arrayplot", n, values, 40);
+    status = do_string_box(5, 5, 1, "Print array_plot", n, values, 40);
     if (status != 0) {
         strcpy(ap->filename, values[0]);
         strcpy(ap->xtitle, values[1]);
@@ -525,7 +525,7 @@ editaplot(ArrayPlot *ap) {
     snprintf(values[6], sizeof(values[6]), "%g", ap->zmax);
     snprintf(values[7], sizeof(values[7]), "%d", plot3d_auto_redraw);
     snprintf(values[8], sizeof(values[8]), "%d", ap->ncskip);
-    status = do_string_box(9, 9, 1, "Edit arrayplot", n, values, 40);
+    status = do_string_box(9, 9, 1, "Edit array_plot", n, values, 40);
     if (status != 0) {
         find_variable(values[0], &i);
         if (i > -1) {
