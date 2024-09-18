@@ -71,7 +71,6 @@ extern BIFUR Auto;
 
 extern GRABPT grabpt;
 
-extern Diagram *bifd;
 Diagram *CUR_DIAGRAM;
 
 void

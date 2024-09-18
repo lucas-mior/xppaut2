@@ -1665,6 +1665,8 @@ int32 add_derived(char *name, char *rhs);
 #define DIAGRAM_H
 #include "auto_nox.h"
 
+extern Diagram *bifd;
+
 #include <stdio.h>
 
 extern int32 NBifs;
