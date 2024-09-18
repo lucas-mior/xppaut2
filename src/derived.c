@@ -15,7 +15,7 @@ typedef struct {
     double value;
 } Derived;
 
-Derived derived[MAXDERIVED];
+static Derived derived[MAXDERIVED];
 static int32 nderived = 0;
 
 /* clean up derived stuff */
@@ -42,7 +42,7 @@ compile_derived(void) {
             plintf(" Bad right-hand side for derived parameters \n");
             return 1;
         }
-        derived[i].form = malloc(sizeof(*(derived[i].form))*(n + 2));
+        derived[i].form = malloc(sizeof(*(derived[i].form))*(usize)(n + 2));
         for (k = 0; k < n; k++)
             derived[i].form[k] = f[k];
     }
@@ -67,14 +67,14 @@ evaluate_derived(void) {
 /* this adds a derived quantity  */
 int32
 add_derived(char *name, char *rhs) {
-    int32 n = strlen(rhs) + 2;
+    int32 n = (int32)strlen(rhs) + 2;
     int32 i0;
     if (nderived >= MAXDERIVED) {
         plintf(" Too many derived constants! \n");
         return 1;
     }
     i0 = nderived;
-    derived[i0].rhs = malloc(n);
+    derived[i0].rhs = malloc((usize)n);
     /* save the right hand side */
     strcpy(derived[i0].rhs, rhs);
     /* this is the constant to which it addresses */
