@@ -323,7 +323,7 @@ set_function_pointers(iap_type iap, function_list *data) {
         }
     } else if (iap.ips == 5) {
         /*	** Algebraic optimization problems. */
-        int32 nfpr = iap.nfpr;
+        int32 nfpr = (int32)iap.nfpr;
         if (iap.itp % 10 == 2 || iap.irs == 0) {
             nfpr++;
         }

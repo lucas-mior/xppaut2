@@ -715,7 +715,7 @@ get_3d_par_noper(void) {
     return;
 }
 
-void
+static void
 update_view(double xlo, double xhi, double ylo, double yhi) {
     MyGraph->xlo = xlo;
     MyGraph->ylo = ylo;
