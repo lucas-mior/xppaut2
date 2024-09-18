@@ -2258,8 +2258,8 @@ auto_start_at_homoclinic(void) {
 }
 
 void
-auto_new_per(void) /* same for extending periodic  */
-{
+auto_new_per(void) {
+    /* same for extending periodic  */
     blrtn.torper = grabpt.torper;
 
     /*Prevent crash on hopf of infinite period. here
@@ -2294,8 +2294,8 @@ auto_new_per(void) /* same for extending periodic  */
 }
 
 void
-auto_extend_bvp(void) /* extending bvp */
-{
+auto_extend_bvp(void) {
+    /* extending bvp */
     TypeOfCalc = BV1;
     Auto.irs = grabpt.lab;
     Auto.itp = grabpt.itp;
