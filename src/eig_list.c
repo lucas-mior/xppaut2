@@ -1,5 +1,6 @@
 #include "functions.h"
 #include "integers.h"
+#include "auto_nox.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -50,7 +51,6 @@ struct {
 } eq_list;
 
 static int32 sparity;
-extern double homo_l[100], homo_r[100];
 
 void
 draw_eq_list(Window w) {

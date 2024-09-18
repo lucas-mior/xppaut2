@@ -72,6 +72,8 @@ extern GrabPoint grabpt;
 extern Rotchk blrtn;
 extern Bifurcation Auto;
 
+extern double homo_l[100], homo_r[100];
+
 extern int32 TypeOfCalc;
 extern int32 SEc;
 extern int32 UEc;
