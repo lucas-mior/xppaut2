@@ -37,8 +37,8 @@ int32 AutoRedrawFlag = 1;
 extern int32 screen, storind, NODE;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFFb, CURY_OFF;
-int32 STD_HGT_var = 0;
-int32 STD_WID_var = 0;
+static int32 STD_HGT_var = 0;
+static int32 STD_WID_var = 0;
 int32 Auto_extra_wid, Auto_extra_hgt;
 int32 Auto_x0, Auto_y0;
 /* stuff for marking a branch  */
