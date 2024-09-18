@@ -110,7 +110,7 @@ int32 SCALEX, SCALEY;
 extern int32 COLOR;
 Display *display;
 int32 screen;
-extern int32 periodic;
+int32 periodic = 0;
 int32 DCURYb, DCURXb, CURY_OFFb;
 int32 DCURYs, DCURXs, CURY_OFFs;
 int32 DCURY, DCURX, CURY_OFF;
