@@ -63,17 +63,17 @@ reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
     for (i = 0; i < n; i++) {
         strcpy(sb->value[i], sb->rval[i]);
         w = sb->win[i];
-        l = strlen(sb->name[i]);
+        l = (int32)strlen(sb->name[i]);
         XClearWindow(display, w);
         XDrawString(display, w, gc, 0, CURY_OFF, sb->name[i], l);
         XDrawString(display, w, gc, l*DCURX, CURY_OFF, sb->value[i],
-                    strlen(sb->value[i]));
+                    (int32)strlen(sb->value[i]));
     }
     XFlush(display);
     sb->hot = 0;
-    *pos = strlen(sb->value[0]);
-    *col = (*pos + strlen(sb->name[0]))*DCURX;
-    put_cursor_at(sb->win[0], DCURX*strlen(sb->name[0]), *pos);
+    *pos = (int32)strlen(sb->value[0]);
+    *col = (*pos + (int32)strlen(sb->name[0]))*DCURX;
+    put_cursor_at(sb->win[0], DCURX*(int32)strlen(sb->name[0]), *pos);
     return;
 }
 
@@ -94,8 +94,8 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.cancel, BUT_MASK);
     XSelectInput(display, sb.ok, BUT_MASK);
     XSelectInput(display, sb.reset, BUT_MASK);
-    pos = strlen(sb.value[0]);
-    colm = (pos + strlen(sb.name[0]))*DCURX;
+    pos = (int32)strlen(sb.value[0]);
+    colm = (pos + (int32)strlen(sb.name[0]))*DCURX;
 
     while (true) {
         status = e_box_event_loop(&sb, &pos, &colm);
@@ -150,10 +150,10 @@ ereset_hot(int32 inew, EDIT_BOX *sb) {
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
     do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
-                   strlen(sb->value[inew]));
+                   (int32)strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
     do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
-                   strlen(sb->value[i]));
+                   (int32)strlen(sb->value[i]));
     return;
 }
 
@@ -161,8 +161,8 @@ void
 enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
               Window *w) {
     ereset_hot(inew, sb);
-    *pos = strlen(sb->value[inew]);
-    *col = (*pos + strlen(sb->name[inew]))*DCURX;
+    *pos = (int32)strlen(sb->value[inew]);
+    *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;
     *done = 0;
     *w = sb->win[inew];
     return;

@@ -75,13 +75,13 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
     *istart = 0;
     switch (flag) {
     case 0:
-        *kflag = dopri5(n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0,
+        *kflag = dopri5((uint)n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0,
                         stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, hg, 0, 0, 1, 0,
                         NULL, 0, WORK);
         *t = tout;
         return 1;
     case 1:
-        *kflag = dop853(n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0,
+        *kflag = dop853((uint)n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0,
                         stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, hg, 0, 0, 1, 0,
                         NULL, 0, WORK);
         *t = tout;
