@@ -544,11 +544,11 @@ get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
     double *b, *bp;
     int32 nn = 2*n;
     int32 i, j, k;
-    a = malloc(nn*nn*sizeof(*a));
-    anew = malloc(nn*nn*sizeof(*anew));
-    b = malloc(nn*sizeof(*b));
-    bp = malloc(nn*sizeof(*bp));
-    ipivot = malloc(nn*sizeof(*ipivot));
+    a = malloc((usize)(nn*nn)*sizeof(*a));
+    anew = malloc((usize)(nn*nn)*sizeof(*anew));
+    b = malloc((usize)nn*sizeof(*b));
+    bp = malloc((usize)nn*sizeof(*bp));
+    ipivot = malloc((usize)nn*sizeof(*ipivot));
     for (i = 0; i < nn; i++) {
         for (j = 0; j < nn; j++) {
             k = j*nn + i;
