@@ -49,13 +49,10 @@ static struct {
 } beyn_1 = {NULL, NULL};
 
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 /*        Subroutines for Homoclinic Bifurcation Analysis */
 /*       (A. R. Champneys, Yu. A. Kuznetsov, B. Sandstede) */
 /* ----------------------------------------------------------------------- */
-/* ----------------------------------------------------------------------- */
 
-/*     ---------- ---- */
 int32
 fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
@@ -134,7 +131,6 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
@@ -184,7 +180,6 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
@@ -296,7 +291,6 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, int64 nbc0, double *u0, double *u1, double *fb, double *dbc) {
@@ -610,7 +604,6 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nint, double *u, double *uold, double *udot, double *upold,
@@ -705,7 +698,6 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nint, int64 nnt0, double *u, double *uold, double *udot,
@@ -765,7 +757,6 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 inho(iap_type *iap, int64 *icp, double *par) {
     int64 ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
@@ -924,7 +915,6 @@ inho(iap_type *iap, int64 *icp, double *par) {
     return 0;
 }
 
-/*     ---------- ----- */
 int32
 preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
       double *ups, double *udotps, double *tm, double *par) {
@@ -1112,7 +1102,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     return 0;
 }
 
-/*     ---------- ----- */
 int32
 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
 
@@ -1162,8 +1151,6 @@ stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
         exit(EXIT_FAILURE);
     }
 
-    /* -----------------------------------------------------------------------
-     */
 L1:
     /* Obsolete option */
 
@@ -1174,8 +1161,6 @@ L1:
     free(xequib);
     return 0;
 
-    /* -----------------------------------------------------------------------
-     */
 L2:
     /*     *Regular continuation (explicit solution in STHO) */
 
@@ -1186,8 +1171,6 @@ L2:
     free(xequib);
     return 0;
 
-    /* -----------------------------------------------------------------------
-     */
 L3:
     /*     *Starting solutions using homotopy */
 
@@ -1248,8 +1231,6 @@ L3:
     free(vt);
     free(xequib);
     return 0;
-    /* -----------------------------------------------------------------------
-     */
 }
 
 int32
@@ -1322,7 +1303,6 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
     return 0;
 }
 
-/*     -------- ------- -------- ----- */
 double
 psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
       int64 *icp, double *par) {
@@ -1585,7 +1565,6 @@ free_f0f1:
     return ret_val;
 }
 
-/*     ---------- ----- */
 int32
 eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
       double *xequib, int64 *icp, double *par, int64 *ndm) {
@@ -1605,7 +1584,6 @@ eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
     return 0;
 }
 
-/*     ---------- ----- */
 int32
 eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *xequib, int64 *icp, double *par, int64 *ndm, double *dfdu,
