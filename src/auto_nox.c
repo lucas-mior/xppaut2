@@ -123,7 +123,7 @@ int32 auto_var = 0;
 int32 load_all_labeled_orbits = 0;
 
 static int32 SuppressBP = 0;
-ROTCHK blrtn;
+Rotchk blrtn;
 
 GRABPT grabpt;
 
