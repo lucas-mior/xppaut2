@@ -15,7 +15,6 @@
 #define SEQ 1
 #define UEQ 2
 
-extern double outperiod[20];
 extern int64 UzrPar[20];
 extern int32 NAutoUzr;
 
