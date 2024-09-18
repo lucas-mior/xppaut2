@@ -313,7 +313,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ------- */
 int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     int64 dd_dim1;
@@ -334,7 +333,6 @@ setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     int64 fa_dim1, ff_dim1;
@@ -353,7 +351,6 @@ faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     return 0;
 }
 
-/*     ---------- --------- */
 int32
 partition(int64 *n, int64 *kwt, int64 *m) {
     int64 i, s, t;
@@ -374,7 +371,6 @@ partition(int64 *n, int64 *kwt, int64 *m) {
     return 0;
 }
 
-/*     ------- -------- ------ */
 int64
 mypart(int64 *iam, int64 *np) {
     int64 ret_val;
@@ -610,7 +606,6 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     return 0;
 }
 
-/*     ---------- ---- */
 int32
 brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
      double *p0, double *p1, int64 *ifst, int64 *idb, int64 *nllv, double *det,
@@ -695,7 +690,6 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     return 0;
 }
 
-/*     ---------- ------- */
 int32
 setzero(double *fa, double *fc, int64 *na, int64 *nra, int64 *nrc) {
     int64 fa_dim1;
@@ -2286,7 +2280,6 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     return 0;
 }
 
-/*     ---------- --- */
 int32
 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     int64 niam;
