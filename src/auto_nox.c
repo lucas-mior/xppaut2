@@ -447,8 +447,8 @@ deletef(char *old) {
 }
 
 void
-close_auto(/* labels compatible with A2K  */
-           int32 flg) {
+close_auto(int32 flg) {
+    /* labels compatible with A2K  */
     char string[1000];
     if (flg == 0) { /*Overwrite*/
         sprintf(string, "%s.b", this_auto_file);
