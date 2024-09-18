@@ -8,7 +8,6 @@
 #include "autlim.h"
 #include "integers.h"
 #define DALLOC(a) malloc((a)*sizeof(double))
-extern ROTCHK blrtn;
 extern int32 PS_Color;
 
 extern double **storage;

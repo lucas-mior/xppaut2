@@ -13,6 +13,7 @@ typedef struct {
     int32 nrot[1000];
     double torper;
 } ROTCHK;
+extern ROTCHK blrtn;
 
 typedef struct {
     int32 exist;
