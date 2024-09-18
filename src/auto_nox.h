@@ -50,7 +50,7 @@ typedef struct {
     double par[20], per, torper;
     int32 index, nfpar, icp1, icp2, icp3, icp4, icp5;
     int32 flag;
-} GRABPT;
+} GrabPoint;
 
 typedef struct diagram {
     int32 package;
@@ -68,7 +68,7 @@ typedef struct {
     double xmin, ymin, xmax, ymax;
 } AUTOAX;
 
-extern GRABPT grabpt;
+extern GrabPoint grabpt;
 extern Rotchk blrtn;
 
 extern int32 TypeOfCalc;

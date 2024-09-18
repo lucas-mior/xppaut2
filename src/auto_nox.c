@@ -125,7 +125,7 @@ int32 load_all_labeled_orbits = 0;
 static int32 SuppressBP = 0;
 Rotchk blrtn;
 
-GRABPT grabpt;
+GrabPoint grabpt;
 
 extern double MyData[MAX_ODE];
 extern Diagram *bifd;
