@@ -2555,8 +2555,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     if ((ibr > 0 && (Auto.ips != 4) && (Auto.ips != 3) && (Auto.ips != 9)) ||
         flag == 0)
         return;
-    /* either nothing grabbed or just a fixed point and that is already loaded
-     */
+    // either nothing grabbed or just a fixed point and that is already loaded
     sprintf(string, "%s.s", this_auto_file);
     fp = fopen(string, "r");
     if (fp == NULL) {
