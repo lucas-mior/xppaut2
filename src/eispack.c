@@ -630,8 +630,9 @@ L100:
         h__[i__ + i__*h_dim1] -= x;
     }
 
-    s = (d__1 = h__[en + na*h_dim1], fabs(d__1)) +
-        (d__2 = h__[na + enm2*h_dim1], fabs(d__2));
+    d__1 = h__[en + na*h_dim1];
+    d__2 = h__[na + enm2*h_dim1];
+    s = fabs(d__1) + fabs(d__2);
     x = s*.75;
     y = x;
     w = s*-.4375*s;
