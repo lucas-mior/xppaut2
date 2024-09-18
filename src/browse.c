@@ -934,23 +934,23 @@ resize_browser(Window win, BROWSER *b) {
     /* first make sure the size is is ok  and an integral
        value of the proper width and height
      */
-    i0 = w / dcol;
-    if ((w % dcol) > 0)
+    i0 = (int32)w / dcol;
+    if ((w % (uint32)dcol) > 0)
         i0++;
     if (i0 > b->maxcol)
         i0 = b->maxcol;
 
-    w = i0*dcol;
+    w = (uint32)(i0*dcol);
     if (i0 < 5)
-        w = 5*dcol;
+        w = 5*(uint32)dcol;
     newcol = i0;
-    h = hreal - 8 - 5*drow;
-    i0 = h / drow;
-    if ((h % drow) > 0)
+    h = hreal - 8 - 5*(uint32)drow;
+    i0 = (int32)h / drow;
+    if ((h % (uint32)drow) > 0)
         i0++;
     if (i0 > b->maxrow)
         i0 = b->maxrow;
-    h = i0*drow + DCURXs / 2;
+    h = (uint32)(i0*drow + DCURXs / 2);
     newrow = i0;
     /*  Now resize everything   */
     if (b->ncol == newcol && b->nrow == newrow)
@@ -959,7 +959,7 @@ resize_browser(Window win, BROWSER *b) {
     b->nrow = newrow;
 
     XResizeWindow(display, b->base, w - 17, hreal);
-    XResizeWindow(display, b->upper, w - 17, 8 + drow*3);
+    XResizeWindow(display, b->upper, w - 17, (uint)(8 + drow*3));
     XResizeWindow(display, b->main, w - 17, h);
 
     /* Let the browser know how many rows and columns of data  */
@@ -1553,7 +1553,7 @@ get_col_list(char *s, int32 *cl, int32 *n) {
 
     char sp[256];
     convert(s, sp);
-    len = strlen(sp);
+    len = (int32)strlen(sp);
     if (len == 0) {
         for (i = 0; i < *n; i++)
             cl[i] = i;
