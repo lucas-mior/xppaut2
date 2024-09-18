@@ -20,7 +20,7 @@ extern int32 NFlags;
 
 void
 dprhs(uint32 n, double t, double *y, double *f) {
-    my_rhs(t, y, f, n);
+    my_rhs(t, y, f, (int32)n);
     return;
 }
 
