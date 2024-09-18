@@ -56,8 +56,8 @@ extern int32 TipsFlag;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
     GrBack;
 
-extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
-    *no_hint[], *aspecial_hint[];
+extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[];
+extern char *no_hint[], *aspecial_hint[];
 
 extern double constants[];
 
