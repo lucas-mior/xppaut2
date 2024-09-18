@@ -113,7 +113,7 @@ int32
 gettimenow(void) {
     struct timeval now;
     gettimeofday(&now, NULL);
-    return now.tv_usec;
+    return (int32)now.tv_usec;
 }
 
 void
@@ -252,11 +252,11 @@ add_stor_col(char *name, char *formula, BROWSER *b) {
         err_msg("Bad Formula .... ");
         return 0;
     }
-    if ((my_ode[NEQ + FIX_VAR] = malloc((i + 2)*sizeof(int32))) == NULL) {
+    if ((my_ode[NEQ + FIX_VAR] = malloc((usize)(i + 2)*sizeof(int32))) == NULL) {
         err_msg("Cant allocate formula space");
         return 0;
     }
-    if ((storage[NEQ + 1] = malloc(MAXSTOR*sizeof(double))) == NULL) {
+    if ((storage[NEQ + 1] = malloc((usize)MAXSTOR*sizeof(double))) == NULL) {
         err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
@@ -293,7 +293,7 @@ void
 chk_seq(char *f, int32 *seq, double *a1, double *a2) {
     int32 i, j = -1;
     char n1[256], n2[256];
-    int32 n = strlen(f);
+    int32 n = (int32)strlen(f);
     *seq = 0;
     *a1 = 0.0;
     *a2 = 0.0;
@@ -393,7 +393,7 @@ replace_column(char *var, char *form, double **dat, int32 n) {
     /* Okay the formula is cool so lets allocate and replace  */
 
     wipe_rep();
-    old_rep = malloc(sizeof(*old_rep)*n);
+    old_rep = malloc(sizeof(*old_rep)*(usize)n);
     REPLACE = 1;
     for (i = 0; i < n; i++) {
         old_rep[i] = dat[R_COL][i];
@@ -499,7 +499,7 @@ find_variable(char *s, int32 *col) {
 
 void
 browse_but_on(BROWSER *b, int32 i, Window w, int32 yn) {
-    int32 val = 1;
+    uint32 val = 1;
     if (yn)
         val = 2;
     XSetWindowBorderWidth(display, w, val);
@@ -566,7 +566,7 @@ display_browser(Window w, BROWSER b) {
     if (w == b.hint) {
         XClearWindow(display, b.hint);
         XDrawString(display, w, small_gc, 8, CURY_OFFs, b.hinttxt,
-                    strlen(b.hinttxt));
+                    (int)strlen(b.hinttxt));
         return;
     }
 
@@ -620,7 +620,7 @@ display_browser(Window w, BROWSER b) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1)
                 XDrawString(display, w, small_gc, 5, CURY_OFFs, uvar_names[i0],
-                            strlen(uvar_names[i0]));
+                            (int)strlen(uvar_names[i0]));
         }
     }
     if (w == b.main)
@@ -639,7 +639,7 @@ redraw_browser(BROWSER b) {
         if (i0 < (b.maxcol - 1)) {
             XClearWindow(display, w);
             XDrawString(display, w, small_gc, 5, CURY_OFFs, uvar_names[i0],
-                        strlen(uvar_names[i0]));
+                        (int)strlen(uvar_names[i0]));
         }
     }
     return;
@@ -686,7 +686,7 @@ draw_data(BROWSER b) {
         if (i0 < b.maxrow) {
             sprintf(string, "%.8g", b.data[0][i0]);
             XDrawString(display, b.main, small_gc, DCURXs / 2 + 5,
-                        i*drow + DCURYs, string, strlen(string));
+                        i*drow + DCURYs, string, (int)strlen(string));
         }
     }
 
@@ -701,7 +701,7 @@ draw_data(BROWSER b) {
             if (i0 < b.maxrow) {
                 sprintf(string, "%.7g", b.data[j0][i0]);
                 XDrawString(display, b.main, small_gc, x0 + 5,
-                            i*drow + DCURYs, string, strlen(string));
+                            i*drow + DCURYs, string, (int)strlen(string));
             }
         }
     }
@@ -763,7 +763,7 @@ br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window win;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
-    int32 width = strlen(name)*DCURXs;
+    int32 width = (int32)strlen(name)*DCURXs;
 
     int32 x;
     int32 y;
