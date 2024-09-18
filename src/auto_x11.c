@@ -999,14 +999,14 @@ resize_auto_window(XEvent ev) {
         XGetGeometry(display, AutoW.canvas, &root, &xloc, &yloc, &cwid, &chgt,
                      &cbwid, &cdepth);
 
-        Auto.hgt = chgt - ymargin;
-        Auto.wid = cwid - xmargin;
+        Auto.hgt = (int32)chgt - ymargin;
+        Auto.wid = (int32)cwid - xmargin;
         if (TrueColorFlag > 0) {
-            XMoveResizeWindow(display, AutoW.info, xloc, yloc + chgt + 4, wid,
-                              addhgt);
+            XMoveResizeWindow(display, AutoW.info, xloc, yloc + (int32)chgt + 4, (uint)wid,
+                              (uint)addhgt);
 
             XMoveResizeWindow(display, AutoW.hint, xloc,
-                              yloc + chgt + addhgt + 10, wid, DCURY + 2);
+                              yloc + (int32)chgt + addhgt + 10, (uint)wid, (uint)DCURY + 2);
         }
 
         if (NBifs < 2)
