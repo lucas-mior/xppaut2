@@ -23,12 +23,12 @@ start_diagram(int32 n) {
     bifd->prev = NULL;
     bifd->next = NULL;
     bifd->index = 0;
-    bifd->uhi = malloc((n)*sizeof(double));
-    bifd->ulo = malloc((n)*sizeof(double));
-    bifd->u0 = malloc((n)*sizeof(double));
-    bifd->ubar = malloc((n)*sizeof(double));
-    bifd->evr = malloc((n)*sizeof(double));
-    bifd->evi = malloc((n)*sizeof(double));
+    bifd->uhi = malloc((usize)n*sizeof(double));
+    bifd->ulo = malloc((usize)n*sizeof(double));
+    bifd->u0 = malloc((usize)n*sizeof(double));
+    bifd->ubar = malloc((usize)n*sizeof(double));
+    bifd->evr = malloc((usize)n*sizeof(double));
+    bifd->evi = malloc((usize)n*sizeof(double));
     bifd->norm = 0;
     bifd->lab = 0;
 
