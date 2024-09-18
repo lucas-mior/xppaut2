@@ -82,8 +82,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        and setubv).
     */
 
-    ff = malloc(sizeof(*ff)*(iap->ndim*iap->ncol)*iap->ntst + 1);
-    ft = malloc(sizeof(*ft)*(iap->ndim*iap->ncol)*(iap->ntst + 1));
+    ff = malloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
+    ft = malloc(sizeof(*ft)*(usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     if (*ifst == 1) {
         /* printf("I am freeing and allocating stuff \n");  */
