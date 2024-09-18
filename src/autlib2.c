@@ -337,13 +337,11 @@ int32
 faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
     int64 fa_dim1, ff_dim1;
 
-    int64 i, j;
-
     ff_dim1 = *nrow;
     fa_dim1 = *ndxloc;
 
-    for (i = 0; i < *ntst; ++i) {
-        for (j = 0; j < *nrow; ++j) {
+    for (int64 i = 0; i < *ntst; ++i) {
+        for (int64 j = 0; j < *nrow; ++j) {
             ARRAY2D(fa, i, j) = ARRAY2D(ff, j, i);
         }
     }
