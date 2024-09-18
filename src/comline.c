@@ -131,6 +131,7 @@ extern int32 allwinvis;
 extern int32 ConvertStyle;
 int32 noicon = 1;
 int32 newseed = 0;
+
 typedef struct {
     char name[10];
     int32 len;
