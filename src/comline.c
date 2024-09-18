@@ -137,7 +137,7 @@ typedef struct {
     int32 len;
 } VOCAB;
 
-VOCAB my_cmd[NCMD] = {
+static VOCAB my_cmd[NCMD] = {
     {"-m", 3},          {"-xorfix", 7},     {"-silent", 7},     {"-convert", 8},
     {"-iconify", 7},    {"-newseed", 7},    {"-allwin", 6},     {"-setfile", 7},
     {"-ee", 3},         {"-white", 6},      {"-runnow", 7},     {"-bigfont", 8},
@@ -420,7 +420,7 @@ if_needed_select_sets(void) {
     if (!select_intern_sets)
         return 1;
     for (j = 0; j < Nintern_set; j++) {
-        intern_set[j].use = use_intern_sets;
+        intern_set[j].use = (uint32)use_intern_sets;
         Nintern_2_use += use_intern_sets;
 
         if (is_set_name(sets2use, intern_set[j].name)) {
@@ -482,7 +482,7 @@ int32
 parse_it(char *com) {
     int32 j;
     for (j = 0; j < NCMD; j++) {
-        if (strncmp(com, my_cmd[j].name, my_cmd[j].len) == 0) {
+        if (strncmp(com, my_cmd[j].name, (size_t)my_cmd[j].len) == 0) {
             break;
         }
     }
