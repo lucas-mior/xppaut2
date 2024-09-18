@@ -56,7 +56,6 @@ int32 RandSeed = 12345678;
 #define M_PI 3.14159265358979323846264338327950288
 #endif
 
-extern int32 newseed;
 extern int32 del_stab_flag;
 
 double CurrentIndex = 0;
