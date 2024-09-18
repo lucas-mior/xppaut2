@@ -39,12 +39,8 @@ int32 periodic = 0, spectral;
 int32 custom_color = 0;
 #define MAX_COLORS 256
 #define COL_TOTAL 150
-/* int32 rfun(),gfun(),bfun();
- */
 
 XColor color[MAX_COLORS];
-/* int32	pixel[MAX_COLORS];
- */
 extern int32 TrueColorFlag;
 
 void
