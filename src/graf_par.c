@@ -1099,7 +1099,7 @@ dump_ps(int32 i) {
     return;
 }
 
-void
+static void
 create_svg(void) {
     char filename[XPP_MAX_NAME];
     strcpy(filename, this_file);
