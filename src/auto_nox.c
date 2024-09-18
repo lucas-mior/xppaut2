@@ -2671,8 +2671,9 @@ load_auto_numerics(FILE *fp) {
     fscanf(fp, "%d %d %d \n", &Auto.ntst, &Auto.nmx, &Auto.npr);
     fscanf(fp, "%lg %lg %lg \n", &Auto.ds, &Auto.dsmin, &Auto.dsmax);
     fscanf(fp, "%lg %lg %lg %lg\n", &Auto.rl0, &Auto.rl1, &Auto.a0, &Auto.a1);
-    fscanf(fp, "%d %d %d %d %d %d %d\n", &aauto.iad, &aauto.mxbf, &aauto.iid,
-           &aauto.itmx, &aauto.itnw, &aauto.nwtn, &aauto.iads);
+    fscanf(fp, "%d %d %d %d %d %d %d\n",
+               &aauto.iad, &aauto.mxbf, &aauto.iid,
+               &aauto.itmx, &aauto.itnw, &aauto.nwtn, &aauto.iads);
     return;
 }
 
