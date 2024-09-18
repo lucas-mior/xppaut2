@@ -1480,8 +1480,6 @@ init_auto_win(void) {
         AutoPar[i] = i;
     for (i = 0; i < NAutoPar; i++) {
         Auto_index_to_array[i] = get_param_index(upar_names[AutoPar[i]]);
-        /* printf("%d -> %d, %s
-         * \n",i,Auto_index_to_array[i],upar_names[AutoPar[i]]); */
     }
     Auto.nper = 0;
     grabpt.flag = 0; /*  no point in buffer  */
