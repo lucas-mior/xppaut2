@@ -28,7 +28,7 @@ typedef struct {
     int32 nper;
     char hinttxt[256];
     double period[MAX_AUT_PER];
-    int32 uzrpar[MAX_AUT_PER];
+    int64 uzrpar[MAX_AUT_PER];
     double epsl, epsu, epss;
     int32 ncol;
 } BIFUR;
@@ -107,7 +107,7 @@ void open_auto(int32 flag);
 void do_auto(int32 iold, int32 isave);
 void set_auto(void);
 int32 auto_name_to_index(char *s);
-int32 auto_par_to_name(int32 index, char *s);
+int32 auto_par_to_name(int64 index, char *s);
 void auto_per_par(void);
 void auto_params(void);
 void auto_num_par(void);

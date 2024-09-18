@@ -583,7 +583,7 @@ auto_name_to_index(char *s) {
 }
 
 int32
-auto_par_to_name(int32 index, char *s) {
+auto_par_to_name(int64 index, char *s) {
     if (index == 10) {
         sprintf(s, "T");
         return 1;
@@ -2711,9 +2711,9 @@ make_q_file(FILE *fp) {
 }
 
 int32
-noinfo(/* get rid of any blank lines  */
-       char *s) {
-    int32 n = strlen(s);
+noinfo(char *s) {
+    /* get rid of any blank lines */
+    int32 n = (int32)strlen(s);
     int32 i;
     if (n == 0)
         return 1;
