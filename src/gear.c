@@ -43,7 +43,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
 
     kmem = n*(2*n + 5) + 50;
     *ierr = 0;
-    if ((work = malloc(sizeof(double)*kmem)) == NULL) {
+    if ((work = malloc(sizeof(double)*(usize)kmem)) == NULL) {
         err_msg("Insufficient core ");
         *ierr = 1;
         return;
@@ -103,7 +103,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     int32 bpos = 0, bneg = 0;
     /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
-    if ((work = malloc(sizeof(double)*kmem)) == NULL) {
+    if ((work = malloc(sizeof(double)*(usize)kmem)) == NULL) {
         err_msg("Insufficient core ");
         return;
     }
@@ -395,7 +395,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
-    if ((work = malloc(sizeof(double)*kmem)) == NULL) {
+    if ((work = malloc(sizeof(double)*(usize)kmem)) == NULL) {
         /* printf("Insufficient core \n");  */
         return;
     }

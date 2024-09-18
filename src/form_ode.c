@@ -1175,7 +1175,8 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
     char **markovarrays2 = NULL;
     int32 done = 0, start = 0, i0, i1, i2, istates;
     int32 jj1 = 0, jj2 = 0, jj, notdone = 1, jjsgn = 1;
-    char name[20], nstates = 0;
+    char name[20];
+    int32 nstates = 0;
     /*char newfile[256];*/
     char newfile[XPP_MAX_NAME];
     FILE *fnew;
@@ -1334,8 +1335,8 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         add_markov(nstates, name);
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
-                            markovarrays = malloc(nstates*sizeof(char *));
-                            markovarrays2 = malloc(nstates*sizeof(char *));
+                            markovarrays = malloc((usize)nstates*sizeof(char *));
+                            markovarrays2 = malloc((usize)nstates*sizeof(char *));
 
                             for (istates = 0; istates < nstates; istates++) {
                                 markovarrays[istates] = malloc(MAXEXPLEN);
@@ -1372,7 +1373,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         } else {
                             strpiece(v.lhs, v.rhs, 0, i1 - 1);
                             strcpy(big, v.rhs);
-                            strpiece(v.rhs, big, i1 + 1, strlen(big));
+                            strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                         }
                         v.type = SOL_VAR;
                     }
@@ -1383,7 +1384,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         find_char(v.rhs, "=", 0, &i1);
                         strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        strpiece(v.rhs, big, i1 + 1, strlen(big));
+                        strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                         v.type = AUX_VAR;
                     }
 
@@ -1393,7 +1394,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         find_char(v.rhs, "=", 0, &i1);
                         strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        strpiece(v.rhs, big, i1 + 1, strlen(big));
+                        strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                         v.type = VECTOR;
                     }
                     /* take care of special form for special */
@@ -1402,7 +1403,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         find_char(v.rhs, "=", 0, &i1);
                         strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        strpiece(v.rhs, big, i1 + 1, strlen(big));
+                        strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                         v.type = SPEC_FUN;
                     }
 
@@ -1413,7 +1414,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         find_char(v.rhs, "}", 0, &i1);
                         strpiece(v.lhs, v.rhs, 0, i1);
                         strcpy(big, v.rhs);
-                        strpiece(v.rhs, big, i1 + 1, strlen(big));
+                        strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                     }
 
                     /*  ONLY save options  */
@@ -1429,7 +1430,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         find_char(v.rhs, "=", 0, &i1);
                         strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        strpiece(v.rhs, big, i1 + 1, strlen(big));
+                        strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                         v.type = VEQ;
                     }
                     /* take care of tables   */
@@ -1446,7 +1447,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         }
                         strpiece(v.lhs, v.rhs, i0, i1 - 1);
                         strcpy(big, v.rhs);
-                        strpiece(v.rhs, big, i1 + 1, strlen(big));
+                        strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
                         v.type = TABLE;
                     }
 
@@ -1504,7 +1505,7 @@ create_plot_list(void) {
     int32 i, j = 0, k;
     if (N_only == 0)
         return;
-    plotlist = malloc(sizeof(*plotlist)*(N_only + 1));
+    plotlist = malloc(sizeof(*plotlist)*(usize)(N_only + 1));
     for (i = 0; i < N_only; i++) {
         find_variable(onlylist[i], &k);
         if (k >= 0) {
@@ -1531,7 +1532,7 @@ add_only(char *s) {
 
 void
 break_up_list(char *rhs) {
-    int32 i = 0, j = 0, l = strlen(rhs);
+    int32 i = 0, j = 0, l = (int32)strlen(rhs);
     char s[20], c;
     while (i < l) {
         c = rhs[i];
@@ -1814,11 +1815,13 @@ compile_em(void) {
         switch (v->type) {
         case VEQ:
             iflag = 1;
+            __attribute__((fallthrough));
         case ODE:
+            __attribute__((fallthrough));
         case MAP:
             EqType[nvar] = iflag;
-            nn = strlen(v->rhs) + 1;
-            if ((ode_names[nvar] = malloc(nn + 2)) == NULL ||
+            nn = (int32)strlen(v->rhs) + 1;
+            if ((ode_names[nvar] = malloc((usize)nn + 2)) == NULL ||
                 (my_ode[nvar] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
@@ -1864,8 +1867,8 @@ compile_em(void) {
         case AUX_VAR:
             in1 = IN_VARS + NMarkov + naux;
             in2 = IN_VARS + FIX_VAR + naux;
-            nn = strlen(v->rhs) + 1;
-            if ((ode_names[in1] = malloc(nn + 2)) == NULL ||
+            nn = (int32)strlen(v->rhs) + 1;
+            if ((ode_names[in1] = malloc((usize)nn + 2)) == NULL ||
                 (my_ode[in2] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
@@ -1895,13 +1898,13 @@ compile_em(void) {
             }
             break;
         case MARKOV_VAR:
-            nn = strlen(v->rhs) + 1;
+            nn = (int32)strlen(v->rhs) + 1;
 
-            if ((ode_names[IN_VARS + nmark] = malloc(nn + 2)) == NULL) {
+            if ((ode_names[IN_VARS + nmark] = malloc((usize)nn + 2)) == NULL) {
                 plintf(" Out of memory for  %s \n", v->lhs);
                 exit(0);
             }
-            strncpy(ode_names[IN_VARS + nmark], v->rhs, nn);
+            strncpy(ode_names[IN_VARS + nmark], v->rhs, (usize)nn);
             ode_names[IN_VARS + nmark][nn] = 0;
             nmark++;
             plintf("%s: %s", v->lhs, v->rhs);
@@ -2013,7 +2016,7 @@ parse_a_string(char *s1, VAR_INFO *v) {
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
     int32 i, type, type2;
     int32 narg = 0;
-    int32 n1 = strlen(s1) - 1;
+    int32 n1 = (int32)strlen(s1) - 1;
     char s1old[MAXEXPLEN];
     char ch;
     if (s1[0] == '"') {
@@ -2214,7 +2217,7 @@ free_varinfo(void) {
 int32
 extract_ode(/* name is char 1-i1  ie is start of rhs */
             char *s1, int32 *ie, int32 i1) {
-    int32 i = 0, n = strlen(s1);
+    int32 i = 0, n = (int32)strlen(s1);
 
     i = i1;
     while (i < n) {
@@ -2230,8 +2233,8 @@ extract_ode(/* name is char 1-i1  ie is start of rhs */
 int32
 strparse(char *s1, char *s2, int32 i0, int32 *i1) {
     int32 i = i0;
-    int32 n = strlen(s1);
-    int32 m = strlen(s2);
+    int32 n = (int32)strlen(s1);
+    int32 m = (int32)strlen(s2);
     int32 j = 0;
     char ch;
     int32 start = 0;
@@ -2272,7 +2275,7 @@ strparse(char *s1, char *s2, int32 i0, int32 *i1) {
 int32
 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
              char args[MAXARG][NAMLEN + 1]) {
-    int32 k, i = i0, n = strlen(s1);
+    int32 k, i = i0, n = (int32)strlen(s1);
     int32 type, na = 0, i1;
     while (i < n) {
         type = find_char(s1, ",)", i, &i1);
@@ -2300,7 +2303,7 @@ extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
 
 int32
 find_char(char *s1, char *s2, int32 i0, int32 *i1) {
-    int32 m = strlen(s2), n = strlen(s1);
+    int32 m = (int32)strlen(s2), n = (int32)strlen(s1);
     int32 i = i0;
     char ch;
     int32 j;
@@ -2320,7 +2323,7 @@ find_char(char *s1, char *s2, int32 i0, int32 *i1) {
 int32
 next_nonspace(char *s1, int32 i0, int32 *i1) {
     int32 i = i0;
-    int32 n = strlen(s1);
+    int32 n = (int32)strlen(s1);
     char ch;
     *i1 = n - 1;
     while (i < n) {
@@ -2337,7 +2340,7 @@ next_nonspace(char *s1, int32 i0, int32 *i1) {
 /* removes starting blanks from s  */
 void
 remove_blanks(char *s1) {
-    int32 i = 0, n = strlen(s1), l;
+    int32 i = 0, n = (int32)strlen(s1), l;
     int32 j;
     char ch;
     while (i < n) {
@@ -2369,11 +2372,11 @@ read_a_line(FILE *fp, char *s) {
         ok = 0;
         fgets(temp, MAXEXPLEN, fp);
 
-        nn = strlen(temp) + 1;
-        if ((save_eqn[NLINES] = malloc(nn)) == NULL)
+        nn = (int32)strlen(temp) + 1;
+        if ((save_eqn[NLINES] = malloc((usize)nn)) == NULL)
             exit(0);
-        strncpy(save_eqn[NLINES++], temp, nn);
-        n = strlen(temp);
+        strncpy(save_eqn[NLINES++], temp, (usize)nn);
+        n = (int32)strlen(temp);
         for (i = n - 1; i >= 0; i--) {
             if (temp[i] == '\\') {
                 ok = 1;
@@ -2384,7 +2387,7 @@ read_a_line(FILE *fp, char *s) {
             temp[ihat] = 0;
         strcat(s, temp);
     }
-    n = strlen(s);
+    n = (int32)strlen(s);
     /*  if((s[n-1]=='\n')||(s[n-1]=='\r'))
       {
         s[n-1]=0;
@@ -2408,7 +2411,7 @@ int32
 search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
     int32 i, j, k, l;
     int32 ileft, iright;
-    int32 n = strlen(old);
+    int32 n = (int32)strlen(old);
     char num1[20], num2[20];
     char ch, chp;
     ileft = n - 1;
@@ -2508,7 +2511,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
 int32
 check_if_ic(char *big) {
     char c;
-    int32 n = strlen(big);
+    int32 n = (int32)strlen(big);
     int32 j;
     j = 0;
     while (true) {
@@ -2538,7 +2541,7 @@ not_ker(/* returns 1 if string is not 'int32[' */
 
 int32
 is_comment(char *s) {
-    int32 n = strlen(s);
+    int32 n = (int32)strlen(s);
     int32 i = 0;
     char c;
     while (true) {
@@ -2557,7 +2560,7 @@ is_comment(char *s) {
 
 void
 subsk(char *big, char *new, int32 k, int32 flag) {
-    int32 i, n = strlen(big), inew, add, inum, j, m, isign, ok, multflag = 0;
+    int32 i, n = (int32)strlen(big), inew, add, inum, j, m, isign, ok, multflag = 0;
     char ch, chp, num[20];
     inew = 0;
     i = 0;
@@ -2583,7 +2586,7 @@ subsk(char *big, char *new, int32 k, int32 flag) {
                     num[inum] = 0;
                     add = atoi(num);
                     snprintf(num, sizeof(num), "%d", add);
-                    m = strlen(num);
+                    m = (int32)strlen(num);
                     for (j = 0; j < m; j++) {
                         new[inew] = num[j];
                         inew++;
@@ -2641,7 +2644,7 @@ subsk(char *big, char *new, int32 k, int32 flag) {
                         multflag = 0;
                     }
                     snprintf(num, sizeof(num), "%d", add);
-                    m = strlen(num);
+                    m = (int32)strlen(num);
                     for (j = 0; j < m; j++) {
                         new[inew] = num[j];
                         inew++;
@@ -2677,7 +2680,7 @@ keep_orig_comments(void) {
         return; /* already stored these so return */
     if (n_comments == 0)
         return; /* nothing to keep ! */
-    orig_comments = malloc(sizeof(*orig_comments)*n_comments);
+    orig_comments = malloc(sizeof(*orig_comments)*(usize)n_comments);
     for (i = 0; i < n_comments; i++) {
         orig_comments[i].text = malloc(strlen(comments[i].text) + 1);
         if (comments[i].aflag)
@@ -2738,7 +2741,7 @@ new_comment(FILE *f) {
 void
 add_comment(char *s) {
     char text[256], action[256], ch;
-    int32 n = strlen(s);
+    int32 n = (int32)strlen(s);
     int32 i, j1 = 0, ja = 0, noact = 1;
     if (n_comments >= MAXCOMMENTS)
         return;
@@ -2800,7 +2803,7 @@ advance_past_first_word(char **sptr) {
     /* changes the string pointed to by sptr to start after the end of the
        string... this may seem odd, but it has to do with avoiding \0's added by
        strtok */
-    int32 len = strlen(*sptr);
+    int32 len = (int32)strlen(*sptr);
     (*sptr) += len + 1;
     return;
 }
@@ -2808,8 +2811,8 @@ advance_past_first_word(char **sptr) {
 char *
 new_string2(char *old, int32 length) {
     /*cout << "new_string2(\"" << old << "\", " << length << ")\n"; */
-    char *s = malloc((length + 1)*sizeof(char));
-    strncpy(s, old, length);
+    char *s = malloc((usize)(length + 1)*sizeof(char));
+    strncpy(s, old, (usize)length);
     s[length] = '\0';
     if (length > 0 && s[length - 1] == ',')
         s[length - 1] = '\0';
@@ -2837,7 +2840,7 @@ get_next2(char **tokens_ptr) {
         (*tokens_ptr) = tokens;
         return NULL;
     }
-    len = strlen(tokens);
+    len = (int32)strlen(tokens);
     /* advance past space/the equal sign/comma */
     success = 0;
     for (i = 1; i < len; i++) {
@@ -2923,12 +2926,12 @@ strcpy_trim(char *dest, char *source) {
     while (*source && isspace(*source)) {
         source++;
     }
-    len = strlen(source);
+    len = (int32)strlen(source);
     for (i = len - 1; i >= 0; i--) {
         if (!isspace(source[i]))
             break;
     }
-    strncpy(dest, source, i + 1);
+    strncpy(dest, source, (usize)i + 1);
     dest[i + 1] = '\0';
     return;
 }
@@ -2946,7 +2949,7 @@ strncpy_trim(char *dest, char *source, int32 n) {
     }
     if (i + 1 > n)
         i = n - 1;
-    strncpy(dest, source, i + 1);
+    strncpy(dest, source, (usize)i + 1);
     dest[i + 1] = '\0';
     return;
 }
