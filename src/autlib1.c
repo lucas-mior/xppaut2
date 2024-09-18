@@ -3767,7 +3767,6 @@ pi(double r) {
     return ret_val;
 }
 
-/*     ---------- -- */
 int32
 ge(int64 n, int64 m1a, double *a, int64 nrhs, int64 ndxloc, double *u,
    int64 m1f, double *f, double *det) {

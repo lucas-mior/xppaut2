@@ -1324,7 +1324,6 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     return 0;
 }
 
-/*     ---------- ----- */
 int32
 pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
       int64 *ndxloc, double *ups, double *udotps, double *tm, double *par) {

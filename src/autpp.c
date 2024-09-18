@@ -132,7 +132,6 @@ fopt(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *fs,
     (void)icp;
     (void)u;
     (void)ndim;
-    /*     ---------- ---- */
     return 0;
 }
 
