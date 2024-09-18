@@ -47,8 +47,7 @@ extern int32 TrueColorFlag;
 
 void
 tst_color(Window w) {
-    int32 i;
-    for (i = 0; i < color_total; i++) {
+    for (int32 i = 0; i < color_total; i++) {
         set_color(i + color_min);
         XDrawLine(display, w, gc_graph, 0, 2*i + 20, 50, 2*i + 20);
     }
