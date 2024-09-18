@@ -593,14 +593,10 @@ gif_aplot_all(char *filename, int32 still) {
             return;
         }
 
-        /* redraw_aplot(aplot); */
         XGetGeometry(display, aplot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
         XCopyArea(display, aplot.wplot, xi, aplot_gc, 0, 0, w, h, 0, 0);
-        /*  XFlush(display); */
-
-        /* screen_to_gif(aplot.wplot,fp); */
         screen_to_gif(xi, ap_fp);
         fclose(ap_fp);
         XFreePixmap(display, xi);
