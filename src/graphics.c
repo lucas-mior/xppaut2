@@ -118,7 +118,6 @@ get_draw_area_flag(int32 flag) {
         MyGraph->x11Wid = w;
         MyGraph->x11Hgt = h;
     } else {
-
         w = MyGraph->x11Wid;
         h = MyGraph->x11Hgt;
     }

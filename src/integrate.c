@@ -1951,7 +1951,6 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     while (true) {
         switch (METHOD) {
         case GEAR: {
-
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;

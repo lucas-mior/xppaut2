@@ -360,7 +360,6 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                         if (flag[i].type[j] == 1)
                             set_val(upar_names[in], flag[i].vrhs[j]);
                         else {
-
                             if ((flag[i].type[j] == 2) && (flag[i].vrhs[j] > 0))
                                 send_output(ynew, *tnew);
                             if ((flag[i].type[j] == 3) && (flag[i].vrhs[j] > 0))

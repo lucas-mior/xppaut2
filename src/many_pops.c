@@ -1520,7 +1520,6 @@ select_window(Window w) {
     if (w == graph[0].w)
         current_pop = 0;
     else {
-
         for (i = 1; i < MAXPOP; i++)
             if ((graph[i].Use) && (w == graph[i].w))
                 current_pop = i;

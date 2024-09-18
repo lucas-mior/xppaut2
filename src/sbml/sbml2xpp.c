@@ -600,7 +600,6 @@ void
 GetParameter(Model_t *pModel, uint32 level, uint32 version)
 
 {
-
     int32 n = Model_getNumParameters(pModel);
     char *pacTypecode;
     char *pacName;

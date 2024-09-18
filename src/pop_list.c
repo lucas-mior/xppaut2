@@ -807,7 +807,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         /*Don't do anything...*/
 
     } else {
-
         col2.red = diffcol.red;
         col2.green = diffcol.green;
         col2.blue = diffcol.blue;

@@ -42,7 +42,6 @@
  ******************************************************************/
 
 typedef struct {
-
     CVDenseJacFn d_jac; /* jac = Jacobian routine to be called    */
 
     DenseMat d_M; /* M = I - gamma J, gamma = h / l1        */

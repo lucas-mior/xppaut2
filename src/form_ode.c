@@ -1372,7 +1372,6 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                             strcpy(v.lhs, v.rhs);
                             strcpy(v.rhs, "0");
                         } else {
-
                             strpiece(v.lhs, v.rhs, 0, i1 - 1);
                             strcpy(big, v.rhs);
                             strpiece(v.rhs, big, i1 + 1, strlen(big));

@@ -57,7 +57,6 @@ lamn(real v) {
 }
 real
 s_inf(real v) {
-
     return 1.0 / (1.0 + exp(-(v - vth) / vshp));
     /* return 0.0; */
 }

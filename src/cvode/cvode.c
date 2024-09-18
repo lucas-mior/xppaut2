@@ -795,7 +795,6 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
 
     nstloc = 0;
     while (true) {
-
         next_h = h;
         next_q = q;
 

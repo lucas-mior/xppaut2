@@ -120,7 +120,6 @@ ccvode(
         start_cv(y, *t, n, atol, rtol);
         flag = CVode(cvode_mem, tout, ycv, t, NORMAL);
         if (flag != SUCCESS) {
-
             *kflag = flag;
             end_cv();
             *command = 1;

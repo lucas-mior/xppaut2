@@ -1104,7 +1104,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
 int32
 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
-
     int64 i, j;
 
     int64 ip;

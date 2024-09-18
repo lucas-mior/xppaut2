@@ -47,7 +47,6 @@
  ******************************************************************/
 
 typedef struct {
-
     CVBandJacFn b_jac; /* jac = Jacobian routine to be called      */
 
     int64 b_ml; /* b_ml = lower bandwidth of savedJ         */

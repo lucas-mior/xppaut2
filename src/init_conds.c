@@ -977,7 +977,6 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         break;
     case KEY_TAB: /*KEY_TAB completion of file names */
     {
-
         struct dirent *dp;
         /*char ft[100];
         char ftpath[100];

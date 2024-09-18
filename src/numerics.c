@@ -343,7 +343,6 @@ void
 init_numerics(void)
 /*    these are the default values of the numerical parameters   */
 {
-
     DELTA_T = .05;
     TEND = 20.0;
     T0 = 0.0;

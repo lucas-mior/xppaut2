@@ -984,7 +984,6 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
             ch = my_abort();
 
             {
-
                 if (ch == 27) {
                     *ierr = 1;
                     return;

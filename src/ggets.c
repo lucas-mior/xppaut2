@@ -64,7 +64,6 @@ void
 blank_screen(Window w)
 
 {
-
     CURS_X = 0;
     CURS_Y = 0;
     xor_flag = 0;

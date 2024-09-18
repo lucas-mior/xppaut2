@@ -52,7 +52,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *ups, double *dups, double *uoldps, double *udotps,
        double *upoldp, double *dtm, double *fa, double *fc, double *p0,
        double *p1, double *thl, double *thu) {
-
     int64 ndim;
     int64 ipar;
     int64 ncol, nclm, nfpr, nint, nrow, ntst, ntst0;

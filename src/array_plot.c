@@ -704,7 +704,6 @@ set_acolor(int32 col) {
     if (col == 0)
         XSetForeground(display, aplot_gc, GrFore);
     else {
-
         if (COLOR)
             XSetForeground(display, aplot_gc, (uint)ColorMap(col));
         else

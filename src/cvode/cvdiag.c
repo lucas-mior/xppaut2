@@ -39,7 +39,6 @@
  ******************************************************************/
 
 typedef struct {
-
     double di_gammasv; /* gammasv = gamma at the last call to setup */
                        /* or solve                                  */
 

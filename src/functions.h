@@ -4527,7 +4527,6 @@ double vector_value(double x, int32 i);
  ******************************************************************/
 
 typedef struct {
-
     int64 N;
     int32 l_max;
 

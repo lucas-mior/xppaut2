@@ -54,7 +54,6 @@
  ******************************************************************/
 
 typedef struct {
-
     int32 g_pretype; /* type of preconditioning                      */
     int32 g_gstype;  /* type of Gram-Schmidt orthogonalization       */
     double g_srqtN;  /* sqrt(N)                                      */

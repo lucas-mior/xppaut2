@@ -2104,7 +2104,6 @@ eval_rpn(int32 *equat) {
                 PUSH(((FunctionDouble)fun1[in])(POP));
                 break;
             case FUN2TYPE: {
-
                 if (in == 0) {
                     temx = POP;
                     temy = POP;

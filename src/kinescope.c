@@ -34,7 +34,6 @@ void
 do_movie_com(int32 c)
 
 {
-
     /*  XDestroyWindow(display,temp);
       draw_help();
       XFlush(display); */

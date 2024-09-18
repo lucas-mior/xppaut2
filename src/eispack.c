@@ -4074,7 +4074,6 @@ dgemm(char *transa, char *transb, int64 *m, int64 *n, int64 *k, double *alpha,
                 /* L90: */
             }
         } else {
-
             /*           Form  C := alpha*A'*B + beta*C */
 
             i__1 = *n;

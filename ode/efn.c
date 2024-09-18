@@ -12,7 +12,6 @@ double drand48();
 
 double
 norm() {
-
     double fac, r, v1, v2;
     if (BoxMullerFlag == 0) {
         do {

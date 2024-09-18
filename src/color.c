@@ -64,7 +64,6 @@ set_scolor(int32 col) {
     if (col == 0)
         XSetForeground(display, small_gc, GrFore);
     else {
-
         if (COLOR)
             XSetForeground(display, small_gc, ColorMap(col));
         else

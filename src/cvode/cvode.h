@@ -492,7 +492,6 @@ enum {
  ******************************************************************/
 
 typedef struct CVodeMemRec {
-
     double cv_uround; /* machine unit roundoff */
 
     /* Problem Specification Data */

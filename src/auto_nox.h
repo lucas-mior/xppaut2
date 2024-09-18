@@ -15,7 +15,6 @@ typedef struct {
 } ROTCHK;
 
 typedef struct {
-
     int32 exist;
     int32 ntst, nmx, npr;
     double ds, dsmax, dsmin, rl0, rl1, a0, a1;
