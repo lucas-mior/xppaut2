@@ -44,7 +44,7 @@ typedef struct {
 SolVar svar[MAXDAE];
 DaeEqn aeqn[MAXDAE];
 
-int32 nsvar = 0, naeqn = 0;
+static int32 nsvar = 0, naeqn = 0;
 
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
@@ -106,7 +106,7 @@ compile_svars(void) {
             plintf(" Bad right-hand side for alg-eqn \n");
             return 1;
         }
-        aeqn[i].form = malloc(sizeof(*(aeqn[i].form))*(n + 2));
+        aeqn[i].form = malloc(sizeof(*(aeqn[i].form))*(usize)(n + 2));
         for (k = 0; k < n; k++)
             aeqn[i].form[k] = f[k];
     }
@@ -173,8 +173,8 @@ err_dae(void) {
 void
 init_dae_work(void) {
     dae_work.work =
-        malloc(sizeof(*(dae_work.work))*(nsvar*nsvar + 10*nsvar));
-    dae_work.iwork = malloc(sizeof(*(dae_work.iwork))*nsvar);
+        malloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
+    dae_work.iwork = malloc(sizeof(*(dae_work.iwork))*(usize)nsvar);
     dae_work.status = 1;
     return;
 }
