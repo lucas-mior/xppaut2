@@ -71,6 +71,7 @@ typedef struct {
 extern GrabPoint grabpt;
 extern Rotchk blrtn;
 extern Bifurcation Auto;
+extern AdvAuto aauto;
 
 extern double homo_l[100], homo_r[100];
 

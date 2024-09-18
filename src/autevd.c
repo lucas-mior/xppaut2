@@ -15,8 +15,6 @@
 #define SEQ 1
 #define UEQ 2
 
-extern AdvAuto aauto;
-
 XAuto x_auto;
 
 int32 DiagFlag = 0;
