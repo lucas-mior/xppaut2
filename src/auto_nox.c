@@ -174,8 +174,8 @@ AdvAuto aauto;
 
 int32 NewPeriodFlag;
 
-AUTOAX Old1p;
-AUTOAX Old2p;
+static AUTOAX Old1p;
+static AUTOAX Old2p;
 
 /* color plot stuff */
 void
