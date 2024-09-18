@@ -49,7 +49,7 @@ meta: bear tags
 test: C = $(CC)
 test: CFLAGS += -Wno-error
 test: all
-	./xppaut & sleep 1
+	./xppaut & sleep 0.7
 	killall xppaut
 	make clean
 
