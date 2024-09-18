@@ -1933,7 +1933,6 @@ auto_run(void) {
 
 void
 auto_homo_choice(int32 itp) {
-    /* printf("in choice: itp=%d\n",itp); */
     if (itp != 5)
         auto_extend_homoclinic();
     return;
