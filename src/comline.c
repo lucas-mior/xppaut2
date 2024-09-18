@@ -149,7 +149,8 @@ VOCAB my_cmd[NCMD] = {
     {"-quiet", 6},      {"-logfile", 8},    {"-anifile", 8},    {"-version", 8},
     {"-mkplot", 7},     {"-plotfmt", 8},    {"-noout", 6},      {"-dfdraw", 7},
     {"-ncdraw", 7},     {"-def", 4},        {"-readset", 8},    {"-with", 5},
-    {"-equil", 6}};
+    {"-equil", 6}
+};
 
 int32
 is_set_name(SET_NAME *set, char *nam) {
