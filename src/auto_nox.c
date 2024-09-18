@@ -647,9 +647,9 @@ void
 auto_params(void) {
     static char *n[] = {"*2Par1", "*2Par2", "*2Par3", "*2Par4",
                         "*2Par5", "*2Par6", "*2Par7", "*2Par8"};
-    int32 status, i, in;
+    int32 status, in;
     char values[8][MAX_LEN_SBOX];
-    for (i = 0; i < 8; i++) {
+    for (int32 i = 0; i < 8; i++) {
         if (i < NAutoPar)
             sprintf(values[i], "%s", upar_names[AutoPar[i]]);
         else
@@ -657,7 +657,7 @@ auto_params(void) {
     }
     status = do_string_box(8, 8, 1, "Parameters", n, values, 38);
     if (status != 0) {
-        for (i = 0; i < 8; i++) {
+        for (int32 i = 0; i < 8; i++) {
             if (i < NAutoPar) {
                 in = find_user_name(PARAM_BOX, values[i]);
                 if (in >= 0) {
