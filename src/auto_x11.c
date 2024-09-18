@@ -65,8 +65,6 @@ static uint32 DONT_XORCross = 0;
 
 AUTOWIN AutoW;
 
-extern BIFUR Auto;
-
 Diagram *CUR_DIAGRAM;
 
 void

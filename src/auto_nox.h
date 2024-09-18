@@ -70,6 +70,7 @@ typedef struct {
 
 extern GrabPoint grabpt;
 extern Rotchk blrtn;
+extern BIFUR Auto;
 
 extern int32 TypeOfCalc;
 extern int32 SEc;
