@@ -15,7 +15,7 @@ extern int32 fp8_is_open;
 
 int32
 go_go_auto(void) {
-    /* this is the entry  at this point, x_auto has been set */
+    /* this is the entry at this point, x_auto has been set */
     int64 icp[NPARX2];
     double par[NPARX2], thl[NPARX];
     double *thu;
@@ -86,12 +86,10 @@ go_go_auto(void) {
                iuz, vuz);
 
     free(thu);
-    /*   free(iuz);
-         free(vuz); */
     fclose(fp3);
     fclose(fp7);
     fclose(fp9);
-    return 1; /* normal return */
+    return 1;
 }
 
 int32
