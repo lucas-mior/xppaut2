@@ -500,8 +500,8 @@ create_auto_file_name(void) {
 }
 
 void
-open_auto(/* compatible with new auto */
-          int32 flg) {
+open_auto(int32 flg) {
+    /* compatible with new auto */
     char string[200];
     char *basec, *bname, *dirc, *dname;
     char *HOME;
