@@ -981,7 +981,7 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
 
     while (true) {
         if (Xup) {
-            ch = my_abort();
+            ch = (char)my_abort();
 
             {
                 if (ch == 27) {

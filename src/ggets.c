@@ -86,7 +86,7 @@ set_back(void) {
 void
 showchar(int32 ch, int32 col, int32 row, Window or) {
     char bob[2];
-    bob[0] = ch;
+    bob[0] = (char)ch;
     chk_xor();
     XDrawString(display, or, gc, col, row + CURY_OFF, bob, 1);
     return;
@@ -120,7 +120,7 @@ draw_info_pop(Window window) {
         XClearWindow(display, info_pop);
         BaseCol();
         XDrawString(display, info_pop, gc, 5, CURY_OFF, info_message,
-                    strlen(info_message));
+                    (int)strlen(info_message));
     }
     return;
 }
@@ -130,7 +130,7 @@ bottom_msg(char *msg) {
     XClearWindow(display, info_pop);
     BaseCol();
     strcpy(info_message, msg);
-    XDrawString(display, info_pop, gc, 5, CURY_OFF, msg, strlen(msg));
+    XDrawString(display, info_pop, gc, 5, CURY_OFF, msg, (int)strlen(msg));
 }
 
 void
@@ -185,7 +185,7 @@ void
 put_command(char *string) {
     clr_command();
     Ftext(0, 0, string, command_pop);
-    CURS_X = strlen(string);
+    CURS_X = (int32)strlen(string);
     return;
 }
 
@@ -284,7 +284,7 @@ get_mouse_xy(int32 *x, int32 *y, Window w) {
             do_expose(ev);
             break;
         case KeyPress:
-            ch = get_key_press(&ev);
+            ch = (char)get_key_press(&ev);
             if (ch == ESCAPE)
                 return 0;
             if (ch == KEY_FINE)
@@ -309,19 +309,19 @@ get_mouse_xy(int32 *x, int32 *y, Window w) {
 void
 Ftext(int32 x, int32 y, char *string, Window o) {
     chk_xor();
-    XDrawString(display, o, gc, x, y + CURY_OFF, string, strlen(string));
+    XDrawString(display, o, gc, x, y + CURY_OFF, string, (int)strlen(string));
     return;
 }
 
 void
 bar(int32 x, int32 y, int32 x2, int32 y2, Window w) {
-    XFillRectangle(display, w, gc, x, y, x2 - x, y2 - y);
+    XFillRectangle(display, w, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
     return;
 }
 
 void
 rectangle(int32 x, int32 y, int32 x2, int32 y2, Window w) {
-    XDrawRectangle(display, w, gc, x, y, x2 - x, y2 - y);
+    XDrawRectangle(display, w, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
     return;
 }
 
@@ -338,7 +338,7 @@ setfillstyle(int32 type, int32 color) {
 
 void
 circle(int32 x, int32 y, int32 radius, Window w) {
-    XDrawArc(display, w, gc, x - radius, y - radius, 2*radius, 2*radius, 0,
+    XDrawArc(display, w, gc, x - radius, y - radius, (uint)(2*radius), (uint)(2*radius), 0,
              360*64);
     return;
 }
@@ -383,8 +383,8 @@ new_int(char *name, int32 *value) {
 
 void
 display_command(char *name, char *value, int32 pos) {
-    int32 l = strlen(name);
-    int32 m = strlen(value);
+    int32 l = (int32)strlen(name);
+    int32 m = (int32)strlen(value);
 
     set_fore();
     bar(0, 0, l*DCURX, DCURY + 4, command_pop);
@@ -401,7 +401,7 @@ display_command(char *name, char *value, int32 pos) {
 
 void
 clr_line_at(Window w, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, w, col0 + pos*DCURX, 0, (n + 2)*DCURX, 2*DCURY,
+    XClearArea(display, w, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX), 2*(uint)DCURY,
                False);
     return;
 }
@@ -419,7 +419,7 @@ put_cursor_at(Window w, int32 col0, int32 pos) {
 
 void
 put_string_at(Window w, int32 col, char *s, int32 off) {
-    int32 l = strlen(s) - off;
+    int32 l = (int32)strlen(s) - off;
 
     XDrawString(display, w, gc, col, CURY_OFF, s + off, l);
     return;
@@ -467,7 +467,7 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         *col = col0;
     } break;
     case KEY_END: {
-        *pos = strlen(value);
+        *pos = (int32)strlen(value);
         *col = *pos*DCURX + col0;
     } break;
     case KEY_BADKEY:
@@ -494,7 +494,7 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         break; */
     case KEY_DEL:
         if (*pos > 0) {
-            memmov(&value[*pos - 1], &value[*pos], strlen(value) - *pos + 1);
+            memmov(&value[*pos - 1], &value[*pos], (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
             *col -= DCURX;
         } else
@@ -508,15 +508,15 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         return;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
-            movmem(&value[*pos + 1], &value[*pos], strlen(value) - *pos + 1);
-            value[*pos] = ch;
+            movmem(&value[*pos + 1], &value[*pos], (int32)strlen(value) - *pos + 1);
+            value[*pos] = (char)ch;
             *pos = *pos + 1;
             *col += DCURX;
         }
         break;
     } /* end key cases */
     /* Now redraw everything !!  */
-    clr_line_at(w, col0, 0, strlen(value));
+    clr_line_at(w, col0, 0, (int32)strlen(value));
     put_string_at(w, col0, value, 0);
     put_cursor_at(w, col0, *pos);
 
@@ -557,9 +557,10 @@ edit_command_string(XEvent ev, char *name, char *value, int32 *done2,
             XSetInputFocus(display, command_pop, RevertToParent, CurrentTime);
         break;
     case KeyPress:
-        ch = get_key_press(&ev);
+        ch = (char)get_key_press(&ev);
         /* printf("ch= %ld \n",ch); */
         edit_window(command_pop, pos, value, col, done2, ch);
+        break;
     default:
         break;
     }
@@ -570,8 +571,8 @@ int32
 new_string(char *name, char *value) {
     char old_value[80];
     int32 done2 = 0;
-    int32 pos = strlen(value);
-    int32 col = (pos + strlen(name))*DCURX;
+    int32 pos = (int32)strlen(value);
+    int32 col = (pos + (int32)strlen(name))*DCURX;
 
     XEvent ev;
     strcpy(old_value, value);
