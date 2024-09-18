@@ -1652,12 +1652,6 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     /* Local */
 
-    /* Parameter adjustments */
-    /*--rr;*/
-    /*--ri;*/
-    /*--xequib;*/
-    /*--icp;*/
-    /*--par;*/
     vret -= ((*ndm) + 1);
     zz_dim1 = *ndm;
     dfdp_dim1 = *ndm;
