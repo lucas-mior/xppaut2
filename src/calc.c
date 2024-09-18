@@ -31,7 +31,7 @@ extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 extern double last_ic[MAX_ODE];
 
-struct {
+static struct {
     Window base, quit, answer;
     double last_val;
     int32 use;
