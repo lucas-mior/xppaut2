@@ -32,15 +32,15 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     }
     evaluate_derived();
     redo_all_fun_tables();
-    rhs(0.0, u, f, ndim);
+    rhs(0.0, u, f, (int32)ndim);
     if (ijac == 1)
-        getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, ndim);
+        getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, (int32)ndim);
     if (METHOD > 0 || NJMP == 1)
         return 0;
     for (i = 1; i < NJMP; i++) {
         for (j = 0; j < ndim; j++)
             zz[j] = f[j];
-        rhs(0.0, zz, f, ndim);
+        rhs(0.0, zz, f, (int32)ndim);
     }
 
     return 0;
@@ -64,10 +64,10 @@ stpnt(int64 ndim, double t, double *u, double *par) {
     get_start_period(&p);
     par[10] = p;
     if (HomoFlag != 1)
-        get_start_orbit(u, t, ndim);
+        get_start_orbit(u, t, (int32)ndim);
     /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
     if (HomoFlag == 1) {
-        get_shifted_orbit(u, t, p, ndim);
+        get_shifted_orbit(u, t, p, (int32)ndim);
         for (i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
         }
@@ -96,7 +96,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 
     evaluate_derived();
     redo_all_fun_tables();
-    do_bc(u0, 0.0, u1, 1.0, fb, nbc);
+    do_bc(u0, 0.0, u1, 1.0, fb, (int32)nbc);
 
     return 0;
 }
