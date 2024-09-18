@@ -2551,8 +2551,6 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     double period;
     char string[256];
     int32 nrow, ndim, label, flg;
-    /* printf("Loading orbit ibr=%d ips=%d flag=%d\n",grabpt.ibr,Auto.ips,
-     * grabpt.flag);  */
 
     if ((ibr > 0 && (Auto.ips != 4) && (Auto.ips != 3) && (Auto.ips != 9)) ||
         flag == 0)
