@@ -5522,7 +5522,7 @@ stpnub(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     (void)thl;
     (void)thu;
 
-    u = malloc(sizeof(*u)*(iap->ndim));
+    u = malloc(sizeof(*u)*(usize)(iap->ndim));
 
     /* Generates a starting point for the continuation of a branch of */
     /* of solutions to general boundary value problems by calling the user */
@@ -5963,7 +5963,7 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void)iuz;
     (void)vuz;
 
-    pp = malloc(sizeof(*pp)*(iap->ndim)*(iap->ndim));
+    pp = malloc(sizeof(*pp)*(usize)((iap->ndim)*(iap->ndim)));
 
     ndim = iap->ndim;
     iid = iap->iid;
@@ -6052,7 +6052,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     (void)iuz;
     (void)vuz;
 
-    wrk = malloc(sizeof(*wrk)*(iap->ndim)*(iap->ndim));
+    wrk = malloc(sizeof(*wrk)*(usize)((iap->ndim)*(iap->ndim)));
 
     /* This function returns a quantity that changes sign when a floatcomplex */
     /* pair of eigenvalues of the linearized Poincare map moves in or out */
@@ -6080,7 +6080,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     free(wrk);
     /* Find the multiplier closest to z=1. */
     /* send_mult here! */
-    send_mult(ibr, ntot + 1, ndim, (doublecomplex *)&ev[0]);
+    send_mult((int32)ibr, (int32)ntot + 1, (int32)ndim, (doublecomplex *)&ev[0]);
     amin = RLARGE;
     for (j = 0; j < ndim; ++j) {
         doublecomplex tmp;
@@ -6535,7 +6535,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     }
     jtmp = NPARX;
     /* addbif max min  of variables & initial data */
-    addbif(iap, ntots, ibrs, par, icp, labw, &amp, u_high, u_low, u_0, u_bar);
+    addbif(iap, ntots, ibrs, par, icp, (int32)labw, &amp, u_high, u_low, u_0, u_bar);
 
     wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots, &labw, &amp, umx);
 
@@ -6966,17 +6966,16 @@ allocate_global_memory(iap_type iap) {
     free(global_scratch.ff2);
 
     global_scratch.dfu =
-        malloc(sizeof(*(global_scratch.dfu))*(iap.ndim)*(iap.ndim));
-
+        malloc(sizeof(*(global_scratch.dfu))*(usize)((iap.ndim)*(iap.ndim)));
     global_scratch.dfp =
-        malloc(sizeof(*(global_scratch.dfp))*(iap.ndim)*NPARX);
-    global_scratch.uu1 = malloc(sizeof(*(global_scratch.uu1))*(iap.ndim));
-    global_scratch.uu2 = malloc(sizeof(*(global_scratch.uu2))*(iap.ndim));
-    global_scratch.ff1 = malloc(sizeof(*(global_scratch.ff1))*(iap.ndim));
-    global_scratch.ff2 = malloc(sizeof(*(global_scratch.ff2))*(iap.ndim));
+        malloc(sizeof(*(global_scratch.dfp))*(usize)((iap.ndim)*NPARX));
+    global_scratch.uu1 = malloc(sizeof(*(global_scratch.uu1))*(usize)(iap.ndim));
+    global_scratch.uu2 = malloc(sizeof(*(global_scratch.uu2))*(usize)(iap.ndim));
+    global_scratch.ff1 = malloc(sizeof(*(global_scratch.ff1))*(usize)(iap.ndim));
+    global_scratch.ff2 = malloc(sizeof(*(global_scratch.ff2))*(usize)(iap.ndim));
 
     free(global_rotations.nrtn);
     global_rotations.nrtn =
-        malloc(sizeof(*(global_rotations.nrtn))*(iap.nbc));
+        malloc(sizeof(*(global_rotations.nrtn))*(usize)(iap.nbc));
     return;
 }
