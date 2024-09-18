@@ -52,7 +52,6 @@ typedef struct {
 
 char errmsg[256];
 extern int32 XPPBatch;
-extern int32 loadincludefile;
 /*extern char includefilename[MaxIncludeFiles][100];*/
 extern char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
 

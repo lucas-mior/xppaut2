@@ -112,9 +112,9 @@ extern INTERN_SET intern_set[MAX_INTERN_SET];
  */
 extern char batchout[XPP_MAX_NAME];
 
-int32 loadsetfile = 0;
-int32 loadparfile = 0;
-int32 loadicfile = 0;
+static int32 loadsetfile = 0;
+static int32 loadparfile = 0;
+static int32 loadicfile = 0;
 int32 loadincludefile = 0;
 int32 querysets = 0;
 int32 querypars = 0;
