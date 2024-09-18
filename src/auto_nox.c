@@ -93,14 +93,13 @@ int32 SEc = 20;
 int32 UEc = 0;
 int32 SPc = 26;
 int32 UPc = 28;
-/*  two parameter colors  need to do this
-    LP is 20 (red)
-    HB is 28 (blue)
-    TR is 26 (green)
-    PD is 24 (orange)
-    BR is 27 (turquoise)
-    FP is 25 (olive)
-*/
+/* two parameter colors  need to do this
+ * LP is 20 (red)
+ * HB is 28 (blue)
+ * TR is 26 (green)
+ * PD is 24 (orange)
+ * BR is 27 (turquoise)
+ * FP is 25 (olive) */
 
 static int32 LPP_color = 0;
 static int32 LPE_color = 20;
