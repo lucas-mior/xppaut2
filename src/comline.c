@@ -216,13 +216,9 @@ do_comline(int32 argc, char **argv) {
     silent = 0;
     got_file = 0;
     xorfix = 1;
-    /*PaperWhite=0;
-     */
     setfilename[0] = 0;
     parfilename[0] = 0;
     icfilename[0] = 0;
-    /*includefilename[0]=0;
-     */
     for (i = 1; i < argc; i++) {
         k = parse_it(argv[i]);
         if (k == 1) {
@@ -278,8 +274,6 @@ do_comline(int32 argc, char **argv) {
             i++;
         }
         if (k == 9) {
-            /*strcpy(UserBGBitmap,argv[i+1]);
-             */
             set_option("BACKIMAGE", argv[i + 1], 1, NULL);
             i++;
         }
