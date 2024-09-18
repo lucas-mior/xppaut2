@@ -43,7 +43,7 @@ draw_calc(Window w) {
     if (w == my_calc.answer) {
         XClearWindow(display, w);
         sprintf(bob, "%.16g", my_calc.last_val);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, strlen(bob));
+        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, (int)strlen(bob));
         return;
     }
     if (w == my_calc.quit) {
@@ -111,8 +111,8 @@ void
 ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     strcpy(value, " ");
     strcpy(name, "Formula:");
-    *pos = strlen(value);
-    *col = (*pos + strlen(name))*DCURX;
+    *pos = (int32)strlen(value);
+    *col = (*pos + (int32)strlen(name))*DCURX;
     clr_command();
     display_command(name, value, 2);
     return;
@@ -203,7 +203,7 @@ has_eq(char *z, char *w, int32 *where) {
             break;
     if (i == (int32)strlen(z))
         return 0;
-    strncpy(w, z, i);
+    strncpy(w, z, (usize)i);
     w[i] = 0;
     *where = i + 1;
     return 1;

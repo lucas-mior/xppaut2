@@ -70,7 +70,7 @@ BROWSER my_browser;
 
 extern int32 noicon;
 extern char uvar_names[MAX_ODE][12];
-double *old_rep;
+static double *old_rep;
 static int32 REPLACE = 0, R_COL = 0;
 
 extern double **storage;
