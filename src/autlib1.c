@@ -5250,11 +5250,11 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             ncol_used = ncol;
 
         *ndxloc = (ntst_used + 1)*4;
-        ups_new = malloc(sizeof(*ups_new)*(*ndxloc)*(iap->ndim*ncol_used));
-        upoldp_new = malloc(sizeof(*upoldp_new)*(*ndxloc)*(iap->ndim*ncol_used));
-        udotps_new = malloc(sizeof(*udotps_new)*(*ndxloc)*(iap->ndim*ncol_used));
-        tm_new = malloc(sizeof(*tm_new)*(*ndxloc));
-        dtm_new = malloc(sizeof(*dtm_new)*(*ndxloc));
+        ups_new = malloc(sizeof(*ups_new)*(usize)((*ndxloc)*(iap->ndim*ncol_used)));
+        upoldp_new = malloc(sizeof(*upoldp_new)*(usize)((*ndxloc)*(iap->ndim*ncol_used)));
+        udotps_new = malloc(sizeof(*udotps_new)*(usize)((*ndxloc)*(iap->ndim*ncol_used)));
+        tm_new = malloc(sizeof(*tm_new)*(usize)(*ndxloc));
+        dtm_new = malloc(sizeof(*dtm_new)*(usize)(*ndxloc));
 
         for (int32 i = 0; i < *ndxloc; i++) {
             dtm_new[i] = 0.0;
