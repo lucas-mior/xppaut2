@@ -32,7 +32,7 @@ extern Display *display;
 extern int32 screen;
 extern Window main_win;
 static int32 color_mode = 1;
-static int32 color_min, color_total, COLOR, color_max;
+int32 color_min, color_total, COLOR, color_max;
 extern int32 DCURX, DCURY, CURY_OFF, CURS_X, CURS_Y, DCURXs, DCURYs;
 extern uint32 Black, White;
 extern uint32 MyBackColor, MyForeColor, GrFore, GrBack;
