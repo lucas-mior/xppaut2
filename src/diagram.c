@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include "autlim.h"
 #include "integers.h"
-#define DALLOC(a) malloc((a)*sizeof(double))
+
 extern int32 PS_Color;
 
 extern double **storage;
@@ -23,12 +23,12 @@ start_diagram(int32 n) {
     bifd->prev = NULL;
     bifd->next = NULL;
     bifd->index = 0;
-    bifd->uhi = DALLOC(n);
-    bifd->ulo = DALLOC(n);
-    bifd->u0 = DALLOC(n);
-    bifd->ubar = DALLOC(n);
-    bifd->evr = DALLOC(n);
-    bifd->evi = DALLOC(n);
+    bifd->uhi = malloc((n)*sizeof(double));
+    bifd->ulo = malloc((n)*sizeof(double));
+    bifd->u0 = malloc((n)*sizeof(double));
+    bifd->ubar = malloc((n)*sizeof(double));
+    bifd->evr = malloc((n)*sizeof(double));
+    bifd->evi = malloc((n)*sizeof(double));
     bifd->norm = 0;
     bifd->lab = 0;
 
@@ -100,12 +100,12 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     dnew = d->next;
     dnew->next = NULL;
     dnew->prev = d;
-    dnew->uhi = DALLOC(n);
-    dnew->ulo = DALLOC(n);
-    dnew->u0 = DALLOC(n);
-    dnew->ubar = DALLOC(n);
-    dnew->evr = DALLOC(n);
-    dnew->evi = DALLOC(n);
+    dnew->uhi = malloc((n)*sizeof(double));
+    dnew->ulo = malloc((n)*sizeof(double));
+    dnew->u0 = malloc((n)*sizeof(double));
+    dnew->ubar = malloc((n)*sizeof(double));
+    dnew->evr = malloc((n)*sizeof(double));
+    dnew->evi = malloc((n)*sizeof(double));
     dnew->index = NBifs;
     NBifs++;
     edit_diagram(dnew, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
