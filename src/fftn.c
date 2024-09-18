@@ -498,34 +498,16 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
 
     /* allocate storage */
     if (SpaceAlloced < maxFactors*sizeof(REAL)) {
-#ifdef SUN_BROKEN_REALLOC
-        if (!SpaceAlloced) /* first time */
-        {
-            SpaceAlloced = maxFactors*sizeof(REAL);
-            Tmp0 = malloc(SpaceAlloced);
-            Tmp1 = malloc(SpaceAlloced);
-            Tmp2 = malloc(SpaceAlloced);
-            Tmp3 = malloc(SpaceAlloced);
-        } else {
-#endif
-            SpaceAlloced = maxFactors*sizeof(REAL);
-            Tmp0 = realloc(Tmp0, SpaceAlloced);
-            Tmp1 = realloc(Tmp1, SpaceAlloced);
-            Tmp2 = realloc(Tmp2, SpaceAlloced);
-            Tmp3 = realloc(Tmp3, SpaceAlloced);
-#ifdef SUN_BROKEN_REALLOC
-        }
-#endif
+        SpaceAlloced = maxFactors*sizeof(REAL);
+        Tmp0 = realloc(Tmp0, SpaceAlloced);
+        Tmp1 = realloc(Tmp1, SpaceAlloced);
+        Tmp2 = realloc(Tmp2, SpaceAlloced);
+        Tmp3 = realloc(Tmp3, SpaceAlloced);
     } else {
         /* allow full use of alloc'd space */
         maxFactors = SpaceAlloced / sizeof(REAL);
     }
     if (MaxPermAlloced < maxPerm) {
-#ifdef SUN_BROKEN_REALLOC
-        if (!MaxPermAlloced) /* first time */
-            Perm = malloc(maxPerm*sizeof(*Perm));
-        else
-#endif
             Perm = realloc(Perm, maxPerm*sizeof(int32));
         MaxPermAlloced = maxPerm;
     } else {
