@@ -41,7 +41,7 @@ int32 custom_color = 0;
 #define MAX_COLORS 256
 #define COL_TOTAL 150
 
-XColor color[MAX_COLORS];
+static XColor color[MAX_COLORS];
 extern int32 TrueColorFlag;
 
 void
