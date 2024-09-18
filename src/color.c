@@ -36,7 +36,6 @@ int32 color_min, color_total, COLOR, color_max;
 extern int32 DCURX, DCURY, CURY_OFF, CURS_X, CURS_Y, DCURXs, DCURYs;
 extern uint32 Black, White;
 extern uint32 MyBackColor, MyForeColor, GrFore, GrBack;
-int32 spectral;
 int32 custom_color = 0;
 
 #define MAX_COLORS 256
