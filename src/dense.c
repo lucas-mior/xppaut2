@@ -48,7 +48,7 @@ DenseAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return malloc(N*sizeof(int64));
+    return malloc((usize)N*sizeof(int64));
 }
 
 int64
@@ -113,11 +113,11 @@ denalloc(int64 n) {
     if (n <= 0)
         return NULL;
 
-    a = malloc(n*sizeof(double *));
+    a = malloc((usize)n*sizeof(double *));
     if (a == NULL)
         return NULL;
 
-    a[0] = malloc(n*n * sizeof(*(a[0])));
+    a[0] = malloc((usize)(n*n)*sizeof(*(a[0])));
     if (a[0] == NULL) {
         free(a);
         return NULL;
@@ -134,7 +134,7 @@ denallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return malloc(n*sizeof(int64));
+    return malloc((usize)n*sizeof(int64));
 }
 
 int64

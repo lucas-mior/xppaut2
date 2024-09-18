@@ -38,14 +38,14 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     int32 kmem = n*(2*n + 5) + 50, i, j, k, okroot;
 
     double *ev;
-    ev = malloc(2*n * sizeof(*ev));
+    ev = malloc((usize)(2*n)*sizeof(*ev));
     for (i = 0; i < (2*n); i++)
         ev[i] = 0.0;
     /* first we establish how many delays there are */
     del_stab_flag = 0;
     for (i = 0; i < n; i++)
         old_x[i] = x[i];
-    work = malloc(kmem*sizeof(*work));
+    work = malloc((usize)kmem*sizeof(*work));
     rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         del_stab_flag = 1;
@@ -63,7 +63,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         variable_shift[1][i] = x[i];
     }
     free(work);
-    coef = malloc(n*n * (NDelay + 1)*sizeof(*coef));
+    coef = malloc((usize)(n*n*(NDelay + 1))*sizeof(*coef));
 
     /* now we must compute a bunch of jacobians  */
     /* first the normal one   */
@@ -318,7 +318,7 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m, double err,
     lambda.r = AlphaMax;
     lambda.i = OmegaMax;
 
-    z = malloc(sizeof(*z)*n * n);
+    z = malloc(sizeof(*z)*(usize)(n*n));
 
     /* now Newtons Method for maxit times */
     for (k = 0; k < maxit; k++) {
@@ -400,7 +400,7 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     double arg;
     if (m == 0)
         return 0; /* no delays so don't use this! */
-    z = malloc(sizeof(*z)*n * n);
+    z = malloc(sizeof(*z)*(usize)(n*n));
     for (j = 0; j < n; j++)
         for (i = 0; i < n; i++) {
             if (i == j)
