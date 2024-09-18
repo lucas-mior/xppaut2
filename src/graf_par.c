@@ -732,7 +732,7 @@ update_view(double xlo, double xhi, double ylo, double yhi) {
     redraw_the_graph();
 }
 
-void
+static void
 scroll_window(void) {
     XEvent ev;
     int32 i = 0, j = 0;
