@@ -1817,7 +1817,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
        int64 *is, int64 *itrans, int64 *ndm, double *dfdu, double *dfdp) {
     int64 dfdu_dim1, dfdp_dim1;
 
-    int64 i, j, k;
+    int64 j, k;
     int64 mcond, k1, k2, m0;
 
     double det, eps;
@@ -1872,13 +1872,13 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     /* Compute transpose of A if ITRANS=1 */
     if (*itrans == 1) {
-        for (i = 0; i < *ndm; ++i) {
+        for (int64 i = 0; i < *ndm; ++i) {
             for (j = 0; j < *ndm; ++j) {
                 a[i + j*(*ndm)] = ARRAY2D(dfdu, j, i);
             }
         }
     } else {
-        for (i = 0; i < *ndm; ++i) {
+        for (int64 i = 0; i < *ndm; ++i) {
             for (j = 0; j < *ndm; ++j) {
                 a[i + j*(*ndm)] = ARRAY2D(dfdu, i, j);
             }
@@ -1896,7 +1896,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     /* Force A to be upper Hessenberg */
     if (*ndm > 2) {
-        for (i = 2; i < *ndm; ++i) {
+        for (int64 i = 2; i < *ndm; ++i) {
             for (j = 0; j < i - 1; ++j) {
                 a[i + j*(*ndm)] = 0.;
             }
@@ -1923,7 +1923,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     mcond = k2 - k1 + 1;
     m0 = k1 - 1;
 
-    for (i = k1 - 1; i < k2; ++i) {
+    for (int64 i = k1 - 1; i < k2; ++i) {
         for (j = 0; j < *ndm; ++j) {
             cnow[i + j*(*ndm)] = v[j + (i - k1 + 1)*(*ndm)];
         }
@@ -1937,7 +1937,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
        worked because the just happened to be filled
        with zeros, even though this is not guaranteed.*/
     if (beyn_1.iflag[*is + (*itrans*2) - 3] == 0) {
-        for (i = k1 - 1; i < k2; ++i) {
+        for (int64 i = k1 - 1; i < k2; ++i) {
             for (j = 0; j < *ndm; ++j) {
                 beyn_1.cprev[i +
                              (j + ((*is - 1) + ((*itrans - 1)*2))*(*ndm)) *
@@ -1961,7 +1961,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     }
 
     /* Calculate the (transpose of the) BEYN matrix D and hence BOUND */
-    for (i = 0; i < mcond; ++i) {
+    for (int64 i = 0; i < mcond; ++i) {
         for (j = 0; j < mcond; ++j) {
             dum1[i + j*(*ndm)] = 0.;
             dum2[i + j*(*ndm)] = 0.;
@@ -2013,7 +2013,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     if (mcond > 0)
         ge(mcond, *ndm, dum1, mcond, *ndm, d, *ndm, dum2, &det);
 
-    for (i = 0; i < mcond; ++i) {
+    for (int64 i = 0; i < mcond; ++i) {
         for (j = 0; j < *ndm; ++j) {
             bound[(i + 1) + m0 + (j + 1)*(*ndm)] = 0.;
             for (k = 0; k < mcond; ++k) {
@@ -2023,7 +2023,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         }
     }
 
-    for (i = k1 - 1; i < k2; ++i) {
+    for (int64 i = k1 - 1; i < k2; ++i) {
         for (j = 0; j < *ndm; ++j) {
             beyn_1.cprev[i + (j + ((*is - 1) + ((*itrans - 1)*2))*(*ndm)) *
                                  (*ndm)] = bound[(i + 1) + (j + 1)*(*ndm)];
