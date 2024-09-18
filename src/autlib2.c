@@ -87,7 +87,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ft = malloc(sizeof(*ft)*(usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     if (*ifst == 1) {
-        /* printf("I am freeing and allocating stuff \n");  */
         /* The formulas used for the allocation are somewhat floatcomplex, but
            they are based on following macros (the space after the first letter
            is for the scripts which detect these things automatically, the
