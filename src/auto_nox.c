@@ -389,7 +389,7 @@ chk_auto_bnds(int32 ix, int32 iy) {
         return 1;
     return 0;
 }
-/*   File manipulation stuff  */
+
 void
 renamef(char *old, char *new) {
     rename(old, new);
