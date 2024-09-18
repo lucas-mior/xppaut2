@@ -209,7 +209,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
            BLAS routines. */
         double tmp1 = 1.0;
         double tmp0 = 0.0;
-        int64 tmp_false = FALSE_;
+        int64 tmp_false = false;
 
         dgemm("n", "n", ndim, ndim, ndim, &tmp1, c0, ndim, svdv, ndim, &tmp0,
               rwork, ndim, 1L, 1L);
@@ -307,12 +307,12 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     /*  reduce the generalized eigenvalue problem to a simpler form */
     /*   (C0BarDef,C1BarDef) = (upper hessenberg, upper triangular) */
 
-    qzhes(*ndim, ndimm1, &c0[1], &c1[1], FALSE_, qzz);
+    qzhes(*ndim, ndimm1, &c0[1], &c1[1], false, qzz);
 
     /*  now reduce to an even simpler form */
     /*   (C0BarDef,C1BarDef) = (quasi-upper triangular, upper triangular) */
 
-    qzit(*ndim, ndimm1, &c0[1], &c1[1], QZEPS1, FALSE_, qzz, &qzierr);
+    qzit(*ndim, ndimm1, &c0[1], &c1[1], QZEPS1, false, qzz, &qzierr);
     if (qzierr != 0) {
         fprintf(fp9,
                 " NOTE : Warning from subroutine FLOWKM : QZ routine returned "
@@ -323,12 +323,12 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     /*  compute the generalized eigenvalues */
 
-    qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi, qzbeta, FALSE_, qzz);
+    qzval(*ndim, ndimm1, &c0[1], &c1[1], qzalfr, qzalfi, qzbeta, false, qzz);
 
     /*  Pack the eigenvalues into floatcomplex form. */
     ev[0].r = ARRAY2D(c0, 0, (*ndim - 1)) / ARRAY2D(c1, 0, (*ndim - 1));
     ev[0].i = 0.;
-    infev = FALSE_;
+    infev = false;
     for (j = 0; j < ndimm1; ++j) {
         if (qzbeta[j] != 0.) {
             ev[j + 1].r = qzalfr[j] / qzbeta[j];
@@ -336,7 +336,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         } else {
             ev[j + 1].r = 1e30;
             ev[j + 1].i = 1e30;
-            infev = TRUE_;
+            infev = true;
         }
     }
     if (infev) {

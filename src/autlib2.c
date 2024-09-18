@@ -200,9 +200,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     iam = iap->mynode;
     kwt = iap->numnodes;
     if (kwt > 1) {
-        ipar = TRUE_;
+        ipar = true;
     } else {
-        ipar = FALSE_;
+        ipar = false;
     }
 
     ndim = iap->ndim;
@@ -456,9 +456,9 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     *iam = iap->mynode;
     *kwt = iap->numnodes;
     if (*kwt > 1) {
-        *ipar = TRUE_;
+        *ipar = true;
     } else {
-        *ipar = FALSE_;
+        *ipar = false;
     }
 
     wint(*ncol + 1, wi);
@@ -914,7 +914,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
         double tmp2 = r_lg10(xkwt) / r_lg10(2.0);
         nlev = i_nint(&tmp2);
     }
-    notsend = TRUE_;
+    notsend = true;
 
     /*     FOR EACH REURSIVE LEVEL, CALCULATE THE MASTER(HOLDING THE */
     /*     PIVOT ROW AFTER ROW SWAPPING) NODE WHICH WILL SEND THE */
@@ -931,10 +931,10 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
     if (*par) {
         for (i = 0; i < nlev; ++i) {
-            oddc[i] = FALSE_;
-            evenc[i] = FALSE_;
-            master[i] = FALSE_;
-            worker[i] = FALSE_;
+            oddc[i] = false;
+            evenc[i] = false;
+            master[i] = false;
+            worker[i] = false;
 
             k1 = pow_ii(2, i);
             k2 = k1*2;
@@ -942,8 +942,8 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
             if (notsend) {
                 if (niam % 2 == 0) {
-                    master[i] = TRUE_;
-                    notsend = FALSE_;
+                    master[i] = true;
+                    notsend = false;
                     ism[i] = (i + 1) + *iam;
                     irm[i] = ism[i] + k1;
                     myright[i] = *iam + k1;
@@ -953,7 +953,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
                 } else {
 
-                    worker[i] = TRUE_;
+                    worker[i] = true;
                     ism[i] = (i + 1) + *iam;
                     irm[i] = ism[i] - k1;
                     myleft[i] = *iam - k1;
@@ -962,12 +962,12 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
             k = *iam % k2;
             if (k == k1) {
-                evenc[i] = TRUE_;
+                evenc[i] = true;
                 ismm[i] = (i + 1) + *iam + (*kwt*2);
             }
 
             if (*iam % k2 == 0) {
-                oddc[i] = TRUE_;
+                oddc[i] = true;
                 irmc[i] = (i + 1) + *iam + *kwt + (k1 - 1);
             }
 
@@ -1649,7 +1649,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
         double tmp2 = r_lg10(xkwt) / r_lg10(2.0);
         nlev = i_nint(&tmp2);
     }
-    notsend = TRUE_;
+    notsend = true;
 
     /* At each recursive level determine the master node (holding the pivot */
     /* row after swapping), which will send the pivot row to the worker node
@@ -1658,19 +1658,19 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
 
     if (*par) {
         for (i = 0; i < nlev; ++i) {
-            master[i] = FALSE_;
-            worker[i] = FALSE_;
+            master[i] = false;
+            worker[i] = false;
             k1 = pow_ii(2, i);
             niam = *iam / k1;
             if (notsend) {
                 if (niam % 2 == 0) {
-                    master[i] = TRUE_;
-                    notsend = FALSE_;
+                    master[i] = true;
+                    notsend = false;
                     ism[i] = (i + 1) + *iam + 10000;
                     irm[i] = ism[i] + k1;
                     myright[i] = *iam + k1;
                 } else {
-                    worker[i] = TRUE_;
+                    worker[i] = true;
                     ism[i] = (i + 1) + *iam + 10000;
                     irm[i] = ism[i] - k1;
                     myleft[i] = *iam - k1;
@@ -1975,7 +1975,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
         bb_dim1, bb_dim2, sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
 
     int64 niam, ibuf;
-    int64 even = FALSE_;
+    int64 even = false;
     int64 nlev;
     int64 hasright;
     double xkwt;
@@ -1987,7 +1987,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
 
     int64 master[KREDO];
     int64 myleft, kp1;
-    int64 odd = FALSE_;
+    int64 odd = false;
     int64 ism, irm;
     int64 hasleft, notsend;
     int64 nam1, myright, nov2, nov3;
@@ -2017,18 +2017,18 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     ibuf = (nov3 + 1)*8;
 
     /* The backsubstitution in the reduction process is recursive. */
-    notsend = TRUE_;
+    notsend = true;
 
     /*At each recursion level determine the sender nodes (called MASTER here).
      */
     if (*par) {
         for (i = 0; i < nlev; ++i) {
-            master[i] = FALSE_;
+            master[i] = false;
             niam = *iam / pow_ii(2, i);
             if (notsend) {
                 if (niam % 2 == 0) {
-                    master[i] = TRUE_;
-                    notsend = FALSE_;
+                    master[i] = true;
+                    notsend = false;
                 }
             }
         }
@@ -2107,23 +2107,23 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
 
         /* Define odd and even nodes */
         if (*iam % 2 == 0) {
-            even = TRUE_;
+            even = true;
         } else {
-            odd = TRUE_;
+            odd = true;
         }
 
         /* Determine whether I have a right neighbor */
         if (*iam == *kwt - 1) {
-            hasright = FALSE_;
+            hasright = false;
         } else {
-            hasright = TRUE_;
+            hasright = true;
         }
 
         /* Determine whether I have a left neighbor */
         if (*iam == 0) {
-            hasleft = FALSE_;
+            hasleft = false;
         } else {
-            hasleft = TRUE_;
+            hasleft = true;
         }
 
         /* Define send message type */
@@ -2312,20 +2312,20 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     }
 
     /* At each recursion level determine the odd and even nodes */
-    notsend = TRUE_;
+    notsend = true;
     for (n = 0; n < nredo; ++n) {
         smtype[n] = n + 1000 + *iam + 1;
         rmtype[n] = smtype[n] - pow_ii(2, n);
         myright[n] = *iam + pow_ii(2, n);
-        even[n] = FALSE_;
-        odd[n] = FALSE_;
+        even[n] = false;
+        odd[n] = false;
         niam = *iam / pow_ii(2, n);
         if (notsend) {
             if (niam % 2 == 0) {
-                even[n] = TRUE_;
-                notsend = FALSE_;
+                even[n] = true;
+                notsend = false;
             } else {
-                odd[n] = TRUE_;
+                odd[n] = true;
             }
         }
     }

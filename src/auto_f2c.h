@@ -8,6 +8,7 @@
 #define F2C_INCLUDE
 
 #include <stdlib.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <math.h>
 #include "integers.h"
@@ -18,9 +19,6 @@ typedef struct {
 typedef struct {
     double r, i;
 } doublecomplex;
-
-#define TRUE_ (1)
-#define FALSE_ (0)
 
 /* I/O stuff */
 

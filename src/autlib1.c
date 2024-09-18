@@ -1563,7 +1563,7 @@ fnbpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     det = rap->det;
     ret_val = det;
-    *chng = TRUE_;
+    *chng = true;
 
     /* If requested write additional output on unit 9 : */
 
@@ -1628,7 +1628,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     }
     ret_val = ud[ndim];
     rap->fldf = ret_val;
-    *chng = TRUE_;
+    *chng = true;
 
     /* If requested write additional output on unit 9 : */
 
@@ -1690,7 +1690,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     /* INITIALIZE */
 
-    *chng = FALSE_;
+    *chng = false;
 
     /* Compute the eigenvalues of the Jacobian */
 
@@ -1778,7 +1778,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     rap->hbff = ret_val;
     nins = iap->nins;
     if (nins1 != nins)
-        *chng = TRUE_;
+        *chng = true;
     nins = nins1;
     iap->nins = nins;
 
@@ -1846,7 +1846,7 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     ntop = (ntot + 1) % 10000;
 
     ret_val = par[abs(iuz[iuzr])] - vuz[iuzr];
-    *chng = TRUE_;
+    *chng = true;
 
     if (iid >= 3) {
         fprintf(fp9, "%4li%6li        User Func. %3li %16.6E\n", abs(ibr), ntop,
@@ -3506,7 +3506,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 
     cntdif(ncol, wh);
 
-    small = TRUE_;
+    small = true;
     for (j = 0; j < *ntst; ++j) {
         jp1 = j + 1;
         sc = 1. / pow_di(&dtm[j], ncol);
@@ -3518,7 +3518,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
             }
             hd[j + i*(*ntst + 1)] = sc*hd[j + i*(*ntst + 1)];
             if (fabs(hd[j + i*(*ntst + 1)]) > HMACH) {
-                small = FALSE_;
+                small = false;
             }
         }
     }
@@ -4012,7 +4012,7 @@ findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
     /* Locates restart point with label IRS and determines type. */
     /* If the label can not be located on unit 3 then FOUND will be .FALSE. */
 
-    *found = FALSE_;
+    *found = false;
     rewind(fp3);
     isw = iap->isw;
 
@@ -4050,7 +4050,7 @@ findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
         iap->itp = itp;
         iap->ibr = ibr;
         if (labrs == irs) {
-            *found = TRUE_;
+            *found = true;
             if (abs(isw) == 2) {
                 if (abs(itp) < 10) {
                     itpst = abs(itp);
@@ -4122,14 +4122,14 @@ skip3(int64 *nskip, int64 *eof3) {
 
     /* Skips the specified number of lines on unit 3. */
 
-    *eof3 = FALSE_;
+    *eof3 = false;
     for (i = 0; i < *nskip; ++i) {
         /* NOTE from Randy:  I am not 100% happy with this.  I am
            not sure if this properly simulates the Fortran behavior */
         while (true) {
             int32 tmp = fgetc(fp3);
             if (tmp == EOF) {
-                *eof3 = TRUE_;
+                *eof3 = true;
                 return 0;
             }
             if ((char)tmp == '\n') {
@@ -5084,12 +5084,12 @@ L1:
 
         /* Check whether user-supplied error tolerances have been met : */
 
-        done = TRUE_;
+        done = true;
         rdrl = 0.;
         for (i = 0; i < nfpr; ++i) {
             adrl = fabs(fc[ndim + i]) / (fabs(rlcur[i]) + 1.);
             if (adrl > epsl) {
-                done = FALSE_;
+                done = false;
             }
             if (adrl > rdrl) {
                 rdrl = adrl;
@@ -5916,7 +5916,7 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     /* Set the quantity to be returned. */
 
     ret_val = rldot[0];
-    *chng = TRUE_;
+    *chng = true;
     rap->fldf = ret_val;
 
     return ret_val;
@@ -5994,10 +5994,10 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     if (det != 0.) {
         ret_val = det0 / det;
-        *chng = TRUE_;
+        *chng = true;
     } else {
         ret_val = 0.;
-        *chng = FALSE_;
+        *chng = false;
     }
     rap->biff = ret_val;
 
@@ -6077,7 +6077,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     ret_val = 0.;
     rap->spbf = ret_val;
     d = 0.;
-    *chng = FALSE_;
+    *chng = false;
 
     /*  Compute the Floquet multipliers */
 
@@ -6214,7 +6214,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
             rap->spbf = ret_val;
             nins = iap->nins;
             if (nins1 != nins) {
-                *chng = TRUE_;
+                *chng = true;
             }
         }
     }
@@ -6287,7 +6287,7 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     ntop = (ntot + 1) % 10000;
 
     ret_val = par[abs(iuz[iuzr])] - vuz[iuzr];
-    *chng = TRUE_;
+    *chng = true;
 
     if (iid >= 3) {
         fprintf(fp9, "%4li%6li        User Func. %3li %14.6E\n", abs(ibr), ntop,
