@@ -86,6 +86,8 @@ extern double auto_xmax, auto_xmin, auto_ymax, auto_ymin;
 extern double auto_epsl, auto_epsu, auto_epss;
 extern int32 auto_var;
 
+extern int32 Auto_index_to_array[8];
+
 extern int32 load_all_labeled_orbits;
 
 extern int32 AutoTwoParam;

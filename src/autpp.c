@@ -12,7 +12,6 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern double constants[], last_ic[];
 
-extern int32 Auto_index_to_array[8];
 extern int32 NewPeriodFlag;
 extern int32 HomoFlag;
 extern double homo_l[100], homo_r[100];

@@ -49,7 +49,6 @@ int32 mark_ixs, mark_ixe, mark_iys, mark_iye;
 extern Window command_pop;
 
 extern double TEND;
-extern int32 Auto_index_to_array[8];
 extern int32 AutoPar[8];
 
 extern int32 xorfix;
