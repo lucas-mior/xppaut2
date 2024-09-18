@@ -125,7 +125,7 @@ strip_saveqn(void) {
     int32 i;
     int32 j, n;
     for (i = 0; i < NLINES; i++) {
-        n = strlen(save_eqn[i]);
+        n = (int32)strlen(save_eqn[i]);
         for (j = 0; j < n; j++)
             if (save_eqn[i][j] < 32)
                 save_eqn[i][j] = 32;
@@ -136,7 +136,7 @@ strip_saveqn(void) {
 int32
 disc(char *string) {
     char c;
-    int32 i = 0, l = strlen(string), j = 0, flag = 0;
+    int32 i = 0, l = (int32)strlen(string), j = 0, flag = 0;
     char end[256];
     if (is_a_map == 1)
         return 1;
@@ -181,7 +181,7 @@ format_list(char **s, int32 n) {
     char fmat[30];
     int32 lmax = 0, l = 0;
     for (i = 0; i < n; i++) {
-        l = strlen(s[i]);
+        l = (int32)strlen(s[i]);
         if (lmax < l)
             lmax = l;
     }
@@ -238,7 +238,7 @@ get_a_filename(char *filename, char *wild) {
         /*strcpy (filename, "lecar.ode");
          */
         get_directory(filename);
-        m = strlen(filename);
+        m = (int32)strlen(filename);
         if (filename[m - 1] != '/') {
             strcat(filename, "/");
         }

@@ -110,13 +110,13 @@ add_global(char *cond, int32 sign, char *rest) {
         plintf("Too many global conditions\n");
         return 1;
     }
-    l = strlen(cond);
-    flag[j].cond = malloc(l + 1);
+    l = (int32)strlen(cond);
+    flag[j].cond = malloc((usize)l + 1);
     strcpy(flag[j].cond, cond);
     nevents = 0;
     flag[j].lhsname[0][0] = 0;
     k = 0;
-    l = strlen(rest);
+    l = (int32)strlen(rest);
     for (ii = 0; ii < l; ii++) {
         ch = rest[ii];
         if (ch == '{' || ch == ' ')
@@ -127,12 +127,12 @@ add_global(char *cond, int32 sign, char *rest) {
                 return 1;
             }
             temp[k] = 0;
-            lt = strlen(temp);
+            lt = (int32)strlen(temp);
             if (flag[j].lhsname[nevents][0] == 0) {
                 printf(" No event variable named for %s \n", temp);
                 return 1;
             }
-            flag[j].rhs[nevents] = malloc(lt + 1);
+            flag[j].rhs[nevents] = malloc((usize)lt + 1);
             strcpy(flag[j].rhs[nevents], temp);
             nevents++;
             k = 0;
@@ -194,7 +194,7 @@ compile_flags(void) {
         }
         flag[j].anypars = 0;
         flag[j].nointerp = 0;
-        flag[j].comcond = malloc(sizeof(*(flag[j].comcond))*(nc + 1));
+        flag[j].comcond = malloc(sizeof(*(flag[j].comcond))*(usize)(nc + 1));
         for (k = 0; k <= nc; k++)
             flag[j].comcond[k] = command[k];
         for (i = 0; i < flag[j].nevents; i++) {
@@ -240,7 +240,7 @@ compile_flags(void) {
                        flag[j].cond);
                 return 1;
             }
-            flag[j].comrhs[i] = malloc(sizeof(*(flag[j].comrhs[i]))*(nc + 1));
+            flag[j].comrhs[i] = malloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
             for (k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }

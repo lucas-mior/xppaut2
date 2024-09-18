@@ -497,22 +497,22 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
         return 0;
 
     /* allocate storage */
-    if (SpaceAlloced < maxFactors*sizeof(REAL)) {
-        SpaceAlloced = maxFactors*sizeof(REAL);
+    if (SpaceAlloced < (usize)maxFactors*sizeof(REAL)) {
+        SpaceAlloced = (usize)maxFactors*sizeof(REAL);
         Tmp0 = realloc(Tmp0, SpaceAlloced);
         Tmp1 = realloc(Tmp1, SpaceAlloced);
         Tmp2 = realloc(Tmp2, SpaceAlloced);
         Tmp3 = realloc(Tmp3, SpaceAlloced);
     } else {
         /* allow full use of alloc'd space */
-        maxFactors = SpaceAlloced / sizeof(REAL);
+        maxFactors = (int32)(SpaceAlloced / sizeof(REAL));
     }
     if (MaxPermAlloced < maxPerm) {
-            Perm = realloc(Perm, maxPerm*sizeof(int32));
+            Perm = realloc(Perm, (usize)maxPerm*sizeof(int32));
         MaxPermAlloced = maxPerm;
     } else {
         /* allow full use of alloc'd space */
-        maxPerm = MaxPermAlloced;
+        maxPerm = (int32)MaxPermAlloced;
     }
     if (!Tmp0 || !Tmp1 || !Tmp2 || !Tmp3 || !Perm)
         goto Memory_Error;
@@ -537,12 +537,12 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     }
 
     /* adjust for strange increments */
-    nt = inc*nTotal;
-    ns = inc*nSpan;
+    nt = inc*(int32)nTotal;
+    ns = inc*(int32)nSpan;
     kspan = ns;
 
     nn = nt - inc;
-    jc = ns / nPass;
+    jc = ns / (int32)nPass;
     radf = pi2*(double)jc;
     pi2 *= 2.0; /* use 2 PI from here on */
 
@@ -550,7 +550,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     jf = 0;
     /* determine the factors of n */
 
-    nFactor = factorize(nPass, &kt);
+    nFactor = factorize((int32)nPass, &kt);
     /* test that nFactors is in range */
     if (nFactor > NFACTOR) {
         fprintf(stderr,
