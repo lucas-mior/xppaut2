@@ -37,7 +37,6 @@ extern int32 NUPAR;
 extern int32 NLINES;
 extern int32 IN_VARS;
 extern int32 leng[MAX_ODE];
-extern int32 NincludedFiles;
 
 VAR_INFO *my_varinfo;
 int32 start_var_info = 0;

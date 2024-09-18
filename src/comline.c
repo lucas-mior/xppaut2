@@ -76,7 +76,7 @@ char icfilename[XPP_MAX_NAME];
 char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
 
 char readsetfile[XPP_MAX_NAME];
-int32 externaloptionsflag = 0;
+static int32 externaloptionsflag = 0;
 char externaloptionsstring[1024];
 int32 NincludedFiles = 0;
 extern char UserBlack[8];
