@@ -81,7 +81,7 @@ draw_eq_list(Window w) {
             bob[299] = 0;
             XDrawString(display, w, small_gc, 0,
                         CURY_OFFs + (i - eq_list.istart)*(DCURYs + 2), bob,
-                        strlen(bob));
+                        (int32)strlen(bob));
         }
     }
     return;
@@ -182,10 +182,10 @@ void
 enter_eq_stuff(Window w, int32 b) {
     if (eq_list.flag == 1) {
         if (w == eq_list.close || w == eq_list.up || w == eq_list.down)
-            XSetWindowBorderWidth(display, w, b);
+            XSetWindowBorderWidth(display, w, (uint)b);
     }
     if (eq_box.flag == 1 && (w == eq_box.close || w == eq_box.import))
-        XSetWindowBorderWidth(display, w, b);
+        XSetWindowBorderWidth(display, w, (uint)b);
     return;
 }
 

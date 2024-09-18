@@ -413,9 +413,9 @@ edit_functions(void) {
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)
         return;
-    names = malloc(n*sizeof(char *));
-    values = malloc(n*sizeof(char *));
-    command = malloc(n*sizeof(int32 *));
+    names = malloc((usize)n*sizeof(char *));
+    values = malloc((usize)n*sizeof(char *));
+    command = malloc((usize)n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
         values[i] = malloc(MAX_LEN_EBOX*sizeof(*(values[i])));
         names[i] = malloc(MAX_LEN_EBOX*sizeof(*(names[i])));
