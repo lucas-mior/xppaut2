@@ -86,6 +86,18 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ff = malloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
     ft = malloc(sizeof(*ft)*(usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
+    ndim = iap->ndim;
+    ips = iap->ips;
+    ntst = iap->ntst;
+    ncol = iap->ncol;
+    nbc = iap->nbc;
+    nint = iap->nint;
+    iid = iap->iid;
+    nfpr = iap->nfpr;
+    nrc = nbc + nint + 1;
+    nrow = ndim*ncol;
+    nclm = nrow + ndim;
+
     if (*ifst == 1) {
         /* The formulas used for the allocation are somewhat floatcomplex, but
            they are based on following macros (the space after the first letter
@@ -130,41 +142,41 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.np);
 
         /*(M 1AAR*M 2AA*N AX) */
-        mas.a = malloc(sizeof(*(mas.a))*(iap->ndim*iap->ncol + iap->ndim)*(iap->ndim*iap->ncol)*(iap->ntst + 1));
+        mas.a = malloc(sizeof(*(mas.a))*(ndim*iap->ncol + ndim)*(ndim*iap->ncol)*(iap->ntst + 1));
         /*(M 1BB*M 2BB*N AX)*/
-        mas.b = malloc(sizeof(*(mas.b))*NPARX*(iap->ndim*iap->ncol)*(iap->ntst + 1));
+        mas.b = malloc(sizeof(*(mas.b))*NPARX*(ndim*iap->ncol)*(iap->ntst + 1));
         /*(M 1CC*M 2CC*N AX)*/
-        mas.c = malloc(sizeof(*(mas.c))*(iap->ndim*iap->ncol + iap->ndim)*(iap->nbc + iap->nint + 1)*(iap->ntst + 1));
+        mas.c = malloc(sizeof(*(mas.c))*(ndim*iap->ncol + ndim)*(iap->nbc + iap->nint + 1)*(iap->ntst + 1));
         /*(M 1DD*M 2DD)*/
         mas.d = malloc(sizeof(*(mas.d))*(iap->nbc + iap->nint + 1)*NPARX);
-        /*(iap->ndim*iap->ndim *N AX)*/
-        mas.a1 = malloc(sizeof(*(mas.a1))*(iap->ndim*iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim*iap->ndim *N AX)*/
-        mas.a2 = malloc(sizeof(*(mas.a2))*(iap->ndim*iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim*iap->ndim *N AX)*/
-        mas.s1 = malloc(sizeof(*(mas.s1))*(iap->ndim*iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim*iap->ndim *N AX)*/
-        mas.s2 = malloc(sizeof(*(mas.s2))*(iap->ndim*iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim *N PARX*N AX)*/
-        mas.bb = malloc(sizeof(*(mas.bb))*(iap->ndim*NPARX*(iap->ntst + 1)));
-        /*(N RCX* iap->ndim *N AX+1)*/
-        mas.cc = malloc(sizeof(*(mas.cc))*((iap->nbc + iap->nint + 1)*iap->ndim*(iap->ntst + 1) + 1));
-        /*(iap->ndim *N AX)*/
-        mas.faa = malloc(sizeof(*(mas.faa))*(iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim*iap->ndim *K REDO)*/
-        mas.ca1 = malloc(sizeof(*(mas.ca1))*(iap->ndim*iap->ndim*KREDO));
+        /*(ndim*ndim *N AX)*/
+        mas.a1 = malloc(sizeof(*(mas.a1))*(ndim*ndim*(iap->ntst + 1)));
+        /*(ndim*ndim *N AX)*/
+        mas.a2 = malloc(sizeof(*(mas.a2))*(ndim*ndim*(iap->ntst + 1)));
+        /*(ndim*ndim *N AX)*/
+        mas.s1 = malloc(sizeof(*(mas.s1))*(ndim*ndim*(iap->ntst + 1)));
+        /*(ndim*ndim *N AX)*/
+        mas.s2 = malloc(sizeof(*(mas.s2))*(ndim*ndim*(iap->ntst + 1)));
+        /*(ndim *N PARX*N AX)*/
+        mas.bb = malloc(sizeof(*(mas.bb))*(ndim*NPARX*(iap->ntst + 1)));
+        /*(N RCX* ndim *N AX+1)*/
+        mas.cc = malloc(sizeof(*(mas.cc))*((iap->nbc + iap->nint + 1)*ndim*(iap->ntst + 1) + 1));
+        /*(ndim *N AX)*/
+        mas.faa = malloc(sizeof(*(mas.faa))*(ndim*(iap->ntst + 1)));
+        /*(ndim*ndim *K REDO)*/
+        mas.ca1 = malloc(sizeof(*(mas.ca1))*(ndim*ndim*KREDO));
         /*(N CLMX*N AX)*/
-        mas.icf = malloc(sizeof(*(mas.icf))*((iap->ndim*iap->ncol + iap->ndim)*(iap->ntst + 1)));
+        mas.icf = malloc(sizeof(*(mas.icf))*((ndim*iap->ncol + ndim)*(iap->ntst + 1)));
         /*(N ROWX*N AX)*/
-        mas.irf = malloc(sizeof(*(mas.irf))*(iap->ndim*iap->ncol*(iap->ntst + 1)));
-        /*(iap->ndim *N AX)*/
-        mas.ipr = malloc(sizeof(*(mas.ipr))*(iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim *K REDO)*/
-        mas.icf11 = malloc(sizeof(*(mas.icf11))*(iap->ndim*KREDO));
-        /*(iap->ndim *N AX)*/
-        mas.icf1 = malloc(sizeof(*(mas.icf1))*(iap->ndim*(iap->ntst + 1)));
-        /*(iap->ndim *N AX)*/
-        mas.icf2 = malloc(sizeof(*(mas.icf2))*(iap->ndim*(iap->ntst + 1)));
+        mas.irf = malloc(sizeof(*(mas.irf))*(ndim*iap->ncol*(iap->ntst + 1)));
+        /*(ndim *N AX)*/
+        mas.ipr = malloc(sizeof(*(mas.ipr))*(ndim*(iap->ntst + 1)));
+        /*(ndim *K REDO)*/
+        mas.icf11 = malloc(sizeof(*(mas.icf11))*(ndim*KREDO));
+        /*(ndim *N AX)*/
+        mas.icf1 = malloc(sizeof(*(mas.icf1))*(ndim*(iap->ntst + 1)));
+        /*(ndim *N AX)*/
+        mas.icf2 = malloc(sizeof(*(mas.icf2))*(ndim*(iap->ntst + 1)));
         /*(2)*/
         mas.np = malloc(sizeof(*(mas.np))*(2));
     }
@@ -176,18 +188,6 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     } else {
         ipar = false;
     }
-
-    ndim = iap->ndim;
-    ips = iap->ips;
-    ntst = iap->ntst;
-    ncol = iap->ncol;
-    nbc = iap->nbc;
-    nint = iap->nint;
-    iid = iap->iid;
-    nfpr = iap->nfpr;
-    nrc = nbc + nint + 1;
-    nrow = ndim*ncol;
-    nclm = nrow + ndim;
 
     if (kwt > ntst) {
         printf("NTST is less than the number of nodes\n");
