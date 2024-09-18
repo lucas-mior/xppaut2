@@ -26,8 +26,8 @@
 #define MSG_MEM_FAIL CVSPGMR_INIT "A memory request failed.\n\n"
 
 #define MSG_BAD_PRETYPE_1 CVSPGMR_INIT "pretype=%d illegal.\n"
-#define MSG_BAD_PRETYPE_2 "The legal values are NONE=%d, LEFT=%d, "
-#define MSG_BAD_PRETYPE_3 "RIGHT=%d, and BOTH=%d.\n\n"
+#define MSG_BAD_PRETYPE_2 "The legal values are PRE_NONE=%d, PRE_LEFT=%d, "
+#define MSG_BAD_PRETYPE_3 "PRE_RIGHT=%d, and PRE_BOTH=%d.\n\n"
 #define MSG_BAD_PRETYPE MSG_BAD_PRETYPE_1 MSG_BAD_PRETYPE_2 MSG_BAD_PRETYPE_3
 
 #define MSG_PSOLVE_REQ_1 CVSPGMR_INIT "pretype!=NONE, but PSOLVE=NULL is "
@@ -230,12 +230,12 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Check for legal pretype, precond, and psolve */
-    if ((pretype != NONE) && (pretype != LEFT) && (pretype != RIGHT) &&
-        (pretype != BOTH)) {
-        fprintf(errfp, MSG_BAD_PRETYPE, pretype, NONE, LEFT, RIGHT, BOTH);
+    if ((pretype != PRE_NONE) && (pretype != PRE_LEFT) && (pretype != PRE_RIGHT) &&
+        (pretype != PRE_BOTH)) {
+        fprintf(errfp, MSG_BAD_PRETYPE, pretype, PRE_NONE, PRE_LEFT, PRE_RIGHT, PRE_BOTH);
         return LINIT_ERR;
     }
-    if ((pretype != NONE) && (psolve == NULL)) {
+    if ((pretype != PRE_NONE) && (psolve == NULL)) {
         fprintf(errfp, MSG_PSOLVE_REQ);
         return LINIT_ERR;
     }
@@ -283,9 +283,9 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Set setupNonNull to TRUE iff there is preconditioning        */
-    /* (pretype != NONE) and there is a preconditioning setup phase */
+    /* (pretype != PRE_NONE) and there is a preconditioning setup phase */
     /* (precond != NULL)                                            */
-    *setupNonNull = (pretype != NONE) && (precond != NULL);
+    *setupNonNull = (pretype != PRE_NONE) && (precond != NULL);
 
     return LINIT_OK;
 }

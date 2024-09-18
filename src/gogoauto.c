@@ -2,6 +2,7 @@
 #include "auto_c.h"
 #include "x_auto.h"
 #include "integers.h"
+#include "functions.h"
 
 FILE *fp3;
 FILE *fp7;

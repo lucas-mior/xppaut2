@@ -181,11 +181,11 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     if (max_restarts < 0)
         max_restarts = 0;
 
-    if ((pretype != LEFT) && (pretype != RIGHT) && (pretype != BOTH))
-        pretype = NONE;
+    if ((pretype != PRE_LEFT) && (pretype != PRE_RIGHT) && (pretype != PRE_BOTH))
+        pretype = PRE_NONE;
 
-    preOnLeft = ((pretype == LEFT) || (pretype == BOTH));
-    preOnRight = ((pretype == RIGHT) || (pretype == BOTH));
+    preOnLeft = ((pretype == PRE_LEFT) || (pretype == PRE_BOTH));
+    preOnRight = ((pretype == PRE_RIGHT) || (pretype == PRE_BOTH));
     scale_x = (sx != NULL);
     scale_b = (sb != NULL);
 
@@ -209,7 +209,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     /* Apply left preconditioner and b-scaling to V[0] = r_0 */
 
     if (preOnLeft) {
-        ier = psolve(P_data, V[0], vtemp, LEFT);
+        ier = psolve(P_data, V[0], vtemp, PRE_LEFT);
         (*nps)++;
         if (ier != 0)
             return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
@@ -269,7 +269,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
             /* Apply right precoditioner: vtemp = P2_inv sx_inv V[l] */
             N_VScale(ONE, vtemp, V[l_plus_1]);
             if (preOnRight) {
-                ier = psolve(P_data, V[l_plus_1], vtemp, RIGHT);
+                ier = psolve(P_data, V[l_plus_1], vtemp, PRE_RIGHT);
                 (*nps)++;
                 if (ier != 0)
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
@@ -283,7 +283,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
             /* Apply left preconditioning: vtemp = P1_inv A P2_inv sx_inv V[l]
              */
             if (preOnLeft) {
-                ier = psolve(P_data, V[l_plus_1], vtemp, LEFT);
+                ier = psolve(P_data, V[l_plus_1], vtemp, PRE_LEFT);
                 (*nps)++;
                 if (ier != 0)
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
@@ -350,7 +350,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
             if (scale_x)
                 N_VDiv(xcor, sx, xcor);
             if (preOnRight) {
-                ier = psolve(P_data, xcor, vtemp, RIGHT);
+                ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
                 (*nps)++;
                 if (ier != 0)
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
@@ -401,7 +401,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         if (scale_x)
             N_VDiv(xcor, sx, xcor);
         if (preOnRight) {
-            ier = psolve(P_data, xcor, vtemp, RIGHT);
+            ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
             (*nps)++;
             if (ier != 0)
                 return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC

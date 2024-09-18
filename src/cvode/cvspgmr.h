@@ -269,7 +269,8 @@ typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, N_Vector y, N_Vector fy,
  *                                                                *
  * pretype   is the type of user preconditioning to be done.      *
  *             This must be one of the four enumeration constants *
- *             NONE, LEFT, RIGHT, or BOTH defined in iterativ.h.  *
+ *             PRE_NONE, PRE_LEFT, PRE_RIGHT, or PRE_BOTH
+ *             defined in iterativ.h.  *
  *             These correspond to no preconditioning,            *
  *             left preconditioning only, right preconditioning   *
  *             only, and both left and right preconditioning,     *
