@@ -334,7 +334,9 @@ draw_svg_axes(void) {
 
 void
 draw_bif_axes(void) {
-    int32 x0 = Auto.x0, y0 = Auto.y0, ii, i0;
+    int32 x0 = Auto.x0;
+    int32 y0 = Auto.y0;
+    int32 ii, i0;
     int32 x1 = x0 + Auto.wid, y1 = y0 + Auto.hgt;
     char junk[20], xlabel[20], ylabel[20];
 
