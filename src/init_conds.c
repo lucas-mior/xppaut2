@@ -67,7 +67,6 @@ extern char UserBGBitmap[XPP_MAX_NAME];
 extern int32 SuppressBounds;
 extern double DELAY;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
-extern int32 noicon;
 #define PARAMBOX 1
 #define ICBOX 2
 #define DELAYBOX 3

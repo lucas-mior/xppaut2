@@ -21,7 +21,6 @@
     } while (0)
 
 extern double last_ic[MAX_ODE];
-extern int32 noicon;
 extern Display *display;
 extern int32 screen;
 extern GC gc, small_gc;
