@@ -575,7 +575,7 @@ clear_auto_info(void) {
 
 void
 draw_auto_info(char *bob, int32 x, int32 y) {
-    XDrawString(display, AutoW.info, small_gc, x, y, bob, strlen(bob));
+    XDrawString(display, AutoW.info, small_gc, x, y, bob, (int)strlen(bob));
     return;
 }
 
@@ -624,8 +624,8 @@ byeauto_(int32 *iflag) {
 
 void
 Circle(int32 x, int32 y, int32 r) {
-    XDrawArc(display, AutoW.canvas, small_gc, x - r, y - r, r << 1, r << 1, 0,
-             360*64);
+    XDrawArc(display, AutoW.canvas, small_gc,
+             x - r, y - r, (uint)r << 1, (uint)r << 1, 0, 360*64);
     return;
 }
 
@@ -702,7 +702,7 @@ XORCross(int32 x, int32 y) {
 void
 FillCircle(int32 x, int32 y, int32 r) {
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
-    int32 wh = 2*r2;
+    uint32 wh = (uint32)(2*r2);
 
     XFillArc(display, AutoW.canvas, small_gc, x - r2, y - r2, wh, wh, 0,
              360*64);
@@ -790,7 +790,7 @@ LineWidth(int32 wid) {
     int32 ls = LineSolid;
     int32 cs = CapButt;
     int32 js = JoinRound;
-    XSetLineAttributes(display, small_gc, wid, ls, cs, js);
+    XSetLineAttributes(display, small_gc, (uint)wid, ls, cs, js);
     return;
 }
 
@@ -826,7 +826,7 @@ display_auto(Window w) {
     if (w == AutoW.stab) {
         int32 r = Auto.st_wid / 4;
         XFlush(display);
-        XDrawArc(display, AutoW.stab, small_gc, r, r, 2*r, 2*r, 0,
+        XDrawArc(display, AutoW.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0,
                  360*64);
         if (CUR_DIAGRAM != NULL) {
             traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
@@ -858,7 +858,7 @@ display_auto(Window w) {
     if (w == AutoW.hint) {
         XClearWindow(display, w);
         XDrawString(display, w, gc, 8, CURY_OFF, Auto.hinttxt,
-                    strlen(Auto.hinttxt));
+                    (int)strlen(Auto.hinttxt));
         return;
     }
     return;
@@ -994,7 +994,7 @@ resize_auto_window(XEvent ev) {
 
         addhgt = 3*DCURY;
 
-        XResizeWindow(display, AutoW.canvas, wid, hgt);
+        XResizeWindow(display, AutoW.canvas, (uint)wid, (uint)hgt);
 
         XGetGeometry(display, AutoW.canvas, &root, &xloc, &yloc, &cwid, &chgt,
                      &cbwid, &cdepth);
