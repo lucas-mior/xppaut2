@@ -324,17 +324,17 @@ get_eqn(FILE *fptr) {
     strcpy(options, "default.opt");
     add_var("t", 0.0);
     fgets(bob, MAXEXPLEN, fptr);
-    nn = strlen(bob) + 1;
+    nn = (int32)strlen(bob) + 1;
     if (NLINES > MAXLINES) {
         fprintf(stderr, "whoops! NLINES>MAXLINES in form_ode.c ...\n");
         exit(1);
     }
-    if ((save_eqn[NLINES] = malloc(nn)) == NULL) {
+    if ((save_eqn[NLINES] = malloc((usize)nn)) == NULL) {
         plintf("Out of memory...");
         exit(0);
     }
 
-    strncpy(save_eqn[NLINES++], bob, nn);
+    strncpy(save_eqn[NLINES++], bob, (usize)nn);
     i = atoi(bob);
     if (i <= 0) { /* New parser ---   */
 
@@ -360,10 +360,10 @@ get_eqn(FILE *fptr) {
         }
         while (done) {
             fgets(bob, MAXEXPLEN, fptr);
-            nn = strlen(bob) + 1;
-            if ((save_eqn[NLINES] = malloc(nn)) == NULL)
+            nn = (int32)strlen(bob) + 1;
+            if ((save_eqn[NLINES] = malloc((usize)nn)) == NULL)
                 exit(0);
-            strncpy(save_eqn[NLINES++], bob, nn);
+            strncpy(save_eqn[NLINES++], bob, (usize)nn);
             done = compiler(bob, fptr);
         }
         if (ConvertStyle) {
@@ -611,9 +611,9 @@ compiler(char *bob, FILE *fptr) {
         strcpy(name, my_string);
         nlin = NLINES;
         index = old_build_markov(fptr, name);
-        nn = strlen(save_eqn[nlin]);
+        nn = (int32)strlen(save_eqn[nlin]);
         /* if(nn>72)nn=72; */
-        if ((ode_names[IN_VARS + index] = malloc(nn + 10)) == NULL)
+        if ((ode_names[IN_VARS + index] = malloc((usize)nn + 10)) == NULL)
             exit(0);
         strcpy(formula, save_eqn[nlin]);
         /*      formula[nn-1]=0; */
@@ -776,7 +776,7 @@ compiler(char *bob, FILE *fptr) {
         }
         my_string = get_next("\n");
         strcpy(formula, my_string);
-        nn = strlen(formula) + 1;
+        nn = (int32)strlen(formula) + 1;
         /* if(nn>79)nn=79;  */
         if ((my_ode[NODE] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
             printf("Out of memory at line %d\n", NLINES);
@@ -784,7 +784,7 @@ compiler(char *bob, FILE *fptr) {
         }
 
         if (NODE < IN_VARS) {
-            if ((ode_names[NODE] = malloc(nn + 5)) == NULL) {
+            if ((ode_names[NODE] = malloc((usize)nn + 5)) == NULL) {
                 plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
@@ -812,7 +812,7 @@ compiler(char *bob, FILE *fptr) {
 
         if (NODE >= (IN_VARS + FIX_VAR)) {
             i = NODE - (IN_VARS + FIX_VAR);
-            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc(nn)) == NULL) {
+            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc((usize)nn)) == NULL) {
                 plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
