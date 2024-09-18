@@ -395,7 +395,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
                 maxPerm = dims[i];
         }
     } else {
-        maxFactors = maxPerm = nTotal;
+        maxFactors = maxPerm = (int32)nTotal;
     }
 #else
     /* use the constants used in the original Fortran code */
@@ -432,7 +432,7 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         if (scaling < 0.0)
             scaling = (scaling < -1.0) ? sqrt((double)nTotal) : (double)nTotal;
         scaling = 1.0 / scaling; /* multiply is often faster */
-        for (usize i = 0; i < nTotal; i += iSign) {
+        for (usize i = 0; i < nTotal; i += (usize)iSign) {
             Re_Data(i) *= scaling;
             Im_Data(i) *= scaling;
         }
