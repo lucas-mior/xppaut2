@@ -576,12 +576,12 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     double *fcc;
     double *sol1, *sol2, *sol3;
 
-    e = malloc(sizeof(*e)*(*nov + *nrc)*(*nov + *nrc));
-    fcc = malloc(sizeof(*fcc)*((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
+    e = malloc(sizeof(*e)*(usize)((*nov + *nrc)*(*nov + *nrc)));
+    fcc = malloc(sizeof(*fcc)*(usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
 
-    sol1 = malloc(sizeof(*(sol1))*(*nov)*(*na + 1));
-    sol2 = malloc(sizeof(*(sol2))*(*nov)*(*na + 1));
-    sol3 = malloc(sizeof(*(sol3))*(*nov)*(*na + 1));
+    sol1 = malloc(sizeof(*sol1)*(usize)((*nov)*(*na + 1)));
+    sol2 = malloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));
+    sol3 = malloc(sizeof(*sol3)*(usize)((*nov)*(*na + 1)));
 
     /* Local */
 
@@ -1745,7 +1745,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     (void)ifst;
 
-    xe = malloc(sizeof(*xe)*(*nov + *nrc));
+    xe = malloc(sizeof(*xe)*(usize)(*nov + *nrc));
 
     faa_dim1 = *nov;
     a2_dim1 = *nov;
@@ -2176,7 +2176,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     (void)iam;
     (void)par;
 
-    x = malloc(sizeof(*x)*(*nra));
+    x = malloc(sizeof(*x)*(usize)(*nra));
 
     /* Determine the local varables by backsubstitition. */
 
@@ -2246,7 +2246,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     int64 notsend;
     int64 myright[KREDO];
 
-    buf = malloc(sizeof(*buf)*(*nrc));
+    buf = malloc(sizeof(*buf)*(usize)(*nrc));
 
     /*     RECURSIVE DOUBLING PROCEDURE TO GET */
     /*     THE GLOBAL SUM OF VECTORS FROM */
