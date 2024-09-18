@@ -769,6 +769,7 @@ compiler(char *bob, FILE *fptr) {
         break;
     case 'i':
         VFlag = 1;
+        __attribute__((fallthrough));
     case 'o':
         if (NODE >= (NEQ + FIX_VAR - NMarkov)) {
             done = 0;
@@ -904,8 +905,8 @@ void
 take_apart(char *bob, double *value, char *name) {
     int32 k, i, l;
     char number[40];
-    l = strlen(bob);
-    k = strcspn(bob, "=");
+    l = (int32)strlen(bob);
+    k = (int32)strcspn(bob, "=");
     if (k == l) {
         *value = 0.0;
         strcpy_trim(name, bob);
@@ -940,7 +941,7 @@ find_ker(/* this extracts the integral operators from the string */
     char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
     double mu = 0.0;
     int32 fflag = 0, in = 0, i = 0, ifr = 0, inum = 0;
-    int32 n = strlen(string);
+    int32 n = (int32)strlen(string);
     char name[20], ch;
     *alt = 0;
     while (i < n) {
@@ -1100,7 +1101,7 @@ u(0) = value >---  initial data (replaces v, init is also OK )
 int32
 if_include_file(char *old, char *nf) {
     int32 i = 0, j = 0;
-    int32 n = strlen(old);
+    int32 n = (int32)strlen(old);
     char c;
     if (strncmp(old, "#include", 8) == 0) {
         while (true) {
