@@ -25,7 +25,6 @@ int32 cur_RGB[3];
 extern int32 LastPSX, LastPSY;
 extern int32 NoBreakLine;
 int32 DOING_SVG_COLOR = 0;
-extern int32 DOING_AXES, DOING_BOX_AXES;
 
 int32 DO_MARKER = 0;
 extern int32 DOING_DFIELD;

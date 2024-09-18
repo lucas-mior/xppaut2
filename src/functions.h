@@ -369,6 +369,9 @@ void RedrawMark(void);
 
 #include <X11/Xlib.h>
 
+extern int32 DOING_AXES;
+extern int32 DOING_BOX_AXES;
+
 void re_title(void);
 void get_title_str(char *s1, char *s2, char *s3);
 void make_title(char *str);
