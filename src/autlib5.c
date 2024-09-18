@@ -340,15 +340,15 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
        also depend on these arrays, and more importantly the algorithm,
        having N X.  So, they all need to be changed at once.
     */
-    f = malloc(sizeof(*f)*(iap->ndm));
-    bound = malloc(sizeof(*bound)*(iap->ndm)*(iap->ndm));
-    fj = malloc(sizeof(*fj)*(iap->ndm));
-    ri = malloc(sizeof(*ri)*(iap->ndm));
-    rr = malloc(sizeof(*rr)*(iap->ndm));
-    vr = malloc(sizeof(*vr)*(iap->ndm)*(iap->ndm));
-    vt = malloc(sizeof(*vt)*(iap->ndm)*(iap->ndm));
-    xequib1 = malloc(sizeof(*(xequib1))*(iap->ndm));
-    xequib2 = malloc(sizeof(*(xequib2))*(iap->ndm));
+    f = malloc(sizeof(*f)*(usize)(iap->ndm));
+    bound = malloc(sizeof(*bound)*(usize)((iap->ndm)*(iap->ndm)));
+    fj = malloc(sizeof(*fj)*(usize)(iap->ndm));
+    ri = malloc(sizeof(*ri)*(usize)(iap->ndm));
+    rr = malloc(sizeof(*rr)*(usize)(iap->ndm));
+    vr = malloc(sizeof(*vr)*(usize)((iap->ndm)*(iap->ndm)));
+    vt = malloc(sizeof(*vt)*(usize)((iap->ndm)*(iap->ndm)));
+    xequib1 = malloc(sizeof(*(xequib1))*(usize)(iap->ndm));
+    xequib2 = malloc(sizeof(*(xequib2))*(usize)(iap->ndm));
 
     /* Generates the boundary conditions for homoclinic orbits. */
 
@@ -629,11 +629,11 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
 
-    ff1 = malloc(sizeof(*(ff1))*(iap->nint));
-    ff2 = malloc(sizeof(*(ff2))*(iap->nint));
-    uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
-    uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim + NPARX));
+    ff1 = malloc(sizeof(*(ff1))*(usize)(iap->nint));
+    ff2 = malloc(sizeof(*(ff2))*(usize)(iap->nint));
+    uu1 = malloc(sizeof(*(uu1))*(usize)(iap->ndim));
+    uu2 = malloc(sizeof(*(uu2))*(usize)(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim + NPARX)));
 
     /* Generates integral conditions for homoclinic bifurcation analysis */
 
