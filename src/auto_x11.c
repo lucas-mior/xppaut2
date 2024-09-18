@@ -1037,51 +1037,51 @@ auto_enter(Window w, int32 v) {
     if (Auto.exist == 0)
         return;
     if (w == AutoW.axes) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(1, v);
         return;
     }
     if (w == AutoW.numerics) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(2, v);
         return;
     }
     if (w == AutoW.grab) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(4, v);
         return;
     }
     if (w == AutoW.run) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(3, v);
         return;
     }
     if (w == AutoW.redraw) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(7, v);
         return;
     }
     if (w == AutoW.clear) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(6, v);
         return;
     }
     if (w == AutoW.per) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(5, v);
         return;
     }
     if (w == AutoW.param) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(0, v);
         return;
     }
     if (w == AutoW.kill) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         return;
     }
     if (w == AutoW.file) {
-        XSetWindowBorderWidth(display, w, v);
+        XSetWindowBorderWidth(display, w, (uint)v);
         a_msg(8, v);
         return;
     }
