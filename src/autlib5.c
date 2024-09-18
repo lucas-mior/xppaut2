@@ -732,14 +732,6 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     fj = malloc(sizeof(*fj)*(iap->ndim));
     /* Generates the integral conditions for homoclinic orbits. */
 
-    /* Parameter adjustments */
-    /*--par;*/
-    /*--icp;*/
-    /*--u;*/
-    /*--uold;*/
-    /*--udot;*/
-    /*--upold;*/
-    /*--fi;*/
     dint_dim1 = nint;
 
     ndm = iap->ndm;
