@@ -1796,17 +1796,17 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     double *ei, *er;
     double *ort, *dum1, *dum2;
 
-    fdum = malloc(sizeof(*fdum)*(*ndm));
-    cnow = malloc(sizeof(*cnow)*(*ndm)*(*ndm));
-    type__ = malloc(sizeof(*type__)*(*ndm));
-    a = malloc(sizeof(*a)*(*ndm)*(*ndm));
-    d = malloc(sizeof(*d)*(*ndm)*(*ndm));
-    v = malloc(sizeof(*v)*(*ndm)*(*ndm));
-    ei = malloc(sizeof(*ei)*(*ndm));
-    er = malloc(sizeof(*er)*(*ndm));
-    ort = malloc(sizeof(*ort)*(*ndm));
-    dum1 = malloc(sizeof(*(dum1))*(*ndm)*(*ndm));
-    dum2 = malloc(sizeof(*(dum2))*(*ndm)*(*ndm));
+    fdum = malloc(sizeof(*fdum)*(usize)(*ndm));
+    cnow = malloc(sizeof(*cnow)*(usize)((*ndm)*(*ndm)));
+    type__ = malloc(sizeof(*type__)*(usize)(*ndm));
+    a = malloc(sizeof(*a)*(usize)((*ndm)*(*ndm)));
+    d = malloc(sizeof(*d)*(usize)((*ndm)*(*ndm)));
+    v = malloc(sizeof(*v)*(usize)((*ndm)*(*ndm)));
+    ei = malloc(sizeof(*ei)*(usize)(*ndm));
+    er = malloc(sizeof(*er)*(usize)(*ndm));
+    ort = malloc(sizeof(*ort)*(usize)(*ndm));
+    dum1 = malloc(sizeof(*(dum1))*(usize)((*ndm)*(*ndm)));
+    dum2 = malloc(sizeof(*(dum2))*(usize)((*ndm)*(*ndm)));
 
     /* Compute NUNSTAB (or NSTAB) projection boundary condition functions */
     /*onto to the UNSTABLE (or STABLE) manifold of the appropriate equilibrium
