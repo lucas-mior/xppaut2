@@ -83,7 +83,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     */
 
     ff = malloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
-    ft = malloc(sizeof(*ft)*(usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
+    ft = malloc(sizeof(*ft) *
+                (usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     if (*ifst == 1) {
         /* printf("I am freeing and allocating stuff \n");  */
@@ -130,13 +131,14 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(main_auto_storage.np);
 
         /*(M 1AAR*M 2AA*N AX) */
-        main_auto_storage.a = malloc((usize)
-            (sizeof(*(main_auto_storage.a))*((((iap->ndim*iap->ncol) + iap->ndim)) *
-                              ((iap->ndim*iap->ncol))*(iap->ntst + 1))));
+        main_auto_storage.a =
+            malloc((usize)(sizeof(*(main_auto_storage.a)) *
+                           ((((iap->ndim*iap->ncol) + iap->ndim)) *
+                            ((iap->ndim*iap->ncol))*(iap->ntst + 1))));
         /*(M 1BB*M 2BB*N AX)*/
-        main_auto_storage.b =
-            malloc(sizeof(*(main_auto_storage.b)) * (usize)
-                   ((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
+        main_auto_storage.b = malloc(
+            sizeof(*(main_auto_storage.b)) *
+            (usize)((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
         main_auto_storage.c = malloc(
             sizeof(double)*(((((iap->ndim*iap->ncol) + iap->ndim))) *

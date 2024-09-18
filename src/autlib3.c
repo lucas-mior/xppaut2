@@ -1701,7 +1701,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     smat = malloc(sizeof(*smat)*(2*iap->ndim)*(2*iap->ndim));
     f = malloc(sizeof(*f)*(iap->ndim));
     u = malloc(sizeof(*u)*(iap->ndim));
-    rnllv = malloc(sizeof(*rnllv)*2*(iap->ndim));
+    rnllv = malloc(sizeof(*rnllv)*2 * (iap->ndim));
     dfp = malloc(sizeof(*dfp)*(iap->ndim)*NPARX);
     dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim));
 

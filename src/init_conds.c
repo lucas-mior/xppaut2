@@ -357,7 +357,7 @@ void
 resize_par_slides(int32 h) {
     int32 i;
     for (i = 0; i < 3; i++) {
-        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*DCURXs,
+        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i * DCURXs,
                           h, 32*DCURXs, 3*(DCURYs + 2));
     }
     return;

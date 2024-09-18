@@ -157,12 +157,12 @@ void reset_comets(void);
 void roll_comet(AniCom *a, int32 xn, int32 yn, int32 col);
 int32 add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col,
                     char *thick);
-int32 add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2,
-                   char *col, char *thick);
-int32 add_ani_null(AniCom *a, char *x1, char *y1, char *x2, char *y2,
-                   char *col, char *who);
-int32 add_ani_rect(AniCom *a, char *x1, char *y1, char *x2, char *y2,
-                   char *col, char *thick);
+int32 add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                   char *thick);
+int32 add_ani_null(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                   char *who);
+int32 add_ani_rect(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col,
+                   char *thick);
 int32 add_ani_frect(AniCom *a, char *x1, char *y1, char *x2, char *y2,
                     char *col, char *thick);
 int32 add_ani_ellip(AniCom *a, char *x1, char *y1, char *x2, char *y2,

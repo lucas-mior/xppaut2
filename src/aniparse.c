@@ -1722,8 +1722,7 @@ roll_comet(AniCom *a, int32 xn, int32 yn, int32 col) {
 }
 
 int32
-add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col,
-              char *thick) {
+add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick) {
     int32 err, n, index;
 
     err = chk_ani_color(col, &index);
@@ -2370,8 +2369,8 @@ draw_ani_ellip(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_rad2scale(x2, y2, &i2, &j2);
-    XDrawArc(display, ani_pixmap, ani_gc,
-             i1 - i2, j1 - j2, (uint)(2*i2), (uint)(2*j2), 0, 360*64);
+    XDrawArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, (uint)(2*i2),
+             (uint)(2*j2), 0, 360*64);
     return;
 }
 
@@ -2384,8 +2383,8 @@ draw_ani_fellip(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_rad2scale(x2, y2, &i2, &j2);
-    XFillArc(display, ani_pixmap, ani_gc,
-             i1 - i2, j1 - j2, (uint)(2*i2), (uint)(2*j2), 0, 360*64);
+    XFillArc(display, ani_pixmap, ani_gc, i1 - i2, j1 - j2, (uint)(2*i2),
+             (uint)(2*j2), 0, 360*64);
     return;
 }
 
@@ -2650,8 +2649,8 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
 
             return -1;
         }
-        ani_grab[igrab].start.comrhs[i] =
-            malloc(sizeof(*(ani_grab[igrab].start.comrhs[i]))*(usize)(nc + 1));
+        ani_grab[igrab].start.comrhs[i] = malloc(
+            sizeof(*(ani_grab[igrab].start.comrhs[i]))*(usize)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
 

@@ -684,7 +684,8 @@ redraw_aplot(ArrayPlot ap) {
                 if (colr > cmax)
                     colr = cmax;
                 set_acolor(colr);
-                XFillRectangle(display, w, aplot_gc, ix, iy, (uint)delx, (uint)dely);
+                XFillRectangle(display, w, aplot_gc, ix, iy, (uint)delx,
+                               (uint)dely);
             }
         }
     }

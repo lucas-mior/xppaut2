@@ -77,7 +77,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     irs = x_auto.irs;
     ilp = x_auto.ilp;
 
-    thu = *thu_pointer = malloc(sizeof(double)*8*(usize)ndim);
+    thu = *thu_pointer = malloc(sizeof(double)*8 * (usize)ndim);
 
     for (int64 i = 0; i < ndim*8; ++i) {
         thu[i] = 1.;
@@ -1711,7 +1711,8 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         }
     }
     /* here is where to put send_eigenvalue   */
-    send_eigen((int32)ibr, (int32)ntot + 1, (int32)ndim, (doublecomplex *)&ev[0]);
+    send_eigen((int32)ibr, (int32)ntot + 1, (int32)ndim,
+               (doublecomplex *)&ev[0]);
     /* Order the eigenvalues by real part. */
 
     for (int32 i = 0; i < ndm - 1; ++i) {
@@ -3232,7 +3233,8 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     double *tm2;
     int64 *itm;
 
-    uint1 = malloc(sizeof(*uint1)*(usize)(*ndxloc)*(usize)(iap->ndim*iap->ncol));
+    uint1 = malloc(sizeof(*uint1)*(usize)(*ndxloc) *
+                   (usize)(iap->ndim*iap->ncol));
     tint = malloc(sizeof(*tint)*(usize)(*ndxloc));
     tm2 = malloc(sizeof(*(tm2))*(usize)(*ndxloc));
     itm = malloc(sizeof(*itm)*(usize)(*ndxloc));
@@ -5250,9 +5252,12 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             ncol_used = ncol;
 
         *ndxloc = (ntst_used + 1)*4;
-        ups_new = malloc(sizeof(*ups_new)*(usize)((*ndxloc)*(iap->ndim*ncol_used)));
-        upoldp_new = malloc(sizeof(*upoldp_new)*(usize)((*ndxloc)*(iap->ndim*ncol_used)));
-        udotps_new = malloc(sizeof(*udotps_new)*(usize)((*ndxloc)*(iap->ndim*ncol_used)));
+        ups_new = malloc(sizeof(*ups_new) *
+                         (usize)((*ndxloc)*(iap->ndim*ncol_used)));
+        upoldp_new = malloc(sizeof(*upoldp_new) *
+                            (usize)((*ndxloc)*(iap->ndim*ncol_used)));
+        udotps_new = malloc(sizeof(*udotps_new) *
+                            (usize)((*ndxloc)*(iap->ndim*ncol_used)));
         tm_new = malloc(sizeof(*tm_new)*(usize)(*ndxloc));
         dtm_new = malloc(sizeof(*dtm_new)*(usize)(*ndxloc));
 
@@ -6080,7 +6085,8 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     free(wrk);
     /* Find the multiplier closest to z=1. */
     /* send_mult here! */
-    send_mult((int32)ibr, (int32)ntot + 1, (int32)ndim, (doublecomplex *)&ev[0]);
+    send_mult((int32)ibr, (int32)ntot + 1, (int32)ndim,
+              (doublecomplex *)&ev[0]);
     amin = RLARGE;
     for (j = 0; j < ndim; ++j) {
         doublecomplex tmp;
@@ -6535,7 +6541,8 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     }
     jtmp = NPARX;
     /* addbif max min  of variables & initial data */
-    addbif(iap, ntots, ibrs, par, icp, (int32)labw, &amp, u_high, u_low, u_0, u_bar);
+    addbif(iap, ntots, ibrs, par, icp, (int32)labw, &amp, u_high, u_low, u_0,
+           u_bar);
 
     wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots, &labw, &amp, umx);
 
@@ -6965,14 +6972,18 @@ allocate_global_memory(iap_type iap) {
     free(global_scratch.ff1);
     free(global_scratch.ff2);
 
-    global_scratch.dfu =
-        malloc(sizeof(*(global_scratch.dfu))*(usize)((iap.ndim)*(iap.ndim)));
+    global_scratch.dfu = malloc(sizeof(*(global_scratch.dfu)) *
+                                (usize)((iap.ndim)*(iap.ndim)));
     global_scratch.dfp =
         malloc(sizeof(*(global_scratch.dfp))*(usize)((iap.ndim)*NPARX));
-    global_scratch.uu1 = malloc(sizeof(*(global_scratch.uu1))*(usize)(iap.ndim));
-    global_scratch.uu2 = malloc(sizeof(*(global_scratch.uu2))*(usize)(iap.ndim));
-    global_scratch.ff1 = malloc(sizeof(*(global_scratch.ff1))*(usize)(iap.ndim));
-    global_scratch.ff2 = malloc(sizeof(*(global_scratch.ff2))*(usize)(iap.ndim));
+    global_scratch.uu1 =
+        malloc(sizeof(*(global_scratch.uu1))*(usize)(iap.ndim));
+    global_scratch.uu2 =
+        malloc(sizeof(*(global_scratch.uu2))*(usize)(iap.ndim));
+    global_scratch.ff1 =
+        malloc(sizeof(*(global_scratch.ff1))*(usize)(iap.ndim));
+    global_scratch.ff2 =
+        malloc(sizeof(*(global_scratch.ff2))*(usize)(iap.ndim));
 
     free(global_rotations.nrtn);
     global_rotations.nrtn =

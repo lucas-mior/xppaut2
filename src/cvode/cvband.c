@@ -124,7 +124,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
     srur = RSqrt(uround);
     fnorm = N_VWrmsNorm(fy, ewt);
     minInc =
-        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N*fnorm) : ONE;
+        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N * fnorm) : ONE;
 
     /* Set bandwidth and number of column groups for band differencing */
     width = mlower + mupper + 1;

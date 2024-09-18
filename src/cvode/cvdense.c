@@ -107,7 +107,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
     srur = RSqrt(uround);
     fnorm = N_VWrmsNorm(fy, ewt);
     minInc =
-        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N*fnorm) : ONE;
+        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N * fnorm) : ONE;
 
     N_VMAKE(jthCol, NULL, N);
 
@@ -262,7 +262,7 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     nje = 0;
     if (iopt != NULL) {
         iopt[DENSE_NJE] = nje;
-        iopt[DENSE_LRW] = 2*N*N;
+        iopt[DENSE_LRW] = 2*N * N;
         iopt[DENSE_LIW] = N;
     }
     nstlj = 0;
