@@ -100,12 +100,12 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     dnew = d->next;
     dnew->next = NULL;
     dnew->prev = d;
-    dnew->uhi = malloc((n)*sizeof(double));
-    dnew->ulo = malloc((n)*sizeof(double));
-    dnew->u0 = malloc((n)*sizeof(double));
-    dnew->ubar = malloc((n)*sizeof(double));
-    dnew->evr = malloc((n)*sizeof(double));
-    dnew->evi = malloc((n)*sizeof(double));
+    dnew->uhi = malloc((usize)n*sizeof(double));
+    dnew->ulo = malloc((usize)n*sizeof(double));
+    dnew->u0 = malloc((usize)n*sizeof(double));
+    dnew->ubar = malloc((usize)n*sizeof(double));
+    dnew->evr = malloc((usize)n*sizeof(double));
+    dnew->evi = malloc((usize)n*sizeof(double));
     dnew->index = NBifs;
     NBifs++;
     edit_diagram(dnew, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
