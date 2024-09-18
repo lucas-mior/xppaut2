@@ -64,12 +64,6 @@ extern int32 PaperWhite;
 extern int32 MSStyle;
 extern int32 got_file;
 
-/*
-char setfilename[100];
-char parfilename[100];
-char icfilename[100];
-char includefilename[MaxIncludeFiles][100];
-*/
 char setfilename[XPP_MAX_NAME];
 char parfilename[XPP_MAX_NAME];
 char icfilename[XPP_MAX_NAME];
