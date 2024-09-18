@@ -40,7 +40,7 @@ extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFFb, CURY_OFF;
 static int32 STD_HGT_var = 0;
 static int32 STD_WID_var = 0;
 static int32 Auto_extra_wid, Auto_extra_hgt;
-int32 Auto_x0, Auto_y0;
+static int32 Auto_x0, Auto_y0;
 
 /* stuff for marking a branch  */
 int32 mark_flag = 0;
@@ -64,9 +64,8 @@ extern double constants[];
 
 static uint32 DONT_XORCross = 0;
 
-AUTOWIN AutoW;
-
-Diagram *CUR_DIAGRAM;
+static AUTOWIN AutoW;
+static Diagram *CUR_DIAGRAM;
 
 void
 ALINE(int32 a, int32 b, int32 c, int32 d) {
