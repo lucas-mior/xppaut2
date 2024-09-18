@@ -2653,15 +2653,15 @@ save_auto_numerics(FILE *fp) {
 
 void
 load_auto_numerics(FILE *fp) {
-    int32 i, in;
+    int32 in;
     fscanf(fp, "%d ", &NAutoPar);
-    for (i = 0; i < NAutoPar; i++) {
+    for (int64 i = 0; i < NAutoPar; i++) {
         fscanf(fp, "%d ", &AutoPar[i]);
         in = get_param_index(upar_names[AutoPar[i]]);
         Auto_index_to_array[i] = in;
     }
     fscanf(fp, "%d ", &NAutoUzr);
-    for (i = 0; i < 9; i++) {
+    for (int32 i = 0; i < 9; i++) {
         Auto.nper = NAutoUzr;
         fscanf(fp, "%lg %ld\n", &outperiod[i], &UzrPar[i]);
         Auto.period[i] = outperiod[i];
