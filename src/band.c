@@ -53,7 +53,7 @@ BandAllocPiv(int64 N) {
     if (N <= 0)
         return NULL;
 
-    return malloc(N*sizeof(int64));
+    return malloc((usize)N*sizeof(int64));
 }
 
 int64
@@ -118,12 +118,12 @@ bandalloc(int64 n, int64 smu, int64 ml) {
     if (n <= 0)
         return NULL;
 
-    a = malloc(n*sizeof(double *));
+    a = malloc((usize)n*sizeof(double *));
     if (a == NULL)
         return NULL;
 
     colSize = smu + ml + 1;
-    a[0] = malloc(n*colSize*sizeof(*(a[0])));
+    a[0] = malloc((usize)(n*colSize)*sizeof(*(a[0])));
     if (a[0] == NULL) {
         free(a);
         return NULL;
@@ -140,7 +140,7 @@ bandallocpiv(int64 n) {
     if (n <= 0)
         return NULL;
 
-    return malloc(n*sizeof(int64));
+    return malloc((usize)n*sizeof(int64));
 }
 
 int64
