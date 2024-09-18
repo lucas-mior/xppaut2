@@ -77,8 +77,8 @@ extern double constants[];
 extern int32 PointType;
 extern int32 xorfix;
 extern int32 NoBreakLine;
-extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[],
-    *no_hint[];
+extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[];
+extern char *no_hint[];
 extern int32 BVP_FLAG;
 
 extern int32 fp8_is_open;
