@@ -136,9 +136,7 @@ fopt(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *fs,
     return 0;
 }
 
-/*  Not sure what to do here; I think  do nothing  since IEQUIB is always
-    -2
-*/
+/* Not sure what to do here; I think  do nothing  since IEQUIB is always -2 */
 int32
 pvls(int64 ndim, double *u, double *par) {
     (void)par;
