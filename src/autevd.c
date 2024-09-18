@@ -15,8 +15,6 @@
 #define SEQ 1
 #define UEQ 2
 
-extern int32 NAutoUzr;
-
 extern AdvAuto aauto;
 
 XAuto x_auto;
