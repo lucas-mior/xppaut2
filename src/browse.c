@@ -102,7 +102,7 @@ gettimenow(void) {
 void
 waitasec(int32 msec) {
     struct timeval tim;
-    /*struct timezone tz;*/
+
     double sec = (double)msec / 1000;
     double t1, t2;
     gettimeofday(&tim, NULL);
