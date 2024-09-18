@@ -348,16 +348,16 @@ draw_bif_axes(void) {
     sprintf(junk, "%g", Auto.xmin);
     ATEXT(x0, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.xmax);
-    ii = strlen(junk)*DCURXs;
+    ii = (int32)strlen(junk)*DCURXs;
     ATEXT(x1 - ii, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.ymin);
-    ii = strlen(junk);
+    ii = (int32)strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0)
         i0 = 0;
     ATEXT(i0*DCURXs, y1, junk);
     sprintf(junk, "%g", Auto.ymax);
-    ii = strlen(junk);
+    ii = (int32)strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0)
         i0 = 0;
@@ -2164,7 +2164,7 @@ get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     int32 n = 2 + 2*NODE;
     int32 i;
     int32 flag = 0;
-    s = malloc(n*sizeof(char *));
+    s = malloc((usize)n*sizeof(*s));
     for (i = 0; i < n; i++) {
         s[i] = malloc(100);
     }
