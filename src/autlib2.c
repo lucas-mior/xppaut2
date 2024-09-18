@@ -609,11 +609,8 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
         /* The faa array needs to be intialized as well, since it
            it used in the dimrge_ rountine to print stuff out,
            and in the bcksub_ routine for actual computations! */
-        {
-            int64 k;
-            for (k = 0; k < ((*nov)*(*na + 1)); k++)
-                faa[k] = 0.0;
-        }
+        for (int64 k = 0; k < ((*nov)*(*na + 1)); k++)
+            faa[k] = 0.0;
         setzero(fa, fc, na, nra, nrc);
 #else
         setzero(fa, fc, na, nra, nrc);
