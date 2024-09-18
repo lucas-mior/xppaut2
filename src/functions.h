@@ -1095,6 +1095,9 @@ int32 choice_box_event_loop(CHOICE_BOX p);
 
 extern int32 custom_color;
 
+extern int32 color_min, color_total, color_max;
+extern int32 COLOR;
+
 void tst_color(Window w);
 void set_scolor(int32 col);
 void set_color(int32 col);

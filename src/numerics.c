@@ -69,7 +69,6 @@ extern double EulTol;
 extern int32 AutoEvaluate;
 
 int32 cv_bandflag = 0, cv_bandupper = 1, cv_bandlower = 1;
-extern int32 COLOR, color_total, color_min;
 extern Window command_pop;
 
 /*   This is the input for the various functions */

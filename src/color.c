@@ -333,7 +333,7 @@ ColorMap(int32 i) {
             i = 0;
         if (i >= color_max)
             i = color_max;
-        return color[i].pixel;
+        return (uint32)color[i].pixel;
     } else {
         return (uint32)i;
     }

@@ -59,7 +59,6 @@ int32 current_pop;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
     GrBack;
 extern GC gc, gc_graph, small_gc;
-extern int32 COLOR, color_min;
 extern int32 xor_flag, DCURX, DCURY;
 int32 num_pops;
 int32 MINI_H = 300;
