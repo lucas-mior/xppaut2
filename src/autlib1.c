@@ -38,7 +38,6 @@ GlobalParameters global_parameters = {NULL, NULL, NULL};
 /* ----------------------------------------------------------------------- */
 FILE *fp8;
 int32 fp8_is_open = 0;
-extern char fort8[200], fort3[200];
 
 int32
 init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,

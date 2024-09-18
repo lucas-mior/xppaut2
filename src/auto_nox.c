@@ -144,7 +144,7 @@ int32 NAutoUzr;
 
 extern char this_file[XPP_MAX_NAME];
 
-char this_auto_file[200];
+static char this_auto_file[200];
 char fort3[200];
 char fort7[200];
 char fort8[200];

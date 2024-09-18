@@ -1,4 +1,5 @@
 #include "auto_f2c.h"
+#include "auto_nox.h"
 #include "auto_c.h"
 #include "x_auto.h"
 #include "integers.h"
@@ -12,7 +13,6 @@ int32 global_setubv_type = SETUBV_DEFAULT;
 int32 global_num_procs = 1;
 int32 global_verbose_flag = 0;
 extern int32 fp8_is_open;
-extern char fort3[200], fort7[200], fort8[200], fort9[200];
 
 int32
 go_go_auto(void) {

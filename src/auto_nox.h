@@ -92,6 +92,11 @@ extern double outperiod[20];
 extern int64 UzrPar[20];
 extern int32 NAutoUzr;
 
+extern char fort3[200];
+extern char fort7[200];
+extern char fort8[200];
+extern char fort9[200];
+
 extern int32 load_all_labeled_orbits;
 
 extern int32 AutoTwoParam;
