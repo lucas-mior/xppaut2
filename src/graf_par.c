@@ -1215,6 +1215,7 @@ key_frz_com(int32 c) {
             draw_freeze_key();
         }
         KillMessageBox();
+        break;
     default:
         break;
     }
