@@ -480,9 +480,7 @@ set_function_pointers(iap_type iap, function_list *data) {
         data->bvlist.pvli = pvlsbv;
     } else {
         /*        ** Error in INIT. */
-
         printf("\nInitialization Error CRASH!!\n");
-
         printf("itp=%ld ips=%ld isw=%ld\n", iap.itp, iap.ips, iap.isw);
     }
     /* -----------------------------------------------------------------------*/
