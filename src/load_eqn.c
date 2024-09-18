@@ -100,7 +100,6 @@ extern struct {
     int32 rtype;
 } range;
 
-extern int32 custom_color;
 extern int32 del_stab_flag;
 extern int32 MaxPoints;
 extern double THETA0, PHI0;

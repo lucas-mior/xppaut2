@@ -1093,6 +1093,8 @@ int32 choice_box_event_loop(CHOICE_BOX p);
 
 #include <X11/Xlib.h>
 
+extern int32 custom_color;
+
 void tst_color(Window w);
 void set_scolor(int32 col);
 void set_color(int32 col);
