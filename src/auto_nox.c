@@ -142,7 +142,6 @@ double outperiod[20];
 int64 UzrPar[20];
 int32 NAutoUzr;
 
-/*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
 
 char this_auto_file[200];
@@ -338,6 +337,7 @@ draw_bif_axes(void) {
     int32 x0 = Auto.x0, y0 = Auto.y0, ii, i0;
     int32 x1 = x0 + Auto.wid, y1 = y0 + Auto.hgt;
     char junk[20], xlabel[20], ylabel[20];
+
     clear_auto_plot();
     ALINE(x0, y0, x1, y0);
     ALINE(x1, y0, x1, y1);
