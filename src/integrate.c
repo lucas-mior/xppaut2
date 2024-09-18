@@ -69,7 +69,6 @@ extern int32 dryrun;
 extern int32 querysets;
 extern int32 querypars;
 extern int32 queryics;
-extern int32 Nintern_2_use;
 extern int32 BatchEquil;
 extern Window draw_win;
 extern char this_internset[XPP_MAX_NAME];

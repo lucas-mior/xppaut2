@@ -1128,6 +1128,7 @@ typedef struct {
 } SET_NAME;
 
 extern int32 NincludedFiles;
+extern int32 Nintern_2_use;
 
 int32 is_set_name(SET_NAME *set, char *nam);
 SET_NAME *add_set(SET_NAME *set, char *nam);

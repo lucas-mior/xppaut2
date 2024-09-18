@@ -99,7 +99,7 @@ extern int32 use_ani_file;
 /*extern char anifile[256];
  */
 extern char anifile[XPP_MAX_NAME];
-int32 select_intern_sets = 0;
+static int32 select_intern_sets = 0;
 
 extern int32 Nintern_set;
 int32 Nintern_2_use = 0;
