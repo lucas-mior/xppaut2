@@ -2595,7 +2595,7 @@ void save_batch_shoot(void);
 
 #include <X11/Xlib.h>
 
-#define MaxIncludeFiles 10
+#define MAX_INCLUDE_FILES 10
 #define ClickTime 200
 
 void ping(void);

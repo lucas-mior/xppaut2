@@ -64,10 +64,10 @@ extern int32 PaperWhite;
 extern int32 MSStyle;
 extern int32 got_file;
 
-char setfilename[XPP_MAX_NAME];
-char parfilename[XPP_MAX_NAME];
-char icfilename[XPP_MAX_NAME];
-char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
+static char setfilename[XPP_MAX_NAME];
+static char parfilename[XPP_MAX_NAME];
+static char icfilename[XPP_MAX_NAME];
+char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
 char readsetfile[XPP_MAX_NAME];
 static int32 externaloptionsflag = 0;
@@ -319,7 +319,7 @@ do_comline(int32 argc, char **argv) {
             select_intern_sets = 1;
         }
         if (k == 19) {
-            if (NincludedFiles > MaxIncludeFiles) {
+            if (NincludedFiles > MAX_INCLUDE_FILES) {
                 printf("Max number of include files exceeded.\n");
             }
             strcpy(includefilename[NincludedFiles], argv[i + 1]);

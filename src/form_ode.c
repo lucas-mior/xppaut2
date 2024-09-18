@@ -52,7 +52,7 @@ typedef struct {
 
 char errmsg[256];
 extern int32 XPPBatch;
-extern char includefilename[MaxIncludeFiles][XPP_MAX_NAME];
+extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
 char *onlylist[MAXONLY];
 int32 *plotlist;
