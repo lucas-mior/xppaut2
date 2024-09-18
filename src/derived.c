@@ -16,7 +16,7 @@ typedef struct {
 } Derived;
 
 Derived derived[MAXDERIVED];
-int32 nderived = 0;
+static int32 nderived = 0;
 
 /* clean up derived stuff */
 void
