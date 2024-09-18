@@ -89,6 +89,7 @@ extern int32 auto_var;
 extern int32 Auto_index_to_array[8];
 extern int32 AutoPar[8];
 extern double outperiod[20];
+extern int64 UzrPar[20];
 
 extern int32 load_all_labeled_orbits;
 

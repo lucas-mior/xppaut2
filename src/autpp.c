@@ -16,7 +16,7 @@ extern int32 NewPeriodFlag;
 extern int32 HomoFlag;
 extern double homo_l[100], homo_r[100];
 extern int32 METHOD, NJMP;
-extern int32 UzrPar[], NAutoUzr;
+extern int32 NAutoUzr;
 
 extern double NEWT_ERR;
 int32
