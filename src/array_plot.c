@@ -62,7 +62,6 @@ extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
     screen;
 extern GC gc, small_gc, gc_graph;
 extern char uvar_names[MAX_ODE][12];
-extern BROWSER my_browser;
 int32 aplot_range;
 static int32 aplot_range_count = 0;
 static char aplot_range_stem[256] = "rangearray";

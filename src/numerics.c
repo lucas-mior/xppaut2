@@ -31,7 +31,6 @@ extern double MyTime;
 extern char *info_message, *meth_hint[];
 extern int32 DelayGrid;
 extern double OmegaMax, AlphaMax;
-extern BROWSER my_browser;
 
 /*   This is numerics.c
  *   The input is primitive and eventually, I want to make it so

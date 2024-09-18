@@ -982,8 +982,7 @@ typedef struct {
     int32 istart, iend;
 } BROWSER;
 
-/*extern BROWSER my_browser;
- */
+extern BROWSER my_browser;
 
 double **get_browser_data(void);
 void set_browser_data(double **data, int32 col0);

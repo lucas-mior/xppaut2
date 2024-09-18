@@ -118,7 +118,6 @@ FILE *logfile;
 int32 XPPVERBOSE = 1;
 int32 OVERRIDE_QUIET = 0;
 int32 OVERRIDE_LOGFILE = 0;
-extern BROWSER my_browser;
 int32 tfBell;
 
 int32 SLIDER1 = -1;

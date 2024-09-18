@@ -120,7 +120,6 @@ extern int32 color_total, screen;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, NODE;
 extern int32 FIX_VAR, NMarkov;
 extern GC small_gc;
-extern BROWSER my_browser;
 
 static int32 aniflag;
 static int32 LastAniColor;

@@ -38,7 +38,6 @@ MARKINFO markinfo = {2, 0, 1, 0, 1, 1.0};
 
 int32 manual_expose = 0;
 extern char *info_message;
-extern BROWSER my_browser;
 extern Atom deleteWindowAtom;
 LABEL lb[MAXLAB];
 GROB grob[MAXGROB];
