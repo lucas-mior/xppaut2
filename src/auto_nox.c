@@ -1349,7 +1349,6 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
     sprintf(bob, "%4d %4d %2s %4d %10.4g %10.4g %10.4g %10.4g %10.4g", ibr, pt,
             ty, lab, p1, p2, norm, u0, per);
     draw_auto_info(bob, 10, 2*DCURYs + 2);
-    /* SmallGr(); */
     refreshdisplay();
 }
 
