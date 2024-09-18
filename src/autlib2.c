@@ -7,7 +7,6 @@
 #include "auto_c.h"
 #include "integers.h"
 
-/*#define ACCES_TEST*/
 #ifdef ACCES_TEST
 struct {
     double *a, *b, *c;
