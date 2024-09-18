@@ -131,9 +131,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.np);
 
         /*(M 1AAR*M 2AA*N AX) */
-        mas.a = malloc((usize)(sizeof(*(mas.a)) * ((((iap->ndim*iap->ncol) + iap->ndim)) * ((iap->ndim*iap->ncol))*(iap->ntst + 1))));
+        mas.a = malloc(sizeof(double) * (((iap->ndim*iap->ncol) + iap->ndim)) * ((iap->ndim*iap->ncol))*(iap->ntst + 1));
         /*(M 1BB*M 2BB*N AX)*/
-        mas.b = malloc(sizeof(*(mas.b)) * (usize)((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
+        mas.b = malloc(sizeof(double) * (NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1));
         /*(M 1CC*M 2CC*N AX)*/
         mas.c = malloc(sizeof(double)*(((((iap->ndim*iap->ncol) + iap->ndim))) * ((iap->nbc + iap->nint + 1))*(iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
