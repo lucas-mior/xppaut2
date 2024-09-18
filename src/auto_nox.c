@@ -450,11 +450,6 @@ void
 close_auto(/* labels compatible with A2K  */
            int32 flg) {
     char string[1000];
-    /*    if(fp8_is_open){
-        fclose(fp8);
-        fp8_is_open=0;
-      }
-    */
     if (flg == 0) { /*Overwrite*/
         sprintf(string, "%s.b", this_auto_file);
         renamef(fort7, string);
