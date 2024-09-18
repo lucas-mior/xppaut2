@@ -415,7 +415,7 @@ appendf(char *old, char *new) {
     FILE *fo, *fn;
     FILE *ft;
     int32 c;
-    /*  printf("Appending old=%s new=%s\n",old,new); */
+
     fo = fopen(old, "r");
     fn = fopen(new, "r");
     if (fn == NULL) {
