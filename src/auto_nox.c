@@ -664,7 +664,6 @@ auto_params(void) {
                     AutoPar[i] = in;
                     in = get_param_index(values[i]);
                     Auto_index_to_array[i] = in;
-                    /* printf("%d -> %d %s\n",i,in, values[i]); */
                 }
             }
         }
