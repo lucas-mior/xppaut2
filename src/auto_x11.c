@@ -82,7 +82,7 @@ DLINE(double a, double b, double c, double d) {
 
 void
 ATEXT(int32 a, int32 b, char *c) {
-    XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), strlen(c));
+    XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), (int)strlen(c));
     return;
 }
 
@@ -90,7 +90,7 @@ void
 clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, AutoW.stab);
-    XDrawArc(display, AutoW.stab, small_gc, r, r, 2*r, 2*r, 0, 360*64);
+    XDrawArc(display, AutoW.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0, 360*64);
     return;
 }
 

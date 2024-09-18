@@ -85,9 +85,6 @@ extern int32 fp8_is_open;
 extern FILE *fp8;
 
 extern int32 FLOWK;
-extern int32 mark_flag;
-extern int32 mark_ibrs, mark_ibre;
-extern int32 mark_ipts, mark_ipte;
 int32 SEc = 20;
 int32 UEc = 0;
 int32 SPc = 26;
