@@ -149,13 +149,13 @@ char fort3[200];
 char fort7[200];
 char fort8[200];
 char fort9[200];
-char TMPSWAP[200];
+static char TMPSWAP[200];
 
 extern char uvar_names[MAX_ODE][12];
 extern char upar_names[MAX_PAR][14];
 extern int32 NUPAR;
 
-double XfromAuto, YfromAuto;
+static double XfromAuto, YfromAuto;
 static int32 FromAutoFlag = 0;
 
 extern int32 NODE, NEQ;
