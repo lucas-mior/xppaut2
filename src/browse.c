@@ -88,7 +88,7 @@ BROWSER my_browser;
 extern int32 noicon;
 extern char uvar_names[MAX_ODE][12];
 double *old_rep;
-int32 REPLACE = 0, R_COL = 0;
+static int32 REPLACE = 0, R_COL = 0;
 
 extern double **storage;
 
@@ -120,9 +120,6 @@ bug."
 int32
 gettimenow(void) {
     struct timeval now;
-    /*struct timezone tz;
-    gettimeofday(&now,&tz);
-    */
     gettimeofday(&now, NULL);
     return now.tv_usec;
 }
