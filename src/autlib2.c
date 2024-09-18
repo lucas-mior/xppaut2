@@ -133,9 +133,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         /*(M 1AAR*M 2AA*N AX) */
         main_auto_storage.a = malloc((usize)(sizeof(*(main_auto_storage.a)) * ((((iap->ndim*iap->ncol) + iap->ndim)) * ((iap->ndim*iap->ncol))*(iap->ntst + 1))));
         /*(M 1BB*M 2BB*N AX)*/
-        main_auto_storage.b = malloc( sizeof(*(main_auto_storage.b)) * (usize)((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
+        main_auto_storage.b = malloc(sizeof(*(main_auto_storage.b)) * (usize)((NPARX)*((iap->ndim*iap->ncol))*(iap->ntst + 1)));
         /*(M 1CC*M 2CC*N AX)*/
-        main_auto_storage.c = malloc( sizeof(double)*(((((iap->ndim*iap->ncol) + iap->ndim))) * ((iap->nbc + iap->nint + 1))*(iap->ntst + 1)));
+        main_auto_storage.c = malloc(sizeof(double)*(((((iap->ndim*iap->ncol) + iap->ndim))) * ((iap->nbc + iap->nint + 1))*(iap->ntst + 1)));
         /*(M 1DD*M 2DD)*/
         main_auto_storage.d = malloc(sizeof(double)*(((iap->nbc + iap->nint + 1))*(NPARX)));
         /*(iap->ndim*iap->ndim *N AX)*/
@@ -149,7 +149,7 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         /*(iap->ndim *N PARX*N AX)*/
         main_auto_storage.bb = malloc(sizeof(double)*(iap->ndim*NPARX*(iap->ntst + 1)));
         /*(N RCX* iap->ndim *N AX+1)*/
-        main_auto_storage.cc = malloc( sizeof(double) * ((iap->nbc + iap->nint + 1)*iap->ndim*(iap->ntst + 1) + 1));
+        main_auto_storage.cc = malloc(sizeof(double) * ((iap->nbc + iap->nint + 1)*iap->ndim*(iap->ntst + 1) + 1));
 
         /*(iap->ndim *N AX)*/
         main_auto_storage.faa = malloc(sizeof(double)*(iap->ndim*(iap->ntst + 1)));
