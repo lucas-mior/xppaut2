@@ -31,7 +31,7 @@ typedef struct {
     int64 uzrpar[MAX_AUT_PER];
     double epsl, epsu, epss;
     int32 ncol;
-} BIFUR;
+} Bifurcation;
 
 typedef struct {
     int32 iad;
@@ -70,7 +70,7 @@ typedef struct {
 
 extern GrabPoint grabpt;
 extern Rotchk blrtn;
-extern BIFUR Auto;
+extern Bifurcation Auto;
 
 extern int32 TypeOfCalc;
 extern int32 SEc;
