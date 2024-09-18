@@ -62,7 +62,7 @@ set_scolor(int32 col) {
         XSetForeground(display, small_gc, GrFore);
     else {
         if (COLOR)
-            XSetForeground(display, small_gc, ColorMap(col));
+            XSetForeground(display, small_gc, (ulong)ColorMap(col));
         else
             XSetForeground(display, small_gc, GrFore);
     }
@@ -78,7 +78,7 @@ set_color(int32 col) {
     else {
 
         if (COLOR)
-            XSetForeground(display, gc_graph, ColorMap(col));
+            XSetForeground(display, gc_graph, (ulong)ColorMap(col));
         else
             XSetForeground(display, gc_graph, GrFore);
     }
@@ -256,7 +256,6 @@ get_svg_color(int32 i, int32 *r, int32 *g, int32 *b) {
 void
 MakeColormap(void) {
     Colormap cmap;
-    int32 i;
     int32 clo = 20;
 
     int32 r[256], g[256], b[256];
@@ -270,10 +269,10 @@ MakeColormap(void) {
     color_max = color_min + color_total;
     if (Xup)
         cmap = DefaultColormap(display, screen);
-    for (i = 0; i < clo; i++) {
+    for (ulong i = 0; i < clo; i++) {
         color[i].pixel = i;
     }
-    for (i = 20; i < 30; i++) {
+    for (int32 i = 20; i < 30; i++) {
         color[i].red = 0;
         color[i].blue = 0;
         color[i].green = 0;
@@ -299,10 +298,10 @@ MakeColormap(void) {
     color[PURPLE].red = 160;
     color[PURPLE].green = 32;
     color[PURPLE].blue = 240;
-    for (i = 20; i < 30; i++) {
-        color[i].red = color[i].red << 8;
-        color[i].blue = color[i].blue << 8;
-        color[i].green = color[i].green << 8;
+    for (int32 i = 20; i < 30; i++) {
+        color[i].red = (ushort)(color[i].red << 8);
+        color[i].blue = (ushort)(color[i].blue << 8);
+        color[i].green = (ushort)(color[i].green << 8);
         color[i].flags = DoRed | DoGreen | DoBlue;
         if (Xup) {
             XAllocColor(display, cmap, &color[i]);
@@ -310,7 +309,7 @@ MakeColormap(void) {
     }
 
     make_cmaps(r, g, b, color_total + 1, custom_color);
-    for (i = color_min; i <= color_max; i++) {
+    for (int32 i = color_min; i <= color_max; i++) {
         color[i].red = r[i - color_min];
         color[i].green = g[i - color_min];
         color[i].blue = b[i - color_min];
