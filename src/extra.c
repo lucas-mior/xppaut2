@@ -201,22 +201,22 @@ do_in_out(void) {
 
 void
 add_export_list(char *in, char *out) {
-    int32 l1 = strlen(in);
-    int32 l2 = strlen(out);
+    usize l1 = strlen(in);
+    usize l2 = strlen(out);
     int32 i;
     in_out.lin = malloc(l1);
     in_out.lout = malloc(l2);
     strcpy(in_out.lin, in);
     strcpy(in_out.lout, out);
     i = get_export_count(in);
-    in_out.in = malloc((i + 1)*sizeof(*(in_out.in)));
-    in_out.intype = malloc((i + 1)*sizeof(*(in_out.intype)));
-    in_out.vin = malloc((i + 1)*sizeof(*(in_out.vin)));
+    in_out.in = malloc((usize)(i + 1)*sizeof(*(in_out.in)));
+    in_out.intype = malloc((usize)(i + 1)*sizeof(*(in_out.intype)));
+    in_out.vin = malloc((usize)(i + 1)*sizeof(*(in_out.vin)));
     in_out.nin = i;
     i = get_export_count(out);
-    in_out.out = malloc((i + 1)*sizeof(*(in_out.out)));
-    in_out.outtype = malloc((i + 1)*sizeof(*(in_out.outtype)));
-    in_out.vout = malloc((i + 1)*sizeof(*(in_out.vout)));
+    in_out.out = malloc((usize)(i + 1)*sizeof(*(in_out.out)));
+    in_out.outtype = malloc((usize)(i + 1)*sizeof(*(in_out.outtype)));
+    in_out.vout = malloc((usize)(i + 1)*sizeof(*(in_out.vout)));
     in_out.nout = i;
     return;
 }
@@ -235,7 +235,7 @@ int32
 get_export_count(char *s) {
     int32 i = 0;
     int32 j;
-    int32 l = strlen(s);
+    int32 l = (int32)strlen(s);
     for (j = 0; j < l; j++)
         if (s[j] == ',')
             i++;
