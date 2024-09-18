@@ -1896,17 +1896,7 @@ auto_run(void) {
 
         auto_branch_choice(grabpt.ibr, ips);
         ping();
-        return; /*
-
-        if(grabpt.ibr<0&&ips==2)
-          auto_switch_per();
-        else
-          if(ips==4)
-            auto_switch_bvp();
-          else
-            auto_switch_ss();
-        ping();
-        return;   */
+        return;
     }
     if (itp1 == 8 || itp2 == 8) { /* Torus 2 parameter */
         torus_choice();
