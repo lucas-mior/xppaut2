@@ -22,27 +22,23 @@ extern int32 *my_ode[];
 
 /*    will have more stuff someday */
 
-typedef struct {
+static  struct {
     double *work;
     int32 *iwork;
     int32 status;
-} DaeWork;
-DaeWork dae_work;
+} dae_work;
 
-typedef struct {
+static struct {
     char name[12], *rhs;
     int32 *form;
     int32 index;
     double value, last;
-} SolVar;
+} svar[MAXDAE];
 
-typedef struct {
+static struct {
     char *rhs;
     int32 *form;
-} DaeEqn;
-
-SolVar svar[MAXDAE];
-DaeEqn aeqn[MAXDAE];
+} aeqn[MAXDAE];
 
 static int32 nsvar = 0, naeqn = 0;
 
