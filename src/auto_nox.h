@@ -73,6 +73,8 @@ extern Rotchk blrtn;
 extern Bifurcation Auto;
 extern AdvAuto aauto;
 
+extern int32 NewPeriodFlag;
+
 extern double homo_l[100], homo_r[100];
 
 extern int32 TypeOfCalc;
