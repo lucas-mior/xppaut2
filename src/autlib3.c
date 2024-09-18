@@ -1698,12 +1698,12 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double tpi;
     int64 irs;
 
-    smat = malloc(sizeof(*smat)*(2*iap->ndim)*(2*iap->ndim));
-    f = malloc(sizeof(*f)*(iap->ndim));
-    u = malloc(sizeof(*u)*(iap->ndim));
-    rnllv = malloc(sizeof(*rnllv)*2 * (iap->ndim));
-    dfp = malloc(sizeof(*dfp)*(iap->ndim)*NPARX);
-    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim));
+    smat = malloc(sizeof(*smat)*(usize)((2*iap->ndim)*(2*iap->ndim)));
+    f = malloc(sizeof(*f)*(usize)(iap->ndim));
+    u = malloc(sizeof(*u)*(usize)(iap->ndim));
+    rnllv = malloc(sizeof(*rnllv)*(usize)(2*(iap->ndim)));
+    dfp = malloc(sizeof(*dfp)*(usize)((iap->ndim)*NPARX));
+    dfu = malloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim)));
 
     /* Generates starting data for the continuation of a branch of periodic */
     /* solutions starting from a Hopf bifurcation point (Waves). */
@@ -3104,7 +3104,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 ndm;
     double umx;
 
-    upold = malloc(sizeof(*upold)*(iap->ndim));
+    upold = malloc(sizeof(*upold)*(usize)(iap->ndim));
 
     /* Generates the equations for periodic optimization problems. */
 
@@ -3189,7 +3189,7 @@ ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     (void)ndim;
 
-    dfu = malloc(sizeof(*dfu)*(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(usize)(iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -3285,9 +3285,9 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double *dnt, umx;
     int64 nnt0;
 
-    f1 = malloc(sizeof(*(f1))*(iap->nint));
-    f2 = malloc(sizeof(*(f2))*(iap->nint));
-    dnt = malloc(sizeof(*dnt)*(iap->nint)*(iap->ndim + NPARX));
+    f1 = malloc(sizeof(*(f1))*(usize)(iap->nint));
+    f2 = malloc(sizeof(*(f2))*(usize)(iap->nint));
+    dnt = malloc(sizeof(*dnt)*(usize)((iap->nint)*(iap->ndim + NPARX)));
 
     /* Generates integral conditions for periodic optimization problems. */
 
@@ -3374,8 +3374,8 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     (void)udot;
     (void)ndim;
 
-    f = malloc(sizeof(*f)*(iap->ndim));
-    dfu = malloc(sizeof(*dfu)*(iap->ndim));
+    f = malloc(sizeof(*f)*(usize)(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(usize)(iap->ndim));
     /* Local */
 
     /* Parameter adjustments */
@@ -3477,9 +3477,9 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        calculations). So, that is why I use ndxloc here.  Also, iap->ncol MAY BE
        tool small, but I am not sure how to get value from the fort.8 file into
        here. */
-    size = sizeof(*temporary_storage)*(*ndxloc)*(iap->ndim*iap->ncol);
+    size = sizeof(*temporary_storage)*(usize)((*ndxloc)*(iap->ndim*iap->ncol));
     temporary_storage = malloc(size);
-    u = malloc(sizeof(*u)*(iap->ndim));
+    u = malloc(sizeof(*u)*(usize)(iap->ndim));
 
     /* Generates starting data for optimization of periodic solutions. */
 
@@ -3744,11 +3744,11 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
 
-    ff1 = malloc(sizeof(*(ff1))*(iap->nbc));
-    ff2 = malloc(sizeof(*(ff2))*(iap->nbc));
-    uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
-    uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*dfu)*(iap->nbc)*(2*iap->ndim + NPARX));
+    ff1 = malloc(sizeof(*(ff1))*(usize)(iap->nbc));
+    ff2 = malloc(sizeof(*(ff2))*(usize)(iap->nbc));
+    uu1 = malloc(sizeof(*(uu1))*(usize)(iap->ndim));
+    uu2 = malloc(sizeof(*(uu2))*(usize)(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(usize)((iap->nbc)*(2*iap->ndim + NPARX)));
 
     /* Generates the boundary conditions for the 2-parameter continuation */
     /* of folds (BVP). */
@@ -3885,11 +3885,11 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
 
-    ff1 = malloc(sizeof(*(ff1))*(iap->nint));
-    ff2 = malloc(sizeof(*(ff2))*(iap->nint));
-    uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
-    uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*dfu)*(iap->ndim)*(iap->ndim + NPARX));
+    ff1 = malloc(sizeof(*(ff1))*(usize)(iap->nint));
+    ff2 = malloc(sizeof(*(ff2))*(usize)(iap->nint));
+    uu1 = malloc(sizeof(*(uu1))*(usize)(iap->ndim));
+    uu2 = malloc(sizeof(*(uu2))*(usize)(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(usize)((iap->ndim)*(iap->ndim + NPARX)));
 
     /* Generates integral conditions for the 2-parameter continuation of */
     /* folds (BVP). */
@@ -4151,10 +4151,10 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     (void)uold;
     (void)rap;
 
-    u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
-    u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
-    f1zz = malloc(sizeof(*(f1zz))*(iap->ndim));
-    f2zz = malloc(sizeof(*(f2zz))*(iap->ndim));
+    u1zz = malloc(sizeof(*(u1zz))*(usize)(iap->ndim));
+    u2zz = malloc(sizeof(*(u2zz))*(usize)(iap->ndim));
+    f1zz = malloc(sizeof(*(f1zz))*(usize)(iap->ndim));
+    f2zz = malloc(sizeof(*(f2zz))*(usize)(iap->ndim));
 
     /* Interface subroutine to user supplied FUNC. */
 
@@ -4251,10 +4251,10 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     (void)rap;
 
-    u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
-    u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
-    f1zz = malloc(sizeof(*(f1zz))*(iap->nbc));
-    f2zz = malloc(sizeof(*(f2zz))*(iap->nbc));
+    u1zz = malloc(sizeof(*(u1zz))*(usize)(iap->ndim));
+    u2zz = malloc(sizeof(*(u2zz))*(usize)(iap->ndim));
+    f1zz = malloc(sizeof(*(f1zz))*(usize)(iap->nbc));
+    f2zz = malloc(sizeof(*(f2zz))*(usize)(iap->nbc));
 
     /* Interface subroutine to the user supplied BCND. */
 
@@ -4371,10 +4371,10 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     (void)rap;
 
-    f1zz = malloc(sizeof(*(f1zz))*(iap->nint));
-    f2zz = malloc(sizeof(*(f2zz))*(iap->nint));
-    u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
-    u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
+    f1zz = malloc(sizeof(*(f1zz))*(usize)(iap->nint));
+    f2zz = malloc(sizeof(*(f2zz))*(usize)(iap->nint));
+    u1zz = malloc(sizeof(*(u1zz))*(usize)(iap->ndim));
+    u2zz = malloc(sizeof(*(u2zz))*(usize)(iap->ndim));
     /* Interface subroutine to user supplied ICND. */
 
     /* Local */
@@ -4464,8 +4464,8 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
 
     (void)rap;
 
-    u1zz = malloc(sizeof(*(u1zz))*(iap->ndim));
-    u2zz = malloc(sizeof(*(u2zz))*(iap->ndim));
+    u1zz = malloc(sizeof(*(u1zz))*(usize)(iap->ndim));
+    u2zz = malloc(sizeof(*(u2zz))*(usize)(iap->ndim));
 
     /* Interface subroutine to user supplied FOPT. */
 

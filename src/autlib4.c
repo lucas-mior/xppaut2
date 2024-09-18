@@ -73,15 +73,15 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     int64 qzierr;
     double *svdwrk, qzz[1];
 
-    svde = malloc(sizeof(*svde)*(*ndim));
-    svds = malloc(sizeof(*svds)*(*ndim + 1));
-    svdv = malloc(sizeof(*svdv)*(*ndim)*(*ndim));
-    v = malloc(sizeof(*v)*(*ndim));
-    x = malloc(sizeof(*x)*(*ndim));
-    qzalfi = malloc(sizeof(*qzalfi)*(*ndim));
-    qzbeta = malloc(sizeof(*qzbeta)*(*ndim));
-    qzalfr = malloc(sizeof(*qzalfr)*(*ndim));
-    svdwrk = malloc(sizeof(*svdwrk)*(*ndim));
+    svde = malloc(sizeof(*svde)*(usize)(*ndim));
+    svds = malloc(sizeof(*svds)*(usize)(*ndim + 1));
+    svdv = malloc(sizeof(*svdv)*(usize)((*ndim)*(*ndim)));
+    v = malloc(sizeof(*v)*(usize)(*ndim));
+    x = malloc(sizeof(*x)*(usize)(*ndim));
+    qzalfi = malloc(sizeof(*qzalfi)*(usize)(*ndim));
+    qzbeta = malloc(sizeof(*qzbeta)*(usize)(*ndim));
+    qzalfr = malloc(sizeof(*qzalfr)*(usize)(*ndim));
+    svdwrk = malloc(sizeof(*svdwrk)*(usize)(*ndim));
 
     /*  Subroutine to compute Floquet multipliers via the "deflated circuit */
     /*  pencil" method. This routine is called by the AUTO routine FNSPBV */

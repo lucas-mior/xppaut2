@@ -202,11 +202,11 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
 
-    ff1 = malloc(sizeof(*(ff1))*(iap->nbc));
-    ff2 = malloc(sizeof(*(ff2))*(iap->nbc));
-    uu1 = malloc(sizeof(*(uu1))*(iap->ndim));
-    uu2 = malloc(sizeof(*(uu2))*(iap->ndim));
-    dfu = malloc(sizeof(*dfu)*(iap->nbc)*(2*iap->ndim + NPARX));
+    ff1 = malloc(sizeof(*(ff1))*(usize)(iap->nbc));
+    ff2 = malloc(sizeof(*(ff2))*(usize)(iap->nbc));
+    uu1 = malloc(sizeof(*(uu1))*(usize)(iap->ndim));
+    uu2 = malloc(sizeof(*(uu2))*(usize)(iap->ndim));
+    dfu = malloc(sizeof(*dfu)*(usize)((iap->nbc)*(2*iap->ndim + NPARX)));
 
     /* Generates the boundary conditions for homoclinic bifurcation analysis
      */
