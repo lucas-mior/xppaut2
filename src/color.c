@@ -38,6 +38,7 @@ extern uint32 Black, White;
 extern uint32 MyBackColor, MyForeColor, GrFore, GrBack;
 int32 spectral;
 int32 custom_color = 0;
+
 #define MAX_COLORS 256
 #define COL_TOTAL 150
 
