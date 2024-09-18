@@ -2105,7 +2105,7 @@ set_ani_font_stuff(int32 size, int32 font, int32 color) {
     if (color == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
-        XSetForeground(display, ani_gc, (uint)ColorMap(color));
+        XSetForeground(display, ani_gc, ColorMap(color));
     if (font == 0)
         XSetFont(display, ani_gc, romfonts[size]->fid);
     else
@@ -2125,7 +2125,7 @@ set_ani_col(int32 j) {
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
-        XSetForeground(display, ani_gc, (uint)ColorMap(icol));
+        XSetForeground(display, ani_gc, ColorMap(icol));
     LastAniColor = icol;
     return;
 }
@@ -2135,7 +2135,7 @@ xset_ani_col(int32 icol) {
     if (icol == 0)
         XSetForeground(display, ani_gc, BlackPixel(display, screen));
     else
-        XSetForeground(display, ani_gc, (uint)ColorMap(icol));
+        XSetForeground(display, ani_gc, ColorMap(icol));
     return;
 }
 
@@ -2432,11 +2432,11 @@ tst_pix_draw(void) {
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     XDrawLine(display, ani_pixmap, ani_gc, 0, 2, vcr.wid, 2);
     for (int32 i = 1; i < 11; i++) {
-        XSetForeground(display, ani_gc, (uint)ColorMap(colorline[i]));
+        XSetForeground(display, ani_gc, ColorMap(colorline[i]));
         XDrawLine(display, ani_pixmap, ani_gc, 0, 2 + i, vcr.wid, 2 + i);
     }
     for (int32 i = 0; i <= color_total; i++) {
-        XSetForeground(display, ani_gc, (uint)ColorMap(i + FIRSTCOLOR));
+        XSetForeground(display, ani_gc, ColorMap(i + FIRSTCOLOR));
         XDrawLine(display, ani_pixmap, ani_gc, 0, 14 + i, vcr.wid, 14 + i);
     }
     XSetForeground(display, ani_gc, BlackPixel(display, screen));

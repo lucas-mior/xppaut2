@@ -1106,7 +1106,7 @@ void NewColormap(int32 type);
 void get_ps_color(int32 i, double *r, double *g, double *b);
 void get_svg_color(int32 i, int32 *r, int32 *g, int32 *b);
 void MakeColormap(void);
-int32 ColorMap(int32 i);
+uint32 ColorMap(int32 i);
 
 #endif
 

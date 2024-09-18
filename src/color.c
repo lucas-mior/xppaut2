@@ -269,8 +269,8 @@ MakeColormap(void) {
     color_max = color_min + color_total;
     if (Xup)
         cmap = DefaultColormap(display, screen);
-    for (ulong i = 0; i < clo; i++) {
-        color[i].pixel = i;
+    for (int32 i = 0; i < clo; i++) {
+        color[i].pixel = (ulong)i;
     }
     for (int32 i = 20; i < 30; i++) {
         color[i].red = 0;
@@ -310,9 +310,9 @@ MakeColormap(void) {
 
     make_cmaps(r, g, b, color_total + 1, custom_color);
     for (int32 i = color_min; i <= color_max; i++) {
-        color[i].red = r[i - color_min];
-        color[i].green = g[i - color_min];
-        color[i].blue = b[i - color_min];
+        color[i].red = (ushort)r[i - color_min];
+        color[i].green = (ushort)g[i - color_min];
+        color[i].blue = (ushort)b[i - color_min];
 
         color[i].flags = DoRed | DoGreen | DoBlue;
         if (Xup) {
@@ -322,7 +322,7 @@ MakeColormap(void) {
     return;
 }
 
-int32
+uint32
 ColorMap(int32 i) {
     if (i == -1)
         return GrBack;
@@ -335,6 +335,6 @@ ColorMap(int32 i) {
             i = color_max;
         return color[i].pixel;
     } else {
-        return i;
+        return (uint32)i;
     }
 }
