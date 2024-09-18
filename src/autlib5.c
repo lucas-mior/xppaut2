@@ -1629,15 +1629,15 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     (void)isign;
 
-    f = malloc(sizeof(*f)*(*ndm));
-    ridum = malloc(sizeof(*ridum)*(*ndm));
-    vidum = malloc(sizeof(*vidum)*(*ndm)*(*ndm));
-    rrdum = malloc(sizeof(*rrdum)*(*ndm));
-    vrdum = malloc(sizeof(*vrdum)*(*ndm)*(*ndm));
-    vi = malloc(sizeof(*vi)*(*ndm)*(*ndm));
-    vr = malloc(sizeof(*vr)*(*ndm)*(*ndm));
-    fv1 = malloc(sizeof(*(fv1))*(*ndm));
-    iv1 = malloc(sizeof(*(iv1))*(*ndm));
+    f = malloc(sizeof(*f)*(usize)(*ndm));
+    ridum = malloc(sizeof(*ridum)*(usize)(*ndm));
+    vidum = malloc(sizeof(*vidum)*(usize)((*ndm)*(*ndm)));
+    rrdum = malloc(sizeof(*rrdum)*(usize)(*ndm));
+    vrdum = malloc(sizeof(*vrdum)*(usize)((*ndm)*(*ndm)));
+    vi = malloc(sizeof(*vi)*(usize)((*ndm)*(*ndm)));
+    vr = malloc(sizeof(*vr)*(usize)((*ndm)*(*ndm)));
+    fv1 = malloc(sizeof(*(fv1))*(usize)(*ndm));
+    iv1 = malloc(sizeof(*(iv1))*(usize)(*ndm));
 
     /* Uses EISPACK routine RG to calculate the eigenvalues/eigenvectors */
     /* of the linearization matrix a (obtained from DFHO) and orders them */
