@@ -38,7 +38,8 @@ typedef struct {
 
 static MainAutoStorage main_auto_storage = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+};
 
 /* ----------------------------------------------------------------------- */
 /*           Setting up of the Jacobian and right hand side */
