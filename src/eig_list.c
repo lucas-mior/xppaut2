@@ -273,9 +273,6 @@ resize_eq_list(Window win) {
         return;
     if (win != eq_list.base)
         return;
-    /*
-     w=ev.xconfigure.width;
-     h=ev.xconfigure.height; */
     get_new_size(win, &w, &h);
     nlines = (h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
     eq_list.nlines = nlines;
