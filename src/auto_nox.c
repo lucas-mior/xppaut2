@@ -2678,8 +2678,8 @@ load_auto_numerics(FILE *fp) {
 
 void
 save_auto_graph(FILE *fp) {
-    fprintf(fp, "%g %g %g %g %d %d \n", Auto.xmin, Auto.ymin, Auto.xmax,
-            Auto.ymax, Auto.var, Auto.plot);
+    fprintf(fp, "%g %g %g %g %d %d \n",
+            Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax, Auto.var, Auto.plot);
     return;
 }
 
