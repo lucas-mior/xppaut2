@@ -454,16 +454,16 @@ redraw_fs_text(char *string, Window w, int32 flag) {
     XClearWindow(display, w);
     filesel.off = 0;
     if (flag)
-        filesel.pos = strlen(string);
-    XDrawString(display, w, small_gc, 0, CURY_OFF, string, strlen(string));
+        filesel.pos = (int32)strlen(string);
+    XDrawString(display, w, small_gc, 0, CURY_OFF, string, (int)strlen(string));
     if (flag)
-        put_edit_cursor(w, DCURXs*strlen(string));
+        put_edit_cursor(w, DCURXs*(int32)strlen(string));
     return;
 }
 
 void
 display_file_sel(FILESEL f, Window w) {
-    int32 i, i0;
+    int32 i0;
     Window root;
     int32 xloc;
     int32 yloc;
@@ -478,8 +478,8 @@ display_file_sel(FILESEL f, Window w) {
 
     XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid,
                  &cdepth);
-    XResizeWindow(display, f.wild, cwid - 7*DCURXs - 5, DCURYs);
-    XResizeWindow(display, f.file, cwid - 7*DCURXs - 5, DCURYs);
+    XResizeWindow(display, f.wild, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
+    XResizeWindow(display, f.file, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
     for (int32 i = 0; i < f.nwin; i++) {
         XResizeWindow(display, f.w[i], cwid - 6*DCURXs - 10, DCURYs);
     }
