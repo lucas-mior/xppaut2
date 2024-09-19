@@ -778,8 +778,6 @@ void
 create_file_selector(char *title, char *file, char *wild) {
     int32 n = my_ff.ndirs + my_ff.nfiles;
     int32 nwin = FILESELNWIN;
-    /*int32 wid,hgt,i;
-     */
     int32 hgt, i;
     int32 width, height;
 
