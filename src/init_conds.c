@@ -891,7 +891,7 @@ stringintersect(char *target, char *sother) {
 int32
 edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
            int32 mc) {
-    int32 l = strlen(string), cp;
+    int32 l = (int32)strlen(string), cp;
     int32 off = *off1, pos = *pos1, wpos = pos - off;
     switch (ch) {
     case KEY_LEFT:
@@ -995,7 +995,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
                 get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
-                m = strlen(filesel.filetxt);
+                m = (int32)strlen(filesel.filetxt);
                 if (filesel.filetxt[m - 1] != '/') {
                     strcat(filesel.filetxt, "/");
                 }
@@ -1065,7 +1065,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
                 get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
-                m2 = strlen(filesel.filetxt);
+                m2 = (int32)strlen(filesel.filetxt);
                 if (filesel.filetxt[m2 - 1] != '/') {
                     strcat(filesel.filetxt, "/");
                 }
@@ -1122,7 +1122,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
                 ping();
             else {
                 movmem(&string[pos + 1], &string[pos], l - pos + 1);
-                string[pos] = ch;
+                string[pos] = (char)ch;
                 pos = pos + 1;
                 wpos++;
                 l++;
@@ -1142,7 +1142,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
     *pos1 = pos;
     XClearWindow(display, w);
     XDrawString(display, w, small_gc, 0, CURY_OFF, string + off,
-                strlen(string) - off);
+                (int32)strlen(string) - off);
     cp = DCURXs*(pos - off);
     put_edit_cursor(w, cp);
     return 0;
@@ -1152,7 +1152,7 @@ int32
 selector_key(XEvent ev) {
     char ch;
     int32 flag;
-    ch = get_key_press(&ev);
+    ch = (char)get_key_press(&ev);
     switch (filesel.hot) {
     case HOTFILE:
         flag = edit_fitem(ch, filesel.filetxt, filesel.file, &(filesel.off),
@@ -1258,7 +1258,7 @@ slide_release(Window w) {
 }
 
 void
-do_slide_release(uint32 w, PAR_SLIDER *p) {
+do_slide_release(Window w, PAR_SLIDER *p) {
     if (p->use == 0)
         return;
     if (p->slide == w) {

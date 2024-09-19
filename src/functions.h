@@ -2958,7 +2958,7 @@ void reset_sliders(void);
 void redraw_slide(PAR_SLIDER *p);
 void set_slide_pos(PAR_SLIDER *p);
 void slide_release(Window w);
-void do_slide_release(uint32 w, PAR_SLIDER *p);
+void do_slide_release(Window w, PAR_SLIDER *p);
 void slider_motion(XEvent ev);
 void do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 state);
 void enter_slides(Window w, int32 val);
