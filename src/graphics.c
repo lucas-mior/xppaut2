@@ -122,8 +122,8 @@ get_draw_area_flag(int32 flag) {
         h = (uint32)MyGraph->x11Hgt;
     }
 
-    XDMax = w;
-    YDMax = h;
+    XDMax = (int32)w;
+    YDMax = (int32)h;
     VTic = max(h / 100, 1);
     HTic = max(w / 150, 1);
     VChar = DCURYs;
@@ -133,14 +133,14 @@ get_draw_area_flag(int32 flag) {
     DRight = XDMax - 3*HChar - HTic;
     DBottom = YDMax - 1 - VChar*7 / 2;
     DTop = VChar*5 / 2 + 1;
-    h = DBottom - DTop;
-    w = DRight - DLeft;
+    h = (uint32)(DBottom - DTop);
+    w = (uint32)(DRight - DLeft);
     if (h > 0 && w > 0)
         D_FLAG = 1;
     else
         D_FLAG = 0;
-    MyGraph->Width = w;
-    MyGraph->Height = h;
+    MyGraph->Width = (int32)w;
+    MyGraph->Height = (int32)h;
     MyGraph->x0 = DLeft;
     MyGraph->y0 = DTop;
     set_normal_scale();
@@ -275,7 +275,7 @@ point_x11(int32 xp, int32 yp) {
     if (PointRadius == 0)
         XDrawPoint(display, draw_win, gc_graph, xp, yp);
     else
-        XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, wh, wh, 0,
+        XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, (uint)wh, (uint)wh, 0,
                  360*64);
     return;
 }
@@ -304,7 +304,7 @@ set_line_style_x11(int32 ls) {
      */
     if (ls == -1) {
         set_color(0);
-        XSetDashes(display, gc_graph, 0, dashes[1], strlen(dashes[1]));
+        XSetDashes(display, gc_graph, 0, dashes[1], (int)strlen(dashes[1]));
         XSetLineAttributes(display, gc_graph, 0, LineOnOffDash, CapButt,
                            JoinBevel);
         return;
@@ -315,7 +315,7 @@ set_line_style_x11(int32 ls) {
             type = LineSolid;
         else {
             type = LineOnOffDash;
-            XSetDashes(display, gc_graph, 0, dashes[ls], strlen(dashes[ls]));
+            XSetDashes(display, gc_graph, 0, dashes[ls], (int)strlen(dashes[ls]));
         }
         set_color(0);
         XSetLineAttributes(display, gc_graph, 0, type, CapButt, JoinBevel);
@@ -336,7 +336,7 @@ bead_x11(int32 x, int32 y) {
 
 void
 rect_x11(int32 x, int32 y, int32 w, int32 h) {
-    XFillRectangle(display, draw_win, gc_graph, x, y, w, h);
+    XFillRectangle(display, draw_win, gc_graph, x, y, (uint)w, (uint)h);
     return;
 }
 
@@ -359,7 +359,7 @@ line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 
 void
 put_text_x11(int32 x, int32 y, char *str) {
-    int32 sw = strlen(str)*DCURXs;
+    int32 sw = (int32)strlen(str)*DCURXs;
     switch (TextJustify) {
     case 0:
         sw = 0;
@@ -376,7 +376,7 @@ put_text_x11(int32 x, int32 y, char *str) {
     }
     XSetForeground(display, small_gc, GrFore);
     XDrawString(display, draw_win, small_gc, x + sw, y + DCURYs / 3, str,
-                strlen(str));
+                (int32)strlen(str));
     XSetForeground(display, small_gc, GrBack);
     return;
 }
@@ -386,7 +386,7 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
     int32 i = 0, j = 0;
     int32 cx = x, cy = y;
     int32 cf = 0, cs;
-    int32 n = strlen(str), dx = 0;
+    int32 n = (int32)strlen(str), dx = 0;
     char tmp[256], c;
     int32 sub, sup;
     cs = size;
@@ -408,15 +408,15 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
                                cf); /* render the current buffer */
             if (cf == 0) {
                 if (avromfonts[cs] == 1)
-                    dx = XTextWidth(romfonts[cs], tmp, strlen(tmp));
+                    dx = XTextWidth(romfonts[cs], tmp, (int)strlen(tmp));
                 else
-                    dx = XTextWidth(small_font, tmp, strlen(tmp));
+                    dx = XTextWidth(small_font, tmp, (int)strlen(tmp));
             }
             if (cf == 1) {
                 if (avsymfonts[cs] == 1)
-                    dx = XTextWidth(symfonts[cs], tmp, strlen(tmp));
+                    dx = XTextWidth(symfonts[cs], tmp, (int)strlen(tmp));
                 else
-                    dx = XTextWidth(small_font, tmp, strlen(tmp));
+                    dx = XTextWidth(small_font, tmp, (int)strlen(tmp));
             }
             cx += dx;
             j = 0;
@@ -469,7 +469,7 @@ fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
             /*yoff=small_font->ascent;*/
         }
         XSetForeground(display, font_gc, GrFore);
-        XDrawString(display, draw_win, font_gc, x, y, str, strlen(str));
+        XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
         XSetForeground(display, font_gc, GrBack);
         break;
     default:
@@ -482,7 +482,7 @@ fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
             /*yoff=small_font->ascent;*/
         }
         XSetForeground(display, font_gc, GrFore);
-        XDrawString(display, draw_win, font_gc, x, y, str, strlen(str));
+        XDrawString(display, draw_win, font_gc, x, y, str, (int)strlen(str));
         XSetForeground(display, font_gc, GrBack);
         break;
     }
@@ -1094,7 +1094,7 @@ text_abs(double x, double y, char *text) {
 
 void
 fillintext(char *old, char *new) {
-    int32 i, l = strlen(old);
+    int32 i, l = (int32)strlen(old);
     int32 j, m, ans;
     char name[256], c, c2;
     double z;
