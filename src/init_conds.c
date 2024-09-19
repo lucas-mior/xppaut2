@@ -422,6 +422,7 @@ do_slide_button(uint32 w, PAR_SLIDER *p) {
     p->use = 1;
     set_slide_pos(p);
     redraw_slide(p);
+    return;
 }
 
 void
