@@ -164,9 +164,9 @@ free_scroll_list(SCROLL_LIST *sl) {
 void
 add_scroll_item(char *v, SCROLL_LIST *sl) {
     int32 n = sl->n;
-    int32 m = strlen(v);
-    sl->v = (char **)realloc((void *)sl->v, (n + 1)*sizeof(char *));
-    sl->v[n] = malloc((m + 1));
+    int32 m = (int32)strlen(v);
+    sl->v = (char **)realloc((void *)sl->v, (usize)(n + 1)*sizeof(char *));
+    sl->v[n] = malloc((usize)(m + 1));
     strcpy(sl->v[n], v);
     sl->n = n + 1;
     return;
@@ -212,7 +212,7 @@ redraw_scroll_list(SCROLL_LIST sl) {
         j = i + sl.n0;
         if (j < n) {
             XDrawString(display, sl.text, small_gc, 0,
-                        CURY_OFFs + i*(DCURYs + 3), sl.v[j], strlen(sl.v[j]));
+                        CURY_OFFs + i*(DCURYs + 3), sl.v[j], (int)strlen(sl.v[j]));
             if (j == sl.ihot) {
                 y = CURY_OFFs + (i + 1)*(DCURYs + 3) - 3;
                 XDrawLine(display, sl.text, small_gc, 0, y, sl.twid, y);
