@@ -442,8 +442,7 @@ redraw_directory(void) {
 
 void
 redraw_file_list(void) {
-    int32 i;
-    for (i = 0; i < filesel.nwin; i++) {
+    for (int32 i = 0; i < filesel.nwin; i++) {
         XClearWindow(display, filesel.w[i]);
         expose_selector(filesel.w[i]);
     }
