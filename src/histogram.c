@@ -134,9 +134,9 @@ new_four(int32 nmodes, int32 col) {
         FOUR_HERE = 0;
     }
     four_len = nmodes;
-    my_four[0] = malloc(sizeof(*(my_four[0]))*length);
-    my_four[1] = malloc(sizeof(*(my_four[1]))*length);
-    my_four[2] = malloc(sizeof(*(my_four[2]))*length);
+    my_four[0] = malloc(sizeof(*(my_four[0]))*(usize)length);
+    my_four[1] = malloc(sizeof(*(my_four[1]))*(usize)length);
+    my_four[2] = malloc(sizeof(*(my_four[2]))*(usize)length);
     if (my_four[2] == NULL) {
         free(my_four[1]);
         free(my_four[2]);
@@ -210,9 +210,9 @@ twod_hist(void)
     }
 
     hist_len = length;
-    my_hist[0] = malloc(sizeof(*(my_hist[0]))*length);
-    my_hist[1] = malloc(sizeof(*(my_hist[1]))*length);
-    my_hist[2] = malloc(sizeof(*(my_hist[2]))*length);
+    my_hist[0] = malloc(sizeof(*(my_hist[0]))*(usize)length);
+    my_hist[1] = malloc(sizeof(*(my_hist[1]))*(usize)length);
+    my_hist[2] = malloc(sizeof(*(my_hist[2]))*(usize)length);
     if (my_hist[2] == NULL) {
         free(my_hist[0]);
         free(my_hist[1]);
@@ -295,8 +295,8 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         HIST_HERE = 0;
     }
     hist_len = length;
-    my_hist[0] = malloc(sizeof(*(my_hist[0]))*length);
-    my_hist[1] = malloc(sizeof(*(my_hist[1]))*length);
+    my_hist[0] = malloc(sizeof(*(my_hist[0]))*(usize)length);
+    my_hist[1] = malloc(sizeof(*(my_hist[1]))*(usize)length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
         err_msg("Cannot allocate enough...");
@@ -467,10 +467,10 @@ spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow) {
         return 0;
     if (kwin < 1)
         return 0;
-    ct = malloc(sizeof(*ct)*win);
-    d = malloc(sizeof(*d)*win);
-    st = malloc(sizeof(*st)*win);
-    f = malloc(sizeof(*f)*win);
+    ct = malloc(sizeof(*ct)*(usize)win);
+    d = malloc(sizeof(*d)*(usize)win);
+    st = malloc(sizeof(*st)*(usize)win);
+    f = malloc(sizeof(*f)*(usize)win);
     nrmf = 0.0;
     for (i = 0; i < win; i++) {
         x = (double)i / ((double)win);
@@ -555,17 +555,17 @@ cross_spectrum(double *data, double *data2, int32 nr, int32 win, int32 w_type,
         return 0;
     if (kwin < 1)
         return 0;
-    ct = malloc(sizeof(*ct)*win);
-    d = malloc(sizeof(*d)*win);
-    st = malloc(sizeof(*st)*win);
-    f = malloc(sizeof(*f)*win);
-    ct2 = malloc(sizeof(*(ct2))*win);
-    d2 = malloc(sizeof(*(d2))*win);
-    st2 = malloc(sizeof(*(st2))*win);
-    pxx = malloc(sizeof(*pxx)*win);
-    pyy = malloc(sizeof(*pyy)*win);
-    pxyr = malloc(sizeof(*pxyr)*win);
-    pxym = malloc(sizeof(*pxym)*win);
+    ct = malloc(sizeof(*ct)*(usize)win);
+    d = malloc(sizeof(*d)*(usize)win);
+    st = malloc(sizeof(*st)*(usize)win);
+    f = malloc(sizeof(*f)*(usize)win);
+    ct2 = malloc(sizeof(*(ct2))*(usize)win);
+    d2 = malloc(sizeof(*(d2))*(usize)win);
+    st2 = malloc(sizeof(*(st2))*(usize)win);
+    pxx = malloc(sizeof(*pxx)*(usize)win);
+    pyy = malloc(sizeof(*pyy)*(usize)win);
+    pxyr = malloc(sizeof(*pxyr)*(usize)win);
+    pxym = malloc(sizeof(*pxym)*(usize)win);
     nrmwin = 0.0;
     for (i = 0; i < win; i++) {
         x = (double)i / ((double)win);
@@ -656,8 +656,8 @@ just_sd(int32 flag) {
     }
     hist_len = spec_wid / 2;
     length = hist_len + 2;
-    my_hist[0] = malloc(sizeof(*(my_hist[0]))*length);
-    my_hist[1] = malloc(sizeof(*(my_hist[1]))*length);
+    my_hist[0] = malloc(sizeof(*(my_hist[0]))*(usize)length);
+    my_hist[1] = malloc(sizeof(*(my_hist[1]))*(usize)length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
         err_msg("Cannot allocate enough...");
@@ -701,8 +701,8 @@ compute_sd(void) {
     }
     hist_len = spec_wid / 2;
     length = hist_len + 2;
-    my_hist[0] = malloc(sizeof(*(my_hist[0]))*length);
-    my_hist[1] = malloc(sizeof(*(my_hist[1]))*length);
+    my_hist[0] = malloc(sizeof(*(my_hist[0]))*(usize)length);
+    my_hist[1] = malloc(sizeof(*(my_hist[1]))*(usize)length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
         err_msg("Cannot allocate enough...");
@@ -933,10 +933,10 @@ fftxcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
     /* n2=length/2;*/
 
     dim[0] = length;
-    re1 = malloc(length*sizeof(*(re1)));
-    im1 = malloc(length*sizeof(*(im1)));
-    re2 = malloc(length*sizeof(*(re2)));
-    im2 = malloc(length*sizeof(*(im2)));
+    re1 = malloc((usize)length*sizeof(*(re1)));
+    im1 = malloc((usize)length*sizeof(*(im1)));
+    re2 = malloc((usize)length*sizeof(*(re2)));
+    im2 = malloc((usize)length*sizeof(*(im2)));
 
     for (i = 0; i < length; i++) {
         im1[i] = 0.0;
@@ -979,8 +979,8 @@ fft(double *data, double *ct, double *st, int32 nmodes, int32 length) {
     double *im, *re;
     int32 dim[2], i;
     dim[0] = length;
-    re = malloc(length*sizeof(*re));
-    im = malloc(length*sizeof(*im));
+    re = malloc((usize)length*sizeof(*re));
+    im = malloc((usize)length*sizeof(*im));
     for (i = 0; i < length; i++) {
         im[i] = 0.0;
         re[i] = data[i];
