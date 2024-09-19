@@ -11,20 +11,18 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-/*  This is an implicit solver for volterra integral and integro-differential
-    equations.  It is based on code found in Peter Linz's book
-    ont Volterra equations.
-    One tries to evaluate:
+/* This is an implicit solver for volterra integral and integro-differential
+ * equations.  It is based on code found in Peter Linz's book
+ * ont Volterra equations.
+ * One tries to evaluate:
 
-       int_0^t ( (t-t')^-mu K(t,t',u) dt')
-    where  0 <= mu < 1 and K(t,t',u) is cts and Lipschitz.
-    The product method is used combined with the trapezoidal rule for
-   integration. The method is A-stable since it is an implicit scheme.
+ *    int_0^t ( (t-t')^-mu K(t,t',u) dt')
+ * where  0 <= mu < 1 and K(t,t',u) is cts and Lipschitz.
+ * The product method is used combined with the trapezoidal rule for
+ * integration. The method is A-stable since it is an implicit scheme.
 
-    The kernel structure contains the constant mu and the expression for
-    evaluating K(t,t',u)
-
-*/
+ * The kernel structure contains the constant mu and the expression for
+ * evaluating K(t,t',u) */
 
 #define CONV 2
 extern KERNEL kernel[MAX_KER];
