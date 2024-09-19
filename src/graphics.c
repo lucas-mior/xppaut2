@@ -115,11 +115,11 @@ get_draw_area_flag(int32 flag) {
     Window root;
     if (flag == 1) {
         XGetGeometry(display, draw_win, &root, &x, &y, &w, &h, &bw, &de);
-        MyGraph->x11Wid = w;
-        MyGraph->x11Hgt = h;
+        MyGraph->x11Wid = (int32)w;
+        MyGraph->x11Hgt = (int32)h;
     } else {
-        w = MyGraph->x11Wid;
-        h = MyGraph->x11Hgt;
+        w = (uint32)MyGraph->x11Wid;
+        h = (uint32)MyGraph->x11Hgt;
     }
 
     XDMax = w;
