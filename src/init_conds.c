@@ -1011,8 +1011,8 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
 
         if (m > 1) {
             strcpy(ft, filesel.filetxt);
-        } else /*We are already at the root level of file system!*/
-        {
+        } else {
+            /* We are already at the root level of file system! */
             strcpy(filesel.filetxt, "/");
             strcpy(ft, filesel.filetxt);
         }
