@@ -2692,4 +2692,5 @@ load_entire_box(BoxList *b) {
     }
     if (b->type == DELAYBOX)
         do_init_delay(DELAY);
+    return;
 }
