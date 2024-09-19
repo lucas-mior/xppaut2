@@ -46,9 +46,6 @@ extern int32 NEQ, NODE, NMarkov, FIX_VAR;
 extern char *no_hint[], *info_message;
 
 int32 twod_hist(void);
-static void
-new_2dhist(void) {
-}
 
 int32
 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo,
