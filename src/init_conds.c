@@ -1273,11 +1273,11 @@ do_slide_release(Window w, PAR_SLIDER *p) {
 
 void
 slider_motion(XEvent ev) {
-    int32 x, i;
+    int32 x;
     Window w;
     w = ev.xmotion.window;
     x = ev.xmotion.x;
-    for (i = 0; i < 3; i++)
+    for (int32 i = 0; i < 3; i++)
         do_slide_motion(w, x, &my_par_slide[i], ev.xmotion.state);
     return;
 }
