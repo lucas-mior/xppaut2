@@ -481,12 +481,12 @@ display_file_sel(FILESEL f, Window w) {
     XResizeWindow(display, f.wild, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
     XResizeWindow(display, f.file, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
     for (int32 i = 0; i < f.nwin; i++) {
-        XResizeWindow(display, f.w[i], cwid - 6*DCURXs - 10, DCURYs);
+        XResizeWindow(display, f.w[i], cwid - 6*(uint)DCURXs - 10, (uint)DCURYs);
     }
-    XMoveResizeWindow(display, f.ok, cwid / 2 - 7*DCURXs - 3, chgt - hgt,
-                      7*DCURXs, DCURYs);
-    XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, chgt - hgt, 7*DCURXs,
-                      DCURYs);
+    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*DCURXs - 3, (int32)chgt - hgt,
+                      7*(uint)DCURXs, (uint)DCURYs);
+    XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, (int)chgt - hgt, 7*(uint)DCURXs,
+                      (uint)DCURYs);
 
     if (f.here != 1)
         return;
@@ -513,12 +513,12 @@ display_file_sel(FILESEL f, Window w) {
     if (f.file == w) {
         XClearWindow(display, w);
         XDrawString(display, w, small_gc, 2, CURY_OFFs, f.filetxt,
-                    strlen(f.filetxt));
+                    (int)strlen(f.filetxt));
     }
     if (f.wild == w) {
         XClearWindow(display, w);
         XDrawString(display, w, small_gc, 2, CURY_OFFs, f.wildtxt,
-                    strlen(f.wildtxt));
+                    (int)strlen(f.wildtxt));
     }
     if (f.fw == w)
         XDrawString(display, w, small_gc, 5, CURY_OFFs, "File: ", 6);
@@ -527,7 +527,7 @@ display_file_sel(FILESEL f, Window w) {
     if (f.dir == w) {
         XTextProperty windowName;
         snprintf(t, sizeof(t), " %s", f.title);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, t, strlen(t));
+        XDrawString(display, w, small_gc, 0, CURY_OFFs, t, (int)strlen(t));
         sprintf(t, "%s - %s", f.wildtxt, cur_dir);
         {
             char *nameit[] = {t};
@@ -545,7 +545,7 @@ display_file_sel(FILESEL f, Window w) {
                     sprintf(t, "<>%s", my_ff.dirnames[i0]);
                 else
                     sprintf(t, "%s", my_ff.filenames[i0 - my_ff.ndirs]);
-                XDrawString(display, w, small_gc, 5, CURY_OFFs, t, strlen(t));
+                XDrawString(display, w, small_gc, 5, CURY_OFFs, t, (int)strlen(t));
             }
         }
     }
@@ -614,7 +614,7 @@ button_selector(Window w) {
 
         strcpy(filesel.filetxt, cur_dir);
 
-        m = strlen(filesel.filetxt);
+        m = (int32)strlen(filesel.filetxt);
         if (filesel.filetxt[m - 1] != '/') {
             strcat(filesel.filetxt, "/");
         }
@@ -645,7 +645,7 @@ button_selector(Window w) {
 
         strcpy(filesel.filetxt, cur_dir);
 
-        m = strlen(filesel.filetxt);
+        m = (int32)strlen(filesel.filetxt);
         if (filesel.filetxt[m - 1] != '/') {
             strcat(filesel.filetxt, "/");
         }
@@ -658,7 +658,7 @@ button_selector(Window w) {
     }
     if (w == filesel.file) { /* selected the file text */
         if (filesel.hot != HOTFILE)
-            filesel.pos = strlen(filesel.filetxt);
+            filesel.pos = (int32)strlen(filesel.filetxt);
 
         filesel.hot = HOTFILE;
         redraw_fs_text(filesel.filetxt, filesel.file, 1);
@@ -668,7 +668,7 @@ button_selector(Window w) {
     }
     if (w == filesel.wild) {
         if (filesel.hot != HOTWILD)
-            filesel.pos = strlen(filesel.wildtxt);
+            filesel.pos = (int32)strlen(filesel.wildtxt);
         filesel.hot = HOTWILD;
         redraw_fs_text(filesel.filetxt, filesel.file, 0);
         redraw_fs_text(filesel.wildtxt, filesel.wild, 1);
@@ -693,7 +693,7 @@ button_selector(Window w) {
 
             strcpy(filesel.filetxt, cur_dir);
 
-            m = strlen(filesel.filetxt);
+            m = (int32)strlen(filesel.filetxt);
             if (filesel.filetxt[m - 1] != '/') {
                 strcat(filesel.filetxt, "/");
             }
@@ -722,7 +722,7 @@ crossing_selector(Window w, int32 c) {
     }
     for (int32 i = 0; i < filesel.nwin; i++) {
         if (w == filesel.w[i]) {
-            XSetWindowBorderWidth(display, w, t1);
+            XSetWindowBorderWidth(display, w, (uint)t1);
             return;
         }
     }
@@ -730,7 +730,7 @@ crossing_selector(Window w, int32 c) {
         w == filesel.pgdn || w == filesel.up || w == filesel.dn ||
         w == filesel.file || w == filesel.wild || w == filesel.home ||
         w == filesel.start)
-        XSetWindowBorderWidth(display, w, t2);
+        XSetWindowBorderWidth(display, w, (uint)t2);
     return;
 }
 
@@ -866,15 +866,15 @@ create_file_selector(char *title, char *file, char *wild) {
         XSelectInput(display,filesel.file,BOXEVENT); */
     filesel.here = 1;
     filesel.hot = HOTFILE;
-    filesel.pos = strlen(filesel.filetxt);
+    filesel.pos = (int32)strlen(filesel.filetxt);
     filesel.off = 0;
     return;
 }
 
 void
 stringintersect(char *target, char *sother) {
-    int32 m = strlen(target);
-    int32 n = strlen(sother);
+    int32 m = (int32)strlen(target);
+    int32 n = (int32)strlen(sother);
     int32 j = 0;
     if (n < m)
         m = n;
