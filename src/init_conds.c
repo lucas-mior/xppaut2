@@ -1018,9 +1018,9 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         }
 
         while ((dp = (struct dirent *)opendir(ft)) == NULL) {
-            /*This WHILE is perhaps a bit clunky but since we can't be sure of
-            path separator user will type in the box a trial-by-error
-            approach may be more robust.*/
+            /* This WHILE is perhaps a bit clunky but since we can't be sure of
+             * path separator user will type in the box a trial-by-error
+             * approach may be more robust. */
 
             ft[m] = '\0';
             m--;
