@@ -981,12 +981,12 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
 
         char ft[XPP_MAX_NAME];
         char ftpath[XPP_MAX_NAME];
+        int32 m;
 
         /*User may have typed ahead (maybe they remember the path they want)"*/
         /*Try to change to that new directory if it is one.*/
         if ((dp = (struct dirent *)opendir(filesel.filetxt)) != NULL) {
             if (strcmp(cur_dir, filesel.filetxt) != 0) {
-                int32 m;
                 change_directory(filesel.filetxt);
                 get_directory(cur_dir);
                 redraw_directory();
@@ -1006,7 +1006,7 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
             return EDIT_WAIT; /*Wait for further instruction...*/
         }
 
-        int32 m = strlen(filesel.filetxt) + 1;
+        m = (int32)strlen(filesel.filetxt) + 1;
         // strcpy(ft,filesel.filetxt);
 
         if (m > 1) {
@@ -1038,8 +1038,8 @@ edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
         if (m > (int32)strlen(filesel.filetxt)) {
             return EDIT_WAIT;
         }
-        for (usize n = 0; n < strlen(filesel.filetxt) - m; n++) {
-            ft[n] = filesel.filetxt[m + n + 1];
+        for (usize n = 0; n < strlen(filesel.filetxt) - (usize)m; n++) {
+            ft[n] = filesel.filetxt[(usize)m + n + 1];
             ft[n + 1] = '\0';
         }
         strcat(ft, "*");
