@@ -2936,7 +2936,7 @@ int32 find_user_name(int32 type, char *oname);
 void create_par_sliders(Window base, int32 x0, int32 h0);
 void resize_par_slides(int32 h);
 void slide_button_press(Window w);
-void do_slide_button(uint32 w, PAR_SLIDER *p);
+void do_slide_button(Window w, PAR_SLIDER *p);
 void expose_selector(Window w);
 void redraw_directory(void);
 void redraw_file_list(void);

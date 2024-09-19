@@ -356,7 +356,7 @@ void
 resize_par_slides(int32 h) {
     for (int32 i = 0; i < 3; i++) {
         XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i * DCURXs,
-                          h, 32*DCURXs, 3*(DCURYs + 2));
+                          h, 32*(uint)DCURXs, 3*(uint)(DCURYs + 2));
     }
     return;
 }
@@ -369,7 +369,7 @@ slide_button_press(Window w) {
 }
 
 void
-do_slide_button(uint32 w, PAR_SLIDER *p) {
+do_slide_button(Window w, PAR_SLIDER *p) {
     static char *n[] = {"*3Par/Var", "Value", "Low", "High"};
     char values[4][MAX_LEN_SBOX];
     int32 status;
