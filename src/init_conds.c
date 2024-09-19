@@ -1278,7 +1278,7 @@ slider_motion(XEvent ev) {
     w = ev.xmotion.window;
     x = ev.xmotion.x;
     for (int32 i = 0; i < 3; i++)
-        do_slide_motion(w, x, &my_par_slide[i], ev.xmotion.state);
+        do_slide_motion(w, x, &my_par_slide[i], (int32)ev.xmotion.state);
     return;
 }
 
@@ -1324,7 +1324,7 @@ enter_slides(Window w, int32 val) {
 void
 enter_slider(Window w, PAR_SLIDER *p, int32 val) {
     if (w == p->top || w == p->go)
-        XSetWindowBorderWidth(display, w, val + 1);
+        XSetWindowBorderWidth(display, w, (uint)val + 1);
     return;
 }
 
@@ -1354,29 +1354,29 @@ expose_slider(Window w, PAR_SLIDER *p) {
             sprintf(top, "%.16g", p->lo);
             x = 1;
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, x, CURY_OFFs, top, strlen(top));
+            XDrawString(display, w, small_gc, x, CURY_OFFs, top, (int)strlen(top));
             return;
         }
         if (w == p->right) {
             sprintf(top, "%.16g", p->hi);
             x = 1;
             if (strlen(top) < 12)
-                x = len - DCURXs*strlen(top) - 1;
+                x = len - DCURXs*(int32)strlen(top) - 1;
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, x, CURY_OFFs, top, strlen(top));
+            XDrawString(display, w, small_gc, x, CURY_OFFs, top, (int)strlen(top));
             return;
         }
         if (w == p->top) {
             sprintf(top, "%s=%.16g", p->parname, p->val);
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, 2, CURY_OFFs, top, strlen(top));
+            XDrawString(display, w, small_gc, 2, CURY_OFFs, top, (int)strlen(top));
         }
     } else {
         if (w == p->top) {
             sprintf(top, "Par/Var?");
             x = 1;
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, x, CURY_OFFs, top, strlen(top));
+            XDrawString(display, w, small_gc, x, CURY_OFFs, top, (int)strlen(top));
         }
     }
     return;
