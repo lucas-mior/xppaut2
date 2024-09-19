@@ -480,7 +480,7 @@ display_file_sel(FILESEL f, Window w) {
                  &cdepth);
     XResizeWindow(display, f.wild, cwid - 7*DCURXs - 5, DCURYs);
     XResizeWindow(display, f.file, cwid - 7*DCURXs - 5, DCURYs);
-    for (i = 0; i < f.nwin; i++) {
+    for (int32 i = 0; i < f.nwin; i++) {
         XResizeWindow(display, f.w[i], cwid - 6*DCURXs - 10, DCURYs);
     }
     XMoveResizeWindow(display, f.ok, cwid / 2 - 7*DCURXs - 3, chgt - hgt,
@@ -535,7 +535,7 @@ display_file_sel(FILESEL f, Window w) {
             XSetWMName(display, f.base, &windowName);
         }
     }
-    for (i = 0; i < f.nwin; i++) {
+    for (int32 i = 0; i < f.nwin; i++) {
         if (w == f.w[i]) {
             i0 = i + f.n0;
             if (i0 >= f.n)
@@ -582,7 +582,7 @@ fs_scroll(int32 i) {
 
 int32
 button_selector(Window w) {
-    int32 i, i0;
+    int32 i0;
     int32 k, n = filesel.n;
     if (w == filesel.ok)
         return 1;
@@ -675,9 +675,10 @@ button_selector(Window w) {
         return 0;
     }
     i0 = -1;
-    for (i = 0; i < filesel.nwin; i++)
+    for (int32 i = 0; i < filesel.nwin; i++) {
         if (w == filesel.w[i])
             i0 = i;
+    }
     if (i0 > -1) { /* clicked on a file or directory */
         k = i0 + filesel.n0;
         if (k < my_ff.ndirs) { /* it is a directory so we should reset */
@@ -714,12 +715,12 @@ button_selector(Window w) {
 
 void
 crossing_selector(Window w, int32 c) {
-    int32 t1 = 1, t2 = 2, i;
+    int32 t1 = 1, t2 = 2;
     if (c == 1) {
         t1 = 0;
         t2 = 1;
     }
-    for (i = 0; i < filesel.nwin; i++) {
+    for (int32 i = 0; i < filesel.nwin; i++) {
         if (w == filesel.w[i]) {
             XSetWindowBorderWidth(display, w, t1);
             return;
