@@ -1277,7 +1277,6 @@ slider_motion(XEvent ev) {
     Window w;
     w = ev.xmotion.window;
     x = ev.xmotion.x;
-    /* printf(" state=%d\n",ev.xmotion.state); */
     for (i = 0; i < 3; i++)
         do_slide_motion(w, x, &my_par_slide[i], ev.xmotion.state);
     return;
