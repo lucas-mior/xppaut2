@@ -1026,14 +1026,13 @@ do_gr_objs_com(int32 com) {
     case 6:
         add_markers();
         break;
-        /*case 4:
-        edit_object();
-        break; */
     case 5:
         destroy_label(draw_win);
         destroy_grob(draw_win);
         clr_scrn();
         redraw_all();
+        break;
+    default:
         break;
     }
     return;
@@ -1077,8 +1076,8 @@ do_windows_com(int32 c) {
     case 6:
         SimulPlotFlag = 1 - SimulPlotFlag;
         break;
-        /*  default: create_a_pop();
-            break; */
+    default:
+        break;
     }
 
     set_active_windows();
