@@ -37,6 +37,8 @@ user_button_events(XEvent report) {
     case ButtonPress:
         user_button_press(report.xbutton.window);
         break;
+    default:
+        break;
     }
     return;
 }
@@ -52,7 +54,7 @@ user_button_press(Window w) {
     return;
 }
 
-void
+static void
 draw_all_user_buttons(void) {
     int32 i = 0;
     for (i = 0; i < nuserbut; i++) {
@@ -67,7 +69,7 @@ user_button_draw(Window w) {
     for (i = 0; i < nuserbut; i++) {
         if (w == userbut[i].w) {
             XDrawString(display, w, small_gc, 5, CURY_OFFs, userbut[i].bname,
-                        strlen(userbut[i].bname));
+                        (int)strlen(userbut[i].bname));
         }
     }
     return;
@@ -78,7 +80,7 @@ user_button_cross(Window w, int32 b) {
     int32 i;
     for (i = 0; i < nuserbut; i++)
         if (w == userbut[i].w) {
-            XSetWindowBorderWidth(display, w, b);
+            XSetWindowBorderWidth(display, w, (uint)b);
             return;
         }
     return;
@@ -86,7 +88,7 @@ user_button_cross(Window w, int32 b) {
 
 int32
 get_button_info(char *s, char *bname, char *sc) {
-    int32 i = 0, j = 0, f = 0, n = strlen(s);
+    int32 i = 0, j = 0, f = 0, n = (int32)strlen(s);
     char c;
     if (n == 0)
         return -1;
@@ -127,7 +129,6 @@ find_kbs(char *sc) {
         if (kbs[i].com == 0)
             return -1;
     }
-    exit(EXIT_FAILURE);
 }
 
 void
@@ -147,8 +148,7 @@ add_user_button(char *s) {
         return;
     }
     /*Don't add buttons with same functionality twice*/
-    int32 i;
-    for (i = 0; i < nuserbut; i++) {
+    for (int32 i = 0; i < nuserbut; i++) {
         if (userbut[i].com == z) {
             return;
         }
@@ -169,7 +169,7 @@ create_user_buttons(int32 x0, int32 y0, Window base) {
     if (nuserbut == 0)
         return;
     for (i = 0; i < nuserbut; i++) {
-        l = DCURXs*(strlen(userbut[i].bname) + 2);
+        l = DCURXs*((int32)strlen(userbut[i].bname) + 2);
         userbut[i].w = make_fancy_window(base, x, y0, l, DCURYs, 1);
         x = x + l + DCURXs;
     }
