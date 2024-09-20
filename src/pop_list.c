@@ -420,7 +420,6 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
         if (ev.xbutton.window == sb->cancel) {
             status = FORGET_ALL;
             break;
-            destroy_scroll_box(scrb);
         }
         for (int32 i = 0; i < nn; i++) {
             if (ev.xbutton.window == sb->win[i]) {
