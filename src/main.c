@@ -1336,18 +1336,18 @@ make_pops(void) {
     XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
     create_the_menus(main_win);
     command_pop = XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
-                                      DCURY + 4, 2, MyForeColor, MyBackColor);
-    info_pop = XCreateSimpleWindow(display, main_win, 0, h - DCURY - 4, w - 2,
-                                   DCURY, 2, MyForeColor, MyBackColor);
+                                      (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
+    info_pop = XCreateSimpleWindow(display, main_win, 0, (int32)h - DCURY - 4, w - 2,
+                                   (uint)DCURY, 2, MyForeColor, MyBackColor);
     XCreateFontCursor(display, XC_hand2);
     XSelectInput(display, command_pop,
                  KeyPressMask | ButtonPressMask | ExposureMask);
     XSelectInput(display, info_pop, ExposureMask);
     XMapWindow(display, info_pop);
     XMapWindow(display, command_pop);
-    init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, w - 16 - 16*DCURX,
-               h - 6*DCURY - 16);
-    create_par_sliders(main_win, 0, h - 5*DCURY + 8);
+    init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, (int32)w - 16 - 16*DCURX,
+               (int32)h - 6*DCURY - 16);
+    create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
     get_draw_area();
     return;
 }
