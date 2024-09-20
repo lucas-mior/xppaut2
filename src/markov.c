@@ -431,6 +431,8 @@ one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
           rold[i]=get_ivar(rxn[i]);
             */
         break;
+    default:
+        break;
     }
     return;
 }
@@ -495,6 +497,8 @@ do_stochast_com(int32 i) {
     case '2':
         new_2d_hist();
         break;
+    default:
+        break;
     }
     return;
 }
@@ -553,8 +557,8 @@ init_stoch(int32 len) {
     N_TRIALS = 0;
     stoch_len = len;
     for (i = 0; i < (NEQ + 1); i++) {
-        my_mean[i] = malloc(sizeof(*(my_mean[i]))*stoch_len);
-        my_variance[i] = malloc(sizeof(*(my_variance[i]))*stoch_len);
+        my_mean[i] = malloc(sizeof(*(my_mean[i]))*(usize)stoch_len);
+        my_variance[i] = malloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
         for (j = 0; j < stoch_len; j++) {
             my_mean[i][j] = 0.0;
             my_variance[i][j] = 0.0;
@@ -696,10 +700,10 @@ ran1(long *idum) {
     *idum = IA*(*idum - k*IQ) - IR*k;
     if (*idum < 0)
         *idum += IM;
-    j = iy / NDIV;
+    j = (int32)(iy / NDIV);
     iy = iv[j];
     iv[j] = *idum;
-    if ((temp = AM*iy) > RNMX)
+    if ((temp = AM*(double)iy) > RNMX)
         return RNMX;
     else
         return temp;

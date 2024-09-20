@@ -49,8 +49,8 @@ MSGBOXSTRUCT MsgBox;
 
 void
 do_tutorial(void) {
-    printf("Running tutorial!\n");
     int32 tut = 0;
+    printf("Running tutorial!\n");
     while (true) {
         char ans = (char)two_choice("Next", "Done", tutorial[tut], "nd",
                                     DisplayWidth / 2, DisplayHeight / 2,
@@ -86,9 +86,10 @@ edit_xpprc(void) {
     child_pid = fork();
 
     if (child_pid == 0) {
+        char *args[] = {editor, NULL, NULL};
         snprintf(rc, sizeof(rc), "%s/.xpprc", getenv("HOME"));
+        args[1] = rc;
 
-        char *args[] = {editor, rc, NULL};
         execvp(editor, args);
         wait(&child_status);
         return;
@@ -99,7 +100,6 @@ edit_xpprc(void) {
 
         return;
     }
-    return;
 }
 
 void

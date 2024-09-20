@@ -115,7 +115,7 @@ menu_crossing(Window win, int32 yn) {
     z = my_menus[j].hints;
     for (i = 0; i < n; i++) {
         if (win == my_menus[j].w[i]) {
-            XSetWindowBorderWidth(display, win, yn);
+            XSetWindowBorderWidth(display, win, (uint)yn);
             if (yn && TipsFlag)
                 bottom_msg(z[i]);
             return;
@@ -139,7 +139,7 @@ menu_expose(Window win) {
         bar(0, 0, 16*DCURX, DCURY, win);
         set_back();
         XDrawString(display, win, gc, DCURX / 2 + 5, CURY_OFF, z[0],
-                    strlen(z[0]));
+                    (int)strlen(z[0]));
         set_fore();
         /* BaseCol();
         XDrawString(display,win,gc,0,CURY_OFF,z[0],strlen(z[0]));
@@ -150,7 +150,7 @@ menu_expose(Window win) {
         if (win == my_menus[j].w[i]) {
             BaseCol();
             XDrawString(display, win, gc, 5, CURY_OFF, z[i + 1],
-                        strlen(z[i + 1]));
+                        (int)strlen(z[i + 1]));
             return;
         }
     }
