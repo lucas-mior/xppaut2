@@ -181,7 +181,7 @@ int32 xorfix, silent, got_file;
 
 /* Logical negate OR on options set. Result overwrites the first OptionsSet in
  * the argument list.*/
-void
+static void
 notBothOptions(OptionsSet nasA, OptionsSet nasB) {
     nasA.BIG_FONT_NAME = (nasA.BIG_FONT_NAME & nasB.BIG_FONT_NAME);
     nasA.SMALL_FONT_NAME = (nasA.SMALL_FONT_NAME & nasB.SMALL_FONT_NAME);
@@ -336,6 +336,8 @@ load_eqn(void) {
     int32 i;
     int32 std = 0;
     FILE *fptr;
+    struct dirent *dp;
+
     init_ar_ic();
     for (i = 0; i < MAX_ODE; i++) {
         itor[i] = 0;
@@ -346,7 +348,6 @@ load_eqn(void) {
      do_comline(argc,argv); */
     if (strcmp(this_file, "/dev/stdin") == 0)
         std = 1;
-    struct dirent *dp;
     if (got_file == 1 && (std == 0) &&
         (dp = (struct dirent *)opendir(this_file)) != NULL) {
         no_eqn = 1;
@@ -368,12 +369,12 @@ load_eqn(void) {
     }
     if (no_eqn) {
         while (okay == 0) {
-            struct dirent *dp;
+            struct dirent *dp2;
             char odeclassrm[256];
             if (getenv("XPPSTART") != NULL) {
                 sprintf(odeclassrm, "%s", getenv("XPPSTART"));
 
-                if ((dp = (struct dirent *)opendir(odeclassrm)) != NULL) {
+                if ((dp2 = (struct dirent *)opendir(odeclassrm)) != NULL) {
                     change_directory(odeclassrm);
                 }
             }
@@ -438,63 +439,63 @@ set_all_vals(void) {
     if (notAlreadySet.TIMEPLOT) {
         TIMPLOT = 1;
         notAlreadySet.TIMEPLOT = 0;
-    };
+    }
     if (notAlreadySet.FOREVER) {
         FOREVER = 0;
         notAlreadySet.FOREVER = 0;
-    };
+    }
     if (notAlreadySet.BVP_TOL) {
         BVP_TOL = 1.e-5;
         notAlreadySet.BVP_TOL = 0;
-    };
+    }
     if (notAlreadySet.BVP_EPS) {
         BVP_EPS = 1.e-5;
         notAlreadySet.BVP_EPS = 0;
-    };
+    }
     if (notAlreadySet.BVP_MAXIT) {
         BVP_MAXIT = 20;
         notAlreadySet.BVP_MAXIT = 0;
-    };
+    }
     if (notAlreadySet.BVP_FLAG) {
         BVP_FLAG = 0;
         notAlreadySet.BVP_FLAG = 0;
-    };
+    }
     if (notAlreadySet.NMESH) {
         NMESH = 40;
         notAlreadySet.NMESH = 0;
-    };
+    }
     if (notAlreadySet.NOUT) {
         NJMP = 1;
         notAlreadySet.NOUT = 0;
-    };
+    }
     if (notAlreadySet.SOS) {
         SOS = 0;
         notAlreadySet.SOS = 0;
-    };
+    }
     if (notAlreadySet.FFT) {
         FFT = 0;
         notAlreadySet.FFT = 0;
-    };
+    }
     if (notAlreadySet.HIST) {
         HIST = 0;
         notAlreadySet.HIST = 0;
-    };
+    }
     if (notAlreadySet.PltFmtFlag) {
         PltFmtFlag = 0;
         notAlreadySet.PltFmtFlag = 0;
-    };
+    }
     if (notAlreadySet.AXES) {
         AXES = 0;
         notAlreadySet.AXES = 0;
-    };
+    }
     if (notAlreadySet.TOLER) {
         TOLER = 0.001;
         notAlreadySet.TOLER = 0;
-    };
+    }
     if (notAlreadySet.ATOLER) {
         ATOLER = 0.001;
         notAlreadySet.ATOLER = 0;
-    };
+    }
     if (notAlreadySet.MaxEulIter) {
         MaxEulIter = 10;
         notAlreadySet.MaxEulIter = 0;
@@ -502,60 +503,60 @@ set_all_vals(void) {
     if (notAlreadySet.EulTol) {
         EulTol = 1.e-7;
         notAlreadySet.EulTol = 0;
-    };
+    }
     if (notAlreadySet.DELAY) {
         DELAY = 0.0;
         notAlreadySet.DELAY = 0;
-    };
+    }
     if (notAlreadySet.DTMIN) {
         HMIN = 1e-12;
         notAlreadySet.DTMIN = 0;
-    };
+    }
     if (notAlreadySet.EVEC_ITER) {
         EVEC_ITER = 100;
         notAlreadySet.EVEC_ITER = 0;
-    };
+    }
     if (notAlreadySet.EVEC_ERR) {
         EVEC_ERR = .001;
         notAlreadySet.EVEC_ERR = 0;
-    };
+    }
     if (notAlreadySet.NULL_ERR) {
         NULL_ERR = .001;
         notAlreadySet.NULL_ERR = 0;
-    };
+    }
     if (notAlreadySet.NEWT_ERR) {
         NEWT_ERR = .001;
         notAlreadySet.NEWT_ERR = 0;
-    };
+    }
     if (notAlreadySet.NULL_HERE) {
         NULL_HERE = 0;
         notAlreadySet.NULL_HERE = 0;
-    };
+    }
     del_stab_flag = DFNORMAL;
     if (notAlreadySet.DTMAX) {
         HMAX = 1.000;
         notAlreadySet.DTMAX = 0;
-    };
+    }
     if (notAlreadySet.POIMAP) {
         POIMAP = 0;
         notAlreadySet.POIMAP = 0;
-    };
+    }
     if (notAlreadySet.POIVAR) {
         POIVAR = 1;
         notAlreadySet.POIVAR = 0;
-    };
+    }
     if (notAlreadySet.POIEXT) {
         POIEXT = 0;
         notAlreadySet.POIEXT = 0;
-    };
+    }
     if (notAlreadySet.POISGN) {
         POISGN = 1;
         notAlreadySet.POISGN = 0;
-    };
+    }
     if (notAlreadySet.POIPLN) {
         POIPLN = 0.0;
         notAlreadySet.POIPLN = 0;
-    };
+    }
 
     storind = 0;
     mov_ind = 0;
@@ -570,40 +571,40 @@ set_all_vals(void) {
     if (notAlreadySet.METHOD) {
         METHOD = 3;
         notAlreadySet.METHOD = 0;
-    };
+    }
     if (notAlreadySet.XLO) {
         MY_XLO = 0.0;
         x_3d[0] = MY_XLO;
         notAlreadySet.XLO = 0;
         notAlreadySet.XMIN = 0;
-    };
+    }
     if (notAlreadySet.XHI) {
         MY_XHI = 20.0;
         x_3d[1] = MY_XHI;
         notAlreadySet.XHI = 0;
         notAlreadySet.XMAX = 0;
-    };
+    }
     if (notAlreadySet.YLO) {
         MY_YLO = -1;
         y_3d[0] = MY_YLO;
         notAlreadySet.YLO = 0;
         notAlreadySet.YMIN = 0;
-    };
+    }
     if (notAlreadySet.YHI) {
         MY_YHI = 1;
         y_3d[0] = MY_YHI;
         notAlreadySet.YHI = 0;
         notAlreadySet.YMAX = 0;
-    };
+    }
 
     if (notAlreadySet.BOUND) {
         BOUND = 100;
         notAlreadySet.BOUND = 0;
-    };
+    }
     if (notAlreadySet.MAXSTOR) {
         MAXSTOR = 5000;
         notAlreadySet.MAXSTOR = 0;
-    };
+    }
     my_pl_wid = 10000.;
     my_pl_ht = 7000.;
 
@@ -611,50 +612,50 @@ set_all_vals(void) {
     if (notAlreadySet.T0) {
         T0 = 0.0;
         notAlreadySet.T0 = 0;
-    };
+    }
     if (notAlreadySet.TRANS) {
         TRANS = 0.0;
         notAlreadySet.TRANS = 0;
-    };
+    }
     if (notAlreadySet.DT) {
         DELTA_T = .05;
         notAlreadySet.DT = 0;
-    };
+    }
     /*  if (notAlreadySet.JAC_EPS){NEWT_ERR=.001;notAlreadySet.JAC_EPS=0;}; */
 
     if (notAlreadySet.XMIN) {
         x_3d[0] = -12;
         notAlreadySet.XMIN = 0;
         notAlreadySet.XLO = 0;
-    };
+    }
     if (notAlreadySet.XMAX) {
         x_3d[1] = 12;
         notAlreadySet.XMAX = 0;
         notAlreadySet.XHI = 0;
-    };
+    }
     if (notAlreadySet.YMIN) {
         y_3d[0] = -12;
         notAlreadySet.YMIN = 0;
         notAlreadySet.YLO = 0;
-    };
+    }
     if (notAlreadySet.YMAX) {
         y_3d[1] = 12;
         notAlreadySet.YMAX = 0;
         notAlreadySet.YHI = 0;
-    };
+    }
     if (notAlreadySet.ZMIN) {
         z_3d[0] = -12;
         notAlreadySet.ZMIN = 0;
-    };
+    }
     if (notAlreadySet.ZMAX) {
         z_3d[1] = 12;
         notAlreadySet.ZMAX = 0;
-    };
+    }
 
     if (notAlreadySet.TEND) {
         TEND = 20.00;
         notAlreadySet.TEND = 0;
-    };
+    }
     /* TOR_PERIOD=6.2831853071795864770; */
     if (notAlreadySet.IXPLT) {
         IXPLT = 0;
@@ -771,96 +772,96 @@ read_defaults(FILE *fp) {
     if (notAlreadySet.PaperWhite) {
         fil_int(fp, &PaperWhite);
         notAlreadySet.PaperWhite = 0;
-    };
+    }
     if (notAlreadySet.IXPLT) {
         fil_int(fp, &IXPLT);
         notAlreadySet.IXPLT = 0;
-    };
+    }
     if (notAlreadySet.IYPLT) {
         fil_int(fp, &IYPLT);
         notAlreadySet.IYPLT = 0;
-    };
+    }
     if (notAlreadySet.IZPLT) {
         fil_int(fp, &IZPLT);
         notAlreadySet.IZPLT = 0;
-    };
+    }
     if (notAlreadySet.AXES) {
         fil_int(fp, &AXES);
         notAlreadySet.PaperWhite = 0;
-    };
+    }
     if (notAlreadySet.NOUT) {
         fil_int(fp, &NJMP);
         notAlreadySet.NOUT = 0;
-    };
+    }
     if (notAlreadySet.NMESH) {
         fil_int(fp, &NMESH);
         notAlreadySet.NMESH = 0;
-    };
+    }
     if (notAlreadySet.METHOD) {
         fil_int(fp, &METHOD);
         notAlreadySet.METHOD = 0;
-    };
+    }
 
     if (notAlreadySet.TIMEPLOT) {
         fil_int(fp, &TIMPLOT);
         notAlreadySet.TIMEPLOT = 0;
-    };
+    }
     if (notAlreadySet.MAXSTOR) {
         fil_int(fp, &MAXSTOR);
         notAlreadySet.MAXSTOR = 0;
-    };
+    }
     if (notAlreadySet.TEND) {
         fil_flt(fp, &TEND);
         notAlreadySet.TEND = 0;
-    };
+    }
     if (notAlreadySet.DT) {
         fil_flt(fp, &DELTA_T);
         notAlreadySet.DT = 0;
-    };
+    }
     if (notAlreadySet.T0) {
         fil_flt(fp, &T0);
         notAlreadySet.T0 = 0;
-    };
+    }
     if (notAlreadySet.TRANS) {
         fil_flt(fp, &TRANS);
         notAlreadySet.TRANS = 0;
-    };
+    }
     if (notAlreadySet.BOUND) {
         fil_flt(fp, &BOUND);
         notAlreadySet.BOUND = 0;
-    };
+    }
     if (notAlreadySet.DTMIN) {
         fil_flt(fp, &HMIN);
         notAlreadySet.DTMIN = 0;
-    };
+    }
     if (notAlreadySet.DTMAX) {
         fil_flt(fp, &HMAX);
         notAlreadySet.DTMIN = 0;
-    };
+    }
     if (notAlreadySet.TOLER) {
         fil_flt(fp, &TOLER);
         notAlreadySet.TOLER = 0;
-    };
+    }
     if (notAlreadySet.DELAY) {
         fil_flt(fp, &DELAY);
         notAlreadySet.DELAY = 0;
-    };
+    }
     if (notAlreadySet.XLO) {
         fil_flt(fp, &MY_XLO);
         notAlreadySet.XLO = 0;
-    };
+    }
     if (notAlreadySet.XHI) {
         fil_flt(fp, &MY_XHI);
         notAlreadySet.XHI = 0;
-    };
+    }
     if (notAlreadySet.YLO) {
         fil_flt(fp, &MY_YLO);
         notAlreadySet.YLO = 0;
-    };
+    }
     if (notAlreadySet.YHI) {
         fil_flt(fp, &MY_YHI);
         notAlreadySet.YHI = 0;
-    };
+    }
     return;
 }
 
