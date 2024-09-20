@@ -45,7 +45,7 @@ end_cv(void) {
 void
 cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
     (void)fdata;
-    my_rhs(t, y->data, ydot->data, n);
+    my_rhs(t, y->data, ydot->data, (int32)n);
     return;
 }
 
@@ -85,6 +85,9 @@ cvode_err_msg(int32 kflag) {
     case -9:
         strcpy(s, "Flags error...");
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     if (strlen(s) > 0)
         err_msg(s);

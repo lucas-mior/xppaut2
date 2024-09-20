@@ -49,7 +49,7 @@ N_VNew(int64 N) {
     if (v == NULL)
         return NULL;
 
-    v->data = malloc(N*sizeof(*(v->data)));
+    v->data = malloc((usize)N*sizeof(*(v->data)));
     if (v->data == NULL) {
         free(v);
         return NULL;
@@ -307,7 +307,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w) {
         sum += prodi*prodi;
     }
 
-    return RSqrt(sum / N);
+    return RSqrt(sum / (double)N);
 }
 
 double

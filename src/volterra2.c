@@ -61,7 +61,7 @@ alloc_v_memory(void) {
             plintf("Illegal kernel %s=%s\n", kernel[i].name, kernel[i].expr);
             exit(0); /* fatal error ... */
         }
-        kernel[i].formula = malloc((len + 2)*sizeof(*(kernel[i].formula)));
+        kernel[i].formula = malloc((usize)(len + 2)*sizeof(*(kernel[i].formula)));
         for (j = 0; j < len; j++) {
             kernel[i].formula[j] = formula[j];
         }
@@ -72,7 +72,7 @@ alloc_v_memory(void) {
                 exit(0); /* fatal error ... */
             }
             kernel[i].kerform =
-                malloc((len + 2)*sizeof(*(kernel[i].kerform)));
+                malloc((usize)(len + 2)*sizeof(*(kernel[i].kerform)));
             for (j = 0; j < len; j++) {
                 kernel[i].kerform[j] = formula[j];
             }
@@ -95,7 +95,7 @@ allocate_volterra(int32 npts, int32 flag) {
         for (i = 0; i < ntot; i++)
             free(Memory[i]);
     for (i = 0; i < ntot; i++) {
-        Memory[i] = malloc(sizeof(*Memory)*MaxPoints);
+        Memory[i] = malloc(sizeof(*Memory)*(usize)MaxPoints);
         if (Memory[i] == NULL)
             break;
     }
@@ -109,7 +109,7 @@ allocate_volterra(int32 npts, int32 flag) {
         for (j = 0; j < i; j++)
             free(Memory[j]);
         for (i = 0; i < ntot; i++)
-            Memory[i] = malloc(sizeof(*Memory)*MaxPoints);
+            Memory[i] = malloc(sizeof(*Memory)*(usize)MaxPoints);
         err_msg("Not enough memory...resetting");
     }
     CurrentPoint = 0;
@@ -144,7 +144,7 @@ alloc_kernels(int32 flag) {
         if (kernel[i].flag == CONV) {
             if (flag == 1)
                 free(kernel[i].cnv);
-            kernel[i].cnv = malloc((n + 1)*sizeof(*(kernel[i].cnv)));
+            kernel[i].cnv = malloc((usize)(n + 1)*sizeof(*(kernel[i].cnv)));
             for (j = 0; j <= n; j++) {
                 SETVAR(0, T0 + DELTA_T*j);
                 kernel[i].cnv[j] = evaluate(kernel[i].kerform);
@@ -155,7 +155,7 @@ alloc_kernels(int32 flag) {
             mu = kernel[i].mu;
             if (flag == 1)
                 free(kernel[i].al);
-            kernel[i].al = malloc((n + 1)*sizeof(*(kernel[i].al)));
+            kernel[i].al = malloc((usize)(n + 1)*sizeof(*(kernel[i].al)));
             for (j = 0; j <= n; j++)
                 kernel[i].al[j] = alpbetjn(mu, DELTA_T, j);
         }

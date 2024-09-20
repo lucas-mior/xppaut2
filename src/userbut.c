@@ -8,7 +8,6 @@
 #include <X11/Xutil.h>
 #include "kbs.h"
 
-#define USERBUTCOLOR 24
 #define USERBUTMAX 20
 
 int32 nuserbut = 0;
