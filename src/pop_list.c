@@ -722,9 +722,9 @@ bin_prnt_byte(int32 x, int32 *arr) {
 Window
 make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, uchar *icdata) {
-    Window win;
-    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
-                              (uint)bw, MyForeColor, MyBackColor);
+    Window win =
+        XCreateSimpleWindow(display, root, x, y, (uint)width,
+                            (uint)height, (uint)bw, MyForeColor, MyBackColor);
 
     /*Gradient stuff*/
 
@@ -732,6 +732,8 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         XCreatePixmap(display, root, (uint)width, (uint)height,
                       (uint)DefaultDepth(display, DefaultScreen(display)));
     int32 xx, yy;
+    int32 row = 0, col = 0;
+
     XColor bcolour, col2, diffcol;
     Colormap cmap = DefaultColormap(display, DefaultScreen(display));
     XParseColor(display, cmap, UserWhite, &bcolour);
@@ -807,8 +809,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         }
     }
 
-    int32 row = 0, col = 0;
-
     if (icdata == NULL) {
         /*Don't do anything...*/
 
@@ -865,7 +865,7 @@ Window
 make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                            int32 height, int32 bw) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
                               MyForeColor, MyBackColor);
 
     XSelectInput(display, win,
@@ -920,8 +920,8 @@ expose_resp_box(char *button, char *message, Window wb, Window wm, Window w) {
 
 void
 respond_box(char *button, char *message) {
-    int32 l1 = strlen(message);
-    int32 l2 = strlen(button);
+    int32 l1 = (int32)strlen(message);
+    int32 l2 = (int32)strlen(button);
     int32 width;
     int32 height;
     int32 done = 0;
@@ -966,6 +966,8 @@ respond_box(char *button, char *message) {
             if (ev.xcrossing.window == wb)
                 XSetWindowBorderWidth(display, wb, 1);
             break;
+        default:
+            break;
         }
     }
 
@@ -978,7 +980,7 @@ respond_box(char *button, char *message) {
 
 void
 message_box(Window *w, int32 x, int32 y, char *message) {
-    int32 wid = strlen(message)*DCURX;
+    int32 wid = (int32)strlen(message)*DCURX;
     int32 hgt = 4*DCURY;
     Window z;
     z = make_plain_window(*w, x, y, wid + 50, hgt, 4);
@@ -1008,9 +1010,9 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     XEvent ev;
     int32 not_done = 1;
     int32 value = 0;
-    int32 l1 = strlen(choice1)*DCURX;
-    int32 l2 = strlen(choice2)*DCURX;
-    int32 lm = strlen(string)*DCURX;
+    int32 l1 = (int32)strlen(choice1)*DCURX;
+    int32 l2 = (int32)strlen(choice2)*DCURX;
+    int32 lm = (int32)strlen(string)*DCURX;
     int32 tot = lm, xm, x1, x2;
 
     if (lm < (l1 + l2 + 4*DCURX))
@@ -1073,6 +1075,8 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
                 XSetWindowBorderWidth(display, ev.xcrossing.window, 1);
             XFlush(display);
             break;
+        default:
+            break;
         }
     }
     waitasec(2*ClickTime);
@@ -1121,7 +1125,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     p.key = key;
     p.hot = def;
     value = (int32)key[def];
-    p.w = malloc(n*sizeof(*(p.w)));
+    p.w = malloc((usize)n*sizeof(*(p.w)));
     p.tit = make_window(w, 0, 0, width, DCURY + 7, 0);
     for (i = 0; i < n; i++) {
         p.w[i] = make_window(w, DCURX, DCURY + 10 + i*(DCURY + 6),
@@ -1158,7 +1162,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
                         strcpy(httxt, hints[i]);
                         XClearWindow(display, hwin);
                         XDrawString(display, hwin, gc, 5, CURY_OFF, hints[i],
-                                    strlen(hints[i]));
+                                    (int)strlen(hints[i]));
                     }
                 }
 
@@ -1167,6 +1171,8 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             for (i = 0; i < p.n; i++)
                 if (ev.xcrossing.window == p.w[i])
                     XSetWindowBorderWidth(display, p.w[i], 0);
+            break;
+        default:
             break;
         }
     }

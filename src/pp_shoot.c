@@ -154,6 +154,9 @@ bad_shoot(int32 iret) {
     case BADJAC:
         err_msg("Bad Jacobian -- uninvertable");
         break;
+    default:
+        fprintf(stderr, "Unexcepted case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -260,7 +263,7 @@ find_bvp_com(int32 com) {
     int32 ishow = 0, iret;
     int32 iper = 0, ivar = 0, ipar = 0, pflag;
     double sect = 0.0;
-    double oldpar;
+    double oldpar = 0.0;
     double ystart[MAX_ODE], oldtrans;
     double yend[MAX_ODE];
     /*  Window temp=main_win; */
@@ -417,11 +420,11 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
     if (iper)
         ntot = n + 1;
-    jac = malloc(ntot*ntot*sizeof(*jac));
-    f = malloc(ntot*sizeof(*f));
-    fdev = malloc(ntot*sizeof(*fdev));
-    y0 = malloc(ntot*sizeof(*(y0)));
-    y1 = malloc(ntot*sizeof(*(y1)));
+    jac = malloc((usize)(ntot*ntot)*sizeof(*jac));
+    f = malloc((usize)ntot*sizeof(*f));
+    fdev = malloc((usize)ntot*sizeof(*fdev));
+    y0 = malloc((usize)ntot*sizeof(*(y0)));
+    y1 = malloc((usize)ntot*sizeof(*(y1)));
 
     for (i = 0; i < n; i++)
         y0[i] = y[i];
@@ -430,7 +433,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
     /* dt=(t1-t0)/nt;  */
     while (true) {
-        esc = my_abort();
+        esc = (char)my_abort();
 
         {
             if (esc == ESCAPE) {
