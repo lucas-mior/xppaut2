@@ -27,11 +27,14 @@ plot_command(int32 nit, int32 icount, int32 cwidth) {
 int32
 my_abort(void) {
     int32 ch;
-    XEvent event;
+
     while (XPending(display) > 0) {
+        XEvent event;
         XNextEvent(display, &event);
+
         if (check_ani_pause(event) == 27)
             return 27;
+
         switch (event.type) {
         case Expose:
             do_expose(event);
@@ -44,6 +47,7 @@ my_abort(void) {
         default:
             break;
         }
+
         return 0;
     }
 
