@@ -17,8 +17,6 @@ extern int32 NVAR, NODE;
 int32
 main(int32 argc, char **argv) {
     do_main(argc, argv);
-
-    exit(EXIT_SUCCESS);
 }
 
 void
@@ -74,12 +72,11 @@ set_fix_rhs(double t, double *y) {
 int32
 my_rhs(double t, double *y, double *ydot, int32 neq) {
     (void)neq;
-    int32 i;
     SETVAR(0, t);
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         SETVAR(i + 1, y[i]);
 
-    for (i = NODE; i < NODE + FIX_VAR; i++) {
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
     eval_all_nets();
@@ -87,7 +84,7 @@ my_rhs(double t, double *y, double *ydot, int32 neq) {
     do_daes();
 
     do_in_out();
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }
 

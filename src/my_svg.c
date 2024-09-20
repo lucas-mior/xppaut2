@@ -34,9 +34,9 @@ extern int32 Xup;
 int32
 svg_init(char *filename) {
     FILE *fp;
+    char css[256];
 
     init_svg();
-    char css[256];
 
     LastPSX = -10000;
     LastPSY = -10000;
@@ -377,8 +377,8 @@ svg_init(char *filename) {
     snprintf(css, sizeof(css), "%s/xppaut-stylesheet.css", getenv("HOME"));
     fp = fopen(css, "r");
     if (fp != NULL) {
-        plintf("Styling svg image according to %s\n", css);
         char bob[256];
+        plintf("Styling svg image according to %s\n", css);
         while (!feof(fp)) {
             bob[0] = '\0';
             fgets(bob, 255, fp);
@@ -591,12 +591,12 @@ void
 svg_point(int32 x, int32 y) {
     char svgcol[8];
     char svgfill[8];
+    int32 number = PointType;
+    char *point = "PDABCTSKF";
 
     snprintf(svgfill, sizeof(svgfill), "none");
     svgcol[0] = '\0';
 
-    int32 number = PointType;
-    char *point = "PDABCTSKF";
     number %= POINT_TYPES;
     if (number < -1)
         number = -1;
