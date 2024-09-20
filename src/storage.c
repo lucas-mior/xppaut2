@@ -28,7 +28,7 @@ init_alloc_info(void) {
     int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
-    xpv.x = malloc((xpv.nvec + xpv.node)*sizeof(*(xpv.x)));
+    xpv.x = malloc((usize)(xpv.nvec + xpv.node)*sizeof(*(xpv.x)));
     for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
     return;
@@ -53,18 +53,20 @@ alloc_meth(void) {
     case RB23:
         sz = 12*nn + 100 + nn*nn;
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     if (WORK)
         free(WORK);
-    WORK = malloc(sz*sizeof(*WORK));
+    WORK = malloc((usize)sz*sizeof(*WORK));
     return;
 }
 
 int32
 reallocstor(int32 ncol, int32 nrow) {
     int32 i = 0;
-    while ((storage[i] =
-                (double *)realloc(storage[i], nrow*sizeof(double))) != NULL) {
+    while ((storage[i] = realloc(storage[i], (usize)nrow*sizeof(*storage))) != NULL) {
         i++;
         if (i == ncol)
             return 1;
@@ -82,7 +84,7 @@ init_stor(int32 nrow, int32 ncol) {
     storind = 0;
     if (storage != NULL) {
         i = 0;
-        while ((storage[i] = malloc(nrow*sizeof(double))) != NULL) {
+        while ((storage[i] = malloc((usize)nrow*sizeof(*storage))) != NULL) {
             i++;
             if (i == ncol)
                 return;
@@ -90,7 +92,6 @@ init_stor(int32 nrow, int32 ncol) {
     }
     err_msg("Cannot allocate sufficient storage");
     exit(0);
-    return;
 }
 
 void

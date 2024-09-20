@@ -3,7 +3,6 @@
 #include "integers.h"
 
 extern int32 NFlags;
-#define RKQS 8
 #define STIFF 9
 #define SIGN(a, b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
 /* #define MAX_ODE 100 */
