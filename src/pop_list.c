@@ -539,17 +539,17 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                               MyForeColor, MyBackColor);
 
     if (UserGradients == 1) {
+        int32 xx, yy;
+        double cosine;
+        XColor bcolour, col2, diffcol;
+        Colormap cmap = DefaultColormap(display, DefaultScreen(display));
         Pixmap pmap =
             XCreatePixmap(display, root, (uint)width, (uint)height,
                           (uint)DefaultDepth(display, DefaultScreen(display)));
 
-        int32 xx, yy;
-        double cosine;
         /*double l2rads;*/
         xx = 0;
 
-        XColor bcolour, col2, diffcol;
-        Colormap cmap = DefaultColormap(display, DefaultScreen(display));
         XParseColor(display, cmap, UserWhite, &bcolour);
         XParseColor(display, cmap, UserBlack, &diffcol);
 
@@ -621,24 +621,24 @@ Window
 make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
                      int32 bw) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
                               MyForeColor, MyBackColor);
 
     /*Gradient stuff*/
 
     if (UserGradients == 1) {
-        Pixmap pmap =
-            XCreatePixmap(display, root, width, height,
-                          DefaultDepth(display, DefaultScreen(display)));
-
         int32 xx, yy;
         double cosine;
+        Pixmap pmap =
+            XCreatePixmap(display, root, (uint)width, (uint)height,
+                          (uint)DefaultDepth(display, DefaultScreen(display)));
+        XColor bcolour, col2, diffcol;
+        Colormap cmap = DefaultColormap(display, DefaultScreen(display));
+
         /*double l2rads;
          */
         xx = 0;
 
-        XColor bcolour, col2, diffcol;
-        Colormap cmap = DefaultColormap(display, DefaultScreen(display));
         XParseColor(display, cmap, UserWhite, &bcolour);
         XParseColor(display, cmap, UserBlack, &diffcol);
 
@@ -661,9 +661,9 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
                 } else {
                     cosine = 0.93;
                 }
-                col2.red = bcolour.red*cosine;
-                col2.green = bcolour.green*cosine;
-                col2.blue = bcolour.blue*cosine;
+                col2.red = (ushort)(bcolour.red*cosine);
+                col2.green = (ushort)(bcolour.green*cosine);
+                col2.blue = (ushort)(bcolour.blue*cosine);
             }
 
             XAllocColor(display, cmap, &col2);
@@ -683,9 +683,9 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
             XDrawPoint(display, pmap, gc, xx, yy);
             xx = width - 1;
             cosine = 0.1;
-            col2.red = bcolour.red*cosine;
-            col2.green = bcolour.green*cosine;
-            col2.blue = bcolour.blue*cosine;
+            col2.red = (ushort)(bcolour.red*cosine);
+            col2.green = (ushort)(bcolour.green*cosine);
+            col2.blue = (ushort)(bcolour.blue*cosine);
 
             XAllocColor(display, cmap, &col2);
             XSetForeground(display, gc, col2.pixel);
