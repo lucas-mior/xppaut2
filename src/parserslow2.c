@@ -1950,12 +1950,12 @@ dnot(double x) {
 
 double
 dand(double x, double y) {
-    return (double)(x && y);
+    return (double)(fabs(x) >= 1e-13 && fabs(y) >= 1e-13);
 }
 
 double
 dor(double x, double y) {
-    return (double)(x || y);
+    return (double)(fabs(x) >= 1e-13 || fabs(y) >= 1e-13);
 }
 
 double
