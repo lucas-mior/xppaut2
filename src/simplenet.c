@@ -1532,8 +1532,6 @@ gilparse(char *s, int32 *ind, int32 *nn) {
         }
         i++;
     }
-    *nn = k;
-    return 1;
 }
 
 /* plucks info out of  xxx{aa-bb}  or returns string */
