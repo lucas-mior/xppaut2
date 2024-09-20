@@ -24,10 +24,10 @@
  * nodes will be <= noOfArrays, for a 128 color GIF the number of
  * LOOKUP nodes will be <= 2*noOfArrays, etc.  */
 #define GifPutShort(i, fout)                                                   \
-    {                                                                          \
+    do {                                                                       \
         fputc(i & 0xff, fout);                                                 \
         fputc(i >> 8, fout);                                                   \
-    }
+    } while (0)
 
 uchar *AddCodeToBuffer(int32, int16, uchar *);
 void ClearTree(int32, GifTree *);
@@ -245,6 +245,8 @@ gif_stuff(Window win, FILE *fp, int32 task) {
             GifEncode(fp, pixels, 8, (int32)(w*h));
         }
         break;
+    default:
+        break;
     }
     free(pixels);
     free(ppm);
@@ -282,9 +284,9 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
         *pos++ = 0xff & gifcol[i].g;
         *pos++ = 0xff & gifcol[i].b;
     }
-    fwrite(buffer, pos - buffer, 1, dst);
+    fwrite(buffer, (ulong)(pos - buffer), 1, dst);
     free(buffer - 1);
-    GifLoop(dst, GifFrameLoop);
+    GifLoop(dst, (uint32)GifFrameLoop);
     return;
 }
 
@@ -376,7 +378,7 @@ make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
     *pos++ = 0x7 & (depth - 1);
     /* *pos++ = (depth==1)?2:depth; */
 
-    fwrite(buffer, pos - buffer, 1, dst);
+    fwrite(buffer, (usize)(pos - buffer), 1, dst);
 
     /* header info done */
 
@@ -412,7 +414,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     eoi = cc + 1;
     next = cc + 2;
 
-    cLength = (depth == 1) ? 3 : depth + 1;
+    cLength = (int16)((depth == 1) ? 3 : depth + 1);
 
     if ((topNode = baseNode = malloc(sizeof(GifTree)*4094)) == NULL)
         return 0;
@@ -533,7 +535,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
                 pos -= BLOKLEN;
             }
             next = cc + 2;
-            cLength = (depth == 1) ? 3 : depth + 1;
+            cLength = (int16)((depth == 1) ? 3 : depth + 1);
         }
     }
 
@@ -550,10 +552,10 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     }
     pos = AddCodeToBuffer(eoi, cLength, pos);
     pos = AddCodeToBuffer(0x0, -1, pos);
-    buffer[-1] = pos - buffer;
+    buffer[-1] = (uchar)(pos - buffer);
     pos = AddCodeToBuffer(0x0, 8, pos);
 
-    fwrite(buffer - 1, pos - buffer + 1, 1, fout);
+    fwrite(buffer - 1, (usize)(pos - buffer + 1), 1, fout);
     free(buffer - 1);
     free(first->node);
     free(baseNode);
