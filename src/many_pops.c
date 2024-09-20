@@ -98,7 +98,7 @@ select_table(void) {
     char *n[MAX_TAB], key[MAX_TAB], ch;
     for (i = 0; i < NTable; i++) {
         n[i] = malloc(25);
-        key[i] = 'a' + i;
+        key[i] = 'a' + (char)i;
         sprintf(n[i], "%c: %s", key[i], my_table[i].name);
     }
     key[NTable] = 0;
@@ -124,7 +124,7 @@ get_intern_set(void) {
         return;
     for (i = 0; i < Nintern_set; i++) {
         n[i] = malloc(256);
-        key[i] = 'a' + i;
+        key[i] = 'a' + (char)i;
         sprintf(n[i], "%c: %s", key[i], intern_set[i].name);
     }
     key[count] = 0;
@@ -149,17 +149,19 @@ void
 make_icon(char *icon, int32 wid, int32 hgt, Window w) {
     Pixmap icon_map;
     XWMHints wm_hints;
-    icon_map = XCreateBitmapFromData(display, w, icon, wid, hgt);
+    icon_map = XCreateBitmapFromData(display, w, icon, (uint)wid, (uint)hgt);
     wm_hints.initial_state = NormalState;
     wm_hints.input = True;
     wm_hints.icon_pixmap = icon_map;
     wm_hints.flags = StateHint | IconPixmapHint | InputHint;
 
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
-    XSetWMProperties(display, w, NULL, NULL, NULL, 0, NULL, &wm_hints,
-                     &class_hints);
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
+        XSetWMProperties(display, w, NULL, NULL, NULL, 0, NULL, &wm_hints,
+                         &class_hints);
+    }
     return;
 }
 
@@ -179,18 +181,18 @@ gtitle_text(char *string, Window win) {
         XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
                          NULL);
     } else {
-        int32 len = strlen(string);
+        int32 len = (int32)strlen(string);
         int32 x, y;
         uint32 w, h, bw, de;
         int32 xs, ys = 2;
         Window root;
         XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &de);
-        xs = (w - len*DCURX) / 2;
+        xs = ((int32)w - len*DCURX) / 2;
         if (xs < 0)
             xs = 0;
         Ftext(xs, ys, string, win);
         set_color(0);
-        xline(0, 18, w, 18, win);
+        xline(0, 18, (int32)w, 18, win);
     }
     BaseCol();
     return;
@@ -947,6 +949,8 @@ edit_object_com(int32 com) {
                     redraw_all();
                 }
                 break;
+            default:
+                break;
             }
         }
         if (ilab >= 0 && type == 1) {
@@ -995,6 +999,8 @@ edit_object_com(int32 com) {
                     clr_scrn();
                     redraw_all();
                 }
+                break;
+            default:
                 break;
             }
         }
