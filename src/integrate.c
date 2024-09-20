@@ -1118,11 +1118,13 @@ do_batch_dry_run(void) {
 
 void
 batch_integrate_once(void) {
-    if (dryrun)
-        return;
     FILE *fp;
     double *x;
     int32 i;
+
+    if (dryrun)
+        return;
+
     MyStart = 1;
     x = &MyData[0];
     RANGE_FLAG = 0;
@@ -1582,7 +1584,7 @@ extract_ic_data(char *big) {
     char back[256];
     de_space(big);
     i = 0;
-    n = strlen(big);
+    n = (int32)strlen(big);
 
     while (true) {
         c = big[i];
@@ -1731,10 +1733,10 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     double tend = TEND;
     double dt = DELTA_T, tout;
     if (METHOD == 0) {
-        nit = tend;
+        nit = (int32)tend;
         dt = dt / fabs(dt);
     } else
-        nit = (tend + .1*fabs(dt)) / fabs(dt);
+        nit = (int32)((tend + .1*fabs(dt)) / fabs(dt));
     if (ishow == 1) {
         integrate(t, y, tend, dt, 1, nout, istart);
 
