@@ -812,15 +812,14 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         /*Don't do anything...*/
 
     } else {
+        uchar *ps = icdata;
+        int32 intstack[8];
         col2.red = diffcol.red;
         col2.green = diffcol.green;
         col2.blue = diffcol.blue;
         XAllocColor(display, cmap, &col2);
         XSetForeground(display, gc, col2.pixel);
 
-        uchar *ps = icdata;
-
-        int32 intstack[8];
 
         col = 0;
         row = -1;
@@ -828,10 +827,10 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
             col = 0;
             row++;
             while (true) {
+                int32 q = 0;
                 bin_prnt_byte(*ps, intstack);
                 ps++;
 
-                int32 q = 0;
                 for (q = 0; q < 8; q++) /*8 bits per byte*/
                 {
                     if (col >= width) {
