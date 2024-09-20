@@ -65,9 +65,10 @@ setubv_make_aa_bb_cc(void *arg) {
     double *wp = larg->wp;
     double *wt = larg->wt;
 
-    int64 nint = larg->nint;
-    int64 ndim = larg->ndim;
-    int64 nbc = larg->nbc;
+    usize nint = (usize)larg->nint;
+    usize ndim = (usize)larg->ndim;
+    usize nbc = (usize)larg->nbc;
+    usize ncol = (usize)larg->ncol;
 
     dicd = malloc(sizeof(*dicd)*nint*(ndim + NPARX));
     ficd = malloc(sizeof(*ficd)*nint);
@@ -76,7 +77,7 @@ setubv_make_aa_bb_cc(void *arg) {
     uold = malloc(sizeof(*uold)*ndim);
     f = malloc(sizeof(*f)*ndim);
     u = malloc(sizeof(*u)*ndim);
-    wploc = malloc(sizeof(*wploc)*(larg->ncol)*(larg->ncol + 1));
+    wploc = malloc(sizeof(*wploc)*(ncol)*(ncol + 1));
     dbc = malloc(sizeof(*dbc)*nbc*(2*ndim + NPARX));
     fbc = malloc(sizeof(*fbc)*nbc);
     uic = malloc(sizeof(*uic)*ndim);
