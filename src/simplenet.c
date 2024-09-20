@@ -1158,7 +1158,7 @@ evaluate_network(int32 ind) {
     case GILLTYPE:
         if (my_net[ind].ncon == -1 && my_net[ind].iwgt > 0) {
             my_net[ind].weight =
-                malloc(my_net[ind].root*NODE*sizeof(double));
+                malloc((usize)(my_net[ind].root*NODE)*sizeof(double));
             make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
                          my_net[ind].values);
             my_net[ind].ncon = 0;
@@ -1363,6 +1363,9 @@ evaluate_network(int32 ind) {
             values[j] = sum;
         }
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -1471,15 +1474,17 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
         for (i = 0; i < n; i++)
             values[i] = dr[i];
         return;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
-    return;
 }
 
 /* parsing stuff to get gillespie code quickly */
 
 int32
 gilparse(char *s, int32 *ind, int32 *nn) {
-    int32 i = 0, n = strlen(s);
+    int32 i = 0, n = (int32)strlen(s);
     char piece[50], b[20], bn[25], c;
     int32 i1, i2, jp = 0, f;
     int32 k = 0, iv;
