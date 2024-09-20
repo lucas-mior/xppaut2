@@ -328,7 +328,7 @@ get_eqn(FILE *fptr) {
         fprintf(stderr, "whoops! NLINES>MAXLINES in form_ode.c ...\n");
         exit(1);
     }
-    if ((save_eqn[NLINES] = malloc((usize)nn)) == NULL) {
+    if ((save_eqn[NLINES] = xmalloc((usize)nn)) == NULL) {
         plintf("Out of memory...");
         exit(0);
     }
@@ -360,7 +360,7 @@ get_eqn(FILE *fptr) {
         while (done) {
             fgets(bob, MAXEXPLEN, fptr);
             nn = (int32)strlen(bob) + 1;
-            if ((save_eqn[NLINES] = malloc((usize)nn)) == NULL)
+            if ((save_eqn[NLINES] = xmalloc((usize)nn)) == NULL)
                 exit(0);
             strncpy(save_eqn[NLINES++], bob, (usize)nn);
             done = compiler(bob, fptr);
@@ -383,9 +383,9 @@ get_eqn(FILE *fptr) {
         if (BVP_N > 0)
             printf("Warning: Too few boundary conditions\n");
         for (i = BVP_N; i < IN_VARS; i++) {
-            my_bc[i].com = malloc(200*sizeof(*(my_bc[i].com)));
-            my_bc[i].string = malloc(256);
-            my_bc[i].name = malloc(10);
+            my_bc[i].com = xmalloc(200*sizeof(*(my_bc[i].com)));
+            my_bc[i].string = xmalloc(256);
+            my_bc[i].name = xmalloc(10);
             my_bc[i].side = 0;
             strcpy(my_bc[i].string, "0");
             strcpy(my_bc[i].name, "0=");
@@ -612,7 +612,7 @@ compiler(char *bob, FILE *fptr) {
         index = old_build_markov(fptr, name);
         nn = (int32)strlen(save_eqn[nlin]);
         /* if(nn>72)nn=72; */
-        if ((ode_names[IN_VARS + index] = malloc((usize)nn + 10)) == NULL)
+        if ((ode_names[IN_VARS + index] = xmalloc((usize)nn + 10)) == NULL)
             exit(0);
         strcpy(formula, save_eqn[nlin]);
         /*      formula[nn-1]=0; */
@@ -663,9 +663,9 @@ compiler(char *bob, FILE *fptr) {
         break;
     case 'b':
         my_string = get_next("\n");
-        my_bc[BVP_N].com = malloc(200*sizeof(*(my_bc[BVP_N].com)));
-        my_bc[BVP_N].string = malloc(256);
-        my_bc[BVP_N].name = malloc(10);
+        my_bc[BVP_N].com = xmalloc(200*sizeof(*(my_bc[BVP_N].com)));
+        my_bc[BVP_N].string = xmalloc(256);
+        my_bc[BVP_N].name = xmalloc(10);
         strcpy(my_bc[BVP_N].string, my_string);
         strcpy(my_bc[BVP_N].name, "0=");
         if (ConvertStyle)
@@ -778,13 +778,13 @@ compiler(char *bob, FILE *fptr) {
         strcpy(formula, my_string);
         nn = (int32)strlen(formula) + 1;
         /* if(nn>79)nn=79;  */
-        if ((my_ode[NODE] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+        if ((my_ode[NODE] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
             printf("Out of memory at line %d\n", NLINES);
             exit(0);
         }
 
         if (NODE < IN_VARS) {
-            if ((ode_names[NODE] = malloc((usize)nn + 5)) == NULL) {
+            if ((ode_names[NODE] = xmalloc((usize)nn + 5)) == NULL) {
                 plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
@@ -812,7 +812,7 @@ compiler(char *bob, FILE *fptr) {
 
         if (NODE >= (IN_VARS + FIX_VAR)) {
             i = NODE - (IN_VARS + FIX_VAR);
-            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc((usize)nn)) ==
+            if ((ode_names[NODE - FIX_VAR + NMarkov] = xmalloc((usize)nn)) ==
                 NULL) {
                 plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
@@ -1255,7 +1255,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
         case 0: /*  not a for loop so */
         case 1:
             nstrings = 1;
-            strings[0] = malloc(strlen(new) + 10);
+            strings[0] = xmalloc(strlen(new) + 10);
             strcpy(strings[0], new);
             break;
         case 2: /*  a for loop, so we will ignore the first line */
@@ -1264,7 +1264,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                 read_a_line(fp, old);
                 if (old[0] == '%')
                     break;
-                strings[nstrings] = malloc(strlen(old) + 10);
+                strings[nstrings] = xmalloc(strlen(old) + 10);
                 strcpy(strings[nstrings], old);
                 nstrings++;
                 if (nstrings > 255)
@@ -1336,13 +1336,13 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
                             markovarrays =
-                                malloc((usize)nstates*sizeof(char *));
+                                xmalloc((usize)nstates*sizeof(char *));
                             markovarrays2 =
-                                malloc((usize)nstates*sizeof(char *));
+                                xmalloc((usize)nstates*sizeof(char *));
 
                             for (istates = 0; istates < nstates; istates++) {
-                                markovarrays[istates] = malloc(MAXEXPLEN);
-                                markovarrays2[istates] = malloc(MAXEXPLEN);
+                                markovarrays[istates] = xmalloc(MAXEXPLEN);
+                                markovarrays2[istates] = xmalloc(MAXEXPLEN);
                                 /* fgets(markovarrays[istates],MAXEXPLEN,fp); */
 
                                 if (is_array == 2) {
@@ -1507,7 +1507,7 @@ create_plot_list(void) {
     int32 i, j = 0, k;
     if (N_only == 0)
         return;
-    plotlist = malloc(sizeof(*plotlist)*(usize)(N_only + 1));
+    plotlist = xmalloc(sizeof(*plotlist)*(usize)(N_only + 1));
     for (i = 0; i < N_only; i++) {
         find_variable(onlylist[i], &k);
         if (k >= 0) {
@@ -1525,7 +1525,7 @@ add_only(char *s) {
         return;
     if (N_only >= MAXONLY)
         return;
-    onlylist[N_only] = malloc(11);
+    onlylist[N_only] = xmalloc(11);
     strcpy(onlylist[N_only], s);
 
     N_only++;
@@ -1659,8 +1659,8 @@ compile_em(void) {
                 exit(0);
         }
         if (v->type == FIXED) {
-            fixinfo[nfix].name = malloc(strlen(v->lhs) + 2);
-            fixinfo[nfix].value = malloc(strlen(v->rhs) + 2);
+            fixinfo[nfix].name = xmalloc(strlen(v->lhs) + 2);
+            fixinfo[nfix].value = xmalloc(strlen(v->rhs) + 2);
             strcpy(fixinfo[nfix].name, v->lhs);
             strcpy(fixinfo[nfix].value, v->rhs);
             convert(v->lhs, tmp);
@@ -1823,8 +1823,8 @@ compile_em(void) {
         case MAP:
             EqType[nvar] = iflag;
             nn = (int32)strlen(v->rhs) + 1;
-            if ((ode_names[nvar] = malloc((usize)nn + 2)) == NULL ||
-                (my_ode[nvar] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+            if ((ode_names[nvar] = xmalloc((usize)nn + 2)) == NULL ||
+                (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
@@ -1850,7 +1850,7 @@ compile_em(void) {
             break;
         case FIXED:
             find_ker(v->rhs, &alt);
-            if ((my_ode[nfix + IN_VARS] = malloc(MAXEXPLEN*sizeof(int32))) ==
+            if ((my_ode[nfix + IN_VARS] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
                     NULL ||
                 add_expr(v->rhs, my_ode[nfix + IN_VARS],
                          &leng[IN_VARS + nfix]) != 0) {
@@ -1870,8 +1870,8 @@ compile_em(void) {
             in1 = IN_VARS + NMarkov + naux;
             in2 = IN_VARS + FIX_VAR + naux;
             nn = (int32)strlen(v->rhs) + 1;
-            if ((ode_names[in1] = malloc((usize)nn + 2)) == NULL ||
-                (my_ode[in2] = malloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+            if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
+                (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
                 plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
@@ -1902,7 +1902,7 @@ compile_em(void) {
         case MARKOV_VAR:
             nn = (int32)strlen(v->rhs) + 1;
 
-            if ((ode_names[IN_VARS + nmark] = malloc((usize)nn + 2)) == NULL) {
+            if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) == NULL) {
                 plintf(" Out of memory for  %s \n", v->lhs);
                 exit(0);
             }
@@ -2159,7 +2159,7 @@ good_type:
 
 void
 init_varinfo(void) {
-    my_varinfo = malloc(sizeof(VAR_INFO));
+    my_varinfo = xmalloc(sizeof(VAR_INFO));
     my_varinfo->next = NULL;
     my_varinfo->prev = NULL;
     start_var_info = 0;
@@ -2184,7 +2184,7 @@ add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
         while (v->next != NULL) {
             v = (v->next);
         }
-        v->next = malloc(sizeof(VAR_INFO));
+        v->next = xmalloc(sizeof(VAR_INFO));
         vnew = v->next;
         vnew->type = type;
         vnew->nargs = nargs;
@@ -2375,7 +2375,7 @@ read_a_line(FILE *fp, char *s) {
         fgets(temp, MAXEXPLEN, fp);
 
         nn = (int32)strlen(temp) + 1;
-        if ((save_eqn[NLINES] = malloc((usize)nn)) == NULL)
+        if ((save_eqn[NLINES] = xmalloc((usize)nn)) == NULL)
             exit(0);
         strncpy(save_eqn[NLINES++], temp, (usize)nn);
         n = (int32)strlen(temp);
@@ -2683,11 +2683,11 @@ keep_orig_comments(void) {
         return; /* already stored these so return */
     if (n_comments == 0)
         return; /* nothing to keep ! */
-    orig_comments = malloc(sizeof(*orig_comments)*(usize)n_comments);
+    orig_comments = xmalloc(sizeof(*orig_comments)*(usize)n_comments);
     for (i = 0; i < n_comments; i++) {
-        orig_comments[i].text = malloc(strlen(comments[i].text) + 1);
+        orig_comments[i].text = xmalloc(strlen(comments[i].text) + 1);
         if (comments[i].aflag)
-            orig_comments[i].action = malloc(strlen(comments[i].action) + 1);
+            orig_comments[i].action = xmalloc(strlen(comments[i].action) + 1);
         strcpy(orig_comments[i].text, comments[i].text);
         if (comments[i].aflag)
             strcpy(orig_comments[i].action, comments[i].action);
@@ -2704,10 +2704,10 @@ default_comments(void) {
     /* first free up the comments */
     free_comments();
     for (i = 0; i < orig_ncomments; i++) {
-        comments[i].text = malloc(strlen(orig_comments[i].text) + 1);
+        comments[i].text = xmalloc(strlen(orig_comments[i].text) + 1);
         strcpy(comments[i].text, orig_comments[i].text);
         if (orig_comments[i].aflag) {
-            comments[i].action = malloc(strlen(orig_comments[i].action) + 1);
+            comments[i].action = xmalloc(strlen(orig_comments[i].action) + 1);
             strcpy(comments[i].action, orig_comments[i].action);
         }
         comments[i].aflag = orig_comments[i].aflag;
@@ -2756,7 +2756,7 @@ add_comment(char *s) {
         }
     }
     if (noact) {
-        comments[n_comments].text = malloc(strlen(s) + 1);
+        comments[n_comments].text = xmalloc(strlen(s) + 1);
         strcpy(comments[n_comments].text, s + 1);
         comments[n_comments].aflag = 0;
     } else {
@@ -2788,9 +2788,9 @@ add_comment(char *s) {
             ja++;
         }
         text[ja] = 0;
-        comments[n_comments].text = malloc(strlen(text) + 1);
+        comments[n_comments].text = xmalloc(strlen(text) + 1);
         strcpy(comments[n_comments].text, text);
-        comments[n_comments].action = malloc(strlen(action) + 1);
+        comments[n_comments].action = xmalloc(strlen(action) + 1);
         strcpy(comments[n_comments].action, action);
         comments[n_comments].aflag = 1;
     }
@@ -2814,7 +2814,7 @@ advance_past_first_word(char **sptr) {
 char *
 new_string2(char *old, int32 length) {
     /*cout << "new_string2(\"" << old << "\", " << length << ")\n"; */
-    char *s = malloc((usize)(length + 1)*sizeof(char));
+    char *s = xmalloc((usize)(length + 1)*sizeof(char));
     strncpy(s, old, (usize)length);
     s[length] = '\0';
     if (length > 0 && s[length - 1] == ',')

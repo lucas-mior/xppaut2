@@ -334,13 +334,13 @@ edit_rhs(void) {
     char fstr[20], msg[200];
     if (NEQ > NEQMAXFOREDIT)
         return;
-    names = malloc((usize)n*sizeof(char *));
-    values = malloc((usize)n*sizeof(char *));
-    command = malloc((usize)n*sizeof(int32 *));
+    names = xmalloc((usize)n*sizeof(char *));
+    values = xmalloc((usize)n*sizeof(char *));
+    command = xmalloc((usize)n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = malloc(MAX_LEN_EBOX*sizeof(*(values[i])));
-        names[i] = malloc(MAX_LEN_EBOX*sizeof(*(names[i])));
-        command[i] = malloc(200*sizeof(*(command[i])));
+        values[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(values[i])));
+        names[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(names[i])));
+        command[i] = xmalloc(200*sizeof(*(command[i])));
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT");
         if (i < NODE && METHOD == 0)
@@ -362,7 +362,7 @@ edit_rhs(void) {
                     err_msg(msg);
                 } else {
                     free(ode_names[i]);
-                    ode_names[i] = malloc(strlen(values[i]) + 5);
+                    ode_names[i] = xmalloc(strlen(values[i]) + 5);
                     strcpy(ode_names[i], values[i]);
                     i0 = i;
                     if (i >= NODE)
@@ -413,13 +413,13 @@ edit_functions(void) {
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)
         return;
-    names = malloc((usize)n*sizeof(char *));
-    values = malloc((usize)n*sizeof(char *));
-    command = malloc((usize)n*sizeof(int32 *));
+    names = xmalloc((usize)n*sizeof(char *));
+    values = xmalloc((usize)n*sizeof(char *));
+    command = xmalloc((usize)n*sizeof(int32 *));
     for (i = 0; i < n; i++) {
-        values[i] = malloc(MAX_LEN_EBOX*sizeof(*(values[i])));
-        names[i] = malloc(MAX_LEN_EBOX*sizeof(*(names[i])));
-        command[i] = malloc(200*sizeof(*(command[i])));
+        values[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(values[i])));
+        names[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(names[i])));
+        command[i] = xmalloc(200*sizeof(*(command[i])));
         sprintf(values[i], "%s", ufun_def[i]);
 
         if (narg_fun[i] == 0) {

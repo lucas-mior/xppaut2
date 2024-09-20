@@ -157,19 +157,19 @@ do_range_clines(void) {
             z = (double)i*dz + ncrange.xlo;
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
-                if ((X_n = malloc(4*MAX_NULL*sizeof(double))) != NULL &&
-                    (Y_n = malloc(4*MAX_NULL*sizeof(double))) != NULL)
+                if ((X_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL &&
+                    (Y_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL)
 
                     NULL_HERE = 1;
-                NTop = malloc((usize)(course + 1)*sizeof(*NTop));
-                NBot = malloc((usize)(course + 1)*sizeof(*NBot));
+                NTop = xmalloc((usize)(course + 1)*sizeof(*NTop));
+                NBot = xmalloc((usize)(course + 1)*sizeof(*NBot));
                 if (NTop == NULL || NBot == NULL)
                     NULL_HERE = 0;
             } else {
                 free(NTop);
                 free(NBot);
-                NTop = malloc((usize)(course + 1)*sizeof(*NTop));
-                NBot = malloc((usize)(course + 1)*sizeof(*NBot));
+                NTop = xmalloc((usize)(course + 1)*sizeof(*NTop));
+                NBot = xmalloc((usize)(course + 1)*sizeof(*NBot));
                 if (NTop == NULL || NBot == NULL) {
                     NULL_HERE = 0;
                     return;
@@ -193,7 +193,7 @@ do_range_clines(void) {
 void
 start_ncline(void) {
     n_nstore = 1;
-    ncperm = malloc(sizeof(*ncperm));
+    ncperm = xmalloc(sizeof(*ncperm));
     ncperm->p = NULL;
     ncperm->n = NULL;
     ncperm->nmx = 0;
@@ -357,17 +357,17 @@ add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
     while (z->n != NULL) {
         z = (z->n);
     }
-    z->xn = malloc(4*(usize)nmx*sizeof(*(z->xn)));
+    z->xn = xmalloc(4*(usize)nmx*sizeof(*(z->xn)));
     for (i = 0; i < 4*nmx; i++)
         z->xn[i] = xn[i];
-    z->yn = malloc(4*(usize)nmy*sizeof(*(z->yn)));
+    z->yn = xmalloc(4*(usize)nmy*sizeof(*(z->yn)));
     for (i = 0; i < 4*nmy; i++)
         z->yn[i] = yn[i];
     z->nmx = nmx;
     z->nmy = nmy;
     z->n_ix = n_ix;
     z->n_iy = n_iy;
-    z->n = malloc(sizeof(*(z->n)));
+    z->n = xmalloc(sizeof(*(z->n)));
     znew = z->n;
     znew->n = NULL;
     znew->p = z;
@@ -876,19 +876,19 @@ new_clines_com(int32 c) {
         null_ix = MyGraph->xv[0];
         null_iy = MyGraph->yv[0];
         if (NULL_HERE == 0) {
-            if ((X_n = malloc(4*MAX_NULL*sizeof(double))) != NULL &&
-                (Y_n = malloc(4*MAX_NULL*sizeof(double))) != NULL)
+            if ((X_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL &&
+                (Y_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL)
 
                 NULL_HERE = 1;
-            NTop = malloc((usize)(course + 1)*sizeof(*NTop));
-            NBot = malloc((usize)(course + 1)*sizeof(*NBot));
+            NTop = xmalloc((usize)(course + 1)*sizeof(*NTop));
+            NBot = xmalloc((usize)(course + 1)*sizeof(*NBot));
             if (NTop == NULL || NBot == NULL)
                 NULL_HERE = 0;
         } else {
             free(NTop);
             free(NBot);
-            NTop = malloc((usize)(course + 1)*sizeof(*NTop));
-            NBot = malloc((usize)(course + 1)*sizeof(*NBot));
+            NTop = xmalloc((usize)(course + 1)*sizeof(*NTop));
+            NBot = xmalloc((usize)(course + 1)*sizeof(*NBot));
             if (NTop == NULL || NBot == NULL) {
                 NULL_HERE = 0;
                 return;

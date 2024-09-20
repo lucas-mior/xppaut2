@@ -123,7 +123,7 @@ typedef struct {
  * Notes..                                                     *
  *                                                             *
  * Users who use the macros (1) must #include<stdlib.h>        *
- * since these macros expand to calls to malloc and free.      *
+ * since these macros expand to calls to xmalloc and free.      *
  *                                                             *
  * When looping over the components of an N_Vector v, it is    *
  * more efficient to first obtain the component array via      *
@@ -141,7 +141,7 @@ typedef struct {
  ***************************************************************/
 
 #define N_VMAKE(v, v_data, v_len)                                              \
-    v = malloc(sizeof(*v));                                                    \
+    v = xmalloc(sizeof(*v));                                                    \
     v->data = v_data;                                                          \
     v->length = v_len
 

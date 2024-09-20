@@ -182,8 +182,8 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     int32 ok;
 
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
-    ppm = malloc(w*h * 3);
-    pixels = malloc(h*w);
+    ppm = xmalloc(w*h * 3);
+    pixels = xmalloc(h*w);
 
     getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);
     switch (task) {
@@ -260,7 +260,7 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1)*sizeof(*buffer));
+    buffer = xmalloc((BUFLEN + 1)*sizeof(*buffer));
     buffer += 1;
 
     pos = buffer;
@@ -342,7 +342,7 @@ make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     uchar *pos, *buffer;
 
-    buffer = malloc((BUFLEN + 1)*sizeof(*buffer));
+    buffer = xmalloc((BUFLEN + 1)*sizeof(*buffer));
     buffer += 1;
 
     pos = buffer;
@@ -403,7 +403,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
     nodeArray = empty;
     memmove(++nodeArray, empty, 255*sizeof(GifTree **));
-    if ((buffer = malloc((BUFLEN + 1)*sizeof(uchar))) == NULL)
+    if ((buffer = xmalloc((BUFLEN + 1)*sizeof(uchar))) == NULL)
         return 0;
     buffer++;
 
@@ -417,10 +417,10 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
     cLength = (int16)((depth == 1) ? 3 : depth + 1);
 
-    if ((topNode = baseNode = malloc(sizeof(GifTree)*4094)) == NULL)
+    if ((topNode = baseNode = xmalloc(sizeof(GifTree)*4094)) == NULL)
         return 0;
     if ((nodeArray = first->node =
-             malloc(256*sizeof(GifTree *)*noOfArrays)) == NULL)
+             xmalloc(256*sizeof(GifTree *)*noOfArrays)) == NULL)
         return 0;
     lastArray = nodeArray + (256*noOfArrays - cc);
     ClearTree(cc, first);

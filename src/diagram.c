@@ -19,16 +19,16 @@ Diagram *bifd;
 void
 start_diagram(int32 n) {
     NBifs = 1;
-    bifd = malloc(sizeof(*bifd));
+    bifd = xmalloc(sizeof(*bifd));
     bifd->prev = NULL;
     bifd->next = NULL;
     bifd->index = 0;
-    bifd->uhi = malloc((usize)n*sizeof(double));
-    bifd->ulo = malloc((usize)n*sizeof(double));
-    bifd->u0 = malloc((usize)n*sizeof(double));
-    bifd->ubar = malloc((usize)n*sizeof(double));
-    bifd->evr = malloc((usize)n*sizeof(double));
-    bifd->evi = malloc((usize)n*sizeof(double));
+    bifd->uhi = xmalloc((usize)n*sizeof(double));
+    bifd->ulo = xmalloc((usize)n*sizeof(double));
+    bifd->u0 = xmalloc((usize)n*sizeof(double));
+    bifd->ubar = xmalloc((usize)n*sizeof(double));
+    bifd->evr = xmalloc((usize)n*sizeof(double));
+    bifd->evi = xmalloc((usize)n*sizeof(double));
     bifd->norm = 0;
     bifd->lab = 0;
 
@@ -96,16 +96,16 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
     while (d->next != NULL) {
         d = (d->next);
     }
-    d->next = malloc(sizeof(*(d->next)));
+    d->next = xmalloc(sizeof(*(d->next)));
     dnew = d->next;
     dnew->next = NULL;
     dnew->prev = d;
-    dnew->uhi = malloc((usize)n*sizeof(double));
-    dnew->ulo = malloc((usize)n*sizeof(double));
-    dnew->u0 = malloc((usize)n*sizeof(double));
-    dnew->ubar = malloc((usize)n*sizeof(double));
-    dnew->evr = malloc((usize)n*sizeof(double));
-    dnew->evi = malloc((usize)n*sizeof(double));
+    dnew->uhi = xmalloc((usize)n*sizeof(double));
+    dnew->ulo = xmalloc((usize)n*sizeof(double));
+    dnew->u0 = xmalloc((usize)n*sizeof(double));
+    dnew->ubar = xmalloc((usize)n*sizeof(double));
+    dnew->evr = xmalloc((usize)n*sizeof(double));
+    dnew->evi = xmalloc((usize)n*sizeof(double));
     dnew->index = NBifs;
     NBifs++;
     edit_diagram(dnew, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,

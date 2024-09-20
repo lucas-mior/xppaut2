@@ -167,7 +167,7 @@ SET_NAME *
 add_set(SET_NAME *set, char *nam) {
     if (!is_set_name(set, nam)) {
         SET_NAME *curr;
-        curr = malloc(sizeof(SET_NAME));
+        curr = xmalloc(sizeof(SET_NAME));
         curr->name = (char *)nam;
         curr->next = (struct SET_NAME *)set;
         set = curr;

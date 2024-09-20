@@ -17,6 +17,7 @@
 #include "llnltyps.h"
 #include "vector.h"
 #include "integers.h"
+#include "functions.h"
 
 /* Error Messages */
 
@@ -118,7 +119,7 @@ CVDiag(void *cvode_mem) {
     lfree = CVDiagFree;
 
     /* Get memory for CVDiagMemRec */
-    lmem = cvdiag_mem = malloc(sizeof(CVDiagMemRec));
+    lmem = cvdiag_mem = xmalloc(sizeof(CVDiagMemRec));
     if (cvdiag_mem == NULL)
         return; /* CVDiagInit reports this error */
     return;

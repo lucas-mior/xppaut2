@@ -166,7 +166,7 @@ add_scroll_item(char *v, SCROLL_LIST *sl) {
     int32 n = sl->n;
     int32 m = (int32)strlen(v);
     sl->v = (char **)realloc((void *)sl->v, (usize)(n + 1)*sizeof(char *));
-    sl->v[n] = malloc((usize)(m + 1));
+    sl->v[n] = xmalloc((usize)(m + 1));
     strcpy(sl->v[n], v);
     sl->n = n + 1;
     return;
@@ -1694,11 +1694,11 @@ make_box_list_window(BoxList *b, int32 type) {
         XSetWMProperties(display, base, &winname, &iconame, NULL, 0,
                          &size_hints, NULL, &class_hints);
     }
-    b->w = malloc((usize)nrow*sizeof(*(b->w)));
-    b->we = malloc((usize)nrow*sizeof(*(b->we)));
+    b->w = xmalloc((usize)nrow*sizeof(*(b->w)));
+    b->we = xmalloc((usize)nrow*sizeof(*(b->we)));
     if (type == ICBOX) {
-        b->ck = malloc((usize)nrow*sizeof(*(b->ck)));
-        b->isck = malloc((usize)n*sizeof(*(b->isck)));
+        b->ck = xmalloc((usize)nrow*sizeof(*(b->ck)));
+        b->isck = xmalloc((usize)n*sizeof(*(b->isck)));
         for (i = 0; i < n; i++)
             b->isck[i] = 0;
     }
@@ -1766,16 +1766,16 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
     b->n = n;
     b->n0 = 0;
     b->nwin = nrow;
-    b->value = malloc((usize)n*sizeof(char *));
-    b->pos = malloc((usize)n*sizeof(*(b->pos)));
-    b->off = malloc((usize)n*sizeof(*(b->off)));
-    b->iname = malloc((usize)strlen(iname) + 5);
+    b->value = xmalloc((usize)n*sizeof(char *));
+    b->pos = xmalloc((usize)n*sizeof(*(b->pos)));
+    b->off = xmalloc((usize)n*sizeof(*(b->off)));
+    b->iname = xmalloc((usize)strlen(iname) + 5);
     strcpy(b->iname, iname);
-    b->wname = malloc(strlen(wname) + 5);
+    b->wname = xmalloc(strlen(wname) + 5);
     strcpy(b->wname, wname);
 
     for (i = 0; i < n; i++) {
-        b->value[i] = malloc(256);
+        b->value[i] = xmalloc(256);
         switch (type) {
         case PARAMBOX:
             get_val(upar_names[i], &z);

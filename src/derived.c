@@ -42,7 +42,7 @@ compile_derived(void) {
             plintf(" Bad right-hand side for derived parameters \n");
             return 1;
         }
-        derived[i].form = malloc(sizeof(*(derived[i].form))*(usize)(n + 2));
+        derived[i].form = xmalloc(sizeof(*(derived[i].form))*(usize)(n + 2));
         for (k = 0; k < n; k++)
             derived[i].form[k] = f[k];
     }
@@ -74,7 +74,7 @@ add_derived(char *name, char *rhs) {
         return 1;
     }
     i0 = nderived;
-    derived[i0].rhs = malloc((usize)n);
+    derived[i0].rhs = xmalloc((usize)n);
     /* save the right hand side */
     strcpy(derived[i0].rhs, rhs);
     /* this is the constant to which it addresses */

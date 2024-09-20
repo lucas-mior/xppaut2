@@ -6,6 +6,7 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
 #include "integers.h"
+#include "functions.h"
 
 /* ----------------------------------------------------------------------- */
 /*    Floquet Multiplier Computation (Tom Fairgrieve, U. of Toronto) */
@@ -73,15 +74,15 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     int64 qzierr;
     double *svdwrk, qzz[1];
 
-    svde = malloc(sizeof(*svde)*(usize)(*ndim));
-    svds = malloc(sizeof(*svds)*(usize)(*ndim + 1));
-    svdv = malloc(sizeof(*svdv)*(usize)((*ndim)*(*ndim)));
-    v = malloc(sizeof(*v)*(usize)(*ndim));
-    x = malloc(sizeof(*x)*(usize)(*ndim));
-    qzalfi = malloc(sizeof(*qzalfi)*(usize)(*ndim));
-    qzbeta = malloc(sizeof(*qzbeta)*(usize)(*ndim));
-    qzalfr = malloc(sizeof(*qzalfr)*(usize)(*ndim));
-    svdwrk = malloc(sizeof(*svdwrk)*(usize)(*ndim));
+    svde = xmalloc(sizeof(*svde)*(usize)(*ndim));
+    svds = xmalloc(sizeof(*svds)*(usize)(*ndim + 1));
+    svdv = xmalloc(sizeof(*svdv)*(usize)((*ndim)*(*ndim)));
+    v = xmalloc(sizeof(*v)*(usize)(*ndim));
+    x = xmalloc(sizeof(*x)*(usize)(*ndim));
+    qzalfi = xmalloc(sizeof(*qzalfi)*(usize)(*ndim));
+    qzbeta = xmalloc(sizeof(*qzbeta)*(usize)(*ndim));
+    qzalfr = xmalloc(sizeof(*qzalfr)*(usize)(*ndim));
+    svdwrk = xmalloc(sizeof(*svdwrk)*(usize)(*ndim));
 
     /*  Subroutine to compute Floquet multipliers via the "deflated circuit */
     /*  pencil" method. This routine is called by the AUTO routine FNSPBV */

@@ -2140,9 +2140,9 @@ get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     int32 n = 2 + 2*NODE;
     int32 i;
     int32 flag = 0;
-    s = malloc((usize)n*sizeof(*s));
+    s = xmalloc((usize)n*sizeof(*s));
     for (i = 0; i < n; i++) {
-        s[i] = malloc(100);
+        s[i] = xmalloc(100);
     }
     sprintf(s[0], "dim unstable");
     sprintf(v[0], "%d", *nun);

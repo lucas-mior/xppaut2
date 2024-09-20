@@ -27,7 +27,7 @@ init_alloc_info(void) {
     int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
-    xpv.x = malloc((usize)(xpv.nvec + xpv.node)*sizeof(*(xpv.x)));
+    xpv.x = xmalloc((usize)(xpv.nvec + xpv.node)*sizeof(*(xpv.x)));
     for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
     return;
@@ -58,7 +58,7 @@ alloc_meth(void) {
     }
     if (WORK)
         free(WORK);
-    WORK = malloc((usize)sz*sizeof(*WORK));
+    WORK = xmalloc((usize)sz*sizeof(*WORK));
     return;
 }
 
@@ -79,12 +79,12 @@ void
 init_stor(int32 nrow, int32 ncol) {
     int32 i;
     WORK = NULL;
-    storage = malloc((MAX_ODE + 1)*sizeof(double *));
+    storage = xmalloc((MAX_ODE + 1)*sizeof(double *));
     MAXSTOR = nrow;
     storind = 0;
     if (storage != NULL) {
         i = 0;
-        while ((storage[i] = malloc((usize)nrow*sizeof(*storage))) != NULL) {
+        while ((storage[i] = xmalloc((usize)nrow*sizeof(*storage))) != NULL) {
             i++;
             if (i == ncol)
                 return;

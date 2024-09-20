@@ -97,7 +97,7 @@ select_table(void) {
     Window temp = main_win;
     char *n[MAX_TAB], key[MAX_TAB], ch;
     for (i = 0; i < NTable; i++) {
-        n[i] = malloc(25);
+        n[i] = xmalloc(25);
         key[i] = 'a' + (char)i;
         sprintf(n[i], "%c: %s", key[i], my_table[i].name);
     }
@@ -123,7 +123,7 @@ get_intern_set(void) {
     if (count == 0)
         return;
     for (i = 0; i < Nintern_set; i++) {
-        n[i] = malloc(256);
+        n[i] = xmalloc(256);
         key[i] = 'a' + (char)i;
         sprintf(n[i], "%c: %s", key[i], intern_set[i].name);
     }

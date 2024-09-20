@@ -45,11 +45,11 @@ N_VNew(int64 N) {
     if (N <= 0)
         return NULL;
 
-    v = malloc(sizeof *v);
+    v = xmalloc(sizeof *v);
     if (v == NULL)
         return NULL;
 
-    v->data = malloc((usize)N*sizeof(*(v->data)));
+    v->data = xmalloc((usize)N*sizeof(*(v->data)));
     if (v->data == NULL) {
         free(v);
         return NULL;

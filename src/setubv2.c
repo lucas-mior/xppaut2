@@ -3,6 +3,7 @@
 #include "auto_c.h"
 #include "auto_types.h"
 #include <string.h>
+#include "functions.h"
 
 #ifdef TIME
 #include <unistd.h>
@@ -70,23 +71,23 @@ setubv_make_aa_bb_cc(void *arg) {
     usize nbc = (usize)larg->nbc;
     usize ncol = (usize)larg->ncol;
 
-    dicd = malloc(sizeof(*dicd)*nint*(ndim + NPARX));
-    ficd = malloc(sizeof(*ficd)*nint);
-    dfdp = malloc(sizeof(*dfdp)*ndim*NPARX);
-    dfdu = malloc(sizeof(*dfdu)*ndim*ndim);
-    uold = malloc(sizeof(*uold)*ndim);
-    f = malloc(sizeof(*f)*ndim);
-    u = malloc(sizeof(*u)*ndim);
-    wploc = malloc(sizeof(*wploc)*(ncol)*(ncol + 1));
-    dbc = malloc(sizeof(*dbc)*nbc*(2*ndim + NPARX));
-    fbc = malloc(sizeof(*fbc)*nbc);
-    uic = malloc(sizeof(*uic)*ndim);
-    uio = malloc(sizeof(*uio)*ndim);
-    prm = malloc(sizeof(*prm)*NPARX);
-    uid = malloc(sizeof(*uid)*ndim);
-    uip = malloc(sizeof(*uip)*ndim);
-    ubc0 = malloc(sizeof(*(ubc0))*ndim);
-    ubc1 = malloc(sizeof(*(ubc1))*ndim);
+    dicd = xmalloc(sizeof(*dicd)*nint*(ndim + NPARX));
+    ficd = xmalloc(sizeof(*ficd)*nint);
+    dfdp = xmalloc(sizeof(*dfdp)*ndim*NPARX);
+    dfdu = xmalloc(sizeof(*dfdu)*ndim*ndim);
+    uold = xmalloc(sizeof(*uold)*ndim);
+    f = xmalloc(sizeof(*f)*ndim);
+    u = xmalloc(sizeof(*u)*ndim);
+    wploc = xmalloc(sizeof(*wploc)*(ncol)*(ncol + 1));
+    dbc = xmalloc(sizeof(*dbc)*nbc*(2*ndim + NPARX));
+    fbc = xmalloc(sizeof(*fbc)*nbc);
+    uic = xmalloc(sizeof(*uic)*ndim);
+    uio = xmalloc(sizeof(*uio)*ndim);
+    prm = xmalloc(sizeof(*prm)*NPARX);
+    uid = xmalloc(sizeof(*uid)*ndim);
+    uip = xmalloc(sizeof(*uip)*ndim);
+    ubc0 = xmalloc(sizeof(*(ubc0))*ndim);
+    ubc1 = xmalloc(sizeof(*(ubc1))*ndim);
 
     upoldp_dim1 = larg->ndxloc;
     udotps_dim1 = larg->ndxloc;
@@ -306,9 +307,9 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     (void)p0;
     (void)p1;
 
-    wi = malloc(sizeof(*wi)*(usize)(ncol + 1));
-    wp = malloc(sizeof(*wp)*(usize)(ncol*(ncol + 1)));
-    wt = malloc(sizeof(*wt)*(usize)(ncol*(ncol + 1)));
+    wi = xmalloc(sizeof(*wi)*(usize)(ncol + 1));
+    wp = xmalloc(sizeof(*wp)*(usize)(ncol*(ncol + 1)));
+    wt = xmalloc(sizeof(*wt)*(usize)(ncol*(ncol + 1)));
 
     dd_dim1 = ncb;
 
@@ -406,15 +407,15 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     int64 fa_dim1 = larg.nra;
 
     double *wploc =
-        malloc(sizeof(*wploc)*(usize)(larg.ncol*(larg.ncol + 1)));
+        xmalloc(sizeof(*wploc)*(usize)(larg.ncol*(larg.ncol + 1)));
     int64 wploc_dim1 = larg.ncol + 1;
 
-    double *dfdp = malloc(sizeof(*dfdp)*(usize)(larg.ndim)*NPARX);
-    double *dfdu = malloc(sizeof(*dfdu)*(usize)(larg.ndim*larg.ndim));
-    double *u = malloc(sizeof(*u)*(usize)(larg.ndim));
-    double *uold = malloc(sizeof(*uold)*(usize)(larg.ndim));
-    double *f = malloc(sizeof(*f)*(usize)(larg.ndim));
-    double *prm = malloc(sizeof(*prm)*NPARX);
+    double *dfdp = xmalloc(sizeof(*dfdp)*(usize)(larg.ndim)*NPARX);
+    double *dfdu = xmalloc(sizeof(*dfdu)*(usize)(larg.ndim*larg.ndim));
+    double *u = xmalloc(sizeof(*u)*(usize)(larg.ndim));
+    double *uold = xmalloc(sizeof(*uold)*(usize)(larg.ndim));
+    double *f = xmalloc(sizeof(*f)*(usize)(larg.ndim));
+    double *prm = xmalloc(sizeof(*prm)*NPARX);
 
     for (jj = 0; jj < larg.na; ++jj) {
         j = jj;
@@ -494,18 +495,18 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
 
     int64 dbc_dim1 = larg.nbc;
     double *dbc =
-        malloc(sizeof(*dbc)*(usize)((larg.nbc)*(2*larg.ndim + NPARX)));
-    double *fbc = malloc(sizeof(*fbc)*(usize)(larg.nbc));
-    double *ubc0 = malloc(sizeof(*ubc0)*(usize)(larg.ndim));
-    double *ubc1 = malloc(sizeof(*ubc1)*(usize)(larg.ndim));
+        xmalloc(sizeof(*dbc)*(usize)((larg.nbc)*(2*larg.ndim + NPARX)));
+    double *fbc = xmalloc(sizeof(*fbc)*(usize)(larg.nbc));
+    double *ubc0 = xmalloc(sizeof(*ubc0)*(usize)(larg.ndim));
+    double *ubc1 = xmalloc(sizeof(*ubc1)*(usize)(larg.ndim));
     int64 dicd_dim1 = larg.nint;
     double *dicd =
-        malloc(sizeof(*dicd)*(usize)((larg.nint)*(larg.ndim + NPARX)));
-    double *ficd = malloc(sizeof(*ficd)*(usize)(larg.nint));
-    double *uic = malloc(sizeof(*uic)*(usize)(larg.ndim));
-    double *uio = malloc(sizeof(*uio)*(usize)(larg.ndim));
-    double *uid = malloc(sizeof(*uid)*(usize)(larg.ndim));
-    double *uip = malloc(sizeof(*uip)*(usize)(larg.ndim));
+        xmalloc(sizeof(*dicd)*(usize)((larg.nint)*(larg.ndim + NPARX)));
+    double *ficd = xmalloc(sizeof(*ficd)*(usize)(larg.nint));
+    double *uic = xmalloc(sizeof(*uic)*(usize)(larg.ndim));
+    double *uio = xmalloc(sizeof(*uio)*(usize)(larg.ndim));
+    double *uid = xmalloc(sizeof(*uid)*(usize)(larg.ndim));
+    double *uip = xmalloc(sizeof(*uip)*(usize)(larg.ndim));
 
     /* Boundary condition part of FC */
     if (larg.nbc > 0) {

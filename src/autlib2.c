@@ -6,6 +6,7 @@
 #include "auto_f2c.h"
 #include "auto_c.h"
 #include "integers.h"
+#include "functions.h"
 
 #ifdef ACCES_TEST
 struct {
@@ -81,8 +82,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        and setubv).
     */
 
-    ff = malloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
-    ft = malloc(sizeof(*ft) *
+    ff = xmalloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
+    ft = xmalloc(sizeof(*ft) *
                 (usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     ndim = iap->ndim;
@@ -140,32 +141,32 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.icf2);
         free(mas.np);
 
-        mas.a = malloc(sizeof(*(mas.a))*(usize)((ndim*ncol + ndim) *
+        mas.a = xmalloc(sizeof(*(mas.a))*(usize)((ndim*ncol + ndim) *
                                                   (ndim*ncol)*(ntst + 1)));
-        mas.b = malloc(sizeof(*(mas.b)) *
+        mas.b = xmalloc(sizeof(*(mas.b)) *
                        (usize)(NPARX*(ndim*ncol)*(ntst + 1)));
         mas.c =
-            malloc(sizeof(*(mas.c))*(usize)((ndim*ncol + ndim) *
+            xmalloc(sizeof(*(mas.c))*(usize)((ndim*ncol + ndim) *
                                               (nbc + nint + 1)*(ntst + 1)));
-        mas.d = malloc(sizeof(*(mas.d))*(usize)((nbc + nint + 1)*NPARX));
-        mas.a1 = malloc(sizeof(*(mas.a1))*(usize)(ndim*ndim*(ntst + 1)));
-        mas.a2 = malloc(sizeof(*(mas.a2))*(usize)(ndim*ndim*(ntst + 1)));
-        mas.s1 = malloc(sizeof(*(mas.s1))*(usize)(ndim*ndim*(ntst + 1)));
-        mas.s2 = malloc(sizeof(*(mas.s2))*(usize)(ndim*ndim*(ntst + 1)));
-        mas.bb = malloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
-        mas.cc = malloc(sizeof(*(mas.cc)) *
+        mas.d = xmalloc(sizeof(*(mas.d))*(usize)((nbc + nint + 1)*NPARX));
+        mas.a1 = xmalloc(sizeof(*(mas.a1))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.a2 = xmalloc(sizeof(*(mas.a2))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.s1 = xmalloc(sizeof(*(mas.s1))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.s2 = xmalloc(sizeof(*(mas.s2))*(usize)(ndim*ndim*(ntst + 1)));
+        mas.bb = xmalloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
+        mas.cc = xmalloc(sizeof(*(mas.cc)) *
                         (usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
-        mas.faa = malloc(sizeof(*(mas.faa))*(usize)(ndim*(ntst + 1)));
-        mas.ca1 = malloc(sizeof(*(mas.ca1))*(usize)(ndim*ndim*KREDO));
-        mas.icf = malloc(sizeof(*(mas.icf)) *
+        mas.faa = xmalloc(sizeof(*(mas.faa))*(usize)(ndim*(ntst + 1)));
+        mas.ca1 = xmalloc(sizeof(*(mas.ca1))*(usize)(ndim*ndim*KREDO));
+        mas.icf = xmalloc(sizeof(*(mas.icf)) *
                          (usize)((ndim*ncol + ndim)*(ntst + 1)));
         mas.irf =
-            malloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
-        mas.ipr = malloc(sizeof(*(mas.ipr))*(usize)(ndim*(ntst + 1)));
-        mas.icf11 = malloc(sizeof(*(mas.icf11))*(usize)(ndim*KREDO));
-        mas.icf1 = malloc(sizeof(*(mas.icf1))*(usize)(ndim*(ntst + 1)));
-        mas.icf2 = malloc(sizeof(*(mas.icf2))*(usize)(ndim*(ntst + 1)));
-        mas.np = malloc(sizeof(*(mas.np))*(2));
+            xmalloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
+        mas.ipr = xmalloc(sizeof(*(mas.ipr))*(usize)(ndim*(ntst + 1)));
+        mas.icf11 = xmalloc(sizeof(*(mas.icf11))*(usize)(ndim*KREDO));
+        mas.icf1 = xmalloc(sizeof(*(mas.icf1))*(usize)(ndim*(ntst + 1)));
+        mas.icf2 = xmalloc(sizeof(*(mas.icf2))*(usize)(ndim*(ntst + 1)));
+        mas.np = xmalloc(sizeof(*(mas.np))*(2));
     }
 
     iam = iap->mynode;
@@ -376,26 +377,26 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     (void)p0;
     (void)p1;
 
-    dicd = malloc(sizeof(*dicd)*(usize)((iap->nint)*(iap->ndim + NPARX)));
-    ficd = malloc(sizeof(*ficd)*(usize)((iap->nint)));
-    dfdp = malloc(sizeof(*dfdp)*(usize)((iap->ndim)*NPARX));
-    dfdu = malloc(sizeof(*dfdu)*(usize)((iap->ndim)*(iap->ndim)));
-    uold = malloc(sizeof(*uold)*(usize)((iap->ndim)));
-    f = malloc(sizeof(*f)*(usize)(iap->ndim));
-    u = malloc(sizeof(*u)*(usize)(iap->ndim));
-    wploc = malloc(sizeof(*wploc)*(usize)((iap->ncol)*(iap->ncol + 1)));
-    wi = malloc(sizeof(*wi)*(usize)(iap->ncol + 1));
-    wp = malloc(sizeof(*wp)*(usize)((iap->ncol)*(iap->ncol + 1)));
-    wt = malloc(sizeof(*wt)*(usize)((iap->ncol)*(iap->ncol + 1)));
-    dbc = malloc(sizeof(*dbc)*(usize)((iap->nbc)*(2*iap->ndim + NPARX)));
-    fbc = malloc(sizeof(*fbc)*(usize)(iap->nbc));
-    uic = malloc(sizeof(*uic)*(usize)(iap->ndim));
-    uio = malloc(sizeof(*uio)*(usize)(iap->ndim));
-    prm = malloc(sizeof(*prm)*NPARX);
-    uid = malloc(sizeof(*uid)*(usize)(iap->ndim));
-    uip = malloc(sizeof(*uip)*(usize)(iap->ndim));
-    ubc0 = malloc(sizeof(*(ubc0))*(usize)(iap->ndim));
-    ubc1 = malloc(sizeof(*(ubc1))*(usize)(iap->ndim));
+    dicd = xmalloc(sizeof(*dicd)*(usize)((iap->nint)*(iap->ndim + NPARX)));
+    ficd = xmalloc(sizeof(*ficd)*(usize)((iap->nint)));
+    dfdp = xmalloc(sizeof(*dfdp)*(usize)((iap->ndim)*NPARX));
+    dfdu = xmalloc(sizeof(*dfdu)*(usize)((iap->ndim)*(iap->ndim)));
+    uold = xmalloc(sizeof(*uold)*(usize)((iap->ndim)));
+    f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
+    u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
+    wploc = xmalloc(sizeof(*wploc)*(usize)((iap->ncol)*(iap->ncol + 1)));
+    wi = xmalloc(sizeof(*wi)*(usize)(iap->ncol + 1));
+    wp = xmalloc(sizeof(*wp)*(usize)((iap->ncol)*(iap->ncol + 1)));
+    wt = xmalloc(sizeof(*wt)*(usize)((iap->ncol)*(iap->ncol + 1)));
+    dbc = xmalloc(sizeof(*dbc)*(usize)((iap->nbc)*(2*iap->ndim + NPARX)));
+    fbc = xmalloc(sizeof(*fbc)*(usize)(iap->nbc));
+    uic = xmalloc(sizeof(*uic)*(usize)(iap->ndim));
+    uio = xmalloc(sizeof(*uio)*(usize)(iap->ndim));
+    prm = xmalloc(sizeof(*prm)*NPARX);
+    uid = xmalloc(sizeof(*uid)*(usize)(iap->ndim));
+    uip = xmalloc(sizeof(*uip)*(usize)(iap->ndim));
+    ubc0 = xmalloc(sizeof(*(ubc0))*(usize)(iap->ndim));
+    ubc1 = xmalloc(sizeof(*(ubc1))*(usize)(iap->ndim));
 
     fa_dim1 = *nra;
     dups_dim1 = *ndxloc;
@@ -572,13 +573,13 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     double *fcc;
     double *sol1, *sol2, *sol3;
 
-    e = malloc(sizeof(*e)*(usize)((*nov + *nrc)*(*nov + *nrc)));
-    fcc = malloc(sizeof(*fcc) *
+    e = xmalloc(sizeof(*e)*(usize)((*nov + *nrc)*(*nov + *nrc)));
+    fcc = xmalloc(sizeof(*fcc) *
                  (usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
 
-    sol1 = malloc(sizeof(*sol1)*(usize)((*nov)*(*na + 1)));
-    sol2 = malloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));
-    sol3 = malloc(sizeof(*sol3)*(usize)((*nov)*(*na + 1)));
+    sol1 = xmalloc(sizeof(*sol1)*(usize)((*nov)*(*na + 1)));
+    sol2 = xmalloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));
+    sol3 = xmalloc(sizeof(*sol3)*(usize)((*nov)*(*na + 1)));
 
     /* Local */
 
@@ -1742,7 +1743,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     (void)ifst;
 
-    xe = malloc(sizeof(*xe)*(usize)(*nov + *nrc));
+    xe = xmalloc(sizeof(*xe)*(usize)(*nov + *nrc));
 
     faa_dim1 = *nov;
     a2_dim1 = *nov;
@@ -2173,7 +2174,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     (void)iam;
     (void)par;
 
-    x = malloc(sizeof(*x)*(usize)(*nra));
+    x = xmalloc(sizeof(*x)*(usize)(*nra));
 
     /* Determine the local varables by backsubstitition. */
 
@@ -2243,7 +2244,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     int64 notsend;
     int64 myright[KREDO];
 
-    buf = malloc(sizeof(*buf)*(usize)(*nrc));
+    buf = xmalloc(sizeof(*buf)*(usize)(*nrc));
 
     /*     RECURSIVE DOUBLING PROCEDURE TO GET */
     /*     THE GLOBAL SUM OF VECTORS FROM */

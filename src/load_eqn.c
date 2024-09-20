@@ -763,7 +763,7 @@ add_intern_set(char *name, char *does) {
     }
     intern_set[j].use = 1;
     n = (int32)strlen(name);
-    intern_set[j].name = malloc((usize)n + 1);
+    intern_set[j].name = xmalloc((usize)n + 1);
     strcpy(intern_set[j].name, name);
     n = (int32)strlen(does);
     bob[0] = '$';
@@ -783,7 +783,7 @@ add_intern_set(char *name, char *does) {
         }
     }
     bob[k] = 0;
-    intern_set[j].does = malloc((usize)n + 3);
+    intern_set[j].does = xmalloc((usize)n + 3);
     strcpy(intern_set[j].does, bob);
     plintf(" added %s doing %s \n", intern_set[j].name, intern_set[j].does);
     Nintern_set++;
@@ -975,7 +975,7 @@ set_internopts_xpprc_and_comline(void) {
     /*This allows options to be overwritten multiple times within .xpprc
     but prevents overwriting across comline, .xpprc etc.
     */
-    tempNAS = malloc(sizeof(*tempNAS));
+    tempNAS = xmalloc(sizeof(*tempNAS));
     *tempNAS = notAlreadySet;
 
     for (i = 0; i < Nopts; i++) {
@@ -1047,7 +1047,7 @@ stor_internopts(char *s1) {
         plintf("WARNING -- to many options set %s ignored\n", s1);
         return;
     }
-    interopt[Nopts] = malloc((usize)n + 1);
+    interopt[Nopts] = xmalloc((usize)n + 1);
     sprintf(interopt[Nopts], "%s", s1);
     Nopts++;
     return;

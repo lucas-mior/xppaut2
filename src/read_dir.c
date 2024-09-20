@@ -119,12 +119,12 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
         return 0;
     ff->nfiles = nf;
     ff->ndirs = nd;
-    ff->dirnames = malloc((usize)nd*sizeof(char *));
-    ff->filenames = malloc((usize)nf*sizeof(char *));
+    ff->dirnames = xmalloc((usize)nd*sizeof(char *));
+    ff->filenames = xmalloc((usize)nf*sizeof(char *));
     for (i = 0; i < nd; i++)
-        ff->dirnames[i] = malloc((usize)mld + 2);
+        ff->dirnames[i] = xmalloc((usize)mld + 2);
     for (i = 0; i < nf; i++)
-        ff->filenames[i] = malloc((usize)mlf + 2);
+        ff->filenames[i] = xmalloc((usize)mlf + 2);
     dirp = opendir(direct);
     dp = readdir(dirp);
     nf = 0;
@@ -172,12 +172,12 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
         return 0;
     ff->nfiles = nf;
     ff->ndirs = nd;
-    ff->dirnames = malloc((usize)nd*sizeof(char *));
-    ff->filenames = malloc((usize)nf*sizeof(char *));
+    ff->dirnames = xmalloc((usize)nd*sizeof(char *));
+    ff->filenames = xmalloc((usize)nf*sizeof(char *));
     for (i = 0; i < nd; i++)
-        ff->dirnames[i] = malloc((usize)mld + 2);
+        ff->dirnames[i] = xmalloc((usize)mld + 2);
     for (i = 0; i < nf; i++)
-        ff->filenames[i] = malloc((usize)mlf + 2);
+        ff->filenames[i] = xmalloc((usize)mlf + 2);
     dirp = opendir(direct);
     dp = readdir(dirp);
     nf = 0;

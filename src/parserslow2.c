@@ -15,7 +15,7 @@
 #endif
 
 #include <math.h>
-/* #include <malloc.h> */
+/* #include <xmalloc.h> */
 #include <stdio.h>
 #include <string.h>
 
@@ -402,8 +402,8 @@ add_kernel(char *name, double mu, char *expr) {
     }
     if (in > 0) {
         kernel[NKernel].flag = CONV;
-        kernel[NKernel].expr = malloc(strlen(expr) + 2 - (usize)in);
-        kernel[NKernel].kerexpr = malloc((usize)in + 1);
+        kernel[NKernel].expr = xmalloc(strlen(expr) + 2 - (usize)in);
+        kernel[NKernel].kerexpr = xmalloc((usize)in + 1);
         for (int32 i = 0; i < in; i++)
             kernel[NKernel].kerexpr[i] = expr[i];
         kernel[NKernel].kerexpr[in] = 0;
@@ -413,7 +413,7 @@ add_kernel(char *name, double mu, char *expr) {
         plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
                kernel[NKernel].expr);
     } else {
-        kernel[NKernel].expr = malloc(strlen(expr) + 2);
+        kernel[NKernel].expr = xmalloc(strlen(expr) + 2);
         strcpy(kernel[NKernel].expr, expr);
     }
     NSYM++;
@@ -642,12 +642,12 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
         plintf("Maximal arguments exceeded \n");
         return 1;
     }
-    if ((ufun[index] = malloc(1024)) == NULL) {
+    if ((ufun[index] = xmalloc(1024)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
         return 1;
     }
-    if ((ufun_def[index] = malloc(MAXEXPLEN)) == NULL) {
+    if ((ufun_def[index] = xmalloc(MAXEXPLEN)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
         return 1;
@@ -690,12 +690,12 @@ add_ufun(char *junk, char *expr, int32 narg) {
             printf("too many functions !!\n");
         return 1;
     }
-    if ((ufun[NFUN] = malloc(1024)) == NULL) {
+    if ((ufun[NFUN] = xmalloc(1024)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
         return 1;
     }
-    if ((ufun_def[NFUN] = malloc(MAXEXPLEN)) == NULL) {
+    if ((ufun_def[NFUN] = xmalloc(MAXEXPLEN)) == NULL) {
         if (ERROUT)
             printf("not enough memory!!\n");
         return 1;

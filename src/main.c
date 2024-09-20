@@ -155,6 +155,18 @@ plot_command(int32 nit, int32 icount, int32 cwidth) {
     return;
 }
 
+void *
+xmalloc(usize size) {
+    void *p;
+
+    if (!(p = malloc(size))) {
+        fprintf(stderr, "Error allocating %zu bytes.\n", size);
+        exit(EXIT_FAILURE);
+    }
+
+    return p;
+}
+
 int32
 my_abort(void) {
     int32 ch;
@@ -368,7 +380,7 @@ do_main(int32 argc, char **argv) {
      * so that a file browser can be opened.  */
     if (!XPPBatch) {
         /* Swap out the current options for a temporary place holder */
-        tempNS = malloc(sizeof(OptionsSet));
+        tempNS = xmalloc(sizeof(OptionsSet));
         *tempNS = notAlreadySet;
         /* Initialize what's needed to open a browser based on
          * the current options.  */
@@ -384,7 +396,7 @@ do_main(int32 argc, char **argv) {
 
     load_eqn();
 
-    tempNS = malloc(sizeof(*tempNS));
+    tempNS = xmalloc(sizeof(*tempNS));
     *tempNS = notAlreadySet;
     set_internopts(tempNS);
     free(tempNS);
@@ -1388,7 +1400,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     ncolors = win_info->visual->map_entries;
     plintf("%d entries in colormap\n", ncolors);
 
-    *colors = malloc(sizeof(XColor)*(uint)ncolors);
+    *colors = xmalloc(sizeof(XColor)*(uint)ncolors);
     xorfix = 0;
 
     if (win_info->visual->class == DirectColor) {

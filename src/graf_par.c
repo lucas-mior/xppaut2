@@ -1298,11 +1298,11 @@ create_crv(int32 ind) {
                 err_msg("No Curve to freeze");
                 return -1;
             }
-            frz[i].xv = malloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
-            frz[i].yv = malloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
+            frz[i].xv = xmalloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
+            frz[i].yv = xmalloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
             if ((type = MyGraph->grtype) > 0)
                 frz[i].zv =
-                    malloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
+                    xmalloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
                 err_msg("Cant allocate storage for curve");
@@ -1450,8 +1450,8 @@ add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
     if (ncrv >= MAXBIFCRV)
         return;
-    my_bd.x[ncrv] = malloc(sizeof(*(my_bd.x[ncrv]))*(usize)len);
-    my_bd.y[ncrv] = malloc(sizeof(*(my_bd.y[ncrv]))*(usize)len);
+    my_bd.x[ncrv] = xmalloc(sizeof(*(my_bd.x[ncrv]))*(usize)len);
+    my_bd.y[ncrv] = xmalloc(sizeof(*(my_bd.y[ncrv]))*(usize)len);
     for (i = 0; i < len; i++) {
         my_bd.x[ncrv][i] = x[i];
         my_bd.y[ncrv][i] = y[i];
@@ -1543,7 +1543,7 @@ get_frz_index(Window w) {
     Window temp = main_win;
     for (i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && w == frz[i].w) {
-            n[count] = malloc(20);
+            n[count] = xmalloc(20);
             sprintf(n[count], "%s", frz[i].name);
             key[count] = 'a' + (char)i;
 

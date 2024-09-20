@@ -132,7 +132,7 @@
  * 31 July 95	Mark Olesen <olesen@me.QueensU.CA>
  *	- added GNU Public License
  *	- more cleanup
- *	- define SUN_BROKEN_REALLOC to use malloc() instead of realloc()
+ *	- define SUN_BROKEN_REALLOC to use xmalloc() instead of realloc()
  *	  on the first pass through, apparently needed for old libc
  *	- removed #error directive in favour of some code that simply
  *	  won't compile (generate an error that way)

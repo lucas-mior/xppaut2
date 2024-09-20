@@ -1065,7 +1065,7 @@ writeframe(char *filename, Window window, int32 wid, int32 hgt) {
     write(fd, head, strlen(head));
     area = (uint32)(ximage->width*ximage->height);
     pixel = (uchar *)ximage->data;
-    out = malloc(3*area);
+    out = xmalloc(3*area);
     dst = out;
     for (y = 0; y < (uint32)(ximage->height); y++) {
         for (x = 0; x < (uint32)(ximage->width); x++) {
@@ -1514,12 +1514,12 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
         return 1;
     my_ani[n_anicom].type = type;
     my_ani[n_anicom].flag = aniflag;
-    my_ani[n_anicom].x1 = malloc(256*sizeof(*(my_ani[n_anicom].x1)));
-    my_ani[n_anicom].y1 = malloc(256*sizeof(*(my_ani[n_anicom].y1)));
-    my_ani[n_anicom].x2 = malloc(256*sizeof(*(my_ani[n_anicom].x2)));
-    my_ani[n_anicom].y2 = malloc(256*sizeof(*(my_ani[n_anicom].y2)));
-    my_ani[n_anicom].col = malloc(256*sizeof(*(my_ani[n_anicom].col)));
-    my_ani[n_anicom].who = malloc(256*sizeof(*(my_ani[n_anicom].who)));
+    my_ani[n_anicom].x1 = xmalloc(256*sizeof(*(my_ani[n_anicom].x1)));
+    my_ani[n_anicom].y1 = xmalloc(256*sizeof(*(my_ani[n_anicom].y1)));
+    my_ani[n_anicom].x2 = xmalloc(256*sizeof(*(my_ani[n_anicom].x2)));
+    my_ani[n_anicom].y2 = xmalloc(256*sizeof(*(my_ani[n_anicom].y2)));
+    my_ani[n_anicom].col = xmalloc(256*sizeof(*(my_ani[n_anicom].col)));
+    my_ani[n_anicom].who = xmalloc(256*sizeof(*(my_ani[n_anicom].who)));
     switch (type) {
     case AXNULL:
     case AYNULL:
@@ -1740,9 +1740,9 @@ add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick) {
     if (err)
         return -1;
     a->c.n = n;
-    a->c.x = malloc((usize)n*sizeof(*(a->c.x)));
-    a->c.y = malloc((usize)n*sizeof(*(a->c.y)));
-    a->c.col = malloc((usize)n*sizeof(*(a->c.col)));
+    a->c.x = xmalloc((usize)n*sizeof(*(a->c.x)));
+    a->c.y = xmalloc((usize)n*sizeof(*(a->c.y)));
+    a->c.col = xmalloc((usize)n*sizeof(*(a->c.col)));
     a->c.i = 0;
     return 1;
 }
@@ -2510,7 +2510,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         plintf("Bad grab x %s \n", xs);
         return -1;
     }
-    ani_grab[j].x = malloc(sizeof(*(ani_grab[j].x))*(usize)(nc + 1));
+    ani_grab[j].x = xmalloc(sizeof(*(ani_grab[j].x))*(usize)(nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].x[k] = com[k];
 
@@ -2518,7 +2518,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
         plintf("Bad grab y %s \n", ys);
         return -1;
     }
-    ani_grab[j].y = malloc(sizeof(*(ani_grab[j].y))*(usize)(nc + 1));
+    ani_grab[j].y = xmalloc(sizeof(*(ani_grab[j].y))*(usize)(nc + 1));
     for (k = 0; k <= nc; k++)
         ani_grab[j].y[k] = com[k];
     ans = ani_grab_tasks(start, j, 1);
@@ -2642,7 +2642,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
 
             return -1;
         }
-        ani_grab[igrab].start.comrhs[i] = malloc(
+        ani_grab[igrab].start.comrhs[i] = xmalloc(
             sizeof(*(ani_grab[igrab].start.comrhs[i]))*(usize)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].start.comrhs[i][k] = com[k];
@@ -2668,7 +2668,7 @@ add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
             return -1;
         }
         ani_grab[igrab].end.comrhs[i] =
-            malloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(usize)(nc + 1));
+            xmalloc(sizeof(*(ani_grab[igrab].end.comrhs[i]))*(usize)(nc + 1));
         for (k = 0; k <= nc; k++)
             ani_grab[igrab].end.comrhs[i][k] = com[k];
         ani_grab[igrab].end.n = ani_grab[igrab].end.n + 1;

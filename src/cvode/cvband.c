@@ -231,7 +231,7 @@ CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
     lfree = CVBandFree;
 
     /* Get memory for CVBandMemRec */
-    lmem = cvband_mem = malloc(sizeof(CVBandMemRec));
+    lmem = cvband_mem = xmalloc(sizeof(CVBandMemRec));
     if (cvband_mem == NULL)
         return; /* CVBandInit reports this error */
 

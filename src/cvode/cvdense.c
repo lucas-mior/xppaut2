@@ -200,7 +200,7 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     lfree = CVDenseFree;
 
     /* Get memory for CVDenseMemRec */
-    lmem = cvdense_mem = malloc(sizeof(CVDenseMemRec));
+    lmem = cvdense_mem = xmalloc(sizeof(CVDenseMemRec));
     if (cvdense_mem == NULL)
         return; /* CVDenseInit reports this error */
 
