@@ -297,13 +297,14 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *rlcur, double *rlold, double *rldot, double *ups, double *uoldps,
        double *udotps, double *upoldp, double *dups, double *dtm, double *thl,
        double *thu, double *p0, double *p1) {
-    (void)p0;
-    (void)p1;
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
     int64 i, j, k;
 
     double *wi, *wp, *wt;
+
+    (void)p0;
+    (void)p1;
 
     wi = malloc(sizeof(*wi)*(usize)(ncol + 1));
     wp = malloc(sizeof(*wp)*(usize)(ncol*(ncol + 1)));
@@ -404,15 +405,15 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     double *fa = larg.fa;
     int64 fa_dim1 = larg.nra;
 
-    double *wploc = malloc(sizeof(double)*(larg.ncol)*(larg.ncol + 1));
+    double *wploc = malloc(sizeof(*wploc)*(larg.ncol)*(larg.ncol + 1));
     int64 wploc_dim1 = larg.ncol + 1;
 
-    double *dfdp = malloc(sizeof(double)*(larg.ndim)*NPARX);
-    double *dfdu = malloc(sizeof(double)*(larg.ndim)*(larg.ndim));
-    double *u = malloc(sizeof(double)*(larg.ndim));
-    double *uold = malloc(sizeof(double)*(larg.ndim));
-    double *f = malloc(sizeof(double)*(larg.ndim));
-    double *prm = malloc(sizeof(double)*NPARX);
+    double *dfdp = malloc(sizeof(*dfdp)*(larg.ndim)*NPARX);
+    double *dfdu = malloc(sizeof(*dfdu)*(larg.ndim)*(larg.ndim));
+    double *u = malloc(sizeof(*u)*(larg.ndim));
+    double *uold = malloc(sizeof(*uold)*(larg.ndim));
+    double *f = malloc(sizeof(*f)*(larg.ndim));
+    double *prm = malloc(sizeof(*prm)*NPARX);
 
     for (jj = 0; jj < larg.na; ++jj) {
         j = jj;
