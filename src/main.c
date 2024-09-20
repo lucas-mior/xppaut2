@@ -1280,11 +1280,11 @@ make_top_buttons(void) {
 }
 
 void
-getGC(GC *gc) {
+getGC(GC *gc2) {
     uint32 valuemask = 0;
     XGCValues values;
-    *gc = XCreateGC(display, main_win, valuemask, &values);
-    XSetForeground(display, *gc, MyForeColor);
+    *gc2 = XCreateGC(display, main_win, valuemask, &values);
+    XSetForeground(display, *gc2, MyForeColor);
     return;
 }
 
