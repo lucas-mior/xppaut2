@@ -195,7 +195,6 @@ new_lookup_ok(void) {
         } else
             err_msg("Not a Table function");
     }
-    return;
 }
 
 double
@@ -272,7 +271,7 @@ lookup(double x, int32 index) {
                    index, x, i1, i2, x1, y1, y2);
 #endif
             return y1;
-        };
+        }
     }
     if (i1 < 0)
         return y[0] + (y[1] - y[0])*(x - xlo) / dx;
@@ -348,10 +347,9 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
         return 0;
     }
     if (my_table[index].flag == 0) {
-        my_table[index].y = malloc(length*sizeof(*(my_table[index].y)));
+        my_table[index].y = malloc((usize)length*sizeof(*(my_table[index].y)));
     } else {
-        my_table[index].y = (double *)realloc(
-            (void *)my_table[index].y, length*sizeof(*(my_table[index].y)));
+        my_table[index].y = (double *)realloc(my_table[index].y, (usize)length*sizeof(*(my_table[index].y)));
     }
     if (my_table[index].y == NULL) {
         err_msg("Unable to allocate table");
@@ -379,7 +377,7 @@ load_table(char *filename, int32 index) {
     double xlo, xhi;
     FILE *fp;
     char filename2[512], ch;
-    int32 n = strlen(filename);
+    int32 n = (int32)strlen(filename);
     int32 j = 0, flag = 0;
     for (i = 0; i < n; i++) {
         ch = filename[i];
@@ -415,12 +413,12 @@ load_table(char *filename, int32 index) {
     {
         my_table[index].interp = 1;
         bob++; /* skip past initial "i" to length */
-    };
+    }
     if (bob[0] == 's') /* cubic spline  */
     {
         my_table[index].interp = 2;
         bob++; /* skip past initial "i" to length */
-    };
+    }
     length = atoi(bob);
     if (length < 2) {
         err_msg("Length too small");
@@ -437,7 +435,7 @@ load_table(char *filename, int32 index) {
         return 0;
     }
     if (my_table[index].flag == 0) {
-        my_table[index].y = malloc(length*sizeof(*(my_table[index].y)));
+        my_table[index].y = malloc((usize)length*sizeof(*(my_table[index].y)));
         if (my_table[index].y == NULL) {
             err_msg("Unable to allocate table");
             fclose(fp);
@@ -457,7 +455,7 @@ load_table(char *filename, int32 index) {
         return 1;
     }
     my_table[index].y = (double *)realloc(
-        (void *)my_table[index].y, length*sizeof(*(my_table[index].y)));
+        (void *)my_table[index].y, (usize)length*sizeof(*(my_table[index].y)));
     if (my_table[index].y == NULL) {
         err_msg("Unable to reallocate table");
         fclose(fp);

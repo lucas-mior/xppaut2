@@ -72,7 +72,7 @@ draw_tor_var(int32 i) {
     else
         snprintf(strng, sizeof(strng), "   %s", uvar_names[i]);
     XDrawString(display, torbox.w[i], small_gc, 0, CURY_OFFs, strng,
-                strlen(strng));
+                (int)strlen(strng));
     return;
 }
 

@@ -15,7 +15,6 @@ extern int32 METHOD;
 #define STIFF 9
 #define GEAR 5
 #define RB23 13
-#define SYMPLECT 14
 typedef struct {
     int32 nvec, node;
     double *x;
