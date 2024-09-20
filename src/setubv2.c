@@ -282,7 +282,7 @@ setubv_make_aa_bb_cc(void *arg) {
     return NULL;
 }
 
-int32
+static int32
 setubv_default_wrapper(setubv_parallel_arglist data) {
     setubv_make_aa_bb_cc((void *)&data);
     return 0;
@@ -305,9 +305,9 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
 
     double *wi, *wp, *wt;
 
-    wi = malloc(sizeof(*wi)*(ncol + 1));
-    wp = malloc(sizeof(*wp)*(ncol)*(ncol + 1));
-    wt = malloc(sizeof(*wt)*(ncol)*(ncol + 1));
+    wi = malloc(sizeof(*wi)*(usize)(ncol + 1));
+    wp = malloc(sizeof(*wp)*(usize)(ncol*(ncol + 1)));
+    wt = malloc(sizeof(*wt)*(usize)(ncol*(ncol + 1)));
 
     dd_dim1 = ncb;
 
