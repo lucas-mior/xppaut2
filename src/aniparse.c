@@ -588,13 +588,13 @@ draw_ani_slider(Window w, int32 x)
 
 {
     int32 hgt = DCURYs + 4, l = 48*DCURXs;
-    int32 x0 = x - 2, i;
+    int32 x0 = x - 2;
     if (x0 < 0)
         x0 = 0;
     if (x0 > (l - 4))
         x0 = l - 4;
     XClearWindow(display, w);
-    for (i = 0; i < 4; i++)
+    for (int32 i = 0; i < 4; i++)
         XDrawLine(display, w, small_gc, x0 + i, 0, x0 + i, hgt);
     return;
 }
@@ -746,11 +746,10 @@ ani_frame(int32 task) {
 
 void
 set_to_init_data(void) {
-    int32 i;
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         last_ic[i] = get_ivar(i + 1);
     }
-    for (i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
+    for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
         last_ic[i - FIX_VAR] = get_ivar(i + 1);
     }
 
@@ -761,8 +760,7 @@ set_to_init_data(void) {
 void
 set_from_init_data(void) {
     double y[MAX_ODE];
-    int32 i;
-    for (i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         y[i] = last_ic[i];
     }
     set_fix_rhs(T0, y);
@@ -775,7 +773,6 @@ ani_flip1(int32 n) {
     double **ss;
     double y[MAX_ODE];
     double t;
-    int32 i;
     if (n_anicom == 0)
         return;
     if (my_browser.maxrow < 2)
@@ -796,7 +793,7 @@ ani_flip1(int32 n) {
     row = vcr.pos;
 
     t = (double)ss[0][row];
-    for (i = 0; i < NODE + NMarkov; i++)
+    for (int32 i = 0; i < NODE + NMarkov; i++)
         y[i] = (double)ss[i + 1][row];
     set_fix_rhs(t, y);
 
@@ -1645,14 +1642,14 @@ chk_ani_color(char *s, int32 *index) {
 
 int32
 add_ani_expr(char *x, int32 *c) {
-    int32 i, n;
+    int32 n;
     int32 com[300];
     int32 err;
 
     err = add_expr(x, com, &n);
     if (err == 1)
         return 1;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         c[i] = com[i];
     }
     /*  z=evaluate(c);
@@ -1688,17 +1685,15 @@ add_ani_rline(AniCom *a, char *x1, char *y1, char *col, char *thick) {
 
 void
 reset_comets(void) {
-    int32 i;
-    for (i = 0; i < n_anicom; i++)
+    for (int32 i = 0; i < n_anicom; i++) {
         if (my_ani[i].type == COMET)
             my_ani[i].c.i = 0;
+    }
     return;
 }
 
 void
 roll_comet(AniCom *a, int32 xn, int32 yn, int32 col) {
-    int32 i;
-
     int32 n = a->c.n;
     int32 ii = a->c.i;
     if (ii < n) { /* not loaded yet */
@@ -1709,7 +1704,7 @@ roll_comet(AniCom *a, int32 xn, int32 yn, int32 col) {
         return;
     }
     /* its full so push down eliminating last */
-    for (i = 1; i < n; i++) {
+    for (int32 i = 1; i < n; i++) {
         a->c.x[i - 1] = a->c.x[i];
         a->c.y[i - 1] = a->c.y[i];
         a->c.col[i - 1] = a->c.col[i];
@@ -1930,10 +1925,9 @@ add_ani_settext(AniCom *a, char *x1, char *y1, char *col) {
 
 void
 render_ani(void) {
-    int32 i;
     int32 type, flag;
     redraw_ani_slider();
-    for (i = 0; i < n_anicom; i++) {
+    for (int32 i = 0; i < n_anicom; i++) {
         type = my_ani[i].type;
         flag = my_ani[i].flag;
         if (type == LINE || type == RLINE || type == RECT || type == FRECT ||
