@@ -133,7 +133,7 @@ use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
             pix = ppmtopix(r, g, b, &nc);
             if (pix < 0)
                 return 0;
-            pixels[l] = pix;
+            pixels[l] = (uchar)pix;
             k += 3;
             l++;
         }
@@ -155,7 +155,7 @@ make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
             pix = ppmtopix(r, g, b, &ncol);
             if (pix < 0)
                 pix = 255;
-            pixels[l] = pix;
+            pixels[l] = (uchar)pix;
             l++;
         }
     }
@@ -188,7 +188,7 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);
     switch (task) {
     case GET_GLOBAL_CMAP:
-        ncol = make_local_map(pixels, ppm, h, w);
+        ncol = make_local_map(pixels, ppm, (int32)h, (int32)w);
         for (i = 0; i < 256; i++) {
             gifGcol[i].r = gifcol[i].r;
             gifGcol[i].g = gifcol[i].g;
@@ -198,51 +198,51 @@ gif_stuff(Window win, FILE *fp, int32 task) {
 
         break;
     case MAKE_ONE_GIF: /* don't need global map! */
-        ncol = make_local_map(pixels, ppm, h, w);
-        make_gif(pixels, w, h, fp);
+        ncol = make_local_map(pixels, ppm, (int32)h, (int32)w);
+        make_gif(pixels, (int32)w, (int32)h, fp);
         break;
     case FIRST_ANI_GIF:
         if (UseGlobalMap) {
-            ok = use_global_map(pixels, ppm, h, w);
+            ok = use_global_map(pixels, ppm, (int32)h, (int32)w);
             if (ok == 1) {
                 local_to_global();
-                write_global_header(w, h, fp);
-                write_local_header(w, h, fp, 0, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w*h);
+                write_global_header((int32)w, (int32)h, fp);
+                write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+                GifEncode(fp, pixels, 8, (int32)(w*h));
             } else /* first map cant be encoded */
             {
                 UseGlobalMap = 0;
                 local_to_global();
-                write_global_header(w, h, fp); /* write global header */
-                make_local_map(pixels, ppm, h, w);
-                write_local_header(w, h, fp, 1, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w*h);
+                write_global_header((int32)w, (int32)h, fp); /* write global header */
+                make_local_map(pixels, ppm, (int32)h, (int32)w);
+                write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+                GifEncode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
-            make_local_map(pixels, ppm, h, w);
-            write_global_header(w, h, fp);
-            write_local_header(w, h, fp, 0, GifFrameDelay);
-            GifEncode(fp, pixels, 8, w*h);
+            make_local_map(pixels, ppm, (int32)h, (int32)w);
+            write_global_header((int32)w, (int32)h, fp);
+            write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+            GifEncode(fp, pixels, 8, (int32)(w*h));
         }
         break;
     case NEXT_ANI_GIF:
         if (UseGlobalMap) {
-            ok = use_global_map(pixels, ppm, h, w);
+            ok = use_global_map(pixels, ppm, (int32)h, (int32)w);
             if (ok == 1) {
-                write_local_header(w, h, fp, 0, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w*h);
+                write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+                GifEncode(fp, pixels, 8, (int32)(w*h));
             } else {
                 UseGlobalMap = 0;
-                make_local_map(pixels, ppm, h, w);
-                write_local_header(w, h, fp, 1, GifFrameDelay);
-                GifEncode(fp, pixels, 8, w*h);
+                make_local_map(pixels, ppm, (int32)h, (int32)w);
+                write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+                GifEncode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
-            make_local_map(pixels, ppm, h, w);
-            write_local_header(w, h, fp, 1, GifFrameDelay);
-            GifEncode(fp, pixels, 8, w*h);
+            make_local_map(pixels, ppm, (int32)h, (int32)w);
+            write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+            GifEncode(fp, pixels, 8, (int32)(w*h));
         }
         break;
     }

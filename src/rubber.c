@@ -79,6 +79,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
             there = 1;
             rbox(dragx, dragy, oldx, oldy, w, f);
             break;
+        default:
+            break;
         }
     }
     xor_flag = 0;
