@@ -502,13 +502,15 @@ make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
     size_hints.max_width = width;
     size_hints.max_height = height;
 
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
 
-    make_icon((char *)info_bits, info_width, info_height, base);
-    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                     &class_hints);
+        make_icon((char *)info_bits, info_width, info_height, base);
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
+                         &class_hints);
+    }
     sb->base = base;
     sb->hgt = height;
     sb->wid = width;
@@ -533,13 +535,13 @@ Window
 make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                   int32 bw) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
                               MyForeColor, MyBackColor);
 
     if (UserGradients == 1) {
         Pixmap pmap =
-            XCreatePixmap(display, root, width, height,
-                          DefaultDepth(display, DefaultScreen(display)));
+            XCreatePixmap(display, root, (uint)width, (uint)height,
+                          (uint)DefaultDepth(display, DefaultScreen(display)));
 
         int32 xx, yy;
         double cosine;
