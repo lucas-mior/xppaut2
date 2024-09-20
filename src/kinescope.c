@@ -340,7 +340,7 @@ auto_play(void) {
         XFlush(display);
         if (cycle >= ks_ncycle)
             return;
-    } /*  Big loop   */
+    }
 }
 
 void
