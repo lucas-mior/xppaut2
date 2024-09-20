@@ -573,9 +573,9 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                 } else {
                     cosine = 0.93;
                 }
-                col2.red = bcolour.red*cosine;
-                col2.green = bcolour.green*cosine;
-                col2.blue = bcolour.blue*cosine;
+                col2.red = (ushort)(bcolour.red*cosine);
+                col2.green = (ushort)(bcolour.green*cosine);
+                col2.blue = (ushort)(bcolour.blue*cosine);
             }
 
             XAllocColor(display, cmap, &col2);
@@ -595,9 +595,9 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
             XDrawPoint(display, pmap, gc, xx, yy);
             xx = width - 1;
             cosine = 0.1;
-            col2.red = bcolour.red*cosine;
-            col2.green = bcolour.green*cosine;
-            col2.blue = bcolour.blue*cosine;
+            col2.red = (ushort)(bcolour.red*cosine);
+            col2.green = (ushort)(bcolour.green*cosine);
+            col2.blue = (ushort)(bcolour.blue*cosine);
 
             XAllocColor(display, cmap, &col2);
             XSetForeground(display, gc, col2.pixel);
