@@ -191,7 +191,7 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
     /* Set Spgmr parameters that have been passed in call sequence */
     cvspgmr_mem->g_pretype = pretype;
     cvspgmr_mem->g_gstype = gstype;
-    cvspgmr_mem->g_maxl = (maxl <= 0) ? MIN(CVSPGMR_MAXL, N) : maxl;
+    cvspgmr_mem->g_maxl = (int32) ((maxl <= 0) ? MIN(CVSPGMR_MAXL, N) : maxl);
     cvspgmr_mem->g_delt = (delt == ZERO) ? CVSPGMR_DELT : delt;
     cvspgmr_mem->g_P_data = P_data;
     cvspgmr_mem->g_precond = precond;
@@ -271,7 +271,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Initialize sqrtN and counters, and set workspace lengths */
 
-    sqrtN = RSqrt(N);
+    sqrtN = RSqrt((double)N);
     npe = nli = nps = ncfl = nstlpre = 0;
 
     if (iopt != NULL) {
@@ -279,7 +279,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
         iopt[SPGMR_NLI] = nli;
         iopt[SPGMR_NPS] = nps;
         iopt[SPGMR_NCFL] = ncfl;
-        iopt[SPGMR_LRW] = N*(maxl + 5) + maxl*(maxl + 4) + 1;
+        iopt[SPGMR_LRW] = (int32)(N*(maxl + 5) + maxl*(maxl + 4) + 1);
         iopt[SPGMR_LIW] = 0;
     }
 

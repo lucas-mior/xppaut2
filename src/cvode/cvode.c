@@ -1881,7 +1881,7 @@ CVnls(CVodeMem cv_mem, int32 nflag) {
 static int32
 CVnlsFunctional(CVodeMem cv_mem) {
     int32 m;
-    double del, delp, dcon;
+    double del, delp = 0, dcon;
 
     /* Initialize counter and evaluate f at predicted y */
 
@@ -1997,7 +1997,6 @@ CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
         callSetup = TRUE;
         convfail = FAIL_BAD_J;
     }
-    exit(EXIT_FAILURE);
 }
 
 /********************** CVNewtonIteration ****************************
@@ -2015,7 +2014,7 @@ CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
 static int32
 CVNewtonIteration(CVodeMem cv_mem) {
     int32 m, ret;
-    double del, delp, dcon;
+    double del, delp = 0.0, dcon;
     N_Vector b;
 
     mnewt = m = 0;
@@ -2077,7 +2076,6 @@ CVNewtonIteration(CVodeMem cv_mem) {
         f(N, tn, y, ftemp, f_data);
         nfe++;
     }
-    exit(EXIT_FAILURE);
 }
 
 /********************** CVHandleNFlag *******************************
@@ -2458,6 +2456,8 @@ CVHandleFailure(CVodeMem cv_mem, int32 kflag) {
     case SOLVE_FAILED:
         fprintf(errfp, MSG_SOLVE_FAILED, tn);
         return SOLVE_FAILURE;
+    default:
+        break;
     }
     return ERR_FAILURE;
 }
