@@ -179,8 +179,8 @@ extern int32 PltFmtFlag;
 
 int32 xorfix, silent, got_file;
 
-/*Logical negate OR on options set. Result overwrites the first OptionsSet
-in the argument list.*/
+/* Logical negate OR on options set. Result overwrites the first OptionsSet in
+ * the argument list.*/
 void
 notBothOptions(OptionsSet nasA, OptionsSet nasB) {
     nasA.BIG_FONT_NAME = (nasA.BIG_FONT_NAME & nasB.BIG_FONT_NAME);
