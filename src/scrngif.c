@@ -476,6 +476,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
                 break;
             }
             /*   otherwise do as we do with a TERMIN node  */
+            __attribute__((fallthrough));
         case TERMIN:
             newNode->alt = curNode->nxt;
             newNode->nxt = NULL, curNode->nxt = newNode;
@@ -590,7 +591,7 @@ ClearTree(int32 cc, GifTree *root) {
         newNode->nxt = NULL;
         newNode->alt = NULL;
         newNode->code = i;
-        newNode->ix = i;
+        newNode->ix = (uchar)i;
         newNode->typ = TERMIN;
         newNode->node = empty;
         nodecount++;
