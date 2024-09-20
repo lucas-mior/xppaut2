@@ -3639,6 +3639,8 @@ void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #include <X11/Xlib.h>
 
+void plot_command(int32 nit, int32 icount, int32 cwidth);
+int32 my_abort(void);
 void do_main(int32 argc, char **argv) __attribute__((noreturn));
 void check_for_quiet(int32 argc, char **argv);
 void do_vis_env(void);
