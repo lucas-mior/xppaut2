@@ -270,7 +270,7 @@ init_rpn(void) {
 
     init_table();
     if (newseed == 1)
-        RandSeed = time(0);
+        RandSeed = (int32)time(0);
     nsrand48(RandSeed);
     return;
 }
@@ -313,14 +313,14 @@ add_constant(char *junk) {
         return 1;
     }
     convert(junk, string);
-    len = strlen(string);
+    len = (int32)strlen(string);
     if (len < 1) {
         plintf("Empty parameter - remove spaces\n");
         return 1;
     }
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -381,10 +381,10 @@ add_kernel(char *name, double mu, char *expr) {
         return 1;
     }
     convert(name, string);
-    len = strlen(string);
+    len = (int32)strlen(string);
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -395,7 +395,7 @@ add_kernel(char *name, double mu, char *expr) {
     kernel[NKernel].k_n = 0.0;
     kernel[NKernel].k_n1 = 0.0;
     kernel[NKernel].flag = 0;
-    for (usize i = 0; i < strlen(expr); i++) {
+    for (int32 i = 0; i < (int32)strlen(expr); i++) {
         if (expr[i] == '#')
             in = i;
     }
@@ -405,14 +405,14 @@ add_kernel(char *name, double mu, char *expr) {
     }
     if (in > 0) {
         kernel[NKernel].flag = CONV;
-        kernel[NKernel].expr = malloc(strlen(expr) + 2 - in);
-        kernel[NKernel].kerexpr = malloc(in + 1);
+        kernel[NKernel].expr = malloc(strlen(expr) + 2 - (usize)in);
+        kernel[NKernel].kerexpr = malloc((usize)in + 1);
         for (int32 i = 0; i < in; i++)
             kernel[NKernel].kerexpr[i] = expr[i];
         kernel[NKernel].kerexpr[in] = 0;
         for (int32 i = in + 1; i < (int32)strlen(expr); i++)
             kernel[NKernel].expr[i - in - 1] = expr[i];
-        kernel[NKernel].expr[strlen(expr) - in - 1] = 0;
+        kernel[NKernel].expr[strlen(expr) - (usize)in - 1] = 0;
         plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
                kernel[NKernel].expr);
     } else {
@@ -438,10 +438,10 @@ add_var(char *junk, double value) {
         return 1;
     }
     convert(junk, string);
-    len = strlen(string);
+    len = (int32)strlen(string);
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -485,7 +485,7 @@ add_expr(char *expr, int32 *command, int32 *length) {
 int32
 add_vector_name(int32 index, char *name) {
     char string[50];
-    int32 len = strlen(name);
+    int32 len = (int32)strlen(name);
     plintf(" Adding vectorizer %s %d \n", name, index);
     if (duplicate_name(name) == 1)
         return 1;
@@ -493,7 +493,7 @@ add_vector_name(int32 index, char *name) {
     printf(" 1\n");
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -507,14 +507,14 @@ add_vector_name(int32 index, char *name) {
 int32
 add_net_name(int32 index, char *name) {
     char string[50];
-    int32 len = strlen(name);
+    int32 len = (int32)strlen(name);
     plintf(" Adding net %s %d \n", name, index);
     if (duplicate_name(name) == 1)
         return 1;
     convert(name, string);
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -531,7 +531,7 @@ add_file_table(int32 index, char *file) {
     char file2[1000];
     int32 i2 = 0, i1 = 0, n;
     char ch;
-    n = strlen(file);
+    n = (int32)strlen(file);
     for (i1 = 0; i1 < n; i1++) {
         ch = file[i1];
         if (((int32)ch > 31) && ((int32)ch < 127)) {
@@ -552,13 +552,13 @@ add_file_table(int32 index, char *file) {
 int32
 add_table_name(int32 index, char *name) {
     char string[50];
-    int32 len = strlen(name);
+    int32 len = (int32)strlen(name);
     if (duplicate_name(name) == 1)
         return 1;
     convert(name, string);
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -596,7 +596,7 @@ set_new_arg_names(int32 narg, char args[10][14]) {
     int32 i;
     for (i = 0; i < narg; i++) {
         strcpy(my_symb[FIRST_ARG + i].name, args[i]);
-        my_symb[FIRST_ARG + i].len = strlen(args[i]);
+        my_symb[FIRST_ARG + i].len = (int32)strlen(args[i]);
     }
     return;
 }
@@ -606,7 +606,7 @@ set_new_arg_names(int32 narg, char args[10][14]) {
 int32
 add_ufun_name(char *name, int32 index, int32 narg) {
     char string[50];
-    int32 len = strlen(name);
+    int32 len = (int32)strlen(name);
     if (duplicate_name(name) == 1)
         return 1;
     if (index >= MAX_UFUN) {
@@ -618,7 +618,7 @@ add_ufun_name(char *name, int32 index, int32 narg) {
     convert(name, string);
     if (len > MXLEN)
         len = MXLEN;
-    strncpy(my_symb[NSYM].name, string, len);
+    strncpy(my_symb[NSYM].name, string, (usize)len);
     my_symb[NSYM].name[len] = '\0';
     my_symb[NSYM].len = len;
     my_symb[NSYM].pri = 10;
@@ -664,7 +664,7 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
         ufun[index][end] = narg;
         ufun[index][end + 1] = ENDEXP;
         strcpy(ufun_def[index], rhs);
-        l = strlen(ufun_def[index]);
+        l = (int32)strlen(ufun_def[index]);
         ufun_def[index][l] = 0;
         narg_fun[index] = narg;
         set_old_arg_names(narg);
@@ -684,7 +684,7 @@ add_ufun(char *junk, char *expr, int32 narg) {
     char string[50];
     int32 i, l;
     int32 end;
-    int32 len = strlen(junk);
+    int32 len = (int32)strlen(junk);
 
     if (duplicate_name(junk) == 1)
         return 1;
@@ -708,7 +708,7 @@ add_ufun(char *junk, char *expr, int32 narg) {
     if (add_expr(expr, ufun[NFUN], &end) == 0) {
         if (len > MXLEN)
             len = MXLEN;
-        strncpy(my_symb[NSYM].name, string, len);
+        strncpy(my_symb[NSYM].name, string, (usize)len);
         my_symb[NSYM].name[len] = '\0';
         my_symb[NSYM].len = len;
         my_symb[NSYM].pri = 10;
@@ -719,7 +719,7 @@ add_ufun(char *junk, char *expr, int32 narg) {
         ufun[NFUN][end] = narg;
         ufun[NFUN][end + 1] = ENDEXP;
         strcpy(ufun_def[NFUN], expr);
-        l = strlen(ufun_def[NFUN]);
+        l = (int32)strlen(ufun_def[NFUN]);
         ufun_def[NFUN][l - 1] = 0;
         strcpy(ufun_names[NFUN], junk);
         narg_fun[NFUN] = narg;
@@ -833,10 +833,10 @@ find_name(char *string, int32 *index) {
     char junk[100];
     int32 i, len;
     convert(string, junk);
-    len = strlen(junk);
+    len = (int32)strlen(junk);
     for (i = 0; i < NSYM; i++) {
         if (len == my_symb[i].len)
-            if (strncmp(my_symb[i].name, junk, len) == 0)
+            if (strncmp(my_symb[i].name, junk, (usize)len) == 0)
                 break;
     }
     if (i < NSYM)

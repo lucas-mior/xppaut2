@@ -279,6 +279,8 @@ get_num_par(int32 ch)
         alloc_meth();
         help();
         break;
+    default:
+        break;
     }
     return;
 }
@@ -556,7 +558,7 @@ set_col_par_com(int32 i) {
     }
 
     /*   This will be uncommented    ..... */
-    ch = TwoChoice("(O)ptimize", "(C)hoose", "Color", "oc");
+    ch = (char)TwoChoice("(O)ptimize", "(C)hoose", "Color", "oc");
 
     if (ch == 'c') {
         temp[0] = MyGraph->min_scale;

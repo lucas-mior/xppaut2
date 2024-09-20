@@ -140,7 +140,6 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
         if (iter > MaxEulIter)
             return -2;
     }
-    exit(EXIT_FAILURE);
 }
 
 void
@@ -437,7 +436,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double tdir = 1, t0 = *tstart, t = t0;
     double atol = ATOLER, rtol = TOLER;
     double sqrteps = sqrt(eps);
-    double thresh = atol / rtol, absh, h;
+    double thresh = atol / rtol, absh, h = 0;
     double d = 1 / (2. + sqrt(2.)), e32 = 6. + sqrt(2.), tnew;
     /*double ninf;  Is this needed?*/
     int32 i, n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
