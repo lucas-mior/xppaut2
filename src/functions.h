@@ -4180,8 +4180,6 @@ extern int32 POIMAP, POIVAR, POISGN, SOS;
 
 extern int32 HIST, HVAR, hist_ind;
 
-extern int32 XSHFT, YSHFT, ZSHFT;
-
 void chk_volterra(void);
 void check_pos(int32 *j);
 void quick_num(int32 com);
