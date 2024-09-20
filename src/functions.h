@@ -3647,15 +3647,15 @@ void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #include <X11/Xlib.h>
 
-void do_main(int32 argc, char **argv);
+void do_main(int32 argc, char **argv) __attribute__((noreturn));
 void check_for_quiet(int32 argc, char **argv);
 void do_vis_env(void);
 void init_X(void);
 void set_big_font(void);
 void set_small_font(void);
 void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
-void do_events(uint32 min_wid, uint32 min_hgt);
-void bye_bye(void);
+void do_events(uint32 min_wid, uint32 min_hgt)__attribute__((noreturn));
+void bye_bye(void) __attribute__((noreturn));
 void clr_scrn(void);
 void redraw_all(void);
 void commander(int32 ch);

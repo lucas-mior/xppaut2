@@ -449,7 +449,6 @@ do_main(int32 argc, char **argv) {
     default_window();
 
     do_events(min_wid, min_hgt);
-    return;
 }
 
 void
@@ -520,8 +519,8 @@ init_X(void) {
 
     /* Set up foreground and background colors */
 
-    Black = BlackPixel(display, screen);
-    White = WhitePixel(display, screen);
+    Black = (uint32)BlackPixel(display, screen);
+    White = (uint32)WhitePixel(display, screen);
 
     if (strlen(UserBlack) != 0) {
         XColor user_col;
@@ -530,7 +529,7 @@ init_X(void) {
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
-        MyForeColor = GrFore = user_col.pixel;
+        MyForeColor = GrFore = (uint32)user_col.pixel;
         Black = MyForeColor;
     }
 
@@ -541,7 +540,7 @@ init_X(void) {
                     &user_col);
         XAllocColor(display, DefaultColormap(display, screen), &user_col);
 
-        MyBackColor = GrBack = user_col.pixel;
+        MyBackColor = GrBack = (uint32)user_col.pixel;
         White = MyBackColor;
     }
 
@@ -570,7 +569,7 @@ init_X(void) {
                     &main_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &main_win_col);
 
-        MyMainWinColor = main_win_col.pixel;
+        MyMainWinColor = (uint32)main_win_col.pixel;
     } else {
         MyMainWinColor = MyBackColor;
     }
@@ -584,7 +583,7 @@ init_X(void) {
                     &draw_win_col);
         XAllocColor(display, DefaultColormap(display, screen), &draw_win_col);
 
-        MyDrawWinColor = draw_win_col.pixel;
+        MyDrawWinColor = (uint32)draw_win_col.pixel;
     } else {
         MyDrawWinColor = MyBackColor;
     }
@@ -720,9 +719,9 @@ set_small_font(void) {
  * ig  runs XPP
 
 */
-int32
+static int32
 script_make(char *s, int32 *k) {
-    int32 l = strlen(s);
+    int32 l = (int32)strlen(s);
     int32 i = 0;
     char c;
     int32 j = 0;
@@ -763,7 +762,7 @@ script_make(char *s, int32 *k) {
     return j;
 }
 
-void
+static void
 scripty(void) {
     char scr[100] = "edf#b#b8#r";
     int32 bob[200];
@@ -802,9 +801,9 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                 SCALEX = min_wid;
                 SCALEY = min_hgt;
             } else {
-                XResizeWindow(display, command_pop, SCALEX - 4, DCURY + 1);
+                XResizeWindow(display, command_pop, (uint)SCALEX - 4, (uint)DCURY + 1);
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
-                                  SCALEX - 4, DCURY);
+                                  (uint)SCALEX - 4, (uint)DCURY);
                 resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
                 resize_all_pops(SCALEX, SCALEY);
                 redraw_all();
@@ -881,6 +880,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             show_position(report);
         }
         break;
+    default:
+        break;
     }
     return;
 }
@@ -897,9 +898,8 @@ do_events(uint32 min_wid, uint32 min_hgt) {
     }
     while (true) {
         XNextEvent(display, &report);
-        xpp_events(report, min_wid, min_hgt);
+        xpp_events(report, (int32)min_wid, (int32)min_hgt);
     }
-    return;
 }
 
 void
@@ -917,7 +917,6 @@ bye_bye(void) {
     XFreeGC(display, gc);
     XCloseDisplay(display);
     exit(1);
-    return;
 }
 
 void
@@ -1010,6 +1009,8 @@ commander(int32 ch) {
         case 'y':
             draw_many_lines();
             break;
+        default:
+            break;
         }
         break;
     }
@@ -1070,10 +1071,14 @@ commander(int32 ch) {
         case 'u':
             do_tutorial();
             break;
+        default:
+            break;
         }
         help();
         break;
     }
+    default:
+        break;
     }
     return;
 }
@@ -1093,8 +1098,8 @@ createKeyEvent(Window win, Window winRoot, int32 press, int32 keycode,
     event.x_root = 1;
     event.y_root = 1;
     event.same_screen = True;
-    event.keycode = XKeysymToKeycode(display, keycode);
-    event.state = modifiers;
+    event.keycode = XKeysymToKeycode(display, (uint)keycode);
+    event.state = (uint)modifiers;
 
     if (press == 1)
         event.type = KeyPress;
@@ -1131,7 +1136,7 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     if (SCALEY > dp_h)
         SCALEY = dp_h;
     wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
-                               SCALEX, SCALEY, bw, MyForeColor, MyBackColor);
+                               (uint)SCALEX, (uint)SCALEY, bw, MyForeColor, MyBackColor);
     XGetIconSizes(display, RootWindow(display, screen), &size_list, &count);
     icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width,
                                      pp_height);
@@ -1147,8 +1152,8 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 #else
 
     size_hints.flags = PPosition | PSize | PMinSize;
-    size_hints.min_width = min_wid;
-    size_hints.min_height = min_hgt;
+    size_hints.min_width = (int)min_wid;
+    size_hints.min_height = (int)min_hgt;
 #endif
 
 #ifdef X11R3
@@ -1205,7 +1210,7 @@ top_button_cross(Window w, int32 b) {
     int32 i;
     for (i = 0; i < 6; i++)
         if (w == TopButton[i]) {
-            XSetWindowBorderWidth(display, w, b);
+            XSetWindowBorderWidth(display, w, (uint)b);
             return;
         }
     return;
@@ -1243,6 +1248,8 @@ top_button_events(XEvent report) {
         break;
     case ButtonPress:
         top_button_press(report.xbutton.window);
+        break;
+    default:
         break;
     }
     user_button_events(report);
