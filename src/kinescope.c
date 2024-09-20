@@ -303,10 +303,7 @@ auto_play(void) {
             XNextEvent(display, &ev);
             switch (ev.type) {
             case ButtonPress:
-
                 return;
-                break;
-
             case KeyPress:
                 key = get_key_press(&ev);
                 if (key == 27)
