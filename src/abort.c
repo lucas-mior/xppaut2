@@ -14,14 +14,12 @@ extern int32 DCURY, DCURX, CURY_OFF;
 
 void
 plot_command(int32 nit, int32 icount, int32 cwidth) {
-    int32 i;
     double dx;
     if (nit == 0)
         return;
     dx = (double)icount*(double)cwidth / (double)nit;
-    i = (int32)dx;
 
-    XDrawPoint(display, command_pop, gc, i, 5);
+    XDrawPoint(display, command_pop, gc, (int32)dx, 5);
     return;
 }
 
