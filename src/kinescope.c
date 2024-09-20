@@ -320,6 +320,8 @@ auto_play(void) {
                 }
 
                 break;
+            default:
+                break;
             }
 
         } /* done checking  now increment pix   */
@@ -334,12 +336,11 @@ auto_play(void) {
             too_small();
             return;
         }
-        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, w, h, 0, 0);
+        XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h, 0, 0);
         XFlush(display);
         if (cycle >= ks_ncycle)
             return;
     } /*  Big loop   */
-    return;
 }
 
 void
