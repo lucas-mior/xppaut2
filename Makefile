@@ -20,7 +20,7 @@ all: $(TARGET)
 clang: C = clang
 clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
 clang: CFLAGS += -Wno-float-equal -Wno-missing-variable-declarations
-clang: CFLAGS += -Wno-format-nonliteral -Wno-comma
+clang: CFLAGS += -Wno-format-nonliteral
 clang: all
 
 gcc: C = gcc
