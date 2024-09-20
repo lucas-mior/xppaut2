@@ -101,8 +101,8 @@ build_markov(
     index = -1;
     /* find it -- if not defined, then abort  */
     for (i = 0; i < NMarkov; i++) {
-        ll = strlen(markov[i].name);
-        if (strncasecmp(name, markov[i].name, ll) == 0) {
+        ll = (int32)strlen(markov[i].name);
+        if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
             if (len < ll) {
                 index = i;
                 len = ll;
@@ -149,8 +149,8 @@ old_build_markov(FILE *fptr, char *name) {
     index = -1;
     /* find it -- if not defined, then abort  */
     for (i = 0; i < NMarkov; i++) {
-        ll = strlen(markov[i].name);
-        if (strncasecmp(name, markov[i].name, ll) == 0) {
+        ll = (int32)strlen(markov[i].name);
+        if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
             if (len < ll) {
                 index = i;
                 len = ll;
@@ -219,12 +219,12 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     }
 
     markov[j].nstates = nstates;
-    markov[j].states = malloc(nstates*sizeof(*(markov[j].states)));
+    markov[j].states = malloc((usize)nstates*sizeof(*(markov[j].states)));
     if (type == 0) {
-        markov[j].trans = malloc(n2*sizeof(char *));
-        markov[j].command = malloc(n2*sizeof(int32 *));
+        markov[j].trans = malloc((usize)n2*sizeof(char *));
+        markov[j].command = malloc((usize)n2*sizeof(int32 *));
     } else {
-        markov[j].fixed = malloc(n2*sizeof(*(markov[j].fixed)));
+        markov[j].fixed = malloc((usize)n2*sizeof(*(markov[j].fixed)));
     }
 
     for (i = 0; i < nstates; i++)
@@ -294,7 +294,7 @@ compile_markov(int32 index, int32 j, int32 k) {
     if (add_expr(expr, com, &leng))
         return -1;
     markov[index].command[l0] =
-        malloc(sizeof(*(markov[index].command[l0]))*(leng + 2));
+        malloc(sizeof(*(markov[index].command[l0]))*(usize)(leng + 2));
     for (i = 0; i < leng; i++) {
         markov[index].command[l0][i] = com[i];
     }
@@ -376,9 +376,9 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     double *y, *yp, *yold;
     int32 ir, iy;
 
-    y = malloc(n*sizeof(*y));
-    yold = malloc(n*sizeof(*yold));
-    yp = malloc(n*sizeof(*yp));
+    y = malloc((usize)n*sizeof(*y));
+    yold = malloc((usize)n*sizeof(*yold));
+    yp = malloc((usize)n*sizeof(*yp));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
     rhs_only(yold);

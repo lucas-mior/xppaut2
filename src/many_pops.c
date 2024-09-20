@@ -1161,7 +1161,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     ActiveWinList[0] = 0;
     init_all_graph();
 
-    graph[0].w = XCreateSimpleWindow(display, main_win, x, y + 4, w, h, 2,
+    graph[0].w = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w, (uint)h, 2,
                                      GrFore, MyDrawWinColor);
     graph[0].w_info = info_pop;
 
@@ -1324,12 +1324,12 @@ do_expose(XEvent ev) {
                 if (i == 0) {
                     BaseCol();
                     XDrawString(display, graph[i].w_info, gc, 5, CURY_OFF,
-                                graph[i].gr_info, strlen(graph[i].gr_info));
+                                graph[i].gr_info, (int)strlen(graph[i].gr_info));
                 } else {
                     SmallBase();
                     XDrawString(display, graph[i].w_info, small_gc, 0,
                                 CURY_OFFs, graph[i].gr_info,
-                                strlen(graph[i].gr_info));
+                                (int)strlen(graph[i].gr_info));
                     SmallGr();
                 }
             }
@@ -1367,7 +1367,7 @@ resize_all_pops(int32 wid, int32 hgt) {
           nh = hgt - 3*DCURYb - 4*DCURYs - 24;
     nw = 4*((nw / 4));
     nh = 4*((nh / 4));
-    XResizeWindow(display, graph[0].w, nw, nh);
+    XResizeWindow(display, graph[0].w, (uint)nw, (uint)nh);
     graph[0].Width = nw;
     graph[0].Height = nh;
     get_draw_area();
@@ -1407,8 +1407,8 @@ create_a_pop(void) {
     index = i;
 
     graph[index].w =
-        XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, MINI_W,
-                            MINI_H, 2, GrFore, GrBack);
+        XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, (uint)MINI_W,
+                            (uint)MINI_H, 2, GrFore, GrBack);
     graph[index].w_info =
         make_window(graph[index].w, 10, 0, 40*DCURXs, DCURYs, 0);
     XSetWindowBackground(display, graph[i].w, MyDrawWinColor);
@@ -1576,11 +1576,11 @@ canvas_xy(char *buf) {
     if (MyGraph->w_info == info_pop) {
         BaseCol();
         XDrawString(display, MyGraph->w_info, gc, 5, CURY_OFF, buf,
-                    strlen(buf));
+                    (int)strlen(buf));
     } else {
         SmallBase();
         XDrawString(display, MyGraph->w_info, small_gc, 0, CURY_OFFs, buf,
-                    strlen(buf));
+                    (int)strlen(buf));
         /* SmallGr(); */
     }
     return;
@@ -1596,7 +1596,7 @@ check_draw_button(XEvent ev) {
     double x, y;
     int32 flag = 0;
     Window w;
-    button = ev.xbutton.button;
+    button = (int32)ev.xbutton.button;
     w = ev.xbutton.window;
     i = ev.xbutton.x;
     j = ev.xbutton.y;
