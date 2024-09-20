@@ -5,9 +5,6 @@
 
 #include "integers.h"
 
-#define RUBBOX 0
-#define RUBLINE 1
-
 #include "functions.h"
 
 extern Window draw_win;

@@ -57,10 +57,6 @@ any strings that may hold a path name (e.g. dialog message etc.)*/
 /*#define MAXPATHLEN 1024*/
 #define MAXPATHLEN XPP_MAX_NAME
 
-#define EOS '\0'
-#define NENTRIES 100
-#define streq(a, b) (!strcmp((a), (b)))
-
 #define SYSV
 
 #define put_msg plintf
