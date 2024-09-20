@@ -120,7 +120,6 @@ get_num_par(int32 ch)
     case 'a':
         make_adj();
         break;
-
     case 't':
         /* total */
         new_float("total :", &TEND);
@@ -129,7 +128,6 @@ get_num_par(int32 ch)
             FOREVER = 1;
             TEND = -TEND;
         }
-
         break;
     case 's':
         /* start */
@@ -157,23 +155,13 @@ get_num_par(int32 ch)
             MyStart = 1;
             alloc_kernels(1);
         }
-        /* if(NMemory>0){
-           make_kernels();
-           reset_memory();
-           INFLAG=0;
-         } */
         break;
     case 'n':
         /* ncline */
         new_int("ncline mesh :", &NMESH);
-        /* new_float("Error :",&NULL_ERR); */
         check_pos(&NMESH);
-
         break;
     case 'v':
-        /*   new_int("Number Left :", &BVP_NL);
-           new_int("Number Right :", &BVP_NR); */
-
         new_int("Maximum iterates :", &BVP_MAXIT);
         check_pos(&BVP_MAXIT);
         new_float("Tolerance :", &BVP_TOL);
@@ -200,7 +188,6 @@ get_num_par(int32 ch)
         /* bounds */
         new_float("Bounds :", &BOUND);
         BOUND = fabs(BOUND);
-
         break;
     case 'm':
         /* method */
@@ -221,7 +208,6 @@ get_num_par(int32 ch)
             new_float("Relative tol:", &TOLER);
             new_float("Abs. Toler:", &ATOLER);
         }
-
         if (METHOD == BACKEUL || METHOD == VOLTERRA) {
             new_float("Tolerance :", &EulTol);
             new_int("MaxIter :", &MaxEulIter);
@@ -262,7 +248,6 @@ get_num_par(int32 ch)
             }
         } else
             free_delay();
-
         break;
     case 'c':
         /* color */
@@ -294,7 +279,7 @@ get_num_par(int32 ch)
         alloc_meth();
         help();
         break;
-    } /* End num switch */
+    }
     return;
 }
 
