@@ -1693,37 +1693,19 @@ make_box_list_window(BoxList *b, int32 type) {
         for (i = 0; i < n; i++)
             b->isck[i] = 0;
     }
-    /*
-    xb1=(width-19*DCURXs)/2;
-    */
+
     xb1 = 2 + 7*DCURXs + 14;
-    /*
-    xb2=xb1+4*DCURXs;
-    xb3=xb2+9*DCURXs;
-    xb4=xb3+8*DCURXs;
-    */
+
     xb2 = xb1 + 7*DCURXs + 14;
     xb3 = xb2 + 7*DCURXs + 14;
     xb4 = xb3 + 7*DCURXs + 14;
-    /*
-    b->close=make_window(base,2,5,5*DCURXs,DCURYs,1);
-    b->ok=make_window(base,xb1,5,2*DCURXs,DCURYs,1);
-    b->def=make_window(base,xb2,5,7*DCURXs,DCURYs,1);
-    b->cancel=make_window(base,xb3,5,6*DCURXs,DCURYs,1);
-     b->go=make_window(base,xb4,5,2*DCURXs,DCURYs,1);
-     */
+
     b->close = make_window(base, 2, 5, 7*DCURXs + 10, DCURYs, 1);
     b->ok = make_window(base, xb1, 5, 7*DCURXs + 10, DCURYs, 1);
     b->def = make_window(base, xb2, 5, 7*DCURXs + 10, DCURYs, 1);
     b->cancel = make_window(base, xb3, 5, 7*DCURXs + 10, DCURYs, 1);
     b->go = make_window(base, xb4, 5, 7*DCURXs + 10, DCURYs, 1);
     xb1 = DCURXs + wid1 + wid2 + 12;
-    /*
-    b->up=make_window(base,xb1,2*DCURYs,3*DCURXs,DCURYs,1);
-    b->dn=make_window(base,xb1,2*DCURYs+DCURYs+4,3*DCURXs,DCURYs,1);
-    b->pgup=make_window(base,xb1,2*DCURYs+2*DCURYs+8,3*DCURXs,DCURYs,1);
-    b->pgdn=make_window(base,xb1,2*DCURYs+3*DCURYs+12,3*DCURXs,DCURYs,1);
-  */
 
     b->up = make_icon_window(base, xb1, 1.75*DCURYs + 24 + 3, 32, 24, 1,
                              lineup_bits);
