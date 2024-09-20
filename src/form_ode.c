@@ -248,7 +248,6 @@ get_a_filename(char *filename, char *wild) {
         else
             return 1;
     }
-    return 0;
 }
 
 void

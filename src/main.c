@@ -43,8 +43,6 @@
 #define FIX_MAX_SIZE 1
 #define lowbit(x) ((x) & (~(x) + 1))
 
-#define TOPBUTTONCOLOR 27
-
 #include <X11/cursorfont.h>
 
 #include "myfonts.h"
@@ -716,65 +714,6 @@ set_small_font(void) {
  * ig  runs XPP
 
 */
-static int32
-script_make(char *s, int32 *k) {
-    int32 l = (int32)strlen(s);
-    int32 i = 0;
-    char c;
-    int32 j = 0;
-    while (i < l) {
-        c = s[i];
-        if (c == '#') {
-            i++;
-            c = s[i];
-            switch (c) {
-            case 't':
-                k[j] = 65289;
-                break;
-            case 'r':
-                k[j] = 65293;
-                break;
-            case 'd':
-                k[j] = 65288;
-                break;
-            case 'b':
-                k[j] = 0xff08;
-                break;
-            case 'e':
-                k[j] = 65307;
-                break;
-            case 'l':
-                k[j] = 0xff0a;
-                break;
-            default:
-                k[j] = 32;
-            }
-            j++;
-        } else {
-            k[j] = (int32)c;
-            j++;
-        }
-        i++;
-    }
-    return j;
-}
-
-static void
-scripty(void) {
-    char scr[100] = "edf#b#b8#r";
-    int32 bob[200];
-    XKeyEvent ev;
-    int32 i;
-    int32 k;
-    k = script_make(scr, bob);
-    for (i = 0; i < k; i++) {
-        ev =
-            createKeyEvent(main_win, RootWindow(display, screen), 1, bob[i], 0);
-        XSendEvent(display, main_win, 1, KeyPressMask, (XEvent *)&ev);
-    }
-    return;
-}
-
 void
 xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     char ch;
