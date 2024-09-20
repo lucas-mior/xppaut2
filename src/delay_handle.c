@@ -2,6 +2,7 @@
 #include "parserslow.h"
 
 #include <stdlib.h>
+#include <string.h>
 /*   This handles the delay stuff    */
 
 #include <stdio.h>
@@ -62,11 +63,14 @@ alloc_delay(double big) {
     MaxDelay = n;
     LatestDelay = 1;
     DelayFlag = 0;
-    DelayWork = (double *)calloc((usize)(n*NODE), sizeof(double));
+    DelayWork = malloc((usize)(n*NODE)*sizeof(*DelayWork));
+
     if (DelayWork == NULL) {
         err_msg("Could not allocate memory for Delay");
         return 0;
     }
+
+    memset(DelayWork, 0, (usize)(n*NODE));
     DelayFlag = 1;
     NDelay = 0;
     WhichDelay = -1;

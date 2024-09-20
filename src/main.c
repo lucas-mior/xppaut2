@@ -167,6 +167,24 @@ xmalloc(usize size) {
     return p;
 }
 
+void *
+XMALLOC(usize size, const char *function, int32 line) {
+    void *p;
+
+    if (!(p = malloc(size))) {
+        fprintf(stderr,
+                "Error allocating %zu bytes in function %s, line %d.\n",
+                size, function, line);
+        exit(EXIT_FAILURE);
+    }
+
+    return p;
+}
+
+#ifdef MALLOC_DEBUG
+#define xmalloc(X) XMALLOC(X, __func__, __LINE__)
+#endif
+
 int32
 my_abort(void) {
     int32 ch;

@@ -3,7 +3,7 @@ MINOR_VERSION = 2
 
 PREFIX ?= /usr/local
 
-CFLAGS = -D_DEFAULT_SOURCE -std=c99
+CFLAGS = -D_DEFAULT_SOURCE -std=c99 -DMALLOC_DEBUG
 CFLAGS += -Wall -Wextra -Wpedantic -Wfatal-errors
 CFLAGS += -I./src/ -I./bitmaps/ -I./ -I./src/cvode/
 CFLAGS += -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION)
