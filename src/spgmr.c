@@ -42,7 +42,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for the Krylov basis vectors V[0], ..., V[l_max] */
 
-    V = malloc((l_max + 1)*sizeof(N_Vector));
+    V = malloc((usize)(l_max + 1)*sizeof(*V));
     if (V == NULL)
         return NULL;
 
@@ -56,14 +56,14 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for the Hessenberg matrix Hes */
 
-    Hes = malloc((l_max + 1)*sizeof(double *));
+    Hes = malloc((usize)(l_max + 1)*sizeof(*Hes));
     if (Hes == NULL) {
         FreeVectorArray(V, l_max);
         return NULL;
     }
 
     for (k = 0; k <= l_max; k++) {
-        Hes[k] = malloc(l_max*sizeof(*(Hes[k])));
+        Hes[k] = malloc((usize)l_max*sizeof(*(Hes[k])));
         if (Hes[k] == NULL) {
             for (i = 0; i < k; i++)
                 free(Hes[i]);
@@ -74,7 +74,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory for Givens rotation components */
 
-    givens = malloc(2*l_max*sizeof(*givens));
+    givens = malloc(2*(usize)l_max*sizeof(*givens));
     if (givens == NULL) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -95,7 +95,7 @@ SpgmrMalloc(int64 N, int32 l_max) {
 
     /* Get memory to hold SPGMR y and g vectors */
 
-    yg = malloc((l_max + 1)*sizeof(*yg));
+    yg = malloc(((usize)l_max + 1)*sizeof(*yg));
     if (yg == NULL) {
         N_VFree(xcor);
         free(givens);

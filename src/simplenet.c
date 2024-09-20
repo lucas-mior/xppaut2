@@ -137,7 +137,6 @@ int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
                    int32 *m, char *tname[MAXW]);
 int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
                       int32 *il, int32 *ir);
-#define IC 2
 extern int32 fftn(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
                   double /* Im */[], int32 /* isign */, double /* scaling */);
 
@@ -1670,7 +1669,7 @@ get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
                 int32 *ir) {
     int32 i = 0;
     int32 ivar;
-    int32 n = strlen(str);
+    int32 n = (int32)strlen(str);
     char c;
     int32 j;
     char temp[100];

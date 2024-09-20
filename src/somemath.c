@@ -56,7 +56,7 @@ pow_di(double *ap, int64 *bp) {
             n = -n;
             x = 1 / x;
         }
-        for (u = n;;) {
+        for (u = (ulong)n;;) {
             if (u & 01)
                 pow *= x;
             if (u >>= 1)
@@ -83,7 +83,7 @@ pow_ii(int64 ap, int64 bp) {
             return x == 0 ? 1 / x : 0;
         n = -n;
     }
-    u = n;
+    u = (ulong)n;
     for (pow = 1;;) {
         if (u & 01)
             pow *= x;
