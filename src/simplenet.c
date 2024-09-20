@@ -367,7 +367,7 @@ add_spec_fun(char *name, char *rhs) {
             plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
-        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
@@ -422,7 +422,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
@@ -491,7 +491,7 @@ add_spec_fun(char *name, char *rhs) {
             plintf(" bad function %s \n", fname);
             return 0;
         }
-        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
@@ -565,7 +565,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
@@ -629,12 +629,12 @@ add_spec_fun(char *name, char *rhs) {
             ncon = 2*ntot;
         else
             ncon = ntot;
-        my_net[ind].fftr = malloc((ncon + 2)*sizeof(*(my_net[ind].fftr)));
-        my_net[ind].ffti = malloc((ncon + 2)*sizeof(*(my_net[ind].ffti)));
-        my_net[ind].dr = malloc((ncon + 2)*sizeof(*(my_net[ind].dr)));
-        my_net[ind].di = malloc((ncon + 2)*sizeof(*(my_net[ind].di)));
+        my_net[ind].fftr = malloc((usize)(ncon + 2)*sizeof(*(my_net[ind].fftr)));
+        my_net[ind].ffti = malloc((usize)(ncon + 2)*sizeof(*(my_net[ind].ffti)));
+        my_net[ind].dr = malloc((usize)(ncon + 2)*sizeof(*(my_net[ind].dr)));
+        my_net[ind].di = malloc((usize)(ncon + 2)*sizeof(*(my_net[ind].di)));
         my_net[ind].iwgt = iwgt;
-        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
@@ -682,7 +682,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
 
@@ -745,7 +745,7 @@ add_spec_fun(char *name, char *rhs) {
         /*for(i=0;i<elen;i++)
           printf("%d %d \n",i,my_net[ind].f[i]);
         */
-        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
 
@@ -831,7 +831,7 @@ add_spec_fun(char *name, char *rhs) {
         for (i = 0; i < MAXW; i++)
             tname[i] = malloc(25);
         parse_import(rhs, soname, sofun, &ncon, rootname, &ntab, tname);
-        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].n = ncon;
         ivar = get_var_index(rootname);
@@ -903,7 +903,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ncon + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].taud = my_table[itau].y;
@@ -971,7 +971,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        my_net[ind].values = malloc((ntot + 1)*sizeof(*(my_net[ind].values)));
+        my_net[ind].values = malloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
         init_net(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
@@ -1019,7 +1019,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].n = ivar2 + 1;
         my_net[ind].ncon = -1;
         my_net[ind].values =
-            malloc((ivar2 + 2)*sizeof(*(my_net[ind].values)));
+            malloc((usize)(ivar2 + 2)*sizeof(*(my_net[ind].values)));
         plintf("Added gillespie chain with %d reactions \n", ivar2);
         return 1;
 

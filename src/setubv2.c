@@ -492,17 +492,17 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     int64 upoldp_dim1 = larg.ndxloc;
 
     int64 dbc_dim1 = larg.nbc;
-    double *dbc = malloc(sizeof(*dbc)*(larg.nbc)*(2*larg.ndim + NPARX));
-    double *fbc = malloc(sizeof(*fbc)*(larg.nbc));
-    double *ubc0 = malloc(sizeof(*ubc0)*(larg.ndim));
-    double *ubc1 = malloc(sizeof(*ubc1)*(larg.ndim));
+    double *dbc = malloc(sizeof(*dbc)*(usize)((larg.nbc)*(2*larg.ndim + NPARX)));
+    double *fbc = malloc(sizeof(*fbc)*(usize)(larg.nbc));
+    double *ubc0 = malloc(sizeof(*ubc0)*(usize)(larg.ndim));
+    double *ubc1 = malloc(sizeof(*ubc1)*(usize)(larg.ndim));
     int64 dicd_dim1 = larg.nint;
-    double *dicd = malloc(sizeof(*dicd)*(larg.nint)*(larg.ndim + NPARX));
-    double *ficd = malloc(sizeof(*ficd)*(larg.nint));
-    double *uic = malloc(sizeof(*uic)*(larg.ndim));
-    double *uio = malloc(sizeof(*uio)*(larg.ndim));
-    double *uid = malloc(sizeof(*uid)*(larg.ndim));
-    double *uip = malloc(sizeof(*uip)*(larg.ndim));
+    double *dicd = malloc(sizeof(*dicd)*(usize)((larg.nint)*(larg.ndim + NPARX)));
+    double *ficd = malloc(sizeof(*ficd)*(usize)(larg.nint));
+    double *uic = malloc(sizeof(*uic)*(usize)(larg.ndim));
+    double *uio = malloc(sizeof(*uio)*(usize)(larg.ndim));
+    double *uid = malloc(sizeof(*uid)*(usize)(larg.ndim));
+    double *uip = malloc(sizeof(*uip)*(usize)(larg.ndim));
 
     /* Boundary condition part of FC */
     if (larg.nbc > 0) {
