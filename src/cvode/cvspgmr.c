@@ -121,7 +121,6 @@ static int32 CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int32 lr);
 #define errfp (cv_mem->cv_errfp)
 #define mnewt (cv_mem->cv_mnewt)
 #define iopt (cv_mem->cv_iopt)
-#define ropt (cv_mem->cv_ropt)
 #define linit (cv_mem->cv_linit)
 #define lsetup (cv_mem->cv_lsetup)
 #define lsolve (cv_mem->cv_lsolve)
