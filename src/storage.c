@@ -53,8 +53,8 @@ alloc_meth(void) {
         sz = 12*nn + 100 + nn*nn;
         break;
     default:
-        fprintf(stderr, "Unexpected case in %s.\n", __func__);
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "%s: METHOD not in switch case.\n", __func__);
+        break;
     }
     if (WORK)
         free(WORK);
