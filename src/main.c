@@ -1377,6 +1377,9 @@ FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
         size_hints.max_width = width;
         size_hints.max_height = height;
         break;
+    default:
+        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     XSetWMProperties(display, w, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
     return;
@@ -1402,7 +1405,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     ncolors = win_info->visual->map_entries;
     plintf("%d entries in colormap\n", ncolors);
 
-    *colors = malloc(sizeof(XColor)*ncolors);
+    *colors = malloc(sizeof(XColor)*(uint)ncolors);
     xorfix = 0;
 
     if (win_info->visual->class == DirectColor) {
@@ -1411,11 +1414,11 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
         plintf("DirectColor visual\n");
 
         red = green = blue = 0;
-        red1 = lowbit(win_info->visual->red_mask);
-        green1 = lowbit(win_info->visual->green_mask);
-        blue1 = lowbit(win_info->visual->blue_mask);
+        red1 = (int32)lowbit(win_info->visual->red_mask);
+        green1 = (int32)lowbit(win_info->visual->green_mask);
+        blue1 = (int32)lowbit(win_info->visual->blue_mask);
         for (int32 i = 0; i < ncolors; i++) {
-            (*colors)[i].pixel = red | green | blue;
+            (*colors)[i].pixel = (ulong)(red | green | blue);
             (*colors)[i].pad = 0;
             red += red1;
             if (red > (int32)win_info->visual->red_mask)
@@ -1429,7 +1432,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
         }
     } else {
         for (int32 i = 0; i < ncolors; i++) {
-            (*colors)[i].pixel = i;
+            (*colors)[i].pixel = (ulong)i;
             (*colors)[i].pad = 0;
         }
     }
@@ -1461,5 +1464,5 @@ get_command_width(void) {
     Window root;
     XGetGeometry(display, command_pop, &root, &x, &y, &w, &h, &bw, &de);
     XClearWindow(display, command_pop);
-    return w;
+    return (int32)w;
 }
