@@ -4170,7 +4170,7 @@ void silent_dfields(void);
 
 extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern double BOUND, DELAY, TOLER, HMIN, HMAX;
-extern double *fft_data, *hist_data, color_scale, min_scale;
+extern double *fft_data, *hist_data;
 extern double POIPLN;
 
 extern int32 NMESH, NJMP, METHOD, color_flag, NC_ITER;

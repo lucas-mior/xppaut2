@@ -51,7 +51,7 @@ extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
 extern double BOUND, DELAY, TOLER, ATOLER, HMIN, HMAX;
-double *fft_data, *hist_data, color_scale, min_scale;
+double *fft_data, *hist_data;
 extern double POIPLN;
 
 extern double BVP_TOL, BVP_EPS;
