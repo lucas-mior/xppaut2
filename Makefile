@@ -1,5 +1,5 @@
 MAJOR_VERSION = 8.0
-MINOR_VERSION = 1
+MINOR_VERSION = 2
 
 PREFIX ?= /usr/local
 

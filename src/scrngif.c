@@ -462,7 +462,8 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
         switch (curNode->typ) {
         case LOOKUP:
             newNode->nxt = NULL;
-            newNode->alt = NULL, curNode->node[*pixels] = newNode;
+            newNode->alt = NULL;
+            curNode->node[*pixels] = newNode;
             break;
         case SEARCH:
             if (nodeArray != lastArray) {
@@ -473,14 +474,16 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
                 curNode->node[(curNode->nxt)->ix] = curNode->nxt;
                 lookuptypes++;
                 newNode->nxt = NULL;
-                newNode->alt = NULL, curNode->nxt = NULL;
+                newNode->alt = NULL;
+                curNode->nxt = NULL;
                 break;
             }
             /*   otherwise do as we do with a TERMIN node  */
             __attribute__((fallthrough));
         case TERMIN:
             newNode->alt = curNode->nxt;
-            newNode->nxt = NULL, curNode->nxt = newNode;
+            newNode->nxt = NULL;
+            curNode->nxt = newNode;
             curNode->typ = SEARCH;
             break;
         default:
