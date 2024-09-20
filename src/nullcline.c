@@ -14,7 +14,6 @@
 #include "struct.h"
 #include <stdio.h>
 
-#define DING ping
 #define MAX_NULL 10000
 
 int32 OutPutNC = 0;

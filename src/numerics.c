@@ -105,7 +105,7 @@ quick_num(int32 com) {
 void
 set_total(double total) {
     int32 n;
-    n = (total / fabs(DELTA_T)) + 1;
+    n = (int32)(total / fabs(DELTA_T)) + 1;
     TEND = n*fabs(DELTA_T);
     return;
 }
