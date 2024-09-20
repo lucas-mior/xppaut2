@@ -576,9 +576,9 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
 
     if (fixptlist.flag == 0) {
         for (i = 0; i < MAXFP; i++) {
-            fixptlist.x[i] = malloc(NODE*sizeof(*(fixptlist.x)));
-            fixptlist.er[i] = malloc(NODE*sizeof(*(fixptlist.er)));
-            fixptlist.em[i] = malloc(NODE*sizeof(*(fixptlist.em)));
+            fixptlist.x[i] = malloc((usize)NODE*sizeof(*(fixptlist.x)));
+            fixptlist.er[i] = malloc((usize)NODE*sizeof(*(fixptlist.er)));
+            fixptlist.em[i] = malloc((usize)NODE*sizeof(*(fixptlist.em)));
             /* fixptlist.x1[i]=malloc(NODE*sizeof(double));
             fixptlist.x2[i]=malloc(NODE*sizeof(double));
             fixptlist.x3[i]=malloc(NODE*sizeof(double));
@@ -1078,12 +1078,12 @@ batch_integrate(void) {
 
 void
 do_batch_dry_run(void) {
+    FILE *fp;
     if (!dryrun)
         return;
 
     plintf("It's a dry run...\n");
 
-    FILE *fp;
     fp = fopen(batchout, "w");
     if (fp == NULL) {
         printf(" Unable to open %s to write \n", batchout);
@@ -1092,8 +1092,7 @@ do_batch_dry_run(void) {
 
     if (querysets) {
         fprintf(fp, "#Internal sets query:\n");
-        int32 i;
-        for (i = 0; i < Nintern_set; i++) {
+        for (int32 i = 0; i < Nintern_set; i++) {
             fprintf(fp, "%s %d %s\n", intern_set[i].name, intern_set[i].use,
                     intern_set[i].does);
         }
@@ -1101,16 +1100,14 @@ do_batch_dry_run(void) {
 
     if (querypars) {
         fprintf(fp, "#Parameters query:\n");
-        int32 i;
-        for (i = 0; i < NUPAR; i++) {
+        for (int32 i = 0; i < NUPAR; i++) {
             fprintf(fp, "%s %f\n", upar_names[i], default_val[i]);
         }
     }
 
     if (queryics) {
         fprintf(fp, "#Initial conditions query:\n");
-        int32 i;
-        for (i = 0; i < NEQ; i++) {
+        for (int32 i = 0; i < NEQ; i++) {
             fprintf(fp, "%s %f\n", uvar_names[i], last_ic[i]);
         }
     }

@@ -1680,11 +1680,13 @@ make_box_list_window(BoxList *b, int32 type) {
     size_hints.min_height = height;
     size_hints.max_width = width;
     size_hints.max_height = height;
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
-    XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints,
-                     NULL, &class_hints);
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
+        XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints,
+                         NULL, &class_hints);
+    }
     b->w = malloc((usize)nrow*sizeof(*(b->w)));
     b->we = malloc((usize)nrow*sizeof(*(b->we)));
     if (type == ICBOX) {
@@ -1707,18 +1709,18 @@ make_box_list_window(BoxList *b, int32 type) {
     b->go = make_window(base, xb4, 5, 7*DCURXs + 10, DCURYs, 1);
     xb1 = DCURXs + wid1 + wid2 + 12;
 
-    b->up = make_icon_window(base, xb1, 1.75*DCURYs + 24 + 3, 32, 24, 1,
+    b->up = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 24 + 3, 32, 24, 1,
                              lineup_bits);
-    b->dn = make_icon_window(base, xb1, 1.75*DCURYs + 48 + 6, 32, 24, 1,
+    b->dn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 48 + 6, 32, 24, 1,
                              linedn_bits);
     b->pgup =
-        make_icon_window(base, xb1, 1.75*DCURYs, 32, 24, 1, pageup_bits);
-    b->pgdn = make_icon_window(base, xb1, 1.75*DCURYs + 72 + 9, 32, 24, 1,
+        make_icon_window(base, xb1, (int32)(1.75*DCURYs), 32, 24, 1, pageup_bits);
+    b->pgdn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32, 24, 1,
                                pagedn_bits);
 
     for (i = 0; i < nrow; i++) {
         x = DCURXs;
-        y = DCURYs + (hgt + 4)*i + 1.5*hgt;
+        y = DCURYs + (hgt + 4)*i + (int32)(1.5*hgt);
         b->w[i] = make_plain_window(base, x, y, wid1, hgt, 0);
         b->we[i] = make_plain_window(base, x + wid1 + 2, y, wid2, hgt, 1);
         XSelectInput(display, b->w[i], BOXEVENT);
@@ -1727,7 +1729,7 @@ make_box_list_window(BoxList *b, int32 type) {
         }
     }
 
-    y = DCURYs + (hgt + 4)*nrow + 1.5*hgt;
+    y = DCURYs + (hgt + 4)*nrow + (int32)(1.5*hgt);
     x = (width - 24) / 3;
     if (type == ICBOX) {
         b->xvt = make_window(base, x, y, 5*DCURXs, DCURYs, 1);
@@ -1757,10 +1759,10 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
     b->n = n;
     b->n0 = 0;
     b->nwin = nrow;
-    b->value = malloc(n*sizeof(char *));
-    b->pos = malloc(n*sizeof(*(b->pos)));
-    b->off = malloc(n*sizeof(*(b->off)));
-    b->iname = malloc(strlen(iname) + 5);
+    b->value = malloc((usize)n*sizeof(char *));
+    b->pos = malloc((usize)n*sizeof(*(b->pos)));
+    b->off = malloc((usize)n*sizeof(*(b->off)));
+    b->iname = malloc((usize)strlen(iname) + 5);
     strcpy(b->iname, iname);
     b->wname = malloc(strlen(wname) + 5);
     strcpy(b->wname, wname);
@@ -1810,12 +1812,12 @@ do_box_expose(Window w) {
 
 void
 justify_string(Window w1, char *s1) {
-    int32 n1 = strlen(s1)*DCURXs, nt = 10*DCURXs;
+    int32 n1 = (int32)strlen(s1)*DCURXs, nt = 10*DCURXs;
     int32 i = 0;
     if (n1 < nt)
         i = nt - n1;
     XClearWindow(display, w1);
-    XDrawString(display, w1, small_gc, i, CURY_OFFs, s1, strlen(s1));
+    XDrawString(display, w1, small_gc, i, CURY_OFFs, s1, (int)strlen(s1));
     return;
 }
 
@@ -1993,12 +1995,12 @@ box_enter_events(Window w, int32 yn) {
     if (DelayBox.xuse)
         box_enter(DelayBox, w, val);
     if (ICBox.xuse && (w == ICBox.xvt || w == ICBox.pp || w == ICBox.arr))
-        XSetWindowBorderWidth(display, w, val);
+        XSetWindowBorderWidth(display, w, (uint)val);
     if (ICBox.xuse == 0)
         return;
     for (i = 0; i < ICBox.nwin; i++)
         if (w == ICBox.ck[i])
-            XSetWindowBorderWidth(display, w, val);
+            XSetWindowBorderWidth(display, w, (uint)val);
     return;
 }
 
@@ -2006,7 +2008,7 @@ void
 box_enter(BoxList b, Window w, int32 val) {
     if (w == b.ok || w == b.cancel || w == b.def || w == b.go || w == b.close ||
         w == b.dn || w == b.up || w == b.pgdn || w == b.pgup)
-        XSetWindowBorderWidth(display, w, val);
+        XSetWindowBorderWidth(display, w, (uint)val);
     return;
 }
 
@@ -2268,7 +2270,7 @@ do_box_key(BoxList *b, XEvent ev, int32 *used) {
             XGetInputFocus(display, &focus, &rev);
             if (w == focus) {
                 *used = 1;
-                ch = get_key_press(&ev);
+                ch = (char)get_key_press(&ev);
                 flag = edit_bitem(b, i, ch);
                 if (flag == EDIT_NEXT && n > 1) {
                     j = i + 1;
@@ -2415,7 +2417,7 @@ draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc)
 /* first character of string is off */
 {
 
-    int32 l = strlen(string) - off, rev, cp;
+    int32 l = (int32)strlen(string) - off, rev, cp;
     Window focus;
     if (l > mc)
         l = mc;
@@ -2446,7 +2448,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
     int32 off = b->off[i0];
     int32 pos = b->pos[i0];
     int32 mc = b->mc;
-    int32 l = strlen(string), wpos = pos - off;
+    int32 l = (int32)strlen(string), wpos = pos - off;
 
     switch (ch) {
     case KEY_LEFT:
@@ -2535,7 +2537,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
                 ping();
             else {
                 movmem(&string[pos + 1], &string[pos], l - pos + 1);
-                string[pos] = ch;
+                string[pos] = (char)ch;
                 pos = pos + 1;
                 wpos++;
                 l++;
@@ -2568,7 +2570,7 @@ add_edit_float(BoxList *b, int32 i, double z) {
 
 void
 set_edit_params(BoxList *b, int32 i, char *string) {
-    int32 l = strlen(string);
+    int32 l = (int32)strlen(string);
     strcpy(b->value[i], string);
     b->off[i] = 0;
     if (l > b->mc)
