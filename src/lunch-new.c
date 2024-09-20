@@ -14,7 +14,6 @@
 
 #define READEM 1
 #define VOLTERRA 6
-#define MAX_UFUN 50
 #define PARAMBOX 1
 
 extern int32 XPPBatch;

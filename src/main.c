@@ -152,7 +152,8 @@ void
 do_main(int32 argc, char **argv) {
     char myfile[XPP_MAX_NAME];
     char pptitle[80];
-
+    uint32 min_wid = 450, min_hgt = 360;
+    OptionsSet *tempNS;
     /* Track which options have not been set already */
     notAlreadySet.BIG_FONT_NAME = 1;
     notAlreadySet.SMALL_FONT_NAME = 1;
@@ -310,8 +311,6 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.COLORHI = 1;
     notAlreadySet.COLORLO = 1;
 
-    uint32 min_wid = 450, min_hgt = 360;
-
     get_directory(myfile);
 
     SCALEX = 640;
@@ -332,7 +331,7 @@ do_main(int32 argc, char **argv) {
      * so that a file browser can be opened.  */
     if (!XPPBatch) {
         /* Swap out the current options for a temporary place holder */
-        OptionsSet *tempNS = malloc(sizeof(OptionsSet));
+        tempNS = malloc(sizeof(OptionsSet));
         *tempNS = notAlreadySet;
         /* Initialize what's needed to open a browser based on
          * the current options.  */
@@ -348,7 +347,7 @@ do_main(int32 argc, char **argv) {
 
     load_eqn();
 
-    OptionsSet *tempNS = malloc(sizeof(OptionsSet));
+    tempNS = malloc(sizeof(*tempNS));
     *tempNS = notAlreadySet;
     set_internopts(tempNS);
     free(tempNS);
