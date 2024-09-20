@@ -361,7 +361,7 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
     int32 i = 0, j = 0, type = 1;
     int32 cf = 0;
     /*int32 cs;*/
-    int32 n = strlen(str);
+    int32 n = (int32)strlen(str);
     int32 cy = 0;
     char tmp[256], c;
     int32 sub, sup, pssz;
@@ -370,8 +370,8 @@ special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
     fprintf(psfile, "0 0 0 setrgbcolor \n");
     ps_abs(x, y);
     pssz = sz[size]*PS_SC;
-    sub = .3*pssz;
-    sup = .6*pssz;
+    sub = (int32)(.3*pssz);
+    sup = (int32)(.6*pssz);
     /* set the size here! */
     ps_fnt(cf, pssz);
     while (i < n) {
@@ -482,6 +482,8 @@ ps_text(int32 x, int32 y, char *str) {
         break;
     case RIGHT:
         fprintf(psfile, ") Rshow\n");
+        break;
+    default:
         break;
     }
     if (TextAngle != 0)

@@ -131,7 +131,7 @@ xpp_hlp(void) {
 
 void
 MessageBox(char *m) {
-    int32 wid = strlen(m)*DCURX + 20;
+    int32 wid = (int32)strlen(m)*DCURX + 20;
     int32 hgt = 4*DCURY;
     MsgBox.w = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                                  DisplayHeight / 2, wid, hgt, 4);
@@ -514,6 +514,8 @@ do_file_com(int32 com) {
         break;
     case M_FL:
         clone_ode();
+        break;
+    default:
         break;
     }
     return;
