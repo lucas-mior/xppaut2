@@ -21,10 +21,10 @@
 #define MAXCOMMENTS 500
 
 #define xds(a)                                                                 \
-    {                                                                          \
+    do {                                                                          \
         XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
-    }
+    } while (0)
 typedef struct {
     char *text, *action;
     int32 aflag;
@@ -82,6 +82,8 @@ txt_view_events(XEvent ev) {
     case KeyPress:
         txtview_keypress(ev);
         break;
+    default:
+        break;
     }
     return;
 }
@@ -125,7 +127,7 @@ enter_txtview(Window w, int32 val) {
     if (w == txtview.up || w == txtview.down || w == txtview.pgup ||
         w == txtview.pgdn || w == txtview.home || w == txtview.end ||
         w == txtview.src || w == txtview.action || w == txtview.kill)
-        XSetWindowBorderWidth(display, w, val);
+        XSetWindowBorderWidth(display, w, (uint)val);
     return;
 }
 
@@ -147,7 +149,7 @@ do_txt_action(char *s) {
 void
 resize_txtview(int32 w, int32 h) {
     int32 hgt = h - 8 - 3*DCURYs;
-    XMoveResizeWindow(display, txtview.text, 2, 3*DCURYs + 5, w - 4, hgt);
+    XMoveResizeWindow(display, txtview.text, 2, 3*DCURYs + 5, (uint)w - 4, (uint)hgt);
     txtview.nlines = (int32)(hgt / DCURY);
     return;
 }

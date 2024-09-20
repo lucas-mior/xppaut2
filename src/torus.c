@@ -147,15 +147,16 @@ make_tor_box(char *title) {
     size_hints.min_height = height;
     size_hints.max_width = width;
     size_hints.max_height = height;
-
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
-
     make_icon((char *)info_bits, info_width, info_height, base);
 
-    XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                     &class_hints);
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
+
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
+                         &class_hints);
+    }
     for (i = 0; i < NEQ; i++) {
         i1 = i / nv;
         j1 = i % nv;
@@ -194,7 +195,6 @@ do_torus_events(void) {
             do_expose(ev); /*  menus and graphs etc  */
             draw_torus_box(ev.xany.window);
             break;
-
         case ButtonPress:
             if (ev.xbutton.window == torbox.done) {
                 status = 1;
@@ -214,17 +214,17 @@ do_torus_events(void) {
                 }
             }
             break;
-
         case EnterNotify:
             wt = ev.xcrossing.window;
             if (wt == torbox.done || wt == torbox.cancel)
                 XSetWindowBorderWidth(display, wt, 2);
             break;
-
         case LeaveNotify:
             wt = ev.xcrossing.window;
             if (wt == torbox.done || wt == torbox.cancel)
                 XSetWindowBorderWidth(display, wt, 1);
+            break;
+        default:
             break;
         }
     }
