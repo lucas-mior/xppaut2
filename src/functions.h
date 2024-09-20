@@ -15,14 +15,6 @@
 
 #define MAX_LEN_SBOX 30
 
-#ifndef ABORT_H
-#define ABORT_H
-
-void plot_command(int32 nit, int32 icount, int32 cwidth);
-int32 my_abort(void);
-
-#endif
-
 #ifndef ADJ2_H
 #define ADJ2_H
 
