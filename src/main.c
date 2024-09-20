@@ -495,19 +495,19 @@ void
 init_X(void) {
     char *icon_name = "xpp";
     char *win_name = "XPPAUT";
-    uint32 x = 0, y = 0;
+    int32 x = 0, y = 0;
     uint32 min_wid = 450, min_hgt = 360;
 
     char teststr[] = "The Quick Brown Fox Jumped Over The Lazy Dog?";
 
     if (UserMinWidth > 0) {
-        min_wid = UserMinWidth;
-        SCALEX = min_wid;
+        min_wid = (uint32)UserMinWidth;
+        SCALEX = (int32)min_wid;
     }
 
     if (UserMinHeight > 0) {
-        min_hgt = UserMinHeight;
-        SCALEY = min_hgt;
+        min_hgt = (uint32)UserMinHeight;
+        SCALEY = (int32)min_hgt;
     }
 
     if (PaperWhite == 0) {
