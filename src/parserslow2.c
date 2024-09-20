@@ -26,9 +26,9 @@
 #define POP stack[--stack_pointer]
 double zippy;
 #define PUSH(a)                                                                \
-    do { \
-    zippy = (a);                                                               \
-    stack[stack_pointer++] = zippy; \
+    do {                                                                       \
+        zippy = (a);                                                           \
+        stack[stack_pointer++] = zippy;                                        \
     } while (0)
 
 #ifdef NOLGAMMA

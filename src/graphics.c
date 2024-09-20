@@ -275,8 +275,8 @@ point_x11(int32 xp, int32 yp) {
     if (PointRadius == 0)
         XDrawPoint(display, draw_win, gc_graph, xp, yp);
     else
-        XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, (uint)wh, (uint)wh, 0,
-                 360*64);
+        XFillArc(display, draw_win, gc_graph, xp - r2, yp - r2, (uint)wh,
+                 (uint)wh, 0, 360*64);
     return;
 }
 
@@ -315,7 +315,8 @@ set_line_style_x11(int32 ls) {
             type = LineSolid;
         else {
             type = LineOnOffDash;
-            XSetDashes(display, gc_graph, 0, dashes[ls], (int)strlen(dashes[ls]));
+            XSetDashes(display, gc_graph, 0, dashes[ls],
+                       (int)strlen(dashes[ls]));
         }
         set_color(0);
         XSetLineAttributes(display, gc_graph, 0, type, CapButt, JoinBevel);

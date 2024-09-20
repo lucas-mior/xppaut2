@@ -212,7 +212,8 @@ redraw_scroll_list(SCROLL_LIST sl) {
         j = i + sl.n0;
         if (j < n) {
             XDrawString(display, sl.text, small_gc, 0,
-                        CURY_OFFs + i*(DCURYs + 3), sl.v[j], (int)strlen(sl.v[j]));
+                        CURY_OFFs + i*(DCURYs + 3), sl.v[j],
+                        (int)strlen(sl.v[j]));
             if (j == sl.ihot) {
                 y = CURY_OFFs + (i + 1)*(DCURYs + 3) - 3;
                 XDrawLine(display, sl.text, small_gc, 0, y, sl.twid, y);
@@ -481,12 +482,13 @@ display_file_sel(FILESEL f, Window w) {
     XResizeWindow(display, f.wild, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
     XResizeWindow(display, f.file, cwid - 7*(uint)DCURXs - 5, (uint)DCURYs);
     for (int32 i = 0; i < f.nwin; i++) {
-        XResizeWindow(display, f.w[i], cwid - 6*(uint)DCURXs - 10, (uint)DCURYs);
-    }
-    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*DCURXs - 3, (int32)chgt - hgt,
-                      7*(uint)DCURXs, (uint)DCURYs);
-    XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, (int)chgt - hgt, 7*(uint)DCURXs,
+        XResizeWindow(display, f.w[i], cwid - 6*(uint)DCURXs - 10,
                       (uint)DCURYs);
+    }
+    XMoveResizeWindow(display, f.ok, (int)cwid / 2 - 7*DCURXs - 3,
+                      (int32)chgt - hgt, 7*(uint)DCURXs, (uint)DCURYs);
+    XMoveResizeWindow(display, f.cancel, cwid / 2 + 3, (int)chgt - hgt,
+                      7*(uint)DCURXs, (uint)DCURYs);
 
     if (f.here != 1)
         return;
@@ -545,7 +547,8 @@ display_file_sel(FILESEL f, Window w) {
                     sprintf(t, "<>%s", my_ff.dirnames[i0]);
                 else
                     sprintf(t, "%s", my_ff.filenames[i0 - my_ff.ndirs]);
-                XDrawString(display, w, small_gc, 5, CURY_OFFs, t, (int)strlen(t));
+                XDrawString(display, w, small_gc, 5, CURY_OFFs, t,
+                            (int)strlen(t));
             }
         }
     }
@@ -1354,7 +1357,8 @@ expose_slider(Window w, PAR_SLIDER *p) {
             sprintf(top, "%.16g", p->lo);
             x = 1;
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, x, CURY_OFFs, top, (int)strlen(top));
+            XDrawString(display, w, small_gc, x, CURY_OFFs, top,
+                        (int)strlen(top));
             return;
         }
         if (w == p->right) {
@@ -1363,20 +1367,23 @@ expose_slider(Window w, PAR_SLIDER *p) {
             if (strlen(top) < 12)
                 x = len - DCURXs*(int32)strlen(top) - 1;
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, x, CURY_OFFs, top, (int)strlen(top));
+            XDrawString(display, w, small_gc, x, CURY_OFFs, top,
+                        (int)strlen(top));
             return;
         }
         if (w == p->top) {
             sprintf(top, "%s=%.16g", p->parname, p->val);
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, 2, CURY_OFFs, top, (int)strlen(top));
+            XDrawString(display, w, small_gc, 2, CURY_OFFs, top,
+                        (int)strlen(top));
         }
     } else {
         if (w == p->top) {
             sprintf(top, "Par/Var?");
             x = 1;
             XClearWindow(display, w);
-            XDrawString(display, w, small_gc, x, CURY_OFFs, top, (int)strlen(top));
+            XDrawString(display, w, small_gc, x, CURY_OFFs, top,
+                        (int)strlen(top));
         }
     }
     return;
@@ -1684,8 +1691,8 @@ make_box_list_window(BoxList *b, int32 type) {
         XClassHint class_hints;
         class_hints.res_name = "";
         class_hints.res_class = "";
-        XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints,
-                         NULL, &class_hints);
+        XSetWMProperties(display, base, &winname, &iconame, NULL, 0,
+                         &size_hints, NULL, &class_hints);
     }
     b->w = malloc((usize)nrow*sizeof(*(b->w)));
     b->we = malloc((usize)nrow*sizeof(*(b->we)));
@@ -1709,14 +1716,14 @@ make_box_list_window(BoxList *b, int32 type) {
     b->go = make_window(base, xb4, 5, 7*DCURXs + 10, DCURYs, 1);
     xb1 = DCURXs + wid1 + wid2 + 12;
 
-    b->up = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 24 + 3, 32, 24, 1,
-                             lineup_bits);
-    b->dn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 48 + 6, 32, 24, 1,
-                             linedn_bits);
-    b->pgup =
-        make_icon_window(base, xb1, (int32)(1.75*DCURYs), 32, 24, 1, pageup_bits);
-    b->pgdn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32, 24, 1,
-                               pagedn_bits);
+    b->up = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 24 + 3, 32, 24,
+                             1, lineup_bits);
+    b->dn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 48 + 6, 32, 24,
+                             1, linedn_bits);
+    b->pgup = make_icon_window(base, xb1, (int32)(1.75*DCURYs), 32, 24, 1,
+                               pageup_bits);
+    b->pgdn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32,
+                               24, 1, pagedn_bits);
 
     for (i = 0; i < nrow; i++) {
         x = DCURXs;

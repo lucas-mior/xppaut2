@@ -841,9 +841,11 @@ inho(iap_type *iap, int64 *icp, double *par) {
     bleig_1.vt = malloc(sizeof(*(bleig_1.vt))*(usize)(ndim*ndim));
     bleig_1.xequib = malloc(sizeof(*(bleig_1.xequib))*(usize)ndim);
 
-    blhme_1.vrprev = malloc(sizeof(*(blhme_1.vrprev))*(usize)(2*ndim*ndim));
+    blhme_1.vrprev =
+        malloc(sizeof(*(blhme_1.vrprev))*(usize)(2*ndim*ndim));
 
-    beyn_1.cprev = malloc(sizeof(*(beyn_1.cprev))*(usize)(2*2*ndim*ndim));
+    beyn_1.cprev =
+        malloc(sizeof(*(beyn_1.cprev))*(usize)(2*2 * ndim*ndim));
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
 

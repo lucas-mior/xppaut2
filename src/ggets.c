@@ -338,8 +338,8 @@ setfillstyle(int32 type, int32 color) {
 
 void
 circle(int32 x, int32 y, int32 radius, Window w) {
-    XDrawArc(display, w, gc, x - radius, y - radius, (uint)(2*radius), (uint)(2*radius), 0,
-             360*64);
+    XDrawArc(display, w, gc, x - radius, y - radius, (uint)(2*radius),
+             (uint)(2*radius), 0, 360*64);
     return;
 }
 
@@ -401,8 +401,8 @@ display_command(char *name, char *value, int32 pos) {
 
 void
 clr_line_at(Window w, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, w, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX), 2*(uint)DCURY,
-               False);
+    XClearArea(display, w, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX),
+               2*(uint)DCURY, False);
     return;
 }
 
@@ -494,7 +494,8 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         break; */
     case KEY_DEL:
         if (*pos > 0) {
-            memmov(&value[*pos - 1], &value[*pos], (int32)strlen(value) - *pos + 1);
+            memmov(&value[*pos - 1], &value[*pos],
+                   (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
             *col -= DCURX;
         } else
@@ -508,7 +509,8 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         return;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
-            movmem(&value[*pos + 1], &value[*pos], (int32)strlen(value) - *pos + 1);
+            movmem(&value[*pos + 1], &value[*pos],
+                   (int32)strlen(value) - *pos + 1);
             value[*pos] = (char)ch;
             *pos = *pos + 1;
             *col += DCURX;

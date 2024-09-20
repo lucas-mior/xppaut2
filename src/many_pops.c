@@ -1161,8 +1161,8 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     ActiveWinList[0] = 0;
     init_all_graph();
 
-    graph[0].w = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w, (uint)h, 2,
-                                     GrFore, MyDrawWinColor);
+    graph[0].w = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
+                                     (uint)h, 2, GrFore, MyDrawWinColor);
     graph[0].w_info = info_pop;
 
     info_message = graph[0].gr_info;
@@ -1324,7 +1324,8 @@ do_expose(XEvent ev) {
                 if (i == 0) {
                     BaseCol();
                     XDrawString(display, graph[i].w_info, gc, 5, CURY_OFF,
-                                graph[i].gr_info, (int)strlen(graph[i].gr_info));
+                                graph[i].gr_info,
+                                (int)strlen(graph[i].gr_info));
                 } else {
                     SmallBase();
                     XDrawString(display, graph[i].w_info, small_gc, 0,
@@ -1407,8 +1408,8 @@ create_a_pop(void) {
     index = i;
 
     graph[index].w =
-        XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, (uint)MINI_W,
-                            (uint)MINI_H, 2, GrFore, GrBack);
+        XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
+                            (uint)MINI_W, (uint)MINI_H, 2, GrFore, GrBack);
     graph[index].w_info =
         make_window(graph[index].w, 10, 0, 40*DCURXs, DCURYs, 0);
     XSetWindowBackground(display, graph[i].w, MyDrawWinColor);

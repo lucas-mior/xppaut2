@@ -63,7 +63,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         variable_shift[1][i] = x[i];
     }
     free(work);
-    coef = malloc((usize)(n*n*(NDelay + 1))*sizeof(*coef));
+    coef = malloc((usize)(n*n * (NDelay + 1))*sizeof(*coef));
 
     /* now we must compute a bunch of jacobians  */
     /* first the normal one   */

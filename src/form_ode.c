@@ -812,7 +812,8 @@ compiler(char *bob, FILE *fptr) {
 
         if (NODE >= (IN_VARS + FIX_VAR)) {
             i = NODE - (IN_VARS + FIX_VAR);
-            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc((usize)nn)) == NULL) {
+            if ((ode_names[NODE - FIX_VAR + NMarkov] = malloc((usize)nn)) ==
+                NULL) {
                 plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
@@ -1334,8 +1335,10 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         add_markov(nstates, name);
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
-                            markovarrays = malloc((usize)nstates*sizeof(char *));
-                            markovarrays2 = malloc((usize)nstates*sizeof(char *));
+                            markovarrays =
+                                malloc((usize)nstates*sizeof(char *));
+                            markovarrays2 =
+                                malloc((usize)nstates*sizeof(char *));
 
                             for (istates = 0; istates < nstates; istates++) {
                                 markovarrays[istates] = malloc(MAXEXPLEN);
@@ -2559,7 +2562,8 @@ is_comment(char *s) {
 
 void
 subsk(char *big, char *new, int32 k, int32 flag) {
-    int32 i, n = (int32)strlen(big), inew, add, inum, j, m, isign, ok, multflag = 0;
+    int32 i, n = (int32)strlen(big), inew, add, inum, j, m, isign, ok,
+             multflag = 0;
     char ch, chp, num[20];
     inew = 0;
     i = 0;

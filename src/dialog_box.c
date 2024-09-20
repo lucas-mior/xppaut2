@@ -47,8 +47,8 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     strcpy(d.ok_s, ok);
     strcpy(d.cancel_s, cancel);
     d.base = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
-                                 (uint)(lm + lv + 20), (uint)(30 + 2*DCURY), 2, MyForeColor,
-                                 MyBackColor);
+                                 (uint)(lm + lv + 20), (uint)(30 + 2*DCURY),
+                                 2, MyForeColor, MyBackColor);
     XStringListToTextProperty(&wname, 1, &winname);
 
     {
@@ -60,15 +60,15 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
                          &class_hints);
     }
 
-    d.mes = XCreateSimpleWindow(display, d.base, 5, 5, (uint)lm, (uint)DCURY + 8, 1,
-                                MyBackColor, MyBackColor);
-    d.input = XCreateSimpleWindow(display, d.base, 10 + lm, 5, (uint)lv, (uint)DCURY + 8, 1,
-                                  MyBackColor, MyBackColor);
+    d.mes = XCreateSimpleWindow(display, d.base, 5, 5, (uint)lm,
+                                (uint)DCURY + 8, 1, MyBackColor, MyBackColor);
+    d.input = XCreateSimpleWindow(display, d.base, 10 + lm, 5, (uint)lv,
+                                  (uint)DCURY + 8, 1, MyBackColor, MyBackColor);
     d.ok = XCreateSimpleWindow(display, d.base, 5, 10 + DCURY, (uint)lo + 4,
                                (uint)DCURY + 8, 1, MyForeColor, MyBackColor);
-    d.cancel =
-        XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + DCURY, (uint)lc + 4,
-                            (uint)DCURY + 8, 1, MyForeColor, MyBackColor);
+    d.cancel = XCreateSimpleWindow(display, d.base, 5 + lo + 10, 10 + DCURY,
+                                   (uint)lc + 4, (uint)DCURY + 8, 1,
+                                   MyForeColor, MyBackColor);
 
     XSelectInput(display, d.base, EV_MASK);
     XSelectInput(display, d.input, EV_MASK);
@@ -157,14 +157,17 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
 void
 display_dialog(Window w, DIALOG d, int32 col) {
     if (w == d.ok)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s, (int32)strlen(d.ok_s));
+        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s,
+                    (int32)strlen(d.ok_s));
     if (w == d.cancel)
         XDrawString(display, w, gc, 0, CURY_OFF + 1, d.cancel_s,
                     (int32)strlen(d.cancel_s));
     if (w == d.mes)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.mes_s, (int32)strlen(d.mes_s));
+        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.mes_s,
+                    (int32)strlen(d.mes_s));
     if (w == d.input) {
-        XDrawString(display, w, gc, 0, CURY_OFF, d.input_s, (int32)strlen(d.input_s));
+        XDrawString(display, w, gc, 0, CURY_OFF, d.input_s,
+                    (int32)strlen(d.input_s));
         put_cursor_at(w, col, 0);
         /* showchar('_',DCURX*strlen(d.input_s),0,d.input); */
     }

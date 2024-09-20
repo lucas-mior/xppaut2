@@ -607,13 +607,14 @@ init_X(void) {
      * capital letters (for example "GO"). Thus, we divide by the string
      * length of our test string minus 2 for a little more wiggle room. */
 
-    DCURXb =
-        XTextWidth(big_font, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
+    DCURXb = XTextWidth(big_font, teststr, (int)strlen(teststr)) /
+             (int)(strlen(teststr) - 2);
 
     DCURYb = big_font->ascent + big_font->descent;
     CURY_OFFb = big_font->ascent - 1;
 
-    DCURXs = XTextWidth(small_font, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
+    DCURXs = XTextWidth(small_font, teststr, (int)strlen(teststr)) /
+             (int)(strlen(teststr) - 2);
 
     DCURYs = small_font->ascent + small_font->descent;
     CURY_OFFs = small_font->ascent - 1;
@@ -737,7 +738,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                 SCALEX = min_wid;
                 SCALEY = min_hgt;
             } else {
-                XResizeWindow(display, command_pop, (uint)SCALEX - 4, (uint)DCURY + 1);
+                XResizeWindow(display, command_pop, (uint)SCALEX - 4,
+                              (uint)DCURY + 1);
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
                                   (uint)SCALEX - 4, (uint)DCURY);
                 resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
@@ -1072,7 +1074,8 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     if (SCALEY > dp_h)
         SCALEY = dp_h;
     wine = XCreateSimpleWindow(display, RootWindow(display, screen), x, y,
-                               (uint)SCALEX, (uint)SCALEY, bw, MyForeColor, MyBackColor);
+                               (uint)SCALEX, (uint)SCALEY, bw, MyForeColor,
+                               MyBackColor);
     XGetIconSizes(display, RootWindow(display, screen), &size_list, &count);
     icon_map = XCreateBitmapFromData(display, wine, (char *)pp_bits, pp_width,
                                      pp_height);
@@ -1271,10 +1274,12 @@ make_pops(void) {
     Window wn;
     XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
     create_the_menus(main_win);
-    command_pop = XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
-                                      (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
-    info_pop = XCreateSimpleWindow(display, main_win, 0, (int32)h - DCURY - 4, w - 2,
-                                   (uint)DCURY, 2, MyForeColor, MyBackColor);
+    command_pop =
+        XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
+                            (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
+    info_pop =
+        XCreateSimpleWindow(display, main_win, 0, (int32)h - DCURY - 4, w - 2,
+                            (uint)DCURY, 2, MyForeColor, MyBackColor);
     XCreateFontCursor(display, XC_hand2);
     XSelectInput(display, command_pop,
                  KeyPressMask | ButtonPressMask | ExposureMask);

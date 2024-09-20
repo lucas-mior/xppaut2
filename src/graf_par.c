@@ -1301,7 +1301,8 @@ create_crv(int32 ind) {
             frz[i].xv = malloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
             frz[i].yv = malloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
             if ((type = MyGraph->grtype) > 0)
-                frz[i].zv = malloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
+                frz[i].zv =
+                    malloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
                 err_msg("Cant allocate storage for curve");

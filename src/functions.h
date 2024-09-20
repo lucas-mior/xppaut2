@@ -3654,7 +3654,7 @@ void init_X(void);
 void set_big_font(void);
 void set_small_font(void);
 void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
-void do_events(uint32 min_wid, uint32 min_hgt)__attribute__((noreturn));
+void do_events(uint32 min_wid, uint32 min_hgt) __attribute__((noreturn));
 void bye_bye(void) __attribute__((noreturn));
 void clr_scrn(void);
 void redraw_all(void);

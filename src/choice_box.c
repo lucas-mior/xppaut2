@@ -44,7 +44,8 @@ display_choice(Window w, CHOICE_BOX p) {
     for (i = 0; i < n; i++) {
         if (w != p.cw[i])
             continue;
-        XDrawString(display, w, gc, 0, CURY_OFF, p.name[i], (int)strlen(p.name[i]));
+        XDrawString(display, w, gc, 0, CURY_OFF, p.name[i],
+                    (int)strlen(p.name[i]));
         if (p.flag[i] == 1)
             set_fore();
         else

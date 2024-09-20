@@ -230,9 +230,10 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Check for legal pretype, precond, and psolve */
-    if ((pretype != PRE_NONE) && (pretype != PRE_LEFT) && (pretype != PRE_RIGHT) &&
-        (pretype != PRE_BOTH)) {
-        fprintf(errfp, MSG_BAD_PRETYPE, pretype, PRE_NONE, PRE_LEFT, PRE_RIGHT, PRE_BOTH);
+    if ((pretype != PRE_NONE) && (pretype != PRE_LEFT) &&
+        (pretype != PRE_RIGHT) && (pretype != PRE_BOTH)) {
+        fprintf(errfp, MSG_BAD_PRETYPE, pretype, PRE_NONE, PRE_LEFT, PRE_RIGHT,
+                PRE_BOTH);
         return LINIT_ERR;
     }
     if ((pretype != PRE_NONE) && (psolve == NULL)) {

@@ -22,7 +22,7 @@ extern int32 *my_ode[];
 
 /*    will have more stuff someday */
 
-static  struct {
+static struct {
     double *work;
     int32 *iwork;
     int32 status;

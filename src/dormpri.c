@@ -75,15 +75,15 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
     *istart = 0;
     switch (flag) {
     case 0:
-        *kflag = dopri5((uint)n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0,
-                        stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, hg, 0, 0, 1, 0,
-                        NULL, 0, WORK);
+        *kflag = dopri5((uint)n, dprhs, *t, y, tout, tol, atol, 0,
+                        (SolTrait)NULL, 0, stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                        hg, 0, 0, 1, 0, NULL, 0, WORK);
         *t = tout;
         return 1;
     case 1:
-        *kflag = dop853((uint)n, dprhs, *t, y, tout, tol, atol, 0, (SolTrait)NULL, 0,
-                        stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, hg, 0, 0, 1, 0,
-                        NULL, 0, WORK);
+        *kflag = dop853((uint)n, dprhs, *t, y, tout, tol, atol, 0,
+                        (SolTrait)NULL, 0, stdout, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                        hg, 0, 0, 1, 0, NULL, 0, WORK);
         *t = tout;
         return 1;
     default:
@@ -774,7 +774,6 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
         h = hnew;
     }
-
 }
 
 /* front-end */
@@ -1336,7 +1335,6 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
 
         h = hnew;
     }
-
 }
 
 /* front-end */

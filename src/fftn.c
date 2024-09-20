@@ -410,8 +410,8 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
         for (i = 0; i < ndim; i++) {
             int32 ret;
             nSpan *= (usize)dims[i];
-            ret = FFTRADIX(Re, Im, nTotal, (usize)dims[i], nSpan, iSign, maxFactors,
-                           maxPerm);
+            ret = FFTRADIX(Re, Im, nTotal, (usize)dims[i], nSpan, iSign,
+                           maxFactors, maxPerm);
             /* exit, clean-up already done */
             if (ret)
                 return ret;
@@ -508,7 +508,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
         maxFactors = (int32)(SpaceAlloced / sizeof(REAL));
     }
     if (MaxPermAlloced < maxPerm) {
-            Perm = realloc(Perm, (usize)maxPerm*sizeof(int32));
+        Perm = realloc(Perm, (usize)maxPerm*sizeof(int32));
         MaxPermAlloced = maxPerm;
     } else {
         /* allow full use of alloc'd space */

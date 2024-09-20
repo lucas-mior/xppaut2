@@ -143,13 +143,17 @@ conpar_process(void *arg) {
             {
                 int32 icf_ic_i = (int32)icf[-1 + ic + i*icf_dim1];
                 int32 irf_irp_i = (int32)irf[-1 + irp + i*irf_dim1];
-                int32 a_offset2 = (int32)(a_dim1*(-1 + irf_irp_i + a_dim2*i));
-                int32 b_offset2 = (int32)(b_dim1*(-1 + irf_irp_i + b_dim2*i));
+                int32 a_offset2 =
+                    (int32)(a_dim1*(-1 + irf_irp_i + a_dim2*i));
+                int32 b_offset2 =
+                    (int32)(b_dim1*(-1 + irf_irp_i + b_dim2*i));
                 /*	     **End of pivoting; elimination starts here */
                 for (ir = ir1; ir <= *nra; ++ir) {
                     int32 irf_ir_i = (int32)irf[-1 + ir + i*irf_dim1];
-                    int32 a_offset1 = (int32)(a_dim1*(-1 + irf_ir_i + a_dim2*i));
-                    int32 b_offset1 = (int32)(b_dim1*(-1 + irf_ir_i + b_dim2*i));
+                    int32 a_offset1 =
+                        (int32)(a_dim1*(-1 + irf_ir_i + a_dim2*i));
+                    int32 b_offset1 =
+                        (int32)(b_dim1*(-1 + irf_ir_i + b_dim2*i));
                     rm = a[-1 + icf_ic_i +
                            a_dim1*(-1 + irf_ir_i + a_dim2*i)] /
                          a[-1 + icf_ic_i +

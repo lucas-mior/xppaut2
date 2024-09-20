@@ -240,7 +240,8 @@ compile_flags(void) {
                        flag[j].cond);
                 return 1;
             }
-            flag[j].comrhs[i] = malloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
+            flag[j].comrhs[i] =
+                malloc(sizeof(*(flag[j].comrhs[i]))*(usize)(nc + 1));
             for (k = 0; k <= nc; k++)
                 flag[j].comrhs[i][k] = command[k];
         }

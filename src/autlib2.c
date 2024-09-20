@@ -36,10 +36,9 @@ typedef struct {
     int64 *np;
 } MainAutoStorage;
 
-static MainAutoStorage mas = {
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-};
+static MainAutoStorage mas = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                              NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                              NULL, NULL, NULL, NULL, NULL};
 
 /* ----------------------------------------------------------------------- */
 /*           Setting up of the Jacobian and right hand side */
@@ -83,7 +82,8 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     */
 
     ff = malloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
-    ft = malloc(sizeof(*ft)*(usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
+    ft = malloc(sizeof(*ft) *
+                (usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -140,25 +140,27 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.icf2);
         free(mas.np);
 
-        mas.a = malloc(sizeof(*(mas.a))
-                       *(usize)((ndim*ncol + ndim)*(ndim*ncol)*(ntst + 1)));
-        mas.b = malloc(sizeof(*(mas.b))
-                       *(usize)(NPARX*(ndim*ncol)*(ntst + 1)));
-        mas.c = malloc(sizeof(*(mas.c))
-                       *(usize)((ndim*ncol + ndim)*(nbc + nint + 1)*(ntst + 1)));
+        mas.a = malloc(sizeof(*(mas.a))*(usize)((ndim*ncol + ndim) *
+                                                  (ndim*ncol)*(ntst + 1)));
+        mas.b = malloc(sizeof(*(mas.b)) *
+                       (usize)(NPARX*(ndim*ncol)*(ntst + 1)));
+        mas.c =
+            malloc(sizeof(*(mas.c))*(usize)((ndim*ncol + ndim) *
+                                              (nbc + nint + 1)*(ntst + 1)));
         mas.d = malloc(sizeof(*(mas.d))*(usize)((nbc + nint + 1)*NPARX));
         mas.a1 = malloc(sizeof(*(mas.a1))*(usize)(ndim*ndim*(ntst + 1)));
         mas.a2 = malloc(sizeof(*(mas.a2))*(usize)(ndim*ndim*(ntst + 1)));
         mas.s1 = malloc(sizeof(*(mas.s1))*(usize)(ndim*ndim*(ntst + 1)));
         mas.s2 = malloc(sizeof(*(mas.s2))*(usize)(ndim*ndim*(ntst + 1)));
         mas.bb = malloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
-        mas.cc = malloc(sizeof(*(mas.cc))
-                        *(usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
+        mas.cc = malloc(sizeof(*(mas.cc)) *
+                        (usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
         mas.faa = malloc(sizeof(*(mas.faa))*(usize)(ndim*(ntst + 1)));
         mas.ca1 = malloc(sizeof(*(mas.ca1))*(usize)(ndim*ndim*KREDO));
-        mas.icf = malloc(sizeof(*(mas.icf))
-                         *(usize)((ndim*ncol + ndim)*(ntst + 1)));
-        mas.irf = malloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
+        mas.icf = malloc(sizeof(*(mas.icf)) *
+                         (usize)((ndim*ncol + ndim)*(ntst + 1)));
+        mas.irf =
+            malloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
         mas.ipr = malloc(sizeof(*(mas.ipr))*(usize)(ndim*(ntst + 1)));
         mas.icf11 = malloc(sizeof(*(mas.icf11))*(usize)(ndim*KREDO));
         mas.icf1 = malloc(sizeof(*(mas.icf1))*(usize)(ndim*(ntst + 1)));
@@ -188,10 +190,9 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     if (*ifst == 1) {
         setubv(ndim, ips, ntst, ncol, nbc, nint, nfpr, nrc, nrow, nclm, funi,
-               bcni, icni, *ndxloc, iap, rap, par, icp, *rds,
-               mas.a, mas.b, mas.c,
-               mas.d, ft, fc, rlcur, rlold, rldot, ups, uoldps,
-               udotps, upoldp, dups, dtm, thl, thu, p0, p1);
+               bcni, icni, *ndxloc, iap, rap, par, icp, *rds, mas.a, mas.b,
+               mas.c, mas.d, ft, fc, rlcur, rlold, rldot, ups, uoldps, udotps,
+               upoldp, dups, dtm, thl, thu, p0, p1);
 #ifdef ACCES_TEST
         test.a = mas.a;
         test.b = mas.b;
@@ -201,10 +202,10 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         mas.c = NULL;
 #endif
     } else {
-        setrhs(&ndim, &ips, &ntst, &ntst0, mas.np, &ncol, &nbc,
-               &nint, &nfpr, &nrc, &nrow, &nclm, &iam, &kwt, &ipar, funi, bcni,
-               icni, ndxloc, iap, rap, par, icp, rds, ft, fc, rlcur, rlold,
-               rldot, ups, uoldps, udotps, upoldp, dups, dtm, thl, thu, p0, p1);
+        setrhs(&ndim, &ips, &ntst, &ntst0, mas.np, &ncol, &nbc, &nint, &nfpr,
+               &nrc, &nrow, &nclm, &iam, &kwt, &ipar, funi, bcni, icni, ndxloc,
+               iap, rap, par, icp, rds, ft, fc, rlcur, rlold, rldot, ups,
+               uoldps, udotps, upoldp, dups, dtm, thl, thu, p0, p1);
     }
     /*     The matrix D and FC are set to zero for all nodes except the first.
      */
@@ -221,14 +222,10 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         print_fa_fc(*iap, ft, fc, filename);
     }
 #endif
-    brbd(mas.a, mas.b, mas.c,
-         mas.d, ft, fc, p0, p1, ifst, &iid, nllv, &det, &ndim,
-         &ntst, &nbc, &nrow, &nclm, &nfpr, &nrc, &iam, &kwt, &ipar,
-         mas.a1, mas.a2, mas.bb,
-         mas.cc, mas.faa, mas.ca1,
-         mas.s1, mas.s2, mas.icf11,
-         mas.ipr, mas.icf1, mas.icf2,
-         mas.irf, mas.icf);
+    brbd(mas.a, mas.b, mas.c, mas.d, ft, fc, p0, p1, ifst, &iid, nllv, &det,
+         &ndim, &ntst, &nbc, &nrow, &nclm, &nfpr, &nrc, &iam, &kwt, &ipar,
+         mas.a1, mas.a2, mas.bb, mas.cc, mas.faa, mas.ca1, mas.s1, mas.s2,
+         mas.icf11, mas.ipr, mas.icf1, mas.icf2, mas.irf, mas.icf);
 #ifdef ACCES_TEST
     mas.a = test.a;
     mas.b = test.b;
@@ -576,7 +573,8 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
     double *sol1, *sol2, *sol3;
 
     e = malloc(sizeof(*e)*(usize)((*nov + *nrc)*(*nov + *nrc)));
-    fcc = malloc(sizeof(*fcc)*(usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
+    fcc = malloc(sizeof(*fcc) *
+                 (usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
 
     sol1 = malloc(sizeof(*sol1)*(usize)((*nov)*(*na + 1)));
     sol2 = malloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));

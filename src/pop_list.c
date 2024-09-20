@@ -508,8 +508,8 @@ make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
         class_hints.res_class = "";
 
         make_icon((char *)info_bits, info_width, info_height, base);
-        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                         &class_hints);
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
+                         NULL, &class_hints);
     }
     sb->base = base;
     sb->hgt = height;
@@ -535,8 +535,8 @@ Window
 make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                   int32 bw) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
-                              MyForeColor, MyBackColor);
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
+                              (uint)bw, MyForeColor, MyBackColor);
 
     if (UserGradients == 1) {
         int32 xx, yy;
@@ -621,8 +621,8 @@ Window
 make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
                      int32 bw) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
-                              MyForeColor, MyBackColor);
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
+                              (uint)bw, MyForeColor, MyBackColor);
 
     /*Gradient stuff*/
 
@@ -723,13 +723,14 @@ Window
 make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, uchar *icdata) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
-                              MyForeColor, MyBackColor);
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
+                              (uint)bw, MyForeColor, MyBackColor);
 
     /*Gradient stuff*/
 
-    Pixmap pmap = XCreatePixmap(display, root, (uint)width, (uint)height,
-                                (uint)DefaultDepth(display, DefaultScreen(display)));
+    Pixmap pmap =
+        XCreatePixmap(display, root, (uint)width, (uint)height,
+                      (uint)DefaultDepth(display, DefaultScreen(display)));
     int32 xx, yy;
     XColor bcolour, col2, diffcol;
     Colormap cmap = DefaultColormap(display, DefaultScreen(display));
@@ -819,7 +820,6 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
         col2.blue = diffcol.blue;
         XAllocColor(display, cmap, &col2);
         XSetForeground(display, gc, col2.pixel);
-
 
         col = 0;
         row = -1;

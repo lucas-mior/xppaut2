@@ -181,7 +181,8 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     if (max_restarts < 0)
         max_restarts = 0;
 
-    if ((pretype != PRE_LEFT) && (pretype != PRE_RIGHT) && (pretype != PRE_BOTH))
+    if ((pretype != PRE_LEFT) && (pretype != PRE_RIGHT) &&
+        (pretype != PRE_BOTH))
         pretype = PRE_NONE;
 
     preOnLeft = ((pretype == PRE_LEFT) || (pretype == PRE_BOTH));

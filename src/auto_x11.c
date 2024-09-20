@@ -89,7 +89,8 @@ void
 clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, AutoW.stab);
-    XDrawArc(display, AutoW.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0, 360*64);
+    XDrawArc(display, AutoW.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r),
+             0, 360*64);
     return;
 }
 
@@ -623,8 +624,8 @@ byeauto_(int32 *iflag) {
 
 void
 Circle(int32 x, int32 y, int32 r) {
-    XDrawArc(display, AutoW.canvas, small_gc,
-             x - r, y - r, (uint)r << 1, (uint)r << 1, 0, 360*64);
+    XDrawArc(display, AutoW.canvas, small_gc, x - r, y - r, (uint)r << 1,
+             (uint)r << 1, 0, 360*64);
     return;
 }
 
@@ -825,8 +826,8 @@ display_auto(Window w) {
     if (w == AutoW.stab) {
         int32 r = Auto.st_wid / 4;
         XFlush(display);
-        XDrawArc(display, AutoW.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r), 0,
-                 360*64);
+        XDrawArc(display, AutoW.stab, small_gc, r, r, (uint)(2*r),
+                 (uint)(2*r), 0, 360*64);
         if (CUR_DIAGRAM != NULL) {
             traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
         }
@@ -1001,11 +1002,12 @@ resize_auto_window(XEvent ev) {
         Auto.hgt = (int32)chgt - ymargin;
         Auto.wid = (int32)cwid - xmargin;
         if (TrueColorFlag > 0) {
-            XMoveResizeWindow(display, AutoW.info, xloc, yloc + (int32)chgt + 4, (uint)wid,
-                              (uint)addhgt);
+            XMoveResizeWindow(display, AutoW.info, xloc, yloc + (int32)chgt + 4,
+                              (uint)wid, (uint)addhgt);
 
             XMoveResizeWindow(display, AutoW.hint, xloc,
-                              yloc + (int32)chgt + addhgt + 10, (uint)wid, (uint)DCURY + 2);
+                              yloc + (int32)chgt + addhgt + 10, (uint)wid,
+                              (uint)DCURY + 2);
         }
 
         if (NBifs < 2)
