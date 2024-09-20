@@ -85,8 +85,8 @@ conpar_process(void *arg) {
        variable for doing this threads part of the
        sum, then we do a final sum into shared memory
        at the end */
-    else if (global_conpar_type == CONPAR_PTHREADS)
-        ;
+    else if (global_conpar_type == CONPAR_PTHREADS) {
+    }
 
     /* Note that the summation of the adjacent overlapped part of C */
     /* is delayed until REDUCE, in order to merge it with other
