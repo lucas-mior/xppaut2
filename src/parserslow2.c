@@ -1025,6 +1025,8 @@ alg_to_rpn(int32 *toklist, int32 *command) {
                 ncomma++;
                 oldtok = tokstak[tokptr - 1];
                 goto next;
+            default:
+                break;
             }
         }
         if ((newtok == COMMA) && (oldtok == COMMA)) {
@@ -1146,7 +1148,7 @@ pr_command(int32 *command) {
         token = command[i];
         plintf("%d %d \n", i, token);
         if (token == ENDEXP)
-            return;
+            break;
         i++;
     }
     return;
@@ -1411,6 +1413,8 @@ do_num(char *source, char *num, double *value, int32 *ind) {
                 if ((ndec == 2) || (nexp == 1))
                     goto err;
                 break;
+            default:
+                break;
             }
             num[j] = ch;
             j++;
@@ -1545,7 +1549,7 @@ bessi(double nn, double x) {
         tox = 2.0 / fabs(x);
         bip = ans = 0.0;
         bi = 1.0;
-        for (j = 2*(n + (int32)sqrt(ACC*n)); j > 0; j--) {
+        for (j = 2*(n + (int32)(sqrt(ACC*n))); j > 0; j--) {
             bim = bip + j*tox*bi;
             bip = bi;
             bi = bim;
@@ -1633,7 +1637,7 @@ bessis(double nn, double x) {
         tox = 2.0 / fabs(x);
         bip = ans = 0.0;
         bi = 1.0;
-        for (j = 2*(n + (int32)sqrt(ACC*n)); j > 0; j--) {
+        for (j = 2*(n + (int32)(sqrt(ACC*n))); j > 0; j--) {
             bim = bip + j*tox*bi;
             bip = bi;
             bi = bim;
@@ -1761,7 +1765,6 @@ do_shift(double shift, double variable) {
             return 0.0;
         else
             return constants[in];
-        break;
     case VARTYPE:
         if (in > MAX_ODE)
             return 0.0;
