@@ -48,7 +48,6 @@ static char *coup_string[MAX_ODE];
 
 extern int32 *my_ode[];
 extern int32 NSYM, NSYM_START, NCON, NCON_START;
-/* extern Window main_win; */
 extern int32 DCURY;
 
 void
@@ -149,8 +148,6 @@ create_transpose(void) {
     }
 
     set_browser_data(my_trans.data, 1);
-    /*  my_browser.data=my_trans.data;
-        my_browser.col0=1; */
     refresh_browser(my_trans.ncol);
     my_trans.here = 1;
     return 1;
@@ -489,7 +486,6 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
                 rval = 0;
                 goto bye;
             }
-            /* rk_interp(jac,k,k2,yold,work,node,dt,5); */
         }
         ytemp = 0.0;
         error = 0.0;
@@ -511,7 +507,7 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         printf("%f %f \n", yold[0], yold[1]);
         plintf("err=%f \n", error);
         if (error < minerr)
-            break; /*  exit if error small   */
+            break;
     }
     /*  onelast time to compute the adjoint  */
     prod = 0.0; /* for normalization   */
@@ -533,7 +529,6 @@ adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
             rval = 0;
             goto bye;
         }
-        /* rk_interp(jac,k,k2,yold,work,node,dt,5); */
     }
 
     prod = prod / t;
@@ -641,8 +636,7 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
  * I then integrate for one time step
  * I subtract this from y(t+dt) and divide by the norm of dy.
  * I take the log of this and sum up the logs dividing by Ndt
- * to get an approximation
-*/
+ * to get an approximation */
 
 void
 do_liapunov(void) {
@@ -693,8 +687,7 @@ do_this_liaprun(int32 i, double p) {
 }
 
 void
-norm_vec(/* returns the length of the vector and the unit vector */
-         double *v, double *mu, int32 n) {
+norm_vec(double *v, double *mu, int32 n) {
     int32 i;
     double sum = 0.0;
     for (i = 0; i < n; i++)
