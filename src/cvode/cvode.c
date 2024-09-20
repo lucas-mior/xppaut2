@@ -1065,7 +1065,7 @@ CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
 
     /* Set solver workspace lengths  */
 
-    lrw = (maxord + 5)*neq;
+    lrw = (int32)((maxord + 5)*neq);
     liw = 0;
 
     return TRUE;
@@ -1116,6 +1116,8 @@ CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
         return CVEwtSetSS(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
     case SV:
         return CVEwtSetSV(cv_mem, rtol, (N_Vector)atol, ycur, ewtvec, neq);
+    default:
+        break;
     }
     return 0;
 }
@@ -1133,8 +1135,8 @@ CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 static bool
 CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
            N_Vector ewtvec, int64 neq) {
-    (void)neq;
     double rtoli, atoli;
+    (void)neq;
 
     rtoli = *rtol;
     atoli = *atol;
@@ -1160,8 +1162,8 @@ CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
 static bool
 CVEwtSetSV(CVodeMem cv_mem, double *rtol, N_Vector atol, N_Vector ycur,
            N_Vector ewtvec, int64 neq) {
-    (void)neq;
     double rtoli;
+    (void)neq;
 
     rtoli = *rtol;
     N_VAbs(ycur, tempv);
@@ -1261,7 +1263,7 @@ CVHin(CVodeMem cv_mem, double tout) {
 
 static double
 CVUpperBoundH0(CVodeMem cv_mem, double tdist) {
-    double atoli, hub_inv, hub;
+    double atoli = 0.0, hub_inv, hub;
     bool vectorAtol;
     N_Vector temp1, temp2;
 
@@ -1414,6 +1416,9 @@ CVAdjustOrder(CVodeMem cv_mem, int32 deltaq) {
     case BDF:
         CVAdjustBDF(cv_mem, deltaq);
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     return;
 }
@@ -1479,6 +1484,8 @@ CVAdjustBDF(CVodeMem cv_mem, int32 deltaq) {
     case -1:
         CVDecreaseBDF(cv_mem);
         return;
+    default:
+        break;
     }
     return;
 }
@@ -1615,6 +1622,9 @@ CVSet(CVodeMem cv_mem) {
     case BDF:
         CVSetBDF(cv_mem);
         break;
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
     rl1 = ONE / l[1];
     gamma = h*rl1;
@@ -1855,6 +1865,8 @@ CVnls(CVodeMem cv_mem, int32 nflag) {
         return CVnlsFunctional(cv_mem);
     case NEWTON:
         return CVnlsNewton(cv_mem, nflag);
+    default:
+        break;
     }
     return 0;
 }
@@ -1910,7 +1922,6 @@ CVnlsFunctional(CVodeMem cv_mem) {
         f(N, tn, y, tempv, f_data);
         nfe++;
     }
-    exit(EXIT_FAILURE);
 }
 
 /*********************** CVnlsNewton **********************************
