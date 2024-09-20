@@ -1537,7 +1537,7 @@ gilparse(char *s, int32 *ind, int32 *nn) {
 /* plucks info out of  xxx{aa-bb}  or returns string */
 int32
 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
-    int32 i, n = strlen(s), ir = -1, j = 0;
+    int32 i, n = (int32)strlen(s), ir = -1, j = 0;
     char c, num[20];
     *flag = 0;
     for (i = 0; i < n; i++)
@@ -1579,7 +1579,7 @@ g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
     return 1;
 }
 
-int32
+static int32
 getimpstr(char *in, int32 *i, char *out) {
     int32 j = 0;
     int32 done = 1;
@@ -1607,7 +1607,7 @@ getimpstr(char *in, int32 *i, char *out) {
     return k;
 }
 
-int32
+static int32
 import_error(void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
