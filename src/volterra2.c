@@ -61,7 +61,8 @@ alloc_v_memory(void) {
             plintf("Illegal kernel %s=%s\n", kernel[i].name, kernel[i].expr);
             exit(0); /* fatal error ... */
         }
-        kernel[i].formula = malloc((usize)(len + 2)*sizeof(*(kernel[i].formula)));
+        kernel[i].formula =
+            malloc((usize)(len + 2)*sizeof(*(kernel[i].formula)));
         for (j = 0; j < len; j++) {
             kernel[i].formula[j] = formula[j];
         }

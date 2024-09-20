@@ -21,7 +21,7 @@
 #define MAXCOMMENTS 500
 
 #define xds(a)                                                                 \
-    do {                                                                          \
+    do {                                                                       \
         XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
     } while (0)
@@ -146,7 +146,8 @@ do_txt_action(char *s) {
 void
 resize_txtview(int32 w, int32 h) {
     int32 hgt = h - 8 - 3*DCURYs;
-    XMoveResizeWindow(display, txtview.text, 2, 3*DCURYs + 5, (uint)w - 4, (uint)hgt);
+    XMoveResizeWindow(display, txtview.text, 2, 3*DCURYs + 5, (uint)w - 4,
+                      (uint)hgt);
     txtview.nlines = (int32)(hgt / DCURY);
     return;
 }

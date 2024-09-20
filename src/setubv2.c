@@ -405,7 +405,8 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     double *fa = larg.fa;
     int64 fa_dim1 = larg.nra;
 
-    double *wploc = malloc(sizeof(*wploc)*(usize)(larg.ncol*(larg.ncol + 1)));
+    double *wploc =
+        malloc(sizeof(*wploc)*(usize)(larg.ncol*(larg.ncol + 1)));
     int64 wploc_dim1 = larg.ncol + 1;
 
     double *dfdp = malloc(sizeof(*dfdp)*(usize)(larg.ndim)*NPARX);
@@ -492,12 +493,14 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
     int64 upoldp_dim1 = larg.ndxloc;
 
     int64 dbc_dim1 = larg.nbc;
-    double *dbc = malloc(sizeof(*dbc)*(usize)((larg.nbc)*(2*larg.ndim + NPARX)));
+    double *dbc =
+        malloc(sizeof(*dbc)*(usize)((larg.nbc)*(2*larg.ndim + NPARX)));
     double *fbc = malloc(sizeof(*fbc)*(usize)(larg.nbc));
     double *ubc0 = malloc(sizeof(*ubc0)*(usize)(larg.ndim));
     double *ubc1 = malloc(sizeof(*ubc1)*(usize)(larg.ndim));
     int64 dicd_dim1 = larg.nint;
-    double *dicd = malloc(sizeof(*dicd)*(usize)((larg.nint)*(larg.ndim + NPARX)));
+    double *dicd =
+        malloc(sizeof(*dicd)*(usize)((larg.nint)*(larg.ndim + NPARX)));
     double *ficd = malloc(sizeof(*ficd)*(usize)(larg.nint));
     double *uic = malloc(sizeof(*uic)*(usize)(larg.ndim));
     double *uio = malloc(sizeof(*uio)*(usize)(larg.ndim));

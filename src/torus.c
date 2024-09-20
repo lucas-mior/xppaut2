@@ -154,8 +154,8 @@ make_tor_box(char *title) {
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints, NULL,
-                         &class_hints);
+        XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
+                         NULL, &class_hints);
     }
     for (i = 0; i < NEQ; i++) {
         i1 = i / nv;

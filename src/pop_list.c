@@ -723,8 +723,8 @@ Window
 make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, uchar *icdata) {
     Window win =
-        XCreateSimpleWindow(display, root, x, y, (uint)width,
-                            (uint)height, (uint)bw, MyForeColor, MyBackColor);
+        XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
+                            (uint)bw, MyForeColor, MyBackColor);
 
     /*Gradient stuff*/
 
@@ -865,8 +865,8 @@ Window
 make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                            int32 height, int32 bw) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
-                              MyForeColor, MyBackColor);
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
+                              (uint)bw, MyForeColor, MyBackColor);
 
     XSelectInput(display, win,
                  ExposureMask | KeyPressMask | ButtonPressMask |

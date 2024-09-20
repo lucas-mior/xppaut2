@@ -213,7 +213,8 @@ gif_stuff(Window win, FILE *fp, int32 task) {
             {
                 UseGlobalMap = 0;
                 local_to_global();
-                write_global_header((int32)w, (int32)h, fp); /* write global header */
+                write_global_header((int32)w, (int32)h,
+                                    fp); /* write global header */
                 make_local_map(pixels, ppm, (int32)h, (int32)w);
                 write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
                 GifEncode(fp, pixels, 8, (int32)(w*h));

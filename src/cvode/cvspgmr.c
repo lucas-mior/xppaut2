@@ -190,7 +190,7 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
     /* Set Spgmr parameters that have been passed in call sequence */
     cvspgmr_mem->g_pretype = pretype;
     cvspgmr_mem->g_gstype = gstype;
-    cvspgmr_mem->g_maxl = (int32) ((maxl <= 0) ? MIN(CVSPGMR_MAXL, N) : maxl);
+    cvspgmr_mem->g_maxl = (int32)((maxl <= 0) ? MIN(CVSPGMR_MAXL, N) : maxl);
     cvspgmr_mem->g_delt = (delt == ZERO) ? CVSPGMR_DELT : delt;
     cvspgmr_mem->g_P_data = P_data;
     cvspgmr_mem->g_precond = precond;

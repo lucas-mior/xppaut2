@@ -106,8 +106,9 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
     /* Set minimum increment based on uround and norm of f */
     srur = RSqrt(uround);
     fnorm = N_VWrmsNorm(fy, ewt);
-    minInc =
-        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*(double)N * fnorm) : ONE;
+    minInc = (fnorm != ZERO)
+                 ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
+                 : ONE;
 
     N_VMAKE(jthCol, NULL, N);
 

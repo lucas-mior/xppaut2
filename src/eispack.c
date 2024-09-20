@@ -658,11 +658,11 @@ L130:
         if (m == l) {
             goto L150;
         }
-        tst1 = fabs(p) *
-               ((d__1 = h__[m - 1 + (m - 1)*h_dim1], fabs(d__1)) + fabs(zz) +
-                (d__2 = h__[m + 1 + (m + 1)*h_dim1], fabs(d__2)));
-        tst2 = tst1 + (d__1 = h__[m + (m - 1)*h_dim1], fabs(d__1)) *
-                          (fabs(q) + fabs(r__));
+        d__1 = h__[m - 1 + (m - 1)*h_dim1];
+        d__2 = h__[m + 1 + (m + 1)*h_dim1];
+        tst1 = fabs(p)*(fabs(d__1) + fabs(zz) + fabs(d__2));
+        d__1 = h__[m + (m - 1)*h_dim1];
+        tst2 = tst1 + (fabs(d__1))*(fabs(q) + fabs(r__));
         if (tst2 == tst1) {
             goto L150;
         }
@@ -734,7 +734,8 @@ L150:
         }
 
         /* Computing MIN */
-        i__2 = en, i__3 = k + 3;
+        i__2 = en;
+        i__3 = k + 3;
         j = min(i__2, i__3);
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
@@ -766,7 +767,8 @@ L150:
         }
 
         /* Computing MIN */
-        i__2 = en, i__3 = k + 3;
+        i__2 = en;
+        i__3 = k + 3;
         j = min(i__2, i__3);
         /*     .......... COLUMN MODIFICATION .......... */
         i__2 = j;
@@ -943,7 +945,8 @@ L340:
 
         /*     .......... OVERFLOW CONTROL .......... */
         L680:
-            t = (d__1 = h__[i__ + en*h_dim1], fabs(d__1));
+            d__1 = h__[i__ + en*h_dim1];
+            t = fabs(d__1);
             if (t == 0.) {
                 goto L700;
             }
@@ -967,8 +970,9 @@ L340:
         m = na;
         /*     .......... LAST VECTOR COMPONENT CHOSEN IMAGINARY SO THAT */
         /*                EIGENVECTOR MATRIX IS TRIANGULAR .......... */
-        if ((d__1 = h__[en + na*h_dim1], fabs(d__1)) <=
-            (d__2 = h__[na + en*h_dim1], fabs(d__2))) {
+        d__1 = h__[en + na*h_dim1];
+        d__2 = h__[na + en*h_dim1];
+        if (fabs(d__1) <= fabs(d__2)) {
             goto L720;
         }
         h__[na + na*h_dim1] = q / h__[en + na*h_dim1];
@@ -1060,8 +1064,10 @@ L340:
         /*     .......... OVERFLOW CONTROL .......... */
         L790:
             /* Computing MAX */
-            d__3 = (d__1 = h__[i__ + na*h_dim1], fabs(d__1)),
-            d__4 = (d__2 = h__[i__ + en*h_dim1], fabs(d__2));
+            d__1 = h__[i__ + na*h_dim1];
+            d__3 = fabs(d__1);
+            d__2 = h__[i__ + en*h_dim1];
+            d__4 = (fabs(d__2));
             t = max(d__3, d__4);
             if (t == 0.) {
                 goto L795;
@@ -1339,8 +1345,10 @@ L190:
             if (j == i__) {
                 goto L200;
             }
-            c__ += (d__1 = a[j + i__*a_dim1], fabs(d__1));
-            r__ += (d__1 = a[i__ + j*a_dim1], fabs(d__1));
+            d__1 = a[j + i__*a_dim1];
+            c__ += (fabs(d__1));
+            d__1 = a[i__ + j*a_dim1];
+            r__ += (fabs(d__1));
         L200:;
         }
         /*     .......... GUARD AGAINST ZERO C OR R DUE TO UNDERFLOW .........
@@ -1576,7 +1584,8 @@ elmhes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, int64 *int__) {
 
         i__2 = *igh;
         for (j = m; j <= i__2; ++j) {
-            if ((d__1 = a[j + mm1*a_dim1], fabs(d__1)) <= fabs(x)) {
+            d__1 = a[j + mm1*a_dim1];
+            if ((fabs(d__1)) <= fabs(x)) {
                 goto L100;
             }
             x = a[j + mm1*a_dim1];
@@ -1852,14 +1861,16 @@ L10:
 
         i__2 = n;
         for (i__ = l1; i__ <= i__2; ++i__) {
-            s += (d__1 = b[i__ + l*b_dim1], fabs(d__1));
+            d__1 = b[i__ + l*b_dim1];
+            s += (fabs(d__1));
             /* L20: */
         }
 
         if (s == 0.) {
             goto L100;
         }
-        s += (d__1 = b[l + l*b_dim1], fabs(d__1));
+        d__1 = b[l + l*b_dim1];
+        s += (fabs(d__1));
         r__ = 0.;
 
         i__2 = n;
@@ -1943,8 +1954,9 @@ L10:
             l = n - lb;
             l1 = l + 1;
             /*     .......... ZERO A(L+1,K) .......... */
-            s = (d__1 = a[l + k*a_dim1], fabs(d__1)) +
-                (d__2 = a[l1 + k*a_dim1], fabs(d__2));
+            d__1 = a[l + k*a_dim1];
+            d__2 = a[l1 + k*a_dim1];
+            s = (fabs(d__1)) + (fabs(d__2));
             if (s == 0.) {
                 goto L150;
             }
@@ -1974,8 +1986,9 @@ L10:
                 /* L120: */
             }
             /*     .......... ZERO B(L+1,L) .......... */
-            s = (d__1 = b[l1 + l1*b_dim1], fabs(d__1)) +
-                (d__2 = b[l1 + l*b_dim1], fabs(d__2));
+            d__1 = b[l1 + l1*b_dim1];
+            d__2 = b[l1 + l*b_dim1];
+            s = (fabs(d__1)) + (fabs(d__2));
             if (s == 0.) {
                 goto L150;
             }
@@ -2145,14 +2158,17 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
     for (i__ = 1; i__ <= i__1; ++i__) {
         ani = 0.;
         if (i__ != 1) {
-            ani = (d__1 = a[i__ + (i__ - 1)*a_dim1], fabs(d__1));
+            d__1 = a[i__ + (i__ - 1)*a_dim1];
+            ani = (fabs(d__1));
         }
         bni = 0.;
 
         i__2 = n;
         for (j = i__; j <= i__2; ++j) {
-            ani += (d__1 = a[i__ + j*a_dim1], fabs(d__1));
-            bni += (d__1 = b[i__ + j*b_dim1], fabs(d__1));
+            d__1 = a[i__ + j*a_dim1];
+            ani += (fabs(d__1));
+            d__1 = b[i__ + j*b_dim1];
+            bni += (fabs(d__1));
             /* L20: */
         }
 
@@ -2204,7 +2220,8 @@ L70:
         if (l == 1) {
             goto L95;
         }
-        if ((d__1 = a[l + lm1*a_dim1], fabs(d__1)) <= epsa) {
+        d__1 = a[l + lm1*a_dim1];
+        if ((fabs(d__1)) <= epsa) {
             goto L90;
         }
         /* L80: */
@@ -2227,8 +2244,9 @@ L100:
         goto L120;
     }
     b[l + l*b_dim1] = 0.;
-    s = (d__1 = a[l + l*a_dim1], fabs(d__1)) +
-        (d__2 = a[l1 + l*a_dim1], fabs(d__2));
+    d__1 = a[l + l*a_dim1];
+    d__2 = a[l1 + l*a_dim1];
+    s = (fabs(d__1)) + (fabs(d__2));
     u1 = a[l + l*a_dim1] / s;
     u2 = a[l1 + l*a_dim1] / s;
     d__1 = sqrt(u1*u1 + u2*u2);
@@ -2290,7 +2308,9 @@ L120:
     r__ = sqrt(r__);
     sh = -t + r__;
     s = -t - r__;
-    if ((d__1 = s - a44, fabs(d__1)) < (d__2 = sh - a44, fabs(d__2))) {
+    d__1 = s - a44;
+    d__2 = sh - a44;
+    if ((fabs(d__1)) < (fabs(d__2))) {
         sh = s;
     }
     /*     .......... LOOK FOR TWO CONSECUTIVE SMALL */
@@ -2305,11 +2325,13 @@ L120:
         lm1 = l - 1;
         l1 = l + 1;
         t = a[l + l*a_dim1];
-        if ((d__1 = b[l + l*b_dim1], fabs(d__1)) > epsb) {
+        d__1 = b[l + l*b_dim1];
+        if ((fabs(d__1)) > epsb) {
             t -= sh*b[l + l*b_dim1];
         }
-        if ((d__1 = a[l + lm1*a_dim1], fabs(d__1)) <=
-            (d__2 = t / a[l1 + l*a_dim1], fabs(d__2))*epsa) {
+        d__1 = a[l + lm1*a_dim1];
+        d__2 = t / a[l1 + l*a_dim1];
+        if ((fabs(d__1)) <= (fabs(d__2))*epsa) {
             goto L100;
         }
         /* L130: */
@@ -2352,7 +2374,8 @@ L160:
         i__2 = k - 1;
         km1 = max(i__2, l);
         /* Computing MIN */
-        i__2 = en, i__3 = k1 + ish;
+        i__2 = en;
+        i__3 = k1 + ish;
         ll = min(i__2, i__3);
         if (notlas) {
             goto L190;
@@ -2437,9 +2460,10 @@ L160:
         a[k2 + km1*a_dim1] = 0.;
     /*     .......... ZERO B(K+2,K+1) AND B(K+2,K) .......... */
     L220:
-        s = (d__1 = b[k2 + k2*b_dim1], fabs(d__1)) +
-            (d__2 = b[k2 + k1*b_dim1], fabs(d__2)) +
-            (d__3 = b[k2 + k*b_dim1], fabs(d__3));
+        d__1 = b[k2 + k2*b_dim1];
+        d__2 = b[k2 + k1*b_dim1];
+        d__3 = b[k2 + k*b_dim1];
+        s = (fabs(d__1)) + (fabs(d__2)) + (fabs(d__3));
         if (s == 0.) {
             goto L240;
         }
@@ -2486,8 +2510,9 @@ L160:
         }
     /*     .......... ZERO B(K+1,K) .......... */
     L240:
-        s = (d__1 = b[k1 + k1*b_dim1], fabs(d__1)) +
-            (d__2 = b[k1 + k*b_dim1], fabs(d__2));
+        d__1 = b[k1 + k1*b_dim1];
+        d__2 = b[k1 + k*b_dim1];
+        s = (fabs(d__1)) + (fabs(d__2));
         if (s == 0.) {
             goto L260;
         }
@@ -2663,15 +2688,18 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         if (b[en + en*b_dim1] < 0.) {
             alfr[en] = -alfr[en];
         }
-        beta[en] = (d__1 = b[en + en*b_dim1], fabs(d__1));
+        d__1 = b[en + en*b_dim1];
+        beta[en] = (fabs(d__1));
         alfi[en] = 0.;
         goto L510;
     /*     .......... 2-BY-2 BLOCK .......... */
     L420:
-        if ((d__1 = b[na + na*b_dim1], fabs(d__1)) <= epsb) {
+        d__1 = b[na + na*b_dim1];
+        if ((fabs(d__1)) <= epsb) {
             goto L455;
         }
-        if ((d__1 = b[en + en*b_dim1], fabs(d__1)) > epsb) {
+        d__1 = b[en + en*b_dim1];
+        if ((fabs(d__1)) > epsb) {
             goto L430;
         }
         a1 = a[en + en*a_dim1];
@@ -2679,13 +2707,15 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         bn = 0.;
         goto L435;
     L430:
-        an = (d__1 = a[na + na*a_dim1], fabs(d__1)) +
-             (d__2 = a[na + en*a_dim1], fabs(d__2)) +
-             (d__3 = a[en + na*a_dim1], fabs(d__3)) +
-             (d__4 = a[en + en*a_dim1], fabs(d__4));
-        bn = (d__1 = b[na + na*b_dim1], fabs(d__1)) +
-             (d__2 = b[na + en*b_dim1], fabs(d__2)) +
-             (d__3 = b[en + en*b_dim1], fabs(d__3));
+        d__1 = a[na + na*a_dim1];
+        d__2 = a[na + en*a_dim1];
+        d__3 = a[en + na*a_dim1];
+        d__4 = a[en + en*a_dim1];
+        an = (fabs(d__1)) + (fabs(d__2)) + (fabs(d__3)) + (fabs(d__4));
+        d__1 = b[na + na*b_dim1];
+        d__2 = b[na + en*b_dim1];
+        d__3 = b[en + en*b_dim1];
+        bn = (fabs(d__1)) + (fabs(d__2)) + (fabs(d__3));
         a11 = a[na + na*a_dim1] / an;
         a12 = a[na + en*a_dim1] / an;
         a21 = a[en + na*a_dim1] / an;
@@ -2807,8 +2837,10 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
         if (b[en + en*b_dim1] < 0.) {
             alfr[en] = -alfr[en];
         }
-        beta[na] = (d__1 = b[na + na*b_dim1], fabs(d__1));
-        beta[en] = (d__1 = b[en + en*b_dim1], fabs(d__1));
+        d__1 = b[na + na*b_dim1];
+        beta[na] = (fabs(d__1));
+        d__1 = b[en + en*b_dim1];
+        beta[en] = (fabs(d__1));
         alfi[en] = 0.;
         alfi[na] = 0.;
         goto L505;
@@ -2954,7 +2986,8 @@ epslon(double x) {
 L10:
     b = a - 1.;
     c__ = b + b + b;
-    eps = (d__1 = c__ - 1., fabs(d__1));
+    d__1 = c__ - 1.;
+    eps = (fabs(d__1));
     if (eps == 0.)
         goto L10;
     ret_val = eps*fabs(x);
@@ -3051,7 +3084,8 @@ L20:
         exit(EXIT_FAILURE);
     }
 L30:
-    if ((d__1 = dx[i__], fabs(d__1)) > cutlo) {
+    d__1 = dx[i__];
+    if ((fabs(d__1)) > cutlo) {
         goto L85;
     }
     next = 1;
@@ -3062,7 +3096,8 @@ L30:
 L50:
     if (dx[i__] == zero)
         goto L200;
-    if ((d__1 = dx[i__], fabs(d__1)) > cutlo) {
+    d__1 = dx[i__];
+    if ((fabs(d__1)) > cutlo) {
         goto L85;
     }
 
@@ -3077,14 +3112,16 @@ L100:
     next = 3;
     sum = sum / dx[i__] / dx[i__];
 L105:
-    xmax = (d__1 = dx[i__], fabs(d__1));
+    d__1 = dx[i__];
+    xmax = (fabs(d__1));
     goto L115;
 
     /*                   PHASE 2.  SUM IS SMALL. */
     /*                             SCALE TO AVOID DESTRUCTIVE UNDERFLOW. */
 
 L70:
-    if ((d__1 = dx[i__], fabs(d__1)) > cutlo) {
+    d__1 = dx[i__];
+    if ((fabs(d__1)) > cutlo) {
         goto L75;
     }
 
@@ -3093,13 +3130,15 @@ L70:
      */
 
 L110:
-    if ((d__1 = dx[i__], fabs(d__1)) <= xmax) {
+    d__1 = dx[i__];
+    if ((fabs(d__1)) <= xmax) {
         goto L115;
     }
     /* Computing 2nd power */
     d__1 = xmax / dx[i__];
     sum = one + sum*(d__1*d__1);
-    xmax = (d__1 = dx[i__], fabs(d__1));
+    d__1 = dx[i__];
+    xmax = (fabs(d__1));
     goto L200;
 
 L115:
@@ -3124,7 +3163,8 @@ L85:
     i__1 = nn;
     i__2 = *incx;
     for (j = i__; i__2 < 0 ? j >= i__1 : j <= i__1; j += i__2) {
-        if ((d__1 = dx[j], fabs(d__1)) >= hitest) {
+        d__1 = dx[j];
+        if ((fabs(d__1)) >= hitest) {
             goto L100;
         }
         /* L95: */
@@ -3312,11 +3352,13 @@ idamax(int64 *n, double *dx, int64 *incx) {
     ix += *incx;
     i__1 = *n;
     for (i__ = 2; i__ <= i__1; ++i__) {
-        if ((d__1 = dx[ix], fabs(d__1)) <= dmax__) {
+        d__1 = dx[ix];
+        if ((fabs(d__1)) <= dmax__) {
             goto L5;
         }
         ret_val = i__;
-        dmax__ = (d__1 = dx[ix], fabs(d__1));
+        d__1 = dx[ix];
+        dmax__ = (fabs(d__1));
     L5:
         ix += *incx;
         /* L10: */
@@ -3329,11 +3371,13 @@ L20:
     dmax__ = fabs(dx[1]);
     i__1 = *n;
     for (i__ = 2; i__ <= i__1; ++i__) {
-        if ((d__1 = dx[i__], fabs(d__1)) <= dmax__) {
+        d__1 = dx[i__];
+        if ((fabs(d__1)) <= dmax__) {
             goto L30;
         }
         ret_val = i__;
-        dmax__ = (d__1 = dx[i__], fabs(d__1));
+        d__1 = dx[i__];
+        dmax__ = (fabs(d__1));
     L30:;
     }
     return ret_val;
@@ -4504,7 +4548,8 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     /* Computing MAX */
     /* Computing MIN */
     i__3 = *p - 2;
-    i__1 = 0, i__2 = min(i__3, *n);
+    i__1 = 0;
+    i__2 = min(i__3, *n);
     nrt = max(i__1, i__2);
     lu = max(nct, nrt);
     if (*skip <= 0) {
@@ -4651,7 +4696,8 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
     /*     set up the final bidiagonal matrix or order m. */
 
     /* Computing MIN */
-    i__1 = *p, i__2 = *n + 1;
+    i__1 = *p;
+    i__2 = *n + 1;
     m = min(i__1, i__2);
     nctp1 = nct + 1;
     nrtp1 = nrt + 1;
@@ -4832,12 +4878,17 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
         thresh = 0.;
     } else {
         /*       absolute accuracy desired */
-        smax = (d__1 = s[m], fabs(d__1));
+        d__1 = s[m];
+        smax = (fabs(d__1));
         i__1 = m - 1;
         for (i__ = 1; i__ <= i__1; ++i__) {
             /* Computing MAX */
-            d__3 = smax, d__4 = (d__1 = s[i__], fabs(d__1)),
-            d__3 = max(d__3, d__4), d__4 = (d__2 = e[i__], fabs(d__2));
+            d__3 = smax;
+            d__1 = s[i__];
+            d__4 = (fabs(d__1));
+            d__3 = max(d__3, d__4);
+            d__2 = e[i__];
+            d__4 = (fabs(d__2));
             smax = max(d__3, d__4);
             /* L1111: */
         }
@@ -4865,10 +4916,12 @@ L999:
         goto L997;
 
     /*     compute minimum s(i) and max of all s(i),e(i) */
-    if (*tol <= (double)0. && (d__1 = s[m], fabs(d__1)) <= thresh) {
+    d__1 = s[m];
+    if (*tol <= (double)0. && (fabs(d__1)) <= thresh) {
         s[m] = (double)0.;
     }
-    smax = (d__1 = s[m], fabs(d__1));
+    d__1 = s[m];
+    smax = (fabs(d__1));
     smin = smax;
 
     /*     reset convergence threshold if starting new part of matrix */
@@ -4883,14 +4936,18 @@ L999:
         if (ll == 0) {
             goto L1003;
         }
-        if (*tol <= (double)0. && (d__1 = s[ll], fabs(d__1)) <= thresh) {
+        d__1 = s[ll];
+        if (*tol <= (double)0. && (fabs(d__1)) <= thresh) {
             s[ll] = (double)0.;
         }
-        if ((d__1 = e[ll], fabs(d__1)) <= thresh) {
+        d__1 = e[ll];
+        if ((fabs(d__1)) <= thresh) {
             goto L1002;
         }
-        abss = (d__1 = s[ll], fabs(d__1));
-        abse = (d__1 = e[ll], fabs(d__1));
+        d__1 = s[ll];
+        abss = (fabs(d__1));
+        d__1 = e[ll];
+        abse = (fabs(d__1));
         smin = min(smin, abss);
         /* Computing MAX */
         d__1 = max(smax, abss);
@@ -4975,9 +5032,9 @@ L1003:
     /*     if (ll.ne.oldll .or. m.ne.oldm) then */
     /*     choose shift direction if working on entirely new submatrix */
     if (ll > oldm || m < oldll) {
-        if (((d__1 = s[ll], fabs(d__1)) >= (d__2 = s[m], fabs(d__2)) &&
-             *iidir == 0) ||
-            *iidir == 1) {
+        d__1 = s[ll];
+        d__2 = s[m];
+        if (((fabs(d__1)) >= (fabs(d__2)) && *iidir == 0) || *iidir == 1) {
             /*         chase bulge from top (big end) to bottom (small end) */
             /*         if m=n+1, chase from top to bottom even if s(ll)=0 */
             idir = 1;
@@ -5048,18 +5105,21 @@ L1003:
         if (idir == 1) {
             /*         forward direction */
             /*         apply test on bottom 2 by 2 only */
-            if ((d__1 = e[m - 1], fabs(d__1)) <=
-                *tol*(d__2 = s[m], fabs(d__2))) {
+            d__1 = e[m - 1];
+            d__2 = s[m];
+            if ((fabs(d__1)) <= *tol*(fabs(d__2))) {
                 /*           convergence of bottom element */
                 e[m - 1] = 0.;
                 goto L999;
             }
             /*         apply test in forward direction */
-            mu = (d__1 = s[ll], fabs(d__1));
+            d__1 = s[ll];
+            mu = (fabs(d__1));
             sminl = mu;
             i__1 = m - 1;
             for (lll = ll; lll <= i__1; ++lll) {
-                if ((d__1 = e[lll], fabs(d__1)) <= *tol*mu) {
+                d__1 = e[lll];
+                if ((fabs(d__1)) <= *tol*mu) {
                     /*             test for negligibility satisfied */
                     if (*idbg >= 1) {
                         printf("knew: e(lll),mu=%f,%f\n", e[lll], mu);
@@ -5067,8 +5127,9 @@ L1003:
                     e[lll] = 0.;
                     goto L999;
                 } else {
-                    mu = (d__1 = s[lll + 1], fabs(d__1)) *
-                         (mu / (mu + (d__2 = e[lll], fabs(d__2))));
+                    d__1 = s[lll + 1];
+                    d__2 = e[lll];
+                    mu = (fabs(d__1))*(mu / (mu + (fabs(d__2))));
                 }
                 sminl = min(sminl, mu);
                 /* L3330: */
@@ -5076,18 +5137,21 @@ L1003:
         } else {
             /*         idir=2,  backwards direction */
             /*         apply test on top 2 by 2 only */
-            if ((d__1 = e[ll], fabs(d__1)) <=
-                *tol*(d__2 = s[ll], fabs(d__2))) {
+            d__1 = e[ll];
+            d__2 = s[ll];
+            if ((fabs(d__1)) <= *tol*(fabs(d__2))) {
                 /*           convergence of top element */
                 e[ll] = 0.;
                 goto L999;
             }
             /*         apply test in backward direction */
-            lambda = (d__1 = s[m], fabs(d__1));
+            d__1 = s[m];
+            lambda = (fabs(d__1));
             sminl = lambda;
             i__1 = ll;
             for (lll = m - 1; lll >= i__1; --lll) {
-                if ((d__1 = e[lll], fabs(d__1)) <= *tol*lambda) {
+                d__1 = e[lll];
+                if ((fabs(d__1)) <= *tol*lambda) {
                     /*             test for negligibility satisfied */
                     if (*idbg >= 1) {
                         printf("knew: e(lll),lambda=%f,%f\n", e[lll], lambda);
@@ -5095,8 +5159,9 @@ L1003:
                     e[lll] = 0.;
                     goto L999;
                 } else {
-                    lambda = (d__1 = s[lll], fabs(d__1)) *
-                             (lambda / (lambda + (d__2 = e[lll], fabs(d__2))));
+                    d__1 = s[lll];
+                    d__2 = e[lll];
+                    lambda = (fabs(d__1))*(lambda / (lambda + (fabs(d__2))));
                 }
                 sminl = min(sminl, lambda);
                 /* L3331: */
@@ -5165,7 +5230,8 @@ L1003:
             e 0, */
             /*         leading to infinite loop; avoid by doing 0 shift in thi
             s case */
-            if (shift > (d__1 = s[ll], fabs(d__1))) {
+            d__1 = s[ll];
+            if (shift > (fabs(d__1))) {
                 test = s[ll] / shift;
                 if (test + 1. == 1.) {
                     ++(*limshf);
@@ -5213,7 +5279,8 @@ L1003:
                 /*           if (idbg.gt.3) print *,'f,g=',f,g */
                 ndrotg(&f, &g, &cs, &sn);
                 /* Computing MAX */
-                d__1 = *maxsin, d__2 = fabs(sn);
+                d__1 = *maxsin;
+                d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 if (wantv) {
@@ -5235,7 +5302,8 @@ L1003:
                 /*           if (idbg.gt.3) print *,'gg=',gg */
                 ndrotg(&f, &g, &cs, &sn);
                 /* Computing MAX */
-                d__1 = *maxsin, d__2 = fabs(sn);
+                d__1 = *maxsin;
+                d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 /*           if wantu and k.eq.n, then s(k+1)=0 so g=0 so cs=1
@@ -5266,11 +5334,13 @@ L1003:
             if (*idbg > 0) {
                 printf("convergence decision for zero shift top to bottom\n");
                 printf("e(m-1), threshold=%f,%f\n", e[m - 1], thresh);
-                if ((d__1 = e[m - 1], fabs(d__1)) <= thresh) {
+                d__1 = e[m - 1];
+                if ((fabs(d__1)) <= thresh) {
                     printf("***converged***\n");
                 }
             }
-            if ((d__1 = e[m - 1], fabs(d__1)) <= thresh) {
+            d__1 = e[m - 1];
+            if ((fabs(d__1)) <= thresh) {
                 e[m - 1] = 0.;
             }
         } else {
@@ -5287,7 +5357,8 @@ L1003:
                 /*           if (idbg.gt.3) print *,'f,g=',f,g */
                 ndrotg(&f, &g, &cs, &sn);
                 /* Computing MAX */
-                d__1 = *maxsin, d__2 = fabs(sn);
+                d__1 = *maxsin;
+                d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 /*           if m=n+1, always chase from top to bottom so no t
@@ -5313,7 +5384,8 @@ L1003:
                 /*           if (idbg.gt.3) print *,'gg=',gg */
                 ndrotg(&f, &g, &cs, &sn);
                 /* Computing MAX */
-                d__1 = *maxsin, d__2 = fabs(sn);
+                d__1 = *maxsin;
+                d__2 = fabs(sn);
                 *maxsin = max(d__1, d__2);
                 /*           if (idbg.gt.3) print *,'f,cs,sn=',f,cs,sn */
                 if (wantv) {
@@ -5346,11 +5418,13 @@ L1003:
                 printf("convergence decision for zero shift bottom to top\n");
                 printf("e(ll), threshold=%f,%f\n", e[ll], thresh);
 
-                if ((d__1 = e[ll], fabs(d__1)) <= thresh) {
+                d__1 = e[ll];
+                if ((fabs(d__1)) <= thresh) {
                     printf("***converged***\n");
                 }
             }
-            if ((d__1 = e[ll], fabs(d__1)) <= thresh) {
+            d__1 = e[ll];
+            if ((fabs(d__1)) <= thresh) {
                 e[ll] = 0.;
             }
         }
@@ -5363,7 +5437,8 @@ L1003:
             if (*idbg > 2) {
                 printf("qr with nonzero shift, top to bottom\n");
             }
-            f = ((d__1 = s[ll], fabs(d__1)) - shift) *
+            d__1 = s[ll];
+            f = ((fabs(d__1)) - shift) *
                 (d_sign(c_b170, s[ll]) + shift / s[ll]);
             g = e[ll];
             i__1 = m - 1;
@@ -5418,11 +5493,13 @@ L1003:
             if (*idbg > 0) {
                 printf("convergence decision for shift top to bottom\n");
                 printf("e(m-1), threshold=%f,%f\n", e[m - 1], thresh);
-                if ((d__1 = e[m - 1], fabs(d__1)) <= thresh) {
+                d__1 = e[m - 1];
+                if ((fabs(d__1)) <= thresh) {
                     printf("***converged***\n");
                 }
             }
-            if ((d__1 = e[m - 1], fabs(d__1)) <= thresh) {
+            d__1 = e[m - 1];
+            if ((fabs(d__1)) <= thresh) {
                 e[m - 1] = 0.;
             }
         } else {
@@ -5430,8 +5507,8 @@ L1003:
             if (*idbg > 2) {
                 printf("qr with nonzero shift, bottom to top\n");
             }
-            f = ((d__1 = s[m], fabs(d__1)) - shift) *
-                (d_sign(c_b170, s[m]) + shift / s[m]);
+            d__1 = s[m];
+            f = ((fabs(d__1)) - shift)*(d_sign(c_b170, s[m]) + shift / s[m]);
             g = e[m - 1];
             i__1 = ll + 1;
             for (k = m; k >= i__1; --k) {
@@ -5487,11 +5564,13 @@ L1003:
                 printf("convergence decision for shift bottom to top\n");
                 printf("e(ll), threshold=%f,%f\n", e[ll], thresh);
 
-                if ((d__1 = e[ll], fabs(d__1)) <= thresh) {
+                d__1 = e[ll];
+                if ((fabs(d__1)) <= thresh) {
                     printf("***converged***\n");
                 }
             }
-            if ((d__1 = e[ll], fabs(d__1)) <= thresh) {
+            d__1 = e[ll];
+            if ((fabs(d__1)) <= thresh) {
                 e[ll] = 0.;
             }
         }
@@ -6041,9 +6120,10 @@ L30:
 L40:
     if (l == *nlow)
         goto L50;
-    if ((d__1 = a[l + (l - 1)*a_dim1], fabs(d__1)) <=
-        *eps*((d__2 = a[l - 1 + (l - 1)*a_dim1], fabs(d__2)) +
-                (d__3 = a[l + l*a_dim1], fabs(d__3)))) {
+    d__1 = a[l + (l - 1)*a_dim1];
+    d__2 = a[l - 1 + (l - 1)*a_dim1];
+    d__3 = a[l + l*a_dim1];
+    if ((fabs(d__1)) <= *eps*((fabs(d__2)) + (fabs(d__3)))) {
         goto L50;
     }
     --l;
@@ -6071,8 +6151,9 @@ L50:
         a[i__ + i__*a_dim1] -= x;
         /* L60: */
     }
-    s = (d__1 = a[nu + (nu - 1)*a_dim1], fabs(d__1)) +
-        (d__2 = a[nu - 1 + (nu - 2)*a_dim1], fabs(d__2));
+    d__1 = a[nu + (nu - 1)*a_dim1];
+    d__2 = a[nu - 1 + (nu - 2)*a_dim1];
+    s = (fabs(d__1)) + (fabs(d__2));
     x = s*.75;
     y = x;
     /* Computing 2nd power */
@@ -6096,11 +6177,11 @@ L80:
     r__ /= s;
     if (nl == l)
         goto L90;
-    if ((d__1 = a[nl + (nl - 1)*a_dim1], fabs(d__1)) *
-            (fabs(q) + fabs(r__)) <=
-        *eps*fabs(p) *
-            ((d__2 = a[nl - 1 + (nl - 1)*a_dim1], fabs(d__2)) + fabs(z__) +
-             (d__3 = a[nl + 1 + (nl + 1)*a_dim1], fabs(d__3)))) {
+    d__1 = a[nl + (nl - 1)*a_dim1];
+    d__2 = a[nl - 1 + (nl - 1)*a_dim1];
+    d__3 = a[nl + 1 + (nl + 1)*a_dim1];
+    if ((fabs(d__1))*(fabs(q) + fabs(r__)) <=
+        *eps*fabs(p)*((fabs(d__2)) + fabs(z__) + (fabs(d__3)))) {
         goto L90;
     }
     --nl;
@@ -6390,7 +6471,9 @@ L30:
 L40:
     r__ = 0.;
 L50:
-    if ((d__1 = x + z__, fabs(d__1)) >= (d__2 = x + r__, fabs(d__2))) {
+    d__1 = x + z__;
+    d__2 = x + r__;
+    if ((fabs(d__1)) >= (fabs(d__2))) {
         z__ = r__;
     }
     y = y - x - z__;
@@ -6506,7 +6589,8 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     q = a[*l + 1 + (*l + 1)*a_dim1] - a[*l + *l*a_dim1];
     p = a[*l + (*l + 1)*a_dim1];
     /* Computing MAX */
-    d__1 = fabs(p), d__2 = fabs(q);
+    d__1 = fabs(p);
+    d__2 = fabs(q);
     r__ = max(d__1, d__2);
     if (r__ == 0.)
         return 0;
@@ -6566,9 +6650,10 @@ L60:
     r__ = 0.;
     i__1 = *l + 2;
     qrstep(&a[a_offset], &v[v_offset], &p, &q, &r__, l, &i__1, n, na, nv);
-    if ((d__1 = a[*l + 2 + (*l + 1)*a_dim1], fabs(d__1)) >
-        *eps*((d__2 = a[*l + 1 + (*l + 1)*a_dim1], fabs(d__2)) +
-                (d__3 = a[*l + 2 + (*l + 2)*a_dim1], fabs(d__3)))) {
+    d__1 = a[*l + 2 + (*l + 1)*a_dim1];
+    d__2 = a[*l + 1 + (*l + 1)*a_dim1];
+    d__3 = a[*l + 2 + (*l + 2)*a_dim1];
+    if ((fabs(d__1)) > *eps*((fabs(d__2)) + (fabs(d__3)))) {
         goto L50;
     }
     a[*l + 2 + (*l + 1)*a_dim1] = 0.;
@@ -6604,9 +6689,10 @@ L90:
     q /= s;
     r__ /= s;
     qrstep(&a[a_offset], &v[v_offset], &p, &q, &r__, l, &m, n, na, nv);
-    if ((d__1 = a[m - 1 + (m - 2)*a_dim1], fabs(d__1)) >
-        *eps*((d__2 = a[m - 1 + (m - 1)*a_dim1], fabs(d__2)) +
-                (d__3 = a[m - 2 + (m - 2)*a_dim1], fabs(d__3)))) {
+    d__1 = a[m - 1 + (m - 2)*a_dim1];
+    d__2 = a[m - 1 + (m - 1)*a_dim1];
+    d__3 = a[m - 2 + (m - 2)*a_dim1];
+    if ((fabs(d__1)) > *eps*((fabs(d__2)) + (fabs(d__3)))) {
         goto L80;
     }
     a[m - 1 + (m - 2)*a_dim1] = 0.;
@@ -6838,7 +6924,8 @@ orthes(int64 *nm, int64 *n, int64 *low, int64 *igh, double *a, double *ort) {
         i__2 = *igh;
         for (i__ = m; i__ <= i__2; ++i__) {
             /* L90: */
-            scale += (d__1 = a[i__ + (m - 1)*a_dim1], fabs(d__1));
+            d__1 = a[i__ + (m - 1)*a_dim1];
+            scale += (fabs(d__1));
         }
 
         if (scale == 0.) {
