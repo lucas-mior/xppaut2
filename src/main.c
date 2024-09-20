@@ -551,8 +551,8 @@ init_X(void) {
 
     if (PaperWhite == 1) {
         /* Respect the swapping implied by the -white option. */
-        printf("Doing swap!\n");
         char swapcol[8];
+        printf("Doing swap!\n");
         strcpy(swapcol, UserWhite);
         strcpy(UserWhite, UserBlack);
         strcpy(UserBlack, swapcol);
@@ -614,13 +614,12 @@ init_X(void) {
      * length of our test string minus 2 for a little more wiggle room. */
 
     DCURXb =
-        XTextWidth(big_font, teststr, strlen(teststr)) / (strlen(teststr) - 2);
+        XTextWidth(big_font, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
 
     DCURYb = big_font->ascent + big_font->descent;
     CURY_OFFb = big_font->ascent - 1;
 
-    DCURXs = XTextWidth(small_font, teststr, strlen(teststr)) /
-             (strlen(teststr) - 2);
+    DCURXs = XTextWidth(small_font, teststr, (int)strlen(teststr)) / (int)(strlen(teststr) - 2);
 
     DCURYs = small_font->ascent + small_font->descent;
     CURY_OFFs = small_font->ascent - 1;
@@ -654,7 +653,7 @@ init_X(void) {
             Pixmap pmap = XCreatePixmapFromBitmapData(
                 display, main_win, (char *)pixdata, width_return, height_return,
                 MyForeColor, MyMainWinColor,
-                DefaultDepth(display, DefaultScreen(display)));
+                (uint)DefaultDepth(display, DefaultScreen(display)));
             XSetWindowBackgroundPixmap(display, main_win, pmap);
             XFreePixmap(display, pmap);
             XFree(pixdata);
@@ -677,7 +676,7 @@ init_X(void) {
     if (UserMinHeight <= 0)
         SCALEY = 25*DCURYb + 7*DCURYs;
 
-    XResizeWindow(display, main_win, SCALEX, SCALEY);
+    XResizeWindow(display, main_win, (uint)SCALEX, (uint)SCALEY);
     return;
 }
 
