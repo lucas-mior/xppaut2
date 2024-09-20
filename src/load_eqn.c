@@ -1072,6 +1072,7 @@ void
 set_internopts_xpprc_and_comline(void) {
     int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
+    OptionsSet *tempNAS;
     /*  parsem here   */
     /*Check for QUIET and LOGFILE options first...*/
     char intrnoptcpy[255]; /*Must use copy to avoid side effects of strtok used
@@ -1108,7 +1109,7 @@ set_internopts_xpprc_and_comline(void) {
     /*This allows options to be overwritten multiple times within .xpprc
     but prevents overwriting across comline, .xpprc etc.
     */
-    OptionsSet *tempNAS = malloc(sizeof(OptionsSet));
+    tempNAS = malloc(sizeof(*tempNAS));
     *tempNAS = notAlreadySet;
 
     for (i = 0; i < Nopts; i++) {
