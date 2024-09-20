@@ -65,23 +65,27 @@ setubv_make_aa_bb_cc(void *arg) {
     double *wp = larg->wp;
     double *wt = larg->wt;
 
-    dicd = malloc(sizeof(*dicd)*(larg->nint)*(larg->ndim + NPARX));
-    ficd = malloc(sizeof(*ficd)*(larg->nint));
-    dfdp = malloc(sizeof(*dfdp)*(larg->ndim)*NPARX);
-    dfdu = malloc(sizeof(*dfdu)*(larg->ndim)*(larg->ndim));
-    uold = malloc(sizeof(*uold)*(larg->ndim));
-    f = malloc(sizeof(*f)*(larg->ndim));
-    u = malloc(sizeof(*u)*(larg->ndim));
+    int64 nint = larg->nint;
+    int64 ndim = larg->ndim;
+    int64 nbc = larg->nbc;
+
+    dicd = malloc(sizeof(*dicd)*nint*(ndim + NPARX));
+    ficd = malloc(sizeof(*ficd)*nint);
+    dfdp = malloc(sizeof(*dfdp)*ndim*NPARX);
+    dfdu = malloc(sizeof(*dfdu)*ndim*ndim);
+    uold = malloc(sizeof(*uold)*ndim);
+    f = malloc(sizeof(*f)*ndim);
+    u = malloc(sizeof(*u)*ndim);
     wploc = malloc(sizeof(*wploc)*(larg->ncol)*(larg->ncol + 1));
-    dbc = malloc(sizeof(*dbc)*(larg->nbc)*(2*larg->ndim + NPARX));
-    fbc = malloc(sizeof(*fbc)*(larg->nbc));
-    uic = malloc(sizeof(*uic)*(larg->ndim));
-    uio = malloc(sizeof(*uio)*(larg->ndim));
+    dbc = malloc(sizeof(*dbc)*nbc*(2*ndim + NPARX));
+    fbc = malloc(sizeof(*fbc)*nbc);
+    uic = malloc(sizeof(*uic)*ndim);
+    uio = malloc(sizeof(*uio)*ndim);
     prm = malloc(sizeof(*prm)*NPARX);
-    uid = malloc(sizeof(*uid)*(larg->ndim));
-    uip = malloc(sizeof(*uip)*(larg->ndim));
-    ubc0 = malloc(sizeof(*(ubc0))*(larg->ndim));
-    ubc1 = malloc(sizeof(*(ubc1))*(larg->ndim));
+    uid = malloc(sizeof(*uid)*ndim);
+    uip = malloc(sizeof(*uip)*ndim);
+    ubc0 = malloc(sizeof(*(ubc0))*ndim);
+    ubc1 = malloc(sizeof(*(ubc1))*ndim);
 
     upoldp_dim1 = larg->ndxloc;
     udotps_dim1 = larg->ndxloc;
