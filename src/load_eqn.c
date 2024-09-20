@@ -1139,13 +1139,13 @@ void
 split_apart(char *bob, char *name, char *value) {
     int32 k, i, l;
 
-    l = strlen(bob);
-    k = strcspn(bob, "=");
+    l = (int32)strlen(bob);
+    k = (int32)strcspn(bob, "=");
     if (k == l) {
         value[0] = 0;
         strcpy(name, bob);
     } else {
-        strncpy(name, bob, k);
+        strncpy(name, bob, (usize)k);
         name[k] = '\0';
         for (i = k + 1; i < l; i++)
             value[i - k - 1] = bob[i];
@@ -1176,12 +1176,12 @@ check_for_xpprc(void) {
 
 void
 stor_internopts(char *s1) {
-    int32 n = strlen(s1);
+    int32 n = (int32)strlen(s1);
     if (Nopts > MAXOPT) {
         plintf("WARNING -- to many options set %s ignored\n", s1);
         return;
     }
-    interopt[Nopts] = malloc(n + 1);
+    interopt[Nopts] = malloc((usize)n + 1);
     sprintf(interopt[Nopts], "%s", s1);
     Nopts++;
     return;
@@ -1239,7 +1239,6 @@ set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         return;
     }
     if ((msc("SMALLFONT", s1)) || (msc("SMALL", s1))) {
-        ;
         if ((notAlreadySet.SMALL_FONT_NAME || force) ||
             ((mask != NULL) && (mask->SMALL_FONT_NAME == 1))) {
             strcpy(small_font_name, s2);
