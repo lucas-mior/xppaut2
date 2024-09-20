@@ -22,23 +22,20 @@
 #include "xpplim.h"
 
 #define MAXEXPLEN 1024
-#define THOUS 10000
 #define DOUB_EPS 2.23E-15
 #define POP stack[--stack_pointer]
 double zippy;
 #define PUSH(a)                                                                \
+    do { \
     zippy = (a);                                                               \
-    stack[stack_pointer++] = zippy;
+    stack[stack_pointer++] = zippy; \
+    } while (0)
 
 #ifdef NOLGAMMA
 double lgamma();
 #endif
 
 extern int32 NODE;
-
-#define DFNORMAL 1
-#define DFFP 2
-#define DFSTAB 3
 
 /* #define COM(a) my_symb[toklist[(a)]].com */
 int32 ERROUT;
@@ -2181,6 +2178,8 @@ eval_rpn(int32 *equat) {
                     uptr++;
                 }
                 PUSH(eval_rpn(ufun[in]));
+                break;
+            default:
                 break;
             }
         bye:
