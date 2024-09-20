@@ -380,7 +380,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
     XEvent ev;
     int32 status = -1, inew;
     int32 nn = sb->n;
-    int32 done = 0, i, j;
+    int32 done = 0, j;
     int32 item;
     char ch;
     int32 ihot = sb->hot;
@@ -422,7 +422,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
             break;
             destroy_scroll_box(scrb);
         }
-        for (i = 0; i < nn; i++) {
+        for (int32 i = 0; i < nn; i++) {
             if (ev.xbutton.window == sb->win[i]) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
@@ -470,6 +470,8 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
             inew = (sb->hot + 1) % nn;
             new_editable(sb, inew, pos, col, &done, &w);
         }
+        break;
+    default:
         break;
     }
     return status;
