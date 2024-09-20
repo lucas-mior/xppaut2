@@ -569,7 +569,8 @@ int32
 rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
           double del, int32 nstep) {
     int32 j;
-    double *yval[3], dt = del / nstep;
+    double *yval[3];
+    double dt = del / nstep;
     double t = 0.0, t1, t2;
     yval[0] = work;
     yval[1] = work + neq;
