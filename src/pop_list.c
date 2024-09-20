@@ -15,12 +15,14 @@ set_window_title(Window win, char *string) {
     XStringListToTextProperty(&string, 1, &wname);
     XStringListToTextProperty(&string, 1, &iname);
 
-    XClassHint class_hints;
-    class_hints.res_name = "";
-    class_hints.res_class = "";
+    {
+        XClassHint class_hints;
+        class_hints.res_name = "";
+        class_hints.res_class = "";
 
-    XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
-                     &class_hints);
+        XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
+                         &class_hints);
+    }
     return;
 }
 
@@ -35,7 +37,7 @@ make_scrbox_lists(void) {
         "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
     /* plottable list */
     scrbox_list[0].n = NEQ + 1;
-    scrbox_list[0].list = malloc((NEQ + 1)*sizeof(char *));
+    scrbox_list[0].list = malloc((usize)(NEQ + 1)*sizeof(char *));
     scrbox_list[0].list[0] = malloc(5);
     strcpy(scrbox_list[0].list[0], "T");
     for (i = 0; i < NEQ; i++) {
@@ -44,7 +46,7 @@ make_scrbox_lists(void) {
     }
     /* variable list */
     scrbox_list[1].n = NODE + NMarkov;
-    scrbox_list[1].list = malloc((NODE + NMarkov)*sizeof(char *));
+    scrbox_list[1].list = malloc((usize)(NODE + NMarkov)*sizeof(char *));
     for (i = 0; i < NODE + NMarkov; i++) {
         scrbox_list[1].list[i] = malloc(15);
         strcpy(scrbox_list[1].list[i], uvar_names[i]);
@@ -52,7 +54,7 @@ make_scrbox_lists(void) {
 
     /* parameter list */
     scrbox_list[2].n = NUPAR;
-    scrbox_list[2].list = malloc(NUPAR*sizeof(char *));
+    scrbox_list[2].list = malloc((usize)NUPAR*sizeof(char *));
     for (i = 0; i < NUPAR; i++) {
         scrbox_list[2].list[i] = malloc(15);
         strcpy(scrbox_list[2].list[i], upar_names[i]);
@@ -61,7 +63,7 @@ make_scrbox_lists(void) {
     /* parvar list */
     n = NODE + NMarkov + NUPAR;
     scrbox_list[3].n = n;
-    scrbox_list[3].list = malloc(n*sizeof(char *));
+    scrbox_list[3].list = malloc((usize)n*sizeof(char *));
     for (i = 0; i < NODE + NMarkov; i++) {
         scrbox_list[3].list[i] = malloc(15);
         strcpy(scrbox_list[3].list[i], uvar_names[i]);
@@ -134,7 +136,7 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
     hgt = hw*(nw + 1);
     len = hgt - 6;
     sb->base = (Window)make_plain_window(root, x0, y0, wid, hgt, 2);
-    sb->w = malloc(nw*sizeof(*(sb->w)));
+    sb->w = malloc((usize)nw*sizeof(*(sb->w)));
     for (int32 i = 0; i < nw; i++)
         sb->w[i] = make_window(sb->base, 1, hw / 2 + i*hw, ww, DCURYs, 0);
     sb->i0 = 0;
@@ -170,7 +172,7 @@ redraw_scroll_box(SCROLLBOX sb) {
     for (i = 0; i < sb.nw; i++) {
         XClearWindow(display, sb.w[i]);
         XDrawString(display, sb.w[i], small_gc, 0, CURY_OFFs, sb.list[i + i0],
-                    strlen(sb.list[i + i0]));
+                    (int)strlen(sb.list[i + i0]));
     }
     if (sb.nw < sb.nent) {
         XClearWindow(display, sb.slide);
@@ -187,7 +189,7 @@ crossing_scroll_box(Window w, int32 c, SCROLLBOX sb) {
     int32 i;
     for (i = 0; i < sb.nw; i++) {
         if (w == sb.w[i]) {
-            XSetWindowBorderWidth(display, w, c);
+            XSetWindowBorderWidth(display, w, (uint)c);
             return;
         }
     }
@@ -275,8 +277,8 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     make_sbox_windows(&sb, row, col, title, maxchar);
     XSelectInput(display, sb.cancel, BUT_MASK);
     XSelectInput(display, sb.ok, BUT_MASK);
-    pos = strlen(sb.value[0]);
-    colm = (pos + strlen(sb.name[0]))*DCURX;
+    pos = (int32)strlen(sb.value[0]);
+    colm = (pos + (int32)strlen(sb.name[0]))*DCURX;
 
     while (true) {
         status = s_box_event_loop(&sb, &pos, &colm, &scrb);
@@ -322,8 +324,8 @@ expose_sbox(STRING_BOX sb, Window w, int32 pos) {
 
 void
 do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos) {
-    int32 l = strlen(name);
-    int32 m = strlen(value);
+    int32 l = (int32)strlen(name);
+    int32 m = (int32)strlen(value);
     if (flag) {
         set_fore();
         bar(0, 0, l*DCURX, DCURY + 4, w);
@@ -345,10 +347,10 @@ reset_hot(int32 inew, STRING_BOX *sb) {
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
     do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
-                   strlen(sb->value[inew]));
+                   (int)strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
     do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
-                   strlen(sb->value[i]));
+                   (int)strlen(sb->value[i]));
     return;
 }
 
@@ -356,8 +358,8 @@ void
 new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
              Window *w) {
     reset_hot(inew, sb);
-    *pos = strlen(sb->value[inew]);
-    *col = (*pos + strlen(sb->name[inew]))*DCURX;
+    *pos = (int32)strlen(sb->value[inew]);
+    *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;
     *done = 0;
     *w = sb->win[inew];
     return;
@@ -458,7 +460,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
         break;
 
     case KeyPress:
-        ch = get_key_press(&ev);
+        ch = (char)get_key_press(&ev);
         edit_window(w, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
