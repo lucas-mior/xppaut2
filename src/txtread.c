@@ -270,15 +270,18 @@ redraw_txtview_text(void) {
             if (j < NLINES) {
                 XDrawString(display, txtview.text, gc, txtview.dw,
                             i*txtview.dh + CURY_OFFs, save_eqn[j],
-                            strlen(save_eqn[j]));
+                            (int)strlen(save_eqn[j]));
             }
             break;
         case 1:
             if (j < n_comments)
                 XDrawString(display, txtview.text, gc, txtview.dw,
                             i*DCURY + CURY_OFFs, comments[j].text,
-                            strlen(comments[j].text));
+                            (int)strlen(comments[j].text));
             break;
+        default:
+            fprintf(stderr, "Unexpected case in %s.\n", __func__);
+            exit(EXIT_FAILURE);
         }
     }
     return;
