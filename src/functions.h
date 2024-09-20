@@ -6,6 +6,8 @@
 #define FILE_MENU 1
 #define NUM_MENU 2
 
+#define LENGTH(X) (sizeof(X) / sizeof(*X))
+
 #define SETVAR(i, x)                                                           \
     do {                                                                       \
         if ((i) < NVAR)                                                        \

@@ -66,10 +66,12 @@ init_trans(void) {
 void
 dump_transpose_info(FILE *fp, int32 f) {
     char bob[256];
+
     if (f == READEM)
         fgets(bob, 255, fp);
     else
         fprintf(fp, "# Transpose variables etc\n");
+
     io_string(my_trans.firstcol, 11, fp, f);
     io_int(&my_trans.ncol, fp, f, "n columns");
     io_int(&my_trans.nrow, fp, f, "n rows");
@@ -84,7 +86,8 @@ do_transpose(void) {
     int32 ii, status;
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};
-    char values[6][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
+
     snprintf(values[0], sizeof(values[0]), "%s", my_trans.firstcol);
     snprintf(values[1], sizeof(values[0]), "%d", my_trans.ncol);
     snprintf(values[2], sizeof(values[0]), "%d", my_trans.colskip);
