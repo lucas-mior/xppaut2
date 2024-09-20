@@ -1538,7 +1538,7 @@ resize_par_box(Window win) {
         ok = 1;
         b = &ICBox;
         get_new_size(win, &w, &h);
-        get_nrow_from_hgt(h, &nwin, (int32 *)&w);
+        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
 
     if (ParamBox.xuse == 1 && win == ParamBox.base) {
@@ -1547,19 +1547,19 @@ resize_par_box(Window win) {
         waitasec(ClickTime);
 
         get_new_size(win, &w, &h);
-        get_nrow_from_hgt(h, &nwin, (int32 *)&w);
+        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (BCBox.xuse == 1 && win == BCBox.base) {
         ok = 3;
         b = &BCBox;
         get_new_size(win, &w, &h);
-        get_nrow_from_hgt(h, &nwin, (int32 *)&w);
+        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (DelayBox.xuse == 1 && win == DelayBox.base) {
         ok = 4;
         b = &DelayBox;
         get_new_size(win, &w, &h);
-        get_nrow_from_hgt(h, &nwin, (int32 *)&w);
+        get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (ok == 0)
         return;
@@ -1685,11 +1685,11 @@ make_box_list_window(BoxList *b, int32 type) {
     class_hints.res_class = "";
     XSetWMProperties(display, base, &winname, &iconame, NULL, 0, &size_hints,
                      NULL, &class_hints);
-    b->w = malloc(nrow*sizeof(*(b->w)));
-    b->we = malloc(nrow*sizeof(*(b->we)));
+    b->w = malloc((usize)nrow*sizeof(*(b->w)));
+    b->we = malloc((usize)nrow*sizeof(*(b->we)));
     if (type == ICBOX) {
-        b->ck = malloc(nrow*sizeof(*(b->ck)));
-        b->isck = malloc(n*sizeof(*(b->isck)));
+        b->ck = malloc((usize)nrow*sizeof(*(b->ck)));
+        b->isck = malloc((usize)n*sizeof(*(b->isck)));
         for (i = 0; i < n; i++)
             b->isck[i] = 0;
     }
