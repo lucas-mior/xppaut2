@@ -36,7 +36,7 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #include "struct.h"
 #include "phsplan.h"
 extern GRAPH *MyGraph;
-#define MSWTCH(u, v) memcpy((void *)(u), (void *)(v), xpv.node*sizeof(double))
+#define MSWTCH(u, v) memcpy((void *)(u), (void *)(v), (usize)xpv.node*sizeof(double))
 
 #define READEM 1
 
@@ -1910,10 +1910,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     if ((METHOD == GEAR) && (*start == 1))
         *start = 0;
     if (METHOD == 0) {
-        nit = tend;
+        nit = (int32)tend;
         dt = dt / fabs(dt);
     } else
-        nit = (tend + fabs(dt)*.1) / fabs(dt);
+        nit = (int32)((tend + fabs(dt)*.1) / fabs(dt));
     /* else nit=tend/fabs(dt); */
     nit = (nit + nout - 1) / nout;
     if (nit == 0)
@@ -2268,7 +2268,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         /*   This is where the progresser goes   */
         if (Xup) {
             plot_command(nit, icount, cwidth);
-            esc = my_abort();
+            esc = (char)my_abort();
 
             {
 
