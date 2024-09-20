@@ -703,7 +703,7 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
     return win;
 }
 
-void
+static void
 bin_prnt_byte(int32 x, int32 *arr) {
     int32 n = 0;
     for (n = 7; n >= 0; n--) {
@@ -723,13 +723,13 @@ Window
 make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, uchar *icdata) {
     Window win;
-    win = XCreateSimpleWindow(display, root, x, y, width, height, bw,
+    win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height, (uint)bw,
                               MyForeColor, MyBackColor);
 
     /*Gradient stuff*/
 
-    Pixmap pmap = XCreatePixmap(display, root, width, height,
-                                DefaultDepth(display, DefaultScreen(display)));
+    Pixmap pmap = XCreatePixmap(display, root, (uint)width, (uint)height,
+                                (uint)DefaultDepth(display, DefaultScreen(display)));
     int32 xx, yy;
     XColor bcolour, col2, diffcol;
     Colormap cmap = DefaultColormap(display, DefaultScreen(display));
@@ -762,9 +762,9 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                 } else {
                     cosine = 0.93;
                 }
-                col2.red = bcolour.red*cosine;
-                col2.green = bcolour.green*cosine;
-                col2.blue = bcolour.blue*cosine;
+                col2.red = (ushort)(bcolour.red*cosine);
+                col2.green = (ushort)(bcolour.green*cosine);
+                col2.blue = (ushort)(bcolour.blue*cosine);
             }
 
             XAllocColor(display, cmap, &col2);
@@ -784,9 +784,9 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
             XDrawPoint(display, pmap, gc, xx, yy);
             xx = width - 1;
             cosine = 0.1;
-            col2.red = bcolour.red*cosine;
-            col2.green = bcolour.green*cosine;
-            col2.blue = bcolour.blue*cosine;
+            col2.red = (ushort)(bcolour.red*cosine);
+            col2.green = (ushort)(bcolour.green*cosine);
+            col2.blue = (ushort)(bcolour.blue*cosine);
 
             XAllocColor(display, cmap, &col2);
             XSetForeground(display, gc, col2.pixel);
