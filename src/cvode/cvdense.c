@@ -88,13 +88,14 @@ void
 CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
              N_Vector fy, N_Vector ewt, double h, double uround, void *jac_data,
              int32 *nfePtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    (void)jac_data;
-    (void)vtemp2;
-    (void)vtemp3;
     double fnorm, minInc, inc, inc_inv, yjsaved, srur;
     double *y_data, *ewt_data;
     N_Vector ftemp, jthCol;
     int64 j;
+
+    (void)jac_data;
+    (void)vtemp2;
+    (void)vtemp3;
 
     ftemp = vtemp1; /* Rename work vector for use as f vector value */
 
@@ -106,7 +107,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
     srur = RSqrt(uround);
     fnorm = N_VWrmsNorm(fy, ewt);
     minInc =
-        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N * fnorm) : ONE;
+        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*(double)N * fnorm) : ONE;
 
     N_VMAKE(jthCol, NULL, N);
 
@@ -261,8 +262,8 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     nje = 0;
     if (iopt != NULL) {
         iopt[DENSE_NJE] = nje;
-        iopt[DENSE_LRW] = 2*N * N;
-        iopt[DENSE_LIW] = N;
+        iopt[DENSE_LRW] = (int32)(2*N * N);
+        iopt[DENSE_LIW] = (int32)N;
     }
     nstlj = 0;
 
@@ -337,9 +338,9 @@ CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 
 static int32
 CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
+    CVDenseMem cvdense_mem;
     (void)ycur;
     (void)fcur;
-    CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;
 

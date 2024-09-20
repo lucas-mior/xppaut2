@@ -98,12 +98,13 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             void *f_data, double tn, N_Vector y, N_Vector fy, N_Vector ewt,
             double h, double uround, void *jac_data, int32 *nfePtr,
             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    (void)jac_data;
-    (void)vtemp3;
     double fnorm, minInc, inc, inc_inv, srur;
     N_Vector ftemp, ytemp;
     int64 group, i, j, width, ngroups, i1, i2;
     double *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
+
+    (void)jac_data;
+    (void)vtemp3;
 
     /* Rename work vectors for use as temporary values of y and f */
     ftemp = vtemp1;
@@ -123,7 +124,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
     srur = RSqrt(uround);
     fnorm = N_VWrmsNorm(fy, ewt);
     minInc =
-        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*N * fnorm) : ONE;
+        (fnorm != ZERO) ? (MIN_INC_MULT*ABS(h)*uround*(double)N * fnorm) : ONE;
 
     /* Set bandwidth and number of column groups for band differencing */
     width = mlower + mupper + 1;
@@ -303,8 +304,8 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     nje = 0;
     if (iopt != NULL) {
         iopt[BAND_NJE] = nje;
-        iopt[BAND_LRW] = N*(storage_mu + mu + 2*ml + 2);
-        iopt[BAND_LIW] = N;
+        iopt[BAND_LRW] = (int32)(N*(storage_mu + mu + 2*ml + 2));
+        iopt[BAND_LIW] = (int32)N;
     }
     nstlj = 0;
 
@@ -379,9 +380,9 @@ CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 
 static int32
 CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
+    CVBandMem cvband_mem;
     (void)ycur;
     (void)fcur;
-    CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;
 

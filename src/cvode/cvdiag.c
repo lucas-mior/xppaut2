@@ -170,7 +170,7 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Set workspace lengths */
     if (iopt != NULL) {
-        iopt[DIAG_LRW] = N*3;
+        iopt[DIAG_LRW] = (int32)N*3;
         iopt[DIAG_LIW] = 0;
     }
 
@@ -188,12 +188,12 @@ CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
 static int32
 CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    (void)convfail;
-    (void)vtemp3;
     double r;
     N_Vector ftemp, y;
     bool invOK;
     CVDiagMem cvdiag_mem;
+    (void)convfail;
+    (void)vtemp3;
 
     cvdiag_mem = (CVDiagMem)lmem;
 
@@ -242,11 +242,11 @@ CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 
 static int32
 CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
-    (void)ycur;
-    (void)fcur;
     bool invOK;
     double r;
     CVDiagMem cvdiag_mem;
+    (void)ycur;
+    (void)fcur;
 
     cvdiag_mem = (CVDiagMem)lmem;
 
