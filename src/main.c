@@ -46,9 +46,6 @@
 #define TOPBUTTONCOLOR 27
 
 #include <X11/cursorfont.h>
-#define BITMAPDEPTH 1
-#define TOO_SMALL 0
-#define BIG_ENOUGH 1
 
 #include "myfonts.h"
 
