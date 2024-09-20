@@ -378,7 +378,6 @@ add_spec_fun(char *name, char *rhs) {
                ntype, ntot, ncon, wgtname, ivar);
 
         return 1;
-        break;
     case 2: /* sparse */
         get_first(rhs, "(");
         str = get_next(",");
@@ -434,7 +433,6 @@ add_spec_fun(char *name, char *rhs) {
         plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s\n", name,
                ntot, ncon, wgtname, ivar, indname);
         return 1;
-        break;
     case 3: /* convolution */
         get_first(rhs, "(");
         str = get_next(",");
@@ -505,7 +503,6 @@ add_spec_fun(char *name, char *rhs) {
             " Added net %s type %d len=%d x %d using %s %s(var[%d],var[%d]) \n",
             name, ntype, ntot, ncon, wgtname, fname, ivar, ivar2);
         return 1;
-        break;
     case 4: /* sparse */
         get_first(rhs, "(");
         str = get_next(",");
@@ -580,8 +577,6 @@ add_spec_fun(char *name, char *rhs) {
         plintf(" Sparse %s len=%d x %d using %s %s(var[%d],var[%d]) and %s\n",
                name, ntot, ncon, wgtname, fname, ivar, ivar2, indname);
         return 1;
-        break;
-
     case 5: /* fft convolution */
         get_first(rhs, "(");
         str = get_next(",");
@@ -646,7 +641,6 @@ add_spec_fun(char *name, char *rhs) {
         plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
                ntype, ntot, ncon, wgtname, ivar);
         return 1;
-        break;
     case 6: /* MMULT    ntot=n,ncon=m  */
         get_first(rhs, "(");
         str = get_next(",");
@@ -693,7 +687,6 @@ add_spec_fun(char *name, char *rhs) {
         plintf(" Added mmult %s len=%d x %d using %s var[%d]\n", name, ntot,
                ncon, wgtname, ivar, indname);
         return 1;
-        break;
     case 7: /* FMMULT */
         get_first(rhs, "(");
         str = get_next(",");
@@ -916,8 +909,6 @@ add_spec_fun(char *name, char *rhs) {
                name, ntot, ncon, wgtname, ivar, indname, tauname);
         NDELAYS = 1;
         return 1;
-        break;
-        return 0;
     case DEL_SPAR:
         get_first(rhs, "(");
         str = get_next(",");
@@ -985,9 +976,6 @@ add_spec_fun(char *name, char *rhs) {
                name, ntot, ncon, wgtname, ivar, indname, tauname);
         NDELAYS = 1;
         return 1;
-        break;
-
-        return 0;
     case 10:
         /*
            z=GILL(meth,rxn list)
@@ -1047,8 +1035,10 @@ add_spec_fun(char *name, char *rhs) {
         plintf("total=%d str=%s\n",ntot,junk);
 
         return 0; */
+    default:
+        fprintf(stderr, "Unexpected case in %s.\n", __func__);
+        exit(EXIT_FAILURE);
     }
-    return 0;
 }
 
 void
