@@ -123,12 +123,12 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
         return 0;
     ff->nfiles = nf;
     ff->ndirs = nd;
-    ff->dirnames = malloc(nd*sizeof(char *));
-    ff->filenames = malloc(nf*sizeof(char *));
+    ff->dirnames = malloc((usize)nd*sizeof(char *));
+    ff->filenames = malloc((usize)nf*sizeof(char *));
     for (i = 0; i < nd; i++)
-        ff->dirnames[i] = malloc(mld + 2);
+        ff->dirnames[i] = malloc((usize)mld + 2);
     for (i = 0; i < nf; i++)
-        ff->filenames[i] = malloc(mlf + 2);
+        ff->filenames[i] = malloc((usize)mlf + 2);
     dirp = opendir(direct);
     dp = readdir(dirp);
     nf = 0;
@@ -156,10 +156,10 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
     ff->nfiles = nf;
     ff->ndirs = nd;
     if (nd > 0)
-        qsort(&(ff->dirnames[0]), nd, sizeof(char *), cmpstringp);
+        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), cmpstringp);
 
     if (nf > 0)
-        qsort(&(ff->filenames[0]), nf, sizeof(char *), cmpstringp);
+        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), cmpstringp);
     closedir(dirp);
     return 1;
 }
@@ -176,12 +176,12 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
         return 0;
     ff->nfiles = nf;
     ff->ndirs = nd;
-    ff->dirnames = malloc(nd*sizeof(char *));
-    ff->filenames = malloc(nf*sizeof(char *));
+    ff->dirnames = malloc((usize)nd*sizeof(char *));
+    ff->filenames = malloc((usize)nf*sizeof(char *));
     for (i = 0; i < nd; i++)
-        ff->dirnames[i] = malloc(mld + 2);
+        ff->dirnames[i] = malloc((usize)mld + 2);
     for (i = 0; i < nf; i++)
-        ff->filenames[i] = malloc(mlf + 2);
+        ff->filenames[i] = malloc((usize)mlf + 2);
     dirp = opendir(direct);
     dp = readdir(dirp);
     nf = 0;
@@ -200,10 +200,10 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
     }
 
     if (nd > 0)
-        qsort(&(ff->dirnames[0]), nd, sizeof(char *), cmpstringp);
+        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), cmpstringp);
 
     if (nf > 0)
-        qsort(&(ff->filenames[0]), nf, sizeof(char *), cmpstringp);
+        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), cmpstringp);
     closedir(dirp);
     return 1;
 }
@@ -227,13 +227,13 @@ fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
     while (dp != NULL) {
         if (IsDirectory(direct, dp->d_name)) {
             *ndir = *ndir + 1;
-            l = strlen(dp->d_name);
+            l = (int32)strlen(dp->d_name);
             if (l > *mld)
                 *mld = l;
         } else {
             if (wild_match(dp->d_name, wild)) {
                 *nfil = *nfil + 1;
-                l = strlen(dp->d_name);
+                l = (int32)strlen(dp->d_name);
                 if (l > *mlf)
                     *mlf = l;
             }
@@ -362,11 +362,12 @@ wild_match(char *string, char *pattern) {
     int32 matched; /* If 1, character class has been matched. */
     int32 reverse; /* If 1, character class is inverted. */
 
-    for (; *pattern; string++, pattern++)
+    for (; *pattern; string++, pattern++) {
         switch (*pattern) {
         case '\\':
             /* Literal match with following character; fall through. */
             pattern++;
+            __attribute__((fallthrough));
         default:
             if (*string != *pattern)
                 return 0;
@@ -393,6 +394,7 @@ wild_match(char *string, char *pattern) {
                 return 0;
             continue;
         }
+    }
 
     return *string == '\0';
 }
