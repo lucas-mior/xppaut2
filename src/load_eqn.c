@@ -896,10 +896,10 @@ add_intern_set(char *name, char *does) {
         return;
     }
     intern_set[j].use = 1;
-    n = strlen(name);
-    intern_set[j].name = malloc((n + 1));
+    n = (int32)strlen(name);
+    intern_set[j].name = malloc((usize)n + 1);
     strcpy(intern_set[j].name, name);
-    n = strlen(does);
+    n = (int32)strlen(does);
     bob[0] = '$';
     bob[1] = ' ';
     k = 2;
@@ -917,7 +917,7 @@ add_intern_set(char *name, char *does) {
         }
     }
     bob[k] = 0;
-    intern_set[j].does = malloc(n + 3);
+    intern_set[j].does = malloc((usize)n + 3);
     strcpy(intern_set[j].does, bob);
     plintf(" added %s doing %s \n", intern_set[j].name, intern_set[j].does);
     Nintern_set++;
@@ -1072,12 +1072,12 @@ void
 set_internopts_xpprc_and_comline(void) {
     int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
-    if (Nopts == 0)
-        return;
     /*  parsem here   */
     /*Check for QUIET and LOGFILE options first...*/
     char intrnoptcpy[255]; /*Must use copy to avoid side effects of strtok used
                               in get_first below*/
+    if (Nopts == 0)
+        return;
     for (i = 0; i < Nopts; i++) {
         strcpy(intrnoptcpy, interopt[i]);
         ptr = intrnoptcpy;
