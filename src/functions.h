@@ -70,7 +70,7 @@ typedef struct {
 
 /***************  End of grabber stuff  in header **************/
 
-typedef struct {
+typedef struct MpegSave {
     int32 flag;
     int32 skip;
     char root[100];
@@ -78,13 +78,13 @@ typedef struct {
     int32 aviflag, filflag;
 } MpegSave;
 
-typedef struct {
+typedef struct Comet {
     int32 n;
     int32 *x, *y, *col;
     int32 i;
 } Comet;
 
-typedef struct {
+typedef struct AniCom {
     Comet c;
     int32 type, flag;
     int32 *col, *x1, *y1, *x2, *y2, *who;
