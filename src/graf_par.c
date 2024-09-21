@@ -67,7 +67,7 @@ char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
 void
 change_view_com(int32 com) {
     if (com == 2) {
-        make_my_aplot("Array!");
+        array_plot_make_my("Array!");
         edit_aplot();
         return;
     }

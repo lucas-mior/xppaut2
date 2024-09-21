@@ -136,7 +136,7 @@ array_plot_optimize(int32 *plist) {
     int32 ncol = i1 + 1 - i0;
     if (ncol < 2 || nrows < 2)
         return;
-    make_my_aplot("Array!");
+    array_plot_make_my("Array!");
 
     array_plot.index0 = i0 + 1;
     strcpy(array_plot.name, uvar_names[i0]);
@@ -158,7 +158,7 @@ array_plot_optimize(int32 *plist) {
 }
 
 void
-make_my_aplot(char *name) {
+array_plot_make_my(char *name) {
     if (array_plot.alive == 1)
         return;
     create_array_plot(&array_plot, name, name);
