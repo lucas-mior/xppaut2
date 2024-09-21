@@ -384,17 +384,6 @@ adj2_new_adjoint(void) {
     return;
 }
 
-/* this computes the periodic orbit and stores it in
- * the usual place  given initial data and period */
-void
-test_test(void) {
-    double x[2];
-    x[0] = .35249;
-    x[1] = .2536;
-    compute_one_orbit(x, 14.6);
-    return;
-}
-
 void
 compute_one_orbit(double *ic, double per) {
     double oldtotal = TEND;
