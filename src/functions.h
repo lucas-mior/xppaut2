@@ -4171,13 +4171,13 @@ typedef struct TEXTWIN {
     char **list;
 } TEXTWIN;
 
-typedef struct SCROLLBOX {
+typedef struct ScrollBox {
     Window base, slide;
     Window *w;
     int32 nw, nent, i0;
     int32 len, exist;
     char **list;
-} SCROLLBOX;
+} ScrollBox;
 
 extern TEXTWIN mytext;
 #define SB_PLOTTABLE 0
@@ -4191,15 +4191,15 @@ extern TEXTWIN mytext;
 void set_window_title(Window win, char *string);
 void make_scrbox_lists(void);
 int32 get_x_coord_win(Window win);
-void destroy_scroll_box(SCROLLBOX *sb);
+void destroy_scroll_box(ScrollBox *sb);
 void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
-                       char **list, SCROLLBOX *sb);
-void expose_scroll_box(Window window, SCROLLBOX sb);
-void redraw_scroll_box(SCROLLBOX sb);
-void crossing_scroll_box(Window window, int32 c, SCROLLBOX sb);
-int32 scroll_box_motion(XEvent ev, SCROLLBOX *sb);
-int32 select_scroll_item(Window window, SCROLLBOX sb);
-void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb);
+                       char **list, ScrollBox *sb);
+void expose_scroll_box(Window window, ScrollBox sb);
+void redraw_scroll_box(ScrollBox sb);
+void crossing_scroll_box(Window window, int32 c, ScrollBox sb);
+int32 scroll_box_motion(XEvent ev, ScrollBox *sb);
+int32 select_scroll_item(Window window, ScrollBox sb);
+void scroll_popup(STRING_BOX *sb, ScrollBox *scrb);
 int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
                     char values[][MAX_LEN_SBOX], int32 maxchar);
 void expose_sbox(STRING_BOX sb, Window window, int32 pos);
@@ -4209,7 +4209,7 @@ void reset_hot(int32 inew, STRING_BOX *sb);
 void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col,
                   int32 *done, Window *w);
 void set_sbox_item(STRING_BOX *sb, int32 item);
-int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb);
+int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb);
 void make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
                        int32 maxchar);
 Window make_fancy_window(Window root, int32 x, int32 y, int32 width,

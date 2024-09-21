@@ -112,7 +112,7 @@ get_x_coord_win(Window win) {
 }
 
 void
-destroy_scroll_box(SCROLLBOX *sb) {
+destroy_scroll_box(ScrollBox *sb) {
     if (sb->exist == 1) {
         sb->exist = 0;
         waitasec(ClickTime);
@@ -124,7 +124,7 @@ destroy_scroll_box(SCROLLBOX *sb) {
 
 void
 create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
-                  char **list, SCROLLBOX *sb) {
+                  char **list, ScrollBox *sb) {
     int32 slen = 0;
     int32 hgt, wid;
     int32 ww, len;
@@ -154,7 +154,7 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
 }
 
 void
-expose_scroll_box(Window window, SCROLLBOX sb) {
+expose_scroll_box(Window window, ScrollBox sb) {
     int32 i;
     /*int32 flag=-1;*/
     for (i = 0; i < sb.nw; i++)
@@ -168,7 +168,7 @@ expose_scroll_box(Window window, SCROLLBOX sb) {
 }
 
 void
-redraw_scroll_box(SCROLLBOX sb) {
+redraw_scroll_box(ScrollBox sb) {
     int32 i, p;
     int32 i0 = sb.i0;
     for (i = 0; i < sb.nw; i++) {
@@ -187,7 +187,7 @@ redraw_scroll_box(SCROLLBOX sb) {
 }
 
 void
-crossing_scroll_box(Window window, int32 c, SCROLLBOX sb) {
+crossing_scroll_box(Window window, int32 c, ScrollBox sb) {
     int32 i;
     for (i = 0; i < sb.nw; i++) {
         if (window == sb.w[i]) {
@@ -199,7 +199,7 @@ crossing_scroll_box(Window window, int32 c, SCROLLBOX sb) {
 }
 
 int32
-scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
+scroll_box_motion(XEvent ev, ScrollBox *sb) {
     int32 x;
     Window window;
     int32 pos, len;
@@ -225,7 +225,7 @@ scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
 }
 
 int32
-select_scroll_item(Window window, SCROLLBOX sb) {
+select_scroll_item(Window window, ScrollBox sb) {
     int32 i;
     int32 item = -1;
     for (i = 0; i < sb.nw; i++) {
@@ -238,7 +238,7 @@ select_scroll_item(Window window, SCROLLBOX sb) {
 }
 
 void
-scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb) {
+scroll_popup(STRING_BOX *sb, ScrollBox *scrb) {
     int32 hw = DCURYs + 4;
     int32 ihot = sb->hot;
     int32 id = sb->hh[ihot];
@@ -262,7 +262,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     STRING_BOX sb;
     int32 i, status;
     int32 colm, pos;
-    SCROLLBOX scrb;
+    ScrollBox scrb;
     scrb.exist = 0;
 
     for (i = 0; i < n; i++) {
@@ -378,7 +378,7 @@ set_sbox_item(STRING_BOX *sb, int32 item) {
 }
 
 int32
-s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
+s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     XEvent ev;
     int32 status = -1, inew;
     int32 nn = sb->n;
