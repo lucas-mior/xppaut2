@@ -54,8 +54,8 @@ static void adj_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 make_h(double **orb, double **adj,
                     int32 nt, int32 node, int32 silent);
-static void eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
-                     double *yp, int32 node);
+static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
+                          double *yp, int32 node);
 
 void
 adj2_init_trans(void) {
@@ -539,7 +539,7 @@ bye:
 }
 
 void
-eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
+adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
          int32 node) {
     for (int32 j = 0; j < node; j++) {
         yp[j] = 0.0;
@@ -562,24 +562,24 @@ rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work, int32 neq,
     yval[1] = work + neq;
     yval[2] = work + neq + neq;
     for (j = 0; j < nstep; j++) {
-        eval_rhs(jac, k1, k2, t / del, y, yval[1], neq);
+        adj2_eval_rhs(jac, k1, k2, t / del, y, yval[1], neq);
         for (int32 i = 0; i < neq; i++) {
             yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
             yval[2][i] = y[i] + dt*yval[1][i]*0.5;
         }
         t1 = t + .5*dt;
-        eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
+        adj2_eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
         for (int32 i = 0; i < neq; i++) {
             yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.00;
             yval[2][i] = y[i] + .5*dt*yval[1][i];
         }
-        eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
+        adj2_eval_rhs(jac, k1, k2, t1 / del, yval[2], yval[1], neq);
         for (int32 i = 0; i < neq; i++) {
             yval[0][i] = yval[0][i] + dt*yval[1][i] / 3.000;
             yval[2][i] = y[i] + dt*yval[1][i];
         }
         t2 = t + dt;
-        eval_rhs(jac, k1, k2, t2 / del, yval[2], yval[1], neq);
+        adj2_eval_rhs(jac, k1, k2, t2 / del, yval[2], yval[1], neq);
         for (int32 i = 0; i < neq; i++)
             y[i] = yval[0][i] + dt*yval[1][i] / 6.00;
         t = t2;
