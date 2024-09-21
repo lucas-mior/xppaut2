@@ -25,6 +25,22 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
+typedef struct EditBox {
+    Window base, ok, cancel, reset;
+    Window win[MAX_N_EBOX];
+    char name[MAX_N_EBOX][MAX_LEN_EBOX], value[MAX_N_EBOX][MAX_LEN_EBOX],
+        rval[MAX_N_EBOX][MAX_LEN_EBOX];
+    int32 n, hot;
+} EditBox;
+
+void reset_ebox(EditBox *sb, int32 *pos, int32 *col);
+void expose_ebox(EditBox *sb, Window w, int32 pos);
+void ereset_hot(int32 inew, EditBox *sb);
+void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
+                   int32 *done, Window *w);
+int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
+void make_ebox_windows(EditBox *sb, char *title);
+
 extern Display *display;
 extern int32 screen;
 extern Window main_win, info_pop, draw_win, main_win;
@@ -53,7 +69,7 @@ extern BcStruct my_bc[MAX_ODE];
 extern int32 NFUN;
 
 void
-reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
+reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
     int32 i, l;
     Window w;
@@ -76,7 +92,7 @@ reset_ebox(EDIT_BOX *sb, int32 *pos, int32 *col) {
 
 int32
 do_edit_box(int32 n, char *title, char **names, char **values) {
-    EDIT_BOX sb;
+    EditBox sb;
     int32 i, status;
     int32 colm, pos;
 
@@ -115,7 +131,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
 }
 
 void
-expose_ebox(EDIT_BOX *sb, Window w, int32 pos) {
+expose_ebox(EditBox *sb, Window w, int32 pos) {
     int32 i, flag;
 
     if (w == sb->ok) {
@@ -142,7 +158,7 @@ expose_ebox(EDIT_BOX *sb, Window w, int32 pos) {
 }
 
 void
-ereset_hot(int32 inew, EDIT_BOX *sb) {
+ereset_hot(int32 inew, EditBox *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
@@ -155,7 +171,7 @@ ereset_hot(int32 inew, EDIT_BOX *sb) {
 }
 
 void
-enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
               Window *w) {
     ereset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
@@ -166,7 +182,7 @@ enew_editable(EDIT_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 }
 
 int32
-e_box_event_loop(EDIT_BOX *sb, int32 *pos, int32 *col) {
+e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     XEvent ev;
     int32 status = -1, inew;
     int32 nn = sb->n;
@@ -242,7 +258,7 @@ e_box_event_loop(EDIT_BOX *sb, int32 *pos, int32 *col) {
 }
 
 void
-make_ebox_windows(EDIT_BOX *sb, char *title) {
+make_ebox_windows(EditBox *sb, char *title) {
     int32 width, height;
     int32 i;
     int32 xpos, ypos, n = sb->n;
