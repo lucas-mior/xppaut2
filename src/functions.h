@@ -97,7 +97,6 @@ extern int32 animation_on_the_fly;
 void ani_new_vcr(void);
 void ani_do_events(XEvent ev);
 void ani_expose(Window w);
-void ani_resize(int32 x, int32 y);
 void ani_newskip(void);
 void check_on_the_fly(void);
 void on_the_fly(int32 task);
