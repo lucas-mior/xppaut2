@@ -34,7 +34,7 @@ typedef struct {
     int32 zthick, tfont, tsize, tcolor;
 } AniCom;
 
-int32 new_vcr(void);
+int32 ani_new_vcr(void);
 int32 create_vcr(char *name);
 int32 ani_border(Window w, int32 i);
 int32 do_ani_events(XEvent ev);

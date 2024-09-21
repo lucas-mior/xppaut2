@@ -217,7 +217,7 @@ extern char anifile[256];
 */
 
 void
-new_vcr(void) {
+ani_new_vcr(void) {
     int32 tt, i;
     if (vcr.iexist == 1)
         return;

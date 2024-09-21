@@ -504,7 +504,7 @@ do_main(int32 argc, char **argv) {
     if_needed_load_ic();
     if_needed_load_ext_options();
     if (use_ani_file) {
-        new_vcr();
+        ani_new_vcr();
         get_ani_file(anifile);
     }
 

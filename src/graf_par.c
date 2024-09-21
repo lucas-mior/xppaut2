@@ -72,7 +72,7 @@ change_view_com(int32 com) {
         return;
     }
     if (com == 3) {
-        new_vcr();
+        ani_new_vcr();
         return;
     }
 
