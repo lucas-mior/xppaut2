@@ -501,7 +501,6 @@ get_method(void) {
             METHOD = i;
     if (i > (nmeth - 1))
         i = nmeth - 1;
-    /* XDestroyWindow(display,temp); */
     return;
 }
 
