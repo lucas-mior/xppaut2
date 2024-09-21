@@ -127,7 +127,6 @@ static int32 ani_line;
 
 static int32 ani_speed = 10;
 static int32 ani_speed_inc = 2;
-/*extern char this_file[100];*/
 extern char this_file[XPP_MAX_NAME];
 
 static double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
@@ -147,7 +146,6 @@ typedef struct {
     int32 pos, inc;
     int32 slipos, sliwid;
     char file[XPP_MAX_NAME];
-    /*char file[256];*/
 } VCR;
 
 static VCR vcr;
@@ -430,7 +428,6 @@ update_ani_motion_stuff(int32 x, int32 y) {
     set_val("mouse_y", ami.y);
     set_val("mouse_vx", ami.vx);
     set_val("mouse_vy", ami.vy);
-    /* printf("%g %g %g %g\n",ami.x,ami.y,ami.vx,ami.vy); */
     do_grab_tasks(1);
     fix_only();
     ani_frame(0);
@@ -453,8 +450,6 @@ ani_buttonx(XEvent ev, int32 flag) {
             who_was_grabbed = search_for_grab(ami.x, ami.y);
             if (who_was_grabbed < 0)
                 printf("Nothing grabbed\n");
-
-            /*     printf("found %d\n",who_was_grabbed); */
         }
         if (flag == 0) { /* This is BUTTON RELEASE  */
             /*  update_ani_motion_stuff(ev.xbutton.x,ev.xbutton.y); */
@@ -463,8 +458,6 @@ ani_buttonx(XEvent ev, int32 flag) {
                 /*  ani_grab_flag=0; */
                 return;
             }
-            /* printf("Final position %g %g %g %g
-             * \n",ami.x,ami.y,ami.vx,ami.vy); */
             do_grab_tasks(2);
             set_to_init_data();
             ani_grab_flag = 0;
