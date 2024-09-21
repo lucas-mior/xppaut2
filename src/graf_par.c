@@ -6,7 +6,6 @@
 #include <X11/Xutil.h>
 #include <stdio.h>
 #include <math.h>
-#include "xpplim.h"
 #include "struct.h"
 #include "mykeydef.h"
 #include "integers.h"
@@ -21,11 +20,9 @@ extern int32 DCURY;
 extern int32 storind;
 extern int32 PS_FONTSIZE;
 extern int32 PS_Port;
-/*extern char PS_FONT[100];*/
 extern char PS_FONT[XPP_MAX_NAME];
 extern double PS_LW;
 extern double x_3d[2], y_3d[2], z_3d[2];
-/*Default is now color*/
 int32 PS_Color = 1;
 
 extern char PlotFormat[100];
