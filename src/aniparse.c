@@ -282,8 +282,6 @@ create_vcr(char *name) {
 
     vcr.wfly = make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
                            (DCURYs + 6) - 4, 1);
-    /*   vcr.kill=make_window(base,5*12*DCURXs,(DCURYs+6)+4,8*DCURXs,DCURYs+1,1);
-     */
     vcr.view = make_plain_window(base, 10, 100, wid, hgt, 2);
     ani_gc = XCreateGC(display, vcr.view, valuemask, &values);
     vcr.hgt = hgt;
