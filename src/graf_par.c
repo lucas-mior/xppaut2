@@ -39,9 +39,19 @@ extern char PlotFormat[100];
 #define lsSPER 8
 #define lsUPER 9
 
-MOV3D mov3d = {"theta", "N", 45, 45, 7};
+static struct {
+    char angle[20];
+    char yes[3];
+    double start;
+    double incr;
+    int32 nclip;
+} mov3d = {"theta", "N", 45, 45, 7};
 
-BD my_bd;
+static struct BD {
+    double *x[MAXBIFCRV], *y[MAXBIFCRV];
+    int32 color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
+    Window w;
+} my_bd;
 
 extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
 

@@ -2585,20 +2585,6 @@ int32 go_go_auto(void);
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-typedef struct MOV3D {
-    char angle[20];
-    char yes[3];
-    double start;
-    double incr;
-    int32 nclip;
-} MOV3D;
-
-typedef struct BD {
-    double *x[MAXBIFCRV], *y[MAXBIFCRV];
-    int32 color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
-    Window w;
-} BD;
-
 void change_view_com(int32 com);
 void ind_to_sym(int32 ind, char *str);
 void check_flags(void);
