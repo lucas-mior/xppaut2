@@ -493,7 +493,6 @@ create_auto_file_name(void) {
 void
 open_auto(int32 flg) {
     /* compatible with new auto */
-    char string[200];
     char *basec, *bname, *dirc, *dname;
     char *HOME;
 
@@ -514,7 +513,8 @@ open_auto(int32 flg) {
     sprintf(TMPSWAP, "%s/%s", HOME, "__tmp__");
 
     if (flg == 1) {
-        sprintf(string, "%s.s", this_auto_file);
+        char string[sizeof(this_auto_file) + 2];
+        snprintf(string, sizeof(string), "%s.s", this_auto_file);
         copyf(string, fort3);
     }
     return;

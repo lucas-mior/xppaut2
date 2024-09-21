@@ -24,8 +24,6 @@ clang: CFLAGS += -Wno-format-nonliteral
 clang: all
 
 gcc: C = gcc
-gcc: CFLAGS += -Wno-format-truncation -Wno-format-overflow -Wno-pedantic
-gcc: CFLAGS += -Wno-implicit-fallthrough
 gcc: all
 
 tcc: C = tcc
