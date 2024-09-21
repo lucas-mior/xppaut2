@@ -349,7 +349,6 @@ check_ani_pause(XEvent ev) {
 void
 ani_do_events(XEvent ev) {
     int32 x, y;
-    /*Window w;*/
     if (vcr.iexist == 0)
         return;
     switch (ev.type) {
