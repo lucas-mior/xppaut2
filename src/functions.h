@@ -193,7 +193,7 @@ void redraw_ani_slider(void);
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-typedef struct {
+typedef struct ArrayPlot {
     Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin;
     Window wplot, wredraw, wtime, wgif, wrange, wfit;
     int32 index0, indexn, alive, nacross, ndown, plotdef;
