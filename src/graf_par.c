@@ -1044,8 +1044,7 @@ new_curve(void) {
 
 void
 create_ps(void) {
-    /*char filename[256];*/
-    char filename[XPP_MAX_NAME];
+    char filename[XPP_MAX_NAME+3];
     static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
                          "Font", "Linewidth"};
     int32 status;
@@ -1053,7 +1052,7 @@ create_ps(void) {
     snprintf(values[0], sizeof(values[0]), "%d", PS_Color);
     snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
     snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
-    snprintf(values[3], sizeof(values[3]), "%s", PS_FONT);
+    strncpy(values[3], PS_FONT, sizeof(values[3]));
     snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
     status = do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
     if (status != 0) {
