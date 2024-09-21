@@ -24,20 +24,20 @@
 
 extern int32 AdjRange;
 
-void adj2_init_trans(void);
-void adj2_dump_transpose_info(FILE *fp, int32 f);
-int32 adj2_do_transpose(void);
-void adj2_alloc_h_stuff(void);
-void adj_data_back(void);
-void adj2_make_adj_com(int32 com);
-void adj2_new_h_fun(int32 silent);
-void adj2_dump_h_stuff(FILE *fp, int32 f);
-void adj2_new_adjoint(void);
 int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
                    double eps, double minerr, int32 maxit, int32 node);
-void adj2_do_liapunov(void);
+int32 adj2_do_transpose(void);
+void adj2_alloc_h_stuff(void);
 void adj2_alloc_liap(int32 n);
+void adj2_do_liapunov(void);
 void adj2_do_this_liaprun(int32 i, double p);
+void adj2_dump_h_stuff(FILE *fp, int32 f);
+void adj2_dump_transpose_info(FILE *fp, int32 f);
+void adj2_init_trans(void);
+void adj2_make_adj_com(int32 com);
+void adj2_new_adjoint(void);
+void adj2_new_h_fun(int32 silent);
+void adj_data_back(void);
 
 #endif
 
