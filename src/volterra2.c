@@ -257,8 +257,8 @@ betnn(double mu, double dt) {
 }
 
 void
-get_kn(/* uses the guessed value y to update Kn  */
-       double *y, double t) {
+get_kn(double *y, double t) {
+    /* uses the guessed value y to update Kn  */
     int32 i;
 
     SETVAR(0, t);
