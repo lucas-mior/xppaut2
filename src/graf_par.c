@@ -254,9 +254,7 @@ void
 check_val(double *x1, double *x2, double *xb, double *xd) {
     double temp;
 
-    /*
-      see get_max for details
-    */
+    /* see get_max for details */
 
     if (*x1 == *x2) {
         temp = .05*lmax(fabs(*x1), 1.0);
