@@ -74,6 +74,8 @@ static int32 first_aplot_press;
 
 extern double MyData[MAX_ODE];
 
+static void set_acolor(int32 col);
+
 void
 draw_one_array_plot(char *bob) {
     char filename[300];

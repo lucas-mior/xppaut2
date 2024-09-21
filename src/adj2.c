@@ -104,6 +104,8 @@ adj2_do_transpose(void) {
 
     status = do_string_box(6, 6, 1, "Transpose Data", n, values, 33);
     if (status != 0) {
+        int32 inrow, incol;
+
         find_variable(values[0], &ii);
         if (ii > -1)
             my_trans.col0 = ii + 1;
@@ -121,7 +123,6 @@ adj2_do_transpose(void) {
         my_trans.row0 = atoi(values[3]);
         my_trans.rowskip = atoi(values[5]);
 
-        int32 inrow, incol;
         my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
         for (int32 i = 0; i <= my_trans.nrow; i++)
             my_trans.data[i] =
