@@ -269,8 +269,8 @@ void ps_hsb_bar(double x, double y, double wid, double len, double fill,
 
 #endif
 
-#ifndef auto_x11_h
-#define auto_x11_h
+#ifndef AUTO_X11_H
+#define AUTO_X11_H
 
 #include <X11/Xlib.h>
 
@@ -324,8 +324,8 @@ void RedrawMark(void);
 
 #endif
 
-#ifndef axes2_h
-#define axes2_h
+#ifndef AXES2_H
+#define AXES2_H
 
 #include <X11/Xlib.h>
 
@@ -3487,8 +3487,8 @@ void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #endif
 
-#ifndef main_h
-#define main_h
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <X11/Xlib.h>
 
@@ -4051,8 +4051,8 @@ void user_set_color_par(int32 flag, char *via, double lo, double hi);
 void compute_one_period(double period, double *x, char *name);
 #endif
 
-#ifndef odesol2_h
-#define odesol2_h
+#ifndef ODESOL2_H
+#define ODESOL2_H
 
 int32 symplect3(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);
@@ -4620,8 +4620,8 @@ void make_txtview(void);
 
 #endif
 
-#ifndef volterra2_h
-#define volterra2_h
+#ifndef VOLTERRA2_H
+#define VOLTERRA2_H
 
 double ker_val(int32 in);
 void alloc_v_memory(void);
