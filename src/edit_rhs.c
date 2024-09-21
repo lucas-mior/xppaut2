@@ -28,8 +28,9 @@
 typedef struct EditBox {
     Window base, ok, cancel, reset;
     Window win[MAX_N_EBOX];
-    char name[MAX_N_EBOX][MAX_LEN_EBOX], value[MAX_N_EBOX][MAX_LEN_EBOX],
-        rval[MAX_N_EBOX][MAX_LEN_EBOX];
+    char name[MAX_N_EBOX][MAX_LEN_EBOX];
+    char value[MAX_N_EBOX][MAX_LEN_EBOX];
+    char rval[MAX_N_EBOX][MAX_LEN_EBOX];
     int32 n, hot;
 } EditBox;
 
