@@ -112,7 +112,7 @@ void
 get_2d_view(int32 ind) {
     static char *n[] = {"*0X-axis", "*0Y-axis", "Xmin",   "Ymin",
                         "Xmax",     "Ymax",     "Xlabel", "Ylabel"};
-    char values[8][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i;
     int32 i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind];
     char n1[15], n2[15];
@@ -156,7 +156,7 @@ void
 axes_opts(void) {
     static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
                         "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
-    char values[7][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xorg);
     snprintf(values[1], sizeof(values[1]), "%g", MyGraph->yorg);
@@ -185,7 +185,7 @@ get_3d_view(int32 ind) {
                         "Xmax",     "Ymin",     "Ymax",     "Zmin",
                         "Zmax",     "XLo",      "XHi",      "YLo",
                         "YHi",      "Xlabel",   "Ylabel",   "Zlabel"};
-    char values[16][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
                      i3 = MyGraph->zv[ind];
     char n1[15], n2[15], n3[15];
@@ -465,7 +465,7 @@ check_windows(void) {
 void
 user_window(void) {
     static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
-    char values[4][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xlo);
     snprintf(values[2], sizeof(values[2]), "%g", MyGraph->ylo);
@@ -614,7 +614,7 @@ get_3d_par_com(void) {
                         "Start angle",
                         "Increment",
                         "Number increments"};
-    char values[10][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
 
     int32 nclip = 8, angle = 0;
@@ -668,7 +668,7 @@ get_3d_par_noper(void) {
     static char *n[] = {
         "Theta",       "Phi",       "Movie(Y/N)",       "Vary (theta/phi)",
         "Start angle", "Increment", "Number increments"};
-    char values[10][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
 
     int32 nclip = 8, angle = 0;
@@ -984,7 +984,7 @@ int32
 alter_curve(char *title, int32 in_it, int32 n) {
     static char *nn[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "*4Color",
                          "Line type"};
-    char values[5][MAX_LEN_SBOX];
+    char values[LENGTH(nn)][MAX_LEN_SBOX];
     int32 status, i;
     int32 i1 = MyGraph->xv[in_it], i2 = MyGraph->yv[in_it],
           i3 = MyGraph->zv[in_it];
@@ -1048,7 +1048,7 @@ create_ps(void) {
     static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
                          "Font", "Linewidth"};
     int32 status;
-    char values[5][MAX_LEN_SBOX];
+    char values[LENGTH(nn)][MAX_LEN_SBOX];
     snprintf(values[0], sizeof(values[0]), "%d", PS_Color);
     snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
     snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
@@ -1333,7 +1333,7 @@ create_crv(int32 ind) {
 void
 edit_frz_crv(int32 i) {
     static char *nn[] = {"*4Color", "Key", "Name"};
-    char values[3][MAX_LEN_SBOX];
+    char values[LENGTH(nn)][MAX_LEN_SBOX];
     int32 status;
     snprintf(values[0], sizeof(values[0]), "%d", frz[i].color);
     snprintf(values[1], sizeof(values[1]), "%s", frz[i].key);

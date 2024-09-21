@@ -369,7 +369,7 @@ slide_button_press(Window w) {
 void
 do_slide_button(Window w, PAR_SLIDER *p) {
     static char *n[] = {"*3Par/Var", "Value", "Low", "High"};
-    char values[4][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     double lo, hi, val;
     if (w == p->go && p->use == 1)

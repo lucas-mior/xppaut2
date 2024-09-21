@@ -117,7 +117,7 @@ silent_nullclines(void) {
 void
 do_range_clines(void) {
     static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
-    char values[4][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i;
     double z, dz, zold;
     double xmin, xmax, y_tp, y_bot;

@@ -245,7 +245,7 @@ set_up_eq_range(void) {
     static char *n[] = {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
-    char values[8][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i;
     static char *yn[] = {"N", "Y"};
     sprintf(values[0], "%s", eq_range.item);
@@ -368,7 +368,7 @@ set_up_range(void) {
                         "Use old ic's (Y/N)",
                         "Cycle color (Y/N)",
                         "Movie(Y/N)"};
-    char values[8][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup)
@@ -445,7 +445,7 @@ set_up_range2(void) {
                         "Movie(Y/N)",
                         "Crv(1) Array(2)",
                         "Steps2"};
-    char values[13][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup)

@@ -432,7 +432,7 @@ get_pmap_pars_com(int32 l) {
     char ch;
     static char *n[] = {"*0Variable", "Section", "Direction (+1,-1,0)",
                         "Stop on sect(y/n)"};
-    char values[4][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     static char *yn[] = {"N", "Y"};
     int32 status;
     char n1[15];

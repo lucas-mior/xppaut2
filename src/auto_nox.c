@@ -591,7 +591,7 @@ void
 auto_per_par(void) {
     static char *m[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     static char key[] = "0123456789";
-    char values[10][MAX_LEN_SBOX];
+    char values[LENGTH(m)][MAX_LEN_SBOX];
     char bob[100], *ptr;
     static char *n[] = {"Uzr1", "Uzr2", "Uzr3", "Uzr4", "Uzr5",
                         "Uzr6", "Uzr7", "Uzr8", "Uzr9"};
@@ -636,7 +636,7 @@ auto_params(void) {
     static char *n[] = {"*2Par1", "*2Par2", "*2Par3", "*2Par4",
                         "*2Par5", "*2Par6", "*2Par7", "*2Par8"};
     int32 status, in;
-    char values[8][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     for (int32 i = 0; i < 8; i++) {
         if (i < NAutoPar)
             sprintf(values[i], "%s", upar_names[AutoPar[i]]);
@@ -667,7 +667,7 @@ auto_num_par(void) {
                         "MXBF",     "IID",      "ITMX",  "ITNW",    "NWTN",
                         "IADS",     "SuppBP"};
     int32 status;
-    char values[22][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     sprintf(values[0], "%d", Auto.ntst);
     sprintf(values[1], "%d", Auto.nmx);
     sprintf(values[2], "%d", Auto.npr);
@@ -730,7 +730,7 @@ auto_plot_par(void) {
 
     static char *n[] = {"*1Y-axis", "*2Main Parm", "*2Secnd Parm", "Xmin",
                         "Ymin",     "Xmax",        "Ymax"};
-    char values[7][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i;
     int32 ii1, ii2, ji1, ji2;
     int32 i1 = Auto.var + 1;

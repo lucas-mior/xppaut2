@@ -218,7 +218,7 @@ do_sh_range(double *ystart, double *yend) {
 int32
 set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
     static char *n[] = {"Freq. Par.", "*1Sect. Var", "Section", "Show(Y/N)"};
-    char values[4][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i;
     static char *yn[] = {"N", "Y"};
     snprintf(values[0], sizeof(values[0]), "%s", upar_names[*ipar]);
@@ -354,7 +354,7 @@ int32
 set_up_sh_range(void) {
     static char *n[] = {"*2Range over",     "Steps",     "Start",     "End",
                         "Cycle color(Y/N)", "Side(0/1)", "Movie(Y/N)"};
-    char values[7][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status, i;
     static char *yn[] = {"N", "Y"};
     snprintf(values[0], sizeof(values[0]), "%s", shoot_range.item);

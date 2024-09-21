@@ -678,7 +678,7 @@ man_xy(double *xe, double *ye) {
 int32
 get_marker_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size"};
-    char values[3][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
     snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
@@ -696,7 +696,7 @@ get_marker_info(void) {
 int32
 get_markers_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
-    char values[6][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
     snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);

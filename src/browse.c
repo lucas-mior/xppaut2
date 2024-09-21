@@ -1323,7 +1323,7 @@ data_table(Browser *b) {
     int32 rev, status;
 
     static char *name[] = {"Variable", "Xlo", "Xhi", "File"};
-    char value[4][MAX_LEN_SBOX];
+    char value[LENGTH(name)][MAX_LEN_SBOX];
 
     double xlo = 0, xhi = 1;
     int32 col;
@@ -1353,7 +1353,7 @@ data_find(Browser *b) {
     int32 rev, status;
 
     static char *name[] = {"*0Variable", "Value"};
-    char value[2][MAX_LEN_SBOX];
+    char value[LENGTH(name)][MAX_LEN_SBOX];
     int32 col, row = 0;
 
     double val;

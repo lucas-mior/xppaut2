@@ -97,7 +97,7 @@ array_plot_draw_one(char *bob) {
 static void
 set_up_aplot_range(void) {
     static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
-    char values[3][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     double *x;
     strncpy(values[0], array_plot_range_stem, sizeof(values[0]));
@@ -361,7 +361,7 @@ print_aplot(ArrayPlot *ap) {
     int32 status, errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
                         "Render(-1,0,1,2)"};
-    char values[5][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 nrows = my_browser.maxrow;
     int32 row0 = ap->nstart;
     int32 col0 = ap->index0;
@@ -520,7 +520,7 @@ editaplot(ArrayPlot *ap) {
     double zmax, zmin;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
                  "Zmin",       "Zmax",  "Autoplot(0/1)", "ColSkip"};
-    char values[9][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     snprintf(values[0], sizeof(values[0]), "%s", ap->name);
     snprintf(values[1], sizeof(values[1]), "%d", ap->nacross);
     snprintf(values[2], sizeof(values[2]), "%d", ap->nstart);

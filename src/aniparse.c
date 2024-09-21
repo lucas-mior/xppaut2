@@ -528,7 +528,7 @@ ani_button(Window w) {
 void
 ani_create_mpeg(void) {
     static char *n[] = {"PPM 0/1", "Basename", "AniGif(0/1)"};
-    char values[3][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
     mpeg.flag = 0;
     snprintf(values[0], sizeof(values[0]), "%d", mpeg.flag);

@@ -711,7 +711,7 @@ get_fit_params(void) {
     static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
                         "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
     int32 status;
-    char values[10][MAX_LEN_SBOX];
+    char values[LENGTH(n)][MAX_LEN_SBOX];
     snprintf(values[0], sizeof(values[0]), "%s", fit_info.file);
     snprintf(values[1], sizeof(values[1]), "%s", fit_info.varlist);
     snprintf(values[2], sizeof(values[2]), "%s", fit_info.parlist1);
