@@ -3233,7 +3233,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     int64 *itm;
 
     uint1 = xmalloc(sizeof(*uint1)*(usize)(*ndxloc) *
-                   (usize)(iap->ndim*iap->ncol));
+                    (usize)(iap->ndim*iap->ncol));
     tint = xmalloc(sizeof(*tint)*(usize)(*ndxloc));
     tm2 = xmalloc(sizeof(*(tm2))*(usize)(*ndxloc));
     itm = xmalloc(sizeof(*itm)*(usize)(*ndxloc));
@@ -4600,7 +4600,7 @@ L1:
     {
         double *uolddotps, *rlolddot;
         uolddotps = xmalloc(sizeof(*uolddotps)*(iap->ntst + 1)*(iap->ndim) *
-                           (iap->ncol));
+                            (iap->ncol));
         rlolddot = xmalloc(sizeof(*rlolddot)*(iap->nfpr));
 
         for (i = 0; i < iap->nfpr; ++i) {
@@ -5250,11 +5250,11 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
         *ndxloc = (ntst_used + 1)*4;
         ups_new = xmalloc(sizeof(*ups_new) *
-                         (usize)((*ndxloc)*(iap->ndim*ncol_used)));
+                          (usize)((*ndxloc)*(iap->ndim*ncol_used)));
         upoldp_new = xmalloc(sizeof(*upoldp_new) *
-                            (usize)((*ndxloc)*(iap->ndim*ncol_used)));
+                             (usize)((*ndxloc)*(iap->ndim*ncol_used)));
         udotps_new = xmalloc(sizeof(*udotps_new) *
-                            (usize)((*ndxloc)*(iap->ndim*ncol_used)));
+                             (usize)((*ndxloc)*(iap->ndim*ncol_used)));
         tm_new = xmalloc(sizeof(*tm_new)*(usize)(*ndxloc));
         dtm_new = xmalloc(sizeof(*dtm_new)*(usize)(*ndxloc));
 
@@ -6970,7 +6970,7 @@ allocate_global_memory(iap_type iap) {
     free(global_scratch.ff2);
 
     global_scratch.dfu = xmalloc(sizeof(*(global_scratch.dfu)) *
-                                (usize)((iap.ndim)*(iap.ndim)));
+                                 (usize)((iap.ndim)*(iap.ndim)));
     global_scratch.dfp =
         xmalloc(sizeof(*(global_scratch.dfp))*(usize)((iap.ndim)*NPARX));
     global_scratch.uu1 =

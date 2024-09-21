@@ -1044,7 +1044,7 @@ new_curve(void) {
 
 void
 create_ps(void) {
-    char filename[XPP_MAX_NAME+3];
+    char filename[XPP_MAX_NAME + 3];
     static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
                          "Font", "Linewidth"};
     int32 status;
@@ -1076,7 +1076,7 @@ create_ps(void) {
 
 void
 dump_ps(int32 i) {
-#define FILENAME_SIZE \
+#define FILENAME_SIZE                                                          \
     (sizeof(this_file) + sizeof(this_internset) + sizeof(PlotFormat) + 10)
     char filename[FILENAME_SIZE];
 #undef FILENAME_SIZE
@@ -1299,8 +1299,10 @@ create_crv(int32 ind) {
                 err_msg("No Curve to freeze");
                 return -1;
             }
-            frz[i].xv = xmalloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
-            frz[i].yv = xmalloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
+            frz[i].xv =
+                xmalloc(sizeof(*(frz[i].xv))*(usize)my_browser.maxrow);
+            frz[i].yv =
+                xmalloc(sizeof(*(frz[i].yv))*(usize)my_browser.maxrow);
             if ((type = MyGraph->grtype) > 0)
                 frz[i].zv =
                     xmalloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);

@@ -1397,7 +1397,8 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 irs;
 
     smat = xmalloc(sizeof(*smat)*(usize)((iap->ndim*2)*(iap->ndim*2)));
-    rnllv = xmalloc(sizeof(*rnllv)*(usize)((iap->ndim*2)*(iap->ndim*2)));
+    rnllv =
+        xmalloc(sizeof(*rnllv)*(usize)((iap->ndim*2)*(iap->ndim*2)));
     f = xmalloc(sizeof(*f)*(usize)(iap->ndim));
     u = xmalloc(sizeof(*u)*(usize)(iap->ndim));
     /* Generates starting data for the continuation of a branch of periodic */

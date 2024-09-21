@@ -82,9 +82,10 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
        and setubv).
     */
 
-    ff = xmalloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
+    ff =
+        xmalloc(sizeof(*ff)*(usize)((iap->ndim*iap->ncol)*iap->ntst + 1));
     ft = xmalloc(sizeof(*ft) *
-                (usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
+                 (usize)((iap->ndim*iap->ncol)*(iap->ntst + 1)));
 
     ndim = iap->ndim;
     ips = iap->ips;
@@ -142,24 +143,25 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
         free(mas.np);
 
         mas.a = xmalloc(sizeof(*(mas.a))*(usize)((ndim*ncol + ndim) *
-                                                  (ndim*ncol)*(ntst + 1)));
+                                                   (ndim*ncol)*(ntst + 1)));
         mas.b = xmalloc(sizeof(*(mas.b)) *
-                       (usize)(NPARX*(ndim*ncol)*(ntst + 1)));
+                        (usize)(NPARX*(ndim*ncol)*(ntst + 1)));
         mas.c =
             xmalloc(sizeof(*(mas.c))*(usize)((ndim*ncol + ndim) *
-                                              (nbc + nint + 1)*(ntst + 1)));
+                                               (nbc + nint + 1)*(ntst + 1)));
         mas.d = xmalloc(sizeof(*(mas.d))*(usize)((nbc + nint + 1)*NPARX));
         mas.a1 = xmalloc(sizeof(*(mas.a1))*(usize)(ndim*ndim*(ntst + 1)));
         mas.a2 = xmalloc(sizeof(*(mas.a2))*(usize)(ndim*ndim*(ntst + 1)));
         mas.s1 = xmalloc(sizeof(*(mas.s1))*(usize)(ndim*ndim*(ntst + 1)));
         mas.s2 = xmalloc(sizeof(*(mas.s2))*(usize)(ndim*ndim*(ntst + 1)));
-        mas.bb = xmalloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
+        mas.bb =
+            xmalloc(sizeof(*(mas.bb))*(usize)(ndim*NPARX*(ntst + 1)));
         mas.cc = xmalloc(sizeof(*(mas.cc)) *
-                        (usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
+                         (usize)((nbc + nint + 1)*ndim*(ntst + 1) + 1));
         mas.faa = xmalloc(sizeof(*(mas.faa))*(usize)(ndim*(ntst + 1)));
         mas.ca1 = xmalloc(sizeof(*(mas.ca1))*(usize)(ndim*ndim*KREDO));
         mas.icf = xmalloc(sizeof(*(mas.icf)) *
-                         (usize)((ndim*ncol + ndim)*(ntst + 1)));
+                          (usize)((ndim*ncol + ndim)*(ntst + 1)));
         mas.irf =
             xmalloc(sizeof(*(mas.irf))*(usize)(ndim*ncol*(ntst + 1)));
         mas.ipr = xmalloc(sizeof(*(mas.ipr))*(usize)(ndim*(ntst + 1)));
@@ -575,7 +577,7 @@ brbd(double *a, double *b, double *c, double *d, double *fa, double *fc,
 
     e = xmalloc(sizeof(*e)*(usize)((*nov + *nrc)*(*nov + *nrc)));
     fcc = xmalloc(sizeof(*fcc) *
-                 (usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
+                  (usize)((*nov + *nrc) + (2*(*nov)*(*nov)) + 1));
 
     sol1 = xmalloc(sizeof(*sol1)*(usize)((*nov)*(*na + 1)));
     sol2 = xmalloc(sizeof(*sol2)*(usize)((*nov)*(*na + 1)));

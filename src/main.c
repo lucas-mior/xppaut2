@@ -160,8 +160,7 @@ XMALLOC(usize size, const char *function, int32 line) {
     void *p;
 
     if (!(p = malloc(size))) {
-        fprintf(stderr,
-                "Error allocating %zu bytes in function %s, line %d.\n",
+        fprintf(stderr, "Error allocating %zu bytes in function %s, line %d.\n",
                 size, function, line);
         exit(EXIT_FAILURE);
     }

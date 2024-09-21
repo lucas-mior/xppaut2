@@ -83,7 +83,8 @@ make_scrbox_lists(void) {
     scrbox_list[5].n = 6;
     scrbox_list[5].list = xmalloc(6*sizeof(char *));
     for (i = 0; i < 6; i++)
-        scrbox_list[5].list[i] = xmalloc(13*sizeof(*(scrbox_list[5].list[i])));
+        scrbox_list[5].list[i] =
+            xmalloc(13*sizeof(*(scrbox_list[5].list[i])));
     strcpy(scrbox_list[5].list[0], "2 Box");
     strcpy(scrbox_list[5].list[1], "3 Diamond");
     strcpy(scrbox_list[5].list[2], "4 Triangle");
@@ -94,7 +95,8 @@ make_scrbox_lists(void) {
     scrbox_list[6].list = xmalloc(15*sizeof(char *));
     scrbox_list[6].n = 15;
     for (i = 0; i < 15; i++) {
-        scrbox_list[6].list[i] = xmalloc(22*sizeof(*(scrbox_list[6].list[i])));
+        scrbox_list[6].list[i] =
+            xmalloc(22*sizeof(*(scrbox_list[6].list[i])));
         sprintf(scrbox_list[6].list[i], "%d %s", i, method[i]);
     }
     return;
