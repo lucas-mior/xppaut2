@@ -2451,7 +2451,8 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 #define MAXLINES 5000
 
 typedef struct FixInfo {
-    char *name, *value;
+    char *name;
+    char *value;
 } FixInfo;
 
 int32 make_eqn(void);
