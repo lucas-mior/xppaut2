@@ -199,7 +199,10 @@ typedef struct ArrayPlot {
     int32 nstart, nskip, ncskip;
     char name[20];
     double tstart, tend, zmin, zmax, dt;
-    char xtitle[256], ytitle[256], filename[256], bottom[256];
+    char xtitle[256];
+    char ytitle[256];
+    char filename[256];
+    char bottom[256];
     int32 type;
 } ArrayPlot;
 
