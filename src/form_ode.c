@@ -895,8 +895,8 @@ get_next(char *src) {
 }
 
 void
-find_ker(/* this extracts the integral operators from the string */
-         char *string, int32 *alt) {
+find_ker(char *string, int32 *alt) {
+    /* this extracts the integral operators from the string */
     char new[MAXEXPLEN], form[MAXEXPLEN], num[MAXEXPLEN];
     double mu = 0.0;
     int32 fflag = 0, in = 0, i = 0, ifr = 0, inum = 0;
