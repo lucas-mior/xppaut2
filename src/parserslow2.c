@@ -1492,8 +1492,7 @@ two_args(void) {
     fun2[6] = (void *)max;
     fun2[7] = (void *)min;
     /*  fun2[8]= (void*)mod;  */
-    fun2[8] =
-        (void *)pmod; /* This always gives an answer in [0,y) for mod(x,y) */
+    fun2[8] = (void *)pmod; // This always gives an answer in [0,y) for mod(x,y)
     fun2[9] = (void *)dand;
     fun2[10] = (void *)dor;
     fun2[11] = (void *)dgt;
