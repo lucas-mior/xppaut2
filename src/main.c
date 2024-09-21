@@ -1029,7 +1029,7 @@ commander(int32 ch) {
     case FILE_MENU: {
         switch (ch) {
         case 't':
-            do_transpose();
+            adj2_do_transpose();
             break;
         case 'g':
             get_intern_set();

@@ -81,7 +81,7 @@ adj2_dump_transpose_info(FILE *fp, int32 f) {
 }
 
 int32
-do_transpose(void) {
+adj2_do_transpose(void) {
     int32 ii, status;
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};

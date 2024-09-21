@@ -455,7 +455,7 @@ void
 do_file_com(int32 com) {
     switch (com) {
     case M_FT:
-        do_transpose();
+        adj2_do_transpose();
         break;
     case M_FG:
         get_intern_set();
