@@ -4104,7 +4104,6 @@ void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
 
 #define FORGET_ALL 0
 #define DONE_ALL 2
-#define FORGET_THIS 3
 #define DONE_THIS 1
 
 #define EV_MASK                                                                \
