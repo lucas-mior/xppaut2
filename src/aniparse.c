@@ -165,6 +165,7 @@ extern char anifile[256];
 
 static void create_vcr(char *name);
 static void ani_border(Window w, int32 i);
+static void destroy_vcr(void);
 
 /* Colors
   no color given is default black on white background or white on black
