@@ -87,7 +87,6 @@ FILESEL filesel;
 extern FILEINFO my_ff;
 
 extern int32 NUPAR, NODE, NEQ, NMarkov;
-extern char upar_names[MAX_PAR][14];
 extern char delay_string[MAX_ODE][80];
 extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];

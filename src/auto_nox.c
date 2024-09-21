@@ -147,7 +147,6 @@ char fort8[200];
 char fort9[200];
 static char TMPSWAP[200];
 
-extern char upar_names[MAX_PAR][14];
 extern int32 NUPAR;
 
 static double XfromAuto, YfromAuto;

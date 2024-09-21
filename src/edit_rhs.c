@@ -40,9 +40,7 @@ extern int32 *my_ode[];
 extern int32 NUPAR;
 extern double last_ic[MAX_ODE];
 
-/*extern char upar_names[MAX_PAR][11],this_file[100];*/
-
-extern char upar_names[MAX_PAR][14], this_file[XPP_MAX_NAME];
+extern char this_file[XPP_MAX_NAME];
 extern int32 EqType[MAX_ODE];
 
 extern char *ufun_def[MAX_UFUN];

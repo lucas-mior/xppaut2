@@ -56,8 +56,6 @@ struct {
     double plow, phigh;
 } shoot_range;
 
-extern char upar_names[MAX_PAR][14];
-
 /*   more general mixed boundary types   */
 
 void
