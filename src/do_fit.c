@@ -32,25 +32,25 @@ static struct {
     int32 dim, npars, nvars, npts, maxiter;
     int32 icols[50], ipar[50], ivar[50];
     double tol, eps;
-} fin;
+} fit_info;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 
 void
 init_fit_info(void) {
-    fin.tol = .001;
-    fin.eps = 1e-5;
-    fin.dim = 0;
-    fin.npars = 0;
-    fin.nvars = 0;
-    fin.varlist[0] = 0;
-    fin.collist[0] = 0;
-    fin.parlist1[0] = 0;
-    fin.parlist2[0] = 0;
-    fin.npts = 0;
-    fin.maxiter = 20;
-    fin.file[0] = 0;
+    fit_info.tol = .001;
+    fit_info.eps = 1e-5;
+    fit_info.dim = 0;
+    fit_info.npars = 0;
+    fit_info.nvars = 0;
+    fit_info.varlist[0] = 0;
+    fit_info.collist[0] = 0;
+    fit_info.parlist1[0] = 0;
+    fit_info.parlist2[0] = 0;
+    fit_info.npts = 0;
+    fit_info.maxiter = 20;
+    fit_info.file[0] = 0;
     return;
 }
 
@@ -326,13 +326,13 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
 void
 print_fit_info(void) {
     int32 i;
-    plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fin.dim,
-           fin.maxiter, fin.npts, fin.file, fin.tol, fin.eps);
+    plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fit_info.dim,
+           fit_info.maxiter, fit_info.npts, fit_info.file, fit_info.tol, fit_info.eps);
 
-    for (i = 0; i < fin.nvars; i++)
-        plintf(" variable %d to col %d \n", fin.ivar[i], fin.icols[i]);
-    for (i = 0; i < fin.npars; i++)
-        plintf(" P[%d]=%d \n", i, fin.ipar[i]);
+    for (i = 0; i < fit_info.nvars; i++)
+        plintf(" variable %d to col %d \n", fit_info.ivar[i], fit_info.icols[i]);
+    for (i = 0; i < fit_info.npars; i++)
+        plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
     return;
 }
 
@@ -341,71 +341,71 @@ test_fit(void) {
     double *yfit, a[1000], y0[1000];
     int32 nvars, npars, i, ok;
     char collist[30], parlist1[30], parlist2[30], varlist[30];
-    fin.nvars = 0;
-    fin.npars = 0;
+    fit_info.nvars = 0;
+    fit_info.npars = 0;
     if (get_fit_params() == 0)
         return;
 
-    strncpy(collist, fin.collist, sizeof(collist));
-    strncpy(varlist, fin.varlist, sizeof(varlist));
-    strncpy(parlist1, fin.parlist1, sizeof(parlist1));
-    strncpy(parlist2, fin.parlist2, sizeof(parlist2));
+    strncpy(collist, fit_info.collist, sizeof(collist));
+    strncpy(varlist, fit_info.varlist, sizeof(varlist));
+    strncpy(parlist1, fit_info.parlist1, sizeof(parlist1));
+    strncpy(parlist2, fit_info.parlist2, sizeof(parlist2));
 
-    parse_collist(collist, fin.icols, &nvars);
+    parse_collist(collist, fit_info.icols, &nvars);
 
     if (nvars <= 0) {
         err_msg("No columns...");
         return;
     }
-    fin.nvars = nvars;
+    fit_info.nvars = nvars;
     nvars = 0;
-    parse_varlist(varlist, fin.ivar, &nvars);
+    parse_varlist(varlist, fit_info.ivar, &nvars);
 
-    if (fin.nvars != nvars) {
+    if (fit_info.nvars != nvars) {
         err_msg(" # columns != # fitted variables");
         return;
     }
     npars = 0;
-    parse_parlist(parlist1, fin.ipar, &npars);
+    parse_parlist(parlist1, fit_info.ipar, &npars);
 
-    parse_parlist(parlist2, fin.ipar, &npars);
+    parse_parlist(parlist2, fit_info.ipar, &npars);
 
     if (npars <= 0) {
         err_msg(" No parameters!");
         return;
     }
-    fin.npars = npars;
+    fit_info.npars = npars;
     for (i = 0; i < npars; i++)
-        if (fin.ipar[i] >= 0) {
-            if (fin.ipar[i] >= NODE) {
+        if (fit_info.ipar[i] >= 0) {
+            if (fit_info.ipar[i] >= NODE) {
                 err_msg(" Cant vary auxiliary/markov variables! ");
                 return;
             }
         }
     for (i = 0; i < nvars; i++) {
-        if (fin.icols[i] < 2) {
+        if (fit_info.icols[i] < 2) {
             err_msg(" Illegal column must be >= 2");
             return;
         }
-        if (fin.ivar[i] < 0 || fin.ivar[i] >= NODE) {
+        if (fit_info.ivar[i] < 0 || fit_info.ivar[i] >= NODE) {
             err_msg(" Fit only to variables! ");
             return;
         }
     }
-    yfit = xmalloc((usize)(fin.npts*fin.nvars)*sizeof(*yfit));
+    yfit = xmalloc((usize)(fit_info.npts*fit_info.nvars)*sizeof(*yfit));
     for (i = 0; i < NODE; i++)
         y0[i] = last_ic[i];
-    for (i = 0; i < fin.npars; i++) {
-        if (fin.ipar[i] < 0)
-            a[i] = constants[-fin.ipar[i]];
+    for (i = 0; i < fit_info.npars; i++) {
+        if (fit_info.ipar[i] < 0)
+            a[i] = constants[-fit_info.ipar[i]];
         else
-            a[i] = last_ic[fin.ipar[i]];
+            a[i] = last_ic[fit_info.ipar[i]];
     }
 
     print_fit_info();
     plintf(" Running the fit...\n");
-    ok = run_fit(fin.file, fin.npts, fin.npars, fin.nvars, fin.maxiter, fin.dim,
-                 fin.eps, fin.tol, fin.ipar, fin.ivar, fin.icols, y0, a, yfit);
+    ok = run_fit(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars, fit_info.maxiter, fit_info.dim,
+                 fit_info.eps, fit_info.tol, fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
 
     free(yfit);
     if (ok == 0)
@@ -414,10 +414,10 @@ test_fit(void) {
     /* get the latest par values ...  */
 
     for (i = 0; i < npars; i++) {
-        if (fin.ipar[i] < 0)
-            constants[-fin.ipar[i]] = a[i];
+        if (fit_info.ipar[i] < 0)
+            constants[-fit_info.ipar[i]] = a[i];
         else
-            last_ic[fin.ipar[i]] = a[i];
+            last_ic[fit_info.ipar[i]] = a[i];
     }
     return;
 }
@@ -712,28 +712,28 @@ get_fit_params(void) {
                         "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
     int32 status;
     char values[10][MAX_LEN_SBOX];
-    snprintf(values[0], sizeof(values[0]), "%s", fin.file);
-    snprintf(values[1], sizeof(values[1]), "%s", fin.varlist);
-    snprintf(values[2], sizeof(values[2]), "%s", fin.parlist1);
-    snprintf(values[3], sizeof(values[3]), "%g", fin.tol);
-    snprintf(values[4], sizeof(values[4]), "%d", fin.npts);
-    snprintf(values[5], sizeof(values[5]), "%d", fin.dim);
-    snprintf(values[6], sizeof(values[6]), "%s", fin.collist);
-    snprintf(values[7], sizeof(values[7]), "%s", fin.parlist2);
-    snprintf(values[8], sizeof(values[8]), "%g", fin.eps);
-    snprintf(values[9], sizeof(values[9]), "%d", fin.maxiter);
+    snprintf(values[0], sizeof(values[0]), "%s", fit_info.file);
+    snprintf(values[1], sizeof(values[1]), "%s", fit_info.varlist);
+    snprintf(values[2], sizeof(values[2]), "%s", fit_info.parlist1);
+    snprintf(values[3], sizeof(values[3]), "%g", fit_info.tol);
+    snprintf(values[4], sizeof(values[4]), "%d", fit_info.npts);
+    snprintf(values[5], sizeof(values[5]), "%d", fit_info.dim);
+    snprintf(values[6], sizeof(values[6]), "%s", fit_info.collist);
+    snprintf(values[7], sizeof(values[7]), "%s", fit_info.parlist2);
+    snprintf(values[8], sizeof(values[8]), "%g", fit_info.eps);
+    snprintf(values[9], sizeof(values[9]), "%d", fit_info.maxiter);
     status = do_string_box(10, 5, 2, "Fit", n, values, 45);
     if (status != 0) {
-        fin.tol = atof(values[3]);
-        fin.npts = atoi(values[4]);
-        fin.dim = atoi(values[5]);
-        fin.eps = atof(values[8]);
-        fin.maxiter = atoi(values[9]);
-        strncpy(fin.file, values[0], sizeof(fin.file));
-        strncpy(fin.varlist, values[1], sizeof(fin.varlist));
-        strncpy(fin.parlist1, values[2], sizeof(fin.varlist));
-        strncpy(fin.collist, values[6], sizeof(fin.varlist));
-        strncpy(fin.parlist2, values[7], sizeof(fin.varlist));
+        fit_info.tol = atof(values[3]);
+        fit_info.npts = atoi(values[4]);
+        fit_info.dim = atoi(values[5]);
+        fit_info.eps = atof(values[8]);
+        fit_info.maxiter = atoi(values[9]);
+        strncpy(fit_info.file, values[0], sizeof(fit_info.file));
+        strncpy(fit_info.varlist, values[1], sizeof(fit_info.varlist));
+        strncpy(fit_info.parlist1, values[2], sizeof(fit_info.varlist));
+        strncpy(fit_info.collist, values[6], sizeof(fit_info.varlist));
+        strncpy(fit_info.parlist2, values[7], sizeof(fit_info.varlist));
         return 1;
     }
     return 0;
