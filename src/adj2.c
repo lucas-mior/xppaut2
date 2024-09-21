@@ -49,7 +49,7 @@ extern int32 *my_ode[];
 extern int32 NSYM, NSYM_START, NCON, NCON_START;
 extern int32 DCURY;
 
-static void h_back(void);
+static void adj2_h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 make_h(double **orb, double **adj,
@@ -186,7 +186,7 @@ adj_back(void) {
 }
 
 void
-h_back(void) {
+adj2_h_back(void) {
     if (H_HERE) {
         set_browser_data(my_h, 1);
         refresh_browser(h_len);
@@ -228,7 +228,7 @@ make_adj_com(int32 com) {
         adj_data_back();
         break;
     case 'h':
-        h_back();
+        adj2_h_back();
         break;
     case 'p':
         adj2_adjoint_parameters();
@@ -284,7 +284,7 @@ adj2_new_h_fun(int32 silent) {
         my_h[i] = storage[i];
     if (make_h(storage, my_adj, h_len, NODE, silent)) {
         H_HERE = 1;
-        h_back();
+        adj2_h_back();
     }
     ping();
     return;
