@@ -1076,7 +1076,10 @@ create_ps(void) {
 
 void
 dump_ps(int32 i) {
-    char filename[XPP_MAX_NAME];
+#define FILENAME_SIZE \
+    (sizeof(this_file) + sizeof(this_internset) + sizeof(PlotFormat) + 10)
+    char filename[FILENAME_SIZE];
+#undef FILENAME_SIZE
     if (i < 0) {
         snprintf(filename, sizeof(filename), "%s%s.%s", this_file,
                  this_internset, PlotFormat);
