@@ -78,7 +78,7 @@ static void set_acolor(int32 col);
 static void tag_aplot(char *);
 
 void
-draw_one_array_plot(char *bob) {
+array_plot_draw_one(char *bob) {
     char filename[300];
 
     redraw_aplot(array_plot);

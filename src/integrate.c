@@ -919,7 +919,7 @@ do_range(double *x, int32 flag) {
             if (storind > 2)
                 auto_freeze_it();
             if (array_plot_range == 1)
-                draw_one_array_plot(bob);
+                array_plot_draw_one(bob);
 
             if (res == 1 || STOCH_FLAG) {
                 if (batch_range == 1) {
