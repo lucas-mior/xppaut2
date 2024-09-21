@@ -363,7 +363,7 @@ run_the_commands(int32 com) {
     if (com >= M_V2 && com <= M_VT)
         change_view_com(com - M_V2);
     if (com >= M_UAN && com <= M_UAR)
-        make_adj_com(com - M_UAN);
+        adj2_make_adj_com(com - M_UAN);
     if (com >= M_UCN && com <= M_UCA)
         set_col_par_com(com - M_UCN);
     if (com >= M_UPN && com <= M_UPP)

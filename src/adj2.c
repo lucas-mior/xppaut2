@@ -218,7 +218,7 @@ adj2_h_back(void) {
     orbit.parname_parvalue.dat etc
 */
 void
-make_adj_com(int32 com) {
+adj2_make_adj_com(int32 com) {
     static char key[] = "nmaohpr";
     switch (key[com]) {
     case 'n':
