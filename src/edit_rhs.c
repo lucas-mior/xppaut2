@@ -35,10 +35,10 @@ typedef struct EditBox {
 } EditBox;
 
 void reset_ebox(EditBox *sb, int32 *pos, int32 *col);
-void expose_ebox(EditBox *sb, Window w, int32 pos);
+void expose_ebox(EditBox *sb, Window window, int32 pos);
 void ereset_hot(int32 inew, EditBox *sb);
-void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
-                   int32 *done, Window *w);
+void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+                   Window *w);
 int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EditBox *sb, char *title);
 
@@ -73,14 +73,14 @@ void
 reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
     int32 i, l;
-    Window w;
+    Window window;
     for (i = 0; i < n; i++) {
         strcpy(sb->value[i], sb->rval[i]);
-        w = sb->win[i];
+        window = sb->win[i];
         l = (int32)strlen(sb->name[i]);
-        XClearWindow(display, w);
-        XDrawString(display, w, gc, 0, CURY_OFF, sb->name[i], l);
-        XDrawString(display, w, gc, l*DCURX, CURY_OFF, sb->value[i],
+        XClearWindow(display, window);
+        XDrawString(display, window, gc, 0, CURY_OFF, sb->name[i], l);
+        XDrawString(display, window, gc, l*DCURX, CURY_OFF, sb->value[i],
                     (int32)strlen(sb->value[i]));
     }
     XFlush(display);
@@ -132,28 +132,28 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
 }
 
 void
-expose_ebox(EditBox *sb, Window w, int32 pos) {
+expose_ebox(EditBox *sb, Window window, int32 pos) {
     int32 i, flag;
 
-    if (w == sb->ok) {
-        XDrawString(display, w, gc, 0, CURY_OFF, "Ok", 2);
+    if (window == sb->ok) {
+        XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
         return;
     }
-    if (w == sb->cancel) {
-        XDrawString(display, w, gc, 0, CURY_OFF, "Cancel", 6);
+    if (window == sb->cancel) {
+        XDrawString(display, window, gc, 0, CURY_OFF, "Cancel", 6);
         return;
     }
-    if (w == sb->reset) {
-        XDrawString(display, w, gc, 0, CURY_OFF, "Reset", 5);
+    if (window == sb->reset) {
+        XDrawString(display, window, gc, 0, CURY_OFF, "Reset", 5);
         return;
     }
     for (i = 0; i < sb->n; i++) {
-        if (w != sb->win[i])
+        if (window != sb->win[i])
             continue;
         flag = 0;
         if (i == sb->hot)
             flag = 1;
-        do_hilite_text(sb->name[i], sb->value[i], flag, w, pos);
+        do_hilite_text(sb->name[i], sb->value[i], flag, window, pos);
     }
     return;
 }
@@ -191,7 +191,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     char ch;
     int32 ihot = sb->hot;
     Window wt;
-    Window w = sb->win[ihot]; /* active window   */
+    Window window = sb->win[ihot]; /* active window   */
     char *s;
     s = sb->value[ihot];
 
@@ -222,7 +222,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
                 if (i != sb->hot)
-                    enew_editable(sb, i, pos, col, &done, &w);
+                    enew_editable(sb, i, pos, col, &done, &window);
                 break;
             }
         }
@@ -242,14 +242,14 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
 
     case KeyPress:
         ch = (char)get_key_press(&ev);
-        edit_window(w, pos, s, col, &done, ch);
+        edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
                 status = DONE_ALL;
                 break;
             }
             inew = (sb->hot + 1) % nn;
-            enew_editable(sb, inew, pos, col, &done, &w);
+            enew_editable(sb, inew, pos, col, &done, &window);
         }
         break;
     default:

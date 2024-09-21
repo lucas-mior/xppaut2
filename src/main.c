@@ -73,7 +73,7 @@ Atom deleteWindowAtom = 0;
 int32 XPPBatch = 0, batch_range = 0, BatchEquil = -1;
 char batchout[256];
 char UserOUTFILE[256];
-XKeyEvent createKeyEvent(Window w, Window wr, int32 p, int32 kc, int32 m);
+XKeyEvent createKeyEvent(Window window, Window wr, int32 p, int32 kc, int32 m);
 extern int32 xorfix;
 int32 DisplayHeight, DisplayWidth;
 int32 TrueColorFlag;
@@ -1198,46 +1198,46 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 }
 
 void
-top_button_draw(Window w) {
-    if (w == TopButton[0])
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "ICs  ", 5);
-    if (w == TopButton[1])
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "BCs  ", 5);
-    if (w == TopButton[2])
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Delay", 5);
-    if (w == TopButton[3])
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Param", 5);
-    if (w == TopButton[4])
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Eqns ", 5);
-    if (w == TopButton[5])
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Data ", 5);
+top_button_draw(Window window) {
+    if (window == TopButton[0])
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "ICs  ", 5);
+    if (window == TopButton[1])
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "BCs  ", 5);
+    if (window == TopButton[2])
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Delay", 5);
+    if (window == TopButton[3])
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Param", 5);
+    if (window == TopButton[4])
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Eqns ", 5);
+    if (window == TopButton[5])
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Data ", 5);
     return;
 }
 
 void
-top_button_cross(Window w, int32 b) {
+top_button_cross(Window window, int32 b) {
     int32 i;
     for (i = 0; i < 6; i++)
-        if (w == TopButton[i]) {
-            XSetWindowBorderWidth(display, w, (uint)b);
+        if (window == TopButton[i]) {
+            XSetWindowBorderWidth(display, window, (uint)b);
             return;
         }
     return;
 }
 
 void
-top_button_press(Window w) {
-    if (w == TopButton[0])
+top_button_press(Window window) {
+    if (window == TopButton[0])
         make_new_ic_box();
-    if (w == TopButton[1])
+    if (window == TopButton[1])
         make_new_bc_box();
-    if (w == TopButton[2])
+    if (window == TopButton[2])
         make_new_delay_box();
-    if (w == TopButton[3])
+    if (window == TopButton[3])
         make_new_param_box();
-    if (w == TopButton[4])
+    if (window == TopButton[4])
         create_eq_list();
-    if (w == TopButton[5])
+    if (window == TopButton[5])
         make_new_browser();
     return;
 }
@@ -1362,7 +1362,7 @@ make_pops(void) {
 }
 
 void
-FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
+FixWindowSize(Window window, int32 width, int32 height, int32 flag) {
     XSizeHints size_hints;
     switch (flag) {
     case FIX_SIZE:
@@ -1390,7 +1390,7 @@ FixWindowSize(Window w, int32 width, int32 height, int32 flag) {
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    XSetWMProperties(display, w, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
+    XSetWMProperties(display, window, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
     return;
 }
 

@@ -24,7 +24,7 @@ typedef struct {
     double xs, ys, xe, ye;
     double size;
     int16 use;
-    Window w;
+    Window window;
     int32 type, color;
 } GROB;
 
@@ -140,10 +140,10 @@ get_intern_set(void) {
 }
 
 void
-make_icon(char *icon, int32 wid, int32 hgt, Window w) {
+make_icon(char *icon, int32 wid, int32 hgt, Window window) {
     Pixmap icon_map;
     XWMHints wm_hints;
-    icon_map = XCreateBitmapFromData(display, w, icon, (uint)wid, (uint)hgt);
+    icon_map = XCreateBitmapFromData(display, window, icon, (uint)wid, (uint)hgt);
     wm_hints.initial_state = NormalState;
     wm_hints.input = True;
     wm_hints.icon_pixmap = icon_map;
@@ -153,7 +153,7 @@ make_icon(char *icon, int32 wid, int32 hgt, Window w) {
         XClassHint class_hints;
         class_hints.res_name = "";
         class_hints.res_class = "";
-        XSetWMProperties(display, w, NULL, NULL, NULL, 0, NULL, &wm_hints,
+        XSetWMProperties(display, window, NULL, NULL, NULL, 0, NULL, &wm_hints,
                          &class_hints);
     }
     return;
@@ -169,7 +169,7 @@ void
 gtitle_text(char *string, Window win) {
     XTextProperty wname, iname;
     GrCol();
-    if (win != graph[0].w) {
+    if (win != graph[0].window) {
         XStringListToTextProperty(&string, 1, &wname);
         XStringListToTextProperty(&string, 1, &iname);
         XSetWMProperties(display, win, &wname, &iname, NULL, 0, NULL, NULL,
@@ -216,7 +216,7 @@ add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
             lb[i].use = 1;
             lb[i].x = xp;
             lb[i].y = yp;
-            lb[i].w = draw_win;
+            lb[i].window = draw_win;
             lb[i].font = font;
             lb[i].size = size;
             strcpy(lb[i].s, s);
@@ -580,39 +580,39 @@ arrow_head(double xs, double ys, double xe, double ye, double size) {
 }
 
 void
-destroy_grob(Window w) {
+destroy_grob(Window window) {
     int32 i;
     for (i = 0; i < MAXGROB; i++) {
-        if ((grob[i].use == 1) && (grob[i].w == w)) {
+        if ((grob[i].use == 1) && (grob[i].window == window)) {
             grob[i].use = 0;
-            grob[i].w = (Window)0;
+            grob[i].window = (Window)0;
         }
     }
     return;
 }
 
 void
-destroy_label(Window w) {
+destroy_label(Window window) {
     int32 i;
     for (i = 0; i < MAXLAB; i++) {
-        if ((lb[i].use == 1) && (lb[i].w == w)) {
+        if ((lb[i].use == 1) && (lb[i].window == window)) {
             lb[i].use = 0;
-            lb[i].w = (Window)0;
+            lb[i].window = (Window)0;
         }
     }
     return;
 }
 
 void
-draw_label(Window w) {
+draw_label(Window window) {
     int32 i;
     GrCol();
     for (i = 0; i < MAXLAB; i++) {
-        if ((lb[i].use == 1) && (lb[i].w == w))
+        if ((lb[i].use == 1) && (lb[i].window == window))
             fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
     }
     for (i = 0; i < MAXGROB; i++) {
-        if ((grob[i].use == 1) && (grob[i].w == w))
+        if ((grob[i].use == 1) && (grob[i].window == window))
             draw_grob(i);
     }
     BaseCol();
@@ -630,7 +630,7 @@ add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
             grob[i].xe = xe;
             grob[i].ys = ys;
             grob[i].ye = ye;
-            grob[i].w = draw_win;
+            grob[i].window = draw_win;
             grob[i].size = size;
             grob[i].color = color;
             grob[i].type = type;
@@ -878,7 +878,7 @@ edit_object_com(int32 com) {
         /* now search all labels to find the best */
         type = 0; /* label =  0, arrows, etc =1 */
         for (i = 0; i < MAXLAB; i++) {
-            if (lb[i].use == 1 && lb[i].w == draw_win) {
+            if (lb[i].use == 1 && lb[i].window == draw_win) {
                 dd = (x - lb[i].x)*(x - lb[i].x) +
                      (y - lb[i].y)*(y - lb[i].y);
                 if (dd < dist) {
@@ -888,7 +888,7 @@ edit_object_com(int32 com) {
             }
         }
         for (i = 0; i < MAXGROB; i++) {
-            if (grob[i].use == 1 && grob[i].w == draw_win) {
+            if (grob[i].use == 1 && grob[i].window == draw_win) {
                 dd = (x - grob[i].xs)*(x - grob[i].xs) +
                      (y - grob[i].ys)*(y - grob[i].ys);
                 if (dd < dist) {
@@ -937,7 +937,7 @@ edit_object_com(int32 com) {
                 snprintf(str, sizeof(str), "Delete %s ?", lb[ilab].s);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-                    lb[ilab].w = 0;
+                    lb[ilab].window = 0;
                     lb[ilab].use = 0;
                     clr_scrn();
                     redraw_all();
@@ -988,7 +988,7 @@ edit_object_com(int32 com) {
                          grob[ilab].xs, grob[ilab].ys);
                 ans = (char)TwoChoice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-                    grob[ilab].w = 0;
+                    grob[ilab].window = 0;
                     grob[ilab].use = 0;
                     clr_scrn();
                     redraw_all();
@@ -1082,7 +1082,7 @@ void
 set_restore(int32 flag) {
     int32 i;
     for (i = 0; i < MAXPOP; i++) {
-        if (graph[i].w == draw_win) {
+        if (graph[i].window == draw_win) {
             graph[i].Restore = flag;
             graph[i].Nullrestore = flag;
             return;
@@ -1113,23 +1113,23 @@ is_col_plotted(int32 nc) {
 void
 destroy_a_pop(void) {
     int32 i;
-    if (draw_win == graph[0].w) {
+    if (draw_win == graph[0].window) {
         respond_box("Okay", "Can't destroy big window!");
         /*respond_box(main_win,0,0,"Okay","Can't destroy big window!");*/
         return;
     }
     for (i = 1; i < MAXPOP; i++)
-        if (graph[i].w == draw_win)
+        if (graph[i].window == draw_win)
             break;
     if (i >= MAXPOP)
         return;
-    select_window(graph[0].w);
+    select_window(graph[0].window);
     graph[i].Use = 0;
-    destroy_label(graph[i].w);
-    destroy_grob(graph[i].w);
+    destroy_label(graph[i].window);
+    destroy_grob(graph[i].window);
     waitasec(ClickTime);
-    XDestroySubwindows(display, graph[i].w);
-    XDestroyWindow(display, graph[i].w);
+    XDestroySubwindows(display, graph[i].window);
+    XDestroyWindow(display, graph[i].window);
     num_pops--;
     return;
 }
@@ -1140,10 +1140,10 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     GrCol();
     for (i = 0; i < MAXLAB; i++) {
         lb[i].use = 0;
-        lb[i].w = (Window)0;
+        lb[i].window = (Window)0;
     }
     for (i = 0; i < MAXGROB; i++) {
-        grob[i].w = (Window)0;
+        grob[i].window = (Window)0;
         grob[i].use = 0;
     }
     init_bd();
@@ -1155,7 +1155,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     ActiveWinList[0] = 0;
     init_all_graph();
 
-    graph[0].w = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
+    graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
                                      (uint)h, 2, GrFore, MyDrawWinColor);
     graph[0].w_info = info_pop;
 
@@ -1167,16 +1167,16 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     graph[0].y0 = y;
     graph[0].Height = h;
     graph[0].Width = w;
-    XSelectInput(display, graph[0].w,
+    XSelectInput(display, graph[0].window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask |
                      StructureNotifyMask);
     num_pops = 1;
-    XMapWindow(display, graph[0].w);
-    draw_win = graph[0].w;
+    XMapWindow(display, graph[0].window);
+    draw_win = graph[0].window;
     current_pop = 0;
     get_draw_area();
-    select_sym(graph[0].w);
+    select_sym(graph[0].window);
     BaseCol();
 }
 
@@ -1234,11 +1234,11 @@ svg_restore(void) {
 
 int32
 rotate3dcheck(XEvent ev) {
-    Window w = ev.xbutton.window;
+    Window window = ev.xbutton.window;
     XEvent z;
     int32 xini, yini, dx, dy;
     double theta, phi;
-    if (w == draw_win && MyGraph->ThreeDFlag) {
+    if (window == draw_win && MyGraph->ThreeDFlag) {
         xini = ev.xbutton.x;
         yini = ev.xbutton.y;
         phi = MyGraph->Phi;
@@ -1329,18 +1329,18 @@ do_expose(XEvent ev) {
                 }
             }
             if ((ev.type == Expose) && (graph[i].Use) &&
-                (ev.xexpose.window == graph[i].w)) {
+                (ev.xexpose.window == graph[i].window)) {
                 /* redraw_dfield(); */
 
                 current_pop = i;
                 MyGraph = &graph[i];
-                draw_win = graph[i].w;
+                draw_win = graph[i].window;
                 get_draw_area();
                 do_axes();
                 if (graph[i].Restore)
                     restore(0, my_browser.maxrow);
-                draw_label(graph[i].w);
-                draw_freeze(graph[i].w);
+                draw_label(graph[i].window);
+                draw_freeze(graph[i].window);
                 if (graph[i].Nullrestore)
                     restore_nullclines();
             }
@@ -1362,7 +1362,7 @@ resize_all_pops(int32 wid, int32 hgt) {
           nh = hgt - 3*DCURYb - 4*DCURYs - 24;
     nw = 4*((nw / 4));
     nh = 4*((nh / 4));
-    XResizeWindow(display, graph[0].w, (uint)nw, (uint)nh);
+    XResizeWindow(display, graph[0].window, (uint)nw, (uint)nh);
     graph[0].Width = nw;
     graph[0].Height = nh;
     get_draw_area();
@@ -1372,16 +1372,16 @@ resize_all_pops(int32 wid, int32 hgt) {
 void
 kill_all_pops(void) {
     int32 i;
-    select_window(graph[0].w);
+    select_window(graph[0].window);
 
     for (i = 1; i < MAXPOP; i++)
         if (graph[i].Use) {
             graph[i].Use = 0;
-            destroy_label(graph[i].w);
-            destroy_grob(graph[i].w);
+            destroy_label(graph[i].window);
+            destroy_grob(graph[i].window);
 
-            XDestroySubwindows(display, graph[i].w);
-            XDestroyWindow(display, graph[i].w);
+            XDestroySubwindows(display, graph[i].window);
+            XDestroyWindow(display, graph[i].window);
         }
     num_pops = 1;
     return;
@@ -1401,12 +1401,12 @@ create_a_pop(void) {
     }
     index = i;
 
-    graph[index].w =
+    graph[index].window =
         XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
                             (uint)MINI_W, (uint)MINI_H, 2, GrFore, GrBack);
     graph[index].w_info =
-        make_window(graph[index].w, 10, 0, 40*DCURXs, DCURYs, 0);
-    XSetWindowBackground(display, graph[i].w, MyDrawWinColor);
+        make_window(graph[index].window, 10, 0, 40*DCURXs, DCURYs, 0);
+    XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
 
     copy_graph(index, current_pop);
     graph[index].Width = MINI_W;
@@ -1414,17 +1414,17 @@ create_a_pop(void) {
     graph[index].x0 = 0;
     graph[index].y0 = 0;
     num_pops++;
-    make_icon((char *)graph_bits, graph_width, graph_height, graph[index].w);
-    XSelectInput(display, graph[index].w,
+    make_icon((char *)graph_bits, graph_width, graph_height, graph[index].window);
+    XSelectInput(display, graph[index].window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask);
-    XMapWindow(display, graph[index].w);
-    XRaiseWindow(display, graph[index].w);
-    XSetWMProtocols(display, graph[index].w, &deleteWindowAtom, 1);
-    select_window(graph[index].w);
-    /*  select_window(graph[0].w);
-        select_window(graph[index].w); */
-    XRaiseWindow(display, graph[0].w);
+    XMapWindow(display, graph[index].window);
+    XRaiseWindow(display, graph[index].window);
+    XSetWMProtocols(display, graph[index].window, &deleteWindowAtom, 1);
+    select_window(graph[index].window);
+    /*  select_window(graph[0].window);
+        select_window(graph[index].window); */
+    XRaiseWindow(display, graph[0].window);
     /*  XDestroyWindow(display,temp); */
     return;
 }
@@ -1503,30 +1503,30 @@ void
 make_active(int32 i, int32 flag) {
     current_pop = i;
     MyGraph = &graph[current_pop];
-    draw_win = MyGraph->w;
+    draw_win = MyGraph->window;
     get_draw_area_flag(flag);
     return;
 }
 
 void
-select_window(Window w) {
+select_window(Window window) {
     int32 i;
 
-    if (w == draw_win)
+    if (window == draw_win)
         return;
     GrCol();
-    if (w == graph[0].w)
+    if (window == graph[0].window)
         current_pop = 0;
     else {
         for (i = 1; i < MAXPOP; i++)
-            if ((graph[i].Use) && (w == graph[i].w))
+            if ((graph[i].Use) && (window == graph[i].window))
                 current_pop = i;
     }
     MyGraph = &graph[current_pop];
     lo_lite(draw_win);
-    draw_win = w;
-    hi_lite(w);
-    XRaiseWindow(display, w);
+    draw_win = window;
+    hi_lite(window);
+    XRaiseWindow(display, window);
     get_draw_area();
     BaseCol();
     return;
@@ -1559,8 +1559,8 @@ lo_lite(Window wi) {
 }
 
 void
-select_sym(Window w) {
-    bar(0, 0, 5, 5, w);
+select_sym(Window window) {
+    bar(0, 0, 5, 5, window);
     return;
 }
 
@@ -1590,21 +1590,21 @@ check_draw_button(XEvent ev) {
     int32 i, j;
     double x, y;
     int32 flag = 0;
-    Window w;
+    Window window;
     button = (int32)ev.xbutton.button;
-    w = ev.xbutton.window;
+    window = ev.xbutton.window;
     i = ev.xbutton.x;
     j = ev.xbutton.y;
     if (button == 1) { /* select window   */
 
         for (k = 1; k < MAXPOP; k++)
-            if ((graph[k].Use) && (w == graph[k].w))
+            if ((graph[k].Use) && (window == graph[k].window))
                 flag = 1;
-        if ((w == graph[0].w) || (flag == 1))
-            select_window(w);
+        if ((window == graph[1].window) || (flag == 1))
+            select_window(window);
     } else /* any other button   */
     {
-        if (w != draw_win)
+        if (window != draw_win)
             return;
         scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);

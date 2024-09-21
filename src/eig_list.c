@@ -16,7 +16,7 @@
 #include "mykeydef.h"
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
     } while (0)
 
@@ -51,19 +51,19 @@ struct {
 static int32 sparity;
 
 void
-draw_eq_list(Window w) {
+draw_eq_list(Window window) {
     int32 i;
     char bob[300];
     char fstr[15];
     if (eq_list.flag == 0)
         return;
-    if (w == eq_list.up)
+    if (window == eq_list.up)
         xds("Up");
-    if (w == eq_list.down)
+    if (window == eq_list.down)
         xds("Down");
-    if (w == eq_list.close)
+    if (window == eq_list.close)
         xds("Close");
-    if (w == eq_list.list) {
+    if (window == eq_list.list) {
         for (i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
             if (i >= NEQ)
                 break;
@@ -78,7 +78,7 @@ draw_eq_list(Window w) {
             sprintf(bob, fstr, uvar_names[i], ode_names[i]);
 
             bob[299] = 0;
-            XDrawString(display, w, small_gc, 0,
+            XDrawString(display, window, small_gc, 0,
                         CURY_OFFs + (i - eq_list.istart)*(DCURYs + 2), bob,
                         (int32)strlen(bob));
         }
@@ -152,7 +152,7 @@ create_eq_list(void) {
 
 void
 eq_list_keypress(XEvent ev, int32 *used) {
-    Window w = ev.xkey.window;
+    Window window = ev.xkey.window;
 
     char ks;
 
@@ -160,7 +160,7 @@ eq_list_keypress(XEvent ev, int32 *used) {
 
     if (eq_list.flag == 0)
         return;
-    if (w == eq_list.main || w == eq_list.base || w == eq_list.list) {
+    if (window == eq_list.main || window == eq_list.base || window == eq_list.list) {
         *used = 1;
         ks = (char)get_key_press(&ev);
 
@@ -178,33 +178,33 @@ eq_list_keypress(XEvent ev, int32 *used) {
 }
 
 void
-enter_eq_stuff(Window w, int32 b) {
+enter_eq_stuff(Window window, int32 b) {
     if (eq_list.flag == 1) {
-        if (w == eq_list.close || w == eq_list.up || w == eq_list.down)
-            XSetWindowBorderWidth(display, w, (uint)b);
+        if (window == eq_list.close || window == eq_list.up || window == eq_list.down)
+            XSetWindowBorderWidth(display, window, (uint)b);
     }
-    if (eq_box.flag == 1 && (w == eq_box.close || w == eq_box.import))
-        XSetWindowBorderWidth(display, w, (uint)b);
+    if (eq_box.flag == 1 && (window == eq_box.close || window == eq_box.import))
+        XSetWindowBorderWidth(display, window, (uint)b);
     return;
 }
 
 void
 eq_list_button(XEvent ev) {
-    Window w = ev.xbutton.window;
+    Window window = ev.xbutton.window;
     /* pure laziness here - use this to go to eq_box */
-    eq_box_button(w);
+    eq_box_button(window);
     if (eq_list.flag == 0)
         return;
 
-    if (w == eq_list.up) {
+    if (window == eq_list.up) {
         eq_list_up();
         return;
     }
-    if (w == eq_list.down) {
+    if (window == eq_list.down) {
         eq_list_down();
         return;
     }
-    if (w == eq_list.close) {
+    if (window == eq_list.close) {
         eq_list.flag = 0;
         waitasec(2*ClickTime);
         XDestroySubwindows(display, eq_list.base);
@@ -282,14 +282,14 @@ resize_eq_list(Window win) {
 }
 
 void
-eq_box_button(Window w) {
+eq_box_button(Window window) {
     if (eq_box.flag == 0)
         return;
-    if (w == eq_box.import) {
+    if (window == eq_box.import) {
         eq_box_import();
         return;
     }
-    if (eq_box.close == w) {
+    if (eq_box.close == window) {
         eq_box.flag = 0;
         waitasec(ClickTime);
         XDestroySubwindows(display, eq_box.base);
@@ -376,22 +376,22 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
 }
 
 void
-draw_eq_box(Window w) {
+draw_eq_box(Window window) {
     int32 i, j, ncol, n = eq_box.n, nrow;
     int32 in;
     char temp[50];
     if (eq_box.flag == 0)
         return;
-    if (w == eq_box.close)
+    if (window == eq_box.close)
         xds("Close");
-    if (w == eq_box.import)
+    if (window == eq_box.import)
         xds("Import");
-    if (w == eq_box.top) {
+    if (window == eq_box.top) {
         XDrawString(display, eq_box.top, gc, 5, CURY_OFF, eq_box.type,
                     (int)strlen(eq_box.type));
         return;
     }
-    if (w == eq_box.stab) {
+    if (window == eq_box.stab) {
         sprintf(temp, "c+ = %d", eq_box.info[0]);
         XDrawString(display, eq_box.stab, small_gc, 2, 2*DCURY + 6, temp,
                     (int)strlen(temp));
@@ -409,7 +409,7 @@ draw_eq_box(Window w) {
                     2*DCURY + 2*DCURYs + 6, temp, (int)strlen(temp));
         return;
     }
-    if (w == eq_box.rest) {
+    if (window == eq_box.rest) {
         if (n >= 20)
             nrow = 20;
         else

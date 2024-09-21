@@ -19,11 +19,11 @@
 
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, w, gc, 5, CURY_OFFb, a, strlen(a));               \
+        XDrawString(display, window, gc, 5, CURY_OFFb, a, strlen(a));               \
         return;                                                                \
     } while (0)
 
-#define SBW XSetWindowBorderWidth(display, w, 1)
+#define SBW XSetWindowBorderWidth(display, window, 1)
 
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
@@ -85,7 +85,8 @@ auto_x11_line_trans(double a, double b, double c, double d) {
 
 void
 auto_x11_text(int32 a, int32 b, char *c) {
-    XDrawString(display, auto_win.canvas, small_gc, (a), (b), (c), (int)strlen(c));
+    XDrawString(display, auto_win.canvas, small_gc, (a), (b), (c),
+                (int)strlen(c));
     return;
 }
 
@@ -93,8 +94,8 @@ void
 clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, auto_win.stab);
-    XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r), (uint)(2*r),
-             0, 360*64);
+    XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r),
+             (uint)(2*r), 0, 360*64);
     return;
 }
 
@@ -267,9 +268,9 @@ traverse_diagram(void) {
             int32 xm = ev.xmotion.x;
             int32 ym = ev.xmotion.y;
 
-            Window w = ev.xmotion.window;
+            Window window = ev.xmotion.window;
 
-            if (w == auto_win.canvas) {
+            if (window == auto_win.canvas) {
                 clear_msg();
                 XORCross(ix, iy);
                 DONT_XORCross = 1;
@@ -592,7 +593,7 @@ refreshdisplay(void) {
 int32
 byeauto_(int32 *iflag) {
     XEvent event;
-    Window w;
+    Window window;
     char ch;
     if (Auto.exist == 0)
         return 1;
@@ -604,8 +605,8 @@ byeauto_(int32 *iflag) {
             do_expose(event);
             break;
         case ButtonPress:
-            w = event.xbutton.window;
-            if (w == auto_win.abort) {
+            window = event.xbutton.window;
+            if (window == auto_win.abort) {
                 SBW;
                 *iflag = 1;
                 return 1;
@@ -803,10 +804,10 @@ auto_motion(XEvent ev) {
     int32 i = ev.xmotion.x;
     int32 j = ev.xmotion.y;
     double x, y;
-    Window w = ev.xmotion.window;
+    Window window = ev.xmotion.window;
     if (Auto.exist == 0)
         return;
-    if (w == auto_win.canvas) {
+    if (window == auto_win.canvas) {
         x = Auto.xmin +
             (double)(i - Auto.x0)*(Auto.xmax - Auto.xmin) / (double)Auto.wid;
         y = Auto.ymin + (double)(Auto.y0 - j + Auto.hgt) *
@@ -819,15 +820,15 @@ auto_motion(XEvent ev) {
 }
 
 void
-display_auto(Window w) {
+display_auto(Window window) {
     int32 ix, iy;
     if (Auto.exist == 0)
         return;
-    if (w == auto_win.canvas) {
+    if (window == auto_win.canvas) {
         if (AutoRedrawFlag == 1)
             redraw_diagram();
     }
-    if (w == auto_win.stab) {
+    if (window == auto_win.stab) {
         int32 r = Auto.st_wid / 4;
         XFlush(display);
         XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r),
@@ -837,31 +838,31 @@ display_auto(Window w) {
         }
         XFlush(display);
     }
-    if (w == auto_win.axes)
+    if (window == auto_win.axes)
         xds("Axes");
-    if (w == auto_win.numerics)
+    if (window == auto_win.numerics)
         xds("Numerics");
-    if (w == auto_win.grab)
+    if (window == auto_win.grab)
         xds("Grab");
-    if (w == auto_win.run)
+    if (window == auto_win.run)
         xds("Run");
-    if (w == auto_win.redraw)
+    if (window == auto_win.redraw)
         xds("reDraw");
-    if (w == auto_win.clear)
+    if (window == auto_win.clear)
         xds("Clear");
-    if (w == auto_win.per)
+    if (window == auto_win.per)
         xds("Usr period");
-    if (w == auto_win.kill)
+    if (window == auto_win.kill)
         xds("Close");
-    if (w == auto_win.param)
+    if (window == auto_win.param)
         xds("Parameter");
-    if (w == auto_win.file)
+    if (window == auto_win.file)
         xds("File");
-    if (w == auto_win.abort)
+    if (window == auto_win.abort)
         xds("ABORT");
-    if (w == auto_win.hint) {
-        XClearWindow(display, w);
-        XDrawString(display, w, gc, 8, CURY_OFF, Auto.hinttxt,
+    if (window == auto_win.hint) {
+        XClearWindow(display, window);
+        XDrawString(display, window, gc, 8, CURY_OFF, Auto.hinttxt,
                     (int)strlen(Auto.hinttxt));
         return;
     }
@@ -928,7 +929,7 @@ make_auto(char *wname, char *iname) {
     make_icon((char *)auto_bits, auto_width, auto_height, base);
 
     auto_win.canvas = make_plain_window(base, x, y, STD_WID_var + xmargin,
-                                     STD_HGT_var + ymargin, 1);
+                                        STD_HGT_var + ymargin, 1);
     XSetWindowBackground(display, auto_win.canvas, MyDrawWinColor);
     XSelectInput(display, auto_win.canvas, MYMASK);
 
@@ -969,7 +970,7 @@ make_auto(char *wname, char *iname) {
     auto_win.info =
         make_plain_window(base, x, y, STD_WID_var + xmargin, addhgt, 2);
     auto_win.hint = make_plain_window(base, x, y + addhgt + 6,
-                                   STD_WID_var + xmargin, DCURY + 2, 2);
+                                      STD_WID_var + xmargin, DCURY + 2, 2);
 
     draw_bif_axes();
     return;
@@ -1000,14 +1001,14 @@ resize_auto_window(XEvent ev) {
 
         XResizeWindow(display, auto_win.canvas, (uint)wid, (uint)hgt);
 
-        XGetGeometry(display, auto_win.canvas, &root, &xloc, &yloc, &cwid, &chgt,
-                     &cbwid, &cdepth);
+        XGetGeometry(display, auto_win.canvas, &root, &xloc, &yloc, &cwid,
+                     &chgt, &cbwid, &cdepth);
 
         Auto.hgt = (int32)chgt - ymargin;
         Auto.wid = (int32)cwid - xmargin;
         if (TrueColorFlag > 0) {
-            XMoveResizeWindow(display, auto_win.info, xloc, yloc + (int32)chgt + 4,
-                              (uint)wid, (uint)addhgt);
+            XMoveResizeWindow(display, auto_win.info, xloc,
+                              yloc + (int32)chgt + 4, (uint)wid, (uint)addhgt);
 
             XMoveResizeWindow(display, auto_win.hint, xloc,
                               yloc + (int32)chgt + addhgt + 10, (uint)wid,
@@ -1038,55 +1039,55 @@ clear_msg(void) {
 }
 
 void
-auto_enter(Window w, int32 v) {
+auto_enter(Window window, int32 v) {
     if (Auto.exist == 0)
         return;
-    if (w == auto_win.axes) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.axes) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(1, v);
         return;
     }
-    if (w == auto_win.numerics) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.numerics) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(2, v);
         return;
     }
-    if (w == auto_win.grab) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.grab) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(4, v);
         return;
     }
-    if (w == auto_win.run) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.run) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(3, v);
         return;
     }
-    if (w == auto_win.redraw) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.redraw) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(7, v);
         return;
     }
-    if (w == auto_win.clear) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.clear) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(6, v);
         return;
     }
-    if (w == auto_win.per) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.per) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(5, v);
         return;
     }
-    if (w == auto_win.param) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.param) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(0, v);
         return;
     }
-    if (w == auto_win.kill) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.kill) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         return;
     }
-    if (w == auto_win.file) {
-        XSetWindowBorderWidth(display, w, (uint)v);
+    if (window == auto_win.file) {
+        XSetWindowBorderWidth(display, window, (uint)v);
         a_msg(8, v);
         return;
     }
@@ -1095,55 +1096,55 @@ auto_enter(Window w, int32 v) {
 
 void
 auto_button(XEvent ev) {
-    Window w = ev.xbutton.window;
+    Window window = ev.xbutton.window;
     if (Auto.exist == 0)
         return;
-    if (w == auto_win.axes) {
+    if (window == auto_win.axes) {
         SBW;
         auto_plot_par();
         return;
     }
-    if (w == auto_win.numerics) {
+    if (window == auto_win.numerics) {
         SBW;
         auto_num_par();
         return;
     }
-    if (w == auto_win.grab) {
+    if (window == auto_win.grab) {
         SBW;
         auto_grab();
         return;
     }
-    if (w == auto_win.run) {
+    if (window == auto_win.run) {
         SBW;
         auto_run();
         return;
     }
-    if (w == auto_win.redraw) {
+    if (window == auto_win.redraw) {
         SBW;
         redraw_diagram();
         return;
     }
-    if (w == auto_win.clear) {
+    if (window == auto_win.clear) {
         SBW;
         draw_bif_axes();
         return;
     }
-    if (w == auto_win.per) {
+    if (window == auto_win.per) {
         SBW;
         auto_per_par();
         return;
     }
-    if (w == auto_win.param) {
+    if (window == auto_win.param) {
         SBW;
         auto_params();
         return;
     }
-    if (w == auto_win.kill) {
+    if (window == auto_win.kill) {
         SBW;
         auto_kill();
         return;
     }
-    if (w == auto_win.file) {
+    if (window == auto_win.file) {
         SBW;
         auto_file();
         return;
@@ -1162,7 +1163,7 @@ auto_kill(void) {
 
 void
 auto_keypress(XEvent ev, int32 *used) {
-    Window w = ev.xkey.window;
+    Window window = ev.xkey.window;
     char ks;
     Window w2;
     int32 rev;
@@ -1172,7 +1173,7 @@ auto_keypress(XEvent ev, int32 *used) {
         return;
     XGetInputFocus(display, &w2, &rev);
 
-    if (w == auto_win.base || w == auto_win.canvas || w2 == auto_win.base) {
+    if (window == auto_win.base || window == auto_win.canvas || w2 == auto_win.base) {
         *used = 1;
         ks = (char)get_key_press(&ev);
 

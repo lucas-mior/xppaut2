@@ -50,7 +50,7 @@ static struct BD {
     int32 color[MAXBIFCRV];
     int32 npts[MAXBIFCRV];
     int32 nbifcrv;
-    Window w;
+    Window window;
 } my_bd;
 
 extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
@@ -1199,7 +1199,7 @@ draw_freeze_key(void) {
     ix2 = ix + 4*HChar;
     y0 = iy;
     for (i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && frz[i].w == draw_win && strlen(frz[i].key) > 0) {
+        if (frz[i].use == 1 && frz[i].window == draw_win && strlen(frz[i].key) > 0) {
             set_linestyle(abs(frz[i].color));
             line(ix, y0, ix2, y0);
             set_linestyle(0);
@@ -1269,7 +1269,7 @@ void
 kill_frz(void) {
     int32 i;
     for (i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && frz[i].w == draw_win)
+        if (frz[i].use == 1 && frz[i].window == draw_win)
             delete_frz_crv(i);
     }
     return;
@@ -1328,7 +1328,7 @@ create_crv(int32 ind) {
                     frz[i].zv[j] = my_browser.data[iz][j];
             }
             frz[i].type = (int16)type;
-            frz[i].w = draw_win;
+            frz[i].window = draw_win;
             snprintf(frz[i].name, sizeof(frz[i].name), "crv%c", 'a' + i);
             strncpy(frz[i].key, frz[i].name, sizeof(frz[i].key));
             return i;
@@ -1356,21 +1356,21 @@ edit_frz_crv(int32 i) {
 }
 
 void
-draw_frozen_cline(int32 index, Window w) {
-    if (nclines[index].use == 0 || nclines[index].w != w)
+draw_frozen_cline(int32 index, Window window) {
+    if (nclines[index].use == 0 || nclines[index].window != window)
         return;
     return;
 }
 
 void
-draw_freeze(Window w) {
+draw_freeze(Window window) {
     int32 i, j, type = MyGraph->grtype, lt = 0;
     double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
     double *xv, *yv, *zv;
     for (i = 0; i < MAXNCLINE; i++)
-        draw_frozen_cline(i, w);
+        draw_frozen_cline(i, window);
     for (i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && frz[i].w == w && frz[i].type == type) {
+        if (frz[i].use == 1 && frz[i].window == window && frz[i].type == type) {
             if (frz[i].color < 0) {
                 set_linestyle(-frz[i].color);
                 lt = 1;
@@ -1407,7 +1407,7 @@ draw_freeze(Window w) {
         }
     }
     draw_freeze_key();
-    draw_bd(w);
+    draw_bd(window);
     return;
 }
 
@@ -1420,10 +1420,10 @@ init_bd(void) {
 }
 
 void
-draw_bd(Window w) {
+draw_bd(Window window) {
     int32 i, j, len;
     double oldxpl, oldypl, xpl, ypl, *x, *y;
-    if (w == my_bd.w && my_bd.nbifcrv > 0) {
+    if (window == my_bd.window && my_bd.nbifcrv > 0) {
         for (i = 0; i < my_bd.nbifcrv; i++) {
             set_linestyle(my_bd.color[i]);
             len = my_bd.npts[i];
@@ -1540,12 +1540,12 @@ read_bd(FILE *fp) {
     plintf(" got %d bifurcation curves\n", ncrv);
     fclose(fp);
     my_bd.nbifcrv = ncrv;
-    my_bd.w = draw_win;
+    my_bd.window = draw_win;
     return;
 }
 
 int32
-get_frz_index(Window w) {
+get_frz_index(Window window) {
     char *n[MAXFRZ];
     char key[MAXFRZ], ch;
 
@@ -1553,7 +1553,7 @@ get_frz_index(Window w) {
     int32 count = 0;
     Window temp = main_win;
     for (i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && w == frz[i].w) {
+        if (frz[i].use == 1 && window == frz[i].window) {
             n[count] = xmalloc(20);
             sprintf(n[count], "%s", frz[i].name);
             key[count] = 'a' + (char)i;

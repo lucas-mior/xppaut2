@@ -61,13 +61,13 @@ reset_graphics(void) {
 }
 
 void
-blank_screen(Window w)
+blank_screen(Window window)
 
 {
     CURS_X = 0;
     CURS_Y = 0;
     xor_flag = 0;
-    XClearWindow(display, w);
+    XClearWindow(display, window);
     return;
 }
 
@@ -271,7 +271,7 @@ cput_text(void) {
 }
 
 int32
-get_mouse_xy(int32 *x, int32 *y, Window w) {
+get_mouse_xy(int32 *x, int32 *y, Window window) {
     int32 no_but = 1;
     char ch;
     XEvent ev;
@@ -293,7 +293,7 @@ get_mouse_xy(int32 *x, int32 *y, Window w) {
                 return -3;
             break;
         case ButtonPress:
-            if (ev.xbutton.window != w)
+            if (ev.xbutton.window != window)
                 return 0;
             no_but = 0;
             *x = ev.xbutton.x;
@@ -314,14 +314,14 @@ Ftext(int32 x, int32 y, char *string, Window o) {
 }
 
 void
-bar(int32 x, int32 y, int32 x2, int32 y2, Window w) {
-    XFillRectangle(display, w, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
+bar(int32 x, int32 y, int32 x2, int32 y2, Window window) {
+    XFillRectangle(display, window, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
     return;
 }
 
 void
-rectangle(int32 x, int32 y, int32 x2, int32 y2, Window w) {
-    XDrawRectangle(display, w, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
+rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window) {
+    XDrawRectangle(display, window, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
     return;
 }
 
@@ -337,15 +337,15 @@ setfillstyle(int32 type, int32 color) {
 }
 
 void
-circle(int32 x, int32 y, int32 radius, Window w) {
-    XDrawArc(display, w, gc, x - radius, y - radius, (uint)(2*radius),
+circle(int32 x, int32 y, int32 radius, Window window) {
+    XDrawArc(display, window, gc, x - radius, y - radius, (uint)(2*radius),
              (uint)(2*radius), 0, 360*64);
     return;
 }
 
 void
-xline(int32 x0, int32 y0, int32 x1, int32 y1, Window w) {
-    XDrawLine(display, w, gc_graph, x0, y0, x1, y1);
+xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window) {
+    XDrawLine(display, window, gc_graph, x0, y0, x1, y1);
     return;
 }
 
@@ -400,28 +400,28 @@ display_command(char *name, char *value, int32 pos) {
 }
 
 void
-clr_line_at(Window w, int32 col0, int32 pos, int32 n) {
-    XClearArea(display, w, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX),
+clr_line_at(Window window, int32 col0, int32 pos, int32 n) {
+    XClearArea(display, window, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX),
                2*(uint)DCURY, False);
     return;
 }
 
 void
-put_cursor_at(Window w, int32 col0, int32 pos) {
+put_cursor_at(Window window, int32 col0, int32 pos) {
     int32 x1 = col0 + pos*DCURX;
     int32 x2 = x1 + 1;
     int32 y1 = DCURY - 2, y2 = 2;
     /* XDrawString(display,w,gc,col0+pos*DCURX-1,DCURY,"^",1);*/
-    XDrawLine(display, w, gc, x1, y1, x1, y2);
-    XDrawLine(display, w, gc, x2, y1, x2, y2);
+    XDrawLine(display, window, gc, x1, y1, x1, y2);
+    XDrawLine(display, window, gc, x2, y1, x2, y2);
     return;
 }
 
 void
-put_string_at(Window w, int32 col, char *s, int32 off) {
+put_string_at(Window window, int32 col, char *s, int32 off) {
     int32 l = (int32)strlen(s) - off;
 
-    XDrawString(display, w, gc, col, CURY_OFF, s + off, l);
+    XDrawString(display, window, gc, col, CURY_OFF, s + off, l);
     return;
 }
 
@@ -442,7 +442,7 @@ memmov(char *s1, char *s2, int32 len) {
 }
 
 void
-edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
+edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
             int32 ch) {
     int32 col0 = *col - *pos*DCURX;
 
@@ -518,27 +518,27 @@ edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done2,
         break;
     } /* end key cases */
     /* Now redraw everything !!  */
-    clr_line_at(w, col0, 0, (int32)strlen(value));
-    put_string_at(w, col0, value, 0);
-    put_cursor_at(w, col0, *pos);
+    clr_line_at(window, col0, 0, (int32)strlen(value));
+    put_string_at(window, col0, value, 0);
+    put_cursor_at(window, col0, *pos);
 
     XFlush(display);
     return;
 }
 
 void
-do_backspace(int32 *pos, char *value, int32 *col, Window w) {
+do_backspace(int32 *pos, char *value, int32 *col, Window window) {
     char oldch;
     *pos = *pos - 1;
     oldch = value[*pos];
     value[*pos] = '\0';
     if (*col < (SCALEX - DCURX))
         set_back();
-    showchar('_', *col, 0, w);
+    showchar('_', *col, 0, window);
     *col = *col - DCURX;
-    showchar(oldch, *col, 0, w);
+    showchar(oldch, *col, 0, window);
     set_fore();
-    showchar('_', *col, 0, w);
+    showchar('_', *col, 0, window);
     return;
 }
 

@@ -221,9 +221,9 @@ init_array_plot(ArrayPlot *ap) {
 }
 
 void
-expose_aplot(Window w) {
+expose_aplot(Window window) {
     if (array_plot.alive)
-        display_aplot(w, array_plot);
+        display_aplot(window, array_plot);
     return;
 }
 
@@ -279,9 +279,10 @@ do_array_plot_events(XEvent ev) {
 }
 
 void
-wborder(Window w, int32 i, ArrayPlot ap) {
+wborder(Window window, int32 i, ArrayPlot ap) {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
      */
+    Window w = window;
     if (w == ap.wedit || w == ap.wprint || w == ap.wclose || w == ap.wredraw ||
         w == ap.wgif || w == ap.wrange || w == ap.wfit)
         XSetWindowBorderWidth(display, w, (uint)i);
@@ -406,20 +407,20 @@ print_aplot(ArrayPlot *ap) {
 }
 
 void
-apbutton(Window w) {
-    if (w == array_plot.wedit)
+apbutton(Window window) {
+    if (window == array_plot.wedit)
         editaplot(&array_plot);
-    if (w == array_plot.wfit)
+    if (window == array_plot.wfit)
         fit_aplot();
-    if (w == array_plot.wrange)
+    if (window == array_plot.wrange)
         set_up_aplot_range();
-    if (w == array_plot.wredraw)
+    if (window == array_plot.wredraw)
         redraw_aplot(array_plot);
-    if (w == array_plot.wprint)
+    if (window == array_plot.wprint)
         print_aplot(&array_plot);
-    if (w == array_plot.wclose)
+    if (window == array_plot.wclose)
         destroy_aplot();
-    if (w == array_plot.wgif)
+    if (window == array_plot.wgif)
         gif_aplot();
     return;
 }
@@ -427,11 +428,11 @@ apbutton(Window w) {
 void
 draw_scale(ArrayPlot ap) {
     int32 i, y;
-    Window w = ap.wscale;
+    Window window = ap.wscale;
     for (i = 0; i < color_total; i++) {
         y = color_total - i - 1;
         set_color(i + FIRSTCOLOR);
-        XDrawLine(display, w, gc_graph, 0, y, 2*DCURXs, y);
+        XDrawLine(display, window, gc_graph, 0, y, 2*DCURXs, y);
     }
     return;
 }
@@ -634,7 +635,7 @@ grab_aplot_screen(ArrayPlot ap) {
 void
 redraw_aplot(ArrayPlot ap) {
     int32 i, j;
-    Window w = ap.wplot;
+    Window window = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
     char bob[100];
     int32 nrows = my_browser.maxrow, colr, cmax = FIRSTCOLOR + color_total;
@@ -646,7 +647,7 @@ redraw_aplot(ArrayPlot ap) {
     if (ap.plotdef == 0 || ap.nacross < 2 || ap.ndown < 2)
         return;
     XClearWindow(display, ap.wtime);
-    XClearWindow(display, w);
+    XClearWindow(display, window);
     jb = row0;
     tlo = 0.0;
     thi = 20.0;
@@ -687,7 +688,7 @@ redraw_aplot(ArrayPlot ap) {
                 if (colr > cmax)
                     colr = cmax;
                 set_acolor(colr);
-                XFillRectangle(display, w, array_plot_gc, ix, iy, (uint)delx,
+                XFillRectangle(display, window, array_plot_gc, ix, iy, (uint)delx,
                                (uint)dely);
             }
         }
@@ -720,51 +721,51 @@ set_acolor(int32 col) {
 }
 
 void
-display_aplot(Window w, ArrayPlot ap) {
+display_aplot(Window window, ArrayPlot ap) {
     char bob[200];
 
-    if (w == ap.wplot) {
+    if (window == ap.wplot) {
         draw_aplot(ap);
         return;
     }
-    if (w == ap.wscale) {
+    if (window == ap.wscale) {
         draw_scale(ap);
         return;
     }
-    if (w == ap.wmin) {
+    if (window == ap.wmin) {
         snprintf(bob, sizeof(bob), "%g", ap.zmin);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob,
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob,
                     (int32)strlen(bob));
         return;
     }
-    if (w == ap.wmax) {
+    if (window == ap.wmax) {
         snprintf(bob, sizeof(bob), "%g", ap.zmax);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob,
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob,
                     (int32)strlen(bob));
         return;
     }
-    if (w == ap.wedit) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Edit", 4);
+    if (window == ap.wedit) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Edit", 4);
         return;
     }
-    if (w == ap.wgif) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "GIF", 3);
+    if (window == ap.wgif) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "GIF", 3);
         return;
     }
-    if (w == ap.wredraw) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Redraw", 6);
+    if (window == ap.wredraw) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Redraw", 6);
         return;
     }
-    if (w == ap.wfit) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Fit", 3);
+    if (window == ap.wfit) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Fit", 3);
         return;
     }
-    if (w == ap.wrange) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Range", 5);
+    if (window == ap.wrange) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Range", 5);
         return;
     }
-    if (w == ap.wprint) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Print", 5);
+    if (window == ap.wprint) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Print", 5);
         return;
     }
 
@@ -774,8 +775,8 @@ display_aplot(Window w, ArrayPlot ap) {
    }
     */
 
-    if (w == ap.wclose) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Close", 5);
+    if (window == ap.wclose) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Close", 5);
         return;
     }
 }

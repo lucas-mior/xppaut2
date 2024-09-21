@@ -40,7 +40,7 @@ int32 status;
 
 extern int32 TORUS;
 typedef struct {
-    Window w;
+    Window window;
     char text[256];
     int32 here;
 } MSGBOXSTRUCT;
@@ -133,21 +133,21 @@ void
 MessageBox(char *m) {
     int32 wid = (int32)strlen(m)*DCURX + 20;
     int32 hgt = 4*DCURY;
-    MsgBox.w = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
+    MsgBox.window = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                                  DisplayHeight / 2, wid, hgt, 4);
 
-    make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.w);
+    make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.window);
     MsgBox.here = 1;
-    set_window_title(MsgBox.w, "Yo!");
+    set_window_title(MsgBox.window, "Yo!");
     strcpy(MsgBox.text, m);
     ping();
     return;
 }
 
 void
-RedrawMessageBox(Window w) {
-    if (w == MsgBox.w)
-        Ftext(10, 2*DCURY, MsgBox.text, MsgBox.w);
+RedrawMessageBox(Window window) {
+    if (window == MsgBox.window)
+        Ftext(10, 2*DCURY, MsgBox.text, MsgBox.window);
     return;
 }
 
@@ -157,7 +157,7 @@ KillMessageBox(void) {
         return;
     MsgBox.here = 0;
     waitasec(ClickTime);
-    XDestroyWindow(display, MsgBox.w);
+    XDestroyWindow(display, MsgBox.window);
     return;
 }
 

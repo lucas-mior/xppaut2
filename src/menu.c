@@ -18,21 +18,21 @@ extern GC gc;
 
 void
 add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
-    Window w;
+    Window window;
     int32 i;
     Cursor cursor;
     cursor = XCreateFontCursor(display, XC_hand2);
-    w = make_plain_unmapped_window(base, 0, DCURYs + DCURYb + 10, 16*DCURX,
+    window = make_plain_unmapped_window(base, 0, DCURYs + DCURYb + 10, 16*DCURX,
                                    21*(DCURY + 2) - 3, 1);
-    my_menus[j].base = w;
-    XDefineCursor(display, w, cursor);
+    my_menus[j].base = window;
+    XDefineCursor(display, window, cursor);
     my_menus[j].names = names;
     my_menus[j].n = n;
     my_menus[j].hints = hint;
     strcpy(my_menus[j].key, key);
-    my_menus[j].title = make_unmapped_window(w, 0, 0, 16*DCURX, DCURY, 1);
+    my_menus[j].title = make_unmapped_window(window, 0, 0, 16*DCURX, DCURY, 1);
     for (i = 0; i < n; i++) {
-        my_menus[j].w[i] = make_unmapped_window(w, 0, (i + 1)*(DCURY + 2),
+        my_menus[j].window[i] = make_unmapped_window(window, 0, (i + 1)*(DCURY + 2),
                                                 16*DCURX, DCURY, 0);
     }
     my_menus[j].visible = 0;
@@ -114,7 +114,7 @@ menu_crossing(Window win, int32 yn) {
     n = my_menus[j].n;
     z = my_menus[j].hints;
     for (i = 0; i < n; i++) {
-        if (win == my_menus[j].w[i]) {
+        if (win == my_menus[j].window[i]) {
             XSetWindowBorderWidth(display, win, (uint)yn);
             if (yn && TipsFlag)
                 bottom_msg(z[i]);
@@ -147,7 +147,7 @@ menu_expose(Window win) {
         return;
     }
     for (i = 0; i < n; i++) {
-        if (win == my_menus[j].w[i]) {
+        if (win == my_menus[j].window[i]) {
             BaseCol();
             XDrawString(display, win, gc, 5, CURY_OFF, z[i + 1],
                         (int)strlen(z[i + 1]));
@@ -166,7 +166,7 @@ menu_button(Window win) {
         return;
     n = my_menus[j].n;
     for (i = 0; i < n; i++) {
-        if (win == my_menus[j].w[i]) {
+        if (win == my_menus[j].window[i]) {
             XSetWindowBorderWidth(display, win, 0);
             commander(my_menus[j].key[i]);
             return;
@@ -189,7 +189,7 @@ draw_help(void) {
      */
     menu_expose(my_menus[j].title);
     for (i = 0; i < n; i++)
-        menu_expose(my_menus[j].w[i]);
+        menu_expose(my_menus[j].window[i]);
 }
 /*
 menu_events(ev)

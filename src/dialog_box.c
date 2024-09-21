@@ -155,20 +155,20 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
 }
 
 void
-display_dialog(Window w, DIALOG d, int32 col) {
-    if (w == d.ok)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.ok_s,
+display_dialog(Window window, DIALOG d, int32 col) {
+    if (window == d.ok)
+        XDrawString(display, window, gc, 0, CURY_OFF + 1, d.ok_s,
                     (int32)strlen(d.ok_s));
-    if (w == d.cancel)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.cancel_s,
+    if (window == d.cancel)
+        XDrawString(display, window, gc, 0, CURY_OFF + 1, d.cancel_s,
                     (int32)strlen(d.cancel_s));
-    if (w == d.mes)
-        XDrawString(display, w, gc, 0, CURY_OFF + 1, d.mes_s,
+    if (window == d.mes)
+        XDrawString(display, window, gc, 0, CURY_OFF + 1, d.mes_s,
                     (int32)strlen(d.mes_s));
-    if (w == d.input) {
-        XDrawString(display, w, gc, 0, CURY_OFF, d.input_s,
+    if (window == d.input) {
+        XDrawString(display, window, gc, 0, CURY_OFF, d.input_s,
                     (int32)strlen(d.input_s));
-        put_cursor_at(w, col, 0);
+        put_cursor_at(window, col, 0);
         /* showchar('_',DCURX*strlen(d.input_s),0,d.input); */
     }
     return;

@@ -38,16 +38,16 @@ static struct {
 } my_calc;
 
 void
-draw_calc(Window w) {
+draw_calc(Window window) {
     char bob[100];
-    if (w == my_calc.answer) {
-        XClearWindow(display, w);
+    if (window == my_calc.answer) {
+        XClearWindow(display, window);
         sprintf(bob, "%.16g", my_calc.last_val);
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, bob, (int)strlen(bob));
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob, (int)strlen(bob));
         return;
     }
-    if (w == my_calc.quit) {
-        XDrawString(display, w, small_gc, 0, CURY_OFFs, "Quit", 4);
+    if (window == my_calc.quit) {
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, "Quit", 4);
         return;
     }
     return;

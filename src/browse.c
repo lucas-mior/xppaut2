@@ -28,7 +28,7 @@
 extern char *browse_hint[];
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
     } while (0)
 
@@ -196,23 +196,23 @@ del_stor_col(char *var, Browser *b) {
 void
 data_del_col(Browser *b) {
     /*  this only works with storage  */
-    Window w;
+    Window window;
     int32 rev;
     if (check_for_stor(b->data) == 0)
         return;
-    XGetInputFocus(display, &w, &rev);
+    XGetInputFocus(display, &window, &rev);
     err_msg("Sorry - not working very well yet...");
     return;
 }
 
 void
 data_add_col(Browser *b) {
-    Window w;
+    Window window;
     int32 rev, status;
     char var[20], form[80];
     if (check_for_stor(b->data) == 0)
         return;
-    XGetInputFocus(display, &w, &rev);
+    XGetInputFocus(display, &window, &rev);
     strcpy(var, "");
     strcpy(form, "");
     status = get_dialog("Add Column", "Name", var, "Ok", "Cancel", 20);
@@ -480,11 +480,11 @@ find_variable(char *s, int32 *col) {
 }
 
 void
-browse_but_on(Browser *b, int32 i, Window w, int32 yn) {
+browse_but_on(Browser *b, int32 i, Window window, int32 yn) {
     uint32 val = 1;
     if (yn)
         val = 2;
-    XSetWindowBorderWidth(display, w, val);
+    XSetWindowBorderWidth(display, window, val);
     if (yn && TipsFlag && i >= 0) {
         strcpy(b->hinttxt, browse_hint[i]);
         display_browser(b->hint, *b);
@@ -494,118 +494,118 @@ browse_but_on(Browser *b, int32 i, Window w, int32 yn) {
 
 void
 enter_browser(XEvent ev, Browser *b, int32 yn) {
-    Window w = ev.xexpose.window;
-    if (w == b->find)
-        browse_but_on(b, 0, w, yn);
-    if (w == b->up)
-        browse_but_on(b, 1, w, yn);
-    if (w == b->down)
-        browse_but_on(b, 2, w, yn);
-    if (w == b->pgup)
-        browse_but_on(b, 3, w, yn);
-    if (w == b->pgdn)
-        browse_but_on(b, 4, w, yn);
-    if (w == b->left)
-        browse_but_on(b, 5, w, yn);
-    if (w == b->right)
-        browse_but_on(b, 6, w, yn);
-    if (w == b->home)
-        browse_but_on(b, 7, w, yn);
-    if (w == b->end)
-        browse_but_on(b, 8, w, yn);
-    if (w == b->first)
-        browse_but_on(b, 9, w, yn);
-    if (w == b->last)
-        browse_but_on(b, 10, w, yn);
-    if (w == b->restore)
-        browse_but_on(b, 11, w, yn);
-    if (w == b->write)
-        browse_but_on(b, 12, w, yn);
-    if (w == b->get)
-        browse_but_on(b, 13, w, yn);
-    if (w == b->repl)
-        browse_but_on(b, 14, w, yn);
-    if (w == b->unrepl)
-        browse_but_on(b, 15, w, yn);
-    if (w == b->table)
-        browse_but_on(b, 16, w, yn);
-    if (w == b->load)
-        browse_but_on(b, 17, w, yn);
-    if (w == b->time)
-        browse_but_on(b, 18, w, yn);
-    if (w == b->addcol)
-        browse_but_on(b, 19, w, yn);
-    if (w == b->delcol)
-        browse_but_on(b, 20, w, yn);
-    if (w == b->close)
-        browse_but_on(b, -1, w, yn);
+    Window window = ev.xexpose.window;
+    if (window == b->find)
+        browse_but_on(b, 0, window, yn);
+    if (window == b->up)
+        browse_but_on(b, 1, window, yn);
+    if (window == b->down)
+        browse_but_on(b, 2, window, yn);
+    if (window == b->pgup)
+        browse_but_on(b, 3, window, yn);
+    if (window == b->pgdn)
+        browse_but_on(b, 4, window, yn);
+    if (window == b->left)
+        browse_but_on(b, 5, window, yn);
+    if (window == b->right)
+        browse_but_on(b, 6, window, yn);
+    if (window == b->home)
+        browse_but_on(b, 7, window, yn);
+    if (window == b->end)
+        browse_but_on(b, 8, window, yn);
+    if (window == b->first)
+        browse_but_on(b, 9, window, yn);
+    if (window == b->last)
+        browse_but_on(b, 10, window, yn);
+    if (window == b->restore)
+        browse_but_on(b, 11, window, yn);
+    if (window == b->write)
+        browse_but_on(b, 12, window, yn);
+    if (window == b->get)
+        browse_but_on(b, 13, window, yn);
+    if (window == b->repl)
+        browse_but_on(b, 14, window, yn);
+    if (window == b->unrepl)
+        browse_but_on(b, 15, window, yn);
+    if (window == b->table)
+        browse_but_on(b, 16, window, yn);
+    if (window == b->load)
+        browse_but_on(b, 17, window, yn);
+    if (window == b->time)
+        browse_but_on(b, 18, window, yn);
+    if (window == b->addcol)
+        browse_but_on(b, 19, window, yn);
+    if (window == b->delcol)
+        browse_but_on(b, 20, window, yn);
+    if (window == b->close)
+        browse_but_on(b, -1, window, yn);
     return;
 }
 
 void
-display_browser(Window w, Browser b) {
+display_browser(Window window, Browser b) {
     int32 i0;
-    if (w == b.hint) {
+    if (window == b.hint) {
         XClearWindow(display, b.hint);
-        XDrawString(display, w, small_gc, 8, CURY_OFFs, b.hinttxt,
+        XDrawString(display, window, small_gc, 8, CURY_OFFs, b.hinttxt,
                     (int)strlen(b.hinttxt));
         return;
     }
 
-    if (w == b.find)
+    if (window == b.find)
         xds("Find");
-    if (w == b.up)
+    if (window == b.up)
         xds("Up");
-    if (w == b.down)
+    if (window == b.down)
         xds("Down");
-    if (w == b.pgup)
+    if (window == b.pgup)
         xds("PgUp");
-    if (w == b.pgdn)
+    if (window == b.pgdn)
         xds("PgDn");
-    if (w == b.left)
+    if (window == b.left)
         xds("Left");
-    if (w == b.right)
+    if (window == b.right)
         xds("Right");
-    if (w == b.home)
+    if (window == b.home)
         xds("Home");
-    if (w == b.end)
+    if (window == b.end)
         xds("End");
-    if (w == b.first)
+    if (window == b.first)
         xds("First");
-    if (w == b.last)
+    if (window == b.last)
         xds("Last");
-    if (w == b.restore)
+    if (window == b.restore)
         xds("Restore");
-    if (w == b.write)
+    if (window == b.write)
         xds("Write");
-    if (w == b.get)
+    if (window == b.get)
         xds("Get");
-    if (w == b.repl)
+    if (window == b.repl)
         xds("Replace");
-    if (w == b.unrepl)
+    if (window == b.unrepl)
         xds("Unrepl");
-    if (w == b.table)
+    if (window == b.table)
         xds("Table");
-    if (w == b.load)
+    if (window == b.load)
         xds("Load");
-    if (w == b.time)
+    if (window == b.time)
         xds("Time");
-    if (w == b.addcol)
+    if (window == b.addcol)
         xds("Add col");
-    if (w == b.close)
+    if (window == b.close)
         xds("Close");
-    if (w == b.delcol)
+    if (window == b.delcol)
         xds("Del col");
 
     for (int32 i = 0; i < BMAXCOL; i++) {
-        if (w == b.label[i]) {
+        if (window == b.label[i]) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1)
-                XDrawString(display, w, small_gc, 5, CURY_OFFs, uvar_names[i0],
+                XDrawString(display, window, small_gc, 5, CURY_OFFs, uvar_names[i0],
                             (int)strlen(uvar_names[i0]));
         }
     }
-    if (w == b.main)
+    if (window == b.main)
         draw_data(b);
     return;
 }
@@ -613,14 +613,14 @@ display_browser(Window w, Browser b) {
 void
 redraw_browser(Browser b) {
     int32 i, i0;
-    Window w;
+    Window window;
     draw_data(b);
     for (i = 0; i < BMAXCOL; i++) {
-        w = b.label[i];
+        window = b.label[i];
         i0 = i + b.col0 - 1;
         if (i0 < (b.maxcol - 1)) {
-            XClearWindow(display, w);
-            XDrawString(display, w, small_gc, 5, CURY_OFFs, uvar_names[i0],
+            XClearWindow(display, window);
+            XDrawString(display, window, small_gc, 5, CURY_OFFs, uvar_names[i0],
                         (int)strlen(uvar_names[i0]));
         }
     }
@@ -1291,10 +1291,10 @@ data_get(Browser *b) {
 
 void
 data_replace(Browser *b) {
-    Window w;
+    Window window;
     int32 rev, status;
     char var[20], form[80];
-    XGetInputFocus(display, &w, &rev);
+    XGetInputFocus(display, &window, &rev);
     strcpy(var, uvar_names[0]);
     strcpy(form, uvar_names[0]);
     status = get_dialog("Replace", "Variable:", var, "Ok", "Cancel", 20);
@@ -1306,7 +1306,7 @@ data_replace(Browser *b) {
         draw_data(*b);
     }
 
-    XSetInputFocus(display, w, rev, CurrentTime);
+    XSetInputFocus(display, window, rev, CurrentTime);
     return;
 }
 
@@ -1319,7 +1319,7 @@ data_unreplace(Browser *b) {
 
 void
 data_table(Browser *b) {
-    Window w;
+    Window window;
     int32 rev, status;
 
     static char *name[] = {"Variable", "Xlo", "Xhi", "File"};
@@ -1331,12 +1331,12 @@ data_table(Browser *b) {
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
     snprintf(value[1], sizeof(value[1]), "0.00");
     snprintf(value[2], sizeof(value[2]), "1.00");
-    snprintf(value[3], sizeof(value[3]),
-             "%.*s.tab", (int)sizeof(value[0]) - 5, value[0]);
+    snprintf(value[3], sizeof(value[3]), "%.*s.tab", (int)sizeof(value[0]) - 5,
+             value[0]);
 
-    XGetInputFocus(display, &w, &rev);
+    XGetInputFocus(display, &window, &rev);
     status = do_string_box(4, 4, 1, "Tabulate", name, value, 40);
-    XSetInputFocus(display, w, rev, CurrentTime);
+    XSetInputFocus(display, window, rev, CurrentTime);
     if (status == 0)
         return;
     xlo = atof(value[1]);
@@ -1349,7 +1349,7 @@ data_table(Browser *b) {
 
 void
 data_find(Browser *b) {
-    Window w;
+    Window window;
     int32 rev, status;
 
     static char *name[] = {"*0Variable", "Value"};
@@ -1360,10 +1360,10 @@ data_find(Browser *b) {
 
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
     sprintf(value[1], "0.00");
-    XGetInputFocus(display, &w, &rev);
+    XGetInputFocus(display, &window, &rev);
     status = do_string_box(2, 2, 1, "Find Data", name, value, 40);
 
-    XSetInputFocus(display, w, rev, CurrentTime);
+    XSetInputFocus(display, window, rev, CurrentTime);
 
     if (status == 0)
         return;

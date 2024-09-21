@@ -22,7 +22,7 @@
 
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));         \
         return;                                                                \
     } while (0)
 typedef struct {
@@ -87,9 +87,9 @@ txt_view_events(XEvent ev) {
 
 void
 txtview_keypress(XEvent ev) {
-    Window w = ev.xkey.window;
+    Window window = ev.xkey.window;
     char ks;
-    if (w == txtview.base || w == txtview.text) {
+    if (window == txtview.base || window == txtview.text) {
         ks = (char)get_key_press(&ev);
         if (ks == KEY_UP) {
             txtview_press(txtview.up, 0, 0);
@@ -120,7 +120,8 @@ txtview_keypress(XEvent ev) {
 }
 
 void
-enter_txtview(Window w, int32 val) {
+enter_txtview(Window window, int32 val) {
+    Window w = window;
     if (w == txtview.up || w == txtview.down || w == txtview.pgup ||
         w == txtview.pgdn || w == txtview.home || w == txtview.end ||
         w == txtview.src || w == txtview.action || w == txtview.kill)
@@ -153,7 +154,7 @@ resize_txtview(int32 w, int32 h) {
 }
 
 void
-txtview_press(Window w, int32 x, int32 y) {
+txtview_press(Window window, int32 x, int32 y) {
     int32 j;
     int32 nt;
     if (txtview.which == 1)
@@ -161,7 +162,7 @@ txtview_press(Window w, int32 x, int32 y) {
     else
         nt = NLINES;
 
-    if (w == txtview.text) {
+    if (window == txtview.text) {
         if (txtview.which == 0)
             return;
         if (x > (2*txtview.dw))
@@ -172,37 +173,37 @@ txtview_press(Window w, int32 x, int32 y) {
         return;
     }
 
-    if (w == txtview.up) {
+    if (window == txtview.up) {
         if (txtview.first > 0) {
             txtview.first -= 1;
             redraw_txtview_text();
         }
     }
-    if (w == txtview.down) {
+    if (window == txtview.down) {
         j = txtview.first + 1 + txtview.nlines;
         if (j <= nt) {
             txtview.first += 1;
             redraw_txtview_text();
         }
     }
-    if (w == txtview.home) {
+    if (window == txtview.home) {
         txtview.first = 0;
         redraw_txtview_text();
     }
-    if (w == txtview.end) {
+    if (window == txtview.end) {
         j = nt - txtview.nlines;
         if (j >= 0) {
             txtview.first = j;
             redraw_txtview_text();
         }
     }
-    if (w == txtview.kill) {
+    if (window == txtview.kill) {
         txtview.here = 0;
         waitasec(ClickTime);
         XDestroySubwindows(display, txtview.base);
         XDestroyWindow(display, txtview.base);
     }
-    if (w == txtview.pgup) {
+    if (window == txtview.pgup) {
         j = txtview.first - txtview.nlines;
         if (j < 0)
             j = 0;
@@ -210,7 +211,7 @@ txtview_press(Window w, int32 x, int32 y) {
         redraw_txtview_text();
     }
 
-    if (w == txtview.pgdn) {
+    if (window == txtview.pgdn) {
         j = txtview.first + txtview.nlines;
         if (j < nt) {
             txtview.first = j;
@@ -218,12 +219,12 @@ txtview_press(Window w, int32 x, int32 y) {
         }
     }
 
-    if (w == txtview.src) {
+    if (window == txtview.src) {
         txtview.which = 0;
         redraw_txtview_text();
     }
 
-    if (w == txtview.action) {
+    if (window == txtview.action) {
         if (n_comments > 0) {
             txtview.which = 1;
             redraw_txtview_text();
@@ -233,26 +234,26 @@ txtview_press(Window w, int32 x, int32 y) {
 }
 
 void
-redraw_txtview(Window w) {
-    if (w == txtview.text)
+redraw_txtview(Window window) {
+    if (window == txtview.text)
         redraw_txtview_text();
-    if (w == txtview.up)
+    if (window == txtview.up)
         xds("Up");
-    if (w == txtview.down)
+    if (window == txtview.down)
         xds("Down");
-    if (w == txtview.pgup)
+    if (window == txtview.pgup)
         xds("PgUp");
-    if (w == txtview.pgdn)
+    if (window == txtview.pgdn)
         xds("PgDn");
-    if (w == txtview.kill)
+    if (window == txtview.kill)
         xds("Kill");
-    if (w == txtview.home)
+    if (window == txtview.home)
         xds("Home");
-    if (w == txtview.end)
+    if (window == txtview.end)
         xds("End");
-    if (w == txtview.src)
+    if (window == txtview.src)
         xds("Source");
-    if (w == txtview.action)
+    if (window == txtview.action)
         xds("Action");
     return;
 }

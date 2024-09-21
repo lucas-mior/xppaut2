@@ -37,7 +37,7 @@ typedef struct {
 } IC_BOX;
 
 typedef struct {
-    Window w, w_info;
+    Window window, w_info;
 
     int32 Use;
     int32 state;
@@ -74,7 +74,7 @@ typedef struct {
 } TEXTGC;
 
 typedef struct {
-    Window w;
+    Window window;
     double x;
     double y;
     char s[MAXCHAR];
@@ -83,7 +83,7 @@ typedef struct {
 } LABEL;
 
 typedef struct {
-    Window w;
+    Window window;
     char key[20], name[10];
     int16 use, type;
     double *xv, *yv, *zv;
@@ -91,7 +91,7 @@ typedef struct {
 } CURVE;
 
 typedef struct {
-    Window w;
+    Window window;
     char name[10];
     int16 use;
     double *x_n, *y_n;
@@ -124,7 +124,7 @@ typedef struct {
 } CHOICE_BOX;
 
 typedef struct {
-    Window w;
+    Window window;
     char name[MAXCHAR];
     char value[MAXCHAR];
 } PARAM;
@@ -141,7 +141,7 @@ typedef struct {
 typedef struct {
     char name[10];
     char value[80];
-    Window w;
+    Window window;
 } TCHOICE;
 
 typedef struct {

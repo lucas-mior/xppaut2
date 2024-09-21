@@ -16,7 +16,7 @@ extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
 extern uint32 GrFore, GrBack;
 
 int32
-rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
+rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     XEvent ev;
     int32 there = 0;
     int32 error = 0;
@@ -32,7 +32,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
         /*XSetForeground(display,gc,GrFore);*/
     }
 
-    XSelectInput(display, w,
+    XSelectInput(display, window,
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
                      PointerMotionMask | ButtonMotionMask | ExposureMask);
     while (!there) {
@@ -63,21 +63,21 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
             dragy = ev.xkey.y;
             oldx = dragx;
             oldy = dragy;
-            rbox(dragx, dragy, oldx, oldy, w, f);
+            rbox(dragx, dragy, oldx, oldy, window, f);
             break;
         case MotionNotify:
             if (state == 0)
                 break;
-            rbox(dragx, dragy, oldx, oldy, w, f);
+            rbox(dragx, dragy, oldx, oldy, window, f);
             oldx = ev.xmotion.x;
             oldy = ev.xmotion.y;
-            rbox(dragx, dragy, oldx, oldy, w, f);
+            rbox(dragx, dragy, oldx, oldy, window, f);
             break;
         case ButtonRelease:
             if (state == 0)
                 break;
             there = 1;
-            rbox(dragx, dragy, oldx, oldy, w, f);
+            rbox(dragx, dragy, oldx, oldy, window, f);
             break;
         default:
             break;
@@ -99,7 +99,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
         *y2 = oldy;
     }
 
-    XSelectInput(display, w,
+    XSelectInput(display, window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask);
     if (error)
@@ -108,10 +108,10 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f) {
 }
 
 void
-rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f) {
+rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f) {
     int32 x1 = i1, x2 = i2, y1 = j1, y2 = j2;
     if (f == RUBLINE) {
-        XDrawLine(display, w, gc, i1, j1, i2, j2);
+        XDrawLine(display, window, gc, i1, j1, i2, j2);
         return;
     }
     if (x1 > x2) {
@@ -122,6 +122,6 @@ rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f) {
         y1 = j2;
         y2 = j1;
     }
-    rectangle(x1, y1, x2, y2, w);
+    rectangle(x1, y1, x2, y2, window);
     return;
 }

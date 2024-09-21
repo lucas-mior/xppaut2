@@ -154,15 +154,15 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
 }
 
 void
-expose_scroll_box(Window w, SCROLLBOX sb) {
+expose_scroll_box(Window window, SCROLLBOX sb) {
     int32 i;
     /*int32 flag=-1;*/
     for (i = 0; i < sb.nw; i++)
-        if (w == sb.w[i]) {
+        if (window == sb.w[i]) {
             redraw_scroll_box(sb);
             return;
         }
-    if (sb.nw < sb.nent && w == sb.slide)
+    if (sb.nw < sb.nent && window == sb.slide)
         redraw_scroll_box(sb);
     return;
 }
@@ -187,11 +187,11 @@ redraw_scroll_box(SCROLLBOX sb) {
 }
 
 void
-crossing_scroll_box(Window w, int32 c, SCROLLBOX sb) {
+crossing_scroll_box(Window window, int32 c, SCROLLBOX sb) {
     int32 i;
     for (i = 0; i < sb.nw; i++) {
-        if (w == sb.w[i]) {
-            XSetWindowBorderWidth(display, w, (uint)c);
+        if (window == sb.w[i]) {
+            XSetWindowBorderWidth(display, window, (uint)c);
             return;
         }
     }
@@ -201,13 +201,13 @@ crossing_scroll_box(Window w, int32 c, SCROLLBOX sb) {
 int32
 scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
     int32 x;
-    Window w;
+    Window window;
     int32 pos, len;
-    w = ev.xmotion.window;
+    window = ev.xmotion.window;
     x = ev.xmotion.y;
     if (sb->nw >= sb->nent)
         return 0;
-    if (w == sb->slide) {
+    if (window == sb->slide) {
         len = sb->len;
         if (x < 2)
             x = 2;
@@ -225,11 +225,11 @@ scroll_box_motion(XEvent ev, SCROLLBOX *sb) {
 }
 
 int32
-select_scroll_item(Window w, SCROLLBOX sb) {
+select_scroll_item(Window window, SCROLLBOX sb) {
     int32 i;
     int32 item = -1;
     for (i = 0; i < sb.nw; i++) {
-        if (w == sb.w[i]) {
+        if (window == sb.w[i]) {
             item = i + sb.i0;
             return item;
         }
@@ -302,44 +302,44 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
 }
 
 void
-expose_sbox(STRING_BOX sb, Window w, int32 pos) {
+expose_sbox(STRING_BOX sb, Window window, int32 pos) {
     int32 i, flag;
 
-    if (w == sb.ok) {
-        XDrawString(display, w, gc, 5, CURY_OFF, "Ok", 2);
+    if (window == sb.ok) {
+        XDrawString(display, window, gc, 5, CURY_OFF, "Ok", 2);
         return;
     }
-    if (w == sb.cancel) {
-        XDrawString(display, w, gc, 5, CURY_OFF, "Cancel", 6);
+    if (window == sb.cancel) {
+        XDrawString(display, window, gc, 5, CURY_OFF, "Cancel", 6);
         return;
     }
     for (i = 0; i < sb.n; i++) {
-        if (w != sb.win[i])
+        if (window != sb.win[i])
             continue;
         flag = 0;
         if (i == sb.hot)
             flag = 1;
-        do_hilite_text(sb.name[i], sb.value[i], flag, w, pos);
+        do_hilite_text(sb.name[i], sb.value[i], flag, window, pos);
     }
     return;
 }
 
 void
-do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos) {
+do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
     int32 l = (int32)strlen(name);
     int32 m = (int32)strlen(value);
     if (flag) {
         set_fore();
-        bar(0, 0, l*DCURX, DCURY + 4, w);
+        bar(0, 0, l*DCURX, DCURY + 4, window);
         set_back();
     }
-    XDrawString(display, w, gc, 0, CURY_OFF, name, l);
+    XDrawString(display, window, gc, 0, CURY_OFF, name, l);
     set_fore();
     if (m > 0)
-        XDrawString(display, w, gc, l*DCURX, CURY_OFF, value, m);
+        XDrawString(display, window, gc, l*DCURX, CURY_OFF, value, m);
     /* if(flag) showchar('_',DCURX*(l+m),0,w); */
     if (flag)
-        put_cursor_at(w, DCURX*l, pos);
+        put_cursor_at(window, DCURX*l, pos);
     return;
 }
 
@@ -387,7 +387,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
     char ch;
     int32 ihot = sb->hot;
     Window wt;
-    Window w = sb->win[ihot]; /* active window   */
+    Window window = sb->win[ihot]; /* active window   */
     char *s;
     s = sb->value[ihot];
 
@@ -410,7 +410,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
             item = select_scroll_item(ev.xbutton.window, *scrb);
             if (item >= 0) {
                 set_sbox_item(sb, item);
-                new_editable(sb, sb->hot, pos, col, &done, &w);
+                new_editable(sb, sb->hot, pos, col, &done, &window);
                 destroy_scroll_box(scrb);
             }
         }
@@ -429,7 +429,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
                                CurrentTime);
                 if (i != sb->hot) {
                     destroy_scroll_box(scrb);
-                    new_editable(sb, i, pos, col, &done, &w);
+                    new_editable(sb, i, pos, col, &done, &window);
                 } else { /* i==sb->hot */
                     if (ev.xbutton.x < DCURX) {
                         j = sb->hot;
@@ -462,14 +462,14 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, SCROLLBOX *scrb) {
 
     case KeyPress:
         ch = (char)get_key_press(&ev);
-        edit_window(w, pos, s, col, &done, ch);
+        edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
                 status = DONE_ALL;
                 break;
             }
             inew = (sb->hot + 1) % nn;
-            new_editable(sb, inew, pos, col, &done, &w);
+            new_editable(sb, inew, pos, col, &done, &window);
         }
         break;
     default:
@@ -912,10 +912,11 @@ make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
 }
 
 void
-expose_resp_box(char *button, char *message, Window wb, Window wm, Window w) {
-    if (w == wb)
+expose_resp_box(char *button, char *message, Window wb, Window wm,
+                Window window) {
+    if (window == wb)
         Ftext(0, 0, button, wb);
-    if (w == wm)
+    if (window == wm)
         Ftext(0, 0, message, wm);
     return;
 }
@@ -995,19 +996,19 @@ message_box(Window *w, int32 x, int32 y, char *message) {
 
 void
 expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
-              Window wm, Window w) {
-    if (w == wm)
+              Window wm, Window window) {
+    if (window == wm)
         Ftext(0, 0, msg, wm);
-    if (w == c1)
+    if (window == c1)
         Ftext(0, 0, choice1, c1);
-    if (w == c2)
+    if (window == c2)
         Ftext(0, 0, choice2, c2);
     return;
 }
 
 int32
 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
-           int32 y, Window w, char *title) {
+           int32 y, Window window, char *title) {
     Window base, c1, c2, wm;
     XEvent ev;
     int32 not_done = 1;
@@ -1023,7 +1024,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     xm = (tot - lm) / 2;
     x1 = (tot - l1 - l2 - 4*DCURX) / 2;
     x2 = x1 + l1 + 4*DCURX;
-    base = make_plain_window(w, x, y, tot, 5*DCURY, 4);
+    base = make_plain_window(window, x, y, tot, 5*DCURY, 4);
 
     make_icon((char *)alert_bits, alert_width, alert_height, base);
 
@@ -1035,7 +1036,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     wm = make_window(base, xm, DCURY / 2, lm + 2, DCURY, 0);
 
     ping();
-    if (w == RootWindow(display, screen)) {
+    if (window == RootWindow(display, screen)) {
         if (title == NULL) {
             set_window_title(base, "!!!!");
         } else {
@@ -1110,15 +1111,15 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 {
     POP_UP p;
     XEvent ev;
-    Window w;
+    Window window;
     Cursor txt;
     int32 i, done = 0, value;
     int32 width = DCURX*(max + 5);
     int32 length = (DCURY + 6)*(n + 2);
-    w = make_plain_window(*root, x, y, width, length, 2);
+    window = make_plain_window(*root, x, y, width, length, 2);
     txt = XCreateFontCursor(display, XC_hand2);
-    XDefineCursor(display, w, txt);
-    p.base = w;
+    XDefineCursor(display, window, txt);
+    p.base = window;
     p.entries = list;
     p.title = title;
     p.n = n;
@@ -1128,9 +1129,9 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     p.hot = def;
     value = (int32)key[def];
     p.w = xmalloc((usize)n*sizeof(*(p.w)));
-    p.tit = make_window(w, 0, 0, width, DCURY + 7, 0);
+    p.tit = make_window(window, 0, 0, width, DCURY + 7, 0);
     for (i = 0; i < n; i++) {
-        p.w[i] = make_window(w, DCURX, DCURY + 10 + i*(DCURY + 6),
+        p.w[i] = make_window(window, DCURX, DCURY + 10 + i*(DCURY + 6),
                              DCURX*(max + 3), DCURY + 3, 0);
         XSelectInput(display, p.w[i], BUT_MASK);
     }
@@ -1191,22 +1192,22 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 }
 
 void
-draw_pop_up(POP_UP p, Window w) {
+draw_pop_up(POP_UP p, Window window) {
     int32 i;
 
-    if (w == p.tit) {
+    if (window == p.tit) {
         set_fore();
-        bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), w);
+        bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
         set_back();
-        Ftext(DCURX*2, 4, p.title, w);
+        Ftext(DCURX*2, 4, p.title, window);
         set_fore();
         return;
     }
     for (i = 0; i < p.n; i++) {
-        if (w == p.w[i]) {
-            Ftext(DCURX / 2, 3, p.entries[i], w);
+        if (window == p.w[i]) {
+            Ftext(DCURX / 2, 3, p.entries[i], window);
             if (i == p.hot)
-                Ftext(DCURX*(p.max + 1), 4, "X", w);
+                Ftext(DCURX*(p.max + 1), 4, "X", window);
             return;
         }
     }

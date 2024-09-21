@@ -31,26 +31,26 @@ destroy_choice(CHOICE_BOX p) {
 }
 
 void
-display_choice(Window w, CHOICE_BOX p) {
+display_choice(Window window, CHOICE_BOX p) {
     int32 i;
     int32 n = p.n;
     XSetFillStyle(display, gc, FillSolid);
     XSetForeground(display, gc, MyForeColor);
 
-    if (w == p.ok)
-        XDrawString(display, w, gc, 0, CURY_OFF, "Ok", 2);
-    if (w == p.cancel)
-        XDrawString(display, w, gc, 0, CURY_OFF, "Cancel", 6);
+    if (window == p.ok)
+        XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
+    if (window == p.cancel)
+        XDrawString(display, window, gc, 0, CURY_OFF, "Cancel", 6);
     for (i = 0; i < n; i++) {
-        if (w != p.cw[i])
+        if (window != p.cw[i])
             continue;
-        XDrawString(display, w, gc, 0, CURY_OFF, p.name[i],
+        XDrawString(display, window, gc, 0, CURY_OFF, p.name[i],
                     (int)strlen(p.name[i]));
         if (p.flag[i] == 1)
             set_fore();
         else
             set_back();
-        XDrawString(display, w, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
+        XDrawString(display, window, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     set_fore();
     return;

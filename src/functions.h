@@ -94,7 +94,7 @@ extern int32 animation_on_the_fly;
 
 void ani_new_vcr(void);
 void ani_do_events(XEvent ev);
-void ani_expose(Window w);
+void ani_expose(Window window);
 void ani_newskip(void);
 void check_on_the_fly(void);
 void on_the_fly(int32 task);
@@ -179,8 +179,8 @@ int32 add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which);
 void draw_grab_points(void);
 void free_grabber(void);
 int32 check_ani_pause(XEvent ev);
-void do_ani_slider_motion(Window w, int32 x);
-void draw_ani_slider(Window w, int32 x);
+void do_ani_slider_motion(Window window, int32 x);
+void draw_ani_slider(Window window, int32 x);
 void redraw_ani_slider(void);
 
 #endif
@@ -213,14 +213,14 @@ void array_plot_draw_one(char *);
 void array_plot_optimize(int32 *plist);
 void array_plot_make_my(char *name);
 void init_array_plot(ArrayPlot *ap);
-void expose_aplot(Window w);
+void expose_aplot(Window window);
 void do_array_plot_events(XEvent ev);
-void wborder(Window w, int32 i, ArrayPlot ap);
+void wborder(Window window, int32 i, ArrayPlot ap);
 void destroy_aplot(void);
 void init_my_aplot(void);
 void create_array_plot(ArrayPlot *ap, char *wname, char *iname);
 void print_aplot(ArrayPlot *ap);
-void apbutton(Window w);
+void apbutton(Window window);
 void draw_scale(ArrayPlot ap);
 void draw_aplot(ArrayPlot ap);
 void edit_aplot(void);
@@ -231,7 +231,7 @@ int32 editaplot(ArrayPlot *ap);
 void gif_aplot(void);
 void grab_aplot_screen(ArrayPlot ap);
 void redraw_aplot(ArrayPlot ap);
-void display_aplot(Window w, ArrayPlot ap);
+void display_aplot(Window window, ArrayPlot ap);
 
 #endif
 
@@ -305,12 +305,12 @@ void XORCross(int32 x, int32 y);
 void FillCircle(int32 x, int32 y, int32 r);
 void LineWidth(int32 wid);
 void auto_motion(XEvent ev);
-void display_auto(Window w);
+void display_auto(Window window);
 Window lil_button(Window root, int32 x, int32 y);
 void make_auto(char *wname, char *iname);
 void resize_auto_window(XEvent ev);
 void a_msg(int32 i, int32 v);
-void auto_enter(Window w, int32 v);
+void auto_enter(Window window, int32 v);
 void auto_button(XEvent ev);
 void auto_kill(void);
 void auto_keypress(XEvent ev, int32 *used);
@@ -963,9 +963,9 @@ void unreplace_column(void);
 void make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b);
 void find_value(int32 col, double val, int32 *row, Browser b);
 void find_variable(char *s, int32 *col);
-void browse_but_on(Browser *b, int32 i, Window w, int32 yn);
+void browse_but_on(Browser *b, int32 i, Window window, int32 yn);
 void enter_browser(XEvent ev, Browser *b, int32 yn);
-void display_browser(Window w, Browser b);
+void display_browser(Window window, Browser b);
 void redraw_browser(Browser b);
 void new_browse_dat(double **new_dat, int32 dat_len);
 void refresh_browser(int32 length);
@@ -1019,7 +1019,7 @@ void data_get_mybrowser(int32 row);
 
 #include <X11/Xlib.h>
 
-void draw_calc(Window w);
+void draw_calc(Window window);
 void make_calc(double z);
 void quit_calc(void);
 void ini_calc_string(char *name, char *value, int32 *pos, int32 *col);
@@ -1037,7 +1037,7 @@ double calculate(char *expr, int32 *ok);
 #include "struct.h"
 
 void destroy_choice(CHOICE_BOX p);
-void display_choice(Window w, CHOICE_BOX p);
+void display_choice(Window window, CHOICE_BOX p);
 void do_checks(CHOICE_BOX p);
 void base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check,
                  int32 type);
@@ -1057,7 +1057,7 @@ extern int32 custom_color;
 extern int32 color_min, color_total, color_max;
 extern int32 COLOR;
 
-void tst_color(Window w);
+void tst_color(Window window);
 void set_scolor(int32 col);
 void set_color(int32 col);
 void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
@@ -1082,7 +1082,7 @@ uint32 ColorMap(int32 i);
 
 void ping(void);
 void reset_graphics(void);
-void blank_screen(Window w);
+void blank_screen(Window window);
 void set_fore(void);
 void set_back(void);
 void showchar(int32 ch, int32 col, int32 row, Window or);
@@ -1098,24 +1098,24 @@ int32 show_position(XEvent ev);
 void put_command(char *string);
 int32 get_key_press(XEvent *ev);
 void cput_text(void);
-int32 get_mouse_xy(int32 *x, int32 *y, Window w);
+int32 get_mouse_xy(int32 *x, int32 *y, Window window);
 void Ftext(int32 x, int32 y, char *string, Window o);
-void bar(int32 x, int32 y, int32 x2, int32 y2, Window w);
-void rectangle(int32 x, int32 y, int32 x2, int32 y2, Window w);
+void bar(int32 x, int32 y, int32 x2, int32 y2, Window window);
+void rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window);
 void setfillstyle(int32 type, int32 color);
-void circle(int32 x, int32 y, int32 radius, Window w);
-void xline(int32 x0, int32 y0, int32 x1, int32 y1, Window w);
+void circle(int32 x, int32 y, int32 radius, Window window);
+void xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window);
 int32 new_float(char *name, double *value);
 int32 new_int(char *name, int32 *value);
 void display_command(char *name, char *value, int32 pos);
-void clr_line_at(Window w, int32 col0, int32 pos, int32 n);
-void put_cursor_at(Window w, int32 col0, int32 pos);
-void put_string_at(Window w, int32 col, char *s, int32 off);
+void clr_line_at(Window window, int32 col0, int32 pos, int32 n);
+void put_cursor_at(Window window, int32 col0, int32 pos);
+void put_string_at(Window window, int32 col, char *s, int32 off);
 void movmem(char *s1, char *s2, int32 len);
 void memmov(char *s1, char *s2, int32 len);
-void edit_window(Window w, int32 *pos, char *value, int32 *col, int32 *done,
-                 int32 ch);
-void do_backspace(int32 *pos, char *value, int32 *col, Window w);
+void edit_window(Window window, int32 *pos, char *value, int32 *col,
+                 int32 *done, int32 ch);
+void do_backspace(int32 *pos, char *value, int32 *col, Window window);
 void edit_command_string(XEvent ev, char *name, char *value, int32 *done,
                          int32 *pos, int32 *col);
 int32 new_string(char *name, char *value);
@@ -1755,7 +1755,7 @@ void load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 int32 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
                  int32 max);
 int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);
-void display_dialog(Window w, DIALOG d, int32 col);
+void display_dialog(Window window, DIALOG d, int32 col);
 
 #endif
 
@@ -2261,20 +2261,20 @@ int32 save_as(void);
 
 #include <X11/Xlib.h>
 
-void draw_eq_list(Window w);
+void draw_eq_list(Window window);
 void create_eq_list(void);
 void eq_list_keypress(XEvent ev, int32 *used);
-void enter_eq_stuff(Window w, int32 b);
+void enter_eq_stuff(Window window, int32 b);
 void eq_list_button(XEvent ev);
 void eq_list_up(void);
 void eq_list_down(void);
 void eq_box_import(void);
 void get_new_size(Window win, uint32 *wid, uint32 *hgt);
 void resize_eq_list(Window win);
-void eq_box_button(Window w);
+void eq_box_button(Window window);
 void create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
                    int32 n);
-void draw_eq_box(Window w);
+void draw_eq_box(Window window);
 
 #endif
 
@@ -2627,15 +2627,15 @@ int32 freeze_crv(int32 ind);
 void auto_freeze_it(void);
 int32 create_crv(int32 ind);
 void edit_frz_crv(int32 i);
-void draw_frozen_cline(int32 index, Window w);
-void draw_freeze(Window w);
+void draw_frozen_cline(int32 index, Window window);
+void draw_freeze(Window window);
 void init_bd(void);
-void draw_bd(Window w);
+void draw_bd(Window window);
 void free_bd(void);
 void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
 void frz_bd(void);
 void read_bd(FILE *fp);
-int32 get_frz_index(Window w);
+int32 get_frz_index(Window window);
 void export_graf_data(void);
 void add_a_curve_com(int32 c);
 void default_window(void);
@@ -2788,30 +2788,30 @@ void clone_ode(void);
 int32 find_user_name(int32 type, char *oname);
 void create_par_sliders(Window base, int32 x0, int32 h0);
 void resize_par_slides(int32 h);
-void slide_button_press(Window w);
-void expose_selector(Window w);
+void slide_button_press(Window window);
+void expose_selector(Window window);
 void redraw_directory(void);
 void redraw_file_list(void);
-void redraw_fs_text(char *string, Window w, int32 flag);
+void redraw_fs_text(char *string, Window window, int32 flag);
 void new_wild(void);
 void fs_scroll(int32 i);
-int32 button_selector(Window w);
-void crossing_selector(Window w, int32 c);
+int32 button_selector(Window window);
+void crossing_selector(Window window, int32 c);
 int32 do_file_select_events(void);
 void create_file_selector(char *title, char *file, char *wild);
 void stringintersect(char *target, char *sother);
-int32 edit_fitem(int32 ch, char *string, Window w, int32 *off1, int32 *pos1,
-                 int32 mc);
+int32 edit_fitem(int32 ch, char *string, Window window, int32 *off1,
+                 int32 *pos1, int32 mc);
 int32 selector_key(XEvent ev);
 void destroy_selector(void);
 int32 file_selector(char *title, char *file, char *wild);
 void reset_sliders(void);
-void slide_release(Window w);
+void slide_release(Window window);
 
-void expose_slides(Window w);
-void enter_slides(Window w, int32 val);
+void expose_slides(Window window);
+void enter_slides(Window window, int32 val);
 void slider_motion(XEvent ev);
-void draw_slider(Window w, int32 x, int32 hgt, int32 l);
+void draw_slider(Window window, int32 x, int32 hgt, int32 l);
 void make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index);
 void make_new_ic_box(void);
 void make_new_bc_box(void);
@@ -2824,24 +2824,24 @@ void destroy_box(BoxList *b);
 void make_box_list_window(BoxList *b, int32 type);
 void make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
                    int32 use);
-void do_box_expose(Window w);
+void do_box_expose(Window window);
 void justify_string(Window w1, char *s1);
 void draw_one_box(BoxList b, int32 index);
 void redraw_params(void);
 void redraw_delays(void);
 void redraw_ics(void);
 void redraw_bcs(void);
-void display_box(BoxList b, Window w);
-void box_enter_events(Window w, int32 yn);
-void box_enter(BoxList b, Window w, int32 val);
-int32 find_the_box(BoxList b, Window w, int32 *index);
+void display_box(BoxList b, Window window);
+void box_enter_events(Window window, int32 yn);
+void box_enter(BoxList b, Window window, int32 val);
+int32 find_the_box(BoxList b, Window window, int32 *index);
 void set_up_xvt(void);
 void set_up_pp(void);
 void set_up_arry(void);
 void redraw_entire_box(BoxList *b);
-void do_box_button(BoxList *b, Window w);
+void do_box_button(BoxList *b, Window window);
 void box_list_scroll(BoxList *b, int32 i);
-void box_buttons(Window w);
+void box_buttons(Window window);
 void box_keypress(XEvent ev, int32 *used);
 void do_box_key(BoxList *b, XEvent ev, int32 *used);
 void man_ic(void);
@@ -2850,7 +2850,7 @@ void redo_stuff(void);
 void set_default_ics(void);
 void set_default_params(void);
 void draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc);
-void put_edit_cursor(Window w, int32 pos);
+void put_edit_cursor(Window window, int32 pos);
 int32 edit_bitem(BoxList *b, int32 i, int32 ch);
 void add_edit_float(BoxList *b, int32 i, double z);
 void set_edit_params(BoxList *b, int32 i, char *string);
@@ -3514,15 +3514,15 @@ void redraw_all(void);
 void commander(int32 ch);
 Window init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
                 uint32 min_wid, uint32 min_hgt, int32 argc, char **argv);
-void top_button_draw(Window w);
-void top_button_cross(Window w, int32 b);
-void top_button_press(Window w);
+void top_button_draw(Window window);
+void top_button_cross(Window window, int32 b);
+void top_button_press(Window window);
 void top_button_events(XEvent report);
 void make_top_buttons(void);
 void getGC(GC *gc);
 void load_fonts(void);
 void make_pops(void);
-void FixWindowSize(Window w, int32 width, int32 height, int32 flag);
+void FixWindowSize(Window window, int32 width, int32 height, int32 flag);
 int32 getxcolors(XWindowAttributes *win_info, XColor **colors);
 void test_color_info(void);
 int32 get_command_width(void);
@@ -3536,7 +3536,7 @@ int32 get_command_width(void);
 
 int32 select_table(void);
 void get_intern_set(void);
-void make_icon(char *icon, int32 wid, int32 hgt, Window w);
+void make_icon(char *icon, int32 wid, int32 hgt, Window window);
 void title_text(char *string);
 void gtitle_text(char *string, Window win);
 void restore_off(void);
@@ -3545,9 +3545,9 @@ void add_label(char *s, int32 x, int32 y, int32 size, int32 font);
 void draw_marker(double x, double y, double size, int32 type);
 void draw_grob(int32 i);
 void arrow_head(double xs, double ys, double xe, double ye, double size);
-void destroy_grob(Window w);
-void destroy_label(Window w);
-void draw_label(Window w);
+void destroy_grob(Window window);
+void destroy_label(Window window);
+void draw_label(Window window);
 void add_grob(double xs, double ys, double xe, double ye, double size,
               int32 type, int32 color);
 int32 select_marker_type(int32 *type);
@@ -3582,12 +3582,12 @@ void change_plot_vars(int32 k);
 int32 check_active_plot(int32 k);
 int32 graph_used(int32 i);
 void make_active(int32 i, int32 flag);
-void select_window(Window w);
+void select_window(Window window);
 void set_gr_fore(void);
 void set_gr_back(void);
 void hi_lite(Window wi);
 void lo_lite(Window wi);
-void select_sym(Window w);
+void select_sym(Window window);
 void canvas_xy(char *buf);
 void check_draw_button(XEvent ev);
 void set_active_windows(void);
@@ -3845,7 +3845,7 @@ double ran1(long *idum);
 
 void xpp_hlp(void);
 void MessageBox(char *m);
-void RedrawMessageBox(Window w);
+void RedrawMessageBox(Window window);
 void KillMessageBox(void);
 int32 TwoChoice(char *c1, char *c2, char *q, char *key);
 int32 GetMouseXY(int32 *x, int32 *y);
@@ -4194,16 +4194,17 @@ int32 get_x_coord_win(Window win);
 void destroy_scroll_box(SCROLLBOX *sb);
 void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
                        char **list, SCROLLBOX *sb);
-void expose_scroll_box(Window w, SCROLLBOX sb);
+void expose_scroll_box(Window window, SCROLLBOX sb);
 void redraw_scroll_box(SCROLLBOX sb);
-void crossing_scroll_box(Window w, int32 c, SCROLLBOX sb);
+void crossing_scroll_box(Window window, int32 c, SCROLLBOX sb);
 int32 scroll_box_motion(XEvent ev, SCROLLBOX *sb);
-int32 select_scroll_item(Window w, SCROLLBOX sb);
+int32 select_scroll_item(Window window, SCROLLBOX sb);
 void scroll_popup(STRING_BOX *sb, SCROLLBOX *scrb);
 int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
                     char values[][MAX_LEN_SBOX], int32 maxchar);
-void expose_sbox(STRING_BOX sb, Window w, int32 pos);
-void do_hilite_text(char *name, char *value, int32 flag, Window w, int32 pos);
+void expose_sbox(STRING_BOX sb, Window window, int32 pos);
+void do_hilite_text(char *name, char *value, int32 flag, Window window,
+                    int32 pos);
 void reset_hot(int32 inew, STRING_BOX *sb);
 void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col,
                   int32 *done, Window *w);
@@ -4222,18 +4223,18 @@ Window make_window(Window root, int32 x, int32 y, int32 width, int32 height,
 Window make_plain_window(Window root, int32 x, int32 y, int32 width,
                          int32 height, int32 bw);
 void expose_resp_box(char *button, char *message, Window wb, Window wm,
-                     Window w);
+                     Window window);
 void respond_box(char *button, char *message);
 void message_box(Window *w, int32 x, int32 y, char *message);
 void expose_choice(char *choice1, char *choice2, char *msg, Window c1,
-                   Window c2, Window wm, Window w);
+                   Window c2, Window wm, Window window);
 int32 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
-                 int32 y, Window w, char *title);
+                 int32 y, Window window, char *title);
 int32 yes_no_box(void);
 int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
                   int32 max, int32 def, int32 x, int32 y, char **hints,
                   Window hwin, char *httxt);
-void draw_pop_up(POP_UP p, Window w);
+void draw_pop_up(POP_UP p, Window window);
 Window make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                                  int32 height, int32 bw, uchar *icdata);
 Window make_icon_window(Window root, int32 x, int32 y, int32 width,
@@ -4270,8 +4271,9 @@ void bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
 #include <X11/Xlib.h>
 
-int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window w, int32 f);
-void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window w, int32 f);
+int32 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window,
+             int32 f);
+void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f);
 
 #endif
 
@@ -4627,11 +4629,11 @@ void do_torus_events(void);
 
 void txt_view_events(XEvent ev);
 void txtview_keypress(XEvent ev);
-void enter_txtview(Window w, int32 val);
+void enter_txtview(Window window, int32 val);
 void do_txt_action(char *s);
 void resize_txtview(int32 w, int32 h);
-void txtview_press(Window w, int32 x, int32 y);
-void redraw_txtview(Window w);
+void txtview_press(Window window, int32 x, int32 y);
+void redraw_txtview(Window window);
 void redraw_txtview_text(void);
 void init_txtview(void);
 void make_txtview(void);

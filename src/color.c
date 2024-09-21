@@ -45,10 +45,10 @@ static XColor color[MAX_COLORS];
 extern int32 TrueColorFlag;
 
 void
-tst_color(Window w) {
+tst_color(Window window) {
     for (int32 i = 0; i < color_total; i++) {
         set_color(i + color_min);
-        XDrawLine(display, w, gc_graph, 0, 2*i + 20, 50, 2*i + 20);
+        XDrawLine(display, window, gc_graph, 0, 2*i + 20, 50, 2*i + 20);
     }
     return;
 }

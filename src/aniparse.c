@@ -162,13 +162,13 @@ extern int32 use_ani_file;
 extern char anifile[256];
 
 static void create_vcr(char *name);
-static void ani_border(Window w, int32 i);
+static void ani_border(Window window, int32 i);
 static void destroy_vcr(void);
-static void ani_motion_stuff(Window w, int32 x, int32 y);
+static void ani_motion_stuff(Window window, int32 x, int32 y);
 static double get_current_time(void);
 static void update_ani_motion_stuff(int32 x, int32 y);
 static void ani_buttonx(XEvent ev, int32 flag);
-static void ani_button(Window w);
+static void ani_button(Window window);
 static void ani_create_mpeg(void);
 static void ani_resize(int32 x, int32 y);
 
@@ -318,7 +318,8 @@ create_vcr(char *name) {
 }
 
 void
-ani_border(Window w, int32 i) {
+ani_border(Window window, int32 i) {
+    Window w = window;
     if (w == vcr.wgrab || w == vcr.wgo || w == vcr.wreset || w == vcr.wpause ||
         w == vcr.wfast || w == vcr.wfile || w == vcr.wslow || w == vcr.wmpeg ||
         w == vcr.wup || w == vcr.wdn || w == vcr.wskip || w == vcr.kill)
@@ -389,8 +390,8 @@ ani_do_events(XEvent ev) {
 /*************************  NEW ANIMaTION STUFF ***********************/
 
 void
-ani_motion_stuff(Window w, int32 x, int32 y) {
-    if (w == vcr.view)
+ani_motion_stuff(Window window, int32 x, int32 y) {
+    if (window == vcr.view)
         update_ani_motion_stuff(x, y);
     return;
 }
@@ -438,9 +439,9 @@ update_ani_motion_stuff(int32 x, int32 y) {
 
 void
 ani_buttonx(XEvent ev, int32 flag) {
-    Window w = ev.xbutton.window;
+    Window window = ev.xbutton.window;
     /*   ADDED FOR THE GRAB FEATURE IN ANIMATOR  This is BUTTON PRESS */
-    if ((w == vcr.view) && (ani_grab_flag == 1)) {
+    if ((window == vcr.view) && (ani_grab_flag == 1)) {
         if (flag == 1) {
             ami.t1 = get_current_time();
             ami.tstart = ami.t1;
@@ -473,16 +474,16 @@ ani_buttonx(XEvent ev, int32 flag) {
         return;
     /*   END OF ADDED STUFF  ************************/
 
-    ani_button(w);
+    ani_button(window);
     return;
 }
 
 void
-ani_button(Window w) {
+ani_button(Window window) {
     if (ani_grab_flag == 1)
         return;
     /* Grab button resets and shows first frame */
-    if (w == vcr.wgrab) {
+    if (window == vcr.wgrab) {
         if (n_ani_grab == 0)
             return;
         if (vcr.ok) {
@@ -495,32 +496,32 @@ ani_button(Window w) {
             ani_grab_flag = 1;
         }
     }
-    if (w == vcr.wmpeg)
+    if (window == vcr.wmpeg)
         ani_create_mpeg();
-    if (w == vcr.wgo)
+    if (window == vcr.wgo)
 
     {
         ani_flip();
     }
-    if (w == vcr.wskip)
+    if (window == vcr.wskip)
         ani_newskip();
-    if (w == vcr.wup)
+    if (window == vcr.wup)
         ani_flip1(1);
-    if (w == vcr.wdn)
+    if (window == vcr.wdn)
         ani_flip1(-1);
-    if (w == vcr.wfile)
+    if (window == vcr.wfile)
         get_ani_file(NULL);
-    if (w == vcr.wfly) {
+    if (window == vcr.wfly) {
         animation_on_the_fly = 1 - animation_on_the_fly;
         check_on_the_fly();
     }
-    if (w == vcr.wreset) {
+    if (window == vcr.wreset) {
         vcr.pos = 0;
         reset_comets();
         redraw_ani_slider();
         ani_flip1(0);
     }
-    if (w == vcr.kill)
+    if (window == vcr.kill)
         destroy_vcr();
     return;
 }
@@ -551,18 +552,18 @@ ani_create_mpeg(void) {
 }
 
 void
-do_ani_slider_motion(Window w, int32 x) {
+do_ani_slider_motion(Window window, int32 x) {
     int32 l = 48*DCURXs, x0 = x;
     int32 mr = my_browser.maxrow;
     int32 k;
-    if (w != vcr.slider)
+    if (window != vcr.slider)
         return;
     if (mr < 2)
         return;
     if (x0 > l - 2)
         x0 = l - 2;
     vcr.slipos = x0;
-    draw_ani_slider(w, x0);
+    draw_ani_slider(window, x0);
     k = x0*mr / l;
     vcr.pos = 0;
     ani_flip1(0);
@@ -584,7 +585,7 @@ redraw_ani_slider(void) {
 }
 
 void
-draw_ani_slider(Window w, int32 x)
+draw_ani_slider(Window window, int32 x)
 
 {
     int32 hgt = DCURYs + 4, l = 48*DCURXs;
@@ -593,47 +594,47 @@ draw_ani_slider(Window w, int32 x)
         x0 = 0;
     if (x0 > (l - 4))
         x0 = l - 4;
-    XClearWindow(display, w);
+    XClearWindow(display, window);
     for (int32 i = 0; i < 4; i++)
-        XDrawLine(display, w, small_gc, x0 + i, 0, x0 + i, hgt);
+        XDrawLine(display, window, small_gc, x0 + i, 0, x0 + i, hgt);
     return;
 }
 
 void
-ani_expose(Window w) {
+ani_expose(Window window) {
     if (vcr.iexist == 0)
         return;
-    if (w == vcr.wgrab)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Grab", 4);
-    if (w == vcr.view)
+    if (window == vcr.wgrab)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Grab", 4);
+    if (window == vcr.view)
         XCopyArea(display, ani_pixmap, vcr.view, ani_gc, 0, 0, (uint)vcr.wid,
                   (uint)vcr.hgt, 0, 0);
-    if (w == vcr.wgo)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Go  ", 4);
-    if (w == vcr.wup)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, " >>>>", 5);
-    if (w == vcr.wskip)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Skip", 4);
-    if (w == vcr.wdn)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, " <<<<", 5);
-    if (w == vcr.wfast)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Fast", 4);
-    if (w == vcr.wslow)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Slow", 4);
+    if (window == vcr.wgo)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Go  ", 4);
+    if (window == vcr.wup)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, " >>>>", 5);
+    if (window == vcr.wskip)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Skip", 4);
+    if (window == vcr.wdn)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, " <<<<", 5);
+    if (window == vcr.wfast)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Fast", 4);
+    if (window == vcr.wslow)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Slow", 4);
 
-    if (w == vcr.slider)
-        draw_ani_slider(w, vcr.slipos);
-    if (w == vcr.wpause)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Pause", 5);
-    if (w == vcr.wreset)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Reset", 5);
-    if (w == vcr.kill)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "Close", 5);
-    if (w == vcr.wfile)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "File", 4);
-    if (w == vcr.wmpeg)
-        XDrawString(display, w, small_gc, 5, CURY_OFFs, "MPEG", 4);
-    if (w == vcr.wfly)
+    if (window == vcr.slider)
+        draw_ani_slider(window, vcr.slipos);
+    if (window == vcr.wpause)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Pause", 5);
+    if (window == vcr.wreset)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Reset", 5);
+    if (window == vcr.kill)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "Close", 5);
+    if (window == vcr.wfile)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "File", 4);
+    if (window == vcr.wmpeg)
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, "MPEG", 4);
+    if (window == vcr.wfly)
         check_on_the_fly();
     return;
 }
@@ -686,9 +687,9 @@ ani_resize(int32 x, int32 y) {
 void
 ani_newskip(void) {
     char bob[20];
-    Window w;
+    Window window;
     int32 rev, status;
-    XGetInputFocus(display, &w, &rev);
+    XGetInputFocus(display, &window, &rev);
     snprintf(bob, sizeof(bob), "%d", vcr.inc);
     status = get_dialog("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
     if (status != 0) {
@@ -696,7 +697,7 @@ ani_newskip(void) {
         if (vcr.inc <= 0)
             vcr.inc = 1;
     }
-    XSetInputFocus(display, w, rev, CurrentTime);
+    XSetInputFocus(display, window, rev, CurrentTime);
     return;
 }
 
@@ -820,7 +821,7 @@ ani_flip(void) {
     int32 row, done;
     int32 mpeg_frame = 0, mpeg_write = 0, count = 0;
     XEvent ev;
-    Window w;
+    Window window;
     /*Window root;
     uint32 he,wi,bw,d;
     int32 x0,y0;
@@ -843,18 +844,18 @@ ani_flip(void) {
             XNextEvent(display, &ev);
             switch (ev.type) {
             case ButtonPress:
-                w = ev.xbutton.window;
-                if (w == vcr.wpause) {
+                window = ev.xbutton.window;
+                if (window == vcr.wpause) {
                     done = 1;
                     break;
                 }
-                if (w == vcr.wfast) {
+                if (window == vcr.wfast) {
                     ani_speed = ani_speed - ani_speed_inc;
                     if (ani_speed < 0)
                         ani_speed = 0;
                     break;
                 }
-                if (w == vcr.wslow) {
+                if (window == vcr.wslow) {
                     ani_speed = ani_speed + ani_speed_inc;
                     if (ani_speed > 100)
                         ani_speed = 100;

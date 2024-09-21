@@ -327,10 +327,12 @@ void
 print_fit_info(void) {
     int32 i;
     plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fit_info.dim,
-           fit_info.maxiter, fit_info.npts, fit_info.file, fit_info.tol, fit_info.eps);
+           fit_info.maxiter, fit_info.npts, fit_info.file, fit_info.tol,
+           fit_info.eps);
 
     for (i = 0; i < fit_info.nvars; i++)
-        plintf(" variable %d to col %d \n", fit_info.ivar[i], fit_info.icols[i]);
+        plintf(" variable %d to col %d \n", fit_info.ivar[i],
+               fit_info.icols[i]);
     for (i = 0; i < fit_info.npars; i++)
         plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
     return;
@@ -404,8 +406,9 @@ test_fit(void) {
 
     print_fit_info();
     plintf(" Running the fit...\n");
-    ok = run_fit(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars, fit_info.maxiter, fit_info.dim,
-                 fit_info.eps, fit_info.tol, fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
+    ok = run_fit(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
+                 fit_info.maxiter, fit_info.dim, fit_info.eps, fit_info.tol,
+                 fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
 
     free(yfit);
     if (ok == 0)

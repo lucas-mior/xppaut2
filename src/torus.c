@@ -33,7 +33,7 @@ extern int32 itor[MAX_ODE];
 
 struct {
     Window base, done, cancel;
-    Window w[MAX_ODE];
+    Window window[MAX_ODE];
 } torbox;
 
 void
@@ -65,12 +65,12 @@ do_torus_com(int32 c) {
 void
 draw_tor_var(int32 i) {
     char strng[sizeof(*uvar_names) + 5];
-    XClearWindow(display, torbox.w[i]);
+    XClearWindow(display, torbox.window[i]);
     if (itor[i] == 1)
         snprintf(strng, sizeof(strng), "X  %s", uvar_names[i]);
     else
         snprintf(strng, sizeof(strng), "   %s", uvar_names[i]);
-    XDrawString(display, torbox.w[i], small_gc, 0, CURY_OFFs, strng,
+    XDrawString(display, torbox.window[i], small_gc, 0, CURY_OFFs, strng,
                 (int)strlen(strng));
     return;
 }
@@ -89,7 +89,7 @@ draw_torus_box(Window win) {
     }
 
     for (i = 0; i < NEQ; i++) {
-        if (win == torbox.w[i])
+        if (win == torbox.window[i])
             draw_tor_var(i);
     }
     return;
@@ -161,7 +161,7 @@ make_tor_box(char *title) {
         j1 = i % nv;
         xpos = xstart + 18*DCURXs*i1;
         ypos = ystart + j1*(DCURYs + 8);
-        torbox.w[i] = make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
+        torbox.window[i] = make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
     }
 
     xpos = (width - 16*DCURXs - 10) / 2;
@@ -206,7 +206,7 @@ do_torus_events(void) {
                 break;
             }
             for (i = 0; i < NEQ; i++) {
-                if (ev.xbutton.window == torbox.w[i]) {
+                if (ev.xbutton.window == torbox.window[i]) {
                     itor[i] = 1 - itor[i];
                     draw_tor_var(i);
                     break;
