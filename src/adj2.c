@@ -384,16 +384,6 @@ adj2_new_adjoint(void) {
     return;
 }
 
-void
-compute_one_orbit(double *ic, double per) {
-    double oldtotal = TEND;
-    TEND = per;
-    run_from_x(ic);
-    adj2_new_adjoint();
-    TEND = oldtotal;
-    return;
-}
-
 /*    ADJOINT ROUTINE
  *
  *    This assumes that you have already computed the periodic orbit
