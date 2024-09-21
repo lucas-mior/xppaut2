@@ -104,6 +104,22 @@ extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
 extern double default_ic[MAX_ODE];
 
+typedef struct PAR_SLIDER {
+    int32 use, pos, l;
+    char parname[20];
+    double lo, hi, val;
+    int32 hgt;
+    int32 type, index;
+    Window left, right, top, main, slide, go;
+} PAR_SLIDER;
+static void do_slide_button(Window w, PAR_SLIDER *p);
+static void redraw_slide(PAR_SLIDER *p);
+static void set_slide_pos(PAR_SLIDER *p);
+static void do_slide_release(Window w, PAR_SLIDER *p);
+static void do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 state);
+static void enter_slider(Window w, PAR_SLIDER *p, int32 val);
+static void expose_slider(Window w, PAR_SLIDER *p);
+
 PAR_SLIDER my_par_slide[3];
 extern OptionsSet notAlreadySet;
 

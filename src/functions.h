@@ -2754,15 +2754,6 @@ void post_process_stuff(void);
 #include <X11/Xlib.h>
 #include "read_dir.h"
 
-typedef struct PAR_SLIDER {
-    int32 use, pos, l;
-    char parname[20];
-    double lo, hi, val;
-    int32 hgt;
-    int32 type, index;
-    Window left, right, top, main, slide, go;
-} PAR_SLIDER;
-
 typedef struct BoxListold {
     int32 use, type;
     int32 n;
@@ -2797,7 +2788,6 @@ int32 find_user_name(int32 type, char *oname);
 void create_par_sliders(Window base, int32 x0, int32 h0);
 void resize_par_slides(int32 h);
 void slide_button_press(Window w);
-void do_slide_button(Window w, PAR_SLIDER *p);
 void expose_selector(Window w);
 void redraw_directory(void);
 void redraw_file_list(void);
@@ -2815,16 +2805,11 @@ int32 selector_key(XEvent ev);
 void destroy_selector(void);
 int32 file_selector(char *title, char *file, char *wild);
 void reset_sliders(void);
-void redraw_slide(PAR_SLIDER *p);
-void set_slide_pos(PAR_SLIDER *p);
 void slide_release(Window w);
-void do_slide_release(Window w, PAR_SLIDER *p);
-void slider_motion(XEvent ev);
-void do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 state);
-void enter_slides(Window w, int32 val);
-void enter_slider(Window w, PAR_SLIDER *p, int32 val);
+
 void expose_slides(Window w);
-void expose_slider(Window w, PAR_SLIDER *p);
+void enter_slides(Window w, int32 val);
+void slider_motion(XEvent ev);
 void draw_slider(Window w, int32 x, int32 hgt, int32 l);
 void make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index);
 void make_new_ic_box(void);
