@@ -344,13 +344,13 @@ char *browse_hint[] = {"Find closest data point to given value",
                        "Mark last point for plotting",
                        "Redraw data",
                        "Write data to ascii file",
-                       "Load first line of BROWSER to initial data",
+                       "Load first line of Browser to initial data",
                        "Replace column by formula",
                        "Unreplace last replacement",
                        "Write a column of data in tabular format",
-                       "Load data from a file into BROWSER",
+                       "Load data from a file into Browser",
                        " ",
-                       "Add a new column to BROWSER",
-                       "Delete a column from BROWSER"};
+                       "Add a new column to Browser",
+                       "Delete a column from Browser"};
 
 #endif
