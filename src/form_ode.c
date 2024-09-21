@@ -93,8 +93,6 @@ extern int32 NFUN;
 int32 NEQ_MIN;
 extern int32 NCON, NSYM;
 extern int32 NWiener;
-/*extern char this_file[100];
- */
 extern char this_file[XPP_MAX_NAME];
 extern char options[100];
 int32 EqType[MAX_ODE];
@@ -247,8 +245,6 @@ get_a_filename(char *filename, char *wild) {
     } else {
         int32 status;
         int32 m;
-        /*strcpy (filename, "lecar.ode");
-         */
         get_directory(filename);
         m = (int32)strlen(filename);
         if (filename[m - 1] != '/') {
@@ -389,8 +385,7 @@ get_eqn(FILE *fptr) {
         strupr(ode_names[i]);
         de_space(ode_names[i]);
     }
-    /*
-       add primed variables                              */
+    /* add primed variables */
     PrimeStart = NVAR;
     if (NVAR < MAX_PRIME_VAR) {
         add_var("t'", 0.0);
@@ -411,7 +406,7 @@ get_eqn(FILE *fptr) {
         exit(0);
     }
     show_flags();
-    /*  add auxiliary variables   */
+    /* add auxiliary variables */
     for (i = NODE + NMarkov; i < NEQ; i++)
         add_var(uvar_names[i], 0.0);
     NCON_START = NCON;
@@ -439,7 +434,6 @@ compiler(char *bob, FILE *fptr) {
     ptr = bob;
     done = 1;
     if (bob[0] == '@') {
-        /* printf("Storing opts from formode \n"); */
         stor_internopts(bob);
         if (ConvertStyle)
             fprintf(convertf, "%s\n", bob);
@@ -584,11 +578,9 @@ compiler(char *bob, FILE *fptr) {
         nlin = NLINES;
         index = old_build_markov(fptr, name);
         nn = (int32)strlen(save_eqn[nlin]);
-        /* if(nn>72)nn=72; */
         if ((ode_names[IN_VARS + index] = xmalloc((usize)nn + 10)) == NULL)
             exit(0);
         strcpy(formula, save_eqn[nlin]);
-        /*      formula[nn-1]=0; */
         sprintf(ode_names[IN_VARS + index], "{ %s ... }", formula);
         break;
     case 'v':
@@ -750,7 +742,6 @@ compiler(char *bob, FILE *fptr) {
         my_string = get_next("\n");
         strcpy(formula, my_string);
         nn = (int32)strlen(formula) + 1;
-        /* if(nn>79)nn=79;  */
         if ((my_ode[NODE] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
             printf("Out of memory at line %d\n", NLINES);
             exit(0);
@@ -771,10 +762,7 @@ compiler(char *bob, FILE *fptr) {
             }
             find_ker(formula, &alt);
 
-            /* ode_names[NODE][nn]='\0'; */
-
             EqType[NODE] = VFlag;
-
             VFlag = 0;
         }
         if (NODE >= IN_VARS && NODE < (IN_VARS + FIX_VAR)) {
@@ -791,7 +779,6 @@ compiler(char *bob, FILE *fptr) {
                 exit(0);
             }
             strcpy(ode_names[NODE - FIX_VAR + NMarkov], formula);
-            /* ode_names[NODE-FIX_VAR+NMarkov][nn]='\0'; */
             if (ConvertStyle) {
                 if (i < Naux)
                     fprintf(convertf, "aux %s=%s\n", aux_names[i], formula);
@@ -804,7 +791,6 @@ compiler(char *bob, FILE *fptr) {
             printf("ERROR at line %d\n", NLINES);
             exit(0);
         }
-        /* fpr_command(my_ode[NODE]); */
         NODE++;
         break;
 
