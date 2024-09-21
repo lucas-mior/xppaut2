@@ -64,7 +64,11 @@ extern double constants[];
 
 static uint32 DONT_XORCross = 0;
 
-static AUTOWIN AutoW;
+static struct {
+    Window canvas, axes, numerics, grab, next, run, clear, redraw, base, per;
+    Window info, param, file, abort, stab, hint, kill;
+} AutoW;
+
 static Diagram *CUR_DIAGRAM;
 
 void

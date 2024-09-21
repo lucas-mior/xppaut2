@@ -274,11 +274,6 @@ void ps_hsb_bar(double x, double y, double wid, double len, double fill,
 
 #include <X11/Xlib.h>
 
-typedef struct {
-    Window canvas, axes, numerics, grab, next, run, clear, redraw, base, per;
-    Window info, param, file, abort, stab, hint, kill;
-} AUTOWIN;
-
 extern int32 AutoRedrawFlag;
 
 extern int32 mark_flag;
