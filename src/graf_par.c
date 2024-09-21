@@ -1339,8 +1339,8 @@ edit_frz_crv(int32 i) {
     status = do_string_box(3, 3, 1, "Edit Freeze", nn, values, 25);
     if (status != 0) {
         frz[i].color = atoi(values[0]);
-        snprintf(frz[i].key, sizeof(frz[i].key), "%s", values[1]);
-        snprintf(frz[i].name, sizeof(frz[i].name), "%s", values[2]);
+        strncpy(frz[i].key, values[1], sizeof(frz[i].key));
+        strncpy(frz[i].name, values[2], sizeof(frz[i].name));
     }
     return;
 }
