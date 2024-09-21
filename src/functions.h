@@ -2754,7 +2754,6 @@ void post_process_stuff(void);
 #include <X11/Xlib.h>
 #include "read_dir.h"
 
-#define FILESELNWIN 10
 typedef struct SCROLL_LIST {
     int32 pos, n, n0, npos;
     int32 ihot, twid;

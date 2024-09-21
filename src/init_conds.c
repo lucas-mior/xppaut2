@@ -80,6 +80,7 @@ extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
 #define EDIT_ESC 2
 #define EDIT_DONE 3
 
+#define FILESELNWIN 10
 static struct FileSel {
     int32 n, n0, here;
     Window base, cancel, ok, up, dn, pgup, pgdn, file, wild;
