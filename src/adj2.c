@@ -52,6 +52,8 @@ extern int32 DCURY;
 static void h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);
+static int32 make_h(double **orb, double **adj,
+                    int32 nt, int32 node, int32 silent);
 
 void
 adj2_init_trans(void) {
