@@ -160,7 +160,7 @@ do_sh_range(double *ystart, double *yend) {
     double parlo, parhi, dpar, temp;
     int32 npar, i, j, ierr;
     int32 side, cycle, icol, color;
-    char bob[50];
+    char bob[sizeof(shoot_range.item) + 30];
 
     if (set_up_sh_range() == 0)
         return;
