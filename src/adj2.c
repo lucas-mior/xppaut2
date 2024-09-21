@@ -120,39 +120,35 @@ adj2_do_transpose(void) {
         my_trans.colskip = atoi(values[2]);
         my_trans.row0 = atoi(values[3]);
         my_trans.rowskip = atoi(values[5]);
-        return create_transpose();
+
+        int32 inrow, incol;
+        my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
+        for (int32 i = 0; i <= my_trans.nrow; i++)
+            my_trans.data[i] =
+                xmalloc(sizeof(my_trans.data[i])*(usize)my_trans.ncol);
+        for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
+            my_trans.data[i] = storage[i];
+        for (int32 j = 0; j < my_trans.ncol; j++)
+            my_trans.data[0][j] = (double)(j + 1);
+
+        for (int32 i = 0; i < my_trans.ncol; i++) {
+            incol = my_trans.col0 - 1 + i*my_trans.colskip;
+            if (incol > NEQ)
+                incol = NEQ;
+            for (int32 j = 0; j < my_trans.nrow; j++) {
+                inrow = my_trans.row0 + j*my_trans.rowskip;
+                if (inrow > storind)
+                    inrow = storind;
+                my_trans.data[j + 1][i] = storage[incol][inrow];
+            }
+        }
+
+        set_browser_data(my_trans.data, 1);
+        refresh_browser(my_trans.ncol);
+        my_trans.here = 1;
+        return 1;
     }
     return 0;
-}
-
-int32
-create_transpose(void) {
-    int32 inrow, incol;
-    my_trans.data = xmalloc(sizeof(*(my_trans.data))*(usize)(NEQ + 1));
-    for (int32 i = 0; i <= my_trans.nrow; i++)
-        my_trans.data[i] =
-            xmalloc(sizeof(my_trans.data[i])*(usize)my_trans.ncol);
-    for (int32 i = my_trans.nrow + 1; i <= NEQ; i++)
-        my_trans.data[i] = storage[i];
-    for (int32 j = 0; j < my_trans.ncol; j++)
-        my_trans.data[0][j] = (double)(j + 1);
-
-    for (int32 i = 0; i < my_trans.ncol; i++) {
-        incol = my_trans.col0 - 1 + i*my_trans.colskip;
-        if (incol > NEQ)
-            incol = NEQ;
-        for (int32 j = 0; j < my_trans.nrow; j++) {
-            inrow = my_trans.row0 + j*my_trans.rowskip;
-            if (inrow > storind)
-                inrow = storind;
-            my_trans.data[j + 1][i] = storage[incol][inrow];
-        }
-    }
-
-    set_browser_data(my_trans.data, 1);
-    refresh_browser(my_trans.ncol);
-    my_trans.here = 1;
-    return 1;
 }
 
 void
