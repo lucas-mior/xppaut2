@@ -407,8 +407,8 @@ get_eqn(FILE *fptr) {
         strcpy(uvar_names[i + NODE + NMarkov], aux_names[i]);
 
     for (i = NODE + NMarkov + Naux; i < NEQ; i++) {
-        snprintf(uvar_names[i], sizeof(uvar_names[i]), "AUX%d",
-                 i - NODE - NMarkov + 1);
+        snprintf(uvar_names[i], sizeof(uvar_names[i]),
+                 "AUX%d", i - NODE - NMarkov + 1);
     }
 
     for (i = 0; i < NEQ; i++) {
