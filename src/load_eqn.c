@@ -76,12 +76,6 @@ extern double SLIDER3INIT;
 extern int32 NCBatch, DFBatch;
 extern int32 DF_GRID;
 
-typedef struct {
-    char *name;
-    char *does;
-    uint32 use;
-} InternSet;
-
 extern int32 XNullColor, YNullColor, StableManifoldColor, UnstableManifoldColor;
 int32 IX_PLT[10], IY_PLT[10], IZ_PLT[10], NPltV;
 int32 MultiWin = 0;

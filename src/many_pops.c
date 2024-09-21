@@ -68,12 +68,6 @@ extern int32 Xup;
 int32 ActiveWinList[MAXPOP];
 
 typedef struct {
-    char *name;
-    char *does;
-    uint32 use;
-} InternSet;
-
-typedef struct {
     double xlo, xhi, dx;
     double *y, *x;
     int32 n, flag, interp, autoeval;

@@ -100,7 +100,7 @@ int32 Nintern_2_use = 0;
 
 static SET_NAME *sets2use, *setsNOTuse;
 
-extern INTERN_SET intern_set[MAX_INTERN_SET];
+extern InternSet intern_set[MAX_INTERN_SET];
 
 /*extern char batchout[256];
  */

@@ -152,12 +152,6 @@ struct {
     int32 rtype;
 } range;
 
-typedef struct {
-    char *name;
-    char *does;
-    uint32 use;
-} InternSet;
-
 extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 Nintern_set;
 

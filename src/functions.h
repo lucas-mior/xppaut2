@@ -1147,11 +1147,11 @@ override the below definition.
 #ifndef COMLINE_H
 #define COMLINE_H
 
-typedef struct INTERN_SET {
+typedef struct InternSet {
     char *name;
     char *does;
     uint32 use;
-} INTERN_SET;
+} InternSet;
 
 typedef struct SET_NAME {
     char *name;
