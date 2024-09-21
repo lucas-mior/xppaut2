@@ -1331,8 +1331,8 @@ data_table(Browser *b) {
     strncpy(value[0], uvar_names[0], sizeof(value[0]));
     snprintf(value[1], sizeof(value[1]), "0.00");
     snprintf(value[2], sizeof(value[2]), "1.00");
-    snprintf(value[3], sizeof(value[3]), "%.*s.tab", (int)sizeof(value[0]),
-             value[0]);
+    snprintf(value[3], sizeof(value[3]),
+             "%.*s.tab", (int)sizeof(value[0]) - 5, value[0]);
 
     XGetInputFocus(display, &w, &rev);
     status = do_string_box(4, 4, 1, "Tabulate", name, value, 40);
