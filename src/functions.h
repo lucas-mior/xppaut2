@@ -52,7 +52,7 @@ void adj2_do_this_liaprun(int32 i, double p);
 #define MAX_ANI_GRAB 50 /* max grabbable objects  */
 
 /* tasks have the form {name1=formula1;name2=formula2;...} */
-typedef struct {
+typedef struct GrabTask {
     double vrhs[MAX_GEVENTS];
     char lhsname[MAX_GEVENTS][11];
     int32 lhsivar[MAX_GEVENTS];
@@ -61,7 +61,7 @@ typedef struct {
     int32 n; /* number of tasks <= MAX_GEVENTS */
 } GrabTask;
 
-typedef struct {
+typedef struct AniGrab {
     int32 ok;
     double zx, zy, tol;
     int32 *x, *y;
@@ -923,7 +923,7 @@ void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-typedef struct {
+typedef struct BROWSER {
     Window base, upper;
     Window find, up, down, pgup, pgdn, home, end, left, right;
     Window first, last, restore, write, get, close;
@@ -1147,13 +1147,13 @@ override the below definition.
 #ifndef COMLINE_H
 #define COMLINE_H
 
-typedef struct {
+typedef struct INTERN_SET {
     char *name;
     char *does;
     uint32 use;
 } INTERN_SET;
 
-typedef struct {
+typedef struct SET_NAME {
     char *name;
     struct SET_NAME *next;
 } SET_NAME;
@@ -1215,7 +1215,7 @@ int32 do_init_delay(double big);
 #ifndef DEL_STAB_H
 #define DEL_STAB_H
 
-typedef struct {
+typedef struct COMPLEX {
     double r, i;
 } COMPLEX;
 
@@ -1769,7 +1769,7 @@ void display_dialog(Window w, DIALOG d, int32 col);
 #ifndef DO_FIT_H
 #define DO_FIT_H
 
-typedef struct {
+typedef struct FITINFO {
     char file[25];
     char varlist[25], collist[25];
     char parlist1[25], parlist2[25];
@@ -2273,7 +2273,7 @@ extern double xRead(void);
         editable strings
  */
 
-typedef struct {
+typedef struct EDIT_BOX {
     Window base, ok, cancel, reset;
     Window win[MAX_N_EBOX];
     char name[MAX_N_EBOX][MAX_LEN_EBOX], value[MAX_N_EBOX][MAX_LEN_EBOX],
@@ -2507,7 +2507,7 @@ void add_varinfo(int32 type,char *lhs,char *rhs,int32 nargs,char
 args[MAXARG][NAMLEN+1]); void stor_internopts(char *s1);
 */
 
-typedef struct {
+typedef struct FIXINFO {
     char *name, *value;
 } FIXINFO;
 
@@ -2641,7 +2641,7 @@ int32 go_go_auto(void);
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-typedef struct {
+typedef struct MOV3D {
     char angle[20];
     char yes[3];
     double start;
@@ -2649,7 +2649,7 @@ typedef struct {
     int32 nclip;
 } MOV3D;
 
-typedef struct {
+typedef struct BD {
     double *x[MAXBIFCRV], *y[MAXBIFCRV];
     int32 color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
     Window w;
@@ -2825,7 +2825,7 @@ void post_process_stuff(void);
 #include "read_dir.h"
 
 #define FILESELNWIN 10
-typedef struct {
+typedef struct FILESEL {
     int32 n, n0, here;
     Window base, cancel, ok, up, dn, pgup, pgdn, file, wild, w[FILESELNWIN],
         dir, home, start;
@@ -2836,7 +2836,7 @@ typedef struct {
     char title[256];
 } FILESEL;
 
-typedef struct {
+typedef struct SCROLL_LIST {
     int32 pos, n, n0, npos;
     int32 ihot, twid;
     int32 max;
@@ -2844,7 +2844,7 @@ typedef struct {
     Window side, up, down, text;
 } SCROLL_LIST;
 
-typedef struct {
+typedef struct PAR_SLIDER {
     int32 use, pos, l;
     char parname[20];
     double lo, hi, val;
@@ -2853,7 +2853,7 @@ typedef struct {
     Window left, right, top, main, slide, go;
 } PAR_SLIDER;
 
-typedef struct {
+typedef struct BoxListold {
     int32 use, type;
     int32 n;
     Window base;
@@ -2864,7 +2864,7 @@ typedef struct {
     int32 mc, *off, *pos;
 } BoxListold;
 
-typedef struct {
+typedef struct BoxList {
     int32 use, type, xuse;
     int32 n, n0;
     int32 nwin, minwid, minhgt;
@@ -3394,7 +3394,7 @@ command line < mfile < .xpprc < default.opt
 
 Add any options here that you might want to track.
 */
-typedef struct {
+typedef struct OptionsSet {
     int32 BIG_FONT_NAME;
     int32 SMALL_FONT_NAME;
     int32 BACKGROUND;
@@ -4080,15 +4080,15 @@ void svg_text(int32 x, int32 y, char *str);
 
 #include <stdio.h>
 
-typedef struct {
+typedef struct Pt {
     double x, y, z;
 } Pt;
 
-typedef struct nclines {
+typedef struct NCLINES {
     double *xn, *yn;
     int32 nmx, nmy;
     int32 n_ix, n_iy;
-    struct nclines *n, *p;
+    struct NCLINES *n, *p;
 } NCLINES;
 
 void create_new_cline(void);
@@ -4243,7 +4243,7 @@ extern int32 UserGradients;
         editable strings
  */
 
-typedef struct {
+typedef struct STRING_BOX {
     Window base, ok, cancel;
     Window win[MAX_N_SBOX];
     char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
@@ -4252,7 +4252,7 @@ typedef struct {
     int32 hh[MAX_N_SBOX];
 } STRING_BOX;
 
-typedef struct {
+typedef struct SCRBOX_LIST {
     char **list;
     int32 n;
 } SCRBOX_LIST;
@@ -4264,7 +4264,7 @@ extern char *color_names[];
 extern SCRBOX_LIST scrbox_list[10];
 
 /*  This is a new improved pop_up widget */
-typedef struct {
+typedef struct POP_UP {
     Window base, tit;
     Window *w;
     char *title;
@@ -4275,14 +4275,14 @@ typedef struct {
     int32 hot;
 } POP_UP;
 
-typedef struct {
+typedef struct TEXTWIN {
     Window base, slide, close, text;
     int32 i0;
     int32 exist, len, nlines;
     char **list;
 } TEXTWIN;
 
-typedef struct {
+typedef struct SCROLLBOX {
     Window base, slide;
     Window *w;
     int32 nw, nent, i0;
@@ -4399,7 +4399,7 @@ typedef struct GifTree {
     struct GifTree **node, *nxt, *alt;
 } GifTree;
 
-typedef struct {
+typedef struct GIFCOL {
     uchar r, g, b;
 } GIFCOL;
 
