@@ -108,13 +108,13 @@ extern FILEINFO my_ff;
 
 int32
 make_eqn(void) {
+    FILE *fptr;
+    char wild[256], string[256];
     int32 okay;
     NEQ = 2;
     FIX_VAR = 0;
     NMarkov = 0;
 
-    char wild[256], string[256];
-    FILE *fptr;
     okay = 0;
     snprintf(wild, sizeof(wild), "*.ode");
     get_a_filename(string, wild);
