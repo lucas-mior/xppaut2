@@ -473,7 +473,7 @@ display_file_sel(FILESEL f, Window w) {
     uint32 cbwid;
     uint32 cdepth;
 
-    char t[256];
+    char t[2*sizeof(f.title) + 1];
     int32 hgt = DCURYs + 4;
 
     XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid,
@@ -529,7 +529,7 @@ display_file_sel(FILESEL f, Window w) {
         XTextProperty windowName;
         snprintf(t, sizeof(t), " %s", f.title);
         XDrawString(display, w, small_gc, 0, CURY_OFFs, t, (int)strlen(t));
-        sprintf(t, "%s - %s", f.wildtxt, cur_dir);
+        snprintf(t, sizeof(t), "%s - %s", f.wildtxt, cur_dir);
         {
             char *nameit[] = {t};
             XStringListToTextProperty(nameit, 1, &windowName);
@@ -2340,7 +2340,9 @@ void
 new_parameter(void) {
     int32 done, index;
     double z;
-    char name[256], value[256], junk[256];
+    char name[256];
+    char value[sizeof(name) + 2];
+    char junk[256];
     while (true) {
         name[0] = 0;
         done = new_string("Parameter:", name);
@@ -2366,7 +2368,7 @@ new_parameter(void) {
             index = find_user_name(PARAMBOX, name);
             if (index >= 0) {
                 get_val(upar_names[index], &z);
-                sprintf(value, "%s :", name);
+                snprintf(value, sizeof(value), "%s :", name);
                 done = new_float(value, &z);
                 if (done == 0) {
                     set_val(upar_names[index], z);
