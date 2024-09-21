@@ -681,10 +681,6 @@ void (*fun2[50])();
 
 /*****************************************************/
 
-double eval_rpn(/* int32* */);
-double ker_val();
-double pop();
-
 int32 stack_pointer, uptr;
 double constants[MAX_PAR];
 double variables[MAX_ODE1];
