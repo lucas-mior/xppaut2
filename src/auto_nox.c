@@ -629,8 +629,7 @@ auto_per_par(void) {
 }
 
 /* auto parameters are 1-8 (0-7) and since there are only 8, need to associate
-   them with real xpp parameters for which there may be many
-*/
+ * them with real xpp parameters for which there may be many */
 void
 auto_params(void) {
     static char *n[] = {"*2Par1", "*2Par2", "*2Par3", "*2Par4",
