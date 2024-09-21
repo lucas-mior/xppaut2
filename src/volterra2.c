@@ -417,8 +417,6 @@ volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     }
     /* We have a good point; lets save it    */
     get_kn(yg, t);
-    /*  for(i=NODE;i<NODE+FIX_VAR;i++)
-       SETVAR(i+1,evaluate(my_ode[i])); */
     for (i = 0; i < NODE; i++)
         y[i] = yg[i];
     ind = CurrentPoint % MaxPoints;
