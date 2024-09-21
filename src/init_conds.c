@@ -104,23 +104,23 @@ extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
 extern double default_ic[MAX_ODE];
 
-typedef struct PAR_SLIDER {
+static struct ParSlider {
     int32 use, pos, l;
     char parname[20];
     double lo, hi, val;
     int32 hgt;
     int32 type, index;
     Window left, right, top, main, slide, go;
-} PAR_SLIDER;
-static void do_slide_button(Window w, PAR_SLIDER *p);
-static void redraw_slide(PAR_SLIDER *p);
-static void set_slide_pos(PAR_SLIDER *p);
-static void do_slide_release(Window w, PAR_SLIDER *p);
-static void do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 state);
-static void enter_slider(Window w, PAR_SLIDER *p, int32 val);
-static void expose_slider(Window w, PAR_SLIDER *p);
+} my_par_slide[3];
 
-PAR_SLIDER my_par_slide[3];
+static void do_slide_button(Window w, struct ParSlider *p);
+static void redraw_slide(struct ParSlider *p);
+static void set_slide_pos(struct ParSlider *p);
+static void do_slide_release(Window w, struct ParSlider *p);
+static void do_slide_motion(Window w, int32 x, struct ParSlider *p, int32 state);
+static void enter_slider(Window w, struct ParSlider *p, int32 val);
+static void expose_slider(Window w, struct ParSlider *p);
+
 extern OptionsSet notAlreadySet;
 
 extern int32 SLIDER1;
@@ -295,7 +295,7 @@ slide_button_press(Window w) {
 }
 
 void
-do_slide_button(Window w, PAR_SLIDER *p) {
+do_slide_button(Window w, struct ParSlider *p) {
     static char *n[] = {"*3Par/Var", "Value", "Low", "High"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
@@ -1138,7 +1138,7 @@ void
 reset_sliders(void) {
     int32 i;
     double val;
-    PAR_SLIDER *p;
+    struct ParSlider *p;
     for (i = 0; i < 3; i++) {
         p = &my_par_slide[i];
         if (p->use) {
@@ -1156,7 +1156,7 @@ reset_sliders(void) {
 }
 
 void
-redraw_slide(PAR_SLIDER *p) {
+redraw_slide(struct ParSlider *p) {
     expose_slider(p->slide, p);
     expose_slider(p->top, p);
     expose_slider(p->left, p);
@@ -1165,7 +1165,7 @@ redraw_slide(PAR_SLIDER *p) {
 }
 
 void
-set_slide_pos(PAR_SLIDER *p) {
+set_slide_pos(struct ParSlider *p) {
     double pos;
     int32 ip;
     pos = 2. + (p->l - 4)*(p->val - p->lo) / (p->hi - p->lo);
@@ -1186,7 +1186,7 @@ slide_release(Window w) {
 }
 
 void
-do_slide_release(Window w, PAR_SLIDER *p) {
+do_slide_release(Window w, struct ParSlider *p) {
     if (p->use == 0)
         return;
     if (p->slide == w) {
@@ -1211,7 +1211,7 @@ slider_motion(XEvent ev) {
 }
 
 void
-do_slide_motion(Window w, int32 x, PAR_SLIDER *p, int32 s) {
+do_slide_motion(Window w, int32 x, struct ParSlider *p, int32 s) {
     int32 sp = SuppressBounds;
     if (w == p->slide) {
         p->pos = x;
@@ -1250,7 +1250,7 @@ enter_slides(Window w, int32 val) {
 }
 
 void
-enter_slider(Window w, PAR_SLIDER *p, int32 val) {
+enter_slider(Window w, struct ParSlider *p, int32 val) {
     if (w == p->top || w == p->go)
         XSetWindowBorderWidth(display, w, (uint)val + 1);
     return;
@@ -1265,7 +1265,7 @@ expose_slides(Window w) {
 }
 
 void
-expose_slider(Window w, PAR_SLIDER *p) {
+expose_slider(Window w, struct ParSlider *p) {
     int32 x, len = 12*DCURXs;
     char top[256];
     if (w == p->slide) {
