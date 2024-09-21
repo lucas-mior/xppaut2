@@ -9,8 +9,6 @@
 #include <stdio.h>
 #include "parserslow.h"
 
-/* #define Set_ivar(a,b) variables[(a)]=(b) */
-
 /* This is an implicit solver for volterra integral and integro-differential
  * equations.  It is based on code found in Peter Linz's book
  * ont Volterra equations.
