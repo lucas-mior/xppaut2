@@ -433,12 +433,13 @@ do_main(int32 argc, char **argv) {
         METHOD = 0;
     xppvermaj = (double)MAJOR_VERSION;
     xppvermin = (double)MINOR_VERSION;
-    if (strlen(this_file) < 60)
+    if (strlen(this_file) < 60) {
         snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xppvermaj,
                  xppvermin, this_file);
-    else
+    } else {
         snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj,
                  xppvermin);
+    }
     do_meth();
 
     set_delay();
