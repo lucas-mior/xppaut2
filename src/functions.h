@@ -2246,16 +2246,6 @@ extern double xRead(void);
 
 #define MAX_UFUN 50
 
-/*typedef struct {
-  int32 narg;
-  char args[MAXARG][11];
-} UFUN_ARG;
-*/
-
-/*  This is a edit box widget which handles a list of
-        editable strings
- */
-
 int32 do_edit_box(int32 n, char *title, char **names, char **values);
 void edit_menu(void);
 void edit_rhs(void);
