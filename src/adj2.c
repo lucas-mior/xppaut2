@@ -51,6 +51,7 @@ extern int32 DCURY;
 
 static void h_back(void);
 static void adj_back(void);
+static void adjoint_parameters(void);
 
 void
 adj2_init_trans(void) {
