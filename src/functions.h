@@ -4235,7 +4235,6 @@ void init_shoot_range(char *s);
 void dump_shoot_range(FILE *fp, int32 f);
 void bad_shoot(int32 iret);
 void do_sh_range(double *ystart, double *yend);
-int32 set_up_homoclinic(void);
 int32 set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow);
 void find_bvp_com(int32 com);
 void last_shot(int32 flag);
