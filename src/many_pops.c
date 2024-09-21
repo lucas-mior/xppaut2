@@ -1289,7 +1289,7 @@ do_expose(XEvent ev) {
 
     temp = draw_win;
     top_button_draw(ev.xany.window);
-    expose_aplot(ev.xany.window);
+    array_plot_expose(ev.xany.window);
     /* redraw_txtview(ev.xany.window);  */
     ani_expose(ev.xany.window);
     expose_my_browser(ev);

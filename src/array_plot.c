@@ -196,7 +196,7 @@ scale_aplot(ArrayPlot *ap, double *zmax, double *zmin) {
 }
 
 void
-expose_aplot(Window window) {
+array_plot_expose(Window window) {
     if (array_plot.alive)
         display_aplot(window, array_plot);
     return;

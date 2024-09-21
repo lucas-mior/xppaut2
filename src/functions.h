@@ -212,7 +212,7 @@ void array_plot_close_files(void);
 void array_plot_draw_one(char *);
 void array_plot_optimize(int32 *plist);
 void array_plot_make_my(char *name);
-void expose_aplot(Window window);
+void array_plot_expose(Window window);
 void do_array_plot_events(XEvent ev);
 void wborder(Window window, int32 i, ArrayPlot ap);
 void destroy_aplot(void);
