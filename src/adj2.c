@@ -592,7 +592,7 @@ step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
  * to get an approximation */
 
 void
-do_liapunov(void) {
+adj2_do_liapunov(void) {
     double z;
     int32 i;
     double *x;

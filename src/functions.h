@@ -35,7 +35,7 @@ void adj2_dump_h_stuff(FILE *fp, int32 f);
 void adj2_new_adjoint(void);
 int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
                    double minerr, int32 maxit, int32 node);
-void do_liapunov(void);
+void adj2_do_liapunov(void);
 void alloc_liap(int32 n);
 void do_this_liaprun(int32 i, double p);
 void norm_vec(double *v, double *mu, int32 n);

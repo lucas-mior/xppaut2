@@ -483,7 +483,7 @@ do_stochast_com(int32 i) {
         column_mean();
         break;
     case 'l':
-        do_liapunov();
+        adj2_do_liapunov();
         break;
     case 'a':
         compute_stacor();
