@@ -1153,11 +1153,6 @@ typedef struct InternSet {
     uint32 use;
 } InternSet;
 
-typedef struct SET_NAME {
-    char *name;
-    struct SET_NAME *next;
-} SET_NAME;
-
 extern int32 NincludedFiles;
 extern int32 Nintern_2_use;
 extern int32 loadincludefile;
@@ -1167,9 +1162,6 @@ extern int32 newseed;
 
 extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
-int32 is_set_name(SET_NAME *set, char *nam);
-SET_NAME *add_set(SET_NAME *set, char *nam);
-SET_NAME *rm_set(SET_NAME *set, char *nam);
 void do_comline(int32 argc, char **argv);
 int32 if_needed_select_sets(void);
 int32 if_needed_load_set(void);

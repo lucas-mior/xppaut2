@@ -98,7 +98,14 @@ static int32 select_intern_sets = 0;
 extern int32 Nintern_set;
 int32 Nintern_2_use = 0;
 
-static SET_NAME *sets2use, *setsNOTuse;
+static struct SetName {
+    char *name;
+    struct SetName *next;
+} *sets2use, *setsNOTuse;
+
+static int32 is_set_name(struct SetName *set, char *nam);
+static struct SetName *add_set(struct SetName *set, char *nam);
+static struct SetName *rm_set(struct SetName *set, char *nam);
 
 extern InternSet intern_set[MAX_INTERN_SET];
 
@@ -146,8 +153,8 @@ static VOCAB my_cmd[NCMD] = {
     {"-equil", 6}};
 
 int32
-is_set_name(SET_NAME *set, char *nam) {
-    SET_NAME *curr;
+is_set_name(struct SetName *set, char *nam) {
+    struct SetName *curr;
     if (set == NULL)
         return 0;
 
@@ -157,29 +164,29 @@ is_set_name(SET_NAME *set, char *nam) {
         if (strcmp(curr->name, nam) == 0) {
             return 1;
         }
-        curr = (SET_NAME *)curr->next;
+        curr = (struct SetName *)curr->next;
     }
 
     return 0;
 }
 
-SET_NAME *
-add_set(SET_NAME *set, char *nam) {
+struct SetName *
+add_set(struct SetName *set, char *nam) {
     if (!is_set_name(set, nam)) {
-        SET_NAME *curr;
-        curr = xmalloc(sizeof(SET_NAME));
+        struct SetName *curr;
+        curr = xmalloc(sizeof(struct SetName));
         curr->name = (char *)nam;
-        curr->next = (struct SET_NAME *)set;
+        curr->next = (struct SetName *)set;
         set = curr;
     }
 
     return set;
 }
 
-SET_NAME *
-rm_set(SET_NAME *set, char *nam) {
-    SET_NAME *curr;
-    SET_NAME *prev = NULL;
+struct SetName *
+rm_set(struct SetName *set, char *nam) {
+    struct SetName *curr;
+    struct SetName *prev = NULL;
     int32 i = 1;
 
     if (set == NULL)
@@ -189,7 +196,7 @@ rm_set(SET_NAME *set, char *nam) {
     while (curr) {
         if (strcmp(curr->name, nam) == 0) {
             if (i == 1) {
-                set = (SET_NAME *)curr->next;
+                set = (struct SetName *)curr->next;
             } else {
                 prev->next = curr->next;
             }
