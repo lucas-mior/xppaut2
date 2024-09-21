@@ -24,7 +24,7 @@
 
 extern int32 AdjRange;
 
-void init_trans(void);
+void adj2_init_trans(void);
 void dump_transpose_info(FILE *fp, int32 f);
 int32 do_transpose(void);
 int32 create_transpose(void);

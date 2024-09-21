@@ -50,7 +50,7 @@ extern int32 NSYM, NSYM_START, NCON, NCON_START;
 extern int32 DCURY;
 
 void
-init_trans(void) {
+adj2_init_trans(void) {
     my_trans.here = 0;
     strcpy(my_trans.firstcol, uvar_names[0]);
     my_trans.ncol = 2;

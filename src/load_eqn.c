@@ -562,7 +562,7 @@ set_all_vals(void) {
     }
 
     init_range();
-    init_trans();
+    adj2_init_trans();
     init_my_aplot();
     init_txtview();
 
