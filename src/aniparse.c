@@ -169,6 +169,7 @@ static void destroy_vcr(void);
 static void ani_motion_stuff(Window w, int32 x, int32 y);
 static double get_current_time(void);
 static void update_ani_motion_stuff(int32 x, int32 y);
+static void ani_buttonx(XEvent ev, int32 flag);
 
 /* Colors
   no color given is default black on white background or white on black

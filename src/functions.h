@@ -96,7 +96,6 @@ extern int32 animation_on_the_fly;
 
 void ani_new_vcr(void);
 void ani_do_events(XEvent ev);
-void ani_buttonx(XEvent ev, int32 flag);
 void ani_button(Window w);
 void ani_create_mpeg(void);
 void ani_expose(Window w);
