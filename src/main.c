@@ -1261,7 +1261,6 @@ top_button_events(XEvent report) {
     default:
         break;
     }
-    user_button_events(report);
     return;
 }
 
@@ -1284,7 +1283,6 @@ make_top_buttons(void) {
 
     TopButton[5] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 = x1 + x2 + dx;
-    create_user_buttons(x1, 1, main_win);
     return;
 }
 

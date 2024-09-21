@@ -4785,26 +4785,6 @@ void make_txtview(void);
 
 #endif
 
-#ifndef USERBUT_H
-#define USERBUT_H
-
-#include <X11/Xlib.h>
-
-typedef struct {
-    Window w;
-    char bname[10];
-    int32 com;
-} USERBUT;
-
-void user_button_events(XEvent report);
-void user_button_press(Window w);
-void user_button_draw(Window w);
-void user_button_cross(Window w, int32 b);
-int32 find_kbs(char *sc);
-void create_user_buttons(int32 x0, int32 y0, Window base);
-
-#endif
-
 #ifndef volterra2_h
 #define volterra2_h
 
