@@ -86,39 +86,6 @@ user_button_cross(Window w, int32 b) {
 }
 
 int32
-get_button_info(char *s, char *bname, char *sc) {
-    int32 i = 0, j = 0, f = 0, n = (int32)strlen(s);
-    char c;
-    if (n == 0)
-        return -1;
-    bname[0] = 0;
-    sc[0] = 0;
-    while (true) {
-        if (i == n)
-            break;
-        c = s[i];
-        if (c == ':') {
-            f = 1;
-            bname[j] = 0;
-            j = 0;
-            i++;
-        } else {
-            if (f == 0) {
-                bname[j] = c;
-                j++;
-            } else {
-                sc[j] = c;
-                j++;
-            }
-            i++;
-        }
-    }
-    sc[j] = 0;
-
-    return 1;
-}
-
-int32
 find_kbs(char *sc) {
     int32 i = 0;
     while (true) {
@@ -128,38 +95,6 @@ find_kbs(char *sc) {
         if (kbs[i].com == 0)
             return -1;
     }
-}
-
-void
-add_user_button(char *s) {
-    char bname[10], sc[10];
-    int32 z;
-    if (nuserbut >= USERBUTMAX)
-        return;
-    if (strlen(s) == 0)
-        return;
-
-    get_button_info(s, bname, sc);
-
-    if (strlen(bname) == 0 || strlen(sc) == 0)
-        return;
-    z = find_kbs(sc);
-    if (z == -1) {
-        plintf("%s - not implemented\n", sc);
-        return;
-    }
-    /*Don't add buttons with same functionality twice*/
-    for (int32 i = 0; i < nuserbut; i++) {
-        if (userbut[i].com == z) {
-            return;
-        }
-    }
-    userbut[nuserbut].com = z;
-    strcpy(userbut[nuserbut].bname, bname);
-    plintf(" added button(%d)  -- %s %d\n", nuserbut, userbut[nuserbut].bname,
-           userbut[nuserbut].com);
-    nuserbut++;
-    return;
 }
 
 void

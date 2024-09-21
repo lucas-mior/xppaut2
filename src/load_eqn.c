@@ -1091,10 +1091,6 @@ set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         tfBell = atoi(s2);
         return;
     }
-    if (msc("BUT", s1)) {
-        add_user_button(s2);
-        return;
-    }
     if ((msc("BIGFONT", s1)) || (msc("BIG", s1))) {
         if ((notAlreadySet.BIG_FONT_NAME || force) ||
             ((mask != NULL) && (mask->BIG_FONT_NAME == 1))) {
