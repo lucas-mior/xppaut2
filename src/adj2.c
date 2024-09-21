@@ -58,8 +58,8 @@ static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
                           double *yp, int32 node);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                       double *work, int32 node, double dt);
-static void norm_vec(double *v, double *mu, int32 n);
-static int32 hrw_liapunov(double *liap, int32 batch, double eps);
+static void adj2_norm_vec(double *v, double *mu, int32 n);
+static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
 
 void
 adj2_init_trans(void) {
@@ -600,7 +600,7 @@ adj2_do_liapunov(void) {
     double *x;
     new_int("Range over parameters?(0/1)", &LIAP_FLAG);
     if (LIAP_FLAG != 1) {
-        hrw_liapunov(&z, 0, NEWT_ERR);
+        adj2_hrw_liapunov(&z, 0, NEWT_ERR);
         return;
     }
     x = &MyData[0];
@@ -635,14 +635,14 @@ adj2_do_this_liaprun(int32 i, double p) {
     if (LIAP_FLAG == 0)
         return;
     my_liap[0][i] = p;
-    hrw_liapunov(&liap, 1, NEWT_ERR);
+    adj2_hrw_liapunov(&liap, 1, NEWT_ERR);
     my_liap[1][i] = liap;
     LIAP_I++;
     return;
 }
 
 void
-norm_vec(double *v, double *mu, int32 n) {
+adj2_norm_vec(double *v, double *mu, int32 n) {
     int32 i;
     double sum = 0.0;
     for (i = 0; i < n; i++)
@@ -656,7 +656,7 @@ norm_vec(double *v, double *mu, int32 n) {
 }
 
 int32
-hrw_liapunov(double *liap, int32 batch, double eps) {
+adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     double y[MAX_ODE];
     double yp[MAX_ODE], nrm, dy[MAX_ODE];
     double t0, t1;
@@ -684,7 +684,7 @@ hrw_liapunov(double *liap, int32 batch, double eps) {
         one_step_int(y, t0, t1, &istart);
         for (i = 0; i < NODE; i++)
             yp[i] = (y[i] - storage[i + 1][j + 1]);
-        norm_vec(yp, &nrm, NODE);
+        adj2_norm_vec(yp, &nrm, NODE);
         nrm = nrm / eps;
         if (nrm == 0.0) {
             if (batch == 0)
