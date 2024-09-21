@@ -95,7 +95,6 @@ typedef struct AniCom {
 extern int32 animation_on_the_fly;
 
 void ani_new_vcr(void);
-void ani_border(Window w, int32 i);
 void destroy_vcr(void);
 void do_ani_events(XEvent ev);
 void ani_motion_stuff(Window w, int32 x, int32 y);
