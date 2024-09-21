@@ -219,8 +219,8 @@ void redraw_ani_slider(void);
 #include <stdio.h>
 
 typedef struct {
-    Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin, wplot,
-        wredraw, wtime, wgif, wrange, wfit;
+    Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin;
+    Window wplot, wredraw, wtime, wgif, wrange, wfit;
     int32 index0, indexn, alive, nacross, ndown, plotdef;
     int32 height, width, ploth, plotw;
     int32 nstart, nskip, ncskip;
