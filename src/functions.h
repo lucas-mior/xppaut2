@@ -30,7 +30,6 @@ int32 adj2_do_transpose(void);
 void adj2_alloc_h_stuff(void);
 void data_back(void);
 void adj_back(void);
-void h_back(void);
 void make_adj_com(int32 com);
 void adjoint_parameters(void);
 void new_h_fun(int32 silent);
