@@ -48,8 +48,11 @@ static struct {
 } mov3d = {"theta", "N", 45, 45, 7};
 
 static struct BD {
-    double *x[MAXBIFCRV], *y[MAXBIFCRV];
-    int32 color[MAXBIFCRV], npts[MAXBIFCRV], nbifcrv;
+    double *x[MAXBIFCRV];
+    double *y[MAXBIFCRV];
+    int32 color[MAXBIFCRV];
+    int32 npts[MAXBIFCRV];
+    int32 nbifcrv;
     Window w;
 } my_bd;
 
