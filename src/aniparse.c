@@ -343,7 +343,7 @@ check_ani_pause(XEvent ev) {
 }
 
 void
-do_ani_events(XEvent ev) {
+ani_do_events(XEvent ev) {
     int32 x, y;
     /*Window w;*/
     if (vcr.iexist == 0)

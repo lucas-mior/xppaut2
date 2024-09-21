@@ -793,7 +793,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 
     do_array_plot_events(report);
     txt_view_events(report);
-    do_ani_events(report);
+    ani_do_events(report);
     top_button_events(report);
     switch (report.type) {
     case ConfigureNotify: /* this needs to be fixed!!! */
