@@ -407,7 +407,7 @@ compute_one_period(double period, double *x, char *name) {
     if (fp != NULL) {
         write_mybrowser_data(fp);
         fclose(fp);
-        data_back();
+        adj_data_back();
     }
     new_h_fun(1);
     snprintf(filename, sizeof(filename), "hfun.%s.dat", name);
@@ -415,7 +415,7 @@ compute_one_period(double period, double *x, char *name) {
     if (fp != NULL) {
         write_mybrowser_data(fp);
         fclose(fp);
-        data_back();
+        adj_data_back();
     }
 
     reset_browser();

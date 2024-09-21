@@ -123,7 +123,7 @@ new_four(int32 nmodes, int32 col) {
     double total = storage[0][storind - 1] - storage[0][0];
     double *bob;
     if (FOUR_HERE) {
-        data_back();
+        adj_data_back();
         free(my_four[0]);
         free(my_four[1]);
         free(my_four[2]);
@@ -197,7 +197,7 @@ twod_hist(void)
         length = MAXSTOR - 1;
 
     if (HIST_HERE) {
-        data_back();
+        adj_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
         if (HIST_HERE == 2)
@@ -283,7 +283,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         length = MAXSTOR - 1;
     dz = (zhi - zlo) / (double)(length - 1);
     if (HIST_HERE) {
-        data_back();
+        adj_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
         if (HIST_HERE == 2)
@@ -643,7 +643,7 @@ just_sd(int32 flag) {
     double total = storage[0][storind - 1] - storage[0][0];
     spec_type = flag;
     if (HIST_HERE) {
-        data_back();
+        adj_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
         if (HIST_HERE == 2)
@@ -688,7 +688,7 @@ compute_sd(void) {
     new_int("Window length ", &spec_wid);
     new_int("0:sqr 1:par 2:ham 3:bart 4:han ", &spec_win);
     if (HIST_HERE) {
-        data_back();
+        adj_data_back();
         free(my_hist[0]);
         free(my_hist[1]);
         if (HIST_HERE == 2)

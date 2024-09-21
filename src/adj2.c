@@ -101,7 +101,7 @@ adj2_do_transpose(void) {
             free(my_trans.data[i]);
         free(my_trans.data);
         my_trans.here = 0;
-        data_back();
+        adj_data_back();
     }
 
     status = do_string_box(6, 6, 1, "Transpose Data", n, values, 33);
@@ -165,7 +165,7 @@ adj2_alloc_h_stuff(void) {
 }
 
 void
-data_back(void) {
+adj_data_back(void) {
     FOUR_HERE = 0;
     set_browser_data(storage, 1);
     refresh_browser(storind);
@@ -221,7 +221,7 @@ make_adj_com(int32 com) {
         adj_back();
         break;
     case 'o':
-        data_back();
+        adj_data_back();
         break;
     case 'h':
         h_back();
@@ -272,7 +272,7 @@ new_h_fun(int32 silent) {
         n = 4;
     }
     h_len = storind;
-    data_back();
+    adj_data_back();
     my_h = xmalloc(sizeof(*my_h)*(usize)(NEQ + 1));
     for (int32 i = 0; i < n; i++)
         my_h[i] = xmalloc(sizeof(*my_h)*(usize)h_len);
@@ -359,7 +359,7 @@ void
 new_adjoint(void) {
     int32 n = NODE + 1;
     if (ADJ_HERE) {
-        data_back();
+        adj_data_back();
         for (int32 i = 0; i < n; i++)
             free(my_adj[i]);
         free(my_adj);

@@ -28,7 +28,7 @@ void adj2_init_trans(void);
 void adj2_dump_transpose_info(FILE *fp, int32 f);
 int32 adj2_do_transpose(void);
 void adj2_alloc_h_stuff(void);
-void data_back(void);
+void adj_data_back(void);
 void adj_back(void);
 void make_adj_com(int32 com);
 void adjoint_parameters(void);
