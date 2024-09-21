@@ -334,10 +334,10 @@ draw_bif_axes(void) {
     char junk[20], xlabel[20], ylabel[20];
 
     clear_auto_plot();
-    ALINE(x0, y0, x1, y0);
-    ALINE(x1, y0, x1, y1);
-    ALINE(x1, y1, x0, y1);
-    ALINE(x0, y1, x0, y0);
+    auto_x11_line(x0, y0, x1, y0);
+    auto_x11_line(x1, y0, x1, y1);
+    auto_x11_line(x1, y1, x0, y1);
+    auto_x11_line(x0, y1, x0, y0);
     sprintf(junk, "%g", Auto.xmin);
     ATEXT(x0, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.xmax);
@@ -1250,12 +1250,12 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             if (flag2 == 0 || (flag2 > 0 && Auto.icp2 == icp2)) {
                 LineWidth(1);
                 if (chk_auto_bnds(ix, iy1)) {
-                    ALINE(ix - 4, iy1, ix + 4, iy1);
-                    ALINE(ix, iy1 - 4, ix, iy1 + 4);
+                    auto_x11_line(ix - 4, iy1, ix + 4, iy1);
+                    auto_x11_line(ix, iy1 - 4, ix, iy1 + 4);
                 }
                 if (chk_auto_bnds(ix, iy2)) {
-                    ALINE(ix - 4, iy2, ix + 4, iy2);
-                    ALINE(ix, iy2 - 4, ix, iy2 + 4);
+                    auto_x11_line(ix - 4, iy2, ix + 4, iy2);
+                    auto_x11_line(ix, iy2 - 4, ix, iy2 + 4);
                 }
                 if (chk_auto_bnds(ix, iy1))
                     ATEXT(ix + 8, iy1 + 8, bob);

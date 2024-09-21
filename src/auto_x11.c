@@ -68,14 +68,14 @@ static AUTOWIN AutoW;
 static Diagram *CUR_DIAGRAM;
 
 void
-ALINE(int32 a, int32 b, int32 c, int32 d) {
+auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
     XDrawLine(display, AutoW.canvas, small_gc, (a), (b), (c), (d));
     return;
 }
 
 void
 DLINE(double a, double b, double c, double d) {
-    ALINE(IXVal(a), IYVal(b), IXVal(c), IYVal(d));
+    auto_x11_line(IXVal(a), IYVal(b), IXVal(c), IYVal(d));
     return;
 }
 
@@ -668,8 +668,8 @@ RedrawMark(void) {
 void
 MarkAuto(int32 x, int32 y) {
     LineWidth(2);
-    ALINE(x - 8, y - 8, x + 8, y + 8);
-    ALINE(x + 8, y - 8, x - 8, y + 8);
+    auto_x11_line(x - 8, y - 8, x + 8, y + 8);
+    auto_x11_line(x + 8, y - 8, x - 8, y + 8);
     LineWidth(1);
     return;
 }
@@ -686,8 +686,8 @@ XORCross(int32 x, int32 y) {
 
     XSetFunction(display, small_gc, GXxor);
     LineWidth(2);
-    ALINE(x - 8, y, x + 8, y);
-    ALINE(x, y + 8, x, y - 8);
+    auto_x11_line(x - 8, y, x + 8, y);
+    auto_x11_line(x, y + 8, x, y - 8);
     XSetFunction(display, small_gc, GXcopy);
     LineWidth(1);
     if (xorfix) {
