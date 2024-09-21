@@ -76,6 +76,7 @@ extern double MyData[MAX_ODE];
 
 static void set_acolor(int32 col);
 static void tag_aplot(char *);
+static void gif_aplot_all(char *, int32);
 
 void
 array_plot_draw_one(char *bob) {
