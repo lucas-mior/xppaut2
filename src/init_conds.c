@@ -94,20 +94,6 @@ static struct FileSel {
     char title[256];
 } filesel;
 
-typedef struct SCROLL_LIST {
-    int32 pos, n, n0, npos;
-    int32 ihot, twid;
-    int32 max;
-    char **v;
-    Window side, up, down, text;
-} SCROLL_LIST;
-static void create_scroll_list(Window base, int32 x, int32 y, int32 width,
-                        int32 height, SCROLL_LIST *sl);
-static void free_scroll_list(SCROLL_LIST *sl);
-static void add_scroll_item(char *v, SCROLL_LIST *sl);
-static int32 expose_scroll_list(Window w, SCROLL_LIST sl);
-static void redraw_scroll_list(SCROLL_LIST sl);
-
 static void display_file_sel(struct FileSel f, Window w);
 
 extern FILEINFO my_ff;
@@ -146,108 +132,6 @@ BoxList BCBox;
 int32 BoxMode;
 
 extern char this_file[100];
-
-#define SB_DIM 5
-#define SB_SPC 2
-/* scroll-list gadget */
-
-void
-create_scroll_list(Window base, int32 x, int32 y, int32 width, int32 height,
-                   SCROLL_LIST *sl) {
-    int32 tst = (DCURYs + 3) + 2*(SB_DIM + SB_SPC);
-    if (height < tst)
-        height = tst;
-
-    sl->n = 0;
-    sl->n0 = 0;
-    sl->pos = 0;
-    sl->v = NULL;
-    sl->twid = width;
-    sl->text = make_window(base, x, y, width, height, 1);
-    sl->up = make_window(base, x + width + SB_SPC, y, SB_DIM, SB_DIM, 1);
-    sl->side = make_window(base, x + width + SB_SPC, y + SB_DIM + SB_SPC,
-                           SB_DIM, height - 2*(SB_DIM + SB_SPC), 1);
-    sl->down = make_window(base, x + width + SB_SPC,
-                           y + height - 2*SB_DIM - SB_SPC, SB_DIM, SB_DIM, 1);
-    sl->npos = height - 2*(SB_DIM + SB_SPC);
-    sl->max = height / (DCURYs + 3);
-    return;
-}
-
-void
-free_scroll_list(SCROLL_LIST *sl) {
-    int32 n = sl->n;
-    int32 i;
-    for (i = 0; i < n; i++)
-        free(sl->v[i]);
-    free(sl->v);
-    sl->v = NULL;
-    sl->n = 0;
-    return;
-}
-
-void
-add_scroll_item(char *v, SCROLL_LIST *sl) {
-    int32 n = sl->n;
-    int32 m = (int32)strlen(v);
-    sl->v = (char **)realloc((void *)sl->v, (usize)(n + 1)*sizeof(char *));
-    sl->v[n] = xmalloc((usize)(m + 1));
-    strcpy(sl->v[n], v);
-    sl->n = n + 1;
-    return;
-}
-
-int32
-expose_scroll_list(Window w, SCROLL_LIST sl) {
-    int32 i;
-    if (w == sl.up) {
-        XClearWindow(display, w);
-        XDrawLine(display, w, small_gc, 0, SB_DIM, SB_DIM / 2, 0);
-        XDrawLine(display, w, small_gc, SB_DIM, SB_DIM, SB_DIM / 2, 0);
-        return 1;
-    }
-    if (w == sl.down) {
-        XClearWindow(display, w);
-        XDrawLine(display, w, small_gc, 0, 0, SB_DIM / 2, SB_DIM);
-        XDrawLine(display, w, small_gc, SB_DIM, 0, SB_DIM / 2, SB_DIM);
-        return 1;
-    }
-    if (w == sl.side) {
-        XClearWindow(display, w);
-        for (i = 0; i < 4; i++)
-            XDrawLine(display, w, small_gc, 0, sl.npos + i, SB_DIM,
-                      sl.npos + i);
-        return 1;
-    }
-    if (w == sl.text) {
-        redraw_scroll_list(sl);
-        return 1;
-    }
-    return 0;
-}
-
-void
-redraw_scroll_list(SCROLL_LIST sl) {
-    int32 i, n = sl.n, j;
-    int32 y;
-    if (n == 0)
-        return; /* nothing there */
-    XClearWindow(display, sl.text);
-    for (i = 0; i < sl.max; i++) {
-        j = i + sl.n0;
-        if (j < n) {
-            XDrawString(display, sl.text, small_gc, 0,
-                        CURY_OFFs + i*(DCURYs + 3), sl.v[j],
-                        (int)strlen(sl.v[j]));
-            if (j == sl.ihot) {
-                y = CURY_OFFs + (i + 1)*(DCURYs + 3) - 3;
-                XDrawLine(display, sl.text, small_gc, 0, y, sl.twid, y);
-                XDrawLine(display, sl.text, small_gc, 0, y + 1, sl.twid, y + 1);
-            }
-        }
-    }
-    return;
-}
 
 void
 c_hints(void) {
