@@ -401,7 +401,7 @@ compute_one_period(double period, double *x, char *name) {
 
         return;
     }
-    new_adjoint();
+    adj2_new_adjoint();
     snprintf(filename, sizeof(filename), "adjoint.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {

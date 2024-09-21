@@ -216,7 +216,7 @@ make_adj_com(int32 com) {
     static char key[] = "nmaohpr";
     switch (key[com]) {
     case 'n':
-        new_adjoint();
+        adj2_new_adjoint();
         break;
     case 'm':
         adj2_new_h_fun(0);
@@ -360,7 +360,7 @@ bye:
 }
 
 void
-new_adjoint(void) {
+adj2_new_adjoint(void) {
     int32 n = NODE + 1;
     if (ADJ_HERE) {
         adj_data_back();
@@ -400,7 +400,7 @@ compute_one_orbit(double *ic, double per) {
     double oldtotal = TEND;
     TEND = per;
     run_from_x(ic);
-    new_adjoint();
+    adj2_new_adjoint();
     TEND = oldtotal;
     return;
 }

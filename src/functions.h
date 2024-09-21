@@ -32,7 +32,7 @@ void adj_data_back(void);
 void make_adj_com(int32 com);
 void adj2_new_h_fun(int32 silent);
 void adj2_dump_h_stuff(FILE *fp, int32 f);
-void new_adjoint(void);
+void adj2_new_adjoint(void);
 void test_test(void);
 void compute_one_orbit(double *ic, double per);
 int32 adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
