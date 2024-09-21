@@ -1761,15 +1761,6 @@ void display_dialog(Window w, DIALOG d, int32 col);
 #ifndef DO_FIT_H
 #define DO_FIT_H
 
-typedef struct FITINFO {
-    char file[25];
-    char varlist[25], collist[25];
-    char parlist1[25], parlist2[25];
-    int32 dim, npars, nvars, npts, maxiter;
-    int32 icols[50], ipar[50], ivar[50];
-    double tol, eps;
-} FITINFO;
-
 void init_fit_info(void);
 void get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
                   double *yfit, double **yderv, int32 npts, int32 npars,

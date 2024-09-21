@@ -24,7 +24,15 @@ extern double last_ic[MAX_ODE];
 
 extern double DELAY;
 extern int32 DelayFlag;
-FITINFO fin;
+
+static struct {
+    char file[25];
+    char varlist[25], collist[25];
+    char parlist1[25], parlist2[25];
+    int32 dim, npars, nvars, npts, maxiter;
+    int32 icols[50], ipar[50], ivar[50];
+    double tol, eps;
+} fin;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
