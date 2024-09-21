@@ -791,7 +791,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 
     int32 used = 0;
 
-    do_array_plot_events(report);
+    array_plot_do_events(report);
     txt_view_events(report);
     ani_do_events(report);
     top_button_events(report);

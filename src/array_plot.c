@@ -203,7 +203,7 @@ array_plot_expose(Window window) {
 }
 
 void
-do_array_plot_events(XEvent ev) {
+array_plot_do_events(XEvent ev) {
     int32 x, y;
     if (array_plot.alive == 0)
         return;
