@@ -153,7 +153,7 @@ adj2_do_transpose(void) {
 }
 
 void
-alloc_h_stuff(void) {
+adj2_alloc_h_stuff(void) {
     for (int32 i = 0; i < NODE; i++) {
         coup_fun[i] = xmalloc(100*sizeof(*coup_fun));
         coup_string[i] = xmalloc(80);

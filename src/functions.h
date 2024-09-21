@@ -27,7 +27,7 @@ extern int32 AdjRange;
 void adj2_init_trans(void);
 void adj2_dump_transpose_info(FILE *fp, int32 f);
 int32 adj2_do_transpose(void);
-void alloc_h_stuff(void);
+void adj2_alloc_h_stuff(void);
 void data_back(void);
 void adj_back(void);
 void h_back(void);

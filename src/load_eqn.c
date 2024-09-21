@@ -608,7 +608,7 @@ set_all_vals(void) {
     if (AXES >= 5)
         PLOT_3D = 1;
     chk_delay(); /* check for delay allocation */
-    alloc_h_stuff();
+    adj2_alloc_h_stuff();
 
     alloc_v_memory(); /* allocate stuff for volterra equations */
     alloc_meth();
