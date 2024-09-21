@@ -2086,7 +2086,7 @@ set_up_arry(void) {
     for (i = 0; i < ICBox.nwin; i++)
         XClearWindow(display, ICBox.ck[i]);
     if (n == 2)
-        optimize_aplot(plot_list);
+        array_plot_optimize(plot_list);
     return;
 }
 

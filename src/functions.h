@@ -219,7 +219,7 @@ extern int32 array_plot_range;
 
 void array_plot_close_files(void);
 void array_plot_draw_one(char *);
-void optimize_aplot(int32 *plist);
+void array_plot_optimize(int32 *plist);
 void make_my_aplot(char *name);
 void scale_aplot(ArrayPlot *ap, double *zmax, double *zmin);
 void init_array_plot(ArrayPlot *ap);

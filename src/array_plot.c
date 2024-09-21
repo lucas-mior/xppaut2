@@ -76,7 +76,7 @@ extern double MyData[MAX_ODE];
 
 static void set_acolor(int32 col);
 static void tag_aplot(char *);
-static void gif_aplot_all(char *, int32);
+static void array_plot_gif_all(char *, int32);
 
 void
 array_plot_draw_one(char *bob) {
@@ -88,7 +88,7 @@ array_plot_draw_one(char *bob) {
     XFlush(display);
     snprintf(filename, sizeof(filename), "%s.%d.gif", array_plot_range_stem,
              array_plot_range_count);
-    gif_aplot_all(filename, array_plot_still);
+    array_plot_gif_all(filename, array_plot_still);
     array_plot_range_count++;
     return;
 }
@@ -127,7 +127,7 @@ fit_aplot(void) {
 }
 
 void
-optimize_aplot(int32 *plist) {
+array_plot_optimize(int32 *plist) {
     int32 i0 = plist[0] - 1;
     int32 i1 = plist[1] - 1;
     int32 nr, ns;
@@ -568,7 +568,7 @@ array_plot_close_files(void) {
 }
 
 void
-gif_aplot_all(char *filename, int32 still) {
+array_plot_gif_all(char *filename, int32 still) {
     Pixmap xi;
     int32 x, y;
     uint32 h, w, bw, d;
@@ -616,7 +616,7 @@ gif_aplot(void) {
     snprintf(filename, sizeof(filename), "%s.gif", this_file);
     if (!file_selector("GIF plot", filename, "*.gif"))
         return;
-    gif_aplot_all(filename, 1);
+    array_plot_gif_all(filename, 1);
     return;
 }
 
