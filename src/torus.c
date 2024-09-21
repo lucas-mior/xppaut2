@@ -64,7 +64,7 @@ do_torus_com(int32 c) {
 
 void
 draw_tor_var(int32 i) {
-    char strng[15];
+    char strng[sizeof(*uvar_names) + 5];
     XClearWindow(display, torbox.w[i]);
     if (itor[i] == 1)
         snprintf(strng, sizeof(strng), "X  %s", uvar_names[i]);
