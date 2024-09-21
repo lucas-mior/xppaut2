@@ -88,11 +88,11 @@ adj2_do_transpose(void) {
     char values[LENGTH(n)][MAX_LEN_SBOX];
 
     snprintf(values[0], sizeof(values[0]), "%s", my_trans.firstcol);
-    snprintf(values[1], sizeof(values[0]), "%d", my_trans.ncol);
-    snprintf(values[2], sizeof(values[0]), "%d", my_trans.colskip);
-    snprintf(values[3], sizeof(values[0]), "%d", my_trans.row0);
-    snprintf(values[4], sizeof(values[0]), "%d", my_trans.nrow);
-    snprintf(values[5], sizeof(values[0]), "%d", my_trans.rowskip);
+    snprintf(values[1], sizeof(values[1]), "%d", my_trans.ncol);
+    snprintf(values[2], sizeof(values[2]), "%d", my_trans.colskip);
+    snprintf(values[3], sizeof(values[3]), "%d", my_trans.row0);
+    snprintf(values[4], sizeof(values[4]), "%d", my_trans.nrow);
+    snprintf(values[5], sizeof(values[5]), "%d", my_trans.rowskip);
 
     if (my_trans.here) {
         for (int32 i = 0; i <= my_trans.nrow; i++)
