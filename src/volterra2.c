@@ -121,13 +121,11 @@ allocate_volterra(int32 npts, int32 flag) {
 
 void
 re_evaluate_kernels(void) {
-    int32 i, j, n = MaxPoints;
-
     if (AutoEvaluate == 0)
         return;
-    for (i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
-            for (j = 0; j <= n; j++) {
+            for (int32 j = 0; j <= MaxPoints; j++) {
                 SETVAR(0, T0 + DELTA_T*j);
                 kernel[i].cnv[j] = evaluate(kernel[i].kerform);
             }
