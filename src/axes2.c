@@ -29,6 +29,8 @@ int32 DOING_AXES = 0;
 int32 DOING_BOX_AXES = 0;
 extern FILE *svgfile;
 
+static void Frame_3d(void);
+
 void
 re_title(void) {
     char bob[40];
