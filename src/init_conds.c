@@ -80,7 +80,18 @@ extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
 #define EDIT_ESC 2
 #define EDIT_DONE 3
 
-FILESEL filesel;
+static struct FileSel {
+    int32 n, n0, here;
+    Window base, cancel, ok, up, dn, pgup, pgdn, file, wild, w[FILESELNWIN],
+        dir, home, start;
+    Window fw, ww;
+    char wildtxt[256], filetxt[256];
+    int32 nwin, minwid, minhgt;
+    int32 off, pos, hot;
+    char title[256];
+} filesel;
+
+static void display_file_sel(struct FileSel f, Window w);
 
 extern FILEINFO my_ff;
 
@@ -460,7 +471,7 @@ redraw_fs_text(char *string, Window w, int32 flag) {
 }
 
 void
-display_file_sel(FILESEL f, Window w) {
+display_file_sel(struct FileSel f, Window w) {
     int32 i0;
     Window root;
     int32 xloc;

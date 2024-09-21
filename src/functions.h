@@ -2755,17 +2755,6 @@ void post_process_stuff(void);
 #include "read_dir.h"
 
 #define FILESELNWIN 10
-typedef struct FILESEL {
-    int32 n, n0, here;
-    Window base, cancel, ok, up, dn, pgup, pgdn, file, wild, w[FILESELNWIN],
-        dir, home, start;
-    Window fw, ww;
-    char wildtxt[256], filetxt[256];
-    int32 nwin, minwid, minhgt;
-    int32 off, pos, hot;
-    char title[256];
-} FILESEL;
-
 typedef struct SCROLL_LIST {
     int32 pos, n, n0, npos;
     int32 ihot, twid;
@@ -2828,7 +2817,6 @@ void expose_selector(Window w);
 void redraw_directory(void);
 void redraw_file_list(void);
 void redraw_fs_text(char *string, Window w, int32 flag);
-void display_file_sel(FILESEL f, Window w);
 void new_wild(void);
 void fs_scroll(int32 i);
 int32 button_selector(Window w);
