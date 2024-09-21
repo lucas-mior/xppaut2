@@ -1023,7 +1023,7 @@ alter_curve(char *title, int32 in_it, int32 n) {
 
 void
 edit_curve(void) {
-    char bob[20];
+    char bob[21];
     int32 crv = 0;
     snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
     ping();
