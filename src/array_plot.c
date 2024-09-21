@@ -560,7 +560,7 @@ editaplot(ArrayPlot *ap) {
 }
 
 void
-close_aplot_files(void) {
+array_plot_close_files(void) {
     if (array_plot_still == 0)
         fclose(ap_fp);
     return;

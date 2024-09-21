@@ -932,7 +932,7 @@ do_range(double *x, int32 flag) {
     }
     if (array_plot_range == 1) {
         array_plot_range = 0;
-        close_aplot_files();
+        array_plot_close_files();
     }
     if (oldic == 1)
         get_ic(1, x);

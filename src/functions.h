@@ -217,7 +217,7 @@ typedef struct {
 
 extern int32 array_plot_range;
 
-void close_aplot_files(void);
+void array_plot_close_files(void);
 void draw_one_array_plot(char *);
 void gif_aplot_all(char *, int32);
 void optimize_aplot(int32 *plist);
