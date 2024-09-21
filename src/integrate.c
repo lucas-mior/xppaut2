@@ -757,8 +757,8 @@ do_auto_range_go(void) {
 int32
 do_range(double *x, int32 flag) {
  /* flag: 0 for 1-param 1 for 2 parameter 2 for Auto range */
-    char bob[256];
     char parn[256];
+    char bob[sizeof(parn) + 30];
     int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
     int32 nit = 20, i = 0, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
           nit2 = 0, iii = 0;
