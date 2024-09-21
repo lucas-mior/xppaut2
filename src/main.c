@@ -156,18 +156,6 @@ plot_command(int32 nit, int32 icount, int32 cwidth) {
 }
 
 void *
-xmalloc(usize size) {
-    void *p;
-
-    if (!(p = malloc(size))) {
-        fprintf(stderr, "Error allocating %zu bytes.\n", size);
-        exit(EXIT_FAILURE);
-    }
-
-    return p;
-}
-
-void *
 XMALLOC(usize size, const char *function, int32 line) {
     void *p;
 
@@ -181,8 +169,18 @@ XMALLOC(usize size, const char *function, int32 line) {
     return p;
 }
 
-#ifdef MALLOC_DEBUG
-#define xmalloc(X) XMALLOC(X, __func__, __LINE__)
+#ifndef MALLOC_DEBUG
+void *
+xmalloc(usize size) {
+    void *p;
+
+    if (!(p = malloc(size))) {
+        fprintf(stderr, "Error allocating %zu bytes.\n", size);
+        exit(EXIT_FAILURE);
+    }
+
+    return p;
+}
 #endif
 
 int32
