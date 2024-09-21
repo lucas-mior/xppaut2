@@ -1568,12 +1568,16 @@ void
 compile_em(void) {
     /* Now we try to keep track of markov, fixed, etc as well as their names */
     VAR_INFO *v;
-    char vnames[MAX_ODE1][MAXVNAM], fnames[MAX_ODE1][MAXVNAM],
-        anames[MAX_ODE1][MAXVNAM];
+    char vnames[MAX_ODE1][MAXVNAM];
+    char fnames[MAX_ODE1][MAXVNAM];
+    char anames[MAX_ODE1][MAXVNAM];
     char mnames[MAX_ODE1][MAXVNAM];
     double z, xlo, xhi;
-    char tmp[50], big[MAXEXPLEN], formula[MAXEXPLEN], *my_string, *junk, *ptr,
-        name[10];
+    char tmp[50];
+    char big[MAXEXPLEN + 10];
+    char formula[MAXEXPLEN];
+    char *my_string, *junk, *ptr;
+    char name[10];
     int32 nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
           nufun = 0;
     int32 in1, in2, iflag;
@@ -2730,11 +2734,12 @@ free_comments(void) {
 void
 new_comment(FILE *f) {
     char bob[256];
-    char ted[256];
+    char ted[sizeof(bob) + 1];
+
     keep_orig_comments();
     free_comments();
     while (!feof(f)) {
-        fgets(bob, 256, f);
+        fgets(bob, sizeof(bob), f);
         snprintf(ted, sizeof(ted), "@%s", bob);
         add_comment(ted);
     }
