@@ -92,7 +92,6 @@ InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
 extern int32 STOCH_FLAG;
-extern char uvar_names[MAX_ODE][12];
 extern struct {
     char item[30], item2[30];
     int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;

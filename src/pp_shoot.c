@@ -57,7 +57,6 @@ struct {
 } shoot_range;
 
 extern char upar_names[MAX_PAR][14];
-extern char uvar_names[MAX_ODE][12];
 
 /*   more general mixed boundary types   */
 

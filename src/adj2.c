@@ -22,7 +22,6 @@ extern double **storage;
 extern int32 storind, FOUR_HERE;
 extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
-extern char uvar_names[MAX_ODE][12];
 static double **my_adj;
 static int32 adj_len;
 static double **my_h;

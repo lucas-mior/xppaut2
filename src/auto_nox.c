@@ -147,7 +147,6 @@ char fort8[200];
 char fort9[200];
 static char TMPSWAP[200];
 
-extern char uvar_names[MAX_ODE][12];
 extern char upar_names[MAX_PAR][14];
 extern int32 NUPAR;
 
@@ -160,7 +159,6 @@ extern int32 METHOD;
 int32 HomoFlag = 0;
 double homo_l[100], homo_r[100];
 static double HOMO_SHIFT = 0.0;
-extern char uvar_names[MAX_ODE][12];
 
 extern int32 storind;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;

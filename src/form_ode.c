@@ -27,7 +27,7 @@
 #define MAXCOMMENTS 500
 
 int32 IN_INCLUDED_FILE = 0;
-char uvar_names[MAX_ODE][12];
+char uvar_names[MAX_ODE][14];
 char *ode_names[MAX_ODE];
 char upar_names[MAX_PAR][14];
 char *save_eqn[MAXLINES];

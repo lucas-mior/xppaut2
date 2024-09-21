@@ -48,6 +48,4 @@ extern double POIPLN;
 extern int32 NULL_HERE;
 extern double *X_n, *Y_n;
 
-extern char uvar_names[MAX_ODE][12];
-
 #endif

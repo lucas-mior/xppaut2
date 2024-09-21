@@ -26,7 +26,6 @@ extern int32 screen;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
-extern char uvar_names[MAX_ODE][12];
 extern char *ode_names[MAX_ODE];
 extern int32 METHOD, NEQ, NODE, NMarkov;
 

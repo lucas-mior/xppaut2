@@ -10,7 +10,6 @@
 #include "parserslow.h"
 
 extern int32 DCURY, MAXSTOR;
-extern char uvar_names[MAX_ODE][12];
 typedef struct {
     int32 nbins, nbins2, type, col, col2, fftc;
     double xlo, xhi;

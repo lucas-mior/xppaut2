@@ -32,7 +32,6 @@ extern int32 DCURY, DCURX, CURY_OFF, xor_flag;
 extern GC gc;
 extern uint32 MyBackColor, MyForeColor;
 
-extern char uvar_names[MAX_ODE][12];
 extern char *ode_names[MAX_ODE];
 extern int32 METHOD, NEQ, NODE, NMarkov, FIX_VAR;
 
