@@ -305,7 +305,7 @@ int32
 get_eqn(FILE *fptr) {
     char bob[MAXEXPLEN];
     /*char filename[256];*/
-    char filename[XPP_MAX_NAME];
+    char filename[XPP_MAX_NAME + 4];
     int32 done = 1, nn, i;
     int32 flag;
     char prim[15];
@@ -348,7 +348,7 @@ get_eqn(FILE *fptr) {
         plintf("NEQ=%d\n", NEQ);
         if (ConvertStyle) {
             if (strlen(this_file) == 0)
-                snprintf(filename, sizeof(filename), "convert.ode");
+                strcpy(filename, "convert.ode");
             else
                 snprintf(filename, sizeof(filename), "%s.new", this_file);
             if ((convertf = fopen(filename, "w")) == NULL) {
@@ -1574,7 +1574,7 @@ compile_em(void) {
     char mnames[MAX_ODE1][MAXVNAM];
     double z, xlo, xhi;
     char tmp[50];
-    char big[MAXEXPLEN + 10];
+    char big[2*MAXEXPLEN + 10];
     char formula[MAXEXPLEN];
     char *my_string, *junk, *ptr;
     char name[10];
