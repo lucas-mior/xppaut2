@@ -27,9 +27,9 @@
 #define MAXCOMMENTS 500
 
 int32 IN_INCLUDED_FILE = 0;
-char uvar_names[MAX_ODE][14];
+char uvar_names[MAX_ODE][16];
 char *ode_names[MAX_ODE];
-char upar_names[MAX_PAR][14];
+char upar_names[MAX_PAR][16];
 char *save_eqn[MAXLINES];
 double default_val[MAX_PAR];
 extern int32 NODE;
@@ -278,7 +278,6 @@ get_eqn(FILE *fptr) {
     char filename[XPP_MAX_NAME + 4];
     int32 done = 1, nn, i;
     int32 flag;
-    char prim[15];
     init_rpn();
     NLINES = 0;
     IN_VARS = 0;
@@ -390,6 +389,7 @@ get_eqn(FILE *fptr) {
     if (NVAR < MAX_PRIME_VAR) {
         add_var("t'", 0.0);
         for (i = 0; i < NODE; i++) {
+            char prim[sizeof(uvar_names[i]) + 1];
             snprintf(prim, sizeof(prim), "%s'", uvar_names[i]);
             add_var(prim, 0.0);
         }

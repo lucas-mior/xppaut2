@@ -305,9 +305,9 @@ make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
     double sum;
     double z;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
-    char name[30];
     if (silent == 0) {
         for (int32 i = 0; i < NODE; i++) {
+            char name[sizeof(uvar_names[i]) + 18];
             snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
             new_string(name, coup_string[i]);
             if (add_expr(coup_string[i], coup_fun[i], &j)) {

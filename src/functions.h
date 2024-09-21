@@ -4294,7 +4294,7 @@ typedef struct {
 } SCRBOX_LIST;
 
 extern int32 NUPAR, NEQ, NODE, NMarkov;
-extern char upar_names[MAX_PAR][14], uvar_names[MAX_ODE][14];
+extern char upar_names[MAX_PAR][16], uvar_names[MAX_ODE][16];
 extern char *color_names[];
 extern SCRBOX_LIST scrbox_list[10];
 
