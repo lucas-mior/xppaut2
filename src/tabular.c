@@ -1,5 +1,6 @@
 #include "integers.h"
 #include "functions.h"
+#include "read_dir.h"
 #include <stdbool.h>
 
 #include "parserslow.h"
@@ -75,7 +76,6 @@ typedef struct {
 
 TABULAR my_table[MAX_TAB];
 
-extern char cur_dir[];
 extern int32 NTable;
 
 extern int32 NCON, NSYM, NCON_START, NSYM_START;
@@ -374,11 +374,11 @@ load_table(char *filename, int32 index) {
     int32 i;
     char bobtab[100];
     char *bob;
-    char error[512];
     int32 length;
     double xlo, xhi;
     FILE *fp;
     char filename2[512], ch;
+    char error[sizeof(filename2) + sizeof(cur_dir)];
     int32 n = (int32)strlen(filename);
     int32 j = 0, flag = 0;
     for (i = 0; i < n; i++) {

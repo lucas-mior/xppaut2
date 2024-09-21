@@ -7,6 +7,9 @@ typedef struct {
     int32 nfiles, ndirs;
 } FILEINFO;
 
+#define MAXPATHLEN 512
+extern char cur_dir[MAXPATHLEN];
+
 void free_finfo(FILEINFO *ff);
 int32 cmpstringp(const void *p1, const void *p2);
 int32 get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2);

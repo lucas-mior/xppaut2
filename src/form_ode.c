@@ -103,7 +103,6 @@ int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0, NUMMARK = 0, NUMAUX = 0,
       NUMVOLT = 0, NUMSOL = 0;
 
 FIXINFO fixinfo[MAX_ODE];
-extern char cur_dir[];
 
 extern FILEINFO my_ff;
 

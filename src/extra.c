@@ -37,8 +37,6 @@ IN_OUT in_out;
 
 extern double variables[], constants[];
 
-extern char cur_dir[];
-
 typedef struct {
     char libname[1024];
     char libfile[256];

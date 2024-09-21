@@ -80,8 +80,6 @@ extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
 #define EDIT_ESC 2
 #define EDIT_DONE 3
 
-extern char cur_dir[];
-
 FILESEL filesel;
 
 extern FILEINFO my_ff;

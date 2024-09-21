@@ -1173,7 +1173,7 @@ override the below definition.
 */
 
 #ifndef XPP_MAX_NAME
-#define XPP_MAX_NAME 300
+#define XPP_MAX_NAME 512
 #if (XPP_MAX_NAME > FILENAME_MAX)
 #define XPP_MAX_NAME FILENAME_MAX
 #endif

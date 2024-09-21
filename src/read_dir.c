@@ -55,8 +55,6 @@ and save the file.
 /*Let's try to be consistent with file name buffer sizes and
 any strings that may hold a path name (e.g. dialog message etc.)*/
 /*#define MAXPATHLEN 1024*/
-#define MAXPATHLEN XPP_MAX_NAME
-
 #define SYSV
 
 #define put_msg plintf
