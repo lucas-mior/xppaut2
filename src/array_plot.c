@@ -196,31 +196,6 @@ scale_aplot(ArrayPlot *ap, double *zmax, double *zmin) {
 }
 
 void
-init_array_plot(ArrayPlot *ap) {
-    ap->height = 400;
-    ap->width = 400;
-    ap->zmin = 0.0;
-    ap->zmax = 1.0;
-    ap->alive = 0;
-    ap->plotdef = 0;
-    ap->index0 = 1;
-    ap->indexn = 0;
-    ap->nacross = 1;
-    ap->ndown = 50;
-    ap->nstart = 0;
-    ap->nskip = 8;
-    ap->ncskip = 1;
-    ap->tstart = 0.0;
-    ap->tend = 20.0;
-    strcpy(ap->filename, "output.ps");
-    strcpy(ap->xtitle, "index");
-    strcpy(ap->ytitle, "time");
-    strcpy(ap->bottom, "");
-    ap->type = -1;
-    return;
-}
-
-void
 expose_aplot(Window window) {
     if (array_plot.alive)
         display_aplot(window, array_plot);
@@ -300,7 +275,26 @@ destroy_aplot(void) {
 
 void
 init_my_aplot(void) {
-    init_array_plot(&array_plot);
+    array_plot.height = 400;
+    array_plot.width = 400;
+    array_plot.zmin = 0.0;
+    array_plot.zmax = 1.0;
+    array_plot.alive = 0;
+    array_plot.plotdef = 0;
+    array_plot.index0 = 1;
+    array_plot.indexn = 0;
+    array_plot.nacross = 1;
+    array_plot.ndown = 50;
+    array_plot.nstart = 0;
+    array_plot.nskip = 8;
+    array_plot.ncskip = 1;
+    array_plot.tstart = 0.0;
+    array_plot.tend = 20.0;
+    strcpy(array_plot.filename, "output.ps");
+    strcpy(array_plot.xtitle, "index");
+    strcpy(array_plot.ytitle, "time");
+    strcpy(array_plot.bottom, "");
+    array_plot.type = -1;
     return;
 }
 
