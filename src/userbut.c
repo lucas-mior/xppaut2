@@ -138,7 +138,9 @@ add_user_button(char *s) {
         return;
     if (strlen(s) == 0)
         return;
+
     get_button_info(s, bname, sc);
+
     if (strlen(bname) == 0 || strlen(sc) == 0)
         return;
     z = find_kbs(sc);
