@@ -136,15 +136,14 @@ re_evaluate_kernels(void) {
 
 void
 alloc_kernels(int32 flag) {
-    int32 i, n = MaxPoints;
-    int32 j;
+    int32 n = MaxPoints;
     double mu;
-    for (i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
             if (flag == 1)
                 free(kernel[i].cnv);
             kernel[i].cnv = xmalloc((usize)(n + 1)*sizeof(*(kernel[i].cnv)));
-            for (j = 0; j <= n; j++) {
+            for (int32 j = 0; j <= n; j++) {
                 SETVAR(0, T0 + DELTA_T*j);
                 kernel[i].cnv[j] = evaluate(kernel[i].kerform);
             }
@@ -155,7 +154,7 @@ alloc_kernels(int32 flag) {
             if (flag == 1)
                 free(kernel[i].al);
             kernel[i].al = xmalloc((usize)(n + 1)*sizeof(*(kernel[i].al)));
-            for (j = 0; j <= n; j++)
+            for (int32 j = 0; j <= n; j++)
                 kernel[i].al[j] = alpbetjn(mu, DELTA_T, j);
         }
     }
