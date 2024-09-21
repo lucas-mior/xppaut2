@@ -138,6 +138,7 @@ void
 alloc_kernels(int32 flag) {
     int32 n = MaxPoints;
     double mu;
+
     for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV) {
             if (flag == 1)
