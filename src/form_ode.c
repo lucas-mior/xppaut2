@@ -116,7 +116,19 @@ make_eqn(void) {
     FIX_VAR = 0;
     NMarkov = 0;
 
-    okay = read_eqn();
+    char wild[256], string[256];
+    FILE *fptr;
+    okay = 0;
+    snprintf(wild, sizeof(wild), "*.ode");
+    get_a_filename(string, wild);
+    if ((fptr = fopen(string, "r")) == NULL) {
+        plintf("\n Cannot open %s \n", string);
+        return 0;
+    }
+    strcpy(this_file, string);
+    clrscr();
+    okay = get_eqn(fptr);
+    fclose(fptr);
     return okay;
 }
 
@@ -262,27 +274,6 @@ list_em(char *wild) {
 
     free_finfo(&my_ff);
     return;
-}
-
-int32
-read_eqn(void) {
-    char wild[256], string[256];
-    FILE *fptr;
-    int32 okay;
-    okay = 0;
-    snprintf(wild, sizeof(wild), "*.ode");
-    get_a_filename(string, wild);
-    if ((fptr = fopen(string, "r")) == NULL) {
-        plintf("\n Cannot open %s \n", string);
-        return 0;
-    }
-    strcpy(this_file, string);
-    clrscr();
-    okay = get_eqn(fptr);
-    /*close(fptr);*/
-    fclose(fptr);
-    /* for(i=0;i<NLINES;i++)free(save_eqn[i]); */
-    return okay;
 }
 
 int32

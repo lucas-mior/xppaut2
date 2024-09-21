@@ -2555,7 +2555,6 @@ void dump_comments(void);
 void format_list(char **s, int32 n);
 int32 get_a_filename(char *filename, char *wild);
 void list_em(char *wild);
-int32 read_eqn(void);
 int32 get_eqn(FILE *fptr);
 int32 compiler(char *bob, FILE *fptr);
 void list_upar(void);
