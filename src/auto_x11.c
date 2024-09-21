@@ -74,7 +74,7 @@ auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
 }
 
 void
-DLINE(double a, double b, double c, double d) {
+auto_x11_line_trans(double a, double b, double c, double d) {
     auto_x11_line(IXVal(a), IYVal(b), IXVal(c), IYVal(d));
     return;
 }

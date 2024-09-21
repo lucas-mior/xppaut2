@@ -1122,7 +1122,7 @@ auto_line(double x1i, double y1i, double x2i, double y2i) {
         x2d = x2_out;
         y1d = y1_out;
         y2d = y2_out;
-        DLINE(x1d, y1d, x2d, y2d);
+        auto_x11_line_trans(x1d, y1d, x2d, y2d);
     }
 
     set_scale(xmin, ymin, xmax, ymax);
