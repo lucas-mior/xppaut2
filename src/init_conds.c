@@ -86,7 +86,8 @@ static struct FileSel {
     Window w[FILESELNWIN];
     Window dir, home, start;
     Window fw, ww;
-    char wildtxt[256], filetxt[256];
+    char wildtxt[256];
+    char filetxt[256];
     int32 nwin, minwid, minhgt;
     int32 off, pos, hot;
     char title[256];
