@@ -96,7 +96,6 @@ extern int32 animation_on_the_fly;
 
 void ani_new_vcr(void);
 void ani_do_events(XEvent ev);
-double get_current_time(void);
 void update_ani_motion_stuff(int32 x, int32 y);
 void ani_buttonx(XEvent ev, int32 flag);
 void ani_button(Window w);

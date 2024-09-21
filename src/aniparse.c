@@ -167,6 +167,7 @@ static void create_vcr(char *name);
 static void ani_border(Window w, int32 i);
 static void destroy_vcr(void);
 static void ani_motion_stuff(Window w, int32 x, int32 y);
+static double get_current_time(void);
 
 /* Colors
   no color given is default black on white background or white on black
