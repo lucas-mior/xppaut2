@@ -63,7 +63,7 @@ adj2_init_trans(void) {
 }
 
 void
-dump_transpose_info(FILE *fp, int32 f) {
+adj2_dump_transpose_info(FILE *fp, int32 f) {
     char bob[256];
 
     if (f == READEM)
