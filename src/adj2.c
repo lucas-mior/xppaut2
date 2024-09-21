@@ -58,6 +58,7 @@ static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
                           double *yp, int32 node);
 static int32 step_eul(double **jac, int32 k, int32 k2, double *yold,
                       double *work, int32 node, double dt);
+static void norm_vec(double *v, double *mu, int32 n);
 
 void
 adj2_init_trans(void) {
@@ -617,7 +618,7 @@ adj2_do_liapunov(void) {
 }
 
 void
-alloc_liap(int32 n) {
+adj2_alloc_liap(int32 n) {
     if (LIAP_FLAG == 0)
         return;
     my_liap[0] = xmalloc(sizeof(*my_liap)*(usize)(n + 1));
@@ -628,7 +629,7 @@ alloc_liap(int32 n) {
 }
 
 void
-do_this_liaprun(int32 i, double p) {
+adj2_do_this_liaprun(int32 i, double p) {
     double liap;
     if (LIAP_FLAG == 0)
         return;

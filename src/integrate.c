@@ -799,7 +799,7 @@ do_range(double *x, int32 flag) {
         nit2 = range.steps2;
     if (range.type == PARAM)
         get_val(range.item, &temp);
-    alloc_liap(nit); /* make space */
+    adj2_alloc_liap(nit); /* make space */
     if (range.rtype > 0) {
         itype2 = range.type2;
         ivar2 = range.index2;
@@ -915,7 +915,7 @@ do_range(double *x, int32 flag) {
                                    bob);
             }
 
-            do_this_liaprun(i, p); /* sends parameter and index back */
+            adj2_do_this_liaprun(i, p); /* sends parameter and index back */
             if (storind > 2)
                 auto_freeze_it();
             if (array_plot_range == 1)
