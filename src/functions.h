@@ -2450,21 +2450,6 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 #define MAXVNAM 33
 #define MAXLINES 5000
 
-/*void break_up_list(char *rhs);
-void compile_em();
-void free_varinfo();
-void remove_blanks(char *s1);
-void read_a_line(FILE *fp,char *s);
-
-void subsk(char *big,char *new,int32 k,int32 flag);
-void free_comments();
-
-void add_comment(char *s);
-void init_varinfo();
-void add_varinfo(int32 type,char *lhs,char *rhs,int32 nargs,char
-args[MAXARG][NAMLEN+1]); void stor_internopts(char *s1);
-*/
-
 typedef struct FIXINFO {
     char *name, *value;
 } FIXINFO;
