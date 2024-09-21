@@ -131,11 +131,8 @@ make_eqn(void) {
 
 void
 strip_saveqn(void) {
-    int32 i;
-    int32 j, n;
-    for (i = 0; i < NLINES; i++) {
-        n = (int32)strlen(save_eqn[i]);
-        for (j = 0; j < n; j++)
+    for (int32 i = 0; i < NLINES; i++) {
+        for (int32 j = 0; j < (int32)strlen(save_eqn[i]); j++)
             if (save_eqn[i][j] < 32)
                 save_eqn[i][j] = 32;
     }
