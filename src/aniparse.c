@@ -171,6 +171,7 @@ static double get_current_time(void);
 static void update_ani_motion_stuff(int32 x, int32 y);
 static void ani_buttonx(XEvent ev, int32 flag);
 static void ani_button(Window w);
+static void ani_create_mpeg(void);
 
 /* Colors
   no color given is default black on white background or white on black
