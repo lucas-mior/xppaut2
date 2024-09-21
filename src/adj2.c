@@ -50,6 +50,7 @@ extern int32 NSYM, NSYM_START, NCON, NCON_START;
 extern int32 DCURY;
 
 static void h_back(void);
+static void adj_back(void);
 
 void
 adj2_init_trans(void) {
