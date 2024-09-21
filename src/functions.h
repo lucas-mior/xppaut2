@@ -67,8 +67,8 @@ void new_adjoint(void);
 #define MAX_GEVENTS 20  /* maximum variables you can change per grabbable */
 #define MAX_ANI_GRAB 50 /* max grabbable objects  */
 
-typedef struct { /* tasks have the form {name1=formula1;name2=formula2;...} */
-
+/* tasks have the form {name1=formula1;name2=formula2;...} */
+typedef struct {
     double vrhs[MAX_GEVENTS];
     char lhsname[MAX_GEVENTS][11];
     int32 lhsivar[MAX_GEVENTS];
