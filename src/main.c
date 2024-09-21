@@ -216,7 +216,7 @@ my_abort(void) {
 void
 do_main(int32 argc, char **argv) {
     char myfile[XPP_MAX_NAME];
-    char pptitle[80];
+    char pptitle[sizeof(this_file) + 40];
     uint32 min_wid = 450, min_hgt = 360;
     OptionsSet *tempNS;
     /* Track which options have not been set already */
