@@ -375,7 +375,7 @@ adj2_new_adjoint(void) {
         my_adj[i] = xmalloc(sizeof(*my_adj)*(usize)adj_len);
     for (int32 i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
-    if (adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
+    if (adj2_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
                 ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
         adj_back();
@@ -402,7 +402,7 @@ adj2_new_adjoint(void) {
  *  t in the first column.  */
 
 int32
-adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
+adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
