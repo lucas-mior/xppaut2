@@ -27,7 +27,7 @@ extern BcStruct my_bc[MAX_ODE];
 
 int32 set_type = 0;
 
-extern FIXINFO fixinfo[MAX_ODE];
+extern FixInfo fixinfo[MAX_ODE];
 extern int32 FIX_VAR, NFUN;
 
 extern int32 NJMP, NMESH, METHOD, NODE, POIMAP, POIVAR, POISGN, SOS, INFLAG,

@@ -2450,9 +2450,9 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 #define MAXVNAM 33
 #define MAXLINES 5000
 
-typedef struct FIXINFO {
+typedef struct FixInfo {
     char *name, *value;
-} FIXINFO;
+} FixInfo;
 
 int32 make_eqn(void);
 void strip_saveqn(void);

@@ -102,7 +102,7 @@ char aux_names[MAX_ODE][12];
 int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0;
 int32 NUMMARK = 0, NUMAUX = 0, NUMVOLT = 0, NUMSOL = 0;
 
-FIXINFO fixinfo[MAX_ODE];
+FixInfo fixinfo[MAX_ODE];
 
 extern FILEINFO my_ff;
 
