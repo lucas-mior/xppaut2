@@ -56,6 +56,8 @@ static int32 make_h(double **orb, double **adj,
                     int32 nt, int32 node, int32 silent);
 static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
                           double *yp, int32 node);
+static int32 step_eul(double **jac, int32 k, int32 k2, double *yold,
+                      double *work, int32 node, double dt);
 
 void
 adj2_init_trans(void) {

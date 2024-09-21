@@ -34,9 +34,7 @@ void adj2_new_h_fun(int32 silent);
 void adj2_dump_h_stuff(FILE *fp, int32 f);
 void adj2_new_adjoint(void);
 int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
-              double minerr, int32 maxit, int32 node);
-int32 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
-               int32 node, double dt);
+                   double minerr, int32 maxit, int32 node);
 void do_liapunov(void);
 void alloc_liap(int32 n);
 void do_this_liaprun(int32 i, double p);
