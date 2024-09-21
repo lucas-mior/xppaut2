@@ -230,7 +230,7 @@ typedef struct {
     int32 type;
 } ArrayPlot;
 
-extern int32 aplot_range;
+extern int32 array_plot_range;
 
 void close_aplot_files(void);
 void draw_one_array_plot(char *);

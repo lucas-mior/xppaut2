@@ -918,7 +918,7 @@ do_range(double *x, int32 flag) {
             do_this_liaprun(i, p); /* sends parameter and index back */
             if (storind > 2)
                 auto_freeze_it();
-            if (aplot_range == 1)
+            if (array_plot_range == 1)
                 draw_one_array_plot(bob);
 
             if (res == 1 || STOCH_FLAG) {
@@ -930,8 +930,8 @@ do_range(double *x, int32 flag) {
             }
         }
     }
-    if (aplot_range == 1) {
-        aplot_range = 0;
+    if (array_plot_range == 1) {
+        array_plot_range = 0;
         close_aplot_files();
     }
     if (oldic == 1)

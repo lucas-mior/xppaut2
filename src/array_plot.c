@@ -61,15 +61,15 @@ extern Display *display;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, color_total,
     screen;
 extern GC gc, small_gc, gc_graph;
-int32 aplot_range;
-static int32 aplot_range_count = 0;
-static char aplot_range_stem[256] = "rangearray";
-static int32 aplot_still = 1, aplot_tag = 0;
-static ArrayPlot aplot;
+int32 array_plot_range;
+static int32 array_plot_range_count = 0;
+static char array_plot_range_stem[256] = "rangearray";
+static int32 array_plot_still = 1, array_plot_tag = 0;
+static ArrayPlot array_plot;
 extern Window draw_win;
 static int32 plot3d_auto_redraw = 0;
 static FILE *ap_fp;
-static GC aplot_gc;
+static GC array_plot_gc;
 static int32 first_aplot_press;
 
 extern double MyData[MAX_ODE];
@@ -81,14 +81,14 @@ void
 draw_one_array_plot(char *bob) {
     char filename[300];
 
-    redraw_aplot(aplot);
-    if (aplot_tag)
+    redraw_aplot(array_plot);
+    if (array_plot_tag)
         tag_aplot(bob);
     XFlush(display);
-    snprintf(filename, sizeof(filename), "%s.%d.gif", aplot_range_stem,
-             aplot_range_count);
-    gif_aplot_all(filename, aplot_still);
-    aplot_range_count++;
+    snprintf(filename, sizeof(filename), "%s.%d.gif", array_plot_range_stem,
+             array_plot_range_count);
+    gif_aplot_all(filename, array_plot_still);
+    array_plot_range_count++;
     return;
 }
 
@@ -98,16 +98,16 @@ set_up_aplot_range(void) {
     char values[3][MAX_LEN_SBOX];
     int32 status;
     double *x;
-    strncpy(values[0], aplot_range_stem, sizeof(values[0]));
-    snprintf(values[1], sizeof(values[1]), "%d", aplot_still);
-    snprintf(values[2], sizeof(values[2]), "%d", aplot_tag);
+    strncpy(values[0], array_plot_range_stem, sizeof(values[0]));
+    snprintf(values[1], sizeof(values[1]), "%d", array_plot_still);
+    snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
     status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
     if (status != 0) {
-        snprintf(aplot_range_stem, sizeof(aplot_range_stem), "%s", values[0]);
-        aplot_still = atoi(values[1]);
-        aplot_tag = atoi(values[2]);
-        aplot_range = 1;
-        aplot_range_count = 0;
+        snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s", values[0]);
+        array_plot_still = atoi(values[1]);
+        array_plot_tag = atoi(values[2]);
+        array_plot_range = 1;
+        array_plot_range_count = 0;
         x = &MyData[0];
         do_range(x, 0);
     }
@@ -117,10 +117,10 @@ set_up_aplot_range(void) {
 static void
 fit_aplot(void) {
     double zmax, zmin;
-    scale_aplot(&aplot, &zmax, &zmin);
-    aplot.zmin = zmin;
-    aplot.zmax = zmax;
-    redraw_aplot(aplot);
+    scale_aplot(&array_plot, &zmax, &zmin);
+    array_plot.zmin = zmin;
+    array_plot.zmax = zmax;
+    redraw_aplot(array_plot);
     return;
 }
 
@@ -136,30 +136,30 @@ optimize_aplot(int32 *plist) {
         return;
     make_my_aplot("Array!");
 
-    aplot.index0 = i0 + 1;
-    strcpy(aplot.name, uvar_names[i0]);
-    aplot.nacross = ncol;
+    array_plot.index0 = i0 + 1;
+    strcpy(array_plot.name, uvar_names[i0]);
+    array_plot.nacross = ncol;
     nr = 201;
     if (nrows < nr)
         nr = nrows;
-    aplot.ndown = nr;
+    array_plot.ndown = nr;
     ns = nrows / nr;
-    aplot.nskip = ns;
-    aplot.ncskip = 1;
-    scale_aplot(&aplot, &zmax, &zmin);
-    aplot.zmin = zmin;
-    aplot.zmax = zmax;
-    aplot.plotdef = 1;
-    reset_aplot_axes(aplot);
-    redraw_aplot(aplot);
+    array_plot.nskip = ns;
+    array_plot.ncskip = 1;
+    scale_aplot(&array_plot, &zmax, &zmin);
+    array_plot.zmin = zmin;
+    array_plot.zmax = zmax;
+    array_plot.plotdef = 1;
+    reset_aplot_axes(array_plot);
+    redraw_aplot(array_plot);
     return;
 }
 
 void
 make_my_aplot(char *name) {
-    if (aplot.alive == 1)
+    if (array_plot.alive == 1)
         return;
-    create_array_plot(&aplot, name, name);
+    create_array_plot(&array_plot, name, name);
     return;
 }
 
@@ -219,53 +219,53 @@ init_array_plot(ArrayPlot *ap) {
 
 void
 expose_aplot(Window w) {
-    if (aplot.alive)
-        display_aplot(w, aplot);
+    if (array_plot.alive)
+        display_aplot(w, array_plot);
     return;
 }
 
 void
 do_array_plot_events(XEvent ev) {
     int32 x, y;
-    if (aplot.alive == 0)
+    if (array_plot.alive == 0)
         return;
     switch (ev.type) {
         /* case Expose:
          case MapNotify:
-           display_aplot(ev.xany.window,aplot);
+           display_aplot(ev.xany.window,array_plot);
            break;
          */
     case MotionNotify:
-        if (ev.xany.window == aplot.wplot) {
+        if (ev.xany.window == array_plot.wplot) {
             /*printf("%d\n",ev.xmotion.y-first_aplot_press); */
-            aplot.nstart = aplot.nstart - ev.xmotion.y + first_aplot_press;
-            if (aplot.nstart < 0)
-                aplot.nstart = 0;
-            redraw_aplot(aplot);
+            array_plot.nstart = array_plot.nstart - ev.xmotion.y + first_aplot_press;
+            if (array_plot.nstart < 0)
+                array_plot.nstart = 0;
+            redraw_aplot(array_plot);
         }
         break;
     case ConfigureNotify:
-        if (ev.xconfigure.window != aplot.base)
+        if (ev.xconfigure.window != array_plot.base)
             return;
         x = ev.xconfigure.width;
         y = ev.xconfigure.height;
-        aplot.width = x;
-        aplot.height = y;
-        aplot.ploth = y - 55;
-        aplot.plotw = x - 30 - 10*DCURXs;
-        XMoveResizeWindow(display, aplot.wplot, 20 + 10*DCURXs, 45,
-                          (uint)aplot.plotw, (uint)aplot.ploth);
+        array_plot.width = x;
+        array_plot.height = y;
+        array_plot.ploth = y - 55;
+        array_plot.plotw = x - 30 - 10*DCURXs;
+        XMoveResizeWindow(display, array_plot.wplot, 20 + 10*DCURXs, 45,
+                          (uint)array_plot.plotw, (uint)array_plot.ploth);
         break;
     case EnterNotify:
-        wborder(ev.xexpose.window, 2, aplot);
+        wborder(ev.xexpose.window, 2, array_plot);
         break;
     case LeaveNotify:
-        wborder(ev.xexpose.window, 1, aplot);
+        wborder(ev.xexpose.window, 1, array_plot);
         break;
     case ButtonPress:
-        if (ev.xany.window == aplot.wplot)
+        if (ev.xany.window == array_plot.wplot)
             first_aplot_press = ev.xbutton.y;
-        /*apbutton(ev.xbutton.window,aplot);*/
+        /*apbutton(ev.xbutton.window,array_plot);*/
         apbutton(ev.xbutton.window);
         break;
     default:
@@ -286,16 +286,16 @@ wborder(Window w, int32 i, ArrayPlot ap) {
 
 void
 destroy_aplot(void) {
-    aplot.alive = 0;
+    array_plot.alive = 0;
     waitasec(ClickTime);
-    XDestroySubwindows(display, aplot.base);
-    XDestroyWindow(display, aplot.base);
+    XDestroySubwindows(display, array_plot.base);
+    XDestroyWindow(display, array_plot.base);
     return;
 }
 
 void
 init_my_aplot(void) {
-    init_array_plot(&aplot);
+    init_array_plot(&array_plot);
     return;
 }
 
@@ -347,7 +347,7 @@ create_array_plot(ArrayPlot *ap, char *wname, char *iname) {
     ap->plotw = width - 30 - 10*DCURXs;
     ap->ploth = height - 55;
     ap->alive = 1;
-    aplot_gc = XCreateGC(display, ap->wplot, valuemask, &values);
+    array_plot_gc = XCreateGC(display, ap->wplot, valuemask, &values);
     return;
 }
 
@@ -403,19 +403,19 @@ print_aplot(ArrayPlot *ap) {
 
 void
 apbutton(Window w) {
-    if (w == aplot.wedit)
-        editaplot(&aplot);
-    if (w == aplot.wfit)
+    if (w == array_plot.wedit)
+        editaplot(&array_plot);
+    if (w == array_plot.wfit)
         fit_aplot();
-    if (w == aplot.wrange)
+    if (w == array_plot.wrange)
         set_up_aplot_range();
-    if (w == aplot.wredraw)
-        redraw_aplot(aplot);
-    if (w == aplot.wprint)
-        print_aplot(&aplot);
-    if (w == aplot.wclose)
+    if (w == array_plot.wredraw)
+        redraw_aplot(array_plot);
+    if (w == array_plot.wprint)
+        print_aplot(&array_plot);
+    if (w == array_plot.wclose)
         destroy_aplot();
-    if (w == aplot.wgif)
+    if (w == array_plot.wgif)
         gif_aplot();
     return;
 }
@@ -441,7 +441,7 @@ draw_aplot(ArrayPlot ap) {
 
 void
 edit_aplot(void) {
-    editaplot(&aplot);
+    editaplot(&array_plot);
     return;
 }
 
@@ -500,13 +500,13 @@ dump_aplot(FILE *fp, int32 f) {
         fgets(bob, 255, fp);
     else
         fprintf(fp, "# Array plot stuff\n");
-    io_string(aplot.name, 11, fp, f);
-    io_int(&aplot.nacross, fp, f, "NCols");
-    io_int(&aplot.nstart, fp, f, "Row 1");
-    io_int(&aplot.ndown, fp, f, "NRows");
-    io_int(&aplot.nskip, fp, f, "RowSkip");
-    io_double(&aplot.zmin, fp, f, "Zmin");
-    io_double(&aplot.zmax, fp, f, "Zmax");
+    io_string(array_plot.name, 11, fp, f);
+    io_int(&array_plot.nacross, fp, f, "NCols");
+    io_int(&array_plot.nstart, fp, f, "Row 1");
+    io_int(&array_plot.ndown, fp, f, "NRows");
+    io_int(&array_plot.nskip, fp, f, "RowSkip");
+    io_double(&array_plot.zmin, fp, f, "Zmin");
+    io_double(&array_plot.zmax, fp, f, "Zmax");
     return;
 }
 
@@ -559,7 +559,7 @@ editaplot(ArrayPlot *ap) {
 
 void
 close_aplot_files(void) {
-    if (aplot_still == 0)
+    if (array_plot_still == 0)
         fclose(ap_fp);
     return;
 }
@@ -572,18 +572,18 @@ gif_aplot_all(char *filename, int32 still) {
     Window root;
     /* FILE *fp; */
     if (still == 0) {
-        if (aplot_range_count == 0) {
+        if (array_plot_range_count == 0) {
             if ((ap_fp = fopen(filename, "w")) == NULL) {
                 err_msg("Cannot open file ");
                 return;
             }
         }
-        XGetGeometry(display, aplot.wplot, &root, &x, &y, &w, &h, &bw, &d);
+        XGetGeometry(display, array_plot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
-        XCopyArea(display, aplot.wplot, xi, aplot_gc, 0, 0, w, h, 0, 0);
+        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0, 0);
 
-        add_ani_gif(xi, ap_fp, aplot_range_count);
+        add_ani_gif(xi, ap_fp, array_plot_range_count);
         XFreePixmap(display, xi);
         return;
     }
@@ -594,10 +594,10 @@ gif_aplot_all(char *filename, int32 still) {
             return;
         }
 
-        XGetGeometry(display, aplot.wplot, &root, &x, &y, &w, &h, &bw, &d);
+        XGetGeometry(display, array_plot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
-        XCopyArea(display, aplot.wplot, xi, aplot_gc, 0, 0, w, h, 0, 0);
+        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0, 0);
         screen_to_gif(xi, ap_fp);
         fclose(ap_fp);
         XFreePixmap(display, xi);
@@ -681,7 +681,7 @@ redraw_aplot(ArrayPlot ap) {
                 if (colr > cmax)
                     colr = cmax;
                 set_acolor(colr);
-                XFillRectangle(display, w, aplot_gc, ix, iy, (uint)delx,
+                XFillRectangle(display, w, array_plot_gc, ix, iy, (uint)delx,
                                (uint)dely);
             }
         }
@@ -693,7 +693,7 @@ redraw_aplot(ArrayPlot ap) {
 void
 tag_aplot(char *bob) {
     set_color(0);
-    XDrawString(display, aplot.wplot, small_gc, 0, CURY_OFFs, bob,
+    XDrawString(display, array_plot.wplot, small_gc, 0, CURY_OFFs, bob,
                 (int32)strlen(bob));
     return;
 }
@@ -701,14 +701,14 @@ tag_aplot(char *bob) {
 void
 set_acolor(int32 col) {
     if (col < 0)
-        XSetForeground(display, aplot_gc, GrBack);
+        XSetForeground(display, array_plot_gc, GrBack);
     if (col == 0)
-        XSetForeground(display, aplot_gc, GrFore);
+        XSetForeground(display, array_plot_gc, GrFore);
     else {
         if (COLOR)
-            XSetForeground(display, aplot_gc, (uint)ColorMap(col));
+            XSetForeground(display, array_plot_gc, (uint)ColorMap(col));
         else
-            XSetForeground(display, aplot_gc, GrFore);
+            XSetForeground(display, array_plot_gc, GrFore);
     }
     return;
 }
