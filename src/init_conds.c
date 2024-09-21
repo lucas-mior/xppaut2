@@ -94,6 +94,20 @@ static struct FileSel {
     char title[256];
 } filesel;
 
+typedef struct SCROLL_LIST {
+    int32 pos, n, n0, npos;
+    int32 ihot, twid;
+    int32 max;
+    char **v;
+    Window side, up, down, text;
+} SCROLL_LIST;
+static void create_scroll_list(Window base, int32 x, int32 y, int32 width,
+                        int32 height, SCROLL_LIST *sl);
+static void free_scroll_list(SCROLL_LIST *sl);
+static void add_scroll_item(char *v, SCROLL_LIST *sl);
+static int32 expose_scroll_list(Window w, SCROLL_LIST sl);
+static void redraw_scroll_list(SCROLL_LIST sl);
+
 static void display_file_sel(struct FileSel f, Window w);
 
 extern FILEINFO my_ff;

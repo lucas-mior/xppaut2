@@ -2754,14 +2754,6 @@ void post_process_stuff(void);
 #include <X11/Xlib.h>
 #include "read_dir.h"
 
-typedef struct SCROLL_LIST {
-    int32 pos, n, n0, npos;
-    int32 ihot, twid;
-    int32 max;
-    char **v;
-    Window side, up, down, text;
-} SCROLL_LIST;
-
 typedef struct PAR_SLIDER {
     int32 use, pos, l;
     char parname[20];
@@ -2799,12 +2791,6 @@ typedef struct BoxList {
     int32 mc, *off, *pos;
 } BoxList;
 
-void create_scroll_list(Window base, int32 x, int32 y, int32 width,
-                        int32 height, SCROLL_LIST *sl);
-void free_scroll_list(SCROLL_LIST *sl);
-void add_scroll_item(char *v, SCROLL_LIST *sl);
-int32 expose_scroll_list(Window w, SCROLL_LIST sl);
-void redraw_scroll_list(SCROLL_LIST sl);
 void c_hints(void);
 void clone_ode(void);
 int32 find_user_name(int32 type, char *oname);
