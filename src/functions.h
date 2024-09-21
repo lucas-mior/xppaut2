@@ -78,14 +78,12 @@ typedef struct MpegSave {
     int32 aviflag, filflag;
 } MpegSave;
 
-typedef struct Comet {
-    int32 n;
-    int32 *x, *y, *col;
-    int32 i;
-} Comet;
-
 typedef struct AniCom {
-    Comet c;
+    struct {
+        int32 n;
+        int32 *x, *y, *col;
+        int32 i;
+    } c;
     int32 type, flag;
     int32 *col, *x1, *y1, *x2, *y2, *who;
     double zcol, zx1, zy1, zx2, zy2, zrad, zval;
