@@ -163,6 +163,8 @@ static GC ani_gc;
 extern int32 use_ani_file;
 extern char anifile[256];
 
+static void create_vcr(char *name);
+
 /* Colors
   no color given is default black on white background or white on black
   $name is named color -- red ... purple
