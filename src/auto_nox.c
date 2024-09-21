@@ -339,25 +339,25 @@ draw_bif_axes(void) {
     auto_x11_line(x1, y1, x0, y1);
     auto_x11_line(x0, y1, x0, y0);
     sprintf(junk, "%g", Auto.xmin);
-    ATEXT(x0, y1 + DCURYs + 2, junk);
+    auto_x11_text(x0, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.xmax);
     ii = (int32)strlen(junk)*DCURXs;
-    ATEXT(x1 - ii, y1 + DCURYs + 2, junk);
+    auto_x11_text(x1 - ii, y1 + DCURYs + 2, junk);
     sprintf(junk, "%g", Auto.ymin);
     ii = (int32)strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0)
         i0 = 0;
-    ATEXT(i0*DCURXs, y1, junk);
+    auto_x11_text(i0*DCURXs, y1, junk);
     sprintf(junk, "%g", Auto.ymax);
     ii = (int32)strlen(junk);
     i0 = 9 - ii;
     if (i0 < 0)
         i0 = 0;
-    ATEXT(i0*DCURXs, y0 + DCURYs, junk);
+    auto_x11_text(i0*DCURXs, y0 + DCURYs, junk);
     get_auto_str(xlabel, ylabel);
-    ATEXT((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
-    ATEXT(10*DCURXs, DCURYs, ylabel);
+    auto_x11_text((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
+    auto_x11_text(10*DCURXs, DCURYs, ylabel);
     refreshdisplay();
     return;
 }
@@ -1258,7 +1258,7 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
                     auto_x11_line(ix, iy2 - 4, ix, iy2 + 4);
                 }
                 if (chk_auto_bnds(ix, iy1))
-                    ATEXT(ix + 8, iy1 + 8, bob);
+                    auto_x11_text(ix + 8, iy1 + 8, bob);
             }
         }
     }

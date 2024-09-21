@@ -80,7 +80,7 @@ auto_x11_line_trans(double a, double b, double c, double d) {
 }
 
 void
-ATEXT(int32 a, int32 b, char *c) {
+auto_x11_text(int32 a, int32 b, char *c) {
     XDrawString(display, AutoW.canvas, small_gc, (a), (b), (c), (int)strlen(c));
     return;
 }

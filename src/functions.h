@@ -299,7 +299,7 @@ extern int32 mark_ixs, mark_ixe, mark_iys, mark_iye;
 
 void auto_x11_line(int32 a, int32 b, int32 c, int32 d);
 void auto_x11_line_trans(double a, double b, double c, double d);
-void ATEXT(int32 a, int32 b, char *c);
+void auto_x11_text(int32 a, int32 b, char *c);
 void clr_stab(void);
 void auto_stab_line(int32 x, int32 y, int32 xp, int32 yp);
 void clear_auto_plot(void);
