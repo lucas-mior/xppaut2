@@ -1462,37 +1462,37 @@ initialize_box(void) {
 }
 
 void
-resize_par_box(Window win) {
+resize_par_box(Window window) {
     uint32 h, w;
     int32 nwin = 0;
     int32 ok = 0;
     BoxList *b = NULL;
 
-    if (ICBox.xuse == 1 && win == ICBox.base) {
+    if (ICBox.xuse == 1 && window == ICBox.base) {
         ok = 1;
         b = &ICBox;
-        get_new_size(win, &w, &h);
+        get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
 
-    if (ParamBox.xuse == 1 && win == ParamBox.base) {
+    if (ParamBox.xuse == 1 && window == ParamBox.base) {
         ok = 2;
         b = &ParamBox;
         waitasec(ClickTime);
 
-        get_new_size(win, &w, &h);
+        get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
-    if (BCBox.xuse == 1 && win == BCBox.base) {
+    if (BCBox.xuse == 1 && window == BCBox.base) {
         ok = 3;
         b = &BCBox;
-        get_new_size(win, &w, &h);
+        get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
-    if (DelayBox.xuse == 1 && win == DelayBox.base) {
+    if (DelayBox.xuse == 1 && window == DelayBox.base) {
         ok = 4;
         b = &DelayBox;
-        get_new_size(win, &w, &h);
+        get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (ok == 0)
@@ -2349,7 +2349,7 @@ set_default_params(void) {
 }
 
 void
-draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc)
+draw_editable(Window window, char *string, int32 off, int32 cursor, int32 mc)
 /* cursor position in letters to the left */
 /* first character of string is off */
 {
@@ -2358,12 +2358,12 @@ draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc)
     Window focus;
     if (l > mc)
         l = mc;
-    XClearWindow(display, win);
-    XDrawString(display, win, small_gc, 0, CURY_OFF, string + off, l);
+    XClearWindow(display, window);
+    XDrawString(display, window, small_gc, 0, CURY_OFF, string + off, l);
     XGetInputFocus(display, &focus, &rev);
-    if (focus == win) {
+    if (focus == window) {
         cp = DCURXs*(cursor - off); /* must be fixed */
-        put_edit_cursor(win, cp);
+        put_edit_cursor(window, cp);
     }
     return;
 }
@@ -2379,7 +2379,7 @@ put_edit_cursor(Window window, int32 pos) {
 
 int32
 edit_bitem(BoxList *b, int32 i, int32 ch) {
-    Window win = b->we[i];
+    Window window = b->we[i];
     int32 i0 = i + b->n0;
     char *string = b->value[i0];
     int32 off = b->off[i0];
@@ -2493,7 +2493,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
 
     b->off[i0] = off;
     b->pos[i0] = pos;
-    draw_editable(win, string, off, pos, mc);
+    draw_editable(window, string, off, pos, mc);
     return 0;
 }
 

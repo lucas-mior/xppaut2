@@ -725,7 +725,7 @@ make_new_browser(void) {
 
 Window
 br_button(Window root, int32 row, int32 col, int32 iflag) {
-    Window win;
+    Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
     int32 width = 8*DCURXs;
@@ -735,14 +735,14 @@ br_button(Window root, int32 row, int32 col, int32 iflag) {
         dcol = 14*DCURXs;
     x = dcol*col + 4;
     y = drow*row + 4;
-    win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
-    XSelectInput(display, win, MYMASK);
-    return win;
+    window = make_window(root, x, y, width + 5, DCURYs + 1, 1);
+    XSelectInput(display, window, MYMASK);
+    return window;
 }
 
 Window
 br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
-    Window win;
+    Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
     int32 width = (int32)strlen(name)*DCURXs;
@@ -753,9 +753,9 @@ br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
         dcol = 14*DCURXs;
     x = dcol*col + 4;
     y = drow*row + 4;
-    win = make_window(root, x, y, width + 5, DCURYs + 1, 1);
-    XSelectInput(display, win, MYMASK);
-    return win;
+    window = make_window(root, x, y, width + 5, DCURYs + 1, 1);
+    XSelectInput(display, window, MYMASK);
+    return window;
 }
 
 void
@@ -882,10 +882,10 @@ my_browse_keypress(XEvent ev, int32 *used) {
 }
 
 void
-resize_my_browser(Window win) {
+resize_my_browser(Window window) {
     if (my_browser.xflag == 0)
         return;
-    resize_browser(win, &my_browser);
+    resize_browser(window, &my_browser);
 }
 
 void
@@ -899,18 +899,18 @@ expose_browser(XEvent ev, Browser b) {
 }
 
 void
-resize_browser(Window win, Browser *b) {
+resize_browser(Window window, Browser *b) {
     uint32 w, h, hreal;
     int32 dcol = 17*DCURXs, drow = DCURYs + 6;
     int32 i0;
     int32 newrow, newcol;
     if (my_browser.xflag == 0)
         return;
-    if (win != b->base)
+    if (window != b->base)
         return;
     /* w=ev.xconfigure.width;
     h=ev.xconfigure.height; */
-    get_new_size(win, &w, &h);
+    get_new_size(window, &w, &h);
     hreal = h;
 
     /* first make sure the size is is ok  and an integral
