@@ -471,7 +471,7 @@ display_file_sel(FILESEL f, Window w) {
     uint32 cbwid;
     uint32 cdepth;
 
-    char t[2*sizeof(f.title) + 1];
+    char t[sizeof(f.title) + sizeof(cur_dir) + sizeof(f.wildtxt) + 1];
     int32 hgt = DCURYs + 4;
 
     XGetGeometry(display, f.base, &root, &xloc, &yloc, &cwid, &chgt, &cbwid,

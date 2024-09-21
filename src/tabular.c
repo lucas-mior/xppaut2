@@ -378,7 +378,7 @@ load_table(char *filename, int32 index) {
     double xlo, xhi;
     FILE *fp;
     char filename2[512], ch;
-    char error[sizeof(filename2) + sizeof(cur_dir)];
+    char error[sizeof(filename2) + sizeof(cur_dir) + 20];
     int32 n = (int32)strlen(filename);
     int32 j = 0, flag = 0;
     for (i = 0; i < n; i++) {

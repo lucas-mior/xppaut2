@@ -90,7 +90,7 @@ typedef double (*Function2)(double *in, double *out, int32 nin, int32 nout,
 void
 get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
-    char sofullname[256];
+    char sofullname[sizeof(cur_dir) + 2];
     char *error;
     if (dll_loaded == 1) {
         ((Function1)function)(n, ivar, con, var, wgt, ydot);
