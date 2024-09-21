@@ -51,7 +51,7 @@ extern int32 DCURY;
 
 static void h_back(void);
 static void adj_back(void);
-static void adjoint_parameters(void);
+static void adj2_adjoint_parameters(void);
 
 void
 adj2_init_trans(void) {
@@ -229,7 +229,7 @@ make_adj_com(int32 com) {
         h_back();
         break;
     case 'p':
-        adjoint_parameters();
+        adj2_adjoint_parameters();
         break;
     case 'r':
         AdjRange = 1;
@@ -241,7 +241,7 @@ make_adj_com(int32 com) {
 }
 
 void
-adjoint_parameters(void) {
+adj2_adjoint_parameters(void) {
     new_int("Maximum iterates :", &ADJ_MAXIT);
     new_float("Adjoint error tolerance :", &ADJ_ERR);
     return;
