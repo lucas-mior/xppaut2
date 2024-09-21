@@ -52,12 +52,12 @@ extern int32 DCURY;
 static void adj2_h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);
-static int32 make_h(double **orb, double **adj,
-                    int32 nt, int32 node, int32 silent);
+static int32 make_h(double **orb, double **adj, int32 nt, int32 node,
+                    int32 silent);
 static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
                           double *yp, int32 node);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
-                      double *work, int32 node, double dt);
+                           double *work, int32 node, double dt);
 static void adj2_norm_vec(double *v, double *mu, int32 n);
 static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
 
@@ -382,7 +382,7 @@ adj2_new_adjoint(void) {
     for (int32 i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
     if (adj2_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
-                ADJ_MAXIT, NODE)) {
+                     ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
         adj_back();
     }
@@ -409,7 +409,7 @@ adj2_new_adjoint(void) {
 
 int32
 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
-        double minerr, int32 maxit, int32 node) {
+             double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime, *work;
     double t, prod, del;
@@ -544,7 +544,7 @@ bye:
 
 void
 adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
-         int32 node) {
+              int32 node) {
     for (int32 j = 0; j < node; j++) {
         yp[j] = 0.0;
         for (int32 i = 0; i < node; i++)
@@ -557,7 +557,7 @@ adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
 
 int32
 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
-         int32 node, double dt) {
+              int32 node, double dt) {
     int32 j, i, n2 = node*node, info;
     int32 ipvt[MAX_ODE];
     double *mat, *fold;

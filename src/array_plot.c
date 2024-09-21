@@ -103,7 +103,8 @@ set_up_aplot_range(void) {
     snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
     status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
     if (status != 0) {
-        snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s", values[0]);
+        snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s",
+                 values[0]);
         array_plot_still = atoi(values[1]);
         array_plot_tag = atoi(values[2]);
         array_plot_range = 1;
@@ -238,7 +239,8 @@ do_array_plot_events(XEvent ev) {
     case MotionNotify:
         if (ev.xany.window == array_plot.wplot) {
             /*printf("%d\n",ev.xmotion.y-first_aplot_press); */
-            array_plot.nstart = array_plot.nstart - ev.xmotion.y + first_aplot_press;
+            array_plot.nstart =
+                array_plot.nstart - ev.xmotion.y + first_aplot_press;
             if (array_plot.nstart < 0)
                 array_plot.nstart = 0;
             redraw_aplot(array_plot);
@@ -581,7 +583,8 @@ gif_aplot_all(char *filename, int32 still) {
         XGetGeometry(display, array_plot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
-        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0, 0);
+        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0,
+                  0);
 
         add_ani_gif(xi, ap_fp, array_plot_range_count);
         XFreePixmap(display, xi);
@@ -597,7 +600,8 @@ gif_aplot_all(char *filename, int32 still) {
         XGetGeometry(display, array_plot.wplot, &root, &x, &y, &w, &h, &bw, &d);
         xi = XCreatePixmap(display, RootWindow(display, screen), w, h,
                            (uint)DefaultDepth(display, screen));
-        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0, 0);
+        XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0,
+                  0);
         screen_to_gif(xi, ap_fp);
         fclose(ap_fp);
         XFreePixmap(display, xi);
