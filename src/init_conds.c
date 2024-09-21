@@ -82,8 +82,9 @@ extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
 
 static struct FileSel {
     int32 n, n0, here;
-    Window base, cancel, ok, up, dn, pgup, pgdn, file, wild, w[FILESELNWIN],
-        dir, home, start;
+    Window base, cancel, ok, up, dn, pgup, pgdn, file, wild;
+    Window w[FILESELNWIN];
+    Window dir, home, start;
     Window fw, ww;
     char wildtxt[256], filetxt[256];
     int32 nwin, minwid, minhgt;
