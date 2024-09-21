@@ -55,7 +55,7 @@ DLFUN dlf;
 #include <dlfcn.h>
 
 void *dlhandle;
-void *fun;
+void *function;
 int32 dll_loaded = 0;
 void
 auto_load_dll(void) {
@@ -95,7 +95,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
     char sofullname[256];
     char *error;
     if (dll_loaded == 1) {
-        ((Function1)fun)(n, ivar, con, var, wgt, ydot);
+        ((Function1)function)(n, ivar, con, var, wgt, ydot);
         return;
     }
     if (dll_loaded == -1)
@@ -110,7 +110,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
         return;
     }
     dlerror();
-    *(void **)(&fun) = dlsym(dlhandle, sofun);
+    *(void **)(&function) = dlsym(dlhandle, sofun);
     error = dlerror();
     if (error != NULL) {
         plintf("Problem with function.. %s\n", sofun);
@@ -118,7 +118,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
         return;
     }
     dll_loaded = 1;
-    ((Function1)fun)(n, ivar, con, var, wgt, ydot);
+    ((Function1)function)(n, ivar, con, var, wgt, ydot);
     return;
 }
 
@@ -145,7 +145,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
         /*Following is the new C99 standard way to do this.
         See the Example in the dlsym man page
         for detailed explanation...*/
-        *(void **)(&fun) = dlsym(dlhandle, dlf.fun);
+        *(void **)(&function) = dlsym(dlhandle, dlf.fun);
         error = dlerror();
         if (error != NULL) {
             plintf("Problem with function..\n");
@@ -154,7 +154,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
         }
         dlf.loaded = 1;
     } /* Ok we have a nice function */
-    ((Function2)fun)(in, out, nin, nout, v, c);
+    ((Function2)function)(in, out, nin, nout, v, c);
     return 1;
 }
 #else
