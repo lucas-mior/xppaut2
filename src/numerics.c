@@ -409,7 +409,7 @@ compute_one_period(double period, double *x, char *name) {
         fclose(fp);
         adj_data_back();
     }
-    new_h_fun(1);
+    adj2_new_h_fun(1);
     snprintf(filename, sizeof(filename), "hfun.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {

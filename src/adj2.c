@@ -217,7 +217,7 @@ make_adj_com(int32 com) {
         new_adjoint();
         break;
     case 'm':
-        new_h_fun(0);
+        adj2_new_h_fun(0);
         break;
     case 'a':
         adj_back();
@@ -248,7 +248,7 @@ adj2_adjoint_parameters(void) {
 }
 
 void
-new_h_fun(int32 silent) {
+adj2_new_h_fun(int32 silent) {
     int32 n = 2;
     if (!ADJ_HERE) {
         err_msg("Must compute adjoint first!");
