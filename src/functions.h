@@ -35,8 +35,6 @@ void adj2_dump_h_stuff(FILE *fp, int32 f);
 void adj2_new_adjoint(void);
 int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
               double minerr, int32 maxit, int32 node);
-void eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
-              int32 node);
 int32 rk_interp(double **jac, int32 k1, int32 k2, double *y, double *work,
                 int32 neq, double del, int32 nstep);
 int32 step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,

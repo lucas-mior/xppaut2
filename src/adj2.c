@@ -54,6 +54,8 @@ static void adj_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 make_h(double **orb, double **adj,
                     int32 nt, int32 node, int32 silent);
+static void eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
+                     double *yp, int32 node);
 
 void
 adj2_init_trans(void) {
