@@ -289,7 +289,7 @@ adj2_new_h_fun(int32 silent) {
 }
 
 void
-dump_h_stuff(FILE *fp, int32 f) {
+adj2_dump_h_stuff(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);

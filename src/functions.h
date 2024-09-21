@@ -31,7 +31,7 @@ void adj2_alloc_h_stuff(void);
 void adj_data_back(void);
 void make_adj_com(int32 com);
 void adj2_new_h_fun(int32 silent);
-void dump_h_stuff(FILE *fp, int32 f);
+void adj2_dump_h_stuff(FILE *fp, int32 f);
 int32 make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent);
 void new_adjoint(void);
 void test_test(void);
