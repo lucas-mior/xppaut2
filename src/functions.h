@@ -4807,48 +4807,6 @@ void create_user_buttons(int32 x0, int32 y0, Window base);
 
 #endif
 
-/****************************************************************
- *                                                              *
- * File          : vector.h                                     *
- * Programmers   : Scott D. Cohen and Alan C. Hindmarsh @ LLNL  *
- * Last Modified : 1 September 1994                             *
- *--------------------------------------------------------------*
- *                                                              *
- * This is the header file for a generic VECTOR package. It     *
- * exports the type N_Vector.                                   *
- *                                                              *
- * Part I of this file contains declarations which are specific *
- * to the particular machine environment in which this version  *
- * of the vector package is to be used. This includes the       *
- * typedef for the type N_Vector, as well as accessor macros    *
- * that allow the user to use efficiently the type N_Vector     *
- * without making explicit references to its underlying         *
- * representation. The underlying type of N_Vector will always  *
- * be some pointer type.                                        *
- *                                                              *
- * Part II of this file contains the prototypes for the vector  *
- * kernels which operate on the type N_Vector. These prototypes *
- * are fixed for all implementations of the vector package. The *
- * definitions of the types double and int64 are in the header  *
- * file llnltyps.h and these may be changed according to the    *
- * user's needs. The llnltyps.h file also contains the          *
- * definition for the type bool (int16 for boolean) that is the *
- * return type for the routine N_VInvTest.                      *
- *                                                              *
- * Important Note: N_Vector arguments to arithmetic kernels     *
- * need not be distinct. Thus, for example, the call            *
- *                                                              *
- *         N_VLinearSum(a,x,b,y,y);    y <- ax+by               *
- *                                                              *
- * is legal.                                                    *
- *                                                              *
- * This version of vector.h is for the ordinary sequential      *
- * machine environment. In the documentation given below, N is  *
- * the length of all N_Vector parameters and x[i] denotes the   *
- * ith component of the N_Vector x, where 0 <= i <= N-1.        *
- *                                                              *
- ****************************************************************/
-
 #ifndef volterra2_h
 #define volterra2_h
 
