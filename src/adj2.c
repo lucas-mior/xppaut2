@@ -54,8 +54,6 @@ static void adj_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 make_h(double **orb, double **adj, int32 nt, int32 node,
                     int32 silent);
-static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
-                          double *yp, int32 node);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
 static void adj2_norm_vec(double *v, double *mu, int32 n);
@@ -540,19 +538,6 @@ bye:
         free(jac[i]);
     free(jac);
     return rval;
-}
-
-void
-adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
-              int32 node) {
-    for (int32 j = 0; j < node; j++) {
-        yp[j] = 0.0;
-        for (int32 i = 0; i < node; i++)
-            yp[j] = yp[j] + (jac[i + j*node][k1]*(1.0 - t) +
-                             jac[i + j*node][k2]*t) *
-                                y[i];
-    }
-    return;
 }
 
 int32

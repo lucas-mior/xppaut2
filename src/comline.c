@@ -105,7 +105,6 @@ static struct SetName {
 
 static int32 is_set_name(struct SetName *set, char *nam);
 static struct SetName *add_set(struct SetName *set, char *nam);
-static struct SetName *rm_set(struct SetName *set, char *nam);
 
 extern InternSet intern_set[MAX_INTERN_SET];
 
@@ -178,32 +177,6 @@ add_set(struct SetName *set, char *nam) {
         curr->name = (char *)nam;
         curr->next = (struct SetName *)set;
         set = curr;
-    }
-
-    return set;
-}
-
-struct SetName *
-rm_set(struct SetName *set, char *nam) {
-    struct SetName *curr;
-    struct SetName *prev = NULL;
-    int32 i = 1;
-
-    if (set == NULL)
-        return NULL;
-
-    curr = set;
-    while (curr) {
-        if (strcmp(curr->name, nam) == 0) {
-            if (i == 1) {
-                set = (struct SetName *)curr->next;
-            } else {
-                prev->next = curr->next;
-            }
-            break;
-        }
-        prev = curr;
-        i++;
     }
 
     return set;
