@@ -56,7 +56,7 @@ static int32 make_h(double **orb, double **adj,
                     int32 nt, int32 node, int32 silent);
 static void adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y,
                           double *yp, int32 node);
-static int32 step_eul(double **jac, int32 k, int32 k2, double *yold,
+static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                       double *work, int32 node, double dt);
 static void norm_vec(double *v, double *mu, int32 n);
 static int32 hrw_liapunov(double *liap, int32 batch, double eps);
@@ -472,7 +472,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
             k2 = k + 1;
             if (k2 >= nt)
                 k2 = k2 - nt;
-            if (step_eul(jac, k, k2, yold, work, node, dt) == 0) {
+            if (adj2_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
                 rval = 0;
                 goto bye;
             }
@@ -515,7 +515,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         k2 = k + 1;
         if (k2 >= nt)
             k2 -= nt;
-        if (step_eul(jac, k, k2, yold, work, node, dt) == 0) {
+        if (adj2_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
             rval = 0;
             goto bye;
         }
@@ -556,7 +556,7 @@ adj2_eval_rhs(double **jac, int32 k1, int32 k2, double t, double *y, double *yp,
 }
 
 int32
-step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
+adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
          int32 node, double dt) {
     int32 j, i, n2 = node*node, info;
     int32 ipvt[MAX_ODE];

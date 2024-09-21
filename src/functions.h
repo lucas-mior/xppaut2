@@ -38,7 +38,6 @@ int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double e
 void adj2_do_liapunov(void);
 void adj2_alloc_liap(int32 n);
 void adj2_do_this_liaprun(int32 i, double p);
-int32 hrw_liapunov(double *liap, int32 batch, double eps);
 
 #endif
 
