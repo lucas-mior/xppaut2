@@ -721,11 +721,11 @@ get_fit_params(void) {
         fin.dim = atoi(values[5]);
         fin.eps = atof(values[8]);
         fin.maxiter = atoi(values[9]);
-        snprintf(fin.file, sizeof(fin.file), "%s", values[0]);
-        snprintf(fin.varlist, sizeof(fin.varlist), "%s", values[1]);
-        snprintf(fin.parlist1, sizeof(fin.parlist1), "%s", values[2]);
-        snprintf(fin.collist, sizeof(fin.collist), "%s", values[6]);
-        snprintf(fin.parlist2, sizeof(fin.parlist2), "%s", values[7]);
+        strncpy(fin.file, values[0], sizeof(fin.file));
+        strncpy(fin.varlist, values[1], sizeof(fin.varlist));
+        strncpy(fin.parlist1, values[2], sizeof(fin.varlist));
+        strncpy(fin.collist, values[6], sizeof(fin.varlist));
+        strncpy(fin.parlist2, values[7], sizeof(fin.varlist));
         return 1;
     }
     return 0;

@@ -468,8 +468,8 @@ save_as(void) {
     int32 i, ok;
     FILE *fp;
     double z;
-    char filename[256];
-    sprintf(filename, "%s", this_file);
+    char filename[sizeof(this_file)];
+    strncpy(filename, this_file, sizeof(filename));
     ping();
     /* if(new_string("Filename: ",filename)==0)return; */
     if (!file_selector("Save As", filename, "*.ode"))
