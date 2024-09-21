@@ -211,7 +211,6 @@ void array_plot_close_files(void);
 void array_plot_draw_one(char *);
 void array_plot_optimize(int32 *plist);
 void array_plot_make_my(char *name);
-void scale_aplot(ArrayPlot *ap, double *zmax, double *zmin);
 void init_array_plot(ArrayPlot *ap);
 void expose_aplot(Window w);
 void do_array_plot_events(XEvent ev);
