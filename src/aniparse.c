@@ -175,10 +175,9 @@ static void ani_create_mpeg(void);
 static void ani_resize(int32 x, int32 y);
 
 /* Colors
-  no color given is default black on white background or white on black
-  $name is named color -- red ... purple
-  otherwise evaluated - if between 0 and 1 a spectral color
-*/
+ * no color given is default black on white background or white on black
+ * $name is named color -- red ... purple
+ * otherwise evaluated - if between 0 and 1 a spectral color */
 
 /* scripting language is very simple:
  dimension xlo;ylo;xhi;yh
