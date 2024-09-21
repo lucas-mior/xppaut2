@@ -3635,9 +3635,8 @@ void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #endif
 
-#ifndef main_h_
-
-#define main_h_
+#ifndef main_h
+#define main_h
 
 #include <X11/Xlib.h>
 
