@@ -285,26 +285,9 @@ read_eqn(void) {
     return okay;
 }
 
-/*
-get_dir()
-
-{
- FILE *fptr;
- char path[100];
- char commd[200];
- plintf("Path <*.ode>");
- getsi(path);
- if(strlen(path)==0)strcpy(path,"*.ode");
-  sprintf(commd,"ls %s",path);
-  system(commd);
- }
-
- */
-
 int32
 get_eqn(FILE *fptr) {
     char bob[MAXEXPLEN];
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME + 4];
     int32 done = 1, nn, i;
     int32 flag;
@@ -318,8 +301,7 @@ get_eqn(FILE *fptr) {
     BVP_NR = 0;
     NUPAR = 0;
     NWiener = 0;
-    /*check_for_xpprc();  This is now done just once and in do_vis_env()
-     */
+    /* check_for_xpprc();  This is now done just once and in do_vis_env() */
     strcpy(options, "default.opt");
     add_var("t", 0.0);
     fgets(bob, MAXEXPLEN, fptr);
