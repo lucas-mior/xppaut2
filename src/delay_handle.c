@@ -10,14 +10,20 @@
 #include "xpplim.h"
 #include "integers.h"
 
-double AlphaMax = 2, OmegaMax = 2;
-
-double *DelayWork;
-int32 LatestDelay;
-int32 MaxDelay;
+double AlphaMax = 2;
+double OmegaMax = 2;
 int32 DelayFlag = 0;
+int32 DelayGrid;
 
-int32 NDelay, del_stab_flag, WhichDelay, DelayGrid = 1000;
+static double *DelayWork;
+static int32 LatestDelay;
+static int32 MaxDelay;
+
+int32 NDelay;
+int32 del_stab_flag;
+int32 WhichDelay;
+int32 DelayGrid = 1000;
+
 double variable_shift[2][MAX_ODE];
 double delay_list[MAX_DELAY];
 

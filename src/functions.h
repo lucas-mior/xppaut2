@@ -975,6 +975,14 @@ void get_new_guesses(void);
 #ifndef DELAY_HANDLE_H
 #define DELAY_HANDLE_H
 
+extern double AlphaMax;
+extern double OmegaMax;
+extern int32 DelayFlag;
+extern int32 DelayGrid;
+extern int32 NDelay;
+extern int32 del_stab_flag;
+extern int32 WhichDelay;
+
 double delay_stab_eval(double delay, int32 var);
 int32 alloc_delay(double big);
 void free_delay(void);
