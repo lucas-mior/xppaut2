@@ -4,7 +4,6 @@
 
 #include <time.h>
 #include "functions.h"
-#include "volterra.h"
 
 #include <stdlib.h>
 

@@ -4244,6 +4244,12 @@ void make_txtview(void);
 #ifndef VOLTERRA2_H
 #define VOLTERRA2_H
 
+typedef struct {
+    double k_n1, k_n, sum, betnn, mu, *al, *cnv;
+    int32 *formula, flag, *kerform;
+    char name[20], *expr, *kerexpr;
+} KERNEL;
+
 double ker_val(int32 in);
 void alloc_v_memory(void);
 void allocate_volterra(int32 npts, int32 flag);

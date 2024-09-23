@@ -4,7 +4,6 @@
 
 #include <stdlib.h>
 #include "xpplim.h"
-#include "volterra.h"
 #include <math.h>
 #include <stdio.h>
 #include "parserslow.h"

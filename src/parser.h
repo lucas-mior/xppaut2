@@ -2,7 +2,6 @@
 #define parser_h
 #include "integers.h"
 
-#include "volterra.h"
 #include "xpplim.h"
 #define MAX_SYMBS 10000
 #define MAXARG 20
