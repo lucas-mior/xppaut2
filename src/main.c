@@ -1390,7 +1390,8 @@ FixWindowSize(Window window, int32 width, int32 height, int32 flag) {
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-    XSetWMProperties(display, window, NULL, NULL, NULL, 0, &size_hints, NULL, NULL);
+    XSetWMProperties(display, window, NULL, NULL, NULL, 0, &size_hints, NULL,
+                     NULL);
     return;
 }
 

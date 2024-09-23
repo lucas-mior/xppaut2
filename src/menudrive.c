@@ -133,8 +133,9 @@ void
 MessageBox(char *m) {
     int32 wid = (int32)strlen(m)*DCURX + 20;
     int32 hgt = 4*DCURY;
-    MsgBox.window = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
-                                 DisplayHeight / 2, wid, hgt, 4);
+    MsgBox.window =
+        make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
+                          DisplayHeight / 2, wid, hgt, 4);
 
     make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.window);
     MsgBox.here = 1;

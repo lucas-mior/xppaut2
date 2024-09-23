@@ -382,7 +382,8 @@ redraw_fs_text(char *string, Window window, int32 flag) {
     filesel.off = 0;
     if (flag)
         filesel.pos = (int32)strlen(string);
-    XDrawString(display, window, small_gc, 0, CURY_OFF, string, (int)strlen(string));
+    XDrawString(display, window, small_gc, 0, CURY_OFF, string,
+                (int)strlen(string));
     if (flag)
         put_edit_cursor(window, DCURXs*(int32)strlen(string));
     return;
@@ -1275,8 +1276,8 @@ expose_slider(Window window, struct ParSlider *p) {
         return;
     }
     if (window == p->go) {
-        XDrawString(display, window, small_gc, 2, (int32)(0.75*(double)CURY_OFFs),
-                    "go", 2);
+        XDrawString(display, window, small_gc, 2,
+                    (int32)(0.75*(double)CURY_OFFs), "go", 2);
         return;
     }
     if (p->use) {
@@ -1343,13 +1344,14 @@ make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
     xs = (mainwid - width - 4) / 2;
     my_par_slide[index].slide =
         make_window(window, xs, DCURYs + 5, width + 4, DCURYs - 4, 1);
-    my_par_slide[index].go =
-        make_window(window, xs + width + 8, DCURYs + 5, 3*DCURXs, DCURYs - 3, 1);
+    my_par_slide[index].go = make_window(window, xs + width + 8, DCURYs + 5,
+                                         3*DCURXs, DCURYs - 3, 1);
     my_par_slide[index].top = make_window(window, 2, 2, mainwid - 6, DCURYs, 1);
     my_par_slide[index].left =
         make_window(window, 2, 2*DCURYs + 3, 12*DCURXs, DCURYs, 0);
-    my_par_slide[index].right = make_window(
-        window, mainwid - 12*DCURXs - 4, 2*DCURYs + 3, 12*DCURXs, DCURYs, 0);
+    my_par_slide[index].right =
+        make_window(window, mainwid - 12*DCURXs - 4, 2*DCURYs + 3,
+                    12*DCURXs, DCURYs, 0);
     my_par_slide[index].lo = 0.0;
     my_par_slide[index].hi = 1.0;
     my_par_slide[index].val = 0.5;
@@ -1905,7 +1907,8 @@ display_box(BoxList b, Window window) {
             index = i + b.n0;
             if (index >= n0 && index < n1) {
                 if (b.ck[i] == window && b.isck[index] == 1)
-                    XDrawString(display, window, small_gc, 5, CURY_OFFs, "*", 1);
+                    XDrawString(display, window, small_gc, 5, CURY_OFFs, "*",
+                                1);
             }
         }
     }
@@ -1928,7 +1931,8 @@ box_enter_events(Window window, int32 yn) {
         box_enter(ParamBox, window, val);
     if (DelayBox.xuse)
         box_enter(DelayBox, window, val);
-    if (ICBox.xuse && (window == ICBox.xvt || window == ICBox.pp || window == ICBox.arr))
+    if (ICBox.xuse &&
+        (window == ICBox.xvt || window == ICBox.pp || window == ICBox.arr))
         XSetWindowBorderWidth(display, window, (uint)val);
     if (ICBox.xuse == 0)
         return;
@@ -2092,7 +2096,8 @@ do_box_button(BoxList *b, Window window) {
             if (window == b->ck[i]) {
                 b->isck[i + b->n0] = 1 - b->isck[i + b->n0];
                 if (b->isck[i + b->n0])
-                    XDrawString(display, window, small_gc, 0, CURY_OFFs, "*", 1);
+                    XDrawString(display, window, small_gc, 0, CURY_OFFs, "*",
+                                1);
                 else
                     XClearWindow(display, window);
             }

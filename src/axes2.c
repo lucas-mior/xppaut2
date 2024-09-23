@@ -167,7 +167,7 @@ axes2_do(void) {
     switch (MyGraph->grtype) {
     case 0:
         axes2_box(MyGraph->xlo, MyGraph->xhi, MyGraph->ylo, MyGraph->yhi,
-                 MyGraph->xlabel, MyGraph->ylabel, 1);
+                  MyGraph->xlabel, MyGraph->ylabel, 1);
         break;
     case 5:
         Frame_3d();
@@ -296,7 +296,7 @@ Frame_3d(void) {
 
 void
 axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
-         char *sy, int32 flag) {
+          char *sy, int32 flag) {
     double ytic, xtic;
 
     int32 xaxis_y, yaxis_x;

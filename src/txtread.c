@@ -22,7 +22,7 @@
 
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
         return;                                                                \
     } while (0)
 typedef struct {

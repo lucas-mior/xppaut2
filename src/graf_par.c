@@ -1199,7 +1199,8 @@ draw_freeze_key(void) {
     ix2 = ix + 4*HChar;
     y0 = iy;
     for (i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && frz[i].window == draw_win && strlen(frz[i].key) > 0) {
+        if (frz[i].use == 1 && frz[i].window == draw_win &&
+            strlen(frz[i].key) > 0) {
             set_linestyle(abs(frz[i].color));
             line(ix, y0, ix2, y0);
             set_linestyle(0);

@@ -43,7 +43,8 @@ draw_calc(Window window) {
     if (window == my_calc.answer) {
         XClearWindow(display, window);
         sprintf(bob, "%.16g", my_calc.last_val);
-        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob, (int)strlen(bob));
+        XDrawString(display, window, small_gc, 0, CURY_OFFs, bob,
+                    (int)strlen(bob));
         return;
     }
     if (window == my_calc.quit) {

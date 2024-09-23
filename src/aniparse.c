@@ -183,24 +183,32 @@ static int32 ani_new_file(char *filename);
 static int32 load_ani_file(FILE *fp);
 static int32 parse_ani_string(char *s, FILE *fp);
 static void set_ani_dimension(char *x1, char *y1, char *x2, char *y2);
-static int32 add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
-                  char *thick);
+static int32 add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2,
+                         char *col, char *thick);
 static void init_ani_stuff(void);
 static void free_ani(void);
 static int32 chk_ani_color(char *s, int32 *index);
 static int32 add_ani_expr(char *x, int32 *c);
-static int32 add_ani_rline(AniCom *a, char *x1, char *y1, char *col, char *thick);
+static int32 add_ani_rline(AniCom *a, char *x1, char *y1, char *col,
+                           char *thick);
 static void reset_comets(void);
 static void roll_comet(AniCom *a, int32 xn, int32 yn, int32 col);
 static int32 add_ani_comet(AniCom *a, char *x1, char *y1, char *x2, char *col,
-                    char *thick);
-static int32 add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-static int32 add_ani_null(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *who);
-static int32 add_ani_rect(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-static int32 add_ani_frect(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-static int32 add_ani_ellip(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-static int32 add_ani_fellip(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
-static int32 add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick);
+                           char *thick);
+static int32 add_ani_line(AniCom *a, char *x1, char *y1, char *x2, char *y2,
+                          char *col, char *thick);
+static int32 add_ani_null(AniCom *a, char *x1, char *y1, char *x2, char *y2,
+                          char *col, char *who);
+static int32 add_ani_rect(AniCom *a, char *x1, char *y1, char *x2, char *y2,
+                          char *col, char *thick);
+static int32 add_ani_frect(AniCom *a, char *x1, char *y1, char *x2, char *y2,
+                           char *col, char *thick);
+static int32 add_ani_ellip(AniCom *a, char *x1, char *y1, char *x2, char *y2,
+                           char *col, char *thick);
+static int32 add_ani_fellip(AniCom *a, char *x1, char *y1, char *x2, char *y2,
+                            char *col, char *thick);
+static int32 add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col,
+                            char *thick);
 static int32 add_ani_text(AniCom *a, char *x1, char *y1, char *y2);
 static int32 add_ani_vtext(AniCom *a, char *x1, char *y1, char *x2, char *y2);
 static int32 add_ani_settext(AniCom *a, char *x1, char *y1, char *col);

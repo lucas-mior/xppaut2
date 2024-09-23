@@ -161,7 +161,8 @@ make_tor_box(char *title) {
         j1 = i % nv;
         xpos = xstart + 18*DCURXs*i1;
         ypos = ystart + j1*(DCURYs + 8);
-        torbox.window[i] = make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
+        torbox.window[i] =
+            make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
     }
 
     xpos = (width - 16*DCURXs - 10) / 2;

@@ -7,7 +7,7 @@
 
 #define GREYSCALE -1
 
-static struct DevScale{
+static struct DevScale {
     double xmin, xmax, ymin, ymax;
     double xscale, yscale, xoff, yoff;
     double tx, ty, angle, slant; /* text attributes   */
@@ -17,27 +17,28 @@ static struct DevScale{
 
 static FILE *my_plot_file;
 
-static void ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
-               int32 maxrow, int32 maxcol, int32 nacross, int32 ndown,
-               double zmin, double zmax, int32 type);
+static void ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
+                      int32 ncskip, int32 maxrow, int32 maxcol, int32 nacross,
+                      int32 ndown, double zmin, double zmax, int32 type);
 static void ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
-              double sy);
+                     double sy);
 static void ps_convert(double x, double y, double *xs, double *ys);
 static void ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
-                  double zlo, double zhi, int32 type);
+                         double zlo, double zhi, int32 type);
 static void ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
-              double zhi, char *sx, char *sy, char *sb, int32 type);
+                     double zhi, char *sx, char *sy, char *sb, int32 type);
 static void ps_close(void);
 static void ps_setline(double fill, int32 thick);
 static void ps_text2(char *str, double xr, double yr, int32 icent);
-static void ps_set_text(double angle, double slant, double x_size, double y_size);
+static void ps_set_text(double angle, double slant, double x_size,
+                        double y_size);
 static void ps_rect(double x, double y, double wid, double len);
 static void ps_bar(double x, double y, double wid, double len, double fill,
-            int32 flag);
+                   int32 flag);
 static void ps_rgb_bar(double x, double y, double wid, double len, double fill,
-                int32 flag, int32 rgb);
+                       int32 flag, int32 rgb);
 static void ps_hsb_bar(double x, double y, double wid, double len, double fill,
-                int32 flag);
+                       int32 flag);
 
 int32
 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,

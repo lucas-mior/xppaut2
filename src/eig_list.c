@@ -16,7 +16,7 @@
 #include "mykeydef.h"
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
         return;                                                                \
     } while (0)
 
@@ -160,7 +160,8 @@ eq_list_keypress(XEvent ev, int32 *used) {
 
     if (eq_list.flag == 0)
         return;
-    if (window == eq_list.main || window == eq_list.base || window == eq_list.list) {
+    if (window == eq_list.main || window == eq_list.base ||
+        window == eq_list.list) {
         *used = 1;
         ks = (char)get_key_press(&ev);
 
@@ -180,7 +181,8 @@ eq_list_keypress(XEvent ev, int32 *used) {
 void
 enter_eq_stuff(Window window, int32 b) {
     if (eq_list.flag == 1) {
-        if (window == eq_list.close || window == eq_list.up || window == eq_list.down)
+        if (window == eq_list.close || window == eq_list.up ||
+            window == eq_list.down)
             XSetWindowBorderWidth(display, window, (uint)b);
     }
     if (eq_box.flag == 1 && (window == eq_box.close || window == eq_box.import))

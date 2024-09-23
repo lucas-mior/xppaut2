@@ -28,7 +28,7 @@
 extern char *browse_hint[];
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));         \
+        XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
         return;                                                                \
     } while (0)
 
@@ -80,7 +80,8 @@ static int32 add_stor_col(char *name, char *formula, Browser *b);
 static void chk_seq(char *f, int32 *seq, double *a1, double *a2);
 static void replace_column(char *var, char *form, double **dat, int32 n);
 static void unreplace_column(void);
-static void make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b);
+static void make_d_table(double xlo, double xhi, int32 col, char *filename,
+                         Browser b);
 static void find_value(int32 col, double val, int32 *row, Browser b);
 static void browse_but_on(Browser *b, int32 i, Window window, int32 yn);
 static void enter_browser(XEvent ev, Browser *b, int32 yn);
@@ -89,7 +90,8 @@ static void redraw_browser(Browser b);
 static void new_browse_dat(double **new_dat, int32 dat_len);
 static void draw_data(Browser b);
 static void kill_browser(Browser *b);
-static void make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col);
+static void make_browser(Browser *b, char *wname, char *iname, int32 row,
+                         int32 col);
 static void expose_browser(XEvent ev, Browser b);
 static void resize_browser(Window win, Browser *b);
 static void browse_button(XEvent ev, Browser *b);
@@ -644,8 +646,8 @@ display_browser(Window window, Browser b) {
         if (window == b.label[i]) {
             i0 = i + b.col0 - 1;
             if (i0 < b.maxcol - 1)
-                XDrawString(display, window, small_gc, 5, CURY_OFFs, uvar_names[i0],
-                            (int)strlen(uvar_names[i0]));
+                XDrawString(display, window, small_gc, 5, CURY_OFFs,
+                            uvar_names[i0], (int)strlen(uvar_names[i0]));
         }
     }
     if (window == b.main)

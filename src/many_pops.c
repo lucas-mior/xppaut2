@@ -143,7 +143,8 @@ void
 make_icon(char *icon, int32 wid, int32 hgt, Window window) {
     Pixmap icon_map;
     XWMHints wm_hints;
-    icon_map = XCreateBitmapFromData(display, window, icon, (uint)wid, (uint)hgt);
+    icon_map =
+        XCreateBitmapFromData(display, window, icon, (uint)wid, (uint)hgt);
     wm_hints.initial_state = NormalState;
     wm_hints.input = True;
     wm_hints.icon_pixmap = icon_map;
@@ -1156,7 +1157,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     init_all_graph();
 
     graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
-                                     (uint)h, 2, GrFore, MyDrawWinColor);
+                                          (uint)h, 2, GrFore, MyDrawWinColor);
     graph[0].w_info = info_pop;
 
     info_message = graph[0].gr_info;
@@ -1414,7 +1415,8 @@ create_a_pop(void) {
     graph[index].x0 = 0;
     graph[index].y0 = 0;
     num_pops++;
-    make_icon((char *)graph_bits, graph_width, graph_height, graph[index].window);
+    make_icon((char *)graph_bits, graph_width, graph_height,
+              graph[index].window);
     XSelectInput(display, graph[index].window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask);

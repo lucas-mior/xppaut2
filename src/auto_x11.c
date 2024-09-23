@@ -19,7 +19,7 @@
 
 #define xds(a)                                                                 \
     do {                                                                       \
-        XDrawString(display, window, gc, 5, CURY_OFFb, a, strlen(a));               \
+        XDrawString(display, window, gc, 5, CURY_OFFb, a, strlen(a));          \
         return;                                                                \
     } while (0)
 
@@ -1179,7 +1179,8 @@ auto_keypress(XEvent ev, int32 *used) {
         return;
     XGetInputFocus(display, &w2, &rev);
 
-    if (window == auto_win.base || window == auto_win.canvas || w2 == auto_win.base) {
+    if (window == auto_win.base || window == auto_win.canvas ||
+        w2 == auto_win.base) {
         *used = 1;
         ks = (char)get_key_press(&ev);
 

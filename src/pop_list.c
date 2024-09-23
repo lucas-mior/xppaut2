@@ -16,15 +16,16 @@ typedef struct ScrollBox {
 } ScrollBox;
 
 static void destroy_scroll_box(ScrollBox *sb);
-static void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
-                              char **list, ScrollBox *sb);
+static void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
+                              int32 nw, char **list, ScrollBox *sb);
 static void expose_scroll_box(Window window, ScrollBox sb);
 static void redraw_scroll_box(ScrollBox sb);
 static void crossing_scroll_box(Window window, int32 c, ScrollBox sb);
 static int32 scroll_box_motion(XEvent ev, ScrollBox *sb);
 static int32 select_scroll_item(Window window, ScrollBox sb);
 static void scroll_popup(STRING_BOX *sb, ScrollBox *scrb);
-static int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb);
+static int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col,
+                              ScrollBox *scrb);
 
 TEXTWIN mytext;
 SCRBOX_LIST scrbox_list[10];

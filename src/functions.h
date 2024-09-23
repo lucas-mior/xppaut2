@@ -219,7 +219,7 @@ void axes2_redraw_cube_pt(double theta, double phi);
 void axes2_do(void);
 void axes2_redraw_cube(double theta, double phi);
 void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
-              char *sy, int32 flag);
+               char *sy, int32 flag);
 
 #endif
 
