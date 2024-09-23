@@ -201,7 +201,6 @@ static int32 add_ani_frect(AniCom *a, char *x1, char *y1, char *x2, char *y2, ch
 static int32 add_ani_ellip(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
 static int32 add_ani_fellip(AniCom *a, char *x1, char *y1, char *x2, char *y2, char *col, char *thick);
 static int32 add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick);
-static int32 add_ani_fcircle(AniCom *a, char *x1, char *y1, char *x2, char *col, char *thick);
 static int32 add_ani_text(AniCom *a, char *x1, char *y1, char *y2);
 static int32 add_ani_vtext(AniCom *a, char *x1, char *y1, char *x2, char *y2);
 static int32 add_ani_settext(AniCom *a, char *x1, char *y1, char *col);
@@ -232,7 +231,6 @@ static void draw_ani_vtext(int32 j);
 static void tst_pix_draw(void);
 static void read_ani_line(FILE *fp, char *s);
 static int32 add_grab_command(char *xs, char *ys, char *ts, FILE *fp);
-static void info_grab_stuff(void);
 static int32 ani_grab_tasks(char *line, int32 igrab, int32 which);
 static int32 run_now_grab(void);
 static int32 search_for_grab(double x, double y);
@@ -1937,12 +1935,6 @@ add_ani_circle(AniCom *a, char *x1, char *y1, char *x2, char *col,
 }
 
 int32
-add_ani_fcircle(AniCom *a, char *x1, char *y1, char *x2, char *col,
-                char *thick) {
-    return add_ani_circle(a, x1, y1, x2, col, thick);
-}
-
-int32
 add_ani_text(AniCom *a, char *x1, char *y1, char *y2) {
     int32 err;
     char *s;
@@ -2600,20 +2592,7 @@ add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
     if (ani_grab_tasks(end, j, 2) == (-1))
         return -1;
     n_ani_grab++;
-    /*   info_grab_stuff(); */
     return 1;
-}
-
-void
-info_grab_stuff(void) {
-    int32 i, n;
-    for (i = 0; i < n_ani_grab; i++) {
-        n = ani_grab[i].start.n;
-        plintf("start n=%d\n", n);
-        n = ani_grab[i].end.n;
-        plintf("end n=%d\n", n);
-    }
-    return;
 }
 
 int32
