@@ -2580,7 +2580,9 @@ plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
 
 void
 plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
-    int32 *IXPLT, *IYPLT, *IZPLT;
+    int32 *IXPLT;
+    int32 *IYPLT;
+    int32 *IZPLT;
     int32 NPlots;
     int32 ip;
     double oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
