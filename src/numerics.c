@@ -1,3 +1,8 @@
+static void get_method(void);
+static void meth_dialog(void);
+static void init_numerics(void);
+static void ruelle(void);
+static void check_pos(int32 *j);
 #include "functions.h"
 #include <strings.h>
 

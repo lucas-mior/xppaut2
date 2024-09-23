@@ -1,3 +1,12 @@
+static void sscal(int32 n, double sa, double *sx, int32 incx);
+static double sdot(int32 n, double *sx, int32 incx, int32 incy);
+static int32 isamax(int32 n, double *sx, int32 incx);
+static void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
+static double sgnum(double x, double y);
+static double sqr2(double z);
+static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
+static void hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr);
+static void pr_evec(double *x, double *ev, int32 n, int32 type);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>

@@ -1,3 +1,19 @@
+static int32 test_sign(double old, double new);
+static double get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda);
+static void process_root(double real, double im);
+static COMPLEX cxdeterm(COMPLEX *z, int32 n);
+static COMPLEX cdeterm(COMPLEX *z, int32 n);
+static double c_abs(COMPLEX z);
+static void cprintarr(COMPLEX *z, int32 n, int32 m);
+static void cprint(COMPLEX z);
+static void cprintn(COMPLEX z);
+static COMPLEX rtoc(double x, double y);
+static void switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n);
+static COMPLEX cexp2(COMPLEX z);
+static COMPLEX cdivv(COMPLEX z, COMPLEX w);
+static COMPLEX cmlt(COMPLEX z, COMPLEX w);
+static COMPLEX cdif(COMPLEX z, COMPLEX w);
+static COMPLEX csum(COMPLEX z, COMPLEX w);
 #include <stdlib.h>
 
 #include "functions.h"

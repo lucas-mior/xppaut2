@@ -1,3 +1,7 @@
+static void eq_box_button(Window window);
+static void eq_box_import(void);
+static void eq_list_down(void);
+static void eq_list_up(void);
 #include "functions.h"
 #include "integers.h"
 #include "auto_nox.h"

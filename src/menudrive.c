@@ -1,3 +1,4 @@
+static void do_file_com(int32 com);
 #include <stdlib.h>
 #include "integers.h"
 #include <stdbool.h>

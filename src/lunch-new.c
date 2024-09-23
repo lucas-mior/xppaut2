@@ -1,3 +1,10 @@
+static void io_float(double *z, FILE *fp, int32 f, char *ss);
+static void io_graph(int32 f, FILE *fp);
+static void io_exprs(int32 f, FILE *fp);
+static void io_parameters(int32 f, FILE *fp);
+static void io_numerics(int32 f, FILE *fp);
+static void dump_eqn(FILE *fp);
+static void do_info(FILE *fp);
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"

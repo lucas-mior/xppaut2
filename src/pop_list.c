@@ -1,3 +1,8 @@
+static void draw_pop_up(POP_UP p, Window window);
+static void set_sbox_item(STRING_BOX *sb, int32 item);
+static void reset_hot(int32 inew, STRING_BOX *sb);
+static void expose_sbox(STRING_BOX sb, Window window, int32 pos);
+static int32 get_x_coord_win(Window win);
 #include <stdlib.h>
 #include <string.h>
 #include "functions.h"

@@ -1,3 +1,45 @@
+static void load_entire_box(BoxList *b);
+static void set_value_from_box(BoxList *b, int32 i);
+static int32 to_float(char *s, double *z);
+static void prt_focus(void);
+static void check_box_cursor(void);
+static void add_editval(BoxList *b, int32 i, char *string);
+static void add_edit_float(BoxList *b, int32 i, double z);
+static int32 edit_bitem(BoxList *b, int32 i, int32 ch);
+static void put_edit_cursor(Window window, int32 pos);
+static void draw_editable(Window win, char *string, int32 off, int32 cursor, int32 mc);
+static void set_default_params(void);
+static void set_default_ics(void);
+static void do_box_key(BoxList *b, XEvent ev, int32 *used);
+static void box_list_scroll(BoxList *b, int32 i);
+static void do_box_button(BoxList *b, Window window);
+static void redraw_entire_box(BoxList *b);
+static void set_up_arry(void);
+static void set_up_pp(void);
+static void set_up_xvt(void);
+static int32 find_the_box(BoxList b, Window window, int32 *index);
+static void box_enter(BoxList b, Window window, int32 val);
+static void display_box(BoxList b, Window window);
+static void justify_string(Window w1, char *s1);
+static void make_box_list_window(BoxList *b, int32 type);
+static void destroy_box(BoxList *b);
+static void get_nrow_from_hgt(int32 h, int32 *n, int32 *w);
+static void make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index);
+static void draw_slider(Window window, int32 x, int32 hgt, int32 l);
+static void destroy_selector(void);
+static int32 selector_key(XEvent ev);
+static void stringintersect(char *target, char *sother);
+static void create_file_selector(char *title, char *file, char *wild);
+static int32 do_file_select_events(void);
+static void crossing_selector(Window window, int32 c);
+static int32 button_selector(Window window);
+static void fs_scroll(int32 i);
+static void new_wild(void);
+static void redraw_fs_text(char *string, Window window, int32 flag);
+static void redraw_file_list(void);
+static void redraw_directory(void);
+static void expose_selector(Window window);
+static void c_hints(void);
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"

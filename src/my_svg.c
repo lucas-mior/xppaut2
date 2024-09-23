@@ -1,3 +1,6 @@
+static void svg_write(char *str);
+static void chk_svg_lines(void);
+static void svg_stroke(void);
 #include "functions.h"
 #include "integers.h"
 

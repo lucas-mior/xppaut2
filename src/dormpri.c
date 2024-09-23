@@ -1,3 +1,12 @@
+static double contd5(uint32 ii, double x);
+static double contd8(uint32 ii, double x);
+static double xRead(void);
+static double hRead(void);
+static long nrejctRead(void);
+static long naccptRead(void);
+static long nstepRead(void);
+static long nfcnRead(void);
+static void dprhs(uint32 n, double t, double *y, double *f);
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>

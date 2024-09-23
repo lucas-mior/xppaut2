@@ -1,3 +1,4 @@
+static void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f);
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>

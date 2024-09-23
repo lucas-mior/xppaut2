@@ -1,3 +1,14 @@
+static double ran1(long *idum);
+static double gammln(double xx);
+static void init_stoch(int32 len);
+static void free_stoch(void);
+static void compute_em(void);
+static double new_state(double old, int32 index, double dt);
+static void update_markov(double *x, double t, double dt);
+static int32 compile_markov(int32 index, int32 j, int32 k);
+static void add_markov_entry(int32 index, int32 j, int32 k, char *expr);
+static void create_markov(int32 nstates, double *st, int32 type, char *name);
+static void extract_expr(char *source, char *dest, int32 *i0);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>

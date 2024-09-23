@@ -1,3 +1,6 @@
+static void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
+static int32 bandfac(double *a, int32 ml, int32 mr, int32 n);
+static int32 abmpc(double *y, double *t, double dt, int32 neq);
 #include "functions.h"
 #include "integers.h"
 #include <math.h>

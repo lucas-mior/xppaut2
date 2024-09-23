@@ -1,3 +1,13 @@
+static void ClearTree(int32 cc, GifTree *root);
+static int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
+static void make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
+static void GifLoop(FILE *fout, uint32 repeats);
+static void write_global_header(int32 cols, int32 rows, FILE *dst);
+static void gif_stuff(Window win, FILE *fp, int32 task);
+static int32 make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
+static int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
+static void local_to_global(void);
+static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 #include "functions.h"
 #include "integers.h"
 

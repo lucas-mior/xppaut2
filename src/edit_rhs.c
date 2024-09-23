@@ -1,3 +1,4 @@
+static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"

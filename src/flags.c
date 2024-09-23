@@ -1,3 +1,4 @@
+static void printflaginfo(void);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>

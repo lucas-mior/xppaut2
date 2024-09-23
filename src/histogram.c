@@ -1,3 +1,11 @@
+static void just_sd(int32 flag);
+static void just_fourier(int32 flag);
+static void sft(double *data, double *ct, double *st, int32 nmodes, int32 grid);
+static void mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag);
+static int32 spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow);
+static int32 get_col_info(int32 *col, char *prompt);
+static void new_four(int32 nmodes, int32 col);
+static void four_back(void);
 #include "functions.h"
 #include "integers.h"
 

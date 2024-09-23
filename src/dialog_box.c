@@ -1,3 +1,5 @@
+static void display_dialog(Window window, DIALOG d, int32 col);
+static int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);
 #include "functions.h"
 
 #include <stdbool.h>

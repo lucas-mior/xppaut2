@@ -1,3 +1,9 @@
+static void do_backspace(int32 *pos, char *value, int32 *col, Window window);
+static void put_string_at(Window window, int32 col, char *s, int32 off);
+static void clr_line_at(Window window, int32 col0, int32 pos, int32 n);
+static void setfillstyle(int32 type, int32 color);
+static void gputs(char *string, Window win);
+static void set_gcurs(int32 y, int32 x);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>

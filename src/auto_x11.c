@@ -1,3 +1,6 @@
+static void auto_kill(void);
+static void a_msg(int32 i, int32 v);
+static Window lil_button(Window root, int32 x, int32 y);
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>

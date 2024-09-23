@@ -1,3 +1,4 @@
+static void free_storage(int32 ncol);
 #include "integers.h"
 #include "functions.h"
 #include <stdlib.h>

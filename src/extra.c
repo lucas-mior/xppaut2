@@ -1,3 +1,6 @@
+static void parse_inout(char *l, int32 flag);
+static int32 get_export_count(char *s);
+static void check_inout(void);
 #include "functions.h"
 
 #include "read_dir.h"

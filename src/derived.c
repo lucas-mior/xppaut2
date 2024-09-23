@@ -1,3 +1,4 @@
+static void free_derived(void);
 #include "functions.h"
 
 #include <stdlib.h>

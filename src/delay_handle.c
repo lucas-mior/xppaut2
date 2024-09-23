@@ -1,3 +1,5 @@
+static void polint(double *xa, double *ya, int32 n, double x, double *y, double *dy);
+static double get_delay_old(int32 in, double tau);
 #include "functions.h"
 #include "parserslow.h"
 

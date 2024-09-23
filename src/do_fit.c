@@ -1,3 +1,8 @@
+static void parse_parlist(char *parlist, int32 *ipars, int32 *n);
+static void parse_varlist(char *varlist, int32 *ivars, int32 *n);
+static void parse_collist(char *collist, int32 *icols, int32 *n);
+static int32 get_fit_params(void);
+static void print_fit_info(void);
 #include "functions.h"
 
 #include "cv2.h"

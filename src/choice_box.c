@@ -1,3 +1,7 @@
+static int32 choice_box_event_loop(CHOICE_BOX p);
+static void do_checks(CHOICE_BOX p);
+static void display_choice(Window window, CHOICE_BOX p);
+static void destroy_choice(CHOICE_BOX p);
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/cursorfont.h>

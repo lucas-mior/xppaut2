@@ -1,3 +1,15 @@
+static void draw_symbol(double x, double y, double size, int32 my_symb);
+static void line_nabs(double x1_out, double y1_out, double x2_out, double y2_out);
+static void pers_line(double x, double y, double z, double xp, double yp, double zp);
+static void text_3d(double x, double y, double z, char *s);
+static double proj3d(double theta, double phi, double x, double y, double z, int32 in);
+static void init_graph(int32 i);
+static void line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
+static void rect_x11(int32 x, int32 y, int32 w, int32 h);
+static void bead_x11(int32 x, int32 y);
+static void set_line_style_x11(int32 ls);
+static void point_x11(int32 xp, int32 yp);
+static void bead(int32 x1, int32 y1);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>

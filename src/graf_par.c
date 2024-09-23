@@ -1,3 +1,38 @@
+static void export_graf_data(void);
+static int32 get_frz_index(Window window);
+static void read_bd(FILE *fp);
+static void frz_bd(void);
+static void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
+static void free_bd(void);
+static void draw_bd(Window window);
+static void draw_frozen_cline(int32 index, Window window);
+static void edit_frz_crv(int32 i);
+static int32 create_crv(int32 ind);
+static int32 freeze_crv(int32 ind);
+static void kill_frz(void);
+static void delete_frz(void);
+static void delete_frz_crv(int32 i);
+static void edit_frz(void);
+static void draw_freeze_key(void);
+static void set_key(int32 x, int32 y);
+static void create_ps(void);
+static void new_curve(void);
+static void edit_curve(void);
+static int32 alter_curve(char *title, int32 in_it, int32 n);
+static int32 find_color(int32 in);
+static void zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
+static void zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
+static void get_3d_par_noper(void);
+static void test_rot(void);
+static void movie_rot(double start, double increment, int32 nclip, int32 angle);
+static void user_window(void);
+static void fit_window(void);
+static void corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
+static void check_val(double *x1, double *x2, double *xb, double *xd);
+static void get_3d_view(int32 ind);
+static void axes_opts(void);
+static void get_2d_view(int32 ind);
+static void check_flags(void);
 #include "functions.h"
 
 #include <stdlib.h>

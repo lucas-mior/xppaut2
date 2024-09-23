@@ -1,3 +1,8 @@
+static void split_apart(char *bob, char *name, char *value);
+static void do_intern_set(char *name1, char *value);
+static void fil_int(FILE *fpt, int32 *val);
+static void fil_flt(FILE *fpt, double *val);
+static void read_defaults(FILE *fp);
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"

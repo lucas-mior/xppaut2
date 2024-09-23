@@ -1,3 +1,7 @@
+static void get_kn(double *y, double t);
+static double betnn(double mu, double dt);
+static double alpbetjn(double mu, double dt, int32 l);
+static double alpha1n(double mu, double dt, double t, double t0);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>

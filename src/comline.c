@@ -1,3 +1,4 @@
+static int32 parse_it(char *com);
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

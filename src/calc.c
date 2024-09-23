@@ -1,3 +1,8 @@
+static int32 has_eq(char *z, char *w, int32 *where);
+static void ini_calc_string(char *name, char *value, int32 *pos, int32 *col);
+static void quit_calc(void);
+static void make_calc(double z);
+static void draw_calc(Window window);
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>

@@ -1,3 +1,5 @@
+static void unshow_menu(int32 j);
+static void show_menu(int32 j);
 #include "menus.h"
 #include "functions.h"
 #include "integers.h"
