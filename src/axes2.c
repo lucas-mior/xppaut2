@@ -30,6 +30,12 @@ int32 axes2_doing_box = 0;
 extern FILE *svgfile;
 
 static void Frame_3d(void);
+static void re_title(void);
+static void get_title_str(char *s1, char *s2, char *s3);
+static void make_title(char *str);
+static double dbl_raise(double x, int32 y);
+static double make_tics(double tmin, double tmax);
+static void find_max_min_tic(double *tmin, double *tmax, double tic);
 
 void
 re_title(void) {

@@ -300,12 +300,6 @@ void RedrawMark(void);
 extern int32 axes2_doing;
 extern int32 axes2_doing_box;
 
-void re_title(void);
-void get_title_str(char *s1, char *s2, char *s3);
-void make_title(char *str);
-double dbl_raise(double x, int32 y);
-double make_tics(double tmin, double tmax);
-void find_max_min_tic(double *tmin, double *tmax, double tic);
 void redraw_cube_pt(double theta, double phi);
 void do_axes(void);
 void redraw_cube(double theta, double phi);
