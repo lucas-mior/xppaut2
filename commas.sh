@@ -11,9 +11,12 @@ awk '
         var = gensub("(*?[a-zA-Z0-9_]+)[,;] ?", "\\1", "g", $i);
         printf("%s %s;\n", type, var);
     }
+    for (i = 2; i <= NF; i += 1) {
+        getline
+    }
 }
 {
     print
 }' "$file" | tee "${file}.2"
-# mv "${file}.2" "$file"
+mv "${file}.2" "$file"
 done
