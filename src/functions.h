@@ -3528,8 +3528,6 @@ void silent_dfields(void);
 #ifndef NUMERICS_H
 #define NUMERICS_H
 
-/*       Numerics.h   */
-
 extern double DELTA_T;
 extern double TEND;
 extern double T0;
