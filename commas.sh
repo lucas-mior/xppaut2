@@ -8,8 +8,8 @@ IDENT="\*?[[:alnum:]_]+"
 awk " /^    [[:alnum:]_]+ ($IDENT), ?($IDENT);\$/ {
     type = \$1
     for (i = 2; i <= NF; i += 1) {
-        var = gensub(\"(    $IDENT)[,;]/\", \"\\1\", \"g\", \$i);
-        printf(\"%s %s;NEWLINELINE\", type, var);
+        var = gensub(\"($IDENT)[,;]/\", \"\\1\", \"g\", \$i);
+        printf(\"    %s %s;NEWLINELINE\", type, var);
     }
     getline
 }{
