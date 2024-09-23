@@ -252,11 +252,8 @@ load_eqn(void) {
     init_ar_ic();
     for (i = 0; i < MAX_ODE; i++) {
         itor[i] = 0;
-        /*  last_ic[i]=0.0; */
         strcpy(delay_string[i], "0.0");
     }
-    /* Moved to main
-     do_comline(argc,argv); */
     if (strcmp(this_file, "/dev/stdin") == 0)
         std = 1;
     if (got_file == 1 && (std == 0) &&
