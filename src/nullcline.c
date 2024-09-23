@@ -78,7 +78,7 @@ int32 ColorizeFlag = 0;
 
 RANGE_INFO ncrange;
 
-NCLINES *ncperm;
+NullClines *ncperm;
 int32 n_nstore = 0;
 int32 ncline_cnt;
 
@@ -249,8 +249,8 @@ start_ncline(void) {
 
 void
 clear_froz_cline(void) {
-    NCLINES *z;
-    NCLINES *znew;
+    NullClines *z;
+    NullClines *znew;
     z = ncperm;
     while (z->n != NULL)
         z = z->n;
@@ -288,7 +288,7 @@ clear_froz_cline(void) {
 int32
 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
     /* type=0,1 */
-    NCLINES *z;
+    NullClines *z;
     int32 i;
     if (who < 0) {
         if (type == 0) {
@@ -323,7 +323,7 @@ get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
 
 void
 save_frozen_clines(char *fn) {
-    NCLINES *z;
+    NullClines *z;
     FILE *fp;
     char fnx[256];
     char ch;
@@ -355,7 +355,7 @@ save_frozen_clines(char *fn) {
 
 void
 redraw_froz_cline(int32 flag) {
-    NCLINES *z;
+    NullClines *z;
     int32 col1 = XNullColor, col2 = YNullColor;
     /* if(PaperWhite){
       col1=1;
@@ -391,8 +391,8 @@ redraw_froz_cline(int32 flag) {
 void
 add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                int32 n_iy) {
-    NCLINES *z;
-    NCLINES *znew;
+    NullClines *z;
+    NullClines *znew;
     int32 i;
     z = ncperm;
     /* move to end */

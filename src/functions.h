@@ -3499,14 +3499,14 @@ typedef struct Pt {
     double x, y, z;
 } Pt;
 
-typedef struct NCLINES {
+typedef struct NullClines {
     double *xn;
     double *yn;
     int32 nmx, nmy;
     int32 n_ix;
     int32 n_iy;
-    struct NCLINES *n, *p;
-} NCLINES;
+    struct NullClines *n, *p;
+} NullClines;
 
 void create_new_cline(void);
 void froz_cline_stuff_com(int32 i);
