@@ -32,7 +32,6 @@ extern GRAPH *MyGraph;
 extern GC gc_graph;
 
 int32 PS_Port = 0;
-int32 D_FLAG;
 int32 PointRadius = 0;
 
 extern Window win;
@@ -146,10 +145,6 @@ get_draw_area_flag(int32 flag) {
     DTop = VChar*5 / 2 + 1;
     h = (uint32)(DBottom - DTop);
     w = (uint32)(DRight - DLeft);
-    if (h > 0 && w > 0)
-        D_FLAG = 1;
-    else
-        D_FLAG = 0;
     MyGraph->Width = (int32)w;
     MyGraph->Height = (int32)h;
     MyGraph->x0 = DLeft;
