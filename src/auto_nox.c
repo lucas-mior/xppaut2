@@ -312,7 +312,7 @@ draw_ps_axes(void) {
     char sx[20], sy[20];
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
-    Box_axis(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
+    axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
 }
 
@@ -321,7 +321,7 @@ draw_svg_axes(void) {
     char sx[20], sy[20];
     set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
-    Box_axis(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
+    axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
 }
 
