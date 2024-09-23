@@ -469,8 +469,8 @@ svg_last_pt_off(void) {
 void
 svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     if (DOING_SVG_COLOR) {
-        if (DOING_AXES) {
-            if (DOING_BOX_AXES) {
+        if (axes2_doing) {
+            if (axes2_doing_box) {
                 fprintf(
                     svgfile,
                     "      <line class=\"xppboxaxes\"  x1=\"%d\"  y1=\"%d\" "
@@ -515,8 +515,8 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
         }
 
     } else {
-        if (DOING_AXES) {
-            if (DOING_BOX_AXES) {
+        if (axes2_doing) {
+            if (axes2_doing_box) {
                 fprintf(
                     svgfile,
                     "      <line class=\"xppboxaxes\"  x1=\"%d\"  y1=\"%d\" "
@@ -751,7 +751,7 @@ svg_text(int32 x, int32 y, char *str) {
         break;
     }
 
-    if (DOING_AXES) {
+    if (axes2_doing) {
         fprintf(
             svgfile,
             "\n      <text class=\"xppaxestext\" text-anchor=\"%s\" x=\"%d\"  "

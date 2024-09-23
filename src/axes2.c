@@ -25,8 +25,8 @@ extern int32 TextJustify, TextAngle;
 extern double XMin, XMax, YMin, YMax;
 extern int32 Xup;
 
-int32 DOING_AXES = 0;
-int32 DOING_BOX_AXES = 0;
+int32 axes2_doing = 0;
+int32 axes2_doing_box = 0;
 extern FILE *svgfile;
 
 static void Frame_3d(void);
@@ -213,7 +213,7 @@ Frame_3d(void) {
     double x4 = xmin, y4 = ymin, z4 = zmin, x5 = xmax, y5 = ymax, z5 = zmax;
     double x3, y3, z3, x6, y6, z6;
 
-    DOING_AXES = 1;
+    axes2_doing = 1;
 
     tx = make_tics(xmin, xmax);
     ty = make_tics(ymin, ymax);
@@ -281,7 +281,7 @@ Frame_3d(void) {
     text3d(-1. - dt, -1. - dt, 0.0, MyGraph->zlabel);
     TextJustify = 0;
 
-    DOING_AXES = 0;
+    axes2_doing = 0;
     return;
 }
 
@@ -295,7 +295,7 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
     int32 ybot = DBottom, ytop = DTop;
     int32 xleft = DLeft, xright = DRight;
 
-    DOING_AXES = 1;
+    axes2_doing = 1;
 
     if (ybot > ytop) {
         ytop = ybot;
@@ -314,10 +314,10 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
         if (yaxis_x >= xleft && yaxis_x <= xright)
             line(yaxis_x, ybot, yaxis_x, ytop);
     set_linestyle(-2);
-    DOING_BOX_AXES = 1;
+    axes2_doing_box = 1;
     line(xleft, ybot, xright, ybot);
     line(xright, ybot, xright, ytop);
-    DOING_BOX_AXES = 0;
+    axes2_doing_box = 0;
     line(xright, ytop, xleft, ytop);
     line(xleft, ytop, xleft, ybot);
     draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
@@ -325,7 +325,7 @@ Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
     TextJustify = 0;
     set_linestyle(0);
 
-    DOING_AXES = 0;
+    axes2_doing = 0;
     return;
 }
 
@@ -342,11 +342,11 @@ draw_ytics(char *s1, double start, double incr, double end) {
             continue;
         sprintf(bob, "%g", place);
         scale_to_screen((double)x_min, (double)place, &xt, &yt);
-        DOING_BOX_AXES = 0;
+        axes2_doing_box = 0;
         line(DLeft, yt, DLeft + HTic, yt);
-        DOING_BOX_AXES = 1;
+        axes2_doing_box = 1;
         line(DRight, yt, DRight - HTic, yt);
-        DOING_BOX_AXES = 0;
+        axes2_doing_box = 0;
         put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
     scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
@@ -389,11 +389,11 @@ draw_xtics(char *s2, double start, double incr, double end) {
             continue;
         sprintf(bob, "%g", place);
         scale_to_screen((double)place, y_min, &xt, &yt);
-        DOING_BOX_AXES = 0;
+        axes2_doing_box = 0;
         line(xt, DBottom, xt, DBottom + s*VTic);
-        DOING_BOX_AXES = 1;
+        axes2_doing_box = 1;
         line(xt, DTop, xt, DTop - s*VTic);
-        DOING_BOX_AXES = 0;
+        axes2_doing_box = 0;
         put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
     put_text((DLeft + DRight) / 2, yt - (int32)(2.5*VChar*s), s2);
