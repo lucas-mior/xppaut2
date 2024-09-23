@@ -55,6 +55,7 @@ DLFUN dlf;
 void *dlhandle;
 void *function;
 int32 dll_loaded = 0;
+
 void
 auto_load_dll(void) {
     if (dll_flag == 3) {

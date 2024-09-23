@@ -1996,6 +1996,11 @@ void draw_eq_box(Window window);
 
 #define MAXW 50
 
+extern int32 dll_flag;
+extern int32 dll_loaded;
+extern char dll_lib[256];
+extern char dll_fun[256];
+
 void load_new_dll(void);
 int32 my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
              double *c);
