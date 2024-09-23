@@ -4,11 +4,16 @@ files="src/*.c src/cuda/*.c src/cvode/*.c src/sbml/*.c"
 grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
     | while read sig; do
         name="$(echo "$sig" | sed -E 's/^[a-zA-Z0-9_]+ //; s/\([^)]+\);$//')"
+
+        instances="$(grep "\<${name}\>" $files | wc -l)"
+
         file="$(grep -l "\<${name}\>" $files)"
         used=$(echo "$file" | wc -l)
+
         if [ $used -eq 1 ]; then
             echo "${sig}::::${file}"
-        elif [ $used -eq 0 ]; then
+        fi
+        if [ $instances -eq 1 ]; then
             echo "${sig}" >> unused_functions.txt
         fi
     done \
