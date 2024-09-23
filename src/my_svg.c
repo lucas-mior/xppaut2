@@ -32,8 +32,6 @@ extern int32 DOING_DFIELD;
 extern int32 Xup;
 
 static void svg_write(char *str);
-static void chk_svg_lines(void);
-static void svg_stroke(void);
 
 int32
 svg_init(char *filename) {
@@ -405,10 +403,6 @@ svg_write(char *str) {
 }
 
 void
-svg_stroke(void) {
-}
-
-void
 svg_do_color(int32 color) {
     int32 r, g, b;
 
@@ -565,16 +559,6 @@ svg_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 
     DOING_SVG_COLOR = 0;
     DO_MARKER = 0;
-    return;
-}
-
-void
-chk_svg_lines(void) {
-    /*PSLines++;
-    if(PSLines>=MAXPSLINE){
-      fprintf(psfile,"currentpoint stroke moveto\n");
-      PSLines=0;
-    } */
     return;
 }
 

@@ -57,12 +57,10 @@ int32 n_nstore = 0;
 int32 ncline_cnt;
 
 static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
-static void triangle_contour(Pt p1, Pt p2, Pt p3);
 static void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
 static double fnull(double x, double y);
 static void stor_null(double x1, double y1, double x2, double y2);
 static void restor_null(double *v, int32 n, int32 d);
-static void dump_clines_old(FILE *fp, double *x, int32 nx, double *y, int32 ny);
 static void dump_clines(FILE *fp, double *x, int32 nx, double *y, int32 ny);
 static void save_the_nullclines(void);
 static void redraw_froz_cline(int32 flag);
@@ -786,30 +784,6 @@ dump_clines(/* gnuplot format */
 }
 
 void
-dump_clines_old(FILE *fp, double *x, int32 nx, double *y, int32 ny) {
-    int32 i, ix, iy;
-    int32 n;
-    n = nx;
-    if (n < ny)
-        n = ny;
-    for (i = 0; i < n; i++) {
-        if (i >= nx)
-            ix = nx - 1;
-        else
-            ix = i;
-        if (i >= ny)
-            iy = ny - 1;
-        else
-            iy = i;
-        fprintf(fp, "%g %g %g %g \n", x[4*ix], x[4*ix + 1], y[4*iy],
-                y[4*iy + 1]);
-        fprintf(fp, "%g %g %g %g \n", x[4*ix + 2], x[4*ix + 3],
-                y[4*iy + 2], y[4*iy + 3]);
-    }
-    return;
-}
-
-void
 restor_null(/* d=1 for x and 2 for y  */
             double *v, int32 n, int32 d) {
     int32 i, i4;
@@ -993,34 +967,6 @@ quad_contour(Pt p1, Pt p2, Pt p3, Pt p4) {
     if (count == 2) {
         if (!NCSuppress)
             line_abs(x[0], y[0], x[1], y[1]);
-        stor_null(x[0], y[0], x[1], y[1]);
-    }
-    return;
-}
-
-void
-triangle_contour(Pt p1, Pt p2, Pt p3) {
-    double x[3], y[3];
-    int32 count = 0;
-    if (p1.z*p2.z <= 0.0)
-        /* if(((0.0<=p1.z)&&(0.0>=p2.z))||
-               ((0.0>=p1.z)&&(0.0<=p2.z))) */
-        if (interpolate(p1, p2, 0.0, &x[count], &y[count]))
-            count++;
-    if (p1.z*p3.z <= 0.0)
-        /*  if(((0.0<=p1.z)&&(0.0>=p3.z))||
-                ((0.0>=p1.z)&&(0.0<=p3.z))) */
-
-        if (interpolate(p1, p3, 0.0, &x[count], &y[count]))
-            count++;
-    if (p2.z*p3.z <= 0.0)
-        /* if(((0.0<=p3.z)&&(0.0>=p2.z))||
-              ((0.0>=p3.z)&&(0.0<=p2.z))) */
-        if (interpolate(p3, p2, 0.0, &x[count], &y[count]))
-            count++;
-
-    if (count == 2) {
-        line_abs(x[0], y[0], x[1], y[1]);
         stor_null(x[0], y[0], x[1], y[1]);
     }
     return;

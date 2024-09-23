@@ -22,8 +22,6 @@ typedef struct {
 
 extern XPPVEC xpv;
 
-static void free_storage(int32 ncol);
-
 void
 init_alloc_info(void) {
     int32 i;
@@ -94,15 +92,4 @@ init_stor(int32 nrow, int32 ncol) {
     }
     err_msg("Cannot allocate sufficient storage");
     exit(0);
-}
-
-void
-free_storage(int32 ncol) {
-    int32 i;
-    for (i = 0; i < ncol; i++)
-        free(storage[i]);
-    free(storage);
-    if (WORK)
-        free(WORK);
-    return;
 }

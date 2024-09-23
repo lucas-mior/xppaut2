@@ -86,8 +86,6 @@ extern double **storage;
 static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y);
 static double tab_interp(double xlo, double h, double x, double *y, int32 i);
 static double lookupxy(double x, int32 n, double *xv, double *yv);
-static void new_lookup_ok(void);
-static void view_table(int32 index);
 
 void
 set_auto_eval_flags(int32 f) {
@@ -158,50 +156,6 @@ new_lookup_com(int32 i) {
         create_fun_table(npts, xlo, xhi, newform, index);
     }
     return;
-}
-
-void
-new_lookup_ok(void) {
-    char file[128];
-    char name[10];
-    int32 index, ok;
-    double xlo, xhi;
-    int32 npts;
-    char newform[80];
-    if (NTable == 0)
-        return;
-    while (true) {
-        name[0] = 0;
-        new_string("Lookup name ", name);
-        if (strlen(name) == 0)
-            return;
-        index = find_lookup(name);
-        index = select_table();
-        if (index != -1) {
-            if (my_table[index].flag == 1) {
-                strcpy(file, my_table[index].filename);
-                if (new_string("Filename:", file)) {
-                    ok = load_table(file, index);
-                    if (ok == 1)
-                        strcpy(my_table[index].filename, file);
-                }
-            }
-            if (my_table[index].flag == 2) {
-                npts = my_table[index].n;
-
-                xlo = my_table[index].xlo;
-                xhi = my_table[index].xhi;
-                strcpy(newform, my_table[index].filename);
-                new_int("Auto-evaluate? (1/0)", &my_table[index].autoeval);
-                new_int("NPts: ", &npts);
-                new_float("Xlo: ", &xlo);
-                new_float("Xhi: ", &xhi);
-                new_string("Formula :", newform);
-                create_fun_table(npts, xlo, xhi, newform, index);
-            }
-        } else
-            err_msg("Not a Table function");
-    }
 }
 
 double

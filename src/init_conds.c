@@ -124,7 +124,6 @@ static void expose_slider(Window window, struct ParSlider *p);
 static void load_entire_box(BoxList *b);
 static void set_value_from_box(BoxList *b, int32 i);
 static int32 to_float(char *s, double *z);
-static void prt_focus(void);
 static void check_box_cursor(void);
 static void add_editval(BoxList *b, int32 i, char *string);
 static void add_edit_float(BoxList *b, int32 i, double z);
@@ -140,7 +139,6 @@ static void redraw_entire_box(BoxList *b);
 static void set_up_arry(void);
 static void set_up_pp(void);
 static void set_up_xvt(void);
-static int32 find_the_box(BoxList b, Window window, int32 *index);
 static void box_enter(BoxList b, Window window, int32 val);
 static void display_box(BoxList b, Window window);
 static void justify_string(Window w1, char *s1);
@@ -162,7 +160,6 @@ static void redraw_fs_text(char *string, Window window, int32 flag);
 static void redraw_file_list(void);
 static void redraw_directory(void);
 static void expose_selector(Window window);
-static void c_hints(void);
 
 extern OptionsSet notAlreadySet;
 
@@ -192,28 +189,6 @@ int32 BoxMode;
 
 extern char this_file[100];
 
-void
-c_hints(void) {
-    int32 i, index;
-    plintf("#include <math.h>\n\n extern double constants[]; \n");
-    plintf("main(argc,argv)\n char **argv; \n int32 argc;\n{\n "
-           "do_main(argc,argv);\n }\n");
-
-    plintf("/* defines for %s  */ \n", this_file);
-    for (i = 0; i < NUPAR; i++) {
-        index = get_param_index(upar_names[i]);
-        plintf("#define %s constants[%d]\n", upar_names[i], index);
-    }
-    for (i = 0; i < NODE; i++) {
-        plintf("#define %s y[%d]\n", uvar_names[i], i);
-        plintf("#define %sDOT ydot[%d]\n", uvar_names[i], i);
-    }
-    for (i = NODE; i < NEQ; i++)
-        plintf("#define %s y[%d]\n", uvar_names[i], i);
-    plintf("my_rhs(t,y,ydot,neq)\n double t,*y,*ydot; \n int32 neq;\n{\n  }\n");
-    plintf("set_fix_rhs(t,y,neq)\n double y,*y;\n int32 neq;\n{\n }\n");
-    plintf("extra(y,t,nod,neq)\n double t,*y; \n int32 nod,neq;\n{\n  }\n");
-}
 /* CLONE */
 void
 clone_ode(void) {
@@ -1993,20 +1968,6 @@ box_enter(BoxList b, Window window, int32 val) {
     return;
 }
 
-int32
-find_the_box(BoxList b, Window window, int32 *index) {
-    int32 i;
-    if (b.xuse == 0)
-        return 0;
-    for (i = 0; i < b.nwin; i++)
-        if (window == b.we[i]) {
-            *index = i + b.n0;
-            return 1;
-        }
-    *index = -1;
-    return 0;
-}
-
 void
 set_up_xvt(void) {
     int32 i;
@@ -2586,15 +2547,6 @@ check_box_cursor(void) {
     draw_editable(HotBox->we[HotBoxItem], HotBox->value[HotBoxItem + n0],
                   HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem], HotBox->mc);
     HotBoxItem = -1;
-    return;
-}
-
-void
-prt_focus(void) {
-    Window focus;
-    int32 rev;
-    XGetInputFocus(display, &focus, &rev);
-    plintf(" focus=%d\n", focus);
     return;
 }
 

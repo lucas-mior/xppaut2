@@ -87,8 +87,6 @@ int32 LineType = 0, PointType = -1, TextJustify, TextAngle;
 static void draw_symbol(double x, double y, double size, int32 my_symb);
 static void line_nabs(double x1_out, double y1_out, double x2_out, double y2_out);
 static void pers_line(double x, double y, double z, double xp, double yp, double zp);
-static void text_3d(double x, double y, double z, char *s);
-static double proj3d(double theta, double phi, double x, double y, double z, int32 in);
 static void init_graph(int32 i);
 static void line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
 static void rect_x11(int32 x, int32 y, int32 w, int32 h);
@@ -815,35 +813,6 @@ scale3d(double x, double y, double z, double *xp, double *yp, double *zp) {
     return;
 }
 
-double
-proj3d(double theta, double phi, double x, double y, double z, int32 in) {
-    double ct = cos(DEGTORAD*theta), st = sin(DEGTORAD*theta);
-    double sp = sin(DEGTORAD*phi), cp = cos(DEGTORAD*phi);
-    double rm[3][3];
-    double vt[3], vnew[3];
-    int32 i, j;
-    rm[0][0] = ct;
-    rm[0][1] = st;
-    rm[0][2] = 0.0;
-    rm[1][0] = -cp*st;
-    rm[1][1] = cp*ct;
-    rm[1][2] = sp;
-    rm[2][0] = st*sp;
-    rm[2][1] = -sp*ct;
-    rm[2][2] = cp;
-    vt[0] = x;
-    vt[1] = y;
-    vt[2] = z;
-
-    for (i = 0; i < 3; i++) {
-        vnew[i] = 0.0;
-        for (j = 0; j < 3; j++)
-            vnew[i] = vnew[i] + rm[i][j]*vt[j];
-    }
-
-    return vnew[in];
-}
-
 int32
 threedproj(double x2p, double y2p, double z2p, double *xp, double *yp) {
     double x1p, y1p, z1p, s;
@@ -870,14 +839,6 @@ void
 text3d(double x, double y, double z, char *s) {
     double xp, yp;
     if (threedproj(x, y, z, &xp, &yp))
-        text_abs(xp, yp, s);
-    return;
-}
-
-void
-text_3d(double x, double y, double z, char *s) {
-    double xp, yp;
-    if (threed_proj(x, y, z, &xp, &yp))
         text_abs(xp, yp, s);
     return;
 }

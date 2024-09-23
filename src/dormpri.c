@@ -18,14 +18,6 @@ static double *rcont5, *rcont6, *rcont7, *rcont8;
 
 extern int32 NFlags;
 
-static double contd5(uint32 ii, double x);
-static double contd8(uint32 ii, double x);
-static double xRead(void);
-static double hRead(void);
-static long nrejctRead(void);
-static long naccptRead(void);
-static long nstepRead(void);
-static long nfcnRead(void);
 static void dprhs(uint32 n, double t, double *y, double *f);
 
 void
@@ -100,36 +92,6 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
     }
-}
-
-long
-nfcnRead(void) {
-    return nfcn;
-}
-
-long
-nstepRead(void) {
-    return nstep;
-}
-
-long
-naccptRead(void) {
-    return naccpt;
-}
-
-long
-nrejctRead(void) {
-    return nrejct;
-}
-
-double
-hRead(void) {
-    return hout;
-}
-
-double
-xRead(void) {
-    return xout;
 }
 
 static double
@@ -944,36 +906,6 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
     return idid;
 }
 
-/* dense output function */
-double
-contd8(uint32 ii, double x) {
-    uint32 i;
-    double s, s1;
-
-    i = UINT_MAX;
-
-    if (!indir)
-        i = ii;
-    else
-        i = indir[ii];
-
-    if (i == UINT_MAX) {
-        plintf("No dense output available for %uth component", ii);
-        return 0.0;
-    }
-
-    s = (x - xold) / hout;
-    s1 = 1.0 - s;
-
-    return rcont1[i] +
-           s*(rcont2[i] +
-                s1*(rcont3[i] +
-                      s*(rcont4[i] +
-                           s1*(rcont5[i] +
-                                 s*(rcont6[i] +
-                                      s1*(rcont7[i] + s*rcont8[i]))))));
-}
-
 /************    dopri5  ***************************/
 static double
 hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
@@ -1498,31 +1430,4 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
         free(indir);
 
     return idid;
-}
-
-/* dense output function */
-double
-contd5(uint32 ii, double x) {
-    uint32 i;
-    double theta, theta1;
-
-    i = UINT_MAX;
-
-    if (!indir)
-        i = ii;
-    else
-        i = indir[ii];
-
-    if (i == UINT_MAX) {
-        plintf("No dense output available for %uth component", ii);
-        return 0.0;
-    }
-
-    theta = (x - xold) / hout;
-    theta1 = 1.0 - theta;
-
-    return rcont1[i] +
-           theta*(rcont2[i] +
-                    theta1 *
-                        (rcont3[i] + theta*(rcont4[i] + theta1*rcont5[i])));
 }

@@ -89,7 +89,6 @@ typedef double (*Function2)(double *in, double *out, int32 nin, int32 nout,
 
 static void parse_inout(char *l, int32 flag);
 static int32 get_export_count(char *s);
-static void check_inout(void);
 
 void
 get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
@@ -220,16 +219,6 @@ add_export_list(char *in, char *out) {
     in_out.outtype = xmalloc((usize)(i + 1)*sizeof(*(in_out.outtype)));
     in_out.vout = xmalloc((usize)(i + 1)*sizeof(*(in_out.vout)));
     in_out.nout = i;
-    return;
-}
-
-void
-check_inout(void) {
-    int32 i;
-    for (i = 0; i < in_out.nin; i++)
-        plintf(" type=%d index=%d \n", in_out.intype[i], in_out.in[i]);
-    for (i = 0; i < in_out.nout; i++)
-        plintf(" type=%d index=%d \n", in_out.outtype[i], in_out.out[i]);
     return;
 }
 

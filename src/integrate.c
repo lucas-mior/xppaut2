@@ -166,7 +166,6 @@ static void evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
 static void store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
 static void do_new_array_ic(char *new, int32 j1, int32 j2);
 static void do_start_flags(double *x, double *t);
-static void run_from_x(double *x);
 static int32 write_this_run(char *file, int32 i);
 static void batch_integrate_once(void);
 static void do_batch_dry_run(void);
@@ -1429,23 +1428,6 @@ do_init_data(int32 com) {
     }
     usual_integrate_stuff(x);
     DELTA_T = old_dt;
-    return;
-}
-
-void
-run_from_x(double *x) {
-    plintf(" %g %g \n", x[0], x[1]);
-    MyStart = 1;
-    RANGE_FLAG = 0;
-    DelayErr = 0;
-    reset_dae();
-    MyTime = T0;
-    /* get_ic(2,x); */
-    STORFLAG = 1;
-    POIEXT = 0;
-    storind = 0;
-    reset_browser();
-    usual_integrate_stuff(x);
     return;
 }
 

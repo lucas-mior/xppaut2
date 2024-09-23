@@ -91,19 +91,14 @@ static void lo_lite(Window wi);
 static void set_gr_back(void);
 static void set_gr_fore(void);
 static void select_window(Window window);
-static int32 graph_used(int32 i);
 static void kill_all_pops(void);
 static void destroy_a_pop(void);
-static int32 is_col_plotted(int32 nc);
 static void set_restore(int32 flag);
 static void add_pntarr(int32 type);
-static void add_markers_old(void);
 static void add_markers(void);
-static void add_marker_old(void);
 static void add_marker(void);
 static int32 get_markers_info(void);
 static int32 get_marker_info(void);
-static int32 man_xy(double *xe, double *ye);
 static int32 select_marker_type(int32 *type);
 static void destroy_label(Window window);
 static void destroy_grob(Window window);
@@ -691,18 +686,6 @@ select_marker_type(int32 *type) {
 }
 
 int32
-man_xy(double *xe, double *ye) {
-    double x = 0, y = 0;
-    if (new_float("x: ", &x))
-        return 0;
-    if (new_float("y: ", &y))
-        return 0;
-    *xe = x;
-    *ye = y;
-    return 1;
-}
-
-int32
 get_marker_info(void) {
     static char *n[] = {"*5Type", "*4Color", "Size"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -764,46 +747,6 @@ add_marker(void) {
 }
 
 void
-add_marker_old(void) {
-    double size = 1;
-    int32 i1, j1, color = 0, flag;
-    double xe = 0.0, ye = 0.0, xs, ys;
-    /*Window temp=main_win;*/
-    int32 type = MARKER;
-    if (select_marker_type(&type) == 0)
-        return;
-    if (new_float("Size: ", &size))
-        return;
-    if (new_int("Color: ", &color))
-        return;
-    /* message_box(&temp,0,SCALEY-5*DCURY,"Position"); */
-    MessageBox("Position");
-    flag = GetMouseXY(&i1, &j1);
-    /* XDestroyWindow(display,temp); */
-    KillMessageBox();
-    XFlush(display);
-    if (flag == 0)
-        return;
-    /* if(flag==-2){
-       top_store(&xs,&ys);
-       add_grob(xs,ys,xe,ye,size,type,color);
-       return;
-     }
-     */
-    if (flag == -3) {
-        if (man_xy(&xs, &ys))
-            add_grob(xs, ys, xe, ye, size, type, color);
-        redraw_all();
-        return;
-    }
-
-    scale_to_real(i1, j1, &xs, &ys);
-
-    add_grob(xs, ys, xe, ye, size, type, color);
-    redraw_all();
-}
-
-void
 add_markers(void) {
     int32 i;
     double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
@@ -820,41 +763,6 @@ add_markers(void) {
             threed_proj(x, y, z, &xs, &ys);
         }
         add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
-    }
-    redraw_all();
-}
-
-void
-add_markers_old(void) {
-    double size = 1;
-    int32 i;
-    int32 color = 0;
-    int32 nm = 1, nskip = 1, nstart = 0;
-    double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
-
-    int32 type = MARKER;
-    if (select_marker_type(&type) == 0)
-        return;
-    if (new_float("Size: ", &size))
-        return;
-    if (new_int("Color: ", &color))
-        return;
-    if (new_int("Number of markers: ", &nm))
-        return;
-    if (new_int("Starting at: ", &nstart))
-        return;
-    if (new_int("Skip between: ", &nskip))
-        return;
-    for (i = 0; i < nm; i++) {
-        get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0], MyGraph->zv[0],
-                     nstart + i*nskip);
-        if (MyGraph->ThreeDFlag == 0) {
-            xs = x;
-            ys = y;
-        } else {
-            threed_proj(x, y, z, &xs, &ys);
-        }
-        add_grob(xs, ys, xe, ye, size, type, color);
     }
     redraw_all();
 }
@@ -1116,25 +1024,6 @@ set_restore(int32 flag) {
         }
     }
     return;
-}
-
-int32
-is_col_plotted(int32 nc) {
-    int32 i;
-    int32 j, nv;
-
-    for (i = 0; i < MAXPOP; i++) {
-        if (graph[i].Use == 1) {
-            nv = graph[i].nvars;
-            for (j = 0; j < nv; j++) {
-                if (graph[i].xv[j] == nc || graph[i].yv[j] == nc ||
-                    graph[i].zv[j] == nc) {
-                    return 1;
-                }
-            }
-        }
-    }
-    return 0;
 }
 
 void
@@ -1520,11 +1409,6 @@ check_active_plot(int32 k) {
         }
     }
     return 0;
-}
-
-int32
-graph_used(int32 i) {
-    return graph[i].Use;
 }
 
 void

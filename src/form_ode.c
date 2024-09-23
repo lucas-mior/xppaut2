@@ -110,10 +110,6 @@ static void strncpy_trim(char *dest, char *source, int32 n);
 static void strcpy_trim(char *dest, char *source);
 static void advance_past_first_word(char **sptr);
 static void add_comment(char *s);
-static void new_comment(FILE *f);
-static void free_comments(void);
-static void default_comments(void);
-static void keep_orig_comments(void);
 static int32 is_comment(char *s);
 static int32 not_ker(char *s, int32 i);
 static int32 check_if_ic(char *big);
@@ -134,20 +130,14 @@ static void add_only(char *s);
 static int32 do_new_parser(FILE *fp, char *first, int32 nnn);
 static int32 if_end_include(char *old);
 static int32 if_include_file(char *old, char *nf);
-static int32 getchi(void);
-static int32 getuch(void);
 static void clrscr(void);
-static void pos_prn(char *s);
 static void find_ker(char *string, int32 *alt);
 static void take_apart(char *bob, double *value, char *name);
 static void show_syms(void);
 static void welcome(void);
-static void list_upar(void);
 static void list_em(char *wild);
 static int32 get_a_filename(char *filename, char *wild);
 static void format_list(char **s, int32 n);
-static void dump_comments(void);
-static void dump_src(void);
 
 int32
 make_eqn(void) {
@@ -205,22 +195,6 @@ disc(char *string) {
     if (strcmp(end, "dis") == 0 || strcmp(end, "dif") == 0)
         return 1;
     return 0;
-}
-
-void
-dump_src(void) {
-    int32 i;
-    for (i = 0; i < NLINES; i++)
-        plintf("%s", save_eqn[i]);
-    return;
-}
-
-void
-dump_comments(void) {
-    int32 i;
-    for (i = 0; i < n_comments; i++)
-        plintf("%s\n", comments[i].text);
-    return;
 }
 
 void
@@ -856,14 +830,6 @@ compiler(char *bob, FILE *fptr) {
 }
 
 void
-list_upar(void) {
-    int32 i;
-    for (i = 0; i < NUPAR; i++)
-        printf(" %s", upar_names[i]);
-    return;
-}
-
-void
 welcome(void) {
     plintf("\n The commands are: \n");
     plintf(" P(arameter) -- declare parameters "
@@ -1000,32 +966,12 @@ find_ker(char *string, int32 *alt) {
 }
 
 void
-pos_prn(char *s) {
-    plintf("%s\n", s);
-    return;
-}
-
-void
 clrscr(void) {
     system("clear");
     return;
 }
 
-int32
-getuch(void) {
-    int32 ch;
-    ch = getchi();
-    if (ch > 64 && ch < 96)
-        ch += 32;
-    return ch;
-}
-
 /***   remove this for full PP   ***/
-
-int32
-getchi(void) {
-    return getchar();
-}
 
 /*   This is the new improved parser for input files.
      It is much more natural.  The format is as follows:
@@ -2675,73 +2621,6 @@ subsk(char *big, char *new, int32 k, int32 flag) {
             break;
     }
     new[inew] = 0;
-    return;
-}
-
-void
-keep_orig_comments(void) {
-    int32 i;
-
-    if (orig_ncomments > 0)
-        return; /* already stored these so return */
-    if (n_comments == 0)
-        return; /* nothing to keep ! */
-    orig_comments = xmalloc(sizeof(*orig_comments)*(usize)n_comments);
-    for (i = 0; i < n_comments; i++) {
-        orig_comments[i].text = xmalloc(strlen(comments[i].text) + 1);
-        if (comments[i].aflag)
-            orig_comments[i].action = xmalloc(strlen(comments[i].action) + 1);
-        strcpy(orig_comments[i].text, comments[i].text);
-        if (comments[i].aflag)
-            strcpy(orig_comments[i].action, comments[i].action);
-        orig_comments[i].aflag = comments[i].aflag;
-    }
-    return;
-}
-
-void
-default_comments(void) {
-    int32 i;
-    if (orig_ncomments == 0)
-        return;
-    /* first free up the comments */
-    free_comments();
-    for (i = 0; i < orig_ncomments; i++) {
-        comments[i].text = xmalloc(strlen(orig_comments[i].text) + 1);
-        strcpy(comments[i].text, orig_comments[i].text);
-        if (orig_comments[i].aflag) {
-            comments[i].action = xmalloc(strlen(orig_comments[i].action) + 1);
-            strcpy(comments[i].action, orig_comments[i].action);
-        }
-        comments[i].aflag = orig_comments[i].aflag;
-    }
-    return;
-}
-
-void
-free_comments(void) {
-    int32 i;
-    for (i = 0; i < n_comments; i++) {
-        free(comments[i].text);
-        if (comments[i].aflag)
-            free(comments[i].action);
-    }
-    n_comments = 0;
-    return;
-}
-
-void
-new_comment(FILE *f) {
-    char bob[256];
-    char ted[sizeof(bob) + 1];
-
-    keep_orig_comments();
-    free_comments();
-    while (!feof(f)) {
-        fgets(bob, sizeof(bob), f);
-        snprintf(ted, sizeof(ted), "@%s", bob);
-        add_comment(ted);
-    }
     return;
 }
 

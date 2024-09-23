@@ -100,8 +100,6 @@ double STOL = 1.e-10;
 extern double variables[];
 extern int32 NVAR;
 
-static void printflaginfo(void);
-
 int32
 add_global(char *cond, int32 sign, char *rest) {
     char temp[256];
@@ -556,17 +554,6 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
         }
     }
     return 1;
-}
-
-void
-printflaginfo(void) {
-    int32 i;
-    for (i = 0; i < NFlags; i++) {
-        plintf(" flag %d: tstart=%g f0=%g f1=%g hit=%d tol=%g\n", i,
-               flag[i].tstar, flag[i].f0, flag[i].f1, flag[i].hit,
-               fabs(flag[i].f0 - flag[i].f1));
-    }
-    return;
 }
 
 int32

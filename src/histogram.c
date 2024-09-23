@@ -48,7 +48,6 @@ int32 twod_hist(void);
 
 static void just_sd(int32 flag);
 static void just_fourier(int32 flag);
-static void sft(double *data, double *ct, double *st, int32 nmodes, int32 grid);
 static void mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag);
 static int32 spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow);
 static int32 get_col_info(int32 *col, char *prompt);
@@ -893,31 +892,6 @@ compute_hist(void) {
     return;
 }
 
-void
-sft(double *data, double *ct, double *st, int32 nmodes, int32 grid) {
-    int32 i, j;
-    double sums, sumc;
-    double tpi = 6.28318530717959;
-    double dx, xi, x;
-    dx = tpi / (grid);
-    for (j = 0; j < nmodes; j++) {
-        sums = 0.0;
-        sumc = 0.0;
-        xi = j*dx;
-        for (i = 0; i < grid; i++) {
-            x = i*xi;
-            sumc += (cos(x)*data[i]);
-            sums += (sin(x)*data[i]);
-        }
-        if (j == 0) {
-            ct[j] = sumc / (double)grid;
-            st[j] = sums / (double)grid;
-        } else {
-            ct[j] = 2.*sumc / (double)grid;
-            st[j] = 2.*sums / (double)grid;
-        }
-    }
-}
 /* experimental -- does it work */
 /* nlag should be less than length/2 */
 void

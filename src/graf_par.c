@@ -95,11 +95,8 @@ static void create_ps(void);
 static void new_curve(void);
 static void edit_curve(void);
 static int32 alter_curve(char *title, int32 in_it, int32 n);
-static int32 find_color(int32 in);
 static void zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
-static void get_3d_par_noper(void);
-static void test_rot(void);
 static void movie_rot(double start, double increment, int32 nclip, int32 angle);
 static void user_window(void);
 static void fit_window(void);
@@ -601,52 +598,6 @@ movie_rot(double start, double increment, int32 nclip, int32 angle) {
 }
 
 void
-test_rot(void) {
-    int32 done = 0;
-    int32 kp;
-    XEvent ev;
-    double theta = MyGraph->Theta, phi = MyGraph->Phi;
-    axes2_redraw_cube(theta, phi);
-    while (done == 0) {
-        XNextEvent(display, &ev);
-        if (ev.type == KeyPress) {
-            kp = get_key_press(&ev);
-            switch (kp) {
-            case KEY_UP:
-                phi = phi + 1;
-                axes2_redraw_cube(theta, phi);
-                break;
-            case KEY_DOWN:
-                phi = phi - 1;
-                axes2_redraw_cube(theta, phi);
-                break;
-            case KEY_LEFT:
-                theta = theta + 1;
-                axes2_redraw_cube(theta, phi);
-                break;
-            case KEY_RIGHT:
-                theta = theta - 1;
-                axes2_redraw_cube(theta, phi);
-                break;
-            case KEY_FINE:
-                done = 1;
-                break;
-            case KEY_ESC:
-                done = -1;
-                break;
-            default:
-                break;
-            }
-        }
-    }
-    if (done == 1) {
-        MyGraph->Phi = phi;
-        MyGraph->Theta = theta;
-    }
-    redraw_the_graph();
-}
-
-void
 get_3d_par_com(void) {
     static char *n[] = {"Persp (1=On)",
                         "ZPlane",
@@ -690,57 +641,6 @@ get_3d_par_com(void) {
             start = atof(values[7]);
             increment = atof(values[8]);
             nclip = atoi(values[9]);
-            mov3d.start = start;
-            mov3d.incr = increment;
-            mov3d.nclip = nclip;
-            angle = 0;
-            if (mov3d.angle[0] == 'p' || mov3d.angle[0] == 'P')
-                angle = 1;
-            /*     XRaiseWindow(display,MyGraph->w); */
-            movie_rot(start, increment, nclip, angle);
-        }
-
-        make_rot(MyGraph->Theta, MyGraph->Phi);
-        /*  Redraw the picture   */
-        redraw_the_graph();
-    }
-    return;
-}
-
-void
-get_3d_par_noper(void) {
-    static char *n[] = {
-        "Theta",       "Phi",       "Movie(Y/N)",       "Vary (theta/phi)",
-        "Start angle", "Increment", "Number increments"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-
-    int32 nclip = 8, angle = 0;
-    double start, increment = 45;
-    if (MyGraph->grtype < 5)
-        return;
-
-    snprintf(values[0], sizeof(values[0]), "%g", MyGraph->Theta);
-    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->Phi);
-    snprintf(values[2], sizeof(values[2]), "%s", mov3d.yes);
-    snprintf(values[3], sizeof(values[3]), "%s", mov3d.angle);
-    snprintf(values[4], sizeof(values[4]), "%g", mov3d.start);
-    snprintf(values[5], sizeof(values[5]), "%g", mov3d.incr);
-    snprintf(values[6], sizeof(values[6]), "%d", mov3d.nclip);
-
-    status = do_string_box(7, 7, 1, "3D Parameters", n, values, 28);
-    if (status != 0) {
-        /* MyGraph->PerspFlag=atoi(values[0]);
-                   MyGraph->ZPlane=atof(values[1]);
-                   MyGraph->ZView=atof(values[2]); */
-        MyGraph->Theta = atof(values[0]);
-        MyGraph->Phi = atof(values[1]);
-        if (values[2][0] == 'y' || values[2][0] == 'Y') {
-            strcpy(mov3d.yes, values[2]);
-            strcpy(mov3d.angle, values[3]);
-            start = atof(values[4]);
-            increment = atof(values[5]);
-            nclip = atoi(values[6]);
             mov3d.start = start;
             mov3d.incr = increment;
             mov3d.nclip = nclip;
@@ -1013,15 +913,6 @@ graph_all(int32 *list, int32 n, int32 type) {
     check_flags();
     fit_window();
     return;
-}
-
-int32
-find_color(int32 in) {
-    int32 i;
-    for (i = 0; i <= 10; i++)
-        if (in == colorline[i])
-            return i;
-    return 0;
 }
 
 int32

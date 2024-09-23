@@ -36,12 +36,8 @@ int32 xor_flag;
 extern FILE *logfile;
 extern int32 XPPVERBOSE;
 
-static void do_backspace(int32 *pos, char *value, int32 *col, Window window);
 static void put_string_at(Window window, int32 col, char *s, int32 off);
 static void clr_line_at(Window window, int32 col0, int32 pos, int32 n);
-static void setfillstyle(int32 type, int32 color);
-static void gputs(char *string, Window win);
-static void set_gcurs(int32 y, int32 x);
 
 void
 ping(void) {
@@ -109,13 +105,6 @@ chk_xor(void) {
 }
 
 void
-set_gcurs(int32 y, int32 x) {
-    CURS_X = x;
-    CURS_Y = y;
-    return;
-}
-
-void
 clr_command(void) {
     blank_screen(command_pop);
     return;
@@ -138,14 +127,6 @@ bottom_msg(char *msg) {
     BaseCol();
     strcpy(info_message, msg);
     XDrawString(display, info_pop, gc, 5, CURY_OFF, msg, (int)strlen(msg));
-}
-
-void
-gputs(char *string, Window window) {
-    int32 xloc = CURS_X*DCURX, yloc = CURS_Y*DCURY;
-    Ftext(xloc, yloc, string, window);
-    CURS_X += strlen(string);
-    return;
 }
 
 void
@@ -329,17 +310,6 @@ bar(int32 x, int32 y, int32 x2, int32 y2, Window window) {
 void
 rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window) {
     XDrawRectangle(display, window, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
-    return;
-}
-
-void
-setfillstyle(int32 type, int32 color) {
-    if (type > -1)
-        XSetFillStyle(display, gc, FillSolid);
-    if (color > 0)
-        XSetForeground(display, gc, MyForeColor);
-    else
-        XSetForeground(display, gc, MyBackColor);
     return;
 }
 
@@ -530,22 +500,6 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
     put_cursor_at(window, col0, *pos);
 
     XFlush(display);
-    return;
-}
-
-void
-do_backspace(int32 *pos, char *value, int32 *col, Window window) {
-    char oldch;
-    *pos = *pos - 1;
-    oldch = value[*pos];
-    value[*pos] = '\0';
-    if (*col < (SCALEX - DCURX))
-        set_back();
-    showchar('_', *col, 0, window);
-    *col = *col - DCURX;
-    showchar(oldch, *col, 0, window);
-    set_fore();
-    showchar('_', *col, 0, window);
     return;
 }
 

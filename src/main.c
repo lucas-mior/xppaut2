@@ -153,11 +153,9 @@ static void top_button_events(XEvent report);
 static void top_button_press(Window window);
 static void top_button_cross(Window window, int32 b);
 static void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
-static void set_small_font(void);
 static void set_big_font(void);
 static void init_X(void);
 static void check_for_quiet(int32 argc, char **argv);
-static void pretty(double *x1, double *x2);
 
 void
 plot_command(int32 nit, int32 icount, int32 cwidth) {
@@ -767,15 +765,6 @@ set_big_font(void) {
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
     XSetFont(display, gc, big_font->fid);
-    return;
-}
-
-void
-set_small_font(void) {
-    DCURX = DCURXs;
-    DCURY = DCURYs;
-    CURY_OFF = CURY_OFFs;
-    XSetFont(display, gc, small_font->fid);
     return;
 }
 

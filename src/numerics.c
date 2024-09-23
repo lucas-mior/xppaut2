@@ -81,8 +81,6 @@ extern int32 storind;
 extern int32 NODE, NEQ; /* as well as the number of odes etc  */
 
 static void get_method(void);
-static void meth_dialog(void);
-static void init_numerics(void);
 static void ruelle(void);
 static void check_pos(int32 *j);
 
@@ -327,57 +325,6 @@ ruelle(void) {
         MyGraph->yshft = 0;
     if (MyGraph->zshft < 0)
         MyGraph->zshft = 0;
-    return;
-}
-
-void
-init_numerics(void)
-/*    these are the default values of the numerical parameters   */
-{
-    DELTA_T = .05;
-    TEND = 20.0;
-    T0 = 0.0;
-    TRANS = 0.0;
-    NULL_ERR = .001;
-    EVEC_ERR = .001;
-    NEWT_ERR = .001;
-    BOUND = 100.0;
-    DELAY = 0.0;
-    TOLER = .00001;
-    HMIN = .001;
-    HMAX = 1.0;
-
-    POIPLN = 0.0;
-    NMESH = 50;
-    NJMP = 1;
-    METHOD = 4;
-    NC_ITER = 100;
-    EVEC_ITER = 100;
-
-    /* new improved poincare map */
-
-    my_pmap.maxvar = 1;
-    my_pmap.type = 0;
-    my_pmap.sos = 0;
-    my_pmap.sign = 1;
-    my_pmap.tmod = 8.*atan(1.0);
-    snprintf(my_pmap.section, sizeof(my_pmap.section), " ");
-
-    POIMAP = 0;
-    POIVAR = 1;
-    POISGN = 1;
-    SOS = 0;
-    return;
-}
-
-void
-meth_dialog(void) {
-    /*static char *n[]={"*6Method","Abs tol","Rel Tol","DtMin","DtMax",
-                      "Banded(y/n)","UpperBand","LowerBand"};*/
-    char values[8][MAX_LEN_SBOX];
-    snprintf(values[0], sizeof(values[0]), "%d", METHOD);
-    snprintf(values[1], sizeof(values[1]), "%g", ATOLER);
-    snprintf(values[2], sizeof(values[2]), "%g", TOLER);
     return;
 }
 
