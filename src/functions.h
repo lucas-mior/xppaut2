@@ -167,7 +167,7 @@ int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
 
 #include <X11/Xlib.h>
 
-extern int32 AutoRedrawFlag;
+extern int32 auto_redraw_flag;
 
 extern int32 mark_flag;
 extern int32 mark_ibrs;

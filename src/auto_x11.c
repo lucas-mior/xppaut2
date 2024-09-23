@@ -34,7 +34,7 @@ extern uint32 MyBackColor;
 extern uint32 MyForeColor;
 extern uint32 MyMainWinColor;
 extern uint32 MyDrawWinColor;
-int32 AutoRedrawFlag = 1;
+int32 auto_redraw_flag = 1;
 
 extern int32 screen;
 extern int32 storind;
@@ -866,7 +866,7 @@ display_auto(Window window) {
     if (Auto.exist == 0)
         return;
     if (window == auto_win.canvas) {
-        if (AutoRedrawFlag == 1)
+        if (auto_redraw_flag == 1)
             redraw_diagram();
     }
     if (window == auto_win.stab) {

@@ -2866,8 +2866,8 @@ auto_file(void) {
     if (ch == 'd')
         write_init_data_file();
     if (ch == 't') {
-        AutoRedrawFlag = 1 - AutoRedrawFlag;
-        if (AutoRedrawFlag == 1)
+        auto_redraw_flag = 1 - auto_redraw_flag;
+        if (auto_redraw_flag == 1)
             err_msg("Redraw is ON");
         else
             err_msg("Redraw is OFF");
