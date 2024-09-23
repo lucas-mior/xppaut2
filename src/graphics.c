@@ -45,7 +45,8 @@ static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
                       {4, 2, 0}, {1, 3, 0}};
 
 extern XFontStruct *small_font;
-XFontStruct *symfonts[5], *romfonts[5];
+XFontStruct *symfonts[5];
+XFontStruct *romfonts[5];
 int32 avsymfonts[5], avromfonts[5];
 extern GC font_gc;
 
