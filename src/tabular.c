@@ -86,6 +86,7 @@ extern double **storage;
 static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y);
 static double tab_interp(double xlo, double h, double x, double *y, int32 i);
 static double lookupxy(double x, int32 n, double *xv, double *yv);
+static void view_table(int32 index);
 
 void
 set_auto_eval_flags(int32 f) {

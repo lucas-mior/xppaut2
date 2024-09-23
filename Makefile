@@ -4,7 +4,7 @@ MINOR_VERSION = 2
 PREFIX ?= /usr/local
 
 CFLAGS = -D_DEFAULT_SOURCE -std=c99 -DMALLOC_DEBUG
-# CFLAGS += -Wall -Wextra -Wpedantic -Wfatal-errors
+CFLAGS += -Wall -Wextra -Wpedantic -Wfatal-errors
 CFLAGS += -Wfatal-errors
 CFLAGS += -I./src/ -I./bitmaps/ -I./ -I./src/cvode/
 CFLAGS += -DMAJOR_VERSION=$(MAJOR_VERSION) -DMINOR_VERSION=$(MINOR_VERSION)
@@ -19,9 +19,9 @@ TARGET = xppaut
 all: $(TARGET)
 
 clang: C = clang
-clang: CFLAGS += -Wunused-function
-# clang: CFLAGS += -Wno-float-equal -Wno-missing-variable-declarations
-# clang: CFLAGS += -Wno-format-nonliteral
+clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
+clang: CFLAGS += -Wno-float-equal -Wno-missing-variable-declarations
+clang: CFLAGS += -Wno-format-nonliteral
 clang: all
 
 gcc: C = gcc
