@@ -200,8 +200,6 @@ BoxList ParamBox;
 static BoxList DelayBox;
 static BoxList BCBox;
 
-int32 BoxMode;
-
 extern char this_file[100];
 
 /* CLONE */
