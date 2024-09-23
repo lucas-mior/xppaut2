@@ -25,26 +25,23 @@ char dll_lib[256];
 char dll_fun[256];
 int32 dll_flag = 0;
 
-typedef struct {
+static struct {
     char *lin, *lout;
     int32 *in, *intype;
     int32 *out, *outtype;
     int32 nin, nout;
     double *vin, *vout;
-} IN_OUT;
-
-IN_OUT in_out;
+} in_out;
 
 extern double variables[], constants[];
 
-typedef struct {
+static struct {
     char libname[1024];
     char libfile[256];
     char fun[256];
     int32 loaded;
-} DLFUN;
+} dlf;
 
-DLFUN dlf;
 #ifdef HAVEDLL
 /* this loads a dynamically linked library of the
  * users choice
