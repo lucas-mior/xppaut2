@@ -975,6 +975,9 @@ override the below definition.
 #define XPP_MAX_NAME FILENAME_MAX
 #endif
 
+extern char this_file[XPP_MAX_NAME];
+extern char this_internset[XPP_MAX_NAME];
+
 #endif
 
 #ifndef COMLINE_H
