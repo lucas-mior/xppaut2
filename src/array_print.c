@@ -7,17 +7,15 @@
 
 #define GREYSCALE -1
 
-typedef struct {
+static struct DevScale{
     double xmin, xmax, ymin, ymax;
     double xscale, yscale, xoff, yoff;
     double tx, ty, angle, slant; /* text attributes   */
     double linecol, letx, lety;
     int32 linewid;
-} DEVSCALE;
+} ps_scale;
 
 static FILE *my_plot_file;
-
-static DEVSCALE ps_scale;
 
 static void ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
                int32 maxrow, int32 maxcol, int32 nacross, int32 ndown,
