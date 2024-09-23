@@ -24,7 +24,6 @@ int32 MSStyle = 0;
 extern int32 Xup;
 
 extern int32 tfBell;
-int32 done = 0;
 extern Display *display;
 extern int32 screen;
 int32 CURS_X, CURS_Y;

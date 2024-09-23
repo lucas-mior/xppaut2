@@ -871,6 +871,8 @@ uint32 ColorMap(int32 i);
 #define MAX_INCLUDE_FILES 10
 #define ClickTime 200
 
+extern int32 MSStyle;
+
 void ping(void);
 void reset_graphics(void);
 void blank_screen(Window window);
