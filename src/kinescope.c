@@ -19,8 +19,8 @@ extern Window info_pop;
 extern int32 DCURY;
 extern GC gc_graph;
 #define MAXFILM 250
-int32 ks_ncycle = 1;
-int32 ks_speed = 50;
+static int32 ks_ncycle = 1;
+static int32 ks_speed = 50;
 extern char *info_message;
 extern char *kin_hint[];
 extern int32 screen;
@@ -31,7 +31,7 @@ typedef struct {
     Pixmap xi;
 } MOVIE;
 
-MOVIE movie[MAXFILM];
+static MOVIE movie[MAXFILM];
 
 static void too_small(void);
 static void auto_play(void);
