@@ -7,7 +7,7 @@ BRACKETS='\[.*\]'
 find src -iname "*.[ch]" | while read file; do
 
 awk " /^[[:alnum:]_]+ ($IDENT( = \S+)?, )+$IDENT( = \S+)?;\$/ {
-# print; exit
+print; exit
     type = \$1
     \$1 = \"\"
 
@@ -16,12 +16,12 @@ awk " /^[[:alnum:]_]+ ($IDENT( = \S+)?, )+$IDENT( = \S+)?;\$/ {
         printf(\"%s %s;NEWLINELINE\", type, array[i]);
     }
     getline
-}{
-    print
+# }{
+#     print
 }" "$file" | tee "${file}.2"
-mv "${file}.2" "$file"
+# mv "${file}.2" "$file"
 
-sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
-sed -i 's/,;$/;/' "$file"
-sed -i 's/;;$/;/' "$file"
+# sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
+# sed -i 's/,;$/;/' "$file"
+# sed -i 's/;;$/;/' "$file"
 done
