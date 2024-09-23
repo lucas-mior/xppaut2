@@ -6,7 +6,9 @@
 #include <math.h>
 #include <stdio.h>
 #include "xpplim.h"
+
 #define DING ping()
+
 int32 UnstableManifoldColor = 5;
 int32 StableManifoldColor = 8;
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
