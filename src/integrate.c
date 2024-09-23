@@ -2580,28 +2580,28 @@ plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
 
 void
 plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
-    int32 *IXPLT;
-    int32 *IYPLT;
-    int32 *IZPLT;
+    int32 *ixplt;
+    int32 *iyplt;
+    int32 *izplt;
     int32 NPlots;
     int32 ip;
     double oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
     double xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
     NPlots = MyGraph->nvars;
-    IXPLT = MyGraph->xv;
-    IYPLT = MyGraph->yv;
-    IZPLT = MyGraph->zv;
+    ixplt = MyGraph->xv;
+    iyplt = MyGraph->yv;
+    izplt = MyGraph->zv;
     for (ip = 0; ip < NEQ; ip++) {
         if (itor[ip] == 1)
             xvold[ip + 1] = xvold[ip + 1] + tc[ip]*TOR_PERIOD;
     }
     for (ip = 0; ip < NPlots; ip++) {
-        oldxpl[ip] = xvold[IXPLT[ip]];
-        oldypl[ip] = xvold[IYPLT[ip]];
-        oldzpl[ip] = xvold[IZPLT[ip]];
-        xpl[ip] = xv[IXPLT[ip]];
-        ypl[ip] = xv[IYPLT[ip]];
-        zpl[ip] = xv[IZPLT[ip]];
+        oldxpl[ip] = xvold[ixplt[ip]];
+        oldypl[ip] = xvold[iyplt[ip]];
+        oldzpl[ip] = xvold[izplt[ip]];
+        xpl[ip] = xv[ixplt[ip]];
+        ypl[ip] = xv[iyplt[ip]];
+        zpl[ip] = xv[izplt[ip]];
     }
     if (MyGraph->ColorFlag)
         comp_color(xv, xvold, NODE, (double)ddt);
