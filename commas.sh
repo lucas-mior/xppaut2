@@ -1,15 +1,19 @@
 #!/bin/bash
 
+# int32 auto_ntst = 15, auto_nmx = 200, auto_npr = 50, auto_ncol = 4;
 IDENT="[[:alnum:]_]+"
 BRACKETS='\[.*\]'
 
 find src -iname "*.[ch]" | while read file; do
 
-awk " /^extern [[:alnum:]_]+ (($IDENT)($BRACKETS)?, )+($IDENT)($BRACKETS)?;\$/ {
-    type = \$2
-    for (i = 2; i <= NF; i += 1) {
-        var = gensub(\"($IDENT)($BRACKETS)?[,;]/\", \"\\1\\2\", \"g\", \$i);
-        printf(\"extern %s %s;NEWLINELINE\", type, var);
+awk " /^[[:alnum:]_]+ ($IDENT( = \S+)?, )+$IDENT( = \S+)?;\$/ {
+# print; exit
+    type = \$1
+    \$1 = \"\"
+
+    split(\$0, array, \",\");
+    for (i in array) {
+        printf(\"%s %s;NEWLINELINE\", type, array[i]);
     }
     getline
 }{

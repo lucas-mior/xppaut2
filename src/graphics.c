@@ -15,7 +15,8 @@
 #define EP1 1.000001
 #define SYMSIZE .00175
 
-double THETA0 = 45, PHI0 = 45;
+double  THETA0 = 45;
+double  PHI0 = 45;
 extern double x_3d[2];
 extern double y_3d[2];
 extern double z_3d[2];
