@@ -82,7 +82,6 @@ FILE *convertf;
 extern int32 ERROUT;
 extern int32 NTable;
 static int32 OldStyle = 1;
-int32 NCON_ORIG, NSYM_ORIG;
 int32 IN_VARS;
 int32 NMarkov;
 
@@ -420,8 +419,6 @@ get_eqn(FILE *fptr) {
         add_var(uvar_names[i], 0.0);
     NCON_START = NCON;
     NSYM_START = NSYM;
-    NCON_ORIG = NCON;
-    NSYM_ORIG = NSYM;
     NEQ_MIN = NEQ;
     xppvermaj = (double)MAJOR_VERSION;
     xppvermin = (double)MINOR_VERSION;

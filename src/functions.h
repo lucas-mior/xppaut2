@@ -2176,6 +2176,7 @@ extern double default_ic[MAX_ODE];
 extern int32 PrimeStart;
 extern int32 NCON_START, NSYM_START;
 extern int32 BVP_N;
+extern FILE *convertf;
 
 typedef struct {
     char *text, *action;
