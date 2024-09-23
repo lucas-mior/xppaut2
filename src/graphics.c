@@ -13,7 +13,6 @@
 #define MAXPERPLOT 10
 #define DEGTORAD .0174532
 #define EP1 1.000001
-#define max(a, b) ((a > b) ? a : b)
 #define SYMSIZE .00175
 
 double THETA0 = 45, PHI0 = 45;
@@ -135,8 +134,8 @@ get_draw_area_flag(int32 flag) {
 
     XDMax = (int32)w;
     YDMax = (int32)h;
-    VTic = max(h / 100, 1);
-    HTic = max(w / 150, 1);
+    VTic = MAX(h / 100, 1);
+    HTic = MAX(w / 150, 1);
     VChar = DCURYs;
     HChar = DCURXs;
 
