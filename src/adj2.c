@@ -43,7 +43,8 @@ static struct {
 } my_trans;
 
 static int32 LIAP_FLAG = 0;
-static int32 LIAP_N, LIAP_I;
+static int32 LIAP_N;
+static int32 LIAP_I;
 static int32 LIAP_N;
 static int32 LIAP_I;
 extern double NEWT_ERR;

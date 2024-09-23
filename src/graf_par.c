@@ -69,7 +69,8 @@ extern double T0;
 extern double TEND;
 extern double **storage;
 
-static double FreezeKeyX, FreezeKeyY;
+static double FreezeKeyX;
+static double FreezeKeyY;
 static double FreezeKeyX;
 static double FreezeKeyY;
 static int32 FreezeKeyFlag;

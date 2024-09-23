@@ -9,14 +9,32 @@
 
 extern double *WORK;
 
-static long nfcn, nstep, naccpt, nrejct;
+static long nfcn;
+static long nstep;
+static long naccpt;
+static long nrejct;
 static double hout, xold, xout;
-static uint32 nrds, *indir;
 static uint32 nrds;
 static uint32 *indir;
-static double *yy1, *k1, *k2, *k3, *k4, *k5, *k6, *k7, *k8, *k9, *k10, *ysti;
+static uint32 nrds;
+static uint32 *indir;
+static double *yy1;
+static double *k1;
+static double *k2;
+static double *k3;
+static double *k4;
+static double *k5;
+static double *k6;
+static double *k7;
+static double *k8;
+static double *k9;
+static double *k10;
+static double *ysti;
 static double *rcont1, *rcont2, *rcont3, *rcont4;
-static double *rcont5, *rcont6, *rcont7, *rcont8;
+static double *rcont5;
+static double *rcont6;
+static double *rcont7;
+static double *rcont8;
 
 extern int32 NFlags;
 

@@ -142,7 +142,8 @@ static int32 ani_speed_inc = 2;
 extern char this_file[XPP_MAX_NAME];
 
 static double ani_xlo = 0, ani_xhi = 1, ani_ylo = 0, ani_yhi = 1;
-static double ani_lastx, ani_lasty;
+static double ani_lastx;
+static double ani_lasty;
 static double ani_lastx;
 static double ani_lasty;
 static Pixmap ani_pixmap;
