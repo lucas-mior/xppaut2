@@ -78,21 +78,16 @@ extern char UserBlack[8];
 extern char UserWhite[8];
 extern char UserMainWinColor[8];
 extern char UserDrawWinColor[8];
-/*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
 
 extern int32 UserGradients;
 extern int32 UserMinWidth;
 extern int32 UserMinHeight;
 extern int32 UserMinHeight;
-/*extern char UserOUTFILE[256];
- */
 extern char UserOUTFILE[XPP_MAX_NAME];
 extern int32 tfBell;
 extern int32 use_intern_sets;
 extern int32 use_ani_file;
-/*extern char anifile[256];
- */
 extern char anifile[XPP_MAX_NAME];
 static int32 select_intern_sets = 0;
 
@@ -110,8 +105,6 @@ static int32 parse_it(char *com);
 
 extern InternSet intern_set[MAX_INTERN_SET];
 
-/*extern char batchout[256];
- */
 extern char batchout[XPP_MAX_NAME];
 
 static int32 loadsetfile = 0;
@@ -122,8 +115,6 @@ int32 querysets = 0;
 int32 querypars = 0;
 int32 queryics = 0;
 int32 dryrun = 0;
-/*extern char this_file[100];
- */
 extern char this_file[XPP_MAX_NAME];
 extern int32 XPPBatch;
 extern int32 MakePlotFlag;
