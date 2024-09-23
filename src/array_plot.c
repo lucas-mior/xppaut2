@@ -122,8 +122,8 @@ array_plot_draw_one(char *bob) {
     if (array_plot_tag)
         tag_aplot(bob);
     XFlush(display);
-    snprintf(filename, sizeof(filename),
-             "%s.%d.gif", array_plot_range_stem, array_plot_range_count);
+    snprintf(filename, sizeof(filename), "%s.%d.gif", array_plot_range_stem,
+             array_plot_range_count);
     array_plot_gif_all(filename, array_plot_still);
     array_plot_range_count++;
     return;
@@ -140,8 +140,8 @@ set_up_aplot_range(void) {
     snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
     status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
     if (status != 0) {
-        snprintf(array_plot_range_stem, sizeof(array_plot_range_stem),
-                 "%s", values[0]);
+        snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s",
+                 values[0]);
         array_plot_still = atoi(values[1]);
         array_plot_tag = atoi(values[2]);
         array_plot_range = 1;
