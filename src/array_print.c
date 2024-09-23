@@ -19,6 +19,28 @@ static FILE *my_plot_file;
 
 static DEVSCALE ps_scale;
 
+static void ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
+               int32 maxrow, int32 maxcol, int32 nacross, int32 ndown,
+               double zmin, double zmax, int32 type);
+static void ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
+              double sy);
+static void ps_convert(double x, double y, double *xs, double *ys);
+static void ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
+                  double zlo, double zhi, int32 type);
+static void ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
+              double zhi, char *sx, char *sy, char *sb, int32 type);
+static void ps_close(void);
+static void ps_setline(double fill, int32 thick);
+static void ps_text2(char *str, double xr, double yr, int32 icent);
+static void ps_set_text(double angle, double slant, double x_size, double y_size);
+static void ps_rect(double x, double y, double wid, double len);
+static void ps_bar(double x, double y, double wid, double len, double fill,
+            int32 flag);
+static void ps_rgb_bar(double x, double y, double wid, double len, double fill,
+                int32 flag, int32 rgb);
+static void ps_hsb_bar(double x, double y, double wid, double len, double fill,
+                int32 flag);
+
 int32
 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
             int32 nacross, int32 ndown, int32 col0, int32 row0, int32 nskip,
@@ -200,16 +222,6 @@ ps_setline(double fill, int32 thick) {
 }
 
 void
-ps_put_char(int32 ch, double *x, double *y) {
-    double xp = *x, yp = *y;
-    char str[4];
-    str[0] = (char)ch;
-    str[1] = '\0';
-    ps_text2(str, xp, yp, 0);
-    return;
-}
-
-void
 ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 ) {
     double slant = .0174532*ps_scale.slant;
@@ -244,16 +256,6 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
     default:
         break;
     }
-    return;
-}
-
-void
-ps_line2(double x1r, double y1r, double x2r, double y2r) {
-    double x1, y1, x2, y2;
-    ps_convert(x1r, y1r, &x1, &y1);
-    ps_convert(x2r, y2r, &x2, &y2);
-    fprintf(my_plot_file, "%d %d m \n %d %d l S\n", (int32)x1, (int32)y1,
-            (int32)x2, (int32)y2);
     return;
 }
 
