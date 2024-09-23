@@ -494,7 +494,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             dfdt[i] = (f1[i] - f0[i]) / tdel;
         while (true) { /* advance a step  */
             for (i = 0; i < n2; i++)
-                dfdy[i] = -h*d * dfdy[i];
+                dfdy[i] = -h*d*dfdy[i];
             for (i = 0; i < n; i++)
                 k1[i] = f0[i] + (h*d)*dfdt[i];
             if (cv_bandflag) {
@@ -511,7 +511,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 sgesl(dfdy, n, n, ipivot, k1, 0);
             }
             for (i = 0; i < n; i++)
-                ynew[i] = y[i] + .5*h * k1[i];
+                ynew[i] = y[i] + .5*h*k1[i];
             rhs(t + .5*h, ynew, f1, n);
             for (i = 0; i < n; i++)
                 k2[i] = f1[i] - k1[i];

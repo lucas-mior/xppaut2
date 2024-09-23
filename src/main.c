@@ -73,12 +73,12 @@ extern XFontStruct *romfonts[5];
 extern int32 avsymfonts[5];
 extern int32 avromfonts[5];
 extern int32 RunImmediately;
-int32  Xup;
-int32  TipsFlag = 1;
+int32 Xup;
+int32 TipsFlag = 1;
 Atom deleteWindowAtom = 0;
-int32  XPPBatch = 0;
-int32  batch_range = 0;
-int32  BatchEquil = -1;
+int32 XPPBatch = 0;
+int32 batch_range = 0;
+int32 BatchEquil = -1;
 char batchout[256];
 char UserOUTFILE[256];
 XKeyEvent createKeyEvent(Window window, Window wr, int32 p, int32 kc, int32 m);
@@ -115,8 +115,8 @@ char UserDrawWinColor[8];
 char UserBGBitmap[XPP_MAX_NAME];
 
 int32 UserGradients = -1;
-int32  UserMinWidth = 0;
-int32  UserMinHeight = 0;
+int32 UserMinWidth = 0;
+int32 UserMinHeight = 0;
 uint32 MyBackColor;
 uint32 MyForeColor;
 uint32 MyMainWinColor;
@@ -780,7 +780,7 @@ init_X(void) {
      * we try to set the initial size to fit everything nicely especially
      * if they are using wacky fonts...  */
     if (UserMinWidth <= 0)
-        SCALEX = 10 + 36*2 * DCURXs + 32*DCURXs;
+        SCALEX = 10 + 36*2*DCURXs + 32*DCURXs;
 
     if (UserMinHeight <= 0)
         SCALEY = 25*DCURYb + 7*DCURYs;

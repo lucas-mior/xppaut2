@@ -4875,7 +4875,7 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
 
     /*     convert maxit to bound on total number of passes through */
     /*     inner loops of qr iteration (half number of rotations) */
-    maxit = *maxitr*m * m / 2;
+    maxit = *maxitr*m*m / 2;
     iter = 0;
     oldll = -1;
     oldm = -1;

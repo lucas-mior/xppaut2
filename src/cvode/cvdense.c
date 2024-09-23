@@ -264,7 +264,7 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
     nje = 0;
     if (iopt != NULL) {
         iopt[DENSE_NJE] = nje;
-        iopt[DENSE_LRW] = (int32)(2*N * N);
+        iopt[DENSE_LRW] = (int32)(2*N*N);
         iopt[DENSE_LIW] = (int32)N;
     }
     nstlj = 0;

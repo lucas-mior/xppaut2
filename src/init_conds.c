@@ -314,7 +314,7 @@ create_par_sliders(Window base, int32 x0, int32 h0) {
 void
 resize_par_slides(int32 h) {
     for (int32 i = 0; i < 3; i++) {
-        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i * DCURXs,
+        XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*DCURXs,
                           h, 32*(uint)DCURXs, 3*(uint)(DCURYs + 2));
     }
     return;

@@ -32,13 +32,13 @@
 uchar *AddCodeToBuffer(int32, int16, uchar *);
 uint32 debugFlag;
 int32 UseGlobalMap = 0;
-int32  GifFrameDelay = 5;
-int32  GifFrameLoop = 1000;
-int32  chainlen = 0;
-int32  maxchainlen = 0;
-int32  nodecount = 0;
-int32  lookuptypes = 0;
-int32  nbits;
+int32 GifFrameDelay = 5;
+int32 GifFrameLoop = 1000;
+int32 chainlen = 0;
+int32 maxchainlen = 0;
+int32 nodecount = 0;
+int32 lookuptypes = 0;
+int32 nbits;
 int16 need = 8;
 GifTree *empty[256], GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL}, *topNode,
                      *baseNode, **nodeArray, **lastArray;
@@ -197,7 +197,7 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     int32 ok;
 
     XGetGeometry(display, win, &root, &x0, &y0, &w, &h, &bw, &d);
-    ppm = xmalloc(w*h * 3);
+    ppm = xmalloc(w*h*3);
     pixels = xmalloc(h*w);
 
     getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);

@@ -672,10 +672,10 @@ SYMBOL my_symb[MAX_SYMBS] = {
 #define I_INDX 27
 #define VECT_ROOT 500
 
-int32  NSYM = STDSYM;
-int32  NCON = 0;
-int32  NVAR = 0;
-int32  NFUN = 0;
+int32 NSYM = STDSYM;
+int32 NCON = 0;
+int32 NVAR = 0;
+int32 NFUN = 0;
 
 /*     pointers to functions    */
 

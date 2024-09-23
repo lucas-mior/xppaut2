@@ -81,7 +81,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         variable_shift[1][i] = x[i];
     }
     free(work);
-    coef = xmalloc((usize)(n*n * (NDelay + 1))*sizeof(*coef));
+    coef = xmalloc((usize)(n*n*(NDelay + 1))*sizeof(*coef));
 
     /* now we must compute a bunch of jacobians  */
     /* first the normal one   */
@@ -119,8 +119,8 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
             rhs(0.0, x, yp, n);
             variable_shift[1][i] = x[i];
             for (j = 0; j < n; j++) {
-                coef[j*n + i + n*n * (k + 1)] = (yp[j] - y[j]) / dx;
-                colsum += fabs(coef[j*n + i + n*n * (k + 1)]);
+                coef[j*n + i + n*n*(k + 1)] = (yp[j] - y[j]) / dx;
+                colsum += fabs(coef[j*n + i + n*n*(k + 1)]);
             }
             if (colsum > colmax)
                 colmax = colsum;
@@ -263,7 +263,7 @@ make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                 temp, rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
     for (k = 0; k < m; k++) {
-        km = (k + 1)*n * n;
+        km = (k + 1)*n*n;
         temp = rtoc(-delay[k], 0.0); /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
@@ -384,7 +384,7 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
                 temp, rtoc(coef[i + j*n], 0.0)); /* initialize the array */
         }
     for (k = 0; k < m; k++) {
-        km = (k + 1)*n * n;
+        km = (k + 1)*n*n;
         temp = rtoc(-delay[k], 0.0); /* convert delay to floatcomplex number */
         eld = cexp2(cmlt(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */

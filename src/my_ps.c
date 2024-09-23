@@ -34,8 +34,8 @@ double PS_LW = 5;
 char PS_FONT[100] = "Times-Roman";
 FILE *psfile;
 /*Default is now with color*/
-int32  PltFmtFlag;
-int32  PSColorFlag = 1;
+int32 PltFmtFlag;
+int32 PSColorFlag = 1;
 int32 PSLines;
 int32 LastPSX;
 int32 LastPSY;

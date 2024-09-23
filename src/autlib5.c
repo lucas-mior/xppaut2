@@ -854,7 +854,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
         xmalloc(sizeof(*(blhme_1.vrprev))*(usize)(2*ndim*ndim));
 
     beyn_1.cprev =
-        xmalloc(sizeof(*(beyn_1.cprev))*(usize)(2*2 * ndim*ndim));
+        xmalloc(sizeof(*(beyn_1.cprev))*(usize)(2*2*ndim*ndim));
     nfree = blhom_1.nfixed + 2 - blhom_1.nrev + nint + nbc;
     bcnn_1.nbcn = nbc;
 

@@ -178,9 +178,9 @@ SYMBOL my_symb[MAX_SYMBS] = {
     {"BESSELIS", 8, COM(FUN2TYPE, 21), 2, 10}, /* Bessel I Scaled  # 95 */
 };
 
-int32  NCON = 0;
-int32  NVAR = 0;
-int32  NFUN = 0;
+int32 NCON = 0;
+int32 NVAR = 0;
+int32 NFUN = 0;
 int32 NSYM = STDSYM;
 
 typedef double (*FunctionInt32)(int32);

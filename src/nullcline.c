@@ -42,8 +42,8 @@ extern double TEND;
 extern double TRANS;
 extern int32 PaperWhite;
 extern int32 DCURY;
-int32  XNullColor = 2;
-int32  YNullColor = 7;
+int32 XNullColor = 2;
+int32 YNullColor = 7;
 extern int32 NULL_HERE;
 int32 num_x_n;
 int32 num_y_n;
@@ -63,17 +63,17 @@ extern int32 NJMP;
 extern int32 NMarkov;
 extern int32 FIX_VAR;
 extern int32 NEQ;
-int32  DF_GRID = 16;
-int32  DF_FLAG = 0;
-int32  DF_IX = -1;
-int32  DF_IY = -1;
+int32 DF_GRID = 16;
+int32 DF_FLAG = 0;
+int32 DF_IX = -1;
+int32 DF_IY = -1;
 int32 DFIELD_TYPE = 0;
 
 int32 DOING_DFIELD = 0;
 
 char ColorVia[15] = "speed";
-double  ColorViaLo = 0;
-double  ColorViaHi = 1;
+double ColorViaLo = 0;
+double ColorViaHi = 1;
 int32 ColorizeFlag = 0;
 
 RANGE_INFO ncrange;
