@@ -49,8 +49,8 @@ static struct {
 
 #include <dlfcn.h>
 
-void *dlhandle;
-void *function;
+static void *dlhandle;
+static void *function;
 int32 dll_loaded = 0;
 
 void

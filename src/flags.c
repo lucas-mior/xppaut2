@@ -93,7 +93,7 @@ typedef struct {
 #define IC 2
 #define PARAM 1
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
-FLAG flag[MAX_FLAG];
+static FLAG flag[MAX_FLAG];
 int32 NFlags = 0;
 
 double STOL = 1.e-10;

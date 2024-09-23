@@ -2119,6 +2119,9 @@ extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
 #ifndef FLAGS_H
 #define FLAGS_H
 
+extern int32 NFlags;
+extern double STOL;
+
 int32 add_global(char *cond, int32 sign, char *rest);
 void show_flags(void);
 int32 compile_flags(void);
