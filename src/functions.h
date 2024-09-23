@@ -63,8 +63,11 @@ typedef struct GrabTask {
 
 typedef struct AniGrab {
     int32 ok;
-    double zx, zy, tol;
-    int32 *x, *y;
+    double zx;
+    double zy;
+    double tol;
+    int32 *x;
+    int32 *y;
     GrabTask start, end;
 } AniGrab;
 
@@ -75,19 +78,37 @@ typedef struct MpegSave {
     int32 skip;
     char root[100];
     char filter[256];
-    int32 aviflag, filflag;
+    int32 aviflag;
+    int32 filflag;
 } MpegSave;
 
 typedef struct AniCom {
     struct {
         int32 n;
-        int32 *x, *y, *col;
+        int32 *x;
+        int32 *y;
+        int32 *col;
         int32 i;
     } c;
-    int32 type, flag;
-    int32 *col, *x1, *y1, *x2, *y2, *who;
-    double zcol, zx1, zy1, zx2, zy2, zrad, zval;
-    int32 zthick, tfont, tsize, tcolor;
+    int32 type;
+    int32 flag;
+    int32 *col;
+    int32 *x1;
+    int32 *y1;
+    int32 *x2;
+    int32 *y2;
+    int32 *who;
+    double zcol;
+    double zx1;
+    double zy1;
+    double zx2;
+    double zy2;
+    double zrad;
+    double zval;
+    int32 zthick;
+    int32 tfont;
+    int32 tsize;
+    int32 tcolor;
 } AniCom;
 
 extern int32 animation_on_the_fly;
