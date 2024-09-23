@@ -19,9 +19,9 @@ print; exit
 # }{
 #     print
 }" "$file" | tee "${file}.2"
-# mv "${file}.2" "$file"
+mv "${file}.2" "$file"
 
-# sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
-# sed -i 's/,;$/;/' "$file"
-# sed -i 's/;;$/;/' "$file"
+sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
+sed -i 's/,;$/;/' "$file"
+sed -i 's/;;$/;/' "$file"
 done
