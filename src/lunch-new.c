@@ -67,7 +67,7 @@ extern double BVP_TOL;
 extern double BVP_EPS;
 extern int32 MaxPoints;
 
-extern char this_file[100];
+extern char this_file[XPP_MAX_NAME];
 extern char delay_string[MAX_ODE][80];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
 

@@ -200,7 +200,7 @@ BoxList ParamBox;
 static BoxList DelayBox;
 static BoxList BCBox;
 
-extern char this_file[100];
+extern char this_file[XPP_MAX_NAME];
 
 /* CLONE */
 void
