@@ -10,6 +10,9 @@ grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
         file="$(grep -l "\<${name}\>" $files)"
         used=$(echo "$file" | wc -l)
 
+        [ "$file" = "src/band.c" ] && continue
+        [ "$file" = "src/dense.c" ] && continue
+
         if [ $used -eq 1 ]; then
             echo "${sig}::::${file}"
         fi
