@@ -37,11 +37,11 @@ extern int32 NSYM_START;
 
 extern double **storage;
 extern int32 storind;
-int32 hist_len;
-int32 four_len;
-double *my_hist[MAX_ODE + 1];
-double *my_four[MAX_ODE + 1];
-int32 HIST_HERE;
+static int32 hist_len;
+static int32 four_len;
+static double *my_hist[MAX_ODE + 1];
+static double *my_four[MAX_ODE + 1];
+static int32 HIST_HERE;
 int32 FOUR_HERE;
 
 double total_time;
