@@ -1,12 +1,16 @@
 #!/bin/bash
 
 files="src/*.c src/cuda/*.c src/cvode/*.c src/sbml/*.c"
-grep --color=auto -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
-    | while read -r signature; do
-        name="$(echo "$signature" | sed -E 's/^[a-zA-Z0-9_]+ //; s/\([^)]+\);$//')"
-        files="$(grep -l "\<${name}\>" $files)"
+grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
+    | while read sig; do
+        name="$(echo "$sig" | sed -E 's/^[a-zA-Z0-9_]+ //; s/\([^)]+\);$//')"
+        file="$(grep -l "\<${name}\>" $files)"
         used=$(echo "$files" | wc -l)
-        [ $used -le 1 ] && echo "${signature}::::${file}"
+        if [ $used -eq 1 ]; then
+            echo "${sig}::::${file}"
+        elif [ $used -eq 0 ]; then
+            echo "${sig}" >> unused_functions.txt
+        fi
     done \
 | while read work; do 
     sig="$(echo "$work" | awk -F"::::" '{print $1}')"
