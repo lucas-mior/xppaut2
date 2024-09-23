@@ -1008,6 +1008,12 @@ extern double HMIN;
 extern double HMAX;
 extern double BVP_EPS;
 extern double BVP_TOL;
+extern int32 MaxEulIter;
+extern double EulTol;
+extern int32 BVP_MAXIT;
+extern int32 BVP_FLAG;
+extern int32 FFT;
+extern int32 NULL_HERE;
 
 #endif
 
