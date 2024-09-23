@@ -2435,10 +2435,20 @@ void draw_many_lines(void);
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
+typedef struct {
+    int32 nbins, nbins2, type, col, col2, fftc;
+    double xlo;
+    double xhi;
+    double ylo, yhi;
+    char cond[80];
+} HIST_INFO;
+
+extern HIST_INFO hist_inf;
 extern int32 spec_col;
 extern int32 spec_wid;
 extern int32 spec_win;
 extern int32 spec_col2;
+extern int32 post_process;
 
 int32 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                  double xlo, double xhi, double ylo, double yhi);

@@ -24,15 +24,6 @@
 
 extern OptionsSet notAlreadySet;
 
-typedef struct {
-    int32 nbins, nbins2, type, col, col2, fftc;
-    double xlo;
-    double xhi;
-    double ylo, yhi;
-    char cond[80];
-} HIST_INFO;
-
-extern HIST_INFO hist_inf;
 extern int32 spec_col;
 extern int32 spec_wid;
 extern int32 spec_win;
