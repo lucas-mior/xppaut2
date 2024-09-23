@@ -5,12 +5,12 @@ find src -iname "*.[ch]" | while read file; do
 #
 IDENT="\*?[[:alnum:]_]+"
 
-awk " /^static [[:alnum:]_]+ ($IDENT), ?($IDENT);\$/ {
+awk " /^    [[:alnum:]_]+ ($IDENT), ?($IDENT);\$/ {
     print
     type = \$2
     for (i = 2; i <= NF; i += 1) {
-        var = gensub(\"($IDENT)[,;]/\", \"\\1\", \"g\", \$i);
-        printf(\"static %s %s;NEWLINELINE\", type, var);
+        var = gensub(\"(    $IDENT)[,;]/\", \"\\1\", \"g\", \$i);
+        printf(\"%s %s;NEWLINELINE\", type, var);
     }
     getline
 }{
