@@ -49,8 +49,8 @@ extern int32 NSYM, NSYM_START, NCON, NCON_START;
 extern int32 screen, storind;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
-    GrBack;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 GrFore, GrBack;
 
 extern Window command_pop;
 

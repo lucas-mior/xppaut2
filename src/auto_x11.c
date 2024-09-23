@@ -53,8 +53,8 @@ extern double TEND;
 extern int32 xorfix;
 
 extern int32 TipsFlag;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
-    GrBack;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 GrFore, GrBack;
 
 extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[];
 extern char *no_hint[], *aspecial_hint[];

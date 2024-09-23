@@ -19,8 +19,8 @@
 #include "tutor.h"
 extern int32 manual_expose;
 extern char this_file[XPP_MAX_NAME];
-extern char *info_message, *ic_hint[], *sing_hint[], *null_hint[], *flow_hint[],
-    *null_freeze[], *bvp_hint[], *color_hint[], *stoch_hint[];
+extern char *info_message, *ic_hint[], *sing_hint[], *null_hint[], *flow_hint[];
+extern char *null_freeze[], *bvp_hint[], *color_hint[], *stoch_hint[];
 extern char *no_hint[], *wind_hint[], *view_hint[], *frz_hint[];
 extern char *graf_hint[], *cmap_hint[], *half_hint[], *map_hint[];
 extern char *text_hint[];

@@ -54,8 +54,8 @@ extern char *edit_hint[];
 extern char *no_hint[];
 extern Window main_win, draw_win, command_pop, info_pop;
 int32 current_pop;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,
-    GrBack;
+extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 GrFore, GrBack;
 extern GC gc, gc_graph, small_gc;
 extern int32 xor_flag, DCURX, DCURY;
 int32 num_pops;
