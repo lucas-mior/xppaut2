@@ -19,7 +19,6 @@
 
 #include "xpplim.h"
 
-#include "shoot.h"
 #include "newpars.h"
 
 #define MAXONLY 1000
@@ -63,7 +62,6 @@ static int32 N_only = 0;
 int32 N_plist;
 
 ACTION comments[MAXCOMMENTS];
-ACTION *orig_comments;
 static int32 is_a_map = 0;
 int32 n_comments = 0;
 extern char delay_string[MAX_ODE][80];

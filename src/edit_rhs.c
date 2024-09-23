@@ -16,7 +16,6 @@
 #endif
 
 #include "xpplim.h"
-#include "shoot.h"
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)

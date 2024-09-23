@@ -42,7 +42,6 @@ This also has the clone gadget
 #include "start.bitmap"
 
 #include "bc.bitmap"
-#include "shoot.h"
 
 #include "read_dir.h"
 

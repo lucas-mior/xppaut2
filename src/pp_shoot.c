@@ -7,7 +7,6 @@
 #include "functions.h"
 #include "integers.h"
 #include "parserslow.h"
-#include "shoot.h"
 #include "xpplim.h"
 
 #define ESCAPE 27

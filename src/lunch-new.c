@@ -10,7 +10,6 @@
 #include <time.h>
 #include "xpplim.h"
 #include "struct.h"
-#include "shoot.h"
 
 #define READEM 1
 #define VOLTERRA 6

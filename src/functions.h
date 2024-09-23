@@ -2178,10 +2178,18 @@ typedef struct {
     int32 aflag;
 } ACTION;
 
+typedef struct {
+    int32 *com;
+    char *string;
+    char *name;
+    int32 side;
+} BcStruct;
+
 extern int32 *my_ode[MAX_ODE];
 extern int32 *plotlist;
 extern int32 N_plist;
 extern ACTION comments[MAXCOMMENTS];
+extern BcStruct my_bc[MAX_ODE];
 
 typedef struct FixInfo {
     char *name;

@@ -2,7 +2,6 @@
 #include "integers.h"
 #include <stdlib.h>
 #include "xpplim.h"
-#include "shoot.h"
 #include "parserslow.h"
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
