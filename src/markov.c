@@ -34,7 +34,7 @@ extern int32 NMarkov, FIX_VAR, NODE, NEQ;
 extern double MyData[MAX_ODE];
 
 extern int32 NLINES;
-extern char *save_eqn[1000];
+extern char *save_eqn[MAXLINES];
 extern int32 RandSeed;
 typedef struct {
     int32 **command;

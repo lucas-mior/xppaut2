@@ -53,7 +53,6 @@ This also has the clone gadget
 #define READEM 1
 #define WRITEM 0
 
-#define MAXLINES 5000
 extern char *save_eqn[MAXLINES];
 extern int32 NLINES;
 extern Display *display;
