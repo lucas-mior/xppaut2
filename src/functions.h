@@ -955,6 +955,9 @@ extern double Y_LO[10];
 extern double X_HI[10];
 extern double Y_HI[10];
 extern InternSet intern_set[MAX_INTERN_SET];
+extern double last_ic[MAX_ODE];
+extern char delay_string[MAX_ODE][80];
+extern int32 itor[MAX_ODE];
 
 /*
 The acutual max filename length is determined by the
