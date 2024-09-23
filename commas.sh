@@ -4,7 +4,6 @@ IDENT="[[:alnum:]_]+"
 BRACKETS='\[.*\]'
 
 find src -iname "*.[ch]" | while read file; do
-# extern double X_LO[10], Y_LO[10], X_HI[10], Y_HI[10];
 
 awk " /^extern [[:alnum:]_]+ (($IDENT)($BRACKETS)?, )+($IDENT)($BRACKETS)?;\$/ {
     type = \$2
