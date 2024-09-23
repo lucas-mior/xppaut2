@@ -98,9 +98,6 @@ int32 EqType[MAX_ODE];
 static int32 Naux = 0;
 char aux_names[MAX_ODE][12];
 
-int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0;
-int32 NUMMARK = 0, NUMAUX = 0, NUMVOLT = 0, NUMSOL = 0;
-
 FixInfo fixinfo[MAX_ODE];
 
 extern FILEINFO my_ff;
@@ -1085,23 +1082,17 @@ count_object(int32 type) {
     switch (type) {
     case ODE:
     case MAP:
-        NUMODES++;
         break;
     case FIXED:
-        NUMFIX++;
         break;
     case VEQ:
-        NUMVOLT++;
         break;
     case MARKOV_VAR:
-        NUMMARK++;
         break;
     case DERIVE_PAR:
     case PAR_AM:
-        NUMPARAM++;
         break;
     case SOL_VAR:
-        NUMSOL++;
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
