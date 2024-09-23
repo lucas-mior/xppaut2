@@ -24,8 +24,6 @@
 
 #define MAXONLY 1000
 
-#define MAXCOMMENTS 500
-
 static int32 IN_INCLUDED_FILE = 0;
 
 char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
@@ -56,16 +54,10 @@ int32 *my_ode[MAX_ODE];
 
 int32 leng[MAX_ODE];
 
-typedef struct {
-    char *text, *action;
-    int32 aflag;
-} ACTION;
-
-char errmsg[256];
 extern int32 XPPBatch;
 extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
-char *onlylist[MAXONLY];
+static char *onlylist[MAXONLY];
 int32 *plotlist;
 static int32 N_only = 0;
 int32 N_plist;

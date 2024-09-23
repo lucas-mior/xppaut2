@@ -2167,10 +2167,21 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 
 #define MAXVNAM 33
 #define MAXLINES 5000
+#define MAXCOMMENTS 500
 
 extern char *ode_names[MAX_ODE];
 extern char *save_eqn[MAXLINES];
 extern double default_val[MAX_PAR];
+
+typedef struct {
+    char *text, *action;
+    int32 aflag;
+} ACTION;
+
+extern int32 *my_ode[MAX_ODE];
+extern int32 *plotlist;
+extern int32 N_plist;
+extern ACTION comments[MAXCOMMENTS];
 
 typedef struct FixInfo {
     char *name;

@@ -26,11 +26,6 @@
         return;                                                                \
     } while (0)
 
-typedef struct {
-    char *text, *action;
-    int32 aflag;
-} ACTION;
-
 extern char *save_eqn[MAXLINES];
 extern ACTION comments[MAXCOMMENTS];
 extern int32 n_comments, NLINES;
