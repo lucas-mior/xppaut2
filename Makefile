@@ -19,7 +19,7 @@ TARGET = xppaut
 all: $(TARGET)
 
 clang: C = clang
-# clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
+clang: CFLAGS += -Weverything -Wno-unsafe-buffer-usage -Wno-padded
 clang: CFLAGS += -Wno-float-equal
 clang: CFLAGS += -Wno-format-nonliteral
 clang: all
