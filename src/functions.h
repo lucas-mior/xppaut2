@@ -2331,6 +2331,8 @@ void dump_ps(int32 i);
 
 extern double THETA0, PHI0;
 extern int32 PS_Port;
+extern int32 PointRadius;
+extern int32 PointType;
 
 void get_scale(double *x1, double *y1, double *x2, double *y2);
 void set_scale(double x1, double y1, double x2, double y2);

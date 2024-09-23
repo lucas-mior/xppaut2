@@ -32,7 +32,6 @@ extern GRAPH *MyGraph;
 extern GC gc_graph;
 
 int32 PS_Port = 0;
-int32 DX_0, DY_0, D_WID, D_HGT;
 int32 D_FLAG;
 int32 PointRadius = 0;
 
@@ -42,7 +41,7 @@ extern GC small_gc;
 extern double **storage;
 extern int32 storind;
 
-char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
+static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
                       {1, 3, 0}, {4, 4, 0}, {1, 5, 0}, {4, 4, 4, 1, 0},
                       {4, 2, 0}, {1, 3, 0}};
 
@@ -81,7 +80,9 @@ extern int32 Xup;
 
 int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar, XDMax, YDMax;
 double XMin, YMin, XMax, YMax;
-int32 LineType = 0, PointType = -1, TextJustify, TextAngle;
+int32 PointType = -1;
+int32 TextJustify;
+int32 TextAngle;
 
 static void draw_symbol(double x, double y, double size, int32 my_symb);
 static void line_nabs(double x1_out, double y1_out, double x2_out, double y2_out);
