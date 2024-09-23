@@ -14,7 +14,7 @@ awk " /^static [[:alnum:]_]+ (($IDENT)($BRACKETS)?, )+($IDENT)($BRACKETS)?;\$/ {
     getline
 }{
     print
-}" "$file" > "${file}.2"
+}" "$file" | tee "${file}.2"
 mv "${file}.2" "$file"
 
 sed -i ':a;N;$!ba; s/NEWLINELINE/\n/g' "$file"
