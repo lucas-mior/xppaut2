@@ -234,7 +234,7 @@ bfun(double y, int32 per) {
 }
 
 void
-NewColormap(int32 type) {
+color_new_map(int32 type) {
     /*  printf(" My color map = %d\n",type); */
     if (TrueColorFlag == 0) {
         err_msg("New colormaps not supported without TrueColor");
@@ -246,7 +246,7 @@ NewColormap(int32 type) {
 }
 
 void
-get_ps_color(int32 i, double *r, double *g, double *b) {
+color_get_ps(int32 i, double *r, double *g, double *b) {
     double z = 1. / (65535);
     *r = z*(double)color[i].red;
     *g = z*(double)color[i].green;
@@ -255,7 +255,7 @@ get_ps_color(int32 i, double *r, double *g, double *b) {
 }
 
 void
-get_svg_color(int32 i, int32 *r, int32 *g, int32 *b) {
+color_get_svg(int32 i, int32 *r, int32 *g, int32 *b) {
     *r = color[i].red / 255;
     *g = color[i].green / 255;
     *b = color[i].blue / 255;

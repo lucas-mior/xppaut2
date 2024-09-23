@@ -414,7 +414,7 @@ svg_do_color(int32 color) {
         return;
     if (PSColorFlag == 0)
         return;
-    get_svg_color(color, &r, &g, &b);
+    color_get_svg(color, &r, &g, &b);
     cur_RGB[0] = r;
     cur_RGB[1] = g;
     cur_RGB[2] = b;

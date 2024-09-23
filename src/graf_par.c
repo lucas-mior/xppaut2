@@ -1088,7 +1088,7 @@ ps_test() {
 
 void
 change_cmap_com(int32 i) {
-    NewColormap(i);
+    color_new_map(i);
     return;
 }
 

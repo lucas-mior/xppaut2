@@ -182,7 +182,7 @@ ps_do_color(int32 color) {
     /* fprintf(psfile,"0 setgray\n"); */
     if (PSColorFlag == 0)
         return;
-    get_ps_color(color, &r, &g, &b);
+    color_get_ps(color, &r, &g, &b);
     /*  if(LastPtLine)
       fprintf(psfile,"%f %f %f RGB\n",r,g,b);
       else */
