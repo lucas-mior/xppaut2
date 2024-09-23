@@ -126,8 +126,6 @@ extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
 
 char delay_string[MAX_ODE][80];
 int32 itor[MAX_ODE];
-/*char this_file[100];
- */
 char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
 double oldhp_x;
