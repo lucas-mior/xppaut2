@@ -125,7 +125,11 @@ extern int32 batch_range;
 extern char batchout[256];
 extern int32 NMarkov;
 extern int32 STOCH_FLAG;
-extern int32 color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
+extern int32 color_total;
+extern int32 SCALEY;
+extern int32 DCURY;
+extern int32 PltFmtFlag;
+extern int32 PointRadius;
 int32 DelayErr;
 
 double MyData[MAX_ODE], MyTime;

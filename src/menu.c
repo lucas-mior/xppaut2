@@ -13,7 +13,11 @@ int32 help_menu;
 MENUDEF my_menus[3];
 extern int32 tfBell;
 extern int32 TipsFlag;
-extern int32 DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
+extern int32 DCURY;
+extern int32 DCURX;
+extern int32 CURY_OFF;
+extern int32 DCURYs;
+extern int32 DCURYb;
 extern GC gc;
 
 static void unshow_menu(int32 j);

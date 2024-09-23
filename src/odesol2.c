@@ -22,7 +22,9 @@ extern double NEWT_ERR;
 extern int32 NFlags;
 extern double TOLER;
 extern double ATOLER;
-extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
+extern int32 cv_bandflag;
+extern int32 cv_bandupper;
+extern int32 cv_bandlower;
 /* my first symplectic integrator */
 
 static void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);

@@ -34,7 +34,12 @@ extern int32 tfBell;
 extern int32 screen;
 extern GC gc;
 extern GC small_gc;
-extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX;
+extern int32 DCURXs;
+extern int32 DCURY;
+extern int32 DCURYs;
+extern int32 CURY_OFFs;
+extern int32 CURY_OFF;
 
 typedef struct {
     Window up, down, pgup, pgdn, kill, home, end, base, text, src, action;

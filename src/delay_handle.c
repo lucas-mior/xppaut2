@@ -30,7 +30,12 @@ double delay_list[MAX_DELAY];
 extern double DELTA_T;
 extern double T0;
 extern double DELAY;
-extern int32 NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
+extern int32 NODE;
+extern int32 NCON;
+extern int32 NSYM;
+extern int32 NSYM_START;
+extern int32 NCON_START;
+extern int32 NMarkov;
 
 extern char delay_string[MAX_ODE][80];
 extern double variables[];

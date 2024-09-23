@@ -31,11 +31,18 @@ extern int32 PAUSER;
 
 extern int32 METHOD;
 extern int32 NJMP;
-extern double HMIN, HMAX, TOLER, ATOLER, BOUND, DELAY;
+extern double HMIN;
+extern double HMAX;
+extern double TOLER;
+extern double ATOLER;
+extern double BOUND;
+extern double DELAY;
 extern double NULL_ERR;
 extern double EVEC_ERR;
 extern double NEWT_ERR;
-extern int32 EVEC_ITER, NMESH, NC_ITER;
+extern int32 EVEC_ITER;
+extern int32 NMESH;
+extern int32 NC_ITER;
 
 extern double *fft_data;
 extern int32 FFT;

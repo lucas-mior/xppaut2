@@ -65,7 +65,10 @@ extern int32 DCURY;
 extern int32 DCURYs;
 extern int32 CURY_OFFs;
 extern int32 CURY_OFF;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 MyMainWinColor;
+extern uint32 MyDrawWinColor;
 extern uint32 GrFore;
 extern uint32 GrBack;
 
