@@ -36,7 +36,7 @@ int32 PS_Port = 0;
 int32 DX_0, DY_0, D_WID, D_HGT;
 int32 D_FLAG;
 int32 PointRadius = 0;
-extern Display *display;
+
 extern Window win;
 extern Window draw_win;
 extern GC small_gc;

@@ -1,6 +1,9 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 #include "integers.h"
+#include "X11/Xlib.h"
+
+extern Display *display;
 
 #define MAIN_MENU 0
 #define FILE_MENU 1
@@ -2325,6 +2328,9 @@ void dump_ps(int32 i);
 
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
+
+extern double THETA0, PHI0;
+extern int32 PS_Port;
 
 void get_scale(double *x1, double *y1, double *x2, double *y2);
 void set_scale(double x1, double y1, double x2, double y2);
