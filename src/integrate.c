@@ -337,7 +337,7 @@ cont_integ(void) {
         return;
     tetemp = TEND;
     wipe_rep();
-    adj_data_back();
+    adj2_data_back();
     if (new_float("Continue until:", &tetemp) == -1)
         return;
     x = &MyData[0];
@@ -691,7 +691,7 @@ do_eq_range(double *x) {
         return;
 
     wipe_rep();
-    adj_data_back();
+    adj2_data_back();
     parlo = eq_range.plow;
     parhi = eq_range.phigh;
 
@@ -1275,7 +1275,7 @@ do_init_data(int32 com) {
         return;
     }
 
-    adj_data_back();
+    adj2_data_back();
     wipe_rep();
     MyTime = T0;
 

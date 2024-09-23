@@ -468,7 +468,7 @@ do_stochast_com(int32 i) {
         nsrand48(RandSeed);
         break;
     case 'd':
-        adj_data_back();
+        adj2_data_back();
         break;
     case 'm':
         mean_back();
@@ -559,7 +559,7 @@ void
 free_stoch(void) {
     int32 i;
     if (STOCH_HERE) {
-        adj_data_back();
+        adj2_data_back();
         for (i = 0; i < (NEQ + 1); i++) {
             free(my_mean[i]);
             free(my_variance[i]);

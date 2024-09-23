@@ -293,7 +293,7 @@ find_bvp_com(int32 com) {
         return;
     }
     wipe_rep();
-    adj_data_back();
+    adj2_data_back();
     compile_bvp();
     if (FFT || HIST || DelayFlag || BVP_FLAG == 0)
         return;

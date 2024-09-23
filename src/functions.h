@@ -41,7 +41,7 @@ void adj2_init_trans(void);
 void adj2_make_adj_com(int32 com);
 void adj2_new_adjoint(void);
 void adj2_new_h_fun(int32 silent);
-void adj_data_back(void);
+void adj2_data_back(void);
 
 #endif
 
