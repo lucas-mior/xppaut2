@@ -1,31 +1,18 @@
 #!/bin/bash
 
 files="src/*.c src/cuda/*.c src/cvode/*.c src/sbml/*.c"
-grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
-    | while read sig; do
-        name="$(echo "$sig" | sed -E 's/^[a-zA-Z0-9_]+ //; s/\([^)]+\);$//')"
-
-        instances="$(grep "\<${name}\>" $files | wc -l)"
-
-        file="$(grep -l "\<${name}\>" $files)"
-        used=$(echo "$file" | wc -l)
-
-        [ "$file" = "src/band.c" ] && continue
-        [ "$file" = "src/dense.c" ] && continue
-
-        if [ $used -eq 1 ]; then
-            echo "${sig}::::${file}"
-        fi
-        if [ $instances -eq 1 ]; then
-            echo "${sig}" >> unused_functions.txt
-        fi
-    done \
-| while read work; do 
-    s2="$(echo "$work" | awk -F"::::" '{print $1}')"
-    f2="$(echo "$work" | awk -F"::::" '{print $2}')"
-
-    grep -Fv "$s2" "src/functions.h" > tmp.h
-    mv tmp.h "src/functions.h"
-
-    sed -i "1istatic $s2" "$f2";
+grep -E -l "^[a-zA-Z0-9_]+ (\*?[a-zA-Z0-9_]+, ?)+\*?[a-zA-Z0-9_]+;$" $files \
+    | while read file; do
+awk '/^[a-zA-Z0-9_]+ (*?[a-zA-Z0-9_]+, ?)+*?[a-zA-Z0-9_]+;$/ {
+type = $1
+$1 = "";
+for (i = 2; i <= NF; i += 1) {
+    var[i] = gensub("(*?[a-zA-Z0-9_]+)[,;] ?", "\\1", "g", $i);
+    printf("%s %s;\n", type, var[i]);
+}
+{
+    print
+}
+}' "$file" > "${file}.2"
+mv "${file}.2" "$file"
 done
