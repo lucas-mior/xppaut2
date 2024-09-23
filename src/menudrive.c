@@ -37,7 +37,8 @@ extern int32 DF_FLAG, tfBell, TipsFlag;
 extern int32 SimulPlotFlag, current_pop, num_pops, ActiveWinList[];
 extern int32 DisplayHeight;
 extern int32 DisplayWidth;
-extern int32 AutoFreezeFlag, NTable;
+extern int32 AutoFreezeFlag;
+extern int32 NTable;
 extern int32 screen;
 int32 status;
 

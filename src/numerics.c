@@ -9,7 +9,8 @@
 
 extern Window main_win;
 extern Window info_pop;
-extern int32 DCURY, NDELAYS;
+extern int32 DCURY;
+extern int32 NDELAYS;
 extern int32 RandSeed;
 #include "struct.h"
 extern GRAPH *MyGraph;
