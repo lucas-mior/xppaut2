@@ -79,7 +79,8 @@ extern int32 xorfix;
 int32 DisplayHeight;
 int32 DisplayWidth;
 int32 TrueColorFlag;
-char big_font_name[100], small_font_name[100];
+char big_font_name[100];
+char small_font_name[100];
 char PlotFormat[10];
 
 int32 PaperWhite = -1;

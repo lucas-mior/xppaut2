@@ -156,7 +156,8 @@ extern int32 NODE, NEQ;
 extern int32 METHOD;
 
 int32 HomoFlag = 0;
-double homo_l[100], homo_r[100];
+double homo_l[100];
+double homo_r[100];
 static double HOMO_SHIFT = 0.0;
 
 extern int32 storind;
