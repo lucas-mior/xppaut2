@@ -934,6 +934,11 @@ int32 new_string(char *name, char *value);
 
 #include <stdio.h>
 
+extern int32 RunImmediately;
+extern int32 MultiWin;
+extern int32 START_LINE_TYPE;
+extern int32 Nintern_set;
+
 /*
 The acutual max filename length is determined by the
 FILENAME_MAX (see <stdio.h>), and usually 4096 -- but

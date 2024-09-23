@@ -31,7 +31,7 @@ extern int32 spec_col2;
 extern int32 post_process;
 
 char *interopt[MAXOPT];
-int32 Nopts = 0;
+static int32 Nopts = 0;
 int32 RunImmediately = 0;
 extern char dll_lib[256];
 extern char dll_fun[256];
