@@ -1,6 +1,3 @@
-static void svg_write(char *str);
-static void chk_svg_lines(void);
-static void svg_stroke(void);
 #include "functions.h"
 #include "integers.h"
 
@@ -33,6 +30,10 @@ int32 DO_MARKER = 0;
 extern int32 DOING_DFIELD;
 
 extern int32 Xup;
+
+static void svg_write(char *str);
+static void chk_svg_lines(void);
+static void svg_stroke(void);
 
 int32
 svg_init(char *filename) {

@@ -1,17 +1,3 @@
-static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
-static void triangle_contour(Pt p1, Pt p2, Pt p3);
-static void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
-static double fnull(double x, double y);
-static void stor_null(double x1, double y1, double x2, double y2);
-static void restor_null(double *v, int32 n, int32 d);
-static void dump_clines_old(FILE *fp, double *x, int32 nx, double *y, int32 ny);
-static void dump_clines(FILE *fp, double *x, int32 nx, double *y, int32 ny);
-static void save_the_nullclines(void);
-static void redraw_froz_cline(int32 flag);
-static void save_frozen_clines(char *fn);
-static void clear_froz_cline(void);
-static void start_ncline(void);
-static void do_range_clines(void);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -69,6 +55,21 @@ RANGE_INFO ncrange;
 NCLINES *ncperm;
 int32 n_nstore = 0;
 int32 ncline_cnt;
+
+static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
+static void triangle_contour(Pt p1, Pt p2, Pt p3);
+static void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
+static double fnull(double x, double y);
+static void stor_null(double x1, double y1, double x2, double y2);
+static void restor_null(double *v, int32 n, int32 d);
+static void dump_clines_old(FILE *fp, double *x, int32 nx, double *y, int32 ny);
+static void dump_clines(FILE *fp, double *x, int32 nx, double *y, int32 ny);
+static void save_the_nullclines(void);
+static void redraw_froz_cline(int32 flag);
+static void save_frozen_clines(char *fn);
+static void clear_froz_cline(void);
+static void start_ncline(void);
+static void do_range_clines(void);
 
 void
 froz_cline_stuff_com(int32 i) {

@@ -1,4 +1,3 @@
-static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"
@@ -69,6 +68,8 @@ extern UFUN_ARG ufun_arg[MAX_UFUN];
 extern BcStruct my_bc[MAX_ODE];
 
 extern int32 NFUN;
+
+static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 
 void
 reset_ebox(EditBox *sb, int32 *pos, int32 *col) {

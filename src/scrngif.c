@@ -1,13 +1,3 @@
-static void ClearTree(int32 cc, GifTree *root);
-static int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
-static void make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
-static void GifLoop(FILE *fout, uint32 repeats);
-static void write_global_header(int32 cols, int32 rows, FILE *dst);
-static void gif_stuff(Window win, FILE *fp, int32 task);
-static int32 make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
-static int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
-static void local_to_global(void);
-static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 #include "functions.h"
 #include "integers.h"
 
@@ -40,7 +30,6 @@ static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
     } while (0)
 
 uchar *AddCodeToBuffer(int32, int16, uchar *);
-void ClearTree(int32, GifTree *);
 uint32 debugFlag;
 int32 UseGlobalMap = 0;
 int32 GifFrameDelay = 5, GifFrameLoop = 1000;
@@ -48,6 +37,17 @@ int32 chainlen = 0, maxchainlen = 0, nodecount = 0, lookuptypes = 0, nbits;
 int16 need = 8;
 GifTree *empty[256], GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL}, *topNode,
                      *baseNode, **nodeArray, **lastArray;
+
+static void ClearTree(int32 cc, GifTree *root);
+static int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
+static void make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
+static void GifLoop(FILE *fout, uint32 repeats);
+static void write_global_header(int32 cols, int32 rows, FILE *dst);
+static void gif_stuff(Window win, FILE *fp, int32 task);
+static int32 make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
+static int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
+static void local_to_global(void);
+static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 
 extern Display *display;
 

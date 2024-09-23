@@ -1,10 +1,3 @@
-static void too_small(void);
-static void auto_play(void);
-static void save_movie(char *basename, int32 fmat);
-static void make_anigif(void);
-static void save_kine(void);
-static void play_back(void);
-static int32 show_frame(int32 i, int32 h, int32 w);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -36,6 +29,14 @@ typedef struct {
 } MOVIE;
 
 MOVIE movie[MAXFILM];
+
+static void too_small(void);
+static void auto_play(void);
+static void save_movie(char *basename, int32 fmat);
+static void make_anigif(void);
+static void save_kine(void);
+static void play_back(void);
+static int32 show_frame(int32 i, int32 h, int32 w);
 
 void
 do_movie_com(int32 c) {

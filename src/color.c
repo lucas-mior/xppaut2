@@ -1,8 +1,3 @@
-static int32 bfun(double y, int32 per);
-static int32 gfun(double y, int32 per);
-static int32 rfun(double y, int32 per);
-static void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
-static void tst_color(Window window);
 #include <X11/Xlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -48,6 +43,12 @@ int32 custom_color = 0;
 
 static XColor color[MAX_COLORS];
 extern int32 TrueColorFlag;
+
+static int32 bfun(double y, int32 per);
+static int32 gfun(double y, int32 per);
+static int32 rfun(double y, int32 per);
+static void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
+static void tst_color(Window window);
 
 void
 tst_color(Window window) {

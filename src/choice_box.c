@@ -1,7 +1,3 @@
-static int32 choice_box_event_loop(CHOICE_BOX p);
-static void do_checks(CHOICE_BOX p);
-static void display_choice(Window window, CHOICE_BOX p);
-static void destroy_choice(CHOICE_BOX p);
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/cursorfont.h>
@@ -25,6 +21,11 @@ extern uint32 MyBackColor, MyForeColor;
 extern int32 screen;
 extern GC gc;
 extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
+
+static int32 choice_box_event_loop(CHOICE_BOX p);
+static void do_checks(CHOICE_BOX p);
+static void display_choice(Window window, CHOICE_BOX p);
+static void destroy_choice(CHOICE_BOX p);
 
 void
 destroy_choice(CHOICE_BOX p) {

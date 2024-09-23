@@ -1,9 +1,3 @@
-static void redraw_txtview_text(void);
-static void txtview_press(Window window, int32 x, int32 y);
-static void resize_txtview(int32 w, int32 h);
-static void do_txt_action(char *s);
-static void enter_txtview(Window window, int32 val);
-static void txtview_keypress(XEvent ev);
 #include <stdlib.h>
 #include "integers.h"
 #include <stdio.h>
@@ -55,6 +49,14 @@ TXTVIEW txtview;
   [Up]   [Down]  [PgUp]  [PgDn] [Kill]
   [Home] [End]   [Src]   [Actn]
 */
+
+static void redraw_txtview_text(void);
+static void txtview_press(Window window, int32 x, int32 y);
+static void resize_txtview(int32 w, int32 h);
+static void do_txt_action(char *s);
+static void enter_txtview(Window window, int32 val);
+static void txtview_keypress(XEvent ev);
+
 void
 txt_view_events(XEvent ev) {
     int32 x, y;

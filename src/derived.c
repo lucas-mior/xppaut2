@@ -1,4 +1,3 @@
-static void free_derived(void);
 #include "functions.h"
 
 #include <stdlib.h>
@@ -18,6 +17,8 @@ typedef struct {
 
 static Derived derived[MAXDERIVED];
 static int32 nderived = 0;
+
+static void free_derived(void);
 
 /* clean up derived stuff */
 void

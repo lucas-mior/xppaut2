@@ -1,10 +1,3 @@
-static int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
-static int32 gilparse(char *s, int32 *ind, int32 *nn);
-static void update_fft(int32 ind);
-static void evaluate_network(int32 ind);
-static int32 is_network(char *s);
-static void init_net(double *v, int32 n);
-static double net_interp(double x, int32 i);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -213,6 +206,14 @@ char *get_first(char *string, char *src);
 char *get_next(char *src);
 
 double evaluate(int32 *);
+
+static int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
+static int32 gilparse(char *s, int32 *ind, int32 *nn);
+static void update_fft(int32 ind);
+static void evaluate_network(int32 ind);
+static int32 is_network(char *s);
+static void init_net(double *v, int32 n);
+static double net_interp(double x, int32 i);
 
 NETWORK my_net[MAX_NET];
 int32 n_network = 0;

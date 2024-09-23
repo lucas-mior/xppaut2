@@ -1,5 +1,3 @@
-static void polint(double *xa, double *ya, int32 n, double x, double *y, double *dy);
-static double get_delay_old(int32 in, double tau);
 #include "functions.h"
 #include "parserslow.h"
 
@@ -29,6 +27,9 @@ extern int32 NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
 extern char delay_string[MAX_ODE][80];
 extern double variables[];
 extern int32 NVAR;
+
+static void polint(double *xa, double *ya, int32 n, double x, double *y, double *dy);
+static double get_delay_old(int32 in, double tau);
 
 double
 delay_stab_eval(

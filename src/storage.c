@@ -1,4 +1,3 @@
-static void free_storage(int32 ncol);
 #include "integers.h"
 #include "functions.h"
 #include <stdlib.h>
@@ -22,6 +21,8 @@ typedef struct {
 } XPPVEC;
 
 extern XPPVEC xpv;
+
+static void free_storage(int32 ncol);
 
 void
 init_alloc_info(void) {

@@ -1,4 +1,3 @@
-static int32 parse_it(char *com);
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -106,6 +105,7 @@ static struct SetName {
 
 static int32 is_set_name(struct SetName *set, char *nam);
 static struct SetName *add_set(struct SetName *set, char *nam);
+static int32 parse_it(char *com);
 
 extern InternSet intern_set[MAX_INTERN_SET];
 

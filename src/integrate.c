@@ -1,24 +1,3 @@
-static int32 stor_full(void);
-static void plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
-static int32 form_ic(void);
-static int32 set_array_ic(void);
-static void evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
-static void store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
-static void do_new_array_ic(char *new, int32 j1, int32 j2);
-static void do_start_flags(double *x, double *t);
-static void run_from_x(double *x);
-static int32 write_this_run(char *file, int32 i);
-static void batch_integrate_once(void);
-static void do_batch_dry_run(void);
-static void do_eq_range(double *x);
-static void do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot);
-static void monte_carlo(void);
-static void init_monte_carlo(void);
-static int32 set_up_range2(void);
-static int32 set_up_range(void);
-static int32 range_item2(void);
-static int32 range_item(void);
-static int32 set_up_eq_range(void);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -178,6 +157,28 @@ extern int32 Nintern_set;
 
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);
+
+static int32 stor_full(void);
+static void plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
+static int32 form_ic(void);
+static int32 set_array_ic(void);
+static void evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
+static void store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
+static void do_new_array_ic(char *new, int32 j1, int32 j2);
+static void do_start_flags(double *x, double *t);
+static void run_from_x(double *x);
+static int32 write_this_run(char *file, int32 i);
+static void batch_integrate_once(void);
+static void do_batch_dry_run(void);
+static void do_eq_range(double *x);
+static void do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot);
+static void monte_carlo(void);
+static void init_monte_carlo(void);
+static int32 set_up_range2(void);
+static int32 set_up_range(void);
+static int32 range_item2(void);
+static int32 range_item(void);
+static int32 set_up_eq_range(void);
 
 void
 init_ar_ic(void) {

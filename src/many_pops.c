@@ -1,27 +1,3 @@
-static void select_sym(Window window);
-static void lo_lite(Window wi);
-static void set_gr_back(void);
-static void set_gr_fore(void);
-static void select_window(Window window);
-static int32 graph_used(int32 i);
-static void kill_all_pops(void);
-static void destroy_a_pop(void);
-static int32 is_col_plotted(int32 nc);
-static void set_restore(int32 flag);
-static void add_pntarr(int32 type);
-static void add_markers_old(void);
-static void add_markers(void);
-static void add_marker_old(void);
-static void add_marker(void);
-static int32 get_markers_info(void);
-static int32 get_marker_info(void);
-static int32 man_xy(double *xe, double *ye);
-static int32 select_marker_type(int32 *type);
-static void destroy_label(Window window);
-static void destroy_grob(Window window);
-static void arrow_head(double xs, double ys, double xe, double ye, double size);
-static void draw_grob(int32 i);
-static void draw_marker(double x, double y, double size, int32 type);
 #include "xpplim.h"
 #include "functions.h"
 #include "integers.h"
@@ -109,6 +85,32 @@ extern int32 NTable;
 
 extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 Nintern_set;
+
+static void select_sym(Window window);
+static void lo_lite(Window wi);
+static void set_gr_back(void);
+static void set_gr_fore(void);
+static void select_window(Window window);
+static int32 graph_used(int32 i);
+static void kill_all_pops(void);
+static void destroy_a_pop(void);
+static int32 is_col_plotted(int32 nc);
+static void set_restore(int32 flag);
+static void add_pntarr(int32 type);
+static void add_markers_old(void);
+static void add_markers(void);
+static void add_marker_old(void);
+static void add_marker(void);
+static int32 get_markers_info(void);
+static int32 get_marker_info(void);
+static int32 man_xy(double *xe, double *ye);
+static int32 select_marker_type(int32 *type);
+static void destroy_label(Window window);
+static void destroy_grob(Window window);
+static void arrow_head(double xs, double ys, double xe, double ye, double size);
+static void draw_grob(int32 i);
+static void draw_marker(double x, double y, double size, int32 type);
+
 int32
 select_table(void) {
     int32 i, j;

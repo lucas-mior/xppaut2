@@ -1,6 +1,3 @@
-static void parse_inout(char *l, int32 flag);
-static int32 get_export_count(char *s);
-static void check_inout(void);
 #include "functions.h"
 
 #include "read_dir.h"
@@ -89,6 +86,10 @@ typedef double (*Function1)(int32 n, int32 ivar, double *con, double *var,
                             double *wgt[MAXW], double *ydot);
 typedef double (*Function2)(double *in, double *out, int32 nin, int32 nout,
                             double *v, double *c);
+
+static void parse_inout(char *l, int32 flag);
+static int32 get_export_count(char *s);
+static void check_inout(void);
 
 void
 get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,

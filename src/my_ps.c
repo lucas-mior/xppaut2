@@ -1,7 +1,3 @@
-static void fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font);
-static void ps_write(char *str);
-static void chk_ps_lines(void);
-static void ps_setcolor(int32 color);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -115,6 +111,11 @@ char *PS_header[] = {
                                                                     circle
                                                                   */
     NULL};
+
+static void fancy_ps_text(int32 x, int32 y, char *str, int32 size, int32 font);
+static void ps_write(char *str);
+static void chk_ps_lines(void);
+static void ps_setcolor(int32 color);
 
 int32
 ps_init(char *filename, int32 color) {

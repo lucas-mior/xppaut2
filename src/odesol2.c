@@ -1,6 +1,3 @@
-static void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
-static int32 bandfac(double *a, int32 ml, int32 mr, int32 n);
-static int32 abmpc(double *y, double *t, double dt, int32 neq);
 #include "functions.h"
 #include "integers.h"
 #include <math.h>
@@ -23,6 +20,10 @@ extern int32 NFlags;
 extern double TOLER, ATOLER;
 extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
 /* my first symplectic integrator */
+
+static void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);
+static int32 bandfac(double *a, int32 ml, int32 mr, int32 n);
+static int32 abmpc(double *y, double *t, double dt, int32 neq);
 
 int32
 symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,

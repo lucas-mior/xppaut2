@@ -1,12 +1,3 @@
-static double contd5(uint32 ii, double x);
-static double contd8(uint32 ii, double x);
-static double xRead(void);
-static double hRead(void);
-static long nrejctRead(void);
-static long naccptRead(void);
-static long nstepRead(void);
-static long nfcnRead(void);
-static void dprhs(uint32 n, double t, double *y, double *f);
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -26,6 +17,16 @@ static double *rcont1, *rcont2, *rcont3, *rcont4;
 static double *rcont5, *rcont6, *rcont7, *rcont8;
 
 extern int32 NFlags;
+
+static double contd5(uint32 ii, double x);
+static double contd8(uint32 ii, double x);
+static double xRead(void);
+static double hRead(void);
+static long nrejctRead(void);
+static long naccptRead(void);
+static long nstepRead(void);
+static long nfcnRead(void);
+static void dprhs(uint32 n, double t, double *y, double *f);
 
 void
 dprhs(uint32 n, double t, double *y, double *f) {

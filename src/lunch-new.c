@@ -1,10 +1,3 @@
-static void io_float(double *z, FILE *fp, int32 f, char *ss);
-static void io_graph(int32 f, FILE *fp);
-static void io_exprs(int32 f, FILE *fp);
-static void io_parameters(int32 f, FILE *fp);
-static void io_numerics(int32 f, FILE *fp);
-static void dump_eqn(FILE *fp);
-static void do_info(FILE *fp);
 #include "functions.h"
 #include "parserslow.h"
 #include "integers.h"
@@ -48,6 +41,14 @@ extern int32 MaxPoints;
 
 extern char this_file[100], delay_string[MAX_ODE][80];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
+
+static void io_float(double *z, FILE *fp, int32 f, char *ss);
+static void io_graph(int32 f, FILE *fp);
+static void io_exprs(int32 f, FILE *fp);
+static void io_parameters(int32 f, FILE *fp);
+static void io_numerics(int32 f, FILE *fp);
+static void dump_eqn(FILE *fp);
+static void do_info(FILE *fp);
 
 void
 file_inf(void) {

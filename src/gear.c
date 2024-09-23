@@ -1,12 +1,3 @@
-static void sscal(int32 n, double sa, double *sx, int32 incx);
-static double sdot(int32 n, double *sx, int32 incx, int32 incy);
-static int32 isamax(int32 n, double *sx, int32 incx);
-static void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
-static double sgnum(double x, double y);
-static double sqr2(double z);
-static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
-static void hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr);
-static void pr_evec(double *x, double *ev, int32 n, int32 type);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -41,6 +32,16 @@ double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
                           {{13.7, 15.98, .04133}, {53.33, 70.08, .3157}},
                           {{17.15, 1, .008267}, {70.08, 87.97, .07407}},
                           {{1, 1, 1}, {87.97, 1, .0139}}};
+
+static void sscal(int32 n, double sa, double *sx, int32 incx);
+static double sdot(int32 n, double *sx, int32 incx, int32 incy);
+static int32 isamax(int32 n, double *sx, int32 incx);
+static void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
+static double sgnum(double x, double y);
+static double sqr2(double z);
+static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
+static void hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr);
+static void pr_evec(double *x, double *ev, int32 n, int32 type);
 
 void
 silent_fixpt(double *x, double eps, double err, double big, int32 maxit,

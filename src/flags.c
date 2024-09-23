@@ -1,4 +1,3 @@
-static void printflaginfo(void);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -100,6 +99,8 @@ int32 NFlags = 0;
 double STOL = 1.e-10;
 extern double variables[];
 extern int32 NVAR;
+
+static void printflaginfo(void);
 
 int32
 add_global(char *cond, int32 sign, char *rest) {

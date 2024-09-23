@@ -1,18 +1,3 @@
-static void test_color_info(void);
-static int32 getxcolors(XWindowAttributes *win_info, XColor **colors);
-static void make_pops(void);
-static void load_fonts(void);
-static void getGC(GC *gc);
-static void make_top_buttons(void);
-static void top_button_events(XEvent report);
-static void top_button_press(Window window);
-static void top_button_cross(Window window, int32 b);
-static void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
-static void set_small_font(void);
-static void set_big_font(void);
-static void init_X(void);
-static void check_for_quiet(int32 argc, char **argv);
-static void pretty(double *x1, double *x2);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -157,6 +142,22 @@ OptionsSet notAlreadySet;
 XFontStruct *big_font, *small_font;
 
 int32 popped = 0;
+
+static void test_color_info(void);
+static int32 getxcolors(XWindowAttributes *win_info, XColor **colors);
+static void make_pops(void);
+static void load_fonts(void);
+static void getGC(GC *gc);
+static void make_top_buttons(void);
+static void top_button_events(XEvent report);
+static void top_button_press(Window window);
+static void top_button_cross(Window window, int32 b);
+static void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
+static void set_small_font(void);
+static void set_big_font(void);
+static void init_X(void);
+static void check_for_quiet(int32 argc, char **argv);
+static void pretty(double *x1, double *x2);
 
 void
 plot_command(int32 nit, int32 icount, int32 cwidth) {

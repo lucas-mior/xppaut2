@@ -1,8 +1,3 @@
-static int32 set_up_sh_range(void);
-static void last_shot(int32 flag);
-static int32 set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow);
-static void do_sh_range(double *ystart, double *yend);
-static void bad_shoot(int32 iret);
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -62,6 +57,12 @@ struct {
 } shoot_range;
 
 /*   more general mixed boundary types   */
+
+static int32 set_up_sh_range(void);
+static void last_shot(int32 flag);
+static int32 set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow);
+static void do_sh_range(double *ystart, double *yend);
+static void bad_shoot(int32 iret);
 
 void
 do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n) {

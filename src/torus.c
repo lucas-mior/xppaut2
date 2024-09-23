@@ -1,8 +1,3 @@
-static void do_torus_events(void);
-static void make_tor_box(char *title);
-static void choose_torus(void);
-static void draw_torus_box(Window win);
-static void draw_tor_var(int32 i);
 #include "integers.h"
 #include "functions.h"
 
@@ -40,6 +35,12 @@ struct {
     Window base, done, cancel;
     Window window[MAX_ODE];
 } torbox;
+
+static void do_torus_events(void);
+static void make_tor_box(char *title);
+static void choose_torus(void);
+static void draw_torus_box(Window win);
+static void draw_tor_var(int32 i);
 
 void
 do_torus_com(int32 c) {

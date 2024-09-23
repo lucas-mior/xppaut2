@@ -1,8 +1,3 @@
-static void get_method(void);
-static void meth_dialog(void);
-static void init_numerics(void);
-static void ruelle(void);
-static void check_pos(int32 *j);
 #include "functions.h"
 #include <strings.h>
 
@@ -84,6 +79,12 @@ extern double **storage;
 extern int32 storind;
 
 extern int32 NODE, NEQ; /* as well as the number of odes etc  */
+
+static void get_method(void);
+static void meth_dialog(void);
+static void init_numerics(void);
+static void ruelle(void);
+static void check_pos(int32 *j);
 
 void
 chk_volterra(void) {

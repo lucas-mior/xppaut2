@@ -1,45 +1,3 @@
-static void strncpy_trim(char *dest, char *source, int32 n);
-static void strcpy_trim(char *dest, char *source);
-static void advance_past_first_word(char **sptr);
-static void add_comment(char *s);
-static void new_comment(FILE *f);
-static void free_comments(void);
-static void default_comments(void);
-static void keep_orig_comments(void);
-static int32 is_comment(char *s);
-static int32 not_ker(char *s, int32 i);
-static int32 check_if_ic(char *big);
-static void read_a_line(FILE *fp, char *s);
-static void remove_blanks(char *s1);
-static int32 next_nonspace(char *s1, int32 i0, int32 *i1);
-static int32 strparse(char *s1, char *s2, int32 i0, int32 *i1);
-static int32 extract_ode(char *s1, int32 *ie, int32 i1);
-static void free_varinfo(void);
-static void init_varinfo(void);
-static int32 parse_a_string(char *s1, VAR_INFO *v);
-static void strpiece(char *dest, char *src, int32 i0, int32 ie);
-static int32 formula_or_number(char *expr, double *z);
-static void compile_em(void);
-static int32 find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name);
-static void break_up_list(char *rhs);
-static void add_only(char *s);
-static int32 do_new_parser(FILE *fp, char *first, int32 nnn);
-static int32 if_end_include(char *old);
-static int32 if_include_file(char *old, char *nf);
-static int32 getchi(void);
-static int32 getuch(void);
-static void clrscr(void);
-static void pos_prn(char *s);
-static void find_ker(char *string, int32 *alt);
-static void take_apart(char *bob, double *value, char *name);
-static void show_syms(void);
-static void welcome(void);
-static void list_upar(void);
-static void list_em(char *wild);
-static int32 get_a_filename(char *filename, char *wild);
-static void format_list(char **s, int32 n);
-static void dump_comments(void);
-static void dump_src(void);
 #include "functions.h"
 #include "integers.h"
 #include <stdbool.h>
@@ -147,6 +105,49 @@ int32 NUMMARK = 0, NUMAUX = 0, NUMVOLT = 0, NUMSOL = 0;
 FixInfo fixinfo[MAX_ODE];
 
 extern FILEINFO my_ff;
+
+static void strncpy_trim(char *dest, char *source, int32 n);
+static void strcpy_trim(char *dest, char *source);
+static void advance_past_first_word(char **sptr);
+static void add_comment(char *s);
+static void new_comment(FILE *f);
+static void free_comments(void);
+static void default_comments(void);
+static void keep_orig_comments(void);
+static int32 is_comment(char *s);
+static int32 not_ker(char *s, int32 i);
+static int32 check_if_ic(char *big);
+static void read_a_line(FILE *fp, char *s);
+static void remove_blanks(char *s1);
+static int32 next_nonspace(char *s1, int32 i0, int32 *i1);
+static int32 strparse(char *s1, char *s2, int32 i0, int32 *i1);
+static int32 extract_ode(char *s1, int32 *ie, int32 i1);
+static void free_varinfo(void);
+static void init_varinfo(void);
+static int32 parse_a_string(char *s1, VAR_INFO *v);
+static void strpiece(char *dest, char *src, int32 i0, int32 ie);
+static int32 formula_or_number(char *expr, double *z);
+static void compile_em(void);
+static int32 find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name);
+static void break_up_list(char *rhs);
+static void add_only(char *s);
+static int32 do_new_parser(FILE *fp, char *first, int32 nnn);
+static int32 if_end_include(char *old);
+static int32 if_include_file(char *old, char *nf);
+static int32 getchi(void);
+static int32 getuch(void);
+static void clrscr(void);
+static void pos_prn(char *s);
+static void find_ker(char *string, int32 *alt);
+static void take_apart(char *bob, double *value, char *name);
+static void show_syms(void);
+static void welcome(void);
+static void list_upar(void);
+static void list_em(char *wild);
+static int32 get_a_filename(char *filename, char *wild);
+static void format_list(char **s, int32 n);
+static void dump_comments(void);
+static void dump_src(void);
 
 int32
 make_eqn(void) {

@@ -1,6 +1,3 @@
-static void auto_kill(void);
-static void a_msg(int32 i, int32 v);
-static Window lil_button(Window root, int32 x, int32 y);
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
@@ -79,6 +76,9 @@ static int32 query_special(char *title, char *nsymb);
 static void clear_msg(void);
 static void find_point(int32 ibr, int32 pt);
 static void RedrawMark(void);
+static void auto_kill(void);
+static void a_msg(int32 i, int32 v);
+static Window lil_button(Window root, int32 x, int32 y);
 
 void
 auto_x11_line(int32 a, int32 b, int32 c, int32 d) {

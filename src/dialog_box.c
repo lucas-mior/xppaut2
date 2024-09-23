@@ -1,5 +1,3 @@
-static void display_dialog(Window window, DIALOG d, int32 col);
-static int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);
 #include "functions.h"
 
 #include <stdbool.h>
@@ -30,6 +28,9 @@ extern uint32 MyBackColor, MyForeColor;
 extern int32 screen;
 extern GC gc;
 extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
+
+static void display_dialog(Window window, DIALOG d, int32 col);
+static int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);
 
 int32
 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,

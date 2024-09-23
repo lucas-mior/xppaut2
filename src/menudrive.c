@@ -1,4 +1,3 @@
-static void do_file_com(int32 com);
 #include <stdlib.h>
 #include "integers.h"
 #include <stdbool.h>
@@ -47,6 +46,8 @@ typedef struct {
 } MSGBOXSTRUCT;
 
 MSGBOXSTRUCT MsgBox;
+
+static void do_file_com(int32 com);
 
 void
 do_tutorial(void) {

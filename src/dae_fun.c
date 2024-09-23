@@ -1,6 +1,3 @@
-static int32 solve_dae(void);
-static void get_dae_fun(double *y, double *f);
-static void init_dae_work(void);
 #include "functions.h"
 #include "parserslow.h"
 
@@ -47,6 +44,10 @@ static int32 nsvar = 0, naeqn = 0;
 
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
+
+static int32 solve_dae(void);
+static void get_dae_fun(double *y, double *f);
+static void init_dae_work(void);
 
 int32
 add_svar(char *name, char *rhs) {

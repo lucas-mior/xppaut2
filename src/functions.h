@@ -1887,10 +1887,6 @@ dop853(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
        uint32 licont, /* declared length of icon */
        double *work);
 
-extern double contd8(uint32 ii, /* index of desired component */
-                     double x   /* approximation at x */
-);
-
 extern int32
 dopri5(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
        FcnEqDiff fcn,   /* function computing the value of f(x,y) */
@@ -1919,10 +1915,6 @@ dopri5(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
                            required, >= nrdens */
        uint32 licont, /* declared length of icon */
        double *work);
-
-extern double contd5(uint32 ii, /* index of desired component */
-                     double x   /* approximation at x */
-);
 
 void dp_err(int32 k);
 int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
