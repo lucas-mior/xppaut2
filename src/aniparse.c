@@ -471,7 +471,8 @@ ani_do_events(XEvent event) {
         do_ani_slider_motion(event.xmotion.window, event.xmotion.x);
         if (ani_grab_flag == 0)
             break;
-        ani_motion_stuff(event.xmotion.window, event.xmotion.x, event.xmotion.y);
+        ani_motion_stuff(event.xmotion.window, event.xmotion.x,
+                         event.xmotion.y);
         break;
     case ButtonRelease:
         if (ani_grab_flag == 0)

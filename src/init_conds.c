@@ -1241,7 +1241,8 @@ slider_motion(XEvent event) {
     window = event.xmotion.window;
     x = event.xmotion.x;
     for (int32 i = 0; i < 3; i++)
-        do_slide_motion(window, x, &my_par_slide[i], (int32)event.xmotion.state);
+        do_slide_motion(window, x, &my_par_slide[i],
+                        (int32)event.xmotion.state);
     return;
 }
 

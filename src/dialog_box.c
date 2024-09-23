@@ -140,11 +140,13 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
         break;
 
     case EnterNotify:
-        if (event.xcrossing.window == d->ok || event.xcrossing.window == d->cancel)
+        if (event.xcrossing.window == d->ok ||
+            event.xcrossing.window == d->cancel)
             XSetWindowBorderWidth(display, event.xcrossing.window, 2);
         break;
     case LeaveNotify:
-        if (event.xcrossing.window == d->ok || event.xcrossing.window == d->cancel)
+        if (event.xcrossing.window == d->ok ||
+            event.xcrossing.window == d->cancel)
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
         break;
 
