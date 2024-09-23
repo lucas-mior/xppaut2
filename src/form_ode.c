@@ -89,7 +89,6 @@ int32 FIX_VAR;
 
 extern int32 NEQ, NVAR, NKernel;
 extern int32 NFUN;
-int32 NEQ_MIN;
 extern int32 NCON, NSYM;
 extern int32 NWiener;
 extern char this_file[XPP_MAX_NAME];
@@ -419,7 +418,6 @@ get_eqn(FILE *fptr) {
         add_var(uvar_names[i], 0.0);
     NCON_START = NCON;
     NSYM_START = NSYM;
-    NEQ_MIN = NEQ;
     xppvermaj = (double)MAJOR_VERSION;
     xppvermin = (double)MINOR_VERSION;
     plintf("Used %d constants and %d symbols \n", NCON, NSYM);

@@ -2177,6 +2177,7 @@ extern int32 PrimeStart;
 extern int32 NCON_START, NSYM_START;
 extern int32 BVP_N;
 extern FILE *convertf;
+extern int32 FIX_VAR;
 
 typedef struct {
     char *text, *action;

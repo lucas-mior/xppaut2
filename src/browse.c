@@ -40,7 +40,6 @@ extern int32 *plotlist, N_plist;
 
 extern char *ode_names[MAX_ODE];
 extern int32 NEQ, MAXSTOR, NMarkov, FIX_VAR;
-extern int32 NEQ_MIN;
 extern int32 NODE, NJMP;
 extern int32 Xup, TipsFlag;
 extern double last_ic[MAX_ODE], DELTA_T;
