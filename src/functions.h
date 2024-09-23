@@ -122,19 +122,7 @@ int32 writeframe(char *filename, Window window, int32 wid, int32 hgt);
 void ani_zero(void);
 void get_ani_file(char *fname);
 void de_space(char *s);
-int32 add_grab_command(char *xs, char *ys, char *ts, FILE *fp);
-void info_grab_stuff(void);
-int32 ani_grab_tasks(char *line, int32 igrab, int32 which);
-int32 run_now_grab(void);
-int32 search_for_grab(double x, double y);
-void do_grab_tasks(int32 which);
-int32 add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which);
-void draw_grab_points(void);
-void free_grabber(void);
 int32 check_ani_pause(XEvent ev);
-void do_ani_slider_motion(Window window, int32 x);
-void draw_ani_slider(Window window, int32 x);
-void redraw_ani_slider(void);
 
 #endif
 

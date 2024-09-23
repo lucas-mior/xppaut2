@@ -231,6 +231,18 @@ static void draw_ani_text(int32 j);
 static void draw_ani_vtext(int32 j);
 static void tst_pix_draw(void);
 static void read_ani_line(FILE *fp, char *s);
+static int32 add_grab_command(char *xs, char *ys, char *ts, FILE *fp);
+static void info_grab_stuff(void);
+static int32 ani_grab_tasks(char *line, int32 igrab, int32 which);
+static int32 run_now_grab(void);
+static int32 search_for_grab(double x, double y);
+static void do_grab_tasks(int32 which);
+static int32 add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which);
+static void draw_grab_points(void);
+static void free_grabber(void);
+static void do_ani_slider_motion(Window window, int32 x);
+static void draw_ani_slider(Window window, int32 x);
+static void redraw_ani_slider(void);
 
 /* Colors
  * no color given is default black on white background or white on black
