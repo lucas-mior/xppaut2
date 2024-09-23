@@ -9,7 +9,7 @@ awk '
     $1 = "";
     for (i = 2; i <= NF; i += 1) {
         var = gensub("(*?[a-zA-Z0-9_]+)[,;] ?", "\\1", "g", $i);
-        printf("%s %s;NEWLINE", type, var);
+        printf("%s %s;NEWLINELINELINE", type, var);
     }
 }
 {
