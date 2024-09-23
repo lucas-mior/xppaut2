@@ -78,7 +78,8 @@ int32 NSYM_START;
 int32 BVP_N;
 extern int32 BVP_FLAG;
 
-extern double xppvermaj, xppvermin;
+extern double xppvermaj;
+extern double xppvermin;
 
 int32 ConvertStyle = 0;
 FILE *convertf;
@@ -90,9 +91,12 @@ int32 NMarkov;
 
 int32 FIX_VAR;
 
-extern int32 NEQ, NVAR, NKernel;
+extern int32 NEQ;
+extern int32 NVAR;
+extern int32 NKernel;
 extern int32 NFUN;
-extern int32 NCON, NSYM;
+extern int32 NCON;
+extern int32 NSYM;
 extern int32 NWiener;
 extern char this_file[XPP_MAX_NAME];
 extern char options[100];

@@ -23,10 +23,16 @@
      EnterWindowMask | LeaveWindowMask)
 
 extern Window main_win;
-extern uint32 MyBackColor, MyForeColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
 extern int32 screen;
 extern GC gc;
-extern int32 xor_flag, DCURY, DCURX, CURY_OFF, CURS_X, CURS_Y;
+extern int32 xor_flag;
+extern int32 DCURY;
+extern int32 DCURX;
+extern int32 CURY_OFF;
+extern int32 CURS_X;
+extern int32 CURS_Y;
 
 static void display_dialog(Window window, DIALOG d, int32 col);
 static int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);

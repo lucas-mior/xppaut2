@@ -54,12 +54,20 @@
 #define FIX_MIN_SIZE 2
 
 extern int32 COLOR;
-extern uint32 GrFore, GrBack;
+extern uint32 GrFore;
+extern uint32 GrBack;
 
 extern char this_file[XPP_MAX_NAME];
-extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX;
+extern int32 DCURXs;
+extern int32 DCURY;
+extern int32 DCURYs;
+extern int32 CURY_OFFs;
+extern int32 CURY_OFF;
 extern int32 color_total, screen;
-extern GC gc, small_gc, gc_graph;
+extern GC gc;
+extern GC small_gc;
+extern GC gc_graph;
 int32 array_plot_range;
 static int32 array_plot_range_count = 0;
 static char array_plot_range_stem[256] = "rangearray";

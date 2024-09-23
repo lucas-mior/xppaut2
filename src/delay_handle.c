@@ -27,7 +27,9 @@ int32 DelayGrid = 1000;
 double variable_shift[2][MAX_ODE];
 double delay_list[MAX_DELAY];
 
-extern double DELTA_T, T0, DELAY;
+extern double DELTA_T;
+extern double T0;
+extern double DELAY;
 extern int32 NODE, NCON, NSYM, NSYM_START, NCON_START, NMarkov;
 
 extern char delay_string[MAX_ODE][80];

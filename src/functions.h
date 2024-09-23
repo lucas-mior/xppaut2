@@ -168,9 +168,13 @@ int32 array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
 extern int32 AutoRedrawFlag;
 
 extern int32 mark_flag;
-extern int32 mark_ibrs, mark_ibre;
+extern int32 mark_ibrs;
+extern int32 mark_ibre;
 extern int32 mark_ipts, mark_ipte;
-extern int32 mark_ixs, mark_ixe, mark_iys, mark_iye;
+extern int32 mark_ixs;
+extern int32 mark_ixe;
+extern int32 mark_iys;
+extern int32 mark_iye;
 
 void auto_x11_line(int32 a, int32 b, int32 c, int32 d);
 void auto_x11_line_trans(double a, double b, double c, double d);
@@ -853,7 +857,9 @@ int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
 
 extern int32 custom_color;
 
-extern int32 color_min, color_total, color_max;
+extern int32 color_min;
+extern int32 color_total;
+extern int32 color_max;
 extern int32 COLOR;
 
 void set_scolor(int32 col);
@@ -876,7 +882,8 @@ uint32 ColorMap(int32 i);
 
 extern int32 MSStyle;
 extern char *info_message;
-extern int32 CURS_X, CURS_Y;
+extern int32 CURS_X;
+extern int32 CURS_Y;
 extern int32 PS_Color;
 
 void ping(void);
@@ -950,7 +957,10 @@ typedef struct InternSet {
 extern int32 NincludedFiles;
 extern int32 Nintern_2_use;
 extern int32 loadincludefile;
-extern int32 querysets, querypars, queryics, dryrun;
+extern int32 querysets;
+extern int32 querypars;
+extern int32 queryics;
+extern int32 dryrun;
 extern int32 noicon;
 extern int32 newseed;
 
@@ -2198,7 +2208,8 @@ extern char *save_eqn[MAXLINES];
 extern double default_val[MAX_PAR];
 extern double default_ic[MAX_ODE];
 extern int32 PrimeStart;
-extern int32 NCON_START, NSYM_START;
+extern int32 NCON_START;
+extern int32 NSYM_START;
 extern int32 BVP_N;
 extern FILE *convertf;
 extern int32 FIX_VAR;
@@ -2328,7 +2339,8 @@ void dump_ps(int32 i);
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-extern double THETA0, PHI0;
+extern double THETA0;
+extern double PHI0;
 extern int32 PS_Port;
 extern int32 PointRadius;
 extern int32 PointType;
@@ -3510,17 +3522,33 @@ void silent_dfields(void);
 
 /*       Numerics.h   */
 
-extern double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
+extern double DELTA_T;
+extern double TEND;
+extern double T0;
+extern double TRANS;
+extern double NULL_ERR;
+extern double EVEC_ERR;
+extern double NEWT_ERR;
 extern double BOUND, DELAY, TOLER, HMIN, HMAX;
-extern double *fft_data, *hist_data;
+extern double *fft_data;
+extern double *hist_data;
 extern double POIPLN;
 
-extern int32 NMESH, NJMP, METHOD, color_flag, NC_ITER;
+extern int32 NMESH;
+extern int32 NJMP;
+extern int32 METHOD;
+extern int32 color_flag;
+extern int32 NC_ITER;
 extern int32 EVEC_ITER, FOREVER;
 
-extern int32 POIMAP, POIVAR, POISGN, SOS;
+extern int32 POIMAP;
+extern int32 POIVAR;
+extern int32 POISGN;
+extern int32 SOS;
 
-extern int32 HIST, HVAR, hist_ind;
+extern int32 HIST;
+extern int32 HVAR;
+extern int32 hist_ind;
 
 void chk_volterra(void);
 void quick_num(int32 com);
@@ -3593,12 +3621,16 @@ void get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-extern int32 DisplayWidth, DisplayHeight;
+extern int32 DisplayWidth;
+extern int32 DisplayHeight;
 extern int32 screen;
 extern Atom deleteWindowAtom;
-extern Window main_win, info_pop, draw_win;
+extern Window main_win;
+extern Window info_pop;
+extern Window draw_win;
 extern int32 DCURY, DCURX, CURY_OFF, DCURXs, DCURYs, CURY_OFFs, xor_flag;
-extern GC gc, small_gc;
+extern GC gc;
+extern GC small_gc;
 extern uint32 MyBackColor, MyForeColor;
 
 extern int32 TipsFlag;
@@ -3624,7 +3656,10 @@ typedef struct SCRBOX_LIST {
     int32 n;
 } SCRBOX_LIST;
 
-extern int32 NUPAR, NEQ, NODE, NMarkov;
+extern int32 NUPAR;
+extern int32 NEQ;
+extern int32 NODE;
+extern int32 NMarkov;
 extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
 extern char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
 extern char *color_names[];

@@ -116,17 +116,22 @@ int32 SuppressBounds = 0;
 extern int32 NUPAR;
 
 extern char *info_message, *ic_hint[], *sing_hint[];
-extern int32 Xup, batch_range;
+extern int32 Xup;
+extern int32 batch_range;
 extern char batchout[256];
-extern int32 NMarkov, STOCH_FLAG;
+extern int32 NMarkov;
+extern int32 STOCH_FLAG;
 extern int32 color_total, SCALEY, DCURY, PltFmtFlag, PointRadius;
 int32 DelayErr;
 
 double MyData[MAX_ODE], MyTime;
 int32 MyStart;
-extern int32 DelayFlag, DCURY, NKernel;
+extern int32 DelayFlag;
+extern int32 DCURY;
+extern int32 NKernel;
 int32 RANGE_FLAG;
-extern int32 PAR_FOL, SHOOT;
+extern int32 PAR_FOL;
+extern int32 SHOOT;
 extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
 double LastTime;

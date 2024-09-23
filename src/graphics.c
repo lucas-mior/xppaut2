@@ -16,16 +16,25 @@
 #define SYMSIZE .00175
 
 double THETA0 = 45, PHI0 = 45;
-extern double x_3d[2], y_3d[2], z_3d[2];
+extern double x_3d[2];
+extern double y_3d[2];
+extern double z_3d[2];
 extern int32 IXPLT, IYPLT, IZPLT;
-extern int32 AXES, TIMPLOT, PLOT_3D;
+extern int32 AXES;
+extern int32 TIMPLOT;
+extern int32 PLOT_3D;
 extern int32 START_LINE_TYPE;
-extern double MY_XLO, MY_YLO, MY_XHI, MY_YHI;
+extern double MY_XLO;
+extern double MY_YLO;
+extern double MY_XHI;
+extern double MY_YHI;
 extern int32 Xup;
 extern int32 COLOR, colorline[];
-extern int32 DCURXs, DCURYs;
+extern int32 DCURXs;
+extern int32 DCURYs;
 extern int32 PltFmtFlag;
-extern uint32 GrFore, GrBack;
+extern uint32 GrFore;
+extern uint32 GrBack;
 extern int32 SCALEX, SCALEY, DCURX, DCURY, xor_flag;
 extern GRAPH graph[MAXPOP];
 extern GRAPH *MyGraph;
@@ -51,7 +60,10 @@ int32 avsymfonts[5];
 int32 avromfonts[5];
 extern GC font_gc;
 
-extern int32 IX_PLT[10], IY_PLT[10], IZ_PLT[10], NPltV;
+extern int32 IX_PLT[10];
+extern int32 IY_PLT[10];
+extern int32 IZ_PLT[10];
+extern int32 NPltV;
 extern double X_LO[10], Y_LO[10], X_HI[10], Y_HI[10];
 extern int32 MultiWin;
 extern int32 Xup;

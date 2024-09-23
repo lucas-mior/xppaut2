@@ -19,7 +19,8 @@
 extern double MyData[MAX_ODE];
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern double **storage;
-extern int32 storind, FOUR_HERE;
+extern int32 storind;
+extern int32 FOUR_HERE;
 extern int32 NODE, INFLAG, NEQ, NJMP, FIX_VAR, NMarkov, nvec;
 extern double TEND;
 static double **my_adj;
@@ -41,12 +42,16 @@ extern double NEWT_ERR;
 static double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
 static int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;
 int32 AdjRange = 0;
-extern double DELTA_T, BOUND;
+extern double DELTA_T;
+extern double BOUND;
 static int32 *coup_fun[MAX_ODE];
 static char *coup_string[MAX_ODE];
 
 extern int32 *my_ode[];
-extern int32 NSYM, NSYM_START, NCON, NCON_START;
+extern int32 NSYM;
+extern int32 NSYM_START;
+extern int32 NCON;
+extern int32 NCON_START;
 extern int32 DCURY;
 
 static void adj2_h_back(void);

@@ -130,7 +130,8 @@ including derived parameters but XPP takes care of this so start at 0
 #define ZERO 1
 #define PERIODIC 2
 #define MAXW 50
-extern int32 NODE, NDELAYS;
+extern int32 NODE;
+extern int32 NDELAYS;
 extern double get_delay(int32 in, double td);
 
 int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,

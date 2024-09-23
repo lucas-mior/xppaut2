@@ -28,10 +28,12 @@
 
 extern char *save_eqn[MAXLINES];
 extern ACTION comments[MAXCOMMENTS];
-extern int32 n_comments, NLINES;
+extern int32 n_comments;
+extern int32 NLINES;
 extern int32 tfBell;
 extern int32 screen;
-extern GC gc, small_gc;
+extern GC gc;
+extern GC small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 typedef struct {

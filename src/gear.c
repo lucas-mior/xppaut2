@@ -16,7 +16,10 @@ extern int32 Xup;
 
 extern double DELTA_T;
 extern int32 METHOD;
-extern int32 ENDSING, PAR_FOL, SHOOT, PAUSER;
+extern int32 ENDSING;
+extern int32 PAR_FOL;
+extern int32 SHOOT;
+extern int32 PAUSER;
 
 extern int32 NODE;
 extern int32 NFlags;
@@ -26,7 +29,8 @@ int32 ShootIndex;
 
 static int32 ShootType[8];
 static int32 gear_pivot[MAX_ODE];
-extern int32 storind, STORFLAG;
+extern int32 storind;
+extern int32 STORFLAG;
 
 static double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
                                  {{4.5, 6, 1}, {12, 24, 1}},

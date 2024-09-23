@@ -55,7 +55,8 @@
 
 extern OptionsSet notAlreadySet;
 
-extern char big_font_name[100], small_font_name[100];
+extern char big_font_name[100];
+extern char small_font_name[100];
 extern FILE *logfile;
 extern int32 XPPVERBOSE;
 extern int32 SuppressOut;
@@ -124,7 +125,9 @@ int32 dryrun = 0;
 /*extern char this_file[100];
  */
 extern char this_file[XPP_MAX_NAME];
-extern int32 XPPBatch, MakePlotFlag, BatchEquil;
+extern int32 XPPBatch;
+extern int32 MakePlotFlag;
+extern int32 BatchEquil;
 extern int32 xorfix;
 extern int32 newseeed;
 extern int32 silent;

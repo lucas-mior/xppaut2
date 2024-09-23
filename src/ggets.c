@@ -19,7 +19,8 @@
 #define ESCAPE 27
 char *info_message;
 extern int32 XPPBatch;
-extern int32 SCALEX, SCALEY;
+extern int32 SCALEX;
+extern int32 SCALEY;
 int32 MSStyle = 0;
 extern int32 Xup;
 
@@ -27,9 +28,12 @@ extern int32 tfBell;
 extern int32 screen;
 int32 CURS_X;
 int32 CURS_Y;
-extern int32 DCURY, DCURX, CURY_OFF;
+extern int32 DCURY;
+extern int32 DCURX;
+extern int32 CURY_OFF;
 extern Window win, command_pop, info_pop, draw_win, main_win;
-extern GC gc, gc_graph;
+extern GC gc;
+extern GC gc_graph;
 extern uint32 MyBackColor, MyForeColor;
 int32 xor_flag;
 extern FILE *logfile;

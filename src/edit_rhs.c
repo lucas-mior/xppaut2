@@ -42,13 +42,21 @@ int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EditBox *sb, char *title);
 
 extern int32 screen;
-extern Window main_win, info_pop, draw_win, main_win;
+extern Window main_win;
+extern Window info_pop;
+extern Window draw_win;
+extern Window main_win;
 extern int32 DCURY, DCURX, CURY_OFF, xor_flag;
 extern GC gc;
-extern uint32 MyBackColor, MyForeColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
 
 extern char *ode_names[MAX_ODE];
-extern int32 METHOD, NEQ, NODE, NMarkov, FIX_VAR;
+extern int32 METHOD;
+extern int32 NEQ;
+extern int32 NODE;
+extern int32 NMarkov;
+extern int32 FIX_VAR;
 
 extern char *info_message, *edrh_hint[];
 extern int32 *my_ode[];

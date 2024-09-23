@@ -22,11 +22,15 @@
 
 extern double last_ic[MAX_ODE];
 extern int32 screen;
-extern GC gc, small_gc;
+extern GC gc;
+extern GC small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 extern char *ode_names[MAX_ODE];
-extern int32 METHOD, NEQ, NODE, NMarkov;
+extern int32 METHOD;
+extern int32 NEQ;
+extern int32 NODE;
+extern int32 NMarkov;
 
 extern int32 EqType[MAX_ODE];
 

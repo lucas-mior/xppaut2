@@ -24,10 +24,14 @@
 
 #define CONV 2
 extern KERNEL kernel[MAX_KER];
-extern int32 NODE, NMarkov, FIX_VAR, PrimeStart;
+extern int32 NODE;
+extern int32 NMarkov;
+extern int32 FIX_VAR;
+extern int32 PrimeStart;
 extern int32 NKernel;
 extern double *Memory[MAX_ODE];
-extern double T0, DELTA_T;
+extern double T0;
+extern double DELTA_T;
 extern int32 MaxPoints;
 extern int32 EqType[MAX_ODE];
 int32 CurrentPoint;
@@ -37,7 +41,8 @@ int32 AutoEvaluate = 0;
 extern double variables[];
 extern int32 NVAR;
 extern int32 MaxEulIter;
-extern double EulTol, NEWT_ERR;
+extern double EulTol;
+extern double NEWT_ERR;
 
 extern int32 *my_ode[];
 

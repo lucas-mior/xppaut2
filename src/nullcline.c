@@ -30,11 +30,16 @@ extern int32 XPPBatch;
 
 int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
-extern int32 DRight, DLeft, DTop, DBottom;
+extern int32 DRight;
+extern int32 DLeft;
+extern int32 DTop;
+extern int32 DBottom;
 extern int32 STORFLAG;
 extern double last_ic[MAX_ODE];
 
-extern double DELTA_T, TEND, TRANS;
+extern double DELTA_T;
+extern double TEND;
+extern double TRANS;
 extern int32 PaperWhite, DCURY;
 int32 XNullColor = 2, YNullColor = 7;
 extern int32 NULL_HERE;
@@ -50,7 +55,12 @@ double *Y_n;
 double *saver;
 double *NTop;
 double *NBot;
-extern int32 NMESH, NODE, NJMP, NMarkov, FIX_VAR, NEQ;
+extern int32 NMESH;
+extern int32 NODE;
+extern int32 NJMP;
+extern int32 NMarkov;
+extern int32 FIX_VAR;
+extern int32 NEQ;
 int32 DF_GRID = 16, DF_FLAG = 0, DF_IX = -1, DF_IY = -1;
 int32 DFIELD_TYPE = 0;
 

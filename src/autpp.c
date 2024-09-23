@@ -13,7 +13,8 @@ extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern double constants[], last_ic[];
 
 extern int32 HomoFlag;
-extern int32 METHOD, NJMP;
+extern int32 METHOD;
+extern int32 NJMP;
 
 extern double NEWT_ERR;
 int32

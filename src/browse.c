@@ -36,21 +36,36 @@ extern char *browse_hint[];
 
 extern int32 *my_ode[];
 
-extern int32 *plotlist, N_plist;
+extern int32 *plotlist;
+extern int32 N_plist;
 
 extern char *ode_names[MAX_ODE];
-extern int32 NEQ, MAXSTOR, NMarkov, FIX_VAR;
+extern int32 NEQ;
+extern int32 MAXSTOR;
+extern int32 NMarkov;
+extern int32 FIX_VAR;
 extern int32 NODE, NJMP;
-extern int32 Xup, TipsFlag;
+extern int32 Xup;
+extern int32 TipsFlag;
 extern double last_ic[MAX_ODE], DELTA_T;
 
-extern int32 NSYM, NSYM_START, NCON, NCON_START;
+extern int32 NSYM;
+extern int32 NSYM_START;
+extern int32 NCON;
+extern int32 NCON_START;
 
-extern int32 screen, storind;
+extern int32 screen;
+extern int32 storind;
 extern GC gc, small_gc;
-extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX;
+extern int32 DCURXs;
+extern int32 DCURY;
+extern int32 DCURYs;
+extern int32 CURY_OFFs;
+extern int32 CURY_OFF;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
-extern uint32 GrFore, GrBack;
+extern uint32 GrFore;
+extern uint32 GrBack;
 
 extern Window command_pop;
 

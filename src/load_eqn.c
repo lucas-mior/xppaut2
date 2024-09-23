@@ -32,7 +32,11 @@ typedef struct {
 } HIST_INFO;
 
 extern HIST_INFO hist_inf;
-extern int32 spec_col, spec_wid, spec_win, spec_col2, post_process;
+extern int32 spec_col;
+extern int32 spec_wid;
+extern int32 spec_win;
+extern int32 spec_col2;
+extern int32 post_process;
 
 char *interopt[MAXOPT];
 int32 Nopts = 0;
@@ -73,10 +77,14 @@ extern double SLIDER1INIT;
 extern double SLIDER2INIT;
 extern double SLIDER3INIT;
 
-extern int32 NCBatch, DFBatch;
+extern int32 NCBatch;
+extern int32 DFBatch;
 extern int32 DF_GRID;
 
-extern int32 XNullColor, YNullColor, StableManifoldColor, UnstableManifoldColor;
+extern int32 XNullColor;
+extern int32 YNullColor;
+extern int32 StableManifoldColor;
+extern int32 UnstableManifoldColor;
 int32 IX_PLT[10];
 int32 IY_PLT[10];
 int32 IZ_PLT[10];
@@ -101,7 +109,8 @@ extern struct {
 
 extern int32 del_stab_flag;
 extern int32 MaxPoints;
-extern double THETA0, PHI0;
+extern double THETA0;
+extern double PHI0;
 extern int32 tfBell;
 extern int32 DoTutorial;
 /*void set_option(char *s1,char *s2);
@@ -116,10 +125,13 @@ extern char batchout[256];
 extern int32 batch_range;
 double last_ic[MAX_ODE];
 extern char PlotFormat[100];
-extern char big_font_name[100], small_font_name[100];
+extern char big_font_name[100];
+extern char small_font_name[100];
 extern int32 PaperWhite;
 
-extern int32 PSColorFlag, PS_FONTSIZE, PS_Color;
+extern int32 PSColorFlag;
+extern int32 PS_FONTSIZE;
+extern int32 PS_Color;
 extern char PS_FONT[100];
 extern double PS_LW;
 
@@ -182,7 +194,9 @@ double POIPLN;
 extern int32 RandSeed;
 int32 MaxEulIter;
 double EulTol;
-extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
+extern int32 cv_bandflag;
+extern int32 cv_bandupper;
+extern int32 cv_bandlower;
 int32 NMESH;
 int32 NJMP;
 int32 METHOD;
@@ -214,7 +228,8 @@ int32 PAR_FOL;
 /*  custon color stuff  */
 
 extern char ColorVia[15];
-extern double ColorViaLo, ColorViaHi;
+extern double ColorViaLo;
+extern double ColorViaHi;
 extern int32 ColorizeFlag;
 
 extern int32 PltFmtFlag;

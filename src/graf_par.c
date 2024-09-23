@@ -14,14 +14,18 @@
 static NCLINE nclines[MAXNCLINE];
 extern CURVE frz[MAXFRZ];
 extern GRAPH *MyGraph;
-extern Window main_win, draw_win, info_pop;
+extern Window main_win;
+extern Window draw_win;
+extern Window info_pop;
 extern int32 DCURY;
 extern int32 storind;
 extern int32 PS_FONTSIZE;
 extern int32 PS_Port;
 extern char PS_FONT[XPP_MAX_NAME];
 extern double PS_LW;
-extern double x_3d[2], y_3d[2], z_3d[2];
+extern double x_3d[2];
+extern double y_3d[2];
+extern double z_3d[2];
 int32 PS_Color = 1;
 
 extern char PlotFormat[100];
@@ -52,9 +56,17 @@ static struct BD {
     Window window;
 } my_bd;
 
-extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
+extern int32 DLeft;
+extern int32 DRight;
+extern int32 DTop;
+extern int32 DBottom;
+extern int32 VTic;
+extern int32 HTic;
+extern int32 VChar;
+extern int32 HChar;
 
-extern double T0, TEND;
+extern double T0;
+extern double TEND;
 extern double **storage;
 
 static double FreezeKeyX, FreezeKeyY;

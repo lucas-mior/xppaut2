@@ -113,11 +113,14 @@ int32 animation_on_the_fly = 0;
 extern int32 TrueColorFlag;
 extern char *color_names[11];
 extern int32 colorline[];
-extern XFontStruct *symfonts[5], *romfonts[5];
+extern XFontStruct *symfonts[5];
+extern XFontStruct *romfonts[5];
 extern int32 avsymfonts[5], avromfonts[5];
-extern int32 color_total, screen;
+extern int32 color_total;
+extern int32 screen;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF, NODE;
-extern int32 FIX_VAR, NMarkov;
+extern int32 FIX_VAR;
+extern int32 NMarkov;
 extern GC small_gc;
 
 static int32 aniflag;

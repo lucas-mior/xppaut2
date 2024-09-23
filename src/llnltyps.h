@@ -17,7 +17,6 @@
  * floating point arithmetic is too expensive on the user's       *
  * machine, then the definition below should be changed to:       *
  *                                                                *
- * typedef double double;                                            *
  *                                                                *
  * Similarly, if a user needs to work with extremely large        *
  * integers (see the system header file <limits.h> for the limits *

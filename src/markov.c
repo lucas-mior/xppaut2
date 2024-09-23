@@ -29,7 +29,10 @@ int64 myrandomseed = -1;
 extern int32 DCURY;
 extern int32 *my_ode[];
 extern char *ode_names[MAX_ODE];
-extern int32 NMarkov, FIX_VAR, NODE, NEQ;
+extern int32 NMarkov;
+extern int32 FIX_VAR;
+extern int32 NODE;
+extern int32 NEQ;
 
 extern double MyData[MAX_ODE];
 

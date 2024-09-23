@@ -75,7 +75,8 @@ extern AdvAuto aauto;
 
 extern int32 NewPeriodFlag;
 
-extern double homo_l[100], homo_r[100];
+extern double homo_l[100];
+extern double homo_r[100];
 
 extern int32 TypeOfCalc;
 extern int32 SEc;
@@ -85,11 +86,19 @@ extern int32 UPc;
 
 extern int32 RestartLabel;
 
-extern int32 auto_ntst, auto_nmx, auto_npr, auto_ncol;
+extern int32 auto_ntst;
+extern int32 auto_nmx;
+extern int32 auto_npr;
+extern int32 auto_ncol;
 extern double auto_ds, auto_dsmax, auto_dsmin;
-extern double auto_rl0, auto_rl1, auto_a0, auto_a1;
+extern double auto_rl0;
+extern double auto_rl1;
+extern double auto_a0;
+extern double auto_a1;
 extern double auto_xmax, auto_xmin, auto_ymax, auto_ymin;
-extern double auto_epsl, auto_epsu, auto_epss;
+extern double auto_epsl;
+extern double auto_epsu;
+extern double auto_epss;
 extern int32 auto_var;
 
 extern int32 Auto_index_to_array[8];

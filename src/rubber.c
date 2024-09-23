@@ -9,9 +9,13 @@
 
 extern Window draw_win;
 extern int32 screen;
-extern int32 xor_flag, xorfix;
+extern int32 xor_flag;
+extern int32 xorfix;
 extern GC gc, gc_graph;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 MyMainWinColor;
+extern uint32 MyDrawWinColor;
 extern uint32 GrFore, GrBack;
 
 static void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window,

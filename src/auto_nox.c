@@ -132,7 +132,10 @@ int32 Auto_index_to_array[8];
 int32 AutoPar[8];
 
 extern int32 TipsFlag;
-extern uint32 MyBackColor, MyForeColor, GrFore, GrBack;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 GrFore;
+extern uint32 GrBack;
 
 double outperiod[20];
 int64 UzrPar[20];
@@ -152,7 +155,8 @@ extern int32 NUPAR;
 static double XfromAuto, YfromAuto;
 static int32 FromAutoFlag = 0;
 
-extern int32 NODE, NEQ;
+extern int32 NODE;
+extern int32 NEQ;
 extern int32 METHOD;
 
 int32 HomoFlag = 0;
@@ -161,7 +165,12 @@ double homo_r[100];
 static double HOMO_SHIFT = 0.0;
 
 extern int32 storind;
-extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
+extern int32 DCURX;
+extern int32 DCURXs;
+extern int32 DCURY;
+extern int32 DCURYs;
+extern int32 CURY_OFFs;
+extern int32 CURY_OFF;
 
 Bifurcation Auto;
 AdvAuto aauto;

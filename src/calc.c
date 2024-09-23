@@ -15,10 +15,14 @@
 #define PARAM 1
 #define IC 2
 
-extern int32 NCON, NSYM, NCON_START, NSYM_START;
+extern int32 NCON;
+extern int32 NSYM;
+extern int32 NCON_START;
+extern int32 NSYM_START;
 
 extern int32 screen;
-extern GC gc, small_gc;
+extern GC gc;
+extern GC small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 
 #define MYMASK                                                                 \

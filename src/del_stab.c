@@ -14,7 +14,10 @@
 extern double variable_shift[2][MAX_ODE], AlphaMax, OmegaMax;
 
 extern double delay_list[MAX_DELAY];
-extern int32 NDelay, del_stab_flag, WhichDelay, DelayGrid;
+extern int32 NDelay;
+extern int32 del_stab_flag;
+extern int32 WhichDelay;
+extern int32 DelayGrid;
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 
 static int32 test_sign(double old, double new);

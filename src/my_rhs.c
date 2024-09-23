@@ -7,11 +7,14 @@
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
 extern BcStruct my_bc[MAX_ODE];
-extern int32 FIX_VAR, NMarkov, PrimeStart;
+extern int32 FIX_VAR;
+extern int32 NMarkov;
+extern int32 PrimeStart;
 extern int32 *my_ode[];
 
 extern double variables[];
-extern int32 NVAR, NODE;
+extern int32 NVAR;
+extern int32 NODE;
 
 int32
 main(int32 argc, char **argv) {

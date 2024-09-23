@@ -27,7 +27,8 @@
 
 extern int32 Xup;
 
-extern GC gc_graph, small_gc;
+extern GC gc_graph;
+extern GC small_gc;
 extern int32 screen;
 extern Window main_win;
 static int32 color_mode = 1;
@@ -35,9 +36,18 @@ int32 color_min;
 int32 color_total;
 int32 COLOR;
 int32 color_max;
-extern int32 DCURX, DCURY, CURY_OFF, CURS_X, CURS_Y, DCURXs, DCURYs;
+extern int32 DCURX;
+extern int32 DCURY;
+extern int32 CURY_OFF;
+extern int32 CURS_X;
+extern int32 CURS_Y;
+extern int32 DCURXs;
+extern int32 DCURYs;
 extern uint32 Black, White;
-extern uint32 MyBackColor, MyForeColor, GrFore, GrBack;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 GrFore;
+extern uint32 GrBack;
 int32 custom_color = 0;
 
 #define MAX_COLORS 256

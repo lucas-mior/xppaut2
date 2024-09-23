@@ -30,12 +30,23 @@
      LeaveWindowMask | EnterWindowMask | ButtonMotionMask)
 
 extern int32 TrueColorFlag;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 MyMainWinColor;
+extern uint32 MyDrawWinColor;
 int32 AutoRedrawFlag = 1;
 
-extern int32 screen, storind, NODE;
+extern int32 screen;
+extern int32 storind;
+extern int32 NODE;
 extern GC gc, small_gc;
-extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFFb, CURY_OFF;
+extern int32 DCURX;
+extern int32 DCURXs;
+extern int32 DCURY;
+extern int32 DCURYs;
+extern int32 CURY_OFFs;
+extern int32 CURY_OFFb;
+extern int32 CURY_OFF;
 static int32 STD_HGT_var = 0;
 static int32 STD_WID_var = 0;
 static int32 Auto_extra_wid, Auto_extra_hgt;
@@ -58,7 +69,10 @@ extern double TEND;
 extern int32 xorfix;
 
 extern int32 TipsFlag;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 MyMainWinColor;
+extern uint32 MyDrawWinColor;
 extern uint32 GrFore, GrBack;
 
 extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[];

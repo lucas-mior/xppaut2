@@ -18,11 +18,13 @@ extern int32 TextAngle;
 extern int32 PointType;
 extern int32 PointRadius;
 FILE *svgfile;
-extern int32 PltFmtFlag, PSColorFlag;
+extern int32 PltFmtFlag;
+extern int32 PSColorFlag;
 extern int32 PSLines;
 extern int32 LastPtLine;
 int32 cur_RGB[3];
-extern int32 LastPSX, LastPSY;
+extern int32 LastPSX;
+extern int32 LastPSY;
 extern int32 NoBreakLine;
 int32 DOING_SVG_COLOR = 0;
 

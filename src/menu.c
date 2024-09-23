@@ -11,7 +11,8 @@
 
 int32 help_menu;
 MENUDEF my_menus[3];
-extern int32 tfBell, TipsFlag;
+extern int32 tfBell;
+extern int32 TipsFlag;
 extern int32 DCURY, DCURX, CURY_OFF, DCURYs, DCURYb;
 extern GC gc;
 

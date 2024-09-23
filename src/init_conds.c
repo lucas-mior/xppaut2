@@ -54,16 +54,21 @@ This also has the clone gadget
 
 extern char *save_eqn[MAXLINES];
 extern int32 NLINES;
-extern int32 screen, Xup;
+extern int32 screen;
+extern int32 Xup;
 extern GC gc, small_gc;
-extern Window main_win, draw_win;
+extern Window main_win;
+extern Window draw_win;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 extern int32 NDELAYS;
 /*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
 extern int32 SuppressBounds;
 extern double DELAY;
-extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+extern uint32 MyBackColor;
+extern uint32 MyForeColor;
+extern uint32 MyMainWinColor;
+extern uint32 MyDrawWinColor;
 #define PARAMBOX 1
 #define ICBOX 2
 #define DELAYBOX 3
@@ -95,7 +100,10 @@ static void display_file_sel(struct FileSel f, Window window);
 
 extern FILEINFO my_ff;
 
-extern int32 NUPAR, NODE, NEQ, NMarkov;
+extern int32 NUPAR;
+extern int32 NODE;
+extern int32 NEQ;
+extern int32 NMarkov;
 extern char delay_string[MAX_ODE][80];
 extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
