@@ -17,11 +17,6 @@ extern int32 METHOD;
 #define STIFF 9
 #define GEAR 5
 #define RB23 13
-typedef struct {
-    int32 nvec;
-    int32 node;
-    double *x;
-} XPPVEC;
 
 extern XPPVEC xpv;
 

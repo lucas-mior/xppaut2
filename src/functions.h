@@ -2562,6 +2562,14 @@ extern int32 MakePlotFlag;
 extern int32 SuppressOut;
 extern int32 SuppressBounds;
 
+typedef struct {
+    int32 nvec;
+    int32 node;
+    double *x;
+} XPPVEC;
+
+extern XPPVEC xpv;
+
 void init_ar_ic(void);
 void dump_range(FILE *fp, int32 f);
 void init_range(void);

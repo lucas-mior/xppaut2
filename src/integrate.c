@@ -90,7 +90,7 @@ typedef struct {
 } ARRAY_IC;
 static int32 ar_ic_defined = 0;
 
-ARRAY_IC ar_ic[NAR_IC];
+static ARRAY_IC ar_ic[NAR_IC];
 typedef struct {
     int32 n;
     int32 flag;
@@ -101,7 +101,7 @@ typedef struct {
     int32 t1, t2, t3, t4;
 } FIXPTLIST;
 
-FIXPTLIST fixptlist;
+static FIXPTLIST fixptlist;
 
 typedef struct {
     int32 n;
@@ -109,13 +109,7 @@ typedef struct {
     double xlo[MAX_ODE], xhi[MAX_ODE];
 } FIXPTGUESS;
 
-FIXPTGUESS fixptguess;
-
-typedef struct {
-    int32 nvec;
-    int32 node;
-    double *x;
-} XPPVEC;
+static FIXPTGUESS fixptguess;
 
 XPPVEC xpv;
 int32 SuppressOut = 0;
@@ -156,7 +150,7 @@ extern double DELAY;
 extern int32 R_COL;
 extern int32 colorline[11];
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
-int32 STOP_FLAG = 0;
+static int32 STOP_FLAG = 0;
 int32 PSLineStyle;
 struct {
     char item[30];
