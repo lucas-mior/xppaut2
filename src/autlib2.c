@@ -56,11 +56,13 @@ solvbv(int64 *ifst, iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ipar;
     int64 ncol, nclm, nfpr, nint, nrow, ntst, ntst0;
 
-    double *ff, *ft;
+    double *ff;
+    double *ft;
 
     int64 nbc, iid, iam;
     double det;
-    int64 ips, nrc;
+    int64 ips;
+    int64 nrc;
 
     int64 kwt;
 
@@ -276,7 +278,8 @@ int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     int64 dd_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
 
     dd_dim1 = *ncb;
 
@@ -294,7 +297,8 @@ setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
 
 int32
 faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
-    int64 fa_dim1, ff_dim1;
+    int64 fa_dim1;
+    int64 ff_dim1;
 
     ff_dim1 = *nrow;
     fa_dim1 = *ndxloc;
@@ -332,7 +336,8 @@ int64
 mypart(int64 *iam, int64 *np) {
     int64 ret_val;
 
-    int64 i, k;
+    int64 i;
+    int64 k;
 
     /*     Partition the mesh */
 
@@ -366,11 +371,13 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
 
     int64 jp1;
     int64 ncp1;
-    double dt, ddt;
+    double dt;
+    double ddt;
 
     double *dicd, *ficd, *dfdp, *dfdu, *uold;
     double *f;
-    double *u, *wploc;
+    double *u;
+    double *wploc;
     double *wi, *wp, *wt;
     double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
@@ -813,7 +820,8 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     int64 oddc[KREDO];
     int64 niam, ibuf, ismc[KREDO], irmc[KREDO], info, irmm[KREDO], ismm[KREDO],
         nlev, itmp;
-    double zero, tpiv;
+    double zero;
+    double tpiv;
     double xkwt;
     int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
 
@@ -830,7 +838,8 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     int64 myleftc[KREDO];
     int64 notsend;
     int64 nap1, myright[KREDO], nam1, len1, len2, icp1;
-    double piv1, piv2;
+    double piv1;
+    double piv2;
     double *buf = NULL;
 
     ipr_dim1 = *nov;
@@ -1561,7 +1570,8 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     int64 icf1_dim1, icf2_dim1, icf11_dim1, a1_dim1, a1_dim2, a2_dim1, a2_dim2,
         cc_dim1, cc_dim2, faa_dim1, ca1_dim1, ca1_dim2, ipr_dim1;
 
-    int64 niam, nlev;
+    int64 niam;
+    int64 nlev;
     double xkwt;
     int64 nbcp1, ipiv1, ipiv2, i;
 
@@ -1925,7 +1935,8 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 icf2_dim1, s1_dim1, s1_dim2, s2_dim1, s2_dim2, a2_dim1, a2_dim2,
         bb_dim1, bb_dim2, sol1_dim1, sol2_dim1, sol3_dim1, faa_dim1;
 
-    int64 niam, ibuf;
+    int64 niam;
+    int64 ibuf;
     int64 even = false;
     int64 nlev;
     int64 hasright;
@@ -1937,9 +1948,11 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 msglen;
 
     int64 master[KREDO];
-    int64 myleft, kp1;
+    int64 myleft;
+    int64 kp1;
     int64 odd = false;
-    int64 ism, irm;
+    int64 ism;
+    int64 irm;
     int64 hasleft, notsend;
     int64 nam1, myright, nov2, nov3;
     double *buf = NULL;
@@ -2171,7 +2184,8 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     double *x;
     int64 nrapj, irfir, j1, novpj, icfnovpir, ir;
     double sm;
-    int64 novpir, irp1;
+    int64 novpir;
+    int64 irp1;
 
     (void)iam;
     (void)par;
@@ -2236,7 +2250,8 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     int64 niam;
     int64 even[KREDO];
     double xkwt;
-    int64 i, n;
+    int64 i;
+    int64 n;
 
     int64 nredo, msglen, rmtype[KREDO], smtype[KREDO];
     int64 odd[KREDO];

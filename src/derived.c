@@ -10,7 +10,8 @@
 extern double constants[];
 extern int32 NCON;
 typedef struct {
-    int32 index, *form;
+    int32 index;
+    int32 *form;
     char *rhs;
     double value;
 } Derived;
@@ -23,7 +24,8 @@ It is called only once during the session
 */
 int32
 compile_derived(void) {
-    int32 i, k;
+    int32 i;
+    int32 k;
     int32 f[256], n;
     for (i = 0; i < nderived; i++) {
         if (add_expr(derived[i].rhs, f, &n) == 1) {

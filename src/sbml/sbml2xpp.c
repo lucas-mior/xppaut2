@@ -188,7 +188,8 @@ int32
 main(int32 argc, char *argv[]) {
     SBMLDocument_t *d;
     Model_t *m;
-    uint32 level, version;
+    uint32 level;
+    uint32 version;
 
     if (argc != 2) {
         plintf("\n  usage: s2x <filename>\n\n");
@@ -282,7 +283,8 @@ void
 GetEvents(Model_t *m) {
     Event_t *e;
     EventAssignment_t *ea;
-    int32 n, na;
+    int32 n;
+    int32 na;
     char *ev;
     char *a;
     int32 j;
@@ -331,7 +333,8 @@ GetFunctions(Model_t *m) {
     char *name;
     FUN_DEF *f;
     int32 j;
-    int32 n, narg;
+    int32 n;
+    int32 narg;
     n = Model_getNumFunctionDefinitions(m);
     if (n == 0)
         return;
@@ -379,9 +382,11 @@ GetReaction(Model_t *m, uint32 level, uint32 version) {
     KineticLaw_t *kl;
     Parameter_t *p;
     SpeciesReference_t *s;
-    int32 np, j;
+    int32 np;
+    int32 j;
     int32 npr, nre;
-    char *name, *id;
+    char *name;
+    char *id;
     double value, st;
     Nrxn = n;
     rxn = malloc(n*sizeof(*rxn));
@@ -448,7 +453,8 @@ add_product(int32 i, int32 j, char *name, double s) {
 int32
 dump_reactions(void) {
     int32 j;
-    int32 npr, nre;
+    int32 npr;
+    int32 nre;
     RXN *r;
     plintf("REACTIONS:\n");
     for (int32 i = 0; i < Nrxn; i++) {
@@ -469,7 +475,8 @@ dump_reactions(void) {
 
 int32
 dump_events(void) {
-    int32 j, na;
+    int32 j;
+    int32 na;
     EVENT *ev;
     if (Nevent == 0)
         return;

@@ -23,7 +23,8 @@ static struct {
 } blhmp_1 = {NULL, NULL, NULL};
 
 static struct {
-    double *pu0, *pu1;
+    double *pu0;
+    double *pu1;
 } blhmu_1 = {NULL, NULL};
 
 static struct {
@@ -58,7 +59,8 @@ int32
 fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     double rtmp;
@@ -136,9 +138,11 @@ int32
 ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double dum1;
 
     /* Parameter adjustments */
@@ -188,7 +192,8 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
 
@@ -315,7 +320,8 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double *fj;
     double *ri;
     double *rr, *vr, *vt;
-    double *xequib1, *xequib2;
+    double *xequib1;
+    double *xequib2;
 
     (void)nbc0;
     (void)rap;
@@ -613,7 +619,8 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
 
@@ -707,7 +714,8 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 ijac = 0;
 
-    int64 i, jb;
+    int64 i;
+    int64 jb;
     double *fj;
     int64 ndm;
     double dum;
@@ -921,7 +929,8 @@ inho(iap_type *iap, int64 *icp, double *par) {
 int32
 preho(int64 *ndx, int64 *ntsr, int64 *nar, int64 *ndim, int64 *ncolrs,
       double *ups, double *udotps, double *tm, double *par) {
-    int64 ups_dim1, udotps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
 
     int64 jmin;
     double upsi;
@@ -1028,14 +1037,17 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
 
     int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
-    double t, *u;
+    double t;
+    double *u;
     int64 k1, k2;
 
     double dt;
-    int64 lab, ibr;
+    int64 lab;
+    int64 ibr;
 
     (void)thu;
     (void)thl;
@@ -1107,7 +1119,8 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
 int32
 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
-    int64 i, j;
+    int64 i;
+    int64 j;
 
     int64 ip;
     int64 kp;
@@ -1240,11 +1253,13 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
     int64 ups_dim1, p0_dim1, p1_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
 
     double orient;
 
-    int64 iid, ndm;
+    int64 iid;
+    int64 ndm;
 
     /* Parameter adjustments */
     /*--icp;*/
@@ -1310,10 +1325,12 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
       int64 *icp, double *par) {
     double ret_val;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
     int64 ndm;
-    double dum1, dum2;
+    double dum1;
+    double dum2;
 
     f0 = xmalloc(sizeof(*(f0))*(usize)(iap->ndm));
     f1 = xmalloc(sizeof(*(f1))*(usize)(iap->ndm));
@@ -1570,7 +1587,8 @@ free_f0f1:
 int32
 eighi(int64 isign, int64 itrans, double *rr, double *ri, double *vret,
       double *xequib, int64 *icp, double *par, int64 *ndm) {
-    double *dfdp, *dfdu;
+    double *dfdp;
+    double *dfdu;
     double *zz;
 
     dfdp = xmalloc(sizeof(*dfdp)*(usize)((*ndm)*NPARX));
@@ -1768,7 +1786,8 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 int32
 prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
        int64 is, int64 itrans, int64 *ndm) {
-    double *dfdp, *dfdu;
+    double *dfdp;
+    double *dfdu;
 
     dfdp = xmalloc(sizeof(*dfdp)*(usize)((*ndm)*NPARX));
     dfdu = xmalloc(sizeof(*dfdu)*(usize)((*ndm)*(*ndm)));
@@ -1783,19 +1802,24 @@ prjcti(double *bound, double *xequib, int64 *icp, double *par, int64 imfd,
 int32
 prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
        int64 *is, int64 *itrans, int64 *ndm, double *dfdu, double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 j, k;
+    int64 j;
+    int64 k;
     int64 mcond, k1, k2, m0;
 
-    double det, eps;
+    double det;
+    double eps;
 
     double *fdum;
     double *cnow;
     int64 *type__;
-    double *a, *d;
+    double *a;
+    double *d;
     double *v;
-    double *ei, *er;
+    double *ei;
+    double *er;
     double *ort, *dum1, *dum2;
 
     fdum = xmalloc(sizeof(*fdum)*(usize)(*ndm));

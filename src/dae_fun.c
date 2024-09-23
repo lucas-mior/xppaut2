@@ -35,7 +35,8 @@ static struct {
     char name[12], *rhs;
     int32 *form;
     int32 index;
-    double value, last;
+    double value;
+    double last;
 } svar[MAXDAE];
 
 static struct {
@@ -295,7 +296,8 @@ solve_dae(void) {
 
 void
 get_new_guesses(void) {
-    int32 i, n;
+    int32 i;
+    int32 n;
     double z;
     if (nsvar < 1)
         return;

@@ -292,7 +292,8 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
          double *work) {
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     double z, mu, bet;
-    int32 i, j;
+    int32 i;
+    int32 j;
     yp = work;
     yg = yp + neq;
     ytemp = yg + neq;

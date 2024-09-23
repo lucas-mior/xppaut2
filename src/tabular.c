@@ -64,7 +64,8 @@ to be added later
 #include <stdio.h>
 typedef struct {
     double xlo, xhi, dx;
-    double *y, *x;
+    double *y;
+    double *x;
     int32 n, flag, interp, autoeval;
     int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
@@ -127,7 +128,8 @@ void
 new_lookup_com(int32 i) {
     char file[128];
     int32 index, ok, status;
-    double xlo, xhi;
+    double xlo;
+    double xhi;
     int32 npts;
     char newform[80];
 
@@ -341,7 +343,8 @@ load_table(char *filename, int32 index) {
     char bobtab[100];
     char *bob;
     int32 length;
-    double xlo, xhi;
+    double xlo;
+    double xhi;
     FILE *fp;
     char filename2[512], ch;
     char error[sizeof(filename2) + sizeof(cur_dir) + 20];

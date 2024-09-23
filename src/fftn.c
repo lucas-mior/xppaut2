@@ -235,7 +235,8 @@ fft_free(void) {
 static int32
 factorize(int32 nPass, int32 *kt) {
     int32 nFactor = 0;
-    int32 j, jj;
+    int32 j;
+    int32 jj;
 
     *kt = 0;
     /* determine the factors of n */
@@ -349,7 +350,8 @@ int32
 FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
      double scaling) {
     usize nTotal;
-    int32 maxFactors, maxPerm;
+    int32 maxFactors;
+    int32 maxPerm;
 
     /*
      * tally the number of elements in the data array

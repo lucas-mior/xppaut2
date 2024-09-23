@@ -25,7 +25,8 @@ extern char *info_message, *kin_hint[];
 extern int32 screen;
 extern int32 mov_ind;
 typedef struct {
-    int32 h, w;
+    int32 h;
+    int32 w;
     Pixmap xi;
 } MOVIE;
 
@@ -85,7 +86,8 @@ reset_film(void) {
 
 int32
 film_clip(void) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 h, w, bw, d;
     Window root;
     if (mov_ind >= MAXFILM)
@@ -115,7 +117,8 @@ show_frame(int32 i, int32 h, int32 w) {
 
 void
 play_back(void) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     int32 h, w, bw, d;
 
     Window root;
@@ -200,7 +203,8 @@ save_kine(void) {
 void
 make_anigif(void) {
     int32 i = 0;
-    int32 x, y;
+    int32 x;
+    int32 y;
     FILE *fp;
     Window root;
     int32 h, w, bw, d;
@@ -240,7 +244,8 @@ void
 save_movie(char *basename, int32 fmat) {
     char file[XPP_MAX_NAME];
     int32 i = 0;
-    int32 x, y;
+    int32 x;
+    int32 y;
     FILE *fp;
     Window root;
     Pixmap xi;
@@ -284,7 +289,8 @@ save_movie(char *basename, int32 fmat) {
 
 void
 auto_play(void) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     int32 h, w, bw, d, key;
     Window root;
 

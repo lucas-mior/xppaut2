@@ -20,7 +20,8 @@ extern double NEWT_ERR;
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
 

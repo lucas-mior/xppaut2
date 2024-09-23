@@ -67,7 +67,8 @@ delay_stab_eval(
 
 int32
 alloc_delay(double big) {
-    int32 n, i;
+    int32 n;
+    int32 i;
 
     n = (int32)(big / fabs(DELTA_T)) + 1;
 
@@ -101,7 +102,8 @@ free_delay(void) {
 
 void
 stor_delay(double *y) {
-    int32 i, in;
+    int32 i;
+    int32 in;
     int32 nodes = NODE;
     if (DelayFlag == 0)
         return;

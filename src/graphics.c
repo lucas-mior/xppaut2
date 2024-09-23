@@ -148,7 +148,8 @@ get_draw_area(void) {
 
 void
 get_draw_area_flag(int32 flag) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 w, h, bw, de;
     Window root;
     if (flag == 1) {
@@ -423,7 +424,8 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
     int32 cf = 0, cs;
     int32 n = (int32)strlen(str), dx = 0;
     char tmp[256], c;
-    int32 sub, sup;
+    int32 sub;
+    int32 sup;
     cs = size;
     if (avromfonts[size] == 1) {
         sup = romfonts[size]->ascent;
@@ -546,7 +548,8 @@ scale_to_screen(/* not really the screen!  */
 void
 scale_to_real(/* Not needed except for X */
               int32 i, int32 j, double *x, double *y) {
-    int32 i1, j1;
+    int32 i1;
+    int32 j1;
     double x1, y1;
     get_draw_area();
     i1 = i - DLeft;
@@ -562,7 +565,8 @@ scale_to_real(/* Not needed except for X */
 
 void
 reset_all_line_type(void) {
-    int32 j, k;
+    int32 j;
+    int32 k;
     for (j = 0; j < MAXPOP; j++) {
         for (k = 0; k < MAXPERPLOT; k++) {
             graph[j].line[k] = START_LINE_TYPE;
@@ -676,7 +680,8 @@ get_graph(void) {
 
 void
 init_graph(int32 i) {
-    int32 j, k;
+    int32 j;
+    int32 k;
     if (AXES <= 3)
         AXES = 0;
     for (j = 0; j < 3; j++)
@@ -755,7 +760,8 @@ init_graph(int32 i) {
 void
 copy_graph(/*  Graph[i]=Graph[l]  */
            int32 i, int32 l) {
-    int32 j, k;
+    int32 j;
+    int32 k;
     graph[i].Use = graph[l].Use;
     graph[i].Restore = graph[l].Restore;
     graph[i].Nullrestore = graph[l].Nullrestore;
@@ -860,7 +866,8 @@ threedproj(double x2p, double y2p, double z2p, double *xp, double *yp) {
 
 void
 text3d(double x, double y, double z, char *s) {
-    double xp, yp;
+    double xp;
+    double yp;
     if (threedproj(x, y, z, &xp, &yp))
         text_abs(xp, yp, s);
     return;
@@ -892,7 +899,8 @@ threed_proj(double x, double y, double z, double *xp, double *yp) {
 
 void
 point_3d(double x, double y, double z) {
-    double xp, yp;
+    double xp;
+    double yp;
     if (threed_proj(x, y, z, &xp, &yp))
         point_abs(xp, yp);
     return;
@@ -999,7 +1007,8 @@ pers_line(double x, double y, double z, double xp, double yp, double zp)
 
 void
 rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double vt[3], vnew[3];
     vt[0] = x;
     vt[1] = y;
@@ -1018,7 +1027,8 @@ rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp) {
 
 void
 point_abs(double x1, double y1) {
-    int32 xp, yp;
+    int32 xp;
+    int32 yp;
 
     double x_left = XMin;
     double x_right = XMax;
@@ -1043,7 +1053,8 @@ line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
 
 void
 bead_abs(double x1, double y1) {
-    int32 i1, j1;
+    int32 i1;
+    int32 j1;
     double x_left = XMin;
     double x_right = XMax;
     double y_top = YMax;
@@ -1058,7 +1069,8 @@ bead_abs(double x1, double y1) {
 void
 frect_abs(double x1, double y1, double w, double h) {
     int32 i1, i2, j1, j2;
-    int32 ih, iw;
+    int32 ih;
+    int32 iw;
     double x2 = x1 + w;
     double y2 = y1 + h;
     scale_to_screen(x1, y1, &i1, &j1);
@@ -1084,7 +1096,8 @@ line_abs(double x1, double y1, double x2, double y2) {
 
 void
 text_abs(double x, double y, char *text) {
-    int32 xp, yp;
+    int32 xp;
+    int32 yp;
     scale_to_screen(x, y, &xp, &yp);
     put_text(xp, yp, text);
     return;
@@ -1155,7 +1168,8 @@ fillintext(char *old, char *new) {
 
 void
 fancy_text_abs(double x, double y, char *old, int32 size) {
-    int32 xp, yp;
+    int32 xp;
+    int32 yp;
     char text[256];
     scale_to_screen(x, y, &xp, &yp);
     fillintext(old, text);

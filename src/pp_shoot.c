@@ -60,7 +60,8 @@ extern double MyData[MAX_ODE], MyTime;
 struct {
     char item[30];
     int32 steps, side, cycle, movie;
-    double plow, phigh;
+    double plow;
+    double phigh;
 } shoot_range;
 
 /*   more general mixed boundary types   */
@@ -233,7 +234,8 @@ int32
 set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
     static char *n[] = {"Freq. Par.", "*1Sect. Var", "Section", "Show(Y/N)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     static char *yn[] = {"N", "Y"};
     snprintf(values[0], sizeof(values[0]), "%s", upar_names[*ipar]);
     snprintf(values[1], sizeof(values[1]), "%s", uvar_names[*ivar]);
@@ -369,7 +371,8 @@ set_up_sh_range(void) {
     static char *n[] = {"*2Range over",     "Steps",     "Start",     "End",
                         "Cycle color(Y/N)", "Side(0/1)", "Movie(Y/N)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     static char *yn[] = {"N", "Y"};
     snprintf(values[0], sizeof(values[0]), "%s", shoot_range.item);
     snprintf(values[1], sizeof(values[1]), "%d", shoot_range.steps);

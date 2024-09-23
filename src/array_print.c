@@ -68,7 +68,8 @@ ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
     double dx = (ps_scale.xmax - ps_scale.xmin);
     double dy = (ps_scale.ymax - ps_scale.ymin);
     double xhi = .95*dx, yhi = .85*dy;
-    double delx, dely;
+    double delx;
+    double dely;
     delx = .8*dx / (double)ndown;
     dely = .8*dy / (double)(nacross / ncskip);
     for (i = 0; i < nacross / ncskip; i++) {
@@ -224,7 +225,8 @@ void
 ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 ) {
     double slant = .0174532*ps_scale.slant;
-    double x, y;
+    double x;
+    double y;
     double sizex = ps_scale.tx, sizey = ps_scale.ty, rot = ps_scale.angle;
     double a = sizex*cos(slant), b = sizey*sin(slant),
            c = -sizex*sin(slant), d = sizey*cos(slant);

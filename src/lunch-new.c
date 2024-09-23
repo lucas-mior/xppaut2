@@ -121,7 +121,8 @@ do_info(FILE *fp) {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
         "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
         "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
-    int32 div, rem;
+    int32 div;
+    int32 rem;
     int32 j;
     double z;
     char bob[200];
@@ -525,7 +526,8 @@ io_ic_file(char *fn, int32 flag) {
 
 void
 io_parameters(int32 f, FILE *fp) {
-    int32 i, index;
+    int32 i;
+    int32 index;
     char junk[256];
     double z;
     for (i = 0; i < NUPAR; i++) {
@@ -611,7 +613,8 @@ io_exprs(int32 f, FILE *fp) {
 
 void
 io_graph(int32 f, FILE *fp) {
-    int32 j, k;
+    int32 j;
+    int32 k;
     char temp[256];
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */

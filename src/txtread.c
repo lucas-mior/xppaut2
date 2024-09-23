@@ -39,7 +39,8 @@ extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
 typedef struct {
     Window up, down, pgup, pgdn, kill, home, end, base, text, src, action;
     int32 here, first, hgt, wid, nlines, which;
-    int32 dh, dw;
+    int32 dh;
+    int32 dw;
 } TXTVIEW;
 
 TXTVIEW txtview;
@@ -57,7 +58,8 @@ static void txtview_keypress(XEvent ev);
 
 void
 txt_view_events(XEvent ev) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     if (txtview.here == 0)
         return;
 
@@ -266,7 +268,8 @@ redraw_txtview(Window window) {
 
 void
 redraw_txtview_text(void) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     XClearWindow(display, txtview.text);
     for (i = 0; i < txtview.nlines; i++) {
         j = i + txtview.first;
@@ -311,7 +314,8 @@ make_txtview(void) {
 
     /*XWMHints wm_hints;
      */
-    XTextProperty winname, iconname;
+    XTextProperty winname;
+    XTextProperty iconname;
     XSizeHints size_hints;
     if (txtview.here == 1)
         return;

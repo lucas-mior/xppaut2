@@ -99,7 +99,8 @@ adj2_dump_transpose_info(FILE *fp, int32 f) {
 
 int32
 adj2_do_transpose(void) {
-    int32 ii, status;
+    int32 ii;
+    int32 status;
     static char *n[] = {"*0Column 1", "NCols", "ColSkip",
                         "Row 1",      "NRows", "RowSkip"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -416,7 +417,8 @@ int32
 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
              double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
-    double *yprime, *work;
+    double *yprime;
+    double *work;
     double t, prod, del;
     int32 j, l, k2, rval = 0;
     int32 n2 = node*node;
@@ -552,7 +554,8 @@ adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
               int32 node, double dt) {
     int32 j, i, n2 = node*node, info;
     int32 ipvt[MAX_ODE];
-    double *mat, *fold;
+    double *mat;
+    double *fold;
     fold = work;
     mat = work + node;
 
@@ -651,11 +654,13 @@ int32
 adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     double y[MAX_ODE];
     double yp[MAX_ODE], nrm, dy[MAX_ODE];
-    double t0, t1;
+    double t0;
+    double t1;
     double sum = 0.0;
     char bob[256];
     int32 istart = 1;
-    int32 i, j;
+    int32 i;
+    int32 j;
     if (storind < 2) {
         if (batch == 0)
             err_msg("You need to compute an orbit first");

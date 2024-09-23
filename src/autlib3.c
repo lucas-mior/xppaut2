@@ -17,10 +17,12 @@ int32
 fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -90,7 +92,8 @@ int32
 fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 i, j, ips;
 
@@ -179,9 +182,11 @@ int32
 fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ddp[NPARX], *ddu;
     int64 ndm;
 
@@ -239,7 +244,8 @@ stpnc1(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 nfpr;
 
     int64 ndm;
-    double fop, dum;
+    double fop;
+    double dum;
 
     /* Generate starting data for optimization problems (one parameter). */
 
@@ -262,10 +268,12 @@ int32
 fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -330,7 +338,8 @@ int32
 ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 icpm;
 
@@ -389,7 +398,8 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double uold;
     int64 nfpr;
     double *f;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *v;
     int64 found;
 
@@ -464,7 +474,8 @@ int32
 fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 i;
 
@@ -498,10 +509,12 @@ int32
 fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double told;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double dt;
 
     /* Generate the equations for continuing fixed points. */
@@ -541,10 +554,12 @@ int32
 fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -615,11 +630,13 @@ int32
 ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double thta;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double c1, s1;
     int64 ndm2;
 
@@ -671,11 +688,13 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
     double thta;
 
-    double uold, *smat;
+    double uold;
+    double *smat;
 
     int64 nfpr1;
     double *f;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *v;
     int64 found;
     double c1;
@@ -758,10 +777,12 @@ int32
 fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -832,9 +853,11 @@ int32
 ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
 
     double rom;
     int64 ndm2;
@@ -882,15 +905,18 @@ int32
 stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     int64 ndim;
 
-    double uold, *smat;
+    double uold;
+    double *smat;
     int64 nfpr1;
     double *f;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *v;
     int64 found;
 
     double period;
-    int64 ndm, irs;
+    int64 ndm;
+    int64 irs;
     double rom;
     int64 ndm2;
     smat = xmalloc(sizeof(*smat)*(usize)((iap->ndim*2)*(iap->ndim*2)));
@@ -963,10 +989,12 @@ int32
 fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -1038,11 +1066,13 @@ int32
 ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 ijac;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double rom;
     int64 ndm2;
 
@@ -1086,18 +1116,22 @@ ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
 int32
 stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
-    int64 ijac, ndim;
+    int64 ijac;
+    int64 ndim;
 
-    double uold, *smat;
+    double uold;
+    double *smat;
 
     int64 nfpr1;
     double *f;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *v;
     int64 found;
 
     double period, *dfp, *dfu;
-    int64 ndm, irs;
+    int64 ndm;
+    int64 irs;
     double rom;
     int64 ndm2;
 
@@ -1177,9 +1211,11 @@ int32
 fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double period;
 
     /* Generates the equations for the continuation of periodic orbits. */
@@ -1328,7 +1364,8 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 int32
 pdble(iap_type *iap, rap_type *rap, int64 *ndim, int64 *ntst, int64 *ncol,
       int64 *ndxloc, double *ups, double *udotps, double *tm, double *par) {
-    int64 ups_dim1, udotps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
 
     int64 i, j, i1, i2;
 
@@ -1378,11 +1415,14 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        double *thl, double *thu) {
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    int64 ndim, ncol;
+    int64 ndim;
+    int64 ncol;
 
-    double uold, *smat;
+    double uold;
+    double *smat;
     int64 nfpr, ntst, ndim2, nfpr1;
-    double c, *f;
+    double c;
+    double *f;
     int64 i, j, k;
     double s, t, *u, rimhb;
     int64 found;
@@ -1515,9 +1555,11 @@ int32
 fnws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 ndm, ndm2;
+    int64 ndm;
+    int64 ndm2;
 
     /* Sets up equations for the continuation of spatially homogeneous */
     /* solutions to parabolic systems, for the purpose of finding */
@@ -1548,7 +1590,8 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double c;
-    int64 i, j;
+    int64 i;
+    int64 j;
 
     /* Parameter adjustments */
 
@@ -1615,9 +1658,11 @@ int32
 fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double period;
 
     /* Equations for the continuation of traveling waves. */
@@ -1679,13 +1724,16 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        double *thl, double *thu) {
     int64 ups_dim1, udotps_dim1, upoldp_dim1;
 
-    int64 ndim, ncol;
+    int64 ndim;
+    int64 ncol;
 
-    double uold, *smat;
+    double uold;
+    double *smat;
     int64 nfpr;
 
     int64 ntst, ndim2, nfpr1;
-    double c, *f;
+    double c;
+    double *f;
     int64 i, j, k;
     double s, t, *u, rimhb;
     int64 found;
@@ -1818,7 +1866,8 @@ int32
 fnsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 ndm;
 
@@ -1846,7 +1895,8 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double period;
 
     /* Parameter adjustments */
@@ -1900,7 +1950,8 @@ int32
 fnpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 ndm;
 
@@ -1927,7 +1978,8 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double t, dsmin, rlold, ds, dt, period;
 
     /* Parameter adjustments */
@@ -2008,11 +2060,13 @@ int32
 fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -2080,11 +2134,13 @@ int32
 ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     double beta;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double period;
     int64 ips;
 
@@ -2239,7 +2295,8 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
-    double rd1, rd2;
+    double rd1;
+    double rd2;
     int64 ibr, ndm, ips, irs, lab1, nar1, itp1, isw1;
 
     (void)thu;
@@ -2380,11 +2437,13 @@ int32
 fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -2452,9 +2511,11 @@ int32
 ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double period;
 
     (void)ndim;
@@ -2721,11 +2782,13 @@ int32
 fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -2796,9 +2859,11 @@ int32
 fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double period;
     int64 ndm2;
 
@@ -2833,10 +2898,12 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     int64 dbc_dim1;
 
     int64 jtmp, i, j;
-    double theta, cs;
+    double theta;
+    double cs;
     int64 nn;
     double ss;
-    int64 ndm, ndm2;
+    int64 ndm;
+    int64 ndm2;
 
     (void)icp;
     (void)rap;
@@ -2960,7 +3027,8 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
 
     int64 ndim;
     double temp[7];
@@ -3096,11 +3164,13 @@ int32
 fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *upold, ep, period;
     int64 ndm;
     double umx;
@@ -3183,9 +3253,11 @@ int32
 ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      double *upold, int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     double gamma, rkappa, period, dfp[NPARX], *dfu, fop;
 
     (void)ndim;
@@ -3280,10 +3352,12 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *f1, *f2, ep;
     int64 ndm;
-    double *dnt, umx;
+    double *dnt;
+    double umx;
     int64 nnt0;
 
     f1 = xmalloc(sizeof(*(f1))*(usize)(iap->nint));
@@ -3364,7 +3438,8 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *dfdp) {
     int64 dint_dim1, dfdu_dim1, dfdp_dim1;
 
-    int64 nfpr, indx;
+    int64 nfpr;
+    int64 indx;
     double *f;
     int64 i, j, l;
     double dfp[NPARX], *dfu;
@@ -3456,7 +3531,8 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double fs;
 
     int64 ibr, ndm, irs, lab1, nar1;
-    double rld1, rld2;
+    double rld1;
+    double rld2;
     int64 itp1, isw1;
 
     double *temporary_storage;
@@ -3629,11 +3705,13 @@ int32
 fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -3704,7 +3782,8 @@ int32
 ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, double *f, int64 ndm, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
     int64 nfpr, nfpx, i, j;
 
@@ -3742,7 +3821,8 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
 
@@ -3883,7 +3963,8 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
 
@@ -4017,7 +4098,8 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
        int64 *ncolrs, double *rlcur, double *rldot, int64 *ndxloc, double *ups,
        double *udotps, double *upoldp, double *tm, double *dtm, int64 *nodir,
        double *thl, double *thu) {
-    int64 ups_dim1, udotps_dim1;
+    int64 ups_dim1;
+    int64 udotps_dim1;
 
     int64 ndim;
     double temp[7];
@@ -4139,15 +4221,19 @@ int32
 funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 *icp, double *par, int64 ijac, double *f, double *dfdu,
      double *dfdp) {
-    int64 dfdu_dim1, dfdp_dim1;
+    int64 dfdu_dim1;
+    int64 dfdp_dim1;
 
-    double *u1zz, *u2zz;
+    double *u1zz;
+    double *u2zz;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
-    int64 jac, ijc;
+    int64 jac;
+    int64 ijc;
     double umx, *f1zz, *f2zz;
 
     (void)uold;
@@ -4243,12 +4329,15 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    double *u1zz, *u2zz;
+    double *u1zz;
+    double *u2zz;
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
-    int64 jac, ijc;
+    int64 jac;
+    int64 ijc;
     double umx, *f1zz, *f2zz;
 
     (void)rap;
@@ -4362,13 +4451,16 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    double *u1zz, *u2zz;
+    double *u1zz;
+    double *u2zz;
 
     int64 nfpr;
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double ep;
-    int64 jac, ijc;
+    int64 jac;
+    int64 ijc;
     double umx, *f1zz, *f2zz;
 
     (void)rap;
@@ -4455,13 +4547,16 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 int32
 fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
      double *par, int64 ijac, double *f, double *dfdu, double *dfdp) {
-    double *u1zz, *u2zz;
+    double *u1zz;
+    double *u2zz;
     int64 nfpr;
 
     double rtmp;
-    int64 i, j;
+    int64 i;
+    int64 j;
     double f1, f2, ep;
-    int64 jac, ijc;
+    int64 jac;
+    int64 ijc;
     double umx;
 
     (void)rap;

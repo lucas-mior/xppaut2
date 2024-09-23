@@ -71,7 +71,8 @@ typedef struct AniGrab {
     double tol;
     int32 *x;
     int32 *y;
-    GrabTask start, end;
+    GrabTask start;
+    GrabTask end;
 } AniGrab;
 
 /***************  End of grabber stuff  in header **************/
@@ -779,7 +780,8 @@ void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 #include <stdio.h>
 
 typedef struct Browser {
-    Window base, upper;
+    Window base;
+    Window upper;
     Window find, up, down, pgup, pgdn, home, end, left, right;
     Window first, last, restore, write, get, close;
     Window load, repl, unrepl, table, addcol, delcol;
@@ -788,11 +790,14 @@ typedef struct Browser {
     Window time;
     Window hint;
     char hinttxt[256];
-    int32 dataflag, xflag;
+    int32 dataflag;
+    int32 xflag;
     int32 col0, row0, ncol, nrow;
-    int32 maxrow, maxcol;
+    int32 maxrow;
+    int32 maxcol;
     double **data;
-    int32 istart, iend;
+    int32 istart;
+    int32 iend;
 } Browser;
 
 extern Browser my_browser;
@@ -1017,7 +1022,8 @@ int32 do_init_delay(double big);
 #define DEL_STAB_H
 
 typedef struct COMPLEX {
-    double r, i;
+    double r;
+    double i;
 } COMPLEX;
 
 void do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
@@ -2192,7 +2198,8 @@ typedef struct FixInfo {
 } FixInfo;
 
 typedef struct {
-    char *text, *action;
+    char *text;
+    char *action;
     int32 aflag;
 } ACTION;
 
@@ -2435,7 +2442,8 @@ void post_process_stuff(void);
 #include "read_dir.h"
 
 typedef struct BoxListold {
-    int32 use, type;
+    int32 use;
+    int32 type;
     int32 n;
     Window base;
     Window cancel, ok, def, go;
@@ -2447,9 +2455,11 @@ typedef struct BoxListold {
 
 typedef struct BoxList {
     int32 use, type, xuse;
-    int32 n, n0;
+    int32 n;
+    int32 n0;
     int32 nwin, minwid, minhgt;
-    Window up, dn;
+    Window up;
+    Window dn;
     Window pgup, pgdn;
     Window base;
     Window cancel, ok, def, go, close;
@@ -3489,9 +3499,11 @@ typedef struct Pt {
 } Pt;
 
 typedef struct NCLINES {
-    double *xn, *yn;
+    double *xn;
+    double *yn;
     int32 nmx, nmy;
-    int32 n_ix, n_iy;
+    int32 n_ix;
+    int32 n_iy;
     struct NCLINES *n, *p;
 } NCLINES;
 
@@ -3646,7 +3658,8 @@ typedef struct STRING_BOX {
     Window base, ok, cancel;
     Window win[MAX_N_SBOX];
     char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
-    int32 n, hot;
+    int32 n;
+    int32 hot;
     int32 hgt, wid;
     int32 hh[MAX_N_SBOX];
 } STRING_BOX;
@@ -3667,12 +3680,14 @@ extern SCRBOX_LIST scrbox_list[10];
 
 /*  This is a new improved pop_up widget */
 typedef struct POP_UP {
-    Window base, tit;
+    Window base;
+    Window tit;
     Window *w;
     char *title;
     char **entries;
     char **hints;
-    int32 n, max;
+    int32 n;
+    int32 max;
     char *key;
     int32 hot;
 } POP_UP;

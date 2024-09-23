@@ -35,7 +35,8 @@ UnitRoundoff(void) {
 
 double
 RPowerI(double base, int32 exponent) {
-    int32 i, expt;
+    int32 i;
+    int32 expt;
     double prod;
 
     prod = ONE;

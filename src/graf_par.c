@@ -170,7 +170,8 @@ get_2d_view(int32 ind) {
     static char *n[] = {"*0X-axis", "*0Y-axis", "Xmin",   "Ymin",
                         "Xmax",     "Ymax",     "Xlabel", "Ylabel"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     int32 i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind];
     char n1[15], n2[15];
     ind_to_sym(i1, n1);
@@ -344,7 +345,8 @@ get_max(int32 index, double *vmin, double *vmax) {
 
 void
 corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
-    double x, y;
+    double x;
+    double y;
     double x1, x2, y1, y2;
     threedproj(-1., -1., -1., &x, &y);
     x1 = x;
@@ -508,7 +510,8 @@ fit_window(void) {
 
 void
 check_windows(void) {
-    double zip, zap;
+    double zip;
+    double zap;
     check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar, &MyGraph->dx);
     check_val(&MyGraph->ymin, &MyGraph->ymax, &MyGraph->ybar, &MyGraph->dy);
     check_val(&MyGraph->zmin, &MyGraph->zmax, &MyGraph->zbar, &MyGraph->dz);
@@ -934,7 +937,8 @@ alter_curve(char *title, int32 in_it, int32 n) {
     static char *nn[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "*4Color",
                          "Line type"};
     char values[LENGTH(nn)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     int32 i1 = MyGraph->xv[in_it], i2 = MyGraph->yv[in_it],
           i3 = MyGraph->zv[in_it];
     char n1[15], n2[15], n3[15];
@@ -1118,7 +1122,8 @@ freeze_com(int32 c) {
 
 void
 set_key(int32 x, int32 y) {
-    double xp, yp;
+    double xp;
+    double yp;
     scale_to_real(x, y, &xp, &yp);
     FreezeKeyX = xp;
     FreezeKeyY = yp;
@@ -1128,7 +1133,8 @@ set_key(int32 x, int32 y) {
 
 void
 draw_freeze_key(void) {
-    int32 ix, iy;
+    int32 ix;
+    int32 iy;
     int32 i, y0;
     int32 ix2;
     int32 dy = 2*HChar;
@@ -1154,7 +1160,8 @@ draw_freeze_key(void) {
 
 void
 key_frz_com(int32 c) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     switch (c) {
     case 0:
         FreezeKeyFlag = 0;

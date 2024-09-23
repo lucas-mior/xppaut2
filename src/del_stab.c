@@ -212,7 +212,8 @@ c_abs(COMPLEX z) {
 COMPLEX
 cdeterm(COMPLEX *z, int32 n) {
     int32 i, j, imax = 0, k;
-    double q, qmax;
+    double q;
+    double qmax;
     COMPLEX sign = rtoc(1.0, 0.0), mult, sum, zd;
     for (j = 0; j < n; j++) {
         qmax = 0.0;
@@ -246,7 +247,8 @@ void
 make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
        COMPLEX lambda) {
     int32 i, j, k, km;
-    COMPLEX temp, eld;
+    COMPLEX temp;
+    COMPLEX eld;
 
     for (j = 0; j < n; j++)
         for (i = 0; i < n; i++) {
@@ -274,7 +276,8 @@ make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
 int32
 find_positive_root(double *coef, double *delay, int32 n, int32 m, double err,
                    double eps, double big, int32 maxit, double *rr) {
-    COMPLEX lambda, lambdap;
+    COMPLEX lambda;
+    COMPLEX lambdap;
     COMPLEX det, *z, detp;
     double jac[4];
     double xl, yl, r, xlp, ylp;
@@ -362,7 +365,8 @@ double
 get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     int32 i, j, k, km;
     COMPLEX *z;
-    COMPLEX temp, eld;
+    COMPLEX temp;
+    COMPLEX eld;
     double arg;
     if (m == 0)
         return 0; /* no delays so don't use this! */

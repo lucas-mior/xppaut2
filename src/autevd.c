@@ -20,7 +20,8 @@ XAuto x_auto;
 int32 DiagFlag = 0;
 
 static struct {
-    int32 pt, br;
+    int32 pt;
+    int32 br;
     double evr[NAUTO], evi[NAUTO];
 } my_ev;
 

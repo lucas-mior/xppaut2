@@ -507,7 +507,8 @@ user_set_color_par(int32 flag, char *via, double lo, double hi) {
 
 void
 set_col_par_com(int32 i) {
-    int32 j, ivar;
+    int32 j;
+    int32 ivar;
     double temp[2];
     double maxder = 0.0, minder = 0.0, sum = 0.0;
     char ch, name[20];

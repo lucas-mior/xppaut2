@@ -8,10 +8,12 @@
 #include "alert.bitmap"
 
 typedef struct ScrollBox {
-    Window base, slide;
+    Window base;
+    Window slide;
     Window *w;
     int32 nw, nent, i0;
-    int32 len, exist;
+    int32 len;
+    int32 exist;
     char **list;
 } ScrollBox;
 
@@ -36,7 +38,8 @@ TEXTWIN mytext;
 SCRBOX_LIST scrbox_list[10];
 void
 set_window_title(Window win, char *string) {
-    XTextProperty wname, iname;
+    XTextProperty wname;
+    XTextProperty iname;
     XStringListToTextProperty(&string, 1, &wname);
     XStringListToTextProperty(&string, 1, &iname);
 
@@ -55,7 +58,8 @@ set_window_title(Window win, char *string) {
 
 void
 make_scrbox_lists(void) {
-    int32 i, n;
+    int32 i;
+    int32 n;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
         "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
@@ -129,7 +133,8 @@ make_scrbox_lists(void) {
 
 int32
 get_x_coord_win(Window win) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 h, w, bw, d;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &d);
@@ -151,7 +156,8 @@ void
 create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
                   char **list, ScrollBox *sb) {
     int32 slen = 0;
-    int32 hgt, wid;
+    int32 hgt;
+    int32 wid;
     int32 ww, len;
     int32 hw = DCURYs + 4;
     for (int32 i = 0; i < nent; i++) {
@@ -194,7 +200,8 @@ expose_scroll_box(Window window, ScrollBox sb) {
 
 void
 redraw_scroll_box(ScrollBox sb) {
-    int32 i, p;
+    int32 i;
+    int32 p;
     int32 i0 = sb.i0;
     for (i = 0; i < sb.nw; i++) {
         XClearWindow(display, sb.w[i]);
@@ -227,7 +234,8 @@ int32
 scroll_box_motion(XEvent ev, ScrollBox *sb) {
     int32 x;
     Window window;
-    int32 pos, len;
+    int32 pos;
+    int32 len;
     window = ev.xmotion.window;
     x = ev.xmotion.y;
     if (sb->nw >= sb->nent)
@@ -285,7 +293,8 @@ int32
 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
               char values[][MAX_LEN_SBOX], int32 maxchar) {
     STRING_BOX sb;
-    int32 i, status;
+    int32 i;
+    int32 status;
     int32 colm, pos;
     ScrollBox scrb;
     scrb.exist = 0;
@@ -328,7 +337,8 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
 
 void
 expose_sbox(STRING_BOX sb, Window window, int32 pos) {
-    int32 i, flag;
+    int32 i;
+    int32 flag;
 
     if (window == sb.ok) {
         XDrawString(display, window, gc, 5, CURY_OFF, "Ok", 2);
@@ -506,10 +516,12 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
 void
 make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
                   int32 maxchar) {
-    int32 width, height;
+    int32 width;
+    int32 height;
     int32 i;
     int32 xpos, ypos, n = sb->n;
-    int32 xstart, ystart;
+    int32 xstart;
+    int32 ystart;
 
     XTextProperty winname;
     XSizeHints size_hints;
@@ -758,7 +770,8 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
     Pixmap pmap =
         XCreatePixmap(display, root, (uint)width, (uint)height,
                       (uint)DefaultDepth(display, DefaultScreen(display)));
-    int32 xx, yy;
+    int32 xx;
+    int32 yy;
     int32 row = 0, col = 0;
 
     XColor bcolour, col2, diffcol;

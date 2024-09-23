@@ -341,7 +341,8 @@ void
 draw_bif_axes(void) {
     int32 x0 = Auto.x0;
     int32 y0 = Auto.y0;
-    int32 ii, i0;
+    int32 ii;
+    int32 i0;
     int32 x1 = x0 + Auto.wid, y1 = y0 + Auto.hgt;
     char junk[20], xlabel[20], ylabel[20];
 
@@ -402,7 +403,8 @@ renamef(char *old, char *new) {
 
 void
 copyf(char *old, char *new) {
-    FILE *fo, *fn;
+    FILE *fo;
+    FILE *fn;
     int32 c;
     fo = fopen(old, "r");
     fn = fopen(new, "w");
@@ -417,7 +419,8 @@ copyf(char *old, char *new) {
 
 void
 appendf(char *old, char *new) {
-    FILE *fo, *fn;
+    FILE *fo;
+    FILE *fn;
     FILE *ft;
     int32 c;
 
@@ -576,7 +579,8 @@ set_auto(void) /* Caution - need to include NICP here */
 
 int32
 auto_name_to_index(char *s) {
-    int32 i, in;
+    int32 i;
+    int32 in;
     find_variable(s, &in);
     if (in == 0)
         return 10;
@@ -646,7 +650,8 @@ void
 auto_params(void) {
     static char *n[] = {"*2Par1", "*2Par2", "*2Par3", "*2Par4",
                         "*2Par5", "*2Par6", "*2Par7", "*2Par8"};
-    int32 status, in;
+    int32 status;
+    int32 in;
     char values[LENGTH(n)][MAX_LEN_SBOX];
     for (int32 i = 0; i < 8; i++) {
         if (i < NAutoPar)
@@ -742,7 +747,8 @@ auto_plot_par(void) {
     static char *n[] = {"*1Y-axis", "*2Main Parm", "*2Secnd Parm", "Xmin",
                         "Ymin",     "Xmax",        "Ymax"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     int32 ii1, ii2, ji1, ji2;
     int32 i1 = Auto.var + 1;
     char n1[15];
@@ -1550,7 +1556,8 @@ plot_stab(double *evr, double *evi, int32 n) {
     int32 i, ix, iy;
     int32 r = Auto.st_wid;
 
-    double x, y;
+    double x;
+    double y;
     LineWidth(0);
     clr_stab();
     for (i = 0; i < n; i++) {
@@ -1627,7 +1634,8 @@ find_best_homo_shift(int32 n)
     long periodic orbit
 */
 {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double dmin = 10000.0;
     double d;
     double tshift = 0.0;
@@ -1673,7 +1681,8 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
 
 void
 get_start_orbit(double *u, double t, int32 n) {
-    double tnorm, lam;
+    double tnorm;
+    double lam;
     int32 i1, i2, j;
     if (t > 1.0)
         t -= 1.0;
@@ -2352,7 +2361,8 @@ auto_switch_ss(void) {
 void
 auto_2p_limit(int32 ips) {
     int32 ipsuse = 1;
-    int32 itp1, itp2;
+    int32 itp1;
+    int32 itp2;
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
     itp1 = (grabpt.itp) % 10;
@@ -2419,7 +2429,8 @@ auto_torus(void) {
 void
 auto_2p_branch(int32 ips) {
     int32 ipsuse = 1;
-    int32 itp1, itp2;
+    int32 itp1;
+    int32 itp2;
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
     itp1 = (grabpt.itp) % 10;

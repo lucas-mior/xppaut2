@@ -30,7 +30,8 @@ typedef struct EditBox {
     char name[MAX_N_EBOX][MAX_LEN_EBOX];
     char value[MAX_N_EBOX][MAX_LEN_EBOX];
     char rval[MAX_N_EBOX][MAX_LEN_EBOX];
-    int32 n, hot;
+    int32 n;
+    int32 hot;
 } EditBox;
 
 void reset_ebox(EditBox *sb, int32 *pos, int32 *col);
@@ -80,7 +81,8 @@ static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 void
 reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
-    int32 i, l;
+    int32 i;
+    int32 l;
     Window window;
     for (i = 0; i < n; i++) {
         strcpy(sb->value[i], sb->rval[i]);
@@ -102,7 +104,8 @@ reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
 int32
 do_edit_box(int32 n, char *title, char **names, char **values) {
     EditBox sb;
-    int32 i, status;
+    int32 i;
+    int32 status;
     int32 colm, pos;
 
     for (i = 0; i < n; i++) {
@@ -141,7 +144,8 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
 
 void
 expose_ebox(EditBox *sb, Window window, int32 pos) {
-    int32 i, flag;
+    int32 i;
+    int32 flag;
 
     if (window == sb->ok) {
         XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
@@ -268,10 +272,12 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
 
 void
 make_ebox_windows(EditBox *sb, char *title) {
-    int32 width, height;
+    int32 width;
+    int32 height;
     int32 i;
     int32 xpos, ypos, n = sb->n;
-    int32 xstart, ystart;
+    int32 xstart;
+    int32 ystart;
 
     XTextProperty winname;
     XSizeHints size_hints;
@@ -411,7 +417,8 @@ edit_rhs(void) {
 void
 user_fun_info(FILE *fp) {
     char fundef[256];
-    int32 i, j;
+    int32 i;
+    int32 j;
     for (j = 0; j < NFUN; j++) {
         sprintf(fundef, "%s(", ufun_names[j]);
         for (i = 0; i < narg_fun[j]; i++) {
@@ -487,7 +494,8 @@ edit_functions(void) {
 
 int32
 save_as(void) {
-    int32 i, ok;
+    int32 i;
+    int32 ok;
     FILE *fp;
     double z;
     char filename[sizeof(this_file)];

@@ -341,7 +341,8 @@ update_markov(double *x, double t, double dt) {
 
 double
 new_state(double old, int32 index, double dt) {
-    double prob, sum;
+    double prob;
+    double sum;
     double coin = ndrand48();
     int32 row = -1, rns;
     double *st;
@@ -389,7 +390,8 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
       need this for improved tau stepper
      */
     double *y, *yp, *yold;
-    int32 ir, iy;
+    int32 ir;
+    int32 iy;
 
     y = xmalloc((usize)n*sizeof(*y));
     yold = xmalloc((usize)n*sizeof(*yold));
@@ -568,7 +570,8 @@ free_stoch(void) {
 
 void
 init_stoch(int32 len) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     N_TRIALS = 0;
     stoch_len = len;
     for (i = 0; i < (NEQ + 1); i++) {
@@ -589,7 +592,8 @@ init_stoch(int32 len) {
 
 void
 append_stoch(int32 first, int32 length) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double z;
     if (first == 0)
         init_stoch(length);
@@ -608,7 +612,8 @@ append_stoch(int32 first, int32 length) {
 
 void
 do_stats(int32 ierr) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double ninv, mean;
     /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {

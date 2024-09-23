@@ -11,7 +11,8 @@
 static double
 time_start(void) {
     struct rusage time;
-    double seconds, microseconds;
+    double seconds;
+    double microseconds;
     getrusage(RUSAGE_SELF, &time);
     seconds = (double)time.ru_utime.tv_sec;
     microseconds = (double)time.ru_utime.tv_usec;
@@ -21,7 +22,8 @@ time_start(void) {
 static double
 time_end(double start) {
     struct rusage time;
-    double seconds, microseconds;
+    double seconds;
+    double microseconds;
     getrusage(RUSAGE_SELF, &time);
     seconds = (double)time.ru_utime.tv_sec;
     microseconds = (double)time.ru_utime.tv_usec;
@@ -42,7 +44,8 @@ conpar_process(void *arg) {
     double tpiv;
     int64 i, l, k1, k2, m1, m2, ic, ir;
     double rm;
-    int64 ir1, irp;
+    int64 ir1;
+    int64 irp;
     double piv;
     int64 icp1;
 
@@ -50,9 +53,11 @@ conpar_process(void *arg) {
     double *a;
     int64 *ncb;
     double *b;
-    int64 *nbc, *nrc;
+    int64 *nbc;
+    int64 *nrc;
     double *c, *d;
-    int64 *irf, *icf;
+    int64 *irf;
+    int64 *icf;
     int64 loop_start, loop_end;
 
     nov = ((conpar_parallel_arglist *)arg)->nov;
@@ -256,9 +261,11 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
        int64 *icf) {
     /* Aliases for the dimensions of the arrays */
-    int64 icf_dim1, irf_dim1;
+    int64 icf_dim1;
+    int64 irf_dim1;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
     int64 nex;
 
     irf_dim1 = *nra;

@@ -193,7 +193,8 @@ dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double atoli, rtoli, hlamb, err, sk, hnew, ydiff, bspl;
     double stnum, stden, sqr, err2, erri, deno;
     int32 iasti, iord, irtrn, reject, last, nonsti = 0;
-    uint32 i, j;
+    uint32 i;
+    uint32 j;
     double c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c14, c15, c16;
     double b1, b6, b7, b8, b9, b10, b11, b12, bhh1, bhh2, bhh3;
     double er1, er6, er7, er8, er9, er10, er11, er12;
@@ -757,7 +758,8 @@ dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
        int32 iout, FILE *fileout, double uround, double safe, double fac1,
        double fac2, double beta, double hmax, double h, long nmax, int32 meth,
        long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
-    int32 arret, idid;
+    int32 arret;
+    int32 idid;
     uint32 i;
 
     /* initialisations */
@@ -991,7 +993,8 @@ dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
     double atoli, rtoli, hlamb, err, sk, hnew, yd0, ydiff, bspl;
     double stnum, stden, sqr;
     int32 iasti, iord, irtrn, reject, last, nonsti = 0;
-    uint32 i, j;
+    uint32 i;
+    uint32 j;
     double c2, c3, c4, c5, e1, e3, e4, e5, e6, e7, d1, d3, d4, d5, d6, d7;
     double a21, a31, a32, a41, a42, a43, a51, a52, a53, a54;
     double a61, a62, a63, a64, a65, a71, a73, a74, a75, a76;
@@ -1288,7 +1291,8 @@ dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
        int32 iout, FILE *fileout, double uround, double safe, double fac1,
        double fac2, double beta, double hmax, double h, long nmax, int32 meth,
        long nstiff, uint32 nrdens, uint32 *icont, uint32 licont, double *work) {
-    int32 arret, idid;
+    int32 arret;
+    int32 idid;
     uint32 i;
 
     /* initialisations */

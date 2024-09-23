@@ -90,7 +90,8 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
             double *uhi, double *ulo, double *u0, double *ubar, double *par,
             double per, int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
             int32 flag2, double *evr, double *evi) {
-    Diagram *d, *dnew;
+    Diagram *d;
+    Diagram *dnew;
 
     d = bifd;
     while (d->next != NULL) {
@@ -115,7 +116,8 @@ add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
 
 void
 kill_diagrams(void) {
-    Diagram *d, *dnew;
+    Diagram *d;
+    Diagram *dnew;
     d = bifd;
     while (d->next != NULL) { /*  Move to the end of the tree  */
         d = d->next;
@@ -178,11 +180,13 @@ write_info_out(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
-    int32 type, i;
+    int32 type;
+    int32 i;
     /*int32 flag=0
      */
     int32 status;
-    int32 icp1, icp2;
+    int32 icp1;
+    int32 icp2;
     double *par;
     double par1, par2 = 0, *uhigh, *ulow, per;
     /*double a,*ubar,*u0;*/
@@ -249,7 +253,8 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
      */
     int32 icp1;
     double *par;
-    double par1, *u0;
+    double par1;
+    double *u0;
     int32 first, last, nrows;
     first = abs(pts);
     last = abs(pte);
@@ -296,7 +301,8 @@ write_init_data_file(void) {
     int32 status;
     int32 icp1;
     double *par;
-    double par1, *u0;
+    double par1;
+    double *u0;
     /*double a,*uhigh,*ulow,*ubar;*/
     FILE *fp;
     sprintf(filename, "initdata.dat");
@@ -360,7 +366,8 @@ write_pts(void) {
     /*int32 flag=0;
      */
     int32 status;
-    int32 icp1, icp2;
+    int32 icp1;
+    int32 icp2;
     double *par;
     double x, y1, y2, par1, par2 = 0, a, *uhigh, *ulow, *ubar, per;
     FILE *fp;

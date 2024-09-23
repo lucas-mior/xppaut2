@@ -221,7 +221,8 @@ gefa(double **a, int64 n, int64 *p) {
 void
 gesl(double **a, int64 n, int64 *p, double *b) {
     int64 k, l, i;
-    double mult, *col_k;
+    double mult;
+    double *col_k;
 
     /* Solve Ly = Pb, store solution y in b */
 
@@ -251,7 +252,8 @@ gesl(double **a, int64 n, int64 *p, double *b) {
 
 void
 denzero(double **a, int64 n) {
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *col_j;
 
     for (j = 0; j < n; j++) {
@@ -264,7 +266,8 @@ denzero(double **a, int64 n) {
 
 void
 dencopy(double **a, double **b, int64 n) {
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *a_col_j, *b_col_j;
 
     for (j = 0; j < n; j++) {
@@ -278,7 +281,8 @@ dencopy(double **a, double **b, int64 n) {
 
 void
 denscale(double c, double **a, int64 n) {
-    int64 i, j;
+    int64 i;
+    int64 j;
     double *col_j;
 
     for (j = 0; j < n; j++) {
@@ -313,7 +317,8 @@ denfree(double **a) {
 
 void
 denprint(double **a, int64 n) {
-    int64 i, j;
+    int64 i;
+    int64 j;
 
     plintf("\n");
     for (i = 0; i < n; i++) {

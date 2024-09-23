@@ -1152,7 +1152,8 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
          uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
     Window wine;
     int32 count;
-    int32 dp_h, dp_w;
+    int32 dp_h;
+    int32 dp_w;
     Pixmap icon_map;
     XIconSize *size_list;
     XSizeHints size_hints;
@@ -1367,7 +1368,8 @@ load_fonts(void) {
 
 void
 make_pops(void) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 h, w, bw, d;
     Window wn;
     XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
@@ -1498,7 +1500,8 @@ test_color_info(void) {
 
 int32
 get_command_width(void) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 w, h, bw, de;
 
     Window root;

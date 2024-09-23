@@ -13,7 +13,8 @@ extern int32 DCURY;
 extern int32 MAXSTOR;
 typedef struct {
     int32 nbins, nbins2, type, col, col2, fftc;
-    double xlo, xhi;
+    double xlo;
+    double xhi;
     double ylo, yhi;
     char cond[80];
 } HIST_INFO;
@@ -89,7 +90,8 @@ EXAMPLE of binning
 {
     int32 i, j, k;
     double dx, dy, norm;
-    double x, y;
+    double x;
+    double y;
     dx = (xhi - xlo) / (double)n1;
     dy = (yhi - ylo) / (double)n2;
     norm = 1. / (double)ndat;
@@ -211,7 +213,8 @@ int32
 twod_hist(void)
 
 {
-    int32 length, i;
+    int32 length;
+    int32 i;
     length = hist_inf.nbins*hist_inf.nbins2;
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
@@ -296,7 +299,8 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     int32 i, j, index;
     int32 command[256];
     int32 cond = 0, flag = 1;
-    double z, y;
+    double z;
+    double y;
     double dz;
     int32 length = nbins + 1;
     if (length >= MAXSTOR)
@@ -399,7 +403,8 @@ column_mean(void) {
     int32 i;
     char bob[100];
     double sum, sum2, ss;
-    double mean, sdev;
+    double mean;
+    double sdev;
     if (storind <= 1) {
         err_msg("Need at least 2 data points!");
         return;
@@ -439,7 +444,8 @@ get_col_info(int32 *col, char *prompt) {
 void
 compute_power(void) {
     int32 i;
-    double s, c;
+    double s;
+    double c;
     double *datx, *daty, ptot = 0;
     compute_fourier();
     if ((NEQ < 2) || (storind <= 1))
@@ -565,7 +571,8 @@ cross_spectrum(double *data, double *data2, int32 nr, int32 win, int32 w_type,
     double *ct, *st, *f, *d, x, nrmwin;
     /*double sum; Not used anywhere*/
     double *ct2, *st2, *d2;
-    double *pxx, *pyy;
+    double *pxx;
+    double *pyy;
     double *pxyr, *pxym;
     if (nr < 2)
         return 0;
@@ -742,7 +749,8 @@ compute_sd(void) {
 void
 just_fourier(int32 flag) {
     int32 i;
-    double s, c;
+    double s;
+    double c;
     double *datx, *daty;
     int32 nmodes = storind / 2 - 1;
     if (NEQ < 2 || storind <= 1)
@@ -830,7 +838,8 @@ compute_stacor(void) {
 void
 mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
       double *z, int32 flag) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     int32 k, count = 0;
     double sum, avx = 0.0, avy = 0.0;
     double dz = (zhi - zlo) / (double)nbins, jz;
@@ -862,7 +871,8 @@ mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
 
 void
 mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     int32 k, count = 0, lag = nbins / 2;
     double sum, avx = 0.0, avy = 0.0;
     if (flag) {
@@ -967,7 +977,8 @@ fftxcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
 
 void
 fft(double *data, double *ct, double *st, int32 nmodes, int32 length) {
-    double *im, *re;
+    double *im;
+    double *re;
     int32 dim[2], i;
     dim[0] = length;
     re = xmalloc((usize)length*sizeof(*re));

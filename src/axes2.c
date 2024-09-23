@@ -310,9 +310,11 @@ Frame_3d(void) {
 void
 axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
           char *sy, int32 flag) {
-    double ytic, xtic;
+    double ytic;
+    double xtic;
 
-    int32 xaxis_y, yaxis_x;
+    int32 xaxis_y;
+    int32 yaxis_x;
 
     int32 ybot = DBottom, ytop = DTop;
     int32 xleft = DLeft, xright = DRight;
@@ -353,7 +355,8 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 
 void
 draw_ytics(char *s1, double start, double incr, double end) {
-    double ticvalue, place;
+    double ticvalue;
+    double place;
     double y_min = YMin, y_max = YMax, x_min = XMin;
     char bob[100];
     int32 xt, yt, s = 1;
@@ -396,7 +399,8 @@ draw_ytics(char *s1, double start, double incr, double end) {
 
 void
 draw_xtics(char *s2, double start, double incr, double end) {
-    double ticvalue, place;
+    double ticvalue;
+    double place;
     double y_min = YMin, x_min = XMin, x_max = XMax;
 
     char bob[100];

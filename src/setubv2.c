@@ -13,7 +13,8 @@
 static double
 time_start(void) {
     struct timeval time;
-    double seconds, microseconds;
+    double seconds;
+    double microseconds;
     gettimeofday(&time, NULL);
     seconds = (double)time.tv_sec;
     microseconds = (double)time.tv_usec;
@@ -23,7 +24,8 @@ time_start(void) {
 static double
 time_end(double start) {
     struct timeval time;
-    double seconds, microseconds;
+    double seconds;
+    double microseconds;
     gettimeofday(&time, NULL);
     seconds = (double)time.tv_sec;
     microseconds = (double)time.tv_usec;
@@ -38,12 +40,14 @@ setubv_make_aa_bb_cc(void *arg) {
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
 
     int64 i, j, k, l, m;
-    int64 k1, l1;
+    int64 k1;
+    int64 l1;
     int64 i1, j1;
 
     int64 ib, ic, jj;
     double dt;
-    int64 ib1, ic1;
+    int64 ib1;
+    int64 ic1;
     int64 jp1;
     double ddt;
 
@@ -51,7 +55,8 @@ setubv_make_aa_bb_cc(void *arg) {
 
     double *dicd, *ficd, *dfdp, *dfdu, *uold;
     double *f;
-    double *u, *wploc;
+    double *u;
+    double *wploc;
     double *dbc, *fbc, *uic, *uio, *prm, *uid, *uip, *ubc0, *ubc1;
 
     double *ups = larg->ups;
@@ -389,7 +394,8 @@ setubv_make_fa(setubv_parallel_arglist larg) {
     int64 i, j, k, l;
     int64 ic, k1, ib;
     int64 jj, jp1, l1, ic1;
-    double dt, ddt;
+    double dt;
+    double ddt;
 
     double *ups = larg.ups;
     int64 ups_dim1 = larg.ndxloc;

@@ -121,7 +121,8 @@ int32
 hqr(int64 *nm, int64 *n, int64 *low, int64 *igh, double *h__, double *wr,
     double *wi, int64 *ierr) {
     int64 h_dim1, h_offset, i__1, i__2, i__3;
-    double d__1, d__2;
+    double d__1;
+    double d__2;
 
     static double norm;
     static int64 i__, j, k, l, m;
@@ -1139,7 +1140,8 @@ L1001:
 
 int32
 cdiv(double *ar, double *ai, double *br, double *bi, double *cr, double *ci) {
-    double d__1, d__2;
+    double d__1;
+    double d__2;
 
     static double s, ais, bis, ars, brs;
 
@@ -1765,7 +1767,8 @@ int32
 qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
     int64 a_dim1, a_offset, b_dim1, b_offset, z_dim1, z_offset, i__1, i__2,
         i__3;
-    double d__1, d__2;
+    double d__1;
+    double d__2;
 
     static int64 i__, j, k, l;
     static double r__, s, t;
@@ -2955,7 +2958,8 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
 
 double
 epslon(double x) {
-    double ret_val, d__1;
+    double ret_val;
+    double d__1;
 
     static double a, b, c__, eps;
 
@@ -3008,7 +3012,8 @@ dnrm2(int64 *n, double *dx, int64 *incx) {
 
     /* Format strings */
 
-    int64 i__1, i__2;
+    int64 i__1;
+    int64 i__2;
     double ret_val, d__1;
 
     static double xmax;
@@ -3264,7 +3269,8 @@ L60:
 
 int32
 dscal(int64 *n, double *da, double *dx, int64 *incx) {
-    int64 i__1, i__2;
+    int64 i__1;
+    int64 i__2;
 
     static int64 i__, m, nincx, mp1;
 
@@ -3323,7 +3329,8 @@ L40:
 
 int64
 idamax(int64 *n, double *dx, int64 *incx) {
-    int64 ret_val, i__1;
+    int64 ret_val;
+    int64 i__1;
     double d__1;
 
     static double dmax__;
@@ -5686,7 +5693,8 @@ prse(int64 *ll, int64 *m, int64 *nrow, int64 *ncol, double *s, double *e) {
 int32
 sig22(double *a, double *b, double *c__, double *sigmin, double *sigmax,
       double *snr, double *csr, double *snl, double *csl) {
-    double d__1, d__2;
+    double d__1;
+    double d__2;
 
     static double absa, absb, absc, acmn, acmx, sgna, sgnb, sgnc, cosl, sinl,
         cosr, temp, sinr, temp1, temp2, temp3, sgnmn, sgnmx, ac, ca;
@@ -6403,7 +6411,8 @@ int32
 split(double *a, double *v, int64 *n, int64 *l, double *e1, double *e2,
       int64 *na, int64 *nv) {
     int64 a_dim1, a_offset, v_dim1, v_offset, i__1;
-    double d__1, d__2;
+    double d__1;
+    double d__2;
 
     static int64 i__, j;
     static double p, q, r__, t, u, w, x, y, z__;

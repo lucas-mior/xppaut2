@@ -699,7 +699,8 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
 int32
 CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
     int32 nstloc, kflag, istate, next_q, ier;
-    double rh, next_h;
+    double rh;
+    double next_h;
     bool hOK, ewtsetOK;
     CVodeMem cv_mem;
 
@@ -923,7 +924,8 @@ int32
 CVodeDky(void *cvode_mem, double t, int32 k, N_Vector dky) {
     double s, c, r;
     double tfuzz, tp, tn1;
-    int32 i, j;
+    int32 i;
+    int32 j;
     CVodeMem cv_mem;
 
     cv_mem = (CVodeMem)cvode_mem;
@@ -1022,7 +1024,8 @@ CVodeFree(void *cvode_mem) {
 
 static bool
 CVAllocVectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
-    int32 i, j;
+    int32 i;
+    int32 j;
 
     /* Allocate ewt, acor, tempv, ftemp */
 
@@ -1135,7 +1138,8 @@ CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 static bool
 CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
            N_Vector ewtvec, int64 neq) {
-    double rtoli, atoli;
+    double rtoli;
+    double atoli;
     (void)neq;
 
     rtoli = *rtol;
@@ -1189,7 +1193,8 @@ CVEwtSetSV(CVodeMem cv_mem, double *rtol, N_Vector atol, N_Vector ycur,
 
 static bool
 CVHin(CVodeMem cv_mem, double tout) {
-    int32 sign, count;
+    int32 sign;
+    int32 count;
     double tdiff, tdist, tround, hlb, hub;
     double hg, hgs, hnew, hrat, h0, yddnrm;
 
@@ -1265,7 +1270,8 @@ static double
 CVUpperBoundH0(CVodeMem cv_mem, double tdist) {
     double atoli = 0.0, hub_inv, hub;
     bool vectorAtol;
-    N_Vector temp1, temp2;
+    N_Vector temp1;
+    N_Vector temp2;
 
     vectorAtol = (itol == SV);
     if (!vectorAtol)
@@ -1330,7 +1336,8 @@ CVYddNorm(CVodeMem cv_mem, double hg) {
 
 int32
 CVStep(CVodeMem cv_mem) {
-    double saved_t, dsm;
+    double saved_t;
+    double dsm;
     int32 ncf, nef, nflag, kflag;
     bool passed;
 
@@ -1432,7 +1439,8 @@ CVAdjustOrder(CVodeMem cv_mem, int32 deltaq) {
 
 static void
 CVAdjustAdams(CVodeMem cv_mem, int32 deltaq) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double xi, hsum;
 
     /* On an order increase, set new column of zn to zero and return */
@@ -1505,7 +1513,8 @@ CVAdjustBDF(CVodeMem cv_mem, int32 deltaq) {
 static void
 CVIncreaseBDF(CVodeMem cv_mem) {
     double alpha0, alpha1, prod, xi, xiold, hsum, A1;
-    int32 i, j;
+    int32 i;
+    int32 j;
 
     for (i = 0; i <= qmax; i++)
         l[i] = ZERO;
@@ -1544,7 +1553,8 @@ CVIncreaseBDF(CVodeMem cv_mem) {
 
 static void
 CVDecreaseBDF(CVodeMem cv_mem) {
-    double hsum, xi;
+    double hsum;
+    double xi;
     int32 i, j;
 
     for (i = 0; i <= qmax; i++)
@@ -1596,7 +1606,8 @@ CVRescale(CVodeMem cv_mem) {
 
 static void
 CVPredict(CVodeMem cv_mem) {
-    int32 j, k;
+    int32 j;
+    int32 k;
 
     tn += h;
     for (k = 1; k <= q; k++)
@@ -1683,7 +1694,8 @@ CVSetAdams(CVodeMem cv_mem) {
 static double
 CVAdamsStart(CVodeMem cv_mem, double m[]) {
     double hsum, xi_inv, sum;
-    int32 i, j;
+    int32 i;
+    int32 j;
 
     hsum = h;
     m[0] = ONE;
@@ -1748,7 +1760,8 @@ CVAdamsFinish(CVodeMem cv_mem, double m[], double M[], double hsum) {
 
 static double
 CVAltSum(int32 iend, double a[], int32 k) {
-    int32 i, sign;
+    int32 i;
+    int32 sign;
     double sum;
 
     if (iend < 0)
@@ -1784,7 +1797,8 @@ CVAltSum(int32 iend, double a[], int32 k) {
 static void
 CVSetBDF(CVodeMem cv_mem) {
     double alpha0, alpha0_hat, xi_inv, xistar_inv, hsum;
-    int32 i, j;
+    int32 i;
+    int32 j;
 
     l[0] = l[1] = xi_inv = xistar_inv = ONE;
     for (i = 2; i <= q; i++)
@@ -1936,7 +1950,8 @@ CVnlsFunctional(CVodeMem cv_mem) {
 static int32
 CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
     N_Vector vtemp1, vtemp2, vtemp3;
-    int32 convfail, ier;
+    int32 convfail;
+    int32 ier;
     bool callSetup;
 
     vtemp1 = acor;  /* rename acor as vtemp1 for readability  */
@@ -2013,7 +2028,8 @@ CVnlsNewton(CVodeMem cv_mem, int32 nflag) {
 
 static int32
 CVNewtonIteration(CVodeMem cv_mem) {
-    int32 m, ret;
+    int32 m;
+    int32 ret;
     double del, delp = 0.0, dcon;
     N_Vector b;
 
@@ -2149,7 +2165,8 @@ CVHandleNFlag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr) {
 
 static void
 CVRestore(CVodeMem cv_mem, double saved_t) {
-    int32 j, k;
+    int32 j;
+    int32 k;
 
     tn = saved_t;
     for (k = 1; k <= q; k++)
@@ -2251,7 +2268,8 @@ CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
 
 static void
 CVCompleteStep(CVodeMem cv_mem) {
-    int32 i, j;
+    int32 i;
+    int32 j;
 
     nst++;
     hu = h;
@@ -2357,7 +2375,8 @@ CVSetEta(CVodeMem cv_mem) {
 
 static double
 CVComputeEtaqm1(CVodeMem cv_mem) {
-    double etaqm1, ddn;
+    double etaqm1;
+    double ddn;
 
     etaqm1 = ZERO;
     if (q > 1) {

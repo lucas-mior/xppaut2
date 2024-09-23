@@ -153,7 +153,8 @@ set_up_aplot_range(void) {
 
 static void
 fit_aplot(void) {
-    double zmax, zmin;
+    double zmax;
+    double zmin;
     scale_aplot(&array_plot, &zmax, &zmin);
     array_plot.zmin = zmin;
     array_plot.zmax = zmax;
@@ -165,7 +166,8 @@ void
 array_plot_optimize(int32 *plist) {
     int32 i0 = plist[0] - 1;
     int32 i1 = plist[1] - 1;
-    int32 nr, ns;
+    int32 nr;
+    int32 ns;
     double zmax, zmin;
     int32 nrows = my_browser.maxrow;
     int32 ncol = i1 + 1 - i0;
@@ -238,7 +240,8 @@ array_plot_expose(Window window) {
 
 void
 array_plot_do_events(XEvent ev) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     if (array_plot.alive == 0)
         return;
     switch (ev.type) {
@@ -335,10 +338,12 @@ array_plot_init_my(void) {
 void
 create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     Window base;
-    int32 width, height;
+    int32 width;
+    int32 height;
     uint32 valuemask = 0;
     XGCValues values;
-    XTextProperty winname, iconname;
+    XTextProperty winname;
+    XTextProperty iconname;
     XSizeHints size_hints;
     /* init_array_plot(ap); */
     width = ap->width;
@@ -386,7 +391,8 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
 
 void
 print_aplot(struct ArrayPlot *ap) {
-    double tlo, thi;
+    double tlo;
+    double thi;
     int32 status, errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
                         "Render(-1,0,1,2)"};
@@ -455,7 +461,8 @@ apbutton(Window window) {
 
 void
 draw_scale(struct ArrayPlot ap) {
-    int32 i, y;
+    int32 i;
+    int32 y;
     Window window = ap.wscale;
     for (i = 0; i < color_total; i++) {
         y = color_total - i - 1;
@@ -545,7 +552,8 @@ array_plot_dump(FILE *fp, int32 f) {
 
 int32
 editaplot(struct ArrayPlot *ap) {
-    int32 i, status;
+    int32 i;
+    int32 status;
     double zmax, zmin;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
                  "Zmin",       "Zmax",  "Autoplot(0/1)", "ColSkip"};
@@ -600,7 +608,8 @@ array_plot_close_files(void) {
 void
 array_plot_gif_all(char *filename, int32 still) {
     Pixmap xi;
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 h, w, bw, d;
     Window root;
     /* FILE *fp; */
@@ -652,7 +661,8 @@ gif_aplot(void) {
 
 void
 redraw_aplot(struct ArrayPlot ap) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     Window window = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
     char bob[100];

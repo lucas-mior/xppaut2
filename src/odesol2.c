@@ -72,7 +72,8 @@ discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
 int32
 bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
           double *work) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     yp = work;
     yg = yp + neq;
@@ -164,7 +165,8 @@ one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
 
 void
 one_step_symp(double *y, double h, double *f, int32 n, double *t) {
-    int32 s, j;
+    int32 s;
+    int32 j;
     for (s = 0; s < 3; s++) {
         for (j = 0; j < n; j += 2)
             y[j] += (h*symp_b[s]*y[j + 1]);
@@ -395,7 +397,8 @@ n1000:
 int32
 abmpc(double *y, double *t, double dt, int32 neq) {
     double x1, x0 = *t;
-    int32 i, k;
+    int32 i;
+    int32 k;
     for (i = 0; i < neq; i++) {
         ypred[i] = 0;
         for (k = 0; k < 4; k++)
@@ -581,7 +584,8 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
 void
 get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
             int32 neq, double eps, double scal) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double yold, del, dsy;
     if (cv_bandflag)
         get_band_jac(dfdy, y, t, ypnew, yp, neq, eps, scal);

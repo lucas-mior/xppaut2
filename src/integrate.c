@@ -77,17 +77,20 @@ extern FILE *svgfile;
 extern OptionsSet notAlreadySet;
 
 typedef struct {
-    int32 index0, type;
+    int32 index0;
+    int32 type;
     char formula[256];
     int32 n;
     char var[20];
-    int32 j1, j2;
+    int32 j1;
+    int32 j2;
 } ARRAY_IC;
 int32 ar_ic_defined = 0;
 
 ARRAY_IC ar_ic[NAR_IC];
 typedef struct {
-    int32 n, flag;
+    int32 n;
+    int32 flag;
     double *x[MAXFP];
     double *er[MAXFP];
     double *em[MAXFP];
@@ -106,7 +109,8 @@ typedef struct {
 FIXPTGUESS fixptguess;
 
 typedef struct {
-    int32 nvec, node;
+    int32 nvec;
+    int32 node;
     double *x;
 } XPPVEC;
 
@@ -147,7 +151,8 @@ int32 PSLineStyle;
 struct {
     char item[30];
     int32 steps, shoot, col, movie, mc;
-    double plow, phigh;
+    double plow;
+    double phigh;
 } eq_range;
 
 struct {
@@ -273,7 +278,8 @@ set_up_eq_range(void) {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     static char *yn[] = {"N", "Y"};
     sprintf(values[0], "%s", eq_range.item);
     sprintf(values[1], "%d", eq_range.steps);
@@ -980,7 +986,8 @@ do_range(double *x, int32 flag) {
 void
 silent_equilibria(void) {
     double x[MAX_ODE], er[MAX_ODE], em[MAX_ODE];
-    int32 ierr, i;
+    int32 ierr;
+    int32 i;
     FILE *fp;
     if (BatchEquil < 0)
         return;
@@ -1002,11 +1009,14 @@ silent_equilibria(void) {
 void
 find_equilib_com(int32 com) {
     int32 ierr;
-    double xm, ym;
+    double xm;
+    double ym;
     int32 im, jm;
-    int32 iv, jv;
+    int32 iv;
+    int32 jv;
     double stabinfo;
-    double *x, oldtrans;
+    double *x;
+    double oldtrans;
 
     x = &MyData[0];
     if (FFT || HIST || NKernel > 0)
@@ -1237,13 +1247,15 @@ write_this_run(char *file, int32 i) {
 void
 do_init_data(int32 com) {
     char sr[20], ch;
-    int32 i, si;
+    int32 i;
+    int32 si;
     double *x;
     double old_dt = DELTA_T;
     FILE *fp;
     /*char icfile[256];*/
     char icfile[XPP_MAX_NAME];
-    double xm, ym;
+    double xm;
+    double ym;
     int32 im, jm, oldstart, iv, jv, badmouse;
 
     oldstart = MyStart;
@@ -1560,7 +1572,8 @@ store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
 void
 evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
     int32 j;
-    int32 i, flag;
+    int32 i;
+    int32 flag;
     double z;
     char vp[25], fp[256];
     for (j = j1; j <= j2; j++) {
@@ -1637,7 +1650,8 @@ set_array_ic(void) {
     char junk[50];
     char new[50];
     int32 i, index0, myar = -1;
-    int32 i1, in;
+    int32 i1;
+    int32 in;
     int32 j1, j2, flag2;
     double z;
     int32 flag;
@@ -2564,7 +2578,8 @@ plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
 void
 plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     int32 *IXPLT, *IYPLT, *IZPLT;
-    int32 NPlots, ip;
+    int32 NPlots;
+    int32 ip;
     double oldxpl[MAXPERPLOT], oldypl[MAXPERPLOT], oldzpl[MAXPERPLOT];
     double xpl[MAXPERPLOT], ypl[MAXPERPLOT], zpl[MAXPERPLOT];
     NPlots = MyGraph->nvars;
@@ -2683,7 +2698,8 @@ restore(int32 i1, int32 i2) {
 /*  Sets the color according to the velocity or z-value */
 void
 comp_color(double *v1, double *v2, int32 n, double dt) {
-    int32 i, cur_color;
+    int32 i;
+    int32 cur_color;
     double sum;
     double min_scale = (double)(MyGraph->min_scale);
     double color_scale = (double)(MyGraph->color_scale);

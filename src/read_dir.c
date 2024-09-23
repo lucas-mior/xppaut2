@@ -107,9 +107,11 @@ cmpstringp(const void *p1, const void *p2) {
 
 int32
 get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
-    int32 i, ans;
+    int32 i;
+    int32 ans;
     DIR *dirp;
-    int32 mlf, mld;
+    int32 mlf;
+    int32 mld;
     int32 nf, nd;
     struct dirent *dp;
     ans = fil_count(direct, &nd, &nf, wild, &mld, &mlf);
@@ -160,9 +162,11 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
 
 int32
 get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
-    int32 i, ans;
+    int32 i;
+    int32 ans;
     DIR *dirp;
-    int32 mlf, mld;
+    int32 mlf;
+    int32 mld;
     int32 nf, nd;
     struct dirent *dp;
     ans = fil_count(direct, &nd, &nf, wild, &mld, &mlf);

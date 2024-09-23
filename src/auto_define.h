@@ -19,7 +19,8 @@ struct {
 #define bldls_1 bldls_
 
 struct {
-    int32 nmx, nuzr;
+    int32 nmx;
+    int32 nuzr;
     double rl0, rl1, a0, a1;
 } bllim_;
 

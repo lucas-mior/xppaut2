@@ -4,7 +4,8 @@
 
 typedef struct {
     char **dirnames, **filenames;
-    int32 nfiles, ndirs;
+    int32 nfiles;
+    int32 ndirs;
 } FILEINFO;
 
 #define MAXPATHLEN 512

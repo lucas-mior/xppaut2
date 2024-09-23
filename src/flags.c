@@ -75,7 +75,8 @@ type =3 halt
 #define MAX_EVENTS 20 /*  this is the maximum number of events per flag */
 
 typedef struct {
-    double f0, f1;
+    double f0;
+    double f1;
     double tstar;
     int32 lhs[MAX_EVENTS];
     double vrhs[MAX_EVENTS];
@@ -84,7 +85,8 @@ typedef struct {
     int32 *comrhs[MAX_EVENTS];
     char *cond;
     int32 *comcond;
-    int32 sign, nevents;
+    int32 sign;
+    int32 nevents;
     int32 hit, type[MAX_EVENTS];
     int32 anypars;
     int32 nointerp;
@@ -428,7 +430,8 @@ int32
 one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
                    int32 *istart) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s, dtt = dt;
     int32 nstep = 0;
     while (true) {
@@ -455,7 +458,8 @@ int32
 one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
                     int32 *istart) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s, dtt = dt;
     int32 nstep = 0;
     while (true) {
@@ -482,7 +486,8 @@ int32
 one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
                        double *tim, int32 *istart) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s, dtt = dt;
     int32 nstep = 0;
     while (true) {
@@ -508,7 +513,8 @@ int32
 one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
                    double *tim, int32 *istart) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s, dtt = dt;
     int32 nstep = 0;
     while (true) {
@@ -534,7 +540,8 @@ int32
 one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
                   int32 *istart) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s, dtt = dt;
     int32 nstep = 0;
     while (true) {
@@ -561,7 +568,8 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
                    double hmax, double eps, int32 mf, double *error,
                    int32 *kflag, int32 *jstart, double *work, int32 *iwork) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s;
     int32 nstep = 0;
     while (true) {
@@ -623,7 +631,8 @@ int32
 one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
                  double *tol, double *atol, int32 flag2, int32 *kflag) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s;
     int32 nstep = 0;
     while (true) {
@@ -689,7 +698,8 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
                    double *hguess, double hmin, double *work, int32 *ier,
                    double epjac, int32 iflag, int32 *jstart) {
     double yold[MAX_ODE], told;
-    int32 i, hit;
+    int32 i;
+    int32 hit;
     double s;
     int32 nstep = 0;
     while (true) {

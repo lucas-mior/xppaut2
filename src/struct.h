@@ -19,7 +19,8 @@
 #define NAMELENGTH 10
 
 typedef struct {
-    double xlo, xhi;
+    double xlo;
+    double xhi;
     char rv[10];
     int32 nstep, ic, stor;
 } RANGE_INFO;
@@ -37,7 +38,8 @@ typedef struct {
 } IC_BOX;
 
 typedef struct {
-    Window window, w_info;
+    Window window;
+    Window w_info;
 
     int32 Use;
     int32 state;
@@ -51,18 +53,21 @@ typedef struct {
     int32 x11Hgt;
     int32 nvars;
     double rm[3][3];
-    double min_scale, color_scale;
+    double min_scale;
+    double color_scale;
     double xmin, ymin, zmin, xmax, ymax, zmax, xorg, yorg, zorg;
     double xbar, ybar, zbar, dx, dy, dz;
     int32 xv[MAXPERPLOT], yv[MAXPERPLOT], zv[MAXPERPLOT];
     int32 line[MAXPERPLOT], color[MAXPERPLOT];
-    double Theta, Phi;
+    double Theta;
+    double Phi;
     double ZPlane, ZView;
     double xlo, ylo, xhi, yhi, oldxlo, oldxhi, oldylo, oldyhi;
     int32 grtype, ThreeDFlag, TimeFlag, PerspFlag;
     int32 xshft, yshft, zshft;
     int32 xorgflag, yorgflag, zorgflag;
-    int32 ColorFlag, ColorValue;
+    int32 ColorFlag;
+    int32 ColorValue;
     char xlabel[30], ylabel[30], zlabel[30];
     char gr_info[256];
 } GRAPH;
@@ -70,7 +75,8 @@ typedef struct {
 typedef struct {
     GC gc;
     int32 dx, dy, yoff;
-    uint32 fcol, bcol;
+    uint32 fcol;
+    uint32 bcol;
 } TEXTGC;
 
 typedef struct {
@@ -79,22 +85,26 @@ typedef struct {
     double y;
     char s[MAXCHAR];
     int16 use;
-    int32 font, size;
+    int32 font;
+    int32 size;
 } LABEL;
 
 typedef struct {
     Window window;
     char key[20], name[10];
-    int16 use, type;
+    int16 use;
+    int16 type;
     double *xv, *yv, *zv;
-    int32 len, color;
+    int32 len;
+    int32 color;
 } CURVE;
 
 typedef struct {
     Window window;
     char name[10];
     int16 use;
-    double *x_n, *y_n;
+    double *x_n;
+    double *y_n;
     int32 ix, iy, num_x, num_y;
 } NCLINE;
 

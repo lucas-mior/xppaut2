@@ -95,11 +95,13 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     CHOICE_BOX p;
 
     int32 i;
-    int32 width, height;
+    int32 width;
+    int32 height;
     int32 maxchar;
     int32 oldcheck[MAXENTRY];
     int32 xpos, ypos, status;
-    int32 xstart, ystart;
+    int32 xstart;
+    int32 ystart;
     XTextProperty winname;
     XSizeHints size_hints;
     Window base;

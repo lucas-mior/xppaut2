@@ -132,7 +132,8 @@ int32
 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r, g, b;
     int32 i, j, k = 0, l = 0;
-    int32 pix, nc;
+    int32 pix;
+    int32 nc;
     for (i = 0; i < h; i++) {
         for (j = 0; j < w; j++) {
             r = ppm[k];
@@ -180,7 +181,8 @@ void
 gif_stuff(Window win, FILE *fp, int32 task) {
     Window root;
     uint32 h, w, bw, d;
-    int32 x0, y0;
+    int32 x0;
+    int32 y0;
     uchar *ppm;
 
     uchar *pixels;
@@ -266,7 +268,8 @@ void
 write_global_header(int32 cols, int32 rows, FILE *dst) {
     int32 i;
 
-    uchar *pos, *buffer;
+    uchar *pos;
+    uchar *buffer;
 
     buffer = xmalloc((BUFLEN + 1)*sizeof(*buffer));
     buffer += 1;
@@ -348,7 +351,8 @@ void
 make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
     int32 i, depth = 8;
 
-    uchar *pos, *buffer;
+    uchar *pos;
+    uchar *buffer;
 
     buffer = xmalloc((BUFLEN + 1)*sizeof(*buffer));
     buffer += 1;
@@ -404,7 +408,8 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     int32 cc, eoi, next, tel = 0;
     int16 cLength;
 
-    uchar *pos, *buffer;
+    uchar *pos;
+    uchar *buffer;
 
     empty[0] = NULL;
     need = 8;

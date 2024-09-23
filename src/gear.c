@@ -110,14 +110,16 @@ void
 do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
         int32 *ierr, double *stabinfo) {
     int32 kmem, j, ipivot[MAX_ODE];
-    int32 oldcol, dummy;
+    int32 oldcol;
+    int32 dummy;
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
     int32 pose = 0, nege = 0, pr;
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, oldt = DELTA_T, old_x[MAX_ODE];
 
     char ch;
-    double real, imag;
+    double real;
+    double imag;
     double bigpos = -1e10, bigneg = 1e10;
     int32 bpos = 0, bneg = 0;
     /* double xl[MAX_ODE]; */
@@ -409,7 +411,8 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     double *work, *eval, *b, *bp, *oldwork, *ework;
     double temp, old_x[MAX_ODE];
 
-    double real, imag;
+    double real;
+    double imag;
     double bigpos = -1e10, bigneg = 1e10;
 
     /* double xl[MAX_ODE]; */
@@ -558,9 +561,11 @@ pr_evec(double *x, double *ev, int32 n, int32 type) {
 void
 get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
                  int32 n, int32 maxit, double err, int32 *ierr) {
-    double *a, *anew;
+    double *a;
+    double *anew;
     int32 *ipivot;
-    double *b, *bp;
+    double *b;
+    double *bp;
     int32 nn = 2*n;
     int32 i, j, k;
     a = xmalloc((usize)(nn*nn)*sizeof(*a));
@@ -1735,7 +1740,8 @@ sdot(int32 n, double *sx, int32 incx, int32 incy) {
 
 void
 sscal(int32 n, double sa, double *sx, int32 incx) {
-    int32 i, nincx;
+    int32 i;
+    int32 nincx;
     if (n <= 0)
         return;
     nincx = n*incx;

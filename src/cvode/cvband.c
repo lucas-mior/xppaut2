@@ -99,7 +99,8 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             double h, double uround, void *jac_data, int32 *nfePtr,
             N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     double fnorm, minInc, inc, inc_inv, srur;
-    N_Vector ftemp, ytemp;
+    N_Vector ftemp;
+    N_Vector ytemp;
     int64 group, i, j, width, ngroups, i1, i2;
     double *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
 
@@ -327,7 +328,8 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 static int32
 CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    bool jbad, jok;
+    bool jbad;
+    bool jok;
     double dgamma;
     int64 ier;
     CVBandMem cvband_mem;

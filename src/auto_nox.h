@@ -19,11 +19,14 @@ typedef struct {
     int32 ntst, nmx, npr;
     double ds, dsmax, dsmin, rl0, rl1, a0, a1;
     double xmin, xmax, ymin, ymax;
-    double lastx, lasty;
+    double lastx;
+    double lasty;
     int32 wid, hgt, x0, y0, st_wid;
-    int32 nfpar, nbc;
+    int32 nfpar;
+    int32 nbc;
     int32 ips, irs, ilp, isp, isw, itp;
-    int32 plot, var;
+    int32 plot;
+    int32 var;
     int32 icp1, icp2, icp3, icp4, icp5;
     int32 nper;
     char hinttxt[256];
@@ -57,7 +60,8 @@ typedef struct diagram {
     int32 ibr, ntot, itp, lab, calc;
     double norm, *uhi, *ulo, *u0, *ubar, *evr, *evi;
     double par[20], per, torper;
-    int32 index, nfpar;
+    int32 index;
+    int32 nfpar;
     int32 icp1, icp2, icp3, icp4, icp5, flag2;
     struct diagram *prev;
     struct diagram *next;

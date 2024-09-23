@@ -43,7 +43,8 @@ r_lg10(double x) {
 
 double
 pow_di(double *ap, int64 *bp) {
-    double pow, x;
+    double pow;
+    double x;
     int64 n;
     ulong u;
 

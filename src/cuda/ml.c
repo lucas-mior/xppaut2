@@ -63,7 +63,8 @@ s_inf(real v) {
 
 void
 update_sums(real *s, real *wgt, int n) {
-    int i, j;
+    int i;
+    int j;
     for (i = 0; i < n; i++) {
         sum[i] = 0.0;
         for (j = 0; j < n; j++)

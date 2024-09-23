@@ -155,7 +155,8 @@ int32 n_vector = 0;
 
 typedef struct {
     double xlo, xhi, dx;
-    double *y, *x;
+    double *y;
+    double *x;
     int32 n, flag, interp, autoeval;
     int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
@@ -172,7 +173,8 @@ typedef struct {
     char name[20];
     char soname[256], sofun[256];
 
-    int32 root, root2;
+    int32 root;
+    int32 root2;
     int32 f[20];
     int32 iwgt;
     int32 *gcom; /* for group commands */
@@ -1124,12 +1126,14 @@ eval_all_nets(void) {
 void
 evaluate_network(int32 ind) {
     int32 i, j, k, ij;
-    int32 imin, imax;
+    int32 imin;
+    int32 imax;
     double ymin, ymax;
     int32 skip;
     int32 mmt;
     int32 in0;
-    double sum, z;
+    double sum;
+    double z;
     int32 n = my_net[ind].n, *f;
     int32 ncon = my_net[ind].ncon;
     double *w, *y, *cc, *values, *tau;
@@ -1414,7 +1418,8 @@ update_fft(int32 ind) {
     double *w = my_net[ind].weight;
     double *fftr = my_net[ind].fftr;
     double *ffti = my_net[ind].ffti;
-    int32 n, n2;
+    int32 n;
+    int32 n2;
     int32 type = my_net[ind].type;
     if (type == FFTCONP) {
         n = my_net[ind].n;
@@ -1450,7 +1455,8 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
          double *ffti, double *dr, double *di) {
     int32 i;
     int32 dims[2];
-    double x, y;
+    double x;
+    double y;
     int32 n2 = 2*n;
     switch (it) {
     case 0:
@@ -1508,7 +1514,8 @@ gilparse(char *s, int32 *ind, int32 *nn) {
     char piece[50], b[20], bn[25], c;
     int32 i1, i2, jp = 0, f;
     int32 k = 0, iv;
-    int32 id, m;
+    int32 id;
+    int32 m;
     plintf("s=|%s|", s);
     while (true) {
         c = s[i];

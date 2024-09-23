@@ -46,7 +46,8 @@ extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 void
 jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
        double *work, int32 n) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double r;
     double *yval, *ynew, ytemp;
     yval = work;
@@ -92,7 +93,8 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
           double *hguess, double hmin, double *work, int32 *ier, double epjac,
           int32 iflag) {
     double h1 = *hguess;
-    int32 nstp, i;
+    int32 nstp;
+    int32 i;
     double x1 = *xs;
     double x, hnext, hdid, h;
     double *yscal, *y, *dydx, *work2;

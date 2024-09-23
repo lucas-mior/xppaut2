@@ -190,7 +190,8 @@ static int32
 CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     double r;
-    N_Vector ftemp, y;
+    N_Vector ftemp;
+    N_Vector y;
     bool invOK;
     CVDiagMem cvdiag_mem;
     (void)convfail;

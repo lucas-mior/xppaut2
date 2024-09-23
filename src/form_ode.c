@@ -41,7 +41,8 @@ typedef struct var_info {
     char lhs[MAXEXPLEN];
     char rhs[MAXEXPLEN];
     char args[MAXARG][NAMLEN + 1];
-    int32 type, nargs;
+    int32 type;
+    int32 nargs;
     double value;
     struct var_info *next, *prev;
 } VAR_INFO;
@@ -201,9 +202,11 @@ disc(char *string) {
 
 void
 format_list(char **s, int32 n) {
-    int32 i, ip;
+    int32 i;
+    int32 ip;
     int32 ncol;
-    int32 k, j;
+    int32 k;
+    int32 j;
     char fmat[30];
     int32 lmax = 0, l = 0;
     for (i = 0; i < n; i++) {
@@ -441,7 +444,8 @@ compiler(char *bob, FILE *fptr) {
     char name[20], formula[MAXEXPLEN];
     char condition[MAXEXPLEN];
     char fixname[MAX_ODE1][12];
-    int32 nlin, i;
+    int32 nlin;
+    int32 i;
     ptr = bob;
     done = 1;
     if (bob[0] == '@') {
@@ -2109,7 +2113,8 @@ init_varinfo(void) {
 void
 add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
             char args[MAXARG][NAMLEN + 1]) {
-    VAR_INFO *v, *vnew;
+    VAR_INFO *v;
+    VAR_INFO *vnew;
     int32 i;
     v = my_varinfo;
     if (start_var_info == 0) {
@@ -2140,7 +2145,8 @@ add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
 
 void
 free_varinfo(void) {
-    VAR_INFO *v, *vnew;
+    VAR_INFO *v;
+    VAR_INFO *vnew;
     v = my_varinfo;
     while (v->next != NULL) {
         v = v->next;
@@ -2352,10 +2358,12 @@ read_a_line(FILE *fp, char *s) {
 int32
 search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
     int32 i, j, k, l;
-    int32 ileft, iright;
+    int32 ileft;
+    int32 iright;
     int32 n = (int32)strlen(old);
     char num1[20], num2[20];
-    char ch, chp;
+    char ch;
+    char chp;
     ileft = n - 1;
     iright = -1;
     *i1 = 0;
@@ -2799,7 +2807,8 @@ get_next2(char **tokens_ptr) {
 void
 strcpy_trim(char *dest, char *source) {
     /* like strcpy, except removes leading and trailing whitespace */
-    int32 len, i;
+    int32 len;
+    int32 i;
     while (*source && isspace(*source)) {
         source++;
     }

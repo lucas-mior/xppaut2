@@ -331,7 +331,8 @@ add_constant(char *junk) {
 
 int32
 get_var_index(char *name) {
-    int32 type, com;
+    int32 type;
+    int32 com;
     find_name(name, &type);
     if (type < 0)
         return -1;
@@ -458,7 +459,8 @@ int32
 add_expr(char *expr, int32 *command, int32 *length) {
     char dest[1024];
     int32 my_token[1024];
-    int32 err, i;
+    int32 err;
+    int32 i;
     convert(expr, dest);
     err = make_toks(dest, my_token);
 
@@ -638,7 +640,8 @@ fixup_endfun(int32 *u, int32 l, int32 narg) {
 
 int32
 add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
-    int32 i, l;
+    int32 i;
+    int32 l;
     int32 end;
     if (narg > MAXARG) {
         plintf("Maximal arguments exceeded \n");
@@ -681,7 +684,8 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
 int32
 add_ufun(char *junk, char *expr, int32 narg) {
     char string[50];
-    int32 i, l;
+    int32 i;
+    int32 l;
     int32 end;
     int32 len = (int32)strlen(junk);
 
@@ -815,7 +819,8 @@ is_lookup(int32 x) {
 
 int32
 find_lookup(char *name) {
-    int32 index, com;
+    int32 index;
+    int32 com;
     find_name(name, &index);
     if (index == -1)
         return -1;
@@ -830,7 +835,8 @@ find_lookup(char *name) {
 void
 find_name(char *string, int32 *index) {
     char junk[100];
-    int32 i, len;
+    int32 i;
+    int32 len;
     convert(string, junk);
     len = (int32)strlen(junk);
     for (i = 0; i < NSYM; i++) {
@@ -847,7 +853,8 @@ find_name(char *string, int32 *index) {
 
 int32
 get_param_index(char *name) {
-    int32 type, com;
+    int32 type;
+    int32 com;
     find_name(name, &type);
     if (type < 0)
         return -1;
@@ -862,7 +869,8 @@ get_param_index(char *name) {
 
 int32
 get_val(char *name, double *value) {
-    int32 type, com;
+    int32 type;
+    int32 com;
     *value = 0.0;
     find_name(name, &type);
     if (type < 0)
@@ -883,7 +891,8 @@ get_val(char *name, double *value) {
 
 int32
 set_val(char *name, double value) {
-    int32 type, com;
+    int32 type;
+    int32 com;
     find_name(name, &type);
     if (type < 0)
         return 0;
@@ -918,7 +927,8 @@ alg_to_rpn(int32 *toklist, int32 *command) {
     int32 loopstk[100];
     int32 lptr = 0;
     int32 nif = 0, nthen = 0, nelse = 0;
-    int32 newtok, oldtok;
+    int32 newtok;
+    int32 oldtok;
     int32 my_com, my_arg, jmp;
 
     tokstak[0] = STARTTOK;
@@ -1386,7 +1396,8 @@ int32
 do_num(char *source, char *num, double *value, int32 *ind) {
     int32 j = 0, i = *ind, error = 0;
     int32 ndec = 0, nexp = 0, ndig = 0;
-    char ch, oldch;
+    char ch;
+    char oldch;
     oldch = '\0';
     *value = 0.0;
     while (true) {
@@ -1534,7 +1545,8 @@ bessel_y(double x, double y) {
 
 double
 bessi(double nn, double x) {
-    int32 j, n;
+    int32 j;
+    int32 n;
     double bi, bim, bip, tox, ans;
     n = (int32)nn;
     if (n == 0)
@@ -1566,7 +1578,8 @@ bessi(double nn, double x) {
 
 double
 bessi0(double x) {
-    double ax, ans;
+    double ax;
+    double ans;
     double y;
 
     if ((ax = fabs(x)) < 3.75) {
@@ -1595,7 +1608,8 @@ bessi0(double x) {
 
 double
 bessi1(double x) {
-    double ax, ans;
+    double ax;
+    double ans;
     double y;
 
     if ((ax = fabs(x)) < 3.75) {
@@ -1622,7 +1636,8 @@ bessi1(double x) {
 
 double
 bessis(double nn, double x) {
-    int32 j, n;
+    int32 j;
+    int32 n;
     double bi, bim, bip, tox, ans;
     n = (int32)nn;
     if (n == 0)
@@ -1654,7 +1669,8 @@ bessis(double nn, double x) {
 
 double
 bessis0(double x) {
-    double ax, ans;
+    double ax;
+    double ans;
     double y;
 
     if ((ax = fabs(x)) < 3.75) {
@@ -1684,7 +1700,8 @@ bessis0(double x) {
 
 double
 bessis1(double x) {
-    double ax, ans;
+    double ax;
+    double ans;
     double y;
 
     if ((ax = fabs(x)) < 3.75) {
@@ -1732,7 +1749,8 @@ com_name(int32 com) {
 
 double
 do_shift(double shift, double variable) {
-    int32 it, in;
+    int32 it;
+    int32 in;
     int32 i = (int32)(variable), ish = (int32)shift;
 
     if (i < 0)

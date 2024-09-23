@@ -157,7 +157,8 @@ waitasec(int32 msec) {
     struct timeval tim;
 
     double sec = (double)msec / 1000;
-    double t1, t2;
+    double t1;
+    double t2;
     gettimeofday(&tim, NULL);
     t1 = (double)tim.tv_sec + ((double)tim.tv_usec / 1000000.0);
 
@@ -225,7 +226,8 @@ data_del_col(Browser *b) {
 void
 data_add_col(Browser *b) {
     Window window;
-    int32 rev, status;
+    int32 rev;
+    int32 status;
     char var[20], form[80];
     if (check_for_stor(b->data) == 0)
         return;
@@ -470,7 +472,8 @@ find_value(int32 col, double val, int32 *row, Browser b) {
     int32 n = b.maxrow;
     int32 i;
     int32 ihot = 0;
-    double err, errm;
+    double err;
+    double errm;
     errm = fabs(b.data[col][0] - val);
     for (i = b.row0; i < n; i++) {
         err = fabs(b.data[col][i] - val);
@@ -629,7 +632,8 @@ display_browser(Window window, Browser b) {
 
 void
 redraw_browser(Browser b) {
-    int32 i, i0;
+    int32 i;
+    int32 i0;
     Window window;
     draw_data(b);
     for (i = 0; i < BMAXCOL; i++) {
@@ -773,11 +777,13 @@ void
 make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     int32 i;
     int32 ncol = col;
-    int32 width, height;
+    int32 width;
+    int32 height;
     Window base;
     /* XWMHints wm_hints;
      */
-    XTextProperty winname, iconname;
+    XTextProperty winname;
+    XTextProperty iconname;
     XSizeHints size_hints;
     int32 dcol = DCURXs*17;
     int32 drow = (DCURYs + 6);
@@ -914,7 +920,8 @@ resize_browser(Window window, Browser *b) {
     uint32 w, h, hreal;
     int32 dcol = 17*DCURXs, drow = DCURYs + 6;
     int32 i0;
-    int32 newrow, newcol;
+    int32 newrow;
+    int32 newcol;
     if (my_browser.xflag == 0)
         return;
     if (window != b->base)
@@ -1303,7 +1310,8 @@ data_get(Browser *b) {
 void
 data_replace(Browser *b) {
     Window window;
-    int32 rev, status;
+    int32 rev;
+    int32 status;
     char var[20], form[80];
     XGetInputFocus(display, &window, &rev);
     strcpy(var, uvar_names[0]);
@@ -1331,7 +1339,8 @@ data_unreplace(Browser *b) {
 void
 data_table(Browser *b) {
     Window window;
-    int32 rev, status;
+    int32 rev;
+    int32 status;
 
     static char *name[] = {"Variable", "Xlo", "Xhi", "File"};
     char value[LENGTH(name)][MAX_LEN_SBOX];
@@ -1361,7 +1370,8 @@ data_table(Browser *b) {
 void
 data_find(Browser *b) {
     Window window;
-    int32 rev, status;
+    int32 rev;
+    int32 status;
 
     static char *name[] = {"*0Variable", "Value"};
     char value[LENGTH(name)][MAX_LEN_SBOX];
@@ -1477,7 +1487,8 @@ data_write(Browser *b) {
     int32 status;
     char fil[256];
     FILE *fp;
-    int32 i, j;
+    int32 i;
+    int32 j;
     int32 ok;
 
     strcpy(fil, "test.dat");

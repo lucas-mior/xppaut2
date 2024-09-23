@@ -31,7 +31,8 @@ static struct {
     char parlist1[25], parlist2[25];
     int32 dim, npars, nvars, npts, maxiter;
     int32 icols[50], ipar[50], ivar[50];
-    double tol, eps;
+    double tol;
+    double eps;
 } fit_info;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,

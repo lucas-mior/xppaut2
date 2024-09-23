@@ -26,11 +26,14 @@ char dll_fun[256];
 int32 dll_flag = 0;
 
 static struct {
-    char *lin, *lout;
+    char *lin;
+    char *lout;
     int32 *in, *intype;
-    int32 *out, *outtype;
+    int32 *out;
+    int32 *outtype;
     int32 nin, nout;
-    double *vin, *vout;
+    double *vin;
+    double *vout;
 } in_out;
 
 extern double variables[], constants[];

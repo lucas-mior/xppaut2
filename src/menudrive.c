@@ -672,7 +672,8 @@ add_a_curve(void) {
     static char keyk[] = "nk";
     Window temp = main_win;
     char ch;
-    int32 i, j;
+    int32 i;
+    int32 j;
     ch = (char)pop_up_list(&temp, "Curves", na, keya, 10, 15, 0, 10,
                            8*DCURY + 8, graf_hint, info_pop, info_message);
     for (i = 0; i < 10; i++)

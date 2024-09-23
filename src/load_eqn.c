@@ -26,7 +26,8 @@ extern OptionsSet notAlreadySet;
 
 typedef struct {
     int32 nbins, nbins2, type, col, col2, fftc;
-    double xlo, xhi;
+    double xlo;
+    double xhi;
     double ylo, yhi;
     char cond[80];
 } HIST_INFO;
@@ -859,7 +860,8 @@ void
 extract_action(char *ptr) {
     char name[256], value[256];
     char tmp[2048];
-    char *junk, *mystring;
+    char *junk;
+    char *mystring;
     strcpy(tmp, ptr);
     junk = get_first(tmp, " ");
     if (junk == NULL) {

@@ -18,7 +18,8 @@ extern int32 METHOD;
 #define GEAR 5
 #define RB23 13
 typedef struct {
-    int32 nvec, node;
+    int32 nvec;
+    int32 node;
     double *x;
 } XPPVEC;
 

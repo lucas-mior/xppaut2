@@ -151,7 +151,8 @@ void
 do_range_clines(void) {
     static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status, i;
+    int32 status;
+    int32 i;
     double z, dz, zold;
     double xmin, xmax, y_tp, y_bot;
     int32 col1 = XNullColor, col2 = YNullColor;
@@ -242,7 +243,8 @@ start_ncline(void) {
 
 void
 clear_froz_cline(void) {
-    NCLINES *z, *znew;
+    NCLINES *z;
+    NCLINES *znew;
     z = ncperm;
     while (z->n != NULL)
         z = z->n;
@@ -383,7 +385,8 @@ redraw_froz_cline(int32 flag) {
 void
 add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                int32 n_iy) {
-    NCLINES *z, *znew;
+    NCLINES *z;
+    NCLINES *znew;
     int32 i;
     z = ncperm;
     /* move to end */
@@ -415,7 +418,8 @@ add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
 void
 get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                double dv, int32 n, int32 inx, int32 iny, double *mdf) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     double amp, dxp, dyp;
     *mdf = 0.0;
     for (i = 0; i <= n; i++) {
@@ -510,7 +514,8 @@ redraw_dfield(void) {
     double v1[MAX_ODE], v2[MAX_ODE];
     FILE *fp = NULL;
 
-    double amp, mdf;
+    double amp;
+    double mdf;
 
     double du, dv, u0, v0, dxp, dyp, dz, dup, dvp;
 
@@ -607,7 +612,8 @@ direct_field_com(int32 c) {
     double dtold = DELTA_T;
     double v1[MAX_ODE], v2[MAX_ODE];
 
-    double amp, mdf;
+    double amp;
+    double mdf;
     double t;
     double du, dv, u0, v0, dxp, dyp, dz, dup, dvp;
     double oldtrans = TRANS;
@@ -806,9 +812,11 @@ dump_clines(/* gnuplot format */
 void
 restor_null(/* d=1 for x and 2 for y  */
             double *v, int32 n, int32 d) {
-    int32 i, i4;
+    int32 i;
+    int32 i4;
     double xm, ym;
-    int32 x1, y1;
+    int32 x1;
+    int32 y1;
     if (PltFmtFlag == SVGFMT)
         fprintf(svgfile, "<g>\n");
 
@@ -996,9 +1004,11 @@ void
 do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     double dx = (x2 - x1) / (double)ngrid;
     double dy = (y2 - y1) / (double)ngrid;
-    double x, y;
+    double x;
+    double y;
     Pt p[5];
-    int32 i, j;
+    int32 i;
+    int32 j;
     int32 nx = ngrid + 1;
     int32 ny = ngrid + 1;
 

@@ -42,7 +42,8 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
            int32 max) {
     int32 lm = (int32)strlen(name)*DCURX;
     int32 lv = max*DCURX;
-    int32 pos, colm;
+    int32 pos;
+    int32 colm;
     int32 lo = (int32)strlen(ok)*DCURX;
     int32 lc = (int32)strlen(cancel)*DCURX;
 

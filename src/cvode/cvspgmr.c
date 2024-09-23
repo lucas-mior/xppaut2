@@ -304,7 +304,8 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
 static int32
 CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
              bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
-    bool jbad, jok;
+    bool jbad;
+    bool jok;
     double dgamma;
     int32 ier;
     CVSpgmrMem cvspgmr_mem;
@@ -358,7 +359,8 @@ CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 
 static int32
 CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
-    double bnorm, res_norm;
+    double bnorm;
+    double res_norm;
     CVSpgmrMem cvspgmr_mem;
     int32 nli_inc, nps_inc, ier;
 

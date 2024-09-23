@@ -67,7 +67,8 @@ void
 make_calc(double z)
 
 {
-    int32 width, height;
+    int32 width;
+    int32 height;
     static char *name[] = {"Answer"};
     Window base;
     XTextProperty winname;

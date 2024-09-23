@@ -14,10 +14,12 @@
 #include "integers.h"
 
 typedef struct {
-    double r, i;
+    double r;
+    double i;
 } floatcomplex;
 typedef struct {
-    double r, i;
+    double r;
+    double i;
 } doublecomplex;
 
 /* I/O stuff */

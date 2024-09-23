@@ -113,7 +113,8 @@ BandPrint(BandMat A) {
 double **
 bandalloc(int64 n, int64 smu, int64 ml) {
     double **a;
-    int64 j, colSize;
+    int64 j;
+    int64 colSize;
 
     if (n <= 0)
         return NULL;
@@ -252,7 +253,8 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 void
 gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
     int64 k, l, i, first_row_k, last_row_k;
-    double mult, *diag_k;
+    double mult;
+    double *diag_k;
 
     /* Solve Ly = Pb, store solution y in b */
 
@@ -300,7 +302,8 @@ void
 bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
          int64 copymu, int64 copyml) {
     int64 i, j, copySize;
-    double *a_col_j, *b_col_j;
+    double *a_col_j;
+    double *b_col_j;
 
     copySize = copymu + copyml + 1;
 

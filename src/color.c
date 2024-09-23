@@ -100,7 +100,8 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     double pii = 3.1415926;
     /* for CUBHLX  */
     double start = .5, rots = -1.5, hue = 1.2, gamma = 1.;
-    double angle, amp;
+    double angle;
+    double amp;
     double rr, gg, bb;
 
     switch (type) {

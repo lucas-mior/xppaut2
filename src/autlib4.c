@@ -59,9 +59,11 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     double beta, *svde, *svds, svdu[1], *svdv;
 
-    int64 i, j;
+    int64 i;
+    int64 j;
 
-    double *v, *x;
+    double *v;
+    double *x;
 
     int64 infev;
 

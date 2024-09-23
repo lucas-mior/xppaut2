@@ -25,11 +25,13 @@ typedef struct {
     double size;
     int16 use;
     Window window;
-    int32 type, color;
+    int32 type;
+    int32 color;
 } GROB;
 
 typedef struct {
-    int32 type, color;
+    int32 type;
+    int32 color;
     int32 number, start, skip;
     double size;
 } MARKINFO;
@@ -80,7 +82,8 @@ int32 ActiveWinList[MAXPOP];
 
 typedef struct {
     double xlo, xhi, dx;
-    double *y, *x;
+    double *y;
+    double *x;
     int32 n, flag, interp, autoeval;
     int32 xyvals;
     /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
@@ -119,7 +122,8 @@ static void draw_marker(double x, double y, double size, int32 type);
 
 int32
 select_table(void) {
-    int32 i, j;
+    int32 i;
+    int32 j;
     Window temp = main_win;
     char *n[MAX_TAB], key[MAX_TAB], ch;
     for (i = 0; i < NTable; i++) {
@@ -143,7 +147,8 @@ select_table(void) {
 void
 get_intern_set(void) {
     char *n[MAX_INTERN_SET], key[MAX_INTERN_SET], ch;
-    int32 i, j;
+    int32 i;
+    int32 j;
     int32 count = Nintern_set;
     Window temp = main_win;
     if (count == 0)
@@ -200,7 +205,8 @@ title_text(char *string) {
 
 void
 gtitle_text(char *string, Window win) {
-    XTextProperty wname, iname;
+    XTextProperty wname;
+    XTextProperty iname;
     GrCol();
     if (win != graph[0].window) {
         XStringListToTextProperty(&string, 1, &wname);
@@ -242,7 +248,8 @@ restore_on(void) {
 void
 add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
     int32 i;
-    double xp, yp;
+    double xp;
+    double yp;
     scale_to_real(x, y, &xp, &yp);
     for (i = 0; i < MAXLAB; i++) {
         if (lb[i].use == 0) {
@@ -811,7 +818,8 @@ void
 edit_object_com(int32 com) {
     char ans, str[80];
     int32 i, j, ilab = -1, flag, type;
-    double x, y;
+    double x;
+    double y;
     double dist = 1e20, dd;
 
     MessageBox("Choose Object");
@@ -1164,7 +1172,8 @@ rotate3dcheck(XEvent ev) {
     Window window = ev.xbutton.window;
     XEvent z;
     int32 xini, yini, dx, dy;
-    double theta, phi;
+    double theta;
+    double phi;
     if (window == draw_win && MyGraph->ThreeDFlag) {
         xini = ev.xbutton.x;
         yini = ev.xbutton.y;
@@ -1194,7 +1203,8 @@ void
 do_motion_events(XEvent ev) {
     int32 i = ev.xmotion.x;
     int32 j = ev.xmotion.y;
-    double x, y;
+    double x;
+    double y;
     char buf[256];
     slider_motion(ev);
 #ifdef AUTO
@@ -1316,7 +1326,8 @@ kill_all_pops(void) {
 
 void
 create_a_pop(void) {
-    int32 i, index;
+    int32 i;
+    int32 index;
 
     for (i = 1; i < MAXPOP; i++)
         if (graph[i].Use == 0)
@@ -1387,7 +1398,8 @@ SmallBase(void) {
 
 void
 change_plot_vars(int32 k) {
-    int32 i, ip;
+    int32 i;
+    int32 ip;
     int32 np;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use) {
@@ -1407,7 +1419,8 @@ change_plot_vars(int32 k) {
 
 int32
 check_active_plot(int32 k) {
-    int32 i, ip;
+    int32 i;
+    int32 ip;
     int32 np;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use) {
@@ -1510,7 +1523,8 @@ check_draw_button(XEvent ev) {
     char buf[256];
 
     int32 button;
-    int32 i, j;
+    int32 i;
+    int32 j;
     double x, y;
     int32 flag = 0;
     Window window;

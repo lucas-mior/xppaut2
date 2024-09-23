@@ -33,7 +33,8 @@ SpgmrMalloc(int64 N, int32 l_max) {
     SpgmrMem mem;
     N_Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
-    int32 k, i;
+    int32 k;
+    int32 i;
 
     /* Check the input parameters */
 
@@ -424,7 +425,8 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
 
 void
 SpgmrFree(SpgmrMem mem) {
-    int32 i, l_max;
+    int32 i;
+    int32 l_max;
     double **Hes;
 
     if (mem == NULL)

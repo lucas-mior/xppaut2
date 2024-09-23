@@ -41,7 +41,8 @@ extern int32 EqType[MAX_ODE];
 static struct {
     Window base, stab, rest, top, close, import;
     double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];
-    int32 n, flag;
+    int32 n;
+    int32 flag;
     int32 info[5];
     char type[15];
 } eq_box;
@@ -100,7 +101,8 @@ create_eq_list(void) {
     Window base;
     static char *wname[] = {"Equations"};
     static char *iname[] = {"Eqns"};
-    XTextProperty winname, iconame;
+    XTextProperty winname;
+    XTextProperty iconame;
     XSizeHints size_hints;
     if (eq_list.flag == 1) {
         XRaiseWindow(display, eq_list.base);
@@ -267,7 +269,8 @@ eq_box_import(void) {
 
 void
 get_new_size(Window win, uint32 *wid, uint32 *hgt) {
-    int32 x, y;
+    int32 x;
+    int32 y;
     uint32 bw, de;
     Window root;
     XGetGeometry(display, win, &root, &x, &y, wid, hgt, &bw, &de);
@@ -277,7 +280,8 @@ get_new_size(Window win, uint32 *wid, uint32 *hgt) {
 void
 resize_eq_list(Window win) {
     int32 nlines;
-    uint32 w, h;
+    uint32 w;
+    uint32 h;
     if (eq_list.flag == 0)
         return;
     if (win != eq_list.base)
@@ -314,9 +318,11 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
     int32 width, hstab, hequil, height;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};
-    int32 tpos, tpos2;
+    int32 tpos;
+    int32 tpos2;
     Window base;
-    XTextProperty winname, iconame;
+    XTextProperty winname;
+    XTextProperty iconame;
     XSizeHints size_hints;
     /*    Do this every time   */
     redraw_ics();

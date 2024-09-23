@@ -88,7 +88,8 @@ static struct FileSel {
     Window base, cancel, ok, up, dn, pgup, pgdn, file, wild;
     Window window[FILESELNWIN];
     Window dir, home, start;
-    Window fw, ww;
+    Window fw;
+    Window ww;
     char wildtxt[256];
     char filetxt[256];
     int32 nwin, minwid, minhgt;
@@ -114,7 +115,8 @@ static struct ParSlider {
     char parname[20];
     double lo, hi, val;
     int32 hgt;
-    int32 type, index;
+    int32 type;
+    int32 index;
     Window left, right, top, main, slide, go;
 } my_par_slide[3];
 
@@ -520,7 +522,8 @@ new_wild(void) {
 void
 fs_scroll(int32 i) {
     int32 n0 = filesel.n0;
-    int32 new, nend;
+    int32 new;
+    int32 nend;
     int32 nw = filesel.nwin, n = filesel.n;
     if (n <= nw)
         return;
@@ -733,7 +736,8 @@ void
 create_file_selector(char *title, char *file, char *wild) {
     int32 n = my_ff.ndirs + my_ff.nfiles;
     int32 nwin = FILESELNWIN;
-    int32 hgt, i;
+    int32 hgt;
+    int32 i;
     int32 width, height;
 
     Window base;
@@ -1489,7 +1493,8 @@ initialize_box(void) {
 
 void
 resize_par_box(Window window) {
-    uint32 h, w;
+    uint32 h;
+    uint32 w;
     int32 nwin = 0;
     int32 ok = 0;
     BoxList *b = NULL;
@@ -1606,14 +1611,16 @@ destroy_box(BoxList *b) {
 
 void
 make_box_list_window(BoxList *b, int32 type) {
-    int32 nrow, n;
+    int32 nrow;
+    int32 n;
     int32 x, y;
     int32 xb1, xb2, xb3, xb4;
     int32 i, wid1, wid2;
     int32 width, height, wid, hgt;
 
     Window base;
-    XTextProperty winname, iconame;
+    XTextProperty winname;
+    XTextProperty iconame;
     XSizeHints size_hints;
     n = b->n;
     nrow = b->nwin;
@@ -1704,7 +1711,8 @@ make_box_list_window(BoxList *b, int32 type) {
 void
 make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
               int32 use) {
-    int32 nrow, i;
+    int32 nrow;
+    int32 i;
     char sss[256];
     double z;
 
@@ -1790,7 +1798,8 @@ justify_string(Window w1, char *s1) {
 
 void
 draw_one_box(BoxList b, int32 index) {
-    Window window, we;
+    Window window;
+    Window we;
 
     int32 n0 = b.n0;
     int32 n1 = n0 + b.nwin - 1;
@@ -1851,7 +1860,8 @@ redraw_delays(void) {
 
 void
 redraw_ics(void) {
-    int32 i, in;
+    int32 i;
+    int32 in;
     for (i = 0; i < NODE + NMarkov; i++) {
         add_edit_float(&ICBox, i, last_ic[i]);
         draw_one_box(ICBox, i);
@@ -2282,7 +2292,8 @@ man_ic(void) {
 
 void
 new_parameter(void) {
-    int32 done, index;
+    int32 done;
+    int32 index;
     double z;
     char name[256];
     char value[sizeof(name) + 2];

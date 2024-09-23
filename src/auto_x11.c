@@ -200,7 +200,8 @@ do_auto_range(void) {
 void
 auto_get_info(int32 *n, char *pname) {
     int32 i1, i2, ibr;
-    Diagram *d, *dnew;
+    Diagram *d;
+    Diagram *dnew;
 
     if (mark_flag == 2) {
         i1 = abs(mark_ipts);
@@ -225,7 +226,8 @@ auto_get_info(int32 *n, char *pname) {
 
 void
 auto_set_mark(int32 i) {
-    int32 pt, ibr;
+    int32 pt;
+    int32 ibr;
     if (mark_flag == 2) {
         ibr = mark_ibrs;
         if (abs(mark_ipts) < abs(mark_ipte))
@@ -240,7 +242,8 @@ auto_set_mark(int32 i) {
 void
 find_point(int32 ibr, int32 pt) {
     int32 i;
-    Diagram *d, *dnew;
+    Diagram *d;
+    Diagram *dnew;
     if (NBifs < 2)
         return;
     d = bifd;
@@ -832,7 +835,8 @@ void
 auto_motion(XEvent ev) {
     int32 i = ev.xmotion.x;
     int32 j = ev.xmotion.y;
-    double x, y;
+    double x;
+    double y;
     Window window = ev.xmotion.window;
     if (Auto.exist == 0)
         return;
@@ -850,7 +854,8 @@ auto_motion(XEvent ev) {
 
 void
 display_auto(Window window) {
-    int32 ix, iy;
+    int32 ix;
+    int32 iy;
     if (Auto.exist == 0)
         return;
     if (window == auto_win.canvas) {
@@ -914,7 +919,8 @@ make_auto(char *wname, char *iname) {
     Window base = 0;
     int32 dely = DCURY + 5;
     int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
-    XTextProperty winname, iconname;
+    XTextProperty winname;
+    XTextProperty iconname;
     XSizeHints size_hints;
 
     STD_HGT_var = 20*DCURY;
@@ -1007,7 +1013,8 @@ make_auto(char *wname, char *iname) {
 
 void
 resize_auto_window(XEvent ev) {
-    int32 wid, hgt;
+    int32 wid;
+    int32 hgt;
     int32 addhgt = (int32)(3.5*DCURY);
     int32 ymargin = 4*DCURYs, xmargin = 12*DCURXs;
     STD_HGT_var = 20*DCURY;
