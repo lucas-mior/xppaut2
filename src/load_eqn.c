@@ -128,8 +128,6 @@ char delay_string[MAX_ODE][80];
 int32 itor[MAX_ODE];
 char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
-double oldhp_x;
-double oldhp_y;
 double my_pl_wid;
 double my_pl_ht;
 int32 mov_ind;
@@ -479,8 +477,6 @@ set_all_vals(void) {
     STORFLAG = 0;
 
     INFLAG = 0;
-    oldhp_x = -100000.0;
-    oldhp_y = -100000.0;
     solver = rung_kut;
     PLOT_3D = 0;
     if (notAlreadySet.METHOD) {
