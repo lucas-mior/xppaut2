@@ -288,7 +288,7 @@ traverse_diagram(void) {
     int32 done = 0;
     int32 ix, iy, i;
     int32 lalo;
-    XEvent ev;
+    XEvent event;
     int32 kp;
     mark_flag = 0;
     if (NBifs < 2)
@@ -299,15 +299,15 @@ traverse_diagram(void) {
     traverse_out(d, &ix, &iy, 1);
 
     while (done == 0) {
-        XNextEvent(display, &ev);
-        if (ev.type == ButtonPress) {
+        XNextEvent(display, &event);
+        if (event.type == ButtonPress) {
             int32 mindex;
             double dist;
             double ndist;
-            int32 xm = ev.xmotion.x;
-            int32 ym = ev.xmotion.y;
+            int32 xm = event.xmotion.x;
+            int32 ym = event.xmotion.y;
 
-            Window window = ev.xmotion.window;
+            Window window = event.xmotion.window;
 
             if (window == auto_win.canvas) {
                 clear_msg();
@@ -370,11 +370,11 @@ traverse_diagram(void) {
                 DONT_XORCross = 0;
                 traverse_out(d, &ix, &iy, 1);
             }
-        } else if (ev.type == KeyPress) {
+        } else if (event.type == KeyPress) {
             int32 found = 0;
             char symb[3], nsymb[3];
             clear_msg();
-            kp = get_key_press(&ev);
+            kp = get_key_press(&event);
 
             switch (kp) {
             case KEY_RIGHT:
@@ -764,7 +764,7 @@ auto_update_view(double xlo, double xhi, double ylo, double yhi) {
 
 void
 auto_scroll_window(void) {
-    XEvent ev;
+    XEvent event;
     int32 i = 0, j = 0;
     int32 i0 = 0, j0 = 0;
     int32 state = 0;
@@ -778,26 +778,26 @@ auto_scroll_window(void) {
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
                      PointerMotionMask | ButtonMotionMask | ExposureMask);
     while (!alldone) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case KeyPress:
             alldone = 1;
             break;
         case Expose:
-            do_expose(ev);
+            do_expose(event);
             break;
         case ButtonPress:
             if (state == 0) {
-                i0 = ev.xkey.x;
-                j0 = ev.xkey.y;
+                i0 = event.xkey.x;
+                j0 = event.xkey.y;
 
                 state = 1;
             }
             break;
         case MotionNotify:
             if (state == 1) {
-                i0 = ev.xmotion.x;
-                j0 = ev.xmotion.y;
+                i0 = event.xmotion.x;
+                j0 = event.xmotion.y;
                 dx = 0.0;
                 dy = 0.0;
                 auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
@@ -806,8 +806,8 @@ auto_scroll_window(void) {
                 break;
             }
             if (state == 2) {
-                i = ev.xmotion.x;
-                j = ev.xmotion.y;
+                i = event.xmotion.x;
+                j = event.xmotion.y;
                 dx = (double)(i0 - i)*(Auto.xmax - Auto.xmin) /
                      (double)Auto.wid;
                 dy = (double)(j - j0)*(Auto.ymax - Auto.ymin) /
@@ -839,12 +839,12 @@ LineWidth(int32 wid) {
 }
 
 void
-auto_motion(XEvent ev) {
-    int32 i = ev.xmotion.x;
-    int32 j = ev.xmotion.y;
+auto_motion(XEvent event) {
+    int32 i = event.xmotion.x;
+    int32 j = event.xmotion.y;
     double x;
     double y;
-    Window window = ev.xmotion.window;
+    Window window = event.xmotion.window;
     if (Auto.exist == 0)
         return;
     if (window == auto_win.canvas) {
@@ -1019,7 +1019,7 @@ make_auto(char *wname, char *iname) {
 }
 
 void
-resize_auto_window(XEvent ev) {
+resize_auto_window(XEvent event) {
     int32 wid;
     int32 hgt;
     int32 addhgt = (int32)(3.5*DCURY);
@@ -1027,7 +1027,7 @@ resize_auto_window(XEvent ev) {
     STD_HGT_var = 20*DCURY;
     STD_WID_var = 50*DCURX;
 
-    if (ev.xconfigure.window == auto_win.base) {
+    if (event.xconfigure.window == auto_win.base) {
         Window root;
         int32 xloc;
         int32 yloc;
@@ -1037,8 +1037,8 @@ resize_auto_window(XEvent ev) {
         uint32 cdepth;
         int32 ix, iy;
 
-        wid = ev.xconfigure.width - Auto_extra_wid;
-        hgt = ev.xconfigure.height - Auto_extra_hgt;
+        wid = event.xconfigure.width - Auto_extra_wid;
+        hgt = event.xconfigure.height - Auto_extra_hgt;
 
         addhgt = 3*DCURY;
 
@@ -1138,8 +1138,8 @@ auto_enter(Window window, int32 v) {
 }
 
 void
-auto_button(XEvent ev) {
-    Window window = ev.xbutton.window;
+auto_button(XEvent event) {
+    Window window = event.xbutton.window;
     if (Auto.exist == 0)
         return;
     if (window == auto_win.axes) {
@@ -1205,8 +1205,8 @@ auto_kill(void) {
 }
 
 void
-auto_keypress(XEvent ev, int32 *used) {
-    Window window = ev.xkey.window;
+auto_keypress(XEvent event, int32 *used) {
+    Window window = event.xkey.window;
     char ks;
     Window w2;
     int32 rev;
@@ -1219,7 +1219,7 @@ auto_keypress(XEvent ev, int32 *used) {
     if (window == auto_win.base || window == auto_win.canvas ||
         w2 == auto_win.base) {
         *used = 1;
-        ks = (char)get_key_press(&ev);
+        ks = (char)get_key_press(&event);
 
         if (ks == 'a' || ks == 'A') {
             auto_plot_par();

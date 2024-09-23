@@ -25,7 +25,7 @@ static void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window,
 
 int32
 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
-    XEvent ev;
+    XEvent event;
     int32 there = 0;
     int32 error = 0;
     int32 dragx = 0, dragy = 0;
@@ -44,10 +44,10 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
                      PointerMotionMask | ButtonMotionMask | ExposureMask);
     while (!there) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case Expose:
-            do_expose(ev);
+            do_expose(event);
             xor_flag = 1;
             chk_xor();
             if (xorfix) {
@@ -67,8 +67,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             if (state > 0)
                 break;
             state = 1;
-            dragx = ev.xkey.x;
-            dragy = ev.xkey.y;
+            dragx = event.xkey.x;
+            dragy = event.xkey.y;
             oldx = dragx;
             oldy = dragy;
             rbox(dragx, dragy, oldx, oldy, window, f);
@@ -77,8 +77,8 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             if (state == 0)
                 break;
             rbox(dragx, dragy, oldx, oldy, window, f);
-            oldx = ev.xmotion.x;
-            oldy = ev.xmotion.y;
+            oldx = event.xmotion.x;
+            oldy = event.xmotion.y;
             rbox(dragx, dragy, oldx, oldy, window, f);
             break;
         case ButtonRelease:

@@ -117,39 +117,39 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
     int32 status = -1;
     int32 done = 0;
     int32 ch;
-    XEvent ev;
+    XEvent event;
 
-    XNextEvent(display, &ev);
+    XNextEvent(display, &event);
 
-    switch (ev.type) {
+    switch (event.type) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(ev);
-        display_dialog(ev.xany.window, *d, *col);
+        do_expose(event);
+        display_dialog(event.xany.window, *d, *col);
         break;
     case ButtonPress:
-        if (ev.xbutton.window == d->ok) {
+        if (event.xbutton.window == d->ok) {
             status = ALL_DONE;
         }
-        if (ev.xbutton.window == d->cancel) {
+        if (event.xbutton.window == d->cancel) {
             status = FORGET_ALL;
         }
-        if (ev.xbutton.window == d->input)
+        if (event.xbutton.window == d->input)
             XSetInputFocus(display, d->input, RevertToParent, CurrentTime);
         break;
 
     case EnterNotify:
-        if (ev.xcrossing.window == d->ok || ev.xcrossing.window == d->cancel)
-            XSetWindowBorderWidth(display, ev.xcrossing.window, 2);
+        if (event.xcrossing.window == d->ok || event.xcrossing.window == d->cancel)
+            XSetWindowBorderWidth(display, event.xcrossing.window, 2);
         break;
     case LeaveNotify:
-        if (ev.xcrossing.window == d->ok || ev.xcrossing.window == d->cancel)
-            XSetWindowBorderWidth(display, ev.xcrossing.window, 1);
+        if (event.xcrossing.window == d->ok || event.xcrossing.window == d->cancel)
+            XSetWindowBorderWidth(display, event.xcrossing.window, 1);
         break;
 
     case KeyPress:
-        ch = get_key_press(&ev);
+        ch = get_key_press(&event);
         edit_window(d->input, pos, d->input_s, col, &done, ch);
         if (done == -1)
             status = FORGET_ALL;

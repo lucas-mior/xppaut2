@@ -56,7 +56,7 @@ int32 keep_last_plot(int32 flag);
 int32 init_auto_win(void);
 int32 plot_stab(double *evr, double *evi, int32 n);
 int32 clr_stab(void);
-int32 auto_motion(XEvent ev);
+int32 auto_motion(XEvent event);
 int32 display_auto(Window window);
 Window lil_button(Window root, int32 x, int32 y);
 int32 make_auto(char *wname, char *iname);
@@ -106,8 +106,8 @@ int32 get_a_row(double *u, double *t, int32 n, FILE *fp);
 int32 auto_file(void);
 int32 a_msg(int32 i, int32 v);
 int32 auto_enter(Window window, int32 v);
-int32 auto_button(XEvent ev);
+int32 auto_button(XEvent event);
 int32 auto_kill(void);
-int32 auto_keypress(XEvent ev, int32 *used);
+int32 auto_keypress(XEvent event, int32 *used);
 
 #endif

@@ -699,7 +699,7 @@ update_view(double xlo, double xhi, double ylo, double yhi) {
 
 static void
 scroll_window(void) {
-    XEvent ev;
+    XEvent event;
     int32 i = 0, j = 0;
     int32 state = 0;
     double x, y, x0 = 0, y0 = 0;
@@ -714,26 +714,26 @@ scroll_window(void) {
                  KeyPressMask | ButtonPressMask | ButtonReleaseMask |
                      PointerMotionMask | ButtonMotionMask | ExposureMask);
     while (!alldone) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case KeyPress:
             alldone = 1;
             break;
         case Expose:
-            do_expose(ev);
+            do_expose(event);
             break;
         case ButtonPress:
             if (state == 0) {
-                i = ev.xkey.x;
-                j = ev.xkey.y;
+                i = event.xkey.x;
+                j = event.xkey.y;
                 scale_to_real(i, j, &x0, &y0);
                 state = 1;
             }
             break;
         case MotionNotify:
             if (state == 1) {
-                i = ev.xmotion.x;
-                j = ev.xmotion.y;
+                i = event.xmotion.x;
+                j = event.xmotion.y;
                 scale_to_real(i, j, &x, &y);
                 dx = -(x - x0) / 2;
                 dy = -(y - y0) / 2;

@@ -59,38 +59,38 @@ static void txtview_press(Window window, int32 x, int32 y);
 static void resize_txtview(int32 w, int32 h);
 static void do_txt_action(char *s);
 static void enter_txtview(Window window, int32 val);
-static void txtview_keypress(XEvent ev);
+static void txtview_keypress(XEvent event);
 
 void
-txt_view_events(XEvent ev) {
+txt_view_events(XEvent event) {
     int32 x;
     int32 y;
     if (txtview.here == 0)
         return;
 
-    switch (ev.type) {
+    switch (event.type) {
     case Expose:
     case MapNotify:
-        redraw_txtview(ev.xany.window);
+        redraw_txtview(event.xany.window);
         break;
     case ConfigureNotify:
-        if (ev.xconfigure.window != txtview.base)
+        if (event.xconfigure.window != txtview.base)
             return;
-        x = ev.xconfigure.width;
-        y = ev.xconfigure.height;
+        x = event.xconfigure.width;
+        y = event.xconfigure.height;
         resize_txtview(x, y);
         break;
     case EnterNotify:
-        enter_txtview(ev.xexpose.window, 2);
+        enter_txtview(event.xexpose.window, 2);
         break;
     case LeaveNotify:
-        enter_txtview(ev.xexpose.window, 1);
+        enter_txtview(event.xexpose.window, 1);
         break;
     case ButtonPress:
-        txtview_press(ev.xbutton.window, ev.xbutton.x, ev.xbutton.y);
+        txtview_press(event.xbutton.window, event.xbutton.x, event.xbutton.y);
         break;
     case KeyPress:
-        txtview_keypress(ev);
+        txtview_keypress(event);
         break;
     default:
         break;
@@ -99,11 +99,11 @@ txt_view_events(XEvent ev) {
 }
 
 void
-txtview_keypress(XEvent ev) {
-    Window window = ev.xkey.window;
+txtview_keypress(XEvent event) {
+    Window window = event.xkey.window;
     char ks;
     if (window == txtview.base || window == txtview.text) {
-        ks = (char)get_key_press(&ev);
+        ks = (char)get_key_press(&event);
         if (ks == KEY_UP) {
             txtview_press(txtview.up, 0, 0);
             return;

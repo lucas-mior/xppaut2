@@ -185,7 +185,7 @@ static void destroy_vcr(void);
 static void ani_motion_stuff(Window window, int32 x, int32 y);
 static double get_current_time(void);
 static void update_ani_motion_stuff(int32 x, int32 y);
-static void ani_buttonx(XEvent ev, int32 flag);
+static void ani_buttonx(XEvent event, int32 flag);
 static void ani_button(Window window);
 static void ani_create_mpeg(void);
 static void ani_resize(int32 x, int32 y);
@@ -435,26 +435,26 @@ destroy_vcr(void) {
 }
 
 int32
-check_ani_pause(XEvent ev) {
+check_ani_pause(XEvent event) {
     if ((vcr.iexist == 0) || (!animation_on_the_fly))
         return 0;
-    if (ev.type == ButtonPress && ev.xbutton.window == vcr.wpause)
+    if (event.type == ButtonPress && event.xbutton.window == vcr.wpause)
         return 27;
     return 0;
 }
 
 void
-ani_do_events(XEvent ev) {
+ani_do_events(XEvent event) {
     int32 x;
     int32 y;
     if (vcr.iexist == 0)
         return;
-    switch (ev.type) {
+    switch (event.type) {
     case ConfigureNotify:
-        if (ev.xconfigure.window != vcr.base)
+        if (event.xconfigure.window != vcr.base)
             return;
-        x = ev.xconfigure.width;
-        y = ev.xconfigure.height;
+        x = event.xconfigure.width;
+        y = event.xconfigure.height;
         x = (x) / 8;
         x = 8*x;
         y = (y) / 8;
@@ -462,24 +462,24 @@ ani_do_events(XEvent ev) {
         ani_resize(x, y);
         break;
     case EnterNotify:
-        ani_border(ev.xexpose.window, 2);
+        ani_border(event.xexpose.window, 2);
         break;
     case LeaveNotify:
-        ani_border(ev.xexpose.window, 1);
+        ani_border(event.xexpose.window, 1);
         break;
     case MotionNotify:
-        do_ani_slider_motion(ev.xmotion.window, ev.xmotion.x);
+        do_ani_slider_motion(event.xmotion.window, event.xmotion.x);
         if (ani_grab_flag == 0)
             break;
-        ani_motion_stuff(ev.xmotion.window, ev.xmotion.x, ev.xmotion.y);
+        ani_motion_stuff(event.xmotion.window, event.xmotion.x, event.xmotion.y);
         break;
     case ButtonRelease:
         if (ani_grab_flag == 0)
             break;
-        ani_buttonx(ev, 0);
+        ani_buttonx(event, 0);
         break;
     case ButtonPress:
-        ani_buttonx(ev, 1);
+        ani_buttonx(event, 1);
         break;
     default:
         break;
@@ -537,14 +537,14 @@ update_ani_motion_stuff(int32 x, int32 y) {
 /*************************** End motion & speed stuff   ****************/
 
 void
-ani_buttonx(XEvent ev, int32 flag) {
-    Window window = ev.xbutton.window;
+ani_buttonx(XEvent event, int32 flag) {
+    Window window = event.xbutton.window;
     /*   ADDED FOR THE GRAB FEATURE IN ANIMATOR  This is BUTTON PRESS */
     if ((window == vcr.view) && (ani_grab_flag == 1)) {
         if (flag == 1) {
             ami.t1 = get_current_time();
             ami.tstart = ami.t1;
-            ani_ij_to_xy(ev.xbutton.x, ev.xbutton.y, &ami.x, &ami.y);
+            ani_ij_to_xy(event.xbutton.x, event.xbutton.y, &ami.x, &ami.y);
             ami.x0 = ami.x;
             ami.y0 = ami.y;
             who_was_grabbed = search_for_grab(ami.x, ami.y);
@@ -921,7 +921,7 @@ ani_flip(void) {
     int32 row;
     int32 done;
     int32 mpeg_frame = 0, mpeg_write = 0, count = 0;
-    XEvent ev;
+    XEvent event;
     Window window;
     /*Window root;
     uint32 he,wi,bw,d;
@@ -942,10 +942,10 @@ ani_flip(void) {
     count = 0;
     while (!done) { /* Ignore all events except the button presses */
         if (XPending(display) > 0) {
-            XNextEvent(display, &ev);
-            switch (ev.type) {
+            XNextEvent(display, &event);
+            switch (event.type) {
             case ButtonPress:
-                window = ev.xbutton.window;
+                window = event.xbutton.window;
                 if (window == vcr.wpause) {
                     done = 1;
                     break;

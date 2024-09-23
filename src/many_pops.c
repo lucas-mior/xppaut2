@@ -1171,15 +1171,15 @@ svg_restore(void) {
 }
 
 int32
-rotate3dcheck(XEvent ev) {
-    Window window = ev.xbutton.window;
+rotate3dcheck(XEvent event) {
+    Window window = event.xbutton.window;
     XEvent z;
     int32 xini, yini, dx, dy;
     double theta;
     double phi;
     if (window == draw_win && MyGraph->ThreeDFlag) {
-        xini = ev.xbutton.x;
-        yini = ev.xbutton.y;
+        xini = event.xbutton.x;
+        yini = event.xbutton.y;
         phi = MyGraph->Phi;
         theta = MyGraph->Theta;
         while (true) {
@@ -1203,17 +1203,17 @@ rotate3dcheck(XEvent ev) {
 }
 
 void
-do_motion_events(XEvent ev) {
-    int32 i = ev.xmotion.x;
-    int32 j = ev.xmotion.y;
+do_motion_events(XEvent event) {
+    int32 i = event.xmotion.x;
+    int32 j = event.xmotion.y;
     double x;
     double y;
     char buf[256];
-    slider_motion(ev);
+    slider_motion(event);
 #ifdef AUTO
-    auto_motion(ev);
+    auto_motion(event);
 #endif
-    if (ev.xmotion.window == draw_win) {
+    if (event.xmotion.window == draw_win) {
         scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         canvas_xy(buf);
@@ -1222,26 +1222,26 @@ do_motion_events(XEvent ev) {
 }
 
 void
-do_expose(XEvent ev) {
+do_expose(XEvent event) {
     int32 i;
     int32 cp = current_pop;
     Window temp;
 
     temp = draw_win;
-    top_button_draw(ev.xany.window);
-    array_plot_expose(ev.xany.window);
+    top_button_draw(event.xany.window);
+    array_plot_expose(event.xany.window);
     /* redraw_txtview(ev.xany.window);  */
-    ani_expose(ev.xany.window);
-    expose_my_browser(ev);
+    ani_expose(event.xany.window);
+    expose_my_browser(event);
     /* draw_info_pop(ev.xany.window); */
-    RedrawMessageBox(ev.xany.window);
-    draw_eq_list(ev.xany.window);
-    draw_eq_box(ev.xany.window);
-    do_box_expose(ev.xany.window);
-    expose_slides(ev.xany.window);
-    menu_expose(ev.xany.window);
+    RedrawMessageBox(event.xany.window);
+    draw_eq_list(event.xany.window);
+    draw_eq_box(event.xany.window);
+    do_box_expose(event.xany.window);
+    expose_slides(event.xany.window);
+    menu_expose(event.xany.window);
 #ifdef AUTO
-    display_auto(ev.xany.window);
+    display_auto(event.xany.window);
 #endif
     /* if(ev.xexpose.window==menu_pop){
           draw_help();
@@ -1253,7 +1253,7 @@ do_expose(XEvent ev) {
         GrCol();
 
         for (i = 0; i < MAXPOP; i++) {
-            if ((graph[i].Use) && (ev.xexpose.window == graph[i].w_info)) {
+            if ((graph[i].Use) && (event.xexpose.window == graph[i].w_info)) {
                 XClearWindow(display, graph[i].w_info);
                 if (i == 0) {
                     BaseCol();
@@ -1268,8 +1268,8 @@ do_expose(XEvent ev) {
                     SmallGr();
                 }
             }
-            if ((ev.type == Expose) && (graph[i].Use) &&
-                (ev.xexpose.window == graph[i].window)) {
+            if ((event.type == Expose) && (graph[i].Use) &&
+                (event.xexpose.window == graph[i].window)) {
                 /* redraw_dfield(); */
 
                 current_pop = i;
@@ -1521,7 +1521,7 @@ canvas_xy(char *buf) {
 }
 
 void
-check_draw_button(XEvent ev) {
+check_draw_button(XEvent event) {
     int32 k;
     char buf[256];
 
@@ -1531,10 +1531,10 @@ check_draw_button(XEvent ev) {
     double x, y;
     int32 flag = 0;
     Window window;
-    button = (int32)ev.xbutton.button;
-    window = ev.xbutton.window;
-    i = ev.xbutton.x;
-    j = ev.xbutton.y;
+    button = (int32)event.xbutton.button;
+    window = event.xbutton.window;
+    i = event.xbutton.x;
+    j = event.xbutton.y;
     if (button == 1) { /* select window   */
 
         for (k = 1; k < MAXPOP; k++)

@@ -193,7 +193,7 @@ make_tor_box(char *title) {
 
 void
 do_torus_events(void) {
-    XEvent ev;
+    XEvent event;
     int32 status = -1;
     int32 done = 0;
     Window wt;
@@ -202,26 +202,26 @@ do_torus_events(void) {
     for (i = 0; i < NEQ; i++)
         oldit[i] = itor[i];
     while (!done) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case Expose:
 
-            do_expose(ev); /*  menus and graphs etc  */
-            draw_torus_box(ev.xany.window);
+            do_expose(event); /*  menus and graphs etc  */
+            draw_torus_box(event.xany.window);
             break;
         case ButtonPress:
-            if (ev.xbutton.window == torbox.done) {
+            if (event.xbutton.window == torbox.done) {
                 status = 1;
                 done = 1;
                 break;
             }
-            if (ev.xbutton.window == torbox.cancel) {
+            if (event.xbutton.window == torbox.cancel) {
                 status = -1;
                 done = 1;
                 break;
             }
             for (i = 0; i < NEQ; i++) {
-                if (ev.xbutton.window == torbox.window[i]) {
+                if (event.xbutton.window == torbox.window[i]) {
                     itor[i] = 1 - itor[i];
                     draw_tor_var(i);
                     break;
@@ -229,12 +229,12 @@ do_torus_events(void) {
             }
             break;
         case EnterNotify:
-            wt = ev.xcrossing.window;
+            wt = event.xcrossing.window;
             if (wt == torbox.done || wt == torbox.cancel)
                 XSetWindowBorderWidth(display, wt, 2);
             break;
         case LeaveNotify:
-            wt = ev.xcrossing.window;
+            wt = event.xcrossing.window;
             if (wt == torbox.done || wt == torbox.cancel)
                 XSetWindowBorderWidth(display, wt, 1);
             break;

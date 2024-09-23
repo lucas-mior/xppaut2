@@ -119,7 +119,7 @@ typedef struct AniCom {
 extern int32 animation_on_the_fly;
 
 void ani_new_vcr(void);
-void ani_do_events(XEvent ev);
+void ani_do_events(XEvent event);
 void ani_expose(Window window);
 void on_the_fly(int32 task);
 int32 getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out);
@@ -127,7 +127,7 @@ int32 writeframe(char *filename, Window window, int32 wid, int32 hgt);
 void ani_zero(void);
 void get_ani_file(char *fname);
 void de_space(char *s);
-int32 check_ani_pause(XEvent ev);
+int32 check_ani_pause(XEvent event);
 
 #endif
 
@@ -144,7 +144,7 @@ void array_plot_draw_one(char *);
 void array_plot_optimize(int32 *plist);
 void array_plot_make_my(char *name);
 void array_plot_expose(Window window);
-void array_plot_do_events(XEvent ev);
+void array_plot_do_events(XEvent event);
 void array_plot_init_my(void);
 void array_plot_edit(void);
 void array_plot_dump(FILE *fp, int32 f);
@@ -201,13 +201,13 @@ int32 auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
 void XORCross(int32 x, int32 y);
 void FillCircle(int32 x, int32 y, int32 r);
 void LineWidth(int32 wid);
-void auto_motion(XEvent ev);
+void auto_motion(XEvent event);
 void display_auto(Window window);
 void make_auto(char *wname, char *iname);
-void resize_auto_window(XEvent ev);
+void resize_auto_window(XEvent event);
 void auto_enter(Window window, int32 v);
-void auto_button(XEvent ev);
-void auto_keypress(XEvent ev, int32 *used);
+void auto_button(XEvent event);
+void auto_keypress(XEvent event, int32 *used);
 void auto_get_info(int32 *n, char *pname);
 void auto_set_mark(int32 i);
 void do_auto_range(void);
@@ -820,10 +820,10 @@ void make_new_browser(void);
 Window br_button(Window root, int32 row, int32 col, int32 iflag);
 Window br_button_data(Window root, int32 row, int32 col, char *name,
                       int32 iflag);
-void expose_my_browser(XEvent ev);
-void enter_my_browser(XEvent ev, int32 yn);
-void my_browse_button(XEvent ev);
-void my_browse_keypress(XEvent ev, int32 *used);
+void expose_my_browser(XEvent event);
+void enter_my_browser(XEvent event, int32 yn);
+void my_browse_button(XEvent event);
+void my_browse_keypress(XEvent event, int32 *used);
 void resize_my_browser(Window win);
 void get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
                   int32 off);
@@ -905,9 +905,9 @@ void draw_info_pop(Window win);
 void bottom_msg(char *msg);
 void err_msg(char *string);
 int32 plintf(char *fmt, ...);
-int32 show_position(XEvent ev);
+int32 show_position(XEvent event);
 void put_command(char *string);
-int32 get_key_press(XEvent *ev);
+int32 get_key_press(XEvent *event);
 void cput_text(void);
 int32 get_mouse_xy(int32 *x, int32 *y, Window window);
 void Ftext(int32 x, int32 y, char *string, Window o);
@@ -923,7 +923,7 @@ void movmem(char *s1, char *s2, int32 len);
 void memmov(char *s1, char *s2, int32 len);
 void edit_window(Window window, int32 *pos, char *value, int32 *col,
                  int32 *done, int32 ch);
-void edit_command_string(XEvent ev, char *name, char *value, int32 *done,
+void edit_command_string(XEvent event, char *name, char *value, int32 *done,
                          int32 *pos, int32 *col);
 int32 new_string(char *name, char *value);
 
@@ -2064,9 +2064,9 @@ int32 save_as(void);
 
 void draw_eq_list(Window window);
 void create_eq_list(void);
-void eq_list_keypress(XEvent ev, int32 *used);
+void eq_list_keypress(XEvent event, int32 *used);
 void enter_eq_stuff(Window window, int32 b);
-void eq_list_button(XEvent ev);
+void eq_list_button(XEvent event);
 void get_new_size(Window win, uint32 *wid, uint32 *hgt);
 void resize_eq_list(Window win);
 void create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
@@ -2587,7 +2587,7 @@ void slide_release(Window window);
 
 void expose_slides(Window window);
 void enter_slides(Window window, int32 val);
-void slider_motion(XEvent ev);
+void slider_motion(XEvent event);
 void make_new_ic_box(void);
 void make_new_bc_box(void);
 void make_new_delay_box(void);
@@ -2604,7 +2604,7 @@ void redraw_ics(void);
 void redraw_bcs(void);
 void box_enter_events(Window window, int32 yn);
 void box_buttons(Window window);
-void box_keypress(XEvent ev, int32 *used);
+void box_keypress(XEvent event, int32 *used);
 void man_ic(void);
 void new_parameter(void);
 void redo_stuff(void);
@@ -3260,9 +3260,9 @@ void do_windows_com(int32 c);
 void init_grafs(int32 x, int32 y, int32 w, int32 h);
 void ps_restore(void);
 void svg_restore(void);
-int32 rotate3dcheck(XEvent ev);
-void do_motion_events(XEvent ev);
-void do_expose(XEvent ev);
+int32 rotate3dcheck(XEvent event);
+void do_motion_events(XEvent event);
+void do_expose(XEvent event);
 void resize_all_pops(int32 wid, int32 hgt);
 void create_a_pop(void);
 void GrCol(void);
@@ -3274,7 +3274,7 @@ int32 check_active_plot(int32 k);
 void make_active(int32 i, int32 flag);
 void hi_lite(Window wi);
 void canvas_xy(char *buf);
-void check_draw_button(XEvent ev);
+void check_draw_button(XEvent event);
 void set_active_windows(void);
 
 #endif
@@ -4234,7 +4234,7 @@ void do_torus_com(int32 c);
 #ifndef TXTREAD_H
 #define TXTREAD_H
 
-void txt_view_events(XEvent ev);
+void txt_view_events(XEvent event);
 void redraw_txtview(Window window);
 void init_txtview(void);
 void make_txtview(void);

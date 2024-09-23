@@ -172,8 +172,8 @@ plintf(char *fmt, ...) {
 }
 
 int32
-show_position(XEvent ev) {
-    check_draw_button(ev);
+show_position(XEvent event) {
+    check_draw_button(event);
     return 0;
 }
 
@@ -186,13 +186,13 @@ put_command(char *string) {
 }
 
 int32
-get_key_press(XEvent *ev) {
+get_key_press(XEvent *event) {
     int32 maxlen = 64;
     char buf[65];
     XComposeStatus comp;
     KeySym ks;
 
-    XLookupString((XKeyEvent *)ev, buf, maxlen, &ks, &comp);
+    XLookupString((XKeyEvent *)event, buf, maxlen, &ks, &comp);
     /*       printf(" ks=%d buf[0]=%d char=%c \n",ks,(int32)buf[0],buf[0]); */
 
     if (ks == XK_Escape)
@@ -270,17 +270,17 @@ int32
 get_mouse_xy(int32 *x, int32 *y, Window window) {
     int32 no_but = 1;
     char ch;
-    XEvent ev;
+    XEvent event;
     *x = 0;
     *y = 0;
     while (no_but) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case Expose:
-            do_expose(ev);
+            do_expose(event);
             break;
         case KeyPress:
-            ch = (char)get_key_press(&ev);
+            ch = (char)get_key_press(&event);
             if (ch == ESCAPE)
                 return 0;
             if (ch == KEY_FINE)
@@ -289,11 +289,11 @@ get_mouse_xy(int32 *x, int32 *y, Window window) {
                 return -3;
             break;
         case ButtonPress:
-            if (ev.xbutton.window != window)
+            if (event.xbutton.window != window)
                 return 0;
             no_but = 0;
-            *x = ev.xbutton.x;
-            *y = ev.xbutton.y;
+            *x = event.xbutton.x;
+            *y = event.xbutton.y;
             return 1;
         default:
             break;
@@ -512,23 +512,23 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
 }
 
 void
-edit_command_string(XEvent ev, char *name, char *value, int32 *done2,
+edit_command_string(XEvent event, char *name, char *value, int32 *done2,
                     int32 *pos, int32 *col) {
     char ch;
-    switch (ev.type) {
+    switch (event.type) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(ev);
-        if (ev.xexpose.window == command_pop)
+        do_expose(event);
+        if (event.xexpose.window == command_pop)
             display_command(name, value, *pos);
         break;
     case ButtonPress:
-        if (ev.xbutton.window == command_pop)
+        if (event.xbutton.window == command_pop)
             XSetInputFocus(display, command_pop, RevertToParent, CurrentTime);
         break;
     case KeyPress:
-        ch = (char)get_key_press(&ev);
+        ch = (char)get_key_press(&event);
         /* printf("ch= %ld \n",ch); */
         edit_window(command_pop, pos, value, col, done2, ch);
         break;
@@ -545,13 +545,13 @@ new_string(char *name, char *value) {
     int32 pos = (int32)strlen(value);
     int32 col = (pos + (int32)strlen(name))*DCURX;
 
-    XEvent ev;
+    XEvent event;
     strcpy(old_value, value);
     clr_command();
     display_command(name, value, pos);
     while (done2 == 0) {
-        XNextEvent(display, &ev);
-        edit_command_string(ev, name, value, &done2, &pos, &col);
+        XNextEvent(display, &event);
+        edit_command_string(event, name, value, &done2, &pos, &col);
     }
     clr_command();
     if (done2 == 1 || done2 == 2)

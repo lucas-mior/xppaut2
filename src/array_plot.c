@@ -240,32 +240,32 @@ array_plot_expose(Window window) {
 }
 
 void
-array_plot_do_events(XEvent ev) {
+array_plot_do_events(XEvent event) {
     int32 x;
     int32 y;
     if (array_plot.alive == 0)
         return;
-    switch (ev.type) {
+    switch (event.type) {
         /* case Expose:
          case MapNotify:
            display_aplot(ev.xany.window,array_plot);
            break;
          */
     case MotionNotify:
-        if (ev.xany.window == array_plot.wplot) {
+        if (event.xany.window == array_plot.wplot) {
             /*printf("%d\n",ev.xmotion.y-first_aplot_press); */
             array_plot.nstart =
-                array_plot.nstart - ev.xmotion.y + first_aplot_press;
+                array_plot.nstart - event.xmotion.y + first_aplot_press;
             if (array_plot.nstart < 0)
                 array_plot.nstart = 0;
             redraw_aplot(array_plot);
         }
         break;
     case ConfigureNotify:
-        if (ev.xconfigure.window != array_plot.base)
+        if (event.xconfigure.window != array_plot.base)
             return;
-        x = ev.xconfigure.width;
-        y = ev.xconfigure.height;
+        x = event.xconfigure.width;
+        y = event.xconfigure.height;
         array_plot.width = x;
         array_plot.height = y;
         array_plot.ploth = y - 55;
@@ -274,16 +274,16 @@ array_plot_do_events(XEvent ev) {
                           (uint)array_plot.plotw, (uint)array_plot.ploth);
         break;
     case EnterNotify:
-        wborder(ev.xexpose.window, 2, array_plot);
+        wborder(event.xexpose.window, 2, array_plot);
         break;
     case LeaveNotify:
-        wborder(ev.xexpose.window, 1, array_plot);
+        wborder(event.xexpose.window, 1, array_plot);
         break;
     case ButtonPress:
-        if (ev.xany.window == array_plot.wplot)
-            first_aplot_press = ev.xbutton.y;
+        if (event.xany.window == array_plot.wplot)
+            first_aplot_press = event.xbutton.y;
         /*apbutton(ev.xbutton.window,array_plot);*/
-        apbutton(ev.xbutton.window);
+        apbutton(event.xbutton.window);
         break;
     default:
         break;

@@ -102,17 +102,17 @@ static void make_d_table(double xlo, double xhi, int32 col, char *filename,
                          Browser b);
 static void find_value(int32 col, double val, int32 *row, Browser b);
 static void browse_but_on(Browser *b, int32 i, Window window, int32 yn);
-static void enter_browser(XEvent ev, Browser *b, int32 yn);
+static void enter_browser(XEvent event, Browser *b, int32 yn);
 static void display_browser(Window window, Browser b);
 static void redraw_browser(Browser b);
 static void draw_data(Browser b);
 static void kill_browser(Browser *b);
 static void make_browser(Browser *b, char *wname, char *iname, int32 row,
                          int32 col);
-static void expose_browser(XEvent ev, Browser b);
+static void expose_browser(XEvent event, Browser b);
 static void resize_browser(Window win, Browser *b);
-static void browse_button(XEvent ev, Browser *b);
-static void browse_keypress(XEvent ev, int32 *used, Browser *b);
+static void browse_button(XEvent event, Browser *b);
+static void browse_keypress(XEvent event, int32 *used, Browser *b);
 static void data_up(Browser *b);
 static void data_down(Browser *b);
 static void data_pgup(Browser *b);
@@ -519,8 +519,8 @@ browse_but_on(Browser *b, int32 i, Window window, int32 yn) {
 }
 
 void
-enter_browser(XEvent ev, Browser *b, int32 yn) {
-    Window window = ev.xexpose.window;
+enter_browser(XEvent event, Browser *b, int32 yn) {
+    Window window = event.xexpose.window;
     if (window == b->find)
         browse_but_on(b, 0, window, yn);
     if (window == b->up)
@@ -873,34 +873,34 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
 /*   These are the global exporters ...   */
 
 void
-expose_my_browser(XEvent ev) {
+expose_my_browser(XEvent event) {
     if (my_browser.xflag == 0)
         return;
-    expose_browser(ev, my_browser);
+    expose_browser(event, my_browser);
     return;
 }
 
 void
-enter_my_browser(XEvent ev, int32 yn) {
+enter_my_browser(XEvent event, int32 yn) {
     if (my_browser.xflag == 0)
         return;
-    enter_browser(ev, &my_browser, yn);
+    enter_browser(event, &my_browser, yn);
     return;
 }
 
 void
-my_browse_button(XEvent ev) {
+my_browse_button(XEvent event) {
     if (my_browser.xflag == 0)
         return;
-    browse_button(ev, &my_browser);
+    browse_button(event, &my_browser);
     return;
 }
 
 void
-my_browse_keypress(XEvent ev, int32 *used) {
+my_browse_keypress(XEvent event, int32 *used) {
     if (my_browser.xflag == 0)
         return;
-    browse_keypress(ev, used, &my_browser);
+    browse_keypress(event, used, &my_browser);
     return;
 }
 
@@ -912,12 +912,12 @@ resize_my_browser(Window window) {
 }
 
 void
-expose_browser(XEvent ev, Browser b) {
+expose_browser(XEvent event, Browser b) {
     if (my_browser.xflag == 0)
         return;
-    if (ev.type != Expose)
+    if (event.type != Expose)
         return;
-    display_browser(ev.xexpose.window, b);
+    display_browser(event.xexpose.window, b);
     return;
 }
 
@@ -976,10 +976,10 @@ resize_browser(Window window, Browser *b) {
     then do the following  */
 
 void
-browse_button(XEvent ev, Browser *b) {
+browse_button(XEvent event, Browser *b) {
     XEvent zz;
     int32 done = 1;
-    Window w = ev.xbutton.window;
+    Window w = event.xbutton.window;
     if (my_browser.xflag == 0)
         return;
     if (w == b->up || w == b->down || w == b->pgup || w == b->pgdn ||
@@ -1091,8 +1091,8 @@ browse_button(XEvent ev, Browser *b) {
 }
 
 void
-browse_keypress(XEvent ev, int32 *used, Browser *b) {
-    Window w = ev.xkey.window;
+browse_keypress(XEvent event, int32 *used, Browser *b) {
+    Window w = event.xkey.window;
 
     char ks;
     Window w2;
@@ -1106,7 +1106,7 @@ browse_keypress(XEvent ev, int32 *used, Browser *b) {
     if (w == b->main || w == b->base || w == b->upper || w2 == b->base) {
         *used = 1;
 
-        ks = (char)get_key_press(&ev);
+        ks = (char)get_key_press(&event);
 
         /*
          XLookupString(&ev,buf,maxlen,&ks,&comp);

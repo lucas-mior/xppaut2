@@ -123,7 +123,7 @@ play_back(void) {
     int32 h, w, bw, d;
 
     Window root;
-    XEvent ev;
+    XEvent event;
     int32 i = 0;
     XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w, (uint32 *)&h,
                  (uint32 *)&bw, (uint32 *)&d);
@@ -138,8 +138,8 @@ play_back(void) {
               0, 0);
     XFlush(display);
     while (true) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case ButtonPress:
             i++;
             if (i >= mov_ind)
@@ -148,7 +148,7 @@ play_back(void) {
                 return;
             break;
         case KeyPress:
-            switch (get_key_press(&ev)) {
+            switch (get_key_press(&event)) {
             case KEY_ESC:
                 return;
             case KEY_RIGHT:
@@ -297,7 +297,7 @@ auto_play(void) {
 
     int32 dt = 20;
     int32 smax = 500;
-    XEvent ev;
+    XEvent event;
     int32 i = 0, cycle = 0;
 
     new_int("Number of cycles", &ks_ncycle);
@@ -322,12 +322,12 @@ auto_play(void) {
     while (true) {
         /* check for events    */
         if (XPending(display) > 0) {
-            XNextEvent(display, &ev);
-            switch (ev.type) {
+            XNextEvent(display, &event);
+            switch (event.type) {
             case ButtonPress:
                 return;
             case KeyPress:
-                key = get_key_press(&ev);
+                key = get_key_press(&event);
                 if (key == 27)
                     return;
                 if (key == ',') {

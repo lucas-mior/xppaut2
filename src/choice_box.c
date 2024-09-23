@@ -163,27 +163,27 @@ choice_box_event_loop(CHOICE_BOX p) {
     int32 i, j, nn = p.n;
     int32 status = -1;
 
-    XEvent ev;
+    XEvent event;
 
-    XNextEvent(display, &ev);
+    XNextEvent(display, &event);
 
-    switch (ev.type) {
+    switch (event.type) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        display_choice(ev.xany.window, p);
+        display_choice(event.xany.window, p);
         break;
     case ButtonPress:
-        if (ev.xbutton.window == p.ok) {
+        if (event.xbutton.window == p.ok) {
             bar(0, 0, 200, 200, p.ok);
             status = ALL_DONE;
         }
-        if (ev.xbutton.window == p.cancel) {
+        if (event.xbutton.window == p.cancel) {
             bar(0, 0, 200, 200, p.cancel);
             status = FORGET_ALL;
         }
         for (i = 0; i < nn; i++) {
-            if (ev.xbutton.window == p.cw[i]) {
+            if (event.xbutton.window == p.cw[i]) {
                 if (p.type == RADIO) {
                     for (j = 0; j < nn; j++)
                         p.flag[j] = 0;

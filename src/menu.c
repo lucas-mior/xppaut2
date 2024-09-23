@@ -201,7 +201,7 @@ draw_help(void) {
 }
 /*
 menu_events(ev)
-     XEvent ev;
+     XEvent event;
 {
   switch(ev.type){
   case Expose:

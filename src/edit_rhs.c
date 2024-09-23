@@ -201,7 +201,7 @@ enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 
 int32
 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
-    XEvent ev;
+    XEvent event;
     int32 status = -1, inew;
     int32 nn = sb->n;
     int32 done = 0, i;
@@ -212,30 +212,30 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     char *s;
     s = sb->value[ihot];
 
-    XNextEvent(display, &ev);
-    switch (ev.type) {
+    XNextEvent(display, &event);
+    switch (event.type) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(ev); /*  menus and graphs etc  */
-        expose_ebox(sb, ev.xany.window, *pos);
+        do_expose(event); /*  menus and graphs etc  */
+        expose_ebox(sb, event.xany.window, *pos);
         break;
 
     case ButtonPress:
-        if (ev.xbutton.window == sb->ok) {
+        if (event.xbutton.window == sb->ok) {
             status = DONE_ALL;
             break;
         }
-        if (ev.xbutton.window == sb->cancel) {
+        if (event.xbutton.window == sb->cancel) {
             status = FORGET_ALL;
             break;
         }
-        if (ev.xbutton.window == sb->reset) {
+        if (event.xbutton.window == sb->reset) {
             reset_ebox(sb, pos, col);
             break;
         }
         for (i = 0; i < nn; i++) {
-            if (ev.xbutton.window == sb->win[i]) {
+            if (event.xbutton.window == sb->win[i]) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
                 if (i != sb->hot)
@@ -246,19 +246,19 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
         break;
 
     case EnterNotify:
-        wt = ev.xcrossing.window;
+        wt = event.xcrossing.window;
         if (wt == sb->ok || wt == sb->cancel || wt == sb->reset)
             XSetWindowBorderWidth(display, wt, 2);
         break;
 
     case LeaveNotify:
-        wt = ev.xcrossing.window;
+        wt = event.xcrossing.window;
         if (wt == sb->ok || wt == sb->cancel || wt == sb->reset)
             XSetWindowBorderWidth(display, wt, 1);
         break;
 
     case KeyPress:
-        ch = (char)get_key_press(&ev);
+        ch = (char)get_key_press(&event);
         edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {

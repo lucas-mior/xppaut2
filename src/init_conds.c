@@ -146,7 +146,7 @@ static void draw_editable(Window win, char *string, int32 off, int32 cursor,
                           int32 mc);
 static void set_default_params(void);
 static void set_default_ics(void);
-static void do_box_key(BoxList *b, XEvent ev, int32 *used);
+static void do_box_key(BoxList *b, XEvent event, int32 *used);
 static void box_list_scroll(BoxList *b, int32 i);
 static void do_box_button(BoxList *b, Window window);
 static void redraw_entire_box(BoxList *b);
@@ -163,7 +163,7 @@ static void make_par_slider(Window base, int32 x, int32 y, int32 width,
                             int32 index);
 static void draw_slider(Window window, int32 x, int32 hgt, int32 l);
 static void destroy_selector(void);
-static int32 selector_key(XEvent ev);
+static int32 selector_key(XEvent event);
 static void stringintersect(char *target, char *sother);
 static void create_file_selector(char *title, char *file, char *wild);
 static int32 do_file_select_events(void);
@@ -699,32 +699,32 @@ crossing_selector(Window window, int32 c) {
 int32
 do_file_select_events(void) {
     int32 done;
-    XEvent ev;
+    XEvent event;
     while (true) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case ConfigureNotify:
         case Expose:
         case MapNotify:
             if (Xup)
-                do_expose(ev);
-            expose_selector(ev.xany.window);
+                do_expose(event);
+            expose_selector(event.xany.window);
             break;
         case ButtonPress:
-            done = button_selector(ev.xbutton.window);
+            done = button_selector(event.xbutton.window);
             if (done == 1)
                 return 1; /* OK made a selection */
             if (done == 2)
                 return 0; /* canceled the whole thing */
             break;
         case EnterNotify:
-            crossing_selector(ev.xcrossing.window, 0);
+            crossing_selector(event.xcrossing.window, 0);
             break;
         case LeaveNotify:
-            crossing_selector(ev.xcrossing.window, 1);
+            crossing_selector(event.xcrossing.window, 1);
             break;
         case KeyPress:
-            done = selector_key(ev);
+            done = selector_key(event);
             if (done == 2)
                 return 0;
             if (done == 1)
@@ -1112,10 +1112,10 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
 }
 
 int32
-selector_key(XEvent ev) {
+selector_key(XEvent event) {
     char ch;
     int32 flag;
-    ch = (char)get_key_press(&ev);
+    ch = (char)get_key_press(&event);
     switch (filesel.hot) {
     case HOTFILE:
         flag = edit_fitem(ch, filesel.filetxt, filesel.file, &(filesel.off),
@@ -1235,13 +1235,13 @@ do_slide_release(Window window, struct ParSlider *p) {
 }
 
 void
-slider_motion(XEvent ev) {
+slider_motion(XEvent event) {
     int32 x;
     Window window;
-    window = ev.xmotion.window;
-    x = ev.xmotion.x;
+    window = event.xmotion.window;
+    x = event.xmotion.x;
     for (int32 i = 0; i < 3; i++)
-        do_slide_motion(window, x, &my_par_slide[i], (int32)ev.xmotion.state);
+        do_slide_motion(window, x, &my_par_slide[i], (int32)event.xmotion.state);
     return;
 }
 
@@ -2196,24 +2196,24 @@ box_buttons(Window window) {
 }
 
 void
-box_keypress(XEvent ev, int32 *used) {
+box_keypress(XEvent event, int32 *used) {
     if (ICBox.xuse) {
-        do_box_key(&ICBox, ev, used);
+        do_box_key(&ICBox, event, used);
         if (*used)
             return;
     }
     if (BCBox.xuse) {
-        do_box_key(&BCBox, ev, used);
+        do_box_key(&BCBox, event, used);
         if (*used)
             return;
     }
     if (DelayBox.xuse) {
-        do_box_key(&DelayBox, ev, used);
+        do_box_key(&DelayBox, event, used);
         if (*used)
             return;
     }
     if (ParamBox.xuse) {
-        do_box_key(&ParamBox, ev, used);
+        do_box_key(&ParamBox, event, used);
         if (*used)
             return;
     }
@@ -2221,8 +2221,8 @@ box_keypress(XEvent ev, int32 *used) {
 }
 
 void
-do_box_key(BoxList *b, XEvent ev, int32 *used) {
-    Window window = ev.xkey.window;
+do_box_key(BoxList *b, XEvent event, int32 *used) {
+    Window window = event.xkey.window;
     char ch;
     Window focus;
     int32 rev, n = b->nwin, i, j, flag;
@@ -2234,7 +2234,7 @@ do_box_key(BoxList *b, XEvent ev, int32 *used) {
             XGetInputFocus(display, &focus, &rev);
             if (window == focus) {
                 *used = 1;
-                ch = (char)get_key_press(&ev);
+                ch = (char)get_key_press(&event);
                 flag = edit_bitem(b, i, ch);
                 if (flag == EDIT_NEXT && n > 1) {
                     j = i + 1;

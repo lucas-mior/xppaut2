@@ -23,7 +23,7 @@ static void create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
 static void expose_scroll_box(Window window, ScrollBox sb);
 static void redraw_scroll_box(ScrollBox sb);
 static void crossing_scroll_box(Window window, int32 c, ScrollBox sb);
-static int32 scroll_box_motion(XEvent ev, ScrollBox *sb);
+static int32 scroll_box_motion(XEvent event, ScrollBox *sb);
 static int32 select_scroll_item(Window window, ScrollBox sb);
 static void scroll_popup(STRING_BOX *sb, ScrollBox *scrb);
 static int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col,
@@ -231,13 +231,13 @@ crossing_scroll_box(Window window, int32 c, ScrollBox sb) {
 }
 
 int32
-scroll_box_motion(XEvent ev, ScrollBox *sb) {
+scroll_box_motion(XEvent event, ScrollBox *sb) {
     int32 x;
     Window window;
     int32 pos;
     int32 len;
-    window = ev.xmotion.window;
-    x = ev.xmotion.y;
+    window = event.xmotion.window;
+    x = event.xmotion.y;
     if (sb->nw >= sb->nent)
         return 0;
     if (window == sb->slide) {
@@ -414,7 +414,7 @@ set_sbox_item(STRING_BOX *sb, int32 item) {
 
 int32
 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
-    XEvent ev;
+    XEvent event;
     int32 status = -1, inew;
     int32 nn = sb->n;
     int32 done = 0, j;
@@ -426,47 +426,47 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     char *s;
     s = sb->value[ihot];
 
-    XNextEvent(display, &ev);
-    switch (ev.type) {
+    XNextEvent(display, &event);
+    switch (event.type) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(ev); /*  menus and graphs etc  */
-        expose_sbox(*sb, ev.xany.window, *pos);
+        do_expose(event); /*  menus and graphs etc  */
+        expose_sbox(*sb, event.xany.window, *pos);
         if (scrb->exist)
-            expose_scroll_box(ev.xany.window, *scrb);
+            expose_scroll_box(event.xany.window, *scrb);
         break;
     case MotionNotify:
         if (scrb->exist)
-            scroll_box_motion(ev, scrb);
+            scroll_box_motion(event, scrb);
         break;
     case ButtonPress:
         if (scrb->exist) {
-            item = select_scroll_item(ev.xbutton.window, *scrb);
+            item = select_scroll_item(event.xbutton.window, *scrb);
             if (item >= 0) {
                 set_sbox_item(sb, item);
                 new_editable(sb, sb->hot, pos, col, &done, &window);
                 destroy_scroll_box(scrb);
             }
         }
-        if (ev.xbutton.window == sb->ok) {
+        if (event.xbutton.window == sb->ok) {
             destroy_scroll_box(scrb);
             status = DONE_ALL;
             break;
         }
-        if (ev.xbutton.window == sb->cancel) {
+        if (event.xbutton.window == sb->cancel) {
             status = FORGET_ALL;
             break;
         }
         for (int32 i = 0; i < nn; i++) {
-            if (ev.xbutton.window == sb->win[i]) {
+            if (event.xbutton.window == sb->win[i]) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
                 if (i != sb->hot) {
                     destroy_scroll_box(scrb);
                     new_editable(sb, i, pos, col, &done, &window);
                 } else { /* i==sb->hot */
-                    if (ev.xbutton.x < DCURX) {
+                    if (event.xbutton.x < DCURX) {
                         j = sb->hot;
                         if (sb->hh[j] >= 0) {
                             scroll_popup(sb, scrb);
@@ -480,7 +480,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
         break;
 
     case EnterNotify:
-        wt = ev.xcrossing.window;
+        wt = event.xcrossing.window;
         if (scrb->exist)
             crossing_scroll_box(wt, 1, *scrb);
         if (wt == sb->ok || wt == sb->cancel)
@@ -488,7 +488,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
         break;
 
     case LeaveNotify:
-        wt = ev.xcrossing.window;
+        wt = event.xcrossing.window;
         if (scrb->exist)
             crossing_scroll_box(wt, 0, *scrb);
         if (wt == sb->ok || wt == sb->cancel)
@@ -496,7 +496,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
         break;
 
     case KeyPress:
-        ch = (char)get_key_press(&ev);
+        ch = (char)get_key_press(&event);
         edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
@@ -966,7 +966,7 @@ respond_box(char *button, char *message) {
     int32 width;
     int32 height;
     int32 done = 0;
-    XEvent ev;
+    XEvent event;
     Window wmain, wb, wm;
     width = l1;
     if (l1 < l2)
@@ -985,26 +985,26 @@ respond_box(char *button, char *message) {
     set_window_title(wmain, "!!");
     XSelectInput(display, wb, BUT_MASK);
     while (!done) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case Expose:
         case MapNotify:
-            do_expose(ev);
-            expose_resp_box(button, message, wb, wm, ev.xexpose.window);
+            do_expose(event);
+            expose_resp_box(button, message, wb, wm, event.xexpose.window);
             break;
         case KeyPress:
             done = 1;
             break;
         case ButtonPress:
-            if (ev.xbutton.window == wb)
+            if (event.xbutton.window == wb)
                 done = 1;
             break;
         case EnterNotify:
-            if (ev.xcrossing.window == wb)
+            if (event.xcrossing.window == wb)
                 XSetWindowBorderWidth(display, wb, 2);
             break;
         case LeaveNotify:
-            if (ev.xcrossing.window == wb)
+            if (event.xcrossing.window == wb)
                 XSetWindowBorderWidth(display, wb, 1);
             break;
         default:
@@ -1048,7 +1048,7 @@ int32
 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
            int32 y, Window window, char *title) {
     Window base, c1, c2, wm;
-    XEvent ev;
+    XEvent event;
     int32 not_done = 1;
     int32 value = 0;
     int32 l1 = (int32)strlen(choice1)*DCURX;
@@ -1083,37 +1083,37 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     }
 
     while (not_done) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case Expose:
         case MapNotify:
-            do_expose(ev);
+            do_expose(event);
             expose_choice(choice1, choice2, string, c1, c2, wm,
-                          ev.xexpose.window);
+                          event.xexpose.window);
             break;
 
         case ButtonPress:
-            if (ev.xbutton.window == c1) {
+            if (event.xbutton.window == c1) {
                 value = (int32)key[0];
                 not_done = 0;
             }
-            if (ev.xbutton.window == c2) {
+            if (event.xbutton.window == c2) {
                 value = (int32)key[1];
                 not_done = 0;
             }
             break;
         case KeyPress:
-            value = get_key_press(&ev);
+            value = get_key_press(&event);
             not_done = 0;
             break;
         case EnterNotify:
-            if (ev.xcrossing.window == c1 || ev.xcrossing.window == c2)
-                XSetWindowBorderWidth(display, ev.xcrossing.window, 2);
+            if (event.xcrossing.window == c1 || event.xcrossing.window == c2)
+                XSetWindowBorderWidth(display, event.xcrossing.window, 2);
             XFlush(display);
             break;
         case LeaveNotify:
-            if (ev.xcrossing.window == c1 || ev.xcrossing.window == c2)
-                XSetWindowBorderWidth(display, ev.xcrossing.window, 1);
+            if (event.xcrossing.window == c1 || event.xcrossing.window == c2)
+                XSetWindowBorderWidth(display, event.xcrossing.window, 1);
             XFlush(display);
             break;
         default:
@@ -1148,7 +1148,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 
 {
     POP_UP p;
-    XEvent ev;
+    XEvent event;
     Window window;
     Cursor txt;
     int32 i, done = 0, value;
@@ -1175,20 +1175,20 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     }
 
     while (!done) {
-        XNextEvent(display, &ev);
-        switch (ev.type) {
+        XNextEvent(display, &event);
+        switch (event.type) {
         case Expose:
         case MapNotify:
-            do_expose(ev);
-            draw_pop_up(p, ev.xexpose.window);
+            do_expose(event);
+            draw_pop_up(p, event.xexpose.window);
             break;
         case KeyPress:
-            value = get_key_press(&ev);
+            value = get_key_press(&event);
             done = 1;
             break;
         case ButtonPress:
             for (i = 0; i < n; i++) {
-                if (ev.xbutton.window == p.w[i]) {
+                if (event.xbutton.window == p.w[i]) {
                     value = (int32)p.key[i];
                     done = 1;
                 }
@@ -1197,7 +1197,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             break;
         case EnterNotify:
             for (i = 0; i < p.n; i++)
-                if (ev.xcrossing.window == p.w[i]) {
+                if (event.xcrossing.window == p.w[i]) {
                     XSetWindowBorderWidth(display, p.w[i], 1);
                     if (TipsFlag) {
                         strcpy(httxt, hints[i]);
@@ -1210,7 +1210,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             break;
         case LeaveNotify:
             for (i = 0; i < p.n; i++)
-                if (ev.xcrossing.window == p.w[i])
+                if (event.xcrossing.window == p.w[i])
                     XSetWindowBorderWidth(display, p.w[i], 0);
             break;
         default:

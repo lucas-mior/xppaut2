@@ -166,8 +166,8 @@ create_eq_list(void) {
 }
 
 void
-eq_list_keypress(XEvent ev, int32 *used) {
-    Window window = ev.xkey.window;
+eq_list_keypress(XEvent event, int32 *used) {
+    Window window = event.xkey.window;
 
     char ks;
 
@@ -178,7 +178,7 @@ eq_list_keypress(XEvent ev, int32 *used) {
     if (window == eq_list.main || window == eq_list.base ||
         window == eq_list.list) {
         *used = 1;
-        ks = (char)get_key_press(&ev);
+        ks = (char)get_key_press(&event);
 
         if (ks == KEY_UP) {
             eq_list_up();
@@ -206,8 +206,8 @@ enter_eq_stuff(Window window, int32 b) {
 }
 
 void
-eq_list_button(XEvent ev) {
-    Window window = ev.xbutton.window;
+eq_list_button(XEvent event) {
+    Window window = event.xbutton.window;
     /* pure laziness here - use this to go to eq_box */
     eq_box_button(window);
     if (eq_list.flag == 0)

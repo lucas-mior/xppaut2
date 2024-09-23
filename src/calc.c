@@ -138,23 +138,23 @@ void
 q_calc(void) {
     char value[80], name[10];
     double z = 0.0;
-    XEvent ev;
+    XEvent event;
     int32 done = 0, pos, col, flag;
     my_calc.use = 0;
     make_calc(z);
     ini_calc_string(name, value, &pos, &col);
     while (true) {
-        XNextEvent(display, &ev);
-        draw_calc(ev.xany.window);
-        if (ev.type == ButtonPress)
-            if (ev.xbutton.window == my_calc.quit)
+        XNextEvent(display, &event);
+        draw_calc(event.xany.window);
+        if (event.type == ButtonPress)
+            if (event.xbutton.window == my_calc.quit)
                 break;
-        if (ev.type == EnterNotify && ev.xcrossing.window == my_calc.quit)
-            XSetWindowBorderWidth(display, ev.xcrossing.window, 2);
+        if (event.type == EnterNotify && event.xcrossing.window == my_calc.quit)
+            XSetWindowBorderWidth(display, event.xcrossing.window, 2);
 
-        if (ev.type == LeaveNotify && ev.xcrossing.window == my_calc.quit)
-            XSetWindowBorderWidth(display, ev.xcrossing.window, 1);
-        edit_command_string(ev, name, value, &done, &pos, &col);
+        if (event.type == LeaveNotify && event.xcrossing.window == my_calc.quit)
+            XSetWindowBorderWidth(display, event.xcrossing.window, 1);
+        edit_command_string(event, name, value, &done, &pos, &col);
         if (done == 1) {
             flag = do_calc(value, &z);
             if (flag != -1)
