@@ -425,7 +425,9 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 
 typedef struct {
     int64 size;
-    int64 mu, ml, smu;
+    int64 mu;
+    int64 ml;
+    int64 smu;
     double **data;
 } *BandMat;
 
