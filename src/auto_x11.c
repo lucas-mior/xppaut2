@@ -43,9 +43,13 @@ static int32 Auto_x0, Auto_y0;
 
 /* stuff for marking a branch  */
 int32 mark_flag = 0;
-int32 mark_ibrs, mark_ibre;
+int32 mark_ibrs;
+int32 mark_ibre;
 int32 mark_ipts, mark_ipte;
-int32 mark_ixs, mark_ixe, mark_iys, mark_iye;
+int32 mark_ixs;
+int32 mark_ixe;
+int32 mark_iys;
+int32 mark_iye;
 extern Window command_pop;
 
 extern double TEND;

@@ -78,7 +78,16 @@ extern int32 Xup;
 
 */
 
-int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar, XDMax, YDMax;
+int32 DLeft;
+int32 DRight;
+int32 DTop;
+int32 DBottom;
+int32 VTic;
+int32 HTic;
+int32 VChar;
+int32 HChar;
+int32 XDMax;
+int32 YDMax;
 double XMin, YMin, XMax, YMax;
 int32 PointType = -1;
 int32 TextJustify;

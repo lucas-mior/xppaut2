@@ -69,9 +69,12 @@ BcStruct my_bc[MAX_ODE];
 
 double default_ic[MAX_ODE];
 extern double last_ic[];
-int32 NODE, NUPAR, NLINES;
+int32 NODE;
+int32 NUPAR;
+int32 NLINES;
 int32 PrimeStart;
-int32 NCON_START, NSYM_START;
+int32 NCON_START;
+int32 NSYM_START;
 int32 BVP_N;
 extern int32 BVP_FLAG;
 

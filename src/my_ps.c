@@ -36,7 +36,8 @@ FILE *psfile;
 /*Default is now with color*/
 int32 PltFmtFlag, PSColorFlag = 1;
 int32 PSLines;
-int32 LastPSX, LastPSY;
+int32 LastPSX;
+int32 LastPSY;
 
 /* this header stuff was stolen from GNUPLOT I have added  filled circles
  * and open circles for bifurcation diagrams I also use Times Roman

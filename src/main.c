@@ -57,7 +57,8 @@ int32 use_ani_file = 0;
 char anifile[XPP_MAX_NAME];
 extern int32 ani_grab_flag;
 
-double xppvermaj, xppvermin;
+double xppvermaj;
+double xppvermin;
 
 extern int32 manual_expose;
 extern int32 NCBatch, DFBatch;
@@ -75,7 +76,8 @@ char batchout[256];
 char UserOUTFILE[256];
 XKeyEvent createKeyEvent(Window window, Window wr, int32 p, int32 kc, int32 m);
 extern int32 xorfix;
-int32 DisplayHeight, DisplayWidth;
+int32 DisplayHeight;
+int32 DisplayWidth;
 int32 TrueColorFlag;
 char big_font_name[100], small_font_name[100];
 char PlotFormat[10];
@@ -87,10 +89,12 @@ char mycommand[100];
 Window TopButton[6];
 Window draw_win;
 Window main_win;
-Window command_pop, info_pop;
+Window command_pop;
+Window info_pop;
 GC gc, gc_graph, small_gc, font_gc, mygc;
 extern int32 help_menu, current_pop;
-uint32 Black, White;
+uint32 Black;
+uint32 White;
 char UserBlack[8];
 char UserWhite[8];
 char UserMainWinColor[8];
@@ -99,16 +103,24 @@ char UserBGBitmap[XPP_MAX_NAME];
 
 int32 UserGradients = -1;
 int32 UserMinWidth = 0, UserMinHeight = 0;
-uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
+uint32 MyBackColor;
+uint32 MyForeColor;
+uint32 MyMainWinColor;
+uint32 MyDrawWinColor;
 uint32 GrFore, GrBack;
-int32 SCALEX, SCALEY;
+int32 SCALEX;
+int32 SCALEY;
 extern int32 COLOR;
 Display *display;
 int32 screen;
 int32 periodic = 0;
-int32 DCURYb, DCURXb, CURY_OFFb;
+int32 DCURYb;
+int32 DCURXb;
+int32 CURY_OFFb;
 int32 DCURYs, DCURXs, CURY_OFFs;
-int32 DCURY, DCURX, CURY_OFF;
+int32 DCURY;
+int32 DCURX;
+int32 CURY_OFF;
 FILE *logfile;
 int32 XPPVERBOSE = 1;
 int32 OVERRIDE_QUIET = 0;
@@ -139,7 +151,8 @@ int32 DoTutorial = 0;
 
 OptionsSet notAlreadySet;
 
-XFontStruct *big_font, *small_font;
+XFontStruct *big_font;
+XFontStruct *small_font;
 
 int32 popped = 0;
 

@@ -25,7 +25,8 @@ extern int32 Xup;
 
 extern int32 tfBell;
 extern int32 screen;
-int32 CURS_X, CURS_Y;
+int32 CURS_X;
+int32 CURS_Y;
 extern int32 DCURY, DCURX, CURY_OFF;
 extern Window win, command_pop, info_pop, draw_win, main_win;
 extern GC gc, gc_graph;

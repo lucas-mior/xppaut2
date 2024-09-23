@@ -59,7 +59,8 @@ double CurrentIndex = 0;
 int32 SumIndex = 1;
 
 /* FIXXX */
-int32 stack_pointer, uptr;
+int32 stack_pointer;
+int32 uptr;
 double constants[MAX_PAR];
 double variables[MAX_ODE1];
 int32 *ufun[MAX_UFUN];

@@ -126,13 +126,24 @@ int32 itor[MAX_ODE];
  */
 char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
-double oldhp_x, oldhp_y, my_pl_wid, my_pl_ht;
+double oldhp_x;
+double oldhp_y;
+double my_pl_wid;
+double my_pl_ht;
 int32 mov_ind;
-int32 storind, STORFLAG, INFLAG, MAXSTOR;
+int32 storind;
+int32 STORFLAG;
+int32 INFLAG;
+int32 MAXSTOR;
 double x_3d[2], y_3d[2], z_3d[2];
-int32 IXPLT, IYPLT, IZPLT;
+int32 IXPLT;
+int32 IYPLT;
+int32 IZPLT;
 int32 AXES, TIMPLOT, PLOT_3D;
-double MY_XLO, MY_YLO, MY_XHI, MY_YHI;
+double MY_XLO;
+double MY_YLO;
+double MY_XHI;
+double MY_YHI;
 double TOR_PERIOD = 6.2831853071795864770;
 int32 TORUS = 0;
 int32 NEQ;
@@ -140,9 +151,16 @@ char options[100];
 
 /*   Numerical stuff ....   */
 
-double DELTA_T, TEND, T0, TRANS, NULL_ERR, EVEC_ERR, NEWT_ERR;
+double DELTA_T;
+double TEND;
+double T0;
+double TRANS;
+double NULL_ERR;
+double EVEC_ERR;
+double NEWT_ERR;
 double BOUND, DELAY, TOLER, ATOLER, HMIN, HMAX;
-double BVP_EPS, BVP_TOL;
+double BVP_EPS;
+double BVP_TOL;
 
 double POIPLN;
 
@@ -150,17 +168,31 @@ extern int32 RandSeed;
 int32 MaxEulIter;
 double EulTol;
 extern int32 cv_bandflag, cv_bandupper, cv_bandlower;
-int32 NMESH, NJMP, METHOD, color_flag, NC_ITER;
+int32 NMESH;
+int32 NJMP;
+int32 METHOD;
+int32 color_flag;
+int32 NC_ITER;
 int32 EVEC_ITER;
-int32 BVP_MAXIT, BVP_FLAG;
+int32 BVP_MAXIT;
+int32 BVP_FLAG;
 
-int32 POIMAP, POIVAR, POISGN, SOS;
+int32 POIMAP;
+int32 POIVAR;
+int32 POISGN;
+int32 SOS;
 int32 FFT, NULL_HERE, POIEXT;
-int32 HIST, HVAR, hist_ind, FOREVER;
+int32 HIST;
+int32 HVAR;
+int32 hist_ind;
+int32 FOREVER;
 
 /*  control of range stuff  */
 
-int32 PAUSER, ENDSING, SHOOT, PAR_FOL;
+int32 PAUSER;
+int32 ENDSING;
+int32 SHOOT;
+int32 PAR_FOL;
 
 /*  custon color stuff  */
 
@@ -170,7 +202,9 @@ extern int32 ColorizeFlag;
 
 extern int32 PltFmtFlag;
 
-int32 xorfix, silent, got_file;
+int32 xorfix;
+int32 silent;
+int32 got_file;
 
 static void split_apart(char *bob, char *name, char *value);
 static void do_intern_set(char *name1, char *value);
