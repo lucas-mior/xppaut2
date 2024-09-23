@@ -36,6 +36,9 @@ static void make_title(char *str);
 static double dbl_raise(double x, int32 y);
 static double make_tics(double tmin, double tmax);
 static void find_max_min_tic(double *tmin, double *tmax, double tic);
+static void draw_unit_cube(void);
+static void draw_ytics(char *s1, double start, double incr, double end);
+static void draw_xtics(char *s2, double start, double incr, double end);
 
 void
 re_title(void) {
@@ -140,7 +143,7 @@ find_max_min_tic(double *tmin, double *tmax, double tic) {
 }
 
 void
-redraw_cube_pt(double theta, double phi) {
+axes2_redraw_cube_pt(double theta, double phi) {
     char bob[50];
     set_linestyle(0);
     make_rot(theta, phi);
@@ -152,7 +155,7 @@ redraw_cube_pt(double theta, double phi) {
 }
 
 void
-do_axes(void) {
+axes2_do(void) {
     char s1[20], s2[20], s3[20];
     get_title_str(s1, s2, s3);
     set_linestyle(0);
@@ -179,7 +182,7 @@ do_axes(void) {
 }
 
 void
-redraw_cube(double theta, double phi) {
+axes2_redraw_cube(double theta, double phi) {
     char bob[50];
     set_linestyle(0);
     make_rot(theta, phi);

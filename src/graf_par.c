@@ -535,7 +535,7 @@ void
 redraw_the_graph(void) {
     blank_screen(draw_win);
     set_normal_scale();
-    do_axes();
+    axes2_do();
     hi_lite(draw_win);
     restore(0, my_browser.maxrow);
     draw_label(draw_win);
@@ -570,7 +570,7 @@ test_rot(void) {
     int32 kp;
     XEvent ev;
     double theta = MyGraph->Theta, phi = MyGraph->Phi;
-    redraw_cube(theta, phi);
+    axes2_redraw_cube(theta, phi);
     while (done == 0) {
         XNextEvent(display, &ev);
         if (ev.type == KeyPress) {
@@ -578,19 +578,19 @@ test_rot(void) {
             switch (kp) {
             case KEY_UP:
                 phi = phi + 1;
-                redraw_cube(theta, phi);
+                axes2_redraw_cube(theta, phi);
                 break;
             case KEY_DOWN:
                 phi = phi - 1;
-                redraw_cube(theta, phi);
+                axes2_redraw_cube(theta, phi);
                 break;
             case KEY_LEFT:
                 theta = theta + 1;
-                redraw_cube(theta, phi);
+                axes2_redraw_cube(theta, phi);
                 break;
             case KEY_RIGHT:
                 theta = theta - 1;
-                redraw_cube(theta, phi);
+                axes2_redraw_cube(theta, phi);
                 break;
             case KEY_FINE:
                 done = 1;

@@ -931,7 +931,7 @@ void
 clr_scrn(void) {
     blank_screen(draw_win);
     restore_off();
-    do_axes();
+    axes2_do();
     return;
 }
 

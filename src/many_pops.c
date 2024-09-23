@@ -1196,7 +1196,7 @@ ps_restore(void) {
 
     do_batch_nclines();
     do_batch_dfield();
-    do_axes();
+    axes2_do();
 
     ps_do_color(0);
     if (Xup) {
@@ -1221,7 +1221,7 @@ svg_restore(void) {
     svg_last_pt_off();
     /*ps_do_color(0);*/
     restore(0, my_browser.maxrow);
-    do_axes();
+    axes2_do();
     if (Xup) {
         draw_label(draw_win);
         draw_freeze(draw_win);
@@ -1246,7 +1246,7 @@ rotate3dcheck(XEvent ev) {
         while (true) {
             XNextEvent(display, &z);
             if (z.type == ButtonRelease) {
-                do_axes();
+                axes2_do();
                 redraw_all();
                 hi_lite(draw_win);
                 return 1;
@@ -1256,7 +1256,7 @@ rotate3dcheck(XEvent ev) {
                 dy = z.xmotion.y - yini;
                 MyGraph->Phi = phi - (double)dy;
                 MyGraph->Theta = theta - (double)dx;
-                redraw_cube_pt(MyGraph->Theta, MyGraph->Phi);
+                axes2_redraw_cube_pt(MyGraph->Theta, MyGraph->Phi);
             }
         }
     }
@@ -1336,7 +1336,7 @@ do_expose(XEvent ev) {
                 MyGraph = &graph[i];
                 draw_win = graph[i].window;
                 get_draw_area();
-                do_axes();
+                axes2_do();
                 if (graph[i].Restore)
                     restore(0, my_browser.maxrow);
                 draw_label(graph[i].window);

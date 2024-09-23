@@ -55,7 +55,7 @@ ping(void) {
 void
 reset_graphics(void) {
     blank_screen(draw_win);
-    do_axes();
+    axes2_do();
     hi_lite(draw_win);
     return;
 }

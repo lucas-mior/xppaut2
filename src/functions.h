@@ -300,14 +300,11 @@ void RedrawMark(void);
 extern int32 axes2_doing;
 extern int32 axes2_doing_box;
 
-void redraw_cube_pt(double theta, double phi);
-void do_axes(void);
-void redraw_cube(double theta, double phi);
-void draw_unit_cube(void);
+void axes2_redraw_cube_pt(double theta, double phi);
+void axes2_do(void);
+void axes2_redraw_cube(double theta, double phi);
 void Box_axis(double x_min, double x_max, double y_min, double y_max, char *sx,
               char *sy, int32 flag);
-void draw_ytics(char *s1, double start, double incr, double end);
-void draw_xtics(char *s2, double start, double incr, double end);
 
 #endif
 
