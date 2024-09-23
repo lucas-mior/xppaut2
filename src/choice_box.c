@@ -57,12 +57,12 @@ display_choice(Window window, CHOICE_BOX p) {
         XDrawString(display, window, gc, 0, CURY_OFF, p.name[i],
                     (int)strlen(p.name[i]));
         if (p.flag[i] == 1)
-            set_fore();
+            ggets_set_fore();
         else
             set_back();
         XDrawString(display, window, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
-    set_fore();
+    ggets_set_fore();
     return;
 }
 
@@ -72,12 +72,12 @@ do_checks(CHOICE_BOX p) {
 
     for (i = 0; i < p.n; i++) {
         if (p.flag[i] == 1)
-            set_fore();
+            ggets_set_fore();
         else
             set_back();
         XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
-    set_fore();
+    ggets_set_fore();
     return;
 }
 

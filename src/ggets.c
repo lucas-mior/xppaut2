@@ -64,15 +64,15 @@ ggets_ping(void) {
 }
 
 void
-reset_graphics(void) {
-    blank_screen(draw_win);
+ggets_reset_graphics(void) {
+    ggets_blank_screen(draw_win);
     axes2_do();
     hi_lite(draw_win);
     return;
 }
 
 void
-blank_screen(Window window)
+ggets_blank_screen(Window window)
 
 {
     CURS_X = 0;
@@ -83,7 +83,7 @@ blank_screen(Window window)
 }
 
 void
-set_fore(void) {
+ggets_set_fore(void) {
     XSetForeground(display, gc, MyForeColor);
     return;
 }
@@ -114,7 +114,7 @@ chk_xor(void) {
 
 void
 clr_command(void) {
-    blank_screen(command_pop);
+    ggets_blank_screen(command_pop);
     return;
 }
 
@@ -371,11 +371,11 @@ display_command(char *name, char *value, int32 pos) {
     int32 l = (int32)strlen(name);
     int32 m = (int32)strlen(value);
 
-    set_fore();
+    ggets_set_fore();
     bar(0, 0, l*DCURX, DCURY + 4, command_pop);
     set_back();
     XDrawString(display, command_pop, gc, 0, CURY_OFF, name, l);
-    set_fore();
+    ggets_set_fore();
     if (m > 0) {
         XDrawString(display, command_pop, gc, l*DCURX, CURY_OFF, value, m);
         /* showchar('_',DCURX*(l+m),0,command_pop); */

@@ -364,12 +364,12 @@ do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
     int32 l = (int32)strlen(name);
     int32 m = (int32)strlen(value);
     if (flag) {
-        set_fore();
+        ggets_set_fore();
         bar(0, 0, l*DCURX, DCURY + 4, window);
         set_back();
     }
     XDrawString(display, window, gc, 0, CURY_OFF, name, l);
-    set_fore();
+    ggets_set_fore();
     if (m > 0)
         XDrawString(display, window, gc, l*DCURX, CURY_OFF, value, m);
     /* if(flag) showchar('_',DCURX*(l+m),0,w); */
@@ -1234,11 +1234,11 @@ draw_pop_up(POP_UP p, Window window) {
     int32 i;
 
     if (window == p.tit) {
-        set_fore();
+        ggets_set_fore();
         bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
         set_back();
         Ftext(DCURX*2, 4, p.title, window);
-        set_fore();
+        ggets_set_fore();
         return;
     }
     for (i = 0; i < p.n; i++) {

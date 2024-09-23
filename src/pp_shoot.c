@@ -337,7 +337,7 @@ find_bvp_com(int32 com) {
         get_ic(0, ystart);
         redraw_ics();
         if (ishow) {
-            reset_graphics();
+            ggets_reset_graphics();
         }
         last_shot(1);
         INFLAG = 1;

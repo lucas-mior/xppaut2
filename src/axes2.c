@@ -200,7 +200,7 @@ axes2_redraw_cube(double theta, double phi) {
     char bob[50];
     set_linestyle(0);
     make_rot(theta, phi);
-    blank_screen(draw_win);
+    ggets_blank_screen(draw_win);
     draw_unit_cube();
     sprintf(bob, "theta=%g phi=%g", theta, phi);
     canvas_xy(bob);

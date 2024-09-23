@@ -143,12 +143,12 @@ menu_expose(Window win) {
     n = my_menus[j].n;
     z = my_menus[j].names;
     if (win == my_menus[j].title) {
-        set_fore();
+        ggets_set_fore();
         bar(0, 0, 16*DCURX, DCURY, win);
         set_back();
         XDrawString(display, win, gc, DCURX / 2 + 5, CURY_OFF, z[0],
                     (int)strlen(z[0]));
-        set_fore();
+        ggets_set_fore();
         /* BaseCol();
         XDrawString(display,win,gc,0,CURY_OFF,z[0],strlen(z[0]));
         */

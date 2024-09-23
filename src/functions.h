@@ -894,9 +894,9 @@ extern int32 CURS_Y;
 extern int32 PS_Color;
 
 void ggets_ping(void);
-void reset_graphics(void);
-void blank_screen(Window window);
-void set_fore(void);
+void ggets_reset_graphics(void);
+void ggets_blank_screen(Window window);
+void ggets_set_fore(void);
 void set_back(void);
 void showchar(int32 ch, int32 col, int32 row, Window or);
 void chk_xor(void);

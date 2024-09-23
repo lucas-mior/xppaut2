@@ -933,7 +933,7 @@ void
 do_events(uint32 min_wid, uint32 min_hgt) {
     XEvent report;
 
-    blank_screen(main_win);
+    ggets_blank_screen(main_win);
     help();
     if (RunImmediately == 1) {
         run_the_commands(4);
@@ -964,7 +964,7 @@ bye_bye(void) {
 
 void
 clr_scrn(void) {
-    blank_screen(draw_win);
+    ggets_blank_screen(draw_win);
     restore_off();
     axes2_do();
     return;

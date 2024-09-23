@@ -588,7 +588,7 @@ xi_vs_t(void) {
 
 void
 redraw_the_graph(void) {
-    blank_screen(draw_win);
+    ggets_blank_screen(draw_win);
     set_normal_scale();
     axes2_do();
     hi_lite(draw_win);
