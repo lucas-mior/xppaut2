@@ -131,12 +131,12 @@ extern int32 PltFmtFlag;
 extern int32 PointRadius;
 int32 DelayErr;
 
-double MyData[MAX_ODE];
-double MyTime;
-int32 MyStart;
 extern int32 DelayFlag;
 extern int32 DCURY;
 extern int32 NKernel;
+double MyData[MAX_ODE];
+double MyTime;
+int32 MyStart;
 int32 RANGE_FLAG;
 extern int32 PAR_FOL;
 extern int32 SHOOT;
