@@ -340,7 +340,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
     {
         *t = *t + dt;
         set_wieners(dt, y, *t);
-        if ((j = volt_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) != 0)
+        if ((j = volterra_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) != 0)
             return j;
         stor_delay(y);
     }
@@ -348,7 +348,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
 }
 
 int32
-volt_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
+volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
           double *yp2, double *errvec, double *jac) {
     int32 i0, iend, ishift, i, iter = 0, info, ipivot[MAX_ODE1], j, ind;
     int32 n1 = NODE + 1;
