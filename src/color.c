@@ -48,16 +48,6 @@ static int32 bfun(double y, int32 per);
 static int32 gfun(double y, int32 per);
 static int32 rfun(double y, int32 per);
 static void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
-static void tst_color(Window window);
-
-void
-tst_color(Window window) {
-    for (int32 i = 0; i < color_total; i++) {
-        set_color(i + color_min);
-        XDrawLine(display, window, gc_graph, 0, 2*i + 20, 50, 2*i + 20);
-    }
-    return;
-}
 
 void
 set_scolor(int32 col) {

@@ -29,7 +29,6 @@ extern double variables[];
 extern int32 NVAR;
 
 static void polint(double *xa, double *ya, int32 n, double x, double *y, double *dy);
-static double get_delay_old(int32 in, double tau);
 
 double
 delay_stab_eval(
@@ -104,26 +103,6 @@ stor_delay(double *y) {
     for (i = 0; i < (nodes); i++)
         DelayWork[i + in] = y[i];
     return;
-}
-
-double
-get_delay_old(int32 in, double tau) {
-    double x = tau / fabs(DELTA_T);
-    int32 n1 = (int32)x;
-    int32 n2 = n1 + 1;
-    int32 nodes = NODE;
-    int32 i1, i2;
-    double x1, x2;
-    if (tau < 0.0 || tau > DELAY) {
-        err_msg("Delay negative or too large");
-        stop_integration();
-        return 0.0;
-    }
-    i1 = (n1 + LatestDelay) % MaxDelay;
-    i2 = (n2 + LatestDelay) % MaxDelay;
-    x1 = DelayWork[in + (nodes)*i1];
-    x2 = DelayWork[in + (nodes)*i2];
-    return x1 + (x - n1)*(x2 - x1);
 }
 
 void

@@ -73,7 +73,6 @@ static int32 REPLACE = 0, R_COL = 0;
 
 static void write_browser_data(FILE *fp, Browser *b);
 static int32 check_for_stor(double **data);
-static void del_stor_col(char *var, Browser *b);
 static void data_del_col(Browser *b);
 static void data_add_col(Browser *b);
 static int32 add_stor_col(char *name, char *formula, Browser *b);
@@ -87,7 +86,6 @@ static void browse_but_on(Browser *b, int32 i, Window window, int32 yn);
 static void enter_browser(XEvent ev, Browser *b, int32 yn);
 static void display_browser(Window window, Browser b);
 static void redraw_browser(Browser b);
-static void new_browse_dat(double **new_dat, int32 dat_len);
 static void draw_data(Browser b);
 static void kill_browser(Browser *b);
 static void make_browser(Browser *b, char *wname, char *iname, int32 row,
@@ -114,7 +112,6 @@ static void data_right(Browser *b);
 static void data_first(Browser *b);
 static void data_last(Browser *b);
 static void data_restore(Browser *b);
-static void get_col_list(char *s, int32 *cl, int32 *n);
 
 extern double **storage;
 
@@ -198,44 +195,6 @@ check_for_stor(double **data) {
         return 0;
     } else
         return 1;
-}
-
-void
-del_stor_col(char *var, Browser *b) {
-    int32 nc;
-    int32 i, j;
-
-    find_variable(var, &nc);
-
-    if (nc < 0) {
-        err_msg("No such column....");
-        return;
-    }
-    if (nc <= NEQ_MIN) { /* NEQ_MIN = NODE+NAUX */
-        err_msg("Can't delete that column");
-        return;
-    }
-    if (check_active_plot(nc) == 1) {
-        err_msg("This variable is still actively plotted! - Cant delete!");
-        return;
-    }
-    change_plot_vars(nc);
-    if (nc < NEQ) {
-        for (j = nc; j < NEQ; j++) {
-            for (i = 0; i < b->maxrow; i++)
-                storage[j][i] = storage[j + 1][i];
-            for (i = 0; i < 400; i++)
-                my_ode[j - 1 + FIX_VAR][i] = my_ode[j + FIX_VAR][i];
-            strcpy(uvar_names[j - 1], uvar_names[j]);
-            strcpy(ode_names[j - 1], ode_names[j]);
-        }
-    }
-    free(storage[NEQ + 1]);
-    free(ode_names[NEQ]);
-    free(my_ode[NEQ + FIX_VAR]);
-    NEQ--;
-    b->maxcol = NEQ + 1;
-    redraw_browser(*b);
 }
 
 void
@@ -670,12 +629,6 @@ redraw_browser(Browser b) {
         }
     }
     return;
-}
-
-void
-new_browse_dat(double **new_dat, int32 dat_len) {
-    my_browser.data = new_dat;
-    refresh_browser(dat_len);
 }
 
 void
@@ -1573,18 +1526,4 @@ data_last(Browser *b) {
 void
 data_restore(Browser *b) {
     restore(b->istart, b->iend);
-}
-
-void
-get_col_list(char *s, int32 *cl, int32 *n) {
-    int32 len, i;
-
-    char sp[256];
-    convert(s, sp);
-    len = (int32)strlen(sp);
-    if (len == 0) {
-        for (i = 0; i < *n; i++)
-            cl[i] = i;
-        return;
-    }
 }
