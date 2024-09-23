@@ -151,8 +151,8 @@ extern int32 R_COL;
 extern int32 colorline[11];
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 static int32 STOP_FLAG = 0;
-int32 PSLineStyle;
-struct {
+
+static struct {
     char item[30];
     int32 steps, shoot, col, movie, mc;
     double plow;

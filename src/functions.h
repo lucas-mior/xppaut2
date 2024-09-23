@@ -2577,6 +2577,7 @@ extern double MyData[MAX_ODE];
 extern double MyTime;
 extern int32 MyStart;
 extern int32 RANGE_FLAG;
+extern double LastTime;
 
 void init_ar_ic(void);
 void dump_range(FILE *fp, int32 f);
