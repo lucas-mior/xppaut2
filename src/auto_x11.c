@@ -50,6 +50,8 @@ extern int32 CURY_OFF;
 static int32 STD_HGT_var = 0;
 static int32 STD_WID_var = 0;
 static int32 Auto_extra_wid, Auto_extra_hgt;
+static int32 Auto_extra_wid;
+static int32 Auto_extra_hgt;
 static int32 Auto_x0, Auto_y0;
 
 /* stuff for marking a branch  */

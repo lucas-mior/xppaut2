@@ -3,14 +3,14 @@
 find src -iname "*.[ch]" | while read file; do
 # int32 avsymfonts[5], avromfonts[5];
 #
-BRACKETS='\[..?.?.?\]'
 IDENT="\*?[[:alnum:]_]+"
 
-awk " /^[[:alnum:]_]+ ($IDENT($BRACKETS)?, )+($IDENT($BRACKETS)?);\$/ {
+awk " /^static [[:alnum:]_]+ ($IDENT), ?($IDENT);\$/ {
+    print
     type = \$2
     for (i = 2; i <= NF; i += 1) {
-        var = gensub(\"($IDENT)($BRACKETS)?[,;]/\", \"\\1\\2\", \"g\", \$i);
-        printf(\"%s %s;NEWLINELINE\", type, var);
+        var = gensub(\"($IDENT)[,;]/\", \"\\1\", \"g\", \$i);
+        printf(\"static %s %s;NEWLINELINE\", type, var);
     }
     getline
 }{

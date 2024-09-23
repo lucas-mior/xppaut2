@@ -153,6 +153,8 @@ static char TMPSWAP[200];
 extern int32 NUPAR;
 
 static double XfromAuto, YfromAuto;
+static double XfromAuto;
+static double YfromAuto;
 static int32 FromAutoFlag = 0;
 
 extern int32 NODE;

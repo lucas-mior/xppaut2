@@ -38,6 +38,8 @@ static struct {
 
 static int32 LIAP_FLAG = 0;
 static int32 LIAP_N, LIAP_I;
+static int32 LIAP_N;
+static int32 LIAP_I;
 extern double NEWT_ERR;
 static double ADJ_EPS = 1.e-8, ADJ_ERR = 1.e-3;
 static int32 ADJ_MAXIT = 20, ADJ_HERE = 0, H_HERE = 0, h_len, HODD_EV = 0;

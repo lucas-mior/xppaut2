@@ -12,6 +12,8 @@ extern double *WORK;
 static long nfcn, nstep, naccpt, nrejct;
 static double hout, xold, xout;
 static uint32 nrds, *indir;
+static uint32 nrds;
+static uint32 *indir;
 static double *yy1, *k1, *k2, *k3, *k4, *k5, *k6, *k7, *k8, *k9, *k10, *ysti;
 static double *rcont1, *rcont2, *rcont3, *rcont4;
 static double *rcont5, *rcont6, *rcont7, *rcont8;

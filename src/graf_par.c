@@ -70,6 +70,8 @@ extern double TEND;
 extern double **storage;
 
 static double FreezeKeyX, FreezeKeyY;
+static double FreezeKeyX;
+static double FreezeKeyY;
 static int32 FreezeKeyFlag;
 int32 AutoFreezeFlag = 0;
 static int32 CurrentCurve = 0;
