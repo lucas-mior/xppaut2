@@ -742,7 +742,7 @@ set_acolor(int32 col) {
         XSetForeground(display, array_plot_gc, GrFore);
     else {
         if (COLOR)
-            XSetForeground(display, array_plot_gc, (uint)ColorMap(col));
+            XSetForeground(display, array_plot_gc, (uint)color_map(col));
         else
             XSetForeground(display, array_plot_gc, GrFore);
     }

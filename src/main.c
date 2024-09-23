@@ -493,7 +493,7 @@ do_main(int32 argc, char **argv) {
     auto_load_dll();
 
     if (XPPBatch) {
-        MakeColormap();
+        color_map_make();
         init_browser();
         init_all_graph();
         if_needed_load_set();
@@ -514,7 +514,7 @@ do_main(int32 argc, char **argv) {
 
     gtitle_text(pptitle, main_win);
     Xup = 1;
-    MakeColormap();
+    color_map_make();
 
     XMapWindow(display, main_win);
 
@@ -770,7 +770,7 @@ init_X(void) {
     }
 
     if (COLOR)
-        MakeColormap();
+        color_map_make();
 
     set_big_font();
 

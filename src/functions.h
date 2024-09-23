@@ -874,8 +874,8 @@ void color_set(int32 col);
 void color_new_map(int32 type);
 void color_get_ps(int32 i, double *r, double *g, double *b);
 void color_get_svg(int32 i, int32 *r, int32 *g, int32 *b);
-void MakeColormap(void);
-uint32 ColorMap(int32 i);
+void color_map_make(void);
+uint32 color_map(int32 i);
 
 #endif
 

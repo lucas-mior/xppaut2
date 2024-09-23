@@ -70,7 +70,7 @@ color_set_s(int32 col) {
         XSetForeground(display, small_gc, GrFore);
     else {
         if (COLOR)
-            XSetForeground(display, small_gc, (ulong)ColorMap(col));
+            XSetForeground(display, small_gc, (ulong)color_map(col));
         else
             XSetForeground(display, small_gc, GrFore);
     }
@@ -86,7 +86,7 @@ color_set(int32 col) {
     else {
 
         if (COLOR)
-            XSetForeground(display, gc_graph, (ulong)ColorMap(col));
+            XSetForeground(display, gc_graph, (ulong)color_map(col));
         else
             XSetForeground(display, gc_graph, GrFore);
     }
@@ -241,7 +241,7 @@ color_new_map(int32 type) {
         return;
     }
     custom_color = type;
-    MakeColormap();
+    color_map_make();
     return;
 }
 
@@ -263,7 +263,7 @@ color_get_svg(int32 i, int32 *r, int32 *g, int32 *b) {
 }
 
 void
-MakeColormap(void) {
+color_map_make(void) {
     Colormap cmap;
     int32 clo = 20;
 
@@ -332,7 +332,7 @@ MakeColormap(void) {
 }
 
 uint32
-ColorMap(int32 i) {
+color_map(int32 i) {
     if (i == -1)
         return GrBack;
     if (i == 0)
