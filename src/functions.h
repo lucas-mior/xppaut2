@@ -2232,6 +2232,13 @@ char *get_next2(char **tokens_ptr);
 #ifndef GEAR_H
 #define GEAR_H
 
+extern int32 UnstableManifoldColor;
+extern int32 StableManifoldColor;
+extern double ShootIC[8][MAX_ODE];
+extern int32 ShootICFlag;
+extern int32 ShootICFlag;
+extern int32 ShootIndex;
+
 void silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 void do_sing(double *x, double eps, double err, double big, int32 maxit,

@@ -23,11 +23,12 @@ extern int32 NFlags;
 double ShootIC[8][MAX_ODE];
 int32 ShootICFlag;
 int32 ShootIndex;
-int32 ShootType[8];
-int32 gear_pivot[MAX_ODE];
+ 
+static int32 ShootType[8];
+static int32 gear_pivot[MAX_ODE];
 extern int32 storind, STORFLAG;
 
-double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
+static double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
                           {{4.5, 6, 1}, {12, 24, 1}},
                           {{7.333, 9.167, .5}, {24, 37.89, 2}},
                           {{10.42, 12.5, .1667}, {37.89, 53.33, 1}},
