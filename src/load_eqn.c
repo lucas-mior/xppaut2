@@ -92,12 +92,6 @@ InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
 extern int32 STOCH_FLAG;
-extern struct {
-    char item[30], item2[30];
-    int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
-    double plow, phigh, plow2, phigh2;
-    int32 rtype;
-} range;
 
 extern int32 del_stab_flag;
 extern int32 MaxPoints;

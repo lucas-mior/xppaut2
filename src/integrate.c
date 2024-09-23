@@ -163,13 +163,7 @@ static struct {
     double phigh;
 } eq_range;
 
-struct {
-    char item[30];
-    char item2[30];
-    int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
-    double plow, phigh, plow2, phigh2;
-    int32 rtype;
-} range;
+Range range;
 
 extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 Nintern_set;

@@ -2562,6 +2562,19 @@ extern int32 MakePlotFlag;
 extern int32 SuppressOut;
 extern int32 SuppressBounds;
 
+typedef struct Range {
+    char item[30];
+    char item2[30];
+    int32 steps, steps2, reset, oldic, index, index2, cycle, type, type2, movie;
+    double plow, phigh, plow2, phigh2;
+    int32 rtype;
+} Range;
+
+extern Range range;
+
+extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
+                       int32 *istart, double *work);
+
 typedef struct {
     int32 nvec;
     int32 node;
