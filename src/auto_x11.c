@@ -71,6 +71,12 @@ static struct {
 
 static Diagram *CUR_DIAGRAM;
 
+static void MarkAuto(int32 x, int32 y);
+static int32 query_special(char *title, char *nsymb);
+static void clear_msg(void);
+static void find_point(int32 ibr, int32 pt);
+static void RedrawMark(void);
+
 void
 auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
     XDrawLine(display, auto_win.canvas, small_gc, (a), (b), (c), (d));
