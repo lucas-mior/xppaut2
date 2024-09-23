@@ -16,7 +16,6 @@
 extern GRAPH *MyGraph;
 extern GC small_gc;
 extern int32 DCURXs, DCURYs;
-extern Display *display;
 extern Window draw_win;
 extern int32 DX_0, DY_0, D_WID, D_HGT;
 extern int32 PltFmtFlag;

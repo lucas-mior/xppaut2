@@ -13,7 +13,6 @@
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 #include "mykeydef.h"
-extern Display *display;
 extern Window draw_win, main_win, info_pop;
 extern int32 DCURY;
 extern GC gc_graph;

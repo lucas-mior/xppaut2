@@ -46,7 +46,6 @@ extern double last_ic[MAX_ODE], DELTA_T;
 
 extern int32 NSYM, NSYM_START, NCON, NCON_START;
 
-extern Display *display;
 extern int32 screen, storind;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;

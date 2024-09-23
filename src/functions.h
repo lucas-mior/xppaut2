@@ -3592,7 +3592,6 @@ void get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-extern Display *display;
 extern int32 DisplayWidth, DisplayHeight;
 extern int32 screen;
 extern Atom deleteWindowAtom;

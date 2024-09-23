@@ -8,7 +8,6 @@
 #include "functions.h"
 
 extern Window draw_win;
-extern Display *display;
 extern int32 screen;
 extern int32 xor_flag, xorfix;
 extern GC gc, gc_graph;

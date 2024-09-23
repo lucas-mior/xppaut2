@@ -29,7 +29,6 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask | ButtonMotionMask)
 
-extern Display *display;
 extern int32 TrueColorFlag;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor;
 int32 AutoRedrawFlag = 1;

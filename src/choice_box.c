@@ -15,7 +15,6 @@
 #include "struct.h"
 #include "integers.h"
 
-extern Display *display;
 extern Window main_win;
 extern uint32 MyBackColor, MyForeColor;
 extern int32 screen;

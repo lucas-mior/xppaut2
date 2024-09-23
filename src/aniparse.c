@@ -113,7 +113,6 @@ int32 animation_on_the_fly = 0;
 extern int32 TrueColorFlag;
 extern char *color_names[11];
 extern int32 colorline[];
-extern Display *display;
 extern XFontStruct *symfonts[5], *romfonts[5];
 extern int32 avsymfonts[5], avromfonts[5];
 extern int32 color_total, screen;

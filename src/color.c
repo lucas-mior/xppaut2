@@ -28,7 +28,6 @@
 extern int32 Xup;
 
 extern GC gc_graph, small_gc;
-extern Display *display;
 extern int32 screen;
 extern Window main_win;
 static int32 color_mode = 1;

@@ -41,7 +41,6 @@ void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EditBox *sb, char *title);
 
-extern Display *display;
 extern int32 screen;
 extern Window main_win, info_pop, draw_win, main_win;
 extern int32 DCURY, DCURX, CURY_OFF, xor_flag;

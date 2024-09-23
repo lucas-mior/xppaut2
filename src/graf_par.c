@@ -14,7 +14,6 @@
 static NCLINE nclines[MAXNCLINE];
 extern CURVE frz[MAXFRZ];
 extern GRAPH *MyGraph;
-extern Display *display;
 extern Window main_win, draw_win, info_pop;
 extern int32 DCURY;
 extern int32 storind;

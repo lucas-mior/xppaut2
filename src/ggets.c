@@ -24,7 +24,6 @@ int32 MSStyle = 0;
 extern int32 Xup;
 
 extern int32 tfBell;
-extern Display *display;
 extern int32 screen;
 int32 CURS_X, CURS_Y;
 extern int32 DCURY, DCURX, CURY_OFF;

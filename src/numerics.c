@@ -8,7 +8,6 @@
 #include <math.h>
 
 extern Window main_win, info_pop;
-extern Display *display;
 extern int32 DCURY, NDELAYS;
 extern int32 RandSeed;
 #include "struct.h"

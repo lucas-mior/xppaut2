@@ -30,7 +30,6 @@ extern char *save_eqn[MAXLINES];
 extern ACTION comments[MAXCOMMENTS];
 extern int32 n_comments, NLINES;
 extern int32 tfBell;
-extern Display *display;
 extern int32 screen;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;

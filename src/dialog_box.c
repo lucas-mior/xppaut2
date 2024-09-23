@@ -22,7 +22,6 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-extern Display *display;
 extern Window main_win;
 extern uint32 MyBackColor, MyForeColor;
 extern int32 screen;

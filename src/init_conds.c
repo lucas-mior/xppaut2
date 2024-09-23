@@ -54,7 +54,6 @@ This also has the clone gadget
 
 extern char *save_eqn[MAXLINES];
 extern int32 NLINES;
-extern Display *display;
 extern int32 screen, Xup;
 extern GC gc, small_gc;
 extern Window main_win, draw_win;

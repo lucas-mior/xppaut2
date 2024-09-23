@@ -52,7 +52,6 @@ extern int32 PltFmtFlag;
 extern char *text_hint[];
 extern char *edit_hint[];
 extern char *no_hint[];
-extern Display *display;
 extern Window main_win, draw_win, command_pop, info_pop;
 int32 current_pop;
 extern uint32 MyBackColor, MyForeColor, MyMainWinColor, MyDrawWinColor, GrFore,

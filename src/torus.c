@@ -18,7 +18,6 @@ extern int32 DisplayHeight, DisplayWidth;
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-extern Display *display;
 
 extern int32 screen;
 extern GC gc, small_gc;

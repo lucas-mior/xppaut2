@@ -21,7 +21,6 @@
     } while (0)
 
 extern double last_ic[MAX_ODE];
-extern Display *display;
 extern int32 screen;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;
