@@ -38,13 +38,5 @@
 #define NAMLEN 13
 #define MAXARG 20
 #define MAXEXPLEN 1024
-typedef struct var_info {
-    char lhs[MAXEXPLEN];
-    char rhs[MAXEXPLEN];
-    char args[MAXARG][NAMLEN + 1];
-    int32 type, nargs;
-    double value;
-    struct var_info *next, *prev;
-} VAR_INFO;
 
 #endif

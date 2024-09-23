@@ -40,7 +40,16 @@ extern int32 NLINES;
 extern int32 IN_VARS;
 extern int32 leng[MAX_ODE];
 
-VAR_INFO *my_varinfo;
+typedef struct var_info {
+    char lhs[MAXEXPLEN];
+    char rhs[MAXEXPLEN];
+    char args[MAXARG][NAMLEN + 1];
+    int32 type, nargs;
+    double value;
+    struct var_info *next, *prev;
+} VAR_INFO;
+
+static VAR_INFO *my_varinfo;
 static int32 start_var_info = 0;
 
 int32 *my_ode[MAX_ODE];
