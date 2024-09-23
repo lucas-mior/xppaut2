@@ -95,7 +95,7 @@ extern char this_file[XPP_MAX_NAME];
 extern char options[100];
 int32 EqType[MAX_ODE];
 static int32 Naux = 0;
-char aux_names[MAX_ODE][12];
+static char aux_names[MAX_ODE][12];
 
 FixInfo fixinfo[MAX_ODE];
 

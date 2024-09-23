@@ -2169,15 +2169,10 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 #define MAXLINES 5000
 #define MAXCOMMENTS 500
 
-extern char *ode_names[MAX_ODE];
-extern char *save_eqn[MAXLINES];
-extern double default_val[MAX_PAR];
-extern double default_ic[MAX_ODE];
-extern int32 PrimeStart;
-extern int32 NCON_START, NSYM_START;
-extern int32 BVP_N;
-extern FILE *convertf;
-extern int32 FIX_VAR;
+typedef struct FixInfo {
+    char *name;
+    char *value;
+} FixInfo;
 
 typedef struct {
     char *text, *action;
@@ -2191,16 +2186,24 @@ typedef struct {
     int32 side;
 } BcStruct;
 
+extern char *ode_names[MAX_ODE];
+extern char *save_eqn[MAXLINES];
+extern double default_val[MAX_PAR];
+extern double default_ic[MAX_ODE];
+extern int32 PrimeStart;
+extern int32 NCON_START, NSYM_START;
+extern int32 BVP_N;
+extern FILE *convertf;
+extern int32 FIX_VAR;
+extern int32 EqType[MAX_ODE];
+
+extern FixInfo fixinfo[MAX_ODE];
+
 extern int32 *my_ode[MAX_ODE];
 extern int32 *plotlist;
 extern int32 N_plist;
 extern ACTION comments[MAXCOMMENTS];
 extern BcStruct my_bc[MAX_ODE];
-
-typedef struct FixInfo {
-    char *name;
-    char *value;
-} FixInfo;
 
 extern int32 n_comments;
 extern int32 ConvertStyle;
