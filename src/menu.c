@@ -145,7 +145,7 @@ menu_expose(Window win) {
     if (win == my_menus[j].title) {
         ggets_set_fore();
         bar(0, 0, 16*DCURX, DCURY, win);
-        set_back();
+        ggets_set_back();
         XDrawString(display, win, gc, DCURX / 2 + 5, CURY_OFF, z[0],
                     (int)strlen(z[0]));
         ggets_set_fore();

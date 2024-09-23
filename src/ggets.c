@@ -89,13 +89,13 @@ ggets_set_fore(void) {
 }
 
 void
-set_back(void) {
+ggets_set_back(void) {
     XSetForeground(display, gc, MyBackColor);
     return;
 }
 
 void
-showchar(int32 ch, int32 col, int32 row, Window or) {
+ggets_show_char(int32 ch, int32 col, int32 row, Window or) {
     char bob[2];
     bob[0] = (char)ch;
     chk_xor();
@@ -373,12 +373,12 @@ display_command(char *name, char *value, int32 pos) {
 
     ggets_set_fore();
     bar(0, 0, l*DCURX, DCURY + 4, command_pop);
-    set_back();
+    ggets_set_back();
     XDrawString(display, command_pop, gc, 0, CURY_OFF, name, l);
     ggets_set_fore();
     if (m > 0) {
         XDrawString(display, command_pop, gc, l*DCURX, CURY_OFF, value, m);
-        /* showchar('_',DCURX*(l+m),0,command_pop); */
+        /* ggets_show_char('_',DCURX*(l+m),0,command_pop); */
         put_cursor_at(command_pop, DCURX*l, pos);
     }
     return;

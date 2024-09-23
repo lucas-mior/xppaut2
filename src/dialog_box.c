@@ -92,7 +92,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     XMapWindow(display, d.ok);
     XMapWindow(display, d.cancel);
     /*  CURS_X=strlen(d.input_s); */
-    /* showchar('_', DCURX*CURS_X, 0, d.input); */
+    /* ggets_show_char('_', DCURX*CURS_X, 0, d.input); */
     pos = (int32)strlen(d.input_s);
     colm = DCURX*pos;
     while (true) {
@@ -180,7 +180,7 @@ display_dialog(Window window, DIALOG d, int32 col) {
         XDrawString(display, window, gc, 0, CURY_OFF, d.input_s,
                     (int32)strlen(d.input_s));
         put_cursor_at(window, col, 0);
-        /* showchar('_',DCURX*strlen(d.input_s),0,d.input); */
+        /* ggets_show_char('_',DCURX*strlen(d.input_s),0,d.input); */
     }
     return;
 }

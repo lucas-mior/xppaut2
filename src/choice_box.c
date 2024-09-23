@@ -59,7 +59,7 @@ display_choice(Window window, CHOICE_BOX p) {
         if (p.flag[i] == 1)
             ggets_set_fore();
         else
-            set_back();
+            ggets_set_back();
         XDrawString(display, window, gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     ggets_set_fore();
@@ -74,7 +74,7 @@ do_checks(CHOICE_BOX p) {
         if (p.flag[i] == 1)
             ggets_set_fore();
         else
-            set_back();
+            ggets_set_back();
         XDrawString(display, p.cw[i], gc, (p.mc + 1)*DCURX, CURY_OFF, "X", 1);
     }
     ggets_set_fore();
