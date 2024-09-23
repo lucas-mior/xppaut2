@@ -19,5 +19,5 @@ grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
     grep -Fv "$s2" "src/functions.h" > tmp.h
     mv tmp.h "src/functions.h"
 
-    find src -iname "$f2" | while read f; do sed -i "1istatic $s2" "$f"; done
+    sed -i "1istatic $s2" "$f2";
 done
