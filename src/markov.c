@@ -54,7 +54,8 @@ MARKOV markov[MAX_MARK];
 extern double **storage;
 
 extern int32 storind;
-double *my_mean[MAX_ODE], *my_variance[MAX_ODE];
+double *my_mean[MAX_ODE];
+double *my_variance[MAX_ODE];
 int32 stoch_len;
 
 int32 STOCH_FLAG;

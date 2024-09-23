@@ -132,7 +132,8 @@ extern int32 PltFmtFlag;
 extern int32 PointRadius;
 int32 DelayErr;
 
-double MyData[MAX_ODE], MyTime;
+double MyData[MAX_ODE];
+double MyTime;
 int32 MyStart;
 extern int32 DelayFlag;
 extern int32 DCURY;
