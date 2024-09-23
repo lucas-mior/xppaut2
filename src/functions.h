@@ -872,6 +872,9 @@ uint32 ColorMap(int32 i);
 #define ClickTime 200
 
 extern int32 MSStyle;
+extern char *info_message;
+extern int32 CURS_X, CURS_Y;
+extern int32 PS_Color;
 
 void ping(void);
 void reset_graphics(void);
@@ -2295,6 +2298,8 @@ int32 go_go_auto(void);
 
 #include <X11/Xlib.h>
 #include <stdio.h>
+
+extern int32 AutoFreezeFlag;
 
 void change_view_com(int32 com);
 void ind_to_sym(int32 ind, char *str);

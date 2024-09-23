@@ -59,8 +59,9 @@ extern double T0, TEND;
 extern double **storage;
 
 double FreezeKeyX, FreezeKeyY;
-int32 FreezeKeyFlag, AutoFreezeFlag = 0;
-int32 CurrentCurve = 0;
+static int32 FreezeKeyFlag;
+int32 AutoFreezeFlag = 0;
+static int32 CurrentCurve = 0;
 extern char this_file[XPP_MAX_NAME];
 extern char this_internset[XPP_MAX_NAME];
 
