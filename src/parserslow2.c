@@ -2155,7 +2155,7 @@ eval_rpn(int32 *equat) {
                 PUSH(ustack[uptr - 1 - in]);
                 break;
             case KERTYPE:
-                PUSH(ker_val(in));
+                PUSH(volterra_ker_val(in));
                 break;
             case VARTYPE:
                 PUSH(variables[in]);

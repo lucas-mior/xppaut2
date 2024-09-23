@@ -226,7 +226,7 @@ read_lunch(FILE *fp) {
     io_numerics(f, fp);
     if (METHOD == VOLTERRA) {
         io_int(&temp, fp, f, " ");
-        allocate_volterra(temp, 1);
+        volterra_allocate(temp, 1);
         MyStart = 1;
     }
     chk_delay();
@@ -284,7 +284,7 @@ do_lunch(/* f=1 to read and 0 to write */
         io_numerics(f, fp);
         if (METHOD == VOLTERRA) {
             io_int(&temp, fp, f, " ");
-            allocate_volterra(temp, 1);
+            volterra_allocate(temp, 1);
             MyStart = 1;
         }
         chk_delay();

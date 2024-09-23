@@ -884,7 +884,7 @@ do_range(double *x, int32 flag) {
                 else {
                     set_val(range.item, p);
                     redo_all_fun_tables();
-                    re_evaluate_kernels();
+                    volterra_re_evaluate_kernels();
                 }
                 if (range.rtype > 0) {
                     if (itype2 == IC)
@@ -892,7 +892,7 @@ do_range(double *x, int32 flag) {
                     else {
                         set_val(range.item2, p2);
                         redo_all_fun_tables();
-                        re_evaluate_kernels();
+                        volterra_re_evaluate_kernels();
                     }
                 }
                 if (Xup) {

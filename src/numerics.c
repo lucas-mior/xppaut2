@@ -188,7 +188,7 @@ get_num_par(int32 ch)
         if (NKernel > 0) {
             INFLAG = 0;
             MyStart = 1;
-            alloc_kernels(1);
+            volterra_alloc_kernels(1);
         }
         break;
     case 'n':
@@ -251,7 +251,7 @@ get_num_par(int32 ch)
             tmp = MaxPoints;
             new_int("MaxPoints:", &tmp);
             new_int("AutoEval(1=yes) :", &AutoEvaluate);
-            allocate_volterra(tmp, 1);
+            volterra_allocate(tmp, 1);
         }
 
         if (METHOD == CVODE || METHOD == RB23) {

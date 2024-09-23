@@ -2350,7 +2350,7 @@ new_parameter(void) {
 void
 redo_stuff(void) {
     evaluate_derived();
-    re_evaluate_kernels();
+    volterra_re_evaluate_kernels();
     redo_all_fun_tables();
     evaluate_derived();
     return;
@@ -2375,7 +2375,7 @@ set_default_params(void) {
     }
 
     redraw_params();
-    re_evaluate_kernels();
+    volterra_re_evaluate_kernels();
     redo_all_fun_tables();
 }
 
@@ -2628,7 +2628,7 @@ load_entire_box(BoxList *b) {
     for (int32 i = 0; i < n; i++)
         set_value_from_box(b, i);
     if (b->type == PARAMBOX) {
-        re_evaluate_kernels();
+        volterra_re_evaluate_kernels();
         redo_all_fun_tables();
         reset_sliders();
     }

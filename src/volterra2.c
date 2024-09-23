@@ -51,14 +51,14 @@ static double alpbetjn(double mu, double dt, int32 l);
 static double alpha1n(double mu, double dt, double t, double t0);
 
 double
-ker_val(int32 in) {
+volterra_ker_val(int32 in) {
     if (KnFlag)
         return kernel[in].k_n;
     return kernel[in].k_n1;
 }
 
 void
-alloc_v_memory(void) {
+volterra_alloc_memory(void) {
     int32 i, len, formula[256], j;
 
     /* First parse the kernels   since these were deferred */
@@ -86,12 +86,12 @@ alloc_v_memory(void) {
             }
         }
     }
-    allocate_volterra(MaxPoints, 0);
+    volterra_allocate(MaxPoints, 0);
     return;
 }
 
 void
-allocate_volterra(int32 npts, int32 flag) {
+volterra_allocate(int32 npts, int32 flag) {
     int32 i, oldmem = MaxPoints, j;
     int32 ntot = NODE + FIX_VAR + NMarkov;
     npts = abs(npts);
@@ -122,12 +122,12 @@ allocate_volterra(int32 npts, int32 flag) {
     }
     CurrentPoint = 0;
     KnFlag = 1;
-    alloc_kernels(flag);
+    volterra_alloc_kernels(flag);
     return;
 }
 
 void
-re_evaluate_kernels(void) {
+volterra_re_evaluate_kernels(void) {
     if (AutoEvaluate == 0)
         return;
     for (int32 i = 0; i < NKernel; i++) {
@@ -142,7 +142,7 @@ re_evaluate_kernels(void) {
 }
 
 void
-alloc_kernels(int32 flag) {
+volterra_alloc_kernels(int32 flag) {
     int32 n = MaxPoints;
     double mu;
 
@@ -183,7 +183,7 @@ alloc_kernels(int32 flag) {
 ***/
 
 void
-init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
+volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
     double t = t0 + n*dt, tp = t0 + i0*dt;
     double sum[MAX_ODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
@@ -357,7 +357,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     i0 = MAX(0, CurrentPoint - MaxPoints);
     iend = MIN(CurrentPoint - 1, MaxPoints - 1);
     ishift = i0 % MaxPoints;
-    init_sums(T0, CurrentPoint, dt, i0, iend,
+    volterra_init_sums(T0, CurrentPoint, dt, i0, iend,
               ishift); /*  initialize all the sums */
     KnFlag = 0;
     for (i = 0; i < neq; i++) {

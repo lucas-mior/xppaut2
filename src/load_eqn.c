@@ -652,7 +652,7 @@ set_all_vals(void) {
     chk_delay(); /* check for delay allocation */
     adj2_alloc_h_stuff();
 
-    alloc_v_memory(); /* allocate stuff for volterra equations */
+    volterra_alloc_memory(); /* allocate stuff for volterra equations */
     alloc_meth();
     arr_ic_start(); /* take care of all predefined array ics */
     return;
