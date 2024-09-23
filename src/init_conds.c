@@ -193,12 +193,12 @@ extern double SLIDER3HI;
 
 extern BcStruct my_bc[MAX_ODE];
 
-BoxList *HotBox;
-int32 HotBoxItem = -1;
-BoxList ICBox;
+static BoxList *HotBox;
+static int32 HotBoxItem = -1;
+static BoxList ICBox;
 BoxList ParamBox;
-BoxList DelayBox;
-BoxList BCBox;
+static BoxList DelayBox;
+static BoxList BCBox;
 
 int32 BoxMode;
 

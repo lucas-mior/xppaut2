@@ -2435,6 +2435,25 @@ void draw_many_lines(void);
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
+typedef struct BoxList {
+    int32 use, type, xuse;
+    int32 n;
+    int32 n0;
+    int32 nwin, minwid, minhgt;
+    Window up;
+    Window dn;
+    Window pgup, pgdn;
+    Window base;
+    Window cancel, ok, def, go, close;
+    Window xvt, pp, arr;
+    Window *w;
+    Window *we;
+    Window *ck;
+    char **value, *iname, *wname;
+    int32 *isck;
+    int32 mc, *off, *pos;
+} BoxList;
+
 typedef struct {
     int32 nbins, nbins2, type, col, col2, fftc;
     double xlo;
@@ -2451,6 +2470,8 @@ extern int32 spec_col2;
 extern int32 post_process;
 
 extern int32 FOUR_HERE;
+
+extern BoxList ParamBox;
 
 int32 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                  double xlo, double xhi, double ylo, double yhi);
@@ -2493,25 +2514,6 @@ typedef struct BoxListold {
     char **value;
     int32 mc, *off, *pos;
 } BoxListold;
-
-typedef struct BoxList {
-    int32 use, type, xuse;
-    int32 n;
-    int32 n0;
-    int32 nwin, minwid, minhgt;
-    Window up;
-    Window dn;
-    Window pgup, pgdn;
-    Window base;
-    Window cancel, ok, def, go, close;
-    Window xvt, pp, arr;
-    Window *w;
-    Window *we;
-    Window *ck;
-    char **value, *iname, *wname;
-    int32 *isck;
-    int32 mc, *off, *pos;
-} BoxList;
 
 void clone_ode(void);
 int32 find_user_name(int32 type, char *oname);
