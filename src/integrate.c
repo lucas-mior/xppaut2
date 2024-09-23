@@ -154,7 +154,11 @@ static int32 STOP_FLAG = 0;
 
 static struct {
     char item[30];
-    int32 steps, shoot, col, movie, mc;
+    int32 steps;
+    int32 shoot;
+    int32 col;
+    int32 movie;
+    int32 mc;
     double plow;
     double phigh;
 } eq_range;
