@@ -1714,24 +1714,6 @@ bessis1(double x) {
 #undef BIGNO
 #undef BIGNI
 
-/*
-double pow2(z,w)
-double z,w;
-{
- return(pow(z,w));
-
- double sign=1.0;
- if(floor(w)==w){
- if(z<0.0)sign=-1.0;
- if(fabs(fmod(w,2.0))<1.e-10)sign=1.0;
-  return(sign*pow(fabs(z),w));
- }
- else
- return(pow(fabs(z),w));
-}
-
- */
-
 /*********************************************
           FANCY DELAY HERE                   *-------------------------<<<
 *********************************************/
