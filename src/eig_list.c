@@ -35,7 +35,7 @@ extern int32 EqType[MAX_ODE];
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask)
 
-struct {
+static struct {
     Window base, stab, rest, top, close, import;
     double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];
     int32 n, flag;
@@ -43,7 +43,7 @@ struct {
     char type[15];
 } eq_box;
 
-struct {
+static struct {
     Window base, up, down, list, main, close;
     int32 istart, nlines, flag;
 } eq_list;

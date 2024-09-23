@@ -983,6 +983,9 @@ extern int32 NDelay;
 extern int32 del_stab_flag;
 extern int32 WhichDelay;
 
+extern double variable_shift[2][MAX_ODE];
+extern double delay_list[MAX_DELAY];
+
 double delay_stab_eval(double delay, int32 var);
 int32 alloc_delay(double big);
 void free_delay(void);
