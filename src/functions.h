@@ -2172,6 +2172,10 @@ int32 one_flag_step_cvode(int32 *command, double *y, double *t, int32 n,
 extern char *ode_names[MAX_ODE];
 extern char *save_eqn[MAXLINES];
 extern double default_val[MAX_PAR];
+extern double default_ic[MAX_ODE];
+extern int32 PrimeStart;
+extern int32 NCON_START, NSYM_START;
+extern int32 BVP_N;
 
 typedef struct {
     char *text, *action;

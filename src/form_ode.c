@@ -72,7 +72,7 @@ extern double last_ic[];
 int32 NODE, NUPAR, NLINES;
 int32 PrimeStart;
 int32 NCON_START, NSYM_START;
-int32 BVP_NL, BVP_NR, BVP_N;
+int32 BVP_N;
 extern int32 BVP_FLAG;
 
 extern double xppvermaj, xppvermin;
@@ -294,8 +294,6 @@ get_eqn(FILE *fptr) {
     IN_VARS = 0;
     NODE = 0;
     BVP_N = 0;
-    BVP_NL = 0;
-    BVP_NR = 0;
     NUPAR = 0;
     NWiener = 0;
     /* check_for_xpprc();  This is now done just once and in do_vis_env() */

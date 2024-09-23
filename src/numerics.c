@@ -58,7 +58,7 @@ extern double BVP_TOL, BVP_EPS;
 
 extern int32 NMESH, NJMP, METHOD, NC_ITER;
 extern int32 EVEC_ITER;
-extern int32 BVP_MAXIT, BVP_NL, BVP_NR;
+extern int32 BVP_MAXIT, BVP_NR;
 
 extern int32 POIMAP, POIVAR, POISGN, SOS;
 

@@ -32,7 +32,7 @@ extern double **storage;
 
 extern int32 *my_ode[];
 
-extern int32 BVP_NL, BVP_NR, BVP_N, BVP_MAXIT;
+extern int32 BVP_NR, BVP_N, BVP_MAXIT;
 extern int32 FFT, HIST, DelayFlag, STORFLAG, POIMAP;
 extern int32 NCON, NCON_START, NSYM, NSYM_START;
 extern int32 BVP_FLAG, NODE, NEQ, NJMP, NMarkov, FIX_VAR, PrimeStart;
