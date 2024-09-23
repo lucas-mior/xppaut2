@@ -1,5 +1,6 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
+#include "stdbool.h"
 #include "integers.h"
 #include "X11/Xlib.h"
 
@@ -25,7 +26,7 @@ extern Display *display;
 
 #include <stdio.h>
 
-extern int32 AdjRange;
+extern bool adj_range;
 
 int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
                    double eps, double minerr, int32 maxit, int32 node);

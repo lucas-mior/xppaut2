@@ -60,7 +60,7 @@ static int32 ADJ_HERE = 0;
 static int32 H_HERE = 0;
 static int32 h_len;
 static int32 HODD_EV = 0;
-int32 AdjRange = 0;
+bool adj_range = false;
 extern double DELTA_T;
 extern double BOUND;
 static int32 *coup_fun[MAX_ODE];
@@ -263,7 +263,7 @@ adj2_make_adj_com(int32 com) {
         adj2_adjoint_parameters();
         break;
     case 'r':
-        AdjRange = 1;
+        adj_range = true;
         break;
     default:
         break;

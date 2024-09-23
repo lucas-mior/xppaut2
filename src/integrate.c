@@ -945,7 +945,7 @@ do_range(double *x, int32 flag) {
                 }
             }
             refresh_browser(storind);
-            if (AdjRange == 1) {
+            if (adj_range) {
                 sprintf(bob, "%s_%g", range.item, p);
                 data_get_mybrowser(storind - 1);
                 compute_one_period((double)storage[0][storind - 1], last_ic,
@@ -986,7 +986,7 @@ do_range(double *x, int32 flag) {
     /* refresh_browser(storind); */
 
     ping();
-    AdjRange = 0;
+    adj_range = false;
     if (STOCH_FLAG)
         do_stats(ierr);
 
