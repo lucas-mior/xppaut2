@@ -18,20 +18,6 @@ typedef struct {
 static Derived derived[MAXDERIVED];
 static int32 nderived = 0;
 
-static void free_derived(void);
-
-/* clean up derived stuff */
-void
-free_derived(void) {
-    int32 i;
-    for (i = 0; i < nderived; i++) {
-        free(derived[i].form);
-        free(derived[i].rhs);
-    }
-    nderived = 0;
-    return;
-}
-
 /* This compiles all of the formulae
 It is called only once during the session
 */

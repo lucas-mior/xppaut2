@@ -20,19 +20,14 @@ extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 static int32 test_sign(double old, double new);
 static double get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda);
 static void process_root(double real, double im);
-static COMPLEX cxdeterm(COMPLEX *z, int32 n);
 static COMPLEX cdeterm(COMPLEX *z, int32 n);
 static double c_abs(COMPLEX z);
-static void cprintarr(COMPLEX *z, int32 n, int32 m);
-static void cprint(COMPLEX z);
-static void cprintn(COMPLEX z);
 static COMPLEX rtoc(double x, double y);
 static void switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n);
 static COMPLEX cexp2(COMPLEX z);
 static COMPLEX cdivv(COMPLEX z, COMPLEX w);
 static COMPLEX cmlt(COMPLEX z, COMPLEX w);
 static COMPLEX cdif(COMPLEX z, COMPLEX w);
-static COMPLEX csum(COMPLEX z, COMPLEX w);
 
 /*typedef struct{
   double r,i;
@@ -152,14 +147,6 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
 }
 
 COMPLEX
-csum(COMPLEX z, COMPLEX w) {
-    COMPLEX sum;
-    sum.r = z.r + w.r;
-    sum.i = z.i + w.i;
-    return sum;
-}
-
-COMPLEX
 cdif(COMPLEX z, COMPLEX w) {
     COMPLEX sum;
     sum.r = z.r - w.r;
@@ -213,27 +200,6 @@ rtoc(double x, double y) {
     return sum;
 }
 
-void
-cprintn(COMPLEX z) {
-    plintf(" %g + i %g \n", z.r, z.i);
-}
-
-void
-cprint(COMPLEX z) {
-    printf("(%g,%g) ", z.r, z.i);
-}
-
-void
-cprintarr(COMPLEX *z, int32 n, int32 m) {
-    int32 i, j;
-    for (i = 0; i < m; i++) {
-        for (j = 0; j < n; j++)
-            cprint(z[i + m*j]);
-        plintf("\n");
-    }
-    return;
-}
-
 double
 c_abs(COMPLEX z) {
     return sqrt(z.i*z.i + z.r*z.r);
@@ -269,27 +235,6 @@ cdeterm(COMPLEX *z, int32 n) {
     sum = sign;
     for (j = 0; j < n; j++)
         sum = cmlt(sum, Z(j, j));
-    return sum;
-}
-
-COMPLEX
-cxdeterm(COMPLEX *z, int32 n) {
-    int32 i, j, k;
-    COMPLEX ajj, sum, mult;
-    for (j = 0; j < n; j++) {
-        ajj = Z(j, j);
-        for (i = j + 1; i < n; i++) {
-            mult = cdivv(Z(i, j), ajj);
-            for (k = j + 1; k < n; k++) {
-                Z(i, k) = cdif(Z(i, k), cmlt(mult, Z(j, k)));
-            }
-        }
-    }
-    /* now it should be diagonalized */
-    sum = rtoc(1.0, 0.0);
-    for (j = 0; j < n; j++) {
-        sum = cmlt(sum, Z(j, j));
-    }
     return sum;
 }
 
