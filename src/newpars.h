@@ -2,9 +2,6 @@
 #define newpars_h
 #include "integers.h"
 
-/*#define LPAREN 1
- */
-
 #define COMMENT 2
 #define SPACE 3
 #define EQUAL 4
