@@ -2359,6 +2359,23 @@ extern XFontStruct *romfonts[5];
 extern int32 avsymfonts[5];
 extern int32 avromfonts[5];
 
+extern int32 DLeft;
+extern int32 DRight;
+extern int32 DTop;
+extern int32 DBottom;
+extern int32 VTic;
+extern int32 HTic;
+extern int32 VChar;
+extern int32 HChar;
+extern int32 XDMax;
+extern int32 YDMax;
+extern double XMin;
+extern double YMin;
+extern double XMax;
+extern double YMax;
+extern int32 TextJustify;
+extern int32 TextAngle;
+
 void get_scale(double *x1, double *y1, double *x2, double *y2);
 void set_scale(double x1, double y1, double x2, double y2);
 void get_draw_area_flag(int32 flag);
