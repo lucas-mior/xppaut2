@@ -4256,11 +4256,11 @@ void volterra_allocate(int32 npts, int32 flag);
 void volterra_re_evaluate_kernels(void);
 void volterra_alloc_kernels(int32 flag);
 void volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
-               int32 ishift);
+                        int32 ishift);
 int32 volterra(double *y, double *t, double dt, int32 nt, int32 neq,
                int32 *istart, double *work);
 int32 volterra_step(double *y, double t, double dt, int32 neq, double *yg,
-                double *yp, double *yp2, double *errvec, double *jac);
+                    double *yp, double *yp2, double *errvec, double *jac);
 
 #endif
 

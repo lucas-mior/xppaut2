@@ -183,7 +183,8 @@ volterra_alloc_kernels(int32 flag) {
 ***/
 
 void
-volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend, int32 ishift) {
+volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
+                   int32 ishift) {
     double t = t0 + n*dt, tp = t0 + i0*dt;
     double sum[MAX_ODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
@@ -349,7 +350,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
 
 int32
 volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
-          double *yp2, double *errvec, double *jac) {
+              double *yp2, double *errvec, double *jac) {
     int32 i0, iend, ishift, i, iter = 0, info, ipivot[MAX_ODE1], j, ind;
     int32 n1 = NODE + 1;
     double dt2 = .5*dt, err;
@@ -358,7 +359,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     iend = MIN(CurrentPoint - 1, MaxPoints - 1);
     ishift = i0 % MaxPoints;
     volterra_init_sums(T0, CurrentPoint, dt, i0, iend,
-              ishift); /*  initialize all the sums */
+                       ishift); /*  initialize all the sums */
     KnFlag = 0;
     for (i = 0; i < neq; i++) {
         SETVAR(i + 1, y[i]);
