@@ -11,7 +11,7 @@
 #include "integers.h"
 #include <libgen.h>
 
-NCLINE nclines[MAXNCLINE];
+static NCLINE nclines[MAXNCLINE];
 extern CURVE frz[MAXFRZ];
 extern GRAPH *MyGraph;
 extern Display *display;
@@ -58,7 +58,7 @@ extern int32 DLeft, DRight, DTop, DBottom, VTic, HTic, VChar, HChar;
 extern double T0, TEND;
 extern double **storage;
 
-double FreezeKeyX, FreezeKeyY;
+static double FreezeKeyX, FreezeKeyY;
 static int32 FreezeKeyFlag;
 int32 AutoFreezeFlag = 0;
 static int32 CurrentCurve = 0;
