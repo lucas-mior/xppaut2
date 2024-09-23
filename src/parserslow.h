@@ -19,7 +19,7 @@
 #define EVECTYPE 14      /* treat vector like a function */
 #define MAXTYPE 20000000 /* this is the maximum number of named stuff */
 
-#define COM(a, b) ((a) * MAXTYPE + (b))
+#define COM(a, b) ((a)*MAXTYPE + (b))
 
 #define MAXARG 20
 #define NEGATE 9

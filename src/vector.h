@@ -220,7 +220,7 @@ void N_VConst(double c, N_Vector z);
 /***************************************************************
  *                                                             *
  * Function  : N_VProd                                         *
- * Operation : z[i] = x[i] * y[i] for i=0, 1, ..., N-1         *
+ * Operation : z[i] = x[i]*y[i] for i=0, 1, ..., N-1         *
  *                                                             *
  ***************************************************************/
 
@@ -291,7 +291,7 @@ void N_VAddConst(N_Vector x, double b, N_Vector z);
  *                                                             *
  * Returns the value of the ordinary dot product of x and y:   *
  *                                                             *
- * -> sum (i=0 to N-1) {x[i] * y[i]}                           *
+ * -> sum (i=0 to N-1) {x[i]*y[i]}                           *
  *                                                             *
  * Returns 0.0 if N <= 0.                                      *
  *                                                             *
@@ -324,7 +324,7 @@ double N_VMaxNorm(N_Vector x);
  * Returns the weighted root mean square norm of x with        *
  * weight vector w:                                            *
  *                                                             *
- * -> sqrt [(sum (i=0 to N-1) {(x[i] * w[i])^2}) / N]          *
+ * -> sqrt [(sum (i=0 to N-1) {(x[i]*w[i])^2}) / N]          *
  *                                                             *
  * Returns 0.0 if N <= 0.                                      *
  *                                                             *

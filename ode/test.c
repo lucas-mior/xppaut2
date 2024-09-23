@@ -23,15 +23,15 @@ double *v;
 main() {
     int i;
     char name[10];
-    v = malloc(11 * sizeof(*v));
-    m = malloc(11 * sizeof(*m));
+    v = malloc(11*sizeof(*v));
+    m = malloc(11*sizeof(*m));
     for (i = 0; i < 10; i++) {
         strcpy(m[i].name, ms[i].name);
         m[i].len = ms[i].len;
         m[i].com = ms[i].com;
         m[i].arg = ms[i].arg;
         m[i].pri = ms[i].pri;
-        v[i] = .05 * i;
+        v[i] = .05*i;
     }
 
     for (i = 0; i < 10; i++)
@@ -45,7 +45,7 @@ main() {
     */
     for (i = 12; i < 80; i++) {
         sprintf(m[i].name, "var%d", i);
-        v[i] = .05 * i;
+        v[i] = .05*i;
         m[i].len = strlen(m[i].name);
         m[i].com = 10000 + i;
         m[i].arg = 0;

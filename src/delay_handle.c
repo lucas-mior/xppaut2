@@ -34,7 +34,8 @@ extern char delay_string[MAX_ODE][80];
 extern double variables[];
 extern int32 NVAR;
 
-static void polint(double *xa, double *ya, int32 n, double x, double *y, double *dy);
+static void polint(double *xa, double *ya, int32 n, double x, double *y,
+                   double *dy);
 
 double
 delay_stab_eval(

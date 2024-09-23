@@ -170,7 +170,8 @@ static int32 write_this_run(char *file, int32 i);
 static void batch_integrate_once(void);
 static void do_batch_dry_run(void);
 static void do_eq_range(double *x);
-static void do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot);
+static void do_monte_carlo_search(int32 append, int32 stuffbrowse,
+                                  int32 ishoot);
 static void monte_carlo(void);
 static void init_monte_carlo(void);
 static int32 set_up_range2(void);

@@ -280,18 +280,18 @@ add_parameter(char *name, char *id, double z, int32 f) {
 
 void
 GetEvents(Model_t *m) {
-     Event_t *e;
-     EventAssignment_t *ea;
+    Event_t *e;
+    EventAssignment_t *ea;
     int32 n, na;
     char *ev;
     char *a;
     int32 j;
-     char *variable;
+    char *variable;
     char *formula;
     char big[256];
     EVENT *x;
     n = Model_getNumEvents(m);
-    event = malloc(n * sizeof(*event));
+    event = malloc(n*sizeof(*event));
     Nevent = n;
     if (n == 0)
         return;
@@ -324,8 +324,8 @@ GetEvents(Model_t *m) {
 
 void
 GetFunctions(Model_t *m) {
-     ASTNode_t *math;
-     FunctionDefinition_t *fd;
+    ASTNode_t *math;
+    FunctionDefinition_t *fd;
     char *formula;
     char *sa;
     char *name;
@@ -336,7 +336,7 @@ GetFunctions(Model_t *m) {
     if (n == 0)
         return;
     Nfuns = n;
-    funs = malloc(n * sizeof(FUN_DEF));
+    funs = malloc(n*sizeof(FUN_DEF));
     for (int32 i = 0; i < n; i++) {
         f = funs + i;
         fd = Model_getFunctionDefinition(m, i);
@@ -384,7 +384,7 @@ GetReaction(Model_t *m, uint32 level, uint32 version) {
     char *name, *id;
     double value, st;
     Nrxn = n;
-    rxn = malloc(n * sizeof(*rxn));
+    rxn = malloc(n*sizeof(*rxn));
     for (int32 i = 0; i < n; i++) {
         r = Model_getReaction(m, i);
         if (Reaction_isSetKineticLaw(r)) {
@@ -572,7 +572,7 @@ GetSpecies(Model_t *pModel, uint32 level, uint32 version) {
 
     Species_t *pSpecies;
 
-    X_spec = malloc(n * sizeof(*X_spec));
+    X_spec = malloc(n*sizeof(*X_spec));
     N_spec = n;
     for (int32 i = 0; i < n; i++) {
         pSpecies = Model_getSpecies(pModel, i);
@@ -721,13 +721,13 @@ void
 GetListRule(Model_t *pModel, uint32 unSBMLLevel, uint32 unSBMLVersion) {
     int32 n = Model_getNumRules(pModel);
     /* determine the values */
-     char *pacTypecode;
-     char *pacFormula = NULL;
-     char *pacVariable = NULL;
+    char *pacTypecode;
+    char *pacFormula = NULL;
+    char *pacVariable = NULL;
 
     Rule_t *pRule;
     Nrule = n;
-    rule = malloc(n * sizeof(*rule));
+    rule = malloc(n*sizeof(*rule));
 
     for (int32 i = 0; i < n; i++) {
         /* determine the values */

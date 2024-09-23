@@ -35,7 +35,7 @@ typedef struct {
     double *wp;        /*array input size: MCL2*MCL1 */
     double *wt;        /*array input size: MCL2*MCL1 */
     double *wi;    /*array input size: MCL2*MCL1??? Not sure of this one yet */
-    double *thu;   /*array input size: ndim * 8 */
+    double *thu;   /*array input size: ndim*8 */
     double *thl;   /*array input size: NPARX */
     double *rldot; /*array input size: NPARX */
     BCNI_TYPE((*bcni));

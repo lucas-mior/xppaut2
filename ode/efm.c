@@ -17,14 +17,14 @@ norm(void) {
     double fac, r, v1, v2;
     if (BoxMullerFlag == 0) {
         do {
-            v1 = 2.0 * drand48() - 1.0;
-            v2 = 2.0 * drand48() - 1.0;
-            r = v1 * v1 + v2 * v2;
+            v1 = 2.0*drand48() - 1.0;
+            v2 = 2.0*drand48() - 1.0;
+            r = v1*v1 + v2*v2;
         } while (r >= 1.0);
-        fac = sqrt(-2.0 * log(r) / r);
-        BoxMuller = v1 * fac;
+        fac = sqrt(-2.0*log(r) / r);
+        BoxMuller = v1*fac;
         BoxMullerFlag = 1;
-        return (v2 * fac);
+        return (v2*fac);
     } else {
         BoxMullerFlag = 0;
         return (BoxMuller);
@@ -41,12 +41,12 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
     double cs[MAXN];
     double ssum = 0.0;
     double sbar;
-    double sstart, f = (double)(niter - nstart) * dt;
+    double sstart, f = (double)(niter - nstart)*dt;
     int n1 = nstart + 1;
     for (nt = 0; nt < ntrials; nt++) {
         for (i = 0; i < n; i++) { /* initialize */
-            x[i] = Tpi * drand48();
-            i0[i] = ibar + isig * norm();
+            x[i] = Tpi*drand48();
+            i0[i] = ibar + isig*norm();
             s[i] = S;
         }
 
@@ -59,8 +59,8 @@ onerun(double dt, int n, int ntrials, int niter, int nstart, double ibar,
                 sstart = sbar;
             for (i = 0; i < n; i++) {
                 cs[i] = cos(x[i]);
-                s[i] += dt * (.01 * pow((1 - cs[i]), 10.0) - s[i]) / tau;
-                x[i] += dt * (1 - cs[i] + (1 + cs[i]) * (i0[i] + sbar));
+                s[i] += dt*(.01*pow((1 - cs[i]), 10.0) - s[i]) / tau;
+                x[i] += dt*(1 - cs[i] + (1 + cs[i])*(i0[i] + sbar));
             } /* all have been updated */
         }
         /* approx slope */

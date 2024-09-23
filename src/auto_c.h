@@ -18,7 +18,7 @@
 #define NPARX (36) /*get rid of*/
 #define NBIFX (20)
 #define KREDO (1)          /*get rid of*/
-#define NPARX2 (NPARX * 2) /*get rid of*/
+#define NPARX2 (NPARX*2) /*get rid of*/
 #define HMACH (1.0e-7)
 #define RSMALL (1.0e-30)
 #define RLARGE (1.0e+30)

@@ -83,7 +83,8 @@ extern int32 NCON, NSYM, NCON_START, NSYM_START;
 extern int32 MAXSTOR;
 extern double **storage;
 
-static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y);
+static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula,
+                            double *y);
 static double tab_interp(double xlo, double h, double x, double *y, int32 i);
 static double lookupxy(double x, int32 n, double *xv, double *yv);
 static void view_table(int32 index);

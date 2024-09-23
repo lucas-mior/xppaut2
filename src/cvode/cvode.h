@@ -509,7 +509,7 @@ typedef struct CVodeMemRec {
 
     N_Vector cv_zn[L_MAX]; /* Nordsieck array N x (q+1),                  */
                            /* zn[j] is a vector of length N, j=0, ... , q */
-                           /* zn[j] = h^j * jth derivative of the         */
+                           /* zn[j] = h^j*jth derivative of the         */
                            /* interpolating polynomial                    */
 
     /* Vectors of length N */
@@ -547,7 +547,7 @@ typedef struct CVodeMemRec {
     double cv_l[L_MAX];          /* coefficients of l(x) (degree q poly)      */
 
     double cv_rl1;    /* 1 / l[1]                     */
-    double cv_gamma;  /* gamma = h * rl1              */
+    double cv_gamma;  /* gamma = h*rl1              */
     double cv_gammap; /* gamma at the last setup call */
     double cv_gamrat; /* gamma / gammap               */
 

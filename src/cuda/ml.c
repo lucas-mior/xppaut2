@@ -45,15 +45,15 @@ real *sum;
 int allocflag = 0;
 real
 minf(real v) {
-    return .5 * (1 + tanh((v - va) / vb));
+    return .5*(1 + tanh((v - va) / vb));
 }
 real
 ninf(real v) {
-    return .5 * (1 + tanh((v - vc) / vd));
+    return .5*(1 + tanh((v - vc) / vd));
 }
 real
 lamn(real v) {
-    return phi * cosh((v - vc) / (2 * vd));
+    return phi*cosh((v - vc) / (2*vd));
 }
 real
 s_inf(real v) {
@@ -67,7 +67,7 @@ update_sums(real *s, real *wgt, int n) {
     for (i = 0; i < n; i++) {
         sum[i] = 0.0;
         for (j = 0; j < n; j++)
-            sum[i] += (s[j] * wgt[j + i * n]);
+            sum[i] += (s[j]*wgt[j + i*n]);
     }
 }
 
@@ -75,9 +75,9 @@ void
 update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s, int n) {
     int i;
     for (i = 0; i < n; i++) {
-        vp[i] = iapp - gl * (v[i] - vl) - gk * w[i] * (v[i] - vk) -
-                gca * minf(v[i]) * (v[i] - 1.0) - gsyn * sum[i] * (v[i] - vsyn);
-        wp[i] = lamn(v[i]) * (ninf(v[i]) - w[i]);
+        vp[i] = iapp - gl*(v[i] - vl) - gk*w[i]*(v[i] - vk) -
+                gca*minf(v[i])*(v[i] - 1.0) - gsyn*sum[i]*(v[i] - vsyn);
+        wp[i] = lamn(v[i])*(ninf(v[i]) - w[i]);
         sp[i] = (s_inf(v[i]) - s[i]) / tsyn;
     }
 }
@@ -86,7 +86,7 @@ void
 allocsum(int n) {
     if (allocflag == 1)
         return;
-    sum = malloc(n * sizeof(*sum));
+    sum = malloc(n*sizeof(*sum));
     allocflag = 1;
 }
 void
@@ -99,10 +99,10 @@ ML(int nn, int ivar, double *par, double *var, double *z[50], double *ydot) {
     double t = var[0];
     v = var + ivar;
     w = var + n + ivar;
-    s = var + 2 * n + ivar;
+    s = var + 2*n + ivar;
     vp = ydot;
     wp = ydot + n;
-    sp = ydot + 2 * n;
+    sp = ydot + 2*n;
     wgt = z[0];
     p = par;
     /*  printf("%g %g %g ... %g %g %g \n",iapp,phi,va,tsyn,gsyn,vsyn); */

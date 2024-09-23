@@ -594,7 +594,7 @@ void BandPrint(BandMat A);
  * The underlying type of the band matrix returned is double **. If *
  * we allocate a band matrix A in double **a by                     *
  * a = bandalloc(n,smu,ml), then a[0] is a pointer to             *
- * n * (smu + ml + 1) contiguous storage locations and a[j] is a  *
+ * n*(smu + ml + 1) contiguous storage locations and a[j] is a  *
  * pointer to the uppermost element in the storage for the jth    *
  * column. The expression a[j][i-j+smu] references the (i,j)th    *
  * element of A, where 0 <= i,j <= n-1 and j-mu <= i <= j+ml.     *
@@ -1953,7 +1953,6 @@ int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
              int32 meth, long nstiff, uint32 nrdens, uint32 *icont,
              uint32 licont, double *work);
 
-
 #ifndef EDIT_RHS_H
 #define EDIT_RHS_H
 
@@ -2801,7 +2800,7 @@ int32 film_clip(void);
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define ABS(A) ((A > 0) ? (A) : -(A))
-#define SQR(A) ((A) * (A))
+#define SQR(A) ((A)*(A))
 
 /******************************************************************
  *                                                                *

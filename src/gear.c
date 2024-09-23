@@ -23,27 +23,29 @@ extern int32 NFlags;
 double ShootIC[8][MAX_ODE];
 int32 ShootICFlag;
 int32 ShootIndex;
- 
+
 static int32 ShootType[8];
 static int32 gear_pivot[MAX_ODE];
 extern int32 storind, STORFLAG;
 
 static double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
-                          {{4.5, 6, 1}, {12, 24, 1}},
-                          {{7.333, 9.167, .5}, {24, 37.89, 2}},
-                          {{10.42, 12.5, .1667}, {37.89, 53.33, 1}},
-                          {{13.7, 15.98, .04133}, {53.33, 70.08, .3157}},
-                          {{17.15, 1, .008267}, {70.08, 87.97, .07407}},
-                          {{1, 1, 1}, {87.97, 1, .0139}}};
+                                 {{4.5, 6, 1}, {12, 24, 1}},
+                                 {{7.333, 9.167, .5}, {24, 37.89, 2}},
+                                 {{10.42, 12.5, .1667}, {37.89, 53.33, 1}},
+                                 {{13.7, 15.98, .04133}, {53.33, 70.08, .3157}},
+                                 {{17.15, 1, .008267}, {70.08, 87.97, .07407}},
+                                 {{1, 1, 1}, {87.97, 1, .0139}}};
 
 static void sscal(int32 n, double sa, double *sx, int32 incx);
 static double sdot(int32 n, double *sx, int32 incx, int32 incy);
 static int32 isamax(int32 n, double *sx, int32 incx);
-static void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy, int32 incy);
+static void saxpy(int32 n, double sa, double *sx, int32 incx, double *sy,
+                  int32 incy);
 static double sgnum(double x, double y);
 static double sqr2(double z);
 static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
-static void hqrx(int32 n, int32 low, int32 igh, double *h, double *ev, int32 *ierr);
+static void hqrx(int32 n, int32 low, int32 igh, double *h, double *ev,
+                 int32 *ierr);
 static void pr_evec(double *x, double *ev, int32 n, int32 type);
 
 void

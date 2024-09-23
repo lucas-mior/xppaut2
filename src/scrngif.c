@@ -49,7 +49,6 @@ static int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
 static void local_to_global(void);
 static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 
-
 GIFCOL gifcol[256];
 GIFCOL gifGcol[256];
 int32 NGlobalColors = 0;

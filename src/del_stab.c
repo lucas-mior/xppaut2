@@ -18,7 +18,8 @@ extern int32 NDelay, del_stab_flag, WhichDelay, DelayGrid;
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 
 static int32 test_sign(double old, double new);
-static double get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda);
+static double get_arg(double *delay, double *coef, int32 m, int32 n,
+                      COMPLEX lambda);
 static void process_root(double real, double im);
 static COMPLEX cdeterm(COMPLEX *z, int32 n);
 static double c_abs(COMPLEX z);

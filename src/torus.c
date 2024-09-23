@@ -18,7 +18,6 @@ extern int32 DisplayHeight, DisplayWidth;
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-
 extern int32 screen;
 extern GC gc, small_gc;
 extern int32 DCURX, DCURXs, DCURY, DCURYs, CURY_OFFs, CURY_OFF;

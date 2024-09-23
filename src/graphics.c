@@ -41,8 +41,8 @@ extern double **storage;
 extern int32 storind;
 
 static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
-                      {1, 3, 0}, {4, 4, 0}, {1, 5, 0}, {4, 4, 4, 1, 0},
-                      {4, 2, 0}, {1, 3, 0}};
+                             {1, 3, 0}, {4, 4, 0}, {1, 5, 0}, {4, 4, 4, 1, 0},
+                             {4, 2, 0}, {1, 3, 0}};
 
 extern XFontStruct *small_font;
 XFontStruct *symfonts[5];
@@ -85,8 +85,10 @@ int32 TextJustify;
 int32 TextAngle;
 
 static void draw_symbol(double x, double y, double size, int32 my_symb);
-static void line_nabs(double x1_out, double y1_out, double x2_out, double y2_out);
-static void pers_line(double x, double y, double z, double xp, double yp, double zp);
+static void line_nabs(double x1_out, double y1_out, double x2_out,
+                      double y2_out);
+static void pers_line(double x, double y, double z, double xp, double yp,
+                      double zp);
 static void init_graph(int32 i);
 static void line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
 static void rect_x11(int32 x, int32 y, int32 w, int32 h);
