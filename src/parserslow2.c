@@ -69,7 +69,7 @@ int32 narg_fun[MAX_UFUN];
 double stack[200];
 double ustack[200];
 
-KERNEL kernel[MAX_KER];
+Kernel kernel[MAX_KER];
 int32 NKernel;
 int32 MaxPoints;
 double *Memory[MAX_KER];

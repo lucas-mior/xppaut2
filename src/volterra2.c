@@ -22,7 +22,7 @@
  * evaluating K(t,t',u) */
 
 #define CONV 2
-extern KERNEL kernel[MAX_KER];
+extern Kernel kernel[MAX_KER];
 extern int32 NODE;
 extern int32 NMarkov;
 extern int32 FIX_VAR;
