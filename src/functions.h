@@ -2558,6 +2558,10 @@ void set_edit_params(BoxList *b, int32 i, char *string);
 
 #include <stdio.h>
 
+extern int32 MakePlotFlag;
+extern int32 SuppressOut;
+extern int32 SuppressBounds;
+
 void init_ar_ic(void);
 void dump_range(FILE *fp, int32 f);
 void init_range(void);

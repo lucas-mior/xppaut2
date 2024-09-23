@@ -74,7 +74,7 @@ extern char this_internset[XPP_MAX_NAME];
 
 int32 MakePlotFlag = 0;
 
-int32 OnTheFly = 1;
+static int32 OnTheFly = 1;
 extern FILE *svgfile;
 
 extern OptionsSet notAlreadySet;
@@ -88,7 +88,7 @@ typedef struct {
     int32 j1;
     int32 j2;
 } ARRAY_IC;
-int32 ar_ic_defined = 0;
+static int32 ar_ic_defined = 0;
 
 ARRAY_IC ar_ic[NAR_IC];
 typedef struct {
