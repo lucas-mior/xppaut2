@@ -422,7 +422,6 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  * macros whenever possible.                                      *
  *                                                                *
  ******************************************************************/
-
 typedef struct {
     int64 size;
     int64 mu;
@@ -1253,7 +1252,6 @@ int32 plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
  * Users should use these macros whenever possible.               *
  *                                                                *
  ******************************************************************/
-
 typedef struct {
     int64 size;
     double **data;
@@ -1271,7 +1269,6 @@ typedef struct {
  * DenseMat A, 0 <= i,j <= N-1.                                   *
  *                                                                *
  ******************************************************************/
-
 #define DENSE_ELEM(A, i, j) ((A->data)[j][i])
 
 /******************************************************************
@@ -1286,7 +1283,6 @@ typedef struct {
  * The (i,j)th element of A is referenced by col_j[i].            *
  *                                                                *
  ******************************************************************/
-
 #define DENSE_COL(A, j) ((A->data)[j])
 
 /* Functions that use the DenseMat representation for a dense matrix */
@@ -1304,7 +1300,6 @@ typedef struct {
  * for matrix storage details.                                    *
  *                                                                *
  ******************************************************************/
-
 DenseMat DenseAllocMat(int64 N);
 
 /******************************************************************
@@ -1321,7 +1316,6 @@ DenseMat DenseAllocMat(int64 N);
  * pivot storage cannot be satisfied, DenseAllocPiv returns NULL. *
  *                                                                *
  ******************************************************************/
-
 int64 *DenseAllocPiv(int64 N);
 
 /******************************************************************
@@ -1353,7 +1347,6 @@ int64 *DenseAllocPiv(int64 N);
  * it encountered the zero.                                       *
  *                                                                *
  ******************************************************************/
-
 int64 DenseFactor(DenseMat A, int64 *p);
 
 /******************************************************************
@@ -1368,7 +1361,6 @@ int64 DenseFactor(DenseMat A, int64 *p);
  * did not fail.                                                  *
  *                                                                *
  ******************************************************************/
-
 void DenseBacksolve(DenseMat A, int64 *p, N_Vector b);
 
 /******************************************************************
@@ -1379,7 +1371,6 @@ void DenseBacksolve(DenseMat A, int64 *p, N_Vector b);
  * DenseZero sets all the elements of the N by N matrix A to 0.0. *
  *                                                                *
  ******************************************************************/
-
 void DenseZero(DenseMat A);
 
 /******************************************************************
@@ -1391,7 +1382,6 @@ void DenseZero(DenseMat A);
  * N by N matrix B.                                               *
  *                                                                *
  ******************************************************************/
-
 void DenseCopy(DenseMat A, DenseMat B);
 
 /******************************************************************
@@ -1403,7 +1393,6 @@ void DenseCopy(DenseMat A, DenseMat B);
  * constant c and stores the result back in A.                    *
  *                                                                *
  ******************************************************************/
-
 void DenseScale(double c, DenseMat A);
 
 /******************************************************************
@@ -1415,7 +1404,6 @@ void DenseScale(double c, DenseMat A);
  * back in A.                                                     *
  *                                                                *
  ******************************************************************/
-
 void DenseAddI(DenseMat A);
 
 /******************************************************************
@@ -1427,7 +1415,6 @@ void DenseAddI(DenseMat A);
  * the N by N matrix A.                                           *
  *                                                                *
  ******************************************************************/
-
 void DenseFreeMat(DenseMat A);
 
 /******************************************************************
@@ -1439,7 +1426,6 @@ void DenseFreeMat(DenseMat A);
  * the pivot information array p.                                 *
  *                                                                *
  ******************************************************************/
-
 void DenseFreePiv(int64 *p);
 
 /******************************************************************
@@ -1454,7 +1440,6 @@ void DenseFreePiv(int64 *p);
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-
 void DensePrint(DenseMat A);
 
 /* Functions that use the double ** representation for a dense matrix */
@@ -1478,7 +1463,6 @@ void DensePrint(DenseMat A);
  * the elements of a.                                             *
  *                                                                *
  ******************************************************************/
-
 double **denalloc(int64 n);
 
 /******************************************************************
@@ -1493,7 +1477,6 @@ double **denalloc(int64 n);
  * returns NULL if the memory request could not be satisfied.     *
  *                                                                *
  ******************************************************************/
-
 int64 *denallocpiv(int64 n);
 
 /******************************************************************
@@ -1527,7 +1510,6 @@ int64 *denallocpiv(int64 n);
  * encountered the zero.                                          *
  *                                                                *
  ******************************************************************/
-
 int64 gefa(double **a, int64 n, int64 *p);
 
 /******************************************************************
@@ -1543,7 +1525,6 @@ int64 gefa(double **a, int64 n, int64 *p);
  * is written into the b array.                                   *
  *                                                                *
  ******************************************************************/
-
 void gesl(double **a, int64 n, int64 *p, double *b);
 
 /******************************************************************
@@ -1555,7 +1536,6 @@ void gesl(double **a, int64 n, int64 *p, double *b);
  * a to be 0.0.                                                   *
  *                                                                *
  ******************************************************************/
-
 void denzero(double **a, int64 n);
 
 /******************************************************************
@@ -1567,7 +1547,6 @@ void denzero(double **a, int64 n);
  * n by n dense matrix b.                                         *
  *                                                                *
  ******************************************************************/
-
 void dencopy(double **a, double **b, int64 n);
 
 /******************************************************************
@@ -1579,7 +1558,6 @@ void dencopy(double **a, double **b, int64 n);
  * matrix a by c.                                                 *
  *                                                                *
  ******************************************************************/
-
 void denscale(double c, double **a, int64 n);
 
 /******************************************************************
@@ -1591,7 +1569,6 @@ void denscale(double c, double **a, int64 n);
  * identity matrix.                                               *
  *                                                                *
  ******************************************************************/
-
 void denaddI(double **a, int64 n);
 
 /******************************************************************
@@ -1603,7 +1580,6 @@ void denaddI(double **a, int64 n);
  * denallocpiv.                                                   *
  *                                                                *
  ******************************************************************/
-
 void denfreepiv(int64 *p);
 
 /******************************************************************
@@ -1614,7 +1590,6 @@ void denfreepiv(int64 *p);
  * denfree(a) frees the dense matrix a allocated by denalloc.     *
  *                                                                *
  ******************************************************************/
-
 void denfree(double **a);
 
 /******************************************************************
@@ -1629,7 +1604,6 @@ void denfree(double **a);
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-
 void denprint(double **a, int64 n);
 
 #endif
@@ -2900,7 +2874,6 @@ void silent_equilibria(void);
  *         both the left and the right.                           *
  *                                                                *
  ******************************************************************/
-
 enum {
     PRE_NONE,
     PRE_LEFT,
@@ -2921,7 +2894,6 @@ enum {
  *                file.                                           *
  *                                                                *
  ******************************************************************/
-
 enum {
     MODIFIED_GS,
     CLASSICAL_GS
@@ -2939,7 +2911,6 @@ enum {
  * non-zero value if unsuccessful.                                *
  *                                                                *
  ******************************************************************/
-
 typedef int32 (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
 
 /******************************************************************
@@ -2959,7 +2930,6 @@ typedef int32 (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
  * reattempt the solution after updating preconditioner data.     *
  *                                                                *
  ******************************************************************/
-
 typedef int32 (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int32 lr);
 
 /******************************************************************
@@ -2997,7 +2967,6 @@ typedef int32 (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int32 lr);
  * ModifiedGS returns 0 to indicate success. It cannot fail.      *
  *                                                                *
  ******************************************************************/
-
 int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p,
                  double *new_vk_norm);
 
@@ -3020,7 +2989,6 @@ int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p,
  * ClassicalGS returns 0 to indicate success. It cannot fail.     *
  *                                                                *
  ******************************************************************/
-
 int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p,
                   double *new_vk_norm, N_Vector temp, double *s);
 
@@ -3055,7 +3023,6 @@ int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p,
  * divide by the zero diagonal entry.                             *
  *                                                                *
  ******************************************************************/
-
 int32 QRfact(int32 n, double **h, double *q, int32 job);
 
 /******************************************************************
@@ -3089,7 +3056,6 @@ int32 QRfact(int32 n, double **h, double *q, int32 job);
  * from 1, not 0) of the zero entry.                              *
  *                                                                *
  ******************************************************************/
-
 int32 QRsol(int32 n, double **h, double *q, double *b);
 
 #endif
@@ -3139,21 +3105,14 @@ void too_small(void);
  * Macros : MIN, MAX, ABS, SQR                                    *
  *----------------------------------------------------------------*
  * MIN(A, B) returns the minimum of A and B.                      *
- *                                                                *
  * MAX(A, B) returns the maximum of A and B.                      *
- *                                                                *
  * ABS(A) returns the absolute value of A.                        *
- *                                                                *
  * SQR(A) returns the square of A.                                *
  *                                                                *
  ******************************************************************/
-
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
-
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
-
 #define ABS(A) ((A > 0) ? (A) : -(A))
-
 #define SQR(A) ((A) * (A))
 
 /******************************************************************
@@ -3167,7 +3126,6 @@ void too_small(void);
  * positive double such that 1.0 + u != 1.0.                        *
  *                                                                *
  ******************************************************************/
-
 double UnitRoundoff(void);
 
 /******************************************************************
@@ -3181,7 +3139,6 @@ double UnitRoundoff(void);
  * and exponent is an int32.                                        *
  *                                                                *
  ******************************************************************/
-
 double RPowerI(double base, int32 exponent);
 
 /******************************************************************
@@ -3194,9 +3151,7 @@ double RPowerI(double base, int32 exponent);
  * exponent are reals. If base < 0.0, then RPowerR returns 0.0.   *
  *                                                                *
  ******************************************************************/
-
 double RPowerR(double base, double exponent);
-
 /******************************************************************
  *                                                                *
  * Function : RSqrt                                               *
@@ -3207,7 +3162,6 @@ double RPowerR(double base, double exponent);
  * returns 0.0.                                                   *
  *                                                                *
  ******************************************************************/
-
 double RSqrt(double x);
 
 #endif
@@ -4319,7 +4273,6 @@ double vector_value(double x, int32 i);
  * vector storage during calculations.                            *
  *                                                                *
  ******************************************************************/
-
 typedef struct {
     int64 N;
     int32 l_max;
@@ -4347,7 +4300,6 @@ typedef struct {
  * NULL if there is a memory request failure.                     *
  *                                                                *
  ******************************************************************/
-
 SpgmrMem SpgmrMalloc(int64 N, int32 l_max);
 
 /******************************************************************
@@ -4435,7 +4387,6 @@ SpgmrMem SpgmrMalloc(int64 N, int32 l_max);
  * to use.                                                        *
  *                                                                *
  ******************************************************************/
-
 int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
                  int32 pretype, int32 gstype, double delta, int32 max_restarts,
                  void *P_data, N_Vector sx, N_Vector sb, ATimesFn atimes,
@@ -4466,7 +4417,6 @@ int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
  * illegal to use the pointer mem after a call to SpgmrFree.      *
  *                                                                *
  ******************************************************************/
-
 void SpgmrFree(SpgmrMem mem);
 
 #endif
