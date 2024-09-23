@@ -578,7 +578,7 @@ do_auto(int32 iold, int32 isave) {
         RestartLabel = 0;
         do_auto(iold, isave);
     }
-    ping();
+    ggets_ping();
     redraw_params();
 }
 
@@ -1866,14 +1866,14 @@ auto_run(void) {
     char ch;
     if (grabpt.flag == 0) { /* the first call to AUTO   */
         auto_start_choice();
-        ping();
+        ggets_ping();
         return;
     }
     if (grabpt.lab == 0) {
         ch = (char)TwoChoice("YES", "NO", "Not Labeled Pt: New Start?", "y");
         if (ch == 'y')
             auto_start_diff_ss();
-        ping();
+        ggets_ping();
         return;
     }
 
@@ -1884,23 +1884,23 @@ auto_run(void) {
     /*  printf(" ips=%d itp=%d itp1= %d itp2=%d\n",ips,itp,itp1,itp2); */
     if (itp1 == 3 || itp2 == 3) { /* its a HOPF Point  */
         hopf_choice();
-        ping();
+        ggets_ping();
         return;
     }
     if (itp1 == 7 || itp2 == 7) { /* period doubling */
         per_doub_choice();
-        ping();
+        ggets_ping();
         return;
     }
     if (ips == 9) {
         auto_homo_choice(itp);
-        ping();
+        ggets_ping();
         return;
     }
     if (itp1 == 2 || itp2 == 2) { /* limit point */
         Auto.ips = 1;
         auto_2p_limit(Auto.ips);
-        ping();
+        ggets_ping();
         return;
     }
     if (itp1 == 5 || itp2 == 5) { /* limit pt of periodic or BVP */
@@ -1910,33 +1910,33 @@ auto_run(void) {
                              doing
                           */
         auto_2p_limit(Auto.ips);
-        ping();
+        ggets_ping();
         return;
     }
     if (itp1 == 6 || itp2 == 6 || itp1 == 1 || itp2 == 1) { /* branch point  */
 
         auto_branch_choice(grabpt.ibr, ips);
-        ping();
+        ggets_ping();
         return;
     }
     if (itp1 == 8 || itp2 == 8) { /* Torus 2 parameter */
         torus_choice();
-        ping();
+        ggets_ping();
         return;
     }
     if (grabpt.ibr < 0) { /* its a periodic -- just extend it  */
         periodic_choice();
-        ping();
+        ggets_ping();
         return;
     }
     if (grabpt.ibr > 0 && ips != 4) { /*  old steady state -- just extend it  */
         auto_extend_ss();
-        ping();
+        ggets_ping();
         return;
     }
     if (grabpt.ibr > 0 && ips == 4) {
         auto_extend_bvp();
-        ping();
+        ggets_ping();
         return;
     }
     return;

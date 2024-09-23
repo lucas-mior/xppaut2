@@ -148,7 +148,7 @@ do_txt_action(char *s) {
     tfBell = 1;
     get_graph();
     extract_action(s);
-    ping();
+    ggets_ping();
     tfBell = tb;
     chk_delay();
     redraw_params();

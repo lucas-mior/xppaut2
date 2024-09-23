@@ -169,7 +169,7 @@ new_four(int32 nmodes, int32 col) {
     bob = get_data_col(col);
     fft(bob, my_four[1], my_four[2], nmodes, storind);
     four_back();
-    ping();
+    ggets_ping();
     return;
 }
 
@@ -245,7 +245,7 @@ twod_hist(void)
 
     hist_back();
 
-    ping();
+    ggets_ping();
 
     return 1;
 }
@@ -360,7 +360,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         NCON = NCON_START;
         NSYM = NSYM_START;
         hist_back();
-        ping();
+        ggets_ping();
         return;
     }
     if (which == 1) {
@@ -374,7 +374,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
             }
         }
         hist_back();
-        ping();
+        ggets_ping();
         return;
     }
     if (which == 2) {
@@ -382,14 +382,14 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
          */
         mycor2(storage[col], storage[col2], storind, nbins, my_hist[1], 1);
         hist_back();
-        ping();
+        ggets_ping();
         return;
     }
     if (which == 3) {
         fftxcorr(storage[col], storage[col2], storind, (nbins - 1) / 2,
                  my_hist[1], 1);
         hist_back();
-        ping();
+        ggets_ping();
         return;
     }
     return;
@@ -694,7 +694,7 @@ just_sd(int32 flag) {
         cross_spectrum(storage[spec_col], storage[spec_col2], storind, spec_wid,
                        spec_win, my_hist[1], spec_type);
     hist_back();
-    ping();
+    ggets_ping();
     return;
 }
 
@@ -739,7 +739,7 @@ compute_sd(void) {
         cross_spectrum(storage[spec_col], storage[spec_col2], storind, spec_wid,
                        spec_win, my_hist[1], spec_type);
     hist_back();
-    ping();
+    ggets_ping();
     return;
 }
 

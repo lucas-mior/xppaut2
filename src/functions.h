@@ -893,7 +893,7 @@ extern int32 CURS_X;
 extern int32 CURS_Y;
 extern int32 PS_Color;
 
-void ping(void);
+void ggets_ping(void);
 void reset_graphics(void);
 void blank_screen(Window window);
 void set_fore(void);

@@ -85,7 +85,7 @@ file_inf(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     sprintf(filename, "%s.pars", this_file);
-    ping();
+    ggets_ping();
     if (!file_selector("Save info", filename, "*.pars*"))
         return;
     /* if(new_string("Filename: ",filename)==0)return; */
@@ -257,7 +257,7 @@ do_lunch(/* f=1 to read and 0 to write */
     sprintf(filename, "%s.set", this_file);
 
     if (f == READEM) {
-        ping();
+        ggets_ping();
         if (!file_selector("Load SET File", filename, "*.set"))
             return;
 

@@ -469,7 +469,7 @@ make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
     for (i = 0; i < npts; i++)
         fprintf(fp, "%10.10g\n", b.data[col][i + b.istart]);
     fclose(fp);
-    ping();
+    ggets_ping();
     return;
 }
 

@@ -981,7 +981,7 @@ respond_box(char *button, char *message) {
     wb = make_window(wmain, ((width - l2)*DCURX) / 2, 2*DCURY, l2*DCURX,
                      DCURY, 1);
 
-    ping();
+    ggets_ping();
     set_window_title(wmain, "!!");
     XSelectInput(display, wb, BUT_MASK);
     while (!done) {
@@ -1027,7 +1027,7 @@ message_box(Window *w, int32 x, int32 y, char *message) {
     z = make_plain_window(*w, x, y, wid + 50, hgt, 4);
     XSelectInput(display, z, 0);
     Ftext(25, 2*DCURY, message, z);
-    ping();
+    ggets_ping();
     *w = z;
     return;
 }
@@ -1073,7 +1073,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
 
     wm = make_window(base, xm, DCURY / 2, lm + 2, DCURY, 0);
 
-    ping();
+    ggets_ping();
     if (window == RootWindow(display, screen)) {
         if (title == NULL) {
             set_window_title(base, "!!!!");

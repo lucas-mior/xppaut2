@@ -348,7 +348,7 @@ cont_integ(void) {
     /* TEND=tetemp; */
     MyStart = 1; /*  I know it is wasteful to restart, but lets be safe.... */
     integrate(&MyTime, x, dif, DELTA_T, 1, NJMP, &MyStart);
-    ping();
+    ggets_ping();
     refresh_browser(storind);
 }
 
@@ -978,7 +978,7 @@ do_range(double *x, int32 flag) {
     INFLAG = 1;
     /* refresh_browser(storind); */
 
-    ping();
+    ggets_ping();
     adj_range = false;
     if (STOCH_FLAG)
         do_stats(ierr);
@@ -1068,7 +1068,7 @@ find_equilib_com(int32 com) {
     if (DelayFlag) {
         do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
                       &stabinfo);
-        ping();
+        ggets_ping();
     } else
         do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
                 &stabinfo);
@@ -1295,7 +1295,7 @@ do_init_data(int32 com) {
     case M_IS:
     case M_IL:
         if (INFLAG == 0) {
-            ping();
+            ggets_ping();
             err_msg("No prior solution");
             return;
         }
@@ -1494,7 +1494,7 @@ usual_integrate_stuff(double *x) {
 
     integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart);
 
-    ping();
+    ggets_ping();
     INFLAG = 1;
     refresh_browser(storind);
     if (Xup) {
@@ -1769,7 +1769,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
         MSWTCH(y, xpv.x);
 
         if (kflag < 0) {
-            ping();
+            ggets_ping();
             if (RANGE_FLAG)
                 return 0;
             switch (kflag) {
@@ -1795,7 +1795,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                  istart, WORK, IWORK);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG)
                     return 0;
                 switch (kflag) {
@@ -1846,7 +1846,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             rb23(xpv.x, t, tout, istart, nodes, WORK, &kflag);
             MSWTCH(y, xpv.x);
             if (kflag < 0) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG)
                     return 0;
                 err_msg("Step size too small");
@@ -1859,7 +1859,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                      NEWT_ERR, METHOD, istart);
             MSWTCH(y, xpv.x);
             if (kflag) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG)
                     return 0;
                 switch (kflag) {
@@ -1985,7 +1985,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
                     return 1;
@@ -2031,7 +2031,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag < 0) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
                     return 1;
@@ -2122,7 +2122,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             if (kflag) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG || SuppressBounds) {
                     LastTime = *t;
                     return 1;
@@ -2160,7 +2160,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             MSWTCH(x, xpv.x);
 
             if (kflag < 0) {
-                ping();
+                ggets_ping();
                 if (RANGE_FLAG || SuppressBounds)
                     break;
                 switch (kflag) {
@@ -2750,7 +2750,7 @@ shoot(double *x, double *xg, double *evec, int32 sgn) {
         x[i] = xg[i] + sgn*evec[i]*DELTA_T*.1;
     i = 1;
     integrate(&t, x, TEND, DELTA_T, 1, NJMP, &i);
-    ping();
+    ggets_ping();
     SuppressBounds = 0;
     return;
 }
@@ -2779,7 +2779,7 @@ stor_full(void) {
     }
     if (FOREVER)
         goto ov;
-    ping();
+    ggets_ping();
     ch = (char)TwoChoice("YES", "NO", "Storage full: Overwrite?", "yn");
     if (ch == 'y') {
     ov:

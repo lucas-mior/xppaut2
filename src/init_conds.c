@@ -868,7 +868,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
                 wpos = pos - off;
             }
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_RIGHT:
         if (pos < l) {
@@ -881,7 +881,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
                 wpos = pos - off;
             }
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_HOME:
         pos = 0;
@@ -917,7 +917,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
           l--;
         }
         else
-         ping();
+         ggets_ping();
          break; */
     case KEY_DEL:
 
@@ -933,7 +933,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
             }
             l--;
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_TAB: /*KEY_TAB completion of file names */
     {
@@ -1082,7 +1082,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
     default:
         if ((ch >= ' ') && (ch <= '~')) {
             if (strlen(string) >= 256)
-                ping();
+                ggets_ping();
             else {
                 movmem(&string[pos + 1], &string[pos], l - pos + 1);
                 string[pos] = (char)ch;
@@ -2430,7 +2430,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
                 wpos = pos - off;
             }
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_RIGHT:
         if (pos < l) {
@@ -2443,7 +2443,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
                 wpos = pos - off;
             }
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_HOME:
         pos = 0;
@@ -2479,7 +2479,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
           l--;
         }
         else
-         ping();
+         ggets_ping();
          break; */
     case KEY_DEL:
 
@@ -2495,14 +2495,14 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
             }
             l--;
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_TAB:
         return EDIT_DONE;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
             if (strlen(string) >= 256)
-                ping();
+                ggets_ping();
             else {
                 movmem(&string[pos + 1], &string[pos], l - pos + 1);
                 string[pos] = (char)ch;

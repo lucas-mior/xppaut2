@@ -767,7 +767,7 @@ save_the_nullclines(void) {
     if (NULL_HERE == 0)
         return;
     snprintf(filename, sizeof(filename), "nc.dat");
-    ping();
+    ggets_ping();
     if (!file_selector("Save nullclines", filename, "*.dat"))
         return;
     fp = fopen(filename, "w");
@@ -927,13 +927,13 @@ new_clines_com(int32 c) {
         if (!NCSuppress)
             set_linestyle(col1);
         new_nullcline(course, xmin, y_bot, xmax, y_tp, X_n, &num_x_n);
-        ping();
+        ggets_ping();
 
         WHICH_CRV = null_iy;
         if (!NCSuppress)
             set_linestyle(col2);
         new_nullcline(course, xmin, y_bot, xmax, y_tp, Y_n, &num_y_n);
-        ping();
+        ggets_ping();
     }
     return;
 }

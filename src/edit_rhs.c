@@ -505,7 +505,7 @@ save_as(void) {
     double z;
     char filename[sizeof(this_file)];
     strncpy(filename, this_file, sizeof(filename));
-    ping();
+    ggets_ping();
     /* if(new_string("Filename: ",filename)==0)return; */
     if (!file_selector("Save As", filename, "*.ode"))
         return -1;

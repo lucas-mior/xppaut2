@@ -48,7 +48,7 @@ static void put_string_at(Window window, int32 col, char *s, int32 off);
 static void clr_line_at(Window window, int32 col0, int32 pos, int32 n);
 
 void
-ping(void) {
+ggets_ping(void) {
     if (tfBell && !XPPBatch) {
         /*
         XkbBell allows window managers to react
@@ -438,14 +438,14 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
             *pos = *pos - 1;
             *col -= DCURX;
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_RIGHT:
         if (*pos < (int32)strlen(value)) {
             *pos = *pos + 1;
             *col += DCURX;
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_HOME: {
         *pos = 0;
@@ -484,7 +484,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
             *pos = *pos - 1;
             *col -= DCURX;
         } else
-            ping();
+            ggets_ping();
         break;
     case KEY_TAB:
         if (MSStyle == 0)

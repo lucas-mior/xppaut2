@@ -233,7 +233,7 @@ do_sh_range(double *ystart, double *yend) {
         last_shot(0);
         if (shoot_range.movie == 1)
             film_clip();
-        ping();
+        ggets_ping();
     }
     refresh_browser(storind);
     auto_freeze_it();
@@ -343,7 +343,7 @@ find_bvp_com(int32 com) {
         INFLAG = 1;
         refresh_browser(storind);
         auto_freeze_it();
-        ping();
+        ggets_ping();
     } else if (iper)
         set_val(upar_names[ipar], oldpar);
 

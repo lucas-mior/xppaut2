@@ -53,7 +53,7 @@ dprhs(uint32 n, double t, double *y, double *f) {
 
 void
 dp_err(int32 k) {
-    ping();
+    ggets_ping();
     switch (k) {
     case -1:
         err_msg("Input is not consistent");

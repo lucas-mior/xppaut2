@@ -315,7 +315,7 @@ adj2_new_h_fun(int32 silent) {
         H_HERE = 1;
         adj2_h_back();
     }
-    ping();
+    ggets_ping();
     return;
 }
 
@@ -409,7 +409,7 @@ adj2_new_adjoint(void) {
         ADJ_HERE = 1;
         adj_back();
     }
-    ping();
+    ggets_ping();
     return;
 }
 

@@ -251,7 +251,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
         adaptive(y, NODE, &t, t1, TOLER, &dt, HMIN, WORK, &kflag, NEWT_ERR,
                  METHOD, istart);
         if (kflag) {
-            ping();
+            ggets_ping();
             switch (kflag) {
             case 2:
                 err_msg("Step size too small");
@@ -283,7 +283,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
         gear(NODE, &t, t1, y, HMIN, HMAX, TOLER, 2, error, &kflag, istart, WORK,
              IWORK);
         if (kflag < 0) {
-            ping();
+            ggets_ping();
             switch (kflag) {
             case -1:
                 err_msg("kflag=-1: minimum step too big");

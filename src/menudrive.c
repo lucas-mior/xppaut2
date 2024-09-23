@@ -162,7 +162,7 @@ MessageBox(char *m) {
     MsgBox.here = 1;
     set_window_title(MsgBox.window, "Yo!");
     strcpy(MsgBox.text, m);
-    ping();
+    ggets_ping();
     return;
 }
 

@@ -984,7 +984,7 @@ edit_curve(void) {
     char bob[21];
     int32 crv = 0;
     snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
-    ping();
+    ggets_ping();
     new_int(bob, &crv);
     if (crv >= 0 && crv < MyGraph->nvars) {
         snprintf(bob, sizeof(bob), "Edit curve %d", crv);
@@ -1020,13 +1020,13 @@ create_ps(void) {
         PS_LW = atof(values[4]);
         snprintf(PS_FONT, sizeof(PS_FONT), "%s", values[3]);
         snprintf(filename, sizeof(filename), "%s.ps", this_file);
-        ping();
+        ggets_ping();
 
         if (!file_selector("Print postscript", filename, "*.ps"))
             return;
         if (ps_init(filename, PS_Color)) {
             ps_restore();
-            ping();
+            ggets_ping();
         }
     }
     return;
@@ -1069,7 +1069,7 @@ create_svg(void) {
         return;
     if (svg_init(filename)) {
         svg_restore();
-        ping();
+        ggets_ping();
     }
     return;
 }
@@ -1439,7 +1439,7 @@ frz_bd(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     snprintf(filename, sizeof(filename), "diagram.dat");
-    ping();
+    ggets_ping();
     if (!file_selector("Import Diagram", filename, "*.dat"))
         return;
     /* if(new_string("Diagram to import: ",filename)==0)return; */
@@ -1531,7 +1531,7 @@ export_graf_data(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     snprintf(filename, sizeof(filename), "curve.dat");
-    ping();
+    ggets_ping();
     if (!file_selector("Export graph data", filename, "*.dat"))
         return;
     /* if(new_string("Data filename:",filename)==0)return; */
