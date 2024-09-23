@@ -99,7 +99,6 @@ static void draw_scale(struct ArrayPlot ap);
 static void draw_aplot(struct ArrayPlot ap);
 static void reset_aplot_axes(struct ArrayPlot ap);
 static int32 editaplot(struct ArrayPlot *ap);
-static void grab_aplot_screen(struct ArrayPlot ap);
 static void redraw_aplot(struct ArrayPlot ap);
 static void display_aplot(Window window, struct ArrayPlot ap);
 static void destroy_aplot(void);
@@ -641,16 +640,6 @@ gif_aplot(void) {
     if (!file_selector("GIF plot", filename, "*.gif"))
         return;
     array_plot_gif_all(filename, 1);
-    return;
-}
-
-void
-grab_aplot_screen(struct ArrayPlot ap) {
-    Window temp = draw_win;
-    draw_win = ap.wplot;
-    if (film_clip() == 0)
-        err_msg("Out of film!");
-    draw_win = temp;
     return;
 }
 
