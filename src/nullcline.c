@@ -16,9 +16,9 @@
 
 #define MAX_NULL 10000
 
-typedef struct Pt {
+typedef struct Point {
     double x, y, z;
-} Pt;
+} Point;
 
 int32 OutPutNC = 0;
 extern int32 SuppressBounds;
@@ -86,9 +86,9 @@ NullClines *ncperm;
 int32 n_nstore = 0;
 int32 ncline_cnt;
 
-static int32 interpolate(Pt p1, Pt p2, double z, double *x, double *y);
+static int32 interpolate(Point p1, Point p2, double z, double *x, double *y);
 static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
-static void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
+static void quad_contour(Point p1, Point p2, Point p3, Point p4);
 static double fnull(double x, double y);
 static void stor_null(double x1, double y1, double x2, double y2);
 static void restor_null(double *v, int32 n, int32 d);
@@ -976,7 +976,7 @@ fnull(double x, double y) {
 }
 
 int32
-interpolate(Pt p1, Pt p2, double z, double *x, double *y) {
+interpolate(Point p1, Point p2, double z, double *x, double *y) {
     double scale;
     if (p1.z == p2.z)
         return 0;
@@ -987,7 +987,7 @@ interpolate(Pt p1, Pt p2, double z, double *x, double *y) {
 }
 
 void
-quad_contour(Pt p1, Pt p2, Pt p3, Pt p4) {
+quad_contour(Point p1, Point p2, Point p3, Point p4) {
     double x[4], y[4];
     int32 count = 0;
     if (p1.z*p2.z <= 0.0)
@@ -1017,7 +1017,7 @@ do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     double dy = (y2 - y1) / (double)ngrid;
     double x;
     double y;
-    Pt p[5];
+    Point p[5];
     int32 i;
     int32 j;
     int32 nx = ngrid + 1;
