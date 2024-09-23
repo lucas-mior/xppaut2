@@ -444,7 +444,6 @@ typedef struct {
  * (i,j) should further satisfy j-(A->mu) <= i <= j+(A->ml).      *
  *                                                                *
  ******************************************************************/
-
 #define BAND_ELEM(A, i, j) ((A->data)[j][i - j + (A->smu)])
 
 /******************************************************************
@@ -459,7 +458,6 @@ typedef struct {
  * indexed from -(A->mu) to (A->ml).                              *
  *                                                                *
  ******************************************************************/
-
 #define BAND_COL(A, j) (((A->data)[j]) + (A->smu))
 
 /******************************************************************
@@ -474,7 +472,6 @@ typedef struct {
  * index (i,j) should satisfy j-(A->mu) <= i <= j+(A->ml).        *
  *                                                                *
  ******************************************************************/
-
 #define BAND_COL_ELEM(col_j, i, j) (col_j[i - j])
 
 /* Functions that use the BandMat representation for a band matrix */
@@ -500,7 +497,6 @@ typedef struct {
  * details.                                                       *
  *                                                                *
  ******************************************************************/
-
 BandMat BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
@@ -517,7 +513,6 @@ BandMat BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu);
  * pivot storage cannot be satisfied, BandAllocPiv returns NULL.  *
  *                                                                *
  ******************************************************************/
-
 int64 *BandAllocPiv(int64 N);
 
 /******************************************************************
@@ -560,7 +555,6 @@ int64 *BandAllocPiv(int64 N);
  * handled by the BandFactor routine.                             *
  *                                                                *
  ******************************************************************/
-
 int64 BandFactor(BandMat A, int64 *p);
 
 /******************************************************************
@@ -575,7 +569,6 @@ int64 BandFactor(BandMat A, int64 *p);
  * did not fail.                                                  *
  *                                                                *
  ******************************************************************/
-
 void BandBacksolve(BandMat A, int64 *p, N_Vector b);
 
 /******************************************************************
@@ -586,7 +579,6 @@ void BandBacksolve(BandMat A, int64 *p, N_Vector b);
  * A(i,j) <- 0.0,    j-(A->mu) <= i <= j+(A->ml).                 *
  *                                                                *
  ******************************************************************/
-
 void BandZero(BandMat A);
 
 /******************************************************************
@@ -599,7 +591,6 @@ void BandZero(BandMat A);
  * band matrix B.                                                 *
  *                                                                *
  ******************************************************************/
-
 void BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml);
 
 /******************************************************************
@@ -610,7 +601,6 @@ void BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml);
  * A(i,j) <- c*A(i,j),   j-(A->mu) <= i <= j+(A->ml).             *
  *                                                                *
  ******************************************************************/
-
 void BandScale(double c, BandMat A);
 
 /******************************************************************
@@ -621,7 +611,6 @@ void BandScale(double c, BandMat A);
  * A(j,j) <- A(j,j)+1.0,   0 <= j <= (A->size)-1.                 *
  *                                                                *
  ******************************************************************/
-
 void BandAddI(BandMat A);
 
 /******************************************************************
@@ -633,7 +622,6 @@ void BandAddI(BandMat A);
  * the band matrix A.                                             *
  *                                                                *
  ******************************************************************/
-
 void BandFreeMat(BandMat A);
 
 /******************************************************************
@@ -645,7 +633,6 @@ void BandFreeMat(BandMat A);
  * the pivot information array p.                                 *
  *                                                                *
  ******************************************************************/
-
 void BandFreePiv(int64 *p);
 
 /******************************************************************
@@ -661,7 +648,6 @@ void BandFreePiv(int64 *p);
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-
 void BandPrint(BandMat A);
 
 /* Functions that use the double ** representation for a band matrix */
@@ -702,7 +688,6 @@ void BandPrint(BandMat A);
  * by gbfa and gbsl.)                                             *
  *                                                                *
  ******************************************************************/
-
 double **bandalloc(int64 n, int64 smu, int64 ml);
 
 /******************************************************************
@@ -717,7 +702,6 @@ double **bandalloc(int64 n, int64 smu, int64 ml);
  * returns NULL if the memory request could not be satisfied.     *
  *                                                                *
  ******************************************************************/
-
 int64 *bandallocpiv(int64 n);
 
 /******************************************************************
@@ -770,7 +754,6 @@ int64 *bandallocpiv(int64 n);
  * was passed to bandalloc.                                       *
  *                                                                *
  ******************************************************************/
-
 int64 gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
 
 /******************************************************************
@@ -788,7 +771,6 @@ int64 gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
  * written into the b array.                                      *
  *                                                                *
  ******************************************************************/
-
 void gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
 
 /******************************************************************
@@ -799,7 +781,6 @@ void gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
  * a(i,j) <- 0.0,   0 <= i,j <= n-1, j-mu <= i <= j+ml.           *
  *                                                                *
  ******************************************************************/
-
 void bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
@@ -810,7 +791,6 @@ void bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu);
  * b(i,j) <- a(i,j), 0 <= i,j <= n-1, j-copymu <= i <= j+copyml.  *
  *                                                                *
  ******************************************************************/
-
 void bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
               int64 copymu, int64 copyml);
 
@@ -822,7 +802,6 @@ void bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
  * a(i,j) <- c*a(i,j),   0 <= i,j <= n-1, j-mu <= i <= j+ml.      *
  *                                                                *
  ******************************************************************/
-
 void bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
@@ -833,7 +812,6 @@ void bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu);
  * a(j,j) <- a(j,j)+1.0,   0 <= j <= n-1.                         *
  *                                                                *
  ******************************************************************/
-
 void bandaddI(double **a, int64 n, int64 smu);
 
 /******************************************************************
@@ -845,7 +823,6 @@ void bandaddI(double **a, int64 n, int64 smu);
  * bandallocpiv.                                                  *
  *                                                                *
  ******************************************************************/
-
 void bandfreepiv(int64 *p);
 
 /******************************************************************
@@ -856,7 +833,6 @@ void bandfreepiv(int64 *p);
  * bandfree(a) frees the band matrix a allocated by bandalloc.    *
  *                                                                *
  ******************************************************************/
-
 void bandfree(double **a);
 
 /******************************************************************
@@ -872,7 +848,6 @@ void bandfree(double **a);
  * printed before and after the matrix.                           *
  *                                                                *
  ******************************************************************/
-
 void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 #endif
