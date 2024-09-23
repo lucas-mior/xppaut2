@@ -10,7 +10,8 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 
 /*    Hooks to xpp RHS     */
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
-extern double constants[], last_ic[];
+extern double constants[];
+extern double last_ic[];
 
 extern int32 HomoFlag;
 extern int32 METHOD;

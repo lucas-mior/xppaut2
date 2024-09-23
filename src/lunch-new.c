@@ -46,7 +46,10 @@ extern int32 BVP_MAXIT;
 extern int32 EVEC_ITER;
 extern int32 DelayFlag;
 extern int32 MyStart;
-extern double last_ic[MAX_ODE], MyData[MAX_ODE], MyTime, LastTime;
+extern double last_ic[MAX_ODE];
+extern double MyData[MAX_ODE];
+extern double MyTime;
+extern double LastTime;
 extern double TEND;
 extern double DELTA_T;
 extern double T0;
@@ -64,7 +67,8 @@ extern double BVP_TOL;
 extern double BVP_EPS;
 extern int32 MaxPoints;
 
-extern char this_file[100], delay_string[MAX_ODE][80];
+extern char this_file[100];
+extern char delay_string[MAX_ODE][80];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
 
 static void io_graph(int32 f, FILE *fp);

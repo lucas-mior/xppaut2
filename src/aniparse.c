@@ -106,7 +106,8 @@ static int32 ani_grab_flag = 0;
 static int32 who_was_grabbed;
 double get_ivar(int32);
 
-extern double last_ic[MAX_ODE], T0;
+extern double last_ic[MAX_ODE];
+extern double T0;
 
 /************************8  end grabber **********************/
 

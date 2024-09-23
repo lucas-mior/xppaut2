@@ -53,7 +53,8 @@ extern int32 NODE;
 extern int32 NMarkov;
 extern int32 FIX_VAR;
 
-extern char *no_hint[], *info_message;
+extern char *no_hint[];
+extern char *info_message;
 
 int32 twod_hist(void);
 

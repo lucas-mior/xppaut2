@@ -62,7 +62,8 @@ extern int32 NODE;
 extern int32 NMarkov;
 extern int32 FIX_VAR;
 
-extern char *info_message, *edrh_hint[];
+extern char *info_message;
+extern char *edrh_hint[];
 extern int32 *my_ode[];
 extern int32 NUPAR;
 extern double last_ic[MAX_ODE];
@@ -72,7 +73,8 @@ extern int32 EqType[MAX_ODE];
 
 extern char *ufun_def[MAX_UFUN];
 extern char ufun_names[MAX_UFUN][12];
-extern int32 narg_fun[MAX_UFUN], *ufun[MAX_UFUN];
+extern int32 narg_fun[MAX_UFUN];
+extern int32 *ufun[MAX_UFUN];
 
 extern UFUN_ARG ufun_arg[MAX_UFUN];
 extern BcStruct my_bc[MAX_ODE];

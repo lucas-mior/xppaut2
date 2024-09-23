@@ -203,7 +203,8 @@ typedef struct {
 #define DEL_SPAR 41 /* sparse with unequal in degree and delays  */
 #define IMPORT 50   /* not really a network type   */
 
-extern double variables[], constants[];
+extern double variables[];
+extern double constants[];
 
 char *get_first(char *string, char *src);
 char *get_next(char *src);

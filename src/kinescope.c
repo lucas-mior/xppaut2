@@ -21,7 +21,8 @@ extern GC gc_graph;
 #define MAXFILM 250
 int32 ks_ncycle = 1;
 int32 ks_speed = 50;
-extern char *info_message, *kin_hint[];
+extern char *info_message;
+extern char *kin_hint[];
 extern int32 screen;
 extern int32 mov_ind;
 typedef struct {

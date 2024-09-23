@@ -11,7 +11,9 @@
 /* this code takes the determinant of a floatcomplex valued matrix
  */
 
-extern double variable_shift[2][MAX_ODE], AlphaMax, OmegaMax;
+extern double variable_shift[2][MAX_ODE];
+extern double AlphaMax;
+extern double OmegaMax;
 
 extern double delay_list[MAX_DELAY];
 extern int32 NDelay;

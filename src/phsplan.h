@@ -60,7 +60,8 @@ extern double TRANS;
 extern double *WORK;
 extern int32 IWORK[1000];
 
-extern int32 TORUS, itor[MAX_ODE];
+extern int32 TORUS;
+extern int32 itor[MAX_ODE];
 extern double TOR_PERIOD;
 
 extern int32 POIMAP;

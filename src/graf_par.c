@@ -81,7 +81,11 @@ extern char this_internset[XPP_MAX_NAME];
 
 extern int32 PltFmtFlag;
 
-extern char *info_message, *no_hint[], *wind_hint[], *view_hint[], *frz_hint[];
+extern char *info_message;
+extern char *no_hint[];
+extern char *wind_hint[];
+extern char *view_hint[];
+extern char *frz_hint[];
 extern char *graf_hint[], *cmap_hint[];
 
 int32 colorline[] = {0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 0};

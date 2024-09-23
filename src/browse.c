@@ -48,7 +48,8 @@ extern int32 NODE;
 extern int32 NJMP;
 extern int32 Xup;
 extern int32 TipsFlag;
-extern double last_ic[MAX_ODE], DELTA_T;
+extern double last_ic[MAX_ODE];
+extern double DELTA_T;
 
 extern int32 NSYM;
 extern int32 NSYM_START;

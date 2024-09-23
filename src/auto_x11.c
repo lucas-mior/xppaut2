@@ -81,7 +81,10 @@ extern uint32 MyDrawWinColor;
 extern uint32 GrFore;
 extern uint32 GrBack;
 
-extern char *auto_hint[], *aaxes_hint[], *afile_hint[], *arun_hint[];
+extern char *auto_hint[];
+extern char *aaxes_hint[];
+extern char *afile_hint[];
+extern char *arun_hint[];
 extern char *no_hint[], *aspecial_hint[];
 
 extern double constants[];
