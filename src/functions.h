@@ -978,6 +978,37 @@ override the below definition.
 extern char this_file[XPP_MAX_NAME];
 extern char this_internset[XPP_MAX_NAME];
 
+extern int32 mov_ind;
+extern int32 storind;
+extern int32 STORFLAG;
+extern int32 INFLAG;
+extern int32 MAXSTOR;
+
+extern double x_3d[2];
+extern double y_3d[2];
+extern double z_3d[2];
+
+extern int32 IXPLT;
+extern int32 IYPLT;
+extern int32 IZPLT;
+
+extern int32 AXES;
+extern int32 TIMPLOT;
+
+extern int32 TIMPLOT;
+extern int32 PLOT_3D;
+extern double MY_XLO;
+extern double MY_YLO;
+extern double MY_XHI;
+extern double MY_YHI;
+
+extern char options[100];
+extern double ATOLER;
+extern double HMIN;
+extern double HMAX;
+extern double BVP_EPS;
+extern double BVP_TOL;
+
 #endif
 
 #ifndef COMLINE_H
