@@ -3495,10 +3495,6 @@ void svg_text(int32 x, int32 y, char *str);
 
 #include <stdio.h>
 
-typedef struct Pt {
-    double x, y, z;
-} Pt;
-
 typedef struct NullClines {
     double *xn;
     double *yn;
@@ -3521,7 +3517,6 @@ void restore_nullclines(void);
 void new_clines_com(int32 c);
 void new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
                    double *stor, int32 *npts);
-int32 interpolate(Pt p1, Pt p2, double z, double *x, double *y);
 void do_batch_nclines(void);
 void do_batch_dfield(void);
 void set_colorization_stuff(void);

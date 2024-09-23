@@ -16,6 +16,10 @@
 
 #define MAX_NULL 10000
 
+typedef struct Pt {
+    double x, y, z;
+} Pt;
+
 int32 OutPutNC = 0;
 extern int32 SuppressBounds;
 extern GRAPH *MyGraph;
@@ -82,6 +86,7 @@ NullClines *ncperm;
 int32 n_nstore = 0;
 int32 ncline_cnt;
 
+static int32 interpolate(Pt p1, Pt p2, double z, double *x, double *y);
 static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
 static void quad_contour(Pt p1, Pt p2, Pt p3, Pt p4);
 static double fnull(double x, double y);
