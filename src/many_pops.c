@@ -227,7 +227,7 @@ gtitle_text(char *string, Window win) {
         if (xs < 0)
             xs = 0;
         Ftext(xs, ys, string, win);
-        set_color(0);
+        color_set(0);
         xline(0, 18, (int32)w, 18, win);
     }
     BaseCol();

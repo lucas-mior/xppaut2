@@ -869,8 +869,8 @@ extern int32 color_total;
 extern int32 color_max;
 extern int32 COLOR;
 
-void set_scolor(int32 col);
-void set_color(int32 col);
+void color_set_s(int32 col);
+void color_set(int32 col);
 void NewColormap(int32 type);
 void get_ps_color(int32 i, double *r, double *g, double *b);
 void get_svg_color(int32 i, int32 *r, int32 *g, int32 *b);

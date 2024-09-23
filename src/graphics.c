@@ -342,14 +342,14 @@ set_line_style_x11(int32 ls) {
     /*int32 width=0;*/
     int32 type = 0;
     if (ls == -2) { /*  Border  */
-        set_color(0);
+        color_set(0);
         XSetLineAttributes(display, gc_graph, 2, LineSolid, CapButt, JoinBevel);
         return;
     }
     /*width=0;
      */
     if (ls == -1) {
-        set_color(0);
+        color_set(0);
         XSetDashes(display, gc_graph, 0, dashes[1], (int)strlen(dashes[1]));
         XSetLineAttributes(display, gc_graph, 0, LineOnOffDash, CapButt,
                            JoinBevel);
@@ -364,14 +364,14 @@ set_line_style_x11(int32 ls) {
             XSetDashes(display, gc_graph, 0, dashes[ls],
                        (int)strlen(dashes[ls]));
         }
-        set_color(0);
+        color_set(0);
         XSetLineAttributes(display, gc_graph, 0, type, CapButt, JoinBevel);
         return;
     }
     /* color system  */
     ls = ls % 11;
     XSetLineAttributes(display, gc_graph, 0, LineSolid, CapButt, JoinBevel);
-    set_color(colorline[ls]);
+    color_set(colorline[ls]);
     return;
 }
 
@@ -1458,7 +1458,7 @@ eq_symb(double *x, int32 type) {
         return;
     if (MyGraph->TimeFlag)
         return;
-    set_color(0);
+    color_set(0);
     if (MyGraph->ThreeDFlag) {
         dx = 6.0*SYMSIZE / MyGraph->dx;
         dy = 6.0*SYMSIZE / MyGraph->dy;

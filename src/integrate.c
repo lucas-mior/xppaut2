@@ -2722,7 +2722,7 @@ comp_color(double *v1, double *v2, int32 n, double dt) {
         cur_color = color_total - 1;
     cur_color += FIRSTCOLOR;
     if (Xup)
-        set_color(cur_color);
+        color_set(cur_color);
     if (PltFmtFlag == 1) {
         ps_do_color(cur_color);
     } else if (PltFmtFlag == SVGFMT)

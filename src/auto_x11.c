@@ -675,7 +675,7 @@ Circle(int32 x, int32 y, int32 r) {
 
 void
 autocol(int32 col) {
-    set_scolor(col);
+    color_set_s(col);
     return;
 }
 

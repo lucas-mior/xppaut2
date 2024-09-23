@@ -467,7 +467,7 @@ draw_scale(struct ArrayPlot ap) {
     Window window = ap.wscale;
     for (i = 0; i < color_total; i++) {
         y = color_total - i - 1;
-        set_color(i + FIRSTCOLOR);
+        color_set(i + FIRSTCOLOR);
         XDrawLine(display, window, gc_graph, 0, y, 2*DCURXs, y);
     }
     return;
@@ -728,7 +728,7 @@ redraw_aplot(struct ArrayPlot ap) {
 
 void
 tag_aplot(char *bob) {
-    set_color(0);
+    color_set(0);
     XDrawString(display, array_plot.wplot, small_gc, 0, CURY_OFFs, bob,
                 (int32)strlen(bob));
     return;

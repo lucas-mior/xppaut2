@@ -63,7 +63,7 @@ static int32 rfun(double y, int32 per);
 static void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
 
 void
-set_scolor(int32 col) {
+color_set_s(int32 col) {
     if (col < 0)
         XSetForeground(display, small_gc, GrBack);
     if (col == 0)
@@ -78,7 +78,7 @@ set_scolor(int32 col) {
 }
 
 void
-set_color(int32 col) {
+color_set(int32 col) {
     if (col < 0)
         XSetForeground(display, gc_graph, GrBack);
     if (col == 0)
