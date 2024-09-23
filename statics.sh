@@ -5,7 +5,7 @@ grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
     | while read sig; do
         name="$(echo "$sig" | sed -E 's/^[a-zA-Z0-9_]+ //; s/\([^)]+\);$//')"
         file="$(grep -l "\<${name}\>" $files)"
-        used=$(echo "$files" | wc -l)
+        used=$(echo "$file" | wc -l)
         if [ $used -eq 1 ]; then
             echo "${sig}::::${file}"
         elif [ $used -eq 0 ]; then
