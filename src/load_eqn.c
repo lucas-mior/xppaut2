@@ -128,8 +128,6 @@ char delay_string[MAX_ODE][80];
 int32 itor[MAX_ODE];
 char this_file[XPP_MAX_NAME];
 char this_internset[XPP_MAX_NAME];
-double my_pl_wid;
-double my_pl_ht;
 int32 mov_ind;
 int32 storind;
 int32 STORFLAG;
@@ -516,8 +514,6 @@ set_all_vals(void) {
         MAXSTOR = 5000;
         notAlreadySet.MAXSTOR = 0;
     }
-    my_pl_wid = 10000.;
-    my_pl_ht = 7000.;
 
     /* TORUS=0; */
     if (notAlreadySet.T0) {
