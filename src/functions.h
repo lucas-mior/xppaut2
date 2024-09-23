@@ -2354,6 +2354,11 @@ extern int32 PS_Port;
 extern int32 PointRadius;
 extern int32 PointType;
 
+extern XFontStruct *symfonts[5];
+extern XFontStruct *romfonts[5];
+extern int32 avsymfonts[5];
+extern int32 avromfonts[5];
+
 void get_scale(double *x1, double *y1, double *x2, double *y2);
 void set_scale(double x1, double y1, double x2, double y2);
 void get_draw_area_flag(int32 flag);
