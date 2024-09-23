@@ -43,7 +43,6 @@ LABEL lb[MAXLAB];
 GROB grob[MAXGROB];
 GRAPH graph[MAXPOP];
 CURVE frz[MAXFRZ];
-extern NCLINE nclines[MAXNCLINE];
 GRAPH *MyGraph;
 extern int32 screen;
 extern int32 SCALEY, CURY_OFF, CURY_OFFs, DCURYs, DCURXs, DCURYb;

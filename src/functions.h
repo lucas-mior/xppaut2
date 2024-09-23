@@ -2300,6 +2300,7 @@ int32 go_go_auto(void);
 #include <stdio.h>
 
 extern int32 AutoFreezeFlag;
+extern int32 colorline[];
 
 void change_view_com(int32 com);
 void ind_to_sym(int32 ind, char *str);
