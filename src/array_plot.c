@@ -102,6 +102,10 @@ static int32 editaplot(struct ArrayPlot *ap);
 static void grab_aplot_screen(struct ArrayPlot ap);
 static void redraw_aplot(struct ArrayPlot ap);
 static void display_aplot(Window window, struct ArrayPlot ap);
+static void destroy_aplot(void);
+static void apbutton(Window window);
+static void get_root(char *s, char *sroot, int32 *num);
+static void gif_aplot(void);
 
 void
 array_plot_draw_one(char *bob) {
@@ -298,7 +302,7 @@ destroy_aplot(void) {
 }
 
 void
-init_my_aplot(void) {
+array_plot_init_my(void) {
     array_plot.height = 400;
     array_plot.width = 400;
     array_plot.zmin = 0.0;
@@ -463,7 +467,7 @@ draw_aplot(struct ArrayPlot ap) {
 }
 
 void
-edit_aplot(void) {
+array_plot_edit(void) {
     editaplot(&array_plot);
     return;
 }
@@ -517,7 +521,7 @@ reset_aplot_axes(struct ArrayPlot ap) {
 }
 
 void
-dump_aplot(FILE *fp, int32 f) {
+array_plot_dump(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);

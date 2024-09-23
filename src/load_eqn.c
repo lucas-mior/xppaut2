@@ -557,7 +557,7 @@ set_all_vals(void) {
 
     init_range();
     adj2_init_trans();
-    init_my_aplot();
+    array_plot_init_my();
     init_txtview();
 
     chk_volterra();

@@ -220,13 +220,9 @@ void array_plot_optimize(int32 *plist);
 void array_plot_make_my(char *name);
 void array_plot_expose(Window window);
 void array_plot_do_events(XEvent ev);
-void destroy_aplot(void);
-void init_my_aplot(void);
-void apbutton(Window window);
-void edit_aplot(void);
-void get_root(char *s, char *sroot, int32 *num);
-void dump_aplot(FILE *fp, int32 f);
-void gif_aplot(void);
+void array_plot_init_my(void);
+void array_plot_edit(void);
+void array_plot_dump(FILE *fp, int32 f);
 
 #endif
 

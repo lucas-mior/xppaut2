@@ -198,7 +198,7 @@ read_lunch(FILE *fp) {
     if (set_type == 1) {
         adj2_dump_transpose_info(fp, f);
         adj2_dump_h_stuff(fp, f);
-        dump_aplot(fp, f);
+        array_plot_dump(fp, f);
         dump_torus(fp, f);
         dump_range(fp, f);
     }
@@ -256,7 +256,7 @@ do_lunch(/* f=1 to read and 0 to write */
         if (set_type == 1) {
             adj2_dump_transpose_info(fp, f);
             adj2_dump_h_stuff(fp, f);
-            dump_aplot(fp, f);
+            array_plot_dump(fp, f);
             dump_torus(fp, f);
             dump_range(fp, f);
         }
@@ -280,7 +280,7 @@ do_lunch(/* f=1 to read and 0 to write */
     io_graph(f, fp);
     adj2_dump_transpose_info(fp, f);
     adj2_dump_h_stuff(fp, f);
-    dump_aplot(fp, f);
+    array_plot_dump(fp, f);
     dump_torus(fp, f);
     dump_range(fp, f);
     dump_eqn(fp);

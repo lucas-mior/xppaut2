@@ -78,7 +78,7 @@ void
 change_view_com(int32 com) {
     if (com == 2) {
         array_plot_make_my("Array!");
-        edit_aplot();
+        array_plot_edit();
         return;
     }
     if (com == 3) {
