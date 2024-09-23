@@ -180,7 +180,7 @@ show_position(XEvent event) {
 void
 put_command(char *string) {
     clr_command();
-    Ftext(0, 0, string, command_pop);
+    f_text(0, 0, string, command_pop);
     CURS_X = (int32)strlen(string);
     return;
 }
@@ -261,7 +261,7 @@ cput_text(void) {
         add_label(string, x, y, size, font);
         BaseCol();
     }
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroyWindow(display, temp);
     return;
 }
@@ -303,7 +303,7 @@ get_mouse_xy(int32 *x, int32 *y, Window window) {
 }
 
 void
-Ftext(int32 x, int32 y, char *string, Window o) {
+f_text(int32 x, int32 y, char *string, Window o) {
     chk_xor();
     XDrawString(display, o, gc, x, y + CURY_OFF, string, (int)strlen(string));
     return;
@@ -411,7 +411,7 @@ put_string_at(Window window, int32 col, char *s, int32 off) {
 }
 
 void
-movmem(char *s1, char *s2, int32 len) {
+mov_mem(char *s1, char *s2, int32 len) {
     int32 i;
     for (i = len - 1; i >= 0; i--)
         s1[i] = s2[i];
@@ -419,7 +419,7 @@ movmem(char *s1, char *s2, int32 len) {
 }
 
 void
-memmov(char *s1, char *s2, int32 len) {
+mem_mov(char *s1, char *s2, int32 len) {
     int32 i;
     for (i = 0; i < len; i++)
         s1[i] = s2[i];
@@ -479,7 +479,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
         break; */
     case KEY_DEL:
         if (*pos > 0) {
-            memmov(&value[*pos - 1], &value[*pos],
+            mem_mov(&value[*pos - 1], &value[*pos],
                    (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
             *col -= DCURX;
@@ -494,7 +494,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
         return;
     default:
         if ((ch >= ' ') && (ch <= '~')) {
-            movmem(&value[*pos + 1], &value[*pos],
+            mov_mem(&value[*pos + 1], &value[*pos],
                    (int32)strlen(value) - *pos + 1);
             value[*pos] = (char)ch;
             *pos = *pos + 1;

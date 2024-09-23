@@ -940,7 +940,7 @@ do_range(double *x, int32 flag) {
             refresh_browser(storind);
             if (adj_range) {
                 sprintf(bob, "%s_%g", range.item, p);
-                data_get_mybrowser(storind - 1);
+                data_get_my_browser(storind - 1);
                 compute_one_period((double)storage[0][storind - 1], last_ic,
                                    bob);
             }
@@ -1208,7 +1208,7 @@ batch_integrate_once(void) {
                 plintf(" Unable to open %s to write \n", batchout);
                 return;
             }
-            write_mybrowser_data(fp);
+            write_my_browser_data(fp);
 
             fclose(fp);
         }
@@ -1239,7 +1239,7 @@ write_this_run(char *file, int32 i) {
             plintf("Couldnt open %s\n", outfile);
             return -1;
         }
-        write_mybrowser_data(fp);
+        write_my_browser_data(fp);
         fclose(fp);
     }
     if (MakePlotFlag)
@@ -2514,7 +2514,7 @@ export_data(FILE *fp) {
     int32 ZSHFT, YSHFT, XSHFT;
     int32 j, kxoff, kyoff, kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
-    int32 strind = get_maxrow_browser();
+    int32 strind = get_max_row_browser();
     int32 i1 = 0;
     double **data;
     data = get_browser_data();

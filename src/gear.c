@@ -352,7 +352,7 @@ save_batch_shoot(void) {
             snprintf(name, sizeof(name), "UM%d.dat", k);
 
             fp = fopen(name, "w");
-            write_mybrowser_data(fp);
+            write_my_browser_data(fp);
             fclose(fp);
         }
         if (type < 0) {
@@ -361,7 +361,7 @@ save_batch_shoot(void) {
             snprintf(name, sizeof(name), "SM%d.dat", k);
 
             fp = fopen(name, "w");
-            write_mybrowser_data(fp);
+            write_my_browser_data(fp);
             fclose(fp);
         }
     }

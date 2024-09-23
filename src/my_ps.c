@@ -108,7 +108,7 @@ char *PS_header[] = {
     "  hpt neg vpt -1.62 mul rlineto\n", "  hpt 2 mul 0 rlineto\n",
     "  hpt neg vpt 1.62 mul rlineto  closepath  stroke\n", "  P  } def\n",
     "/S { 2 copy A C} def\n",                                    /* Star */
-    "/K { stroke [] 0 setdash vpt 0 360 arc stroke} def ",       /* Circle */
+    "/K { stroke [] 0 setdash vpt 0 360 arc stroke} def ",       /* circle2 */
     "/F { stroke [] 0 setdash vpt 0 360 arc fill stroke } def ", /* Filled
                                                                     circle
                                                                   */

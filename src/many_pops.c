@@ -226,7 +226,7 @@ gtitle_text(char *string, Window win) {
         xs = ((int32)w - len*DCURX) / 2;
         if (xs < 0)
             xs = 0;
-        Ftext(xs, ys, string, win);
+        f_text(xs, ys, string, win);
         color_set(0);
         xline(0, 18, (int32)w, 18, win);
     }
@@ -688,7 +688,7 @@ int32
 select_marker_type(int32 *type) {
     int32 ival = *type - MARKER;
     int32 i;
-    char *list[] = {"Box", "Diamond", "Triangle", "Plus", "X", "Circle"};
+    char *list[] = {"Box", "Diamond", "Triangle", "Plus", "X", "circle2"};
     static char key[] = "bdtpxc";
     Window temp = main_win;
     char ch;
@@ -1065,7 +1065,7 @@ destroy_a_pop(void) {
     graph[i].Use = 0;
     destroy_label(graph[i].window);
     destroy_grob(graph[i].window);
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, graph[i].window);
     XDestroyWindow(display, graph[i].window);
     num_pops--;

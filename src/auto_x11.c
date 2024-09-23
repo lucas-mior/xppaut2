@@ -624,7 +624,7 @@ draw_auto_info(char *bob, int32 x, int32 y) {
 }
 
 void
-refreshdisplay(void) {
+refresh_display(void) {
     XFlush(display);
     return;
 }
@@ -667,20 +667,20 @@ byeauto_(int32 *iflag) {
 }
 
 void
-Circle(int32 x, int32 y, int32 r) {
+circle2(int32 x, int32 y, int32 r) {
     XDrawArc(display, auto_win.canvas, small_gc, x - r, y - r, (uint)r << 1,
              (uint)r << 1, 0, 360*64);
     return;
 }
 
 void
-autocol(int32 col) {
+auto_col(int32 col) {
     color_set_s(col);
     return;
 }
 
 void
-autobw(void) {
+auto_bw(void) {
     XSetBackground(display, small_gc, MyBackColor);
     XSetForeground(display, small_gc, MyForeColor);
     return;
@@ -711,10 +711,10 @@ RedrawMark(void) {
 
 void
 MarkAuto(int32 x, int32 y) {
-    LineWidth(2);
+    line_width(2);
     auto_x11_line(x - 8, y - 8, x + 8, y + 8);
     auto_x11_line(x + 8, y - 8, x - 8, y + 8);
-    LineWidth(1);
+    line_width(1);
     return;
 }
 
@@ -729,11 +729,11 @@ XORCross(int32 x, int32 y) {
     }
 
     XSetFunction(display, small_gc, GXxor);
-    LineWidth(2);
+    line_width(2);
     auto_x11_line(x - 8, y, x + 8, y);
     auto_x11_line(x, y + 8, x, y - 8);
     XSetFunction(display, small_gc, GXcopy);
-    LineWidth(1);
+    line_width(1);
     if (xorfix) {
         XSetForeground(display, small_gc, MyForeColor);
         XSetBackground(display, small_gc, MyDrawWinColor);
@@ -744,7 +744,7 @@ XORCross(int32 x, int32 y) {
 }
 
 void
-FillCircle(int32 x, int32 y, int32 r) {
+fill_circle(int32 x, int32 y, int32 r) {
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     uint32 wh = (uint32)(2*r2);
 
@@ -830,7 +830,7 @@ auto_scroll_window(void) {
 }
 
 void
-LineWidth(int32 wid) {
+line_width(int32 wid) {
     int32 ls = LineSolid;
     int32 cs = CapButt;
     int32 js = JoinRound;
@@ -1198,7 +1198,7 @@ auto_button(XEvent event) {
 void
 auto_kill(void) {
     Auto.exist = 0;
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, auto_win.base);
     XDestroyWindow(display, auto_win.base);
     return;

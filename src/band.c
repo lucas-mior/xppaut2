@@ -24,7 +24,7 @@
 /* Implementation */
 
 BandMat
-BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu) {
+band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu) {
     BandMat A;
 
     if (N <= 0)
@@ -57,56 +57,56 @@ BandAllocPiv(int64 N) {
 }
 
 int64
-BandFactor(BandMat A, int64 *p) {
+band_factor(BandMat A, int64 *p) {
     return gbfa(A->data, A->size, A->mu, A->ml, A->smu, p);
 }
 
 void
-BandBacksolve(BandMat A, int64 *p, N_Vector b) {
+band_back_solve(BandMat A, int64 *p, N_Vector b) {
     gbsl(A->data, A->size, A->smu, A->ml, p, N_VDATA(b));
     return;
 }
 
 void
-BandZero(BandMat A) {
-    bandzero(A->data, A->size, A->mu, A->ml, A->smu);
+band_zero(BandMat A) {
+    band_zero2(A->data, A->size, A->mu, A->ml, A->smu);
     return;
 }
 
 void
-BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
+band_copy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
     bandcopy(A->data, B->data, A->size, A->smu, B->smu, copymu, copyml);
     return;
 }
 
 void
-BandScale(double c, BandMat A) {
-    bandscale(c, A->data, A->size, A->mu, A->ml, A->smu);
+band_scale(double c, BandMat A) {
+    band_scale2(c, A->data, A->size, A->mu, A->ml, A->smu);
     return;
 }
 
 void
-BandAddI(BandMat A) {
-    bandaddI(A->data, A->size, A->smu);
+band_add_i(BandMat A) {
+    band_add_i2(A->data, A->size, A->smu);
     return;
 }
 
 void
-BandFreeMat(BandMat A) {
-    bandfree(A->data);
+band_free_mat(BandMat A) {
+    band_free2(A->data);
     free(A);
     return;
 }
 
 void
-BandFreePiv(int64 *p) {
+band_free_piv(int64 *p) {
     free(p);
     return;
 }
 
 void
-BandPrint(BandMat A) {
-    bandprint(A->data, A->size, A->mu, A->ml, A->smu);
+band_print(BandMat A) {
+    band_print2(A->data, A->size, A->mu, A->ml, A->smu);
     return;
 }
 
@@ -285,7 +285,7 @@ gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
 }
 
 void
-bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
+band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, colSize;
     double *col_j;
 
@@ -317,7 +317,7 @@ bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
 }
 
 void
-bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
+band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, colSize;
     double *col_j;
 
@@ -332,7 +332,7 @@ bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 }
 
 void
-bandaddI(double **a, int64 n, int64 smu) {
+band_add_i2(double **a, int64 n, int64 smu) {
     int64 j;
 
     for (j = 0; j < n; j++)
@@ -341,20 +341,20 @@ bandaddI(double **a, int64 n, int64 smu) {
 }
 
 void
-bandfreepiv(int64 *p) {
+band_free_pvi2(int64 *p) {
     free(p);
     return;
 }
 
 void
-bandfree(double **a) {
+band_free2(double **a) {
     free(a[0]);
     free(a);
     return;
 }
 
 void
-bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
+band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, start, finish;
 
     plintf("\n");

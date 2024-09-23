@@ -376,7 +376,7 @@ redraw_froz_cline(int32 flag) {
         if (MyGraph->xv[0] == z->n_ix && MyGraph->yv[0] == z->n_iy &&
             MyGraph->ThreeDFlag == 0) {
             if (flag > 0) {
-                waitasec(flag);
+                wait_a_sec(flag);
                 clr_scrn();
             }
             set_linestyle(col1);

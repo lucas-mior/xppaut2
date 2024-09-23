@@ -250,7 +250,7 @@ do_torus_events(void) {
     }
     XSelectInput(display, torbox.cancel, EV_MASK);
     XSelectInput(display, torbox.done, EV_MASK);
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, torbox.base);
     XDestroyWindow(display, torbox.base);
     return;

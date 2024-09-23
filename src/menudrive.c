@@ -169,7 +169,7 @@ MessageBox(char *m) {
 void
 RedrawMessageBox(Window window) {
     if (window == MsgBox.window)
-        Ftext(10, 2*DCURY, MsgBox.text, MsgBox.window);
+        f_text(10, 2*DCURY, MsgBox.text, MsgBox.window);
     return;
 }
 
@@ -178,7 +178,7 @@ KillMessageBox(void) {
     if (MsgBox.here == 0)
         return;
     MsgBox.here = 0;
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroyWindow(display, MsgBox.window);
     return;
 }

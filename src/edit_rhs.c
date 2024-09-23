@@ -136,7 +136,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.ok, EV_MASK);
     XSelectInput(display, sb.reset, EV_MASK);
 
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 

@@ -122,8 +122,8 @@ void ani_new_vcr(void);
 void ani_do_events(XEvent event);
 void ani_expose(Window window);
 void on_the_fly(int32 task);
-int32 getppmbits(Window window, int32 *wid, int32 *hgt, uchar *out);
-int32 writeframe(char *filename, Window window, int32 wid, int32 hgt);
+int32 get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out);
+int32 write_frame(char *filename, Window window, int32 wid, int32 hgt);
 void ani_zero(void);
 void get_ani_file(char *fname);
 void de_space(char *s);
@@ -189,18 +189,18 @@ void redraw_auto_menus(void);
 void traverse_diagram(void);
 void clear_auto_info(void);
 void draw_auto_info(char *bob, int32 x, int32 y);
-void refreshdisplay(void);
+void refresh_display(void);
 int32 byeauto_(int32 *iflag);
-void Circle(int32 x, int32 y, int32 r);
-void autocol(int32 col);
-void autobw(void);
+void circle2(int32 x, int32 y, int32 r);
+void auto_col(int32 col);
+void auto_bw(void);
 void auto_scroll_window(void);
 int32 auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag);
 int32 auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
                        int32 def, int32 x, int32 y, char **hints, char *httxt);
 void XORCross(int32 x, int32 y);
-void FillCircle(int32 x, int32 y, int32 r);
-void LineWidth(int32 wid);
+void fill_circle(int32 x, int32 y, int32 r);
+void line_width(int32 wid);
 void auto_motion(XEvent event);
 void display_auto(Window window);
 void make_auto(char *wname, char *iname);
@@ -257,19 +257,19 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  *     on a single processor.                                     *
  *                                                                *
  * Routines that work with the type BandMat begin with "Band".    *
- * The BandAllocMat function allocates a band matrix for use in   *
+ * The band_alloc_mat function allocates a band matrix for use in   *
  * the other matrix routines listed in this file. Matrix storage  *
  * details are given in the documentation for the type BandMat.   *
  * The BandAllocPiv function allocates memory for pivot           *
- * information. The storage allocated by BandAllocMat and         *
- * BandAllocPiv is deallocated by the routines BandFreeMat and    *
- * BandFreePiv, respectively. The BandFactor and BandBacksolve    *
+ * information. The storage allocated by band_alloc_mat and         *
+ * BandAllocPiv is deallocated by the routines band_free_mat and    *
+ * band_free_piv, respectively. The band_factor and band_back_solve    *
  * routines perform the actual solution of a band linear system.  *
- * Note that the BandBacksolve routine has a parameter b of type  *
+ * Note that the band_back_solve routine has a parameter b of type  *
  * N_Vector. The current implementation makes use of a machine    *
  * environment specific macro (N_VDATA) which may not exist for   *
  * other implementations of the type N_Vector. Thus, the          *
- * implementation of BandBacksolve may need to change if the      *
+ * implementation of band_back_solve may need to change if the      *
  * type N_Vector is changed.                                      *
  *                                                                *
  * Routines that work with double ** begin with "band" (except for  *
@@ -300,7 +300,7 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  * ml   is the lower bandwidth, 0 <= ml <= size-1                 *
  *                                                                *
  * smu  is the storage upper bandwidth, mu <= smu <= size-1.      *
- *         The BandFactor routine writes the LU factors           *
+ *         The band_factor routine writes the LU factors           *
  *         into the storage for A. The upper triangular factor U, *
  *         however, may have an upper bandwidth as big as         *
  *         MIN(size-1,mu+ml) because of partial pivoting. The smu *
@@ -325,7 +325,7 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  *            column) to smu+ml (to access the lowest element     *
  *            within the band in the jth column). (Indices from 0 *
  *            to smu-mu-1 give access to extra storage elements   *
- *            required by BandFactor.)                            *
+ *            required by band_factor.)                            *
  *                                                                *
  * data[j][i-j+smu] is the (i,j)th element, j-mu <= i <= j+ml.    *
  *                                                                *
@@ -399,26 +399,26 @@ typedef struct {
 
 /******************************************************************
  *                                                                *
- * Function : BandAllocMat                                        *
- * Usage    : A = BandAllocMat(N, mu, ml, smu);                   *
+ * Function : band_alloc_mat                                        *
+ * Usage    : A = band_alloc_mat(N, mu, ml, smu);                   *
  *            if (A == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
- * BandAllocMat allocates memory for an N by N band matrix with   *
+ * band_alloc_mat allocates memory for an N by N band matrix with   *
  * upper bandwidth mu, lower bandwidth ml, and storage upper      *
  * bandwidth smu. Pass smu as follows depending on whether A will *
- * be factored by BandFactor:                                     *
+ * be factored by band_factor:                                     *
  *                                                                *
  * (1) Pass smu = mu if A will not be factored.                   *
  *                                                                *
  * (2) Pass smu = MIN(N-1,mu+ml) if A will be factored.           *
  *                                                                *
- * BandAllocMat returns the storage allocated (type BandMat) or   *
+ * band_alloc_mat returns the storage allocated (type BandMat) or   *
  * NULL if the request for matrix storage cannot be satisfied.    *
  * See the documentation for the type BandMat for matrix storage  *
  * details.                                                       *
  *                                                                *
  ******************************************************************/
-BandMat BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu);
+BandMat band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
  *                                                                *
@@ -427,7 +427,7 @@ BandMat BandAllocMat(int64 N, int64 mu, int64 ml, int64 smu);
  *            if (p == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
  * BandAllocPiv allocates memory for pivot information to be      *
- * filled in by the BandFactor routine during the factorization   *
+ * filled in by the band_factor routine during the factorization   *
  * of an N by N band matrix. The underlying type for pivot        *
  * information is an array of N integers and this routine returns *
  * the pointer to the memory it allocates. If the request for     *
@@ -438,11 +438,11 @@ int64 *BandAllocPiv(int64 N);
 
 /******************************************************************
  *                                                                *
- * Function : BandFactor                                          *
- * Usage    : ier = BandFactor(A, p);                             *
+ * Function : band_factor                                          *
+ * Usage    : ier = band_factor(A, p);                             *
  *            if (ier != 0) ... A is singular                     *
  *----------------------------------------------------------------*
- * BandFactor performs the LU factorization of the N by N band    *
+ * band_factor performs the LU factorization of the N by N band    *
  * matrix A. This is done using standard Gaussian elimination     *
  * with partial pivoting.                                         *
  *                                                                *
@@ -459,7 +459,7 @@ int64 *BandAllocPiv(int64 N);
  *     (including its diagonal) contains U and the strictly lower *
  *     triangular part of A contains the multipliers, I-L.        *
  *                                                                *
- * BandFactor returns 0 if successful. Otherwise it encountered   *
+ * band_factor returns 0 if successful. Otherwise it encountered   *
  * a zero diagonal element during the factorization. In this case *
  * it returns the column index (numbered from one) at which       *
  * it encountered the zero.                                       *
@@ -470,96 +470,96 @@ int64 *BandAllocPiv(int64 N);
  * lower bandwidth ml, then the upper triangular factor U can     *
  * have upper bandwidth as big as smu=MIN(n-1,mu+ml). The lower   *
  * triangular factor L has lower bandwidth ml. Allocate A with    *
- * call A = BandAllocMat(N,mu,ml,smu), where mu, ml, and smu are  *
+ * call A = band_alloc_mat(N,mu,ml,smu), where mu, ml, and smu are  *
  * as defined above. The user does not have to zero the "extra"   *
  * storage allocated for the purpose of factorization. This will  *
- * handled by the BandFactor routine.                             *
+ * handled by the band_factor routine.                             *
  *                                                                *
  ******************************************************************/
-int64 BandFactor(BandMat A, int64 *p);
+int64 band_factor(BandMat A, int64 *p);
 
 /******************************************************************
  *                                                                *
- * Function : BandBacksolve                                       *
- * Usage    : BandBacksolve(A, p, b);                             *
+ * Function : band_back_solve                                       *
+ * Usage    : band_back_solve(A, p, b);                             *
  *----------------------------------------------------------------*
- * BandBacksolve solves the N-dimensional system A x = b using    *
+ * band_back_solve solves the N-dimensional system A x = b using    *
  * the LU factorization in A and the pivot information in p       *
- * computed in BandFactor. The solution x is returned in b. This  *
- * routine cannot fail if the corresponding call to BandFactor    *
+ * computed in band_factor. The solution x is returned in b. This  *
+ * routine cannot fail if the corresponding call to band_factor    *
  * did not fail.                                                  *
  *                                                                *
  ******************************************************************/
-void BandBacksolve(BandMat A, int64 *p, N_Vector b);
+void band_back_solve(BandMat A, int64 *p, N_Vector b);
 
 /******************************************************************
  *                                                                *
- * Function : BandZero                                            *
- * Usage    : BandZero(A);                                        *
+ * Function : band_zero                                            *
+ * Usage    : band_zero(A);                                        *
  *----------------------------------------------------------------*
  * A(i,j) <- 0.0,    j-(A->mu) <= i <= j+(A->ml).                 *
  *                                                                *
  ******************************************************************/
-void BandZero(BandMat A);
+void band_zero(BandMat A);
 
 /******************************************************************
  *                                                                *
- * Function : BandCopy                                            *
- * Usage    : BandCopy(A, B, copymu, copyml);                     *
+ * Function : band_copy                                            *
+ * Usage    : band_copy(A, B, copymu, copyml);                     *
  *----------------------------------------------------------------*
- * BandCopy copies the submatrix with upper and lower bandwidths  *
+ * band_copy copies the submatrix with upper and lower bandwidths  *
  * copymu, copyml of the N by N band matrix A into the N by N     *
  * band matrix B.                                                 *
  *                                                                *
  ******************************************************************/
-void BandCopy(BandMat A, BandMat B, int64 copymu, int64 copyml);
+void band_copy(BandMat A, BandMat B, int64 copymu, int64 copyml);
 
 /******************************************************************
  *                                                                *
- * Function: BandScale                                            *
- * Usage   : BandScale(c, A);                                     *
+ * Function: band_scale                                            *
+ * Usage   : band_scale(c, A);                                     *
  *----------------------------------------------------------------*
  * A(i,j) <- c*A(i,j),   j-(A->mu) <= i <= j+(A->ml).             *
  *                                                                *
  ******************************************************************/
-void BandScale(double c, BandMat A);
+void band_scale(double c, BandMat A);
 
 /******************************************************************
  *                                                                *
- * Function : BandAddI                                            *
- * Usage    : BandAddI(A);                                        *
+ * Function : band_add_i                                            *
+ * Usage    : band_add_i(A);                                        *
  *----------------------------------------------------------------*
  * A(j,j) <- A(j,j)+1.0,   0 <= j <= (A->size)-1.                 *
  *                                                                *
  ******************************************************************/
-void BandAddI(BandMat A);
+void band_add_i(BandMat A);
 
 /******************************************************************
  *                                                                *
- * Function : BandFreeMat                                         *
- * Usage    : BandFreeMat(A);                                     *
+ * Function : band_free_mat                                         *
+ * Usage    : band_free_mat(A);                                     *
  *----------------------------------------------------------------*
- * BandFreeMat frees the memory allocated by BandAllocMat for     *
+ * band_free_mat frees the memory allocated by band_alloc_mat for     *
  * the band matrix A.                                             *
  *                                                                *
  ******************************************************************/
-void BandFreeMat(BandMat A);
+void band_free_mat(BandMat A);
 
 /******************************************************************
  *                                                                *
- * Function : BandFreePiv                                         *
- * Usage    : BandFreePiv(p);                                     *
+ * Function : band_free_piv                                         *
+ * Usage    : band_free_piv(p);                                     *
  *----------------------------------------------------------------*
- * BandFreePiv frees the memory allocated by BandAllocPiv for     *
+ * band_free_piv frees the memory allocated by BandAllocPiv for     *
  * the pivot information array p.                                 *
  *                                                                *
  ******************************************************************/
-void BandFreePiv(int64 *p);
+void band_free_piv(int64 *p);
 
 /******************************************************************
  *                                                                *
- * Function : BandPrint                                           *
- * Usage    : BandPrint(A);                                       *
+ * Function : band_print                                           *
+ * Usage    : band_print(A);                                       *
  *----------------------------------------------------------------*
  * This routine prints the N by N band matrix A (upper and lower  *
  * bandwidths A->mu and A->ml, respectively) to standard output   *
@@ -569,7 +569,7 @@ void BandFreePiv(int64 *p);
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-void BandPrint(BandMat A);
+void band_print(BandMat A);
 
 /* Functions that use the double ** representation for a band matrix */
 
@@ -696,13 +696,13 @@ void gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
 
 /******************************************************************
  *                                                                *
- * Function : bandzero                                            *
- * Usage    : bandzero(a,n,mu,ml,smu);                            *
+ * Function : band_zero2                                            *
+ * Usage    : band_zero2(a,n,mu,ml,smu);                            *
  *----------------------------------------------------------------*
  * a(i,j) <- 0.0,   0 <= i,j <= n-1, j-mu <= i <= j+ml.           *
  *                                                                *
  ******************************************************************/
-void bandzero(double **a, int64 n, int64 mu, int64 ml, int64 smu);
+void band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
  *                                                                *
@@ -717,51 +717,51 @@ void bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
 
 /******************************************************************
  *                                                                *
- * Function : bandscale                                           *
- * Usage    : bandscale(c,a,n,mu,ml);                             *
+ * Function : band_scale2                                           *
+ * Usage    : band_scale2(c,a,n,mu,ml);                             *
  *----------------------------------------------------------------*
  * a(i,j) <- c*a(i,j),   0 <= i,j <= n-1, j-mu <= i <= j+ml.      *
  *                                                                *
  ******************************************************************/
-void bandscale(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu);
+void band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
  *                                                                *
- * Function : bandaddI                                            *
- * Usage    : bandaddI(a,n,smu);                                  *
+ * Function : band_add_i2                                            *
+ * Usage    : band_add_i2(a,n,smu);                                  *
  *----------------------------------------------------------------*
  * a(j,j) <- a(j,j)+1.0,   0 <= j <= n-1.                         *
  *                                                                *
  ******************************************************************/
-void bandaddI(double **a, int64 n, int64 smu);
+void band_add_i2(double **a, int64 n, int64 smu);
 
 /******************************************************************
  *                                                                *
- * Function : bandfreepiv                                         *
- * Usage    : bandfreepiv(p);                                     *
+ * Function : band_free_pvi2                                         *
+ * Usage    : band_free_pvi2(p);                                     *
  *----------------------------------------------------------------*
- * bandfreepiv(p) frees the pivot array p allocated by            *
+ * band_free_pvi2(p) frees the pivot array p allocated by            *
  * bandallocpiv.                                                  *
  *                                                                *
  ******************************************************************/
-void bandfreepiv(int64 *p);
+void band_free_pvi2(int64 *p);
 
 /******************************************************************
  *                                                                *
- * Function : bandfree                                            *
- * Usage    : bandfree(a);                                        *
+ * Function : band_free2                                            *
+ * Usage    : band_free2(a);                                        *
  *----------------------------------------------------------------*
- * bandfree(a) frees the band matrix a allocated by bandalloc.    *
+ * band_free2(a) frees the band matrix a allocated by bandalloc.    *
  *                                                                *
  ******************************************************************/
-void bandfree(double **a);
+void band_free2(double **a);
 
 /******************************************************************
  *                                                                *
- * Function : bandprint                                           *
- * Usage    : bandprint(a,n,mu,ml,smu);                           *
+ * Function : band_print2                                           *
+ * Usage    : band_print2(a,n,mu,ml,smu);                           *
  *----------------------------------------------------------------*
- * bandprint(a,n,mu,ml,smu) prints the n by n band matrix stored  *
+ * band_print2(a,n,mu,ml,smu) prints the n by n band matrix stored  *
  * in a (with upper bandwidth mu and lower bandwidth ml) to       *
  * standard output as it would normally appear on paper. It is    *
  * intended as a debugging tool with small values of n. The       *
@@ -769,7 +769,7 @@ void bandfree(double **a);
  * printed before and after the matrix.                           *
  *                                                                *
  ******************************************************************/
-void bandprint(double **a, int64 n, int64 mu, int64 ml, int64 smu);
+void band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 #endif
 
@@ -807,10 +807,10 @@ extern Browser my_browser;
 double **get_browser_data(void);
 void set_browser_data(double **data, int32 col0);
 double *get_data_col(int32 c);
-int32 gettimenow(void);
-void waitasec(int32 msec);
-int32 get_maxrow_browser(void);
-void write_mybrowser_data(FILE *fp);
+int32 get_time_now(void);
+void wait_a_sec(int32 msec);
+int32 get_max_row_browser(void);
+void write_my_browser_data(FILE *fp);
 void wipe_rep(void);
 void find_variable(char *s, int32 *col);
 void refresh_browser(int32 length);
@@ -828,8 +828,8 @@ void resize_my_browser(Window win);
 void get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
                   int32 off);
 void open_write_file(FILE **fp, char *fil, int32 *ok);
-void write_mybrowser_data(FILE *fp);
-void data_get_mybrowser(int32 row);
+void write_my_browser_data(FILE *fp);
+void data_get_my_browser(int32 row);
 
 #endif
 
@@ -910,7 +910,7 @@ void put_command(char *string);
 int32 get_key_press(XEvent *event);
 void cput_text(void);
 int32 get_mouse_xy(int32 *x, int32 *y, Window window);
-void Ftext(int32 x, int32 y, char *string, Window o);
+void f_text(int32 x, int32 y, char *string, Window o);
 void bar(int32 x, int32 y, int32 x2, int32 y2, Window window);
 void rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window);
 void circle(int32 x, int32 y, int32 radius, Window window);
@@ -919,8 +919,8 @@ int32 new_float(char *name, double *value);
 int32 new_int(char *name, int32 *value);
 void display_command(char *name, char *value, int32 pos);
 void put_cursor_at(Window window, int32 col0, int32 pos);
-void movmem(char *s1, char *s2, int32 len);
-void memmov(char *s1, char *s2, int32 len);
+void mov_mem(char *s1, char *s2, int32 len);
+void mem_mov(char *s1, char *s2, int32 len);
 void edit_window(Window window, int32 *pos, char *value, int32 *col,
                  int32 *done, int32 ch);
 void edit_command_string(XEvent event, char *name, char *value, int32 *done,
@@ -1126,19 +1126,19 @@ int32 plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
  *     on a single processor.                                     *
  *                                                                *
  * Routines that work with the type DenseMat begin with "Dense".  *
- * The DenseAllocMat function allocates a dense matrix for use in *
+ * The dense_alloc_mat function allocates a dense matrix for use in *
  * the other DenseMat routines listed in this file. Matrix        *
  * storage details are given in the documentation for the type    *
  * DenseMat. The DenseAllocPiv function allocates memory for      *
- * pivot information. The storage allocated by DenseAllocMat and  *
- * DenseAllocPiv is deallocated by the routines DenseFreeMat and  *
- * DenseFreePiv, respectively. The DenseFactor and DenseBacksolve *
+ * pivot information. The storage allocated by dense_alloc_mat and  *
+ * DenseAllocPiv is deallocated by the routines dense_free_mat and  *
+ * dense_free_piv, respectively. The dense_factor and dense_back_solve *
  * routines perform the actual solution of a dense linear system. *
- * Note that the DenseBacksolve routine has a parameter b of type *
+ * Note that the dense_back_solve routine has a parameter b of type *
  * N_Vector. The current implementation makes use of a machine    *
  * environment-specific macro (N_VDATA) which may not exist for   *
  * other implementations of the type N_Vector. Thus, the          *
- * implementation of DenseBacksolve may need to change if the     *
+ * implementation of dense_back_solve may need to change if the     *
  * type N_Vector is changed.                                      *
  *                                                                *
  * Routines that work with double ** begin with "den" (except for   *
@@ -1213,18 +1213,18 @@ typedef struct {
 
 /******************************************************************
  *                                                                *
- * Function : DenseAllocMat                                       *
- * Usage    : A = DenseAllocMat(N);                               *
+ * Function : dense_alloc_mat                                       *
+ * Usage    : A = dense_alloc_mat(N);                               *
  *            if (A == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
- * DenseAllocMat allocates memory for an N by N dense matrix and  *
- * returns the storage allocated (type DenseMat). DenseAllocMat   *
+ * dense_alloc_mat allocates memory for an N by N dense matrix and  *
+ * returns the storage allocated (type DenseMat). dense_alloc_mat   *
  * returns NULL if the request for matrix storage cannot be       *
  * satisfied. See the above documentation for the type DenseMat   *
  * for matrix storage details.                                    *
  *                                                                *
  ******************************************************************/
-DenseMat DenseAllocMat(int64 N);
+DenseMat dense_alloc_mat(int64 N);
 
 /******************************************************************
  *                                                                *
@@ -1233,7 +1233,7 @@ DenseMat DenseAllocMat(int64 N);
  *            if (p == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
  * DenseAllocPiv allocates memory for pivot information to be     *
- * filled in by the DenseFactor routine during the factorization  *
+ * filled in by the dense_factor routine during the factorization  *
  * of an N by N dense matrix. The underlying type for pivot       *
  * information is an array of N integers and this routine returns *
  * the pointer to the memory it allocates. If the request for     *
@@ -1244,11 +1244,11 @@ int64 *DenseAllocPiv(int64 N);
 
 /******************************************************************
  *                                                                *
- * Function : DenseFactor                                         *
- * Usage    : ier = DenseFactor(A, p);                            *
+ * Function : dense_factor                                         *
+ * Usage    : ier = dense_factor(A, p);                            *
  *            if (ier != 0) ... A is singular                     *
  *----------------------------------------------------------------*
- * DenseFactor performs the LU factorization of the N by N dense  *
+ * dense_factor performs the LU factorization of the N by N dense  *
  * matrix A. This is done using standard Gaussian elimination     *
  * with partial pivoting.                                         *
  *                                                                *
@@ -1265,97 +1265,97 @@ int64 *DenseAllocPiv(int64 N);
  *     (including its diagonal) contains U and the strictly lower *
  *     triangular part of A contains the multipliers, I-L.        *
  *                                                                *
- * DenseFactor returns 0 if successful. Otherwise it encountered  *
+ * dense_factor returns 0 if successful. Otherwise it encountered  *
  * a zero diagonal element during the factorization. In this case *
  * it returns the column index (numbered from one) at which       *
  * it encountered the zero.                                       *
  *                                                                *
  ******************************************************************/
-int64 DenseFactor(DenseMat A, int64 *p);
+int64 dense_factor(DenseMat A, int64 *p);
 
 /******************************************************************
  *                                                                *
- * Function : DenseBacksolve                                      *
- * Usage    : DenseBacksolve(A, p, b);                            *
+ * Function : dense_back_solve                                      *
+ * Usage    : dense_back_solve(A, p, b);                            *
  *----------------------------------------------------------------*
- * DenseBacksolve solves the N-dimensional system A x = b using   *
+ * dense_back_solve solves the N-dimensional system A x = b using   *
  * the LU factorization in A and the pivot information in p       *
- * computed in DenseFactor. The solution x is returned in b. This *
- * routine cannot fail if the corresponding call to DenseFactor   *
+ * computed in dense_factor. The solution x is returned in b. This *
+ * routine cannot fail if the corresponding call to dense_factor   *
  * did not fail.                                                  *
  *                                                                *
  ******************************************************************/
-void DenseBacksolve(DenseMat A, int64 *p, N_Vector b);
+void dense_back_solve(DenseMat A, int64 *p, N_Vector b);
 
 /******************************************************************
  *                                                                *
- * Function : DenseZero                                           *
- * Usage    : DenseZero(A);                                       *
+ * Function : dense_zero                                           *
+ * Usage    : dense_zero(A);                                       *
  *----------------------------------------------------------------*
- * DenseZero sets all the elements of the N by N matrix A to 0.0. *
+ * dense_zero sets all the elements of the N by N matrix A to 0.0. *
  *                                                                *
  ******************************************************************/
-void DenseZero(DenseMat A);
+void dense_zero(DenseMat A);
 
 /******************************************************************
  *                                                                *
- * Function : DenseCopy                                           *
- * Usage    : DenseCopy(A, B);                                    *
+ * Function : dense_copy                                           *
+ * Usage    : dense_copy(A, B);                                    *
  *----------------------------------------------------------------*
- * DenseCopy copies the contents of the N by N matrix A into the  *
+ * dense_copy copies the contents of the N by N matrix A into the  *
  * N by N matrix B.                                               *
  *                                                                *
  ******************************************************************/
-void DenseCopy(DenseMat A, DenseMat B);
+void dense_copy(DenseMat A, DenseMat B);
 
 /******************************************************************
  *                                                                *
- * Function: DenseScale                                           *
- * Usage   : DenseScale(c, A);                                    *
+ * Function: dense_scal                                           *
+ * Usage   : dense_scal(c, A);                                    *
  *----------------------------------------------------------------*
- * DenseScale scales the elements of the N by N matrix A by the   *
+ * dense_scal scales the elements of the N by N matrix A by the   *
  * constant c and stores the result back in A.                    *
  *                                                                *
  ******************************************************************/
-void DenseScale(double c, DenseMat A);
+void dense_scal(double c, DenseMat A);
 
 /******************************************************************
  *                                                                *
- * Function : DenseAddI                                           *
- * Usage    : DenseAddI(A);                                       *
+ * Function : dense_add_i                                           *
+ * Usage    : dense_add_i(A);                                       *
  *----------------------------------------------------------------*
- * DenseAddI adds the identity matrix to A and stores the result  *
+ * dense_add_i adds the identity matrix to A and stores the result  *
  * back in A.                                                     *
  *                                                                *
  ******************************************************************/
-void DenseAddI(DenseMat A);
+void dense_add_i(DenseMat A);
 
 /******************************************************************
  *                                                                *
- * Function : DenseFreeMat                                        *
- * Usage    : DenseFreeMat(A);                                    *
+ * Function : dense_free_mat                                        *
+ * Usage    : dense_free_mat(A);                                    *
  *----------------------------------------------------------------*
- * DenseFreeMat frees the memory allocated by DenseAllocMat for   *
+ * dense_free_mat frees the memory allocated by dense_alloc_mat for   *
  * the N by N matrix A.                                           *
  *                                                                *
  ******************************************************************/
-void DenseFreeMat(DenseMat A);
+void dense_free_mat(DenseMat A);
 
 /******************************************************************
  *                                                                *
- * Function : DenseFreePiv                                        *
- * Usage    : DenseFreePiv(p);                                    *
+ * Function : dense_free_piv                                        *
+ * Usage    : dense_free_piv(p);                                    *
  *----------------------------------------------------------------*
- * DenseFreePiv frees the memory allocated by DenseAllocPiv for   *
+ * dense_free_piv frees the memory allocated by DenseAllocPiv for   *
  * the pivot information array p.                                 *
  *                                                                *
  ******************************************************************/
-void DenseFreePiv(int64 *p);
+void dense_free_piv(int64 *p);
 
 /******************************************************************
  *                                                                *
- * Function : DensePrint                                          *
- * Usage    : DensePrint(A);                                      *
+ * Function : dense_print                                          *
+ * Usage    : dense_print(A);                                      *
  *----------------------------------------------------------------*
  * This routine prints the N by N dense matrix A to standard      *
  * output as it would normally appear on paper. It is intended    *
@@ -1364,7 +1364,7 @@ void DenseFreePiv(int64 *p);
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-void DensePrint(DenseMat A);
+void dense_print(DenseMat A);
 
 /* Functions that use the double ** representation for a dense matrix */
 
@@ -1453,82 +1453,82 @@ void gesl(double **a, int64 n, int64 *p, double *b);
 
 /******************************************************************
  *                                                                *
- * Function : denzero                                             *
- * Usage    : denzero(a,n);                                       *
+ * Function : den_zero                                             *
+ * Usage    : den_zero(a,n);                                       *
  *----------------------------------------------------------------*
- * denzero(a,n) sets all the elements of the n by n dense matrix  *
+ * den_zero(a,n) sets all the elements of the n by n dense matrix  *
  * a to be 0.0.                                                   *
  *                                                                *
  ******************************************************************/
-void denzero(double **a, int64 n);
+void den_zero(double **a, int64 n);
 
 /******************************************************************
  *                                                                *
- * Function : dencopy                                             *
- * Usage    : dencopy(a,b,n);                                     *
+ * Function : den_copy                                             *
+ * Usage    : den_copy(a,b,n);                                     *
  *----------------------------------------------------------------*
- * dencopy(a,b,n) copies the n by n dense matrix a into the       *
+ * den_copy(a,b,n) copies the n by n dense matrix a into the       *
  * n by n dense matrix b.                                         *
  *                                                                *
  ******************************************************************/
-void dencopy(double **a, double **b, int64 n);
+void den_copy(double **a, double **b, int64 n);
 
 /******************************************************************
  *                                                                *
- * Function : denscale                                            *
- * Usage    : denscale(c,a,n);                                    *
+ * Function : den_scale                                            *
+ * Usage    : den_scale(c,a,n);                                    *
  *----------------------------------------------------------------*
- * denscale(c,a,n) scales every element in the n by n dense       *
+ * den_scale(c,a,n) scales every element in the n by n dense       *
  * matrix a by c.                                                 *
  *                                                                *
  ******************************************************************/
-void denscale(double c, double **a, int64 n);
+void den_scale(double c, double **a, int64 n);
 
 /******************************************************************
  *                                                                *
- * Function : denaddI                                             *
- * Usage    : denaddI(a,n);                                       *
+ * Function : den_add_i                                             *
+ * Usage    : den_add_i(a,n);                                       *
  *----------------------------------------------------------------*
- * denaddI(a,n) increments the n by n dense matrix a by the       *
+ * den_add_i(a,n) increments the n by n dense matrix a by the       *
  * identity matrix.                                               *
  *                                                                *
  ******************************************************************/
-void denaddI(double **a, int64 n);
+void den_add_i(double **a, int64 n);
 
 /******************************************************************
  *                                                                *
- * Function : denfreepiv                                          *
- * Usage    : denfreepiv(p);                                      *
+ * Function : den_free_piv                                          *
+ * Usage    : den_free_piv(p);                                      *
  *----------------------------------------------------------------*
- * denfreepiv(p) frees the pivot array p allocated by             *
+ * den_free_piv(p) frees the pivot array p allocated by             *
  * denallocpiv.                                                   *
  *                                                                *
  ******************************************************************/
-void denfreepiv(int64 *p);
+void den_free_piv(int64 *p);
 
 /******************************************************************
  *                                                                *
- * Function : denfree                                             *
- * Usage    : denfree(a);                                         *
+ * Function : den_free                                             *
+ * Usage    : den_free(a);                                         *
  *----------------------------------------------------------------*
- * denfree(a) frees the dense matrix a allocated by denalloc.     *
+ * den_free(a) frees the dense matrix a allocated by denalloc.     *
  *                                                                *
  ******************************************************************/
-void denfree(double **a);
+void den_free(double **a);
 
 /******************************************************************
  *                                                                *
- * Function : denprint                                            *
- * Usage    : denprint(a,n);                                      *
+ * Function : den_print                                            *
+ * Usage    : den_print(a,n);                                      *
  *----------------------------------------------------------------*
- * denprint(a,n) prints the n by n dense matrix a to standard     *
+ * den_print(a,n) prints the n by n dense matrix a to standard     *
  * output as it would normally appear on paper. It is intended as *
  * a debugging tool with small values of n. The elements are      *
  * printed using the %g option. A blank line is printed before    *
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-void denprint(double **a, int64 n);
+void den_print(double **a, int64 n);
 
 #endif
 

@@ -269,7 +269,7 @@ save_movie(char *basename, int32 fmat) {
                   (uint)h, 0, 0);
         XFlush(display);
         if (fmat == 1)
-            writeframe(file, draw_win, w, h);
+            write_frame(file, draw_win, w, h);
 #ifndef NOGIF
         else {
             XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w,
@@ -348,7 +348,7 @@ auto_play(void) {
 
         } /* done checking  now increment pix   */
 
-        waitasec(ks_speed);
+        wait_a_sec(ks_speed);
         i++;
         if (i >= mov_ind) {
             cycle++;

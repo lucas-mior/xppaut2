@@ -200,7 +200,7 @@ gif_stuff(Window win, FILE *fp, int32 task) {
     ppm = xmalloc(w*h*3);
     pixels = xmalloc(h*w);
 
-    getppmbits(win, (int32 *)&w, (int32 *)&h, ppm);
+    get_ppm_bits(win, (int32 *)&w, (int32 *)&h, ppm);
     switch (task) {
     case GET_GLOBAL_CMAP:
         ncol = make_local_map(pixels, ppm, (int32)h, (int32)w);

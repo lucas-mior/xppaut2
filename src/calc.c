@@ -116,7 +116,7 @@ void
 quit_calc(void) {
     my_calc.use = 0;
     XSelectInput(display, my_calc.quit, SIMPMASK);
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, my_calc.base);
     XDestroyWindow(display, my_calc.base);
     clr_command();

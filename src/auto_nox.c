@@ -204,16 +204,16 @@ void
 colset(int32 type) {
     switch (type) {
     case CSEQ:
-        autocol(SEc);
+        auto_col(SEc);
         break;
     case CUEQ:
-        autocol(UEc);
+        auto_col(UEc);
         break;
     case SPER:
-        autocol(SPc);
+        auto_col(SPc);
         break;
     case UPER:
-        autocol(UPc);
+        auto_col(UPc);
         break;
     default:
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -254,31 +254,31 @@ pscolset2(int32 flag2) {
 
 void
 colset2(int32 flag2) {
-    LineWidth(2);
+    line_width(2);
     switch (flag2) {
     case LPE2:
-        autocol(LPE_color);
+        auto_col(LPE_color);
         break;
     case LPP2:
-        autocol(LPP_color);
+        auto_col(LPP_color);
         break;
     case HB2:
-        autocol(HB_color);
+        auto_col(HB_color);
         break;
     case TR2:
-        autocol(TR_color);
+        auto_col(TR_color);
         break;
     case BR2:
-        autocol(BR_color);
+        auto_col(BR_color);
         break;
     case PD2:
-        autocol(PD_color);
+        auto_col(PD_color);
         break;
     case FP2:
-        autocol(FP_color);
+        auto_col(FP_color);
         break;
     default:
-        autocol(0);
+        auto_col(0);
     }
     return;
 }
@@ -388,7 +388,7 @@ draw_bif_axes(void) {
     get_auto_str(xlabel, ylabel);
     auto_x11_text((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
     auto_x11_text(10*DCURXs, DCURYs, ylabel);
-    refreshdisplay();
+    refresh_display();
     return;
 }
 
@@ -1198,18 +1198,18 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
     ix = IXVal(x);
     iy1 = IYVal(y1);
     iy2 = IYVal(y2);
-    autobw();
+    auto_bw();
     if (flag2 == 0 && Auto.plot == P_P) /* if the point was a 1 param run and we
                                            are in 2 param plot, skip */
     {
         plot_stab(evr, evi, NODE);
-        refreshdisplay();
+        refresh_display();
         return;
     }
     if (flag2 > 0 && Auto.plot != P_P) { /* two parameter and not in two
                                             parameter plot, just skip it */
         plot_stab(evr, evi, NODE);
-        refreshdisplay();
+        refresh_display();
         return;
     }
 
@@ -1223,12 +1223,12 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        LineWidth(2);
+        line_width(2);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         auto_line(x, y1, Auto.lastx, Auto.lasty);
-        autobw();
+        auto_bw();
         break;
     case CUEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
@@ -1237,42 +1237,42 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        LineWidth(1);
+        line_width(1);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         auto_line(x, y1, Auto.lastx, Auto.lasty);
-        autobw();
+        auto_bw();
         break;
     case UPER:
         if (icp1 != Auto.icp1)
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        LineWidth(1);
+        line_width(1);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         if (chk_auto_bnds(ix, iy1))
-            Circle(ix, iy1, 3);
+            circle2(ix, iy1, 3);
         if (chk_auto_bnds(ix, iy2))
-            Circle(ix, iy2, 3);
-        autobw();
+            circle2(ix, iy2, 3);
+        auto_bw();
         break;
     case SPER:
         if (icp1 != Auto.icp1)
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        LineWidth(1);
+        line_width(1);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         if (chk_auto_bnds(ix, iy1))
-            FillCircle(ix, iy1, 3);
+            fill_circle(ix, iy1, 3);
         if (chk_auto_bnds(ix, iy2))
-            FillCircle(ix, iy2, 3);
-        autobw();
+            fill_circle(ix, iy2, 3);
+        auto_bw();
         break;
     default:
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -1282,7 +1282,7 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
     if (lab != 0) {
         if (icp1 == Auto.icp1) {
             if (flag2 == 0 || (flag2 > 0 && Auto.icp2 == icp2)) {
-                LineWidth(1);
+                line_width(1);
                 if (chk_auto_bnds(ix, iy1)) {
                     auto_x11_line(ix - 4, iy1, ix + 4, iy1);
                     auto_x11_line(ix, iy1 - 4, ix, iy1 + 4);
@@ -1300,7 +1300,7 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
     Auto.lastx = x;
     Auto.lasty = y1;
     plot_stab(evr, evi, NODE);
-    refreshdisplay();
+    refresh_display();
 }
 
 void
@@ -1370,7 +1370,7 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
     sprintf(bob, "%4d %4d %2s %4d %10.4g %10.4g %10.4g %10.4g %10.4g", ibr, pt,
             ty, lab, p1, p2, norm, u0, per);
     draw_auto_info(bob, 10, 2*DCURYs + 2);
-    refreshdisplay();
+    refresh_display();
 }
 
 void
@@ -1575,7 +1575,7 @@ plot_stab(double *evr, double *evi, int32 n) {
 
     double x;
     double y;
-    LineWidth(0);
+    line_width(0);
     clr_stab();
     for (i = 0; i < n; i++) {
         x = evr[i];

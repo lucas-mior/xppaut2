@@ -305,7 +305,7 @@ wborder(Window window, int32 i, struct ArrayPlot ap) {
 void
 destroy_aplot(void) {
     array_plot.alive = 0;
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, array_plot.base);
     XDestroyWindow(display, array_plot.base);
     return;

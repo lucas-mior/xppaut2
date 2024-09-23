@@ -119,7 +119,7 @@ make_scrbox_lists(void) {
     strcpy(scrbox_list[5].list[2], "4 Triangle");
     strcpy(scrbox_list[5].list[3], "5 Plus");
     strcpy(scrbox_list[5].list[4], "6 X");
-    strcpy(scrbox_list[5].list[5], "7 Circle");
+    strcpy(scrbox_list[5].list[5], "7 circle2");
     /* method list */
     scrbox_list[6].list = xmalloc(15*sizeof(char *));
     scrbox_list[6].n = 15;
@@ -145,7 +145,7 @@ void
 destroy_scroll_box(ScrollBox *sb) {
     if (sb->exist == 1) {
         sb->exist = 0;
-        waitasec(ClickTime);
+        wait_a_sec(ClickTime);
         XDestroySubwindows(display, sb->base);
         XDestroyWindow(display, sb->base);
     }
@@ -324,7 +324,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     XSelectInput(display, sb.cancel, EV_MASK);
     XSelectInput(display, sb.ok, EV_MASK);
 
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
@@ -953,9 +953,9 @@ void
 expose_resp_box(char *button, char *message, Window wb, Window wm,
                 Window window) {
     if (window == wb)
-        Ftext(0, 0, button, wb);
+        f_text(0, 0, button, wb);
     if (window == wm)
-        Ftext(0, 0, message, wm);
+        f_text(0, 0, message, wm);
     return;
 }
 
@@ -1013,7 +1013,7 @@ respond_box(char *button, char *message) {
     }
 
     XSelectInput(display, wb, EV_MASK);
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, wmain);
     XDestroyWindow(display, wmain);
     return;
@@ -1026,7 +1026,7 @@ message_box(Window *w, int32 x, int32 y, char *message) {
     Window z;
     z = make_plain_window(*w, x, y, wid + 50, hgt, 4);
     XSelectInput(display, z, 0);
-    Ftext(25, 2*DCURY, message, z);
+    f_text(25, 2*DCURY, message, z);
     ggets_ping();
     *w = z;
     return;
@@ -1036,11 +1036,11 @@ void
 expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
               Window wm, Window window) {
     if (window == wm)
-        Ftext(0, 0, msg, wm);
+        f_text(0, 0, msg, wm);
     if (window == c1)
-        Ftext(0, 0, choice1, c1);
+        f_text(0, 0, choice1, c1);
     if (window == c2)
-        Ftext(0, 0, choice2, c2);
+        f_text(0, 0, choice2, c2);
     return;
 }
 
@@ -1120,7 +1120,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
             break;
         }
     }
-    waitasec(2*ClickTime);
+    wait_a_sec(2*ClickTime);
     XFlush(display);
     XSelectInput(display, c1, EV_MASK);
     XSelectInput(display, c2, EV_MASK);
@@ -1220,7 +1220,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 
     for (i = 0; i < n; i++)
         XSelectInput(display, p.w[i], EV_MASK);
-    /*waitasec(ClickTime); Not here. Don't want to delay short cuts*/
+    /*wait_a_sec(ClickTime); Not here. Don't want to delay short cuts*/
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
     XFlush(display);
@@ -1237,15 +1237,15 @@ draw_pop_up(POP_UP p, Window window) {
         ggets_set_fore();
         bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
         ggets_set_back();
-        Ftext(DCURX*2, 4, p.title, window);
+        f_text(DCURX*2, 4, p.title, window);
         ggets_set_fore();
         return;
     }
     for (i = 0; i < p.n; i++) {
         if (window == p.w[i]) {
-            Ftext(DCURX / 2, 3, p.entries[i], window);
+            f_text(DCURX / 2, 3, p.entries[i], window);
             if (i == p.hot)
-                Ftext(DCURX*(p.max + 1), 4, "X", window);
+                f_text(DCURX*(p.max + 1), 4, "X", window);
             return;
         }
     }

@@ -152,14 +152,14 @@ get_data_col(int32 c) {
 }
 
 int32
-gettimenow(void) {
+get_time_now(void) {
     struct timeval now;
     gettimeofday(&now, NULL);
     return (int32)now.tv_usec;
 }
 
 void
-waitasec(int32 msec) {
+wait_a_sec(int32 msec) {
     struct timeval tim;
 
     double sec = (double)msec / 1000;
@@ -179,12 +179,12 @@ waitasec(int32 msec) {
 }
 
 int32
-get_maxrow_browser(void) {
+get_max_row_browser(void) {
     return my_browser.maxrow;
 }
 
 void
-write_mybrowser_data(FILE *fp) {
+write_my_browser_data(FILE *fp) {
     write_browser_data(fp, &my_browser);
     return;
 }
@@ -728,7 +728,7 @@ init_browser(void) {
 void
 kill_browser(Browser *b) {
     b->xflag = 0;
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
     return;
@@ -998,7 +998,7 @@ browse_button(XEvent event, Browser *b) {
                 data_left(b);
             if (w == b->right)
                 data_right(b);
-            waitasec(100);
+            wait_a_sec(100);
             if (XPending(display) > 0) {
                 XNextEvent(display, &zz);
                 switch (zz.type) {
@@ -1289,7 +1289,7 @@ get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
 }
 
 void
-data_get_mybrowser(int32 row) {
+data_get_my_browser(int32 row) {
     my_browser.row0 = row;
     data_get(&my_browser);
     return;

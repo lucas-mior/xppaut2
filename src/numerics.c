@@ -376,7 +376,7 @@ compute_one_period(double period, double *x, char *name) {
     snprintf(filename, sizeof(filename), "orbit.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
-        write_mybrowser_data(fp);
+        write_my_browser_data(fp);
         fclose(fp);
     } else {
         TRANS = ot;
@@ -389,7 +389,7 @@ compute_one_period(double period, double *x, char *name) {
     snprintf(filename, sizeof(filename), "adjoint.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
-        write_mybrowser_data(fp);
+        write_my_browser_data(fp);
         fclose(fp);
         adj2_data_back();
     }
@@ -397,7 +397,7 @@ compute_one_period(double period, double *x, char *name) {
     snprintf(filename, sizeof(filename), "hfun.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
-        write_mybrowser_data(fp);
+        write_my_browser_data(fp);
         fclose(fp);
         adj2_data_back();
     }

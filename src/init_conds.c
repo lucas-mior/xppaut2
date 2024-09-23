@@ -913,7 +913,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
     case KEY_BKSP:
         /*
         if(pos<l){
-          memmov(&string[pos],&string[pos+1],l-pos);
+          mem_mov(&string[pos],&string[pos+1],l-pos);
           l--;
         }
         else
@@ -922,7 +922,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
     case KEY_DEL:
 
         if (pos > 0) {
-            memmov(&string[pos - 1], &string[pos], l - pos + 1);
+            mem_mov(&string[pos - 1], &string[pos], l - pos + 1);
             pos--;
             wpos--;
             if (wpos < 0) {
@@ -1084,7 +1084,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
             if (strlen(string) >= 256)
                 ggets_ping();
             else {
-                movmem(&string[pos + 1], &string[pos], l - pos + 1);
+                mov_mem(&string[pos + 1], &string[pos], l - pos + 1);
                 string[pos] = (char)ch;
                 pos = pos + 1;
                 wpos++;
@@ -1144,7 +1144,7 @@ selector_key(XEvent event) {
 void
 destroy_selector(void) {
     filesel.here = 0;
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
     XDestroySubwindows(display, filesel.base);
     XDestroyWindow(display, filesel.base);
     free_finfo(&my_ff);
@@ -1514,7 +1514,7 @@ resize_par_box(Window window) {
     if (ParamBox.xuse == 1 && window == ParamBox.base) {
         ok = 2;
         b = &ParamBox;
-        waitasec(ClickTime);
+        wait_a_sec(ClickTime);
 
         get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
@@ -1594,7 +1594,7 @@ destroy_box(BoxList *b) {
     XSetInputFocus(display, main_win, RevertToParent, CurrentTime);
     if (b->use == 0)
         return;
-    waitasec(ClickTime);
+    wait_a_sec(ClickTime);
 
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
@@ -1609,7 +1609,7 @@ destroy_box(BoxList *b) {
         free(b->ck);
         free(b->isck);
     }
-    waitasec(200);
+    wait_a_sec(200);
     XFlush(display);
     return;
 }
@@ -2475,7 +2475,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
     case KEY_BKSP:
         /*
         if(pos<l){
-          memmov(&string[pos],&string[pos+1],l-pos);
+          mem_mov(&string[pos],&string[pos+1],l-pos);
           l--;
         }
         else
@@ -2484,7 +2484,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
     case KEY_DEL:
 
         if (pos > 0) {
-            memmov(&string[pos - 1], &string[pos], l - pos + 1);
+            mem_mov(&string[pos - 1], &string[pos], l - pos + 1);
             pos--;
             wpos--;
             if (wpos < 0) {
@@ -2504,7 +2504,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
             if (strlen(string) >= 256)
                 ggets_ping();
             else {
-                movmem(&string[pos + 1], &string[pos], l - pos + 1);
+                mov_mem(&string[pos + 1], &string[pos], l - pos + 1);
                 string[pos] = (char)ch;
                 pos = pos + 1;
                 wpos++;

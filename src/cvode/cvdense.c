@@ -240,22 +240,22 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Allocate memory for M, savedJ, and pivot array */
 
-    M = DenseAllocMat(N);
+    M = dense_alloc_mat(N);
     if (M == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
-    savedJ = DenseAllocMat(N);
+    savedJ = dense_alloc_mat(N);
     if (savedJ == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        DenseFreeMat(M);
+        dense_free_mat(M);
         return LINIT_ERR;
     }
     pivots = DenseAllocPiv(N);
     if (pivots == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        DenseFreeMat(M);
-        DenseFreeMat(savedJ);
+        dense_free_mat(M);
+        dense_free_mat(savedJ);
         return LINIT_ERR;
     }
 
@@ -305,7 +305,7 @@ CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
     if (jok) {
         /* If jok = TRUE, use saved copy of J */
         *jcurPtr = FALSE;
-        DenseCopy(savedJ, M);
+        dense_copy(savedJ, M);
     } else {
         /* If jok = FALSE, call jac routine for new J value */
         nje++;
@@ -313,18 +313,18 @@ CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             iopt[DENSE_NJE] = nje;
         nstlj = nst;
         *jcurPtr = TRUE;
-        DenseZero(M);
+        dense_zero(M);
         jac(N, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data, &nfe,
             vtemp1, vtemp2, vtemp3);
-        DenseCopy(M, savedJ);
+        dense_copy(M, savedJ);
     }
 
     /* Scale and add I to get M = I - gamma*J */
-    DenseScale(-gamma, M);
-    DenseAddI(M);
+    dense_scal(-gamma, M);
+    dense_add_i(M);
 
     /* Do LU factorization of M */
-    ier = DenseFactor(M, pivots);
+    ier = dense_factor(M, pivots);
 
     /* Return 0 if the LU was complete; otherwise return 1 */
     if (ier > 0)
@@ -347,7 +347,7 @@ CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
 
     cvdense_mem = (CVDenseMem)lmem;
 
-    DenseBacksolve(M, pivots, b);
+    dense_back_solve(M, pivots, b);
 
     /* If BDF, scale the correction to account for change in gamma */
     if ((lmm == BDF) && (gamrat != ONE)) {
@@ -369,8 +369,8 @@ CVDenseFree(CVodeMem cv_mem) {
 
     cvdense_mem = (CVDenseMem)lmem;
 
-    DenseFreeMat(M);
-    DenseFreeMat(savedJ);
-    DenseFreePiv(pivots);
+    dense_free_mat(M);
+    dense_free_mat(savedJ);
+    dense_free_piv(pivots);
     free(lmem);
 }

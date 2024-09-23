@@ -283,22 +283,22 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     storage_mu = MIN(N - 1, mu + ml);
 
     /* Allocate memory for M, savedJ, and pivot arrays */
-    M = BandAllocMat(N, mu, ml, storage_mu);
+    M = band_alloc_mat(N, mu, ml, storage_mu);
     if (M == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
-    savedJ = BandAllocMat(N, mu, ml, mu);
+    savedJ = band_alloc_mat(N, mu, ml, mu);
     if (savedJ == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        BandFreeMat(M);
+        band_free_mat(M);
         return LINIT_ERR;
     }
     pivots = BandAllocPiv(N);
     if (pivots == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        BandFreeMat(M);
-        BandFreeMat(savedJ);
+        band_free_mat(M);
+        band_free_mat(savedJ);
         return LINIT_ERR;
     }
 
@@ -347,7 +347,7 @@ CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
     if (jok) {
         /* If jok = TRUE, use saved copy of J */
         *jcurPtr = FALSE;
-        BandCopy(savedJ, M, mu, ml);
+        band_copy(savedJ, M, mu, ml);
     } else {
         /* If jok = FALSE, call jac routine for new J value */
         nje++;
@@ -355,18 +355,18 @@ CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             iopt[BAND_NJE] = nje;
         nstlj = nst;
         *jcurPtr = TRUE;
-        BandZero(M);
+        band_zero(M);
         jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data,
             &nfe, vtemp1, vtemp2, vtemp3);
-        BandCopy(M, savedJ, mu, ml);
+        band_copy(M, savedJ, mu, ml);
     }
 
     /* Scale and add I to get M = I - gamma*J */
-    BandScale(-gamma, M);
-    BandAddI(M);
+    band_scale(-gamma, M);
+    band_add_i(M);
 
     /* Do LU factorization of M */
-    ier = BandFactor(M, pivots);
+    ier = band_factor(M, pivots);
 
     /* Return 0 if the LU was complete; otherwise return 1 */
     if (ier > 0)
@@ -389,7 +389,7 @@ CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
 
     cvband_mem = (CVBandMem)lmem;
 
-    BandBacksolve(M, pivots, b);
+    band_back_solve(M, pivots, b);
 
     /* If BDF, scale the correction to account for change in gamma */
     if ((lmm == BDF) && (gamrat != ONE)) {
@@ -411,8 +411,8 @@ CVBandFree(CVodeMem cv_mem) {
 
     cvband_mem = (CVBandMem)lmem;
 
-    BandFreeMat(M);
-    BandFreeMat(savedJ);
-    BandFreePiv(pivots);
+    band_free_mat(M);
+    band_free_mat(savedJ);
+    band_free_piv(pivots);
     free(lmem);
 }
