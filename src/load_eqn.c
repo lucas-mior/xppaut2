@@ -30,7 +30,7 @@ extern int32 spec_win;
 extern int32 spec_col2;
 extern int32 post_process;
 
-char *interopt[MAXOPT];
+static char *interopt[MAXOPT];
 static int32 Nopts = 0;
 int32 RunImmediately = 0;
 extern char dll_lib[256];

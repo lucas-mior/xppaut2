@@ -934,10 +934,27 @@ int32 new_string(char *name, char *value);
 
 #include <stdio.h>
 
+typedef struct InternSet {
+    char *name;
+    char *does;
+    uint32 use;
+} InternSet;
+
 extern int32 RunImmediately;
 extern int32 MultiWin;
 extern int32 START_LINE_TYPE;
 extern int32 Nintern_set;
+extern double TOR_PERIOD;
+extern int32 TORUS;
+extern int32 IX_PLT[10];
+extern int32 IY_PLT[10];
+extern int32 IZ_PLT[10];
+extern int32 NPltV;
+extern double X_LO[10];
+extern double Y_LO[10];
+extern double X_HI[10];
+extern double Y_HI[10];
+extern InternSet intern_set[MAX_INTERN_SET];
 
 /*
 The acutual max filename length is determined by the
@@ -959,12 +976,6 @@ override the below definition.
 
 #ifndef COMLINE_H
 #define COMLINE_H
-
-typedef struct InternSet {
-    char *name;
-    char *does;
-    uint32 use;
-} InternSet;
 
 extern int32 NincludedFiles;
 extern int32 Nintern_2_use;
