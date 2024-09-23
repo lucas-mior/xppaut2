@@ -13,14 +13,14 @@ grep -E "^[a-zA-Z0-9_]+ [a-zA-Z0-9_]+\([^)]+\);$" "src/functions.h" \
         fi
     done \
 | while read work; do 
-    sig="$(echo "$work" | awk -F"::::" '{print $1}')"
+    sig2="$(echo "$work" | awk -F"::::" '{print $1}')"
     file2="$(echo "$work" | awk -F"::::" '{print $2}')"
 
-    grep -Fv "$sig" "src/functions.h" > tmp.h
+    grep -Fv "$sig2" "src/functions.h" > tmp.h
     mv tmp.h "src/functions.h"
 
     find src -iname "$file2" \
         | while read file3; do
-        sed -i "1istatic $sig" "${file3}"
+        sed -i "1istatic $sig2" "${file3}"
     done
 done
