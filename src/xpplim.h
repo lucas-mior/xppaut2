@@ -2,6 +2,7 @@
 #define XPPLIM_H
 
 #define MAX_ODE 5000
+#define MAX_ODE_NAME_LENGTH 16
 #define MAX_ODE1 4999
 #define MAX_DELAY 50
 #define MAX_PRIME_VAR (MAX_ODE - 10) / 2
