@@ -26,7 +26,7 @@
 
 #define MAXCOMMENTS 500
 
-int32 IN_INCLUDED_FILE = 0;
+static int32 IN_INCLUDED_FILE = 0;
 char uvar_names[MAX_ODE][16];
 char *ode_names[MAX_ODE];
 char upar_names[MAX_PAR][16];
@@ -39,7 +39,7 @@ extern int32 IN_VARS;
 extern int32 leng[MAX_ODE];
 
 VAR_INFO *my_varinfo;
-int32 start_var_info = 0;
+static int32 start_var_info = 0;
 
 int32 *my_ode[MAX_ODE];
 
@@ -56,7 +56,8 @@ extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
 char *onlylist[MAXONLY];
 int32 *plotlist;
-int32 N_only = 0, N_plist;
+static int32 N_only = 0;
+int32 N_plist;
 
 ACTION comments[MAXCOMMENTS];
 ACTION *orig_comments;

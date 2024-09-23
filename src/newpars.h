@@ -47,9 +47,4 @@ typedef struct var_info {
     struct var_info *next, *prev;
 } VAR_INFO;
 
-/*int32 start_var_info=0;
-
-VAR_INFO *my_varinfo;
-*/
-
 #endif
