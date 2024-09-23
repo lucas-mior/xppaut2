@@ -2173,6 +2173,9 @@ typedef struct FixInfo {
     char *value;
 } FixInfo;
 
+extern int32 n_comments;
+extern int32 ConvertStyle;
+
 int32 make_eqn(void);
 void strip_saveqn(void);
 int32 disc(char *string);

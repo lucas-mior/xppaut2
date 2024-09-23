@@ -61,8 +61,7 @@ int32 N_plist;
 
 ACTION comments[MAXCOMMENTS];
 ACTION *orig_comments;
-int32 orig_ncomments = 0;
-int32 is_a_map = 0;
+static int32 is_a_map = 0;
 int32 n_comments = 0;
 extern char delay_string[MAX_ODE][80];
 BcStruct my_bc[MAX_ODE];
@@ -81,14 +80,13 @@ int32 ConvertStyle = 0;
 FILE *convertf;
 extern int32 ERROUT;
 extern int32 NTable;
-int32 OldStyle = 1;
+static int32 OldStyle = 1;
 int32 NCON_ORIG, NSYM_ORIG;
 int32 IN_VARS;
 int32 NMarkov;
 
 int32 FIX_VAR;
 
-int32 ICREATE = 0;
 extern int32 NEQ, NVAR, NKernel;
 extern int32 NFUN;
 int32 NEQ_MIN;
@@ -97,7 +95,7 @@ extern int32 NWiener;
 extern char this_file[XPP_MAX_NAME];
 extern char options[100];
 int32 EqType[MAX_ODE];
-int32 Naux = 0;
+static int32 Naux = 0;
 char aux_names[MAX_ODE][12];
 
 int32 NUMODES = 0, NUMFIX = 0, NUMPARAM = 0;
