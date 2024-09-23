@@ -4246,8 +4246,12 @@ void make_txtview(void);
 
 typedef struct Kernel {
     double k_n1, k_n, sum, betnn, mu, *al, *cnv;
-    int32 *formula, flag, *kerform;
-    char name[20], *expr, *kerexpr;
+    int32 *formula;
+    int32 flag;
+    int32 *kerform;
+    char name[20];
+    char *expr;
+    char *kerexpr;
 } Kernel;
 
 double volterra_ker_val(int32 in);
