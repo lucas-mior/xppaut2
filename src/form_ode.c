@@ -28,8 +28,8 @@
 
 static int32 IN_INCLUDED_FILE = 0;
 char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
-char *ode_names[MAX_ODE];
 char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
+char *ode_names[MAX_ODE];
 char *save_eqn[MAXLINES];
 double default_val[MAX_PAR];
 extern int32 NODE;
