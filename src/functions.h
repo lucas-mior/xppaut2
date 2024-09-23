@@ -212,21 +212,6 @@ void redraw_ani_slider(void);
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-typedef struct ArrayPlot {
-    Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin;
-    Window wplot, wredraw, wtime, wgif, wrange, wfit;
-    int32 index0, indexn, alive, nacross, ndown, plotdef;
-    int32 height, width, ploth, plotw;
-    int32 nstart, nskip, ncskip;
-    char name[20];
-    double tstart, tend, zmin, zmax, dt;
-    char xtitle[256];
-    char ytitle[256];
-    char filename[256];
-    char bottom[256];
-    int32 type;
-} ArrayPlot;
-
 extern int32 array_plot_range;
 
 void array_plot_close_files(void);
@@ -235,23 +220,13 @@ void array_plot_optimize(int32 *plist);
 void array_plot_make_my(char *name);
 void array_plot_expose(Window window);
 void array_plot_do_events(XEvent ev);
-void wborder(Window window, int32 i, ArrayPlot ap);
 void destroy_aplot(void);
 void init_my_aplot(void);
-void create_array_plot(ArrayPlot *ap, char *wname, char *iname);
-void print_aplot(ArrayPlot *ap);
 void apbutton(Window window);
-void draw_scale(ArrayPlot ap);
-void draw_aplot(ArrayPlot ap);
 void edit_aplot(void);
 void get_root(char *s, char *sroot, int32 *num);
-void reset_aplot_axes(ArrayPlot ap);
 void dump_aplot(FILE *fp, int32 f);
-int32 editaplot(ArrayPlot *ap);
 void gif_aplot(void);
-void grab_aplot_screen(ArrayPlot ap);
-void redraw_aplot(ArrayPlot ap);
-void display_aplot(Window window, ArrayPlot ap);
 
 #endif
 

@@ -65,7 +65,21 @@ int32 array_plot_range;
 static int32 array_plot_range_count = 0;
 static char array_plot_range_stem[256] = "rangearray";
 static int32 array_plot_still = 1, array_plot_tag = 0;
-static ArrayPlot array_plot;
+static struct ArrayPlot {
+    Window base, wclose, wedit, wprint, wstyle, wscale, wmax, wmin;
+    Window wplot, wredraw, wtime, wgif, wrange, wfit;
+    int32 index0, indexn, alive, nacross, ndown, plotdef;
+    int32 height, width, ploth, plotw;
+    int32 nstart, nskip, ncskip;
+    char name[20];
+    double tstart, tend, zmin, zmax, dt;
+    char xtitle[256];
+    char ytitle[256];
+    char filename[256];
+    char bottom[256];
+    int32 type;
+} array_plot;
+
 extern Window draw_win;
 static int32 plot3d_auto_redraw = 0;
 static FILE *ap_fp;
@@ -77,7 +91,17 @@ extern double MyData[MAX_ODE];
 static void set_acolor(int32 col);
 static void tag_aplot(char *);
 static void array_plot_gif_all(char *, int32);
-static void scale_aplot(ArrayPlot *ap, double *zmax, double *zmin);
+static void scale_aplot(struct ArrayPlot *ap, double *zmax, double *zmin);
+static void wborder(Window window, int32 i, struct ArrayPlot ap);
+static void create_array_plot(struct ArrayPlot *ap, char *wname, char *iname);
+static void print_aplot(struct ArrayPlot *ap);
+static void draw_scale(struct ArrayPlot ap);
+static void draw_aplot(struct ArrayPlot ap);
+static void reset_aplot_axes(struct ArrayPlot ap);
+static int32 editaplot(struct ArrayPlot *ap);
+static void grab_aplot_screen(struct ArrayPlot ap);
+static void redraw_aplot(struct ArrayPlot ap);
+static void display_aplot(Window window, struct ArrayPlot ap);
 
 void
 array_plot_draw_one(char *bob) {
@@ -167,7 +191,7 @@ array_plot_make_my(char *name) {
 }
 
 void
-scale_aplot(ArrayPlot *ap, double *zmax, double *zmin) {
+scale_aplot(struct ArrayPlot *ap, double *zmax, double *zmin) {
     int32 i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
@@ -254,7 +278,7 @@ array_plot_do_events(XEvent ev) {
 }
 
 void
-wborder(Window window, int32 i, ArrayPlot ap) {
+wborder(Window window, int32 i, struct ArrayPlot ap) {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
      */
     Window w = window;
@@ -299,7 +323,7 @@ init_my_aplot(void) {
 }
 
 void
-create_array_plot(ArrayPlot *ap, char *wname, char *iname) {
+create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     Window base;
     int32 width, height;
     uint32 valuemask = 0;
@@ -351,7 +375,7 @@ create_array_plot(ArrayPlot *ap, char *wname, char *iname) {
 }
 
 void
-print_aplot(ArrayPlot *ap) {
+print_aplot(struct ArrayPlot *ap) {
     double tlo, thi;
     int32 status, errflag;
     static char *n[] = {"Filename", "Top label", "Side label", "Bottom label",
@@ -420,7 +444,7 @@ apbutton(Window window) {
 }
 
 void
-draw_scale(ArrayPlot ap) {
+draw_scale(struct ArrayPlot ap) {
     int32 i, y;
     Window window = ap.wscale;
     for (i = 0; i < color_total; i++) {
@@ -432,7 +456,7 @@ draw_scale(ArrayPlot ap) {
 }
 
 void
-draw_aplot(ArrayPlot ap) {
+draw_aplot(struct ArrayPlot ap) {
     if (plot3d_auto_redraw != 1)
         return;
     redraw_aplot(ap);
@@ -476,7 +500,7 @@ get_root(char *s, char *sroot, int32 *num) {
 }
 
 void
-reset_aplot_axes(ArrayPlot ap) {
+reset_aplot_axes(struct ArrayPlot ap) {
     char bob[200];
     char sroot[100];
     int32 num;
@@ -510,7 +534,7 @@ dump_aplot(FILE *fp, int32 f) {
 }
 
 int32
-editaplot(ArrayPlot *ap) {
+editaplot(struct ArrayPlot *ap) {
     int32 i, status;
     double zmax, zmin;
     char *n[] = {"*0Column 1", "NCols", "Row 1",         "NRows",  "RowSkip",
@@ -617,7 +641,7 @@ gif_aplot(void) {
 }
 
 void
-grab_aplot_screen(ArrayPlot ap) {
+grab_aplot_screen(struct ArrayPlot ap) {
     Window temp = draw_win;
     draw_win = ap.wplot;
     if (film_clip() == 0)
@@ -627,7 +651,7 @@ grab_aplot_screen(ArrayPlot ap) {
 }
 
 void
-redraw_aplot(ArrayPlot ap) {
+redraw_aplot(struct ArrayPlot ap) {
     int32 i, j;
     Window window = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
@@ -715,7 +739,7 @@ set_acolor(int32 col) {
 }
 
 void
-display_aplot(Window window, ArrayPlot ap) {
+display_aplot(Window window, struct ArrayPlot ap) {
     char bob[200];
 
     if (window == ap.wplot) {
