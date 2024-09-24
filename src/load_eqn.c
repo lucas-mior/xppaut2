@@ -26,8 +26,6 @@ static char *interopt[MAXOPT];
 static int32 Nopts = 0;
 int32 RunImmediately = 0;
 
-/*extern char UserBGBitmap[100];*/
-
 int32 IX_PLT[10];
 int32 IY_PLT[10];
 int32 IZ_PLT[10];
