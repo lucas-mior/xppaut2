@@ -198,7 +198,6 @@ do_lunch(/* f=1 to read and 0 to write */
     char bob[256];
     FILE *fp;
     time_t ttt;
-    /*char filename[256];*/
     char filename[XPP_MAX_NAME + 4];
     sprintf(filename, "%s.set", this_file);
 
