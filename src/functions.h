@@ -3962,7 +3962,7 @@ extern int32 DCURYb;
 extern int32 CURY_OFFb;
 extern int32 DCURYs;
 extern int32 DCURXs;
-extern  FILE *logfile;
+extern FILE *logfile;
 extern int32 tfBell;
 extern char SLIDER1VAR[20];
 extern char SLIDER2VAR[20];

@@ -34,7 +34,6 @@ static double zippy;
 double lgamma();
 #endif
 
-
 /* #define COM(a) my_symb[toklist[(a)]].com */
 int32 ERROUT;
 int32 NDELAYS = 0;
@@ -49,7 +48,6 @@ int32 RandSeed = 12345678;
 #ifndef M_PI
 #define M_PI 3.14159265358979323846264338327950288
 #endif
-
 
 static double CurrentIndex = 0;
 static int32 SumIndex = 1;

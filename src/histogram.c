@@ -9,7 +9,6 @@
 
 #include "parserslow.h"
 
-
 int32 spec_col = 1;
 int32 spec_wid = 512;
 int32 spec_win = 2;
@@ -21,11 +20,9 @@ static int32 spec_type = 0;
 
 */
 
-
 int32 post_process = 0;
 
 HIST_INFO hist_inf = {100, 100, 0, 1, 1, 0, 0, 1, 0, 1, ""};
-
 
 extern double **storage;
 static int32 hist_len;
@@ -34,8 +31,6 @@ static double *my_hist[MAX_ODE + 1];
 static double *my_four[MAX_ODE + 1];
 static int32 HIST_HERE;
 int32 FOUR_HERE;
-
-
 
 int32 twod_hist(void);
 

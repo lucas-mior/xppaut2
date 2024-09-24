@@ -14,7 +14,6 @@
 static NCLINE nclines[MAXNCLINE];
 int32 PS_Color = 1;
 
-
 #define SPER 3
 #define UPER 4
 #define UEQ 2
@@ -41,7 +40,6 @@ static struct BD {
     Window window;
 } my_bd;
 
-
 extern double **storage;
 
 static double FreezeKeyX;
@@ -51,7 +49,6 @@ static double FreezeKeyY;
 static int32 FreezeKeyFlag;
 int32 AutoFreezeFlag = 0;
 static int32 CurrentCurve = 0;
-
 
 extern char *graf_hint[], *cmap_hint[];
 

@@ -20,7 +20,6 @@
 #define DP83 12
 #define RB23 13
 
-
 static struct {
     char file[25];
     char varlist[25], collist[25];

@@ -63,7 +63,6 @@ int32 MakePlotFlag = 0;
 
 static int32 OnTheFly = 1;
 
-
 typedef struct {
     int32 index0;
     int32 type;
@@ -108,7 +107,6 @@ int32 MyStart;
 int32 RANGE_FLAG;
 double LastTime;
 
-
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 static int32 STOP_FLAG = 0;
 
@@ -124,7 +122,6 @@ static struct {
 } eq_range;
 
 Range range;
-
 
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);

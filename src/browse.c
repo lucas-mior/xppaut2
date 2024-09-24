@@ -33,12 +33,6 @@
 
 #define BMAXCOL 20
 
-
-
-
-
-
-
 #define MYMASK                                                                 \
     (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \
      StructureNotifyMask | LeaveWindowMask | EnterWindowMask)

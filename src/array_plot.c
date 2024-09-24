@@ -53,7 +53,6 @@
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2
 
-
 int32 array_plot_range;
 static int32 array_plot_range_count = 0;
 static char array_plot_range_stem[256] = "rangearray";
@@ -77,7 +76,6 @@ static int32 plot3d_auto_redraw = 0;
 static FILE *ap_fp;
 static GC array_plot_gc;
 static int32 first_aplot_press;
-
 
 static void set_acolor(int32 col);
 static void tag_aplot(char *);

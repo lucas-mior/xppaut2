@@ -53,8 +53,6 @@
 #define WITH 43
 #define EQUIL 44
 
-
-
 static char setfilename[XPP_MAX_NAME];
 static char parfilename[XPP_MAX_NAME];
 static char icfilename[XPP_MAX_NAME];
@@ -77,8 +75,6 @@ static struct SetName {
 static int32 is_set_name(struct SetName *set, char *nam);
 static struct SetName *add_set(struct SetName *set, char *nam);
 static int32 parse_it(char *com);
-
-
 
 static int32 loadsetfile = 0;
 static int32 loadparfile = 0;

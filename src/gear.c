@@ -13,7 +13,6 @@ int32 UnstableManifoldColor = 5;
 int32 StableManifoldColor = 8;
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 
-
 double ShootIC[8][MAX_ODE];
 int32 ShootICFlag;
 int32 ShootIndex;

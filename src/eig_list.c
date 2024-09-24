@@ -20,9 +20,6 @@
         return;                                                                \
     } while (0)
 
-
-
-
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask)

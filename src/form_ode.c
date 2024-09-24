@@ -70,7 +70,6 @@ int32 NCON_START;
 int32 NSYM_START;
 int32 BVP_N;
 
-
 int32 ConvertStyle = 0;
 FILE *convertf;
 static int32 OldStyle = 1;
@@ -84,7 +83,6 @@ static int32 Naux = 0;
 static char aux_names[MAX_ODE][12];
 
 FixInfo fixinfo[MAX_ODE];
-
 
 static void strncpy_trim(char *dest, char *source, int32 n);
 static void strcpy_trim(char *dest, char *source);

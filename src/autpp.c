@@ -12,7 +12,6 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 /*    Hooks to xpp RHS     */
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 
-
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {

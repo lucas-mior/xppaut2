@@ -12,13 +12,11 @@
 
 static char SVGLINETYPE;
 
-
 FILE *svgfile;
 static int32 cur_RGB[3];
 static int32 DOING_SVG_COLOR = 0;
 
 static int32 DO_MARKER = 0;
-
 
 static void svg_write(char *str);
 

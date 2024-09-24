@@ -71,7 +71,6 @@ int32 TypeOfCalc = 0;
 #define DISCRETE 0
 extern double **storage;
 
-
 int32 SEc = 20;
 int32 UEc = 0;
 int32 SPc = 26;
@@ -123,17 +122,14 @@ Rotchk blrtn;
 
 GrabPoint grabpt;
 
-
 int32 AutoTwoParam = 0;
 int32 NAutoPar = 8;
 int32 Auto_index_to_array[8];
 int32 AutoPar[8];
 
-
 double outperiod[20];
 int64 UzrPar[20];
 int32 NAutoUzr;
-
 
 static char this_auto_file[200];
 char fort3[200];
@@ -142,19 +138,16 @@ char fort8[200];
 char fort9[200];
 static char TMPSWAP[200];
 
-
 static double XfromAuto;
 static double YfromAuto;
 static double XfromAuto;
 static double YfromAuto;
 static int32 FromAutoFlag = 0;
 
-
 int32 HomoFlag = 0;
 double homo_l[100];
 double homo_r[100];
 static double HOMO_SHIFT = 0.0;
-
 
 Bifurcation Auto;
 AdvAuto aauto;

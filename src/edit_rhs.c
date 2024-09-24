@@ -42,13 +42,7 @@ void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EditBox *sb, char *title);
 
-
-
-
-
 extern char ufun_names[MAX_UFUN][12];
-
-
 
 static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 

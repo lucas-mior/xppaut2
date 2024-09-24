@@ -15,12 +15,7 @@
 #define VOLTERRA 6
 #define PARAMBOX 1
 
-
-
-
 static int32 set_type = 0;
-
-
 
 extern char delay_string[MAX_ODE][80];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];

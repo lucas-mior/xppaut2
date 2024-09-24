@@ -61,9 +61,6 @@ static int32 MINI_W = 450;
 
 int32 ActiveWinList[MAXPOP];
 
-
-
-
 static void select_sym(Window window);
 static void lo_lite(Window wi);
 static void set_gr_back(void);

@@ -7,7 +7,6 @@
 #include "integers.h"
 #include <stdbool.h>
 
-
 static long nfcn;
 static long nstep;
 static long naccpt;
@@ -39,7 +38,6 @@ static double *rcont5;
 static double *rcont6;
 static double *rcont7;
 static double *rcont8;
-
 
 static void dprhs(uint32 n, double t, double *y, double *f);
 

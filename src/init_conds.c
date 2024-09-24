@@ -83,7 +83,6 @@ static struct FileSel {
 
 static void display_file_sel(struct FileSel f, Window window);
 
-
 extern char delay_string[MAX_ODE][80];
 
 static struct ParSlider {
@@ -146,16 +145,12 @@ static void redraw_file_list(void);
 static void redraw_directory(void);
 static void expose_selector(Window window);
 
-
-
-
 static BoxList *HotBox;
 static int32 HotBoxItem = -1;
 static BoxList ICBox;
 BoxList ParamBox;
 static BoxList DelayBox;
 static BoxList BCBox;
-
 
 /* CLONE */
 void

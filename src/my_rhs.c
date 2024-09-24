@@ -6,8 +6,6 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-
-
 int32
 main(int32 argc, char **argv) {
     do_main(argc, argv);

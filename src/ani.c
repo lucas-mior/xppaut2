@@ -106,7 +106,6 @@ static int32 ani_grab_flag = 0;
 static int32 who_was_grabbed;
 double get_ivar(int32);
 
-
 /************************8  end grabber **********************/
 
 #define FIRSTCOLOR 30
@@ -153,7 +152,6 @@ static int32 ani_text_color;
 static int32 ani_text_font;
 
 static GC ani_gc;
-
 
 static void create_vcr(char *name);
 static void ani_border(Window window, int32 i);

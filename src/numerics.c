@@ -20,7 +20,6 @@
 #define RB23 13
 #define SYMPLECT 14
 
-
 /*   This is numerics.c
  *   The input is primitive and eventually, I want to make it so
         that it uses nice windows for input.
@@ -31,11 +30,6 @@ extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 double *fft_data;
 double *hist_data;
-
-
-
-
-
 
 int32 cv_bandflag = 0;
 int32 cv_bandupper = 1;

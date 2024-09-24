@@ -7,7 +7,6 @@
 
 #include "functions.h"
 
-
 static void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window,
                  int32 f);
 

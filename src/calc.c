@@ -15,15 +15,12 @@
 #define PARAM 1
 #define IC 2
 
-
-
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask)
 
 #define SIMPMASK                                                               \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
-
 
 static struct {
     Window base, quit, answer;

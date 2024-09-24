@@ -22,7 +22,6 @@ static struct MenuDef {
     int32 visible;
 } my_menus[3];
 
-
 #include <X11/Xlib.h>
 
 #define MAIN_ENTRIES 20
@@ -37,11 +36,11 @@ static char *main_menu[] = {"XPP",        "Initialconds",   "Continue",
                             "Sing pts",   "Viewaxes",       "Xi vs t",
                             "Restore",    "3d-params",      "Bndryval"};
 
-static char *num_menu[] = {"NUMERICS", "Total",        "Start time",   "tRansient",
-                           "Dt",       "Ncline ctrl",  "sIng pt ctrl", "nOutput",
-                           "Bounds",   "Method",       "dElay",        "Color code",
-                           "stocHast", "Poincare map", "rUelle plot",  "looKup",
-                           "bndVal",   "Averaging",    "[Esc]-exit"};
+static char *num_menu[] = {
+    "NUMERICS",    "Total",        "Start time", "tRansient",    "Dt",
+    "Ncline ctrl", "sIng pt ctrl", "nOutput",    "Bounds",       "Method",
+    "dElay",       "Color code",   "stocHast",   "Poincare map", "rUelle plot",
+    "looKup",      "bndVal",       "Averaging",  "[Esc]-exit"};
 /* CLONE change */
 
 static char *fileon_menu[] = {
@@ -56,61 +55,62 @@ static char *fileoff_menu[] = {
 
 /* hints for the main menus */
 static char *main_hint[] = {"Integrate the equations",
-                     "Continue integration for specified time",
-                     "Draw nullclines",
-                     "Direction fields and flows of the phaseplane",
-                     "Change the size of two-dimensional view",
-                     "Set up periodic/torus phase space",
-                     "Take snapshots of the screen",
-                     "Adding graphs,hard copy, etc",
-                     "Numerics options",
-                     "Quit, save stuff, etc",
-                     "Change problem parameters",
-                     "Clear screen",
-                     "Create other windows",
-                     "Add fancy text and lines,arrows",
-                     "Find fixed points and stability",
-                     "Change 2 or 3d views",
-                     "Plot variable vs time",
-                     "Redraw the graph ",
-                     "Set parameters for 3D view",
-                     "Run boundary value solver"};
+                            "Continue integration for specified time",
+                            "Draw nullclines",
+                            "Direction fields and flows of the phaseplane",
+                            "Change the size of two-dimensional view",
+                            "Set up periodic/torus phase space",
+                            "Take snapshots of the screen",
+                            "Adding graphs,hard copy, etc",
+                            "Numerics options",
+                            "Quit, save stuff, etc",
+                            "Change problem parameters",
+                            "Clear screen",
+                            "Create other windows",
+                            "Add fancy text and lines,arrows",
+                            "Find fixed points and stability",
+                            "Change 2 or 3d views",
+                            "Plot variable vs time",
+                            "Redraw the graph ",
+                            "Set parameters for 3D view",
+                            "Run boundary value solver"};
 
-static char *file_hint[] = {"Display source and active comments",
-                     "Save information for restart",
-                     "Read information for restart",
-                     "Run AUTO, the bifurcation package",
-                     "A little calculator -- press ESC to exit",
-                     "Edit right-hand sides or functions or auxiliaries",
-                     "Save info about simulation in human readable format",
-                     "Turn bell on/off",
-                     "Browser help",
-                     "Duh!",
-                     "Transpose storage",
-                     "Turn off these silly tips",
-                     "Set predefined parameters",
-                     "Clone the ode file",
-                     "Edit your .xpprc preferences file",
-                     "Run a quick tutorial on XPPAUT"};
+static char *file_hint[] = {
+    "Display source and active comments",
+    "Save information for restart",
+    "Read information for restart",
+    "Run AUTO, the bifurcation package",
+    "A little calculator -- press ESC to exit",
+    "Edit right-hand sides or functions or auxiliaries",
+    "Save info about simulation in human readable format",
+    "Turn bell on/off",
+    "Browser help",
+    "Duh!",
+    "Transpose storage",
+    "Turn off these silly tips",
+    "Set predefined parameters",
+    "Clone the ode file",
+    "Edit your .xpprc preferences file",
+    "Run a quick tutorial on XPPAUT"};
 
 static char *num_hint[] = {"Total time to integrate eqns",
-                    "Starting time -- T0",
-                    "Time to integrate before storing",
-                    "Time step to use",
-                    "Mesh for nullclines",
-                    "Numerical parameters for fixed points",
-                    "Number of steps per plotted point",
-                    "Maximum allowed size of any variable",
-                    "Integration method",
-                    "Maximum delay and delay related stuff",
-                    "Color trajectories according to velocity,etc",
-                    "Curve fitting, FFT, mean, variance, seed, etc",
-                    "Define Poincare map parameters",
-                    "Define shifted plots",
-                    "Modify lookup tables",
-                    "Numerical setup for boundary value solver",
-                    "Compute adjoint and averaged functions",
-                    "Return to main menu"};
+                           "Starting time -- T0",
+                           "Time to integrate before storing",
+                           "Time step to use",
+                           "Mesh for nullclines",
+                           "Numerical parameters for fixed points",
+                           "Number of steps per plotted point",
+                           "Maximum allowed size of any variable",
+                           "Integration method",
+                           "Maximum delay and delay related stuff",
+                           "Color trajectories according to velocity,etc",
+                           "Curve fitting, FFT, mean, variance, seed, etc",
+                           "Define Poincare map parameters",
+                           "Define shifted plots",
+                           "Modify lookup tables",
+                           "Numerical setup for boundary value solver",
+                           "Compute adjoint and averaged functions",
+                           "Return to main menu"};
 
 /* other hints  */
 

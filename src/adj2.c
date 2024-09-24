@@ -51,7 +51,6 @@ bool adj_range = false;
 static int32 *coup_fun[MAX_ODE];
 static char *coup_string[MAX_ODE];
 
-
 static void adj2_h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);

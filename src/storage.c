@@ -14,7 +14,6 @@ int32 IWORK[10000];
 #define GEAR 5
 #define RB23 13
 
-
 void
 storage_init_alloc_info(void) {
     int32 i;

@@ -13,7 +13,6 @@
 #define SIGNIF (0.01) /* less than one hundredth of a tic mark */
 #define CheckZero(x, tic) (fabs(x) < ((tic)*SIGNIF) ? 0.0 : (x))
 
-
 int32 axes2_doing = 0;
 int32 axes2_doing_box = 0;
 

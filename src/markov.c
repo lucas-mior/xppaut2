@@ -24,8 +24,6 @@
 
 static int64 myrandomseed = -1;
 
-
-
 typedef struct {
     int32 **command;
     char **trans;

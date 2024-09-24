@@ -26,7 +26,6 @@
         return;                                                                \
     } while (0)
 
-
 static struct TxtView {
     Window up, down, pgup, pgdn, kill, home, end, base, text, src, action;
     int32 here, first, hgt, wid, nlines, which;

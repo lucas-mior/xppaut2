@@ -151,7 +151,6 @@ typedef struct {
 static VECTORIZER my_vec[MAXVEC];
 static int32 n_vector = 0;
 
-
 typedef struct {
     int32 type, ncon, n;
     char name[20];
@@ -186,7 +185,6 @@ typedef struct {
 #define DEL_MUL 40  /* for delayed coupled networks  - global coupling */
 #define DEL_SPAR 41 /* sparse with unequal in degree and delays  */
 #define IMPORT 50   /* not really a network type   */
-
 
 char *form_ode_get_first(char *string, char *src);
 char *do_fit_get_next(char *src);

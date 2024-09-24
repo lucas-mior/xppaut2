@@ -51,11 +51,6 @@ int32 mark_ixe;
 int32 mark_iys;
 int32 mark_iye;
 
-
-
-
-
-
 static uint32 DONT_XORCross = 0;
 
 static struct {

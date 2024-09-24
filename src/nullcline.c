@@ -20,7 +20,6 @@ typedef struct Point {
     double x, y, z;
 } Point;
 
-
 static int32 NCSuppress = 0;
 static int32 DFSuppress = 0;
 int32 DFBatch = 0;

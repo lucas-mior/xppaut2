@@ -22,17 +22,11 @@
 #define MAXOPT 1000
 #define READEM 1
 
-
-
 static char *interopt[MAXOPT];
 static int32 Nopts = 0;
 int32 RunImmediately = 0;
 
 /*extern char UserBGBitmap[100];*/
-
-
-
-
 
 int32 IX_PLT[10];
 int32 IY_PLT[10];
@@ -47,7 +41,6 @@ int32 START_LINE_TYPE = 1;
 InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
-
 /*void load_eqn_set_option(char *s1,char *s2);
  */
 
@@ -57,7 +50,6 @@ int32 Nintern_set = 0;
  */
 
 double last_ic[MAX_ODE];
-
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
@@ -139,8 +131,6 @@ int32 SHOOT;
 int32 PAR_FOL;
 
 /*  custon color stuff  */
-
-
 
 int32 xorfix;
 int32 silent;

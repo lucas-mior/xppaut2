@@ -15,7 +15,6 @@
 #include "struct.h"
 #include "integers.h"
 
-
 static int32 choice_box_event_loop(CHOICE_BOX p);
 static void do_checks(CHOICE_BOX p);
 static void display_choice(Window window, CHOICE_BOX p);

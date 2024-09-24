@@ -25,7 +25,6 @@
 #define C_GRAY 5
 #define C_CUBHLX 6
 
-
 static int32 color_mode = 1;
 int32 color_min;
 int32 color_total;

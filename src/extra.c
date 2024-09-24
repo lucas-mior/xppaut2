@@ -36,7 +36,6 @@ static struct {
     double *vout;
 } in_out;
 
-
 static struct {
     char libname[1024];
     char libfile[256];

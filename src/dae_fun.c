@@ -9,10 +9,6 @@
 #include "integers.h"
 #define MAXDAE 400
 
-
-
-
-
 /*    will have more stuff someday */
 
 static struct {

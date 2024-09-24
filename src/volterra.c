@@ -28,7 +28,6 @@ static int32 KnFlag;
 
 int32 AutoEvaluate = 0;
 
-
 static void get_kn(double *y, double t);
 static double betnn(double mu, double dt);
 static double alpbetjn(double mu, double dt, int32 l);

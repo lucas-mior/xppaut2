@@ -32,7 +32,6 @@ XFontStruct *romfonts[5];
 int32 avsymfonts[5];
 int32 avromfonts[5];
 
-
 /*  This is an improved graphics driver for XPP
     It requires only a few commands
     All positions are integers
