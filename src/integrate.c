@@ -1837,7 +1837,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             if (kflag < 0) {
                 if (RANGE_FLAG)
                     return 0;
-                dp_err(kflag);
+                dormpri_dp_err(kflag);
                 return 0;
             }
 
@@ -2068,7 +2068,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     LastTime = *t;
                     return 1;
                 }
-                dp_err(kflag);
+                dormpri_dp_err(kflag);
                 LastTime = *t;
                 return 1;
             }

@@ -261,13 +261,13 @@ load_eqn(void) {
         no_eqn = 1;
         okay = 0;
         change_directory(this_file);
-        okay = make_eqn();
+        okay = form_ode_make_eqn();
         return;
     } else {
         if (got_file == 1 && (fptr = fopen(this_file, "r")) != NULL) {
             if (std == 1)
                 sprintf(this_file, "console");
-            okay = get_eqn(fptr);
+            okay = form_ode_get_eqn(fptr);
             if (std == 0)
                 fclose(fptr);
 
@@ -287,7 +287,7 @@ load_eqn(void) {
                 }
             }
 
-            okay = make_eqn();
+            okay = form_ode_make_eqn();
         }
     }
     return;

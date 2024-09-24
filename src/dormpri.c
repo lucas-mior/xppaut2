@@ -52,7 +52,7 @@ dprhs(uint32 n, double t, double *y, double *f) {
 }
 
 void
-dp_err(int32 k) {
+dormpri_dp_err(int32 k) {
     ggets_ping();
     switch (k) {
     case -1:

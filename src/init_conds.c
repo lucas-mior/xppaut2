@@ -1507,7 +1507,7 @@ resize_par_box(Window window) {
     if (ICBox.xuse == 1 && window == ICBox.base) {
         ok = 1;
         b = &ICBox;
-        get_new_size(window, &w, &h);
+        eig_list_get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
 
@@ -1516,19 +1516,19 @@ resize_par_box(Window window) {
         b = &ParamBox;
         browse_wait_a_sec(ClickTime);
 
-        get_new_size(window, &w, &h);
+        eig_list_get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (BCBox.xuse == 1 && window == BCBox.base) {
         ok = 3;
         b = &BCBox;
-        get_new_size(window, &w, &h);
+        eig_list_get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (DelayBox.xuse == 1 && window == DelayBox.base) {
         ok = 4;
         b = &DelayBox;
-        get_new_size(window, &w, &h);
+        eig_list_get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
     }
     if (ok == 0)

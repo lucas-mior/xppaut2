@@ -45,7 +45,7 @@ static int32 get_fit_params(void);
 static void print_fit_info(void);
 
 void
-init_fit_info(void) {
+do_fit_init_info(void) {
     fit_info.tol = .001;
     fit_info.eps = 1e-5;
     fit_info.dim = 0;
@@ -114,7 +114,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
     }
     for (k = 1; k < npts; k++) {
         k0 = k*nvars;
-        ok = one_step_int(y, t0[k - 1], t0[k], &istart);
+        ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
         if (ok == 0) {
             for (i = 0; i < NODE; i++)
                 y[i] = yold[i];
@@ -163,7 +163,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         /* now loop through all the points */
         for (k = 1; k < npts; k++) {
             k0 = k*nvars;
-            ok = one_step_int(y, t0[k - 1], t0[k], &istart);
+            ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
             if (ok == 0) {
                 for (i = 0; i < NODE; i++)
                     y[i] = yold[i];
@@ -211,7 +211,7 @@ printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
 }
 
 int32
-one_step_int(double *y, double t0, double t1, int32 *istart) {
+do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     int32 nit;
     int32 kflag;
     double dt = DELTA_T;
@@ -232,7 +232,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
     if (METHOD == DP5 || METHOD == DP83) {
         dp(istart, y, &t, NODE, t1, &TOLER, &ATOLER, METHOD - DP5, &kflag);
         if (kflag != 1) {
-            dp_err(kflag);
+            dormpri_dp_err(kflag);
             return 0;
         }
         delay_handle_stor_delay(y);
@@ -346,7 +346,7 @@ print_fit_info(void) {
 }
 
 void
-test_fit(void) {
+do_fit_test(void) {
     double *yfit, a[1000], y0[1000];
     int32 nvars, npars, i, ok;
     char collist[30], parlist1[30], parlist2[30], varlist[30];

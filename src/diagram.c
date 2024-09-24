@@ -176,7 +176,7 @@ redraw_diagram(void) {
 }
 
 void
-write_info_out(void) {
+diagram_write_info_out(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
@@ -246,7 +246,7 @@ write_info_out(void) {
 }
 
 void
-load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
+diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     Diagram *d;
     int32 i, j, pt;
     /*int32 flag=0;
@@ -291,7 +291,7 @@ load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
 }
 
 void
-write_init_data_file(void) {
+diagram_write_init_data_file(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
@@ -358,7 +358,7 @@ write_init_data_file(void) {
 }
 
 void
-write_pts(void) {
+diagram_write_pts(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
@@ -422,7 +422,7 @@ write_pts(void) {
 }
 
 void
-post_auto(void) {
+diagram_post_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
@@ -460,7 +460,7 @@ post_auto(void) {
 }
 
 void
-svg_auto(void) {
+diagram_svg_auto(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;

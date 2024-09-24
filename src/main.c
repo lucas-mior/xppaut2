@@ -487,10 +487,10 @@ do_main(int32 argc, char **argv) {
 
     set_delay();
     rhs = my_rhs;
-    init_fit_info();
-    strip_saveqn();
+    do_fit_init_info();
+    form_ode_strip_saveqn();
     create_plot_list();
-    auto_load_dll();
+    extra_auto_load_dll();
 
     if (XPPBatch) {
         color_map_make();
@@ -531,7 +531,7 @@ do_main(int32 argc, char **argv) {
         make_new_delay_box();
         make_new_param_box();
         make_new_browser();
-        create_eq_list();
+        eig_list_create_eq_list();
     }
 
     Xup = 1;
@@ -834,7 +834,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     case ConfigureNotify: /* this needs to be fixed!!! */
         resize_par_box(report.xany.window);
         resize_my_browser(report.xany.window);
-        resize_eq_list(report.xany.window);
+        eig_list_resize_eq_list(report.xany.window);
         auto_x11_resize_window(report);
         if (report.xconfigure.window == main_win) {
             SCALEX = report.xconfigure.width;
@@ -866,7 +866,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         box_keypress(report, &used);
         if (used)
             break;
-        eq_list_keypress(report, &used);
+        eig_list_eq_list_keypress(report, &used);
         if (used)
             break;
         my_browse_keypress(report, &used);
@@ -882,7 +882,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 
         break;
     case EnterNotify:
-        enter_eq_stuff(report.xcrossing.window, 2);
+        eig_list_enter_eq_stuff(report.xcrossing.window, 2);
         enter_my_browser(report, 1);
         enter_slides(report.xcrossing.window, 1);
         box_enter_events(report.xcrossing.window, 1);
@@ -892,7 +892,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 #endif
         break;
     case LeaveNotify:
-        enter_eq_stuff(report.xcrossing.window, 1);
+        eig_list_enter_eq_stuff(report.xcrossing.window, 1);
         enter_my_browser(report, 0);
         enter_slides(report.xcrossing.window, 0);
         box_enter_events(report.xcrossing.window, 0);
@@ -914,7 +914,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             box_buttons(report.xbutton.window);
 
             slide_button_press(report.xbutton.window);
-            eq_list_button(report);
+            eig_list_eq_list_button(report);
             my_browse_button(report);
 #ifdef AUTO
             auto_x11_button(report);
@@ -1093,7 +1093,7 @@ main_commander(int32 ch) {
             do_lunch(1);
             break;
         case 'e':
-            edit_menu();
+            edit_rhs_menu();
             break;
         case 'b':
             tfBell = 1 - tfBell;
@@ -1272,7 +1272,7 @@ top_button_press(Window window) {
     if (window == TopButton[3])
         make_new_param_box();
     if (window == TopButton[4])
-        create_eq_list();
+        eig_list_create_eq_list();
     if (window == TopButton[5])
         make_new_browser();
     return;

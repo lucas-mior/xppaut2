@@ -64,31 +64,31 @@ dense_back_solve(DenseMat A, int64 *p, N_Vector b) {
 
 void
 dense_zero(DenseMat A) {
-    den_zero(A->data, A->size);
+    dense_zero2(A->data, A->size);
     return;
 }
 
 void
 dense_copy(DenseMat A, DenseMat B) {
-    den_copy(A->data, B->data, A->size);
+    dense_copy2(A->data, B->data, A->size);
     return;
 }
 
 void
 dense_scal(double c, DenseMat A) {
-    den_scale(c, A->data, A->size);
+    dense_scale2(c, A->data, A->size);
     return;
 }
 
 void
 dense_add_i(DenseMat A) {
-    den_add_i(A->data, A->size);
+    dense_add_i2(A->data, A->size);
     return;
 }
 
 void
 dense_free_mat(DenseMat A) {
-    den_free(A->data);
+    dense_free2(A->data);
     free(A);
     return;
 }
@@ -101,7 +101,7 @@ dense_free_piv(int64 *p) {
 
 void
 dense_print(DenseMat A) {
-    den_print(A->data, A->size);
+    dense_print2(A->data, A->size);
     return;
 }
 
@@ -251,7 +251,7 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
 }
 
 void
-den_zero(double **a, int64 n) {
+dense_zero2(double **a, int64 n) {
     int64 i;
     int64 j;
     double *col_j;
@@ -265,7 +265,7 @@ den_zero(double **a, int64 n) {
 }
 
 void
-den_copy(double **a, double **b, int64 n) {
+dense_copy2(double **a, double **b, int64 n) {
     int64 i;
     int64 j;
     double *a_col_j, *b_col_j;
@@ -280,7 +280,7 @@ den_copy(double **a, double **b, int64 n) {
 }
 
 void
-den_scale(double c, double **a, int64 n) {
+dense_scale2(double c, double **a, int64 n) {
     int64 i;
     int64 j;
     double *col_j;
@@ -294,7 +294,7 @@ den_scale(double c, double **a, int64 n) {
 }
 
 void
-den_add_i(double **a, int64 n) {
+dense_add_i2(double **a, int64 n) {
     int64 i;
 
     for (i = 0; i < n; i++)
@@ -303,20 +303,20 @@ den_add_i(double **a, int64 n) {
 }
 
 void
-den_free_piv(int64 *p) {
+dense_free_piv2(int64 *p) {
     free(p);
     return;
 }
 
 void
-den_free(double **a) {
+dense_free2(double **a) {
     free(a[0]);
     free(a);
     return;
 }
 
 void
-den_print(double **a, int64 n) {
+dense_print2(double **a, int64 n) {
     int64 i;
     int64 j;
 

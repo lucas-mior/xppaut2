@@ -103,7 +103,7 @@ extern double variables[];
 extern int32 NVAR;
 
 int32
-add_global(char *cond, int32 sign, char *rest) {
+flags_add_global(char *cond, int32 sign, char *rest) {
     char temp[256];
     int32 nevents, ii, k, l, lt, j = NFlags;
     char ch;

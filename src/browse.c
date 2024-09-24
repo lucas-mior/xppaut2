@@ -934,7 +934,7 @@ resize_browser(Window window, Browser *b) {
         return;
     /* w=ev.xconfigure.width;
     h=ev.xconfigure.height; */
-    get_new_size(window, &w, &h);
+    eig_list_get_new_size(window, &w, &h);
     hreal = h;
 
     /* first make sure the size is is ok  and an integral

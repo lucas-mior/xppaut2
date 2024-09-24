@@ -326,7 +326,7 @@ make_ebox_windows(EditBox *sb, char *title) {
 }
 
 void
-edit_menu(void) {
+edit_rhs_menu(void) {
     Window temp = main_win;
     static char *n[] = {"RHS's", "Functions", "Save as", "Load DLL"};
     static char key[] = "rfsl";
@@ -343,13 +343,13 @@ edit_menu(void) {
         edit_rhs();
         break;
     case 1:
-        edit_functions();
+        edit_rhs_functions();
         break;
     case 2:
-        save_as();
+        edit_rhs_save_as();
         break;
     case 3:
-        load_new_dll();
+        extra_load_new_dll();
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -420,7 +420,7 @@ edit_rhs(void) {
 }
 
 void
-user_fun_info(FILE *fp) {
+edit_rhs_user_fun_info(FILE *fp) {
     char fundef[256];
     int32 i;
     int32 j;
@@ -439,7 +439,7 @@ user_fun_info(FILE *fp) {
 }
 
 void
-edit_functions(void) {
+edit_rhs_functions(void) {
     char **names, **values;
     int32 **command;
     int32 i, status, err, len, j;
@@ -498,7 +498,7 @@ edit_functions(void) {
 }
 
 int32
-save_as(void) {
+edit_rhs_save_as(void) {
     int32 i;
     int32 ok;
     FILE *fp;

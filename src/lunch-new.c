@@ -153,7 +153,7 @@ do_info(FILE *fp) {
     }
     if (NFUN > 0) {
         fprintf(fp, "\nUser-defined functions:\n");
-        user_fun_info(fp);
+        edit_rhs_user_fun_info(fp);
     }
 
     fprintf(fp, "\n\n Numerical parameters ...\n");
@@ -348,7 +348,7 @@ dump_eqn(FILE *fp) {
     }
     if (NFUN > 0) {
         fprintf(fp, "\nUser-defined functions:\n");
-        user_fun_info(fp);
+        edit_rhs_user_fun_info(fp);
     }
     return;
 }

@@ -143,7 +143,7 @@ static int32 get_a_filename(char *filename, char *wild);
 static void format_list(char **s, int32 n);
 
 int32
-make_eqn(void) {
+form_ode_make_eqn(void) {
     FILE *fptr;
     char wild[256], string[256];
     int32 okay;
@@ -160,13 +160,13 @@ make_eqn(void) {
     }
     strcpy(this_file, string);
     clrscr();
-    okay = get_eqn(fptr);
+    okay = form_ode_get_eqn(fptr);
     fclose(fptr);
     return okay;
 }
 
 void
-strip_saveqn(void) {
+form_ode_strip_saveqn(void) {
     for (int32 i = 0; i < NLINES; i++) {
         for (int32 j = 0; j < (int32)strlen(save_eqn[i]); j++) {
             if (save_eqn[i][j] < 32)
@@ -292,7 +292,7 @@ list_em(char *wild) {
 }
 
 int32
-get_eqn(FILE *fptr) {
+form_ode_get_eqn(FILE *fptr) {
     char bob[MAXEXPLEN];
     char filename[XPP_MAX_NAME + 4];
     int32 done = 1, nn, i;
@@ -527,7 +527,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = get_next("\n");
         strcpy(formula, my_string);
         ggets_plintf(" events=%s \n", formula);
-        if (add_global(condition, sign, formula)) {
+        if (flags_add_global(condition, sign, formula)) {
             printf("Bad global !! \n");
             exit(0);
         }
@@ -1579,7 +1579,7 @@ compile_em(void) {
             }
         }
         if (v->type == EXPORT) {
-            add_export_list(v->lhs, v->rhs);
+            extra_add_export_list(v->lhs, v->rhs);
         }
         if (v->type == VECTOR) {
             add_vectorizer_name(v->lhs, v->rhs);
@@ -1919,7 +1919,7 @@ compile_em(void) {
     if (dae_fun_compile_svars() == 1)
         exit(0);
     evaluate_derived();
-    do_export_list();
+    extra_do_export_list();
     ggets_plintf(" All formulas are valid!!\n");
     NODE = nvar + naux + nfix;
     ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar, naux,

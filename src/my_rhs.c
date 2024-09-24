@@ -35,7 +35,7 @@ my_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     /* I dont think this is generally needed  */
 
-    /* do_in_out();   */
+    /* extra_do_in_out();   */
 
     for (i = nod + NMarkov; i < neq; i++)
         y__y[i] = evaluate(my_ode[i + FIX_VAR - NMarkov]);
@@ -53,7 +53,7 @@ my_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
   for(i=neq;i<neq+FIX_VAR;i++)
     SETVAR(i+1,evaluate(my_ode[i]));
   eval_all_nets();
-  do_in_out();
+  extra_do_in_out();
   } */
 void
 set_fix_rhs(double t, double *y) {
@@ -67,7 +67,7 @@ set_fix_rhs(double t, double *y) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     eval_all_nets();
 
-    do_in_out();
+    extra_do_in_out();
     return;
 }
 
@@ -85,7 +85,7 @@ my_rhs(double t, double *y, double *ydot, int32 neq) {
 
     dae_fun_do_daes();
 
-    do_in_out();
+    extra_do_in_out();
     for (int32 i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }
@@ -100,7 +100,7 @@ update_based_on_current(void) {
         SETVAR(i + 1, evaluate(my_ode[i]));
 
     eval_all_nets();
-    do_in_out();
+    extra_do_in_out();
     return;
 }
 

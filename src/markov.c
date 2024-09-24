@@ -493,7 +493,7 @@ do_stochast_com(int32 i) {
         compute_power();
         break;
     case 'i':
-        test_fit();
+        do_fit_test();
         redraw_params();
         redraw_ics();
         break;

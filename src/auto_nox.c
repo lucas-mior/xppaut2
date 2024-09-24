@@ -2851,20 +2851,20 @@ auto_file(void) {
         grabpt.flag = 0;
     if (ch == 'p') {
         NoBreakLine = 1;
-        post_auto();
+        diagram_post_auto();
         NoBreakLine = 0;
     }
     if (ch == 'v') {
         NoBreakLine = 1;
-        svg_auto();
+        diagram_svg_auto();
         NoBreakLine = 0;
     }
     if (ch == 'w')
-        write_pts();
+        diagram_write_pts();
     if (ch == 'a')
-        write_info_out();
+        diagram_write_info_out();
     if (ch == 'd')
-        write_init_data_file();
+        diagram_write_init_data_file();
     if (ch == 't') {
         auto_redraw_flag = 1 - auto_redraw_flag;
         if (auto_redraw_flag == 1)
@@ -2876,7 +2876,7 @@ auto_file(void) {
         if (mark_flag < 2)
             ggets_err_msg("Mark a branch first using S and E");
         else
-            load_browser_with_branch(mark_ibrs, mark_ipts, mark_ipte);
+            diagram_load_browser_with_branch(mark_ibrs, mark_ipts, mark_ipte);
     }
     if (ch == 'n') {
         if (mark_flag < 2)

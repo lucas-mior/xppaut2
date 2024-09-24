@@ -1235,8 +1235,8 @@ do_expose(XEvent event) {
     expose_my_browser(event);
     /* ggets_draw_info_pop(ev.xany.window); */
     menudrive_message_box_redraw(event.xany.window);
-    draw_eq_list(event.xany.window);
-    draw_eq_box(event.xany.window);
+    eig_list_draw_eq_list(event.xany.window);
+    eig_list_draw_eq_box(event.xany.window);
     do_box_expose(event.xany.window);
     expose_slides(event.xany.window);
     menu_expose(event.xany.window);

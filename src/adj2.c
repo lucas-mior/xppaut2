@@ -695,7 +695,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
         istart = 1;
         for (i = 0; i < NODE; i++)
             y[i] = storage[i + 1][j] + dy[i];
-        one_step_int(y, t0, t1, &istart);
+        do_fit_one_step_int(y, t0, t1, &istart);
         for (i = 0; i < NODE; i++)
             yp[i] = (y[i] - storage[i + 1][j + 1]);
         adj2_norm_vec(yp, &nrm, NODE);

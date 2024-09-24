@@ -65,7 +65,7 @@ static void eq_list_down(void);
 static void eq_list_up(void);
 
 void
-draw_eq_list(Window window) {
+eig_list_draw_eq_list(Window window) {
     int32 i;
     char bob[300];
     char fstr[15];
@@ -101,7 +101,7 @@ draw_eq_list(Window window) {
 }
 
 void
-create_eq_list(void) {
+eig_list_create_eq_list(void) {
     int32 width, height, hlist, hmain;
     Window base;
     static char *wname[] = {"Equations"};
@@ -166,7 +166,7 @@ create_eq_list(void) {
 }
 
 void
-eq_list_keypress(XEvent event, int32 *used) {
+eig_list_eq_list_keypress(XEvent event, int32 *used) {
     Window window = event.xkey.window;
 
     char ks;
@@ -194,7 +194,7 @@ eq_list_keypress(XEvent event, int32 *used) {
 }
 
 void
-enter_eq_stuff(Window window, int32 b) {
+eig_list_enter_eq_stuff(Window window, int32 b) {
     if (eq_list.flag == 1) {
         if (window == eq_list.close || window == eq_list.up ||
             window == eq_list.down)
@@ -206,7 +206,7 @@ enter_eq_stuff(Window window, int32 b) {
 }
 
 void
-eq_list_button(XEvent event) {
+eig_list_eq_list_button(XEvent event) {
     Window window = event.xbutton.window;
     /* pure laziness here - use this to go to eq_box */
     eq_box_button(window);
@@ -235,7 +235,7 @@ eq_list_up(void) {
     if (eq_list.istart > 0) {
         eq_list.istart--;
         XClearWindow(display, eq_list.list);
-        draw_eq_list(eq_list.list);
+        eig_list_draw_eq_list(eq_list.list);
     }
     return;
 }
@@ -245,7 +245,7 @@ eq_list_down(void) {
     if (eq_list.istart < (NEQ - 1)) {
         eq_list.istart++;
         XClearWindow(display, eq_list.list);
-        draw_eq_list(eq_list.list);
+        eig_list_draw_eq_list(eq_list.list);
     }
     return;
 }
@@ -273,7 +273,7 @@ eq_box_import(void) {
 }
 
 void
-get_new_size(Window win, uint32 *wid, uint32 *hgt) {
+eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt) {
     int32 x;
     int32 y;
     uint32 bw, de;
@@ -283,7 +283,7 @@ get_new_size(Window win, uint32 *wid, uint32 *hgt) {
 }
 
 void
-resize_eq_list(Window win) {
+eig_list_resize_eq_list(Window win) {
     int32 nlines;
     uint32 w;
     uint32 h;
@@ -291,7 +291,7 @@ resize_eq_list(Window win) {
         return;
     if (win != eq_list.base)
         return;
-    get_new_size(win, &w, &h);
+    eig_list_get_new_size(win, &w, &h);
     nlines = ((int32)h - CURY_OFFs - 2*DCURYs) / (DCURYs + 2);
     eq_list.nlines = nlines;
     XResizeWindow(display, eq_list.base, w, h);
@@ -387,17 +387,17 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
         eq_box.flag = 1;
     } else { /*   Already it has been created so we are updating it */
         XClearWindow(display, eq_box.top);
-        draw_eq_box(eq_box.top);
+        eig_list_draw_eq_box(eq_box.top);
         XClearWindow(display, eq_box.stab);
-        draw_eq_box(eq_box.stab);
+        eig_list_draw_eq_box(eq_box.stab);
         XClearWindow(display, eq_box.rest);
-        draw_eq_box(eq_box.rest);
+        eig_list_draw_eq_box(eq_box.rest);
     }
     return;
 }
 
 void
-draw_eq_box(Window window) {
+eig_list_draw_eq_box(Window window) {
     int32 i, j, ncol, n = eq_box.n, nrow;
     int32 in;
     char temp[50];

@@ -1454,81 +1454,81 @@ void dense_gesl(double **a, int64 n, int64 *p, double *b);
 /******************************************************************
  *                                                                *
  * Function : den_zero                                             *
- * Usage    : den_zero(a,n);                                       *
+ * Usage    : dense_zero2(a,n);                                       *
  *----------------------------------------------------------------*
- * den_zero(a,n) sets all the elements of the n by n dense matrix  *
+ * dense_zero2(a,n) sets all the elements of the n by n dense matrix  *
  * a to be 0.0.                                                   *
  *                                                                *
  ******************************************************************/
-void den_zero(double **a, int64 n);
+void dense_zero2(double **a, int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : den_copy                                             *
- * Usage    : den_copy(a,b,n);                                     *
+ * Usage    : dense_copy2(a,b,n);                                     *
  *----------------------------------------------------------------*
- * den_copy(a,b,n) copies the n by n dense matrix a into the       *
+ * dense_copy2(a,b,n) copies the n by n dense matrix a into the       *
  * n by n dense matrix b.                                         *
  *                                                                *
  ******************************************************************/
-void den_copy(double **a, double **b, int64 n);
+void dense_copy2(double **a, double **b, int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : den_scale                                            *
- * Usage    : den_scale(c,a,n);                                    *
+ * Usage    : dense_scale2(c,a,n);                                    *
  *----------------------------------------------------------------*
- * den_scale(c,a,n) scales every element in the n by n dense       *
+ * dense_scale2(c,a,n) scales every element in the n by n dense       *
  * matrix a by c.                                                 *
  *                                                                *
  ******************************************************************/
-void den_scale(double c, double **a, int64 n);
+void dense_scale2(double c, double **a, int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : den_add_i                                             *
- * Usage    : den_add_i(a,n);                                       *
+ * Usage    : dense_add_i2(a,n);                                       *
  *----------------------------------------------------------------*
- * den_add_i(a,n) increments the n by n dense matrix a by the       *
+ * dense_add_i2(a,n) increments the n by n dense matrix a by the       *
  * identity matrix.                                               *
  *                                                                *
  ******************************************************************/
-void den_add_i(double **a, int64 n);
+void dense_add_i2(double **a, int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : den_free_piv                                          *
- * Usage    : den_free_piv(p);                                      *
+ * Usage    : dense_free_piv2(p);                                      *
  *----------------------------------------------------------------*
- * den_free_piv(p) frees the pivot array p allocated by             *
+ * dense_free_piv2(p) frees the pivot array p allocated by             *
  * denallocpiv.                                                   *
  *                                                                *
  ******************************************************************/
-void den_free_piv(int64 *p);
+void dense_free_piv2(int64 *p);
 
 /******************************************************************
  *                                                                *
  * Function : den_free                                             *
- * Usage    : den_free(a);                                         *
+ * Usage    : dense_free2(a);                                         *
  *----------------------------------------------------------------*
- * den_free(a) frees the dense matrix a allocated by denalloc.     *
+ * dense_free2(a) frees the dense matrix a allocated by denalloc.     *
  *                                                                *
  ******************************************************************/
-void den_free(double **a);
+void dense_free2(double **a);
 
 /******************************************************************
  *                                                                *
  * Function : den_print                                            *
- * Usage    : den_print(a,n);                                      *
+ * Usage    : dense_print2(a,n);                                      *
  *----------------------------------------------------------------*
- * den_print(a,n) prints the n by n dense matrix a to standard     *
+ * dense_print2(a,n) prints the n by n dense matrix a to standard     *
  * output as it would normally appear on paper. It is intended as *
  * a debugging tool with small values of n. The elements are      *
  * printed using the %g option. A blank line is printed before    *
  * and after the matrix.                                          *
  *                                                                *
  ******************************************************************/
-void den_print(double **a, int64 n);
+void dense_print2(double **a, int64 n);
 
 #endif
 
@@ -1567,15 +1567,15 @@ void add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
                  int32 icp3, int32 icp4, int32 flag2, double *evr, double *evi);
 void kill_diagrams(void);
 void redraw_diagram(void);
-void write_info_out(void);
-void write_init_data_file(void);
-void write_pts(void);
-void post_auto(void);
-void svg_auto(void);
+void diagram_write_info_out(void);
+void diagram_write_init_data_file(void);
+void diagram_write_pts(void);
+void diagram_post_auto(void);
+void diagram_svg_auto(void);
 void bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi);
 int32 save_diagram(FILE *fp, int32 n);
 int32 load_diagram(FILE *fp, int32 node);
-void load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
+void diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 
 #endif
 
@@ -1593,14 +1593,14 @@ int32 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
 #ifndef DO_FIT_H
 #define DO_FIT_H
 
-void init_fit_info(void);
+void do_fit_init_info(void);
 void get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
                   double *yfit, double **yderv, int32 npts, int32 npars,
                   int32 nvars, int32 *ivar, int32 *ipar);
 void printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
              int32 npts);
-int32 one_step_int(double *y, double t0, double t1, int32 *istart);
-void test_fit(void);
+int32 do_fit_one_step_int(double *y, double t0, double t1, int32 *istart);
+void do_fit_test(void);
 int32 run_fit(char *filename, int32 npts, int32 npars, int32 nvars,
               int32 maxiter, int32 ndim, double eps, double tol, int32 *ipar,
               int32 *ivar, int32 *icols, double *y0, double *a, double *yfit);
@@ -2012,7 +2012,7 @@ dopri5(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
        uint32 licont, /* declared length of icon */
        double *work);
 
-void dp_err(int32 k);
+void dormpri_dp_err(int32 k);
 int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
          double *atol, int32 flag, int32 *kflag);
 int32 dormprin(int32 *istart, double *y, double *t, int32 n, double tout,
@@ -2049,11 +2049,11 @@ int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
 
 #define MAX_UFUN 50
 
-void edit_menu(void);
+void edit_rhs_menu(void);
 void edit_rhs(void);
-void user_fun_info(FILE *fp);
-void edit_functions(void);
-int32 save_as(void);
+void edit_rhs_user_fun_info(FILE *fp);
+void edit_rhs_functions(void);
+int32 edit_rhs_save_as(void);
 
 #endif
 
@@ -2062,16 +2062,16 @@ int32 save_as(void);
 
 #include <X11/Xlib.h>
 
-void draw_eq_list(Window window);
-void create_eq_list(void);
-void eq_list_keypress(XEvent event, int32 *used);
-void enter_eq_stuff(Window window, int32 b);
-void eq_list_button(XEvent event);
-void get_new_size(Window win, uint32 *wid, uint32 *hgt);
-void resize_eq_list(Window win);
+void eig_list_draw_eq_list(Window window);
+void eig_list_create_eq_list(void);
+void eig_list_eq_list_keypress(XEvent event, int32 *used);
+void eig_list_enter_eq_stuff(Window window, int32 b);
+void eig_list_eq_list_button(XEvent event);
+void eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt);
+void eig_list_resize_eq_list(Window win);
 void create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
                    int32 n);
-void draw_eq_box(Window window);
+void eig_list_draw_eq_box(Window window);
 
 #endif
 
@@ -2085,13 +2085,13 @@ extern int32 dll_loaded;
 extern char dll_lib[256];
 extern char dll_fun[256];
 
-void load_new_dll(void);
+void extra_load_new_dll(void);
 int32 my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
              double *c);
-void auto_load_dll(void);
-void do_in_out(void);
-void add_export_list(char *in, char *out);
-void do_export_list(void);
+void extra_auto_load_dll(void);
+void extra_do_in_out(void);
+void extra_add_export_list(char *in, char *out);
+void extra_do_export_list(void);
 void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
                        int32 ivar, double *wgt[MAXW], double *var, double *con);
 
@@ -2206,7 +2206,7 @@ extern int32 fftnf(int32 /* ndim */, int32 /* dims */[], double /* Re */[],
 extern int32 NFlags;
 extern double STOL;
 
-int32 add_global(char *cond, int32 sign, char *rest);
+int32 flags_add_global(char *cond, int32 sign, char *rest);
 void show_flags(void);
 int32 compile_flags(void);
 int32 one_flag_step(double *yold, double *ynew, int32 *istart, double told,
@@ -2294,10 +2294,10 @@ extern BcStruct my_bc[MAX_ODE];
 extern int32 n_comments;
 extern int32 ConvertStyle;
 
-int32 make_eqn(void);
-void strip_saveqn(void);
+int32 form_ode_make_eqn(void);
+void form_ode_strip_saveqn(void);
 int32 form_ode_idsc(char *string);
-int32 get_eqn(FILE *fptr);
+int32 form_ode_get_eqn(FILE *fptr);
 int32 form_ode_compiler(char *bob, FILE *fptr);
 char *get_first(char *string, char *src);
 char *get_next(char *src);

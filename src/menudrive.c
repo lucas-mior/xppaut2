@@ -526,13 +526,13 @@ do_file_com(int32 com) {
         edit_rhs();
         break;
     case M_FEF:
-        edit_functions();
+        edit_rhs_functions();
         break;
     case M_FES:
-        save_as();
+        edit_rhs_save_as();
         break;
     case M_FEL:
-        load_new_dll();
+        extra_load_new_dll();
         break;
     case M_FL:
         clone_ode();

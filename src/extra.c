@@ -58,7 +58,7 @@ static void *function;
 int32 dll_loaded = 0;
 
 void
-auto_load_dll(void) {
+extra_auto_load_dll(void) {
     if (dll_flag == 3) {
         get_directory(cur_dir);
         ggets_plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib, dll_fun);
@@ -71,7 +71,7 @@ auto_load_dll(void) {
 }
 
 void
-load_new_dll(void) {
+extra_load_new_dll(void) {
     int32 status;
     if (dlf.loaded != 0 && dlhandle != NULL)
         dlclose(dlhandle);
@@ -169,19 +169,19 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
 }
 
 int32
-load_new_dll(void) {
+extra_load_new_dll(void) {
 }
 
 my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
 }
 
 int32
-auto_load_dll(void) {
+extra_auto_load_dll(void) {
 }
 #endif
 
 void
-do_in_out(void) {
+extra_do_in_out(void) {
     int32 i;
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
@@ -203,7 +203,7 @@ do_in_out(void) {
 }
 
 void
-add_export_list(char *in, char *out) {
+extra_add_export_list(char *in, char *out) {
     usize l1 = strlen(in);
     usize l2 = strlen(out);
     int32 i;
@@ -237,7 +237,7 @@ get_export_count(char *s) {
 }
 
 void
-do_export_list(void) {
+extra_do_export_list(void) {
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
     parse_inout(in_out.lin, 0);
