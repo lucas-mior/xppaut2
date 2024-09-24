@@ -222,7 +222,7 @@ int32 autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
              FUNI_TYPE((*funi)), BCNI_TYPE((*bcni)), ICNI_TYPE((*icni)),
              STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
              double *thu, int64 *iuz, double *vuz);
-int32 init1(iap_type *iap, rap_type *rap, int64 *icp, double *par);
+int32 autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par);
 int32 cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
              FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
              double *thl, double *thu, int64 *iuz, double *vuz);

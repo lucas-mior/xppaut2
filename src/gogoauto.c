@@ -63,7 +63,7 @@ go_go_auto(void) {
 
     /* this is good for debugging and writes all the auto parameters */
     set_function_pointers(iap, &list);
-    init1(&iap, &rap, icp, par);
+    autlib1_init(&iap, &rap, icp, par);
     autlib_check_dimensions(&iap);
 
     /* Create the allocations for the global structures used in

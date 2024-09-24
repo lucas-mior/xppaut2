@@ -305,7 +305,7 @@ autobv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 }
 
 int32
-init1(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
+autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
     int64 ndim, ncol, nicp;
 
     int64 nneg, nfpr, nint, jtmp, nuzr;
