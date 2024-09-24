@@ -230,7 +230,7 @@ void auto_x11_col(int32 col);
 void auto_x11_bw(void);
 void auto_x11_scroll(void);
 int32 auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag);
-int32 auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
+int32 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
                        int32 def, int32 x, int32 y, char **hints, char *httxt);
 void auto_x11_xor_cross(int32 x, int32 y);
 void auto_x11_fill_circle(int32 x, int32 y, int32 r);

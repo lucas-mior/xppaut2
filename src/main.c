@@ -920,7 +920,7 @@ do_events(uint32 min_wid, uint32 min_hgt) {
 void
 bye_bye(void) {
     int32 i;
-    yes_reset_auto();
+    auto_nox_yes_reset();
     XUnloadFont(display, big_font->fid);
     XUnloadFont(display, small_font->fid);
     for (i = 0; i < 5; i++) {

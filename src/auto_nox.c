@@ -241,7 +241,7 @@ auto_colset2(int32 flag2) {
 }
 
 void
-storeautopoint(double x, double y) {
+auto_nox_store_point(double x, double y) {
     if (Auto.plot == P_P) {
         XfromAuto = x;
         YfromAuto = y;
@@ -251,7 +251,7 @@ storeautopoint(double x, double y) {
 }
 
 static void
-setautopoint(void) {
+auto_nox_set_point(void) {
     if (FromAutoFlag) {
         FromAutoFlag = 0;
         set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
@@ -512,7 +512,7 @@ void
 auto_nox_do(int32 iold, int32 isave) {
     auto_x11_redraw_menus();
 
-    set_auto(); /* this sets up all the continuation initialization
+    auto_nox_set_auto(); /* this sets up all the continuation initialization
                    it is equivalent to reading in auto parameters
                    and running init in auto
                 */
@@ -540,7 +540,7 @@ auto_nox_do(int32 iold, int32 isave) {
 }
 
 void
-set_auto(void) /* Caution - need to include NICP here */
+auto_nox_set_auto(void) /* Caution - need to include NICP here */
 {
     NAutoUzr = Auto.nper;
     autevd_init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
@@ -587,7 +587,7 @@ auto_per_par(void) {
                         "Uzr6", "Uzr7", "Uzr8", "Uzr9"};
     int32 status, i, in;
     char ch;
-    ch = (char)auto_pop_up_list("Number", m, key, 10, 12, Auto.nper, 10, 10,
+    ch = (char)auto_x11_pop_up_list("Number", m, key, 10, 12, Auto.nper, 10, 10,
                                 no_hint, Auto.hinttxt);
     for (i = 0; i < 10; i++)
         if (ch == key[i])
@@ -726,7 +726,7 @@ auto_plot_par(void) {
     int32 ii1, ii2, ji1, ji2;
     int32 i1 = Auto.var + 1;
     char n1[15];
-    ch = (char)auto_pop_up_list("Plot Type", m, key, 14, 10, Auto.plot, 10, 50,
+    ch = (char)auto_x11_pop_up_list("Plot Type", m, key, 14, 10, Auto.plot, 10, 50,
                                 aaxes_hint, Auto.hinttxt);
     if (ch == ESC)
         return;
@@ -1333,7 +1333,7 @@ auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double 
 }
 
 void
-traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
+auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     double norm, per, *par, par1, par2 = 0, *evr, *evi;
     int32 pt, itp, ibr, lab, icp1, icp2;
     double x, y1, y2;
@@ -1558,7 +1558,7 @@ auto_nox_plot_stab(double *evr, double *evi, int32 n) {
 }
 
 int32
-yes_reset_auto(void) {
+auto_nox_yes_reset(void) {
     char string[256];
     if (NBifs <= 1)
         return 0;
@@ -1586,7 +1586,7 @@ auto_nox_reset(void) {
     if (ch != 'y')
         return 0;
 
-    return yes_reset_auto();
+    return auto_nox_yes_reset();
 }
 
 void
@@ -1688,7 +1688,7 @@ auto_start_choice(void) {
         auto_new_discrete();
         return;
     }
-    ch = (char)auto_pop_up_list("Start", m, key, 5, 13, 0, 10, 10, arun_hint,
+    ch = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10, arun_hint,
                                 Auto.hinttxt);
     if (ch == 's') {
         auto_new_ss();
@@ -1722,12 +1722,12 @@ auto_start_choice(void) {
 }
 
 void
-torus_choice(void) {
+auto_nox_torus_choice(void) {
     static char *m[] = {"Two Param", "Fixed period", "Extend"};
     /*static char *m[]={"Fixed period","Extend"}; */
     static char key[] = "tfe";
     char ch;
-    ch = (char)auto_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
+    ch = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
                                 Auto.hinttxt);
     if (ch == 'e') {
         auto_new_per();
@@ -1749,7 +1749,7 @@ auto_nox_per_doub_choice(void) {
     static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
     static char key[] = "dtfe";
     char ch;
-    ch = (char)auto_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10, no_hint,
+    ch = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10, no_hint,
                                 Auto.hinttxt);
     if (ch == 'd') {
         auto_period_double();
@@ -1775,7 +1775,7 @@ auto_nox_periodic_choice(void) {
     static char *m[] = {"Extend", "Fixed Period"};
     static char key[] = "ef";
     char ch;
-    ch = (char)auto_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10, no_hint,
+    ch = (char)auto_x11_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10, no_hint,
                                 Auto.hinttxt);
     if (ch == 'e') {
         auto_new_per();
@@ -1799,7 +1799,7 @@ auto_nox_hopf_choice(void) {
         return;
     }
 
-    ch = (char)auto_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10, no_hint,
+    ch = (char)auto_x11_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10, no_hint,
                                 Auto.hinttxt);
     if (ch == 'p') {
         auto_new_per();
@@ -1881,7 +1881,7 @@ auto_run(void) {
         return;
     }
     if (itp1 == 8 || itp2 == 8) { /* Torus 2 parameter */
-        torus_choice();
+        auto_nox_torus_choice();
         ggets_ping();
         return;
     }
@@ -1916,7 +1916,7 @@ auto_branch_choice(int32 ibr, int32 ips) {
     static char key[] = "sent";
     char ch;
     int32 ipsuse;
-    ch = (char)auto_pop_up_list("Branch Pt", m, key, 4, 10, 0, 10, 10, no_hint,
+    ch = (char)auto_x11_pop_up_list("Branch Pt", m, key, 4, 10, 0, 10, 10, no_hint,
                                 Auto.hinttxt);
 
     if (ch == 's') {
@@ -2574,7 +2574,7 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
 }
 
 void
-save_auto(void) {
+auto_nox_save(void) {
     int32 ok;
     FILE *fp;
     /*char filename[256];*/
@@ -2592,20 +2592,20 @@ save_auto(void) {
     browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
-    save_auto_numerics(fp);
-    save_auto_graph(fp);
+    auto_nox_save_numerics(fp);
+    auto_nox_save_graph(fp);
     status = diagram_save(fp, NODE);
     if (status != 1) {
         fclose(fp);
         return;
     }
-    save_q_file(fp);
+    auto_nox_save_q_file(fp);
     fclose(fp);
     return;
 }
 
 void
-save_auto_numerics(FILE *fp) {
+auto_nox_save_numerics(FILE *fp) {
     int32 i;
     fprintf(fp, "%d ", NAutoPar);
     for (i = 0; i < NAutoPar; i++)
@@ -2647,7 +2647,7 @@ auto_nox_load_numerics(FILE *fp) {
 }
 
 void
-save_auto_graph(FILE *fp) {
+auto_nox_save_graph(FILE *fp) {
     fprintf(fp, "%g %g %g %g %d %d \n", Auto.xmin, Auto.ymin, Auto.xmax,
             Auto.ymax, Auto.var, Auto.plot);
     return;
@@ -2661,7 +2661,7 @@ auto_nox_load_graph(FILE *fp) {
 }
 
 void
-save_q_file(/* I am keeping the name q_file even though they are s_files */
+auto_nox_save_q_file(/* I am keeping the name q_file even though they are s_files */
             FILE *fp) {
     char string[500];
     FILE *fq;
@@ -2792,14 +2792,14 @@ auto_file(void) {
                         "sElect 2par pt", "draw laBled",   "lOad branch"};
     static char key[] = "islpvrcwadtnebo";
     char ch;
-    ch = (char)auto_pop_up_list("File", m, key, 15, 15, 0, 10, 10, afile_hint,
+    ch = (char)auto_x11_pop_up_list("File", m, key, 15, 15, 0, 10, 10, afile_hint,
                                 Auto.hinttxt);
     if (ch == 'i') {
         auto_nox_load_orbit();
         return;
     }
     if (ch == 's') {
-        save_auto();
+        auto_nox_save();
         return;
     }
     if (ch == 'l') {
@@ -2850,7 +2850,7 @@ auto_file(void) {
             ggets_err_msg("Must be in 2 parameter plot");
             return;
         }
-        setautopoint();
+        auto_nox_set_point();
     }
     if (ch == 'b') {
         if (load_all_labeled_orbits == 0) {

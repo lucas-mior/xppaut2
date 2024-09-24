@@ -61,12 +61,12 @@ static struct {
 static Diagram *CUR_DIAGRAM;
 
 static void auto_x11_mark(int32 x, int32 y);
-static int32 query_special(char *title, char *nsymb);
-static void clear_msg(void);
-static void find_point(int32 ibr, int32 pt);
-static void auto_kill(void);
-static void a_msg(int32 i, int32 v);
-static Window lil_button(Window root, int32 x, int32 y);
+static int32 auto_x11_query_special(char *title, char *nsymb);
+static void auto_x11_clear_msg(void);
+static void auto_x11_find_point(int32 ibr, int32 pt);
+static void auto_x11_kill(void);
+static void auto_x11_msg(int32 i, int32 v);
+static Window auto_x11_lil_button(Window root, int32 x, int32 y);
 
 void
 auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
@@ -125,11 +125,11 @@ auto_x11_redraw_menus(void) {
 }
 
 int32
-query_special(char *title, char *nsymb) {
+auto_x11_query_special(char *title, char *nsymb) {
     int32 status = 1;
     static char *m[] = {"BP", "EP", "HB", "LP", "MX", "PD", "TR", "UZ"};
     static char key[] = "behlmptu";
-    int32 ch = (char)auto_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
+    int32 ch = (char)auto_x11_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
                                       aspecial_hint, Auto.hinttxt);
     if (ch == 'b') {
         sprintf(nsymb, "BP");
@@ -202,13 +202,13 @@ auto_x11_set_mark(int32 i) {
             pt = abs(mark_ipts) + i;
         else
             pt = abs(mark_ipte) + i;
-        find_point(ibr, pt);
+        auto_x11_find_point(ibr, pt);
     }
     return;
 }
 
 void
-find_point(int32 ibr, int32 pt) {
+auto_x11_find_point(int32 ibr, int32 pt) {
     int32 i;
     Diagram *d;
     Diagram *dnew;
@@ -257,7 +257,7 @@ auto_x11_traverse_diagram(void) {
 
     d = bifd;
     DONT_XORCross = 0;
-    traverse_out(d, &ix, &iy, 1);
+    auto_nox_traverse_out(d, &ix, &iy, 1);
 
     while (done == 0) {
         XNextEvent(display, &event);
@@ -271,7 +271,7 @@ auto_x11_traverse_diagram(void) {
             Window window = event.xmotion.window;
 
             if (window == auto_win.canvas) {
-                clear_msg();
+                auto_x11_clear_msg();
                 auto_x11_xor_cross(ix, iy);
                 DONT_XORCross = 1;
                 while (true) {
@@ -284,7 +284,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 0);
+                auto_nox_traverse_out(d, &ix, &iy, 0);
 
                 mindex = 0;
                 ndist = Auto.wid*Auto.hgt;
@@ -304,14 +304,14 @@ auto_x11_traverse_diagram(void) {
                         break;
                     }
                     d = dnew;
-                    traverse_out(
+                    auto_nox_traverse_out(
                         d, &ix, &iy,
                         0); /*Need this each time to update the distance calc*/
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
                 load_all_labeled_orbits = lalo;
-                traverse_out(d, &ix, &iy, 0);
+                auto_nox_traverse_out(d, &ix, &iy, 0);
 
                 auto_x11_xor_cross(ix, iy);
                 while (true) {
@@ -329,12 +329,12 @@ auto_x11_traverse_diagram(void) {
                 d = dnew;
                 CUR_DIAGRAM = d;
                 DONT_XORCross = 0;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
             }
         } else if (event.type == KeyPress) {
             int32 found = 0;
             char symb[3], nsymb[3];
-            clear_msg();
+            auto_x11_clear_msg();
             kp = ggets_get_key_press(&event);
 
             switch (kp) {
@@ -345,7 +345,7 @@ auto_x11_traverse_diagram(void) {
                 auto_x11_xor_cross(ix, iy);
                 d = dnew;
                 CUR_DIAGRAM = dnew;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
 
             case KEY_LEFT:
@@ -355,10 +355,10 @@ auto_x11_traverse_diagram(void) {
                 auto_x11_xor_cross(ix, iy);
                 d = dnew;
                 CUR_DIAGRAM = dnew;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_UP:
-                if (!query_special("Next...", nsymb)) {
+                if (!auto_x11_query_special("Next...", nsymb)) {
                     break;
                 }
                 auto_x11_xor_cross(ix, iy);
@@ -386,10 +386,10 @@ auto_x11_traverse_diagram(void) {
                     d = dold;
                 }
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_DOWN:
-                if (!query_special("Previous...", nsymb)) {
+                if (!auto_x11_query_special("Previous...", nsymb)) {
                     break;
                 }
                 auto_x11_xor_cross(ix, iy);
@@ -417,7 +417,7 @@ auto_x11_traverse_diagram(void) {
                     d = dold;
                 }
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_TAB:
                 auto_x11_xor_cross(ix, iy);
@@ -433,7 +433,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case 's': /* mark the start of a branch */
                 if (mark_flag == 0) {
@@ -467,7 +467,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_HOME: /*All the way to beginning*/
                 auto_x11_xor_cross(ix, iy);
@@ -481,7 +481,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_PGUP: /*Same as KEY_TAB except we don't wrap*/
                 auto_x11_xor_cross(ix, iy);
@@ -497,7 +497,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_PGDN: /*REVERSE KEY_TAB*/
                 auto_x11_xor_cross(ix, iy);
@@ -513,7 +513,7 @@ auto_x11_traverse_diagram(void) {
                 }
                 d = dnew;
                 CUR_DIAGRAM = d;
-                traverse_out(d, &ix, &iy, 1);
+                auto_nox_traverse_out(d, &ix, &iy, 1);
                 break;
 
             case KEY_FINE:
@@ -657,7 +657,7 @@ auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
 }
 
 int32
-auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
+auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
                  int32 def, int32 x, int32 y, char **hints, char *httxt) {
     Window temp = auto_win.base;
     int32 value = pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
@@ -710,7 +710,7 @@ auto_x11_fill_circle(int32 x, int32 y, int32 r) {
 }
 
 static void
-auto_update_view(double xlo, double xhi, double ylo, double yhi) {
+auto_x11_update_view(double xlo, double xhi, double ylo, double yhi) {
     Auto.xmin = xlo;
     Auto.ymin = ylo;
     Auto.xmax = xhi;
@@ -756,7 +756,7 @@ auto_x11_scroll(void) {
                 j0 = event.xmotion.y;
                 dx = 0.0;
                 dy = 0.0;
-                auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
+                auto_x11_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
 
                 state = 2;
                 break;
@@ -768,7 +768,7 @@ auto_x11_scroll(void) {
                      (double)Auto.wid;
                 dy = (double)(j - j0)*(Auto.ymax - Auto.ymin) /
                      (double)Auto.hgt;
-                auto_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
+                auto_x11_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }
             break;
         case ButtonRelease:
@@ -809,7 +809,7 @@ auto_x11_motion(XEvent event) {
         y = Auto.ymin + (double)(Auto.y0 - j + Auto.hgt) *
                             (Auto.ymax - Auto.ymin) / (double)Auto.hgt;
         sprintf(Auto.hinttxt, "x=%g,y=%g", x, y);
-        storeautopoint(x, y);
+        auto_nox_store_point(x, y);
         auto_x11_display(auto_win.hint);
     }
     return;
@@ -831,7 +831,7 @@ auto_x11_display(Window window) {
         XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r),
                  (uint)(2*r), 0, 360*64);
         if (CUR_DIAGRAM != NULL) {
-            traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
+            auto_nox_traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
         }
         XFlush(display);
     }
@@ -867,7 +867,7 @@ auto_x11_display(Window window) {
 }
 
 Window
-lil_button(Window root, int32 x, int32 y) {
+auto_x11_lil_button(Window root, int32 x, int32 y) {
     Window win;
     int32 width = 12*DCURX;
     win = make_window(root, x, y, width, DCURY + 1, 1);
@@ -941,27 +941,27 @@ auto_x11_make(char *wname, char *iname) {
     Auto.wid = STD_WID_var;
     Auto.x0 = 10*DCURXs;
     Auto.y0 = 2*DCURYs;
-    auto_win.kill = lil_button(base, 2, 2);
-    auto_win.param = lil_button(base, x, y);
+    auto_win.kill = auto_x11_lil_button(base, 2, 2);
+    auto_win.param = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.axes = lil_button(base, x, y);
+    auto_win.axes = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.numerics = lil_button(base, x, y);
+    auto_win.numerics = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.run = lil_button(base, x, y);
+    auto_win.run = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.grab = lil_button(base, x, y);
+    auto_win.grab = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.per = lil_button(base, x, y);
+    auto_win.per = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.clear = lil_button(base, x, y);
+    auto_win.clear = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.redraw = lil_button(base, x, y);
+    auto_win.redraw = auto_x11_lil_button(base, x, y);
     y += dely;
-    auto_win.file = lil_button(base, x, y);
+    auto_win.file = auto_x11_lil_button(base, x, y);
 
     y += 3*dely;
-    auto_win.abort = lil_button(base, x, y);
+    auto_win.abort = auto_x11_lil_button(base, x, y);
 
     y = DCURY + STD_HGT_var + ymargin + 5;
     x = addwid + 5;
@@ -1016,13 +1016,13 @@ auto_x11_resize_window(XEvent event) {
 
         if (NBifs < 2)
             return;
-        traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
+        auto_nox_traverse_out(CUR_DIAGRAM, &ix, &iy, 1);
     }
     return;
 }
 
 void
-a_msg(int32 i, int32 v) {
+auto_x11_msg(int32 i, int32 v) {
     if (v == 0 || TipsFlag == 0)
         return;
     strncpy(Auto.hinttxt, auto_hint[i], sizeof(Auto.hinttxt));
@@ -1031,7 +1031,7 @@ a_msg(int32 i, int32 v) {
 }
 
 void
-clear_msg(void) {
+auto_x11_clear_msg(void) {
     Auto.hinttxt[0] = '\0';
     auto_x11_display(auto_win.hint);
     return;
@@ -1043,42 +1043,42 @@ auto_x11_enter(Window window, int32 v) {
         return;
     if (window == auto_win.axes) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(1, v);
+        auto_x11_msg(1, v);
         return;
     }
     if (window == auto_win.numerics) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(2, v);
+        auto_x11_msg(2, v);
         return;
     }
     if (window == auto_win.grab) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(4, v);
+        auto_x11_msg(4, v);
         return;
     }
     if (window == auto_win.run) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(3, v);
+        auto_x11_msg(3, v);
         return;
     }
     if (window == auto_win.redraw) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(7, v);
+        auto_x11_msg(7, v);
         return;
     }
     if (window == auto_win.clear) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(6, v);
+        auto_x11_msg(6, v);
         return;
     }
     if (window == auto_win.per) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(5, v);
+        auto_x11_msg(5, v);
         return;
     }
     if (window == auto_win.param) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(0, v);
+        auto_x11_msg(0, v);
         return;
     }
     if (window == auto_win.kill) {
@@ -1087,7 +1087,7 @@ auto_x11_enter(Window window, int32 v) {
     }
     if (window == auto_win.file) {
         XSetWindowBorderWidth(display, window, (uint)v);
-        a_msg(8, v);
+        auto_x11_msg(8, v);
         return;
     }
     return;
@@ -1140,7 +1140,7 @@ auto_x11_button(XEvent event) {
     }
     if (window == auto_win.kill) {
         SBW;
-        auto_kill();
+        auto_x11_kill();
         return;
     }
     if (window == auto_win.file) {
@@ -1152,7 +1152,7 @@ auto_x11_button(XEvent event) {
 }
 
 void
-auto_kill(void) {
+auto_x11_kill(void) {
     Auto.exist = 0;
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, auto_win.base);
