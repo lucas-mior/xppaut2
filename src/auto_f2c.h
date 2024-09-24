@@ -46,7 +46,6 @@ double f__cabs(double, double imag);
 double d_imag(doublecomplex *z);
 double d_lg10(double *x);
 double d_sign(double a, double b);
-double etime(double *tarray);
 int64 i_dnnt(double *x);
 int64 i_nint(double *x);
 double pow_dd(double *ap, double *bp);
