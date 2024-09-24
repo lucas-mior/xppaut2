@@ -52,7 +52,7 @@ static char *coup_string[MAX_ODE];
 static void adj2_h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);
-static int32 make_h(double **orb, double **adj, int32 nt, int32 node,
+static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
                     int32 silent2);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
@@ -287,7 +287,7 @@ adj2_new_h_fun(int32 silent2) {
         my_h[i] = xmalloc(sizeof(*my_h)*(usize)h_len);
     for (int32 i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
-    if (make_h(storage, my_adj, h_len, NODE, silent2)) {
+    if (adj2_make_h(storage, my_adj, h_len, NODE, silent2)) {
         H_HERE = 1;
         adj2_h_back();
     }
@@ -308,7 +308,7 @@ adj2_dump_h_stuff(FILE *fp, int32 f) {
 }
 
 int32
-make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
+adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
     int32 j, rval = 0;
     double sum;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
