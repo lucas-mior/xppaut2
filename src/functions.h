@@ -3250,6 +3250,20 @@ extern int32 XPPVERBOSE;
 extern int32 OVERRIDE_QUIET;
 extern int32 OVERRIDE_LOGFILE;
 
+extern int32 SLIDER1;
+extern int32 SLIDER2;
+extern int32 SLIDER3;
+
+extern double SLIDER1LO;
+extern double SLIDER2LO;
+extern double SLIDER3LO;
+extern double SLIDER1HI;
+extern double SLIDER2HI;
+extern double SLIDER3HI;
+extern double SLIDER1INIT;
+extern double SLIDER2INIT;
+extern double SLIDER3INIT;
+
 void *XMALLOC(usize size, const char *function, int32 line);
 #ifdef MALLOC_DEBUG
 #define xmalloc(X) XMALLOC(X, __func__, __LINE__)

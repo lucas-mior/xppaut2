@@ -159,8 +159,6 @@ double SLIDER1INIT = 0.5;
 double SLIDER2INIT = 0.5;
 double SLIDER3INIT = 0.5;
 
-int32 ALREADY_SWAPPED = 0;
-
 /* Set this to 1 if you want the tutorial to come up at start-up
  * as default behavior */
 int32 DoTutorial = 0;
@@ -666,8 +664,6 @@ init_X(void) {
 
         MyForeColor = GrFore = White;
         MyBackColor = GrBack = Black;
-
-        ALREADY_SWAPPED = 1;
     }
 
     if (strlen(UserMainWinColor) != 0) {
