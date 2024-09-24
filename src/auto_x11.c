@@ -370,7 +370,7 @@ auto_x11_traverse_diagram(void) {
                         dnew = d;
                         break;
                     }
-                    get_bif_sym(symb, dnew->itp);
+                    auto_nox_get_bif_sym(symb, dnew->itp);
                     if (strcmp(symb, nsymb) == 0) {
                         d = dnew;
                         found = 1;
@@ -401,7 +401,7 @@ auto_x11_traverse_diagram(void) {
                         dnew = d;
                         break;
                     }
-                    get_bif_sym(symb, dnew->itp);
+                    auto_nox_get_bif_sym(symb, dnew->itp);
                     if (strcmp(symb, nsymb) == 0) {
                         d = dnew;
                         found = 1;

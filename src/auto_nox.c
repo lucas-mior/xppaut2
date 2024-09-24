@@ -264,7 +264,7 @@ setautopoint(void) {
 }
 
 void
-get_auto_str(char *xlabel, char *ylabel) {
+auto_nox_get_str(char *xlabel, char *ylabel) {
     sprintf(xlabel, "%s", upar_names[AutoPar[Auto.icp1]]);
     switch (Auto.plot) {
     case HI_P:
@@ -297,7 +297,7 @@ void
 auto_nox_draw_ps_axes(void) {
     char sx[20], sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
-    get_auto_str(sx, sy);
+    auto_nox_get_str(sx, sy);
     axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
 }
@@ -306,7 +306,7 @@ void
 auto_nox_draw_svg_axes(void) {
     char sx[20], sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
-    get_auto_str(sx, sy);
+    auto_nox_get_str(sx, sy);
     axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
 }
@@ -342,7 +342,7 @@ auto_nox_draw_bix_axes(void) {
     if (i0 < 0)
         i0 = 0;
     auto_x11_text(i0*DCURXs, y0 + DCURYs, junk);
-    get_auto_str(xlabel, ylabel);
+    auto_nox_get_str(xlabel, ylabel);
     auto_x11_text((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
     auto_x11_text(10*DCURXs, DCURYs, ylabel);
     auto_x11_refresh_display();
@@ -1263,7 +1263,7 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
 }
 
 void
-get_bif_sym(char *at, int32 itp) {
+auto_nox_get_bif_sym(char *at, int32 itp) {
     int32 i = itp % 10;
     switch (i) {
     case 1:
@@ -1300,7 +1300,7 @@ get_bif_sym(char *at, int32 itp) {
 }
 
 void
-info_header(int32 icp1, int32 icp2) {
+auto_nox_info_header(int32 icp1, int32 icp2) {
     char bob[80];
     char p1name[12], p2name[12];
 
@@ -1322,7 +1322,7 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
     char bob[80];
     double p1, p2 = 0.0;
     auto_x11_clear_info();
-    info_header(icp1, icp2);
+    auto_nox_info_header(icp1, icp2);
     p1 = par[icp1];
     if (icp2 < NAutoPar)
         p2 = par[icp2];
@@ -1356,7 +1356,7 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     evr = d->evr;
     evi = d->evi;
 
-    get_bif_sym(symb, itp);
+    auto_nox_get_bif_sym(symb, itp);
     par1 = par[icp1];
     if (icp2 < NAutoPar)
         par2 = par[icp2];
@@ -1441,7 +1441,7 @@ keep_last_plot(int32 flg) {
 }
 
 void
-init_auto_win(void) {
+auto_nox_init_win(void) {
     int32 i;
     if (NODE > NAUTO)
         return;
@@ -1598,13 +1598,13 @@ auto_grab(void) {
 }
 
 void
-get_start_period(double *p) {
+auto_nox_get_start_period(double *p) {
     *p = storage[0][storind - 1];
     return;
 }
 
 void
-find_best_homo_shift(int32 n)
+auto_nox_find_best_homo_shift(int32 n)
 /* this code looks for the best value
     of the shift to be close as possible to the saddle
     point of the homoclinic when starting from a
@@ -1632,7 +1632,7 @@ find_best_homo_shift(int32 n)
 }
 
 void
-get_shifted_orbit(double *u, double t, double p, int32 n) {
+auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
     double ts;
     int32 i, i1, i2, ip, j;
     double lam;
@@ -1657,7 +1657,7 @@ get_shifted_orbit(double *u, double t, double p, int32 n) {
 }
 
 void
-get_start_orbit(double *u, double t, int32 n) {
+auto_nox_get_start_orbit(double *u, double t, int32 n) {
     double tnorm;
     double lam;
     int32 i1, i2, j;
@@ -1790,7 +1790,7 @@ periodic_choice(void) {
 }
 
 void
-hopf_choice(void) {
+auto_nox_hopf_choice(void) {
     static char *m[] = {"Periodic", "Extend", "New Point", "Two Param"};
     static char key[] = "pent";
     char ch;
@@ -1844,7 +1844,7 @@ auto_run(void) {
     ips = Auto.ips;
     /*  printf(" ips=%d itp=%d itp1= %d itp2=%d\n",ips,itp,itp1,itp2); */
     if (itp1 == 3 || itp2 == 3) { /* its a HOPF Point  */
-        hopf_choice();
+        auto_nox_hopf_choice();
         ggets_ping();
         return;
     }
@@ -2129,7 +2129,7 @@ auto_extend_ss(void) {
 }
 
 int32
-get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
+auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     char **s;
     char v[100][MAX_LEN_SBOX];
     int32 n = 2 + 2*NODE;
@@ -2214,11 +2214,11 @@ auto_start_at_homoclinic(void) {
 
     if (HomoFlag == 1) {
         x_auto.iequib = 1;
-        find_best_homo_shift(NODE);
+        auto_nox_find_best_homo_shift(NODE);
     }
     if (HomoFlag == 2)
         x_auto.iequib = -2;
-    flag = get_homo_info(&x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
+    flag = auto_nox_get_homo_info(&x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
     if (flag) {
         /* TODO: for some reason, the second argument was `close`, which maps
          * to the libc function with this name. That does not make any sense
@@ -2549,7 +2549,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     }
     x = &MyData[0];
     for (i = 0; i < nrow; i++) {
-        get_a_row(u, &t, ndim, fp);
+        auto_nox_get_a_row(u, &t, ndim, fp);
         if (Auto.ips != 4)
             storage[0][i] = t*period;
         else
@@ -2775,7 +2775,7 @@ move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
 }
 
 void
-get_a_row(double *u, double *t, int32 n, FILE *fp) {
+auto_nox_get_a_row(double *u, double *t, int32 n, FILE *fp) {
     int32 i;
     fscanf(fp, "%lg ", t);
     for (i = 0; i < n; i++)

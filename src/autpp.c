@@ -54,13 +54,13 @@ stpnt(int64 ndim, double t, double *u, double *par) {
         return 0;
     }
 
-    get_start_period(&p);
+    auto_nox_get_start_period(&p);
     par[10] = p;
     if (HomoFlag != 1)
-        get_start_orbit(u, t, (int32)ndim);
+        auto_nox_get_start_orbit(u, t, (int32)ndim);
     /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
     if (HomoFlag == 1) {
-        get_shifted_orbit(u, t, p, (int32)ndim);
+        auto_nox_get_shifted_orbit(u, t, p, (int32)ndim);
         for (i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
         }

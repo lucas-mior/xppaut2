@@ -439,7 +439,7 @@ do_main(int32 argc, char **argv) {
     simplenet_update_all_ffts();
 
 #ifdef AUTO
-    init_auto_win();
+    auto_nox_init_win();
 #endif
 
     if (form_ode_idsc(this_file))

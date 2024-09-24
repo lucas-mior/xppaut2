@@ -5,7 +5,7 @@
 #include <X11/Xlib.h>
 #include <stdio.h>
 
-int32 get_auto_str(char *xlabel, char *ylabel);
+int32 auto_nox_get_str(char *xlabel, char *ylabel);
 int32 auto_nox_draw_ps_axes(void);
 int32 auto_nox_draw_bix_axes(void);
 int32 auto_x11_bye(int32 *iflag);
@@ -43,8 +43,8 @@ int32 auto_add_point(double *par, double per, double *uhigh, double *ulow,
                 int32 npar, int32 icp1, int32 icp2, int32 flag2, double *evr,
                 double *evi);
 int32 auto_x11_redraw_menus(void);
-int32 get_bif_sym(char *at, int32 itp);
-int32 info_header(int32 icp1, int32 icp2);
+int32 auto_nox_get_bif_sym(char *at, int32 itp);
+int32 auto_nox_info_header(int32 icp1, int32 icp2);
 void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
               double norm, double u0, double per, int32 icp1, int32 icp2);
 int32 auto_x11_traverse_diagram(void);
@@ -52,7 +52,7 @@ int32 auto_x11_clear_plot(void);
 int32 auto_nox_win(void);
 int32 load_last_plot(int32 flag);
 int32 keep_last_plot(int32 flag);
-int32 init_auto_win(void);
+int32 auto_nox_init_win(void);
 int32 plot_stab(double *evr, double *evi, int32 n);
 int32 auto_x11_clr_stab(void);
 int32 auto_x11_motion(XEvent event);
@@ -65,8 +65,8 @@ int32 auto_grab(void);
 int32 auto_start_diff_ss(void);
 int32 auto_start_at_bvp(void);
 int32 auto_start_at_per(void);
-int32 get_start_period(double *p);
-void get_start_orbit(double *u, double t, int32 n);
+int32 auto_nox_get_start_period(double *p);
+void auto_nox_get_start_orbit(double *u, double t, int32 n);
 int32 auto_new_ss(void);
 int32 auto_new_discrete(void);
 int32 auto_extend_ss(void);
@@ -74,7 +74,7 @@ int32 auto_start_choice(void);
 int32 torus_choice(void);
 int32 per_doub_choice(void);
 int32 periodic_choice(void);
-int32 hopf_choice(void);
+int32 auto_nox_hopf_choice(void);
 int32 auto_new_per(void);
 int32 auto_extend_bvp(void);
 int32 auto_switch_per(void);
@@ -101,7 +101,7 @@ int32 make_q_file(FILE *fp);
 int32 noinfo(char *s);
 int32 load_auto(void);
 int32 move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp);
-int32 get_a_row(double *u, double *t, int32 n, FILE *fp);
+int32 auto_nox_get_a_row(double *u, double *t, int32 n, FILE *fp);
 int32 auto_file(void);
 int32 auto_x11_enter(Window window, int32 v);
 int32 auto_x11_button(XEvent event);
