@@ -199,7 +199,7 @@ auto_x11_do_range(void) {
     double t = TEND;
 
     if (mark_flag == 2)
-        do_auto_range_go();
+        integrate_do_auto_range_go();
     TEND = t;
     return;
 }
@@ -262,13 +262,13 @@ find_point(int32 ibr, int32 pt) {
             /* now we use this info to set parameters and init data */
             for (i = 0; i < NODE; i++)
                 set_ivar(i + 1, d->u0[i]);
-            get_ic(0, d->u0);
+            integrate_get_ic(0, d->u0);
             for (i = 0; i < NAutoPar; i++)
                 constants[Auto_index_to_array[i]] = d->par[i];
             evaluate_derived();
             redo_all_fun_tables();
-            redraw_params();
-            redraw_ics();
+            init_conds_redraw_params();
+            init_conds_redraw_ics();
             if ((d->per) > 0)
                 set_total(d->per);
             break;
@@ -596,7 +596,7 @@ auto_x11_traverse_diagram(void) {
             grabpt.ubar[i] = d->ubar[i];
             set_ivar(i + 1, grabpt.u0[i]);
         }
-        get_ic(0, grabpt.u0);
+        integrate_get_ic(0, grabpt.u0);
         grabpt.flag = 1;
         grabpt.itp = d->itp;
         grabpt.ntot = d->ntot;
@@ -607,8 +607,8 @@ auto_x11_traverse_diagram(void) {
     }
     evaluate_derived();
     redo_all_fun_tables();
-    redraw_params();
-    redraw_ics();
+    init_conds_redraw_params();
+    init_conds_redraw_ics();
 }
 
 void

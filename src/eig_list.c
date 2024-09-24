@@ -269,7 +269,7 @@ eq_box_import(void) {
         }
         sparity = 1 - sparity;
     }
-    redraw_ics();
+    init_conds_redraw_ics();
 }
 
 void
@@ -330,7 +330,7 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
     XTextProperty iconame;
     XSizeHints size_hints;
     /*    Do this every time   */
-    redraw_ics();
+    init_conds_redraw_ics();
     for (int32 i = 0; i < n; i++)
         eq_box.y[i] = y[i];
     eq_box.n = n;

@@ -174,8 +174,8 @@ get_intern_set(void) {
     graphics_get_graph();
     extract_internset(j);
     chk_delay();
-    redraw_params();
-    redraw_ics();
+    init_conds_redraw_params();
+    init_conds_redraw_ics();
     graphics_reset_graph();
 }
 
@@ -1209,7 +1209,7 @@ do_motion_events(XEvent event) {
     double x;
     double y;
     char buf[256];
-    slider_motion(event);
+    init_conds_slider_motion(event);
 #ifdef AUTO
     auto_x11_motion(event);
 #endif
@@ -1237,8 +1237,8 @@ do_expose(XEvent event) {
     menudrive_message_box_redraw(event.xany.window);
     eig_list_draw_eq_list(event.xany.window);
     eig_list_draw_eq_box(event.xany.window);
-    do_box_expose(event.xany.window);
-    expose_slides(event.xany.window);
+    init_conds_do_box_expose(event.xany.window);
+    init_conds_expose_slides(event.xany.window);
     menu_expose(event.xany.window);
 #ifdef AUTO
     auto_x11_display(event.xany.window);

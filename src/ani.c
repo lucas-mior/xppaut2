@@ -562,9 +562,9 @@ ani_buttonx(XEvent event, int32 flag) {
             do_grab_tasks(2);
             set_to_init_data();
             ani_grab_flag = 0;
-            redraw_params();
+            init_conds_redraw_params();
             if (run_now_grab()) {
-                run_now();
+                integrate_run_now();
                 ani_grab_flag = 0;
             }
         }
@@ -855,7 +855,7 @@ set_to_init_data(void) {
         last_ic[i - FIX_VAR] = get_ivar(i + 1);
     }
 
-    redraw_ics();
+    init_conds_redraw_ics();
     return;
 }
 
@@ -1238,7 +1238,7 @@ ani_get_file(char *fname) {
     int32 err;
 
     if (fname == NULL) {
-        status = file_selector("Load animation", vcr.file, "*.ani");
+        status = init_conds_file_selector("Load animation", vcr.file, "*.ani");
         if (status == 0)
             return;
     } else {

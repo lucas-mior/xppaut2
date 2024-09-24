@@ -194,7 +194,7 @@ diagram_write_info_out(void) {
     sprintf(filename, "allinfo.dat");
     /* status=get_dialog("Write all info","Filename",filename,"Ok","Cancel",60);
      */
-    status = file_selector("Write all info", filename, "*.dat");
+    status = init_conds_file_selector("Write all info", filename, "*.dat");
 
     if (status == 0)
         return;
@@ -308,7 +308,7 @@ diagram_write_init_data_file(void) {
     sprintf(filename, "initdata.dat");
     /* status=get_dialog("Write all info","Filename",filename,"Ok","Cancel",60);
      */
-    status = file_selector("Write init data file", filename, "*.dat");
+    status = init_conds_file_selector("Write init data file", filename, "*.dat");
 
     if (status == 0)
         return;
@@ -372,7 +372,7 @@ diagram_write_pts(void) {
     double x, y1, y2, par1, par2 = 0, a, *uhigh, *ulow, *ubar, per;
     FILE *fp;
     sprintf(filename, "diagram.dat");
-    status = file_selector("Write points", filename, "*.dat");
+    status = init_conds_file_selector("Write points", filename, "*.dat");
     /* get_dialog("Write points","Filename",filename,"Ok","Cancel",60); */
     if (status == 0)
         return;
@@ -430,7 +430,7 @@ diagram_post_auto(void) {
     int32 status;
     sprintf(filename, "auto.ps");
     /* status=get_dialog("Postscript","Filename",filename,"Ok","Cancel",60); */
-    status = file_selector("Postscript", filename, "*.ps");
+    status = init_conds_file_selector("Postscript", filename, "*.ps");
     if (status == 0)
         return;
     if (!ps_init(filename, PS_Color))
@@ -468,7 +468,7 @@ diagram_svg_auto(void) {
     int32 status;
     sprintf(filename, "auto.svg");
     /* status=get_dialog("Postscript","Filename",filename,"Ok","Cancel",60); */
-    status = file_selector("SVG", filename, "*.svg");
+    status = init_conds_file_selector("SVG", filename, "*.svg");
     if (status == 0)
         return;
     if (!svg_init(filename))

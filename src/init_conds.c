@@ -204,7 +204,7 @@ extern char this_file[XPP_MAX_NAME];
 
 /* CLONE */
 void
-clone_ode(void) {
+init_conds_clone_ode(void) {
     int32 i, j, x, y;
     FILE *fp;
     char clone[256];
@@ -213,7 +213,7 @@ clone_ode(void) {
     time_t ttt;
     double z;
     clone[0] = 0;
-    if (!file_selector("Clone ODE file", clone, "*.ode"))
+    if (!init_conds_file_selector("Clone ODE file", clone, "*.ode"))
         return;
     if ((fp = fopen(clone, "w")) == NULL) {
         ggets_err_msg(" Cant open clone file");
@@ -277,7 +277,7 @@ clone_ode(void) {
 }
 
 int32
-find_user_name(int32 type, char *oname) {
+init_conds_find_user_name(int32 type, char *oname) {
     char name[25];
     int32 k = 0, i = -1;
     for (usize j = 0; j < strlen(oname); j++) {
@@ -302,7 +302,7 @@ find_user_name(int32 type, char *oname) {
 }
 
 void
-create_par_sliders(Window base, int32 x0, int32 h0) {
+init_conds_create_par_sliders(Window base, int32 x0, int32 h0) {
     int32 i;
     for (i = 0; i < 3; i++)
         make_par_slider(base, x0 + i*36*DCURXs, h0, 100, i);
@@ -310,7 +310,7 @@ create_par_sliders(Window base, int32 x0, int32 h0) {
 }
 
 void
-resize_par_slides(int32 h) {
+init_conds_resize_par_slides(int32 h) {
     for (int32 i = 0; i < 3; i++) {
         XMoveResizeWindow(display, my_par_slide[i].main, 10 + 36*i*DCURXs,
                           h, 32*(uint)DCURXs, 3*(uint)(DCURYs + 2));
@@ -319,7 +319,7 @@ resize_par_slides(int32 h) {
 }
 
 void
-slide_button_press(Window window) {
+init_conds_slide_button_press(Window window) {
     for (int32 i = 0; i < 3; i++)
         do_slide_button(window, &my_par_slide[i]);
     return;
@@ -332,7 +332,7 @@ do_slide_button(Window window, struct ParSlider *p) {
     int32 status;
     double lo, hi, val;
     if (window == p->go && p->use == 1)
-        run_now();
+        integrate_run_now();
 
     if (window != p->top)
         return;
@@ -347,9 +347,9 @@ do_slide_button(Window window, struct ParSlider *p) {
         p->use = 0;
         return;
     }
-    status = find_user_name(PARAMBOX, values[0]);
+    status = init_conds_find_user_name(PARAMBOX, values[0]);
     if (status == -1) {
-        status = find_user_name(ICBOX, values[0]);
+        status = init_conds_find_user_name(ICBOX, values[0]);
         if (status == -1) {
             ggets_err_msg("Not a parameter or variable !");
             return;
@@ -374,8 +374,8 @@ do_slide_button(Window window, struct ParSlider *p) {
     set_val(p->parname, val);
     if (p->type == ICBOX)
         last_ic[p->index] = val;
-    redraw_params();
-    redraw_ics();
+    init_conds_redraw_params();
+    init_conds_redraw_ics();
     p->use = 1;
     set_slide_pos(p);
     redraw_slide(p);
@@ -1152,7 +1152,7 @@ destroy_selector(void) {
 }
 
 int32
-file_selector(char *title, char *file, char *wild) {
+init_conds_file_selector(char *title, char *file, char *wild) {
     int32 i;
     if (!get_directory(cur_dir))
         return 0;
@@ -1170,7 +1170,7 @@ file_selector(char *title, char *file, char *wild) {
 }
 
 void
-reset_sliders(void) {
+init_conds_reset_sliders(void) {
     int32 i;
     double val;
     struct ParSlider *p;
@@ -1214,7 +1214,7 @@ set_slide_pos(struct ParSlider *p) {
 }
 
 void
-slide_release(Window window) {
+init_conds_slide_release(Window window) {
     for (int32 i = 0; i < 3; i++)
         do_slide_release(window, &my_par_slide[i]);
     return;
@@ -1228,14 +1228,14 @@ do_slide_release(Window window, struct ParSlider *p) {
         set_val(p->parname, p->val);
         if (p->type == ICBOX)
             last_ic[p->index] = p->val;
-        redraw_ics();
-        redraw_params();
+        init_conds_redraw_ics();
+        init_conds_redraw_params();
     }
     return;
 }
 
 void
-slider_motion(XEvent event) {
+init_conds_slider_motion(XEvent event) {
     int32 x;
     Window window;
     window = event.xmotion.window;
@@ -1269,7 +1269,7 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
                 create_new_cline();
                 draw_label(draw_win);
                 SuppressBounds = 1;
-                run_now();
+                integrate_run_now();
                 SuppressBounds = sp;
             }
         }
@@ -1278,7 +1278,7 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
 }
 
 void
-enter_slides(Window window, int32 val) {
+init_conds_enter_slides(Window window, int32 val) {
     int32 i;
     for (i = 0; i < 3; i++)
         enter_slider(window, &my_par_slide[i], val);
@@ -1293,7 +1293,7 @@ enter_slider(Window window, struct ParSlider *p, int32 val) {
 }
 
 void
-expose_slides(Window window) {
+init_conds_expose_slides(Window window) {
     int32 i;
     for (i = 0; i < 3; i++)
         expose_slider(window, &my_par_slide[i]);
@@ -1426,7 +1426,7 @@ make_par_slider(Window base, int32 x, int32 y, int32 width, int32 index) {
   */
 
 void
-make_new_ic_box(void) {
+init_conds_make_new_ic_box(void) {
     if (ICBox.xuse) {
         XRaiseWindow(display, ICBox.base);
         return;
@@ -1437,7 +1437,7 @@ make_new_ic_box(void) {
 }
 
 void
-make_new_bc_box(void) {
+init_conds_make_new_bc_box(void) {
     if (BCBox.xuse) {
         XRaiseWindow(display, BCBox.base);
         return;
@@ -1448,7 +1448,7 @@ make_new_bc_box(void) {
 }
 
 void
-make_new_delay_box(void) {
+init_conds_make_new_delay_box(void) {
     if (DelayBox.use == 0)
         return;
     if (DelayBox.xuse == 1) {
@@ -1461,7 +1461,7 @@ make_new_delay_box(void) {
 }
 
 void
-make_new_param_box(void) {
+init_conds_make_new_param_box(void) {
     if (ParamBox.use == 0)
         return;
     if (ParamBox.xuse == 1) {
@@ -1474,7 +1474,7 @@ make_new_param_box(void) {
 }
 
 void
-initialize_box(void) {
+init_conds_initialize_box(void) {
     make_box_list(&ICBox, "Initial Data", "ICs", NODE + NMarkov, ICBOX, 1);
     if (NUPAR > 0)
         make_box_list(&ParamBox, "Parameters", "Par", NUPAR, PARAMBOX, 1);
@@ -1497,7 +1497,7 @@ initialize_box(void) {
 }
 
 void
-resize_par_box(Window window) {
+init_conds_resize_par_box(Window window) {
     uint32 h;
     uint32 w;
     int32 nwin = 0;
@@ -1551,19 +1551,19 @@ resize_par_box(Window window) {
     switch (ok) {
     case 1:
         destroy_box(&ICBox);
-        make_new_ic_box();
+        init_conds_make_new_ic_box();
         break;
     case 2:
         destroy_box(&ParamBox);
-        make_new_param_box();
+        init_conds_make_new_param_box();
         break;
     case 3:
         destroy_box(&BCBox);
-        make_new_bc_box();
+        init_conds_make_new_bc_box();
         break;
     case 4:
         destroy_box(&DelayBox);
-        make_new_delay_box();
+        init_conds_make_new_delay_box();
         break;
     default:
         break;
@@ -1746,17 +1746,17 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
         case PARAMBOX:
             get_val(upar_names[i], &z);
             sprintf(sss, "%.16g", z);
-            set_edit_params(b, i, sss);
+            init_conds_set_edit_params(b, i, sss);
             break;
         case ICBOX:
             sprintf(sss, "%.16g", last_ic[i]);
-            set_edit_params(b, i, sss);
+            init_conds_set_edit_params(b, i, sss);
             break;
         case BCBOX:
-            set_edit_params(b, i, my_bc[i].string);
+            init_conds_set_edit_params(b, i, my_bc[i].string);
             break;
         case DELAYBOX:
-            set_edit_params(b, i, delay_string[i]);
+            init_conds_set_edit_params(b, i, delay_string[i]);
             break;
         default:
             fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -1771,7 +1771,7 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
  */
 
 void
-do_box_expose(Window window) {
+init_conds_do_box_expose(Window window) {
     if (ICBox.xuse)
         display_box(ICBox, window);
     if (BCBox.xuse)
@@ -1802,7 +1802,7 @@ justify_string(Window w1, char *s1) {
  */
 
 void
-draw_one_box(BoxList b, int32 index) {
+init_conds_draw_one_box(BoxList b, int32 index) {
     Window window;
     Window we;
 
@@ -1841,7 +1841,7 @@ draw_one_box(BoxList b, int32 index) {
 }
 
 void
-redraw_params(void) {
+init_conds_redraw_params(void) {
     int32 i;
     double z;
     evaluate_derived();
@@ -1849,29 +1849,29 @@ redraw_params(void) {
         for (i = 0; i < NUPAR; i++) {
             get_val(upar_names[i], &z);
             add_edit_float(&ParamBox, i, z);
-            draw_one_box(ParamBox, i);
+            init_conds_draw_one_box(ParamBox, i);
         }
-    reset_sliders();
+    init_conds_reset_sliders();
 }
 
 void
-redraw_delays(void) {
+init_conds_redraw_delays(void) {
     int32 i;
     if (DelayBox.use)
         for (i = 0; i < NODE; i++)
-            draw_one_box(DelayBox, i);
+            init_conds_draw_one_box(DelayBox, i);
     return;
 }
 
 void
-redraw_ics(void) {
+init_conds_redraw_ics(void) {
     int32 i;
     int32 in;
     for (i = 0; i < NODE + NMarkov; i++) {
         add_edit_float(&ICBox, i, last_ic[i]);
-        draw_one_box(ICBox, i);
+        init_conds_draw_one_box(ICBox, i);
     }
-    reset_sliders();
+    init_conds_reset_sliders();
     if (ICBox.xuse == 0)
         return;
     for (i = 0; i < ICBox.nwin; i++) {
@@ -1885,10 +1885,10 @@ redraw_ics(void) {
 }
 
 void
-redraw_bcs(void) {
+init_conds_redraw_bcs(void) {
     int32 i;
     for (i = 0; i < NODE; i++)
-        draw_one_box(BCBox, i);
+        init_conds_draw_one_box(BCBox, i);
     return;
 }
 
@@ -1938,7 +1938,7 @@ display_box(BoxList b, Window window) {
 
     for (i = 0; i < b.nwin; i++)
         if (b.w[i] == window || b.we[i] == window) {
-            draw_one_box(b, i + b.n0);
+            init_conds_draw_one_box(b, i + b.n0);
             return;
         }
     if (b.type == ICBOX) {
@@ -1955,7 +1955,7 @@ display_box(BoxList b, Window window) {
 }
 
 void
-box_enter_events(Window window, int32 yn) {
+init_conds_box_enter_events(Window window, int32 yn) {
     int32 i;
     int32 val;
     if (yn == 1)
@@ -2056,16 +2056,16 @@ redraw_entire_box(BoxList *b) {
         return;
     switch (b->type) {
     case PARAMBOX:
-        redraw_params();
+        init_conds_redraw_params();
         return;
     case BCBOX:
-        redraw_bcs();
+        init_conds_redraw_bcs();
         return;
     case ICBOX:
-        redraw_ics();
+        init_conds_redraw_ics();
         return;
     case DELAYBOX:
-        redraw_delays();
+        init_conds_redraw_delays();
         return;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -2087,7 +2087,7 @@ do_box_button(BoxList *b, Window window) {
     if (window == b->cancel)
         redraw_entire_box(b);
     if (window == b->go)
-        run_now();
+        integrate_run_now();
     if (window == b->def && b->type == PARAMBOX)
         set_default_params();
     if (window == b->def && b->type == ICBOX)
@@ -2159,22 +2159,22 @@ box_list_scroll(BoxList *b, int32 i) {
     switch (b->type) {
     case PARAMBOX:
         load_entire_box(b);
-        redraw_params();
-        reset_sliders();
+        init_conds_redraw_params();
+        init_conds_reset_sliders();
         break;
     case BCBOX:
         load_entire_box(b);
-        redraw_bcs();
+        init_conds_redraw_bcs();
 
         break;
     case ICBOX:
         load_entire_box(b);
-        redraw_ics();
-        reset_sliders();
+        init_conds_redraw_ics();
+        init_conds_reset_sliders();
         break;
     case DELAYBOX:
         load_entire_box(b);
-        redraw_delays();
+        init_conds_redraw_delays();
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -2184,7 +2184,7 @@ box_list_scroll(BoxList *b, int32 i) {
 }
 
 void
-box_buttons(Window window) {
+init_conds_box_buttons(Window window) {
     if (ICBox.xuse)
         do_box_button(&ICBox, window);
     if (BCBox.xuse)
@@ -2197,7 +2197,7 @@ box_buttons(Window window) {
 }
 
 void
-box_keypress(XEvent event, int32 *used) {
+init_conds_box_keypress(XEvent event, int32 *used) {
     if (ICBox.xuse) {
         do_box_key(&ICBox, event, used);
         if (*used)
@@ -2251,7 +2251,7 @@ do_box_key(BoxList *b, XEvent event, int32 *used) {
                     draw_editable(b->we[j], b->value[j + b->n0],
                                   b->off[j + b->n0], b->pos[j + b->n0], b->mc);
                     if (b->type == PARAMBOX || b->type == ICBOX)
-                        reset_sliders();
+                        init_conds_reset_sliders();
                 }
 
                 if (flag == EDIT_DONE) {
@@ -2272,7 +2272,7 @@ do_box_key(BoxList *b, XEvent event, int32 *used) {
 }
 
 void
-man_ic(void) {
+init_conds_man_ic(void) {
     int32 done, index = 0;
     double z;
     char name[256], junk[256];
@@ -2283,8 +2283,8 @@ man_ic(void) {
         if (done == 0) {
             last_ic[index] = z;
             sprintf(junk, "%.16g", z);
-            set_edit_params(&ICBox, index, junk);
-            draw_one_box(ICBox, index);
+            init_conds_set_edit_params(&ICBox, index, junk);
+            init_conds_draw_one_box(ICBox, index);
             index++;
             if (index >= NODE + NMarkov)
                 break;
@@ -2296,7 +2296,7 @@ man_ic(void) {
 }
 
 void
-new_parameter(void) {
+init_conds_new_parameter(void) {
     int32 done;
     int32 index;
     double z;
@@ -2307,7 +2307,7 @@ new_parameter(void) {
         name[0] = 0;
         done = ggets_new_string("Parameter:", name);
         if (strlen(name) == 0 || done == 0) {
-            redo_stuff();
+            init_conds_redo_stuff();
             return;
         }
         if (strncasecmp(name, "DEFAULT", 7) == 0) {
@@ -2325,7 +2325,7 @@ new_parameter(void) {
         }
 
         else {
-            index = find_user_name(PARAMBOX, name);
+            index = init_conds_find_user_name(PARAMBOX, name);
             if (index >= 0) {
                 get_val(upar_names[index], &z);
                 snprintf(value, sizeof(value), "%s :", name);
@@ -2333,12 +2333,12 @@ new_parameter(void) {
                 if (done == 0) {
                     set_val(upar_names[index], z);
                     sprintf(junk, "%.16g", z);
-                    set_edit_params(&ParamBox, index, junk);
-                    draw_one_box(ParamBox, index);
-                    reset_sliders();
+                    init_conds_set_edit_params(&ParamBox, index, junk);
+                    init_conds_draw_one_box(ParamBox, index);
+                    init_conds_reset_sliders();
                 }
                 if (done == -1) {
-                    redo_stuff();
+                    init_conds_redo_stuff();
                     break;
                 }
             }
@@ -2348,7 +2348,7 @@ new_parameter(void) {
 }
 
 void
-redo_stuff(void) {
+init_conds_redo_stuff(void) {
     evaluate_derived();
     volterra_re_evaluate_kernels();
     redo_all_fun_tables();
@@ -2361,7 +2361,7 @@ set_default_ics(void) {
     int32 i;
     for (i = 0; i < NODE + NMarkov; i++)
         last_ic[i] = default_ic[i];
-    redraw_ics();
+    init_conds_redraw_ics();
 }
 
 void
@@ -2371,10 +2371,10 @@ set_default_params(void) {
     for (i = 0; i < NUPAR; i++) {
         set_val(upar_names[i], default_val[i]);
         sprintf(junk, "%.16g", default_val[i]);
-        set_edit_params(&ParamBox, i, junk);
+        init_conds_set_edit_params(&ParamBox, i, junk);
     }
 
-    redraw_params();
+    init_conds_redraw_params();
     volterra_re_evaluate_kernels();
     redo_all_fun_tables();
 }
@@ -2537,7 +2537,7 @@ add_edit_float(BoxList *b, int32 i, double z) {
 }
 
 void
-set_edit_params(BoxList *b, int32 i, char *string) {
+init_conds_set_edit_params(BoxList *b, int32 i, char *string) {
     int32 l = (int32)strlen(string);
     strcpy(b->value[i], string);
     b->off[i] = 0;
@@ -2552,7 +2552,7 @@ void
 add_editval(BoxList *b, int32 i, char *string) {
     int32 n0 = b->n0, n1 = b->n0 + b->nwin - 1;
     int32 iw;
-    set_edit_params(b, i, string);
+    init_conds_set_edit_params(b, i, string);
     if (i < n0 || i > n1)
         return;
     iw = i - n0;
@@ -2630,7 +2630,7 @@ load_entire_box(BoxList *b) {
     if (b->type == PARAMBOX) {
         volterra_re_evaluate_kernels();
         redo_all_fun_tables();
-        reset_sliders();
+        init_conds_reset_sliders();
     }
     if (b->type == DELAYBOX)
         delay_handle_do_init_delay(DELAY);

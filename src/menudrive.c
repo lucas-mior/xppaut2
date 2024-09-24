@@ -257,16 +257,16 @@ run_the_commands(int32 com) {
     if (com < 0)
         return;
     if (com <= MAX_M_I) {
-        do_init_data(com);
+        integrate_do_init_data(com);
         return;
     }
     if (com == M_C) {
-        cont_integ();
+        integrate_cont_integ();
         return;
     }
 
     if (com >= M_SG && com <= M_SC) {
-        find_equilib_com(com - M_SG);
+        integrate_find_equilib_com(com - M_SG);
         return;
     }
     if (com >= M_NFF && com <= M_NFA) {
@@ -287,7 +287,7 @@ run_the_commands(int32 com) {
         graf_par_redraw_the_graph();
         /*redraw_dfield();*/
         /*create_new_cline();
-        run_now();*/
+        integrate_run_now();*/
         /*redraw_all();
          */
         return;
@@ -355,7 +355,7 @@ run_the_commands(int32 com) {
     }
 
     if (com == M_P) {
-        new_parameter();
+        init_conds_new_parameter();
         return;
     }
 
@@ -535,7 +535,7 @@ do_file_com(int32 com) {
         extra_load_new_dll();
         break;
     case M_FL:
-        clone_ode();
+        init_conds_clone_ode();
         break;
     default:
         break;

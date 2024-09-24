@@ -142,7 +142,7 @@ new_lookup_com(int32 i) {
     }
     if (my_table[index].flag == 1) {
         strcpy(file, my_table[index].filename);
-        status = file_selector("Load table", file, "*.tab");
+        status = init_conds_file_selector("Load table", file, "*.tab");
         if (status == 0)
             return;
         ok = load_table(file, index);

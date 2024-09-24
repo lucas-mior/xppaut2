@@ -508,7 +508,7 @@ do_main(int32 argc, char **argv) {
             silent_nullclines();
         if (DFBatch > 0)
             silent_dfields();
-        silent_equilibria();
+        integrate_silent_equilibria();
         exit(0);
     }
 
@@ -522,14 +522,14 @@ do_main(int32 argc, char **argv) {
 
     make_top_buttons();
 
-    initialize_box();
+    init_conds_initialize_box();
 
     init_browser();
     if (allwinvis == 1) {
-        make_new_ic_box();
-        make_new_bc_box();
-        make_new_delay_box();
-        make_new_param_box();
+        init_conds_make_new_ic_box();
+        init_conds_make_new_bc_box();
+        init_conds_make_new_delay_box();
+        init_conds_make_new_param_box();
         make_new_browser();
         eig_list_create_eq_list();
     }
@@ -832,7 +832,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     top_button_events(report);
     switch (report.type) {
     case ConfigureNotify: /* this needs to be fixed!!! */
-        resize_par_box(report.xany.window);
+        init_conds_resize_par_box(report.xany.window);
         resize_my_browser(report.xany.window);
         eig_list_resize_eq_list(report.xany.window);
         auto_x11_resize_window(report);
@@ -847,7 +847,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                               (uint)DCURY + 1);
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
                                   (uint)SCALEX - 4, (uint)DCURY);
-                resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
+                init_conds_resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
                 resize_all_pops(SCALEX, SCALEY);
                 redraw_all();
             }
@@ -863,7 +863,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         break;
     case KeyPress:
         used = 0;
-        box_keypress(report, &used);
+        init_conds_box_keypress(report, &used);
         if (used)
             break;
         eig_list_eq_list_keypress(report, &used);
@@ -884,8 +884,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     case EnterNotify:
         eig_list_enter_eq_stuff(report.xcrossing.window, 2);
         enter_my_browser(report, 1);
-        enter_slides(report.xcrossing.window, 1);
-        box_enter_events(report.xcrossing.window, 1);
+        init_conds_enter_slides(report.xcrossing.window, 1);
+        init_conds_box_enter_events(report.xcrossing.window, 1);
         menu_crossing(report.xcrossing.window, 1);
 #ifdef AUTO
         auto_x11_enter(report.xcrossing.window, 2);
@@ -894,8 +894,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     case LeaveNotify:
         eig_list_enter_eq_stuff(report.xcrossing.window, 1);
         enter_my_browser(report, 0);
-        enter_slides(report.xcrossing.window, 0);
-        box_enter_events(report.xcrossing.window, 0);
+        init_conds_enter_slides(report.xcrossing.window, 0);
+        init_conds_box_enter_events(report.xcrossing.window, 0);
         menu_crossing(report.xcrossing.window, 0);
 #ifdef AUTO
         auto_x11_enter(report.xcrossing.window, 1);
@@ -905,15 +905,15 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         do_motion_events(report);
         break;
     case ButtonRelease:
-        slide_release(report.xbutton.window);
+        init_conds_slide_release(report.xbutton.window);
 
         break;
     case ButtonPress:
         if (!many_pops_rotate_3dcheck(report)) {
             menu_button(report.xbutton.window);
-            box_buttons(report.xbutton.window);
+            init_conds_box_buttons(report.xbutton.window);
 
-            slide_button_press(report.xbutton.window);
+            init_conds_slide_button_press(report.xbutton.window);
             eig_list_eq_list_button(report);
             my_browse_button(report);
 #ifdef AUTO
@@ -991,7 +991,7 @@ main_commander(int32 ch) {
             ini_data_menu();
             break;
         case 'c':
-            cont_integ();
+            integrate_cont_integ();
             break;
         case 'n':
             new_clines();
@@ -1106,7 +1106,7 @@ main_commander(int32 ch) {
                 bye_bye();
             break;
         case 'l':
-            clone_ode();
+            init_conds_clone_ode();
             break;
         case 'x':
             edit_xpprc();
@@ -1264,13 +1264,13 @@ top_button_cross(Window window, int32 b) {
 void
 top_button_press(Window window) {
     if (window == TopButton[0])
-        make_new_ic_box();
+        init_conds_make_new_ic_box();
     if (window == TopButton[1])
-        make_new_bc_box();
+        init_conds_make_new_bc_box();
     if (window == TopButton[2])
-        make_new_delay_box();
+        init_conds_make_new_delay_box();
     if (window == TopButton[3])
-        make_new_param_box();
+        init_conds_make_new_param_box();
     if (window == TopButton[4])
         eig_list_create_eq_list();
     if (window == TopButton[5])
@@ -1393,7 +1393,7 @@ make_pops(void) {
     XMapWindow(display, command_pop);
     init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, (int32)w - 16 - 16*DCURX,
                (int32)h - 6*DCURY - 16);
-    create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
+    init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
     graphics_get_draw_area();
     return;
 }

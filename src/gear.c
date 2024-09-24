@@ -386,13 +386,13 @@ gear_shoot_this_now(void) {
         if (type > 0) {
             graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
             DELTA_T = fabs(DELTA_T);
-            shoot_easy(x);
+            integrate_shoot_easy(x);
             graphics_change_current_linestyle(oldcol, &dummy);
         }
         if (type < 0) {
             graphics_change_current_linestyle(StableManifoldColor, &oldcol);
             DELTA_T = -fabs(DELTA_T);
-            shoot_easy(x);
+            integrate_shoot_easy(x);
             graphics_change_current_linestyle(oldcol, &dummy);
         }
     }

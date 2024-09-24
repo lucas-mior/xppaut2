@@ -151,8 +151,8 @@ do_txt_action(char *s) {
     ggets_ping();
     tfBell = tb;
     chk_delay();
-    redraw_params();
-    redraw_ics();
+    init_conds_redraw_params();
+    init_conds_redraw_ics();
     graphics_reset_graph();
     return;
 }

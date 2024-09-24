@@ -552,7 +552,7 @@ redraw_dfield(void) {
     v0 = MyGraph->ylo;
     if (!DFSuppress)
         graphics_set_linestyle(MyGraph->color[0]);
-    get_ic(2, y);
+    integrate_get_ic(2, y);
     get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
     if (PltFmtFlag == SVGFMT) {
         DOING_DFIELD = 1;
@@ -572,7 +572,7 @@ redraw_dfield(void) {
                     v2[k + 1] = v1[k + 1] + (double)ydot[k];
                 }
                 if (!DFSuppress)
-                    comp_color(v1, v2, NODE, 1.0);
+                    integrate_comp_color(v1, v2, NODE, 1.0);
             }
             if (DF_FLAG == 1 || DF_FLAG == 4) {
                 graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
@@ -665,7 +665,7 @@ direct_field_com(int32 c) {
         }
         DF_IX = inx + 1;
         DF_IY = iny + 1;
-        get_ic(2, y);
+        integrate_get_ic(2, y);
         get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
         if (PltFmtFlag == SVGFMT) {
             DOING_DFIELD = 1;
@@ -685,7 +685,7 @@ direct_field_com(int32 c) {
                         v1[k + 1] = (double)y[k];
                         v2[k + 1] = v1[k + 1] + (double)ydot[k];
                     }
-                    comp_color(v1, v2, NODE, 1.0);
+                    integrate_comp_color(v1, v2, NODE, 1.0);
                 }
                 if (DF_FLAG == 1) {
                     graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
@@ -724,7 +724,7 @@ direct_field_com(int32 c) {
     for (k = 0; k < 2; k++) {
         for (i = 0; i <= grid; i++)
             for (j = 0; j <= grid; j++) {
-                get_ic(2, y);
+                integrate_get_ic(2, y);
                 y[inx] = u0 + du*i;
                 y[iny] = v0 + dv*j;
                 t = 0.0;
@@ -768,7 +768,7 @@ save_the_nullclines(void) {
         return;
     snprintf(filename, sizeof(filename), "nc.dat");
     ggets_ping();
-    if (!file_selector("Save nullclines", filename, "*.dat"))
+    if (!init_conds_file_selector("Save nullclines", filename, "*.dat"))
         return;
     fp = fopen(filename, "w");
     if (fp == NULL) {

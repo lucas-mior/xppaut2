@@ -184,13 +184,13 @@ do_calc(char *temp, double *z) {
 
         if (ok == 0)
             return -1;
-        i = find_user_name(PARAM, val);
+        i = init_conds_find_user_name(PARAM, val);
         if (i > -1) {
             set_val(val, newz); /* a parameter set to value  */
             *z = newz;
-            redraw_params();
+            init_conds_redraw_params();
         } else {
-            i = find_user_name(IC, val);
+            i = init_conds_find_user_name(IC, val);
             if (i < 0) {
                 ggets_err_msg("No such name!");
                 return -1;
@@ -199,7 +199,7 @@ do_calc(char *temp, double *z) {
 
             last_ic[i] = newz;
             *z = newz;
-            redraw_ics();
+            init_conds_redraw_ics();
         }
         return 0;
     }

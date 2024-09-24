@@ -1022,7 +1022,7 @@ create_ps(void) {
         snprintf(filename, sizeof(filename), "%s.ps", this_file);
         ggets_ping();
 
-        if (!file_selector("Print postscript", filename, "*.ps"))
+        if (!init_conds_file_selector("Print postscript", filename, "*.ps"))
             return;
         if (ps_init(filename, PS_Color)) {
             ps_restore();
@@ -1065,7 +1065,7 @@ create_svg(void) {
     filename[strlen(filename) - 4] = '\0';
     strcat(filename, ".svg");
     /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
-    if (!file_selector("Print svg", filename, "*.svg"))
+    if (!init_conds_file_selector("Print svg", filename, "*.svg"))
         return;
     if (svg_init(filename)) {
         svg_restore();
@@ -1440,7 +1440,7 @@ frz_bd(void) {
     char filename[XPP_MAX_NAME];
     snprintf(filename, sizeof(filename), "diagram.dat");
     ggets_ping();
-    if (!file_selector("Import Diagram", filename, "*.dat"))
+    if (!init_conds_file_selector("Import Diagram", filename, "*.dat"))
         return;
     /* if(ggets_new_string("Diagram to import: ",filename)==0)return; */
     if ((fp = fopen(filename, "r")) == NULL) {
@@ -1532,14 +1532,14 @@ export_graf_data(void) {
     char filename[XPP_MAX_NAME];
     snprintf(filename, sizeof(filename), "curve.dat");
     ggets_ping();
-    if (!file_selector("Export graph data", filename, "*.dat"))
+    if (!init_conds_file_selector("Export graph data", filename, "*.dat"))
         return;
     /* if(ggets_new_string("Data filename:",filename)==0)return; */
     if ((fp = fopen(filename, "w")) == NULL) {
         ggets_err_msg("Couldn't open file");
         return;
     }
-    export_data(fp);
+    integrate_export_data(fp);
     fclose(fp);
     return;
 }

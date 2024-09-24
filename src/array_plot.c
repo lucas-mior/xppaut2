@@ -147,7 +147,7 @@ set_up_aplot_range(void) {
         array_plot_range = 1;
         array_plot_range_count = 0;
         x = &MyData[0];
-        do_range(x, 0);
+        integrate_do_range(x, 0);
     }
     return;
 }
@@ -654,7 +654,7 @@ void
 gif_aplot(void) {
     char filename[XPP_MAX_NAME + 4];
     snprintf(filename, sizeof(filename), "%s.gif", this_file);
-    if (!file_selector("GIF plot", filename, "*.gif"))
+    if (!init_conds_file_selector("GIF plot", filename, "*.gif"))
         return;
     array_plot_gif_all(filename, 1);
     return;

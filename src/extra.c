@@ -75,7 +75,7 @@ extra_load_new_dll(void) {
     int32 status;
     if (dlf.loaded != 0 && dlhandle != NULL)
         dlclose(dlhandle);
-    status = file_selector("Library:", dlf.libfile, "*.so");
+    status = init_conds_file_selector("Library:", dlf.libfile, "*.so");
     if (status == 0)
         return;
     sprintf(dlf.libname, "%s/%s", cur_dir, dlf.libfile);

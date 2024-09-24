@@ -481,39 +481,39 @@ do_stochast_com(int32 i) {
         STOCH_FLAG = 0;
         break;
     case 'h':
-        compute_hist();
+        histogram_compute();
         break;
     case 'o':
-        hist_back();
+        histogram_back();
         break;
     case 'f':
-        compute_fourier();
+        histogram_compute_fourier();
         break;
     case 'p':
-        compute_power();
+        histogram_compute_power();
         break;
     case 'i':
         do_fit_test();
-        redraw_params();
-        redraw_ics();
+        init_conds_redraw_params();
+        init_conds_redraw_ics();
         break;
     case 's':
-        column_mean();
+        histogram_column_mean();
         break;
     case 'l':
         adj2_do_liapunov();
         break;
     case 'a':
-        compute_stacor();
+        histogram_compute_stacor();
         break;
     case 'x':
-        compute_correl();
+        histogram_compute_correl();
         break;
     case 'e':
-        compute_sd();
+        histogram_compute_sd();
         break;
     case '2':
-        new_2d_hist();
+        histogram_new_2d();
         break;
     default:
         break;
@@ -551,8 +551,8 @@ compute_em(void) {
     x = &MyData[0];
     free_stoch();
     STOCH_FLAG = 1;
-    do_range(x, 0);
-    redraw_ics();
+    integrate_do_range(x, 0);
+    init_conds_redraw_ics();
 }
 
 void

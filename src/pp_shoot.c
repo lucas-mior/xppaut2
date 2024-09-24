@@ -190,7 +190,7 @@ do_sh_range(double *ystart, double *yend) {
 
     if (set_up_sh_range() == 0)
         return;
-    swap_color(&color, 0);
+    integrate_swap_color(&color, 0);
     parhi = shoot_range.phigh;
     parlo = shoot_range.plow;
     npar = shoot_range.steps;
@@ -217,7 +217,7 @@ do_sh_range(double *ystart, double *yend) {
             bad_shoot(ierr);
 
             refresh_browser(storind);
-            swap_color(&color, 1);
+            integrate_swap_color(&color, 1);
             return;
         }
         storage[0][storind] = temp;
@@ -228,8 +228,8 @@ do_sh_range(double *ystart, double *yend) {
             for (j = 0; j < NODE; j++)
                 storage[j + 1][storind] = yend[j];
         storind++;
-        set_cycle(cycle, &icol);
-        get_ic(0, ystart);
+        integrate_set_cycle(cycle, &icol);
+        integrate_get_ic(0, ystart);
         last_shot(0);
         if (shoot_range.movie == 1)
             film_clip();
@@ -237,7 +237,7 @@ do_sh_range(double *ystart, double *yend) {
     }
     refresh_browser(storind);
     graf_par_auto_freeze_it();
-    swap_color(&color, 1);
+    integrate_swap_color(&color, 1);
     return;
 }
 
@@ -255,14 +255,14 @@ set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
 
     status = do_string_box(4, 4, 1, "Periodic BCs", n, values, 45);
     if (status != 0) {
-        i = find_user_name(PARAM, values[0]);
+        i = init_conds_find_user_name(PARAM, values[0]);
         if (i > -1)
             *ipar = i;
         else {
             ggets_err_msg("No such parameter");
             return 0;
         }
-        i = find_user_name(IC, values[1]);
+        i = init_conds_find_user_name(IC, values[1]);
         if (i > -1)
             *ivar = i;
         else {
@@ -302,7 +302,7 @@ find_bvp_com(int32 com) {
     POIMAP = 0;
     oldtrans = TRANS;
     TRANS = 0.0;
-    get_ic(1, ystart);
+    integrate_get_ic(1, ystart);
     switch (com) {
     case 0:
         do_sh_range(ystart, yend);
@@ -334,8 +334,8 @@ find_bvp_com(int32 com) {
                 0, 0, 0, 0.0);
     bad_shoot(iret);
     if (iret == 1 || iret == 2) {
-        get_ic(0, ystart);
-        redraw_ics();
+        integrate_get_ic(0, ystart);
+        init_conds_redraw_ics();
         if (ishow) {
             ggets_reset_graphics();
         }
@@ -358,7 +358,7 @@ last_shot(int32 flag) {
     double *x;
     x = &MyData[0];
     MyStart = 1;
-    get_ic(2, x);
+    integrate_get_ic(2, x);
     STORFLAG = flag;
     MyTime = T0;
     if (flag) {
@@ -396,7 +396,7 @@ set_up_sh_range(void) {
     status = do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
     if (status != 0) {
         strcpy(shoot_range.item, values[0]);
-        i = find_user_name(PARAM, shoot_range.item);
+        i = init_conds_find_user_name(PARAM, shoot_range.item);
         if (i < 0) {
             ggets_err_msg("No such parameter");
             return 0;
@@ -473,7 +473,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         if (iper)
             set_val(upar_names[ipar], y0[n]);
 
-        if (ode_int(y, &t, &istart, ishow) == 0) {
+        if (integrate_ode_int(y, &t, &istart, ishow) == 0) {
             *iret = -4;
             goto bye;
         }
@@ -492,7 +492,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
                 y[i] = y0[i]; /*   Good values .... */
             if (iper) {
                 set_val(upar_names[ipar], y0[n]);
-                redraw_params();
+                init_conds_redraw_params();
             }
 
             for (i = 0; i < n; i++)
@@ -527,7 +527,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             t = t0;
             istart = 1;
 
-            if (ode_int(y, &t, &istart, 0) == 0) {
+            if (integrate_ode_int(y, &t, &istart, 0) == 0) {
                 *iret = -4;
                 goto bye;
             }

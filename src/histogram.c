@@ -124,7 +124,7 @@ four_back(void) {
 }
 
 void
-hist_back(void) {
+histogram_back(void) {
     if (HIST_HERE) {
         set_browser_data(my_hist, 1);
         /*
@@ -174,7 +174,7 @@ new_four(int32 nmodes, int32 col) {
 }
 
 void
-post_process_stuff(void) {
+histogram_post_process_stuff(void) {
     if (post_process == 0)
         return;
     if (N_plist < 1)
@@ -243,7 +243,7 @@ twod_hist(void)
                hist_inf.nbins2, hist_inf.xlo, hist_inf.xhi, hist_inf.ylo,
                hist_inf.yhi);
 
-    hist_back();
+    histogram_back();
 
     ggets_ping();
 
@@ -251,7 +251,7 @@ twod_hist(void)
 }
 
 int32
-new_2d_hist(void) {
+histogram_new_2d(void) {
     if ((NEQ < 2) || (storind < 3)) {
         ggets_err_msg("Need more data and at least 3 columns");
         return 0;
@@ -359,7 +359,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         }
         NCON = NCON_START;
         NSYM = NSYM_START;
-        hist_back();
+        histogram_back();
         ggets_ping();
         return;
     }
@@ -373,7 +373,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
                     my_hist[1][index] += 1.0;
             }
         }
-        hist_back();
+        histogram_back();
         ggets_ping();
         return;
     }
@@ -381,14 +381,14 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         /* mycor(storage[col],storage[col2],storind,zlo,zhi,nbins,my_hist[1],1);
          */
         mycor2(storage[col], storage[col2], storind, nbins, my_hist[1], 1);
-        hist_back();
+        histogram_back();
         ggets_ping();
         return;
     }
     if (which == 3) {
         fftxcorr(storage[col], storage[col2], storind, (nbins - 1) / 2,
                  my_hist[1], 1);
-        hist_back();
+        histogram_back();
         ggets_ping();
         return;
     }
@@ -396,7 +396,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
 }
 
 void
-column_mean(void) {
+histogram_column_mean(void) {
     int32 i;
     char bob[100];
     double sum, sum2, ss;
@@ -439,12 +439,12 @@ get_col_info(int32 *col, char *prompt) {
 }
 
 void
-compute_power(void) {
+histogram_compute_power(void) {
     int32 i;
     double s;
     double c;
     double *datx, *daty, ptot = 0;
-    compute_fourier();
+    histogram_compute_fourier();
     if ((NEQ < 2) || (storind <= 1))
         return;
     datx = browse_get_data_col(1);
@@ -693,13 +693,13 @@ just_sd(int32 flag) {
     else
         cross_spectrum(storage[spec_col], storage[spec_col2], storind, spec_wid,
                        spec_win, my_hist[1], spec_type);
-    hist_back();
+    histogram_back();
     ggets_ping();
     return;
 }
 
 void
-compute_sd(void) {
+histogram_compute_sd(void) {
     int32 length, i, j;
     double total = storage[0][storind - 1] - storage[0][0];
     ggets_new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
@@ -738,7 +738,7 @@ compute_sd(void) {
     else
         cross_spectrum(storage[spec_col], storage[spec_col2], storind, spec_wid,
                        spec_win, my_hist[1], spec_type);
-    hist_back();
+    histogram_back();
     ggets_ping();
     return;
 }
@@ -768,7 +768,7 @@ just_fourier(int32 flag) {
 }
 
 void
-compute_fourier(void) {
+histogram_compute_fourier(void) {
     int32 nmodes = 10;
     if (NEQ < 2) {
         ggets_err_msg("Need at least three data columns");
@@ -786,7 +786,7 @@ compute_fourier(void) {
 }
 
 void
-compute_correl(void) {
+histogram_compute_correl(void) {
     int32 lag;
     double total = storage[0][storind - 1] - storage[0][0], dta;
     dta = total / (double)(storind - 1);
@@ -821,7 +821,7 @@ compute_correl(void) {
 }
 
 void
-compute_stacor(void) {
+histogram_compute_stacor(void) {
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_float("Low ", &hist_inf.xlo);
     ggets_new_float("Hi ", &hist_inf.xhi);
@@ -899,7 +899,7 @@ mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag) {
 }
 
 void
-compute_hist(void) {
+histogram_compute(void) {
     ggets_new_int("Number of bins ", &hist_inf.nbins);
     ggets_new_float("Low ", &hist_inf.xlo);
     ggets_new_float("Hi ", &hist_inf.xhi);

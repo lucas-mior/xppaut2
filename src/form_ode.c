@@ -269,7 +269,7 @@ get_a_filename(char *filename, char *wild) {
         if (filename[m - 1] != '/') {
             strcat(filename, "/");
         }
-        status = file_selector("Select an ODE file", filename, wild);
+        status = init_conds_file_selector("Select an ODE file", filename, wild);
         if (status == 0)
             bye_bye();
         else
@@ -2378,7 +2378,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
         return 1;
     }
     if (check_if_ic(old) == 1) {
-        extract_ic_data(old);
+        integrate_extract_ic_data(old);
         strcpy(new, old);
         return 1;
     }

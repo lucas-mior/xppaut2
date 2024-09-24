@@ -86,13 +86,13 @@ file_inf(void) {
     char filename[XPP_MAX_NAME];
     sprintf(filename, "%s.pars", this_file);
     ggets_ping();
-    if (!file_selector("Save info", filename, "*.pars*"))
+    if (!init_conds_file_selector("Save info", filename, "*.pars*"))
         return;
     /* if(ggets_new_string("Filename: ",filename)==0)return; */
     browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
-    redraw_params();
+    init_conds_redraw_params();
     do_info(fp);
     fclose(fp);
     return;
@@ -237,7 +237,7 @@ read_lunch(FILE *fp) {
         adj2_dump_h_stuff(fp, f);
         array_plot_dump(fp, f);
         dump_torus(fp, f);
-        dump_range(fp, f);
+        integrate_dump_range(fp, f);
     }
 
     return 1;
@@ -258,7 +258,7 @@ do_lunch(/* f=1 to read and 0 to write */
 
     if (f == READEM) {
         ggets_ping();
-        if (!file_selector("Load SET File", filename, "*.set"))
+        if (!init_conds_file_selector("Load SET File", filename, "*.set"))
             return;
 
         fp = fopen(filename, "r");
@@ -295,17 +295,17 @@ do_lunch(/* f=1 to read and 0 to write */
             adj2_dump_h_stuff(fp, f);
             array_plot_dump(fp, f);
             dump_torus(fp, f);
-            dump_range(fp, f);
+            integrate_dump_range(fp, f);
         }
         fclose(fp);
         return;
     }
-    if (!file_selector("Save SET File", filename, "*.set"))
+    if (!init_conds_file_selector("Save SET File", filename, "*.set"))
         return;
     browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
-    redraw_params();
+    init_conds_redraw_params();
     ttt = time(0);
     fprintf(fp, "## Set file for %s on %s", this_file, ctime(&ttt));
     io_int(&NEQ, fp, f, "Number of equations and auxiliaries");
@@ -319,7 +319,7 @@ do_lunch(/* f=1 to read and 0 to write */
     adj2_dump_h_stuff(fp, f);
     array_plot_dump(fp, f);
     dump_torus(fp, f);
-    dump_range(fp, f);
+    integrate_dump_range(fp, f);
     dump_eqn(fp);
     fclose(fp);
     return;
@@ -443,7 +443,7 @@ io_parameter_file(char *fn, int32 flag) {
         }
         io_parameters(flag, fp);
         fclose(fp);
-        redo_stuff();
+        init_conds_redo_stuff();
 
         return;
     }
@@ -515,7 +515,7 @@ io_ic_file(char *fn, int32 flag) {
      }
      io_parameters(flag,fp);
      fclose(fp);
-     redo_stuff();
+     init_conds_redo_stuff();
 
      return;
   }
@@ -547,18 +547,18 @@ io_parameters(int32 f, FILE *fp) {
             set_val(upar_names[i], z);
 
             if (!XPPBatch) {
-                index = find_user_name(PARAMBOX, upar_names[i]);
+                index = init_conds_find_user_name(PARAMBOX, upar_names[i]);
                 if (index >= 0) {
                     sprintf(junk, "%.16g", z);
-                    set_edit_params(&ParamBox, index, junk);
-                    draw_one_box(ParamBox, index);
+                    init_conds_set_edit_params(&ParamBox, index, junk);
+                    init_conds_draw_one_box(ParamBox, index);
                 }
             }
         }
     }
 
     if (!XPPBatch)
-        reset_sliders();
+        init_conds_reset_sliders();
     return;
 }
 
@@ -611,10 +611,10 @@ io_exprs(int32 f, FILE *fp) {
     }
 
     if (f == READEM && Xup) {
-        redraw_bcs();
-        redraw_ics();
-        redraw_delays();
-        redraw_params();
+        init_conds_redraw_bcs();
+        init_conds_redraw_ics();
+        init_conds_redraw_delays();
+        init_conds_redraw_params();
     }
     return;
 }

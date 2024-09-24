@@ -199,9 +199,9 @@ compile_flags(void) {
         for (k = 0; k <= nc; k++)
             flag[j].comcond[k] = command[k];
         for (i = 0; i < flag[j].nevents; i++) {
-            index = find_user_name(IC, flag[j].lhsname[i]);
+            index = init_conds_find_user_name(IC, flag[j].lhsname[i]);
             if (index < 0) {
-                index = find_user_name(PARAM, flag[j].lhsname[i]);
+                index = init_conds_find_user_name(PARAM, flag[j].lhsname[i]);
                 if (index < 0) {
                     if (strcasecmp(flag[j].lhsname[i], "out_put") == 0) {
                         flag[j].type[i] = 2;
@@ -363,15 +363,15 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                             set_val(upar_names[in], flag[i].vrhs[j]);
                         else {
                             if ((flag[i].type[j] == 2) && (flag[i].vrhs[j] > 0))
-                                send_output(ynew, *tnew);
+                                integrate_send_output(ynew, *tnew);
                             if ((flag[i].type[j] == 3) && (flag[i].vrhs[j] > 0))
-                                send_halt();
+                                integrate_send_halt();
                         }
                     }
                 }
                 if (flag[i].anypars) {
                     evaluate_derived();
-                    redraw_params();
+                    init_conds_redraw_params();
                 }
             }
         }

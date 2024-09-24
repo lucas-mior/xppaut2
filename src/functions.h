@@ -2534,25 +2534,25 @@ extern BoxList ParamBox;
 
 int32 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                  double xlo, double xhi, double ylo, double yhi);
-void hist_back(void);
-int32 new_2d_hist(void);
+void histogram_back(void);
+int32 histogram_new_2d(void);
 void new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
               char *condition, int32 which);
-void column_mean(void);
-void compute_power(void);
+void histogram_column_mean(void);
+void histogram_compute_power(void);
 int32 cross_spectrum(double *data, double *data2, int32 nr, int32 win,
                      int32 w_type, double *pow, int32 type);
-void compute_sd(void);
-void compute_fourier(void);
-void compute_correl(void);
-void compute_stacor(void);
+void histogram_compute_sd(void);
+void histogram_compute_fourier(void);
+void histogram_compute_correl(void);
+void histogram_compute_stacor(void);
 void mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
            double *z, int32 flag);
-void compute_hist(void);
+void histogram_compute(void);
 void fftxcorr(double *data1, double *data2, int32 length, int32 nlag,
               double *cr, int32 flag);
 void histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
-void post_process_stuff(void);
+void histogram_post_process_stuff(void);
 
 #endif
 
@@ -2574,41 +2574,41 @@ typedef struct BoxListold {
     int32 mc, *off, *pos;
 } BoxListold;
 
-void clone_ode(void);
-int32 find_user_name(int32 type, char *oname);
-void create_par_sliders(Window base, int32 x0, int32 h0);
-void resize_par_slides(int32 h);
-void slide_button_press(Window window);
+void init_conds_clone_ode(void);
+int32 init_conds_find_user_name(int32 type, char *oname);
+void init_conds_create_par_sliders(Window base, int32 x0, int32 h0);
+void init_conds_resize_par_slides(int32 h);
+void init_conds_slide_button_press(Window window);
 int32 edit_fitem(int32 ch, char *string, Window window, int32 *off1,
                  int32 *pos1, int32 mc);
-int32 file_selector(char *title, char *file, char *wild);
-void reset_sliders(void);
-void slide_release(Window window);
+int32 init_conds_file_selector(char *title, char *file, char *wild);
+void init_conds_reset_sliders(void);
+void init_conds_slide_release(Window window);
 
-void expose_slides(Window window);
-void enter_slides(Window window, int32 val);
-void slider_motion(XEvent event);
-void make_new_ic_box(void);
-void make_new_bc_box(void);
-void make_new_delay_box(void);
-void make_new_param_box(void);
-void initialize_box(void);
-void resize_par_box(Window win);
+void init_conds_expose_slides(Window window);
+void init_conds_enter_slides(Window window, int32 val);
+void init_conds_slider_motion(XEvent event);
+void init_conds_make_new_ic_box(void);
+void init_conds_make_new_bc_box(void);
+void init_conds_make_new_delay_box(void);
+void init_conds_make_new_param_box(void);
+void init_conds_initialize_box(void);
+void init_conds_resize_par_box(Window win);
 void make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
                    int32 use);
-void do_box_expose(Window window);
-void draw_one_box(BoxList b, int32 index);
-void redraw_params(void);
-void redraw_delays(void);
-void redraw_ics(void);
-void redraw_bcs(void);
-void box_enter_events(Window window, int32 yn);
-void box_buttons(Window window);
-void box_keypress(XEvent event, int32 *used);
-void man_ic(void);
-void new_parameter(void);
-void redo_stuff(void);
-void set_edit_params(BoxList *b, int32 i, char *string);
+void init_conds_do_box_expose(Window window);
+void init_conds_draw_one_box(BoxList b, int32 index);
+void init_conds_redraw_params(void);
+void init_conds_redraw_delays(void);
+void init_conds_redraw_ics(void);
+void init_conds_redraw_bcs(void);
+void init_conds_box_enter_events(Window window, int32 yn);
+void init_conds_box_buttons(Window window);
+void init_conds_box_keypress(XEvent event, int32 *used);
+void init_conds_man_ic(void);
+void init_conds_new_parameter(void);
+void init_conds_redo_stuff(void);
+void init_conds_set_edit_params(BoxList *b, int32 i, char *string);
 
 #endif
 
@@ -2651,38 +2651,38 @@ extern int32 MyStart;
 extern int32 RANGE_FLAG;
 extern double LastTime;
 
-void init_ar_ic(void);
-void dump_range(FILE *fp, int32 f);
-void init_range(void);
-void cont_integ(void);
-void swap_color(int32 *col, int32 rorw);
-void set_cycle(int32 flag, int32 *icol);
-int32 do_range(double *x, int32 flag);
-void find_equilib_com(int32 com);
+void integrate_init_ar_ic(void);
+void integrate_dump_range(FILE *fp, int32 f);
+void integrate_init_range(void);
+void integrate_cont_integ(void);
+void integrate_swap_color(int32 *col, int32 rorw);
+void integrate_set_cycle(int32 flag, int32 *icol);
+int32 integrate_do_range(double *x, int32 flag);
+void integrate_find_equilib_com(int32 com);
 void batch_integrate(void);
-void do_init_data(int32 com);
-void run_now(void);
+void integrate_do_init_data(int32 com);
+void integrate_run_now(void);
 void usual_integrate_stuff(double *x);
-int32 extract_ic_data(char *big);
-void arr_ic_start(void);
-void get_ic(int32 it, double *x);
-int32 ode_int(double *y, double *t, int32 *istart, int32 ishow);
+int32 integrate_extract_ic_data(char *big);
+void integrate_arr_ic_start(void);
+void integrate_get_ic(int32 it, double *x);
+int32 integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow);
 int32 integrate(double *t, double *x, double tend, double dt, int32 count,
                 int32 nout, int32 *start);
-void send_halt(void);
-void send_output(double *y, double t);
+void integrate_send_halt(void);
+void integrate_send_output(double *y, double t);
 void do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
              double *ypl, double *zpl);
-void export_data(FILE *fp);
+void integrate_export_data(FILE *fp);
 void plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
                      int32 flag);
 void integrate_restore(int32 i1, int32 i2);
-void comp_color(double *v1, double *v2, int32 n, double dt);
+void integrate_comp_color(double *v1, double *v2, int32 n, double dt);
 void integrate_shoot(double *x, double *xg, double *evec, int32 sgn);
-void shoot_easy(double *x);
-void stop_integration(void);
-int32 do_auto_range_go(void);
-void silent_equilibria(void);
+void integrate_shoot_easy(double *x);
+void integrate_stop_integration(void);
+int32 integrate_do_auto_range_go(void);
+void integrate_silent_equilibria(void);
 
 #endif
 

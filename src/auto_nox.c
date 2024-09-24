@@ -301,7 +301,7 @@ setautopoint(void) {
         set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);
         evaluate_derived();
         redo_all_fun_tables();
-        redraw_params();
+        init_conds_redraw_params();
     }
     return;
 }
@@ -579,7 +579,7 @@ do_auto(int32 iold, int32 isave) {
         do_auto(iold, isave);
     }
     ggets_ping();
-    redraw_params();
+    init_conds_redraw_params();
 }
 
 void
@@ -601,7 +601,7 @@ auto_name_to_index(char *s) {
     browse_find_variable(s, &in);
     if (in == 0)
         return 10;
-    in = find_user_name(PARAM_BOX, s);
+    in = init_conds_find_user_name(PARAM_BOX, s);
     for (i = 0; i < NAutoPar; i++)
         if (AutoPar[i] == in)
             return i;
@@ -680,7 +680,7 @@ auto_params(void) {
     if (status != 0) {
         for (int32 i = 0; i < 8; i++) {
             if (i < NAutoPar) {
-                in = find_user_name(PARAM_BOX, values[i]);
+                in = init_conds_find_user_name(PARAM_BOX, values[i]);
                 if (in >= 0) {
                     AutoPar[i] = in;
                     in = get_param_index(values[i]);
@@ -840,7 +840,7 @@ auto_plot_par(void) {
         if (i > 0)
             Auto.var = i - 1;
         /*  Now check the parameters  */
-        i1 = find_user_name(PARAM_BOX, values[1]);
+        i1 = init_conds_find_user_name(PARAM_BOX, values[1]);
         if (i1 >= 0) {
             for (i = 0; i < NAutoPar; i++) {
                 if (i1 == AutoPar[i]) {
@@ -848,7 +848,7 @@ auto_plot_par(void) {
                 }
             }
         }
-        i1 = find_user_name(PARAM_BOX, values[2]);
+        i1 = init_conds_find_user_name(PARAM_BOX, values[2]);
         if (i1 >= 0) {
             for (i = 0; i < NAutoPar; i++) {
                 if (i1 == AutoPar[i]) {
@@ -2625,7 +2625,7 @@ save_auto(void) {
     /* status=get_dialog("Save Auto","Filename",filename,"Ok","Cancel",60);
     XSetInputFocus(display,w,rev,CurrentTime);
     */
-    status = file_selector("Save Auto", filename, "*.auto");
+    status = init_conds_file_selector("Save Auto", filename, "*.auto");
     if (status == 0)
         return;
     browse_open_write_file(&fp, filename, &ok);
@@ -2770,7 +2770,7 @@ load_auto(void) {
 
     sprintf(filename, "%s.auto", basename(this_auto_file));
 
-    status = file_selector("Load Auto", filename, "*.auto");
+    status = init_conds_file_selector("Load Auto", filename, "*.auto");
     if (status == 0)
         return;
     fp = fopen(filename, "r");

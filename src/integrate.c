@@ -194,13 +194,13 @@ static int32 range_item(void);
 static int32 set_up_eq_range(void);
 
 void
-init_ar_ic(void) {
+integrate_init_ar_ic(void) {
     memset(&ar_ic, 0, sizeof(ar_ic));
     return;
 }
 
 void
-dump_range(FILE *fp, int32 f) {
+integrate_dump_range(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -229,7 +229,7 @@ dump_range(FILE *fp, int32 f) {
 }
 
 void
-init_range(void) {
+integrate_init_range(void) {
     eq_range.col = -1;
     eq_range.mc = 0;
     eq_range.shoot = 0;
@@ -296,7 +296,7 @@ set_up_eq_range(void) {
     status = do_string_box(8, 8, 1, "Range Equilibria", n, values, 45);
     if (status != 0) {
         strcpy(eq_range.item, values[0]);
-        i = find_user_name(PARAM, eq_range.item);
+        i = init_conds_find_user_name(PARAM, eq_range.item);
         if (i < 0) {
             ggets_err_msg("No such parameter");
             return 0;
@@ -329,7 +329,7 @@ set_up_eq_range(void) {
 }
 
 void
-cont_integ(void) {
+integrate_cont_integ(void) {
     double tetemp;
     double *x;
     double dif;
@@ -356,12 +356,12 @@ int32
 range_item(void) {
     int32 i;
     char bob[256];
-    i = find_user_name(PARAM, range.item);
+    i = init_conds_find_user_name(PARAM, range.item);
     if (i > -1) {
         range.type = PARAM;
         range.index = i;
     } else {
-        i = find_user_name(IC, range.item);
+        i = init_conds_find_user_name(IC, range.item);
         if (i <= -1) {
             sprintf(bob, " %s is not a parameter or variable !", range.item);
             ggets_err_msg(bob);
@@ -377,12 +377,12 @@ int32
 range_item2(void) {
     int32 i;
     char bob[256];
-    i = find_user_name(PARAM, range.item2);
+    i = init_conds_find_user_name(PARAM, range.item2);
     if (i > -1) {
         range.type2 = PARAM;
         range.index2 = i;
     } else {
-        i = find_user_name(IC, range.item2);
+        i = init_conds_find_user_name(IC, range.item2);
         if (i <= -1) {
             sprintf(bob, " %s is not a parameter or variable !", range.item2);
             ggets_err_msg(bob);
@@ -422,13 +422,13 @@ set_up_range(void) {
     status = do_string_box(8, 8, 1, "Range Integrate", n, values, 45);
     if (status != 0) {
         strcpy(range.item, values[0]);
-        /* i=find_user_name(PARAM,range.item);
+        /* i=init_conds_find_user_name(PARAM,range.item);
         if(i>-1){
           range.type=PARAM;
           range.index=i;
         }
         else {
-          i=find_user_name(IC,range.item);
+          i=init_conds_find_user_name(IC,range.item);
           if(i<=-1){
             ggets_err_msg("No such name!");
             return 0;
@@ -758,7 +758,7 @@ do_eq_range(double *x) {
 }
 
 void
-swap_color(int32 *col, int32 rorw) {
+integrate_swap_color(int32 *col, int32 rorw) {
     if (rorw)
         MyGraph->color[0] = *col;
     else
@@ -767,7 +767,7 @@ swap_color(int32 *col, int32 rorw) {
 }
 
 void
-set_cycle(int32 flag, int32 *icol) {
+integrate_set_cycle(int32 flag, int32 *icol) {
     if (flag == 0)
         return;
     MyGraph->color[0] = *icol + 1;
@@ -778,14 +778,14 @@ set_cycle(int32 flag, int32 *icol) {
 }
 
 int32
-do_auto_range_go(void) {
+integrate_do_auto_range_go(void) {
     double *x;
     x = &MyData[0];
-    return do_range(x, 2);
+    return integrate_do_range(x, 2);
 }
 
 int32
-do_range(double *x, int32 flag) {
+integrate_do_range(double *x, int32 flag) {
     /* flag: 0 for 1-param 1 for 2 parameter 2 for Auto range */
     char parn[256];
     char bob[sizeof(parn) + 30];
@@ -820,7 +820,7 @@ do_range(double *x, int32 flag) {
     cycle = range.cycle;
     dpar = (phigh - plow) / (double)nit;
 
-    get_ic(2, x);
+    integrate_get_ic(2, x);
     storind = 0;
     STORFLAG = 1;
     PAUSER = 0;
@@ -870,7 +870,7 @@ do_range(double *x, int32 flag) {
                     p2 = plow2 + dpar2*(double)j;
 
                 if (oldic == 1) {
-                    get_ic(1, x);
+                    integrate_get_ic(1, x);
 
                     if (DelayFlag) {
                         /* restart initial data */
@@ -906,7 +906,7 @@ do_range(double *x, int32 flag) {
             } /* normal range stuff   */
             else { /* auto range stuff */
                 auto_x11_set_mark(i);
-                get_ic(2, x);
+                integrate_get_ic(2, x);
                 get_val(parn, &temp);
                 sprintf(bob, "%s=%.16g", parn, temp);
                 ggets_bottom_msg(bob);
@@ -953,7 +953,7 @@ do_range(double *x, int32 flag) {
 
             if (res == 1 || STOCH_FLAG) {
                 if (batch_range == 1) {
-                    post_process_stuff();
+                    histogram_post_process_stuff();
                     write_this_run(batchout, i);
                 }
                 storind = 0;
@@ -965,9 +965,9 @@ do_range(double *x, int32 flag) {
         array_plot_close_files();
     }
     if (oldic == 1)
-        get_ic(1, x);
+        integrate_get_ic(1, x);
     else
-        get_ic(0, x);
+        integrate_get_ic(0, x);
     if (range.type == PARAM)
         set_val(range.item, temp);
     if (range.rtype > 0)
@@ -987,7 +987,7 @@ do_range(double *x, int32 flag) {
 }
 
 void
-silent_equilibria(void) {
+integrate_silent_equilibria(void) {
     double x[MAX_ODE], er[MAX_ODE], em[MAX_ODE];
     int32 ierr;
     int32 i;
@@ -1010,7 +1010,7 @@ silent_equilibria(void) {
 }
 
 void
-find_equilib_com(int32 com) {
+integrate_find_equilib_com(int32 com) {
     int32 ierr;
     double xm;
     double ym;
@@ -1046,7 +1046,7 @@ find_equilib_com(int32 com) {
         }
 
         /* get mouse click x,y  */
-        get_ic(1, x);
+        integrate_get_ic(1, x);
         menudrive_message_box("Click on guess");
         if (menudrive_get_mouse_xy(&im, &jm)) {
             scale_to_real(im, jm, &xm, &ym);
@@ -1061,7 +1061,7 @@ find_equilib_com(int32 com) {
         return;
     case 0:
     default:
-        get_ic(2, x);
+        integrate_get_ic(2, x);
         break;
     }
 
@@ -1172,10 +1172,10 @@ batch_integrate_once(void) {
         dae_fun_reset_dae();
         RANGE_FLAG = 1;
 
-        if (do_range(x, 0) != 0)
+        if (integrate_do_range(x, 0) != 0)
             ggets_plintf(" Errors occured in range integration \n");
     } else {
-        get_ic(2, x);
+        integrate_get_ic(2, x);
         if (DelayFlag) {
             /* restart initial data */
             if (delay_handle_do_init_delay(DELAY) == 0)
@@ -1196,7 +1196,7 @@ batch_integrate_once(void) {
         INFLAG = 1;
         refresh_browser(storind);
     }
-    post_process_stuff();
+    histogram_post_process_stuff();
     if (!batch_range || range.reset == 0) {
         if (STOCH_FLAG == 1)
             mean_back();
@@ -1248,7 +1248,7 @@ write_this_run(char *file, int32 i) {
 }
 
 void
-do_init_data(int32 com) {
+integrate_do_init_data(int32 com) {
     char sr[20], ch;
     int32 i;
     int32 si;
@@ -1287,10 +1287,10 @@ do_init_data(int32 com) {
     switch (com) {
     case M_IR: /* do range   */
 
-        do_range(x, 0);
+        integrate_do_range(x, 0);
         return;
     case M_I2:
-        do_range(x, 1);
+        integrate_do_range(x, 1);
         return;
     case M_IS:
     case M_IL:
@@ -1299,7 +1299,7 @@ do_init_data(int32 com) {
             ggets_err_msg("No prior solution");
             return;
         }
-        get_ic(0, x);
+        integrate_get_ic(0, x);
         if (com == M_IS) {
             T0 = LastTime;
             MyTime = T0;
@@ -1311,7 +1311,7 @@ do_init_data(int32 com) {
         }
         break;
     case M_IO:
-        get_ic(1, x);
+        integrate_get_ic(1, x);
         if (DelayFlag) {
             /* restart initial data */
             if (delay_handle_do_init_delay(DELAY) == 0)
@@ -1331,7 +1331,7 @@ do_init_data(int32 com) {
 
         /*  Get mouse values  */
         if (com == M_IM) {
-            get_ic(1, x);
+            integrate_get_ic(1, x);
             menudrive_message_box("Click on initial data");
             if (menudrive_get_mouse_xy(&im, &jm)) {
                 scale_to_real(im, jm, &xm, &ym);
@@ -1357,7 +1357,7 @@ do_init_data(int32 com) {
 
             menudrive_message_box("Click on initial data -- ESC to quit");
             while (true) {
-                get_ic(1, x);
+                integrate_get_ic(1, x);
                 badmouse = menudrive_get_mouse_xy(&im, &jm);
                 if (badmouse == 0)
                     break;
@@ -1383,14 +1383,14 @@ do_init_data(int32 com) {
         }
         break;
     case M_IN:
-        man_ic();
-        get_ic(2, x);
+        init_conds_man_ic();
+        integrate_get_ic(2, x);
         dae_fun_set_init_guess();
         break;
     case M_IU:
         if (form_ic() == 0)
             return;
-        get_ic(2, x);
+        integrate_get_ic(2, x);
         break;
     case M_IH:
         if (ShootICFlag == 0) {
@@ -1404,13 +1404,13 @@ do_init_data(int32 com) {
         if (si < ShootIndex && si >= 0) {
             for (i = 0; i < NODE; i++)
                 last_ic[i] = ShootIC[si][i];
-            get_ic(2, x);
+            integrate_get_ic(2, x);
         } else
             ggets_err_msg("Out of range");
         break;
     case M_IF:
         icfile[0] = 0;
-        if (!file_selector("Read initial data", icfile, "*.dat"))
+        if (!init_conds_file_selector("Read initial data", icfile, "*.dat"))
             return;
         /* if(ggets_new_string("Filename: ",icfile)==0)return; */
         if ((fp = fopen(icfile, "r")) == NULL) {
@@ -1420,12 +1420,12 @@ do_init_data(int32 com) {
         for (i = 0; i < NODE; i++)
             fscanf(fp, "%lg", &last_ic[i]);
         fclose(fp);
-        get_ic(2, x);
+        integrate_get_ic(2, x);
         break;
 
     case M_IB:
         DELTA_T = -fabs(DELTA_T);
-        get_ic(2, x);
+        integrate_get_ic(2, x);
         dae_fun_set_init_guess();
         if (DelayFlag) {
             /* restart initial data */
@@ -1438,7 +1438,7 @@ do_init_data(int32 com) {
 
         dae_fun_set_init_guess();
 
-        get_ic(2, x);
+        integrate_get_ic(2, x);
 
         if (DelayFlag) {
             /* restart initial data */
@@ -1453,7 +1453,7 @@ do_init_data(int32 com) {
 }
 
 void
-run_now(void) {
+integrate_run_now(void) {
     double *x;
     MyStart = 1;
     x = &MyData[0];
@@ -1461,7 +1461,7 @@ run_now(void) {
     DelayErr = 0;
     dae_fun_reset_dae();
     MyTime = T0;
-    get_ic(2, x);
+    integrate_get_ic(2, x);
     STORFLAG = 1;
     POIEXT = 0;
     storind = 0;
@@ -1499,7 +1499,7 @@ usual_integrate_stuff(double *x) {
     refresh_browser(storind);
     if (Xup) {
         graf_par_auto_freeze_it();
-        redraw_ics();
+        init_conds_redraw_ics();
     }
 }
 /*  form_ic  --  u_i(0) = F(i)  where  "i" is represented by "t"
@@ -1596,7 +1596,7 @@ evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
 }
 
 int32
-extract_ic_data(char *big) {
+integrate_extract_ic_data(char *big) {
     int32 i, n, j;
     int32 j1, j2, flag2;
     char front[40], new[50], c;
@@ -1635,7 +1635,7 @@ extract_ic_data(char *big) {
 }
 
 void
-arr_ic_start(void) {
+integrate_arr_ic_start(void) {
     int32 i;
     if (ar_ic_defined == 0)
         return;
@@ -1724,7 +1724,7 @@ form_ic(void) {
 }
 
 void
-get_ic(int32 it, double *x) {
+integrate_get_ic(int32 it, double *x) {
     int32 i;
     switch (it) {
     case 0:
@@ -1744,7 +1744,7 @@ get_ic(int32 it, double *x) {
 }
 
 int32
-ode_int(double *y, double *t, int32 *istart, int32 ishow) {
+integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
     double error[MAX_ODE];
 
     int32 kflag;
@@ -2459,13 +2459,13 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 }
 
 void
-send_halt(void) {
+integrate_send_halt(void) {
     STOP_FLAG = 1;
     return;
 }
 
 void
-send_output(double *y, double t) {
+integrate_send_output(double *y, double t) {
     double yy[MAX_ODE];
     int32 i;
     for (i = 0; i < NODE; i++)
@@ -2509,7 +2509,7 @@ do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
 }
 
 void
-export_data(FILE *fp) {
+integrate_export_data(FILE *fp) {
     int32 ip, np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
     int32 j, kxoff, kyoff, kzoff;
@@ -2604,7 +2604,7 @@ plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
         zpl[ip] = xv[izplt[ip]];
     }
     if (MyGraph->ColorFlag)
-        comp_color(xv, xvold, NODE, (double)ddt);
+        integrate_comp_color(xv, xvold, NODE, (double)ddt);
     do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
     return;
 }
@@ -2668,7 +2668,7 @@ integrate_restore(int32 i1, int32 i2) {
                     v2[j] = data[j][i - 1];
                 }
 
-                comp_color(v1, v2, NODE,
+                integrate_comp_color(v1, v2, NODE,
                            (double)fabs(data[0][i] - data[0][i + 1]));
             } /* ignored by postscript */
             /* if(MyGraph->line[ip]<0)
@@ -2702,7 +2702,7 @@ integrate_restore(int32 i1, int32 i2) {
 
 /*  Sets the color according to the velocity or z-value */
 void
-comp_color(double *v1, double *v2, int32 n, double dt) {
+integrate_comp_color(double *v1, double *v2, int32 n, double dt) {
     int32 i;
     int32 cur_color;
     double sum;
@@ -2731,7 +2731,7 @@ comp_color(double *v1, double *v2, int32 n, double dt) {
 }
 
 void
-shoot_easy(double *x) {
+integrate_shoot_easy(double *x) {
     double t = 0.0;
     int32 i;
     SuppressBounds = 1;
@@ -2756,7 +2756,7 @@ integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
 }
 
 void
-stop_integration(void) {
+integrate_stop_integration(void) {
     /*  set some global error here... */
     if (DelayErr == 0)
         ggets_err_msg("Delay too large or negative");

@@ -499,7 +499,7 @@ browse_find_variable(char *s, int32 *col) {
         *col = 0;
         return;
     }
-    *col = find_user_name(2, s);
+    *col = init_conds_find_user_name(2, s);
     if (*col > -1)
         *col = *col + 1;
     return;
@@ -1310,7 +1310,7 @@ data_get(Browser *b) {
     for (i = NODE + NMarkov; i < NEQ; i++)
         set_val(uvar_names[i], storage[i + 1][in]);
 
-    redraw_ics();
+    init_conds_redraw_ics();
 }
 
 void
@@ -1441,7 +1441,7 @@ data_read(Browser *b) {
     status=get_dialog("Load","Filename:",fil,"Ok","Cancel",40);
     XSetInputFocus(display,w,rev,CurrentTime);
     */
-    status = file_selector("Load data", fil, "*.dat");
+    status = init_conds_file_selector("Load data", fil, "*.dat");
     if (status == 0)
         return;
     fp = fopen(fil, "r");
@@ -1508,7 +1508,7 @@ data_write(Browser *b) {
     /* status=get_dialog("Write","Filename:",fil,"Ok","Cancel",40);
 
        XSetInputFocus(display,w,rev,CurrentTime); */
-    status = file_selector("Write data", fil, "*.dat");
+    status = init_conds_file_selector("Write data", fil, "*.dat");
     if (status == 0)
         return;
     browse_open_write_file(&fp, fil, &ok);

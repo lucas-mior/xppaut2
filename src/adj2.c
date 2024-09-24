@@ -616,7 +616,7 @@ adj2_do_liapunov(void) {
         return;
     }
     x = &MyData[0];
-    do_range(x, 0);
+    integrate_do_range(x, 0);
     /* done the range */
     for (i = 0; i < LIAP_I; i++) {
         storage[0][i] = my_liap[0][i];

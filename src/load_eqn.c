@@ -249,7 +249,7 @@ load_eqn(void) {
     FILE *fptr;
     struct dirent *dp;
 
-    init_ar_ic();
+    integrate_init_ar_ic();
     for (i = 0; i < MAX_ODE; i++) {
         itor[i] = 0;
         strcpy(delay_string[i], "0.0");
@@ -600,7 +600,7 @@ set_all_vals(void) {
         fclose(fp);
     }
 
-    init_range();
+    integrate_init_range();
     adj2_init_trans();
     array_plot_init_my();
     init_txtview();
@@ -651,7 +651,7 @@ set_all_vals(void) {
 
     volterra_alloc_memory(); /* allocate stuff for volterra equations */
     alloc_meth();
-    arr_ic_start(); /* take care of all predefined array ics */
+    integrate_arr_ic_start(); /* take care of all predefined array ics */
     return;
 }
 
@@ -860,11 +860,11 @@ do_intern_set(char *name1, char *value) {
     char name[20];
     convert(name1, name);
 
-    i = find_user_name(IC, name);
+    i = init_conds_find_user_name(IC, name);
     if (i > -1) {
         last_ic[i] = atof(value);
     } else {
-        i = find_user_name(PARAM, name);
+        i = init_conds_find_user_name(PARAM, name);
         if (i > -1) {
             set_val(name, atof(value));
         } else {

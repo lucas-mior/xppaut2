@@ -167,7 +167,7 @@ delay_handle_get_delay(int32 in, double tau) {
 
     if (tau < 0.0 || tau > DELAY) {
         ggets_err_msg("Delay negative or too large");
-        stop_integration();
+        integrate_stop_integration();
         return 0.0;
     }
     if (tau == 0.0) /* check fro zero delay and ignore the rest */
