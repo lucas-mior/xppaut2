@@ -2734,7 +2734,7 @@ enum {
  *                file.                                           *
  *                                                                *
  * CLASSICAL_GS : The iterative solver uses the classical         *
- *                Gram-Schmidt routine ClassicalGS listed in this *
+ *                Gram-Schmidt routine classical_gs listed in this *
  *                file.                                           *
  *                                                                *
  ******************************************************************/
@@ -2816,24 +2816,24 @@ int32 modified_gs(Vector *v, double **h, int32 k, int32 p,
 
 /******************************************************************
  *                                                                *
- * Function: ClassicalGS                                          *
+ * Function: classical_gs                                          *
  *----------------------------------------------------------------*
- * ClassicalGS performs a classical Gram-Schmidt                  *
+ * classical_gs performs a classical Gram-Schmidt                  *
  * orthogonalization of the Vector v[k] against the p unit      *
  * N_Vectors at v[k-1], v[k-2], ..., v[k-p]. The parameters v, h, *
  * k, p, and new_vk_norm are as described in the documentation    *
  * for modified_gs.                                                *
  *                                                                *
  * temp is an Vector which can be used as workspace by the      *
- * ClassicalGS routine.                                           *
+ * classical_gs routine.                                           *
  *                                                                *
  * s is a length k array of reals which can be used as workspace  *
- * by the ClassicalGS routine.                                    *
+ * by the classical_gs routine.                                    *
  *                                                                *
- * ClassicalGS returns 0 to indicate success. It cannot fail.     *
+ * classical_gs returns 0 to indicate success. It cannot fail.     *
  *                                                                *
  ******************************************************************/
-int32 ClassicalGS(Vector *v, double **h, int32 k, int32 p,
+int32 classical_gs(Vector *v, double **h, int32 k, int32 p,
                   double *new_vk_norm, Vector temp, double *s);
 
 /******************************************************************

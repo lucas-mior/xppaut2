@@ -75,13 +75,13 @@ modified_gs(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     return 0;
 }
 
-/************************ ClassicalGS ********************************
- This implementation of ClassicalGS was contributed to by Homer Walker
+/************************ classical_gs ********************************
+ This implementation of classical_gs was contributed to by Homer Walker
  and Peter Brown.
 **********************************************************************/
 
 int32
-ClassicalGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
+classical_gs(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
             Vector temp, double *s) {
     int32 i, k_minus_1, i0;
     double vk_norm;
