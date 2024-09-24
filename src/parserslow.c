@@ -1789,28 +1789,6 @@ do_delay(double delay, double i) {
 
     return delay_stab_eval(delay, (int32)variable);
 }
-/*
-double Exp(z)
-double z;
-{
- if(z>700)return 1.01423e+304;
- return(exp(z));
-}
-
-double Ln(z)
-double z;
-{
- if(z<1e-320)return -736.82724;
- return(log(z));
-}
-
-double Log10(z)
-double z;
-{
- if(z<1e-320)return -320.;
- return(log10(z));
-}
-*/
 
 double
 hom_bcs(int32 i) {
