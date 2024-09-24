@@ -154,7 +154,7 @@ static void top_button_press(Window window);
 static void top_button_cross(Window window, int32 b);
 static void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
 static void set_big_font(void);
-static void init_X(void);
+static void main_init_x(void);
 static void check_for_quiet(int32 argc, char **argv);
 
 void
@@ -415,7 +415,7 @@ do_main(int32 argc, char **argv) {
          * the current options.  */
         main_do_vis_env();
         load_eqn_set_all_vals();
-        init_X();
+        main_init_x();
         /*       XSynchronize(display,1); */
         /* Now swap back the options for proper precedence ordering of options.
          */
@@ -570,7 +570,7 @@ main_do_vis_env(void) {
 }
 
 void
-init_X(void) {
+main_init_x(void) {
     char *icon_name = "xpp";
     char *win_name = "XPPAUT";
     int32 x = 0, y = 0;
