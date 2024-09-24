@@ -27,11 +27,11 @@ int32 DelayGrid = 1000;
 double variable_shift[2][MAX_ODE];
 double delay_list[MAX_DELAY];
 
-static void polint(double *xa, double *ya, int32 n, double x, double *y,
+static void delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
                    double *dy);
 
 double
-delay_stab_eval(
+delay_handle_stab_eval(
     /* this returns appropriate values for delay jacobian */
     double delay, int32 var) {
     int32 i;
@@ -108,7 +108,7 @@ delay_handle_stor_delay(double *y) {
 }
 
 void
-polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
+delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
     int32 i, m, ns = 1;
     double den, dif, dift, h0, hp, w;
     double c[10], d[10];
@@ -179,7 +179,7 @@ delay_handle_get_delay(int32 in, double tau) {
     ya[2] = DelayWork[in + (nodes)*i2];
     ya[0] = DelayWork[in + (nodes)*i0];
     ya[3] = DelayWork[in + (nodes)*i3];
-    polint(xa, ya, 4, tau, &y, &dy);
+    delay_handle_polint(xa, ya, 4, tau, &y, &dy);
 
     return y;
 }

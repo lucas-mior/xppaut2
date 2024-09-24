@@ -1048,7 +1048,7 @@ extern int32 WhichDelay;
 extern double variable_shift[2][MAX_ODE];
 extern double delay_list[MAX_DELAY];
 
-double delay_stab_eval(double delay, int32 var);
+double delay_handle_stab_eval(double delay, int32 var);
 int32 delay_handle_alloc_delay(double big);
 void delay_handle_free_delay(void);
 void delay_handle_stor_delay(double *y);

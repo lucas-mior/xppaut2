@@ -1769,7 +1769,7 @@ do_delay_shift(double delay, double shift, double variable) {
         return variables[in];
     }
 
-    return delay_stab_eval(delay, in);
+    return delay_handle_stab_eval(delay, in);
 }
 
 double
@@ -1787,7 +1787,7 @@ do_delay(double delay, double i) {
         return variables[variable];
     }
 
-    return delay_stab_eval(delay, (int32)variable);
+    return delay_handle_stab_eval(delay, (int32)variable);
 }
 
 double
