@@ -47,10 +47,6 @@
 
 #include "myfonts.h"
 
-#ifdef NOERRNO
-int32 errno;
-#endif
-
 int32 allwinvis = 0;
 int32 use_intern_sets = 1;
 int32 use_ani_file = 0;
