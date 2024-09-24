@@ -79,7 +79,7 @@ typedef struct {
     uint32 bcol;
 } TEXTGC;
 
-typedef struct {
+typedef struct Label {
     Window window;
     double x;
     double y;
@@ -87,7 +87,7 @@ typedef struct {
     int16 use;
     int32 font;
     int32 size;
-} LABEL;
+} Label;
 
 typedef struct {
     Window window;
