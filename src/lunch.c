@@ -190,10 +190,8 @@ lunch_read(FILE *fp) {
 }
 
 void
-do_lunch(/* f=1 to read and 0 to write */
-         int32 f)
-
-{
+do_lunch(int32 f) {
+    /* f=1 to read and 0 to write */
     int32 ne, np, ok, temp;
     char bob[256];
     FILE *fp;
