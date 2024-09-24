@@ -50,7 +50,7 @@ static int32 *coup_fun[MAX_ODE];
 static char *coup_string[MAX_ODE];
 
 static void adj2_h_back(void);
-static void adj_back(void);
+static void adj2_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
                          int32 silent2);
@@ -183,7 +183,7 @@ adj2_data_back(void) {
 }
 
 void
-adj_back(void) {
+adj2_back(void) {
     if (ADJ_HERE) {
         set_browser_data(my_adj, 1);
         refresh_browser(adj_len);
@@ -228,7 +228,7 @@ adj2_make_adj_com(int32 com) {
         adj2_new_h_fun(0);
         break;
     case 'a':
-        adj_back();
+        adj2_back();
         break;
     case 'o':
         adj2_data_back();
@@ -382,7 +382,7 @@ adj2_new_adjoint(void) {
     if (adj2_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
                      ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
-        adj_back();
+        adj2_back();
     }
     ggets_ping();
     return;
