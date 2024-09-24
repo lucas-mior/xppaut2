@@ -28,7 +28,7 @@ static struct {
     int32 use;
 } my_calc;
 
-static int32 has_eq(char *z, char *w, int32 *where);
+static int32 calc_has_eq(char *z, char *w, int32 *where);
 static void ini_calc_string(char *name, char *value, int32 *pos, int32 *col);
 static void quit_calc(void);
 static void make_calc(double z);
@@ -162,7 +162,7 @@ calc_do_calc(char *temp, double *z) {
         *z = 0.0;
         return 1;
     }
-    if (has_eq(temp, val, &i)) {
+    if (calc_has_eq(temp, val, &i)) {
         newz = calc(&temp[i], &ok); /*  calculate quantity  */
 
         if (ok == 0)
@@ -195,7 +195,7 @@ calc_do_calc(char *temp, double *z) {
 }
 
 int32
-has_eq(char *z, char *w, int32 *where) {
+calc_has_eq(char *z, char *w, int32 *where) {
     int32 i;
     for (i = 0; i < (int32)strlen(z); i++)
         if (z[i] == ':')
