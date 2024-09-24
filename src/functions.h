@@ -3824,6 +3824,10 @@ extern double *fft_data;
 extern double *hist_data;
 extern double POIPLN;
 
+extern int32 cv_bandflag;
+extern int32 cv_bandupper;
+extern int32 cv_bandlower;
+
 extern int32 NMESH;
 extern int32 NJMP;
 extern int32 METHOD;

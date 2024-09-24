@@ -43,14 +43,12 @@ extern double AlphaMax;
         For now, I just will let it remain command driven
 */
 
-typedef struct {
+static struct PoincareMap {
     double tmod;
     int32 maxvar, sos, type, sign;
     char section[256];
     int32 formula[256];
-} POINCARE_MAP;
-
-POINCARE_MAP my_pmap;
+} my_pmap;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
