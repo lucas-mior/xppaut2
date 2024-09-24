@@ -76,7 +76,7 @@ auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
 
 void
 auto_x11_line_trans(double a, double b, double c, double d) {
-    auto_x11_line(ix_val(a), iy_val(b), ix_val(c), iy_val(d));
+    auto_x11_line(auto_nox_ix_val(a), auto_nox_iy_val(b), auto_nox_ix_val(c), auto_nox_iy_val(d));
     return;
 }
 

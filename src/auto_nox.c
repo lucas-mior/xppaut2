@@ -350,13 +350,13 @@ auto_nox_draw_bix_axes(void) {
 }
 
 int32
-ix_val(double x) {
+auto_nox_ix_val(double x) {
     double temp = (double)Auto.wid*(x - Auto.xmin) / (Auto.xmax - Auto.xmin);
     return (int32)temp + Auto.x0;
 }
 
 int32
-iy_val(double y) {
+auto_nox_iy_val(double y) {
     double temp = (double)Auto.hgt*(y - Auto.ymin) / (Auto.ymax - Auto.ymin);
     return Auto.hgt - (int32)temp + Auto.y0;
 }
@@ -755,13 +755,13 @@ auto_plot_par(void) {
     }
 
     if (ch == key[7]) {
-        load_last_plot(1);
+        auto_nox_load_last_plot(1);
         auto_nox_draw_bix_axes();
         return;
     }
 
     if (ch == key[8]) {
-        load_last_plot(2);
+        auto_nox_load_last_plot(2);
         auto_nox_draw_bix_axes();
         return;
     }
@@ -820,9 +820,9 @@ auto_plot_par(void) {
         Auto.ymax = atof(values[6]);
         auto_nox_draw_bix_axes();
         if (Auto.plot < 4)
-            keep_last_plot(1);
+            auto_nox_keep_last_plot(1);
         if (Auto.plot == 4)
-            keep_last_plot(2);
+            auto_nox_keep_last_plot(2);
     }
     return;
 }
@@ -1154,9 +1154,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         Auto.lastx = x;
         Auto.lasty = y1;
     }
-    ix = ix_val(x);
-    iy1 = iy_val(y1);
-    iy2 = iy_val(y2);
+    ix = auto_nox_ix_val(x);
+    iy1 = auto_nox_iy_val(y1);
+    iy2 = auto_nox_iy_val(y2);
     auto_x11_bw();
     if (flag2 == 0 && Auto.plot == P_P) /* if the point was a 1 param run and we
                                            are in 2 param plot, skip */
@@ -1317,7 +1317,7 @@ auto_nox_info_header(int32 icp1, int32 icp2) {
 }
 
 void
-new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
+auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
          double u0, double per, int32 icp1, int32 icp2) {
     char bob[80];
     double p1, p2 = 0.0;
@@ -1362,16 +1362,16 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
         par2 = par[icp2];
     auto_xy_plot(&x, &y1, &y2, par1, par2, per, d->uhi, d->ulo, d->ubar, norm);
 
-    *ix = ix_val(x);
-    *iy = iy_val(y1);
+    *ix = auto_nox_ix_val(x);
+    *iy = auto_nox_iy_val(y1);
     if (dodraw == 1) {
         auto_x11_xor_cross(*ix, *iy);
         plot_stab(evr, evi, NODE);
-        new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per, icp1,
+        auto_nox_new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per, icp1,
                  icp2);
     }
     if (lab > 0 && load_all_labeled_orbits > 0)
-        load_auto_orbitx(ibr, 1, lab, per);
+        auto_nox_load_orbitx(ibr, 1, lab, per);
     return;
 }
 
@@ -1391,7 +1391,7 @@ auto_nox_win(void) {
 }
 
 void
-load_last_plot(int32 flg) {
+auto_nox_load_last_plot(int32 flg) {
     if (flg == 1) { /* one parameter */
         Auto.xmin = Old1p.xmin;
         Auto.xmax = Old1p.xmax;
@@ -1416,7 +1416,7 @@ load_last_plot(int32 flg) {
 }
 
 void
-keep_last_plot(int32 flg) {
+auto_nox_keep_last_plot(int32 flg) {
     if (flg == 1) { /* one parameter */
         Old1p.xmin = Auto.xmin;
         Old1p.xmax = Auto.xmax;
@@ -1513,8 +1513,8 @@ auto_nox_init_win(void) {
     Auto.icp3 = 1;
     Auto.icp4 = 1;
     Auto.icp5 = 1;
-    keep_last_plot(1);
-    keep_last_plot(2);
+    auto_nox_keep_last_plot(1);
+    auto_nox_keep_last_plot(2);
     aauto.iad = 3;
     aauto.mxbf = 5;
     aauto.iid = 2;
@@ -2510,13 +2510,13 @@ auto_err(char *s) {
 }
 
 void
-load_auto_orbit(void) {
-    load_auto_orbitx(grabpt.ibr, grabpt.flag, grabpt.lab, grabpt.per);
+auto_nox_load_orbit(void) {
+    auto_nox_load_orbitx(grabpt.ibr, grabpt.flag, grabpt.lab, grabpt.per);
     return;
 }
 
 void
-load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
+auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     FILE *fp;
     double *x;
     int32 i, j, nstor;
@@ -2537,7 +2537,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     }
     label = lab;
     period = per;
-    flg = move_to_label(label, &nrow, &ndim, fp);
+    flg = auto_nox_move_to_label(label, &nrow, &ndim, fp);
     nstor = ndim;
     if (ndim > NODE)
         nstor = NODE;
@@ -2622,7 +2622,7 @@ save_auto_numerics(FILE *fp) {
 }
 
 void
-load_auto_numerics(FILE *fp) {
+auto_nox_load_numerics(FILE *fp) {
     int32 in;
     fscanf(fp, "%d ", &NAutoPar);
     for (int64 i = 0; i < NAutoPar; i++) {
@@ -2654,7 +2654,7 @@ save_auto_graph(FILE *fp) {
 }
 
 void
-load_auto_graph(FILE *fp) {
+auto_nox_load_graph(FILE *fp) {
     fscanf(fp, "%lg %lg %lg %lg %d %d \n", &Auto.xmin, &Auto.ymin, &Auto.xmax,
            &Auto.ymax, &Auto.var, &Auto.plot);
     return;
@@ -2681,7 +2681,7 @@ save_q_file(/* I am keeping the name q_file even though they are s_files */
 }
 
 void
-make_q_file(FILE *fp) {
+auto_nox_make_q_file(FILE *fp) {
     char string[500];
     FILE *fq;
     sprintf(string, "%s.s", this_auto_file);
@@ -2694,7 +2694,7 @@ make_q_file(FILE *fp) {
 
     while (!feof(fp)) {
         fgets(string, 500, fp);
-        if (!noinfo(string)) {
+        if (!auto_nox_no_info_noinfo(string)) {
             fputs(string, fq);
         }
     }
@@ -2703,7 +2703,7 @@ make_q_file(FILE *fp) {
 }
 
 int32
-noinfo(char *s) {
+auto_nox_no_info_noinfo(char *s) {
     /* get rid of any blank lines */
     int32 n = (int32)strlen(s);
     int32 i;
@@ -2717,7 +2717,7 @@ noinfo(char *s) {
 }
 
 void
-load_auto(void) {
+auto_nox_load(void) {
     int32 ok;
     FILE *fp;
     /*char filename[256];*/
@@ -2740,20 +2740,20 @@ load_auto(void) {
         return;
     }
 
-    load_auto_numerics(fp);
-    load_auto_graph(fp);
+    auto_nox_load_numerics(fp);
+    auto_nox_load_graph(fp);
     status = diagram_load(fp, NODE);
     if (status != 1) {
         fclose(fp);
         return;
     }
-    make_q_file(fp);
+    auto_nox_make_q_file(fp);
     fclose(fp);
     return;
 }
 
 int32
-move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
+auto_nox_move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp) {
     int32 ibr, ntot, itp, lab, nfpar, isw, ntpl, nar, nskip;
     int32 i;
     char line[MAXLINELENGTH];
@@ -2795,7 +2795,7 @@ auto_file(void) {
     ch = (char)auto_pop_up_list("File", m, key, 15, 15, 0, 10, 10, afile_hint,
                                 Auto.hinttxt);
     if (ch == 'i') {
-        load_auto_orbit();
+        auto_nox_load_orbit();
         return;
     }
     if (ch == 's') {
@@ -2803,7 +2803,7 @@ auto_file(void) {
         return;
     }
     if (ch == 'l') {
-        load_auto();
+        auto_nox_load();
         return;
     }
     if (ch == 'r')
