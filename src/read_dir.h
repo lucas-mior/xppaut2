@@ -10,6 +10,7 @@ typedef struct {
 
 #define MAXPATHLEN 512
 extern char cur_dir[MAXPATHLEN];
+extern FILEINFO my_ff;
 
 void free_finfo(FILEINFO *ff);
 int32 cmpstringp(const void *p1, const void *p2);

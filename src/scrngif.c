@@ -31,14 +31,13 @@
 
 uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
 uint32 debugFlag;
-int32 UseGlobalMap = 0;
-int32 GifFrameDelay = 5;
-int32 GifFrameLoop = 1000;
-int32 chainlen = 0;
-int32 maxchainlen = 0;
-int32 nodecount = 0;
-int32 lookuptypes = 0;
-int32 nbits;
+static int32 UseGlobalMap = 0;
+static int32 GifFrameDelay = 5;
+static int32 GifFrameLoop = 1000;
+static int32 chainlen = 0;
+static int32 maxchainlen = 0;
+static int32 nodecount = 0;
+static int32 lookuptypes = 0;
 int16 need = 8;
 GifTree *empty[256], GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL}, *topNode,
                      *baseNode, **nodeArray, **lastArray;
