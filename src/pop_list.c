@@ -21,13 +21,6 @@ typedef struct PopUp {
     int32 hot;
 } PopUp;
 
-static struct TextWin {
-    Window base, slide, close, text;
-    int32 i0;
-    int32 exist, len, nlines;
-    char **list;
-} mytext;
-
 static struct ScrBoxList {
     char **list;
     int32 n;
