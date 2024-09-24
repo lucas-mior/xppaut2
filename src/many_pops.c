@@ -29,14 +29,12 @@ typedef struct {
     int32 color;
 } GROB;
 
-typedef struct {
+static struct MarkInfo {
     int32 type;
     int32 color;
     int32 number, start, skip;
     double size;
-} MARKINFO;
-
-MARKINFO markinfo = {2, 0, 1, 0, 1, 1.0};
+} markinfo = {2, 0, 1, 0, 1, 1.0};
 
 int32 manual_expose = 0;
 extern char *info_message;

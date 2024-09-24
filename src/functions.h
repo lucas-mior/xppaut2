@@ -3867,6 +3867,20 @@ extern uint32 MyDrawWinColor;
 extern uint32 GrFore;
 extern uint32 GrBack;
 
+extern int32 SCALEY;
+extern int32 DCURYb;
+extern int32 CURY_OFFb;
+extern int32 DCURYs;
+extern int32 DCURXs;
+extern  FILE *logfile;
+extern int32 tfBell;
+extern char SLIDER1VAR[20];
+extern char SLIDER2VAR[20];
+extern char SLIDER3VAR[20];
+
+extern OptionsSet notAlreadySet;
+extern XFontStruct *small_font;
+
 /*  This is a string box widget which handles a list of
         editable strings
  */

@@ -123,7 +123,7 @@ Display *display;
 int32 screen;
 int32 periodic = 0;
 int32 DCURYb;
-int32 DCURXb;
+static int32 DCURXb;
 int32 CURY_OFFb;
 int32 DCURYs;
 int32 DCURXs;
@@ -159,7 +159,7 @@ int32 DoTutorial = 0;
 
 OptionsSet notAlreadySet;
 
-XFontStruct *big_font;
+static XFontStruct *big_font;
 XFontStruct *small_font;
 
 static void test_color_info(void);
