@@ -103,7 +103,7 @@ static void CVDiagFree(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-CVDiag(void *cvode_mem) {
+cv_diag(void *cvode_mem) {
     CVodeMem cv_mem;
     CVDiagMem cvdiag_mem;
 

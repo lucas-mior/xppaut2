@@ -58,6 +58,6 @@ enum {
  *                                                                *
  ******************************************************************/
 
-void CVDiag(void *cvode_mem);
+void cv_diag(void *cvode_mem);
 
 #endif
