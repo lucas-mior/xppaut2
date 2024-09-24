@@ -377,7 +377,7 @@ redraw_froz_cline(int32 flag) {
             MyGraph->ThreeDFlag == 0) {
             if (flag > 0) {
                 browse_wait_a_sec(flag);
-                clr_scrn();
+                main_clr_scrn();
             }
             graphics_set_linestyle(col1);
             restor_null(z->xn, z->nmx, 1);
@@ -887,7 +887,7 @@ new_clines_com(int32 c) {
         return;
     }
     if (c == 4) {
-        froz_cline_stuff();
+        menudrive_froz_cline_stuff();
         return;
     }
     if (c == 5) {

@@ -148,7 +148,7 @@ eig_list_create_eq_list(void) {
         XSetWMProperties(display, base, &winname, &iconame, NULL, 0,
                          &size_hints, NULL, &class_hints);
     }
-    make_icon((char *)eqns_bits, eqns_width, eqns_height, base);
+    many_pops_make_icon((char *)eqns_bits, eqns_width, eqns_height, base);
     eq_list.main = make_plain_window(base, 0, 0, width, hmain, 1);
     eq_list.list = make_plain_window(base, 0, hmain, width, hlist, 1);
     eq_list.close = make_window(eq_list.main, 10, 5, 7*DCURXs, DCURYs + 2, 1);
@@ -375,7 +375,7 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
 
         XSetWMProperties(display, eq_box.base, &winname, &iconame, NULL, 0,
                          &size_hints, NULL, NULL);
-        make_icon((char *)equilib_bits, equilib_width, equilib_height, base);
+        many_pops_make_icon((char *)equilib_bits, equilib_width, equilib_height, base);
         eq_box.stab = make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
         eq_box.rest =
             make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);

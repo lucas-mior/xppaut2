@@ -829,7 +829,7 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
         XSetWMProperties(display, base, &winname, &iconname, NULL, 0,
                          &size_hints, NULL, &class_hints);
     }
-    make_icon((char *)browse_bits, browse_width, browse_height, base);
+    many_pops_make_icon((char *)browse_bits, browse_width, browse_height, base);
     b->upper = make_window(base, 0, 0, width, ystart + drow*6, 1);
     XSetWindowBackground(display, b->upper, MyMainWinColor);
     b->main =

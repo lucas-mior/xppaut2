@@ -217,7 +217,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(event); /*  menus and graphs etc  */
+        many_pops_do_expose(event); /*  menus and graphs etc  */
         expose_ebox(sb, event.xany.window, *pos);
         break;
 

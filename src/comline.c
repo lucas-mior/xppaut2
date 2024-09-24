@@ -231,7 +231,7 @@ do_comline(int32 argc, char **argv) {
                 ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
-            set_option("FORECOLOR", argv[i + 1], 1, NULL);
+            load_eqn_set_option("FORECOLOR", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 8) {
@@ -239,23 +239,23 @@ do_comline(int32 argc, char **argv) {
                 ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
-            set_option("BACKCOLOR", argv[i + 1], 1, NULL);
+            load_eqn_set_option("BACKCOLOR", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 9) {
-            set_option("BACKIMAGE", argv[i + 1], 1, NULL);
+            load_eqn_set_option("BACKIMAGE", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 10) {
-            set_option("GRADS", argv[i + 1], 1, NULL);
+            load_eqn_set_option("GRADS", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 11) {
-            set_option("WIDTH", argv[i + 1], 1, NULL);
+            load_eqn_set_option("WIDTH", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 12) {
-            set_option("HEIGHT", argv[i + 1], 1, NULL);
+            load_eqn_set_option("HEIGHT", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 13) {
@@ -263,7 +263,7 @@ do_comline(int32 argc, char **argv) {
                 ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
-            set_option("MWCOLOR", argv[i + 1], 1, NULL);
+            load_eqn_set_option("MWCOLOR", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 14) {
@@ -271,11 +271,11 @@ do_comline(int32 argc, char **argv) {
                 ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
-            set_option("DWCOLOR", argv[i + 1], 1, NULL);
+            load_eqn_set_option("DWCOLOR", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 15) {
-            set_option("BELL", argv[i + 1], 1, NULL);
+            load_eqn_set_option("BELL", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 16) {
@@ -303,11 +303,11 @@ do_comline(int32 argc, char **argv) {
             loadincludefile = 1;
         }
         if (k == 20) {
-            set_option("QUIET", argv[i + 1], 1, NULL);
+            load_eqn_set_option("QUIET", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 21) {
-            set_option("LOGFILE", argv[i + 1], 1, NULL);
+            load_eqn_set_option("LOGFILE", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 22) {
@@ -321,18 +321,18 @@ do_comline(int32 argc, char **argv) {
             exit(0);
         }
         if (k == 24) {
-            set_option("PLOTFMT", argv[i + 1], 1, NULL);
+            load_eqn_set_option("PLOTFMT", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 25) {
             SuppressOut = 1;
         }
         if (k == 26) {
-            set_option("DFDRAW", argv[i + 1], 1, NULL);
+            load_eqn_set_option("DFDRAW", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 27) {
-            set_option("NCDRAW", argv[i + 1], 1, NULL);
+            load_eqn_set_option("NCDRAW", argv[i + 1], 1, NULL);
             i++;
         }
         if (k == 28) { /* -readset */
@@ -370,14 +370,14 @@ comline_if_needed_load_ext_options(void) {
         fgets(myopts, 1024, fp);
         sprintf(myoptsx, "$ %s", myopts);
         ggets_plintf("Got this string: {%s}\n", myopts);
-        extract_action(myoptsx);
+        load_eqn_extract_action(myoptsx);
         fclose(fp);
         return 1;
     }
 
     if (externaloptionsflag == 2) {
         sprintf(myoptsx, "$ %s", externaloptionsstring);
-        extract_action(myoptsx);
+        load_eqn_extract_action(myoptsx);
         return 1;
     }
     return -1;

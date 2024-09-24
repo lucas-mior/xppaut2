@@ -431,7 +431,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(event); /*  menus and graphs etc  */
+        many_pops_do_expose(event); /*  menus and graphs etc  */
         expose_sbox(*sb, event.xany.window, *pos);
         if (scrb->exist)
             expose_scroll_box(event.xany.window, *scrb);
@@ -546,7 +546,7 @@ make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
         class_hints.res_name = "";
         class_hints.res_class = "";
 
-        make_icon((char *)info_bits, info_width, info_height, base);
+        many_pops_make_icon((char *)info_bits, info_width, info_height, base);
         XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
                          NULL, &class_hints);
     }
@@ -975,7 +975,7 @@ respond_box(char *button, char *message) {
     height = 5*DCURY;
     wmain = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                               DisplayHeight / 2, width*DCURX, height, 4);
-    make_icon((char *)alert_bits, alert_width, alert_height, wmain);
+    many_pops_make_icon((char *)alert_bits, alert_width, alert_height, wmain);
     wm = make_plain_window(wmain, ((width - l1)*DCURX) / 2, DCURY / 2,
                            l1*DCURX, DCURY, 0);
     wb = make_window(wmain, ((width - l2)*DCURX) / 2, 2*DCURY, l2*DCURX,
@@ -989,7 +989,7 @@ respond_box(char *button, char *message) {
         switch (event.type) {
         case Expose:
         case MapNotify:
-            do_expose(event);
+            many_pops_do_expose(event);
             expose_resp_box(button, message, wb, wm, event.xexpose.window);
             break;
         case KeyPress:
@@ -1064,7 +1064,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     x2 = x1 + l1 + 4*DCURX;
     base = make_plain_window(window, x, y, tot, 5*DCURY, 4);
 
-    make_icon((char *)alert_bits, alert_width, alert_height, base);
+    many_pops_make_icon((char *)alert_bits, alert_width, alert_height, base);
 
     c1 = make_window(base, x1, 3*DCURY, l1 + DCURX, DCURY + 4, 1);
     c2 = make_window(base, x2, 3*DCURY, l2 + DCURX, DCURY + 4, 1);
@@ -1087,7 +1087,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
         switch (event.type) {
         case Expose:
         case MapNotify:
-            do_expose(event);
+            many_pops_do_expose(event);
             expose_choice(choice1, choice2, string, c1, c2, wm,
                           event.xexpose.window);
             break;
@@ -1179,7 +1179,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
         switch (event.type) {
         case Expose:
         case MapNotify:
-            do_expose(event);
+            many_pops_do_expose(event);
             draw_pop_up(p, event.xexpose.window);
             break;
         case KeyPress:

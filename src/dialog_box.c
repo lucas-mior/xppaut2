@@ -125,7 +125,7 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(event);
+        many_pops_do_expose(event);
         display_dialog(event.xany.window, *d, *col);
         break;
     case ButtonPress:

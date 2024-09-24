@@ -711,10 +711,10 @@ do_eq_range(double *x) {
         SHOOT = 0;
     }
     if (eq_range.movie)
-        reset_film();
+        kinescope_reset_film();
     for (i = 0; i <= npar; i++) {
         if (eq_range.movie)
-            clear_draw_window();
+            menudrive_clear_draw_window();
         temp = parlo + dpar*(double)i;
         set_val(eq_range.item, temp);
         PAR_FOL = 1;
@@ -733,9 +733,9 @@ do_eq_range(double *x) {
                         &stabinfo);
         }
         if (eq_range.movie) {
-            draw_label(draw_win);
+            many_pops_draw_label(draw_win);
             graphics_put_text_x11(5, 10, bob);
-            if (film_clip() == 0)
+            if (kinescope_film_clip() == 0)
                 ggets_err_msg("Out of film");
         }
         if (mc == 0) {
@@ -844,7 +844,7 @@ integrate_do_range(double *x, int32 flag) {
     }
 
     if (range.movie)
-        reset_film();
+        kinescope_reset_film();
     if (flag == 2) {
         auto_x11_get_info(&nit, parn);
         nit2 = 0;
@@ -852,7 +852,7 @@ integrate_do_range(double *x, int32 flag) {
     for (j = 0; j <= nit2; j++) {
         for (i = 0; i <= nit; i++) {
             if (range.movie)
-                clear_draw_window();
+                menudrive_clear_draw_window();
             if (cycle)
                 MyGraph->color[0] = icol + 1;
             icol++;
@@ -925,14 +925,14 @@ integrate_do_range(double *x, int32 flag) {
                 break;
             }
             if (STOCH_FLAG)
-                append_stoch(i, storind);
+                markov_append_stoch(i, storind);
 
             if (range.movie) {
                 graphics_put_text_x11(5, 10, bob);
                 redraw_dfield();
                 create_new_cline();
-                draw_label(draw_win);
-                if (film_clip() == 0) {
+                many_pops_draw_label(draw_win);
+                if (kinescope_film_clip() == 0) {
                     ggets_err_msg("Out of film");
                     break;
                 }
@@ -981,7 +981,7 @@ integrate_do_range(double *x, int32 flag) {
     ggets_ping();
     adj_range = false;
     if (STOCH_FLAG)
-        do_stats(ierr);
+        markov_do_stats(ierr);
 
     return ierr;
 }
@@ -1098,7 +1098,7 @@ batch_integrate(void) {
             sprintf(batchout, "%s", UserOUTFILE);
         }
         ggets_plintf("out=%s\n", batchout);
-        extract_internset(i);
+        load_eqn_extract_internset(i);
         chk_delay();
         ggets_plintf(" Ok integrating now \n");
         do_batch_dry_run();
@@ -1199,9 +1199,9 @@ batch_integrate_once(void) {
     histogram_post_process_stuff();
     if (!batch_range || range.reset == 0) {
         if (STOCH_FLAG == 1)
-            mean_back();
+            markov_mean_back();
         if (STOCH_FLAG == 2)
-            variance_back();
+            markov_variance_back();
         if (!SuppressOut) {
             fp = fopen(batchout, "w");
             if (fp == NULL) {
@@ -1922,7 +1922,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     MSWTCH(xpv.x, x);
 
     if (Xup)
-        cwidth = get_command_width();
+        cwidth = main_get_command_width();
 
     LastTime = *t;
     evaluate_derived();
@@ -2287,8 +2287,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
 
         /*   This is where the progresser goes   */
         if (Xup) {
-            plot_command(nit, icount, cwidth);
-            esc = (char)my_abort();
+            main_plot_command(nit, icount, cwidth);
+            esc = (char)main_my_abort();
 
             {
 
@@ -2571,10 +2571,10 @@ plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
     }
 
     for (i = 0; i < num_pops; i++) {
-        make_active(ActiveWinList[i], flag);
+        many_pops_make_active(ActiveWinList[i], flag);
         plot_one_graph(xv, xvold, ddt, tc);
     }
-    make_active(ic, flag);
+    many_pops_make_active(ic, flag);
     return;
 }
 

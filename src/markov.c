@@ -78,14 +78,14 @@ static void create_markov(int32 nstates, double *st, int32 type, char *name);
 static void extract_expr(char *source, char *dest, int32 *i0);
 
 void
-add_wiener(int32 index) {
+markov_add_wiener(int32 index) {
     Wiener[NWiener] = index;
     NWiener++;
     return;
 }
 
 void
-set_wieners(double dt, double *x, double t) {
+markov_set_wieners(double dt, double *x, double t) {
     int32 i;
     update_markov(x, t, fabs(dt));
     for (i = 0; i < NWiener; i++)
@@ -385,7 +385,7 @@ new_state(double old, int32 index, double dt) {
 }
 
 void
-make_gill_nu(double *nu, int32 n, int32 m, double *v) {
+markov_make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     /* nu[j+m*i] = nu_{i,j} i=1,n-1 -- assume first eqn is tr'=tr+z(0)
        i species j reaction
       need this for improved tau stepper
@@ -417,7 +417,7 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
 }
 
 void
-one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
+markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
     double rate = 0, test;
     double r[1000];
     /*double rold[1000]; Not used*/
@@ -456,7 +456,7 @@ one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
 }
 
 void
-do_stochast_com(int32 i) {
+markov_do_stochast_com(int32 i) {
     static char key[] = "ncdmvhofpislaxe2";
     char ch = key[i];
 
@@ -471,10 +471,10 @@ do_stochast_com(int32 i) {
         adj2_data_back();
         break;
     case 'm':
-        mean_back();
+        markov_mean_back();
         break;
     case 'v':
-        variance_back();
+        markov_variance_back();
         break;
     case 'c':
         compute_em();
@@ -522,7 +522,7 @@ do_stochast_com(int32 i) {
 }
 
 void
-mean_back(void) {
+markov_mean_back(void) {
     if (STOCH_HERE) {
         set_browser_data(my_mean, 1);
         /*    my_browser.data=my_mean;
@@ -534,7 +534,7 @@ mean_back(void) {
 }
 
 void
-variance_back(void) {
+markov_variance_back(void) {
     if (STOCH_HERE) {
         set_browser_data(my_variance, 1);
         /*    my_browser.data=my_variance;
@@ -592,7 +592,7 @@ init_stoch(int32 len) {
 }
 
 void
-append_stoch(int32 first, int32 length) {
+markov_append_stoch(int32 first, int32 length) {
     int32 i;
     int32 j;
     double z;
@@ -612,7 +612,7 @@ append_stoch(int32 first, int32 length) {
 }
 
 void
-do_stats(int32 ierr) {
+markov_do_stats(int32 ierr) {
     int32 i;
     int32 j;
     double ninv, mean;

@@ -109,7 +109,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
 
     int32 iter = 0, info, ipivot[MAX_ODE1];
     int32 ml = cv_bandlower, mr = cv_bandupper, mt = ml + mr + 1;
-    set_wieners(dt, y, *t);
+    markov_set_wieners(dt, y, *t);
     *t = *t + dt;
     rhs(*t, y, yp2, neq);
     for (i = 0; i < neq; i++)
@@ -156,7 +156,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
 void
 one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
     int32 j;
-    set_wieners(dt, y, *t);
+    markov_set_wieners(dt, y, *t);
     rhs(*t, y, yp, neq);
     *t = *t + dt;
     for (j = 0; j < neq; j++) {
@@ -184,7 +184,7 @@ void
 one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
     int32 j;
 
-    set_wieners(dt, y, *t);
+    markov_set_wieners(dt, y, *t);
     rhs(*t, y, yp, neq);
     *t += dt;
     for (j = 0; j < neq; j++)
@@ -196,7 +196,7 @@ void
 one_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim) {
     int32 i;
     double t = *tim, t1, t2;
-    set_wieners(dt, y, t);
+    markov_set_wieners(dt, y, t);
     rhs(t, y, yval[1], neq);
     for (i = 0; i < neq; i++) {
         yval[0][i] = y[i] + dt*yval[1][i] / 6.00;
@@ -225,7 +225,7 @@ void
 one_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim) {
     int32 i;
     double t = *tim, t1;
-    set_wieners(dt, y, *tim);
+    markov_set_wieners(dt, y, *tim);
     rhs(t, y, yval[0], neq);
     for (i = 0; i < neq; i++)
         yval[0][i] = dt*yval[0][i] + y[i];
@@ -380,7 +380,7 @@ n400:
     if (istpst == nstep)
         goto n450;
     for (n = istpst + 1; n < nstep + 1; n++) {
-        set_wieners(dt, y, x0);
+        markov_set_wieners(dt, y, x0);
         abmpc(y, &x0, dt, neq);
         delay_handle_stor_delay(y);
     }

@@ -304,7 +304,7 @@ form_ode_get_eqn(FILE *fptr) {
     BVP_N = 0;
     NUPAR = 0;
     NWiener = 0;
-    /* check_for_xpprc();  This is now done just once and in do_vis_env() */
+    /* load_eqn_check_for_xpprc();  This is now done just once and in main_do_vis_env() */
     strcpy(options, "default.opt");
     add_var("t", 0.0);
     fgets(bob, MAXEXPLEN, fptr);
@@ -449,7 +449,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
     ptr = bob;
     done = 1;
     if (bob[0] == '@') {
-        stor_internopts(bob);
+        load_eqn_stor_internopts(bob);
         if (ConvertStyle)
             fprintf(convertf, "%s\n", bob);
         return done;
@@ -472,7 +472,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
 
         my_string = do_fit_get_next("}\n");
         strcpy(formula, my_string);
-        add_intern_set(condition, formula);
+        load_eqn_add_intern_set(condition, formula);
         break;
     case 'w': /*  Make a Wiener (heh heh) constants  */
         ggets_plintf("Wiener constants\n");
@@ -489,7 +489,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
                 ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
-            add_wiener(NCON - 1);
+            markov_add_wiener(NCON - 1);
         }
         if (ConvertStyle)
             fprintf(convertf, "\n");
@@ -1971,7 +1971,7 @@ parse_a_string(char *s1, VAR_INFO *v) {
     }
     if (s1[0] == '@') {
         /*    printf("internopts from parse string\n"); */
-        stor_internopts(s1);
+        load_eqn_stor_internopts(s1);
         return 0;
     }
     remove_blanks(s1);

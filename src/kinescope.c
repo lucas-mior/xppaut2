@@ -42,17 +42,17 @@ static void play_back(void);
 static int32 show_frame(int32 i, int32 h, int32 w);
 
 void
-do_movie_com(int32 c) {
+kinescope_do_movie_com(int32 c) {
     /*  XDestroyWindow(display,temp);
       draw_help();
       XFlush(display); */
     switch (c) {
     case 0:
-        if (film_clip() == 0)
+        if (kinescope_film_clip() == 0)
             respond_box("Okay", "Out of film!");
         break;
     case 1:
-        reset_film();
+        kinescope_reset_film();
         break;
     case 2:
         play_back();
@@ -75,7 +75,7 @@ do_movie_com(int32 c) {
 }
 
 void
-reset_film(void) {
+kinescope_reset_film(void) {
     int32 i;
     if (mov_ind == 0)
         return;
@@ -86,7 +86,7 @@ reset_film(void) {
 }
 
 int32
-film_clip(void) {
+kinescope_film_clip(void) {
     int32 x;
     int32 y;
     uint32 h, w, bw, d;

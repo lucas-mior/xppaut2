@@ -1184,11 +1184,11 @@ evaluate_network(int32 ind) {
         if (my_net[ind].ncon == -1 && my_net[ind].iwgt > 0) {
             my_net[ind].weight =
                 xmalloc((usize)(my_net[ind].root*NODE)*sizeof(double));
-            make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
+            markov_make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
                          my_net[ind].values);
             my_net[ind].ncon = 0;
         }
-        one_gill_step(my_net[ind].iwgt, my_net[ind].root, my_net[ind].gcom,
+        markov_one_gill_step(my_net[ind].iwgt, my_net[ind].root, my_net[ind].gcom,
                       my_net[ind].values);
         break;
     case CONVE:

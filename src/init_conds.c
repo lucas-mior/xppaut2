@@ -707,7 +707,7 @@ do_file_select_events(void) {
         case Expose:
         case MapNotify:
             if (Xup)
-                do_expose(event);
+                many_pops_do_expose(event);
             expose_selector(event.xany.window);
             break;
         case ButtonPress:
@@ -775,7 +775,7 @@ create_file_selector(char *title, char *file, char *wild) {
     size_hints.max_width = width;
     size_hints.max_height = height;
 
-    make_icon((char *)filebrowse_bits, filebrowse_width, filebrowse_height,
+    many_pops_make_icon((char *)filebrowse_bits, filebrowse_width, filebrowse_height,
               base);
 
     {
@@ -1264,10 +1264,10 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
             if (p->type == ICBOX)
                 last_ic[p->index] = p->val;
             if (s < 300) {
-                clr_all_scrns();
+                menudrive_clr_all_scrns();
                 redraw_dfield();
                 create_new_cline();
-                draw_label(draw_win);
+                many_pops_draw_label(draw_win);
                 SuppressBounds = 1;
                 integrate_run_now();
                 SuppressBounds = sp;
@@ -1432,7 +1432,7 @@ init_conds_make_new_ic_box(void) {
         return;
     }
     make_box_list_window(&ICBox, ICBOX);
-    make_icon((char *)ic_bits, ic_width, ic_height, ICBox.base);
+    many_pops_make_icon((char *)ic_bits, ic_width, ic_height, ICBox.base);
     return;
 }
 
@@ -1443,7 +1443,7 @@ init_conds_make_new_bc_box(void) {
         return;
     }
     make_box_list_window(&BCBox, BCBOX);
-    make_icon((char *)bc_bits, bc_width, bc_height, BCBox.base);
+    many_pops_make_icon((char *)bc_bits, bc_width, bc_height, BCBox.base);
     return;
 }
 
@@ -1456,7 +1456,7 @@ init_conds_make_new_delay_box(void) {
         return;
     }
     make_box_list_window(&DelayBox, DELAYBOX);
-    make_icon((char *)delay_bits, delay_width, delay_height, DelayBox.base);
+    many_pops_make_icon((char *)delay_bits, delay_width, delay_height, DelayBox.base);
     return;
 }
 
@@ -1469,7 +1469,7 @@ init_conds_make_new_param_box(void) {
         return;
     }
     make_box_list_window(&ParamBox, PARAMBOX);
-    make_icon((char *)param_bits, param_width, param_height, ParamBox.base);
+    many_pops_make_icon((char *)param_bits, param_width, param_height, ParamBox.base);
     return;
 }
 

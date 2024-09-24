@@ -200,14 +200,14 @@ do_sh_range(double *ystart, double *yend) {
     storind = 0;
     icol = 0;
     if (shoot_range.movie == 1)
-        reset_film();
+        kinescope_reset_film();
     for (i = 0; i <= npar; i++) {
         temp = parlo + dpar*(double)i;
         set_val(shoot_range.item, temp);
         snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
         ggets_bottom_msg(bob);
         if (shoot_range.movie == 1)
-            clr_scrn();
+            main_clr_scrn();
 
         bvshoot(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0, 0, 0,
                 0, 0.0);
@@ -232,7 +232,7 @@ do_sh_range(double *ystart, double *yend) {
         integrate_get_ic(0, ystart);
         last_shot(0);
         if (shoot_range.movie == 1)
-            film_clip();
+            kinescope_film_clip();
         ggets_ping();
     }
     refresh_browser(storind);
@@ -455,7 +455,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
 
     /* dt=(t1-t0)/nt;  */
     while (true) {
-        esc = (char)my_abort();
+        esc = (char)main_my_abort();
 
         {
             if (esc == ESCAPE) {

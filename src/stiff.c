@@ -104,7 +104,7 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
     work2 = dydx + nvar;
     x = x1;
     h = SIGN(h1, x2 - x1);
-    set_wieners(*hguess, ystart, x1);
+    markov_set_wieners(*hguess, ystart, x1);
     *ier = 0;
     for (i = 0; i < nvar; i++)
         y[i] = ystart[i];

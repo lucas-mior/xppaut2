@@ -153,7 +153,7 @@ get_num_par(int32 ch)
     int32 tmp;
     switch (ch) {
     case 'a':
-        make_adj();
+        menudrive_make_adj();
         break;
     case 't':
         /* total */
@@ -288,17 +288,17 @@ get_num_par(int32 ch)
         /* color */
         if (COLOR == 0)
             break;
-        set_col_par();
+        menudrive_set_col_par();
         break;
     case 'h':
-        do_stochast();
+        menudrive_do_stochast();
         break;
     case 'f':
         /* FFT */
         break;
     case 'p':
         /*Poincare map */
-        get_pmap_pars();
+        menudrive_get_pmap_pars();
         break;
     case 'u':
         /* ruelle */
@@ -306,7 +306,7 @@ get_num_par(int32 ch)
         break;
     case 'k':
         /*lookup table */
-        new_lookup();
+        menudrive_new_lookup();
         break;
     case 27:
         do_meth();

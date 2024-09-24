@@ -616,7 +616,7 @@ graphics_set_extra(void) {
     }
     if (Xup) {
         for (i = 1; i < NPltV; i++) {
-            create_a_pop();
+            many_pops_create_a_pop();
             graph[i].xv[0] = IX_PLT[i + 1];
             graph[i].yv[0] = IY_PLT[i + 1];
             graph[i].zv[0] = IZ_PLT[i + 1]; /* irrelevant probably */
@@ -628,8 +628,8 @@ graphics_set_extra(void) {
             /*  printf(" %g %g %g %g
              * \n",X_LO[i+1],X_HI[i+1],Y_LO[i+1],Y_HI[i+1]); */
         }
-        set_active_windows();
-        make_active(0, 1);
+        many_pops_set_active_windows();
+        many_pops_make_active(0, 1);
     }
     return;
 }

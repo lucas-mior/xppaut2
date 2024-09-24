@@ -358,7 +358,7 @@ create_vcr(char *name) {
     XStringListToTextProperty(&name, 1, &iconname);
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
-    make_icon((char *)aniwin_bits, aniwin_width, aniwin_height, base);
+    many_pops_make_icon((char *)aniwin_bits, aniwin_width, aniwin_height, base);
     vcr.wfile = browse_button2(base, 0, 0, 0);
     vcr.wgo = browse_button2(base, 0, 1, 0);
     vcr.wreset = browse_button2(base, 0, 2, 0);

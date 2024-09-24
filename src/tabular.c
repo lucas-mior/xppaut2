@@ -133,7 +133,7 @@ new_lookup_com(int32 i) {
     int32 npts;
     char newform[80];
 
-    index = select_table();
+    index = many_pops_select_table();
     if (index == -1)
         return;
     if (i == 1) {

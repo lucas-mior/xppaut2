@@ -67,7 +67,7 @@ void
 ggets_reset_graphics(void) {
     ggets_blank_screen(draw_win);
     axes2_do();
-    hi_lite(draw_win);
+    many_pops_hi_lite(draw_win);
     return;
 }
 
@@ -173,7 +173,7 @@ ggets_plintf(char *fmt, ...) {
 
 int32
 ggets_show_position(XEvent event) {
-    check_draw_button(event);
+    many_pops_check_draw_button(event);
     return 0;
 }
 
@@ -258,7 +258,7 @@ ggets_cput_text(void) {
         /* graphics_fancy_put_text_x11(x,y,string,size,font); */
         graphics_fillin_text(string, new);
         graphics_special_put_text_x11(x, y, new, size);
-        add_label(string, x, y, size, font);
+        many_pops_add_label(string, x, y, size, font);
         many_pops_base_col();
     }
     browse_wait_a_sec(ClickTime);
@@ -277,7 +277,7 @@ ggets_mouse_xy(int32 *x, int32 *y, Window window) {
         XNextEvent(display, &event);
         switch (event.type) {
         case Expose:
-            do_expose(event);
+            many_pops_do_expose(event);
             break;
         case KeyPress:
             ch = (char)ggets_get_key_press(&event);
@@ -519,7 +519,7 @@ edit_command_string(XEvent event, char *name, char *value, int32 *done2,
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        do_expose(event);
+        many_pops_do_expose(event);
         if (event.xexpose.window == command_pop)
             ggets_display_command(name, value, *pos);
         break;

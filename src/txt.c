@@ -147,7 +147,7 @@ do_txt_action(char *s) {
     int32 tb = tfBell;
     tfBell = 1;
     graphics_get_graph();
-    extract_action(s);
+    load_eqn_extract_action(s);
     ggets_ping();
     tfBell = tb;
     chk_delay();
@@ -338,7 +338,7 @@ make_txtview(void) {
     size_hints.y = 0;
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
-    make_icon((char *)txtview_bits, txtview_width, txtview_height, base);
+    many_pops_make_icon((char *)txtview_bits, txtview_width, txtview_height, base);
     txtview.up = make_window(base, DCURXs, 2, 8*DCURXs, DCURYs, 1);
     txtview.down = make_window(base, DCURXs + ww, 2, 8*DCURXs, DCURYs, 1);
     txtview.pgup = make_window(base, DCURXs + 2*ww, 2, 8*DCURXs, DCURYs, 1);

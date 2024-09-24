@@ -188,7 +188,7 @@ static void init_X(void);
 static void check_for_quiet(int32 argc, char **argv);
 
 void
-plot_command(int32 nit, int32 icount, int32 cwidth) {
+main_plot_command(int32 nit, int32 icount, int32 cwidth) {
     double dx;
 
     if (nit == 0)
@@ -227,7 +227,7 @@ xmalloc(usize size) {
 #endif
 
 int32
-my_abort(void) {
+main_my_abort(void) {
     int32 ch;
 
     while (XPending(display) > 0) {
@@ -239,7 +239,7 @@ my_abort(void) {
 
         switch (event.type) {
         case Expose:
-            do_expose(event);
+            many_pops_do_expose(event);
             break;
         case ButtonPress:
             break;
@@ -443,8 +443,8 @@ do_main(int32 argc, char **argv) {
         *tempNS = notAlreadySet;
         /* Initialize what's needed to open a browser based on
          * the current options.  */
-        do_vis_env();
-        set_all_vals();
+        main_do_vis_env();
+        load_eqn_set_all_vals();
         init_X();
         /*       XSynchronize(display,1); */
         /* Now swap back the options for proper precedence ordering of options.
@@ -457,12 +457,12 @@ do_main(int32 argc, char **argv) {
 
     tempNS = xmalloc(sizeof(*tempNS));
     *tempNS = notAlreadySet;
-    set_internopts(tempNS);
+    load_eqn_set_internopts(tempNS);
     free(tempNS);
 
     init_alloc_info();
-    do_vis_env();
-    set_all_vals();
+    main_do_vis_env();
+    load_eqn_set_all_vals();
 
     init_alloc_info();
     dae_fun_set_init_guess();
@@ -512,7 +512,7 @@ do_main(int32 argc, char **argv) {
         exit(0);
     }
 
-    gtitle_text(pptitle, main_win);
+    many_pops_gtitle_text(pptitle, main_win);
     Xup = 1;
     color_map_make();
 
@@ -553,7 +553,7 @@ do_main(int32 argc, char **argv) {
     }
 
     if (DoTutorial == 1)
-        do_tutorial();
+        menudrive_do_tutorial();
 
     graf_par_default_window();
 
@@ -573,11 +573,11 @@ check_for_quiet(int32 argc, char **argv) {
 
     for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-quiet") == 0) {
-            set_option("QUIET", argv[i + 1], 1, NULL);
+            load_eqn_set_option("QUIET", argv[i + 1], 1, NULL);
             quiet_specified_once = 1;
             i++;
         } else if (strcmp(argv[i], "-logfile") == 0) {
-            set_option("LOGFILE", argv[i + 1], 1, NULL);
+            load_eqn_set_option("LOGFILE", argv[i + 1], 1, NULL);
             logfile_specified_once = 1;
             i++;
         }
@@ -592,10 +592,10 @@ check_for_quiet(int32 argc, char **argv) {
 }
 
 void
-do_vis_env(void) {
-    set_X_vals();
-    check_for_xpprc();
-    set_internopts_xpprc_and_comline();
+main_do_vis_env(void) {
+    load_eqn_set_X_vals();
+    load_eqn_check_for_xpprc();
+    load_eqn_set_internopts_xpprc_and_comline();
     return;
 }
 
@@ -848,8 +848,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
                                   (uint)SCALEX - 4, (uint)DCURY);
                 init_conds_resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
-                resize_all_pops(SCALEX, SCALEY);
-                redraw_all();
+                many_pops_resize_all(SCALEX, SCALEY);
+                main_redraw_all();
             }
         }
 
@@ -858,7 +858,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     case MapNotify:
         if (report.xany.window == command_pop)
             ggets_put_command("Command:");
-        do_expose(report);
+        many_pops_do_expose(report);
 
         break;
     case KeyPress:
@@ -902,7 +902,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 #endif
         break;
     case MotionNotify:
-        do_motion_events(report);
+        many_pops_do_motion_events(report);
         break;
     case ButtonRelease:
         init_conds_slide_release(report.xbutton.window);
@@ -936,7 +936,7 @@ do_events(uint32 min_wid, uint32 min_hgt) {
     ggets_blank_screen(main_win);
     menu_help();
     if (RunImmediately == 1) {
-        run_the_commands(4);
+        menudrive_run_the_commands(4);
         RunImmediately = 0;
     }
     while (true) {
@@ -963,21 +963,21 @@ bye_bye(void) {
 }
 
 void
-clr_scrn(void) {
+main_clr_scrn(void) {
     ggets_blank_screen(draw_win);
-    restore_off();
+    many_pops_restore_off();
     axes2_do();
     return;
 }
 
 void
-redraw_all(void) {
+main_redraw_all(void) {
     if (manual_expose == 0) {
         redraw_dfield();
         integrate_restore(0, my_browser.maxrow);
-        draw_label(draw_win);
+        many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
-        restore_on();
+        many_pops_restore_on();
     }
     return;
 }
@@ -988,28 +988,28 @@ main_commander(int32 ch) {
     case MAIN_MENU: {
         switch (ch) {
         case 'i':
-            ini_data_menu();
+            menudrive_ini_data_menu();
             break;
         case 'c':
             integrate_cont_integ();
             break;
         case 'n':
-            new_clines();
+            menudrive_new_clines();
             break;
         case 'd':
-            direct_field();
+            menudrive_direct_field();
             break;
         case 'w':
-            window_zoom();
+            menudrive_window_zoom();
             break;
         case 'a':
-            do_torus();
+            menudrive_do_torus();
             break;
         case 'k':
-            do_movie();
+            menudrive_do_movie();
             break;
         case 'g':
-            add_a_curve();
+            menudrive_add_a_curve();
             break;
         case 'u':
             help_num();
@@ -1018,36 +1018,36 @@ main_commander(int32 ch) {
             help_file();
             break;
         case 'p':
-            new_param();
+            menudrive_new_param();
             break;
         case 'e':
-            clear_screens();
+            menudrive_clear_screens();
             break;
         case 'h':
         case 'm':
-            do_windows();
+            menudrive_do_windows();
             break;
         case 't':
-            do_gr_objs();
+            menudrive_do_gr_objs();
             break;
         case 's':
-            find_equilibrium();
+            menudrive_find_equilibrium();
             break;
         case 'v':
-            change_view();
+            menudrive_change_view();
             break;
         case 'b':
-            find_bvp();
+            menudrive_find_bvp();
             break;
 
         case 'x':
-            x_vs_t();
+            menudrive_x_vs_t();
             break;
         case 'r':
-            redraw_them_all();
+            menudrive_redraw_them_all();
             break;
         case '3':
-            get_3d_par();
+            menudrive_get_3d_par();
             break;
         case 'y':
             graphics_draw_many_lines();
@@ -1067,7 +1067,7 @@ main_commander(int32 ch) {
             adj2_do_transpose();
             break;
         case 'g':
-            get_intern_set();
+            many_pops_get_intern_set();
             break;
         case 'i':
             TipsFlag = 1 - TipsFlag;
@@ -1099,7 +1099,7 @@ main_commander(int32 ch) {
             tfBell = 1 - tfBell;
             break;
         case 'h':
-            xpp_hlp();
+            menudrive_xpp_hlp();
             break;
         case 'q':
             if (yes_no_box())
@@ -1109,10 +1109,10 @@ main_commander(int32 ch) {
             init_conds_clone_ode();
             break;
         case 'x':
-            edit_xpprc();
+            menudrive_edit_xpprc();
             break;
         case 'u':
-            do_tutorial();
+            menudrive_do_tutorial();
             break;
         default:
             break;
@@ -1234,7 +1234,7 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
 }
 
 void
-top_button_draw(Window window) {
+main_top_button_draw(Window window) {
     if (window == TopButton[0])
         XDrawString(display, window, small_gc, 5, CURY_OFFs, "ICs  ", 5);
     if (window == TopButton[1])
@@ -1283,7 +1283,7 @@ top_button_events(XEvent report) {
     switch (report.type) {
     case Expose:
     case MapNotify:
-        top_button_draw(report.xany.window);
+        main_top_button_draw(report.xany.window);
         break;
     case EnterNotify:
         top_button_cross(report.xcrossing.window, 2);
@@ -1391,7 +1391,7 @@ make_pops(void) {
     XSelectInput(display, info_pop, ExposureMask);
     XMapWindow(display, info_pop);
     XMapWindow(display, command_pop);
-    init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, (int32)w - 16 - 16*DCURX,
+    many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, (int32)w - 16 - 16*DCURX,
                (int32)h - 6*DCURY - 16);
     init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
     graphics_get_draw_area();
@@ -1504,7 +1504,7 @@ test_color_info(void) {
 }
 
 int32
-get_command_width(void) {
+main_get_command_width(void) {
     int32 x;
     int32 y;
     uint32 w, h, bw, de;

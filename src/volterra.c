@@ -340,7 +340,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
     for (i = 0; i < nt; i++) /* the real computation            */
     {
         *t = *t + dt;
-        set_wieners(dt, y, *t);
+        markov_set_wieners(dt, y, *t);
         if ((j = volterra_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) != 0)
             return j;
         delay_handle_stor_delay(y);

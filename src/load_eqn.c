@@ -99,7 +99,7 @@ extern double THETA0;
 extern double PHI0;
 extern int32 tfBell;
 extern int32 DoTutorial;
-/*void set_option(char *s1,char *s2);
+/*void load_eqn_set_option(char *s1,char *s2);
  */
 
 /*   this file has all of the phaseplane parameters defined
@@ -225,7 +225,7 @@ static void fil_flt(FILE *fpt, double *val);
 static void read_defaults(FILE *fp);
 
 void
-dump_torus(FILE *fp, int32 f) {
+load_eqn_dump_torus(FILE *fp, int32 f) {
     int32 i;
     char bob[256];
     if (f == READEM)
@@ -294,7 +294,7 @@ load_eqn(void) {
 }
 
 void
-set_X_vals(void) {
+load_eqn_set_X_vals(void) {
     /*
     Set up the default look here.
     */
@@ -339,7 +339,7 @@ set_X_vals(void) {
 }
 
 void
-set_all_vals(void) {
+load_eqn_set_all_vals(void) {
     int32 i;
 
     FILE *fp;
@@ -593,7 +593,7 @@ set_all_vals(void) {
         notAlreadySet.NPLOT = 0;
     }
     /* internal options go here  */
-    set_internopts(NULL);
+    load_eqn_set_internopts(NULL);
 
     if ((fp = fopen(options, "r")) != NULL) {
         read_defaults(fp);
@@ -791,7 +791,7 @@ fil_int(FILE *fpt, int32 *val) {
  */
 
 void
-add_intern_set(char *name, char *does) {
+load_eqn_add_intern_set(char *name, char *does) {
     char bob[1024], ch;
     int32 i, n, j = Nintern_set, k = 0;
     if (Nintern_set >= MAX_INTERN_SET) {
@@ -829,7 +829,7 @@ add_intern_set(char *name, char *does) {
 }
 
 void
-extract_action(char *ptr) {
+load_eqn_extract_action(char *ptr) {
     char name[256], value[256];
     char tmp[2048];
     char *junk;
@@ -849,8 +849,8 @@ extract_action(char *ptr) {
 }
 
 void
-extract_internset(int32 j) {
-    extract_action(intern_set[j].does);
+load_eqn_extract_internset(int32 j) {
+    load_eqn_extract_action(intern_set[j].does);
     return;
 }
 
@@ -868,8 +868,8 @@ do_intern_set(char *name1, char *value) {
         if (i > -1) {
             set_val(name, atof(value));
         } else {
-            /*     set_option(name,value,0,NULL); */
-            set_option(name, value, 1, NULL);
+            /*     load_eqn_set_option(name,value,0,NULL); */
+            load_eqn_set_option(name, value, 1, NULL);
         }
     }
     alloc_meth();
@@ -889,7 +889,7 @@ load_eqn_msc(char *s1, char *s2) {
 }
 
 void
-set_internopts(OptionsSet *mask) {
+load_eqn_set_internopts(OptionsSet *mask) {
     int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
@@ -961,7 +961,7 @@ set_internopts(OptionsSet *mask) {
                         }
                 }
                 */
-                set_option(name, value, 0, mask);
+                load_eqn_set_option(name, value, 0, mask);
             }
         }
     }
@@ -974,7 +974,7 @@ set_internopts(OptionsSet *mask) {
 }
 
 void
-set_internopts_xpprc_and_comline(void) {
+load_eqn_set_internopts_xpprc_and_comline(void) {
     int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
     OptionsSet *tempNAS;
@@ -998,13 +998,13 @@ set_internopts_xpprc_and_comline(void) {
             if (strlen(name) == 5) {
                 strupr(name);
                 if (strcmp(name, "QUIET") == 0) {
-                    set_option(name, value, 0, NULL);
+                    load_eqn_set_option(name, value, 0, NULL);
                 }
             } else if (strlen(name) == 7) {
                 strupr(name);
 
                 if (strcmp(name, "LOGFILE") == 0) {
-                    set_option(name, value, 0, NULL);
+                    load_eqn_set_option(name, value, 0, NULL);
                 }
             }
         }
@@ -1023,7 +1023,7 @@ set_internopts_xpprc_and_comline(void) {
         while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
-                set_option(name, value, 0, tempNAS);
+                load_eqn_set_option(name, value, 0, tempNAS);
             }
         }
     }
@@ -1060,7 +1060,7 @@ split_apart(char *bob, char *name, char *value) {
 }
 
 void
-check_for_xpprc(void) {
+load_eqn_check_for_xpprc(void) {
     FILE *fp;
     char rc[256];
     char bob[256];
@@ -1072,7 +1072,7 @@ check_for_xpprc(void) {
         bob[0] = '\0';
         fgets(bob, 255, fp);
         if (bob[0] == '@') {
-            stor_internopts(bob);
+            load_eqn_stor_internopts(bob);
         }
     }
     fclose(fp);
@@ -1080,7 +1080,7 @@ check_for_xpprc(void) {
 }
 
 void
-stor_internopts(char *s1) {
+load_eqn_stor_internopts(char *s1) {
     int32 n = (int32)strlen(s1);
     if (Nopts > MAXOPT) {
         ggets_plintf("WARNING -- to many options set %s ignored\n", s1);
@@ -1093,7 +1093,7 @@ stor_internopts(char *s1) {
 }
 
 void
-set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
+load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     int32 i, j, f;
     char xx[4], yy[4], zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];

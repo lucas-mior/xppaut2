@@ -641,7 +641,7 @@ auto_x11_bye(int32 *iflag) {
         XNextEvent(display, &event);
         switch (event.type) {
         case Expose:
-            do_expose(event);
+            many_pops_do_expose(event);
             break;
         case ButtonPress:
             window = event.xbutton.window;
@@ -784,7 +784,7 @@ auto_x11_scroll(void) {
             alldone = 1;
             break;
         case Expose:
-            do_expose(event);
+            many_pops_do_expose(event);
             break;
         case ButtonPress:
             if (state == 0) {
@@ -968,7 +968,7 @@ auto_x11_make(char *wname, char *iname) {
                          &size_hints, NULL, &class_hints);
     }
 
-    make_icon((char *)auto_bits, auto_width, auto_height, base);
+    many_pops_make_icon((char *)auto_bits, auto_width, auto_height, base);
 
     auto_win.canvas = make_plain_window(base, x, y, STD_WID_var + xmargin,
                                         STD_HGT_var + ymargin, 1);

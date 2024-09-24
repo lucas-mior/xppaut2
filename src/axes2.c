@@ -58,7 +58,7 @@ void
 re_title(void) {
     char bob[40];
     make_title(bob);
-    title_text(bob);
+    many_pops_title_text(bob);
     return;
 }
 
@@ -161,10 +161,10 @@ axes2_redraw_cube_pt(double theta, double phi) {
     char bob[50];
     graphics_set_linestyle(0);
     graphics_make_rot(theta, phi);
-    clr_scrn();
+    main_clr_scrn();
 
     sprintf(bob, "theta=%g phi=%g", theta, phi);
-    canvas_xy(bob);
+    many_pops_canvas_xy(bob);
     return;
 }
 
@@ -203,7 +203,7 @@ axes2_redraw_cube(double theta, double phi) {
     ggets_blank_screen(draw_win);
     draw_unit_cube();
     sprintf(bob, "theta=%g phi=%g", theta, phi);
-    canvas_xy(bob);
+    many_pops_canvas_xy(bob);
     return;
 }
 

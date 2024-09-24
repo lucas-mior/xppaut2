@@ -591,9 +591,9 @@ graf_par_redraw_the_graph(void) {
     ggets_blank_screen(draw_win);
     graphics_set_normal_scale();
     axes2_do();
-    hi_lite(draw_win);
+    many_pops_hi_lite(draw_win);
     integrate_restore(0, my_browser.maxrow);
-    draw_label(draw_win);
+    many_pops_draw_label(draw_win);
     graf_par_draw_freeze(draw_win);
     redraw_dfield();
     if (MyGraph->Nullrestore)
@@ -605,14 +605,14 @@ void
 movie_rot(double start, double increment, int32 nclip, int32 angle) {
     int32 i;
     double thetaold = MyGraph->Theta, phiold = MyGraph->Phi;
-    reset_film();
+    kinescope_reset_film();
     for (i = 0; i <= nclip; i++) {
         if (angle == 0)
             graphics_make_rot(start + i*increment, phiold);
         else
             graphics_make_rot(thetaold, start + i*increment);
         graf_par_redraw_the_graph();
-        film_clip();
+        kinescope_film_clip();
     }
     MyGraph->Theta = thetaold;
     MyGraph->Phi = phiold;
@@ -720,7 +720,7 @@ scroll_window(void) {
             alldone = 1;
             break;
         case Expose:
-            do_expose(event);
+            many_pops_do_expose(event);
             break;
         case ButtonPress:
             if (state == 0) {
@@ -1025,7 +1025,7 @@ create_ps(void) {
         if (!init_conds_file_selector("Print postscript", filename, "*.ps"))
             return;
         if (ps_init(filename, PS_Color)) {
-            ps_restore();
+            many_pops_ps_restore();
             ggets_ping();
         }
     }
@@ -1048,11 +1048,11 @@ graf_par_dump_ps(int32 i) {
 
     if (strcmp(PlotFormat, "ps") == 0) {
         if (ps_init(filename, PS_Color)) {
-            ps_restore();
+            many_pops_ps_restore();
         }
     } else if (strcmp(PlotFormat, "svg") == 0) {
         if (svg_init(filename)) {
-            svg_restore();
+            many_pops_svg_restore();
         }
     }
     return;
@@ -1068,7 +1068,7 @@ create_svg(void) {
     if (!init_conds_file_selector("Print svg", filename, "*.svg"))
         return;
     if (svg_init(filename)) {
-        svg_restore();
+        many_pops_svg_restore();
         ggets_ping();
     }
     return;

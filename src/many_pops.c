@@ -124,7 +124,7 @@ static void draw_grob(int32 i);
 static void draw_marker(double x, double y, double size, int32 type);
 
 int32
-select_table(void) {
+many_pops_select_table(void) {
     int32 i;
     int32 j;
     Window temp = main_win;
@@ -148,7 +148,7 @@ select_table(void) {
 }
 
 void
-get_intern_set(void) {
+many_pops_get_intern_set(void) {
     char *n[MAX_INTERN_SET], key[MAX_INTERN_SET], ch;
     int32 i;
     int32 j;
@@ -172,7 +172,7 @@ get_intern_set(void) {
         return;
     }
     graphics_get_graph();
-    extract_internset(j);
+    load_eqn_extract_internset(j);
     chk_delay();
     init_conds_redraw_params();
     init_conds_redraw_ics();
@@ -180,7 +180,7 @@ get_intern_set(void) {
 }
 
 void
-make_icon(char *icon, int32 wid, int32 hgt, Window window) {
+many_pops_make_icon(char *icon, int32 wid, int32 hgt, Window window) {
     Pixmap icon_map;
     XWMHints wm_hints;
     icon_map =
@@ -201,13 +201,13 @@ make_icon(char *icon, int32 wid, int32 hgt, Window window) {
 }
 
 void
-title_text(char *string) {
-    gtitle_text(string, draw_win);
+many_pops_title_text(char *string) {
+    many_pops_gtitle_text(string, draw_win);
     return;
 }
 
 void
-gtitle_text(char *string, Window win) {
+many_pops_gtitle_text(char *string, Window win) {
     XTextProperty wname;
     XTextProperty iname;
     many_pops_gr_col();
@@ -235,21 +235,21 @@ gtitle_text(char *string, Window win) {
 }
 
 void
-restore_off(void) {
+many_pops_restore_off(void) {
     MyGraph->Restore = 0;
     /* MyGraph->Nullrestore=0; */
     return;
 }
 
 void
-restore_on(void) {
+many_pops_restore_on(void) {
     MyGraph->Restore = 1;
     /*  MyGraph->Nullrestore=1; */
     return;
 }
 
 void
-add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
+many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
     int32 i;
     double xp;
     double yp;
@@ -647,7 +647,7 @@ destroy_label(Window window) {
 }
 
 void
-draw_label(Window window) {
+many_pops_draw_label(Window window) {
     int32 i;
     many_pops_gr_col();
     for (i = 0; i < MAXLAB; i++) {
@@ -677,7 +677,7 @@ add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
             grob[i].size = size;
             grob[i].color = color;
             grob[i].type = type;
-            /*     redraw_all(); */
+            /*     main_redraw_all(); */
             return;
         }
     }
@@ -764,7 +764,7 @@ add_marker(void) {
         return;
     scale_to_real(i1, j1, &xs, &ys);
     add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
-    redraw_all();
+    main_redraw_all();
 }
 
 void
@@ -785,7 +785,7 @@ add_markers(void) {
         }
         add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
     }
-    redraw_all();
+    main_redraw_all();
 }
 
 void
@@ -812,13 +812,13 @@ add_pntarr(int32 type) {
         if (i1 == i2 && j1 == j2)
             return;
         add_grob(xs, ys, xe, ye, size, type, color);
-        redraw_all();
+        main_redraw_all();
     }
     return;
 }
 
 void
-edit_object_com(int32 com) {
+many_pops_edit_object_com(int32 com) {
     char ans, str[80];
     int32 i, j, ilab = -1, flag, type;
     double x;
@@ -870,8 +870,8 @@ edit_object_com(int32 com) {
                         scale_to_real(i, j, &x, &y);
                         lb[ilab].x = x;
                         lb[ilab].y = y;
-                        clr_scrn();
-                        redraw_all();
+                        main_clr_scrn();
+                        main_redraw_all();
                     }
                 }
                 break;
@@ -886,8 +886,8 @@ edit_object_com(int32 com) {
                         lb[ilab].size = 4;
                     if (lb[ilab].size < 0)
                         lb[ilab].size = 0;
-                    clr_scrn();
-                    redraw_all();
+                    main_clr_scrn();
+                    main_redraw_all();
                 }
                 break;
             case 2:
@@ -896,8 +896,8 @@ edit_object_com(int32 com) {
                 if (ans == 'y') {
                     lb[ilab].window = 0;
                     lb[ilab].use = 0;
-                    clr_scrn();
-                    redraw_all();
+                    main_clr_scrn();
+                    main_redraw_all();
                 }
                 break;
             default:
@@ -922,8 +922,8 @@ edit_object_com(int32 com) {
                         grob[ilab].ye = grob[ilab].ye - grob[ilab].ys + y;
                         grob[ilab].xs = x;
                         grob[ilab].ys = y;
-                        clr_scrn();
-                        redraw_all();
+                        main_clr_scrn();
+                        main_redraw_all();
                     }
                 }
                 break;
@@ -936,8 +936,8 @@ edit_object_com(int32 com) {
                         select_marker_type(&grob[ilab].type);
                     ggets_new_float("Size ", &grob[ilab].size);
                     ggets_new_int("Color :", &grob[ilab].color);
-                    clr_scrn();
-                    redraw_all();
+                    main_clr_scrn();
+                    main_redraw_all();
                 }
                 break;
             case 2:
@@ -947,8 +947,8 @@ edit_object_com(int32 com) {
                 if (ans == 'y') {
                     grob[ilab].window = 0;
                     grob[ilab].use = 0;
-                    clr_scrn();
-                    redraw_all();
+                    main_clr_scrn();
+                    main_redraw_all();
                 }
                 break;
             default:
@@ -960,7 +960,7 @@ edit_object_com(int32 com) {
 }
 
 void
-do_gr_objs_com(int32 com) {
+many_pops_do_gr_objs_com(int32 com) {
     switch (com) {
     case 0:
         ggets_cput_text();
@@ -980,8 +980,8 @@ do_gr_objs_com(int32 com) {
     case 5:
         destroy_label(draw_win);
         destroy_grob(draw_win);
-        clr_scrn();
-        redraw_all();
+        main_clr_scrn();
+        main_redraw_all();
         break;
     default:
         break;
@@ -990,7 +990,7 @@ do_gr_objs_com(int32 com) {
 }
 
 void
-set_active_windows(void) {
+many_pops_set_active_windows(void) {
     int32 i, np = 0;
     for (i = 0; i < MAXPOP; i++) {
         if (graph[i].Use == 1) {
@@ -1003,10 +1003,10 @@ set_active_windows(void) {
 }
 
 void
-do_windows_com(int32 c) {
+many_pops_do_windows_com(int32 c) {
     switch (c) {
     case 0:
-        create_a_pop();
+        many_pops_create_a_pop();
         break;
     case 1:
         if (yes_no_box())
@@ -1031,7 +1031,7 @@ do_windows_com(int32 c) {
         break;
     }
 
-    set_active_windows();
+    many_pops_set_active_windows();
     return;
 }
 
@@ -1073,7 +1073,7 @@ destroy_a_pop(void) {
 }
 
 void
-init_grafs(int32 x, int32 y, int32 w, int32 h) {
+many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
     int32 i;
     many_pops_gr_col();
     for (i = 0; i < MAXLAB; i++) {
@@ -1119,7 +1119,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
 }
 
 void
-ps_restore(void) {
+many_pops_ps_restore(void) {
     if (Xup) {
         redraw_dfield();
         ps_do_color(0);
@@ -1138,7 +1138,7 @@ ps_restore(void) {
 
     ps_do_color(0);
     if (Xup) {
-        draw_label(draw_win);
+        many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
     }
     ps_end();
@@ -1146,7 +1146,7 @@ ps_restore(void) {
 }
 
 void
-svg_restore(void) {
+many_pops_svg_restore(void) {
     /* integrate_restore(0,my_browser.maxrow);
      */
     /*ps_do_color(0);
@@ -1161,7 +1161,7 @@ svg_restore(void) {
     integrate_restore(0, my_browser.maxrow);
     axes2_do();
     if (Xup) {
-        draw_label(draw_win);
+        many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
     }
     do_batch_nclines();
@@ -1186,8 +1186,8 @@ many_pops_rotate_3dcheck(XEvent event) {
             XNextEvent(display, &z);
             if (z.type == ButtonRelease) {
                 axes2_do();
-                redraw_all();
-                hi_lite(draw_win);
+                main_redraw_all();
+                many_pops_hi_lite(draw_win);
                 return 1;
             }
             if (z.type == MotionNotify) {
@@ -1203,7 +1203,7 @@ many_pops_rotate_3dcheck(XEvent event) {
 }
 
 void
-do_motion_events(XEvent event) {
+many_pops_do_motion_events(XEvent event) {
     int32 i = event.xmotion.x;
     int32 j = event.xmotion.y;
     double x;
@@ -1216,19 +1216,19 @@ do_motion_events(XEvent event) {
     if (event.xmotion.window == draw_win) {
         scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
-        canvas_xy(buf);
+        many_pops_canvas_xy(buf);
     }
     return;
 }
 
 void
-do_expose(XEvent event) {
+many_pops_do_expose(XEvent event) {
     int32 i;
     int32 cp = current_pop;
     Window temp;
 
     temp = draw_win;
-    top_button_draw(event.xany.window);
+    main_top_button_draw(event.xany.window);
     array_plot_expose(event.xany.window);
     /* redraw_txtview(ev.xany.window);  */
     ani_expose(event.xany.window);
@@ -1279,7 +1279,7 @@ do_expose(XEvent event) {
                 axes2_do();
                 if (graph[i].Restore)
                     integrate_restore(0, my_browser.maxrow);
-                draw_label(graph[i].window);
+                many_pops_draw_label(graph[i].window);
                 graf_par_draw_freeze(graph[i].window);
                 if (graph[i].Nullrestore)
                     restore_nullclines();
@@ -1289,7 +1289,7 @@ do_expose(XEvent event) {
     draw_win = temp;
     MyGraph = &graph[cp];
     current_pop = cp;
-    hi_lite(draw_win);
+    many_pops_hi_lite(draw_win);
     graphics_get_draw_area();
     many_pops_base_col();
     many_pops_small_base();
@@ -1297,7 +1297,7 @@ do_expose(XEvent event) {
 }
 
 void
-resize_all_pops(int32 wid, int32 hgt) {
+many_pops_resize_all(int32 wid, int32 hgt) {
     int32 nw = wid - 16 - 16*DCURX + 7,
           nh = hgt - 3*DCURYb - 4*DCURYs - 24;
     nw = 4*((nw / 4));
@@ -1328,7 +1328,7 @@ kill_all_pops(void) {
 }
 
 void
-create_a_pop(void) {
+many_pops_create_a_pop(void) {
     int32 i;
     int32 index;
 
@@ -1355,7 +1355,7 @@ create_a_pop(void) {
     graph[index].x0 = 0;
     graph[index].y0 = 0;
     num_pops++;
-    make_icon((char *)graph_bits, graph_width, graph_height,
+    many_pops_make_icon((char *)graph_bits, graph_width, graph_height,
               graph[index].window);
     XSelectInput(display, graph[index].window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
@@ -1400,7 +1400,7 @@ many_pops_small_base(void) {
 }
 
 void
-change_plot_vars(int32 k) {
+many_pops_change_plot_vars(int32 k) {
     int32 i;
     int32 ip;
     int32 np;
@@ -1421,7 +1421,7 @@ change_plot_vars(int32 k) {
 }
 
 int32
-check_active_plot(int32 k) {
+many_pops_check_active_plot(int32 k) {
     int32 i;
     int32 ip;
     int32 np;
@@ -1439,7 +1439,7 @@ check_active_plot(int32 k) {
 }
 
 void
-make_active(int32 i, int32 flag) {
+many_pops_make_active(int32 i, int32 flag) {
     current_pop = i;
     MyGraph = &graph[current_pop];
     draw_win = MyGraph->window;
@@ -1464,7 +1464,7 @@ select_window(Window window) {
     MyGraph = &graph[current_pop];
     lo_lite(draw_win);
     draw_win = window;
-    hi_lite(window);
+    many_pops_hi_lite(window);
     XRaiseWindow(display, window);
     graphics_get_draw_area();
     many_pops_base_col();
@@ -1484,7 +1484,7 @@ set_gr_back(void) {
 }
 
 void
-hi_lite(Window wi) {
+many_pops_hi_lite(Window wi) {
     set_gr_fore();
     select_sym(wi);
     return;
@@ -1504,7 +1504,7 @@ select_sym(Window window) {
 }
 
 void
-canvas_xy(char *buf) {
+many_pops_canvas_xy(char *buf) {
     XClearWindow(display, MyGraph->w_info);
     strcpy(MyGraph->gr_info, buf);
     if (MyGraph->w_info == info_pop) {
@@ -1521,7 +1521,7 @@ canvas_xy(char *buf) {
 }
 
 void
-check_draw_button(XEvent event) {
+many_pops_check_draw_button(XEvent event) {
     int32 k;
     char buf[256];
 
@@ -1548,6 +1548,6 @@ check_draw_button(XEvent event) {
             return;
         scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
-        canvas_xy(buf);
+        many_pops_canvas_xy(buf);
     }
 }

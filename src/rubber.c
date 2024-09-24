@@ -47,7 +47,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
         XNextEvent(display, &event);
         switch (event.type) {
         case Expose:
-            do_expose(event);
+            many_pops_do_expose(event);
             xor_flag = 1;
             ggets_chk_xor();
             if (xorfix) {

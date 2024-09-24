@@ -2915,9 +2915,9 @@ int32 iterativ_qr_sol(int32 n, double **h, double *q, double *b);
 #ifndef KINESCOPE_H
 #define KINESCOPE_H
 
-void do_movie_com(int32 c);
-void reset_film(void);
-int32 film_clip(void);
+void kinescope_do_movie_com(int32 c);
+void kinescope_reset_film(void);
+int32 kinescope_film_clip(void);
 
 #endif
 
@@ -3177,19 +3177,19 @@ typedef struct OptionsSet {
     int32 HISTBINS2;
 } OptionsSet;
 
-void dump_torus(FILE *fp, int32 f);
+void load_eqn_dump_torus(FILE *fp, int32 f);
 void load_eqn(void);
-void set_X_vals(void);
-void set_all_vals(void);
-void add_intern_set(char *name, char *does);
-void extract_action(char *ptr);
-void extract_internset(int32 j);
+void load_eqn_set_X_vals(void);
+void load_eqn_set_all_vals(void);
+void load_eqn_add_intern_set(char *name, char *does);
+void load_eqn_extract_action(char *ptr);
+void load_eqn_extract_internset(int32 j);
 int32 load_eqn_msc(char *s1, char *s2);
-void set_internopts(OptionsSet *mask);
-void set_internopts_xpprc_and_comline(void);
-void check_for_xpprc(void);
-void stor_internopts(char *s1);
-void set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
+void load_eqn_set_internopts(OptionsSet *mask);
+void load_eqn_set_internopts_xpprc_and_comline(void);
+void load_eqn_check_for_xpprc(void);
+void load_eqn_stor_internopts(char *s1);
+void load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
 
 #endif
 
@@ -3221,20 +3221,20 @@ void *XMALLOC(usize size, const char *function, int32 line);
 #else
 void *xmalloc(usize size);
 #endif
-void plot_command(int32 nit, int32 icount, int32 cwidth);
-int32 my_abort(void);
+void main_plot_command(int32 nit, int32 icount, int32 cwidth);
+int32 main_my_abort(void);
 void do_main(int32 argc, char **argv) __attribute__((noreturn));
-void do_vis_env(void);
+void main_do_vis_env(void);
 void do_events(uint32 min_wid, uint32 min_hgt) __attribute__((noreturn));
 void bye_bye(void) __attribute__((noreturn));
-void clr_scrn(void);
-void redraw_all(void);
+void main_clr_scrn(void);
+void main_redraw_all(void);
 void main_commander(int32 ch);
 Window init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
                 uint32 min_wid, uint32 min_hgt, int32 argc, char **argv);
-void top_button_draw(Window window);
+void main_top_button_draw(Window window);
 void main_fix_window_size(Window window, int32 width, int32 height, int32 flag);
-int32 get_command_width(void);
+int32 main_get_command_width(void);
 
 #endif
 
@@ -3243,39 +3243,39 @@ int32 get_command_width(void);
 
 #include <X11/Xlib.h>
 
-int32 select_table(void);
-void get_intern_set(void);
-void make_icon(char *icon, int32 wid, int32 hgt, Window window);
-void title_text(char *string);
-void gtitle_text(char *string, Window win);
-void restore_off(void);
-void restore_on(void);
-void add_label(char *s, int32 x, int32 y, int32 size, int32 font);
-void draw_label(Window window);
+int32 many_pops_select_table(void);
+void many_pops_get_intern_set(void);
+void many_pops_make_icon(char *icon, int32 wid, int32 hgt, Window window);
+void many_pops_title_text(char *string);
+void many_pops_gtitle_text(char *string, Window win);
+void many_pops_restore_off(void);
+void many_pops_restore_on(void);
+void many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font);
+void many_pops_draw_label(Window window);
 void add_grob(double xs, double ys, double xe, double ye, double size,
               int32 type, int32 color);
-void edit_object_com(int32 com);
-void do_gr_objs_com(int32 com);
-void do_windows_com(int32 c);
-void init_grafs(int32 x, int32 y, int32 w, int32 h);
-void ps_restore(void);
-void svg_restore(void);
+void many_pops_edit_object_com(int32 com);
+void many_pops_do_gr_objs_com(int32 com);
+void many_pops_do_windows_com(int32 c);
+void many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h);
+void many_pops_ps_restore(void);
+void many_pops_svg_restore(void);
 int32 many_pops_rotate_3dcheck(XEvent event);
-void do_motion_events(XEvent event);
-void do_expose(XEvent event);
-void resize_all_pops(int32 wid, int32 hgt);
-void create_a_pop(void);
+void many_pops_do_motion_events(XEvent event);
+void many_pops_do_expose(XEvent event);
+void many_pops_resize_all(int32 wid, int32 hgt);
+void many_pops_create_a_pop(void);
 void many_pops_gr_col(void);
 void many_pops_base_col(void);
 void many_pops_small_gr(void);
 void many_pops_small_base(void);
-void change_plot_vars(int32 k);
-int32 check_active_plot(int32 k);
-void make_active(int32 i, int32 flag);
-void hi_lite(Window wi);
-void canvas_xy(char *buf);
-void check_draw_button(XEvent event);
-void set_active_windows(void);
+void many_pops_change_plot_vars(int32 k);
+int32 many_pops_check_active_plot(int32 k);
+void many_pops_make_active(int32 i, int32 flag);
+void many_pops_hi_lite(Window wi);
+void many_pops_canvas_xy(char *buf);
+void many_pops_check_draw_button(XEvent event);
+void many_pops_set_active_windows(void);
 
 #endif
 
@@ -3284,19 +3284,19 @@ void set_active_windows(void);
 
 #include <stdio.h>
 
-void add_wiener(int32 index);
-void set_wieners(double dt, double *x, double t);
+void markov_add_wiener(int32 index);
+void markov_set_wieners(double dt, double *x, double t);
 void add_markov(int32 nstate, char *name);
 int32 build_markov(char **ma, char *name);
 int32 old_build_markov(FILE *fptr, char *name);
 void compile_all_markov(void);
-void make_gill_nu(double *nu, int32 n, int32 m, double *v);
-void one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v);
-void do_stochast_com(int32 i);
-void mean_back(void);
-void variance_back(void);
-void append_stoch(int32 first, int32 length);
-void do_stats(int32 ierr);
+void markov_make_gill_nu(double *nu, int32 n, int32 m, double *v);
+void markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v);
+void markov_do_stochast_com(int32 i);
+void markov_mean_back(void);
+void markov_variance_back(void);
+void markov_append_stoch(int32 first, int32 length);
+void markov_do_stats(int32 ierr);
 double markov_poidev(double xm);
 double markov_ndrand48(void);
 void markov_nsrand48(int32 seed);
@@ -3517,42 +3517,42 @@ void markov_nsrand48(int32 seed);
 #define M_UE 409
 #define M_UC 410
 
-void xpp_hlp(void);
+void menudrive_xpp_hlp(void);
 void menudrive_message_box(char *m);
 void menudrive_message_box_redraw(Window window);
 void menudrive_message_box_kill(void);
 int32 menudrive_two_choice(char *c1, char *c2, char *q, char *key);
 int32 menudrive_get_mouse_xy(int32 *x, int32 *y);
 void menudrive_flush_display(void);
-void clear_draw_window(void);
-void drw_all_scrns(void);
-void clr_all_scrns(void);
-void run_the_commands(int32 com);
-void do_stochast(void);
-void get_pmap_pars(void);
-void set_col_par(void);
-void make_adj(void);
-void do_gr_objs(void);
-void new_lookup(void);
-void find_bvp(void);
-void change_view(void);
-void do_windows(void);
-void add_a_curve(void);
-void do_movie(void);
-void do_torus(void);
-void window_zoom(void);
-void direct_field(void);
-void new_clines(void);
-void froz_cline_stuff(void);
-void find_equilibrium(void);
-void ini_data_menu(void);
-void new_param(void);
-void clear_screens(void);
-void x_vs_t(void);
-void redraw_them_all(void);
-void get_3d_par(void);
-void edit_xpprc(void);
-void do_tutorial(void);
+void menudrive_clear_draw_window(void);
+void menudrive_drw_all_scrns(void);
+void menudrive_clr_all_scrns(void);
+void menudrive_run_the_commands(int32 com);
+void menudrive_do_stochast(void);
+void menudrive_get_pmap_pars(void);
+void menudrive_set_col_par(void);
+void menudrive_make_adj(void);
+void menudrive_do_gr_objs(void);
+void menudrive_new_lookup(void);
+void menudrive_find_bvp(void);
+void menudrive_change_view(void);
+void menudrive_do_windows(void);
+void menudrive_add_a_curve(void);
+void menudrive_do_movie(void);
+void menudrive_do_torus(void);
+void menudrive_window_zoom(void);
+void menudrive_direct_field(void);
+void menudrive_new_clines(void);
+void menudrive_froz_cline_stuff(void);
+void menudrive_find_equilibrium(void);
+void menudrive_ini_data_menu(void);
+void menudrive_new_param(void);
+void menudrive_clear_screens(void);
+void menudrive_x_vs_t(void);
+void menudrive_redraw_them_all(void);
+void menudrive_get_3d_par(void);
+void menudrive_edit_xpprc(void);
+void menudrive_do_tutorial(void);
 
 #endif
 

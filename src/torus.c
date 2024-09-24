@@ -160,7 +160,7 @@ make_tor_box(char *title) {
     size_hints.min_height = height;
     size_hints.max_width = width;
     size_hints.max_height = height;
-    make_icon((char *)info_bits, info_width, info_height, base);
+    many_pops_make_icon((char *)info_bits, info_width, info_height, base);
 
     {
         XClassHint class_hints;
@@ -206,7 +206,7 @@ do_torus_events(void) {
         switch (event.type) {
         case Expose:
 
-            do_expose(event); /*  menus and graphs etc  */
+            many_pops_do_expose(event); /*  menus and graphs etc  */
             draw_torus_box(event.xany.window);
             break;
         case ButtonPress:

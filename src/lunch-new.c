@@ -236,7 +236,7 @@ read_lunch(FILE *fp) {
         adj2_dump_transpose_info(fp, f);
         adj2_dump_h_stuff(fp, f);
         array_plot_dump(fp, f);
-        dump_torus(fp, f);
+        load_eqn_dump_torus(fp, f);
         integrate_dump_range(fp, f);
     }
 
@@ -294,7 +294,7 @@ do_lunch(/* f=1 to read and 0 to write */
             adj2_dump_transpose_info(fp, f);
             adj2_dump_h_stuff(fp, f);
             array_plot_dump(fp, f);
-            dump_torus(fp, f);
+            load_eqn_dump_torus(fp, f);
             integrate_dump_range(fp, f);
         }
         fclose(fp);
@@ -318,7 +318,7 @@ do_lunch(/* f=1 to read and 0 to write */
     adj2_dump_transpose_info(fp, f);
     adj2_dump_h_stuff(fp, f);
     array_plot_dump(fp, f);
-    dump_torus(fp, f);
+    load_eqn_dump_torus(fp, f);
     integrate_dump_range(fp, f);
     dump_eqn(fp);
     fclose(fp);

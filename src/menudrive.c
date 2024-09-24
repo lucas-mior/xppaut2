@@ -69,7 +69,7 @@ MSGBOXSTRUCT MsgBox;
 static void do_file_com(int32 com);
 
 void
-do_tutorial(void) {
+menudrive_do_tutorial(void) {
     int32 tut = 0;
     printf("Running tutorial!\n");
     while (true) {
@@ -87,7 +87,7 @@ do_tutorial(void) {
 }
 
 void
-edit_xpprc(void) {
+menudrive_edit_xpprc(void) {
     pid_t child_pid;
 
     char rc[256];
@@ -124,7 +124,7 @@ edit_xpprc(void) {
 }
 
 void
-xpp_hlp(void) {
+menudrive_xpp_hlp(void) {
     char cmd[256];
 
     if (getenv("XPPHELP") == NULL) {
@@ -158,7 +158,7 @@ menudrive_message_box(char *m) {
         make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                           DisplayHeight / 2, wid, hgt, 4);
 
-    make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.window);
+    many_pops_make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.window);
     MsgBox.here = 1;
     set_window_title(MsgBox.window, "Yo!");
     strcpy(MsgBox.text, m);
@@ -203,57 +203,57 @@ menudrive_flush_display(void) {
 }
 
 void
-clear_draw_window(void) {
-    clr_scrn();
-    hi_lite(draw_win);
+menudrive_clear_draw_window(void) {
+    main_clr_scrn();
+    many_pops_hi_lite(draw_win);
     return;
 }
 
 void
-drw_all_scrns(void) {
+menudrive_drw_all_scrns(void) {
     int32 i;
     int32 me = manual_expose;
     int32 ic = current_pop;
     manual_expose = 0;
     if (SimulPlotFlag == 0) {
-        redraw_all();
+        main_redraw_all();
         manual_expose = me;
         return;
     }
 
     for (i = 0; i < num_pops; i++) {
-        make_active(ActiveWinList[i], 1);
-        redraw_all();
+        many_pops_make_active(ActiveWinList[i], 1);
+        main_redraw_all();
     }
 
-    make_active(ic, 1);
-    hi_lite(draw_win);
+    many_pops_make_active(ic, 1);
+    many_pops_hi_lite(draw_win);
     manual_expose = me;
     return;
 }
 
 void
-clr_all_scrns(void) {
+menudrive_clr_all_scrns(void) {
     int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
-        clr_scrn();
-        hi_lite(draw_win);
+        main_clr_scrn();
+        many_pops_hi_lite(draw_win);
         return;
     }
 
     for (i = 0; i < num_pops; i++) {
-        make_active(ActiveWinList[i], 1);
-        clr_scrn();
+        many_pops_make_active(ActiveWinList[i], 1);
+        main_clr_scrn();
     }
 
-    make_active(ic, 1);
-    hi_lite(draw_win);
+    many_pops_make_active(ic, 1);
+    many_pops_hi_lite(draw_win);
     return;
 }
 
 void
-run_the_commands(int32 com) {
+menudrive_run_the_commands(int32 com) {
     if (com < 0)
         return;
     if (com <= MAX_M_I) {
@@ -288,7 +288,7 @@ run_the_commands(int32 com) {
         /*redraw_dfield();*/
         /*create_new_cline();
         integrate_run_now();*/
-        /*redraw_all();
+        /*main_redraw_all();
          */
         return;
     }
@@ -304,7 +304,7 @@ run_the_commands(int32 com) {
     }
 
     if (com >= M_KC && com <= M_KM) {
-        do_movie_com(com - M_KC);
+        kinescope_do_movie_com(com - M_KC);
         return;
     }
 
@@ -334,12 +334,12 @@ run_the_commands(int32 com) {
         return;
     }
     if (com == M_R) {
-        drw_all_scrns();
+        menudrive_drw_all_scrns();
         return;
     }
 
     if (com == M_EE) {
-        clr_all_scrns();
+        menudrive_clr_all_scrns();
         DF_FLAG = 0;
         return;
     }
@@ -360,7 +360,7 @@ run_the_commands(int32 com) {
     }
 
     if (com >= M_MC && com <= M_MS) {
-        do_windows_com(com - M_MC);
+        many_pops_do_windows_com(com - M_MC);
         return;
     }
     /* CLONE */
@@ -370,11 +370,11 @@ run_the_commands(int32 com) {
     }
 
     if (com >= M_TT && com <= M_TS) {
-        do_gr_objs_com(com - M_TT);
+        many_pops_do_gr_objs_com(com - M_TT);
         return;
     }
     if (com >= M_TEM && com <= M_TED) {
-        edit_object_com(com - M_TEM);
+        many_pops_edit_object_com(com - M_TEM);
         return;
     }
     if (com >= M_BR && com <= M_BH) {
@@ -391,14 +391,14 @@ run_the_commands(int32 com) {
     if (com >= M_UPN && com <= M_UPP)
         get_pmap_pars_com(com - M_UPN);
     if (com >= M_UHN && com <= M_UH2)
-        do_stochast_com(com - M_UHN);
+        markov_do_stochast_com(com - M_UHN);
     if (com >= M_UT && com <= M_UC)
         quick_num(com - M_UT);
     return;
 }
 
 void
-do_stochast(void) {
+menudrive_do_stochast(void) {
     static char *n[] = {"New seed",  "Compute",     "Data",     "Mean",
                         "Variance",  "Histogram",   "Old hist", "Fourier",
                         "Power",     "fIt data",    "Stat",     "Liapunov",
@@ -414,12 +414,12 @@ do_stochast(void) {
             break;
 
     if (i >= 0 && i < 16)
-        run_the_commands(M_UHN + i);
+        menudrive_run_the_commands(M_UHN + i);
     return;
 }
 
 void
-get_pmap_pars(void) {
+menudrive_get_pmap_pars(void) {
     static char *map[] = {"(N)one", "(S)ection", "(M)ax/min", "(P)eriod"};
     static char mkey[] = "nsmp";
     char ch;
@@ -434,12 +434,12 @@ get_pmap_pars(void) {
             break;
 
     if (i >= 0 && i < 4)
-        run_the_commands(M_UPN + i);
+        menudrive_run_the_commands(M_UPN + i);
     return;
 }
 
 void
-set_col_par(void) {
+menudrive_set_col_par(void) {
     char ch;
     Window tempw = main_win;
     static char *n[] = {"(N)o color", "(V)elocity", "(A)nother quantity"};
@@ -451,12 +451,12 @@ set_col_par(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 3)
-        run_the_commands(i + M_UCN);
+        menudrive_run_the_commands(i + M_UCN);
     return;
 }
 
 void
-make_adj(void) {
+menudrive_make_adj(void) {
     Window temp = main_win;
     static char *n[] = {"(N)ew adj", "(M)ake H",     "(A)djoint", "(O)rbit",
                         "(H)fun",    "(P)arameters", "(R)ange"};
@@ -469,7 +469,7 @@ make_adj(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 7)
-        run_the_commands(M_UAN + i);
+        menudrive_run_the_commands(M_UAN + i);
     return;
 }
 
@@ -480,7 +480,7 @@ do_file_com(int32 com) {
         adj2_do_transpose();
         break;
     case M_FG:
-        get_intern_set();
+        many_pops_get_intern_set();
         break;
     case M_FI:
         TipsFlag = 1 - TipsFlag;
@@ -509,14 +509,14 @@ do_file_com(int32 com) {
         tfBell = 1 - tfBell;
         break;
     case M_FH:
-        /*xpp_hlp();
+        /*menudrive_xpp_hlp();
          */
         break;
     case M_FX:
-        edit_xpprc();
+        menudrive_edit_xpprc();
         break;
     case M_FU:
-        do_tutorial();
+        menudrive_do_tutorial();
         break;
     case M_FQ:
         if (yes_no_box())
@@ -544,7 +544,7 @@ do_file_com(int32 com) {
 }
 
 void
-do_gr_objs(void) {
+menudrive_do_gr_objs(void) {
     char ch;
     int32 i;
     static char *list[] = {"(T)ext", "(A)rrow",      "(P)ointer", "(M)arker",
@@ -572,19 +572,19 @@ do_gr_objs(void) {
                 break;
         }
         if (i >= 0 && i < 3)
-            run_the_commands(M_TEM + i);
+            menudrive_run_the_commands(M_TEM + i);
         return;
     }
     for (i = 0; i < 7; i++)
         if (ch == key[i])
             break;
     if (i >= 0 && i < 7)
-        run_the_commands(M_TT + i);
+        menudrive_run_the_commands(M_TT + i);
     return;
 }
 
 void
-new_lookup(void) {
+menudrive_new_lookup(void) {
     static char *n[] = {"(E)dit", "(V)iew"};
     static char key[] = "ev";
     char ch;
@@ -594,14 +594,14 @@ new_lookup(void) {
     ch = (char)pop_up_list(&temp, "Tables", n, key, 2, 12, 1, 10,
                            11*DCURY + 8, tab_hint, info_pop, info_message);
     if (ch == key[0])
-        run_the_commands(M_UKE);
+        menudrive_run_the_commands(M_UKE);
     if (ch == key[1])
-        run_the_commands(M_UKV);
+        menudrive_run_the_commands(M_UKV);
     return;
 }
 
 void
-find_bvp(void) {
+menudrive_find_bvp(void) {
     static char *n[] = {"(R)ange", "(N)o show", "(S)how", "(P)eriodic"};
     static char key[] = "rnsp";
     char ch;
@@ -615,12 +615,12 @@ find_bvp(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 4)
-        run_the_commands(M_BR + i);
+        menudrive_run_the_commands(M_BR + i);
     return;
 }
 
 void
-change_view(void) {
+menudrive_change_view(void) {
     Window temp = main_win;
     static char *n[] = {"2D", "3D", "Array", "Toon"};
     static char key[] = "23at";
@@ -633,12 +633,12 @@ change_view(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 4)
-        run_the_commands(M_V2 + i);
+        menudrive_run_the_commands(M_V2 + i);
     return;
 }
 
 void
-do_windows(void) {
+menudrive_do_windows(void) {
     int32 i;
     char ch;
     static char *list[] = {"(C)reate", "(K)ill all", "(D)estroy",   "(B)ottom",
@@ -663,12 +663,12 @@ do_windows(void) {
     }
 
     if (i >= 0 && i < 7)
-        run_the_commands(M_MC + i);
+        menudrive_run_the_commands(M_MC + i);
     return;
 }
 
 void
-add_a_curve(void) {
+menudrive_add_a_curve(void) {
     int32 com = -1;
     static char *na[] = {"(A)dd curve",  "(D)elete last", "(R)emove all",
                          "(E)dit curve", "(P)ostscript",  "S(V)G",
@@ -734,11 +734,11 @@ add_a_curve(void) {
                 com = M_GA + i;
         }
     }
-    run_the_commands(com);
+    menudrive_run_the_commands(com);
 }
 
 void
-do_movie(void) {
+menudrive_do_movie(void) {
     int32 i;
     char ch;
     int32 nkc = 6;
@@ -753,12 +753,12 @@ do_movie(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < nkc)
-        run_the_commands(i + M_KC);
+        menudrive_run_the_commands(i + M_KC);
     return;
 }
 
 void
-do_torus(void) {
+menudrive_do_torus(void) {
     Window temp = main_win;
     static char *n[] = {"(A)ll", "(N)one", "(C)hoose"};
     static char key[] = "anc";
@@ -770,12 +770,12 @@ do_torus(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 3)
-        run_the_commands(M_AA + i);
+        menudrive_run_the_commands(M_AA + i);
     return;
 }
 
 void
-window_zoom(void) {
+menudrive_window_zoom(void) {
     static char *n[] = {"(W)indow", "(Z)oom In", "Zoom (O)ut",
                         "(F)it",    "(D)efault", "(S)croll"};
     static char key[] = "wzofds";
@@ -788,12 +788,12 @@ window_zoom(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 6)
-        run_the_commands(M_WW + i);
+        menudrive_run_the_commands(M_WW + i);
     return;
 }
 
 void
-direct_field(void) {
+menudrive_direct_field(void) {
     int32 i;
     static char *n[] = {"(D)irect Field", "(F)low", "(N)o dir. fld.",
                         "(C)olorize", "(S)caled Dir.Fld"};
@@ -807,12 +807,12 @@ direct_field(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 5)
-        run_the_commands(M_DD + i);
+        menudrive_run_the_commands(M_DD + i);
     return;
 }
 
 void
-new_clines(void) {
+menudrive_new_clines(void) {
     int32 i;
     Window temp = main_win;
     static char *n[] = {"(N)ew",    "(R)estore", "(A)uto",
@@ -825,12 +825,12 @@ new_clines(void) {
         if (ch == key[i])
             break;
     if (i >= 0 && i < 6)
-        run_the_commands(M_NN + i);
+        menudrive_run_the_commands(M_NN + i);
     return;
 }
 
 void
-froz_cline_stuff(void) {
+menudrive_froz_cline_stuff(void) {
     Window temp = main_win;
     static char *n[] = {"(F)reeze", "(D)elete all", "(R)ange", "(A)nimate"};
     static char key[] = "fdra";
@@ -843,12 +843,12 @@ froz_cline_stuff(void) {
             break;
     }
     if (i >= 0 && i < 4)
-        run_the_commands(M_NFF + i);
+        menudrive_run_the_commands(M_NFF + i);
     return;
 }
 
 void
-find_equilibrium(void) {
+menudrive_find_equilibrium(void) {
     int32 i;
     static char *n[] = {"(G)o", "(M)ouse", "(R)ange", "monte(C)ar"};
     static char key[] = "gmrc";
@@ -864,12 +864,12 @@ find_equilibrium(void) {
     }
 
     if (i > -1 && i < 4)
-        run_the_commands(i + M_SG);
+        menudrive_run_the_commands(i + M_SG);
     return;
 }
 
 void
-ini_data_menu(void) {
+menudrive_ini_data_menu(void) {
     int32 i;
     Window temp = main_win;
     static char *n[] = {"(R)ange",   "(2)par range", "(L)ast",    "(O)ld",
@@ -889,30 +889,30 @@ ini_data_menu(void) {
             break;
     }
 
-    run_the_commands(i);
+    menudrive_run_the_commands(i);
 }
 
 void
-new_param(void) {
-    run_the_commands(M_P);
+menudrive_new_param(void) {
+    menudrive_run_the_commands(M_P);
 }
 
 void
-clear_screens(void) {
-    run_the_commands(M_EE);
+menudrive_clear_screens(void) {
+    menudrive_run_the_commands(M_EE);
 }
 
 void
-x_vs_t(void) {
-    run_the_commands(M_X);
+menudrive_x_vs_t(void) {
+    menudrive_run_the_commands(M_X);
 }
 
 void
-redraw_them_all(void) {
-    run_the_commands(M_R);
+menudrive_redraw_them_all(void) {
+    menudrive_run_the_commands(M_R);
 }
 
 void
-get_3d_par(void) {
-    run_the_commands(M_3);
+menudrive_get_3d_par(void) {
+    menudrive_run_the_commands(M_3);
 }

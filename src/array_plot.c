@@ -366,7 +366,7 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
     main_fix_window_size(base, width, height, FIX_MIN_SIZE);
-    make_icon((char *)array_bits, array_width, array_height, base);
+    many_pops_make_icon((char *)array_bits, array_width, array_height, base);
 
     ap->wredraw = browse_button2(base, 0, 0, 0);
     ap->wedit = browse_button2(base, 0, 1, 0);
@@ -530,7 +530,7 @@ reset_aplot_axes(struct ArrayPlot ap) {
     XClearWindow(display, ap.wmin);
     display_aplot(ap.wmax, ap);
     display_aplot(ap.wmin, ap);
-    gtitle_text(bob, ap.base);
+    many_pops_gtitle_text(bob, ap.base);
     return;
 }
 

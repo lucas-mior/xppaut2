@@ -2606,8 +2606,8 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     refresh_browser(nrow);
     /* insert auxiliary stuff here */
     if (load_all_labeled_orbits == 2)
-        clr_all_scrns();
-    drw_all_scrns();
+        menudrive_clr_all_scrns();
+    menudrive_drw_all_scrns();
     fclose(fp);
     return;
 }
