@@ -1,6 +1,7 @@
 #include <math.h>
 #include "auto_f2c.h"
 #include "integers.h"
+#include "complex_math.h"
 
 #define log10e 0.43429448190325182765
 
