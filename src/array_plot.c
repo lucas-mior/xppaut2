@@ -88,7 +88,7 @@ static void draw_scale(struct ArrayPlot ap);
 static void array_plot_draw(struct ArrayPlot ap);
 static void reset_aplot_axes(struct ArrayPlot ap);
 static int32 array_plot_edit2(struct ArrayPlot *ap);
-static void redraw_aplot(struct ArrayPlot ap);
+static void array_plot_redraw(struct ArrayPlot ap);
 static void array_plot_display(Window window, struct ArrayPlot ap);
 static void array_plot_destroy(void);
 static void array_plot_button(Window window);
@@ -99,7 +99,7 @@ void
 array_plot_draw_one(char *bob) {
     char filename[300];
 
-    redraw_aplot(array_plot);
+    array_plot_redraw(array_plot);
     if (array_plot_tag)
         tag_aplot(bob);
     XFlush(display);
@@ -140,7 +140,7 @@ array_plot_fit(void) {
     scale_aplot(&array_plot, &zmax, &zmin);
     array_plot.zmin = zmin;
     array_plot.zmax = zmax;
-    redraw_aplot(array_plot);
+    array_plot_redraw(array_plot);
     return;
 }
 
@@ -172,7 +172,7 @@ array_plot_optimize(int32 *plist) {
     array_plot.zmax = zmax;
     array_plot.plotdef = 1;
     reset_aplot_axes(array_plot);
-    redraw_aplot(array_plot);
+    array_plot_redraw(array_plot);
     return;
 }
 
@@ -239,7 +239,7 @@ array_plot_do_events(XEvent event) {
                 array_plot.nstart - event.xmotion.y + first_aplot_press;
             if (array_plot.nstart < 0)
                 array_plot.nstart = 0;
-            redraw_aplot(array_plot);
+            array_plot_redraw(array_plot);
         }
         break;
     case ConfigureNotify:
@@ -431,7 +431,7 @@ array_plot_button(Window window) {
     if (window == array_plot.wrange)
         set_up_aplot_range();
     if (window == array_plot.wredraw)
-        redraw_aplot(array_plot);
+        array_plot_redraw(array_plot);
     if (window == array_plot.wprint)
         array_plot_print(&array_plot);
     if (window == array_plot.wclose)
@@ -458,7 +458,7 @@ void
 array_plot_draw(struct ArrayPlot ap) {
     if (plot3d_auto_redraw != 1)
         return;
-    redraw_aplot(ap);
+    array_plot_redraw(ap);
 }
 
 void
@@ -642,7 +642,7 @@ array_plot_gif(void) {
 }
 
 void
-redraw_aplot(struct ArrayPlot ap) {
+array_plot_redraw(struct ArrayPlot ap) {
     int32 i;
     int32 j;
     Window window = ap.wplot;
