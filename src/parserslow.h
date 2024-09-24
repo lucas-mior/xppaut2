@@ -13,6 +13,24 @@ extern int32 NFUN;
 extern int32 NSYM;
 extern int32 ERROUT;
 
+extern double constants[MAX_PAR];
+extern double variables[MAX_ODE1];
+extern int32 *ufun[MAX_UFUN];
+extern char *ufun_def[MAX_UFUN];
+extern char ufun_names[MAX_UFUN][12];
+extern int32 narg_fun[MAX_UFUN];
+
+typedef struct Kernel {
+    double k_n1, k_n, sum, betnn, mu, *al, *cnv;
+    int32 *formula;
+    int32 flag;
+    int32 *kerform;
+    char name[20];
+    char *expr;
+    char *kerexpr;
+} Kernel;
+extern Kernel kernel[MAX_KER];
+
 #define FUN1TYPE 9
 #define FUN2TYPE 1
 #define VARTYPE 3 /* standard variable */

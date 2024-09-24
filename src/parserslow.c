@@ -66,8 +66,8 @@ int32 *ufun[MAX_UFUN];
 char *ufun_def[MAX_UFUN];
 char ufun_names[MAX_UFUN][12];
 int32 narg_fun[MAX_UFUN];
-double stack[200];
-double ustack[200];
+static double stack[200];
+static double ustack[200];
 
 Kernel kernel[MAX_KER];
 int32 NKernel;
