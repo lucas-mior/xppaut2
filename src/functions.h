@@ -6,6 +6,9 @@
 
 extern Display *display;
 
+extern char *timesfonts[];
+extern char *symbolfonts[];
+
 #define MAIN_MENU 0
 #define FILE_MENU 1
 #define NUM_MENU 2
