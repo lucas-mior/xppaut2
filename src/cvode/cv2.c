@@ -14,9 +14,9 @@
 static double cv_ropt[OPT_SIZE];
 static int32 cv_iopt[OPT_SIZE];
 
-static void cv_func(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata);
+static void cv_func(int64 n, double t, Vector y, Vector ydot, void *fdata);
 static void *cvode_mem;
-static N_Vector ycv;
+static Vector ycv;
 
 void
 start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
@@ -40,7 +40,7 @@ cv_end(void) {
 }
 
 void
-cv_func(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
+cv_func(int64 n, double t, Vector y, Vector ydot, void *fdata) {
     (void)fdata;
     my_rhs(t, y->data, ydot->data, (int32)n);
     return;

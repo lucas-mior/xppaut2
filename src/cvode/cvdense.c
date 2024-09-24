@@ -62,12 +62,12 @@ typedef struct {
 
 static int32 cv_dense_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
-                          N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                          N_Vector vtemp2, N_Vector vtemp3);
+static int32 CVDenseSetup(CVodeMem cv_mem, int32 convfail, Vector ypred,
+                          Vector fpred, bool *jcurPtr, Vector vtemp1,
+                          Vector vtemp2, Vector vtemp3);
 
-static int32 CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                          N_Vector fcur);
+static int32 CVDenseSolve(CVodeMem cv_mem, Vector b, Vector ycur,
+                          Vector fcur);
 
 static void cv_dense_free(CVodeMem cv_mem);
 
@@ -77,7 +77,7 @@ static void cv_dense_free(CVodeMem cv_mem);
  the Jacobian of f(t,y). It assumes that a dense matrix of type
  DenseMat is stored column-wise, and that elements within each column
  are contiguous. The address of the jth column of J is obtained via
- the macro DENSE_COL and an N_Vector with the jth column as the
+ the macro DENSE_COL and an Vector with the jth column as the
  component array is created using N_VMAKE and N_VDATA. Finally, the
  actual computation of the jth column of the Jacobian is done with a
  call to N_VLinearSum.
@@ -85,13 +85,13 @@ static void cv_dense_free(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
-             N_Vector fy, N_Vector ewt, double h, double uround, void *jac_data,
-             int32 *nfePtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
+CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
+             Vector fy, Vector ewt, double h, double uround, void *jac_data,
+             int32 *nfePtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double fnorm, minInc, inc, inc_inv, yjsaved, srur;
     double *y_data;
     double *ewt_data;
-    N_Vector ftemp, jthCol;
+    Vector ftemp, jthCol;
     int64 j;
 
     (void)jac_data;
@@ -284,8 +284,8 @@ cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
-             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
+CVDenseSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+             bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
     double dgamma;
@@ -340,7 +340,7 @@ CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 **********************************************************************/
 
 static int32
-CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
+CVDenseSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     CVDenseMem cvdense_mem;
     (void)ycur;
     (void)fcur;

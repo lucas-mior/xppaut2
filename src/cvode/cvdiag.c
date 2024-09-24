@@ -43,11 +43,11 @@ typedef struct {
     double di_gammasv; /* gammasv = gamma at the last call to setup */
                        /* or solve                                  */
 
-    N_Vector di_M; /* M = (I - gamma J)^{-1} , gamma = h / l1   */
+    Vector di_M; /* M = (I - gamma J)^{-1} , gamma = h / l1   */
 
-    N_Vector di_bit; /* temporary storage vector                  */
+    Vector di_bit; /* temporary storage vector                  */
 
-    N_Vector di_bitcomp; /* temporary storage vector                  */
+    Vector di_bitcomp; /* temporary storage vector                  */
 
 } CVDiagMemRec, *CVDiagMem;
 
@@ -55,12 +55,12 @@ typedef struct {
 
 static int32 cv_diag_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
-                         N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                         N_Vector vtemp2, N_Vector vtemp3);
+static int32 CVDiagSetup(CVodeMem cv_mem, int32 convfail, Vector ypred,
+                         Vector fpred, bool *jcurPtr, Vector vtemp1,
+                         Vector vtemp2, Vector vtemp3);
 
-static int32 CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                         N_Vector fcur);
+static int32 CVDiagSolve(CVodeMem cv_mem, Vector b, Vector ycur,
+                         Vector fcur);
 
 static void cv_diag_free(CVodeMem cv_mem);
 
@@ -187,11 +187,11 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
-            bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
+CVDiagSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+            bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double r;
-    N_Vector ftemp;
-    N_Vector y;
+    Vector ftemp;
+    Vector y;
     bool invOK;
     CVDiagMem cvdiag_mem;
     (void)convfail;
@@ -243,7 +243,7 @@ CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 **********************************************************************/
 
 static int32
-CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
+CVDiagSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     bool invOK;
     double r;
     CVDiagMem cvdiag_mem;

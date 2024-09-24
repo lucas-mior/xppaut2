@@ -6,7 +6,7 @@
  *--------------------------------------------------------------*
  *                                                              *
  * This is the implementation file for a generic VECTOR         *
- * package. It contains the implementation of the N_Vector      *
+ * package. It contains the implementation of the Vector      *
  * kernels listed in vector.h.                                  *
  *                                                              *
  ****************************************************************/
@@ -23,24 +23,24 @@
 
 /* Private Helper Prototypes */
 
-static void VCopy(N_Vector x, N_Vector z);             /* z=x */
-static void VSum(N_Vector x, N_Vector y, N_Vector z);  /* z=x+y */
-static void VDiff(N_Vector x, N_Vector y, N_Vector z); /* z=x-y */
-static void VNeg(N_Vector x, N_Vector z);              /* z=-x */
+static void VCopy(Vector x, Vector z);             /* z=x */
+static void VSum(Vector x, Vector y, Vector z);  /* z=x+y */
+static void VDiff(Vector x, Vector y, Vector z); /* z=x-y */
+static void VNeg(Vector x, Vector z);              /* z=-x */
 /* z=c(x+y) */
-static void VScaleSum(double c, N_Vector x, N_Vector y, N_Vector z);
+static void VScaleSum(double c, Vector x, Vector y, Vector z);
 /* z=c(x-y) */
-static void VScaleDiff(double c, N_Vector x, N_Vector y, N_Vector z);
-static void VLin1(double a, N_Vector x, N_Vector y, N_Vector z); /* z=ax+y */
-static void VLin2(double a, N_Vector x, N_Vector y, N_Vector z); /* z=ax-y */
-static void Vaxpy(double a, N_Vector x, N_Vector y);             /* y <- ax+y */
-static void VScaleBy(double a, N_Vector x);                      /* x <- ax */
+static void VScaleDiff(double c, Vector x, Vector y, Vector z);
+static void VLin1(double a, Vector x, Vector y, Vector z); /* z=ax+y */
+static void VLin2(double a, Vector x, Vector y, Vector z); /* z=ax-y */
+static void Vaxpy(double a, Vector x, Vector y);             /* y <- ax+y */
+static void VScaleBy(double a, Vector x);                      /* x <- ax */
 
 /********************* Exported Functions ************************/
 
-N_Vector
+Vector
 N_VNew(int64 N) {
-    N_Vector v;
+    Vector v;
 
     if (N <= 0)
         return NULL;
@@ -61,20 +61,20 @@ N_VNew(int64 N) {
 }
 
 void
-N_VFree(N_Vector x) {
+N_VFree(Vector x) {
     free(x->data);
     free(x);
     return;
 }
 
 void
-N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z) {
+N_VLinearSum(double a, Vector x, double b, Vector y, Vector z) {
     int64 i;
     int64 N;
     double c, *xd, *yd, *zd;
-    /*N_Vector v, v1, v2;*/
-    N_Vector v1;
-    N_Vector v2;
+    /*Vector v, v1, v2;*/
+    Vector v1;
+    Vector v2;
     bool test;
 
     if ((b == ONE) && (z == y)) { /* BLAS usage: axpy y <- ax+y */
@@ -156,7 +156,7 @@ N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z) {
 }
 
 void
-N_VConst(double c, N_Vector z) {
+N_VConst(double c, Vector z) {
     int64 i;
     int64 N;
     double *zd;
@@ -170,7 +170,7 @@ N_VConst(double c, N_Vector z) {
 }
 
 void
-N_VProd(N_Vector x, N_Vector y, N_Vector z) {
+N_VProd(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -186,7 +186,7 @@ N_VProd(N_Vector x, N_Vector y, N_Vector z) {
 }
 
 void
-N_VDiv(N_Vector x, N_Vector y, N_Vector z) {
+N_VDiv(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -202,7 +202,7 @@ N_VDiv(N_Vector x, N_Vector y, N_Vector z) {
 }
 
 void
-N_VScale(double c, N_Vector x, N_Vector z) {
+N_VScale(double c, Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -227,7 +227,7 @@ N_VScale(double c, N_Vector x, N_Vector z) {
 }
 
 void
-N_VAbs(N_Vector x, N_Vector z) {
+N_VAbs(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -242,7 +242,7 @@ N_VAbs(N_Vector x, N_Vector z) {
 }
 
 void
-N_VInv(N_Vector x, N_Vector z) {
+N_VInv(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -257,7 +257,7 @@ N_VInv(N_Vector x, N_Vector z) {
 }
 
 void
-N_VAddConst(N_Vector x, double b, N_Vector z) {
+N_VAddConst(Vector x, double b, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -272,7 +272,7 @@ N_VAddConst(N_Vector x, double b, N_Vector z) {
 }
 
 double
-N_VDotProd(N_Vector x, N_Vector y) {
+N_VDotProd(Vector x, Vector y) {
     int64 i;
     int64 N;
     double sum = ZERO, *xd, *yd;
@@ -288,7 +288,7 @@ N_VDotProd(N_Vector x, N_Vector y) {
 }
 
 double
-N_VMaxNorm(N_Vector x) {
+N_VMaxNorm(Vector x) {
     int64 i;
     int64 N;
     double max = ZERO, *xd;
@@ -305,7 +305,7 @@ N_VMaxNorm(N_Vector x) {
 }
 
 double
-N_VWrmsNorm(N_Vector x, N_Vector w) {
+N_VWrmsNorm(Vector x, Vector w) {
     int64 i;
     int64 N;
     double sum = ZERO, prodi, *xd, *wd;
@@ -323,7 +323,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w) {
 }
 
 double
-N_VMin(N_Vector x) {
+N_VMin(Vector x) {
     int64 i;
     int64 N;
     double min, *xd;
@@ -341,7 +341,7 @@ N_VMin(N_Vector x) {
 }
 
 void
-N_VCompare(double c, N_Vector x, N_Vector z) {
+N_VCompare(double c, Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -357,7 +357,7 @@ N_VCompare(double c, N_Vector x, N_Vector z) {
 }
 
 bool
-N_VInvTest(N_Vector x, N_Vector z) {
+N_VInvTest(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -376,7 +376,7 @@ N_VInvTest(N_Vector x, N_Vector z) {
 }
 
 void
-N_VPrint(N_Vector x) {
+N_VPrint(Vector x) {
     int64 i;
     int64 N;
     double *xd;
@@ -394,7 +394,7 @@ N_VPrint(N_Vector x) {
 /***************** Private Helper Functions **********************/
 
 static void
-VCopy(N_Vector x, N_Vector z) {
+VCopy(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -409,7 +409,7 @@ VCopy(N_Vector x, N_Vector z) {
 }
 
 static void
-VSum(N_Vector x, N_Vector y, N_Vector z) {
+VSum(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -425,7 +425,7 @@ VSum(N_Vector x, N_Vector y, N_Vector z) {
 }
 
 static void
-VDiff(N_Vector x, N_Vector y, N_Vector z) {
+VDiff(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -441,7 +441,7 @@ VDiff(N_Vector x, N_Vector y, N_Vector z) {
 }
 
 static void
-VNeg(N_Vector x, N_Vector z) {
+VNeg(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -456,7 +456,7 @@ VNeg(N_Vector x, N_Vector z) {
 }
 
 static void
-VScaleSum(double c, N_Vector x, N_Vector y, N_Vector z) {
+VScaleSum(double c, Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -472,7 +472,7 @@ VScaleSum(double c, N_Vector x, N_Vector y, N_Vector z) {
 }
 
 void
-VScaleDiff(double c, N_Vector x, N_Vector y, N_Vector z) {
+VScaleDiff(double c, Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -488,7 +488,7 @@ VScaleDiff(double c, N_Vector x, N_Vector y, N_Vector z) {
 }
 
 static void
-VLin1(double a, N_Vector x, N_Vector y, N_Vector z) {
+VLin1(double a, Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -504,7 +504,7 @@ VLin1(double a, N_Vector x, N_Vector y, N_Vector z) {
 }
 
 static void
-VLin2(double a, N_Vector x, N_Vector y, N_Vector z) {
+VLin2(double a, Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -520,7 +520,7 @@ VLin2(double a, N_Vector x, N_Vector y, N_Vector z) {
 }
 
 static void
-Vaxpy(double a, N_Vector x, N_Vector y) {
+Vaxpy(double a, Vector x, Vector y) {
     int64 i;
     int64 N;
     double *xd, *yd;
@@ -547,7 +547,7 @@ Vaxpy(double a, N_Vector x, N_Vector y) {
 }
 
 static void
-VScaleBy(double a, N_Vector x) {
+VScaleBy(double a, Vector x) {
     int64 i;
     int64 N;
     double *xd;

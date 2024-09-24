@@ -73,12 +73,12 @@ typedef struct {
 
 static int32 cv_band_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 cv_band_setup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
-                           N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
-                           N_Vector vtemp2, N_Vector vtemp3);
+static int32 cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
+                           Vector fpred, bool *jcurPtr, Vector vtemp1,
+                           Vector vtemp2, Vector vtemp3);
 
-static int32 cv_band_solve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-                           N_Vector fcur);
+static int32 cv_band_solve(CVodeMem cv_mem, Vector b, Vector ycur,
+                           Vector fcur);
 
 static void cv_band_free(CVodeMem cv_mem);
 
@@ -95,12 +95,12 @@ static void cv_band_free(CVodeMem cv_mem);
 
 void
 CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
-            void *f_data, double tn, N_Vector y, N_Vector fy, N_Vector ewt,
+            void *f_data, double tn, Vector y, Vector fy, Vector ewt,
             double h, double uround, void *jac_data, int32 *nfePtr,
-            N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
+            Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double fnorm, minInc, inc, inc_inv, srur;
-    N_Vector ftemp;
-    N_Vector ytemp;
+    Vector ftemp;
+    Vector ytemp;
     int64 group, i, j, width, ngroups, i1, i2;
     double *col_j, *ewt_data, *fy_data, *ftemp_data, *y_data, *ytemp_data;
 
@@ -326,9 +326,9 @@ cv_band_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-cv_band_setup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
-              bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2,
-              N_Vector vtemp3) {
+cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+              bool *jcurPtr, Vector vtemp1, Vector vtemp2,
+              Vector vtemp3) {
     bool jbad;
     bool jok;
     double dgamma;
@@ -383,7 +383,7 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 **********************************************************************/
 
 static int32
-cv_band_solve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
+cv_band_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     CVBandMem cvband_mem;
     (void)ycur;
     (void)fcur;

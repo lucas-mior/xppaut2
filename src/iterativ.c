@@ -25,7 +25,7 @@
 *************************************************************************/
 
 int32
-ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
+ModifiedGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     int32 i, k_minus_1, i0;
     double new_norm_2, new_product, vk_norm, temp;
 
@@ -81,8 +81,8 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
 **********************************************************************/
 
 int32
-ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
-            N_Vector temp, double *s) {
+ClassicalGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
+            Vector temp, double *s) {
     int32 i, k_minus_1, i0;
     double vk_norm;
 

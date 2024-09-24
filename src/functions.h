@@ -300,11 +300,11 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  * band_free_piv, respectively. The band_factor and band_back_solve    *
  * routines perform the actual solution of a band linear system.  *
  * Note that the band_back_solve routine has a parameter b of type  *
- * N_Vector. The current implementation makes use of a machine    *
+ * Vector. The current implementation makes use of a machine    *
  * environment specific macro (N_VDATA) which may not exist for   *
- * other implementations of the type N_Vector. Thus, the          *
+ * other implementations of the type Vector. Thus, the          *
  * implementation of band_back_solve may need to change if the      *
- * type N_Vector is changed.                                      *
+ * type Vector is changed.                                      *
  *                                                                *
  * Routines that work with double ** begin with "band" (except for  *
  * the factor and solve routines which are called gbfa and gbsl,  *
@@ -501,7 +501,7 @@ int64 band_factor(BandMat A, int64 *p);
  * routine cannot fail if the corresponding call to band_factor    *
  * did not fail.                                                  *
  ******************************************************************/
-void band_back_solve(BandMat A, int64 *p, N_Vector b);
+void band_back_solve(BandMat A, int64 *p, Vector b);
 
 /******************************************************************
  * Function : band_zero                                            *
@@ -1113,11 +1113,11 @@ int32 plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
  * dense_free_piv, respectively. The dense_factor and dense_back_solve *
  * routines perform the actual solution of a dense linear system. *
  * Note that the dense_back_solve routine has a parameter b of type *
- * N_Vector. The current implementation makes use of a machine    *
+ * Vector. The current implementation makes use of a machine    *
  * environment-specific macro (N_VDATA) which may not exist for   *
- * other implementations of the type N_Vector. Thus, the          *
+ * other implementations of the type Vector. Thus, the          *
  * implementation of dense_back_solve may need to change if the     *
- * type N_Vector is changed.                                      *
+ * type Vector is changed.                                      *
  *                                                                *
  * Routines that work with double ** begin with "den" (except for   *
  * the factor and solve routines which are called gefa and gesl,  *
@@ -1263,7 +1263,7 @@ int64 dense_factor(DenseMat A, int64 *p);
  * did not fail.                                                  *
  *                                                                *
  ******************************************************************/
-void dense_back_solve(DenseMat A, int64 *p, N_Vector b);
+void dense_back_solve(DenseMat A, int64 *p, Vector b);
 
 /******************************************************************
  *                                                                *
@@ -2755,7 +2755,7 @@ enum {
  * non-zero value if unsuccessful.                                *
  *                                                                *
  ******************************************************************/
-typedef int32 (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
+typedef int32 (*ATimesFn)(void *A_data, Vector v, Vector z);
 
 /******************************************************************
  *                                                                *
@@ -2774,14 +2774,14 @@ typedef int32 (*ATimesFn)(void *A_data, N_Vector v, N_Vector z);
  * reattempt the solution after updating preconditioner data.     *
  *                                                                *
  ******************************************************************/
-typedef int32 (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int32 lr);
+typedef int32 (*PSolveFn)(void *P_data, Vector r, Vector z, int32 lr);
 
 /******************************************************************
  *                                                                *
  * Function: ModifiedGS                                           *
  *----------------------------------------------------------------*
  * ModifiedGS performs a modified Gram-Schmidt orthogonalization  *
- * of the N_Vector v[k] against the p unit N_Vectors at           *
+ * of the Vector v[k] against the p unit N_Vectors at           *
  * v[k-1], v[k-2], ..., v[k-p].                                   *
  *                                                                *
  * v is an array of (k+1) N_Vectors v[i], i=0, 1, ..., k.         *
@@ -2811,7 +2811,7 @@ typedef int32 (*PSolveFn)(void *P_data, N_Vector r, N_Vector z, int32 lr);
  * ModifiedGS returns 0 to indicate success. It cannot fail.      *
  *                                                                *
  ******************************************************************/
-int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p,
+int32 ModifiedGS(Vector *v, double **h, int32 k, int32 p,
                  double *new_vk_norm);
 
 /******************************************************************
@@ -2819,12 +2819,12 @@ int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p,
  * Function: ClassicalGS                                          *
  *----------------------------------------------------------------*
  * ClassicalGS performs a classical Gram-Schmidt                  *
- * orthogonalization of the N_Vector v[k] against the p unit      *
+ * orthogonalization of the Vector v[k] against the p unit      *
  * N_Vectors at v[k-1], v[k-2], ..., v[k-p]. The parameters v, h, *
  * k, p, and new_vk_norm are as described in the documentation    *
  * for ModifiedGS.                                                *
  *                                                                *
- * temp is an N_Vector which can be used as workspace by the      *
+ * temp is an Vector which can be used as workspace by the      *
  * ClassicalGS routine.                                           *
  *                                                                *
  * s is a length k array of reals which can be used as workspace  *
@@ -2833,8 +2833,8 @@ int32 ModifiedGS(N_Vector *v, double **h, int32 k, int32 p,
  * ClassicalGS returns 0 to indicate success. It cannot fail.     *
  *                                                                *
  ******************************************************************/
-int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p,
-                  double *new_vk_norm, N_Vector temp, double *s);
+int32 ClassicalGS(Vector *v, double **h, int32 k, int32 p,
+                  double *new_vk_norm, Vector temp, double *s);
 
 /******************************************************************
  *                                                                *
@@ -4079,7 +4079,7 @@ double simplenet_vector_value(double x, int32 i);
  * V is the array of Krylov basis vectors v_1, ..., v_(l_max+1),  *
  * stored in V[0], ..., V[l_max], where l_max is the second       *
  * parameter to SpgmrMalloc. Each v_i is a length N vector of     *
- * type N_Vector. (N is the first parameter to SpgmrMalloc and    *
+ * type Vector. (N is the first parameter to SpgmrMalloc and    *
  * represents the size of the linear system.)                     *
  *                                                                *
  * Hes is the (l_max+1) x l_max Hessenberg matrix. It is stored   *
@@ -4100,13 +4100,13 @@ double simplenet_vector_value(double x, int32 i);
  * givens[0]=c_0, givens[1]=s_0, givens[2]=c_1, givens[3]=s_1,    *
  * ..., givens[2j]=c_j, givens[2j+1]=s_j.                         *
  *                                                                *
- * xcor is a length N vector (type N_Vector) which holds the      *
+ * xcor is a length N vector (type Vector) which holds the      *
  * scaled, preconditioned correction to the initial guess.        *
  *                                                                *
  * yg is a length (l_max+1) array of reals used to hold "int16"   *
  * vectors (e.g. y and g).                                        *
  *                                                                *
- * vtemp is a length N vector (type N_Vector) used as temporary   *
+ * vtemp is a length N vector (type Vector) used as temporary   *
  * vector storage during calculations.                            *
  *                                                                *
  ******************************************************************/
@@ -4114,12 +4114,12 @@ typedef struct {
     int64 N;
     int32 l_max;
 
-    N_Vector *V;
+    Vector *V;
     double **Hes;
     double *givens;
-    N_Vector xcor;
+    Vector xcor;
     double *yg;
-    N_Vector vtemp;
+    Vector vtemp;
 } SpgmrMemRec, *SpgmrMem;
 
 /******************************************************************
@@ -4148,7 +4148,7 @@ SpgmrMem spgmr_malloc(int64 N, int32 l_max);
  * below. The first SpgmrSolve parameter is a pointer to memory   *
  * allocated by a prior call to SpgmrMalloc. The system size N    *
  * passed in the call to SpgmrMalloc should be the same as the    *
- * length of all N_Vector arguments passed to SpgmrSolve.         *
+ * length of all Vector arguments passed to SpgmrSolve.         *
  *                                                                *
  * mem is the pointer returned by SpgmrMalloc to the structure    *
  * containing the memory needed by SpgmrSolve.                    *
@@ -4158,11 +4158,11 @@ SpgmrMem spgmr_malloc(int64 N, int32 l_max);
  * atimes.                                                        *
  *                                                                *
  * x is the initial guess x_0 upon entry and the solution         *
- * N_Vector upon exit with return value SPGMR_SUCCESS or          *
+ * Vector upon exit with return value SPGMR_SUCCESS or          *
  * SPGMR_RES_REDUCED. For all other return values, the output x   *
  * is undefined.                                                  *
  *                                                                *
- * b is the right hand side N_Vector. It is undisturbed by this   *
+ * b is the right hand side Vector. It is undisturbed by this   *
  * function.                                                      *
  *                                                                *
  * pretype is the type of preconditioning to be used. Its         *
@@ -4183,10 +4183,10 @@ SpgmrMem spgmr_malloc(int64 N, int32 l_max);
  * P_data is a pointer to preconditioner information. This        *
  * pointer is passed to the user-supplied function psolve.        *
  *                                                                *
- * sx is the N_Vector of positive scale factors for x (not        *
+ * sx is the Vector of positive scale factors for x (not        *
  * tested). Pass NULL if x scaling not required.                  *
  *                                                                *
- * sb is the N_Vector of positive scale factors for b (not        *
+ * sb is the Vector of positive scale factors for b (not        *
  * tested). Pass NULL if b scaling not required.                  *
  *                                                                *
  * atimes is the user-supplied function which performs the        *
@@ -4224,9 +4224,9 @@ SpgmrMem spgmr_malloc(int64 N, int32 l_max);
  * to use.                                                        *
  *                                                                *
  ******************************************************************/
-int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
+int32 SpgmrSolve(SpgmrMem mem, void *A_data, Vector x, Vector b,
                  int32 pretype, int32 gstype, double delta, int32 max_restarts,
-                 void *P_data, N_Vector sx, N_Vector sb, ATimesFn atimes,
+                 void *P_data, Vector sx, Vector sb, ATimesFn atimes,
                  PSolveFn psolve, double *res_norm, int32 *nli, int32 *nps);
 
 /* Return values for SpgmrSolve */

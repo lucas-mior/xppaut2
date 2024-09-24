@@ -290,11 +290,11 @@ static bool cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord);
 static void cv_free_vectors(CVodeMem cv_mem, int32 maxord);
 
 static bool CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
-                     N_Vector ycur, N_Vector ewtvec, int64 neq);
+                     Vector ycur, Vector ewtvec, int64 neq);
 static bool CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol,
-                       N_Vector ycur, N_Vector ewtvec, int64 neq);
-static bool CVEwtSetSV(CVodeMem cv_mem, double *rtol, N_Vector atol,
-                       N_Vector ycur, N_Vector ewtvec, int64 neq);
+                       Vector ycur, Vector ewtvec, int64 neq);
+static bool CVEwtSetSV(CVodeMem cv_mem, double *rtol, Vector atol,
+                       Vector ycur, Vector ewtvec, int64 neq);
 
 static bool cv_hin(CVodeMem cv_mem, double tout);
 static double cv_upper_bound_h0(CVodeMem cv_mem, double tdist);
@@ -434,7 +434,7 @@ static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 *****************************************************************/
 
 void *
-cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
+cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
              int32 itol, double *reltol, void *abstol, void *f_data,
              FILE *errfp, bool optIn, int32 iopt[], double ropt[]) {
     bool allocOK, ioptExists, roptExists, neg_abstol, ewtsetOK;
@@ -494,7 +494,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
     if (itol == SS) {
         neg_abstol = (*((double *)abstol) < ZERO);
     } else {
-        neg_abstol = (N_VMin((N_Vector)abstol) < ZERO);
+        neg_abstol = (N_VMin((Vector)abstol) < ZERO);
     }
     if (neg_abstol) {
         fprintf(fp, MSG_BAD_ABSTOL);
@@ -698,7 +698,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
 ********************************************************************/
 
 int32
-CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
+CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
     int32 nstloc, kflag, istate, next_q, ier;
     double rh;
     double next_h;
@@ -922,7 +922,7 @@ CVode(void *cvode_mem, double tout, N_Vector yout, double *t, int32 itask) {
 **********************************************************************/
 
 int32
-cvode_dky(void *cvode_mem, double t, int32 k, N_Vector dky) {
+cvode_dky(void *cvode_mem, double t, int32 k, Vector dky) {
     double s, c, r;
     double tfuzz, tp, tn1;
     int32 i;
@@ -1114,12 +1114,12 @@ cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
 
 static bool
 CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
-         N_Vector ycur, N_Vector ewtvec, int64 neq) {
+         Vector ycur, Vector ewtvec, int64 neq) {
     switch (tol_type) {
     case SS:
         return CVEwtSetSS(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
     case SV:
-        return CVEwtSetSV(cv_mem, rtol, (N_Vector)atol, ycur, ewtvec, neq);
+        return CVEwtSetSV(cv_mem, rtol, (Vector)atol, ycur, ewtvec, neq);
     default:
         break;
     }
@@ -1137,8 +1137,8 @@ CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 ********************************************************************/
 
 static bool
-CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
-           N_Vector ewtvec, int64 neq) {
+CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
+           Vector ewtvec, int64 neq) {
     double rtoli;
     double atoli;
     (void)neq;
@@ -1165,8 +1165,8 @@ CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, N_Vector ycur,
 ********************************************************************/
 
 static bool
-CVEwtSetSV(CVodeMem cv_mem, double *rtol, N_Vector atol, N_Vector ycur,
-           N_Vector ewtvec, int64 neq) {
+CVEwtSetSV(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
+           Vector ewtvec, int64 neq) {
     double rtoli;
     (void)neq;
 
@@ -1271,8 +1271,8 @@ static double
 cv_upper_bound_h0(CVodeMem cv_mem, double tdist) {
     double atoli = 0.0, hub_inv, hub;
     bool vectorAtol;
-    N_Vector temp1;
-    N_Vector temp2;
+    Vector temp1;
+    Vector temp2;
 
     vectorAtol = (itol == SV);
     if (!vectorAtol)
@@ -1282,7 +1282,7 @@ cv_upper_bound_h0(CVodeMem cv_mem, double tdist) {
     N_VAbs(zn[0], temp1);
     N_VAbs(zn[1], temp2);
     if (vectorAtol) {
-        N_VLinearSum(HUB_FACTOR, temp1, ONE, (N_Vector)abstol, temp1);
+        N_VLinearSum(HUB_FACTOR, temp1, ONE, (Vector)abstol, temp1);
     } else {
         N_VScale(HUB_FACTOR, temp1, temp1);
         N_VAddConst(temp1, atoli, temp1);
@@ -1950,7 +1950,7 @@ cv_nls_functional(CVodeMem cv_mem) {
 
 static int32
 cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
-    N_Vector vtemp1, vtemp2, vtemp3;
+    Vector vtemp1, vtemp2, vtemp3;
     int32 convfail;
     int32 ier;
     bool callSetup;
@@ -2032,7 +2032,7 @@ cv_newton_iteration(CVodeMem cv_mem) {
     int32 m;
     int32 ret;
     double del, delp = 0.0, dcon;
-    N_Vector b;
+    Vector b;
 
     mnewt = m = 0;
 

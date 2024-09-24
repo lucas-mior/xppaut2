@@ -57,7 +57,7 @@ dense_factor(DenseMat A, int64 *p) {
 }
 
 void
-dense_back_solve(DenseMat A, int64 *p, N_Vector b) {
+dense_back_solve(DenseMat A, int64 *p, Vector b) {
     dense_gesl(A->data, A->size, p, N_VDATA(b));
     return;
 }

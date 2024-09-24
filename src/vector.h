@@ -6,19 +6,19 @@
  *--------------------------------------------------------------*
  *                                                              *
  * This is the header file for a generic VECTOR package. It     *
- * exports the type N_Vector.                                   *
+ * exports the type Vector.                                   *
  *                                                              *
  * Part I of this file contains declarations which are specific *
  * to the particular machine environment in which this version  *
  * of the vector package is to be used. This includes the       *
- * typedef for the type N_Vector, as well as accessor macros    *
- * that allow the user to use efficiently the type N_Vector     *
+ * typedef for the type Vector, as well as accessor macros    *
+ * that allow the user to use efficiently the type Vector     *
  * without making explicit references to its underlying         *
- * representation. The underlying type of N_Vector will always  *
+ * representation. The underlying type of Vector will always  *
  * be some pointer type.                                        *
  *                                                              *
  * Part II of this file contains the prototypes for the vector  *
- * kernels which operate on the type N_Vector. These prototypes *
+ * kernels which operate on the type Vector. These prototypes *
  * are fixed for all implementations of the vector package. The *
  * definitions of the types double and int64 are in the header  *
  * file llnltyps.h and these may be changed according to the    *
@@ -26,7 +26,7 @@
  * definition for the type bool (int16 for boolean) that is the *
  * return type for the routine N_VInvTest.                      *
  *                                                              *
- * Important Note: N_Vector arguments to arithmetic kernels     *
+ * Important Note: Vector arguments to arithmetic kernels     *
  * need not be distinct. Thus, for example, the call            *
  *                                                              *
  *         N_VLinearSum(a,x,b,y,y);    y <- ax+by               *
@@ -35,8 +35,8 @@
  *                                                              *
  * This version of vector.h is for the ordinary sequential      *
  * machine environment. In the documentation given below, N is  *
- * the length of all N_Vector parameters and x[i] denotes the   *
- * ith component of the N_Vector x, where 0 <= i <= N-1.        *
+ * the length of all Vector parameters and x[i] denotes the   *
+ * ith component of the Vector x, where 0 <= i <= N-1.        *
  *                                                              *
  ****************************************************************/
 
@@ -52,13 +52,13 @@
 
 /***************************************************************
  *                                                             *
- * Type: N_Vector                                              *
+ * Type: Vector                                              *
  *-------------------------------------------------------------*
- * The type N_Vector is an abstract vector type. The fields of *
+ * The type Vector is an abstract vector type. The fields of *
  * its concrete representation should not be accessed          *
  * directly, but rather through the macros given below.        *
  *                                                             *
- * A user may assume that the N components of an N_Vector      *
+ * A user may assume that the N components of an Vector      *
  * are stored contiguously. A pointer to the first component   *
  * can be obtained via the macro N_VDATA.                      *
  *                                                             *
@@ -67,7 +67,7 @@
 typedef struct {
     int64 length;
     double *data;
-} *N_Vector;
+} *Vector;
 
 /***************************************************************
  *                                                             *
@@ -76,16 +76,16 @@ typedef struct {
  * In the descriptions below, the following user               *
  * declarations are assumed:                                   *
  *                                                             *
- * N_Vector v; double *v_data, r; int64 v_len, i;              *
+ * Vector v; double *v_data, r; int64 v_len, i;              *
  *                                                             *
  * (1) N_VMAKE, N_VDISPOSE                                     *
  *                                                             *
  *     These companion routines are used to create and         *
- *     destroy an N_Vector with a component array v_data       *
+ *     destroy an Vector with a component array v_data       *
  *     allocated by the user.                                  *
  *                                                             *
  *     The call N_VMAKE(v, v_data, v_len) makes v an           *
- *     N_Vector with component array v_data and length v_len.  *
+ *     Vector with component array v_data and length v_len.  *
  *     N_VMAKE stores the pointer v_data so that changes       *
  *     made by the user to the elements of v_data are          *
  *     simultaneously reflected in v. There is no copying of   *
@@ -99,7 +99,7 @@ typedef struct {
  * (2) N_VDATA, N_VLENGTH                                      *
  *                                                             *
  *     These routines give individual access to the parts of   *
- *     an N_Vector.                                            *
+ *     an Vector.                                            *
  *                                                             *
  *     The assignment v_data=N_VDATA(v) sets v_data to be      *
  *     a pointer to the first component of v. The assignment   *
@@ -113,7 +113,7 @@ typedef struct {
  * (3) N_VIth                                                  *
  *                                                             *
  *     In the following description, the components of an      *
- *     N_Vector are numbered 0..N-1, where N is the length of  *
+ *     Vector are numbered 0..N-1, where N is the length of  *
  *     v.                                                      *
  *                                                             *
  *     The assignment r=N_VIth(v,i) sets r to be the value of  *
@@ -125,7 +125,7 @@ typedef struct {
  * Users who use the macros (1) must #include<stdlib.h>        *
  * since these macros expand to calls to xmalloc and free.      *
  *                                                             *
- * When looping over the components of an N_Vector v, it is    *
+ * When looping over the components of an Vector v, it is    *
  * more efficient to first obtain the component array via      *
  * v_data=N_VDATA(v) and then access v_data[i] within the      *
  * loop than it is to use N_VDATA(v,i) within the loop.        *
@@ -133,7 +133,7 @@ typedef struct {
  * N_VMAKE and N_VDISPOSE are similar to N_VNew and N_VFree.   *
  * The difference is one of responsibility for component       *
  * memory allocation and deallocation. N_VNew allocates memory *
- * for the N_Vector components and N_VFree frees the component *
+ * for the Vector components and N_VFree frees the component *
  * memory allocated by N_VNew. For N_VMAKE and N_VDISPOSE, the *
  * component memory is allocated and freed by the user of      *
  * this package.                                               *
@@ -153,7 +153,7 @@ typedef struct {
 
 #define N_VIth(v, i) ((v->data)[i])
 
-/* Part II: N_Vector Kernel Prototypes (Machine Environment-Independent) */
+/* Part II: Vector Kernel Prototypes (Machine Environment-Independent) */
 
 /***************************************************************
  *                                                             *
@@ -167,16 +167,16 @@ typedef struct {
  * Usage    : x = N_VNew(N);
  *-------------------------------------------------------------*
  *                                                             *
- * Returns a new N_Vector of length N. The parameter machEnv   *
+ * Returns a new Vector of length N. The parameter machEnv   *
  * is a pointer to machine environment-specific information.   *
  * It is ignored in the sequential machine environment and the *
  * user in this environment should simply pass NULL for this   *
- * argument. If there is not enough memory for a new N_Vector, *
+ * argument. If there is not enough memory for a new Vector, *
  * then N_VNew returns NULL.                                   *
  *                                                             *
  ***************************************************************/
 
-N_Vector N_VNew(int64 n);
+Vector N_VNew(int64 n);
 
 /***************************************************************
  *                                                             *
@@ -184,16 +184,16 @@ N_Vector N_VNew(int64 n);
  * Usage    : N_VFree(x);                                      *
  *-------------------------------------------------------------*
  *                                                             *
- * Frees the N_Vector x. It is illegal to use x after the call *
+ * Frees the Vector x. It is illegal to use x after the call *
  * N_VFree(x).                                                 *
  *                                                             *
  ***************************************************************/
 
-void N_VFree(N_Vector x);
+void N_VFree(Vector x);
 
 /***************************************************************
  *                                                             *
- * N_Vector Arithmetic: N_VLinearSum, N_VConst, N_VProd,       *
+ * Vector Arithmetic: N_VLinearSum, N_VConst, N_VProd,       *
  *                      N_VDiv, N_VScale, N_VAbs, N_VInv,      *
  *                      N_VAddConst                            *
  *                                                             *
@@ -206,7 +206,7 @@ void N_VFree(N_Vector x);
  *                                                             *
  ***************************************************************/
 
-void N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z);
+void N_VLinearSum(double a, Vector x, double b, Vector y, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -215,7 +215,7 @@ void N_VLinearSum(double a, N_Vector x, double b, N_Vector y, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VConst(double c, N_Vector z);
+void N_VConst(double c, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -224,7 +224,7 @@ void N_VConst(double c, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VProd(N_Vector x, N_Vector y, N_Vector z);
+void N_VProd(Vector x, Vector y, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -233,7 +233,7 @@ void N_VProd(N_Vector x, N_Vector y, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VDiv(N_Vector x, N_Vector y, N_Vector z);
+void N_VDiv(Vector x, Vector y, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -242,7 +242,7 @@ void N_VDiv(N_Vector x, N_Vector y, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VScale(double c, N_Vector x, N_Vector z);
+void N_VScale(double c, Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -251,7 +251,7 @@ void N_VScale(double c, N_Vector x, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VAbs(N_Vector x, N_Vector z);
+void N_VAbs(Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -260,12 +260,12 @@ void N_VAbs(N_Vector x, N_Vector z);
  *-------------------------------------------------------------*
  *                                                             *
  * This routine does not check for division by 0. It should be *
- * called only with an N_Vector x which is guaranteed to have  *
+ * called only with an Vector x which is guaranteed to have  *
  * all non-zero components.                                    *
  *                                                             *
  ***************************************************************/
 
-void N_VInv(N_Vector x, N_Vector z);
+void N_VInv(Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -274,11 +274,11 @@ void N_VInv(N_Vector x, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-void N_VAddConst(N_Vector x, double b, N_Vector z);
+void N_VAddConst(Vector x, double b, Vector z);
 
 /***************************************************************
  *                                                             *
- * N_Vector Measures: N_VDotProd, N_VMaxNorm, VWrmsNorm,       *
+ * Vector Measures: N_VDotProd, N_VMaxNorm, VWrmsNorm,       *
  *                    N_VMin                                   *
  *                                                             *
  ***************************************************************/
@@ -297,7 +297,7 @@ void N_VAddConst(N_Vector x, double b, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-double N_VDotProd(N_Vector x, N_Vector y);
+double N_VDotProd(Vector x, Vector y);
 
 /***************************************************************
  *                                                             *
@@ -313,7 +313,7 @@ double N_VDotProd(N_Vector x, N_Vector y);
  *                                                             *
  ***************************************************************/
 
-double N_VMaxNorm(N_Vector x);
+double N_VMaxNorm(Vector x);
 
 /***************************************************************
  *                                                             *
@@ -330,7 +330,7 @@ double N_VMaxNorm(N_Vector x);
  *                                                             *
  ***************************************************************/
 
-double N_VWrmsNorm(N_Vector x, N_Vector w);
+double N_VWrmsNorm(Vector x, Vector w);
 
 /***************************************************************
  *                                                             *
@@ -343,7 +343,7 @@ double N_VWrmsNorm(N_Vector x, N_Vector w);
  *                                                             *
  ***************************************************************/
 
-double N_VMin(N_Vector x);
+double N_VMin(Vector x);
 
 /***************************************************************
  *                                                             *
@@ -359,7 +359,7 @@ double N_VMin(N_Vector x);
  *                                                             *
  ***************************************************************/
 
-void N_VCompare(double c, N_Vector x, N_Vector z);
+void N_VCompare(double c, Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -374,7 +374,7 @@ void N_VCompare(double c, N_Vector x, N_Vector z);
  *                                                             *
  ***************************************************************/
 
-bool N_VInvTest(N_Vector x, N_Vector z);
+bool N_VInvTest(Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -388,13 +388,13 @@ bool N_VInvTest(N_Vector x, N_Vector z);
  * Usage    : N_VPrint(x);                                     *
  *-------------------------------------------------------------*
  *                                                             *
- * Prints the N_Vector x to stdout. Each component of x is     *
+ * Prints the Vector x to stdout. Each component of x is     *
  * printed on a separate line using the %g specification. This *
  * routine is provided as an aid in debugging code which uses  *
  * this vector package.                                        *
  *                                                             *
  ***************************************************************/
 
-void N_VPrint(N_Vector x);
+void N_VPrint(Vector x);
 
 #endif

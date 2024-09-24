@@ -22,7 +22,7 @@
 
 /*************** Private Helper Function Prototype *******************/
 
-static void spgmr_free_vector_array(N_Vector *A, int32 indMax);
+static void spgmr_free_vector_array(Vector *A, int32 indMax);
 
 /* Implementation of Spgmr algorithm */
 
@@ -31,7 +31,7 @@ static void spgmr_free_vector_array(N_Vector *A, int32 indMax);
 SpgmrMem
 spgmr_malloc(int64 N, int32 l_max) {
     SpgmrMem mem;
-    N_Vector *V, xcor, vtemp;
+    Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     int32 k;
     int32 i;
@@ -152,11 +152,11 @@ spgmr_malloc(int64 N, int32 l_max) {
 /*************** SpgmrSolve ******************************************/
 
 int32
-SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
+SpgmrSolve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
            int32 gstype, double delta, int32 max_restarts, void *P_data,
-           N_Vector sx, N_Vector sb, ATimesFn atimes, PSolveFn psolve,
+           Vector sx, Vector sb, ATimesFn atimes, PSolveFn psolve,
            double *res_norm, int32 *nli, int32 *nps) {
-    N_Vector *V, xcor, vtemp;
+    Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
     double beta, rotation_product, r_norm, s_product, rho = 0.0;
@@ -451,7 +451,7 @@ spgmr_free(SpgmrMem mem) {
 /*************** Private Helper Function: FreeVectorArray ************/
 
 static void
-spgmr_free_vector_array(N_Vector *A, int32 indMax) {
+spgmr_free_vector_array(Vector *A, int32 indMax) {
     int32 j;
 
     for (j = 0; j <= indMax; j++)

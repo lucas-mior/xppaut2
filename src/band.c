@@ -62,7 +62,7 @@ band_factor(BandMat A, int64 *p) {
 }
 
 void
-band_back_solve(BandMat A, int64 *p, N_Vector b) {
+band_back_solve(BandMat A, int64 *p, Vector b) {
     band_gbsl(A->data, A->size, A->smu, A->ml, p, N_VDATA(b));
     return;
 }
