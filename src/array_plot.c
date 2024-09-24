@@ -87,7 +87,7 @@ static void print_aplot(struct ArrayPlot *ap);
 static void draw_scale(struct ArrayPlot ap);
 static void array_plot_draw(struct ArrayPlot ap);
 static void reset_aplot_axes(struct ArrayPlot ap);
-static int32 editaplot(struct ArrayPlot *ap);
+static int32 array_plot_edit2(struct ArrayPlot *ap);
 static void redraw_aplot(struct ArrayPlot ap);
 static void array_plot_display(Window window, struct ArrayPlot ap);
 static void array_plot_destroy(void);
@@ -425,7 +425,7 @@ print_aplot(struct ArrayPlot *ap) {
 void
 array_plot_button(Window window) {
     if (window == array_plot.wedit)
-        editaplot(&array_plot);
+        array_plot_edit2(&array_plot);
     if (window == array_plot.wfit)
         fit_aplot();
     if (window == array_plot.wrange)
@@ -463,7 +463,7 @@ array_plot_draw(struct ArrayPlot ap) {
 
 void
 array_plot_edit(void) {
-    editaplot(&array_plot);
+    array_plot_edit2(&array_plot);
     return;
 }
 
@@ -533,7 +533,7 @@ array_plot_dump(FILE *fp, int32 f) {
 }
 
 int32
-editaplot(struct ArrayPlot *ap) {
+array_plot_edit2(struct ArrayPlot *ap) {
     int32 i;
     int32 status;
     double zmax, zmin;
