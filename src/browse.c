@@ -36,7 +36,6 @@ extern char *browse_hint[];
 
 extern int32 *my_ode[];
 
-extern int32 *plotlist;
 
 extern char *ode_names[MAX_ODE];
 extern double last_ic[MAX_ODE];

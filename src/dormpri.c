@@ -7,7 +7,6 @@
 #include "integers.h"
 #include <stdbool.h>
 
-extern double *WORK;
 
 static long nfcn;
 static long nstep;

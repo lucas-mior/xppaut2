@@ -16,7 +16,6 @@
 #define MAXFILM 250
 static int32 ks_ncycle = 1;
 static int32 ks_speed = 50;
-extern char *info_message;
 extern char *kin_hint[];
 typedef struct {
     int32 h;

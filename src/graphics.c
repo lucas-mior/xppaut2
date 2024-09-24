@@ -22,7 +22,6 @@ extern double y_3d[2];
 extern double z_3d[2];
 extern int32 colorline[];
 extern Graph graph[MAXPOP];
-extern Graph *MyGraph;
 
 int32 PS_Port = 0;
 int32 PointRadius = 0;
@@ -33,7 +32,6 @@ static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
                              {1, 3, 0}, {4, 4, 0}, {1, 5, 0}, {4, 4, 4, 1, 0},
                              {4, 2, 0}, {1, 3, 0}};
 
-extern XFontStruct *small_font;
 XFontStruct *symfonts[5];
 XFontStruct *romfonts[5];
 int32 avsymfonts[5];

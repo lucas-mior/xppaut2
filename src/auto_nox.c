@@ -78,7 +78,6 @@ extern char *afile_hint[];
 extern char *arun_hint[];
 extern char *no_hint[];
 
-extern FILE *fp8;
 
 int32 SEc = 20;
 int32 UEc = 0;
@@ -132,7 +131,6 @@ Rotchk blrtn;
 GrabPoint grabpt;
 
 extern double MyData[MAX_ODE];
-extern Diagram *bifd;
 
 int32 AutoTwoParam = 0;
 int32 NAutoPar = 8;

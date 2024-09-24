@@ -16,7 +16,6 @@
 #define PARAMBOX 1
 
 
-extern Graph *MyGraph;
 
 extern BcStruct my_bc[MAX_ODE];
 

@@ -56,7 +56,6 @@
 
 extern char big_font_name[100];
 extern char small_font_name[100];
-extern FILE *logfile;
 
 static char setfilename[XPP_MAX_NAME];
 static char parfilename[XPP_MAX_NAME];

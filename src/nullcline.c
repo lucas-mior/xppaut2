@@ -20,8 +20,6 @@ typedef struct Point {
     double x, y, z;
 } Point;
 
-extern Graph *MyGraph;
-extern FILE *svgfile;
 
 static int32 NCSuppress = 0;
 static int32 DFSuppress = 0;

@@ -23,7 +23,6 @@ int32 MSStyle = 0;
 int32 CURS_X;
 int32 CURS_Y;
 int32 xor_flag;
-extern FILE *logfile;
 
 static void put_string_at(Window window, int32 col, char *s, int32 off);
 static void clr_line_at(Window window, int32 col0, int32 pos, int32 n);

@@ -47,7 +47,6 @@ static char *tutorial[N_TUTORIAL] = {
     "variable XPPSTART on your computer."};
 
 extern char this_file[XPP_MAX_NAME];
-extern char *info_message;
 extern char *ic_hint[];
 extern char *sing_hint[];
 extern char *null_hint[];

@@ -13,7 +13,6 @@
 
 static NCLINE nclines[MAXNCLINE];
 extern Curve frz[MAXFRZ];
-extern Graph *MyGraph;
 extern char PS_FONT[200];
 extern double x_3d[2];
 extern double y_3d[2];
@@ -62,7 +61,6 @@ extern char this_file[XPP_MAX_NAME];
 extern char this_internset[XPP_MAX_NAME];
 
 
-extern char *info_message;
 extern char *no_hint[];
 extern char *wind_hint[];
 extern char *view_hint[];

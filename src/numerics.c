@@ -9,7 +9,6 @@
 #include <math.h>
 
 #include "struct.h"
-extern Graph *MyGraph;
 #define VOLTERRA 6
 #define BACKEUL 7
 #define RKQS 8
@@ -21,7 +20,6 @@ extern Graph *MyGraph;
 #define RB23 13
 #define SYMPLECT 14
 
-extern char *info_message;
 extern char *meth_hint[];
 
 /*   This is numerics.c

@@ -37,7 +37,6 @@ extern char UserDrawWinColor[8];
 /*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
 
-extern FILE *logfile;
 
 
 extern char SLIDER1VAR[20];

@@ -21,7 +21,6 @@ static int32 spec_type = 0;
 
 */
 
-extern int32 *plotlist;
 
 int32 post_process = 0;
 
@@ -38,7 +37,6 @@ int32 FOUR_HERE;
 
 
 extern char *no_hint[];
-extern char *info_message;
 
 int32 twod_hist(void);
 

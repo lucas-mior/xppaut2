@@ -35,7 +35,6 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #include "xpplim.h"
 #include "struct.h"
 #include "phsplan.h"
-extern Graph *MyGraph;
 #define MSWTCH(u, v)                                                           \
     memcpy((void *)(u), (void *)(v), (usize)xpv.node*sizeof(double))
 
@@ -66,7 +65,6 @@ extern char this_internset[XPP_MAX_NAME];
 int32 MakePlotFlag = 0;
 
 static int32 OnTheFly = 1;
-extern FILE *svgfile;
 
 
 typedef struct {
@@ -105,7 +103,6 @@ XPPVEC xpv;
 int32 SuppressOut = 0;
 int32 SuppressBounds = 0;
 
-extern char *info_message;
 extern char *ic_hint[];
 extern char *sing_hint[];
 extern char batchout[XPP_MAX_NAME];

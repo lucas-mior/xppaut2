@@ -24,7 +24,6 @@ static int32 adj_len;
 static double **my_h;
 static double *my_liap[2];
 
-extern char *info_message;
 static struct {
     int32 here;
     int32 col0;

@@ -48,7 +48,6 @@ static struct MarkInfo {
 } markinfo = {2, 0, 1, 0, 1, 1.0};
 
 int32 manual_expose = 0;
-extern char *info_message;
 
 Graph graph[MAXPOP];
 Curve frz[MAXFRZ];
