@@ -154,7 +154,7 @@ typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data,
  * djac is the dense Jacobian approximation routine to be used.   *
  *         A user-supplied djac routine must be of type           *
  *         CVDenseJacFn. Pass NULL for djac to use the default    *
- *         difference quotient routine CVDenseDQJac supplied      *
+ *         difference quotient routine cv_dense_dq_jac supplied      *
  *         with this solver.                                      *
  *                                                                *
  * jac_data is a pointer to user data which is passed to the      *
@@ -166,14 +166,14 @@ void cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 /******************************************************************
  *                                                                *
- * Function : CVDenseDQJac                                        *
+ * Function : cv_dense_dq_jac                                        *
  *----------------------------------------------------------------*
  * This routine generates a dense difference quotient             *
  * approximation to the Jacobian of f(t,y).                       *
  *                                                                *
  ******************************************************************/
 
-void CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double t,
+void cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double t,
                   Vector y, Vector fy, Vector ewt, double h,
                   double uround, void *jac_data, int32 *nfePtr, Vector vtemp1,
                   Vector vtemp2, Vector vtemp3);

@@ -82,7 +82,7 @@ static int32 cv_band_solve(CVodeMem cv_mem, Vector b, Vector ycur,
 
 static void cv_band_free(CVodeMem cv_mem);
 
-/*************** CVBandDQJac *****************************************
+/*************** cv_band_dq_jac *****************************************
 
  This routine generates a banded difference quotient approximation to
  the Jacobian of f(t,y).  It assumes that a band matrix of type
@@ -94,7 +94,7 @@ static void cv_band_free(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
+cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
             void *f_data, double tn, Vector y, Vector fy, Vector ewt,
             double h, double uround, void *jac_data, int32 *nfePtr,
             Vector vtemp1, Vector vtemp2, Vector vtemp3) {
@@ -210,7 +210,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 
  (1) the input parameter bjac if bjac != NULL or
 
- (2) CVBandDQJac if bjac == NULL.
+ (2) cv_band_dq_jac if bjac == NULL.
 
 **********************************************************************/
 
@@ -236,9 +236,9 @@ cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
     if (cvband_mem == NULL)
         return; /* CVBandInit reports this error */
 
-    /* Set Jacobian routine field to user's bjac or CVBandDQJac */
+    /* Set Jacobian routine field to user's bjac or cv_band_dq_jac */
     if (bjac == NULL) {
-        jac = CVBandDQJac;
+        jac = cv_band_dq_jac;
     } else {
         jac = bjac;
     }

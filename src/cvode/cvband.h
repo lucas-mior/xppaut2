@@ -182,7 +182,7 @@ typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
  * bjac is the band Jacobian approximation routine to be used.    *
  *           A user-supplied bjac routine must be of type         *
  *           CVBandJacFn. Pass NULL for bjac to use the default   *
- *           difference quotient routine CVBandDQJac supplied     *
+ *           difference quotient routine cv_band_dq_jac supplied     *
  *           with this solver.                                    *
  *                                                                *
  * jac_data is a pointer to user data which is passed to the      *
@@ -195,14 +195,14 @@ void cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
 
 /******************************************************************
  *                                                                *
- * Function : CVBandDQJac                                         *
+ * Function : cv_band_dq_jac                                         *
  *----------------------------------------------------------------*
  * This routine generates a banded difference quotient            *
  * approximation to the Jacobian of f(t,y).                       *
  *                                                                *
  ******************************************************************/
 
-void CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
+void cv_band_dq_jac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
                  void *f_data, double t, Vector y, Vector fy, Vector ewt,
                  double h, double uround, void *jac_data, int32 *nfePtr,
                  Vector vtemp1, Vector vtemp2, Vector vtemp3);

@@ -71,7 +71,7 @@ static int32 CVDenseSolve(CVodeMem cv_mem, Vector b, Vector ycur,
 
 static void cv_dense_free(CVodeMem cv_mem);
 
-/*************** CVDenseDQJac ****************************************
+/*************** cv_dense_dq_jac ****************************************
 
  This routine generates a dense difference quotient approximation to
  the Jacobian of f(t,y). It assumes that a dense matrix of type
@@ -85,7 +85,7 @@ static void cv_dense_free(CVodeMem cv_mem);
 **********************************************************************/
 
 void
-CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
+cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
              Vector fy, Vector ewt, double h, double uround, void *jac_data,
              int32 *nfePtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double fnorm, minInc, inc, inc_inv, yjsaved, srur;
@@ -180,7 +180,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
 
  (1) the input parameter djac if djac != NULL or
 
- (2) CVDenseDQJac if djac == NULL.
+ (2) cv_dense_dq_jac if djac == NULL.
 
 **********************************************************************/
 
@@ -205,9 +205,9 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     if (cvdense_mem == NULL)
         return; /* cv_dense_init reports this error */
 
-    /* Set Jacobian routine field to user's djac or CVDenseDQJac */
+    /* Set Jacobian routine field to user's djac or cv_dense_dq_jac */
     if (djac == NULL) {
-        jac = CVDenseDQJac;
+        jac = cv_dense_dq_jac;
     } else {
         jac = djac;
     }
