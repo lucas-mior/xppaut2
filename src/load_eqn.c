@@ -118,7 +118,7 @@ extern int32 PaperWhite;
 extern int32 PSColorFlag;
 extern int32 PS_FONTSIZE;
 extern int32 PS_Color;
-extern char PS_FONT[100];
+extern char PS_FONT[200];
 extern double PS_LW;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,

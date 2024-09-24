@@ -31,7 +31,7 @@ int32 LastPtLine;
 int32 NoBreakLine = 0;
 int32 PS_FONTSIZE = 14;
 double PS_LW = 5;
-char PS_FONT[100] = "Times-Roman";
+char PS_FONT[200] = "Times-Roman";
 FILE *psfile;
 /*Default is now with color*/
 int32 PltFmtFlag;

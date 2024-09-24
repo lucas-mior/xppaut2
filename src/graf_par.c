@@ -21,7 +21,7 @@ extern int32 DCURY;
 extern int32 storind;
 extern int32 PS_FONTSIZE;
 extern int32 PS_Port;
-extern char PS_FONT[XPP_MAX_NAME];
+extern char PS_FONT[200];
 extern double PS_LW;
 extern double x_3d[2];
 extern double y_3d[2];

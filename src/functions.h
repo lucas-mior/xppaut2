@@ -3694,6 +3694,18 @@ void menu_draw_help(void);
 #ifndef MY_PS_H
 #define MY_PS_H
 
+extern int32 NoBreakLine;
+extern int32 PS_FONTSIZE;
+
+extern double PS_LW;
+extern char PS_FONT[200];
+extern FILE *psfile;
+extern int32 PltFmtFlag;
+extern int32 PSColorFlag;
+extern int32 PSLines;
+extern int32 LastPSX;
+extern int32 LastPSY;
+
 int32 ps_init(char *filename, int32 color);
 void ps_stroke(void);
 void ps_do_color(int32 color);
