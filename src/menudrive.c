@@ -47,24 +47,8 @@ static char *tutorial[N_TUTORIAL] = {
     "variable XPPSTART on your computer."};
 
 extern char this_file[XPP_MAX_NAME];
-extern char *ic_hint[];
-extern char *sing_hint[];
-extern char *null_hint[];
-extern char *flow_hint[];
 extern char *null_freeze[], *bvp_hint[], *color_hint[], *stoch_hint[];
-extern char *no_hint[];
-extern char *wind_hint[];
-extern char *view_hint[];
-extern char *frz_hint[];
 extern char *graf_hint[], *cmap_hint[], *half_hint[], *map_hint[];
-extern char *text_hint[];
-extern char *edit_hint[];
-extern char *adj_hint[];
-extern char *phas_hint[];
-extern char *kin_hint[];
-extern char *view_hint[];
-extern char *tab_hint[];
-extern int32 ActiveWinList[];
 static int32 status;
 
 static struct MsgBoxStruct {

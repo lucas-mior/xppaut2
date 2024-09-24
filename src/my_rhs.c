@@ -7,9 +7,7 @@
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
 extern BcStruct my_bc[MAX_ODE];
-extern int32 *my_ode[];
 
-extern double variables[];
 
 int32
 main(int32 argc, char **argv) {

@@ -20,7 +20,6 @@ double PHI0 = 45;
 extern double x_3d[2];
 extern double y_3d[2];
 extern double z_3d[2];
-extern int32 colorline[];
 extern Graph graph[MAXPOP];
 
 int32 PS_Port = 0;

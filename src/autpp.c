@@ -1,6 +1,7 @@
 #include "autlim.h"
 #include "auto_nox.h"
 #include "functions.h"
+#include "parserslow.h"
 #include "integers.h"
 #include "x_auto.h"
 #include "auto_c.h"
@@ -10,8 +11,6 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
 
 /*    Hooks to xpp RHS     */
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
-extern double constants[];
-extern double last_ic[];
 
 
 int32

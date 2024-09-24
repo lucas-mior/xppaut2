@@ -20,7 +20,6 @@
 #define RB23 13
 #define SYMPLECT 14
 
-extern char *meth_hint[];
 
 /*   This is numerics.c
  *   The input is primitive and eventually, I want to make it so

@@ -25,7 +25,6 @@
 #include <wctype.h>
 #endif
 
-extern char *browse_hint[];
 #define xds(a)                                                                 \
     do {                                                                       \
         XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
@@ -34,7 +33,6 @@ extern char *browse_hint[];
 
 #define BMAXCOL 20
 
-extern int32 *my_ode[];
 
 
 extern char *ode_names[MAX_ODE];

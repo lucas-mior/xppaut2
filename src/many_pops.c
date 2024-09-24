@@ -54,9 +54,6 @@ Curve frz[MAXFRZ];
 Graph *MyGraph;
 
 int32 SimulPlotFlag = 0;
-extern char *text_hint[];
-extern char *edit_hint[];
-extern char *no_hint[];
 int32 current_pop;
 int32 num_pops;
 static int32 MINI_H = 300;

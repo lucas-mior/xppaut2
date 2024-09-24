@@ -45,8 +45,6 @@ void make_ebox_windows(EditBox *sb, char *title);
 
 extern char *ode_names[MAX_ODE];
 
-extern char *edrh_hint[];
-extern int32 *my_ode[];
 extern double last_ic[MAX_ODE];
 
 extern char this_file[XPP_MAX_NAME];

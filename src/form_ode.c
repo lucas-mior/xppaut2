@@ -62,7 +62,6 @@ extern char delay_string[MAX_ODE][80];
 BcStruct my_bc[MAX_ODE];
 
 double default_ic[MAX_ODE];
-extern double last_ic[];
 int32 NODE;
 int32 NUPAR;
 int32 NLINES;

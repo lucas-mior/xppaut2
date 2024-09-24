@@ -7,7 +7,6 @@
 
 /* Derived parameter stuff !!  */
 #define MAXDERIVED 200
-extern double constants[];
 typedef struct {
     int32 index;
     int32 *form;

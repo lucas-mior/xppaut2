@@ -114,7 +114,6 @@ extern double last_ic[MAX_ODE];
 static int32 on_the_fly_speed = 10;
 int32 animation_on_the_fly = 0;
 extern char *color_names[11];
-extern int32 colorline[];
 extern XFontStruct *symfonts[5];
 extern XFontStruct *romfonts[5];
 extern int32 avsymfonts[5];

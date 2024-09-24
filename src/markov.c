@@ -24,7 +24,6 @@
 
 static int64 myrandomseed = -1;
 
-extern int32 *my_ode[];
 extern char *ode_names[MAX_ODE];
 
 extern double MyData[MAX_ODE];
@@ -53,7 +52,6 @@ static int32 STOCH_HERE;
 static int32 N_TRIALS;
 static int32 Wiener[MAX_PAR];
 int32 NWiener;
-extern double constants[];
 
 static double ran1(long *idum);
 static double gammln(double xx);

@@ -29,7 +29,6 @@ double delay_list[MAX_DELAY];
 
 
 extern char delay_string[MAX_ODE][80];
-extern double variables[];
 
 static void polint(double *xa, double *ya, int32 n, double x, double *y,
                    double *dy);

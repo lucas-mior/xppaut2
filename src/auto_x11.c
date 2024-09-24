@@ -54,13 +54,8 @@ int32 mark_iye;
 
 
 
-extern char *auto_hint[];
-extern char *aaxes_hint[];
-extern char *afile_hint[];
-extern char *arun_hint[];
 extern char *no_hint[], *aspecial_hint[];
 
-extern double constants[];
 
 static uint32 DONT_XORCross = 0;
 

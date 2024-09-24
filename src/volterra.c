@@ -29,9 +29,7 @@ static int32 CurrentPoint;
 static int32 KnFlag;
 
 int32 AutoEvaluate = 0;
-extern double variables[];
 
-extern int32 *my_ode[];
 
 static void get_kn(double *y, double t);
 static double betnn(double mu, double dt);

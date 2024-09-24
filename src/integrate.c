@@ -59,7 +59,6 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #define RB23 13
 extern double ShootIC[8][MAX_ODE];
 extern int32 ShootType[8];
-extern int32 ActiveWinList[];
 extern char this_internset[XPP_MAX_NAME];
 
 int32 MakePlotFlag = 0;
@@ -103,8 +102,6 @@ XPPVEC xpv;
 int32 SuppressOut = 0;
 int32 SuppressBounds = 0;
 
-extern char *ic_hint[];
-extern char *sing_hint[];
 extern char batchout[XPP_MAX_NAME];
 int32 DelayErr;
 

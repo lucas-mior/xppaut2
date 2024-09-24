@@ -25,9 +25,7 @@
 
 extern double **storage;
 
-extern int32 *my_ode[];
 
-extern double variables[];
 extern BcStruct my_bc[MAX_ODE];
 
 extern int32 color_line[11];

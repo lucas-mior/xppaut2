@@ -9,11 +9,9 @@
 #include "integers.h"
 #define MAXDAE 400
 
-extern double variables[];
 
 
 
-extern int32 *my_ode[];
 
 /*    will have more stuff someday */
 

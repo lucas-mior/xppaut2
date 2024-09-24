@@ -71,12 +71,6 @@ int32 TypeOfCalc = 0;
 #define DISCRETE 0
 extern int32 leng[MAX_ODE];
 extern double **storage;
-extern double constants[];
-extern char *auto_hint[];
-extern char *aaxes_hint[];
-extern char *afile_hint[];
-extern char *arun_hint[];
-extern char *no_hint[];
 
 
 int32 SEc = 20;

@@ -36,7 +36,6 @@ static int32 HIST_HERE;
 int32 FOUR_HERE;
 
 
-extern char *no_hint[];
 
 int32 twod_hist(void);
 
