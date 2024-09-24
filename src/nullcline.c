@@ -82,8 +82,8 @@ int32 ColorizeFlag = 0;
 RANGE_INFO ncrange;
 
 NullClines *ncperm;
-int32 n_nstore = 0;
-int32 ncline_cnt;
+static int32 n_nstore = 0;
+static int32 ncline_cnt;
 
 static int32 interpolate(Point p1, Point p2, double z, double *x, double *y);
 static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);

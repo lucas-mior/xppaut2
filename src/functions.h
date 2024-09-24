@@ -3766,6 +3766,12 @@ extern int32 XNullColor;
 extern int32 YNullColor;
 extern int32 DF_GRID;
 extern int32 DF_FLAG;
+extern int32 DOING_DFIELD;
+
+extern char ColorVia[15];
+extern double ColorViaLo;
+extern double ColorViaHi;
+extern int32 ColorizeFlag;
 
 #include <stdio.h>
 
