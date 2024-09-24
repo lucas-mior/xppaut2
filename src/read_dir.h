@@ -2,20 +2,20 @@
 #define READ_DIR_H
 #include "integers.h"
 
-typedef struct {
+typedef struct FileInfo {
     char **dirnames, **filenames;
     int32 nfiles;
     int32 ndirs;
-} FILEINFO;
+} FileInfo;
 
 #define MAXPATHLEN 512
 extern char cur_dir[MAXPATHLEN];
-extern FILEINFO my_ff;
+extern FileInfo my_ff;
 
-void free_finfo(FILEINFO *ff);
+void free_finfo(FileInfo *ff);
 int32 cmpstringp(const void *p1, const void *p2);
-int32 get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2);
-int32 get_fileinfo(char *wild, char *direct, FILEINFO *ff);
+int32 get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2);
+int32 get_fileinfo(char *wild, char *direct, FileInfo *ff);
 int32 fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
                 int32 *mlf);
 int32 change_directory(char *path);

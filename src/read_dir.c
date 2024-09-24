@@ -67,10 +67,10 @@ char cur_dir[MAXPATHLEN];
 
 static int32 star(char *string, char *pattern);
 
-FILEINFO my_ff;
+FileInfo my_ff;
 
 void
-free_finfo(FILEINFO *ff) {
+free_finfo(FileInfo *ff) {
     int32 i;
     for (i = 0; i < ff->ndirs; i++)
         free(ff->dirnames[i]);
@@ -91,7 +91,7 @@ cmpstringp(const void *p1, const void *p2) {
 }
 
 int32
-get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
+get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     int32 i;
     int32 ans;
     DIR *dirp;
@@ -146,7 +146,7 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
 }
 
 int32
-get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
+get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     int32 i;
     int32 ans;
     DIR *dirp;
