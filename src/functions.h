@@ -4024,7 +4024,6 @@ void scrngif_screen_to_gif(Window win, FILE *fp);
 void scrngif_get_global_colormap(Window win);
 void write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
                         int32 delay);
-uchar *scrngif_add_code_to_buffer(int32 code, int16 n, uchar *buf);
 
 #endif
 

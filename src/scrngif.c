@@ -29,7 +29,6 @@
         fputc(i >> 8, fout);                                                   \
     } while (0)
 
-uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
 static uint32 debugFlag;
 static int32 UseGlobalMap = 0;
 static int32 GifFrameDelay = 5;
@@ -56,6 +55,7 @@ static int32 make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
 static int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
 static void local_to_global(void);
 static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
+static uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
 
 typedef struct GifCol {
     uchar r, g, b;
