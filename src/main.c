@@ -92,7 +92,6 @@ char PlotFormat[10];
 
 int32 PaperWhite = -1;
 extern int32 DF_FLAG;
-char mycommand[100];
 
 Window TopButton[6];
 Window draw_win;
