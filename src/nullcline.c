@@ -68,9 +68,9 @@ extern int32 FIX_VAR;
 extern int32 NEQ;
 int32 DF_GRID = 16;
 int32 DF_FLAG = 0;
-int32 DF_IX = -1;
-int32 DF_IY = -1;
-int32 DFIELD_TYPE = 0;
+static int32 DF_IX = -1;
+static int32 DF_IY = -1;
+static int32 DFIELD_TYPE = 0;
 
 int32 DOING_DFIELD = 0;
 

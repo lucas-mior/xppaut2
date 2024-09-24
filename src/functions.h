@@ -3742,10 +3742,6 @@ void rhs_only(double *ydot);
 #define MY_SVG_H
 
 extern FILE *svgfile;
-extern int32 DFBatch;
-extern int32 NCBatch;
-extern int32 XNullColor;
-extern int32 YNullColor;
 
 int32 svg_init(char *filename);
 void svg_do_color(int32 color);
@@ -3763,6 +3759,13 @@ void svg_text(int32 x, int32 y, char *str);
 
 #ifndef NULLCLINE_H
 #define NULLCLINE_H
+
+extern int32 DFBatch;
+extern int32 NCBatch;
+extern int32 XNullColor;
+extern int32 YNullColor;
+extern int32 DF_GRID;
+extern int32 DF_FLAG;
 
 #include <stdio.h>
 
