@@ -19,8 +19,6 @@ static int64 c__1 = 1;
 static double c_b367 = -1.;
 static int64 c__2 = 2;
 
-void gear_sgefa(double *a, int32 n, int32 m, int32 *ip, int32 *ier);
-void gear_sgesl(double *a, int32 n, int32 m, int32 *ip, double *b, int32);
 /* ----------------------------------------------------------------------- */
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */

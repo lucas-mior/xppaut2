@@ -33,10 +33,7 @@ static double zippy;
 /* #define COM(a) my_symb[toklist[(a)]].com */
 int32 ERROUT;
 int32 NDELAYS = 0;
-/*double pow2(); */
-double delay_stab_eval(double, int32);
-double tabular_lookup(double, int32);
-double hom_bcs(int32);
+static double hom_bcs(int32);
 static double BoxMuller;
 static int32 BoxMullerFlag = 0;
 int32 RandSeed = 12345678;

@@ -104,7 +104,6 @@ static int32 n_ani_grab = 0;
 static int32 show_grab_points = 0;
 static int32 ani_grab_flag = 0;
 static int32 who_was_grabbed;
-double get_ivar(int32);
 
 /************************8  end grabber **********************/
 

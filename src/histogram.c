@@ -31,7 +31,7 @@ static double *my_four[MAX_ODE + 1];
 static int32 HIST_HERE;
 int32 FOUR_HERE;
 
-int32 twod_hist(void);
+static int32 twod_hist(void);
 
 static void just_sd(int32 flag);
 static void just_fourier(int32 flag);
@@ -45,25 +45,24 @@ static void four_back(void);
 
 int32
 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo,
-           double xhi, double ylo, double yhi)
-/*
-  col1,2 are the data you want to histogram
-  ndat - number of points in the data
-  n1,2 number of bins for two data streams
-  xlo,xhi - range of first column
-  ylo,yhi - range of second column
-  val[0] = value of first data
-  val[1] = value of second data
-  val[3] = number of points - which will be normalized by ndat
-EXAMPLE of binning
-  if xl0 = 0 and xhi=1 and nbin=10
-  dx=1/10
-  then bins are [0,1/10), [1/10,2/10), ....,[9/10,1)
-  thus  bin j = int32 ((x-xlo)/dx)
-        bin k = int32 ((y-ylo)/dy)
-        if j<0 or j>=nxbin then skip etc
-*/
-{
+           double xhi, double ylo, double yhi) {
+    /*
+      col1,2 are the data you want to histogram
+      ndat - number of points in the data
+      n1,2 number of bins for two data streams
+      xlo,xhi - range of first column
+      ylo,yhi - range of second column
+      val[0] = value of first data
+      val[1] = value of second data
+      val[3] = number of points - which will be normalized by ndat
+    EXAMPLE of binning
+      if xl0 = 0 and xhi=1 and nbin=10
+      dx=1/10
+      then bins are [0,1/10), [1/10,2/10), ....,[9/10,1)
+      thus  bin j = int32 ((x-xlo)/dx)
+            bin k = int32 ((y-ylo)/dy)
+            if j<0 or j>=nxbin then skip etc
+    */
     int32 i, j, k;
     double dx, dy, norm;
     double x;

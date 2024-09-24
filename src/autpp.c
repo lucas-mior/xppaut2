@@ -6,9 +6,6 @@
 #include "x_auto.h"
 #include "auto_c.h"
 
-void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
-                 double *d, int32 n);
-
 /*    Hooks to xpp RHS     */
 
 int32

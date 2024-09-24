@@ -34,13 +34,13 @@ typedef struct EditBox {
     int32 hot;
 } EditBox;
 
-void reset_ebox(EditBox *sb, int32 *pos, int32 *col);
-void expose_ebox(EditBox *sb, Window window, int32 pos);
-void ereset_hot(int32 inew, EditBox *sb);
-void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
-                   Window *w);
-int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
-void make_ebox_windows(EditBox *sb, char *title);
+static void reset_ebox(EditBox *sb, int32 *pos, int32 *col);
+static void expose_ebox(EditBox *sb, Window window, int32 pos);
+static void ereset_hot(int32 inew, EditBox *sb);
+static void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
+                          int32 *done, Window *w);
+static int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
+static void make_ebox_windows(EditBox *sb, char *title);
 
 static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 
