@@ -39,11 +39,13 @@ static struct MarkInfo {
 int32 manual_expose = 0;
 extern char *info_message;
 extern Atom deleteWindowAtom;
+
 LABEL lb[MAXLAB];
 GROB grob[MAXGROB];
 GRAPH graph[MAXPOP];
 CURVE frz[MAXFRZ];
 GRAPH *MyGraph;
+
 extern int32 screen;
 extern int32 SCALEY;
 extern int32 CURY_OFF;
