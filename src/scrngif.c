@@ -42,9 +42,9 @@ static int16 need = 8;
 static GifTree *empty[256];
 static GifTree GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL};
 static GifTree *topNode;
-GifTree *baseNode;
-GifTree **nodeArray;
-GifTree **lastArray;
+static GifTree *baseNode;
+static GifTree **nodeArray;
+static GifTree **lastArray;
 
 static void ClearTree(int32 cc, GifTree *root);
 static int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
