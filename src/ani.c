@@ -177,7 +177,7 @@ static int32 ani_text_font;
 static GC ani_gc;
 
 extern int32 use_ani_file;
-extern char anifile[256];
+extern char anifile[XPP_MAX_NAME];
 
 static void create_vcr(char *name);
 static void ani_border(Window window, int32 i);

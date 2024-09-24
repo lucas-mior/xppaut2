@@ -3265,6 +3265,11 @@ extern double SLIDER2INIT;
 extern double SLIDER3INIT;
 
 extern int32 DoTutorial;
+extern char anifile[XPP_MAX_NAME];
+
+extern double xppvermaj;
+extern double xppvermin;
+extern int32 Xup;
 
 void *XMALLOC(usize size, const char *function, int32 line);
 #ifdef MALLOC_DEBUG

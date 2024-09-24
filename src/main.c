@@ -77,7 +77,6 @@ int32 batch_range = 0;
 int32 BatchEquil = -1;
 char batchout[256];
 char UserOUTFILE[256];
-XKeyEvent createKeyEvent(Window window, Window wr, int32 p, int32 kc, int32 m);
 extern int32 xorfix;
 int32 DisplayHeight;
 int32 DisplayWidth;
@@ -1117,32 +1116,6 @@ main_commander(int32 ch) {
         break;
     }
     return;
-}
-
-XKeyEvent
-createKeyEvent(Window win, Window winRoot, int32 press, int32 keycode,
-               int32 modifiers) {
-    XKeyEvent event;
-
-    event.display = display;
-    event.window = win;
-    event.root = winRoot;
-    event.subwindow = None;
-    event.time = CurrentTime;
-    event.x = 1;
-    event.y = 1;
-    event.x_root = 1;
-    event.y_root = 1;
-    event.same_screen = True;
-    event.keycode = XKeysymToKeycode(display, (uint)keycode);
-    event.state = (uint)modifiers;
-
-    if (press == 1)
-        event.type = KeyPress;
-    else
-        event.type = KeyRelease;
-
-    return event;
 }
 
 Window
