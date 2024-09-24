@@ -149,7 +149,7 @@ extern char UserOUTFILE[XPP_MAX_NAME];
 extern double DELAY;
 extern int32 R_COL;
 extern int32 colorline[11];
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 static int32 STOP_FLAG = 0;
 
 static struct {
@@ -2328,8 +2328,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 if (POISGN*POIEXT >= 0) {
                     /*  We will interpolate to get a good local extremum   */
 
-                    rhs(*t, x, xprime, NEQ);
-                    rhs(oldt, oldx, oldxprime, NEQ);
+                    rhs_function(*t, x, xprime, NEQ);
+                    rhs_function(oldt, oldx, oldxprime, NEQ);
                     dxp = xprime[POIVAR - 1] - oldxprime[POIVAR - 1];
                     if (dxp == 0.0) {
                         ggets_err_msg(

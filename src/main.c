@@ -62,7 +62,7 @@ extern int32 DFBatch;
 extern char this_file[XPP_MAX_NAME];
 extern int32 METHOD;
 extern int32 storind;
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 extern int32 SuppressOut;
 extern XFontStruct *symfonts[5];
 extern XFontStruct *romfonts[5];
@@ -475,7 +475,7 @@ do_main(int32 argc, char **argv) {
     numerics_do_meth();
 
     numerics_set_delay();
-    rhs = my_rhs;
+    rhs_function = my_rhs;
     do_fit_init_info();
     form_ode_strip_saveqn();
     form_ode_create_plot_list();

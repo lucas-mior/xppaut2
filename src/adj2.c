@@ -17,7 +17,7 @@
 #define READEM 1
 
 extern double MyData[MAX_ODE];
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 extern double **storage;
 extern int32 storind;
 extern int32 FOUR_HERE;
@@ -420,7 +420,7 @@ adj2_new_adjoint(void) {
  *    including time in the first column
 
  *    The righthand sides of the equations are
- *      rhs(t,y,yp,n)
+ *      rhs_function(t,y,yp,n)
  *    and the coupling function for ``H'' functions is
  *      couple(y,yhat,f,n)
 
@@ -462,7 +462,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         l = nt - 1 - k; /* reverse the limit cycle  */
         for (int32 i = 0; i < node; i++)
             yold[i] = (double)orbit[i + 1][l];
-        rhs(0.0, yold, fold, node);
+        rhs_function(0.0, yold, fold, node);
         for (j = 0; j < node; j++) {
             ytemp = yold[j];
             del = eps*fabs(ytemp);
@@ -470,7 +470,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
                 del = eps;
 
             yold[j] += del;
-            rhs(0.0, yold, fdev, node);
+            rhs_function(0.0, yold, fdev, node);
             yold[j] = ytemp;
             for (int32 i = 0; i < node; i++)
                 jac[i + node*j][k] = (fdev[i] - fold[i]) / del;
@@ -531,7 +531,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         t += dt;
         for (int32 i = 0; i < node; i++)
             fdev[i] = (double)orbit[i + 1][l];
-        rhs(0.0, fdev, yprime, node);
+        rhs_function(0.0, fdev, yprime, node);
         for (j = 0; j < node; j++) {
             adjnt[j + 1][l] = (double)yold[j];
             prod += yold[j]*yprime[j]*dt;

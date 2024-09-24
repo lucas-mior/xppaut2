@@ -9,7 +9,7 @@ void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
                  double *d, int32 n);
 
 /*    Hooks to xpp RHS     */
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 extern double constants[];
 extern double last_ic[];
 
@@ -35,7 +35,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     }
     derived_evaluate();
     tabular_redo_all_fun_tables();
-    rhs(0.0, u, f, (int32)ndim);
+    rhs_function(0.0, u, f, (int32)ndim);
     if (ijac == 1)
         getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, (int32)ndim);
     if (METHOD > 0 || NJMP == 1)
@@ -43,7 +43,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     for (i = 1; i < NJMP; i++) {
         for (j = 0; j < ndim; j++)
             zz[j] = f[j];
-        rhs(0.0, zz, f, (int32)ndim);
+        rhs_function(0.0, zz, f, (int32)ndim);
     }
 
     return 0;

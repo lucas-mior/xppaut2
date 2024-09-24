@@ -32,7 +32,7 @@ int32 NCBatch = 0;
 extern int32 XPPBatch;
 
 static int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 extern int32 DRight;
 extern int32 DLeft;
 extern int32 DTop;
@@ -435,7 +435,7 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
         y[inx] = u0 + du*i;
         for (j = 0; j <= n; j++) {
             y[iny] = v0 + dv*j;
-            rhs(0.0, y, ydot, NODE);
+            rhs_function(0.0, y, ydot, NODE);
             my_rhs_extra(y, 0.0, NODE, NEQ);
             graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
             amp = hypot(dxp, dyp);
@@ -560,7 +560,7 @@ nullcline_redraw_dfield(void) {
         y[inx] = u0 + du*i;
         for (j = 0; j <= grid; j++) {
             y[iny] = v0 + dv*j;
-            rhs(0.0, y, ydot, NODE);
+            rhs_function(0.0, y, ydot, NODE);
             my_rhs_extra(y, 0.0, NODE, NEQ);
             if (MyGraph->ColorFlag || DF_FLAG == 2) {
                 v1[0] = 0.0;
@@ -674,7 +674,7 @@ nullcline_direct_field_com(int32 c) {
             y[inx] = u0 + du*i;
             for (j = 0; j <= grid; j++) {
                 y[iny] = v0 + dv*j;
-                rhs(0.0, y, ydot, NODE);
+                rhs_function(0.0, y, ydot, NODE);
                 my_rhs_extra(y, 0.0, NODE, NEQ);
                 if (MyGraph->ColorFlag || DF_FLAG == 2) {
                     v1[0] = 0.0;
@@ -969,7 +969,7 @@ fnull(double x, double y) {
 
     y1[null_ix - 1] = (double)x;
     y1[null_iy - 1] = (double)y;
-    rhs(0.0, y1, ydot, NODE);
+    rhs_function(0.0, y1, ydot, NODE);
     return (double)ydot[WHICH_CRV - 1];
 }
 

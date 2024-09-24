@@ -42,7 +42,7 @@ extern int32 NFlags;
 #define PGROW2 -0.2
 #define PSHRNK2 -0.25
 #define ERRCON2 1.89e-4
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 void
 jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
        double *work, int32 n) {
@@ -52,11 +52,11 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
     double *yval, *ynew, ytemp;
     yval = work;
     ynew = work + n;
-    rhs(x, y, yval, n);
+    rhs_function(x, y, yval, n);
 
     r = eps*MAX(eps, fabs(x));
 
-    rhs(x + r, y, ynew, n);
+    rhs_function(x + r, y, ynew, n);
     for (i = 0; i < n; i++) {
         dfdx[i] = (ynew[i] - yval[i]) / r;
     }
@@ -64,7 +64,7 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
         ytemp = y[i];
         r = eps*MAX(eps, fabs(ytemp));
         y[i] = ytemp + r;
-        rhs(x, y, ynew, n);
+        rhs_function(x, y, ynew, n);
         for (j = 0; j < n; j++) {
             dermat[j*n + i] = (ynew[j] - yval[j]) / r;
         }
@@ -109,7 +109,7 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
     for (i = 0; i < nvar; i++)
         y[i] = ystart[i];
     for (nstp = 1; nstp <= MAXSTP; nstp++) {
-        rhs(x, y, dydx, nvar);
+        rhs_function(x, y, dydx, nvar);
         for (i = 0; i < nvar; i++)
             if (iflag == STIFF)
                 yscal[i] = MAX(1, fabs(y[i]));
@@ -190,14 +190,14 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         for (i = 0; i < n; i++)
             y[i] = ysav[i] + A21*g1[i];
         *x = xsav + A2X*h;
-        rhs(*x, y, dydx, n);
+        rhs_function(*x, y, dydx, n);
         for (i = 0; i < n; i++)
             g2[i] = dydx[i] + h*C2X*dfdx[i] + C21*g1[i] / h;
         gear_sgesl(a, n, n, indx, g2, 0);
         for (i = 0; i < n; i++)
             y[i] = ysav[i] + A31*g1[i] + A32*g2[i];
         *x = xsav + A3X*h;
-        rhs(*x, y, dydx, n);
+        rhs_function(*x, y, dydx, n);
         for (i = 0; i < n; i++)
             g3[i] =
                 dydx[i] + h*C3X*dfdx[i] + (C31*g1[i] + C32*g2[i]) / h;
@@ -300,21 +300,21 @@ rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
     ytemp = ak6 + n;
     for (i = 0; i < n; i++)
         ytemp[i] = y[i] + b21*h*dydx[i];
-    rhs(x + a2*h, ytemp, ak2, n);
+    rhs_function(x + a2*h, ytemp, ak2, n);
     for (i = 0; i < n; i++)
         ytemp[i] = y[i] + h*(b31*dydx[i] + b32*ak2[i]);
-    rhs(x + a3*h, ytemp, ak3, n);
+    rhs_function(x + a3*h, ytemp, ak3, n);
     for (i = 0; i < n; i++)
         ytemp[i] = y[i] + h*(b41*dydx[i] + b42*ak2[i] + b43*ak3[i]);
-    rhs(x + a4*h, ytemp, ak4, n);
+    rhs_function(x + a4*h, ytemp, ak4, n);
     for (i = 0; i < n; i++)
         ytemp[i] = y[i] + h*(b51*dydx[i] + b52*ak2[i] + b53*ak3[i] +
                                b54*ak4[i]);
-    rhs(x + a5*h, ytemp, ak5, n);
+    rhs_function(x + a5*h, ytemp, ak5, n);
     for (i = 0; i < n; i++)
         ytemp[i] = y[i] + h*(b61*dydx[i] + b62*ak2[i] + b63*ak3[i] +
                                b64*ak4[i] + b65*ak5[i]);
-    rhs(x + a6*h, ytemp, ak6, n);
+    rhs_function(x + a6*h, ytemp, ak6, n);
     for (i = 0; i < n; i++)
         yout[i] =
             y[i] + h*(c1*dydx[i] + c3*ak3[i] + c4*ak4[i] + c6*ak6[i]);

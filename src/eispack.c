@@ -7,7 +7,7 @@
  */
 
 #include "integers.h"
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 #include "auto_f2c.h"
 #include "math.h"
 #include "auto_c.h"

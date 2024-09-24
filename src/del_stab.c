@@ -20,7 +20,7 @@ extern int32 NDelay;
 extern int32 del_stab_flag;
 extern int32 WhichDelay;
 extern int32 DelayGrid;
-extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 
 static int32 test_sign(double old, double new);
 static double get_arg(double *delay, double *coef, int32 m, int32 n,
@@ -75,7 +75,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     }
     /* OKAY -- we have the root */
     NDelay = 0;
-    rhs(0.0, x, y, n); /* one more evaluation to get delays */
+    rhs_function(0.0, x, y, n); /* one more evaluation to get delays */
     for (i = 0; i < n; i++) {
         variable_shift[0][i] = x[i]; /* unshifted  */
         variable_shift[1][i] = x[i];
@@ -95,7 +95,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
             xp[j] = x[j];
         dx = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + dx;
-        rhs(0.0, xp, yp, n);
+        rhs_function(0.0, xp, yp, n);
         for (j = 0; j < n; j++) {
             coef[j*n + i] = (yp[j] - y[j]) / dx;
             colsum += fabs(coef[j*n + i]);
@@ -116,7 +116,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
                 variable_shift[1][j] = variable_shift[0][j];
             dx = eps*gear_amax(eps, fabs(x[i]));
             variable_shift[1][i] = x[i] + dx;
-            rhs(0.0, x, yp, n);
+            rhs_function(0.0, x, yp, n);
             variable_shift[1][i] = x[i];
             for (j = 0; j < n; j++) {
                 coef[j*n + i + n*n*(k + 1)] = (yp[j] - y[j]) / dx;
