@@ -158,7 +158,7 @@ static AutoAX Old2p;
 
 /* color plot stuff */
 void
-colset(int32 type) {
+auto_colset(int32 type) {
     switch (type) {
     case CSEQ:
         auto_x11_col(SEc);
@@ -210,7 +210,7 @@ pscolset2(int32 flag2) {
 }
 
 void
-colset2(int32 flag2) {
+auto_colset2(int32 flag2) {
     auto_x11_line_width(2);
     switch (flag2) {
     case LPE2:
@@ -1183,9 +1183,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         auto_x11_line_width(2);
-        colset(type);
+        auto_colset(type);
         if (flag2 > 0)
-            colset2(flag2);
+            auto_colset2(flag2);
         auto_line(x, y1, Auto.lastx, Auto.lasty);
         auto_x11_bw();
         break;
@@ -1197,9 +1197,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         auto_x11_line_width(1);
-        colset(type);
+        auto_colset(type);
         if (flag2 > 0)
-            colset2(flag2);
+            auto_colset2(flag2);
         auto_line(x, y1, Auto.lastx, Auto.lasty);
         auto_x11_bw();
         break;
@@ -1209,9 +1209,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         auto_x11_line_width(1);
-        colset(type);
+        auto_colset(type);
         if (flag2 > 0)
-            colset2(flag2);
+            auto_colset2(flag2);
         if (auto_check_bnds(ix, iy1))
             auto_x11_circle(ix, iy1, 3);
         if (auto_check_bnds(ix, iy2))
@@ -1224,9 +1224,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         auto_x11_line_width(1);
-        colset(type);
+        auto_colset(type);
         if (flag2 > 0)
-            colset2(flag2);
+            auto_colset2(flag2);
         if (auto_check_bnds(ix, iy1))
             auto_x11_fill_circle(ix, iy1, 3);
         if (auto_check_bnds(ix, iy2))

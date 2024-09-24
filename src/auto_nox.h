@@ -126,9 +126,9 @@ extern int32 load_all_labeled_orbits;
 extern int32 AutoTwoParam;
 extern int32 NAutoPar;
 
-void colset(int32 type);
+void auto_colset(int32 type);
 void pscolset2(int32 flag2);
-void colset2(int32 flag2);
+void auto_colset2(int32 flag2);
 void get_auto_str(char *xlabel, char *ylabel);
 void draw_ps_axes(void);
 void draw_svg_axes(void);
