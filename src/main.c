@@ -55,7 +55,6 @@ char anifile[XPP_MAX_NAME];
 double xppvermaj;
 double xppvermin;
 
-extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 int32 Xup;
 int32 TipsFlag = 1;
 Atom deleteWindowAtom = 0;

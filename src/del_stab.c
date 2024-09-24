@@ -11,8 +11,6 @@
 /* this code takes the determinant of a floatcomplex valued matrix
  */
 
-extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
-
 static int32 test_sign(double old, double new);
 static double get_arg(double *delay, double *coef, int32 m, int32 n,
                       COMPLEX lambda);

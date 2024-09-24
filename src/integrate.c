@@ -106,7 +106,6 @@ int32 MyStart;
 int32 RANGE_FLAG;
 double LastTime;
 
-extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 static int32 STOP_FLAG = 0;
 
 static struct {

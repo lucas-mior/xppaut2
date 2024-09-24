@@ -41,7 +41,6 @@
 #define PGROW2 -0.2
 #define PSHRNK2 -0.25
 #define ERRCON2 1.89e-4
-extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 void
 jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
        double *work, int32 n) {

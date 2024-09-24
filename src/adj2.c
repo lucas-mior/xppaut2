@@ -16,7 +16,6 @@
 
 #define READEM 1
 
-extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 static double **my_adj;
 static int32 adj_len;
 static double **my_h;
