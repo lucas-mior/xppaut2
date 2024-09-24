@@ -56,6 +56,8 @@ static int32 use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
 static void local_to_global(void);
 static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 static uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
+static void write_local_header(int32 cols, int32 rows, FILE *fout,
+                               int32 colflag, int32 delay);
 
 typedef struct GifCol {
     uchar r, g, b;

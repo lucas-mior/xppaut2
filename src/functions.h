@@ -4022,8 +4022,6 @@ void scrngif_end_ani_gif(FILE *fp);
 void scrngif_add_ani_gif(Window win, FILE *fp, int32 count);
 void scrngif_screen_to_gif(Window win, FILE *fp);
 void scrngif_get_global_colormap(Window win);
-void write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
-                        int32 delay);
 
 #endif
 
