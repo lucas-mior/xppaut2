@@ -2730,7 +2730,7 @@ enum {
  * enum : types of Gram-Schmidt routines                          *
  *----------------------------------------------------------------*
  * MODIFIED_GS  : The iterative solver uses the modified          *
- *                Gram-Schmidt routine ModifiedGS listed in this  *
+ *                Gram-Schmidt routine modified_gs listed in this  *
  *                file.                                           *
  *                                                                *
  * CLASSICAL_GS : The iterative solver uses the classical         *
@@ -2778,9 +2778,9 @@ typedef int32 (*PSolveFn)(void *P_data, Vector r, Vector z, int32 lr);
 
 /******************************************************************
  *                                                                *
- * Function: ModifiedGS                                           *
+ * Function: modified_gs                                           *
  *----------------------------------------------------------------*
- * ModifiedGS performs a modified Gram-Schmidt orthogonalization  *
+ * modified_gs performs a modified Gram-Schmidt orthogonalization  *
  * of the Vector v[k] against the p unit N_Vectors at           *
  * v[k-1], v[k-2], ..., v[k-p].                                   *
  *                                                                *
@@ -2803,15 +2803,15 @@ typedef int32 (*PSolveFn)(void *P_data, Vector r, Vector z, int32 lr);
  * new_vk_norm is a pointer to memory allocated by the caller to  *
  * hold the Euclidean norm of the orthogonalized vector v[k].     *
  *                                                                *
- * If (k-p) < 0, then ModifiedGS uses p=k. The orthogonalized     *
+ * If (k-p) < 0, then modified_gs uses p=k. The orthogonalized     *
  * v[k] is NOT normalized and is stored over the old v[k]. Once   *
  * the orthogonalization has been performed, the Euclidean norm   *
  * of v[k] is stored in (*new_vk_norm).                           *
  *                                                                *
- * ModifiedGS returns 0 to indicate success. It cannot fail.      *
+ * modified_gs returns 0 to indicate success. It cannot fail.      *
  *                                                                *
  ******************************************************************/
-int32 ModifiedGS(Vector *v, double **h, int32 k, int32 p,
+int32 modified_gs(Vector *v, double **h, int32 k, int32 p,
                  double *new_vk_norm);
 
 /******************************************************************
@@ -2822,7 +2822,7 @@ int32 ModifiedGS(Vector *v, double **h, int32 k, int32 p,
  * orthogonalization of the Vector v[k] against the p unit      *
  * N_Vectors at v[k-1], v[k-2], ..., v[k-p]. The parameters v, h, *
  * k, p, and new_vk_norm are as described in the documentation    *
- * for ModifiedGS.                                                *
+ * for modified_gs.                                                *
  *                                                                *
  * temp is an Vector which can be used as workspace by the      *
  * ClassicalGS routine.                                           *

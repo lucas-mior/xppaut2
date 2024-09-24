@@ -308,7 +308,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                                 vtemp, yg) != 0)
                     return SPGMR_GS_FAIL;
             } else {
-                if (ModifiedGS(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) !=
+                if (modified_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) !=
                     0)
                     return SPGMR_GS_FAIL;
             }

@@ -19,13 +19,13 @@
 #define ZERO RCONST(0.0)
 #define ONE RCONST(1.0)
 
-/************************* ModifiedGS ***********************************
- This implementation of ModifiedGS is a slight modification of a previous
+/************************* modified_gs ***********************************
+ This implementation of modified_gs is a slight modification of a previous
  modified Gram-Schmidt routine (called mgs) written by Milo Dorr.
 *************************************************************************/
 
 int32
-ModifiedGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
+modified_gs(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     int32 i, k_minus_1, i0;
     double new_norm_2, new_product, vk_norm, temp;
 
