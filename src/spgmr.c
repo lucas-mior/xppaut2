@@ -29,7 +29,7 @@ static void FreeVectorArray(N_Vector *A, int32 indMax);
 /*************** SpgmrMalloc *****************************************/
 
 SpgmrMem
-SpgmrMalloc(int64 N, int32 l_max) {
+spgmr_malloc(int64 N, int32 l_max) {
     SpgmrMem mem;
     N_Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
@@ -205,7 +205,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     /* Apply b-scaling to vtemp, get L2 norm of sb r_0, and return if small */
     /*
       if (scale_b) N_VProd(sb, vtemp, vtemp);
-      s_r0_norm = RSqrt(N_VDotProd(vtemp, vtemp));
+      s_r0_norm = llnlmath_rsqrt(N_VDotProd(vtemp, vtemp));
       if (s_r0_norm <= delta) return SPGMR_SUCCESS;
     */
     /* Apply left preconditioner and b-scaling to V[0] = r_0 */
@@ -229,7 +229,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
     /* Set r_norm = beta to L2 norm of V[0] = sb P1_inv r_0, and
        return if small  */
 
-    *res_norm = r_norm = beta = RSqrt(N_VDotProd(V[0], V[0]));
+    *res_norm = r_norm = beta = llnlmath_rsqrt(N_VDotProd(V[0], V[0]));
     if (r_norm <= delta)
         return SPGMR_SUCCESS;
 
@@ -315,7 +315,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
 
             /*  Update the QR factorization of Hes  */
 
-            if (QRfact(krydim, Hes, givens, l) != 0)
+            if (iterativ_qr_fact(krydim, Hes, givens, l) != 0)
                 return SPGMR_QRFACT_FAIL;
 
             /*  Update residual norm estimate; break if convergence test passes
@@ -338,7 +338,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
         yg[0] = r_norm;
         for (i = 1; i <= krydim; i++)
             yg[i] = ZERO;
-        if (QRsol(krydim, Hes, givens, yg) != 0)
+        if (iterativ_qr_sol(krydim, Hes, givens, yg) != 0)
             return SPGMR_QRSOL_FAIL;
 
         /* Add correction vector V_l y to xcor */
@@ -424,7 +424,7 @@ SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b, int32 pretype,
 /*************** SpgmrFree *******************************************/
 
 void
-SpgmrFree(SpgmrMem mem) {
+spgmr_free(SpgmrMem mem) {
     int32 i;
     int32 l_max;
     double **Hes;

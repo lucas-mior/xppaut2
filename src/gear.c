@@ -94,7 +94,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
             work[i*n + j] = temp;
         }
     }
-    eigen(n, work, eval, ework, ierr);
+    gear_eigen(n, work, eval, ework, ierr);
     if (*ierr != 0) {
         free(work);
         return;
@@ -159,7 +159,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             work[i*n + j] = temp;
         }
     }
-    eigen(n, work, eval, ework, ierr);
+    gear_eigen(n, work, eval, ework, ierr);
     if (*ierr != 0) {
         err_msg("Could not compute eigenvalues");
         free(work);
@@ -168,18 +168,18 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     /* succesfully computed evals now lets work with them */
     ch = 'n';
     if (!PAR_FOL)
-        ch = (char)TwoChoice("YES", "NO", "Print eigenvalues?", "yn");
+        ch = (char)menudrive_two_choice("YES", "NO", "Print eigenvalues?", "yn");
     pr = 0;
 
     if (ch == 'y') {
-        plintf("\n Eigenvalues:\n");
+        ggets_plintf("\n Eigenvalues:\n");
         pr = 1;
     }
     for (int32 i = 0; i < n; i++) {
         real = eval[2*i];
         imag = eval[2*i + 1];
         if (pr == 1) {
-            plintf(" %f  +  i  %f \n", real, imag);
+            ggets_plintf(" %f  +  i  %f \n", real, imag);
         }
         if (METHOD == 0)
             real = real*real + imag*imag - 1.00;
@@ -243,7 +243,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     if (((rp == 1) || (rn == 1)) && (n > 1)) {
         ch = 'n';
         if (!PAR_FOL) {
-            ch = (char)TwoChoice("YES", "NO", "Draw Invariant Sets?", "yn");
+            ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?", "yn");
         }
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
             oldt = DELTA_T;
@@ -255,8 +255,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     change_current_linestyle(UnstableManifoldColor, &oldcol);
                     pr_evec(x, b, n, 1);
                     DELTA_T = fabs(DELTA_T);
-                    shoot(bp, x, b, 1);
-                    shoot(bp, x, b, -1);
+                    integrate_shoot(bp, x, b, 1);
+                    integrate_shoot(bp, x, b, -1);
                     change_current_linestyle(oldcol, &dummy);
 
                 } else
@@ -269,8 +269,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     change_current_linestyle(StableManifoldColor, &oldcol);
                     pr_evec(x, b, n, -1);
                     DELTA_T = -fabs(DELTA_T);
-                    shoot(bp, x, b, 1);
-                    shoot(bp, x, b, -1);
+                    integrate_shoot(bp, x, b, 1);
+                    integrate_shoot(bp, x, b, -1);
                     change_current_linestyle(oldcol, &dummy);
                 } else
                     err_msg("Failed to compute eigenvector");
@@ -285,7 +285,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     if (((rn > 1) && (bneg >= 0)) || ((rp > 1) && (bpos >= 0))) {
         ch = 'n';
         if (!PAR_FOL) {
-            ch = (char)TwoChoice("YES", "NO", "Draw Strong Sets?", "yn");
+            ch = (char)menudrive_two_choice("YES", "NO", "Draw Strong Sets?", "yn");
         }
 
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
@@ -293,15 +293,15 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
 
             if ((rp > 1) && (bpos >= 0)) /* then there is a strong unstable */
             {
-                plintf("strong unstable %g \n", bigpos);
+                ggets_plintf("strong unstable %g \n", bigpos);
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigpos,
                          ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(UnstableManifoldColor, &oldcol);
                     pr_evec(x, b, n, 1);
                     DELTA_T = fabs(DELTA_T);
-                    shoot(bp, x, b, 1);
-                    shoot(bp, x, b, -1);
+                    integrate_shoot(bp, x, b, 1);
+                    integrate_shoot(bp, x, b, -1);
                     change_current_linestyle(oldcol, &dummy);
 
                 } else
@@ -310,15 +310,15 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
 
             if ((rn > 1) && (bneg >= 0)) /* then there is a strong stable */
             {
-                plintf("strong stable %g \n", bigneg);
+                ggets_plintf("strong stable %g \n", bigneg);
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigneg,
                          ierr);
                 if (*ierr == 0) {
                     change_current_linestyle(StableManifoldColor, &oldcol);
                     pr_evec(x, b, n, -1);
                     DELTA_T = -fabs(DELTA_T);
-                    shoot(bp, x, b, 1);
-                    shoot(bp, x, b, -1);
+                    integrate_shoot(bp, x, b, 1);
+                    integrate_shoot(bp, x, b, -1);
                     change_current_linestyle(oldcol, &dummy);
                 } else
                     err_msg("Failed to compute eigenvector");
@@ -454,7 +454,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
             work[i*n + j] = temp;
         }
     }
-    eigen(n, work, eval, ework, ierr);
+    gear_eigen(n, work, eval, ework, ierr);
     if (*ierr != 0) {
         free(work);
         return;
@@ -620,19 +620,19 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
     for (j = 0; j < n; j++)
         anew[j*(1 + n)] = anew[j*(1 + n)] - eval - err*err*zz;
 
-    sgefa(anew, n, n, ipivot, ierr);
+    gear_sgefa(anew, n, n, ipivot, ierr);
     if (*ierr != -1) {
-        plintf(" Pivot failed\n");
+        ggets_plintf(" Pivot failed\n");
         return;
     }
     for (j = 0; j < n; j++) {
-        b[j] = 1 + .1*ndrand48();
+        b[j] = 1 + .1*markov_ndrand48();
         bp[j] = b[j];
     }
     iter = 0;
     *ierr = 0;
     while (true) {
-        sgesl(anew, n, n, ipivot, b, 0);
+        gear_sgesl(anew, n, n, ipivot, b, 0);
         temp = fabs(b[0]);
         jmax = 0;
 
@@ -654,7 +654,7 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
             break;
         iter++;
         if (iter > maxit) {
-            plintf(" max iterates exceeded\n");
+            ggets_plintf(" max iterates exceeded\n");
 
             *ierr = 1;
             break;
@@ -677,7 +677,7 @@ get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
 }
 
 void
-eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
+gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr) {
     orthesx(n, 1, n, a, work);
     hqrx(n, 1, n, a, ev, ierr);
     return;
@@ -784,7 +784,7 @@ l130:
         q = q / x;
         r = r / x;
     l170:
-        s = sign(sqrt(p*p + q*q + r*r), p);
+        s = gear_sign(sqrt(p*p + q*q + r*r), p);
         if (k != m)
             h[k - 1 + (k - 2)*n] = -s*x;
         else if (l != m)
@@ -804,7 +804,7 @@ l130:
             h[k + (j - 1)*n] = h[k + (j - 1)*n] - p*y;
             h[k - 1 + (j - 1)*n] = h[k - 1 + (j - 1)*n] - p*x;
         }
-        j = imin(en, k + 3);
+        j = gear_imin(en, k + 3);
         for (i = l; i <= j; i++) {
             p = x*h[i - 1 + (k - 1)*n] + y*h[i - 1 + k*n];
             if (notlas) {
@@ -828,7 +828,7 @@ l280:
     x = x + t;
     if (q < 0.0)
         goto l320;
-    zz = p + sign(zz, p);
+    zz = p + gear_sign(zz, p);
     ev[(na - 1)*2] = x + zz;
     ev[(en - 1)*2] = ev[(na - 1)*2];
     if (zz != 0.0)
@@ -874,7 +874,7 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
             ort[i - 1] = a[i - 1 + (m - 2)*n] / scale;
             h = h + ort[i - 1]*ort[i - 1];
         }
-        g = -sign(sqrt(h), ort[m - 1]);
+        g = -gear_sign(sqrt(h), ort[m - 1]);
         h = h - ort[m - 1]*g;
         ort[m - 1] = ort[m - 1] - g;
         for (j = m; j <= n; j++) /*130 */
@@ -909,21 +909,21 @@ orthesx(int32 n, int32 low, int32 igh, double *a, double *ort) {
 }
 
 double
-sign(double x, double y) {
+gear_sign(double x, double y) {
     if (y >= 0.0)
         return fabs(x);
     return -fabs(x);
 }
 
 int32
-imin(int32 x, int32 y) {
+gear_imin(int32 x, int32 y) {
     if (x < y)
         return x;
     return y;
 }
 
 double
-amax(double u, double v) {
+gear_amax(double u, double v) {
     if (u > v)
         return u;
     return v;
@@ -944,12 +944,12 @@ getjac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
     for (i = 0; i < n; i++) {
         for (k = 0; k < n; k++)
             xp[k] = x[k];
-        r = eps*amax(eps, fabs(x[i]));
+        r = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + r;
         rhs(0.0, xp, yp, n);
         /*
            for(j=0;j<n;j++)
-           plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
+           ggets_plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
         */
         if (METHOD == 0) {
             for (j = 0; j < n; j++)
@@ -973,12 +973,12 @@ getjactrans(double *x, double *y, double *yp, double *xp, double eps,
     for (i = 0; i < n; i++) {
         for (k = 0; k < n; k++)
             xp[k] = x[k];
-        r = eps*amax(eps, fabs(x[i]));
+        r = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + r;
         rhs(0.0, xp, yp, n);
         /*
            for(j=0;j<n;j++)
-           plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
+           ggets_plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
         */
         for (j = 0; j < n; j++) {
             dermat[j + n*i] = (yp[j] - y[j]) / r;
@@ -1023,14 +1023,14 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
         }
 
         getjac(x, y, yp, xp, eps, dermat, n);
-        sgefa(dermat, n, n, ipivot, &info);
+        gear_sgefa(dermat, n, n, ipivot, &info);
         if (info != -1) {
             *ierr = 1;
             return;
         }
         for (i = 0; i < n; i++)
             dely[i] = y[i];
-        sgesl(dermat, n, n, ipivot, dely, 0);
+        gear_sgesl(dermat, n, n, ipivot, dely, 0);
         r = 0.0;
         for (i = 0; i < n; i++) {
             x[i] = x[i] - dely[i];
@@ -1292,7 +1292,7 @@ L330:
         for (i = 0; i < n; i++)
             save9[i] = ytable[0][i];
         for (j = 0; j < n; j++) {
-            r = eps*Max(eps, fabs(save9[j]));
+            r = eps*gear_max(eps, fabs(save9[j]));
             ytable[0][j] = ytable[0][j] + r;
             d = a[0]*h / r;
             rhs(*t, ytable[0], save12, n);
@@ -1303,7 +1303,7 @@ L330:
         for (i = 0; i < n; i++)
             dermat[n*i + i] += 1.0;
         iweval = -1;
-        sgefa(dermat, n, n, gear_pivot, &info);
+        gear_sgefa(dermat, n, n, gear_pivot, &info);
         if (info == -1)
             j1 = 1;
         else
@@ -1318,7 +1318,7 @@ L330:
         for (i = 0; i < n; i++)
             save9[i] = save12[i];
         job = 0;
-        sgesl(dermat, n, n, gear_pivot, save9, job);
+        gear_sgesl(dermat, n, n, gear_pivot, save9, job);
         nt = n;
         for (i = 0; i < n; i++) {
             ytable[0][i] = ytable[0][i] + a[0]*save9[i];
@@ -1413,7 +1413,7 @@ L620:
 
 L670:
 
-    r = 1.0 / Max(pr1, 0.0001);
+    r = 1.0 / gear_max(pr1, 0.0001);
     newq = nq - 1;
 
 L680:
@@ -1447,12 +1447,12 @@ L720:
     if (pr2 > pr1)
         goto L670;
     newq = nq;
-    r = 1.0 / Max(pr2, .0001);
+    r = 1.0 / gear_max(pr2, .0001);
     goto L680;
 
 L730:
 
-    r = 1.0 / Max(pr3, .0001);
+    r = 1.0 / gear_max(pr3, .0001);
     newq = nq + 1;
     goto L680;
 
@@ -1479,7 +1479,7 @@ L750:
 L770:
 
     for (i = 0; i < n; i++)
-        ymax[i] = Max(ymax[i], fabs(ytable[0][i]));
+        ymax[i] = gear_max(ymax[i], fabs(ytable[0][i]));
     *jstart = nq;
     if ((h > 0.0) && (*t >= tout))
         goto L860;
@@ -1511,8 +1511,8 @@ L810:
 
 L820:
 
-    racum = Max(fabs(hmin / hold), racum);
-    racum = Min(racum, fabs(hmax / hold));
+    racum = gear_max(fabs(hmin / hold), racum);
+    racum = gear_min(racum, fabs(hmax / hold));
     r1 = 1.0;
     for (j = 2; j <= k; j++) {
         r1 = r1*racum;
@@ -1573,21 +1573,21 @@ sgnum(double x, double y) {
 }
 
 double
-Max(double x, double y) {
+gear_max(double x, double y) {
     if (x > y)
         return x;
     return y;
 }
 
 double
-Min(double x, double y) {
+gear_min(double x, double y) {
     if (x < y)
         return x;
     return y;
 }
 
 void
-sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
+gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
     int32 j, k, kp1, l, nm1;
     double t;
     *info = -1;
@@ -1625,7 +1625,7 @@ sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
 }
 
 void
-sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
+gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
     int32 k, kb, l, nm1;
     double t;
     nm1 = n - 1;

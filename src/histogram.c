@@ -167,7 +167,7 @@ new_four(int32 nmodes, int32 col) {
     /*  sft(my_browser.data[col],my_four[1],my_four[2],length,storind);
      */
     bob = get_data_col(col);
-    fft(bob, my_four[1], my_four[2], nmodes, storind);
+    histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
     four_back();
     ggets_ping();
     return;
@@ -457,7 +457,7 @@ compute_power(void) {
         daty[i] = atan2(s, c);
         ptot += (datx[i]*datx[i]);
     }
-    plintf("a0=%g L2norm= %g  \n", datx[0], sqrt(ptot));
+    ggets_plintf("a0=%g L2norm= %g  \n", datx[0], sqrt(ptot));
 }
 /* short-term fft
  * first apply a window
@@ -525,7 +525,7 @@ spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow) {
             d[i] = f[i]*data[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
-        fft(d, ct, st, shift, win);
+        histogram_fft(d, ct, st, shift, win);
         for (i = 0; i < shift; i++) {
             x = ct[i]*ct[i] + st[i]*st[i];
             pow[i] = pow[i] + sqrt(x);
@@ -550,7 +550,7 @@ spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow) {
 
  * csd(x,y)
  * break into chunks
- * compute for each frequency fft(y)*fft(x)^*
+ * compute for each frequency histogram_fft(y)*histogram_fft(x)^*
  * now average these - note that this will be floatcomplex
  * what I call the cross spectrum is |Pxy|
  *the coherence is
@@ -626,8 +626,8 @@ cross_spectrum(double *data, double *data2, int32 nr, int32 win, int32 w_type,
             d2[i] = f[i]*data2[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
-        fft(d, ct, st, shift, win);
-        fft(d2, ct2, st2, shift, win);
+        histogram_fft(d, ct, st, shift, win);
+        histogram_fft(d2, ct2, st2, shift, win);
         for (i = 0; i < shift; i++) {
             pxyr[i] += (ct[i]*ct2[i] + st[i]*st2[i]);
             pxym[i] += (ct[i]*st2[i] - ct2[i]*st[i]);
@@ -968,12 +968,12 @@ fftxcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
     free(re2);
     free(im1);
     free(im2);
-    plintf("residual = %g\n", sum);
+    ggets_plintf("residual = %g\n", sum);
     return;
 }
 
 void
-fft(double *data, double *ct, double *st, int32 nmodes, int32 length) {
+histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length) {
     double *im;
     double *re;
     int32 dim[2], i;

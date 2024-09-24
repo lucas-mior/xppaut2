@@ -311,7 +311,7 @@ traverse_diagram(void) {
 
             if (window == auto_win.canvas) {
                 clear_msg();
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 DONT_XORCross = 1;
                 while (true) {
                     dnew = d->prev;
@@ -327,7 +327,7 @@ traverse_diagram(void) {
 
                 mindex = 0;
                 ndist = Auto.wid*Auto.hgt;
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 lalo = load_all_labeled_orbits;
                 load_all_labeled_orbits = 0;
                 while (true) {
@@ -352,7 +352,7 @@ traverse_diagram(void) {
                 load_all_labeled_orbits = lalo;
                 traverse_out(d, &ix, &iy, 0);
 
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 while (true) {
                     if (d->index == mindex) {
                         dnew = d;
@@ -381,7 +381,7 @@ traverse_diagram(void) {
                 dnew = d->next;
                 if (dnew == NULL)
                     dnew = bifd;
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 d = dnew;
                 CUR_DIAGRAM = dnew;
                 traverse_out(d, &ix, &iy, 1);
@@ -391,7 +391,7 @@ traverse_diagram(void) {
                 dnew = d->prev;
                 if (dnew == NULL)
                     dnew = bifd;
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 d = dnew;
                 CUR_DIAGRAM = dnew;
                 traverse_out(d, &ix, &iy, 1);
@@ -400,7 +400,7 @@ traverse_diagram(void) {
                 if (!query_special("Next...", nsymb)) {
                     break;
                 }
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 found = 0;
                 dold = d;
                 while (true) {
@@ -431,7 +431,7 @@ traverse_diagram(void) {
                 if (!query_special("Previous...", nsymb)) {
                     break;
                 }
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 found = 0;
                 dold = d;
                 while (true) {
@@ -459,7 +459,7 @@ traverse_diagram(void) {
                 traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_TAB:
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
@@ -495,7 +495,7 @@ traverse_diagram(void) {
                 }
                 break;
             case KEY_END: /*All the way to end*/
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
@@ -509,7 +509,7 @@ traverse_diagram(void) {
                 traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_HOME: /*All the way to beginning*/
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
@@ -523,7 +523,7 @@ traverse_diagram(void) {
                 traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_PGUP: /*Same as KEY_TAB except we don't wrap*/
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->next;
                     if (dnew == NULL) {
@@ -539,7 +539,7 @@ traverse_diagram(void) {
                 traverse_out(d, &ix, &iy, 1);
                 break;
             case KEY_PGDN: /*REVERSE KEY_TAB*/
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 while (true) {
                     dnew = d->prev;
                     if (dnew == NULL) {
@@ -557,7 +557,7 @@ traverse_diagram(void) {
 
             case KEY_FINE:
                 done = 1;
-                XORCross(ix, iy);
+                auto_x11_xor_cross(ix, iy);
                 /*Cross should be erased now that we have made our selection.*/
                 /*Seems XORing it with new draw can tend to bring it back
                 randomly depending on the order of window expose events.  Best
@@ -667,7 +667,7 @@ byeauto_(int32 *iflag) {
 }
 
 void
-circle2(int32 x, int32 y, int32 r) {
+auto_x11_circle(int32 x, int32 y, int32 r) {
     XDrawArc(display, auto_win.canvas, small_gc, x - r, y - r, (uint)r << 1,
              (uint)r << 1, 0, 360*64);
     return;
@@ -719,7 +719,7 @@ MarkAuto(int32 x, int32 y) {
 }
 
 void
-XORCross(int32 x, int32 y) {
+auto_x11_xor_cross(int32 x, int32 y) {
     if (DONT_XORCross)
         return;
 

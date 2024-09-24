@@ -19,8 +19,8 @@ static int64 c__1 = 1;
 static double c_b367 = -1.;
 static int64 c__2 = 2;
 
-void sgefa(double *a, int32 n, int32 m, int32 *ip, int32 *ier);
-void sgesl(double *a, int32 n, int32 m, int32 *ip, double *b, int32);
+void gear_sgefa(double *a, int32 n, int32 m, int32 *ip, int32 *ier);
+void gear_sgesl(double *a, int32 n, int32 m, int32 *ip, double *b, int32);
 /* ----------------------------------------------------------------------- */
 /*          Eigenvalue solver from EISPACK */
 /* ----------------------------------------------------------------------- */
@@ -5998,7 +5998,7 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
 
     static double t, tt;
 
-    /*     version of ndrotg, in which sign(f)=sign(cs),sign(g)=sign(sn) */
+    /*     version of ndrotg, in which gear_sign(f)=gear_sign(cs),gear_sign(g)=gear_sign(sn) */
     /*     cs, sn returned so that -sn*f+cs*g = 0 */
     /*     and cs*f + sn*g = sqrt(f**2+g**2) */
     if (*f == 0. && *g == 0.) {

@@ -365,7 +365,7 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     size_hints.min_height = height;
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
-    FixWindowSize(base, width, height, FIX_MIN_SIZE);
+    main_fix_window_size(base, width, height, FIX_MIN_SIZE);
     make_icon((char *)array_bits, array_width, array_height, base);
 
     ap->wredraw = br_button(base, 0, 0, 0);
@@ -708,7 +708,7 @@ redraw_aplot(struct ArrayPlot ap) {
                 y = j*dy;
                 iy = (int32)y;
                 /*	  if(j==0)
-                          plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */
+                          ggets_plintf(" ib=%d ix=%d iy=%d \n",ib,ix,iy); */
                 z = (double)color_total*(my_browser.data[ib][jb] - ap.zmin) /
                     (ap.zmax - ap.zmin);
                 colr = (int32)z + FIRSTCOLOR;

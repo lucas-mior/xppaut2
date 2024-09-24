@@ -29,7 +29,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     int32 i, k_minus_1, i0;
     double new_norm_2, new_product, vk_norm, temp;
 
-    vk_norm = RSqrt(N_VDotProd(v[k], v[k]));
+    vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
     k_minus_1 = k - 1;
     i0 = MAX(k - p, 0);
 
@@ -42,7 +42,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
 
     /* Compute the norm of the new vector at v[k].  */
 
-    *new_vk_norm = RSqrt(N_VDotProd(v[k], v[k]));
+    *new_vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
 
     /* If the norm of the new vector at v[k] is less than
        FACTOR (== 1000) times unit roundoff times the norm of the
@@ -68,7 +68,7 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
 
     if (new_norm_2 != ZERO) {
         new_product = SQR(*new_vk_norm) - new_norm_2;
-        *new_vk_norm = (new_product > ZERO) ? RSqrt(new_product) : ZERO;
+        *new_vk_norm = (new_product > ZERO) ? llnlmath_rsqrt(new_product) : ZERO;
     }
 
     return 0;
@@ -89,7 +89,7 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
 
     /* Perform Classical Gram-Schmidt */
 
-    vk_norm = RSqrt(N_VDotProd(v[k], v[k]));
+    vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
 
     i0 = MAX(k - p, 0);
     for (i = i0; i < k; i++) {
@@ -102,7 +102,7 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
 
     /* Compute the norm of the new vector at v[k].  */
 
-    *new_vk_norm = RSqrt(N_VDotProd(v[k], v[k]));
+    *new_vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
 
     /* Reorthogonalize if necessary */
 
@@ -121,7 +121,7 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
         }
         N_VLinearSum(ONE, v[k], -ONE, temp, v[k]);
 
-        *new_vk_norm = RSqrt(N_VDotProd(v[k], v[k]));
+        *new_vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
     }
 
     return 0;
@@ -133,7 +133,7 @@ ClassicalGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
 **********************************************************************/
 
 int32
-QRfact(int32 n, double **h, double *q, int32 job) {
+iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
     double c, s, temp1, temp2, temp3;
     int32 i, j, k, q_ptr, n_minus_1, code = 0;
 
@@ -162,11 +162,11 @@ QRfact(int32 n, double **h, double *q, int32 job) {
                 s = ZERO;
             } else if (ABS(temp2) >= ABS(temp1)) {
                 temp3 = temp1 / temp2;
-                s = -ONE / RSqrt(ONE + SQR(temp3));
+                s = -ONE / llnlmath_rsqrt(ONE + SQR(temp3));
                 c = -s*temp3;
             } else {
                 temp3 = temp2 / temp1;
-                c = ONE / RSqrt(ONE + SQR(temp3));
+                c = ONE / llnlmath_rsqrt(ONE + SQR(temp3));
                 s = -c*temp3;
             }
             q[q_ptr] = c;
@@ -202,11 +202,11 @@ QRfact(int32 n, double **h, double *q, int32 job) {
             s = ZERO;
         } else if (ABS(temp2) >= ABS(temp1)) {
             temp3 = temp1 / temp2;
-            s = -ONE / RSqrt(ONE + SQR(temp3));
+            s = -ONE / llnlmath_rsqrt(ONE + SQR(temp3));
             c = -s*temp3;
         } else {
             temp3 = temp2 / temp1;
-            c = ONE / RSqrt(ONE + SQR(temp3));
+            c = ONE / llnlmath_rsqrt(ONE + SQR(temp3));
             s = -c*temp3;
         }
         q_ptr = 2*n_minus_1;
@@ -225,7 +225,7 @@ QRfact(int32 n, double **h, double *q, int32 job) {
 **********************************************************************/
 
 int32
-QRsol(int32 n, double **h, double *q, double *b) {
+iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
     double c, s, temp1, temp2;
     int32 i, k, q_ptr, code = 0;
 

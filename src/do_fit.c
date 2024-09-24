@@ -198,14 +198,14 @@ printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
     int32 i, j, k;
     int32 ioff;
     for (i = 0; i < npts; i++) {
-        plintf(" %8.5g ", t0[i]);
+        ggets_plintf(" %8.5g ", t0[i]);
         ioff = nvars*i;
         for (j = 0; j < nvars; j++) {
-            plintf(" %g ", yfit[ioff + j]);
+            ggets_plintf(" %g ", yfit[ioff + j]);
             for (k = 0; k < npars; k++)
                 printf(" %g ", yderv[k][ioff + j]);
         }
-        plintf(" \n");
+        ggets_plintf(" \n");
     }
     return;
 }
@@ -333,15 +333,15 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
 void
 print_fit_info(void) {
     int32 i;
-    plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fit_info.dim,
+    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fit_info.dim,
            fit_info.maxiter, fit_info.npts, fit_info.file, fit_info.tol,
            fit_info.eps);
 
     for (i = 0; i < fit_info.nvars; i++)
-        plintf(" variable %d to col %d \n", fit_info.ivar[i],
+        ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i],
                fit_info.icols[i]);
     for (i = 0; i < fit_info.npars; i++)
-        plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
+        ggets_plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
     return;
 }
 
@@ -412,7 +412,7 @@ test_fit(void) {
     }
 
     print_fit_info();
-    plintf(" Running the fit...\n");
+    ggets_plintf(" Running the fit...\n");
     ok = run_fit(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
                  fit_info.maxiter, fit_info.dim, fit_info.eps, fit_info.tol,
                  fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
@@ -482,7 +482,7 @@ run_fit(/* double arrays */
             y[ioff + k] = ytemp[icols[k] - 2];
         }
     }
-    plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
+    ggets_plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
            y[npts*nvars - 2], y[npts*nvars - 1]);
 
     work = xmalloc(sizeof(*work)*(usize)(4*npars + npars*npars));
@@ -501,12 +501,12 @@ run_fit(/* double arrays */
                         covar, alpha, &chisq, &alambda, work, yderv, yfit,
                         &ochisq, ictrl, eps);
         niter++;
-        plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n", niter,
+        ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n", niter,
                ok, alambda, chisq, ochisq);
-        plintf(" params: ");
+        ggets_plintf(" params: ");
         for (i = 0; i < npars; i++)
-            plintf(" %g ", a[i]);
-        plintf("\n");
+            ggets_plintf(" %g ", a[i]);
+        ggets_plintf("\n");
         if ((ok == 0) || (niter >= maxiter))
             break;
         if (ochisq > chisq) {
@@ -555,11 +555,11 @@ run_fit(/* double arrays */
                &chisq, &alambda, work, yderv, yfit, &ochisq, ictrl, eps);
     err_msg(" Success! ");
     /* have the covariance matrix -- so what?   */
-    plintf(" covariance: \n");
+    ggets_plintf(" covariance: \n");
     for (i = 0; i < npars; i++) {
         for (j = 0; j < npars; j++)
-            plintf(" %g ", covar[i + npars*j]);
-        plintf("\n");
+            ggets_plintf(" %g ", covar[i + npars*j]);
+        ggets_plintf("\n");
     }
 
     free(work);
@@ -628,13 +628,13 @@ sigma  weights on nvars
         covar[j + j*npars] = alpha[j + j*npars]*(1 + (*alambda));
         oneda[j] = beta[j];
     }
-    sgefa(covar, npars, npars, ipivot, &ierr);
+    gear_sgefa(covar, npars, npars, ipivot, &ierr);
     if (ierr != -1) {
         err_msg(" Singular matrix encountered...");
         return 0;
     }
 
-    sgesl(covar, npars, npars, ipivot, oneda, 0);
+    gear_sgesl(covar, npars, npars, ipivot, oneda, 0);
     for (j = 0; j < npars; j++) {
         da[j] = oneda[j];
     }
@@ -645,7 +645,7 @@ sigma  weights on nvars
             for (k = 0; k < npars; k++)
                 oneda[k] = 0.0;
             oneda[j] = 1.0;
-            sgesl(alpha, npars, npars, ipivot, oneda, 0);
+            gear_sgesl(alpha, npars, npars, ipivot, oneda, 0);
             for (k = 0; k < npars; k++)
                 covar[j + k*npars] = oneda[k];
         }

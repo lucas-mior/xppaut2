@@ -58,12 +58,12 @@ BandAllocPiv(int64 N) {
 
 int64
 band_factor(BandMat A, int64 *p) {
-    return gbfa(A->data, A->size, A->mu, A->ml, A->smu, p);
+    return band_gbfa(A->data, A->size, A->mu, A->ml, A->smu, p);
 }
 
 void
 band_back_solve(BandMat A, int64 *p, N_Vector b) {
-    gbsl(A->data, A->size, A->smu, A->ml, p, N_VDATA(b));
+    band_gbsl(A->data, A->size, A->smu, A->ml, p, N_VDATA(b));
     return;
 }
 
@@ -145,7 +145,7 @@ bandallocpiv(int64 n) {
 }
 
 int64
-gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
+band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     int64 c, r, num_rows;
     int64 i, j, k, l, storage_l, storage_k, last_col_k, last_row_k;
     double *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
@@ -251,7 +251,7 @@ gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
 }
 
 void
-gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
+band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
     int64 k, l, i, first_row_k, last_row_k;
     double mult;
     double *diag_k;
@@ -357,16 +357,16 @@ void
 band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
     int64 i, j, start, finish;
 
-    plintf("\n");
+    ggets_plintf("\n");
     for (i = 0; i < n; i++) {
         start = MAX(0, i - ml);
         finish = MIN(n - 1, i + mu);
         for (j = 0; j < start; j++)
-            plintf("%10s", "");
+            ggets_plintf("%10s", "");
         for (j = start; j <= finish; j++) {
-            plintf("%10g", a[j][i - j + smu]);
+            ggets_plintf("%10g", a[j][i - j + smu]);
         }
-        plintf("\n");
+        ggets_plintf("\n");
     }
-    plintf("\n");
+    ggets_plintf("\n");
 }

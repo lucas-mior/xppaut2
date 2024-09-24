@@ -126,14 +126,14 @@ build_markov(
         }
     }
     if (index == -1) {
-        plintf(" Markov variable |%s| not found \n", name);
+        ggets_plintf(" Markov variable |%s| not found \n", name);
         exit(0);
     }
     /* get number of states  */
     nstates = markov[index].nstates;
     if (ConvertStyle)
         fprintf(convertf, "markov %s %d\n", name, nstates);
-    plintf(" Building %s %d states...\n", name, nstates);
+    ggets_plintf(" Building %s %d states...\n", name, nstates);
     for (i = 0; i < nstates; i++) {
         /* fgets(line,256,fptr); */
         snprintf(line, sizeof(line), "%s", ma[i]);
@@ -141,15 +141,15 @@ build_markov(
             fprintf(convertf, "%s", line);
         /*nn=strlen(line)+1;*/
         /* if((save_eqn[NLINES]=xmalloc(nn))==NULL){
-          plintf("saveeqn-prob\n");exit(0);}
+          ggets_plintf("saveeqn-prob\n");exit(0);}
           strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
         for (j = 0; j < nstates; j++) {
             extract_expr(line, expr, &istart);
-            plintf("%s ", expr);
+            ggets_plintf("%s ", expr);
             add_markov_entry(index, i, j, expr);
         }
-        plintf("\n");
+        ggets_plintf("\n");
     }
     return index;
 }
@@ -174,14 +174,14 @@ old_build_markov(FILE *fptr, char *name) {
         }
     }
     if (index == -1) {
-        plintf(" Markov variable |%s| not found \n", name);
+        ggets_plintf(" Markov variable |%s| not found \n", name);
         exit(0);
     }
     /* get number of states  */
     nstates = markov[index].nstates;
     if (ConvertStyle)
         fprintf(convertf, "markov %s %d\n", name, nstates);
-    plintf(" Building %s ...\n", name);
+    ggets_plintf(" Building %s ...\n", name);
     for (i = 0; i < nstates; i++) {
         fgets(line, 256, fptr);
 
@@ -193,10 +193,10 @@ old_build_markov(FILE *fptr, char *name) {
         istart = 0;
         for (j = 0; j < nstates; j++) {
             extract_expr(line, expr, &istart);
-            plintf("%s ", expr);
+            ggets_plintf("%s ", expr);
             add_markov_entry(index, i, j, expr);
         }
-        plintf("\n");
+        ggets_plintf("\n");
     }
     return index;
 }
@@ -230,7 +230,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
     int32 n2 = nstates*nstates;
     int32 j = NMarkov;
     if (j >= MAX_MARK) {
-        plintf("Too many Markov chains...\n");
+        ggets_plintf("Too many Markov chains...\n");
         exit(0);
     }
 
@@ -261,7 +261,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
         /*  compilation step -- can be delayed */
         /*
          if(add_expr(expr,com,&leng)){
-           plintf("Illegal expression %s\n",expr);
+           ggets_plintf("Illegal expression %s\n",expr);
            exit(0);
          }
          markov[index].command[l0]=xmalloc(sizeof(int32)*(leng+2));
@@ -289,7 +289,7 @@ compile_all_markov(void) {
             for (k = 0; k < ns; k++) {
                 l0 = ns*j + k;
                 if (compile_markov(index, j, k) == -1) {
-                    plintf("Bad expression %s[%d][%d] = %s \n",
+                    ggets_plintf("Bad expression %s[%d][%d] = %s \n",
                            markov[index].name, j, k, markov[index].trans[l0]);
                     exit(0);
                 }
@@ -344,7 +344,7 @@ double
 new_state(double old, int32 index, double dt) {
     double prob;
     double sum;
-    double coin = ndrand48();
+    double coin = markov_ndrand48();
     int32 row = -1, rns;
     double *st;
     int32 i, ns = markov[index].nstates;
@@ -405,7 +405,7 @@ make_gill_nu(double *nu, int32 n, int32 m, double *v) {
         rhs_only(yp);
         for (iy = 0; iy < n; iy++) {
             nu[ir + m*iy] = yp[iy];
-            plintf("ir=%d iy=%d nu=%g\n", ir + 1, iy, yp[iy] - yold[iy]);
+            ggets_plintf("ir=%d iy=%d nu=%g\n", ir + 1, iy, yp[iy] - yold[iy]);
         }
         v[ir + 1] = 0;
     }
@@ -432,8 +432,8 @@ one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
         }
         if (rate <= 0.0)
             return;
-        v[0] = -log(ndrand48()) / rate; /* next step */
-        test = rate*ndrand48();
+        v[0] = -log(markov_ndrand48()) / rate; /* next step */
+        test = rate*markov_ndrand48();
         rate = r[0];
         for (i = 0; i < nrxn; i++) {
             if (test < rate) {
@@ -465,7 +465,7 @@ do_stochast_com(int32 i) {
     switch (ch) {
     case 'n':
         new_int("Seed:", &RandSeed);
-        nsrand48(RandSeed);
+        markov_nsrand48(RandSeed);
         break;
     case 'd':
         adj2_data_back();
@@ -648,7 +648,7 @@ gammln(double xx) {
 }
 
 double
-poidev(double xm) {
+markov_poidev(double xm) {
     static double sq, alxm, g, oldm = (-1.0);
 
     double em, t, y;
@@ -662,7 +662,7 @@ poidev(double xm) {
         t = 1.0;
         do {
             ++em;
-            t *= ndrand48();
+            t *= markov_ndrand48();
         } while (t > g);
     } else {
         if (xm != oldm) {
@@ -673,23 +673,23 @@ poidev(double xm) {
         }
         do {
             do {
-                y = tan(PI*ndrand48());
+                y = tan(PI*markov_ndrand48());
                 em = sq*y + xm;
             } while (em < 0.0);
             em = floor(em);
             t = 0.9*(1.0 + y*y)*exp(em*alxm - gammln(em + 1.0) - g);
-        } while (ndrand48() > t);
+        } while (markov_ndrand48() > t);
     }
     return em;
 }
 
 double
-ndrand48(void) {
+markov_ndrand48(void) {
     return ran1(&myrandomseed);
 }
 
 void
-nsrand48(int32 seed) {
+markov_nsrand48(int32 seed) {
     myrandomseed = -seed;
     return;
 }

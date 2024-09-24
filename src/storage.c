@@ -61,7 +61,7 @@ alloc_meth(void) {
 }
 
 int32
-reallocstor(int32 ncol, int32 nrow) {
+storage_realloc(int32 ncol, int32 nrow) {
     int32 i = 0;
     while ((storage[i] = realloc(storage[i], (usize)nrow*sizeof(*storage))) !=
            NULL) {

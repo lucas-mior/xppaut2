@@ -108,7 +108,7 @@ add_global(char *cond, int32 sign, char *rest) {
     int32 nevents, ii, k, l, lt, j = NFlags;
     char ch;
     if (NFlags >= MAX_FLAG) {
-        plintf("Too many global conditions\n");
+        ggets_plintf("Too many global conditions\n");
         return 1;
     }
     l = (int32)strlen(cond);
@@ -155,7 +155,7 @@ add_global(char *cond, int32 sign, char *rest) {
         k++;
     }
     if (nevents == 0) {
-        plintf(" No events for condition %s \n", cond);
+        ggets_plintf(" No events for condition %s \n", cond);
         return 1;
     }
     /*  we now have the condition, the names, and the formulae */
@@ -171,10 +171,10 @@ show_flags(void) {
     /*
     for(i=0;i<NFlags;i++){
       n=flag[i].nevents;
-      plintf(" Flag %d has sign %d and %d events and condition %s \n",
+      ggets_plintf(" Flag %d has sign %d and %d events and condition %s \n",
              i+1,flag[i].sign,n,flag[i].cond);
       for(j=0;j<n;j++)
-        plintf("%d:  %s [%d] = %s \n",j+1,flag[i].lhsname[j],flag[i].lhs[j],
+        ggets_plintf("%d:  %s [%d] = %s \n",j+1,flag[i].lhsname[j],flag[i].lhs[j],
                flag[i].rhs[j]);
     }
     */
@@ -190,7 +190,7 @@ compile_flags(void) {
         return 0;
     for (j = 0; j < NFlags; j++) {
         if (add_expr(flag[j].cond, command, &nc)) {
-            plintf("Illegal global condition:  %s\n", flag[j].cond);
+            ggets_plintf("Illegal global condition:  %s\n", flag[j].cond);
             return 1;
         }
         flag[j].anypars = 0;
@@ -220,7 +220,7 @@ compile_flags(void) {
                             }
 
                             else {
-                                plintf(" <%s> is not a valid "
+                                ggets_plintf(" <%s> is not a valid "
                                        "variable/parameter name \n",
                                        flag[j].lhsname[i]);
                                 return 1;
@@ -445,8 +445,8 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard?? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard?? ");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }
@@ -473,8 +473,8 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard?? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard?? ");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }
@@ -501,8 +501,8 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard?? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard?? ");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }
@@ -528,8 +528,8 @@ one_flag_step_heun(double *y, double dt, double *yval[2], int32 neq,
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard? ");
-            plintf(" smin=%g\n", s);
+            ggets_plintf(" Working too hard? ");
+            ggets_plintf(" smin=%g\n", s);
             break;
         }
     }
@@ -555,8 +555,8 @@ one_flag_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim,
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard?");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard?");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }
@@ -588,8 +588,8 @@ one_flag_step_gear(int32 neq, double *t, double tout, double *y, double hmin,
         if (*t == tout)
             break;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard? ");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }
@@ -618,8 +618,8 @@ one_flag_step_rosen(double *y, double *tstart, double tfinal, int32 *istart,
         if (*tstart == tfinal)
             break;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard? ");
+            ggets_plintf("smin=%g\n", s);
             *ierr = -2;
             return 1;
         }
@@ -650,8 +650,8 @@ one_flag_step_dp(int32 *istart, double *y, double *t, int32 n, double tout,
         if (*t == tout)
             break;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard? ");
+            ggets_plintf("smin=%g\n", s);
             return 1;
         }
     }
@@ -684,8 +684,8 @@ one_flag_step_cvode(
         if (*t == tout)
             break;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard? ");
+            ggets_plintf("smin=%g\n", s);
             return 1;
         }
     }
@@ -717,8 +717,8 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
         if (*t == tout)
             break;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard? ");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard? ");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }
@@ -747,8 +747,8 @@ one_flag_step_backeul(double *y, double *t, double dt, int32 neq, double *yg,
         nstep++;
         dtt = (1 - s)*dt;
         if (nstep > (NFlags + 2)) {
-            plintf(" Working too hard?");
-            plintf("smin=%g\n", s);
+            ggets_plintf(" Working too hard?");
+            ggets_plintf("smin=%g\n", s);
             break;
         }
     }

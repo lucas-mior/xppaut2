@@ -87,7 +87,7 @@ unshow_menu(int32 j) {
 }
 
 void
-help(void) {
+menu_help(void) {
     unshow_menu(help_menu);
     show_menu(MAIN_MENU);
     return;
@@ -144,19 +144,19 @@ menu_expose(Window win) {
     z = my_menus[j].names;
     if (win == my_menus[j].title) {
         ggets_set_fore();
-        bar(0, 0, 16*DCURX, DCURY, win);
+        ggets_bar(0, 0, 16*DCURX, DCURY, win);
         ggets_set_back();
         XDrawString(display, win, gc, DCURX / 2 + 5, CURY_OFF, z[0],
                     (int)strlen(z[0]));
         ggets_set_fore();
-        /* BaseCol();
+        /* many_pops_base_col();
         XDrawString(display,win,gc,0,CURY_OFF,z[0],strlen(z[0]));
         */
         return;
     }
     for (i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
-            BaseCol();
+            many_pops_base_col();
             XDrawString(display, win, gc, 5, CURY_OFF, z[i + 1],
                         (int)strlen(z[i + 1]));
             return;
@@ -176,7 +176,7 @@ menu_button(Window win) {
     for (i = 0; i < n; i++) {
         if (win == my_menus[j].window[i]) {
             XSetWindowBorderWidth(display, win, 0);
-            commander(my_menus[j].key[i]);
+            main_commander(my_menus[j].key[i]);
             return;
         }
     }

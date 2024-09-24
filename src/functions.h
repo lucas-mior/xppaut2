@@ -191,14 +191,14 @@ void clear_auto_info(void);
 void draw_auto_info(char *bob, int32 x, int32 y);
 void refresh_display(void);
 int32 byeauto_(int32 *iflag);
-void circle2(int32 x, int32 y, int32 r);
+void auto_x11_circle(int32 x, int32 y, int32 r);
 void auto_col(int32 col);
 void auto_bw(void);
 void auto_scroll_window(void);
 int32 auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag);
 int32 auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
                        int32 def, int32 x, int32 y, char **hints, char *httxt);
-void XORCross(int32 x, int32 y);
+void auto_x11_xor_cross(int32 x, int32 y);
 void fill_circle(int32 x, int32 y, int32 r);
 void line_width(int32 wid);
 void auto_motion(XEvent event);
@@ -629,11 +629,11 @@ int64 *bandallocpiv(int64 n);
  *                                                                *
  * Function : gbfa                                                *
  * Usage    : int64 ier;                                        *
- *            ier = gbfa(a,n,mu,ml,smu,p);                        *
+ *            ier = band_gbfa(a,n,mu,ml,smu,p);                        *
  *            if (ier > 0) ... zero element encountered during    *
  *                             the factorization                  *
  *----------------------------------------------------------------*
- * gbfa(a,n,mu,ml,smu,p) factors the n by n band matrix A (upper  *
+ * band_gbfa(a,n,mu,ml,smu,p) factors the n by n band matrix A (upper  *
  * and lower bandwidths mu and ml, storage upper bandwidth smu)   *
  * stored in "a". It overwrites the elements of A with the LU     *
  * factors and it keeps track of the pivot rows chosen in the     *
@@ -664,8 +664,8 @@ int64 *bandallocpiv(int64 n);
  * lower bandwidth ml. Thus, if A is to be factored and           *
  * backsolved using gbfa and gbsl, then it should be allocated    *
  * as a = bandalloc(n,smu,ml), where smu = MIN(n-1,mu+ml). The    *
- * call to gbfa is ier = gbfa(a,n,mu,ml,smu,p). The corresponding *
- * call to gbsl is gbsl(a,n,smu,ml,p,b). The user does not need   *
+ * call to gbfa is ier = band_gbfa(a,n,mu,ml,smu,p). The corresponding *
+ * call to gbsl is band_gbsl(a,n,smu,ml,p,b). The user does not need   *
  * to zero the "extra" storage allocated for the purpose of       *
  * factorization. This is handled by the gbfa routine. If A is    *
  * not going to be factored and backsolved, then it can be        *
@@ -675,24 +675,24 @@ int64 *bandallocpiv(int64 n);
  * was passed to bandalloc.                                       *
  *                                                                *
  ******************************************************************/
-int64 gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
+int64 band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
 
 /******************************************************************
  *                                                                *
  * Function : gbsl                                                *
  * Usage    : double *b;                                            *
- *            ier = gbfa(a,n,mu,ml,smu,p);                        *
- *            if (ier == 0) gbsl(a,n,smu,ml,p,b);                 *
+ *            ier = band_gbfa(a,n,mu,ml,smu,p);                        *
+ *            if (ier == 0) band_gbsl(a,n,smu,ml,p,b);                 *
  *----------------------------------------------------------------*
- * gbsl(a,n,smu,ml,p,b) solves the n by n linear system           *
+ * band_gbsl(a,n,smu,ml,p,b) solves the n by n linear system           *
  * Ax = b, where A is band matrix stored in "a" with storage      *
  * upper bandwidth smu and lower bandwidth ml. It assumes that A  *
  * has been LU factored and the pivot array p has been set by a   *
- * successful call gbfa(a,n,mu,ml,smu,p). The solution x is       *
+ * successful call band_gbfa(a,n,mu,ml,smu,p). The solution x is       *
  * written into the b array.                                      *
  *                                                                *
  ******************************************************************/
-void gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
+void band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
 
 /******************************************************************
  *                                                                *
@@ -904,17 +904,17 @@ void clr_command(void);
 void draw_info_pop(Window win);
 void bottom_msg(char *msg);
 void err_msg(char *string);
-int32 plintf(char *fmt, ...);
+int32 ggets_plintf(char *fmt, ...);
 int32 show_position(XEvent event);
 void put_command(char *string);
 int32 get_key_press(XEvent *event);
 void cput_text(void);
 int32 get_mouse_xy(int32 *x, int32 *y, Window window);
 void f_text(int32 x, int32 y, char *string, Window o);
-void bar(int32 x, int32 y, int32 x2, int32 y2, Window window);
-void rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window);
-void circle(int32 x, int32 y, int32 radius, Window window);
-void xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window);
+void ggets_bar(int32 x, int32 y, int32 x2, int32 y2, Window window);
+void ggets_rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window);
+void ggets_circle(int32 x, int32 y, int32 radius, Window window);
+void ggets_xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window);
 int32 new_float(char *name, double *value);
 int32 new_int(char *name, int32 *value);
 void display_command(char *name, char *value, int32 pos);
@@ -1407,11 +1407,11 @@ int64 *denallocpiv(int64 n);
  *                                                                *
  * Function : gefa                                                *
  * Usage    : int64 ier;                                        *
- *            ier = gefa(a,n,p);                                  *
+ *            ier = dense_gefa(a,n,p);                                  *
  *            if (ier > 0) ... zero element encountered during    *
  *                             the factorization                  *
  *----------------------------------------------------------------*
- * gefa(a,n,p) factors the n by n dense matrix a. It overwrites   *
+ * dense_gefa(a,n,p) factors the n by n dense matrix a. It overwrites   *
  * the elements of a with its LU factors and keeps track of the   *
  * pivot rows chosen in the pivot array p.                        *
  *                                                                *
@@ -1434,22 +1434,22 @@ int64 *denallocpiv(int64 n);
  * encountered the zero.                                          *
  *                                                                *
  ******************************************************************/
-int64 gefa(double **a, int64 n, int64 *p);
+int64 dense_gefa(double **a, int64 n, int64 *p);
 
 /******************************************************************
  *                                                                *
  * Function : gesl                                                *
  * Usage    : double *b;                                            *
- *            ier = gefa(a,n,p);                                  *
- *            if (ier == 0) gesl(a,n,p,b);                        *
+ *            ier = dense_gefa(a,n,p);                                  *
+ *            if (ier == 0) dense_gesl(a,n,p,b);                        *
  *----------------------------------------------------------------*
- * gesl(a,n,p,b) solves the n by n linear system ax = b. It       *
+ * dense_gesl(a,n,p,b) solves the n by n linear system ax = b. It       *
  * assumes that a has been LU factored and the pivot array p has  *
- * been set by a successful call to gefa(a,n,p). The solution x   *
+ * been set by a successful call to dense_gefa(a,n,p). The solution x   *
  * is written into the b array.                                   *
  *                                                                *
  ******************************************************************/
-void gesl(double **a, int64 n, int64 *p, double *b);
+void dense_gesl(double **a, int64 n, int64 *p, double *b);
 
 /******************************************************************
  *                                                                *
@@ -2296,9 +2296,9 @@ extern int32 ConvertStyle;
 
 int32 make_eqn(void);
 void strip_saveqn(void);
-int32 disc(char *string);
+int32 form_ode_idsc(char *string);
 int32 get_eqn(FILE *fptr);
-int32 compiler(char *bob, FILE *fptr);
+int32 form_ode_compiler(char *bob, FILE *fptr);
 char *get_first(char *string, char *src);
 char *get_next(char *src);
 void create_plot_list(void);
@@ -2308,7 +2308,7 @@ int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                    char args[20][13 + 1]);
 int32 find_char(char *s1, char *s2, int32 i0, int32 *i1);
 int32 search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag);
-void subsk(char *big, char *new, int32 k, int32 flag);
+void form_ode_subsk(char *big, char *new, int32 k, int32 flag);
 
 /* for parsing par, init with whitespace correctly */
 char *new_string2(char *old, int32 length);
@@ -2337,10 +2337,10 @@ void get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
                       int32 n, int32 maxit, double err, int32 *ierr);
 void get_evec(double *a, double *anew, double *b, double *bp, int32 n,
               int32 maxit, double err, int32 *ipivot, double eval, int32 *ierr);
-void eigen(int32 n, double *a, double *ev, double *work, int32 *ierr);
-double sign(double x, double y);
-int32 imin(int32 x, int32 y);
-double amax(double u, double v);
+void gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr);
+double gear_sign(double x, double y);
+int32 gear_imin(int32 x, int32 y);
+double gear_amax(double u, double v);
 void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
                  double *d, int32 n);
 void getjac(double *x, double *y, double *yp, double *xp, double eps,
@@ -2353,10 +2353,10 @@ int32 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
 int32 ggear(int32 n, double *t, double tout, double *y, double hmin,
             double hmax, double eps, int32 mf, double *error, int32 *kflag,
             int32 *jstart, double *work, int32 *iwork);
-double Max(double x, double y);
-double Min(double x, double y);
-void sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
-void sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job);
+double gear_max(double x, double y);
+double gear_min(double x, double y);
+void gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
+void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job);
 void save_batch_shoot(void);
 
 #endif
@@ -2441,9 +2441,9 @@ void get_draw_area_flag(int32 flag);
 void get_draw_area(void);
 void change_current_linestyle(int32 new, int32 *old);
 void set_normal_scale(void);
-void point(int32 x, int32 y);
-void line(int32 x1, int32 y1, int32 x2, int32 y2);
-void frect(int32 x1, int32 y1, int32 w, int32 h);
+void graphics_point(int32 x, int32 y);
+void graphics_line(int32 x1, int32 y1, int32 x2, int32 y2);
+void graphics_frect(int32 x1, int32 y1, int32 w, int32 h);
 void put_text(int32 x, int32 y, char *str);
 void init_x11(void);
 void init_ps(void);
@@ -2461,9 +2461,9 @@ void reset_graph(void);
 void get_graph(void);
 void copy_graph(int32 i, int32 l);
 void make_rot(double theta, double phi);
-void scale3d(double x, double y, double z, double *xp, double *yp, double *zp);
-int32 threedproj(double x2p, double y2p, double z2p, double *xp, double *yp);
-void text3d(double x, double y, double z, char *s);
+void graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *zp);
+int32 graphics_threedproj(double x2p, double y2p, double z2p, double *xp, double *yp);
+void graphics_text3d(double x, double y, double z, char *s);
 int32 threed_proj(double x, double y, double z, double *xp, double *yp);
 void point_3d(double x, double y, double z);
 void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
@@ -2478,7 +2478,7 @@ void bead_abs(double x1, double y1);
 void frect_abs(double x1, double y1, double w, double h);
 void line_abs(double x1, double y1, double x2, double y2);
 void text_abs(double x, double y, char *text);
-void fillintext(char *old, char *new);
+void graphics_fillin_text(char *old, char *new);
 void fancy_text_abs(double x, double y, char *old, int32 size);
 int32 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
              double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
@@ -2551,7 +2551,7 @@ void mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
 void compute_hist(void);
 void fftxcorr(double *data1, double *data2, int32 length, int32 nlag,
               double *cr, int32 flag);
-void fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
+void histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
 void post_process_stuff(void);
 
 #endif
@@ -2676,9 +2676,9 @@ void do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
 void export_data(FILE *fp);
 void plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
                      int32 flag);
-void restore(int32 i1, int32 i2);
+void integrate_restore(int32 i1, int32 i2);
 void comp_color(double *v1, double *v2, int32 n, double dt);
-void shoot(double *x, double *xg, double *evec, int32 sgn);
+void integrate_shoot(double *x, double *xg, double *evec, int32 sgn);
 void shoot_easy(double *x);
 void stop_integration(void);
 int32 do_auto_range_go(void);
@@ -2875,7 +2875,7 @@ int32 ClassicalGS(N_Vector *v, double **h, int32 k, int32 p,
  * divide by the zero diagonal entry.                             *
  *                                                                *
  ******************************************************************/
-int32 QRfact(int32 n, double **h, double *q, int32 job);
+int32 iterativ_qr_fact(int32 n, double **h, double *q, int32 job);
 
 /******************************************************************
  *                                                                *
@@ -2908,7 +2908,7 @@ int32 QRfact(int32 n, double **h, double *q, int32 job);
  * from 1, not 0) of the zero entry.                              *
  *                                                                *
  ******************************************************************/
-int32 QRsol(int32 n, double **h, double *q, double *b);
+int32 iterativ_qr_sol(int32 n, double **h, double *q, double *b);
 
 #endif
 
@@ -2964,50 +2964,50 @@ int32 film_clip(void);
  *                                                                *
  * Function : UnitRoundoff                                        *
  * Usage    : double uround;                                        *
- *            uround = UnitRoundoff();                            *
+ *            uround = llnlmath_unit_roundoff();                            *
  *----------------------------------------------------------------*
  * UnitRoundoff returns the unit roundoff u for double floating     *
  * point arithmetic, where u is defined to be the largest         *
  * positive double such that 1.0 + u != 1.0.                        *
  *                                                                *
  ******************************************************************/
-double UnitRoundoff(void);
+double llnlmath_unit_roundoff(void);
 
 /******************************************************************
  *                                                                *
  * Function : RPowerI                                             *
  * Usage    : int32 exponent;                                       *
  *            double base, ans;                                     *
- *            ans = RPowerI(base,exponent);                       *
+ *            ans = llnlmath_rpower_i(base,exponent);                       *
  *----------------------------------------------------------------*
  * RPowerI returns the value base^exponent, where base is a double  *
  * and exponent is an int32.                                        *
  *                                                                *
  ******************************************************************/
-double RPowerI(double base, int32 exponent);
+double llnlmath_rpower_i(double base, int32 exponent);
 
 /******************************************************************
  *                                                                *
  * Function : RPowerR                                             *
  * Usage    : double base, exponent, ans;                           *
- *            ans = RPowerI(base,exponent);                       *
+ *            ans = llnlmath_rpower_i(base,exponent);                       *
  *----------------------------------------------------------------*
  * RPowerR returns the value base^exponent, where both base and   *
  * exponent are reals. If base < 0.0, then RPowerR returns 0.0.   *
  *                                                                *
  ******************************************************************/
-double RPowerR(double base, double exponent);
+double llnlmath_rpower_r(double base, double exponent);
 /******************************************************************
  *                                                                *
  * Function : RSqrt                                               *
  * Usage    : double sqrt_x;                                        *
- *            sqrt_x = RSqrt(x);                                  *
+ *            sqrt_x = llnlmath_rsqrt(x);                                  *
  *----------------------------------------------------------------*
- * RSqrt(x) returns the square root of x. If x < 0.0, then RSqrt  *
+ * llnlmath_rsqrt(x) returns the square root of x. If x < 0.0, then RSqrt  *
  * returns 0.0.                                                   *
  *                                                                *
  ******************************************************************/
-double RSqrt(double x);
+double llnlmath_rsqrt(double x);
 
 #endif
 
@@ -3184,7 +3184,7 @@ void set_all_vals(void);
 void add_intern_set(char *name, char *does);
 void extract_action(char *ptr);
 void extract_internset(int32 j);
-int32 msc(char *s1, char *s2);
+int32 load_eqn_msc(char *s1, char *s2);
 void set_internopts(OptionsSet *mask);
 void set_internopts_xpprc_and_comline(void);
 void check_for_xpprc(void);
@@ -3229,11 +3229,11 @@ void do_events(uint32 min_wid, uint32 min_hgt) __attribute__((noreturn));
 void bye_bye(void) __attribute__((noreturn));
 void clr_scrn(void);
 void redraw_all(void);
-void commander(int32 ch);
+void main_commander(int32 ch);
 Window init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
                 uint32 min_wid, uint32 min_hgt, int32 argc, char **argv);
 void top_button_draw(Window window);
-void FixWindowSize(Window window, int32 width, int32 height, int32 flag);
+void main_fix_window_size(Window window, int32 width, int32 height, int32 flag);
 int32 get_command_width(void);
 
 #endif
@@ -3260,15 +3260,15 @@ void do_windows_com(int32 c);
 void init_grafs(int32 x, int32 y, int32 w, int32 h);
 void ps_restore(void);
 void svg_restore(void);
-int32 rotate3dcheck(XEvent event);
+int32 many_pops_rotate_3dcheck(XEvent event);
 void do_motion_events(XEvent event);
 void do_expose(XEvent event);
 void resize_all_pops(int32 wid, int32 hgt);
 void create_a_pop(void);
-void GrCol(void);
-void BaseCol(void);
-void SmallGr(void);
-void SmallBase(void);
+void many_pops_gr_col(void);
+void many_pops_base_col(void);
+void many_pops_small_gr(void);
+void many_pops_small_base(void);
 void change_plot_vars(int32 k);
 int32 check_active_plot(int32 k);
 void make_active(int32 i, int32 flag);
@@ -3297,9 +3297,9 @@ void mean_back(void);
 void variance_back(void);
 void append_stoch(int32 first, int32 length);
 void do_stats(int32 ierr);
-double poidev(double xm);
-double ndrand48(void);
-void nsrand48(int32 seed);
+double markov_poidev(double xm);
+double markov_ndrand48(void);
+void markov_nsrand48(int32 seed);
 
 #endif
 
@@ -3518,12 +3518,12 @@ void nsrand48(int32 seed);
 #define M_UC 410
 
 void xpp_hlp(void);
-void MessageBox(char *m);
-void RedrawMessageBox(Window window);
-void KillMessageBox(void);
-int32 TwoChoice(char *c1, char *c2, char *q, char *key);
-int32 GetMouseXY(int32 *x, int32 *y);
-void FlushDisplay(void);
+void menudrive_message_box(char *m);
+void menudrive_message_box_redraw(Window window);
+void menudrive_message_box_kill(void);
+int32 menudrive_two_choice(char *c1, char *c2, char *q, char *key);
+int32 menudrive_get_mouse_xy(int32 *x, int32 *y);
+void menudrive_flush_display(void);
 void clear_draw_window(void);
 void drw_all_scrns(void);
 void clr_all_scrns(void);
@@ -3564,7 +3564,7 @@ void do_tutorial(void);
 void add_menu(Window base, int32 j, int32 n, char **names, char *key,
               char **hint);
 void create_the_menus(Window base);
-void help(void);
+void menu_help(void);
 void help_num(void);
 void help_file(void);
 void menu_crossing(Window win, int32 yn);
@@ -3599,7 +3599,7 @@ void ps_text(int32 x, int32 y, char *str);
 #define MY_RHS_H
 
 int32 main(int32 argc, char **argv);
-void extra(double *y__y, double t, int32 nod, int32 neq);
+void my_rhs_extra(double *y__y, double t, int32 nod, int32 neq);
 void set_fix_rhs(double t, double *y);
 int32 my_rhs(double t, double *y, double *ydot, int32 neq);
 void update_based_on_current(void);
@@ -4053,7 +4053,7 @@ typedef struct {
  * NULL if there is a memory request failure.                     *
  *                                                                *
  ******************************************************************/
-SpgmrMem SpgmrMalloc(int64 N, int32 l_max);
+SpgmrMem spgmr_malloc(int64 N, int32 l_max);
 
 /******************************************************************
  *                                                                *
@@ -4170,7 +4170,7 @@ int32 SpgmrSolve(SpgmrMem mem, void *A_data, N_Vector x, N_Vector b,
  * illegal to use the pointer mem after a call to SpgmrFree.      *
  *                                                                *
  ******************************************************************/
-void SpgmrFree(SpgmrMem mem);
+void spgmr_free(SpgmrMem mem);
 
 #endif
 
@@ -4202,7 +4202,7 @@ void rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
 void init_alloc_info(void);
 void alloc_meth(void);
 void init_stor(int32 nrow, int32 ncol);
-int32 reallocstor(int32 ncol, int32 nrow);
+int32 storage_realloc(int32 ncol, int32 nrow);
 
 #endif
 
@@ -4212,7 +4212,7 @@ int32 reallocstor(int32 ncol, int32 nrow);
 void set_auto_eval_flags(int32 f);
 void set_table_name(char *name, int32 index);
 void new_lookup_com(int32 i);
-double lookup(double x, int32 index);
+double tabular_lookup(double x, int32 index);
 void init_table(void);
 void redo_all_fun_tables(void);
 int32 create_fun_table(int32 npts, double xlo, double xhi, char *formula,

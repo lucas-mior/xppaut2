@@ -155,7 +155,7 @@ make_eqn(void) {
     snprintf(wild, sizeof(wild), "*.ode");
     get_a_filename(string, wild);
     if ((fptr = fopen(string, "r")) == NULL) {
-        plintf("\n Cannot open %s \n", string);
+        ggets_plintf("\n Cannot open %s \n", string);
         return 0;
     }
     strcpy(this_file, string);
@@ -177,7 +177,7 @@ strip_saveqn(void) {
 }
 
 int32
-disc(char *string) {
+form_ode_idsc(char *string) {
     char c;
     int32 i = 0, l = (int32)strlen(string), j = 0, flag = 0;
     char end[256];
@@ -224,12 +224,12 @@ format_list(char **s, int32 n) {
     snprintf(fmat, sizeof(fmat), "%s%d%s", "%", lmax + 2, "s");
     for (ip = 0; ip < k; ip++) {
         for (i = 0; i < ncol; i++)
-            plintf(fmat, s[ip*ncol + i]);
-        plintf("\n");
+            ggets_plintf(fmat, s[ip*ncol + i]);
+        ggets_plintf("\n");
     }
     for (i = 0; i < j; i++)
-        plintf(fmat, s[k*ncol + i]);
-    plintf("\n");
+        ggets_plintf(fmat, s[k*ncol + i]);
+    ggets_plintf("\n");
     return;
 }
 
@@ -239,21 +239,21 @@ get_a_filename(char *filename, char *wild) {
         char string[MAXEXPLEN];
         list_em(wild);
         while (true) {
-            plintf("(r)un (c)d (l)ist ");
+            ggets_plintf("(r)un (c)d (l)ist ");
             scanf("%s", string);
             if (string[0] == 'r') {
-                plintf("Run file: ");
+                ggets_plintf("Run file: ");
                 scanf("%s", filename);
-                plintf("Loading %s\n ", filename);
+                ggets_plintf("Loading %s\n ", filename);
                 return 1;
             } else {
                 if (string[0] == 'l') {
-                    plintf("List files of type: ");
+                    ggets_plintf("List files of type: ");
                     scanf("%s", wild);
                     list_em(wild);
                 } else {
                     if (string[0] == 'c') {
-                        plintf("Change to directory: ");
+                        ggets_plintf("Change to directory: ");
                         scanf("%s", string);
                         change_directory(string);
                         list_em(wild);
@@ -280,11 +280,11 @@ get_a_filename(char *filename, char *wild) {
 void
 list_em(char *wild) {
     get_directory(cur_dir);
-    plintf("%s: \n", cur_dir);
+    ggets_plintf("%s: \n", cur_dir);
     get_fileinfo(wild, cur_dir, &my_ff);
-    plintf("DIRECTORIES:\n");
+    ggets_plintf("DIRECTORIES:\n");
     format_list(my_ff.dirnames, my_ff.ndirs);
-    plintf("FILES OF TYPE %s:\n", wild);
+    ggets_plintf("FILES OF TYPE %s:\n", wild);
     format_list(my_ff.filenames, my_ff.nfiles);
 
     free_finfo(&my_ff);
@@ -314,7 +314,7 @@ get_eqn(FILE *fptr) {
         exit(1);
     }
     if ((save_eqn[NLINES] = xmalloc((usize)nn)) == NULL) {
-        plintf("Out of memory...");
+        ggets_plintf("Out of memory...");
         exit(0);
     }
 
@@ -330,7 +330,7 @@ get_eqn(FILE *fptr) {
     } else {
         OldStyle = 1;
         NEQ = i;
-        plintf("NEQ=%d\n", NEQ);
+        ggets_plintf("NEQ=%d\n", NEQ);
         if (ConvertStyle) {
             if (strlen(this_file) == 0)
                 strcpy(filename, "convert.ode");
@@ -348,7 +348,7 @@ get_eqn(FILE *fptr) {
             if ((save_eqn[NLINES] = xmalloc((usize)nn)) == NULL)
                 exit(0);
             strncpy(save_eqn[NLINES++], bob, (usize)nn);
-            done = compiler(bob, fptr);
+            done = form_ode_compiler(bob, fptr);
         }
         if (ConvertStyle) {
             fprintf(convertf, "done\n");
@@ -356,12 +356,12 @@ get_eqn(FILE *fptr) {
         }
     }
     if ((NODE + NMarkov) == 0) {
-        plintf(
+        ggets_plintf(
             " Must have at least one equation! \n Probably not an ODE file.\n");
         exit(0);
     }
     if (BVP_N > IN_VARS) {
-        plintf("Too many boundary conditions\n");
+        ggets_plintf("Too many boundary conditions\n");
         exit(0);
     }
     if (BVP_N < IN_VARS) {
@@ -379,11 +379,11 @@ get_eqn(FILE *fptr) {
     BVP_FLAG = 1;
 
     if (NODE != NEQ + FIX_VAR - NMarkov) {
-        plintf(" Too many/few equations\n");
+        ggets_plintf(" Too many/few equations\n");
         exit(0);
     }
     if (IN_VARS > NEQ) {
-        plintf(" Too many variables\n");
+        ggets_plintf(" Too many variables\n");
         exit(0);
     }
     NODE = IN_VARS;
@@ -411,15 +411,15 @@ get_eqn(FILE *fptr) {
             add_var(prim, 0.0);
         }
     } else {
-        plintf(
+        ggets_plintf(
             " Warning: primed variables not added must have < %d variables\n",
             MAX_PRIME_VAR);
-        plintf(" Averaging and boundary value problems cannot be done\n");
+        ggets_plintf(" Averaging and boundary value problems cannot be done\n");
     }
     if (NMarkov > 0)
         compile_all_markov();
     if (compile_flags() == 1) {
-        plintf(" Error in compiling a flag \n");
+        ggets_plintf(" Error in compiling a flag \n");
         exit(0);
     }
     show_flags();
@@ -430,14 +430,14 @@ get_eqn(FILE *fptr) {
     NSYM_START = NSYM;
     xppvermaj = (double)MAJOR_VERSION;
     xppvermin = (double)MINOR_VERSION;
-    plintf("Used %d constants and %d symbols \n", NCON, NSYM);
-    plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n", xppvermaj,
+    ggets_plintf("Used %d constants and %d symbols \n", NCON, NSYM);
+    ggets_plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n", xppvermaj,
            xppvermin);
     return 1;
 }
 
 int32
-compiler(char *bob, FILE *fptr) {
+form_ode_compiler(char *bob, FILE *fptr) {
     double value, xlo, xhi;
     int32 narg, done, nn, iflg = 0, VFlag = 0, nstates, alt, index, sign;
     char *ptr, *my_string, *command;
@@ -475,28 +475,28 @@ compiler(char *bob, FILE *fptr) {
         add_intern_set(condition, formula);
         break;
     case 'w': /*  Make a Wiener (heh heh) constants  */
-        plintf("Wiener constants\n");
+        ggets_plintf("Wiener constants\n");
         if (ConvertStyle)
             fprintf(convertf, "wiener ");
         advance_past_first_word(&ptr);
         while ((my_string = get_next2(&ptr)) != NULL) {
             take_apart(my_string, &value, name);
             free(my_string);
-            plintf("|%s|=%f ", name, value);
+            ggets_plintf("|%s|=%f ", name, value);
             if (ConvertStyle)
                 fprintf(convertf, "%s  ", name);
             if (add_con(name, value)) {
-                plintf("ERROR at line %d\n", NLINES);
+                ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
             add_wiener(NCON - 1);
         }
         if (ConvertStyle)
             fprintf(convertf, "\n");
-        plintf("\n");
+        ggets_plintf("\n");
         break;
     case 'n':
-        plintf(" Hidden params:\n");
+        ggets_plintf(" Hidden params:\n");
         if (ConvertStyle)
             fprintf(convertf, "number ");
 
@@ -507,26 +507,26 @@ compiler(char *bob, FILE *fptr) {
             if (ConvertStyle)
                 fprintf(convertf, "%s=%g  ", name, value);
 
-            plintf("|%s|=%f ", name, value);
+            ggets_plintf("|%s|=%f ", name, value);
             if (add_con(name, value)) {
-                plintf("ERROR at line %d\n", NLINES);
+                ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
         }
         if (ConvertStyle)
             fprintf(convertf, "\n");
-        plintf("\n");
+        ggets_plintf("\n");
         break;
     case 'g': /* global */
         my_string = get_next("{ ");
         sign = atoi(my_string);
-        plintf(" GLOBAL: sign =%d \n", sign);
+        ggets_plintf(" GLOBAL: sign =%d \n", sign);
         my_string = get_next("{}");
         strcpy(condition, my_string);
-        plintf(" condition = %s \n", condition);
+        ggets_plintf(" condition = %s \n", condition);
         my_string = get_next("\n");
         strcpy(formula, my_string);
-        plintf(" events=%s \n", formula);
+        ggets_plintf(" events=%s \n", formula);
         if (add_global(condition, sign, formula)) {
             printf("Bad global !! \n");
             exit(0);
@@ -536,7 +536,7 @@ compiler(char *bob, FILE *fptr) {
         }
         break;
     case 'p':
-        plintf("Parameters:\n");
+        ggets_plintf("Parameters:\n");
         if (ConvertStyle)
             fprintf(convertf, "par ");
 
@@ -549,26 +549,26 @@ compiler(char *bob, FILE *fptr) {
             strcpy(upar_names[NUPAR++], name);
             if (ConvertStyle)
                 fprintf(convertf, "%s=%g  ", name, value);
-            plintf("|%s|=%f ", name, value);
+            ggets_plintf("|%s|=%f ", name, value);
             if (add_con(name, value)) {
-                plintf("ERROR at line %d\n", NLINES);
+                ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
         }
         if (ConvertStyle)
             fprintf(convertf, "\n");
-        plintf("\n");
+        ggets_plintf("\n");
         break;
     case 'c':
         my_string = get_next(" \n");
         strcpy(options, my_string);
-        plintf(" Loading new options file:<%s>\n", my_string);
+        ggets_plintf(" Loading new options file:<%s>\n", my_string);
         if (ConvertStyle)
             fprintf(convertf, "option %s\n", options);
         break;
     case 'f':
         iflg = 0;
-        plintf("\nFixed variables:\n");
+        ggets_plintf("\nFixed variables:\n");
         goto vrs;
     case 'm': /* Markov variable  */
         my_string = get_next(" ");
@@ -581,7 +581,7 @@ compiler(char *bob, FILE *fptr) {
         strcpy(uvar_names[IN_VARS + NMarkov], name);
         last_ic[IN_VARS + NMarkov] = value;
         default_ic[IN_VARS + NMarkov] = value;
-        plintf(" Markov variable %s=%f has %d states \n", name, value, nstates);
+        ggets_plintf(" Markov variable %s=%f has %d states \n", name, value, nstates);
         if (OldStyle)
             add_markov(nstates, name);
         if (ConvertStyle)
@@ -600,7 +600,7 @@ compiler(char *bob, FILE *fptr) {
         break;
     case 'v':
         iflg = 1;
-        plintf("\nVariables:\n");
+        ggets_plintf("\nVariables:\n");
         if (ConvertStyle)
             fprintf(convertf, "init ");
     vrs:
@@ -614,13 +614,13 @@ compiler(char *bob, FILE *fptr) {
         advance_past_first_word(&ptr);
         while ((my_string = get_next2(&ptr)) != NULL) {
             if ((IN_VARS > NEQ) || (IN_VARS == MAX_ODE)) {
-                plintf(" too many variables at line %d\n", NLINES);
+                ggets_plintf(" too many variables at line %d\n", NLINES);
                 exit(0);
             }
             take_apart(my_string, &value, name);
             free(my_string);
             if (add_var(name, value)) {
-                plintf("ERROR at line %d\n", NLINES);
+                ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
             if (iflg) {
@@ -635,9 +635,9 @@ compiler(char *bob, FILE *fptr) {
                     strcpy(fixname[FIX_VAR], name);
                 FIX_VAR++;
             }
-            plintf("|%s| ", name);
+            ggets_plintf("|%s| ", name);
         }
-        plintf(" \n");
+        ggets_plintf(" \n");
         if (iflg && ConvertStyle)
             fprintf(convertf, "\n");
         break;
@@ -651,7 +651,7 @@ compiler(char *bob, FILE *fptr) {
         if (ConvertStyle)
             fprintf(convertf, "bndry %s\n", my_bc[BVP_N].string);
 
-        plintf("|%s| |%s| \n", my_bc[BVP_N].name, my_bc[BVP_N].string);
+        ggets_plintf("|%s| |%s| \n", my_bc[BVP_N].name, my_bc[BVP_N].string);
         BVP_N++;
         break;
     case 'k':
@@ -663,7 +663,7 @@ compiler(char *bob, FILE *fptr) {
         value = atof(my_string);
         my_string = get_next("$");
         strcpy(formula, my_string);
-        plintf("Kernel mu=%f %s = %s \n", value, name, formula);
+        ggets_plintf("Kernel mu=%f %s = %s \n", value, name, formula);
         if (add_kernel(name, value, formula)) {
             printf("ERROR at line %d\n", NLINES);
             exit(0);
@@ -693,7 +693,7 @@ compiler(char *bob, FILE *fptr) {
             add_table_name(NTable, name);
 
             if (add_form_table(NTable, nn, xlo, xhi, formula)) {
-                plintf("ERROR at line %d\n", NLINES);
+                ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
 
@@ -704,16 +704,16 @@ compiler(char *bob, FILE *fptr) {
             printf(" NTable = %d \n", NTable);
 
         } else if (my_string[0] == '@') {
-            plintf(" Two-dimensional array: \n ");
+            ggets_plintf(" Two-dimensional array: \n ");
             my_string = get_next(" ");
             strcpy(formula, my_string);
-            plintf(" %s = %s \n", name, formula);
+            ggets_plintf(" %s = %s \n", name, formula);
         } else {
             strcpy(formula, my_string);
-            plintf("Lookup table %s = %s \n", name, formula);
+            ggets_plintf("Lookup table %s = %s \n", name, formula);
             add_table_name(NTable, name);
             if (add_file_table(NTable, formula)) {
-                plintf("ERROR at line %d\n", NLINES);
+                ggets_plintf("ERROR at line %d\n", NLINES);
                 exit(0);
             }
             if (ConvertStyle)
@@ -729,7 +729,7 @@ compiler(char *bob, FILE *fptr) {
         narg = atoi(my_string);
         my_string = get_next("$");
         strcpy(formula, my_string);
-        plintf("%s %d :\n", name, narg);
+        ggets_plintf("%s %d :\n", name, narg);
         if (ConvertStyle) {
             fprintf(convertf, "%s(", name);
             for (i = 0; i < narg; i++) {
@@ -744,7 +744,7 @@ compiler(char *bob, FILE *fptr) {
             exit(0);
         }
 
-        plintf("user %s = %s\n", name, formula);
+        ggets_plintf("user %s = %s\n", name, formula);
         break;
     case 'i':
         VFlag = 1;
@@ -764,7 +764,7 @@ compiler(char *bob, FILE *fptr) {
 
         if (NODE < IN_VARS) {
             if ((ode_names[NODE] = xmalloc((usize)nn + 5)) == NULL) {
-                plintf("Out of memory at line %d\n", NLINES);
+                ggets_plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
             strcpy(ode_names[NODE], formula);
@@ -790,7 +790,7 @@ compiler(char *bob, FILE *fptr) {
             i = NODE - (IN_VARS + FIX_VAR);
             if ((ode_names[NODE - FIX_VAR + NMarkov] = xmalloc((usize)nn)) ==
                 NULL) {
-                plintf("Out of memory at line %d\n", NLINES);
+                ggets_plintf("Out of memory at line %d\n", NLINES);
                 exit(0);
             }
             strcpy(ode_names[NODE - FIX_VAR + NMarkov], formula);
@@ -801,7 +801,7 @@ compiler(char *bob, FILE *fptr) {
                     fprintf(convertf, "aux aux%d=%s\n", i + 1, formula);
             }
         }
-        plintf("RHS(%d)=%s\n", NODE, formula);
+        ggets_plintf("RHS(%d)=%s\n", NODE, formula);
         if (add_expr(formula, my_ode[NODE], &leng[NODE])) {
             printf("ERROR at line %d\n", NLINES);
             exit(0);
@@ -810,13 +810,13 @@ compiler(char *bob, FILE *fptr) {
         break;
 
     case 'a': /* name auxiliary variables */
-        plintf("Auxiliary variables:\n");
+        ggets_plintf("Auxiliary variables:\n");
         while ((my_string = get_next(" ,\n")) != NULL) {
             strcpy(aux_names[Naux], my_string);
-            plintf("|%s| ", aux_names[Naux]);
+            ggets_plintf("|%s| ", aux_names[Naux]);
             Naux++;
         }
-        plintf("\n");
+        ggets_plintf("\n");
         break;
 
     default:
@@ -832,25 +832,25 @@ compiler(char *bob, FILE *fptr) {
 
 void
 welcome(void) {
-    plintf("\n The commands are: \n");
-    plintf(" P(arameter) -- declare parameters "
+    ggets_plintf("\n The commands are: \n");
+    ggets_plintf(" P(arameter) -- declare parameters "
            "<name1>=<value1>,<name2>=<value2>,...\n");
-    plintf(" F(ixed)     -- declare fixed variables\n");
-    plintf(" V(ariables) -- declare ode variables \n");
-    plintf(" U(ser)      -- declare user functions <name> <nargs> <formula>\n");
-    plintf(" C(hange)    -- change option file   <filename>\n");
-    plintf(" O(de)       -- declare RHS for equations\n");
-    plintf(" D(one)      -- finished compiling formula\n");
-    plintf(" H(elp)      -- this menu                 \n");
-    plintf(" S(ymbols)   -- Valid functions and symbols\n");
-    plintf(" I(ntegral)  -- rhs for integral eqn\n");
-    plintf(" K(ernel)    -- declare kernel for integral eqns\n");
-    plintf(" T(able)     -- lookup table\n");
-    plintf(" A(ux)       -- name auxiliary variable\n");
-    plintf(" N(umbers)   --  hidden parameters\n");
-    plintf(" M(arkov)    --  Markov variables \n");
-    plintf(" W(iener)    -- Wiener parameter \n");
-    plintf(
+    ggets_plintf(" F(ixed)     -- declare fixed variables\n");
+    ggets_plintf(" V(ariables) -- declare ode variables \n");
+    ggets_plintf(" U(ser)      -- declare user functions <name> <nargs> <formula>\n");
+    ggets_plintf(" C(hange)    -- change option file   <filename>\n");
+    ggets_plintf(" O(de)       -- declare RHS for equations\n");
+    ggets_plintf(" D(one)      -- finished compiling formula\n");
+    ggets_plintf(" H(elp)      -- this menu                 \n");
+    ggets_plintf(" S(ymbols)   -- Valid functions and symbols\n");
+    ggets_plintf(" I(ntegral)  -- rhs for integral eqn\n");
+    ggets_plintf(" K(ernel)    -- declare kernel for integral eqns\n");
+    ggets_plintf(" T(able)     -- lookup table\n");
+    ggets_plintf(" A(ux)       -- name auxiliary variable\n");
+    ggets_plintf(" N(umbers)   --  hidden parameters\n");
+    ggets_plintf(" M(arkov)    --  Markov variables \n");
+    ggets_plintf(" W(iener)    -- Wiener parameter \n");
+    ggets_plintf(
         "_____________________________________________________________________"
         "____\n");
     return;
@@ -858,11 +858,11 @@ welcome(void) {
 
 void
 show_syms(void) {
-    plintf("(    ,    )    +    -      *    ^    **    / \n");
-    plintf("sin  cos  tan  atan  atan2 acos asin\n");
-    plintf("exp  ln   log  log10 tanh  cosh sinh \n");
-    plintf("max  min  heav flr   mod   sign sqrt \n");
-    plintf("t    pi   ran  \n");
+    ggets_plintf("(    ,    )    +    -      *    ^    **    / \n");
+    ggets_plintf("sin  cos  tan  atan  atan2 acos asin\n");
+    ggets_plintf("exp  ln   log  log10 tanh  cosh sinh \n");
+    ggets_plintf("max  min  heav flr   mod   sign sqrt \n");
+    ggets_plintf("t    pi   ran  \n");
     return;
 }
 
@@ -939,7 +939,7 @@ find_ker(char *string, int32 *alt) {
         if (ch == '}') {
             form[ifr] = 0;
             snprintf(name, sizeof(name), "K##%d", NKernel);
-            plintf("Kernel mu=%f %s = %s \n", mu, name, form);
+            ggets_plintf("Kernel mu=%f %s = %s \n", mu, name, form);
             if (add_kernel(name, mu, form))
                 exit(0);
             for (usize j = 0; j < strlen(name); j++) {
@@ -1141,12 +1141,12 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                            includefilename[j]);
                     fnew = fopen(includefilename[j], "r");
                     if (fnew == NULL) {
-                        plintf("Can't open include file <%s>\n",
+                        ggets_plintf("Can't open include file <%s>\n",
                                includefilename[j]);
                         exit(-1);
                         /*continue;*/
                     }
-                    plintf("Including %s \n", includefilename[j]);
+                    ggets_plintf("Including %s \n", includefilename[j]);
                     IN_INCLUDED_FILE++;
                     do_new_parser(fnew, includefilename[j], 1);
                     fclose(fnew);
@@ -1159,7 +1159,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
         }
         if (IN_INCLUDED_FILE > 0) {
             if (if_end_include(old) || feof(fp)) {
-                plintf("Completed include of file %s\n", first);
+                ggets_plintf("Completed include of file %s\n", first);
                 IN_INCLUDED_FILE--;
                 return 1;
             }
@@ -1167,16 +1167,16 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
         if (if_include_file(old, newfile)) {
             fnew = fopen(newfile, "r");
             if (fnew == NULL) {
-                plintf("Cant open include file <%s>\n", newfile);
+                ggets_plintf("Cant open include file <%s>\n", newfile);
                 continue;
             }
-            plintf("Including %s...\n", newfile);
+            ggets_plintf("Including %s...\n", newfile);
             IN_INCLUDED_FILE++;
             do_new_parser(fnew, newfile, 1);
             fclose(fnew);
             if (IN_INCLUDED_FILE > 0) {
                 if (feof(fp)) {
-                    /*plintf("We are at end of file now
+                    /*ggets_plintf("We are at end of file now
                      * %d\n",IN_INCLUDED_FILE);*/
                 }
             } else {
@@ -1220,12 +1220,12 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
         while (true) {
             for (ns = 0; ns < nstrings; ns++) {
                 strcpy(new, strings[ns]);
-                subsk(new, big, jj, is_array);
+                form_ode_subsk(new, big, jj, is_array);
 
                 done = parse_a_string(big, &v);
 
                 if (done == -1) {
-                    plintf(" Error in parsing %s \n", big);
+                    ggets_plintf(" Error in parsing %s \n", big);
                     return -1;
                 }
                 if (done == 1) {
@@ -1241,14 +1241,14 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         else
                             nstates = atoi(my_string);
                         if (nstates < 1) {
-                            plintf("Group %s  must have at least 1 part \n",
+                            ggets_plintf("Group %s  must have at least 1 part \n",
                                    name);
                             return -1;
                         }
-                        plintf("Group %s has %d parts\n", name, nstates);
+                        ggets_plintf("Group %s has %d parts\n", name, nstates);
                         for (istates = 0; istates < nstates; istates++) {
                             read_a_line(fp, old);
-                            plintf("part %d is %s \n", istates, old);
+                            ggets_plintf("part %d is %s \n", istates, old);
                         }
 
                         v.type = GROUP;
@@ -1265,7 +1265,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         else
                             nstates = atoi(my_string);
                         if (nstates < 2) {
-                            plintf("Markov variable %s  must have at least 2 "
+                            ggets_plintf("Markov variable %s  must have at least 2 "
                                    "states \n",
                                    name);
                             return -1;
@@ -1296,7 +1296,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                         /*  now we clean up these arrays */
                         for (istates = 0; istates < nstates; istates++)
-                            subsk(markovarrays[istates], markovarrays2[istates],
+                            form_ode_subsk(markovarrays[istates], markovarrays2[istates],
                                   jj, is_array);
 
                         build_markov(markovarrays2, name);
@@ -1411,7 +1411,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
             if (feof(fp)) {
                 /*if (IN_INCLUDED_FILE>0)
                 {
-                        plintf("End of include file reached NOW \n");
+                        ggets_plintf("End of include file reached NOW \n");
                         IN_INCLUDED_FILE--;
                         return 1;
                 }*/
@@ -1533,32 +1533,32 @@ compile_em(void) {
     while (true) {
         if (v->type == COMMAND && v->lhs[0] == 'P') {
             snprintf(big, sizeof(big), "par %s \n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'W') {
             snprintf(big, sizeof(big), "wie %s \n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'N') {
             snprintf(big, sizeof(big), "num %s \n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'O') {
             snprintf(big, sizeof(big), "c %s \n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'S' && v->lhs[1] == 'E') {
             snprintf(big, sizeof(big), "x %s\n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
 
         if (v->type == COMMAND && v->lhs[0] == 'B') {
             snprintf(big, sizeof(big), "b %s \n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
         if (v->type == COMMAND && v->lhs[0] == 'G') {
             snprintf(big, sizeof(big), "g %s \n", v->rhs);
-            compiler(big, fp);
+            form_ode_compiler(big, fp);
         }
         if (v->type == MAP || v->type == ODE || v->type == VEQ) {
             convert(v->lhs, tmp);
@@ -1566,7 +1566,7 @@ compile_em(void) {
                 strcpy(vnames[nvar], tmp);
                 nvar++;
             } else {
-                plintf(" %s is a duplicate name \n", tmp);
+                ggets_plintf(" %s is a duplicate name \n", tmp);
                 exit(0);
             }
         }
@@ -1596,7 +1596,7 @@ compile_em(void) {
             convert(v->lhs, tmp);
             strcpy(anames[naux], tmp);
             naux++;
-            plintf("%s = %s \n", anames[naux - 1], v->rhs);
+            ggets_plintf("%s = %s \n", anames[naux - 1], v->rhs);
         }
         if (v->type == DERIVE_PAR) {
             if (add_derived(v->lhs, v->rhs) == 1)
@@ -1610,7 +1610,7 @@ compile_em(void) {
             convert(v->lhs, tmp);
             strcpy(fnames[nfix], tmp);
             nfix++;
-            plintf("%s = %s \n", fnames[nfix - 1], v->rhs);
+            ggets_plintf("%s = %s \n", fnames[nfix - 1], v->rhs);
         }
 
         if (v->type == TABLE) {
@@ -1619,7 +1619,7 @@ compile_em(void) {
                 printf(" %s is duplicate name \n", tmp);
                 exit(0);
             }
-            plintf("added name %d\n", ntab);
+            ggets_plintf("added name %d\n", ntab);
             ntab++;
         }
 
@@ -1706,16 +1706,16 @@ compile_em(void) {
                     last_ic[in] = z;
                     default_ic[in] = z;
                     set_val(tmp, z);
-                    plintf(" Initial %s(0)=%g\n", tmp, z);
+                    ggets_plintf(" Initial %s(0)=%g\n", tmp, z);
                 } else {
                     in = find_the_name(mnames, NMarkov, tmp);
                     if (in >= 0) {
                         last_ic[in + IN_VARS] = z;
                         default_ic[in + IN_VARS] = z;
                         set_val(tmp, z);
-                        plintf(" Markov %s(0)=%g\n", tmp, z);
+                        ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                     } else {
-                        plintf("In initial value statement no variable %s \n",
+                        ggets_plintf("In initial value statement no variable %s \n",
                                tmp);
                         exit(0);
                     }
@@ -1741,16 +1741,16 @@ compile_em(void) {
                 /* if(fon==1) */
                 strcpy(delay_string[in], v->rhs);
 
-                plintf(" Initial %s(0)=%s\n", tmp, v->rhs);
+                ggets_plintf(" Initial %s(0)=%s\n", tmp, v->rhs);
             } else {
                 in = find_the_name(mnames, NMarkov, tmp);
                 if (in >= 0) {
                     last_ic[in + IN_VARS] = z;
                     default_ic[in + IN_VARS] = z;
                     set_val(tmp, z);
-                    plintf(" Markov %s(0)=%g\n", tmp, z);
+                    ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                 } else {
-                    plintf("In initial value statement no variable %s \n", tmp);
+                    ggets_plintf("In initial value statement no variable %s \n", tmp);
                     exit(0);
                 }
             }
@@ -1769,7 +1769,7 @@ compile_em(void) {
             nn = (int32)strlen(v->rhs) + 1;
             if ((ode_names[nvar] = xmalloc((usize)nn + 2)) == NULL ||
                 (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
-                plintf("could not allocate space for %s \n", v->lhs);
+                ggets_plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
 
@@ -1778,18 +1778,18 @@ compile_em(void) {
             /*       ode_names[nvar][nn-1]=0; */
             if (add_expr(v->rhs, my_ode[nvar], &leng[nvar])) {
                 printf("A\n");
-                plintf("ERROR compiling %s' \n", v->lhs);
+                ggets_plintf("ERROR compiling %s' \n", v->lhs);
                 exit(0);
             }
             /* fpr_command(my_ode[nvar]); */
             if (v->type == MAP) {
-                plintf("%s(t+1)=%s\n", v->lhs, v->rhs);
+                ggets_plintf("%s(t+1)=%s\n", v->lhs, v->rhs);
                 is_a_map = 1;
             }
             if (v->type == VEQ)
-                plintf("%s(t)=%s\n", v->lhs, v->rhs);
+                ggets_plintf("%s(t)=%s\n", v->lhs, v->rhs);
             if (v->type == ODE)
-                plintf("%d:d%s/dt=%s\n", nvar, v->lhs, v->rhs);
+                ggets_plintf("%d:d%s/dt=%s\n", nvar, v->lhs, v->rhs);
             nvar++;
             break;
         case FIXED:
@@ -1798,16 +1798,16 @@ compile_em(void) {
                     NULL ||
                 add_expr(v->rhs, my_ode[nfix + IN_VARS],
                          &leng[IN_VARS + nfix]) != 0) {
-                plintf(" Error allocating or compiling %s\n", v->lhs);
+                ggets_plintf(" Error allocating or compiling %s\n", v->lhs);
                 exit(0);
             }
             nfix++;
-            plintf("%s=%s\n", v->lhs, v->rhs);
+            ggets_plintf("%s=%s\n", v->lhs, v->rhs);
             break;
         case DAE:
             if (add_aeqn(v->rhs) == 1)
                 exit(0);
-            plintf(" DAE eqn: %s=0 \n", v->rhs);
+            ggets_plintf(" DAE eqn: %s=0 \n", v->rhs);
             break;
 
         case AUX_VAR:
@@ -1816,7 +1816,7 @@ compile_em(void) {
             nn = (int32)strlen(v->rhs) + 1;
             if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
                 (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
-                plintf("could not allocate space for %s \n", v->lhs);
+                ggets_plintf("could not allocate space for %s \n", v->lhs);
                 exit(0);
             }
 
@@ -1824,22 +1824,22 @@ compile_em(void) {
             /* ode_names[in1][nn]=0; */
             if (add_expr(v->rhs, my_ode[in2], &leng[in2])) {
                 printf("B\n");
-                plintf("ERROR compiling %s \n", v->lhs);
+                ggets_plintf("ERROR compiling %s \n", v->lhs);
                 exit(0);
             }
             naux++;
-            plintf("%s=%s\n", v->lhs, v->rhs);
+            ggets_plintf("%s=%s\n", v->lhs, v->rhs);
             break;
         case VECTOR:
             if (add_vectorizer(v->lhs, v->rhs) == 0) {
-                plintf(" Illegal vector  %s \n", v->rhs);
+                ggets_plintf(" Illegal vector  %s \n", v->rhs);
                 exit(0);
             }
 
             break;
         case SPEC_FUN:
             if (add_spec_fun(v->lhs, v->rhs) == 0) {
-                plintf(" Illegal special function %s \n", v->rhs);
+                ggets_plintf(" Illegal special function %s \n", v->rhs);
                 exit(0);
             }
             break;
@@ -1847,24 +1847,24 @@ compile_em(void) {
             nn = (int32)strlen(v->rhs) + 1;
 
             if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) == NULL) {
-                plintf(" Out of memory for  %s \n", v->lhs);
+                ggets_plintf(" Out of memory for  %s \n", v->lhs);
                 exit(0);
             }
             strncpy(ode_names[IN_VARS + nmark], v->rhs, (usize)nn);
             ode_names[IN_VARS + nmark][nn] = 0;
             nmark++;
-            plintf("%s: %s", v->lhs, v->rhs);
+            ggets_plintf("%s: %s", v->lhs, v->rhs);
             break;
         case FUNCTION:
             if (add_ufun_new(nufun, v->nargs, v->rhs, v->args) != 0) {
-                plintf(" Function %s messed up \n", v->lhs);
+                ggets_plintf(" Function %s messed up \n", v->lhs);
                 exit(0);
             }
             nufun++;
-            plintf("%s(%s", v->lhs, v->args[0]);
+            ggets_plintf("%s(%s", v->lhs, v->args[0]);
             for (in = 1; in < v->nargs; in++)
-                plintf(",%s", v->args[in]);
-            plintf(")=%s\n", v->rhs);
+                ggets_plintf(",%s", v->args[in]);
+            ggets_plintf(")=%s\n", v->rhs);
             break;
 
         case TABLE:
@@ -1874,7 +1874,7 @@ compile_em(void) {
             my_string = get_next(" ");
             my_string = get_next(" \n");
             if (my_string[0] == '%') {
-                plintf(" Function form of table....\n");
+                ggets_plintf(" Function form of table....\n");
                 my_string = get_next(" ");
                 nn = atoi(my_string);
                 my_string = get_next(" ");
@@ -1883,24 +1883,24 @@ compile_em(void) {
                 xhi = atof(my_string);
                 my_string = get_next("\n");
                 strcpy(formula, my_string);
-                plintf(" %s has %d pts from %f to %f = %s\n", v->lhs, nn, xlo,
+                ggets_plintf(" %s has %d pts from %f to %f = %s\n", v->lhs, nn, xlo,
                        xhi, formula);
                 if (add_form_table(ntab, nn, xlo, xhi, formula)) {
-                    plintf("ERROR computing %s\n", v->lhs);
+                    ggets_plintf("ERROR computing %s\n", v->lhs);
                     exit(0);
                 }
                 ntab++;
             } else if (my_string[0] == '@') {
-                plintf(" Two-dimensional array: \n ");
+                ggets_plintf(" Two-dimensional array: \n ");
                 my_string = get_next(" ");
                 strcpy(formula, my_string);
-                plintf(" %s = %s \n", name, formula);
+                ggets_plintf(" %s = %s \n", name, formula);
             } else {
                 strcpy(formula, my_string);
-                plintf("Lookup table %s = %s \n", v->lhs, formula);
+                ggets_plintf("Lookup table %s = %s \n", v->lhs, formula);
 
                 if (add_file_table(ntab, formula)) {
-                    plintf("ERROR computing %s", v->lhs);
+                    ggets_plintf("ERROR computing %s", v->lhs);
                     exit(0);
                 }
                 ntab++;
@@ -1920,9 +1920,9 @@ compile_em(void) {
         exit(0);
     evaluate_derived();
     do_export_list();
-    plintf(" All formulas are valid!!\n");
+    ggets_plintf(" All formulas are valid!!\n");
     NODE = nvar + naux + nfix;
-    plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar, naux,
+    ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar, naux,
            nfix, nmark, NEQ, NODE);
     return;
 }
@@ -2407,7 +2407,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     *i1 = 0;
                     *i2 = 0;
                     strcpy(new, old);
-                    plintf(" Possible error in array %s -- ignoring it \n",
+                    ggets_plintf(" Possible error in array %s -- ignoring it \n",
                            old);
                     return 0; /* error in array  */
                 }
@@ -2430,7 +2430,7 @@ search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     *i1 = 0;
                     *i2 = 0;
                     strcpy(new, old);
-                    plintf(" Possible error in array  %s -- ignoring it \n",
+                    ggets_plintf(" Possible error in array  %s -- ignoring it \n",
                            old);
                     return 0; /* error again   */
                 }
@@ -2509,7 +2509,7 @@ is_comment(char *s) {
 }
 
 void
-subsk(char *big, char *new, int32 k, int32 flag) {
+form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
     int32 i, n = (int32)strlen(big), inew, add, inum, j, m, isign, ok,
              multflag = 0;
     char ch, chp, num[20];
@@ -2564,7 +2564,7 @@ subsk(char *big, char *new, int32 k, int32 flag) {
             while (ok) {
                 if (i >= n) {
                     new[inew] = 0;
-                    plintf("Error in %s The expression does not terminate. "
+                    ggets_plintf("Error in %s The expression does not terminate. "
                            "Perhaps a ] "
                            "is missing.\n",
                            big);
@@ -2676,9 +2676,9 @@ add_comment(char *s) {
         strcpy(comments[n_comments].action, action);
         comments[n_comments].aflag = 1;
     }
-    plintf("text=%s \n", comments[n_comments].text);
+    ggets_plintf("text=%s \n", comments[n_comments].text);
     if (comments[n_comments].aflag == 1)
-        plintf("action=%s \n", comments[n_comments].action);
+        ggets_plintf("action=%s \n", comments[n_comments].action);
     n_comments++;
     return;
 }

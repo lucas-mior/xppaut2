@@ -216,7 +216,7 @@ do_comline(int32 argc, char **argv) {
             loadparfile = 1;
         }
         if (k == 5) {
-            plintf(argv[i + 1]);
+            ggets_plintf(argv[i + 1]);
             strncpy(batchout, argv[i + 1], sizeof(batchout));
             strncpy(UserOUTFILE, argv[i + 1], sizeof(UserOUTFILE));
             i++;
@@ -228,7 +228,7 @@ do_comline(int32 argc, char **argv) {
         }
         if (k == 7) {
             if (strlen(argv[i + 1]) != 6) {
-                plintf("Color must be given as hexadecimal string.\n");
+                ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
             set_option("FORECOLOR", argv[i + 1], 1, NULL);
@@ -236,7 +236,7 @@ do_comline(int32 argc, char **argv) {
         }
         if (k == 8) {
             if (strlen(argv[i + 1]) != 6) {
-                plintf("Color must be given as hexadecimal string.\n");
+                ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
             set_option("BACKCOLOR", argv[i + 1], 1, NULL);
@@ -260,7 +260,7 @@ do_comline(int32 argc, char **argv) {
         }
         if (k == 13) {
             if (strlen(argv[i + 1]) != 6) {
-                plintf("Color must be given as hexadecimal string.\n");
+                ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
             set_option("MWCOLOR", argv[i + 1], 1, NULL);
@@ -268,7 +268,7 @@ do_comline(int32 argc, char **argv) {
         }
         if (k == 14) {
             if (strlen(argv[i + 1]) != 6) {
-                plintf("Color must be given as hexadecimal string.\n");
+                ggets_plintf("Color must be given as hexadecimal string.\n");
                 exit(-1);
             }
             set_option("DWCOLOR", argv[i + 1], 1, NULL);
@@ -364,12 +364,12 @@ if_needed_load_ext_options(void) {
     if (externaloptionsflag == 1) {
         fp = fopen(readsetfile, "r");
         if (fp == NULL) {
-            plintf("%s external set not found\n", readsetfile);
+            ggets_plintf("%s external set not found\n", readsetfile);
             return 0;
         }
         fgets(myopts, 1024, fp);
         sprintf(myoptsx, "$ %s", myopts);
-        plintf("Got this string: {%s}\n", myopts);
+        ggets_plintf("Got this string: {%s}\n", myopts);
         extract_action(myoptsx);
         fclose(fp);
         return 1;
@@ -393,7 +393,7 @@ if_needed_select_sets(void) {
         Nintern_2_use += use_intern_sets;
 
         if (is_set_name(sets2use, intern_set[j].name)) {
-            plintf("Internal set %s was included\n", intern_set[j].name);
+            ggets_plintf("Internal set %s was included\n", intern_set[j].name);
             if (intern_set[j].use == 0) {
                 Nintern_2_use++;
             }
@@ -401,7 +401,7 @@ if_needed_select_sets(void) {
         }
 
         if (is_set_name(setsNOTuse, intern_set[j].name)) {
-            plintf("Internal set %s was excluded\n", intern_set[j].name);
+            ggets_plintf("Internal set %s was excluded\n", intern_set[j].name);
             if (intern_set[j].use == 1) {
                 Nintern_2_use--;
             }
@@ -409,7 +409,7 @@ if_needed_select_sets(void) {
         }
     }
 
-    plintf("A total of %d internal sets will be used\n", Nintern_2_use);
+    ggets_plintf("A total of %d internal sets will be used\n", Nintern_2_use);
 
     return 1;
 }
@@ -421,7 +421,7 @@ if_needed_load_set(void) {
         return 1;
     fp = fopen(setfilename, "r");
     if (fp == NULL) {
-        plintf("Couldn't load %s\n", setfilename);
+        ggets_plintf("Couldn't load %s\n", setfilename);
         return 0;
     }
     read_lunch(fp);
@@ -433,7 +433,7 @@ int32
 if_needed_load_par(void) {
     if (!loadparfile)
         return 1;
-    plintf("Loading external parameter file: %s\n", parfilename);
+    ggets_plintf("Loading external parameter file: %s\n", parfilename);
     io_parameter_file(parfilename, 1);
     return 1;
 }
@@ -442,7 +442,7 @@ int32
 if_needed_load_ic(void) {
     if (!loadicfile)
         return 1;
-    plintf("Loading external initial condition file: %s\n", icfilename);
+    ggets_plintf("Loading external initial condition file: %s\n", icfilename);
     io_ic_file(icfilename, 1);
     return 1;
 }
@@ -459,7 +459,7 @@ parse_it(char *com) {
     if (j < NCMD) {
         switch (j) {
         case MAKEC:
-            plintf(" C files are no longer part of this version. \n Sorry \n");
+            ggets_plintf(" C files are no longer part of this version. \n Sorry \n");
             break;
         case MKPLOT:
             MakePlotFlag = 1;
@@ -477,7 +477,7 @@ parse_it(char *com) {
             noicon = 0;
             break;
         case NEWSEED:
-            plintf("Random number seed changed\n");
+            ggets_plintf("Random number seed changed\n");
             newseed = 1;
             break;
         case ALLWIN:
@@ -487,7 +487,7 @@ parse_it(char *com) {
             MSStyle = 1;
             break;
         case PWHITE:
-            plintf(
+            ggets_plintf(
                 "-white option is no longer part of this version. \n Sorry \n");
             break;
         case RUNNOW:
@@ -573,120 +573,120 @@ parse_it(char *com) {
         }
     } else {
         if (com[0] == '-' || got_file == 1) {
-            plintf("Problem reading option %s\n", com);
-            plintf("\nUsage: xppaut filename [options ...]\n\n");
-            plintf("Options:\n");
-            plintf(
+            ggets_plintf("Problem reading option %s\n", com);
+            ggets_plintf("\nUsage: xppaut filename [options ...]\n\n");
+            ggets_plintf("Options:\n");
+            ggets_plintf(
                 "  -silent                Batch run without the interface and "
                 "dump solutions to a file\n");
-            plintf("  -xorfix                Work-around for exclusive Or with "
+            ggets_plintf("  -xorfix                Work-around for exclusive Or with "
                    "X on "
                    "some monitors/graphics setups\n");
-            plintf("  -convert               Convert old style ODE files (e.g. "
+            ggets_plintf("  -convert               Convert old style ODE files (e.g. "
                    "phaseplane) to new ODE style\n");
-            plintf("  -newseed               Randomizes the random number "
+            ggets_plintf("  -newseed               Randomizes the random number "
                    "generator "
                    "which will often use the same seed\n");
-            plintf("  -ee                    Emulates shortcuts of Evil Empire "
+            ggets_plintf("  -ee                    Emulates shortcuts of Evil Empire "
                    "style "
                    "(MS)\n");
-            plintf(
+            ggets_plintf(
                 "  -allwin                Brings XPP up with all the windows "
                 "visible\n");
-            plintf("  -white                 Uses white screen instead of "
+            ggets_plintf("  -white                 Uses white screen instead of "
                    "black\n");
-            plintf("  -setfile <filename>    Loads the set file before "
+            ggets_plintf("  -setfile <filename>    Loads the set file before "
                    "starting up\n");
-            plintf("  -runnow                Runs ode file immediately upon "
+            ggets_plintf("  -runnow                Runs ode file immediately upon "
                    "startup "
                    "(implied by -silent)\n");
-            plintf(
+            ggets_plintf(
                 "  -bigfont <font>        Use the big font whose filename is "
                 "given\n");
-            plintf(
+            ggets_plintf(
                 "  -smallfont <font>      Use the small font whose filename is "
                 "given\n");
-            plintf("  -parfile <filename>    Load parameters from the named "
+            ggets_plintf("  -parfile <filename>    Load parameters from the named "
                    "file\n");
-            plintf(
+            ggets_plintf(
                 "  -outfile <filename>    Send output to this file (default is "
                 "output.dat)\n");
-            plintf("  -icfile <filename>     Load initial conditions from the "
+            ggets_plintf("  -icfile <filename>     Load initial conditions from the "
                    "named "
                    "file\n");
-            plintf(
+            ggets_plintf(
                 "  -forecolor <######>    Hexadecimal color (e.g. 000000) for "
                 "foreground\n");
-            plintf(
+            ggets_plintf(
                 "  -backcolor <######>    Hexadecimal color (e.g. EDE9E3) for "
                 "background\n");
-            plintf("  -backimage <filename>  Name of bitmap file (.xbm) to "
+            ggets_plintf("  -backimage <filename>  Name of bitmap file (.xbm) to "
                    "load in "
                    "background\n");
-            plintf(
+            ggets_plintf(
                 "  -mwcolor <######>      Hexadecimal color (e.g. 808080) for "
                 "main window\n");
-            plintf(
+            ggets_plintf(
                 "  -dwcolor <######>      Hexadecimal color (e.g. FFFFFF) for "
                 "drawing window\n");
-            plintf("  -grads < 1 | 0 >       Color gradients will | won't be "
+            ggets_plintf("  -grads < 1 | 0 >       Color gradients will | won't be "
                    "used\n");
-            plintf("  -width N               Minimum width in pixels of main "
+            ggets_plintf("  -width N               Minimum width in pixels of main "
                    "window\n");
-            plintf("  -height N              Minimum height in pixels of main "
+            ggets_plintf("  -height N              Minimum height in pixels of main "
                    "window\n");
-            plintf("  -bell < 1 | 0 >        Events will | won't trigger "
+            ggets_plintf("  -bell < 1 | 0 >        Events will | won't trigger "
                    "system bell\n");
-            plintf("  -internset < 1 | 0 >   Internal sets will | won't be run "
+            ggets_plintf("  -internset < 1 | 0 >   Internal sets will | won't be run "
                    "during batch run\n");
-            plintf("  -uset <setname>        Named internal set will be run "
+            ggets_plintf("  -uset <setname>        Named internal set will be run "
                    "during "
                    "batch run\n");
-            plintf(
+            ggets_plintf(
                 "  -rset <setname>        Named internal set will not be run "
                 "during batch run\n");
-            plintf("  -include <filename>    Named file will be included (see "
+            ggets_plintf("  -include <filename>    Named file will be included (see "
                    "#include directive)\n");
-            plintf(
+            ggets_plintf(
                 "  -qsets                 Query internal sets (output saved to "
                 "OUTFILE)\n");
-            plintf("  -qpars                 Query parameters (output saved to "
+            ggets_plintf("  -qpars                 Query parameters (output saved to "
                    "OUTFILE)\n");
-            plintf("  -qics                  Query initial conditions (output "
+            ggets_plintf("  -qics                  Query initial conditions (output "
                    "saved "
                    "to OUTFILE)\n");
-            plintf("  -quiet <1 |0>          Do not print *anything* out to "
+            ggets_plintf("  -quiet <1 |0>          Do not print *anything* out to "
                    "console\n");
-            plintf("  -logfile <filename>    Print console output to specified "
+            ggets_plintf("  -logfile <filename>    Print console output to specified "
                    "logfile \n");
-            plintf("  -anifile <filename>    Load an animation code file "
+            ggets_plintf("  -anifile <filename>    Load an animation code file "
                    "(.ani) \n");
-            plintf("  -plotfmt <svg|ps>       Set Batch plot format\n");
-            plintf("  -mkplot                Do a plot in batch mode \n");
-            plintf(" -ncdraw 1|2               Draw nullclines in batch (1) to "
+            ggets_plintf("  -plotfmt <svg|ps>       Set Batch plot format\n");
+            ggets_plintf("  -mkplot                Do a plot in batch mode \n");
+            ggets_plintf(" -ncdraw 1|2               Draw nullclines in batch (1) to "
                    "file "
                    "(2) \n");
-            plintf(" -dfdraw 1-5       Draw dfields in batch (1-3) to file "
+            ggets_plintf(" -dfdraw 1-5       Draw dfields in batch (1-3) to file "
                    "(4-5)  \n");
-            plintf("  -version               Print XPPAUT version and exit \n");
-            plintf(
+            ggets_plintf("  -version               Print XPPAUT version and exit \n");
+            ggets_plintf(
                 "  -readset <filename>   Read in a set file like the internal "
                 "sets\n");
-            plintf("  -with string   String must be surrounded with quotes; "
+            ggets_plintf("  -with string   String must be surrounded with quotes; "
                    "anything "
                    "that is in an internal set is valid\n");
-            plintf("  -equil <0|1>    Write equilibria to equil.dat and if <1> "
+            ggets_plintf("  -equil <0|1>    Write equilibria to equil.dat and if <1> "
                    "manifolds um1.dat,...,sm2.dat\n");
-            plintf("\n");
+            ggets_plintf("\n");
 
-            plintf("Environment variables:\n");
-            plintf("  XPPHELP                Path to XPPAUT documentation file "
+            ggets_plintf("Environment variables:\n");
+            ggets_plintf("  XPPHELP                Path to XPPAUT documentation file "
                    "<xpphelp.html>\n");
-            plintf("  XPPBROWSER             Web browser (e.g. "
+            ggets_plintf("  XPPBROWSER             Web browser (e.g. "
                    "/usr/bin/firefox)\n");
-            plintf("  XPPSTART               Path to start looking for ODE "
+            ggets_plintf("  XPPSTART               Path to start looking for ODE "
                    "files\n");
-            plintf("\n");
+            ggets_plintf("\n");
             exit(0);
         } else {
             strcpy(this_file, com);

@@ -29,7 +29,7 @@ compile_derived(void) {
     int32 f[256], n;
     for (i = 0; i < nderived; i++) {
         if (add_expr(derived[i].rhs, f, &n) == 1) {
-            plintf(" Bad right-hand side for derived parameters \n");
+            ggets_plintf(" Bad right-hand side for derived parameters \n");
             return 1;
         }
         derived[i].form = xmalloc(sizeof(*(derived[i].form))*(usize)(n + 2));
@@ -60,7 +60,7 @@ add_derived(char *name, char *rhs) {
     int32 n = (int32)strlen(rhs) + 2;
     int32 i0;
     if (nderived >= MAXDERIVED) {
-        plintf(" Too many derived constants! \n");
+        ggets_plintf(" Too many derived constants! \n");
         return 1;
     }
     i0 = nderived;
@@ -70,7 +70,7 @@ add_derived(char *name, char *rhs) {
     /* this is the constant to which it addresses */
     derived[i0].index = NCON;
     /* add the name to the recognized symbols */
-    plintf(" derived constant[%d] is %s = %s\n", NCON, name, rhs);
+    ggets_plintf(" derived constant[%d] is %s = %s\n", NCON, name, rhs);
     nderived++;
     return add_con(name, 0.0);
 }

@@ -442,7 +442,7 @@ post_auto(void) {
     while (true) {
         type = get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
-            plintf("Unable to get bifurcation type.\n");
+            ggets_plintf("Unable to get bifurcation type.\n");
         }
         if (d->ntot == 1)
             flag = 0;
@@ -480,7 +480,7 @@ svg_auto(void) {
     while (true) {
         type = get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
-            plintf("Unable to get bifurcation type.\n");
+            ggets_plintf("Unable to get bifurcation type.\n");
         }
         if (d->ntot == 1)
             flag = 0;
@@ -516,7 +516,7 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
     while (true) {
         type = get_bif_type(d->ibr, d->ntot);
         if (type < 1) {
-            plintf("Unable to get bifurcation type.\n");
+            ggets_plintf("Unable to get bifurcation type.\n");
         }
         /*if(d->ntot==1)flag=0;
         else flag=1;

@@ -149,7 +149,7 @@ silent_nullclines(void) {
     new_clines_com(0);
     fp = fopen("nullclines.dat", "w");
     if (fp == NULL) {
-        plintf("Cannot open nullcline file\n");
+        ggets_plintf("Cannot open nullcline file\n");
         return;
     }
     dump_clines(fp, X_n, num_x_n, Y_n, num_y_n);
@@ -335,7 +335,7 @@ save_frozen_clines(char *fn) {
     int32 i = 1;
     if (n_nstore == 0)
         return;
-    ch = (char)TwoChoice("YES", "NO", "Save Frozen Clines?", "yn");
+    ch = (char)menudrive_two_choice("YES", "NO", "Save Frozen Clines?", "yn");
     if (ch == 'n')
         return;
     z = ncperm;
@@ -384,7 +384,7 @@ redraw_froz_cline(int32 flag) {
             set_linestyle(col2);
             restor_null(z->yn, z->nmy, 2);
             if (flag > 0)
-                FlushDisplay();
+                menudrive_flush_display();
         }
         z = z->n;
         if (z == NULL)
@@ -438,7 +438,7 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
         for (j = 0; j <= n; j++) {
             y[iny] = v0 + dv*j;
             rhs(0.0, y, ydot, NODE);
-            extra(y, 0.0, NODE, NEQ);
+            my_rhs_extra(y, 0.0, NODE, NEQ);
             scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
             amp = hypot(dxp, dyp);
             if (amp > *mdf)
@@ -563,7 +563,7 @@ redraw_dfield(void) {
         for (j = 0; j <= grid; j++) {
             y[iny] = v0 + dv*j;
             rhs(0.0, y, ydot, NODE);
-            extra(y, 0.0, NODE, NEQ);
+            my_rhs_extra(y, 0.0, NODE, NEQ);
             if (MyGraph->ColorFlag || DF_FLAG == 2) {
                 v1[0] = 0.0;
                 v2[0] = 0.0;
@@ -677,7 +677,7 @@ direct_field_com(int32 c) {
             for (j = 0; j <= grid; j++) {
                 y[iny] = v0 + dv*j;
                 rhs(0.0, y, ydot, NODE);
-                extra(y, 0.0, NODE, NEQ);
+                my_rhs_extra(y, 0.0, NODE, NEQ);
                 if (MyGraph->ColorFlag || DF_FLAG == 2) {
                     v1[0] = 0.0;
                     v2[0] = 0.0;
@@ -840,11 +840,11 @@ restor_null(/* d=1 for x and 2 for y  */
             scale_to_screen(xm, ym, &x1, &y1);
             switch (d) {
             case 1:
-                line(x1, y1 - 4, x1, y1 + 4);
+                graphics_line(x1, y1 - 4, x1, y1 + 4);
 
                 break;
             case 2:
-                line(x1 - 4, y1, x1 + 4, y1);
+                graphics_line(x1 - 4, y1, x1 + 4, y1);
                 break;
             default:
                 break;
@@ -1060,7 +1060,7 @@ do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
                 triangle_contour(p[0],p[4],p[3]); */
             /*   Uncomment for quad contour     */
             quad_contour(p[0], p[1], p[2], p[3]);
-            /*     FlushDisplay(); */
+            /*     menudrive_flush_display(); */
         }
     }
 }

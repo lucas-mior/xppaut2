@@ -617,7 +617,7 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     }
     for (i = 0; i < n; i++) {
         for (j = 0; j < NODE; j++) {
-            x[j] = ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
+            x[j] = markov_ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
                    fixptguess.xlo[j];
         }
         do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
@@ -626,14 +626,14 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
             m = fixptlist.n;
             if (m == 0) { /* first fixed point found */
                 fixptlist.n = 1;
-                plintf("Found: %d\n", m);
+                ggets_plintf("Found: %d\n", m);
                 for (j = 0; j < NODE; j++) {
                     fixptlist.x[0][j] = x[j];
                     fixptlist.er[0][j] = er[j];
                     fixptlist.em[0][j] = em[j];
                     if (ishoot)
                         shoot_this_now();
-                    plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j], er[j],
+                    ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j], er[j],
                            em[j]);
                 }
             } else { /* there are others  better compare them */
@@ -649,14 +649,14 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                     m = fixptlist.n;
                     fixptlist.n++;
                     if (m < MAXFP) {
-                        plintf("Found: %d\n", m);
+                        ggets_plintf("Found: %d\n", m);
                         for (j = 0; j < NODE; j++) {
                             fixptlist.x[m][j] = x[j];
                             fixptlist.er[m][j] = er[j];
                             fixptlist.em[m][j] = em[j];
                             if (ishoot)
                                 shoot_this_now();
-                            plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j],
+                            ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j],
                                    er[j], em[j]);
                         }
                     }
@@ -914,7 +914,7 @@ do_range(double *x, int32 flag) {
             do_start_flags(x, &MyTime);
             if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
                 storage[0][storind] = (double)MyTime;
-                extra(x, MyTime, NODE, NEQ);
+                my_rhs_extra(x, MyTime, NODE, NEQ);
                 for (iii = 0; iii < NEQ; iii++)
                     storage[1 + iii][storind] = (double)x[iii];
                 storind++;
@@ -1047,14 +1047,14 @@ find_equilib_com(int32 com) {
 
         /* get mouse click x,y  */
         get_ic(1, x);
-        MessageBox("Click on guess");
-        if (GetMouseXY(&im, &jm)) {
+        menudrive_message_box("Click on guess");
+        if (menudrive_get_mouse_xy(&im, &jm)) {
             scale_to_real(im, jm, &xm, &ym);
             x[iv] = (double)xm;
             x[jv] = (double)ym;
         }
 
-        KillMessageBox();
+        menudrive_message_box_kill();
         break;
     case 3:
         monte_carlo();
@@ -1097,10 +1097,10 @@ batch_integrate(void) {
             /*Will get over-written each internal set*/
             sprintf(batchout, "%s", UserOUTFILE);
         }
-        plintf("out=%s\n", batchout);
+        ggets_plintf("out=%s\n", batchout);
         extract_internset(i);
         chk_delay();
-        plintf(" Ok integrating now \n");
+        ggets_plintf(" Ok integrating now \n");
         do_batch_dry_run();
         if (intern_set[i].use) {
             batch_integrate_once();
@@ -1115,7 +1115,7 @@ do_batch_dry_run(void) {
     if (!dryrun)
         return;
 
-    plintf("It's a dry run...\n");
+    ggets_plintf("It's a dry run...\n");
 
     fp = fopen(batchout, "w");
     if (fp == NULL) {
@@ -1173,7 +1173,7 @@ batch_integrate_once(void) {
         RANGE_FLAG = 1;
 
         if (do_range(x, 0) != 0)
-            plintf(" Errors occured in range integration \n");
+            ggets_plintf(" Errors occured in range integration \n");
     } else {
         get_ic(2, x);
         if (DelayFlag) {
@@ -1184,14 +1184,14 @@ batch_integrate_once(void) {
         do_start_flags(x, &MyTime);
         if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
             storage[0][0] = (double)MyTime;
-            extra(x, MyTime, NODE, NEQ);
+            my_rhs_extra(x, MyTime, NODE, NEQ);
             for (i = 0; i < NEQ; i++)
                 storage[1 + i][0] = (double)x[i];
             storind = 1;
         }
 
         if (integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart) != 0)
-            plintf(" Integration not completed -- will write anyway...\n");
+            ggets_plintf(" Integration not completed -- will write anyway...\n");
 
         INFLAG = 1;
         refresh_browser(storind);
@@ -1205,7 +1205,7 @@ batch_integrate_once(void) {
         if (!SuppressOut) {
             fp = fopen(batchout, "w");
             if (fp == NULL) {
-                plintf(" Unable to open %s to write \n", batchout);
+                ggets_plintf(" Unable to open %s to write \n", batchout);
                 return;
             }
             write_my_browser_data(fp);
@@ -1215,7 +1215,7 @@ batch_integrate_once(void) {
         if (MakePlotFlag)
             dump_ps(-1);
     }
-    plintf(" Run complete ... \n");
+    ggets_plintf(" Run complete ... \n");
     /*   fp=fopen("run.gpl","w");
 
     fprintf(fp,"set term pdf \n");
@@ -1236,7 +1236,7 @@ write_this_run(char *file, int32 i) {
         sprintf(outfile, "%s.%d", file, i);
         fp = fopen(outfile, "w");
         if (fp == NULL) {
-            plintf("Couldnt open %s\n", outfile);
+            ggets_plintf("Couldnt open %s\n", outfile);
             return -1;
         }
         write_my_browser_data(fp);
@@ -1305,7 +1305,7 @@ do_init_data(int32 com) {
             MyTime = T0;
         }
         if (METHOD == VOLTERRA && oldstart == 0) {
-            ch = (char)TwoChoice("No", "Yes", "Reset integrals?", "ny");
+            ch = (char)menudrive_two_choice("No", "Yes", "Reset integrals?", "ny");
             if (ch == 'n')
                 MyStart = oldstart;
         }
@@ -1332,8 +1332,8 @@ do_init_data(int32 com) {
         /*  Get mouse values  */
         if (com == M_IM) {
             get_ic(1, x);
-            MessageBox("Click on initial data");
-            if (GetMouseXY(&im, &jm)) {
+            menudrive_message_box("Click on initial data");
+            if (menudrive_get_mouse_xy(&im, &jm)) {
                 scale_to_real(im, jm, &xm, &ym);
                 im = MyGraph->xv[0] - 1;
                 jm = MyGraph->yv[0] - 1;
@@ -1341,7 +1341,7 @@ do_init_data(int32 com) {
                 x[jv] = (double)ym;
                 last_ic[im] = x[im];
                 last_ic[jm] = x[jm];
-                KillMessageBox();
+                menudrive_message_box_kill();
 
                 if (DelayFlag) {
                     /* restart initial data */
@@ -1349,16 +1349,16 @@ do_init_data(int32 com) {
                         return;
                 }
             } else {
-                KillMessageBox();
+                menudrive_message_box_kill();
                 return;
             }
         } else {
             SuppressBounds = 1;
 
-            MessageBox("Click on initial data -- ESC to quit");
+            menudrive_message_box("Click on initial data -- ESC to quit");
             while (true) {
                 get_ic(1, x);
-                badmouse = GetMouseXY(&im, &jm);
+                badmouse = menudrive_get_mouse_xy(&im, &jm);
                 if (badmouse == 0)
                     break;
                 scale_to_real(im, jm, &xm, &ym);
@@ -1377,7 +1377,7 @@ do_init_data(int32 com) {
                 MyTime = T0;
                 usual_integrate_stuff(x);
             }
-            KillMessageBox();
+            menudrive_message_box_kill();
             SuppressBounds = 0;
             return;
         }
@@ -1486,7 +1486,7 @@ usual_integrate_stuff(double *x) {
     do_start_flags(x, &MyTime);
     if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
         storage[0][0] = (double)MyTime;
-        extra(x, MyTime, NODE, NEQ);
+        my_rhs_extra(x, MyTime, NODE, NEQ);
         for (i = 0; i < NEQ; i++)
             storage[1 + i][0] = (double)x[i];
         storind = 1;
@@ -1581,10 +1581,10 @@ evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
     char vp[25], fp[256];
     for (j = j1; j <= j2; j++) {
         i = -1;
-        subsk(v, vp, j, 1);
+        form_ode_subsk(v, vp, j, 1);
         find_variable(vp, &i);
         if (i > 0) {
-            subsk(f, fp, j, 1);
+            form_ode_subsk(f, fp, j, 1);
             flag = do_calc(fp, &z);
             if (flag != -1)
                 last_ic[i - 1] = z;
@@ -1940,7 +1940,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         return rval;
     one_flag_step(xpv.x, xpv.x, &iflagstart, *t, &tnew, nodes, &sss);
     MSWTCH(x, xpv.x);
-    extra(x, *t, NODE,
+    my_rhs_extra(x, *t, NODE,
           NEQ); /* Note this takes care of initializing Markov variables */
     MSWTCH(xpv.x, x);
     xv[0] = (double)*t;
@@ -2181,7 +2181,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
         /*   START POST INTEGRATE STUFF */
 
-        extra(x, *t, NODE, NEQ);
+        my_rhs_extra(x, *t, NODE, NEQ);
 
         if (TORUS == 1) {
             for (ieqn = 0; ieqn < NEQ; ieqn++) {
@@ -2470,7 +2470,7 @@ send_output(double *y, double t) {
     int32 i;
     for (i = 0; i < NODE; i++)
         yy[i] = y[i];
-    extra(yy, t, NODE, NEQ);
+    my_rhs_extra(yy, t, NODE, NEQ);
     if ((STORFLAG == 1) && (storind < MAXSTOR)) {
         for (i = 0; i < NEQ; i++)
             storage[i + 1][storind] = (double)yy[i];
@@ -2610,7 +2610,7 @@ plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
 }
 
 void
-restore(int32 i1, int32 i2) {
+integrate_restore(int32 i1, int32 i2) {
     int32 ip, np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
     int32 i, j, kxoff, kyoff, kzoff;
@@ -2742,7 +2742,7 @@ shoot_easy(double *x) {
 }
 
 void
-shoot(double *x, double *xg, double *evec, int32 sgn) {
+integrate_shoot(double *x, double *xg, double *evec, int32 sgn) {
     int32 i;
     double t = 0.0;
     SuppressBounds = 1;
@@ -2768,19 +2768,19 @@ int32
 stor_full(void) {
     char ch;
     int32 nrow = 2*MAXSTOR;
-    if (reallocstor(NEQ + 1, nrow)) {
+    if (storage_realloc(NEQ + 1, nrow)) {
         MAXSTOR = nrow;
         return 1;
     }
 
     if (!Xup) {
-        plintf(" Storage full -- increase maxstor \n");
+        ggets_plintf(" Storage full -- increase maxstor \n");
         return 0;
     }
     if (FOREVER)
         goto ov;
     ggets_ping();
-    ch = (char)TwoChoice("YES", "NO", "Storage full: Overwrite?", "yn");
+    ch = (char)menudrive_two_choice("YES", "NO", "Storage full: Overwrite?", "yn");
     if (ch == 'y') {
     ov:
         storind = 0;

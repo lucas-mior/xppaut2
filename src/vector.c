@@ -319,7 +319,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w) {
         sum += prodi*prodi;
     }
 
-    return RSqrt(sum / (double)N);
+    return llnlmath_rsqrt(sum / (double)N);
 }
 
 double
@@ -385,9 +385,9 @@ N_VPrint(N_Vector x) {
     xd = x->data;
 
     for (i = 0; i < N; i++)
-        plintf("%g\n", *xd++);
+        ggets_plintf("%g\n", *xd++);
 
-    plintf("\n");
+    ggets_plintf("\n");
     return;
 }
 

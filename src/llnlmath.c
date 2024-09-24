@@ -18,7 +18,7 @@
 #define TWO RCONST(2.0)
 
 double
-UnitRoundoff(void) {
+llnlmath_unit_roundoff(void) {
     double u;
     volatile double one_plus_u;
 
@@ -34,7 +34,7 @@ UnitRoundoff(void) {
 }
 
 double
-RPowerI(double base, int32 exponent) {
+llnlmath_rpower_i(double base, int32 exponent) {
     int32 i;
     int32 expt;
     double prod;
@@ -49,7 +49,7 @@ RPowerI(double base, int32 exponent) {
 }
 
 double
-RPowerR(double base, double exponent) {
+llnlmath_rpower_r(double base, double exponent) {
     if (base <= ZERO)
         return ZERO;
 
@@ -57,7 +57,7 @@ RPowerR(double base, double exponent) {
 }
 
 double
-RSqrt(double x) {
+llnlmath_rsqrt(double x) {
     if (x <= ZERO)
         return ZERO;
 

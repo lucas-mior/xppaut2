@@ -472,7 +472,7 @@ do_main(int32 argc, char **argv) {
     init_auto_win();
 #endif
 
-    if (disc(this_file))
+    if (form_ode_idsc(this_file))
         METHOD = 0;
     xppvermaj = (double)MAJOR_VERSION;
     xppvermin = (double)MINOR_VERSION;
@@ -697,7 +697,7 @@ init_X(void) {
         MyDrawWinColor = MyBackColor;
     }
 
-    FixWindowSize(main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
+    main_fix_window_size(main_win, SCALEX, SCALEY, FIX_MIN_SIZE);
     periodic = 1;
     if (DefaultDepth(display, screen) >= 8) {
         COLOR = 1;
@@ -749,13 +749,13 @@ init_X(void) {
 
         if (success != BitmapSuccess) {
             if (success == BitmapOpenFailed) {
-                plintf("Problem reading bitmap file %s -> BitmapOpenFailed\n",
+                ggets_plintf("Problem reading bitmap file %s -> BitmapOpenFailed\n",
                        UserBGBitmap);
             } else if (success == BitmapFileInvalid) {
-                plintf("Problem reading bitmap file %s -> BitmapFileInvalid\n",
+                ggets_plintf("Problem reading bitmap file %s -> BitmapFileInvalid\n",
                        UserBGBitmap);
             } else if (success == BitmapNoMemory) {
-                plintf("Problem reading bitmap file %s -> BitmapNoMemory\n",
+                ggets_plintf("Problem reading bitmap file %s -> BitmapNoMemory\n",
                        UserBGBitmap);
             }
         } else {
@@ -878,7 +878,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             break;
 #endif
         ch = (char)get_key_press(&report);
-        commander(ch);
+        main_commander(ch);
 
         break;
     case EnterNotify:
@@ -909,7 +909,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 
         break;
     case ButtonPress:
-        if (!rotate3dcheck(report)) {
+        if (!many_pops_rotate_3dcheck(report)) {
             menu_button(report.xbutton.window);
             box_buttons(report.xbutton.window);
 
@@ -934,7 +934,7 @@ do_events(uint32 min_wid, uint32 min_hgt) {
     XEvent report;
 
     ggets_blank_screen(main_win);
-    help();
+    menu_help();
     if (RunImmediately == 1) {
         run_the_commands(4);
         RunImmediately = 0;
@@ -974,7 +974,7 @@ void
 redraw_all(void) {
     if (manual_expose == 0) {
         redraw_dfield();
-        restore(0, my_browser.maxrow);
+        integrate_restore(0, my_browser.maxrow);
         draw_label(draw_win);
         draw_freeze(draw_win);
         restore_on();
@@ -983,7 +983,7 @@ redraw_all(void) {
 }
 
 void
-commander(int32 ch) {
+main_commander(int32 ch) {
     switch (help_menu) {
     case MAIN_MENU: {
         switch (ch) {
@@ -1117,7 +1117,7 @@ commander(int32 ch) {
         default:
             break;
         }
-        help();
+        menu_help();
         break;
     }
     default:
@@ -1165,7 +1165,7 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
     char *display_name = NULL;
 
     if ((display = XOpenDisplay(display_name)) == NULL) {
-        plintf(" Failed to open X-Display \n");
+        ggets_plintf(" Failed to open X-Display \n");
         exit(-1);
     }
     screen = DefaultScreen(display);
@@ -1210,11 +1210,11 @@ init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
         XClassHint class_hints;
         XTextProperty winname, iconname;
         if (XStringListToTextProperty(&icon_name, 1, &iconname) == 0) {
-            plintf("X error: failure for iconname\n");
+            ggets_plintf("X error: failure for iconname\n");
             exit(-1);
         }
         if (XStringListToTextProperty(&win_name, 1, &winname) == 0) {
-            plintf("X error: failure for winname\n");
+            ggets_plintf("X error: failure for winname\n");
             exit(-1);
         }
 
@@ -1335,12 +1335,12 @@ void
 load_fonts(void) {
     int32 i;
     if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
-        plintf("X Error: Failed to load big font: %s\n", big_font_name);
+        ggets_plintf("X Error: Failed to load big font: %s\n", big_font_name);
         exit(-1);
     }
 
     if ((small_font = XLoadQueryFont(display, small_font_name)) == NULL) {
-        plintf("X Error: Failed to load small font: %s\n", small_font_name);
+        ggets_plintf("X Error: Failed to load small font: %s\n", small_font_name);
         exit(-1);
     }
 
@@ -1353,7 +1353,7 @@ load_fonts(void) {
             avsymfonts[i] = 1;
         } else {
             avsymfonts[i] = 1;
-            plintf(" sym %d loaded ..", i);
+            ggets_plintf(" sym %d loaded ..", i);
         }
 
         if ((romfonts[i] = XLoadQueryFont(display, timesfonts[i])) == NULL) {
@@ -1364,10 +1364,10 @@ load_fonts(void) {
             avromfonts[i] = 1;
         } else {
             avromfonts[i] = 1;
-            plintf(" times %d loaded ..", i);
+            ggets_plintf(" times %d loaded ..", i);
         }
     }
-    plintf("\n");
+    ggets_plintf("\n");
     return;
 }
 
@@ -1399,7 +1399,7 @@ make_pops(void) {
 }
 
 void
-FixWindowSize(Window window, int32 width, int32 height, int32 flag) {
+main_fix_window_size(Window window, int32 width, int32 height, int32 flag) {
     XSizeHints size_hints;
     switch (flag) {
     case FIX_SIZE:
@@ -1440,17 +1440,17 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     TrueColorFlag = 0;
     if (win_info->visual->class == TrueColor) {
         TrueColorFlag = 1;
-        plintf("TrueColor visual:  no colormap needed\n");
+        ggets_plintf("TrueColor visual:  no colormap needed\n");
         return 0;
     }
 
     else if (!win_info->colormap) {
-        plintf("no colormap associated with window\n");
+        ggets_plintf("no colormap associated with window\n");
         return 0;
     }
 
     ncolors = win_info->visual->map_entries;
-    plintf("%d entries in colormap\n", ncolors);
+    ggets_plintf("%d entries in colormap\n", ncolors);
 
     *colors = xmalloc(sizeof(XColor)*(uint)ncolors);
     xorfix = 0;
@@ -1458,7 +1458,7 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
     if (win_info->visual->class == DirectColor) {
         int32 red, green, blue, red1, green1, blue1;
 
-        plintf("DirectColor visual\n");
+        ggets_plintf("DirectColor visual\n");
 
         red = green = blue = 0;
         red1 = (int32)lowbit(win_info->visual->red_mask);

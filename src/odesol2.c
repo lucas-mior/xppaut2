@@ -132,11 +132,11 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
         } else {
             for (i = 0; i < neq; i++)
                 jac[i*neq + i] += 1.0;
-            sgefa(jac, neq, neq, ipivot, &info);
+            gear_sgefa(jac, neq, neq, ipivot, &info);
             if (info != -1) {
                 return -1;
             }
-            sgesl(jac, neq, neq, ipivot, errvec, 0);
+            gear_sgesl(jac, neq, neq, ipivot, errvec, 0);
         }
         for (i = 0; i < neq; i++) {
             err += fabs(errvec[i]);
@@ -507,8 +507,8 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
                 for (i = 0; i < n; i++)
                     dfdy[i*n + i] += 1;
 
-                sgefa(dfdy, n, n, ipivot, &info);
-                sgesl(dfdy, n, n, ipivot, k1, 0);
+                gear_sgefa(dfdy, n, n, ipivot, &info);
+                gear_sgesl(dfdy, n, n, ipivot, k1, 0);
             }
             for (i = 0; i < n; i++)
                 ynew[i] = y[i] + .5*h*k1[i];
@@ -518,7 +518,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             if (cv_bandflag)
                 bandsol(dfdy, k2, ml, mr, n);
             else
-                sgesl(dfdy, n, n, ipivot, k2, 0);
+                gear_sgesl(dfdy, n, n, ipivot, k2, 0);
             for (i = 0; i < n; i++) {
                 k2[i] = k2[i] + k1[i];
                 ynew[i] = y[i] + h*k2[i];
@@ -531,7 +531,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
             if (cv_bandflag)
                 bandsol(dfdy, k3, ml, mr, n);
             else
-                sgesl(dfdy, n, n, ipivot, k3, 0);
+                gear_sgesl(dfdy, n, n, ipivot, k3, 0);
             /*ninf=0;  This is not used anywhere?
              */
             err = 0.0;
@@ -577,7 +577,7 @@ rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
 
 /* wait_for_key() {
   char bob[256];
-  plintf(" Pause:");
+  ggets_plintf(" Pause:");
   gets(bob);
 }
 */

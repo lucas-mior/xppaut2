@@ -175,7 +175,7 @@ axes2_do(void) {
     set_linestyle(0);
     if (Xup) {
         re_title();
-        SmallGr();
+        many_pops_small_gr();
     }
 
     switch (MyGraph->grtype) {
@@ -191,7 +191,7 @@ axes2_do(void) {
         exit(EXIT_FAILURE);
     }
     if (Xup)
-        SmallBase();
+        many_pops_small_base();
     return;
 }
 
@@ -244,11 +244,11 @@ Frame_3d(void) {
     find_max_min_tic(&xmin, &xmax, tx);
     find_max_min_tic(&zmin, &zmax, tz);
     find_max_min_tic(&ymin, &ymax, ty);
-    scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
-    scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
+    graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
+    graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
 
-    scale3d(x4, y4, z4, &x3, &y3, &z3);
-    scale3d(x5, y5, z5, &x6, &y6, &z6);
+    graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
+    graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);
     set_linestyle(-2);
     line3d(-1., -1., -1., 1., -1., -1.);
     line3d(1., -1., -1., 1., 1., -1.);
@@ -282,26 +282,26 @@ Frame_3d(void) {
     dt = .06;
     TextJustify = 2;
     sprintf(bob, "%g", xmin);
-    text3d(x1, -1 - 2.*dt, -1.0, bob);
+    graphics_text3d(x1, -1 - 2.*dt, -1.0, bob);
     sprintf(bob, "%g", xmax);
-    text3d(x2, -1 - 2.*dt, -1.0, bob);
-    text3d(0.0, -1 - dt, -1.0, MyGraph->xlabel);
+    graphics_text3d(x2, -1 - 2.*dt, -1.0, bob);
+    graphics_text3d(0.0, -1 - dt, -1.0, MyGraph->xlabel);
     TextJustify = 0;
     sprintf(bob, "%g", ymin);
     /*sprintf(bob,"%g",ymin,bob);
      */
-    text3d(1 + dt, y1, -1.0, bob);
+    graphics_text3d(1 + dt, y1, -1.0, bob);
     sprintf(bob, "%g", ymax);
     /*sprintf(bob,"%g",ymax,bob);
      */
-    text3d(1 + dt, y2, -1.0, bob);
-    text3d(1 + dt, 0.0, -1.0, MyGraph->ylabel);
+    graphics_text3d(1 + dt, y2, -1.0, bob);
+    graphics_text3d(1 + dt, 0.0, -1.0, MyGraph->ylabel);
     TextJustify = 2;
     sprintf(bob, "%g", zmin);
-    text3d(-1. - dt, -1 - dt, z1, bob);
+    graphics_text3d(-1. - dt, -1 - dt, z1, bob);
     sprintf(bob, "%g", zmax);
-    text3d(-1. - dt, -1 - dt, z2, bob);
-    text3d(-1. - dt, -1. - dt, 0.0, MyGraph->zlabel);
+    graphics_text3d(-1. - dt, -1 - dt, z2, bob);
+    graphics_text3d(-1. - dt, -1. - dt, 0.0, MyGraph->zlabel);
     TextJustify = 0;
 
     axes2_doing = 0;
@@ -334,17 +334,17 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     set_linestyle(-1);
     if (MyGraph->xorgflag && flag)
         if (xaxis_y >= ybot && xaxis_y <= ytop)
-            line(xleft, xaxis_y, xright, xaxis_y);
+            graphics_line(xleft, xaxis_y, xright, xaxis_y);
     if (MyGraph->yorgflag && flag)
         if (yaxis_x >= xleft && yaxis_x <= xright)
-            line(yaxis_x, ybot, yaxis_x, ytop);
+            graphics_line(yaxis_x, ybot, yaxis_x, ytop);
     set_linestyle(-2);
     axes2_doing_box = 1;
-    line(xleft, ybot, xright, ybot);
-    line(xright, ybot, xright, ytop);
+    graphics_line(xleft, ybot, xright, ybot);
+    graphics_line(xright, ybot, xright, ytop);
     axes2_doing_box = 0;
-    line(xright, ytop, xleft, ytop);
-    line(xleft, ytop, xleft, ybot);
+    graphics_line(xright, ytop, xleft, ytop);
+    graphics_line(xleft, ytop, xleft, ybot);
     draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
     draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
     TextJustify = 0;
@@ -369,9 +369,9 @@ draw_ytics(char *s1, double start, double incr, double end) {
         sprintf(bob, "%g", place);
         scale_to_screen((double)x_min, (double)place, &xt, &yt);
         axes2_doing_box = 0;
-        line(DLeft, yt, DLeft + HTic, yt);
+        graphics_line(DLeft, yt, DLeft + HTic, yt);
         axes2_doing_box = 1;
-        line(DRight, yt, DRight - HTic, yt);
+        graphics_line(DRight, yt, DRight - HTic, yt);
         axes2_doing_box = 0;
         put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
@@ -417,9 +417,9 @@ draw_xtics(char *s2, double start, double incr, double end) {
         sprintf(bob, "%g", place);
         scale_to_screen((double)place, y_min, &xt, &yt);
         axes2_doing_box = 0;
-        line(xt, DBottom, xt, DBottom + s*VTic);
+        graphics_line(xt, DBottom, xt, DBottom + s*VTic);
         axes2_doing_box = 1;
-        line(xt, DTop, xt, DTop - s*VTic);
+        graphics_line(xt, DTop, xt, DTop - s*VTic);
         axes2_doing_box = 0;
         put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }

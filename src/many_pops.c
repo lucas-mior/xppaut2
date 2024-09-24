@@ -210,7 +210,7 @@ void
 gtitle_text(char *string, Window win) {
     XTextProperty wname;
     XTextProperty iname;
-    GrCol();
+    many_pops_gr_col();
     if (win != graph[0].window) {
         XStringListToTextProperty(&string, 1, &wname);
         XStringListToTextProperty(&string, 1, &iname);
@@ -228,9 +228,9 @@ gtitle_text(char *string, Window win) {
             xs = 0;
         f_text(xs, ys, string, win);
         color_set(0);
-        xline(0, 18, (int32)w, 18, win);
+        ggets_xline(0, 18, (int32)w, 18, win);
     }
-    BaseCol();
+    many_pops_base_col();
     return;
 }
 
@@ -649,7 +649,7 @@ destroy_label(Window window) {
 void
 draw_label(Window window) {
     int32 i;
-    GrCol();
+    many_pops_gr_col();
     for (i = 0; i < MAXLAB; i++) {
         if ((lb[i].use == 1) && (lb[i].window == window))
             fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
@@ -658,7 +658,7 @@ draw_label(Window window) {
         if ((grob[i].use == 1) && (grob[i].window == window))
             draw_grob(i);
     }
-    BaseCol();
+    many_pops_base_col();
     return;
 }
 
@@ -756,9 +756,9 @@ add_marker(void) {
     status = get_marker_info();
     if (status == 0)
         return;
-    MessageBox("Position");
-    flag = GetMouseXY(&i1, &j1);
-    KillMessageBox();
+    menudrive_message_box("Position");
+    flag = menudrive_get_mouse_xy(&i1, &j1);
+    menudrive_message_box_kill();
     XFlush(display);
     if (flag == 0)
         return;
@@ -801,10 +801,10 @@ add_pntarr(int32 type) {
     if (new_int("Color: ", &color))
         return;
     /* message_box(&temp,0,SCALEY-5*DCURY,"Choose start/end"); */
-    MessageBox("Choose start/end");
+    menudrive_message_box("Choose start/end");
     flag = rubber(&i1, &j1, &i2, &j2, draw_win, 1);
     /*  XDestroyWindow(display,temp); */
-    KillMessageBox();
+    menudrive_message_box_kill();
     XFlush(display);
     if (flag) {
         scale_to_real(i1, j1, &xs, &ys);
@@ -825,10 +825,10 @@ edit_object_com(int32 com) {
     double y;
     double dist = 1e20, dd;
 
-    MessageBox("Choose Object");
-    flag = GetMouseXY(&i, &j);
+    menudrive_message_box("Choose Object");
+    flag = menudrive_get_mouse_xy(&i, &j);
 
-    KillMessageBox();
+    menudrive_message_box_kill();
     XFlush(display);
     if (flag) {
         scale_to_real(i, j, &x, &y);
@@ -859,12 +859,12 @@ edit_object_com(int32 com) {
             switch (com) {
             case 0:
                 snprintf(str, sizeof(str), "Move %s ?", lb[ilab].s);
-                ans = (char)TwoChoice("Yes", "No", str, "yn");
+                ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-                    MessageBox("Click on new position");
-                    flag = GetMouseXY(&i, &j);
+                    menudrive_message_box("Click on new position");
+                    flag = menudrive_get_mouse_xy(&i, &j);
 
-                    KillMessageBox();
+                    menudrive_message_box_kill();
                     XFlush(display);
                     if (flag) {
                         scale_to_real(i, j, &x, &y);
@@ -877,7 +877,7 @@ edit_object_com(int32 com) {
                 break;
             case 1:
                 snprintf(str, sizeof(str), "Change %s ?", lb[ilab].s);
-                ans = (char)TwoChoice("Yes", "No", str, "yn");
+                ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     new_string("Text: ", lb[ilab].s);
                     new_int("Size 0-4 :", &lb[ilab].size);
@@ -892,7 +892,7 @@ edit_object_com(int32 com) {
                 break;
             case 2:
                 snprintf(str, sizeof(str), "Delete %s ?", lb[ilab].s);
-                ans = (char)TwoChoice("Yes", "No", str, "yn");
+                ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     lb[ilab].window = 0;
                     lb[ilab].use = 0;
@@ -909,12 +909,12 @@ edit_object_com(int32 com) {
             case 0:
                 snprintf(str, sizeof(str), "Move graphic at (%f,%f)",
                          grob[ilab].xs, grob[ilab].ys);
-                ans = (char)TwoChoice("Yes", "No", str, "yn");
+                ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-                    MessageBox("Reposition");
-                    flag = GetMouseXY(&i, &j);
+                    menudrive_message_box("Reposition");
+                    flag = menudrive_get_mouse_xy(&i, &j);
 
-                    KillMessageBox();
+                    menudrive_message_box_kill();
                     XFlush(display);
                     if (flag) {
                         scale_to_real(i, j, &x, &y);
@@ -930,7 +930,7 @@ edit_object_com(int32 com) {
             case 1:
                 snprintf(str, sizeof(str), "Change graphic at (%f,%f)",
                          grob[ilab].xs, grob[ilab].ys);
-                ans = (char)TwoChoice("Yes", "No", str, "yn");
+                ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     if (grob[ilab].type >= MARKER)
                         select_marker_type(&grob[ilab].type);
@@ -943,7 +943,7 @@ edit_object_com(int32 com) {
             case 2:
                 snprintf(str, sizeof(str), "Delete graphic at (%f,%f)",
                          grob[ilab].xs, grob[ilab].ys);
-                ans = (char)TwoChoice("Yes", "No", str, "yn");
+                ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
                     grob[ilab].window = 0;
                     grob[ilab].use = 0;
@@ -1075,7 +1075,7 @@ destroy_a_pop(void) {
 void
 init_grafs(int32 x, int32 y, int32 w, int32 h) {
     int32 i;
-    GrCol();
+    many_pops_gr_col();
     for (i = 0; i < MAXLAB; i++) {
         lb[i].use = 0;
         lb[i].window = (Window)0;
@@ -1115,7 +1115,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     current_pop = 0;
     get_draw_area();
     select_sym(graph[0].window);
-    BaseCol();
+    many_pops_base_col();
 }
 
 void
@@ -1130,7 +1130,7 @@ ps_restore(void) {
     }
     ps_last_pt_off();
 
-    restore(0, my_browser.maxrow);
+    integrate_restore(0, my_browser.maxrow);
 
     do_batch_nclines();
     do_batch_dfield();
@@ -1147,7 +1147,7 @@ ps_restore(void) {
 
 void
 svg_restore(void) {
-    /* restore(0,my_browser.maxrow);
+    /* integrate_restore(0,my_browser.maxrow);
      */
     /*ps_do_color(0);
     if(MyGraph->Nullrestore){restore_nullclines();ps_stroke();}
@@ -1158,7 +1158,7 @@ svg_restore(void) {
         restore_nullclines();
     svg_last_pt_off();
     /*ps_do_color(0);*/
-    restore(0, my_browser.maxrow);
+    integrate_restore(0, my_browser.maxrow);
     axes2_do();
     if (Xup) {
         draw_label(draw_win);
@@ -1171,7 +1171,7 @@ svg_restore(void) {
 }
 
 int32
-rotate3dcheck(XEvent event) {
+many_pops_rotate_3dcheck(XEvent event) {
     Window window = event.xbutton.window;
     XEvent z;
     int32 xini, yini, dx, dy;
@@ -1234,7 +1234,7 @@ do_expose(XEvent event) {
     ani_expose(event.xany.window);
     expose_my_browser(event);
     /* draw_info_pop(ev.xany.window); */
-    RedrawMessageBox(event.xany.window);
+    menudrive_message_box_redraw(event.xany.window);
     draw_eq_list(event.xany.window);
     draw_eq_box(event.xany.window);
     do_box_expose(event.xany.window);
@@ -1250,22 +1250,22 @@ do_expose(XEvent event) {
       }
       */
     if (manual_expose == 0) {
-        GrCol();
+        many_pops_gr_col();
 
         for (i = 0; i < MAXPOP; i++) {
             if ((graph[i].Use) && (event.xexpose.window == graph[i].w_info)) {
                 XClearWindow(display, graph[i].w_info);
                 if (i == 0) {
-                    BaseCol();
+                    many_pops_base_col();
                     XDrawString(display, graph[i].w_info, gc, 5, CURY_OFF,
                                 graph[i].gr_info,
                                 (int)strlen(graph[i].gr_info));
                 } else {
-                    SmallBase();
+                    many_pops_small_base();
                     XDrawString(display, graph[i].w_info, small_gc, 0,
                                 CURY_OFFs, graph[i].gr_info,
                                 (int)strlen(graph[i].gr_info));
-                    SmallGr();
+                    many_pops_small_gr();
                 }
             }
             if ((event.type == Expose) && (graph[i].Use) &&
@@ -1278,7 +1278,7 @@ do_expose(XEvent event) {
                 get_draw_area();
                 axes2_do();
                 if (graph[i].Restore)
-                    restore(0, my_browser.maxrow);
+                    integrate_restore(0, my_browser.maxrow);
                 draw_label(graph[i].window);
                 draw_freeze(graph[i].window);
                 if (graph[i].Nullrestore)
@@ -1291,8 +1291,8 @@ do_expose(XEvent event) {
     current_pop = cp;
     hi_lite(draw_win);
     get_draw_area();
-    BaseCol();
-    SmallBase();
+    many_pops_base_col();
+    many_pops_small_base();
     return;
 }
 
@@ -1372,28 +1372,28 @@ create_a_pop(void) {
 }
 
 void
-GrCol(void) {
+many_pops_gr_col(void) {
     XSetForeground(display, gc, GrFore);
     XSetBackground(display, gc, GrBack);
     return;
 }
 
 void
-BaseCol(void) {
+many_pops_base_col(void) {
     XSetForeground(display, gc, MyForeColor);
     XSetBackground(display, gc, MyBackColor);
     return;
 }
 
 void
-SmallGr(void) {
+many_pops_small_gr(void) {
     XSetForeground(display, small_gc, GrFore);
     XSetBackground(display, small_gc, GrBack);
     return;
 }
 
 void
-SmallBase(void) {
+many_pops_small_base(void) {
     XSetForeground(display, small_gc, MyForeColor);
     XSetBackground(display, small_gc, MyBackColor);
     return;
@@ -1453,7 +1453,7 @@ select_window(Window window) {
 
     if (window == draw_win)
         return;
-    GrCol();
+    many_pops_gr_col();
     if (window == graph[0].window)
         current_pop = 0;
     else {
@@ -1467,7 +1467,7 @@ select_window(Window window) {
     hi_lite(window);
     XRaiseWindow(display, window);
     get_draw_area();
-    BaseCol();
+    many_pops_base_col();
     return;
 }
 
@@ -1493,13 +1493,13 @@ hi_lite(Window wi) {
 void
 lo_lite(Window wi) {
     set_gr_back();
-    bar(0, 0, 5, 5, wi);
+    ggets_bar(0, 0, 5, 5, wi);
     return;
 }
 
 void
 select_sym(Window window) {
-    bar(0, 0, 5, 5, window);
+    ggets_bar(0, 0, 5, 5, window);
     return;
 }
 
@@ -1508,14 +1508,14 @@ canvas_xy(char *buf) {
     XClearWindow(display, MyGraph->w_info);
     strcpy(MyGraph->gr_info, buf);
     if (MyGraph->w_info == info_pop) {
-        BaseCol();
+        many_pops_base_col();
         XDrawString(display, MyGraph->w_info, gc, 5, CURY_OFF, buf,
                     (int)strlen(buf));
     } else {
-        SmallBase();
+        many_pops_small_base();
         XDrawString(display, MyGraph->w_info, small_gc, 0, CURY_OFFs, buf,
                     (int)strlen(buf));
-        /* SmallGr(); */
+        /* many_pops_small_gr(); */
     }
     return;
 }

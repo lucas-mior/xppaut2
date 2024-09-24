@@ -82,7 +82,7 @@ ppmtopix(uchar r, uchar g, uchar b, int32 *n) {
         if (r == gifcol[i].r && g == gifcol[i].g && b == gifcol[i].b)
             return i;
     if (nc > 255) {
-        plintf("Too many colors \n");
+        ggets_plintf("Too many colors \n");
         return -1;
     }
     gifcol[nc].r = r;
@@ -101,7 +101,7 @@ end_ani_gif(FILE *fp) {
 
 void
 add_ani_gif(Window win, FILE *fp, int32 count) {
-    plintf("Frame %d \n", count);
+    ggets_plintf("Frame %d \n", count);
     if (count == 0)
         gif_stuff(win, fp, FIRST_ANI_GIF);
     else
@@ -173,7 +173,7 @@ make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
             l++;
         }
     }
-    plintf("Got %d colors\n", ncol);
+    ggets_plintf("Got %d colors\n", ncol);
     for (i = ncol; i < 256; i++) {
         gifcol[i].r = 255;
         gifcol[i].g = 255;

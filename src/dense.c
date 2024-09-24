@@ -53,12 +53,12 @@ DenseAllocPiv(int64 N) {
 
 int64
 dense_factor(DenseMat A, int64 *p) {
-    return gefa(A->data, A->size, p);
+    return dense_gefa(A->data, A->size, p);
 }
 
 void
 dense_back_solve(DenseMat A, int64 *p, N_Vector b) {
-    gesl(A->data, A->size, p, N_VDATA(b));
+    dense_gesl(A->data, A->size, p, N_VDATA(b));
     return;
 }
 
@@ -138,7 +138,7 @@ denallocpiv(int64 n) {
 }
 
 int64
-gefa(double **a, int64 n, int64 *p) {
+dense_gefa(double **a, int64 n, int64 *p) {
     int64 i, j, k, l;
     double *col_j, *col_k, *diag_k;
     double temp, mult, a_kj;
@@ -219,7 +219,7 @@ gefa(double **a, int64 n, int64 *p) {
 }
 
 void
-gesl(double **a, int64 n, int64 *p, double *b) {
+dense_gesl(double **a, int64 n, int64 *p, double *b) {
     int64 k, l, i;
     double mult;
     double *col_k;
@@ -320,12 +320,12 @@ den_print(double **a, int64 n) {
     int64 i;
     int64 j;
 
-    plintf("\n");
+    ggets_plintf("\n");
     for (i = 0; i < n; i++) {
         for (j = 0; j < n; j++) {
-            plintf("%10g", a[j][i]);
+            ggets_plintf("%10g", a[j][i]);
         }
-        plintf("\n");
+        ggets_plintf("\n");
     }
-    plintf("\n");
+    ggets_plintf("\n");
 }

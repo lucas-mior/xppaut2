@@ -42,7 +42,7 @@ extern int32 DelayFlag;
 int32 NDELAYS = 0;
 /*double pow2(); */
 double delay_stab_eval(double, int32);
-double lookup(double, int32);
+double tabular_lookup(double, int32);
 double hom_bcs(int32);
 double BoxMuller;
 int32 BoxMullerFlag = 0;
@@ -271,7 +271,7 @@ init_rpn(void) {
     init_table();
     if (newseed == 1)
         RandSeed = (int32)time(0);
-    nsrand48(RandSeed);
+    markov_nsrand48(RandSeed);
     return;
 }
 
@@ -315,7 +315,7 @@ add_constant(char *junk) {
     convert(junk, string);
     len = (int32)strlen(string);
     if (len < 1) {
-        plintf("Empty parameter - remove spaces\n");
+        ggets_plintf("Empty parameter - remove spaces\n");
         return 1;
     }
     if (len > MXLEN)
@@ -374,11 +374,11 @@ add_kernel(char *name, double mu, char *expr) {
     if (duplicate_name(name) == 1)
         return 1;
     if (NKernel == MAX_KER) {
-        plintf("Too many kernels..\n");
+        ggets_plintf("Too many kernels..\n");
         return 1;
     }
     if (mu < 0 || mu >= 1.0) {
-        plintf(" mu must lie in [0,1.0) \n");
+        ggets_plintf(" mu must lie in [0,1.0) \n");
         return 1;
     }
     convert(name, string);
@@ -401,7 +401,7 @@ add_kernel(char *name, double mu, char *expr) {
             in = i;
     }
     if (in == 0 || in == ((int32)strlen(expr) - 1)) {
-        plintf("Illegal use of convolution...\n");
+        ggets_plintf("Illegal use of convolution...\n");
         return 1;
     }
     if (in > 0) {
@@ -414,7 +414,7 @@ add_kernel(char *name, double mu, char *expr) {
         for (int32 i = in + 1; i < (int32)strlen(expr); i++)
             kernel[NKernel].expr[i - in - 1] = expr[i];
         kernel[NKernel].expr[strlen(expr) - (usize)in - 1] = 0;
-        plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
+        ggets_plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
                kernel[NKernel].expr);
     } else {
         kernel[NKernel].expr = xmalloc(strlen(expr) + 2);
@@ -467,7 +467,7 @@ add_expr(char *expr, int32 *command, int32 *length) {
 
     /*  i=0;
       while(1){
-      plintf(" %d %d \n",i,my_token[i]);
+      ggets_plintf(" %d %d \n",i,my_token[i]);
       if(my_token[i]==ENDTOK)break;
       i++;
     } */
@@ -488,7 +488,7 @@ int32
 add_vector_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
-    plintf(" Adding vectorizer %s %d \n", name, index);
+    ggets_plintf(" Adding vectorizer %s %d \n", name, index);
     if (duplicate_name(name) == 1)
         return 1;
     convert(name, string);
@@ -510,7 +510,7 @@ int32
 add_net_name(int32 index, char *name) {
     char string[50];
     int32 len = (int32)strlen(name);
-    plintf(" Adding net %s %d \n", name, index);
+    ggets_plintf(" Adding net %s %d \n", name, index);
     if (duplicate_name(name) == 1)
         return 1;
     convert(name, string);
@@ -616,7 +616,7 @@ add_ufun_name(char *name, int32 index, int32 narg) {
             printf("too many functions !!\n");
         return 1;
     }
-    plintf(" Added user fun %s \n", name);
+    ggets_plintf(" Added user fun %s \n", name);
     convert(name, string);
     if (len > MXLEN)
         len = MXLEN;
@@ -645,7 +645,7 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
     int32 l;
     int32 end;
     if (narg > MAXARG) {
-        plintf("Maximal arguments exceeded \n");
+        ggets_plintf("Maximal arguments exceeded \n");
         return 1;
     }
     if ((ufun[index] = xmalloc(1024)) == NULL) {
@@ -939,7 +939,7 @@ alg_to_rpn(int32 *toklist, int32 *command) {
     getnew:
         newtok = toklist[lstptr++];
         /*    for(zip=0;zip<tokptr;zip++)
-                 plintf("%d %d\n",zip,tokstak[zip]);  */
+                 ggets_plintf("%d %d\n",zip,tokstak[zip]);  */
         /*        check for delay symbol             */
         if (newtok == DELSYM) {
             temp = my_symb[toklist[lstptr + 1]].com;
@@ -1137,11 +1137,11 @@ alg_to_rpn(int32 *toklist, int32 *command) {
         goto getnew;
     }
     if (ncomma != 0) {
-        plintf("Illegal number of arguments\n");
+        ggets_plintf("Illegal number of arguments\n");
         return 1;
     }
     if ((nif != nelse) || (nif != nthen)) {
-        plintf("If statement missing ELSE or THEN \n");
+        ggets_plintf("If statement missing ELSE or THEN \n");
         return 1;
     }
     command[comptr] = my_symb[ENDTOK].com;
@@ -1156,7 +1156,7 @@ pr_command(int32 *command) {
     int32 token;
     while (true) {
         token = command[i];
-        plintf("%d %d \n", i, token);
+        ggets_plintf("%d %d \n", i, token);
         if (token == ENDEXP)
             break;
         i++;
@@ -1173,7 +1173,7 @@ show_where(char *string, int32 index) {
         junk[i] = ' ';
     junk[index] = '^';
     junk[index + 1] = 0;
-    plintf("%s\n%s\n", string, junk);
+    ggets_plintf("%s\n%s\n", string, junk);
     return;
 }
 
@@ -1303,7 +1303,7 @@ check_syntax(/* 1 is BAD!   */
         return 1;
     }
 
-    plintf("Bad token %d \n", oldtoken);
+    ggets_plintf("Bad token %d \n", oldtoken);
     return 1;
 }
 
@@ -1350,7 +1350,7 @@ make_toks(char *dest, int32 *my_token) {
             my_token[tok_in++] = encoder.pieces.int1;
             my_token[tok_in++] = encoder.pieces.int2;
             if (check_syntax(old_tok, NUMTOK) == 1) {
-                plintf("Illegal syntax \n");
+                ggets_plintf("Illegal syntax \n");
                 show_where(dest, lastindex);
                 return 1;
             }
@@ -1361,7 +1361,7 @@ make_toks(char *dest, int32 *my_token) {
         else {
             my_token[tok_in++] = token;
             if (check_syntax(old_tok, token) == 1) {
-                plintf("Illegal syntax (Ref:%d %d) \n", old_tok, token);
+                ggets_plintf("Illegal syntax (Ref:%d %d) \n", old_tok, token);
                 show_where(dest, lastindex);
                 tokeninfo(old_tok);
                 tokeninfo(token);
@@ -1374,7 +1374,7 @@ make_toks(char *dest, int32 *my_token) {
 
     my_token[tok_in++] = ENDTOK;
     if (check_syntax(old_tok, ENDTOK) == 1) {
-        plintf("Premature end of expression \n");
+        ggets_plintf("Premature end of expression \n");
         show_where(dest, lastindex);
         return 1;
     }
@@ -1388,7 +1388,7 @@ make_toks(char *dest, int32 *my_token) {
 
 void
 tokeninfo(int32 tok) {
-    plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len,
+    ggets_plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len,
            my_symb[tok].com, my_symb[tok].arg, my_symb[tok].pri);
     return;
 }
@@ -1770,7 +1770,7 @@ do_shift(double shift, double variable) {
         else
             return variables[in];
     default:
-        plintf("This can't happen: Invalid symbol index for SHIFT: i = %d\n",
+        ggets_plintf("This can't happen: Invalid symbol index for SHIFT: i = %d\n",
                i);
         return 0.0;
     }
@@ -1873,7 +1873,7 @@ one_arg(void) {
     fun1[21] = (void *)erf;
     fun1[22] = (void *)erfc;
     fun1[23] = (void *)hom_bcs;
-    fun1[24] = (void *)poidev;
+    fun1[24] = (void *)markov_poidev;
     fun1[25] = (void *)lgamma;
     return;
 }
@@ -1883,8 +1883,8 @@ normal(double mean, double std) {
     double fac, r, v1, v2;
     if (BoxMullerFlag == 0) {
         do {
-            v1 = 2.0*ndrand48() - 1.0;
-            v2 = 2.0*ndrand48() - 1.0;
+            v1 = 2.0*markov_ndrand48() - 1.0;
+            v2 = 2.0*markov_ndrand48() - 1.0;
             r = v1*v1 + v2*v2;
         } while (r >= 1.0);
         fac = sqrt(-2.0*log(r) / r);
@@ -1928,7 +1928,7 @@ heaviside(double z) {
 double
 rndom(double z) {
     /* return z*(double)rand()/32767.00; */
-    return z*ndrand48();
+    return z*markov_ndrand48();
 }
 
 double
@@ -2146,7 +2146,7 @@ eval_rpn(int32 *equat) {
                 PUSH(network_value(POP, in));
                 break;
             case TABTYPE:
-                PUSH(lookup(POP, in));
+                PUSH(tabular_lookup(POP, in));
                 break;
 
             case USTACKTYPE:

@@ -208,7 +208,7 @@ tab_interp(double xlo, double h, double x, double *y, int32 i) {
 }
 
 double
-lookup(double x, int32 index) {
+tabular_lookup(double x, int32 index) {
     double xlo = my_table[index].xlo, xhi = my_table[index].xhi,
            dx = my_table[index].dx;
     double *y;
@@ -235,7 +235,7 @@ lookup(double x, int32 index) {
             return y1 + (y2 - y1)*(x - x1) / dx;
         else {
 #ifdef DEBUG
-            plintf("index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
+            ggets_plintf("index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
                    index, x, i1, i2, x1, y1, y2);
 #endif
             return y1;

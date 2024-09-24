@@ -480,7 +480,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     /* now we iterate to get a good adjoint using implicit Euler's method */
     ytemp = 0.0;
     for (int32 i = 0; i < node; i++) {
-        yold[i] = 1. + .01*(ndrand48() - .5); /* random initial data */
+        yold[i] = 1. + .01*(markov_ndrand48() - .5); /* random initial data */
 
         ytemp += fabs(yold[i]);
     }
@@ -489,7 +489,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         fdev[i] = yold[i];
     }
 
-    plintf("%f %f \n", yold[0], yold[1]);
+    ggets_plintf("%f %f \n", yold[0], yold[1]);
 
     for (l = 0; l < maxit; l++) {
         for (int32 k = 0; k < nt - 1; k++) {
@@ -519,7 +519,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
             fdev[i] = yold[i];
         }
         printf("%f %f \n", yold[0], yold[1]);
-        plintf("err=%f \n", error);
+        ggets_plintf("err=%f \n", error);
         if (error < minerr)
             break;
     }
@@ -546,7 +546,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     }
 
     prod = prod / t;
-    plintf(" Multiplying the adjoint by 1/%g to normalize\n", prod);
+    ggets_plintf(" Multiplying the adjoint by 1/%g to normalize\n", prod);
     for (int32 k = 0; k < nt; k++) {
         for (j = 0; j < node; j++)
             adjnt[j + 1][k] = adjnt[j + 1][k] / (double)prod;
@@ -587,12 +587,12 @@ adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
         mat[i] = -jac[i][k2]*dt*.5;
     for (i = 0; i < node; i++)
         mat[i + i*node] = 1. + mat[i + i*node];
-    sgefa(mat, node, node, ipvt, &info);
+    gear_sgefa(mat, node, node, ipvt, &info);
     if (info != -1) {
         err_msg("Univertible Jacobian");
         return 0;
     }
-    sgesl(mat, node, node, ipvt, yold, 0);
+    gear_sgesl(mat, node, node, ipvt, yold, 0);
     return 1;
 }
 

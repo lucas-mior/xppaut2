@@ -83,8 +83,8 @@ extern int32 Xup;
     It requires only a few commands
     All positions are integers
 
-    point(x,y)        Draws point to (x,y) with pointtype PointStyle
-    line(x1,y1,x2,y2) Draws line with linetype LineStyle
+    graphics_point(x,y)        Draws point to (x,y) with pointtype PointStyle
+    graphics_line(x1,y1,x2,y2) Draws line with linetype LineStyle
     put_text(x1,y,text)  Draws text with TextAngle, Justify
     init_device()     Sets up the default for tics, plotting area,
                       and anything else
@@ -210,7 +210,7 @@ set_normal_scale(void) {
 }
 
 void
-point(int32 x, int32 y) {
+graphics_point(int32 x, int32 y) {
     if (PltFmtFlag == PSFMT)
         ps_point(x, y);
     else if (PltFmtFlag == SVGFMT)
@@ -221,7 +221,7 @@ point(int32 x, int32 y) {
 }
 
 void
-line(int32 x1, int32 y1, int32 x2, int32 y2) {
+graphics_line(int32 x1, int32 y1, int32 x2, int32 y2) {
     if (PltFmtFlag == PSFMT)
         ps_line(x1, y1, x2, y2);
     else if (PltFmtFlag == SVGFMT)
@@ -243,7 +243,7 @@ bead(int32 x1, int32 y1) {
 }
 
 void
-frect(int32 x1, int32 y1, int32 w, int32 h) {
+graphics_frect(int32 x1, int32 y1, int32 w, int32 h) {
     if (PltFmtFlag == PSFMT)
         ps_frect(x1, y1, w, h);
     else if (PltFmtFlag == SVGFMT)
@@ -846,7 +846,7 @@ make_rot(double theta, double phi) {
 }
 
 void
-scale3d(double x, double y, double z, double *xp, double *yp, double *zp) {
+graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *zp) {
     *xp = (x - MyGraph->xbar)*MyGraph->dx;
     *yp = (y - MyGraph->ybar)*MyGraph->dy;
     *zp = (z - MyGraph->zbar)*MyGraph->dz;
@@ -854,7 +854,7 @@ scale3d(double x, double y, double z, double *xp, double *yp, double *zp) {
 }
 
 int32
-threedproj(double x2p, double y2p, double z2p, double *xp, double *yp) {
+graphics_threedproj(double x2p, double y2p, double z2p, double *xp, double *yp) {
     double x1p, y1p, z1p, s;
     /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
@@ -876,10 +876,10 @@ threedproj(double x2p, double y2p, double z2p, double *xp, double *yp) {
 }
 
 void
-text3d(double x, double y, double z, char *s) {
+graphics_text3d(double x, double y, double z, char *s) {
     double xp;
     double yp;
-    if (threedproj(x, y, z, &xp, &yp))
+    if (graphics_threedproj(x, y, z, &xp, &yp))
         text_abs(xp, yp, s);
     return;
 }
@@ -888,7 +888,7 @@ int32
 threed_proj(double x, double y, double z, double *xp, double *yp) {
     double x1p, y1p, z1p, s;
     double x2p, y2p, z2p;
-    scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
+    graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
     /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
@@ -958,8 +958,8 @@ line_3d(double x, double y, double z, double xp, double yp, double zp) {
     double xsp, ysp, zsp;
     double xsp1, ysp1, zsp1;
     double x01, x02, y01, y02, z01, z02;
-    scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
-    scale3d(xp, yp, zp, &x02, &y02, &z02);
+    graphics_scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
+    graphics_scale3d(xp, yp, zp, &x02, &y02, &z02);
     if (!clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
                 &zsp1))
         return;
@@ -1048,7 +1048,7 @@ point_abs(double x1, double y1) {
     if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom))
         return;
     scale_to_screen(x1, y1, &xp, &yp);
-    point(xp, yp);
+    graphics_point(xp, yp);
     return;
 }
 
@@ -1058,7 +1058,7 @@ line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
 
     scale_to_screen(x1_out, y1_out, &xp1, &yp1);
     scale_to_screen(x2_out, y2_out, &xp2, &yp2);
-    line(xp1, yp1, xp2, yp2);
+    graphics_line(xp1, yp1, xp2, yp2);
     return;
 }
 
@@ -1088,7 +1088,7 @@ frect_abs(double x1, double y1, double w, double h) {
     scale_to_screen(x2, y2, &i2, &j2);
     iw = abs(i2 - i1);
     ih = abs(j2 - j1);
-    frect(i1, j1, iw + 1, ih + 1);
+    graphics_frect(i1, j1, iw + 1, ih + 1);
     return;
 }
 
@@ -1100,7 +1100,7 @@ line_abs(double x1, double y1, double x2, double y2) {
     if (clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
         scale_to_screen(x1_out, y1_out, &xp1, &yp1);
         scale_to_screen(x2_out, y2_out, &xp2, &yp2);
-        line(xp1, yp1, xp2, yp2);
+        graphics_line(xp1, yp1, xp2, yp2);
     }
     return;
 }
@@ -1115,7 +1115,7 @@ text_abs(double x, double y, char *text) {
 }
 
 void
-fillintext(char *old, char *new) {
+graphics_fillin_text(char *old, char *new) {
     int32 i, l = (int32)strlen(old);
     int32 j, m, ans;
     char name[256], c, c2;
@@ -1183,7 +1183,7 @@ fancy_text_abs(double x, double y, char *old, int32 size) {
     int32 yp;
     char text[256];
     scale_to_screen(x, y, &xp, &yp);
-    fillintext(old, text);
+    graphics_fillin_text(old, text);
     if (PltFmtFlag == PSFMT)
         special_put_text_ps(xp, yp, text, size);
     else if (PltFmtFlag == SVGFMT)

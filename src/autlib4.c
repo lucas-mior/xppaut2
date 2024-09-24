@@ -507,7 +507,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
 
     *beta = 1. / (alpha*(alpha + fabs(v[-1 + *k])));
 
-    /*  v_k := v_k + sign(v_k)*alpha */
+    /*  v_k := v_k + gear_sign(v_k)*alpha */
 
     v[-1 + *k] += d_sign(1.0, v[-1 + *k])*alpha;
 

@@ -260,7 +260,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Call SpgmrMalloc to allocate workspace for Spgmr */
-    spgmr_mem = SpgmrMalloc(N, maxl);
+    spgmr_mem = spgmr_malloc(N, maxl);
     if (spgmr_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(ytemp);
@@ -270,7 +270,7 @@ CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
 
     /* Initialize sqrtN and counters, and set workspace lengths */
 
-    sqrtN = RSqrt((double)N);
+    sqrtN = llnlmath_rsqrt((double)N);
     npe = nli = nps = ncfl = nstlpre = 0;
 
     if (iopt != NULL) {
@@ -424,7 +424,7 @@ CVSpgmrFree(CVodeMem cv_mem) {
 
     N_VFree(ytemp);
     N_VFree(x);
-    SpgmrFree(spgmr_mem);
+    spgmr_free(spgmr_mem);
     free(lmem);
     return;
 }

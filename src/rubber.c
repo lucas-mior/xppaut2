@@ -130,6 +130,6 @@ rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f) {
         y1 = j2;
         y2 = j1;
     }
-    rectangle(x1, y1, x2, y2, window);
+    ggets_rectangle(x1, y1, x2, y2, window);
     return;
 }

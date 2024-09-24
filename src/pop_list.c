@@ -365,7 +365,7 @@ do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
     int32 m = (int32)strlen(value);
     if (flag) {
         ggets_set_fore();
-        bar(0, 0, l*DCURX, DCURY + 4, window);
+        ggets_bar(0, 0, l*DCURX, DCURY + 4, window);
         ggets_set_back();
     }
     XDrawString(display, window, gc, 0, CURY_OFF, name, l);
@@ -1133,7 +1133,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
 int32
 yes_no_box(void) {
     char ans;
-    ans = (char)TwoChoice("YES", "NO", "Are you sure?", "yn");
+    ans = (char)menudrive_two_choice("YES", "NO", "Are you sure?", "yn");
     if (ans == 'y')
         return 1;
     return 0;
@@ -1235,7 +1235,7 @@ draw_pop_up(POP_UP p, Window window) {
 
     if (window == p.tit) {
         ggets_set_fore();
-        bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
+        ggets_bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
         ggets_set_back();
         f_text(DCURX*2, 4, p.title, window);
         ggets_set_fore();

@@ -1254,9 +1254,9 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         if (flag2 > 0)
             colset2(flag2);
         if (chk_auto_bnds(ix, iy1))
-            circle2(ix, iy1, 3);
+            auto_x11_circle(ix, iy1, 3);
         if (chk_auto_bnds(ix, iy2))
-            circle2(ix, iy2, 3);
+            auto_x11_circle(ix, iy2, 3);
         auto_bw();
         break;
     case SPER:
@@ -1350,7 +1350,7 @@ info_header(int32 icp1, int32 icp2) {
         strncpy(p2name, upar_names[AutoPar[icp2]], sizeof(p2name));
     else
         strncpy(p2name, "   ", sizeof(p2name));
-    SmallBase();
+    many_pops_small_base();
     sprintf(bob, "  Br  Pt Ty  Lab %10s %10s       norm %10s     period",
             p1name, p2name, uvar_names[Auto.var]);
     draw_auto_info(bob, 10, DCURYs + 1);
@@ -1406,7 +1406,7 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     *ix = IXVal(x);
     *iy = IYVal(y1);
     if (dodraw == 1) {
-        XORCross(*ix, *iy);
+        auto_x11_xor_cross(*ix, *iy);
         plot_stab(evr, evi, NODE);
         new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per, icp1,
                  icp2);
@@ -1622,7 +1622,7 @@ reset_auto(void) {
     char ch;
     if (NBifs <= 1)
         return 0;
-    ch = (char)TwoChoice("YES", "NO", "Destroy AUTO diagram & files", "yn");
+    ch = (char)menudrive_two_choice("YES", "NO", "Destroy AUTO diagram & files", "yn");
     if (ch != 'y')
         return 0;
 
@@ -1870,7 +1870,7 @@ auto_run(void) {
         return;
     }
     if (grabpt.lab == 0) {
-        ch = (char)TwoChoice("YES", "NO", "Not Labeled Pt: New Start?", "y");
+        ch = (char)menudrive_two_choice("YES", "NO", "Not Labeled Pt: New Start?", "y");
         if (ch == 'y')
             auto_start_diff_ss();
         ggets_ping();
@@ -2598,7 +2598,7 @@ load_auto_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
             storage[j + 1][i] = u[j];
             x[j] = u[j];
         }
-        extra(x, (double)storage[0][i], nstor, NEQ);
+        my_rhs_extra(x, (double)storage[0][i], nstor, NEQ);
         for (j = nstor; j < NEQ; j++)
             storage[j + 1][i] = (double)x[j];
     }

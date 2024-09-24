@@ -561,7 +561,7 @@ button_selector(Window window) {
         char *HOMEDIR = getenv("KEY_HOME");
         int32 m;
         if ((HOMEDIR == NULL) || (strlen(HOMEDIR) == 0)) {
-            plintf("User's KEY_HOME environment variable not set.\n");
+            ggets_plintf("User's KEY_HOME environment variable not set.\n");
             return 0;
         }
         change_directory(HOMEDIR);
@@ -591,7 +591,7 @@ button_selector(Window window) {
         int32 m;
 
         if ((START == NULL) || (strlen(START) == 0)) {
-            plintf("User's XPPSTART environment variable not set.\n");
+            ggets_plintf("User's XPPSTART environment variable not set.\n");
             return 0;
         }
 

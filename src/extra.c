@@ -61,7 +61,7 @@ void
 auto_load_dll(void) {
     if (dll_flag == 3) {
         get_directory(cur_dir);
-        plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib, dll_fun);
+        ggets_plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib, dll_fun);
         sprintf(dlf.libfile, "%s", dll_lib);
         sprintf(dlf.libname, "%s/%s", cur_dir, dlf.libfile);
         sprintf(dlf.fun, "%s", dll_fun);
@@ -108,7 +108,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
     snprintf(sofullname, sizeof(sofullname), "%s/%s", cur_dir, soname);
     dlhandle = dlopen(sofullname, RTLD_LAZY);
     if (!dlhandle) {
-        plintf(" Cant find the library %s\n", soname);
+        ggets_plintf(" Cant find the library %s\n", soname);
         dll_loaded = -1;
         return;
     }
@@ -116,7 +116,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
     *(void **)(&function) = dlsym(dlhandle, sofun);
     error = dlerror();
     if (error != NULL) {
-        plintf("Problem with function.. %s\n", sofun);
+        ggets_plintf("Problem with function.. %s\n", sofun);
         dlf.loaded = -1;
         return;
     }
@@ -133,7 +133,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
     if (dlf.loaded == 0) {
         dlhandle = dlopen(dlf.libname, RTLD_LAZY);
         if (!dlhandle) {
-            plintf(" Cant find the library \n");
+            ggets_plintf(" Cant find the library \n");
             dlf.loaded = -1;
             return 0;
         }
@@ -151,7 +151,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
         *(void **)(&function) = dlsym(dlhandle, dlf.fun);
         error = dlerror();
         if (error != NULL) {
-            plintf("Problem with function..\n");
+            ggets_plintf("Problem with function..\n");
             dlf.loaded = -1;
             return 0;
         }

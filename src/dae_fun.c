@@ -56,14 +56,14 @@ static void init_dae_work(void);
 int32
 add_svar(char *name, char *rhs) {
     if (nsvar >= MAXDAE) {
-        plintf(" Too many variables\n");
+        ggets_plintf(" Too many variables\n");
         return 1;
     }
 
     strcpy(svar[nsvar].name, name);
     svar[nsvar].rhs = xmalloc(80);
     strcpy(svar[nsvar].rhs, rhs);
-    plintf(" Added sol-var[%d] %s = %s \n", nsvar, svar[nsvar].name,
+    ggets_plintf(" Added sol-var[%d] %s = %s \n", nsvar, svar[nsvar].name,
            svar[nsvar].rhs);
     nsvar++;
     return 0;
@@ -87,7 +87,7 @@ add_svar_names(void) {
 int32
 add_aeqn(char *rhs) {
     if (naeqn >= MAXDAE) {
-        plintf(" Too many equations\n");
+        ggets_plintf(" Too many equations\n");
         return 1;
     }
     aeqn[naeqn].rhs = xmalloc(strlen(rhs) + 5);
@@ -101,13 +101,13 @@ int32
 compile_svars(void) {
     int32 i, f[256], n, k;
     if (nsvar != naeqn) {
-        plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar, naeqn);
+        ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar, naeqn);
         return 1;
     }
 
     for (i = 0; i < naeqn; i++) {
         if (add_expr(aeqn[i].rhs, f, &n) == 1) {
-            plintf(" Bad right-hand side for alg-eqn \n");
+            ggets_plintf(" Bad right-hand side for alg-eqn \n");
             return 1;
         }
         aeqn[i].form = xmalloc(sizeof(*(aeqn[i].form))*(usize)(n + 2));
@@ -117,7 +117,7 @@ compile_svars(void) {
 
     for (i = 0; i < nsvar; i++) {
         if (add_expr(svar[i].rhs, f, &n) == 1) {
-            plintf(" Bad initial guess for sol-var \n");
+            ggets_plintf(" Bad initial guess for sol-var \n");
             return 1;
         }
         svar[i].form = xmalloc(100*sizeof(*(svar[i].form)));
@@ -258,13 +258,13 @@ solve_dae(void) {
                 jac[j*n + i] = (fnew[j] - f[j]) / del;
             y[i] = yold;
         }
-        sgefa(jac, n, n, dae_work.iwork, &info);
+        gear_sgefa(jac, n, n, dae_work.iwork, &info);
         if (info != -1) {
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, ynew[i]);
             return -1; /* singular jacobian */
         }
-        sgesl(jac, n, n, dae_work.iwork, errvec, 0); /* get x=J^(-1) f */
+        gear_sgesl(jac, n, n, dae_work.iwork, errvec, 0); /* get x=J^(-1) f */
         err = 0.0;
         for (i = 0; i < n; i++) {
             y[i] -= errvec[i];

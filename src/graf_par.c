@@ -353,12 +353,12 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
     double x;
     double y;
     double x1, x2, y1, y2;
-    threedproj(-1., -1., -1., &x, &y);
+    graphics_threedproj(-1., -1., -1., &x, &y);
     x1 = x;
     x2 = x;
     y1 = y;
     y2 = y;
-    threedproj(-1., -1., 1., &x, &y);
+    graphics_threedproj(-1., -1., 1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -367,7 +367,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
         y1 = y;
     if (y > y2)
         y2 = y;
-    threedproj(-1., 1., -1., &x, &y);
+    graphics_threedproj(-1., 1., -1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -376,7 +376,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
         y1 = y;
     if (y > y2)
         y2 = y;
-    threedproj(-1., 1., 1., &x, &y);
+    graphics_threedproj(-1., 1., 1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -385,7 +385,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
         y1 = y;
     if (y > y2)
         y2 = y;
-    threedproj(1., -1., -1., &x, &y);
+    graphics_threedproj(1., -1., -1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -394,7 +394,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
         y1 = y;
     if (y > y2)
         y2 = y;
-    threedproj(1., -1., 1., &x, &y);
+    graphics_threedproj(1., -1., 1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -403,7 +403,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
         y1 = y;
     if (y > y2)
         y2 = y;
-    threedproj(1., 1., 1., &x, &y);
+    graphics_threedproj(1., 1., 1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -412,7 +412,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
         y1 = y;
     if (y > y2)
         y2 = y;
-    threedproj(1., 1., -1., &x, &y);
+    graphics_threedproj(1., 1., -1., &x, &y);
     if (x < x1)
         x1 = x;
     if (x > x2)
@@ -592,7 +592,7 @@ redraw_the_graph(void) {
     set_normal_scale();
     axes2_do();
     hi_lite(draw_win);
-    restore(0, my_browser.maxrow);
+    integrate_restore(0, my_browser.maxrow);
     draw_label(draw_win);
     draw_freeze(draw_win);
     redraw_dfield();
@@ -852,8 +852,8 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     if(x1==x2||y1==y2)return;
     */
     /*
-    plintf("%f %f %f %f \n ",x1,y1,x2,y2);
-    plintf("%f %f %f %f
+    ggets_plintf("%f %f %f %f \n ",x1,y1,x2,y2);
+    ggets_plintf("%f %f %f %f
     \n",MyGraph->xlo,MyGraph->ylo,MyGraph->xhi,MyGraph->yhi);
    */
     if (x1 == x2 || y1 == y2) {
@@ -1154,7 +1154,7 @@ draw_freeze_key(void) {
         if (frz[i].use == 1 && frz[i].window == draw_win &&
             strlen(frz[i].key) > 0) {
             set_linestyle(abs(frz[i].color));
-            line(ix, y0, ix2, y0);
+            graphics_line(ix, y0, ix2, y0);
             set_linestyle(0);
             put_text(ix2 + HChar, y0, frz[i].key);
             y0 += dy;
@@ -1172,12 +1172,12 @@ key_frz_com(int32 c) {
         FreezeKeyFlag = 0;
         break;
     case 1:
-        MessageBox("Position with mouse");
+        menudrive_message_box("Position with mouse");
         if (get_mouse_xy(&x, &y, draw_win)) {
             set_key(x, y);
             draw_freeze_key();
         }
-        KillMessageBox();
+        menudrive_message_box_kill();
         break;
     default:
         break;
@@ -1491,7 +1491,7 @@ read_bd(FILE *fp) {
             ncrv++;
         }
     }
-    plintf(" got %d bifurcation curves\n", ncrv);
+    ggets_plintf(" got %d bifurcation curves\n", ncrv);
     fclose(fp);
     my_bd.nbifcrv = ncrv;
     my_bd.window = draw_win;

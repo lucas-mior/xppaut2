@@ -1412,7 +1412,7 @@ open_write_file(FILE **fp, char *fil, int32 *ok) {
     *fp = fopen(fil, "r");
     if (*fp != NULL) {
         fclose(*fp);
-        ans = (char)TwoChoice("Yes", "No", "File Exists! Overwrite?", "yn");
+        ans = (char)menudrive_two_choice("Yes", "No", "File Exists! Overwrite?", "yn");
         if (ans != 'y')
             return;
     }
@@ -1555,5 +1555,5 @@ data_last(Browser *b) {
 
 void
 data_restore(Browser *b) {
-    restore(b->istart, b->iend);
+    integrate_restore(b->istart, b->iend);
 }

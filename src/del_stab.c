@@ -93,7 +93,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
         colsum = 0.0;
         for (j = 0; j < n; j++)
             xp[j] = x[j];
-        dx = eps*amax(eps, fabs(x[i]));
+        dx = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + dx;
         rhs(0.0, xp, yp, n);
         for (j = 0; j < n; j++) {
@@ -114,7 +114,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
             colsum = 0.0;
             for (j = 0; j < n; j++)
                 variable_shift[1][j] = variable_shift[0][j];
-            dx = eps*amax(eps, fabs(x[i]));
+            dx = eps*gear_amax(eps, fabs(x[i]));
             variable_shift[1][i] = x[i] + dx;
             rhs(0.0, x, yp, n);
             variable_shift[1][i] = x[i];
@@ -329,7 +329,7 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m, double err,
         jac[3] = (detp.i - det.i) / r;
         r = jac[0]*jac[3] - jac[1]*jac[2];
         if (r == 0) {
-            plintf(" singular jacobian \n");
+            ggets_plintf(" singular jacobian \n");
             return -1;
         }
         xlp = (jac[3]*det.r - jac[1]*det.i) / r;
@@ -348,18 +348,18 @@ find_positive_root(double *coef, double *delay, int32 n, int32 m, double err,
             return 1;
         }
         if (r > big) {
-            plintf("Failed to converge \n");
+            ggets_plintf("Failed to converge \n");
             return -1;
         }
     }
 
-    plintf("Max iterates exceeded \n");
+    ggets_plintf("Max iterates exceeded \n");
     return -1;
 }
 
 void
 process_root(double real, double im) {
-    plintf("Root: %g + I %g \n", real, im);
+    ggets_plintf("Root: %g + I %g \n", real, im);
     return;
 }
 
@@ -398,7 +398,7 @@ get_arg(double *delay, double *coef, int32 m, int32 n, COMPLEX lambda) {
     temp = cdeterm(z, n);
     /* cprint(lambda);
     cprint(temp);
-    plintf(" \n"); */
+    ggets_plintf(" \n"); */
     free(z);
     arg = atan2(temp.i, temp.r);
     return arg;

@@ -122,7 +122,7 @@ void
 draw_info_pop(Window window) {
     if (window == info_pop) {
         XClearWindow(display, info_pop);
-        BaseCol();
+        many_pops_base_col();
         XDrawString(display, info_pop, gc, 5, CURY_OFF, info_message,
                     (int)strlen(info_message));
     }
@@ -132,7 +132,7 @@ draw_info_pop(Window window) {
 void
 bottom_msg(char *msg) {
     XClearWindow(display, info_pop);
-    BaseCol();
+    many_pops_base_col();
     strcpy(info_message, msg);
     XDrawString(display, info_pop, gc, 5, CURY_OFF, msg, (int)strlen(msg));
 }
@@ -142,13 +142,13 @@ err_msg(char *string) {
     if (Xup)
         respond_box("OK", string);
     else {
-        plintf("%s\n", string);
+        ggets_plintf("%s\n", string);
     }
     return;
 }
 
 int32
-plintf(char *fmt, ...) {
+ggets_plintf(char *fmt, ...) {
     int32 nchar = 0;
     va_list arglist;
 
@@ -242,7 +242,7 @@ cput_text(void) {
     if (new_string("Text: ", string) == 0)
         return;
     if (string[0] == '%') {
-        fillintext(&string[1], new);
+        graphics_fillin_text(&string[1], new);
         strcpy(string, new);
     } /* this makes it permanent */
 
@@ -253,13 +253,13 @@ cput_text(void) {
     if (size < 0)
         size = 0;
     message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
-    if (GetMouseXY(&x, &y)) {
-        GrCol();
+    if (menudrive_get_mouse_xy(&x, &y)) {
+        many_pops_gr_col();
         /* fancy_put_text_x11(x,y,string,size,font); */
-        fillintext(string, new);
+        graphics_fillin_text(string, new);
         special_put_text_x11(x, y, new, size);
         add_label(string, x, y, size, font);
-        BaseCol();
+        many_pops_base_col();
     }
     wait_a_sec(ClickTime);
     XDestroyWindow(display, temp);
@@ -310,26 +310,26 @@ f_text(int32 x, int32 y, char *string, Window o) {
 }
 
 void
-bar(int32 x, int32 y, int32 x2, int32 y2, Window window) {
+ggets_bar(int32 x, int32 y, int32 x2, int32 y2, Window window) {
     XFillRectangle(display, window, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
     return;
 }
 
 void
-rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window) {
+ggets_rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window) {
     XDrawRectangle(display, window, gc, x, y, (uint)(x2 - x), (uint)(y2 - y));
     return;
 }
 
 void
-circle(int32 x, int32 y, int32 radius, Window window) {
+ggets_circle(int32 x, int32 y, int32 radius, Window window) {
     XDrawArc(display, window, gc, x - radius, y - radius, (uint)(2*radius),
              (uint)(2*radius), 0, 360*64);
     return;
 }
 
 void
-xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window) {
+ggets_xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window) {
     XDrawLine(display, window, gc_graph, x0, y0, x1, y1);
     return;
 }
@@ -372,7 +372,7 @@ display_command(char *name, char *value, int32 pos) {
     int32 m = (int32)strlen(value);
 
     ggets_set_fore();
-    bar(0, 0, l*DCURX, DCURY + 4, command_pop);
+    ggets_bar(0, 0, l*DCURX, DCURY + 4, command_pop);
     ggets_set_back();
     XDrawString(display, command_pop, gc, 0, CURY_OFF, name, l);
     ggets_set_fore();

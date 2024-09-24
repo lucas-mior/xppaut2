@@ -363,7 +363,7 @@ last_shot(int32 flag) {
     MyTime = T0;
     if (flag) {
         storage[0][0] = (double)T0;
-        extra(x, T0, NODE, NEQ);
+        my_rhs_extra(x, T0, NODE, NEQ);
         for (i = 0; i < NEQ; i++)
             storage[1 + i][0] = (double)x[i];
         storind = 1;
@@ -540,14 +540,14 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
                 jac[j + i*ntot] = (fdev[i] - f[i]) / dev;
         }
 
-        sgefa(jac, ntot, ntot, ipvt, &info);
+        gear_sgefa(jac, ntot, ntot, ipvt, &info);
         if (info != -1) {
             *iret = -3;
             goto bye;
         }
         for (i = 0; i < ntot; i++)
             fdev[i] = f[i];
-        sgesl(jac, ntot, ntot, ipvt, fdev, 0);
+        gear_sgesl(jac, ntot, ntot, ipvt, fdev, 0);
         error = 0.0;
         for (i = 0; i < ntot; i++) {
             y0[i] = y0[i] - fdev[i];

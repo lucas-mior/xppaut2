@@ -175,11 +175,11 @@ choice_box_event_loop(CHOICE_BOX p) {
         break;
     case ButtonPress:
         if (event.xbutton.window == p.ok) {
-            bar(0, 0, 200, 200, p.ok);
+            ggets_bar(0, 0, 200, 200, p.ok);
             status = ALL_DONE;
         }
         if (event.xbutton.window == p.cancel) {
-            bar(0, 0, 200, 200, p.cancel);
+            ggets_bar(0, 0, 200, 200, p.cancel);
             status = FORGET_ALL;
         }
         for (i = 0; i < nn; i++) {

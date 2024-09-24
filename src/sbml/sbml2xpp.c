@@ -192,7 +192,7 @@ main(int32 argc, char *argv[]) {
     uint32 version;
 
     if (argc != 2) {
-        plintf("\n  usage: s2x <filename>\n\n");
+        ggets_plintf("\n  usage: s2x <filename>\n\n");
         return 1;
     }
 
@@ -308,7 +308,7 @@ GetEvents(Model_t *m) {
         }
         na = Event_getNumEventAssignments(e);
         x->na = na;
-        plintf("na=%d\n", na);
+        ggets_plintf("na=%d\n", na);
         for (j = 0; j < na; j++) {
             ea = Event_getEventAssignment(e, j);
             if (EventAssignment_isSetMath(ea)) {
@@ -456,19 +456,19 @@ dump_reactions(void) {
     int32 npr;
     int32 nre;
     RXN *r;
-    plintf("REACTIONS:\n");
+    ggets_plintf("REACTIONS:\n");
     for (int32 i = 0; i < Nrxn; i++) {
         r = rxn + i;
-        plintf("rxn %d: %s \n", i, r->formula);
-        plintf("reactants: ");
+        ggets_plintf("rxn %d: %s \n", i, r->formula);
+        ggets_plintf("reactants: ");
         npr = r->npr;
         nre = r->nre;
         for (j = 0; j < nre; j++)
-            plintf("%s(%g), ", r->re[j], r->sre[j]);
-        plintf("\nproducts: ");
+            ggets_plintf("%s(%g), ", r->re[j], r->sre[j]);
+        ggets_plintf("\nproducts: ");
         for (j = 0; j < npr; j++)
-            plintf("%s(%g), ", r->pr[j], r->spr[j]);
-        plintf("\n");
+            ggets_plintf("%s(%g), ", r->pr[j], r->spr[j]);
+        ggets_plintf("\n");
     }
     return;
 }
@@ -482,11 +482,11 @@ dump_events(void) {
         return;
     for (int32 i = 0; i < Nevent; i++) {
         ev = event + i;
-        plintf("global 1 %s {", ev->ev);
+        ggets_plintf("global 1 %s {", ev->ev);
         na = ev->na;
         for (j = 0; j < na - 1; j++)
-            plintf("%s;", ev->a[j]);
-        plintf("%s}\n", ev->a[na - 1]);
+            ggets_plintf("%s;", ev->a[j]);
+        ggets_plintf("%s}\n", ev->a[na - 1]);
     }
     return;
 }
@@ -497,10 +497,10 @@ dump_funs(void) {
     FUN_DEF *f;
     for (int32 i = 0; i < Nfuns; i++) {
         f = funs + i;
-        plintf("%s(", f->name);
+        ggets_plintf("%s(", f->name);
         for (j = 0; j < f->nargs; j++)
-            plintf("%s,", f->arg[j]);
-        plintf(")=%s\n", f->formula);
+            ggets_plintf("%s,", f->arg[j]);
+        ggets_plintf(")=%s\n", f->formula);
     }
     return;
 }
@@ -509,10 +509,10 @@ int32
 dump_rules(void) {
     RULE *r;
     if (Nrule > 0)
-        plintf("RULES:\n");
+        ggets_plintf("RULES:\n");
     for (int32 i = 0; i < Nrule; i++) {
         r = rule + i;
-        plintf("%s=%s\n", r->v, r->f);
+        ggets_plintf("%s=%s\n", r->v, r->f);
     }
     return;
 }
@@ -520,10 +520,10 @@ dump_rules(void) {
 int32
 dump_species(void) {
     SPECIES *x;
-    plintf("SPECIES: n i t\n");
+    ggets_plintf("SPECIES: n i t\n");
     for (int32 i = 0; i < N_spec; i++) {
         x = X_spec + i;
-        plintf("%s %s %s %g %d %d \n", x->name, x->id, x->tc, x->x0, x->bc,
+        ggets_plintf("%s %s %s %g %d %d \n", x->name, x->id, x->tc, x->x0, x->bc,
                x->c);
     }
     return;
@@ -531,9 +531,9 @@ dump_species(void) {
 
 int32
 dump_parameters(void) {
-    plintf("PARAMETERS:\n");
+    ggets_plintf("PARAMETERS:\n");
     for (int32 i = 0; i < Npar; i++)
-        plintf("%d %s %s = %g \n", par[i].fixed, par[i].name, par[i].id,
+        ggets_plintf("%d %s %s = %g \n", par[i].fixed, par[i].name, par[i].id,
                par[i].z);
     return;
 }
@@ -848,12 +848,12 @@ mark_rule_pars(void) {
         j = find_parameter(r->v);
         if (j > -1) {
             par[j].fixed = -2;
-            plintf("found %s as %d \n", r->v, j);
+            ggets_plintf("found %s as %d \n", r->v, j);
         }
         j = find_species(r->v);
         if (j > -1) {
             (X_spec + j)->rule = 1;
-            plintf("found %s as %d \n", r->v, j);
+            ggets_plintf("found %s as %d \n", r->v, j);
         }
     }
     return;
@@ -919,7 +919,7 @@ check_name_len(char *s) {
         x[4] = 0;
         snprintf(long_names[lnum].rep, sizeof(long_names[lnum].rep), "%s.%d", x,
                  lnum);
-        plintf("long name: %s -> %s \n", long_names[lnum].src,
+        ggets_plintf("long name: %s -> %s \n", long_names[lnum].src,
                long_names[lnum].rep);
         lnum++;
     }
@@ -1010,7 +1010,7 @@ sort_long_names(void) {
         return; /* nothing to sort ! */
     qsort(long_names, lnum, sizeof(LONG_NAMES), z_sort);
     for (int32 i = 0; i < lnum; i++)
-        plintf("%d: %s -> %s \n", i, long_names[i].src, long_names[i].rep);
+        ggets_plintf("%d: %s -> %s \n", i, long_names[i].src, long_names[i].rep);
     return;
 }
 

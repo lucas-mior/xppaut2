@@ -151,7 +151,7 @@ xpp_hlp(void) {
 }
 
 void
-MessageBox(char *m) {
+menudrive_message_box(char *m) {
     int32 wid = (int32)strlen(m)*DCURX + 20;
     int32 hgt = 4*DCURY;
     MsgBox.window =
@@ -167,14 +167,14 @@ MessageBox(char *m) {
 }
 
 void
-RedrawMessageBox(Window window) {
+menudrive_message_box_redraw(Window window) {
     if (window == MsgBox.window)
         f_text(10, 2*DCURY, MsgBox.text, MsgBox.window);
     return;
 }
 
 void
-KillMessageBox(void) {
+menudrive_message_box_kill(void) {
     if (MsgBox.here == 0)
         return;
     MsgBox.here = 0;
@@ -184,7 +184,7 @@ KillMessageBox(void) {
 }
 
 int32
-TwoChoice(char *c1, char *c2, char *q, char *key) {
+menudrive_two_choice(char *c1, char *c2, char *q, char *key) {
     int32 choice =
         two_choice(c1, c2, q, key, DisplayWidth / 2, DisplayHeight / 2,
                    RootWindow(display, screen), NULL);
@@ -192,12 +192,12 @@ TwoChoice(char *c1, char *c2, char *q, char *key) {
 }
 
 int32
-GetMouseXY(int32 *x, int32 *y) {
+menudrive_get_mouse_xy(int32 *x, int32 *y) {
     return get_mouse_xy(x, y, draw_win);
 }
 
 void
-FlushDisplay(void) {
+menudrive_flush_display(void) {
     XFlush(display);
     return;
 }

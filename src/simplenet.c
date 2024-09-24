@@ -254,7 +254,7 @@ add_vectorizer(char *name, char *rhs) {
     my_vec[ind].length = len;
     my_vec[ind].il = il;
     my_vec[ind].ir = ir;
-    plintf("adding vector %s based on variable %d of length %d ends %d %d\n",
+    ggets_plintf("adding vector %s based on variable %d of length %d ends %d %d\n",
            name, ivar, len, il, ir);
 
     return 1;
@@ -264,7 +264,7 @@ void
 add_vectorizer_name(char *name, char *rhs) {
     (void)rhs;
     if (n_vector >= MAXVEC) {
-        plintf("Too many vectors \n");
+        ggets_plintf("Too many vectors \n");
         exit(0);
     }
     strcpy(my_vec[n_vector].name, name);
@@ -328,13 +328,13 @@ add_spec_fun(char *name, char *rhs) {
     type = is_network(rhs);
     if (type == 0)
         return 0;
-    plintf("type=%d \n", type);
+    ggets_plintf("type=%d \n", type);
     for (i = 0; i < n_network; i++)
         if (strcmp(name, my_net[i].name) == 0)
             break;
     ind = i;
     if (ind >= n_network) {
-        plintf(" No such name %s ?? \n", name);
+        ggets_plintf(" No such name %s ?? \n", name);
         return 0;
     }
     switch (type) {
@@ -349,33 +349,33 @@ add_spec_fun(char *name, char *rhs) {
         if (str[0] == 'P')
             ntype = CONVP;
         if (ntype == -1) {
-            plintf(" No such convolution type %s \n", str);
+            ggets_plintf(" No such convolution type %s \n", str);
             return 0;
         }
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
         str = get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
         my_net[ind].values =
@@ -386,7 +386,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
+        ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
                ntype, ntot, ncon, wgtname, ivar);
 
         return 1;
@@ -397,14 +397,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -412,7 +412,7 @@ add_spec_fun(char *name, char *rhs) {
         iwgt = find_lookup(wgtname);
 
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
 
@@ -421,7 +421,7 @@ add_spec_fun(char *name, char *rhs) {
         iind = find_lookup(indname);
 
         if (iind < 0) {
-            plintf("in network %s,  %s is not a table \n", name, indname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, indname);
             return 0;
         }
         str = get_next(")");
@@ -429,7 +429,7 @@ add_spec_fun(char *name, char *rhs) {
         ivar = get_var_index(rootname);
 
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
 
@@ -443,7 +443,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s\n", name,
+        ggets_plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s\n", name,
                ntot, ncon, wgtname, ivar, indname);
         return 1;
     case 3: /* convolution */
@@ -457,26 +457,26 @@ add_spec_fun(char *name, char *rhs) {
         if (str[0] == 'P')
             ntype = FCONVP;
         if (ntype == -1) {
-            plintf(" No such convolution type %s \n", str);
+            ggets_plintf(" No such convolution type %s \n", str);
             return 0;
         }
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
 
@@ -484,7 +484,7 @@ add_spec_fun(char *name, char *rhs) {
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
 
@@ -492,14 +492,14 @@ add_spec_fun(char *name, char *rhs) {
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, root2name);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
             return 0;
         }
         str = get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
-            plintf(" bad function %s \n", fname);
+            ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
         my_net[ind].values =
@@ -513,7 +513,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        plintf(
+        ggets_plintf(
             " Added net %s type %d len=%d x %d using %s %s(var[%d],var[%d]) \n",
             name, ntype, ntot, ncon, wgtname, fname, ivar, ivar2);
         return 1;
@@ -524,14 +524,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -539,7 +539,7 @@ add_spec_fun(char *name, char *rhs) {
         iwgt = find_lookup(wgtname);
 
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
 
@@ -548,7 +548,7 @@ add_spec_fun(char *name, char *rhs) {
         iind = find_lookup(indname);
 
         if (iind < 0) {
-            plintf("in network %s,  %s is not a table \n", name, indname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, indname);
             return 0;
         }
 
@@ -557,7 +557,7 @@ add_spec_fun(char *name, char *rhs) {
         ivar = get_var_index(rootname);
 
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
 
@@ -565,14 +565,14 @@ add_spec_fun(char *name, char *rhs) {
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, root2name);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
             return 0;
         }
         str = get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
-            plintf(" bad function %s \n", fname);
+            ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
 
@@ -589,7 +589,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        plintf(" Sparse %s len=%d x %d using %s %s(var[%d],var[%d]) and %s\n",
+        ggets_plintf(" Sparse %s len=%d x %d using %s %s(var[%d],var[%d]) and %s\n",
                name, ntot, ncon, wgtname, fname, ivar, ivar2, indname);
         return 1;
     case 5: /* fft convolution */
@@ -602,13 +602,13 @@ add_spec_fun(char *name, char *rhs) {
         if (str[0] == 'P')
             ntype = FFTCONP;
         if (ntype == -1) {
-            plintf(" No such fft convolution type %s \n", str);
+            ggets_plintf(" No such fft convolution type %s \n", str);
             return 0;
         }
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
 
@@ -616,23 +616,23 @@ add_spec_fun(char *name, char *rhs) {
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
         ntab = get_lookup_len(iwgt);
         if (type == FFTCONP && ntab < ntot) {
-            plintf(" In %s, weight is length %d < %d \n", name, ntab, ntot);
+            ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab, ntot);
             return 0;
         }
         if (type == FFTCON0 && ntab < (2*ntot)) {
-            plintf(" In %s, weight is length %d < %d \n", name, ntab, 2*ntot);
+            ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab, 2*ntot);
             return 0;
         }
         str = get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
         if (ntype == FFTCON0)
@@ -656,7 +656,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].ncon = ncon;
         update_fft(ind);
 
-        plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
+        ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
                ntype, ntot, ncon, wgtname, ivar);
         return 1;
     case 6: /* MMULT    ntot=n,ncon=m  */
@@ -666,14 +666,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -681,7 +681,7 @@ add_spec_fun(char *name, char *rhs) {
         iwgt = find_lookup(wgtname);
 
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
 
@@ -690,7 +690,7 @@ add_spec_fun(char *name, char *rhs) {
         ivar = get_var_index(rootname);
 
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
 
@@ -703,7 +703,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
-        plintf(" Added mmult %s len=%d x %d using %s var[%d]\n", name, ntot,
+        ggets_plintf(" Added mmult %s len=%d x %d using %s var[%d]\n", name, ntot,
                ncon, wgtname, ivar, indname);
         return 1;
     case 7: /* FMMULT */
@@ -713,14 +713,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -728,7 +728,7 @@ add_spec_fun(char *name, char *rhs) {
         iwgt = find_lookup(wgtname);
 
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
 
@@ -737,21 +737,21 @@ add_spec_fun(char *name, char *rhs) {
         ivar = get_var_index(rootname);
 
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
         str = get_next(",");
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, root2name);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
             return 0;
         }
         str = get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
-            plintf(" bad function %s \n", fname);
+            ggets_plintf(" bad function %s \n", fname);
             return 0;
         }
         /*for(i=0;i<elen;i++)
@@ -769,7 +769,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
-        plintf(" Added fmmult %s len=%d x %d using %s %s(var[%d],var[%d])\n",
+        ggets_plintf(" Added fmmult %s len=%d x %d using %s %s(var[%d],var[%d])\n",
                name, ntot, ncon, wgtname, fname, ivar, ivar2);
         return 1;
 
@@ -778,27 +778,27 @@ add_spec_fun(char *name, char *rhs) {
         str = get_next(",");
         ntype = atoi(str);
         if (ntype > 1 || ntype < (-1)) {
-            plintf("In %s,  type =-1,0,1 not %s \n", name, ntype);
+            ggets_plintf("In %s,  type =-1,0,1 not %s \n", name, ntype);
             return 0;
         }
         str = get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
-            plintf("In %s,  n>0 not %s \n", name, ntot);
+            ggets_plintf("In %s,  n>0 not %s \n", name, ntot);
             return 0;
         }
 
         str = get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
-            plintf("In %s,  skip>=1 not %s \n", name, ncon);
+            ggets_plintf("In %s,  skip>=1 not %s \n", name, ncon);
             return 0;
         }
         str = get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
         my_net[ind].values = xmalloc(6*sizeof(*(my_net[ind].values)));
@@ -807,7 +807,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
         my_net[ind].iwgt = ntype;
-        plintf(" Added findextr %s: type=%d len=%d  skip= %d using var[%d] \n",
+        ggets_plintf(" Added findextr %s: type=%d len=%d  skip= %d using var[%d] \n",
                name, ntype, ntot, ncon, ivar);
         return 1;
 
@@ -823,7 +823,7 @@ add_spec_fun(char *name, char *rhs) {
         str = get_next(",");
         ivar = atoi(str);
         if (ivar < 1) {
-            plintf("Need more than 1 entry for interpolate\n");
+            ggets_plintf("Need more than 1 entry for interpolate\n");
             return 0;
         }
         my_net[ind].n = ivar; /* # entries in array */
@@ -831,11 +831,11 @@ add_spec_fun(char *name, char *rhs) {
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
         my_net[ind].root = ivar;
-        plintf("Added interpolator %s length %d on %s \n", name, my_net[ind].n,
+        ggets_plintf("Added interpolator %s length %d on %s \n", name, my_net[ind].n,
                rootname);
         return 1;
 
@@ -850,7 +850,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].n = ncon;
         ivar = get_var_index(rootname);
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
         strcpy(my_net[ind].soname, soname);
@@ -860,16 +860,16 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].ncon = 0;
         for (i = 0; i < ntab; i++) {
             iwgt = find_lookup(tname[i]);
-            plintf("Found %s\n", tname[i]);
+            ggets_plintf("Found %s\n", tname[i]);
             if (iwgt < 0) {
-                plintf("in network %s,  %s is not a table \n", name, wgtname);
+                ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
                 return 0;
             }
             my_net[ind].wgtlist[i] = my_table[iwgt].y;
         }
         for (i = 0; i < MAXW; i++)
             free(tname[i]);
-        plintf(" Added import %s len=%d  with %s %s var[%d] %d weights\n", name,
+        ggets_plintf(" Added import %s len=%d  with %s %s var[%d] %d weights\n", name,
                my_net[ind].n, soname, sofun, ivar, ntab);
 
         return 1;
@@ -881,14 +881,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -896,7 +896,7 @@ add_spec_fun(char *name, char *rhs) {
         iwgt = find_lookup(wgtname);
 
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
         str = get_next(",");
@@ -904,7 +904,7 @@ add_spec_fun(char *name, char *rhs) {
         itau = find_lookup(tauname);
 
         if (itau < 0) {
-            plintf("in network %s,  %s is not a table \n", name, tauname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, tauname);
             return 0;
         }
 
@@ -913,7 +913,7 @@ add_spec_fun(char *name, char *rhs) {
         ivar = get_var_index(rootname);
 
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
 
@@ -927,7 +927,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
-        plintf(" Added del_mul %s len=%d x %d using %s var[%d] with delay %s\n",
+        ggets_plintf(" Added del_mul %s len=%d x %d using %s var[%d] with delay %s\n",
                name, ntot, ncon, wgtname, ivar, indname, tauname);
         NDELAYS = 1;
         return 1;
@@ -938,14 +938,14 @@ add_spec_fun(char *name, char *rhs) {
         ntot = atoi(str);
 
         if (ntot <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
-            plintf(" %s must be positive int32 \n", str);
+            ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
         str = get_next(",");
@@ -953,7 +953,7 @@ add_spec_fun(char *name, char *rhs) {
         iwgt = find_lookup(wgtname);
 
         if (iwgt < 0) {
-            plintf("in network %s,  %s is not a table \n", name, wgtname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
 
@@ -962,7 +962,7 @@ add_spec_fun(char *name, char *rhs) {
         iind = find_lookup(indname);
 
         if (iind < 0) {
-            plintf("in network %s,  %s is not a table \n", name, indname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, indname);
             return 0;
         }
 
@@ -971,7 +971,7 @@ add_spec_fun(char *name, char *rhs) {
         itau = find_lookup(tauname);
 
         if (itau < 0) {
-            plintf("in network %s,  %s is not a table \n", name, tauname);
+            ggets_plintf("in network %s,  %s is not a table \n", name, tauname);
             return 0;
         }
 
@@ -980,7 +980,7 @@ add_spec_fun(char *name, char *rhs) {
         ivar = get_var_index(rootname);
 
         if (ivar < 0) {
-            plintf(" In %s , %s is not valid variable\n", name, rootname);
+            ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
 
@@ -994,7 +994,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s with "
+        ggets_plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s with "
                "dely %s\n",
                name, ntot, ncon, wgtname, ivar, indname, tauname);
         NDELAYS = 1;
@@ -1019,7 +1019,7 @@ add_spec_fun(char *name, char *rhs) {
         str = get_next(")");
         my_net[ind].type = GILLTYPE;
         if (ivar > 0) {
-            plintf(" Tau leaping not implemented yet. Changing to 0\n");
+            ggets_plintf(" Tau leaping not implemented yet. Changing to 0\n");
             ivar = 0;
         }
         my_net[ind].iwgt = ivar;
@@ -1031,7 +1031,7 @@ add_spec_fun(char *name, char *rhs) {
         my_net[ind].ncon = -1;
         my_net[ind].values =
             xmalloc((usize)(ivar2 + 2)*sizeof(*(my_net[ind].values)));
-        plintf("Added gillespie chain with %d reactions \n", ivar2);
+        ggets_plintf("Added gillespie chain with %d reactions \n", ivar2);
         return 1;
 
         /*  case 8:
@@ -1055,7 +1055,7 @@ add_spec_fun(char *name, char *rhs) {
           }
 
         }
-        plintf("total=%d str=%s\n",ntot,junk);
+        ggets_plintf("total=%d str=%s\n",ntot,junk);
 
         return 0; */
     default:
@@ -1067,7 +1067,7 @@ add_spec_fun(char *name, char *rhs) {
 void
 add_special_name(char *name, char *rhs) {
     if (is_network(rhs)) {
-        plintf(" netrhs = |%s| \n", rhs);
+        ggets_plintf(" netrhs = |%s| \n", rhs);
         if (n_network >= MAX_NET) {
             return;
         }
@@ -1075,7 +1075,7 @@ add_special_name(char *name, char *rhs) {
         add_net_name(n_network, name);
         n_network++;
     } else
-        plintf(" No such special type ...\n");
+        ggets_plintf(" No such special type ...\n");
     return;
 }
 
@@ -1517,7 +1517,7 @@ gilparse(char *s, int32 *ind, int32 *nn) {
     int32 k = 0, iv;
     int32 id;
     int32 m;
-    plintf("s=|%s|", s);
+    ggets_plintf("s=|%s|", s);
     while (true) {
         c = s[i];
         if (c == ',' || i > (n - 1)) {
@@ -1527,22 +1527,22 @@ gilparse(char *s, int32 *ind, int32 *nn) {
                 return 0;
             }
             if (f == 0) {
-                plintf("added %s\n", b);
+                ggets_plintf("added %s\n", b);
                 iv = get_var_index(b);
                 if (iv < 0) {
-                    plintf("No such name %s\n", b);
+                    ggets_plintf("No such name %s\n", b);
                     return 0;
                 }
                 ind[k] = iv;
                 k++;
             } else {
-                plintf("added %s{%d-%d}\n", b, i1, i2);
+                ggets_plintf("added %s{%d-%d}\n", b, i1, i2);
                 m = i2 - i1 + 1;
                 for (id = 0; id < m; id++) {
                     snprintf(bn, sizeof(bn), "%s%d", b, id + i1);
                     iv = get_var_index(bn);
                     if (iv < 0) {
-                        plintf("No such name %s\n", bn);
+                        ggets_plintf("No such name %s\n", bn);
                         return 0;
                     }
                     ind[k] = iv;
@@ -1588,7 +1588,7 @@ g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
         j++;
     }
     if (i == n) {
-        plintf("Illegal syntax %s\n", s);
+        ggets_plintf("Illegal syntax %s\n", s);
         return 0;
     }
     num[j] = 0;
@@ -1722,7 +1722,7 @@ get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
     ivar = get_var_index(temp);
 
     if (ivar < 0) {
-        plintf(" In vector %s , %s is not valid variable\n", name, temp);
+        ggets_plintf(" In vector %s , %s is not valid variable\n", name, temp);
         return 0;
     }
     *root = ivar;

@@ -22,7 +22,7 @@ main(int32 argc, char **argv) {
 }
 
 void
-extra(double *y__y, double t, int32 nod, int32 neq) {
+my_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
     int32 i;
     if (nod >= neq)
         return;

@@ -382,7 +382,7 @@ svg_init(char *filename) {
     fp = fopen(css, "r");
     if (fp != NULL) {
         char bob[256];
-        plintf("Styling svg image according to %s\n", css);
+        ggets_plintf("Styling svg image according to %s\n", css);
         while (!feof(fp)) {
             bob[0] = '\0';
             fgets(bob, 255, fp);
