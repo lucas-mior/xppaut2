@@ -79,16 +79,6 @@ typedef struct {
     uint32 bcol;
 } TEXTGC;
 
-typedef struct Label {
-    Window window;
-    double x;
-    double y;
-    char s[MAXCHAR];
-    int16 use;
-    int32 font;
-    int32 size;
-} Label;
-
 typedef struct {
     Window window;
     char key[20], name[10];

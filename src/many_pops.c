@@ -29,6 +29,16 @@ typedef struct {
     int32 color;
 } GROB;
 
+typedef struct Label {
+    Window window;
+    double x;
+    double y;
+    char s[MAXCHAR];
+    int16 use;
+    int32 font;
+    int32 size;
+} Label;
+
 static struct MarkInfo {
     int32 type;
     int32 color;
