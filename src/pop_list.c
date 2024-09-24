@@ -7,6 +7,20 @@
 #include "info.bitmap"
 #include "alert.bitmap"
 
+/*  This is a new improved pop_up widget */
+typedef struct PopUp {
+    Window base;
+    Window tit;
+    Window *w;
+    char *title;
+    char **entries;
+    char **hints;
+    int32 n;
+    int32 max;
+    char *key;
+    int32 hot;
+} PopUp;
+
 static struct ScrBoxList {
     char **list;
     int32 n;
@@ -33,7 +47,7 @@ static int32 select_scroll_item(Window window, ScrollBox sb);
 static void scroll_popup(StringBox *sb, ScrollBox *scrb);
 static int32 s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
                               ScrollBox *scrb);
-static void draw_pop_up(POP_UP p, Window window);
+static void draw_pop_up(PopUp p, Window window);
 static void set_sbox_item(StringBox *sb, int32 item);
 static void reset_hot(int32 inew, StringBox *sb);
 static void expose_sbox(StringBox sb, Window window, int32 pos);
@@ -1151,7 +1165,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             char *httxt)
 
 {
-    POP_UP p;
+    PopUp p;
     XEvent event;
     Window window;
     Cursor txt;
@@ -1234,7 +1248,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 }
 
 void
-draw_pop_up(POP_UP p, Window window) {
+draw_pop_up(PopUp p, Window window) {
     int32 i;
 
     if (window == p.tit) {

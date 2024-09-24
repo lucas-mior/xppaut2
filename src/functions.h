@@ -3993,20 +3993,6 @@ extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
 extern char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
 extern char *color_names[];
 
-/*  This is a new improved pop_up widget */
-typedef struct POP_UP {
-    Window base;
-    Window tit;
-    Window *w;
-    char *title;
-    char **entries;
-    char **hints;
-    int32 n;
-    int32 max;
-    char *key;
-    int32 hot;
-} POP_UP;
-
 typedef struct TEXTWIN {
     Window base, slide, close, text;
     int32 i0;
