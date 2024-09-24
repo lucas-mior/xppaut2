@@ -34,7 +34,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
         constants[Auto_index_to_array[i]] = par[i];
     }
     evaluate_derived();
-    redo_all_fun_tables();
+    tabular_redo_all_fun_tables();
     rhs(0.0, u, f, (int32)ndim);
     if (ijac == 1)
         getjactrans(u, y, yp, xp, NEWT_ERR, dfdu, (int32)ndim);
@@ -98,7 +98,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
     }
 
     evaluate_derived();
-    redo_all_fun_tables();
+    tabular_redo_all_fun_tables();
     do_bc(u0, 0.0, u1, 1.0, fb, (int32)nbc);
 
     return 0;

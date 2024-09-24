@@ -595,7 +595,7 @@ graf_par_redraw_the_graph(void) {
     integrate_restore(0, my_browser.maxrow);
     many_pops_draw_label(draw_win);
     graf_par_draw_freeze(draw_win);
-    redraw_dfield();
+    nullcline_redraw_dfield();
     if (MyGraph->Nullrestore)
         restore_nullclines();
     return;
@@ -835,7 +835,7 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     }
     graf_par_check_windows();
     graf_par_redraw_the_graph();
-    draw_help();
+    menu_draw_help();
     return;
 }
 
@@ -902,7 +902,7 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     }
     graf_par_check_windows();
     graf_par_redraw_the_graph();
-    draw_help();
+    menu_draw_help();
     return;
 }
 

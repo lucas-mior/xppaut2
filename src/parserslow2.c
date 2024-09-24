@@ -268,7 +268,7 @@ init_rpn(void) {
         add_con("c___2",0.0);
         add_con("c___3",0.0); */
 
-    init_table();
+    tabular_init_table();
     if (newseed == 1)
         RandSeed = (int32)time(0);
     markov_nsrand48(RandSeed);
@@ -542,7 +542,7 @@ add_file_table(int32 index, char *file) {
         }
     }
     file2[i2] = 0;
-    if (load_table(file2, index) == 0) {
+    if (tabular_load_table(file2, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
         return 1;
@@ -566,7 +566,7 @@ add_table_name(int32 index, char *name) {
     my_symb[NSYM].pri = 10;
     my_symb[NSYM].arg = 1;
     my_symb[NSYM].com = COM(TABTYPE, index);
-    set_table_name(name, index);
+    tabular_set_table_name(name, index);
     NSYM++;
     return 0;
 }
@@ -2140,10 +2140,10 @@ eval_rpn(int32 *equat) {
                 PUSH(constants[in]);
                 break;
             case VECTYPE:
-                PUSH(vector_value(POP, in));
+                PUSH(simplenet_vector_value(POP, in));
                 break;
             case NETTYPE:
-                PUSH(network_value(POP, in));
+                PUSH(simplenet_network_value(POP, in));
                 break;
             case TABTYPE:
                 PUSH(tabular_lookup(POP, in));

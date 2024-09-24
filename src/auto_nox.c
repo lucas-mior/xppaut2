@@ -300,7 +300,7 @@ setautopoint(void) {
         set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
         set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);
         evaluate_derived();
-        redo_all_fun_tables();
+        tabular_redo_all_fun_tables();
         init_conds_redraw_params();
     }
     return;
@@ -2042,7 +2042,7 @@ auto_start_diff_ss(void) {
 void
 auto_start_at_bvp(void) {
     int32 opn = NO_OPEN_3, cls = OVERWRITE;
-    compile_bvp();
+    pp_shoot_compile_bvp();
     if (BVP_FLAG == 0)
         return;
     TypeOfCalc = BV1;
@@ -2145,7 +2145,7 @@ auto_extend_ss(void) {
     */
 
     if (isinf(grabpt.per)) {
-        respond_box("Okay", "Can't continue infinite period Hopf!");
+        pop_list_respond_box("Okay", "Can't continue infinite period Hopf!");
         return;
     }
 
@@ -2284,7 +2284,7 @@ auto_new_per(void) {
     */
 
     if (isinf(grabpt.per)) {
-        respond_box("Okay", "Can't continue infinite period Hopf.");
+        pop_list_respond_box("Okay", "Can't continue infinite period Hopf.");
         return;
     }
     TypeOfCalc = PE1;
@@ -2502,7 +2502,7 @@ auto_2p_hopf(void) {
     */
 
     if (isinf(grabpt.per)) {
-        respond_box("Okay", "Can't continue infinite period Hopf.");
+        pop_list_respond_box("Okay", "Can't continue infinite period Hopf.");
         return;
     }
 
@@ -2545,7 +2545,7 @@ auto_period_double(void) {
 
 void
 auto_err(char *s) {
-    respond_box("OK", s);
+    pop_list_respond_box("OK", s);
 }
 
 void

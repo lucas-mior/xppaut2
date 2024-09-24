@@ -101,7 +101,7 @@ static void start_ncline(void);
 static void do_range_clines(void);
 
 void
-froz_cline_stuff_com(int32 i) {
+nullcline_froz_cline_stuff_com(int32 i) {
     int32 delay = 200;
     if (n_nstore == 0)
         start_ncline();
@@ -130,11 +130,11 @@ froz_cline_stuff_com(int32 i) {
 }
 
 void
-silent_dfields(void) {
+nullcline_silent_dfields(void) {
     if (DFBatch == 5 || DFBatch == 4) {
         DFSuppress = 1;
         graphics_init_ps();
-        do_batch_dfield();
+        nullcline_do_batch_dfield();
         DFSuppress = 0;
     }
     return;
@@ -146,7 +146,7 @@ silent_nullclines(void) {
     if (NCBatch != 2)
         return;
     NCSuppress = 1;
-    new_clines_com(0);
+    nullcline_new_clines_com(0);
     fp = fopen("nullclines.dat", "w");
     if (fp == NULL) {
         ggets_plintf("Cannot open nullcline file\n");
@@ -450,26 +450,26 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
 /*  all the nifty 2D stuff here    */
 
 void
-do_batch_nclines(void) {
+nullcline_do_batch_nclines(void) {
     if (!XPPBatch)
         return;
     if (!NCBatch)
         return;
     if (NCBatch == 1) {
-        new_clines_com(0);
+        nullcline_new_clines_com(0);
         return;
     }
     return;
 }
 
 void
-set_colorization_stuff(void) {
-    user_set_color_par(ColorizeFlag, ColorVia, ColorViaLo, ColorViaHi);
+nullcline_set_colorization_stuff(void) {
+    numerics_user_set_color_par(ColorizeFlag, ColorVia, ColorViaLo, ColorViaHi);
     return;
 }
 
 void
-do_batch_dfield(void) {
+nullcline_do_batch_dfield(void) {
     if (!XPPBatch)
         return;
     switch (DFBatch) {
@@ -480,35 +480,35 @@ do_batch_dfield(void) {
         DFIELD_TYPE = 1;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
-        redraw_dfield();
+        nullcline_redraw_dfield();
         return;
     case 2:
         DF_FLAG = 1;
         DFIELD_TYPE = 0;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
-        redraw_dfield();
+        nullcline_redraw_dfield();
         return;
     case 3:
         DF_FLAG = 2;
         DFIELD_TYPE = 0;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
-        redraw_dfield();
+        nullcline_redraw_dfield();
         return;
     case 4:
         DF_FLAG = 1;
         DFIELD_TYPE = 1;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
-        redraw_dfield();
+        nullcline_redraw_dfield();
         return;
     case 5:
         DF_FLAG = 1;
         DFIELD_TYPE = 0;
         DF_IX = MyGraph->xv[0];
         DF_IY = MyGraph->yv[0];
-        redraw_dfield();
+        nullcline_redraw_dfield();
         return;
     default:
         break;
@@ -517,7 +517,7 @@ do_batch_dfield(void) {
 }
 
 void
-redraw_dfield(void) {
+nullcline_redraw_dfield(void) {
     int32 i, j, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
@@ -615,7 +615,7 @@ redraw_dfield(void) {
 }
 
 void
-direct_field_com(int32 c) {
+nullcline_direct_field_com(int32 c) {
     int32 i, j, start, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
@@ -858,14 +858,14 @@ restor_null(/* d=1 for x and 2 for y  */
 }
 
 void
-create_new_cline(void) {
+nullcline_create_new_cline(void) {
     if (NULL_HERE)
-        new_clines_com(0);
+        nullcline_new_clines_com(0);
     return;
 }
 
 void
-new_clines_com(int32 c) {
+nullcline_new_clines_com(int32 c) {
     int32 course = NMESH, i;
     double xmin, xmax, y_tp, y_bot;
     int32 col1 = XNullColor, col2 = YNullColor;

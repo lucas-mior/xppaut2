@@ -94,14 +94,14 @@ menu_help(void) {
 }
 
 void
-help_num(void) {
+menu_help_num(void) {
     unshow_menu(help_menu);
     show_menu(NUM_MENU);
     return;
 }
 
 void
-help_file(void) {
+menu_help_file(void) {
     if (tfBell)
         my_menus[FILE_MENU].names = fileon_menu;
     else
@@ -184,7 +184,7 @@ menu_button(Window win) {
 }
 
 void
-draw_help(void) {
+menu_draw_help(void) {
     int32 i, j = help_menu, n;
     /*char **z;
      */

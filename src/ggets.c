@@ -140,7 +140,7 @@ ggets_bottom_msg(char *msg) {
 void
 ggets_err_msg(char *string) {
     if (Xup)
-        respond_box("OK", string);
+        pop_list_respond_box("OK", string);
     else {
         ggets_plintf("%s\n", string);
     }
@@ -252,7 +252,7 @@ ggets_cput_text(void) {
         size = 4;
     if (size < 0)
         size = 0;
-    message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
+    pop_list_message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
         /* graphics_fancy_put_text_x11(x,y,string,size,font); */

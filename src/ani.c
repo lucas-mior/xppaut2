@@ -403,7 +403,7 @@ create_vcr(char *name) {
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     XSetFont(display, ani_gc, romfonts[0]->fid);
     tst_pix_draw();
-    get_global_colormap(ani_pixmap);
+    scrngif_get_global_colormap(ani_pixmap);
     mpeg.flag = 0;
     mpeg.filflag = 0;
     strcpy(mpeg.root, "frame");
@@ -938,7 +938,7 @@ ani_flip(void) {
     /* check avi_flags for initialization */
     if (mpeg.aviflag == 1) {
         angiffile = fopen("anim.gif", "wb");
-        set_global_map(1);
+        scrngif_set_global_map(1);
     }
     count = 0;
     while (!done) { /* Ignore all events except the button presses */
@@ -1012,9 +1012,9 @@ ani_flip(void) {
         /* now check AVI stuff */
 
         if (mpeg.aviflag == 1)
-        /* add_ani_gif(ani_pixmap,angiffile,count); */
+        /* scrngif_add_ani_gif(ani_pixmap,angiffile,count); */
         {
-            add_ani_gif(vcr.view, angiffile, count);
+            scrngif_add_ani_gif(vcr.view, angiffile, count);
         }
 
         count++;
@@ -1022,9 +1022,9 @@ ani_flip(void) {
     /* always stop mpeg writing */
     mpeg.flag = 0;
     if (mpeg.aviflag == 1) {
-        end_ani_gif(angiffile);
+        scrngif_end_ani_gif(angiffile);
         fclose(angiffile);
-        set_global_map(0);
+        scrngif_set_global_map(0);
     }
     return;
 }

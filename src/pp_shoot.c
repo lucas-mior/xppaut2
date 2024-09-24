@@ -105,11 +105,11 @@ do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n) {
 }
 
 void
-compile_bvp(void) {
+pp_shoot_compile_bvp(void) {
     int32 i;
     int32 len;
     char badcom[50];
-    reset_bvp();
+    pp_shoot_reset_bvp();
     if (BVP_FLAG == 0)
         return;
 
@@ -128,13 +128,13 @@ compile_bvp(void) {
 }
 
 void
-reset_bvp(void) {
+pp_shoot_reset_bvp(void) {
     BVP_FLAG = 1;
     return;
 }
 
 void
-init_shoot_range(char *s) {
+pp_shoot_init_shoot_range(char *s) {
     strcpy(shoot_range.item, s);
     shoot_range.phigh = 1.0;
     shoot_range.plow = 0.0;
@@ -146,7 +146,7 @@ init_shoot_range(char *s) {
 }
 
 void
-dump_shoot_range(FILE *fp, int32 f) {
+pp_shoot_dump_shoot_range(FILE *fp, int32 f) {
     io_string(shoot_range.item, 11, fp, f);
     io_int(&shoot_range.side, fp, f, "BVP side");
     io_int(&shoot_range.cycle, fp, f, "color cycle flag 1=on");
@@ -280,7 +280,7 @@ set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
 }
 
 void
-find_bvp_com(int32 com) {
+pp_shoot_find_bvp_com(int32 com) {
     int32 ishow = 0, iret;
     int32 iper = 0, ivar = 0, ipar = 0, pflag;
     double sect = 0.0;
@@ -294,7 +294,7 @@ find_bvp_com(int32 com) {
     }
     browse_wipe_rep();
     adj2_data_back();
-    compile_bvp();
+    pp_shoot_compile_bvp();
     if (FFT || HIST || DelayFlag || BVP_FLAG == 0)
         return;
     STORFLAG = 0;

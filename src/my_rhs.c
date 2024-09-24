@@ -52,7 +52,7 @@ my_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
     SETVAR(i+1,y[i]);
   for(i=neq;i<neq+FIX_VAR;i++)
     SETVAR(i+1,evaluate(my_ode[i]));
-  eval_all_nets();
+  simplenet_eval_all_nets();
   extra_do_in_out();
   } */
 void
@@ -65,7 +65,7 @@ set_fix_rhs(double t, double *y) {
         SETVAR(i + 1 + NODE + FIX_VAR, y[i + NODE]);
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
-    eval_all_nets();
+    simplenet_eval_all_nets();
 
     extra_do_in_out();
     return;
@@ -81,7 +81,7 @@ my_rhs(double t, double *y, double *ydot, int32 neq) {
     for (int32 i = NODE; i < NODE + FIX_VAR; i++) {
         SETVAR(i + 1, evaluate(my_ode[i]));
     }
-    eval_all_nets();
+    simplenet_eval_all_nets();
 
     dae_fun_do_daes();
 
@@ -99,7 +99,7 @@ update_based_on_current(void) {
     for (i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
 
-    eval_all_nets();
+    simplenet_eval_all_nets();
     extra_do_in_out();
     return;
 }

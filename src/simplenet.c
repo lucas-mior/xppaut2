@@ -234,7 +234,7 @@ net_interp(double x, int32 i) {
 }
 
 int32
-add_vectorizer(char *name, char *rhs) {
+simplenet_add_vectorizer(char *name, char *rhs) {
     int32 i, ivar, il, ir;
     int32 ind;
     int32 len;
@@ -261,7 +261,7 @@ add_vectorizer(char *name, char *rhs) {
 }
 
 void
-add_vectorizer_name(char *name, char *rhs) {
+simplenet_add_vectorizer_name(char *name, char *rhs) {
     (void)rhs;
     if (n_vector >= MAXVEC) {
         ggets_plintf("Too many vectors \n");
@@ -275,7 +275,7 @@ add_vectorizer_name(char *name, char *rhs) {
 }
 
 double
-vector_value(double x, int32 i) {
+simplenet_vector_value(double x, int32 i) {
     int32 il = my_vec[i].il, ir = my_vec[i].ir, n = my_vec[i].length,
           k = (int32)x;
     int32 root = my_vec[i].root;
@@ -297,7 +297,7 @@ vector_value(double x, int32 i) {
 }
 
 double
-network_value(double x, int32 i) {
+simplenet_network_value(double x, int32 i) {
     int32 j = (int32)x;
     if (my_net[i].type == INTERP)
         return net_interp(x, i);
@@ -315,7 +315,7 @@ init_net(double *v, int32 n) {
 }
 
 int32
-add_spec_fun(char *name, char *rhs) {
+simplenet_add_spec_fun(char *name, char *rhs) {
     int32 i, ind, elen;
     int32 type;
     int32 iwgt, itau, iind, ivar, ivar2;
@@ -619,7 +619,7 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
-        ntab = get_lookup_len(iwgt);
+        ntab = tabular_get_lookup_len(iwgt);
         if (type == FFTCONP && ntab < ntot) {
             ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab, ntot);
             return 0;
@@ -1065,7 +1065,7 @@ add_spec_fun(char *name, char *rhs) {
 }
 
 void
-add_special_name(char *name, char *rhs) {
+simplenet_add_special_name(char *name, char *rhs) {
     if (is_network(rhs)) {
         ggets_plintf(" netrhs = |%s| \n", rhs);
         if (n_network >= MAX_NET) {
@@ -1117,7 +1117,7 @@ is_network(char *s) {
 }
 
 void
-eval_all_nets(void) {
+simplenet_eval_all_nets(void) {
     int32 i;
     for (i = 0; i < n_network; i++)
         evaluate_network(i);
@@ -1396,7 +1396,7 @@ evaluate_network(int32 ind) {
 }
 
 void
-update_all_ffts(void) {
+simplenet_update_all_ffts(void) {
     int32 i;
 
     for (i = 0; i < n_network; i++)

@@ -173,7 +173,7 @@ many_pops_get_intern_set(void) {
     }
     graphics_get_graph();
     load_eqn_extract_internset(j);
-    chk_delay();
+    numerics_chk_delay();
     init_conds_redraw_params();
     init_conds_redraw_ics();
     graphics_reset_graph();
@@ -800,7 +800,7 @@ add_pntarr(int32 type) {
         return;
     if (ggets_new_int("Color: ", &color))
         return;
-    /* message_box(&temp,0,SCALEY-5*DCURY,"Choose start/end"); */
+    /* pop_list_message_box(&temp,0,SCALEY-5*DCURY,"Choose start/end"); */
     menudrive_message_box("Choose start/end");
     flag = rubber(&i1, &j1, &i2, &j2, draw_win, 1);
     /*  XDestroyWindow(display,temp); */
@@ -1009,7 +1009,7 @@ many_pops_do_windows_com(int32 c) {
         many_pops_create_a_pop();
         break;
     case 1:
-        if (yes_no_box())
+        if (pop_list_yes_no_box())
             kill_all_pops();
         break;
     case 3:
@@ -1052,8 +1052,8 @@ void
 destroy_a_pop(void) {
     int32 i;
     if (draw_win == graph[0].window) {
-        respond_box("Okay", "Can't destroy big window!");
-        /*respond_box(main_win,0,0,"Okay","Can't destroy big window!");*/
+        pop_list_respond_box("Okay", "Can't destroy big window!");
+        /*pop_list_respond_box(main_win,0,0,"Okay","Can't destroy big window!");*/
         return;
     }
     for (i = 1; i < MAXPOP; i++)
@@ -1121,7 +1121,7 @@ many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
 void
 many_pops_ps_restore(void) {
     if (Xup) {
-        redraw_dfield();
+        nullcline_redraw_dfield();
         ps_do_color(0);
         if (MyGraph->Nullrestore) {
             restore_nullclines();
@@ -1132,8 +1132,8 @@ many_pops_ps_restore(void) {
 
     integrate_restore(0, my_browser.maxrow);
 
-    do_batch_nclines();
-    do_batch_dfield();
+    nullcline_do_batch_nclines();
+    nullcline_do_batch_dfield();
     axes2_do();
 
     ps_do_color(0);
@@ -1153,7 +1153,7 @@ many_pops_svg_restore(void) {
     if(MyGraph->Nullrestore){restore_nullclines();ps_stroke();}
      */
 
-    redraw_dfield();
+    nullcline_redraw_dfield();
     if (MyGraph->Nullrestore)
         restore_nullclines();
     svg_last_pt_off();
@@ -1164,8 +1164,8 @@ many_pops_svg_restore(void) {
         many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
     }
-    do_batch_nclines();
-    do_batch_dfield();
+    nullcline_do_batch_nclines();
+    nullcline_do_batch_dfield();
     svg_end();
     return;
 }
@@ -1244,7 +1244,7 @@ many_pops_do_expose(XEvent event) {
     auto_x11_display(event.xany.window);
 #endif
     /* if(ev.xexpose.window==menu_pop){
-          draw_help();
+          menu_draw_help();
 
      return;
       }
@@ -1270,7 +1270,7 @@ many_pops_do_expose(XEvent event) {
             }
             if ((event.type == Expose) && (graph[i].Use) &&
                 (event.xexpose.window == graph[i].window)) {
-                /* redraw_dfield(); */
+                /* nullcline_redraw_dfield(); */
 
                 current_pop = i;
                 MyGraph = &graph[i];
@@ -1336,8 +1336,8 @@ many_pops_create_a_pop(void) {
         if (graph[i].Use == 0)
             break;
     if (i >= MAXPOP) {
-        /*respond_box(main_win,0,0,"Okay","Too many windows!");*/
-        respond_box("Okay", "Too many windows!");
+        /*pop_list_respond_box(main_win,0,0,"Okay","Too many windows!");*/
+        pop_list_respond_box("Okay", "Too many windows!");
         return;
     }
     index = i;

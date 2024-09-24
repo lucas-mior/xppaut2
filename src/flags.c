@@ -438,7 +438,7 @@ one_flag_step_symp(double *y, double dt, double *work, int32 neq, double *tim,
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *tim;
-        one_step_symp(y, dtt, work, neq, tim);
+        odesol2_one_step_symp(y, dtt, work, neq, tim);
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
             break;
         /* Its a hit !! */
@@ -466,7 +466,7 @@ one_flag_step_euler(double *y, double dt, double *work, int32 neq, double *tim,
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *tim;
-        one_step_euler(y, dtt, work, neq, tim);
+        odesol2_one_step_euler(y, dtt, work, neq, tim);
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
             break;
         /* Its a hit !! */
@@ -494,7 +494,7 @@ one_flag_step_discrete(double *y, double dt, double *work, int32 neq,
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *tim;
-        one_step_discrete(y, dtt, work, neq, tim);
+        odesol2_one_step_discrete(y, dtt, work, neq, tim);
         if ((hit = one_flag_step(yold, y, istart, told, tim, neq, &s)) == 0)
             break;
         /* Its a hit !! */

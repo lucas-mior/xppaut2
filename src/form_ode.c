@@ -1582,10 +1582,10 @@ compile_em(void) {
             extra_add_export_list(v->lhs, v->rhs);
         }
         if (v->type == VECTOR) {
-            add_vectorizer_name(v->lhs, v->rhs);
+            simplenet_add_vectorizer_name(v->lhs, v->rhs);
         }
         if (v->type == SPEC_FUN) {
-            add_special_name(v->lhs, v->rhs);
+            simplenet_add_special_name(v->lhs, v->rhs);
         }
         if (v->type == SOL_VAR) {
             if (dae_fun_add_svar(v->lhs, v->rhs) == 1)
@@ -1831,14 +1831,14 @@ compile_em(void) {
             ggets_plintf("%s=%s\n", v->lhs, v->rhs);
             break;
         case VECTOR:
-            if (add_vectorizer(v->lhs, v->rhs) == 0) {
+            if (simplenet_add_vectorizer(v->lhs, v->rhs) == 0) {
                 ggets_plintf(" Illegal vector  %s \n", v->rhs);
                 exit(0);
             }
 
             break;
         case SPEC_FUN:
-            if (add_spec_fun(v->lhs, v->rhs) == 0) {
+            if (simplenet_add_spec_fun(v->lhs, v->rhs) == 0) {
                 ggets_plintf(" Illegal special function %s \n", v->rhs);
                 exit(0);
             }

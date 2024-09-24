@@ -1265,8 +1265,8 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
                 last_ic[p->index] = p->val;
             if (s < 300) {
                 menudrive_clr_all_scrns();
-                redraw_dfield();
-                create_new_cline();
+                nullcline_redraw_dfield();
+                nullcline_create_new_cline();
                 many_pops_draw_label(draw_win);
                 SuppressBounds = 1;
                 integrate_run_now();
@@ -2351,7 +2351,7 @@ void
 init_conds_redo_stuff(void) {
     evaluate_derived();
     volterra_re_evaluate_kernels();
-    redo_all_fun_tables();
+    tabular_redo_all_fun_tables();
     evaluate_derived();
     return;
 }
@@ -2376,7 +2376,7 @@ set_default_params(void) {
 
     init_conds_redraw_params();
     volterra_re_evaluate_kernels();
-    redo_all_fun_tables();
+    tabular_redo_all_fun_tables();
 }
 
 void
@@ -2629,7 +2629,7 @@ load_entire_box(BoxList *b) {
         set_value_from_box(b, i);
     if (b->type == PARAMBOX) {
         volterra_re_evaluate_kernels();
-        redo_all_fun_tables();
+        tabular_redo_all_fun_tables();
         init_conds_reset_sliders();
     }
     if (b->type == DELAYBOX)

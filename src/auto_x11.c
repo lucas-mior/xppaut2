@@ -266,11 +266,11 @@ find_point(int32 ibr, int32 pt) {
             for (i = 0; i < NAutoPar; i++)
                 constants[Auto_index_to_array[i]] = d->par[i];
             evaluate_derived();
-            redo_all_fun_tables();
+            tabular_redo_all_fun_tables();
             init_conds_redraw_params();
             init_conds_redraw_ics();
             if ((d->per) > 0)
-                set_total(d->per);
+                numerics_set_total(d->per);
             break;
         }
         dnew = d->next;
@@ -606,7 +606,7 @@ auto_x11_traverse_diagram(void) {
             constants[Auto_index_to_array[i]] = grabpt.par[i];
     }
     evaluate_derived();
-    redo_all_fun_tables();
+    tabular_redo_all_fun_tables();
     init_conds_redraw_params();
     init_conds_redraw_ics();
 }

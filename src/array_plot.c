@@ -627,7 +627,7 @@ array_plot_gif_all(char *filename, int32 still) {
         XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0,
                   0);
 
-        add_ani_gif(xi, ap_fp, array_plot_range_count);
+        scrngif_add_ani_gif(xi, ap_fp, array_plot_range_count);
         XFreePixmap(display, xi);
         return;
     }
@@ -643,7 +643,7 @@ array_plot_gif_all(char *filename, int32 still) {
                            (uint)DefaultDepth(display, screen));
         XCopyArea(display, array_plot.wplot, xi, array_plot_gc, 0, 0, w, h, 0,
                   0);
-        screen_to_gif(xi, ap_fp);
+        scrngif_screen_to_gif(xi, ap_fp);
         fclose(ap_fp);
         XFreePixmap(display, xi);
     }

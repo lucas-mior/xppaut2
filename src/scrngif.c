@@ -58,7 +58,7 @@ GIFCOL gifcol[256];
 GIFCOL gifGcol[256];
 int32 NGlobalColors = 0;
 void
-set_global_map(int32 flag) {
+scrngif_set_global_map(int32 flag) {
     if (NGlobalColors == 0) { /* Cant use it if it aint there */
         UseGlobalMap = 0;
         return;
@@ -94,13 +94,13 @@ ppmtopix(uchar r, uchar g, uchar b, int32 *n) {
 }
 
 void
-end_ani_gif(FILE *fp) {
+scrngif_end_ani_gif(FILE *fp) {
     fputc(';', fp);
     return;
 }
 
 void
-add_ani_gif(Window win, FILE *fp, int32 count) {
+scrngif_add_ani_gif(Window win, FILE *fp, int32 count) {
     ggets_plintf("Frame %d \n", count);
     if (count == 0)
         gif_stuff(win, fp, FIRST_ANI_GIF);
@@ -110,13 +110,13 @@ add_ani_gif(Window win, FILE *fp, int32 count) {
 }
 
 void
-screen_to_gif(Window win, FILE *fp) {
+scrngif_screen_to_gif(Window win, FILE *fp) {
     gif_stuff(win, fp, MAKE_ONE_GIF);
     return;
 }
 
 void
-get_global_colormap(Window win) {
+scrngif_get_global_colormap(Window win) {
     FILE *junk = NULL;
     gif_stuff(win, junk, GET_GLOBAL_CMAP);
     return;

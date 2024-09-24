@@ -1419,7 +1419,7 @@ browse_open_write_file(FILE **fp, char *fil, int32 *ok) {
 
     *fp = fopen(fil, "w");
     if (*fp == NULL) {
-        respond_box("Ok", "Cannot open file");
+        pop_list_respond_box("Ok", "Cannot open file");
         *ok = 0;
     } else
         *ok = 1;
@@ -1446,7 +1446,7 @@ data_read(Browser *b) {
         return;
     fp = fopen(fil, "r");
     if (fp == NULL) {
-        respond_box("Ok", "Cannot open file");
+        pop_list_respond_box("Ok", "Cannot open file");
         return;
     }
     /*  Now we establish the width of the file and read it.

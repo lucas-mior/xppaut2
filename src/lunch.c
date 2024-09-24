@@ -229,7 +229,7 @@ read_lunch(FILE *fp) {
         volterra_allocate(temp, 1);
         MyStart = 1;
     }
-    chk_delay();
+    numerics_chk_delay();
     io_exprs(f, fp);
     io_graph(f, fp);
     if (set_type == 1) {
@@ -287,7 +287,7 @@ do_lunch(/* f=1 to read and 0 to write */
             volterra_allocate(temp, 1);
             MyStart = 1;
         }
-        chk_delay();
+        numerics_chk_delay();
         io_exprs(f, fp);
         io_graph(f, fp);
         if (set_type == 1) {
@@ -371,8 +371,8 @@ io_numerics(int32 f, FILE *fp) {
     io_int(&NMESH, fp, f, " nullcline mesh");
     io_int(&METHOD, fp, f, method[METHOD]);
     if (f == READEM) {
-        do_meth();
-        alloc_meth();
+        numerics_do_meth();
+        storage_alloc_meth();
     }
     io_double(&TEND, fp, f, "total");
     io_double(&DELTA_T, fp, f, "DeltaT");

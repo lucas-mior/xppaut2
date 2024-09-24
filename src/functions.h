@@ -3565,12 +3565,12 @@ void add_menu(Window base, int32 j, int32 n, char **names, char *key,
               char **hint);
 void create_the_menus(Window base);
 void menu_help(void);
-void help_num(void);
-void help_file(void);
+void menu_help_num(void);
+void menu_help_file(void);
 void menu_crossing(Window win, int32 yn);
 void menu_expose(Window win);
 void menu_button(Window win);
-void draw_help(void);
+void menu_draw_help(void);
 
 #endif
 
@@ -3639,24 +3639,24 @@ typedef struct NullClines {
     struct NullClines *n, *p;
 } NullClines;
 
-void create_new_cline(void);
-void froz_cline_stuff_com(int32 i);
+void nullcline_create_new_cline(void);
+void nullcline_froz_cline_stuff_com(int32 i);
 int32 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type);
 void add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                     int32 n_iy);
 void get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                     double dv, int32 n, int32 inx, int32 iny, double *mdf);
-void redraw_dfield(void);
-void direct_field_com(int32 c);
+void nullcline_redraw_dfield(void);
+void nullcline_direct_field_com(int32 c);
 void restore_nullclines(void);
-void new_clines_com(int32 c);
+void nullcline_new_clines_com(int32 c);
 void new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
                    double *stor, int32 *npts);
-void do_batch_nclines(void);
-void do_batch_dfield(void);
-void set_colorization_stuff(void);
+void nullcline_do_batch_nclines(void);
+void nullcline_do_batch_dfield(void);
+void nullcline_set_colorization_stuff(void);
 void silent_nullclines(void);
-void silent_dfields(void);
+void nullcline_silent_dfields(void);
 
 #endif
 
@@ -3696,17 +3696,17 @@ extern int32 HIST;
 extern int32 HVAR;
 extern int32 hist_ind;
 
-void chk_volterra(void);
-void quick_num(int32 com);
+void numerics_chk_volterra(void);
+void numerics_quick_num(int32 com);
 void get_num_par(int32 ch);
-void chk_delay(void);
-void set_delay(void);
-void get_pmap_pars_com(int32 l);
-void set_col_par_com(int32 i);
-void do_meth(void);
-void set_total(double total);
-void user_set_color_par(int32 flag, char *via, double lo, double hi);
-void compute_one_period(double period, double *x, char *name);
+void numerics_chk_delay(void);
+void numerics_set_delay(void);
+void numerics_get_pmap_pars_com(int32 l);
+void numerics_set_col_par_com(int32 i);
+void numerics_do_meth(void);
+void numerics_set_total(double total);
+void numerics_user_set_color_par(int32 flag, char *via, double lo, double hi);
+void numerics_compute_one_period(double period, double *x, char *name);
 #endif
 
 #ifndef ODESOL2_H
@@ -3721,9 +3721,9 @@ int32 bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
 int32 one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
                    double *yp, double *yp2, double *ytemp, double *errvec,
                    double *jac);
-void one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t);
-void one_step_symp(double *y, double h, double *f, int32 n, double *t);
-void one_step_euler(double *y, double dt, double *yp, int32 neq, double *t);
+void odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t);
+void odesol2_one_step_symp(double *y, double h, double *f, int32 n, double *t);
+void odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t);
 void one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
                   double *tim);
 void one_step_heun(double *y, double dt, double *yval[2], int32 neq,
@@ -3849,8 +3849,8 @@ extern TEXTWIN mytext;
 #define SB_MARKER 5
 #define SB_METHOD 6
 
-void set_window_title(Window win, char *string);
-void make_scrbox_lists(void);
+void pop_list_set_window_title(Window win, char *string);
+void pop_list_make_scrbox_lists(void);
 int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
                     char values[][MAX_LEN_SBOX], int32 maxchar);
 void do_hilite_text(char *name, char *value, int32 flag, Window window,
@@ -3871,13 +3871,13 @@ Window make_plain_window(Window root, int32 x, int32 y, int32 width,
                          int32 height, int32 bw);
 void expose_resp_box(char *button, char *message, Window wb, Window wm,
                      Window window);
-void respond_box(char *button, char *message);
-void message_box(Window *w, int32 x, int32 y, char *message);
+void pop_list_respond_box(char *button, char *message);
+void pop_list_message_box(Window *w, int32 x, int32 y, char *message);
 void expose_choice(char *choice1, char *choice2, char *msg, Window c1,
                    Window c2, Window wm, Window window);
 int32 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
                  int32 y, Window window, char *title);
-int32 yes_no_box(void);
+int32 pop_list_yes_no_box(void);
 int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
                   int32 max, int32 def, int32 x, int32 y, char **hints,
                   Window hwin, char *httxt);
@@ -3895,11 +3895,11 @@ Window make_icon_window(Window root, int32 x, int32 y, int32 width,
 
 void do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
            int32 n);
-void compile_bvp(void);
-void reset_bvp(void);
-void init_shoot_range(char *s);
-void dump_shoot_range(FILE *fp, int32 f);
-void find_bvp_com(int32 com);
+void pp_shoot_compile_bvp(void);
+void pp_shoot_reset_bvp(void);
+void pp_shoot_init_shoot_range(char *s);
+void pp_shoot_dump_shoot_range(FILE *fp, int32 f);
+void pp_shoot_find_bvp_com(int32 com);
 void bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
              int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
              int32 ivar, double sect);
@@ -3933,11 +3933,11 @@ typedef struct GIFCOL {
     uchar r, g, b;
 } GIFCOL;
 
-void set_global_map(int32 flag);
-void end_ani_gif(FILE *fp);
-void add_ani_gif(Window win, FILE *fp, int32 count);
-void screen_to_gif(Window win, FILE *fp);
-void get_global_colormap(Window win);
+void scrngif_set_global_map(int32 flag);
+void scrngif_end_ani_gif(FILE *fp);
+void scrngif_add_ani_gif(Window win, FILE *fp, int32 count);
+void scrngif_screen_to_gif(Window win, FILE *fp);
+void scrngif_get_global_colormap(Window win);
 void write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
                         int32 delay);
 uchar *scrngif_add_code_to_buffer(int32 code, int16 n, uchar *buf);
@@ -3947,16 +3947,16 @@ uchar *scrngif_add_code_to_buffer(int32 code, int16 n, uchar *buf);
 #ifndef SIMPLENET_H
 #define SIMPLENET_H
 
-double network_value(double x, int32 i);
-int32 add_spec_fun(char *name, char *rhs);
-void add_special_name(char *name, char *rhs);
-int32 add_vectorizer(char *name, char *rhs);
-void add_vectorizer_name(char *name, char *rhs);
-void eval_all_nets(void);
-void update_all_ffts(void);
+double simplenet_network_value(double x, int32 i);
+int32 simplenet_add_spec_fun(char *name, char *rhs);
+void simplenet_add_special_name(char *name, char *rhs);
+int32 simplenet_add_vectorizer(char *name, char *rhs);
+void simplenet_add_vectorizer_name(char *name, char *rhs);
+void simplenet_eval_all_nets(void);
+void simplenet_update_all_ffts(void);
 void fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
               double *ffti, double *dr, double *di);
-double vector_value(double x, int32 i);
+double simplenet_vector_value(double x, int32 i);
 
 #endif
 
@@ -4199,9 +4199,9 @@ void rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
 #ifndef STORAGE_H
 #define STORAGE_H
 
-void init_alloc_info(void);
-void alloc_meth(void);
-void init_stor(int32 nrow, int32 ncol);
+void storage_init_alloc_info(void);
+void storage_alloc_meth(void);
+void storage_init_stor(int32 nrow, int32 ncol);
 int32 storage_realloc(int32 ncol, int32 nrow);
 
 #endif
@@ -4209,16 +4209,16 @@ int32 storage_realloc(int32 ncol, int32 nrow);
 #ifndef TABULAR_H
 #define TABULAR_H
 
-void set_auto_eval_flags(int32 f);
-void set_table_name(char *name, int32 index);
-void new_lookup_com(int32 i);
+void tabular_set_auto_eval_flags(int32 f);
+void tabular_set_table_name(char *name, int32 index);
+void tabular_new_lookup_com(int32 i);
 double tabular_lookup(double x, int32 index);
-void init_table(void);
-void redo_all_fun_tables(void);
+void tabular_init_table(void);
+void tabular_redo_all_fun_tables(void);
 int32 create_fun_table(int32 npts, double xlo, double xhi, char *formula,
                        int32 index);
-int32 load_table(char *filename, int32 index);
-int32 get_lookup_len(int32 i);
+int32 tabular_load_table(char *filename, int32 index);
+int32 tabular_get_lookup_len(int32 i);
 
 #endif
 

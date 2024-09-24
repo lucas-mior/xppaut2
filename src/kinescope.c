@@ -44,12 +44,12 @@ static int32 show_frame(int32 i, int32 h, int32 w);
 void
 kinescope_do_movie_com(int32 c) {
     /*  XDestroyWindow(display,temp);
-      draw_help();
+      menu_draw_help();
       XFlush(display); */
     switch (c) {
     case 0:
         if (kinescope_film_clip() == 0)
-            respond_box("Okay", "Out of film!");
+            pop_list_respond_box("Okay", "Out of film!");
         break;
     case 1:
         kinescope_reset_film();
@@ -226,18 +226,18 @@ make_anigif(void) {
         }
     }
     fp = fopen("anim.gif", "wb");
-    set_global_map(1);
+    scrngif_set_global_map(1);
     for (i = 0; i < mov_ind; i++) {
         XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
                   (uint)h, 0, 0);
         XFlush(display);
-        /* add_ani_gif(draw_win,fp,i); */
-        add_ani_gif(movie[i].xi, fp, i);
+        /* scrngif_add_ani_gif(draw_win,fp,i); */
+        scrngif_add_ani_gif(movie[i].xi, fp, i);
     }
 
-    end_ani_gif(fp);
+    scrngif_end_ani_gif(fp);
     fclose(fp);
-    set_global_map(0);
+    scrngif_set_global_map(0);
     return;
 }
 
@@ -280,7 +280,7 @@ save_movie(char *basename, int32 fmat) {
                       0, 0);
 
             fp = fopen(file, "wb");
-            screen_to_gif(xi, fp);
+            scrngif_screen_to_gif(xi, fp);
             fclose(fp);
         }
 #endif
@@ -368,5 +368,5 @@ auto_play(void) {
 
 void
 too_small(void) {
-    respond_box("Okay", "Window too small for film!");
+    pop_list_respond_box("Okay", "Window too small for film!");
 }

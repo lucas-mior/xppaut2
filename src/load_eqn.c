@@ -605,7 +605,7 @@ load_eqn_set_all_vals(void) {
     array_plot_init_my();
     init_txtview();
 
-    chk_volterra();
+    numerics_chk_volterra();
 
     /*                           */
 
@@ -643,14 +643,14 @@ load_eqn_set_all_vals(void) {
         x_3d[1] = MY_XHI;
         y_3d[1] = MY_YHI;
     }
-    init_stor(MAXSTOR, NEQ + 1);
+    storage_init_stor(MAXSTOR, NEQ + 1);
     if (AXES >= 5)
         PLOT_3D = 1;
-    chk_delay(); /* check for delay allocation */
+    numerics_chk_delay(); /* check for delay allocation */
     adj2_alloc_h_stuff();
 
     volterra_alloc_memory(); /* allocate stuff for volterra equations */
-    alloc_meth();
+    storage_alloc_meth();
     integrate_arr_ic_start(); /* take care of all predefined array ics */
     return;
 }
@@ -872,8 +872,8 @@ do_intern_set(char *name1, char *value) {
             load_eqn_set_option(name, value, 1, NULL);
         }
     }
-    alloc_meth();
-    do_meth();
+    storage_alloc_meth();
+    numerics_do_meth();
 }
 /*  ODE options stuff  here !!   */
 
@@ -2051,7 +2051,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         if ((notAlreadySet.AUTOEVAL || force) ||
             ((mask != NULL) && (mask->AUTOEVAL == 1))) {
             f = atoi(s2);
-            set_auto_eval_flags(f);
+            tabular_set_auto_eval_flags(f);
             notAlreadySet.AUTOEVAL = 0;
         }
         return;

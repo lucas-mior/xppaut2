@@ -21,7 +21,7 @@ extern int32 METHOD;
 extern XPPVEC xpv;
 
 void
-init_alloc_info(void) {
+storage_init_alloc_info(void) {
     int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
@@ -32,7 +32,7 @@ init_alloc_info(void) {
 }
 
 void
-alloc_meth(void) {
+storage_alloc_meth(void) {
     int32 nn = xpv.node + xpv.nvec;
     int32 sz = 30*nn;
     switch (METHOD) {
@@ -74,7 +74,7 @@ storage_realloc(int32 ncol, int32 nrow) {
 }
 
 void
-init_stor(int32 nrow, int32 ncol) {
+storage_init_stor(int32 nrow, int32 ncol) {
     int32 i;
     WORK = NULL;
     storage = xmalloc((MAX_ODE + 1)*sizeof(double *));

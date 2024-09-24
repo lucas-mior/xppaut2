@@ -460,13 +460,13 @@ do_main(int32 argc, char **argv) {
     load_eqn_set_internopts(tempNS);
     free(tempNS);
 
-    init_alloc_info();
+    storage_init_alloc_info();
     main_do_vis_env();
     load_eqn_set_all_vals();
 
-    init_alloc_info();
+    storage_init_alloc_info();
     dae_fun_set_init_guess();
-    update_all_ffts();
+    simplenet_update_all_ffts();
 
 #ifdef AUTO
     init_auto_win();
@@ -483,9 +483,9 @@ do_main(int32 argc, char **argv) {
         snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xppvermaj,
                  xppvermin);
     }
-    do_meth();
+    numerics_do_meth();
 
-    set_delay();
+    numerics_set_delay();
     rhs = my_rhs;
     do_fit_init_info();
     form_ode_strip_saveqn();
@@ -502,12 +502,12 @@ do_main(int32 argc, char **argv) {
         comline_if_needed_select_sets();
         comline_if_needed_load_ext_options();
         graphics_set_extra();
-        set_colorization_stuff();
+        nullcline_set_colorization_stuff();
         batch_integrate();
         if (NCBatch > 0)
             silent_nullclines();
         if (DFBatch > 0)
-            silent_dfields();
+            nullcline_silent_dfields();
         integrate_silent_equilibria();
         exit(0);
     }
@@ -537,9 +537,9 @@ do_main(int32 argc, char **argv) {
     Xup = 1;
     ani_zero();
     graphics_set_extra();
-    set_colorization_stuff();
+    nullcline_set_colorization_stuff();
 
-    make_scrbox_lists();
+    pop_list_make_scrbox_lists();
 
     /*          MAIN LOOP             */
     test_color_info();
@@ -973,7 +973,7 @@ main_clr_scrn(void) {
 void
 main_redraw_all(void) {
     if (manual_expose == 0) {
-        redraw_dfield();
+        nullcline_redraw_dfield();
         integrate_restore(0, my_browser.maxrow);
         many_pops_draw_label(draw_win);
         graf_par_draw_freeze(draw_win);
@@ -1012,10 +1012,10 @@ main_commander(int32 ch) {
             menudrive_add_a_curve();
             break;
         case 'u':
-            help_num();
+            menu_help_num();
             break;
         case 'f':
-            help_file();
+            menu_help_file();
             break;
         case 'p':
             menudrive_new_param();
@@ -1102,7 +1102,7 @@ main_commander(int32 ch) {
             menudrive_xpp_hlp();
             break;
         case 'q':
-            if (yes_no_box())
+            if (pop_list_yes_no_box())
                 bye_bye();
             break;
         case 'l':

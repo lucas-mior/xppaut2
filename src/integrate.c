@@ -222,7 +222,7 @@ integrate_dump_range(FILE *fp, int32 f) {
     io_double(&range.plow2, fp, f, "Par2 low");
     io_double(&range.phigh, fp, f, "Par1 high");
     io_double(&range.phigh2, fp, f, "Par2 high");
-    dump_shoot_range(fp, f);
+    pp_shoot_dump_shoot_range(fp, f);
     if (f == READEM)
         range.steps2 = range.steps;
     return;
@@ -270,7 +270,7 @@ integrate_init_range(void) {
         notAlreadySet.RANGEOVER = 0;
     }
     sprintf(range.item2, "%s", uvar_names[0]);
-    init_shoot_range(upar_names[0]);
+    pp_shoot_init_shoot_range(upar_names[0]);
     init_monte_carlo();
     return;
 }
@@ -721,7 +721,7 @@ do_eq_range(double *x) {
         sprintf(bob, "%s=%.16g", eq_range.item, temp);
         ggets_bottom_msg(bob);
         evaluate_derived();
-        /*  I think  */ redo_all_fun_tables();
+        /*  I think  */ tabular_redo_all_fun_tables();
         if (mc) {
             do_monte_carlo_search(0, 0, 1);
         } else {
@@ -883,7 +883,7 @@ integrate_do_range(double *x, int32 flag) {
                     x[ivar] = p;
                 else {
                     set_val(range.item, p);
-                    redo_all_fun_tables();
+                    tabular_redo_all_fun_tables();
                     volterra_re_evaluate_kernels();
                 }
                 if (range.rtype > 0) {
@@ -891,7 +891,7 @@ integrate_do_range(double *x, int32 flag) {
                         x[ivar2] = p2;
                     else {
                         set_val(range.item2, p2);
-                        redo_all_fun_tables();
+                        tabular_redo_all_fun_tables();
                         volterra_re_evaluate_kernels();
                     }
                 }
@@ -929,8 +929,8 @@ integrate_do_range(double *x, int32 flag) {
 
             if (range.movie) {
                 graphics_put_text_x11(5, 10, bob);
-                redraw_dfield();
-                create_new_cline();
+                nullcline_redraw_dfield();
+                nullcline_create_new_cline();
                 many_pops_draw_label(draw_win);
                 if (kinescope_film_clip() == 0) {
                     ggets_err_msg("Out of film");
@@ -941,7 +941,7 @@ integrate_do_range(double *x, int32 flag) {
             if (adj_range) {
                 sprintf(bob, "%s_%g", range.item, p);
                 data_get_my_browser(storind - 1);
-                compute_one_period((double)storage[0][storind - 1], last_ic,
+                numerics_compute_one_period((double)storage[0][storind - 1], last_ic,
                                    bob);
             }
 
@@ -1099,7 +1099,7 @@ batch_integrate(void) {
         }
         ggets_plintf("out=%s\n", batchout);
         load_eqn_extract_internset(i);
-        chk_delay();
+        numerics_chk_delay();
         ggets_plintf(" Ok integrating now \n");
         do_batch_dry_run();
         if (intern_set[i].use) {

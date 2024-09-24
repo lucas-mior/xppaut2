@@ -94,7 +94,7 @@ static double lookupxy(double x, int32 n, double *xv, double *yv);
 static void view_table(int32 index);
 
 void
-set_auto_eval_flags(int32 f) {
+tabular_set_auto_eval_flags(int32 f) {
     int32 i;
     for (i = 0; i < MAX_TAB; i++)
         my_table[i].autoeval = f;
@@ -102,7 +102,7 @@ set_auto_eval_flags(int32 f) {
 }
 
 void
-set_table_name(char *name, int32 index) {
+tabular_set_table_name(char *name, int32 index) {
     strcpy(my_table[index].name, name);
     return;
 }
@@ -125,7 +125,7 @@ view_table(int32 index) {
 }
 
 void
-new_lookup_com(int32 i) {
+tabular_new_lookup_com(int32 i) {
     char file[128];
     int32 index, ok, status;
     double xlo;
@@ -145,7 +145,7 @@ new_lookup_com(int32 i) {
         status = init_conds_file_selector("Load table", file, "*.tab");
         if (status == 0)
             return;
-        ok = load_table(file, index);
+        ok = tabular_load_table(file, index);
         if (ok == 1)
             strcpy(my_table[index].filename, file);
     }
@@ -250,7 +250,7 @@ tabular_lookup(double x, int32 index) {
 }
 
 void
-init_table(void) {
+tabular_init_table(void) {
     int32 i;
     for (i = 0; i < MAX_TAB; i++) {
         my_table[i].flag = 0;
@@ -261,14 +261,14 @@ init_table(void) {
 }
 
 void
-redo_all_fun_tables(void) {
+tabular_redo_all_fun_tables(void) {
     int32 i;
     for (i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
             eval_fun_table(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
                            my_table[i].filename, my_table[i].y);
     }
-    update_all_ffts();
+    simplenet_update_all_ffts();
     return;
 }
 
@@ -338,7 +338,7 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
 }
 
 int32
-load_table(char *filename, int32 index) {
+tabular_load_table(char *filename, int32 index) {
     int32 i;
     char bobtab[100];
     char *bob;
@@ -448,7 +448,7 @@ load_table(char *filename, int32 index) {
 }
 
 int32
-get_lookup_len(int32 i) {
+tabular_get_lookup_len(int32 i) {
     return my_table[i].n;
 }
 

@@ -116,7 +116,7 @@ static void ruelle(void);
 static void check_pos(int32 *j);
 
 void
-chk_volterra(void) {
+numerics_chk_volterra(void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
     return;
@@ -130,7 +130,7 @@ check_pos(int32 *j) {
 }
 
 void
-quick_num(int32 com) {
+numerics_quick_num(int32 com) {
     char key[] = "tsrdnviobec";
     if (com >= 0 && com < 11)
         get_num_par(key[com]);
@@ -138,7 +138,7 @@ quick_num(int32 com) {
 }
 
 void
-set_total(double total) {
+numerics_set_total(double total) {
     int32 n;
     n = (int32)(total / fabs(DELTA_T)) + 1;
     TEND = n*fabs(DELTA_T);
@@ -201,7 +201,7 @@ get_num_par(int32 ch)
         check_pos(&BVP_MAXIT);
         ggets_new_float("Tolerance :", &BVP_TOL);
         ggets_new_float("Epsilon :", &BVP_EPS);
-        reset_bvp();
+        pp_shoot_reset_bvp();
         break;
     case 'i':
         /* sing pt */
@@ -309,9 +309,9 @@ get_num_par(int32 ch)
         menudrive_new_lookup();
         break;
     case 27:
-        do_meth();
+        numerics_do_meth();
         TEND = fabs(TEND);
-        alloc_meth();
+        storage_alloc_meth();
         menu_help();
         break;
     default:
@@ -321,7 +321,7 @@ get_num_par(int32 ch)
 }
 
 void
-chk_delay(void) {
+numerics_chk_delay(void) {
     if (DELAY > 0.0) {
         delay_handle_free_delay();
         if (delay_handle_alloc_delay(DELAY)) {
@@ -333,7 +333,7 @@ chk_delay(void) {
 }
 
 void
-set_delay(void) {
+numerics_set_delay(void) {
     if (NDELAYS == 0)
         return;
     if (DELAY > 0.0) {
@@ -360,7 +360,7 @@ ruelle(void) {
 }
 
 void
-compute_one_period(double period, double *x, char *name) {
+numerics_compute_one_period(double period, double *x, char *name) {
     int32 opm = POIMAP;
     char filename[256];
     double ot = TRANS, ote = TEND;
@@ -411,7 +411,7 @@ compute_one_period(double period, double *x, char *name) {
 }
 
 void
-get_pmap_pars_com(int32 l) {
+numerics_get_pmap_pars_com(int32 l) {
     static char mkey[] = "nsmp";
     char ch;
     static char *n[] = {"*0Variable", "Section", "Direction (+1,-1,0)",
@@ -489,7 +489,7 @@ get_method(void) {
 }
 
 void
-user_set_color_par(int32 flag, char *via, double lo, double hi) {
+numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
     int32 ivar;
     MyGraph->min_scale = lo;
     if (hi > lo)
@@ -515,7 +515,7 @@ user_set_color_par(int32 flag, char *via, double lo, double hi) {
 }
 
 void
-set_col_par_com(int32 i) {
+numerics_set_col_par_com(int32 i) {
     int32 j;
     int32 ivar;
     double temp[2];
@@ -589,7 +589,7 @@ set_col_par_com(int32 i) {
 }
 
 void
-do_meth(void) {
+numerics_do_meth(void) {
     if (NKernel > 0)
         METHOD = VOLTERRA;
     switch (METHOD) {

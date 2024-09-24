@@ -37,7 +37,7 @@ static int32 get_x_coord_win(Window win);
 TEXTWIN mytext;
 SCRBOX_LIST scrbox_list[10];
 void
-set_window_title(Window win, char *string) {
+pop_list_set_window_title(Window win, char *string) {
     XTextProperty wname;
     XTextProperty iname;
     XStringListToTextProperty(&string, 1, &wname);
@@ -57,7 +57,7 @@ set_window_title(Window win, char *string) {
 /* these are the standard lists that are possible */
 
 void
-make_scrbox_lists(void) {
+pop_list_make_scrbox_lists(void) {
     int32 i;
     int32 n;
     static char *method[] = {
@@ -960,7 +960,7 @@ expose_resp_box(char *button, char *message, Window wb, Window wm,
 }
 
 void
-respond_box(char *button, char *message) {
+pop_list_respond_box(char *button, char *message) {
     int32 l1 = (int32)strlen(message);
     int32 l2 = (int32)strlen(button);
     int32 width;
@@ -982,7 +982,7 @@ respond_box(char *button, char *message) {
                      DCURY, 1);
 
     ggets_ping();
-    set_window_title(wmain, "!!");
+    pop_list_set_window_title(wmain, "!!");
     XSelectInput(display, wb, BUT_MASK);
     while (!done) {
         XNextEvent(display, &event);
@@ -1020,7 +1020,7 @@ respond_box(char *button, char *message) {
 }
 
 void
-message_box(Window *w, int32 x, int32 y, char *message) {
+pop_list_message_box(Window *w, int32 x, int32 y, char *message) {
     int32 wid = (int32)strlen(message)*DCURX;
     int32 hgt = 4*DCURY;
     Window z;
@@ -1076,9 +1076,9 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     ggets_ping();
     if (window == RootWindow(display, screen)) {
         if (title == NULL) {
-            set_window_title(base, "!!!!");
+            pop_list_set_window_title(base, "!!!!");
         } else {
-            set_window_title(base, title);
+            pop_list_set_window_title(base, title);
         }
     }
 
@@ -1131,7 +1131,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
 }
 
 int32
-yes_no_box(void) {
+pop_list_yes_no_box(void) {
     char ans;
     ans = (char)menudrive_two_choice("YES", "NO", "Are you sure?", "yn");
     if (ans == 'y')

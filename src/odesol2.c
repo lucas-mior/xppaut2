@@ -37,7 +37,7 @@ symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     int32 i;
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
-            one_step_symp(y, dt, work, neq, tim);
+            odesol2_one_step_symp(y, dt, work, neq, tim);
         }
         delay_handle_stor_delay(y);
         return 0;
@@ -57,7 +57,7 @@ discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     int32 i;
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
-            one_step_discrete(y, dt, work, neq, tim);
+            odesol2_one_step_discrete(y, dt, work, neq, tim);
             delay_handle_stor_delay(y);
         }
         return 0;
@@ -154,7 +154,7 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
 }
 
 void
-one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
+odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
     int32 j;
     markov_set_wieners(dt, y, *t);
     rhs(*t, y, yp, neq);
@@ -166,7 +166,7 @@ one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
 }
 
 void
-one_step_symp(double *y, double h, double *f, int32 n, double *t) {
+odesol2_one_step_symp(double *y, double h, double *f, int32 n, double *t) {
     int32 s;
     int32 j;
     for (s = 0; s < 3; s++) {
@@ -181,7 +181,7 @@ one_step_symp(double *y, double h, double *f, int32 n, double *t) {
 }
 
 void
-one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
+odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
     int32 j;
 
     markov_set_wieners(dt, y, *t);
@@ -245,7 +245,7 @@ euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     int32 i;
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
-            one_step_euler(y, dt, work, neq, tim);
+            odesol2_one_step_euler(y, dt, work, neq, tim);
             delay_handle_stor_delay(y);
         }
         return 0;

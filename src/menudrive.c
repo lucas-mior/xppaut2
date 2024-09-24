@@ -160,7 +160,7 @@ menudrive_message_box(char *m) {
 
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.window);
     MsgBox.here = 1;
-    set_window_title(MsgBox.window, "Yo!");
+    pop_list_set_window_title(MsgBox.window, "Yo!");
     strcpy(MsgBox.text, m);
     ggets_ping();
     return;
@@ -270,23 +270,23 @@ menudrive_run_the_commands(int32 com) {
         return;
     }
     if (com >= M_NFF && com <= M_NFA) {
-        froz_cline_stuff_com(com - M_NFF);
+        nullcline_froz_cline_stuff_com(com - M_NFF);
         return;
     }
 
     if (com >= M_NN && com <= M_NS) {
-        new_clines_com(com - M_NN);
+        nullcline_new_clines_com(com - M_NN);
         return;
     }
 
     if (com >= M_DD && com <= M_DS) {
-        direct_field_com(com - M_DD);
+        nullcline_direct_field_com(com - M_DD);
         if ((com - M_DD) == 1)
             return;
-        create_new_cline();
+        nullcline_create_new_cline();
         graf_par_redraw_the_graph();
-        /*redraw_dfield();*/
-        /*create_new_cline();
+        /*nullcline_redraw_dfield();*/
+        /*nullcline_create_new_cline();
         integrate_run_now();*/
         /*main_redraw_all();
          */
@@ -320,7 +320,7 @@ menudrive_run_the_commands(int32 com) {
 
     if (com >= M_GCN && com <= M_GCU) {
         graf_par_change_cmap_com(com - M_GCN);
-        redraw_dfield();
+        nullcline_redraw_dfield();
 
         return;
     }
@@ -330,7 +330,7 @@ menudrive_run_the_commands(int32 com) {
         return;
     }
     if (com == M_UKE || com == M_UKV) {
-        new_lookup_com(com - M_UKE);
+        tabular_new_lookup_com(com - M_UKE);
         return;
     }
     if (com == M_R) {
@@ -378,7 +378,7 @@ menudrive_run_the_commands(int32 com) {
         return;
     }
     if (com >= M_BR && com <= M_BH) {
-        find_bvp_com(com - M_BR);
+        pp_shoot_find_bvp_com(com - M_BR);
         return;
     }
 
@@ -387,13 +387,13 @@ menudrive_run_the_commands(int32 com) {
     if (com >= M_UAN && com <= M_UAR)
         adj2_make_adj_com(com - M_UAN);
     if (com >= M_UCN && com <= M_UCA)
-        set_col_par_com(com - M_UCN);
+        numerics_set_col_par_com(com - M_UCN);
     if (com >= M_UPN && com <= M_UPP)
-        get_pmap_pars_com(com - M_UPN);
+        numerics_get_pmap_pars_com(com - M_UPN);
     if (com >= M_UHN && com <= M_UH2)
         markov_do_stochast_com(com - M_UHN);
     if (com >= M_UT && com <= M_UC)
-        quick_num(com - M_UT);
+        numerics_quick_num(com - M_UT);
     return;
 }
 
@@ -519,7 +519,7 @@ do_file_com(int32 com) {
         menudrive_do_tutorial();
         break;
     case M_FQ:
-        if (yes_no_box())
+        if (pop_list_yes_no_box())
             bye_bye();
         break;
     case M_FER:

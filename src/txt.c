@@ -150,7 +150,7 @@ do_txt_action(char *s) {
     load_eqn_extract_action(s);
     ggets_ping();
     tfBell = tb;
-    chk_delay();
+    numerics_chk_delay();
     init_conds_redraw_params();
     init_conds_redraw_ics();
     graphics_reset_graph();
