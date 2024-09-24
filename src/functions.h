@@ -3240,6 +3240,15 @@ extern int32 use_ani_file;
 extern int32 XPPBatch;
 extern int32 batch_range;
 extern int32 BatchEquil;
+extern int32 PaperWhite;
+
+extern int32 UserGradients;
+extern int32 UserMinWidth;
+extern int32 UserMinHeight;
+extern int32 periodic;
+extern int32 XPPVERBOSE;
+extern int32 OVERRIDE_QUIET;
+extern int32 OVERRIDE_LOGFILE;
 
 void *XMALLOC(usize size, const char *function, int32 line);
 #ifdef MALLOC_DEBUG
