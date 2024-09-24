@@ -4373,6 +4373,10 @@ void rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
 #ifndef STORAGE_H
 #define STORAGE_H
 
+extern double **storage;
+extern double *WORK;
+extern int32 IWORK[10000];
+
 void storage_init_alloc_info(void);
 void storage_alloc_meth(void);
 void storage_init_stor(int32 nrow, int32 ncol);

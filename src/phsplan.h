@@ -54,7 +54,6 @@ extern double T0;
 extern double TRANS;
 
 extern double *WORK;
-extern int32 IWORK[1000];
 
 extern int32 TORUS;
 extern int32 itor[MAX_ODE];
