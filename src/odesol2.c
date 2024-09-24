@@ -7,14 +7,14 @@
 
 int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 
-double coefp[] = {6.875 / 3.00, -7.375 / 3.00, 4.625 / 3.00, -.375},
-       coefc[] = {.375, 2.375 / 3.00, -.625 / 3.00, 0.125 / 3.00};
+static double coefp[] = {6.875 / 3.00, -7.375 / 3.00, 4.625 / 3.00, -.375};
+static double coefc[] = {.375, 2.375 / 3.00, -.625 / 3.00, 0.125 / 3.00};
 double *y_s[4];
 double *y_p[4];
 double *ypred;
 
-double symp_b[] = {7 / 24., .75, -1. / 24};
-double symp_B[] = {2 / 3., -2. / 3., 1.0};
+static double symp_b[] = {7 / 24., .75, -1. / 24};
+static double symp_B[] = {2 / 3., -2. / 3., 1.0};
 
 extern int32 euler_max_iter;
 extern double euler_tol;
