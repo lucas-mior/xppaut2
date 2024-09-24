@@ -962,6 +962,13 @@ extern int32 itor[MAX_ODE];
 extern int32 POIEXT;
 extern int32 HIST;
 
+extern int32 ENDSING;
+extern int32 SHOOT;
+extern int32 PAR_FOL;
+extern int32 xorfix;
+extern int32 silent;
+extern int32 got_file;
+
 /* The acutual max filename length is determined by the
  * FILENAME_MAX (see <stdio.h>), and usually 4096 -- but
  * this is huge and usually overkill.  On the otherhand

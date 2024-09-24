@@ -24,7 +24,7 @@ extern GRAPH *MyGraph;
 
 extern BcStruct my_bc[MAX_ODE];
 
-int32 set_type = 0;
+static int32 set_type = 0;
 
 extern FixInfo fixinfo[MAX_ODE];
 extern int32 FIX_VAR;
