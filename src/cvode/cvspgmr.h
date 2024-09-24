@@ -169,7 +169,7 @@ enum {
  *           update is *nfePtr += W.                              *
  *                                                                *
  * P_data is a pointer to user data - the same as the P_data      *
- *           parameter passed to CVSpgmr.                         *
+ *           parameter passed to cv_spgmr.                         *
  *                                                                *
  * vtemp1, vtemp2, and vtemp3 are pointers to memory allocated    *
  *           for vectors of length N which can be used by         *
@@ -239,7 +239,7 @@ typedef int32 (*CVSpgmrPrecondFn)(int64 N, double t, Vector y, Vector fy,
  *          P2: lr = 1 means use P1, and lr = 2 means use P2.     *
  *                                                                *
  * P_data is a pointer to user data - the same as the P_data      *
- *          parameter passed to CVSpgmr.                          *
+ *          parameter passed to cv_spgmr.                          *
  *                                                                *
  * z      is the output vector computed by PSolve.                *
  *                                                                *
@@ -259,9 +259,9 @@ typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, Vector y, Vector fy,
 
 /******************************************************************
  *                                                                *
- * Function : CVSpgmr                                             *
+ * Function : cv_spgmr                                             *
  *----------------------------------------------------------------*
- * A call to the CVSpgmr function links the main CVODE integrator *
+ * A call to the cv_spgmr function links the main CVODE integrator *
  * with the CVSPGMR linear solver.                                *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
@@ -316,7 +316,7 @@ typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, Vector y, Vector fy,
  *                                                                *
  ******************************************************************/
 
-void CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl,
+void cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl,
              double delt, CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve,
              void *P_data);
 

@@ -49,7 +49,7 @@
  * Types : CVSpgmrMemRec, CVSpgmrMem                              *
  *----------------------------------------------------------------*
  * The type CVSpgmrMem is pointer to a CVSpgmrMemRec. This        *
- * structure contains CVSpgmr solver-specific data.               *
+ * structure contains cv_spgmr solver-specific data.               *
  *                                                                *
  ******************************************************************/
 
@@ -141,15 +141,15 @@ static int32 cv_spgmr_psolve(void *lin_mem, Vector r, Vector z, int32 lr);
 #define nstlpre (cvspgmr_mem->g_nstlpre)
 #define spgmr_mem (cvspgmr_mem->g_spgmr_mem)
 
-/*************** CVSpgmr *********************************************
+/*************** cv_spgmr *********************************************
 
  This routine initializes the memory record and sets various function
- fields specific to the Spgmr linear solver module. CVSpgmr sets the
+ fields specific to the Spgmr linear solver module. cv_spgmr sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
  to be cv_spgmr_init, CVSpgmrSetup, CVSpgmrSolve, and cv_spgmr_free,
  respectively. It allocates memory for a structure of type
  CVSpgmrMemRec and sets the cv_lmem field in (*cvode_mem) to the
- address of this structure. CVSpgmr sets the following fields in the
+ address of this structure. cv_spgmr sets the following fields in the
  CVSpgmrMemRec structure:
 
    g_pretype = pretype
@@ -164,7 +164,7 @@ static int32 cv_spgmr_psolve(void *lin_mem, Vector r, Vector z, int32 lr);
 **********************************************************************/
 
 void
-CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
+cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
         CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
 
 {
