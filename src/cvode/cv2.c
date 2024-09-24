@@ -14,7 +14,7 @@
 static double cv_ropt[OPT_SIZE];
 static int32 cv_iopt[OPT_SIZE];
 
-static void cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata);
+static void cv_func(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata);
 static void *cvode_mem;
 static N_Vector ycv;
 
@@ -23,7 +23,7 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     ycv = N_VNew(n);
     for (int32 i = 0; i < n; i++)
         ycv->data[i] = y[i];
-    cvode_mem = cvode_malloc(n, cvf, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL,
+    cvode_mem = cvode_malloc(n, cv_func, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL,
                             NULL, FALSE, cv_iopt, cv_ropt);
     if (cv_bandflag == 1)
         CVBand(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
@@ -40,7 +40,7 @@ end_cv(void) {
 }
 
 void
-cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
+cv_func(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata) {
     (void)fdata;
     my_rhs(t, y->data, ydot->data, (int32)n);
     return;
