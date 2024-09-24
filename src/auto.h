@@ -104,7 +104,6 @@ int32 load_auto(void);
 int32 move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp);
 int32 get_a_row(double *u, double *t, int32 n, FILE *fp);
 int32 auto_file(void);
-int32 a_msg(int32 i, int32 v);
 int32 auto_x11_enter(Window window, int32 v);
 int32 auto_x11_button(XEvent event);
 int32 auto_kill(void);
