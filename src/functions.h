@@ -3234,6 +3234,13 @@ void io_string(char *s, int32 len, FILE *fp, int32 f);
 
 #include <X11/Xlib.h>
 
+extern int32 allwinvis;
+extern int32 use_intern_sets;
+extern int32 use_ani_file;
+extern int32 XPPBatch;
+extern int32 batch_range;
+extern int32 BatchEquil;
+
 void *XMALLOC(usize size, const char *function, int32 line);
 #ifdef MALLOC_DEBUG
 #define xmalloc(X) XMALLOC(X, __func__, __LINE__)
