@@ -28,7 +28,7 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     if (cv_bandflag == 1)
         CVBand(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
     else
-        CVDense(cvode_mem, NULL, NULL);
+        cv_dense(cvode_mem, NULL, NULL);
     return;
 }
 

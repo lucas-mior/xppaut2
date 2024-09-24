@@ -162,7 +162,7 @@ typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data,
  *                                                                *
  ******************************************************************/
 
-void CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+void cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 /******************************************************************
  *                                                                *

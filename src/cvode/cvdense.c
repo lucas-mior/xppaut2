@@ -185,7 +185,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
 **********************************************************************/
 
 void
-CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
+cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     CVodeMem cv_mem;
     CVDenseMem cvdense_mem;
 
