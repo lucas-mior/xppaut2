@@ -150,8 +150,8 @@ typedef struct {
     int32 root, length, il, ir;
 } VECTORIZER;
 
-VECTORIZER my_vec[MAXVEC];
-int32 n_vector = 0;
+static VECTORIZER my_vec[MAXVEC];
+static int32 n_vector = 0;
 
 typedef struct {
     double xlo, xhi, dx;
@@ -219,8 +219,8 @@ static int32 is_network(char *s);
 static void init_net(double *v, int32 n);
 static double net_interp(double x, int32 i);
 
-NETWORK my_net[MAX_NET];
-int32 n_network = 0;
+static NETWORK my_net[MAX_NET];
+static int32 n_network = 0;
 double
 net_interp(double x, int32 i) {
     int32 jlo = (int32)x;
