@@ -27,13 +27,13 @@ static void ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
                          double zlo, double zhi, int32 type);
 static void ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
                      double zhi, char *sx, char *sy, char *sb, int32 type);
-static void ps_close(void);
-static void ps_setline(double fill, int32 thick);
+static void array_print_ps_close(void);
+static void array_print_ps_setline(double fill, int32 thick);
 static void ps_text2(char *str, double xr, double yr, int32 icent);
-static void ps_set_text(double angle, double slant, double x_size,
+static void array_print_ps_set_text(double angle, double slant, double x_size,
                         double y_size);
-static void ps_rect(double x, double y, double wid, double len);
-static void ps_bar(double x, double y, double wid, double len, double fill,
+static void array_print_ps_rect(double x, double y, double wid, double len);
+static void array_print_ps_bar(double x, double y, double wid, double len, double fill,
                    int32 flag);
 static void ps_rgb_bar(double x, double y, double wid, double len, double fill,
                        int32 flag, int32 rgb);
@@ -54,7 +54,7 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
     ps_replot(data, col0, row0, nskip, ncskip, maxrow, maxcol, nacross, ndown,
               zmin, zmax, type);
     ps_boxit(tlo, thi, 0.0, yy, zmin, zmax, xtitle, ytitle, bottom, type);
-    ps_close();
+    array_print_ps_close();
     return 0;
 }
 
@@ -88,7 +88,7 @@ ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
                 x = xhi - delx - j*delx;
                 y = yhi - dely - i*dely;
                 if (type == GREYSCALE)
-                    ps_bar(x, y, delx, dely, fill, 0);
+                    array_print_ps_bar(x, y, delx, dely, fill, 0);
                 else
                     ps_rgb_bar(x, y, delx, dely, fill, 0, type);
             }
@@ -110,7 +110,7 @@ array_print_ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, 
     ps_scale.xscale = 1800.*sx*.2 / (xhi - xlo);
     ps_scale.yscale = 1800.*sy*.2 / (yhi - ylo);
 
-    ps_set_text(-90., 0.0, 18.0, 18.0);
+    array_print_ps_set_text(-90., 0.0, 18.0, 18.0);
     ps_scale.letx = ps_scale.tx / ps_scale.xscale;
     ps_scale.lety = ps_scale.ty / ps_scale.yscale;
     array_print_ps_convert(xlo, ylo, &x0, &y0);
@@ -140,7 +140,7 @@ array_print_ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, 
     fprintf(my_plot_file, "90 rotate\n");
     fprintf(my_plot_file, ".2 .2 scale\n");
     fprintf(my_plot_file, "/basefont /Times-Roman findfont def\n");
-    ps_setline(0.0, 4);
+    array_print_ps_setline(0.0, 4);
     return;
 }
 
@@ -161,7 +161,7 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
 
     for (i = 0; i < n; i++) {
         if (type == GREYSCALE)
-            ps_bar(x0, y0 - (i + 1)*dy, dx, dy, 1 - (double)i*dz, 0);
+            array_print_ps_bar(x0, y0 - (i + 1)*dy, dx, dy, 1 - (double)i*dz, 0);
         else
             ps_rgb_bar(x0, y0 - (i + 1)*dy, dx, dy, 1. - (double)i*dz, 0,
                        type);
@@ -184,9 +184,9 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
     double dy = ps_scale.ymax - ps_scale.ymin;
     double xlo = .15*dx, ylo = .05*dy, xhi = .95*dx, yhi = .85*dy;
 
-    ps_setline(0.0, 10);
-    ps_rect(xlo, ylo, .8*dx, .8*dy);
-    ps_setline(z, i);
+    array_print_ps_setline(0.0, 10);
+    array_print_ps_rect(xlo, ylo, .8*dx, .8*dy);
+    array_print_ps_setline(z, i);
 
     ps_text2(sx, xhi + .01*dx, .5*(yhi + ylo), 1);
     ps_text2(sy, .5*(xhi + xlo), yhi + .01*dy, 2);
@@ -205,7 +205,7 @@ ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo, double zhi,
 }
 
 void
-ps_close(void) {
+array_print_ps_close(void) {
     fprintf(my_plot_file, "showpage\n");
     fprintf(my_plot_file, "grestore\n");
     fprintf(my_plot_file, "end\n");
@@ -214,7 +214,7 @@ ps_close(void) {
 }
 
 void
-ps_setline(double fill, int32 thick) {
+array_print_ps_setline(double fill, int32 thick) {
     fprintf(my_plot_file, "%f G\n %d setlinewidth \n", fill, thick);
     ps_scale.linewid = thick;
     ps_scale.linecol = fill;
@@ -261,7 +261,7 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 }
 
 void
-ps_set_text(double angle, double slant, double x_size, double y_size) {
+array_print_ps_set_text(double angle, double slant, double x_size, double y_size) {
     ps_scale.tx = x_size*5.0;
     ps_scale.ty = y_size*5.0;
     ps_scale.angle = angle;
@@ -270,7 +270,7 @@ ps_set_text(double angle, double slant, double x_size, double y_size) {
 }
 
 void
-ps_rect(double x, double y, double wid, double len) {
+array_print_ps_rect(double x, double y, double wid, double len) {
     double x1, y1, x2, y2;
     array_print_ps_convert(x, y, &x1, &y1);
     array_print_ps_convert(x + wid, y + len, &x2, &y2);
@@ -282,7 +282,7 @@ ps_rect(double x, double y, double wid, double len) {
 }
 
 void
-ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
+array_print_ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
     double x1, y1, x2, y2;
     fprintf(my_plot_file, "%f G\n", fill);
     array_print_ps_convert(x, y, &x1, &y1);
@@ -293,7 +293,7 @@ ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
 
     if (flag) {
         fprintf(my_plot_file, "0 G\n");
-        ps_rect(x, y, wid, len);
+        array_print_ps_rect(x, y, wid, len);
     }
     return;
 }
@@ -343,7 +343,7 @@ ps_rgb_bar(double x, double y, double wid, double len, double fill, int32 flag,
             (int32)x1, (int32)y2);
     if (flag) {
         fprintf(my_plot_file, "0 G\n");
-        ps_rect(x, y, wid, len);
+        array_print_ps_rect(x, y, wid, len);
     }
     return;
 }
@@ -362,6 +362,6 @@ ps_hsb_bar(double x, double y, double wid, double len, double fill,
             (int32)x1, (int32)y2);
     if (flag) {
         fprintf(my_plot_file, "0 G\n");
-        ps_rect(x, y, wid, len);
+        array_print_ps_rect(x, y, wid, len);
     }
 }
