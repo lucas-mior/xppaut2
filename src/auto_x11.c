@@ -54,7 +54,6 @@ int32 mark_iye;
 
 
 
-extern char *no_hint[], *aspecial_hint[];
 
 
 static uint32 DONT_XORCross = 0;
