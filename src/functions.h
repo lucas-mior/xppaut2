@@ -48,8 +48,8 @@ void adj2_data_back(void);
 
 #endif
 
-#ifndef ANIPARSE_H
-#define ANIPARSE_H
+#ifndef ANI_H
+#define ANI_H
 
 #include <X11/Xlib.h>
 #include <stdio.h>
