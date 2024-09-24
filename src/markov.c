@@ -36,7 +36,6 @@ typedef struct {
 
 static MARKOV markov[MAX_MARK];
 
-extern double **storage;
 
 static double *my_mean[MAX_ODE];
 static double *my_variance[MAX_ODE];

@@ -21,7 +21,6 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-extern double **storage;
 
 static struct {
     char item[30];

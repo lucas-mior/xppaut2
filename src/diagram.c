@@ -8,7 +8,6 @@
 #include "autlim.h"
 #include "integers.h"
 
-extern double **storage;
 int32 NBifs = 0;
 Diagram *bifd;
 

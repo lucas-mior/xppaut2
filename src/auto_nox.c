@@ -69,7 +69,6 @@ int32 TypeOfCalc = 0;
 #define CUEQ 2
 
 #define DISCRETE 0
-extern double **storage;
 
 int32 SEc = 20;
 int32 UEc = 0;

@@ -65,7 +65,6 @@ to be added later
 
 TABULAR my_table[MAX_TAB];
 
-extern double **storage;
 
 static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula,
                             double *y);

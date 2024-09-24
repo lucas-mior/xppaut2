@@ -39,7 +39,6 @@ int32 cv_bandlower = 1;
 
 /*   I will need access to storage  */
 
-extern double **storage;
 
 extern int32 NODE, NEQ; /* as well as the number of odes etc  */
 

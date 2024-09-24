@@ -90,7 +90,6 @@ static void data_first(Browser *b);
 static void data_last(Browser *b);
 static void data_restore(Browser *b);
 
-extern double **storage;
 
 double **
 get_browser_data(void) {
