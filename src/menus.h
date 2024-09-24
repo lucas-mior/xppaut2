@@ -46,7 +46,7 @@ typedef struct {
 } MENUDEF;
 
 /* hints for the main menus */
-char *main_hint[] = {"Integrate the equations",
+static char *main_hint[] = {"Integrate the equations",
                      "Continue integration for specified time",
                      "Draw nullclines",
                      "Direction fields and flows of the phaseplane",
@@ -67,7 +67,7 @@ char *main_hint[] = {"Integrate the equations",
                      "Set parameters for 3D view",
                      "Run boundary value solver"};
 
-char *file_hint[] = {"Display source and active comments",
+static char *file_hint[] = {"Display source and active comments",
                      "Save information for restart",
                      "Read information for restart",
                      "Run AUTO, the bifurcation package",
@@ -84,7 +84,7 @@ char *file_hint[] = {"Display source and active comments",
                      "Edit your .xpprc preferences file",
                      "Run a quick tutorial on XPPAUT"};
 
-char *num_hint[] = {"Total time to integrate eqns",
+static char *num_hint[] = {"Total time to integrate eqns",
                     "Starting time -- T0",
                     "Time to integrate before storing",
                     "Time step to use",
