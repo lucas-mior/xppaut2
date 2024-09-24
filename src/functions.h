@@ -3744,6 +3744,8 @@ void rhs_only(double *ydot);
 extern FILE *svgfile;
 extern int32 DFBatch;
 extern int32 NCBatch;
+extern int32 XNullColor;
+extern int32 YNullColor;
 
 int32 svg_init(char *filename);
 void svg_do_color(int32 color);

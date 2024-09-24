@@ -31,7 +31,7 @@ int32 DFBatch = 0;
 int32 NCBatch = 0;
 extern int32 XPPBatch;
 
-int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
+static int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int32 (*rhs)(double t, double *y, double *ydot, int32 neq);
 extern int32 DRight;
 extern int32 DLeft;
