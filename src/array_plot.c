@@ -90,8 +90,8 @@ static void reset_aplot_axes(struct ArrayPlot ap);
 static int32 editaplot(struct ArrayPlot *ap);
 static void redraw_aplot(struct ArrayPlot ap);
 static void display_aplot(Window window, struct ArrayPlot ap);
-static void destroy_aplot(void);
-static void apbutton(Window window);
+static void array_plot_destroy(void);
+static void array_plot_button(Window window);
 static void get_root(char *s, char *sroot, int32 *num);
 static void gif_aplot(void);
 
@@ -263,8 +263,8 @@ array_plot_do_events(XEvent event) {
     case ButtonPress:
         if (event.xany.window == array_plot.wplot)
             first_aplot_press = event.xbutton.y;
-        /*apbutton(ev.xbutton.window,array_plot);*/
-        apbutton(event.xbutton.window);
+        /*array_plot_button(ev.xbutton.window,array_plot);*/
+        array_plot_button(event.xbutton.window);
         break;
     default:
         break;
@@ -284,7 +284,7 @@ wborder(Window window, int32 i, struct ArrayPlot ap) {
 }
 
 void
-destroy_aplot(void) {
+array_plot_destroy(void) {
     array_plot.alive = 0;
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, array_plot.base);
@@ -423,7 +423,7 @@ print_aplot(struct ArrayPlot *ap) {
 }
 
 void
-apbutton(Window window) {
+array_plot_button(Window window) {
     if (window == array_plot.wedit)
         editaplot(&array_plot);
     if (window == array_plot.wfit)
@@ -435,7 +435,7 @@ apbutton(Window window) {
     if (window == array_plot.wprint)
         print_aplot(&array_plot);
     if (window == array_plot.wclose)
-        destroy_aplot();
+        array_plot_destroy();
     if (window == array_plot.wgif)
         gif_aplot();
     return;
