@@ -211,28 +211,6 @@ static void *fun2[50];
  *  6/95  stuff added to add names to namelist without compilation
  *************************************************************/
 
-/* INIT_RPN    */
-/*
-int32 matherr(e)
-     struct exception *e;
-{
-char *c;
-        switch (e->type) {
-            case DOMAIN:    c = "domain error"; break;
-            case SING  :    c = "argument singularity"; break;
-            case OVERFLOW:  c = "overflow range"; break;
-            case UNDERFLOW: c = "underflow range"; break;
-            default:		c = "(unknown error"; break;
-        }
-        fprintf(stderr, "math exception : %d\n", e->type);
-        fprintf(stderr, "    name : %s\n", e->name);
-        fprintf(stderr, "    arg 1: %e\n", e->arg1);
-        fprintf(stderr, "    arg 2: %e\n", e->arg2);
-        fprintf(stderr, "    ret  : %e\n", e->retval);
-        return 1;
-}
-*/
-
 void
 init_rpn(void) {
     ERROUT = 1;
