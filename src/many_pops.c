@@ -171,12 +171,12 @@ get_intern_set(void) {
         ggets_err_msg("Not a valid set");
         return;
     }
-    get_graph();
+    graphics_get_graph();
     extract_internset(j);
     chk_delay();
     redraw_params();
     redraw_ics();
-    reset_graph();
+    graphics_reset_graph();
 }
 
 void
@@ -587,7 +587,7 @@ draw_marker(double x, double y, double size, int32 type) {
         x2 = dx*sym_dir[offset + 1] + x1;
         y2 = dy*sym_dir[offset + 2] + y1;
         if (pen == 1)
-            line_abs(x1, y1, x2, y2);
+            graphics_line_abs(x1, y1, x2, y2);
         x1 = x2;
         y1 = y2;
         ind++;
@@ -598,9 +598,9 @@ draw_marker(double x, double y, double size, int32 type) {
 void
 draw_grob(int32 i) {
     double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
-    set_linestyle(grob[i].color);
+    graphics_set_linestyle(grob[i].color);
     if (grob[i].type == POINTER)
-        line_abs(xs, ys, xe, ye);
+        graphics_line_abs(xs, ys, xe, ye);
     if (grob[i].type == ARROW || grob[i].type == POINTER)
         arrow_head(xs, ys, xe, ye, grob[i].size);
     if (grob[i].type >= MARKER)
@@ -617,8 +617,8 @@ arrow_head(double xs, double ys, double xe, double ye, double size) {
 
     double xp = x0 + .5*size*h*ar, yp = y0 - .5*size*l / ar;
     double xm = x0 - .5*size*h*ar, ym = y0 + .5*size*l / ar;
-    line_abs(xs, ys, xp, yp);
-    line_abs(xs, ys, xm, ym);
+    graphics_line_abs(xs, ys, xp, yp);
+    graphics_line_abs(xs, ys, xm, ym);
     return;
 }
 
@@ -652,7 +652,7 @@ draw_label(Window window) {
     many_pops_gr_col();
     for (i = 0; i < MAXLAB; i++) {
         if ((lb[i].use == 1) && (lb[i].window == window))
-            fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
+            graphics_fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
     }
     for (i = 0; i < MAXGROB; i++) {
         if ((grob[i].use == 1) && (grob[i].window == window))
@@ -781,7 +781,7 @@ add_markers(void) {
             xs = x;
             ys = y;
         } else {
-            threed_proj(x, y, z, &xs, &ys);
+            graphics_threed_proj(x, y, z, &xs, &ys);
         }
         add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
     }
@@ -1084,14 +1084,14 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
         grob[i].window = (Window)0;
         grob[i].use = 0;
     }
-    init_bd();
+    graf_par_init_bd();
     for (i = 0; i < MAXFRZ; i++)
         frz[i].use = 0;
     /* for(i=0;i<MAXNCLINE ... */
     for (i = 0; i < MAXPOP; i++)
         graph[i].Use = 0;
     ActiveWinList[0] = 0;
-    init_all_graph();
+    graphics_init_all();
 
     graph[0].window = XCreateSimpleWindow(display, main_win, x, y + 4, (uint)w,
                                           (uint)h, 2, GrFore, MyDrawWinColor);
@@ -1113,7 +1113,7 @@ init_grafs(int32 x, int32 y, int32 w, int32 h) {
     XMapWindow(display, graph[0].window);
     draw_win = graph[0].window;
     current_pop = 0;
-    get_draw_area();
+    graphics_get_draw_area();
     select_sym(graph[0].window);
     many_pops_base_col();
 }
@@ -1139,7 +1139,7 @@ ps_restore(void) {
     ps_do_color(0);
     if (Xup) {
         draw_label(draw_win);
-        draw_freeze(draw_win);
+        graf_par_draw_freeze(draw_win);
     }
     ps_end();
     return;
@@ -1162,7 +1162,7 @@ svg_restore(void) {
     axes2_do();
     if (Xup) {
         draw_label(draw_win);
-        draw_freeze(draw_win);
+        graf_par_draw_freeze(draw_win);
     }
     do_batch_nclines();
     do_batch_dfield();
@@ -1275,12 +1275,12 @@ do_expose(XEvent event) {
                 current_pop = i;
                 MyGraph = &graph[i];
                 draw_win = graph[i].window;
-                get_draw_area();
+                graphics_get_draw_area();
                 axes2_do();
                 if (graph[i].Restore)
                     integrate_restore(0, my_browser.maxrow);
                 draw_label(graph[i].window);
-                draw_freeze(graph[i].window);
+                graf_par_draw_freeze(graph[i].window);
                 if (graph[i].Nullrestore)
                     restore_nullclines();
             }
@@ -1290,7 +1290,7 @@ do_expose(XEvent event) {
     MyGraph = &graph[cp];
     current_pop = cp;
     hi_lite(draw_win);
-    get_draw_area();
+    graphics_get_draw_area();
     many_pops_base_col();
     many_pops_small_base();
     return;
@@ -1305,7 +1305,7 @@ resize_all_pops(int32 wid, int32 hgt) {
     XResizeWindow(display, graph[0].window, (uint)nw, (uint)nh);
     graph[0].Width = nw;
     graph[0].Height = nh;
-    get_draw_area();
+    graphics_get_draw_area();
     return;
 }
 
@@ -1443,7 +1443,7 @@ make_active(int32 i, int32 flag) {
     current_pop = i;
     MyGraph = &graph[current_pop];
     draw_win = MyGraph->window;
-    get_draw_area_flag(flag);
+    graphics_get_draw_area_flag(flag);
     return;
 }
 
@@ -1466,7 +1466,7 @@ select_window(Window window) {
     draw_win = window;
     hi_lite(window);
     XRaiseWindow(display, window);
-    get_draw_area();
+    graphics_get_draw_area();
     many_pops_base_col();
     return;
 }

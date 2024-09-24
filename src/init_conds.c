@@ -225,8 +225,8 @@ clone_ode(void) {
         s = save_eqn[i];
 
         if (s[0] == 'p' || s[0] == 'P' || s[0] == 'b' || s[0] == 'B') {
-            x = find_char(s, "'", 0, &j);
-            y = find_char(s, "=", 0, &j);
+            x = form_ode_find_char(s, "'", 0, &j);
+            y = form_ode_find_char(s, "=", 0, &j);
 
             if (x != 0 || y != 0) {
                 fprintf(fp, "# original\n# %s\n", s);
@@ -2006,7 +2006,7 @@ set_up_xvt(void) {
     for (i = 0; i < ICBox.nwin; i++)
         XClearWindow(display, ICBox.ck[i]);
     if (n > 0)
-        graph_all(plot_list, n, 0);
+        graf_par_graph_all(plot_list, n, 0);
     return;
 }
 
@@ -2026,7 +2026,7 @@ set_up_pp(void) {
     for (i = 0; i < ICBox.nwin; i++)
         XClearWindow(display, ICBox.ck[i]);
     if (n > 1)
-        graph_all(plot_list, n, 1);
+        graf_par_graph_all(plot_list, n, 1);
     return;
 }
 

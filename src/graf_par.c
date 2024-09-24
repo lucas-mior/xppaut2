@@ -127,7 +127,7 @@ static void get_2d_view(int32 ind);
 static void check_flags(void);
 
 void
-change_view_com(int32 com) {
+graf_par_change_view_com(int32 com) {
     if (com == 2) {
         array_plot_make_my("Array!");
         array_plot_edit();
@@ -144,11 +144,11 @@ change_view_com(int32 com) {
     else
         get_3d_view(CurrentCurve);
     check_flags();
-    redraw_the_graph();
+    graf_par_redraw_the_graph();
 }
 
 void
-ind_to_sym(int32 ind, char *str) {
+graf_par_ind_to_sym(int32 ind, char *str) {
     if (ind == 0)
         strcpy(str, "T");
     else
@@ -179,8 +179,8 @@ get_2d_view(int32 ind) {
     int32 i;
     int32 i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind];
     char n1[15], n2[15];
-    ind_to_sym(i1, n1);
-    ind_to_sym(i2, n2);
+    graf_par_ind_to_sym(i1, n1);
+    graf_par_ind_to_sym(i2, n2);
     snprintf(values[0], sizeof(values[0]), "%s", n1);
     snprintf(values[1], sizeof(values[1]), "%s", n2);
     snprintf(values[2], sizeof(values[2]), "%g", MyGraph->xmin);
@@ -210,7 +210,7 @@ get_2d_view(int32 ind) {
         MyGraph->yhi = MyGraph->ymax;
         snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[6]);
         snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[7]);
-        check_windows();
+        graf_par_check_windows();
     }
     return;
 }
@@ -237,7 +237,7 @@ axes_opts(void) {
         MyGraph->yorgflag = atoi(values[4]);
         MyGraph->zorgflag = atoi(values[5]);
         PS_FONTSIZE = atoi(values[6]);
-        redraw_the_graph();
+        graf_par_redraw_the_graph();
     }
     return;
 }
@@ -252,9 +252,9 @@ get_3d_view(int32 ind) {
     int32 status, i, i1 = MyGraph->xv[ind], i2 = MyGraph->yv[ind],
                      i3 = MyGraph->zv[ind];
     char n1[15], n2[15], n3[15];
-    ind_to_sym(i1, n1);
-    ind_to_sym(i2, n2);
-    ind_to_sym(i3, n3);
+    graf_par_ind_to_sym(i1, n1);
+    graf_par_ind_to_sym(i2, n2);
+    graf_par_ind_to_sym(i3, n3);
     snprintf(values[0], sizeof(values[0]), "%s", n1);
     snprintf(values[1], sizeof(values[1]), "%s", n2);
     snprintf(values[2], sizeof(values[2]), "%s", n3);
@@ -298,7 +298,7 @@ get_3d_view(int32 ind) {
         MyGraph->ylo = atof(values[11]);
         MyGraph->xhi = atof(values[10]);
         MyGraph->yhi = atof(values[12]);
-        check_windows();
+        graf_par_check_windows();
     }
     return;
 }
@@ -325,7 +325,7 @@ check_val(double *x1, double *x2, double *xb, double *xd) {
 }
 
 void
-get_max(int32 index, double *vmin, double *vmax) {
+graf_par_get_max(int32 index, double *vmin, double *vmax) {
     double x0, x1, z;
     double temp;
     int32 i;
@@ -429,7 +429,7 @@ corner_cube(double *xlo, double *xhi, double *ylo, double *yhi) {
 }
 
 void
-default_window(void) {
+graf_par_default_window(void) {
     if (MyGraph->ThreeDFlag) {
         MyGraph->xmax = x_3d[1];
         MyGraph->ymax = y_3d[1];
@@ -440,7 +440,7 @@ default_window(void) {
 
         corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
                     &(MyGraph->yhi));
-        check_windows();
+        graf_par_check_windows();
     } else {
         MyGraph->xmax = x_3d[1];
         MyGraph->ymax = y_3d[1];
@@ -452,10 +452,10 @@ default_window(void) {
         MyGraph->ylo = MyGraph->ymin;
         MyGraph->xhi = MyGraph->xmax;
         MyGraph->yhi = MyGraph->ymax;
-        check_windows();
+        graf_par_check_windows();
     }
 
-    redraw_the_graph();
+    graf_par_redraw_the_graph();
 }
 
 void
@@ -466,15 +466,15 @@ fit_window(void) {
         return;
     if (MyGraph->ThreeDFlag) {
         for (i = 0; i < n; i++) {
-            get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
             Mx = lmax(MyGraph->xmax, Mx);
             mx = -lmax(-MyGraph->xmin, -mx);
 
-            get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
             My = lmax(MyGraph->ymax, My);
             my = -lmax(-MyGraph->ymin, -my);
 
-            get_max(MyGraph->zv[i], &(MyGraph->zmin), &(MyGraph->zmax));
+            graf_par_get_max(MyGraph->zv[i], &(MyGraph->zmin), &(MyGraph->zmax));
             Mz = lmax(MyGraph->zmax, Mz);
             mz = -lmax(-MyGraph->zmin, -mz);
         }
@@ -487,14 +487,14 @@ fit_window(void) {
 
         corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
                     &(MyGraph->yhi));
-        check_windows();
+        graf_par_check_windows();
     } else {
         for (i = 0; i < n; i++) {
-            get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
             Mx = lmax(MyGraph->xmax, Mx);
             mx = -lmax(-MyGraph->xmin, -mx);
 
-            get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
             My = lmax(MyGraph->ymax, My);
             my = -lmax(-MyGraph->ymin, -my);
         }
@@ -508,13 +508,13 @@ fit_window(void) {
         MyGraph->ylo = MyGraph->ymin;
         MyGraph->xhi = MyGraph->xmax;
         MyGraph->yhi = MyGraph->ymax;
-        check_windows();
+        graf_par_check_windows();
     }
-    redraw_the_graph();
+    graf_par_redraw_the_graph();
 }
 
 void
-check_windows(void) {
+graf_par_check_windows(void) {
     double zip;
     double zap;
     check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar, &MyGraph->dx);
@@ -546,18 +546,18 @@ user_window(void) {
             MyGraph->ymin = MyGraph->ylo;
             MyGraph->ymax = MyGraph->yhi;
         }
-        check_windows();
+        graf_par_check_windows();
     }
-    redraw_the_graph();
+    graf_par_redraw_the_graph();
 }
 
 void
-xi_vs_t(void) {
+graf_par_xi_vs_t(void) {
     /*  a short cut   */
     char name[20], value[20];
     int32 i = MyGraph->yv[0];
 
-    ind_to_sym(i, value);
+    graf_par_ind_to_sym(i, value);
     snprintf(name, sizeof(name), "Plot vs t: ");
     ggets_new_string(name, value);
     browse_find_variable(value, &i);
@@ -567,8 +567,8 @@ xi_vs_t(void) {
         MyGraph->grtype = 0;
         MyGraph->xv[0] = 0;
         if (storind >= 2) {
-            get_max(MyGraph->xv[0], &(MyGraph->xmin), &(MyGraph->xmax));
-            get_max(MyGraph->yv[0], &(MyGraph->ymin), &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->xv[0], &(MyGraph->xmin), &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->yv[0], &(MyGraph->ymin), &(MyGraph->ymax));
 
         } else {
             MyGraph->xmin = T0;
@@ -578,23 +578,23 @@ xi_vs_t(void) {
         MyGraph->ylo = MyGraph->ymin;
         MyGraph->xhi = MyGraph->xmax;
         MyGraph->yhi = MyGraph->ymax;
-        check_windows();
+        graf_par_check_windows();
         check_flags();
-        set_normal_scale();
-        redraw_the_graph();
+        graphics_set_normal_scale();
+        graf_par_redraw_the_graph();
     }
     return;
 }
 
 void
-redraw_the_graph(void) {
+graf_par_redraw_the_graph(void) {
     ggets_blank_screen(draw_win);
-    set_normal_scale();
+    graphics_set_normal_scale();
     axes2_do();
     hi_lite(draw_win);
     integrate_restore(0, my_browser.maxrow);
     draw_label(draw_win);
-    draw_freeze(draw_win);
+    graf_par_draw_freeze(draw_win);
     redraw_dfield();
     if (MyGraph->Nullrestore)
         restore_nullclines();
@@ -608,10 +608,10 @@ movie_rot(double start, double increment, int32 nclip, int32 angle) {
     reset_film();
     for (i = 0; i <= nclip; i++) {
         if (angle == 0)
-            make_rot(start + i*increment, phiold);
+            graphics_make_rot(start + i*increment, phiold);
         else
-            make_rot(thetaold, start + i*increment);
-        redraw_the_graph();
+            graphics_make_rot(thetaold, start + i*increment);
+        graf_par_redraw_the_graph();
         film_clip();
     }
     MyGraph->Theta = thetaold;
@@ -620,7 +620,7 @@ movie_rot(double start, double increment, int32 nclip, int32 angle) {
 }
 
 void
-get_3d_par_com(void) {
+graf_par_get_3d_com(void) {
     static char *n[] = {"Persp (1=On)",
                         "ZPlane",
                         "ZView",
@@ -673,9 +673,9 @@ get_3d_par_com(void) {
             movie_rot(start, increment, nclip, angle);
         }
 
-        make_rot(MyGraph->Theta, MyGraph->Phi);
+        graphics_make_rot(MyGraph->Theta, MyGraph->Phi);
         /*  Redraw the picture   */
-        redraw_the_graph();
+        graf_par_redraw_the_graph();
     }
     return;
 }
@@ -692,9 +692,9 @@ update_view(double xlo, double xhi, double ylo, double yhi) {
         MyGraph->ymin = MyGraph->ylo;
         MyGraph->ymax = MyGraph->yhi;
     }
-    check_windows();
+    graf_par_check_windows();
 
-    redraw_the_graph();
+    graf_par_redraw_the_graph();
 }
 
 static void
@@ -756,7 +756,7 @@ scroll_window(void) {
 }
 
 void
-window_zoom_com(int32 c) {
+graf_par_window_zoom_com(int32 c) {
     int32 i1, i2, j1, j2;
     switch (c) {
     case 0:
@@ -786,7 +786,7 @@ window_zoom_com(int32 c) {
         fit_window();
         break;
     case 4:
-        default_window();
+        graf_par_default_window();
         break;
     case 5:
         scroll_window();
@@ -794,7 +794,7 @@ window_zoom_com(int32 c) {
     default:
         break;
     }
-    set_normal_scale();
+    graphics_set_normal_scale();
     return;
 }
 
@@ -833,8 +833,8 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
         MyGraph->ymin = MyGraph->ylo;
         MyGraph->ymax = MyGraph->yhi;
     }
-    check_windows();
-    redraw_the_graph();
+    graf_par_check_windows();
+    graf_par_redraw_the_graph();
     draw_help();
     return;
 }
@@ -900,14 +900,14 @@ zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
         MyGraph->ymin = MyGraph->ylo;
         MyGraph->ymax = MyGraph->yhi;
     }
-    check_windows();
-    redraw_the_graph();
+    graf_par_check_windows();
+    graf_par_redraw_the_graph();
     draw_help();
     return;
 }
 
 void
-graph_all(int32 *list, int32 n, int32 type) {
+graf_par_graph_all(int32 *list, int32 n, int32 type) {
     int32 i;
     if (type == 0) {
         for (i = 0; i < n; i++) {
@@ -948,9 +948,9 @@ alter_curve(char *title, int32 in_it, int32 n) {
           i3 = MyGraph->zv[in_it];
     char n1[15], n2[15], n3[15];
 
-    ind_to_sym(i1, n1);
-    ind_to_sym(i2, n2);
-    ind_to_sym(i3, n3);
+    graf_par_ind_to_sym(i1, n1);
+    graf_par_ind_to_sym(i2, n2);
+    graf_par_ind_to_sym(i3, n3);
     snprintf(values[0], sizeof(values[0]), "%s", n1);
     snprintf(values[1], sizeof(values[1]), "%s", n2);
     snprintf(values[2], sizeof(values[2]), "%s", n3);
@@ -1033,7 +1033,7 @@ create_ps(void) {
 }
 
 void
-dump_ps(int32 i) {
+graf_par_dump_ps(int32 i) {
 #define FILENAME_SIZE                                                          \
     (sizeof(this_file) + sizeof(this_internset) + sizeof(PlotFormat) + 10)
     char filename[FILENAME_SIZE];
@@ -1077,23 +1077,23 @@ create_svg(void) {
 /*
 ps_test() {
  double xlo=MyGraph->xlo,xhi=MyGraph->xhi,ylo=MyGraph->ylo,yhi=MyGraph->yhi;
- text_abs((double)xlo,(double)ylo,"lolo");
- text_abs((double)xlo,(double)yhi,"lohi");
- text_abs((double)xhi,(double)ylo,"hilo");
- text_abs((double)xhi,(double)yhi,"hihi");
+ graphics_text_abs((double)xlo,(double)ylo,"lolo");
+ graphics_text_abs((double)xlo,(double)yhi,"lohi");
+ graphics_text_abs((double)xhi,(double)ylo,"hilo");
+ graphics_text_abs((double)xhi,(double)yhi,"hihi");
  ps_end();
 }
 
 */
 
 void
-change_cmap_com(int32 i) {
+graf_par_change_cmap_com(int32 i) {
     color_new_map(i);
     return;
 }
 
 void
-freeze_com(int32 c) {
+graf_par_freeze_com(int32 c) {
     switch (c) {
     case 0:
         freeze_crv(0);
@@ -1153,10 +1153,10 @@ draw_freeze_key(void) {
     for (i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == draw_win &&
             strlen(frz[i].key) > 0) {
-            set_linestyle(abs(frz[i].color));
+            graphics_set_linestyle(abs(frz[i].color));
             graphics_line(ix, y0, ix2, y0);
-            set_linestyle(0);
-            put_text(ix2 + HChar, y0, frz[i].key);
+            graphics_set_linestyle(0);
+            graphics_put_text(ix2 + HChar, y0, frz[i].key);
             y0 += dy;
         }
     }
@@ -1164,7 +1164,7 @@ draw_freeze_key(void) {
 }
 
 void
-key_frz_com(int32 c) {
+graf_par_key_frz_com(int32 c) {
     int32 x;
     int32 y;
     switch (c) {
@@ -1240,7 +1240,7 @@ freeze_crv(int32 ind) {
 }
 
 void
-auto_freeze_it(void) {
+graf_par_auto_freeze_it(void) {
     if (AutoFreezeFlag == 0)
         return;
     create_crv(0);
@@ -1317,7 +1317,7 @@ draw_frozen_cline(int32 index, Window window) {
 }
 
 void
-draw_freeze(Window window) {
+graf_par_draw_freeze(Window window) {
     int32 i, j, type = MyGraph->grtype, lt = 0;
     double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
     double *xv, *yv, *zv;
@@ -1326,10 +1326,10 @@ draw_freeze(Window window) {
     for (i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == window && frz[i].type == type) {
             if (frz[i].color < 0) {
-                set_linestyle(-frz[i].color);
+                graphics_set_linestyle(-frz[i].color);
                 lt = 1;
             } else
-                set_linestyle(frz[i].color);
+                graphics_set_linestyle(frz[i].color);
             xv = frz[i].xv;
             yv = frz[i].yv;
             zv = frz[i].zv;
@@ -1344,14 +1344,14 @@ draw_freeze(Window window) {
                     zpl = zv[j];
                 if (lt == 0) {
                     if (type == 0)
-                        line_abs(oldxpl, oldypl, xpl, ypl);
+                        graphics_line_abs(oldxpl, oldypl, xpl, ypl);
                     else
-                        line_3d(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
+                        graphics_line_3d(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
                 } else {
                     if (type == 0)
-                        point_abs(xpl, ypl);
+                        graphics_point_abs(xpl, ypl);
                     else
-                        point_3d(xpl, ypl, zpl);
+                        graphics_point_3d(xpl, ypl, zpl);
                 }
                 oldxpl = xpl;
                 oldypl = ypl;
@@ -1368,7 +1368,7 @@ draw_freeze(Window window) {
 /*  Bifurcation curve importing */
 
 void
-init_bd(void) {
+graf_par_init_bd(void) {
     my_bd.nbifcrv = 0;
     return;
 }
@@ -1379,7 +1379,7 @@ draw_bd(Window window) {
     double oldxpl, oldypl, xpl, ypl, *x, *y;
     if (window == my_bd.window && my_bd.nbifcrv > 0) {
         for (i = 0; i < my_bd.nbifcrv; i++) {
-            set_linestyle(my_bd.color[i]);
+            graphics_set_linestyle(my_bd.color[i]);
             len = my_bd.npts[i];
             x = my_bd.x[i];
             y = my_bd.y[i];
@@ -1390,7 +1390,7 @@ draw_bd(Window window) {
                 oldypl = ypl;
                 xpl = x[j];
                 ypl = y[j];
-                line_abs(oldxpl, oldypl, xpl, ypl);
+                graphics_line_abs(oldxpl, oldypl, xpl, ypl);
             }
         }
     }
@@ -1545,7 +1545,7 @@ export_graf_data(void) {
 }
 
 void
-add_a_curve_com(int32 c) {
+graf_par_add_a_curve_com(int32 c) {
     switch (c) {
     case 0:
         if (MyGraph->nvars >= MAXPERPLOT) {
@@ -1584,5 +1584,5 @@ add_a_curve_com(int32 c) {
         break;
     }
     check_flags();
-    redraw_the_graph();
+    graf_par_redraw_the_graph();
 }

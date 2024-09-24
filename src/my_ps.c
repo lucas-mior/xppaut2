@@ -124,7 +124,7 @@ ps_init(char *filename, int32 color) {
         ggets_err_msg("Cannot open file ");
         return 0;
     }
-    init_ps();
+    graphics_init_ps();
     PltFmtFlag = 1;
     PSLines = 0;
     LastPSX = -10000;
@@ -200,7 +200,7 @@ ps_end(void) {
     fclose(psfile);
     PltFmtFlag = 0;
     if (Xup)
-        init_x11();
+        graphics_init_x11();
     return;
 }
 

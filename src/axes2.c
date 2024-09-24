@@ -159,8 +159,8 @@ find_max_min_tic(double *tmin, double *tmax, double tic) {
 void
 axes2_redraw_cube_pt(double theta, double phi) {
     char bob[50];
-    set_linestyle(0);
-    make_rot(theta, phi);
+    graphics_set_linestyle(0);
+    graphics_make_rot(theta, phi);
     clr_scrn();
 
     sprintf(bob, "theta=%g phi=%g", theta, phi);
@@ -172,7 +172,7 @@ void
 axes2_do(void) {
     char s1[20], s2[20], s3[20];
     get_title_str(s1, s2, s3);
-    set_linestyle(0);
+    graphics_set_linestyle(0);
     if (Xup) {
         re_title();
         many_pops_small_gr();
@@ -198,8 +198,8 @@ axes2_do(void) {
 void
 axes2_redraw_cube(double theta, double phi) {
     char bob[50];
-    set_linestyle(0);
-    make_rot(theta, phi);
+    graphics_set_linestyle(0);
+    graphics_make_rot(theta, phi);
     ggets_blank_screen(draw_win);
     draw_unit_cube();
     sprintf(bob, "theta=%g phi=%g", theta, phi);
@@ -249,7 +249,7 @@ Frame_3d(void) {
 
     graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
     graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);
-    set_linestyle(-2);
+    graphics_set_linestyle(-2);
     line3d(-1., -1., -1., 1., -1., -1.);
     line3d(1., -1., -1., 1., 1., -1.);
     line3d(1., 1., -1., -1., 1., -1.);
@@ -270,14 +270,14 @@ Frame_3d(void) {
     line3dn(1.0 - dt, y1, -1.0, 1.0 + dt, y1, -1.0);
     line3dn(1.0 - dt, y2, -1.0, 1.0 + dt, y2, -1.0);
 
-    set_linestyle(-1);
+    graphics_set_linestyle(-1);
 
     if (MyGraph->zorgflag)
-        line_3d(x0, y0, z4, x0, y0, z5);
+        graphics_line_3d(x0, y0, z4, x0, y0, z5);
     if (MyGraph->yorgflag)
-        line_3d(x0, y4, z0, x0, y5, z0);
+        graphics_line_3d(x0, y4, z0, x0, y5, z0);
     if (MyGraph->xorgflag)
-        line_3d(x4, y0, z0, x5, y0, z0);
+        graphics_line_3d(x4, y0, z0, x5, y0, z0);
 
     dt = .06;
     TextJustify = 2;
@@ -331,14 +331,14 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     xtic = make_tics(x_min, x_max);
     scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x,
                     &xaxis_y);
-    set_linestyle(-1);
+    graphics_set_linestyle(-1);
     if (MyGraph->xorgflag && flag)
         if (xaxis_y >= ybot && xaxis_y <= ytop)
             graphics_line(xleft, xaxis_y, xright, xaxis_y);
     if (MyGraph->yorgflag && flag)
         if (yaxis_x >= xleft && yaxis_x <= xright)
             graphics_line(yaxis_x, ybot, yaxis_x, ytop);
-    set_linestyle(-2);
+    graphics_set_linestyle(-2);
     axes2_doing_box = 1;
     graphics_line(xleft, ybot, xright, ybot);
     graphics_line(xright, ybot, xright, ytop);
@@ -348,7 +348,7 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
     draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
     TextJustify = 0;
-    set_linestyle(0);
+    graphics_set_linestyle(0);
 
     axes2_doing = 0;
     return;
@@ -373,7 +373,7 @@ draw_ytics(char *s1, double start, double incr, double end) {
         axes2_doing_box = 1;
         graphics_line(DRight, yt, DRight - HTic, yt);
         axes2_doing_box = 0;
-        put_text(DLeft - (int32)(1.25*HChar), yt, bob);
+        graphics_put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
     scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
     if (DTop < DBottom)
@@ -393,7 +393,7 @@ draw_ytics(char *s1, double start, double incr, double end) {
                 DLeft - HChar, yt + 2*s*VChar);
         fprintf(svgfile, "      >%s</text>\n", s1);
     } else {
-        put_text(DLeft - HChar, yt + 2*s*VChar, s1);
+        graphics_put_text(DLeft - HChar, yt + 2*s*VChar, s1);
     }
     return;
 }
@@ -421,8 +421,8 @@ draw_xtics(char *s2, double start, double incr, double end) {
         axes2_doing_box = 1;
         graphics_line(xt, DTop, xt, DTop - s*VTic);
         axes2_doing_box = 0;
-        put_text(xt, yt - (int32)(1.25*VChar*s), bob);
+        graphics_put_text(xt, yt - (int32)(1.25*VChar*s), bob);
     }
-    put_text((DLeft + DRight) / 2, yt - (int32)(2.5*VChar*s), s2);
+    graphics_put_text((DLeft + DRight) / 2, yt - (int32)(2.5*VChar*s), s2);
     return;
 }

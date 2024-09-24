@@ -206,8 +206,8 @@ typedef struct {
 extern double variables[];
 extern double constants[];
 
-char *get_first(char *string, char *src);
-char *get_next(char *src);
+char *form_ode_get_first(char *string, char *src);
+char *do_fit_get_next(char *src);
 
 double evaluate(int32 *);
 
@@ -339,8 +339,8 @@ add_spec_fun(char *name, char *rhs) {
     }
     switch (type) {
     case 1: /* convolution */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = -1;
         if (str[0] == 'E')
             ntype = CONVE;
@@ -352,26 +352,26 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" No such convolution type %s \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
         if (iwgt < 0) {
             ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
@@ -391,8 +391,8 @@ add_spec_fun(char *name, char *rhs) {
 
         return 1;
     case 2: /* sparse */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = SPARSE;
         ntot = atoi(str);
 
@@ -400,14 +400,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
 
@@ -416,7 +416,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(indname, str);
         iind = find_lookup(indname);
 
@@ -424,7 +424,7 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf("in network %s,  %s is not a table \n", name, indname);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
 
@@ -447,8 +447,8 @@ add_spec_fun(char *name, char *rhs) {
                ntot, ncon, wgtname, ivar, indname);
         return 1;
     case 3: /* convolution */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = -1;
         if (str[0] == 'E')
             ntype = FCONVE;
@@ -460,19 +460,19 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" No such convolution type %s \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
         if (iwgt < 0) {
@@ -480,7 +480,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
@@ -488,14 +488,14 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
             ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
@@ -518,8 +518,8 @@ add_spec_fun(char *name, char *rhs) {
             name, ntype, ntot, ncon, wgtname, fname, ivar, ivar2);
         return 1;
     case 4: /* sparse */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = FSPARSE;
         ntot = atoi(str);
 
@@ -527,14 +527,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
 
@@ -543,7 +543,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(indname, str);
         iind = find_lookup(indname);
 
@@ -552,7 +552,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
 
@@ -561,14 +561,14 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
             ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
@@ -593,8 +593,8 @@ add_spec_fun(char *name, char *rhs) {
                name, ntot, ncon, wgtname, fname, ivar, ivar2, indname);
         return 1;
     case 5: /* fft convolution */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = -1;
         /* if(str[0]=='E')ntype=CONVE; */
         if (str[0] == '0' || str[0] == 'Z')
@@ -605,14 +605,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" No such fft convolution type %s \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
         if (iwgt < 0) {
@@ -628,7 +628,7 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab, 2*ntot);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
@@ -660,8 +660,8 @@ add_spec_fun(char *name, char *rhs) {
                ntype, ntot, ncon, wgtname, ivar);
         return 1;
     case 6: /* MMULT    ntot=n,ncon=m  */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = MMULT;
         ntot = atoi(str);
 
@@ -669,14 +669,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
 
@@ -685,7 +685,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
 
@@ -707,8 +707,8 @@ add_spec_fun(char *name, char *rhs) {
                ncon, wgtname, ivar, indname);
         return 1;
     case 7: /* FMMULT */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = FMMULT;
         ntot = atoi(str);
 
@@ -716,14 +716,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
 
@@ -732,7 +732,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
 
@@ -740,14 +740,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" In %s , %s is not valid variable\n", name, rootname);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
             ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(fname, str);
         snprintf(junk, sizeof(junk), "%s(%s,%s)", fname, rootname, root2name);
         if (add_expr(junk, my_net[ind].f, &elen)) {
@@ -774,27 +774,27 @@ add_spec_fun(char *name, char *rhs) {
         return 1;
 
     case FINDEXT:
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = atoi(str);
         if (ntype > 1 || ntype < (-1)) {
             ggets_plintf("In %s,  type =-1,0,1 not %s \n", name, ntype);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ntot = atoi(str);
         if (ntot <= 0) {
             ggets_plintf("In %s,  n>0 not %s \n", name, ntot);
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
         if (ncon <= 0) {
             ggets_plintf("In %s,  skip>=1 not %s \n", name, ncon);
             return 0;
         }
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
@@ -815,19 +815,19 @@ add_spec_fun(char *name, char *rhs) {
         /* interpolation array
            z=INTERP(meth,n,root)
         */
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ivar = atoi(str);
         my_net[ind].type = INTERP;
         my_net[ind].iwgt = ivar;
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ivar = atoi(str);
         if (ivar < 1) {
             ggets_plintf("Need more than 1 entry for interpolate\n");
             return 0;
         }
         my_net[ind].n = ivar; /* # entries in array */
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
         if (ivar < 0) {
@@ -875,8 +875,8 @@ add_spec_fun(char *name, char *rhs) {
         return 1;
     case DEL_MUL:
 
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = DEL_MUL;
         ntot = atoi(str);
 
@@ -884,14 +884,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
 
@@ -899,7 +899,7 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(tauname, str);
         itau = find_lookup(tauname);
 
@@ -908,7 +908,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
 
@@ -932,8 +932,8 @@ add_spec_fun(char *name, char *rhs) {
         NDELAYS = 1;
         return 1;
     case DEL_SPAR:
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ntype = DEL_SPAR;
         ntot = atoi(str);
 
@@ -941,14 +941,14 @@ add_spec_fun(char *name, char *rhs) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         ncon = atoi(str);
 
         if (ncon <= 0) {
             ggets_plintf(" %s must be positive int32 \n", str);
             return 0;
         }
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(wgtname, str);
         iwgt = find_lookup(wgtname);
 
@@ -957,7 +957,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(indname, str);
         iind = find_lookup(indname);
 
@@ -966,7 +966,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(",");
+        str = do_fit_get_next(",");
         strcpy(tauname, str);
         itau = find_lookup(tauname);
 
@@ -975,7 +975,7 @@ add_spec_fun(char *name, char *rhs) {
             return 0;
         }
 
-        str = get_next(")");
+        str = do_fit_get_next(")");
         strcpy(rootname, str);
         ivar = get_var_index(rootname);
 
@@ -1013,10 +1013,10 @@ add_spec_fun(char *name, char *rhs) {
            gcom contains list of all the fixed holding the reactions
         */
 
-        get_first(rhs, "(");
-        str = get_next(",");
+        form_ode_get_first(rhs, "(");
+        str = do_fit_get_next(",");
         ivar = atoi(str);
-        str = get_next(")");
+        str = do_fit_get_next(")");
         my_net[ind].type = GILLTYPE;
         if (ivar > 0) {
             ggets_plintf(" Tau leaping not implemented yet. Changing to 0\n");
@@ -1035,10 +1035,10 @@ add_spec_fun(char *name, char *rhs) {
         return 1;
 
         /*  case 8:
-        get_first(rhs,"(");
-        str=get_next(",");
+        form_ode_get_first(rhs,"(");
+        str=do_fit_get_next(",");
         ntot=atoi(str);
-        str=get_next("{");
+        str=do_fit_get_next("{");
         i=0;
         elen=strlen(str);
 

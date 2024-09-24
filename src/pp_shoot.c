@@ -236,7 +236,7 @@ do_sh_range(double *ystart, double *yend) {
         ggets_ping();
     }
     refresh_browser(storind);
-    auto_freeze_it();
+    graf_par_auto_freeze_it();
     swap_color(&color, 1);
     return;
 }
@@ -342,7 +342,7 @@ find_bvp_com(int32 com) {
         last_shot(1);
         INFLAG = 1;
         refresh_browser(storind);
-        auto_freeze_it();
+        graf_par_auto_freeze_it();
         ggets_ping();
     } else if (iper)
         set_val(upar_names[ipar], oldpar);

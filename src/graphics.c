@@ -85,7 +85,7 @@ extern int32 Xup;
 
     graphics_point(x,y)        Draws point to (x,y) with pointtype PointStyle
     graphics_line(x1,y1,x2,y2) Draws line with linetype LineStyle
-    put_text(x1,y,text)  Draws text with TextAngle, Justify
+    graphics_put_text(x1,y,text)  Draws text with TextAngle, Justify
     init_device()     Sets up the default for tics, plotting area,
                       and anything else
 
@@ -134,7 +134,7 @@ static void point_x11(int32 xp, int32 yp);
 static void bead(int32 x1, int32 y1);
 
 void
-get_scale(double *x1, double *y1, double *x2, double *y2) {
+graphics_get_scale(double *x1, double *y1, double *x2, double *y2) {
     *x1 = XMin;
     *y1 = YMin;
     *x2 = XMax;
@@ -143,7 +143,7 @@ get_scale(double *x1, double *y1, double *x2, double *y2) {
 }
 
 void
-set_scale(double x1, double y1, double x2, double y2) {
+graphics_set_scale(double x1, double y1, double x2, double y2) {
     XMin = x1;
     YMin = y1;
     XMax = x2;
@@ -152,13 +152,13 @@ set_scale(double x1, double y1, double x2, double y2) {
 }
 
 void
-get_draw_area(void) {
-    get_draw_area_flag(1);
+graphics_get_draw_area(void) {
+    graphics_get_draw_area_flag(1);
     return;
 }
 
 void
-get_draw_area_flag(int32 flag) {
+graphics_get_draw_area_flag(int32 flag) {
     int32 x;
     int32 y;
     uint32 w, h, bw, de;
@@ -189,19 +189,19 @@ get_draw_area_flag(int32 flag) {
     MyGraph->Height = (int32)h;
     MyGraph->x0 = DLeft;
     MyGraph->y0 = DTop;
-    set_normal_scale();
+    graphics_set_normal_scale();
     return;
 }
 
 void
-change_current_linestyle(int32 new, int32 *old) {
+graphics_change_current_linestyle(int32 new, int32 *old) {
     *old = MyGraph->color[0];
     MyGraph->color[0] = new;
     return;
 }
 
 void
-set_normal_scale(void) {
+graphics_set_normal_scale(void) {
     XMin = MyGraph->xlo;
     YMin = MyGraph->ylo;
     XMax = MyGraph->xhi;
@@ -254,24 +254,24 @@ graphics_frect(int32 x1, int32 y1, int32 w, int32 h) {
 }
 
 void
-put_text(int32 x, int32 y, char *str) {
+graphics_put_text(int32 x, int32 y, char *str) {
     if (PltFmtFlag == PSFMT)
         ps_text(x, y, str);
     else if (PltFmtFlag == SVGFMT)
         svg_text(x, y, str);
     else
-        put_text_x11(x, y, str);
+        graphics_put_text_x11(x, y, str);
     return;
 }
 
 void
-init_x11(void) {
-    get_draw_area();
+graphics_init_x11(void) {
+    graphics_get_draw_area();
     return;
 }
 
 void
-init_ps(void) {
+graphics_init_ps(void) {
     if (!PS_Port) {
         XDMax = 7200;
         YDMax = 5040;
@@ -299,7 +299,7 @@ init_ps(void) {
 }
 
 void
-init_svg(void) {
+graphics_init_svg(void) {
     XDMax = 640;
     YDMax = 400;
     VTic = 9;
@@ -327,7 +327,7 @@ point_x11(int32 xp, int32 yp) {
 }
 
 void
-set_linestyle(int32 ls) {
+graphics_set_linestyle(int32 ls) {
     if (PltFmtFlag == PSFMT)
         ps_linetype(ls);
     else if (PltFmtFlag == SVGFMT)
@@ -388,7 +388,7 @@ rect_x11(int32 x, int32 y, int32 w, int32 h) {
 }
 
 void
-draw_many_lines(void) {
+graphics_draw_many_lines(void) {
     int32 NLINE = 500000;
     int32 i;
     for (i = 0; i < NLINE; i++)
@@ -405,7 +405,7 @@ line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
 }
 
 void
-put_text_x11(int32 x, int32 y, char *str) {
+graphics_put_text_x11(int32 x, int32 y, char *str) {
     int32 sw = (int32)strlen(str)*DCURXs;
     switch (TextJustify) {
     case 0:
@@ -429,7 +429,7 @@ put_text_x11(int32 x, int32 y, char *str) {
 }
 
 void
-special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
+graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
     int32 i = 0, j = 0;
     int32 cx = x, cy = y;
     int32 cf = 0, cs;
@@ -452,7 +452,7 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
             c = str[i];
             tmp[j] = 0; /* end the current buffer */
 
-            fancy_put_text_x11(cx, cy, tmp, cs,
+            graphics_fancy_put_text_x11(cx, cy, tmp, cs,
                                cf); /* render the current buffer */
             if (cf == 0) {
                 if (avromfonts[cs] == 1)
@@ -497,12 +497,12 @@ special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
         }
     }
     tmp[j] = 0;
-    fancy_put_text_x11(cx, cy, tmp, cs, cf);
+    graphics_fancy_put_text_x11(cx, cy, tmp, cs, cf);
     return;
 }
 
 void
-fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
+graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
     /*int32 yoff;
      */
     if (strlen(str) == 0)
@@ -538,7 +538,7 @@ fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
 }
 
 void
-scale_dxdy(double x, double y, double *i, double *j) {
+graphics_scale_dxdy(double x, double y, double *i, double *j) {
     double dx = (DRight - DLeft) / (XMax - XMin);
     double dy = (DTop - DBottom) / (YMax - YMin);
     *i = x*dx;
@@ -562,7 +562,7 @@ scale_to_real(/* Not needed except for X */
     int32 i1;
     int32 j1;
     double x1, y1;
-    get_draw_area();
+    graphics_get_draw_area();
     i1 = i - DLeft;
     j1 = j - DBottom;
     x1 = (double)i1;
@@ -575,7 +575,7 @@ scale_to_real(/* Not needed except for X */
 }
 
 void
-reset_all_line_type(void) {
+graphics_reset_all_line_type(void) {
     int32 j;
     int32 k;
     for (j = 0; j < MAXPOP; j++) {
@@ -587,18 +587,18 @@ reset_all_line_type(void) {
 }
 
 void
-init_all_graph(void) {
+graphics_init_all(void) {
     int32 i;
     for (i = 0; i < MAXPOP; i++)
         init_graph(i);
     MyGraph = &graph[0];
-    /*set_extra_graphs();*/
-    set_normal_scale();
+    /*graphics_set_extra();*/
+    graphics_set_normal_scale();
     return;
 }
 
 void
-set_extra_graphs(void) {
+graphics_set_extra(void) {
     int32 i;
     if (NPltV < 2)
         return;
@@ -635,7 +635,7 @@ set_extra_graphs(void) {
 }
 
 void
-reset_graph(void) {
+graphics_reset_graph(void) {
     if (AXES >= 5)
         PLOT_3D = 1;
     else
@@ -660,13 +660,13 @@ reset_graph(void) {
     MyGraph->xhi = MY_XHI;
     MyGraph->yhi = MY_YHI;
     MyGraph->grtype = AXES;
-    check_windows();
-    set_normal_scale();
-    redraw_the_graph();
+    graf_par_check_windows();
+    graphics_set_normal_scale();
+    graf_par_redraw_the_graph();
 }
 
 void
-get_graph(void) {
+graphics_get_graph(void) {
     x_3d[0] = MyGraph->xmin;
     x_3d[1] = MyGraph->xmax;
     y_3d[0] = MyGraph->ymin;
@@ -764,7 +764,7 @@ init_graph(int32 i) {
     graph[i].oldxhi = MY_XHI;
     graph[i].oldyhi = MY_YHI;
     MyGraph = &graph[i];
-    make_rot(THETA0, PHI0);
+    graphics_make_rot(THETA0, PHI0);
     return;
 }
 
@@ -828,7 +828,7 @@ copy_graph(/*  Graph[i]=Graph[l]  */
 }
 
 void
-make_rot(double theta, double phi) {
+graphics_make_rot(double theta, double phi) {
     double ct = cos(DEGTORAD*theta), st = sin(DEGTORAD*theta);
     double sp = sin(DEGTORAD*phi), cp = cos(DEGTORAD*phi);
     MyGraph->Theta = theta;
@@ -880,12 +880,12 @@ graphics_text3d(double x, double y, double z, char *s) {
     double xp;
     double yp;
     if (graphics_threedproj(x, y, z, &xp, &yp))
-        text_abs(xp, yp, s);
+        graphics_text_abs(xp, yp, s);
     return;
 }
 
 int32
-threed_proj(double x, double y, double z, double *xp, double *yp) {
+graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
     double x1p, y1p, z1p, s;
     double x2p, y2p, z2p;
     graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
@@ -909,11 +909,11 @@ threed_proj(double x, double y, double z, double *xp, double *yp) {
 }
 
 void
-point_3d(double x, double y, double z) {
+graphics_point_3d(double x, double y, double z) {
     double xp;
     double yp;
-    if (threed_proj(x, y, z, &xp, &yp))
-        point_abs(xp, yp);
+    if (graphics_threed_proj(x, y, z, &xp, &yp))
+        graphics_point_abs(xp, yp);
     return;
 }
 
@@ -947,12 +947,12 @@ line3d(/* unscaled version     */
     if (MyGraph->PerspFlag)
         pers_line(xs, ys, zs, xsp, ysp, zsp);
     else
-        line_abs(xs, ys, xsp, ysp);
+        graphics_line_abs(xs, ys, xsp, ysp);
     return;
 }
 
 void
-line_3d(double x, double y, double z, double xp, double yp, double zp) {
+graphics_line_3d(double x, double y, double z, double xp, double yp, double zp) {
     double xs, ys, zs;
     double xs1, ys1, zs1;
     double xsp, ysp, zsp;
@@ -968,7 +968,7 @@ line_3d(double x, double y, double z, double xp, double yp, double zp) {
     if (MyGraph->PerspFlag)
         pers_line(xs, ys, zs, xsp, ysp, zsp);
     else
-        line_abs(xs, ys, xsp, ysp);
+        graphics_line_abs(xs, ys, xsp, ysp);
     return;
 }
 
@@ -1012,7 +1012,7 @@ pers_line(double x, double y, double z, double xp, double yp, double zp)
     s = d / (Zv - z);
     x = s*x;
     y = s*y;
-    line_abs(x, y, xp, yp);
+    graphics_line_abs(x, y, xp, yp);
     return;
 }
 
@@ -1037,7 +1037,7 @@ rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp) {
 }
 
 void
-point_abs(double x1, double y1) {
+graphics_point_abs(double x1, double y1) {
     int32 xp;
     int32 yp;
 
@@ -1063,7 +1063,7 @@ line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
 }
 
 void
-bead_abs(double x1, double y1) {
+graphics_bead_abs(double x1, double y1) {
     int32 i1;
     int32 j1;
     double x_left = XMin;
@@ -1078,7 +1078,7 @@ bead_abs(double x1, double y1) {
 }
 
 void
-frect_abs(double x1, double y1, double w, double h) {
+graphics_frect_abs(double x1, double y1, double w, double h) {
     int32 i1, i2, j1, j2;
     int32 ih;
     int32 iw;
@@ -1093,7 +1093,7 @@ frect_abs(double x1, double y1, double w, double h) {
 }
 
 void
-line_abs(double x1, double y1, double x2, double y2) {
+graphics_line_abs(double x1, double y1, double x2, double y2) {
     double x1_out, y1_out, x2_out, y2_out;
 
     int32 xp1, yp1, xp2, yp2;
@@ -1106,11 +1106,11 @@ line_abs(double x1, double y1, double x2, double y2) {
 }
 
 void
-text_abs(double x, double y, char *text) {
+graphics_text_abs(double x, double y, char *text) {
     int32 xp;
     int32 yp;
     scale_to_screen(x, y, &xp, &yp);
-    put_text(xp, yp, text);
+    graphics_put_text(xp, yp, text);
     return;
 }
 
@@ -1178,7 +1178,7 @@ graphics_fillin_text(char *old, char *new) {
 }
 
 void
-fancy_text_abs(double x, double y, char *old, int32 size) {
+graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
     int32 xp;
     int32 yp;
     char text[256];
@@ -1189,7 +1189,7 @@ fancy_text_abs(double x, double y, char *old, int32 size) {
     else if (PltFmtFlag == SVGFMT)
         special_put_text_svg(xp, yp, text, size);
     else
-        special_put_text_x11(xp, yp, text, size);
+        graphics_special_put_text_x11(xp, yp, text, size);
     return;
 }
 
@@ -1449,7 +1449,7 @@ C4:
 }
 
 void
-eq_symb(double *x, int32 type) {
+graphics_eq_symb(double *x, int32 type) {
     double dx = 6.0*(double)(MyGraph->xhi - MyGraph->xlo)*SYMSIZE;
     double dy = 6.0*(double)(MyGraph->yhi - MyGraph->ylo)*SYMSIZE;
     int32 ix = MyGraph->xv[0] - 1, iy = MyGraph->yv[0] - 1,
@@ -1462,14 +1462,14 @@ eq_symb(double *x, int32 type) {
     if (MyGraph->ThreeDFlag) {
         dx = 6.0*SYMSIZE / MyGraph->dx;
         dy = 6.0*SYMSIZE / MyGraph->dy;
-        line_3d((double)x[ix] + dx, (double)x[iy], (double)x[iz],
+        graphics_line_3d((double)x[ix] + dx, (double)x[iy], (double)x[iz],
                 (double)x[ix] - dx, (double)x[iy], (double)x[iz]);
-        line_3d((double)x[ix], (double)x[iy] + dy, (double)x[iz], (double)x[ix],
+        graphics_line_3d((double)x[ix], (double)x[iy] + dy, (double)x[iz], (double)x[ix],
                 (double)x[iy] - dy, (double)x[iz]);
         return;
     }
     draw_symbol((double)x[ix], (double)x[iy], SYMSIZE, type);
-    point_abs((double)x[ix], (double)x[iy]);
+    graphics_point_abs((double)x[ix], (double)x[iy]);
     return;
 }
 
@@ -1506,7 +1506,7 @@ draw_symbol(double x, double y, double size, int32 my_symb) {
         y2 = sym_dir[my_symb][3*ind + 2]*dy + y1;
         pen = sym_dir[my_symb][3*ind];
         if (pen != 0)
-            line_abs(x1, y1, x2, y2);
+            graphics_line_abs(x1, y1, x2, y2);
         x1 = x2;
         y1 = y2;
         ind++;

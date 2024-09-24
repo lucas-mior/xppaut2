@@ -40,7 +40,7 @@ svg_init(char *filename) {
     FILE *fp;
     char css[256];
 
-    init_svg();
+    graphics_init_svg();
 
     LastPSX = -10000;
     LastPSY = -10000;
@@ -430,7 +430,7 @@ svg_end(void) {
     PltFmtFlag = SCRNFMT;
     DOING_SVG_COLOR = 0;
     if (Xup)
-        init_x11();
+        graphics_init_x11();
     return;
 }
 

@@ -632,7 +632,7 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                     fixptlist.er[0][j] = er[j];
                     fixptlist.em[0][j] = em[j];
                     if (ishoot)
-                        shoot_this_now();
+                        gear_shoot_this_now();
                     ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j], er[j],
                            em[j]);
                 }
@@ -655,7 +655,7 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                             fixptlist.er[m][j] = er[j];
                             fixptlist.em[m][j] = em[j];
                             if (ishoot)
-                                shoot_this_now();
+                                gear_shoot_this_now();
                             ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j],
                                    er[j], em[j]);
                         }
@@ -734,7 +734,7 @@ do_eq_range(double *x) {
         }
         if (eq_range.movie) {
             draw_label(draw_win);
-            put_text_x11(5, 10, bob);
+            graphics_put_text_x11(5, 10, bob);
             if (film_clip() == 0)
                 ggets_err_msg("Out of film");
         }
@@ -928,7 +928,7 @@ do_range(double *x, int32 flag) {
                 append_stoch(i, storind);
 
             if (range.movie) {
-                put_text_x11(5, 10, bob);
+                graphics_put_text_x11(5, 10, bob);
                 redraw_dfield();
                 create_new_cline();
                 draw_label(draw_win);
@@ -947,7 +947,7 @@ do_range(double *x, int32 flag) {
 
             adj2_do_this_liaprun(i, p); /* sends parameter and index back */
             if (storind > 2)
-                auto_freeze_it();
+                graf_par_auto_freeze_it();
             if (array_plot_range == 1)
                 array_plot_draw_one(bob);
 
@@ -1004,7 +1004,7 @@ silent_equilibria(void) {
             fprintf(fp, "%g %g %g\n", x[i], er[i], em[i]);
         fclose(fp);
         if (BatchEquil == 1)
-            save_batch_shoot();
+            gear_save_batch_shoot();
     }
     return;
 }
@@ -1213,7 +1213,7 @@ batch_integrate_once(void) {
             fclose(fp);
         }
         if (MakePlotFlag)
-            dump_ps(-1);
+            graf_par_dump_ps(-1);
     }
     ggets_plintf(" Run complete ... \n");
     /*   fp=fopen("run.gpl","w");
@@ -1243,7 +1243,7 @@ write_this_run(char *file, int32 i) {
         fclose(fp);
     }
     if (MakePlotFlag)
-        dump_ps(i);
+        graf_par_dump_ps(i);
     return 1;
 }
 
@@ -1498,7 +1498,7 @@ usual_integrate_stuff(double *x) {
     INFLAG = 1;
     refresh_browser(storind);
     if (Xup) {
-        auto_freeze_it();
+        graf_par_auto_freeze_it();
         redraw_ics();
     }
 }
@@ -1626,7 +1626,7 @@ extract_ic_data(char *big) {
     /* now fix it up */
     big[0] = '#';
     big[1] = ' ';
-    search_array(front, new, &j1, &j2, &flag2);
+    form_ode_search_array(front, new, &j1, &j2, &flag2);
     if (flag2 == 1) {
         store_new_array_ic(new, j1, j2, back);
         ar_ic_defined = 1;
@@ -1661,7 +1661,7 @@ set_array_ic(void) {
     junk[0] = 0;
     if (ggets_new_string("Variable: ", junk) == 0)
         return 0;
-    search_array(junk, new, &j1, &j2, &flag2);
+    form_ode_search_array(junk, new, &j1, &j2, &flag2);
     if (flag2 == 1) {
         do_new_array_ic(new, j1, j2);
     } else {
@@ -2487,21 +2487,21 @@ do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
 
     for (ip = 0; ip < np; ip++) {
         if (MyGraph->ColorFlag == 0) {
-            set_linestyle(MyGraph->color[ip]);
+            graphics_set_linestyle(MyGraph->color[ip]);
         }
         /*	   if(MyGraph->line[ip]<0)
                      continue;  */
         if (MyGraph->line[ip] <= 0) {
             PointRadius = -MyGraph->line[ip];
             if (MyGraph->ThreeDFlag == 0)
-                point_abs(xpl[ip], ypl[ip]);
+                graphics_point_abs(xpl[ip], ypl[ip]);
             else
-                point_3d(xpl[ip], ypl[ip], zpl[ip]);
+                graphics_point_3d(xpl[ip], ypl[ip], zpl[ip]);
         } else {
             if (MyGraph->ThreeDFlag == 0) {
-                line_abs(oldxpl[ip], oldypl[ip], xpl[ip], ypl[ip]);
+                graphics_line_abs(oldxpl[ip], oldypl[ip], xpl[ip], ypl[ip]);
             } else
-                line_3d(oldxpl[ip], oldypl[ip], oldzpl[ip], xpl[ip], ypl[ip],
+                graphics_line_3d(oldxpl[ip], oldypl[ip], oldzpl[ip], xpl[ip], ypl[ip],
                         zpl[ip]);
         }
     }
@@ -2643,7 +2643,7 @@ integrate_restore(int32 i1, int32 i2) {
         iiXPLT = MyGraph->xv[ip];
         iiYPLT = MyGraph->yv[ip];
         iiZPLT = MyGraph->zv[ip];
-        set_linestyle(MyGraph->color[ip]);
+        graphics_set_linestyle(MyGraph->color[ip]);
         oldxpl = data[iiXPLT][kxoff];
         oldypl = data[iiYPLT][kyoff];
         oldzpl = data[iiZPLT][kzoff];
@@ -2676,14 +2676,14 @@ integrate_restore(int32 i1, int32 i2) {
             if (MyGraph->line[ip] <= 0) {
                 PointRadius = -MyGraph->line[ip];
                 if (MyGraph->ThreeDFlag == 0)
-                    point_abs(xpl, ypl);
+                    graphics_point_abs(xpl, ypl);
                 else
-                    point_3d(xpl, ypl, zpl);
+                    graphics_point_3d(xpl, ypl, zpl);
             } else {
                 if (MyGraph->ThreeDFlag == 0)
-                    line_abs(oldxpl, oldypl, xpl, ypl);
+                    graphics_line_abs(oldxpl, oldypl, xpl, ypl);
                 else
-                    line_3d(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
+                    graphics_line_3d(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
             }
             /*noplot:*/
             oldxpl = xpl;

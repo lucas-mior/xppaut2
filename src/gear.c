@@ -221,12 +221,12 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             im++;
     } /* eigenvalue count */
     if (((rp + cp) != 0) && ((rn + cn) != 0))
-        eq_symb(x, 1);
+        graphics_eq_symb(x, 1);
     else {
         if ((rp + cp) != 0)
-            eq_symb(x, 0);
+            graphics_eq_symb(x, 0);
         else
-            eq_symb(x, 3);
+            graphics_eq_symb(x, 3);
     }
 
     *stabinfo = (double)(cp + rp) + (double)(cn + rn) / 1000.0;
@@ -252,12 +252,12 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                          eval[2*pose], ierr);
                 if (*ierr == 0) {
-                    change_current_linestyle(UnstableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
                     pr_evec(x, b, n, 1);
                     DELTA_T = fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
-                    change_current_linestyle(oldcol, &dummy);
+                    graphics_change_current_linestyle(oldcol, &dummy);
 
                 } else
                     ggets_err_msg("Failed to compute eigenvector");
@@ -266,12 +266,12 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                          eval[2*nege], ierr);
                 if (*ierr == 0) {
-                    change_current_linestyle(StableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(StableManifoldColor, &oldcol);
                     pr_evec(x, b, n, -1);
                     DELTA_T = -fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
-                    change_current_linestyle(oldcol, &dummy);
+                    graphics_change_current_linestyle(oldcol, &dummy);
                 } else
                     ggets_err_msg("Failed to compute eigenvector");
             }
@@ -297,12 +297,12 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigpos,
                          ierr);
                 if (*ierr == 0) {
-                    change_current_linestyle(UnstableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
                     pr_evec(x, b, n, 1);
                     DELTA_T = fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
-                    change_current_linestyle(oldcol, &dummy);
+                    graphics_change_current_linestyle(oldcol, &dummy);
 
                 } else
                     ggets_err_msg("Failed to compute eigenvector");
@@ -314,12 +314,12 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigneg,
                          ierr);
                 if (*ierr == 0) {
-                    change_current_linestyle(StableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(StableManifoldColor, &oldcol);
                     pr_evec(x, b, n, -1);
                     DELTA_T = -fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
                     integrate_shoot(bp, x, b, -1);
-                    change_current_linestyle(oldcol, &dummy);
+                    graphics_change_current_linestyle(oldcol, &dummy);
                 } else
                     ggets_err_msg("Failed to compute eigenvector");
             }
@@ -332,7 +332,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
 }
 
 void
-save_batch_shoot(void) {
+gear_save_batch_shoot(void) {
     int32 i, k, type;
     double x[MAX_ODE], olddt;
     char name[256];
@@ -370,7 +370,7 @@ save_batch_shoot(void) {
 }
 
 void
-shoot_this_now(void) {
+gear_shoot_this_now(void) {
     /* this uses the current labeled saddle point stuff to integrate */
     int32 i, k, type, oldcol, dummy;
     double x[MAX_ODE], olddt;
@@ -384,16 +384,16 @@ shoot_this_now(void) {
 
         type = ShootType[k];
         if (type > 0) {
-            change_current_linestyle(UnstableManifoldColor, &oldcol);
+            graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
             DELTA_T = fabs(DELTA_T);
             shoot_easy(x);
-            change_current_linestyle(oldcol, &dummy);
+            graphics_change_current_linestyle(oldcol, &dummy);
         }
         if (type < 0) {
-            change_current_linestyle(StableManifoldColor, &oldcol);
+            graphics_change_current_linestyle(StableManifoldColor, &oldcol);
             DELTA_T = -fabs(DELTA_T);
             shoot_easy(x);
-            change_current_linestyle(oldcol, &dummy);
+            graphics_change_current_linestyle(oldcol, &dummy);
         }
     }
     DELTA_T = olddt;
@@ -501,12 +501,12 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
         }
     } /* eigenvalue count */
     if (((rp + cp) != 0) && ((rn + cn) != 0))
-        eq_symb(x, 1);
+        graphics_eq_symb(x, 1);
     else {
         if ((rp + cp) != 0)
-            eq_symb(x, 0);
+            graphics_eq_symb(x, 0);
         else
-            eq_symb(x, 3);
+            graphics_eq_symb(x, 3);
     }
 
     /* Lets change Work back to transposed oldwork */

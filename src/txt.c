@@ -146,14 +146,14 @@ void
 do_txt_action(char *s) {
     int32 tb = tfBell;
     tfBell = 1;
-    get_graph();
+    graphics_get_graph();
     extract_action(s);
     ggets_ping();
     tfBell = tb;
     chk_delay();
     redraw_params();
     redraw_ics();
-    reset_graph();
+    graphics_reset_graph();
     return;
 }
 

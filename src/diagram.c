@@ -455,7 +455,7 @@ diagram_post_auto(void) {
             break;
     }
     ps_end();
-    set_normal_scale();
+    graphics_set_normal_scale();
     return;
 }
 
@@ -494,7 +494,7 @@ diagram_svg_auto(void) {
     }
     svg_end();
 
-    set_normal_scale();
+    graphics_set_normal_scale();
     return;
 }
 

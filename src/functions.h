@@ -2299,20 +2299,20 @@ void form_ode_strip_saveqn(void);
 int32 form_ode_idsc(char *string);
 int32 form_ode_get_eqn(FILE *fptr);
 int32 form_ode_compiler(char *bob, FILE *fptr);
-char *get_first(char *string, char *src);
-char *get_next(char *src);
-void create_plot_list(void);
+char *form_ode_get_first(char *string, char *src);
+char *do_fit_get_next(char *src);
+void form_ode_create_plot_list(void);
 void add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
                  char args[20][13 + 1]);
 int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                    char args[20][13 + 1]);
-int32 find_char(char *s1, char *s2, int32 i0, int32 *i1);
-int32 search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag);
+int32 form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1);
+int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag);
 void form_ode_subsk(char *big, char *new, int32 k, int32 flag);
 
 /* for parsing par, init with whitespace correctly */
-char *new_string2(char *old, int32 length);
-char *get_next2(char **tokens_ptr);
+char *form_ode_new_string2(char *old, int32 length);
+char *form_ode_get_next2(char **tokens_ptr);
 #endif
 
 #ifndef GEAR_H
@@ -2332,7 +2332,7 @@ void do_sing(double *x, double eps, double err, double big, int32 maxit,
 void do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 
-void shoot_this_now(void);
+void gear_shoot_this_now(void);
 void get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
                       int32 n, int32 maxit, double err, int32 *ierr);
 void get_evec(double *a, double *anew, double *b, double *bp, int32 n,
@@ -2357,7 +2357,7 @@ double gear_max(double x, double y);
 double gear_min(double x, double y);
 void gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
 void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job);
-void save_batch_shoot(void);
+void gear_save_batch_shoot(void);
 
 #endif
 
@@ -2383,24 +2383,24 @@ int32 go_go_auto(void);
 extern int32 AutoFreezeFlag;
 extern int32 colorline[];
 
-void change_view_com(int32 com);
-void ind_to_sym(int32 ind, char *str);
-void get_max(int32 index, double *vmin, double *vmax);
-void check_windows(void);
-void xi_vs_t(void);
-void redraw_the_graph(void);
-void get_3d_par_com(void);
-void window_zoom_com(int32 c);
-void graph_all(int32 *list, int32 n, int32 type);
-void change_cmap_com(int32 i);
-void freeze_com(int32 c);
-void key_frz_com(int32 c);
-void auto_freeze_it(void);
-void draw_freeze(Window window);
-void init_bd(void);
-void add_a_curve_com(int32 c);
-void default_window(void);
-void dump_ps(int32 i);
+void graf_par_change_view_com(int32 com);
+void graf_par_ind_to_sym(int32 ind, char *str);
+void graf_par_get_max(int32 index, double *vmin, double *vmax);
+void graf_par_check_windows(void);
+void graf_par_xi_vs_t(void);
+void graf_par_redraw_the_graph(void);
+void graf_par_get_3d_com(void);
+void graf_par_window_zoom_com(int32 c);
+void graf_par_graph_all(int32 *list, int32 n, int32 type);
+void graf_par_change_cmap_com(int32 i);
+void graf_par_freeze_com(int32 c);
+void graf_par_key_frz_com(int32 c);
+void graf_par_auto_freeze_it(void);
+void graf_par_draw_freeze(Window window);
+void graf_par_init_bd(void);
+void graf_par_add_a_curve_com(int32 c);
+void graf_par_default_window(void);
+void graf_par_dump_ps(int32 i);
 
 #endif
 
@@ -2435,59 +2435,59 @@ extern double YMax;
 extern int32 TextJustify;
 extern int32 TextAngle;
 
-void get_scale(double *x1, double *y1, double *x2, double *y2);
-void set_scale(double x1, double y1, double x2, double y2);
-void get_draw_area_flag(int32 flag);
-void get_draw_area(void);
-void change_current_linestyle(int32 new, int32 *old);
-void set_normal_scale(void);
+void graphics_get_scale(double *x1, double *y1, double *x2, double *y2);
+void graphics_set_scale(double x1, double y1, double x2, double y2);
+void graphics_get_draw_area_flag(int32 flag);
+void graphics_get_draw_area(void);
+void graphics_change_current_linestyle(int32 new, int32 *old);
+void graphics_set_normal_scale(void);
 void graphics_point(int32 x, int32 y);
 void graphics_line(int32 x1, int32 y1, int32 x2, int32 y2);
 void graphics_frect(int32 x1, int32 y1, int32 w, int32 h);
-void put_text(int32 x, int32 y, char *str);
-void init_x11(void);
-void init_ps(void);
-void init_svg(void);
-void set_linestyle(int32 ls);
-void put_text_x11(int32 x, int32 y, char *str);
-void special_put_text_x11(int32 x, int32 y, char *str, int32 size);
-void fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font);
-void scale_dxdy(double x, double y, double *i, double *j);
+void graphics_put_text(int32 x, int32 y, char *str);
+void graphics_init_x11(void);
+void graphics_init_ps(void);
+void graphics_init_svg(void);
+void graphics_set_linestyle(int32 ls);
+void graphics_put_text_x11(int32 x, int32 y, char *str);
+void graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size);
+void graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font);
+void graphics_scale_dxdy(double x, double y, double *i, double *j);
 void scale_to_screen(double x, double y, int32 *i, int32 *j);
 void scale_to_real(int32 i, int32 j, double *x, double *y);
-void init_all_graph(void);
-void set_extra_graphs(void);
-void reset_graph(void);
-void get_graph(void);
+void graphics_init_all(void);
+void graphics_set_extra(void);
+void graphics_reset_graph(void);
+void graphics_get_graph(void);
 void copy_graph(int32 i, int32 l);
-void make_rot(double theta, double phi);
+void graphics_make_rot(double theta, double phi);
 void graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *zp);
 int32 graphics_threedproj(double x2p, double y2p, double z2p, double *xp, double *yp);
 void graphics_text3d(double x, double y, double z, char *s);
-int32 threed_proj(double x, double y, double z, double *xp, double *yp);
-void point_3d(double x, double y, double z);
+int32 graphics_threed_proj(double x, double y, double z, double *xp, double *yp);
+void graphics_point_3d(double x, double y, double z);
 void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
              double zsp1);
 void line3d(double x01, double y01, double z01, double x02, double y02,
             double z02);
-void line_3d(double x, double y, double z, double xp, double yp, double zp);
+void graphics_line_3d(double x, double y, double z, double xp, double yp, double zp);
 void rot_3dvec(double x, double y, double z, double *xp, double *yp,
                double *zp);
-void point_abs(double x1, double y1);
-void bead_abs(double x1, double y1);
-void frect_abs(double x1, double y1, double w, double h);
-void line_abs(double x1, double y1, double x2, double y2);
-void text_abs(double x, double y, char *text);
+void graphics_point_abs(double x1, double y1);
+void graphics_bead_abs(double x1, double y1);
+void graphics_frect_abs(double x1, double y1, double w, double h);
+void graphics_line_abs(double x1, double y1, double x2, double y2);
+void graphics_text_abs(double x, double y, char *text);
 void graphics_fillin_text(char *old, char *new);
-void fancy_text_abs(double x, double y, char *old, int32 size);
+void graphics_fancy_text_abs(double x, double y, char *old, int32 size);
 int32 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
              double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
              double *z2p);
 int32 clip(double x1, double x2, double y1, double y2, double *x1_out,
            double *y1_out, double *x2_out, double *y2_out);
-void eq_symb(double *x, int32 type);
-void reset_all_line_type(void);
-void draw_many_lines(void);
+void graphics_eq_symb(double *x, int32 type);
+void graphics_reset_all_line_type(void);
+void graphics_draw_many_lines(void);
 
 #endif
 

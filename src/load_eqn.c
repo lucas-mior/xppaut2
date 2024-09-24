@@ -660,14 +660,14 @@ read_defaults(FILE *fp) {
     char bob[100];
     char *ptr;
     fgets(bob, 80, fp);
-    ptr = get_first(bob, " ");
+    ptr = form_ode_get_first(bob, " ");
     if (notAlreadySet.BIG_FONT_NAME) {
         strcpy(big_font_name, ptr);
         notAlreadySet.BIG_FONT_NAME = 0;
     }
 
     fgets(bob, 80, fp);
-    ptr = get_first(bob, " ");
+    ptr = form_ode_get_first(bob, " ");
     if (notAlreadySet.SMALL_FONT_NAME) {
         strcpy(small_font_name, ptr);
         notAlreadySet.SMALL_FONT_NAME = 0;
@@ -835,12 +835,12 @@ extract_action(char *ptr) {
     char *junk;
     char *mystring;
     strcpy(tmp, ptr);
-    junk = get_first(tmp, " ");
+    junk = form_ode_get_first(tmp, " ");
     if (junk == NULL) {
         /*No more tokens--should this throw an error?*/
     }
 
-    while ((mystring = get_next(" ,;\n")) != NULL) {
+    while ((mystring = do_fit_get_next(" ,;\n")) != NULL) {
         split_apart(mystring, name, value);
         if (strlen(name) > 0 && strlen(value) > 0)
             do_intern_set(name, value);
@@ -897,11 +897,11 @@ set_internopts(OptionsSet *mask) {
     /*  parsem here   */
     for (i = 0; i < Nopts; i++) {
         ptr = interopt[i];
-        junk = get_first(ptr, " ,");
+        junk = form_ode_get_first(ptr, " ,");
         if (junk == NULL) {
             /*No more tokens.  Should this throw an error?*/
         }
-        while ((mystring = get_next(" ,\n\r")) != NULL) {
+        while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
                 /*
@@ -987,11 +987,11 @@ set_internopts_xpprc_and_comline(void) {
     for (i = 0; i < Nopts; i++) {
         strcpy(intrnoptcpy, interopt[i]);
         ptr = intrnoptcpy;
-        junk = get_first(ptr, " ,");
+        junk = form_ode_get_first(ptr, " ,");
         if (junk == NULL) {
             /*No more tokens.  Should this throw an error?*/
         }
-        while ((mystring = get_next(" ,\n\r")) != NULL) {
+        while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             strupr(name);
 
@@ -1019,8 +1019,8 @@ set_internopts_xpprc_and_comline(void) {
 
     for (i = 0; i < Nopts; i++) {
         ptr = interopt[i];
-        junk = get_first(ptr, " ,");
-        while ((mystring = get_next(" ,\n\r")) != NULL) {
+        junk = form_ode_get_first(ptr, " ,");
+        while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
                 set_option(name, value, 0, tempNAS);
@@ -1278,7 +1278,7 @@ set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
             i = atoi(s2);
             if (i < 2 && i > -6) {
                 START_LINE_TYPE = i;
-                reset_all_line_type();
+                graphics_reset_all_line_type();
                 notAlreadySet.START_LINE_TYPE = 0;
             }
         }

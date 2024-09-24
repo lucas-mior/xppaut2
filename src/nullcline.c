@@ -133,7 +133,7 @@ void
 silent_dfields(void) {
     if (DFBatch == 5 || DFBatch == 4) {
         DFSuppress = 1;
-        init_ps();
+        graphics_init_ps();
         do_batch_dfield();
         DFSuppress = 0;
     }
@@ -222,11 +222,11 @@ do_range_clines(void) {
             }
 
             WHICH_CRV = null_ix;
-            set_linestyle(col1);
+            graphics_set_linestyle(col1);
             new_nullcline(course, xmin, y_bot, xmax, y_tp, X_n, &num_x_n);
 
             WHICH_CRV = null_iy;
-            set_linestyle(col2);
+            graphics_set_linestyle(col2);
             new_nullcline(course, xmin, y_bot, xmax, y_tp, Y_n, &num_y_n);
             add_froz_cline(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         }
@@ -379,9 +379,9 @@ redraw_froz_cline(int32 flag) {
                 browse_wait_a_sec(flag);
                 clr_scrn();
             }
-            set_linestyle(col1);
+            graphics_set_linestyle(col1);
             restor_null(z->xn, z->nmx, 1);
-            set_linestyle(col2);
+            graphics_set_linestyle(col2);
             restor_null(z->yn, z->nmy, 2);
             if (flag > 0)
                 menudrive_flush_display();
@@ -439,7 +439,7 @@ get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
             y[iny] = v0 + dv*j;
             rhs(0.0, y, ydot, NODE);
             my_rhs_extra(y, 0.0, NODE, NEQ);
-            scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
+            graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
             amp = hypot(dxp, dyp);
             if (amp > *mdf)
                 *mdf = amp;
@@ -551,7 +551,7 @@ redraw_dfield(void) {
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
     if (!DFSuppress)
-        set_linestyle(MyGraph->color[0]);
+        graphics_set_linestyle(MyGraph->color[0]);
     get_ic(2, y);
     get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
     if (PltFmtFlag == SVGFMT) {
@@ -575,7 +575,7 @@ redraw_dfield(void) {
                     comp_color(v1, v2, NODE, 1.0);
             }
             if (DF_FLAG == 1 || DF_FLAG == 4) {
-                scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
+                graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
                 if (DFIELD_TYPE == 1) {
                     ydot[inx] /= mdf;
                     ydot[iny] /= mdf;
@@ -589,8 +589,8 @@ redraw_dfield(void) {
                 xv1 = y[inx] + ydot[inx]*dz;
                 xv2 = y[iny] + ydot[iny]*dz;
                 if (!DFSuppress) {
-                    bead_abs((double)xv1, (double)xv2);
-                    line_abs((double)y[inx], (double)y[iny], (double)xv1,
+                    graphics_bead_abs((double)xv1, (double)xv2);
+                    graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1,
                              (double)xv2);
                 } else {
                     if (fp)
@@ -598,7 +598,7 @@ redraw_dfield(void) {
                 }
             }
             if (DF_FLAG == 2 && j > 0 && i < grid) {
-                frect_abs((double)y[inx], (double)y[iny], (double)du,
+                graphics_frect_abs((double)y[inx], (double)y[iny], (double)du,
                           (double)dv);
             }
         }
@@ -655,7 +655,7 @@ direct_field_com(int32 c) {
     dz = hypot(dup, dvp)*(.25 + .75*DFIELD_TYPE);
     u0 = MyGraph->xlo;
     v0 = MyGraph->ylo;
-    set_linestyle(MyGraph->color[0]);
+    graphics_set_linestyle(MyGraph->color[0]);
     if (c != 1) {
         DF_FLAG = 1;
         if (c == 3) {
@@ -688,7 +688,7 @@ direct_field_com(int32 c) {
                     comp_color(v1, v2, NODE, 1.0);
                 }
                 if (DF_FLAG == 1) {
-                    scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
+                    graphics_scale_dxdy(ydot[inx], ydot[iny], &dxp, &dyp);
                     if (DFIELD_TYPE == 0) {
                         amp = hypot(dxp, dyp);
                         if (amp != 0.0) {
@@ -701,12 +701,12 @@ direct_field_com(int32 c) {
                     }
                     xv1 = y[inx] + ydot[inx]*dz;
                     xv2 = y[iny] + ydot[iny]*dz;
-                    bead_abs((double)xv1, (double)xv2);
-                    line_abs((double)y[inx], (double)y[iny], (double)xv1,
+                    graphics_bead_abs((double)xv1, (double)xv2);
+                    graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1,
                              (double)xv2);
                 }
                 if (DF_FLAG == 2 && j > 0 && i < grid) {
-                    frect_abs((double)y[inx], (double)y[iny], (double)du,
+                    graphics_frect_abs((double)y[inx], (double)y[iny], (double)du,
                               (double)dv);
                 }
             }
@@ -792,9 +792,9 @@ restore_nullclines(void) {
         return;
     if (MyGraph->xv[0] == null_ix && MyGraph->yv[0] == null_iy &&
         MyGraph->ThreeDFlag == 0) {
-        set_linestyle(col1);
+        graphics_set_linestyle(col1);
         restor_null(X_n, num_x_n, 1);
-        set_linestyle(col2);
+        graphics_set_linestyle(col2);
         restor_null(Y_n, num_y_n, 2);
     }
     redraw_froz_cline(0);
@@ -833,7 +833,7 @@ restor_null(/* d=1 for x and 2 for y  */
 
     for (i = 0; i < n; i++) {
         i4 = 4*i;
-        line_abs(v[i4], v[i4 + 1], v[i4 + 2], v[i4 + 3]);
+        graphics_line_abs(v[i4], v[i4 + 1], v[i4 + 2], v[i4 + 3]);
         if (NullStyle == 1) {
             xm = .5*(v[i4] + v[i4 + 2]);
             ym = .5*(v[i4 + 1] + v[i4 + 3]);
@@ -925,13 +925,13 @@ new_clines_com(int32 c) {
 
         WHICH_CRV = null_ix;
         if (!NCSuppress)
-            set_linestyle(col1);
+            graphics_set_linestyle(col1);
         new_nullcline(course, xmin, y_bot, xmax, y_tp, X_n, &num_x_n);
         ggets_ping();
 
         WHICH_CRV = null_iy;
         if (!NCSuppress)
-            set_linestyle(col2);
+            graphics_set_linestyle(col2);
         new_nullcline(course, xmin, y_bot, xmax, y_tp, Y_n, &num_y_n);
         ggets_ping();
     }
@@ -1005,7 +1005,7 @@ quad_contour(Point p1, Point p2, Point p3, Point p4) {
 
     if (count == 2) {
         if (!NCSuppress)
-            line_abs(x[0], y[0], x[1], y[1]);
+            graphics_line_abs(x[0], y[0], x[1], y[1]);
         stor_null(x[0], y[0], x[1], y[1]);
     }
     return;

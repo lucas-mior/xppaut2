@@ -284,7 +284,7 @@ run_the_commands(int32 com) {
         if ((com - M_DD) == 1)
             return;
         create_new_cline();
-        redraw_the_graph();
+        graf_par_redraw_the_graph();
         /*redraw_dfield();*/
         /*create_new_cline();
         run_now();*/
@@ -294,7 +294,7 @@ run_the_commands(int32 com) {
     }
 
     if (com >= M_WW && com <= M_WS) {
-        window_zoom_com(com - M_WW);
+        graf_par_window_zoom_com(com - M_WW);
         return;
     }
 
@@ -309,24 +309,24 @@ run_the_commands(int32 com) {
     }
 
     if (com >= M_GA && com <= M_GC) {
-        add_a_curve_com(com - M_GA);
+        graf_par_add_a_curve_com(com - M_GA);
         return;
     }
 
     if (com >= M_GFF && com <= M_GFO) {
-        freeze_com(com - M_GFF);
+        graf_par_freeze_com(com - M_GFF);
         return;
     }
 
     if (com >= M_GCN && com <= M_GCU) {
-        change_cmap_com(com - M_GCN);
+        graf_par_change_cmap_com(com - M_GCN);
         redraw_dfield();
 
         return;
     }
 
     if (com == M_GFKK || com == M_GFKN) {
-        key_frz_com(com - M_GFKN);
+        graf_par_key_frz_com(com - M_GFKN);
         return;
     }
     if (com == M_UKE || com == M_UKV) {
@@ -345,12 +345,12 @@ run_the_commands(int32 com) {
     }
 
     if (com == M_X) {
-        xi_vs_t();
+        graf_par_xi_vs_t();
         return;
     }
 
     if (com == M_3) {
-        get_3d_par_com();
+        graf_par_get_3d_com();
         return;
     }
 
@@ -383,7 +383,7 @@ run_the_commands(int32 com) {
     }
 
     if (com >= M_V2 && com <= M_VT)
-        change_view_com(com - M_V2);
+        graf_par_change_view_com(com - M_V2);
     if (com >= M_UAN && com <= M_UAR)
         adj2_make_adj_com(com - M_UAN);
     if (com >= M_UCN && com <= M_UCA)

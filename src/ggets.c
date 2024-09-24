@@ -255,9 +255,9 @@ ggets_cput_text(void) {
     message_box(&temp, 0, SCALEY - 5*DCURY, "Place text with mouse");
     if (menudrive_get_mouse_xy(&x, &y)) {
         many_pops_gr_col();
-        /* fancy_put_text_x11(x,y,string,size,font); */
+        /* graphics_fancy_put_text_x11(x,y,string,size,font); */
         graphics_fillin_text(string, new);
-        special_put_text_x11(x, y, new, size);
+        graphics_special_put_text_x11(x, y, new, size);
         add_label(string, x, y, size, font);
         many_pops_base_col();
     }

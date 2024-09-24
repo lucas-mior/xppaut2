@@ -435,7 +435,7 @@ get_pmap_pars_com(int32 l) {
     if (POIMAP == 0)
         return;
 
-    ind_to_sym(i1, n1);
+    graf_par_ind_to_sym(i1, n1);
     snprintf(values[0], sizeof(values[0]), "%s", n1);
     snprintf(values[1], sizeof(values[1]), "%.16g", POIPLN);
     snprintf(values[2], sizeof(values[2]), "%d", POISGN);
@@ -527,7 +527,7 @@ set_col_par_com(int32 i) {
         return;
     }
     if (MyGraph->ColorFlag == 2) {
-        ind_to_sym(MyGraph->ColorValue, name);
+        graf_par_ind_to_sym(MyGraph->ColorValue, name);
         ggets_new_string("Color via:", name);
         browse_find_variable(name, &ivar);
 
@@ -579,7 +579,7 @@ set_col_par_com(int32 i) {
             MyGraph->min_scale = minder / (fabs(DELTA_T*NJMP));
         }
     } else {
-        get_max(MyGraph->ColorValue, &temp[0], &temp[1]);
+        graf_par_get_max(MyGraph->ColorValue, &temp[0], &temp[1]);
         MyGraph->min_scale = temp[0];
         MyGraph->color_scale = (temp[1] - temp[0]);
         if (MyGraph->color_scale == 0.0)

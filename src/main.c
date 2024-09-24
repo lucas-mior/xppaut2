@@ -489,19 +489,19 @@ do_main(int32 argc, char **argv) {
     rhs = my_rhs;
     do_fit_init_info();
     form_ode_strip_saveqn();
-    create_plot_list();
+    form_ode_create_plot_list();
     extra_auto_load_dll();
 
     if (XPPBatch) {
         color_map_make();
         init_browser();
-        init_all_graph();
+        graphics_init_all();
         comline_if_needed_load_set();
         comline_if_needed_load_par();
         comline_if_needed_load_ic();
         comline_if_needed_select_sets();
         comline_if_needed_load_ext_options();
-        set_extra_graphs();
+        graphics_set_extra();
         set_colorization_stuff();
         batch_integrate();
         if (NCBatch > 0)
@@ -536,7 +536,7 @@ do_main(int32 argc, char **argv) {
 
     Xup = 1;
     ani_zero();
-    set_extra_graphs();
+    graphics_set_extra();
     set_colorization_stuff();
 
     make_scrbox_lists();
@@ -555,7 +555,7 @@ do_main(int32 argc, char **argv) {
     if (DoTutorial == 1)
         do_tutorial();
 
-    default_window();
+    graf_par_default_window();
 
     do_events(min_wid, min_hgt);
 }
@@ -976,7 +976,7 @@ redraw_all(void) {
         redraw_dfield();
         integrate_restore(0, my_browser.maxrow);
         draw_label(draw_win);
-        draw_freeze(draw_win);
+        graf_par_draw_freeze(draw_win);
         restore_on();
     }
     return;
@@ -1050,7 +1050,7 @@ main_commander(int32 ch) {
             get_3d_par();
             break;
         case 'y':
-            draw_many_lines();
+            graphics_draw_many_lines();
             break;
         default:
             break;
@@ -1394,7 +1394,7 @@ make_pops(void) {
     init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, (int32)w - 16 - 16*DCURX,
                (int32)h - 6*DCURY - 16);
     create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
-    get_draw_area();
+    graphics_get_draw_area();
     return;
 }
 

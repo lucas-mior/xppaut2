@@ -226,28 +226,28 @@ void
 pscolset2(int32 flag2) {
     switch (flag2) {
     case LPE2:
-        set_linestyle(LPE_color - 19);
+        graphics_set_linestyle(LPE_color - 19);
         break;
     case LPP2:
-        set_linestyle(LPP_color);
+        graphics_set_linestyle(LPP_color);
         break;
     case HB2:
-        set_linestyle(HB_color - 19);
+        graphics_set_linestyle(HB_color - 19);
         break;
     case TR2:
-        set_linestyle(TR_color - 19);
+        graphics_set_linestyle(TR_color - 19);
         break;
     case BR2:
-        set_linestyle(BR_color - 19);
+        graphics_set_linestyle(BR_color - 19);
         break;
     case PD2:
-        set_linestyle(PD_color - 19);
+        graphics_set_linestyle(PD_color - 19);
         break;
     case FP2:
-        set_linestyle(FP_color - 19);
+        graphics_set_linestyle(FP_color - 19);
         break;
     default:
-        set_linestyle(0);
+        graphics_set_linestyle(0);
     }
     return;
 }
@@ -339,7 +339,7 @@ get_auto_str(char *xlabel, char *ylabel) {
 void
 draw_ps_axes(void) {
     char sx[20], sy[20];
-    set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
+    graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
     axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
@@ -348,7 +348,7 @@ draw_ps_axes(void) {
 void
 draw_svg_axes(void) {
     char sx[20], sy[20];
-    set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
+    graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
     axes2_box(Auto.xmin, Auto.xmax, Auto.ymin, Auto.ymax, sx, sy, 0);
     return;
@@ -645,11 +645,11 @@ auto_per_par(void) {
         status = do_string_box(9, 5, 2, "AutoPer", n, values, 45);
         if (status != 0)
             for (i = 0; i < 9; i++) {
-                ptr = get_first(values[i], "=");
+                ptr = form_ode_get_first(values[i], "=");
                 in = auto_name_to_index(ptr);
                 if (in >= 0) {
                     Auto.uzrpar[i] = in;
-                    ptr = get_next("@");
+                    ptr = do_fit_get_next("@");
                     Auto.period[i] = atof(ptr);
                 }
             }
@@ -825,7 +825,7 @@ auto_plot_par(void) {
         /* printf("I am done scrolling!!"); */
         return;
     }
-    ind_to_sym(i1, n1);
+    graf_par_ind_to_sym(i1, n1);
     sprintf(values[0], "%s", n1);
     sprintf(values[1], "%s", upar_names[AutoPar[Auto.icp1]]);
     sprintf(values[2], "%s", upar_names[AutoPar[Auto.icp2]]);
@@ -1082,12 +1082,12 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
 
         if (PS_Color) {
-            set_linestyle(1);
+            graphics_set_linestyle(1);
             if (flag2 > 0)
                 pscolset2(flag2);
         } else
-            set_linestyle(8);
-        line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
+            graphics_set_linestyle(8);
+        graphics_line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
         break;
     case CUEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
@@ -1098,39 +1098,39 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
         if (Auto.plot != P_P) {
             if (PS_Color)
-                set_linestyle(0);
+                graphics_set_linestyle(0);
             else
-                set_linestyle(4);
+                graphics_set_linestyle(4);
         } else {
             pscolset2(flag2);
         }
-        line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
+        graphics_line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
         break;
     case UPER:
         if (PS_Color)
-            set_linestyle(9);
+            graphics_set_linestyle(9);
         else
-            set_linestyle(0);
+            graphics_set_linestyle(0);
         if (icp1 != Auto.icp1)
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         PointType = UPT;
-        point_abs((double)x, (double)y1);
-        point_abs((double)x, (double)y2);
+        graphics_point_abs((double)x, (double)y1);
+        graphics_point_abs((double)x, (double)y2);
         break;
     case SPER:
         if (PS_Color)
-            set_linestyle(7);
+            graphics_set_linestyle(7);
         else
-            set_linestyle(0);
+            graphics_set_linestyle(0);
         if (icp1 != Auto.icp1)
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
         PointType = SPT;
-        point_abs((double)x, (double)y1);
-        point_abs((double)x, (double)y2);
+        graphics_point_abs((double)x, (double)y1);
+        graphics_point_abs((double)x, (double)y2);
         break;
     default:
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -1149,8 +1149,8 @@ auto_line(double x1i, double y1i, double x2i, double y2i) {
     double x1d, x2d, y1d, y2d;
     double x1_out, y1_out, x2_out, y2_out;
 
-    get_scale(&xmin, &ymin, &xmax, &ymax);
-    set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
+    graphics_get_scale(&xmin, &ymin, &xmax, &ymax);
+    graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     if (clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
         x1d = x1_out;
         x2d = x2_out;
@@ -1159,7 +1159,7 @@ auto_line(double x1i, double y1i, double x2i, double y2i) {
         auto_x11_line_trans(x1d, y1d, x2d, y2d);
     }
 
-    set_scale(xmin, ymin, xmax, ymax);
+    graphics_set_scale(xmin, ymin, xmax, ymax);
 }
 /* this bit of code is for writing points - it only saves what is
    in the current view

@@ -677,7 +677,7 @@ io_graph(int32 f, FILE *fp) {
     io_double(&(MyGraph->oldxhi), fp, f, " ");
     io_double(&(MyGraph->oldyhi), fp, f, " ");
     if (f == READEM && Xup)
-        redraw_the_graph();
+        graf_par_redraw_the_graph();
     return;
 }
 
