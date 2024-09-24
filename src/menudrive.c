@@ -86,13 +86,11 @@ extern int32 screen;
 static int32 status;
 
 extern int32 TORUS;
-typedef struct {
+static struct MsgBoxStruct {
     Window window;
     char text[256];
     int32 here;
-} MSGBOXSTRUCT;
-
-MSGBOXSTRUCT MsgBox;
+} MsgBox;
 
 static void do_file_com(int32 com);
 
