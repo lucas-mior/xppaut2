@@ -3861,6 +3861,8 @@ void numerics_compute_one_period(double period, double *x, char *name);
 #ifndef ODESOL2_H
 #define ODESOL2_H
 
+extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
+
 int32 symplect3(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);
 int32 discrete(double *y, double *tim, double dt, int32 nt, int32 neq,
