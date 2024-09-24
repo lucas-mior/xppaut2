@@ -75,8 +75,8 @@ extern int32 xor_flag;
 extern int32 DCURX;
 extern int32 DCURY;
 int32 num_pops;
-int32 MINI_H = 300;
-int32 MINI_W = 450;
+static int32 MINI_H = 300;
+static int32 MINI_W = 450;
 
 extern int32 Xup;
 int32 ActiveWinList[MAXPOP];

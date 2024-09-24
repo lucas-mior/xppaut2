@@ -3310,6 +3310,9 @@ int32 main_get_command_width(void);
 
 #include <X11/Xlib.h>
 
+extern int32 manual_expose;
+extern int32 SimulPlotFlag;
+
 int32 many_pops_select_table(void);
 void many_pops_get_intern_set(void);
 void many_pops_make_icon(char *icon, int32 wid, int32 hgt, Window window);
