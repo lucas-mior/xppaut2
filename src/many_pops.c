@@ -50,7 +50,7 @@ int32 manual_expose = 0;
 extern char *info_message;
 extern Atom deleteWindowAtom;
 
-Label lb[MAXLAB];
+static Label lb[MAXLAB];
 GROB grob[MAXGROB];
 GRAPH graph[MAXPOP];
 CURVE frz[MAXFRZ];
