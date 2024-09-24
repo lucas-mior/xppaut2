@@ -4081,10 +4081,6 @@ typedef struct GifTree {
     struct GifTree **node, *nxt, *alt;
 } GifTree;
 
-typedef struct GIFCOL {
-    uchar r, g, b;
-} GIFCOL;
-
 void scrngif_set_global_map(int32 flag);
 void scrngif_end_ani_gif(FILE *fp);
 void scrngif_add_ani_gif(Window win, FILE *fp, int32 count);
