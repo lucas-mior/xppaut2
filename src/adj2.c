@@ -544,19 +544,19 @@ bye:
 int32
 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
               int32 node, double dt) {
-    int32 j, i, n2 = node*node, info;
+    int32 i, n2 = node*node, info;
     int32 ipvt[MAX_ODE];
     double *mat;
     double *fold;
     fold = work;
     mat = work + node;
 
-    for (j = 0; j < node; j++) {
+    for (int32 j = 0; j < node; j++) {
         fold[j] = 0.0;
         for (i = 0; i < node; i++)
             fold[j] = fold[j] + jac[i + j*node][k]*yold[i];
     }
-    for (j = 0; j < node; j++)
+    for (int32 j = 0; j < node; j++)
         yold[j] = yold[j] + .5*dt*fold[j];
     for (i = 0; i < n2; i++)
         mat[i] = -jac[i][k2]*dt*.5;
