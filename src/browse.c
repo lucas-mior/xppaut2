@@ -71,24 +71,24 @@ static void expose_browser(XEvent event, Browser b);
 static void resize_browser(Window win, Browser *b);
 static void browse_button(XEvent event, Browser *b);
 static void browse_keypress(XEvent event, int32 *used, Browser *b);
-static void data_up(Browser *b);
-static void data_down(Browser *b);
-static void data_pgup(Browser *b);
-static void data_pgdn(Browser *b);
-static void data_home(Browser *b);
-static void data_end(Browser *b);
-static void data_get(Browser *b);
-static void data_replace(Browser *b);
-static void data_unreplace(Browser *b);
-static void data_table(Browser *b);
-static void data_find(Browser *b);
-static void data_read(Browser *b);
-static void data_write(Browser *b);
-static void data_left(Browser *b);
-static void data_right(Browser *b);
-static void data_first(Browser *b);
-static void data_last(Browser *b);
-static void data_restore(Browser *b);
+static void browse_data_up(Browser *b);
+static void browse_data_down(Browser *b);
+static void browse_data_pgup(Browser *b);
+static void browse_data_pgdn(Browser *b);
+static void browse_data_home(Browser *b);
+static void browse_data_end(Browser *b);
+static void browse_data_get(Browser *b);
+static void browse_data_replace(Browser *b);
+static void browse_data_unreplace(Browser *b);
+static void browse_data_table(Browser *b);
+static void browse_data_find(Browser *b);
+static void browse_data_read(Browser *b);
+static void browse_data_write(Browser *b);
+static void browse_data_left(Browser *b);
+static void browse_data_right(Browser *b);
+static void browse_data_first(Browser *b);
+static void browse_data_last(Browser *b);
+static void browse_data_restore(Browser *b);
 
 double **
 get_browser_data(void) {
@@ -943,17 +943,17 @@ browse_button(XEvent event, Browser *b) {
         done = 1;
         while (done) {
             if (w == b->up)
-                data_up(b);
+                browse_data_up(b);
             if (w == b->down)
-                data_down(b);
+                browse_data_down(b);
             if (w == b->pgup)
-                data_pgup(b);
+                browse_data_pgup(b);
             if (w == b->pgdn)
-                data_pgdn(b);
+                browse_data_pgdn(b);
             if (w == b->left)
-                data_left(b);
+                browse_data_left(b);
             if (w == b->right)
-                data_right(b);
+                browse_data_right(b);
             browse_wait_a_sec(100);
             if (XPending(display) > 0) {
                 XNextEvent(display, &zz);
@@ -970,52 +970,52 @@ browse_button(XEvent event, Browser *b) {
     }
 
     if (w == b->home) {
-        data_home(b);
+        browse_data_home(b);
         return;
     }
 
     if (w == b->end) {
-        data_end(b);
+        browse_data_end(b);
         return;
     }
 
     if (w == b->first) {
-        data_first(b);
+        browse_data_first(b);
         return;
     }
 
     if (w == b->last) {
-        data_last(b);
+        browse_data_last(b);
         return;
     }
 
     if (w == b->restore) {
-        data_restore(b);
+        browse_data_restore(b);
         return;
     }
 
     if (w == b->write) {
-        data_write(b);
+        browse_data_write(b);
         return;
     }
 
     if (w == b->get) {
-        data_get(b);
+        browse_data_get(b);
         return;
     }
 
     if (w == b->find) {
-        data_find(b);
+        browse_data_find(b);
         return;
     }
 
     if (w == b->repl) {
-        data_replace(b);
+        browse_data_replace(b);
         return;
     }
 
     if (w == b->load) {
-        data_read(b);
+        browse_data_read(b);
         return;
     }
 
@@ -1030,12 +1030,12 @@ browse_button(XEvent event, Browser *b) {
     }
 
     if (w == b->unrepl) {
-        data_unreplace(b);
+        browse_data_unreplace(b);
         return;
     }
 
     if (w == b->table) {
-        data_table(b);
+        browse_data_table(b);
         return;
     }
 
@@ -1070,92 +1070,92 @@ browse_keypress(XEvent event, int32 *used, Browser *b) {
         */
 
         if (ks == KEY_UP) {
-            data_up(b);
+            browse_data_up(b);
             return;
         }
 
         if (ks == KEY_DOWN) {
-            data_down(b);
+            browse_data_down(b);
             return;
         }
 
         if (ks == KEY_PGUP) {
-            data_pgup(b);
+            browse_data_pgup(b);
             return;
         }
 
         if (ks == KEY_PGDN) {
-            data_pgdn(b);
+            browse_data_pgdn(b);
             return;
         }
 
         if (ks == KEY_LEFT) {
-            data_left(b);
+            browse_data_left(b);
             return;
         }
 
         if (ks == KEY_RIGHT) {
-            data_right(b);
+            browse_data_right(b);
             return;
         }
 
         if (ks == KEY_HOME) {
-            data_home(b);
+            browse_data_home(b);
             return;
         }
 
         if (ks == KEY_END) {
-            data_end(b);
+            browse_data_end(b);
             return;
         }
 
         if (ks == 's' || ks == 'S') {
-            data_first(b);
+            browse_data_first(b);
             return;
         }
 
         if (ks == 'e' || ks == 'E') {
-            data_last(b);
+            browse_data_last(b);
             return;
         }
 
         if (ks == 'r' || ks == 'R') {
-            data_restore(b);
+            browse_data_restore(b);
             return;
         }
 
         if (ks == 'W' || ks == 'w') {
-            data_write(b);
+            browse_data_write(b);
             return;
         }
 
         if (ks == 'g' || ks == 'G') {
-            data_get(b);
+            browse_data_get(b);
             return;
         }
 
         if (ks == 'f' || ks == 'F') {
-            data_find(b);
+            browse_data_find(b);
             return;
         }
 
         if (ks == 'l' || ks == 'L') {
-            data_read(b);
+            browse_data_read(b);
             return;
         }
 
         if (ks == 'u' || ks == 'U') {
-            data_unreplace(b);
+            browse_data_unreplace(b);
             return;
         }
 
         if (ks == 't' || ks == 'T') {
-            data_table(b);
+            browse_data_table(b);
             return;
         }
 
         if (ks == 'p' || ks == 'P') {
-            data_replace(b);
+            browse_data_replace(b);
             return;
         }
 
@@ -1179,7 +1179,7 @@ browse_keypress(XEvent event, int32 *used, Browser *b) {
 }
 
 void
-data_up(Browser *b) {
+browse_data_up(Browser *b) {
     if (b->row0 > 0) {
         b->row0--;
         browse_draw_data(*b);
@@ -1188,7 +1188,7 @@ data_up(Browser *b) {
 }
 
 void
-data_down(Browser *b) {
+browse_data_down(Browser *b) {
     if (b->row0 < (b->maxrow - 1)) {
         b->row0++;
         browse_draw_data(*b);
@@ -1197,7 +1197,7 @@ data_down(Browser *b) {
 }
 
 void
-data_pgup(Browser *b) {
+browse_data_pgup(Browser *b) {
     int32 i = b->row0 - b->nrow;
     if (i > 0)
         b->row0 = i;
@@ -1208,7 +1208,7 @@ data_pgup(Browser *b) {
 }
 
 void
-data_pgdn(Browser *b) {
+browse_data_pgdn(Browser *b) {
     int32 i = b->row0 + b->nrow;
     if (i < (b->maxrow - 1))
         b->row0 = i;
@@ -1219,7 +1219,7 @@ data_pgdn(Browser *b) {
 }
 
 void
-data_home(Browser *b) {
+browse_data_home(Browser *b) {
     b->row0 = 0;
     b->istart = 0;
     b->iend = b->maxrow;
@@ -1228,14 +1228,14 @@ data_home(Browser *b) {
 }
 
 void
-data_end(Browser *b) {
+browse_data_end(Browser *b) {
     b->row0 = b->maxrow - 1;
     browse_draw_data(*b);
     return;
 }
 
 void
-get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
+browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
              int32 off) {
     int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
@@ -1247,12 +1247,12 @@ get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
 void
 data_get_my_browser(int32 row) {
     my_browser.row0 = row;
-    data_get(&my_browser);
+    browse_data_get(&my_browser);
     return;
 }
 
 void
-data_get(Browser *b) {
+browse_data_get(Browser *b) {
     int32 i, in = b->row0;
     set_ivar(0, (double)storage[0][in]);
     for (i = 0; i < NODE; i++) {
@@ -1270,7 +1270,7 @@ data_get(Browser *b) {
 }
 
 void
-data_replace(Browser *b) {
+browse_data_replace(Browser *b) {
     Window window;
     int32 rev;
     int32 status;
@@ -1292,14 +1292,14 @@ data_replace(Browser *b) {
 }
 
 void
-data_unreplace(Browser *b) {
+browse_data_unreplace(Browser *b) {
     browse_unreplace_column();
     browse_draw_data(*b);
     return;
 }
 
 void
-data_table(Browser *b) {
+browse_data_table(Browser *b) {
     Window window;
     int32 rev;
     int32 status;
@@ -1330,7 +1330,7 @@ data_table(Browser *b) {
 }
 
 void
-data_find(Browser *b) {
+browse_data_find(Browser *b) {
     Window window;
     int32 rev;
     int32 status;
@@ -1384,7 +1384,7 @@ browse_open_write_file(FILE **fp, char *fil, int32 *ok) {
 }
 
 void
-data_read(Browser *b) {
+browse_data_read(Browser *b) {
     int32 status;
     char fil[256];
     char ch;
@@ -1446,7 +1446,7 @@ data_read(Browser *b) {
 }
 
 void
-data_write(Browser *b) {
+browse_data_write(Browser *b) {
     int32 status;
     char fil[256];
     FILE *fp;
@@ -1481,7 +1481,7 @@ data_write(Browser *b) {
 }
 
 void
-data_left(Browser *b) {
+browse_data_left(Browser *b) {
     int32 i = b->col0;
     if (i > 1) {
         b->col0--;
@@ -1491,7 +1491,7 @@ data_left(Browser *b) {
 }
 
 void
-data_right(Browser *b) {
+browse_data_right(Browser *b) {
     int32 i = b->col0 + b->ncol;
     if (i <= b->maxcol) {
         b->col0++;
@@ -1501,16 +1501,16 @@ data_right(Browser *b) {
 }
 
 void
-data_first(Browser *b) {
+browse_data_first(Browser *b) {
     b->istart = b->row0;
 }
 
 void
-data_last(Browser *b) {
+browse_data_last(Browser *b) {
     b->iend = b->row0 + 1;
 }
 
 void
-data_restore(Browser *b) {
+browse_data_restore(Browser *b) {
     integrate_restore(b->istart, b->iend);
 }

@@ -733,7 +733,7 @@ add_markers(void) {
     if (get_markers_info() == 0)
         return;
     for (i = 0; i < markinfo.number; i++) {
-        get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0], MyGraph->zv[0],
+        browse_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0], MyGraph->zv[0],
                      markinfo.start + i*markinfo.skip);
         if (MyGraph->ThreeDFlag == 0) {
             xs = x;

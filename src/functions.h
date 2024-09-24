@@ -798,7 +798,7 @@ void enter_my_browser(XEvent event, int32 yn);
 void my_browse_button(XEvent event);
 void my_browse_keypress(XEvent event, int32 *used);
 void resize_my_browser(Window win);
-void get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
+void browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
                   int32 off);
 void browse_open_write_file(FILE **fp, char *fil, int32 *ok);
 void write_my_browser_data(FILE *fp);
