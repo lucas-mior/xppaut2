@@ -1,5 +1,6 @@
 #include "auto_f2c.h"
 #include "math.h"
+#include "complex_math.h"
 
 double
 f__cabs(double real, double imag) {

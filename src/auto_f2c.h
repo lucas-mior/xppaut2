@@ -12,15 +12,7 @@
 #include <stdint.h>
 #include <math.h>
 #include "integers.h"
-
-typedef struct {
-    double r;
-    double i;
-} floatcomplex;
-typedef struct {
-    double r;
-    double i;
-} doublecomplex;
+#include <complex_math.h>
 
 #ifndef abs
 #define abs(x) ((x) >= 0 ? (x) : -(x))
