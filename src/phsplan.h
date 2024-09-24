@@ -68,7 +68,5 @@ extern int32 POIVAR;
 extern double POIPLN;
 
 extern int32 NULL_HERE;
-extern double *X_n;
-extern double *Y_n;
 
 #endif
