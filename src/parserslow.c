@@ -72,7 +72,6 @@ static double ustack[200];
 Kernel kernel[MAX_KER];
 int32 NKernel;
 int32 MaxPoints;
-double *Memory[MAX_KER];
 int32 NTable;
 
 UFUN_ARG ufun_arg[MAX_UFUN];

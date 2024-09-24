@@ -28,7 +28,7 @@ extern int32 NMarkov;
 extern int32 FIX_VAR;
 extern int32 PrimeStart;
 extern int32 NKernel;
-extern double *Memory[MAX_ODE];
+double *Memory[MAX_KER];
 extern double T0;
 extern double DELTA_T;
 extern int32 MaxPoints;
