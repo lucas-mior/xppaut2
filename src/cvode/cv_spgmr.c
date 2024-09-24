@@ -69,7 +69,7 @@ typedef struct {
     int32 g_ncfl;    /* ncfl = total number of convergence failures */
 
     Vector g_ytemp; /* temp vector used by CVAtimesDQ              */
-    Vector g_x;     /* temp vector used by CVSpgmrSolve            */
+    Vector g_x;     /* temp vector used by cv_spgmr_solve            */
     Vector g_ycur;  /* CVODE current y vector in Newton Iteration  */
     Vector g_fcur;  /* fcur = f(tn, ycur)                          */
 
@@ -89,11 +89,11 @@ typedef struct {
 
 static int32 cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, Vector ypred,
+static int32 cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
                           Vector fpred, bool *jcurPtr, Vector vtemp1,
                           Vector vtemp2, Vector vtemp3);
 
-static int32 CVSpgmrSolve(CVodeMem cv_mem, Vector b, Vector ycur,
+static int32 cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ycur,
                           Vector fcur);
 
 static void cv_spgmr_free(CVodeMem cv_mem);
@@ -146,7 +146,7 @@ static int32 cv_spgmr_psolve(void *lin_mem, Vector r, Vector z, int32 lr);
  This routine initializes the memory record and sets various function
  fields specific to the Spgmr linear solver module. cv_spgmr sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be cv_spgmr_init, CVSpgmrSetup, CVSpgmrSolve, and cv_spgmr_free,
+ to be cv_spgmr_init, cv_spgmr_setup, cv_spgmr_solve, and cv_spgmr_free,
  respectively. It allocates memory for a structure of type
  CVSpgmrMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure. cv_spgmr sets the following fields in the
@@ -178,8 +178,8 @@ cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
 
     /* Set four main function fields in cv_mem */
     linit = cv_spgmr_init;
-    lsetup = CVSpgmrSetup;
-    lsolve = CVSpgmrSolve;
+    lsetup = cv_spgmr_setup;
+    lsolve = cv_spgmr_solve;
     lfree = cv_spgmr_free;
 
     /* Get memory for CVSpgmrMemRec */
@@ -290,7 +290,7 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
     return LINIT_OK;
 }
 
-/*************** CVSpgmrSetup ****************************************
+/*************** cv_spgmr_setup ****************************************
 
  This routine does the setup operations for the Spgmr linear solver.
  It makes a decision as to whether or not to signal for re-evaluation
@@ -302,7 +302,7 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
              bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
@@ -338,7 +338,7 @@ CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     return ier;
 }
 
-/*************** CVSpgmrSolve ****************************************
+/*************** cv_spgmr_solve ****************************************
 
  This routine handles the call to the generic SPGMR solver spgmr_solve
  for the solution of the linear system Ax = b.
@@ -358,7 +358,7 @@ CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 **********************************************************************/
 
 static int32
-CVSpgmrSolve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
+cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     double bnorm;
     double res_norm;
     CVSpgmrMem cvspgmr_mem;
@@ -491,7 +491,7 @@ cv_spgmr_psolve(void *cvode_mem, Vector r, Vector z, int32 lr) {
 
     ier = psolve(N, tn, ycur, fcur, ytemp, gamma, ewt, delta, &nfe, r, lr,
                  P_data, z);
-    /* This call is counted in nps within the CVSpgmrSolve routine */
+    /* This call is counted in nps within the cv_spgmr_solve routine */
 
     return ier;
 }

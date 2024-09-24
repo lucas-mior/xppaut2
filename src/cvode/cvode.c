@@ -342,7 +342,7 @@ static void cv_prepare_next_step(CVodeMem cv_mem, double dsm);
 static void cv_set_eta(CVodeMem cv_mem);
 static double cv_compute_etaqm1(CVodeMem cv_mem);
 static double cv_compute_etaqp1(CVodeMem cv_mem);
-static void CVChooseEta(CVodeMem cv_mem, double etaqm1, double etaq,
+static void cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq,
                         double etaqp1);
 
 static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
@@ -2330,11 +2330,11 @@ cv_prepare_next_step(CVodeMem cv_mem, double dsm) {
 
     /* If qwait = 0, consider an order change.   etaqm1 and etaqp1 are
        the ratios of new to old h at orders q-1 and q+1, respectively.
-       CVChooseEta selects the largest; CVSetEta adjusts eta and acor */
+       cv_choose_eta selects the largest; CVSetEta adjusts eta and acor */
     qwait = 2;
     etaqm1 = cv_compute_etaqm1(cv_mem);
     etaqp1 = cv_compute_etaqp1(cv_mem);
-    CVChooseEta(cv_mem, etaqm1, etaq, etaqp1);
+    cv_choose_eta(cv_mem, etaqm1, etaq, etaqp1);
     cv_set_eta(cv_mem);
     return;
 }
@@ -2408,7 +2408,7 @@ cv_compute_etaqp1(CVodeMem cv_mem) {
     return etaqp1;
 }
 
-/******************* CVChooseEta **********************************
+/******************* cv_choose_eta **********************************
 
  Given etaqm1, etaq, etaqp1 (the values of eta for qprime =
  q - 1, q, or q + 1, respectively), this routine chooses the
@@ -2422,7 +2422,7 @@ cv_compute_etaqp1(CVodeMem cv_mem) {
 ******************************************************************/
 
 static void
-CVChooseEta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1) {
+cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1) {
     double etam;
 
     etam = MAX(etaqm1, MAX(etaq, etaqp1));
