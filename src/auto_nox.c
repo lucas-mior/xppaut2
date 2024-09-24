@@ -392,7 +392,7 @@ copyf(char *old, char *new) {
 }
 
 void
-appendf(char *old, char *new) {
+auto_appendf(char *old, char *new) {
     FILE *fo;
     FILE *fn;
     FILE *ft;
@@ -442,11 +442,11 @@ close_auto(int32 flg) {
         renamef(fort8, string);
     } else { /*APPEND*/
         sprintf(string, "%s.b", this_auto_file);
-        appendf(fort7, string);
+        auto_appendf(fort7, string);
         sprintf(string, "%s.d", this_auto_file);
-        appendf(fort9, string);
+        auto_appendf(fort9, string);
         sprintf(string, "%s.s", this_auto_file);
-        appendf(fort8, string);
+        auto_appendf(fort8, string);
     }
 
     deletef(fort8);

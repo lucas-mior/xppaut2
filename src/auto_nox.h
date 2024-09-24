@@ -138,7 +138,7 @@ int32 iy_val(double y);
 int32 chk_auto_bnds(int32 ix, int32 iy);
 void renamef(char *old, char *new);
 void copyf(char *old, char *new);
-void appendf(char *old, char *new);
+void auto_appendf(char *old, char *new);
 void deletef(char *old);
 void close_auto(int32 flag);
 void open_auto(int32 flag);
