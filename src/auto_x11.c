@@ -60,7 +60,7 @@ static struct {
 
 static Diagram *CUR_DIAGRAM;
 
-static void MarkAuto(int32 x, int32 y);
+static void auto_x11_mark(int32 x, int32 y);
 static int32 query_special(char *title, char *nsymb);
 static void clear_msg(void);
 static void find_point(int32 ibr, int32 pt);
@@ -438,7 +438,7 @@ auto_x11_traverse_diagram(void) {
                 break;
             case 's': /* mark the start of a branch */
                 if (mark_flag == 0) {
-                    MarkAuto(ix, iy);
+                    auto_x11_mark(ix, iy);
                     mark_ibrs = d->ibr;
                     mark_ipts = d->ntot;
                     mark_flag = 1;
@@ -448,7 +448,7 @@ auto_x11_traverse_diagram(void) {
                 break;
             case 'e': /* mark end of branch */
                 if (mark_flag == 1) {
-                    MarkAuto(ix, iy);
+                    auto_x11_mark(ix, iy);
                     mark_ibre = d->ibr;
                     mark_ipte = d->ntot;
                     mark_flag = 2;
@@ -665,14 +665,14 @@ auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
 void
 RedrawMark(void) {
     if (mark_flag == 2) {
-        MarkAuto(mark_ixs, mark_iys);
-        MarkAuto(mark_ixe, mark_iye);
+        auto_x11_mark(mark_ixs, mark_iys);
+        auto_x11_mark(mark_ixe, mark_iye);
     }
     return;
 }
 
 void
-MarkAuto(int32 x, int32 y) {
+auto_x11_mark(int32 x, int32 y) {
     auto_x11_line_width(2);
     auto_x11_line(x - 8, y - 8, x + 8, y + 8);
     auto_x11_line(x + 8, y - 8, x - 8, y + 8);

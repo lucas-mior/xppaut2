@@ -259,7 +259,7 @@ is_directory(char *root, char *path) {
 
     if (path == NULL)
         return 0;
-    MakeFullPath(root, path, fullpath);
+    read_dir_make_full_path(root, path, fullpath);
     if (stat(fullpath, &statbuf)) /* some error, report that it is not
                                    * a directory */
         return 0;
@@ -269,7 +269,7 @@ is_directory(char *root, char *path) {
         return 0;
 }
 
-/* Function:	MakeFullPath() creates the full pathname for the given file.
+/* Function:	read_dir_make_full_path() creates the full pathname for the given file.
  * Arguments:	filename:	Name of the file in question.
  *		pathname:	Buffer for full name.
  * Returns:	Nothing.
@@ -277,7 +277,7 @@ is_directory(char *root, char *path) {
  */
 
 void
-MakeFullPath(char *root, char *filename, char *pathname) {
+read_dir_make_full_path(char *root, char *filename, char *pathname) {
     strcpy(pathname, root);
     strcat(pathname, "/");
     strcat(pathname, filename);

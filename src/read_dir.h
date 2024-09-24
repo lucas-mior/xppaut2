@@ -21,7 +21,7 @@ int32 fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
 int32 change_directory(char *path);
 int32 get_directory(char *direct);
 int32 is_directory(char *root, char *path);
-void MakeFullPath(char *root, char *filename, char *pathname);
+void read_dir_make_full_path(char *root, char *filename, char *pathname);
 int32 wild_match(char *string, char *pattern);
 
 #endif
