@@ -350,13 +350,13 @@ draw_bif_axes(void) {
 }
 
 int32
-IXVal(double x) {
+ix_val(double x) {
     double temp = (double)Auto.wid*(x - Auto.xmin) / (Auto.xmax - Auto.xmin);
     return (int32)temp + Auto.x0;
 }
 
 int32
-IYVal(double y) {
+iy_val(double y) {
     double temp = (double)Auto.hgt*(y - Auto.ymin) / (Auto.ymax - Auto.ymin);
     return Auto.hgt - (int32)temp + Auto.y0;
 }
@@ -1154,9 +1154,9 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         Auto.lastx = x;
         Auto.lasty = y1;
     }
-    ix = IXVal(x);
-    iy1 = IYVal(y1);
-    iy2 = IYVal(y2);
+    ix = ix_val(x);
+    iy1 = iy_val(y1);
+    iy2 = iy_val(y2);
     auto_x11_bw();
     if (flag2 == 0 && Auto.plot == P_P) /* if the point was a 1 param run and we
                                            are in 2 param plot, skip */
@@ -1362,8 +1362,8 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
         par2 = par[icp2];
     auto_xy_plot(&x, &y1, &y2, par1, par2, per, d->uhi, d->ulo, d->ubar, norm);
 
-    *ix = IXVal(x);
-    *iy = IYVal(y1);
+    *ix = ix_val(x);
+    *iy = iy_val(y1);
     if (dodraw == 1) {
         auto_x11_xor_cross(*ix, *iy);
         plot_stab(evr, evi, NODE);
