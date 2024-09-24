@@ -795,7 +795,7 @@ load_eqn_add_intern_set(char *name, char *does) {
     int32 i, n, j = Nintern_set, k = 0;
     if (Nintern_set >= MAX_INTERN_SET) {
         ggets_plintf(" %s not added -- too many must be less than %d \n", name,
-               MAX_INTERN_SET);
+                     MAX_INTERN_SET);
         return;
     }
     intern_set[j].use = 1;
@@ -822,7 +822,8 @@ load_eqn_add_intern_set(char *name, char *does) {
     bob[k] = 0;
     intern_set[j].does = xmalloc((usize)n + 3);
     strcpy(intern_set[j].does, bob);
-    ggets_plintf(" added %s doing %s \n", intern_set[j].name, intern_set[j].does);
+    ggets_plintf(" added %s doing %s \n", intern_set[j].name,
+                 intern_set[j].does);
     Nintern_set++;
     return;
 }

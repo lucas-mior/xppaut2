@@ -2318,7 +2318,8 @@ void add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
 int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                    char args[20][13 + 1]);
 int32 form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1);
-int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag);
+int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2,
+                            int32 *flag);
 void form_ode_subsk(char *big, char *new, int32 k, int32 flag);
 
 /* for parsing par, init with whitespace correctly */
@@ -2367,7 +2368,8 @@ int32 ggear(int32 n, double *t, double tout, double *y, double hmin,
 double gear_max(double x, double y);
 double gear_min(double x, double y);
 void gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
-void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job);
+void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b,
+                int32 job);
 void gear_save_batch_shoot(void);
 
 #endif
@@ -2462,7 +2464,8 @@ void graphics_init_svg(void);
 void graphics_set_linestyle(int32 ls);
 void graphics_put_text_x11(int32 x, int32 y, char *str);
 void graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size);
-void graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font);
+void graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
+                                 int32 font);
 void graphics_scale_dxdy(double x, double y, double *i, double *j);
 void scale_to_screen(double x, double y, int32 *i, int32 *j);
 void scale_to_real(int32 i, int32 j, double *x, double *y);
@@ -2472,16 +2475,20 @@ void graphics_reset_graph(void);
 void graphics_get_graph(void);
 void copy_graph(int32 i, int32 l);
 void graphics_make_rot(double theta, double phi);
-void graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *zp);
-int32 graphics_threedproj(double x2p, double y2p, double z2p, double *xp, double *yp);
+void graphics_scale3d(double x, double y, double z, double *xp, double *yp,
+                      double *zp);
+int32 graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
+                          double *yp);
 void graphics_text3d(double x, double y, double z, char *s);
-int32 graphics_threed_proj(double x, double y, double z, double *xp, double *yp);
+int32 graphics_threed_proj(double x, double y, double z, double *xp,
+                           double *yp);
 void graphics_point_3d(double x, double y, double z);
 void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
              double zsp1);
 void line3d(double x01, double y01, double z01, double x02, double y02,
             double z02);
-void graphics_line_3d(double x, double y, double z, double xp, double yp, double zp);
+void graphics_line_3d(double x, double y, double z, double xp, double yp,
+                      double zp);
 void rot_3dvec(double x, double y, double z, double *xp, double *yp,
                double *zp);
 void graphics_point_abs(double x1, double y1);
@@ -2562,7 +2569,8 @@ void mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
 void histogram_compute(void);
 void fftxcorr(double *data1, double *data2, int32 length, int32 nlag,
               double *cr, int32 flag);
-void histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
+void histogram_fft(double *data, double *ct, double *st, int32 nmodes,
+                   int32 length);
 void histogram_post_process_stuff(void);
 
 #endif
@@ -3732,9 +3740,11 @@ int32 bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
 int32 one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
                    double *yp, double *yp2, double *ytemp, double *errvec,
                    double *jac);
-void odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t);
+void odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq,
+                               double *t);
 void odesol2_one_step_symp(double *y, double h, double *f, int32 n, double *t);
-void odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t);
+void odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq,
+                            double *t);
 void one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
                   double *tim);
 void one_step_heun(double *y, double dt, double *yval[2], int32 neq,

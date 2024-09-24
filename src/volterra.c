@@ -65,7 +65,8 @@ volterra_alloc_memory(void) {
     for (i = 0; i < NKernel; i++) {
         kernel[i].k_n = 0.0;
         if (add_expr(kernel[i].expr, formula, &len)) {
-            ggets_plintf("Illegal kernel %s=%s\n", kernel[i].name, kernel[i].expr);
+            ggets_plintf("Illegal kernel %s=%s\n", kernel[i].name,
+                         kernel[i].expr);
             exit(0); /* fatal error ... */
         }
         kernel[i].formula =
@@ -76,7 +77,7 @@ volterra_alloc_memory(void) {
         if (kernel[i].flag == CONV) {
             if (add_expr(kernel[i].kerexpr, formula, &len)) {
                 ggets_plintf("Illegal convolution %s=%s\n", kernel[i].name,
-                       kernel[i].kerexpr);
+                             kernel[i].kerexpr);
                 exit(0); /* fatal error ... */
             }
             kernel[i].kerform =

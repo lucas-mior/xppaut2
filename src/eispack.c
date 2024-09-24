@@ -5998,7 +5998,8 @@ sndrtg(double *f, double *g, double *cs, double *sn) {
 
     static double t, tt;
 
-    /*     version of ndrotg, in which gear_sign(f)=gear_sign(cs),gear_sign(g)=gear_sign(sn) */
+    /*     version of ndrotg, in which
+     * gear_sign(f)=gear_sign(cs),gear_sign(g)=gear_sign(sn) */
     /*     cs, sn returned so that -sn*f+cs*g = 0 */
     /*     and cs*f + sn*g = sqrt(f**2+g**2) */
     if (*f == 0. && *g == 0.) {

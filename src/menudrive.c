@@ -158,7 +158,8 @@ menudrive_message_box(char *m) {
         make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                           DisplayHeight / 2, wid, hgt, 4);
 
-    many_pops_make_icon((char *)alert_bits, alert_width, alert_height, MsgBox.window);
+    many_pops_make_icon((char *)alert_bits, alert_width, alert_height,
+                        MsgBox.window);
     MsgBox.here = 1;
     pop_list_set_window_title(MsgBox.window, "Yo!");
     strcpy(MsgBox.text, m);

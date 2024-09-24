@@ -480,7 +480,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
     case KEY_DEL:
         if (*pos > 0) {
             ggets_mem_mov(&value[*pos - 1], &value[*pos],
-                   (int32)strlen(value) - *pos + 1);
+                          (int32)strlen(value) - *pos + 1);
             *pos = *pos - 1;
             *col -= DCURX;
         } else
@@ -495,7 +495,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
     default:
         if ((ch >= ' ') && (ch <= '~')) {
             ggets_mov_mem(&value[*pos + 1], &value[*pos],
-                   (int32)strlen(value) - *pos + 1);
+                          (int32)strlen(value) - *pos + 1);
             value[*pos] = (char)ch;
             *pos = *pos + 1;
             *col += DCURX;

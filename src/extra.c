@@ -61,7 +61,8 @@ void
 extra_auto_load_dll(void) {
     if (dll_flag == 3) {
         get_directory(cur_dir);
-        ggets_plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib, dll_fun);
+        ggets_plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib,
+                     dll_fun);
         sprintf(dlf.libfile, "%s", dll_lib);
         sprintf(dlf.libname, "%s/%s", cur_dir, dlf.libfile);
         sprintf(dlf.fun, "%s", dll_fun);

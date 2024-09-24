@@ -453,7 +453,7 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
             tmp[j] = 0; /* end the current buffer */
 
             graphics_fancy_put_text_x11(cx, cy, tmp, cs,
-                               cf); /* render the current buffer */
+                                        cf); /* render the current buffer */
             if (cf == 0) {
                 if (avromfonts[cs] == 1)
                     dx = XTextWidth(romfonts[cs], tmp, (int)strlen(tmp));
@@ -502,7 +502,8 @@ graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size) {
 }
 
 void
-graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size, int32 font) {
+graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
+                            int32 font) {
     /*int32 yoff;
      */
     if (strlen(str) == 0)
@@ -846,7 +847,8 @@ graphics_make_rot(double theta, double phi) {
 }
 
 void
-graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *zp) {
+graphics_scale3d(double x, double y, double z, double *xp, double *yp,
+                 double *zp) {
     *xp = (x - MyGraph->xbar)*MyGraph->dx;
     *yp = (y - MyGraph->ybar)*MyGraph->dy;
     *zp = (z - MyGraph->zbar)*MyGraph->dz;
@@ -854,7 +856,8 @@ graphics_scale3d(double x, double y, double z, double *xp, double *yp, double *z
 }
 
 int32
-graphics_threedproj(double x2p, double y2p, double z2p, double *xp, double *yp) {
+graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
+                    double *yp) {
     double x1p, y1p, z1p, s;
     /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
     rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
@@ -952,7 +955,8 @@ line3d(/* unscaled version     */
 }
 
 void
-graphics_line_3d(double x, double y, double z, double xp, double yp, double zp) {
+graphics_line_3d(double x, double y, double z, double xp, double yp,
+                 double zp) {
     double xs, ys, zs;
     double xs1, ys1, zs1;
     double xsp, ysp, zsp;
@@ -1463,9 +1467,9 @@ graphics_eq_symb(double *x, int32 type) {
         dx = 6.0*SYMSIZE / MyGraph->dx;
         dy = 6.0*SYMSIZE / MyGraph->dy;
         graphics_line_3d((double)x[ix] + dx, (double)x[iy], (double)x[iz],
-                (double)x[ix] - dx, (double)x[iy], (double)x[iz]);
-        graphics_line_3d((double)x[ix], (double)x[iy] + dy, (double)x[iz], (double)x[ix],
-                (double)x[iy] - dy, (double)x[iz]);
+                         (double)x[ix] - dx, (double)x[iy], (double)x[iz]);
+        graphics_line_3d((double)x[ix], (double)x[iy] + dy, (double)x[iz],
+                         (double)x[ix], (double)x[iy] - dy, (double)x[iz]);
         return;
     }
     draw_symbol((double)x[ix], (double)x[iy], SYMSIZE, type);

@@ -1087,7 +1087,8 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
                 pscolset2(flag2);
         } else
             graphics_set_linestyle(8);
-        graphics_line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
+        graphics_line_abs((double)x, (double)y1, (double)Auto.lastx,
+                          (double)Auto.lasty);
         break;
     case CUEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
@@ -1104,7 +1105,8 @@ add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
         } else {
             pscolset2(flag2);
         }
-        graphics_line_abs((double)x, (double)y1, (double)Auto.lastx, (double)Auto.lasty);
+        graphics_line_abs((double)x, (double)y1, (double)Auto.lastx,
+                          (double)Auto.lasty);
         break;
     case UPER:
         if (PS_Color)
@@ -1622,7 +1624,8 @@ reset_auto(void) {
     char ch;
     if (NBifs <= 1)
         return 0;
-    ch = (char)menudrive_two_choice("YES", "NO", "Destroy AUTO diagram & files", "yn");
+    ch = (char)menudrive_two_choice("YES", "NO", "Destroy AUTO diagram & files",
+                                    "yn");
     if (ch != 'y')
         return 0;
 
@@ -1870,7 +1873,8 @@ auto_run(void) {
         return;
     }
     if (grabpt.lab == 0) {
-        ch = (char)menudrive_two_choice("YES", "NO", "Not Labeled Pt: New Start?", "y");
+        ch = (char)menudrive_two_choice("YES", "NO",
+                                        "Not Labeled Pt: New Start?", "y");
         if (ch == 'y')
             auto_start_diff_ss();
         ggets_ping();

@@ -466,15 +466,18 @@ fit_window(void) {
         return;
     if (MyGraph->ThreeDFlag) {
         for (i = 0; i < n; i++) {
-            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
+                             &(MyGraph->xmax));
             Mx = lmax(MyGraph->xmax, Mx);
             mx = -lmax(-MyGraph->xmin, -mx);
 
-            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin),
+                             &(MyGraph->ymax));
             My = lmax(MyGraph->ymax, My);
             my = -lmax(-MyGraph->ymin, -my);
 
-            graf_par_get_max(MyGraph->zv[i], &(MyGraph->zmin), &(MyGraph->zmax));
+            graf_par_get_max(MyGraph->zv[i], &(MyGraph->zmin),
+                             &(MyGraph->zmax));
             Mz = lmax(MyGraph->zmax, Mz);
             mz = -lmax(-MyGraph->zmin, -mz);
         }
@@ -490,11 +493,13 @@ fit_window(void) {
         graf_par_check_windows();
     } else {
         for (i = 0; i < n; i++) {
-            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin), &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
+                             &(MyGraph->xmax));
             Mx = lmax(MyGraph->xmax, Mx);
             mx = -lmax(-MyGraph->xmin, -mx);
 
-            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin), &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin),
+                             &(MyGraph->ymax));
             My = lmax(MyGraph->ymax, My);
             my = -lmax(-MyGraph->ymin, -my);
         }
@@ -567,8 +572,10 @@ graf_par_xi_vs_t(void) {
         MyGraph->grtype = 0;
         MyGraph->xv[0] = 0;
         if (storind >= 2) {
-            graf_par_get_max(MyGraph->xv[0], &(MyGraph->xmin), &(MyGraph->xmax));
-            graf_par_get_max(MyGraph->yv[0], &(MyGraph->ymin), &(MyGraph->ymax));
+            graf_par_get_max(MyGraph->xv[0], &(MyGraph->xmin),
+                             &(MyGraph->xmax));
+            graf_par_get_max(MyGraph->yv[0], &(MyGraph->ymin),
+                             &(MyGraph->ymax));
 
         } else {
             MyGraph->xmin = T0;

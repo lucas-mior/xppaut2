@@ -333,13 +333,13 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
 void
 print_fit_info(void) {
     int32 i;
-    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n", fit_info.dim,
-           fit_info.maxiter, fit_info.npts, fit_info.file, fit_info.tol,
-           fit_info.eps);
+    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n",
+                 fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
+                 fit_info.tol, fit_info.eps);
 
     for (i = 0; i < fit_info.nvars; i++)
         ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i],
-               fit_info.icols[i]);
+                     fit_info.icols[i]);
     for (i = 0; i < fit_info.npars; i++)
         ggets_plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
     return;
@@ -483,7 +483,7 @@ run_fit(/* double arrays */
         }
     }
     ggets_plintf(" Data loaded ... %f %f ...  %f %f \n", y[0], y[1],
-           y[npts*nvars - 2], y[npts*nvars - 1]);
+                 y[npts*nvars - 2], y[npts*nvars - 1]);
 
     work = xmalloc(sizeof(*work)*(usize)(4*npars + npars*npars));
     yderv = xmalloc((usize)npars*sizeof(double *));
@@ -501,8 +501,8 @@ run_fit(/* double arrays */
                         covar, alpha, &chisq, &alambda, work, yderv, yfit,
                         &ochisq, ictrl, eps);
         niter++;
-        ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n", niter,
-               ok, alambda, chisq, ochisq);
+        ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n",
+                     niter, ok, alambda, chisq, ochisq);
         ggets_plintf(" params: ");
         for (i = 0; i < npars; i++)
             ggets_plintf(" %g ", a[i]);

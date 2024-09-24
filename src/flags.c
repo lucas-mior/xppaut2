@@ -174,8 +174,8 @@ flags_show(void) {
       ggets_plintf(" Flag %d has sign %d and %d events and condition %s \n",
              i+1,flag[i].sign,n,flag[i].cond);
       for(j=0;j<n;j++)
-        ggets_plintf("%d:  %s [%d] = %s \n",j+1,flag[i].lhsname[j],flag[i].lhs[j],
-               flag[i].rhs[j]);
+        ggets_plintf("%d:  %s [%d] = %s
+    \n",j+1,flag[i].lhsname[j],flag[i].lhs[j], flag[i].rhs[j]);
     }
     */
     return;
@@ -221,8 +221,8 @@ flags_compile(void) {
 
                             else {
                                 ggets_plintf(" <%s> is not a valid "
-                                       "variable/parameter name \n",
-                                       flag[j].lhsname[i]);
+                                             "variable/parameter name \n",
+                                             flag[j].lhsname[i]);
                                 return 1;
                             }
                         }

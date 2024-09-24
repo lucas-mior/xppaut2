@@ -523,8 +523,8 @@ dump_species(void) {
     ggets_plintf("SPECIES: n i t\n");
     for (int32 i = 0; i < N_spec; i++) {
         x = X_spec + i;
-        ggets_plintf("%s %s %s %g %d %d \n", x->name, x->id, x->tc, x->x0, x->bc,
-               x->c);
+        ggets_plintf("%s %s %s %g %d %d \n", x->name, x->id, x->tc, x->x0,
+                     x->bc, x->c);
     }
     return;
 }
@@ -534,7 +534,7 @@ dump_parameters(void) {
     ggets_plintf("PARAMETERS:\n");
     for (int32 i = 0; i < Npar; i++)
         ggets_plintf("%d %s %s = %g \n", par[i].fixed, par[i].name, par[i].id,
-               par[i].z);
+                     par[i].z);
     return;
 }
 
@@ -920,7 +920,7 @@ check_name_len(char *s) {
         snprintf(long_names[lnum].rep, sizeof(long_names[lnum].rep), "%s.%d", x,
                  lnum);
         ggets_plintf("long name: %s -> %s \n", long_names[lnum].src,
-               long_names[lnum].rep);
+                     long_names[lnum].rep);
         lnum++;
     }
     return;
@@ -1010,7 +1010,8 @@ sort_long_names(void) {
         return; /* nothing to sort ! */
     qsort(long_names, lnum, sizeof(LONG_NAMES), z_sort);
     for (int32 i = 0; i < lnum; i++)
-        ggets_plintf("%d: %s -> %s \n", i, long_names[i].src, long_names[i].rep);
+        ggets_plintf("%d: %s -> %s \n", i, long_names[i].src,
+                     long_names[i].rep);
     return;
 }
 

@@ -633,8 +633,8 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                     fixptlist.em[0][j] = em[j];
                     if (ishoot)
                         gear_shoot_this_now();
-                    ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j], er[j],
-                           em[j]);
+                    ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j],
+                                 er[j], em[j]);
                 }
             } else { /* there are others  better compare them */
                 new = 1;
@@ -656,8 +656,8 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                             fixptlist.em[m][j] = em[j];
                             if (ishoot)
                                 gear_shoot_this_now();
-                            ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j, x[j],
-                                   er[j], em[j]);
+                            ggets_plintf(" x[%d]= %g   eval= %g + I %g \n", j,
+                                         x[j], er[j], em[j]);
                         }
                     }
                 }
@@ -939,8 +939,8 @@ integrate_do_range(double *x, int32 flag) {
             if (adj_range) {
                 sprintf(bob, "%s_%g", range.item, p);
                 data_get_my_browser(storind - 1);
-                numerics_compute_one_period((double)storage[0][storind - 1], last_ic,
-                                   bob);
+                numerics_compute_one_period((double)storage[0][storind - 1],
+                                            last_ic, bob);
             }
 
             adj2_do_this_liaprun(i, p); /* sends parameter and index back */
@@ -1189,7 +1189,8 @@ batch_integrate_once(void) {
         }
 
         if (integrate(&MyTime, x, TEND, DELTA_T, 1, NJMP, &MyStart) != 0)
-            ggets_plintf(" Integration not completed -- will write anyway...\n");
+            ggets_plintf(
+                " Integration not completed -- will write anyway...\n");
 
         INFLAG = 1;
         refresh_browser(storind);
@@ -1303,7 +1304,8 @@ integrate_do_init_data(int32 com) {
             MyTime = T0;
         }
         if (METHOD == VOLTERRA && oldstart == 0) {
-            ch = (char)menudrive_two_choice("No", "Yes", "Reset integrals?", "ny");
+            ch = (char)menudrive_two_choice("No", "Yes", "Reset integrals?",
+                                            "ny");
             if (ch == 'n')
                 MyStart = oldstart;
         }
@@ -1938,8 +1940,9 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         return rval;
     one_flag_step(xpv.x, xpv.x, &iflagstart, *t, &tnew, nodes, &sss);
     MSWTCH(x, xpv.x);
-    my_rhs_extra(x, *t, NODE,
-          NEQ); /* Note this takes care of initializing Markov variables */
+    my_rhs_extra(
+        x, *t, NODE,
+        NEQ); /* Note this takes care of initializing Markov variables */
     MSWTCH(xpv.x, x);
     xv[0] = (double)*t;
     for (ieqn = 1; ieqn <= NEQ; ieqn++)
@@ -2329,7 +2332,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     rhs(oldt, oldx, oldxprime, NEQ);
                     dxp = xprime[POIVAR - 1] - oldxprime[POIVAR - 1];
                     if (dxp == 0.0) {
-                        ggets_err_msg("Cannot zero RHS for max/min - use a variable");
+                        ggets_err_msg(
+                            "Cannot zero RHS for max/min - use a variable");
                         return 1;
                     }
                     dint = xprime[POIVAR - 1] / dxp;
@@ -2499,8 +2503,8 @@ do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
             if (MyGraph->ThreeDFlag == 0) {
                 graphics_line_abs(oldxpl[ip], oldypl[ip], xpl[ip], ypl[ip]);
             } else
-                graphics_line_3d(oldxpl[ip], oldypl[ip], oldzpl[ip], xpl[ip], ypl[ip],
-                        zpl[ip]);
+                graphics_line_3d(oldxpl[ip], oldypl[ip], oldzpl[ip], xpl[ip],
+                                 ypl[ip], zpl[ip]);
         }
     }
     return;
@@ -2667,7 +2671,7 @@ integrate_restore(int32 i1, int32 i2) {
                 }
 
                 integrate_comp_color(v1, v2, NODE,
-                           (double)fabs(data[0][i] - data[0][i + 1]));
+                                     (double)fabs(data[0][i] - data[0][i + 1]));
             } /* ignored by postscript */
             /* if(MyGraph->line[ip]<0)
                goto noplot; */
@@ -2778,7 +2782,8 @@ stor_full(void) {
     if (FOREVER)
         goto ov;
     ggets_ping();
-    ch = (char)menudrive_two_choice("YES", "NO", "Storage full: Overwrite?", "yn");
+    ch = (char)menudrive_two_choice("YES", "NO", "Storage full: Overwrite?",
+                                    "yn");
     if (ch == 'y') {
     ov:
         storind = 0;

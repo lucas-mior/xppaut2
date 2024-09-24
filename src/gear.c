@@ -167,7 +167,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     /* succesfully computed evals now lets work with them */
     ch = 'n';
     if (!PAR_FOL)
-        ch = (char)menudrive_two_choice("YES", "NO", "Print eigenvalues?", "yn");
+        ch =
+            (char)menudrive_two_choice("YES", "NO", "Print eigenvalues?", "yn");
     pr = 0;
 
     if (ch == 'y') {
@@ -242,7 +243,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     if (((rp == 1) || (rn == 1)) && (n > 1)) {
         ch = 'n';
         if (!PAR_FOL) {
-            ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?", "yn");
+            ch = (char)menudrive_two_choice("YES", "NO", "Draw Invariant Sets?",
+                                            "yn");
         }
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
             oldt = DELTA_T;
@@ -251,7 +253,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                          eval[2*pose], ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(UnstableManifoldColor,
+                                                      &oldcol);
                     pr_evec(x, b, n, 1);
                     DELTA_T = fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
@@ -265,7 +268,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
                          eval[2*nege], ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(StableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(StableManifoldColor,
+                                                      &oldcol);
                     pr_evec(x, b, n, -1);
                     DELTA_T = -fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
@@ -284,7 +288,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     if (((rn > 1) && (bneg >= 0)) || ((rp > 1) && (bpos >= 0))) {
         ch = 'n';
         if (!PAR_FOL) {
-            ch = (char)menudrive_two_choice("YES", "NO", "Draw Strong Sets?", "yn");
+            ch = (char)menudrive_two_choice("YES", "NO", "Draw Strong Sets?",
+                                            "yn");
         }
 
         if ((ch == 'y') || (PAR_FOL && SHOOT)) {
@@ -296,7 +301,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigpos,
                          ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(UnstableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(UnstableManifoldColor,
+                                                      &oldcol);
                     pr_evec(x, b, n, 1);
                     DELTA_T = fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);
@@ -313,7 +319,8 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigneg,
                          ierr);
                 if (*ierr == 0) {
-                    graphics_change_current_linestyle(StableManifoldColor, &oldcol);
+                    graphics_change_current_linestyle(StableManifoldColor,
+                                                      &oldcol);
                     pr_evec(x, b, n, -1);
                     DELTA_T = -fabs(DELTA_T);
                     integrate_shoot(bp, x, b, 1);

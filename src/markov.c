@@ -290,7 +290,8 @@ markov_compile_all(void) {
                 l0 = ns*j + k;
                 if (compile_markov(index, j, k) == -1) {
                     ggets_plintf("Bad expression %s[%d][%d] = %s \n",
-                           markov[index].name, j, k, markov[index].trans[l0]);
+                                 markov[index].name, j, k,
+                                 markov[index].trans[l0]);
                     exit(0);
                 }
             }

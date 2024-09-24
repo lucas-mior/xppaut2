@@ -375,7 +375,8 @@ create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
 
         XSetWMProperties(display, eq_box.base, &winname, &iconame, NULL, 0,
                          &size_hints, NULL, NULL);
-        many_pops_make_icon((char *)equilib_bits, equilib_width, equilib_height, base);
+        many_pops_make_icon((char *)equilib_bits, equilib_width, equilib_height,
+                            base);
         eq_box.stab = make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
         eq_box.rest =
             make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);

@@ -308,7 +308,8 @@ diagram_write_init_data_file(void) {
     sprintf(filename, "initdata.dat");
     /* status=get_dialog("Write all info","Filename",filename,"Ok","Cancel",60);
      */
-    status = init_conds_file_selector("Write init data file", filename, "*.dat");
+    status =
+        init_conds_file_selector("Write init data file", filename, "*.dat");
 
     if (status == 0)
         return;

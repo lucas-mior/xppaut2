@@ -775,8 +775,8 @@ create_file_selector(char *title, char *file, char *wild) {
     size_hints.max_width = width;
     size_hints.max_height = height;
 
-    many_pops_make_icon((char *)filebrowse_bits, filebrowse_width, filebrowse_height,
-              base);
+    many_pops_make_icon((char *)filebrowse_bits, filebrowse_width,
+                        filebrowse_height, base);
 
     {
         XClassHint class_hints;
@@ -1456,7 +1456,8 @@ init_conds_make_new_delay_box(void) {
         return;
     }
     make_box_list_window(&DelayBox, DELAYBOX);
-    many_pops_make_icon((char *)delay_bits, delay_width, delay_height, DelayBox.base);
+    many_pops_make_icon((char *)delay_bits, delay_width, delay_height,
+                        DelayBox.base);
     return;
 }
 
@@ -1469,7 +1470,8 @@ init_conds_make_new_param_box(void) {
         return;
     }
     make_box_list_window(&ParamBox, PARAMBOX);
-    many_pops_make_icon((char *)param_bits, param_width, param_height, ParamBox.base);
+    many_pops_make_icon((char *)param_bits, param_width, param_height,
+                        ParamBox.base);
     return;
 }
 

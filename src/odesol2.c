@@ -154,7 +154,8 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
 }
 
 void
-odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq, double *t) {
+odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq,
+                          double *t) {
     int32 j;
     markov_set_wieners(dt, y, *t);
     rhs(*t, y, yp, neq);

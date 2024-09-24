@@ -254,8 +254,9 @@ simplenet_add_vectorizer(char *name, char *rhs) {
     my_vec[ind].length = len;
     my_vec[ind].il = il;
     my_vec[ind].ir = ir;
-    ggets_plintf("adding vector %s based on variable %d of length %d ends %d %d\n",
-           name, ivar, len, il, ir);
+    ggets_plintf(
+        "adding vector %s based on variable %d of length %d ends %d %d\n", name,
+        ivar, len, il, ir);
 
     return 1;
 }
@@ -386,8 +387,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
-               ntype, ntot, ncon, wgtname, ivar);
+        ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n",
+                     name, ntype, ntot, ncon, wgtname, ivar);
 
         return 1;
     case 2: /* sparse */
@@ -443,8 +444,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        ggets_plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s\n", name,
-               ntot, ncon, wgtname, ivar, indname);
+        ggets_plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s\n",
+                     name, ntot, ncon, wgtname, ivar, indname);
         return 1;
     case 3: /* convolution */
         form_ode_get_first(rhs, "(");
@@ -492,7 +493,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
-            ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
+            ggets_plintf(" In %s , %s is not valid variable\n", name,
+                         root2name);
             return 0;
         }
         str = do_fit_get_next(")");
@@ -565,7 +567,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
-            ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
+            ggets_plintf(" In %s , %s is not valid variable\n", name,
+                         root2name);
             return 0;
         }
         str = do_fit_get_next(")");
@@ -589,8 +592,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        ggets_plintf(" Sparse %s len=%d x %d using %s %s(var[%d],var[%d]) and %s\n",
-               name, ntot, ncon, wgtname, fname, ivar, ivar2, indname);
+        ggets_plintf(
+            " Sparse %s len=%d x %d using %s %s(var[%d],var[%d]) and %s\n",
+            name, ntot, ncon, wgtname, fname, ivar, ivar2, indname);
         return 1;
     case 5: /* fft convolution */
         form_ode_get_first(rhs, "(");
@@ -621,11 +625,13 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         }
         ntab = tabular_get_lookup_len(iwgt);
         if (type == FFTCONP && ntab < ntot) {
-            ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab, ntot);
+            ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab,
+                         ntot);
             return 0;
         }
         if (type == FFTCON0 && ntab < (2*ntot)) {
-            ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab, 2*ntot);
+            ggets_plintf(" In %s, weight is length %d < %d \n", name, ntab,
+                         2*ntot);
             return 0;
         }
         str = do_fit_get_next(")");
@@ -656,8 +662,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].ncon = ncon;
         update_fft(ind);
 
-        ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n", name,
-               ntype, ntot, ncon, wgtname, ivar);
+        ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n",
+                     name, ntype, ntot, ncon, wgtname, ivar);
         return 1;
     case 6: /* MMULT    ntot=n,ncon=m  */
         form_ode_get_first(rhs, "(");
@@ -703,8 +709,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
-        ggets_plintf(" Added mmult %s len=%d x %d using %s var[%d]\n", name, ntot,
-               ncon, wgtname, ivar, indname);
+        ggets_plintf(" Added mmult %s len=%d x %d using %s var[%d]\n", name,
+                     ntot, ncon, wgtname, ivar, indname);
         return 1;
     case 7: /* FMMULT */
         form_ode_get_first(rhs, "(");
@@ -744,7 +750,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         strcpy(root2name, str);
         ivar2 = get_var_index(root2name);
         if (ivar2 < 0) {
-            ggets_plintf(" In %s , %s is not valid variable\n", name, root2name);
+            ggets_plintf(" In %s , %s is not valid variable\n", name,
+                         root2name);
             return 0;
         }
         str = do_fit_get_next(")");
@@ -769,8 +776,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root2 = my_net[ind].f[1];
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
-        ggets_plintf(" Added fmmult %s len=%d x %d using %s %s(var[%d],var[%d])\n",
-               name, ntot, ncon, wgtname, fname, ivar, ivar2);
+        ggets_plintf(
+            " Added fmmult %s len=%d x %d using %s %s(var[%d],var[%d])\n", name,
+            ntot, ncon, wgtname, fname, ivar, ivar2);
         return 1;
 
     case FINDEXT:
@@ -807,8 +815,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
         my_net[ind].iwgt = ntype;
-        ggets_plintf(" Added findextr %s: type=%d len=%d  skip= %d using var[%d] \n",
-               name, ntype, ntot, ncon, ivar);
+        ggets_plintf(
+            " Added findextr %s: type=%d len=%d  skip= %d using var[%d] \n",
+            name, ntype, ntot, ncon, ivar);
         return 1;
 
     case 30:
@@ -835,8 +844,8 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             return 0;
         }
         my_net[ind].root = ivar;
-        ggets_plintf("Added interpolator %s length %d on %s \n", name, my_net[ind].n,
-               rootname);
+        ggets_plintf("Added interpolator %s length %d on %s \n", name,
+                     my_net[ind].n, rootname);
         return 1;
 
     case IMPORT:
@@ -862,15 +871,16 @@ simplenet_add_spec_fun(char *name, char *rhs) {
             iwgt = find_lookup(tname[i]);
             ggets_plintf("Found %s\n", tname[i]);
             if (iwgt < 0) {
-                ggets_plintf("in network %s,  %s is not a table \n", name, wgtname);
+                ggets_plintf("in network %s,  %s is not a table \n", name,
+                             wgtname);
                 return 0;
             }
             my_net[ind].wgtlist[i] = my_table[iwgt].y;
         }
         for (i = 0; i < MAXW; i++)
             free(tname[i]);
-        ggets_plintf(" Added import %s len=%d  with %s %s var[%d] %d weights\n", name,
-               my_net[ind].n, soname, sofun, ivar, ntab);
+        ggets_plintf(" Added import %s len=%d  with %s %s var[%d] %d weights\n",
+                     name, my_net[ind].n, soname, sofun, ivar, ntab);
 
         return 1;
     case DEL_MUL:
@@ -927,8 +937,9 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ncon;
         my_net[ind].ncon = ntot;
-        ggets_plintf(" Added del_mul %s len=%d x %d using %s var[%d] with delay %s\n",
-               name, ntot, ncon, wgtname, ivar, indname, tauname);
+        ggets_plintf(
+            " Added del_mul %s len=%d x %d using %s var[%d] with delay %s\n",
+            name, ntot, ncon, wgtname, ivar, indname, tauname);
         NDELAYS = 1;
         return 1;
     case DEL_SPAR:
@@ -994,9 +1005,10 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        ggets_plintf(" Added sparse %s len=%d x %d using %s var[%d]  and %s with "
-               "dely %s\n",
-               name, ntot, ncon, wgtname, ivar, indname, tauname);
+        ggets_plintf(
+            " Added sparse %s len=%d x %d using %s var[%d]  and %s with "
+            "dely %s\n",
+            name, ntot, ncon, wgtname, ivar, indname, tauname);
         NDELAYS = 1;
         return 1;
     case 10:
@@ -1185,11 +1197,11 @@ evaluate_network(int32 ind) {
             my_net[ind].weight =
                 xmalloc((usize)(my_net[ind].root*NODE)*sizeof(double));
             markov_make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
-                         my_net[ind].values);
+                                my_net[ind].values);
             my_net[ind].ncon = 0;
         }
-        markov_one_gill_step(my_net[ind].iwgt, my_net[ind].root, my_net[ind].gcom,
-                      my_net[ind].values);
+        markov_one_gill_step(my_net[ind].iwgt, my_net[ind].root,
+                             my_net[ind].gcom, my_net[ind].values);
         break;
     case CONVE:
         y = &variables[root];

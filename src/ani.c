@@ -1266,7 +1266,8 @@ ani_new_file(char *filename) {
     if (n_anicom > 0)
         free_ani();
     if (load_ani_file(fp) == 0) {
-        snprintf(bob, sizeof(bob), "Bad ani-file at graphics_line %d", ani_line);
+        snprintf(bob, sizeof(bob), "Bad ani-file at graphics_line %d",
+                 ani_line);
         ggets_err_msg(bob);
         return -1;
     }

@@ -68,7 +68,8 @@ ModifiedGS(N_Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
 
     if (new_norm_2 != ZERO) {
         new_product = SQR(*new_vk_norm) - new_norm_2;
-        *new_vk_norm = (new_product > ZERO) ? llnlmath_rsqrt(new_product) : ZERO;
+        *new_vk_norm =
+            (new_product > ZERO) ? llnlmath_rsqrt(new_product) : ZERO;
     }
 
     return 0;

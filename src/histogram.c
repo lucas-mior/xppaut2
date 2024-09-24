@@ -973,7 +973,8 @@ fftxcorr(double *data1, double *data2, int32 length, int32 nlag, double *cr,
 }
 
 void
-histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length) {
+histogram_fft(double *data, double *ct, double *st, int32 nmodes,
+              int32 length) {
     double *im;
     double *re;
     int32 dim[2], i;

@@ -270,7 +270,7 @@ get_directory(char *direct) {
     if (getcwd(direct, 1024) == NULL) { /* get current working dir */
         ggets_plintf("%s\n", "Can't get current directory");
 #else
-    if (getwd(direct) == NULL) { /* get current working dir */
+    if (getwd(direct) == NULL) {      /* get current working dir */
         ggets_plintf("%s\n", direct); /* err msg is in directory */
 #endif
         *direct = '\0';

@@ -590,8 +590,8 @@ nullcline_redraw_dfield(void) {
                 xv2 = y[iny] + ydot[iny]*dz;
                 if (!DFSuppress) {
                     graphics_bead_abs((double)xv1, (double)xv2);
-                    graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1,
-                             (double)xv2);
+                    graphics_line_abs((double)y[inx], (double)y[iny],
+                                      (double)xv1, (double)xv2);
                 } else {
                     if (fp)
                         fprintf(fp, "%g %g %g %g\n", y[inx], y[iny], xv1, xv2);
@@ -599,7 +599,7 @@ nullcline_redraw_dfield(void) {
             }
             if (DF_FLAG == 2 && j > 0 && i < grid) {
                 graphics_frect_abs((double)y[inx], (double)y[iny], (double)du,
-                          (double)dv);
+                                   (double)dv);
             }
         }
     }
@@ -702,12 +702,12 @@ nullcline_direct_field_com(int32 c) {
                     xv1 = y[inx] + ydot[inx]*dz;
                     xv2 = y[iny] + ydot[iny]*dz;
                     graphics_bead_abs((double)xv1, (double)xv2);
-                    graphics_line_abs((double)y[inx], (double)y[iny], (double)xv1,
-                             (double)xv2);
+                    graphics_line_abs((double)y[inx], (double)y[iny],
+                                      (double)xv1, (double)xv2);
                 }
                 if (DF_FLAG == 2 && j > 0 && i < grid) {
-                    graphics_frect_abs((double)y[inx], (double)y[iny], (double)du,
-                              (double)dv);
+                    graphics_frect_abs((double)y[inx], (double)y[iny],
+                                       (double)du, (double)dv);
                 }
             }
         }

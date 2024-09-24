@@ -415,7 +415,7 @@ add_kernel(char *name, double mu, char *expr) {
             kernel[NKernel].expr[i - in - 1] = expr[i];
         kernel[NKernel].expr[strlen(expr) - (usize)in - 1] = 0;
         ggets_plintf("Convolving %s with %s\n", kernel[NKernel].kerexpr,
-               kernel[NKernel].expr);
+                     kernel[NKernel].expr);
     } else {
         kernel[NKernel].expr = xmalloc(strlen(expr) + 2);
         strcpy(kernel[NKernel].expr, expr);
@@ -1389,7 +1389,7 @@ make_toks(char *dest, int32 *my_token) {
 void
 tokeninfo(int32 tok) {
     ggets_plintf(" %s %d %d %d %d \n", my_symb[tok].name, my_symb[tok].len,
-           my_symb[tok].com, my_symb[tok].arg, my_symb[tok].pri);
+                 my_symb[tok].com, my_symb[tok].arg, my_symb[tok].pri);
     return;
 }
 
@@ -1770,8 +1770,8 @@ do_shift(double shift, double variable) {
         else
             return variables[in];
     default:
-        ggets_plintf("This can't happen: Invalid symbol index for SHIFT: i = %d\n",
-               i);
+        ggets_plintf(
+            "This can't happen: Invalid symbol index for SHIFT: i = %d\n", i);
         return 0.0;
     }
 }

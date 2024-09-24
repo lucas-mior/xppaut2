@@ -881,7 +881,8 @@ many_pops_edit_object_com(int32 com) {
                 if (ans == 'y') {
                     ggets_new_string("Text: ", lb[ilab].s);
                     ggets_new_int("Size 0-4 :", &lb[ilab].size);
-                    /* ggets_new_int("Font  0-times/1-symbol :",&lb[ilab].font); */
+                    /* ggets_new_int("Font  0-times/1-symbol :",&lb[ilab].font);
+                     */
                     if (lb[ilab].size > 4)
                         lb[ilab].size = 4;
                     if (lb[ilab].size < 0)
@@ -1053,7 +1054,8 @@ destroy_a_pop(void) {
     int32 i;
     if (draw_win == graph[0].window) {
         pop_list_respond_box("Okay", "Can't destroy big window!");
-        /*pop_list_respond_box(main_win,0,0,"Okay","Can't destroy big window!");*/
+        /*pop_list_respond_box(main_win,0,0,"Okay","Can't destroy big
+         * window!");*/
         return;
     }
     for (i = 1; i < MAXPOP; i++)
@@ -1356,7 +1358,7 @@ many_pops_create_a_pop(void) {
     graph[index].y0 = 0;
     num_pops++;
     many_pops_make_icon((char *)graph_bits, graph_width, graph_height,
-              graph[index].window);
+                        graph[index].window);
     XSelectInput(display, graph[index].window,
                  KeyPressMask | ButtonPressMask | ExposureMask |
                      ButtonReleaseMask | ButtonMotionMask);

@@ -749,14 +749,17 @@ init_X(void) {
 
         if (success != BitmapSuccess) {
             if (success == BitmapOpenFailed) {
-                ggets_plintf("Problem reading bitmap file %s -> BitmapOpenFailed\n",
-                       UserBGBitmap);
+                ggets_plintf(
+                    "Problem reading bitmap file %s -> BitmapOpenFailed\n",
+                    UserBGBitmap);
             } else if (success == BitmapFileInvalid) {
-                ggets_plintf("Problem reading bitmap file %s -> BitmapFileInvalid\n",
-                       UserBGBitmap);
+                ggets_plintf(
+                    "Problem reading bitmap file %s -> BitmapFileInvalid\n",
+                    UserBGBitmap);
             } else if (success == BitmapNoMemory) {
-                ggets_plintf("Problem reading bitmap file %s -> BitmapNoMemory\n",
-                       UserBGBitmap);
+                ggets_plintf(
+                    "Problem reading bitmap file %s -> BitmapNoMemory\n",
+                    UserBGBitmap);
             }
         } else {
             Pixmap pmap = XCreatePixmapFromBitmapData(
@@ -847,7 +850,8 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
                               (uint)DCURY + 1);
                 XMoveResizeWindow(display, info_pop, 0, SCALEY - DCURY - 4,
                                   (uint)SCALEX - 4, (uint)DCURY);
-                init_conds_resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb - 13);
+                init_conds_resize_par_slides(SCALEY - 3*DCURYs - 1*DCURYb -
+                                             13);
                 many_pops_resize_all(SCALEX, SCALEY);
                 main_redraw_all();
             }
@@ -1340,7 +1344,8 @@ load_fonts(void) {
     }
 
     if ((small_font = XLoadQueryFont(display, small_font_name)) == NULL) {
-        ggets_plintf("X Error: Failed to load small font: %s\n", small_font_name);
+        ggets_plintf("X Error: Failed to load small font: %s\n",
+                     small_font_name);
         exit(-1);
     }
 
@@ -1391,8 +1396,8 @@ make_pops(void) {
     XSelectInput(display, info_pop, ExposureMask);
     XMapWindow(display, info_pop);
     XMapWindow(display, command_pop);
-    many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6, (int32)w - 16 - 16*DCURX,
-               (int32)h - 6*DCURY - 16);
+    many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6,
+                         (int32)w - 16 - 16*DCURX, (int32)h - 6*DCURY - 16);
     init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
     graphics_get_draw_area();
     return;

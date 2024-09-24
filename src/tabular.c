@@ -235,8 +235,9 @@ tabular_lookup(double x, int32 index) {
             return y1 + (y2 - y1)*(x - x1) / dx;
         else {
 #ifdef DEBUG
-            ggets_plintf("index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
-                   index, x, i1, i2, x1, y1, y2);
+            ggets_plintf(
+                "index=%d; x=%lg; i1=%d; i2=%d; x1=%lg; y1=%lg; y2=%lg\n",
+                index, x, i1, i2, x1, y1, y2);
 #endif
             return y1;
         }

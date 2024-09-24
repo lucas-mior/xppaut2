@@ -304,7 +304,8 @@ form_ode_get_eqn(FILE *fptr) {
     BVP_N = 0;
     NUPAR = 0;
     NWiener = 0;
-    /* load_eqn_check_for_xpprc();  This is now done just once and in main_do_vis_env() */
+    /* load_eqn_check_for_xpprc();  This is now done just once and in
+     * main_do_vis_env() */
     strcpy(options, "default.opt");
     add_var("t", 0.0);
     fgets(bob, MAXEXPLEN, fptr);
@@ -431,8 +432,8 @@ form_ode_get_eqn(FILE *fptr) {
     xppvermaj = (double)MAJOR_VERSION;
     xppvermin = (double)MINOR_VERSION;
     ggets_plintf("Used %d constants and %d symbols \n", NCON, NSYM);
-    ggets_plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n", xppvermaj,
-           xppvermin);
+    ggets_plintf("XPPAUT %g.%g Copyright (C) 2002-now  Bard Ermentrout \n",
+                 xppvermaj, xppvermin);
     return 1;
 }
 
@@ -581,7 +582,8 @@ form_ode_compiler(char *bob, FILE *fptr) {
         strcpy(uvar_names[IN_VARS + NMarkov], name);
         last_ic[IN_VARS + NMarkov] = value;
         default_ic[IN_VARS + NMarkov] = value;
-        ggets_plintf(" Markov variable %s=%f has %d states \n", name, value, nstates);
+        ggets_plintf(" Markov variable %s=%f has %d states \n", name, value,
+                     nstates);
         if (OldStyle)
             markov_add(nstates, name);
         if (ConvertStyle)
@@ -834,10 +836,11 @@ void
 welcome(void) {
     ggets_plintf("\n The commands are: \n");
     ggets_plintf(" P(arameter) -- declare parameters "
-           "<name1>=<value1>,<name2>=<value2>,...\n");
+                 "<name1>=<value1>,<name2>=<value2>,...\n");
     ggets_plintf(" F(ixed)     -- declare fixed variables\n");
     ggets_plintf(" V(ariables) -- declare ode variables \n");
-    ggets_plintf(" U(ser)      -- declare user functions <name> <nargs> <formula>\n");
+    ggets_plintf(
+        " U(ser)      -- declare user functions <name> <nargs> <formula>\n");
     ggets_plintf(" C(hange)    -- change option file   <filename>\n");
     ggets_plintf(" O(de)       -- declare RHS for equations\n");
     ggets_plintf(" D(one)      -- finished compiling formula\n");
@@ -1142,7 +1145,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                     fnew = fopen(includefilename[j], "r");
                     if (fnew == NULL) {
                         ggets_plintf("Can't open include file <%s>\n",
-                               includefilename[j]);
+                                     includefilename[j]);
                         exit(-1);
                         /*continue;*/
                     }
@@ -1241,8 +1244,8 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         else
                             nstates = atoi(my_string);
                         if (nstates < 1) {
-                            ggets_plintf("Group %s  must have at least 1 part \n",
-                                   name);
+                            ggets_plintf(
+                                "Group %s  must have at least 1 part \n", name);
                             return -1;
                         }
                         ggets_plintf("Group %s has %d parts\n", name, nstates);
@@ -1265,9 +1268,10 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         else
                             nstates = atoi(my_string);
                         if (nstates < 2) {
-                            ggets_plintf("Markov variable %s  must have at least 2 "
-                                   "states \n",
-                                   name);
+                            ggets_plintf(
+                                "Markov variable %s  must have at least 2 "
+                                "states \n",
+                                name);
                             return -1;
                         }
                         /*nlin=NLINES;
@@ -1296,8 +1300,9 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
 
                         /*  now we clean up these arrays */
                         for (istates = 0; istates < nstates; istates++)
-                            form_ode_subsk(markovarrays[istates], markovarrays2[istates],
-                                  jj, is_array);
+                            form_ode_subsk(markovarrays[istates],
+                                           markovarrays2[istates], jj,
+                                           is_array);
 
                         build_markov(markovarrays2, name);
                         v.type = MARKOV_VAR;
@@ -1715,8 +1720,9 @@ compile_em(void) {
                         set_val(tmp, z);
                         ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                     } else {
-                        ggets_plintf("In initial value statement no variable %s \n",
-                               tmp);
+                        ggets_plintf(
+                            "In initial value statement no variable %s \n",
+                            tmp);
                         exit(0);
                     }
                 }
@@ -1750,7 +1756,8 @@ compile_em(void) {
                     set_val(tmp, z);
                     ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                 } else {
-                    ggets_plintf("In initial value statement no variable %s \n", tmp);
+                    ggets_plintf("In initial value statement no variable %s \n",
+                                 tmp);
                     exit(0);
                 }
             }
@@ -1883,8 +1890,8 @@ compile_em(void) {
                 xhi = atof(my_string);
                 my_string = do_fit_get_next("\n");
                 strcpy(formula, my_string);
-                ggets_plintf(" %s has %d pts from %f to %f = %s\n", v->lhs, nn, xlo,
-                       xhi, formula);
+                ggets_plintf(" %s has %d pts from %f to %f = %s\n", v->lhs, nn,
+                             xlo, xhi, formula);
                 if (add_form_table(ntab, nn, xlo, xhi, formula)) {
                     ggets_plintf("ERROR computing %s\n", v->lhs);
                     exit(0);
@@ -1922,8 +1929,8 @@ compile_em(void) {
     extra_do_export_list();
     ggets_plintf(" All formulas are valid!!\n");
     NODE = nvar + naux + nfix;
-    ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar, naux,
-           nfix, nmark, NEQ, NODE);
+    ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar,
+                 naux, nfix, nmark, NEQ, NODE);
     return;
 }
 
@@ -2407,8 +2414,8 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     *i1 = 0;
                     *i2 = 0;
                     strcpy(new, old);
-                    ggets_plintf(" Possible error in array %s -- ignoring it \n",
-                           old);
+                    ggets_plintf(
+                        " Possible error in array %s -- ignoring it \n", old);
                     return 0; /* error in array  */
                 }
             }
@@ -2430,8 +2437,8 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
                     *i1 = 0;
                     *i2 = 0;
                     strcpy(new, old);
-                    ggets_plintf(" Possible error in array  %s -- ignoring it \n",
-                           old);
+                    ggets_plintf(
+                        " Possible error in array  %s -- ignoring it \n", old);
                     return 0; /* error again   */
                 }
             }
@@ -2564,10 +2571,11 @@ form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
             while (ok) {
                 if (i >= n) {
                     new[inew] = 0;
-                    ggets_plintf("Error in %s The expression does not terminate. "
-                           "Perhaps a ] "
-                           "is missing.\n",
-                           big);
+                    ggets_plintf(
+                        "Error in %s The expression does not terminate. "
+                        "Perhaps a ] "
+                        "is missing.\n",
+                        big);
                     exit(0);
                 }
                 ch = big[i];

@@ -1231,8 +1231,8 @@ CVHin(CVodeMem cv_mem, double tout) {
     while (true) {
         hgs = hg*sign;
         yddnrm = CVYddNorm(cv_mem, hgs);
-        hnew =
-            (yddnrm*hub*hub > TWO) ? llnlmath_rsqrt(TWO / yddnrm) : llnlmath_rsqrt(hg*hub);
+        hnew = (yddnrm*hub*hub > TWO) ? llnlmath_rsqrt(TWO / yddnrm)
+                                          : llnlmath_rsqrt(hg*hub);
         count++;
         if (count >= MAX_ITERS)
             break;
