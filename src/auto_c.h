@@ -9,6 +9,7 @@
 #endif
 
 #include "auto_f2c.h"
+#include "somemath.h"
 
 #include "integers.h"
 

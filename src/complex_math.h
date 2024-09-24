@@ -12,4 +12,8 @@ typedef struct {
     double i;
 } doublecomplex;
 
+double z_abs(doublecomplex *z);
+void z_exp(doublecomplex *r, doublecomplex *z);
+void z_log(doublecomplex *r, doublecomplex *z);
+
 #endif

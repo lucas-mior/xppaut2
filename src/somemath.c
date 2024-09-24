@@ -1,5 +1,6 @@
 #include <math.h>
 #include "auto_f2c.h"
+#include "somemath.h"
 #include "integers.h"
 #include "complex_math.h"
 

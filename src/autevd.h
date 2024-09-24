@@ -3,6 +3,7 @@
 
 #include "autlim.h"
 #include "auto_f2c.h"
+#include "somemath.h"
 #include "auto_c.h"
 #include "integers.h"
 

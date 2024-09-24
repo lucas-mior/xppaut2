@@ -28,17 +28,4 @@
 #define ARRAY3D(array, i, j, k)                                                \
     array[(i) + ((j) + (k)*array##_dim2)*array##_dim1]
 
-double d_imag(doublecomplex *z);
-double d_lg10(double *x);
-double d_sign(double a, double b);
-int64 i_dnnt(double *x);
-int64 i_nint(double *x);
-double pow_dd(double *ap, double *bp);
-double pow_di(double *ap, int64 *bp);
-int64 pow_ii(int64 ap, int64 bp);
-double r_lg10(double x);
-double z_abs(doublecomplex *z);
-void z_exp(doublecomplex *r, doublecomplex *z);
-void z_log(doublecomplex *r, doublecomplex *z);
-
 #endif

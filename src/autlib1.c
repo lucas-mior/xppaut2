@@ -4,6 +4,7 @@
 #include "auto_nox.h"
 #include "functions.h"
 #include "auto_f2c.h"
+#include "somemath.h"
 #include "autevd.h"
 #include "auto_c.h"
 #include "x_auto.h"
