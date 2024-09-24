@@ -7,6 +7,12 @@
 extern int32 NDELAYS;
 extern int32 RandSeed;
 
+extern int32 NCON;
+extern int32 NVAR;
+extern int32 NFUN;
+extern int32 NSYM;
+extern int32 ERROUT;
+
 #define FUN1TYPE 9
 #define FUN2TYPE 1
 #define VARTYPE 3 /* standard variable */
@@ -70,14 +76,6 @@ extern int32 RandSeed;
 
 /* #define MXLEN 32 */
 #define MXLEN 10
-
-typedef struct {
-    char name[MXLEN + 1];
-    int32 len;
-    int32 com;
-    int32 arg;
-    int32 pri;
-} SYMBOL;
 
 typedef struct {
     int32 narg;

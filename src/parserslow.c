@@ -23,7 +23,7 @@
 #define MAXEXPLEN 1024
 #define DOUB_EPS 2.23E-15
 #define POP stack[--stack_pointer]
-double zippy;
+static double zippy;
 #define PUSH(a)                                                                \
     do {                                                                       \
         zippy = (a);                                                           \
@@ -44,7 +44,7 @@ int32 NDELAYS = 0;
 double delay_stab_eval(double, int32);
 double tabular_lookup(double, int32);
 double hom_bcs(int32);
-double BoxMuller;
+static double BoxMuller;
 static int32 BoxMullerFlag = 0;
 int32 RandSeed = 12345678;
 
@@ -58,8 +58,8 @@ static double CurrentIndex = 0;
 static int32 SumIndex = 1;
 
 /* FIXXX */
-int32 stack_pointer;
-int32 uptr;
+static int32 stack_pointer;
+static int32 uptr;
 double constants[MAX_PAR];
 double variables[MAX_ODE1];
 int32 *ufun[MAX_UFUN];
