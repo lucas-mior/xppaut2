@@ -131,11 +131,6 @@ including derived parameters but XPP takes care of this so start at 0
 #define PERIODIC 2
 #define MAXW 50
 
-static int32 parse_import(char *s, char *soname, char *sofun, int32 *n,
-                          char *vname, int32 *m, char *tname[MAXW]);
-static int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
-                             int32 *il, int32 *ir);
-
 /* simple network stuff */
 
 #define MAXVEC 100
@@ -195,6 +190,11 @@ static void evaluate_network(int32 ind);
 static int32 is_network(char *s);
 static void init_net(double *v, int32 n);
 static double net_interp(double x, int32 i);
+static int32 parse_import(char *s, char *soname, char *sofun, int32 *n,
+                          char *vname, int32 *m, char *tname[MAXW]);
+static int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
+                             int32 *il, int32 *ir);
+
 
 static NETWORK my_net[MAX_NET];
 static int32 n_network = 0;
