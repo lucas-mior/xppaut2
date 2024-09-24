@@ -1137,7 +1137,7 @@ graphics_fillin_text(char *old, char *new) {
                     c2 = old[i];
                     if (c2 == '}') {
                         name[m] = 0;
-                        ans = do_calc(name, &z);
+                        ans = calc_do_calc(name, &z);
                         if (ans != -1) {
                             sprintf(val, "%g", z);
 

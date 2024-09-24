@@ -424,7 +424,7 @@ comline_if_needed_load_set(void) {
         ggets_plintf("Couldn't load %s\n", setfilename);
         return 0;
     }
-    read_lunch(fp);
+    lunch_read(fp);
     fclose(fp);
     return 1;
 }

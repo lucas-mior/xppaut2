@@ -1844,7 +1844,7 @@ void
 init_conds_redraw_params(void) {
     int32 i;
     double z;
-    evaluate_derived();
+    derived_evaluate();
     if (ParamBox.use)
         for (i = 0; i < NUPAR; i++) {
             get_val(upar_names[i], &z);
@@ -2349,10 +2349,10 @@ init_conds_new_parameter(void) {
 
 void
 init_conds_redo_stuff(void) {
-    evaluate_derived();
+    derived_evaluate();
     volterra_re_evaluate_kernels();
     tabular_redo_all_fun_tables();
-    evaluate_derived();
+    derived_evaluate();
     return;
 }
 
@@ -2578,7 +2578,7 @@ to_float(char *s, double *z) {
     int32 flag;
     *z = 0.0;
     if (s[0] == '%') {
-        flag = do_calc(&s[1], z);
+        flag = calc_do_calc(&s[1], z);
         if (flag == -1)
             return -1;
         return 0;

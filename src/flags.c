@@ -166,7 +166,7 @@ flags_add_global(char *cond, int32 sign, char *rest) {
 }
 
 void
-show_flags(void) {
+flags_show(void) {
     /* uncomment for debugging */
     /*
     for(i=0;i<NFlags;i++){
@@ -182,7 +182,7 @@ show_flags(void) {
 }
 
 int32
-compile_flags(void) {
+flags_compile(void) {
     int32 j;
     int32 i, k, index, nc;
     int32 command[256];
@@ -370,7 +370,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                     }
                 }
                 if (flag[i].anypars) {
-                    evaluate_derived();
+                    derived_evaluate();
                     init_conds_redraw_params();
                 }
             }

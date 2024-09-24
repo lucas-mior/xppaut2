@@ -17,7 +17,7 @@ int32 NBifs = 0;
 Diagram *bifd;
 
 void
-start_diagram(int32 n) {
+diagram_start(int32 n) {
     NBifs = 1;
     bifd = xmalloc(sizeof(*bifd));
     bifd->prev = NULL;
@@ -147,12 +147,12 @@ kill_diagrams(void) {
     free(bifd->evr);
     free(bifd->evi);
     free(bifd);
-    start_diagram(NODE);
+    diagram_start(NODE);
     return;
 }
 
 void
-redraw_diagram(void) {
+diagram_redraw(void) {
     Diagram *d;
     int32 type, flag = 0;
     draw_bif_axes();
@@ -499,7 +499,7 @@ diagram_svg_auto(void) {
 }
 
 void
-bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
+diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
     Diagram *d;
     int32 type;
 
@@ -543,7 +543,7 @@ bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi) {
 }
 
 int32
-save_diagram(FILE *fp, int32 n) {
+diagram_save(FILE *fp, int32 n) {
     int32 i;
     Diagram *d;
     fprintf(fp, "%d\n", NBifs - 1);
@@ -569,7 +569,7 @@ save_diagram(FILE *fp, int32 n) {
 }
 
 int32
-load_diagram(FILE *fp, int32 node) {
+diagram_load(FILE *fp, int32 node) {
     double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO], evr[NAUTO],
         evi[NAUTO], norm, par[8], per;
     int32 i, flag = 0;
@@ -578,7 +578,7 @@ load_diagram(FILE *fp, int32 node) {
         flag2;
     fscanf(fp, "%d", &n);
     if (n == 0) {
-        /*    start_diagram(NODE); */
+        /*    diagram_start(NODE); */
         return -1;
     }
 

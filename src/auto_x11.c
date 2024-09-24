@@ -265,7 +265,7 @@ find_point(int32 ibr, int32 pt) {
             integrate_get_ic(0, d->u0);
             for (i = 0; i < NAutoPar; i++)
                 constants[Auto_index_to_array[i]] = d->par[i];
-            evaluate_derived();
+            derived_evaluate();
             tabular_redo_all_fun_tables();
             init_conds_redraw_params();
             init_conds_redraw_ics();
@@ -563,7 +563,7 @@ auto_x11_traverse_diagram(void) {
                 randomly depending on the order of window expose events.  Best
                 not to do the XORCross function at all.*/
                 DONT_XORCross = 1;
-                redraw_diagram();
+                diagram_redraw();
                 RedrawMark();
                 break;
             case KEY_ESC:
@@ -605,7 +605,7 @@ auto_x11_traverse_diagram(void) {
         for (i = 0; i < NAutoPar; i++)
             constants[Auto_index_to_array[i]] = grabpt.par[i];
     }
-    evaluate_derived();
+    derived_evaluate();
     tabular_redo_all_fun_tables();
     init_conds_redraw_params();
     init_conds_redraw_ics();
@@ -759,7 +759,7 @@ auto_update_view(double xlo, double xhi, double ylo, double yhi) {
     Auto.ymin = ylo;
     Auto.xmax = xhi;
     Auto.ymax = yhi;
-    redraw_diagram();
+    diagram_redraw();
 }
 
 void
@@ -867,7 +867,7 @@ auto_x11_display(Window window) {
         return;
     if (window == auto_win.canvas) {
         if (auto_redraw_flag == 1)
-            redraw_diagram();
+            diagram_redraw();
     }
     if (window == auto_win.stab) {
         int32 r = Auto.st_wid / 4;
@@ -1164,7 +1164,7 @@ auto_x11_button(XEvent event) {
     }
     if (window == auto_win.redraw) {
         SBW;
-        redraw_diagram();
+        diagram_redraw();
         return;
     }
     if (window == auto_win.clear) {
@@ -1238,7 +1238,7 @@ auto_x11_keypress(XEvent event, int32 *used) {
             return;
         }
         if (ks == 'D' || ks == 'd') {
-            redraw_diagram();
+            diagram_redraw();
             return;
         }
         if (ks == 'C' || ks == 'c') {

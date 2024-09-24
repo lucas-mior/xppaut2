@@ -23,7 +23,7 @@ static int32 nderived = 0;
 It is called only once during the session
 */
 int32
-compile_derived(void) {
+derived_compile(void) {
     int32 i;
     int32 k;
     int32 f[256], n;
@@ -36,7 +36,7 @@ compile_derived(void) {
         for (k = 0; k < n; k++)
             derived[i].form[k] = f[k];
     }
-    evaluate_derived();
+    derived_evaluate();
     return 0;
 }
 
@@ -45,7 +45,7 @@ called before any integration or numerical computation
 and after changing parameters and constants
 */
 void
-evaluate_derived(void) {
+derived_evaluate(void) {
     int32 i;
     for (i = 0; i < nderived; i++) {
         derived[i].value = evaluate(derived[i].form);
@@ -56,7 +56,7 @@ evaluate_derived(void) {
 
 /* this adds a derived quantity  */
 int32
-add_derived(char *name, char *rhs) {
+derived_add(char *name, char *rhs) {
     int32 n = (int32)strlen(rhs) + 2;
     int32 i0;
     if (nderived >= MAXDERIVED) {

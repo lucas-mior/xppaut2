@@ -299,7 +299,7 @@ setautopoint(void) {
         FromAutoFlag = 0;
         set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
         set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);
-        evaluate_derived();
+        derived_evaluate();
         tabular_redo_all_fun_tables();
         init_conds_redraw_params();
     }
@@ -783,7 +783,7 @@ auto_plot_par(void) {
     if (ch == key[5]) {
         if (auto_x11_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
             auto_zoom_in(ii1, ji1, ii2, ji2);
-            redraw_diagram();
+            diagram_redraw();
         }
         return;
     }
@@ -792,7 +792,7 @@ auto_plot_par(void) {
         if (auto_x11_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
             auto_zoom_out(ii1, ji1, ii2, ji2);
 
-            redraw_diagram();
+            diagram_redraw();
         }
         return;
     }
@@ -811,17 +811,17 @@ auto_plot_par(void) {
 
     if (ch == key[9]) {
         auto_fit();
-        redraw_diagram();
+        diagram_redraw();
         return;
     }
     if (ch == key[12]) {
         auto_default();
-        redraw_diagram();
+        diagram_redraw();
         return;
     }
     if (ch == key[13]) {
         auto_x11_scroll();
-        redraw_diagram();
+        diagram_redraw();
         /* printf("I am done scrolling!!"); */
         return;
     }
@@ -882,7 +882,7 @@ auto_default(void) {
 void
 auto_fit(void) {
     double xlo = Auto.xmin, xhi = Auto.xmax, ylo = Auto.ymin, yhi = Auto.ymax;
-    bound_diagram(&xlo, &xhi, &ylo, &yhi);
+    diagram_bound(&xlo, &xhi, &ylo, &yhi);
     Auto.xmin = xlo;
     Auto.xmax = xhi;
     Auto.ymin = ylo;
@@ -1486,7 +1486,7 @@ init_auto_win(void) {
     int32 i;
     if (NODE > NAUTO)
         return;
-    start_diagram(NODE);
+    diagram_start(NODE);
     for (i = 0; i < 10; i++) {
         Auto.period[i] = 11. + 3.*i;
         Auto.uzrpar[i] = 10;
@@ -2633,7 +2633,7 @@ save_auto(void) {
         return;
     save_auto_numerics(fp);
     save_auto_graph(fp);
-    status = save_diagram(fp, NODE);
+    status = diagram_save(fp, NODE);
     if (status != 1) {
         fclose(fp);
         return;
@@ -2781,7 +2781,7 @@ load_auto(void) {
 
     load_auto_numerics(fp);
     load_auto_graph(fp);
-    status = load_diagram(fp, NODE);
+    status = diagram_load(fp, NODE);
     if (status != 1) {
         fclose(fp);
         return;

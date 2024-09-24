@@ -838,8 +838,8 @@ void data_get_my_browser(int32 row);
 
 #include <X11/Xlib.h>
 
-void q_calc(void);
-int32 do_calc(char *temp, double *z);
+void calc_q_calc(void);
+int32 calc_do_calc(char *temp, double *z);
 double calc(char *expr, int32 *ok);
 
 #endif
@@ -1533,9 +1533,9 @@ void dense_print2(double **a, int64 n);
 #ifndef DERIVED_H
 #define DERIVED_H
 
-int32 compile_derived(void);
-void evaluate_derived(void);
-int32 add_derived(char *name, char *rhs);
+int32 derived_compile(void);
+void derived_evaluate(void);
+int32 derived_add(char *name, char *rhs);
 
 #endif
 
@@ -1549,7 +1549,7 @@ extern Diagram *bifd;
 
 extern int32 NBifs;
 
-void start_diagram(int32 n);
+void diagram_start(int32 n);
 void edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
                 double a, double *uhi, double *ulo, double *u0, double *ubar,
                 double *par, double per, int32 n, int32 icp1, int32 icp2,
@@ -1564,15 +1564,15 @@ void add_diagram(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
                  double *par, double per, int32 n, int32 icp1, int32 icp2,
                  int32 icp3, int32 icp4, int32 flag2, double *evr, double *evi);
 void kill_diagrams(void);
-void redraw_diagram(void);
+void diagram_redraw(void);
 void diagram_write_info_out(void);
 void diagram_write_init_data_file(void);
 void diagram_write_pts(void);
 void diagram_post_auto(void);
 void diagram_svg_auto(void);
-void bound_diagram(double *xlo, double *xhi, double *ylo, double *yhi);
-int32 save_diagram(FILE *fp, int32 n);
-int32 load_diagram(FILE *fp, int32 node);
+void diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi);
+int32 diagram_save(FILE *fp, int32 n);
+int32 diagram_load(FILE *fp, int32 node);
 void diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 
 #endif
@@ -2205,8 +2205,8 @@ extern int32 NFlags;
 extern double STOL;
 
 int32 flags_add_global(char *cond, int32 sign, char *rest);
-void show_flags(void);
-int32 compile_flags(void);
+void flags_show(void);
+int32 flags_compile(void);
 int32 one_flag_step(double *yold, double *ynew, int32 *istart, double told,
                     double *tnew, int32 neq, double *s);
 int32 one_flag_step_symp(double *y, double dt, double *work, int32 neq,
@@ -2657,7 +2657,7 @@ void integrate_swap_color(int32 *col, int32 rorw);
 void integrate_set_cycle(int32 flag, int32 *icol);
 int32 integrate_do_range(double *x, int32 flag);
 void integrate_find_equilib_com(int32 com);
-void batch_integrate(void);
+void integrate_batch(void);
 void integrate_do_init_data(int32 com);
 void integrate_run_now(void);
 void usual_integrate_stuff(double *x);
@@ -3198,7 +3198,7 @@ void load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask);
 
 void file_inf(void);
 void ps_write_pars(FILE *fp);
-int32 read_lunch(FILE *fp);
+int32 lunch_read(FILE *fp);
 void do_lunch(int32 f);
 void io_parameter_file(char *fn, int32 flag);
 void io_ic_file(char *fn, int32 flag);
@@ -3284,10 +3284,10 @@ void many_pops_set_active_windows(void);
 
 void markov_add_wiener(int32 index);
 void markov_set_wieners(double dt, double *x, double t);
-void add_markov(int32 nstate, char *name);
+void markov_add(int32 nstate, char *name);
 int32 build_markov(char **ma, char *name);
-int32 old_build_markov(FILE *fptr, char *name);
-void compile_all_markov(void);
+int32 markov_old_build(FILE *fptr, char *name);
+void markov_compile_all(void);
 void markov_make_gill_nu(double *nu, int32 n, int32 m, double *v);
 void markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v);
 void markov_do_stochast_com(int32 i);

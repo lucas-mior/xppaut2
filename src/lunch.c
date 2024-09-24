@@ -205,7 +205,7 @@ do_info(FILE *fp) {
 }
 
 int32
-read_lunch(FILE *fp) {
+lunch_read(FILE *fp) {
     int32 f = READEM, ne, np, temp;
     char bob[256];
 

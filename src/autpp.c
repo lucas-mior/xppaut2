@@ -33,7 +33,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     for (i = 0; i < NAutoPar; i++) {
         constants[Auto_index_to_array[i]] = par[i];
     }
-    evaluate_derived();
+    derived_evaluate();
     tabular_redo_all_fun_tables();
     rhs(0.0, u, f, (int32)ndim);
     if (ijac == 1)
@@ -97,7 +97,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
         constants[Auto_index_to_array[i]] = par[i];
     }
 
-    evaluate_derived();
+    derived_evaluate();
     tabular_redo_all_fun_tables();
     do_bc(u0, 0.0, u1, 1.0, fb, (int32)nbc);
 

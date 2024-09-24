@@ -346,7 +346,7 @@ ggets_new_float(char *name, double *value) {
         return -1;
 
     if (tvalue[0] == '%') {
-        flag = do_calc(&tvalue[1], &newz);
+        flag = calc_do_calc(&tvalue[1], &newz);
         if (flag != -1)
             *value = newz;
         return 0;

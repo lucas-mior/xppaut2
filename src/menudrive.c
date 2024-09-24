@@ -500,7 +500,7 @@ do_file_com(int32 com) {
 #endif
         break;
     case M_FC:
-        q_calc();
+        calc_q_calc();
         break;
     case M_FR:
         do_lunch(1);

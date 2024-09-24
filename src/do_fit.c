@@ -106,7 +106,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         if (delay_handle_do_init_delay(DELAY) == 0)
             return;
     }
-    evaluate_derived();
+    derived_evaluate();
     /*   This gets the values at the desired points  */
     for (i = 0; i < nvars; i++) {
         iv = ivar[i];
@@ -159,7 +159,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
             if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
-        evaluate_derived();
+        derived_evaluate();
         /* now loop through all the points */
         for (k = 1; k < npts; k++) {
             k0 = k*nvars;
@@ -178,7 +178,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         /* Now return the parameter to its old value */
         if (ip < 0)
             constants[-ip] = par;
-        evaluate_derived();
+        derived_evaluate();
 #ifdef CVODE_YES
         if (METHOD == CVODE)
             end_cv();

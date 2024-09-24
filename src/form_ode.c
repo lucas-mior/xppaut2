@@ -417,12 +417,12 @@ form_ode_get_eqn(FILE *fptr) {
         ggets_plintf(" Averaging and boundary value problems cannot be done\n");
     }
     if (NMarkov > 0)
-        compile_all_markov();
-    if (compile_flags() == 1) {
+        markov_compile_all();
+    if (flags_compile() == 1) {
         ggets_plintf(" Error in compiling a flag \n");
         exit(0);
     }
-    show_flags();
+    flags_show();
     /* add auxiliary variables */
     for (i = NODE + NMarkov; i < NEQ; i++)
         add_var(uvar_names[i], 0.0);
@@ -583,7 +583,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         default_ic[IN_VARS + NMarkov] = value;
         ggets_plintf(" Markov variable %s=%f has %d states \n", name, value, nstates);
         if (OldStyle)
-            add_markov(nstates, name);
+            markov_add(nstates, name);
         if (ConvertStyle)
             fprintf(convertf, "%s(0)=%g\n", name, value);
         break;
@@ -591,7 +591,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
         my_string = do_fit_get_next("\n");
         strcpy(name, my_string);
         nlin = NLINES;
-        index = old_build_markov(fptr, name);
+        index = markov_old_build(fptr, name);
         nn = (int32)strlen(save_eqn[nlin]);
         if ((ode_names[IN_VARS + index] = xmalloc((usize)nn + 10)) == NULL)
             exit(0);
@@ -1272,7 +1272,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                         }
                         /*nlin=NLINES;
                          */
-                        add_markov(nstates, name);
+                        markov_add(nstates, name);
                         if (jj ==
                             jj1) { /* test to see if this is the first one */
                             markovarrays =
@@ -1599,7 +1599,7 @@ compile_em(void) {
             ggets_plintf("%s = %s \n", anames[naux - 1], v->rhs);
         }
         if (v->type == DERIVE_PAR) {
-            if (add_derived(v->lhs, v->rhs) == 1)
+            if (derived_add(v->lhs, v->rhs) == 1)
                 exit(0);
         }
         if (v->type == FIXED) {
@@ -1914,11 +1914,11 @@ compile_em(void) {
             break;
         v = v->next;
     }
-    if (compile_derived() == 1)
+    if (derived_compile() == 1)
         exit(0);
     if (dae_fun_compile_svars() == 1)
         exit(0);
-    evaluate_derived();
+    derived_evaluate();
     extra_do_export_list();
     ggets_plintf(" All formulas are valid!!\n");
     NODE = nvar + naux + nfix;

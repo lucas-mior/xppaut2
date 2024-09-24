@@ -135,7 +135,7 @@ ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
 }
 
 void
-q_calc(void) {
+calc_q_calc(void) {
     char value[80], name[10];
     double z = 0.0;
     XEvent event;
@@ -156,7 +156,7 @@ q_calc(void) {
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
         edit_command_string(event, name, value, &done, &pos, &col);
         if (done == 1) {
-            flag = do_calc(value, &z);
+            flag = calc_do_calc(value, &z);
             if (flag != -1)
                 make_calc(z);
             ini_calc_string(name, value, &pos, &col);
@@ -170,7 +170,7 @@ q_calc(void) {
 }
 
 int32
-do_calc(char *temp, double *z) {
+calc_do_calc(char *temp, double *z) {
     char val[15];
     int32 ok;
     int32 i;

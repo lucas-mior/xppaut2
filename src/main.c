@@ -503,7 +503,7 @@ do_main(int32 argc, char **argv) {
         comline_if_needed_load_ext_options();
         graphics_set_extra();
         nullcline_set_colorization_stuff();
-        batch_integrate();
+        integrate_batch();
         if (NCBatch > 0)
             silent_nullclines();
         if (DFBatch > 0)
@@ -1087,7 +1087,7 @@ main_commander(int32 ch) {
 #endif
             break;
         case 'c':
-            q_calc();
+            calc_q_calc();
             break;
         case 'r':
             do_lunch(1);

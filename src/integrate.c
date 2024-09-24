@@ -720,7 +720,7 @@ do_eq_range(double *x) {
         PAR_FOL = 1;
         sprintf(bob, "%s=%.16g", eq_range.item, temp);
         ggets_bottom_msg(bob);
-        evaluate_derived();
+        derived_evaluate();
         /*  I think  */ tabular_redo_all_fun_tables();
         if (mc) {
             do_monte_carlo_search(0, 0, 1);
@@ -973,7 +973,7 @@ integrate_do_range(double *x, int32 flag) {
     if (range.rtype > 0)
         if (range.type2 == PARAM)
             set_val(range.item2, temp2);
-    evaluate_derived();
+    derived_evaluate();
     MyGraph->color[0] = color;
     INFLAG = 1;
     /* refresh_browser(storind); */
@@ -1029,7 +1029,7 @@ integrate_find_equilib_com(int32 com) {
     POIMAP = 0;
     oldtrans = TRANS;
     TRANS = 0.0;
-    evaluate_derived();
+    derived_evaluate();
     switch (com) {
     case 2:
         do_eq_range(x);
@@ -1077,7 +1077,7 @@ integrate_find_equilib_com(int32 com) {
 }
 
 void
-batch_integrate(void) {
+integrate_batch(void) {
     int32 i;
 
     if ((Nintern_set == 0) | (Nintern_2_use == 0)) {
@@ -1585,7 +1585,7 @@ evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
         browse_find_variable(vp, &i);
         if (i > 0) {
             form_ode_subsk(f, fp, j, 1);
-            flag = do_calc(fp, &z);
+            flag = calc_do_calc(fp, &z);
             if (flag != -1)
                 last_ic[i - 1] = z;
             else
@@ -1701,7 +1701,7 @@ set_array_ic(void) {
             return 0; /* out of bounds */
         for (i = i1; i < in; i++) {
             set_val("t", (double)(i - i1));
-            flag = do_calc(ar_ic[myar].formula, &z);
+            flag = calc_do_calc(ar_ic[myar].formula, &z);
             if (flag == -1) {
                 ggets_err_msg("Bad formula");
                 return 1;
@@ -1763,7 +1763,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
         return 1;
     }
     MSWTCH(xpv.x, y);
-    evaluate_derived();
+    derived_evaluate();
     if (METHOD < GEAR || METHOD == BACKEUL) {
         kflag = solver(xpv.x, t, dt, nit, nodes, istart, WORK);
         MSWTCH(y, xpv.x);
@@ -1925,7 +1925,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         cwidth = main_get_command_width();
 
     LastTime = *t;
-    evaluate_derived();
+    derived_evaluate();
 
     if ((METHOD == GEAR) && (*start == 1))
         *start = 0;

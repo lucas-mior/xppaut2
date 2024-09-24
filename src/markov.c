@@ -94,7 +94,7 @@ markov_set_wieners(double dt, double *x, double t) {
 }
 
 void
-add_markov(int32 nstate, char *name) {
+markov_add(int32 nstate, char *name) {
     double st[50];
     int32 i;
     for (i = 0; i < 50; i++)
@@ -155,7 +155,7 @@ build_markov(
 }
 
 int32
-old_build_markov(FILE *fptr, char *name) {
+markov_old_build(FILE *fptr, char *name) {
     /*int32 nn;*/
     int32 len = 0, ll;
     char line[256], expr[256];
@@ -279,7 +279,7 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 }
 
 void
-compile_all_markov(void) {
+markov_compile_all(void) {
     int32 index, j, k, ns, l0;
     if (NMarkov == 0)
         return;

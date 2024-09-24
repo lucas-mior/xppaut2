@@ -154,7 +154,7 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
     }
 
     if (DiagFlag == 0) {
-        /* start_diagram(*ndim); */
+        /* diagram_start(*ndim); */
         edit_start((int32)ibrs, (int32)ntots, (int32)iap->itp, lab,
                    (int32)iap->nfpr, *a, uhigh, ulow, u0, ubar, par, per,
                    (int32)iap->ndim, icp1, icp2, icp3, icp4, my_ev.evr,
