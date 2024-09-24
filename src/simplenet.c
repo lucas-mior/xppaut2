@@ -131,10 +131,10 @@ including derived parameters but XPP takes care of this so start at 0
 #define PERIODIC 2
 #define MAXW 50
 
-static int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
-                   int32 *m, char *tname[MAXW]);
+static int32 parse_import(char *s, char *soname, char *sofun, int32 *n,
+                          char *vname, int32 *m, char *tname[MAXW]);
 static int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
-                      int32 *il, int32 *ir);
+                             int32 *il, int32 *ir);
 
 /* simple network stuff */
 

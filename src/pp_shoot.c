@@ -21,7 +21,6 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-
 static struct {
     char item[30];
     int32 steps, side, cycle, movie;

@@ -40,7 +40,6 @@ static struct BD {
     Window window;
 } my_bd;
 
-
 static double FreezeKeyX;
 static double FreezeKeyY;
 static double FreezeKeyX;

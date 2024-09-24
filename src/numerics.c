@@ -37,7 +37,6 @@ int32 cv_bandlower = 1;
 
 /*   I will need access to storage  */
 
-
 static void get_method(void);
 static void ruelle(void);
 static void check_pos(int32 *j);
