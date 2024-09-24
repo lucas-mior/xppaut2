@@ -621,9 +621,10 @@ adj2_do_this_liaprun(int32 i, double p) {
     if (LIAP_FLAG == 0)
         return;
     my_liap[0][i] = p;
-    adj2_hrw_liapunov(&liap, 1, NEWT_ERR);
-    my_liap[1][i] = liap;
-    LIAP_I++;
+    if (adj2_hrw_liapunov(&liap, 1, NEWT_ERR)) {
+        my_liap[1][i] = liap;
+        LIAP_I++;
+    }
     return;
 }
 
@@ -677,7 +678,8 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
         if (nrm == 0.0) {
             if (batch == 0)
                 ggets_err_msg("Liapunov:-infinity exponent!");
-            return 0; /* something wrong here */
+            fprintf(stderr, "Something wrong here: %s\n", __func__);
+            exit(EXIT_FAILURE);
         }
         sum = sum + log(nrm);
         for (i = 0; i < NODE; i++)
