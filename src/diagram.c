@@ -150,7 +150,7 @@ void
 diagram_redraw(void) {
     Diagram *d;
     int32 type, flag = 0;
-    draw_bif_axes();
+    auto_nox_draw_bix_axes();
     d = bifd;
     if (d->next == NULL)
         return;
@@ -431,7 +431,7 @@ diagram_post_auto(void) {
         return;
     if (!ps_init(filename, PS_Color))
         return;
-    draw_ps_axes();
+    auto_nox_draw_ps_axes();
     d = bifd;
     if (d->next == NULL)
         return;
@@ -469,7 +469,7 @@ diagram_svg_auto(void) {
         return;
     if (!svg_init(filename))
         return;
-    draw_svg_axes();
+    auto_nox_draw_svg_axes();
     d = bifd;
     if (d->next == NULL)
         return;

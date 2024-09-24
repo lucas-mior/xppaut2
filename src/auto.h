@@ -6,8 +6,8 @@
 #include <stdio.h>
 
 int32 get_auto_str(char *xlabel, char *ylabel);
-int32 draw_ps_axes(void);
-int32 draw_bif_axes(void);
+int32 auto_nox_draw_ps_axes(void);
+int32 auto_nox_draw_bix_axes(void);
 int32 auto_x11_bye(int32 *iflag);
 int32 ix_val(double x);
 int32 iy_val(double y);
@@ -17,10 +17,10 @@ int32 auto_x11_fill_circle(int32 x, int32 y, int32 r);
 int32 auto_x11_line_width(int32 wid);
 int32 renamef(char *old, char *new);
 int32 auto_nox_copyf(char *old, char *new);
-int32 deletef(char *old);
+int32 auto_nox_deletef(char *old);
 int32 auto_close(int32 flag);
 int32 open_auto(int32 flag);
-int32 do_auto(int32 iold, int32 isave);
+int32 auto_nox_do(int32 iold, int32 isave);
 int32 set_auto(void);
 int32 auto_name_to_index(char *s);
 int32 auto_par_to_name(int32 index, char *s);
@@ -49,7 +49,7 @@ void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
               double norm, double u0, double per, int32 icp1, int32 icp2);
 int32 auto_x11_traverse_diagram(void);
 int32 auto_x11_clear_plot(void);
-int32 do_auto_win(void);
+int32 auto_nox_win(void);
 int32 load_last_plot(int32 flag);
 int32 keep_last_plot(int32 flag);
 int32 init_auto_win(void);

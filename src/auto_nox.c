@@ -294,7 +294,7 @@ get_auto_str(char *xlabel, char *ylabel) {
 }
 
 void
-draw_ps_axes(void) {
+auto_nox_draw_ps_axes(void) {
     char sx[20], sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
@@ -303,7 +303,7 @@ draw_ps_axes(void) {
 }
 
 void
-draw_svg_axes(void) {
+auto_nox_draw_svg_axes(void) {
     char sx[20], sy[20];
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
     get_auto_str(sx, sy);
@@ -312,7 +312,7 @@ draw_svg_axes(void) {
 }
 
 void
-draw_bif_axes(void) {
+auto_nox_draw_bix_axes(void) {
     int32 x0 = Auto.x0;
     int32 y0 = Auto.y0;
     int32 ii;
@@ -419,12 +419,12 @@ auto_appendf(char *old, char *new) {
     fclose(fn);
     fclose(ft);
     auto_nox_copyf(TMPSWAP, new);
-    deletef(TMPSWAP);
+    auto_nox_deletef(TMPSWAP);
     return;
 }
 
 void
-deletef(char *old) {
+auto_nox_deletef(char *old) {
     remove(old);
 }
 
@@ -449,12 +449,12 @@ auto_close(int32 flg) {
         auto_appendf(fort8, string);
     }
 
-    deletef(fort8);
+    auto_nox_deletef(fort8);
 
     fp8_is_open = 0;
-    deletef(fort7);
-    deletef(fort9);
-    deletef(fort3);
+    auto_nox_deletef(fort7);
+    auto_nox_deletef(fort9);
+    auto_nox_deletef(fort3);
     return;
 }
 
@@ -509,7 +509,7 @@ open_auto(int32 flg) {
 /* MAIN Running routine  Assumes that Auto structure is set up */
 
 void
-do_auto(int32 iold, int32 isave) {
+auto_nox_do(int32 iold, int32 isave) {
     auto_x11_redraw_menus();
 
     set_auto(); /* this sets up all the continuation initialization
@@ -533,7 +533,7 @@ do_auto(int32 iold, int32 isave) {
                Auto.isp, AutoTwoParam);
         Auto.irs = RestartLabel;
         RestartLabel = 0;
-        do_auto(iold, isave);
+        auto_nox_do(iold, isave);
     }
     ggets_ping();
     init_conds_redraw_params();
@@ -756,13 +756,13 @@ auto_plot_par(void) {
 
     if (ch == key[7]) {
         load_last_plot(1);
-        draw_bif_axes();
+        auto_nox_draw_bix_axes();
         return;
     }
 
     if (ch == key[8]) {
         load_last_plot(2);
-        draw_bif_axes();
+        auto_nox_draw_bix_axes();
         return;
     }
 
@@ -818,7 +818,7 @@ auto_plot_par(void) {
         Auto.ymin = atof(values[4]);
         Auto.xmax = atof(values[5]);
         Auto.ymax = atof(values[6]);
-        draw_bif_axes();
+        auto_nox_draw_bix_axes();
         if (Auto.plot < 4)
             keep_last_plot(1);
         if (Auto.plot == 4)
@@ -1376,7 +1376,7 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
 }
 
 void
-do_auto_win(void) {
+auto_nox_win(void) {
     char bob[256];
     if (Auto.exist == 0) {
         if (NODE > NAUTO) {
@@ -1567,11 +1567,11 @@ yes_reset_auto(void) {
     NBifs = 1;
     grabpt.flag = 0;
     sprintf(string, "%s.b", this_auto_file);
-    deletef(string);
+    auto_nox_deletef(string);
     sprintf(string, "%s.d", this_auto_file);
-    deletef(string);
+    auto_nox_deletef(string);
     sprintf(string, "%s.s", this_auto_file);
-    deletef(string);
+    auto_nox_deletef(string);
     mark_flag = 0;
     return 1;
 }
@@ -1996,7 +1996,7 @@ auto_start_diff_ss(void) {
         Auto.isp = 0;
     Auto.nfpar = 1;
     AutoTwoParam = 0;
-    do_auto(NO_OPEN_3, APPEND);
+    auto_nox_do(NO_OPEN_3, APPEND);
     return;
 }
 
@@ -2020,7 +2020,7 @@ auto_start_at_bvp(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     NewPeriodFlag = 2;
-    do_auto(opn, cls);
+    auto_nox_do(opn, cls);
     return;
 }
 
@@ -2041,7 +2041,7 @@ auto_start_at_per(void) {
     Auto.nfpar = 1;
     AutoTwoParam = 0;
     NewPeriodFlag = 1;
-    do_auto(opn, cls);
+    auto_nox_do(opn, cls);
     return;
 }
 
@@ -2065,7 +2065,7 @@ auto_new_ss(void) {
 
     Auto.nfpar = 1;
     AutoTwoParam = 0;
-    do_auto(opn, cls);
+    auto_nox_do(opn, cls);
     return;
 }
 
@@ -2088,7 +2088,7 @@ auto_new_discrete(void) {
         Auto.isp = 0;
     Auto.nfpar = 1;
     AutoTwoParam = 0;
-    do_auto(opn, cls);
+    auto_nox_do(opn, cls);
     return;
 }
 
@@ -2124,7 +2124,7 @@ auto_extend_ss(void) {
         Auto.isp = 0;
 
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2189,7 +2189,7 @@ auto_extend_homoclinic(void) {
     if (HomoFlag == 2)
         x_auto.iequib = -2;
 
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2223,7 +2223,7 @@ auto_start_at_homoclinic(void) {
         /* TODO: for some reason, the second argument was `close`, which maps
          * to the libc function with this name. That does not make any sense
          * so I changed it to 1 */
-        do_auto(opn, 1);
+        auto_nox_do(opn, 1);
     }
     return;
 }
@@ -2260,7 +2260,7 @@ auto_new_per(void) {
         Auto.isp = 0;
     Auto.ips = 2;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2278,7 +2278,7 @@ auto_extend_bvp(void) {
         Auto.isp = 0;
     Auto.ips = 4;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2296,7 +2296,7 @@ auto_switch_per(void) {
         Auto.isp = 0;
     Auto.ips = 2;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2313,7 +2313,7 @@ auto_switch_bvp(void) {
         Auto.isp = 0;
     Auto.ips = 4;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2332,7 +2332,7 @@ auto_switch_ss(void) {
     if (METHOD == DISCRETE)
         Auto.ips = -1;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2368,7 +2368,7 @@ auto_2p_limit(int32 ips) {
         AutoTwoParam = LPP2;
     }
     /* printf("ips=%d  itp=%d \n",Auto.ips,Auto.itp); */
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2384,7 +2384,7 @@ auto_twopar_double(void) {
     Auto.ilp = 0;
     Auto.isw = 2;
     Auto.isp = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2400,7 +2400,7 @@ auto_torus(void) {
     Auto.ilp = 0;
     Auto.isw = 2;
     Auto.isp = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2430,7 +2430,7 @@ auto_2p_branch(int32 ips) {
         Auto.ips = -1;
     AutoTwoParam = BR2;
     TypeOfCalc = BR2;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2445,7 +2445,7 @@ auto_2p_fixper(void) {
     Auto.ips = 2;
     AutoTwoParam = FP2;
     TypeOfCalc = FP2;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2478,7 +2478,7 @@ auto_2p_hopf(void) {
         Auto.ips = -1;
     AutoTwoParam = HB2;
     TypeOfCalc = HB2;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 
@@ -2498,7 +2498,7 @@ auto_period_double(void) {
         Auto.isp = 0;
     Auto.ips = 2;
     AutoTwoParam = 0;
-    do_auto(OPEN_3, APPEND);
+    auto_nox_do(OPEN_3, APPEND);
     return;
 }
 

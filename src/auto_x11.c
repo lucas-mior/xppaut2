@@ -970,7 +970,7 @@ auto_x11_make(char *wname, char *iname) {
     auto_win.hint = make_plain_window(base, x, y + addhgt + 6,
                                       STD_WID_var + xmargin, DCURY + 2, 2);
 
-    draw_bif_axes();
+    auto_nox_draw_bix_axes();
     return;
 }
 
@@ -1125,7 +1125,7 @@ auto_x11_button(XEvent event) {
     }
     if (window == auto_win.clear) {
         SBW;
-        draw_bif_axes();
+        auto_nox_draw_bix_axes();
         return;
     }
     if (window == auto_win.per) {
@@ -1198,7 +1198,7 @@ auto_x11_keypress(XEvent event, int32 *used) {
             return;
         }
         if (ks == 'C' || ks == 'c') {
-            draw_bif_axes();
+            auto_nox_draw_bix_axes();
             return;
         }
         if (ks == 'U' || ks == 'u') {

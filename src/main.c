@@ -1055,7 +1055,7 @@ main_commander(int32 ch) {
             break;
         case 'a':
 #ifdef AUTO
-            do_auto_win();
+            auto_nox_win();
 #endif
             break;
         case 'c':

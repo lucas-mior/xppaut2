@@ -485,7 +485,7 @@ do_file_com(int32 com) {
         break;
     case M_FA:
 #ifdef AUTO
-        do_auto_win();
+        auto_nox_win();
 #endif
         break;
     case M_FC:
