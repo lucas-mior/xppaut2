@@ -143,9 +143,9 @@
 /***************** BEGIN Error Messages ************************/
 /***************************************************************/
 
-/* CVodeMalloc Error Messages */
+/* cvode_malloc Error Messages */
 
-#define CVM "CVodeMalloc-- "
+#define CVM "cvode_malloc-- "
 
 #define MSG_Y0_NULL CVM "y0=NULL illegal.\n\n"
 
@@ -422,7 +422,7 @@ static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 /********* BEGIN Exported Functions Implementation *************/
 /***************************************************************/
 
-/******************** CVodeMalloc *******************************
+/******************** cvode_malloc *******************************
 
  CVode Malloc allocates and initializes memory for a problem. All
  problem specification inputs are checked for errors. If any
@@ -433,7 +433,7 @@ static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 *****************************************************************/
 
 void *
-CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
+cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
             int32 itol, double *reltol, void *abstol, void *f_data, FILE *errfp,
             bool optIn, int32 iopt[], double ropt[]) {
     bool allocOK, ioptExists, roptExists, neg_abstol, ewtsetOK;
@@ -558,7 +558,7 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
 
     /* Copy the input parameters into CVODE state */
 
-    cv_mem->cv_N = N; /* readability constants defined below CVodeMalloc */
+    cv_mem->cv_N = N; /* readability constants defined below cvode_malloc */
     cv_mem->cv_f = f;
     cv_mem->cv_f_data = f_data;
     cv_mem->cv_lmm = lmm;
@@ -977,7 +977,7 @@ cvode_dky(void *cvode_mem, double t, int32 k, N_Vector dky) {
 
 /********************* CVodeFree **********************************
 
- This routine frees the problem memory allocated by CVodeMalloc.
+ This routine frees the problem memory allocated by cvode_malloc.
  Such memory includes all the vectors allocated by CVAllocVectors,
  and the memory lmem for the linear solver (deallocated by a call
  to lfree).

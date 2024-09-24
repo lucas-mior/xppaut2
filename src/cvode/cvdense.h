@@ -28,7 +28,7 @@
  *----------------------------------------------------------------*
  * The following enumeration gives a symbolic name to each        *
  * CVDENSE statistic. The symbolic names are used as indices into *
- * the iopt and ropt arrays passed to CVodeMalloc.                *
+ * the iopt and ropt arrays passed to cvode_malloc.                *
  * The CVDENSE statistics are:                                    *
  *                                                                *
  * iopt[DENSE_NJE] : number of Jacobian evaluations, i.e. of      *
@@ -104,7 +104,7 @@ enum {
  * f is the right hand side function for the ODE problem.         *
  *                                                                *
  * f_data is a pointer to user data to be passed to f, the same   *
- *        as the F_data parameter passed to CVodeMalloc.          *
+ *        as the F_data parameter passed to cvode_malloc.          *
  *                                                                *
  * t is the current value of the independent variable.            *
  *                                                                *
@@ -149,7 +149,7 @@ typedef void (*CVDenseJacFn)(int64 N, DenseMat J, RhsFn f, void *f_data,
  * with the CVDENSE linear solver.                                *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
- *              CVodeMalloc.                                      *
+ *              cvode_malloc.                                      *
  *                                                                *
  * djac is the dense Jacobian approximation routine to be used.   *
  *         A user-supplied djac routine must be of type           *

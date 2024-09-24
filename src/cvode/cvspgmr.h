@@ -28,7 +28,7 @@
  *----------------------------------------------------------------*
  * The following enumeration gives a symbolic name to each        *
  * CVSPGMR statistic. The symbolic names are used as indices into *
- * the iopt and ropt arrays passed to CVodeMalloc.                *
+ * the iopt and ropt arrays passed to cvode_malloc.                *
  * The CVSPGMR statistics are:                                    *
  *                                                                *
  * iopt[SPGMR_NPE]  : number of preconditioner evaluations,       *
@@ -265,7 +265,7 @@ typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, N_Vector y, N_Vector fy,
  * with the CVSPGMR linear solver.                                *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
- *             CVodeMalloc.                                       *
+ *             cvode_malloc.                                       *
  *                                                                *
  * pretype   is the type of user preconditioning to be done.      *
  *             This must be one of the four enumeration constants *

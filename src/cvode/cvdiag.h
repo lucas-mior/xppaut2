@@ -26,7 +26,7 @@
  *----------------------------------------------------------------*
  * The following enumeration gives a symbolic name to each        *
  * CVDIAG statistic. The symbolic names are used as indices into  *
- * the iopt and ropt arrays passed to CVodeMalloc.                *
+ * the iopt and ropt arrays passed to cvode_malloc.                *
  * The CVDIAG statistics are:                                     *
  *                                                                *
  * iopt[DIAG_LRW] : size (in double words) of double workspace        *
@@ -54,7 +54,7 @@ enum {
  * with the CVDIAG linear solver.                                 *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
- *              CVodeMalloc.                                      *
+ *              cvode_malloc.                                      *
  *                                                                *
  ******************************************************************/
 

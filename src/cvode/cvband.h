@@ -30,7 +30,7 @@
  *----------------------------------------------------------------*
  * The following enumeration gives a symbolic name to each        *
  * CVBAND statistic. The symbolic names are used as indices into  *
- * the iopt and ropt arrays passed to CVodeMalloc.                *
+ * the iopt and ropt arrays passed to cvode_malloc.                *
  * The CVBAND statistics are:                                     *
  *                                                                *
  * iopt[BAND_NJE] : number of Jacobian evaluations, i.e. of       *
@@ -125,7 +125,7 @@ enum {
  * f is the right hand side function for the ODE problem.         *
  *                                                                *
  * f_data is a pointer to user data to be passed to f, the same   *
- *        as the F_data parameter passed to CVodeMalloc.          *
+ *        as the F_data parameter passed to cvode_malloc.          *
  *                                                                *
  * t is the current value of the independent variable.            *
  *                                                                *
@@ -170,7 +170,7 @@ typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
  * with the CVBAND linear solver.                                 *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
- *              CVodeMalloc.                                      *
+ *              cvode_malloc.                                      *
  *                                                                *
  * mupper is the upper bandwidth of the band Jacobian             *
  *           approximation.                                       *

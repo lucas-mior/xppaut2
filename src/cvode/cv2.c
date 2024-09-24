@@ -23,7 +23,7 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     ycv = N_VNew(n);
     for (int32 i = 0; i < n; i++)
         ycv->data[i] = y[i];
-    cvode_mem = CVodeMalloc(n, cvf, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL,
+    cvode_mem = cvode_malloc(n, cvf, t, ycv, BDF, NEWTON, SS, rtol, atol, NULL,
                             NULL, FALSE, cv_iopt, cv_ropt);
     if (cv_bandflag == 1)
         CVBand(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);

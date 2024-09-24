@@ -30,10 +30,10 @@
 
 /******************************************************************
  *                                                                *
- * Enumerations for input parameters to CVodeMalloc and CVode.    *
+ * Enumerations for input parameters to cvode_malloc and CVode.    *
  *----------------------------------------------------------------*
  * Symbolic constants for the lmm, iter, and itol input           *
- * parameters to CVodeMalloc, as well as the input parameter      *
+ * parameters to cvode_malloc, as well as the input parameter      *
  * itask to CVode, are given below.                               *
  *                                                                *
  * lmm  : The user of the CVODE package specifies whether to use  *
@@ -101,7 +101,7 @@ enum {
  * are of type N_Vector.                                          *
  * (Allocation of memory for ydot is handled within CVODE.)       *
  * The f_data parameter is the same as the f_data                 *
- * parameter passed by the user to the CVodeMalloc routine. This  *
+ * parameter passed by the user to the cvode_malloc routine. This  *
  * user-supplied pointer is passed to the user's f function       *
  * every time it is called.                                       *
  * A RhsFn f does not have a return value.                        *
@@ -113,9 +113,9 @@ typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot,
 
 /******************************************************************
  *                                                                *
- * Function : CVodeMalloc                                         *
+ * Function : cvode_malloc                                         *
  *----------------------------------------------------------------*
- * CVodeMalloc allocates and initializes memory for a problem to  *
+ * cvode_malloc allocates and initializes memory for a problem to  *
  * to be solved by CVODE.                                         *
  *                                                                *
  * N       is the number of equations in the ODE system.          *
@@ -184,14 +184,14 @@ typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot,
  *       tolerance, or the components of abstol, for a vector     *
  *       absolute tolerance.                                      *
  *                                                                *
- * If successful, CVodeMalloc returns a pointer to initialized    *
+ * If successful, cvode_malloc returns a pointer to initialized    *
  * problem memory. This pointer should be passed to CVode. If     *
- * an initialization error occurs, CVodeMalloc prints an error    *
+ * an initialization error occurs, cvode_malloc prints an error    *
  * message to the file specified by errfp and returns NULL.       *
  *                                                                *
  ******************************************************************/
 
-void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm,
+void *cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm,
                   int32 iter, int32 itol, double *reltol, void *abstol,
                   void *f_data, FILE *errfp, bool optIn, int32 iopt[],
                   double ropt[]);
@@ -213,7 +213,7 @@ void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm,
  * user is responsible for allocating the memory for this value.  *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
- *              CVodeMalloc.                                      *
+ *              cvode_malloc.                                      *
  *                                                                *
  * tout  is the next time at which a computed solution is desired *
  *                                                                *
@@ -239,7 +239,7 @@ void *CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm,
  *                 internal time-stepping. The ILL_INPUT flag     *
  *                 will also be returned if the linear solver     *
  *                 routine CV--- (called by the user after        *
- *                 calling CVodeMalloc) failed to set one of the  *
+ *                 calling cvode_malloc) failed to set one of the  *
  *                 linear solver-related fields in cvode_mem or   *
  *                 if the linear solver's init routine failed. In *
  *                 any case, the user should see the printed      *
@@ -299,7 +299,7 @@ enum {
  * function after a successful return from CVode.                 *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
- *              CVodeMalloc.                                      *
+ *              cvode_malloc.                                      *
  *                                                                *
  * t   is the time at which the kth derivative of y is evaluated. *
  *        The legal range for t is [tn-hu,tn] as described above. *
@@ -341,8 +341,8 @@ enum {
  * Function : CVodeFree                                           *
  *----------------------------------------------------------------*
  * CVodeFree frees the problem memory cvode_mem allocated by      *
- * CVodeMalloc.  Its only argument is the pointer cvode_mem       *
- * returned by CVodeMalloc.                                       *
+ * cvode_malloc.  Its only argument is the pointer cvode_mem       *
+ * returned by cvode_malloc.                                       *
  *                                                                *
  ******************************************************************/
 
