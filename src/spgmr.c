@@ -22,7 +22,7 @@
 
 /*************** Private Helper Function Prototype *******************/
 
-static void FreeVectorArray(N_Vector *A, int32 indMax);
+static void spgmr_free_vector_array(N_Vector *A, int32 indMax);
 
 /* Implementation of Spgmr algorithm */
 
@@ -50,7 +50,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     for (k = 0; k <= l_max; k++) {
         V[k] = N_VNew(N);
         if (V[k] == NULL) {
-            FreeVectorArray(V, k - 1);
+            spgmr_free_vector_array(V, k - 1);
             return NULL;
         }
     }
@@ -59,7 +59,7 @@ spgmr_malloc(int64 N, int32 l_max) {
 
     Hes = xmalloc((usize)(l_max + 1)*sizeof(*Hes));
     if (Hes == NULL) {
-        FreeVectorArray(V, l_max);
+        spgmr_free_vector_array(V, l_max);
         return NULL;
     }
 
@@ -68,7 +68,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         if (Hes[k] == NULL) {
             for (i = 0; i < k; i++)
                 free(Hes[i]);
-            FreeVectorArray(V, l_max);
+            spgmr_free_vector_array(V, l_max);
             return NULL;
         }
     }
@@ -79,7 +79,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     if (givens == NULL) {
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
-        FreeVectorArray(V, l_max);
+        spgmr_free_vector_array(V, l_max);
         return NULL;
     }
 
@@ -90,7 +90,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
-        FreeVectorArray(V, l_max);
+        spgmr_free_vector_array(V, l_max);
         return NULL;
     }
 
@@ -102,7 +102,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
-        FreeVectorArray(V, l_max);
+        spgmr_free_vector_array(V, l_max);
         return NULL;
     }
 
@@ -115,7 +115,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
-        FreeVectorArray(V, l_max);
+        spgmr_free_vector_array(V, l_max);
         return NULL;
     }
 
@@ -129,7 +129,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
-        FreeVectorArray(V, l_max);
+        spgmr_free_vector_array(V, l_max);
         return NULL;
     }
 
@@ -435,7 +435,7 @@ spgmr_free(SpgmrMem mem) {
     l_max = mem->l_max;
     Hes = mem->Hes;
 
-    FreeVectorArray(mem->V, l_max);
+    spgmr_free_vector_array(mem->V, l_max);
     for (i = 0; i <= l_max; i++)
         free(Hes[i]);
     free(Hes);
@@ -451,7 +451,7 @@ spgmr_free(SpgmrMem mem) {
 /*************** Private Helper Function: FreeVectorArray ************/
 
 static void
-FreeVectorArray(N_Vector *A, int32 indMax) {
+spgmr_free_vector_array(N_Vector *A, int32 indMax) {
     int32 j;
 
     for (j = 0; j <= indMax; j++)
