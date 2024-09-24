@@ -77,16 +77,16 @@ static FILE *ap_fp;
 static GC array_plot_gc;
 static int32 first_aplot_press;
 
-static void set_acolor(int32 col);
-static void tag_aplot(char *);
+static void array_plot_set_color(int32 col);
+static void array_plot_tag2(char *);
 static void array_plot_gif_all(char *, int32);
-static void scale_aplot(struct ArrayPlot *ap, double *zmax, double *zmin);
-static void wborder(Window window, int32 i, struct ArrayPlot ap);
+static void array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin);
+static void array_plot_wborder(Window window, int32 i, struct ArrayPlot ap);
 static void create_array_plot(struct ArrayPlot *ap, char *wname, char *iname);
 static void array_plot_print(struct ArrayPlot *ap);
 static void draw_scale(struct ArrayPlot ap);
 static void array_plot_draw(struct ArrayPlot ap);
-static void reset_aplot_axes(struct ArrayPlot ap);
+static void array_plot_reset_axes(struct ArrayPlot ap);
 static int32 array_plot_edit2(struct ArrayPlot *ap);
 static void array_plot_redraw(struct ArrayPlot ap);
 static void array_plot_display(Window window, struct ArrayPlot ap);
@@ -101,7 +101,7 @@ array_plot_draw_one(char *bob) {
 
     array_plot_redraw(array_plot);
     if (array_plot_tag)
-        tag_aplot(bob);
+        array_plot_tag2(bob);
     XFlush(display);
     snprintf(filename, sizeof(filename), "%s.%d.gif", array_plot_range_stem,
              array_plot_range_count);
@@ -111,7 +111,7 @@ array_plot_draw_one(char *bob) {
 }
 
 static void
-set_up_aplot_range(void) {
+array_plot_set_up_range(void) {
     static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
@@ -137,7 +137,7 @@ static void
 array_plot_fit(void) {
     double zmax;
     double zmin;
-    scale_aplot(&array_plot, &zmax, &zmin);
+    array_plot_scale(&array_plot, &zmax, &zmin);
     array_plot.zmin = zmin;
     array_plot.zmax = zmax;
     array_plot_redraw(array_plot);
@@ -167,11 +167,11 @@ array_plot_optimize(int32 *plist) {
     ns = nrows / nr;
     array_plot.nskip = ns;
     array_plot.ncskip = 1;
-    scale_aplot(&array_plot, &zmax, &zmin);
+    array_plot_scale(&array_plot, &zmax, &zmin);
     array_plot.zmin = zmin;
     array_plot.zmax = zmax;
     array_plot.plotdef = 1;
-    reset_aplot_axes(array_plot);
+    array_plot_reset_axes(array_plot);
     array_plot_redraw(array_plot);
     return;
 }
@@ -185,7 +185,7 @@ array_plot_make_my(char *name) {
 }
 
 void
-scale_aplot(struct ArrayPlot *ap, double *zmax, double *zmin) {
+array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
     int32 i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
@@ -255,10 +255,10 @@ array_plot_do_events(XEvent event) {
                           (uint)array_plot.plotw, (uint)array_plot.ploth);
         break;
     case EnterNotify:
-        wborder(event.xexpose.window, 2, array_plot);
+        array_plot_wborder(event.xexpose.window, 2, array_plot);
         break;
     case LeaveNotify:
-        wborder(event.xexpose.window, 1, array_plot);
+        array_plot_wborder(event.xexpose.window, 1, array_plot);
         break;
     case ButtonPress:
         if (event.xany.window == array_plot.wplot)
@@ -273,7 +273,7 @@ array_plot_do_events(XEvent event) {
 }
 
 void
-wborder(Window window, int32 i, struct ArrayPlot ap) {
+array_plot_wborder(Window window, int32 i, struct ArrayPlot ap) {
     /* if(w==ap.wedit||w==ap.wprint||w==ap.wkill||w==ap.wstyle||w==ap.wredraw)
      */
     Window w = window;
@@ -429,7 +429,7 @@ array_plot_button(Window window) {
     if (window == array_plot.wfit)
         array_plot_fit();
     if (window == array_plot.wrange)
-        set_up_aplot_range();
+        array_plot_set_up_range();
     if (window == array_plot.wredraw)
         array_plot_redraw(array_plot);
     if (window == array_plot.wprint)
@@ -499,7 +499,7 @@ get_root(char *s, char *sroot, int32 *num) {
 }
 
 void
-reset_aplot_axes(struct ArrayPlot ap) {
+array_plot_reset_axes(struct ArrayPlot ap) {
     char bob[200];
     char sroot[100];
     int32 num;
@@ -575,7 +575,7 @@ array_plot_edit2(struct ArrayPlot *ap) {
         ap->ncskip = atoi(values[8]);
         if (ap->ncskip < 1)
             ap->ncskip = 1;
-        reset_aplot_axes(*ap);
+        array_plot_reset_axes(*ap);
     }
     return 1;
 }
@@ -697,7 +697,7 @@ array_plot_redraw(struct ArrayPlot ap) {
                     colr = FIRSTCOLOR;
                 if (colr > cmax)
                     colr = cmax;
-                set_acolor(colr);
+                array_plot_set_color(colr);
                 XFillRectangle(display, window, array_plot_gc, ix, iy,
                                (uint)delx, (uint)dely);
             }
@@ -708,7 +708,7 @@ array_plot_redraw(struct ArrayPlot ap) {
 }
 
 void
-tag_aplot(char *bob) {
+array_plot_tag2(char *bob) {
     color_set(0);
     XDrawString(display, array_plot.wplot, small_gc, 0, CURY_OFFs, bob,
                 (int32)strlen(bob));
@@ -716,7 +716,7 @@ tag_aplot(char *bob) {
 }
 
 void
-set_acolor(int32 col) {
+array_plot_set_color(int32 col) {
     if (col < 0)
         XSetForeground(display, array_plot_gc, GrBack);
     if (col == 0)
