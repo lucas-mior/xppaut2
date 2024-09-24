@@ -56,9 +56,9 @@ static int32 null_iy;
 static int32 WHICH_CRV;
 static double *X_n;
 static double *Y_n;
-double *saver;
-double *NTop;
-double *NBot;
+static double *saver;
+static double *NTop;
+static double *NBot;
 extern int32 NMESH;
 extern int32 NODE;
 extern int32 NJMP;
@@ -78,9 +78,9 @@ double ColorViaLo = 0;
 double ColorViaHi = 1;
 int32 ColorizeFlag = 0;
 
-RANGE_INFO ncrange;
+static RANGE_INFO ncrange;
 
-NullClines *ncperm;
+static NullClines *ncperm;
 static int32 n_nstore = 0;
 static int32 ncline_cnt;
 
