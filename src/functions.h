@@ -952,9 +952,6 @@ extern int32 got_file;
 
 #ifndef XPP_MAX_NAME
 #define XPP_MAX_NAME 512
-#if (XPP_MAX_NAME > FILENAME_MAX)
-#define XPP_MAX_NAME FILENAME_MAX
-#endif
 
 extern char this_file[XPP_MAX_NAME];
 extern char this_internset[XPP_MAX_NAME];
