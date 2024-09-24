@@ -41,14 +41,13 @@ extern int32 DCURYs;
 extern int32 CURY_OFFs;
 extern int32 CURY_OFF;
 
-typedef struct {
+static struct TxtView {
     Window up, down, pgup, pgdn, kill, home, end, base, text, src, action;
     int32 here, first, hgt, wid, nlines, which;
     int32 dh;
     int32 dw;
-} TXTVIEW;
+} txtview;
 
-TXTVIEW txtview;
 /*
   [Up]   [Down]  [PgUp]  [PgDn] [Kill]
   [Home] [End]   [Src]   [Actn]

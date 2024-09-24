@@ -62,18 +62,6 @@ to be added later
 **************************************************************/
 
 #include <stdio.h>
-typedef struct {
-    double xlo, xhi, dx;
-    double *y;
-    double *x;
-    int32 n, flag, interp, autoeval;
-    int32 xyvals;
-    /* flag=0 if virgin array, flag=1 if already allocated; flag=2 for function
-                             interp=0 for normal interpolation, interp=1 for
-       'step' interp=2 for cubic spline table   and finally, xyvals=1 if both x
-       and y vals are needed (xyvals=0 is faster lookup )*/
-    char filename[128], name[12];
-} TABULAR;
 
 TABULAR my_table[MAX_TAB];
 

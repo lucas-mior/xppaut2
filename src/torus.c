@@ -39,7 +39,7 @@ extern int32 TORUS;
 extern double TOR_PERIOD;
 extern int32 itor[MAX_ODE];
 
-struct {
+static struct TorusBox {
     Window base, done, cancel;
     Window window[MAX_ODE];
 } torbox;
