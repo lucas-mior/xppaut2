@@ -137,7 +137,7 @@ int32 ix_val(double x);
 int32 iy_val(double y);
 int32 auto_check_bnds(int32 ix, int32 iy);
 void renamef(char *old, char *new);
-void copyf(char *old, char *new);
+void auto_nox_copyf(char *old, char *new);
 void auto_appendf(char *old, char *new);
 void deletef(char *old);
 void auto_close(int32 flag);

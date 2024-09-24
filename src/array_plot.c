@@ -84,7 +84,7 @@ static void array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin);
 static void array_plot_wborder(Window window, int32 i, struct ArrayPlot ap);
 static void create_array_plot(struct ArrayPlot *ap, char *wname, char *iname);
 static void array_plot_print(struct ArrayPlot *ap);
-static void draw_scale(struct ArrayPlot ap);
+static void array_plot_draw_scale(struct ArrayPlot ap);
 static void array_plot_draw(struct ArrayPlot ap);
 static void array_plot_reset_axes(struct ArrayPlot ap);
 static int32 array_plot_edit2(struct ArrayPlot *ap);
@@ -92,7 +92,7 @@ static void array_plot_redraw(struct ArrayPlot ap);
 static void array_plot_display(Window window, struct ArrayPlot ap);
 static void array_plot_destroy(void);
 static void array_plot_button(Window window);
-static void get_root(char *s, char *sroot, int32 *num);
+static void array_plot_get_root(char *s, char *sroot, int32 *num);
 static void array_plot_gif(void);
 
 void
@@ -442,7 +442,7 @@ array_plot_button(Window window) {
 }
 
 void
-draw_scale(struct ArrayPlot ap) {
+array_plot_draw_scale(struct ArrayPlot ap) {
     int32 i;
     int32 y;
     Window window = ap.wscale;
@@ -468,7 +468,7 @@ array_plot_edit(void) {
 }
 
 void
-get_root(char *s, char *sroot, int32 *num) {
+array_plot_get_root(char *s, char *sroot, int32 *num) {
     int32 n = (int32)strlen(s);
     int32 i = n - 1, j;
 
@@ -505,7 +505,7 @@ array_plot_reset_axes(struct ArrayPlot ap) {
     int32 num;
     if (ap.alive == 0)
         return;
-    get_root(ap.name, sroot, &num);
+    array_plot_get_root(ap.name, sroot, &num);
     snprintf(bob, sizeof(bob), "%s%d..%d", sroot, num, num + ap.nacross - 1);
     XClearWindow(display, ap.wmax);
     XClearWindow(display, ap.wmin);
@@ -739,7 +739,7 @@ array_plot_display(Window window, struct ArrayPlot ap) {
         return;
     }
     if (window == ap.wscale) {
-        draw_scale(ap);
+        array_plot_draw_scale(ap);
         return;
     }
     if (window == ap.wmin) {

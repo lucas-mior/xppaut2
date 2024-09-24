@@ -376,7 +376,7 @@ renamef(char *old, char *new) {
 }
 
 void
-copyf(char *old, char *new) {
+auto_nox_copyf(char *old, char *new) {
     FILE *fo;
     FILE *fn;
     int32 c;
@@ -403,7 +403,7 @@ auto_appendf(char *old, char *new) {
     if (fn == NULL) {
         fclose(fo);
 
-        copyf(old, new);
+        auto_nox_copyf(old, new);
         return;
     }
     ft = fopen(TMPSWAP, "w");
@@ -418,7 +418,7 @@ auto_appendf(char *old, char *new) {
         putc(c, ft);
     fclose(fn);
     fclose(ft);
-    copyf(TMPSWAP, new);
+    auto_nox_copyf(TMPSWAP, new);
     deletef(TMPSWAP);
     return;
 }
@@ -501,7 +501,7 @@ open_auto(int32 flg) {
     if (flg == 1) {
         char string[sizeof(this_auto_file) + 2];
         snprintf(string, sizeof(string), "%s.s", this_auto_file);
-        copyf(string, fort3);
+        auto_nox_copyf(string, fort3);
     }
     return;
 }

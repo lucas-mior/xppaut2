@@ -16,7 +16,7 @@ int32 auto_x11_xor_cross(int32 x, int32 y);
 int32 auto_x11_fill_circle(int32 x, int32 y, int32 r);
 int32 auto_x11_line_width(int32 wid);
 int32 renamef(char *old, char *new);
-int32 copyf(char *old, char *new);
+int32 auto_nox_copyf(char *old, char *new);
 int32 deletef(char *old);
 int32 auto_close(int32 flag);
 int32 open_auto(int32 flag);
