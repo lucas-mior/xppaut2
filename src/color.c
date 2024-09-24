@@ -43,8 +43,6 @@ extern int32 CURS_X;
 extern int32 CURS_Y;
 extern int32 DCURXs;
 extern int32 DCURYs;
-extern uint32 Black;
-extern uint32 White;
 extern uint32 MyBackColor;
 extern uint32 MyForeColor;
 extern uint32 GrFore;
