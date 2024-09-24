@@ -85,11 +85,11 @@ static void wborder(Window window, int32 i, struct ArrayPlot ap);
 static void create_array_plot(struct ArrayPlot *ap, char *wname, char *iname);
 static void print_aplot(struct ArrayPlot *ap);
 static void draw_scale(struct ArrayPlot ap);
-static void draw_aplot(struct ArrayPlot ap);
+static void array_plot_draw(struct ArrayPlot ap);
 static void reset_aplot_axes(struct ArrayPlot ap);
 static int32 editaplot(struct ArrayPlot *ap);
 static void redraw_aplot(struct ArrayPlot ap);
-static void display_aplot(Window window, struct ArrayPlot ap);
+static void array_plot_display(Window window, struct ArrayPlot ap);
 static void array_plot_destroy(void);
 static void array_plot_button(Window window);
 static void get_root(char *s, char *sroot, int32 *num);
@@ -216,7 +216,7 @@ scale_aplot(struct ArrayPlot *ap, double *zmax, double *zmin) {
 void
 array_plot_expose(Window window) {
     if (array_plot.alive)
-        display_aplot(window, array_plot);
+        array_plot_display(window, array_plot);
     return;
 }
 
@@ -229,7 +229,7 @@ array_plot_do_events(XEvent event) {
     switch (event.type) {
         /* case Expose:
          case MapNotify:
-           display_aplot(ev.xany.window,array_plot);
+           array_plot_display(ev.xany.window,array_plot);
            break;
          */
     case MotionNotify:
@@ -455,7 +455,7 @@ draw_scale(struct ArrayPlot ap) {
 }
 
 void
-draw_aplot(struct ArrayPlot ap) {
+array_plot_draw(struct ArrayPlot ap) {
     if (plot3d_auto_redraw != 1)
         return;
     redraw_aplot(ap);
@@ -509,8 +509,8 @@ reset_aplot_axes(struct ArrayPlot ap) {
     snprintf(bob, sizeof(bob), "%s%d..%d", sroot, num, num + ap.nacross - 1);
     XClearWindow(display, ap.wmax);
     XClearWindow(display, ap.wmin);
-    display_aplot(ap.wmax, ap);
-    display_aplot(ap.wmin, ap);
+    array_plot_display(ap.wmax, ap);
+    array_plot_display(ap.wmin, ap);
     many_pops_gtitle_text(bob, ap.base);
     return;
 }
@@ -731,11 +731,11 @@ set_acolor(int32 col) {
 }
 
 void
-display_aplot(Window window, struct ArrayPlot ap) {
+array_plot_display(Window window, struct ArrayPlot ap) {
     char bob[200];
 
     if (window == ap.wplot) {
-        draw_aplot(ap);
+        array_plot_draw(ap);
         return;
     }
     if (window == ap.wscale) {
