@@ -791,7 +791,7 @@ void reset_browser(void);
 void init_browser(void);
 void make_new_browser(void);
 Window browse_button2(Window root, int32 row, int32 col, int32 iflag);
-Window br_button_data(Window root, int32 row, int32 col, char *name,
+Window browse_button_data(Window root, int32 row, int32 col, char *name,
                       int32 iflag);
 void expose_my_browser(XEvent event);
 void enter_my_browser(XEvent event, int32 yn);

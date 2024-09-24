@@ -718,7 +718,7 @@ browse_button2(Window root, int32 row, int32 col, int32 iflag) {
 }
 
 Window
-br_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
+browse_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
     Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
@@ -817,7 +817,7 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     XSelectInput(display, b->time, SIMPMASK);
 
     for (i = 0; i < BMAXCOL; i++) {
-        b->label[i] = br_button_data(base, 5, i + 1, "1234567890", 1);
+        b->label[i] = browse_button_data(base, 5, i + 1, "1234567890", 1);
         XSelectInput(display, b->label[i], SIMPMASK);
     }
     if (noicon == 0)
