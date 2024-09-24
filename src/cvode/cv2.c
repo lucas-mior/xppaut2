@@ -26,7 +26,7 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
     cvode_mem = cvode_malloc(n, cv_func, t, ycv, BDF, NEWTON, SS, rtol, atol,
                              NULL, NULL, FALSE, cv_iopt, cv_ropt);
     if (cv_bandflag == 1)
-        CVBand(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
+        cv_band(cvode_mem, cv_bandupper, cv_bandlower, NULL, NULL);
     else
         cv_dense(cvode_mem, NULL, NULL);
     return;

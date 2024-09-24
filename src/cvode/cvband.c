@@ -42,7 +42,7 @@
  * Types : CVBandMemRec, CVBandMem                                *
  *----------------------------------------------------------------*
  * The type CVBandMem is pointer to a CVBandMemRec. This          *
- * structure contains CVBand solver-specific data.                *
+ * structure contains cv_band solver-specific data.                *
  *                                                                *
  ******************************************************************/
 
@@ -196,10 +196,10 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 #define nje (cvband_mem->b_nje)
 #define J_data (cvband_mem->b_J_data)
 
-/*************** CVBand **********************************************
+/*************** cv_band **********************************************
 
  This routine initializes the memory record and sets various function
- fields specific to the band linear solver module. CVBand sets the
+ fields specific to the band linear solver module. cv_band sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
  to be CVBandInit, cv_band_setup, CVBandSolve, and CVBandFree,
  respectively. It allocates memory for a structure of type
@@ -215,7 +215,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
 **********************************************************************/
 
 void
-CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
+cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
        void *jac_data) {
     CVodeMem cv_mem;
     CVBandMem cvband_mem;

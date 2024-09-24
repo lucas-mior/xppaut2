@@ -10,7 +10,7 @@
  * Note: The type int64 must be large enough to store the value *
  * N + mupper + mlower, where N is the linear system size and     *
  * mupper and mlower are the upper and lower bandwidths,          *
- * respectively, passed to CVBand.                                *
+ * respectively, passed to cv_band.                                *
  *                                                                *
  ******************************************************************/
 
@@ -78,11 +78,11 @@ enum {
  *                                                                *
  * mupper is the upper half-bandwidth of the approximate banded   *
  * Jacobian. This parameter is the same as the mupper parameter   *
- * passed by the user to the CVBand function.                     *
+ * passed by the user to the cv_band function.                     *
  *                                                                *
  * mlower is the lower half-bandwidth of the approximate banded   *
  * Jacobian. This parameter is the same as the mlower parameter   *
- * passed by the user to the CVBand function.                     *
+ * passed by the user to the cv_band function.                     *
  *                                                                *
  * J is the band matrix (of type BandMat) that will be loaded     *
  * by a CVBandJacFn with an approximation to the Jacobian matrix  *
@@ -141,7 +141,7 @@ enum {
  * uround is the machine unit roundoff.                           *
  *                                                                *
  * jac_data is a pointer to user data - the same as the jac_data  *
- *          parameter passed to CVBand.                           *
+ *          parameter passed to cv_band.                           *
  *                                                                *
  * nfePtr is a pointer to the memory location containing the      *
  * CVODE problem data nfe = number of calls to f. The Jacobian    *
@@ -164,9 +164,9 @@ typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
 
 /******************************************************************
  *                                                                *
- * Function : CVBand                                              *
+ * Function : cv_band                                              *
  *----------------------------------------------------------------*
- * A call to the CVBand function links the main CVODE integrator  *
+ * A call to the cv_band function links the main CVODE integrator  *
  * with the CVBAND linear solver.                                 *
  *                                                                *
  * cvode_mem is the pointer to CVODE memory returned by           *
@@ -190,7 +190,7 @@ typedef void (*CVBandJacFn)(int64 N, int64 mupper, int64 mlower, BandMat J,
  *                                                                *
  ******************************************************************/
 
-void CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
+void cv_band(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
             void *jac_data);
 
 /******************************************************************
