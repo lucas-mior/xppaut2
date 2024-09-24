@@ -320,7 +320,6 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 #include "vector.h"
 
 /******************************************************************
- *                                                                *
  * Type: BandMat                                                  *
  *----------------------------------------------------------------*
  * The type BandMat is the type of a large (possibly distributed) *
@@ -328,18 +327,14 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  * with the following fields:                                     *
  *                                                                *
  * size is the number of columns (== number of rows)              *
- *                                                                *
  * mu   is the upper bandwidth, 0 <= mu <= size-1                 *
- *                                                                *
  * ml   is the lower bandwidth, 0 <= ml <= size-1                 *
- *                                                                *
  * smu  is the storage upper bandwidth, mu <= smu <= size-1.      *
  *         The band_factor routine writes the LU factors           *
  *         into the storage for A. The upper triangular factor U, *
  *         however, may have an upper bandwidth as big as         *
  *         MIN(size-1,mu+ml) because of partial pivoting. The smu *
  *         field holds the upper bandwidth allocated for A.       *
- *                                                                *
  * data is a two dimensional array used for component storage.    *
  *         The elements of a band matrix of type BandMat are      *
  *         stored columnwise (i.e. columns are stored one on top  *
@@ -351,7 +346,6 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  *                                                                *
  * data[0] is a pointer to (smu+ml+1)*size contiguous locations   *
  *            which hold the elements within the band of A        *
- *                                                                *
  * data[j] is a pointer to the uppermost element within the band  *
  *            in the jth column. This pointer may be treated as   *
  *            an array indexed from smu-mu (to access the         *
@@ -360,7 +354,6 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
  *            within the band in the jth column). (Indices from 0 *
  *            to smu-mu-1 give access to extra storage elements   *
  *            required by band_factor.)                            *
- *                                                                *
  * data[j][i-j+smu] is the (i,j)th element, j-mu <= i <= j+ml.    *
  *                                                                *
  * The macros below allow a user to access individual matrix      *
@@ -389,7 +382,6 @@ typedef struct {
 /* BandMat accessor macros */
 
 /******************************************************************
- *                                                                *
  * Macro : BAND_ELEM                                              *
  * Usage : BAND_ELEM(A,i,j) = a_ij;  OR                           *
  *         a_ij = BAND_ELEM(A,i,j);                               *
@@ -397,12 +389,10 @@ typedef struct {
  * BAND_ELEM(A,i,j) references the (i,j)th element of the         *
  * N by N band matrix A, where 0 <= i,j <= N-1. The location      *
  * (i,j) should further satisfy j-(A->mu) <= i <= j+(A->ml).      *
- *                                                                *
  ******************************************************************/
 #define BAND_ELEM(A, i, j) ((A->data)[j][i - j + (A->smu)])
 
 /******************************************************************
- *                                                                *
  * Macro : BAND_COL                                               *
  * Usage : col_j = BAND_COL(A,j);                                 *
  *----------------------------------------------------------------*
@@ -411,12 +401,10 @@ typedef struct {
  * the expression BAND_COL(A,j) is double *. The pointer returned   *
  * by the call BAND_COL(A,j) can be treated as an array which is  *
  * indexed from -(A->mu) to (A->ml).                              *
- *                                                                *
  ******************************************************************/
 #define BAND_COL(A, j) (((A->data)[j]) + (A->smu))
 
 /******************************************************************
- *                                                                *
  * Macro : BAND_COL_ELEM                                          *
  * Usage : col_j = BAND_COL(A,j);                                 *
  *         BAND_COL_ELEM(col_j,i,j) = a_ij;  OR                   *
@@ -425,14 +413,12 @@ typedef struct {
  * This macro references the (i,j)th entry of the band matrix A   *
  * when used in conjunction with BAND_COL as shown above. The     *
  * index (i,j) should satisfy j-(A->mu) <= i <= j+(A->ml).        *
- *                                                                *
  ******************************************************************/
 #define BAND_COL_ELEM(col_j, i, j) (col_j[i - j])
 
 /* Functions that use the BandMat representation for a band matrix */
 
 /******************************************************************
- *                                                                *
  * Function : band_alloc_mat                                        *
  * Usage    : A = band_alloc_mat(N, mu, ml, smu);                   *
  *            if (A == NULL) ... memory request failed            *
@@ -443,19 +429,16 @@ typedef struct {
  * be factored by band_factor:                                     *
  *                                                                *
  * (1) Pass smu = mu if A will not be factored.                   *
- *                                                                *
  * (2) Pass smu = MIN(N-1,mu+ml) if A will be factored.           *
  *                                                                *
  * band_alloc_mat returns the storage allocated (type BandMat) or   *
  * NULL if the request for matrix storage cannot be satisfied.    *
  * See the documentation for the type BandMat for matrix storage  *
  * details.                                                       *
- *                                                                *
  ******************************************************************/
 BandMat band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
- *                                                                *
  * Function : BandAllocPiv                                        *
  * Usage    : p = band_alloc_piv(N);                                *
  *            if (p == NULL) ... memory request failed            *
@@ -466,12 +449,10 @@ BandMat band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu);
  * information is an array of N integers and this routine returns *
  * the pointer to the memory it allocates. If the request for     *
  * pivot storage cannot be satisfied, BandAllocPiv returns NULL.  *
- *                                                                *
  ******************************************************************/
 int64 *band_alloc_piv(int64 N);
 
 /******************************************************************
- *                                                                *
  * Function : band_factor                                          *
  * Usage    : ier = band_factor(A, p);                             *
  *            if (ier != 0) ... A is singular                     *
@@ -485,7 +466,6 @@ int64 *band_alloc_piv(int64 N);
  *                                                                *
  * (1) p[k] contains the row number of the pivot element chosen   *
  *     at the beginning of elimination step k, k=0, 1, ..., N-1.  *
- *                                                                *
  * (2) If the unique LU factorization of A is given by PA = LU,   *
  *     where P is a permutation matrix, L is a lower triangular   *
  *     matrix with all 1's on the diagonal, and U is an upper     *
@@ -508,12 +488,10 @@ int64 *band_alloc_piv(int64 N);
  * as defined above. The user does not have to zero the "extra"   *
  * storage allocated for the purpose of factorization. This will  *
  * handled by the band_factor routine.                             *
- *                                                                *
  ******************************************************************/
 int64 band_factor(BandMat A, int64 *p);
 
 /******************************************************************
- *                                                                *
  * Function : band_back_solve                                       *
  * Usage    : band_back_solve(A, p, b);                             *
  *----------------------------------------------------------------*
@@ -522,76 +500,62 @@ int64 band_factor(BandMat A, int64 *p);
  * computed in band_factor. The solution x is returned in b. This  *
  * routine cannot fail if the corresponding call to band_factor    *
  * did not fail.                                                  *
- *                                                                *
  ******************************************************************/
 void band_back_solve(BandMat A, int64 *p, N_Vector b);
 
 /******************************************************************
- *                                                                *
  * Function : band_zero                                            *
  * Usage    : band_zero(A);                                        *
  *----------------------------------------------------------------*
  * A(i,j) <- 0.0,    j-(A->mu) <= i <= j+(A->ml).                 *
- *                                                                *
  ******************************************************************/
 void band_zero(BandMat A);
 
 /******************************************************************
- *                                                                *
  * Function : band_copy                                            *
  * Usage    : band_copy(A, B, copymu, copyml);                     *
  *----------------------------------------------------------------*
  * band_copy copies the submatrix with upper and lower bandwidths  *
  * copymu, copyml of the N by N band matrix A into the N by N     *
  * band matrix B.                                                 *
- *                                                                *
  ******************************************************************/
 void band_copy(BandMat A, BandMat B, int64 copymu, int64 copyml);
 
 /******************************************************************
- *                                                                *
  * Function: band_scale                                            *
  * Usage   : band_scale(c, A);                                     *
  *----------------------------------------------------------------*
  * A(i,j) <- c*A(i,j),   j-(A->mu) <= i <= j+(A->ml).             *
- *                                                                *
  ******************************************************************/
 void band_scale(double c, BandMat A);
 
 /******************************************************************
- *                                                                *
  * Function : band_add_i                                            *
  * Usage    : band_add_i(A);                                        *
  *----------------------------------------------------------------*
  * A(j,j) <- A(j,j)+1.0,   0 <= j <= (A->size)-1.                 *
- *                                                                *
  ******************************************************************/
 void band_add_i(BandMat A);
 
 /******************************************************************
- *                                                                *
  * Function : band_free_mat                                         *
  * Usage    : band_free_mat(A);                                     *
  *----------------------------------------------------------------*
  * band_free_mat frees the memory allocated by band_alloc_mat for     *
  * the band matrix A.                                             *
- *                                                                *
  ******************************************************************/
 void band_free_mat(BandMat A);
 
 /******************************************************************
- *                                                                *
  * Function : band_free_piv                                         *
  * Usage    : band_free_piv(p);                                     *
  *----------------------------------------------------------------*
  * band_free_piv frees the memory allocated by BandAllocPiv for     *
  * the pivot information array p.                                 *
- *                                                                *
  ******************************************************************/
 void band_free_piv(int64 *p);
 
 /******************************************************************
- *                                                                *
  * Function : band_print                                           *
  * Usage    : band_print(A);                                       *
  *----------------------------------------------------------------*
@@ -601,14 +565,12 @@ void band_free_piv(int64 *p);
  * debugging tool with small values of N. The elements are        *
  * printed using the %g option. A blank line is printed before    *
  * and after the matrix.                                          *
- *                                                                *
  ******************************************************************/
 void band_print(BandMat A);
 
 /* Functions that use the double ** representation for a band matrix */
 
 /******************************************************************
- *                                                                *
  * Function : bandalloc                                           *
  * Usage    : double **a;                                           *
  *            a = band_alloc2(n, smu, ml);                          *
@@ -629,7 +591,6 @@ void band_print(BandMat A);
  * allocated if A is to be factored by gbfa. Pass smu as follows: *
  *                                                                *
  * (1) Pass smu = mu if A will not be factored.                   *
- *                                                                *
  * (2) Pass smu = MIN(n-1,mu+ml) if A will be factored.           *
  *                                                                *
  * The underlying type of the band matrix returned is double **. If *
@@ -641,12 +602,10 @@ void band_print(BandMat A);
  * element of A, where 0 <= i,j <= n-1 and j-mu <= i <= j+ml.     *
  * (The elements a[j][0], a[j][1], ..., a[j][smu-mu-1] are used   *
  * by gbfa and gbsl.)                                             *
- *                                                                *
  ******************************************************************/
 double **band_alloc2(int64 n, int64 smu, int64 ml);
 
 /******************************************************************
- *                                                                *
  * Function : bandallocpiv                                        *
  * Usage    : int64 *pivot;                                     *
  *            pivot = band_alloc_piv2(n);                            *
@@ -655,12 +614,10 @@ double **band_alloc2(int64 n, int64 smu, int64 ml);
  * band_alloc_piv2(n) allocates an array of n integers. It returns a *
  * pointer to the first element in the array if successful. It    *
  * returns NULL if the memory request could not be satisfied.     *
- *                                                                *
  ******************************************************************/
 int64 *band_alloc_piv2(int64 n);
 
 /******************************************************************
- *                                                                *
  * Function : gbfa                                                *
  * Usage    : int64 ier;                                        *
  *            ier = band_gbfa(a,n,mu,ml,smu,p);                        *
@@ -678,7 +635,6 @@ int64 *band_alloc_piv2(int64 n);
  *                                                                *
  * (1) p[k] contains the row number of the pivot element chosen   *
  *     at the beginning of elimination step k, k=0, 1, ..., n-1.  *
- *                                                                *
  * (2) If the unique LU factorization of A is given by PA = LU,   *
  *     where P is a permutation matrix, L is a lower triangular   *
  *     matrix with all 1's on the diagonal, and U is an upper     *
@@ -707,12 +663,10 @@ int64 *band_alloc_piv2(int64 n);
  * routines in this section use the parameter name smu for a      *
  * parameter which must be the "storage upper bandwidth" which    *
  * was passed to bandalloc.                                       *
- *                                                                *
  ******************************************************************/
 int64 band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
 
 /******************************************************************
- *                                                                *
  * Function : gbsl                                                *
  * Usage    : double *b;                                            *
  *            ier = band_gbfa(a,n,mu,ml,smu,p);                        *
@@ -724,74 +678,60 @@ int64 band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p);
  * has been LU factored and the pivot array p has been set by a   *
  * successful call band_gbfa(a,n,mu,ml,smu,p). The solution x is       *
  * written into the b array.                                      *
- *                                                                *
  ******************************************************************/
 void band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
 
 /******************************************************************
- *                                                                *
  * Function : band_zero2                                            *
  * Usage    : band_zero2(a,n,mu,ml,smu);                            *
  *----------------------------------------------------------------*
  * a(i,j) <- 0.0,   0 <= i,j <= n-1, j-mu <= i <= j+ml.           *
- *                                                                *
  ******************************************************************/
 void band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
- *                                                                *
  * Function : bandcopy                                            *
  * Usage    : bandcopy(a,b,n,a_smu,b_smu,copymu,copyml);          *
  *----------------------------------------------------------------*
  * b(i,j) <- a(i,j), 0 <= i,j <= n-1, j-copymu <= i <= j+copyml.  *
- *                                                                *
  ******************************************************************/
 void bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
               int64 copymu, int64 copyml);
 
 /******************************************************************
- *                                                                *
  * Function : band_scale2                                           *
  * Usage    : band_scale2(c,a,n,mu,ml);                             *
  *----------------------------------------------------------------*
  * a(i,j) <- c*a(i,j),   0 <= i,j <= n-1, j-mu <= i <= j+ml.      *
- *                                                                *
  ******************************************************************/
 void band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
- *                                                                *
  * Function : band_add_i2                                            *
  * Usage    : band_add_i2(a,n,smu);                                  *
  *----------------------------------------------------------------*
  * a(j,j) <- a(j,j)+1.0,   0 <= j <= n-1.                         *
- *                                                                *
  ******************************************************************/
 void band_add_i2(double **a, int64 n, int64 smu);
 
 /******************************************************************
- *                                                                *
  * Function : band_free_pvi2                                         *
  * Usage    : band_free_pvi2(p);                                     *
  *----------------------------------------------------------------*
  * band_free_pvi2(p) frees the pivot array p allocated by            *
  * bandallocpiv.                                                  *
- *                                                                *
  ******************************************************************/
 void band_free_pvi2(int64 *p);
 
 /******************************************************************
- *                                                                *
  * Function : band_free2                                            *
  * Usage    : band_free2(a);                                        *
  *----------------------------------------------------------------*
  * band_free2(a) frees the band matrix a allocated by bandalloc.    *
- *                                                                *
  ******************************************************************/
 void band_free2(double **a);
 
 /******************************************************************
- *                                                                *
  * Function : band_print2                                           *
  * Usage    : band_print2(a,n,mu,ml,smu);                           *
  *----------------------------------------------------------------*
@@ -801,7 +741,6 @@ void band_free2(double **a);
  * intended as a debugging tool with small values of n. The       *
  * elements are printed using the %g option. A blank line is      *
  * printed before and after the matrix.                           *
- *                                                                *
  ******************************************************************/
 void band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
