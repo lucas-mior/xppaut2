@@ -43,25 +43,25 @@ double *sum;
 
 int allocflag = 0;
 double
-minf(double v) {
+cuda_minf(double v) {
     return .5*(1 + tanh((v - va) / vb));
 }
 double
-ninf(double v) {
+cuda_ninf(double v) {
     return .5*(1 + tanh((v - vc) / vd));
 }
 double
-lamn(double v) {
+cuda_lamn(double v) {
     return phi*cosh((v - vc) / (2*vd));
 }
 double
-s_inf(double v) {
+cuda_s_inf(double v) {
     return 1.0 / (1.0 + exp(-(v - vth) / vshp));
     /* return 0.0; */
 }
 
 void
-update_sums(double *s, double *wgt, int n) {
+cuda_update_sums(double *s, double *wgt, int n) {
     int i;
     int j;
     for (i = 0; i < n; i++) {
@@ -72,18 +72,18 @@ update_sums(double *s, double *wgt, int n) {
 }
 
 void
-update_rhs(double *vp, double *wp, double *sp, double *v, double *w, double *s, int n) {
+cuda_update_rhs(double *vp, double *wp, double *sp, double *v, double *w, double *s, int n) {
     int i;
     for (i = 0; i < n; i++) {
         vp[i] = iapp - gl*(v[i] - vl) - gk*w[i]*(v[i] - vk) -
-                gca*minf(v[i])*(v[i] - 1.0) - gsyn*sum[i]*(v[i] - vsyn);
-        wp[i] = lamn(v[i])*(ninf(v[i]) - w[i]);
-        sp[i] = (s_inf(v[i]) - s[i]) / tsyn;
+                gca*cuda_minf(v[i])*(v[i] - 1.0) - gsyn*sum[i]*(v[i] - vsyn);
+        wp[i] = cuda_lamn(v[i])*(cuda_ninf(v[i]) - w[i]);
+        sp[i] = (cuda_s_inf(v[i]) - s[i]) / tsyn;
     }
 }
 
 void
-allocsum(int n) {
+alloc_sum(int n) {
     if (allocflag == 1)
         return;
     sum = malloc(n*sizeof(*sum));
@@ -107,7 +107,7 @@ ML(int nn, int ivar, double *par, double *var, double *z[50], double *ydot) {
     p = par;
     /*  printf("%g %g %g ... %g %g %g \n",iapp,phi,va,tsyn,gsyn,vsyn); */
     /* printf("%g %g %g %g %g %g\n",v[0],v[1],w[0],w[1],s[0],s[1]); */
-    allocsum(n);
-    update_sums(s, wgt, n);
-    update_rhs(vp, wp, sp, v, w, s, n);
+    alloc_sum(n);
+    cuda_update_sums(s, wgt, n);
+    cuda_update_rhs(vp, wp, sp, v, w, s, n);
 }
