@@ -3361,6 +3361,7 @@ void many_pops_set_active_windows(void);
 #include <stdio.h>
 
 extern int32 STOCH_FLAG;
+extern int32 NWiener;
 
 void markov_add_wiener(int32 index);
 void markov_set_wieners(double dt, double *x, double t);

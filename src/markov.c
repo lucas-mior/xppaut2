@@ -60,8 +60,8 @@ static int32 stoch_len;
 
 int32 STOCH_FLAG;
 static int32 STOCH_HERE;
-int32 N_TRIALS;
-int32 Wiener[MAX_PAR];
+static int32 N_TRIALS;
+static int32 Wiener[MAX_PAR];
 int32 NWiener;
 extern double constants[];
 
