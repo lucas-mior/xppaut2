@@ -20,7 +20,7 @@ int32 fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
                 int32 *mlf);
 int32 change_directory(char *path);
 int32 get_directory(char *direct);
-int32 IsDirectory(char *root, char *path);
+int32 is_directory(char *root, char *path);
 void MakeFullPath(char *root, char *filename, char *pathname);
 int32 wild_match(char *string, char *pattern);
 

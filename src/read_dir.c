@@ -115,7 +115,7 @@ get_fileinfo_tab(char *wild, char *direct, FILEINFO *ff, char *wild2) {
     nf = 0;
     nd = 0;
     while (dp != NULL) {
-        if (IsDirectory(direct, dp->d_name)) {
+        if (is_directory(direct, dp->d_name)) {
             if (wild_match(dp->d_name, wild)) {
                 strcpy(ff->dirnames[nd], dp->d_name);
                 nd++;
@@ -170,7 +170,7 @@ get_fileinfo(char *wild, char *direct, FILEINFO *ff) {
     nf = 0;
     nd = 0;
     while (dp != NULL) {
-        if (IsDirectory(direct, dp->d_name)) {
+        if (is_directory(direct, dp->d_name)) {
             strcpy(ff->dirnames[nd], dp->d_name);
             nd++;
         } else {
@@ -208,7 +208,7 @@ fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
     *ndir = 0;
     *nfil = 0;
     while (dp != NULL) {
-        if (IsDirectory(direct, dp->d_name)) {
+        if (is_directory(direct, dp->d_name)) {
             *ndir = *ndir + 1;
             l = (int32)strlen(dp->d_name);
             if (l > *mld)
@@ -254,7 +254,7 @@ get_directory(char *direct) {
 }
 
 int32
-IsDirectory(char *root, char *path) {
+is_directory(char *root, char *path) {
     char fullpath[MAXPATHLEN];
     struct stat statbuf;
 
