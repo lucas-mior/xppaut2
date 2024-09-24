@@ -135,12 +135,12 @@ void draw_svg_axes(void);
 void draw_bif_axes(void);
 int32 ix_val(double x);
 int32 iy_val(double y);
-int32 chk_auto_bnds(int32 ix, int32 iy);
+int32 auto_check_bnds(int32 ix, int32 iy);
 void renamef(char *old, char *new);
 void copyf(char *old, char *new);
 void auto_appendf(char *old, char *new);
 void deletef(char *old);
-void close_auto(int32 flag);
+void auto_close(int32 flag);
 void open_auto(int32 flag);
 void do_auto(int32 iold, int32 isave);
 void set_auto(void);
@@ -227,7 +227,7 @@ void load_auto(void);
 int32 move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp);
 void get_a_row(double *u, double *t, int32 n, FILE *fp);
 void auto_file(void);
-int32 check_plot_type(int32 flag2, int32 icp1, int32 icp2);
+int32 auto_check_plot_type(int32 flag2, int32 icp1, int32 icp2);
 void storeautopoint(double x, double y);
 
 #endif

@@ -404,7 +404,7 @@ diagram_write_pts(void) {
         /* now we have to check is the diagram parameters correspond to the
            current view
         */
-        if (check_plot_type(d->flag2, icp1, icp2) == 1) {
+        if (auto_check_plot_type(d->flag2, icp1, icp2) == 1) {
             auto_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar, a);
             fprintf(fp, "%g %g %g %d %d %d\n", x, y1, y2, type, abs(d->ibr),
                     d->flag2);

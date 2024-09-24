@@ -362,7 +362,7 @@ iy_val(double y) {
 }
 
 int32
-chk_auto_bnds(int32 ix, int32 iy) {
+auto_check_bnds(int32 ix, int32 iy) {
     int32 x1 = Auto.x0, x2 = Auto.x0 + Auto.wid;
     int32 y1 = Auto.y0, y2 = Auto.y0 + Auto.hgt;
     if ((ix >= x1) && (ix < x2) && (iy >= y1) && (iy < y2))
@@ -429,7 +429,7 @@ deletef(char *old) {
 }
 
 void
-close_auto(int32 flg) {
+auto_close(int32 flg) {
     /* labels compatible with A2K  */
     char string[1000];
     if (flg == 0) { /*Overwrite*/
@@ -522,7 +522,7 @@ do_auto(int32 iold, int32 isave) {
                          main routines
                      */
     /*     run_aut(Auto.nfpar,itp); THIS WILL CHANGE TO gogoauto stuff */
-    close_auto(isave); /* this copies fort.8 to the .s file and other
+    auto_close(isave); /* this copies fort.8 to the .s file and other
                           irrelevant stuff
                        */
 
@@ -1125,7 +1125,7 @@ auto_line(double x1i, double y1i, double x2i, double y2i) {
 
 */
 int32
-check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
+auto_check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
     if (flag2 == 0 && Auto.plot == P_P)
         return 0;
     if (flag2 > 0 && Auto.plot != P_P)
@@ -1212,9 +1212,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
-        if (chk_auto_bnds(ix, iy1))
+        if (auto_check_bnds(ix, iy1))
             auto_x11_circle(ix, iy1, 3);
-        if (chk_auto_bnds(ix, iy2))
+        if (auto_check_bnds(ix, iy2))
             auto_x11_circle(ix, iy2, 3);
         auto_x11_bw();
         break;
@@ -1227,9 +1227,9 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
-        if (chk_auto_bnds(ix, iy1))
+        if (auto_check_bnds(ix, iy1))
             auto_x11_fill_circle(ix, iy1, 3);
-        if (chk_auto_bnds(ix, iy2))
+        if (auto_check_bnds(ix, iy2))
             auto_x11_fill_circle(ix, iy2, 3);
         auto_x11_bw();
         break;
@@ -1242,15 +1242,15 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
         if (icp1 == Auto.icp1) {
             if (flag2 == 0 || (flag2 > 0 && Auto.icp2 == icp2)) {
                 auto_x11_line_width(1);
-                if (chk_auto_bnds(ix, iy1)) {
+                if (auto_check_bnds(ix, iy1)) {
                     auto_x11_line(ix - 4, iy1, ix + 4, iy1);
                     auto_x11_line(ix, iy1 - 4, ix, iy1 + 4);
                 }
-                if (chk_auto_bnds(ix, iy2)) {
+                if (auto_check_bnds(ix, iy2)) {
                     auto_x11_line(ix - 4, iy2, ix + 4, iy2);
                     auto_x11_line(ix, iy2 - 4, ix, iy2 + 4);
                 }
-                if (chk_auto_bnds(ix, iy1))
+                if (auto_check_bnds(ix, iy1))
                     auto_x11_text(ix + 8, iy1 + 8, bob);
             }
         }

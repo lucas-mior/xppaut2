@@ -18,7 +18,7 @@ int32 auto_x11_line_width(int32 wid);
 int32 renamef(char *old, char *new);
 int32 copyf(char *old, char *new);
 int32 deletef(char *old);
-int32 close_auto(int32 flag);
+int32 auto_close(int32 flag);
 int32 open_auto(int32 flag);
 int32 do_auto(int32 iold, int32 isave);
 int32 set_auto(void);
