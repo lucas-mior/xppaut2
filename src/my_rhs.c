@@ -83,7 +83,7 @@ my_rhs(double t, double *y, double *ydot, int32 neq) {
     }
     eval_all_nets();
 
-    do_daes();
+    dae_fun_do_daes();
 
     do_in_out();
     for (int32 i = 0; i < NODE; i++) {

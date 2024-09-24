@@ -237,7 +237,7 @@ void
 color_new_map(int32 type) {
     /*  printf(" My color map = %d\n",type); */
     if (TrueColorFlag == 0) {
-        err_msg("New colormaps not supported without TrueColor");
+        ggets_err_msg("New colormaps not supported without TrueColor");
         return;
     }
     custom_color = type;

@@ -103,7 +103,7 @@ txtview_keypress(XEvent event) {
     Window window = event.xkey.window;
     char ks;
     if (window == txtview.base || window == txtview.text) {
-        ks = (char)get_key_press(&event);
+        ks = (char)ggets_get_key_press(&event);
         if (ks == KEY_UP) {
             txtview_press(txtview.up, 0, 0);
             return;
@@ -212,7 +212,7 @@ txtview_press(Window window, int32 x, int32 y) {
     }
     if (window == txtview.kill) {
         txtview.here = 0;
-        wait_a_sec(ClickTime);
+        browse_wait_a_sec(ClickTime);
         XDestroySubwindows(display, txtview.base);
         XDestroyWindow(display, txtview.base);
     }

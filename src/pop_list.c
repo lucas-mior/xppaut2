@@ -145,7 +145,7 @@ void
 destroy_scroll_box(ScrollBox *sb) {
     if (sb->exist == 1) {
         sb->exist = 0;
-        wait_a_sec(ClickTime);
+        browse_wait_a_sec(ClickTime);
         XDestroySubwindows(display, sb->base);
         XDestroyWindow(display, sb->base);
     }
@@ -324,7 +324,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     XSelectInput(display, sb.cancel, EV_MASK);
     XSelectInput(display, sb.ok, EV_MASK);
 
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
@@ -374,7 +374,7 @@ do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
         XDrawString(display, window, gc, l*DCURX, CURY_OFF, value, m);
     /* if(flag) ggets_show_char('_',DCURX*(l+m),0,w); */
     if (flag)
-        put_cursor_at(window, DCURX*l, pos);
+        ggets_put_cursor_at(window, DCURX*l, pos);
     return;
 }
 
@@ -496,7 +496,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
         break;
 
     case KeyPress:
-        ch = (char)get_key_press(&event);
+        ch = (char)ggets_get_key_press(&event);
         edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
@@ -953,9 +953,9 @@ void
 expose_resp_box(char *button, char *message, Window wb, Window wm,
                 Window window) {
     if (window == wb)
-        f_text(0, 0, button, wb);
+        ggets_f_text(0, 0, button, wb);
     if (window == wm)
-        f_text(0, 0, message, wm);
+        ggets_f_text(0, 0, message, wm);
     return;
 }
 
@@ -1013,7 +1013,7 @@ respond_box(char *button, char *message) {
     }
 
     XSelectInput(display, wb, EV_MASK);
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, wmain);
     XDestroyWindow(display, wmain);
     return;
@@ -1026,7 +1026,7 @@ message_box(Window *w, int32 x, int32 y, char *message) {
     Window z;
     z = make_plain_window(*w, x, y, wid + 50, hgt, 4);
     XSelectInput(display, z, 0);
-    f_text(25, 2*DCURY, message, z);
+    ggets_f_text(25, 2*DCURY, message, z);
     ggets_ping();
     *w = z;
     return;
@@ -1036,11 +1036,11 @@ void
 expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
               Window wm, Window window) {
     if (window == wm)
-        f_text(0, 0, msg, wm);
+        ggets_f_text(0, 0, msg, wm);
     if (window == c1)
-        f_text(0, 0, choice1, c1);
+        ggets_f_text(0, 0, choice1, c1);
     if (window == c2)
-        f_text(0, 0, choice2, c2);
+        ggets_f_text(0, 0, choice2, c2);
     return;
 }
 
@@ -1103,7 +1103,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
             }
             break;
         case KeyPress:
-            value = get_key_press(&event);
+            value = ggets_get_key_press(&event);
             not_done = 0;
             break;
         case EnterNotify:
@@ -1120,7 +1120,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
             break;
         }
     }
-    wait_a_sec(2*ClickTime);
+    browse_wait_a_sec(2*ClickTime);
     XFlush(display);
     XSelectInput(display, c1, EV_MASK);
     XSelectInput(display, c2, EV_MASK);
@@ -1183,7 +1183,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             draw_pop_up(p, event.xexpose.window);
             break;
         case KeyPress:
-            value = get_key_press(&event);
+            value = ggets_get_key_press(&event);
             done = 1;
             break;
         case ButtonPress:
@@ -1220,7 +1220,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 
     for (i = 0; i < n; i++)
         XSelectInput(display, p.w[i], EV_MASK);
-    /*wait_a_sec(ClickTime); Not here. Don't want to delay short cuts*/
+    /*browse_wait_a_sec(ClickTime); Not here. Don't want to delay short cuts*/
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
     XFlush(display);
@@ -1237,15 +1237,15 @@ draw_pop_up(POP_UP p, Window window) {
         ggets_set_fore();
         ggets_bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
         ggets_set_back();
-        f_text(DCURX*2, 4, p.title, window);
+        ggets_f_text(DCURX*2, 4, p.title, window);
         ggets_set_fore();
         return;
     }
     for (i = 0; i < p.n; i++) {
         if (window == p.w[i]) {
-            f_text(DCURX / 2, 3, p.entries[i], window);
+            ggets_f_text(DCURX / 2, 3, p.entries[i], window);
             if (i == p.hot)
-                f_text(DCURX*(p.max + 1), 4, "X", window);
+                ggets_f_text(DCURX*(p.max + 1), 4, "X", window);
             return;
         }
     }

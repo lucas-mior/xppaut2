@@ -193,10 +193,10 @@ get_2d_view(int32 ind) {
     status = do_string_box(8, 4, 2, "2D View", n, values, 31);
     if (status != 0) {
         /*  get variable names  */
-        find_variable(values[0], &i);
+        browse_find_variable(values[0], &i);
         if (i > -1)
             MyGraph->xv[ind] = i;
-        find_variable(values[1], &i);
+        browse_find_variable(values[1], &i);
         if (i > -1)
             MyGraph->yv[ind] = i;
 
@@ -275,13 +275,13 @@ get_3d_view(int32 ind) {
     status = do_string_box(16, 6, 3, "3D View", n, values, 31);
     if (status != 0) {
         /*  get variable names  */
-        find_variable(values[0], &i);
+        browse_find_variable(values[0], &i);
         if (i > -1)
             MyGraph->xv[ind] = i;
-        find_variable(values[1], &i);
+        browse_find_variable(values[1], &i);
         if (i > -1)
             MyGraph->yv[ind] = i;
-        find_variable(values[2], &i);
+        browse_find_variable(values[2], &i);
         if (i > -1)
             MyGraph->zv[ind] = i;
         snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[13]);
@@ -559,8 +559,8 @@ xi_vs_t(void) {
 
     ind_to_sym(i, value);
     snprintf(name, sizeof(name), "Plot vs t: ");
-    new_string(name, value);
-    find_variable(value, &i);
+    ggets_new_string(name, value);
+    browse_find_variable(value, &i);
 
     if (i > -1) {
         MyGraph->yv[0] = i;
@@ -958,13 +958,13 @@ alter_curve(char *title, int32 in_it, int32 n) {
     snprintf(values[4], sizeof(values[4]), "%d", MyGraph->line[in_it]);
     status = do_string_box(5, 5, 1, title, nn, values, 25);
     if (status != 0) {
-        find_variable(values[0], &i);
+        browse_find_variable(values[0], &i);
         if (i > -1)
             MyGraph->xv[n] = i;
-        find_variable(values[1], &i);
+        browse_find_variable(values[1], &i);
         if (i > -1)
             MyGraph->yv[n] = i;
-        find_variable(values[2], &i);
+        browse_find_variable(values[2], &i);
         if (i > -1)
             MyGraph->zv[n] = i;
 
@@ -985,7 +985,7 @@ edit_curve(void) {
     int32 crv = 0;
     snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
     ggets_ping();
-    new_int(bob, &crv);
+    ggets_new_int(bob, &crv);
     if (crv >= 0 && crv < MyGraph->nvars) {
         snprintf(bob, sizeof(bob), "Edit curve %d", crv);
         alter_curve(bob, crv, crv);
@@ -1173,7 +1173,7 @@ key_frz_com(int32 c) {
         break;
     case 1:
         menudrive_message_box("Position with mouse");
-        if (get_mouse_xy(&x, &y, draw_win)) {
+        if (ggets_mouse_xy(&x, &y, draw_win)) {
             set_key(x, y);
             draw_freeze_key();
         }
@@ -1258,7 +1258,7 @@ create_crv(int32 ind) {
             iy = MyGraph->yv[ind];
             iz = MyGraph->zv[ind];
             if (my_browser.maxrow <= 2) {
-                err_msg("No Curve to freeze");
+                ggets_err_msg("No Curve to freeze");
                 return -1;
             }
             frz[i].xv =
@@ -1270,7 +1270,7 @@ create_crv(int32 ind) {
                     xmalloc(sizeof(*(frz[i].zv))*(usize)my_browser.maxrow);
             if ((type > 0 && frz[i].zv == NULL) ||
                 (type == 0 && frz[i].yv == NULL)) {
-                err_msg("Cant allocate storage for curve");
+                ggets_err_msg("Cant allocate storage for curve");
                 return -1;
             }
             frz[i].use = 1;
@@ -1288,7 +1288,7 @@ create_crv(int32 ind) {
             return i;
         }
     }
-    err_msg("All curves used");
+    ggets_err_msg("All curves used");
     return -1;
 }
 
@@ -1442,9 +1442,9 @@ frz_bd(void) {
     ggets_ping();
     if (!file_selector("Import Diagram", filename, "*.dat"))
         return;
-    /* if(new_string("Diagram to import: ",filename)==0)return; */
+    /* if(ggets_new_string("Diagram to import: ",filename)==0)return; */
     if ((fp = fopen(filename, "r")) == NULL) {
-        err_msg("Couldn't open file");
+        ggets_err_msg("Couldn't open file");
         return;
     }
     read_bd(fp);
@@ -1534,9 +1534,9 @@ export_graf_data(void) {
     ggets_ping();
     if (!file_selector("Export graph data", filename, "*.dat"))
         return;
-    /* if(new_string("Data filename:",filename)==0)return; */
+    /* if(ggets_new_string("Data filename:",filename)==0)return; */
     if ((fp = fopen(filename, "w")) == NULL) {
-        err_msg("Couldn't open file");
+        ggets_err_msg("Couldn't open file");
         return;
     }
     export_data(fp);
@@ -1549,7 +1549,7 @@ add_a_curve_com(int32 c) {
     switch (c) {
     case 0:
         if (MyGraph->nvars >= MAXPERPLOT) {
-            err_msg("Too many plots!");
+            ggets_err_msg("Too many plots!");
             return;
         }
         new_curve();

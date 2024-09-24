@@ -355,7 +355,7 @@ do_comline(int32 argc, char **argv) {
 }
 
 int32
-if_needed_load_ext_options(void) {
+comline_if_needed_load_ext_options(void) {
     FILE *fp;
     char myopts[1024];
     char myoptsx[1026];
@@ -384,7 +384,7 @@ if_needed_load_ext_options(void) {
 }
 
 int32
-if_needed_select_sets(void) {
+comline_if_needed_select_sets(void) {
     int32 j;
     if (!select_intern_sets)
         return 1;
@@ -415,7 +415,7 @@ if_needed_select_sets(void) {
 }
 
 int32
-if_needed_load_set(void) {
+comline_if_needed_load_set(void) {
     FILE *fp;
     if (!loadsetfile)
         return 1;
@@ -430,7 +430,7 @@ if_needed_load_set(void) {
 }
 
 int32
-if_needed_load_par(void) {
+comline_if_needed_load_par(void) {
     if (!loadparfile)
         return 1;
     ggets_plintf("Loading external parameter file: %s\n", parfilename);
@@ -439,7 +439,7 @@ if_needed_load_par(void) {
 }
 
 int32
-if_needed_load_ic(void) {
+comline_if_needed_load_ic(void) {
     if (!loadicfile)
         return 1;
     ggets_plintf("Loading external initial condition file: %s\n", icfilename);

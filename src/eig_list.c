@@ -178,7 +178,7 @@ eq_list_keypress(XEvent event, int32 *used) {
     if (window == eq_list.main || window == eq_list.base ||
         window == eq_list.list) {
         *used = 1;
-        ks = (char)get_key_press(&event);
+        ks = (char)ggets_get_key_press(&event);
 
         if (ks == KEY_UP) {
             eq_list_up();
@@ -223,7 +223,7 @@ eq_list_button(XEvent event) {
     }
     if (window == eq_list.close) {
         eq_list.flag = 0;
-        wait_a_sec(2*ClickTime);
+        browse_wait_a_sec(2*ClickTime);
         XDestroySubwindows(display, eq_list.base);
         XDestroyWindow(display, eq_list.base);
     }
@@ -310,7 +310,7 @@ eq_box_button(Window window) {
     }
     if (eq_box.close == window) {
         eq_box.flag = 0;
-        wait_a_sec(ClickTime);
+        browse_wait_a_sec(ClickTime);
         XDestroySubwindows(display, eq_box.base);
         XDestroyWindow(display, eq_box.base);
     }

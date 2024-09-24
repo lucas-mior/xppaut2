@@ -39,12 +39,12 @@ symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
         for (i = 0; i < nt; i++) {
             one_step_symp(y, dt, work, neq, tim);
         }
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         return 0;
     }
     for (i = 0; i < nt; i++) {
         one_flag_step_symp(y, dt, work, neq, tim, istart);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }
@@ -58,13 +58,13 @@ discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
             one_step_discrete(y, dt, work, neq, tim);
-            stor_delay(y);
+            delay_handle_stor_delay(y);
         }
         return 0;
     }
     for (i = 0; i < nt; i++) {
         one_flag_step_discrete(y, dt, work, neq, tim, istart);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }
@@ -88,7 +88,7 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
             if ((j = one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp, errvec,
                                   jac)) != 0)
                 return j;
-            stor_delay(y);
+            delay_handle_stor_delay(y);
         }
         return 0;
     }
@@ -96,7 +96,7 @@ bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
         if ((j = one_flag_step_backeul(y, tim, dt, neq, yg, yp, yp2, ytemp,
                                        errvec, jac, istart)) != 0)
             return j;
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }
@@ -246,13 +246,13 @@ euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     if (NFlags == 0) {
         for (i = 0; i < nt; i++) {
             one_step_euler(y, dt, work, neq, tim);
-            stor_delay(y);
+            delay_handle_stor_delay(y);
         }
         return 0;
     }
     for (i = 0; i < nt; i++) {
         one_flag_step_euler(y, dt, work, neq, tim, istart);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }
@@ -270,13 +270,13 @@ mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     if (NFlags == 0) {
         for (j = 0; j < nt; j++) {
             one_step_heun(y, dt, yval, neq, tim);
-            stor_delay(y);
+            delay_handle_stor_delay(y);
         }
         return 0;
     }
     for (j = 0; j < nt; j++) {
         one_flag_step_heun(y, dt, yval, neq, tim, istart);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }
@@ -296,14 +296,14 @@ rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
     if (NFlags == 0) {
         for (j = 0; j < nt; j++) {
             one_step_rk4(y, dt, yval, neq, tim);
-            stor_delay(y);
+            delay_handle_stor_delay(y);
         }
         return 0;
     }
 
     for (j = 0; j < nt; j++) {
         one_flag_step_rk4(y, dt, yval, neq, tim, istart);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }
@@ -339,7 +339,7 @@ n20:
     rhs(x0, y, y_p[3], neq);
     for (k = 1; k < 4; k++) {
         rung_kut(y, &x0, dt, 1, neq, &irk, work1);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         for (i = 0; i < neq; i++)
             y_s[3 - k][i] = y[i];
         rhs(x0, y, y_p[3 - k], neq);
@@ -382,7 +382,7 @@ n400:
     for (n = istpst + 1; n < nstep + 1; n++) {
         set_wieners(dt, y, x0);
         abmpc(y, &x0, dt, neq);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
 
 n450:

@@ -806,18 +806,18 @@ extern Browser my_browser;
 
 double **get_browser_data(void);
 void set_browser_data(double **data, int32 col0);
-double *get_data_col(int32 c);
-int32 get_time_now(void);
-void wait_a_sec(int32 msec);
+double *browse_get_data_col(int32 c);
+int32 browse_get_time_now(void);
+void browse_wait_a_sec(int32 msec);
 int32 get_max_row_browser(void);
 void write_my_browser_data(FILE *fp);
-void wipe_rep(void);
-void find_variable(char *s, int32 *col);
+void browse_wipe_rep(void);
+void browse_find_variable(char *s, int32 *col);
 void refresh_browser(int32 length);
 void reset_browser(void);
 void init_browser(void);
 void make_new_browser(void);
-Window br_button(Window root, int32 row, int32 col, int32 iflag);
+Window browse_button2(Window root, int32 row, int32 col, int32 iflag);
 Window br_button_data(Window root, int32 row, int32 col, char *name,
                       int32 iflag);
 void expose_my_browser(XEvent event);
@@ -827,7 +827,7 @@ void my_browse_keypress(XEvent event, int32 *used);
 void resize_my_browser(Window win);
 void get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
                   int32 off);
-void open_write_file(FILE **fp, char *fil, int32 *ok);
+void browse_open_write_file(FILE **fp, char *fil, int32 *ok);
 void write_my_browser_data(FILE *fp);
 void data_get_my_browser(int32 row);
 
@@ -899,33 +899,33 @@ void ggets_blank_screen(Window window);
 void ggets_set_fore(void);
 void ggets_set_back(void);
 void ggets_show_char(int32 ch, int32 col, int32 row, Window or);
-void chk_xor(void);
-void clr_command(void);
-void draw_info_pop(Window win);
-void bottom_msg(char *msg);
-void err_msg(char *string);
+void ggets_chk_xor(void);
+void ggets_clr_command(void);
+void ggets_draw_info_pop(Window win);
+void ggets_bottom_msg(char *msg);
+void ggets_err_msg(char *string);
 int32 ggets_plintf(char *fmt, ...);
-int32 show_position(XEvent event);
-void put_command(char *string);
-int32 get_key_press(XEvent *event);
-void cput_text(void);
-int32 get_mouse_xy(int32 *x, int32 *y, Window window);
-void f_text(int32 x, int32 y, char *string, Window o);
+int32 ggets_show_position(XEvent event);
+void ggets_put_command(char *string);
+int32 ggets_get_key_press(XEvent *event);
+void ggets_cput_text(void);
+int32 ggets_mouse_xy(int32 *x, int32 *y, Window window);
+void ggets_f_text(int32 x, int32 y, char *string, Window o);
 void ggets_bar(int32 x, int32 y, int32 x2, int32 y2, Window window);
 void ggets_rectangle(int32 x, int32 y, int32 x2, int32 y2, Window window);
 void ggets_circle(int32 x, int32 y, int32 radius, Window window);
 void ggets_xline(int32 x0, int32 y0, int32 x1, int32 y1, Window window);
-int32 new_float(char *name, double *value);
-int32 new_int(char *name, int32 *value);
-void display_command(char *name, char *value, int32 pos);
-void put_cursor_at(Window window, int32 col0, int32 pos);
-void mov_mem(char *s1, char *s2, int32 len);
-void mem_mov(char *s1, char *s2, int32 len);
+int32 ggets_new_float(char *name, double *value);
+int32 ggets_new_int(char *name, int32 *value);
+void ggets_display_command(char *name, char *value, int32 pos);
+void ggets_put_cursor_at(Window window, int32 col0, int32 pos);
+void ggets_mov_mem(char *s1, char *s2, int32 len);
+void ggets_mem_mov(char *s1, char *s2, int32 len);
 void edit_window(Window window, int32 *pos, char *value, int32 *col,
                  int32 *done, int32 ch);
 void edit_command_string(XEvent event, char *name, char *value, int32 *done,
                          int32 *pos, int32 *col);
-int32 new_string(char *name, char *value);
+int32 ggets_new_string(char *name, char *value);
 
 #endif
 
@@ -1033,26 +1033,26 @@ extern int32 newseed;
 extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
 void do_comline(int32 argc, char **argv);
-int32 if_needed_select_sets(void);
-int32 if_needed_load_set(void);
-int32 if_needed_load_par(void);
-int32 if_needed_load_ic(void);
-int32 if_needed_load_ext_options(void);
+int32 comline_if_needed_select_sets(void);
+int32 comline_if_needed_load_set(void);
+int32 comline_if_needed_load_par(void);
+int32 comline_if_needed_load_ic(void);
+int32 comline_if_needed_load_ext_options(void);
 
 #endif
 
 #ifndef DAE_FUN_H
 #define DAE_FUN_H
 
-int32 add_svar(char *name, char *rhs);
-int32 add_svar_names(void);
-int32 add_aeqn(char *rhs);
-int32 compile_svars(void);
-void reset_dae(void);
-void set_init_guess(void);
-void err_dae(void);
-void do_daes(void);
-void get_new_guesses(void);
+int32 dae_fun_add_svar(char *name, char *rhs);
+int32 dae_fun_add_svar_names(void);
+int32 dae_fun_add_aeqn(char *rhs);
+int32 dae_fun_compile_svars(void);
+void dae_fun_reset_dae(void);
+void dae_fun_set_init_guess(void);
+void dae_fun_err_dae(void);
+void dae_fun_do_daes(void);
+void dae_fun_get_new_guesses(void);
 
 #endif
 
@@ -1071,11 +1071,11 @@ extern double variable_shift[2][MAX_ODE];
 extern double delay_list[MAX_DELAY];
 
 double delay_stab_eval(double delay, int32 var);
-int32 alloc_delay(double big);
-void free_delay(void);
-void stor_delay(double *y);
-double get_delay(int32 in, double tau);
-int32 do_init_delay(double big);
+int32 delay_handle_alloc_delay(double big);
+void delay_handle_free_delay(void);
+void delay_handle_stor_delay(double *y);
+double delay_handle_get_delay(int32 in, double tau);
+int32 delay_handle_do_init_delay(double big);
 
 #endif
 

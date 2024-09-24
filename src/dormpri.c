@@ -56,16 +56,16 @@ dp_err(int32 k) {
     ggets_ping();
     switch (k) {
     case -1:
-        err_msg("Input is not consistent");
+        ggets_err_msg("Input is not consistent");
         break;
     case -2:
-        err_msg("Larger nmax needed");
+        ggets_err_msg("Larger nmax needed");
         break;
     case -3:
-        err_msg("Step size too small");
+        ggets_err_msg("Step size too small");
         break;
     case -4:
-        err_msg("Problem became stiff");
+        ggets_err_msg("Problem became stiff");
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);

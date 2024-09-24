@@ -63,7 +63,7 @@ silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
     kmem = n*(2*n + 5) + 50;
     *ierr = 0;
     if ((work = xmalloc(sizeof(double)*(usize)kmem)) == NULL) {
-        err_msg("Insufficient core ");
+        ggets_err_msg("Insufficient core ");
         *ierr = 1;
         return;
     }
@@ -125,7 +125,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     /* double xl[MAX_ODE]; */
     kmem = n*(2*n + 5) + 50;
     if ((work = xmalloc(sizeof(double)*(usize)kmem)) == NULL) {
-        err_msg("Insufficient core ");
+        ggets_err_msg("Insufficient core ");
         return;
     }
     ShootICFlag = 0;
@@ -140,7 +140,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         free(work);
-        err_msg("Could not converge to root");
+        ggets_err_msg("Could not converge to root");
         for (int32 i = 0; i < n; i++)
             x[i] = old_x[i];
         return;
@@ -161,7 +161,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
     }
     gear_eigen(n, work, eval, ework, ierr);
     if (*ierr != 0) {
-        err_msg("Could not compute eigenvalues");
+        ggets_err_msg("Could not compute eigenvalues");
         free(work);
         return;
     }
@@ -260,7 +260,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     change_current_linestyle(oldcol, &dummy);
 
                 } else
-                    err_msg("Failed to compute eigenvector");
+                    ggets_err_msg("Failed to compute eigenvector");
             }
             if (rn == 1) {
                 get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
@@ -273,7 +273,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     integrate_shoot(bp, x, b, -1);
                     change_current_linestyle(oldcol, &dummy);
                 } else
-                    err_msg("Failed to compute eigenvector");
+                    ggets_err_msg("Failed to compute eigenvector");
             }
             DELTA_T = oldt;
         }
@@ -305,7 +305,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     change_current_linestyle(oldcol, &dummy);
 
                 } else
-                    err_msg("Failed to compute eigenvector");
+                    ggets_err_msg("Failed to compute eigenvector");
             }
 
             if ((rn > 1) && (bneg >= 0)) /* then there is a strong stable */
@@ -321,7 +321,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
                     integrate_shoot(bp, x, b, -1);
                     change_current_linestyle(oldcol, &dummy);
                 } else
-                    err_msg("Failed to compute eigenvector");
+                    ggets_err_msg("Failed to compute eigenvector");
             }
         }
         DELTA_T = oldt;
@@ -435,7 +435,7 @@ do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         free(work);
-        /* err_msg("Could not converge to root"); */
+        /* ggets_err_msg("Could not converge to root"); */
         for (i = 0; i < n; i++)
             x[i] = old_x[i];
         return;

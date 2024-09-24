@@ -132,7 +132,7 @@ including derived parameters but XPP takes care of this so start at 0
 #define MAXW 50
 extern int32 NODE;
 extern int32 NDELAYS;
-extern double get_delay(int32 in, double td);
+extern double delay_handle_get_delay(int32 in, double td);
 
 int32 parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
                    int32 *m, char *tname[MAXW]);
@@ -1253,7 +1253,7 @@ evaluate_network(int32 ind) {
             sum = 0.0;
             for (i = 0; i < ncon; i++) {
                 ij = j*ncon + i;
-                sum += (w[ij]*get_delay(i + in0, tau[ij]));
+                sum += (w[ij]*delay_handle_get_delay(i + in0, tau[ij]));
             }
             values[j] = sum;
         }
@@ -1278,7 +1278,7 @@ evaluate_network(int32 ind) {
                 ij = i*ncon + j;
                 k = (int32)cc[ij];
                 if (k >= 0)
-                    sum += (w[ij]*get_delay(k + in0, tau[ij]));
+                    sum += (w[ij]*delay_handle_get_delay(k + in0, tau[ij]));
             }
             values[i] = sum;
         }

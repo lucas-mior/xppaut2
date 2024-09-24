@@ -141,7 +141,7 @@ select_table(void) {
         free(n[i]);
     j = (int32)(ch - 'a');
     if (j < 0 || j >= NTable) {
-        err_msg("Not a valid table");
+        ggets_err_msg("Not a valid table");
         return -1;
     }
     return j;
@@ -168,7 +168,7 @@ get_intern_set(void) {
         free(n[i]);
     j = (int32)(ch - 'a');
     if (j < 0 || j >= Nintern_set) {
-        err_msg("Not a valid set");
+        ggets_err_msg("Not a valid set");
         return;
     }
     get_graph();
@@ -226,7 +226,7 @@ gtitle_text(char *string, Window win) {
         xs = ((int32)w - len*DCURX) / 2;
         if (xs < 0)
             xs = 0;
-        f_text(xs, ys, string, win);
+        ggets_f_text(xs, ys, string, win);
         color_set(0);
         ggets_xline(0, 18, (int32)w, 18, win);
     }
@@ -796,9 +796,9 @@ add_pntarr(int32 type) {
     /*Window temp;*/
     int32 flag;
     /*temp=main_win;*/
-    if (new_float("Size: ", &size))
+    if (ggets_new_float("Size: ", &size))
         return;
-    if (new_int("Color: ", &color))
+    if (ggets_new_int("Color: ", &color))
         return;
     /* message_box(&temp,0,SCALEY-5*DCURY,"Choose start/end"); */
     menudrive_message_box("Choose start/end");
@@ -879,9 +879,9 @@ edit_object_com(int32 com) {
                 snprintf(str, sizeof(str), "Change %s ?", lb[ilab].s);
                 ans = (char)menudrive_two_choice("Yes", "No", str, "yn");
                 if (ans == 'y') {
-                    new_string("Text: ", lb[ilab].s);
-                    new_int("Size 0-4 :", &lb[ilab].size);
-                    /* new_int("Font  0-times/1-symbol :",&lb[ilab].font); */
+                    ggets_new_string("Text: ", lb[ilab].s);
+                    ggets_new_int("Size 0-4 :", &lb[ilab].size);
+                    /* ggets_new_int("Font  0-times/1-symbol :",&lb[ilab].font); */
                     if (lb[ilab].size > 4)
                         lb[ilab].size = 4;
                     if (lb[ilab].size < 0)
@@ -934,8 +934,8 @@ edit_object_com(int32 com) {
                 if (ans == 'y') {
                     if (grob[ilab].type >= MARKER)
                         select_marker_type(&grob[ilab].type);
-                    new_float("Size ", &grob[ilab].size);
-                    new_int("Color :", &grob[ilab].color);
+                    ggets_new_float("Size ", &grob[ilab].size);
+                    ggets_new_int("Color :", &grob[ilab].color);
                     clr_scrn();
                     redraw_all();
                 }
@@ -963,7 +963,7 @@ void
 do_gr_objs_com(int32 com) {
     switch (com) {
     case 0:
-        cput_text();
+        ggets_cput_text();
         break;
     case 1:
         add_pntarr(ARROW);
@@ -1065,7 +1065,7 @@ destroy_a_pop(void) {
     graph[i].Use = 0;
     destroy_label(graph[i].window);
     destroy_grob(graph[i].window);
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, graph[i].window);
     XDestroyWindow(display, graph[i].window);
     num_pops--;
@@ -1233,7 +1233,7 @@ do_expose(XEvent event) {
     /* redraw_txtview(ev.xany.window);  */
     ani_expose(event.xany.window);
     expose_my_browser(event);
-    /* draw_info_pop(ev.xany.window); */
+    /* ggets_draw_info_pop(ev.xany.window); */
     menudrive_message_box_redraw(event.xany.window);
     draw_eq_list(event.xany.window);
     draw_eq_box(event.xany.window);

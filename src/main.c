@@ -244,7 +244,7 @@ my_abort(void) {
         case ButtonPress:
             break;
         case KeyPress:
-            ch = get_key_press(&event);
+            ch = ggets_get_key_press(&event);
             return ch;
         default:
             break;
@@ -465,7 +465,7 @@ do_main(int32 argc, char **argv) {
     set_all_vals();
 
     init_alloc_info();
-    set_init_guess();
+    dae_fun_set_init_guess();
     update_all_ffts();
 
 #ifdef AUTO
@@ -496,11 +496,11 @@ do_main(int32 argc, char **argv) {
         color_map_make();
         init_browser();
         init_all_graph();
-        if_needed_load_set();
-        if_needed_load_par();
-        if_needed_load_ic();
-        if_needed_select_sets();
-        if_needed_load_ext_options();
+        comline_if_needed_load_set();
+        comline_if_needed_load_par();
+        comline_if_needed_load_ic();
+        comline_if_needed_select_sets();
+        comline_if_needed_load_ext_options();
         set_extra_graphs();
         set_colorization_stuff();
         batch_integrate();
@@ -543,10 +543,10 @@ do_main(int32 argc, char **argv) {
 
     /*          MAIN LOOP             */
     test_color_info();
-    if_needed_load_set();
-    if_needed_load_par();
-    if_needed_load_ic();
-    if_needed_load_ext_options();
+    comline_if_needed_load_set();
+    comline_if_needed_load_par();
+    comline_if_needed_load_ic();
+    comline_if_needed_load_ext_options();
     if (use_ani_file) {
         ani_new_vcr();
         ani_get_file(anifile);
@@ -857,7 +857,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     case Expose:
     case MapNotify:
         if (report.xany.window == command_pop)
-            put_command("Command:");
+            ggets_put_command("Command:");
         do_expose(report);
 
         break;
@@ -877,7 +877,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         if (used)
             break;
 #endif
-        ch = (char)get_key_press(&report);
+        ch = (char)ggets_get_key_press(&report);
         main_commander(ch);
 
         break;
@@ -920,7 +920,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             auto_x11_button(report);
 #endif
 
-            show_position(report);
+            ggets_show_position(report);
         }
         break;
     default:

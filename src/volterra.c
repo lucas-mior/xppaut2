@@ -118,7 +118,7 @@ volterra_allocate(int32 npts, int32 flag) {
             free(Memory[j]);
         for (i = 0; i < ntot; i++)
             Memory[i] = xmalloc(sizeof(*Memory)*(usize)MaxPoints);
-        err_msg("Not enough memory...resetting");
+        ggets_err_msg("Not enough memory...resetting");
     }
     CurrentPoint = 0;
     KnFlag = 1;
@@ -343,7 +343,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
         set_wieners(dt, y, *t);
         if ((j = volterra_step(y, *t, dt, neq, yg, yp, yp2, errvec, jac)) != 0)
             return j;
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     return 0;
 }

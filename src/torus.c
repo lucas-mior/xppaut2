@@ -55,9 +55,9 @@ do_torus_com(int32 c) {
     int32 i;
     TORUS = 0;
     if (c == 0 || c == 2) {
-        new_float("Period :", &TOR_PERIOD);
+        ggets_new_float("Period :", &TOR_PERIOD);
         if (TOR_PERIOD <= 0.0) {
-            err_msg("Choose positive period");
+            ggets_err_msg("Choose positive period");
             return;
         }
         if (c == 0) {
@@ -250,7 +250,7 @@ do_torus_events(void) {
     }
     XSelectInput(display, torbox.cancel, EV_MASK);
     XSelectInput(display, torbox.done, EV_MASK);
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, torbox.base);
     XDestroyWindow(display, torbox.base);
     return;

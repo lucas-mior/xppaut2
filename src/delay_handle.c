@@ -71,7 +71,7 @@ delay_stab_eval(
 }
 
 int32
-alloc_delay(double big) {
+delay_handle_alloc_delay(double big) {
     int32 n;
     int32 i;
 
@@ -83,7 +83,7 @@ alloc_delay(double big) {
     DelayWork = malloc((usize)(n*NODE)*sizeof(*DelayWork));
 
     if (DelayWork == NULL) {
-        err_msg("Could not allocate memory for Delay");
+        ggets_err_msg("Could not allocate memory for Delay");
         return 0;
     }
 
@@ -98,7 +98,7 @@ alloc_delay(double big) {
 }
 
 void
-free_delay(void) {
+delay_handle_free_delay(void) {
     if (DelayFlag)
         free(DelayWork);
     DelayFlag = 0;
@@ -106,7 +106,7 @@ free_delay(void) {
 }
 
 void
-stor_delay(double *y) {
+delay_handle_stor_delay(double *y) {
     int32 i;
     int32 in;
     int32 nodes = NODE;
@@ -154,7 +154,7 @@ polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
 
 /* this is like get_delay but uses cubic interpolation */
 double
-get_delay(int32 in, double tau) {
+delay_handle_get_delay(int32 in, double tau) {
     double x = tau / fabs(DELTA_T);
     double dd = fabs(DELTA_T);
     double y, ya[4], xa[4], dy;
@@ -166,7 +166,7 @@ get_delay(int32 in, double tau) {
     int32 i0, i1, i2, i3;
 
     if (tau < 0.0 || tau > DELAY) {
-        err_msg("Delay negative or too large");
+        ggets_err_msg("Delay negative or too large");
         stop_integration();
         return 0.0;
     }
@@ -200,7 +200,7 @@ get_delay(int32 in, double tau) {
 
 /*  Handling of the initial data  */
 int32
-do_init_delay(double big) {
+delay_handle_do_init_delay(double big) {
     double t = T0, old_t, y[MAX_ODE];
     int32 i, nt, j;
     int32 len;
@@ -212,7 +212,7 @@ do_init_delay(double big) {
     for (i = 0; i < (NODE); i++) {
         del_form[i] = (int32 *)calloc(200, sizeof(int32));
         if (del_form[i] == NULL) {
-            err_msg("Failed to allocate delay formula ...");
+            ggets_err_msg("Failed to allocate delay formula ...");
             for (j = 0; j < i; j++)
                 free(del_form[j]);
             NCON = NCON_START;
@@ -221,7 +221,7 @@ do_init_delay(double big) {
         }
 
         if (add_expr(delay_string[i], del_form[i], &len)) {
-            err_msg("Illegal delay expression");
+            ggets_err_msg("Illegal delay expression");
             for (j = 0; j <= i; j++)
                 free(del_form[j]);
             NCON = NCON_START;
@@ -238,7 +238,7 @@ do_init_delay(double big) {
         set_val("t", t);
         for (j = 0; j < (NODE); j++)
             y[j] = evaluate(del_form[j]);
-        stor_delay(y);
+        delay_handle_stor_delay(y);
     }
     for (j = 0; j < (NODE); j++)
         free(del_form[j]);

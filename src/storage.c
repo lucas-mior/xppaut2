@@ -69,7 +69,7 @@ storage_realloc(int32 ncol, int32 nrow) {
         if (i == ncol)
             return 1;
     }
-    err_msg("Cannot allocate sufficient storage");
+    ggets_err_msg("Cannot allocate sufficient storage");
     return 0;
 }
 
@@ -88,6 +88,6 @@ init_stor(int32 nrow, int32 ncol) {
                 return;
         }
     }
-    err_msg("Cannot allocate sufficient storage");
+    ggets_err_msg("Cannot allocate sufficient storage");
     exit(0);
 }

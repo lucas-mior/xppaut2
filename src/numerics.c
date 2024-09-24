@@ -157,7 +157,7 @@ get_num_par(int32 ch)
         break;
     case 't':
         /* total */
-        new_float("total :", &TEND);
+        ggets_new_float("total :", &TEND);
         FOREVER = 0;
         if (TEND < 0) {
             FOREVER = 1;
@@ -166,25 +166,25 @@ get_num_par(int32 ch)
         break;
     case 's':
         /* start */
-        new_float("start time :", &T0);
+        ggets_new_float("start time :", &T0);
         break;
     case 'r':
         /* transient */
-        new_float("transient :", &TRANS);
+        ggets_new_float("transient :", &TRANS);
         break;
     case 'd':
         /* DT */
         temp = DELTA_T;
-        new_float("Delta t :", &DELTA_T);
+        ggets_new_float("Delta t :", &DELTA_T);
         if (DELTA_T == 0.0)
             DELTA_T = temp;
         if (DELAY > 0.0) {
-            free_delay();
-            if (alloc_delay(DELAY)) {
+            delay_handle_free_delay();
+            if (delay_handle_alloc_delay(DELAY)) {
                 INFLAG = 0; /*  Make sure no last ics allowed */
             }
         } else
-            free_delay();
+            delay_handle_free_delay();
         if (NKernel > 0) {
             INFLAG = 0;
             MyStart = 1;
@@ -193,77 +193,77 @@ get_num_par(int32 ch)
         break;
     case 'n':
         /* ncline */
-        new_int("ncline mesh :", &NMESH);
+        ggets_new_int("ncline mesh :", &NMESH);
         check_pos(&NMESH);
         break;
     case 'v':
-        new_int("Maximum iterates :", &BVP_MAXIT);
+        ggets_new_int("Maximum iterates :", &BVP_MAXIT);
         check_pos(&BVP_MAXIT);
-        new_float("Tolerance :", &BVP_TOL);
-        new_float("Epsilon :", &BVP_EPS);
+        ggets_new_float("Tolerance :", &BVP_TOL);
+        ggets_new_float("Epsilon :", &BVP_EPS);
         reset_bvp();
         break;
     case 'i':
         /* sing pt */
-        new_int("Maximum iterates :", &EVEC_ITER);
+        ggets_new_int("Maximum iterates :", &EVEC_ITER);
         check_pos(&EVEC_ITER);
-        new_float("Newton tolerance :", &EVEC_ERR);
-        new_float("Jacobian epsilon :", &NEWT_ERR);
+        ggets_new_float("Newton tolerance :", &EVEC_ERR);
+        ggets_new_float("Jacobian epsilon :", &NEWT_ERR);
         if (NFlags > 0)
-            new_float("SMIN :", &STOL);
+            ggets_new_float("SMIN :", &STOL);
 
         break;
     case 'o':
         /* noutput */
-        new_int("n_out :", &NJMP);
+        ggets_new_int("n_out :", &NJMP);
         check_pos(&NJMP);
 
         break;
     case 'b':
         /* bounds */
-        new_float("Bounds :", &BOUND);
+        ggets_new_float("Bounds :", &BOUND);
         BOUND = fabs(BOUND);
         break;
     case 'm':
         /* method */
         get_method();
         if (METHOD == VOLTERRA && NKernel == 0) {
-            err_msg("Volterra only for integral eqns");
+            ggets_err_msg("Volterra only for integral eqns");
             METHOD = 4;
         }
         if (NKernel > 0)
             METHOD = VOLTERRA;
         if (METHOD == GEAR || METHOD == RKQS || METHOD == STIFF) {
-            new_float("Tolerance :", &TOLER);
-            new_float("minimum step :", &HMIN);
-            new_float("maximum step :", &HMAX);
+            ggets_new_float("Tolerance :", &TOLER);
+            ggets_new_float("minimum step :", &HMIN);
+            ggets_new_float("maximum step :", &HMAX);
         }
         if (METHOD == CVODE || METHOD == DP5 || METHOD == DP83 ||
             METHOD == RB23) {
-            new_float("Relative tol:", &TOLER);
-            new_float("Abs. Toler:", &ATOLER);
+            ggets_new_float("Relative tol:", &TOLER);
+            ggets_new_float("Abs. Toler:", &ATOLER);
         }
         if (METHOD == BACKEUL || METHOD == VOLTERRA) {
-            new_float("Tolerance :", &EulTol);
-            new_int("MaxIter :", &MaxEulIter);
+            ggets_new_float("Tolerance :", &EulTol);
+            ggets_new_int("MaxIter :", &MaxEulIter);
         }
         if (METHOD == VOLTERRA) {
             tmp = MaxPoints;
-            new_int("MaxPoints:", &tmp);
-            new_int("AutoEval(1=yes) :", &AutoEvaluate);
+            ggets_new_int("MaxPoints:", &tmp);
+            ggets_new_int("AutoEval(1=yes) :", &AutoEvaluate);
             volterra_allocate(tmp, 1);
         }
 
         if (METHOD == CVODE || METHOD == RB23) {
-            new_int("Banded system(0/1)?", &cv_bandflag);
+            ggets_new_int("Banded system(0/1)?", &cv_bandflag);
             if (cv_bandflag == 1) {
-                new_int("Lower band:", &cv_bandlower);
-                new_int("Upper band:", &cv_bandupper);
+                ggets_new_int("Lower band:", &cv_bandlower);
+                ggets_new_int("Upper band:", &cv_bandupper);
             }
         }
         if (METHOD == SYMPLECT) {
             if ((NODE % 2) != 0) {
-                err_msg("Symplectic is only for even dimensions");
+                ggets_err_msg("Symplectic is only for even dimensions");
                 METHOD = 4;
             }
         }
@@ -272,17 +272,17 @@ get_num_par(int32 ch)
         /* delay */
         if (NDELAYS == 0)
             break;
-        new_float("Maximal delay :", &DELAY);
-        new_float("real guess :", &AlphaMax);
-        new_float("imag guess :", &OmegaMax);
-        new_int("DelayGrid :", &DelayGrid);
+        ggets_new_float("Maximal delay :", &DELAY);
+        ggets_new_float("real guess :", &AlphaMax);
+        ggets_new_float("imag guess :", &OmegaMax);
+        ggets_new_int("DelayGrid :", &DelayGrid);
         if (DELAY > 0.0) {
-            free_delay();
-            if (alloc_delay(DELAY)) {
+            delay_handle_free_delay();
+            if (delay_handle_alloc_delay(DELAY)) {
                 INFLAG = 0; /*  Make sure no last ics allowed */
             }
         } else
-            free_delay();
+            delay_handle_free_delay();
         break;
     case 'c':
         /* color */
@@ -323,12 +323,12 @@ get_num_par(int32 ch)
 void
 chk_delay(void) {
     if (DELAY > 0.0) {
-        free_delay();
-        if (alloc_delay(DELAY)) {
+        delay_handle_free_delay();
+        if (delay_handle_alloc_delay(DELAY)) {
             INFLAG = 0; /*  Make sure no last ics allowed */
         }
     } else
-        free_delay();
+        delay_handle_free_delay();
     return;
 }
 
@@ -337,8 +337,8 @@ set_delay(void) {
     if (NDELAYS == 0)
         return;
     if (DELAY > 0.0) {
-        free_delay();
-        if (alloc_delay(DELAY)) {
+        delay_handle_free_delay();
+        if (delay_handle_alloc_delay(DELAY)) {
             INFLAG = 0;
         }
     }
@@ -347,9 +347,9 @@ set_delay(void) {
 
 void
 ruelle(void) {
-    new_int("x-axis shift ", &(MyGraph->xshft));
-    new_int("y-axis shift ", &(MyGraph->yshft));
-    new_int("z-axis shift", &(MyGraph->zshft));
+    ggets_new_int("x-axis shift ", &(MyGraph->xshft));
+    ggets_new_int("y-axis shift ", &(MyGraph->yshft));
+    ggets_new_int("z-axis shift", &(MyGraph->zshft));
     if (MyGraph->xshft < 0)
         MyGraph->xshft = 0;
     if (MyGraph->yshft < 0)
@@ -442,10 +442,10 @@ get_pmap_pars_com(int32 l) {
     snprintf(values[3], sizeof(values[3]), "%s", yn[SOS]);
     status = do_string_box(4, 4, 1, "Poincare map", n, values, 45);
     if (status != 0) {
-        find_variable(values[0], &i1);
+        browse_find_variable(values[0], &i1);
         if (i1 < 0) {
             POIMAP = 0;
-            err_msg("No such section");
+            ggets_err_msg("No such section");
             return;
         }
         POIVAR = i1;
@@ -500,7 +500,7 @@ user_set_color_par(int32 flag, char *via, double lo, double hi) {
     if (strncasecmp("speed", via, 5) == 0) {
         MyGraph->ColorFlag = 1;
     } else {
-        find_variable(via, &ivar);
+        browse_find_variable(via, &ivar);
         if (ivar >= 0) {
             MyGraph->ColorValue = ivar;
             MyGraph->ColorFlag = 2;
@@ -528,14 +528,14 @@ set_col_par_com(int32 i) {
     }
     if (MyGraph->ColorFlag == 2) {
         ind_to_sym(MyGraph->ColorValue, name);
-        new_string("Color via:", name);
-        find_variable(name, &ivar);
+        ggets_new_string("Color via:", name);
+        browse_find_variable(name, &ivar);
 
         if (ivar >= 0)
             MyGraph->ColorValue = ivar;
         else {
 
-            err_msg("No such quantity!");
+            ggets_err_msg("No such quantity!");
             MyGraph->ColorFlag = 0;
             return;
         }
@@ -547,15 +547,15 @@ set_col_par_com(int32 i) {
     if (ch == 'c') {
         temp[0] = MyGraph->min_scale;
         temp[1] = MyGraph->min_scale + MyGraph->color_scale;
-        new_float("Min :", &temp[0]);
-        new_float("Max :", &temp[1]);
+        ggets_new_float("Min :", &temp[0]);
+        ggets_new_float("Max :", &temp[1]);
         if (temp[1] > temp[0] &&
             ((MyGraph->ColorFlag == 2) ||
              (MyGraph->ColorFlag == 1 && temp[0] >= 0.0))) {
             MyGraph->min_scale = temp[0];
             MyGraph->color_scale = (temp[1] - temp[0]);
         } else {
-            err_msg("Min>=Max or Min<0 error");
+            ggets_err_msg("Min>=Max or Min<0 error");
         }
         return;
     }

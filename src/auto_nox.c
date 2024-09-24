@@ -598,7 +598,7 @@ int32
 auto_name_to_index(char *s) {
     int32 i;
     int32 in;
-    find_variable(s, &in);
+    browse_find_variable(s, &in);
     if (in == 0)
         return 10;
     in = find_user_name(PARAM_BOX, s);
@@ -836,7 +836,7 @@ auto_plot_par(void) {
     status = do_string_box(7, 7, 1, "AutoPlot", n, values, 31);
     if (status != 0) {
         /*  get variable names  */
-        find_variable(values[0], &i);
+        browse_find_variable(values[0], &i);
         if (i > 0)
             Auto.var = i - 1;
         /*  Now check the parameters  */
@@ -1380,7 +1380,7 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     double x, y1, y2;
     char symb[3];
     if (d == NULL) {
-        /*err_msg("Can not traverse to NULL diagram.");*/
+        /*ggets_err_msg("Can not traverse to NULL diagram.");*/
         return;
     }
     norm = d->norm;
@@ -1422,7 +1422,7 @@ do_auto_win(void) {
     if (Auto.exist == 0) {
         if (NODE > NAUTO) {
             sprintf(bob, "Auto restricted to less than %d variables", NAUTO);
-            err_msg(bob);
+            ggets_err_msg(bob);
             return;
         }
         auto_x11_make("It's AUTO man!", "AUTO");
@@ -2628,7 +2628,7 @@ save_auto(void) {
     status = file_selector("Save Auto", filename, "*.auto");
     if (status == 0)
         return;
-    open_write_file(&fp, filename, &ok);
+    browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
     save_auto_numerics(fp);
@@ -2868,25 +2868,25 @@ auto_file(void) {
     if (ch == 't') {
         auto_redraw_flag = 1 - auto_redraw_flag;
         if (auto_redraw_flag == 1)
-            err_msg("Redraw is ON");
+            ggets_err_msg("Redraw is ON");
         else
-            err_msg("Redraw is OFF");
+            ggets_err_msg("Redraw is OFF");
     }
     if (ch == 'o') {
         if (mark_flag < 2)
-            err_msg("Mark a branch first using S and E");
+            ggets_err_msg("Mark a branch first using S and E");
         else
             load_browser_with_branch(mark_ibrs, mark_ipts, mark_ipte);
     }
     if (ch == 'n') {
         if (mark_flag < 2)
-            err_msg("Mark a branch first using S and E");
+            ggets_err_msg("Mark a branch first using S and E");
         else
             auto_x11_do_range();
     }
     if (ch == 'e') {
         if (Auto.plot != P_P) {
-            err_msg("Must be in 2 parameter plot");
+            ggets_err_msg("Must be in 2 parameter plot");
             return;
         }
         setautopoint();
@@ -2894,17 +2894,17 @@ auto_file(void) {
     if (ch == 'b') {
         if (load_all_labeled_orbits == 0) {
             load_all_labeled_orbits = 1;
-            err_msg("Draw orbits - no erase");
+            ggets_err_msg("Draw orbits - no erase");
             return;
         }
         if (load_all_labeled_orbits == 1) {
             load_all_labeled_orbits = 2;
-            err_msg("Draw orbits - erase first");
+            ggets_err_msg("Draw orbits - erase first");
             return;
         }
         if (load_all_labeled_orbits == 2) {
             load_all_labeled_orbits = 0;
-            err_msg("Draw orbits off");
+            ggets_err_msg("Draw orbits off");
             return;
         }
     }

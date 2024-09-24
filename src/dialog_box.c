@@ -103,7 +103,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     XSelectInput(display, d.cancel, EV_MASK);
     XSelectInput(display, d.ok, EV_MASK);
 
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, d.base);
     XDestroyWindow(display, d.base);
     XFlush(display);
@@ -151,7 +151,7 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
         break;
 
     case KeyPress:
-        ch = get_key_press(&event);
+        ch = ggets_get_key_press(&event);
         edit_window(d->input, pos, d->input_s, col, &done, ch);
         if (done == -1)
             status = FORGET_ALL;
@@ -179,7 +179,7 @@ display_dialog(Window window, DIALOG d, int32 col) {
     if (window == d.input) {
         XDrawString(display, window, gc, 0, CURY_OFF, d.input_s,
                     (int32)strlen(d.input_s));
-        put_cursor_at(window, col, 0);
+        ggets_put_cursor_at(window, col, 0);
         /* ggets_show_char('_',DCURX*strlen(d.input_s),0,d.input); */
     }
     return;

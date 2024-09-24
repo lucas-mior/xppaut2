@@ -33,7 +33,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
     int32 state = 0;
     xor_flag = 1;
     XFlush(display);
-    chk_xor();
+    ggets_chk_xor();
     if (xorfix) {
         XSetForeground(display, gc, MyDrawWinColor);
         XSetBackground(display, gc, MyForeColor);
@@ -49,7 +49,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
         case Expose:
             do_expose(event);
             xor_flag = 1;
-            chk_xor();
+            ggets_chk_xor();
             if (xorfix) {
                 XSetForeground(display, gc, MyDrawWinColor);
                 XSetBackground(display, gc, MyForeColor);
@@ -92,7 +92,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
         }
     }
     xor_flag = 0;
-    chk_xor();
+    ggets_chk_xor();
 
     if (xorfix) {
         /*XSetForeground(display,gc,GrBack); */

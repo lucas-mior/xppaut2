@@ -34,7 +34,7 @@ static void destroy_choice(CHOICE_BOX p);
 
 void
 destroy_choice(CHOICE_BOX p) {
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
     return;

@@ -155,11 +155,11 @@ new_lookup_com(int32 i) {
         xlo = my_table[index].xlo;
         xhi = my_table[index].xhi;
         strcpy(newform, my_table[index].filename);
-        new_int("Auto-evaluate? (1/0)", &my_table[index].autoeval);
-        new_int("NPts: ", &npts);
-        new_float("Xlo: ", &xlo);
-        new_float("Xhi: ", &xhi);
-        new_string("Formula :", newform);
+        ggets_new_int("Auto-evaluate? (1/0)", &my_table[index].autoeval);
+        ggets_new_int("NPts: ", &npts);
+        ggets_new_float("Xlo: ", &xlo);
+        ggets_new_float("Xhi: ", &xhi);
+        ggets_new_string("Formula :", newform);
         create_fun_table(npts, xlo, xhi, newform, index);
     }
     return;
@@ -280,7 +280,7 @@ eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
     double oldt;
     int32 command[200], ncold = NCON, nsym = NSYM;
     if (add_expr(formula, command, &i)) {
-        err_msg("Illegal formula...");
+        ggets_err_msg("Illegal formula...");
         NCON = ncold;
         NSYM = nsym;
         return 0;
@@ -303,15 +303,15 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
     int32 length = npts;
 
     if (my_table[index].flag == 1) {
-        err_msg("Not a function table...");
+        ggets_err_msg("Not a function table...");
         return 0;
     }
     if (xlo > xhi) {
-        err_msg("Xlo > Xhi ???");
+        ggets_err_msg("Xlo > Xhi ???");
         return 0;
     }
     if (npts < 2) {
-        err_msg("Too few points...");
+        ggets_err_msg("Too few points...");
         return 0;
     }
     if (my_table[index].flag == 0) {
@@ -322,7 +322,7 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
             my_table[index].y, (usize)length*sizeof(*(my_table[index].y)));
     }
     if (my_table[index].y == NULL) {
-        err_msg("Unable to allocate table");
+        ggets_err_msg("Unable to allocate table");
         return 0;
     }
     my_table[index].flag = 2;
@@ -367,7 +367,7 @@ load_table(char *filename, int32 index) {
     bob = bobtab;
 
     if (my_table[index].flag == 2) {
-        err_msg("Not a file table...");
+        ggets_err_msg("Not a file table...");
         return 0;
     }
     fp = fopen(filename2, "r");
@@ -375,7 +375,7 @@ load_table(char *filename, int32 index) {
         get_directory(cur_dir);
         snprintf(error, sizeof(error), "File<%s> not found in %s", filename2,
                  cur_dir);
-        err_msg(error);
+        ggets_err_msg(error);
         return 0;
     }
     my_table[index].interp = 0;
@@ -392,7 +392,7 @@ load_table(char *filename, int32 index) {
     }
     length = atoi(bob);
     if (length < 2) {
-        err_msg("Length too small");
+        ggets_err_msg("Length too small");
         fclose(fp);
         return 0;
     }
@@ -401,7 +401,7 @@ load_table(char *filename, int32 index) {
     fgets(bob, 100, fp);
     xhi = atof(bob);
     if (xlo >= xhi) {
-        err_msg("xlo >= xhi ??? ");
+        ggets_err_msg("xlo >= xhi ??? ");
         fclose(fp);
         return 0;
     }
@@ -409,7 +409,7 @@ load_table(char *filename, int32 index) {
         my_table[index].y =
             xmalloc((usize)length*sizeof(*(my_table[index].y)));
         if (my_table[index].y == NULL) {
-            err_msg("Unable to allocate table");
+            ggets_err_msg("Unable to allocate table");
             fclose(fp);
             return 0;
         }
@@ -430,7 +430,7 @@ load_table(char *filename, int32 index) {
         (double *)realloc((void *)my_table[index].y,
                           (usize)length*sizeof(*(my_table[index].y)));
     if (my_table[index].y == NULL) {
-        err_msg("Unable to reallocate table");
+        ggets_err_msg("Unable to reallocate table");
         fclose(fp);
         return 0;
     }

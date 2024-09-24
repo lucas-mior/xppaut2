@@ -216,7 +216,7 @@ clone_ode(void) {
     if (!file_selector("Clone ODE file", clone, "*.ode"))
         return;
     if ((fp = fopen(clone, "w")) == NULL) {
-        err_msg(" Cant open clone file");
+        ggets_err_msg(" Cant open clone file");
         return;
     }
     ttt = time(0);
@@ -351,7 +351,7 @@ do_slide_button(Window window, struct ParSlider *p) {
     if (status == -1) {
         status = find_user_name(ICBOX, values[0]);
         if (status == -1) {
-            err_msg("Not a parameter or variable !");
+            ggets_err_msg("Not a parameter or variable !");
             return;
         }
         p->type = ICBOX;
@@ -364,7 +364,7 @@ do_slide_button(Window window, struct ParSlider *p) {
     hi = atof(values[3]);
     val = atof(values[1]);
     if (val < lo || val > hi || hi <= lo) {
-        err_msg(" low <= value <= high ");
+        ggets_err_msg(" low <= value <= high ");
         return;
     }
     p->val = val;
@@ -913,7 +913,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
     case KEY_BKSP:
         /*
         if(pos<l){
-          mem_mov(&string[pos],&string[pos+1],l-pos);
+          ggets_mem_mov(&string[pos],&string[pos+1],l-pos);
           l--;
         }
         else
@@ -922,7 +922,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
     case KEY_DEL:
 
         if (pos > 0) {
-            mem_mov(&string[pos - 1], &string[pos], l - pos + 1);
+            ggets_mem_mov(&string[pos - 1], &string[pos], l - pos + 1);
             pos--;
             wpos--;
             if (wpos < 0) {
@@ -1084,7 +1084,7 @@ edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
             if (strlen(string) >= 256)
                 ggets_ping();
             else {
-                mov_mem(&string[pos + 1], &string[pos], l - pos + 1);
+                ggets_mov_mem(&string[pos + 1], &string[pos], l - pos + 1);
                 string[pos] = (char)ch;
                 pos = pos + 1;
                 wpos++;
@@ -1115,7 +1115,7 @@ int32
 selector_key(XEvent event) {
     char ch;
     int32 flag;
-    ch = (char)get_key_press(&event);
+    ch = (char)ggets_get_key_press(&event);
     switch (filesel.hot) {
     case HOTFILE:
         flag = edit_fitem(ch, filesel.filetxt, filesel.file, &(filesel.off),
@@ -1144,7 +1144,7 @@ selector_key(XEvent event) {
 void
 destroy_selector(void) {
     filesel.here = 0;
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, filesel.base);
     XDestroyWindow(display, filesel.base);
     free_finfo(&my_ff);
@@ -1514,7 +1514,7 @@ resize_par_box(Window window) {
     if (ParamBox.xuse == 1 && window == ParamBox.base) {
         ok = 2;
         b = &ParamBox;
-        wait_a_sec(ClickTime);
+        browse_wait_a_sec(ClickTime);
 
         get_new_size(window, &w, &h);
         get_nrow_from_hgt((int32)h, &nwin, (int32 *)&w);
@@ -1594,7 +1594,7 @@ destroy_box(BoxList *b) {
     XSetInputFocus(display, main_win, RevertToParent, CurrentTime);
     if (b->use == 0)
         return;
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
 
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
@@ -1609,7 +1609,7 @@ destroy_box(BoxList *b) {
         free(b->ck);
         free(b->isck);
     }
-    wait_a_sec(200);
+    browse_wait_a_sec(200);
     XFlush(display);
     return;
 }
@@ -2235,7 +2235,7 @@ do_box_key(BoxList *b, XEvent event, int32 *used) {
             XGetInputFocus(display, &focus, &rev);
             if (window == focus) {
                 *used = 1;
-                ch = (char)get_key_press(&event);
+                ch = (char)ggets_get_key_press(&event);
                 flag = edit_bitem(b, i, ch);
                 if (flag == EDIT_NEXT && n > 1) {
                     j = i + 1;
@@ -2279,7 +2279,7 @@ man_ic(void) {
     while (true) {
         sprintf(name, "%s :", uvar_names[index]);
         z = last_ic[index];
-        done = new_float(name, &z);
+        done = ggets_new_float(name, &z);
         if (done == 0) {
             last_ic[index] = z;
             sprintf(junk, "%.16g", z);
@@ -2305,7 +2305,7 @@ new_parameter(void) {
     char junk[256];
     while (true) {
         name[0] = 0;
-        done = new_string("Parameter:", name);
+        done = ggets_new_string("Parameter:", name);
         if (strlen(name) == 0 || done == 0) {
             redo_stuff();
             return;
@@ -2329,7 +2329,7 @@ new_parameter(void) {
             if (index >= 0) {
                 get_val(upar_names[index], &z);
                 snprintf(value, sizeof(value), "%s :", name);
-                done = new_float(value, &z);
+                done = ggets_new_float(value, &z);
                 if (done == 0) {
                     set_val(upar_names[index], z);
                     sprintf(junk, "%.16g", z);
@@ -2475,7 +2475,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
     case KEY_BKSP:
         /*
         if(pos<l){
-          mem_mov(&string[pos],&string[pos+1],l-pos);
+          ggets_mem_mov(&string[pos],&string[pos+1],l-pos);
           l--;
         }
         else
@@ -2484,7 +2484,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
     case KEY_DEL:
 
         if (pos > 0) {
-            mem_mov(&string[pos - 1], &string[pos], l - pos + 1);
+            ggets_mem_mov(&string[pos - 1], &string[pos], l - pos + 1);
             pos--;
             wpos--;
             if (wpos < 0) {
@@ -2504,7 +2504,7 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
             if (strlen(string) >= 256)
                 ggets_ping();
             else {
-                mov_mem(&string[pos + 1], &string[pos], l - pos + 1);
+                ggets_mov_mem(&string[pos + 1], &string[pos], l - pos + 1);
                 string[pos] = (char)ch;
                 pos = pos + 1;
                 wpos++;
@@ -2633,6 +2633,6 @@ load_entire_box(BoxList *b) {
         reset_sliders();
     }
     if (b->type == DELAYBOX)
-        do_init_delay(DELAY);
+        delay_handle_do_init_delay(DELAY);
     return;
 }

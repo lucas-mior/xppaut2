@@ -102,7 +102,7 @@ reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
     sb->hot = 0;
     *pos = (int32)strlen(sb->value[0]);
     *col = (*pos + (int32)strlen(sb->name[0]))*DCURX;
-    put_cursor_at(sb->win[0], DCURX*(int32)strlen(sb->name[0]), *pos);
+    ggets_put_cursor_at(sb->win[0], DCURX*(int32)strlen(sb->name[0]), *pos);
     return;
 }
 
@@ -136,7 +136,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     XSelectInput(display, sb.ok, EV_MASK);
     XSelectInput(display, sb.reset, EV_MASK);
 
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, sb.base);
     XDestroyWindow(display, sb.base);
 
@@ -258,7 +258,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
         break;
 
     case KeyPress:
-        ch = (char)get_key_press(&event);
+        ch = (char)ggets_get_key_press(&event);
         edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
@@ -392,7 +392,7 @@ edit_rhs(void) {
                 err = add_expr(values[i], command[i], &len);
                 if (err == 1) {
                     sprintf(msg, "Bad rhs:%s=%s", names[i], values[i]);
-                    err_msg(msg);
+                    ggets_err_msg(msg);
                 } else {
                     free(ode_names[i]);
                     ode_names[i] = xmalloc(strlen(values[i]) + 5);
@@ -475,7 +475,7 @@ edit_functions(void) {
             set_old_arg_names(narg_fun[i]);
             if (err == 1) {
                 sprintf(msg, "Bad func.:%s=%s", names[i], values[i]);
-                err_msg(msg);
+                ggets_err_msg(msg);
             } else {
                 strcpy(ufun_def[i], values[i]);
                 for (j = 0; j <= len; j++) {
@@ -506,10 +506,10 @@ save_as(void) {
     char filename[sizeof(this_file)];
     strncpy(filename, this_file, sizeof(filename));
     ggets_ping();
-    /* if(new_string("Filename: ",filename)==0)return; */
+    /* if(ggets_new_string("Filename: ",filename)==0)return; */
     if (!file_selector("Save As", filename, "*.ode"))
         return -1;
-    open_write_file(&fp, filename, &ok);
+    browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return -1;
     fp = fopen(filename, "w");

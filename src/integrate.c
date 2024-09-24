@@ -298,7 +298,7 @@ set_up_eq_range(void) {
         strcpy(eq_range.item, values[0]);
         i = find_user_name(PARAM, eq_range.item);
         if (i < 0) {
-            err_msg("No such parameter");
+            ggets_err_msg("No such parameter");
             return 0;
         }
 
@@ -336,9 +336,9 @@ cont_integ(void) {
     if (INFLAG == 0 || FFT != 0 || HIST != 0)
         return;
     tetemp = TEND;
-    wipe_rep();
+    browse_wipe_rep();
     adj2_data_back();
-    if (new_float("Continue until:", &tetemp) == -1)
+    if (ggets_new_float("Continue until:", &tetemp) == -1)
         return;
     x = &MyData[0];
     tetemp = fabs(tetemp);
@@ -364,7 +364,7 @@ range_item(void) {
         i = find_user_name(IC, range.item);
         if (i <= -1) {
             sprintf(bob, " %s is not a parameter or variable !", range.item);
-            err_msg(bob);
+            ggets_err_msg(bob);
             return 0;
         }
         range.type = IC;
@@ -385,7 +385,7 @@ range_item2(void) {
         i = find_user_name(IC, range.item2);
         if (i <= -1) {
             sprintf(bob, " %s is not a parameter or variable !", range.item2);
-            err_msg(bob);
+            ggets_err_msg(bob);
             return 0;
         }
         range.type2 = IC;
@@ -430,7 +430,7 @@ set_up_range(void) {
         else {
           i=find_user_name(IC,range.item);
           if(i<=-1){
-            err_msg("No such name!");
+            ggets_err_msg("No such name!");
             return 0;
           }
           range.type=IC;
@@ -567,21 +567,21 @@ monte_carlo(void) {
     int32 i = 0, done = 0, ishoot = 0;
     double z;
     char name[256];
-    new_int("Append(1/0", &append);
-    new_int("Shoot (1/0)", &ishoot);
-    new_int("# Guesses:", &fixptguess.n);
-    new_float("Tolerance:", &fixptguess.tol);
+    ggets_new_int("Append(1/0", &append);
+    ggets_new_int("Shoot (1/0)", &ishoot);
+    ggets_new_int("# Guesses:", &fixptguess.n);
+    ggets_new_float("Tolerance:", &fixptguess.tol);
     while (true) {
         sprintf(name, "%s_lo :", uvar_names[i]);
         z = fixptguess.xlo[i];
-        done = new_float(name, &z);
+        done = ggets_new_float(name, &z);
         if (done == 0)
             fixptguess.xlo[i] = z;
         if (done == -1)
             break;
         sprintf(name, "%s_hi :", uvar_names[i]);
         z = fixptguess.xhi[i];
-        done = new_float(name, &z);
+        done = ggets_new_float(name, &z);
         if (done == 0)
             fixptguess.xhi[i] = z;
         if (done == -1)
@@ -690,7 +690,7 @@ do_eq_range(double *x) {
     if (set_up_eq_range() == 0)
         return;
 
-    wipe_rep();
+    browse_wipe_rep();
     adj2_data_back();
     parlo = eq_range.plow;
     parhi = eq_range.phigh;
@@ -719,7 +719,7 @@ do_eq_range(double *x) {
         set_val(eq_range.item, temp);
         PAR_FOL = 1;
         sprintf(bob, "%s=%.16g", eq_range.item, temp);
-        bottom_msg(bob);
+        ggets_bottom_msg(bob);
         evaluate_derived();
         /*  I think  */ redo_all_fun_tables();
         if (mc) {
@@ -736,7 +736,7 @@ do_eq_range(double *x) {
             draw_label(draw_win);
             put_text_x11(5, 10, bob);
             if (film_clip() == 0)
-                err_msg("Out of film");
+                ggets_err_msg("Out of film");
         }
         if (mc == 0) {
             storage[0][storind] = temp;
@@ -874,7 +874,7 @@ do_range(double *x, int32 flag) {
 
                     if (DelayFlag) {
                         /* restart initial data */
-                        if (do_init_delay(DELAY) == 0)
+                        if (delay_handle_do_init_delay(DELAY) == 0)
                             break;
                     }
                 }
@@ -901,7 +901,7 @@ do_range(double *x, int32 flag) {
                                 range.item2, p2);
                     else
                         sprintf(bob, "%s=%.16g  i=%d", range.item, p, i);
-                    bottom_msg(bob);
+                    ggets_bottom_msg(bob);
                 }
             } /* normal range stuff   */
             else { /* auto range stuff */
@@ -909,7 +909,7 @@ do_range(double *x, int32 flag) {
                 get_ic(2, x);
                 get_val(parn, &temp);
                 sprintf(bob, "%s=%.16g", parn, temp);
-                bottom_msg(bob);
+                ggets_bottom_msg(bob);
             }
             do_start_flags(x, &MyTime);
             if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
@@ -933,7 +933,7 @@ do_range(double *x, int32 flag) {
                 create_new_cline();
                 draw_label(draw_win);
                 if (film_clip() == 0) {
-                    err_msg("Out of film");
+                    ggets_err_msg("Out of film");
                     break;
                 }
             }
@@ -1041,7 +1041,7 @@ find_equilib_com(int32 com) {
         jv = MyGraph->yv[0] - 1;
         if (iv < 0 || iv >= NODE || jv < 0 || jv >= NODE ||
             MyGraph->grtype >= 5 || jv == iv) {
-            err_msg("Not in useable 2D plane...");
+            ggets_err_msg("Not in useable 2D plane...");
             return;
         }
 
@@ -1169,7 +1169,7 @@ batch_integrate_once(void) {
     storind = 0;
     reset_browser();
     if (batch_range == 1 || STOCH_FLAG > 0) {
-        reset_dae();
+        dae_fun_reset_dae();
         RANGE_FLAG = 1;
 
         if (do_range(x, 0) != 0)
@@ -1178,7 +1178,7 @@ batch_integrate_once(void) {
         get_ic(2, x);
         if (DelayFlag) {
             /* restart initial data */
-            if (do_init_delay(DELAY) == 0)
+            if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
         do_start_flags(x, &MyTime);
@@ -1266,17 +1266,17 @@ do_init_data(int32 com) {
     x = &MyData[0];
     RANGE_FLAG = 0;
     DelayErr = 0;
-    reset_dae();
+    dae_fun_reset_dae();
     if (FFT || HIST)
         return;
 
     if (com == M_ID) { /* dont want to wipe out everything! */
-        get_new_guesses();
+        dae_fun_get_new_guesses();
         return;
     }
 
     adj2_data_back();
-    wipe_rep();
+    browse_wipe_rep();
     MyTime = T0;
 
     STORFLAG = 1;
@@ -1296,7 +1296,7 @@ do_init_data(int32 com) {
     case M_IL:
         if (INFLAG == 0) {
             ggets_ping();
-            err_msg("No prior solution");
+            ggets_err_msg("No prior solution");
             return;
         }
         get_ic(0, x);
@@ -1314,10 +1314,10 @@ do_init_data(int32 com) {
         get_ic(1, x);
         if (DelayFlag) {
             /* restart initial data */
-            if (do_init_delay(DELAY) == 0)
+            if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
-        set_init_guess();
+        dae_fun_set_init_guess();
         break;
     case M_IM:
     case M_II:
@@ -1325,7 +1325,7 @@ do_init_data(int32 com) {
         jv = MyGraph->yv[0] - 1;
         if (iv < 0 || iv >= NODE || jv < 0 || jv >= NODE ||
             MyGraph->grtype >= 5 || jv == iv) {
-            err_msg("Not in useable 2D plane...");
+            ggets_err_msg("Not in useable 2D plane...");
             return;
         }
 
@@ -1345,7 +1345,7 @@ do_init_data(int32 com) {
 
                 if (DelayFlag) {
                     /* restart initial data */
-                    if (do_init_delay(DELAY) == 0)
+                    if (delay_handle_do_init_delay(DELAY) == 0)
                         return;
                 }
             } else {
@@ -1370,7 +1370,7 @@ do_init_data(int32 com) {
                 last_ic[jm] = x[jm];
                 if (DelayFlag) {
                     /* restart initial data */
-                    if (do_init_delay(DELAY) == 0)
+                    if (delay_handle_do_init_delay(DELAY) == 0)
                         break;
                 }
                 MyStart = 1;
@@ -1385,7 +1385,7 @@ do_init_data(int32 com) {
     case M_IN:
         man_ic();
         get_ic(2, x);
-        set_init_guess();
+        dae_fun_set_init_guess();
         break;
     case M_IU:
         if (form_ic() == 0)
@@ -1394,27 +1394,27 @@ do_init_data(int32 com) {
         break;
     case M_IH:
         if (ShootICFlag == 0) {
-            err_msg("No shooting data available");
+            ggets_err_msg("No shooting data available");
             break;
         }
         sprintf(sr, "Which? (1-%d)", ShootIndex);
         si = 1;
-        new_int(sr, &si);
+        ggets_new_int(sr, &si);
         si--;
         if (si < ShootIndex && si >= 0) {
             for (i = 0; i < NODE; i++)
                 last_ic[i] = ShootIC[si][i];
             get_ic(2, x);
         } else
-            err_msg("Out of range");
+            ggets_err_msg("Out of range");
         break;
     case M_IF:
         icfile[0] = 0;
         if (!file_selector("Read initial data", icfile, "*.dat"))
             return;
-        /* if(new_string("Filename: ",icfile)==0)return; */
+        /* if(ggets_new_string("Filename: ",icfile)==0)return; */
         if ((fp = fopen(icfile, "r")) == NULL) {
-            err_msg(" Cant open IC file");
+            ggets_err_msg(" Cant open IC file");
             return;
         }
         for (i = 0; i < NODE; i++)
@@ -1426,23 +1426,23 @@ do_init_data(int32 com) {
     case M_IB:
         DELTA_T = -fabs(DELTA_T);
         get_ic(2, x);
-        set_init_guess();
+        dae_fun_set_init_guess();
         if (DelayFlag) {
             /* restart initial data */
-            if (do_init_delay(DELAY) == 0)
+            if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
         break;
     case M_IG:
     default:
 
-        set_init_guess();
+        dae_fun_set_init_guess();
 
         get_ic(2, x);
 
         if (DelayFlag) {
             /* restart initial data */
-            if (do_init_delay(DELAY) == 0)
+            if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
         break;
@@ -1459,7 +1459,7 @@ run_now(void) {
     x = &MyData[0];
     RANGE_FLAG = 0;
     DelayErr = 0;
-    reset_dae();
+    dae_fun_reset_dae();
     MyTime = T0;
     get_ic(2, x);
     STORFLAG = 1;
@@ -1534,7 +1534,7 @@ do_new_array_ic(char *new, int32 j1, int32 j2) {
         ar_ic[ihot].j1 = j1;
         ar_ic[ihot].j2 = j2;
     }
-    new_string("Formula:", ar_ic[ihot].formula);
+    ggets_new_string("Formula:", ar_ic[ihot].formula);
     /* now we have everything we need */
     evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula, ar_ic[ihot].j1,
                    ar_ic[ihot].j2);
@@ -1582,7 +1582,7 @@ evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
     for (j = j1; j <= j2; j++) {
         i = -1;
         form_ode_subsk(v, vp, j, 1);
-        find_variable(vp, &i);
+        browse_find_variable(vp, &i);
         if (i > 0) {
             form_ode_subsk(f, fp, j, 1);
             flag = do_calc(fp, &z);
@@ -1659,13 +1659,13 @@ set_array_ic(void) {
     double z;
     int32 flag;
     junk[0] = 0;
-    if (new_string("Variable: ", junk) == 0)
+    if (ggets_new_string("Variable: ", junk) == 0)
         return 0;
     search_array(junk, new, &j1, &j2, &flag2);
     if (flag2 == 1) {
         do_new_array_ic(new, j1, j2);
     } else {
-        find_variable(junk, &i);
+        browse_find_variable(junk, &i);
         if (i <= -1)
             return 0;
         index0 = i;
@@ -1693,8 +1693,8 @@ set_array_ic(void) {
         /* Now we have an element in the array index */
         ar_ic[myar].index0 = index0;
         ar_ic[myar].type = 0;
-        new_int("Number elements:", &ar_ic[myar].n);
-        new_string("u=F(t-i0):", ar_ic[myar].formula);
+        ggets_new_int("Number elements:", &ar_ic[myar].n);
+        ggets_new_string("u=F(t-i0):", ar_ic[myar].formula);
         i1 = index0 - 1;
         in = i1 + ar_ic[myar].n;
         if (i1 > NODE || in > NODE)
@@ -1703,7 +1703,7 @@ set_array_ic(void) {
             set_val("t", (double)(i - i1));
             flag = do_calc(ar_ic[myar].formula, &z);
             if (flag == -1) {
-                err_msg("Bad formula");
+                ggets_err_msg("Bad formula");
                 return 1;
             }
             last_ic[i] = z;
@@ -1774,10 +1774,10 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                 return 0;
             switch (kflag) {
             case -1:
-                err_msg(" Singular Jacobian ");
+                ggets_err_msg(" Singular Jacobian ");
                 break;
             case -2:
-                err_msg("Too many iterates");
+                ggets_err_msg("Too many iterates");
                 break;
             default:
                 break;
@@ -1800,16 +1800,16 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                     return 0;
                 switch (kflag) {
                 case -1:
-                    err_msg("kflag=-1: minimum step too big");
+                    ggets_err_msg("kflag=-1: minimum step too big");
                     break;
                 case -2:
-                    err_msg("kflag=-2: required order too big");
+                    ggets_err_msg("kflag=-2: required order too big");
                     break;
                 case -3:
-                    err_msg("kflag=-3: minimum step too big");
+                    ggets_err_msg("kflag=-3: minimum step too big");
                     break;
                 case -4:
-                    err_msg("kflag=-4: tolerance too small");
+                    ggets_err_msg("kflag=-4: tolerance too small");
                     break;
                 default:
                     break;
@@ -1849,7 +1849,7 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                 ggets_ping();
                 if (RANGE_FLAG)
                     return 0;
-                err_msg("Step size too small");
+                ggets_err_msg("Step size too small");
                 return 0;
             }
             break;
@@ -1864,19 +1864,19 @@ ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                     return 0;
                 switch (kflag) {
                 case 2:
-                    err_msg("Step size too small");
+                    ggets_err_msg("Step size too small");
                     break;
                 case 3:
-                    err_msg("Too many steps");
+                    ggets_err_msg("Too many steps");
                     break;
                 case -1:
-                    err_msg("singular jacobian encountered");
+                    ggets_err_msg("singular jacobian encountered");
                     break;
                 case 1:
-                    err_msg("stepsize is close to 0");
+                    ggets_err_msg("stepsize is close to 0");
                     break;
                 case 4:
-                    err_msg("exceeded MAXTRY in stiff");
+                    ggets_err_msg("exceeded MAXTRY in stiff");
                     break;
                 default:
                     break;
@@ -1960,7 +1960,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         tscal = -tend;
     if (tscal == 0.0)
         tscal = 1.0;
-    stor_delay(x);
+    delay_handle_stor_delay(x);
 
     while (true) {
         switch (METHOD) {
@@ -1977,11 +1977,11 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                  start, WORK, IWORK);
 
             MSWTCH(x, xpv.x);
-            stor_delay(x);
+            delay_handle_stor_delay(x);
             if (DelayErr) {
                 DelayErr = 0;
                 LastTime = *t;
-                err_dae();
+                dae_fun_err_dae();
                 return 1;
             }
             if (kflag < 0) {
@@ -1992,16 +1992,16 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
                 switch (kflag) {
                 case -1:
-                    err_msg("kflag=-1: minimum step too big");
+                    ggets_err_msg("kflag=-1: minimum step too big");
                     break;
                 case -2:
-                    err_msg("kflag=-2: required order too big");
+                    ggets_err_msg("kflag=-2: required order too big");
                     break;
                 case -3:
-                    err_msg("kflag=-3: minimum step too big");
+                    ggets_err_msg("kflag=-3: minimum step too big");
                     break;
                 case -4:
-                    err_msg("kflag=-4: tolerance too small");
+                    ggets_err_msg("kflag=-4: tolerance too small");
                     break;
                 default:
                     break;
@@ -2023,10 +2023,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             MSWTCH(xpv.x, x);
             cvode(start, xpv.x, t, nodes, tout, &kflag, &TOLER, &ATOLER);
             MSWTCH(x, xpv.x);
-            stor_delay(x);
+            delay_handle_stor_delay(x);
             if (DelayErr) {
                 DelayErr = 0;
-                err_dae();
+                dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
             }
@@ -2056,10 +2056,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             dp(start, xpv.x, t, nodes, tout, &TOLER, &ATOLER, METHOD - DP5,
                &kflag);
             MSWTCH(x, xpv.x);
-            stor_delay(x);
+            delay_handle_stor_delay(x);
             if (DelayErr) {
                 DelayErr = 0;
-                err_dae();
+                dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
             }
@@ -2084,10 +2084,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             MSWTCH(xpv.x, x);
             rb23(xpv.x, t, tout, start, nodes, WORK, &kflag);
             MSWTCH(x, xpv.x);
-            stor_delay(x);
+            delay_handle_stor_delay(x);
             if (DelayErr) {
                 DelayErr = 0;
-                err_dae();
+                dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
             }
@@ -2096,7 +2096,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     LastTime = *t;
                     return 1;
                 }
-                err_msg("Step size too small");
+                ggets_err_msg("Step size too small");
                 LastTime = *t;
                 return 1;
             }
@@ -2114,10 +2114,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK, &kflag,
                      NEWT_ERR, METHOD, start);
             MSWTCH(x, xpv.x);
-            stor_delay(x);
+            delay_handle_stor_delay(x);
             if (DelayErr) {
                 DelayErr = 0;
-                err_dae();
+                dae_fun_err_dae();
                 LastTime = *t;
                 return 1;
             }
@@ -2129,19 +2129,19 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
                 switch (kflag) {
                 case 2:
-                    err_msg("Step size too small");
+                    ggets_err_msg("Step size too small");
                     break;
                 case 3:
-                    err_msg("Too many steps");
+                    ggets_err_msg("Too many steps");
                     break;
                 case -1:
-                    err_msg("singular jacobian encountered");
+                    ggets_err_msg("singular jacobian encountered");
                     break;
                 case 1:
-                    err_msg("stepsize is close to 0");
+                    ggets_err_msg("stepsize is close to 0");
                     break;
                 case 4:
-                    err_msg("exceeded MAXTRY in stiff");
+                    ggets_err_msg("exceeded MAXTRY in stiff");
                     break;
                 default:
                     break;
@@ -2165,10 +2165,10 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     break;
                 switch (kflag) {
                 case -1:
-                    err_msg("Singular Jacobian ");
+                    ggets_err_msg("Singular Jacobian ");
                     break;
                 case -2:
-                    err_msg("Too many iterates ");
+                    ggets_err_msg("Too many iterates ");
                     break;
                 default:
                     break;
@@ -2248,7 +2248,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                  if(stor_full()==0)break;
                 }
                 */
-                err_msg(error_message);
+                ggets_err_msg(error_message);
                 rval = 1;
                 break;
             }
@@ -2278,7 +2278,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                  if(stor_full()==0)break;
                 }
                 */
-                err_msg(error_message);
+                ggets_err_msg(error_message);
                 rval = 1;
 
                 break;
@@ -2306,7 +2306,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             break;
         }
         if (DelayErr) {
-            err_dae();
+            dae_fun_err_dae();
             rval = 1;
             ENDSING = 1;
             DelayErr = 0;
@@ -2331,7 +2331,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                     rhs(oldt, oldx, oldxprime, NEQ);
                     dxp = xprime[POIVAR - 1] - oldxprime[POIVAR - 1];
                     if (dxp == 0.0) {
-                        err_msg("Cannot zero RHS for max/min - use a variable");
+                        ggets_err_msg("Cannot zero RHS for max/min - use a variable");
                         return 1;
                     }
                     dint = xprime[POIVAR - 1] / dxp;
@@ -2759,7 +2759,7 @@ void
 stop_integration(void) {
     /*  set some global error here... */
     if (DelayErr == 0)
-        err_msg("Delay too large or negative");
+        ggets_err_msg("Delay too large or negative");
     DelayErr = 1;
     return;
 }

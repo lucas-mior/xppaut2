@@ -93,7 +93,7 @@ cvode_err_msg(int32 kflag) {
         exit(EXIT_FAILURE);
     }
     if (strlen(s) > 0)
-        err_msg(s);
+        ggets_err_msg(s);
     return;
 }
 

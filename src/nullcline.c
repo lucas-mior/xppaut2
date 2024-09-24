@@ -115,7 +115,7 @@ froz_cline_stuff_com(int32 i) {
         clear_froz_cline();
         break;
     case 3:
-        new_int("Delay (msec)", &delay);
+        ggets_new_int("Delay (msec)", &delay);
         if (delay <= 0)
             delay = 0;
         redraw_froz_cline(delay);
@@ -345,7 +345,7 @@ save_frozen_clines(char *fn) {
         snprintf(fnx, sizeof(fnx), "%s.%d", fn, i);
         fp = fopen(fnx, "w");
         if (fp == NULL) {
-            err_msg("Cant open file!");
+            ggets_err_msg("Cant open file!");
             return;
         }
         dump_clines(fp, z->xn, z->nmx, z->yn, z->nmy);
@@ -376,7 +376,7 @@ redraw_froz_cline(int32 flag) {
         if (MyGraph->xv[0] == z->n_ix && MyGraph->yv[0] == z->n_iy &&
             MyGraph->ThreeDFlag == 0) {
             if (flag > 0) {
-                wait_a_sec(flag);
+                browse_wait_a_sec(flag);
                 clr_scrn();
             }
             set_linestyle(col1);
@@ -643,7 +643,7 @@ direct_field_com(int32 c) {
         DFIELD_TYPE = 1;
     if (c == 4)
         DFIELD_TYPE = 0;
-    new_int("Grid:", &grid);
+    ggets_new_int("Grid:", &grid);
     if (grid <= 1)
         return;
     DF_GRID = grid;
@@ -772,7 +772,7 @@ save_the_nullclines(void) {
         return;
     fp = fopen(filename, "w");
     if (fp == NULL) {
-        err_msg("Cant open file!");
+        ggets_err_msg("Cant open file!");
         return;
     }
     dump_clines(fp, X_n, num_x_n, Y_n, num_y_n);

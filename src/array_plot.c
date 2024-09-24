@@ -305,7 +305,7 @@ wborder(Window window, int32 i, struct ArrayPlot ap) {
 void
 destroy_aplot(void) {
     array_plot.alive = 0;
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, array_plot.base);
     XDestroyWindow(display, array_plot.base);
     return;
@@ -368,13 +368,13 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     main_fix_window_size(base, width, height, FIX_MIN_SIZE);
     make_icon((char *)array_bits, array_width, array_height, base);
 
-    ap->wredraw = br_button(base, 0, 0, 0);
-    ap->wedit = br_button(base, 0, 1, 0);
-    ap->wprint = br_button(base, 0, 2, 0);
-    ap->wclose = br_button(base, 0, 3, 0);
-    ap->wfit = br_button(base, 0, 4, 0);
-    ap->wrange = br_button(base, 0, 5, 0);
-    ap->wgif = br_button(base, 1, 0, 0);
+    ap->wredraw = browse_button2(base, 0, 0, 0);
+    ap->wedit = browse_button2(base, 0, 1, 0);
+    ap->wprint = browse_button2(base, 0, 2, 0);
+    ap->wclose = browse_button2(base, 0, 3, 0);
+    ap->wfit = browse_button2(base, 0, 4, 0);
+    ap->wrange = browse_button2(base, 0, 5, 0);
+    ap->wgif = browse_button2(base, 1, 0, 0);
     ap->wmax = make_window(base, 10, 45, 10*DCURXs, DCURYs, 1);
     ap->wmin = make_window(base, 10, 51 + DCURYs + color_total, 10*DCURXs,
                            DCURYs, 1);
@@ -436,7 +436,7 @@ print_aplot(struct ArrayPlot *ap) {
                         ap->ncskip, nrows, my_browser.maxcol, my_browser.data,
                         ap->zmin, ap->zmax, tlo, thi, ap->type);
         if (errflag == -1)
-            err_msg("Couldn't open file");
+            ggets_err_msg("Couldn't open file");
     }
     return;
 }
@@ -570,12 +570,12 @@ editaplot(struct ArrayPlot *ap) {
     snprintf(values[8], sizeof(values[8]), "%d", ap->ncskip);
     status = do_string_box(9, 9, 1, "Edit array_plot", n, values, 40);
     if (status != 0) {
-        find_variable(values[0], &i);
+        browse_find_variable(values[0], &i);
         if (i > -1) {
             ap->index0 = i;
             strcpy(ap->name, values[0]);
         } else {
-            err_msg("No such columns");
+            ggets_err_msg("No such columns");
             ap->plotdef = 0;
             return 0;
         }
@@ -617,7 +617,7 @@ array_plot_gif_all(char *filename, int32 still) {
     if (still == 0) {
         if (array_plot_range_count == 0) {
             if ((ap_fp = fopen(filename, "w")) == NULL) {
-                err_msg("Cannot open file ");
+                ggets_err_msg("Cannot open file ");
                 return;
             }
         }
@@ -634,7 +634,7 @@ array_plot_gif_all(char *filename, int32 still) {
 
     if (still == 1) {
         if ((ap_fp = fopen(filename, "w")) == NULL) {
-            err_msg("Cannot open file ");
+            ggets_err_msg("Cannot open file ");
             return;
         }
 

@@ -121,7 +121,7 @@ int32
 ps_init(char *filename, int32 color) {
     int32 i;
     if ((psfile = fopen(filename, "w")) == NULL) {
-        err_msg("Cannot open file ");
+        ggets_err_msg("Cannot open file ");
         return 0;
     }
     init_ps();

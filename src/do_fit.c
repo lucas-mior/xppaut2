@@ -103,7 +103,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
     }
     if (DelayFlag) {
         /* restart initial data */
-        if (do_init_delay(DELAY) == 0)
+        if (delay_handle_do_init_delay(DELAY) == 0)
             return;
     }
     evaluate_derived();
@@ -156,7 +156,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         }
         if (DelayFlag) {
             /* restart initial data */
-            if (do_init_delay(DELAY) == 0)
+            if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
         evaluate_derived();
@@ -225,7 +225,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             cvode_err_msg(kflag);
             return 0;
         }
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         return 1;
     }
 #endif
@@ -235,16 +235,16 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             dp_err(kflag);
             return 0;
         }
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         return 1;
     }
     if (METHOD == RB23) {
         rb23(y, &t, t1, istart, NODE, WORK, &kflag);
         if (kflag < 0) {
-            err_msg("Step size too small");
+            ggets_err_msg("Step size too small");
             return 0;
         }
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         return 1;
     }
     if (METHOD == RKQS || METHOD == STIFF) {
@@ -254,19 +254,19 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             ggets_ping();
             switch (kflag) {
             case 2:
-                err_msg("Step size too small");
+                ggets_err_msg("Step size too small");
                 break;
             case 3:
-                err_msg("Too many steps");
+                ggets_err_msg("Too many steps");
                 break;
             case -1:
-                err_msg("singular jacobian encountered");
+                ggets_err_msg("singular jacobian encountered");
                 break;
             case 1:
-                err_msg("stepsize is close to 0");
+                ggets_err_msg("stepsize is close to 0");
                 break;
             case 4:
-                err_msg("exceeded MAXTRY in stiff");
+                ggets_err_msg("exceeded MAXTRY in stiff");
                 break;
             default:
                 fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -274,7 +274,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             }
             return 0;
         }
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         return 1;
     }
     /* cvode(command,y,t,n,tout,kflag,atol,rtol)
@@ -286,16 +286,16 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
             ggets_ping();
             switch (kflag) {
             case -1:
-                err_msg("kflag=-1: minimum step too big");
+                ggets_err_msg("kflag=-1: minimum step too big");
                 break;
             case -2:
-                err_msg("kflag=-2: required order too big");
+                ggets_err_msg("kflag=-2: required order too big");
                 break;
             case -3:
-                err_msg("kflag=-3: minimum step too big");
+                ggets_err_msg("kflag=-3: minimum step too big");
                 break;
             case -4:
-                err_msg("kflag=-4: tolerance too small");
+                ggets_err_msg("kflag=-4: tolerance too small");
                 break;
             default:
                 fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -304,7 +304,7 @@ one_step_int(double *y, double t0, double t1, int32 *istart) {
 
             return 0;
         }
-        stor_delay(y);
+        delay_handle_stor_delay(y);
         return 1;
     }
     if (METHOD == 0) {
@@ -363,7 +363,7 @@ test_fit(void) {
     parse_collist(collist, fit_info.icols, &nvars);
 
     if (nvars <= 0) {
-        err_msg("No columns...");
+        ggets_err_msg("No columns...");
         return;
     }
     fit_info.nvars = nvars;
@@ -371,7 +371,7 @@ test_fit(void) {
     parse_varlist(varlist, fit_info.ivar, &nvars);
 
     if (fit_info.nvars != nvars) {
-        err_msg(" # columns != # fitted variables");
+        ggets_err_msg(" # columns != # fitted variables");
         return;
     }
     npars = 0;
@@ -380,24 +380,24 @@ test_fit(void) {
     parse_parlist(parlist2, fit_info.ipar, &npars);
 
     if (npars <= 0) {
-        err_msg(" No parameters!");
+        ggets_err_msg(" No parameters!");
         return;
     }
     fit_info.npars = npars;
     for (i = 0; i < npars; i++)
         if (fit_info.ipar[i] >= 0) {
             if (fit_info.ipar[i] >= NODE) {
-                err_msg(" Cant vary auxiliary/markov variables! ");
+                ggets_err_msg(" Cant vary auxiliary/markov variables! ");
                 return;
             }
         }
     for (i = 0; i < nvars; i++) {
         if (fit_info.icols[i] < 2) {
-            err_msg(" Illegal column must be >= 2");
+            ggets_err_msg(" Illegal column must be >= 2");
             return;
         }
         if (fit_info.ivar[i] < 0 || fit_info.ivar[i] >= NODE) {
-            err_msg(" Fit only to variables! ");
+            ggets_err_msg(" Fit only to variables! ");
             return;
         }
     }
@@ -463,7 +463,7 @@ run_fit(/* double arrays */
             npts,npars,nvars,maxiter,ndim); */
 
     if ((fp = fopen(filename, "r")) == NULL) {
-        err_msg("No such file...");
+        ggets_err_msg("No such file...");
         return 0;
     }
     t0 = xmalloc((usize)(npts + 1)*sizeof(*(t0)));
@@ -523,7 +523,7 @@ run_fit(/* double arrays */
     }
 
     if (ok == 0) {
-        err_msg("Error in step...");
+        ggets_err_msg("Error in step...");
 
         free(work);
         for (i = 0; i < npars; i++)
@@ -537,7 +537,7 @@ run_fit(/* double arrays */
         return 0;
     }
     if (niter >= maxiter) {
-        err_msg("Max iterations exceeded...");
+        ggets_err_msg("Max iterations exceeded...");
 
         free(work);
         for (i = 0; i < npars; i++)
@@ -553,7 +553,7 @@ run_fit(/* double arrays */
     ictrl = 2;
     marlevstep(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha,
                &chisq, &alambda, work, yderv, yfit, &ochisq, ictrl, eps);
-    err_msg(" Success! ");
+    ggets_err_msg(" Success! ");
     /* have the covariance matrix -- so what?   */
     ggets_plintf(" covariance: \n");
     for (i = 0; i < npars; i++) {
@@ -630,7 +630,7 @@ sigma  weights on nvars
     }
     gear_sgefa(covar, npars, npars, ipivot, &ierr);
     if (ierr != -1) {
-        err_msg(" Singular matrix encountered...");
+        ggets_err_msg(" Singular matrix encountered...");
         return 0;
     }
 
@@ -684,7 +684,7 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
     get_fit_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars, ivar,
                  ipar);
     if (flag == 0) {
-        err_msg(" Integration error ...\n");
+        ggets_err_msg(" Integration error ...\n");
         return 0;
     }
     for (i = 0; i < npars; i++) {
@@ -780,13 +780,13 @@ parse_varlist(char *varlist, int32 *ivars, int32 *n) {
     item = get_first(varlist, " ,");
     if (item[0] == 0)
         return;
-    find_variable(item, &v);
+    browse_find_variable(item, &v);
     if (v <= 0)
         return;
     ivars[i] = v - 1;
     i++;
     while ((item = get_next(" ,")) != NULL) {
-        find_variable(item, &v);
+        browse_find_variable(item, &v);
         if (v <= 0)
             return;
         ivars[i] = v - 1;
@@ -813,7 +813,7 @@ parse_parlist(char *parlist, int32 *ipars, int32 *n) {
     if (item[0] == 0L)
         return;
 
-    find_variable(item, &v);
+    browse_find_variable(item, &v);
     if (v > 0) {
         ipars[i + *n] = v - 1;
         i++;
@@ -825,7 +825,7 @@ parse_parlist(char *parlist, int32 *ipars, int32 *n) {
         i++;
     }
     while ((item = get_next(" ,")) != NULL) {
-        find_variable(item, &v);
+        browse_find_variable(item, &v);
         if (v > 0) {
             ipars[i + *n] = v - 1;
             i++;

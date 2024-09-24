@@ -1449,7 +1449,7 @@ create_plot_list(void) {
         return;
     plotlist = xmalloc(sizeof(*plotlist)*(usize)(N_only + 1));
     for (i = 0; i < N_only; i++) {
-        find_variable(onlylist[i], &k);
+        browse_find_variable(onlylist[i], &k);
         if (k >= 0) {
             plotlist[j] = k;
             j++;
@@ -1588,7 +1588,7 @@ compile_em(void) {
             add_special_name(v->lhs, v->rhs);
         }
         if (v->type == SOL_VAR) {
-            if (add_svar(v->lhs, v->rhs) == 1)
+            if (dae_fun_add_svar(v->lhs, v->rhs) == 1)
                 exit(0);
         }
 
@@ -1667,7 +1667,7 @@ compile_em(void) {
     }
     for (i = 0; i < naux; i++)
         strcpy(aux_names[i], anames[i]);
-    add_svar_names();
+    dae_fun_add_svar_names();
 
     /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR = nfix; */
 
@@ -1805,7 +1805,7 @@ compile_em(void) {
             ggets_plintf("%s=%s\n", v->lhs, v->rhs);
             break;
         case DAE:
-            if (add_aeqn(v->rhs) == 1)
+            if (dae_fun_add_aeqn(v->rhs) == 1)
                 exit(0);
             ggets_plintf(" DAE eqn: %s=0 \n", v->rhs);
             break;
@@ -1916,7 +1916,7 @@ compile_em(void) {
     }
     if (compile_derived() == 1)
         exit(0);
-    if (compile_svars() == 1)
+    if (dae_fun_compile_svars() == 1)
         exit(0);
     evaluate_derived();
     do_export_list();

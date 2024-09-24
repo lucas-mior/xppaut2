@@ -200,7 +200,7 @@ write_info_out(void) {
         return;
     fp = fopen(filename, "w");
     if (fp == NULL) {
-        err_msg("Can't open file");
+        ggets_err_msg("Can't open file");
         return;
     }
 
@@ -314,7 +314,7 @@ write_init_data_file(void) {
         return;
     fp = fopen(filename, "w");
     if (fp == NULL) {
-        err_msg("Can't open file");
+        ggets_err_msg("Can't open file");
         return;
     }
 
@@ -378,7 +378,7 @@ write_pts(void) {
         return;
     fp = fopen(filename, "w");
     if (fp == NULL) {
-        err_msg("Can't open file");
+        ggets_err_msg("Can't open file");
         return;
     }
 

@@ -97,7 +97,7 @@ edit_xpprc(void) {
     char *ed = getenv("XPPEDITOR");
 
     if ((ed == NULL) || (strlen(ed) == 0)) {
-        err_msg("Environment variable XPPEDITOR needs to be set.");
+        ggets_err_msg("Environment variable XPPEDITOR needs to be set.");
 
         return;
     } else {
@@ -116,7 +116,7 @@ edit_xpprc(void) {
         return;
     } else {
         if (child_pid == -1) {
-            err_msg("Unable to fork process for editor.");
+            ggets_err_msg("Unable to fork process for editor.");
         }
 
         return;
@@ -128,12 +128,12 @@ xpp_hlp(void) {
     char cmd[256];
 
     if (getenv("XPPHELP") == NULL) {
-        err_msg("Environment variable XPPHELP undefined.");
+        ggets_err_msg("Environment variable XPPHELP undefined.");
         return;
     }
 
     if (getenv("XPPBROWSER") == NULL) {
-        err_msg("Environment variable XPPBROWSER undefined.");
+        ggets_err_msg("Environment variable XPPBROWSER undefined.");
         return;
     }
 
@@ -169,7 +169,7 @@ menudrive_message_box(char *m) {
 void
 menudrive_message_box_redraw(Window window) {
     if (window == MsgBox.window)
-        f_text(10, 2*DCURY, MsgBox.text, MsgBox.window);
+        ggets_f_text(10, 2*DCURY, MsgBox.text, MsgBox.window);
     return;
 }
 
@@ -178,7 +178,7 @@ menudrive_message_box_kill(void) {
     if (MsgBox.here == 0)
         return;
     MsgBox.here = 0;
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroyWindow(display, MsgBox.window);
     return;
 }
@@ -193,7 +193,7 @@ menudrive_two_choice(char *c1, char *c2, char *q, char *key) {
 
 int32
 menudrive_get_mouse_xy(int32 *x, int32 *y) {
-    return get_mouse_xy(x, y, draw_win);
+    return ggets_mouse_xy(x, y, draw_win);
 }
 
 void

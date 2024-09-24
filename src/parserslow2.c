@@ -1794,7 +1794,7 @@ do_delay_shift(double delay, double shift, double variable) {
 
     if (del_stab_flag > 0) {
         if (DelayFlag && delay > 0.0)
-            return get_delay(in - 1, delay);
+            return delay_handle_get_delay(in - 1, delay);
         return variables[in];
     }
 
@@ -1811,7 +1811,7 @@ do_delay(double delay, double i) {
     if (del_stab_flag > 0) {
         if (DelayFlag && delay > 0.0) {
             /* printf("do_delay for var #%d, delay %f\n", variable-1, delay); */
-            return get_delay(variable - 1, delay);
+            return delay_handle_get_delay(variable - 1, delay);
         }
         return variables[variable];
     }

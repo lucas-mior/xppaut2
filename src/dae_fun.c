@@ -54,7 +54,7 @@ static void get_dae_fun(double *y, double *f);
 static void init_dae_work(void);
 
 int32
-add_svar(char *name, char *rhs) {
+dae_fun_add_svar(char *name, char *rhs) {
     if (nsvar >= MAXDAE) {
         ggets_plintf(" Too many variables\n");
         return 1;
@@ -72,7 +72,7 @@ add_svar(char *name, char *rhs) {
 /* adds algebraically define name to name list */
 
 int32
-add_svar_names(void) {
+dae_fun_add_svar_names(void) {
     int32 i;
     for (i = 0; i < nsvar; i++) {
         svar[i].index = NVAR;
@@ -85,7 +85,7 @@ add_svar_names(void) {
 /* adds a right-hand side to slove for zero */
 
 int32
-add_aeqn(char *rhs) {
+dae_fun_add_aeqn(char *rhs) {
     if (naeqn >= MAXDAE) {
         ggets_plintf(" Too many equations\n");
         return 1;
@@ -98,7 +98,7 @@ add_aeqn(char *rhs) {
 
 /* this compiles formulas to set to zero */
 int32
-compile_svars(void) {
+dae_fun_compile_svars(void) {
     int32 i, f[256], n, k;
     if (nsvar != naeqn) {
         ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar, naeqn);
@@ -129,13 +129,13 @@ compile_svars(void) {
 }
 
 void
-reset_dae(void) {
+dae_fun_reset_dae(void) {
     dae_work.status = 1;
     return;
 }
 
 void
-set_init_guess(void) {
+dae_fun_set_init_guess(void) {
     double z;
     dae_work.status = 1;
     if (nsvar == 0)
@@ -150,21 +150,21 @@ set_init_guess(void) {
 }
 
 void
-err_dae(void) {
+dae_fun_err_dae(void) {
     switch (dae_work.status) {
     case 2:
-        err_msg(" Warning - no change in Iterates");
+        ggets_err_msg(" Warning - no change in Iterates");
         break;
     case -1:
-        err_msg(" Singular jacobian for dae\n");
+        ggets_err_msg(" Singular jacobian for dae\n");
 
         break;
     case -2:
-        err_msg(" Maximum iterates exceeded for dae\n");
+        ggets_err_msg(" Maximum iterates exceeded for dae\n");
 
         break;
     case -3:
-        err_msg(" Newton update out of bounds\n");
+        ggets_err_msg(" Newton update out of bounds\n");
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
@@ -197,7 +197,7 @@ get_dae_fun(double *y, double *f) {
 }
 
 void
-do_daes(void) {
+dae_fun_do_daes(void) {
     int32 ans;
     ans = solve_dae();
     dae_work.status = ans;
@@ -295,7 +295,7 @@ solve_dae(void) {
 /* interface shit -- different for Win95 */
 
 void
-get_new_guesses(void) {
+dae_fun_get_new_guesses(void) {
     int32 i;
     int32 n;
     double z;
@@ -306,9 +306,9 @@ get_new_guesses(void) {
 
         z = svar[i].last;
         snprintf(name, sizeof(name), "Initial %s(%g):", svar[i].name, z);
-        new_string(name, svar[i].rhs);
+        ggets_new_string(name, svar[i].rhs);
         if (add_expr(svar[i].rhs, svar[i].form, &n)) {
-            err_msg("Illegal formula");
+            ggets_err_msg("Illegal formula");
             return;
         }
         z = evaluate(svar[i].form);

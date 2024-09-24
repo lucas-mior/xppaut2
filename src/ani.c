@@ -326,7 +326,7 @@ ani_new_vcr(void) {
     int32 i;
     if (vcr.iexist == 1)
         return;
-    tt = get_time_now();
+    tt = browse_get_time_now();
     i = (10 + (tt % 10)) % 10;
     if (i >= 0 && i < 10)
         create_vcr(toons[i]);
@@ -359,22 +359,22 @@ create_vcr(char *name) {
     XSetWMProperties(display, base, &winname, &iconname, NULL, 0, &size_hints,
                      NULL, NULL);
     make_icon((char *)aniwin_bits, aniwin_width, aniwin_height, base);
-    vcr.wfile = br_button(base, 0, 0, 0);
-    vcr.wgo = br_button(base, 0, 1, 0);
-    vcr.wreset = br_button(base, 0, 2, 0);
-    vcr.wskip = br_button(base, 0, 3, 0);
-    vcr.wfast = br_button(base, 1, 0, 0);
-    vcr.wslow = br_button(base, 1, 1, 0);
-    vcr.wup = br_button(base, 1, 2, 0);
-    vcr.wdn = br_button(base, 1, 3, 0);
-    vcr.wgrab = br_button(base, 2, 3, 0);
+    vcr.wfile = browse_button2(base, 0, 0, 0);
+    vcr.wgo = browse_button2(base, 0, 1, 0);
+    vcr.wreset = browse_button2(base, 0, 2, 0);
+    vcr.wskip = browse_button2(base, 0, 3, 0);
+    vcr.wfast = browse_button2(base, 1, 0, 0);
+    vcr.wslow = browse_button2(base, 1, 1, 0);
+    vcr.wup = browse_button2(base, 1, 2, 0);
+    vcr.wdn = browse_button2(base, 1, 3, 0);
+    vcr.wgrab = browse_button2(base, 2, 3, 0);
     vcr.slider =
         make_window(base, DCURXs, 7 + 4*DCURYs, 48*DCURXs, DCURYs + 4, 1);
     vcr.slipos = 0;
     vcr.sliwid = 48*DCURXs;
-    vcr.wpause = br_button(base, 2, 0, 0);
-    vcr.wmpeg = br_button(base, 2, 1, 0);
-    vcr.kill = br_button(base, 2, 2, 0);
+    vcr.wpause = browse_button2(base, 2, 0, 0);
+    vcr.wmpeg = browse_button2(base, 2, 1, 0);
+    vcr.kill = browse_button2(base, 2, 2, 0);
 
     vcr.wfly = make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
                            (DCURYs + 6) - 4, 1);
@@ -386,9 +386,9 @@ create_vcr(char *name) {
         XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
                       (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
     if (ani_pixmap == 0) {
-        err_msg("Failed to get the required pixmap");
+        ggets_err_msg("Failed to get the required pixmap");
         XFlush(display);
-        wait_a_sec(ClickTime);
+        browse_wait_a_sec(ClickTime);
         XDestroySubwindows(display, base);
         XDestroyWindow(display, base);
         vcr.iexist = 0;
@@ -765,7 +765,7 @@ ani_resize(int32 x, int32 y) {
         XCreatePixmap(display, RootWindow(display, screen), (uint)vcr.wid,
                       (uint)vcr.hgt, (uint)(DefaultDepth(display, screen)));
     if (ani_pixmap == 0) {
-        err_msg("Failed to get the required pixmap");
+        ggets_err_msg("Failed to get the required pixmap");
         XFlush(display);
         XDestroySubwindows(display, vcr.base);
         XDestroyWindow(display, vcr.base);
@@ -817,7 +817,7 @@ ani_on_the_fly(int32 task) {
     if (vcr.iexist == 0 || n_anicom == 0)
         return;
     ani_frame(task);
-    wait_a_sec(on_the_fly_speed);
+    browse_wait_a_sec(on_the_fly_speed);
     return;
 }
 
@@ -992,9 +992,9 @@ ani_flip(void) {
 
         XFlush(display);
 
-        wait_a_sec(ani_speed);
+        browse_wait_a_sec(ani_speed);
         if (mpeg.aviflag == 1 || mpeg.flag > 0)
-            wait_a_sec(5*ani_speed);
+            browse_wait_a_sec(5*ani_speed);
         vcr.pos = vcr.pos + vcr.inc;
         if (vcr.pos >= my_browser.maxrow) {
             done = 1;
@@ -1249,7 +1249,7 @@ ani_get_file(char *fname) {
         vcr.ok = 1; /* loaded and compiled */
         ggets_plintf("Loaded %d lines successfully!\n", n_anicom);
         ani_grab_flag = 0;
-        /* err_msg(bob); */
+        /* ggets_err_msg(bob); */
     }
     return;
 }
@@ -1260,14 +1260,14 @@ ani_new_file(char *filename) {
     char bob[100];
     fp = fopen(filename, "r");
     if (fp == NULL) {
-        err_msg("Couldn't open ani-file");
+        ggets_err_msg("Couldn't open ani-file");
         return -1;
     }
     if (n_anicom > 0)
         free_ani();
     if (load_ani_file(fp) == 0) {
         snprintf(bob, sizeof(bob), "Bad ani-file at graphics_line %d", ani_line);
-        err_msg(bob);
+        ggets_err_msg(bob);
         return -1;
     }
     return 0;

@@ -141,11 +141,11 @@ adj2_do_transpose(void) {
     if (status != 0) {
         int32 inrow, incol;
 
-        find_variable(values[0], &ii);
+        browse_find_variable(values[0], &ii);
         if (ii > -1)
             my_trans.col0 = ii + 1;
         else {
-            err_msg("No such columns");
+            ggets_err_msg("No such columns");
             return 0;
         }
         strcpy(my_trans.firstcol, values[0]);
@@ -273,8 +273,8 @@ adj2_make_adj_com(int32 com) {
 
 void
 adj2_adjoint_parameters(void) {
-    new_int("Maximum iterates :", &ADJ_MAXIT);
-    new_float("Adjoint error tolerance :", &ADJ_ERR);
+    ggets_new_int("Maximum iterates :", &ADJ_MAXIT);
+    ggets_new_float("Adjoint error tolerance :", &ADJ_ERR);
     return;
 }
 
@@ -282,11 +282,11 @@ void
 adj2_new_h_fun(int32 silent) {
     int32 n = 2;
     if (!ADJ_HERE) {
-        err_msg("Must compute adjoint first!");
+        ggets_err_msg("Must compute adjoint first!");
         return;
     }
     if (storind != adj_len) {
-        err_msg("incompatible data and adjoint");
+        ggets_err_msg("incompatible data and adjoint");
         return;
     }
     if (H_HERE) {
@@ -341,9 +341,9 @@ make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
         for (int32 i = 0; i < NODE; i++) {
             char name[sizeof(uvar_names[i]) + 18];
             snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
-            new_string(name, coup_string[i]);
+            ggets_new_string(name, coup_string[i]);
             if (add_expr(coup_string[i], coup_fun[i], &j)) {
-                err_msg("Illegal formula");
+                ggets_err_msg("Illegal formula");
                 goto bye;
             }
         }
@@ -451,7 +451,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
     for (int32 i = 0; i < n2; i++) {
         jac[i] = xmalloc((usize)nt*sizeof(*jac));
         if (jac[i] == NULL) {
-            err_msg("Insufficient storage");
+            ggets_err_msg("Insufficient storage");
             return 0;
         }
     }
@@ -507,7 +507,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         for (int32 i = 0; i < node; i++) {
             if (fabs(yold[i]) > BOUND) {
                 rval = 0;
-                err_msg("Out of bounds");
+                ggets_err_msg("Out of bounds");
                 goto bye;
             }
             error += fabs(yold[i] - fdev[i]);
@@ -589,7 +589,7 @@ adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
         mat[i + i*node] = 1. + mat[i + i*node];
     gear_sgefa(mat, node, node, ipvt, &info);
     if (info != -1) {
-        err_msg("Univertible Jacobian");
+        ggets_err_msg("Univertible Jacobian");
         return 0;
     }
     gear_sgesl(mat, node, node, ipvt, yold, 0);
@@ -610,7 +610,7 @@ adj2_do_liapunov(void) {
     double z;
     int32 i;
     double *x;
-    new_int("Range over parameters?(0/1)", &LIAP_FLAG);
+    ggets_new_int("Range over parameters?(0/1)", &LIAP_FLAG);
     if (LIAP_FLAG != 1) {
         adj2_hrw_liapunov(&z, 0, NEWT_ERR);
         return;
@@ -680,7 +680,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     int32 j;
     if (storind < 2) {
         if (batch == 0)
-            err_msg("You need to compute an orbit first");
+            ggets_err_msg("You need to compute an orbit first");
         return 0;
     }
 
@@ -702,7 +702,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
         nrm = nrm / eps;
         if (nrm == 0.0) {
             if (batch == 0)
-                err_msg("Liapunov:-infinity exponent!");
+                ggets_err_msg("Liapunov:-infinity exponent!");
             return 0; /* something wrong here */
         }
         sum = sum + log(nrm);
@@ -715,7 +715,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     *liap = sum;
     if (batch == 0) {
         snprintf(bob, sizeof(bob), "Maximal exponent is %g", sum);
-        err_msg(bob);
+        ggets_err_msg(bob);
     }
 
     return 1;

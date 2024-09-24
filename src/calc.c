@@ -116,10 +116,10 @@ void
 quit_calc(void) {
     my_calc.use = 0;
     XSelectInput(display, my_calc.quit, SIMPMASK);
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, my_calc.base);
     XDestroyWindow(display, my_calc.base);
-    clr_command();
+    ggets_clr_command();
     return;
 }
 
@@ -129,8 +129,8 @@ ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     strcpy(name, "Formula:");
     *pos = (int32)strlen(value);
     *col = (*pos + (int32)strlen(name))*DCURX;
-    clr_command();
-    display_command(name, value, 2);
+    ggets_clr_command();
+    ggets_display_command(name, value, 2);
     return;
 }
 
@@ -192,7 +192,7 @@ do_calc(char *temp, double *z) {
         } else {
             i = find_user_name(IC, val);
             if (i < 0) {
-                err_msg("No such name!");
+                ggets_err_msg("No such name!");
                 return -1;
             }
             set_val(val, newz);
@@ -230,7 +230,7 @@ calc(char *expr, int32 *ok) {
     int32 com[400], i;
     double z = 0.0;
     if (add_expr(expr, com, &i)) {
-        err_msg("Illegal formula ..");
+        ggets_err_msg("Illegal formula ..");
         *ok = 0;
         goto bye;
     }

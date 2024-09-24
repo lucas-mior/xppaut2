@@ -155,7 +155,7 @@ new_four(int32 nmodes, int32 col) {
     if (my_four[2] == NULL) {
         free(my_four[1]);
         free(my_four[2]);
-        err_msg("Cant allocate enough memory...");
+        ggets_err_msg("Cant allocate enough memory...");
         return;
     }
     FOUR_HERE = 1;
@@ -166,7 +166,7 @@ new_four(int32 nmodes, int32 col) {
     /* for(i=0;i<length;i++)my_four[0][i]=(double)i; */
     /*  sft(my_browser.data[col],my_four[1],my_four[2],length,storind);
      */
-    bob = get_data_col(col);
+    bob = browse_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
     four_back();
     ggets_ping();
@@ -232,7 +232,7 @@ twod_hist(void)
     if (my_hist[2] == NULL) {
         free(my_hist[0]);
         free(my_hist[1]);
-        err_msg("Cannot allocate enough...");
+        ggets_err_msg("Cannot allocate enough...");
         return -1;
     }
     HIST_HERE = 2;
@@ -253,35 +253,35 @@ twod_hist(void)
 int32
 new_2d_hist(void) {
     if ((NEQ < 2) || (storind < 3)) {
-        err_msg("Need more data and at least 3 columns");
+        ggets_err_msg("Need more data and at least 3 columns");
         return 0;
     }
     if (get_col_info(&hist_inf.col, "Variable 1 ") == 0)
         return -1;
-    new_int("Number of bins ", &hist_inf.nbins);
-    new_float("Low ", &hist_inf.xlo);
-    new_float("Hi ", &hist_inf.xhi);
+    ggets_new_int("Number of bins ", &hist_inf.nbins);
+    ggets_new_float("Low ", &hist_inf.xlo);
+    ggets_new_float("Hi ", &hist_inf.xhi);
     if (hist_inf.nbins < 2) {
-        err_msg("At least 2 bins\n");
+        ggets_err_msg("At least 2 bins\n");
         return 0;
     }
     if (hist_inf.xlo >= hist_inf.xhi) {
-        err_msg("Low must be less than hi");
+        ggets_err_msg("Low must be less than hi");
         return 0;
     }
 
     if (get_col_info(&hist_inf.col2, "Variable 2 ") == 0)
         return -1;
-    new_int("Number of bins ", &hist_inf.nbins2);
-    new_float("Low ", &hist_inf.ylo);
-    new_float("Hi ", &hist_inf.yhi);
+    ggets_new_int("Number of bins ", &hist_inf.nbins2);
+    ggets_new_float("Low ", &hist_inf.ylo);
+    ggets_new_float("Hi ", &hist_inf.yhi);
 
     if (hist_inf.nbins2 < 2) {
-        err_msg("At least 2 bins\n");
+        ggets_err_msg("At least 2 bins\n");
         return 0;
     }
     if (hist_inf.ylo >= hist_inf.yhi) {
-        err_msg("Low must be less than hi");
+        ggets_err_msg("Low must be less than hi");
         return 0;
     }
 
@@ -316,7 +316,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     my_hist[1] = xmalloc(sizeof(*(my_hist[1]))*(usize)length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
-        err_msg("Cannot allocate enough...");
+        ggets_err_msg("Cannot allocate enough...");
         return;
     }
     HIST_HERE = 1;
@@ -331,7 +331,7 @@ new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
             cond = 0;
         else {
             if (add_expr(condition, command, &i)) {
-                err_msg("Bad condition. Ignoring...");
+                ggets_err_msg("Bad condition. Ignoring...");
 
             } else {
                 cond = 1;
@@ -403,7 +403,7 @@ column_mean(void) {
     double mean;
     double sdev;
     if (storind <= 1) {
-        err_msg("Need at least 2 data points!");
+        ggets_err_msg("Need at least 2 data points!");
         return;
     }
     if (get_col_info(&hist_inf.col, "Variable ") == 0)
@@ -418,7 +418,7 @@ column_mean(void) {
     mean = sum / (double)storind;
     sdev = sqrt(sum2 / (double)storind - mean*mean);
     sprintf(bob, "Mean=%g Std. Dev. = %g ", mean, sdev);
-    err_msg(bob);
+    ggets_err_msg(bob);
     return;
 }
 
@@ -429,10 +429,10 @@ get_col_info(int32 *col, char *prompt) {
         strcpy(variable, "t");
     else
         strcpy(variable, uvar_names[*col - 1]);
-    new_string(prompt, variable);
-    find_variable(variable, col);
+    ggets_new_string(prompt, variable);
+    browse_find_variable(variable, col);
     if (*col < 0) {
-        err_msg("No such variable...");
+        ggets_err_msg("No such variable...");
         return 0;
     }
     return 1;
@@ -447,8 +447,8 @@ compute_power(void) {
     compute_fourier();
     if ((NEQ < 2) || (storind <= 1))
         return;
-    datx = get_data_col(1);
-    daty = get_data_col(2);
+    datx = browse_get_data_col(1);
+    daty = browse_get_data_col(2);
 
     for (i = 0; i < four_len; i++) {
         c = datx[i];
@@ -680,7 +680,7 @@ just_sd(int32 flag) {
     my_hist[1] = xmalloc(sizeof(*(my_hist[1]))*(usize)length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
-        err_msg("Cannot allocate enough...");
+        ggets_err_msg("Cannot allocate enough...");
         return;
     }
     HIST_HERE = 1;
@@ -702,15 +702,15 @@ void
 compute_sd(void) {
     int32 length, i, j;
     double total = storage[0][storind - 1] - storage[0][0];
-    new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
+    ggets_new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
 
     if (get_col_info(&spec_col, "Variable ") == 0)
         return;
     if (spec_type > 0)
         if (get_col_info(&spec_col2, "Variable 2 ") == 0)
             return;
-    new_int("Window length ", &spec_wid);
-    new_int("0:sqr 1:par 2:ham 3:bart 4:han ", &spec_win);
+    ggets_new_int("Window length ", &spec_wid);
+    ggets_new_int("0:sqr 1:par 2:ham 3:bart 4:han ", &spec_win);
     if (HIST_HERE) {
         adj2_data_back();
         free(my_hist[0]);
@@ -725,7 +725,7 @@ compute_sd(void) {
     my_hist[1] = xmalloc(sizeof(*(my_hist[1]))*(usize)length);
     if (my_hist[1] == NULL) {
         free(my_hist[0]);
-        err_msg("Cannot allocate enough...");
+        ggets_err_msg("Cannot allocate enough...");
         return;
     }
     HIST_HERE = 1;
@@ -754,8 +754,8 @@ just_fourier(int32 flag) {
         return;
     new_four(nmodes, spec_col);
     if (flag) {
-        datx = get_data_col(1);
-        daty = get_data_col(2);
+        datx = browse_get_data_col(1);
+        daty = browse_get_data_col(2);
 
         for (i = 0; i < four_len; i++) {
             c = datx[i];
@@ -771,12 +771,12 @@ void
 compute_fourier(void) {
     int32 nmodes = 10;
     if (NEQ < 2) {
-        err_msg("Need at least three data columns");
+        ggets_err_msg("Need at least three data columns");
         return;
     }
-    /* new_int("Number of modes ",&nmodes); */
+    /* ggets_new_int("Number of modes ",&nmodes); */
     if (storind <= 1) {
-        err_msg("No data!");
+        ggets_err_msg("No data!");
         return;
     }
     if (get_col_info(&spec_col, "Variable ") == 1)
@@ -790,23 +790,23 @@ compute_correl(void) {
     int32 lag;
     double total = storage[0][storind - 1] - storage[0][0], dta;
     dta = total / (double)(storind - 1);
-    /*  new_int("(0) Xcor (1) Xspec (2) Coher ",&flag);
+    /*  ggets_new_int("(0) Xcor (1) Xspec (2) Coher ",&flag);
     if(flag>0){
       compute_cross(flag-1);
       return;
     }
     */
 
-    new_int("Number of bins ", &hist_inf.nbins);
-    new_int("(0)Direct or (1) FFT ", &hist_inf.fftc);
+    ggets_new_int("Number of bins ", &hist_inf.nbins);
+    ggets_new_int("(0)Direct or (1) FFT ", &hist_inf.fftc);
     if (hist_inf.nbins > (storind / 2 - 1))
         hist_inf.nbins = storind / 2 - 2;
 
     hist_inf.nbins = 2*(hist_inf.nbins / 2) + 1;
     lag = hist_inf.nbins / 2;
 
-    /* new_float("Low ",&hist_inf.xlo);
-       new_float("Hi ",&hist_inf.xhi); */
+    /* ggets_new_float("Low ",&hist_inf.xlo);
+       ggets_new_float("Hi ",&hist_inf.xhi); */
     /* lets try to get the lags correct for plotting */
     hist_inf.xlo = -lag*dta;
     hist_inf.xhi = lag*dta;
@@ -822,9 +822,9 @@ compute_correl(void) {
 
 void
 compute_stacor(void) {
-    new_int("Number of bins ", &hist_inf.nbins);
-    new_float("Low ", &hist_inf.xlo);
-    new_float("Hi ", &hist_inf.xhi);
+    ggets_new_int("Number of bins ", &hist_inf.nbins);
+    ggets_new_float("Low ", &hist_inf.xlo);
+    ggets_new_float("Hi ", &hist_inf.xhi);
     if (get_col_info(&hist_inf.col, "Variable ") == 0)
         return;
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
@@ -900,12 +900,12 @@ mycor2(double *x, double *y, int32 n, int32 nbins, double *z, int32 flag) {
 
 void
 compute_hist(void) {
-    new_int("Number of bins ", &hist_inf.nbins);
-    new_float("Low ", &hist_inf.xlo);
-    new_float("Hi ", &hist_inf.xhi);
+    ggets_new_int("Number of bins ", &hist_inf.nbins);
+    ggets_new_float("Low ", &hist_inf.xlo);
+    ggets_new_float("Hi ", &hist_inf.xhi);
     if (get_col_info(&hist_inf.col, "Variable ") == 0)
         return;
-    new_string("Condition ", hist_inf.cond);
+    ggets_new_string("Condition ", hist_inf.cond);
     new_hist(hist_inf.nbins, hist_inf.xlo, hist_inf.xhi, hist_inf.col, 0,
              hist_inf.cond, 0);
     return;

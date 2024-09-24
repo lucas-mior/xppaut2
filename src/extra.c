@@ -79,7 +79,7 @@ load_new_dll(void) {
     if (status == 0)
         return;
     sprintf(dlf.libname, "%s/%s", cur_dir, dlf.libfile);
-    new_string("Function name:", dlf.fun);
+    ggets_new_string("Function name:", dlf.fun);
     dlf.loaded = 0;
     return;
 }

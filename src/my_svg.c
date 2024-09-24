@@ -46,7 +46,7 @@ svg_init(char *filename) {
     LastPSY = -10000;
 
     if ((svgfile = fopen(filename, "w")) == NULL) {
-        err_msg("Cannot open file ");
+        ggets_err_msg("Cannot open file ");
         return 0;
     }
     PltFmtFlag = SVGFMT;

@@ -68,7 +68,7 @@ do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
     if (*ierr != 0) {
         del_stab_flag = 1;
         free(work);
-        err_msg("Could not converge to root");
+        ggets_err_msg("Could not converge to root");
         for (i = 0; i < n; i++)
             x[i] = old_x[i];
         return;

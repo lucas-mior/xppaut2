@@ -148,7 +148,7 @@ play_back(void) {
                 return;
             break;
         case KeyPress:
-            switch (get_key_press(&event)) {
+            switch (ggets_get_key_press(&event)) {
             case KEY_ESC:
                 return;
             case KEY_RIGHT:
@@ -192,10 +192,10 @@ save_kine(void) {
     sprintf(base, "frame");
     /* #ifdef NOGIF
    #else
-   new_int("format:1-ppm,2-gif",&fmat);
+   ggets_new_int("format:1-ppm,2-gif",&fmat);
    #endif
     */
-    new_string("Base file name", base);
+    ggets_new_string("Base file name", base);
     if (strlen(base) > 0)
         save_movie(base, fmat);
     return;
@@ -221,7 +221,7 @@ make_anigif(void) {
     w = movie[0].w;
     for (i = 0; i < mov_ind; i++) {
         if ((movie[i].h != h) || (movie[i].w != w)) {
-            err_msg("All clips must be same size");
+            ggets_err_msg("All clips must be same size");
             return;
         }
     }
@@ -300,8 +300,8 @@ auto_play(void) {
     XEvent event;
     int32 i = 0, cycle = 0;
 
-    new_int("Number of cycles", &ks_ncycle);
-    new_int("Msec between frames", &ks_speed);
+    ggets_new_int("Number of cycles", &ks_ncycle);
+    ggets_new_int("Msec between frames", &ks_speed);
     if (ks_speed < 0)
         ks_speed = 0;
     if (ks_ncycle <= 0)
@@ -327,7 +327,7 @@ auto_play(void) {
             case ButtonPress:
                 return;
             case KeyPress:
-                key = get_key_press(&event);
+                key = ggets_get_key_press(&event);
                 if (key == 27)
                     return;
                 if (key == ',') {
@@ -348,7 +348,7 @@ auto_play(void) {
 
         } /* done checking  now increment pix   */
 
-        wait_a_sec(ks_speed);
+        browse_wait_a_sec(ks_speed);
         i++;
         if (i >= mov_ind) {
             cycle++;

@@ -464,7 +464,7 @@ do_stochast_com(int32 i) {
         return;
     switch (ch) {
     case 'n':
-        new_int("Seed:", &RandSeed);
+        ggets_new_int("Seed:", &RandSeed);
         markov_nsrand48(RandSeed);
         break;
     case 'd':

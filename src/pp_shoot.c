@@ -119,7 +119,7 @@ compile_bvp(void) {
     for (i = 0; i < NODE; i++) {
         if (add_expr(my_bc[i].string, my_bc[i].com, &len)) {
             snprintf(badcom, sizeof(badcom), "Bad syntax on %d th BC", i + 1);
-            err_msg(badcom);
+            ggets_err_msg(badcom);
             return;
         }
     }
@@ -160,19 +160,19 @@ void
 bad_shoot(int32 iret) {
     switch (iret) {
     case NOCHANGE:
-        err_msg("No change from last point. Saving anyway");
+        ggets_err_msg("No change from last point. Saving anyway");
         break;
     case NUMICS:
-        err_msg("Number BCS not equal number ICs");
+        ggets_err_msg("Number BCS not equal number ICs");
         break;
     case BADINT:
-        err_msg("Unable to complete integration");
+        ggets_err_msg("Unable to complete integration");
         break;
     case TOOMANY:
-        err_msg("Maximum iterates exceeded");
+        ggets_err_msg("Maximum iterates exceeded");
         break;
     case BADJAC:
-        err_msg("Bad Jacobian -- uninvertable");
+        ggets_err_msg("Bad Jacobian -- uninvertable");
         break;
     default:
         fprintf(stderr, "Unexcepted case in %s.\n", __func__);
@@ -205,7 +205,7 @@ do_sh_range(double *ystart, double *yend) {
         temp = parlo + dpar*(double)i;
         set_val(shoot_range.item, temp);
         snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
-        bottom_msg(bob);
+        ggets_bottom_msg(bob);
         if (shoot_range.movie == 1)
             clr_scrn();
 
@@ -259,14 +259,14 @@ set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
         if (i > -1)
             *ipar = i;
         else {
-            err_msg("No such parameter");
+            ggets_err_msg("No such parameter");
             return 0;
         }
         i = find_user_name(IC, values[1]);
         if (i > -1)
             *ivar = i;
         else {
-            err_msg("No such variable");
+            ggets_err_msg("No such variable");
             return 0;
         }
         *sect = atof(values[2]);
@@ -289,10 +289,10 @@ find_bvp_com(int32 com) {
     double yend[MAX_ODE];
     /*  Window temp=main_win; */
     if (NMarkov > 0 || NKernel > 0) {
-        err_msg("Can't do BVP with integral or markov eqns");
+        ggets_err_msg("Can't do BVP with integral or markov eqns");
         return;
     }
-    wipe_rep();
+    browse_wipe_rep();
     adj2_data_back();
     compile_bvp();
     if (FFT || HIST || DelayFlag || BVP_FLAG == 0)
@@ -398,7 +398,7 @@ set_up_sh_range(void) {
         strcpy(shoot_range.item, values[0]);
         i = find_user_name(PARAM, shoot_range.item);
         if (i < 0) {
-            err_msg("No such parameter");
+            ggets_err_msg("No such parameter");
             return 0;
         }
 

@@ -88,8 +88,8 @@ file_inf(void) {
     ggets_ping();
     if (!file_selector("Save info", filename, "*.pars*"))
         return;
-    /* if(new_string("Filename: ",filename)==0)return; */
-    open_write_file(&fp, filename, &ok);
+    /* if(ggets_new_string("Filename: ",filename)==0)return; */
+    browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
     redraw_params();
@@ -263,7 +263,7 @@ do_lunch(/* f=1 to read and 0 to write */
 
         fp = fopen(filename, "r");
         if (fp == NULL) {
-            err_msg("Cannot open file");
+            ggets_err_msg("Cannot open file");
             return;
         }
         fgets(bob, 255, fp);
@@ -277,7 +277,7 @@ do_lunch(/* f=1 to read and 0 to write */
         /* io_int(&ne,fp,f); */
         io_int(&np, fp, f, " ");
         if (ne != NEQ || np != NUPAR) {
-            err_msg("Incompatible parameters");
+            ggets_err_msg("Incompatible parameters");
             fclose(fp);
             return;
         }
@@ -302,7 +302,7 @@ do_lunch(/* f=1 to read and 0 to write */
     }
     if (!file_selector("Save SET File", filename, "*.set"))
         return;
-    open_write_file(&fp, filename, &ok);
+    browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
     redraw_params();
@@ -430,14 +430,14 @@ io_parameter_file(char *fn, int32 flag) {
     if (flag == READEM) {
         fp = fopen(fnx, "r");
         if (fp == NULL) {
-            err_msg("Cannot open file");
+            ggets_err_msg("Cannot open file");
             return;
         }
         io_int(&np, fp, flag, " ");
         if (np != NUPAR) {
             printf("%d", np);
             printf("%d", NUPAR);
-            err_msg("Incompatible parameters");
+            ggets_err_msg("Incompatible parameters");
             fclose(fp);
             return;
         }
@@ -449,7 +449,7 @@ io_parameter_file(char *fn, int32 flag) {
     }
     fp = fopen(fnx, "w");
     if (fp == NULL) {
-        err_msg("Cannot open file");
+        ggets_err_msg("Cannot open file");
         return;
     }
     io_int(&NUPAR, fp, flag, "Number params");
@@ -479,7 +479,7 @@ io_ic_file(char *fn, int32 flag) {
     if (flag == READEM) {
         fp = fopen(fnx, "r");
         if (fp == NULL) {
-            err_msg("Cannot open file");
+            ggets_err_msg("Cannot open file");
             return;
         }
         for (int32 i = 0; i < NODE; i++) {
@@ -489,7 +489,7 @@ io_ic_file(char *fn, int32 flag) {
                     msg,
                     "Expected %d initial conditions but only found %d in %s.",
                     NODE, i, fn);
-                err_msg(msg);
+                ggets_err_msg(msg);
                 return;
             }
             /*printf("chk=%d\n",chk);*/
@@ -500,7 +500,7 @@ io_ic_file(char *fn, int32 flag) {
             if (chk != EOF) {
                 sprintf(msg, "Found more than %d initial conditions in %s.",
                         NODE, fn);
-                err_msg(msg);
+                ggets_err_msg(msg);
                 return;
             }
         }
@@ -509,7 +509,7 @@ io_ic_file(char *fn, int32 flag) {
 
     /* io_int(&np,fp,flag," ");
      if(np!=NUPAR){
-       err_msg("Incompatible parameters");
+       ggets_err_msg("Incompatible parameters");
     fclose(fp);
     return;
      }
@@ -521,7 +521,7 @@ io_ic_file(char *fn, int32 flag) {
   }
   fp=fopen(fnx,"w");
   if(fp==NULL){
-       err_msg("Cannot open file");
+       ggets_err_msg("Cannot open file");
        return;
      }
   io_int(&NUPAR,fp,flag,"Number params");

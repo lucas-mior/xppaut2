@@ -374,7 +374,7 @@ auto_x11_traverse_diagram(void) {
             int32 found = 0;
             char symb[3], nsymb[3];
             clear_msg();
-            kp = get_key_press(&event);
+            kp = ggets_get_key_press(&event);
 
             switch (kp) {
             case KEY_RIGHT:
@@ -652,7 +652,7 @@ auto_x11_bye(int32 *iflag) {
             }
             break;
         case KeyPress:
-            ch = (char)(get_key_press(&event));
+            ch = (char)(ggets_get_key_press(&event));
             if (ch == KEY_ESC) {
                 *iflag = 1;
                 return 0;
@@ -1198,7 +1198,7 @@ auto_x11_button(XEvent event) {
 void
 auto_kill(void) {
     Auto.exist = 0;
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, auto_win.base);
     XDestroyWindow(display, auto_win.base);
     return;
@@ -1219,7 +1219,7 @@ auto_x11_keypress(XEvent event, int32 *used) {
     if (window == auto_win.base || window == auto_win.canvas ||
         w2 == auto_win.base) {
         *used = 1;
-        ks = (char)get_key_press(&event);
+        ks = (char)ggets_get_key_press(&event);
 
         if (ks == 'a' || ks == 'A') {
             auto_plot_par();

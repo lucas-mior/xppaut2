@@ -147,19 +147,19 @@ set_browser_data(double **data, int32 col0) {
 }
 
 double *
-get_data_col(int32 c) {
+browse_get_data_col(int32 c) {
     return my_browser.data[c];
 }
 
 int32
-get_time_now(void) {
+browse_get_time_now(void) {
     struct timeval now;
     gettimeofday(&now, NULL);
     return (int32)now.tv_usec;
 }
 
 void
-wait_a_sec(int32 msec) {
+browse_wait_a_sec(int32 msec) {
     struct timeval tim;
 
     double sec = (double)msec / 1000;
@@ -211,7 +211,7 @@ write_browser_data(FILE *fp, Browser *b) {
 int32
 check_for_stor(double **data) {
     if (data != storage) {
-        err_msg("Only data can be in browser");
+        ggets_err_msg("Only data can be in browser");
         return 0;
     } else
         return 1;
@@ -225,7 +225,7 @@ data_del_col(Browser *b) {
     if (check_for_stor(b->data) == 0)
         return;
     XGetInputFocus(display, &window, &rev);
-    err_msg("Sorry - not working very well yet...");
+    ggets_err_msg("Sorry - not working very well yet...");
     return;
 }
 
@@ -255,21 +255,21 @@ add_stor_col(char *name, char *formula, Browser *b) {
     int32 com[4000], i, j;
 
     if (add_expr(formula, com, &i)) {
-        err_msg("Bad Formula .... ");
+        ggets_err_msg("Bad Formula .... ");
         return 0;
     }
     if ((my_ode[NEQ + FIX_VAR] = xmalloc((usize)(i + 2)*sizeof(int32))) ==
         NULL) {
-        err_msg("Cant allocate formula space");
+        ggets_err_msg("Cant allocate formula space");
         return 0;
     }
     if ((storage[NEQ + 1] = xmalloc((usize)MAXSTOR*sizeof(double))) == NULL) {
-        err_msg("Cant allocate space ....");
+        ggets_err_msg("Cant allocate space ....");
         free(my_ode[NEQ]);
         return 0;
     }
     if ((ode_names[NEQ] = xmalloc(80)) == NULL) {
-        err_msg("Cannot allocate space ...");
+        ggets_err_msg("Cannot allocate space ...");
         free(my_ode[NEQ]);
         free(storage[NEQ + 1]);
         return 0;
@@ -354,9 +354,9 @@ replace_column(char *var, char *form, double **dat, int32 n) {
     }
     if (form[i] == '@') {
         form[i] = ' ';
-        find_variable(form, &dif_var);
+        browse_find_variable(form, &dif_var);
         if (dif_var < 0) {
-            err_msg("No such variable");
+            ggets_err_msg("No such variable");
             return;
         }
     }
@@ -372,7 +372,7 @@ replace_column(char *var, char *form, double **dat, int32 n) {
     if (seq == 2)
         da = a2;
     if (seq == 3) {
-        err_msg("Illegal sequence");
+        ggets_err_msg("Illegal sequence");
         return;
     }
 
@@ -382,15 +382,15 @@ replace_column(char *var, char *form, double **dat, int32 n) {
         if (add_expr(form, com, &i)) {
             NCON = NCON_START;
             NSYM = NSYM_START;
-            err_msg("Illegal formula...");
+            ggets_err_msg("Illegal formula...");
             return;
         }
     }
     /* next check to see if column is known ... */
 
-    find_variable(var, &i);
+    browse_find_variable(var, &i);
     if (i < 0) {
-        err_msg("No such column...");
+        ggets_err_msg("No such column...");
         NCON = NCON_START;
         NSYM = NSYM_START;
         return;
@@ -399,7 +399,7 @@ replace_column(char *var, char *form, double **dat, int32 n) {
 
     /* Okay the formula is cool so lets allocate and replace  */
 
-    wipe_rep();
+    browse_wipe_rep();
     old_rep = xmalloc(sizeof(*old_rep)*(usize)n);
     REPLACE = 1;
     for (i = 0; i < n; i++) {
@@ -436,7 +436,7 @@ replace_column(char *var, char *form, double **dat, int32 n) {
 }
 
 void
-wipe_rep(void) {
+browse_wipe_rep(void) {
     if (!REPLACE)
         return;
     free(old_rep);
@@ -451,7 +451,7 @@ unreplace_column(void) {
         return;
     for (i = 0; i < n; i++)
         my_browser.data[R_COL][i] = old_rep[i];
-    wipe_rep();
+    browse_wipe_rep();
     return;
 }
 
@@ -459,7 +459,7 @@ void
 make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
     int32 i, npts, ok;
     FILE *fp;
-    open_write_file(&fp, filename, &ok);
+    browse_open_write_file(&fp, filename, &ok);
     if (!ok)
         return;
     npts = b.iend - b.istart;
@@ -493,7 +493,7 @@ find_value(int32 col, double val, int32 *row, Browser b) {
 }
 
 void
-find_variable(char *s, int32 *col) {
+browse_find_variable(char *s, int32 *col) {
     *col = -1;
     if (strcasecmp("T", s) == 0) {
         *col = 0;
@@ -728,7 +728,7 @@ init_browser(void) {
 void
 kill_browser(Browser *b) {
     b->xflag = 0;
-    wait_a_sec(ClickTime);
+    browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, b->base);
     XDestroyWindow(display, b->base);
     return;
@@ -745,7 +745,7 @@ make_new_browser(void) {
 }
 
 Window
-br_button(Window root, int32 row, int32 col, int32 iflag) {
+browse_button2(Window root, int32 row, int32 col, int32 iflag) {
     Window window;
     int32 dcol = 12*DCURXs;
     int32 drow = (DCURYs + 6);
@@ -835,28 +835,28 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     b->main =
         make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
-    b->find = br_button(base, 0, 0, 0);
-    b->get = br_button(base, 1, 0, 0);
-    b->repl = br_button(base, 2, 0, 0);
-    b->restore = br_button(base, 0, 1, 0);
-    b->write = br_button(base, 1, 1, 0);
-    b->load = br_button(base, 2, 1, 0);
-    b->first = br_button(base, 0, 2, 0);
-    b->last = br_button(base, 1, 2, 0);
-    b->unrepl = br_button(base, 2, 2, 0);
-    b->table = br_button(base, 2, 3, 0);
-    b->up = br_button(base, 0, 3, 0);
-    b->down = br_button(base, 1, 3, 0);
-    b->pgup = br_button(base, 0, 4, 0);
-    b->pgdn = br_button(base, 1, 4, 0);
-    b->left = br_button(base, 0, 5, 0);
-    b->right = br_button(base, 1, 5, 0);
-    b->home = br_button(base, 0, 6, 0);
-    b->end = br_button(base, 1, 6, 0);
-    b->addcol = br_button(base, 2, 4, 0);
-    b->delcol = br_button(base, 2, 5, 0);
-    b->close = br_button(base, 2, 6, 0);
-    b->time = br_button(base, 5, 0, 1);
+    b->find = browse_button2(base, 0, 0, 0);
+    b->get = browse_button2(base, 1, 0, 0);
+    b->repl = browse_button2(base, 2, 0, 0);
+    b->restore = browse_button2(base, 0, 1, 0);
+    b->write = browse_button2(base, 1, 1, 0);
+    b->load = browse_button2(base, 2, 1, 0);
+    b->first = browse_button2(base, 0, 2, 0);
+    b->last = browse_button2(base, 1, 2, 0);
+    b->unrepl = browse_button2(base, 2, 2, 0);
+    b->table = browse_button2(base, 2, 3, 0);
+    b->up = browse_button2(base, 0, 3, 0);
+    b->down = browse_button2(base, 1, 3, 0);
+    b->pgup = browse_button2(base, 0, 4, 0);
+    b->pgdn = browse_button2(base, 1, 4, 0);
+    b->left = browse_button2(base, 0, 5, 0);
+    b->right = browse_button2(base, 1, 5, 0);
+    b->home = browse_button2(base, 0, 6, 0);
+    b->end = browse_button2(base, 1, 6, 0);
+    b->addcol = browse_button2(base, 2, 4, 0);
+    b->delcol = browse_button2(base, 2, 5, 0);
+    b->close = browse_button2(base, 2, 6, 0);
+    b->time = browse_button2(base, 5, 0, 1);
     b->hint = make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
     XSelectInput(display, b->time, SIMPMASK);
 
@@ -998,7 +998,7 @@ browse_button(XEvent event, Browser *b) {
                 data_left(b);
             if (w == b->right)
                 data_right(b);
-            wait_a_sec(100);
+            browse_wait_a_sec(100);
             if (XPending(display) > 0) {
                 XNextEvent(display, &zz);
                 switch (zz.type) {
@@ -1106,7 +1106,7 @@ browse_keypress(XEvent event, int32 *used, Browser *b) {
     if (w == b->main || w == b->base || w == b->upper || w2 == b->base) {
         *used = 1;
 
-        ks = (char)get_key_press(&event);
+        ks = (char)ggets_get_key_press(&event);
 
         /*
          XLookupString(&ev,buf,maxlen,&ks,&comp);
@@ -1367,7 +1367,7 @@ data_table(Browser *b) {
         return;
     xlo = atof(value[1]);
     xhi = atof(value[2]);
-    find_variable(value[0], &col);
+    browse_find_variable(value[0], &col);
     if (col >= 0)
         make_d_table(xlo, xhi, col, value[3], *b);
     return;
@@ -1395,7 +1395,7 @@ data_find(Browser *b) {
     if (status == 0)
         return;
     val = (double)atof(value[1]);
-    find_variable(value[0], &col);
+    browse_find_variable(value[0], &col);
     if (col >= 0)
         find_value(col, val, &row, *b);
     if (row >= 0) {
@@ -1406,7 +1406,7 @@ data_find(Browser *b) {
 }
 
 void
-open_write_file(FILE **fp, char *fil, int32 *ok) {
+browse_open_write_file(FILE **fp, char *fil, int32 *ok) {
     char ans;
     *ok = 0;
     *fp = fopen(fil, "r");
@@ -1503,7 +1503,7 @@ data_write(Browser *b) {
     XGetInputFocus(display,&w,&rev);
      XSetInputFocus(display,command_pop,RevertToParent,CurrentTime);
      strcpy(fil,"test.dat");
-     new_string("Write to:",fil);
+     ggets_new_string("Write to:",fil);
     */
     /* status=get_dialog("Write","Filename:",fil,"Ok","Cancel",40);
 
@@ -1511,7 +1511,7 @@ data_write(Browser *b) {
     status = file_selector("Write data", fil, "*.dat");
     if (status == 0)
         return;
-    open_write_file(&fp, fil, &ok);
+    browse_open_write_file(&fp, fil, &ok);
     if (!ok)
         return;
     for (i = b->istart; i < b->iend; i++) {
