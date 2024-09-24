@@ -55,7 +55,7 @@ typedef struct {
 
 static int32 cv_diag_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 CVDiagSetup(CVodeMem cv_mem, int32 convfail, Vector ypred,
+static int32 cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
                          Vector fpred, bool *jcurPtr, Vector vtemp1,
                          Vector vtemp2, Vector vtemp3);
 
@@ -95,7 +95,7 @@ static void cv_diag_free(CVodeMem cv_mem);
  This routine initializes the memory record and sets various function
  fields specific to the diagonal linear solver module. CVDiag sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be cv_diag_init, CVDiagSetup, CVDiagSolve, and cv_diag_free,
+ to be cv_diag_init, cv_diag_setup, CVDiagSolve, and cv_diag_free,
  respectively. It allocates memory for a structure of type
  CVDiagMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure.
@@ -114,7 +114,7 @@ cv_diag(void *cvode_mem) {
 
     /* Set four main function fields in cv_mem */
     linit = cv_diag_init;
-    lsetup = CVDiagSetup;
+    lsetup = cv_diag_setup;
     lsolve = CVDiagSolve;
     lfree = cv_diag_free;
 
@@ -178,7 +178,7 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
     return LINIT_OK;
 }
 
-/*************** CVDiagSetup *****************************************
+/*************** cv_diag_setup *****************************************
 
  This routine does the setup operations for the diagonal linear
  solver.  It constructs a diagonal approximation to the Newton matrix
@@ -187,7 +187,7 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-CVDiagSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
             bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double r;
     Vector ftemp;

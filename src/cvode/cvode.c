@@ -289,11 +289,11 @@
 static bool cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord);
 static void cv_free_vectors(CVodeMem cv_mem, int32 maxord);
 
-static bool CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
+static bool cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
                      Vector ycur, Vector ewtvec, int64 neq);
-static bool CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol,
+static bool cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol,
                        Vector ycur, Vector ewtvec, int64 neq);
-static bool CVEwtSetSV(CVodeMem cv_mem, double *rtol, Vector atol,
+static bool cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol,
                        Vector ycur, Vector ewtvec, int64 neq);
 
 static bool cv_hin(CVodeMem cv_mem, double tout);
@@ -320,7 +320,7 @@ static void cv_adams_finish(CVodeMem cv_mem, double m[], double M[],
                             double hsum);
 static double cv_alt_sum(int32 iend, double a[], int32 k);
 static void cv_set_bdf(CVodeMem cv_mem);
-static void CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0,
+static void cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0,
                        double alpha0_hat, double xi_inv, double xistar_inv);
 
 static int32 cv_nls(CVodeMem cv_mem, int32 nflag);
@@ -328,12 +328,12 @@ static int32 cv_nls_functional(CVodeMem cv_mem);
 static int32 cv_nls_newton(CVodeMem cv_mem, int32 nflag);
 static int32 cv_newton_iteration(CVodeMem cv_mem);
 
-static int32 CVHandleNFlag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
+static int32 cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
                            int32 *ncfPtr);
 
 static void cv_restore(CVodeMem cv_mem, double saved_t);
 
-static bool CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
+static bool cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
                           double saved_t, int32 *nefPtr, double *dsmPtr);
 
 static void cv_complete_step(CVodeMem cv_mem);
@@ -547,7 +547,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
 
     /* Set the ewt vector */
 
-    ewtsetOK = CVEwtSet(cv_mem, reltol, abstol, itol, y0, ewt, N);
+    ewtsetOK = cv_ewt_set(cv_mem, reltol, abstol, itol, y0, ewt, N);
     if (!ewtsetOK) {
         fprintf(fp, MSG_BAD_EWT);
         cv_free_vectors(cv_mem, maxord);
@@ -803,7 +803,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
         /* Reset and check ewt */
 
         if (nst > 0) {
-            ewtsetOK = CVEwtSet(cv_mem, reltol, abstol, itol, zn[0], ewt, N);
+            ewtsetOK = cv_ewt_set(cv_mem, reltol, abstol, itol, zn[0], ewt, N);
             if (!ewtsetOK) {
                 fprintf(errfp, MSG_EWT_NOW_BAD, tn);
                 istate = ILL_INPUT;
@@ -1094,7 +1094,7 @@ cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
     return;
 }
 
-/*********************** CVEwtSet **************************************
+/*********************** cv_ewt_set **************************************
 
  This routine is responsible for setting the error weight vector
  ewtvec, according to tol_type, as follows:
@@ -1104,40 +1104,40 @@ cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
  (2) ewtvec[i] = 1 / (*rtol*ABS(ycur[i]) + atol[i]), i=0,...,neq-1
      if tol_type = SV
 
-  CVEwtSet returns TRUE if ewtvec is successfully set as above to a
+  cv_ewt_set returns TRUE if ewtvec is successfully set as above to a
   positive vector and FALSE otherwise. In the latter case, ewtvec is
-  considered undefined after the FALSE return from CVEwtSet.
+  considered undefined after the FALSE return from cv_ewt_set.
 
-  All the double work is done in the routines CVEwtSetSS, CVEwtSetSV.
+  All the double work is done in the routines cv_ewt_set_ss, cv_ewt_set_sv.
 
 ***********************************************************************/
 
 static bool
-CVEwtSet(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
+cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
          Vector ycur, Vector ewtvec, int64 neq) {
     switch (tol_type) {
     case SS:
-        return CVEwtSetSS(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
+        return cv_ewt_set_ss(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
     case SV:
-        return CVEwtSetSV(cv_mem, rtol, (Vector)atol, ycur, ewtvec, neq);
+        return cv_ewt_set_sv(cv_mem, rtol, (Vector)atol, ycur, ewtvec, neq);
     default:
         break;
     }
     return 0;
 }
 
-/*********************** CVEwtSetSS *********************************
+/*********************** cv_ewt_set_ss *********************************
 
  This routine sets ewtvec as decribed above in the case tol_type=SS.
- It tests for non-positive components before inverting. CVEwtSetSS
+ It tests for non-positive components before inverting. cv_ewt_set_ss
  returns TRUE if ewtvec is successfully set to a positive vector
  and FALSE otherwise. In the latter case, ewtvec is considered
- undefined after the FALSE return from CVEwtSetSS.
+ undefined after the FALSE return from cv_ewt_set_ss.
 
 ********************************************************************/
 
 static bool
-CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
+cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
            Vector ewtvec, int64 neq) {
     double rtoli;
     double atoli;
@@ -1154,18 +1154,18 @@ CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
     return TRUE;
 }
 
-/*********************** CVEwtSetSV *********************************
+/*********************** cv_ewt_set_sv *********************************
 
  This routine sets ewtvec as decribed above in the case tol_type=SV.
- It tests for non-positive components before inverting. CVEwtSetSV
+ It tests for non-positive components before inverting. cv_ewt_set_sv
  returns TRUE if ewtvec is successfully set to a positive vector
  and FALSE otherwise. In the latter case, ewtvec is considered
- undefined after the FALSE return from CVEwtSetSV.
+ undefined after the FALSE return from cv_ewt_set_sv.
 
 ********************************************************************/
 
 static bool
-CVEwtSetSV(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
+cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
            Vector ewtvec, int64 neq) {
     double rtoli;
     (void)neq;
@@ -1355,14 +1355,14 @@ cv_step(CVodeMem cv_mem) {
         cv_set(cv_mem);
 
         nflag = cv_nls(cv_mem, nflag);
-        kflag = CVHandleNFlag(cv_mem, &nflag, saved_t, &ncf);
+        kflag = cv_handle_n_flag(cv_mem, &nflag, saved_t, &ncf);
         if (kflag == PREDICT_AGAIN)
             continue;
         if (kflag != DO_ERROR_TEST)
             return kflag;
         /* Return if nonlinear solve failed and recovery not possible. */
 
-        passed = CVDoErrorTest(cv_mem, &nflag, &kflag, saved_t, &nef, &dsm);
+        passed = cv_do_error_test(cv_mem, &nflag, &kflag, saved_t, &nef, &dsm);
         if ((!passed) && (kflag == REP_ERR_FAIL))
             return kflag;
         /* Return if error test failed and recovery not possible. */
@@ -1780,7 +1780,7 @@ cv_alt_sum(int32 iend, double a[], int32 k) {
 /***************** CVSetBDF **************************************
 
  This routine computes the coefficients l and tq in the case
- lmm == BDF.  CVSetBDF calls CVSetTqBDF to set the test
+ lmm == BDF.  CVSetBDF calls cv_set_tq_bdf to set the test
  quantity vector tq.
 
  The components of the vector l are the coefficients of a
@@ -1826,11 +1826,11 @@ cv_set_bdf(CVodeMem cv_mem) {
             l[i] += l[i - 1]*xistar_inv;
     }
 
-    CVSetTqBDF(cv_mem, hsum, alpha0, alpha0_hat, xi_inv, xistar_inv);
+    cv_set_tq_bdf(cv_mem, hsum, alpha0, alpha0_hat, xi_inv, xistar_inv);
     return;
 }
 
-/****************** CVSetTqBDF ************************************
+/****************** cv_set_tq_bdf ************************************
 
  This routine sets the test quantity vector tq in the case
  lmm == BDF.
@@ -1838,7 +1838,7 @@ cv_set_bdf(CVodeMem cv_mem) {
 ******************************************************************/
 
 static void
-CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
+cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
            double xi_inv, double xistar_inv) {
     double A1, A2, A3, A4, A5, A6;
     double C, CPrime, CPrimePrime;
@@ -2095,13 +2095,13 @@ cv_newton_iteration(CVodeMem cv_mem) {
     }
 }
 
-/********************** CVHandleNFlag *******************************
+/********************** cv_handle_n_flag *******************************
 
  This routine takes action on the return value nflag = *nflagPtr
  returned by CVnls, as follows:
 
  If CVnls succeeded in solving the nonlinear system, then
- CVHandleNFlag returns the constant DO_ERROR_TEST, which tells CVStep
+ cv_handle_n_flag returns the constant DO_ERROR_TEST, which tells CVStep
  to perform the error test.
 
  If the nonlinear system was not solved successfully, then ncfn and
@@ -2123,7 +2123,7 @@ cv_newton_iteration(CVodeMem cv_mem) {
 *********************************************************************/
 
 static int32
-CVHandleNFlag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr) {
+cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr) {
     int32 nflag;
 
     nflag = *nflagPtr;
@@ -2176,13 +2176,13 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
     return;
 }
 
-/******************* CVDoErrorTest ********************************
+/******************* cv_do_error_test ********************************
 
  This routine performs the local error test.
  The weighted local error norm dsm is loaded into *dsmPtr, and
  the test dsm ?<= 1 is made.
 
- If the test passes, CVDoErrorTest returns TRUE.
+ If the test passes, cv_do_error_test returns TRUE.
 
  If the test fails, we undo the step just taken (call CVRestore),
  set *nflagPtr to PREV_ERR_FAIL, and return FALSE.
@@ -2197,7 +2197,7 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
 ******************************************************************/
 
 static bool
-CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
+cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
               int32 *nefPtr, double *dsmPtr) {
     double dsm;
 

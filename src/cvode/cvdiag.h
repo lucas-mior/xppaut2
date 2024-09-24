@@ -36,7 +36,7 @@
  *                  workspace vectors used by this solver.        *
  *                                                                *
  * The number of diagonal approximate Jacobians formed is equal   *
- * to the number of CVDiagSetup calls. This number is available   *
+ * to the number of cv_diag_setup calls. This number is available   *
  * in cv_iopt[NSETUPS].                                           *
  *                                                                *
  ******************************************************************/

@@ -62,7 +62,7 @@ typedef struct {
 
 static int32 cv_dense_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 CVDenseSetup(CVodeMem cv_mem, int32 convfail, Vector ypred,
+static int32 cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
                           Vector fpred, bool *jcurPtr, Vector vtemp1,
                           Vector vtemp2, Vector vtemp3);
 
@@ -171,7 +171,7 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
  This routine initializes the memory record and sets various function
  fields specific to the dense linear solver module. CVDense sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be cv_dense_init, CVDenseSetup, CVDenseSolve, and cv_dense_free,
+ to be cv_dense_init, cv_dense_setup, CVDenseSolve, and cv_dense_free,
  respectively. It allocates memory for a structure of type
  CVDenseMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure. Finally, it sets d_J_data field in the
@@ -196,7 +196,7 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
 
     /* Set four main function fields in cv_mem */
     linit = cv_dense_init;
-    lsetup = CVDenseSetup;
+    lsetup = cv_dense_setup;
     lsolve = CVDenseSolve;
     lfree = cv_dense_free;
 
@@ -272,7 +272,7 @@ cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
     return LINIT_OK;
 }
 
-/*************** CVDenseSetup ****************************************
+/*************** cv_dense_setup ****************************************
 
  This routine does the setup operations for the dense linear solver.
  It makes a decision whether or not to call the Jacobian evaluation
@@ -284,7 +284,7 @@ cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-CVDenseSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
+cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
              bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
