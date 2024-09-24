@@ -116,7 +116,7 @@ uint32 MyMainWinColor;
 uint32 MyDrawWinColor;
 uint32 GrFore;
 uint32 GrBack;
-int32 SCALEX;
+static int32 SCALEX;
 int32 SCALEY;
 extern int32 COLOR;
 Display *display;

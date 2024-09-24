@@ -39,8 +39,6 @@ extern int32 DCURYs;
 extern int32 PltFmtFlag;
 extern uint32 GrFore;
 extern uint32 GrBack;
-extern int32 SCALEX;
-extern int32 SCALEY;
 extern int32 DCURX;
 extern int32 DCURY;
 extern int32 xor_flag;

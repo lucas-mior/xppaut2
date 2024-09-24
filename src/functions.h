@@ -3859,6 +3859,13 @@ extern int32 TipsFlag;
 extern char UserBlack[8];
 extern char UserWhite[8];
 extern int32 UserGradients;
+extern char UserMainWinColor[8];
+extern char UserDrawWinColor[8];
+extern char UserBGBitmap[XPP_MAX_NAME];
+extern uint32 MyMainWinColor;
+extern uint32 MyDrawWinColor;
+extern uint32 GrFore;
+extern uint32 GrBack;
 
 /*  This is a string box widget which handles a list of
         editable strings
