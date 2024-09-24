@@ -2,11 +2,8 @@
 #define phsplan_h
 #include "integers.h"
 
-/*          This include file has all of the global phaseplane
-            stuff.
-            This is not where it is defined
-
-*/
+/* This include file has all of the global phaseplane stuff.
+ * This is not where it is defined */
 
 #include "xpplim.h"
 
