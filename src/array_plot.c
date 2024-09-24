@@ -83,7 +83,7 @@ static void array_plot_gif_all(char *, int32);
 static void scale_aplot(struct ArrayPlot *ap, double *zmax, double *zmin);
 static void wborder(Window window, int32 i, struct ArrayPlot ap);
 static void create_array_plot(struct ArrayPlot *ap, char *wname, char *iname);
-static void print_aplot(struct ArrayPlot *ap);
+static void array_plot_print(struct ArrayPlot *ap);
 static void draw_scale(struct ArrayPlot ap);
 static void array_plot_draw(struct ArrayPlot ap);
 static void reset_aplot_axes(struct ArrayPlot ap);
@@ -93,7 +93,7 @@ static void array_plot_display(Window window, struct ArrayPlot ap);
 static void array_plot_destroy(void);
 static void array_plot_button(Window window);
 static void get_root(char *s, char *sroot, int32 *num);
-static void gif_aplot(void);
+static void array_plot_gif(void);
 
 void
 array_plot_draw_one(char *bob) {
@@ -134,7 +134,7 @@ set_up_aplot_range(void) {
 }
 
 static void
-fit_aplot(void) {
+array_plot_fit(void) {
     double zmax;
     double zmin;
     scale_aplot(&array_plot, &zmax, &zmin);
@@ -372,7 +372,7 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
 }
 
 void
-print_aplot(struct ArrayPlot *ap) {
+array_plot_print(struct ArrayPlot *ap) {
     double tlo;
     double thi;
     int32 status, errflag;
@@ -427,17 +427,17 @@ array_plot_button(Window window) {
     if (window == array_plot.wedit)
         array_plot_edit2(&array_plot);
     if (window == array_plot.wfit)
-        fit_aplot();
+        array_plot_fit();
     if (window == array_plot.wrange)
         set_up_aplot_range();
     if (window == array_plot.wredraw)
         redraw_aplot(array_plot);
     if (window == array_plot.wprint)
-        print_aplot(&array_plot);
+        array_plot_print(&array_plot);
     if (window == array_plot.wclose)
         array_plot_destroy();
     if (window == array_plot.wgif)
-        gif_aplot();
+        array_plot_gif();
     return;
 }
 
@@ -632,7 +632,7 @@ array_plot_gif_all(char *filename, int32 still) {
 }
 
 void
-gif_aplot(void) {
+array_plot_gif(void) {
     char filename[XPP_MAX_NAME + 4];
     snprintf(filename, sizeof(filename), "%s.gif", this_file);
     if (!init_conds_file_selector("GIF plot", filename, "*.gif"))
