@@ -209,8 +209,8 @@ typedef struct {
     autoae_function_list aelist;
 } function_list;
 
-double time_start(void);
-double time_end(double);
+double conpar2_time_start(void);
+double conpar2_time_end(double);
 void allocate_global_memory(iap_type);
 int32 init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
            double **thu_pointer, int64 *iuz, double *vuz);

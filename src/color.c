@@ -37,10 +37,10 @@ int32 custom_color = 0;
 
 static XColor color[MAX_COLORS];
 
-static int32 bfun(double y, int32 per);
-static int32 gfun(double y, int32 per);
-static int32 rfun(double y, int32 per);
-static void make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
+static int32 color_bfun(double y, int32 per);
+static int32 color_gfun(double y, int32 per);
+static int32 color_rfun(double y, int32 per);
+static void color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type);
 
 void
 color_set_s(int32 col) {
@@ -75,7 +75,7 @@ color_set(int32 col) {
 
 /* this makes alot of nice color maps */
 void
-make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
+color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     double x;
     int32 i, i1, i2, i3;
     double pii = 3.1415926;
@@ -89,17 +89,17 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     case C_NORM:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            r[i] = rfun(1 - x, 0) << 8;
-            g[i] = gfun(1 - x, 0) << 8;
-            b[i] = bfun(1 - x, 0) << 8;
+            r[i] = color_rfun(1 - x, 0) << 8;
+            g[i] = color_gfun(1 - x, 0) << 8;
+            b[i] = color_bfun(1 - x, 0) << 8;
         }
         break;
     case C_PERIODIC:
         for (i = 0; i < n; i++) {
             x = (double)i / ((double)n);
-            r[i] = rfun(x, 1) << 8;
-            g[i] = gfun(x, 1) << 8;
-            b[i] = bfun(x, 1) << 8;
+            r[i] = color_rfun(x, 1) << 8;
+            g[i] = color_gfun(x, 1) << 8;
+            b[i] = color_bfun(x, 1) << 8;
         }
         break;
     case C_HOT:
@@ -186,7 +186,7 @@ make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
 }
 
 int32
-rfun(double y, int32 per) {
+color_rfun(double y, int32 per) {
     double x;
     x = y;
     if ((y > .666666) && (per == 1))
@@ -198,7 +198,7 @@ rfun(double y, int32 per) {
 }
 
 int32
-gfun(double y, int32 per) {
+color_gfun(double y, int32 per) {
     (void)per;
     if (y > .666666)
         return 0;
@@ -206,7 +206,7 @@ gfun(double y, int32 per) {
 }
 
 int32
-bfun(double y, int32 per) {
+color_bfun(double y, int32 per) {
     (void)per;
     if (y < .333334)
         return 0;
@@ -297,7 +297,7 @@ color_map_make(void) {
         }
     }
 
-    make_cmaps(r, g, b, color_total + 1, custom_color);
+    color_make_cmaps(r, g, b, color_total + 1, custom_color);
     for (int32 i = color_min; i <= color_max; i++) {
         color[i].red = (ushort)r[i - color_min];
         color[i].green = (ushort)g[i - color_min];

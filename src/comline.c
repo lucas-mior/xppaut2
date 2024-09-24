@@ -72,9 +72,9 @@ static struct SetName {
     struct SetName *next;
 } *sets2use, *setsNOTuse;
 
-static int32 is_set_name(struct SetName *set, char *nam);
-static struct SetName *add_set(struct SetName *set, char *nam);
-static int32 parse_it(char *com);
+static int32 comline_is_set_name(struct SetName *set, char *nam);
+static struct SetName *comline_add_set(struct SetName *set, char *nam);
+static int32 comline_parse_it(char *com);
 
 static int32 loadsetfile = 0;
 static int32 loadparfile = 0;
@@ -107,7 +107,7 @@ static Vocab my_cmd[NCMD] = {
     {"-equil", 6}};
 
 int32
-is_set_name(struct SetName *set, char *nam) {
+comline_is_set_name(struct SetName *set, char *nam) {
     struct SetName *curr;
     if (set == NULL)
         return 0;
@@ -125,8 +125,8 @@ is_set_name(struct SetName *set, char *nam) {
 }
 
 struct SetName *
-add_set(struct SetName *set, char *nam) {
-    if (!is_set_name(set, nam)) {
+comline_add_set(struct SetName *set, char *nam) {
+    if (!comline_is_set_name(set, nam)) {
         struct SetName *curr;
         curr = xmalloc(sizeof(struct SetName));
         curr->name = (char *)nam;
@@ -149,7 +149,7 @@ comline_do(int32 argc, char **argv) {
     parfilename[0] = 0;
     icfilename[0] = 0;
     for (i = 1; i < argc; i++) {
-        k = parse_it(argv[i]);
+        k = comline_parse_it(argv[i]);
         if (k == 1) {
             strcpy(setfilename, argv[i + 1]);
             i++;
@@ -244,12 +244,12 @@ comline_do(int32 argc, char **argv) {
             i++;
         }
         if (k == 17) {
-            sets2use = add_set(sets2use, argv[i + 1]);
+            sets2use = comline_add_set(sets2use, argv[i + 1]);
             i++;
             select_intern_sets = 1;
         }
         if (k == 18) {
-            setsNOTuse = add_set(setsNOTuse, argv[i + 1]);
+            setsNOTuse = comline_add_set(setsNOTuse, argv[i + 1]);
             i++;
             select_intern_sets = 1;
         }
@@ -352,7 +352,7 @@ comline_if_needed_select_sets(void) {
         intern_set[j].use = (uint32)use_intern_sets;
         Nintern_2_use += use_intern_sets;
 
-        if (is_set_name(sets2use, intern_set[j].name)) {
+        if (comline_is_set_name(sets2use, intern_set[j].name)) {
             ggets_plintf("Internal set %s was included\n", intern_set[j].name);
             if (intern_set[j].use == 0) {
                 Nintern_2_use++;
@@ -360,7 +360,7 @@ comline_if_needed_select_sets(void) {
             intern_set[j].use = 1;
         }
 
-        if (is_set_name(setsNOTuse, intern_set[j].name)) {
+        if (comline_is_set_name(setsNOTuse, intern_set[j].name)) {
             ggets_plintf("Internal set %s was excluded\n", intern_set[j].name);
             if (intern_set[j].use == 1) {
                 Nintern_2_use--;
@@ -408,7 +408,7 @@ comline_if_needed_load_ic(void) {
 }
 
 int32
-parse_it(char *com) {
+comline_parse_it(char *com) {
     int32 j;
     for (j = 0; j < NCMD; j++) {
         if (strncmp(com, my_cmd[j].name, (size_t)my_cmd[j].len) == 0) {

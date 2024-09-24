@@ -9,7 +9,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 static double
-time_start(void) {
+conpar2_time_start(void) {
     struct rusage time;
     double seconds;
     double microseconds;
@@ -20,7 +20,7 @@ time_start(void) {
 }
 
 static double
-time_end(double start) {
+conpar2_time_end(double start) {
     struct rusage time;
     double seconds;
     double microseconds;

@@ -6962,7 +6962,7 @@ setpbv(iap_type *iap, rap_type *rap, double *dtm) {
 #include <sys/resource.h>
 
 double
-time_start(void) {
+conpar2_time_start(void) {
     struct timeval time;
     double seconds;
     double microseconds;
@@ -6973,7 +6973,7 @@ time_start(void) {
 }
 
 double
-time_end(double start) {
+conpar2_time_end(double start) {
     struct timeval time;
     double seconds;
     double microseconds;
