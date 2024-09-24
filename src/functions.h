@@ -3264,6 +3264,8 @@ extern double SLIDER1INIT;
 extern double SLIDER2INIT;
 extern double SLIDER3INIT;
 
+extern int32 DoTutorial;
+
 void *XMALLOC(usize size, const char *function, int32 line);
 #ifdef MALLOC_DEBUG
 #define xmalloc(X) XMALLOC(X, __func__, __LINE__)

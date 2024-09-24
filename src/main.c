@@ -168,8 +168,6 @@ OptionsSet notAlreadySet;
 XFontStruct *big_font;
 XFontStruct *small_font;
 
-int32 popped = 0;
-
 static void test_color_info(void);
 static int32 getxcolors(XWindowAttributes *win_info, XColor **colors);
 static void make_pops(void);
