@@ -64,7 +64,6 @@ static void auto_x11_mark(int32 x, int32 y);
 static int32 query_special(char *title, char *nsymb);
 static void clear_msg(void);
 static void find_point(int32 ibr, int32 pt);
-static void RedrawMark(void);
 static void auto_kill(void);
 static void a_msg(int32 i, int32 v);
 static Window lil_button(Window root, int32 x, int32 y);
@@ -526,7 +525,11 @@ auto_x11_traverse_diagram(void) {
                 not to do the XORCross function at all.*/
                 DONT_XORCross = 1;
                 diagram_redraw();
-                RedrawMark();
+                if (mark_flag == 2) {
+                    // redraw mark
+                    auto_x11_mark(mark_ixs, mark_iys);
+                    auto_x11_mark(mark_ixe, mark_iye);
+                }
                 break;
             case KEY_ESC:
                 done = -1;
@@ -660,15 +663,6 @@ auto_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
     int32 value = pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
                               auto_win.hint, httxt);
     return value;
-}
-
-void
-RedrawMark(void) {
-    if (mark_flag == 2) {
-        auto_x11_mark(mark_ixs, mark_iys);
-        auto_x11_mark(mark_ixe, mark_iye);
-    }
-    return;
 }
 
 void
