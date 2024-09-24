@@ -147,7 +147,7 @@ static void test_color_info(void);
 static int32 getxcolors(XWindowAttributes *win_info, XColor **colors);
 static void make_pops(void);
 static void load_fonts(void);
-static void getGC(GC *gc);
+static void main_get_gc(GC *gc);
 static void make_top_buttons(void);
 static void top_button_events(XEvent report);
 static void top_button_press(Window window);
@@ -701,10 +701,10 @@ init_X(void) {
     DCURYs = small_font->ascent + small_font->descent;
     CURY_OFFs = small_font->ascent - 1;
 
-    getGC(&gc);
-    getGC(&gc_graph);
-    getGC(&small_gc);
-    getGC(&font_gc);
+    main_get_gc(&gc);
+    main_get_gc(&gc_graph);
+    main_get_gc(&small_gc);
+    main_get_gc(&font_gc);
 
     if (strlen(UserBGBitmap) != 0) {
         uint32 width_return, height_return;
@@ -1269,7 +1269,7 @@ make_top_buttons(void) {
 }
 
 void
-getGC(GC *gc2) {
+main_get_gc(GC *gc2) {
     uint32 valuemask = 0;
     XGCValues values;
     *gc2 = XCreateGC(display, main_win, valuemask, &values);
