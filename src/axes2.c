@@ -16,7 +16,6 @@
 int32 axes2_doing = 0;
 int32 axes2_doing_box = 0;
 
-static void Frame_3d(void);
 static void re_title(void);
 static void get_title_str(char *s1, char *s2, char *s3);
 static void make_title(char *str);
@@ -156,9 +155,84 @@ axes2_do(void) {
         axes2_box(MyGraph->xlo, MyGraph->xhi, MyGraph->ylo, MyGraph->yhi,
                   MyGraph->xlabel, MyGraph->ylabel, 1);
         break;
-    case 5:
-        Frame_3d();
+    case 5: {
+        double tx, ty, tz;
+        double x1, y1, z1, x2, y2, z2, dt = .03;
+        double x0 = MyGraph->xorg, y0 = MyGraph->yorg, z0 = MyGraph->zorg;
+        char bob[20];
+
+        double xmin = MyGraph->xmin, xmax = MyGraph->xmax, ymin = MyGraph->ymin;
+        double ymax = MyGraph->ymax, zmin = MyGraph->zmin, zmax = MyGraph->zmax;
+        double x4 = xmin, y4 = ymin, z4 = zmin, x5 = xmax, y5 = ymax, z5 = zmax;
+        double x3, y3, z3, x6, y6, z6;
+
+        axes2_doing = 1;
+
+        tx = make_tics(xmin, xmax);
+        ty = make_tics(ymin, ymax);
+        tz = make_tics(zmin, zmax);
+        find_max_min_tic(&xmin, &xmax, tx);
+        find_max_min_tic(&zmin, &zmax, tz);
+        find_max_min_tic(&ymin, &ymax, ty);
+        graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
+        graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
+
+        graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
+        graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);
+        graphics_set_linestyle(-2);
+        line3d(-1., -1., -1., 1., -1., -1.);
+        line3d(1., -1., -1., 1., 1., -1.);
+        line3d(1., 1., -1., -1., 1., -1.);
+        line3d(-1., 1., -1., -1., -1., -1.);
+        line3d(-1., -1., 1., 1., -1., 1.);
+        line3d(1., -1., 1., 1., 1., 1.);
+        line3d(1., 1., 1., -1., 1., 1.);
+        line3d(-1., 1., 1., -1., -1., 1.);
+        line3d(1., 1., 1., 1., 1., -1.);
+        line3d(-1., 1., 1., -1., 1., -1.);
+        line3d(-1., -1., 1., -1., -1., -1.);
+        line3d(1., -1., 1., 1., -1., -1.);
+
+        line3dn(-1. - dt, -1., z2, -1. + dt, -1., z2);
+        line3dn(-1. - dt, -1., z1, -1. + dt, -1., z1);
+        line3dn(x2, -1. - dt, -1.0, x2, -1.0 + dt, -1.0);
+        line3dn(x1, -1. - dt, -1.0, x1, -1.0 + dt, -1.0);
+        line3dn(1.0 - dt, y1, -1.0, 1.0 + dt, y1, -1.0);
+        line3dn(1.0 - dt, y2, -1.0, 1.0 + dt, y2, -1.0);
+
+        graphics_set_linestyle(-1);
+
+        if (MyGraph->zorgflag)
+            graphics_line_3d(x0, y0, z4, x0, y0, z5);
+        if (MyGraph->yorgflag)
+            graphics_line_3d(x0, y4, z0, x0, y5, z0);
+        if (MyGraph->xorgflag)
+            graphics_line_3d(x4, y0, z0, x5, y0, z0);
+
+        dt = .06;
+        TextJustify = 2;
+        sprintf(bob, "%g", xmin);
+        graphics_text3d(x1, -1 - 2.*dt, -1.0, bob);
+        sprintf(bob, "%g", xmax);
+        graphics_text3d(x2, -1 - 2.*dt, -1.0, bob);
+        graphics_text3d(0.0, -1 - dt, -1.0, MyGraph->xlabel);
+        TextJustify = 0;
+        sprintf(bob, "%g", ymin);
+        graphics_text3d(1 + dt, y1, -1.0, bob);
+        sprintf(bob, "%g", ymax);
+        graphics_text3d(1 + dt, y2, -1.0, bob);
+        graphics_text3d(1 + dt, 0.0, -1.0, MyGraph->ylabel);
+        TextJustify = 2;
+        sprintf(bob, "%g", zmin);
+        graphics_text3d(-1. - dt, -1 - dt, z1, bob);
+        sprintf(bob, "%g", zmax);
+        graphics_text3d(-1. - dt, -1 - dt, z2, bob);
+        graphics_text3d(-1. - dt, -1. - dt, 0.0, MyGraph->zlabel);
+        TextJustify = 0;
+
+        axes2_doing = 0;
         break;
+    }
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
         exit(EXIT_FAILURE);
@@ -194,90 +268,6 @@ draw_unit_cube(void) {
     line3d(-1., 1., 1., -1., 1., -1.);
     line3d(-1., -1., 1., -1., -1., -1.);
     line3d(1., -1., 1., 1., -1., -1.);
-    return;
-}
-
-void
-Frame_3d(void) {
-    double tx, ty, tz;
-    double x1, y1, z1, x2, y2, z2, dt = .03;
-    double x0 = MyGraph->xorg, y0 = MyGraph->yorg, z0 = MyGraph->zorg;
-    char bob[20];
-
-    double xmin = MyGraph->xmin, xmax = MyGraph->xmax, ymin = MyGraph->ymin;
-    double ymax = MyGraph->ymax, zmin = MyGraph->zmin, zmax = MyGraph->zmax;
-    double x4 = xmin, y4 = ymin, z4 = zmin, x5 = xmax, y5 = ymax, z5 = zmax;
-    double x3, y3, z3, x6, y6, z6;
-
-    axes2_doing = 1;
-
-    tx = make_tics(xmin, xmax);
-    ty = make_tics(ymin, ymax);
-    tz = make_tics(zmin, zmax);
-    find_max_min_tic(&xmin, &xmax, tx);
-    find_max_min_tic(&zmin, &zmax, tz);
-    find_max_min_tic(&ymin, &ymax, ty);
-    graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
-    graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
-
-    graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
-    graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);
-    graphics_set_linestyle(-2);
-    line3d(-1., -1., -1., 1., -1., -1.);
-    line3d(1., -1., -1., 1., 1., -1.);
-    line3d(1., 1., -1., -1., 1., -1.);
-    line3d(-1., 1., -1., -1., -1., -1.);
-    line3d(-1., -1., 1., 1., -1., 1.);
-    line3d(1., -1., 1., 1., 1., 1.);
-    line3d(1., 1., 1., -1., 1., 1.);
-    line3d(-1., 1., 1., -1., -1., 1.);
-    line3d(1., 1., 1., 1., 1., -1.);
-    line3d(-1., 1., 1., -1., 1., -1.);
-    line3d(-1., -1., 1., -1., -1., -1.);
-    line3d(1., -1., 1., 1., -1., -1.);
-
-    line3dn(-1. - dt, -1., z2, -1. + dt, -1., z2);
-    line3dn(-1. - dt, -1., z1, -1. + dt, -1., z1);
-    line3dn(x2, -1. - dt, -1.0, x2, -1.0 + dt, -1.0);
-    line3dn(x1, -1. - dt, -1.0, x1, -1.0 + dt, -1.0);
-    line3dn(1.0 - dt, y1, -1.0, 1.0 + dt, y1, -1.0);
-    line3dn(1.0 - dt, y2, -1.0, 1.0 + dt, y2, -1.0);
-
-    graphics_set_linestyle(-1);
-
-    if (MyGraph->zorgflag)
-        graphics_line_3d(x0, y0, z4, x0, y0, z5);
-    if (MyGraph->yorgflag)
-        graphics_line_3d(x0, y4, z0, x0, y5, z0);
-    if (MyGraph->xorgflag)
-        graphics_line_3d(x4, y0, z0, x5, y0, z0);
-
-    dt = .06;
-    TextJustify = 2;
-    sprintf(bob, "%g", xmin);
-    graphics_text3d(x1, -1 - 2.*dt, -1.0, bob);
-    sprintf(bob, "%g", xmax);
-    graphics_text3d(x2, -1 - 2.*dt, -1.0, bob);
-    graphics_text3d(0.0, -1 - dt, -1.0, MyGraph->xlabel);
-    TextJustify = 0;
-    sprintf(bob, "%g", ymin);
-    /*sprintf(bob,"%g",ymin,bob);
-     */
-    graphics_text3d(1 + dt, y1, -1.0, bob);
-    sprintf(bob, "%g", ymax);
-    /*sprintf(bob,"%g",ymax,bob);
-     */
-    graphics_text3d(1 + dt, y2, -1.0, bob);
-    graphics_text3d(1 + dt, 0.0, -1.0, MyGraph->ylabel);
-    TextJustify = 2;
-    sprintf(bob, "%g", zmin);
-    graphics_text3d(-1. - dt, -1 - dt, z1, bob);
-    sprintf(bob, "%g", zmax);
-    graphics_text3d(-1. - dt, -1 - dt, z2, bob);
-    graphics_text3d(-1. - dt, -1. - dt, 0.0, MyGraph->zlabel);
-    TextJustify = 0;
-
-    axes2_doing = 0;
     return;
 }
 
