@@ -14,30 +14,6 @@
 #define CheckZero(x, tic) (fabs(x) < ((tic)*SIGNIF) ? 0.0 : (x))
 
 extern Graph *MyGraph;
-extern GC small_gc;
-extern int32 DCURXs;
-extern int32 DCURYs;
-extern Window draw_win;
-extern int32 DX_0;
-extern int32 DY_0;
-extern int32 D_WID;
-extern int32 D_HGT;
-extern int32 PltFmtFlag;
-extern int32 DLeft;
-extern int32 DRight;
-extern int32 DTop;
-extern int32 DBottom;
-extern int32 VTic;
-extern int32 HTic;
-extern int32 VChar;
-extern int32 HChar;
-extern int32 TextJustify;
-extern int32 TextAngle;
-extern double XMin;
-extern double XMax;
-extern double YMin;
-extern double YMax;
-extern int32 Xup;
 
 int32 axes2_doing = 0;
 int32 axes2_doing_box = 0;

@@ -12,26 +12,13 @@
 
 static char SVGLINETYPE;
 
-extern int32 TextJustify;
-extern int32 TextAngle;
 
-extern int32 PointType;
-extern int32 PointRadius;
 FILE *svgfile;
-extern int32 PltFmtFlag;
-extern int32 PSColorFlag;
-extern int32 PSLines;
-extern int32 LastPtLine;
 static int32 cur_RGB[3];
-extern int32 LastPSX;
-extern int32 LastPSY;
-extern int32 NoBreakLine;
 static int32 DOING_SVG_COLOR = 0;
 
 static int32 DO_MARKER = 0;
-extern int32 DOING_DFIELD;
 
-extern int32 Xup;
 
 static void svg_write(char *str);
 

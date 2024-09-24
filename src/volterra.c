@@ -23,25 +23,13 @@
 
 #define CONV 2
 extern Kernel kernel[MAX_KER];
-extern int32 NODE;
-extern int32 NMarkov;
-extern int32 FIX_VAR;
-extern int32 PrimeStart;
-extern int32 NKernel;
 static double *Memory[MAX_KER];
-extern double T0;
-extern double DELTA_T;
-extern int32 MaxPoints;
 extern int32 EqType[MAX_ODE];
 static int32 CurrentPoint;
 static int32 KnFlag;
 
 int32 AutoEvaluate = 0;
 extern double variables[];
-extern int32 NVAR;
-extern int32 euler_max_iter;
-extern double euler_tol;
-extern double NEWT_ERR;
 
 extern int32 *my_ode[];
 

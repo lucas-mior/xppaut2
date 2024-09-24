@@ -13,18 +13,11 @@
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 #include "mykeydef.h"
-extern Window draw_win;
-extern Window main_win;
-extern Window info_pop;
-extern int32 DCURY;
-extern GC gc_graph;
 #define MAXFILM 250
 static int32 ks_ncycle = 1;
 static int32 ks_speed = 50;
 extern char *info_message;
 extern char *kin_hint[];
-extern int32 screen;
-extern int32 mov_ind;
 typedef struct {
     int32 h;
     int32 w;

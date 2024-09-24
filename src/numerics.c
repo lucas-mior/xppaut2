@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "parserslow.h"
 #include <strings.h>
 
 #include <stdlib.h>
@@ -7,11 +8,6 @@
 #include <X11/Xutil.h>
 #include <math.h>
 
-extern Window main_win;
-extern Window info_pop;
-extern int32 DCURY;
-extern int32 NDELAYS;
-extern int32 RandSeed;
 #include "struct.h"
 extern Graph *MyGraph;
 #define VOLTERRA 6
@@ -25,17 +21,8 @@ extern Graph *MyGraph;
 #define RB23 13
 #define SYMPLECT 14
 
-extern int32 NKernel;
-extern int32 MyStart;
-extern int32 MaxPoints;
-extern int32 NFlags;
-extern double STOL;
-extern double MyTime;
 extern char *info_message;
 extern char *meth_hint[];
-extern int32 DelayGrid;
-extern double OmegaMax;
-extern double AlphaMax;
 
 /*   This is numerics.c
  *   The input is primitive and eventually, I want to make it so
@@ -45,60 +32,23 @@ extern double AlphaMax;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
-extern double DELTA_T;
-extern double TEND;
-extern double T0;
-extern double TRANS;
-extern double NULL_ERR;
-extern double EVEC_ERR;
-extern double NEWT_ERR;
-extern double BOUND;
-extern double DELAY;
-extern double TOLER;
-extern double ATOLER;
-extern double HMIN;
-extern double HMAX;
 double *fft_data;
 double *hist_data;
-extern double POIPLN;
 
-extern double BVP_TOL;
-extern double BVP_EPS;
 
-extern int32 NMESH;
-extern int32 NJMP;
-extern int32 METHOD;
-extern int32 NC_ITER;
-extern int32 EVEC_ITER;
-extern int32 BVP_MAXIT;
-extern int32 BVP_NR;
 
-extern int32 POIMAP;
-extern int32 POIVAR;
-extern int32 POISGN;
-extern int32 SOS;
 
-extern int32 HIST;
-extern int32 HVAR;
-extern int32 hist_ind;
-extern int32 FOREVER;
-extern int32 INFLAG;
-extern int32 euler_max_iter;
-extern double euler_tol;
 
-extern int32 AutoEvaluate;
 
 int32 cv_bandflag = 0;
 int32 cv_bandupper = 1;
 int32 cv_bandlower = 1;
-extern Window command_pop;
 
 /*   This is the input for the various functions */
 
 /*   I will need access to storage  */
 
 extern double **storage;
-extern int32 storind;
 
 extern int32 NODE, NEQ; /* as well as the number of odes etc  */
 

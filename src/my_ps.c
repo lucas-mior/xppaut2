@@ -22,11 +22,6 @@
 #define RIGHT 2
 #define CENTER 1
 #define POINT_TYPES 8
-extern int32 PointType;
-extern int32 PointRadius;
-extern int32 PS_Port;
-extern int32 TextJustify;
-extern int32 TextAngle;
 int32 LastPtLine;
 int32 NoBreakLine = 0;
 int32 PS_FONTSIZE = 14;
@@ -44,7 +39,6 @@ int32 LastPSY;
  * and open circles for bifurcation diagrams I also use Times Roman
  * since Courier is an ugly font!!  */
 
-extern int32 Xup;
 static char *PS_header[] = {
     "/vpt2 vpt 2 mul def\n", "/hpt2 hpt 2 mul def\n",
     "/Romfnt {/Times-Roman findfont exch scalefont setfont} def ",

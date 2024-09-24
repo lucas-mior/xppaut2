@@ -29,25 +29,8 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask | ButtonMotionMask)
 
-extern int32 TrueColorFlag;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 MyMainWinColor;
-extern uint32 MyDrawWinColor;
 int32 auto_redraw_flag = 1;
 
-extern int32 screen;
-extern int32 storind;
-extern int32 NODE;
-extern GC gc;
-extern GC small_gc;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFFb;
-extern int32 CURY_OFF;
 static int32 STD_HGT_var = 0;
 static int32 STD_WID_var = 0;
 static int32 Auto_extra_wid;
@@ -67,19 +50,9 @@ int32 mark_ixs;
 int32 mark_ixe;
 int32 mark_iys;
 int32 mark_iye;
-extern Window command_pop;
 
-extern double TEND;
 
-extern int32 xorfix;
 
-extern int32 TipsFlag;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 MyMainWinColor;
-extern uint32 MyDrawWinColor;
-extern uint32 GrFore;
-extern uint32 GrBack;
 
 extern char *auto_hint[];
 extern char *aaxes_hint[];

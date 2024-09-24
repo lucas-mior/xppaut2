@@ -11,6 +11,7 @@
 */
 
 #include "functions.h"
+#include "parserslow.h"
 #include "alert.bitmap"
 
 #include <stdio.h>
@@ -45,7 +46,6 @@ static char *tutorial[N_TUTORIAL] = {
     "have XPP open to a default starting directory by setting the environment "
     "variable XPPSTART on your computer."};
 
-extern int32 manual_expose;
 extern char this_file[XPP_MAX_NAME];
 extern char *info_message;
 extern char *ic_hint[];
@@ -65,27 +65,9 @@ extern char *phas_hint[];
 extern char *kin_hint[];
 extern char *view_hint[];
 extern char *tab_hint[];
-extern Window info_pop;
-extern Window main_win;
-extern Window draw_win;
-extern int32 POIMAP;
-extern int32 DCURY;
-extern int32 DCURX;
-extern int32 DF_FLAG;
-extern int32 tfBell;
-extern int32 TipsFlag;
-extern int32 SimulPlotFlag;
-extern int32 current_pop;
-extern int32 num_pops;
 extern int32 ActiveWinList[];
-extern int32 DisplayHeight;
-extern int32 DisplayWidth;
-extern int32 AutoFreezeFlag;
-extern int32 NTable;
-extern int32 screen;
 static int32 status;
 
-extern int32 TORUS;
 static struct MsgBoxStruct {
     Window window;
     char text[256];

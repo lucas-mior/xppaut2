@@ -8,11 +8,8 @@
 #include "autlim.h"
 #include "integers.h"
 
-extern int32 PS_Color;
 
 extern double **storage;
-extern int32 storind;
-extern int32 NODE;
 int32 NBifs = 0;
 Diagram *bifd;
 

@@ -2336,6 +2336,12 @@ extern BcStruct my_bc[MAX_ODE];
 extern int32 n_comments;
 extern int32 ConvertStyle;
 
+extern int32 NODE;
+extern int32 NUPAR;
+extern int32 NLINES;
+extern int32 IN_VARS;
+extern int32 leng[MAX_ODE];
+
 int32 form_ode_make_eqn(void);
 void form_ode_strip_saveqn(void);
 int32 form_ode_idsc(char *string);

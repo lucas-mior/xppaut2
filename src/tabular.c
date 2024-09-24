@@ -65,14 +65,8 @@ to be added later
 
 TABULAR my_table[MAX_TAB];
 
-extern int32 NTable;
 
-extern int32 NCON;
-extern int32 NSYM;
-extern int32 NCON_START;
-extern int32 NSYM_START;
 
-extern int32 MAXSTOR;
 extern double **storage;
 
 static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula,

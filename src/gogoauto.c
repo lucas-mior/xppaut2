@@ -12,7 +12,6 @@ int32 global_conpar_type = CONPAR_DEFAULT;
 int32 global_setubv_type = SETUBV_DEFAULT;
 int32 global_num_procs = 1;
 int32 global_verbose_flag = 0;
-extern int32 fp8_is_open;
 
 int32
 go_go_auto(void) {

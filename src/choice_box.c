@@ -15,17 +15,6 @@
 #include "struct.h"
 #include "integers.h"
 
-extern Window main_win;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern int32 screen;
-extern GC gc;
-extern int32 xor_flag;
-extern int32 DCURY;
-extern int32 DCURX;
-extern int32 CURY_OFF;
-extern int32 CURS_X;
-extern int32 CURS_Y;
 
 static int32 choice_box_event_loop(CHOICE_BOX p);
 static void do_checks(CHOICE_BOX p);

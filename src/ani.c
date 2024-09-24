@@ -107,32 +107,18 @@ static int32 who_was_grabbed;
 double get_ivar(int32);
 
 extern double last_ic[MAX_ODE];
-extern double T0;
 
 /************************8  end grabber **********************/
 
 #define FIRSTCOLOR 30
 static int32 on_the_fly_speed = 10;
 int32 animation_on_the_fly = 0;
-extern int32 TrueColorFlag;
 extern char *color_names[11];
 extern int32 colorline[];
 extern XFontStruct *symfonts[5];
 extern XFontStruct *romfonts[5];
 extern int32 avsymfonts[5];
 extern int32 avromfonts[5];
-extern int32 color_total;
-extern int32 screen;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
-extern int32 NODE;
-extern int32 FIX_VAR;
-extern int32 NMarkov;
-extern GC small_gc;
 
 static int32 aniflag;
 static int32 LastAniColor;
@@ -176,7 +162,6 @@ static int32 ani_text_font;
 
 static GC ani_gc;
 
-extern int32 use_ani_file;
 extern char anifile[XPP_MAX_NAME];
 
 static void create_vcr(char *name);

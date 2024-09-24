@@ -11,7 +11,6 @@
 #include "xpplim.h"
 #include "parserslow.h"
 
-extern int32 ConvertStyle;
 extern FILE *convertf;
 #define IA 16807
 #define IM 2147483647
@@ -26,19 +25,12 @@ extern FILE *convertf;
 
 static int64 myrandomseed = -1;
 
-extern int32 DCURY;
 extern int32 *my_ode[];
 extern char *ode_names[MAX_ODE];
-extern int32 NMarkov;
-extern int32 FIX_VAR;
-extern int32 NODE;
-extern int32 NEQ;
 
 extern double MyData[MAX_ODE];
 
-extern int32 NLINES;
 extern char *save_eqn[MAXLINES];
-extern int32 RandSeed;
 typedef struct {
     int32 **command;
     char **trans;
@@ -53,7 +45,6 @@ static MARKOV markov[MAX_MARK];
 
 extern double **storage;
 
-extern int32 storind;
 static double *my_mean[MAX_ODE];
 static double *my_variance[MAX_ODE];
 static int32 stoch_len;

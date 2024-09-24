@@ -70,25 +70,16 @@ int32 TypeOfCalc = 0;
 
 #define DISCRETE 0
 extern int32 leng[MAX_ODE];
-extern int32 PS_Color;
-extern double TOR_PERIOD;
 extern double **storage;
-extern int32 storind;
 extern double constants[];
-extern int32 PointType;
-extern int32 xorfix;
-extern int32 NoBreakLine;
 extern char *auto_hint[];
 extern char *aaxes_hint[];
 extern char *afile_hint[];
 extern char *arun_hint[];
 extern char *no_hint[];
-extern int32 BVP_FLAG;
 
-extern int32 fp8_is_open;
 extern FILE *fp8;
 
-extern int32 FLOWK;
 int32 SEc = 20;
 int32 UEc = 0;
 int32 SPc = 26;
@@ -148,11 +139,6 @@ int32 NAutoPar = 8;
 int32 Auto_index_to_array[8];
 int32 AutoPar[8];
 
-extern int32 TipsFlag;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 GrFore;
-extern uint32 GrBack;
 
 double outperiod[20];
 int64 UzrPar[20];
@@ -167,7 +153,6 @@ char fort8[200];
 char fort9[200];
 static char TMPSWAP[200];
 
-extern int32 NUPAR;
 
 static double XfromAuto;
 static double YfromAuto;
@@ -175,22 +160,12 @@ static double XfromAuto;
 static double YfromAuto;
 static int32 FromAutoFlag = 0;
 
-extern int32 NODE;
-extern int32 NEQ;
-extern int32 METHOD;
 
 int32 HomoFlag = 0;
 double homo_l[100];
 double homo_r[100];
 static double HOMO_SHIFT = 0.0;
 
-extern int32 storind;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
 
 Bifurcation Auto;
 AdvAuto aauto;

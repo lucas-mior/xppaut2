@@ -12,24 +12,14 @@
 int32 UnstableManifoldColor = 5;
 int32 StableManifoldColor = 8;
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
-extern int32 Xup;
 
-extern double DELTA_T;
-extern int32 METHOD;
-extern int32 ENDSING;
-extern int32 PAR_FOL;
-extern int32 SHOOT;
 
-extern int32 NODE;
-extern int32 NFlags;
 double ShootIC[8][MAX_ODE];
 int32 ShootICFlag;
 int32 ShootIndex;
 
 static int32 ShootType[8];
 static int32 gear_pivot[MAX_ODE];
-extern int32 storind;
-extern int32 STORFLAG;
 
 static double pertst[7][2][3] = {{{2, 3, 1}, {2, 12, 1}},
                                  {{4.5, 6, 1}, {12, 24, 1}},

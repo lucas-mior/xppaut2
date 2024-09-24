@@ -37,43 +37,12 @@ extern char *browse_hint[];
 extern int32 *my_ode[];
 
 extern int32 *plotlist;
-extern int32 N_plist;
 
 extern char *ode_names[MAX_ODE];
-extern int32 NEQ;
-extern int32 MAXSTOR;
-extern int32 NMarkov;
-extern int32 FIX_VAR;
-extern int32 NODE;
-extern int32 NJMP;
-extern int32 Xup;
-extern int32 TipsFlag;
 extern double last_ic[MAX_ODE];
-extern double DELTA_T;
 
-extern int32 NSYM;
-extern int32 NSYM_START;
-extern int32 NCON;
-extern int32 NCON_START;
 
-extern int32 screen;
-extern int32 storind;
-extern GC gc;
-extern GC small_gc;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 MyMainWinColor;
-extern uint32 MyDrawWinColor;
-extern uint32 GrFore;
-extern uint32 GrBack;
 
-extern Window command_pop;
 
 #define MYMASK                                                                 \
     (ButtonPressMask | ButtonReleaseMask | KeyPressMask | ExposureMask |       \

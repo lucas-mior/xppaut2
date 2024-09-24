@@ -6,12 +6,7 @@
 
 double **storage;
 double *WORK;
-extern int32 MAXSTOR;
-extern int32 storind;
 int32 IWORK[10000];
-extern int32 NODE;
-extern int32 NMarkov;
-extern int32 METHOD;
 
 #define BACKEUL 7
 #define VOLTERRA 6
@@ -19,7 +14,6 @@ extern int32 METHOD;
 #define GEAR 5
 #define RB23 13
 
-extern XPPVEC xpv;
 
 void
 storage_init_alloc_info(void) {

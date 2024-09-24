@@ -42,30 +42,12 @@ void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EditBox *sb, char *title);
 
-extern int32 screen;
-extern Window main_win;
-extern Window info_pop;
-extern Window draw_win;
-extern Window main_win;
-extern int32 DCURY;
-extern int32 DCURX;
-extern int32 CURY_OFF;
-extern int32 xor_flag;
-extern GC gc;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
 
 extern char *ode_names[MAX_ODE];
-extern int32 METHOD;
-extern int32 NEQ;
-extern int32 NODE;
-extern int32 NMarkov;
-extern int32 FIX_VAR;
 
 extern char *info_message;
 extern char *edrh_hint[];
 extern int32 *my_ode[];
-extern int32 NUPAR;
 extern double last_ic[MAX_ODE];
 
 extern char this_file[XPP_MAX_NAME];
@@ -79,7 +61,6 @@ extern int32 *ufun[MAX_UFUN];
 extern UFUN_ARG ufun_arg[MAX_UFUN];
 extern BcStruct my_bc[MAX_ODE];
 
-extern int32 NFUN;
 
 static int32 do_edit_box(int32 n, char *title, char **names, char **values);
 

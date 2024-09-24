@@ -20,40 +20,14 @@ double PHI0 = 45;
 extern double x_3d[2];
 extern double y_3d[2];
 extern double z_3d[2];
-extern int32 IXPLT;
-extern int32 IYPLT;
-extern int32 IZPLT;
-extern int32 AXES;
-extern int32 TIMPLOT;
-extern int32 PLOT_3D;
-extern int32 START_LINE_TYPE;
-extern double MY_XLO;
-extern double MY_YLO;
-extern double MY_XHI;
-extern double MY_YHI;
-extern int32 Xup;
-extern int32 COLOR;
 extern int32 colorline[];
-extern int32 DCURXs;
-extern int32 DCURYs;
-extern int32 PltFmtFlag;
-extern uint32 GrFore;
-extern uint32 GrBack;
-extern int32 DCURX;
-extern int32 DCURY;
-extern int32 xor_flag;
 extern Graph graph[MAXPOP];
 extern Graph *MyGraph;
-extern GC gc_graph;
 
 int32 PS_Port = 0;
 int32 PointRadius = 0;
 
-extern Window win;
-extern Window draw_win;
-extern GC small_gc;
 extern double **storage;
-extern int32 storind;
 
 static char dashes[10][5] = {{0},       {1, 6, 0}, {0},       {4, 2, 0},
                              {1, 3, 0}, {4, 4, 0}, {1, 5, 0}, {4, 4, 4, 1, 0},
@@ -64,18 +38,14 @@ XFontStruct *symfonts[5];
 XFontStruct *romfonts[5];
 int32 avsymfonts[5];
 int32 avromfonts[5];
-extern GC font_gc;
 
 extern int32 IX_PLT[10];
 extern int32 IY_PLT[10];
 extern int32 IZ_PLT[10];
-extern int32 NPltV;
 extern double X_LO[10];
 extern double Y_LO[10];
 extern double X_HI[10];
 extern double Y_HI[10];
-extern int32 MultiWin;
-extern int32 Xup;
 
 /*  This is an improved graphics driver for XPP
     It requires only a few commands

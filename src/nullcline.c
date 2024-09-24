@@ -20,34 +20,20 @@ typedef struct Point {
     double x, y, z;
 } Point;
 
-extern int32 SuppressBounds;
 extern Graph *MyGraph;
-extern int32 PltFmtFlag;
 extern FILE *svgfile;
 
 static int32 NCSuppress = 0;
 static int32 DFSuppress = 0;
 int32 DFBatch = 0;
 int32 NCBatch = 0;
-extern int32 XPPBatch;
 
 static int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
-extern int32 DRight;
-extern int32 DLeft;
-extern int32 DTop;
-extern int32 DBottom;
-extern int32 STORFLAG;
 extern double last_ic[MAX_ODE];
 
-extern double DELTA_T;
-extern double TEND;
-extern double TRANS;
-extern int32 PaperWhite;
-extern int32 DCURY;
 int32 XNullColor = 2;
 int32 YNullColor = 7;
-extern int32 NULL_HERE;
 static int32 num_x_n;
 static int32 num_y_n;
 static int32 num_index;
@@ -59,12 +45,6 @@ static double *Y_n;
 static double *saver;
 static double *NTop;
 static double *NBot;
-extern int32 NMESH;
-extern int32 NODE;
-extern int32 NJMP;
-extern int32 NMarkov;
-extern int32 FIX_VAR;
-extern int32 NEQ;
 int32 DF_GRID = 16;
 int32 DF_FLAG = 0;
 static int32 DF_IX = -1;

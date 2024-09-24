@@ -13,11 +13,7 @@ extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 extern double constants[];
 extern double last_ic[];
 
-extern int32 HomoFlag;
-extern int32 METHOD;
-extern int32 NJMP;
 
-extern double NEWT_ERR;
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {

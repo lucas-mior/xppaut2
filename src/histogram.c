@@ -9,8 +9,6 @@
 
 #include "parserslow.h"
 
-extern int32 DCURY;
-extern int32 MAXSTOR;
 
 int32 spec_col = 1;
 int32 spec_wid = 512;
@@ -24,19 +22,13 @@ static int32 spec_type = 0;
 */
 
 extern int32 *plotlist;
-extern int32 N_plist;
 
 int32 post_process = 0;
 
 HIST_INFO hist_inf = {100, 100, 0, 1, 1, 0, 0, 1, 0, 1, ""};
 
-extern int32 NCON;
-extern int32 NSYM;
-extern int32 NCON_START;
-extern int32 NSYM_START;
 
 extern double **storage;
-extern int32 storind;
 static int32 hist_len;
 static int32 four_len;
 static double *my_hist[MAX_ODE + 1];
@@ -44,10 +36,6 @@ static double *my_four[MAX_ODE + 1];
 static int32 HIST_HERE;
 int32 FOUR_HERE;
 
-extern int32 NEQ;
-extern int32 NODE;
-extern int32 NMarkov;
-extern int32 FIX_VAR;
 
 extern char *no_hint[];
 extern char *info_message;

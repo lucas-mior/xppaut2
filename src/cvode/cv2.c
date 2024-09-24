@@ -13,16 +13,10 @@
 
 static double cv_ropt[OPT_SIZE];
 static int32 cv_iopt[OPT_SIZE];
-extern int32 cv_bandflag;
-extern int32 cv_bandupper;
-extern int32 cv_bandlower;
 
 static void cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata);
 static void *cvode_mem;
 static N_Vector ycv;
-extern int32 NFlags;
-extern double TOLER;
-extern double ATOLER;
 
 void
 start_cv(double *y, double t, int32 n, double *atol, double *rtol) {

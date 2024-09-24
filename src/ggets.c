@@ -18,30 +18,12 @@
 
 #define ESCAPE 27
 char *info_message;
-extern int32 XPPBatch;
-extern int32 SCALEY;
 int32 MSStyle = 0;
-extern int32 Xup;
 
-extern int32 tfBell;
-extern int32 screen;
 int32 CURS_X;
 int32 CURS_Y;
-extern int32 DCURY;
-extern int32 DCURX;
-extern int32 CURY_OFF;
-extern Window win;
-extern Window command_pop;
-extern Window info_pop;
-extern Window draw_win;
-extern Window main_win;
-extern GC gc;
-extern GC gc_graph;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
 int32 xor_flag;
 extern FILE *logfile;
-extern int32 XPPVERBOSE;
 
 static void put_string_at(Window window, int32 col, char *s, int32 off);
 static void clr_line_at(Window window, int32 col0, int32 pos, int32 n);

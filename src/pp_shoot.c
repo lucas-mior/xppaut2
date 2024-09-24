@@ -21,53 +21,19 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-extern int32 DCURY;
-extern int32 RANGE_FLAG;
 
-extern int32 INFLAG;
 
-extern int32 NUPAR;
-extern int32 storind;
 extern double **storage;
 
 extern int32 *my_ode[];
 
-extern int32 BVP_NR;
-extern int32 BVP_N;
-extern int32 BVP_MAXIT;
-extern int32 FFT;
-extern int32 HIST;
-extern int32 DelayFlag;
-extern int32 STORFLAG;
-extern int32 POIMAP;
-extern int32 NCON;
-extern int32 NCON_START;
-extern int32 NSYM;
-extern int32 NSYM_START;
-extern int32 BVP_FLAG;
-extern int32 NODE;
-extern int32 NEQ;
-extern int32 NJMP;
-extern int32 NMarkov;
-extern int32 FIX_VAR;
-extern int32 PrimeStart;
-extern double T0;
-extern double TEND;
-extern double DELTA_T;
-extern double BVP_TOL;
-extern double TRANS;
-extern double BVP_EPS;
 extern double variables[];
-extern int32 NVAR;
 extern BcStruct my_bc[MAX_ODE];
 
 extern int32 color_line[11];
-extern int32 MyStart;
 
-extern int32 NKernel;
 
 extern double MyData[MAX_ODE];
-extern double MyTime;
 static struct {
     char item[30];
     int32 steps, side, cycle, movie;

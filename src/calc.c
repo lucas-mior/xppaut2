@@ -15,20 +15,7 @@
 #define PARAM 1
 #define IC 2
 
-extern int32 NCON;
-extern int32 NSYM;
-extern int32 NCON_START;
-extern int32 NSYM_START;
 
-extern int32 screen;
-extern GC gc;
-extern GC small_gc;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
 
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \

@@ -53,22 +53,8 @@
 #define FIRSTCOLOR 30
 #define FIX_MIN_SIZE 2
 
-extern int32 COLOR;
-extern uint32 GrFore;
-extern uint32 GrBack;
 
 extern char this_file[XPP_MAX_NAME];
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
-extern int32 color_total;
-extern int32 screen;
-extern GC gc;
-extern GC small_gc;
-extern GC gc_graph;
 int32 array_plot_range;
 static int32 array_plot_range_count = 0;
 static char array_plot_range_stem[256] = "rangearray";
@@ -88,7 +74,6 @@ static struct ArrayPlot {
     int32 type;
 } array_plot;
 
-extern Window draw_win;
 static int32 plot3d_auto_redraw = 0;
 static FILE *ap_fp;
 static GC array_plot_gc;

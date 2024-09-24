@@ -15,11 +15,7 @@
 #define VOLTERRA 6
 #define PARAMBOX 1
 
-extern int32 XPPBatch;
-extern BoxList ParamBox;
 
-extern int32 Xup;
-extern Window main_win;
 extern Graph *MyGraph;
 
 extern BcStruct my_bc[MAX_ODE];
@@ -27,45 +23,9 @@ extern BcStruct my_bc[MAX_ODE];
 static int32 set_type = 0;
 
 extern FixInfo fixinfo[MAX_ODE];
-extern int32 FIX_VAR;
-extern int32 NFUN;
 
-extern int32 NJMP;
-extern int32 NMESH;
-extern int32 METHOD;
-extern int32 NODE;
-extern int32 POIMAP;
-extern int32 POIVAR;
-extern int32 POISGN;
-extern int32 SOS;
-extern int32 INFLAG;
-extern int32 NMarkov;
-extern int32 NUPAR;
-extern int32 NEQ;
-extern int32 BVP_MAXIT;
-extern int32 EVEC_ITER;
-extern int32 DelayFlag;
-extern int32 MyStart;
 extern double last_ic[MAX_ODE];
 extern double MyData[MAX_ODE];
-extern double MyTime;
-extern double LastTime;
-extern double TEND;
-extern double DELTA_T;
-extern double T0;
-extern double TRANS;
-extern double BOUND;
-extern double HMIN;
-extern double HMAX;
-extern double TOLER;
-extern double ATOLER;
-extern double DELAY;
-extern double POIPLN;
-extern double EVEC_ERR;
-extern double NEWT_ERR;
-extern double BVP_TOL;
-extern double BVP_EPS;
-extern int32 MaxPoints;
 
 extern char this_file[XPP_MAX_NAME];
 extern char delay_string[MAX_ODE][80];

@@ -10,17 +10,9 @@
 #define MAXDAE 400
 
 extern double variables[];
-extern int32 NVAR;
 
-extern int32 DelayErr;
 
-extern double EVEC_ERR;
-extern double NEWT_ERR;
-extern double BOUND;
-extern int32 EVEC_ITER;
 
-extern int32 NODE;
-extern int32 FIX_VAR;
 extern int32 *my_ode[];
 
 /*    will have more stuff someday */

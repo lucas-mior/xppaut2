@@ -16,15 +16,6 @@ static double *ypred;
 static double symp_b[] = {7 / 24., .75, -1. / 24};
 static double symp_B[] = {2 / 3., -2. / 3., 1.0};
 
-extern int32 euler_max_iter;
-extern double euler_tol;
-extern double NEWT_ERR;
-extern int32 NFlags;
-extern double TOLER;
-extern double ATOLER;
-extern int32 cv_bandflag;
-extern int32 cv_bandupper;
-extern int32 cv_bandlower;
 /* my first symplectic integrator */
 
 static void bandsol(double *a, double *b, int32 ml, int32 mr, int32 n);

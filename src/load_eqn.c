@@ -22,20 +22,13 @@
 #define MAXOPT 1000
 #define READEM 1
 
-extern OptionsSet notAlreadySet;
 
-extern int32 spec_col;
-extern int32 spec_wid;
-extern int32 spec_win;
-extern int32 spec_col2;
-extern int32 post_process;
 
 static char *interopt[MAXOPT];
 static int32 Nopts = 0;
 int32 RunImmediately = 0;
 extern char dll_lib[256];
 extern char dll_fun[256];
-extern int32 dll_flag;
 
 extern char UserBlack[8];
 extern char UserWhite[8];
@@ -44,45 +37,19 @@ extern char UserDrawWinColor[8];
 /*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
 
-extern int32 UserGradients;
-extern int32 UserMinWidth;
-extern int32 UserMinHeight;
-extern int32 XPPVERBOSE;
 extern FILE *logfile;
 
-extern int32 OVERRIDE_QUIET;
-extern int32 OVERRIDE_LOGFILE;
 
-extern int32 SLIDER1;
-extern int32 SLIDER2;
-extern int32 SLIDER3;
 extern char SLIDER1VAR[20];
 extern char SLIDER2VAR[20];
 extern char SLIDER3VAR[20];
-extern double SLIDER1LO;
-extern double SLIDER2LO;
-extern double SLIDER3LO;
-extern double SLIDER1HI;
-extern double SLIDER2HI;
-extern double SLIDER3HI;
-extern double SLIDER1INIT;
-extern double SLIDER2INIT;
-extern double SLIDER3INIT;
 
-extern int32 NCBatch;
-extern int32 DFBatch;
-extern int32 DF_GRID;
 
-extern int32 XNullColor;
-extern int32 YNullColor;
-extern int32 StableManifoldColor;
-extern int32 UnstableManifoldColor;
 int32 IX_PLT[10];
 int32 IY_PLT[10];
 int32 IZ_PLT[10];
 int32 NPltV;
 int32 MultiWin = 0;
-extern int32 SimulPlotFlag;
 double X_LO[10];
 double Y_LO[10];
 double X_HI[10];
@@ -91,14 +58,7 @@ int32 START_LINE_TYPE = 1;
 InternSet intern_set[MAX_INTERN_SET];
 int32 Nintern_set = 0;
 
-extern int32 STOCH_FLAG;
 
-extern int32 del_stab_flag;
-extern int32 MaxPoints;
-extern double THETA0;
-extern double PHI0;
-extern int32 tfBell;
-extern int32 DoTutorial;
 /*void load_eqn_set_option(char *s1,char *s2);
  */
 
@@ -108,18 +68,12 @@ extern int32 DoTutorial;
  */
 
 extern char batchout[XPP_MAX_NAME];
-extern int32 batch_range;
 double last_ic[MAX_ODE];
 extern char PlotFormat[10];
 extern char big_font_name[100];
 extern char small_font_name[100];
-extern int32 PaperWhite;
 
-extern int32 PSColorFlag;
-extern int32 PS_FONTSIZE;
-extern int32 PS_Color;
 extern char PS_FONT[200];
-extern double PS_LW;
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
@@ -171,12 +125,8 @@ double BVP_TOL;
 
 double POIPLN;
 
-extern int32 RandSeed;
 int32 euler_max_iter;
 double euler_tol;
-extern int32 cv_bandflag;
-extern int32 cv_bandupper;
-extern int32 cv_bandlower;
 int32 NMESH;
 int32 NJMP;
 int32 METHOD;
@@ -207,11 +157,7 @@ int32 PAR_FOL;
 /*  custon color stuff  */
 
 extern char ColorVia[15];
-extern double ColorViaLo;
-extern double ColorViaHi;
-extern int32 ColorizeFlag;
 
-extern int32 PltFmtFlag;
 
 int32 xorfix;
 int32 silent;

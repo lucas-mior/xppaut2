@@ -100,7 +100,6 @@ int32 NFlags = 0;
 
 double STOL = 1.e-10;
 extern double variables[];
-extern int32 NVAR;
 
 int32
 flags_add_global(char *cond, int32 sign, char *rest) {

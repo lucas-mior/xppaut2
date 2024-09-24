@@ -31,12 +31,6 @@ char *ode_names[MAX_ODE];
 char *save_eqn[MAXLINES];
 double default_val[MAX_PAR];
 
-extern int32 NODE;
-extern int32 NUPAR;
-extern int32 NLINES;
-extern int32 IN_VARS;
-extern int32 leng[MAX_ODE];
-
 typedef struct var_info {
     char lhs[MAXEXPLEN];
     char rhs[MAXEXPLEN];
@@ -54,7 +48,6 @@ int32 *my_ode[MAX_ODE];
 
 int32 leng[MAX_ODE];
 
-extern int32 XPPBatch;
 extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
 static char *onlylist[MAXONLY];
@@ -77,28 +70,16 @@ int32 PrimeStart;
 int32 NCON_START;
 int32 NSYM_START;
 int32 BVP_N;
-extern int32 BVP_FLAG;
 
-extern double xppvermaj;
-extern double xppvermin;
 
 int32 ConvertStyle = 0;
 FILE *convertf;
-extern int32 ERROUT;
-extern int32 NTable;
 static int32 OldStyle = 1;
 int32 IN_VARS;
 int32 NMarkov;
 
 int32 FIX_VAR;
 
-extern int32 NEQ;
-extern int32 NVAR;
-extern int32 NKernel;
-extern int32 NFUN;
-extern int32 NCON;
-extern int32 NSYM;
-extern int32 NWiener;
 extern char this_file[XPP_MAX_NAME];
 extern char options[100];
 int32 EqType[MAX_ODE];
@@ -107,7 +88,6 @@ static char aux_names[MAX_ODE][12];
 
 FixInfo fixinfo[MAX_ODE];
 
-extern FILEINFO my_ff;
 
 static void strncpy_trim(char *dest, char *source, int32 n);
 static void strcpy_trim(char *dest, char *source);

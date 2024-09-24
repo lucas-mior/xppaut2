@@ -9,8 +9,6 @@
 #include "xpplim.h"
 #include "info.bitmap"
 
-extern int32 DisplayHeight;
-extern int32 DisplayWidth;
 
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
@@ -19,24 +17,8 @@ extern int32 DisplayWidth;
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-extern int32 screen;
-extern GC gc;
-extern GC small_gc;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
 
-extern int32 NUPAR;
-extern int32 NODE;
-extern int32 NEQ;
 
-extern Window main_win;
-extern Window info_pop;
-extern int32 TORUS;
-extern double TOR_PERIOD;
 extern int32 itor[MAX_ODE];
 
 static struct TorusBox {

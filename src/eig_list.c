@@ -21,21 +21,8 @@
     } while (0)
 
 extern double last_ic[MAX_ODE];
-extern int32 screen;
-extern GC gc;
-extern GC small_gc;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
 
 extern char *ode_names[MAX_ODE];
-extern int32 METHOD;
-extern int32 NEQ;
-extern int32 NODE;
-extern int32 NMarkov;
 
 extern int32 EqType[MAX_ODE];
 

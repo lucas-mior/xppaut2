@@ -53,17 +53,10 @@
 #define WITH 43
 #define EQUIL 44
 
-extern OptionsSet notAlreadySet;
 
 extern char big_font_name[100];
 extern char small_font_name[100];
 extern FILE *logfile;
-extern int32 XPPVERBOSE;
-extern int32 SuppressOut;
-extern int32 RunImmediately;
-extern int32 PaperWhite;
-extern int32 MSStyle;
-extern int32 got_file;
 
 static char setfilename[XPP_MAX_NAME];
 static char parfilename[XPP_MAX_NAME];
@@ -80,18 +73,10 @@ extern char UserMainWinColor[8];
 extern char UserDrawWinColor[8];
 extern char UserBGBitmap[XPP_MAX_NAME];
 
-extern int32 UserGradients;
-extern int32 UserMinWidth;
-extern int32 UserMinHeight;
-extern int32 UserMinHeight;
 extern char UserOUTFILE[XPP_MAX_NAME];
-extern int32 tfBell;
-extern int32 use_intern_sets;
-extern int32 use_ani_file;
 extern char anifile[XPP_MAX_NAME];
 static int32 select_intern_sets = 0;
 
-extern int32 Nintern_set;
 int32 Nintern_2_use = 0;
 
 static struct SetName {
@@ -116,14 +101,6 @@ int32 querypars = 0;
 int32 queryics = 0;
 int32 dryrun = 0;
 extern char this_file[XPP_MAX_NAME];
-extern int32 XPPBatch;
-extern int32 MakePlotFlag;
-extern int32 BatchEquil;
-extern int32 xorfix;
-extern int32 newseeed;
-extern int32 silent;
-extern int32 allwinvis;
-extern int32 ConvertStyle;
 int32 noicon = 1;
 int32 newseed = 0;
 

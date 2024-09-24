@@ -41,7 +41,6 @@ static double *rcont6;
 static double *rcont7;
 static double *rcont8;
 
-extern int32 NFlags;
 
 static void dprhs(uint32 n, double t, double *y, double *f);
 

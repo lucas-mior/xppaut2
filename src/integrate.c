@@ -58,18 +58,9 @@ extern Graph *MyGraph;
 #define DP5 11
 #define DP83 12
 #define RB23 13
-extern int32 animation_on_the_fly;
 extern double ShootIC[8][MAX_ODE];
 extern int32 ShootType[8];
-extern int32 ShootICFlag;
-extern int32 ShootIndex;
-extern int32 SimulPlotFlag;
-extern int32 current_pop;
-extern int32 num_pops;
 extern int32 ActiveWinList[];
-extern int32 use_intern_sets;
-extern int32 BatchEquil;
-extern Window draw_win;
 extern char this_internset[XPP_MAX_NAME];
 
 int32 MakePlotFlag = 0;
@@ -77,7 +68,6 @@ int32 MakePlotFlag = 0;
 static int32 OnTheFly = 1;
 extern FILE *svgfile;
 
-extern OptionsSet notAlreadySet;
 
 typedef struct {
     int32 index0;
@@ -114,40 +104,23 @@ static FIXPTGUESS fixptguess;
 XPPVEC xpv;
 int32 SuppressOut = 0;
 int32 SuppressBounds = 0;
-extern int32 NUPAR;
 
 extern char *info_message;
 extern char *ic_hint[];
 extern char *sing_hint[];
-extern int32 Xup;
-extern int32 batch_range;
 extern char batchout[XPP_MAX_NAME];
-extern int32 NMarkov;
-extern int32 STOCH_FLAG;
-extern int32 color_total;
-extern int32 SCALEY;
-extern int32 DCURY;
-extern int32 PltFmtFlag;
-extern int32 PointRadius;
 int32 DelayErr;
 
-extern int32 DelayFlag;
-extern int32 DCURY;
-extern int32 NKernel;
 double MyData[MAX_ODE];
 double MyTime;
 int32 MyStart;
 int32 RANGE_FLAG;
-extern int32 PAR_FOL;
-extern int32 SHOOT;
 extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
 double LastTime;
 
 extern char UserOUTFILE[XPP_MAX_NAME];
 
-extern double DELAY;
-extern int32 R_COL;
 extern int32 colorline[11];
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 static int32 STOP_FLAG = 0;
@@ -166,7 +139,6 @@ static struct {
 Range range;
 
 extern InternSet intern_set[MAX_INTERN_SET];
-extern int32 Nintern_set;
 
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);

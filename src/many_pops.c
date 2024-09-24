@@ -1,5 +1,6 @@
 #include "xpplim.h"
 #include "functions.h"
+#include "parserslow.h"
 #include "integers.h"
 #include <stdbool.h>
 
@@ -48,55 +49,26 @@ static struct MarkInfo {
 
 int32 manual_expose = 0;
 extern char *info_message;
-extern Atom deleteWindowAtom;
 
 Graph graph[MAXPOP];
 Curve frz[MAXFRZ];
 Graph *MyGraph;
 
-extern int32 screen;
-extern int32 SCALEY;
-extern int32 CURY_OFF;
-extern int32 CURY_OFFs;
-extern int32 DCURYs;
-extern int32 DCURXs;
-extern int32 DCURYb;
 int32 SimulPlotFlag = 0;
-extern int32 storind;
-extern int32 PltFmtFlag;
 extern char *text_hint[];
 extern char *edit_hint[];
 extern char *no_hint[];
-extern Window main_win;
-extern Window draw_win;
-extern Window command_pop;
-extern Window info_pop;
 int32 current_pop;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 MyMainWinColor;
-extern uint32 MyDrawWinColor;
-extern uint32 GrFore;
-extern uint32 GrBack;
-extern GC gc;
-extern GC gc_graph;
-extern GC small_gc;
-extern int32 xor_flag;
-extern int32 DCURX;
-extern int32 DCURY;
 int32 num_pops;
 static int32 MINI_H = 300;
 static int32 MINI_W = 450;
 
-extern int32 Xup;
 int32 ActiveWinList[MAXPOP];
 
 extern TABULAR my_table[MAX_TAB];
 
-extern int32 NTable;
 
 extern InternSet intern_set[MAX_INTERN_SET];
-extern int32 Nintern_set;
 
 static void select_sym(Window window);
 static void lo_lite(Window wi);

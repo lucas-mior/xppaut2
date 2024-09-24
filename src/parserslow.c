@@ -34,11 +34,9 @@ static double zippy;
 double lgamma();
 #endif
 
-extern int32 NODE;
 
 /* #define COM(a) my_symb[toklist[(a)]].com */
 int32 ERROUT;
-extern int32 DelayFlag;
 int32 NDELAYS = 0;
 /*double pow2(); */
 double delay_stab_eval(double, int32);
@@ -52,7 +50,6 @@ int32 RandSeed = 12345678;
 #define M_PI 3.14159265358979323846264338327950288
 #endif
 
-extern int32 del_stab_flag;
 
 static double CurrentIndex = 0;
 static int32 SumIndex = 1;

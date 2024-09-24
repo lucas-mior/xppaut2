@@ -10,7 +10,6 @@
 #include "integers.h"
 #include "autlib.h"
 
-extern int32 NODE;
 static int32 restart_flag = 0;
 
 /* The memory for these are taken care of in main, and setubv for the

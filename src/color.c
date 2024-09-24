@@ -25,35 +25,18 @@
 #define C_GRAY 5
 #define C_CUBHLX 6
 
-extern int32 Xup;
 
-extern GC gc_graph;
-extern GC small_gc;
-extern int32 screen;
-extern Window main_win;
 static int32 color_mode = 1;
 int32 color_min;
 int32 color_total;
 int32 COLOR;
 int32 color_max;
-extern int32 DCURX;
-extern int32 DCURY;
-extern int32 CURY_OFF;
-extern int32 CURS_X;
-extern int32 CURS_Y;
-extern int32 DCURXs;
-extern int32 DCURYs;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 GrFore;
-extern uint32 GrBack;
 int32 custom_color = 0;
 
 #define MAX_COLORS 256
 #define COL_TOTAL 150
 
 static XColor color[MAX_COLORS];
-extern int32 TrueColorFlag;
 
 static int32 bfun(double y, int32 per);
 static int32 gfun(double y, int32 per);

@@ -14,15 +14,7 @@
 static NCLINE nclines[MAXNCLINE];
 extern Curve frz[MAXFRZ];
 extern Graph *MyGraph;
-extern Window main_win;
-extern Window draw_win;
-extern Window info_pop;
-extern int32 DCURY;
-extern int32 storind;
-extern int32 PS_FONTSIZE;
-extern int32 PS_Port;
 extern char PS_FONT[200];
-extern double PS_LW;
 extern double x_3d[2];
 extern double y_3d[2];
 extern double z_3d[2];
@@ -56,17 +48,7 @@ static struct BD {
     Window window;
 } my_bd;
 
-extern int32 DLeft;
-extern int32 DRight;
-extern int32 DTop;
-extern int32 DBottom;
-extern int32 VTic;
-extern int32 HTic;
-extern int32 VChar;
-extern int32 HChar;
 
-extern double T0;
-extern double TEND;
 extern double **storage;
 
 static double FreezeKeyX;
@@ -79,7 +61,6 @@ static int32 CurrentCurve = 0;
 extern char this_file[XPP_MAX_NAME];
 extern char this_internset[XPP_MAX_NAME];
 
-extern int32 PltFmtFlag;
 
 extern char *info_message;
 extern char *no_hint[];

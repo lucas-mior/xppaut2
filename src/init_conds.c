@@ -53,28 +53,8 @@ This also has the clone gadget
 #define WRITEM 0
 
 extern char *save_eqn[MAXLINES];
-extern int32 NLINES;
-extern int32 screen;
-extern int32 Xup;
-extern GC gc;
-extern GC small_gc;
-extern Window main_win;
-extern Window draw_win;
-extern int32 DCURX;
-extern int32 DCURXs;
-extern int32 DCURY;
-extern int32 DCURYs;
-extern int32 CURY_OFFs;
-extern int32 CURY_OFF;
-extern int32 NDELAYS;
 /*extern char UserBGBitmap[100];*/
 extern char UserBGBitmap[XPP_MAX_NAME];
-extern int32 SuppressBounds;
-extern double DELAY;
-extern uint32 MyBackColor;
-extern uint32 MyForeColor;
-extern uint32 MyMainWinColor;
-extern uint32 MyDrawWinColor;
 #define PARAMBOX 1
 #define ICBOX 2
 #define DELAYBOX 3
@@ -105,12 +85,7 @@ static struct FileSel {
 
 static void display_file_sel(struct FileSel f, Window window);
 
-extern FILEINFO my_ff;
 
-extern int32 NUPAR;
-extern int32 NODE;
-extern int32 NEQ;
-extern int32 NMarkov;
 extern char delay_string[MAX_ODE][80];
 extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
@@ -176,20 +151,10 @@ static void redraw_file_list(void);
 static void redraw_directory(void);
 static void expose_selector(Window window);
 
-extern OptionsSet notAlreadySet;
 
-extern int32 SLIDER1;
-extern int32 SLIDER2;
-extern int32 SLIDER3;
 extern char SLIDER1VAR[20];
 extern char SLIDER2VAR[20];
 extern char SLIDER3VAR[20];
-extern double SLIDER1LO;
-extern double SLIDER2LO;
-extern double SLIDER3LO;
-extern double SLIDER1HI;
-extern double SLIDER2HI;
-extern double SLIDER3HI;
 
 extern BcStruct my_bc[MAX_ODE];
 

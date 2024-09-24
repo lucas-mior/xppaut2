@@ -22,8 +22,6 @@
 extern double constants[];
 extern double last_ic[MAX_ODE];
 
-extern double DELAY;
-extern int32 DelayFlag;
 
 static struct {
     char file[25];
