@@ -307,7 +307,7 @@ scroll_popup(StringBox *sb, ScrollBox *scrb) {
 }
 
 int32
-do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
+do_string_box(int32 n, int32 rows, int32 cols, char *title, char **names,
               char values[][MAX_LEN_SBOX], int32 maxchar) {
     StringBox sb;
     int32 i;
@@ -327,7 +327,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
     }
     sb.n = n;
     sb.hot = 0;
-    make_sbox_windows(&sb, row, col, title, maxchar);
+    make_sbox_windows(&sb, rows, cols, title, maxchar);
     XSelectInput(display, sb.cancel, BUT_MASK);
     XSelectInput(display, sb.ok, BUT_MASK);
     pos = (int32)strlen(sb.value[0]);
@@ -531,7 +531,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
 }
 
 void
-make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
+make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
                   int32 maxchar) {
     int32 width;
     int32 height;
@@ -543,8 +543,8 @@ make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
     XTextProperty winname;
     XSizeHints size_hints;
     Window base;
-    width = (maxchar + 4)*col*DCURX;
-    height = (row + 4)*(DCURY + 16);
+    width = (maxchar + 4)*cols*DCURX;
+    height = (rows + 4)*(DCURY + 16);
     base =
         make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
     XStringListToTextProperty(&title, 1, &winname);
@@ -573,8 +573,8 @@ make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
     ystart = DCURY;
     xstart = DCURX;
     for (i = 0; i < n; i++) {
-        xpos = xstart + (maxchar + 4)*DCURX*(i / row);
-        ypos = ystart + (i % row)*(DCURY + 10);
+        xpos = xstart + (maxchar + 4)*DCURX*(i / rows);
+        ypos = ystart + (i % rows)*(DCURY + 10);
         sb->win[i] = make_window(base, xpos, ypos, maxchar*DCURX, DCURY, 1);
     }
 
