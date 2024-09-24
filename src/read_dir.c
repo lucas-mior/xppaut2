@@ -68,20 +68,7 @@ char cur_dir[MAXPATHLEN];
 static int32 star(char *string, char *pattern);
 
 FILEINFO my_ff;
-/*
-main() {
- int32 i;
- change_directory("../xtc");
- get_directory(cur_dir);
- ggets_plintf("direct = %s \n",cur_dir);
- get_fileinfo("*.c",cur_dir,&my_ff);
- for(i=0;i<my_ff.ndirs;i++)
-   ggets_plintf("%s\n",my_ff.dirnames[i]);
- for(i=0;i<my_ff.nfiles;i++)
-   ggets_plintf("%s\n",my_ff.filenames[i]);
- free_finfo(&my_ff);
-}
-*/
+
 void
 free_finfo(FILEINFO *ff) {
     int32 i;
