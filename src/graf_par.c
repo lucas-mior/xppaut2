@@ -12,7 +12,7 @@
 #include <libgen.h>
 
 static NCLINE nclines[MAXNCLINE];
-extern CURVE frz[MAXFRZ];
+extern Curve frz[MAXFRZ];
 extern GRAPH *MyGraph;
 extern Window main_win;
 extern Window draw_win;

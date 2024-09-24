@@ -20,16 +20,16 @@
 #define WDMARK .001
 #define HTMARK .0016
 
-typedef struct {
+static struct Grob {
     double xs, ys, xe, ye;
     double size;
     int16 use;
     Window window;
     int32 type;
     int32 color;
-} GROB;
+} grob[MAXGROB];
 
-typedef struct Label {
+static struct Label {
     Window window;
     double x;
     double y;
@@ -37,7 +37,7 @@ typedef struct Label {
     int16 use;
     int32 font;
     int32 size;
-} Label;
+} lb[MAXLAB];
 
 static struct MarkInfo {
     int32 type;
@@ -50,10 +50,8 @@ int32 manual_expose = 0;
 extern char *info_message;
 extern Atom deleteWindowAtom;
 
-static Label lb[MAXLAB];
-GROB grob[MAXGROB];
 GRAPH graph[MAXPOP];
-CURVE frz[MAXFRZ];
+Curve frz[MAXFRZ];
 GRAPH *MyGraph;
 
 extern int32 screen;

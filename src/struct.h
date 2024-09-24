@@ -79,7 +79,7 @@ typedef struct {
     uint32 bcol;
 } TEXTGC;
 
-typedef struct {
+typedef struct Curve {
     Window window;
     char key[20], name[10];
     int16 use;
@@ -87,7 +87,7 @@ typedef struct {
     double *xv, *yv, *zv;
     int32 len;
     int32 color;
-} CURVE;
+} Curve;
 
 typedef struct {
     Window window;
