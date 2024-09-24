@@ -192,8 +192,8 @@ typedef double (*FunctionInt32Int32)(int32, int32);
 typedef double (*FunctionDouble)(double);
 typedef double (*FunctionDoubleDouble)(double, double);
 
-void *fun1[50];
-void *fun2[50];
+static void *fun1[50];
+static void *fun2[50];
 
 /*************************
   RPN COMPILER           *

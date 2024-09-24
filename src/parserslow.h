@@ -20,6 +20,10 @@ extern char *ufun_def[MAX_UFUN];
 extern char ufun_names[MAX_UFUN][12];
 extern int32 narg_fun[MAX_UFUN];
 
+extern int32 NKernel;
+extern int32 MaxPoints;
+extern int32 NTable;
+
 typedef struct Kernel {
     double k_n1, k_n, sum, betnn, mu, *al, *cnv;
     int32 *formula;
@@ -99,6 +103,8 @@ typedef struct {
     int32 narg;
     char args[MAXARG][14];
 } UFUN_ARG;
+
+extern UFUN_ARG ufun_arg[MAX_UFUN];
 
 #define VECT_ROOT 500
 
