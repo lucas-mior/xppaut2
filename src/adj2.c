@@ -94,9 +94,9 @@ int32
 adj2_do_transpose(void) {
     int32 ii;
     int32 status;
-    static char *n[] = {"*0Column 1", "NCols", "ColSkip",
-                        "Row 1",      "NRows", "RowSkip"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
+    static char *strings[] = {"*0Column 1", "NCols", "ColSkip",
+                              "Row 1",      "NRows", "RowSkip"};
+    char values[LENGTH(strings)][MAX_LEN_SBOX];
 
     snprintf(values[0], sizeof(values[0]), "%s", my_trans.firstcol);
     snprintf(values[1], sizeof(values[1]), "%d", my_trans.ncol);
@@ -113,7 +113,8 @@ adj2_do_transpose(void) {
         adj2_data_back();
     }
 
-    status = do_string_box(6, 6, 1, "Transpose Data", n, values, 33);
+    status = do_string_box(LENGTH(strings), LENGTH(strings), 1,
+                           "Transpose Data", strings, values, 33);
     if (status != 0) {
         int32 inrow, incol;
 
