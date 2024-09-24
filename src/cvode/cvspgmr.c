@@ -247,12 +247,12 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
     }
 
     /* Allocate memory for ytemp and x */
-    ytemp = N_VNew(N);
+    ytemp = vector_new(N);
     if (ytemp == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         return LINIT_ERR;
     }
-    x = N_VNew(N);
+    x = vector_new(N);
     if (x == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         N_VFree(ytemp);

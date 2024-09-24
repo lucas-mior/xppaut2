@@ -130,11 +130,11 @@ typedef struct {
  * v_data=N_VDATA(v) and then access v_data[i] within the      *
  * loop than it is to use N_VDATA(v,i) within the loop.        *
  *                                                             *
- * N_VMAKE and N_VDISPOSE are similar to N_VNew and N_VFree.   *
+ * N_VMAKE and N_VDISPOSE are similar to vector_new and N_VFree.   *
  * The difference is one of responsibility for component       *
- * memory allocation and deallocation. N_VNew allocates memory *
+ * memory allocation and deallocation. vector_new allocates memory *
  * for the Vector components and N_VFree frees the component *
- * memory allocated by N_VNew. For N_VMAKE and N_VDISPOSE, the *
+ * memory allocated by vector_new. For N_VMAKE and N_VDISPOSE, the *
  * component memory is allocated and freed by the user of      *
  * this package.                                               *
  *                                                             *
@@ -157,14 +157,14 @@ typedef struct {
 
 /***************************************************************
  *                                                             *
- * Memory Allocation and Deallocation: N_VNew, N_VFree         *
+ * Memory Allocation and Deallocation: vector_new, N_VFree         *
  *                                                             *
  ***************************************************************/
 
 /***************************************************************
  *                                                             *
- * Function : N_VNew                                           *
- * Usage    : x = N_VNew(N);
+ * Function : vector_new                                           *
+ * Usage    : x = vector_new(N);
  *-------------------------------------------------------------*
  *                                                             *
  * Returns a new Vector of length N. The parameter machEnv   *
@@ -172,11 +172,11 @@ typedef struct {
  * It is ignored in the sequential machine environment and the *
  * user in this environment should simply pass NULL for this   *
  * argument. If there is not enough memory for a new Vector, *
- * then N_VNew returns NULL.                                   *
+ * then vector_new returns NULL.                                   *
  *                                                             *
  ***************************************************************/
 
-Vector N_VNew(int64 n);
+Vector vector_new(int64 n);
 
 /***************************************************************
  *                                                             *

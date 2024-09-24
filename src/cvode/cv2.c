@@ -20,7 +20,7 @@ static Vector ycv;
 
 void
 start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
-    ycv = N_VNew(n);
+    ycv = vector_new(n);
     for (int32 i = 0; i < n; i++)
         ycv->data[i] = y[i];
     cvode_mem = cvode_malloc(n, cv_func, t, ycv, BDF, NEWTON, SS, rtol, atol,

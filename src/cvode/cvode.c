@@ -1030,21 +1030,21 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
 
     /* Allocate ewt, acor, tempv, ftemp */
 
-    ewt = N_VNew(neq);
+    ewt = vector_new(neq);
     if (ewt == NULL)
         return FALSE;
-    acor = N_VNew(neq);
+    acor = vector_new(neq);
     if (acor == NULL) {
         N_VFree(ewt);
         return FALSE;
     }
-    tempv = N_VNew(neq);
+    tempv = vector_new(neq);
     if (tempv == NULL) {
         N_VFree(ewt);
         N_VFree(acor);
         return FALSE;
     }
-    ftemp = N_VNew(neq);
+    ftemp = vector_new(neq);
     if (ftemp == NULL) {
         N_VFree(tempv);
         N_VFree(ewt);
@@ -1055,7 +1055,7 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
     /* Allocate zn[0] ... zn[maxord] */
 
     for (j = 0; j <= maxord; j++) {
-        zn[j] = N_VNew(neq);
+        zn[j] = vector_new(neq);
         if (zn[j] == NULL) {
             N_VFree(ewt);
             N_VFree(acor);
