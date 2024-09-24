@@ -1,5 +1,5 @@
 MAJOR_VERSION = 8.0
-MINOR_VERSION = 2
+MINOR_VERSION = 3
 
 PREFIX ?= /usr/local
 
@@ -36,7 +36,7 @@ bear: compile_commands.json
 
 compile_commands.json: Makefile
 	rm -f *.o src/*.o src/cvode/*.o src/sbml/*.o $(TARGET)
-	bear -- make -j1 > compile_commands.json
+	bear -- make -j1 clang > compile_commands.json
 
 tags: CFLAGS += -Wno-error
 tags: $(OBJECTS)

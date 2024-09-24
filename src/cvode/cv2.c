@@ -11,15 +11,15 @@
 #include "llnltyps.h"
 #include "vector.h"
 
-double cv_ropt[OPT_SIZE];
-int32 cv_iopt[OPT_SIZE];
+static double cv_ropt[OPT_SIZE];
+static int32 cv_iopt[OPT_SIZE];
 extern int32 cv_bandflag;
 extern int32 cv_bandupper;
 extern int32 cv_bandlower;
 
 static void cvf(int64 n, double t, N_Vector y, N_Vector ydot, void *fdata);
-void *cvode_mem;
-N_Vector ycv;
+static void *cvode_mem;
+static N_Vector ycv;
 extern int32 NFlags;
 extern double TOLER;
 extern double ATOLER;
