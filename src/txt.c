@@ -17,8 +17,6 @@
 
 #include "txtview.bitmap"
 #include "mykeydef.h"
-#define MAXLINES 5000
-#define MAXCOMMENTS 500
 
 #define xds(a)                                                                 \
     do {                                                                       \

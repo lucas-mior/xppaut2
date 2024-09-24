@@ -285,16 +285,17 @@ markov_compile_all(void) {
 int32
 compile_markov(int32 index, int32 j, int32 k) {
     char *expr;
-    int32 l0 = markov[index].nstates*j + k, leng;
+    int32 l0 = markov[index].nstates*j + k;
+    int32 leng2;
     int32 i;
     int32 com[256];
     expr = markov[index].trans[l0];
 
-    if (add_expr(expr, com, &leng))
+    if (add_expr(expr, com, &leng2))
         return -1;
     markov[index].command[l0] =
-        xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng + 2));
-    for (i = 0; i < leng; i++) {
+        xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng2 + 2));
+    for (i = 0; i < leng2; i++) {
         markov[index].command[l0][i] = com[i];
     }
 
