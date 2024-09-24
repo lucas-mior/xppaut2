@@ -63,7 +63,7 @@ src/autlib4.o: CFLAGS += -Wno-unused-but-set-variable
 src/autlib5.o: CFLAGS += -Wno-unused-but-set-variable
 src/extra.o: CFLAGS += -Wno-pedantic
 src/form_ode.o: CFLAGS += -Wno-pedantic
-src/parserslow2.o: CFLAGS += -Wno-pedantic
+src/parserslow.o: CFLAGS += -Wno-pedantic
 
 $(TARGET): $(OBJECTS) Makefile
 	$(C) $(CFLAGS) -o $(TARGET) $(filter-out Makefile, $^) $(LDFLAGS) 
