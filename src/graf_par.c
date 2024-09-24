@@ -28,7 +28,7 @@ extern double y_3d[2];
 extern double z_3d[2];
 int32 PS_Color = 1;
 
-extern char PlotFormat[100];
+extern char PlotFormat[10];
 
 #define SPER 3
 #define UPER 4

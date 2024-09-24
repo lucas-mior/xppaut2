@@ -121,7 +121,7 @@ extern char *ic_hint[];
 extern char *sing_hint[];
 extern int32 Xup;
 extern int32 batch_range;
-extern char batchout[256];
+extern char batchout[XPP_MAX_NAME];
 extern int32 NMarkov;
 extern int32 STOCH_FLAG;
 extern int32 color_total;
@@ -144,7 +144,7 @@ extern double default_val[MAX_PAR];
 extern double last_ic[MAX_ODE];
 double LastTime;
 
-extern char UserOUTFILE[256];
+extern char UserOUTFILE[XPP_MAX_NAME];
 
 extern double DELAY;
 extern int32 R_COL;

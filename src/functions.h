@@ -3271,8 +3271,8 @@ extern double xppvermaj;
 extern double xppvermin;
 extern int32 Xup;
 
-extern char batchout[256];
-extern char UserOUTFILE[256];
+extern char batchout[XPP_MAX_NAME];
+extern char UserOUTFILE[XPP_MAX_NAME];
 extern int32 TrueColorFlag;
 extern char big_font_name[100];
 extern char small_font_name[100];

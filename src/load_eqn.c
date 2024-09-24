@@ -107,10 +107,10 @@ extern int32 DoTutorial;
     to use them. (Except eqn forming stuff)
  */
 
-extern char batchout[256];
+extern char batchout[XPP_MAX_NAME];
 extern int32 batch_range;
 double last_ic[MAX_ODE];
-extern char PlotFormat[100];
+extern char PlotFormat[10];
 extern char big_font_name[100];
 extern char small_font_name[100];
 extern int32 PaperWhite;
