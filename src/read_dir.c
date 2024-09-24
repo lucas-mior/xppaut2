@@ -245,19 +245,8 @@ change_directory(char *path) {
 
 int32
 get_directory(char *direct) {
-#if defined(SYSV) || defined(SVR4)
-extern char *getcwd(char *, usize);
-#else
-extern char *getwd(char *);
-#endif
-
-#if defined(SYSV) || defined(SVR4)
     if (getcwd(direct, 1024) == NULL) { /* get current working dir */
         ggets_plintf("%s\n", "Can't get current directory");
-#else
-    if (getwd(direct) == NULL) {      /* get current working dir */
-        ggets_plintf("%s\n", direct); /* err msg is in directory */
-#endif
         *direct = '\0';
         return 0;
     }
