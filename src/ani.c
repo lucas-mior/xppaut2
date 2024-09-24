@@ -14,7 +14,7 @@
 ***************   NOTES ON MPEG STUFF   ********************
 To prepare for mpeg encoding in order to make your movies
 permanent, I have to do some image manipulation - the main
-routine is write_frame()
+routine is ani_write_frame()
 
 The current version works for most 8 bit color servers.  I have
 a version also working for TrueColor 16 bit and I think it works on
@@ -1006,7 +1006,7 @@ ani_flip(void) {
         if (mpeg.flag > 0 && ((mpeg_frame % mpeg.skip) == 0)) {
             snprintf(fname, sizeof(fname), "%s_%d.ppm", mpeg.root, mpeg_write);
             mpeg_write++;
-            write_frame(fname, ani_pixmap, vcr.wid, vcr.hgt);
+            ani_write_frame(fname, ani_pixmap, vcr.wid, vcr.hgt);
         }
         mpeg_frame++;
         /* now check AVI stuff */
@@ -1047,7 +1047,7 @@ ani_disk_warn(void) {
 }
 
 int32
-get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
+ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
     XImage *ximage;
     Colormap cmap;
     ulong value;
@@ -1125,7 +1125,7 @@ get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out) {
 }
 
 int32
-write_frame(char *filename, Window window, int32 wid, int32 hgt) {
+ani_write_frame(char *filename, Window window, int32 wid, int32 hgt) {
     int32 fd;
     XImage *ximage;
     Colormap cmap;

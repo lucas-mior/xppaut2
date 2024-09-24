@@ -269,7 +269,7 @@ save_movie(char *basename, int32 fmat) {
                   (uint)h, 0, 0);
         XFlush(display);
         if (fmat == 1)
-            write_frame(file, draw_win, w, h);
+            ani_write_frame(file, draw_win, w, h);
 #ifndef NOGIF
         else {
             XGetGeometry(display, draw_win, &root, &x, &y, (uint32 *)&w,
