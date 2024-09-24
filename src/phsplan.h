@@ -22,7 +22,6 @@ extern int32 STORFLAG;
 extern int32 FOREVER;
 
 extern int32 ENDSING;
-extern int32 PAUSER;
 
 /*  extern GRAPH *MyGraph; */
 

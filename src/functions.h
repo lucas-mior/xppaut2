@@ -959,6 +959,9 @@ extern double last_ic[MAX_ODE];
 extern char delay_string[MAX_ODE][80];
 extern int32 itor[MAX_ODE];
 
+extern int32 POIEXT;
+extern int32 HIST;
+
 /* The acutual max filename length is determined by the
  * FILENAME_MAX (see <stdio.h>), and usually 4096 -- but
  * this is huge and usually overkill.  On the otherhand

@@ -200,7 +200,6 @@ int32 FOREVER;
 
 /*  control of range stuff  */
 
-int32 PAUSER;
 int32 ENDSING;
 int32 SHOOT;
 int32 PAR_FOL;

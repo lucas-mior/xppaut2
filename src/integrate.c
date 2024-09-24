@@ -703,7 +703,6 @@ do_eq_range(double *x) {
     DelayErr = 0;
     ENDSING = 0;
     PAR_FOL = 1;
-    PAUSER = 0;
     SHOOT = eq_range.shoot;
     reset_browser();
     if (mc == 1) {
@@ -823,7 +822,6 @@ integrate_do_range(double *x, int32 flag) {
     integrate_get_ic(2, x);
     storind = 0;
     STORFLAG = 1;
-    PAUSER = 0;
     nit2 = 0;
     if (range.rtype == 2)
         nit2 = range.steps2;

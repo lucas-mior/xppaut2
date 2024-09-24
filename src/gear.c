@@ -19,7 +19,6 @@ extern int32 METHOD;
 extern int32 ENDSING;
 extern int32 PAR_FOL;
 extern int32 SHOOT;
-extern int32 PAUSER;
 
 extern int32 NODE;
 extern int32 NFlags;
@@ -1017,8 +1016,6 @@ rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
                     ENDSING = 1;
                     return;
                 }
-                if (ch == 'p')
-                    PAUSER = 1;
             }
         }
 
