@@ -563,7 +563,7 @@ check_for_quiet(int32 argc, char **argv) {
 
 void
 main_do_vis_env(void) {
-    load_eqn_set_X_vals();
+    load_eqn_set_x_vals();
     load_eqn_check_for_xpprc();
     load_eqn_set_internopts_xpprc_and_comline();
     return;

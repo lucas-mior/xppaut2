@@ -207,7 +207,7 @@ load_eqn(void) {
 }
 
 void
-load_eqn_set_X_vals(void) {
+load_eqn_set_x_vals(void) {
     /*
     Set up the default look here.
     */

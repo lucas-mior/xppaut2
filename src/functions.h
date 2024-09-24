@@ -3171,7 +3171,7 @@ typedef struct OptionsSet {
 
 void load_eqn_dump_torus(FILE *fp, int32 f);
 void load_eqn(void);
-void load_eqn_set_X_vals(void);
+void load_eqn_set_x_vals(void);
 void load_eqn_set_all_vals(void);
 void load_eqn_add_intern_set(char *name, char *does);
 void load_eqn_extract_action(char *ptr);
