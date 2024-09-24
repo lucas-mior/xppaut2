@@ -46,10 +46,10 @@ static GifTree *baseNode;
 static GifTree **nodeArray;
 static GifTree **lastArray;
 
-static void ClearTree(int32 cc, GifTree *root);
-static int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
+static void scrngif_clear_tree(int32 cc, GifTree *root);
+static int32 scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
 static void make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
-static void GifLoop(FILE *fout, uint32 repeats);
+static void scrngif_loop(FILE *fout, uint32 repeats);
 static void write_global_header(int32 cols, int32 rows, FILE *dst);
 static void gif_stuff(Window win, FILE *fp, int32 task);
 static int32 make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
@@ -231,7 +231,7 @@ gif_stuff(Window win, FILE *fp, int32 task) {
                 local_to_global();
                 write_global_header((int32)w, (int32)h, fp);
                 write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
-                GifEncode(fp, pixels, 8, (int32)(w*h));
+                scrngif_encode(fp, pixels, 8, (int32)(w*h));
             } else /* first map cant be encoded */
             {
                 UseGlobalMap = 0;
@@ -240,14 +240,14 @@ gif_stuff(Window win, FILE *fp, int32 task) {
                                     fp); /* write global header */
                 make_local_map(pixels, ppm, (int32)h, (int32)w);
                 write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
-                GifEncode(fp, pixels, 8, (int32)(w*h));
+                scrngif_encode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
             make_local_map(pixels, ppm, (int32)h, (int32)w);
             write_global_header((int32)w, (int32)h, fp);
             write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
-            GifEncode(fp, pixels, 8, (int32)(w*h));
+            scrngif_encode(fp, pixels, 8, (int32)(w*h));
         }
         break;
     case NEXT_ANI_GIF:
@@ -255,18 +255,18 @@ gif_stuff(Window win, FILE *fp, int32 task) {
             ok = use_global_map(pixels, ppm, (int32)h, (int32)w);
             if (ok == 1) {
                 write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
-                GifEncode(fp, pixels, 8, (int32)(w*h));
+                scrngif_encode(fp, pixels, 8, (int32)(w*h));
             } else {
                 UseGlobalMap = 0;
                 make_local_map(pixels, ppm, (int32)h, (int32)w);
                 write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
-                GifEncode(fp, pixels, 8, (int32)(w*h));
+                scrngif_encode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
             make_local_map(pixels, ppm, (int32)h, (int32)w);
             write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
-            GifEncode(fp, pixels, 8, (int32)(w*h));
+            scrngif_encode(fp, pixels, 8, (int32)(w*h));
         }
         break;
     default:
@@ -311,12 +311,12 @@ write_global_header(int32 cols, int32 rows, FILE *dst) {
     }
     fwrite(buffer, (ulong)(pos - buffer), 1, dst);
     free(buffer - 1);
-    GifLoop(dst, (uint32)GifFrameLoop);
+    scrngif_loop(dst, (uint32)GifFrameLoop);
     return;
 }
 
 void
-GifLoop(FILE *fout, uint32 repeats) {
+scrngif_loop(FILE *fout, uint32 repeats) {
     fputc(0x21, fout);
     fputc(0xFF, fout);
     fputc(0x0B, fout);
@@ -408,14 +408,14 @@ make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
 
     /* header info done */
 
-    GifEncode(dst, pixels, depth, rows*cols);
+    scrngif_encode(dst, pixels, depth, rows*cols);
     fputc(';', dst);
     free(buffer - 1);
     return;
 }
 
 int32
-GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
+scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     GifTree *first = &GifRoot, *newNode, *curNode;
     uchar *end;
     int32 cc, eoi, next, tel = 0;
@@ -449,7 +449,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
              xmalloc(256*sizeof(GifTree *)*noOfArrays)) == NULL)
         return 0;
     lastArray = nodeArray + (256*noOfArrays - cc);
-    ClearTree(cc, first);
+    scrngif_clear_tree(cc, first);
 
     pos = scrngif_add_code_to_buffer(cc, cLength, pos);
 
@@ -554,7 +554,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
         next++;
 
         if (next == 0xfff) {
-            ClearTree(cc, first);
+            scrngif_clear_tree(cc, first);
             pos = scrngif_add_code_to_buffer(cc, cLength, pos);
             if (pos - buffer > BLOKLEN) {
                 buffer[-1] = BLOKLEN;
@@ -597,7 +597,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 }
 
 void
-ClearTree(int32 cc, GifTree *root) {
+scrngif_clear_tree(int32 cc, GifTree *root) {
     int32 i;
     GifTree *newNode, **xx;
 
