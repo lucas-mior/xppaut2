@@ -187,7 +187,7 @@ diagram_write_info_out(void) {
     /*double a,*ubar,*u0;*/
     FILE *fp;
     sprintf(filename, "allinfo.dat");
-    /* status=get_dialog("Write all info","Filename",filename,"Ok","Cancel",60);
+    /* status=dialog_box_get("Write all info","Filename",filename,"Ok","Cancel",60);
      */
     status = init_conds_file_selector("Write all info", filename, "*.dat");
 
@@ -301,7 +301,7 @@ diagram_write_init_data_file(void) {
     /*double a,*uhigh,*ulow,*ubar;*/
     FILE *fp;
     sprintf(filename, "initdata.dat");
-    /* status=get_dialog("Write all info","Filename",filename,"Ok","Cancel",60);
+    /* status=dialog_box_get("Write all info","Filename",filename,"Ok","Cancel",60);
      */
     status =
         init_conds_file_selector("Write init data file", filename, "*.dat");
@@ -369,7 +369,7 @@ diagram_write_pts(void) {
     FILE *fp;
     sprintf(filename, "diagram.dat");
     status = init_conds_file_selector("Write points", filename, "*.dat");
-    /* get_dialog("Write points","Filename",filename,"Ok","Cancel",60); */
+    /* dialog_box_get("Write points","Filename",filename,"Ok","Cancel",60); */
     if (status == 0)
         return;
     fp = fopen(filename, "w");
@@ -425,7 +425,7 @@ diagram_post_auto(void) {
     int32 type, flag = 0;
     int32 status;
     sprintf(filename, "auto.ps");
-    /* status=get_dialog("Postscript","Filename",filename,"Ok","Cancel",60); */
+    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60); */
     status = init_conds_file_selector("Postscript", filename, "*.ps");
     if (status == 0)
         return;
@@ -463,7 +463,7 @@ diagram_svg_auto(void) {
     int32 type, flag = 0;
     int32 status;
     sprintf(filename, "auto.svg");
-    /* status=get_dialog("Postscript","Filename",filename,"Ok","Cancel",60); */
+    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60); */
     status = init_conds_file_selector("SVG", filename, "*.svg");
     if (status == 0)
         return;

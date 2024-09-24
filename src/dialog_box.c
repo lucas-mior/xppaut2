@@ -22,11 +22,11 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-static void display_dialog(Window window, Dialog d, int32 col);
-static int32 dialog_event_loop(Dialog *d, int32 *pos, int32 *col);
+static void dialog_box_display(Window window, Dialog d, int32 col);
+static int32 dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col);
 
 int32
-get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
+dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
            int32 max) {
     int32 lm = (int32)strlen(name)*DCURX;
     int32 lv = max*DCURX;
@@ -84,7 +84,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     pos = (int32)strlen(d.input_s);
     colm = DCURX*pos;
     while (true) {
-        status = dialog_event_loop(&d, &pos, &colm);
+        status = dialog_box_event_loop(&d, &pos, &colm);
         if (status != -1)
             break;
     }
@@ -101,7 +101,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
 }
 
 int32
-dialog_event_loop(Dialog *d, int32 *pos, int32 *col) {
+dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
     int32 status = -1;
     int32 done = 0;
     int32 ch;
@@ -114,7 +114,7 @@ dialog_event_loop(Dialog *d, int32 *pos, int32 *col) {
     case Expose:
     case MapNotify:
         many_pops_do_expose(event);
-        display_dialog(event.xany.window, *d, *col);
+        dialog_box_display(event.xany.window, *d, *col);
         break;
     case ButtonPress:
         if (event.xbutton.window == d->ok) {
@@ -154,7 +154,7 @@ dialog_event_loop(Dialog *d, int32 *pos, int32 *col) {
 }
 
 void
-display_dialog(Window window, Dialog d, int32 col) {
+dialog_box_display(Window window, Dialog d, int32 col) {
     if (window == d.ok)
         XDrawString(display, window, gc, 0, CURY_OFF + 1, d.ok_s,
                     (int32)strlen(d.ok_s));

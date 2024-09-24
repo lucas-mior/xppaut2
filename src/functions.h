@@ -1563,7 +1563,7 @@ void diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 #include <X11/Xlib.h>
 #include "struct.h"
 
-int32 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
+int32 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
                  int32 max);
 
 #endif

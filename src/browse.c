@@ -196,10 +196,10 @@ browse_data_add_col(Browser *b) {
     XGetInputFocus(display, &window, &rev);
     strcpy(var, "");
     strcpy(form, "");
-    status = get_dialog("Add Column", "Name", var, "Ok", "Cancel", 20);
+    status = dialog_box_get("Add Column", "Name", var, "Ok", "Cancel", 20);
     if (status != 0) {
         status =
-            get_dialog("Add Column", "Formula:", form, "Add it", "Cancel", 80);
+            dialog_box_get("Add Column", "Formula:", form, "Add it", "Cancel", 80);
         if (status != 0)
             browse_add_stor_col(var, form, b);
     }
@@ -1278,10 +1278,10 @@ browse_data_replace(Browser *b) {
     XGetInputFocus(display, &window, &rev);
     strcpy(var, uvar_names[0]);
     strcpy(form, uvar_names[0]);
-    status = get_dialog("Replace", "Variable:", var, "Ok", "Cancel", 20);
+    status = dialog_box_get("Replace", "Variable:", var, "Ok", "Cancel", 20);
     if (status != 0) {
         status =
-            get_dialog("Replace", "Formula:", form, "Replace", "Cancel", 80);
+            dialog_box_get("Replace", "Formula:", form, "Replace", "Cancel", 80);
         if (status != 0)
             browse_replace_column(var, form, b->data, b->maxrow);
         browse_draw_data(*b);
@@ -1395,7 +1395,7 @@ browse_data_read(Browser *b) {
 
     strcpy(fil, "test.dat");
     /*  XGetInputFocus(display,&w,&rev);
-    status=get_dialog("Load","Filename:",fil,"Ok","Cancel",40);
+    status=dialog_box_get("Load","Filename:",fil,"Ok","Cancel",40);
     XSetInputFocus(display,w,rev,CurrentTime);
     */
     status = init_conds_file_selector("Load data", fil, "*.dat");
@@ -1462,7 +1462,7 @@ browse_data_write(Browser *b) {
      strcpy(fil,"test.dat");
      ggets_new_string("Write to:",fil);
     */
-    /* status=get_dialog("Write","Filename:",fil,"Ok","Cancel",40);
+    /* status=dialog_box_get("Write","Filename:",fil,"Ok","Cancel",40);
 
        XSetInputFocus(display,w,rev,CurrentTime); */
     status = init_conds_file_selector("Write data", fil, "*.dat");

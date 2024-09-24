@@ -2583,7 +2583,7 @@ auto_nox_save(void) {
     /* XGetInputFocus(display,&w,&rev); */
 
     sprintf(filename, "%s.auto", basename(this_auto_file));
-    /* status=get_dialog("Save Auto","Filename",filename,"Ok","Cancel",60);
+    /* status=dialog_box_get("Save Auto","Filename",filename,"Ok","Cancel",60);
     XSetInputFocus(display,w,rev,CurrentTime);
     */
     status = init_conds_file_selector("Save Auto", filename, "*.auto");
