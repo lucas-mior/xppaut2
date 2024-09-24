@@ -34,7 +34,7 @@ band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu) {
     if (A == NULL)
         return NULL;
 
-    A->data = bandalloc(N, smu, ml);
+    A->data = band_alloc2(N, smu, ml);
     if (A->data == NULL) {
         free(A);
         return NULL;
@@ -49,7 +49,7 @@ band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu) {
 }
 
 int64 *
-BandAllocPiv(int64 N) {
+band_alloc_piv(int64 N) {
     if (N <= 0)
         return NULL;
 
@@ -111,7 +111,7 @@ band_print(BandMat A) {
 }
 
 double **
-bandalloc(int64 n, int64 smu, int64 ml) {
+band_alloc2(int64 n, int64 smu, int64 ml) {
     double **a;
     int64 j;
     int64 colSize;
@@ -137,7 +137,7 @@ bandalloc(int64 n, int64 smu, int64 ml) {
 }
 
 int64 *
-bandallocpiv(int64 n) {
+band_alloc_piv2(int64 n) {
     if (n <= 0)
         return NULL;
 

@@ -32,7 +32,7 @@ dense_alloc_mat(int64 N) {
     if (A == NULL)
         return NULL;
 
-    A->data = denalloc(N);
+    A->data = dense_alloc2(N);
     if (A->data == NULL) {
         free(A);
         return NULL;
@@ -44,7 +44,7 @@ dense_alloc_mat(int64 N) {
 }
 
 int64 *
-DenseAllocPiv(int64 N) {
+dense_alloc_piv(int64 N) {
     if (N <= 0)
         return NULL;
 
@@ -106,7 +106,7 @@ dense_print(DenseMat A) {
 }
 
 double **
-denalloc(int64 n) {
+dense_alloc2(int64 n) {
     int64 j;
     double **a;
 
@@ -130,7 +130,7 @@ denalloc(int64 n) {
 }
 
 int64 *
-denallocpiv(int64 n) {
+dense_alloc_piv2(int64 n) {
     if (n <= 0)
         return NULL;
 

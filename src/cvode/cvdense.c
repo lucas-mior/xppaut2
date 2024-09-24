@@ -251,7 +251,7 @@ CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
         dense_free_mat(M);
         return LINIT_ERR;
     }
-    pivots = DenseAllocPiv(N);
+    pivots = dense_alloc_piv(N);
     if (pivots == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         dense_free_mat(M);

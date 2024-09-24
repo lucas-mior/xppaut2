@@ -423,7 +423,7 @@ BandMat band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu);
 /******************************************************************
  *                                                                *
  * Function : BandAllocPiv                                        *
- * Usage    : p = BandAllocPiv(N);                                *
+ * Usage    : p = band_alloc_piv(N);                                *
  *            if (p == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
  * BandAllocPiv allocates memory for pivot information to be      *
@@ -434,7 +434,7 @@ BandMat band_alloc_mat(int64 N, int64 mu, int64 ml, int64 smu);
  * pivot storage cannot be satisfied, BandAllocPiv returns NULL.  *
  *                                                                *
  ******************************************************************/
-int64 *BandAllocPiv(int64 N);
+int64 *band_alloc_piv(int64 N);
 
 /******************************************************************
  *                                                                *
@@ -577,10 +577,10 @@ void band_print(BandMat A);
  *                                                                *
  * Function : bandalloc                                           *
  * Usage    : double **a;                                           *
- *            a = bandalloc(n, smu, ml);                          *
+ *            a = band_alloc2(n, smu, ml);                          *
  *            if (a == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
- * bandalloc(n, smu, ml) allocates storage for an n by n band     *
+ * band_alloc2(n, smu, ml) allocates storage for an n by n band     *
  * matrix A with storage upper bandwidth smu and lower bandwidth  *
  * ml. It returns a pointer to the newly allocated storage if     *
  * successful. If the memory request cannot be satisfied, then    *
@@ -600,7 +600,7 @@ void band_print(BandMat A);
  *                                                                *
  * The underlying type of the band matrix returned is double **. If *
  * we allocate a band matrix A in double **a by                     *
- * a = bandalloc(n,smu,ml), then a[0] is a pointer to             *
+ * a = band_alloc2(n,smu,ml), then a[0] is a pointer to             *
  * n*(smu + ml + 1) contiguous storage locations and a[j] is a  *
  * pointer to the uppermost element in the storage for the jth    *
  * column. The expression a[j][i-j+smu] references the (i,j)th    *
@@ -609,21 +609,21 @@ void band_print(BandMat A);
  * by gbfa and gbsl.)                                             *
  *                                                                *
  ******************************************************************/
-double **bandalloc(int64 n, int64 smu, int64 ml);
+double **band_alloc2(int64 n, int64 smu, int64 ml);
 
 /******************************************************************
  *                                                                *
  * Function : bandallocpiv                                        *
  * Usage    : int64 *pivot;                                     *
- *            pivot = bandallocpiv(n);                            *
+ *            pivot = band_alloc_piv2(n);                            *
  *            if (pivot == NULL) ... memory request failed        *
  *----------------------------------------------------------------*
- * bandallocpiv(n) allocates an array of n integers. It returns a *
+ * band_alloc_piv2(n) allocates an array of n integers. It returns a *
  * pointer to the first element in the array if successful. It    *
  * returns NULL if the memory request could not be satisfied.     *
  *                                                                *
  ******************************************************************/
-int64 *bandallocpiv(int64 n);
+int64 *band_alloc_piv2(int64 n);
 
 /******************************************************************
  *                                                                *
@@ -663,13 +663,13 @@ int64 *bandallocpiv(int64 n);
  * because of partial pivoting. The lower triangular factor L has *
  * lower bandwidth ml. Thus, if A is to be factored and           *
  * backsolved using gbfa and gbsl, then it should be allocated    *
- * as a = bandalloc(n,smu,ml), where smu = MIN(n-1,mu+ml). The    *
+ * as a = band_alloc2(n,smu,ml), where smu = MIN(n-1,mu+ml). The    *
  * call to gbfa is ier = band_gbfa(a,n,mu,ml,smu,p). The corresponding *
  * call to gbsl is band_gbsl(a,n,smu,ml,p,b). The user does not need   *
  * to zero the "extra" storage allocated for the purpose of       *
  * factorization. This is handled by the gbfa routine. If A is    *
  * not going to be factored and backsolved, then it can be        *
- * allocated as a = bandalloc(n,smu,ml). In either case, all      *
+ * allocated as a = band_alloc2(n,smu,ml). In either case, all      *
  * routines in this section use the parameter name smu for a      *
  * parameter which must be the "storage upper bandwidth" which    *
  * was passed to bandalloc.                                       *
@@ -840,7 +840,7 @@ void data_get_my_browser(int32 row);
 
 void q_calc(void);
 int32 do_calc(char *temp, double *z);
-double calculate(char *expr, int32 *ok);
+double calc(char *expr, int32 *ok);
 
 #endif
 
@@ -1229,7 +1229,7 @@ DenseMat dense_alloc_mat(int64 N);
 /******************************************************************
  *                                                                *
  * Function : DenseAllocPiv                                       *
- * Usage    : p = DenseAllocPiv(N);                               *
+ * Usage    : p = dense_alloc_piv(N);                               *
  *            if (p == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
  * DenseAllocPiv allocates memory for pivot information to be     *
@@ -1240,7 +1240,7 @@ DenseMat dense_alloc_mat(int64 N);
  * pivot storage cannot be satisfied, DenseAllocPiv returns NULL. *
  *                                                                *
  ******************************************************************/
-int64 *DenseAllocPiv(int64 N);
+int64 *dense_alloc_piv(int64 N);
 
 /******************************************************************
  *                                                                *
@@ -1372,36 +1372,36 @@ void dense_print(DenseMat A);
  *                                                                *
  * Function : denalloc                                            *
  * Usage    : double **a;                                           *
- *            a = denalloc(n);                                    *
+ *            a = dense_alloc2(n);                                    *
  *            if (a == NULL) ... memory request failed            *
  *----------------------------------------------------------------*
- * denalloc(n) allocates storage for an n by n dense matrix. It   *
+ * dense_alloc2(n) allocates storage for an n by n dense matrix. It   *
  * returns a pointer to the newly allocated storage if            *
  * successful. If the memory request cannot be satisfied, then    *
  * denalloc returns NULL. The underlying type of the dense matrix *
  * returned is double **. If we allocate a dense matrix double **a by *
- * a = denalloc(n), then a[j][i] references the (i,j)th element   *
+ * a = dense_alloc2(n), then a[j][i] references the (i,j)th element   *
  * of the matrix a, 0 <= i,j <= n-1, and a[j] is a pointer to the *
  * first element in the jth column of a. The location a[0]        *
  * contains a pointer to n^2 contiguous locations which contain   *
  * the elements of a.                                             *
  *                                                                *
  ******************************************************************/
-double **denalloc(int64 n);
+double **dense_alloc2(int64 n);
 
 /******************************************************************
  *                                                                *
  * Function : denallocpiv                                         *
  * Usage    : int64 *pivot;                                     *
- *            pivot = denallocpiv(n);                             *
+ *            pivot = dense_alloc_piv2(n);                             *
  *            if (pivot == NULL) ... memory request failed        *
  *----------------------------------------------------------------*
- * denallocpiv(n) allocates an array of n integers. It returns a  *
+ * dense_alloc_piv2(n) allocates an array of n integers. It returns a  *
  * pointer to the first element in the array if successful. It    *
  * returns NULL if the memory request could not be satisfied.     *
  *                                                                *
  ******************************************************************/
-int64 *denallocpiv(int64 n);
+int64 *dense_alloc_piv2(int64 n);
 
 /******************************************************************
  *                                                                *
@@ -3940,7 +3940,7 @@ void screen_to_gif(Window win, FILE *fp);
 void get_global_colormap(Window win);
 void write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
                         int32 delay);
-uchar *AddCodeToBuffer(int32 code, int16 n, uchar *buf);
+uchar *scrngif_add_code_to_buffer(int32 code, int16 n, uchar *buf);
 
 #endif
 

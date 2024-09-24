@@ -294,7 +294,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
         band_free_mat(M);
         return LINIT_ERR;
     }
-    pivots = BandAllocPiv(N);
+    pivots = band_alloc_piv(N);
     if (pivots == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
         band_free_mat(M);

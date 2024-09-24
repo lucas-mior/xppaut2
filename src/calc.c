@@ -180,7 +180,7 @@ do_calc(char *temp, double *z) {
         return 1;
     }
     if (has_eq(temp, val, &i)) {
-        newz = calculate(&temp[i], &ok); /*  calculate quantity  */
+        newz = calc(&temp[i], &ok); /*  calculate quantity  */
 
         if (ok == 0)
             return -1;
@@ -204,7 +204,7 @@ do_calc(char *temp, double *z) {
         return 0;
     }
 
-    newz = calculate(temp, &ok);
+    newz = calc(temp, &ok);
     if (ok == 0)
         return -1;
     *z = newz;
@@ -226,7 +226,7 @@ has_eq(char *z, char *w, int32 *where) {
 }
 
 double
-calculate(char *expr, int32 *ok) {
+calc(char *expr, int32 *ok) {
     int32 com[400], i;
     double z = 0.0;
     if (add_expr(expr, com, &i)) {

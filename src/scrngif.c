@@ -29,7 +29,7 @@
         fputc(i >> 8, fout);                                                   \
     } while (0)
 
-uchar *AddCodeToBuffer(int32, int16, uchar *);
+uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
 uint32 debugFlag;
 int32 UseGlobalMap = 0;
 int32 GifFrameDelay = 5;
@@ -443,7 +443,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     lastArray = nodeArray + (256*noOfArrays - cc);
     ClearTree(cc, first);
 
-    pos = AddCodeToBuffer(cc, cLength, pos);
+    pos = scrngif_add_code_to_buffer(cc, cLength, pos);
 
     end = pixels + siz;
     curNode = first;
@@ -526,7 +526,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
                         "Wrong Type coding; pixel# = %d; nodecount = %d\n", tel,
                         nodecount);
         }
-        pos = AddCodeToBuffer(curNode->code, cLength, pos);
+        pos = scrngif_add_code_to_buffer(curNode->code, cLength, pos);
         if (chainlen > maxchainlen)
             maxchainlen = chainlen;
         chainlen = 0;
@@ -547,7 +547,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
         if (next == 0xfff) {
             ClearTree(cc, first);
-            pos = AddCodeToBuffer(cc, cLength, pos);
+            pos = scrngif_add_code_to_buffer(cc, cLength, pos);
             if (pos - buffer > BLOKLEN) {
                 buffer[-1] = BLOKLEN;
                 fwrite(buffer - 1, 1, BLOKLEN + 1, fout);
@@ -562,7 +562,7 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
         }
     }
 
-    pos = AddCodeToBuffer(curNode->code, cLength, pos);
+    pos = scrngif_add_code_to_buffer(curNode->code, cLength, pos);
     if (pos - buffer > BLOKLEN - 3) {
         buffer[-1] = BLOKLEN - 3;
         fwrite(buffer - 1, 1, BLOKLEN - 2, fout);
@@ -573,10 +573,10 @@ GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
         buffer[4] = buffer[BLOKLEN + 1];
         pos -= BLOKLEN - 3;
     }
-    pos = AddCodeToBuffer(eoi, cLength, pos);
-    pos = AddCodeToBuffer(0x0, -1, pos);
+    pos = scrngif_add_code_to_buffer(eoi, cLength, pos);
+    pos = scrngif_add_code_to_buffer(0x0, -1, pos);
     buffer[-1] = (uchar)(pos - buffer);
-    pos = AddCodeToBuffer(0x0, 8, pos);
+    pos = scrngif_add_code_to_buffer(0x0, 8, pos);
 
     fwrite(buffer - 1, (usize)(pos - buffer + 1), 1, fout);
     free(buffer - 1);
@@ -622,7 +622,7 @@ ClearTree(int32 cc, GifTree *root) {
 }
 
 uchar *
-AddCodeToBuffer(int32 code, int16 n, uchar *buf) {
+scrngif_add_code_to_buffer(int32 code, int16 n, uchar *buf) {
     int32 mask;
 
     if (n < 0) {
