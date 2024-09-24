@@ -57,7 +57,6 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #define DP5 11
 #define DP83 12
 #define RB23 13
-extern double ShootIC[8][MAX_ODE];
 
 int32 MakePlotFlag = 0;
 

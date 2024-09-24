@@ -83,8 +83,6 @@ static struct FileSel {
 
 static void display_file_sel(struct FileSel f, Window window);
 
-extern char delay_string[MAX_ODE][80];
-
 static struct ParSlider {
     int32 use, pos, l;
     char parname[20];

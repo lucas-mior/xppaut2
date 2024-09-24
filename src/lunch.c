@@ -17,9 +17,6 @@
 
 static int32 set_type = 0;
 
-extern char delay_string[MAX_ODE][80];
-extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
-
 static void io_graph(int32 f, FILE *fp);
 static void io_exprs(int32 f, FILE *fp);
 static void io_parameters(int32 f, FILE *fp);

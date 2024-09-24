@@ -48,8 +48,6 @@ int32 *my_ode[MAX_ODE];
 
 int32 leng[MAX_ODE];
 
-extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
-
 static char *onlylist[MAXONLY];
 int32 *plotlist;
 static int32 N_only = 0;
@@ -58,7 +56,6 @@ int32 N_plist;
 ACTION comments[MAXCOMMENTS];
 static int32 is_a_map = 0;
 int32 n_comments = 0;
-extern char delay_string[MAX_ODE][80];
 BcStruct my_bc[MAX_ODE];
 
 double default_ic[MAX_ODE];
