@@ -2300,11 +2300,11 @@ typedef struct FixInfo {
     char *value;
 } FixInfo;
 
-typedef struct {
+typedef struct Action {
     char *text;
     char *action;
     int32 aflag;
-} ACTION;
+} Action;
 
 typedef struct {
     int32 *com;
@@ -2330,7 +2330,7 @@ extern FixInfo fixinfo[MAX_ODE];
 extern int32 *my_ode[MAX_ODE];
 extern int32 *plotlist;
 extern int32 N_plist;
-extern ACTION comments[MAXCOMMENTS];
+extern Action comments[MAXCOMMENTS];
 extern BcStruct my_bc[MAX_ODE];
 
 extern int32 n_comments;
@@ -2568,15 +2568,15 @@ typedef struct BoxList {
     int32 mc, *off, *pos;
 } BoxList;
 
-typedef struct {
+typedef struct HistInfo {
     int32 nbins, nbins2, type, col, col2, fftc;
     double xlo;
     double xhi;
     double ylo, yhi;
     char cond[80];
-} HIST_INFO;
+} HistInfo;
 
-extern HIST_INFO hist_inf;
+extern HistInfo hist_inf;
 extern int32 spec_col;
 extern int32 spec_wid;
 extern int32 spec_win;
@@ -2690,13 +2690,13 @@ extern Range range;
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
 
-typedef struct {
+typedef struct XppVec {
     int32 nvec;
     int32 node;
     double *x;
-} XPPVEC;
+} XppVec;
 
-extern XPPVEC xpv;
+extern XppVec xpv;
 
 extern int32 DelayErr;
 extern double MyData[MAX_ODE];
@@ -4361,7 +4361,7 @@ int32 storage_realloc(int32 ncol, int32 nrow);
 #ifndef TABULAR_H
 #define TABULAR_H
 
-typedef struct {
+typedef struct Tabular {
     double xlo, xhi, dx;
     double *y;
     double *x;
@@ -4372,9 +4372,9 @@ typedef struct {
        'step' interp=2 for cubic spline table   and finally, xyvals=1 if both x
        and y vals are needed (xyvals=0 is faster lookup )*/
     char filename[128], name[12];
-} TABULAR;
+} Tabular;
 
-extern TABULAR my_table[MAX_TAB];
+extern Tabular my_table[MAX_TAB];
 
 void tabular_set_auto_eval_flags(int32 f);
 void tabular_set_table_name(char *name, int32 index);

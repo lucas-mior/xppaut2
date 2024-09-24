@@ -24,7 +24,7 @@
 
 static int64 myrandomseed = -1;
 
-typedef struct {
+typedef struct Markov {
     int32 **command;
     char **trans;
     double *fixed;
@@ -32,9 +32,9 @@ typedef struct {
     double *states;
     int32 type; /* 0 is default and state dependent.  1 is fixed for all time */
     char name[12];
-} MARKOV;
+} Markov;
 
-static MARKOV markov[MAX_MARK];
+static Markov markov[MAX_MARK];
 
 static double *my_mean[MAX_ODE];
 static double *my_variance[MAX_ODE];

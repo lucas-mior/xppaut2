@@ -1,15 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-typedef struct {
+
+typedef struct Symbol {
     char name[10];
     int len;
     int com;
     int arg;
     int pri;
-} SYMBOL;
+} Symbol;
 
-SYMBOL ms[11] = {{"(", 1, 999, 0, 1}, /*  0   */
+Symbol ms[11] = {{"(", 1, 999, 0, 1}, /*  0   */
                  {")", 1, 999, 0, 2}, {",", 1, 999, 0, 3},
                  {"+", 1, 100, 0, 4}, {"-", 1, 101, 0, 4},
                  {"*", 1, 102, 0, 6}, {"/", 1, 103, 0, 6},

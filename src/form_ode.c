@@ -31,17 +31,17 @@ char *ode_names[MAX_ODE];
 char *save_eqn[MAXLINES];
 double default_val[MAX_PAR];
 
-typedef struct var_info {
+typedef struct VarInfo {
     char lhs[MAXEXPLEN];
     char rhs[MAXEXPLEN];
     char args[MAXARG][NAMLEN + 1];
     int32 type;
     int32 nargs;
     double value;
-    struct var_info *next, *prev;
-} VAR_INFO;
+    struct VarInfo *next, *prev;
+} VarInfo;
 
-static VAR_INFO *my_varinfo;
+static VarInfo *my_varinfo;
 static int32 start_var_info = 0;
 
 int32 *my_ode[MAX_ODE];
@@ -53,7 +53,7 @@ int32 *plotlist;
 static int32 N_only = 0;
 int32 N_plist;
 
-ACTION comments[MAXCOMMENTS];
+Action comments[MAXCOMMENTS];
 static int32 is_a_map = 0;
 int32 n_comments = 0;
 BcStruct my_bc[MAX_ODE];
@@ -95,7 +95,7 @@ static int32 strparse(char *s1, char *s2, int32 i0, int32 *i1);
 static int32 extract_ode(char *s1, int32 *ie, int32 i1);
 static void free_varinfo(void);
 static void init_varinfo(void);
-static int32 parse_a_string(char *s1, VAR_INFO *v);
+static int32 parse_a_string(char *s1, VarInfo *v);
 static void strpiece(char *dest, char *src, int32 i0, int32 ie);
 static int32 formula_or_number(char *expr, double *z);
 static void compile_em(void);
@@ -989,8 +989,8 @@ u(0) = value >---  initial data (replaces v, init is also OK )
 /*
  * XPP INTERNALS DEMAND THE FOLLOWING ORDER CONVENTION:
 
- * external names :  ODES MARKOV AUXILLIARY (uvar_names)
- * internal names :  ODES FIXED MARKOV  (variables)
+ * external names :  ODES Markov AUXILLIARY (uvar_names)
+ * internal names :  ODES FIXED Markov  (variables)
  * internal formula: ODES FIXED AUXILLIARY (my_ode)
  * external formula: odes markov auxilliary (ode_names)
 
@@ -1004,7 +1004,7 @@ u(0) = value >---  initial data (replaces v, init is also OK )
  * uvar_names[] <----\
  * aux_names[]  <----/ external names
 
- * New parser reads in each line storing it in the var_info structure
+ * New parser reads in each line storing it in the VarInfo structure
  * if it is a markov (the only truly multiline command) then it
  * ** immediately ** reads in the markov stuff
 
@@ -1083,7 +1083,7 @@ count_object(int32 type) {
 
 int32
 do_new_parser(FILE *fp, char *first, int32 nnn) {
-    VAR_INFO v;
+    VarInfo v;
     char **markovarrays = NULL;
     char *strings[256];
     int32 nstrings = 0, ns;
@@ -1484,7 +1484,7 @@ find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
 void
 compile_em(void) {
     /* Now we try to keep track of markov, fixed, etc as well as their names */
-    VAR_INFO *v;
+    VarInfo *v;
     char vnames[MAX_ODE1][MAXVNAM];
     char fnames[MAX_ODE1][MAXVNAM];
     char anames[MAX_ODE1][MAXVNAM];
@@ -1936,7 +1936,7 @@ strpiece(char *dest, char *src, int32 i0, int32 ie) {
 }
 
 int32
-parse_a_string(char *s1, VAR_INFO *v) {
+parse_a_string(char *s1, VarInfo *v) {
     int32 i0 = 0, i1, i2, i3;
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
     int32 i, type, type2;
@@ -2082,7 +2082,7 @@ good_type:
 
 void
 init_varinfo(void) {
-    my_varinfo = xmalloc(sizeof(VAR_INFO));
+    my_varinfo = xmalloc(sizeof(VarInfo));
     my_varinfo->next = NULL;
     my_varinfo->prev = NULL;
     start_var_info = 0;
@@ -2092,8 +2092,8 @@ init_varinfo(void) {
 void
 add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
             char args[MAXARG][NAMLEN + 1]) {
-    VAR_INFO *v;
-    VAR_INFO *vnew;
+    VarInfo *v;
+    VarInfo *vnew;
     int32 i;
     v = my_varinfo;
     if (start_var_info == 0) {
@@ -2108,7 +2108,7 @@ add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
         while (v->next != NULL) {
             v = (v->next);
         }
-        v->next = xmalloc(sizeof(VAR_INFO));
+        v->next = xmalloc(sizeof(VarInfo));
         vnew = v->next;
         vnew->type = type;
         vnew->nargs = nargs;
@@ -2124,8 +2124,8 @@ add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
 
 void
 free_varinfo(void) {
-    VAR_INFO *v;
-    VAR_INFO *vnew;
+    VarInfo *v;
+    VarInfo *vnew;
     v = my_varinfo;
     while (v->next != NULL) {
         v = v->next;

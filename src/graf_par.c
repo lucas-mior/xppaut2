@@ -11,7 +11,7 @@
 #include "integers.h"
 #include <libgen.h>
 
-static NCLINE nclines[MAXNCLINE];
+static NullCline nclines[MAXNCLINE];
 int32 PS_Color = 1;
 
 #define SPER 3

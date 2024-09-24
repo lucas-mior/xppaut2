@@ -16,13 +16,13 @@
 #define MAXFILM 250
 static int32 ks_ncycle = 1;
 static int32 ks_speed = 50;
-typedef struct {
+typedef struct Movie {
     int32 h;
     int32 w;
     Pixmap xi;
-} MOVIE;
+} Movie;
 
-static MOVIE movie[MAXFILM];
+static Movie movie[MAXFILM];
 
 static void too_small(void);
 static void auto_play(void);

@@ -93,7 +93,7 @@ typedef struct {
 } FLAG;
 
 #define IC 2
-#define PARAM 1
+#define Param 1
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 static FLAG flag[MAX_FLAG];
 int32 NFlags = 0;
@@ -199,7 +199,7 @@ flags_compile(void) {
         for (i = 0; i < flag[j].nevents; i++) {
             index = init_conds_find_user_name(IC, flag[j].lhsname[i]);
             if (index < 0) {
-                index = init_conds_find_user_name(PARAM, flag[j].lhsname[i]);
+                index = init_conds_find_user_name(Param, flag[j].lhsname[i]);
                 if (index < 0) {
                     if (strcasecmp(flag[j].lhsname[i], "out_put") == 0) {
                         flag[j].type[i] = 2;

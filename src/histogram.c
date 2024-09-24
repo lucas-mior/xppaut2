@@ -22,7 +22,7 @@ static int32 spec_type = 0;
 
 int32 post_process = 0;
 
-HIST_INFO hist_inf = {100, 100, 0, 1, 1, 0, 0, 1, 0, 1, ""};
+HistInfo hist_inf = {100, 100, 0, 1, 1, 0, 0, 1, 0, 1, ""};
 
 static int32 hist_len;
 static int32 four_len;

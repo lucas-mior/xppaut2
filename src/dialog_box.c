@@ -22,8 +22,8 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      EnterWindowMask | LeaveWindowMask)
 
-static void display_dialog(Window window, DIALOG d, int32 col);
-static int32 dialog_event_loop(DIALOG *d, int32 *pos, int32 *col);
+static void display_dialog(Window window, Dialog d, int32 col);
+static int32 dialog_event_loop(Dialog *d, int32 *pos, int32 *col);
 
 int32
 get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
@@ -38,7 +38,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
     int32 status;
     XTextProperty winname;
 
-    DIALOG d;
+    Dialog d;
     strcpy(d.mes_s, name);
     strcpy(d.input_s, value);
     strcpy(d.ok_s, ok);
@@ -101,7 +101,7 @@ get_dialog(char *wname, char *name, char *value, char *ok, char *cancel,
 }
 
 int32
-dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
+dialog_event_loop(Dialog *d, int32 *pos, int32 *col) {
     int32 status = -1;
     int32 done = 0;
     int32 ch;
@@ -154,7 +154,7 @@ dialog_event_loop(DIALOG *d, int32 *pos, int32 *col) {
 }
 
 void
-display_dialog(Window window, DIALOG d, int32 col) {
+display_dialog(Window window, Dialog d, int32 col) {
     if (window == d.ok)
         XDrawString(display, window, gc, 0, CURY_OFF + 1, d.ok_s,
                     (int32)strlen(d.ok_s));

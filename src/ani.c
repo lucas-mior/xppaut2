@@ -95,9 +95,9 @@ typedef struct {
     double vx;
     double vy;
     double vax, vay;
-} ANI_MOTION_INFO;
+} AniMotionInfo;
 
-static ANI_MOTION_INFO ami;
+static AniMotionInfo ami;
 
 static AniGrab ani_grab[MAX_ANI_GRAB];
 static int32 n_ani_grab = 0;

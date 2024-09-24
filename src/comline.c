@@ -87,12 +87,12 @@ int32 dryrun = 0;
 int32 noicon = 1;
 int32 newseed = 0;
 
-typedef struct {
+typedef struct Vocab {
     char name[10];
     int32 len;
-} VOCAB;
+} Vocab;
 
-static VOCAB my_cmd[NCMD] = {
+static Vocab my_cmd[NCMD] = {
     {"-m", 3},          {"-xorfix", 7},     {"-silent", 7},     {"-convert", 8},
     {"-iconify", 7},    {"-newseed", 7},    {"-allwin", 6},     {"-setfile", 7},
     {"-ee", 3},         {"-white", 6},      {"-runnow", 7},     {"-bigfont", 8},

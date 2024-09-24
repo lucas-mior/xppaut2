@@ -15,7 +15,7 @@
 #include "xpplim.h"
 #include "auto_nox.h"
 
-#define PARAM 1
+#define Param 1
 #define IC 2
 
 #define DFNORMAL 1
@@ -778,7 +778,7 @@ do_intern_set(char *name1, char *value) {
     if (i > -1) {
         last_ic[i] = atof(value);
     } else {
-        i = init_conds_find_user_name(PARAM, name);
+        i = init_conds_find_user_name(Param, name);
         if (i > -1) {
             set_val(name, atof(value));
         } else {

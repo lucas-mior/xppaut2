@@ -12,7 +12,7 @@
 #include "parserslow.h"
 #include "xpplim.h"
 
-#define PARAM 1
+#define Param 1
 #define IC 2
 
 #define MYMASK                                                                 \
@@ -167,7 +167,7 @@ calc_do_calc(char *temp, double *z) {
 
         if (ok == 0)
             return -1;
-        i = init_conds_find_user_name(PARAM, val);
+        i = init_conds_find_user_name(Param, val);
         if (i > -1) {
             set_val(val, newz); /* a parameter set to value  */
             *z = newz;

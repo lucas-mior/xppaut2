@@ -135,15 +135,15 @@ including derived parameters but XPP takes care of this so start at 0
 
 #define MAXVEC 100
 
-typedef struct {
+typedef struct Vectorizer {
     char name[20];
     int32 root, length, il, ir;
-} VECTORIZER;
+} Vectorizer;
 
-static VECTORIZER my_vec[MAXVEC];
+static Vectorizer my_vec[MAXVEC];
 static int32 n_vector = 0;
 
-typedef struct {
+typedef struct Network {
     int32 type, ncon, n;
     char name[20];
     char soname[256], sofun[256];
@@ -157,7 +157,7 @@ typedef struct {
     double *values, *weight, *index, *taud; /* for delays  */
     double *fftr, *ffti, *dr, *di;
     double *wgtlist[MAXW];
-} NETWORK;
+} Network;
 
 #define CONVE 0
 #define CONV0 1
@@ -191,7 +191,7 @@ static int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
                              int32 *il, int32 *ir);
 
 
-static NETWORK my_net[MAX_NET];
+static Network my_net[MAX_NET];
 static int32 n_network = 0;
 double
 net_interp(double x, int32 i) {

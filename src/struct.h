@@ -18,24 +18,24 @@
 #define ICLENGTH 30
 #define NAMELENGTH 10
 
-typedef struct {
+typedef struct RangeInfo {
     double xlo;
     double xhi;
     char rv[10];
     int32 nstep, ic, stor;
-} RANGE_INFO;
+} RangeInfo;
 
-typedef struct {
+typedef struct IcBox{
     Window base, ok, cancel, old, last, more, range;
     Window wrlo, wrhi, wstep, wreset, woldic;
-    RANGE_INFO *rinf;
+    RangeInfo *rinf;
     double *yold, *y, *ylast;
     int32 n;
     int32 node;
     char **name;
     char ascval[MAX_ODE][ICLENGTH];
     Window wname[ICMAX], wval[ICMAX];
-} IC_BOX;
+} IcBox;
 
 typedef struct Graph {
     Window window;
@@ -72,12 +72,12 @@ typedef struct Graph {
     char gr_info[256];
 } Graph;
 
-typedef struct {
+typedef struct TextGC {
     GC gc;
     int32 dx, dy, yoff;
     uint32 fcol;
     uint32 bcol;
-} TEXTGC;
+} TextGC;
 
 typedef struct Curve {
     Window window;
@@ -89,16 +89,16 @@ typedef struct Curve {
     int32 color;
 } Curve;
 
-typedef struct {
+typedef struct NullCline {
     Window window;
     char name[10];
     int16 use;
     double *x_n;
     double *y_n;
     int32 ix, iy, num_x, num_y;
-} NCLINE;
+} NullCline;
 
-typedef struct {
+typedef struct Dialog {
     Window mes;
     Window ok;
     Window cancel;
@@ -108,9 +108,9 @@ typedef struct {
     char input_s[MAXCHAR];
     char ok_s[MAXCHAR];
     char cancel_s[MAXCHAR];
-} DIALOG;
+} Dialog;
 
-typedef struct {
+typedef struct ChoiceBox {
     char title[MAXCHAR];
     int32 n;
     Window base;
@@ -121,33 +121,33 @@ typedef struct {
     Window cw[MAXENTRY];
     char **name;
     int32 *flag;
-} CHOICE_BOX;
+} ChoiceBox;
 
-typedef struct {
+typedef struct Param {
     Window window;
     char name[MAXCHAR];
     char value[MAXCHAR];
-} PARAM;
+} Param;
 
-typedef struct {
+typedef struct ParamBox2 {
     Window base;
     char title[MAXCHAR];
-    PARAM *p;
+    Param *p;
     int32 n;
     Window ok;
     Window cancel;
-} PARAM_BOX;
+} ParamBox2;
 
-typedef struct {
+typedef struct TChoice {
     char name[10];
     char value[80];
     Window window;
-} TCHOICE;
+} TChoice;
 
-typedef struct {
+typedef struct TxtChoice {
     char title[100];
     Window who, what, cancel, ok;
-    TCHOICE tc[100];
-} TXTCHOICE;
+    TChoice tc[100];
+} TxtChoice;
 
 #endif

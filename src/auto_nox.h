@@ -70,7 +70,7 @@ typedef struct diagram {
 typedef struct {
     int32 plot, var, icp1, icp2, icp3, icp4, icp5;
     double xmin, ymin, xmax, ymax;
-} AUTOAX;
+} AutoAX;
 
 extern GrabPoint grabpt;
 extern Rotchk blrtn;

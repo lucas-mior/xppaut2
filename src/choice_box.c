@@ -15,13 +15,13 @@
 #include "struct.h"
 #include "integers.h"
 
-static int32 choice_box_event_loop(CHOICE_BOX p);
-static void do_checks(CHOICE_BOX p);
-static void display_choice(Window window, CHOICE_BOX p);
-static void destroy_choice(CHOICE_BOX p);
+static int32 choice_box_event_loop(ChoiceBox p);
+static void do_checks(ChoiceBox p);
+static void display_choice(Window window, ChoiceBox p);
+static void destroy_choice(ChoiceBox p);
 
 void
-destroy_choice(CHOICE_BOX p) {
+destroy_choice(ChoiceBox p) {
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
@@ -29,7 +29,7 @@ destroy_choice(CHOICE_BOX p) {
 }
 
 void
-display_choice(Window window, CHOICE_BOX p) {
+display_choice(Window window, ChoiceBox p) {
     int32 i;
     int32 n = p.n;
     XSetFillStyle(display, gc, FillSolid);
@@ -55,7 +55,7 @@ display_choice(Window window, CHOICE_BOX p) {
 }
 
 void
-do_checks(CHOICE_BOX p) {
+do_checks(ChoiceBox p) {
     int32 i;
 
     for (i = 0; i < p.n; i++) {
@@ -80,7 +80,7 @@ base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check,
 int32
 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
               int32 *check, int32 type) {
-    CHOICE_BOX p;
+    ChoiceBox p;
 
     int32 i;
     int32 width;
@@ -147,7 +147,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
 }
 
 int32
-choice_box_event_loop(CHOICE_BOX p) {
+choice_box_event_loop(ChoiceBox p) {
     int32 i, j, nn = p.n;
     int32 status = -1;
 

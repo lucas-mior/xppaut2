@@ -55,7 +55,6 @@ and save the file.
 /*Let's try to be consistent with file name buffer sizes and
 any strings that may hold a path name (e.g. dialog message etc.)*/
 /*#define MAXPATHLEN 1024*/
-#define SYSV
 
 /*static int32	file_entry_cnt, dir_entry_cnt;
 static char   **file_list, **dir_list;

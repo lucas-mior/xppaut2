@@ -53,7 +53,7 @@ double ColorViaLo = 0;
 double ColorViaHi = 1;
 int32 ColorizeFlag = 0;
 
-static RANGE_INFO ncrange;
+static RangeInfo ncrange;
 
 static NullClines *ncperm;
 static int32 n_nstore = 0;

@@ -89,32 +89,32 @@ so i dont have to parse the event trigger
 #define MAXR 200  /* max reactions any species is in */
 #define MAXPEREV 128
 char *TypecodeToChar(SBMLTypeCode_t typecode);
-typedef struct {
+typedef struct LongNames {
     char *src;
     char rep[10];
-} LONG_NAMES;
+} LongNames;
 
 LONG_NAMES long_names[1024];
 int32 lnum = 0;
-typedef struct {
+typedef struct Rule {
     char *f;
     char *tc;
     char *v;
-} RULE;
+} Rule;
 
 RULE *rule;
 int32 Nrule = 0;
 
-typedef struct {
+typedef struct Event {
     char *ev;
     char *a[MAXPEREV];
     int32 na;
-} EVENT;
+} Event;
 
 EVENT *event;
 Nevent = 0;
 
-typedef struct {
+typedef struct Species {
     char *name;
     double x0;
     char *id;
@@ -125,7 +125,7 @@ typedef struct {
     double s[MAXR];
     int32 nrx;
     int32 rule;
-} SPECIES;
+} Species;
 
 SPECIES *X_spec;
 int32 N_spec = 0;
@@ -134,7 +134,7 @@ int32 N_spec = 0;
    reactants,products, and stoichiometry
    parameters are kept in a separate sturcture.
 */
-typedef struct {
+typedef struct RXN {
     char *re[NP];
     char *pr[NP];
     char *formula;
@@ -144,7 +144,7 @@ typedef struct {
     int32 nre;
 } RXN;
 
-typedef struct {
+typedef struct FUN_DEF {
     char *name;
     char *formula;
     int32 nargs;
@@ -156,14 +156,14 @@ int32 Nfuns = 0;
 
 RXN *rxn;
 int32 Nrxn = 0;
-typedef struct {
+typedef struct Par {
     char *name;
     char *id;
     int32 fixed;
     double z;
     char *formula;
     int32 unique;
-} PAR;
+} Par;
 
 /* dont always know how many */
 

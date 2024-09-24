@@ -43,7 +43,7 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #define ESCAPE 27
 #define FIRSTCOLOR 30
 
-#define PARAM 1
+#define Param 1
 #define IC 2
 
 #define MAXFP 400
@@ -70,10 +70,10 @@ typedef struct {
     char var[20];
     int32 j1;
     int32 j2;
-} ARRAY_IC;
+} ArrayIC;
 static int32 ar_ic_defined = 0;
 
-static ARRAY_IC ar_ic[NAR_IC];
+static ArrayIC ar_ic[NAR_IC];
 typedef struct {
     int32 n;
     int32 flag;
@@ -82,19 +82,19 @@ typedef struct {
     double *em[MAXFP];
     double *x1[MAXFP], *x2[MAXFP], *x3[MAXFP], *x4[MAXFP];
     int32 t1, t2, t3, t4;
-} FIXPTLIST;
+} FixPointList;
 
-static FIXPTLIST fixptlist;
+static FixPointList fixptlist;
 
 typedef struct {
     int32 n;
     double tol;
     double xlo[MAX_ODE], xhi[MAX_ODE];
-} FIXPTGUESS;
+} FixPointGuess;
 
-static FIXPTGUESS fixptguess;
+static FixPointGuess fixptguess;
 
-XPPVEC xpv;
+XppVec xpv;
 int32 SuppressOut = 0;
 int32 SuppressBounds = 0;
 
@@ -249,7 +249,7 @@ set_up_eq_range(void) {
     status = do_string_box(8, 8, 1, "Range Equilibria", n, values, 45);
     if (status != 0) {
         strcpy(eq_range.item, values[0]);
-        i = init_conds_find_user_name(PARAM, eq_range.item);
+        i = init_conds_find_user_name(Param, eq_range.item);
         if (i < 0) {
             ggets_err_msg("No such parameter");
             return 0;
@@ -309,9 +309,9 @@ int32
 range_item(void) {
     int32 i;
     char bob[256];
-    i = init_conds_find_user_name(PARAM, range.item);
+    i = init_conds_find_user_name(Param, range.item);
     if (i > -1) {
-        range.type = PARAM;
+        range.type = Param;
         range.index = i;
     } else {
         i = init_conds_find_user_name(IC, range.item);
@@ -330,9 +330,9 @@ int32
 range_item2(void) {
     int32 i;
     char bob[256];
-    i = init_conds_find_user_name(PARAM, range.item2);
+    i = init_conds_find_user_name(Param, range.item2);
     if (i > -1) {
-        range.type2 = PARAM;
+        range.type2 = Param;
         range.index2 = i;
     } else {
         i = init_conds_find_user_name(IC, range.item2);
@@ -375,9 +375,9 @@ set_up_range(void) {
     status = do_string_box(8, 8, 1, "Range Integrate", n, values, 45);
     if (status != 0) {
         strcpy(range.item, values[0]);
-        /* i=init_conds_find_user_name(PARAM,range.item);
+        /* i=init_conds_find_user_name(Param,range.item);
         if(i>-1){
-          range.type=PARAM;
+          range.type=Param;
           range.index=i;
         }
         else {
@@ -778,7 +778,7 @@ integrate_do_range(double *x, int32 flag) {
     nit2 = 0;
     if (range.rtype == 2)
         nit2 = range.steps2;
-    if (range.type == PARAM)
+    if (range.type == Param)
         get_val(range.item, &temp);
     adj2_alloc_liap(nit); /* make space */
     if (range.rtype > 0) {
@@ -790,7 +790,7 @@ integrate_do_range(double *x, int32 flag) {
             dpar2 = (phigh2 - plow2) / (double)nit2;
         else
             dpar2 = (phigh2 - plow2) / (double)nit;
-        if (range.type2 == PARAM)
+        if (range.type2 == Param)
             get_val(range.item2, &temp2);
     }
 
@@ -919,10 +919,10 @@ integrate_do_range(double *x, int32 flag) {
         integrate_get_ic(1, x);
     else
         integrate_get_ic(0, x);
-    if (range.type == PARAM)
+    if (range.type == Param)
         set_val(range.item, temp);
     if (range.rtype > 0)
-        if (range.type2 == PARAM)
+        if (range.type2 == Param)
             set_val(range.item2, temp2);
     derived_evaluate();
     MyGraph->color[0] = color;
