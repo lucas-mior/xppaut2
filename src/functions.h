@@ -690,12 +690,12 @@ void band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b);
 void band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
 
 /******************************************************************
- * Function : bandcopy                                            *
- * Usage    : bandcopy(a,b,n,a_smu,b_smu,copymu,copyml);          *
+ * Function : band_copy2                                            *
+ * Usage    : band_copy2(a,b,n,a_smu,b_smu,copymu,copyml);          *
  *----------------------------------------------------------------*
  * b(i,j) <- a(i,j), 0 <= i,j <= n-1, j-copymu <= i <= j+copyml.  *
  ******************************************************************/
-void bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
+void band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
               int64 copymu, int64 copyml);
 
 /******************************************************************

@@ -75,7 +75,7 @@ band_zero(BandMat A) {
 
 void
 band_copy(BandMat A, BandMat B, int64 copymu, int64 copyml) {
-    bandcopy(A->data, B->data, A->size, A->smu, B->smu, copymu, copyml);
+    band_copy2(A->data, B->data, A->size, A->smu, B->smu, copymu, copyml);
     return;
 }
 
@@ -299,7 +299,7 @@ band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 }
 
 void
-bandcopy(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
+band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
          int64 copymu, int64 copyml) {
     int64 i, j, copySize;
     double *a_col_j;
