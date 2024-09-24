@@ -3315,6 +3315,9 @@ extern int32 SimulPlotFlag;
 extern Graph graph[MAXPOP];
 extern Curve frz[MAXFRZ];
 extern Graph *MyGraph;
+extern int32 current_pop;
+extern int32 num_pops;
+extern int32 ActiveWinList[MAXPOP];
 
 int32 many_pops_select_table(void);
 void many_pops_get_intern_set(void);
@@ -3356,6 +3359,8 @@ void many_pops_set_active_windows(void);
 #define MARKOV_H
 
 #include <stdio.h>
+
+extern int32 STOCH_FLAG;
 
 void markov_add_wiener(int32 index);
 void markov_set_wieners(double dt, double *x, double t);

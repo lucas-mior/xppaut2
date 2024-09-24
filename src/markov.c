@@ -24,7 +24,7 @@ extern FILE *convertf;
 #define RNMX (1.0 - EPS)
 #define PI 3.1415926
 
-int64 myrandomseed = -1;
+static int64 myrandomseed = -1;
 
 extern int32 DCURY;
 extern int32 *my_ode[];
@@ -49,17 +49,17 @@ typedef struct {
     char name[12];
 } MARKOV;
 
-MARKOV markov[MAX_MARK];
+static MARKOV markov[MAX_MARK];
 
 extern double **storage;
 
 extern int32 storind;
-double *my_mean[MAX_ODE];
-double *my_variance[MAX_ODE];
-int32 stoch_len;
+static double *my_mean[MAX_ODE];
+static double *my_variance[MAX_ODE];
+static int32 stoch_len;
 
 int32 STOCH_FLAG;
-int32 STOCH_HERE;
+static int32 STOCH_HERE;
 int32 N_TRIALS;
 int32 Wiener[MAX_PAR];
 int32 NWiener;
