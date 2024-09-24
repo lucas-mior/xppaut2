@@ -32,7 +32,7 @@ diagram_start(int32 n) {
 }
 
 void
-edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
+diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
            double *uhi, double *ulo, double *u0, double *ubar, double *par,
            double per, int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
            double *evr, double *evi) {
@@ -588,7 +588,7 @@ diagram_load(FILE *fp, int32 node) {
             fscanf(fp, "%lg %lg %lg %lg %lg %lg", &u0[i], &uhi[i], &ulo[i],
                    &ubar[i], &evr[i], &evi[i]);
         if (flag == 0) {
-            edit_start(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0, ubar,
+            diagram_edit_start(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0, ubar,
                        par, per, node, icp1, icp2, icp3, icp4, evr, evi);
             flag = 1;
             DiagFlag = 1;
