@@ -77,7 +77,7 @@ static void adj2_h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 make_h(double **orb, double **adj, int32 nt, int32 node,
-                    int32 silent);
+                    int32 silent2);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
 static void adj2_norm_vec(double *v, double *mu, int32 n);
@@ -279,7 +279,7 @@ adj2_adjoint_parameters(void) {
 }
 
 void
-adj2_new_h_fun(int32 silent) {
+adj2_new_h_fun(int32 silent2) {
     int32 n = 2;
     if (!ADJ_HERE) {
         ggets_err_msg("Must compute adjoint first!");
@@ -311,7 +311,7 @@ adj2_new_h_fun(int32 silent) {
         my_h[i] = xmalloc(sizeof(*my_h)*(usize)h_len);
     for (int32 i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
-    if (make_h(storage, my_adj, h_len, NODE, silent)) {
+    if (make_h(storage, my_adj, h_len, NODE, silent2)) {
         H_HERE = 1;
         adj2_h_back();
     }
@@ -332,12 +332,12 @@ adj2_dump_h_stuff(FILE *fp, int32 f) {
 }
 
 int32
-make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent) {
+make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
     int32 j, rval = 0;
     double sum;
     double z;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
-    if (silent == 0) {
+    if (silent2 == 0) {
         for (int32 i = 0; i < NODE; i++) {
             char name[sizeof(uvar_names[i]) + 18];
             snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
