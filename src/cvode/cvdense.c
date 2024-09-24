@@ -21,7 +21,7 @@
 
 /* Error Messages */
 
-#define CVDENSE_INIT "CVDenseInit-- "
+#define CVDENSE_INIT "cv_dense_init-- "
 
 #define MSG_MEM_FAIL CVDENSE_INIT "A memory request failed.\n\n"
 
@@ -60,7 +60,7 @@ typedef struct {
 
 /* CVDENSE linit, lsetup, lsolve, and lfree routines */
 
-static int32 CVDenseInit(CVodeMem cv_mem, bool *setupNonNull);
+static int32 cv_dense_init(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
                           N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
@@ -69,7 +69,7 @@ static int32 CVDenseSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
 static int32 CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                           N_Vector fcur);
 
-static void CVDenseFree(CVodeMem cv_mem);
+static void cv_dense_free(CVodeMem cv_mem);
 
 /*************** CVDenseDQJac ****************************************
 
@@ -171,7 +171,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, N_Vector y,
  This routine initializes the memory record and sets various function
  fields specific to the dense linear solver module. CVDense sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be CVDenseInit, CVDenseSetup, CVDenseSolve, and CVDenseFree,
+ to be cv_dense_init, CVDenseSetup, CVDenseSolve, and cv_dense_free,
  respectively. It allocates memory for a structure of type
  CVDenseMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure. Finally, it sets d_J_data field in the
@@ -195,15 +195,15 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
         return; /* CVode reports this error */
 
     /* Set four main function fields in cv_mem */
-    linit = CVDenseInit;
+    linit = cv_dense_init;
     lsetup = CVDenseSetup;
     lsolve = CVDenseSolve;
-    lfree = CVDenseFree;
+    lfree = cv_dense_free;
 
     /* Get memory for CVDenseMemRec */
     lmem = cvdense_mem = xmalloc(sizeof(CVDenseMemRec));
     if (cvdense_mem == NULL)
-        return; /* CVDenseInit reports this error */
+        return; /* cv_dense_init reports this error */
 
     /* Set Jacobian routine field to user's djac or CVDenseDQJac */
     if (djac == NULL) {
@@ -215,7 +215,7 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     return;
 }
 
-/*************** CVDenseInit *****************************************
+/*************** cv_dense_init *****************************************
 
  This routine initializes remaining memory specific to the dense
  linear solver.  If any memory request fails, all memory previously
@@ -224,7 +224,7 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
 **********************************************************************/
 
 static int32
-CVDenseInit(CVodeMem cv_mem, bool *setupNonNull) {
+cv_dense_init(CVodeMem cv_mem, bool *setupNonNull) {
     CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;
@@ -357,14 +357,14 @@ CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     return 0;
 }
 
-/*************** CVDenseFree *****************************************
+/*************** cv_dense_free *****************************************
 
  This routine frees memory specific to the dense linear solver.
 
 **********************************************************************/
 
 static void
-CVDenseFree(CVodeMem cv_mem) {
+cv_dense_free(CVodeMem cv_mem) {
     CVDenseMem cvdense_mem;
 
     cvdense_mem = (CVDenseMem)lmem;

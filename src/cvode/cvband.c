@@ -71,16 +71,16 @@ typedef struct {
 
 /* CVBAND linit, lsetup, lsolve, and lfree routines */
 
-static int32 CVBandInit(CVodeMem cv_mem, bool *setupNonNull);
+static int32 cv_band_init(CVodeMem cv_mem, bool *setupNonNull);
 
-static int32 CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
+static int32 cv_band_setup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
                          N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
                          N_Vector vtemp2, N_Vector vtemp3);
 
-static int32 CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
+static int32 cv_band_solve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                          N_Vector fcur);
 
-static void CVBandFree(CVodeMem cv_mem);
+static void cv_band_free(CVodeMem cv_mem);
 
 /*************** CVBandDQJac *****************************************
 
@@ -201,7 +201,7 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
  This routine initializes the memory record and sets various function
  fields specific to the band linear solver module. CVBand sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be CVBandInit, CVBandSetup, CVBandSolve, and CVBandFree,
+ to be CVBandInit, cv_band_setup, CVBandSolve, and CVBandFree,
  respectively. It allocates memory for a structure of type
  CVBandMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure. Finally, it sets b_J_data field in the
@@ -226,10 +226,10 @@ CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
         return; /* CVode reports this error */
 
     /* Set four main function fields in cv_mem */
-    linit = CVBandInit;
-    lsetup = CVBandSetup;
-    lsolve = CVBandSolve;
-    lfree = CVBandFree;
+    linit = cv_band_init;
+    lsetup = cv_band_setup;
+    lsolve = cv_band_solve;
+    lfree = cv_band_free;
 
     /* Get memory for CVBandMemRec */
     lmem = cvband_mem = xmalloc(sizeof(CVBandMemRec));
@@ -259,7 +259,7 @@ CVBand(void *cvode_mem, int64 mupper, int64 mlower, CVBandJacFn bjac,
 **********************************************************************/
 
 static int32
-CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
+cv_band_init(CVodeMem cv_mem, bool *setupNonNull) {
     CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;
@@ -314,7 +314,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
     return LINIT_OK;
 }
 
-/*************** CVBandSetup *****************************************
+/*************** cv_band_setup *****************************************
 
  This routine does the setup operations for the band linear solver.
  It makes a decision whether or not to call the Jacobian evaluation
@@ -326,7 +326,7 @@ CVBandInit(CVodeMem cv_mem, bool *setupNonNull) {
 **********************************************************************/
 
 static int32
-CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
+cv_band_setup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
             bool *jcurPtr, N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3) {
     bool jbad;
     bool jok;
@@ -382,7 +382,7 @@ CVBandSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred, N_Vector fpred,
 **********************************************************************/
 
 static int32
-CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
+cv_band_solve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     CVBandMem cvband_mem;
     (void)ycur;
     (void)fcur;
@@ -406,7 +406,7 @@ CVBandSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
 **********************************************************************/
 
 static void
-CVBandFree(CVodeMem cv_mem) {
+cv_band_free(CVodeMem cv_mem) {
     CVBandMem cvband_mem;
 
     cvband_mem = (CVBandMem)lmem;

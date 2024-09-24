@@ -21,7 +21,7 @@
 
 /* Error Messages */
 
-#define CVSPGMR_INIT "CVSpgmrInit-- "
+#define CVSPGMR_INIT "cv_spgmr_init-- "
 
 #define MSG_MEM_FAIL CVSPGMR_INIT "A memory request failed.\n\n"
 
@@ -87,7 +87,7 @@ typedef struct {
 
 /* CVSPGMR linit, lsetup, lsolve, and lfree routines */
 
-static int32 CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull);
+static int32 cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
                           N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
@@ -96,13 +96,13 @@ static int32 CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
 static int32 CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                           N_Vector fcur);
 
-static void CVSpgmrFree(CVodeMem cv_mem);
+static void cv_spgmr_free(CVodeMem cv_mem);
 
 /* CVSPGMR Atimes and PSolve routines called by generic SPGMR solver */
 
-static int32 CVSpgmrAtimesDQ(void *lin_mem, N_Vector v, N_Vector z);
+static int32 cv_spgmr_atimes_dq(void *lin_mem, N_Vector v, N_Vector z);
 
-static int32 CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int32 lr);
+static int32 cv_spgmr_psolve(void *lin_mem, N_Vector r, N_Vector z, int32 lr);
 
 /* Readability Replacements */
 
@@ -146,7 +146,7 @@ static int32 CVSpgmrPSolve(void *lin_mem, N_Vector r, N_Vector z, int32 lr);
  This routine initializes the memory record and sets various function
  fields specific to the Spgmr linear solver module. CVSpgmr sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be CVSpgmrInit, CVSpgmrSetup, CVSpgmrSolve, and CVSpgmrFree,
+ to be cv_spgmr_init, CVSpgmrSetup, CVSpgmrSolve, and cv_spgmr_free,
  respectively. It allocates memory for a structure of type
  CVSpgmrMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure. CVSpgmr sets the following fields in the
@@ -177,15 +177,15 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
         return; /* CVode reports this error */
 
     /* Set four main function fields in cv_mem */
-    linit = CVSpgmrInit;
+    linit = cv_spgmr_init;
     lsetup = CVSpgmrSetup;
     lsolve = CVSpgmrSolve;
-    lfree = CVSpgmrFree;
+    lfree = cv_spgmr_free;
 
     /* Get memory for CVSpgmrMemRec */
     lmem = cvspgmr_mem = xmalloc(sizeof(CVSpgmrMemRec));
     if (cvspgmr_mem == NULL)
-        return; /* CVSpgmrInit reports this error */
+        return; /* cv_spgmr_init reports this error */
 
     /* Set Spgmr parameters that have been passed in call sequence */
     cvspgmr_mem->g_pretype = pretype;
@@ -208,7 +208,7 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
 #define precond (cvspgmr_mem->g_precond)
 #define P_data (cvspgmr_mem->g_P_data)
 
-/*************** CVSpgmrInit *****************************************
+/*************** cv_spgmr_init *****************************************
 
  This routine initializes remaining memory specific to the Spgmr
  linear solver.  If any memory request fails, all memory previously
@@ -217,7 +217,7 @@ CVSpgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
 **********************************************************************/
 
 static int32
-CVSpgmrInit(CVodeMem cv_mem, bool *setupNonNull) {
+cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
     CVSpgmrMem cvspgmr_mem;
 
     cvspgmr_mem = (CVSpgmrMem)lmem;
@@ -385,7 +385,7 @@ CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
 
     /* Call SpgmrSolve and copy x to b */
     ier = SpgmrSolve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0, cv_mem,
-                     ewt, ewt, CVSpgmrAtimesDQ, CVSpgmrPSolve, &res_norm,
+                     ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve, &res_norm,
                      &nli_inc, &nps_inc);
     N_VScale(ONE, x, b);
 
@@ -410,14 +410,14 @@ CVSpgmrSolve(CVodeMem cv_mem, N_Vector b, N_Vector ynow, N_Vector fnow) {
     return 1;
 }
 
-/*************** CVSpgmrFree *****************************************
+/*************** cv_spgmr_free *****************************************
 
  This routine frees memory specific to the Spgmr linear solver.
 
 **********************************************************************/
 
 static void
-CVSpgmrFree(CVodeMem cv_mem) {
+cv_spgmr_free(CVodeMem cv_mem) {
     CVSpgmrMem cvspgmr_mem;
 
     cvspgmr_mem = (CVSpgmrMem)lmem;
@@ -429,7 +429,7 @@ CVSpgmrFree(CVodeMem cv_mem) {
     return;
 }
 
-/*************** CVSpgmrAtimesDQ *************************************
+/*************** cv_spgmr_atimes_dq *************************************
 
  This routine generates the matrix-vector product z = Mv, where
  M = I - gamma*J, by using a difference quotient approximation to
@@ -439,7 +439,7 @@ CVSpgmrFree(CVodeMem cv_mem) {
 **********************************************************************/
 
 static int32
-CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
+cv_spgmr_atimes_dq(void *cvode_mem, N_Vector v, N_Vector z) {
     double rho;
     CVodeMem cv_mem;
     CVSpgmrMem cvspgmr_mem;
@@ -468,20 +468,20 @@ CVSpgmrAtimesDQ(void *cvode_mem, N_Vector v, N_Vector z) {
     return 0;
 }
 
-/*************** CVSpgmrPSolve ***************************************
+/*************** cv_spgmr_psolve ***************************************
 
  This routine interfaces between the generic SpgmrSolve routine and
  the user's psolve routine.  It passes to psolve all required state
  information from cvode_mem.  Its return value is the same as that
  returned by psolve. Note that the generic SPGMR solver guarantees
- that CVSpgmrPSolve will not be called in the case in which
+ that cv_spgmr_psolve will not be called in the case in which
  preconditioning is not done. This is the only case in which the
  user's psolve routine is allowed to be NULL.
 
 **********************************************************************/
 
 static int32
-CVSpgmrPSolve(void *cvode_mem, N_Vector r, N_Vector z, int32 lr) {
+cv_spgmr_psolve(void *cvode_mem, N_Vector r, N_Vector z, int32 lr) {
     CVodeMem cv_mem;
     CVSpgmrMem cvspgmr_mem;
     int32 ier;

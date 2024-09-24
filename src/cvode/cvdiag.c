@@ -21,7 +21,7 @@
 
 /* Error Messages */
 
-#define CVDIAG_INIT "CVDiagInit-- "
+#define CVDIAG_INIT "cv_diag_init-- "
 
 #define MSG_MEM_FAIL CVDIAG_INIT "A memory request failed.\n\n"
 
@@ -53,7 +53,7 @@ typedef struct {
 
 /* CVDIAG linit, lsetup, lsolve, and lfree routines */
 
-static int32 CVDiagInit(CVodeMem cv_mem, bool *setupNonNull);
+static int32 cv_diag_init(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
                          N_Vector fpred, bool *jcurPtr, N_Vector vtemp1,
@@ -62,7 +62,7 @@ static int32 CVDiagSetup(CVodeMem cv_mem, int32 convfail, N_Vector ypred,
 static int32 CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
                          N_Vector fcur);
 
-static void CVDiagFree(CVodeMem cv_mem);
+static void cv_diag_free(CVodeMem cv_mem);
 
 /* Readability Replacements */
 
@@ -95,7 +95,7 @@ static void CVDiagFree(CVodeMem cv_mem);
  This routine initializes the memory record and sets various function
  fields specific to the diagonal linear solver module. CVDiag sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be CVDiagInit, CVDiagSetup, CVDiagSolve, and CVDiagFree,
+ to be cv_diag_init, CVDiagSetup, CVDiagSolve, and cv_diag_free,
  respectively. It allocates memory for a structure of type
  CVDiagMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure.
@@ -113,19 +113,19 @@ cv_diag(void *cvode_mem) {
         return; /* CVode reports this error */
 
     /* Set four main function fields in cv_mem */
-    linit = CVDiagInit;
+    linit = cv_diag_init;
     lsetup = CVDiagSetup;
     lsolve = CVDiagSolve;
-    lfree = CVDiagFree;
+    lfree = cv_diag_free;
 
     /* Get memory for CVDiagMemRec */
     lmem = cvdiag_mem = xmalloc(sizeof(CVDiagMemRec));
     if (cvdiag_mem == NULL)
-        return; /* CVDiagInit reports this error */
+        return; /* cv_diag_init reports this error */
     return;
 }
 
-/*************** CVDiagInit ******************************************
+/*************** cv_diag_init ******************************************
 
  This routine initializes remaining memory specific to the diagonal
  linear solver.  If any memory request fails, all memory previously
@@ -134,7 +134,7 @@ cv_diag(void *cvode_mem) {
 **********************************************************************/
 
 static int32
-CVDiagInit(CVodeMem cv_mem, bool *setupNonNull) {
+cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
     CVDiagMem cvdiag_mem;
 
     cvdiag_mem = (CVDiagMem)lmem;
@@ -272,14 +272,14 @@ CVDiagSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur) {
     return 0;
 }
 
-/*************** CVDiagFree ******************************************
+/*************** cv_diag_free ******************************************
 
  This routine frees memory specific to the diagonal linear solver.
 
 **********************************************************************/
 
 static void
-CVDiagFree(CVodeMem cv_mem) {
+cv_diag_free(CVodeMem cv_mem) {
     CVDiagMem cvdiag_mem;
 
     cvdiag_mem = (CVDiagMem)lmem;

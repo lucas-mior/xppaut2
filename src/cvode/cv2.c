@@ -35,7 +35,7 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
 void
 end_cv(void) {
     N_VFree(ycv);
-    CVodeFree(cvode_mem);
+    cvode_free(cvode_mem);
     return;
 }
 

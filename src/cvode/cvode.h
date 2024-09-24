@@ -324,7 +324,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-int32 CVodeDky(void *cvode_mem, double t, int32 k, N_Vector dky);
+int32 cvode_dky(void *cvode_mem, double t, int32 k, N_Vector dky);
 
 /* CVodeDky return values */
 
@@ -346,7 +346,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-void CVodeFree(void *cvode_mem);
+void cvode_free(void *cvode_mem);
 
 /******************************************************************
  *                                                                *
