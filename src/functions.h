@@ -3993,14 +3993,6 @@ extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
 extern char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
 extern char *color_names[];
 
-typedef struct TEXTWIN {
-    Window base, slide, close, text;
-    int32 i0;
-    int32 exist, len, nlines;
-    char **list;
-} TEXTWIN;
-
-extern TEXTWIN mytext;
 #define SB_PLOTTABLE 0
 #define SB_VARIABLE 1
 #define SB_PARAMETER 2

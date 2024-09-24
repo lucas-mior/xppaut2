@@ -21,6 +21,13 @@ typedef struct PopUp {
     int32 hot;
 } PopUp;
 
+static struct TextWin {
+    Window base, slide, close, text;
+    int32 i0;
+    int32 exist, len, nlines;
+    char **list;
+} mytext;
+
 static struct ScrBoxList {
     char **list;
     int32 n;
@@ -53,7 +60,6 @@ static void reset_hot(int32 inew, StringBox *sb);
 static void expose_sbox(StringBox sb, Window window, int32 pos);
 static int32 get_x_coord_win(Window win);
 
-TEXTWIN mytext;
 void
 pop_list_set_window_title(Window win, char *string) {
     XTextProperty wname;
