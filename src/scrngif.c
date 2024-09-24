@@ -64,6 +64,7 @@ typedef struct GifCol {
 static GifCol gifcol[256];
 static GifCol gifGcol[256];
 static int32 NGlobalColors = 0;
+
 void
 scrngif_set_global_map(int32 flag) {
     if (NGlobalColors == 0) { /* Cant use it if it aint there */
