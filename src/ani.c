@@ -411,7 +411,7 @@ create_vcr(char *name) {
     mpeg.skip = 1;
     vcr.pos = 0;
     if (use_ani_file)
-        get_ani_file(vcr.file);
+        ani_get_file(vcr.file);
     return;
 }
 
@@ -435,7 +435,7 @@ destroy_vcr(void) {
 }
 
 int32
-check_ani_pause(XEvent event) {
+ani_check_pause(XEvent event) {
     if ((vcr.iexist == 0) || (!animation_on_the_fly))
         return 0;
     if (event.type == ButtonPress && event.xbutton.window == vcr.wpause)
@@ -610,7 +610,7 @@ ani_button(Window window) {
     if (window == vcr.wdn)
         ani_flip1(-1);
     if (window == vcr.wfile)
-        get_ani_file(NULL);
+        ani_get_file(NULL);
     if (window == vcr.wfly) {
         animation_on_the_fly = 1 - animation_on_the_fly;
         check_on_the_fly();
@@ -813,7 +813,7 @@ check_on_the_fly(void) {
 }
 
 void
-on_the_fly(int32 task) {
+ani_on_the_fly(int32 task) {
     if (vcr.iexist == 0 || n_anicom == 0)
         return;
     ani_frame(task);
@@ -1233,7 +1233,7 @@ ani_zero(void) {
 }
 
 void
-get_ani_file(char *fname) {
+ani_get_file(char *fname) {
     int32 status;
     int32 err;
 
@@ -1728,7 +1728,7 @@ chk_ani_color(char *s, int32 *index) {
     char *s2;
 
     *index = -1;
-    de_space(s);
+    ani_de_space(s);
     strupr(s);
     if (strlen(s) == 0) {
         *index = 0;
@@ -2013,7 +2013,7 @@ add_ani_settext(AniCom *a, char *x1, char *y1, char *col) {
     int32 size = atoi(x1);
     int32 font = 0;
     int32 index = 0, err;
-    de_space(y1);
+    ani_de_space(y1);
     if (y1[0] == 's' || y1[0] == 'S')
         font = 1;
     err = chk_ani_color(col, &index);
@@ -2582,7 +2582,7 @@ read_ani_line(FILE *fp, char *s) {
 }
 
 void
-de_space(char *s) {
+ani_de_space(char *s) {
     int32 n = (int32)strlen(s);
     int32 i, j = 0;
     char ch;

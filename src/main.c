@@ -234,7 +234,7 @@ my_abort(void) {
         XEvent event;
         XNextEvent(display, &event);
 
-        if (check_ani_pause(event) == 27)
+        if (ani_check_pause(event) == 27)
             return 27;
 
         switch (event.type) {
@@ -549,7 +549,7 @@ do_main(int32 argc, char **argv) {
     if_needed_load_ext_options();
     if (use_ani_file) {
         ani_new_vcr();
-        get_ani_file(anifile);
+        ani_get_file(anifile);
     }
 
     if (DoTutorial == 1)

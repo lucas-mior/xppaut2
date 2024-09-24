@@ -1601,7 +1601,7 @@ extract_ic_data(char *big) {
     int32 j1, j2, flag2;
     char front[40], new[50], c;
     char back[256];
-    de_space(big);
+    ani_de_space(big);
     i = 0;
     n = (int32)strlen(big);
 
@@ -1947,7 +1947,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     for (ieqn = 1; ieqn <= NEQ; ieqn++)
         xv[ieqn] = (double)x[ieqn - 1];
     if (animation_on_the_fly)
-        on_the_fly(1);
+        ani_on_the_fly(1);
     /* if(POIMAP==4)
       pmapfold=get_map_value(x,*t); */
 
@@ -2431,7 +2431,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         if ((STORFLAG == 1) && (count != 0) && (storind < MAXSTOR) &&
             !(fabs(*t) < TRANS)) {
             if (animation_on_the_fly)
-                on_the_fly(0);
+                ani_on_the_fly(0);
             for (ieqn = 0; ieqn <= NEQ; ieqn++)
                 storage[ieqn][storind] = xv[ieqn];
             storind++;

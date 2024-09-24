@@ -121,13 +121,13 @@ extern int32 animation_on_the_fly;
 void ani_new_vcr(void);
 void ani_do_events(XEvent event);
 void ani_expose(Window window);
-void on_the_fly(int32 task);
+void ani_on_the_fly(int32 task);
 int32 ani_get_ppm_bits(Window window, int32 *wid, int32 *hgt, uchar *out);
 int32 ani_write_frame(char *filename, Window window, int32 wid, int32 hgt);
 void ani_zero(void);
-void get_ani_file(char *fname);
-void de_space(char *s);
-int32 check_ani_pause(XEvent event);
+void ani_get_file(char *fname);
+void ani_de_space(char *s);
+int32 ani_check_pause(XEvent event);
 
 #endif
 

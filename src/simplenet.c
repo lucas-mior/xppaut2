@@ -1083,7 +1083,7 @@ int32
 is_network(char *s) {
     /*int32 n;
      */
-    de_space(s);
+    ani_de_space(s);
     strupr(s);
     /* n=strlen(s); Not used*/
     if (s[0] == 'C' && s[1] == 'O' && s[2] == 'N' && s[3] == 'V')
@@ -1702,7 +1702,7 @@ get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
     char c;
     int32 j;
     char temp[100];
-    de_space(str);
+    ani_de_space(str);
     for (i = 0; i < n; i++)
         if (str[i] == '(')
             break;
