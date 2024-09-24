@@ -9,14 +9,14 @@
 
 extern int32 DiagFlag;
 
-void send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
-void send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
-int32 get_bif_type(int32 ibr, int32 ntot);
-void addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
+void autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
+void autevd_send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev);
+int32 autevd_get_bif_type(int32 ibr, int32 ntot);
+void autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
             int32 labw, double *a, double *uhigh, double *ulow, double *u0,
             double *ubar);
-int32 eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier);
-void init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
+int32 autevd_eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier);
+void autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
                int32 ntst, int32 isp, int32 isw, int32 nmx, int32 npr,
                double ds, double dsmin, double dsmax, double rl0, double rl1,
                double a0, double a1, int32 ip1, int32 ip2, int32 ip3, int32 ip4,

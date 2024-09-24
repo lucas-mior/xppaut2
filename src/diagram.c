@@ -155,7 +155,7 @@ diagram_redraw(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
+        type = autevd_get_bif_type(d->ibr, d->ntot);
 
         if (d->ntot == 1)
             flag = 0;
@@ -203,7 +203,7 @@ diagram_write_info_out(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
+        type = autevd_get_bif_type(d->ibr, d->ntot);
 
         /*if(d->ntot==1)flag=0;
         else flag=1;
@@ -382,7 +382,7 @@ diagram_write_pts(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
+        type = autevd_get_bif_type(d->ibr, d->ntot);
 
         /*if(d->ntot==1)flag=0;
         else flag=1;
@@ -436,7 +436,7 @@ diagram_post_auto(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
+        type = autevd_get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
             ggets_plintf("Unable to get bifurcation type.\n");
         }
@@ -474,7 +474,7 @@ diagram_svg_auto(void) {
     if (d->next == NULL)
         return;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
+        type = autevd_get_bif_type(d->ibr, d->ntot);
         if (type < 0) {
             ggets_plintf("Unable to get bifurcation type.\n");
         }
@@ -510,7 +510,7 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
     *xhi = -*xlo;
     *yhi = -*ylo;
     while (true) {
-        type = get_bif_type(d->ibr, d->ntot);
+        type = autevd_get_bif_type(d->ibr, d->ntot);
         if (type < 1) {
             ggets_plintf("Unable to get bifurcation type.\n");
         }

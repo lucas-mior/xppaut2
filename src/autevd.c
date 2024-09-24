@@ -26,7 +26,7 @@ static struct {
 } my_ev;
 
 void
-init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
+autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
           int32 isp, int32 isw, int32 nmx, int32 npr, double ds, double dsmin,
           double dsmax, double rl0, double rl1, double a0, double a1, int32 ip1,
           int32 ip2, int32 ip3, int32 ip4, int32 ip5, double epsl, double epsu,
@@ -90,7 +90,7 @@ init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
 }
 
 void
-send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
+autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
     int32 i;
     double er, cs, sn;
     my_ev.pt = abs(ntot);
@@ -106,7 +106,7 @@ send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
 }
 
 void
-send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
+autevd_send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
     int32 i;
     my_ev.pt = abs(ntot);
     my_ev.br = abs(ibr);
@@ -120,7 +120,7 @@ send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
 /* Only unit 8,3 or q.prb is important; all others are unnecesary */
 
 int32
-get_bif_type(int32 ibr, int32 ntot) {
+autevd_get_bif_type(int32 ibr, int32 ntot) {
     int32 type = SEQ;
 
     if (ibr < 0 && ntot < 0)
@@ -135,14 +135,14 @@ get_bif_type(int32 ibr, int32 ntot) {
 }
 
 void
-addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
+autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
        int32 lab, double *a, double *uhigh, double *ulow, double *u0,
        double *ubar) {
     int32 type;
     int32 icp1 = (int32)icp[0], icp2 = (int32)icp[1], icp3 = (int32)icp[2],
           icp4 = (int32)icp[3];
     double per = par[10];
-    type = get_bif_type((int32)ibrs, (int32)ntots);
+    type = autevd_get_bif_type((int32)ibrs, (int32)ntots);
 
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
@@ -170,7 +170,7 @@ addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
 }
 
 int32
-eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier) {
+autevd_eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier) {
     double ev[400];
     gear_eigen(*n, a, ev, work, ier);
     for (int32 i = 0; i < *n; i++) {
