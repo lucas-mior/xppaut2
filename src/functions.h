@@ -3413,6 +3413,13 @@ void markov_nsrand48(int32 seed);
 
 #endif
 
+#ifndef MENU_H
+#define MENU_H
+
+extern int32 help_menu;
+
+#endif
+
 #ifndef MENUDRIVE_H
 #define MENUDRIVE_H
 
