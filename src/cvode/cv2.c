@@ -33,7 +33,7 @@ start_cv(double *y, double t, int32 n, double *atol, double *rtol) {
 }
 
 void
-end_cv(void) {
+cv_end(void) {
     N_VFree(ycv);
     cvode_free(cvode_mem);
     return;
@@ -113,7 +113,7 @@ ccvode(
     int32 flag;
     *kflag = 0;
     if (*command == 2) {
-        end_cv();
+        cv_end();
         return 1;
     }
     if (*command == 1) {
@@ -121,7 +121,7 @@ ccvode(
         flag = CVode(cvode_mem, tout, ycv, t, NORMAL);
         if (flag != SUCCESS) {
             *kflag = flag;
-            end_cv();
+            cv_end();
             *command = 1;
             return -1;
         }
@@ -133,7 +133,7 @@ ccvode(
     flag = CVode(cvode_mem, tout, ycv, t, NORMAL);
     if (flag != SUCCESS) {
         *kflag = flag;
-        end_cv();
+        cv_end();
         *command = 1;
 
         return -1;

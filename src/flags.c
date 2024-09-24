@@ -677,7 +677,7 @@ one_flag_step_cvode(
             break;
         /* Its a hit !! */
         nstep++;
-        end_cv();
+        cv_end();
         *command = 1; /* for cvode always reset  */
         if (*t == tout)
             break;

@@ -121,7 +121,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
     }
 #ifdef CVODE_YES
     if (METHOD == CVODE)
-        end_cv();
+        cv_end();
 #endif
     /*  Now we take the derivatives !!   */
     for (l = 0; l < npars; l++) {
@@ -173,7 +173,7 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
         derived_evaluate();
 #ifdef CVODE_YES
         if (METHOD == CVODE)
-            end_cv();
+            cv_end();
 #endif
     }
     *flag = 1;

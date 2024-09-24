@@ -19,7 +19,7 @@ New stuff for 9/96 -- cvode added
  cvode(command,y,t,n,tout,kflag,atol,rtol)
  command =0 continue, 1 is start 2 finish
  kflag is error < 0 is bad -- call cvode_err_msg(kflag)
- call end_cv() to end it normally
+ call cv_end() to end it normally
  on return y is new stuff, t is new time kflag is error if any
  if kflag < 0 thats bad
 
@@ -1779,7 +1779,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
                 cvode_err_msg(kflag);
                 return 0;
             }
-            end_cv();
+            cv_end();
             break;
 #endif
         case DP5:
@@ -1971,7 +1971,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
             tout = tzero + dt*(icount + 1);
             if (fabs(dt) < fabs(HMIN)) {
                 LastTime = *t;
-                end_cv();
+                cv_end();
                 return 1;
             }
             MSWTCH(xpv.x, x);
@@ -2408,7 +2408,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
     LastTime = *t;
 #ifdef CVODE_YES
     if (METHOD == CVODE)
-        end_cv();
+        cv_end();
 #endif
     return rval;
 }
