@@ -30,7 +30,7 @@ static struct {
     int32 nrow;
     int32 rowskip;
     double **data;
-    char firstcol[11];
+    char firstcol[MAX_ODE_NAME_LENGTH];
 } my_trans;
 
 static int32 LIAP_FLAG = 0;

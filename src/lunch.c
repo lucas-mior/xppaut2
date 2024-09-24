@@ -29,7 +29,7 @@ file_inf(void) {
     int32 ok;
     FILE *fp;
     /*char filename[256];*/
-    char filename[XPP_MAX_NAME];
+    char filename[XPP_MAX_NAME + 5];
     sprintf(filename, "%s.pars", this_file);
     ggets_ping();
     if (!init_conds_file_selector("Save info", filename, "*.pars*"))
@@ -199,7 +199,7 @@ do_lunch(/* f=1 to read and 0 to write */
     FILE *fp;
     time_t ttt;
     /*char filename[256];*/
-    char filename[XPP_MAX_NAME];
+    char filename[XPP_MAX_NAME + 4];
     sprintf(filename, "%s.set", this_file);
 
     if (f == READEM) {
