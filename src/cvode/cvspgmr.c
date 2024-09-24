@@ -340,19 +340,19 @@ CVSpgmrSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 
 /*************** CVSpgmrSolve ****************************************
 
- This routine handles the call to the generic SPGMR solver SpgmrSolve
+ This routine handles the call to the generic SPGMR solver spgmr_solve
  for the solution of the linear system Ax = b.
 
  If the WRMS norm of b is small, we return x = b (if this is the first
  Newton iteration) or x = 0 (if a later Newton iteration).
 
  Otherwise, we set the tolerance parameter and initial guess (x = 0),
- call SpgmrSolve, and copy the solution x into b.  The x-scaling and
+ call spgmr_solve, and copy the solution x into b.  The x-scaling and
  b-scaling arrays are both equal to ewt, and no restarts are allowed.
 
  The counters nli, nps, and ncfl are incremented, and the return value
- is set according to the success of SpgmrSolve.  The success flag is
- returned if SpgmrSolve converged, or if this is the first Newton
+ is set according to the success of spgmr_solve.  The success flag is
+ returned if spgmr_solve converged, or if this is the first Newton
  iteration and the residual norm was reduced below its initial value.
 
 **********************************************************************/
@@ -379,12 +379,12 @@ CVSpgmrSolve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     ycur = ynow;
     fcur = fnow;
 
-    /* Set inputs delta and initial guess x = 0 to SpgmrSolve */
+    /* Set inputs delta and initial guess x = 0 to spgmr_solve */
     delta = deltar*sqrtN;
     vector_Const(ZERO, x);
 
-    /* Call SpgmrSolve and copy x to b */
-    ier = SpgmrSolve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0, cv_mem,
+    /* Call spgmr_solve and copy x to b */
+    ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0, cv_mem,
                      ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve, &res_norm,
                      &nli_inc, &nps_inc);
     vector_Scale(ONE, x, b);
@@ -470,7 +470,7 @@ cv_spgmr_atimes_dq(void *cvode_mem, Vector v, Vector z) {
 
 /*************** cv_spgmr_psolve ***************************************
 
- This routine interfaces between the generic SpgmrSolve routine and
+ This routine interfaces between the generic spgmr_solve routine and
  the user's psolve routine.  It passes to psolve all required state
  information from cvode_mem.  Its return value is the same as that
  returned by psolve. Note that the generic SPGMR solver guarantees
