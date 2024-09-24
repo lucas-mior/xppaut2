@@ -4338,9 +4338,9 @@ void do_torus_com(int32 c);
 #define TXTREAD_H
 
 void txt_view_events(XEvent event);
-void redraw_txtview(Window window);
-void init_txtview(void);
-void make_txtview(void);
+void txt_redraw_view(Window window);
+void txt_init_view(void);
+void txt_make_view(void);
 
 #endif
 

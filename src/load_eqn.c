@@ -516,7 +516,7 @@ load_eqn_set_all_vals(void) {
     integrate_init_range();
     adj2_init_trans();
     array_plot_init_my();
-    init_txtview();
+    txt_init_view();
 
     numerics_chk_volterra();
 

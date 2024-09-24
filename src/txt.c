@@ -53,7 +53,7 @@ txt_view_events(XEvent event) {
     switch (event.type) {
     case Expose:
     case MapNotify:
-        redraw_txtview(event.xany.window);
+        txt_redraw_view(event.xany.window);
         break;
     case ConfigureNotify:
         if (event.xconfigure.window != txtview.base)
@@ -229,7 +229,7 @@ txtview_press(Window window, int32 x, int32 y) {
 }
 
 void
-redraw_txtview(Window window) {
+txt_redraw_view(Window window) {
     if (window == txtview.text)
         redraw_txtview_text();
     if (window == txtview.up)
@@ -283,7 +283,7 @@ redraw_txtview_text(void) {
 }
 
 void
-init_txtview(void) {
+txt_init_view(void) {
     txtview.here = 0;
     txtview.dh = DCURY;
     txtview.dw = DCURX;
@@ -293,7 +293,7 @@ init_txtview(void) {
 }
 
 void
-make_txtview(void) {
+txt_make_view(void) {
     int32 minwid = DCURXs*60, minlen = 3*DCURYs + 8 + 10*DCURY;
     Window base;
     int32 ww = 9*DCURXs, hh = DCURYs + 4;

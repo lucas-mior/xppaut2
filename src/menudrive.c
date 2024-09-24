@@ -475,7 +475,7 @@ do_file_com(int32 com) {
         TipsFlag = 1 - TipsFlag;
         break;
     case M_FP:
-        make_txtview();
+        txt_make_view();
         break;
     case M_FW:
         do_lunch(0);

@@ -1045,7 +1045,7 @@ main_commander(int32 ch) {
             TipsFlag = 1 - TipsFlag;
             break;
         case 'p':
-            make_txtview();
+            txt_make_view();
             break;
         case 'w':
             do_lunch(0);

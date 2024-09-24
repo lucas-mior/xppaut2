@@ -1190,7 +1190,7 @@ many_pops_do_expose(XEvent event) {
     temp = draw_win;
     main_top_button_draw(event.xany.window);
     array_plot_expose(event.xany.window);
-    /* redraw_txtview(ev.xany.window);  */
+    /* txt_redraw_view(ev.xany.window);  */
     ani_expose(event.xany.window);
     expose_my_browser(event);
     /* ggets_draw_info_pop(ev.xany.window); */
