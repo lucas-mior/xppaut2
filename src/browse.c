@@ -35,8 +35,6 @@
 
 
 
-extern char *ode_names[MAX_ODE];
-extern double last_ic[MAX_ODE];
 
 
 

@@ -43,20 +43,11 @@ int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 void make_ebox_windows(EditBox *sb, char *title);
 
 
-extern char *ode_names[MAX_ODE];
 
-extern double last_ic[MAX_ODE];
 
-extern char this_file[XPP_MAX_NAME];
-extern int32 EqType[MAX_ODE];
 
-extern char *ufun_def[MAX_UFUN];
 extern char ufun_names[MAX_UFUN][12];
-extern int32 narg_fun[MAX_UFUN];
-extern int32 *ufun[MAX_UFUN];
 
-extern UFUN_ARG ufun_arg[MAX_UFUN];
-extern BcStruct my_bc[MAX_ODE];
 
 
 static int32 do_edit_box(int32 n, char *title, char **names, char **values);

@@ -55,12 +55,7 @@ char anifile[XPP_MAX_NAME];
 double xppvermaj;
 double xppvermin;
 
-extern char this_file[XPP_MAX_NAME];
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
-extern XFontStruct *symfonts[5];
-extern XFontStruct *romfonts[5];
-extern int32 avsymfonts[5];
-extern int32 avromfonts[5];
 int32 Xup;
 int32 TipsFlag = 1;
 Atom deleteWindowAtom = 0;

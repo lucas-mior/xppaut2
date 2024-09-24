@@ -69,7 +69,6 @@ int32 TypeOfCalc = 0;
 #define CUEQ 2
 
 #define DISCRETE 0
-extern int32 leng[MAX_ODE];
 extern double **storage;
 
 
@@ -124,7 +123,6 @@ Rotchk blrtn;
 
 GrabPoint grabpt;
 
-extern double MyData[MAX_ODE];
 
 int32 AutoTwoParam = 0;
 int32 NAutoPar = 8;
@@ -136,7 +134,6 @@ double outperiod[20];
 int64 UzrPar[20];
 int32 NAutoUzr;
 
-extern char this_file[XPP_MAX_NAME];
 
 static char this_auto_file[200];
 char fort3[200];

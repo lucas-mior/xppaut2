@@ -54,8 +54,6 @@
 #define EQUIL 44
 
 
-extern char big_font_name[100];
-extern char small_font_name[100];
 
 static char setfilename[XPP_MAX_NAME];
 static char parfilename[XPP_MAX_NAME];
@@ -66,14 +64,7 @@ static char readsetfile[XPP_MAX_NAME];
 static int32 externaloptionsflag = 0;
 static char externaloptionsstring[1024];
 int32 NincludedFiles = 0;
-extern char UserBlack[8];
-extern char UserWhite[8];
-extern char UserMainWinColor[8];
-extern char UserDrawWinColor[8];
-extern char UserBGBitmap[XPP_MAX_NAME];
 
-extern char UserOUTFILE[XPP_MAX_NAME];
-extern char anifile[XPP_MAX_NAME];
 static int32 select_intern_sets = 0;
 
 int32 Nintern_2_use = 0;
@@ -87,9 +78,7 @@ static int32 is_set_name(struct SetName *set, char *nam);
 static struct SetName *add_set(struct SetName *set, char *nam);
 static int32 parse_it(char *com);
 
-extern InternSet intern_set[MAX_INTERN_SET];
 
-extern char batchout[XPP_MAX_NAME];
 
 static int32 loadsetfile = 0;
 static int32 loadparfile = 0;
@@ -99,7 +88,6 @@ int32 querysets = 0;
 int32 querypars = 0;
 int32 queryics = 0;
 int32 dryrun = 0;
-extern char this_file[XPP_MAX_NAME];
 int32 noicon = 1;
 int32 newseed = 0;
 

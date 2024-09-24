@@ -151,7 +151,6 @@ typedef struct {
 static VECTORIZER my_vec[MAXVEC];
 static int32 n_vector = 0;
 
-extern TABULAR my_table[MAX_TAB];
 
 typedef struct {
     int32 type, ncon, n;

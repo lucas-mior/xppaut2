@@ -16,7 +16,6 @@
 
 #define READEM 1
 
-extern double MyData[MAX_ODE];
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 extern double **storage;
 static double **my_adj;

@@ -24,7 +24,6 @@
 #define SIMPMASK                                                               \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
-extern double last_ic[MAX_ODE];
 
 static struct {
     Window base, quit, answer;

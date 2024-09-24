@@ -24,11 +24,8 @@
 
 static int64 myrandomseed = -1;
 
-extern char *ode_names[MAX_ODE];
 
-extern double MyData[MAX_ODE];
 
-extern char *save_eqn[MAXLINES];
 typedef struct {
     int32 **command;
     char **trans;

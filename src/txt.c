@@ -26,8 +26,6 @@
         return;                                                                \
     } while (0)
 
-extern char *save_eqn[MAXLINES];
-extern ACTION comments[MAXCOMMENTS];
 
 static struct TxtView {
     Window up, down, pgup, pgdn, kill, home, end, base, text, src, action;

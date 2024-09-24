@@ -26,12 +26,9 @@
 extern double **storage;
 
 
-extern BcStruct my_bc[MAX_ODE];
-
-extern int32 color_line[11];
 
 
-extern double MyData[MAX_ODE];
+
 static struct {
     char item[30];
     int32 steps, side, cycle, movie;

@@ -20,11 +20,8 @@
         return;                                                                \
     } while (0)
 
-extern double last_ic[MAX_ODE];
 
-extern char *ode_names[MAX_ODE];
 
-extern int32 EqType[MAX_ODE];
 
 #define MYMASK                                                                 \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \

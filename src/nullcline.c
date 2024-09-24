@@ -28,7 +28,6 @@ int32 NCBatch = 0;
 
 static int32 NullStyle = 0; /* 1 is with little vertical/horizontal lines */
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
-extern double last_ic[MAX_ODE];
 
 int32 XNullColor = 2;
 int32 YNullColor = 7;

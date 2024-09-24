@@ -12,14 +12,8 @@
 #include <libgen.h>
 
 static NCLINE nclines[MAXNCLINE];
-extern Curve frz[MAXFRZ];
-extern char PS_FONT[200];
-extern double x_3d[2];
-extern double y_3d[2];
-extern double z_3d[2];
 int32 PS_Color = 1;
 
-extern char PlotFormat[10];
 
 #define SPER 3
 #define UPER 4
@@ -57,8 +51,6 @@ static double FreezeKeyY;
 static int32 FreezeKeyFlag;
 int32 AutoFreezeFlag = 0;
 static int32 CurrentCurve = 0;
-extern char this_file[XPP_MAX_NAME];
-extern char this_internset[XPP_MAX_NAME];
 
 
 extern char *graf_hint[], *cmap_hint[];

@@ -13,7 +13,6 @@
 
 extern double variable_shift[2][MAX_ODE];
 
-extern double delay_list[MAX_DELAY];
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 
 static int32 test_sign(double old, double new);

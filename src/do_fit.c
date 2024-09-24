@@ -19,7 +19,6 @@
 #define DP5 11
 #define DP83 12
 #define RB23 13
-extern double last_ic[MAX_ODE];
 
 
 static struct {

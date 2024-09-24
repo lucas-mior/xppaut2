@@ -61,10 +61,8 @@ static int32 MINI_W = 450;
 
 int32 ActiveWinList[MAXPOP];
 
-extern TABULAR my_table[MAX_TAB];
 
 
-extern InternSet intern_set[MAX_INTERN_SET];
 
 static void select_sym(Window window);
 static void lo_lite(Window wi);

@@ -22,9 +22,7 @@
  * evaluating K(t,t',u) */
 
 #define CONV 2
-extern Kernel kernel[MAX_KER];
 static double *Memory[MAX_KER];
-extern int32 EqType[MAX_ODE];
 static int32 CurrentPoint;
 static int32 KnFlag;
 

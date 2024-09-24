@@ -79,8 +79,6 @@ int32 NMarkov;
 
 int32 FIX_VAR;
 
-extern char this_file[XPP_MAX_NAME];
-extern char options[100];
 int32 EqType[MAX_ODE];
 static int32 Naux = 0;
 static char aux_names[MAX_ODE][12];

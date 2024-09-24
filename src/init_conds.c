@@ -52,9 +52,7 @@ This also has the clone gadget
 #define READEM 1
 #define WRITEM 0
 
-extern char *save_eqn[MAXLINES];
 /*extern char UserBGBitmap[100];*/
-extern char UserBGBitmap[XPP_MAX_NAME];
 #define PARAMBOX 1
 #define ICBOX 2
 #define DELAYBOX 3
@@ -87,9 +85,6 @@ static void display_file_sel(struct FileSel f, Window window);
 
 
 extern char delay_string[MAX_ODE][80];
-extern double default_val[MAX_PAR];
-extern double last_ic[MAX_ODE];
-extern double default_ic[MAX_ODE];
 
 static struct ParSlider {
     int32 use, pos, l;
@@ -152,11 +147,7 @@ static void redraw_directory(void);
 static void expose_selector(Window window);
 
 
-extern char SLIDER1VAR[20];
-extern char SLIDER2VAR[20];
-extern char SLIDER3VAR[20];
 
-extern BcStruct my_bc[MAX_ODE];
 
 static BoxList *HotBox;
 static int32 HotBoxItem = -1;
@@ -165,7 +156,6 @@ BoxList ParamBox;
 static BoxList DelayBox;
 static BoxList BCBox;
 
-extern char this_file[XPP_MAX_NAME];
 
 /* CLONE */
 void

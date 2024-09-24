@@ -17,10 +17,6 @@
 
 double THETA0 = 45;
 double PHI0 = 45;
-extern double x_3d[2];
-extern double y_3d[2];
-extern double z_3d[2];
-extern Graph graph[MAXPOP];
 
 int32 PS_Port = 0;
 int32 PointRadius = 0;
@@ -36,13 +32,6 @@ XFontStruct *romfonts[5];
 int32 avsymfonts[5];
 int32 avromfonts[5];
 
-extern int32 IX_PLT[10];
-extern int32 IY_PLT[10];
-extern int32 IZ_PLT[10];
-extern double X_LO[10];
-extern double Y_LO[10];
-extern double X_HI[10];
-extern double Y_HI[10];
 
 /*  This is an improved graphics driver for XPP
     It requires only a few commands

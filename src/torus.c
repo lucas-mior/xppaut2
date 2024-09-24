@@ -19,7 +19,6 @@
 
 
 
-extern int32 itor[MAX_ODE];
 
 static struct TorusBox {
     Window base, done, cancel;

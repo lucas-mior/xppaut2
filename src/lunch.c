@@ -17,16 +17,11 @@
 
 
 
-extern BcStruct my_bc[MAX_ODE];
 
 static int32 set_type = 0;
 
-extern FixInfo fixinfo[MAX_ODE];
 
-extern double last_ic[MAX_ODE];
-extern double MyData[MAX_ODE];
 
-extern char this_file[XPP_MAX_NAME];
 extern char delay_string[MAX_ODE][80];
 extern char *ode_names[MAX_ODE], *fix_names[MAX_ODE];
 

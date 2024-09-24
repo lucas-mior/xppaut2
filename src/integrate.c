@@ -58,8 +58,6 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #define DP83 12
 #define RB23 13
 extern double ShootIC[8][MAX_ODE];
-extern int32 ShootType[8];
-extern char this_internset[XPP_MAX_NAME];
 
 int32 MakePlotFlag = 0;
 
@@ -102,20 +100,15 @@ XPPVEC xpv;
 int32 SuppressOut = 0;
 int32 SuppressBounds = 0;
 
-extern char batchout[XPP_MAX_NAME];
 int32 DelayErr;
 
 double MyData[MAX_ODE];
 double MyTime;
 int32 MyStart;
 int32 RANGE_FLAG;
-extern double default_val[MAX_PAR];
-extern double last_ic[MAX_ODE];
 double LastTime;
 
-extern char UserOUTFILE[XPP_MAX_NAME];
 
-extern int32 colorline[11];
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 static int32 STOP_FLAG = 0;
 
@@ -132,7 +125,6 @@ static struct {
 
 Range range;
 
-extern InternSet intern_set[MAX_INTERN_SET];
 
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);

@@ -6,7 +6,6 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-extern BcStruct my_bc[MAX_ODE];
 
 
 int32

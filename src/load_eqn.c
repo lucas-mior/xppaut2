@@ -27,21 +27,11 @@
 static char *interopt[MAXOPT];
 static int32 Nopts = 0;
 int32 RunImmediately = 0;
-extern char dll_lib[256];
-extern char dll_fun[256];
 
-extern char UserBlack[8];
-extern char UserWhite[8];
-extern char UserMainWinColor[8];
-extern char UserDrawWinColor[8];
 /*extern char UserBGBitmap[100];*/
-extern char UserBGBitmap[XPP_MAX_NAME];
 
 
 
-extern char SLIDER1VAR[20];
-extern char SLIDER2VAR[20];
-extern char SLIDER3VAR[20];
 
 
 int32 IX_PLT[10];
@@ -66,13 +56,8 @@ int32 Nintern_set = 0;
     to use them. (Except eqn forming stuff)
  */
 
-extern char batchout[XPP_MAX_NAME];
 double last_ic[MAX_ODE];
-extern char PlotFormat[10];
-extern char big_font_name[100];
-extern char small_font_name[100];
 
-extern char PS_FONT[200];
 
 extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                        int32 *istart, double *work);
@@ -155,7 +140,6 @@ int32 PAR_FOL;
 
 /*  custon color stuff  */
 
-extern char ColorVia[15];
 
 
 int32 xorfix;

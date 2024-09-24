@@ -46,7 +46,6 @@ static char *tutorial[N_TUTORIAL] = {
     "have XPP open to a default starting directory by setting the environment "
     "variable XPPSTART on your computer."};
 
-extern char this_file[XPP_MAX_NAME];
 extern char *null_freeze[], *bvp_hint[], *color_hint[], *stoch_hint[];
 extern char *graf_hint[], *cmap_hint[], *half_hint[], *map_hint[];
 static int32 status;
