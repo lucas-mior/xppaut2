@@ -92,7 +92,7 @@ bcnd(int64 ndim, double *par, int64 *icp, int64 nbc, double *u0, double *u1,
 
     derived_evaluate();
     tabular_redo_all_fun_tables();
-    do_bc(u0, 0.0, u1, 1.0, fb, (int32)nbc);
+    pp_shoot_do_bc(u0, 0.0, u1, 1.0, fb, (int32)nbc);
 
     return 0;
 }

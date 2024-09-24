@@ -38,7 +38,7 @@ static void do_sh_range(double *ystart, double *yend);
 static void bad_shoot(int32 iret);
 
 void
-do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n) {
+pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n) {
     int32 n0 = PrimeStart;
     int32 i;
 
@@ -434,7 +434,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             y1[i] = y[i];
         }
 
-        do_bc(y0, t0, y1, t1, f, n);
+        pp_shoot_do_bc(y0, t0, y1, t1, f, n);
         if (iper)
             f[n] = y1[ivar] - sect;
         error = 0.0;
@@ -485,7 +485,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
                 goto bye;
             }
 
-            do_bc(y0, t0, y, t1, fdev, n);
+            pp_shoot_do_bc(y0, t0, y, t1, fdev, n);
             if (iper)
                 fdev[n] = y[ivar] - sect;
             y0[j] = ytemp;

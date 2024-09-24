@@ -3981,7 +3981,7 @@ Window make_icon_window(Window root, int32 x, int32 y, int32 width,
 
 #include <stdio.h>
 
-void do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
+void pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
            int32 n);
 void pp_shoot_compile_bvp(void);
 void pp_shoot_reset_bvp(void);
