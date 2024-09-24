@@ -2,7 +2,7 @@
 #include "math.h"
 #include "complex_math.h"
 
-double
+static double
 f__cabs(double real, double imag) {
     double temp;
 

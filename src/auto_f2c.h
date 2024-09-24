@@ -28,7 +28,6 @@
 #define ARRAY3D(array, i, j, k)                                                \
     array[(i) + ((j) + (k)*array##_dim2)*array##_dim1]
 
-double f__cabs(double, double imag);
 double d_imag(doublecomplex *z);
 double d_lg10(double *x);
 double d_sign(double a, double b);
