@@ -66,7 +66,7 @@ static int32 cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
                           Vector fpred, bool *jcurPtr, Vector vtemp1,
                           Vector vtemp2, Vector vtemp3);
 
-static int32 CVDenseSolve(CVodeMem cv_mem, Vector b, Vector ycur,
+static int32 cv_dense_solve(CVodeMem cv_mem, Vector b, Vector ycur,
                           Vector fcur);
 
 static void cv_dense_free(CVodeMem cv_mem);
@@ -171,7 +171,7 @@ cv_dense_dq_jac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
  This routine initializes the memory record and sets various function
  fields specific to the dense linear solver module. CVDense sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be cv_dense_init, cv_dense_setup, CVDenseSolve, and cv_dense_free,
+ to be cv_dense_init, cv_dense_setup, cv_dense_solve, and cv_dense_free,
  respectively. It allocates memory for a structure of type
  CVDenseMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure. Finally, it sets d_J_data field in the
@@ -197,7 +197,7 @@ cv_dense(void *cvode_mem, CVDenseJacFn djac, void *jac_data) {
     /* Set four main function fields in cv_mem */
     linit = cv_dense_init;
     lsetup = cv_dense_setup;
-    lsolve = CVDenseSolve;
+    lsolve = cv_dense_solve;
     lfree = cv_dense_free;
 
     /* Get memory for CVDenseMemRec */
@@ -332,7 +332,7 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     return 0;
 }
 
-/*************** CVDenseSolve ****************************************
+/*************** cv_dense_solve ****************************************
 
  This routine handles the solve operation for the dense linear solver
  by calling the dense backsolve routine.  The returned value is 0.
@@ -340,7 +340,7 @@ cv_dense_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 **********************************************************************/
 
 static int32
-CVDenseSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
+cv_dense_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     CVDenseMem cvdense_mem;
     (void)ycur;
     (void)fcur;

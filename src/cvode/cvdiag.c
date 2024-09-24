@@ -59,7 +59,7 @@ static int32 cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
                          Vector fpred, bool *jcurPtr, Vector vtemp1,
                          Vector vtemp2, Vector vtemp3);
 
-static int32 CVDiagSolve(CVodeMem cv_mem, Vector b, Vector ycur,
+static int32 cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur,
                          Vector fcur);
 
 static void cv_diag_free(CVodeMem cv_mem);
@@ -95,7 +95,7 @@ static void cv_diag_free(CVodeMem cv_mem);
  This routine initializes the memory record and sets various function
  fields specific to the diagonal linear solver module. CVDiag sets the
  cv_linit, cv_lsetup, cv_lsolve, and cv_lfree fields in (*cvode_mem)
- to be cv_diag_init, cv_diag_setup, CVDiagSolve, and cv_diag_free,
+ to be cv_diag_init, cv_diag_setup, cv_diag_solve, and cv_diag_free,
  respectively. It allocates memory for a structure of type
  CVDiagMemRec and sets the cv_lmem field in (*cvode_mem) to the
  address of this structure.
@@ -115,7 +115,7 @@ cv_diag(void *cvode_mem) {
     /* Set four main function fields in cv_mem */
     linit = cv_diag_init;
     lsetup = cv_diag_setup;
-    lsolve = CVDiagSolve;
+    lsolve = cv_diag_solve;
     lfree = cv_diag_free;
 
     /* Get memory for CVDiagMemRec */
@@ -235,7 +235,7 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     return 0;
 }
 
-/*************** CVDiagSolve *****************************************
+/*************** cv_diag_solve *****************************************
 
  This routine performs the solve operation for the diagonal linear
  solver.  If necessary it first updates gamma in M = I - gamma*J.
@@ -243,7 +243,7 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
 **********************************************************************/
 
 static int32
-CVDiagSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
+cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     bool invOK;
     double r;
     CVDiagMem cvdiag_mem;
