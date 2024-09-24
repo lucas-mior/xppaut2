@@ -459,7 +459,7 @@ auto_close(int32 flg) {
 }
 
 static void
-create_auto_file_name(void) {
+auto_nox_create_file_name(void) {
     char *basec, *bname, *dirc, *dname;
     char *HOME;
 
@@ -1467,7 +1467,7 @@ init_auto_win(void) {
     for (i = 0; i < NODE; i++)
         blrtn.nrot[i] = 0;
     blrtn.torper = TOR_PERIOD;
-    create_auto_file_name();
+    auto_nox_create_file_name();
 
     /*  Control -- done automatically   */
     Auto.irs = 0;
