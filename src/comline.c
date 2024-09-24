@@ -178,7 +178,7 @@ add_set(struct SetName *set, char *nam) {
 }
 
 void
-do_comline(int32 argc, char **argv) {
+comline_do(int32 argc, char **argv) {
     int32 i;
     int32 k;
 

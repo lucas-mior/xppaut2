@@ -1030,7 +1030,7 @@ extern int32 newseed;
 
 extern char includefilename[MAX_INCLUDE_FILES][XPP_MAX_NAME];
 
-void do_comline(int32 argc, char **argv);
+void comline_do(int32 argc, char **argv);
 int32 comline_if_needed_select_sets(void);
 int32 comline_if_needed_load_set(void);
 int32 comline_if_needed_load_par(void);

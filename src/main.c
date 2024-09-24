@@ -433,7 +433,7 @@ do_main(int32 argc, char **argv) {
     logfile = stdout;
     check_for_quiet(argc, argv);
 
-    do_comline(argc, argv);
+    comline_do(argc, argv);
 
     /* We need to init_X here if there is no file on command line
      * so that a file browser can be opened.  */
