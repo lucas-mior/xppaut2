@@ -26,8 +26,6 @@
         For now, I just will let it remain command driven
 */
 
-extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
-                       int32 *istart, double *work);
 double *fft_data;
 double *hist_data;
 

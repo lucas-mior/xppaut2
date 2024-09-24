@@ -49,9 +49,6 @@ int32 Nintern_set = 0;
 
 double last_ic[MAX_ODE];
 
-extern int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
-                       int32 *istart, double *work);
-
 char delay_string[MAX_ODE][80];
 int32 itor[MAX_ODE];
 char this_file[XPP_MAX_NAME];
