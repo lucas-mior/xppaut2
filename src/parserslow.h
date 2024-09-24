@@ -4,6 +4,9 @@
 #include "integers.h"
 #include "xpplim.h"
 
+extern int32 NDELAYS;
+extern int32 RandSeed;
+
 #define FUN1TYPE 9
 #define FUN2TYPE 1
 #define VARTYPE 3 /* standard variable */

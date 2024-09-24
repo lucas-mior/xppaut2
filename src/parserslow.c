@@ -45,7 +45,7 @@ double delay_stab_eval(double, int32);
 double tabular_lookup(double, int32);
 double hom_bcs(int32);
 double BoxMuller;
-int32 BoxMullerFlag = 0;
+static int32 BoxMullerFlag = 0;
 int32 RandSeed = 12345678;
 
 #ifndef M_PI
@@ -54,8 +54,8 @@ int32 RandSeed = 12345678;
 
 extern int32 del_stab_flag;
 
-double CurrentIndex = 0;
-int32 SumIndex = 1;
+static double CurrentIndex = 0;
+static int32 SumIndex = 1;
 
 /* FIXXX */
 int32 stack_pointer;
@@ -77,7 +77,13 @@ int32 NTable;
 
 UFUN_ARG ufun_arg[MAX_UFUN];
 
-SYMBOL my_symb[MAX_SYMBS] = {
+static struct Symbol {
+    char name[MXLEN + 1];
+    int32 len;
+    int32 com;
+    int32 arg;
+    int32 pri;
+} my_symb[MAX_SYMBS] = {
     {"(", 1, 999, 0, 1}, /*  0   */
     {")", 1, 999, 0, 2},
     {",", 1, 999, 0, 3},
