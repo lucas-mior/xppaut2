@@ -45,7 +45,7 @@ int32 LastPSY;
  * since Courier is an ugly font!!  */
 
 extern int32 Xup;
-char *PS_header[] = {
+static char *PS_header[] = {
     "/vpt2 vpt 2 mul def\n", "/hpt2 hpt 2 mul def\n",
     "/Romfnt {/Times-Roman findfont exch scalefont setfont} def ",
     "/Symfnt {/Symbol findfont exch scalefont setfont} def ",

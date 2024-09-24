@@ -10,7 +10,7 @@
 #define CENTER 1
 #define POINT_TYPES 8
 
-char SVGLINETYPE;
+static char SVGLINETYPE;
 
 extern int32 TextJustify;
 extern int32 TextAngle;
@@ -22,13 +22,13 @@ extern int32 PltFmtFlag;
 extern int32 PSColorFlag;
 extern int32 PSLines;
 extern int32 LastPtLine;
-int32 cur_RGB[3];
+static int32 cur_RGB[3];
 extern int32 LastPSX;
 extern int32 LastPSY;
 extern int32 NoBreakLine;
-int32 DOING_SVG_COLOR = 0;
+static int32 DOING_SVG_COLOR = 0;
 
-int32 DO_MARKER = 0;
+static int32 DO_MARKER = 0;
 extern int32 DOING_DFIELD;
 
 extern int32 Xup;

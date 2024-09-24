@@ -3705,6 +3705,7 @@ extern int32 PSColorFlag;
 extern int32 PSLines;
 extern int32 LastPSX;
 extern int32 LastPSY;
+extern int32 LastPtLine;
 
 int32 ps_init(char *filename, int32 color);
 void ps_stroke(void);
@@ -3739,6 +3740,10 @@ void rhs_only(double *ydot);
 
 #ifndef MY_SVG_H
 #define MY_SVG_H
+
+extern FILE *svgfile;
+extern int32 DFBatch;
+extern int32 NCBatch;
 
 int32 svg_init(char *filename);
 void svg_do_color(int32 color);

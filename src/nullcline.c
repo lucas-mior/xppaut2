@@ -20,14 +20,13 @@ typedef struct Point {
     double x, y, z;
 } Point;
 
-int32 OutPutNC = 0;
 extern int32 SuppressBounds;
 extern Graph *MyGraph;
 extern int32 PltFmtFlag;
 extern FILE *svgfile;
 
-int32 NCSuppress = 0;
-int32 DFSuppress = 0;
+static int32 NCSuppress = 0;
+static int32 DFSuppress = 0;
 int32 DFBatch = 0;
 int32 NCBatch = 0;
 extern int32 XPPBatch;
