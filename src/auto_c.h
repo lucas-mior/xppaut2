@@ -213,7 +213,7 @@ double time_end(double);
 void allocate_global_memory(iap_type);
 int32 init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
            double **thu_pointer, int64 *iuz, double *vuz);
-int32 chdim(iap_type *iap);
+int32 autlib_check_dimensions(iap_type *iap);
 int32 autoae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
              FUNI_TYPE((*funi)), STPNT_TYPE_AE((*stpnt)), PVLI_TYPE_AE((*pvli)),
              double *thl, double *thu, int64 *iuz, double *vuz);

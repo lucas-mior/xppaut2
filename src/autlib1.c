@@ -258,7 +258,7 @@ init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 }
 
 int32
-chdim(iap_type *iap) {
+autlib_check_dimensions(iap_type *iap) {
     int64 npar;
 
     /* Check dimensions. */
