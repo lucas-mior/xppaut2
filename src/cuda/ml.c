@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdlib.h>
 
 /*  ml.c for use in the ode file mlnet.ode
 
@@ -11,9 +12,7 @@ gcc -fPIC -shared  -O3 -o ML.SO ml.c -m64
 
 */
 
-#define real double
-
-real *p;
+double *p;
 #define iapp p[0]
 #define phi p[1]
 #define va p[2]
@@ -40,29 +39,29 @@ double vth=0,vshp=.05;
 
 */
 
-real *sum;
+double *sum;
 
 int allocflag = 0;
-real
-minf(real v) {
+double
+minf(double v) {
     return .5*(1 + tanh((v - va) / vb));
 }
-real
-ninf(real v) {
+double
+ninf(double v) {
     return .5*(1 + tanh((v - vc) / vd));
 }
-real
-lamn(real v) {
+double
+lamn(double v) {
     return phi*cosh((v - vc) / (2*vd));
 }
-real
-s_inf(real v) {
+double
+s_inf(double v) {
     return 1.0 / (1.0 + exp(-(v - vth) / vshp));
     /* return 0.0; */
 }
 
 void
-update_sums(real *s, real *wgt, int n) {
+update_sums(double *s, double *wgt, int n) {
     int i;
     int j;
     for (i = 0; i < n; i++) {
@@ -73,7 +72,7 @@ update_sums(real *s, real *wgt, int n) {
 }
 
 void
-update_rhs(real *vp, real *wp, real *sp, real *v, real *w, real *s, int n) {
+update_rhs(double *vp, double *wp, double *sp, double *v, double *w, double *s, int n) {
     int i;
     for (i = 0; i < n; i++) {
         vp[i] = iapp - gl*(v[i] - vl) - gk*w[i]*(v[i] - vk) -
