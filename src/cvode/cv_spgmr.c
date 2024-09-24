@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "cvspgmr.h"
+#include "cv_spgmr.h"
 #include "cvode.h"
 #include "llnltyps.h"
 #include "vector.h"
