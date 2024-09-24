@@ -368,10 +368,10 @@ CVSpgmrSolve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
 
     /* Test norm(b); if small, return x = 0 or x = b */
     deltar = delt*tq[4];
-    bnorm = vector_WrmsNorm(b, ewt);
+    bnorm = vector_wrms_norm(b, ewt);
     if (bnorm <= deltar) {
         if (mnewt > 0)
-            vector_Const(ZERO, b);
+            vector_const(ZERO, b);
         return 0;
     }
 
@@ -381,13 +381,13 @@ CVSpgmrSolve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
 
     /* Set inputs delta and initial guess x = 0 to spgmr_solve */
     delta = deltar*sqrtN;
-    vector_Const(ZERO, x);
+    vector_const(ZERO, x);
 
     /* Call spgmr_solve and copy x to b */
     ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0, cv_mem,
                      ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve, &res_norm,
                      &nli_inc, &nps_inc);
-    vector_Scale(ONE, x, b);
+    vector_scale(ONE, x, b);
 
     /* Increment counters nli, nps, and ncfl */
     nli += nli_inc;
@@ -448,22 +448,22 @@ cv_spgmr_atimes_dq(void *cvode_mem, Vector v, Vector z) {
     cvspgmr_mem = (CVSpgmrMem)lmem;
 
     /* If rho = norm(v) is 0, return z = 0 */
-    rho = vector_WrmsNorm(v, ewt);
+    rho = vector_wrms_norm(v, ewt);
     if (rho == ZERO) {
-        vector_Const(ZERO, z);
+        vector_const(ZERO, z);
         return 0;
     }
 
     /* Set ytemp = ycur + (1/rho) v */
-    vector_LinearSum(ONE / rho, v, ONE, ycur, ytemp);
+    vector_linear_sum(ONE / rho, v, ONE, ycur, ytemp);
 
     /* Set z = f(tn, ytemp) */
     f(N, tn, ytemp, z, f_data);
     nfe++;
 
     /* Replace z by v - (gamma*rho)(z - fcur) */
-    vector_LinearSum(ONE, z, -ONE, fcur, z);
-    vector_LinearSum(-gamma*rho, z, ONE, v, z);
+    vector_linear_sum(ONE, z, -ONE, fcur, z);
+    vector_linear_sum(-gamma*rho, z, ONE, v, z);
 
     return 0;
 }

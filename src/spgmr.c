@@ -193,19 +193,19 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
     /* Set vtemp and V[0] to initial (unscaled) residual r_0 = b - A*x_0  */
 
-    if (vector_DotProd(x, x) == ZERO) {
-        vector_Scale(ONE, b, vtemp);
+    if (vector_dot_prod(x, x) == ZERO) {
+        vector_scale(ONE, b, vtemp);
     } else {
         if (atimes(A_data, x, vtemp) != 0)
             return SPGMR_ATIMES_FAIL;
-        vector_LinearSum(ONE, b, -ONE, vtemp, vtemp);
+        vector_linear_sum(ONE, b, -ONE, vtemp, vtemp);
     }
-    vector_Scale(ONE, vtemp, V[0]);
+    vector_scale(ONE, vtemp, V[0]);
 
     /* Apply b-scaling to vtemp, get L2 norm of sb r_0, and return if small */
     /*
-      if (scale_b) vector_Prod(sb, vtemp, vtemp);
-      s_r0_norm = llnlmath_rsqrt(vector_DotProd(vtemp, vtemp));
+      if (scale_b) vector_prod(sb, vtemp, vtemp);
+      s_r0_norm = llnlmath_rsqrt(vector_dot_prod(vtemp, vtemp));
       if (s_r0_norm <= delta) return SPGMR_SUCCESS;
     */
     /* Apply left preconditioner and b-scaling to V[0] = r_0 */
@@ -217,25 +217,25 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                               : SPGMR_PSOLVE_FAIL_REC);
     } else {
-        vector_Scale(ONE, V[0], vtemp);
+        vector_scale(ONE, V[0], vtemp);
     }
 
     if (scale_b) {
-        vector_Prod(sb, vtemp, V[0]);
+        vector_prod(sb, vtemp, V[0]);
     } else {
-        vector_Scale(ONE, vtemp, V[0]);
+        vector_scale(ONE, vtemp, V[0]);
     }
 
     /* Set r_norm = beta to L2 norm of V[0] = sb P1_inv r_0, and
        return if small  */
 
-    *res_norm = r_norm = beta = llnlmath_rsqrt(vector_DotProd(V[0], V[0]));
+    *res_norm = r_norm = beta = llnlmath_rsqrt(vector_dot_prod(V[0], V[0]));
     if (r_norm <= delta)
         return SPGMR_SUCCESS;
 
     /* Set xcor = 0 */
 
-    vector_Const(ZERO, xcor);
+    vector_const(ZERO, xcor);
 
     /* Begin outer iterations: up to (max_restarts + 1) attempts */
 
@@ -249,7 +249,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         rotation_product = ONE;
 
-        vector_Scale(ONE / r_norm, V[0], V[0]);
+        vector_scale(ONE / r_norm, V[0], V[0]);
 
         /* Inner loop: generate Krylov sequence and Arnoldi basis */
 
@@ -263,13 +263,13 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
             /* Apply x-scaling: vtemp = sx_inv V[l] */
             if (scale_x) {
-                vector_Div(V[l], sx, vtemp);
+                vector_div(V[l], sx, vtemp);
             } else {
-                vector_Scale(ONE, V[l], vtemp);
+                vector_scale(ONE, V[l], vtemp);
             }
 
             /* Apply right precoditioner: vtemp = P2_inv sx_inv V[l] */
-            vector_Scale(ONE, vtemp, V[l_plus_1]);
+            vector_scale(ONE, vtemp, V[l_plus_1]);
             if (preOnRight) {
                 ier = psolve(P_data, V[l_plus_1], vtemp, PRE_RIGHT);
                 (*nps)++;
@@ -291,14 +291,14 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                       : SPGMR_PSOLVE_FAIL_REC);
             } else {
-                vector_Scale(ONE, V[l_plus_1], vtemp);
+                vector_scale(ONE, V[l_plus_1], vtemp);
             }
 
             /* Apply b-scaling: V[l+1] = sb P1_inv A P2_inv sx_inv V[l] */
             if (scale_b) {
-                vector_Prod(sb, vtemp, V[l_plus_1]);
+                vector_prod(sb, vtemp, V[l_plus_1]);
             } else {
-                vector_Scale(ONE, vtemp, V[l_plus_1]);
+                vector_scale(ONE, vtemp, V[l_plus_1]);
             }
 
             /*  Orthogonalize V[l+1] against previous V[i]: V[l+1] = w_tilde. */
@@ -329,7 +329,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             }
 
             /* Normalize V[l+1] with norm value from the Gram-Schmidt */
-            vector_Scale(ONE / Hes[l_plus_1][l], V[l_plus_1], V[l_plus_1]);
+            vector_scale(ONE / Hes[l_plus_1][l], V[l_plus_1], V[l_plus_1]);
         }
 
         /* Inner loop is done.  Compute the new correction vector xcor */
@@ -343,14 +343,14 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Add correction vector V_l y to xcor */
         for (k = 0; k < krydim; k++)
-            vector_LinearSum(yg[k], V[k], ONE, xcor, xcor);
+            vector_linear_sum(yg[k], V[k], ONE, xcor, xcor);
 
         /* If converged, construct the final solution vector x */
         if (converged) {
             /* Apply x-scaling and right precond.: vtemp = P2_inv sx_inv xcor */
 
             if (scale_x)
-                vector_Div(xcor, sx, xcor);
+                vector_div(xcor, sx, xcor);
             if (preOnRight) {
                 ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
                 (*nps)++;
@@ -358,12 +358,12 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                     return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                       : SPGMR_PSOLVE_FAIL_REC);
             } else {
-                vector_Scale(ONE, xcor, vtemp);
+                vector_scale(ONE, xcor, vtemp);
             }
 
             /* Add correction to initial x to get final solution x, and return
              */
-            vector_LinearSum(ONE, x, ONE, vtemp, x);
+            vector_linear_sum(ONE, x, ONE, vtemp, x);
 
             return SPGMR_SUCCESS;
         }
@@ -388,9 +388,9 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         r_norm = ABS(r_norm);
 
         /* Multiply yg by V_(krydim+1) to get last residual vector; restart */
-        vector_Scale(yg[0], V[0], V[0]);
+        vector_scale(yg[0], V[0], V[0]);
         for (k = 1; k <= krydim; k++)
-            vector_LinearSum(yg[k], V[k], ONE, V[0], V[0]);
+            vector_linear_sum(yg[k], V[k], ONE, V[0], V[0]);
     }
 
     /* Failed to converge, even after allowed restarts.
@@ -401,7 +401,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         /* Apply the x-scaling and right precond.: vtemp = P2_inv sx_inv xcor */
 
         if (scale_x)
-            vector_Div(xcor, sx, xcor);
+            vector_div(xcor, sx, xcor);
         if (preOnRight) {
             ier = psolve(P_data, xcor, vtemp, PRE_RIGHT);
             (*nps)++;
@@ -409,11 +409,11 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
                 return ((ier < 0) ? SPGMR_PSOLVE_FAIL_UNREC
                                   : SPGMR_PSOLVE_FAIL_REC);
         } else {
-            vector_Scale(ONE, xcor, vtemp);
+            vector_scale(ONE, xcor, vtemp);
         }
 
         /* Add vtemp to initial x to get final solution x, and return */
-        vector_LinearSum(ONE, x, ONE, vtemp, x);
+        vector_linear_sum(ONE, x, ONE, vtemp, x);
 
         return SPGMR_RES_REDUCED;
     }

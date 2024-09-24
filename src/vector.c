@@ -68,7 +68,7 @@ vector_free(Vector x) {
 }
 
 void
-vector_LinearSum(double a, Vector x, double b, Vector y, Vector z) {
+vector_linear_sum(double a, Vector x, double b, Vector y, Vector z) {
     int64 i;
     int64 N;
     double c, *xd, *yd, *zd;
@@ -156,7 +156,7 @@ vector_LinearSum(double a, Vector x, double b, Vector y, Vector z) {
 }
 
 void
-vector_Const(double c, Vector z) {
+vector_const(double c, Vector z) {
     int64 i;
     int64 N;
     double *zd;
@@ -170,7 +170,7 @@ vector_Const(double c, Vector z) {
 }
 
 void
-vector_Prod(Vector x, Vector y, Vector z) {
+vector_prod(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -186,7 +186,7 @@ vector_Prod(Vector x, Vector y, Vector z) {
 }
 
 void
-vector_Div(Vector x, Vector y, Vector z) {
+vector_div(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -202,7 +202,7 @@ vector_Div(Vector x, Vector y, Vector z) {
 }
 
 void
-vector_Scale(double c, Vector x, Vector z) {
+vector_scale(double c, Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -227,7 +227,7 @@ vector_Scale(double c, Vector x, Vector z) {
 }
 
 void
-vector_Abs(Vector x, Vector z) {
+vector_abs(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -242,7 +242,7 @@ vector_Abs(Vector x, Vector z) {
 }
 
 void
-vector_Inv(Vector x, Vector z) {
+vector_inv(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -257,7 +257,7 @@ vector_Inv(Vector x, Vector z) {
 }
 
 void
-vector_AddConst(Vector x, double b, Vector z) {
+vector_add_const(Vector x, double b, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -272,7 +272,7 @@ vector_AddConst(Vector x, double b, Vector z) {
 }
 
 double
-vector_DotProd(Vector x, Vector y) {
+vector_dot_prod(Vector x, Vector y) {
     int64 i;
     int64 N;
     double sum = ZERO, *xd, *yd;
@@ -288,7 +288,7 @@ vector_DotProd(Vector x, Vector y) {
 }
 
 double
-vector_MaxNorm(Vector x) {
+vector_max_norm(Vector x) {
     int64 i;
     int64 N;
     double max = ZERO, *xd;
@@ -305,7 +305,7 @@ vector_MaxNorm(Vector x) {
 }
 
 double
-vector_WrmsNorm(Vector x, Vector w) {
+vector_wrms_norm(Vector x, Vector w) {
     int64 i;
     int64 N;
     double sum = ZERO, prodi, *xd, *wd;
@@ -323,7 +323,7 @@ vector_WrmsNorm(Vector x, Vector w) {
 }
 
 double
-vector_Min(Vector x) {
+vector_min(Vector x) {
     int64 i;
     int64 N;
     double min, *xd;
@@ -341,7 +341,7 @@ vector_Min(Vector x) {
 }
 
 void
-vector_Compare(double c, Vector x, Vector z) {
+vector_compare(double c, Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -357,7 +357,7 @@ vector_Compare(double c, Vector x, Vector z) {
 }
 
 bool
-vector_InvTest(Vector x, Vector z) {
+vector_inv_test(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -376,7 +376,7 @@ vector_InvTest(Vector x, Vector z) {
 }
 
 void
-vector_Print(Vector x) {
+vector_print(Vector x) {
     int64 i;
     int64 N;
     double *xd;

@@ -494,7 +494,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     if (itol == SS) {
         neg_abstol = (*((double *)abstol) < ZERO);
     } else {
-        neg_abstol = (vector_Min((Vector)abstol) < ZERO);
+        neg_abstol = (vector_min((Vector)abstol) < ZERO);
     }
     if (neg_abstol) {
         fprintf(fp, MSG_BAD_ABSTOL);
@@ -596,7 +596,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
 
     /* Initialize the history array zn */
 
-    vector_Scale(ONE, y0, zn[0]);
+    vector_scale(ONE, y0, zn[0]);
     f(N, t0, y0, zn[1], f_data);
     nfe = 1;
 
@@ -778,7 +778,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
         if (ABS(h) < hmin)
             h *= hmin / ABS(h);
         hscale = h;
-        vector_Scale(h, zn[1], zn[1]);
+        vector_scale(h, zn[1], zn[1]);
     }
 
     /* If not the first call, check if tout already reached */
@@ -808,7 +808,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
                 fprintf(errfp, MSG_EWT_NOW_BAD, tn);
                 istate = ILL_INPUT;
                 *t = tn;
-                vector_Scale(ONE, zn[0], yout);
+                vector_scale(ONE, zn[0], yout);
                 break;
             }
         }
@@ -819,17 +819,17 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
             fprintf(errfp, MSG_MAX_STEPS, tn, mxstep, tout);
             istate = TOO_MUCH_WORK;
             *t = tn;
-            vector_Scale(ONE, zn[0], yout);
+            vector_scale(ONE, zn[0], yout);
             break;
         }
 
         /* Check for too much accuracy requested */
 
-        if ((tolsf = uround*vector_WrmsNorm(zn[0], ewt)) > ONE) {
+        if ((tolsf = uround*vector_wrms_norm(zn[0], ewt)) > ONE) {
             fprintf(errfp, MSG_TOO_MUCH_ACC, tn);
             istate = TOO_MUCH_ACC;
             *t = tn;
-            vector_Scale(ONE, zn[0], yout);
+            vector_scale(ONE, zn[0], yout);
             tolsf *= TWO;
             break;
         }
@@ -853,7 +853,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
         if (kflag != SUCCESS_STEP) {
             istate = cv_handle_failure(cv_mem, kflag);
             *t = tn;
-            vector_Scale(ONE, zn[0], yout);
+            vector_scale(ONE, zn[0], yout);
             break;
         }
 
@@ -864,7 +864,7 @@ CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask) {
         if (itask == ONE_STEP) {
             istate = SUCCESS;
             *t = tn;
-            vector_Scale(ONE, zn[0], yout);
+            vector_scale(ONE, zn[0], yout);
             next_q = qprime;
             next_h = hprime;
             break;
@@ -964,15 +964,15 @@ cvode_dky(void *cvode_mem, double t, int32 k, Vector dky) {
         for (i = j; i >= j - k + 1; i--)
             c *= i;
         if (j == q) {
-            vector_Scale(c, zn[q], dky);
+            vector_scale(c, zn[q], dky);
         } else {
-            vector_LinearSum(c, zn[j], s, dky, dky);
+            vector_linear_sum(c, zn[j], s, dky, dky);
         }
     }
     if (k == 0)
         return OKAY;
     r = llnlmath_rpower_i(h, -k);
-    vector_Scale(r, dky, dky);
+    vector_scale(r, dky, dky);
     return OKAY;
 }
 
@@ -1145,12 +1145,12 @@ CVEwtSetSS(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
 
     rtoli = *rtol;
     atoli = *atol;
-    vector_Abs(ycur, tempv);
-    vector_Scale(rtoli, tempv, tempv);
-    vector_AddConst(tempv, atoli, tempv);
-    if (vector_Min(tempv) <= ZERO)
+    vector_abs(ycur, tempv);
+    vector_scale(rtoli, tempv, tempv);
+    vector_add_const(tempv, atoli, tempv);
+    if (vector_min(tempv) <= ZERO)
         return FALSE;
-    vector_Inv(tempv, ewtvec);
+    vector_inv(tempv, ewtvec);
     return TRUE;
 }
 
@@ -1171,11 +1171,11 @@ CVEwtSetSV(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
     (void)neq;
 
     rtoli = *rtol;
-    vector_Abs(ycur, tempv);
-    vector_LinearSum(rtoli, tempv, ONE, atol, tempv);
-    if (vector_Min(tempv) <= ZERO)
+    vector_abs(ycur, tempv);
+    vector_linear_sum(rtoli, tempv, ONE, atol, tempv);
+    if (vector_min(tempv) <= ZERO)
         return FALSE;
-    vector_Inv(tempv, ewtvec);
+    vector_inv(tempv, ewtvec);
     return TRUE;
 }
 
@@ -1279,16 +1279,16 @@ cv_upper_bound_h0(CVodeMem cv_mem, double tdist) {
         atoli = *((double *)abstol);
     temp1 = tempv;
     temp2 = acor;
-    vector_Abs(zn[0], temp1);
-    vector_Abs(zn[1], temp2);
+    vector_abs(zn[0], temp1);
+    vector_abs(zn[1], temp2);
     if (vectorAtol) {
-        vector_LinearSum(HUB_FACTOR, temp1, ONE, (Vector)abstol, temp1);
+        vector_linear_sum(HUB_FACTOR, temp1, ONE, (Vector)abstol, temp1);
     } else {
-        vector_Scale(HUB_FACTOR, temp1, temp1);
-        vector_AddConst(temp1, atoli, temp1);
+        vector_scale(HUB_FACTOR, temp1, temp1);
+        vector_add_const(temp1, atoli, temp1);
     }
-    vector_Div(temp2, temp1, temp1);
-    hub_inv = vector_MaxNorm(temp1);
+    vector_div(temp2, temp1, temp1);
+    hub_inv = vector_max_norm(temp1);
     hub = HUB_FACTOR*tdist;
     if (hub*hub_inv > ONE)
         hub = ONE / hub_inv;
@@ -1306,13 +1306,13 @@ static double
 cv_ydd_norm(CVodeMem cv_mem, double hg) {
     double yddnrm;
 
-    vector_LinearSum(hg, zn[1], ONE, zn[0], y);
+    vector_linear_sum(hg, zn[1], ONE, zn[0], y);
     f(N, tn + hg, y, tempv, f_data);
     nfe++;
-    vector_LinearSum(ONE, tempv, -ONE, zn[1], tempv);
-    vector_Scale(ONE / hg, tempv, tempv);
+    vector_linear_sum(ONE, tempv, -ONE, zn[1], tempv);
+    vector_scale(ONE / hg, tempv, tempv);
 
-    yddnrm = vector_WrmsNorm(tempv, ewt);
+    yddnrm = vector_wrms_norm(tempv, ewt);
     return yddnrm;
 }
 
@@ -1447,7 +1447,7 @@ cv_adjust_adams(CVodeMem cv_mem, int32 deltaq) {
     /* On an order increase, set new column of zn to zero and return */
 
     if (deltaq == 1) {
-        vector_Const(ZERO, zn[L]);
+        vector_const(ZERO, zn[L]);
         return;
     }
 
@@ -1471,7 +1471,7 @@ cv_adjust_adams(CVodeMem cv_mem, int32 deltaq) {
         l[j + 1] = q*(l[j] / (j + 1));
 
     for (j = 2; j < q; j++)
-        vector_LinearSum(-l[j], zn[q], ONE, zn[j], zn[j]);
+        vector_linear_sum(-l[j], zn[q], ONE, zn[j], zn[j]);
     return;
 }
 
@@ -1535,9 +1535,9 @@ cv_increase_bdf(CVodeMem cv_mem) {
         }
     }
     A1 = (-alpha0 - alpha1) / prod;
-    vector_Scale(A1, zn[qmax], zn[L]);
+    vector_scale(A1, zn[qmax], zn[L]);
     for (j = 2; j <= q; j++) {
-        vector_LinearSum(l[j], zn[L], ONE, zn[j], zn[j]);
+        vector_linear_sum(l[j], zn[L], ONE, zn[j], zn[j]);
     }
     return;
 }
@@ -1570,7 +1570,7 @@ cv_decrese_bdf(CVodeMem cv_mem) {
     }
 
     for (j = 2; j < q; j++)
-        vector_LinearSum(-l[j], zn[q], ONE, zn[j], zn[j]);
+        vector_linear_sum(-l[j], zn[q], ONE, zn[j], zn[j]);
     return;
 }
 
@@ -1589,7 +1589,7 @@ cv_rescale(CVodeMem cv_mem) {
 
     factor = eta;
     for (j = 1; j <= q; j++) {
-        vector_Scale(factor, zn[j], zn[j]);
+        vector_scale(factor, zn[j], zn[j]);
         factor *= eta;
     }
     h = hscale*eta;
@@ -1613,7 +1613,7 @@ cv_predict(CVodeMem cv_mem) {
     tn += h;
     for (k = 1; k <= q; k++)
         for (j = q; j >= k; j--)
-            vector_LinearSum(ONE, zn[j - 1], ONE, zn[j], zn[j - 1]);
+            vector_linear_sum(ONE, zn[j - 1], ONE, zn[j], zn[j - 1]);
     return;
 }
 
@@ -1904,19 +1904,19 @@ cv_nls_functional(CVodeMem cv_mem) {
     m = 0;
     f(N, tn, zn[0], tempv, f_data);
     nfe++;
-    vector_Const(ZERO, acor);
+    vector_const(ZERO, acor);
 
     /* Loop until convergence; accumulate corrections in acor */
 
     while (true) {
         /* Correct y directly from the last f value */
-        vector_LinearSum(h, tempv, -ONE, zn[1], tempv);
-        vector_Scale(rl1, tempv, tempv);
-        vector_LinearSum(ONE, zn[0], ONE, tempv, y);
+        vector_linear_sum(h, tempv, -ONE, zn[1], tempv);
+        vector_scale(rl1, tempv, tempv);
+        vector_linear_sum(ONE, zn[0], ONE, tempv, y);
         /* Get WRMS norm of current correction to use in convergence test */
-        vector_LinearSum(ONE, tempv, -ONE, acor, acor);
-        del = vector_WrmsNorm(acor, ewt);
-        vector_Scale(ONE, tempv, acor);
+        vector_linear_sum(ONE, tempv, -ONE, acor, acor);
+        del = vector_wrms_norm(acor, ewt);
+        vector_scale(ONE, tempv, acor);
 
         /* Test for convergence.  If m > 0, an estimate of the convergence
            rate constant is stored in crate, and used in the test.        */
@@ -1924,7 +1924,7 @@ cv_nls_functional(CVodeMem cv_mem) {
             crate = MAX(CRDOWN*crate, del / delp);
         dcon = del*MIN(ONE, crate) / tq[4];
         if (dcon <= ONE) {
-            acnrm = (m == 0) ? del : vector_WrmsNorm(acor, ewt);
+            acnrm = (m == 0) ? del : vector_wrms_norm(acor, ewt);
             return SOLVED; /* Convergence achieved */
         }
 
@@ -1998,8 +1998,8 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
         }
 
         /* Set acor to zero and load prediction into y vector */
-        vector_Const(ZERO, acor);
-        vector_Scale(ONE, zn[0], y);
+        vector_const(ZERO, acor);
+        vector_scale(ONE, zn[0], y);
 
         /* Do the Newton iteration */
         ier = cv_newton_iteration(cv_mem);
@@ -2040,8 +2040,8 @@ cv_newton_iteration(CVodeMem cv_mem) {
     while (true) {
 
         /* Evaluate the residual of the nonlinear system*/
-        vector_LinearSum(rl1, zn[1], ONE, acor, tempv);
-        vector_LinearSum(gamma, ftemp, -ONE, tempv, tempv);
+        vector_linear_sum(rl1, zn[1], ONE, acor, tempv);
+        vector_linear_sum(gamma, ftemp, -ONE, tempv, tempv);
 
         /* Call the lsolve function */
         b = tempv;
@@ -2060,9 +2060,9 @@ cv_newton_iteration(CVodeMem cv_mem) {
         }
         /* *************** */
         /* Get WRMS norm of correction; add correction to acor and y */
-        del = vector_WrmsNorm(b, ewt);
-        vector_LinearSum(ONE, acor, ONE, b, acor);
-        vector_LinearSum(ONE, zn[0], ONE, acor, y);
+        del = vector_wrms_norm(b, ewt);
+        vector_linear_sum(ONE, acor, ONE, b, acor);
+        vector_linear_sum(ONE, zn[0], ONE, acor, y);
 
         /* Test for convergence.  If m > 0, an estimate of the convergence
            rate constant is stored in crate, and used in the test.        */
@@ -2072,7 +2072,7 @@ cv_newton_iteration(CVodeMem cv_mem) {
         dcon = del*MIN(ONE, crate) / tq[4];
 
         if (dcon <= ONE) {
-            acnrm = (m == 0) ? del : vector_WrmsNorm(acor, ewt);
+            acnrm = (m == 0) ? del : vector_wrms_norm(acor, ewt);
             jcur = FALSE;
             return SOLVED; /* Nonlinear system was solved successfully */
         }
@@ -2172,7 +2172,7 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
     tn = saved_t;
     for (k = 1; k <= q; k++)
         for (j = q; j >= k; j--)
-            vector_LinearSum(ONE, zn[j - 1], -ONE, zn[j], zn[j - 1]);
+            vector_linear_sum(ONE, zn[j - 1], -ONE, zn[j], zn[j - 1]);
     return;
 }
 
@@ -2251,7 +2251,7 @@ CVDoErrorTest(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
     qwait = LONG_WAIT;
     f(N, tn, zn[0], tempv, f_data);
     nfe++;
-    vector_Scale(h, tempv, zn[1]);
+    vector_scale(h, tempv, zn[1]);
     return FALSE;
 }
 
@@ -2283,10 +2283,10 @@ cv_complete_step(CVodeMem cv_mem) {
     tau[1] = h;
 
     for (j = 0; j <= q; j++)
-        vector_LinearSum(l[j], acor, ONE, zn[j], zn[j]);
+        vector_linear_sum(l[j], acor, ONE, zn[j], zn[j]);
     qwait--;
     if ((qwait == 1) && (q != qmax)) {
-        vector_Scale(ONE, acor, zn[qmax]);
+        vector_scale(ONE, acor, zn[qmax]);
         saved_tq5 = tq[5];
     }
     return;
@@ -2313,7 +2313,7 @@ cv_prepare_next_step(CVodeMem cv_mem, double dsm) {
         hprime = h;
         eta = ONE;
         etamax = (nst <= SMALL_NST) ? ETAMX2 : ETAMX3;
-        vector_Scale(ONE / tq[2], acor, acor);
+        vector_scale(ONE / tq[2], acor, acor);
         return;
     }
 
@@ -2363,7 +2363,7 @@ cv_set_eta(CVodeMem cv_mem) {
 
     /* Reset etamx for the next step size change, and scale acor */
     etamax = (nst <= SMALL_NST) ? ETAMX2 : ETAMX3;
-    vector_Scale(ONE / tq[2], acor, acor);
+    vector_scale(ONE / tq[2], acor, acor);
     return;
 }
 
@@ -2381,7 +2381,7 @@ cv_compute_etaqm1(CVodeMem cv_mem) {
 
     etaqm1 = ZERO;
     if (q > 1) {
-        ddn = vector_WrmsNorm(zn[q], ewt) / tq[1];
+        ddn = vector_wrms_norm(zn[q], ewt) / tq[1];
         etaqm1 = ONE / (llnlmath_rpower_r(BIAS1*ddn, ONE / q) + ADDON);
     }
     return etaqm1;
@@ -2401,8 +2401,8 @@ cv_compute_etaqp1(CVodeMem cv_mem) {
     etaqp1 = ZERO;
     if (q != qmax) {
         cquot = (tq[5] / saved_tq5)*llnlmath_rpower_i(h / tau[2], L);
-        vector_LinearSum(-cquot, zn[qmax], ONE, acor, tempv);
-        dup = vector_WrmsNorm(tempv, ewt) / tq[3];
+        vector_linear_sum(-cquot, zn[qmax], ONE, acor, tempv);
+        dup = vector_wrms_norm(tempv, ewt) / tq[3];
         etaqp1 = ONE / (llnlmath_rpower_r(BIAS3*dup, ONE / (L + 1)) + ADDON);
     }
     return etaqp1;
@@ -2442,7 +2442,7 @@ CVChooseEta(CVodeMem cv_mem, double etaqm1, double etaq, double etaqp1) {
     } else {
         eta = etaqp1;
         qprime = q + 1;
-        vector_Scale(ONE, acor, zn[qmax]);
+        vector_scale(ONE, acor, zn[qmax]);
     }
     return;
 }
@@ -2459,8 +2459,8 @@ static int32
 cv_handle_failure(CVodeMem cv_mem, int32 kflag) {
 
     /* Set imxer to the index of maximum weighted local error */
-    vector_Prod(acor, ewt, tempv);
-    vector_Abs(tempv, tempv);
+    vector_prod(acor, ewt, tempv);
+    vector_abs(tempv, tempv);
 
     /* Depending on kflag, print error message and return error flag */
     switch (kflag) {
