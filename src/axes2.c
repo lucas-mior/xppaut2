@@ -16,26 +16,26 @@
 int32 axes2_doing = 0;
 int32 axes2_doing_box = 0;
 
-static void re_title(void);
-static void get_title_str(char *s1, char *s2, char *s3);
-static void make_title(char *str);
-static double dbl_raise(double x, int32 y);
-static double make_tics(double tmin, double tmax);
-static void find_max_min_tic(double *tmin, double *tmax, double tic);
-static void draw_unit_cube(void);
-static void draw_ytics(char *s1, double start, double incr, double end);
-static void draw_xtics(char *s2, double start, double incr, double end);
+static void axes2_re_title(void);
+static void axes2_get_title_str(char *s1, char *s2, char *s3);
+static void axes2_make_title(char *str);
+static double axes2_dbl_raise(double x, int32 y);
+static double axes2_make_tics(double tmin, double tmax);
+static void axes2_find_max_min_tic(double *tmin, double *tmax, double tic);
+static void axes2_draw_unit_cube(void);
+static void axes2_draw_ytics(char *s1, double start, double incr, double end);
+static void axes2_draw_xtics(char *s2, double start, double incr, double end);
 
 void
-re_title(void) {
+axes2_re_title(void) {
     char bob[40];
-    make_title(bob);
+    axes2_make_title(bob);
     many_pops_title_text(bob);
     return;
 }
 
 void
-get_title_str(char *s1, char *s2, char *s3) {
+axes2_get_title_str(char *s1, char *s2, char *s3) {
     int32 i;
     if ((i = MyGraph->xv[0]) == 0)
         strcpy(s1, "T");
@@ -55,7 +55,7 @@ get_title_str(char *s1, char *s2, char *s3) {
 }
 
 void
-make_title(char *str) {
+axes2_make_title(char *str) {
     int32 i;
     char name1[20];
     char name2[20];
@@ -83,7 +83,7 @@ make_title(char *str) {
 }
 
 double
-dbl_raise(double x, int32 y) {
+axes2_dbl_raise(double x, int32 y) {
     register int32 i;
     double val;
 
@@ -96,7 +96,7 @@ dbl_raise(double x, int32 y) {
 }
 
 double
-make_tics(double tmin, double tmax) {
+axes2_make_tics(double tmin, double tmax) {
     register double xr, xnorm, tics, tic, l10;
 
     xr = fabs(tmin - tmax);
@@ -110,12 +110,12 @@ make_tics(double tmin, double tmax) {
         tics = 0.5;
     else
         tics = 1.0;
-    tic = tics*dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
+    tic = tics*axes2_dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
     return tic;
 }
 
 void
-find_max_min_tic(double *tmin, double *tmax, double tic) {
+axes2_find_max_min_tic(double *tmin, double *tmax, double tic) {
     double t1 = *tmin;
     t1 = tic*floor(*tmin / tic);
     if (t1 < *tmin)
@@ -143,10 +143,10 @@ axes2_redraw_cube_pt(double theta, double phi) {
 void
 axes2_do(void) {
     char s1[20], s2[20], s3[20];
-    get_title_str(s1, s2, s3);
+    axes2_get_title_str(s1, s2, s3);
     graphics_set_linestyle(0);
     if (Xup) {
-        re_title();
+        axes2_re_title();
         many_pops_small_gr();
     }
 
@@ -168,12 +168,12 @@ axes2_do(void) {
 
         axes2_doing = 1;
 
-        tx = make_tics(xmin, xmax);
-        ty = make_tics(ymin, ymax);
-        tz = make_tics(zmin, zmax);
-        find_max_min_tic(&xmin, &xmax, tx);
-        find_max_min_tic(&zmin, &zmax, tz);
-        find_max_min_tic(&ymin, &ymax, ty);
+        tx = axes2_make_tics(xmin, xmax);
+        ty = axes2_make_tics(ymin, ymax);
+        tz = axes2_make_tics(zmin, zmax);
+        axes2_find_max_min_tic(&xmin, &xmax, tx);
+        axes2_find_max_min_tic(&zmin, &zmax, tz);
+        axes2_find_max_min_tic(&ymin, &ymax, ty);
         graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1,
                          &z1);
         graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2,
@@ -250,14 +250,14 @@ axes2_redraw_cube(double theta, double phi) {
     graphics_set_linestyle(0);
     graphics_make_rot(theta, phi);
     ggets_blank_screen(draw_win);
-    draw_unit_cube();
+    axes2_draw_unit_cube();
     sprintf(bob, "theta=%g phi=%g", theta, phi);
     many_pops_canvas_xy(bob);
     return;
 }
 
 void
-draw_unit_cube(void) {
+axes2_draw_unit_cube(void) {
     line3d(-1., -1., -1., 1., -1., -1.);
     line3d(1., -1., -1., 1., 1., -1.);
     line3d(1., 1., -1., -1., 1., -1.);
@@ -292,8 +292,8 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
         ybot = DTop;
     }
 
-    ytic = make_tics(y_min, y_max);
-    xtic = make_tics(x_min, x_max);
+    ytic = axes2_make_tics(y_min, y_max);
+    xtic = axes2_make_tics(x_min, x_max);
     scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x,
                     &xaxis_y);
     graphics_set_linestyle(-1);
@@ -310,8 +310,8 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     axes2_doing_box = 0;
     graphics_line(xright, ytop, xleft, ytop);
     graphics_line(xleft, ytop, xleft, ybot);
-    draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
-    draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
+    axes2_draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
+    axes2_draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
     TextJustify = 0;
     graphics_set_linestyle(0);
 
@@ -320,7 +320,7 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 }
 
 void
-draw_ytics(char *s1, double start, double incr, double end) {
+axes2_draw_ytics(char *s1, double start, double incr, double end) {
     double ticvalue;
     double place;
     double y_min = YMin, y_max = YMax, x_min = XMin;
@@ -364,7 +364,7 @@ draw_ytics(char *s1, double start, double incr, double end) {
 }
 
 void
-draw_xtics(char *s2, double start, double incr, double end) {
+axes2_draw_xtics(char *s2, double start, double incr, double end) {
     double ticvalue;
     double place;
     double y_min = YMin, x_min = XMin, x_max = XMax;
