@@ -61,7 +61,7 @@ vector_new(int64 N) {
 }
 
 void
-N_VFree(Vector x) {
+vector_free(Vector x) {
     free(x->data);
     free(x);
     return;

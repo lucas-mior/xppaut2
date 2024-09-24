@@ -98,7 +98,7 @@ spgmr_malloc(int64 N, int32 l_max) {
 
     yg = xmalloc(((usize)l_max + 1)*sizeof(*yg));
     if (yg == NULL) {
-        N_VFree(xcor);
+        vector_free(xcor);
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -111,7 +111,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     vtemp = vector_new(N);
     if (vtemp == NULL) {
         free(yg);
-        N_VFree(xcor);
+        vector_free(xcor);
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -123,9 +123,9 @@ spgmr_malloc(int64 N, int32 l_max) {
 
     mem = xmalloc(sizeof(*mem));
     if (mem == NULL) {
-        N_VFree(vtemp);
+        vector_free(vtemp);
         free(yg);
-        N_VFree(xcor);
+        vector_free(xcor);
         free(givens);
         for (i = 0; i <= l_max; i++)
             free(Hes[i]);
@@ -440,9 +440,9 @@ spgmr_free(SpgmrMem mem) {
         free(Hes[i]);
     free(Hes);
     free(mem->givens);
-    N_VFree(mem->xcor);
+    vector_free(mem->xcor);
     free(mem->yg);
-    N_VFree(mem->vtemp);
+    vector_free(mem->vtemp);
 
     free(mem);
     return;
@@ -455,7 +455,7 @@ spgmr_free_vector_array(Vector *A, int32 indMax) {
     int32 j;
 
     for (j = 0; j <= indMax; j++)
-        N_VFree(A[j]);
+        vector_free(A[j]);
 
     free(A);
 }

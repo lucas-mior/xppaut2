@@ -255,7 +255,7 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
     x = vector_new(N);
     if (x == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        N_VFree(ytemp);
+        vector_free(ytemp);
         return LINIT_ERR;
     }
 
@@ -263,8 +263,8 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
     spgmr_mem = spgmr_malloc(N, maxl);
     if (spgmr_mem == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        N_VFree(ytemp);
-        N_VFree(x);
+        vector_free(ytemp);
+        vector_free(x);
         return LINIT_ERR;
     }
 
@@ -422,8 +422,8 @@ cv_spgmr_free(CVodeMem cv_mem) {
 
     cvspgmr_mem = (CVSpgmrMem)lmem;
 
-    N_VFree(ytemp);
-    N_VFree(x);
+    vector_free(ytemp);
+    vector_free(x);
     spgmr_free(spgmr_mem);
     free(lmem);
     return;

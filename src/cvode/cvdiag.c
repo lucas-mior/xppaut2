@@ -158,14 +158,14 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
     bit = vector_new(N);
     if (bit == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        N_VFree(M);
+        vector_free(M);
         return LINIT_ERR;
     }
     bitcomp = vector_new(N);
     if (bitcomp == NULL) {
         fprintf(errfp, MSG_MEM_FAIL);
-        N_VFree(M);
-        N_VFree(bit);
+        vector_free(M);
+        vector_free(bit);
         return LINIT_ERR;
     }
 
@@ -284,8 +284,8 @@ cv_diag_free(CVodeMem cv_mem) {
 
     cvdiag_mem = (CVDiagMem)lmem;
 
-    N_VFree(M);
-    N_VFree(bit);
-    N_VFree(bitcomp);
+    vector_free(M);
+    vector_free(bit);
+    vector_free(bitcomp);
     free(lmem);
 }

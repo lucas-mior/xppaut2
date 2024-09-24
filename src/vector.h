@@ -130,10 +130,10 @@ typedef struct {
  * v_data=N_VDATA(v) and then access v_data[i] within the      *
  * loop than it is to use N_VDATA(v,i) within the loop.        *
  *                                                             *
- * N_VMAKE and N_VDISPOSE are similar to vector_new and N_VFree.   *
+ * N_VMAKE and N_VDISPOSE are similar to vector_new and vector_free.   *
  * The difference is one of responsibility for component       *
  * memory allocation and deallocation. vector_new allocates memory *
- * for the Vector components and N_VFree frees the component *
+ * for the Vector components and vector_free frees the component *
  * memory allocated by vector_new. For N_VMAKE and N_VDISPOSE, the *
  * component memory is allocated and freed by the user of      *
  * this package.                                               *
@@ -157,7 +157,7 @@ typedef struct {
 
 /***************************************************************
  *                                                             *
- * Memory Allocation and Deallocation: vector_new, N_VFree         *
+ * Memory Allocation and Deallocation: vector_new, vector_free         *
  *                                                             *
  ***************************************************************/
 
@@ -180,16 +180,16 @@ Vector vector_new(int64 n);
 
 /***************************************************************
  *                                                             *
- * Function : N_VFree                                          *
- * Usage    : N_VFree(x);                                      *
+ * Function : vector_free                                          *
+ * Usage    : vector_free(x);                                      *
  *-------------------------------------------------------------*
  *                                                             *
  * Frees the Vector x. It is illegal to use x after the call *
- * N_VFree(x).                                                 *
+ * vector_free(x).                                                 *
  *                                                             *
  ***************************************************************/
 
-void N_VFree(Vector x);
+void vector_free(Vector x);
 
 /***************************************************************
  *                                                             *

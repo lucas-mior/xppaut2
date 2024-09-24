@@ -1035,20 +1035,20 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
         return FALSE;
     acor = vector_new(neq);
     if (acor == NULL) {
-        N_VFree(ewt);
+        vector_free(ewt);
         return FALSE;
     }
     tempv = vector_new(neq);
     if (tempv == NULL) {
-        N_VFree(ewt);
-        N_VFree(acor);
+        vector_free(ewt);
+        vector_free(acor);
         return FALSE;
     }
     ftemp = vector_new(neq);
     if (ftemp == NULL) {
-        N_VFree(tempv);
-        N_VFree(ewt);
-        N_VFree(acor);
+        vector_free(tempv);
+        vector_free(ewt);
+        vector_free(acor);
         return FALSE;
     }
 
@@ -1057,12 +1057,12 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
     for (j = 0; j <= maxord; j++) {
         zn[j] = vector_new(neq);
         if (zn[j] == NULL) {
-            N_VFree(ewt);
-            N_VFree(acor);
-            N_VFree(tempv);
-            N_VFree(ftemp);
+            vector_free(ewt);
+            vector_free(acor);
+            vector_free(tempv);
+            vector_free(ftemp);
             for (i = 0; i < j; i++)
-                N_VFree(zn[i]);
+                vector_free(zn[i]);
             return FALSE;
         }
     }
@@ -1085,12 +1085,12 @@ static void
 cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
     int32 j;
 
-    N_VFree(ewt);
-    N_VFree(acor);
-    N_VFree(tempv);
-    N_VFree(ftemp);
+    vector_free(ewt);
+    vector_free(acor);
+    vector_free(tempv);
+    vector_free(ftemp);
     for (j = 0; j <= maxord; j++)
-        N_VFree(zn[j]);
+        vector_free(zn[j]);
     return;
 }
 
