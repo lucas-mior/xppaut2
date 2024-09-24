@@ -190,7 +190,6 @@ static int32 parse_import(char *s, char *soname, char *sofun, int32 *n,
 static int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
                              int32 *il, int32 *ir);
 
-
 static Network my_net[MAX_NET];
 static int32 n_network = 0;
 double

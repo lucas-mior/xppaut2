@@ -269,8 +269,8 @@ is_directory(char *root, char *path) {
         return 0;
 }
 
-/* Function:	read_dir_make_full_path() creates the full pathname for the given file.
- * Arguments:	filename:	Name of the file in question.
+/* Function:	read_dir_make_full_path() creates the full pathname for the
+ *given file. Arguments:	filename:	Name of the file in question.
  *		pathname:	Buffer for full name.
  * Returns:	Nothing.
  * Notes:

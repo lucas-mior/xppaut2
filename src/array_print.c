@@ -20,8 +20,8 @@ static FILE *my_plot_file;
 static void ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
                       int32 ncskip, int32 maxrow, int32 maxcol, int32 nacross,
                       int32 ndown, double zmin, double zmax, int32 type);
-static void array_print_ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
-                     double sy);
+static void array_print_ps_begin(double xlo, double ylo, double xhi, double yhi,
+                                 double sx, double sy);
 static void array_print_ps_convert(double x, double y, double *xs, double *ys);
 static void ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
                          double zlo, double zhi, int32 type);
@@ -31,10 +31,10 @@ static void array_print_ps_close(void);
 static void array_print_ps_setline(double fill, int32 thick);
 static void ps_text2(char *str, double xr, double yr, int32 icent);
 static void array_print_ps_set_text(double angle, double slant, double x_size,
-                        double y_size);
+                                    double y_size);
 static void array_print_ps_rect(double x, double y, double wid, double len);
-static void array_print_ps_bar(double x, double y, double wid, double len, double fill,
-                   int32 flag);
+static void array_print_ps_bar(double x, double y, double wid, double len,
+                               double fill, int32 flag);
 static void ps_rgb_bar(double x, double y, double wid, double len, double fill,
                        int32 flag, int32 rgb);
 static void ps_hsb_bar(double x, double y, double wid, double len, double fill,
@@ -98,7 +98,8 @@ ps_replot(double **z, int32 col0, int32 row0, int32 nskip, int32 ncskip,
 }
 
 void
-array_print_ps_begin(double xlo, double ylo, double xhi, double yhi, double sx, double sy) {
+array_print_ps_begin(double xlo, double ylo, double xhi, double yhi, double sx,
+                     double sy) {
     double x0, y0, x1, y1;
     ps_scale.xmin = xlo;
     ps_scale.ymin = ylo;
@@ -161,7 +162,8 @@ ps_col_scale(double y0, double x0, double dy, double dx, int32 n, double zlo,
 
     for (i = 0; i < n; i++) {
         if (type == GREYSCALE)
-            array_print_ps_bar(x0, y0 - (i + 1)*dy, dx, dy, 1 - (double)i*dz, 0);
+            array_print_ps_bar(x0, y0 - (i + 1)*dy, dx, dy,
+                               1 - (double)i*dz, 0);
         else
             ps_rgb_bar(x0, y0 - (i + 1)*dy, dx, dy, 1. - (double)i*dz, 0,
                        type);
@@ -261,7 +263,8 @@ ps_text2(char *str, double xr, double yr, int32 icent /* ignores for now  */
 }
 
 void
-array_print_ps_set_text(double angle, double slant, double x_size, double y_size) {
+array_print_ps_set_text(double angle, double slant, double x_size,
+                        double y_size) {
     ps_scale.tx = x_size*5.0;
     ps_scale.ty = y_size*5.0;
     ps_scale.angle = angle;
@@ -282,7 +285,8 @@ array_print_ps_rect(double x, double y, double wid, double len) {
 }
 
 void
-array_print_ps_bar(double x, double y, double wid, double len, double fill, int32 flag) {
+array_print_ps_bar(double x, double y, double wid, double len, double fill,
+                   int32 flag) {
     double x1, y1, x2, y2;
     fprintf(my_plot_file, "%f G\n", fill);
     array_print_ps_convert(x, y, &x1, &y1);

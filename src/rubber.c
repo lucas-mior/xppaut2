@@ -8,7 +8,7 @@
 #include "functions.h"
 
 static void rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window,
-                 int32 f);
+                       int32 f);
 
 int32
 rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {

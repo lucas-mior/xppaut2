@@ -53,7 +53,7 @@ static void adj2_h_back(void);
 static void adj_back(void);
 static void adj2_adjoint_parameters(void);
 static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
-                    int32 silent2);
+                         int32 silent2);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
 static void adj2_norm_vec(double *v, double *mu, int32 n);
@@ -62,7 +62,7 @@ static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
 void
 adj2_init_trans(void) {
     my_trans.here = 0;
-    strncpy(my_trans.firstcol, uvar_names[0], sizeof (my_trans.firstcol));
+    strncpy(my_trans.firstcol, uvar_names[0], sizeof(my_trans.firstcol));
     my_trans.ncol = 2;
     my_trans.nrow = 1;
     my_trans.rowskip = 1;

@@ -192,9 +192,9 @@ typedef void (*RhsFn)(int64 N, double t, N_Vector y, N_Vector ydot,
  ******************************************************************/
 
 void *cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm,
-                  int32 iter, int32 itol, double *reltol, void *abstol,
-                  void *f_data, FILE *errfp, bool optIn, int32 iopt[],
-                  double ropt[]);
+                   int32 iter, int32 itol, double *reltol, void *abstol,
+                   void *f_data, FILE *errfp, bool optIn, int32 iopt[],
+                   double ropt[]);
 
 /******************************************************************
  *                                                                *

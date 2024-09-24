@@ -25,7 +25,7 @@ typedef struct RangeInfo {
     int32 nstep, ic, stor;
 } RangeInfo;
 
-typedef struct IcBox{
+typedef struct IcBox {
     Window base, ok, cancel, old, last, more, range;
     Window wrlo, wrhi, wstep, wreset, woldic;
     RangeInfo *rinf;

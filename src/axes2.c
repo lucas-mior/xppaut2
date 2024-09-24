@@ -174,8 +174,10 @@ axes2_do(void) {
         find_max_min_tic(&xmin, &xmax, tx);
         find_max_min_tic(&zmin, &zmax, tz);
         find_max_min_tic(&ymin, &ymax, ty);
-        graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1, &z1);
-        graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2, &z2);
+        graphics_scale3d((double)xmin, (double)ymin, (double)zmin, &x1, &y1,
+                         &z1);
+        graphics_scale3d((double)xmax, (double)ymax, (double)zmax, &x2, &y2,
+                         &z2);
 
         graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
         graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);

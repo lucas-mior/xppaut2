@@ -38,7 +38,8 @@ static void do_sh_range(double *ystart, double *yend);
 static void bad_shoot(int32 iret);
 
 void
-pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f, int32 n) {
+pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
+               int32 n) {
     int32 n0 = PrimeStart;
     int32 i;
 

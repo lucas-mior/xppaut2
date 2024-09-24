@@ -316,7 +316,8 @@ static void cv_predict(CVodeMem cv_mem);
 static void cv_set(CVodeMem cv_mem);
 static void cv_set_adams(CVodeMem cv_mem);
 static double cv_adams_start(CVodeMem cv_mem, double m[]);
-static void cv_adams_finish(CVodeMem cv_mem, double m[], double M[], double hsum);
+static void cv_adams_finish(CVodeMem cv_mem, double m[], double M[],
+                            double hsum);
 static double cv_alt_sum(int32 iend, double a[], int32 k);
 static void cv_set_bdf(CVodeMem cv_mem);
 static void CVSetTqBDF(CVodeMem cv_mem, double hsum, double alpha0,
@@ -434,8 +435,8 @@ static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 
 void *
 cvode_malloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
-            int32 itol, double *reltol, void *abstol, void *f_data, FILE *errfp,
-            bool optIn, int32 iopt[], double ropt[]) {
+             int32 itol, double *reltol, void *abstol, void *f_data,
+             FILE *errfp, bool optIn, int32 iopt[], double ropt[]) {
     bool allocOK, ioptExists, roptExists, neg_abstol, ewtsetOK;
     int32 maxord;
     CVodeMem cv_mem;
