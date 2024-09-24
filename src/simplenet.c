@@ -178,11 +178,6 @@ typedef struct {
 #define DEL_SPAR 41 /* sparse with unequal in degree and delays  */
 #define IMPORT 50   /* not really a network type   */
 
-char *form_ode_get_first(char *string, char *src);
-char *do_fit_get_next(char *src);
-
-double evaluate(int32 *);
-
 static int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
 static int32 gilparse(char *s, int32 *ind, int32 *nn);
 static void update_fft(int32 ind);
