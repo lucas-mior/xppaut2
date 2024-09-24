@@ -16,8 +16,8 @@ double *ypred;
 double symp_b[] = {7 / 24., .75, -1. / 24};
 double symp_B[] = {2 / 3., -2. / 3., 1.0};
 
-extern int32 MaxEulIter;
-extern double EulTol;
+extern int32 euler_max_iter;
+extern double euler_tol;
 extern double NEWT_ERR;
 extern int32 NFlags;
 extern double TOLER;
@@ -142,13 +142,13 @@ one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
             err += fabs(errvec[i]);
             yg[i] -= errvec[i];
         }
-        if (err < EulTol || err1 < EulTol) {
+        if (err < euler_tol || err1 < euler_tol) {
             for (i = 0; i < neq; i++)
                 y[i] = yg[i];
             return 0;
         }
         iter++;
-        if (iter > MaxEulIter)
+        if (iter > euler_max_iter)
             return -2;
     }
 }

@@ -380,8 +380,8 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.HIST = 1;
     notAlreadySet.PltFmtFlag = 1;
     notAlreadySet.ATOLER = 1;
-    notAlreadySet.MaxEulIter = 1;
-    notAlreadySet.EulTol = 1;
+    notAlreadySet.euler_max_iter = 1;
+    notAlreadySet.euler_tol = 1;
     notAlreadySet.EVEC_ITER = 1;
     notAlreadySet.EVEC_ERR = 1;
     notAlreadySet.NULL_ERR = 1;

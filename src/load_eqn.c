@@ -172,8 +172,8 @@ double BVP_TOL;
 double POIPLN;
 
 extern int32 RandSeed;
-int32 MaxEulIter;
-double EulTol;
+int32 euler_max_iter;
+double euler_tol;
 extern int32 cv_bandflag;
 extern int32 cv_bandupper;
 extern int32 cv_bandlower;
@@ -404,13 +404,13 @@ load_eqn_set_all_vals(void) {
         ATOLER = 0.001;
         notAlreadySet.ATOLER = 0;
     }
-    if (notAlreadySet.MaxEulIter) {
-        MaxEulIter = 10;
-        notAlreadySet.MaxEulIter = 0;
+    if (notAlreadySet.euler_max_iter) {
+        euler_max_iter = 10;
+        notAlreadySet.euler_max_iter = 0;
     }
-    if (notAlreadySet.EulTol) {
-        EulTol = 1.e-7;
-        notAlreadySet.EulTol = 0;
+    if (notAlreadySet.euler_tol) {
+        euler_tol = 1.e-7;
+        notAlreadySet.euler_tol = 0;
     }
     if (notAlreadySet.DELAY) {
         DELAY = 0.0;

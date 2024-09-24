@@ -39,8 +39,8 @@ int32 KnFlag;
 int32 AutoEvaluate = 0;
 extern double variables[];
 extern int32 NVAR;
-extern int32 MaxEulIter;
-extern double EulTol;
+extern int32 euler_max_iter;
+extern double euler_tol;
 extern double NEWT_ERR;
 
 extern int32 *my_ode[];
@@ -418,10 +418,10 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             err = MAX(fabs(errvec[i]), err);
             yg[i] -= errvec[i];
         }
-        if (err < EulTol)
+        if (err < euler_tol)
             break;
         iter++;
-        if (iter > MaxEulIter)
+        if (iter > euler_max_iter)
             return -2; /* too many iterates   */
     }
     /* We have a good graphics_point; lets save it    */

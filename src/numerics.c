@@ -92,8 +92,8 @@ extern int32 HVAR;
 extern int32 hist_ind;
 extern int32 FOREVER;
 extern int32 INFLAG;
-extern int32 MaxEulIter;
-extern double EulTol;
+extern int32 euler_max_iter;
+extern double euler_tol;
 
 extern int32 AutoEvaluate;
 
@@ -244,8 +244,8 @@ get_num_par(int32 ch)
             ggets_new_float("Abs. Toler:", &ATOLER);
         }
         if (METHOD == BACKEUL || METHOD == VOLTERRA) {
-            ggets_new_float("Tolerance :", &EulTol);
-            ggets_new_int("MaxIter :", &MaxEulIter);
+            ggets_new_float("Tolerance :", &euler_tol);
+            ggets_new_int("MaxIter :", &euler_max_iter);
         }
         if (METHOD == VOLTERRA) {
             tmp = MaxPoints;
