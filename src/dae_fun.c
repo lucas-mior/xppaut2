@@ -35,9 +35,9 @@ static int32 nsvar = 0, naeqn = 0;
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
 
-static int32 solve_dae(void);
+static int32 dae_fun_solve(void);
 static void get_dae_fun(double *y, double *f);
-static void init_dae_work(void);
+static void dae_fun_init_work(void);
 
 int32
 dae_fun_add_svar(char *name, char *rhs) {
@@ -111,7 +111,7 @@ dae_fun_compile_svars(void) {
         for (k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }
-    init_dae_work();
+    dae_fun_init_work();
     return 0;
 }
 
@@ -162,7 +162,7 @@ dae_fun_err_dae(void) {
 }
 
 void
-init_dae_work(void) {
+dae_fun_init_work(void) {
     dae_work.work =
         xmalloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
     dae_work.iwork = xmalloc(sizeof(*(dae_work.iwork))*(usize)nsvar);
@@ -186,7 +186,7 @@ get_dae_fun(double *y, double *f) {
 void
 dae_fun_do_daes(void) {
     int32 ans;
-    ans = solve_dae();
+    ans = dae_fun_solve();
     dae_work.status = ans;
     if (ans == 1 || ans == 2)
         return; /* accepts a no change error! */
@@ -196,7 +196,7 @@ dae_fun_do_daes(void) {
 
 /* Newton solver for algebraic stuff */
 int32
-solve_dae(void) {
+dae_fun_solve(void) {
     int32 i, j, n;
     int32 info;
     double err, del, z, yold;
