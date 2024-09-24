@@ -30,7 +30,7 @@
     } while (0)
 
 uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
-uint32 debugFlag;
+static uint32 debugFlag;
 static int32 UseGlobalMap = 0;
 static int32 GifFrameDelay = 5;
 static int32 GifFrameLoop = 1000;
@@ -39,9 +39,9 @@ static int32 maxchainlen = 0;
 static int32 nodecount = 0;
 static int32 lookuptypes = 0;
 static int16 need = 8;
-GifTree *empty[256];
-GifTree GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL};
-GifTree *topNode;
+static GifTree *empty[256];
+static GifTree GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL};
+static GifTree *topNode;
 GifTree *baseNode;
 GifTree **nodeArray;
 GifTree **lastArray;
@@ -59,7 +59,7 @@ static int32 ppmtopix(uchar r, uchar g, uchar b, int32 *n);
 
 GIFCOL gifcol[256];
 GIFCOL gifGcol[256];
-int32 NGlobalColors = 0;
+static int32 NGlobalColors = 0;
 void
 scrngif_set_global_map(int32 flag) {
     if (NGlobalColors == 0) { /* Cant use it if it aint there */
