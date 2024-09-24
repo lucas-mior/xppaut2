@@ -36,7 +36,7 @@ conpar2_time_end(double start) {
   routine for message passing*/
 
 void *
-conpar_process(void *arg) {
+conpar2_process(void *arg) {
     int64 icf_dim1, irf_dim1, d_dim1;
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2;
 
@@ -234,7 +234,7 @@ conpar_process(void *arg) {
 }
 
 static int32
-conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
+conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
                        int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
                        double *d, int64 *irf, int64 *icf) {
     conpar_parallel_arglist data;
@@ -252,12 +252,12 @@ conpar_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
     data.icf = icf;
     data.loop_start = 0;
     data.loop_end = *na;
-    conpar_process(&data);
+    conpar2_process(&data);
     return 0;
 }
 
 int32
-conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
+conpar2(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
        int64 *icf) {
     /* Aliases for the dimensions of the arrays */
@@ -287,7 +287,7 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
 
     switch (global_conpar_type) {
     default:
-        conpar_default_wrapper(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d,
+        conpar2_default_wrapper(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d,
                                irf, icf);
         break;
     }

@@ -41,7 +41,7 @@ typedef struct {
     BCNI_TYPE((*bcni));
 } setubv_parallel_arglist;
 
-/* This structure contains all of the input data for the conpar routine
+/* This structure contains all of the input data for the conpar2 routine
    Those values which are arrays and those
    which are input and output are markered as such*/
 typedef struct {
