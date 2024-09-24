@@ -62,7 +62,7 @@ static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
 void
 adj2_init_trans(void) {
     my_trans.here = 0;
-    strcpy(my_trans.firstcol, uvar_names[0]);
+    strncpy(my_trans.firstcol, uvar_names[0], sizeof (my_trans.firstcol));
     my_trans.ncol = 2;
     my_trans.nrow = 1;
     my_trans.rowskip = 1;
@@ -124,7 +124,7 @@ adj2_do_transpose(void) {
             ggets_err_msg("No such columns");
             return 0;
         }
-        strcpy(my_trans.firstcol, values[0]);
+        strncpy(my_trans.firstcol, values[0], sizeof(my_trans.firstcol));
         ii = atoi(values[4]);
         if (ii >= NEQ)
             ii = NEQ - 1;
@@ -168,7 +168,7 @@ adj2_alloc_h_stuff(void) {
     for (int32 i = 0; i < NODE; i++) {
         coup_fun[i] = xmalloc(100*sizeof(*coup_fun));
         coup_string[i] = xmalloc(80);
-        strcpy(coup_string[i], "0");
+        memcpy(coup_string[i], "0", strlen("0"));
     }
     return;
 }
@@ -311,7 +311,6 @@ int32
 make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
     int32 j, rval = 0;
     double sum;
-    double z;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
     if (silent2 == 0) {
         for (int32 i = 0; i < NODE; i++) {
@@ -337,13 +336,12 @@ make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
                 set_ivar(i + 1, (double)orb[i + 1][k]);
                 set_ivar(i + n0 + 1, (double)orb[i + 1][k2]);
             }
-            z = 0.0;
             update_based_on_current();
 
             for (int32 i = 0; i < node; i++) {
-                z = evaluate(coup_fun[i]);
+                double z = evaluate(coup_fun[i]);
 
-                sum = sum + (double)z*adj[i + 1][k];
+                sum = sum + z*adj[i + 1][k];
             }
         }
         my_h[0][j] = orb[0][j];
