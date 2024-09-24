@@ -38,9 +38,13 @@ static int32 chainlen = 0;
 static int32 maxchainlen = 0;
 static int32 nodecount = 0;
 static int32 lookuptypes = 0;
-int16 need = 8;
-GifTree *empty[256], GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL}, *topNode,
-                     *baseNode, **nodeArray, **lastArray;
+static int16 need = 8;
+GifTree *empty[256];
+GifTree GifRoot = {LOOKUP, 0, 0, empty, NULL, NULL};
+GifTree *topNode;
+GifTree *baseNode;
+GifTree **nodeArray;
+GifTree **lastArray;
 
 static void ClearTree(int32 cc, GifTree *root);
 static int32 GifEncode(FILE *fout, uchar *pixels, int32 depth, int32 siz);
