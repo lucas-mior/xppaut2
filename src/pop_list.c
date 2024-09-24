@@ -25,13 +25,13 @@ static void redraw_scroll_box(ScrollBox sb);
 static void crossing_scroll_box(Window window, int32 c, ScrollBox sb);
 static int32 scroll_box_motion(XEvent event, ScrollBox *sb);
 static int32 select_scroll_item(Window window, ScrollBox sb);
-static void scroll_popup(STRING_BOX *sb, ScrollBox *scrb);
-static int32 s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col,
+static void scroll_popup(StringBox *sb, ScrollBox *scrb);
+static int32 s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
                               ScrollBox *scrb);
 static void draw_pop_up(POP_UP p, Window window);
-static void set_sbox_item(STRING_BOX *sb, int32 item);
-static void reset_hot(int32 inew, STRING_BOX *sb);
-static void expose_sbox(STRING_BOX sb, Window window, int32 pos);
+static void set_sbox_item(StringBox *sb, int32 item);
+static void reset_hot(int32 inew, StringBox *sb);
+static void expose_sbox(StringBox sb, Window window, int32 pos);
 static int32 get_x_coord_win(Window win);
 
 TEXTWIN mytext;
@@ -271,7 +271,7 @@ select_scroll_item(Window window, ScrollBox sb) {
 }
 
 void
-scroll_popup(STRING_BOX *sb, ScrollBox *scrb) {
+scroll_popup(StringBox *sb, ScrollBox *scrb) {
     int32 hw = DCURYs + 4;
     int32 ihot = sb->hot;
     int32 id = sb->hh[ihot];
@@ -292,7 +292,7 @@ scroll_popup(STRING_BOX *sb, ScrollBox *scrb) {
 int32
 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
               char values[][MAX_LEN_SBOX], int32 maxchar) {
-    STRING_BOX sb;
+    StringBox sb;
     int32 i;
     int32 status;
     int32 colm, pos;
@@ -336,7 +336,7 @@ do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
 }
 
 void
-expose_sbox(STRING_BOX sb, Window window, int32 pos) {
+expose_sbox(StringBox sb, Window window, int32 pos) {
     int32 i;
     int32 flag;
 
@@ -379,7 +379,7 @@ do_hilite_text(char *name, char *value, int32 flag, Window window, int32 pos) {
 }
 
 void
-reset_hot(int32 inew, STRING_BOX *sb) {
+reset_hot(int32 inew, StringBox *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
@@ -392,7 +392,7 @@ reset_hot(int32 inew, STRING_BOX *sb) {
 }
 
 void
-new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
              Window *w) {
     reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
@@ -403,7 +403,7 @@ new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 }
 
 void
-set_sbox_item(STRING_BOX *sb, int32 item) {
+set_sbox_item(StringBox *sb, int32 item) {
     int32 i = sb->hot;
     int32 id = sb->hh[i];
     if (id < 0)
@@ -413,7 +413,7 @@ set_sbox_item(STRING_BOX *sb, int32 item) {
 }
 
 int32
-s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
+s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     XEvent event;
     int32 status = -1, inew;
     int32 nn = sb->n;
@@ -514,7 +514,7 @@ s_box_event_loop(STRING_BOX *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
 }
 
 void
-make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
+make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
                   int32 maxchar) {
     int32 width;
     int32 height;

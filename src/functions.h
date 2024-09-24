@@ -3975,7 +3975,7 @@ extern XFontStruct *small_font;
         editable strings
  */
 
-typedef struct STRING_BOX {
+typedef struct StringBox {
     Window base, ok, cancel;
     Window win[MAX_N_SBOX];
     char name[MAX_N_SBOX][MAX_LEN_SBOX], value[MAX_N_SBOX][MAX_LEN_SBOX];
@@ -3983,7 +3983,7 @@ typedef struct STRING_BOX {
     int32 hot;
     int32 hgt, wid;
     int32 hh[MAX_N_SBOX];
-} STRING_BOX;
+} StringBox;
 
 typedef struct SCRBOX_LIST {
     char **list;
@@ -4035,9 +4035,9 @@ int32 do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
                     char values[][MAX_LEN_SBOX], int32 maxchar);
 void do_hilite_text(char *name, char *value, int32 flag, Window window,
                     int32 pos);
-void new_editable(STRING_BOX *sb, int32 inew, int32 *pos, int32 *col,
+void new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
                   int32 *done, Window *w);
-void make_sbox_windows(STRING_BOX *sb, int32 row, int32 col, char *title,
+void make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
                        int32 maxchar);
 Window make_fancy_window(Window root, int32 x, int32 y, int32 width,
                          int32 height, int32 bw);

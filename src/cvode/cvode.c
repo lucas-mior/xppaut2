@@ -529,7 +529,7 @@ CVodeMalloc(int64 N, RhsFn f, double t0, N_Vector y0, int32 lmm, int32 iter,
             maxord = MIN(maxord, iopt[MAXORD]);
     }
 
-    cv_mem = xmalloc(sizeof(struct CVodeMemRec));
+    cv_mem = xmalloc(sizeof(*cv_mem));
     if (cv_mem == NULL) {
         fprintf(fp, MSG_MEM_FAIL);
         return NULL;
