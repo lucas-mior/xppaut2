@@ -49,8 +49,6 @@ static int32 FreezeKeyFlag;
 int32 AutoFreezeFlag = 0;
 static int32 CurrentCurve = 0;
 
-extern char *graf_hint[], *cmap_hint[];
-
 int32 colorline[] = {0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 0};
 char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
                        "YELLOWORANGE", "YELLOW", "YELLOWGREEN", "GREEN",
