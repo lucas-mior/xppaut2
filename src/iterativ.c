@@ -29,20 +29,20 @@ ModifiedGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     int32 i, k_minus_1, i0;
     double new_norm_2, new_product, vk_norm, temp;
 
-    vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
+    vk_norm = llnlmath_rsqrt(vector_N_VDotProd(v[k], v[k]));
     k_minus_1 = k - 1;
     i0 = MAX(k - p, 0);
 
     /* Perform modified Gram-Schmidt */
 
     for (i = i0; i < k; i++) {
-        h[i][k_minus_1] = N_VDotProd(v[i], v[k]);
-        N_VLinearSum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
+        h[i][k_minus_1] = vector_N_VDotProd(v[i], v[k]);
+        vector_N_VLinearSum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
     /* Compute the norm of the new vector at v[k].  */
 
-    *new_vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
+    *new_vk_norm = llnlmath_rsqrt(vector_N_VDotProd(v[k], v[k]));
 
     /* If the norm of the new vector at v[k] is less than
        FACTOR (== 1000) times unit roundoff times the norm of the
@@ -57,12 +57,12 @@ ModifiedGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm) {
     new_norm_2 = ZERO;
 
     for (i = i0; i < k; i++) {
-        new_product = N_VDotProd(v[i], v[k]);
+        new_product = vector_N_VDotProd(v[i], v[k]);
         temp = FACTOR*h[i][k_minus_1];
         if ((temp + new_product) == temp)
             continue;
         h[i][k_minus_1] += new_product;
-        N_VLinearSum(ONE, v[k], -new_product, v[i], v[k]);
+        vector_N_VLinearSum(ONE, v[k], -new_product, v[i], v[k]);
         new_norm_2 += SQR(new_product);
     }
 
@@ -90,39 +90,39 @@ ClassicalGS(Vector *v, double **h, int32 k, int32 p, double *new_vk_norm,
 
     /* Perform Classical Gram-Schmidt */
 
-    vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
+    vk_norm = llnlmath_rsqrt(vector_N_VDotProd(v[k], v[k]));
 
     i0 = MAX(k - p, 0);
     for (i = i0; i < k; i++) {
-        h[i][k_minus_1] = N_VDotProd(v[i], v[k]);
+        h[i][k_minus_1] = vector_N_VDotProd(v[i], v[k]);
     }
 
     for (i = i0; i < k; i++) {
-        N_VLinearSum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
+        vector_N_VLinearSum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
     /* Compute the norm of the new vector at v[k].  */
 
-    *new_vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
+    *new_vk_norm = llnlmath_rsqrt(vector_N_VDotProd(v[k], v[k]));
 
     /* Reorthogonalize if necessary */
 
     if ((FACTOR*(*new_vk_norm)) < vk_norm) {
         for (i = i0; i < k; i++) {
-            s[i] = N_VDotProd(v[i], v[k]);
+            s[i] = vector_N_VDotProd(v[i], v[k]);
         }
 
         if (i0 < k) {
-            N_VScale(s[i0], v[i0], temp);
+            vector_N_VScale(s[i0], v[i0], temp);
             h[i0][k_minus_1] += s[i0];
         }
         for (i = i0 + 1; i < k; i++) {
-            N_VLinearSum(s[i], v[i], ONE, temp, temp);
+            vector_N_VLinearSum(s[i], v[i], ONE, temp, temp);
             h[i][k_minus_1] += s[i];
         }
-        N_VLinearSum(ONE, v[k], -ONE, temp, v[k]);
+        vector_N_VLinearSum(ONE, v[k], -ONE, temp, v[k]);
 
-        *new_vk_norm = llnlmath_rsqrt(N_VDotProd(v[k], v[k]));
+        *new_vk_norm = llnlmath_rsqrt(vector_N_VDotProd(v[k], v[k]));
     }
 
     return 0;
