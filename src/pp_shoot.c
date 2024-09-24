@@ -68,7 +68,7 @@ extern int32 NKernel;
 
 extern double MyData[MAX_ODE];
 extern double MyTime;
-struct {
+static struct {
     char item[30];
     int32 steps, side, cycle, movie;
     double plow;
