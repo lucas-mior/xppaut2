@@ -823,7 +823,7 @@ double calc(char *expr, int32 *ok);
 #include <X11/Xlib.h>
 #include "struct.h"
 
-void base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check,
+void choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check,
                  int32 type);
 int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
                     int32 *check, int32 type);

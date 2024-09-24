@@ -16,12 +16,12 @@
 #include "integers.h"
 
 static int32 choice_box_event_loop(ChoiceBox p);
-static void do_checks(ChoiceBox p);
-static void display_choice(Window window, ChoiceBox p);
-static void destroy_choice(ChoiceBox p);
+static void choice_box_do_checks(ChoiceBox p);
+static void choice_box_display(Window window, ChoiceBox p);
+static void choice_box_destroy(ChoiceBox p);
 
 void
-destroy_choice(ChoiceBox p) {
+choice_box_destroy(ChoiceBox p) {
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
@@ -29,7 +29,7 @@ destroy_choice(ChoiceBox p) {
 }
 
 void
-display_choice(Window window, ChoiceBox p) {
+choice_box_display(Window window, ChoiceBox p) {
     int32 i;
     int32 n = p.n;
     XSetFillStyle(display, gc, FillSolid);
@@ -55,7 +55,7 @@ display_choice(Window window, ChoiceBox p) {
 }
 
 void
-do_checks(ChoiceBox p) {
+choice_box_do_checks(ChoiceBox p) {
     int32 i;
 
     for (i = 0; i < p.n; i++) {
@@ -70,7 +70,7 @@ do_checks(ChoiceBox p) {
 }
 
 void
-base_choice(char *wname, int32 n, int32 mcc, char **names, int32 *check,
+choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check,
             int32 type) {
     do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check,
                   type);
@@ -133,13 +133,13 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     p.n = n;
     p.type = (int16)type;
     p.mc = mcc;
-    do_checks(p);
+    choice_box_do_checks(p);
     while (true) {
         status = choice_box_event_loop(p);
         if (status != -1)
             break;
     }
-    destroy_choice(p);
+    choice_box_destroy(p);
     if (status == FORGET_ALL)
         for (i = 0; i < n; i++)
             check[i] = oldcheck[i];
@@ -159,7 +159,7 @@ choice_box_event_loop(ChoiceBox p) {
     case ConfigureNotify:
     case Expose:
     case MapNotify:
-        display_choice(event.xany.window, p);
+        choice_box_display(event.xany.window, p);
         break;
     case ButtonPress:
         if (event.xbutton.window == p.ok) {
@@ -176,11 +176,11 @@ choice_box_event_loop(ChoiceBox p) {
                     for (j = 0; j < nn; j++)
                         p.flag[j] = 0;
                     p.flag[i] = 1;
-                    do_checks(p);
+                    choice_box_do_checks(p);
                 }
                 if (p.type == CHOICE) {
                     p.flag[i] = 1 - p.flag[i];
-                    do_checks(p);
+                    choice_box_do_checks(p);
                 }
             }
         }
