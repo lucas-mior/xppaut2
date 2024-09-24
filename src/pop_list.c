@@ -7,6 +7,11 @@
 #include "info.bitmap"
 #include "alert.bitmap"
 
+static struct ScrBoxList {
+    char **list;
+    int32 n;
+} scrbox_list[10];
+
 typedef struct ScrollBox {
     Window base;
     Window slide;
@@ -35,7 +40,6 @@ static void expose_sbox(StringBox sb, Window window, int32 pos);
 static int32 get_x_coord_win(Window win);
 
 TEXTWIN mytext;
-SCRBOX_LIST scrbox_list[10];
 void
 pop_list_set_window_title(Window win, char *string) {
     XTextProperty wname;

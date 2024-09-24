@@ -3985,11 +3985,6 @@ typedef struct StringBox {
     int32 hh[MAX_N_SBOX];
 } StringBox;
 
-typedef struct SCRBOX_LIST {
-    char **list;
-    int32 n;
-} SCRBOX_LIST;
-
 extern int32 NUPAR;
 extern int32 NEQ;
 extern int32 NODE;
@@ -3997,7 +3992,6 @@ extern int32 NMarkov;
 extern char upar_names[MAX_PAR][MAX_ODE_NAME_LENGTH];
 extern char uvar_names[MAX_ODE][MAX_ODE_NAME_LENGTH];
 extern char *color_names[];
-extern SCRBOX_LIST scrbox_list[10];
 
 /*  This is a new improved pop_up widget */
 typedef struct POP_UP {
