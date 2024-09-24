@@ -83,7 +83,7 @@ extern int32 DisplayWidth;
 extern int32 AutoFreezeFlag;
 extern int32 NTable;
 extern int32 screen;
-int32 status;
+static int32 status;
 
 extern int32 TORUS;
 typedef struct {
