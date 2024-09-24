@@ -29,7 +29,7 @@
  * Important Note: Vector arguments to arithmetic kernels     *
  * need not be distinct. Thus, for example, the call            *
  *                                                              *
- *         vector_N_VLinearSum(a,x,b,y,y);    y <- ax+by               *
+ *         vector_LinearSum(a,x,b,y,y);    y <- ax+by               *
  *                                                              *
  * is legal.                                                    *
  *                                                              *
@@ -206,7 +206,7 @@ void vector_free(Vector x);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VLinearSum(double a, Vector x, double b, Vector y, Vector z);
+void vector_LinearSum(double a, Vector x, double b, Vector y, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -215,7 +215,7 @@ void vector_N_VLinearSum(double a, Vector x, double b, Vector y, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VConst(double c, Vector z);
+void vector_Const(double c, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -224,7 +224,7 @@ void vector_N_VConst(double c, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VProd(Vector x, Vector y, Vector z);
+void vector_Prod(Vector x, Vector y, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -233,7 +233,7 @@ void vector_N_VProd(Vector x, Vector y, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VDiv(Vector x, Vector y, Vector z);
+void vector_Div(Vector x, Vector y, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -242,7 +242,7 @@ void vector_N_VDiv(Vector x, Vector y, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VScale(double c, Vector x, Vector z);
+void vector_Scale(double c, Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -251,7 +251,7 @@ void vector_N_VScale(double c, Vector x, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VAbs(Vector x, Vector z);
+void vector_Abs(Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -265,7 +265,7 @@ void vector_N_VAbs(Vector x, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VInv(Vector x, Vector z);
+void vector_Inv(Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -274,7 +274,7 @@ void vector_N_VInv(Vector x, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VAddConst(Vector x, double b, Vector z);
+void vector_AddConst(Vector x, double b, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -286,7 +286,7 @@ void vector_N_VAddConst(Vector x, double b, Vector z);
 /***************************************************************
  *                                                             *
  * Function : N_VDotProd                                       *
- * Usage    : dotprod = vector_N_VDotProd(x, y);                      *
+ * Usage    : dotprod = vector_DotProd(x, y);                      *
  *-------------------------------------------------------------*
  *                                                             *
  * Returns the value of the ordinary dot product of x and y:   *
@@ -297,12 +297,12 @@ void vector_N_VAddConst(Vector x, double b, Vector z);
  *                                                             *
  ***************************************************************/
 
-double vector_N_VDotProd(Vector x, Vector y);
+double vector_DotProd(Vector x, Vector y);
 
 /***************************************************************
  *                                                             *
  * Function : N_VMaxNorm                                       *
- * Usage    : maxnorm = vector_N_VMaxNorm(x);                         *
+ * Usage    : maxnorm = vector_MaxNorm(x);                         *
  *-------------------------------------------------------------*
  *                                                             *
  * Returns the maximum norm of x:                              *
@@ -313,12 +313,12 @@ double vector_N_VDotProd(Vector x, Vector y);
  *                                                             *
  ***************************************************************/
 
-double vector_N_VMaxNorm(Vector x);
+double vector_MaxNorm(Vector x);
 
 /***************************************************************
  *                                                             *
  * Function : N_VWrmsNorm                                      *
- * Usage    : wrmsnorm = vector_N_VWrmsNorm(x, w);                    *
+ * Usage    : wrmsnorm = vector_WrmsNorm(x, w);                    *
  *-------------------------------------------------------------*
  *                                                             *
  * Returns the weighted root mean square norm of x with        *
@@ -330,12 +330,12 @@ double vector_N_VMaxNorm(Vector x);
  *                                                             *
  ***************************************************************/
 
-double vector_N_VWrmsNorm(Vector x, Vector w);
+double vector_WrmsNorm(Vector x, Vector w);
 
 /***************************************************************
  *                                                             *
  * Function : N_VMin                                           *
- * Usage    : min = vector_N_VMin(x);                                 *
+ * Usage    : min = vector_Min(x);                                 *
  *-------------------------------------------------------------*
  *                                                             *
  * Returns min x[i] if N > 0 and returns 0.0 if N <= 0.        *
@@ -343,7 +343,7 @@ double vector_N_VWrmsNorm(Vector x, Vector w);
  *                                                             *
  ***************************************************************/
 
-double vector_N_VMin(Vector x);
+double vector_Min(Vector x);
 
 /***************************************************************
  *                                                             *
@@ -359,7 +359,7 @@ double vector_N_VMin(Vector x);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VCompare(double c, Vector x, Vector z);
+void vector_Compare(double c, Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -374,7 +374,7 @@ void vector_N_VCompare(double c, Vector x, Vector z);
  *                                                             *
  ***************************************************************/
 
-bool vector_N_VInvTest(Vector x, Vector z);
+bool vector_InvTest(Vector x, Vector z);
 
 /***************************************************************
  *                                                             *
@@ -385,7 +385,7 @@ bool vector_N_VInvTest(Vector x, Vector z);
 /***************************************************************
  *                                                             *
  * Function : N_VPrint                                         *
- * Usage    : vector_N_VPrint(x);                                     *
+ * Usage    : vector_Print(x);                                     *
  *-------------------------------------------------------------*
  *                                                             *
  * Prints the Vector x to stdout. Each component of x is     *
@@ -395,6 +395,6 @@ bool vector_N_VInvTest(Vector x, Vector z);
  *                                                             *
  ***************************************************************/
 
-void vector_N_VPrint(Vector x);
+void vector_Print(Vector x);
 
 #endif

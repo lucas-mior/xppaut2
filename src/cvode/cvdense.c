@@ -106,7 +106,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
 
     /* Set minimum increment based on uround and norm of f */
     srur = llnlmath_rsqrt(uround);
-    fnorm = vector_N_VWrmsNorm(fy, ewt);
+    fnorm = vector_WrmsNorm(fy, ewt);
     minInc = (fnorm != ZERO)
                  ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
                  : ONE;
@@ -124,7 +124,7 @@ CVDenseDQJac(int64 N, DenseMat J, RhsFn f, void *f_data, double tn, Vector y,
         y_data[j] += inc;
         f(N, tn, y, ftemp, f_data);
         inc_inv = ONE / inc;
-        vector_N_VLinearSum(inc_inv, ftemp, -inc_inv, fy, jthCol);
+        vector_LinearSum(inc_inv, ftemp, -inc_inv, fy, jthCol);
         y_data[j] = yjsaved;
     }
 
@@ -351,7 +351,7 @@ CVDenseSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
 
     /* If BDF, scale the correction to account for change in gamma */
     if ((lmm == BDF) && (gamrat != ONE)) {
-        vector_N_VScale(TWO / (ONE + gamrat), b, b);
+        vector_Scale(TWO / (ONE + gamrat), b, b);
     }
 
     return 0;

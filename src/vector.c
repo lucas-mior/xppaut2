@@ -68,7 +68,7 @@ vector_free(Vector x) {
 }
 
 void
-vector_N_VLinearSum(double a, Vector x, double b, Vector y, Vector z) {
+vector_LinearSum(double a, Vector x, double b, Vector y, Vector z) {
     int64 i;
     int64 N;
     double c, *xd, *yd, *zd;
@@ -156,7 +156,7 @@ vector_N_VLinearSum(double a, Vector x, double b, Vector y, Vector z) {
 }
 
 void
-vector_N_VConst(double c, Vector z) {
+vector_Const(double c, Vector z) {
     int64 i;
     int64 N;
     double *zd;
@@ -170,7 +170,7 @@ vector_N_VConst(double c, Vector z) {
 }
 
 void
-vector_N_VProd(Vector x, Vector y, Vector z) {
+vector_Prod(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -186,7 +186,7 @@ vector_N_VProd(Vector x, Vector y, Vector z) {
 }
 
 void
-vector_N_VDiv(Vector x, Vector y, Vector z) {
+vector_Div(Vector x, Vector y, Vector z) {
     int64 i;
     int64 N;
     double *xd, *yd, *zd;
@@ -202,7 +202,7 @@ vector_N_VDiv(Vector x, Vector y, Vector z) {
 }
 
 void
-vector_N_VScale(double c, Vector x, Vector z) {
+vector_Scale(double c, Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -227,7 +227,7 @@ vector_N_VScale(double c, Vector x, Vector z) {
 }
 
 void
-vector_N_VAbs(Vector x, Vector z) {
+vector_Abs(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -242,7 +242,7 @@ vector_N_VAbs(Vector x, Vector z) {
 }
 
 void
-vector_N_VInv(Vector x, Vector z) {
+vector_Inv(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -257,7 +257,7 @@ vector_N_VInv(Vector x, Vector z) {
 }
 
 void
-vector_N_VAddConst(Vector x, double b, Vector z) {
+vector_AddConst(Vector x, double b, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -272,7 +272,7 @@ vector_N_VAddConst(Vector x, double b, Vector z) {
 }
 
 double
-vector_N_VDotProd(Vector x, Vector y) {
+vector_DotProd(Vector x, Vector y) {
     int64 i;
     int64 N;
     double sum = ZERO, *xd, *yd;
@@ -288,7 +288,7 @@ vector_N_VDotProd(Vector x, Vector y) {
 }
 
 double
-vector_N_VMaxNorm(Vector x) {
+vector_MaxNorm(Vector x) {
     int64 i;
     int64 N;
     double max = ZERO, *xd;
@@ -305,7 +305,7 @@ vector_N_VMaxNorm(Vector x) {
 }
 
 double
-vector_N_VWrmsNorm(Vector x, Vector w) {
+vector_WrmsNorm(Vector x, Vector w) {
     int64 i;
     int64 N;
     double sum = ZERO, prodi, *xd, *wd;
@@ -323,7 +323,7 @@ vector_N_VWrmsNorm(Vector x, Vector w) {
 }
 
 double
-vector_N_VMin(Vector x) {
+vector_Min(Vector x) {
     int64 i;
     int64 N;
     double min, *xd;
@@ -341,7 +341,7 @@ vector_N_VMin(Vector x) {
 }
 
 void
-vector_N_VCompare(double c, Vector x, Vector z) {
+vector_Compare(double c, Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -357,7 +357,7 @@ vector_N_VCompare(double c, Vector x, Vector z) {
 }
 
 bool
-vector_N_VInvTest(Vector x, Vector z) {
+vector_InvTest(Vector x, Vector z) {
     int64 i;
     int64 N;
     double *xd, *zd;
@@ -376,7 +376,7 @@ vector_N_VInvTest(Vector x, Vector z) {
 }
 
 void
-vector_N_VPrint(Vector x) {
+vector_Print(Vector x) {
     int64 i;
     int64 N;
     double *xd;

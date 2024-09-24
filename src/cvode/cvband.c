@@ -119,11 +119,11 @@ CVBandDQJac(int64 N, int64 mupper, int64 mlower, BandMat J, RhsFn f,
     ytemp_data = N_VDATA(ytemp);
 
     /* Load ytemp with y = predicted y vector */
-    vector_N_VScale(ONE, y, ytemp);
+    vector_Scale(ONE, y, ytemp);
 
     /* Set minimum increment based on uround and norm of f */
     srur = llnlmath_rsqrt(uround);
-    fnorm = vector_N_VWrmsNorm(fy, ewt);
+    fnorm = vector_WrmsNorm(fy, ewt);
     minInc = (fnorm != ZERO)
                  ? (MIN_INC_MULT*ABS(h)*uround*(double)N*fnorm)
                  : ONE;
@@ -394,7 +394,7 @@ cv_band_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
 
     /* If BDF, scale the correction to account for change in gamma */
     if ((lmm == BDF) && (gamrat != ONE)) {
-        vector_N_VScale(TWO / (ONE + gamrat), b, b);
+        vector_Scale(TWO / (ONE + gamrat), b, b);
     }
 
     return 0;

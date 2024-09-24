@@ -204,28 +204,28 @@ CVDiagSetup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     y = vtemp2;
 
     r = FRACT*rl1;
-    vector_N_VLinearSum(h, fpred, -ONE, zn[1], ftemp);
-    vector_N_VLinearSum(r, ftemp, ONE, ypred, y);
+    vector_LinearSum(h, fpred, -ONE, zn[1], ftemp);
+    vector_LinearSum(r, ftemp, ONE, ypred, y);
 
     /* Evaluate f at perturbed y */
     f(N, tn, y, M, f_data);
     nfe++;
 
     /* Construct M = I - gamma*J with J = diag(deltaf_i/deltay_i) */
-    vector_N_VLinearSum(ONE, M, -ONE, fpred, M);
-    vector_N_VLinearSum(FRACT, ftemp, -h, M, M);
-    vector_N_VProd(ftemp, ewt, y);
+    vector_LinearSum(ONE, M, -ONE, fpred, M);
+    vector_LinearSum(FRACT, ftemp, -h, M, M);
+    vector_Prod(ftemp, ewt, y);
     /* Protect against deltay_i being at roundoff level */
-    vector_N_VCompare(uround, y, bit);
-    vector_N_VAddConst(bit, -ONE, bitcomp);
-    vector_N_VProd(ftemp, bit, y);
-    vector_N_VLinearSum(FRACT, y, -ONE, bitcomp, y);
-    vector_N_VDiv(M, y, M);
-    vector_N_VProd(M, bit, M);
-    vector_N_VLinearSum(ONE, M, -ONE, bitcomp, M);
+    vector_Compare(uround, y, bit);
+    vector_AddConst(bit, -ONE, bitcomp);
+    vector_Prod(ftemp, bit, y);
+    vector_LinearSum(FRACT, y, -ONE, bitcomp, y);
+    vector_Div(M, y, M);
+    vector_Prod(M, bit, M);
+    vector_LinearSum(ONE, M, -ONE, bitcomp, M);
 
     /* Invert M with test for zero components */
-    invOK = vector_N_VInvTest(M, M);
+    invOK = vector_InvTest(M, M);
     if (!invOK)
         return 1;
 
@@ -256,11 +256,11 @@ CVDiagSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
 
     if (gammasv != gamma) {
         r = gamma / gammasv;
-        vector_N_VInv(M, M);
-        vector_N_VAddConst(M, -ONE, M);
-        vector_N_VScale(r, M, M);
-        vector_N_VAddConst(M, ONE, M);
-        invOK = vector_N_VInvTest(M, M);
+        vector_Inv(M, M);
+        vector_AddConst(M, -ONE, M);
+        vector_Scale(r, M, M);
+        vector_AddConst(M, ONE, M);
+        invOK = vector_InvTest(M, M);
         if (!invOK)
             return 1;
 
@@ -268,7 +268,7 @@ CVDiagSolve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur) {
     }
 
     /* Apply M-inverse to b */
-    vector_N_VProd(b, M, b);
+    vector_Prod(b, M, b);
     return 0;
 }
 
