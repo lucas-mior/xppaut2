@@ -28,13 +28,13 @@ extern int32 NMarkov;
 extern int32 FIX_VAR;
 extern int32 PrimeStart;
 extern int32 NKernel;
-double *Memory[MAX_KER];
+static double *Memory[MAX_KER];
 extern double T0;
 extern double DELTA_T;
 extern int32 MaxPoints;
 extern int32 EqType[MAX_ODE];
-int32 CurrentPoint;
-int32 KnFlag;
+static int32 CurrentPoint;
+static int32 KnFlag;
 
 int32 AutoEvaluate = 0;
 extern double variables[];

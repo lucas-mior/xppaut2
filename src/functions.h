@@ -4437,6 +4437,8 @@ void make_txtview(void);
 #ifndef VOLTERRA2_H
 #define VOLTERRA2_H
 
+extern int32 AutoEvaluate;
+
 double volterra_ker_val(int32 in);
 void volterra_alloc_memory(void);
 void volterra_allocate(int32 npts, int32 flag);
