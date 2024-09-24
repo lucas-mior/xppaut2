@@ -161,7 +161,7 @@ diagram_redraw(void) {
             flag = 0;
         else
             flag = 1;
-        add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type, flag,
+        auto_add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type, flag,
                   d->lab, d->icp1, d->icp2, d->flag2, d->evr, d->evi);
         d = d->next;
         if (d == NULL)
@@ -444,7 +444,7 @@ diagram_post_auto(void) {
             flag = 0;
         else
             flag = 1;
-        add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
+        auto_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
                      flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
         if (d == NULL)
@@ -482,7 +482,7 @@ diagram_svg_auto(void) {
             flag = 0;
         else
             flag = 1;
-        add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
+        auto_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
                      flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
         if (d == NULL)
