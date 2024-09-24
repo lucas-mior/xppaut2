@@ -15,11 +15,11 @@ int32 auto_x11_circle(int32 x, int32 y, int32 r);
 int32 auto_x11_xor_cross(int32 x, int32 y);
 int32 auto_x11_fill_circle(int32 x, int32 y, int32 r);
 int32 auto_x11_line_width(int32 wid);
-int32 renamef(char *old, char *new);
+int32 auto_nox_renamef(char *old, char *new);
 int32 auto_nox_copyf(char *old, char *new);
 int32 auto_nox_deletef(char *old);
 int32 auto_close(int32 flag);
-int32 open_auto(int32 flag);
+int32 auto_nox_open(int32 flag);
 int32 auto_nox_do(int32 iold, int32 isave);
 int32 set_auto(void);
 int32 auto_name_to_index(char *s);
@@ -33,7 +33,7 @@ int32 auto_zoom(int32 i1, int32 j1, int32 i2, int32 j2);
 int32 auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
                    double per, double *uhigh, double *ulow, double *ubar,
                    double a);
-int32 plot_point(int32 flag2, int32 icp1, int32 icp2);
+int32 auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2);
 int32 auto_add_ps_point(double *par, double per, double *uhigh, double *ulow,
                    double *ubar, double a, int32 type, int32 flag, int32 lab,
                    int32 npar, int32 icp1, int32 icp2, int32 flag2, double *evr,
@@ -53,14 +53,14 @@ int32 auto_nox_win(void);
 int32 auto_nox_load_last_plot(int32 flag);
 int32 auto_nox_keep_last_plot(int32 flag);
 int32 auto_nox_init_win(void);
-int32 plot_stab(double *evr, double *evi, int32 n);
+int32 auto_nox_plot_stab(double *evr, double *evi, int32 n);
 int32 auto_x11_clr_stab(void);
 int32 auto_x11_motion(XEvent event);
 int32 auto_x11_display(Window window);
 Window lil_button(Window root, int32 x, int32 y);
 int32 auto_x11_make(char *wname, char *iname);
 int32 yes_reset_auto(void);
-int32 reset_auto(void);
+int32 auto_nox_reset(void);
 int32 auto_grab(void);
 int32 auto_start_diff_ss(void);
 int32 auto_start_at_bvp(void);
@@ -72,8 +72,8 @@ int32 auto_new_discrete(void);
 int32 auto_extend_ss(void);
 int32 auto_start_choice(void);
 int32 torus_choice(void);
-int32 per_doub_choice(void);
-int32 periodic_choice(void);
+int32 auto_nox_per_doub_choice(void);
+int32 auto_nox_periodic_choice(void);
 int32 auto_nox_hopf_choice(void);
 int32 auto_new_per(void);
 int32 auto_extend_bvp(void);

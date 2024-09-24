@@ -180,7 +180,7 @@ auto_colset(int32 type) {
 }
 
 void
-pscolset2(int32 flag2) {
+auto_nox_pscolset2(int32 flag2) {
     switch (flag2) {
     case LPE2:
         graphics_set_linestyle(LPE_color - 19);
@@ -371,7 +371,7 @@ auto_check_bnds(int32 ix, int32 iy) {
 }
 
 void
-renamef(char *old, char *new) {
+auto_nox_renamef(char *old, char *new) {
     rename(old, new);
 }
 
@@ -434,12 +434,12 @@ auto_close(int32 flg) {
     char string[1000];
     if (flg == 0) { /*Overwrite*/
         sprintf(string, "%s.b", this_auto_file);
-        renamef(fort7, string);
+        auto_nox_renamef(fort7, string);
         sprintf(string, "%s.d", this_auto_file);
-        renamef(fort9, string);
+        auto_nox_renamef(fort9, string);
 
         sprintf(string, "%s.s", this_auto_file);
-        renamef(fort8, string);
+        auto_nox_renamef(fort8, string);
     } else { /*APPEND*/
         sprintf(string, "%s.b", this_auto_file);
         auto_appendf(fort7, string);
@@ -477,7 +477,7 @@ auto_nox_create_file_name(void) {
 }
 
 void
-open_auto(int32 flg) {
+auto_nox_open(int32 flg) {
     /* compatible with new auto */
     char *basec, *bname, *dirc, *dname;
     char *HOME;
@@ -517,7 +517,7 @@ auto_nox_do(int32 iold, int32 isave) {
                    and running init in auto
                 */
 
-    open_auto(iold); /* this copies the relevant files .s  to fort.3 */
+    auto_nox_open(iold); /* this copies the relevant files .s  to fort.3 */
     go_go_auto();    /* this complets the initialization and calls the
                          main routines
                      */
@@ -997,7 +997,7 @@ auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
 }
 
 int32
-plot_point(int32 flag2, int32 icp1, int32 icp2) {
+auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2) {
     int32 j = 1;
     if (icp1 != Auto.icp1)
         j = 0;
@@ -1041,7 +1041,7 @@ auto_add_ps_point(double *par, double per, double *uhigh, double *ulow, double *
         if (PS_Color) {
             graphics_set_linestyle(1);
             if (flag2 > 0)
-                pscolset2(flag2);
+                auto_nox_pscolset2(flag2);
         } else
             graphics_set_linestyle(8);
         graphics_line_abs((double)x, (double)y1, (double)Auto.lastx,
@@ -1060,7 +1060,7 @@ auto_add_ps_point(double *par, double per, double *uhigh, double *ulow, double *
             else
                 graphics_set_linestyle(4);
         } else {
-            pscolset2(flag2);
+            auto_nox_pscolset2(flag2);
         }
         graphics_line_abs((double)x, (double)y1, (double)Auto.lastx,
                           (double)Auto.lasty);
@@ -1161,13 +1161,13 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
     if (flag2 == 0 && Auto.plot == P_P) /* if the point was a 1 param run and we
                                            are in 2 param plot, skip */
     {
-        plot_stab(evr, evi, NODE);
+        auto_nox_plot_stab(evr, evi, NODE);
         auto_x11_refresh_display();
         return;
     }
     if (flag2 > 0 && Auto.plot != P_P) { /* two parameter and not in two
                                             parameter plot, just skip it */
-        plot_stab(evr, evi, NODE);
+        auto_nox_plot_stab(evr, evi, NODE);
         auto_x11_refresh_display();
         return;
     }
@@ -1258,7 +1258,7 @@ auto_add_point(double *par, double per, double *uhigh, double *ulow, double *uba
 
     Auto.lastx = x;
     Auto.lasty = y1;
-    plot_stab(evr, evi, NODE);
+    auto_nox_plot_stab(evr, evi, NODE);
     auto_x11_refresh_display();
 }
 
@@ -1366,7 +1366,7 @@ traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     *iy = auto_nox_iy_val(y1);
     if (dodraw == 1) {
         auto_x11_xor_cross(*ix, *iy);
-        plot_stab(evr, evi, NODE);
+        auto_nox_plot_stab(evr, evi, NODE);
         auto_nox_new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per, icp1,
                  icp2);
     }
@@ -1528,7 +1528,7 @@ auto_nox_init_win(void) {
 }
 
 void
-plot_stab(double *evr, double *evi, int32 n) {
+auto_nox_plot_stab(double *evr, double *evi, int32 n) {
     int32 i, ix, iy;
     int32 r = Auto.st_wid;
 
@@ -1577,7 +1577,7 @@ yes_reset_auto(void) {
 }
 
 int32
-reset_auto(void) {
+auto_nox_reset(void) {
     char ch;
     if (NBifs <= 1)
         return 0;
@@ -1745,7 +1745,7 @@ torus_choice(void) {
 }
 
 void
-per_doub_choice(void) {
+auto_nox_per_doub_choice(void) {
     static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
     static char key[] = "dtfe";
     char ch;
@@ -1771,7 +1771,7 @@ per_doub_choice(void) {
 }
 
 void
-periodic_choice(void) {
+auto_nox_periodic_choice(void) {
     static char *m[] = {"Extend", "Fixed Period"};
     static char key[] = "ef";
     char ch;
@@ -1849,7 +1849,7 @@ auto_run(void) {
         return;
     }
     if (itp1 == 7 || itp2 == 7) { /* period doubling */
-        per_doub_choice();
+        auto_nox_per_doub_choice();
         ggets_ping();
         return;
     }
@@ -1886,7 +1886,7 @@ auto_run(void) {
         return;
     }
     if (grabpt.ibr < 0) { /* its a periodic -- just extend it  */
-        periodic_choice();
+        auto_nox_periodic_choice();
         ggets_ping();
         return;
     }
@@ -2051,7 +2051,7 @@ auto_new_ss(void) {
     NewPeriodFlag = 0;
 
     if (NBifs > 1)
-        reset_auto();
+        auto_nox_reset();
 
     TypeOfCalc = EQ1;
     Auto.ips = 1;
@@ -2075,7 +2075,7 @@ auto_new_discrete(void) {
     NewPeriodFlag = 0;
 
     if (NBifs > 1)
-        reset_auto();
+        auto_nox_reset();
 
     TypeOfCalc = DI1;
     Auto.ips = -1;
@@ -2724,7 +2724,7 @@ auto_nox_load(void) {
     char filename[XPP_MAX_NAME];
     int32 status;
     if (NBifs > 1) {
-        ok = reset_auto();
+        ok = auto_nox_reset();
         if (ok == 0)
             return;
     }
@@ -2807,7 +2807,7 @@ auto_file(void) {
         return;
     }
     if (ch == 'r')
-        reset_auto();
+        auto_nox_reset();
     if (ch == 'c')
         grabpt.flag = 0;
     if (ch == 'p') {

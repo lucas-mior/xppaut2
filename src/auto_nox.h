@@ -127,7 +127,7 @@ extern int32 AutoTwoParam;
 extern int32 NAutoPar;
 
 void auto_colset(int32 type);
-void pscolset2(int32 flag2);
+void auto_nox_pscolset2(int32 flag2);
 void auto_colset2(int32 flag2);
 void auto_nox_get_str(char *xlabel, char *ylabel);
 void auto_nox_draw_ps_axes(void);
@@ -136,12 +136,12 @@ void auto_nox_draw_bix_axes(void);
 int32 auto_nox_ix_val(double x);
 int32 auto_nox_iy_val(double y);
 int32 auto_check_bnds(int32 ix, int32 iy);
-void renamef(char *old, char *new);
+void auto_nox_renamef(char *old, char *new);
 void auto_nox_copyf(char *old, char *new);
 void auto_appendf(char *old, char *new);
 void auto_nox_deletef(char *old);
 void auto_close(int32 flag);
-void open_auto(int32 flag);
+void auto_nox_open(int32 flag);
 void auto_nox_do(int32 iold, int32 isave);
 void set_auto(void);
 int32 auto_name_to_index(char *s);
@@ -157,7 +157,7 @@ void auto_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 void auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
                   double per, double *uhigh, double *ulow, double *ubar,
                   double a);
-int32 plot_point(int32 flag2, int32 icp1, int32 icp2);
+int32 auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2);
 void auto_add_ps_point(double *par, double per, double *uhigh, double *ulow,
                   double *ubar, double a, int32 type, int32 flag, int32 icp1,
                   int32 icp2, int32 flag2);
@@ -174,9 +174,9 @@ void auto_nox_win(void);
 void auto_nox_load_last_plot(int32 flag);
 void auto_nox_keep_last_plot(int32 flag);
 void auto_nox_init_win(void);
-void plot_stab(double *evr, double *evi, int32 n);
+void auto_nox_plot_stab(double *evr, double *evi, int32 n);
 int32 yes_reset_auto(void);
-int32 reset_auto(void);
+int32 auto_nox_reset(void);
 void auto_grab(void);
 
 void auto_start_diff_ss(void);
@@ -191,8 +191,8 @@ void auto_new_discrete(void);
 void auto_extend_ss(void);
 void auto_start_choice(void);
 void torus_choice(void);
-void per_doub_choice(void);
-void periodic_choice(void);
+void auto_nox_per_doub_choice(void);
+void auto_nox_periodic_choice(void);
 void auto_nox_hopf_choice(void);
 void auto_new_per(void);
 void auto_start_at_homoclinic(void);
