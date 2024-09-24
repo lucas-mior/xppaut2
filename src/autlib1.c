@@ -2575,7 +2575,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
         amp = sqrt(ss);
     }
     rap->amp = amp;
-    byeauto_(&iflag);
+    auto_x11_bye(&iflag);
     istop = iap->istop;
     if (istop == 1) {
         /*        Maximum number of iterations reached somewhere. */
@@ -6563,7 +6563,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     rap->amp = amp;
     /* here is another place for byeauto
      call with iflag  */
-    byeauto_(&iflag);
+    auto_x11_bye(&iflag);
     istop = iap->istop;
     if (istop == 1) {
         /*        ** Maximum number of iterations reached somewhere. */

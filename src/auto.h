@@ -8,13 +8,13 @@
 int32 get_auto_str(char *xlabel, char *ylabel);
 int32 draw_ps_axes(void);
 int32 draw_bif_axes(void);
-int32 byeauto_(int32 *iflag);
+int32 auto_x11_bye(int32 *iflag);
 int32 IXVal(double x);
 int32 IYVal(double y);
 int32 auto_x11_circle(int32 x, int32 y, int32 r);
 int32 auto_x11_xor_cross(int32 x, int32 y);
-int32 fill_circle(int32 x, int32 y, int32 r);
-int32 line_width(int32 wid);
+int32 auto_x11_fill_circle(int32 x, int32 y, int32 r);
+int32 auto_x11_line_width(int32 wid);
 int32 renamef(char *old, char *new);
 int32 copyf(char *old, char *new);
 int32 appendf(char *old, char *new);
@@ -43,23 +43,23 @@ int32 add_point(double *par, double per, double *uhigh, double *ulow,
                 double *ubar, double a, int32 type, int32 flag, int32 lab,
                 int32 npar, int32 icp1, int32 icp2, int32 flag2, double *evr,
                 double *evi);
-int32 redraw_auto_menus(void);
+int32 auto_x11_redraw_menus(void);
 int32 get_bif_sym(char *at, int32 itp);
 int32 info_header(int32 icp1, int32 icp2);
 void new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
               double norm, double u0, double per, int32 icp1, int32 icp2);
-int32 traverse_diagram(void);
-int32 clear_auto_plot(void);
+int32 auto_x11_traverse_diagram(void);
+int32 auto_x11_clear_plot(void);
 int32 do_auto_win(void);
 int32 load_last_plot(int32 flag);
 int32 keep_last_plot(int32 flag);
 int32 init_auto_win(void);
 int32 plot_stab(double *evr, double *evi, int32 n);
-int32 clr_stab(void);
-int32 auto_motion(XEvent event);
-int32 display_auto(Window window);
+int32 auto_x11_clr_stab(void);
+int32 auto_x11_motion(XEvent event);
+int32 auto_x11_display(Window window);
 Window lil_button(Window root, int32 x, int32 y);
-int32 make_auto(char *wname, char *iname);
+int32 auto_x11_make(char *wname, char *iname);
 int32 yes_reset_auto(void);
 int32 reset_auto(void);
 int32 auto_grab(void);
@@ -105,9 +105,9 @@ int32 move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp);
 int32 get_a_row(double *u, double *t, int32 n, FILE *fp);
 int32 auto_file(void);
 int32 a_msg(int32 i, int32 v);
-int32 auto_enter(Window window, int32 v);
-int32 auto_button(XEvent event);
+int32 auto_x11_enter(Window window, int32 v);
+int32 auto_x11_button(XEvent event);
 int32 auto_kill(void);
-int32 auto_keypress(XEvent event, int32 *used);
+int32 auto_x11_keypress(XEvent event, int32 *used);
 
 #endif

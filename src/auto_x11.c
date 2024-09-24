@@ -127,7 +127,7 @@ auto_x11_text(int32 a, int32 b, char *c) {
 }
 
 void
-clr_stab(void) {
+auto_x11_clr_stab(void) {
     int32 r = Auto.st_wid / 4;
     XClearWindow(display, auto_win.stab);
     XDrawArc(display, auto_win.stab, small_gc, r, r, (uint)(2*r),
@@ -136,30 +136,30 @@ clr_stab(void) {
 }
 
 void
-auto_stab_line(int32 x, int32 y, int32 xp, int32 yp) {
+auto_x11_stab_line(int32 x, int32 y, int32 xp, int32 yp) {
     XDrawLine(display, auto_win.stab, small_gc, x, y, xp, yp);
     return;
 }
 
 void
-clear_auto_plot(void) {
+auto_x11_clear_plot(void) {
     XClearWindow(display, auto_win.canvas);
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 void
-redraw_auto_menus(void) {
-    display_auto(auto_win.axes);
-    display_auto(auto_win.numerics);
-    display_auto(auto_win.grab);
-    display_auto(auto_win.run);
-    display_auto(auto_win.redraw);
-    display_auto(auto_win.clear);
-    display_auto(auto_win.per);
-    display_auto(auto_win.param);
-    display_auto(auto_win.kill);
-    display_auto(auto_win.file);
-    display_auto(auto_win.abort);
+auto_x11_redraw_menus(void) {
+    auto_x11_display(auto_win.axes);
+    auto_x11_display(auto_win.numerics);
+    auto_x11_display(auto_win.grab);
+    auto_x11_display(auto_win.run);
+    auto_x11_display(auto_win.redraw);
+    auto_x11_display(auto_win.clear);
+    auto_x11_display(auto_win.per);
+    auto_x11_display(auto_win.param);
+    auto_x11_display(auto_win.kill);
+    auto_x11_display(auto_win.file);
+    auto_x11_display(auto_win.abort);
     return;
 }
 
@@ -190,12 +190,12 @@ query_special(char *title, char *nsymb) {
         status = 0;
         sprintf(nsymb, "  ");
     }
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
     return status;
 }
 
 void
-do_auto_range(void) {
+auto_x11_do_range(void) {
     double t = TEND;
 
     if (mark_flag == 2)
@@ -205,7 +205,7 @@ do_auto_range(void) {
 }
 
 void
-auto_get_info(int32 *n, char *pname) {
+auto_x11_get_info(int32 *n, char *pname) {
     int32 i1, i2, ibr;
     Diagram *d;
     Diagram *dnew;
@@ -232,7 +232,7 @@ auto_get_info(int32 *n, char *pname) {
 }
 
 void
-auto_set_mark(int32 i) {
+auto_x11_set_mark(int32 i) {
     int32 pt;
     int32 ibr;
     if (mark_flag == 2) {
@@ -283,7 +283,7 @@ find_point(int32 ibr, int32 pt) {
 }
 
 void
-traverse_diagram(void) {
+auto_x11_traverse_diagram(void) {
     Diagram *d, *dnew, *dold;
     int32 done = 0;
     int32 ix, iy, i;
@@ -421,7 +421,7 @@ traverse_diagram(void) {
                     d = dnew;
                 } else {
                     snprintf(Auto.hinttxt, 255, "  Higher %s not found", nsymb);
-                    display_auto(auto_win.hint);
+                    auto_x11_display(auto_win.hint);
                     d = dold;
                 }
                 CUR_DIAGRAM = d;
@@ -452,7 +452,7 @@ traverse_diagram(void) {
                     d = dnew;
                 } else {
                     snprintf(Auto.hinttxt, 255, "  Lower %s not found", nsymb);
-                    display_auto(auto_win.hint);
+                    auto_x11_display(auto_win.hint);
                     d = dold;
                 }
                 CUR_DIAGRAM = d;
@@ -612,25 +612,25 @@ traverse_diagram(void) {
 }
 
 void
-clear_auto_info(void) {
+auto_x11_clear_info(void) {
     XClearWindow(display, auto_win.info);
     return;
 }
 
 void
-draw_auto_info(char *bob, int32 x, int32 y) {
+auto_x11_draw_info(char *bob, int32 x, int32 y) {
     XDrawString(display, auto_win.info, small_gc, x, y, bob, (int)strlen(bob));
     return;
 }
 
 void
-refresh_display(void) {
+auto_x11_refresh_display(void) {
     XFlush(display);
     return;
 }
 
 int32
-byeauto_(int32 *iflag) {
+auto_x11_bye(int32 *iflag) {
     XEvent event;
     Window window;
     char ch;
@@ -674,20 +674,20 @@ auto_x11_circle(int32 x, int32 y, int32 r) {
 }
 
 void
-auto_col(int32 col) {
+auto_x11_col(int32 col) {
     color_set_s(col);
     return;
 }
 
 void
-auto_bw(void) {
+auto_x11_bw(void) {
     XSetBackground(display, small_gc, MyBackColor);
     XSetForeground(display, small_gc, MyForeColor);
     return;
 }
 
 int32
-auto_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
+auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
     return rubber(i1, j1, i2, j2, auto_win.canvas, flag);
 }
 
@@ -711,10 +711,10 @@ RedrawMark(void) {
 
 void
 MarkAuto(int32 x, int32 y) {
-    line_width(2);
+    auto_x11_line_width(2);
     auto_x11_line(x - 8, y - 8, x + 8, y + 8);
     auto_x11_line(x + 8, y - 8, x - 8, y + 8);
-    line_width(1);
+    auto_x11_line_width(1);
     return;
 }
 
@@ -729,11 +729,11 @@ auto_x11_xor_cross(int32 x, int32 y) {
     }
 
     XSetFunction(display, small_gc, GXxor);
-    line_width(2);
+    auto_x11_line_width(2);
     auto_x11_line(x - 8, y, x + 8, y);
     auto_x11_line(x, y + 8, x, y - 8);
     XSetFunction(display, small_gc, GXcopy);
-    line_width(1);
+    auto_x11_line_width(1);
     if (xorfix) {
         XSetForeground(display, small_gc, MyForeColor);
         XSetBackground(display, small_gc, MyDrawWinColor);
@@ -744,7 +744,7 @@ auto_x11_xor_cross(int32 x, int32 y) {
 }
 
 void
-fill_circle(int32 x, int32 y, int32 r) {
+auto_x11_fill_circle(int32 x, int32 y, int32 r) {
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     uint32 wh = (uint32)(2*r2);
 
@@ -763,7 +763,7 @@ auto_update_view(double xlo, double xhi, double ylo, double yhi) {
 }
 
 void
-auto_scroll_window(void) {
+auto_x11_scroll(void) {
     XEvent event;
     int32 i = 0, j = 0;
     int32 i0 = 0, j0 = 0;
@@ -830,7 +830,7 @@ auto_scroll_window(void) {
 }
 
 void
-line_width(int32 wid) {
+auto_x11_line_width(int32 wid) {
     int32 ls = LineSolid;
     int32 cs = CapButt;
     int32 js = JoinRound;
@@ -839,7 +839,7 @@ line_width(int32 wid) {
 }
 
 void
-auto_motion(XEvent event) {
+auto_x11_motion(XEvent event) {
     int32 i = event.xmotion.x;
     int32 j = event.xmotion.y;
     double x;
@@ -854,13 +854,13 @@ auto_motion(XEvent event) {
                             (Auto.ymax - Auto.ymin) / (double)Auto.hgt;
         sprintf(Auto.hinttxt, "x=%g,y=%g", x, y);
         storeautopoint(x, y);
-        display_auto(auto_win.hint);
+        auto_x11_display(auto_win.hint);
     }
     return;
 }
 
 void
-display_auto(Window window) {
+auto_x11_display(Window window) {
     int32 ix;
     int32 iy;
     if (Auto.exist == 0)
@@ -920,7 +920,7 @@ lil_button(Window root, int32 x, int32 y) {
 }
 
 void
-make_auto(char *wname, char *iname) {
+auto_x11_make(char *wname, char *iname) {
     int32 x, y, wid, hgt;
     int32 addwid = 16*DCURX, addhgt = 3*DCURY, hinthgt = DCURY + 6;
     Window base = 0;
@@ -1019,7 +1019,7 @@ make_auto(char *wname, char *iname) {
 }
 
 void
-resize_auto_window(XEvent event) {
+auto_x11_resize_window(XEvent event) {
     int32 wid;
     int32 hgt;
     int32 addhgt = (int32)(3.5*DCURY);
@@ -1070,19 +1070,19 @@ a_msg(int32 i, int32 v) {
     if (v == 0 || TipsFlag == 0)
         return;
     strncpy(Auto.hinttxt, auto_hint[i], sizeof(Auto.hinttxt));
-    display_auto(auto_win.hint);
+    auto_x11_display(auto_win.hint);
     return;
 }
 
 void
 clear_msg(void) {
     Auto.hinttxt[0] = '\0';
-    display_auto(auto_win.hint);
+    auto_x11_display(auto_win.hint);
     return;
 }
 
 void
-auto_enter(Window window, int32 v) {
+auto_x11_enter(Window window, int32 v) {
     if (Auto.exist == 0)
         return;
     if (window == auto_win.axes) {
@@ -1138,7 +1138,7 @@ auto_enter(Window window, int32 v) {
 }
 
 void
-auto_button(XEvent event) {
+auto_x11_button(XEvent event) {
     Window window = event.xbutton.window;
     if (Auto.exist == 0)
         return;
@@ -1205,7 +1205,7 @@ auto_kill(void) {
 }
 
 void
-auto_keypress(XEvent event, int32 *used) {
+auto_x11_keypress(XEvent event, int32 *used) {
     Window window = event.xkey.window;
     char ks;
     Window w2;

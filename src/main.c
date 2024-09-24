@@ -835,7 +835,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         resize_par_box(report.xany.window);
         resize_my_browser(report.xany.window);
         resize_eq_list(report.xany.window);
-        resize_auto_window(report);
+        auto_x11_resize_window(report);
         if (report.xconfigure.window == main_win) {
             SCALEX = report.xconfigure.width;
             SCALEY = report.xconfigure.height;
@@ -873,7 +873,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         if (used)
             break;
 #ifdef AUTO
-        auto_keypress(report, &used);
+        auto_x11_keypress(report, &used);
         if (used)
             break;
 #endif
@@ -888,7 +888,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         box_enter_events(report.xcrossing.window, 1);
         menu_crossing(report.xcrossing.window, 1);
 #ifdef AUTO
-        auto_enter(report.xcrossing.window, 2);
+        auto_x11_enter(report.xcrossing.window, 2);
 #endif
         break;
     case LeaveNotify:
@@ -898,7 +898,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
         box_enter_events(report.xcrossing.window, 0);
         menu_crossing(report.xcrossing.window, 0);
 #ifdef AUTO
-        auto_enter(report.xcrossing.window, 1);
+        auto_x11_enter(report.xcrossing.window, 1);
 #endif
         break;
     case MotionNotify:
@@ -917,7 +917,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
             eq_list_button(report);
             my_browse_button(report);
 #ifdef AUTO
-            auto_button(report);
+            auto_x11_button(report);
 #endif
 
             show_position(report);

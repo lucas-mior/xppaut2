@@ -204,16 +204,16 @@ void
 colset(int32 type) {
     switch (type) {
     case CSEQ:
-        auto_col(SEc);
+        auto_x11_col(SEc);
         break;
     case CUEQ:
-        auto_col(UEc);
+        auto_x11_col(UEc);
         break;
     case SPER:
-        auto_col(SPc);
+        auto_x11_col(SPc);
         break;
     case UPER:
-        auto_col(UPc);
+        auto_x11_col(UPc);
         break;
     default:
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -254,31 +254,31 @@ pscolset2(int32 flag2) {
 
 void
 colset2(int32 flag2) {
-    line_width(2);
+    auto_x11_line_width(2);
     switch (flag2) {
     case LPE2:
-        auto_col(LPE_color);
+        auto_x11_col(LPE_color);
         break;
     case LPP2:
-        auto_col(LPP_color);
+        auto_x11_col(LPP_color);
         break;
     case HB2:
-        auto_col(HB_color);
+        auto_x11_col(HB_color);
         break;
     case TR2:
-        auto_col(TR_color);
+        auto_x11_col(TR_color);
         break;
     case BR2:
-        auto_col(BR_color);
+        auto_x11_col(BR_color);
         break;
     case PD2:
-        auto_col(PD_color);
+        auto_x11_col(PD_color);
         break;
     case FP2:
-        auto_col(FP_color);
+        auto_x11_col(FP_color);
         break;
     default:
-        auto_col(0);
+        auto_x11_col(0);
     }
     return;
 }
@@ -363,7 +363,7 @@ draw_bif_axes(void) {
     int32 x1 = x0 + Auto.wid, y1 = y0 + Auto.hgt;
     char junk[20], xlabel[20], ylabel[20];
 
-    clear_auto_plot();
+    auto_x11_clear_plot();
     auto_x11_line(x0, y0, x1, y0);
     auto_x11_line(x1, y0, x1, y1);
     auto_x11_line(x1, y1, x0, y1);
@@ -388,7 +388,7 @@ draw_bif_axes(void) {
     get_auto_str(xlabel, ylabel);
     auto_x11_text((x0 + x1) / 2, y1 + DCURYs + 2, xlabel);
     auto_x11_text(10*DCURXs, DCURYs, ylabel);
-    refresh_display();
+    auto_x11_refresh_display();
     return;
 }
 
@@ -553,7 +553,7 @@ open_auto(int32 flg) {
 
 void
 do_auto(int32 iold, int32 isave) {
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 
     set_auto(); /* this sets up all the continuation initialization
                    it is equivalent to reading in auto parameters
@@ -781,7 +781,7 @@ auto_plot_par(void) {
     if (ch == key[11])
         Auto.plot = 11;
     if (ch == key[5]) {
-        if (auto_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
+        if (auto_x11_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
             auto_zoom_in(ii1, ji1, ii2, ji2);
             redraw_diagram();
         }
@@ -789,7 +789,7 @@ auto_plot_par(void) {
     }
 
     if (ch == key[6]) {
-        if (auto_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
+        if (auto_x11_rubber(&ii1, &ji1, &ii2, &ji2, RUBBOX) != 0) {
             auto_zoom_out(ii1, ji1, ii2, ji2);
 
             redraw_diagram();
@@ -820,7 +820,7 @@ auto_plot_par(void) {
         return;
     }
     if (ch == key[13]) {
-        auto_scroll_window();
+        auto_x11_scroll();
         redraw_diagram();
         /* printf("I am done scrolling!!"); */
         return;
@@ -1198,18 +1198,18 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
     ix = IXVal(x);
     iy1 = IYVal(y1);
     iy2 = IYVal(y2);
-    auto_bw();
+    auto_x11_bw();
     if (flag2 == 0 && Auto.plot == P_P) /* if the point was a 1 param run and we
                                            are in 2 param plot, skip */
     {
         plot_stab(evr, evi, NODE);
-        refresh_display();
+        auto_x11_refresh_display();
         return;
     }
     if (flag2 > 0 && Auto.plot != P_P) { /* two parameter and not in two
                                             parameter plot, just skip it */
         plot_stab(evr, evi, NODE);
-        refresh_display();
+        auto_x11_refresh_display();
         return;
     }
 
@@ -1223,12 +1223,12 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        line_width(2);
+        auto_x11_line_width(2);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         auto_line(x, y1, Auto.lastx, Auto.lasty);
-        auto_bw();
+        auto_x11_bw();
         break;
     case CUEQ:
         if (Auto.plot == PE_P || Auto.plot == FR_P)
@@ -1237,19 +1237,19 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        line_width(1);
+        auto_x11_line_width(1);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         auto_line(x, y1, Auto.lastx, Auto.lasty);
-        auto_bw();
+        auto_x11_bw();
         break;
     case UPER:
         if (icp1 != Auto.icp1)
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        line_width(1);
+        auto_x11_line_width(1);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
@@ -1257,22 +1257,22 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
             auto_x11_circle(ix, iy1, 3);
         if (chk_auto_bnds(ix, iy2))
             auto_x11_circle(ix, iy2, 3);
-        auto_bw();
+        auto_x11_bw();
         break;
     case SPER:
         if (icp1 != Auto.icp1)
             break;
         if (flag2 > 0 && Auto.icp2 != icp2)
             break;
-        line_width(1);
+        auto_x11_line_width(1);
         colset(type);
         if (flag2 > 0)
             colset2(flag2);
         if (chk_auto_bnds(ix, iy1))
-            fill_circle(ix, iy1, 3);
+            auto_x11_fill_circle(ix, iy1, 3);
         if (chk_auto_bnds(ix, iy2))
-            fill_circle(ix, iy2, 3);
-        auto_bw();
+            auto_x11_fill_circle(ix, iy2, 3);
+        auto_x11_bw();
         break;
     default:
         fprintf(stderr, "Unexpected case in %s.\n", __func__);
@@ -1282,7 +1282,7 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
     if (lab != 0) {
         if (icp1 == Auto.icp1) {
             if (flag2 == 0 || (flag2 > 0 && Auto.icp2 == icp2)) {
-                line_width(1);
+                auto_x11_line_width(1);
                 if (chk_auto_bnds(ix, iy1)) {
                     auto_x11_line(ix - 4, iy1, ix + 4, iy1);
                     auto_x11_line(ix, iy1 - 4, ix, iy1 + 4);
@@ -1300,7 +1300,7 @@ add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
     Auto.lastx = x;
     Auto.lasty = y1;
     plot_stab(evr, evi, NODE);
-    refresh_display();
+    auto_x11_refresh_display();
 }
 
 void
@@ -1353,7 +1353,7 @@ info_header(int32 icp1, int32 icp2) {
     many_pops_small_base();
     sprintf(bob, "  Br  Pt Ty  Lab %10s %10s       norm %10s     period",
             p1name, p2name, uvar_names[Auto.var]);
-    draw_auto_info(bob, 10, DCURYs + 1);
+    auto_x11_draw_info(bob, 10, DCURYs + 1);
     return;
 }
 
@@ -1362,15 +1362,15 @@ new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
          double u0, double per, int32 icp1, int32 icp2) {
     char bob[80];
     double p1, p2 = 0.0;
-    clear_auto_info();
+    auto_x11_clear_info();
     info_header(icp1, icp2);
     p1 = par[icp1];
     if (icp2 < NAutoPar)
         p2 = par[icp2];
     sprintf(bob, "%4d %4d %2s %4d %10.4g %10.4g %10.4g %10.4g %10.4g", ibr, pt,
             ty, lab, p1, p2, norm, u0, per);
-    draw_auto_info(bob, 10, 2*DCURYs + 2);
-    refresh_display();
+    auto_x11_draw_info(bob, 10, 2*DCURYs + 2);
+    auto_x11_refresh_display();
 }
 
 void
@@ -1425,7 +1425,7 @@ do_auto_win(void) {
             err_msg(bob);
             return;
         }
-        make_auto("It's AUTO man!", "AUTO");
+        auto_x11_make("It's AUTO man!", "AUTO");
         Auto.exist = 1;
     }
     return;
@@ -1575,8 +1575,8 @@ plot_stab(double *evr, double *evi, int32 n) {
 
     double x;
     double y;
-    line_width(0);
-    clr_stab();
+    auto_x11_line_width(0);
+    auto_x11_clr_stab();
     for (i = 0; i < n; i++) {
         x = evr[i];
         if (x < -1.95)
@@ -1592,8 +1592,8 @@ plot_stab(double *evr, double *evi, int32 n) {
         y = r - r*(y + 2.0) / 4.0;
         ix = (int32)x;
         iy = (int32)y;
-        auto_stab_line(ix - 2, iy, ix + 2, iy);
-        auto_stab_line(ix, iy - 2, ix, iy + 2);
+        auto_x11_stab_line(ix - 2, iy, ix + 2, iy);
+        auto_x11_stab_line(ix, iy - 2, ix, iy + 2);
     }
     return;
 }
@@ -1631,8 +1631,8 @@ reset_auto(void) {
 
 void
 auto_grab(void) {
-    traverse_diagram();
-    /* redraw_auto_menus();
+    auto_x11_traverse_diagram();
+    /* auto_x11_redraw_menus();
      */
     return;
 }
@@ -1758,7 +1758,7 @@ auto_start_choice(void) {
         return;
     }
 
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 void
@@ -1781,7 +1781,7 @@ torus_choice(void) {
         auto_torus();
         return;
     }
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 void
@@ -1807,7 +1807,7 @@ per_doub_choice(void) {
         auto_twopar_double();
         return;
     }
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 void
@@ -1826,7 +1826,7 @@ periodic_choice(void) {
         return;
     }
 
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 void
@@ -1857,7 +1857,7 @@ hopf_choice(void) {
         auto_2p_hopf();
         return;
     }
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 void
@@ -1985,7 +1985,7 @@ auto_branch_choice(int32 ibr, int32 ips) {
         /* auto_2p_limit(ips); */
         return;
     }
-    redraw_auto_menus();
+    auto_x11_redraw_menus();
 }
 
 /*  RUN AUTO HERE */
@@ -2882,7 +2882,7 @@ auto_file(void) {
         if (mark_flag < 2)
             err_msg("Mark a branch first using S and E");
         else
-            do_auto_range();
+            auto_x11_do_range();
     }
     if (ch == 'e') {
         if (Auto.plot != P_P) {

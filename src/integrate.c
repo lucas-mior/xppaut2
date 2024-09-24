@@ -846,7 +846,7 @@ do_range(double *x, int32 flag) {
     if (range.movie)
         reset_film();
     if (flag == 2) {
-        auto_get_info(&nit, parn);
+        auto_x11_get_info(&nit, parn);
         nit2 = 0;
     }
     for (j = 0; j <= nit2; j++) {
@@ -905,7 +905,7 @@ do_range(double *x, int32 flag) {
                 }
             } /* normal range stuff   */
             else { /* auto range stuff */
-                auto_set_mark(i);
+                auto_x11_set_mark(i);
                 get_ic(2, x);
                 get_val(parn, &temp);
                 sprintf(bob, "%s=%.16g", parn, temp);

@@ -1211,7 +1211,7 @@ do_motion_events(XEvent event) {
     char buf[256];
     slider_motion(event);
 #ifdef AUTO
-    auto_motion(event);
+    auto_x11_motion(event);
 #endif
     if (event.xmotion.window == draw_win) {
         scale_to_real(i, j, &x, &y);
@@ -1241,7 +1241,7 @@ do_expose(XEvent event) {
     expose_slides(event.xany.window);
     menu_expose(event.xany.window);
 #ifdef AUTO
-    display_auto(event.xany.window);
+    auto_x11_display(event.xany.window);
 #endif
     /* if(ev.xexpose.window==menu_pop){
           draw_help();
