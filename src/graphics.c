@@ -42,8 +42,8 @@ extern uint32 GrBack;
 extern int32 DCURX;
 extern int32 DCURY;
 extern int32 xor_flag;
-extern GRAPH graph[MAXPOP];
-extern GRAPH *MyGraph;
+extern Graph graph[MAXPOP];
+extern Graph *MyGraph;
 extern GC gc_graph;
 
 int32 PS_Port = 0;

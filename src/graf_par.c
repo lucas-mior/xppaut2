@@ -13,7 +13,7 @@
 
 static NCLINE nclines[MAXNCLINE];
 extern Curve frz[MAXFRZ];
-extern GRAPH *MyGraph;
+extern Graph *MyGraph;
 extern Window main_win;
 extern Window draw_win;
 extern Window info_pop;

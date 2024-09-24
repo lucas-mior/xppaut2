@@ -20,7 +20,7 @@ extern BoxList ParamBox;
 
 extern int32 Xup;
 extern Window main_win;
-extern GRAPH *MyGraph;
+extern Graph *MyGraph;
 
 extern BcStruct my_bc[MAX_ODE];
 

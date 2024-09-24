@@ -3312,9 +3312,9 @@ int32 main_get_command_width(void);
 
 extern int32 manual_expose;
 extern int32 SimulPlotFlag;
-extern GRAPH graph[MAXPOP];
+extern Graph graph[MAXPOP];
 extern Curve frz[MAXFRZ];
-extern GRAPH *MyGraph;
+extern Graph *MyGraph;
 
 int32 many_pops_select_table(void);
 void many_pops_get_intern_set(void);

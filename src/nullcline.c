@@ -22,7 +22,7 @@ typedef struct Point {
 
 int32 OutPutNC = 0;
 extern int32 SuppressBounds;
-extern GRAPH *MyGraph;
+extern Graph *MyGraph;
 extern int32 PltFmtFlag;
 extern FILE *svgfile;
 

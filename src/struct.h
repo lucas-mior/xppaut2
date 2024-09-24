@@ -37,7 +37,7 @@ typedef struct {
     Window wname[ICMAX], wval[ICMAX];
 } IC_BOX;
 
-typedef struct {
+typedef struct Graph {
     Window window;
     Window w_info;
 
@@ -70,7 +70,7 @@ typedef struct {
     int32 ColorValue;
     char xlabel[30], ylabel[30], zlabel[30];
     char gr_info[256];
-} GRAPH;
+} Graph;
 
 typedef struct {
     GC gc;

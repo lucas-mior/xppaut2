@@ -13,7 +13,7 @@ extern int32 DCURY;
 extern int32 NDELAYS;
 extern int32 RandSeed;
 #include "struct.h"
-extern GRAPH *MyGraph;
+extern Graph *MyGraph;
 #define VOLTERRA 6
 #define BACKEUL 7
 #define RKQS 8

@@ -35,7 +35,7 @@ NOTE: except for the structure MyGraph, it is "x-free" so it
 #include "xpplim.h"
 #include "struct.h"
 #include "phsplan.h"
-extern GRAPH *MyGraph;
+extern Graph *MyGraph;
 #define MSWTCH(u, v)                                                           \
     memcpy((void *)(u), (void *)(v), (usize)xpv.node*sizeof(double))
 

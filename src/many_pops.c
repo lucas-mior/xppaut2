@@ -50,9 +50,9 @@ int32 manual_expose = 0;
 extern char *info_message;
 extern Atom deleteWindowAtom;
 
-GRAPH graph[MAXPOP];
+Graph graph[MAXPOP];
 Curve frz[MAXFRZ];
-GRAPH *MyGraph;
+Graph *MyGraph;
 
 extern int32 screen;
 extern int32 SCALEY;
