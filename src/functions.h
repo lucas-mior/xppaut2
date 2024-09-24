@@ -3271,6 +3271,17 @@ extern double xppvermaj;
 extern double xppvermin;
 extern int32 Xup;
 
+extern char batchout[256];
+extern char UserOUTFILE[256];
+extern int32 TrueColorFlag;
+extern char big_font_name[100];
+extern char small_font_name[100];
+extern char PlotFormat[10];
+
+extern Window command_pop;
+extern GC gc_graph;
+extern GC font_gc;
+
 void *XMALLOC(usize size, const char *function, int32 line);
 #ifdef MALLOC_DEBUG
 #define xmalloc(X) XMALLOC(X, __func__, __LINE__)

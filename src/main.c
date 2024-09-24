@@ -88,7 +88,7 @@ char PlotFormat[10];
 int32 PaperWhite = -1;
 extern int32 DF_FLAG;
 
-Window TopButton[6];
+static Window TopButton[6];
 Window draw_win;
 Window main_win;
 Window command_pop;
@@ -97,7 +97,6 @@ GC gc;
 GC gc_graph;
 GC small_gc;
 GC font_gc;
-GC mygc;
 extern int32 help_menu;
 extern int32 current_pop;
 uint32 Black;
