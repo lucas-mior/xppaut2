@@ -7,7 +7,7 @@
 
 #include "functions.h"
 
-static void rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window,
+static void rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window,
                  int32 f);
 
 int32
@@ -58,21 +58,21 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
             dragy = event.xkey.y;
             oldx = dragx;
             oldy = dragy;
-            rbox(dragx, dragy, oldx, oldy, window, f);
+            rubber_box(dragx, dragy, oldx, oldy, window, f);
             break;
         case MotionNotify:
             if (state == 0)
                 break;
-            rbox(dragx, dragy, oldx, oldy, window, f);
+            rubber_box(dragx, dragy, oldx, oldy, window, f);
             oldx = event.xmotion.x;
             oldy = event.xmotion.y;
-            rbox(dragx, dragy, oldx, oldy, window, f);
+            rubber_box(dragx, dragy, oldx, oldy, window, f);
             break;
         case ButtonRelease:
             if (state == 0)
                 break;
             there = 1;
-            rbox(dragx, dragy, oldx, oldy, window, f);
+            rubber_box(dragx, dragy, oldx, oldy, window, f);
             break;
         default:
             break;
@@ -103,7 +103,7 @@ rubber(int32 *x1, int32 *y1, int32 *x2, int32 *y2, Window window, int32 f) {
 }
 
 void
-rbox(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f) {
+rubber_box(int32 i1, int32 j1, int32 i2, int32 j2, Window window, int32 f) {
     int32 x1 = i1, x2 = i2, y1 = j1, y2 = j2;
     if (f == RUBLINE) {
         XDrawLine(display, window, gc, i1, j1, i2, j2);
