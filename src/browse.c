@@ -49,21 +49,21 @@ static double *old_rep;
 static int32 REPLACE = 0, R_COL = 0;
 
 static void write_browser_data(FILE *fp, Browser *b);
-static int32 check_for_stor(double **data);
-static void data_del_col(Browser *b);
-static void data_add_col(Browser *b);
-static int32 add_stor_col(char *name, char *formula, Browser *b);
-static void chk_seq(char *f, int32 *seq, double *a1, double *a2);
-static void replace_column(char *var, char *form, double **dat, int32 n);
-static void unreplace_column(void);
-static void make_d_table(double xlo, double xhi, int32 col, char *filename,
+static int32 browse_check_for_stor(double **data);
+static void browse_data_del_col(Browser *b);
+static void browse_data_add_col(Browser *b);
+static int32 browse_add_stor_col(char *name, char *formula, Browser *b);
+static void browse_chk_seq(char *f, int32 *seq, double *a1, double *a2);
+static void browse_replace_column(char *var, char *form, double **dat, int32 n);
+static void browse_unreplace_column(void);
+static void browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
                          Browser b);
-static void find_value(int32 col, double val, int32 *row, Browser b);
+static void browse_find_value(int32 col, double val, int32 *row, Browser b);
 static void browse_but_on(Browser *b, int32 i, Window window, int32 yn);
 static void enter_browser(XEvent event, Browser *b, int32 yn);
 static void display_browser(Window window, Browser b);
 static void redraw_browser(Browser b);
-static void draw_data(Browser b);
+static void browse_draw_data(Browser b);
 static void kill_browser(Browser *b);
 static void make_browser(Browser *b, char *wname, char *iname, int32 row,
                          int32 col);
@@ -165,7 +165,7 @@ write_browser_data(FILE *fp, Browser *b) {
 }
 
 int32
-check_for_stor(double **data) {
+browse_check_for_stor(double **data) {
     if (data != storage) {
         ggets_err_msg("Only data can be in browser");
         return 0;
@@ -174,11 +174,11 @@ check_for_stor(double **data) {
 }
 
 void
-data_del_col(Browser *b) {
+browse_data_del_col(Browser *b) {
     /*  this only works with storage  */
     Window window;
     int32 rev;
-    if (check_for_stor(b->data) == 0)
+    if (browse_check_for_stor(b->data) == 0)
         return;
     XGetInputFocus(display, &window, &rev);
     ggets_err_msg("Sorry - not working very well yet...");
@@ -186,12 +186,12 @@ data_del_col(Browser *b) {
 }
 
 void
-data_add_col(Browser *b) {
+browse_data_add_col(Browser *b) {
     Window window;
     int32 rev;
     int32 status;
     char var[20], form[80];
-    if (check_for_stor(b->data) == 0)
+    if (browse_check_for_stor(b->data) == 0)
         return;
     XGetInputFocus(display, &window, &rev);
     strcpy(var, "");
@@ -201,13 +201,13 @@ data_add_col(Browser *b) {
         status =
             get_dialog("Add Column", "Formula:", form, "Add it", "Cancel", 80);
         if (status != 0)
-            add_stor_col(var, form, b);
+            browse_add_stor_col(var, form, b);
     }
     return;
 }
 
 int32
-add_stor_col(char *name, char *formula, Browser *b) {
+browse_add_stor_col(char *name, char *formula, Browser *b) {
     int32 com[4000], i, j;
 
     if (add_expr(formula, com, &i)) {
@@ -253,7 +253,7 @@ add_stor_col(char *name, char *formula, Browser *b) {
 }
 
 void
-chk_seq(char *f, int32 *seq, double *a1, double *a2) {
+browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
     int32 i, j = -1;
     char n1[256], n2[256];
     int32 n = (int32)strlen(f);
@@ -285,7 +285,7 @@ chk_seq(char *f, int32 *seq, double *a1, double *a2) {
 }
 
 void
-replace_column(char *var, char *form, double **dat, int32 n) {
+browse_replace_column(char *var, char *form, double **dat, int32 n) {
     int32 com[200], i, j;
     int32 intflag = 0;
     int32 dif_var = -1;
@@ -318,7 +318,7 @@ replace_column(char *var, char *form, double **dat, int32 n) {
     }
 
     if (dif_var < 0)
-        chk_seq(form, &seq, &a1, &a2);
+        browse_chk_seq(form, &seq, &a1, &a2);
     if (seq == 1) {
         if (a1 == a2)
             seq = 3;
@@ -401,7 +401,7 @@ browse_wipe_rep(void) {
 }
 
 void
-unreplace_column(void) {
+browse_unreplace_column(void) {
     int32 i, n = my_browser.maxrow;
     if (!REPLACE)
         return;
@@ -412,7 +412,7 @@ unreplace_column(void) {
 }
 
 void
-make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
+browse_make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
     int32 i, npts, ok;
     FILE *fp;
     browse_open_write_file(&fp, filename, &ok);
@@ -430,7 +430,7 @@ make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
 }
 
 void
-find_value(int32 col, double val, int32 *row, Browser b) {
+browse_find_value(int32 col, double val, int32 *row, Browser b) {
     int32 n = b.maxrow;
     int32 i;
     int32 ihot = 0;
@@ -588,7 +588,7 @@ display_browser(Window window, Browser b) {
         }
     }
     if (window == b.main)
-        draw_data(b);
+        browse_draw_data(b);
     return;
 }
 
@@ -597,7 +597,7 @@ redraw_browser(Browser b) {
     int32 i;
     int32 i0;
     Window window;
-    draw_data(b);
+    browse_draw_data(b);
     for (i = 0; i < BMAXCOL; i++) {
         window = b.label[i];
         i0 = i + b.col0 - 1;
@@ -616,7 +616,7 @@ refresh_browser(int32 length) {
     my_browser.maxrow = length;
     my_browser.iend = length;
     if (Xup && my_browser.xflag == 1)
-        draw_data(my_browser);
+        browse_draw_data(my_browser);
     return;
 }
 
@@ -628,7 +628,7 @@ reset_browser(void) {
 }
 
 void
-draw_data(Browser b) {
+browse_draw_data(Browser b) {
     int32 i, i0, j, j0;
     int32 x0;
     char string[50];
@@ -1020,12 +1020,12 @@ browse_button(XEvent event, Browser *b) {
     }
 
     if (w == b->addcol) {
-        data_add_col(b);
+        browse_data_add_col(b);
         return;
     }
 
     if (w == b->delcol) {
-        data_del_col(b);
+        browse_data_del_col(b);
         return;
     }
 
@@ -1160,12 +1160,12 @@ browse_keypress(XEvent event, int32 *used, Browser *b) {
         }
 
         if (ks == 'a' || ks == 'A') {
-            data_add_col(b);
+            browse_data_add_col(b);
             return;
         }
 
         if (ks == 'd' || ks == 'D') {
-            data_del_col(b);
+            browse_data_del_col(b);
             return;
         }
 
@@ -1182,7 +1182,7 @@ void
 data_up(Browser *b) {
     if (b->row0 > 0) {
         b->row0--;
-        draw_data(*b);
+        browse_draw_data(*b);
     }
     return;
 }
@@ -1191,7 +1191,7 @@ void
 data_down(Browser *b) {
     if (b->row0 < (b->maxrow - 1)) {
         b->row0++;
-        draw_data(*b);
+        browse_draw_data(*b);
     }
     return;
 }
@@ -1203,7 +1203,7 @@ data_pgup(Browser *b) {
         b->row0 = i;
     else
         b->row0 = 0;
-    draw_data(*b);
+    browse_draw_data(*b);
     return;
 }
 
@@ -1214,7 +1214,7 @@ data_pgdn(Browser *b) {
         b->row0 = i;
     else
         b->row0 = b->maxrow - 1;
-    draw_data(*b);
+    browse_draw_data(*b);
     return;
 }
 
@@ -1223,14 +1223,14 @@ data_home(Browser *b) {
     b->row0 = 0;
     b->istart = 0;
     b->iend = b->maxrow;
-    draw_data(*b);
+    browse_draw_data(*b);
     return;
 }
 
 void
 data_end(Browser *b) {
     b->row0 = b->maxrow - 1;
-    draw_data(*b);
+    browse_draw_data(*b);
     return;
 }
 
@@ -1283,8 +1283,8 @@ data_replace(Browser *b) {
         status =
             get_dialog("Replace", "Formula:", form, "Replace", "Cancel", 80);
         if (status != 0)
-            replace_column(var, form, b->data, b->maxrow);
-        draw_data(*b);
+            browse_replace_column(var, form, b->data, b->maxrow);
+        browse_draw_data(*b);
     }
 
     XSetInputFocus(display, window, rev, CurrentTime);
@@ -1293,8 +1293,8 @@ data_replace(Browser *b) {
 
 void
 data_unreplace(Browser *b) {
-    unreplace_column();
-    draw_data(*b);
+    browse_unreplace_column();
+    browse_draw_data(*b);
     return;
 }
 
@@ -1325,7 +1325,7 @@ data_table(Browser *b) {
     xhi = atof(value[2]);
     browse_find_variable(value[0], &col);
     if (col >= 0)
-        make_d_table(xlo, xhi, col, value[3], *b);
+        browse_make_d_table(xlo, xhi, col, value[3], *b);
     return;
 }
 
@@ -1353,10 +1353,10 @@ data_find(Browser *b) {
     val = (double)atof(value[1]);
     browse_find_variable(value[0], &col);
     if (col >= 0)
-        find_value(col, val, &row, *b);
+        browse_find_value(col, val, &row, *b);
     if (row >= 0) {
         b->row0 = row;
-        draw_data(*b);
+        browse_draw_data(*b);
     }
     return;
 }
@@ -1441,7 +1441,7 @@ data_read(Browser *b) {
     refresh_browser(len);
     storind = len;
     /*  b->maxrow=len;
-    draw_data(*b); */
+    browse_draw_data(*b); */
     return;
 }
 
