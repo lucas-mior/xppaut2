@@ -77,7 +77,6 @@ static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
 static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
 static void movie_rot(double start, double increment, int32 nclip, int32 angle);
-static void graf_par_user_window(void);
 static void fit_window(void);
 static void corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
 static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
@@ -470,31 +469,6 @@ graf_par_check_windows(void) {
     return;
 }
 
-void
-graf_par_user_window(void) {
-    static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xlo);
-    snprintf(values[2], sizeof(values[2]), "%g", MyGraph->ylo);
-    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->xhi);
-    snprintf(values[3], sizeof(values[3]), "%g", MyGraph->yhi);
-    status = do_string_box(4, 2, 2, "Window", n, values, 28);
-    if (status != 0) {
-        MyGraph->xlo = atof(values[0]);
-        MyGraph->ylo = atof(values[2]);
-        MyGraph->xhi = atof(values[1]);
-        MyGraph->yhi = atof(values[3]);
-        if (MyGraph->grtype < 5) {
-            MyGraph->xmin = MyGraph->xlo;
-            MyGraph->xmax = MyGraph->xhi;
-            MyGraph->ymin = MyGraph->ylo;
-            MyGraph->ymax = MyGraph->yhi;
-        }
-        graf_par_check_windows();
-    }
-    graf_par_redraw_the_graph();
-}
 
 void
 graf_par_xi_vs_t(void) {
@@ -707,8 +681,32 @@ graf_par_window_zoom_com(int32 c) {
     int32 i1, i2, j1, j2;
     switch (c) {
     case 0:
-        graf_par_user_window();
+    {
+        /* graf par user window */
+        static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xlo);
+        snprintf(values[2], sizeof(values[2]), "%g", MyGraph->ylo);
+        snprintf(values[1], sizeof(values[1]), "%g", MyGraph->xhi);
+        snprintf(values[3], sizeof(values[3]), "%g", MyGraph->yhi);
+        status = do_string_box(4, 2, 2, "Window", n, values, 28);
+        if (status != 0) {
+            MyGraph->xlo = atof(values[0]);
+            MyGraph->ylo = atof(values[2]);
+            MyGraph->xhi = atof(values[1]);
+            MyGraph->yhi = atof(values[3]);
+            if (MyGraph->grtype < 5) {
+                MyGraph->xmin = MyGraph->xlo;
+                MyGraph->xmax = MyGraph->xhi;
+                MyGraph->ymin = MyGraph->ylo;
+                MyGraph->ymax = MyGraph->yhi;
+            }
+            graf_par_check_windows();
+        }
+        graf_par_redraw_the_graph();
         break;
+    }
     case 1:
 
         /*  XSelectInput(display,w,
