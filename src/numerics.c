@@ -38,7 +38,6 @@ int32 cv_bandlower = 1;
 /*   I will need access to storage  */
 
 static void numerics_get_method(void);
-static void numerics_ruelle(void);
 static void numerics_check_pos(int32 *j);
 
 void
@@ -227,9 +226,20 @@ numerics_get_num_par(int32 ch)
         menudrive_get_pmap_pars();
         break;
     case 'u':
+    {
         /* ruelle */
-        numerics_ruelle();
+        /* numerics ruelle */
+        ggets_new_int("x-axis shift ", &(MyGraph->xshft));
+        ggets_new_int("y-axis shift ", &(MyGraph->yshft));
+        ggets_new_int("z-axis shift", &(MyGraph->zshft));
+        if (MyGraph->xshft < 0)
+            MyGraph->xshft = 0;
+        if (MyGraph->yshft < 0)
+            MyGraph->yshft = 0;
+        if (MyGraph->zshft < 0)
+            MyGraph->zshft = 0;
         break;
+    }
     case 'k':
         /*lookup table */
         menudrive_new_lookup();
@@ -271,19 +281,6 @@ numerics_set_delay(void) {
     return;
 }
 
-void
-numerics_ruelle(void) {
-    ggets_new_int("x-axis shift ", &(MyGraph->xshft));
-    ggets_new_int("y-axis shift ", &(MyGraph->yshft));
-    ggets_new_int("z-axis shift", &(MyGraph->zshft));
-    if (MyGraph->xshft < 0)
-        MyGraph->xshft = 0;
-    if (MyGraph->yshft < 0)
-        MyGraph->yshft = 0;
-    if (MyGraph->zshft < 0)
-        MyGraph->zshft = 0;
-    return;
-}
 
 void
 numerics_compute_one_period(double period, double *x, char *name) {
