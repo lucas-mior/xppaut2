@@ -481,10 +481,18 @@ void
 auto_nox_do(int32 iold, int32 isave) {
     auto_x11_redraw_menus();
 
-    auto_nox_set_auto(); /* this sets up all the continuation initialization
-                   it is equivalent to reading in auto parameters
-                   and running init in auto
-                */
+    /* auto_nox_set_auto */
+    /* this sets up all the continuation initialization
+     * it is equivalent to reading in auto parameters
+     * and running init in auto */
+
+    /* Caution - need to include NICP here */
+    NAutoUzr = Auto.nper;
+    autevd_init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
+                     Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds,
+                     Auto.dsmin, Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0,
+                     Auto.a1, Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4,
+                     Auto.icp5, Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
 
     auto_nox_open(iold); /* this copies the relevant files .s  to fort.3 */
     go_go_auto();        /* this complets the initialization and calls the
@@ -506,18 +514,6 @@ auto_nox_do(int32 iold, int32 isave) {
     }
     ggets_ping();
     init_conds_redraw_params();
-}
-
-void
-auto_nox_set_auto(void) {
-    /* Caution - need to include NICP here */
-    NAutoUzr = Auto.nper;
-    autevd_init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
-                     Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds,
-                     Auto.dsmin, Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0,
-                     Auto.a1, Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4,
-                     Auto.icp5, Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
-    return;
 }
 
 int32
