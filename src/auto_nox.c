@@ -445,24 +445,6 @@ auto_close(int32 flg) {
     return;
 }
 
-static void
-auto_nox_create_file_name(void) {
-    char *basec, *bname, *dirc, *dname;
-    char *HOME;
-
-    basec = strdup(this_file);
-    dirc = strdup(this_file);
-    bname = (char *)basename(basec);
-    dname = (char *)dirname(dirc);
-
-    HOME = getenv("HOME");
-    if (HOME == NULL)
-        HOME = dname;
-
-    sprintf(this_auto_file, "%s/%s", HOME, bname);
-    return;
-}
-
 void
 auto_nox_open(int32 flg) {
     /* compatible with new auto */
@@ -1454,7 +1436,23 @@ auto_nox_init_win(void) {
     for (i = 0; i < NODE; i++)
         blrtn.nrot[i] = 0;
     blrtn.torper = TOR_PERIOD;
-    auto_nox_create_file_name();
+
+    {
+        /* auto nox create file name */
+        char *basec, *bname, *dirc, *dname;
+        char *HOME;
+
+        basec = strdup(this_file);
+        dirc = strdup(this_file);
+        bname = (char *)basename(basec);
+        dname = (char *)dirname(dirc);
+
+        HOME = getenv("HOME");
+        if (HOME == NULL)
+            HOME = dname;
+
+        sprintf(this_auto_file, "%s/%s", HOME, bname);
+    }
 
     /*  Control -- done automatically   */
     Auto.irs = 0;
