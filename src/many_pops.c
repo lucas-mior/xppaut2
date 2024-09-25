@@ -73,7 +73,6 @@ static void many_pops_add_pntarr(int32 type);
 static void many_pops_add_markers(void);
 static void many_pops_add_marker(void);
 static int32 many_pops_get_markers_info(void);
-static int32 many_pops_get_marker_info(void);
 static int32 many_pops_select_marker_type(int32 *type);
 static void many_pops_destroy_label(Window window);
 static void many_pops_destroy_grob(Window window);
@@ -665,23 +664,6 @@ many_pops_select_marker_type(int32 *type) {
     return 1;
 }
 
-int32
-many_pops_get_marker_info(void) {
-    static char *n[] = {"*5Type", "*4Color", "Size"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
-    snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
-    snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
-    status = do_string_box(3, 3, 1, "Add Marker", n, values, 25);
-    if (status != 0) {
-        markinfo.type = atoi(values[0]);
-        markinfo.size = atof(values[2]);
-        markinfo.color = atoi(values[1]);
-        return 1;
-    }
-    return 0;
-}
 
 int32
 many_pops_get_markers_info(void) {
@@ -710,11 +692,25 @@ many_pops_get_markers_info(void) {
 
 void
 many_pops_add_marker(void) {
-    int32 flag, i1, j1, status;
+    int32 flag, i1, j1;
     double xe = 0.0, ye = 0.0, xs, ys;
-    status = many_pops_get_marker_info();
-    if (status == 0)
-        return;
+    {
+        /* many pops get marker info */
+        static char *n[] = {"*5Type", "*4Color", "Size"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
+        snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
+        snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
+        status = do_string_box(3, 3, 1, "Add Marker", n, values, 25);
+        if (status == 0)
+            return;
+
+        markinfo.type = atoi(values[0]);
+        markinfo.size = atof(values[2]);
+        markinfo.color = atoi(values[1]);
+    }
+
     menudrive_message_box("Position");
     flag = menudrive_get_mouse_xy(&i1, &j1);
     menudrive_message_box_kill();
