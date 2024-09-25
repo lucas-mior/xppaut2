@@ -34,9 +34,6 @@ static int32 kinescope_show_frame(int32 i, int32 h, int32 w);
 
 void
 kinescope_do_movie_com(int32 c) {
-    /*  XDestroyWindow(display,temp);
-      menu_draw_help();
-      XFlush(display); */
     switch (c) {
     case 0:
         if (kinescope_film_clip() == 0)
