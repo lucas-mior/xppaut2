@@ -58,13 +58,11 @@ static int32 get_frz_index(Window window);
 static void read_bd(FILE *fp);
 static void frz_bd(void);
 static void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
-static void free_bd(void);
 static void draw_bd(Window window);
 static void draw_frozen_cline(int32 index, Window window);
 static void edit_frz_crv(int32 i);
 static int32 create_crv(int32 ind);
 static int32 freeze_crv(int32 ind);
-static void kill_frz(void);
 static void delete_frz(void);
 static void delete_frz_crv(int32 i);
 static void edit_frz(void);
@@ -957,16 +955,24 @@ graf_par_freeze_com(int32 c) {
         edit_frz();
         break;
     case 3:
-        kill_frz();
+        /* kill frz */
+        for (int32 i = 0; i < MAXFRZ; i++) {
+            if (frz[i].use == 1 && frz[i].window == draw_win)
+                delete_frz_crv(i);
+        }
         break;
-        /*case 4:
-        key_frz();
-        break; */
     case 5:
         frz_bd();
         break;
     case 6:
-        free_bd();
+        /* free bd */
+        if (my_bd.nbifcrv > 0) {
+            for (int32 i = 0; i < my_bd.nbifcrv; i++) {
+                free(my_bd.x[i]);
+                free(my_bd.y[i]);
+            }
+            my_bd.nbifcrv = 0;
+        }
         break;
     case 7:
         AutoFreezeFlag = 1 - AutoFreezeFlag;
@@ -1071,15 +1077,6 @@ delete_frz(void) {
     return;
 }
 
-void
-kill_frz(void) {
-    int32 i;
-    for (i = 0; i < MAXFRZ; i++) {
-        if (frz[i].use == 1 && frz[i].window == draw_win)
-            delete_frz_crv(i);
-    }
-    return;
-}
 
 int32
 freeze_crv(int32 ind) {
@@ -1249,18 +1246,6 @@ draw_bd(Window window) {
     return;
 }
 
-void
-free_bd(void) {
-    int32 i;
-    if (my_bd.nbifcrv > 0) {
-        for (i = 0; i < my_bd.nbifcrv; i++) {
-            free(my_bd.x[i]);
-            free(my_bd.y[i]);
-        }
-        my_bd.nbifcrv = 0;
-    }
-    return;
-}
 
 void
 add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
