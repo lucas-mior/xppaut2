@@ -1665,7 +1665,25 @@ auto_run(void) {
         char ch2;
         HomoFlag = 0;
         if (METHOD == DISCRETE) {
-            auto_new_discrete();
+            /* auto new discrete */
+            int32 opn = NO_OPEN_3, cls = OVERWRITE;
+            NewPeriodFlag = 0;
+
+            if (NBifs > 1)
+                auto_nox_reset();
+
+            TypeOfCalc = DI1;
+            Auto.ips = -1;
+            Auto.irs = 0;
+            Auto.itp = 0;
+            Auto.ilp = 1;
+            Auto.isw = 1;
+            Auto.isp = 1;
+            if (SuppressBP == 1)
+                Auto.isp = 0;
+            Auto.nfpar = 1;
+            AutoTwoParam = 0;
+            auto_nox_do(opn, cls);
             return;
         }
         ch2 = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
@@ -2022,28 +2040,6 @@ auto_new_ss(void) {
     return;
 }
 
-void
-auto_new_discrete(void) {
-    int32 opn = NO_OPEN_3, cls = OVERWRITE;
-    NewPeriodFlag = 0;
-
-    if (NBifs > 1)
-        auto_nox_reset();
-
-    TypeOfCalc = DI1;
-    Auto.ips = -1;
-    Auto.irs = 0;
-    Auto.itp = 0;
-    Auto.ilp = 1;
-    Auto.isw = 1;
-    Auto.isp = 1;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-    Auto.nfpar = 1;
-    AutoTwoParam = 0;
-    auto_nox_do(opn, cls);
-    return;
-}
 
 void
 auto_extend_ss(void) {
