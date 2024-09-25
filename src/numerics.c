@@ -152,11 +152,11 @@ numerics_get_num_par(int32 ch)
     {
         /* method */
         /* numerics get method */
-        char ch;
+        char ch2;
         int32 i2;
         int32 nmeth;
 
-        Window temp = main_win;
+        Window temp2 = main_win;
         static char *n[] = {"(D)iscrete",    "(E)uler",   "(M)od. Euler",
                             "(R)unge-Kutta", "(A)dams",   "(G)ear",
                             "(V)olterra",    "(B)ackEul", "(Q)ualst.RK4",
@@ -169,10 +169,10 @@ numerics_get_num_par(int32 ch)
 #else
         nmeth = 15;
 #endif
-        ch = (char)pop_up_list(&temp, "Method", n, key, nmeth, 15, METHOD, 10,
+        ch2 = (char)pop_up_list(&temp2, "Method", n, key, nmeth, 15, METHOD, 10,
                                DCURY + 8, meth_hint, info_pop, info_message);
         for (i2 = 0; i2 < nmeth; i2++) {
-            if (ch == key[i2])
+            if (ch2 == key[i2])
                 METHOD = i2;
         }
         if (i2 > (nmeth - 1))
