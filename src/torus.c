@@ -17,7 +17,9 @@
      EnterWindowMask | LeaveWindowMask)
 
 static struct TorusBox {
-    Window base, done, cancel;
+    Window base;
+    Window done;
+    Window cancel;
     Window window[MAX_ODE];
 } torbox;
 
