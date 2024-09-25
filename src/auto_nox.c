@@ -1938,8 +1938,29 @@ auto_run(void) {
 
 void
 auto_homo_choice(int32 itp) {
-    if (itp != 5)
-        auto_extend_homoclinic();
+    if (itp != 5) {
+        /* auto extend homoclinic */
+        Auto.irs = grabpt.lab;
+        Auto.itp = grabpt.itp;
+
+        TypeOfCalc = HO2;
+        AutoTwoParam = HO2;
+        NewPeriodFlag = 1;
+        Auto.ips = 9;
+
+        Auto.nfpar = 2;
+        Auto.ilp = 1;
+        Auto.isw = 1;
+        Auto.isp = 0;
+        Auto.nbc = 0;
+
+        if (HomoFlag == 1)
+            x_auto.iequib = 1;
+        if (HomoFlag == 2)
+            x_auto.iequib = -2;
+
+        auto_nox_do(OPEN_3, APPEND);
+    }
     return;
 }
 
@@ -2117,30 +2138,6 @@ auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
     return flag;
 }
 
-void
-auto_extend_homoclinic(void) {
-    Auto.irs = grabpt.lab;
-    Auto.itp = grabpt.itp;
-
-    TypeOfCalc = HO2;
-    AutoTwoParam = HO2;
-    NewPeriodFlag = 1;
-    Auto.ips = 9;
-
-    Auto.nfpar = 2;
-    Auto.ilp = 1;
-    Auto.isw = 1;
-    Auto.isp = 0;
-    Auto.nbc = 0;
-
-    if (HomoFlag == 1)
-        x_auto.iequib = 1;
-    if (HomoFlag == 2)
-        x_auto.iequib = -2;
-
-    auto_nox_do(OPEN_3, APPEND);
-    return;
-}
 
 void
 auto_start_at_homoclinic(void) {
