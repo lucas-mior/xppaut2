@@ -1654,29 +1654,6 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
 }
 
 void
-auto_nox_torus_choice(void) {
-    static char *m[] = {"Two Param", "Fixed period", "Extend"};
-    /*static char *m[]={"Fixed period","Extend"}; */
-    static char key[] = "tfe";
-    char ch;
-    ch = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
-                                    Auto.hinttxt);
-    if (ch == 'e') {
-        auto_new_per();
-        return;
-    }
-    if (ch == 'f') {
-        auto_2p_fixper();
-        return;
-    }
-    if (ch == 't') {
-        auto_torus();
-        return;
-    }
-    auto_x11_redraw_menus();
-}
-
-void
 auto_nox_per_doub_choice(void) {
     static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
     static char key[] = "dtfe";
@@ -1853,7 +1830,27 @@ auto_run(void) {
         return;
     }
     if (itp1 == 8 || itp2 == 8) { /* Torus 2 parameter */
-        auto_nox_torus_choice();
+        /* auto_nox_torus_choice */
+        static char *m[] = {"Two Param", "Fixed period", "Extend"};
+        /*static char *m[]={"Fixed period","Extend"}; */
+        static char key[] = "tfe";
+        char ch;
+        ch = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
+                                        Auto.hinttxt);
+        if (ch == 'e') {
+            auto_new_per();
+            return;
+        }
+        if (ch == 'f') {
+            auto_2p_fixper();
+            return;
+        }
+        if (ch == 't') {
+            auto_torus();
+            return;
+        }
+        auto_x11_redraw_menus();
+
         ggets_ping();
         return;
     }
