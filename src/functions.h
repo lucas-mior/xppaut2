@@ -3668,7 +3668,7 @@ void ps_fnt(int32 cf, int32 scale);
 void ps_show(char *str, int32 type);
 void ps_abs(int32 x, int32 y);
 void ps_rel(int32 x, int32 y);
-void special_put_text_ps(int32 x, int32 y, char *str, int32 size);
+void ps_special_put_text(int32 x, int32 y, char *str, int32 size);
 void ps_text(int32 x, int32 y, char *str);
 
 #endif

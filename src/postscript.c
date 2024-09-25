@@ -109,7 +109,7 @@ static char *PS_header[] = {
     NULL};
 
 static void ps_write(char *str);
-static void chk_ps_lines(void);
+static void ps_check_lines(void);
 
 int32
 ps_init(char *filename, int32 color) {
@@ -218,32 +218,32 @@ ps_line(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
         fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
         LastPSX = xp2;
         LastPSY = yp2;
-        chk_ps_lines();
+        ps_check_lines();
         return;
     }
     if (xp1 == LastPSX && yp1 == LastPSY) {
         LastPSX = xp2;
         LastPSY = yp2;
         fprintf(psfile, "%d %d L\n", xp2, yp2);
-        chk_ps_lines();
+        ps_check_lines();
         return;
     }
     if (xp2 == LastPSX && yp2 == LastPSY) {
         LastPSX = xp1;
         LastPSY = yp1;
         fprintf(psfile, "%d %d L\n", xp1, yp1);
-        chk_ps_lines();
+        ps_check_lines();
         return;
     }
     fprintf(psfile, "%d %d M\n%d %d L\n", xp1, yp1, xp2, yp2);
     LastPSX = xp2;
     LastPSY = yp2;
-    chk_ps_lines();
+    ps_check_lines();
     return;
 }
 
 void
-chk_ps_lines(void) {
+ps_check_lines(void) {
     PSLines++;
     if (PSLines >= MAXPSLINE) {
         fprintf(psfile, "currentpoint stroke moveto\n");
@@ -327,7 +327,7 @@ ps_rel(int32 x, int32 y) {
 }
 
 void
-special_put_text_ps(int32 x, int32 y, char *str, int32 size) {
+ps_special_put_text(int32 x, int32 y, char *str, int32 size) {
     int32 i = 0, j = 0, type = 1;
     int32 cf = 0;
     /*int32 cs;*/

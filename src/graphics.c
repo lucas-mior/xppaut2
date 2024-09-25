@@ -1140,7 +1140,7 @@ graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
     graphics_scale_to_screen(x, y, &xp, &yp);
     graphics_fillin_text(old, text);
     if (PltFmtFlag == PSFMT)
-        special_put_text_ps(xp, yp, text, size);
+        ps_special_put_text(xp, yp, text, size);
     else if (PltFmtFlag == SVGFMT)
         special_put_text_svg(xp, yp, text, size);
     else
