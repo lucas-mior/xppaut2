@@ -162,7 +162,6 @@ static void ani_button(Window window);
 static void ani_resize(int32 x, int32 y);
 static void ani_check_on_the_fly(void);
 static void ani_frame(int32 task);
-static void ani_set_from_init_data(void);
 static void ani_flip1(int32 n);
 static void ani_flip(void);
 static int32 ani_new_file(char *filename);
@@ -819,16 +818,6 @@ ani_frame(int32 task) {
               (uint)vcr.hgt, 0, 0);
 
     XFlush(display);
-    return;
-}
-
-void
-ani_set_from_init_data(void) {
-    double y[MAX_ODE];
-    for (int32 i = 0; i < NODE + NMarkov; i++) {
-        y[i] = last_ic[i];
-    }
-    set_fix_rhs(T0, y);
     return;
 }
 
@@ -2086,19 +2075,16 @@ render_ani(void) {
 
 void
 set_ani_perm(void) {
-    /*double t;
-    double y[MAX_ODE];
-    double **ss;
-    */
-    int32 i;
     int32 type;
-    ani_set_from_init_data();
-    /* ss=my_browser.data;
-     t=(double)ss[0][0];
-   for(i=0;i<NODE+NMarkov;i++)
-     y[i]=(double)ss[i+1][0];
-     set_fix_rhs(t,y); */
-    for (i = 0; i < n_anicom; i++) {
+
+    /* ani set from init data */
+    double y[MAX_ODE];
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
+        y[i] = last_ic[i];
+    }
+    set_fix_rhs(T0, y);
+
+    for (int32 i = 0; i < n_anicom; i++) {
         type = my_ani[i].type;
         if (my_ani[i].flag == PERMANENT) {
             if (my_ani[i].type != SETTEXT)
