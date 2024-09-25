@@ -913,12 +913,6 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
 }
 
 
-void
-new_curve(void) {
-    if (graf_par_alter_curve("New Curve", 0, MyGraph->nvars))
-        MyGraph->nvars = MyGraph->nvars + 1;
-    return;
-}
 
 void
 create_ps(void) {
@@ -1460,7 +1454,9 @@ graf_par_add_a_curve_com(int32 c) {
             ggets_err_msg("Too many plots!");
             return;
         }
-        new_curve();
+        /* new curve */
+        if (graf_par_alter_curve("New Curve", 0, MyGraph->nvars))
+            MyGraph->nvars = MyGraph->nvars + 1;
         break;
     case 1:
         if (MyGraph->nvars > 1)
