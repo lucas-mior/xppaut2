@@ -187,6 +187,8 @@ static int32 simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n
                           char *vname, int32 *m, char *tname[MAXW]);
 static int32 simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length,
                              int32 *il, int32 *ir);
+static int32 getimpstr(char *in, int32 *i, char *out);
+static int32 simplenet_import_error(void);
 
 static Network my_net[MAX_NET];
 static int32 n_network = 0;
@@ -1588,7 +1590,7 @@ g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2) {
     return 1;
 }
 
-static int32
+int32
 getimpstr(char *in, int32 *i, char *out) {
     int32 j = 0;
     int32 done = 1;
@@ -1616,7 +1618,7 @@ getimpstr(char *in, int32 *i, char *out) {
     return k;
 }
 
-static int32
+int32
 simplenet_import_error(void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
