@@ -545,7 +545,7 @@ add_table_name(int32 index, char *name) {
 
 int32
 add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
-    if (create_fun_table(nn, xlo, xhi, formula, index) == 0) {
+    if (tabular_create_fun(nn, xlo, xhi, formula, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
         return 1;

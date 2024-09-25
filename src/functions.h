@@ -4264,21 +4264,21 @@ void spgmr_free(SpgmrMem mem);
 #ifndef STIFF_H
 #define STIFF_H
 
-void jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
+void stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
             double *work, int32 n);
-int32 adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
+int32 stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
                double *hguess, double hmin, double *work, int32 *ier,
                double epjac, int32 iflag, int32 *jstart);
-int32 gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
+int32 stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
                 double *hguess, double hmin, double *work, int32 *ier,
                 double epjac, int32 iflag);
 int32 stiff(double y[], double dydx[], int32 n, double *x, double htry,
             double eps, double yscal[], double *hdid, double *hnext,
             double *work, double epjac, int32 *ier);
-int32 rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
+int32 stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
            double *yscal, double *hdid, double *hnext, double *work,
            int32 *ier);
-void rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
+void stiff_rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
           double *yerr, double *work);
 
 #endif
@@ -4321,7 +4321,7 @@ void tabular_new_lookup_com(int32 i);
 double tabular_lookup(double x, int32 index);
 void tabular_init_table(void);
 void tabular_redo_all_fun_tables(void);
-int32 create_fun_table(int32 npts, double xlo, double xhi, char *formula,
+int32 tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
                        int32 index);
 int32 tabular_load_table(char *filename, int32 index);
 int32 tabular_get_lookup_len(int32 i);

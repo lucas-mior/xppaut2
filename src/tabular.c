@@ -65,11 +65,11 @@ to be added later
 
 Tabular my_table[MAX_TAB];
 
-static int32 eval_fun_table(int32 n, double xlo, double xhi, char *formula,
+static int32 tabular_eval_fun(int32 n, double xlo, double xhi, char *formula,
                             double *y);
-static double tab_interp(double xlo, double h, double x, double *y, int32 i);
-static double lookupxy(double x, int32 n, double *xv, double *yv);
-static void view_table(int32 index);
+static double tabular_interp(double xlo, double h, double x, double *y, int32 i);
+static double tabular_lookup_xy(double x, int32 n, double *xv, double *yv);
+static void tabular_view(int32 index);
 
 void
 tabular_set_auto_eval_flags(int32 f) {
@@ -86,7 +86,7 @@ tabular_set_table_name(char *name, int32 index) {
 }
 
 void
-view_table(int32 index) {
+tabular_view(int32 index) {
     int32 i;
     int32 n = my_table[index].n, len;
     double *y = my_table[index].y;
@@ -115,7 +115,7 @@ tabular_new_lookup_com(int32 i) {
     if (index == -1)
         return;
     if (i == 1) {
-        view_table(index);
+        tabular_view(index);
         return;
     }
     if (my_table[index].flag == 1) {
@@ -138,13 +138,13 @@ tabular_new_lookup_com(int32 i) {
         ggets_new_float("Xlo: ", &xlo);
         ggets_new_float("Xhi: ", &xhi);
         ggets_new_string("Formula :", newform);
-        create_fun_table(npts, xlo, xhi, newform, index);
+        tabular_create_fun(npts, xlo, xhi, newform, index);
     }
     return;
 }
 
 double
-lookupxy(double x, int32 n, double *xv, double *yv) {
+tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
     double dx, dy, x1, y1, x2, y2;
     int32 i;
     if (x <= xv[0])
@@ -169,7 +169,7 @@ lookupxy(double x, int32 n, double *xv, double *yv) {
 }
 
 double
-tab_interp(double xlo, double h, double x, double *y, int32 i) {
+tabular_interp(double xlo, double h, double x, double *y, int32 i) {
     double a, b, c, d;
     double ym, y0, y1, y2;
     double tt;
@@ -197,12 +197,12 @@ tabular_lookup(double x, int32 index) {
     if (my_table[index].flag == 0)
         return 0.0; /* Not defined   */
     if (my_table[index].xyvals == 1)
-        return lookupxy(x, n, my_table[index].x, y);
+        return tabular_lookup_xy(x, n, my_table[index].x, y);
 
     i1 = (int32)((x - xlo) / dx); /* (int32)floor(x) instead of (int32)x ??? */
     if (my_table[index].interp == 2 && i1 > 0 && i1 < (n - 2)) {
         /* if it is on the edge - use linear */
-        return tab_interp(xlo, dx, x, y, i1);
+        return tabular_interp(xlo, dx, x, y, i1);
     }
     i2 = i1 + 1;
     if (i1 > -1 && i2 < n) {
@@ -244,7 +244,7 @@ tabular_redo_all_fun_tables(void) {
     int32 i;
     for (i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
-            eval_fun_table(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
+            tabular_eval_fun(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
                            my_table[i].filename, my_table[i].y);
     }
     simplenet_update_all_ffts();
@@ -252,7 +252,7 @@ tabular_redo_all_fun_tables(void) {
 }
 
 int32
-eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
+tabular_eval_fun(int32 n, double xlo, double xhi, char *formula, double *y) {
     int32 i;
 
     double dx;
@@ -277,7 +277,7 @@ eval_fun_table(int32 n, double xlo, double xhi, char *formula, double *y) {
 }
 
 int32
-create_fun_table(int32 npts, double xlo, double xhi, char *formula,
+tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
                  int32 index) {
     int32 length = npts;
 
@@ -305,7 +305,7 @@ create_fun_table(int32 npts, double xlo, double xhi, char *formula,
         return 0;
     }
     my_table[index].flag = 2;
-    if (eval_fun_table(npts, xlo, xhi, formula, my_table[index].y)) {
+    if (tabular_eval_fun(npts, xlo, xhi, formula, my_table[index].y)) {
         my_table[index].xlo = xlo;
         my_table[index].xhi = xhi;
         my_table[index].n = npts;

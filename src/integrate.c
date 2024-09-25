@@ -1810,7 +1810,7 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             break;
         case RKQS:
         case STIFF:
-            adaptive(xpv.x, nodes, t, tout, TOLER, &dt, HMIN, WORK, &kflag,
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, HMIN, WORK, &kflag,
                      NEWT_ERR, METHOD, istart);
             MSWTCH(y, xpv.x);
             if (kflag) {
@@ -2067,7 +2067,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK, &kflag,
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK, &kflag,
                      NEWT_ERR, METHOD, start);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);

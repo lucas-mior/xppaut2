@@ -42,7 +42,7 @@
 #define PSHRNK2 -0.25
 #define ERRCON2 1.89e-4
 void
-jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
+stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
        double *work, int32 n) {
     int32 i;
     int32 j;
@@ -72,12 +72,12 @@ jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
 }
 
 int32
-adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
+stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
          double *hguess, double hmin, double *work, int32 *ier, double epjac,
          int32 iflag, int32 *jstart) {
     int32 value;
     if (NFlags == 0) {
-        value = gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
+        value = stiff_gadaptive(ystart, nvar, xs, x2, eps, hguess, hmin, work, ier,
                           epjac, iflag);
         return value;
     }
@@ -87,7 +87,7 @@ adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
 }
 
 int32
-gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
+stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
           double *hguess, double hmin, double *work, int32 *ier, double epjac,
           int32 iflag) {
     double h1 = *hguess;
@@ -119,7 +119,7 @@ gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
             stiff(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2, epjac,
                   ier);
         else
-            rkqs(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2, ier);
+            stiff_rkqs(y, dydx, nvar, &x, h, eps, yscal, &hdid, &hnext, work2, ier);
         if (*ier > 0)
             return -1;
         if ((x - x2)*(x2 - x1) >= 0.0) {
@@ -168,7 +168,7 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
         ysav[i] = y[i];
         dysav[i] = dydx[i];
     }
-    jacobn(xsav, ysav, dfdx, dfdy, epjac, work2, n);
+    stiff_jacobn(xsav, ysav, dfdx, dfdy, epjac, work2, n);
     h = htry;
     for (jtry = 1; jtry <= MAXTRY; jtry++) {
         for (i = 0; i < n; i++) {
@@ -235,7 +235,7 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
 }
 
 int32
-rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
+stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
      double *yscal, double *hdid, double *hnext, double *work, int32 *ier) {
     int32 i;
     double errmax, h, htemp, xnew, *yerr, *ytemp;
@@ -246,7 +246,7 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
     h = htry;
     *ier = 0;
     for (;;) {
-        rkck(y, dydx, n, *x, h, ytemp, yerr, work2);
+        stiff_rkck(y, dydx, n, *x, h, ytemp, yerr, work2);
         errmax = 0.0;
         for (i = 0; i < n; i++)
             errmax = MAX(errmax, fabs(yerr[i] / yscal[i]));
@@ -276,7 +276,7 @@ rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
 
 /* This takes one step of Cash-Karp RK method */
 void
-rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
+stiff_rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
      double *yerr, double *work) {
     int32 i;
     static double a2 = 0.2, a3 = 0.3, a4 = 0.6, a5 = 1.0, a6 = 0.875, b21 = 0.2,
