@@ -153,7 +153,7 @@ numerics_get_num_par(int32 ch)
         /* method */
         /* numerics get method */
         char ch;
-        int32 i;
+        int32 i2;
         int32 nmeth;
 
         Window temp = main_win;
@@ -171,11 +171,12 @@ numerics_get_num_par(int32 ch)
 #endif
         ch = (char)pop_up_list(&temp, "Method", n, key, nmeth, 15, METHOD, 10,
                                DCURY + 8, meth_hint, info_pop, info_message);
-        for (i = 0; i < nmeth; i++)
-            if (ch == key[i])
-                METHOD = i;
-        if (i > (nmeth - 1))
-            i = nmeth - 1;
+        for (i2 = 0; i2 < nmeth; i2++) {
+            if (ch == key[i2])
+                METHOD = i2;
+        }
+        if (i2 > (nmeth - 1))
+            i2 = nmeth - 1;
     }
         if (METHOD == VOLTERRA && NKernel == 0) {
             ggets_err_msg("Volterra only for integral eqns");
