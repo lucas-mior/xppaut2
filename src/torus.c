@@ -27,7 +27,6 @@ static void draw_tor_var(int32 i);
 
 void
 do_torus_com(int32 c) {
-    int32 i;
     TORUS = 0;
     if (c == 0 || c == 2) {
         XEvent event;
@@ -42,7 +41,7 @@ do_torus_com(int32 c) {
             return;
         }
         if (c == 0) {
-            for (i = 0; i < MAX_ODE; i++)
+            for (int32 i = 0; i < MAX_ODE; i++)
                 itor[i] = 1;
             TORUS = 1;
             return;
@@ -107,12 +106,13 @@ do_torus_com(int32 c) {
         XDestroySubwindows(display, torbox.base);
         XDestroyWindow(display, torbox.base);
 
-        for (int32 i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++) {
             if (itor[i] == 1)
                 TORUS = 1;
+        }
         return;
     }
-    for (i = 0; i < MAX_ODE; i++)
+    for (int32 i = 0; i < MAX_ODE; i++)
         itor[i] = 0;
     TORUS = 0;
     return;
