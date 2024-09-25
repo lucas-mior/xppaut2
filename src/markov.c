@@ -49,7 +49,6 @@ int32 NWiener;
 static double markov_ran1(long *idum);
 static double markov_gammln(double xx);
 static void markov_init_stoch(int32 len);
-static void markov_free_stoch(void);
 static double markov_new_state(double old, int32 index, double dt);
 static void update_markov(double *x, double t, double dt);
 static int32 compile_markov(int32 index, int32 j, int32 k);
@@ -460,7 +459,15 @@ markov_do_stochast_com(int32 i) {
         break;
     case 'c':
         /* markov compute em */
-        markov_free_stoch();
+        /* markov free stoch */
+        if (STOCH_HERE) {
+            adj2_data_back();
+            for (int32 i = 0; i < (NEQ + 1); i++) {
+                free(my_mean[i]);
+                free(my_variance[i]);
+            }
+            STOCH_HERE = 0;
+        }
         STOCH_FLAG = 1;
         integrate_do_range(&MyData[0], 0);
         init_conds_redraw_ics();
@@ -533,19 +540,6 @@ markov_variance_back(void) {
 }
 
 
-void
-markov_free_stoch(void) {
-    int32 i;
-    if (STOCH_HERE) {
-        adj2_data_back();
-        for (i = 0; i < (NEQ + 1); i++) {
-            free(my_mean[i]);
-            free(my_variance[i]);
-        }
-        STOCH_HERE = 0;
-    }
-    return;
-}
 
 void
 markov_init_stoch(int32 len) {
