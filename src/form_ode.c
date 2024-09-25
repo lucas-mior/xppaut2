@@ -98,7 +98,6 @@ static void form_ode_init_varinfo(void);
 static int32 form_ode_parse_a_string(char *s1, VarInfo *v);
 static void form_ode_strpiece(char *dest, char *src, int32 i0, int32 ie);
 static int32 form_ode_formula_or_number(char *expr, double *z);
-static void form_ode_compile_em(void);
 static int32 form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n,
                                     char *name);
 static void form_ode_break_up_list(char *rhs);
@@ -1407,7 +1406,428 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     }
     for (ns = 0; ns < nstrings; ns++)
         free(strings[ns]);
-    form_ode_compile_em();
+    {
+        /* form ode compile em */
+        /* Now we try to keep track of markov, fixed, etc as well as their names */
+        VarInfo *v2;
+        char vnames[MAX_ODE1][MAXVNAM];
+        char fnames[MAX_ODE1][MAXVNAM];
+        char anames[MAX_ODE1][MAXVNAM];
+        char mnames[MAX_ODE1][MAXVNAM];
+        double z, xlo, xhi;
+        char tmp[50];
+        char big2[2*MAXEXPLEN + 10];
+        char formula[MAXEXPLEN];
+        char *junk, *ptr;
+        int32 nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
+              nufun = 0;
+        int32 in1, in2, iflag;
+        int32 fon;
+        FILE *fp2 = NULL;
+
+        v2 = my_varinfo;
+        /* On this first pass through, all the variable names
+           are kept as well as fixed declarations, boundary conds,
+           and parameters, functions and tables.  Once this pass is
+           completed all the names will be known to the compiler.
+        */
+        while (true) {
+            if (v2->type == COMMAND && v2->lhs[0] == 'P') {
+                snprintf(big2, sizeof(big2), "par %s \n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+            if (v2->type == COMMAND && v2->lhs[0] == 'W') {
+                snprintf(big2, sizeof(big2), "wie %s \n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+            if (v2->type == COMMAND && v2->lhs[0] == 'N') {
+                snprintf(big2, sizeof(big2), "num %s \n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+            if (v2->type == COMMAND && v2->lhs[0] == 'O') {
+                snprintf(big2, sizeof(big2), "c %s \n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+            if (v2->type == COMMAND && v2->lhs[0] == 'S' && v2->lhs[1] == 'E') {
+                snprintf(big2, sizeof(big2), "x %s\n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+
+            if (v2->type == COMMAND && v2->lhs[0] == 'B') {
+                snprintf(big2, sizeof(big2), "b %s \n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+            if (v2->type == COMMAND && v2->lhs[0] == 'G') {
+                snprintf(big2, sizeof(big2), "g %s \n", v2->rhs);
+                form_ode_compiler(big2, fp2);
+            }
+            if (v2->type == MAP || v2->type == ODE || v2->type == VEQ) {
+                convert(v2->lhs, tmp);
+                if (form_ode_find_the_name(vnames, nvar, tmp) < 0) {
+                    strcpy(vnames[nvar], tmp);
+                    nvar++;
+                } else {
+                    ggets_plintf(" %s is a duplicate name \n", tmp);
+                    exit(0);
+                }
+            }
+
+            if (v2->type == MARKOV_VAR) {
+                convert(v2->lhs, tmp);
+                if (form_ode_find_the_name(mnames, nmark, tmp) < 0) {
+                    strcpy(mnames[nmark], tmp);
+                    nmark++;
+                }
+            }
+            if (v2->type == EXPORT) {
+                extra_add_export_list(v2->lhs, v2->rhs);
+            }
+            if (v2->type == VECTOR) {
+                simplenet_add_vectorizer_name(v2->lhs, v2->rhs);
+            }
+            if (v2->type == SPEC_FUN) {
+                simplenet_add_special_name(v2->lhs, v2->rhs);
+            }
+            if (v2->type == SOL_VAR) {
+                if (dae_fun_add_svar(v2->lhs, v2->rhs) == 1)
+                    exit(0);
+            }
+
+            if (v2->type == AUX_VAR) {
+                convert(v2->lhs, tmp);
+                strcpy(anames[naux], tmp);
+                naux++;
+                ggets_plintf("%s = %s \n", anames[naux - 1], v2->rhs);
+            }
+            if (v2->type == DERIVE_PAR) {
+                if (derived_add(v2->lhs, v2->rhs) == 1)
+                    exit(0);
+            }
+            if (v2->type == FIXED) {
+                fixinfo[nfix].name = xmalloc(strlen(v2->lhs) + 2);
+                fixinfo[nfix].value = xmalloc(strlen(v2->rhs) + 2);
+                strcpy(fixinfo[nfix].name, v2->lhs);
+                strcpy(fixinfo[nfix].value, v2->rhs);
+                convert(v2->lhs, tmp);
+                strcpy(fnames[nfix], tmp);
+                nfix++;
+                ggets_plintf("%s = %s \n", fnames[nfix - 1], v2->rhs);
+            }
+
+            if (v2->type == TABLE) {
+                convert(v2->lhs, tmp);
+                if (add_table_name(ntab, tmp) == 1) {
+                    printf(" %s is duplicate name \n", tmp);
+                    exit(0);
+                }
+                ggets_plintf("added name %d\n", ntab);
+                ntab++;
+            }
+
+            if (v2->type == FUNCTION) {
+                convert(v2->lhs, tmp);
+                if (add_ufun_name(tmp, nufun, v2->nargs) == 1) {
+                    printf("Duplicate name or too many functions for %s \n", tmp);
+                    exit(0);
+                }
+
+                nufun++;
+            }
+
+            if (v2->next == NULL)
+                break;
+            v2 = v2->next;
+        }
+
+        /* now we add all the names of the variables and the
+           fixed stuff
+        */
+        for (i = 0; i < nvar; i++) {
+            if (add_var(vnames[i], 0.0)) {
+                printf(" Duplicate name %s \n", vnames[i]);
+                exit(0);
+            }
+            strcpy(uvar_names[i], vnames[i]);
+            last_ic[i] = 0.0;
+            default_ic[i] = 0.0;
+        }
+        for (i = 0; i < nfix; i++) {
+            if (add_var(fnames[i], 0.0)) {
+                printf(" Duplicate name %s \n", fnames[i]);
+                exit(0);
+            }
+        }
+        for (i = 0; i < nmark; i++) {
+            if (add_var(mnames[i], 0.0)) {
+                printf(" Duplicate name %s \n", mnames[i]);
+                exit(0);
+            }
+            strcpy(uvar_names[i + nvar], mnames[i]);
+            last_ic[i + nvar] = 0.0;
+            default_ic[i + nvar] = 0.0;
+        }
+        for (i = 0; i < naux; i++)
+            strcpy(aux_names[i], anames[i]);
+        dae_fun_add_svar_names();
+
+        /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR = nfix; */
+
+        IN_VARS = nvar;
+        Naux = naux;
+        NEQ = nvar + NMarkov + Naux;
+        FIX_VAR = nfix;
+        NTable = ntab;
+        NFUN = nufun;
+
+        /* Reset all this stuff so we align the indices correctly */
+
+        nvar = 0;
+        naux = 0;
+        ntab = 0;
+        nufun = 0;
+        nfix = 0;
+        nmark = 0;
+
+        v2 = my_varinfo;
+        while (true) {
+            if (v2->type == COMMAND && v2->lhs[0] == 'I') {
+                snprintf(big2, sizeof(big2), "i %s \n", v2->rhs);
+                ptr = big2;
+                junk = form_ode_get_first(ptr, " ,");
+                if (junk == NULL) {
+                    /*No more tokens.  Should this throw an error?*/
+                }
+                form_ode_advance_past_first_word(&ptr);
+                while ((my_string = form_ode_get_next2(&ptr)) != NULL) {
+                    form_ode_take_apart(my_string, &z, name);
+                    free(my_string);
+                    convert(name, tmp);
+                    in = form_ode_find_the_name(vnames, IN_VARS, tmp);
+                    if (in >= 0) {
+                        last_ic[in] = z;
+                        default_ic[in] = z;
+                        set_val(tmp, z);
+                        ggets_plintf(" Initial %s(0)=%g\n", tmp, z);
+                    } else {
+                        in = form_ode_find_the_name(mnames, NMarkov, tmp);
+                        if (in >= 0) {
+                            last_ic[in + IN_VARS] = z;
+                            default_ic[in + IN_VARS] = z;
+                            set_val(tmp, z);
+                            ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
+                        } else {
+                            ggets_plintf(
+                                "In initial value statement no variable %s \n",
+                                tmp);
+                            exit(0);
+                        }
+                    }
+                } /* end take apart */
+            } /* end  init  command    */
+            if (v2->type == IC) {
+                convert(v2->lhs, tmp);
+                fon = form_ode_formula_or_number(v2->rhs, &z);
+
+                if (fon == 1) {
+                    if (v2->rhs[0] == '-' &&
+                        (isdigit(v2->rhs[1]) || (v2->rhs[1] == '.'))) {
+                        z = atof(v2->rhs);
+                    }
+                }
+
+                in = form_ode_find_the_name(vnames, IN_VARS, tmp);
+                if (in >= 0) {
+                    last_ic[in] = z;
+                    default_ic[in] = z;
+                    set_val(tmp, z);
+                    /* if(fon==1) */
+                    strcpy(delay_string[in], v2->rhs);
+
+                    ggets_plintf(" Initial %s(0)=%s\n", tmp, v2->rhs);
+                } else {
+                    in = form_ode_find_the_name(mnames, NMarkov, tmp);
+                    if (in >= 0) {
+                        last_ic[in + IN_VARS] = z;
+                        default_ic[in + IN_VARS] = z;
+                        set_val(tmp, z);
+                        ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
+                    } else {
+                        ggets_plintf("In initial value statement no variable %s \n",
+                                     tmp);
+                        exit(0);
+                    }
+                }
+            } /* end IC stuff  */
+
+            /*   all that is left is the right-hand sides !!   */
+            iflag = 0;
+            switch (v2->type) {
+            case VEQ:
+                iflag = 1;
+                __attribute__((fallthrough));
+            case ODE:
+                __attribute__((fallthrough));
+            case MAP:
+                EqType[nvar] = iflag;
+                nn = (int32)strlen(v2->rhs) + 1;
+                if ((ode_names[nvar] = xmalloc((usize)nn + 2)) == NULL ||
+                    (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+                    ggets_plintf("could not allocate space for %s \n", v2->lhs);
+                    exit(0);
+                }
+
+                strcpy(ode_names[nvar], v2->rhs);
+                form_ode_find_ker(v2->rhs, &alt);
+                /*       ode_names[nvar][nn-1]=0; */
+                if (add_expr(v2->rhs, my_ode[nvar], &leng[nvar])) {
+                    printf("A\n");
+                    ggets_plintf("ERROR compiling %s' \n", v2->lhs);
+                    exit(0);
+                }
+                /* fpr_command(my_ode[nvar]); */
+                if (v2->type == MAP) {
+                    ggets_plintf("%s(t+1)=%s\n", v2->lhs, v2->rhs);
+                    is_a_map = 1;
+                }
+                if (v2->type == VEQ)
+                    ggets_plintf("%s(t)=%s\n", v2->lhs, v2->rhs);
+                if (v2->type == ODE)
+                    ggets_plintf("%d:d%s/dt=%s\n", nvar, v2->lhs, v2->rhs);
+                nvar++;
+                break;
+            case FIXED:
+                form_ode_find_ker(v2->rhs, &alt);
+                if ((my_ode[nfix + IN_VARS] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
+                        NULL ||
+                    add_expr(v2->rhs, my_ode[nfix + IN_VARS],
+                             &leng[IN_VARS + nfix]) != 0) {
+                    ggets_plintf(" Error allocating or compiling %s\n", v2->lhs);
+                    exit(0);
+                }
+                nfix++;
+                ggets_plintf("%s=%s\n", v2->lhs, v2->rhs);
+                break;
+            case DAE:
+                if (dae_fun_add_aeqn(v2->rhs) == 1)
+                    exit(0);
+                ggets_plintf(" DAE eqn: %s=0 \n", v2->rhs);
+                break;
+
+            case AUX_VAR:
+                in1 = IN_VARS + NMarkov + naux;
+                in2 = IN_VARS + FIX_VAR + naux;
+                nn = (int32)strlen(v2->rhs) + 1;
+                if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
+                    (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+                    ggets_plintf("could not allocate space for %s \n", v2->lhs);
+                    exit(0);
+                }
+
+                strcpy(ode_names[in1], v2->rhs);
+                /* ode_names[in1][nn]=0; */
+                if (add_expr(v2->rhs, my_ode[in2], &leng[in2])) {
+                    printf("B\n");
+                    ggets_plintf("ERROR compiling %s \n", v2->lhs);
+                    exit(0);
+                }
+                naux++;
+                ggets_plintf("%s=%s\n", v2->lhs, v2->rhs);
+                break;
+            case VECTOR:
+                if (simplenet_add_vectorizer(v2->lhs, v2->rhs) == 0) {
+                    ggets_plintf(" Illegal vector  %s \n", v2->rhs);
+                    exit(0);
+                }
+
+                break;
+            case SPEC_FUN:
+                if (simplenet_add_spec_fun(v2->lhs, v2->rhs) == 0) {
+                    ggets_plintf(" Illegal special function %s \n", v2->rhs);
+                    exit(0);
+                }
+                break;
+            case MARKOV_VAR:
+                nn = (int32)strlen(v2->rhs) + 1;
+
+                if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) == NULL) {
+                    ggets_plintf(" Out of memory for  %s \n", v2->lhs);
+                    exit(0);
+                }
+                strncpy(ode_names[IN_VARS + nmark], v2->rhs, (usize)nn);
+                ode_names[IN_VARS + nmark][nn] = 0;
+                nmark++;
+                ggets_plintf("%s: %s", v2->lhs, v2->rhs);
+                break;
+            case FUNCTION:
+                if (add_ufun_new(nufun, v2->nargs, v2->rhs, v2->args) != 0) {
+                    ggets_plintf(" Function %s messed up \n", v2->lhs);
+                    exit(0);
+                }
+                nufun++;
+                ggets_plintf("%s(%s", v2->lhs, v2->args[0]);
+                for (in = 1; in < v2->nargs; in++)
+                    ggets_plintf(",%s", v2->args[in]);
+                ggets_plintf(")=%s\n", v2->rhs);
+                break;
+
+            case TABLE:
+                snprintf(big2, sizeof(big2), "t %s %s ", v2->lhs, v2->rhs);
+                ptr = big2;
+                junk = form_ode_get_first(ptr, " ,");
+                my_string = form_ode_do_fit_get_next(" ");
+                my_string = form_ode_do_fit_get_next(" \n");
+                if (my_string[0] == '%') {
+                    ggets_plintf(" Function form of table....\n");
+                    my_string = form_ode_do_fit_get_next(" ");
+                    nn = atoi(my_string);
+                    my_string = form_ode_do_fit_get_next(" ");
+                    xlo = atof(my_string);
+                    my_string = form_ode_do_fit_get_next(" ");
+                    xhi = atof(my_string);
+                    my_string = form_ode_do_fit_get_next("\n");
+                    strcpy(formula, my_string);
+                    ggets_plintf(" %s has %d pts from %f to %f = %s\n", v2->lhs, nn,
+                                 xlo, xhi, formula);
+                    if (add_form_table(ntab, nn, xlo, xhi, formula)) {
+                        ggets_plintf("ERROR computing %s\n", v2->lhs);
+                        exit(0);
+                    }
+                    ntab++;
+                } else if (my_string[0] == '@') {
+                    ggets_plintf(" Two-dimensional array: \n ");
+                    my_string = form_ode_do_fit_get_next(" ");
+                    strcpy(formula, my_string);
+                    ggets_plintf(" %s = %s \n", name, formula);
+                } else {
+                    strcpy(formula, my_string);
+                    ggets_plintf("Lookup table %s = %s \n", v2->lhs, formula);
+
+                    if (add_file_table(ntab, formula)) {
+                        ggets_plintf("ERROR computing %s", v2->lhs);
+                        exit(0);
+                    }
+                    ntab++;
+                }
+                break;
+            default:
+                break;
+            }
+
+            if (v2->next == NULL)
+                break;
+            v2 = v2->next;
+        }
+        if (derived_compile() == 1)
+            exit(0);
+        if (dae_fun_compile_svars() == 1)
+            exit(0);
+        derived_evaluate();
+        extra_do_export_list();
+        ggets_plintf(" All formulas are valid!!\n");
+        NODE = nvar + naux + nfix;
+        ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar,
+                     naux, nfix, nmark, NEQ, NODE);
+    }
 
     form_ode_free_varinfo();
     /*  print_count_of_object(); */
@@ -1476,430 +1896,6 @@ form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
     return -1;
 }
 
-void
-form_ode_compile_em(void) {
-    /* Now we try to keep track of markov, fixed, etc as well as their names */
-    VarInfo *v;
-    char vnames[MAX_ODE1][MAXVNAM];
-    char fnames[MAX_ODE1][MAXVNAM];
-    char anames[MAX_ODE1][MAXVNAM];
-    char mnames[MAX_ODE1][MAXVNAM];
-    double z, xlo, xhi;
-    char tmp[50];
-    char big[2*MAXEXPLEN + 10];
-    char formula[MAXEXPLEN];
-    char *my_string, *junk, *ptr;
-    char name[10];
-    int32 nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
-          nufun = 0;
-    int32 in1, in2, iflag;
-    int32 fon;
-    FILE *fp = NULL;
-
-    v = my_varinfo;
-    /* On this first pass through, all the variable names
-       are kept as well as fixed declarations, boundary conds,
-       and parameters, functions and tables.  Once this pass is
-       completed all the names will be known to the compiler.
-    */
-    while (true) {
-        if (v->type == COMMAND && v->lhs[0] == 'P') {
-            snprintf(big, sizeof(big), "par %s \n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-        if (v->type == COMMAND && v->lhs[0] == 'W') {
-            snprintf(big, sizeof(big), "wie %s \n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-        if (v->type == COMMAND && v->lhs[0] == 'N') {
-            snprintf(big, sizeof(big), "num %s \n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-        if (v->type == COMMAND && v->lhs[0] == 'O') {
-            snprintf(big, sizeof(big), "c %s \n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-        if (v->type == COMMAND && v->lhs[0] == 'S' && v->lhs[1] == 'E') {
-            snprintf(big, sizeof(big), "x %s\n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-
-        if (v->type == COMMAND && v->lhs[0] == 'B') {
-            snprintf(big, sizeof(big), "b %s \n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-        if (v->type == COMMAND && v->lhs[0] == 'G') {
-            snprintf(big, sizeof(big), "g %s \n", v->rhs);
-            form_ode_compiler(big, fp);
-        }
-        if (v->type == MAP || v->type == ODE || v->type == VEQ) {
-            convert(v->lhs, tmp);
-            if (form_ode_find_the_name(vnames, nvar, tmp) < 0) {
-                strcpy(vnames[nvar], tmp);
-                nvar++;
-            } else {
-                ggets_plintf(" %s is a duplicate name \n", tmp);
-                exit(0);
-            }
-        }
-
-        if (v->type == MARKOV_VAR) {
-            convert(v->lhs, tmp);
-            if (form_ode_find_the_name(mnames, nmark, tmp) < 0) {
-                strcpy(mnames[nmark], tmp);
-                nmark++;
-            }
-        }
-        if (v->type == EXPORT) {
-            extra_add_export_list(v->lhs, v->rhs);
-        }
-        if (v->type == VECTOR) {
-            simplenet_add_vectorizer_name(v->lhs, v->rhs);
-        }
-        if (v->type == SPEC_FUN) {
-            simplenet_add_special_name(v->lhs, v->rhs);
-        }
-        if (v->type == SOL_VAR) {
-            if (dae_fun_add_svar(v->lhs, v->rhs) == 1)
-                exit(0);
-        }
-
-        if (v->type == AUX_VAR) {
-            convert(v->lhs, tmp);
-            strcpy(anames[naux], tmp);
-            naux++;
-            ggets_plintf("%s = %s \n", anames[naux - 1], v->rhs);
-        }
-        if (v->type == DERIVE_PAR) {
-            if (derived_add(v->lhs, v->rhs) == 1)
-                exit(0);
-        }
-        if (v->type == FIXED) {
-            fixinfo[nfix].name = xmalloc(strlen(v->lhs) + 2);
-            fixinfo[nfix].value = xmalloc(strlen(v->rhs) + 2);
-            strcpy(fixinfo[nfix].name, v->lhs);
-            strcpy(fixinfo[nfix].value, v->rhs);
-            convert(v->lhs, tmp);
-            strcpy(fnames[nfix], tmp);
-            nfix++;
-            ggets_plintf("%s = %s \n", fnames[nfix - 1], v->rhs);
-        }
-
-        if (v->type == TABLE) {
-            convert(v->lhs, tmp);
-            if (add_table_name(ntab, tmp) == 1) {
-                printf(" %s is duplicate name \n", tmp);
-                exit(0);
-            }
-            ggets_plintf("added name %d\n", ntab);
-            ntab++;
-        }
-
-        if (v->type == FUNCTION) {
-            convert(v->lhs, tmp);
-            if (add_ufun_name(tmp, nufun, v->nargs) == 1) {
-                printf("Duplicate name or too many functions for %s \n", tmp);
-                exit(0);
-            }
-
-            nufun++;
-        }
-
-        if (v->next == NULL)
-            break;
-        v = v->next;
-    }
-
-    /* now we add all the names of the variables and the
-       fixed stuff
-    */
-    for (i = 0; i < nvar; i++) {
-        if (add_var(vnames[i], 0.0)) {
-            printf(" Duplicate name %s \n", vnames[i]);
-            exit(0);
-        }
-        strcpy(uvar_names[i], vnames[i]);
-        last_ic[i] = 0.0;
-        default_ic[i] = 0.0;
-    }
-    for (i = 0; i < nfix; i++) {
-        if (add_var(fnames[i], 0.0)) {
-            printf(" Duplicate name %s \n", fnames[i]);
-            exit(0);
-        }
-    }
-    for (i = 0; i < nmark; i++) {
-        if (add_var(mnames[i], 0.0)) {
-            printf(" Duplicate name %s \n", mnames[i]);
-            exit(0);
-        }
-        strcpy(uvar_names[i + nvar], mnames[i]);
-        last_ic[i + nvar] = 0.0;
-        default_ic[i + nvar] = 0.0;
-    }
-    for (i = 0; i < naux; i++)
-        strcpy(aux_names[i], anames[i]);
-    dae_fun_add_svar_names();
-
-    /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR = nfix; */
-
-    IN_VARS = nvar;
-    Naux = naux;
-    NEQ = nvar + NMarkov + Naux;
-    FIX_VAR = nfix;
-    NTable = ntab;
-    NFUN = nufun;
-
-    /* Reset all this stuff so we align the indices correctly */
-
-    nvar = 0;
-    naux = 0;
-    ntab = 0;
-    nufun = 0;
-    nfix = 0;
-    nmark = 0;
-
-    v = my_varinfo;
-    while (true) {
-        if (v->type == COMMAND && v->lhs[0] == 'I') {
-            snprintf(big, sizeof(big), "i %s \n", v->rhs);
-            ptr = big;
-            junk = form_ode_get_first(ptr, " ,");
-            if (junk == NULL) {
-                /*No more tokens.  Should this throw an error?*/
-            }
-            form_ode_advance_past_first_word(&ptr);
-            while ((my_string = form_ode_get_next2(&ptr)) != NULL) {
-                form_ode_take_apart(my_string, &z, name);
-                free(my_string);
-                convert(name, tmp);
-                in = form_ode_find_the_name(vnames, IN_VARS, tmp);
-                if (in >= 0) {
-                    last_ic[in] = z;
-                    default_ic[in] = z;
-                    set_val(tmp, z);
-                    ggets_plintf(" Initial %s(0)=%g\n", tmp, z);
-                } else {
-                    in = form_ode_find_the_name(mnames, NMarkov, tmp);
-                    if (in >= 0) {
-                        last_ic[in + IN_VARS] = z;
-                        default_ic[in + IN_VARS] = z;
-                        set_val(tmp, z);
-                        ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
-                    } else {
-                        ggets_plintf(
-                            "In initial value statement no variable %s \n",
-                            tmp);
-                        exit(0);
-                    }
-                }
-            } /* end take apart */
-        } /* end  init  command    */
-        if (v->type == IC) {
-            convert(v->lhs, tmp);
-            fon = form_ode_formula_or_number(v->rhs, &z);
-
-            if (fon == 1) {
-                if (v->rhs[0] == '-' &&
-                    (isdigit(v->rhs[1]) || (v->rhs[1] == '.'))) {
-                    z = atof(v->rhs);
-                }
-            }
-
-            in = form_ode_find_the_name(vnames, IN_VARS, tmp);
-            if (in >= 0) {
-                last_ic[in] = z;
-                default_ic[in] = z;
-                set_val(tmp, z);
-                /* if(fon==1) */
-                strcpy(delay_string[in], v->rhs);
-
-                ggets_plintf(" Initial %s(0)=%s\n", tmp, v->rhs);
-            } else {
-                in = form_ode_find_the_name(mnames, NMarkov, tmp);
-                if (in >= 0) {
-                    last_ic[in + IN_VARS] = z;
-                    default_ic[in + IN_VARS] = z;
-                    set_val(tmp, z);
-                    ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
-                } else {
-                    ggets_plintf("In initial value statement no variable %s \n",
-                                 tmp);
-                    exit(0);
-                }
-            }
-        } /* end IC stuff  */
-
-        /*   all that is left is the right-hand sides !!   */
-        iflag = 0;
-        switch (v->type) {
-        case VEQ:
-            iflag = 1;
-            __attribute__((fallthrough));
-        case ODE:
-            __attribute__((fallthrough));
-        case MAP:
-            EqType[nvar] = iflag;
-            nn = (int32)strlen(v->rhs) + 1;
-            if ((ode_names[nvar] = xmalloc((usize)nn + 2)) == NULL ||
-                (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
-                ggets_plintf("could not allocate space for %s \n", v->lhs);
-                exit(0);
-            }
-
-            strcpy(ode_names[nvar], v->rhs);
-            form_ode_find_ker(v->rhs, &alt);
-            /*       ode_names[nvar][nn-1]=0; */
-            if (add_expr(v->rhs, my_ode[nvar], &leng[nvar])) {
-                printf("A\n");
-                ggets_plintf("ERROR compiling %s' \n", v->lhs);
-                exit(0);
-            }
-            /* fpr_command(my_ode[nvar]); */
-            if (v->type == MAP) {
-                ggets_plintf("%s(t+1)=%s\n", v->lhs, v->rhs);
-                is_a_map = 1;
-            }
-            if (v->type == VEQ)
-                ggets_plintf("%s(t)=%s\n", v->lhs, v->rhs);
-            if (v->type == ODE)
-                ggets_plintf("%d:d%s/dt=%s\n", nvar, v->lhs, v->rhs);
-            nvar++;
-            break;
-        case FIXED:
-            form_ode_find_ker(v->rhs, &alt);
-            if ((my_ode[nfix + IN_VARS] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
-                    NULL ||
-                add_expr(v->rhs, my_ode[nfix + IN_VARS],
-                         &leng[IN_VARS + nfix]) != 0) {
-                ggets_plintf(" Error allocating or compiling %s\n", v->lhs);
-                exit(0);
-            }
-            nfix++;
-            ggets_plintf("%s=%s\n", v->lhs, v->rhs);
-            break;
-        case DAE:
-            if (dae_fun_add_aeqn(v->rhs) == 1)
-                exit(0);
-            ggets_plintf(" DAE eqn: %s=0 \n", v->rhs);
-            break;
-
-        case AUX_VAR:
-            in1 = IN_VARS + NMarkov + naux;
-            in2 = IN_VARS + FIX_VAR + naux;
-            nn = (int32)strlen(v->rhs) + 1;
-            if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
-                (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
-                ggets_plintf("could not allocate space for %s \n", v->lhs);
-                exit(0);
-            }
-
-            strcpy(ode_names[in1], v->rhs);
-            /* ode_names[in1][nn]=0; */
-            if (add_expr(v->rhs, my_ode[in2], &leng[in2])) {
-                printf("B\n");
-                ggets_plintf("ERROR compiling %s \n", v->lhs);
-                exit(0);
-            }
-            naux++;
-            ggets_plintf("%s=%s\n", v->lhs, v->rhs);
-            break;
-        case VECTOR:
-            if (simplenet_add_vectorizer(v->lhs, v->rhs) == 0) {
-                ggets_plintf(" Illegal vector  %s \n", v->rhs);
-                exit(0);
-            }
-
-            break;
-        case SPEC_FUN:
-            if (simplenet_add_spec_fun(v->lhs, v->rhs) == 0) {
-                ggets_plintf(" Illegal special function %s \n", v->rhs);
-                exit(0);
-            }
-            break;
-        case MARKOV_VAR:
-            nn = (int32)strlen(v->rhs) + 1;
-
-            if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) == NULL) {
-                ggets_plintf(" Out of memory for  %s \n", v->lhs);
-                exit(0);
-            }
-            strncpy(ode_names[IN_VARS + nmark], v->rhs, (usize)nn);
-            ode_names[IN_VARS + nmark][nn] = 0;
-            nmark++;
-            ggets_plintf("%s: %s", v->lhs, v->rhs);
-            break;
-        case FUNCTION:
-            if (add_ufun_new(nufun, v->nargs, v->rhs, v->args) != 0) {
-                ggets_plintf(" Function %s messed up \n", v->lhs);
-                exit(0);
-            }
-            nufun++;
-            ggets_plintf("%s(%s", v->lhs, v->args[0]);
-            for (in = 1; in < v->nargs; in++)
-                ggets_plintf(",%s", v->args[in]);
-            ggets_plintf(")=%s\n", v->rhs);
-            break;
-
-        case TABLE:
-            snprintf(big, sizeof(big), "t %s %s ", v->lhs, v->rhs);
-            ptr = big;
-            junk = form_ode_get_first(ptr, " ,");
-            my_string = form_ode_do_fit_get_next(" ");
-            my_string = form_ode_do_fit_get_next(" \n");
-            if (my_string[0] == '%') {
-                ggets_plintf(" Function form of table....\n");
-                my_string = form_ode_do_fit_get_next(" ");
-                nn = atoi(my_string);
-                my_string = form_ode_do_fit_get_next(" ");
-                xlo = atof(my_string);
-                my_string = form_ode_do_fit_get_next(" ");
-                xhi = atof(my_string);
-                my_string = form_ode_do_fit_get_next("\n");
-                strcpy(formula, my_string);
-                ggets_plintf(" %s has %d pts from %f to %f = %s\n", v->lhs, nn,
-                             xlo, xhi, formula);
-                if (add_form_table(ntab, nn, xlo, xhi, formula)) {
-                    ggets_plintf("ERROR computing %s\n", v->lhs);
-                    exit(0);
-                }
-                ntab++;
-            } else if (my_string[0] == '@') {
-                ggets_plintf(" Two-dimensional array: \n ");
-                my_string = form_ode_do_fit_get_next(" ");
-                strcpy(formula, my_string);
-                ggets_plintf(" %s = %s \n", name, formula);
-            } else {
-                strcpy(formula, my_string);
-                ggets_plintf("Lookup table %s = %s \n", v->lhs, formula);
-
-                if (add_file_table(ntab, formula)) {
-                    ggets_plintf("ERROR computing %s", v->lhs);
-                    exit(0);
-                }
-                ntab++;
-            }
-            break;
-        default:
-            break;
-        }
-
-        if (v->next == NULL)
-            break;
-        v = v->next;
-    }
-    if (derived_compile() == 1)
-        exit(0);
-    if (dae_fun_compile_svars() == 1)
-        exit(0);
-    derived_evaluate();
-    extra_do_export_list();
-    ggets_plintf(" All formulas are valid!!\n");
-    NODE = nvar + naux + nfix;
-    ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar,
-                 naux, nfix, nmark, NEQ, NODE);
-    return;
-}
 
 /* this code checks if the right-hand side for an initial
  * condition is a formula (for delays) or a number
