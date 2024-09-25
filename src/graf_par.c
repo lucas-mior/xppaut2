@@ -1359,24 +1359,6 @@ get_frz_index(Window window) {
     return (int32)(ch - 'a');
 }
 
-void
-export_graf_data(void) {
-    FILE *fp;
-    /*char filename[256];*/
-    char filename[XPP_MAX_NAME];
-    snprintf(filename, sizeof(filename), "curve.dat");
-    ggets_ping();
-    if (!init_conds_file_selector("Export graph data", filename, "*.dat"))
-        return;
-    /* if(ggets_new_string("Data filename:",filename)==0)return; */
-    if ((fp = fopen(filename, "w")) == NULL) {
-        ggets_err_msg("Couldn't open file");
-        return;
-    }
-    integrate_export_data(fp);
-    fclose(fp);
-    return;
-}
 
 void
 graf_par_add_a_curve_com(int32 c) {
@@ -1489,8 +1471,24 @@ graf_par_add_a_curve_com(int32 c) {
         break;
     }
     case 8:
-        export_graf_data();
+    {
+        /* export graf data */
+        FILE *fp;
+        /*char filename[256];*/
+        char filename[XPP_MAX_NAME];
+        snprintf(filename, sizeof(filename), "curve.dat");
+        ggets_ping();
+        if (!init_conds_file_selector("Export graph data", filename, "*.dat"))
+            return;
+        /* if(ggets_new_string("Data filename:",filename)==0)return; */
+        if ((fp = fopen(filename, "w")) == NULL) {
+            ggets_err_msg("Couldn't open file");
+            return;
+        }
+        integrate_export_data(fp);
+        fclose(fp);
         break;
+    }
         /*  case 9: change_cmap();
             break; */
     default:
