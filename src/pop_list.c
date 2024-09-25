@@ -52,6 +52,7 @@ static void set_sbox_item(StringBox *sb, int32 item);
 static void reset_hot(int32 inew, StringBox *sb);
 static void expose_sbox(StringBox sb, Window window, int32 pos);
 static int32 get_x_coord_win(Window win);
+static void bin_prnt_byte(int32 x, int32 *arr);
 
 void
 pop_list_set_window_title(Window win, char *string) {
@@ -759,7 +760,7 @@ make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
     return win;
 }
 
-static void
+void
 bin_prnt_byte(int32 x, int32 *arr) {
     int32 n = 0;
     for (n = 7; n >= 0; n--) {
