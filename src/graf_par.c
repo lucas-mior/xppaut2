@@ -69,22 +69,22 @@ static void delete_frz(void);
 static void delete_frz_crv(int32 i);
 static void edit_frz(void);
 static void draw_freeze_key(void);
-static void set_key(int32 x, int32 y);
+static void graf_par_set_key(int32 x, int32 y);
 static void create_ps(void);
 static void new_curve(void);
 static void edit_curve(void);
-static int32 alter_curve(char *title, int32 in_it, int32 n);
-static void zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
-static void zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
+static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
+static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
+static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
 static void movie_rot(double start, double increment, int32 nclip, int32 angle);
-static void user_window(void);
+static void graf_par_user_window(void);
 static void fit_window(void);
 static void corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
-static void check_val(double *x1, double *x2, double *xb, double *xd);
+static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
 static void get_3d_view(int32 ind);
-static void axes_opts(void);
+static void graf_par_axes_opts(void);
 static void get_2d_view(int32 ind);
-static void check_flags(void);
+static void graf_par_check_flags(void);
 
 void
 graf_par_change_view_com(int32 com) {
@@ -103,7 +103,7 @@ graf_par_change_view_com(int32 com) {
         get_2d_view(CurrentCurve);
     else
         get_3d_view(CurrentCurve);
-    check_flags();
+    graf_par_check_flags();
     graf_par_redraw_the_graph();
 }
 
@@ -117,7 +117,7 @@ graf_par_ind_to_sym(int32 ind, char *str) {
 }
 
 void
-check_flags(void) {
+graf_par_check_flags(void) {
     if (MyGraph->grtype > 4)
         MyGraph->ThreeDFlag = 1;
     else
@@ -176,7 +176,7 @@ get_2d_view(int32 ind) {
 }
 
 void
-axes_opts(void) {
+graf_par_axes_opts(void) {
     static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
                         "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -264,7 +264,7 @@ get_3d_view(int32 ind) {
 }
 
 void
-check_val(double *x1, double *x2, double *xb, double *xd) {
+graf_par_check_val(double *x1, double *x2, double *xb, double *xd) {
     double temp;
 
     /* see get_max for details */
@@ -482,16 +482,16 @@ void
 graf_par_check_windows(void) {
     double zip;
     double zap;
-    check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar, &MyGraph->dx);
-    check_val(&MyGraph->ymin, &MyGraph->ymax, &MyGraph->ybar, &MyGraph->dy);
-    check_val(&MyGraph->zmin, &MyGraph->zmax, &MyGraph->zbar, &MyGraph->dz);
-    check_val(&MyGraph->xlo, &MyGraph->xhi, &zip, &zap);
-    check_val(&MyGraph->ylo, &MyGraph->yhi, &zip, &zap);
+    graf_par_check_val(&MyGraph->xmin, &MyGraph->xmax, &MyGraph->xbar, &MyGraph->dx);
+    graf_par_check_val(&MyGraph->ymin, &MyGraph->ymax, &MyGraph->ybar, &MyGraph->dy);
+    graf_par_check_val(&MyGraph->zmin, &MyGraph->zmax, &MyGraph->zbar, &MyGraph->dz);
+    graf_par_check_val(&MyGraph->xlo, &MyGraph->xhi, &zip, &zap);
+    graf_par_check_val(&MyGraph->ylo, &MyGraph->yhi, &zip, &zap);
     return;
 }
 
 void
-user_window(void) {
+graf_par_user_window(void) {
     static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
@@ -546,7 +546,7 @@ graf_par_xi_vs_t(void) {
         MyGraph->xhi = MyGraph->xmax;
         MyGraph->yhi = MyGraph->ymax;
         graf_par_check_windows();
-        check_flags();
+        graf_par_check_flags();
         graphics_set_normal_scale();
         graf_par_redraw_the_graph();
     }
@@ -648,7 +648,7 @@ graf_par_get_3d_com(void) {
 }
 
 static void
-update_view(double xlo, double xhi, double ylo, double yhi) {
+graf_par_update_view(double xlo, double xhi, double ylo, double yhi) {
     MyGraph->xlo = xlo;
     MyGraph->ylo = ylo;
     MyGraph->xhi = xhi;
@@ -665,7 +665,7 @@ update_view(double xlo, double xhi, double ylo, double yhi) {
 }
 
 static void
-scroll_window(void) {
+graf_par_scroll_window(void) {
     XEvent event;
     int32 i = 0, j = 0;
     int32 state = 0;
@@ -705,7 +705,7 @@ scroll_window(void) {
                 dx = -(x - x0) / 2;
                 dy = -(y - y0) / 2;
 
-                update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
+                graf_par_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
             }
             break;
         case ButtonRelease:
@@ -727,7 +727,7 @@ graf_par_window_zoom_com(int32 c) {
     int32 i1, i2, j1, j2;
     switch (c) {
     case 0:
-        user_window();
+        graf_par_user_window();
         break;
     case 1:
 
@@ -741,13 +741,13 @@ graf_par_window_zoom_com(int32 c) {
                 } */
         if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0)
             break;
-        zoom_in(i1, j1, i2, j2);
+        graf_par_zoom_in(i1, j1, i2, j2);
 
         break;
     case 2:
         if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0)
             break;
-        zoom_out(i1, j1, i2, j2);
+        graf_par_zoom_out(i1, j1, i2, j2);
         break;
     case 3:
         fit_window();
@@ -756,7 +756,7 @@ graf_par_window_zoom_com(int32 c) {
         graf_par_default_window();
         break;
     case 5:
-        scroll_window();
+        graf_par_scroll_window();
         break;
     default:
         break;
@@ -766,7 +766,7 @@ graf_par_window_zoom_com(int32 c) {
 }
 
 void
-zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
+graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     double x1, y1, x2, y2;
     double dx = MyGraph->xhi - MyGraph->xlo;
     double dy = MyGraph->yhi - MyGraph->ylo;
@@ -807,7 +807,7 @@ zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
 }
 
 void
-zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
+graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     double x1, y1, x2, y2;
     double bx, mux, by, muy;
     double dx = MyGraph->xhi - MyGraph->xlo;
@@ -899,13 +899,13 @@ graf_par_graph_all(int32 *list, int32 n, int32 type) {
             MyGraph->ThreeDFlag = 1;
         }
     }
-    check_flags();
+    graf_par_check_flags();
     fit_window();
     return;
 }
 
 int32
-alter_curve(char *title, int32 in_it, int32 n) {
+graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     static char *nn[] = {"*0X-axis", "*0Y-axis", "*0Z-axis", "*4Color",
                          "Line type"};
     char values[LENGTH(nn)][MAX_LEN_SBOX];
@@ -955,14 +955,14 @@ edit_curve(void) {
     ggets_new_int(bob, &crv);
     if (crv >= 0 && crv < MyGraph->nvars) {
         snprintf(bob, sizeof(bob), "Edit curve %d", crv);
-        alter_curve(bob, crv, crv);
+        graf_par_alter_curve(bob, crv, crv);
     }
     return;
 }
 
 void
 new_curve(void) {
-    if (alter_curve("New Curve", 0, MyGraph->nvars))
+    if (graf_par_alter_curve("New Curve", 0, MyGraph->nvars))
         MyGraph->nvars = MyGraph->nvars + 1;
     return;
 }
@@ -1093,7 +1093,7 @@ graf_par_freeze_com(int32 c) {
 }
 
 void
-set_key(int32 x, int32 y) {
+graf_par_set_key(int32 x, int32 y) {
     double xp;
     double yp;
     scale_to_real(x, y, &xp, &yp);
@@ -1141,7 +1141,7 @@ graf_par_key_frz_com(int32 c) {
     case 1:
         menudrive_message_box("Position with mouse");
         if (ggets_mouse_xy(&x, &y, draw_win)) {
-            set_key(x, y);
+            graf_par_set_key(x, y);
             draw_freeze_key();
         }
         menudrive_message_box_kill();
@@ -1540,7 +1540,7 @@ graf_par_add_a_curve_com(int32 c) {
         /* case 6: freeze();
            break; */
     case 7:
-        axes_opts();
+        graf_par_axes_opts();
         break;
     case 8:
         export_graf_data();
@@ -1550,6 +1550,6 @@ graf_par_add_a_curve_com(int32 c) {
     default:
         break;
     }
-    check_flags();
+    graf_par_check_flags();
     graf_par_redraw_the_graph();
 }
