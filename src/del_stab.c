@@ -22,6 +22,9 @@ static COMPLEX del_stab_c_exp2(COMPLEX z);
 static COMPLEX del_stab_c_div(COMPLEX z, COMPLEX w);
 static COMPLEX del_stab_z_mult(COMPLEX z, COMPLEX w);
 static COMPLEX del_stab_z_dif(COMPLEX z, COMPLEX w);
+static int32 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts, double almax, double wmax);
+static void del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
+                     COMPLEX lambda);
 
 #define Z(a, b, NN) z[(a) + NN*(b)]
 

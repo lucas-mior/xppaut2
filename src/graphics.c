@@ -83,6 +83,7 @@ static void graphics_bead_x11(int32 x, int32 y);
 static void graphics_set_line_style_x11(int32 ls);
 static void graphics_point_x11(int32 xp, int32 yp);
 static void graphics_bead(int32 x1, int32 y1);
+static void graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp);
 
 void
 graphics_get_scale(double *x1, double *y1, double *x2, double *y2) {

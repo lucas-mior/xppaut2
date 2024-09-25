@@ -110,6 +110,7 @@ static char *PS_header[] = {
 
 static void ps_write(char *str);
 static void ps_check_lines(void);
+static void ps_rel(int32 x, int32 y);
 
 int32
 ps_init(char *filename, int32 color) {

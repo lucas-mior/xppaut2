@@ -420,8 +420,6 @@ int32 copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra,
              int64 *nca, double *a, int64 *ncb, double *b, int64 *nrc,
              double *c, double *a1, double *a2, double *bb, double *cc,
              int64 *irf);
-int32 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa,
-             int64 *irf);
 int32 reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2,
              double *bb, double *cc, double *dd, int64 *na, int64 *nov,
              int64 *ncb, int64 *nrc, double *s1, double *s2, double *ca1,
@@ -439,9 +437,6 @@ int32 bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2,
              double *a2, double *bb, double *faa, double *fc, double *fcc,
              double *sol1, double *sol2, double *sol3, int64 *na, int64 *nov,
              int64 *ncb, int64 *icf2);
-int32 infpar(int64 *iam, int64 *par, double *a, double *b, double *fa,
-             double *sol1, double *sol2, double *fc, int64 *na, int64 *nov,
-             int64 *nra, int64 *nca, int64 *ncb, int64 *irf, int64 *icf);
 int32 rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc);
 int32 print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb,
              int64 *nrc, double *a, double *b, double *c, double *d, double *fa,

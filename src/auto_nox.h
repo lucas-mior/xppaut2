@@ -127,7 +127,6 @@ extern int32 AutoTwoParam;
 extern int32 NAutoPar;
 
 void auto_colset(int32 type);
-void auto_nox_pscolset2(int32 flag2);
 void auto_colset2(int32 flag2);
 void auto_nox_get_str(char *xlabel, char *ylabel);
 void auto_nox_draw_ps_axes(void);
@@ -207,7 +206,6 @@ void auto_2p_fixper(void);
 void auto_err(char *s);
 void auto_run(void);
 void auto_nox_load_orbit(void);
-void auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per);
 void auto_nox_save(void);
 void auto_nox_save_numerics(FILE *fp);
 void auto_nox_load_numerics(FILE *fp);

@@ -41,6 +41,7 @@ static int32 histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
                       double *pow);
 static int32 histogram_get_col_info(int32 *col, char *prompt);
 static void histogram_new_four(int32 nmodes, int32 col);
+static void histogram_fft(double *data, double *ct, double *st, int32 nmodes, int32 length);
 
 int32
 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo,

@@ -252,6 +252,8 @@ get_directory(char *direct) {
     return 1;
 }
 
+static void read_dir_make_full_path(char *root, char *filename, char *pathname);
+
 int32
 is_directory(char *root, char *path) {
     char fullpath[MAXPATHLEN];

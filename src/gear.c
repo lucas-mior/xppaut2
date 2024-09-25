@@ -38,59 +38,7 @@ static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
 static void gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev,
                  int32 *ierr);
 static void gear_pr_evec(double *x, double *ev, int32 n, int32 type);
-
-void
-gear_silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
-             int32 n, double *er, double *em, int32 *ierr) {
-    int32 kmem, i, j;
-
-    double *work, *eval, *b, *bp, *oldwork, *ework;
-    double temp, old_x[MAX_ODE];
-
-    kmem = n*(2*n + 5) + 50;
-    *ierr = 0;
-    if ((work = xmalloc(sizeof(double)*(usize)kmem)) == NULL) {
-        ggets_err_msg("Insufficient core ");
-        *ierr = 1;
-        return;
-    }
-
-    for (i = 0; i < n; i++)
-        old_x[i] = x[i];
-    oldwork = work + n*n;
-    eval = oldwork + n*n;
-    b = eval + 2*n;
-    bp = b + n;
-    ework = bp + n;
-    gear_rooter(x, err, eps, big, work, ierr, maxit, n);
-    if (*ierr != 0) {
-        free(work);
-        for (i = 0; i < n; i++)
-            x[i] = old_x[i];
-        return;
-    }
-
-    for (i = 0; i < n*n; i++) {
-        oldwork[i] = work[i];
-    }
-    /* Transpose for Eigen        */
-    for (i = 0; i < n; i++) {
-        for (j = i + 1; j < n; j++) {
-            temp = work[i + j*n];
-            work[i + j*n] = work[i*n + j];
-            work[i*n + j] = temp;
-        }
-    }
-    gear_eigen(n, work, eval, ework, ierr);
-    if (*ierr != 0) {
-        free(work);
-        return;
-    }
-    for (i = 0; i < n; i++) {
-        er[i] = eval[2*i];
-        em[i] = eval[2*i + 1];
-    }
-} /* end silent fixed point  */
+static double gear_max(double x, double y);
 
 /* main fixed point finder */
 void

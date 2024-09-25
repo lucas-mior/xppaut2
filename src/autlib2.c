@@ -44,6 +44,11 @@ static MainAutoStorage mas = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 
 static int32 gdsum(void);
 static int32 gsendx(void);
+static int32 infpar(int64 *iam, int64 *par, double *a, double *b, double *fa,
+             double *sol1, double *sol2, double *fc, int64 *na, int64 *nov,
+             int64 *nra, int64 *nca, int64 *ncb, int64 *irf, int64 *icf);
+int32 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa,
+             int64 *irf);
 
 /* ----------------------------------------------------------------------- */
 /*           Setting up of the Jacobian and right hand side */

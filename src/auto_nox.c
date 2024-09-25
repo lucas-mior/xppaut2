@@ -165,6 +165,8 @@ static void auto_torus(void);
 static void auto_period_double(void);
 static void auto_start_at_homoclinic(void);
 static void auto_2p_hopf(void);
+static void auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per);
+static void auto_nox_pscolset2(int32 flag2);
 
 /* color plot stuff */
 void

@@ -824,8 +824,6 @@ double calc(char *expr, int32 *ok);
 
 void choice_box_base(char *wname, int32 n, int32 mcc, char **names,
                      int32 *check, int32 type);
-int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
-                    int32 *check, int32 type);
 
 #endif
 
@@ -1067,13 +1065,9 @@ typedef struct COMPLEX {
 void del_stab_do_delay_sing(double *x, double eps, double err, double big,
                             int32 maxit, int32 n, int32 *ierr,
                             double *stabinfo);
-void del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
-                     COMPLEX lambda);
 int32 del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
                                   double err, double eps, double big,
                                   int32 maxit, double *rr);
-int32 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m,
-                         int32 npts, double almax, double wmax);
 
 #endif
 
@@ -1935,7 +1929,7 @@ typedef void (*FcnEqDiff)(uint32 n, double x, double *y, double *f);
 typedef void (*SolTrait)(long nr, double xold, double x, double *y, uint32 n,
                          int32 *irtrn);
 
-extern int32
+int32
 dop853(uint32 n,        /* dimension of the system <= UINT_MAX-1*/
        FcnEqDiff fcn,   /* function computing the value of f(x,y) */
        double x,        /* initial x-value */
@@ -1998,12 +1992,6 @@ int32 dp(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
          double *atol, int32 flag, int32 *kflag);
 int32 dormprin(int32 *istart, double *y, double *t, int32 n, double tout,
                double *tol, double *atol, int32 flag, int32 *kflag);
-int32 dop853(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-             double *rtoler, double *atoler, int32 itoler, SolTrait solout,
-             int32 iout, FILE *fileout, double uround, double safe, double fac1,
-             double fac2, double beta, double hmax, double h, long nmax,
-             int32 meth, long nstiff, uint32 nrdens, uint32 *icont,
-             uint32 licont, double *work);
 int32 dopri5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
              double *rtoler, double *atoler, int32 itoler, SolTrait solout,
              int32 iout, FILE *fileout, double uround, double safe, double fac1,
@@ -2314,8 +2302,6 @@ extern int32 ShootICFlag;
 extern int32 ShootICFlag;
 extern int32 ShootIndex;
 
-void gear_silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
-                  int32 n, double *er, double *em, int32 *ierr);
 void gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
              int32 n, int32 *ierr, double *stabinfo);
 void gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
@@ -2342,7 +2328,6 @@ int32 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
 int32 ggear(int32 n, double *t, double tout, double *y, double hmin,
             double hmax, double eps, int32 mf, double *error, int32 *kflag,
             int32 *jstart, double *work, int32 *iwork);
-double gear_max(double x, double y);
 double gear_min(double x, double y);
 void gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info);
 void gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b,
@@ -2466,8 +2451,6 @@ void graphics_line3d(double x01, double y01, double z01, double x02, double y02,
             double z02);
 void graphics_line_3d(double x, double y, double z, double xp, double yp,
                       double zp);
-void graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
-               double *zp);
 void graphics_point_abs(double x1, double y1);
 void graphics_bead_abs(double x1, double y1);
 void graphics_frect_abs(double x1, double y1, double w, double h);
@@ -2546,8 +2529,6 @@ void histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi, int3
 void histogram_compute(void);
 void histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
               double *cr, int32 flag);
-void histogram_fft(double *data, double *ct, double *st, int32 nmodes,
-                   int32 length);
 void histogram_post_process_stuff(void);
 
 #endif
@@ -2575,8 +2556,6 @@ int32 init_conds_find_user_name(int32 type, char *oname);
 void init_conds_create_par_sliders(Window base, int32 x0, int32 h0);
 void init_conds_resize_par_slides(int32 h);
 void init_conds_slide_button_press(Window window);
-int32 edit_fitem(int32 ch, char *string, Window window, int32 *off1,
-                 int32 *pos1, int32 mc);
 int32 init_conds_file_selector(char *title, char *file, char *wild);
 void init_conds_reset_sliders(void);
 void init_conds_slide_release(Window window);
@@ -3665,7 +3644,6 @@ void ps_point(int32 x, int32 y);
 void ps_fnt(int32 cf, int32 scale);
 void ps_show(char *str, int32 type);
 void ps_abs(int32 x, int32 y);
-void ps_rel(int32 x, int32 y);
 void ps_special_put_text(int32 x, int32 y, char *str, int32 size);
 void ps_text(int32 x, int32 y, char *str);
 
@@ -3961,8 +3939,6 @@ Window make_window(Window root, int32 x, int32 y, int32 width, int32 height,
                    int32 bw);
 Window make_plain_window(Window root, int32 x, int32 y, int32 width,
                          int32 height, int32 bw);
-void expose_resp_box(char *button, char *message, Window wb, Window wm,
-                     Window window);
 void pop_list_respond_box(char *button, char *message);
 void pop_list_message_box(Window *w, int32 x, int32 y, char *message);
 void expose_choice(char *choice1, char *choice2, char *msg, Window c1,

@@ -19,6 +19,7 @@ static int32 choice_box_event_loop(ChoiceBox p);
 static void choice_box_do_checks(ChoiceBox p);
 static void choice_box_display(Window window, ChoiceBox p);
 static void choice_box_destroy(ChoiceBox p);
+static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names, int32 *check, int32 type);
 
 void
 choice_box_destroy(ChoiceBox p) {
