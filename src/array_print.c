@@ -30,7 +30,6 @@ static void array_print_ps_col_scale(double y0, double x0, double dy, double dx,
 static void array_print_ps_boxit(double tlo, double thi, double jlo, double jhi,
                                  double zlo, double zhi, char *sx, char *sy,
                                  char *sb, int32 type);
-static void array_print_ps_close(void);
 static void array_print_ps_setline(double fill, int32 thick);
 static void array_print_ps_text2(char *str, double xr, double yr, int32 icent);
 static void array_print_ps_set_text(double angle, double slant, double x_size,
@@ -58,7 +57,11 @@ array_print(char *filename, char *xtitle, char *ytitle, char *bottom,
                           nacross, ndown, zmin, zmax, type);
     array_print_ps_boxit(tlo, thi, 0.0, yy, zmin, zmax, xtitle, ytitle, bottom,
                          type);
-    array_print_ps_close();
+    /* array print ps close */
+    fprintf(my_plot_file, "showpage\n");
+    fprintf(my_plot_file, "grestore\n");
+    fprintf(my_plot_file, "end\n");
+    fclose(my_plot_file);
     return 0;
 }
 
@@ -207,15 +210,6 @@ array_print_ps_boxit(double tlo, double thi, double jlo, double jhi, double zlo,
     array_print_ps_col_scale(yhi - .15*dy, xlo - .1*dx, .025*dy, .05*dx,
                              20, zlo, zhi, type);
     array_print_ps_text2(sb, xlo - .035*dx, .5*(yhi + ylo), 1);
-    return;
-}
-
-void
-array_print_ps_close(void) {
-    fprintf(my_plot_file, "showpage\n");
-    fprintf(my_plot_file, "grestore\n");
-    fprintf(my_plot_file, "end\n");
-    fclose(my_plot_file);
     return;
 }
 

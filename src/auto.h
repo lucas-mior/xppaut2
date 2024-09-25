@@ -81,7 +81,6 @@ int32 auto_2p_limit(int32 ips);
 int32 auto_2p_branch(void);
 int32 auto_branch_choice(int32 ibr);
 int32 auto_2p_fixper(void);
-int32 auto_2p_hopf(void);
 int32 auto_err(char *s);
 int32 auto_run(void);
 int32 auto_nox_load_orbit(void);
@@ -99,7 +98,6 @@ int32 auto_nox_get_a_row(double *u, double *t, int32 n, FILE *fp);
 int32 auto_file(void);
 int32 auto_x11_enter(Window window, int32 v);
 int32 auto_x11_button(XEvent event);
-int32 auto_x11_kill(void);
 int32 auto_x11_keypress(XEvent event, int32 *used);
 
 #endif

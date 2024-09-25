@@ -163,6 +163,8 @@ static void auto_switch_ss(void);
 static void auto_twopar_double(void);
 static void auto_torus(void);
 static void auto_period_double(void);
+static void auto_start_at_homoclinic(void);
+static void auto_2p_hopf(void);
 
 /* color plot stuff */
 void
@@ -2143,7 +2145,6 @@ auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur) {
 
     return flag;
 }
-
 
 void
 auto_start_at_homoclinic(void) {
