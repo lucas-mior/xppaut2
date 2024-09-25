@@ -156,7 +156,6 @@ int32 NewPeriodFlag;
 static AutoAX Old1p;
 static AutoAX Old2p;
 
-static void auto_switch_ss(void);
 static void auto_twopar_double(void);
 static void auto_torus(void);
 static void auto_period_double(void);
@@ -2023,7 +2022,21 @@ auto_branch_choice(int32 ibr, int32 ips) {
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
         } else {
-            auto_switch_ss();
+            /* auto switch ss */
+            TypeOfCalc = EQ1;
+            Auto.irs = grabpt.lab;
+            Auto.itp = grabpt.itp;
+            Auto.nfpar = grabpt.nfpar;
+            Auto.ilp = 1;
+            Auto.isw = -1;
+            Auto.isp = 1;
+            if (SuppressBP == 1)
+                Auto.isp = 0;
+            Auto.ips = 1;
+            if (METHOD == DISCRETE)
+                Auto.ips = -1;
+            AutoTwoParam = 0;
+            auto_nox_do(OPEN_3, APPEND);
         }
         return;
     }
@@ -2258,24 +2271,6 @@ auto_new_per(void) {
 
 
 
-void
-auto_switch_ss(void) {
-    TypeOfCalc = EQ1;
-    Auto.irs = grabpt.lab;
-    Auto.itp = grabpt.itp;
-    Auto.nfpar = grabpt.nfpar;
-    Auto.ilp = 1;
-    Auto.isw = -1;
-    Auto.isp = 1;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-    Auto.ips = 1;
-    if (METHOD == DISCRETE)
-        Auto.ips = -1;
-    AutoTwoParam = 0;
-    auto_nox_do(OPEN_3, APPEND);
-    return;
-}
 
 void
 auto_2p_limit(int32 ips) {
