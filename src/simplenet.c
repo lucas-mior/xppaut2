@@ -1225,7 +1225,7 @@ evaluate_network(int32 ind) {
         break;
 
     case IMPORT:
-        get_import_values(n, values, my_net[ind].soname, my_net[ind].sofun,
+        extra_get_import_values(n, values, my_net[ind].soname, my_net[ind].sofun,
                           my_net[ind].root, my_net[ind].wgtlist, variables,
                           &constants[6]);
         break;

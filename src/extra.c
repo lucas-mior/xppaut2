@@ -87,11 +87,11 @@ typedef double (*Function1)(int32 n, int32 ivar, double *con, double *var,
 typedef double (*Function2)(double *in, double *out, int32 nin, int32 nout,
                             double *v, double *c);
 
-static void parse_inout(char *l, int32 flag);
-static int32 get_export_count(char *s);
+static void extra_parse_inout(char *l, int32 flag);
+static int32 extra_get_export_count(char *s);
 
 void
-get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
+extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
     char sofullname[sizeof(cur_dir) + 2];
     char *error;
@@ -124,7 +124,7 @@ get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
 }
 
 int32
-my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
+extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
     char *error;
     if (dlf.loaded == -1)
         return 0;
@@ -161,7 +161,7 @@ my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
 #else
 
 void
-get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
+extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
                   double *wgt[MAXW], double *var, double *con) {
     return;
 }
@@ -170,7 +170,7 @@ int32
 extra_load_new_dll(void) {
 }
 
-my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
+extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
 }
 
 int32
@@ -189,7 +189,7 @@ extra_do_in_out(void) {
         else
             in_out.vin[i] = variables[in_out.in[i]];
     }
-    my_fun(in_out.vin, in_out.vout, in_out.nin, in_out.nout, variables,
+    extra_my_fun(in_out.vin, in_out.vout, in_out.nin, in_out.nout, variables,
            constants);
     for (i = 0; i < in_out.nout; i++) {
         if (in_out.outtype[i] == PAR)
@@ -209,12 +209,12 @@ extra_add_export_list(char *in, char *out) {
     in_out.lout = xmalloc(l2);
     strcpy(in_out.lin, in);
     strcpy(in_out.lout, out);
-    i = get_export_count(in);
+    i = extra_get_export_count(in);
     in_out.in = xmalloc((usize)(i + 1)*sizeof(*(in_out.in)));
     in_out.intype = xmalloc((usize)(i + 1)*sizeof(*(in_out.intype)));
     in_out.vin = xmalloc((usize)(i + 1)*sizeof(*(in_out.vin)));
     in_out.nin = i;
-    i = get_export_count(out);
+    i = extra_get_export_count(out);
     in_out.out = xmalloc((usize)(i + 1)*sizeof(*(in_out.out)));
     in_out.outtype = xmalloc((usize)(i + 1)*sizeof(*(in_out.outtype)));
     in_out.vout = xmalloc((usize)(i + 1)*sizeof(*(in_out.vout)));
@@ -223,7 +223,7 @@ extra_add_export_list(char *in, char *out) {
 }
 
 int32
-get_export_count(char *s) {
+extra_get_export_count(char *s) {
     int32 i = 0;
     int32 j;
     int32 l = (int32)strlen(s);
@@ -238,14 +238,14 @@ void
 extra_do_export_list(void) {
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
-    parse_inout(in_out.lin, 0);
-    parse_inout(in_out.lout, 1);
+    extra_parse_inout(in_out.lin, 0);
+    extra_parse_inout(in_out.lout, 1);
     /* check_inout(); */
     return;
 }
 
 void
-parse_inout(char *l, int32 flag) {
+extra_parse_inout(char *l, int32 flag) {
     int32 i = 0, j = 0;
     int32 k = 0, index;
     char new[20], c;

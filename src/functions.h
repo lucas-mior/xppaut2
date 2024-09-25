@@ -2064,13 +2064,13 @@ extern char dll_lib[256];
 extern char dll_fun[256];
 
 void extra_load_new_dll(void);
-int32 my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
+int32 extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
              double *c);
 void extra_auto_load_dll(void);
 void extra_do_in_out(void);
 void extra_add_export_list(char *in, char *out);
 void extra_do_export_list(void);
-void get_import_values(int32 n, double *ydot, char *soname, char *sofun,
+void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
                        int32 ivar, double *wgt[MAXW], double *var, double *con);
 
 #endif
