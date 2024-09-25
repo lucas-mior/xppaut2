@@ -440,7 +440,7 @@ table name <type> ... arguments ...
       name(0 ... npts-1)
 
 conv:
-        name(i) = sum(k=klo,khi) weight(k-klo)*variable(i+k)
+        name(i) = simplenet_sum(k=klo,khi) weight(k-klo)*variable(i+k)
         with end_cond = zero means skip if off end
                       = periodic means wrap around
 
@@ -448,6 +448,6 @@ sparse:
        need a file with the structure:
        ncon i_1 w_1 ... i_ncon w_ncon
 for npts lines
- name(i) = sum(j=1,ncon_i) w_j name(i_j)
+ name(i) = simplenet_sum(j=1,ncon_i) w_j name(i_j)
 
 */

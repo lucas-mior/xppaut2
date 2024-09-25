@@ -18,7 +18,7 @@
   To wit:
   for sparse type
   name(i) produces values[i]
-  value[i] = sum(k=0..ncon-1)of(w[i][k]*root[index[i][k]])
+  value[i] = simplenet_sum(k=0..ncon-1)of(w[i][k]*root[index[i][k]])
 
 ODE FILE CALL:
 
@@ -32,7 +32,7 @@ for conv.
 
 conv0 conve convp type
 
-value[i]=    sum(j=-ncon;j<=ncon;i++){
+value[i]=    simplenet_sum(j=-ncon;j<=ncon;i++){
               k=i+j;
         0 type      if(k>=0 && k<n)
               value[i]+=wgt[j+ncon]*rootname[k]
@@ -65,7 +65,7 @@ more stuff:
 special k= delmmult(n,m,w,tau,root)
           w has n*m values and tau has n*m delays
           n is the length of root (cols) and m is number of rows
-          k(i) = sum(j=0,n-1) w[i*n+j] delay(root(j),tau[i*n+j])
+          k(i) = simplenet_sum(j=0,n-1) w[i*n+j] delay(root(j),tau[i*n+j])
           Note delays can only work on variables and not on
           fixed  values
 special k=delsparse(m,nc,w,index,tau,root)
@@ -76,16 +76,16 @@ special k=delsparse(m,nc,w,index,tau,root)
 
           tau is m*nc is list of delays
 
-       k[i]=sum( 0<=j < nc) w[j+nc*i]*delay(root[c[j+nc*i]],tau[j+nc*i])
+       k[i]=simplenet_sum( 0<=j < nc) w[j+nc*i]*delay(root[c[j+nc*i]],tau[j+nc*i])
 
 special f=mmult(n,m,w,root)  -- note that here m is the number of return
                           values and n is the size of input root
-f[j] = sum(i=0,n-1)of(w(i+n*j)*root(i)) j=0,..,m-1
+f[j] = simplenet_sum(i=0,n-1)of(w(i+n*j)*root(i)) j=0,..,m-1
 special f=fmmult(n,m,w,root1,root2,fname)
-f[j] = sum(i=0,n-1)of(w(i+n*j)*fname(root1[i],root2[j])
+f[j] = simplenet_sum(i=0,n-1)of(w(i+n*j)*fname(root1[i],root2[j])
 special f=fsparse( n, ncon,w,index,root1,root2,fname)
 special f=fconv(type,n,ncon,w,root1,root2,fname)
-sum(j=-ncon,ncon)w(j)*fname(root1[i+j],root2[i])
+simplenet_sum(j=-ncon,ncon)w(j)*fname(root1[i+j],root2[i])
 similarly for fsparse
 
 special k=fftcon(type,n,wgt,v0)
@@ -180,20 +180,20 @@ typedef struct Network {
 
 static int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
 static int32 gilparse(char *s, int32 *ind, int32 *nn);
-static void update_fft(int32 ind);
+static void simplenet_update_fft(int32 ind);
 static void evaluate_network(int32 ind);
-static int32 is_network(char *s);
-static void init_net(double *v, int32 n);
-static double net_interp(double x, int32 i);
-static int32 parse_import(char *s, char *soname, char *sofun, int32 *n,
+static int32 simplenet_is_network(char *s);
+static void simplenet_init(double *v, int32 n);
+static double simplenet_interp(double x, int32 i);
+static int32 simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n,
                           char *vname, int32 *m, char *tname[MAXW]);
-static int32 get_vector_info(char *str, char *name, int32 *root, int32 *length,
+static int32 simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length,
                              int32 *il, int32 *ir);
 
 static Network my_net[MAX_NET];
 static int32 n_network = 0;
 double
-net_interp(double x, int32 i) {
+simplenet_interp(double x, int32 i) {
     int32 jlo = (int32)x;
     double *y;
     int32 n = my_net[i].n;
@@ -216,7 +216,7 @@ simplenet_add_vectorizer(char *name, char *rhs) {
             break;
 
     ind = i;
-    flag = get_vector_info(rhs, name, &ivar, &len, &il, &ir);
+    flag = simplenet_get_vector_info(rhs, name, &ivar, &len, &il, &ir);
 
     if (flag == 0)
         return 0;
@@ -272,14 +272,14 @@ double
 simplenet_network_value(double x, int32 i) {
     int32 j = (int32)x;
     if (my_net[i].type == INTERP)
-        return net_interp(x, i);
+        return simplenet_interp(x, i);
     if (j >= 0 && j < my_net[i].n)
         return my_net[i].values[j];
     return 0.0;
 }
 
 void
-init_net(double *v, int32 n) {
+simplenet_init(double *v, int32 n) {
     int32 i;
     for (i = 0; i < n; i++)
         v[i] = 0.0;
@@ -297,7 +297,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
     char rootname[20], wgtname[20], tauname[20], indname[20];
     char root2name[20], fname[20];
     char sofun[256], soname[256], *tname[MAXW];
-    type = is_network(rhs);
+    type = simplenet_is_network(rhs);
     if (type == 0)
         return 0;
     ggets_plintf("type=%d \n", type);
@@ -352,7 +352,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         }
         my_net[ind].values =
             xmalloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ntot);
+        simplenet_init(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
         my_net[ind].root = ivar;
@@ -407,7 +407,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
         my_net[ind].values =
             xmalloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ntot);
+        simplenet_init(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
 
@@ -477,7 +477,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         }
         my_net[ind].values =
             xmalloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ntot);
+        simplenet_init(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
         my_net[ind].root =
@@ -552,7 +552,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
         my_net[ind].values =
             xmalloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ntot);
+        simplenet_init(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
 
@@ -625,13 +625,13 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         my_net[ind].iwgt = iwgt;
         my_net[ind].values =
             xmalloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ntot);
+        simplenet_init(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].type = ntype;
         my_net[ind].root = ivar;
         my_net[ind].n = ntot;
         my_net[ind].ncon = ncon;
-        update_fft(ind);
+        simplenet_update_fft(ind);
 
         ggets_plintf(" Added net %s type %d len=%d x %d using %s var[%d] \n",
                      name, ntype, ntot, ncon, wgtname, ivar);
@@ -673,7 +673,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
         my_net[ind].values =
             xmalloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ncon);
+        simplenet_init(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
 
         my_net[ind].type = ntype;
@@ -737,7 +737,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         */
         my_net[ind].values =
             xmalloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ncon);
+        simplenet_init(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
 
         my_net[ind].type = ntype;
@@ -823,10 +823,10 @@ simplenet_add_spec_fun(char *name, char *rhs) {
         ntype = IMPORT;
         for (i = 0; i < MAXW; i++)
             tname[i] = xmalloc(25);
-        parse_import(rhs, soname, sofun, &ncon, rootname, &ntab, tname);
+        simplenet_parse_import(rhs, soname, sofun, &ncon, rootname, &ntab, tname);
         my_net[ind].values =
             xmalloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ncon);
+        simplenet_init(my_net[ind].values, ncon);
         my_net[ind].n = ncon;
         ivar = get_var_index(rootname);
         if (ivar < 0) {
@@ -900,7 +900,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
         my_net[ind].values =
             xmalloc((usize)(ncon + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ncon);
+        simplenet_init(my_net[ind].values, ncon);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].taud = my_table[itau].y;
 
@@ -968,7 +968,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
         my_net[ind].values =
             xmalloc((usize)(ntot + 1)*sizeof(*(my_net[ind].values)));
-        init_net(my_net[ind].values, ntot);
+        simplenet_init(my_net[ind].values, ntot);
         my_net[ind].weight = my_table[iwgt].y;
         my_net[ind].index = my_table[iind].y;
         my_net[ind].taud = my_table[itau].y;
@@ -1049,7 +1049,7 @@ simplenet_add_spec_fun(char *name, char *rhs) {
 
 void
 simplenet_add_special_name(char *name, char *rhs) {
-    if (is_network(rhs)) {
+    if (simplenet_is_network(rhs)) {
         ggets_plintf(" netrhs = |%s| \n", rhs);
         if (n_network >= MAX_NET) {
             return;
@@ -1063,7 +1063,7 @@ simplenet_add_special_name(char *name, char *rhs) {
 }
 
 int32
-is_network(char *s) {
+simplenet_is_network(char *s) {
     /*int32 n;
      */
     ani_de_space(s);
@@ -1384,7 +1384,7 @@ simplenet_update_all_ffts(void) {
 
     for (i = 0; i < n_network; i++)
         if (my_net[i].type == FFTCON0 || my_net[i].type == FFTCONP)
-            update_fft(i);
+            simplenet_update_fft(i);
     return;
 }
 /*
@@ -1396,7 +1396,7 @@ simplenet_update_all_ffts(void) {
  fftr[i+k]=wgt[i] i=1 .. k-1
 */
 void
-update_fft(int32 ind) {
+simplenet_update_fft(int32 ind) {
     int32 i;
     int32 dims[2];
     double *w = my_net[ind].weight;
@@ -1619,13 +1619,13 @@ getimpstr(char *in, int32 *i, char *out) {
 }
 
 static int32
-import_error(void) {
+simplenet_import_error(void) {
     printf("k=import(soname,sofun,nret,var0,w1,...,wm)");
     return 0;
 }
 
 int32
-parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
+simplenet_parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
              int32 *m, char *tname[MAXW]) {
     char temp[256];
     int32 j;
@@ -1644,17 +1644,17 @@ parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
     j = getimpstr(s, &i, temp);
     strcpy(soname, temp);
     if (j == 1)
-        return import_error();
+        return simplenet_import_error();
 
     j = getimpstr(s, &i, temp);
     strcpy(sofun, temp);
     if (j == 1)
-        return import_error();
+        return simplenet_import_error();
 
     j = getimpstr(s, &i, temp);
     *n = atoi(temp);
     if (j == 1 || *n <= 0)
-        return import_error();
+        return simplenet_import_error();
 
     j = getimpstr(s, &i, temp);
     strcpy(vname, temp);
@@ -1677,7 +1677,7 @@ parse_import(char *s, char *soname, char *sofun, int32 *n, char *vname,
 }
 
 int32
-get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
+simplenet_get_vector_info(char *str, char *name, int32 *root, int32 *length, int32 *il,
                 int32 *ir) {
     int32 i = 0;
     int32 ivar;
