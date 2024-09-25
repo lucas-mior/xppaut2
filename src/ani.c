@@ -167,7 +167,6 @@ static void ani_set_to_init_data(void);
 static void ani_set_from_init_data(void);
 static void ani_flip1(int32 n);
 static void ani_flip(void);
-static void ani_disk_warn(void);
 static int32 ani_new_file(char *filename);
 static int32 load_ani_file(FILE *fp);
 static int32 parse_ani_string(char *s, FILE *fp);
@@ -578,8 +577,21 @@ ani_button(Window window) {
                 mpeg.flag = 0;
         } else
             mpeg.flag = 0;
-        if (mpeg.flag == 1)
-            ani_disk_warn();
+        if (mpeg.flag == 1) {
+            /* ani disk warn */
+            char junk[256];
+            char ans;
+            int32 total;
+            total = (my_browser.maxrow*vcr.wid*vcr.hgt*3) / (mpeg.skip*vcr.inc);
+            total = total / (1024*1024);
+            if (total > 10) {
+                snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?",
+                         total);
+                ans = (char)menudrive_two_choice("YES", "NO", junk, "yn");
+                if (ans != 'y')
+                    mpeg.flag = 0;
+            }
+        }
     }
     if (window == vcr.wgo)
 
@@ -988,23 +1000,6 @@ ani_flip(void) {
         scrngif_end_ani_gif(angiffile);
         fclose(angiffile);
         scrngif_set_global_map(0);
-    }
-    return;
-}
-
-void
-ani_disk_warn(void) {
-    char junk[256];
-    char ans;
-    int32 total;
-    total = (my_browser.maxrow*vcr.wid*vcr.hgt*3) / (mpeg.skip*vcr.inc);
-    total = total / (1024*1024);
-    if (total > 10) {
-        snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?",
-                 total);
-        ans = (char)menudrive_two_choice("YES", "NO", junk, "yn");
-        if (ans != 'y')
-            mpeg.flag = 0;
     }
     return;
 }
