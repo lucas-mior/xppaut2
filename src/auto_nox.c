@@ -1689,9 +1689,6 @@ auto_run(void) {
             return;
         }
 
-        /*  Auto.nbc=NODE-1;
-          auto_start_at_bvp();
-          } */
         if (ch2 == 'e') {
             HomoFlag = 2;
             auto_start_at_homoclinic();
