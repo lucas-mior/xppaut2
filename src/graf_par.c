@@ -912,19 +912,6 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     return 0;
 }
 
-void
-edit_curve(void) {
-    char bob[21];
-    int32 crv = 0;
-    snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
-    ggets_ping();
-    ggets_new_int(bob, &crv);
-    if (crv >= 0 && crv < MyGraph->nvars) {
-        snprintf(bob, sizeof(bob), "Edit curve %d", crv);
-        graf_par_alter_curve(bob, crv, crv);
-    }
-    return;
-}
 
 void
 new_curve(void) {
@@ -1483,8 +1470,19 @@ graf_par_add_a_curve_com(int32 c) {
         MyGraph->nvars = 1;
         break;
     case 3:
-        edit_curve();
+    {
+        /* edit curve */
+        char bob[21];
+        int32 crv = 0;
+        snprintf(bob, sizeof(bob), "Edit 0-%d :", MyGraph->nvars - 1);
+        ggets_ping();
+        ggets_new_int(bob, &crv);
+        if (crv >= 0 && crv < MyGraph->nvars) {
+            snprintf(bob, sizeof(bob), "Edit curve %d", crv);
+            graf_par_alter_curve(bob, crv, crv);
+        }
         break;
+    }
     case 4:
         create_ps();
         break;
