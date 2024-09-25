@@ -1071,8 +1071,7 @@ form_ode_count_object(int32 type) {
     case SOL_VAR:
         break;
     default:
-        fprintf(stderr, "Unexpected switch case in %s.\n", __func__);
-        exit(EXIT_FAILURE);
+        break;
     }
     return;
 }

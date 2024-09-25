@@ -536,8 +536,7 @@ auto_x11_traverse_diagram(void) {
                 done = -1;
                 break;
             default:
-                fprintf(stderr, "Unexpected case in %s.\n", __func__);
-                exit(EXIT_FAILURE);
+                break;
             }
         }
     }
