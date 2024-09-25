@@ -63,8 +63,6 @@ int32 ActiveWinList[MAXPOP];
 
 static void many_pops_select_sym(Window window);
 static void many_pops_lo_lite(Window wi);
-static void many_pops_set_gr_back(void);
-static void many_pops_set_gr_fore(void);
 static void many_pops_select_window(Window window);
 static void many_pops_set_restore(int32 flag);
 static void many_pops_add_pntarr(int32 type);
@@ -1417,28 +1415,20 @@ many_pops_select_window(Window window) {
     return;
 }
 
-void
-many_pops_set_gr_fore(void) {
-    XSetForeground(display, gc, GrFore);
-    return;
-}
 
-void
-many_pops_set_gr_back(void) {
-    XSetForeground(display, gc, GrBack);
-    return;
-}
 
 void
 many_pops_hi_lite(Window wi) {
-    many_pops_set_gr_fore();
+    /* many pops set gr fore */
+    XSetForeground(display, gc, GrFore);
     many_pops_select_sym(wi);
     return;
 }
 
 void
 many_pops_lo_lite(Window wi) {
-    many_pops_set_gr_back();
+    /* many pops set gr back */
+    XSetForeground(display, gc, GrBack);
     ggets_bar(0, 0, 5, 5, wi);
     return;
 }
