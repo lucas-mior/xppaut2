@@ -110,7 +110,6 @@ static void form_ode_take_apart(char *bob, double *value, char *name);
 static void form_ode_list_em(char *wild);
 static int32 form_ode_get_a_filename(char *filename, char *wild);
 static void form_ode_format_list(char **s, int32 n);
-static void form_ode_count_object(int32 type);
 
 int32
 form_ode_make_eqn(void) {
@@ -1043,28 +1042,6 @@ form_ode_if_end_include(char *old) {
     return 0;
 }
 
-void
-form_ode_count_object(int32 type) {
-    switch (type) {
-    case ODE:
-    case MAP:
-        break;
-    case FIXED:
-        break;
-    case VEQ:
-        break;
-    case MARKOV_VAR:
-        break;
-    case DERIVE_PAR:
-    case PAR_AM:
-        break;
-    case SOL_VAR:
-        break;
-    default:
-        break;
-    }
-    return;
-}
 
 int32
 form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
@@ -1367,7 +1344,24 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                      * v.args=%s\n",v.lhs,v.rhs,v.type,v.args);
                      */
                     form_ode_add_varinfo(v.type, v.lhs, v.rhs, v.nargs, v.args);
-                    form_ode_count_object(v.type);
+                    switch (v.type) {
+                    case ODE:
+                    case MAP:
+                        break;
+                    case FIXED:
+                        break;
+                    case VEQ:
+                        break;
+                    case MARKOV_VAR:
+                        break;
+                    case DERIVE_PAR:
+                    case PAR_AM:
+                        break;
+                    case SOL_VAR:
+                        break;
+                    default:
+                        break;
+                    }
                 }
             } /* end loop for the strings */
             /*     if(nstrings>0){
