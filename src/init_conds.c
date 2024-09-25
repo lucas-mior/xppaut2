@@ -1044,6 +1044,7 @@ selector_key(XEvent event) {
 int32
 init_conds_file_selector(char *title, char *file, char *wild) {
     int32 selected;
+    int32 done;
     if (!get_directory(cur_dir))
         return 0;
     if (!get_fileinfo(wild, cur_dir, &my_ff))
@@ -1052,9 +1053,8 @@ init_conds_file_selector(char *title, char *file, char *wild) {
     create_file_selector(title, file, wild);
 
     /* do file select events */
-    int32 done;
-    XEvent event;
     while (true) {
+        XEvent event;
         XNextEvent(display, &event);
         switch (event.type) {
         case ConfigureNotify:
@@ -1066,10 +1066,13 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             break;
         case ButtonPress:
             done = button_selector(event.xbutton.window);
-            if (done == 1)
+            if (done == 1) {
                 selected = 1; /* OK made a selection */
-            if (done == 2)
+                goto end;
+            } if (done == 2) {
                 selected = 0; /* canceled the whole thing */
+                goto end;
+            }
             break;
         case EnterNotify:
             crossing_selector(event.xcrossing.window, 0);
@@ -1079,15 +1082,19 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             break;
         case KeyPress:
             done = selector_key(event);
-            if (done == 2)
+            if (done == 2) {
                 selected = 0;
-            if (done == 1)
+                goto end;
+            } if (done == 1) {
                 selected = 1;
+                goto end;
+            }
             break;
         default:
             break;
         }
     }
+end:
 
     /* destroy selector */
     filesel.here = 0;
@@ -1954,7 +1961,7 @@ redraw_entire_box(BoxList *b) {
 
 void
 do_box_button(BoxList *b, Window window) {
-    int32 i, n = b->nwin;
+    int32 n = b->nwin;
     if (b->xuse == 0)
         return;
     if (window == b->close) {
@@ -1988,7 +1995,7 @@ do_box_button(BoxList *b, Window window) {
     if (window == b->pgdn)
         box_list_scroll(b, -b->nwin);
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (window == b->we[i]) {
             XSetInputFocus(display, window, RevertToParent, CurrentTime);
             do {
@@ -2009,7 +2016,7 @@ do_box_button(BoxList *b, Window window) {
     }
 
     if (b->type == ICBOX) {
-        for (i = 0; i < b->nwin; i++) {
+        for (int32 i = 0; i < b->nwin; i++) {
             if (window == b->ck[i]) {
                 b->isck[i + b->n0] = 1 - b->isck[i + b->n0];
                 if (b->isck[i + b->n0])
@@ -2021,57 +2028,54 @@ do_box_button(BoxList *b, Window window) {
         }
         if (window == b->xvt) {
             /* set up xvt */
-            int32 i;
             int32 plot_list[10];
-            int32 n = 0;
-            for (i = 0; i < ICBox.n; i++)
+            int32 n2 = 0;
+            for (int32 i = 0; i < ICBox.n; i++)
                 if (ICBox.isck[i]) {
-                    if (n < 10) {
-                        plot_list[n] = i + 1;
-                        n++;
+                    if (n2 < 10) {
+                        plot_list[n2] = i + 1;
+                        n2++;
                     }
                     ICBox.isck[i] = 0;
                 }
-            for (i = 0; i < ICBox.nwin; i++)
+            for (int32 i = 0; i < ICBox.nwin; i++)
                 XClearWindow(display, ICBox.ck[i]);
-            if (n > 0)
-                graf_par_graph_all(plot_list, n, 0);
+            if (n2 > 0)
+                graf_par_graph_all(plot_list, n2, 0);
         }
         if (window == b->pp) {
             /* set up pp */
-            int32 i;
-            int32 plot_list[3], n = 0;
+            int32 plot_list[3], n2 = 0;
 
-            for (i = 0; i < ICBox.n; i++)
+            for (int32 i = 0; i < ICBox.n; i++)
                 if (ICBox.isck[i]) {
-                    if (n < 3) {
-                        plot_list[n] = i + 1;
-                        n++;
+                    if (n2 < 3) {
+                        plot_list[n2] = i + 1;
+                        n2++;
                     }
                     ICBox.isck[i] = 0;
                 }
-            for (i = 0; i < ICBox.nwin; i++)
+            for (int32 i = 0; i < ICBox.nwin; i++)
                 XClearWindow(display, ICBox.ck[i]);
-            if (n > 1)
-                graf_par_graph_all(plot_list, n, 1);
+            if (n2 > 1)
+                graf_par_graph_all(plot_list, n2, 1);
         }
 
         if (window == b->arr) {
             /* set up arry */
-            int32 i;
-            int32 plot_list[2], n = 0;
+            int32 plot_list[2], n2 = 0;
 
-            for (i = 0; i < ICBox.n; i++)
+            for (int32 i = 0; i < ICBox.n; i++)
                 if (ICBox.isck[i]) {
-                    if (n < 2) {
-                        plot_list[n] = i + 1;
-                        n++;
+                    if (n2 < 2) {
+                        plot_list[n2] = i + 1;
+                        n2++;
                     }
                     ICBox.isck[i] = 0;
                 }
-            for (i = 0; i < ICBox.nwin; i++)
+            for (int32 i = 0; i < ICBox.nwin; i++)
                 XClearWindow(display, ICBox.ck[i]);
-            if (n == 2)
+            if (n2 == 2)
                 array_plot_optimize(plot_list);
         }
     }

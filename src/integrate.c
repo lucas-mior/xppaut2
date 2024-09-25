@@ -144,7 +144,6 @@ static void integrate_monte_carlo(void);
 static void integrate_init_monte_carlo(void);
 static int32 integrate_set_up_range2(void);
 static int32 integrate_set_up_range(void);
-static int32 integrate_range_item2(void);
 static int32 integrate_range_item(void);
 
 void
@@ -275,26 +274,6 @@ integrate_range_item(void) {
     return 1;
 }
 
-int32
-integrate_range_item2(void) {
-    int32 i;
-    char bob[256];
-    i = init_conds_find_user_name(Param, range.item2);
-    if (i > -1) {
-        range.type2 = Param;
-        range.index2 = i;
-    } else {
-        i = init_conds_find_user_name(IC, range.item2);
-        if (i <= -1) {
-            sprintf(bob, " %s is not a parameter or variable !", range.item2);
-            ggets_err_msg(bob);
-            return 0;
-        }
-        range.type2 = IC;
-        range.index2 = i;
-    }
-    return 1;
-}
 
 int32
 integrate_set_up_range(void) {
@@ -412,8 +391,25 @@ integrate_set_up_range2(void) {
             return 0;
         strcpy(range.item2, values[3]);
 
-        if (integrate_range_item2() == 0)
-            return 0;
+        {
+            /* integrate range item2 */
+            int32 i;
+            char bob[256];
+            i = init_conds_find_user_name(Param, range.item2);
+            if (i > -1) {
+                range.type2 = Param;
+                range.index2 = i;
+            } else {
+                i = init_conds_find_user_name(IC, range.item2);
+                if (i <= -1) {
+                    sprintf(bob, " %s is not a parameter or variable !", range.item2);
+                    ggets_err_msg(bob);
+                    return 0;
+                }
+                range.type2 = IC;
+                range.index2 = i;
+            }
+        }
         range.steps = atoi(values[6]);
         range.steps2 = atoi(values[12]);
         if (range.steps <= 0)
@@ -595,7 +591,6 @@ integrate_eq_range(double *x) {
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
-    int32 i;
     static char *yn[] = {"N", "Y"};
     sprintf(values[0], "%s", eq_range.item);
     sprintf(values[1], "%d", eq_range.steps);
