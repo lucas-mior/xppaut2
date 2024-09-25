@@ -133,7 +133,6 @@ static void destroy_selector(void);
 static int32 selector_key(XEvent event);
 static void stringintersect(char *target, char *sother);
 static void create_file_selector(char *title, char *file, char *wild);
-static int32 do_file_select_events(void);
 static void crossing_selector(Window window, int32 c);
 static int32 button_selector(Window window);
 static void fs_scroll(int32 i);
@@ -633,45 +632,6 @@ crossing_selector(Window window, int32 c) {
     return;
 }
 
-int32
-do_file_select_events(void) {
-    int32 done;
-    XEvent event;
-    while (true) {
-        XNextEvent(display, &event);
-        switch (event.type) {
-        case ConfigureNotify:
-        case Expose:
-        case MapNotify:
-            if (Xup)
-                many_pops_do_expose(event);
-            expose_selector(event.xany.window);
-            break;
-        case ButtonPress:
-            done = button_selector(event.xbutton.window);
-            if (done == 1)
-                return 1; /* OK made a selection */
-            if (done == 2)
-                return 0; /* canceled the whole thing */
-            break;
-        case EnterNotify:
-            crossing_selector(event.xcrossing.window, 0);
-            break;
-        case LeaveNotify:
-            crossing_selector(event.xcrossing.window, 1);
-            break;
-        case KeyPress:
-            done = selector_key(event);
-            if (done == 2)
-                return 0;
-            if (done == 1)
-                return 1;
-            break;
-        default:
-            break;
-        }
-    }
-}
 
 void
 create_file_selector(char *title, char *file, char *wild) {
@@ -1098,17 +1058,54 @@ destroy_selector(void) {
 
 int32
 init_conds_file_selector(char *title, char *file, char *wild) {
-    int32 i;
+    int32 selected;
     if (!get_directory(cur_dir))
         return 0;
     if (!get_fileinfo(wild, cur_dir, &my_ff))
         return 0;
 
     create_file_selector(title, file, wild);
-    i = do_file_select_events();
+
+    /* do file select events */
+    int32 done;
+    XEvent event;
+    while (true) {
+        XNextEvent(display, &event);
+        switch (event.type) {
+        case ConfigureNotify:
+        case Expose:
+        case MapNotify:
+            if (Xup)
+                many_pops_do_expose(event);
+            expose_selector(event.xany.window);
+            break;
+        case ButtonPress:
+            done = button_selector(event.xbutton.window);
+            if (done == 1)
+                selected = 1; /* OK made a selection */
+            if (done == 2)
+                selected = 0; /* canceled the whole thing */
+            break;
+        case EnterNotify:
+            crossing_selector(event.xcrossing.window, 0);
+            break;
+        case LeaveNotify:
+            crossing_selector(event.xcrossing.window, 1);
+            break;
+        case KeyPress:
+            done = selector_key(event);
+            if (done == 2)
+                selected = 0;
+            if (done == 1)
+                selected = 1;
+            break;
+        default:
+            break;
+        }
+    }
     destroy_selector();
     XFlush(display); /*Need to do this otherwise the file dialog hangs around*/
-    if (i == 0)
+    if (selected == 0)
         return 0;
     strcpy(file, filesel.filetxt);
     return 1; /* got a file name */
