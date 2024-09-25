@@ -1679,8 +1679,30 @@ auto_run(void) {
             return;
         }
         if (ch2 == 'b') {
+            int32 opn, cls;
             Auto.nbc = NODE;
-            auto_start_at_bvp();
+
+            /* auto start at bvp */
+            opn = NO_OPEN_3;
+            cls = OVERWRITE;
+            pp_shoot_compile_bvp();
+            if (BVP_FLAG == 0)
+                return;
+            TypeOfCalc = BV1;
+            Auto.ips = 4;
+            Auto.irs = 0;
+            Auto.itp = 0;
+            Auto.ilp = 1;
+            Auto.isw = 1;
+
+            Auto.isp = 2;
+            if (SuppressBP == 1)
+                Auto.isp = 0;
+
+            Auto.nfpar = 1;
+            AutoTwoParam = 0;
+            NewPeriodFlag = 2;
+            auto_nox_do(opn, cls);
             return;
         }
         if (ch2 == 'h') {
@@ -1958,29 +1980,6 @@ NICP=2, ISW=2 at Hopf
 
 /* Start a new point for bifurcation diagram   */
 
-void
-auto_start_at_bvp(void) {
-    int32 opn = NO_OPEN_3, cls = OVERWRITE;
-    pp_shoot_compile_bvp();
-    if (BVP_FLAG == 0)
-        return;
-    TypeOfCalc = BV1;
-    Auto.ips = 4;
-    Auto.irs = 0;
-    Auto.itp = 0;
-    Auto.ilp = 1;
-    Auto.isw = 1;
-
-    Auto.isp = 2;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-
-    Auto.nfpar = 1;
-    AutoTwoParam = 0;
-    NewPeriodFlag = 2;
-    auto_nox_do(opn, cls);
-    return;
-}
 
 void
 auto_start_at_per(void) {
