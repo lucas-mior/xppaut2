@@ -1654,32 +1654,6 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
 }
 
 void
-auto_nox_per_doub_choice(void) {
-    static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
-    static char key[] = "dtfe";
-    char ch;
-    ch = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
-                                    no_hint, Auto.hinttxt);
-    if (ch == 'd') {
-        auto_period_double();
-        return;
-    }
-    if (ch == 'e') {
-        auto_new_per();
-        return;
-    }
-    if (ch == 'f') {
-        auto_2p_fixper();
-        return;
-    }
-    if (ch == 't') {
-        auto_twopar_double();
-        return;
-    }
-    auto_x11_redraw_menus();
-}
-
-void
 auto_nox_periodic_choice(void) {
     static char *m[] = {"Extend", "Fixed Period"};
     static char key[] = "ef";
@@ -1797,8 +1771,33 @@ auto_run(void) {
         ggets_ping();
         return;
     }
-    if (itp1 == 7 || itp2 == 7) { /* period doubling */
-        auto_nox_per_doub_choice();
+    if (itp1 == 7 || itp2 == 7) {
+        /* period doubling */
+
+        /* auto nox per doub choice */
+        static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
+        static char key[] = "dtfe";
+        char ch;
+        ch = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
+                                        no_hint, Auto.hinttxt);
+        if (ch == 'd') {
+            auto_period_double();
+            return;
+        }
+        if (ch == 'e') {
+            auto_new_per();
+            return;
+        }
+        if (ch == 'f') {
+            auto_2p_fixper();
+            return;
+        }
+        if (ch == 't') {
+            auto_twopar_double();
+            return;
+        }
+        auto_x11_redraw_menus();
+
         ggets_ping();
         return;
     }
