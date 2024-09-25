@@ -54,7 +54,7 @@ static struct MsgBoxStruct {
     int32 here;
 } MsgBox;
 
-static void do_file_com(int32 com);
+static void menudrive_do_file_com(int32 com);
 
 void
 menudrive_do_tutorial(void) {
@@ -354,7 +354,7 @@ menudrive_run_the_commands(int32 com) {
     }
     /* CLONE */
     if (com >= M_FP && com <= M_FL) {
-        do_file_com(com);
+        menudrive_do_file_com(com);
         return;
     }
 
@@ -463,7 +463,7 @@ menudrive_make_adj(void) {
 }
 
 void
-do_file_com(int32 com) {
+menudrive_do_file_com(int32 com) {
     switch (com) {
     case M_FT:
         adj2_do_transpose();
