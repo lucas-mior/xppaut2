@@ -156,7 +156,6 @@ int32 NewPeriodFlag;
 static AutoAX Old1p;
 static AutoAX Old2p;
 
-static void auto_period_double(void);
 static void auto_start_at_homoclinic(void);
 static void auto_2p_hopf(void);
 static void auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per);
@@ -1833,7 +1832,22 @@ auto_run(void) {
         ch2 = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
                                          no_hint, Auto.hinttxt);
         if (ch2 == 'd') {
-            auto_period_double();
+            /* auto period double */
+            blrtn.torper = grabpt.torper;
+            Auto.ntst = 2*Auto.ntst;
+            Auto.irs = grabpt.lab;
+            Auto.nfpar = 1; /* grabpt.nfpar; */
+
+            Auto.itp = grabpt.itp;
+            Auto.ilp = 1;
+            Auto.isw = -1;
+            TypeOfCalc = PE1;
+            Auto.isp = 2;
+            if (SuppressBP == 1)
+                Auto.isp = 0;
+            Auto.ips = 2;
+            AutoTwoParam = 0;
+            auto_nox_do(OPEN_3, APPEND);
             return;
         }
         if (ch2 == 'e') {
@@ -2401,25 +2415,6 @@ auto_2p_hopf(void) {
     return;
 }
 
-void
-auto_period_double(void) {
-    blrtn.torper = grabpt.torper;
-    Auto.ntst = 2*Auto.ntst;
-    Auto.irs = grabpt.lab;
-    Auto.nfpar = 1; /* grabpt.nfpar; */
-
-    Auto.itp = grabpt.itp;
-    Auto.ilp = 1;
-    Auto.isw = -1;
-    TypeOfCalc = PE1;
-    Auto.isp = 2;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-    Auto.ips = 2;
-    AutoTwoParam = 0;
-    auto_nox_do(OPEN_3, APPEND);
-    return;
-}
 
 /**********   END RUN AUTO *********************/
 
