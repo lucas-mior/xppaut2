@@ -6,3 +6,5 @@ tags
 compile_commands.json
 *.SO
 *.so
+*.[23]
+/rename.sh
