@@ -5,34 +5,6 @@
 #include <string.h>
 #include "functions.h"
 
-#ifdef TIME
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-
-static double
-setubv2_time_start(void) {
-    struct timeval time;
-    double seconds;
-    double microseconds;
-    gettimeofday(&time, NULL);
-    seconds = (double)time.tv_sec;
-    microseconds = (double)time.tv_usec;
-    return seconds + microseconds / 1e6;
-}
-
-static double
-setubv2_time_end(double start) {
-    struct timeval time;
-    double seconds;
-    double microseconds;
-    gettimeofday(&time, NULL);
-    seconds = (double)time.tv_sec;
-    microseconds = (double)time.tv_usec;
-    return (seconds + microseconds / 1e6) - start;
-}
-#endif
-
 void *
 setubv_make_aa_bb_cc(void *arg) {
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, ups_dim1,

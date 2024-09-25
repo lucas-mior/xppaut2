@@ -109,7 +109,6 @@ extern UFUN_ARG ufun_arg[MAX_UFUN];
 #define VECT_ROOT 500
 
 void init_rpn(void);
-void free_ufuns(void);
 int32 duplicate_name(char *junk);
 int32 add_constant(char *junk);
 int32 get_var_index(char *name);
@@ -161,7 +160,6 @@ int32 do_num(char *source, char *num, double *value, int32 *ind);
 void convert(char *source, char *dest);
 void find_tok(char *source, int32 *index, int32 *tok);
 double pmod(double x, double y);
-void two_args(void);
 double bessel_j(double x, double y);
 double bessel_y(double x, double y);
 double bessi(double nn, double x);
@@ -175,7 +173,6 @@ double do_shift(double shift, double variable);
 double do_ishift(double shift, double variable);
 double do_delay_shift(double delay, double shift, double variable);
 double do_delay(double delay, double i);
-void one_arg(void);
 double normal(double mean, double std);
 double max(double x, double y);
 double min(double x, double y);

@@ -221,8 +221,54 @@ init_rpn(void) {
 
     MaxPoints = 4000;
     NSYM = STDSYM;
-    two_args();
-    one_arg();
+
+    fun2[4] = (void *)atan2;
+    fun2[5] = (void *)pow;
+    fun2[6] = (void *)max;
+    fun2[7] = (void *)min;
+    /*  fun2[8]= (void*)mod;  */
+    fun2[8] = (void *)pmod; // This always gives an answer in [0,y) for mod(x,y)
+    fun2[9] = (void *)dand;
+    fun2[10] = (void *)dor;
+    fun2[11] = (void *)dgt;
+    fun2[12] = (void *)dlt;
+    fun2[13] = (void *)deq;
+    fun2[14] = (void *)dge;
+    fun2[15] = (void *)dle;
+    fun2[16] = (void *)dne;
+    fun2[17] = (void *)normal;
+    fun2[18] = (void *)bessel_j;
+    fun2[19] = (void *)bessel_y;
+    fun2[20] = (void *)bessi;
+    fun2[21] = (void *)bessis;
+
+    fun1[0] = (void *)sin;
+    fun1[1] = (void *)cos;
+    fun1[2] = (void *)tan;
+    fun1[3] = (void *)asin;
+    fun1[4] = (void *)acos;
+    fun1[5] = (void *)atan;
+    fun1[6] = (void *)sinh;
+    fun1[7] = (void *)tanh;
+    fun1[8] = (void *)cosh;
+    fun1[9] = (void *)fabs;
+    fun1[10] = (void *)exp;
+    fun1[11] = (void *)log;
+    fun1[12] = (void *)log10;
+    fun1[13] = (void *)sqrt;
+    fun1[14] = (void *)neg;
+    fun1[15] = (void *)recip;
+    fun1[16] = (void *)heaviside;
+    fun1[17] = (void *)signum;
+    fun1[18] = (void *)floor;
+    fun1[19] = (void *)rndom;
+    fun1[20] = (void *)dnot;
+    fun1[21] = (void *)erf;
+    fun1[22] = (void *)erfc;
+    fun1[23] = (void *)hom_bcs;
+    fun1[24] = (void *)markov_poidev;
+    fun1[25] = (void *)lgamma;
+
     add_con("PI", M_PI);
 
     add_con("I'", 0.0);
@@ -243,18 +289,6 @@ init_rpn(void) {
     if (newseed == 1)
         RandSeed = (int32)time(0);
     markov_nsrand48(RandSeed);
-    return;
-}
-
-/*  FREE_UFUNS   */
-
-void
-free_ufuns(void) {
-    int32 i;
-    for (i = 0; i < NFUN; i++) {
-        free(ufun[i]);
-        free(ufun_def[i]);
-    }
     return;
 }
 
@@ -1470,30 +1504,6 @@ pmod(double x, double y) {
     return z;
 }
 
-void
-two_args(void) {
-    fun2[4] = (void *)atan2;
-    fun2[5] = (void *)pow;
-    fun2[6] = (void *)max;
-    fun2[7] = (void *)min;
-    /*  fun2[8]= (void*)mod;  */
-    fun2[8] = (void *)pmod; // This always gives an answer in [0,y) for mod(x,y)
-    fun2[9] = (void *)dand;
-    fun2[10] = (void *)dor;
-    fun2[11] = (void *)dgt;
-    fun2[12] = (void *)dlt;
-    fun2[13] = (void *)deq;
-    fun2[14] = (void *)dge;
-    fun2[15] = (void *)dle;
-    fun2[16] = (void *)dne;
-    fun2[17] = (void *)normal;
-    fun2[18] = (void *)bessel_j;
-    fun2[19] = (void *)bessel_y;
-    fun2[20] = (void *)bessi;
-    fun2[21] = (void *)bessis;
-    return;
-}
-
 /*   These are the Bessel Functions; if you dont have them then
      return some sort of dummy value or else write a program
      to compute them
@@ -1794,37 +1804,6 @@ double
 hom_bcs(int32 i) {
     (void)i;
     return 0.0; /* this is deprecated so no longer used */
-}
-
-void
-one_arg(void) {
-    fun1[0] = (void *)sin;
-    fun1[1] = (void *)cos;
-    fun1[2] = (void *)tan;
-    fun1[3] = (void *)asin;
-    fun1[4] = (void *)acos;
-    fun1[5] = (void *)atan;
-    fun1[6] = (void *)sinh;
-    fun1[7] = (void *)tanh;
-    fun1[8] = (void *)cosh;
-    fun1[9] = (void *)fabs;
-    fun1[10] = (void *)exp;
-    fun1[11] = (void *)log;
-    fun1[12] = (void *)log10;
-    fun1[13] = (void *)sqrt;
-    fun1[14] = (void *)neg;
-    fun1[15] = (void *)recip;
-    fun1[16] = (void *)heaviside;
-    fun1[17] = (void *)signum;
-    fun1[18] = (void *)floor;
-    fun1[19] = (void *)rndom;
-    fun1[20] = (void *)dnot;
-    fun1[21] = (void *)erf;
-    fun1[22] = (void *)erfc;
-    fun1[23] = (void *)hom_bcs;
-    fun1[24] = (void *)markov_poidev;
-    fun1[25] = (void *)lgamma;
-    return;
 }
 
 double
