@@ -124,27 +124,27 @@ Range range;
 int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);
 
-static int32 stor_full(void);
-static void plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
+static int32 integrate_stor_full(void);
+static void integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
 static int32 integrate_form_ic(void);
-static int32 set_array_ic(void);
+static int32 integrate_set_array_ic(void);
 static void integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
-static void store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
+static void integrate_store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
 static void integrate_new_array_ic(char *new, int32 j1, int32 j2);
 static void integrate_start_flags(double *x, double *t);
-static int32 write_this_run(char *file, int32 i);
+static int32 integrate_write_this_run(char *file, int32 i);
 static void batch_integrate_once(void);
 static void integrate_batch_dry_run(void);
 static void integrate_eq_range(double *x);
 static void integrate_monte_carlo_search(int32 append, int32 stuffbrowse,
                                   int32 ishoot);
-static void monte_carlo(void);
-static void init_monte_carlo(void);
-static int32 set_up_range2(void);
-static int32 set_up_range(void);
-static int32 range_item2(void);
-static int32 range_item(void);
-static int32 set_up_eq_range(void);
+static void integrate_monte_carlo(void);
+static void integrate_init_monte_carlo(void);
+static int32 integrate_set_up_range2(void);
+static int32 integrate_set_up_range(void);
+static int32 integrate_range_item2(void);
+static int32 integrate_range_item(void);
+static int32 integrate_set_up_eq_range(void);
 
 void
 integrate_init_ar_ic(void) {
@@ -224,12 +224,12 @@ integrate_init_range(void) {
     }
     sprintf(range.item2, "%s", uvar_names[0]);
     pp_shoot_init_shoot_range(upar_names[0]);
-    init_monte_carlo();
+    integrate_init_monte_carlo();
     return;
 }
 
 int32
-set_up_eq_range(void) {
+integrate_set_up_eq_range(void) {
     static char *n[] = {
         "*2Range over", "Steps",         "Start",       "End",
         "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
@@ -306,7 +306,7 @@ integrate_cont_integ(void) {
 }
 
 int32
-range_item(void) {
+integrate_range_item(void) {
     int32 i;
     char bob[256];
     i = init_conds_find_user_name(Param, range.item);
@@ -327,7 +327,7 @@ range_item(void) {
 }
 
 int32
-range_item2(void) {
+integrate_range_item2(void) {
     int32 i;
     char bob[256];
     i = init_conds_find_user_name(Param, range.item2);
@@ -348,7 +348,7 @@ range_item2(void) {
 }
 
 int32
-set_up_range(void) {
+integrate_set_up_range(void) {
     static char *n[] = {"*3Range over",
                         "Steps",
                         "Start",
@@ -361,7 +361,7 @@ set_up_range(void) {
     int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup)
-        return range_item();
+        return integrate_range_item();
 
     sprintf(values[0], "%s", range.item);
     sprintf(values[1], "%d", range.steps);
@@ -390,7 +390,7 @@ set_up_range(void) {
           range.index=i;
         }
         */
-        if (range_item() == 0)
+        if (integrate_range_item() == 0)
             return 0;
         range.steps = atoi(values[1]);
         if (range.steps <= 0)
@@ -420,7 +420,7 @@ set_up_range(void) {
 }
 
 int32
-set_up_range2(void) {
+integrate_set_up_range2(void) {
     static char *n[] = {"*3Vary1",
                         "Start1",
                         "End1",
@@ -438,7 +438,7 @@ set_up_range2(void) {
     int32 status;
     static char *yn[] = {"N", "Y"};
     if (!Xup)
-        return range_item();
+        return integrate_range_item();
     sprintf(values[0], "%s", range.item);
     sprintf(values[1], "%.16g", range.plow);
     sprintf(values[2], "%.16g", range.phigh);
@@ -459,11 +459,11 @@ set_up_range2(void) {
     if (status != 0) {
         strcpy(range.item, values[0]);
 
-        if (range_item() == 0)
+        if (integrate_range_item() == 0)
             return 0;
         strcpy(range.item2, values[3]);
 
-        if (range_item2() == 0)
+        if (integrate_range_item2() == 0)
             return 0;
         range.steps = atoi(values[6]);
         range.steps2 = atoi(values[12]);
@@ -501,7 +501,7 @@ set_up_range2(void) {
 }
 
 void
-init_monte_carlo(void) {
+integrate_init_monte_carlo(void) {
     int32 i;
     fixptguess.tol = .001;
     fixptguess.n = 100;
@@ -515,7 +515,7 @@ init_monte_carlo(void) {
 }
 
 void
-monte_carlo(void) {
+integrate_monte_carlo(void) {
     int32 append = 0;
     int32 i = 0, done = 0, ishoot = 0;
     double z;
@@ -640,7 +640,7 @@ integrate_eq_range(double *x) {
     char bob[256];
     double stabinfo = 0.0;
 
-    if (set_up_eq_range() == 0)
+    if (integrate_set_up_eq_range() == 0)
         return;
 
     browse_wipe_rep();
@@ -751,11 +751,11 @@ integrate_do_range(double *x, int32 flag) {
     int32 ierr = 0;
     if (flag == 0 || flag == 2) {
         range.rtype = 0;
-        if (set_up_range() == 0)
+        if (integrate_set_up_range() == 0)
             return -1;
     }
     if (flag == 1) {
-        if (set_up_range2() == 0)
+        if (integrate_set_up_range2() == 0)
             return -1;
     }
 
@@ -905,7 +905,7 @@ integrate_do_range(double *x, int32 flag) {
             if (res == 1 || STOCH_FLAG) {
                 if (batch_range == 1) {
                     histogram_post_process_stuff();
-                    write_this_run(batchout, i);
+                    integrate_write_this_run(batchout, i);
                 }
                 storind = 0;
             }
@@ -1008,7 +1008,7 @@ integrate_find_equilib_com(int32 com) {
         menudrive_message_box_kill();
         break;
     case 3:
-        monte_carlo();
+        integrate_monte_carlo();
         return;
     case 0:
     default:
@@ -1180,7 +1180,7 @@ batch_integrate_once(void) {
 }
 
 int32
-write_this_run(char *file, int32 i) {
+integrate_write_this_run(char *file, int32 i) {
     /*char outfile[256];*/
     char outfile[XPP_MAX_NAME];
     FILE *fp;
@@ -1495,7 +1495,7 @@ integrate_new_array_ic(char *new, int32 j1, int32 j2) {
 }
 
 void
-store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
+integrate_store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
     int32 i;
     int32 ihot = -1;
     int32 ifree = -1;
@@ -1581,7 +1581,7 @@ integrate_extract_ic_data(char *big) {
     big[1] = ' ';
     form_ode_search_array(front, new, &j1, &j2, &flag2);
     if (flag2 == 1) {
-        store_new_array_ic(new, j1, j2, back);
+        integrate_store_new_array_ic(new, j1, j2, back);
         ar_ic_defined = 1;
     }
     return 1;
@@ -1602,7 +1602,7 @@ integrate_arr_ic_start(void) {
 }
 
 int32
-set_array_ic(void) {
+integrate_set_array_ic(void) {
     char junk[50];
     char new[50];
     int32 i, index0, myar = -1;
@@ -1669,7 +1669,7 @@ int32
 integrate_form_ic(void) {
     int32 ans;
     while (true) {
-        ans = set_array_ic();
+        ans = integrate_set_array_ic();
         if (ans == 0)
             break;
     }
@@ -2199,7 +2199,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
                 /* storind++;
                  if(!(storind<MAXSTOR))
-                 if(stor_full()==0)break;
+                 if(integrate_stor_full()==0)break;
                 }
                 */
                 ggets_err_msg(error_message);
@@ -2229,7 +2229,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 }
                 /* storind++;
                  if(!(storind<MAXSTOR))
-                 if(stor_full()==0)break;
+                 if(integrate_stor_full()==0)break;
                 }
                 */
                 ggets_err_msg(error_message);
@@ -2380,7 +2380,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
         }
 
         if (!(fabs(*t) < TRANS) && Xup && OnTheFly) {
-            plot_the_graphs(xv, xvold, fabs(dt*NJMP), torcross, 0);
+            integrate_plot_the_graphs(xv, xvold, fabs(dt*NJMP), torcross, 0);
         }
 
         if ((STORFLAG == 1) && (count != 0) && (storind < MAXSTOR) &&
@@ -2391,7 +2391,7 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 storage[ieqn][storind] = xv[ieqn];
             storind++;
             if (!(storind < MAXSTOR))
-                if (stor_full() == 0)
+                if (integrate_stor_full() == 0)
                     break;
             if ((pflag == 1) && (SOS == 1))
                 break;
@@ -2517,24 +2517,24 @@ integrate_export_data(FILE *fp) {
 }
 
 void
-plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
+integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
     int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
-        plot_one_graph(xv, xvold, ddt, tc);
+        integrate_plot_one_graph(xv, xvold, ddt, tc);
         return;
     }
 
     for (i = 0; i < num_pops; i++) {
         many_pops_make_active(ActiveWinList[i], flag);
-        plot_one_graph(xv, xvold, ddt, tc);
+        integrate_plot_one_graph(xv, xvold, ddt, tc);
     }
     many_pops_make_active(ic, flag);
     return;
 }
 
 void
-plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
+integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     int32 *ixplt;
     int32 *iyplt;
     int32 *izplt;
@@ -2720,7 +2720,7 @@ integrate_stop_integration(void) {
 }
 
 int32
-stor_full(void) {
+integrate_stor_full(void) {
     char ch;
     int32 nrow = 2*MAXSTOR;
     if (storage_realloc(NEQ + 1, nrow)) {

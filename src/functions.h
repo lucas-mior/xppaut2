@@ -2666,7 +2666,7 @@ void integrate_send_output(double *y, double t);
 void integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
              double *ypl, double *zpl);
 void integrate_export_data(FILE *fp);
-void plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
+void integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
                      int32 flag);
 void integrate_restore(int32 i1, int32 i2);
 void integrate_comp_color(double *v1, double *v2, int32 n, double dt);
