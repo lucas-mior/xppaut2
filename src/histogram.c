@@ -430,13 +430,12 @@ histogram_compute_power(void) {
  * window type - 0-square, 1=par 2=hamming,4-hanning,3- bartlet
  * returns a two vectors, real and imaginary
  * which have each of the data appended to them
-  data is data (not destroyed)
-  nr=number of points in data
-  win=window size
-  w_type=windowing
-  pow returns the power
-      size = win/2
-*/
+ * data is data (not destroyed)
+ * nr=number of points in data
+ * win=window size
+ * w_type=windowing
+ * pow returns the power
+ *     size = win/2 */
 
 int32
 histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type, double *pow) {
