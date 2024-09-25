@@ -131,11 +131,11 @@ int32 xorfix;
 int32 silent;
 int32 got_file;
 
-static void split_apart(char *bob, char *name, char *value);
-static void do_intern_set(char *name1, char *value);
-static void fil_int(FILE *fpt, int32 *val);
-static void fil_flt(FILE *fpt, double *val);
-static void read_defaults(FILE *fp);
+static void load_eqn_split_apart(char *bob, char *name, char *value);
+static void load_eqn_do_intern_set(char *name1, char *value);
+static void load_eqn_fil_int(FILE *fpt, int32 *val);
+static void load_eqn_fil_flt(FILE *fpt, double *val);
+static void load_eqn_read_defaults(FILE *fp);
 
 void
 load_eqn_dump_torus(FILE *fp, int32 f) {
@@ -509,7 +509,7 @@ load_eqn_set_all_vals(void) {
     load_eqn_set_internopts(NULL);
 
     if ((fp = fopen(options, "r")) != NULL) {
-        read_defaults(fp);
+        load_eqn_read_defaults(fp);
         fclose(fp);
     }
 
@@ -569,7 +569,7 @@ load_eqn_set_all_vals(void) {
 }
 
 void
-read_defaults(FILE *fp) {
+load_eqn_read_defaults(FILE *fp) {
     char bob[100];
     char *ptr;
     fgets(bob, 80, fp);
@@ -587,103 +587,103 @@ read_defaults(FILE *fp) {
     }
 
     if (notAlreadySet.PaperWhite) {
-        fil_int(fp, &PaperWhite);
+        load_eqn_fil_int(fp, &PaperWhite);
         notAlreadySet.PaperWhite = 0;
     }
     if (notAlreadySet.IXPLT) {
-        fil_int(fp, &IXPLT);
+        load_eqn_fil_int(fp, &IXPLT);
         notAlreadySet.IXPLT = 0;
     }
     if (notAlreadySet.IYPLT) {
-        fil_int(fp, &IYPLT);
+        load_eqn_fil_int(fp, &IYPLT);
         notAlreadySet.IYPLT = 0;
     }
     if (notAlreadySet.IZPLT) {
-        fil_int(fp, &IZPLT);
+        load_eqn_fil_int(fp, &IZPLT);
         notAlreadySet.IZPLT = 0;
     }
     if (notAlreadySet.AXES) {
-        fil_int(fp, &AXES);
+        load_eqn_fil_int(fp, &AXES);
         notAlreadySet.PaperWhite = 0;
     }
     if (notAlreadySet.NOUT) {
-        fil_int(fp, &NJMP);
+        load_eqn_fil_int(fp, &NJMP);
         notAlreadySet.NOUT = 0;
     }
     if (notAlreadySet.NMESH) {
-        fil_int(fp, &NMESH);
+        load_eqn_fil_int(fp, &NMESH);
         notAlreadySet.NMESH = 0;
     }
     if (notAlreadySet.METHOD) {
-        fil_int(fp, &METHOD);
+        load_eqn_fil_int(fp, &METHOD);
         notAlreadySet.METHOD = 0;
     }
 
     if (notAlreadySet.TIMEPLOT) {
-        fil_int(fp, &TIMPLOT);
+        load_eqn_fil_int(fp, &TIMPLOT);
         notAlreadySet.TIMEPLOT = 0;
     }
     if (notAlreadySet.MAXSTOR) {
-        fil_int(fp, &MAXSTOR);
+        load_eqn_fil_int(fp, &MAXSTOR);
         notAlreadySet.MAXSTOR = 0;
     }
     if (notAlreadySet.TEND) {
-        fil_flt(fp, &TEND);
+        load_eqn_fil_flt(fp, &TEND);
         notAlreadySet.TEND = 0;
     }
     if (notAlreadySet.DT) {
-        fil_flt(fp, &DELTA_T);
+        load_eqn_fil_flt(fp, &DELTA_T);
         notAlreadySet.DT = 0;
     }
     if (notAlreadySet.T0) {
-        fil_flt(fp, &T0);
+        load_eqn_fil_flt(fp, &T0);
         notAlreadySet.T0 = 0;
     }
     if (notAlreadySet.TRANS) {
-        fil_flt(fp, &TRANS);
+        load_eqn_fil_flt(fp, &TRANS);
         notAlreadySet.TRANS = 0;
     }
     if (notAlreadySet.BOUND) {
-        fil_flt(fp, &BOUND);
+        load_eqn_fil_flt(fp, &BOUND);
         notAlreadySet.BOUND = 0;
     }
     if (notAlreadySet.DTMIN) {
-        fil_flt(fp, &HMIN);
+        load_eqn_fil_flt(fp, &HMIN);
         notAlreadySet.DTMIN = 0;
     }
     if (notAlreadySet.DTMAX) {
-        fil_flt(fp, &HMAX);
+        load_eqn_fil_flt(fp, &HMAX);
         notAlreadySet.DTMIN = 0;
     }
     if (notAlreadySet.TOLER) {
-        fil_flt(fp, &TOLER);
+        load_eqn_fil_flt(fp, &TOLER);
         notAlreadySet.TOLER = 0;
     }
     if (notAlreadySet.DELAY) {
-        fil_flt(fp, &DELAY);
+        load_eqn_fil_flt(fp, &DELAY);
         notAlreadySet.DELAY = 0;
     }
     if (notAlreadySet.XLO) {
-        fil_flt(fp, &MY_XLO);
+        load_eqn_fil_flt(fp, &MY_XLO);
         notAlreadySet.XLO = 0;
     }
     if (notAlreadySet.XHI) {
-        fil_flt(fp, &MY_XHI);
+        load_eqn_fil_flt(fp, &MY_XHI);
         notAlreadySet.XHI = 0;
     }
     if (notAlreadySet.YLO) {
-        fil_flt(fp, &MY_YLO);
+        load_eqn_fil_flt(fp, &MY_YLO);
         notAlreadySet.YLO = 0;
     }
     if (notAlreadySet.YHI) {
-        fil_flt(fp, &MY_YHI);
+        load_eqn_fil_flt(fp, &MY_YHI);
         notAlreadySet.YHI = 0;
     }
     return;
 }
 
 void
-fil_flt(FILE *fpt, double *val) {
+load_eqn_fil_flt(FILE *fpt, double *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atof(bob);
@@ -691,7 +691,7 @@ fil_flt(FILE *fpt, double *val) {
 }
 
 void
-fil_int(FILE *fpt, int32 *val) {
+load_eqn_fil_int(FILE *fpt, int32 *val) {
     char bob[80];
     fgets(bob, 80, fpt);
     *val = atoi(bob);
@@ -755,9 +755,9 @@ load_eqn_extract_action(char *ptr) {
     }
 
     while ((mystring = form_ode_do_fit_get_next(" ,;\n")) != NULL) {
-        split_apart(mystring, name, value);
+        load_eqn_split_apart(mystring, name, value);
         if (strlen(name) > 0 && strlen(value) > 0)
-            do_intern_set(name, value);
+            load_eqn_do_intern_set(name, value);
     }
     return;
 }
@@ -769,7 +769,7 @@ load_eqn_extract_internset(int32 j) {
 }
 
 void
-do_intern_set(char *name1, char *value) {
+load_eqn_do_intern_set(char *name1, char *value) {
     int32 i;
     char name[20];
     convert(name1, name);
@@ -816,7 +816,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
             /*No more tokens.  Should this throw an error?*/
         }
         while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
-            split_apart(mystring, name, value);
+            load_eqn_split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
                 /*
                 if (strcmp("mwcolor",name)==0)
@@ -906,7 +906,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
             /*No more tokens.  Should this throw an error?*/
         }
         while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
-            split_apart(mystring, name, value);
+            load_eqn_split_apart(mystring, name, value);
             strupr(name);
 
             if (strlen(name) == 5) {
@@ -935,7 +935,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
         ptr = interopt[i];
         junk = form_ode_get_first(ptr, " ,");
         while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
-            split_apart(mystring, name, value);
+            load_eqn_split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
                 load_eqn_set_option(name, value, 0, tempNAS);
             }
@@ -955,7 +955,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
 }
 
 void
-split_apart(char *bob, char *name, char *value) {
+load_eqn_split_apart(char *bob, char *name, char *value) {
     int32 k, i, l;
 
     l = (int32)strlen(bob);
