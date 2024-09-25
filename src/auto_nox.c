@@ -1654,25 +1654,6 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
 }
 
 void
-auto_nox_periodic_choice(void) {
-    static char *m[] = {"Extend", "Fixed Period"};
-    static char key[] = "ef";
-    char ch;
-    ch = (char)auto_x11_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10,
-                                    no_hint, Auto.hinttxt);
-    if (ch == 'e') {
-        auto_new_per();
-        return;
-    }
-    if (ch == 'f') {
-        auto_2p_fixper();
-        return;
-    }
-
-    auto_x11_redraw_menus();
-}
-
-void
 auto_nox_hopf_choice(void) {
     static char *m[] = {"Periodic", "Extend", "New Point", "Two Param"};
     static char key[] = "pent";
@@ -1712,28 +1693,28 @@ auto_run(void) {
         static char *m[] = {"Steady state", "Periodic", "Bdry Value", "Homoclinic",
                             "hEteroclinic"};
         static char key[] = "spbhe";
-        char ch;
+        char ch2;
         HomoFlag = 0;
         if (METHOD == DISCRETE) {
             auto_new_discrete();
             return;
         }
-        ch = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
+        ch2 = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
                                         arun_hint, Auto.hinttxt);
-        if (ch == 's') {
+        if (ch2 == 's') {
             auto_new_ss();
             return;
         }
-        if (ch == 'p') {
+        if (ch2 == 'p') {
             auto_start_at_per();
             return;
         }
-        if (ch == 'b') {
+        if (ch2 == 'b') {
             Auto.nbc = NODE;
             auto_start_at_bvp();
             return;
         }
-        if (ch == 'h') {
+        if (ch2 == 'h') {
             HomoFlag = 1;
             auto_start_at_homoclinic();
             return;
@@ -1742,7 +1723,7 @@ auto_run(void) {
         /*  Auto.nbc=NODE-1;
           auto_start_at_bvp();
           } */
-        if (ch == 'e') {
+        if (ch2 == 'e') {
             HomoFlag = 2;
             auto_start_at_homoclinic();
             return;
@@ -1777,22 +1758,22 @@ auto_run(void) {
         /* auto nox per doub choice */
         static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
         static char key[] = "dtfe";
-        char ch;
-        ch = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
+        char ch2;
+        ch2 = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
                                         no_hint, Auto.hinttxt);
-        if (ch == 'd') {
+        if (ch2 == 'd') {
             auto_period_double();
             return;
         }
-        if (ch == 'e') {
+        if (ch2 == 'e') {
             auto_new_per();
             return;
         }
-        if (ch == 'f') {
+        if (ch2 == 'f') {
             auto_2p_fixper();
             return;
         }
-        if (ch == 't') {
+        if (ch2 == 't') {
             auto_twopar_double();
             return;
         }
@@ -1833,18 +1814,18 @@ auto_run(void) {
         static char *m[] = {"Two Param", "Fixed period", "Extend"};
         /*static char *m[]={"Fixed period","Extend"}; */
         static char key[] = "tfe";
-        char ch;
-        ch = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
+        char ch2;
+        ch2 = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
                                         Auto.hinttxt);
-        if (ch == 'e') {
+        if (ch2 == 'e') {
             auto_new_per();
             return;
         }
-        if (ch == 'f') {
+        if (ch2 == 'f') {
             auto_2p_fixper();
             return;
         }
-        if (ch == 't') {
+        if (ch2 == 't') {
             auto_torus();
             return;
         }
@@ -1853,8 +1834,25 @@ auto_run(void) {
         ggets_ping();
         return;
     }
-    if (grabpt.ibr < 0) { /* its a periodic -- just extend it  */
-        auto_nox_periodic_choice();
+    if (grabpt.ibr < 0) {
+        /* its a periodic -- just extend it  */
+        /* auto_nox_periodic_choice */
+        static char *m[] = {"Extend", "Fixed Period"};
+        static char key[] = "ef";
+        char ch2;
+        ch2 = (char)auto_x11_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10,
+                                        no_hint, Auto.hinttxt);
+        if (ch2 == 'e') {
+            auto_new_per();
+            return;
+        }
+        if (ch2 == 'f') {
+            auto_2p_fixper();
+            return;
+        }
+
+        auto_x11_redraw_menus();
+
         ggets_ping();
         return;
     }
