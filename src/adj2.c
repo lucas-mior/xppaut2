@@ -55,7 +55,6 @@ static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
                          int32 silent2);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
-static void adj2_norm_vec(double *v, double *mu, int32 n);
 static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
 
 void
@@ -623,20 +622,6 @@ adj2_do_this_liaprun(int32 i, double p) {
     return;
 }
 
-void
-adj2_norm_vec(double *v, double *mu, int32 n) {
-    int32 i;
-    double sum = 0.0;
-    for (i = 0; i < n; i++)
-        sum += (v[i]*v[i]);
-    sum = sqrt(sum);
-    if (sum > 0)
-        for (i = 0; i < n; i++)
-            v[i] = v[i] / sum;
-    *mu = sum;
-    return;
-}
-
 int32
 adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     double y[MAX_ODE];
@@ -668,7 +653,24 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
         do_fit_one_step_int(y, t0, t1, &istart);
         for (i = 0; i < NODE; i++)
             yp[i] = (y[i] - storage[i + 1][j + 1]);
-        adj2_norm_vec(yp, &nrm, NODE);
+
+        {
+            /* adj2 norm vec */
+            double *v = yp;
+            double *mu = &nrm;
+            int32 n = NODE;
+
+            int32 i;
+            double sum = 0.0;
+            for (i = 0; i < n; i++)
+                sum += (v[i]*v[i]);
+            sum = sqrt(sum);
+            if (sum > 0)
+                for (i = 0; i < n; i++)
+                    v[i] = v[i] / sum;
+            *mu = sum;
+        }
+
         nrm = nrm / eps;
         if (nrm == 0.0) {
             if (batch == 0)
