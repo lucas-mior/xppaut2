@@ -211,7 +211,7 @@ many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font) {
     int32 i;
     double xp;
     double yp;
-    scale_to_real(x, y, &xp, &yp);
+    graphics_scale_to_real(x, y, &xp, &yp);
     for (i = 0; i < MAXLAB; i++) {
         if (lb[i].use == 0) {
             lb[i].use = 1;
@@ -720,7 +720,7 @@ add_marker(void) {
     XFlush(display);
     if (flag == 0)
         return;
-    scale_to_real(i1, j1, &xs, &ys);
+    graphics_scale_to_real(i1, j1, &xs, &ys);
     add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
     main_redraw_all();
 }
@@ -765,8 +765,8 @@ add_pntarr(int32 type) {
     menudrive_message_box_kill();
     XFlush(display);
     if (flag) {
-        scale_to_real(i1, j1, &xs, &ys);
-        scale_to_real(i2, j2, &xe, &ye);
+        graphics_scale_to_real(i1, j1, &xs, &ys);
+        graphics_scale_to_real(i2, j2, &xe, &ye);
         if (i1 == i2 && j1 == j2)
             return;
         add_grob(xs, ys, xe, ye, size, type, color);
@@ -789,7 +789,7 @@ many_pops_edit_object_com(int32 com) {
     menudrive_message_box_kill();
     XFlush(display);
     if (flag) {
-        scale_to_real(i, j, &x, &y);
+        graphics_scale_to_real(i, j, &x, &y);
         /* now search all labels to find the best */
         type = 0; /* label =  0, arrows, etc =1 */
         for (i = 0; i < MAXLAB; i++) {
@@ -825,7 +825,7 @@ many_pops_edit_object_com(int32 com) {
                     menudrive_message_box_kill();
                     XFlush(display);
                     if (flag) {
-                        scale_to_real(i, j, &x, &y);
+                        graphics_scale_to_real(i, j, &x, &y);
                         lb[ilab].x = x;
                         lb[ilab].y = y;
                         main_clr_scrn();
@@ -876,7 +876,7 @@ many_pops_edit_object_com(int32 com) {
                     menudrive_message_box_kill();
                     XFlush(display);
                     if (flag) {
-                        scale_to_real(i, j, &x, &y);
+                        graphics_scale_to_real(i, j, &x, &y);
                         grob[ilab].xe = grob[ilab].xe - grob[ilab].xs + x;
                         grob[ilab].ye = grob[ilab].ye - grob[ilab].ys + y;
                         grob[ilab].xs = x;
@@ -1174,7 +1174,7 @@ many_pops_do_motion_events(XEvent event) {
     auto_x11_motion(event);
 #endif
     if (event.xmotion.window == draw_win) {
-        scale_to_real(i, j, &x, &y);
+        graphics_scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         many_pops_canvas_xy(buf);
     }
@@ -1309,7 +1309,7 @@ many_pops_create_a_pop(void) {
         make_window(graph[index].window, 10, 0, 40*DCURXs, DCURYs, 0);
     XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
 
-    copy_graph(index, current_pop);
+    graphics_copy_graph(index, current_pop);
     graph[index].Width = MINI_W;
     graph[index].Height = MINI_H;
     graph[index].x0 = 0;
@@ -1506,7 +1506,7 @@ many_pops_check_draw_button(XEvent event) {
     {
         if (window != draw_win)
             return;
-        scale_to_real(i, j, &x, &y);
+        graphics_scale_to_real(i, j, &x, &y);
         snprintf(buf, sizeof(buf), "x=%f y=%f ", x, y);
         many_pops_canvas_xy(buf);
     }

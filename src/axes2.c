@@ -183,25 +183,25 @@ axes2_do(void) {
         graphics_scale3d(x4, y4, z4, &x3, &y3, &z3);
         graphics_scale3d(x5, y5, z5, &x6, &y6, &z6);
         graphics_set_linestyle(-2);
-        line3d(-1., -1., -1., 1., -1., -1.);
-        line3d(1., -1., -1., 1., 1., -1.);
-        line3d(1., 1., -1., -1., 1., -1.);
-        line3d(-1., 1., -1., -1., -1., -1.);
-        line3d(-1., -1., 1., 1., -1., 1.);
-        line3d(1., -1., 1., 1., 1., 1.);
-        line3d(1., 1., 1., -1., 1., 1.);
-        line3d(-1., 1., 1., -1., -1., 1.);
-        line3d(1., 1., 1., 1., 1., -1.);
-        line3d(-1., 1., 1., -1., 1., -1.);
-        line3d(-1., -1., 1., -1., -1., -1.);
-        line3d(1., -1., 1., 1., -1., -1.);
+        graphics_line3d(-1., -1., -1., 1., -1., -1.);
+        graphics_line3d(1., -1., -1., 1., 1., -1.);
+        graphics_line3d(1., 1., -1., -1., 1., -1.);
+        graphics_line3d(-1., 1., -1., -1., -1., -1.);
+        graphics_line3d(-1., -1., 1., 1., -1., 1.);
+        graphics_line3d(1., -1., 1., 1., 1., 1.);
+        graphics_line3d(1., 1., 1., -1., 1., 1.);
+        graphics_line3d(-1., 1., 1., -1., -1., 1.);
+        graphics_line3d(1., 1., 1., 1., 1., -1.);
+        graphics_line3d(-1., 1., 1., -1., 1., -1.);
+        graphics_line3d(-1., -1., 1., -1., -1., -1.);
+        graphics_line3d(1., -1., 1., 1., -1., -1.);
 
-        line3dn(-1. - dt, -1., z2, -1. + dt, -1., z2);
-        line3dn(-1. - dt, -1., z1, -1. + dt, -1., z1);
-        line3dn(x2, -1. - dt, -1.0, x2, -1.0 + dt, -1.0);
-        line3dn(x1, -1. - dt, -1.0, x1, -1.0 + dt, -1.0);
-        line3dn(1.0 - dt, y1, -1.0, 1.0 + dt, y1, -1.0);
-        line3dn(1.0 - dt, y2, -1.0, 1.0 + dt, y2, -1.0);
+        graphics_line3dn(-1. - dt, -1., z2, -1. + dt, -1., z2);
+        graphics_line3dn(-1. - dt, -1., z1, -1. + dt, -1., z1);
+        graphics_line3dn(x2, -1. - dt, -1.0, x2, -1.0 + dt, -1.0);
+        graphics_line3dn(x1, -1. - dt, -1.0, x1, -1.0 + dt, -1.0);
+        graphics_line3dn(1.0 - dt, y1, -1.0, 1.0 + dt, y1, -1.0);
+        graphics_line3dn(1.0 - dt, y2, -1.0, 1.0 + dt, y2, -1.0);
 
         graphics_set_linestyle(-1);
 
@@ -259,18 +259,18 @@ axes2_redraw_cube(double theta, double phi) {
 
 void
 axes2_draw_unit_cube(void) {
-    line3d(-1., -1., -1., 1., -1., -1.);
-    line3d(1., -1., -1., 1., 1., -1.);
-    line3d(1., 1., -1., -1., 1., -1.);
-    line3d(-1., 1., -1., -1., -1., -1.);
-    line3d(-1., -1., 1., 1., -1., 1.);
-    line3d(1., -1., 1., 1., 1., 1.);
-    line3d(1., 1., 1., -1., 1., 1.);
-    line3d(-1., 1., 1., -1., -1., 1.);
-    line3d(1., 1., 1., 1., 1., -1.);
-    line3d(-1., 1., 1., -1., 1., -1.);
-    line3d(-1., -1., 1., -1., -1., -1.);
-    line3d(1., -1., 1., 1., -1., -1.);
+    graphics_line3d(-1., -1., -1., 1., -1., -1.);
+    graphics_line3d(1., -1., -1., 1., 1., -1.);
+    graphics_line3d(1., 1., -1., -1., 1., -1.);
+    graphics_line3d(-1., 1., -1., -1., -1., -1.);
+    graphics_line3d(-1., -1., 1., 1., -1., 1.);
+    graphics_line3d(1., -1., 1., 1., 1., 1.);
+    graphics_line3d(1., 1., 1., -1., 1., 1.);
+    graphics_line3d(-1., 1., 1., -1., -1., 1.);
+    graphics_line3d(1., 1., 1., 1., 1., -1.);
+    graphics_line3d(-1., 1., 1., -1., 1., -1.);
+    graphics_line3d(-1., -1., 1., -1., -1., -1.);
+    graphics_line3d(1., -1., 1., 1., -1., -1.);
     return;
 }
 
@@ -295,7 +295,7 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 
     ytic = axes2_make_tics(y_min, y_max);
     xtic = axes2_make_tics(x_min, x_max);
-    scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x,
+    graphics_scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x,
                     &xaxis_y);
     graphics_set_linestyle(-1);
     if (MyGraph->xorgflag && flag)
@@ -335,7 +335,7 @@ axes2_draw_ytics(char *s1, double start, double incr, double end) {
         if (ticvalue < y_min || ticvalue > y_max)
             continue;
         sprintf(bob, "%g", place);
-        scale_to_screen((double)x_min, (double)place, &xt, &yt);
+        graphics_scale_to_screen((double)x_min, (double)place, &xt, &yt);
         axes2_doing_box = 0;
         graphics_line(DLeft, yt, DLeft + HTic, yt);
         axes2_doing_box = 1;
@@ -343,7 +343,7 @@ axes2_draw_ytics(char *s1, double start, double incr, double end) {
         axes2_doing_box = 0;
         graphics_put_text(DLeft - (int32)(1.25*HChar), yt, bob);
     }
-    scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
+    graphics_scale_to_screen((double)x_min, (double)y_max, &xt, &yt);
     if (DTop < DBottom)
         s = -1;
     if (PltFmtFlag == SVGFMT) {
@@ -383,7 +383,7 @@ axes2_draw_xtics(char *s2, double start, double incr, double end) {
         if (ticvalue < x_min || ticvalue > x_max)
             continue;
         sprintf(bob, "%g", place);
-        scale_to_screen((double)place, y_min, &xt, &yt);
+        graphics_scale_to_screen((double)place, y_min, &xt, &yt);
         axes2_doing_box = 0;
         graphics_line(xt, DBottom, xt, DBottom + s*VTic);
         axes2_doing_box = 1;

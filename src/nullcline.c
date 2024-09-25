@@ -810,7 +810,7 @@ restor_null(/* d=1 for x and 2 for y  */
         if (NullStyle == 1) {
             xm = .5*(v[i4] + v[i4 + 2]);
             ym = .5*(v[i4 + 1] + v[i4 + 3]);
-            scale_to_screen(xm, ym, &x1, &y1);
+            graphics_scale_to_screen(xm, ym, &x1, &y1);
             switch (d) {
             case 1:
                 graphics_line(x1, y1 - 4, x1, y1 + 4);

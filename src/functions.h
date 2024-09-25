@@ -2446,13 +2446,13 @@ void graphics_special_put_text_x11(int32 x, int32 y, char *str, int32 size);
 void graphics_fancy_put_text_x11(int32 x, int32 y, char *str, int32 size,
                                  int32 font);
 void graphics_scale_dxdy(double x, double y, double *i, double *j);
-void scale_to_screen(double x, double y, int32 *i, int32 *j);
-void scale_to_real(int32 i, int32 j, double *x, double *y);
+void graphics_scale_to_screen(double x, double y, int32 *i, int32 *j);
+void graphics_scale_to_real(int32 i, int32 j, double *x, double *y);
 void graphics_init_all(void);
 void graphics_set_extra(void);
 void graphics_reset_graph(void);
 void graphics_get_graph(void);
-void copy_graph(int32 i, int32 l);
+void graphics_copy_graph(int32 i, int32 l);
 void graphics_make_rot(double theta, double phi);
 void graphics_scale3d(double x, double y, double z, double *xp, double *yp,
                       double *zp);
@@ -2462,13 +2462,13 @@ void graphics_text3d(double x, double y, double z, char *s);
 int32 graphics_threed_proj(double x, double y, double z, double *xp,
                            double *yp);
 void graphics_point_3d(double x, double y, double z);
-void line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
+void graphics_line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
              double zsp1);
-void line3d(double x01, double y01, double z01, double x02, double y02,
+void graphics_line3d(double x01, double y01, double z01, double x02, double y02,
             double z02);
 void graphics_line_3d(double x, double y, double z, double xp, double yp,
                       double zp);
-void rot_3dvec(double x, double y, double z, double *xp, double *yp,
+void graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
                double *zp);
 void graphics_point_abs(double x1, double y1);
 void graphics_bead_abs(double x1, double y1);
@@ -2477,10 +2477,10 @@ void graphics_line_abs(double x1, double y1, double x2, double y2);
 void graphics_text_abs(double x, double y, char *text);
 void graphics_fillin_text(char *old, char *new);
 void graphics_fancy_text_abs(double x, double y, char *old, int32 size);
-int32 clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
+int32 graphics_clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
              double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
              double *z2p);
-int32 clip(double x1, double x2, double y1, double y2, double *x1_out,
+int32 graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
            double *y1_out, double *x2_out, double *y2_out);
 void graphics_eq_symb(double *x, int32 type);
 void graphics_reset_all_line_type(void);

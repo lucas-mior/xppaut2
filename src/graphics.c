@@ -71,18 +71,18 @@ int32 PointType = -1;
 int32 TextJustify;
 int32 TextAngle;
 
-static void draw_symbol(double x, double y, double size, int32 my_symb);
-static void line_nabs(double x1_out, double y1_out, double x2_out,
+static void graphics_draw_symbol(double x, double y, double size, int32 my_symb);
+static void graphics_line_nabs(double x1_out, double y1_out, double x2_out,
                       double y2_out);
-static void pers_line(double x, double y, double z, double xp, double yp,
+static void graphics_pers_line(double x, double y, double z, double xp, double yp,
                       double zp);
-static void init_graph(int32 i);
-static void line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
-static void rect_x11(int32 x, int32 y, int32 w, int32 h);
-static void bead_x11(int32 x, int32 y);
-static void set_line_style_x11(int32 ls);
-static void point_x11(int32 xp, int32 yp);
-static void bead(int32 x1, int32 y1);
+static void graphics_init(int32 i);
+static void graphics_line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
+static void graphics_rect_x11(int32 x, int32 y, int32 w, int32 h);
+static void graphics_bead_x11(int32 x, int32 y);
+static void graphics_set_line_style_x11(int32 ls);
+static void graphics_point_x11(int32 xp, int32 yp);
+static void graphics_bead(int32 x1, int32 y1);
 
 void
 graphics_get_scale(double *x1, double *y1, double *x2, double *y2) {
@@ -167,7 +167,7 @@ graphics_point(int32 x, int32 y) {
     else if (PltFmtFlag == SVGFMT)
         svg_point(x, y);
     else
-        point_x11(x, y);
+        graphics_point_x11(x, y);
     return;
 }
 
@@ -178,18 +178,18 @@ graphics_line(int32 x1, int32 y1, int32 x2, int32 y2) {
     else if (PltFmtFlag == SVGFMT)
         svg_line(x1, y1, x2, y2);
     else
-        line_x11(x1, y1, x2, y2);
+        graphics_line_x11(x1, y1, x2, y2);
 }
 /* draw a little filled circle */
 
 void
-bead(int32 x1, int32 y1) {
+graphics_bead(int32 x1, int32 y1) {
     if (PltFmtFlag == PSFMT)
         return;
     else if (PltFmtFlag == SVGFMT)
         svg_bead();
     else
-        bead_x11(x1, y1);
+        graphics_bead_x11(x1, y1);
     return;
 }
 
@@ -200,7 +200,7 @@ graphics_frect(int32 x1, int32 y1, int32 w, int32 h) {
     else if (PltFmtFlag == SVGFMT)
         svg_frect(x1, y1, w, h);
     else
-        rect_x11(x1, y1, w, h);
+        graphics_rect_x11(x1, y1, w, h);
     return;
 }
 
@@ -265,7 +265,7 @@ graphics_init_svg(void) {
 }
 
 void
-point_x11(int32 xp, int32 yp) {
+graphics_point_x11(int32 xp, int32 yp) {
     int32 r = PointRadius;
     int32 r2 = (int32)(r / 1.41421356 + 0.5);
     int32 wh = 2*r2;
@@ -284,12 +284,12 @@ graphics_set_linestyle(int32 ls) {
     else if (PltFmtFlag == SVGFMT)
         svg_linetype(ls);
     else
-        set_line_style_x11(ls);
+        graphics_set_line_style_x11(ls);
     return;
 }
 
 void
-set_line_style_x11(int32 ls) {
+graphics_set_line_style_x11(int32 ls) {
     /*int32 width=0;*/
     int32 type = 0;
     if (ls == -2) { /*  Border  */
@@ -327,13 +327,13 @@ set_line_style_x11(int32 ls) {
 }
 
 void
-bead_x11(int32 x, int32 y) {
+graphics_bead_x11(int32 x, int32 y) {
     XFillArc(display, draw_win, gc_graph, x - 2, y - 2, 4, 4, 0, 360*64);
     return;
 }
 
 void
-rect_x11(int32 x, int32 y, int32 w, int32 h) {
+graphics_rect_x11(int32 x, int32 y, int32 w, int32 h) {
     XFillRectangle(display, draw_win, gc_graph, x, y, (uint)w, (uint)h);
     return;
 }
@@ -350,7 +350,7 @@ graphics_draw_many_lines(void) {
 }
 
 void
-line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
+graphics_line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2) {
     XDrawLine(display, draw_win, gc_graph, xp1, yp1, xp2, yp2);
     return;
 }
@@ -499,7 +499,7 @@ graphics_scale_dxdy(double x, double y, double *i, double *j) {
 }
 
 void
-scale_to_screen(/* not really the screen!  */
+graphics_scale_to_screen(/* not really the screen!  */
                 double x, double y, int32 *i, int32 *j) {
     double dx = (DRight - DLeft) / (XMax - XMin);
     double dy = (DTop - DBottom) / (YMax - YMin);
@@ -509,7 +509,7 @@ scale_to_screen(/* not really the screen!  */
 }
 
 void
-scale_to_real(/* Not needed except for X */
+graphics_scale_to_real(/* Not needed except for X */
               int32 i, int32 j, double *x, double *y) {
     int32 i1;
     int32 j1;
@@ -542,7 +542,7 @@ void
 graphics_init_all(void) {
     int32 i;
     for (i = 0; i < MAXPOP; i++)
-        init_graph(i);
+        graphics_init(i);
     MyGraph = &graph[0];
     /*graphics_set_extra();*/
     graphics_set_normal_scale();
@@ -642,7 +642,7 @@ graphics_get_graph(void) {
 }
 
 void
-init_graph(int32 i) {
+graphics_init(int32 i) {
     int32 j;
     int32 k;
     if (AXES <= 3)
@@ -721,7 +721,7 @@ init_graph(int32 i) {
 }
 
 void
-copy_graph(/*  Graph[i]=Graph[l]  */
+graphics_copy_graph(/*  Graph[i]=Graph[l]  */
            int32 i, int32 l) {
     int32 j;
     int32 k;
@@ -811,7 +811,7 @@ graphics_threedproj(double x2p, double y2p, double z2p, double *xp,
                     double *yp) {
     double x1p, y1p, z1p, s;
     /*  if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
-    rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
+    graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {
         *xp = x1p;
@@ -844,7 +844,7 @@ graphics_threed_proj(double x, double y, double z, double *xp, double *yp) {
     double x2p, y2p, z2p;
     graphics_scale3d(x, y, z, &x2p, &y2p, &z2p); /* scale to a cube  */
     /* if(fabs(x2p)>1||fabs(y2p)>1||fabs(z2p)>1)return 0; */
-    rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
+    graphics_rot_3dvec(x2p, y2p, z2p, &x1p, &y1p, &z1p);
 
     if (MyGraph->PerspFlag == 0) {
         *xp = x1p;
@@ -872,34 +872,34 @@ graphics_point_3d(double x, double y, double z) {
 }
 
 void
-line3dn(/* unscaled version  unclipped */
+graphics_line3dn(/* unscaled version  unclipped */
         double xs1, double ys1, double zs1, double xsp1, double ysp1,
         double zsp1) {
     double xs, ys, zs;
     double xsp, ysp, zsp;
-    rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
-    rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
+    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
+    graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag)
-        pers_line(xs, ys, zs, xsp, ysp, zsp);
+        graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
     else
-        line_nabs(xs, ys, xsp, ysp);
+        graphics_line_nabs(xs, ys, xsp, ysp);
     return;
 }
 
 void
-line3d(/* unscaled version     */
+graphics_line3d(/* unscaled version     */
        double x01, double y01, double z01, double x02, double y02, double z02) {
     double xs, ys, zs;
     double xs1, ys1, zs1;
     double xsp, ysp, zsp;
     double xsp1, ysp1, zsp1;
-    if (!clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
+    if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
                 &zsp1))
         return;
-    rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
-    rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
+    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
+    graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag)
-        pers_line(xs, ys, zs, xsp, ysp, zsp);
+        graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
     else
         graphics_line_abs(xs, ys, xsp, ysp);
     return;
@@ -915,20 +915,20 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
     double x01, x02, y01, y02, z01, z02;
     graphics_scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
     graphics_scale3d(xp, yp, zp, &x02, &y02, &z02);
-    if (!clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
+    if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
                 &zsp1))
         return;
-    rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
-    rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
+    graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
+    graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
     if (MyGraph->PerspFlag)
-        pers_line(xs, ys, zs, xsp, ysp, zsp);
+        graphics_pers_line(xs, ys, zs, xsp, ysp, zsp);
     else
         graphics_line_abs(xs, ys, xsp, ysp);
     return;
 }
 
 void
-pers_line(double x, double y, double z, double xp, double yp, double zp)
+graphics_pers_line(double x, double y, double z, double xp, double yp, double zp)
 
 {
     double Zv = (double)MyGraph->ZView, Zp = (double)MyGraph->ZPlane;
@@ -972,7 +972,7 @@ pers_line(double x, double y, double z, double xp, double yp, double zp)
 }
 
 void
-rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp) {
+graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp) {
     int32 i;
     int32 j;
     double vt[3], vnew[3];
@@ -1002,17 +1002,17 @@ graphics_point_abs(double x1, double y1) {
     double y_bottom = YMin;
     if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom))
         return;
-    scale_to_screen(x1, y1, &xp, &yp);
+    graphics_scale_to_screen(x1, y1, &xp, &yp);
     graphics_point(xp, yp);
     return;
 }
 
 void
-line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
+graphics_line_nabs(double x1_out, double y1_out, double x2_out, double y2_out) {
     int32 xp1, yp1, xp2, yp2;
 
-    scale_to_screen(x1_out, y1_out, &xp1, &yp1);
-    scale_to_screen(x2_out, y2_out, &xp2, &yp2);
+    graphics_scale_to_screen(x1_out, y1_out, &xp1, &yp1);
+    graphics_scale_to_screen(x2_out, y2_out, &xp2, &yp2);
     graphics_line(xp1, yp1, xp2, yp2);
     return;
 }
@@ -1027,8 +1027,8 @@ graphics_bead_abs(double x1, double y1) {
     double y_bottom = YMin;
     if ((x1 > x_right) || (x1 < x_left) || (y1 > y_top) || (y1 < y_bottom))
         return;
-    scale_to_screen(x1, y1, &i1, &j1);
-    bead(i1, j1);
+    graphics_scale_to_screen(x1, y1, &i1, &j1);
+    graphics_bead(i1, j1);
     return;
 }
 
@@ -1039,8 +1039,8 @@ graphics_frect_abs(double x1, double y1, double w, double h) {
     int32 iw;
     double x2 = x1 + w;
     double y2 = y1 + h;
-    scale_to_screen(x1, y1, &i1, &j1);
-    scale_to_screen(x2, y2, &i2, &j2);
+    graphics_scale_to_screen(x1, y1, &i1, &j1);
+    graphics_scale_to_screen(x2, y2, &i2, &j2);
     iw = abs(i2 - i1);
     ih = abs(j2 - j1);
     graphics_frect(i1, j1, iw + 1, ih + 1);
@@ -1052,9 +1052,9 @@ graphics_line_abs(double x1, double y1, double x2, double y2) {
     double x1_out, y1_out, x2_out, y2_out;
 
     int32 xp1, yp1, xp2, yp2;
-    if (clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
-        scale_to_screen(x1_out, y1_out, &xp1, &yp1);
-        scale_to_screen(x2_out, y2_out, &xp2, &yp2);
+    if (graphics_clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
+        graphics_scale_to_screen(x1_out, y1_out, &xp1, &yp1);
+        graphics_scale_to_screen(x2_out, y2_out, &xp2, &yp2);
         graphics_line(xp1, yp1, xp2, yp2);
     }
     return;
@@ -1064,7 +1064,7 @@ void
 graphics_text_abs(double x, double y, char *text) {
     int32 xp;
     int32 yp;
-    scale_to_screen(x, y, &xp, &yp);
+    graphics_scale_to_screen(x, y, &xp, &yp);
     graphics_put_text(xp, yp, text);
     return;
 }
@@ -1137,7 +1137,7 @@ graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
     int32 xp;
     int32 yp;
     char text[256];
-    scale_to_screen(x, y, &xp, &yp);
+    graphics_scale_to_screen(x, y, &xp, &yp);
     graphics_fillin_text(old, text);
     if (PltFmtFlag == PSFMT)
         special_put_text_ps(xp, yp, text, size);
@@ -1149,7 +1149,7 @@ graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
 }
 
 int32
-clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
+graphics_clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
        double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
        double *z2p) {
     int32 istack, ix1 = 0, ix2 = 0, iy1 = 0, iy2 = 0, iz1 = 0, iz2 = 0,
@@ -1302,7 +1302,7 @@ C4:
 }
 
 int32
-clip(double x1, double x2, double y1, double y2, double *x1_out, double *y1_out,
+graphics_clip(double x1, double x2, double y1, double y2, double *x1_out, double *y1_out,
      double *x2_out, double *y2_out)
 
 /************************************************************ *
@@ -1423,13 +1423,13 @@ graphics_eq_symb(double *x, int32 type) {
                          (double)x[ix], (double)x[iy] - dy, (double)x[iz]);
         return;
     }
-    draw_symbol((double)x[ix], (double)x[iy], SYMSIZE, type);
+    graphics_draw_symbol((double)x[ix], (double)x[iy], SYMSIZE, type);
     graphics_point_abs((double)x[ix], (double)x[iy]);
     return;
 }
 
 void
-draw_symbol(double x, double y, double size, int32 my_symb) {
+graphics_draw_symbol(double x, double y, double size, int32 my_symb) {
     double dx = (double)(MyGraph->xhi - MyGraph->xlo)*size;
     double dy = (double)(MyGraph->yhi - MyGraph->ylo)*size;
     static int32 sym_dir[4][48] = {

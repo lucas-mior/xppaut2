@@ -1110,7 +1110,7 @@ auto_line(double x1i, double y1i, double x2i, double y2i) {
 
     graphics_get_scale(&xmin, &ymin, &xmax, &ymax);
     graphics_set_scale(Auto.xmin, Auto.ymin, Auto.xmax, Auto.ymax);
-    if (clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
+    if (graphics_clip(x1, x2, y1, y2, &x1_out, &y1_out, &x2_out, &y2_out)) {
         x1d = x1_out;
         x2d = x2_out;
         y1d = y1_out;

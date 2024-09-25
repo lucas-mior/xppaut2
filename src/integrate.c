@@ -1002,7 +1002,7 @@ integrate_find_equilib_com(int32 com) {
         integrate_get_ic(1, x);
         menudrive_message_box("Click on guess");
         if (menudrive_get_mouse_xy(&im, &jm)) {
-            scale_to_real(im, jm, &xm, &ym);
+            graphics_scale_to_real(im, jm, &xm, &ym);
             x[iv] = (double)xm;
             x[jv] = (double)ym;
         }
@@ -1289,7 +1289,7 @@ integrate_do_init_data(int32 com) {
             integrate_get_ic(1, x);
             menudrive_message_box("Click on initial data");
             if (menudrive_get_mouse_xy(&im, &jm)) {
-                scale_to_real(im, jm, &xm, &ym);
+                graphics_scale_to_real(im, jm, &xm, &ym);
                 im = MyGraph->xv[0] - 1;
                 jm = MyGraph->yv[0] - 1;
                 x[iv] = (double)xm;
@@ -1316,7 +1316,7 @@ integrate_do_init_data(int32 com) {
                 badmouse = menudrive_get_mouse_xy(&im, &jm);
                 if (badmouse == 0)
                     break;
-                scale_to_real(im, jm, &xm, &ym);
+                graphics_scale_to_real(im, jm, &xm, &ym);
                 im = MyGraph->xv[0] - 1;
                 jm = MyGraph->yv[0] - 1;
                 x[iv] = (double)xm;

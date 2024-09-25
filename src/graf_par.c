@@ -693,7 +693,7 @@ graf_par_scroll_window(void) {
             if (state == 0) {
                 i = event.xkey.x;
                 j = event.xkey.y;
-                scale_to_real(i, j, &x0, &y0);
+                graphics_scale_to_real(i, j, &x0, &y0);
                 state = 1;
             }
             break;
@@ -701,7 +701,7 @@ graf_par_scroll_window(void) {
             if (state == 1) {
                 i = event.xmotion.x;
                 j = event.xmotion.y;
-                scale_to_real(i, j, &x, &y);
+                graphics_scale_to_real(i, j, &x, &y);
                 dx = -(x - x0) / 2;
                 dy = -(y - y0) / 2;
 
@@ -770,8 +770,8 @@ graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2) {
     double x1, y1, x2, y2;
     double dx = MyGraph->xhi - MyGraph->xlo;
     double dy = MyGraph->yhi - MyGraph->ylo;
-    scale_to_real(i1, j1, &x1, &y1);
-    scale_to_real(i2, j2, &x2, &y2);
+    graphics_scale_to_real(i1, j1, &x1, &y1);
+    graphics_scale_to_real(i2, j2, &x2, &y2);
     if (x1 == x2 || y1 == y2) {
         if (dx < 0) {
             dx = -dx;
@@ -812,8 +812,8 @@ graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
     double bx, mux, by, muy;
     double dx = MyGraph->xhi - MyGraph->xlo;
     double dy = MyGraph->yhi - MyGraph->ylo;
-    scale_to_real(i1, j1, &x1, &y1);
-    scale_to_real(i2, j2, &x2, &y2);
+    graphics_scale_to_real(i1, j1, &x1, &y1);
+    graphics_scale_to_real(i2, j2, &x2, &y2);
 
     /*
     if(x1==x2||y1==y2)return;
@@ -1096,7 +1096,7 @@ void
 graf_par_set_key(int32 x, int32 y) {
     double xp;
     double yp;
-    scale_to_real(x, y, &xp, &yp);
+    graphics_scale_to_real(x, y, &xp, &yp);
     FreezeKeyX = xp;
     FreezeKeyY = yp;
     FreezeKeyFlag = 1;
@@ -1114,7 +1114,7 @@ draw_freeze_key(void) {
         return;
     if (PltFmtFlag == PSFMT)
         dy = -dy;
-    scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
+    graphics_scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
     ix2 = ix + 4*HChar;
     y0 = iy;
     for (i = 0; i < MAXFRZ; i++) {
