@@ -85,6 +85,9 @@ static void get_3d_view(int32 ind);
 static void graf_par_axes_opts(void);
 static void get_2d_view(int32 ind);
 static void graf_par_check_flags(void);
+static void graf_par_scroll_window(void);
+static void graf_par_update_view(double xlo, double xhi, double ylo, double yhi);
+static void create_svg(void);
 
 void
 graf_par_change_view_com(int32 com) {

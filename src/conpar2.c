@@ -4,33 +4,6 @@
 #include "auto_types.h"
 #include "integers.h"
 
-#ifdef TIME
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-static double
-conpar2_time_start(void) {
-    struct rusage time;
-    double seconds;
-    double microseconds;
-    getrusage(RUSAGE_SELF, &time);
-    seconds = (double)time.ru_utime.tv_sec;
-    microseconds = (double)time.ru_utime.tv_usec;
-    return seconds + microseconds / 1e6;
-}
-
-static double
-conpar2_time_end(double start) {
-    struct rusage time;
-    double seconds;
-    double microseconds;
-    getrusage(RUSAGE_SELF, &time);
-    seconds = (double)time.ru_utime.tv_sec;
-    microseconds = (double)time.ru_utime.tv_usec;
-    return (seconds + microseconds / 1e6) - start;
-}
-#endif
-
 /*This is the process function.  It is meant to be called either
   on a SMP using shared memory, or wrapped inside another
   routine for message passing*/
