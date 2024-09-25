@@ -962,8 +962,23 @@ graf_par_freeze_com(int32 c) {
         }
         break;
     case 5:
-        frz_bd();
+    {
+        /* frz bd */
+        FILE *fp;
+        /*char filename[256];*/
+        char filename[XPP_MAX_NAME];
+        snprintf(filename, sizeof(filename), "diagram.dat");
+        ggets_ping();
+        if (!init_conds_file_selector("Import Diagram", filename, "*.dat"))
+            return;
+        /* if(ggets_new_string("Diagram to import: ",filename)==0)return; */
+        if ((fp = fopen(filename, "r")) == NULL) {
+            ggets_err_msg("Couldn't open file");
+            return;
+        }
+        read_bd(fp);
         break;
+    }
     case 6:
         /* free bd */
         if (my_bd.nbifcrv > 0) {
@@ -1270,22 +1285,6 @@ add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     return;
 }
 
-void
-frz_bd(void) {
-    FILE *fp;
-    /*char filename[256];*/
-    char filename[XPP_MAX_NAME];
-    snprintf(filename, sizeof(filename), "diagram.dat");
-    ggets_ping();
-    if (!init_conds_file_selector("Import Diagram", filename, "*.dat"))
-        return;
-    /* if(ggets_new_string("Diagram to import: ",filename)==0)return; */
-    if ((fp = fopen(filename, "r")) == NULL) {
-        ggets_err_msg("Couldn't open file");
-        return;
-    }
-    read_bd(fp);
-}
 
 void
 read_bd(FILE *fp) {
