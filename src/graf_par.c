@@ -83,7 +83,6 @@ static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
 static void get_3d_view(int32 ind);
 static void get_2d_view(int32 ind);
 static void graf_par_check_flags(void);
-static void graf_par_scroll_window(void);
 static void graf_par_update_view(double xlo, double xhi, double ylo,
                                  double yhi);
 static void create_svg(void);
@@ -618,63 +617,6 @@ graf_par_update_view(double xlo, double xhi, double ylo, double yhi) {
     graf_par_redraw_the_graph();
 }
 
-static void
-graf_par_scroll_window(void) {
-    XEvent event;
-    int32 i = 0, j = 0;
-    int32 state = 0;
-    double x, y, x0 = 0, y0 = 0;
-    double xlo = MyGraph->xlo;
-    double ylo = MyGraph->ylo;
-    double xhi = MyGraph->xhi;
-    double yhi = MyGraph->yhi;
-    double dx = 0;
-    double dy = 0;
-    int32 alldone = 0;
-    XSelectInput(display, draw_win,
-                 KeyPressMask | ButtonPressMask | ButtonReleaseMask |
-                     PointerMotionMask | ButtonMotionMask | ExposureMask);
-    while (!alldone) {
-        XNextEvent(display, &event);
-        switch (event.type) {
-        case KeyPress:
-            alldone = 1;
-            break;
-        case Expose:
-            many_pops_do_expose(event);
-            break;
-        case ButtonPress:
-            if (state == 0) {
-                i = event.xkey.x;
-                j = event.xkey.y;
-                graphics_scale_to_real(i, j, &x0, &y0);
-                state = 1;
-            }
-            break;
-        case MotionNotify:
-            if (state == 1) {
-                i = event.xmotion.x;
-                j = event.xmotion.y;
-                graphics_scale_to_real(i, j, &x, &y);
-                dx = -(x - x0) / 2;
-                dy = -(y - y0) / 2;
-
-                graf_par_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
-            }
-            break;
-        case ButtonRelease:
-            state = 0;
-            xlo = xlo + dx;
-            xhi = xhi + dx;
-            ylo = ylo + dy;
-            yhi = yhi + dy;
-            break;
-        default:
-            break;
-        }
-    }
-    return;
-}
 
 void
 graf_par_window_zoom_com(int32 c) {
@@ -734,8 +676,63 @@ graf_par_window_zoom_com(int32 c) {
         graf_par_default_window();
         break;
     case 5:
-        graf_par_scroll_window();
+    {
+        /* graf par scroll window */
+        XEvent event;
+        int32 i = 0, j = 0;
+        int32 state = 0;
+        double x, y, x0 = 0, y0 = 0;
+        double xlo = MyGraph->xlo;
+        double ylo = MyGraph->ylo;
+        double xhi = MyGraph->xhi;
+        double yhi = MyGraph->yhi;
+        double dx = 0;
+        double dy = 0;
+        int32 alldone = 0;
+        XSelectInput(display, draw_win,
+                     KeyPressMask | ButtonPressMask | ButtonReleaseMask |
+                         PointerMotionMask | ButtonMotionMask | ExposureMask);
+        while (!alldone) {
+            XNextEvent(display, &event);
+            switch (event.type) {
+            case KeyPress:
+                alldone = 1;
+                break;
+            case Expose:
+                many_pops_do_expose(event);
+                break;
+            case ButtonPress:
+                if (state == 0) {
+                    i = event.xkey.x;
+                    j = event.xkey.y;
+                    graphics_scale_to_real(i, j, &x0, &y0);
+                    state = 1;
+                }
+                break;
+            case MotionNotify:
+                if (state == 1) {
+                    i = event.xmotion.x;
+                    j = event.xmotion.y;
+                    graphics_scale_to_real(i, j, &x, &y);
+                    dx = -(x - x0) / 2;
+                    dy = -(y - y0) / 2;
+
+                    graf_par_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
+                }
+                break;
+            case ButtonRelease:
+                state = 0;
+                xlo = xlo + dx;
+                xhi = xhi + dx;
+                ylo = ylo + dy;
+                yhi = yhi + dy;
+                break;
+            default:
+                break;
+            }
+        }
         break;
+    }
     default:
         break;
     }
