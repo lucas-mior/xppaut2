@@ -22,7 +22,6 @@ static struct TorusBox {
 } torbox;
 
 static void make_tor_box(char *title);
-static void choose_torus(void);
 static void draw_torus_box(Window win);
 static void draw_tor_var(int32 i);
 
@@ -31,6 +30,12 @@ do_torus_com(int32 c) {
     int32 i;
     TORUS = 0;
     if (c == 0 || c == 2) {
+        XEvent event;
+        int32 status = -1;
+        int32 done = 0;
+        Window wt;
+        int32 oldit[MAX_ODE];
+
         ggets_new_float("Period :", &TOR_PERIOD);
         if (TOR_PERIOD <= 0.0) {
             ggets_err_msg("Choose positive period");
@@ -43,7 +48,68 @@ do_torus_com(int32 c) {
             return;
         }
         /* Choose them   */
-        choose_torus();
+        /* choose_torus */
+        make_tor_box("Fold which");
+
+        /* do torus events */
+        for (int32 i = 0; i < NEQ; i++)
+            oldit[i] = itor[i];
+        while (!done) {
+            XNextEvent(display, &event);
+            switch (event.type) {
+            case Expose:
+
+                many_pops_do_expose(event); /*  menus and graphs etc  */
+                draw_torus_box(event.xany.window);
+                break;
+            case ButtonPress:
+                if (event.xbutton.window == torbox.done) {
+                    status = 1;
+                    done = 1;
+                    break;
+                }
+                if (event.xbutton.window == torbox.cancel) {
+                    status = -1;
+                    done = 1;
+                    break;
+                }
+                for (int32 i = 0; i < NEQ; i++) {
+                    if (event.xbutton.window == torbox.window[i]) {
+                        itor[i] = 1 - itor[i];
+                        draw_tor_var(i);
+                        break;
+                    }
+                }
+                break;
+            case EnterNotify:
+                wt = event.xcrossing.window;
+                if (wt == torbox.done || wt == torbox.cancel)
+                    XSetWindowBorderWidth(display, wt, 2);
+                break;
+            case LeaveNotify:
+                wt = event.xcrossing.window;
+                if (wt == torbox.done || wt == torbox.cancel)
+                    XSetWindowBorderWidth(display, wt, 1);
+                break;
+            default:
+                break;
+            }
+        }
+
+        if (status == -1) {
+            for (int32 i = 0; i < NEQ; i++)
+                itor[i] = oldit[i];
+            TORUS = 0;
+        }
+        XSelectInput(display, torbox.cancel, EV_MASK);
+        XSelectInput(display, torbox.done, EV_MASK);
+        browse_wait_a_sec(ClickTime);
+        XDestroySubwindows(display, torbox.base);
+        XDestroyWindow(display, torbox.base);
+
+        for (int32 i = 0; i < NEQ; i++)
+            if (itor[i] == 1)
+                TORUS = 1;
         return;
     }
     for (i = 0; i < MAX_ODE; i++)
@@ -85,76 +151,6 @@ draw_torus_box(Window win) {
     return;
 }
 
-void
-choose_torus(void) {
-    XEvent event;
-    int32 status = -1;
-    int32 done = 0;
-    Window wt;
-    int32 oldit[MAX_ODE];
-    make_tor_box("Fold which");
-
-    /* do torus events */
-    for (int32 i = 0; i < NEQ; i++)
-        oldit[i] = itor[i];
-    while (!done) {
-        XNextEvent(display, &event);
-        switch (event.type) {
-        case Expose:
-
-            many_pops_do_expose(event); /*  menus and graphs etc  */
-            draw_torus_box(event.xany.window);
-            break;
-        case ButtonPress:
-            if (event.xbutton.window == torbox.done) {
-                status = 1;
-                done = 1;
-                break;
-            }
-            if (event.xbutton.window == torbox.cancel) {
-                status = -1;
-                done = 1;
-                break;
-            }
-            for (int32 i = 0; i < NEQ; i++) {
-                if (event.xbutton.window == torbox.window[i]) {
-                    itor[i] = 1 - itor[i];
-                    draw_tor_var(i);
-                    break;
-                }
-            }
-            break;
-        case EnterNotify:
-            wt = event.xcrossing.window;
-            if (wt == torbox.done || wt == torbox.cancel)
-                XSetWindowBorderWidth(display, wt, 2);
-            break;
-        case LeaveNotify:
-            wt = event.xcrossing.window;
-            if (wt == torbox.done || wt == torbox.cancel)
-                XSetWindowBorderWidth(display, wt, 1);
-            break;
-        default:
-            break;
-        }
-    }
-
-    if (status == -1) {
-        for (int32 i = 0; i < NEQ; i++)
-            itor[i] = oldit[i];
-        TORUS = 0;
-    }
-    XSelectInput(display, torbox.cancel, EV_MASK);
-    XSelectInput(display, torbox.done, EV_MASK);
-    browse_wait_a_sec(ClickTime);
-    XDestroySubwindows(display, torbox.base);
-    XDestroyWindow(display, torbox.base);
-
-    for (int32 i = 0; i < NEQ; i++)
-        if (itor[i] == 1)
-            TORUS = 1;
-    return;
-}
 
 void
 make_tor_box(char *title) {
