@@ -18,17 +18,9 @@
 static int32 choice_box_event_loop(ChoiceBox p);
 static void choice_box_do_checks(ChoiceBox p);
 static void choice_box_display(Window window, ChoiceBox p);
-static void choice_box_destroy(ChoiceBox p);
 static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc,
                            char **names, int32 *check, int32 type);
 
-void
-choice_box_destroy(ChoiceBox p) {
-    browse_wait_a_sec(ClickTime);
-    XDestroySubwindows(display, p.base);
-    XDestroyWindow(display, p.base);
-    return;
-}
 
 void
 choice_box_display(Window window, ChoiceBox p) {
@@ -141,7 +133,11 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
         if (status != -1)
             break;
     }
-    choice_box_destroy(p);
+    /* choice box destroy */
+    browse_wait_a_sec(ClickTime);
+    XDestroySubwindows(display, p.base);
+    XDestroyWindow(display, p.base);
+
     if (status == FORGET_ALL)
         for (i = 0; i < n; i++)
             check[i] = oldcheck[i];
