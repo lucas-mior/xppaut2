@@ -205,6 +205,8 @@ static int32 factor[NFACTOR];
 /*}}}*/
 
 /*{{{ fft_free() */
+static int32 factorize(int32 nPass, int32 *kt);
+
 void
 fft_free(void) {
     SpaceAlloced = MaxPermAlloced = 0;
@@ -232,7 +234,7 @@ fft_free(void) {
 /*}}}*/
 
 /* return the number of factors */
-static int32
+int32
 factorize(int32 nPass, int32 *kt) {
     int32 nFactor = 0;
     int32 j;
