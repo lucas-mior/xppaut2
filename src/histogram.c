@@ -41,7 +41,6 @@ static int32 histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
                       double *pow);
 static int32 histogram_get_col_info(int32 *col, char *prompt);
 static void histogram_new_four(int32 nmodes, int32 col);
-static void histogram_four_back(void);
 
 int32
 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double xlo,
@@ -91,17 +90,6 @@ histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2, double x
 }
 
 void
-histogram_four_back(void) {
-    if (FOUR_HERE) {
-        set_browser_data(my_four, 1);
-        /*   my_browser.data=my_four;
-             my_browser.col0=1; */
-        refresh_browser(four_len);
-    }
-    return;
-}
-
-void
 histogram_back(void) {
     if (HIST_HERE) {
         set_browser_data(my_hist, 1);
@@ -146,7 +134,13 @@ histogram_new_four(int32 nmodes, int32 col) {
      */
     bob = browse_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
-    histogram_four_back();
+    if (FOUR_HERE) {
+        /* histogram four back */
+        set_browser_data(my_four, 1);
+        /*   my_browser.data=my_four;
+             my_browser.col0=1; */
+        refresh_browser(four_len);
+    }
     ggets_ping();
     return;
 }
