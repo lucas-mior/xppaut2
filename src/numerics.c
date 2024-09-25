@@ -37,7 +37,6 @@ int32 cv_bandlower = 1;
 
 /*   I will need access to storage  */
 
-static void numerics_get_method(void);
 static void numerics_check_pos(int32 *j);
 
 void
@@ -150,8 +149,34 @@ numerics_get_num_par(int32 ch)
         BOUND = fabs(BOUND);
         break;
     case 'm':
+    {
         /* method */
-        numerics_get_method();
+        /* numerics get method */
+        char ch;
+        int32 i;
+        int32 nmeth;
+
+        Window temp = main_win;
+        static char *n[] = {"(D)iscrete",    "(E)uler",   "(M)od. Euler",
+                            "(R)unge-Kutta", "(A)dams",   "(G)ear",
+                            "(V)olterra",    "(B)ackEul", "(Q)ualst.RK4",
+                            "(S)tiff",       "(C)Vode",   "DoPri(5)",
+                            "DoPri(8)3",     "Rosen(2)3", "sYmplectic"};
+        static char key[] = "demragvbqsc582y";
+
+#ifdef CVODE_YES
+        nmeth = 15;
+#else
+        nmeth = 15;
+#endif
+        ch = (char)pop_up_list(&temp, "Method", n, key, nmeth, 15, METHOD, 10,
+                               DCURY + 8, meth_hint, info_pop, info_message);
+        for (i = 0; i < nmeth; i++)
+            if (ch == key[i])
+                METHOD = i;
+        if (i > (nmeth - 1))
+            i = nmeth - 1;
+    }
         if (METHOD == VOLTERRA && NKernel == 0) {
             ggets_err_msg("Volterra only for integral eqns");
             METHOD = 4;
@@ -382,34 +407,6 @@ numerics_get_pmap_pars_com(int32 l) {
     return;
 }
 
-void
-numerics_get_method(void) {
-    char ch;
-    int32 i;
-    int32 nmeth;
-
-    Window temp = main_win;
-    static char *n[] = {"(D)iscrete",    "(E)uler",   "(M)od. Euler",
-                        "(R)unge-Kutta", "(A)dams",   "(G)ear",
-                        "(V)olterra",    "(B)ackEul", "(Q)ualst.RK4",
-                        "(S)tiff",       "(C)Vode",   "DoPri(5)",
-                        "DoPri(8)3",     "Rosen(2)3", "sYmplectic"};
-    static char key[] = "demragvbqsc582y";
-
-#ifdef CVODE_YES
-    nmeth = 15;
-#else
-    nmeth = 15;
-#endif
-    ch = (char)pop_up_list(&temp, "Method", n, key, nmeth, 15, METHOD, 10,
-                           DCURY + 8, meth_hint, info_pop, info_message);
-    for (i = 0; i < nmeth; i++)
-        if (ch == key[i])
-            METHOD = i;
-    if (i > (nmeth - 1))
-        i = nmeth - 1;
-    return;
-}
 
 void
 numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
