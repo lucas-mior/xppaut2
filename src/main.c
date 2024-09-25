@@ -143,7 +143,6 @@ OptionsSet notAlreadySet;
 static XFontStruct *big_font;
 XFontStruct *small_font;
 
-static void main_test_color_info(void);
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
 static void main_get_gc(GC *gc);
 static void main_top_button_events(XEvent report);
@@ -551,7 +550,18 @@ do_main(int32 argc, char **argv) {
     pop_list_make_scrbox_lists();
 
     /*          MAIN LOOP             */
-    main_test_color_info();
+    {
+        /* main test color info */
+        XColor *colors;
+        XWindowAttributes xwa;
+        TrueColorFlag = 0;
+
+        XGetWindowAttributes(display, main_win, &xwa);
+        main_get_x_colors(&xwa, &colors);
+
+        if (colors)
+            free((char *)colors);
+    }
     comline_if_needed_load_set();
     comline_if_needed_load_par();
     comline_if_needed_load_ic();
@@ -1419,19 +1429,6 @@ main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
     return ncolors;
 }
 
-void
-main_test_color_info(void) {
-    XColor *colors;
-    XWindowAttributes xwa;
-    TrueColorFlag = 0;
-
-    XGetWindowAttributes(display, main_win, &xwa);
-    main_get_x_colors(&xwa, &colors);
-
-    if (colors)
-        free((char *)colors);
-    return;
-}
 
 int32
 main_get_command_width(void) {
