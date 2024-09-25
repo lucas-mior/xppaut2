@@ -104,7 +104,6 @@ static void expose_slider(Window window, struct ParSlider *p);
 static void load_entire_box(BoxList *b);
 static void set_value_from_box(BoxList *b, int32 i);
 static int32 to_float(char *s, double *z);
-static void check_box_cursor(void);
 static void add_editval(BoxList *b, int32 i, char *string);
 static void add_edit_float(BoxList *b, int32 i, double z);
 static int32 edit_bitem(BoxList *b, int32 i, int32 ch);
@@ -1992,7 +1991,16 @@ do_box_button(BoxList *b, Window window) {
     for (i = 0; i < n; i++) {
         if (window == b->we[i]) {
             XSetInputFocus(display, window, RevertToParent, CurrentTime);
-            check_box_cursor();
+            do {
+                /* check box cursor */
+                int32 n0;
+                if (HotBoxItem < 0 || HotBox->xuse == 0)
+                    break;
+                n0 = HotBox->n0;
+                draw_editable(HotBox->we[HotBoxItem], HotBox->value[HotBoxItem + n0],
+                              HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem], HotBox->mc);
+                HotBoxItem = -1;
+            } while (0);
             HotBoxItem = i;
             HotBox = b;
             draw_editable(window, b->value[i + b->n0], b->off[i + b->n0],
@@ -2483,17 +2491,6 @@ add_editval(BoxList *b, int32 i, char *string) {
     return;
 }
 
-void
-check_box_cursor(void) {
-    int32 n0;
-    if (HotBoxItem < 0 || HotBox->xuse == 0)
-        return;
-    n0 = HotBox->n0;
-    draw_editable(HotBox->we[HotBoxItem], HotBox->value[HotBoxItem + n0],
-                  HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem], HotBox->mc);
-    HotBoxItem = -1;
-    return;
-}
 
 int32
 to_float(char *s, double *z) {
