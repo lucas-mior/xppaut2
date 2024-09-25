@@ -1572,22 +1572,22 @@ int32 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cance
 #define DO_FIT_H
 
 void do_fit_init_info(void);
-void get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
+void do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                   double *yfit, double **yderv, int32 npts, int32 npars,
                   int32 nvars, int32 *ivar, int32 *ipar);
-void printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
+void do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
              int32 npts);
 int32 do_fit_one_step_int(double *y, double t0, double t1, int32 *istart);
 void do_fit_test(void);
-int32 run_fit(char *filename, int32 npts, int32 npars, int32 nvars,
+int32 do_fit_run(char *filename, int32 npts, int32 npars, int32 nvars,
               int32 maxiter, int32 ndim, double eps, double tol, int32 *ipar,
               int32 *ivar, int32 *icols, double *y0, double *a, double *yfit);
-int32 marlevstep(double *t0, double *y0, double *y, double *sig, double *a,
+int32 do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
                  int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
                  double *covar, double *alpha, double *chisq, double *alambda,
                  double *work, double **yderv, double *yfit, double *ochisq,
                  int32 ictrl, double eps);
-int32 mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
+int32 do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
              int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
              double *alpha, double *chisq, double *beta, double **yderv,
              double *yfit, double eps);

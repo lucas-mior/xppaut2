@@ -34,18 +34,18 @@ typedef struct EditBox {
     int32 hot;
 } EditBox;
 
-static void reset_ebox(EditBox *sb, int32 *pos, int32 *col);
-static void expose_ebox(EditBox *sb, Window window, int32 pos);
-static void ereset_hot(int32 inew, EditBox *sb);
-static void enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
+static void edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col);
+static void edit_rhs_expose_box(EditBox *sb, Window window, int32 pos);
+static void edit_rhs_reset_hot(int32 inew, EditBox *sb);
+static void edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
                           int32 *done, Window *w);
-static int32 e_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
-static void make_ebox_windows(EditBox *sb, char *title);
+static int32 edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
+static void edit_rhs_make_box_windows(EditBox *sb, char *title);
 
-static int32 do_edit_box(int32 n, char *title, char **names, char **values);
+static int32 edit_rhs_box(int32 n, char *title, char **names, char **values);
 
 void
-reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
+edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
     int32 i;
     int32 l;
@@ -68,7 +68,7 @@ reset_ebox(EditBox *sb, int32 *pos, int32 *col) {
 }
 
 int32
-do_edit_box(int32 n, char *title, char **names, char **values) {
+edit_rhs_box(int32 n, char *title, char **names, char **values) {
     EditBox sb;
     int32 i;
     int32 status;
@@ -81,7 +81,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     }
     sb.n = n;
     sb.hot = 0;
-    make_ebox_windows(&sb, title);
+    edit_rhs_make_box_windows(&sb, title);
     XSelectInput(display, sb.cancel, BUT_MASK);
     XSelectInput(display, sb.ok, BUT_MASK);
     XSelectInput(display, sb.reset, BUT_MASK);
@@ -89,7 +89,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
     colm = (pos + (int32)strlen(sb.name[0]))*DCURX;
 
     while (true) {
-        status = e_box_event_loop(&sb, &pos, &colm);
+        status = edit_rhs_box_event_loop(&sb, &pos, &colm);
         if (status != -1)
             break;
     }
@@ -109,7 +109,7 @@ do_edit_box(int32 n, char *title, char **names, char **values) {
 }
 
 void
-expose_ebox(EditBox *sb, Window window, int32 pos) {
+edit_rhs_expose_box(EditBox *sb, Window window, int32 pos) {
     int32 i;
     int32 flag;
 
@@ -137,7 +137,7 @@ expose_ebox(EditBox *sb, Window window, int32 pos) {
 }
 
 void
-ereset_hot(int32 inew, EditBox *sb) {
+edit_rhs_reset_hot(int32 inew, EditBox *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
@@ -150,9 +150,9 @@ ereset_hot(int32 inew, EditBox *sb) {
 }
 
 void
-enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
               Window *w) {
-    ereset_hot(inew, sb);
+    edit_rhs_reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
     *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;
     *done = 0;
@@ -161,7 +161,7 @@ enew_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 }
 
 int32
-e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
+edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     XEvent event;
     int32 status = -1, inew;
     int32 nn = sb->n;
@@ -179,7 +179,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     case Expose:
     case MapNotify:
         many_pops_do_expose(event); /*  menus and graphs etc  */
-        expose_ebox(sb, event.xany.window, *pos);
+        edit_rhs_expose_box(sb, event.xany.window, *pos);
         break;
 
     case ButtonPress:
@@ -192,7 +192,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
             break;
         }
         if (event.xbutton.window == sb->reset) {
-            reset_ebox(sb, pos, col);
+            edit_rhs_reset_box(sb, pos, col);
             break;
         }
         for (i = 0; i < nn; i++) {
@@ -200,7 +200,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
                 if (i != sb->hot)
-                    enew_editable(sb, i, pos, col, &done, &window);
+                    edit_rhs_new_editable(sb, i, pos, col, &done, &window);
                 break;
             }
         }
@@ -227,7 +227,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
                 break;
             }
             inew = (sb->hot + 1) % nn;
-            enew_editable(sb, inew, pos, col, &done, &window);
+            edit_rhs_new_editable(sb, inew, pos, col, &done, &window);
         }
         break;
     default:
@@ -237,7 +237,7 @@ e_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
 }
 
 void
-make_ebox_windows(EditBox *sb, char *title) {
+edit_rhs_make_box_windows(EditBox *sb, char *title) {
     int32 width;
     int32 height;
     int32 i;
@@ -346,7 +346,7 @@ edit_rhs(void) {
         sprintf(names[i], fstr, uvar_names[i]);
         strcpy(values[i], ode_names[i]);
     }
-    status = do_edit_box(n, "Right Hand Sides", names, values);
+    status = edit_rhs_box(n, "Right Hand Sides", names, values);
     if (status != 0) {
         for (i = 0; i < n; i++) {
             if (i < NODE || (i >= (NODE + NMarkov))) {
@@ -428,7 +428,7 @@ edit_rhs_functions(void) {
                     ufun_arg[i].args[0], ufun_arg[i].args[narg_fun[i] - 1]);
     }
 
-    status = do_edit_box(n, "Functions", names, values);
+    status = edit_rhs_box(n, "Functions", names, values);
     if (status != 0) {
         for (i = 0; i < n; i++) {
             set_new_arg_names(narg_fun[i], ufun_arg[i].args);

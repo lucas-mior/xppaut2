@@ -30,11 +30,11 @@ static struct {
     double eps;
 } fit_info;
 
-static void parse_parlist(char *parlist, int32 *ipars, int32 *n);
-static void parse_varlist(char *varlist, int32 *ivars, int32 *n);
-static void parse_collist(char *collist, int32 *icols, int32 *n);
-static int32 get_fit_params(void);
-static void print_fit_info(void);
+static void do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n);
+static void do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n);
+static void do_fit_parse_collist(char *collist, int32 *icols, int32 *n);
+static int32 do_fit_get_params(void);
+static void do_fit_print_info(void);
 
 void
 do_fit_init_info(void) {
@@ -54,7 +54,7 @@ do_fit_init_info(void) {
 }
 
 void
-get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
+do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
              double *yfit, double **yderv, int32 npts, int32 npars, int32 nvars,
              int32 *ivar, int32 *ipar)
 /*
@@ -180,12 +180,12 @@ get_fit_info(double *y, double *a, double *t0, int32 *flag, double eps,
     for (i = 0; i < NODE; i++)
         y[i] = yold[i];
 
-    /*printem(yderv,yfit,t0,npars,nvars,npts);  */
+    /*do_fit_printem(yderv,yfit,t0,npars,nvars,npts);  */
     return;
 }
 
 void
-printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
+do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
         int32 npts) {
     int32 i, j, k;
     int32 ioff;
@@ -323,7 +323,7 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
 }
 
 void
-print_fit_info(void) {
+do_fit_print_info(void) {
     int32 i;
     ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n",
                  fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
@@ -344,7 +344,7 @@ do_fit_test(void) {
     char collist[30], parlist1[30], parlist2[30], varlist[30];
     fit_info.nvars = 0;
     fit_info.npars = 0;
-    if (get_fit_params() == 0)
+    if (do_fit_get_params() == 0)
         return;
 
     strncpy(collist, fit_info.collist, sizeof(collist));
@@ -352,7 +352,7 @@ do_fit_test(void) {
     strncpy(parlist1, fit_info.parlist1, sizeof(parlist1));
     strncpy(parlist2, fit_info.parlist2, sizeof(parlist2));
 
-    parse_collist(collist, fit_info.icols, &nvars);
+    do_fit_parse_collist(collist, fit_info.icols, &nvars);
 
     if (nvars <= 0) {
         ggets_err_msg("No columns...");
@@ -360,16 +360,16 @@ do_fit_test(void) {
     }
     fit_info.nvars = nvars;
     nvars = 0;
-    parse_varlist(varlist, fit_info.ivar, &nvars);
+    do_fit_parse_varlist(varlist, fit_info.ivar, &nvars);
 
     if (fit_info.nvars != nvars) {
         ggets_err_msg(" # columns != # fitted variables");
         return;
     }
     npars = 0;
-    parse_parlist(parlist1, fit_info.ipar, &npars);
+    do_fit_parse_parlist(parlist1, fit_info.ipar, &npars);
 
-    parse_parlist(parlist2, fit_info.ipar, &npars);
+    do_fit_parse_parlist(parlist2, fit_info.ipar, &npars);
 
     if (npars <= 0) {
         ggets_err_msg(" No parameters!");
@@ -403,9 +403,9 @@ do_fit_test(void) {
             a[i] = last_ic[fit_info.ipar[i]];
     }
 
-    print_fit_info();
+    do_fit_print_info();
     ggets_plintf(" Running the fit...\n");
-    ok = run_fit(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
+    ok = do_fit_run(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
                  fit_info.maxiter, fit_info.dim, fit_info.eps, fit_info.tol,
                  fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
 
@@ -425,7 +425,7 @@ do_fit_test(void) {
 }
 
 int32
-run_fit(/* double arrays */
+do_fit_run(/* double arrays */
         char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
         int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
         int32 *icols, double *y0, double *a, double *yfit)
@@ -489,7 +489,7 @@ run_fit(/* double arrays */
 
     while (good_flag < 3) { /* take 3 good steps after convergence  */
 
-        ok = marlevstep(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
+        ok = do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
                         covar, alpha, &chisq, &alambda, work, yderv, yfit,
                         &ochisq, ictrl, eps);
         niter++;
@@ -543,7 +543,7 @@ run_fit(/* double arrays */
         return 1;
     }
     ictrl = 2;
-    marlevstep(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha,
+    do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha,
                &chisq, &alambda, work, yderv, yfit, &ochisq, ictrl, eps);
     ggets_err_msg(" Success! ");
     /* have the covariance matrix -- so what?   */
@@ -567,7 +567,7 @@ run_fit(/* double arrays */
 }
 
 int32
-marlevstep(double *t0, double *y0, double *y, double *sig, double *a,
+do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
            int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
            double *covar, double *alpha, double *chisq, double *alambda,
            double *work, double **yderv, double *yfit, double *ochisq,
@@ -607,7 +607,7 @@ sigma  weights on nvars
 
     if (ictrl == 0) {
         *alambda = .001;
-        if (mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, alpha,
+        if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, alpha,
                    chisq, beta, yderv, yfit, eps) == 0)
             return 0;
         for (i = 0; i < npars; i++)
@@ -646,7 +646,7 @@ sigma  weights on nvars
     for (j = 0; j < npars; j++) {
         atry[j] = a[j] + da[j];
     }
-    if (mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar, covar,
+    if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar, covar,
                chisq, da, yderv, yfit, eps) == 0)
         return 0;
 
@@ -667,13 +667,13 @@ sigma  weights on nvars
 }
 
 int32
-mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
+do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
        int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *alpha,
        double *chisq, double *beta, double **yderv, double *yfit, double eps) {
     int32 flag, i, j, k, l, k0;
     double sig2i, dy, wt;
 
-    get_fit_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars, ivar,
+    do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars, ivar,
                  ipar);
     if (flag == 0) {
         ggets_err_msg(" Integration error ...\n");
@@ -709,7 +709,7 @@ mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
 }
 
 int32
-get_fit_params(void) {
+do_fit_get_params(void) {
     static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
                         "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
     int32 status;
@@ -744,7 +744,7 @@ get_fit_params(void) {
 /* gets a list of the data columns to use ... */
 
 void
-parse_collist(char *collist, int32 *icols, int32 *n) {
+do_fit_parse_collist(char *collist, int32 *icols, int32 *n) {
     char *item;
     int32 v, i = 0;
 
@@ -765,7 +765,7 @@ parse_collist(char *collist, int32 *icols, int32 *n) {
 }
 
 void
-parse_varlist(char *varlist, int32 *ivars, int32 *n) {
+do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n) {
     char *item;
     int32 v, i = 0;
 
@@ -789,7 +789,7 @@ parse_varlist(char *varlist, int32 *ivars, int32 *n) {
 }
 
 void
-parse_parlist(char *parlist, int32 *ipars, int32 *n) {
+do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
     char *item;
     int32 v, i = 0;
     usize j;
