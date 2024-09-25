@@ -21,7 +21,6 @@ static void axes2_make_title(char *str);
 static double axes2_dbl_raise(double x, int32 y);
 static double axes2_make_tics(double tmin, double tmax);
 static void axes2_find_max_min_tic(double *tmin, double *tmax, double tic);
-static void axes2_draw_unit_cube(void);
 static void axes2_draw_ytics(char *s1, double start, double incr, double end);
 static void axes2_draw_xtics(char *s2, double start, double incr, double end);
 
@@ -246,14 +245,8 @@ axes2_redraw_cube(double theta, double phi) {
     graphics_set_linestyle(0);
     graphics_make_rot(theta, phi);
     ggets_blank_screen(draw_win);
-    axes2_draw_unit_cube();
-    sprintf(bob, "theta=%g phi=%g", theta, phi);
-    many_pops_canvas_xy(bob);
-    return;
-}
 
-void
-axes2_draw_unit_cube(void) {
+    /* axes2 draw unit cube */
     graphics_line3d(-1., -1., -1., 1., -1., -1.);
     graphics_line3d(1., -1., -1., 1., 1., -1.);
     graphics_line3d(1., 1., -1., -1., 1., -1.);
@@ -266,8 +259,12 @@ axes2_draw_unit_cube(void) {
     graphics_line3d(-1., 1., 1., -1., 1., -1.);
     graphics_line3d(-1., -1., 1., -1., -1., -1.);
     graphics_line3d(1., -1., 1., 1., -1., -1.);
+
+    sprintf(bob, "theta=%g phi=%g", theta, phi);
+    many_pops_canvas_xy(bob);
     return;
 }
+
 
 void
 axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
