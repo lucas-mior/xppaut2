@@ -21,7 +21,7 @@
 
 /* #define Set_ivar(a,b) variables[(a)]=(b) */
 
-static struct {
+static struct ShootRange {
     char item[30];
     int32 steps, side, cycle, movie;
     double plow;

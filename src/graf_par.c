@@ -23,7 +23,7 @@ int32 PS_Color = 1;
 #define lsSPER 8
 #define lsUPER 9
 
-static struct {
+static struct Mov3D {
     char angle[20];
     char yes[3];
     double start;

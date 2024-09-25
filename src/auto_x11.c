@@ -53,7 +53,7 @@ int32 mark_iye;
 
 static uint32 DONT_XORCross = 0;
 
-static struct {
+static struct AutoWin {
     Window canvas, axes, numerics, grab, next, run, clear, redraw, base, per;
     Window info, param, file, abort, stab, hint, kill;
 } auto_win;

@@ -22,7 +22,7 @@
 #define SIMPMASK                                                               \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 
-static struct {
+static struct MyCalc {
     Window base, quit, answer;
     double last_val;
     int32 use;

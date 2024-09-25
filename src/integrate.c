@@ -62,7 +62,7 @@ int32 MakePlotFlag = 0;
 
 static int32 OnTheFly = 1;
 
-typedef struct {
+typedef struct ArrayIC {
     int32 index0;
     int32 type;
     char formula[256];
@@ -74,7 +74,7 @@ typedef struct {
 static int32 ar_ic_defined = 0;
 
 static ArrayIC ar_ic[NAR_IC];
-typedef struct {
+typedef struct FixPointList {
     int32 n;
     int32 flag;
     double *x[MAXFP];
@@ -86,7 +86,7 @@ typedef struct {
 
 static FixPointList fixptlist;
 
-typedef struct {
+typedef struct FixPointGuess {
     int32 n;
     double tol;
     double xlo[MAX_ODE], xhi[MAX_ODE];
@@ -108,7 +108,7 @@ double LastTime;
 
 static int32 STOP_FLAG = 0;
 
-static struct {
+static struct EqRange {
     char item[30];
     int32 steps;
     int32 shoot;

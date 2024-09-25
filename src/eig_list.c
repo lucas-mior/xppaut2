@@ -24,7 +24,7 @@
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask |     \
      LeaveWindowMask | EnterWindowMask)
 
-static struct {
+static struct EqBox {
     Window base, stab, rest, top, close, import;
     double y[MAX_ODE], ev[MAX_ODE + MAX_ODE];
     int32 n;
@@ -33,7 +33,7 @@ static struct {
     char type[15];
 } eq_box;
 
-static struct {
+static struct EqList {
     Window base, up, down, list, main, close;
     int32 istart, nlines, flag;
 } eq_list;

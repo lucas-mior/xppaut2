@@ -21,7 +21,7 @@ static int32 adj_len;
 static double **my_h;
 static double *my_liap[2];
 
-static struct {
+static struct MyTrans {
     int32 here;
     int32 col0;
     int32 ncol;

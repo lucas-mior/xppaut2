@@ -25,7 +25,7 @@ char dll_lib[256];
 char dll_fun[256];
 int32 dll_flag = 0;
 
-static struct {
+static struct InOut {
     char *lin;
     char *lout;
     int32 *in, *intype;
@@ -36,7 +36,7 @@ static struct {
     double *vout;
 } in_out;
 
-static struct {
+static struct DLF {
     char libname[1024];
     char libfile[256];
     char fun[256];

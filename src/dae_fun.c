@@ -11,13 +11,13 @@
 
 /*    will have more stuff someday */
 
-static struct {
+static struct DaeWork {
     double *work;
     int32 *iwork;
     int32 status;
 } dae_work;
 
-static struct {
+static struct Svar {
     char name[12], *rhs;
     int32 *form;
     int32 index;
@@ -25,7 +25,7 @@ static struct {
     double last;
 } svar[MAXDAE];
 
-static struct {
+static struct Aeqn {
     char *rhs;
     int32 *form;
 } aeqn[MAXDAE];
