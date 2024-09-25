@@ -457,7 +457,6 @@ int32 csend(void);
 int32 crecv(void);
 int32 gcol(void);
 int32 led(void);
-int32 setiomode(void);
 FUNI_TYPE(fnlp);
 int32 fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
            int64 *icp, double *par, double *f, int64 ndm, double *dfdu,

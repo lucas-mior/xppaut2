@@ -2442,8 +2442,3 @@ int32
 led(void) {
     return 0;
 }
-
-int32
-setiomode(void) {
-    return 0;
-}
