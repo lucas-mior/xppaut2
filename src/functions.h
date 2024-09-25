@@ -2316,27 +2316,27 @@ extern int32 ShootICFlag;
 extern int32 ShootICFlag;
 extern int32 ShootIndex;
 
-void silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
+void gear_silent_fixpt(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
-void do_sing(double *x, double eps, double err, double big, int32 maxit,
+void gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
              int32 n, int32 *ierr, double *stabinfo);
-void do_sing_info(double *x, double eps, double err, double big, int32 maxit,
+void gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr);
 
 void gear_shoot_this_now(void);
-void get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
+void gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
                       int32 n, int32 maxit, double err, int32 *ierr);
-void get_evec(double *a, double *anew, double *b, double *bp, int32 n,
+void gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
               int32 maxit, double err, int32 *ipivot, double eval, int32 *ierr);
 void gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr);
 double gear_sign(double x, double y);
 int32 gear_imin(int32 x, int32 y);
 double gear_amax(double u, double v);
-void getjactrans(double *x, double *y, double *yp, double *xp, double eps,
+void gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
                  double *d, int32 n);
-void getjac(double *x, double *y, double *yp, double *xp, double eps,
+void gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
             double *dermat, int32 n);
-void rooter(double *x, double err, double eps, double big, double *work,
+void gear_rooter(double *x, double err, double eps, double big, double *work,
             int32 *ierr, int32 maxit, int32 n);
 int32 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
            double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,

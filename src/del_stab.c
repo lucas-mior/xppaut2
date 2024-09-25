@@ -54,7 +54,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     for (i = 0; i < n; i++)
         old_x[i] = x[i];
     work = xmalloc((usize)kmem*sizeof(*work));
-    rooter(x, err, eps, big, work, ierr, maxit, n);
+    gear_rooter(x, err, eps, big, work, ierr, maxit, n);
     if (*ierr != 0) {
         del_stab_flag = 1;
         free(work);
