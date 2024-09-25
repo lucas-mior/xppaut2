@@ -2529,24 +2529,24 @@ extern int32 FOUR_HERE;
 
 extern BoxList ParamBox;
 
-int32 two_d_hist(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
+int32 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
                  double xlo, double xhi, double ylo, double yhi);
 void histogram_back(void);
 int32 histogram_new_2d(void);
-void new_hist(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
+void histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
               char *condition, int32 which);
 void histogram_column_mean(void);
 void histogram_compute_power(void);
-int32 cross_spectrum(double *data, double *data2, int32 nr, int32 win,
+int32 histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
                      int32 w_type, double *pow, int32 type);
 void histogram_compute_sd(void);
 void histogram_compute_fourier(void);
 void histogram_compute_correl(void);
 void histogram_compute_stacor(void);
-void mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
+void histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
            double *z, int32 flag);
 void histogram_compute(void);
-void fftxcorr(double *data1, double *data2, int32 length, int32 nlag,
+void histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
               double *cr, int32 flag);
 void histogram_fft(double *data, double *ct, double *st, int32 nmodes,
                    int32 length);
