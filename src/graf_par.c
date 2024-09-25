@@ -70,7 +70,6 @@ static void delete_frz_crv(int32 i);
 static void edit_frz(void);
 static void draw_freeze_key(void);
 static void graf_par_set_key(int32 x, int32 y);
-static void create_ps(void);
 static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
 static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
@@ -912,37 +911,6 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
 
 
 
-void
-create_ps(void) {
-    char filename[XPP_MAX_NAME + 3];
-    static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
-                         "Font", "Linewidth"};
-    int32 status;
-    char values[LENGTH(nn)][MAX_LEN_SBOX];
-    snprintf(values[0], sizeof(values[0]), "%d", PS_Color);
-    snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
-    snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
-    strncpy(values[3], PS_FONT, sizeof(values[3]));
-    snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
-    status = do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
-    if (status != 0) {
-        PS_Color = atoi(values[0]);
-        PS_Port = atoi(values[1]);
-        PS_FONTSIZE = atoi(values[2]);
-        PS_LW = atof(values[4]);
-        snprintf(PS_FONT, sizeof(PS_FONT), "%s", values[3]);
-        snprintf(filename, sizeof(filename), "%s.ps", this_file);
-        ggets_ping();
-
-        if (!init_conds_file_selector("Print postscript", filename, "*.ps"))
-            return;
-        if (ps_init(filename, PS_Color)) {
-            many_pops_ps_restore();
-            ggets_ping();
-        }
-    }
-    return;
-}
 
 void
 graf_par_dump_ps(int32 i) {
@@ -1478,8 +1446,37 @@ graf_par_add_a_curve_com(int32 c) {
         break;
     }
     case 4:
-        create_ps();
+    {
+        /* create ps */
+        char filename[XPP_MAX_NAME + 3];
+        static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
+                             "Font", "Linewidth"};
+        int32 status;
+        char values[LENGTH(nn)][MAX_LEN_SBOX];
+        snprintf(values[0], sizeof(values[0]), "%d", PS_Color);
+        snprintf(values[1], sizeof(values[1]), "%d", PS_Port);
+        snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
+        strncpy(values[3], PS_FONT, sizeof(values[3]));
+        snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
+        status = do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
+        if (status != 0) {
+            PS_Color = atoi(values[0]);
+            PS_Port = atoi(values[1]);
+            PS_FONTSIZE = atoi(values[2]);
+            PS_LW = atof(values[4]);
+            snprintf(PS_FONT, sizeof(PS_FONT), "%s", values[3]);
+            snprintf(filename, sizeof(filename), "%s.ps", this_file);
+            ggets_ping();
+
+            if (!init_conds_file_selector("Print postscript", filename, "*.ps"))
+                return;
+            if (ps_init(filename, PS_Color)) {
+                many_pops_ps_restore();
+                ggets_ping();
+            }
+        }
         break;
+    }
     case 5:
         create_svg();
         break;
