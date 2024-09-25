@@ -203,7 +203,7 @@ static int32 *Perm = NULL; /* Permutation vector */
 #define NFACTOR 11
 static int32 factor[NFACTOR];
 
-static int32 factorize(int32 nPass, int32 *kt);
+static int32 fftn_factorize(int32 nPass, int32 *kt);
 
 void
 fft_free(void) {
@@ -233,7 +233,7 @@ fft_free(void) {
 
 /* return the number of factors */
 int32
-factorize(int32 nPass, int32 *kt) {
+fftn_factorize(int32 nPass, int32 *kt) {
     int32 nFactor = 0;
     int32 j;
     int32 jj;
@@ -552,7 +552,7 @@ FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
     jf = 0;
     /* determine the factors of n */
 
-    nFactor = factorize((int32)nPass, &kt);
+    nFactor = fftn_factorize((int32)nPass, &kt);
     /* test that nFactors is in range */
     if (nFactor > NFACTOR) {
         fprintf(stderr,
