@@ -142,7 +142,6 @@ static void integrate_monte_carlo_search(int32 append, int32 stuffbrowse,
                                          int32 ishoot);
 static void integrate_monte_carlo(void);
 static void integrate_init_monte_carlo(void);
-static int32 integrate_set_up_range2(void);
 static int32 integrate_set_up_range(void);
 static int32 integrate_range_item(void);
 
@@ -347,103 +346,6 @@ integrate_set_up_range(void) {
     return 0;
 }
 
-int32
-integrate_set_up_range2(void) {
-    static char *n[] = {"*3Vary1",
-                        "Start1",
-                        "End1",
-                        "*3Vary2",
-                        "Start2",
-                        "End2",
-                        "Steps",
-                        "Reset storage (Y/N)",
-                        "Use old ic's (Y/N)",
-                        "Cycle color (Y/N)",
-                        "Movie(Y/N)",
-                        "Crv(1) Array(2)",
-                        "Steps2"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    static char *yn[] = {"N", "Y"};
-    if (!Xup)
-        return integrate_range_item();
-    sprintf(values[0], "%s", range.item);
-    sprintf(values[1], "%.16g", range.plow);
-    sprintf(values[2], "%.16g", range.phigh);
-    sprintf(values[3], "%s", range.item2);
-    sprintf(values[4], "%.16g", range.plow2);
-    sprintf(values[5], "%.16g", range.phigh2);
-    sprintf(values[6], "%d", range.steps);
-    sprintf(values[7], "%s", yn[range.reset]);
-    sprintf(values[8], "%s", yn[range.oldic]);
-    sprintf(values[9], "%s", yn[range.cycle]);
-    sprintf(values[10], "%s", yn[range.movie]);
-    if (range.rtype == 2)
-        sprintf(values[11], "2");
-    else
-        sprintf(values[11], "1");
-    sprintf(values[12], "%d", range.steps2);
-    status = do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
-    if (status != 0) {
-        strcpy(range.item, values[0]);
-
-        if (integrate_range_item() == 0)
-            return 0;
-        strcpy(range.item2, values[3]);
-
-        {
-            /* integrate range item2 */
-            int32 i;
-            char bob[256];
-            i = init_conds_find_user_name(Param, range.item2);
-            if (i > -1) {
-                range.type2 = Param;
-                range.index2 = i;
-            } else {
-                i = init_conds_find_user_name(IC, range.item2);
-                if (i <= -1) {
-                    sprintf(bob, " %s is not a parameter or variable !", range.item2);
-                    ggets_err_msg(bob);
-                    return 0;
-                }
-                range.type2 = IC;
-                range.index2 = i;
-            }
-        }
-        range.steps = atoi(values[6]);
-        range.steps2 = atoi(values[12]);
-        if (range.steps <= 0)
-            range.steps = 10;
-        if (range.steps2 <= 0)
-            range.steps2 = 10;
-
-        range.plow = atof(values[1]);
-        range.phigh = atof(values[2]);
-        range.plow2 = atof(values[4]);
-        range.phigh2 = atof(values[5]);
-        if (values[7][0] == 'Y' || values[7][0] == 'y')
-            range.reset = 1;
-        else
-            range.reset = 0;
-        if (values[8][0] == 'Y' || values[8][0] == 'y')
-            range.oldic = 1;
-        else
-            range.oldic = 0;
-        if (values[9][0] == 'Y' || values[9][0] == 'y')
-            range.cycle = 1;
-        else
-            range.cycle = 0;
-        if (values[10][0] == 'Y' || values[10][0] == 'y')
-            range.movie = 1;
-        else
-            range.movie = 0;
-        range.rtype = atoi(values[11]);
-
-        RANGE_FLAG = 1;
-        return 1;
-    }
-    return 0;
-}
 
 void
 integrate_init_monte_carlo(void) {
@@ -745,8 +647,105 @@ integrate_do_range(double *x, int32 flag) {
             return -1;
     }
     if (flag == 1) {
-        if (integrate_set_up_range2() == 0)
+        /* integrate set up range2 */
+        static char *n[] = {"*3Vary1",
+                            "Start1",
+                            "End1",
+                            "*3Vary2",
+                            "Start2",
+                            "End2",
+                            "Steps",
+                            "Reset storage (Y/N)",
+                            "Use old ic's (Y/N)",
+                            "Cycle color (Y/N)",
+                            "Movie(Y/N)",
+                            "Crv(1) Array(2)",
+                            "Steps2"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        static char *yn[] = {"N", "Y"};
+        if (!Xup) {
+            if (integrate_range_item() == 0)
+                return -1;
+            else
+                return 0;
+        }
+        sprintf(values[0], "%s", range.item);
+        sprintf(values[1], "%.16g", range.plow);
+        sprintf(values[2], "%.16g", range.phigh);
+        sprintf(values[3], "%s", range.item2);
+        sprintf(values[4], "%.16g", range.plow2);
+        sprintf(values[5], "%.16g", range.phigh2);
+        sprintf(values[6], "%d", range.steps);
+        sprintf(values[7], "%s", yn[range.reset]);
+        sprintf(values[8], "%s", yn[range.oldic]);
+        sprintf(values[9], "%s", yn[range.cycle]);
+        sprintf(values[10], "%s", yn[range.movie]);
+        if (range.rtype == 2)
+            sprintf(values[11], "2");
+        else
+            sprintf(values[11], "1");
+        sprintf(values[12], "%d", range.steps2);
+        status = do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
+
+        if (status == 0)
             return -1;
+
+        strcpy(range.item, values[0]);
+
+        if (integrate_range_item() == 0)
+            return -1;
+        strcpy(range.item2, values[3]);
+
+        {
+            /* integrate range item2 */
+            int32 i2;
+            char bob2[256];
+            i2 = init_conds_find_user_name(Param, range.item2);
+            if (i2 > -1) {
+                range.type2 = Param;
+                range.index2 = i2;
+            } else {
+                i2 = init_conds_find_user_name(IC, range.item2);
+                if (i2 <= -1) {
+                    sprintf(bob2, " %s is not a parameter or variable !", range.item2);
+                    ggets_err_msg(bob2);
+                    return -1;
+                }
+                range.type2 = IC;
+                range.index2 = i2;
+            }
+        }
+        range.steps = atoi(values[6]);
+        range.steps2 = atoi(values[12]);
+        if (range.steps <= 0)
+            range.steps = 10;
+        if (range.steps2 <= 0)
+            range.steps2 = 10;
+
+        range.plow = atof(values[1]);
+        range.phigh = atof(values[2]);
+        range.plow2 = atof(values[4]);
+        range.phigh2 = atof(values[5]);
+        if (values[7][0] == 'Y' || values[7][0] == 'y')
+            range.reset = 1;
+        else
+            range.reset = 0;
+        if (values[8][0] == 'Y' || values[8][0] == 'y')
+            range.oldic = 1;
+        else
+            range.oldic = 0;
+        if (values[9][0] == 'Y' || values[9][0] == 'y')
+            range.cycle = 1;
+        else
+            range.cycle = 0;
+        if (values[10][0] == 'Y' || values[10][0] == 'y')
+            range.movie = 1;
+        else
+            range.movie = 0;
+        range.rtype = atoi(values[11]);
+
+        RANGE_FLAG = 1;
     }
 
     MyStart = 1;
