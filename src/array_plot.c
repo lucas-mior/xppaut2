@@ -94,7 +94,6 @@ static void array_plot_destroy(void);
 static void array_plot_button(Window window);
 static void array_plot_get_root(char *s, char *sroot, int32 *num);
 static void array_plot_gif(void);
-static void array_plot_fit(void);
 
 void
 array_plot_draw_one(char *bob) {
@@ -112,16 +111,6 @@ array_plot_draw_one(char *bob) {
 }
 
 
-void
-array_plot_fit(void) {
-    double zmax;
-    double zmin;
-    array_plot_scale(&array_plot, &zmax, &zmin);
-    array_plot.zmin = zmin;
-    array_plot.zmax = zmax;
-    array_plot_redraw(array_plot);
-    return;
-}
 
 void
 array_plot_optimize(int32 *plist) {
@@ -405,8 +394,15 @@ void
 array_plot_button(Window window) {
     if (window == array_plot.wedit)
         array_plot_edit2(&array_plot);
-    if (window == array_plot.wfit)
-        array_plot_fit();
+    if (window == array_plot.wfit) {
+        /* array plot fit */
+        double zmax;
+        double zmin;
+        array_plot_scale(&array_plot, &zmax, &zmin);
+        array_plot.zmin = zmin;
+        array_plot.zmax = zmax;
+        array_plot_redraw(array_plot);
+    }
     if (window == array_plot.wrange) {
         /* array plot set up range */
         static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
