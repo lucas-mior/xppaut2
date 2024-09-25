@@ -257,9 +257,7 @@ histogram_new_2d(void) {
 
 void
 histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
-         char *condition, int32 which)
-
-{
+              char *condition, int32 which) {
     int32 i, j, index;
     int32 command[256];
     int32 cond = 0, flag = 1;
