@@ -77,7 +77,6 @@ static FILE *ap_fp;
 static GC array_plot_gc;
 static int32 first_aplot_press;
 
-static void array_plot_set_color(int32 col);
 static void array_plot_tag2(char *);
 static void array_plot_gif_all(char *, int32);
 static void array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin);
@@ -684,7 +683,16 @@ array_plot_redraw(struct ArrayPlot ap) {
                     colr = FIRSTCOLOR;
                 if (colr > cmax)
                     colr = cmax;
-                array_plot_set_color(colr);
+                if (colr < 0)
+                    XSetForeground(display, array_plot_gc, GrBack);
+                if (colr == 0)
+                    XSetForeground(display, array_plot_gc, GrFore);
+                else {
+                    if (COLOR)
+                        XSetForeground(display, array_plot_gc, (uint)color_map(colr));
+                    else
+                        XSetForeground(display, array_plot_gc, GrFore);
+                }
                 XFillRectangle(display, window, array_plot_gc, ix, iy,
                                (uint)delx, (uint)dely);
             }
@@ -699,21 +707,6 @@ array_plot_tag2(char *bob) {
     color_set(0);
     XDrawString(display, array_plot.wplot, small_gc, 0, CURY_OFFs, bob,
                 (int32)strlen(bob));
-    return;
-}
-
-void
-array_plot_set_color(int32 col) {
-    if (col < 0)
-        XSetForeground(display, array_plot_gc, GrBack);
-    if (col == 0)
-        XSetForeground(display, array_plot_gc, GrFore);
-    else {
-        if (COLOR)
-            XSetForeground(display, array_plot_gc, (uint)color_map(col));
-        else
-            XSetForeground(display, array_plot_gc, GrFore);
-    }
     return;
 }
 

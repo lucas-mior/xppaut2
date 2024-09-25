@@ -3,7 +3,7 @@
 FUNC_NAME="[[:alnum:]_]+"
 files="src/*.c src/*.h"
 
-grep -E "^$FUNC_NAME\(void\)" $files \
+grep -E "^$FUNC_NAME\([[:alnum:]_]+ [[:alnum:]_]+\)" $files \
 | while read match; do
     file="${match%:*}"
     function="${match##*:}"
