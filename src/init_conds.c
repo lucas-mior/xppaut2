@@ -137,7 +137,6 @@ static int32 do_file_select_events(void);
 static void crossing_selector(Window window, int32 c);
 static int32 button_selector(Window window);
 static void fs_scroll(int32 i);
-static void new_wild(void);
 static void redraw_fs_text(char *string, Window window, int32 flag);
 static void redraw_file_list(void);
 static void redraw_directory(void);
@@ -460,16 +459,6 @@ display_file_sel(struct FileSel f, Window window) {
     return;
 }
 
-void
-new_wild(void) {
-    free_finfo(&my_ff); /* delete the old file info */
-    filesel.n0 = 0;     /* back to the top of the list */
-    get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
-    filesel.n = my_ff.ndirs + my_ff.nfiles;
-    redraw_file_list();
-    XFlush(display);
-    return;
-}
 
 void
 fs_scroll(int32 i) {
@@ -1079,7 +1068,13 @@ selector_key(XEvent event) {
         flag = edit_fitem(ch, filesel.wildtxt, filesel.wild, &(filesel.off),
                           &(filesel.pos), 29);
         if (flag == EDIT_DONE) {
-            new_wild();
+            /* new wild */
+            free_finfo(&my_ff); /* delete the old file info */
+            filesel.n0 = 0;     /* back to the top of the list */
+            get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+            filesel.n = my_ff.ndirs + my_ff.nfiles;
+            redraw_file_list();
+            XFlush(display);
             return 0;
         }
         if (flag == EDIT_ESC)
