@@ -146,7 +146,6 @@ XFontStruct *small_font;
 static void main_test_color_info(void);
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
 static void main_make_pops(void);
-static void main_load_fonts(void);
 static void main_get_gc(GC *gc);
 static void main_top_button_events(XEvent report);
 static void main_top_button_press(Window window);
@@ -695,7 +694,42 @@ main_init_x(void) {
                      StructureNotifyMask | ButtonReleaseMask |
                      ButtonMotionMask);
 
-    main_load_fonts();
+    /* main load fonts */
+    if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
+        ggets_plintf("X Error: Failed to load big font: %s\n", big_font_name);
+        exit(-1);
+    }
+
+    if ((small_font = XLoadQueryFont(display, small_font_name)) == NULL) {
+        ggets_plintf("X Error: Failed to load small font: %s\n",
+                     small_font_name);
+        exit(-1);
+    }
+
+    for (int32 i = 0; i < 5; i++) {
+        if ((symfonts[i] = XLoadQueryFont(display, symbolfonts[i])) == NULL) {
+            if (i == 0 || i == 1)
+                symfonts[i] = small_font;
+            else
+                symfonts[i] = big_font;
+            avsymfonts[i] = 1;
+        } else {
+            avsymfonts[i] = 1;
+            ggets_plintf(" sym %d loaded ..", i);
+        }
+
+        if ((romfonts[i] = XLoadQueryFont(display, timesfonts[i])) == NULL) {
+            if (i == 0 || i == 1)
+                romfonts[i] = small_font;
+            else
+                romfonts[i] = big_font;
+            avromfonts[i] = 1;
+        } else {
+            avromfonts[i] = 1;
+            ggets_plintf(" times %d loaded ..", i);
+        }
+    }
+    ggets_plintf("\n");
 
     /* BETTER SUPPORT FOR VARIABLE WIDTH FONTS
      * Use a statistical average to get average spacing. Some fonts don't
@@ -1269,46 +1303,6 @@ main_get_gc(GC *gc2) {
     return;
 }
 
-void
-main_load_fonts(void) {
-    int32 i;
-    if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
-        ggets_plintf("X Error: Failed to load big font: %s\n", big_font_name);
-        exit(-1);
-    }
-
-    if ((small_font = XLoadQueryFont(display, small_font_name)) == NULL) {
-        ggets_plintf("X Error: Failed to load small font: %s\n",
-                     small_font_name);
-        exit(-1);
-    }
-
-    for (i = 0; i < 5; i++) {
-        if ((symfonts[i] = XLoadQueryFont(display, symbolfonts[i])) == NULL) {
-            if (i == 0 || i == 1)
-                symfonts[i] = small_font;
-            else
-                symfonts[i] = big_font;
-            avsymfonts[i] = 1;
-        } else {
-            avsymfonts[i] = 1;
-            ggets_plintf(" sym %d loaded ..", i);
-        }
-
-        if ((romfonts[i] = XLoadQueryFont(display, timesfonts[i])) == NULL) {
-            if (i == 0 || i == 1)
-                romfonts[i] = small_font;
-            else
-                romfonts[i] = big_font;
-            avromfonts[i] = 1;
-        } else {
-            avromfonts[i] = 1;
-            ggets_plintf(" times %d loaded ..", i);
-        }
-    }
-    ggets_plintf("\n");
-    return;
-}
 
 void
 main_make_pops(void) {
