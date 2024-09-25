@@ -2811,7 +2811,7 @@ typedef int32 (*PSolveFn)(void *P_data, Vector r, Vector z, int32 lr);
  * modified_gs returns 0 to indicate success. It cannot fail.      *
  *                                                                *
  ******************************************************************/
-int32 modified_gs(Vector *v, double **h, int32 k, int32 p,
+int32 iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
                  double *new_vk_norm);
 
 /******************************************************************
@@ -2833,7 +2833,7 @@ int32 modified_gs(Vector *v, double **h, int32 k, int32 p,
  * classical_gs returns 0 to indicate success. It cannot fail.     *
  *                                                                *
  ******************************************************************/
-int32 classical_gs(Vector *v, double **h, int32 k, int32 p,
+int32 iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
                   double *new_vk_norm, Vector temp, double *s);
 
 /******************************************************************

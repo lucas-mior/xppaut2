@@ -304,11 +304,11 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             /*  Orthogonalize V[l+1] against previous V[i]: V[l+1] = w_tilde. */
 
             if (gstype == CLASSICAL_GS) {
-                if (classical_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l]),
+                if (iterativ_classical_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l]),
                                 vtemp, yg) != 0)
                     return SPGMR_GS_FAIL;
             } else {
-                if (modified_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) !=
+                if (iterativ_modified_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) !=
                     0)
                     return SPGMR_GS_FAIL;
             }
