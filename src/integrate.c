@@ -302,21 +302,6 @@ integrate_set_up_range(void) {
     status = do_string_box(8, 8, 1, "Range Integrate", n, values, 45);
     if (status != 0) {
         strcpy(range.item, values[0]);
-        /* i=init_conds_find_user_name(Param,range.item);
-        if(i>-1){
-          range.type=Param;
-          range.index=i;
-        }
-        else {
-          i=init_conds_find_user_name(IC,range.item);
-          if(i<=-1){
-            ggets_err_msg("No such name!");
-            return 0;
-          }
-          range.type=IC;
-          range.index=i;
-        }
-        */
         if (integrate_range_item() == 0)
             return 0;
         range.steps = atoi(values[1]);
