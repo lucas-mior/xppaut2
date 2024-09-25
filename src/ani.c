@@ -162,7 +162,6 @@ static void ani_button(Window window);
 static void ani_resize(int32 x, int32 y);
 static void ani_check_on_the_fly(void);
 static void ani_frame(int32 task);
-static void ani_set_to_init_data(void);
 static void ani_set_from_init_data(void);
 static void ani_flip1(int32 n);
 static void ani_flip(void);
@@ -518,7 +517,17 @@ ani_buttonx(XEvent event, int32 flag) {
                 return;
             }
             ani_do_grab_tasks(2);
-            ani_set_to_init_data();
+
+            /* ani set to init data */
+            for (int32 i = 0; i < NODE; i++) {
+                last_ic[i] = get_ivar(i + 1);
+            }
+            for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
+                last_ic[i - FIX_VAR] = get_ivar(i + 1);
+            }
+
+            init_conds_redraw_ics();
+
             ani_grab_flag = 0;
             init_conds_redraw_params();
             if (ani_run_now_grab()) {
@@ -810,19 +819,6 @@ ani_frame(int32 task) {
               (uint)vcr.hgt, 0, 0);
 
     XFlush(display);
-    return;
-}
-
-void
-ani_set_to_init_data(void) {
-    for (int32 i = 0; i < NODE; i++) {
-        last_ic[i] = get_ivar(i + 1);
-    }
-    for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++) {
-        last_ic[i - FIX_VAR] = get_ivar(i + 1);
-    }
-
-    init_conds_redraw_ics();
     return;
 }
 
