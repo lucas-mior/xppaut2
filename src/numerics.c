@@ -37,9 +37,9 @@ int32 cv_bandlower = 1;
 
 /*   I will need access to storage  */
 
-static void get_method(void);
+static void numerics_get_method(void);
 static void ruelle(void);
-static void check_pos(int32 *j);
+static void numerics_check_pos(int32 *j);
 
 void
 numerics_chk_volterra(void) {
@@ -49,7 +49,7 @@ numerics_chk_volterra(void) {
 }
 
 void
-check_pos(int32 *j) {
+numerics_check_pos(int32 *j) {
     if (*j <= 0)
         *j = 1;
     return;
@@ -120,11 +120,11 @@ get_num_par(int32 ch)
     case 'n':
         /* ncline */
         ggets_new_int("ncline mesh :", &NMESH);
-        check_pos(&NMESH);
+        numerics_check_pos(&NMESH);
         break;
     case 'v':
         ggets_new_int("Maximum iterates :", &BVP_MAXIT);
-        check_pos(&BVP_MAXIT);
+        numerics_check_pos(&BVP_MAXIT);
         ggets_new_float("Tolerance :", &BVP_TOL);
         ggets_new_float("Epsilon :", &BVP_EPS);
         pp_shoot_reset_bvp();
@@ -132,7 +132,7 @@ get_num_par(int32 ch)
     case 'i':
         /* sing pt */
         ggets_new_int("Maximum iterates :", &EVEC_ITER);
-        check_pos(&EVEC_ITER);
+        numerics_check_pos(&EVEC_ITER);
         ggets_new_float("Newton tolerance :", &EVEC_ERR);
         ggets_new_float("Jacobian epsilon :", &NEWT_ERR);
         if (NFlags > 0)
@@ -142,7 +142,7 @@ get_num_par(int32 ch)
     case 'o':
         /* noutput */
         ggets_new_int("n_out :", &NJMP);
-        check_pos(&NJMP);
+        numerics_check_pos(&NJMP);
 
         break;
     case 'b':
@@ -152,7 +152,7 @@ get_num_par(int32 ch)
         break;
     case 'm':
         /* method */
-        get_method();
+        numerics_get_method();
         if (METHOD == VOLTERRA && NKernel == 0) {
             ggets_err_msg("Volterra only for integral eqns");
             METHOD = 4;
@@ -386,7 +386,7 @@ numerics_get_pmap_pars_com(int32 l) {
 }
 
 void
-get_method(void) {
+numerics_get_method(void) {
     char ch;
     int32 i;
     int32 nmeth;

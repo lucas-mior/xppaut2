@@ -143,19 +143,19 @@ OptionsSet notAlreadySet;
 static XFontStruct *big_font;
 XFontStruct *small_font;
 
-static void test_color_info(void);
-static int32 getxcolors(XWindowAttributes *win_info, XColor **colors);
-static void make_pops(void);
-static void load_fonts(void);
+static void main_test_color_info(void);
+static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
+static void main_make_pops(void);
+static void main_load_fonts(void);
 static void main_get_gc(GC *gc);
-static void make_top_buttons(void);
-static void top_button_events(XEvent report);
-static void top_button_press(Window window);
-static void top_button_cross(Window window, int32 b);
-static void xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
-static void set_big_font(void);
+static void main_make_top_buttons(void);
+static void main_top_button_events(XEvent report);
+static void main_top_button_press(Window window);
+static void main_top_button_cross(Window window, int32 b);
+static void main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
+static void main_set_big_font(void);
 static void main_init_x(void);
-static void check_for_quiet(int32 argc, char **argv);
+static void main_check_for_quiet(int32 argc, char **argv);
 
 void
 main_plot_command(int32 nit, int32 icount, int32 cwidth) {
@@ -401,7 +401,7 @@ do_main(int32 argc, char **argv) {
     /* Read visualization environement variables here
        since some may be overridden by command line */
     logfile = stdout;
-    check_for_quiet(argc, argv);
+    main_check_for_quiet(argc, argv);
 
     comline_do(argc, argv);
 
@@ -488,9 +488,9 @@ do_main(int32 argc, char **argv) {
 
     XMapWindow(display, main_win);
 
-    make_pops();
+    main_make_pops();
 
-    make_top_buttons();
+    main_make_top_buttons();
 
     init_conds_initialize_box();
 
@@ -512,7 +512,7 @@ do_main(int32 argc, char **argv) {
     pop_list_make_scrbox_lists();
 
     /*          MAIN LOOP             */
-    test_color_info();
+    main_test_color_info();
     comline_if_needed_load_set();
     comline_if_needed_load_par();
     comline_if_needed_load_ic();
@@ -527,11 +527,11 @@ do_main(int32 argc, char **argv) {
 
     graf_par_default_window();
 
-    do_events(min_wid, min_hgt);
+    main_do_events(min_wid, min_hgt);
 }
 
 void
-check_for_quiet(int32 argc, char **argv) {
+main_check_for_quiet(int32 argc, char **argv) {
     /* First scan, check for any QUIET option set... */
     int32 i = 0;
     /* Allow for multiple calls to the QUIET and LOGFILE options
@@ -594,7 +594,7 @@ main_init_x(void) {
     }
 
     main_win =
-        init_win(4, icon_name, win_name, x, y, min_wid, min_hgt, 0, NULL);
+        main_init_win(4, icon_name, win_name, x, y, min_wid, min_hgt, 0, NULL);
 
     /* Set up foreground and background colors */
 
@@ -678,7 +678,7 @@ main_init_x(void) {
                      StructureNotifyMask | ButtonReleaseMask |
                      ButtonMotionMask);
 
-    load_fonts();
+    main_load_fonts();
 
     /* BETTER SUPPORT FOR VARIABLE WIDTH FONTS
      * Use a statistical average to get average spacing. Some fonts don't
@@ -743,7 +743,7 @@ main_init_x(void) {
     if (COLOR)
         color_map_make();
 
-    set_big_font();
+    main_set_big_font();
 
     XSetFont(display, small_gc, small_font->fid);
 
@@ -761,7 +761,7 @@ main_init_x(void) {
 }
 
 void
-set_big_font(void) {
+main_set_big_font(void) {
     DCURX = DCURXb;
     DCURY = DCURYb;
     CURY_OFF = CURY_OFFb;
@@ -792,7 +792,7 @@ set_big_font(void) {
 
 */
 void
-xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
+main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     char ch;
 
     int32 used = 0;
@@ -800,7 +800,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     array_plot_do_events(report);
     txt_view_events(report);
     ani_do_events(report);
-    top_button_events(report);
+    main_top_button_events(report);
     switch (report.type) {
     case ConfigureNotify: /* this needs to be fixed!!! */
         init_conds_resize_par_box(report.xany.window);
@@ -902,7 +902,7 @@ xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
 }
 
 void
-do_events(uint32 min_wid, uint32 min_hgt) {
+main_do_events(uint32 min_wid, uint32 min_hgt) {
     XEvent report;
 
     ggets_blank_screen(main_win);
@@ -913,12 +913,12 @@ do_events(uint32 min_wid, uint32 min_hgt) {
     }
     while (true) {
         XNextEvent(display, &report);
-        xpp_events(report, (int32)min_wid, (int32)min_hgt);
+        main_xpp_events(report, (int32)min_wid, (int32)min_hgt);
     }
 }
 
 void
-bye_bye(void) {
+main_bye_bye(void) {
     int32 i;
     auto_nox_yes_reset();
     XUnloadFont(display, big_font->fid);
@@ -1075,7 +1075,7 @@ main_commander(int32 ch) {
             break;
         case 'q':
             if (pop_list_yes_no_box())
-                bye_bye();
+                main_bye_bye();
             break;
         case 'l':
             init_conds_clone_ode();
@@ -1099,7 +1099,7 @@ main_commander(int32 ch) {
 }
 
 Window
-init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
+main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
          uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
     Window wine;
     int32 count;
@@ -1197,7 +1197,7 @@ main_top_button_draw(Window window) {
 }
 
 void
-top_button_cross(Window window, int32 b) {
+main_top_button_cross(Window window, int32 b) {
     int32 i;
     for (i = 0; i < 6; i++)
         if (window == TopButton[i]) {
@@ -1208,7 +1208,7 @@ top_button_cross(Window window, int32 b) {
 }
 
 void
-top_button_press(Window window) {
+main_top_button_press(Window window) {
     if (window == TopButton[0])
         init_conds_make_new_ic_box();
     if (window == TopButton[1])
@@ -1225,20 +1225,20 @@ top_button_press(Window window) {
 }
 
 void
-top_button_events(XEvent report) {
+main_top_button_events(XEvent report) {
     switch (report.type) {
     case Expose:
     case MapNotify:
         main_top_button_draw(report.xany.window);
         break;
     case EnterNotify:
-        top_button_cross(report.xcrossing.window, 2);
+        main_top_button_cross(report.xcrossing.window, 2);
         break;
     case LeaveNotify:
-        top_button_cross(report.xcrossing.window, 1);
+        main_top_button_cross(report.xcrossing.window, 1);
         break;
     case ButtonPress:
-        top_button_press(report.xbutton.window);
+        main_top_button_press(report.xbutton.window);
         break;
     default:
         break;
@@ -1247,7 +1247,7 @@ top_button_events(XEvent report) {
 }
 
 void
-make_top_buttons(void) {
+main_make_top_buttons(void) {
     int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
     TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
     x1 += x2 + dx;
@@ -1278,7 +1278,7 @@ main_get_gc(GC *gc2) {
 }
 
 void
-load_fonts(void) {
+main_load_fonts(void) {
     int32 i;
     if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
         ggets_plintf("X Error: Failed to load big font: %s\n", big_font_name);
@@ -1319,7 +1319,7 @@ load_fonts(void) {
 }
 
 void
-make_pops(void) {
+main_make_pops(void) {
     int32 x;
     int32 y;
     uint32 h, w, bw, d;
@@ -1380,7 +1380,7 @@ main_fix_window_size(Window window, int32 width, int32 height, int32 flag) {
 }
 
 int32
-getxcolors(XWindowAttributes *win_info, XColor **colors) {
+main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
     int32 ncolors;
 
     *colors = (XColor *)NULL;
@@ -1437,13 +1437,13 @@ getxcolors(XWindowAttributes *win_info, XColor **colors) {
 }
 
 void
-test_color_info(void) {
+main_test_color_info(void) {
     XColor *colors;
     XWindowAttributes xwa;
     TrueColorFlag = 0;
 
     XGetWindowAttributes(display, main_win, &xwa);
-    getxcolors(&xwa, &colors);
+    main_get_x_colors(&xwa, &colors);
 
     if (colors)
         free((char *)colors);

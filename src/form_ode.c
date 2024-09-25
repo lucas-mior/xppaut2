@@ -243,7 +243,7 @@ form_ode_get_a_filename(char *filename, char *wild) {
         }
         status = init_conds_file_selector("Select an ODE file", filename, wild);
         if (status == 0)
-            bye_bye();
+            main_bye_bye();
         else
             return 1;
     }

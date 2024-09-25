@@ -509,7 +509,7 @@ menudrive_do_file_com(int32 com) {
         break;
     case M_FQ:
         if (pop_list_yes_no_box())
-            bye_bye();
+            main_bye_bye();
         break;
     case M_FER:
         edit_rhs();

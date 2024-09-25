@@ -3271,12 +3271,12 @@ void main_plot_command(int32 nit, int32 icount, int32 cwidth);
 int32 main_my_abort(void);
 void do_main(int32 argc, char **argv) __attribute__((noreturn));
 void main_do_vis_env(void);
-void do_events(uint32 min_wid, uint32 min_hgt) __attribute__((noreturn));
-void bye_bye(void) __attribute__((noreturn));
+void main_do_events(uint32 min_wid, uint32 min_hgt) __attribute__((noreturn));
+void main_bye_bye(void) __attribute__((noreturn));
 void main_clr_scrn(void);
 void main_redraw_all(void);
 void main_commander(int32 ch);
-Window init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
+Window main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
                 uint32 min_wid, uint32 min_hgt, int32 argc, char **argv);
 void main_top_button_draw(Window window);
 void main_fix_window_size(Window window, int32 width, int32 height, int32 flag);
