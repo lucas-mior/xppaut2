@@ -40,7 +40,6 @@ static struct EqList {
 
 static int32 sparity;
 
-static void eig_list_eq_box_button(Window window);
 static void eig_list_eq_list_down(void);
 static void eig_list_eq_list_up(void);
 
@@ -189,7 +188,39 @@ void
 eig_list_eq_list_button(XEvent event) {
     Window window = event.xbutton.window;
     /* pure laziness here - use this to go to eq_box */
-    eig_list_eq_box_button(window);
+    do {
+        /* eig_list_eq_box_button */
+        if (eq_box.flag == 0)
+            break;
+        if (window == eq_box.import) {
+            /* eig list eq box import */
+            int32 n = eq_box.n, i;
+            for (i = 0; i < n; i++)
+                last_ic[i] = eq_box.y[i];
+
+            if (n < 20) {
+                if (sparity == 0) {
+                    for (i = 0; i < n; i++)
+                        homo_l[i] = eq_box.y[i];
+                    printf("Saved to left equilibrium\n");
+                }
+                if (sparity == 1) {
+                    for (i = 0; i < n; i++)
+                        homo_r[i] = eq_box.y[i];
+                    printf("Saved to right equilibrium\n");
+                }
+                sparity = 1 - sparity;
+            }
+            init_conds_redraw_ics();
+            break;
+        }
+        if (eq_box.close == window) {
+            eq_box.flag = 0;
+            browse_wait_a_sec(ClickTime);
+            XDestroySubwindows(display, eq_box.base);
+            XDestroyWindow(display, eq_box.base);
+        }
+    } while(0);
     if (eq_list.flag == 0)
         return;
 
@@ -259,40 +290,6 @@ eig_list_resize_eq_list(Window win) {
     return;
 }
 
-void
-eig_list_eq_box_button(Window window) {
-    if (eq_box.flag == 0)
-        return;
-    if (window == eq_box.import) {
-        /* eig list eq box import */
-        int32 n = eq_box.n, i;
-        for (i = 0; i < n; i++)
-            last_ic[i] = eq_box.y[i];
-
-        if (n < 20) {
-            if (sparity == 0) {
-                for (i = 0; i < n; i++)
-                    homo_l[i] = eq_box.y[i];
-                printf("Saved to left equilibrium\n");
-            }
-            if (sparity == 1) {
-                for (i = 0; i < n; i++)
-                    homo_r[i] = eq_box.y[i];
-                printf("Saved to right equilibrium\n");
-            }
-            sparity = 1 - sparity;
-        }
-        init_conds_redraw_ics();
-        return;
-    }
-    if (eq_box.close == window) {
-        eq_box.flag = 0;
-        browse_wait_a_sec(ClickTime);
-        XDestroySubwindows(display, eq_box.base);
-        XDestroyWindow(display, eq_box.base);
-    }
-    return;
-}
 
 void
 eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
