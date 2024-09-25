@@ -157,6 +157,12 @@ static AutoAX Old1p;
 static AutoAX Old2p;
 
 static void auto_extend_bvp(void);
+static void auto_switch_per(void);
+static void auto_switch_bvp(void);
+static void auto_switch_ss(void);
+static void auto_twopar_double(void);
+static void auto_torus(void);
+static void auto_period_double(void);
 
 /* color plot stuff */
 void
