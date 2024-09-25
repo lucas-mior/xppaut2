@@ -1576,8 +1576,6 @@ auto_nox_reset(void) {
 void
 auto_grab(void) {
     auto_x11_traverse_diagram();
-    /* auto_x11_redraw_menus();
-     */
     return;
 }
 
