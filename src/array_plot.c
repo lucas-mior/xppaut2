@@ -94,7 +94,6 @@ static void array_plot_destroy(void);
 static void array_plot_button(Window window);
 static void array_plot_get_root(char *s, char *sroot, int32 *num);
 static void array_plot_gif(void);
-static void array_plot_set_up_range(void);
 static void array_plot_fit(void);
 
 void
@@ -112,28 +111,6 @@ array_plot_draw_one(char *bob) {
     return;
 }
 
-void
-array_plot_set_up_range(void) {
-    static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    double *x;
-    strncpy(values[0], array_plot_range_stem, sizeof(values[0]));
-    snprintf(values[1], sizeof(values[1]), "%d", array_plot_still);
-    snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
-    status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
-    if (status != 0) {
-        snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s",
-                 values[0]);
-        array_plot_still = atoi(values[1]);
-        array_plot_tag = atoi(values[2]);
-        array_plot_range = 1;
-        array_plot_range_count = 0;
-        x = &MyData[0];
-        integrate_do_range(x, 0);
-    }
-    return;
-}
 
 void
 array_plot_fit(void) {
@@ -430,8 +407,27 @@ array_plot_button(Window window) {
         array_plot_edit2(&array_plot);
     if (window == array_plot.wfit)
         array_plot_fit();
-    if (window == array_plot.wrange)
-        array_plot_set_up_range();
+    if (window == array_plot.wrange) {
+        /* array plot set up range */
+        static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        double *x;
+        strncpy(values[0], array_plot_range_stem, sizeof(values[0]));
+        snprintf(values[1], sizeof(values[1]), "%d", array_plot_still);
+        snprintf(values[2], sizeof(values[2]), "%d", array_plot_tag);
+        status = do_string_box(3, 3, 1, "Array range saving", n, values, 28);
+        if (status != 0) {
+            snprintf(array_plot_range_stem, sizeof(array_plot_range_stem), "%s",
+                     values[0]);
+            array_plot_still = atoi(values[1]);
+            array_plot_tag = atoi(values[2]);
+            array_plot_range = 1;
+            array_plot_range_count = 0;
+            x = &MyData[0];
+            integrate_do_range(x, 0);
+        }
+    }
     if (window == array_plot.wredraw)
         array_plot_redraw(array_plot);
     if (window == array_plot.wprint)
