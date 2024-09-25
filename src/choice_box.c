@@ -15,7 +15,6 @@
 #include "struct.h"
 #include "integers.h"
 
-static int32 choice_box_event_loop(ChoiceBox p);
 static void choice_box_do_checks(ChoiceBox p);
 static void choice_box_display(Window window, ChoiceBox p);
 static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc,
@@ -76,7 +75,6 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
               int32 *check, int32 type) {
     ChoiceBox p;
 
-    int32 i;
     int32 width;
     int32 height;
     int32 maxchar;
@@ -111,7 +109,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
 
     p.name = names;
     p.flag = check;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         oldcheck[i] = check[i];
         xpos = xstart;
         ypos = ystart + i*(DCURY + 10);
@@ -129,7 +127,50 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     p.mc = mcc;
     choice_box_do_checks(p);
     while (true) {
-        status = choice_box_event_loop(p);
+        /* choice_box_event_loop */
+        int32 j, nn = p.n;
+        XEvent event;
+        XNextEvent(display, &event);
+
+        status = -1;
+
+        switch (event.type) {
+        case ConfigureNotify:
+        case Expose:
+        case MapNotify:
+            choice_box_display(event.xany.window, p);
+            break;
+        case ButtonPress:
+            if (event.xbutton.window == p.ok) {
+                ggets_bar(0, 0, 200, 200, p.ok);
+                status = ALL_DONE;
+            }
+            if (event.xbutton.window == p.cancel) {
+                ggets_bar(0, 0, 200, 200, p.cancel);
+                status = FORGET_ALL;
+            }
+            for (int32 i = 0; i < nn; i++) {
+                if (event.xbutton.window == p.cw[i]) {
+                    if (p.type == RADIO) {
+                        for (j = 0; j < nn; j++)
+                            p.flag[j] = 0;
+                        p.flag[i] = 1;
+                        choice_box_do_checks(p);
+                    }
+                    if (p.type == CHOICE) {
+                        p.flag[i] = 1 - p.flag[i];
+                        choice_box_do_checks(p);
+                    }
+                }
+            }
+
+            break;
+        case KeyPress:
+            break;
+        default:
+            break;
+        }
+
         if (status != -1)
             break;
     }
@@ -138,57 +179,10 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     XDestroySubwindows(display, p.base);
     XDestroyWindow(display, p.base);
 
-    if (status == FORGET_ALL)
-        for (i = 0; i < n; i++)
+    if (status == FORGET_ALL) {
+        for (int32 i = 0; i < n; i++)
             check[i] = oldcheck[i];
-    return status;
-}
-
-int32
-choice_box_event_loop(ChoiceBox p) {
-    int32 i, j, nn = p.n;
-    int32 status = -1;
-
-    XEvent event;
-
-    XNextEvent(display, &event);
-
-    switch (event.type) {
-    case ConfigureNotify:
-    case Expose:
-    case MapNotify:
-        choice_box_display(event.xany.window, p);
-        break;
-    case ButtonPress:
-        if (event.xbutton.window == p.ok) {
-            ggets_bar(0, 0, 200, 200, p.ok);
-            status = ALL_DONE;
-        }
-        if (event.xbutton.window == p.cancel) {
-            ggets_bar(0, 0, 200, 200, p.cancel);
-            status = FORGET_ALL;
-        }
-        for (i = 0; i < nn; i++) {
-            if (event.xbutton.window == p.cw[i]) {
-                if (p.type == RADIO) {
-                    for (j = 0; j < nn; j++)
-                        p.flag[j] = 0;
-                    p.flag[i] = 1;
-                    choice_box_do_checks(p);
-                }
-                if (p.type == CHOICE) {
-                    p.flag[i] = 1 - p.flag[i];
-                    choice_box_do_checks(p);
-                }
-            }
-        }
-
-        break;
-    case KeyPress:
-        break;
-    default:
-        break;
     }
-
     return status;
 }
+
