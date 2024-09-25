@@ -509,8 +509,8 @@ auto_nox_do(int32 iold, int32 isave) {
 }
 
 void
-auto_nox_set_auto(void) /* Caution - need to include NICP here */
-{
+auto_nox_set_auto(void) {
+    /* Caution - need to include NICP here */
     NAutoUzr = Auto.nper;
     autevd_init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
                      Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds,
