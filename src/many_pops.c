@@ -67,7 +67,6 @@ static void many_pops_set_gr_back(void);
 static void many_pops_set_gr_fore(void);
 static void many_pops_select_window(Window window);
 static void many_pops_kill_all(void);
-static void many_pops_destroy_a_pop(void);
 static void many_pops_set_restore(int32 flag);
 static void many_pops_add_pntarr(int32 type);
 static void many_pops_add_marker(void);
@@ -969,8 +968,31 @@ many_pops_do_windows_com(int32 c) {
         XLowerWindow(display, draw_win);
         break;
     case 2:
-        many_pops_destroy_a_pop();
+    {
+        /* many pops destroy a pop */
+        int32 i;
+        if (draw_win == graph[0].window) {
+            pop_list_respond_box("Okay", "Can't destroy big window!");
+            /*pop_list_respond_box(main_win,0,0,"Okay","Can't destroy big
+             * window!");*/
+            break;
+        }
+        for (i = 1; i < MAXPOP; i++) {
+            if (graph[i].window == draw_win)
+                break;
+        }
+        if (i >= MAXPOP)
+            return;
+        many_pops_select_window(graph[0].window);
+        graph[i].Use = 0;
+        many_pops_destroy_label(graph[i].window);
+        many_pops_destroy_grob(graph[i].window);
+        browse_wait_a_sec(ClickTime);
+        XDestroySubwindows(display, graph[i].window);
+        XDestroyWindow(display, graph[i].window);
+        num_pops--;
         break;
+    }
     case 5:
         many_pops_set_restore(0);
         break;
@@ -1001,30 +1023,6 @@ many_pops_set_restore(int32 flag) {
     return;
 }
 
-void
-many_pops_destroy_a_pop(void) {
-    int32 i;
-    if (draw_win == graph[0].window) {
-        pop_list_respond_box("Okay", "Can't destroy big window!");
-        /*pop_list_respond_box(main_win,0,0,"Okay","Can't destroy big
-         * window!");*/
-        return;
-    }
-    for (i = 1; i < MAXPOP; i++)
-        if (graph[i].window == draw_win)
-            break;
-    if (i >= MAXPOP)
-        return;
-    many_pops_select_window(graph[0].window);
-    graph[i].Use = 0;
-    many_pops_destroy_label(graph[i].window);
-    many_pops_destroy_grob(graph[i].window);
-    browse_wait_a_sec(ClickTime);
-    XDestroySubwindows(display, graph[i].window);
-    XDestroyWindow(display, graph[i].window);
-    num_pops--;
-    return;
-}
 
 void
 many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
