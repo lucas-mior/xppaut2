@@ -952,39 +952,37 @@ clrscr(void) {
 /*   This is the new improved parser for input files.
      It is much more natural.  The format is as follows:
 
-# comments
-par  name=val, ....
-init name=val,...
-number name=value, ...
-wiener name,..
-table name ...
-markov name #states (replaces m r)
-{ }  ..... { }
-.
-.
-{ }  ..... { }
-options filename
-aux name = expression
-bndry ....
-global ...
-special name=conv(....)
-special name=sparse(...)
-
-u' = expression    \
-                    ----   Differential equations (replaces o v)
-du/dt = expression /
-
-u(t+1) = expression >--- Difference equation   (replace o v)
-
-u(t) = expression with int32{} or int32[]  <--- volterra equation (replaces i v)
-
-f(x,y,...) = expression >----   function (replaces u)
-
-u = expression>---  fixed  (replaces f o)
-
-u(0) = value >---  initial data (replaces v, init is also OK )
-
-*/
+ * # comments
+ * par  name=val, ....
+ * init name=val,...
+ * number name=value, ...
+ * wiener name,..
+ * table name ...
+ * markov name #states (replaces m r)
+ * { }  ..... { }
+ * .
+ * .
+ * { }  ..... { }
+ * options filename
+ * aux name = expression
+ * bndry ....
+ * global ...
+ * special name=conv(....)
+ * special name=sparse(...)
+ * 
+ * u' = expression    \
+ *                     ----   Differential equations (replaces o v)
+ * du/dt = expression /
+ * 
+ * u(t+1) = expression >--- Difference equation   (replace o v)
+ * 
+ * u(t) = expression with int32{} or int32[] <-- volterra eq (replaces i v)
+ * 
+ * f(x,y,...) = expression >----   function (replaces u)
+ * 
+ * u = expression>---  fixed  (replaces f o)
+ * 
+ * u(0) = value >---  initial data (replaces v, init is also OK ) */
 
 /*
  * XPP INTERNALS DEMAND THE FOLLOWING ORDER CONVENTION:
@@ -1015,9 +1013,7 @@ u(0) = value >---  initial data (replaces v, init is also OK )
  * On the second pass it imitates an ode file doing things in the
  * "correct" order
 
- *  Only functions have changed syntax ...
-
-*/
+ *  Only functions have changed syntax ...  */
 
 int32
 if_include_file(char *old, char *nf) {
