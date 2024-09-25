@@ -40,6 +40,23 @@ static double *rcont7;
 static double *rcont8;
 
 static void dprhs(uint32 n, double t, double *y, double *f);
+static double dormpri_sign(double a, double b);
+static double min_d(double a, double b);
+static int32 dopcor(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
+                    double hmax, double h, double *rtoler, double *atoler,
+                    int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
+                    long nmax, double uround, int32 meth, long nstiff,
+                    double safe, double beta, double fac1, double fac2,
+                    uint32 *icont);
+static double hinit5(uint32 n, FcnEqDiff fcn, double x, double *y,
+                     double posneg, double *f0, double *f1, double *yyy1,
+                     int32 iord, double hmax, double *atoler, double *rtoler,
+                     int32 itoler);
+static int32 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
+        double hmax, double h, double *rtoler, double *atoler, int32 itoler,
+        FILE *fileout, SolTrait solout, int32 iout, long nmax, double uround,
+        int32 meth, long nstiff, double safe, double beta, double fac1,
+        double fac2, uint32 *icont);
 
 void
 dprhs(uint32 n, double t, double *y, double *f) {
@@ -115,7 +132,7 @@ dormprin(int32 *istart, double *y, double *t, int32 n, double tout, double *tol,
     }
 }
 
-static double
+double
 dormpri_sign(double a, double b) {
     return (b < 0.0) ? -fabs(a) : fabs(a);
 }
@@ -1002,7 +1019,7 @@ hinit5(uint32 n, FcnEqDiff fcn, double x, double *y, double posneg, double *f0,
 }
 
 /* core integrator */
-static int32
+int32
 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend, double hmax,
         double h, double *rtoler, double *atoler, int32 itoler, FILE *fileout,
         SolTrait solout, int32 iout, long nmax, double uround, int32 meth,

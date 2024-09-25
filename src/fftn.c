@@ -343,6 +343,10 @@ static int32 fftradixf(double Re[], double Im[], usize nTotal, usize nPass,
 #define Im_Data(i) Im[i]
 #endif
 
+static int32 FFTRADIX(REAL Re[], REAL Im[],
+                      usize nTotal, usize nPass, usize nSpan,
+                      int32 iSign, int32 maxFactors, int32 maxPerm);
+
 /*
  *
  */
@@ -454,7 +458,7 @@ Dimension_Error:
  * could move allocation out to fftn(), but leave it here so that it's
  * possible to make this a standalone function
  */
-static int32
+int32
 FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass, usize nSpan,
          int32 iSign, int32 maxFactors, int32 maxPerm) {
     int32 ii, nFactor, kspan, ispan, inc;
