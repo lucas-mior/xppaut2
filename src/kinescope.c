@@ -54,8 +54,6 @@ kinescope_do_movie_com(int32 c) {
     case 5:
         kinescope_make_anigif();
         break;
-    case 6: /* test_keys(); */
-        break;
     default:
         break;
     }
