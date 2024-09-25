@@ -72,7 +72,6 @@ static void many_pops_set_restore(int32 flag);
 static void many_pops_add_pntarr(int32 type);
 static void many_pops_add_markers(void);
 static void many_pops_add_marker(void);
-static int32 many_pops_get_markers_info(void);
 static int32 many_pops_select_marker_type(int32 *type);
 static void many_pops_destroy_label(Window window);
 static void many_pops_destroy_grob(Window window);
@@ -665,30 +664,6 @@ many_pops_select_marker_type(int32 *type) {
 }
 
 
-int32
-many_pops_get_markers_info(void) {
-    static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
-    snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
-    snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
-    snprintf(values[3], sizeof(values[3]), "%d", markinfo.number);
-    snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
-    snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
-    status = do_string_box(6, 6, 1, "Add Markers", n, values, 25);
-    if (status != 0) {
-        markinfo.type = atoi(values[0]);
-        markinfo.size = atof(values[2]);
-        markinfo.color = atoi(values[1]);
-        markinfo.number = atoi(values[3]);
-        markinfo.start = atoi(values[4]);
-        markinfo.skip = atoi(values[5]);
-
-        return 1;
-    }
-    return 0;
-}
 
 void
 many_pops_add_marker(void) {
@@ -728,8 +703,30 @@ many_pops_add_markers(void) {
     int32 i;
     double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
-    if (many_pops_get_markers_info() == 0)
-        return;
+    {
+        /* many pops get markers info */
+        static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
+        snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
+        snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
+        snprintf(values[3], sizeof(values[3]), "%d", markinfo.number);
+        snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
+        snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
+
+        status = do_string_box(6, 6, 1, "Add Markers", n, values, 25);
+        if (status == 0)
+            return;
+
+        markinfo.type = atoi(values[0]);
+        markinfo.size = atof(values[2]);
+        markinfo.color = atoi(values[1]);
+        markinfo.number = atoi(values[3]);
+        markinfo.start = atoi(values[4]);
+        markinfo.skip = atoi(values[5]);
+    }
+
     for (i = 0; i < markinfo.number; i++) {
         browse_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
                             MyGraph->zv[0], markinfo.start + i*markinfo.skip);
