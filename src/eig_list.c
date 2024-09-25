@@ -40,10 +40,10 @@ static struct {
 
 static int32 sparity;
 
-static void eq_box_button(Window window);
-static void eq_box_import(void);
-static void eq_list_down(void);
-static void eq_list_up(void);
+static void eig_list_eq_box_button(Window window);
+static void eig_list_eq_box_import(void);
+static void eig_list_eq_list_down(void);
+static void eig_list_eq_list_up(void);
 
 void
 eig_list_draw_eq_list(Window window) {
@@ -162,12 +162,12 @@ eig_list_eq_list_keypress(XEvent event, int32 *used) {
         ks = (char)ggets_get_key_press(&event);
 
         if (ks == KEY_UP) {
-            eq_list_up();
+            eig_list_eq_list_up();
             return;
         }
 
         if (ks == KEY_DOWN) {
-            eq_list_down();
+            eig_list_eq_list_down();
             return;
         }
     }
@@ -190,16 +190,16 @@ void
 eig_list_eq_list_button(XEvent event) {
     Window window = event.xbutton.window;
     /* pure laziness here - use this to go to eq_box */
-    eq_box_button(window);
+    eig_list_eq_box_button(window);
     if (eq_list.flag == 0)
         return;
 
     if (window == eq_list.up) {
-        eq_list_up();
+        eig_list_eq_list_up();
         return;
     }
     if (window == eq_list.down) {
-        eq_list_down();
+        eig_list_eq_list_down();
         return;
     }
     if (window == eq_list.close) {
@@ -212,7 +212,7 @@ eig_list_eq_list_button(XEvent event) {
 }
 
 void
-eq_list_up(void) {
+eig_list_eq_list_up(void) {
     if (eq_list.istart > 0) {
         eq_list.istart--;
         XClearWindow(display, eq_list.list);
@@ -222,7 +222,7 @@ eq_list_up(void) {
 }
 
 void
-eq_list_down(void) {
+eig_list_eq_list_down(void) {
     if (eq_list.istart < (NEQ - 1)) {
         eq_list.istart++;
         XClearWindow(display, eq_list.list);
@@ -232,7 +232,7 @@ eq_list_down(void) {
 }
 
 void
-eq_box_import(void) {
+eig_list_eq_box_import(void) {
     int32 n = eq_box.n, i;
     for (i = 0; i < n; i++)
         last_ic[i] = eq_box.y[i];
@@ -282,11 +282,11 @@ eig_list_resize_eq_list(Window win) {
 }
 
 void
-eq_box_button(Window window) {
+eig_list_eq_box_button(Window window) {
     if (eq_box.flag == 0)
         return;
     if (window == eq_box.import) {
-        eq_box_import();
+        eig_list_eq_box_import();
         return;
     }
     if (eq_box.close == window) {
@@ -299,7 +299,7 @@ eq_box_button(Window window) {
 }
 
 void
-create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
+eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
               int32 n) {
     int32 width, hstab, hequil, height;
     static char *name[] = {"Equilibria"};

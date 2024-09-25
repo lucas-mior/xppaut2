@@ -2047,7 +2047,7 @@ void eig_list_enter_eq_stuff(Window window, int32 b);
 void eig_list_eq_list_button(XEvent event);
 void eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt);
 void eig_list_resize_eq_list(Window win);
-void create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
+void eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
                    int32 n);
 void eig_list_draw_eq_box(Window window);
 

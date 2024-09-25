@@ -227,7 +227,7 @@ do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
             work[i*n + j] = temp;
         }
     }
-    create_eq_box(cp, cn, rp, rn, im, x, n);
+    eig_list_create_eq_box(cp, cn, rp, rn, im, x, n);
     if (((rp == 1) || (rn == 1)) && (n > 1)) {
         ch = 'n';
         if (!PAR_FOL) {
