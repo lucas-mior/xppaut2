@@ -1,11 +1,11 @@
-#include "auto_f2c.h"
-#include "somemath.h"
 #include "math.h"
 #include "complex_math.h"
 
-static double
-f__cabs(double real, double imag) {
+double
+z_abs(doublecomplex *z) {
     double temp;
+    double real = z->r;
+    double imag = z->i;
 
     if (real < 0)
         real = -real;
@@ -24,11 +24,6 @@ f__cabs(double real, double imag) {
     return temp;
 }
 
-double
-z_abs(doublecomplex *z) {
-    return f__cabs(z->r, z->i);
-}
-
 void
 z_exp(doublecomplex *r, doublecomplex *z) {
     double expx, zi = z->i;
@@ -41,8 +36,10 @@ z_exp(doublecomplex *r, doublecomplex *z) {
 
 void
 z_log(doublecomplex *r, doublecomplex *z) {
-    double zi = z->i, zr = z->r;
+    double zi = z->i;
+    double zr = z->r;
+
     r->i = atan2(zi, zr);
-    r->r = log(f__cabs(zr, zi));
+    r->r = log(z_abs(z));
     return;
 }
