@@ -11,7 +11,7 @@
 #include <sys/resource.h>
 
 static double
-conpar2_time_start(void) {
+setubv2_time_start(void) {
     struct timeval time;
     double seconds;
     double microseconds;
@@ -22,7 +22,7 @@ conpar2_time_start(void) {
 }
 
 static double
-conpar2_time_end(double start) {
+setubv2_time_end(double start) {
     struct timeval time;
     double seconds;
     double microseconds;
