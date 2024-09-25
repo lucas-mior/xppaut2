@@ -126,17 +126,17 @@ int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
 
 static int32 stor_full(void);
 static void plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
-static int32 form_ic(void);
+static int32 integrate_form_ic(void);
 static int32 set_array_ic(void);
-static void evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
+static void integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
 static void store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
-static void do_new_array_ic(char *new, int32 j1, int32 j2);
-static void do_start_flags(double *x, double *t);
+static void integrate_new_array_ic(char *new, int32 j1, int32 j2);
+static void integrate_start_flags(double *x, double *t);
 static int32 write_this_run(char *file, int32 i);
 static void batch_integrate_once(void);
-static void do_batch_dry_run(void);
-static void do_eq_range(double *x);
-static void do_monte_carlo_search(int32 append, int32 stuffbrowse,
+static void integrate_batch_dry_run(void);
+static void integrate_eq_range(double *x);
+static void integrate_monte_carlo_search(int32 append, int32 stuffbrowse,
                                   int32 ishoot);
 static void monte_carlo(void);
 static void init_monte_carlo(void);
@@ -543,12 +543,12 @@ monte_carlo(void) {
         if (i >= NODE)
             break;
     }
-    do_monte_carlo_search(append, 1, ishoot);
+    integrate_monte_carlo_search(append, 1, ishoot);
     return;
 }
 
 void
-do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
+integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
     int32 i, j, k, m, n = fixptguess.n;
     int32 ierr, new = 1;
     double x[MAX_ODE], sum;
@@ -633,7 +633,7 @@ do_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
 }
 
 void
-do_eq_range(double *x) {
+integrate_eq_range(double *x) {
     double parlo, parhi, dpar, temp;
     int32 npar, stabcol, i, j, ierr;
     int32 mc;
@@ -675,7 +675,7 @@ do_eq_range(double *x) {
         derived_evaluate();
         /*  I think  */ tabular_redo_all_fun_tables();
         if (mc) {
-            do_monte_carlo_search(0, 0, 1);
+            integrate_monte_carlo_search(0, 0, 1);
         } else {
             if (DelayFlag)
                 do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
@@ -862,7 +862,7 @@ integrate_do_range(double *x, int32 flag) {
                 sprintf(bob, "%s=%.16g", parn, temp);
                 ggets_bottom_msg(bob);
             }
-            do_start_flags(x, &MyTime);
+            integrate_start_flags(x, &MyTime);
             if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
                 storage[0][storind] = (double)MyTime;
                 my_rhs_extra(x, MyTime, NODE, NEQ);
@@ -983,7 +983,7 @@ integrate_find_equilib_com(int32 com) {
     derived_evaluate();
     switch (com) {
     case 2:
-        do_eq_range(x);
+        integrate_eq_range(x);
 
         return;
     case 1:
@@ -1033,7 +1033,7 @@ integrate_batch(void) {
 
     if ((Nintern_set == 0) | (Nintern_2_use == 0)) {
         this_internset[0] = '\0';
-        do_batch_dry_run();
+        integrate_batch_dry_run();
         batch_integrate_once();
         return;
     }
@@ -1052,7 +1052,7 @@ integrate_batch(void) {
         load_eqn_extract_internset(i);
         numerics_chk_delay();
         ggets_plintf(" Ok integrating now \n");
-        do_batch_dry_run();
+        integrate_batch_dry_run();
         if (intern_set[i].use) {
             batch_integrate_once();
         }
@@ -1061,7 +1061,7 @@ integrate_batch(void) {
 }
 
 void
-do_batch_dry_run(void) {
+integrate_batch_dry_run(void) {
     FILE *fp;
     if (!dryrun)
         return;
@@ -1132,7 +1132,7 @@ batch_integrate_once(void) {
             if (delay_handle_do_init_delay(DELAY) == 0)
                 return;
         }
-        do_start_flags(x, &MyTime);
+        integrate_start_flags(x, &MyTime);
         if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
             storage[0][0] = (double)MyTime;
             my_rhs_extra(x, MyTime, NODE, NEQ);
@@ -1341,7 +1341,7 @@ integrate_do_init_data(int32 com) {
         dae_fun_set_init_guess();
         break;
     case M_IU:
-        if (form_ic() == 0)
+        if (integrate_form_ic() == 0)
             return;
         integrate_get_ic(2, x);
         break;
@@ -1424,7 +1424,7 @@ integrate_run_now(void) {
 }
 
 void
-do_start_flags(double *x, double *t) {
+integrate_start_flags(double *x, double *t) {
     int32 iflagstart = 1;
     double tnew = *t;
     double sss;
@@ -1436,7 +1436,7 @@ void
 usual_integrate_stuff(double *x) {
     int32 i;
 
-    do_start_flags(x, &MyTime);
+    integrate_start_flags(x, &MyTime);
     if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
         storage[0][0] = (double)MyTime;
         my_rhs_extra(x, MyTime, NODE, NEQ);
@@ -1455,13 +1455,13 @@ usual_integrate_stuff(double *x) {
         init_conds_redraw_ics();
     }
 }
-/*  form_ic  --  u_i(0) = F(i)  where  "i" is represented by "t"
+/*  integrate_form_ic  --  u_i(0) = F(i)  where  "i" is represented by "t"
     or
     u[5..20]=f([j])
 */
 
 void
-do_new_array_ic(char *new, int32 j1, int32 j2) {
+integrate_new_array_ic(char *new, int32 j1, int32 j2) {
     int32 i;
     int32 ihot = -1;
     int32 ifree = -1;
@@ -1489,7 +1489,7 @@ do_new_array_ic(char *new, int32 j1, int32 j2) {
     }
     ggets_new_string("Formula:", ar_ic[ihot].formula);
     /* now we have everything we need */
-    evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula, ar_ic[ihot].j1,
+    integrate_evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula, ar_ic[ihot].j1,
                    ar_ic[ihot].j2);
     return;
 }
@@ -1526,7 +1526,7 @@ store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
 }
 
 void
-evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
+integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
     int32 j;
     int32 i;
     int32 flag;
@@ -1594,7 +1594,7 @@ integrate_arr_ic_start(void) {
         return;
     for (i = 0; i < NAR_IC; i++) {
         if (ar_ic[i].type == 2) {
-            evaluate_ar_ic(ar_ic[i].var, ar_ic[i].formula, ar_ic[i].j1,
+            integrate_evaluate_ar_ic(ar_ic[i].var, ar_ic[i].formula, ar_ic[i].j1,
                            ar_ic[i].j2);
         }
     }
@@ -1616,7 +1616,7 @@ set_array_ic(void) {
         return 0;
     form_ode_search_array(junk, new, &j1, &j2, &flag2);
     if (flag2 == 1) {
-        do_new_array_ic(new, j1, j2);
+        integrate_new_array_ic(new, j1, j2);
     } else {
         browse_find_variable(junk, &i);
         if (i <= -1)
@@ -1666,7 +1666,7 @@ set_array_ic(void) {
 }
 
 int32
-form_ic(void) {
+integrate_form_ic(void) {
     int32 ans;
     while (true) {
         ans = set_array_ic();
@@ -2436,7 +2436,7 @@ integrate_send_output(double *y, double t) {
 }
 
 void
-do_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
+integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
         double *ypl, double *zpl) {
     int32 ip, np = MyGraph->nvars;
 
@@ -2560,7 +2560,7 @@ plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc) {
     }
     if (MyGraph->ColorFlag)
         integrate_comp_color(xv, xvold, NODE, (double)ddt);
-    do_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
+    integrate_plot(oldxpl, oldypl, oldzpl, xpl, ypl, zpl);
     return;
 }
 
