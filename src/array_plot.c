@@ -90,7 +90,6 @@ static void array_plot_reset_axes(struct ArrayPlot ap);
 static int32 array_plot_edit2(struct ArrayPlot *ap);
 static void array_plot_redraw(struct ArrayPlot ap);
 static void array_plot_display(Window window, struct ArrayPlot ap);
-static void array_plot_destroy(void);
 static void array_plot_button(Window window);
 static void array_plot_get_root(char *s, char *sroot, int32 *num);
 static void array_plot_gif(void);
@@ -251,14 +250,6 @@ array_plot_wborder(Window window, int32 i, struct ArrayPlot ap) {
     return;
 }
 
-void
-array_plot_destroy(void) {
-    array_plot.alive = 0;
-    browse_wait_a_sec(ClickTime);
-    XDestroySubwindows(display, array_plot.base);
-    XDestroyWindow(display, array_plot.base);
-    return;
-}
 
 void
 array_plot_init_my(void) {
@@ -428,8 +419,13 @@ array_plot_button(Window window) {
         array_plot_redraw(array_plot);
     if (window == array_plot.wprint)
         array_plot_print(&array_plot);
-    if (window == array_plot.wclose)
-        array_plot_destroy();
+    if (window == array_plot.wclose) {
+        /* array plot destroy */
+        array_plot.alive = 0;
+        browse_wait_a_sec(ClickTime);
+        XDestroySubwindows(display, array_plot.base);
+        XDestroyWindow(display, array_plot.base);
+    }
     if (window == array_plot.wgif)
         array_plot_gif();
     return;
