@@ -46,17 +46,17 @@ static int32 N_TRIALS;
 static int32 Wiener[MAX_PAR];
 int32 NWiener;
 
-static double ran1(long *idum);
-static double gammln(double xx);
-static void init_stoch(int32 len);
-static void free_stoch(void);
-static void compute_em(void);
-static double new_state(double old, int32 index, double dt);
+static double markov_ran1(long *idum);
+static double markov_gammln(double xx);
+static void markov_init_stoch(int32 len);
+static void markov_free_stoch(void);
+static void markov_compute_em(void);
+static double markov_new_state(double old, int32 index, double dt);
 static void update_markov(double *x, double t, double dt);
 static int32 compile_markov(int32 index, int32 j, int32 k);
 static void add_markov_entry(int32 index, int32 j, int32 k, char *expr);
 static void create_markov(int32 nstates, double *st, int32 type, char *name);
-static void extract_expr(char *source, char *dest, int32 *i0);
+static void markov_extract_expr(char *source, char *dest, int32 *i0);
 
 void
 markov_add_wiener(int32 index) {
@@ -126,7 +126,7 @@ build_markov(
           strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
         for (j = 0; j < nstates; j++) {
-            extract_expr(line, expr, &istart);
+            markov_extract_expr(line, expr, &istart);
             ggets_plintf("%s ", expr);
             add_markov_entry(index, i, j, expr);
         }
@@ -173,7 +173,7 @@ markov_old_build(FILE *fptr, char *name) {
            strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
         for (j = 0; j < nstates; j++) {
-            extract_expr(line, expr, &istart);
+            markov_extract_expr(line, expr, &istart);
             ggets_plintf("%s ", expr);
             add_markov_entry(index, i, j, expr);
         }
@@ -183,7 +183,7 @@ markov_old_build(FILE *fptr, char *name) {
 }
 
 void
-extract_expr(char *source, char *dest, int32 *i0) {
+markov_extract_expr(char *source, char *dest, int32 *i0) {
     char ch;
     int32 len = 0;
     int32 flag = 0;
@@ -315,7 +315,7 @@ update_markov(double *x, double t, double dt) {
     for (i = NODE; i < NODE + FIX_VAR; i++)
         set_ivar(i + 1, evaluate(my_ode[i]));
     for (i = 0; i < NMarkov; i++)
-        yp[i] = new_state(x[NODE + i], i, dt);
+        yp[i] = markov_new_state(x[NODE + i], i, dt);
     for (i = 0; i < NMarkov; i++) {
         x[NODE + i] = yp[i];
         set_ivar(i + NODE + FIX_VAR + 1, yp[i]);
@@ -324,7 +324,7 @@ update_markov(double *x, double t, double dt) {
 }
 
 double
-new_state(double old, int32 index, double dt) {
+markov_new_state(double old, int32 index, double dt) {
     double prob;
     double sum;
     double coin = markov_ndrand48();
@@ -460,7 +460,7 @@ markov_do_stochast_com(int32 i) {
         markov_variance_back();
         break;
     case 'c':
-        compute_em();
+        markov_compute_em();
         STOCH_FLAG = 0;
         break;
     case 'h':
@@ -529,17 +529,17 @@ markov_variance_back(void) {
 }
 
 void
-compute_em(void) {
+markov_compute_em(void) {
     double *x;
     x = &MyData[0];
-    free_stoch();
+    markov_free_stoch();
     STOCH_FLAG = 1;
     integrate_do_range(x, 0);
     init_conds_redraw_ics();
 }
 
 void
-free_stoch(void) {
+markov_free_stoch(void) {
     int32 i;
     if (STOCH_HERE) {
         adj2_data_back();
@@ -553,7 +553,7 @@ free_stoch(void) {
 }
 
 void
-init_stoch(int32 len) {
+markov_init_stoch(int32 len) {
     int32 i;
     int32 j;
     N_TRIALS = 0;
@@ -580,7 +580,7 @@ markov_append_stoch(int32 first, int32 length) {
     int32 j;
     double z;
     if (first == 0)
-        init_stoch(length);
+        markov_init_stoch(length);
     if (length != stoch_len || !STOCH_HERE)
         return;
     for (i = 0; i < stoch_len; i++) {
@@ -614,7 +614,7 @@ markov_do_stats(int32 ierr) {
 }
 
 double
-gammln(double xx) {
+markov_gammln(double xx) {
     double x, y, tmp, ser;
     static double cof[6] = {76.18009172947146,     -86.50532032941677,
                             24.01409824083091,     -1.231739572450155,
@@ -652,7 +652,7 @@ markov_poidev(double xm) {
             oldm = xm;
             sq = sqrt(2.0*xm);
             alxm = log(xm);
-            g = xm*alxm - gammln(xm + 1.0);
+            g = xm*alxm - markov_gammln(xm + 1.0);
         }
         do {
             do {
@@ -660,7 +660,7 @@ markov_poidev(double xm) {
                 em = sq*y + xm;
             } while (em < 0.0);
             em = floor(em);
-            t = 0.9*(1.0 + y*y)*exp(em*alxm - gammln(em + 1.0) - g);
+            t = 0.9*(1.0 + y*y)*exp(em*alxm - markov_gammln(em + 1.0) - g);
         } while (markov_ndrand48() > t);
     }
     return em;
@@ -668,7 +668,7 @@ markov_poidev(double xm) {
 
 double
 markov_ndrand48(void) {
-    return ran1(&myrandomseed);
+    return markov_ran1(&myrandomseed);
 }
 
 void
@@ -678,7 +678,7 @@ markov_nsrand48(int32 seed) {
 }
 
 double
-ran1(long *idum) {
+markov_ran1(long *idum) {
     int32 j;
     long k;
     static long iy = 0;
