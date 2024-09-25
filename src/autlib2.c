@@ -2411,19 +2411,6 @@ numnodes(void) {
 }
 
 int32
-gsync(void) {
-    return 0;
-}
-
-double
-dclock(void) {
-    double ret_val;
-
-    ret_val = (double)0.;
-    return ret_val;
-}
-
-int32
 csend(void) {
     return 0;
 }

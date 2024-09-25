@@ -453,8 +453,6 @@ int32 print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb,
              double *fc);
 int64 mynode(void);
 int64 numnodes(void);
-int32 gsync(void);
-double dclock(void);
 int32 csend(void);
 int32 crecv(void);
 int32 gdsum(void);
