@@ -68,7 +68,6 @@ static double nullcline_fnull(double x, double y);
 static void nullcline_store(double x1, double y1, double x2, double y2);
 static void nullcline_restor(double *v, int32 n, int32 d);
 static void nullcline_dump(FILE *fp, double *x, int32 nx, double *y, int32 ny);
-static void save_the_nullclines(void);
 static void nullcline_redraw_froz(int32 flag);
 static void nullcline_save_frozen(char *fn);
 
@@ -727,26 +726,6 @@ nullcline_direct_field_com(int32 c) {
  * animate - replay all frozen ones (not current set )
  */
 
-void
-save_the_nullclines(void) {
-    FILE *fp;
-    char filename[256];
-    if (NULL_HERE == 0)
-        return;
-    snprintf(filename, sizeof(filename), "nc.dat");
-    ggets_ping();
-    if (!init_conds_file_selector("Save nullclines", filename, "*.dat"))
-        return;
-    fp = fopen(filename, "w");
-    if (fp == NULL) {
-        ggets_err_msg("Cant open file!");
-        return;
-    }
-    nullcline_dump(fp, X_n, num_x_n, Y_n, num_y_n);
-    fclose(fp);
-    nullcline_save_frozen(filename);
-    return;
-}
 
 void
 restore_nullclines(void) {
@@ -858,7 +837,23 @@ nullcline_new_clines_com(int32 c) {
         return;
     }
     if (c == 5) {
-        save_the_nullclines();
+        /* save_the_nullclines */
+        FILE *fp;
+        char filename[256];
+        if (NULL_HERE == 0)
+            return;
+        snprintf(filename, sizeof(filename), "nc.dat");
+        ggets_ping();
+        if (!init_conds_file_selector("Save nullclines", filename, "*.dat"))
+            return;
+        fp = fopen(filename, "w");
+        if (fp == NULL) {
+            ggets_err_msg("Cant open file!");
+            return;
+        }
+        nullcline_dump(fp, X_n, num_x_n, Y_n, num_y_n);
+        fclose(fp);
+        nullcline_save_frozen(filename);
         return;
     }
     if (c == 0) {
