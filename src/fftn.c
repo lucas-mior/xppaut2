@@ -202,9 +202,7 @@ static int32 *Perm = NULL; /* Permutation vector */
 
 #define NFACTOR 11
 static int32 factor[NFACTOR];
-/*}}}*/
 
-/*{{{ fft_free() */
 static int32 factorize(int32 nPass, int32 *kt);
 
 void
