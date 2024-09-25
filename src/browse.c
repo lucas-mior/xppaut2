@@ -55,7 +55,6 @@ static void browse_data_add_col(Browser *b);
 static int32 browse_add_stor_col(char *name, char *formula, Browser *b);
 static void browse_chk_seq(char *f, int32 *seq, double *a1, double *a2);
 static void browse_replace_column(char *var, char *form, double **dat, int32 n);
-static void browse_unreplace_column(void);
 static void browse_make_d_table(double xlo, double xhi, int32 col,
                                 char *filename, Browser b);
 static void browse_find_value(int32 col, double val, int32 *row, Browser b);
@@ -400,16 +399,6 @@ browse_wipe_rep(void) {
     return;
 }
 
-void
-browse_unreplace_column(void) {
-    int32 i, n = my_browser.maxrow;
-    if (!REPLACE)
-        return;
-    for (i = 0; i < n; i++)
-        my_browser.data[R_COL][i] = old_rep[i];
-    browse_wipe_rep();
-    return;
-}
 
 void
 browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
@@ -1294,7 +1283,14 @@ browse_data_replace(Browser *b) {
 
 void
 browse_data_unreplace(Browser *b) {
-    browse_unreplace_column();
+    /* browse unreplace column */
+    int32 i, n = my_browser.maxrow;
+    if (!REPLACE)
+        return;
+    for (i = 0; i < n; i++)
+        my_browser.data[R_COL][i] = old_rep[i];
+    browse_wipe_rep();
+
     browse_draw_data(*b);
     return;
 }
