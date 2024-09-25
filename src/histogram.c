@@ -129,9 +129,6 @@ histogram_new_four(int32 nmodes, int32 col) {
         my_four[i] = storage[i];
     for (i = 0; i < length; i++)
         my_four[0][i] = (double)i / total;
-    /* for(i=0;i<length;i++)my_four[0][i]=(double)i; */
-    /*  sft(my_browser.data[col],my_four[1],my_four[2],length,storind);
-     */
     bob = browse_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
     if (FOUR_HERE) {
