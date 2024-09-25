@@ -8,6 +8,12 @@
   on a SMP using shared memory, or wrapped inside another
   routine for message passing*/
 
+static int32 conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra,
+                                     int64 *nca, double *a, int64 *ncb,
+                                     double *b, int64 *nbc, int64 *nrc,
+                                     double *c, double *d,
+                                     int64 *irf, int64 *icf);
+
 void *
 conpar2_process(void *arg) {
     int64 icf_dim1, irf_dim1, d_dim1;
@@ -206,7 +212,7 @@ conpar2_process(void *arg) {
     return NULL;
 }
 
-static int32
+int32
 conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca,
                         double *a, int64 *ncb, double *b, int64 *nbc,
                         int64 *nrc, double *c, double *d, int64 *irf,
