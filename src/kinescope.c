@@ -2,12 +2,11 @@
 #include "integers.h"
 #include <stdbool.h>
 
-/*    Kinescope for X  windows       */
+/* Kinescope for X windows */
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
 #include <X11/Xatom.h>
-/* #include <X11/bitmaps/icon> */
 #include <stdio.h>
 #include <sys/time.h>
 #include <X11/keysym.h>
@@ -176,11 +175,6 @@ kinescope_save_kine(void) {
     char base[128];
     int32 fmat = 2;
     sprintf(base, "frame");
-    /* #ifdef NOGIF
-   #else
-   ggets_new_int("format:1-ppm,2-gif",&fmat);
-   #endif
-    */
     ggets_new_string("Base file name", base);
     if (strlen(base) > 0)
         kinescope_save_movie(base, fmat);
@@ -217,7 +211,6 @@ kinescope_make_anigif(void) {
         XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
                   (uint)h, 0, 0);
         XFlush(display);
-        /* scrngif_add_ani_gif(draw_win,fp,i); */
         scrngif_add_ani_gif(movie[i].xi, fp, i);
     }
 
@@ -306,7 +299,7 @@ kinescope_auto_play(void) {
     XFlush(display);
 
     while (true) {
-        /* check for events    */
+        /* check for events */
         if (XPending(display) > 0) {
             XNextEvent(display, &event);
             switch (event.type) {
