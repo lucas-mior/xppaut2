@@ -31,19 +31,19 @@ static void gear_sscal(int32 n, double sa, double *sx, int32 incx);
 static double gear_sdot(int32 n, double *sx, int32 incx, int32 incy);
 static int32 gear_is_amax(int32 n, double *sx, int32 incx);
 static void gear_saxpy(int32 n, double sa, double *sx, int32 incx, double *sy,
-                  int32 incy);
+                       int32 incy);
 static double gear_sgnum(double x, double y);
 static double gear_sqr2(double z);
 static void orthesx(int32 n, int32 low, int32 igh, double *a, double *ort);
 static void gear_hqrx(int32 n, int32 low, int32 igh, double *h, double *ev,
-                 int32 *ierr);
+                      int32 *ierr);
 static void gear_pr_evec(double *x, double *ev, int32 n, int32 type);
 static double gear_max(double x, double y);
 
 /* main fixed point finder */
 void
-gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n,
-        int32 *ierr, double *stabinfo) {
+gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
+             int32 n, int32 *ierr, double *stabinfo) {
     int32 kmem, j, ipivot[MAX_ODE];
     int32 oldcol;
     int32 dummy;
@@ -187,7 +187,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n
 
             if (rp == 1) {
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                         eval[2*pose], ierr);
+                              eval[2*pose], ierr);
                 if (*ierr == 0) {
                     graphics_change_current_linestyle(UnstableManifoldColor,
                                                       &oldcol);
@@ -202,7 +202,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n
             }
             if (rn == 1) {
                 gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                         eval[2*nege], ierr);
+                              eval[2*nege], ierr);
                 if (*ierr == 0) {
                     graphics_change_current_linestyle(StableManifoldColor,
                                                       &oldcol);
@@ -234,8 +234,8 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n
             if ((rp > 1) && (bpos >= 0)) /* then there is a strong unstable */
             {
                 ggets_plintf("strong unstable %g \n", bigpos);
-                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigpos,
-                         ierr);
+                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
+                              bigpos, ierr);
                 if (*ierr == 0) {
                     graphics_change_current_linestyle(UnstableManifoldColor,
                                                       &oldcol);
@@ -252,8 +252,8 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit, int32 n
             if ((rn > 1) && (bneg >= 0)) /* then there is a strong stable */
             {
                 ggets_plintf("strong stable %g \n", bigneg);
-                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot, bigneg,
-                         ierr);
+                gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
+                              bigneg, ierr);
                 if (*ierr == 0) {
                     graphics_change_current_linestyle(StableManifoldColor,
                                                       &oldcol);
@@ -345,7 +345,7 @@ gear_shoot_this_now(void) {
 /* fixed point with no requests and store manifolds */
 void
 gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
-             int32 n, double *er, double *em, int32 *ierr) {
+                  int32 n, double *er, double *em, int32 *ierr) {
     int32 kmem, i, j, ipivot[MAX_ODE];
 
     int32 rp = 0, rn = 0, cp = 0, cn = 0;
@@ -463,7 +463,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     if ((n > 1)) {
         if (rp == 1) {
             gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                     eval[2*pose], ierr);
+                          eval[2*pose], ierr);
 
             if (*ierr == 0) {
                 gear_pr_evec(x, b, n, 1);
@@ -472,7 +472,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
         if (rn == 1) {
             gear_get_evec(work, oldwork, b, bp, n, maxit, err, ipivot,
-                     eval[2*nege], ierr);
+                          eval[2*nege], ierr);
 
             if (*ierr == 0) {
                 gear_pr_evec(x, b, n, -1);
@@ -502,7 +502,7 @@ gear_pr_evec(double *x, double *ev, int32 n, int32 type) {
 
 void
 gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
-                 int32 n, int32 maxit, double err, int32 *ierr) {
+                      int32 n, int32 maxit, double err, int32 *ierr) {
     double *a;
     double *anew;
     int32 *ipivot;
@@ -548,8 +548,9 @@ gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
 }
 
 void
-gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n, int32 maxit,
-         double err, int32 *ipivot, double eval, int32 *ierr) {
+gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
+              int32 maxit, double err, int32 *ipivot, double eval,
+              int32 *ierr) {
     int32 j, iter, jmax;
     double temp;
     double zz = fabs(eval);
@@ -872,8 +873,8 @@ gear_amax(double u, double v) {
 }
 
 void
-gear_get_jac(double *x, double *y, double *yp, double *xp, double eps, double *dermat,
-       int32 n)
+gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
+             double *dermat, int32 n)
 
 {
     int32 i, j, k;
@@ -906,7 +907,7 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps, double *d
 
 void
 gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
-            double *dermat, int32 n)
+               double *dermat, int32 n)
 
 {
     int32 i, j, k;
@@ -930,8 +931,8 @@ gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
 }
 
 void
-gear_rooter(double *x, double err, double eps, double big, double *work, int32 *ierr,
-       int32 maxit, int32 n) {
+gear_rooter(double *x, double err, double eps, double big, double *work,
+            int32 *ierr, int32 maxit, int32 n) {
     int32 i, iter, ipivot[MAX_ODE], info;
     char ch;
     double *xp, *yp, *y, *xg, *dermat, *dely;
@@ -1552,7 +1553,7 @@ gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
                         a[(k - 1)*lda + j - 1] = t;
                     }
                     gear_saxpy(n - k, t, (a + k*lda + k - 1), lda,
-                          (a + k*lda + j - 1), lda);
+                               (a + k*lda + j - 1), lda);
                 }
             } else
                 *info = k - 1;
@@ -1599,7 +1600,8 @@ gear_sgesl(double *a, int32 lda, int32 n, int32 *ipvt, double *b, int32 job) {
     if (nm1 > 0) {
         for (kb = 1; kb <= nm1; kb++) {
             k = n - kb;
-            b[k - 1] = b[k - 1] + gear_sdot(n - k, (a + k*lda + k - 1), lda, 1);
+            b[k - 1] =
+                b[k - 1] + gear_sdot(n - k, (a + k*lda + k - 1), lda, 1);
             l = ipvt[k - 1];
             if (l != (k - 1)) {
                 t = b[l];

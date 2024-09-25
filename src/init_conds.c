@@ -800,7 +800,7 @@ stringintersect(char *target, char *sother) {
 }
 
 static int32 edit_fitem(int32 ch, char *string, Window window, int32 *off1,
-                 int32 *pos1, int32 mc);
+                        int32 *pos1, int32 mc);
 int32
 edit_fitem(int32 ch, char *string, Window window, int32 *off1, int32 *pos1,
            int32 mc) {

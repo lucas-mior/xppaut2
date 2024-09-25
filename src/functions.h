@@ -892,9 +892,9 @@ void ggets_put_cursor_at(Window window, int32 col0, int32 pos);
 void ggets_mov_mem(char *s1, char *s2, int32 len);
 void ggets_mem_mov(char *s1, char *s2, int32 len);
 void ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
-                 int32 *done, int32 ch);
-void ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done,
-                         int32 *pos, int32 *col);
+                       int32 *done, int32 ch);
+void ggets_edit_command_string(XEvent event, char *name, char *value,
+                               int32 *done, int32 *pos, int32 *col);
 int32 ggets_new_string(char *name, char *value);
 
 #endif
@@ -2279,9 +2279,9 @@ char *form_ode_get_first(char *string, char *src);
 char *form_ode_do_fit_get_next(char *src);
 void form_ode_create_plot_list(void);
 void form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
-                 char args[20][13 + 1]);
+                          char args[20][13 + 1]);
 int32 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
-                   char args[20][13 + 1]);
+                            char args[20][13 + 1]);
 int32 form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1);
 int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2,
                             int32 *flag);
@@ -2303,25 +2303,28 @@ extern int32 ShootICFlag;
 extern int32 ShootIndex;
 
 void gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
-             int32 n, int32 *ierr, double *stabinfo);
-void gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
-                  int32 n, double *er, double *em, int32 *ierr);
+                  int32 n, int32 *ierr, double *stabinfo);
+void gear_do_sing_info(double *x, double eps, double err, double big,
+                       int32 maxit, int32 n, double *er, double *em,
+                       int32 *ierr);
 
 void gear_shoot_this_now(void);
-void gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
-                      int32 n, int32 maxit, double err, int32 *ierr);
+void gear_get_complex_evec(double *m, double evr, double evm, double *br,
+                           double *bm, int32 n, int32 maxit, double err,
+                           int32 *ierr);
 void gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
-              int32 maxit, double err, int32 *ipivot, double eval, int32 *ierr);
+                   int32 maxit, double err, int32 *ipivot, double eval,
+                   int32 *ierr);
 void gear_eigen(int32 n, double *a, double *ev, double *work, int32 *ierr);
 double gear_sign(double x, double y);
 int32 gear_imin(int32 x, int32 y);
 double gear_amax(double u, double v);
 void gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
-                 double *d, int32 n);
+                    double *d, int32 n);
 void gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
-            double *dermat, int32 n);
+                  double *dermat, int32 n);
 void gear_rooter(double *x, double err, double eps, double big, double *work,
-            int32 *ierr, int32 maxit, int32 n);
+                 int32 *ierr, int32 maxit, int32 n);
 int32 gear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
            double eps, int32 mf, double *error, int32 *kflag, int32 *jstart,
            double *work, int32 *iwork);
@@ -2445,10 +2448,10 @@ void graphics_text3d(double x, double y, double z, char *s);
 int32 graphics_threed_proj(double x, double y, double z, double *xp,
                            double *yp);
 void graphics_point_3d(double x, double y, double z);
-void graphics_line3dn(double xs1, double ys1, double zs1, double xsp1, double ysp1,
-             double zsp1);
+void graphics_line3dn(double xs1, double ys1, double zs1, double xsp1,
+                      double ysp1, double zsp1);
 void graphics_line3d(double x01, double y01, double z01, double x02, double y02,
-            double z02);
+                     double z02);
 void graphics_line_3d(double x, double y, double z, double xp, double yp,
                       double zp);
 void graphics_point_abs(double x1, double y1);
@@ -2458,11 +2461,11 @@ void graphics_line_abs(double x1, double y1, double x2, double y2);
 void graphics_text_abs(double x, double y, char *text);
 void graphics_fillin_text(char *old, char *new);
 void graphics_fancy_text_abs(double x, double y, char *old, int32 size);
-int32 graphics_clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
-             double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
-             double *z2p);
+int32 graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
+                      double z2, double *x1p, double *y1p, double *z1p,
+                      double *x2p, double *y2p, double *z2p);
 int32 graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
-           double *y1_out, double *x2_out, double *y2_out);
+                    double *y1_out, double *x2_out, double *y2_out);
 void graphics_eq_symb(double *x, int32 type);
 void graphics_reset_all_line_type(void);
 void graphics_draw_many_lines(void);
@@ -2511,24 +2514,24 @@ extern int32 FOUR_HERE;
 extern BoxList ParamBox;
 
 int32 histogram_two_d(int32 col1, int32 col2, int32 ndat, int32 n1, int32 n2,
-                 double xlo, double xhi, double ylo, double yhi);
+                      double xlo, double xhi, double ylo, double yhi);
 void histogram_back(void);
 int32 histogram_new_2d(void);
 void histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
-              char *condition, int32 which);
+                   char *condition, int32 which);
 void histogram_column_mean(void);
 void histogram_compute_power(void);
 int32 histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
-                     int32 w_type, double *pow, int32 type);
+                               int32 w_type, double *pow, int32 type);
 void histogram_compute_sd(void);
 void histogram_compute_fourier(void);
 void histogram_compute_correl(void);
 void histogram_compute_stacor(void);
-void histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi, int32 nbins,
-           double *z, int32 flag);
+void histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
+                     int32 nbins, double *z, int32 flag);
 void histogram_compute(void);
 void histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
-              double *cr, int32 flag);
+                         double *cr, int32 flag);
 void histogram_post_process_stuff(void);
 
 #endif
@@ -3253,8 +3256,9 @@ void main_bye_bye(void) __attribute__((noreturn));
 void main_clr_scrn(void);
 void main_redraw_all(void);
 void main_commander(int32 ch);
-Window main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
-                uint32 min_wid, uint32 min_hgt, int32 argc, char **argv);
+Window main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x,
+                     int32 y, uint32 min_wid, uint32 min_hgt, int32 argc,
+                     char **argv);
 void main_top_button_draw(Window window);
 void main_fix_window_size(Window window, int32 width, int32 height, int32 flag);
 int32 main_get_command_width(void);
@@ -3285,7 +3289,7 @@ void many_pops_restore_on(void);
 void many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font);
 void many_pops_draw_label(Window window);
 void many_pops_add_grob(double xs, double ys, double xe, double ye, double size,
-              int32 type, int32 color);
+                        int32 type, int32 color);
 void many_pops_edit_object_com(int32 com);
 void many_pops_do_gr_objs_com(int32 com);
 void many_pops_do_windows_com(int32 c);
@@ -3711,10 +3715,11 @@ typedef struct NullClines {
 void nullcline_create_new_cline(void);
 void nullcline_froz_cline_stuff_com(int32 i);
 int32 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type);
-void nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
-                    int32 n_iy);
-void nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
-                    double dv, int32 n, int32 inx, int32 iny, double *mdf);
+void nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn,
+                        int32 nmy, int32 n_iy);
+void nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
+                              double du, double dv, int32 n, int32 inx,
+                              int32 iny, double *mdf);
 void nullcline_redraw_dfield(void);
 void nullcline_direct_field_com(int32 c);
 void restore_nullclines(void);
@@ -4237,21 +4242,21 @@ void spgmr_free(SpgmrMem mem);
 #define STIFF_H
 
 void stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
-            double *work, int32 n);
-int32 stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
-               double *hguess, double hmin, double *work, int32 *ier,
-               double epjac, int32 iflag, int32 *jstart);
-int32 stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2, double eps,
-                double *hguess, double hmin, double *work, int32 *ier,
-                double epjac, int32 iflag);
+                  double *work, int32 n);
+int32 stiff_adaptive(double *ystart, int32 nvar, double *xs, double x2,
+                     double eps, double *hguess, double hmin, double *work,
+                     int32 *ier, double epjac, int32 iflag, int32 *jstart);
+int32 stiff_gadaptive(double *ystart, int32 nvar, double *xs, double x2,
+                      double eps, double *hguess, double hmin, double *work,
+                      int32 *ier, double epjac, int32 iflag);
 int32 stiff(double y[], double dydx[], int32 n, double *x, double htry,
             double eps, double yscal[], double *hdid, double *hnext,
             double *work, double epjac, int32 *ier);
-int32 stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry, double eps,
-           double *yscal, double *hdid, double *hnext, double *work,
-           int32 *ier);
-void stiff_rkck(double *y, double *dydx, int32 n, double x, double h, double *yout,
-          double *yerr, double *work);
+int32 stiff_rkqs(double *y, double *dydx, int32 n, double *x, double htry,
+                 double eps, double *yscal, double *hdid, double *hnext,
+                 double *work, int32 *ier);
+void stiff_rkck(double *y, double *dydx, int32 n, double x, double h,
+                double *yout, double *yerr, double *work);
 
 #endif
 
@@ -4294,7 +4299,7 @@ double tabular_lookup(double x, int32 index);
 void tabular_init_table(void);
 void tabular_redo_all_fun_tables(void);
 int32 tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
-                       int32 index);
+                         int32 index);
 int32 tabular_load_table(char *filename, int32 index);
 int32 tabular_get_lookup_len(int32 i);
 

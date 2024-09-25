@@ -59,8 +59,10 @@ static NullClines *ncperm;
 static int32 n_nstore = 0;
 static int32 ncline_cnt;
 
-static int32 nullcline_interpolate(Point p1, Point p2, double z, double *x, double *y);
-static void nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
+static int32 nullcline_interpolate(Point p1, Point p2, double z, double *x,
+                                   double *y);
+static void nullcline_do_cline(int32 ngrid, double x1, double y1, double x2,
+                               double y2);
 static void nullcline_quad_contour(Point p1, Point p2, Point p3, Point p4);
 static double nullcline_fnull(double x, double y);
 static void nullcline_store(double x1, double y1, double x2, double y2);
@@ -368,7 +370,7 @@ nullcline_redraw_froz(int32 flag) {
 
 void
 nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
-               int32 n_iy) {
+                   int32 n_iy) {
     NullClines *z;
     NullClines *znew;
     int32 i;
@@ -400,8 +402,9 @@ nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
 }
 
 void
-nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
-               double dv, int32 n, int32 inx, int32 iny, double *mdf) {
+nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
+                         double du, double dv, int32 n, int32 inx, int32 iny,
+                         double *mdf) {
     int32 i;
     int32 j;
     double amp, dxp, dyp;
@@ -776,7 +779,7 @@ restore_nullclines(void) {
 
 void
 nullcline_dump(/* gnuplot format */
-            FILE *fp, double *x, int32 nx, double *y, int32 ny) {
+               FILE *fp, double *x, int32 nx, double *y, int32 ny) {
     int32 i;
     fprintf(fp, "# X-nullcline\n");
     for (i = 0; i < nx - 1; i++) {
@@ -795,7 +798,7 @@ nullcline_dump(/* gnuplot format */
 
 void
 nullcline_restor(/* d=1 for x and 2 for y  */
-            double *v, int32 n, int32 d) {
+                 double *v, int32 n, int32 d) {
     int32 i;
     int32 i4;
     double xm, ym;

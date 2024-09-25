@@ -11,8 +11,8 @@
 static int32 conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra,
                                      int64 *nca, double *a, int64 *ncb,
                                      double *b, int64 *nbc, int64 *nrc,
-                                     double *c, double *d,
-                                     int64 *irf, int64 *icf);
+                                     double *c, double *d, int64 *irf,
+                                     int64 *icf);
 
 void *
 conpar2_process(void *arg) {

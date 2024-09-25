@@ -589,11 +589,12 @@ ani_button(Window window) {
             char junk[256];
             char ans;
             int32 total;
-            total = (my_browser.maxrow*vcr.wid*vcr.hgt*3) / (mpeg.skip*vcr.inc);
+            total = (my_browser.maxrow*vcr.wid*vcr.hgt*3) /
+                    (mpeg.skip*vcr.inc);
             total = total / (1024*1024);
             if (total > 10) {
-                snprintf(junk, sizeof(junk), " %d Mb disk space needed! Continue?",
-                         total);
+                snprintf(junk, sizeof(junk),
+                         " %d Mb disk space needed! Continue?", total);
                 ans = (char)menudrive_two_choice("YES", "NO", junk, "yn");
                 if (ans != 'y')
                     mpeg.flag = 0;
@@ -611,8 +612,8 @@ ani_button(Window window) {
         int32 status;
         XGetInputFocus(display, &win, &rev);
         snprintf(bob, sizeof(bob), "%d", vcr.inc);
-        status = dialog_box_get("Frame skip", "Increment:",
-                                bob, "Ok", "Cancel", 20);
+        status =
+            dialog_box_get("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
         if (status != 0) {
             vcr.inc = atoi(bob);
             if (vcr.inc <= 0)
@@ -1635,7 +1636,7 @@ free_ani(void) {
         }
     }
     n_anicom = 0;
-    {    
+    {
         /* ani free grabber */
         int32 m;
         for (int32 i = 0; i < n_ani_grab; i++) {

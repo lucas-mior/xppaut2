@@ -54,9 +54,9 @@ static void expose_sbox(StringBox sb, Window window, int32 pos);
 static int32 get_x_coord_win(Window win);
 static void bin_prnt_byte(int32 x, int32 *arr);
 static void expose_resp_box(char *button, char *message, Window wb, Window wm,
-                     Window window);
+                            Window window);
 static void make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
-                       int32 maxchar);
+                              int32 maxchar);
 
 void
 pop_list_set_window_title(Window win, char *string) {

@@ -704,7 +704,8 @@ one_flag_step_adap(double *y, int32 neq, double *t, double tout, double eps,
         for (i = 0; i < neq; i++)
             yold[i] = y[i];
         told = *t;
-        stiff_gadaptive(y, neq, t, tout, eps, hguess, hmin, work, ier, epjac, iflag);
+        stiff_gadaptive(y, neq, t, tout, eps, hguess, hmin, work, ier, epjac,
+                        iflag);
         if (*ier)
             break;
         if ((hit = one_flag_step(yold, y, jstart, told, t, neq, &s)) == 0)

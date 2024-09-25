@@ -71,11 +71,12 @@ int32 PointType = -1;
 int32 TextJustify;
 int32 TextAngle;
 
-static void graphics_draw_symbol(double x, double y, double size, int32 my_symb);
+static void graphics_draw_symbol(double x, double y, double size,
+                                 int32 my_symb);
 static void graphics_line_nabs(double x1_out, double y1_out, double x2_out,
-                      double y2_out);
-static void graphics_pers_line(double x, double y, double z, double xp, double yp,
-                      double zp);
+                               double y2_out);
+static void graphics_pers_line(double x, double y, double z, double xp,
+                               double yp, double zp);
 static void graphics_init(int32 i);
 static void graphics_line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
 static void graphics_rect_x11(int32 x, int32 y, int32 w, int32 h);
@@ -83,7 +84,8 @@ static void graphics_bead_x11(int32 x, int32 y);
 static void graphics_set_line_style_x11(int32 ls);
 static void graphics_point_x11(int32 xp, int32 yp);
 static void graphics_bead(int32 x1, int32 y1);
-static void graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp);
+static void graphics_rot_3dvec(double x, double y, double z, double *xp,
+                               double *yp, double *zp);
 
 void
 graphics_get_scale(double *x1, double *y1, double *x2, double *y2) {
@@ -501,7 +503,7 @@ graphics_scale_dxdy(double x, double y, double *i, double *j) {
 
 void
 graphics_scale_to_screen(/* not really the screen!  */
-                double x, double y, int32 *i, int32 *j) {
+                         double x, double y, int32 *i, int32 *j) {
     double dx = (DRight - DLeft) / (XMax - XMin);
     double dy = (DTop - DBottom) / (YMax - YMin);
     *i = (int32)((x - XMin)*dx) + DLeft;
@@ -511,7 +513,7 @@ graphics_scale_to_screen(/* not really the screen!  */
 
 void
 graphics_scale_to_real(/* Not needed except for X */
-              int32 i, int32 j, double *x, double *y) {
+                       int32 i, int32 j, double *x, double *y) {
     int32 i1;
     int32 j1;
     double x1, y1;
@@ -723,7 +725,7 @@ graphics_init(int32 i) {
 
 void
 graphics_copy_graph(/*  Graph[i]=Graph[l]  */
-           int32 i, int32 l) {
+                    int32 i, int32 l) {
     int32 j;
     int32 k;
     graph[i].Use = graph[l].Use;
@@ -874,8 +876,8 @@ graphics_point_3d(double x, double y, double z) {
 
 void
 graphics_line3dn(/* unscaled version  unclipped */
-        double xs1, double ys1, double zs1, double xsp1, double ysp1,
-        double zsp1) {
+                 double xs1, double ys1, double zs1, double xsp1, double ysp1,
+                 double zsp1) {
     double xs, ys, zs;
     double xsp, ysp, zsp;
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
@@ -889,13 +891,14 @@ graphics_line3dn(/* unscaled version  unclipped */
 
 void
 graphics_line3d(/* unscaled version     */
-       double x01, double y01, double z01, double x02, double y02, double z02) {
+                double x01, double y01, double z01, double x02, double y02,
+                double z02) {
     double xs, ys, zs;
     double xs1, ys1, zs1;
     double xsp, ysp, zsp;
     double xsp1, ysp1, zsp1;
-    if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
-                &zsp1))
+    if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
+                         &ysp1, &zsp1))
         return;
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
@@ -916,8 +919,8 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
     double x01, x02, y01, y02, z01, z02;
     graphics_scale3d(x, y, z, &x01, &y01, &z01); /* scale to a cube  */
     graphics_scale3d(xp, yp, zp, &x02, &y02, &z02);
-    if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1, &ysp1,
-                &zsp1))
+    if (!graphics_clip3d(x01, y01, z01, x02, y02, z02, &xs1, &ys1, &zs1, &xsp1,
+                         &ysp1, &zsp1))
         return;
     graphics_rot_3dvec(xs1, ys1, zs1, &xs, &ys, &zs); /* rotate the line */
     graphics_rot_3dvec(xsp1, ysp1, zsp1, &xsp, &ysp, &zsp);
@@ -929,7 +932,8 @@ graphics_line_3d(double x, double y, double z, double xp, double yp,
 }
 
 void
-graphics_pers_line(double x, double y, double z, double xp, double yp, double zp)
+graphics_pers_line(double x, double y, double z, double xp, double yp,
+                   double zp)
 
 {
     double Zv = (double)MyGraph->ZView, Zp = (double)MyGraph->ZPlane;
@@ -973,7 +977,8 @@ graphics_pers_line(double x, double y, double z, double xp, double yp, double zp
 }
 
 void
-graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp, double *zp) {
+graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
+                   double *zp) {
     int32 i;
     int32 j;
     double vt[3], vnew[3];
@@ -1150,9 +1155,9 @@ graphics_fancy_text_abs(double x, double y, char *old, int32 size) {
 }
 
 int32
-graphics_clip3d(double x1, double y1, double z1, double x2, double y2, double z2,
-       double *x1p, double *y1p, double *z1p, double *x2p, double *y2p,
-       double *z2p) {
+graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
+                double z2, double *x1p, double *y1p, double *z1p, double *x2p,
+                double *y2p, double *z2p) {
     int32 istack, ix1 = 0, ix2 = 0, iy1 = 0, iy2 = 0, iz1 = 0, iz2 = 0,
                   iflag = 0;
 
@@ -1303,8 +1308,8 @@ C4:
 }
 
 int32
-graphics_clip(double x1, double x2, double y1, double y2, double *x1_out, double *y1_out,
-     double *x2_out, double *y2_out)
+graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
+              double *y1_out, double *x2_out, double *y2_out)
 
 /************************************************************ *
  *  Clipping algorithm                                         *

@@ -240,8 +240,8 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
         return 1;
     }
     if (METHOD == RKQS || METHOD == STIFF) {
-        stiff_adaptive(y, NODE, &t, t1, TOLER, &dt, HMIN, WORK, &kflag, NEWT_ERR,
-                 METHOD, istart);
+        stiff_adaptive(y, NODE, &t, t1, TOLER, &dt, HMIN, WORK, &kflag,
+                       NEWT_ERR, METHOD, istart);
         if (kflag) {
             ggets_ping();
             switch (kflag) {

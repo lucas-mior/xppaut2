@@ -1665,8 +1665,8 @@ auto_run(void) {
     char ch;
     if (grabpt.flag == 0) { /* the first call to AUTO   */
         /* auto start choice */
-        static char *m[] = {"Steady state", "Periodic", "Bdry Value", "Homoclinic",
-                            "hEteroclinic"};
+        static char *m[] = {"Steady state", "Periodic", "Bdry Value",
+                            "Homoclinic", "hEteroclinic"};
         static char key[] = "spbhe";
         char ch2;
         HomoFlag = 0;
@@ -1693,7 +1693,7 @@ auto_run(void) {
             return;
         }
         ch2 = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
-                                        arun_hint, Auto.hinttxt);
+                                         arun_hint, Auto.hinttxt);
         if (ch2 == 's') {
             auto_new_ss();
             return;
@@ -1803,7 +1803,7 @@ auto_run(void) {
         }
 
         ch2 = (char)auto_x11_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10,
-                                        no_hint, Auto.hinttxt);
+                                         no_hint, Auto.hinttxt);
         if (ch2 == 'p') {
             auto_new_per();
             return;
@@ -1833,7 +1833,7 @@ auto_run(void) {
         static char key[] = "dtfe";
         char ch2;
         ch2 = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
-                                        no_hint, Auto.hinttxt);
+                                         no_hint, Auto.hinttxt);
         if (ch2 == 'd') {
             auto_period_double();
             return;
@@ -1888,8 +1888,8 @@ auto_run(void) {
         /*static char *m[]={"Fixed period","Extend"}; */
         static char key[] = "tfe";
         char ch2;
-        ch2 = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
-                                        Auto.hinttxt);
+        ch2 = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10,
+                                         no_hint, Auto.hinttxt);
         if (ch2 == 'e') {
             auto_new_per();
             return;
@@ -1914,7 +1914,7 @@ auto_run(void) {
         static char key[] = "ef";
         char ch2;
         ch2 = (char)auto_x11_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10,
-                                        no_hint, Auto.hinttxt);
+                                         no_hint, Auto.hinttxt);
         if (ch2 == 'e') {
             auto_new_per();
             return;
@@ -2093,8 +2093,6 @@ NICP=2, ISW=2 at Hopf
 
 /* Start a new point for bifurcation diagram   */
 
-
-
 void
 auto_new_ss(void) {
     int32 opn = NO_OPEN_3, cls = OVERWRITE;
@@ -2118,7 +2116,6 @@ auto_new_ss(void) {
     auto_nox_do(opn, cls);
     return;
 }
-
 
 void
 auto_extend_ss(void) {
@@ -2267,10 +2264,6 @@ auto_new_per(void) {
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
-
-
-
-
 
 void
 auto_2p_limit(int32 ips) {

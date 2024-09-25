@@ -295,8 +295,8 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 
     ytic = axes2_make_tics(y_min, y_max);
     xtic = axes2_make_tics(x_min, x_max);
-    graphics_scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg, &yaxis_x,
-                    &xaxis_y);
+    graphics_scale_to_screen((double)MyGraph->xorg, (double)MyGraph->yorg,
+                             &yaxis_x, &xaxis_y);
     graphics_set_linestyle(-1);
     if (MyGraph->xorgflag && flag)
         if (xaxis_y >= ybot && xaxis_y <= ytop)

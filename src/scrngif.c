@@ -51,13 +51,15 @@ static void scrngif_make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst);
 static void scrngif_loop(FILE *fout, uint32 repeats);
 static void scrngif_write_global_header(int32 cols, int32 rows, FILE *dst);
 static void scrngif_stuff(Window win, FILE *fp, int32 task);
-static int32 scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
-static int32 scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w);
+static int32 scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h,
+                                    int32 w);
+static int32 scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h,
+                                    int32 w);
 static void scrngif_local_to_global(void);
 static int32 scrngif_ppm_to_pix(uchar r, uchar g, uchar b, int32 *n);
 static uchar *scrngif_add_code_to_buffer(int32, int16, uchar *);
 static void scrngif_write_local_header(int32 cols, int32 rows, FILE *fout,
-                               int32 colflag, int32 delay);
+                                       int32 colflag, int32 delay);
 
 typedef struct GifCol {
     uchar r, g, b;
@@ -232,23 +234,26 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
             if (ok == 1) {
                 scrngif_local_to_global();
                 scrngif_write_global_header((int32)w, (int32)h, fp);
-                scrngif_write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 0,
+                                           GifFrameDelay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
             } else /* first map cant be encoded */
             {
                 UseGlobalMap = 0;
                 scrngif_local_to_global();
                 scrngif_write_global_header((int32)w, (int32)h,
-                                    fp); /* write global header */
+                                            fp); /* write global header */
                 scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-                scrngif_write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 1,
+                                           GifFrameDelay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
             scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
             scrngif_write_global_header((int32)w, (int32)h, fp);
-            scrngif_write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+            scrngif_write_local_header((int32)w, (int32)h, fp, 0,
+                                       GifFrameDelay);
             scrngif_encode(fp, pixels, 8, (int32)(w*h));
         }
         break;
@@ -256,18 +261,21 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
         if (UseGlobalMap) {
             ok = scrngif_use_global_map(pixels, ppm, (int32)h, (int32)w);
             if (ok == 1) {
-                scrngif_write_local_header((int32)w, (int32)h, fp, 0, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 0,
+                                           GifFrameDelay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
             } else {
                 UseGlobalMap = 0;
                 scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-                scrngif_write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+                scrngif_write_local_header((int32)w, (int32)h, fp, 1,
+                                           GifFrameDelay);
                 scrngif_encode(fp, pixels, 8, (int32)(w*h));
                 UseGlobalMap = 1;
             }
         } else {
             scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-            scrngif_write_local_header((int32)w, (int32)h, fp, 1, GifFrameDelay);
+            scrngif_write_local_header((int32)w, (int32)h, fp, 1,
+                                       GifFrameDelay);
             scrngif_encode(fp, pixels, 8, (int32)(w*h));
         }
         break;
@@ -334,7 +342,7 @@ scrngif_loop(FILE *fout, uint32 repeats) {
 
 void
 scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
-                   int32 delay) {
+                           int32 delay) {
     int32 i;
     fputc(0x21, fout);
     fputc(0xF9, fout);

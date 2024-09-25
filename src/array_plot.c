@@ -109,8 +109,6 @@ array_plot_draw_one(char *bob) {
     return;
 }
 
-
-
 void
 array_plot_optimize(int32 *plist) {
     int32 i0 = plist[0] - 1;
@@ -249,7 +247,6 @@ array_plot_wborder(Window window, int32 i, struct ArrayPlot ap) {
         XSetWindowBorderWidth(display, w, (uint)i);
     return;
 }
-
 
 void
 array_plot_init_my(void) {

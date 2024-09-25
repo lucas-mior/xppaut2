@@ -407,8 +407,8 @@ ggets_mem_mov(char *s1, char *s2, int32 len) {
 }
 
 void
-ggets_edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
-            int32 ch) {
+ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
+                  int32 *done2, int32 ch) {
     int32 col0 = *col - *pos*DCURX;
 
     *done2 = 0;
@@ -493,7 +493,7 @@ ggets_edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *don
 
 void
 ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done2,
-                    int32 *pos, int32 *col) {
+                          int32 *pos, int32 *col) {
     char ch;
     switch (event.type) {
     case ConfigureNotify:

@@ -1100,7 +1100,7 @@ main_commander(int32 ch) {
 
 Window
 main_init_win(uint32 bw, char *icon_name, char *win_name, int32 x, int32 y,
-         uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
+              uint32 min_wid, uint32 min_hgt, int32 argc, char **argv) {
     Window wine;
     int32 count;
     int32 dp_h;

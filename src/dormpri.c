@@ -53,10 +53,11 @@ static double hinit5(uint32 n, FcnEqDiff fcn, double x, double *y,
                      int32 iord, double hmax, double *atoler, double *rtoler,
                      int32 itoler);
 static int32 dopcor5(uint32 n, FcnEqDiff fcn, double x, double *y, double xend,
-        double hmax, double h, double *rtoler, double *atoler, int32 itoler,
-        FILE *fileout, SolTrait solout, int32 iout, long nmax, double uround,
-        int32 meth, long nstiff, double safe, double beta, double fac1,
-        double fac2, uint32 *icont);
+                     double hmax, double h, double *rtoler, double *atoler,
+                     int32 itoler, FILE *fileout, SolTrait solout, int32 iout,
+                     long nmax, double uround, int32 meth, long nstiff,
+                     double safe, double beta, double fac1, double fac2,
+                     uint32 *icont);
 
 void
 dprhs(uint32 n, double t, double *y, double *f) {

@@ -66,8 +66,9 @@ to be added later
 Tabular my_table[MAX_TAB];
 
 static int32 tabular_eval_fun(int32 n, double xlo, double xhi, char *formula,
-                            double *y);
-static double tabular_interp(double xlo, double h, double x, double *y, int32 i);
+                              double *y);
+static double tabular_interp(double xlo, double h, double x, double *y,
+                             int32 i);
 static double tabular_lookup_xy(double x, int32 n, double *xv, double *yv);
 static void tabular_view(int32 index);
 
@@ -245,7 +246,7 @@ tabular_redo_all_fun_tables(void) {
     for (i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
             tabular_eval_fun(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
-                           my_table[i].filename, my_table[i].y);
+                             my_table[i].filename, my_table[i].y);
     }
     simplenet_update_all_ffts();
     return;
@@ -278,7 +279,7 @@ tabular_eval_fun(int32 n, double xlo, double xhi, char *formula, double *y) {
 
 int32
 tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
-                 int32 index) {
+                   int32 index) {
     int32 length = npts;
 
     if (my_table[index].flag == 1) {

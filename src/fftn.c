@@ -343,9 +343,9 @@ static int32 fftradixf(double Re[], double Im[], usize nTotal, usize nPass,
 #define Im_Data(i) Im[i]
 #endif
 
-static int32 FFTRADIX(REAL Re[], REAL Im[],
-                      usize nTotal, usize nPass, usize nSpan,
-                      int32 iSign, int32 maxFactors, int32 maxPerm);
+static int32 FFTRADIX(REAL Re[], REAL Im[], usize nTotal, usize nPass,
+                      usize nSpan, int32 iSign, int32 maxFactors,
+                      int32 maxPerm);
 
 /*
  *

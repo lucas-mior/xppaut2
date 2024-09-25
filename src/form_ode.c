@@ -99,7 +99,8 @@ static int32 form_ode_parse_a_string(char *s1, VarInfo *v);
 static void form_ode_strpiece(char *dest, char *src, int32 i0, int32 ie);
 static int32 form_ode_formula_or_number(char *expr, double *z);
 static void form_ode_compile_em(void);
-static int32 form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name);
+static int32 form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n,
+                                    char *name);
 static void form_ode_break_up_list(char *rhs);
 static void form_ode_add_only(char *s);
 static int32 form_ode_do_new_parser(FILE *fp, char *first, int32 nnn);
@@ -1262,7 +1263,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                                            strings[ns + 1 + istates]);
 
                                 } else
-                                    form_ode_read_a_line(fp, markovarrays[istates]);
+                                    form_ode_read_a_line(fp,
+                                                         markovarrays[istates]);
                             }
                         }
 
@@ -1288,7 +1290,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         } else {
                             form_ode_strpiece(v.lhs, v.rhs, 0, i1 - 1);
                             strcpy(big, v.rhs);
-                            form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                            form_ode_strpiece(v.rhs, big, i1 + 1,
+                                              (int32)strlen(big));
                         }
                         v.type = SOL_VAR;
                     }
@@ -1299,7 +1302,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
                         form_ode_strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                        form_ode_strpiece(v.rhs, big, i1 + 1,
+                                          (int32)strlen(big));
                         v.type = AUX_VAR;
                     }
 
@@ -1309,7 +1313,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
                         form_ode_strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                        form_ode_strpiece(v.rhs, big, i1 + 1,
+                                          (int32)strlen(big));
                         v.type = VECTOR;
                     }
                     /* take care of special form for special */
@@ -1318,7 +1323,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
                         form_ode_strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                        form_ode_strpiece(v.rhs, big, i1 + 1,
+                                          (int32)strlen(big));
                         v.type = SPEC_FUN;
                     }
 
@@ -1329,7 +1335,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         form_ode_find_char(v.rhs, "}", 0, &i1);
                         form_ode_strpiece(v.lhs, v.rhs, 0, i1);
                         strcpy(big, v.rhs);
-                        form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                        form_ode_strpiece(v.rhs, big, i1 + 1,
+                                          (int32)strlen(big));
                     }
 
                     /*  ONLY save options  */
@@ -1345,7 +1352,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         form_ode_find_char(v.rhs, "=", 0, &i1);
                         form_ode_strpiece(v.lhs, v.rhs, 0, i1 - 1);
                         strcpy(big, v.rhs);
-                        form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                        form_ode_strpiece(v.rhs, big, i1 + 1,
+                                          (int32)strlen(big));
                         v.type = VEQ;
                     }
                     /* take care of tables   */
@@ -1362,7 +1370,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         }
                         form_ode_strpiece(v.lhs, v.rhs, i0, i1 - 1);
                         strcpy(big, v.rhs);
-                        form_ode_strpiece(v.rhs, big, i1 + 1, (int32)strlen(big));
+                        form_ode_strpiece(v.rhs, big, i1 + 1,
+                                          (int32)strlen(big));
                         v.type = TABLE;
                     }
 
@@ -2087,7 +2096,7 @@ form_ode_init_varinfo(void) {
 
 void
 form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
-            char args[MAXARG][NAMLEN + 1]) {
+                     char args[MAXARG][NAMLEN + 1]) {
     VarInfo *v;
     VarInfo *vnew;
     int32 i;
@@ -2139,7 +2148,7 @@ form_ode_free_varinfo(void) {
 
 int32
 form_ode_extract(/* name is char 1-i1  ie is start of rhs */
-            char *s1, int32 *ie, int32 i1) {
+                 char *s1, int32 *ie, int32 i1) {
     int32 i = 0, n = (int32)strlen(s1);
 
     i = i1;
@@ -2197,7 +2206,7 @@ form_ode_strparse(char *s1, char *s2, int32 i0, int32 *i1) {
 
 int32
 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
-             char args[MAXARG][NAMLEN + 1]) {
+                      char args[MAXARG][NAMLEN + 1]) {
     int32 k, i = i0, n = (int32)strlen(s1);
     int32 type, na = 0, i1;
     while (i < n) {
@@ -2456,7 +2465,7 @@ form_ode_check_if_ic(char *big) {
 
 int32
 form_ode_not_ker(/* returns 1 if string is not 'int32[' */
-        char *s, int32 i) {
+                 char *s, int32 i) {
     if (i < 3)
         return 1;
     if (s[i - 3] == 'i' && s[i - 2] == 'n' && s[i - 1] == 't')

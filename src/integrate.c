@@ -576,7 +576,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                    fixptguess.xlo[j];
         }
         gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
-                     &ierr);
+                          &ierr);
         if (ierr == 0) {
             m = fixptlist.n;
             if (m == 0) { /* first fixed point found */
@@ -683,8 +683,8 @@ integrate_eq_range(double *x) {
                 del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER,
                                        NODE, &ierr, &stabinfo);
             else
-                gear_do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
-                        &stabinfo);
+                gear_do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
+                             &ierr, &stabinfo);
         }
         if (eq_range.movie) {
             many_pops_draw_label(draw_win);
@@ -950,7 +950,8 @@ integrate_silent_equilibria(void) {
     for (i = 0; i < NODE; i++)
         x[i] = last_ic[i];
 
-    gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em, &ierr);
+    gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
+                      &ierr);
     if (ierr == 0) {
         fp = fopen("equil.dat", "w");
         for (i = 0; i < NODE; i++)
@@ -1024,7 +1025,7 @@ integrate_find_equilib_com(int32 com) {
         ggets_ping();
     } else
         gear_do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
-                &stabinfo);
+                     &stabinfo);
     TRANS = oldtrans;
     return;
 }
@@ -1810,8 +1811,8 @@ integrate_ode_int(double *y, double *t, int32 *istart, int32 ishow) {
             break;
         case RKQS:
         case STIFF:
-            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, HMIN, WORK, &kflag,
-                     NEWT_ERR, METHOD, istart);
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &dt, HMIN, WORK,
+                           &kflag, NEWT_ERR, METHOD, istart);
             MSWTCH(y, xpv.x);
             if (kflag) {
                 ggets_ping();
@@ -2067,8 +2068,8 @@ integrate(double *t, double *x, double tend, double dt, int32 count, int32 nout,
                 return 1;
             }
             MSWTCH(xpv.x, x);
-            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK, &kflag,
-                     NEWT_ERR, METHOD, start);
+            stiff_adaptive(xpv.x, nodes, t, tout, TOLER, &hguess, HMIN, WORK,
+                           &kflag, NEWT_ERR, METHOD, start);
             MSWTCH(x, xpv.x);
             delay_handle_stor_delay(x);
             if (DelayErr) {

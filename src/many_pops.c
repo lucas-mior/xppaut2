@@ -77,7 +77,8 @@ static int32 many_pops_get_marker_info(void);
 static int32 many_pops_select_marker_type(int32 *type);
 static void many_pops_destroy_label(Window window);
 static void many_pops_destroy_grob(Window window);
-static void many_pops_arrow_head(double xs, double ys, double xe, double ye, double size);
+static void many_pops_arrow_head(double xs, double ys, double xe, double ye,
+                                 double size);
 static void many_pops_draw_grob(int32 i);
 static void many_pops_draw_marker(double x, double y, double size, int32 type);
 
@@ -621,8 +622,8 @@ many_pops_draw_label(Window window) {
 }
 
 void
-many_pops_add_grob(double xs, double ys, double xe, double ye, double size, int32 type,
-         int32 color) {
+many_pops_add_grob(double xs, double ys, double xe, double ye, double size,
+                   int32 type, int32 color) {
     int32 i;
     for (i = 0; i < MAXGROB; i++) {
         if (grob[i].use == 0) {
@@ -721,7 +722,8 @@ many_pops_add_marker(void) {
     if (flag == 0)
         return;
     graphics_scale_to_real(i1, j1, &xs, &ys);
-    many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
+    many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
+                       markinfo.color);
     main_redraw_all();
 }
 
@@ -741,7 +743,8 @@ many_pops_add_markers(void) {
         } else {
             graphics_threed_proj(x, y, z, &xs, &ys);
         }
-        many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type, markinfo.color);
+        many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
+                           markinfo.color);
     }
     main_redraw_all();
 }
