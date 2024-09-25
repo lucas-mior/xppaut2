@@ -156,7 +156,6 @@ int32 NewPeriodFlag;
 static AutoAX Old1p;
 static AutoAX Old2p;
 
-static void auto_switch_bvp(void);
 static void auto_switch_ss(void);
 static void auto_twopar_double(void);
 static void auto_torus(void);
@@ -2010,7 +2009,19 @@ auto_branch_choice(int32 ibr, int32 ips) {
             AutoTwoParam = 0;
             auto_nox_do(OPEN_3, APPEND);
         } else if (ips == 4) {
-            auto_switch_bvp();
+            /* auto switch bvp */
+            TypeOfCalc = BV1;
+            Auto.irs = grabpt.lab;
+            Auto.itp = grabpt.itp;
+            Auto.nfpar = grabpt.nfpar;
+            Auto.ilp = 1;
+            Auto.isw = -1;
+            Auto.isp = 2;
+            if (SuppressBP == 1)
+                Auto.isp = 0;
+            Auto.ips = 4;
+            AutoTwoParam = 0;
+            auto_nox_do(OPEN_3, APPEND);
         } else {
             auto_switch_ss();
         }
@@ -2246,22 +2257,6 @@ auto_new_per(void) {
 
 
 
-void
-auto_switch_bvp(void) {
-    TypeOfCalc = BV1;
-    Auto.irs = grabpt.lab;
-    Auto.itp = grabpt.itp;
-    Auto.nfpar = grabpt.nfpar;
-    Auto.ilp = 1;
-    Auto.isw = -1;
-    Auto.isp = 2;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-    Auto.ips = 4;
-    AutoTwoParam = 0;
-    auto_nox_do(OPEN_3, APPEND);
-    return;
-}
 
 void
 auto_switch_ss(void) {
