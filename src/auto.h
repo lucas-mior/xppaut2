@@ -77,7 +77,6 @@ int32 auto_nox_per_doub_choice(void);
 int32 auto_nox_periodic_choice(void);
 int32 auto_nox_hopf_choice(void);
 int32 auto_new_per(void);
-int32 auto_extend_bvp(void);
 int32 auto_switch_per(void);
 int32 auto_switch_bvp(void);
 int32 auto_switch_ss(void);

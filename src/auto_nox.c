@@ -156,6 +156,8 @@ int32 NewPeriodFlag;
 static AutoAX Old1p;
 static AutoAX Old2p;
 
+static void auto_extend_bvp(void);
+
 /* color plot stuff */
 void
 auto_colset(int32 type) {

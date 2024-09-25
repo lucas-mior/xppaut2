@@ -200,7 +200,6 @@ void auto_new_per(void);
 void auto_start_at_homoclinic(void);
 int32 auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur);
 void auto_extend_homoclinic(void);
-void auto_extend_bvp(void);
 void auto_switch_per(void);
 void auto_switch_bvp(void);
 void auto_switch_ss(void);
