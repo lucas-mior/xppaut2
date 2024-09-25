@@ -556,9 +556,6 @@ svg_linetype(int32 linetype) {
     SVGLINETYPE = line[(linetype % 11) + 2];
 
     PSLines = 0;
-    /* LastPSX=-100000000;
-     LastPSY=-100000000;
-     */
     return;
 }
 
@@ -609,78 +606,6 @@ svg_point(int32 x, int32 y) {
 
 void
 special_put_text_svg(int32 x, int32 y, char *str, int32 size) {
-    /*int32 i=0,j=0,type=1;
-    int32 cf=0;
-
-    int32 n=strlen(str);
-    int32 cy=0;
-    char tmp[256],c;
-    int32 sub,sup,pssz;
-    static int32 sz[]={8,10,14,18,24};
-    fprintf(psfile, "0 0 0 setrgbcolor \n");
-    ps_abs(x,y);
-    pssz=sz[size]*PS_SC;
-    sub=.3*pssz;
-    sup=.6*pssz;
-    */
-    /* set the size here! */
-
-    /*ps_fnt(cf,pssz);
-    while(i<n){
-      c=str[i];
-      if(c=='\\'){
-        i++;
-        c=str[i];
-        tmp[j]=0;*/ /* end the current buffer */
-    /*if(strlen(tmp)>0){
-      ps_show(tmp,type);
-      type=0;
-    }
-
-    j=0;
-    if(c=='0'){
-      cf=0;
-      ps_fnt(cf,pssz);
-    }
-    if(c=='n'){
-
-      ps_rel(0,-cy);
-      cy=0;
-      pssz=PS_SC*sz[size];
-      ps_fnt(cf,pssz);
-    }
-    if(c=='s'){
-
-      cy=cy-sub;
-      ps_rel(0,-sub);
-      pssz=3*PS_SC*sz[size]/5;
-      ps_fnt(cf,pssz);
-    }
-    if(c=='S'){
-      pssz=3*PS_SC*sz[size]/5;
-      cy=cy+sup;
-      ps_rel(0,sup);
-      ps_fnt(cf,pssz);
-    }
-    if(c=='1'){
-
-      cf=1;
-      ps_fnt(cf,pssz);
-    }
-
-    i++;
-  }
-  else {
-    tmp[j]=c;
-    j++;
-    i++;
-  }
-  }
-  tmp[j]=0;
-  if(strlen(tmp)>0)
-  ps_show(tmp,type);
-  */
-
     char anchor[7];
 
     switch (TextJustify) {
@@ -741,33 +666,5 @@ svg_text(int32 x, int32 y, char *str) {
     }
 
     fprintf(svgfile, "      >%s</text>\n", str);
-
-    /* char ch;
-     fprintf(psfile, "0 0 0 setrgbcolor \n");
-     fprintf(psfile,"/%s findfont %d ",PS_FONT,PS_FONTSIZE*PS_SC);
-    fprintf(psfile,"scalefont setfont\n");
-    fprintf(psfile,"%d %d moveto\n",x,y);
-    if (TextAngle != 0)
-      fprintf(psfile,"currentpoint gsave translate %d rotate 0 0 moveto\n"
-              ,TextAngle*90);
-    putc('(',psfile);
-    ch = *str++;
-    while(ch!='\0') {
-      if ( (ch=='(') || (ch==')') || (ch=='\\') )
-        putc('\\',psfile);
-      putc(ch,psfile);
-      ch = *str++;
-    }
-    switch(TextJustify) {
-    case LEFT : fprintf(psfile,") Lshow\n");
-      break;
-    case CENTER : fprintf(psfile,") Cshow\n");
-      break;
-    case RIGHT : fprintf(psfile,") Rshow\n");
-      break;
-    }
-    if (TextAngle != 0)
-      fprintf(psfile,"grestore\n");
-    PSLines=0;
-    */
+    return;
 }
