@@ -250,19 +250,6 @@ auto_nox_store_point(double x, double y) {
     return;
 }
 
-static void
-auto_nox_set_point(void) {
-    if (FromAutoFlag) {
-        FromAutoFlag = 0;
-        set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
-        set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);
-        derived_evaluate();
-        tabular_redo_all_fun_tables();
-        init_conds_redraw_params();
-    }
-    return;
-}
-
 void
 auto_nox_get_str(char *xlabel, char *ylabel) {
     sprintf(xlabel, "%s", upar_names[AutoPar[Auto.icp1]]);
@@ -2852,7 +2839,15 @@ auto_file(void) {
             ggets_err_msg("Must be in 2 parameter plot");
             return;
         }
-        auto_nox_set_point();
+        if (FromAutoFlag) {
+            /* auto nox set point */
+            FromAutoFlag = 0;
+            set_val(upar_names[AutoPar[Auto.icp1]], XfromAuto);
+            set_val(upar_names[AutoPar[Auto.icp2]], YfromAuto);
+            derived_evaluate();
+            tabular_redo_all_fun_tables();
+            init_conds_redraw_params();
+        }
     }
     if (ch == 'b') {
         if (load_all_labeled_orbits == 0) {
