@@ -34,7 +34,6 @@ static void do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n);
 static void do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n);
 static void do_fit_parse_collist(char *collist, int32 *icols, int32 *n);
 static int32 do_fit_get_params(void);
-static void do_fit_print_info(void);
 
 void
 do_fit_init_info(void) {
@@ -322,20 +321,6 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     return 1;
 }
 
-void
-do_fit_print_info(void) {
-    int32 i;
-    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n",
-                 fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
-                 fit_info.tol, fit_info.eps);
-
-    for (i = 0; i < fit_info.nvars; i++)
-        ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i],
-                     fit_info.icols[i]);
-    for (i = 0; i < fit_info.npars; i++)
-        ggets_plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
-    return;
-}
 
 void
 do_fit_test(void) {
@@ -403,7 +388,17 @@ do_fit_test(void) {
             a[i] = last_ic[fit_info.ipar[i]];
     }
 
-    do_fit_print_info();
+    /* do fit print info */
+    ggets_plintf("dim=%d maxiter=%d npts=%d file=%s tol=%g eps=%g\n",
+                 fit_info.dim, fit_info.maxiter, fit_info.npts, fit_info.file,
+                 fit_info.tol, fit_info.eps);
+
+    for (int32 i = 0; i < fit_info.nvars; i++)
+        ggets_plintf(" variable %d to col %d \n", fit_info.ivar[i],
+                     fit_info.icols[i]);
+    for (int32 i = 0; i < fit_info.npars; i++)
+        ggets_plintf(" P[%d]=%d \n", i, fit_info.ipar[i]);
+
     ggets_plintf(" Running the fit...\n");
     ok =
         do_fit_run(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
