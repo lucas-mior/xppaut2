@@ -8,3 +8,4 @@ compile_commands.json
 *.so
 *.[23]
 /rename.sh
+/single.sh
