@@ -94,6 +94,8 @@ static void array_plot_destroy(void);
 static void array_plot_button(Window window);
 static void array_plot_get_root(char *s, char *sroot, int32 *num);
 static void array_plot_gif(void);
+static void array_plot_set_up_range(void);
+static void array_plot_fit(void);
 
 void
 array_plot_draw_one(char *bob) {
@@ -110,7 +112,7 @@ array_plot_draw_one(char *bob) {
     return;
 }
 
-static void
+void
 array_plot_set_up_range(void) {
     static char *n[] = {"Basename", "Still(1/0)", "Tag(0/1)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -133,7 +135,7 @@ array_plot_set_up_range(void) {
     return;
 }
 
-static void
+void
 array_plot_fit(void) {
     double zmax;
     double zmin;
