@@ -146,7 +146,6 @@ static int32 integrate_set_up_range2(void);
 static int32 integrate_set_up_range(void);
 static int32 integrate_range_item2(void);
 static int32 integrate_range_item(void);
-static int32 integrate_set_up_eq_range(void);
 
 void
 integrate_init_ar_ic(void) {
@@ -230,58 +229,6 @@ integrate_init_range(void) {
     return;
 }
 
-int32
-integrate_set_up_eq_range(void) {
-    static char *n[] = {
-        "*2Range over", "Steps",         "Start",       "End",
-        "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    int32 i;
-    static char *yn[] = {"N", "Y"};
-    sprintf(values[0], "%s", eq_range.item);
-    sprintf(values[1], "%d", eq_range.steps);
-    sprintf(values[2], "%.16g", eq_range.plow);
-    sprintf(values[3], "%.16g", eq_range.phigh);
-    sprintf(values[4], "%s", yn[eq_range.shoot]);
-    sprintf(values[5], "%d", eq_range.col);
-    sprintf(values[6], "%s", yn[eq_range.movie]);
-    sprintf(values[7], "%s", yn[eq_range.mc]);
-
-    status = do_string_box(8, 8, 1, "Range Equilibria", n, values, 45);
-    if (status != 0) {
-        strcpy(eq_range.item, values[0]);
-        i = init_conds_find_user_name(Param, eq_range.item);
-        if (i < 0) {
-            ggets_err_msg("No such parameter");
-            return 0;
-        }
-
-        eq_range.steps = atoi(values[1]);
-        if (eq_range.steps <= 0)
-            eq_range.steps = 10;
-        eq_range.plow = atof(values[2]);
-        eq_range.phigh = atof(values[3]);
-        if (values[4][0] == 'Y' || values[4][0] == 'y')
-            eq_range.shoot = 1;
-        else
-            eq_range.shoot = 0;
-        if (values[6][0] == 'Y' || values[6][0] == 'y')
-            eq_range.movie = 1;
-        else
-            eq_range.movie = 0;
-        if (values[7][0] == 'Y' || values[6][0] == 'y')
-            eq_range.mc = 1;
-        else
-            eq_range.mc = 0;
-        eq_range.col = atoi(values[5]);
-        if (eq_range.col <= 1 || eq_range.col > (NEQ + 1))
-            eq_range.col = -1;
-
-        return 1;
-    }
-    return 0;
-}
 
 void
 integrate_cont_integ(void) {
@@ -642,8 +589,54 @@ integrate_eq_range(double *x) {
     char bob[256];
     double stabinfo = 0.0;
 
-    if (integrate_set_up_eq_range() == 0)
+    /* integrate set up eq range */
+    static char *n[] = {
+        "*2Range over", "Steps",         "Start",       "End",
+        "Shoot (Y/N)",  "Stability col", "Movie (Y/N)", "Monte Carlo (Y/N)"};
+    char values[LENGTH(n)][MAX_LEN_SBOX];
+    int32 status;
+    int32 i;
+    static char *yn[] = {"N", "Y"};
+    sprintf(values[0], "%s", eq_range.item);
+    sprintf(values[1], "%d", eq_range.steps);
+    sprintf(values[2], "%.16g", eq_range.plow);
+    sprintf(values[3], "%.16g", eq_range.phigh);
+    sprintf(values[4], "%s", yn[eq_range.shoot]);
+    sprintf(values[5], "%d", eq_range.col);
+    sprintf(values[6], "%s", yn[eq_range.movie]);
+    sprintf(values[7], "%s", yn[eq_range.mc]);
+
+    status = do_string_box(8, 8, 1, "Range Equilibria", n, values, 45);
+    if (status == 0)
         return;
+
+    strcpy(eq_range.item, values[0]);
+    i = init_conds_find_user_name(Param, eq_range.item);
+    if (i < 0) {
+        ggets_err_msg("No such parameter");
+        return;
+    }
+
+    eq_range.steps = atoi(values[1]);
+    if (eq_range.steps <= 0)
+        eq_range.steps = 10;
+    eq_range.plow = atof(values[2]);
+    eq_range.phigh = atof(values[3]);
+    if (values[4][0] == 'Y' || values[4][0] == 'y')
+        eq_range.shoot = 1;
+    else
+        eq_range.shoot = 0;
+    if (values[6][0] == 'Y' || values[6][0] == 'y')
+        eq_range.movie = 1;
+    else
+        eq_range.movie = 0;
+    if (values[7][0] == 'Y' || values[6][0] == 'y')
+        eq_range.mc = 1;
+    else
+        eq_range.mc = 0;
+    eq_range.col = atoi(values[5]);
+    if (eq_range.col <= 1 || eq_range.col > (NEQ + 1))
+        eq_range.col = -1;
 
     browse_wipe_rep();
     adj2_data_back();
