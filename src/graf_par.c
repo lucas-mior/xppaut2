@@ -650,15 +650,6 @@ graf_par_window_zoom_com(int32 c) {
         break;
     }
     case 1:
-
-        /*  XSelectInput(display,w,
-    KeyPressMask|ButtonPressMask|ButtonReleaseMask|
-             PointerMotionMask|ButtonMotionMask|ExposureMask);
-                while(1)
-                {
-                     XNextEvent(display,&ev);
-                     switch(ev.type){
-                } */
         if (rubber(&i1, &j1, &i2, &j2, draw_win, RUBBOX) == 0)
             break;
         graf_par_zoom_in(i1, j1, i2, j2);
