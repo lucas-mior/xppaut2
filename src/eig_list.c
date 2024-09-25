@@ -41,7 +41,6 @@ static struct EqList {
 static int32 sparity;
 
 static void eig_list_eq_box_button(Window window);
-static void eig_list_eq_box_import(void);
 static void eig_list_eq_list_down(void);
 static void eig_list_eq_list_up(void);
 
@@ -231,27 +230,6 @@ eig_list_eq_list_down(void) {
     return;
 }
 
-void
-eig_list_eq_box_import(void) {
-    int32 n = eq_box.n, i;
-    for (i = 0; i < n; i++)
-        last_ic[i] = eq_box.y[i];
-
-    if (n < 20) {
-        if (sparity == 0) {
-            for (i = 0; i < n; i++)
-                homo_l[i] = eq_box.y[i];
-            printf("Saved to left equilibrium\n");
-        }
-        if (sparity == 1) {
-            for (i = 0; i < n; i++)
-                homo_r[i] = eq_box.y[i];
-            printf("Saved to right equilibrium\n");
-        }
-        sparity = 1 - sparity;
-    }
-    init_conds_redraw_ics();
-}
 
 void
 eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt) {
@@ -286,7 +264,25 @@ eig_list_eq_box_button(Window window) {
     if (eq_box.flag == 0)
         return;
     if (window == eq_box.import) {
-        eig_list_eq_box_import();
+        /* eig list eq box import */
+        int32 n = eq_box.n, i;
+        for (i = 0; i < n; i++)
+            last_ic[i] = eq_box.y[i];
+
+        if (n < 20) {
+            if (sparity == 0) {
+                for (i = 0; i < n; i++)
+                    homo_l[i] = eq_box.y[i];
+                printf("Saved to left equilibrium\n");
+            }
+            if (sparity == 1) {
+                for (i = 0; i < n; i++)
+                    homo_r[i] = eq_box.y[i];
+                printf("Saved to right equilibrium\n");
+            }
+            sparity = 1 - sparity;
+        }
+        init_conds_redraw_ics();
         return;
     }
     if (eq_box.close == window) {
