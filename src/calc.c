@@ -30,7 +30,6 @@ static struct MyCalc {
 
 static int32 calc_has_eq(char *z, char *w, int32 *where);
 static void ini_calc_string(char *name, char *value, int32 *pos, int32 *col);
-static void quit_calc(void);
 static void make_calc(double z);
 static void draw_calc(Window window);
 
@@ -95,16 +94,6 @@ make_calc(double z)
     return;
 }
 
-void
-quit_calc(void) {
-    my_calc.use = 0;
-    XSelectInput(display, my_calc.quit, SIMPMASK);
-    browse_wait_a_sec(ClickTime);
-    XDestroySubwindows(display, my_calc.base);
-    XDestroyWindow(display, my_calc.base);
-    ggets_clr_command();
-    return;
-}
 
 void
 ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
@@ -148,7 +137,14 @@ calc_q_calc(void) {
         if (done == -1)
             break;
     }
-    quit_calc();
+
+    /* quit calc */
+    my_calc.use = 0;
+    XSelectInput(display, my_calc.quit, SIMPMASK);
+    browse_wait_a_sec(ClickTime);
+    XDestroySubwindows(display, my_calc.base);
+    XDestroyWindow(display, my_calc.base);
+    ggets_clr_command();
     return;
 }
 
