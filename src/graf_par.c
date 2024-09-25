@@ -71,8 +71,6 @@ static void edit_frz(void);
 static void draw_freeze_key(void);
 static void graf_par_set_key(int32 x, int32 y);
 static void create_ps(void);
-static void new_curve(void);
-static void edit_curve(void);
 static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
 static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
