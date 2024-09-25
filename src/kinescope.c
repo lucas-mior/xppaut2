@@ -24,13 +24,13 @@ typedef struct Movie {
 
 static Movie movie[MAXFILM];
 
-static void too_small(void);
-static void auto_play(void);
-static void save_movie(char *basename, int32 fmat);
-static void make_anigif(void);
-static void save_kine(void);
-static void play_back(void);
-static int32 show_frame(int32 i, int32 h, int32 w);
+static void kinescope_too_small(void);
+static void kinescope_auto_play(void);
+static void kinescope_save_movie(char *basename, int32 fmat);
+static void kinescope_make_anigif(void);
+static void kinescope_save_kine(void);
+static void kinescope_play_back(void);
+static int32 kinescope_show_frame(int32 i, int32 h, int32 w);
 
 void
 kinescope_do_movie_com(int32 c) {
@@ -46,16 +46,16 @@ kinescope_do_movie_com(int32 c) {
         kinescope_reset_film();
         break;
     case 2:
-        play_back();
+        kinescope_play_back();
         break;
     case 3:
-        auto_play();
+        kinescope_auto_play();
         break;
     case 4:
-        save_kine();
+        kinescope_save_kine();
         break;
     case 5:
-        make_anigif();
+        kinescope_make_anigif();
         break;
     case 6: /* test_keys(); */
         break;
@@ -95,9 +95,9 @@ kinescope_film_clip(void) {
 }
 
 int32
-show_frame(int32 i, int32 h, int32 w) {
+kinescope_show_frame(int32 i, int32 h, int32 w) {
     if (h < movie[i].h || w < movie[i].w) {
-        too_small();
+        kinescope_too_small();
         return 1;
     }
     XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w, (uint)h,
@@ -108,7 +108,7 @@ show_frame(int32 i, int32 h, int32 w) {
 }
 
 void
-play_back(void) {
+kinescope_play_back(void) {
     int32 x;
     int32 y;
     int32 h, w, bw, d;
@@ -121,7 +121,7 @@ play_back(void) {
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
-        too_small();
+        kinescope_too_small();
         return;
     }
 
@@ -135,7 +135,7 @@ play_back(void) {
             i++;
             if (i >= mov_ind)
                 i = 0;
-            if (show_frame(i, h, w))
+            if (kinescope_show_frame(i, h, w))
                 return;
             break;
         case KeyPress:
@@ -146,24 +146,24 @@ play_back(void) {
                 i++;
                 if (i >= mov_ind)
                     i = 0;
-                if (show_frame(i, h, w))
+                if (kinescope_show_frame(i, h, w))
                     return;
                 break;
             case KEY_LEFT:
                 i--;
                 if (i < 0)
                     i = mov_ind - 1;
-                if (show_frame(i, h, w))
+                if (kinescope_show_frame(i, h, w))
                     return;
                 break;
             case KEY_HOME:
                 i = 0;
-                if (show_frame(i, h, w))
+                if (kinescope_show_frame(i, h, w))
                     return;
                 break;
             case KEY_END:
                 i = mov_ind - 1;
-                if (show_frame(i, h, w))
+                if (kinescope_show_frame(i, h, w))
                     return;
                 break;
             default:
@@ -177,7 +177,7 @@ play_back(void) {
 }
 
 void
-save_kine(void) {
+kinescope_save_kine(void) {
     char base[128];
     int32 fmat = 2;
     sprintf(base, "frame");
@@ -188,12 +188,12 @@ save_kine(void) {
     */
     ggets_new_string("Base file name", base);
     if (strlen(base) > 0)
-        save_movie(base, fmat);
+        kinescope_save_movie(base, fmat);
     return;
 }
 
 void
-make_anigif(void) {
+kinescope_make_anigif(void) {
     int32 i = 0;
     int32 x;
     int32 y;
@@ -205,7 +205,7 @@ make_anigif(void) {
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
-        too_small();
+        kinescope_too_small();
         return;
     }
     h = movie[0].h;
@@ -233,7 +233,7 @@ make_anigif(void) {
 }
 
 void
-save_movie(char *basename, int32 fmat) {
+kinescope_save_movie(char *basename, int32 fmat) {
     char file[XPP_MAX_NAME];
     int32 i = 0;
     int32 x;
@@ -247,7 +247,7 @@ save_movie(char *basename, int32 fmat) {
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
-        too_small();
+        kinescope_too_small();
         return;
     }
 
@@ -280,7 +280,7 @@ save_movie(char *basename, int32 fmat) {
 }
 
 void
-auto_play(void) {
+kinescope_auto_play(void) {
     int32 x;
     int32 y;
     int32 h, w, bw, d, key;
@@ -302,7 +302,7 @@ auto_play(void) {
     if (mov_ind == 0)
         return;
     if (h < movie[i].h || w < movie[i].w) {
-        too_small();
+        kinescope_too_small();
         return;
     }
 
@@ -346,7 +346,7 @@ auto_play(void) {
             i = 0;
         }
         if (h < movie[i].h || w < movie[i].w) {
-            too_small();
+            kinescope_too_small();
             return;
         }
         XCopyArea(display, movie[i].xi, draw_win, gc_graph, 0, 0, (uint)w,
@@ -358,6 +358,6 @@ auto_play(void) {
 }
 
 void
-too_small(void) {
+kinescope_too_small(void) {
     pop_list_respond_box("Okay", "Window too small for film!");
 }
