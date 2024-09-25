@@ -754,7 +754,7 @@ load_eqn_extract_action(char *ptr) {
         /*No more tokens--should this throw an error?*/
     }
 
-    while ((mystring = do_fit_get_next(" ,;\n")) != NULL) {
+    while ((mystring = form_ode_do_fit_get_next(" ,;\n")) != NULL) {
         split_apart(mystring, name, value);
         if (strlen(name) > 0 && strlen(value) > 0)
             do_intern_set(name, value);
@@ -815,7 +815,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
         if (junk == NULL) {
             /*No more tokens.  Should this throw an error?*/
         }
-        while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
+        while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
                 /*
@@ -905,7 +905,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
         if (junk == NULL) {
             /*No more tokens.  Should this throw an error?*/
         }
-        while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
+        while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             strupr(name);
 
@@ -934,7 +934,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
     for (i = 0; i < Nopts; i++) {
         ptr = interopt[i];
         junk = form_ode_get_first(ptr, " ,");
-        while ((mystring = do_fit_get_next(" ,\n\r")) != NULL) {
+        while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
             split_apart(mystring, name, value);
             if (strlen(name) > 0 && strlen(value) > 0) {
                 load_eqn_set_option(name, value, 0, tempNAS);

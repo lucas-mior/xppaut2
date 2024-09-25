@@ -2290,11 +2290,11 @@ int32 form_ode_idsc(char *string);
 int32 form_ode_get_eqn(FILE *fptr);
 int32 form_ode_compiler(char *bob, FILE *fptr);
 char *form_ode_get_first(char *string, char *src);
-char *do_fit_get_next(char *src);
+char *form_ode_do_fit_get_next(char *src);
 void form_ode_create_plot_list(void);
 void form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
                  char args[20][13 + 1]);
-int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
+int32 form_ode_extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                    char args[20][13 + 1]);
 int32 form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1);
 int32 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2,

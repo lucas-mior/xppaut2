@@ -606,7 +606,7 @@ auto_per_par(void) {
                 in = auto_name_to_index(ptr);
                 if (in >= 0) {
                     Auto.uzrpar[i] = in;
-                    ptr = do_fit_get_next("@");
+                    ptr = form_ode_do_fit_get_next("@");
                     Auto.period[i] = atof(ptr);
                 }
             }

@@ -1343,15 +1343,15 @@ parse_ani_string(char *s, FILE *fp) {
         type = AYNULL;
     switch (type) {
     case GRAB:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
@@ -1359,27 +1359,27 @@ parse_ani_string(char *s, FILE *fp) {
         return anss;
     case AXNULL:
     case AYNULL:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if (nxt == NULL)
             return -1;
         strcpy(x4, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if (nxt == NULL)
             return -1;
         strcpy(col, nxt);
-        nxt = do_fit_get_next("\n");
+        nxt = form_ode_do_fit_get_next("\n");
         if (nxt == NULL)
             return -1;
         strcpy(thick, nxt);
@@ -1389,138 +1389,138 @@ parse_ani_string(char *s, FILE *fp) {
     case ELLIP:
     case FELLIP:
     case FRECT:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if (nxt == NULL)
             return -1;
         strcpy(x4, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if ((nxt == NULL) || strlen(nxt) == 0)
             break;
         strcpy(col, nxt);
-        nxt = do_fit_get_next("\n");
+        nxt = form_ode_do_fit_get_next("\n");
         if ((nxt == NULL) || strlen(nxt) == 0)
             break;
         strcpy(thick, nxt);
         break;
     case RLINE:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if ((nxt == NULL) || strlen(nxt) == 0)
             break;
         strcpy(col, nxt);
-        nxt = do_fit_get_next("\n");
+        nxt = form_ode_do_fit_get_next("\n");
         if ((nxt == NULL) || strlen(nxt) == 0)
             break;
         strcpy(thick, nxt);
         break;
     case COMET:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(thick, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if ((nxt == NULL) || strlen(nxt) == 0)
             break;
         strcpy(col, nxt);
         break;
     case CIRC:
     case FCIRC:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if ((nxt == NULL) || strlen(nxt) == 0)
             break;
         strcpy(col, nxt);
         break;
     case SETTEXT:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(col, nxt);
         break;
     case TEXT:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x4, nxt);
         break;
     case VTEXT:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x4, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
         break;
     case SPEED:
-        nxt = do_fit_get_next(" \n");
+        nxt = form_ode_do_fit_get_next(" \n");
         if (nxt == NULL)
             return -1;
         ani_speed = atoi(nxt);
@@ -1530,19 +1530,19 @@ parse_ani_string(char *s, FILE *fp) {
             ani_speed = 1000;
         return 1;
     case DIMENSION:
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x1, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x2, nxt);
-        nxt = do_fit_get_next(";");
+        nxt = form_ode_do_fit_get_next(";");
         if (nxt == NULL)
             return -1;
         strcpy(x3, nxt);
-        nxt = do_fit_get_next(";\n");
+        nxt = form_ode_do_fit_get_next(";\n");
         if (nxt == NULL)
             return -1;
         strcpy(x4, nxt);

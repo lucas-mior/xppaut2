@@ -758,7 +758,7 @@ do_fit_parse_collist(char *collist, int32 *icols, int32 *n) {
     v = atoi(item);
     icols[i] = v;
     i++;
-    while ((item = do_fit_get_next(" ,")) != NULL) {
+    while ((item = form_ode_do_fit_get_next(" ,")) != NULL) {
         v = atoi(item);
         icols[i] = v;
         i++;
@@ -780,7 +780,7 @@ do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n) {
         return;
     ivars[i] = v - 1;
     i++;
-    while ((item = do_fit_get_next(" ,")) != NULL) {
+    while ((item = form_ode_do_fit_get_next(" ,")) != NULL) {
         browse_find_variable(item, &v);
         if (v <= 0)
             return;
@@ -819,7 +819,7 @@ do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n) {
         ipars[i + *n] = -v;
         i++;
     }
-    while ((item = do_fit_get_next(" ,")) != NULL) {
+    while ((item = form_ode_do_fit_get_next(" ,")) != NULL) {
         browse_find_variable(item, &v);
         if (v > 0) {
             ipars[i + *n] = v - 1;
