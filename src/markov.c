@@ -462,9 +462,9 @@ markov_do_stochast_com(int32 i) {
         /* markov free stoch */
         if (STOCH_HERE) {
             adj2_data_back();
-            for (int32 i = 0; i < (NEQ + 1); i++) {
-                free(my_mean[i]);
-                free(my_variance[i]);
+            for (int32 i2 = 0; i2 < (NEQ + 1); i2++) {
+                free(my_mean[i2]);
+                free(my_variance[i2]);
             }
             STOCH_HERE = 0;
         }

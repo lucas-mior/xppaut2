@@ -72,13 +72,25 @@ static void save_the_nullclines(void);
 static void nullcline_redraw_froz(int32 flag);
 static void nullcline_save_frozen(char *fn);
 static void nullcline_clear_froz(void);
-static void nullcline_start(void);
 
 void
 nullcline_froz_cline_stuff_com(int32 i) {
     int32 delay = 200;
-    if (n_nstore == 0)
-        nullcline_start();
+    if (n_nstore == 0) {
+        /* nullcline start */
+        n_nstore = 1;
+        ncperm = xmalloc(sizeof(*ncperm));
+        ncperm->p = NULL;
+        ncperm->n = NULL;
+        ncperm->nmx = 0;
+        ncperm->nmy = 0;
+        ncperm->n_ix = -5;
+        ncperm->n_iy = -5;
+        ncrange.xlo = 0;
+        ncrange.xhi = 1;
+        ncrange.nstep = 10;
+        snprintf(ncrange.rv, sizeof(ncrange.rv), " ");
+    }
     switch (i) {
     case 0:
         if (NULL_HERE == 0)
@@ -100,7 +112,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
         static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
-        int32 i;
+        int32 i2;
         double z, dz, zold;
         double xmin, xmax, y_tp, y_bot;
         int32 col1 = XNullColor, col2 = YNullColor;
@@ -128,8 +140,8 @@ nullcline_froz_cline_stuff_com(int32 i) {
             break;
         get_val(ncrange.rv, &zold);
 
-        for (i = NODE; i < NODE + NMarkov; i++)
-            set_ivar(i + 1 + FIX_VAR, last_ic[i]);
+        for (i2 = NODE; i2 < NODE + NMarkov; i2++)
+            set_ivar(i2 + 1 + FIX_VAR, last_ic[i2]);
         xmin = (double)MyGraph->xmin;
         xmax = (double)MyGraph->xmax;
         y_tp = (double)MyGraph->ymax;
@@ -137,8 +149,8 @@ nullcline_froz_cline_stuff_com(int32 i) {
         null_ix = MyGraph->xv[0];
         null_iy = MyGraph->yv[0];
 
-        for (i = 0; i <= ncrange.nstep; i++) {
-            z = (double)i*dz + ncrange.xlo;
+        for (i2 = 0; i2 <= ncrange.nstep; i2++) {
+            z = (double)i2*dz + ncrange.xlo;
             set_val(ncrange.rv, z);
             if (NULL_HERE == 0) {
                 if ((X_n = xmalloc(4*MAX_NULL*sizeof(double))) != NULL &&
@@ -208,22 +220,6 @@ silent_nullclines(void) {
 }
 
 
-void
-nullcline_start(void) {
-    n_nstore = 1;
-    ncperm = xmalloc(sizeof(*ncperm));
-    ncperm->p = NULL;
-    ncperm->n = NULL;
-    ncperm->nmx = 0;
-    ncperm->nmy = 0;
-    ncperm->n_ix = -5;
-    ncperm->n_iy = -5;
-    ncrange.xlo = 0;
-    ncrange.xhi = 1;
-    ncrange.nstep = 10;
-    snprintf(ncrange.rv, sizeof(ncrange.rv), " ");
-    return;
-}
 
 void
 nullcline_clear_froz(void) {
