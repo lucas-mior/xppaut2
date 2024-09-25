@@ -1711,8 +1711,6 @@ add_ani_expr(char *x, int32 *c) {
     for (int32 i = 0; i < n; i++) {
         c[i] = com[i];
     }
-    /*  z=evaluate(c);
-    ggets_plintf(" evaluated to %g \n",z); */
     return 0;
 }
 
