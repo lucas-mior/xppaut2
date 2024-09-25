@@ -154,7 +154,6 @@ static GC ani_gc;
 
 static void ani_create_vcr(char *name);
 static void ani_border(Window window, int32 i);
-static void ani_destroy_vcr(void);
 static void ani_motion_stuff(Window window, int32 x, int32 y);
 static double ani_get_current_time(void);
 static void update_ani_motion_stuff(int32 x, int32 y);
@@ -397,15 +396,6 @@ ani_border(Window window, int32 i) {
     return;
 }
 
-void
-ani_destroy_vcr(void) {
-    vcr.iexist = 0;
-    XDestroySubwindows(display, vcr.base);
-
-    XDestroyWindow(display, vcr.base);
-    return;
-}
-
 int32
 ani_check_pause(XEvent event) {
     if ((vcr.iexist == 0) || (!animation_on_the_fly))
@@ -614,8 +604,12 @@ ani_button(Window window) {
         redraw_ani_slider();
         ani_flip1(0);
     }
-    if (window == vcr.kill)
-        ani_destroy_vcr();
+    if (window == vcr.kill) {
+        /* ani destroy vcr */
+        vcr.iexist = 0;
+        XDestroySubwindows(display, vcr.base);
+        XDestroyWindow(display, vcr.base);
+    }
     return;
 }
 
