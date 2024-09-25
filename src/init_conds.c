@@ -117,7 +117,6 @@ static void do_box_key(BoxList *b, XEvent event, int32 *used);
 static void box_list_scroll(BoxList *b, int32 i);
 static void do_box_button(BoxList *b, Window window);
 static void redraw_entire_box(BoxList *b);
-static void set_up_arry(void);
 static void box_enter(BoxList b, Window window, int32 val);
 static void display_box(BoxList b, Window window);
 static void justify_string(Window w1, char *s1);
@@ -1931,25 +1930,6 @@ box_enter(BoxList b, Window window, int32 val) {
 
 
 
-void
-set_up_arry(void) {
-    int32 i;
-    int32 plot_list[2], n = 0;
-
-    for (i = 0; i < ICBox.n; i++)
-        if (ICBox.isck[i]) {
-            if (n < 2) {
-                plot_list[n] = i + 1;
-                n++;
-            }
-            ICBox.isck[i] = 0;
-        }
-    for (i = 0; i < ICBox.nwin; i++)
-        XClearWindow(display, ICBox.ck[i]);
-    if (n == 2)
-        array_plot_optimize(plot_list);
-    return;
-}
 
 void
 redraw_entire_box(BoxList *b) {
@@ -2066,7 +2046,22 @@ do_box_button(BoxList *b, Window window) {
         }
 
         if (window == b->arr) {
-            set_up_arry();
+            /* set up arry */
+            int32 i;
+            int32 plot_list[2], n = 0;
+
+            for (i = 0; i < ICBox.n; i++)
+                if (ICBox.isck[i]) {
+                    if (n < 2) {
+                        plot_list[n] = i + 1;
+                        n++;
+                    }
+                    ICBox.isck[i] = 0;
+                }
+            for (i = 0; i < ICBox.nwin; i++)
+                XClearWindow(display, ICBox.ck[i]);
+            if (n == 2)
+                array_plot_optimize(plot_list);
         }
     }
     return;
