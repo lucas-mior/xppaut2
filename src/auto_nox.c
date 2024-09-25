@@ -1705,8 +1705,24 @@ auto_run(void) {
     if (grabpt.lab == 0) {
         ch = (char)menudrive_two_choice("YES", "NO",
                                         "Not Labeled Pt: New Start?", "y");
-        if (ch == 'y')
-            auto_start_diff_ss();
+        if (ch == 'y') {
+            /* auto start diff ss */
+            TypeOfCalc = EQ1;
+            Auto.ips = 1;
+            if (METHOD == DISCRETE)
+                Auto.ips = -1;
+            Auto.irs = 0;
+            Auto.itp = 0;
+            Auto.ilp = 1;
+            Auto.isw = 1;
+            Auto.isp = 1;
+            if (SuppressBP == 1)
+                Auto.isp = 0;
+            Auto.nfpar = 1;
+            AutoTwoParam = 0;
+            auto_nox_do(NO_OPEN_3, APPEND);
+        }
+
         ggets_ping();
         return;
     }
@@ -1944,25 +1960,6 @@ NICP=2, ISW=2 at Hopf
 */
 
 /* Start a new point for bifurcation diagram   */
-
-void
-auto_start_diff_ss(void) {
-    TypeOfCalc = EQ1;
-    Auto.ips = 1;
-    if (METHOD == DISCRETE)
-        Auto.ips = -1;
-    Auto.irs = 0;
-    Auto.itp = 0;
-    Auto.ilp = 1;
-    Auto.isw = 1;
-    Auto.isp = 1;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-    Auto.nfpar = 1;
-    AutoTwoParam = 0;
-    auto_nox_do(NO_OPEN_3, APPEND);
-    return;
-}
 
 void
 auto_start_at_bvp(void) {
