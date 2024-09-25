@@ -153,7 +153,6 @@ static void main_top_button_events(XEvent report);
 static void main_top_button_press(Window window);
 static void main_top_button_cross(Window window, int32 b);
 static void main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
-static void main_set_big_font(void);
 static void main_init_x(void);
 static void main_check_for_quiet(int32 argc, char **argv);
 
@@ -743,7 +742,11 @@ main_init_x(void) {
     if (COLOR)
         color_map_make();
 
-    main_set_big_font();
+    /* main set big font */
+    DCURX = DCURXb;
+    DCURY = DCURYb;
+    CURY_OFF = CURY_OFFb;
+    XSetFont(display, gc, big_font->fid);
 
     XSetFont(display, small_gc, small_font->fid);
 
@@ -760,14 +763,6 @@ main_init_x(void) {
     return;
 }
 
-void
-main_set_big_font(void) {
-    DCURX = DCURXb;
-    DCURY = DCURYb;
-    CURY_OFF = CURY_OFFb;
-    XSetFont(display, gc, big_font->fid);
-    return;
-}
 
 /* not sure what to do with this - but it works pretty well!
  * it allows you to create a KB script and send it as
