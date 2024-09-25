@@ -82,7 +82,6 @@ static void get_2d_view(int32 ind);
 static void graf_par_check_flags(void);
 static void graf_par_update_view(double xlo, double xhi, double ylo,
                                  double yhi);
-static void create_svg(void);
 
 void
 graf_par_change_view_com(int32 com) {
@@ -938,21 +937,6 @@ graf_par_dump_ps(int32 i) {
     return;
 }
 
-static void
-create_svg(void) {
-    char filename[XPP_MAX_NAME];
-    strcpy(filename, this_file);
-    filename[strlen(filename) - 4] = '\0';
-    strcat(filename, ".svg");
-    /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
-    if (!init_conds_file_selector("Print svg", filename, "*.svg"))
-        return;
-    if (svg_init(filename)) {
-        many_pops_svg_restore();
-        ggets_ping();
-    }
-    return;
-}
 
 void
 graf_par_change_cmap_com(int32 i) {
@@ -1478,8 +1462,21 @@ graf_par_add_a_curve_com(int32 c) {
         break;
     }
     case 5:
-        create_svg();
+    {
+        /* create svg */
+        char filename[XPP_MAX_NAME];
+        strcpy(filename, this_file);
+        filename[strlen(filename) - 4] = '\0';
+        strcat(filename, ".svg");
+        /*snprintf(filename, sizeof(filename),"%s.svg",tmp);*/
+        if (!init_conds_file_selector("Print svg", filename, "*.svg"))
+            return;
+        if (svg_init(filename)) {
+            many_pops_svg_restore();
+            ggets_ping();
+        }
         break;
+    }
         /* case 6: freeze();
            break; */
     case 7:
