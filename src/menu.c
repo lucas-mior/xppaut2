@@ -543,24 +543,3 @@ menu_draw_help(void) {
     for (i = 0; i < n; i++)
         menu_expose(my_menus[j].window[i]);
 }
-/*
-menu_events(ev)
-     XEvent event;
-{
-  switch(ev.type){
-  case Expose:
-  case MapNotify:
-    menu_expose(ev.xexpose.window);
-    break;
-  case ButtonPress:
-    menu_button(ev.xbutton.window);
-    break;
-  case EnterNotify:
-    menu_crossing(ev.xcrossing.window,1);
-    break;
-  case LeaveNotify:
-    menu_crossing(ev.xcrossing.window,0);
-    break;
-  }
-}
-*/
