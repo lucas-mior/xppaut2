@@ -1654,37 +1654,6 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
 }
 
 void
-auto_nox_hopf_choice(void) {
-    static char *m[] = {"Periodic", "Extend", "New Point", "Two Param"};
-    static char key[] = "pent";
-    char ch;
-    if (METHOD == DISCRETE) {
-        auto_2p_hopf();
-        return;
-    }
-
-    ch = (char)auto_x11_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10,
-                                    no_hint, Auto.hinttxt);
-    if (ch == 'p') {
-        auto_new_per();
-        return;
-    }
-    if (ch == 'e') {
-        auto_extend_ss();
-        return;
-    }
-    if (ch == 'n') {
-        auto_new_ss();
-        return;
-    }
-    if (ch == 't') {
-        auto_2p_hopf();
-        return;
-    }
-    auto_x11_redraw_menus();
-}
-
-void
 auto_run(void) {
     int32 itp1, itp2, itp, ips;
     char ch;
@@ -1747,8 +1716,37 @@ auto_run(void) {
     itp2 = itp / 10;
     ips = Auto.ips;
     /*  printf(" ips=%d itp=%d itp1= %d itp2=%d\n",ips,itp,itp1,itp2); */
-    if (itp1 == 3 || itp2 == 3) { /* its a HOPF Point  */
-        auto_nox_hopf_choice();
+    if (itp1 == 3 || itp2 == 3) {
+        /* its a HOPF Point  */
+        /* auto nox hopf choice */
+        static char *m[] = {"Periodic", "Extend", "New Point", "Two Param"};
+        static char key[] = "pent";
+        char ch2;
+        if (METHOD == DISCRETE) {
+            auto_2p_hopf();
+            return;
+        }
+
+        ch2 = (char)auto_x11_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10,
+                                        no_hint, Auto.hinttxt);
+        if (ch2 == 'p') {
+            auto_new_per();
+            return;
+        }
+        if (ch2 == 'e') {
+            auto_extend_ss();
+            return;
+        }
+        if (ch2 == 'n') {
+            auto_new_ss();
+            return;
+        }
+        if (ch2 == 't') {
+            auto_2p_hopf();
+            return;
+        }
+        auto_x11_redraw_menus();
+
         ggets_ping();
         return;
     }
