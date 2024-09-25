@@ -160,7 +160,6 @@ static double ani_get_current_time(void);
 static void update_ani_motion_stuff(int32 x, int32 y);
 static void ani_buttonx(XEvent event, int32 flag);
 static void ani_button(Window window);
-static void ani_create_mpeg(void);
 static void ani_resize(int32 x, int32 y);
 static void ani_newskip(void);
 static void ani_check_on_the_fly(void);
@@ -569,8 +568,29 @@ ani_button(Window window) {
             ani_grab_flag = 1;
         }
     }
-    if (window == vcr.wmpeg)
-        ani_create_mpeg();
+    if (window == vcr.wmpeg) {
+        /* ani create mpeg */
+        static char *n[] = {"PPM 0/1", "Basename", "AniGif(0/1)"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        mpeg.flag = 0;
+        snprintf(values[0], sizeof(values[0]), "%d", mpeg.flag);
+        strncpy(values[1], mpeg.root, sizeof(values[0]));
+        snprintf(values[2], sizeof(values[0]), "%d", mpeg.aviflag);
+        status = do_string_box(3, 3, 1, "Frame saving", n, values, 28);
+        if (status != 0) {
+            mpeg.flag = atoi(values[0]);
+            if (mpeg.flag > 0)
+                mpeg.flag = 1;
+            mpeg.aviflag = atoi(values[2]);
+            snprintf(mpeg.root, sizeof(mpeg.root), "%s", values[1]);
+            if (mpeg.aviflag == 1)
+                mpeg.flag = 0;
+        } else
+            mpeg.flag = 0;
+        if (mpeg.flag == 1)
+            ani_disk_warn();
+    }
     if (window == vcr.wgo)
 
     {
@@ -596,31 +616,6 @@ ani_button(Window window) {
     }
     if (window == vcr.kill)
         ani_destroy_vcr();
-    return;
-}
-
-void
-ani_create_mpeg(void) {
-    static char *n[] = {"PPM 0/1", "Basename", "AniGif(0/1)"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    mpeg.flag = 0;
-    snprintf(values[0], sizeof(values[0]), "%d", mpeg.flag);
-    strncpy(values[1], mpeg.root, sizeof(values[0]));
-    snprintf(values[2], sizeof(values[0]), "%d", mpeg.aviflag);
-    status = do_string_box(3, 3, 1, "Frame saving", n, values, 28);
-    if (status != 0) {
-        mpeg.flag = atoi(values[0]);
-        if (mpeg.flag > 0)
-            mpeg.flag = 1;
-        mpeg.aviflag = atoi(values[2]);
-        snprintf(mpeg.root, sizeof(mpeg.root), "%s", values[1]);
-        if (mpeg.aviflag == 1)
-            mpeg.flag = 0;
-    } else
-        mpeg.flag = 0;
-    if (mpeg.flag == 1)
-        ani_disk_warn();
     return;
 }
 
