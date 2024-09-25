@@ -59,42 +59,42 @@ static NullClines *ncperm;
 static int32 n_nstore = 0;
 static int32 ncline_cnt;
 
-static int32 interpolate(Point p1, Point p2, double z, double *x, double *y);
-static void do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
-static void quad_contour(Point p1, Point p2, Point p3, Point p4);
-static double fnull(double x, double y);
-static void stor_null(double x1, double y1, double x2, double y2);
-static void restor_null(double *v, int32 n, int32 d);
-static void dump_clines(FILE *fp, double *x, int32 nx, double *y, int32 ny);
+static int32 nullcline_interpolate(Point p1, Point p2, double z, double *x, double *y);
+static void nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2);
+static void nullcline_quad_contour(Point p1, Point p2, Point p3, Point p4);
+static double nullcline_fnull(double x, double y);
+static void nullcline_store(double x1, double y1, double x2, double y2);
+static void nullcline_restor(double *v, int32 n, int32 d);
+static void nullcline_dump(FILE *fp, double *x, int32 nx, double *y, int32 ny);
 static void save_the_nullclines(void);
-static void redraw_froz_cline(int32 flag);
-static void save_frozen_clines(char *fn);
-static void clear_froz_cline(void);
-static void start_ncline(void);
-static void do_range_clines(void);
+static void nullcline_redraw_froz(int32 flag);
+static void nullcline_save_frozen(char *fn);
+static void nullcline_clear_froz(void);
+static void nullcline_start(void);
+static void nullcline_do_range(void);
 
 void
 nullcline_froz_cline_stuff_com(int32 i) {
     int32 delay = 200;
     if (n_nstore == 0)
-        start_ncline();
+        nullcline_start();
     switch (i) {
     case 0:
         if (NULL_HERE == 0)
             return;
-        add_froz_cline(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
+        nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         break;
     case 1:
-        clear_froz_cline();
+        nullcline_clear_froz();
         break;
     case 3:
         ggets_new_int("Delay (msec)", &delay);
         if (delay <= 0)
             delay = 0;
-        redraw_froz_cline(delay);
+        nullcline_redraw_froz(delay);
         break;
     case 2:
-        do_range_clines();
+        nullcline_do_range();
         break;
     default:
         break;
@@ -125,14 +125,14 @@ silent_nullclines(void) {
         ggets_plintf("Cannot open nullcline file\n");
         return;
     }
-    dump_clines(fp, X_n, num_x_n, Y_n, num_y_n);
+    nullcline_dump(fp, X_n, num_x_n, Y_n, num_y_n);
     fclose(fp);
     NCSuppress = 0;
     return;
 }
 
 void
-do_range_clines(void) {
+nullcline_do_range(void) {
     static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
@@ -201,7 +201,7 @@ do_range_clines(void) {
             WHICH_CRV = null_iy;
             graphics_set_linestyle(col2);
             new_nullcline(course, xmin, y_bot, xmax, y_tp, Y_n, &num_y_n);
-            add_froz_cline(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
+            nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         }
         set_val(ncrange.rv, zold);
     }
@@ -209,7 +209,7 @@ do_range_clines(void) {
 }
 
 void
-start_ncline(void) {
+nullcline_start(void) {
     n_nstore = 1;
     ncperm = xmalloc(sizeof(*ncperm));
     ncperm->p = NULL;
@@ -226,7 +226,7 @@ start_ncline(void) {
 }
 
 void
-clear_froz_cline(void) {
+nullcline_clear_froz(void) {
     NullClines *z;
     NullClines *znew;
     z = ncperm;
@@ -300,7 +300,7 @@ get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
 }
 
 void
-save_frozen_clines(char *fn) {
+nullcline_save_frozen(char *fn) {
     NullClines *z;
     FILE *fp;
     char fnx[256];
@@ -321,7 +321,7 @@ save_frozen_clines(char *fn) {
             ggets_err_msg("Cant open file!");
             return;
         }
-        dump_clines(fp, z->xn, z->nmx, z->yn, z->nmy);
+        nullcline_dump(fp, z->xn, z->nmx, z->yn, z->nmy);
         fclose(fp);
         i++;
         z = z->n;
@@ -332,7 +332,7 @@ save_frozen_clines(char *fn) {
 }
 
 void
-redraw_froz_cline(int32 flag) {
+nullcline_redraw_froz(int32 flag) {
     NullClines *z;
     int32 col1 = XNullColor, col2 = YNullColor;
     /* if(PaperWhite){
@@ -353,9 +353,9 @@ redraw_froz_cline(int32 flag) {
                 main_clr_scrn();
             }
             graphics_set_linestyle(col1);
-            restor_null(z->xn, z->nmx, 1);
+            nullcline_restor(z->xn, z->nmx, 1);
             graphics_set_linestyle(col2);
-            restor_null(z->yn, z->nmy, 2);
+            nullcline_restor(z->yn, z->nmy, 2);
             if (flag > 0)
                 menudrive_flush_display();
         }
@@ -367,7 +367,7 @@ redraw_froz_cline(int32 flag) {
 }
 
 void
-add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
+nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                int32 n_iy) {
     NullClines *z;
     NullClines *znew;
@@ -400,7 +400,7 @@ add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
 }
 
 void
-get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
+nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                double dv, int32 n, int32 inx, int32 iny, double *mdf) {
     int32 i;
     int32 j;
@@ -526,7 +526,7 @@ nullcline_redraw_dfield(void) {
     if (!DFSuppress)
         graphics_set_linestyle(MyGraph->color[0]);
     integrate_get_ic(2, y);
-    get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
+    nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
     if (PltFmtFlag == SVGFMT) {
         DOING_DFIELD = 1;
         fprintf(svgfile, "<g>\n");
@@ -639,7 +639,7 @@ nullcline_direct_field_com(int32 c) {
         DF_IX = inx + 1;
         DF_IY = iny + 1;
         integrate_get_ic(2, y);
-        get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
+        nullcline_get_max_dfield(y, ydot, u0, v0, du, dv, grid, inx, iny, &mdf);
         if (PltFmtFlag == SVGFMT) {
             DOING_DFIELD = 1;
             fprintf(svgfile, "<g>\n");
@@ -748,9 +748,9 @@ save_the_nullclines(void) {
         ggets_err_msg("Cant open file!");
         return;
     }
-    dump_clines(fp, X_n, num_x_n, Y_n, num_y_n);
+    nullcline_dump(fp, X_n, num_x_n, Y_n, num_y_n);
     fclose(fp);
-    save_frozen_clines(filename);
+    nullcline_save_frozen(filename);
     return;
 }
 
@@ -766,16 +766,16 @@ restore_nullclines(void) {
     if (MyGraph->xv[0] == null_ix && MyGraph->yv[0] == null_iy &&
         MyGraph->ThreeDFlag == 0) {
         graphics_set_linestyle(col1);
-        restor_null(X_n, num_x_n, 1);
+        nullcline_restor(X_n, num_x_n, 1);
         graphics_set_linestyle(col2);
-        restor_null(Y_n, num_y_n, 2);
+        nullcline_restor(Y_n, num_y_n, 2);
     }
-    redraw_froz_cline(0);
+    nullcline_redraw_froz(0);
     return;
 }
 
 void
-dump_clines(/* gnuplot format */
+nullcline_dump(/* gnuplot format */
             FILE *fp, double *x, int32 nx, double *y, int32 ny) {
     int32 i;
     fprintf(fp, "# X-nullcline\n");
@@ -794,7 +794,7 @@ dump_clines(/* gnuplot format */
 }
 
 void
-restor_null(/* d=1 for x and 2 for y  */
+nullcline_restor(/* d=1 for x and 2 for y  */
             double *v, int32 n, int32 d) {
     int32 i;
     int32 i4;
@@ -916,13 +916,13 @@ new_nullcline(int32 course, double xlo, double ylo, double xhi, double yhi,
               double *stor, int32 *npts) {
     num_index = 0;
     saver = stor;
-    do_cline(course, xlo, ylo, xhi, yhi);
+    nullcline_do_cline(course, xlo, ylo, xhi, yhi);
     *npts = num_index;
     return;
 }
 
 void
-stor_null(double x1, double y1, double x2, double y2) {
+nullcline_store(double x1, double y1, double x2, double y2) {
     int32 i;
     if (num_index >= MAX_NULL)
         return;
@@ -936,7 +936,7 @@ stor_null(double x1, double y1, double x2, double y2) {
 }
 
 double
-fnull(double x, double y) {
+nullcline_fnull(double x, double y) {
     double y1[MAX_ODE], ydot[MAX_ODE];
     int32 i;
     for (i = 0; i < NODE; i++)
@@ -949,7 +949,7 @@ fnull(double x, double y) {
 }
 
 int32
-interpolate(Point p1, Point p2, double z, double *x, double *y) {
+nullcline_interpolate(Point p1, Point p2, double z, double *x, double *y) {
     double scale;
     if (p1.z == p2.z)
         return 0;
@@ -960,32 +960,32 @@ interpolate(Point p1, Point p2, double z, double *x, double *y) {
 }
 
 void
-quad_contour(Point p1, Point p2, Point p3, Point p4) {
+nullcline_quad_contour(Point p1, Point p2, Point p3, Point p4) {
     double x[4], y[4];
     int32 count = 0;
     if (p1.z*p2.z <= 0.0)
-        if (interpolate(p1, p2, 0.0, &x[count], &y[count]))
+        if (nullcline_interpolate(p1, p2, 0.0, &x[count], &y[count]))
             count++;
     if (p2.z*p3.z <= 0.0)
-        if (interpolate(p3, p2, 0.0, &x[count], &y[count]))
+        if (nullcline_interpolate(p3, p2, 0.0, &x[count], &y[count]))
             count++;
     if (p3.z*p4.z <= 0.0)
-        if (interpolate(p3, p4, 0.0, &x[count], &y[count]))
+        if (nullcline_interpolate(p3, p4, 0.0, &x[count], &y[count]))
             count++;
     if (p1.z*p4.z <= 0.0)
-        if (interpolate(p1, p4, 0.0, &x[count], &y[count]))
+        if (nullcline_interpolate(p1, p4, 0.0, &x[count], &y[count]))
             count++;
 
     if (count == 2) {
         if (!NCSuppress)
             graphics_line_abs(x[0], y[0], x[1], y[1]);
-        stor_null(x[0], y[0], x[1], y[1]);
+        nullcline_store(x[0], y[0], x[1], y[1]);
     }
     return;
 }
 
 void
-do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
+nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     double dx = (x2 - x1) / (double)ngrid;
     double dy = (y2 - y1) / (double)ngrid;
     double x;
@@ -999,17 +999,17 @@ do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     y = y2;
     for (i = 0; i < nx; i++) {
         x = x1 + i*dx;
-        NBot[i] = fnull(x, y);
+        NBot[i] = nullcline_fnull(x, y);
     }
 
     for (j = 1; j < ny; j++) {
         y = y2 - j*dy;
         NTop[0] = NBot[0];
-        NBot[0] = fnull(x1, y);
+        NBot[0] = nullcline_fnull(x1, y);
         for (i = 1; i < nx; i++) {
             x = x1 + i*dx;
             NTop[i] = NBot[i];
-            NBot[i] = fnull(x, y);
+            NBot[i] = nullcline_fnull(x, y);
             p[0].x = x - dx;
             p[0].y = y + dy;
             p[0].z = NTop[i - 1];
@@ -1032,7 +1032,7 @@ do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
                 triangle_contour(p[4],p[3],p[2]);
                 triangle_contour(p[0],p[4],p[3]); */
             /*   Uncomment for quad contour     */
-            quad_contour(p[0], p[1], p[2], p[3]);
+            nullcline_quad_contour(p[0], p[1], p[2], p[3]);
             /*     menudrive_flush_display(); */
         }
     }

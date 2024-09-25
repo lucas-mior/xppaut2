@@ -3307,7 +3307,7 @@ void many_pops_restore_off(void);
 void many_pops_restore_on(void);
 void many_pops_add_label(char *s, int32 x, int32 y, int32 size, int32 font);
 void many_pops_draw_label(Window window);
-void add_grob(double xs, double ys, double xe, double ye, double size,
+void many_pops_add_grob(double xs, double ys, double xe, double ye, double size,
               int32 type, int32 color);
 void many_pops_edit_object_com(int32 com);
 void many_pops_do_gr_objs_com(int32 com);
@@ -3735,9 +3735,9 @@ typedef struct NullClines {
 void nullcline_create_new_cline(void);
 void nullcline_froz_cline_stuff_com(int32 i);
 int32 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type);
-void add_froz_cline(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
+void nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                     int32 n_iy);
-void get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
+void nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0, double du,
                     double dv, int32 n, int32 inx, int32 iny, double *mdf);
 void nullcline_redraw_dfield(void);
 void nullcline_direct_field_com(int32 c);
