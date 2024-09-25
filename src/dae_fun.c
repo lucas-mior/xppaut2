@@ -35,7 +35,6 @@ static int32 nsvar = 0, naeqn = 0;
 /* this adds an algebraically defined variable  and a formula
    for the first guess */
 
-static int32 dae_fun_solve(void);
 static void get_dae_fun(double *y, double *f);
 
 int32
@@ -182,17 +181,9 @@ get_dae_fun(double *y, double *f) {
 void
 dae_fun_do_daes(void) {
     int32 ans;
-    ans = dae_fun_solve();
-    dae_work.status = ans;
-    if (ans == 1 || ans == 2)
-        return; /* accepts a no change error! */
-    DelayErr = 1;
-    return;
-}
 
-/* Newton solver for algebraic stuff */
-int32
-dae_fun_solve(void) {
+    /* dae fun solve */
+    /* Newton solver for algebraic stuff */
     int32 i, j, n;
     int32 info;
     double err, del, z, yold;
@@ -201,9 +192,9 @@ dae_fun_solve(void) {
     double *y, *ynew, *f, *fnew, *jac, *errvec;
     n = nsvar;
     if (nsvar == 0)
-        return 1;
+        ans = 1;
     if (dae_work.status < 0)
-        return dae_work.status; /* accepts no change error */
+        ans = dae_work.status; /* accepts no change error */
     y = dae_work.work;
     f = y + nsvar;
     fnew = f + nsvar;
@@ -226,7 +217,8 @@ dae_fun_solve(void) {
                 SETVAR(svar[i].index, y[i]);
                 svar[i].last = y[i];
             }
-            return 1;
+            ans = 1;
+            break;
         }
         /* compute jacobian */
         for (i = 0; i < n; i++) {
@@ -245,7 +237,8 @@ dae_fun_solve(void) {
         if (info != -1) {
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, ynew[i]);
-            return -1; /* singular jacobian */
+            ans = -1; /* singular jacobian */
+            break;
         }
         gear_sgesl(jac, n, n, dae_work.iwork, errvec, 0); /* get x=J^(-1) f */
         err = 0.0;
@@ -256,7 +249,8 @@ dae_fun_solve(void) {
         if (err > (n*BOUND)) {
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
-            return -3; /* getting too big */
+            ans = -3; /* getting too big */
+            break;
         }
         if (err < tol) /* not much change */
         {
@@ -264,15 +258,22 @@ dae_fun_solve(void) {
                 SETVAR(svar[i].index, y[i]);
                 svar[i].last = y[i];
             }
-            return 2;
+            ans = 2;
+            break;
         }
         iter++;
         if (iter > maxit) {
             for (i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
-            return -2; /* too many iterates */
+            ans = -2; /* too many iterates */
+            break;
         }
     }
+    dae_work.status = ans;
+    if (ans == 1 || ans == 2)
+        return; /* accepts a no change error! */
+    DelayErr = 1;
+    return;
 }
 
 /* interface shit -- different for Win95 */
