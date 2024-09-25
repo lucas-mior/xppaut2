@@ -5,6 +5,8 @@
 #include <string.h>
 #include "functions.h"
 
+static int32 setubv_default_wrapper(setubv_parallel_arglist data);
+
 void *
 setubv_make_aa_bb_cc(void *arg) {
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, ups_dim1,
@@ -260,7 +262,7 @@ setubv_make_aa_bb_cc(void *arg) {
     return NULL;
 }
 
-static int32
+int32
 setubv_default_wrapper(setubv_parallel_arglist data) {
     setubv_make_aa_bb_cc((void *)&data);
     return 0;
