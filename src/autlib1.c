@@ -39,6 +39,13 @@ GlobalParameters global_parameters = {NULL, NULL, NULL};
 FILE *fp8;
 int32 fp8_is_open = 0;
 
+static int32 swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp,
+                   FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa,
+                   double *rhs, double *rlcur, double *rlold, double *rldot,
+                   double *u, double *du, double *uold, double *udot,
+                   double *f, double *dfdu, double *dfdp, double *rds,
+                   double *thl, double *thu);
+
 int32
 init(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
      double **thu_pointer, int64 *iuz, double *vuz) {

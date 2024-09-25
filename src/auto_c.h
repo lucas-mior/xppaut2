@@ -263,11 +263,6 @@ int32 swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
             int64 m1sbloc, double *stud, double *stu, double *stla,
             double *stld, double *rlcur, double *rlold, double *rldot,
             double *u, double *udot);
-int32 swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp,
-            FUNI_TYPE((*funi)), int64 *m1aaloc, double *aa, double *rhs,
-            double *rlcur, double *rlold, double *rldot, double *u, double *du,
-            double *uold, double *udot, double *f, double *dfdu, double *dfdp,
-            double *rds, double *thl, double *thu);
 int32 sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
            double *thu);
 int32 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,

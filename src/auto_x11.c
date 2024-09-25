@@ -67,6 +67,7 @@ static void auto_x11_find_point(int32 ibr, int32 pt);
 static void auto_x11_kill(void);
 static void auto_x11_msg(int32 i, int32 v);
 static Window auto_x11_lil_button(Window root, int32 x, int32 y);
+static void auto_x11_update_view(double xlo, double xhi, double ylo, double yhi);
 
 void
 auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
@@ -709,7 +710,7 @@ auto_x11_fill_circle(int32 x, int32 y, int32 r) {
     return;
 }
 
-static void
+void
 auto_x11_update_view(double xlo, double xhi, double ylo, double yhi) {
     Auto.xmin = xlo;
     Auto.ymin = ylo;
