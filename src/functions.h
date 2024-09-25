@@ -2292,7 +2292,7 @@ int32 form_ode_compiler(char *bob, FILE *fptr);
 char *form_ode_get_first(char *string, char *src);
 char *do_fit_get_next(char *src);
 void form_ode_create_plot_list(void);
-void add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
+void form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
                  char args[20][13 + 1]);
 int32 extract_args(char *s1, int32 i0, int32 *ie, int32 *narg,
                    char args[20][13 + 1]);

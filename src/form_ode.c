@@ -84,7 +84,7 @@ FixInfo fixinfo[MAX_ODE];
 static void strncpy_trim(char *dest, char *source, int32 n);
 static void strcpy_trim(char *dest, char *source);
 static void advance_past_first_word(char **sptr);
-static void add_comment(char *s);
+static void form_ode_add_comment(char *s);
 static int32 is_comment(char *s);
 static int32 not_ker(char *s, int32 i);
 static int32 check_if_ic(char *big);
@@ -101,7 +101,7 @@ static int32 formula_or_number(char *expr, double *z);
 static void compile_em(void);
 static int32 find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name);
 static void break_up_list(char *rhs);
-static void add_only(char *s);
+static void form_ode_add_only(char *s);
 static int32 do_new_parser(FILE *fp, char *first, int32 nnn);
 static int32 if_end_include(char *old);
 static int32 if_include_file(char *old, char *nf);
@@ -1369,7 +1369,7 @@ do_new_parser(FILE *fp, char *first, int32 nnn) {
                     /* printf("v.lhs=%s v.rhs=%s v.type=%d
                      * v.args=%s\n",v.lhs,v.rhs,v.type,v.args);
                      */
-                    add_varinfo(v.type, v.lhs, v.rhs, v.nargs, v.args);
+                    form_ode_add_varinfo(v.type, v.lhs, v.rhs, v.nargs, v.args);
                     count_object(v.type);
                 }
             } /* end loop for the strings */
@@ -1433,7 +1433,7 @@ form_ode_create_plot_list(void) {
 }
 
 void
-add_only(char *s) {
+form_ode_add_only(char *s) {
     if (strlen(s) < 1)
         return;
     if (N_only >= MAXONLY)
@@ -1453,7 +1453,7 @@ break_up_list(char *rhs) {
         c = rhs[i];
         if (c == ' ' || c == ',') {
             s[j] = 0;
-            add_only(s);
+            form_ode_add_only(s);
             j = 0;
         } else {
             s[j] = c;
@@ -1462,7 +1462,7 @@ break_up_list(char *rhs) {
         i++;
     }
     s[j] = 0;
-    add_only(s);
+    form_ode_add_only(s);
     return;
 }
 
@@ -1941,7 +1941,7 @@ parse_a_string(char *s1, VarInfo *v) {
     char s1old[MAXEXPLEN];
     char ch;
     if (s1[0] == '"') {
-        add_comment(s1);
+        form_ode_add_comment(s1);
         return 0;
     }
     if (s1[0] == '@') {
@@ -2086,7 +2086,7 @@ init_varinfo(void) {
 }
 
 void
-add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
+form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
             char args[MAXARG][NAMLEN + 1]) {
     VarInfo *v;
     VarInfo *vnew;
@@ -2600,7 +2600,7 @@ form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
 }
 
 void
-add_comment(char *s) {
+form_ode_add_comment(char *s) {
     char text[256], action[256], ch;
     int32 n = (int32)strlen(s);
     int32 i, j1 = 0, ja = 0, noact = 1;
