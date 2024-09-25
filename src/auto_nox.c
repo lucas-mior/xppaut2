@@ -156,7 +156,6 @@ int32 NewPeriodFlag;
 static AutoAX Old1p;
 static AutoAX Old2p;
 
-static void auto_twopar_double(void);
 static void auto_torus(void);
 static void auto_period_double(void);
 static void auto_start_at_homoclinic(void);
@@ -1847,7 +1846,18 @@ auto_run(void) {
             return;
         }
         if (ch2 == 't') {
-            auto_twopar_double();
+            /* auto twopar double */
+            blrtn.torper = grabpt.torper;
+            Auto.irs = grabpt.lab;
+            Auto.itp = grabpt.itp;
+            Auto.nfpar = 2;
+            AutoTwoParam = PD2;
+            TypeOfCalc = PD2;
+            Auto.ips = 2;
+            Auto.ilp = 0;
+            Auto.isw = 2;
+            Auto.isp = 0;
+            auto_nox_do(OPEN_3, APPEND);
             return;
         }
         auto_x11_redraw_menus();
@@ -2301,21 +2311,6 @@ auto_2p_limit(int32 ips) {
     return;
 }
 
-void
-auto_twopar_double(void) {
-    blrtn.torper = grabpt.torper;
-    Auto.irs = grabpt.lab;
-    Auto.itp = grabpt.itp;
-    Auto.nfpar = 2;
-    AutoTwoParam = PD2;
-    TypeOfCalc = PD2;
-    Auto.ips = 2;
-    Auto.ilp = 0;
-    Auto.isw = 2;
-    Auto.isp = 0;
-    auto_nox_do(OPEN_3, APPEND);
-    return;
-}
 
 void
 auto_torus(void) {
