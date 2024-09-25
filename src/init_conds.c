@@ -112,7 +112,6 @@ static void put_edit_cursor(Window window, int32 pos);
 static void draw_editable(Window win, char *string, int32 off, int32 cursor,
                           int32 mc);
 static void set_default_params(void);
-static void set_default_ics(void);
 static void do_box_key(BoxList *b, XEvent event, int32 *used);
 static void box_list_scroll(BoxList *b, int32 i);
 static void do_box_button(BoxList *b, Window window);
@@ -1972,7 +1971,11 @@ do_box_button(BoxList *b, Window window) {
     if (window == b->def && b->type == PARAMBOX)
         set_default_params();
     if (window == b->def && b->type == ICBOX)
-        set_default_ics();
+
+    /* set default ics */
+    for (int32 i2 = 0; i2 < NODE + NMarkov; i2++)
+        last_ic[i2] = default_ic[i2];
+    init_conds_redraw_ics();
 
     /* now for the "scrolling"
 
@@ -2282,13 +2285,6 @@ init_conds_redo_stuff(void) {
     return;
 }
 
-void
-set_default_ics(void) {
-    int32 i;
-    for (i = 0; i < NODE + NMarkov; i++)
-        last_ic[i] = default_ic[i];
-    init_conds_redraw_ics();
-}
 
 void
 set_default_params(void) {
