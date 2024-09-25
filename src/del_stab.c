@@ -7,7 +7,6 @@
 #include "xpplim.h"
 #include "integers.h"
 
-#define Z(a, b) z[(a) + n*(b)]
 /* this code takes the determinant of a floatcomplex valued matrix
  */
 
@@ -179,11 +178,13 @@ void
 switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n) {
     COMPLEX zt;
     int32 j;
+#define Z(a, b) z[(a) + n*(b)]
     for (j = 0; j < n; j++) {
         zt = Z(i1, j);
         Z(i1, j) = Z(i2, j);
         Z(i2, j) = zt;
     }
+#undef Z
     return;
 }
 
@@ -206,6 +207,7 @@ cdeterm(COMPLEX *z, int32 n) {
     double q;
     double qmax;
     COMPLEX sign = rtoc(1.0, 0.0), mult, sum, zd;
+#define Z(a, b) z[(a) + n*(b)]
     for (j = 0; j < n; j++) {
         qmax = 0.0;
         for (i = j; i < n; i++) {
@@ -232,6 +234,7 @@ cdeterm(COMPLEX *z, int32 n) {
     for (j = 0; j < n; j++)
         sum = cmlt(sum, Z(j, j));
     return sum;
+#undef Z
 }
 
 void
