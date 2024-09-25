@@ -16,7 +16,6 @@
 int32 axes2_doing = 0;
 int32 axes2_doing_box = 0;
 
-static void axes2_re_title(void);
 static void axes2_get_title_str(char *s1, char *s2, char *s3);
 static void axes2_make_title(char *str);
 static double axes2_dbl_raise(double x, int32 y);
@@ -26,13 +25,6 @@ static void axes2_draw_unit_cube(void);
 static void axes2_draw_ytics(char *s1, double start, double incr, double end);
 static void axes2_draw_xtics(char *s2, double start, double incr, double end);
 
-void
-axes2_re_title(void) {
-    char bob[40];
-    axes2_make_title(bob);
-    many_pops_title_text(bob);
-    return;
-}
 
 void
 axes2_get_title_str(char *s1, char *s2, char *s3) {
@@ -147,7 +139,10 @@ axes2_do(void) {
     axes2_get_title_str(s1, s2, s3);
     graphics_set_linestyle(0);
     if (Xup) {
-        axes2_re_title();
+        /* axes2 re title */
+        char bob[40];
+        axes2_make_title(bob);
+        many_pops_title_text(bob);
         many_pops_small_gr();
     }
 
