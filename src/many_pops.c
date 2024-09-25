@@ -70,7 +70,6 @@ static void many_pops_kill_all(void);
 static void many_pops_destroy_a_pop(void);
 static void many_pops_set_restore(int32 flag);
 static void many_pops_add_pntarr(int32 type);
-static void many_pops_add_markers(void);
 static void many_pops_add_marker(void);
 static int32 many_pops_select_marker_type(int32 *type);
 static void many_pops_destroy_label(Window window);
@@ -698,49 +697,6 @@ many_pops_add_marker(void) {
     main_redraw_all();
 }
 
-void
-many_pops_add_markers(void) {
-    int32 i;
-    double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
-
-    {
-        /* many pops get markers info */
-        static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
-        char values[LENGTH(n)][MAX_LEN_SBOX];
-        int32 status;
-        snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
-        snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
-        snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
-        snprintf(values[3], sizeof(values[3]), "%d", markinfo.number);
-        snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
-        snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
-
-        status = do_string_box(6, 6, 1, "Add Markers", n, values, 25);
-        if (status == 0)
-            return;
-
-        markinfo.type = atoi(values[0]);
-        markinfo.size = atof(values[2]);
-        markinfo.color = atoi(values[1]);
-        markinfo.number = atoi(values[3]);
-        markinfo.start = atoi(values[4]);
-        markinfo.skip = atoi(values[5]);
-    }
-
-    for (i = 0; i < markinfo.number; i++) {
-        browse_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
-                            MyGraph->zv[0], markinfo.start + i*markinfo.skip);
-        if (MyGraph->ThreeDFlag == 0) {
-            xs = x;
-            ys = y;
-        } else {
-            graphics_threed_proj(x, y, z, &xs, &ys);
-        }
-        many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
-                           markinfo.color);
-    }
-    main_redraw_all();
-}
 
 void
 many_pops_add_pntarr(int32 type) {
@@ -930,8 +886,50 @@ many_pops_do_gr_objs_com(int32 com) {
         many_pops_add_marker();
         break;
     case 6:
-        many_pops_add_markers();
+    {
+        /* many pops add markers */
+        int32 i;
+        double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
+
+        {
+            /* many pops get markers info */
+            static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
+            char values[LENGTH(n)][MAX_LEN_SBOX];
+            int32 status;
+            snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
+            snprintf(values[1], sizeof(values[1]), "%d", markinfo.color);
+            snprintf(values[2], sizeof(values[2]), "%g", markinfo.size);
+            snprintf(values[3], sizeof(values[3]), "%d", markinfo.number);
+            snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
+            snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
+
+            status = do_string_box(6, 6, 1, "Add Markers", n, values, 25);
+            if (status == 0)
+                break;
+
+            markinfo.type = atoi(values[0]);
+            markinfo.size = atof(values[2]);
+            markinfo.color = atoi(values[1]);
+            markinfo.number = atoi(values[3]);
+            markinfo.start = atoi(values[4]);
+            markinfo.skip = atoi(values[5]);
+        }
+
+        for (i = 0; i < markinfo.number; i++) {
+            browse_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
+                                MyGraph->zv[0], markinfo.start + i*markinfo.skip);
+            if (MyGraph->ThreeDFlag == 0) {
+                xs = x;
+                ys = y;
+            } else {
+                graphics_threed_proj(x, y, z, &xs, &ys);
+            }
+            many_pops_add_grob(xs, ys, xe, ye, markinfo.size, markinfo.type,
+                               markinfo.color);
+        }
+        main_redraw_all();
         break;
+    }
     case 5:
         many_pops_destroy_label(draw_win);
         many_pops_destroy_grob(draw_win);
