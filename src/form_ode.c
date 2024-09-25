@@ -1830,7 +1830,6 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
     }
 
     form_ode_free_varinfo();
-    /*  print_count_of_object(); */
     return 1;
 }
 
