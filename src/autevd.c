@@ -169,15 +169,3 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
                 my_ev.evr, my_ev.evi);
     return;
 }
-
-int32
-autevd_eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work,
-              int32 *ier) {
-    double ev[400];
-    gear_eigen(*n, a, ev, work, ier);
-    for (int32 i = 0; i < *n; i++) {
-        (ecv + i)->r = ev[2*i];
-        (ecv + i)->i = ev[2*i + 1];
-    }
-    return 0;
-}

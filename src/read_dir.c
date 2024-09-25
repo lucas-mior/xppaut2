@@ -65,6 +65,7 @@ static char	CurrentSelectionName[MAXPATHLEN];
 char cur_dir[MAXPATHLEN];
 
 static int32 star(char *string, char *pattern);
+static int32 cmpstringp(const void *p1, const void *p2);
 
 FileInfo my_ff;
 

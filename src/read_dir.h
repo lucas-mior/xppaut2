@@ -13,7 +13,6 @@ extern char cur_dir[MAXPATHLEN];
 extern FileInfo my_ff;
 
 void free_finfo(FileInfo *ff);
-int32 cmpstringp(const void *p1, const void *p2);
 int32 get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2);
 int32 get_fileinfo(char *wild, char *direct, FileInfo *ff);
 int32 fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
