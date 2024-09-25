@@ -3795,7 +3795,7 @@ extern int32 hist_ind;
 
 void numerics_chk_volterra(void);
 void numerics_quick_num(int32 com);
-void get_num_par(int32 ch);
+void numerics_get_num_par(int32 ch);
 void numerics_chk_delay(void);
 void numerics_set_delay(void);
 void numerics_get_pmap_pars_com(int32 l);

@@ -38,7 +38,7 @@ int32 cv_bandlower = 1;
 /*   I will need access to storage  */
 
 static void numerics_get_method(void);
-static void ruelle(void);
+static void numerics_ruelle(void);
 static void numerics_check_pos(int32 *j);
 
 void
@@ -59,7 +59,7 @@ void
 numerics_quick_num(int32 com) {
     char key[] = "tsrdnviobec";
     if (com >= 0 && com < 11)
-        get_num_par(key[com]);
+        numerics_get_num_par(key[com]);
     return;
 }
 
@@ -72,7 +72,7 @@ numerics_set_total(double total) {
 }
 
 void
-get_num_par(int32 ch)
+numerics_get_num_par(int32 ch)
 
 {
     double temp;
@@ -228,7 +228,7 @@ get_num_par(int32 ch)
         break;
     case 'u':
         /* ruelle */
-        ruelle();
+        numerics_ruelle();
         break;
     case 'k':
         /*lookup table */
@@ -272,7 +272,7 @@ numerics_set_delay(void) {
 }
 
 void
-ruelle(void) {
+numerics_ruelle(void) {
     ggets_new_int("x-axis shift ", &(MyGraph->xshft));
     ggets_new_int("y-axis shift ", &(MyGraph->yshft));
     ggets_new_int("z-axis shift", &(MyGraph->zshft));

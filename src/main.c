@@ -1030,7 +1030,7 @@ main_commander(int32 ch) {
         break;
     }
     case NUM_MENU: {
-        get_num_par(ch);
+        numerics_get_num_par(ch);
         break;
     }
     case FILE_MENU: {
