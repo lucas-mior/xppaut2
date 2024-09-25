@@ -324,7 +324,6 @@ kinescope_auto_play(void) {
             default:
                 break;
             }
-
         } /* done checking  now increment pix   */
 
         browse_wait_a_sec(ks_speed);
