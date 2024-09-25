@@ -593,9 +593,7 @@ ani_button(Window window) {
             }
         }
     }
-    if (window == vcr.wgo)
-
-    {
+    if (window == vcr.wgo) {
         ani_flip();
     }
     if (window == vcr.wskip)
