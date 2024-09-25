@@ -220,7 +220,7 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
 
     case KeyPress:
         ch = (char)ggets_get_key_press(&event);
-        edit_window(window, pos, s, col, &done, ch);
+        ggets_edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
                 status = DONE_ALL;

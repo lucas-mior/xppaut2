@@ -137,7 +137,7 @@ calc_q_calc(void) {
 
         if (event.type == LeaveNotify && event.xcrossing.window == my_calc.quit)
             XSetWindowBorderWidth(display, event.xcrossing.window, 1);
-        edit_command_string(event, name, value, &done, &pos, &col);
+        ggets_edit_command_string(event, name, value, &done, &pos, &col);
         if (done == 1) {
             flag = calc_do_calc(value, &z);
             if (flag != -1)

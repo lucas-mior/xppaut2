@@ -514,7 +514,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
 
     case KeyPress:
         ch = (char)ggets_get_key_press(&event);
-        edit_window(window, pos, s, col, &done, ch);
+        ggets_edit_window(window, pos, s, col, &done, ch);
         if (done != 0) {
             if (done == DONE_ALL) {
                 status = DONE_ALL;

@@ -140,7 +140,7 @@ dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col) {
 
     case KeyPress:
         ch = ggets_get_key_press(&event);
-        edit_window(d->input, pos, d->input_s, col, &done, ch);
+        ggets_edit_window(d->input, pos, d->input_s, col, &done, ch);
         if (done == -1)
             status = FORGET_ALL;
         if (done == 1 || done == 2)

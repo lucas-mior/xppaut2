@@ -895,9 +895,9 @@ void ggets_display_command(char *name, char *value, int32 pos);
 void ggets_put_cursor_at(Window window, int32 col0, int32 pos);
 void ggets_mov_mem(char *s1, char *s2, int32 len);
 void ggets_mem_mov(char *s1, char *s2, int32 len);
-void edit_window(Window window, int32 *pos, char *value, int32 *col,
+void ggets_edit_window(Window window, int32 *pos, char *value, int32 *col,
                  int32 *done, int32 ch);
-void edit_command_string(XEvent event, char *name, char *value, int32 *done,
+void ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done,
                          int32 *pos, int32 *col);
 int32 ggets_new_string(char *name, char *value);
 

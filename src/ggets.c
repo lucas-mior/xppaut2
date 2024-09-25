@@ -24,8 +24,8 @@ int32 CURS_X;
 int32 CURS_Y;
 int32 xor_flag;
 
-static void put_string_at(Window window, int32 col, char *s, int32 off);
-static void clr_line_at(Window window, int32 col0, int32 pos, int32 n);
+static void ggets_put_string_at(Window window, int32 col, char *s, int32 off);
+static void ggets_clr_line_at(Window window, int32 col0, int32 pos, int32 n);
 
 void
 ggets_ping(void) {
@@ -365,7 +365,7 @@ ggets_display_command(char *name, char *value, int32 pos) {
 }
 
 void
-clr_line_at(Window window, int32 col0, int32 pos, int32 n) {
+ggets_clr_line_at(Window window, int32 col0, int32 pos, int32 n) {
     XClearArea(display, window, col0 + pos*DCURX, 0, (uint)((n + 2)*DCURX),
                2*(uint)DCURY, False);
     return;
@@ -383,7 +383,7 @@ ggets_put_cursor_at(Window window, int32 col0, int32 pos) {
 }
 
 void
-put_string_at(Window window, int32 col, char *s, int32 off) {
+ggets_put_string_at(Window window, int32 col, char *s, int32 off) {
     int32 l = (int32)strlen(s) - off;
 
     XDrawString(display, window, gc, col, CURY_OFF, s + off, l);
@@ -407,7 +407,7 @@ ggets_mem_mov(char *s1, char *s2, int32 len) {
 }
 
 void
-edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
+ggets_edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
             int32 ch) {
     int32 col0 = *col - *pos*DCURX;
 
@@ -455,7 +455,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
         *pos=0;
         *col=col0;
         value[0]=0;
-        clr_line_at(w,col0,0,80);
+        ggets_clr_line_at(w,col0,0,80);
         break; */
     case KEY_DEL:
         if (*pos > 0) {
@@ -483,8 +483,8 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
         break;
     } /* end key cases */
     /* Now redraw everything !!  */
-    clr_line_at(window, col0, 0, (int32)strlen(value));
-    put_string_at(window, col0, value, 0);
+    ggets_clr_line_at(window, col0, 0, (int32)strlen(value));
+    ggets_put_string_at(window, col0, value, 0);
     ggets_put_cursor_at(window, col0, *pos);
 
     XFlush(display);
@@ -492,7 +492,7 @@ edit_window(Window window, int32 *pos, char *value, int32 *col, int32 *done2,
 }
 
 void
-edit_command_string(XEvent event, char *name, char *value, int32 *done2,
+ggets_edit_command_string(XEvent event, char *name, char *value, int32 *done2,
                     int32 *pos, int32 *col) {
     char ch;
     switch (event.type) {
@@ -510,7 +510,7 @@ edit_command_string(XEvent event, char *name, char *value, int32 *done2,
     case KeyPress:
         ch = (char)ggets_get_key_press(&event);
         /* printf("ch= %ld \n",ch); */
-        edit_window(command_pop, pos, value, col, done2, ch);
+        ggets_edit_window(command_pop, pos, value, col, done2, ch);
         break;
     default:
         break;
@@ -531,7 +531,7 @@ ggets_new_string(char *name, char *value) {
     ggets_display_command(name, value, pos);
     while (done2 == 0) {
         XNextEvent(display, &event);
-        edit_command_string(event, name, value, &done2, &pos, &col);
+        ggets_edit_command_string(event, name, value, &done2, &pos, &col);
     }
     ggets_clr_command();
     if (done2 == 1 || done2 == 2)
