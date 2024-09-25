@@ -51,7 +51,6 @@ static char *coup_string[MAX_ODE];
 
 static void adj2_h_back(void);
 static void adj2_back(void);
-static void adj2_adjoint_parameters(void);
 static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
                          int32 silent2);
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
@@ -237,7 +236,9 @@ adj2_make_adj_com(int32 com) {
         adj2_h_back();
         break;
     case 'p':
-        adj2_adjoint_parameters();
+        /* adj2 adjoint parameters */
+        ggets_new_int("Maximum iterates :", &ADJ_MAXIT);
+        ggets_new_float("Adjoint error tolerance :", &ADJ_ERR);
         break;
     case 'r':
         adj_range = true;
@@ -245,13 +246,6 @@ adj2_make_adj_com(int32 com) {
     default:
         break;
     }
-    return;
-}
-
-void
-adj2_adjoint_parameters(void) {
-    ggets_new_int("Maximum iterates :", &ADJ_MAXIT);
-    ggets_new_float("Adjoint error tolerance :", &ADJ_ERR);
     return;
 }
 
