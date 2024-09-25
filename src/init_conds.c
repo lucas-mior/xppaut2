@@ -129,7 +129,6 @@ static void get_nrow_from_hgt(int32 h, int32 *n, int32 *w);
 static void make_par_slider(Window base, int32 x, int32 y, int32 width,
                             int32 index);
 static void draw_slider(Window window, int32 x, int32 hgt, int32 l);
-static void destroy_selector(void);
 static int32 selector_key(XEvent event);
 static void stringintersect(char *target, char *sother);
 static void create_file_selector(char *title, char *file, char *wild);
@@ -1046,15 +1045,6 @@ selector_key(XEvent event) {
     }
 }
 
-void
-destroy_selector(void) {
-    filesel.here = 0;
-    browse_wait_a_sec(ClickTime);
-    XDestroySubwindows(display, filesel.base);
-    XDestroyWindow(display, filesel.base);
-    free_finfo(&my_ff);
-    return;
-}
 
 int32
 init_conds_file_selector(char *title, char *file, char *wild) {
@@ -1103,7 +1093,14 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             break;
         }
     }
-    destroy_selector();
+
+    /* destroy selector */
+    filesel.here = 0;
+    browse_wait_a_sec(ClickTime);
+    XDestroySubwindows(display, filesel.base);
+    XDestroyWindow(display, filesel.base);
+    free_finfo(&my_ff);
+
     XFlush(display); /*Need to do this otherwise the file dialog hangs around*/
     if (selected == 0)
         return 0;
