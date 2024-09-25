@@ -973,8 +973,6 @@ many_pops_do_windows_com(int32 c) {
         int32 i;
         if (draw_win == graph[0].window) {
             pop_list_respond_box("Okay", "Can't destroy big window!");
-            /*pop_list_respond_box(main_win,0,0,"Okay","Can't destroy big
-             * window!");*/
             break;
         }
         for (i = 1; i < MAXPOP; i++) {
