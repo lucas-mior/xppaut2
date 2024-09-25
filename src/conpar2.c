@@ -234,9 +234,10 @@ conpar2_process(void *arg) {
 }
 
 static int32
-conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a,
-                       int64 *ncb, double *b, int64 *nbc, int64 *nrc, double *c,
-                       double *d, int64 *irf, int64 *icf) {
+conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca,
+                        double *a, int64 *ncb, double *b, int64 *nbc,
+                        int64 *nrc, double *c, double *d, int64 *irf,
+                        int64 *icf) {
     conpar_parallel_arglist data;
     data.nov = nov;
     data.nra = nra;
@@ -258,8 +259,8 @@ conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a
 
 int32
 conpar2(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
-       double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
-       int64 *icf) {
+        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
+        int64 *icf) {
     /* Aliases for the dimensions of the arrays */
     int64 icf_dim1;
     int64 irf_dim1;
@@ -288,7 +289,7 @@ conpar2(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     switch (global_conpar_type) {
     default:
         conpar2_default_wrapper(nov, na, nra, nca, a, ncb, b, nbc, nrc, c, d,
-                               irf, icf);
+                                irf, icf);
         break;
     }
     return 0;

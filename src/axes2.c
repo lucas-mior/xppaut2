@@ -110,7 +110,8 @@ axes2_make_tics(double tmin, double tmax) {
         tics = 0.5;
     else
         tics = 1.0;
-    tic = tics*axes2_dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
+    tic = tics *
+          axes2_dbl_raise(10.0, (l10 >= 0.0) ? (int32)l10 : ((int32)l10 - 1));
     return tic;
 }
 
@@ -310,8 +311,10 @@ axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
     axes2_doing_box = 0;
     graphics_line(xright, ytop, xleft, ytop);
     graphics_line(xleft, ytop, xleft, ybot);
-    axes2_draw_ytics(sy, ytic*floor(y_min / ytic), ytic, ytic*ceil(y_max / ytic));
-    axes2_draw_xtics(sx, xtic*floor(x_min / xtic), xtic, xtic*ceil(x_max / xtic));
+    axes2_draw_ytics(sy, ytic*floor(y_min / ytic), ytic,
+                     ytic*ceil(y_max / ytic));
+    axes2_draw_xtics(sx, xtic*floor(x_min / xtic), xtic,
+                     xtic*ceil(x_max / xtic));
     TextJustify = 0;
     graphics_set_linestyle(0);
 

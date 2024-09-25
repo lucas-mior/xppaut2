@@ -76,7 +76,8 @@ auto_x11_line(int32 a, int32 b, int32 c, int32 d) {
 
 void
 auto_x11_line_trans(double a, double b, double c, double d) {
-    auto_x11_line(auto_nox_ix_val(a), auto_nox_iy_val(b), auto_nox_ix_val(c), auto_nox_iy_val(d));
+    auto_x11_line(auto_nox_ix_val(a), auto_nox_iy_val(b), auto_nox_ix_val(c),
+                  auto_nox_iy_val(d));
     return;
 }
 
@@ -130,7 +131,7 @@ auto_x11_query_special(char *title, char *nsymb) {
     static char *m[] = {"BP", "EP", "HB", "LP", "MX", "PD", "TR", "UZ"};
     static char key[] = "behlmptu";
     int32 ch = (char)auto_x11_pop_up_list(title, m, key, 8, 11, 1, 10, 10,
-                                      aspecial_hint, Auto.hinttxt);
+                                          aspecial_hint, Auto.hinttxt);
     if (ch == 'b') {
         sprintf(nsymb, "BP");
     } else if (ch == 'e') {
@@ -658,7 +659,7 @@ auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag) {
 
 int32
 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
-                 int32 def, int32 x, int32 y, char **hints, char *httxt) {
+                     int32 def, int32 x, int32 y, char **hints, char *httxt) {
     Window temp = auto_win.base;
     int32 value = pop_up_list(&temp, title, list, key, n, max, def, x, y, hints,
                               auto_win.hint, httxt);

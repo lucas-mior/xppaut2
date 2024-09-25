@@ -765,7 +765,8 @@ ani_newskip(void) {
     int32 status;
     XGetInputFocus(display, &window, &rev);
     snprintf(bob, sizeof(bob), "%d", vcr.inc);
-    status = dialog_box_get("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
+    status =
+        dialog_box_get("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
     if (status != 0) {
         vcr.inc = atoi(bob);
         if (vcr.inc <= 0)

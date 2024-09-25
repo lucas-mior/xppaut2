@@ -71,7 +71,7 @@ choice_box_do_checks(ChoiceBox p) {
 
 void
 choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check,
-            int32 type) {
+                int32 type) {
     do_choice_box(RootWindow(display, screen), wname, n, mcc, names, check,
                   type);
     return;

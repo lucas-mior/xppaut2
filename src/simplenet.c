@@ -1225,9 +1225,9 @@ evaluate_network(int32 ind) {
         break;
 
     case IMPORT:
-        extra_get_import_values(n, values, my_net[ind].soname, my_net[ind].sofun,
-                          my_net[ind].root, my_net[ind].wgtlist, variables,
-                          &constants[6]);
+        extra_get_import_values(n, values, my_net[ind].soname,
+                                my_net[ind].sofun, my_net[ind].root,
+                                my_net[ind].wgtlist, variables, &constants[6]);
         break;
     case DEL_MUL:
         tau = my_net[ind].taud;

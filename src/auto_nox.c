@@ -518,9 +518,9 @@ auto_nox_do(int32 iold, int32 isave) {
                 */
 
     auto_nox_open(iold); /* this copies the relevant files .s  to fort.3 */
-    go_go_auto();    /* this complets the initialization and calls the
-                         main routines
-                     */
+    go_go_auto();        /* this complets the initialization and calls the
+                             main routines
+                         */
     /*     run_aut(Auto.nfpar,itp); THIS WILL CHANGE TO gogoauto stuff */
     auto_close(isave); /* this copies fort.8 to the .s file and other
                           irrelevant stuff
@@ -544,10 +544,10 @@ auto_nox_set_auto(void) /* Caution - need to include NICP here */
 {
     NAutoUzr = Auto.nper;
     autevd_init_auto(NODE, Auto.nfpar, Auto.ips, Auto.irs, Auto.ilp, Auto.ntst,
-              Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds, Auto.dsmin,
-              Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0, Auto.a1, Auto.icp1,
-              Auto.icp2, Auto.icp3, Auto.icp4, Auto.icp5, Auto.epsl, Auto.epsu,
-              Auto.epss, Auto.ncol);
+                     Auto.isp, Auto.isw, Auto.nmx, Auto.npr, Auto.ds,
+                     Auto.dsmin, Auto.dsmax, Auto.rl0, Auto.rl1, Auto.a0,
+                     Auto.a1, Auto.icp1, Auto.icp2, Auto.icp3, Auto.icp4,
+                     Auto.icp5, Auto.epsl, Auto.epsu, Auto.epss, Auto.ncol);
     return;
 }
 
@@ -588,7 +588,7 @@ auto_per_par(void) {
     int32 status, i, in;
     char ch;
     ch = (char)auto_x11_pop_up_list("Number", m, key, 10, 12, Auto.nper, 10, 10,
-                                no_hint, Auto.hinttxt);
+                                    no_hint, Auto.hinttxt);
     for (i = 0; i < 10; i++)
         if (ch == key[i])
             Auto.nper = i;
@@ -726,8 +726,8 @@ auto_plot_par(void) {
     int32 ii1, ii2, ji1, ji2;
     int32 i1 = Auto.var + 1;
     char n1[15];
-    ch = (char)auto_x11_pop_up_list("Plot Type", m, key, 14, 10, Auto.plot, 10, 50,
-                                aaxes_hint, Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("Plot Type", m, key, 14, 10, Auto.plot, 10,
+                                    50, aaxes_hint, Auto.hinttxt);
     if (ch == ESC)
         return;
     for (i = 0; i < 5; i++)
@@ -1007,9 +1007,9 @@ auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2) {
 }
 
 void
-auto_add_ps_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
-             double a, int32 type, int32 flag, int32 icp1, int32 icp2,
-             int32 flag2) {
+auto_add_ps_point(double *par, double per, double *uhigh, double *ulow,
+                  double *ubar, double a, int32 type, int32 flag, int32 icp1,
+                  int32 icp2, int32 flag2) {
     double x, y1, y2, par1, par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
@@ -1138,9 +1138,9 @@ auto_check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
 }
 /* main plotting code  */
 void
-auto_add_point(double *par, double per, double *uhigh, double *ulow, double *ubar,
-          double a, int32 type, int32 flg, int32 lab, int32 icp1, int32 icp2,
-          int32 flag2, double *evr, double *evi) {
+auto_add_point(double *par, double per, double *uhigh, double *ulow,
+               double *ubar, double a, int32 type, int32 flg, int32 lab,
+               int32 icp1, int32 icp2, int32 flag2, double *evr, double *evi) {
     double x, y1, y2, par1, par2 = 0;
     int32 ix, iy1, iy2, type1 = type;
     char bob[5];
@@ -1317,8 +1317,8 @@ auto_nox_info_header(int32 icp1, int32 icp2) {
 }
 
 void
-auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par, double norm,
-         double u0, double per, int32 icp1, int32 icp2) {
+auto_nox_new_info(int32 ibr, int32 pt, char *ty, int32 lab, double *par,
+                  double norm, double u0, double per, int32 icp1, int32 icp2) {
     char bob[80];
     double p1, p2 = 0.0;
     auto_x11_clear_info();
@@ -1367,8 +1367,8 @@ auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     if (dodraw == 1) {
         auto_x11_xor_cross(*ix, *iy);
         auto_nox_plot_stab(evr, evi, NODE);
-        auto_nox_new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per, icp1,
-                 icp2);
+        auto_nox_new_info(ibr, pt, symb, lab, par, norm, d->u0[Auto.var], per,
+                          icp1, icp2);
     }
     if (lab > 0 && load_all_labeled_orbits > 0)
         auto_nox_load_orbitx(ibr, 1, lab, per);
@@ -1688,8 +1688,8 @@ auto_start_choice(void) {
         auto_new_discrete();
         return;
     }
-    ch = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10, arun_hint,
-                                Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
+                                    arun_hint, Auto.hinttxt);
     if (ch == 's') {
         auto_new_ss();
         return;
@@ -1728,7 +1728,7 @@ auto_nox_torus_choice(void) {
     static char key[] = "tfe";
     char ch;
     ch = (char)auto_x11_pop_up_list("Torus", m, key, 3, 10, 0, 10, 10, no_hint,
-                                Auto.hinttxt);
+                                    Auto.hinttxt);
     if (ch == 'e') {
         auto_new_per();
         return;
@@ -1749,8 +1749,8 @@ auto_nox_per_doub_choice(void) {
     static char *m[] = {"Doubling", "Two Param", "Fixed period", "Extend"};
     static char key[] = "dtfe";
     char ch;
-    ch = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10, no_hint,
-                                Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("Per. Doub.", m, key, 4, 10, 0, 10, 10,
+                                    no_hint, Auto.hinttxt);
     if (ch == 'd') {
         auto_period_double();
         return;
@@ -1775,8 +1775,8 @@ auto_nox_periodic_choice(void) {
     static char *m[] = {"Extend", "Fixed Period"};
     static char key[] = "ef";
     char ch;
-    ch = (char)auto_x11_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10, no_hint,
-                                Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("Periodic ", m, key, 2, 14, 0, 10, 10,
+                                    no_hint, Auto.hinttxt);
     if (ch == 'e') {
         auto_new_per();
         return;
@@ -1799,8 +1799,8 @@ auto_nox_hopf_choice(void) {
         return;
     }
 
-    ch = (char)auto_x11_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10, no_hint,
-                                Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("Hopf Pt", m, key, 4, 10, 0, 10, 10,
+                                    no_hint, Auto.hinttxt);
     if (ch == 'p') {
         auto_new_per();
         return;
@@ -1916,8 +1916,8 @@ auto_branch_choice(int32 ibr, int32 ips) {
     static char key[] = "sent";
     char ch;
     int32 ipsuse;
-    ch = (char)auto_x11_pop_up_list("Branch Pt", m, key, 4, 10, 0, 10, 10, no_hint,
-                                Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("Branch Pt", m, key, 4, 10, 0, 10, 10,
+                                    no_hint, Auto.hinttxt);
 
     if (ch == 's') {
         if (ibr < 0 && ips == 2)
@@ -2218,7 +2218,8 @@ auto_start_at_homoclinic(void) {
     }
     if (HomoFlag == 2)
         x_auto.iequib = -2;
-    flag = auto_nox_get_homo_info(&x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
+    flag =
+        auto_nox_get_homo_info(&x_auto.nunstab, &x_auto.nstab, homo_l, homo_r);
     if (flag) {
         /* TODO: for some reason, the second argument was `close`, which maps
          * to the libc function with this name. That does not make any sense
@@ -2661,8 +2662,9 @@ auto_nox_load_graph(FILE *fp) {
 }
 
 void
-auto_nox_save_q_file(/* I am keeping the name q_file even though they are s_files */
-            FILE *fp) {
+auto_nox_save_q_file(/* I am keeping the name q_file even though they are
+                        s_files */
+                     FILE *fp) {
     char string[500];
     FILE *fq;
     sprintf(string, "%s.s", this_auto_file);
@@ -2792,8 +2794,8 @@ auto_file(void) {
                         "sElect 2par pt", "draw laBled",   "lOad branch"};
     static char key[] = "islpvrcwadtnebo";
     char ch;
-    ch = (char)auto_x11_pop_up_list("File", m, key, 15, 15, 0, 10, 10, afile_hint,
-                                Auto.hinttxt);
+    ch = (char)auto_x11_pop_up_list("File", m, key, 15, 15, 0, 10, 10,
+                                    afile_hint, Auto.hinttxt);
     if (ch == 'i') {
         auto_nox_load_orbit();
         return;

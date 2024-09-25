@@ -969,19 +969,19 @@ clrscr(void) {
  * global ...
  * special name=conv(....)
  * special name=sparse(...)
- * 
+ *
  * u' = expression    \
  *                     ----   Differential equations (replaces o v)
  * du/dt = expression /
- * 
+ *
  * u(t+1) = expression >--- Difference equation   (replace o v)
- * 
+ *
  * u(t) = expression with int32{} or int32[] <-- volterra eq (replaces i v)
- * 
+ *
  * f(x,y,...) = expression >----   function (replaces u)
- * 
+ *
  * u = expression>---  fixed  (replaces f o)
- * 
+ *
  * u(0) = value >---  initial data (replaces v, init is also OK ) */
 
 /*

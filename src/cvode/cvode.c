@@ -289,12 +289,12 @@
 static bool cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord);
 static void cv_free_vectors(CVodeMem cv_mem, int32 maxord);
 
-static bool cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
-                     Vector ycur, Vector ewtvec, int64 neq);
+static bool cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol,
+                       int32 tol_type, Vector ycur, Vector ewtvec, int64 neq);
 static bool cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol,
-                       Vector ycur, Vector ewtvec, int64 neq);
+                          Vector ycur, Vector ewtvec, int64 neq);
 static bool cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol,
-                       Vector ycur, Vector ewtvec, int64 neq);
+                          Vector ycur, Vector ewtvec, int64 neq);
 
 static bool cv_hin(CVodeMem cv_mem, double tout);
 static double cv_upper_bound_h0(CVodeMem cv_mem, double tdist);
@@ -321,7 +321,7 @@ static void cv_adams_finish(CVodeMem cv_mem, double m[], double M[],
 static double cv_alt_sum(int32 iend, double a[], int32 k);
 static void cv_set_bdf(CVodeMem cv_mem);
 static void cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0,
-                       double alpha0_hat, double xi_inv, double xistar_inv);
+                          double alpha0_hat, double xi_inv, double xistar_inv);
 
 static int32 cv_nls(CVodeMem cv_mem, int32 nflag);
 static int32 cv_nls_functional(CVodeMem cv_mem);
@@ -329,12 +329,12 @@ static int32 cv_nls_newton(CVodeMem cv_mem, int32 nflag);
 static int32 cv_newton_iteration(CVodeMem cv_mem);
 
 static int32 cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
-                           int32 *ncfPtr);
+                              int32 *ncfPtr);
 
 static void cv_restore(CVodeMem cv_mem, double saved_t);
 
 static bool cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
-                          double saved_t, int32 *nefPtr, double *dsmPtr);
+                             double saved_t, int32 *nefPtr, double *dsmPtr);
 
 static void cv_complete_step(CVodeMem cv_mem);
 
@@ -343,7 +343,7 @@ static void cv_set_eta(CVodeMem cv_mem);
 static double cv_compute_etaqm1(CVodeMem cv_mem);
 static double cv_compute_etaqp1(CVodeMem cv_mem);
 static void cv_choose_eta(CVodeMem cv_mem, double etaqm1, double etaq,
-                        double etaqp1);
+                          double etaqp1);
 
 static int32 cv_handle_failure(CVodeMem cv_mem, int32 kflag);
 
@@ -1114,7 +1114,7 @@ cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
 
 static bool
 cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
-         Vector ycur, Vector ewtvec, int64 neq) {
+           Vector ycur, Vector ewtvec, int64 neq) {
     switch (tol_type) {
     case SS:
         return cv_ewt_set_ss(cv_mem, rtol, (double *)atol, ycur, ewtvec, neq);
@@ -1138,7 +1138,7 @@ cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 
 static bool
 cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
-           Vector ewtvec, int64 neq) {
+              Vector ewtvec, int64 neq) {
     double rtoli;
     double atoli;
     (void)neq;
@@ -1166,7 +1166,7 @@ cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
 
 static bool
 cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
-           Vector ewtvec, int64 neq) {
+              Vector ewtvec, int64 neq) {
     double rtoli;
     (void)neq;
 
@@ -1839,7 +1839,7 @@ cv_set_bdf(CVodeMem cv_mem) {
 
 static void
 cv_set_tq_bdf(CVodeMem cv_mem, double hsum, double alpha0, double alpha0_hat,
-           double xi_inv, double xistar_inv) {
+              double xi_inv, double xistar_inv) {
     double A1, A2, A3, A4, A5, A6;
     double C, CPrime, CPrimePrime;
 
@@ -2123,7 +2123,8 @@ cv_newton_iteration(CVodeMem cv_mem) {
 *********************************************************************/
 
 static int32
-cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t, int32 *ncfPtr) {
+cv_handle_n_flag(CVodeMem cv_mem, int32 *nflagPtr, double saved_t,
+                 int32 *ncfPtr) {
     int32 nflag;
 
     nflag = *nflagPtr;
@@ -2197,8 +2198,8 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
 ******************************************************************/
 
 static bool
-cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr, double saved_t,
-              int32 *nefPtr, double *dsmPtr) {
+cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
+                 double saved_t, int32 *nefPtr, double *dsmPtr) {
     double dsm;
 
     dsm = acnrm / tq[2];

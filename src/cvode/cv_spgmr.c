@@ -90,11 +90,11 @@ typedef struct {
 static int32 cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
-                          Vector fpred, bool *jcurPtr, Vector vtemp1,
-                          Vector vtemp2, Vector vtemp3);
+                            Vector fpred, bool *jcurPtr, Vector vtemp1,
+                            Vector vtemp2, Vector vtemp3);
 
 static int32 cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ycur,
-                          Vector fcur);
+                            Vector fcur);
 
 static void cv_spgmr_free(CVodeMem cv_mem);
 
@@ -165,7 +165,7 @@ static int32 cv_spgmr_psolve(void *lin_mem, Vector r, Vector z, int32 lr);
 
 void
 cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl, double delt,
-        CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
+         CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve, void *P_data)
 
 {
     CVodeMem cv_mem;
@@ -303,7 +303,7 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
 
 static int32
 cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
-             bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+               bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     bool jbad;
     bool jok;
     double dgamma;
@@ -384,9 +384,9 @@ cv_spgmr_solve(CVodeMem cv_mem, Vector b, Vector ynow, Vector fnow) {
     vector_const(ZERO, x);
 
     /* Call spgmr_solve and copy x to b */
-    ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0, cv_mem,
-                     ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve, &res_norm,
-                     &nli_inc, &nps_inc);
+    ier = spgmr_solve(spgmr_mem, cv_mem, x, b, pretype, gstype, delta, 0,
+                      cv_mem, ewt, ewt, cv_spgmr_atimes_dq, cv_spgmr_psolve,
+                      &res_norm, &nli_inc, &nps_inc);
     vector_scale(ONE, x, b);
 
     /* Increment counters nli, nps, and ncfl */

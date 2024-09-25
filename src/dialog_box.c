@@ -27,7 +27,7 @@ static int32 dialog_box_event_loop(Dialog *d, int32 *pos, int32 *col);
 
 int32
 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
-           int32 max) {
+               int32 max) {
     int32 lm = (int32)strlen(name)*DCURX;
     int32 lv = max*DCURX;
     int32 pos;

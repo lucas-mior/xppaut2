@@ -125,11 +125,13 @@ int32 (*solver)(double *y, double *tim, double dt, int32 nt, int32 neq,
                 int32 *istart, double *work);
 
 static int32 integrate_stor_full(void);
-static void integrate_plot_one_graph(double *xv, double *xvold, double ddt, int32 *tc);
+static void integrate_plot_one_graph(double *xv, double *xvold, double ddt,
+                                     int32 *tc);
 static int32 integrate_form_ic(void);
 static int32 integrate_set_array_ic(void);
 static void integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2);
-static void integrate_store_new_array_ic(char *new, int32 j1, int32 j2, char *formula);
+static void integrate_store_new_array_ic(char *new, int32 j1, int32 j2,
+                                         char *formula);
 static void integrate_new_array_ic(char *new, int32 j1, int32 j2);
 static void integrate_start_flags(double *x, double *t);
 static int32 integrate_write_this_run(char *file, int32 i);
@@ -137,7 +139,7 @@ static void batch_integrate_once(void);
 static void integrate_batch_dry_run(void);
 static void integrate_eq_range(double *x);
 static void integrate_monte_carlo_search(int32 append, int32 stuffbrowse,
-                                  int32 ishoot);
+                                         int32 ishoot);
 static void integrate_monte_carlo(void);
 static void integrate_init_monte_carlo(void);
 static int32 integrate_set_up_range2(void);
@@ -678,8 +680,8 @@ integrate_eq_range(double *x) {
             integrate_monte_carlo_search(0, 0, 1);
         } else {
             if (DelayFlag)
-                del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
-                              &ierr, &stabinfo);
+                del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER,
+                                       NODE, &ierr, &stabinfo);
             else
                 do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
                         &stabinfo);
@@ -1017,8 +1019,8 @@ integrate_find_equilib_com(int32 com) {
     }
 
     if (DelayFlag) {
-        del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
-                      &stabinfo);
+        del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
+                               &ierr, &stabinfo);
         ggets_ping();
     } else
         do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
@@ -1489,8 +1491,8 @@ integrate_new_array_ic(char *new, int32 j1, int32 j2) {
     }
     ggets_new_string("Formula:", ar_ic[ihot].formula);
     /* now we have everything we need */
-    integrate_evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula, ar_ic[ihot].j1,
-                   ar_ic[ihot].j2);
+    integrate_evaluate_ar_ic(ar_ic[ihot].var, ar_ic[ihot].formula,
+                             ar_ic[ihot].j1, ar_ic[ihot].j2);
     return;
 }
 
@@ -1594,8 +1596,8 @@ integrate_arr_ic_start(void) {
         return;
     for (i = 0; i < NAR_IC; i++) {
         if (ar_ic[i].type == 2) {
-            integrate_evaluate_ar_ic(ar_ic[i].var, ar_ic[i].formula, ar_ic[i].j1,
-                           ar_ic[i].j2);
+            integrate_evaluate_ar_ic(ar_ic[i].var, ar_ic[i].formula,
+                                     ar_ic[i].j1, ar_ic[i].j2);
         }
     }
     return;
@@ -2437,7 +2439,7 @@ integrate_send_output(double *y, double t) {
 
 void
 integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
-        double *ypl, double *zpl) {
+               double *ypl, double *zpl) {
     int32 ip, np = MyGraph->nvars;
 
     for (ip = 0; ip < np; ip++) {
@@ -2517,7 +2519,8 @@ integrate_export_data(FILE *fp) {
 }
 
 void
-integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc, int32 flag) {
+integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
+                          int32 flag) {
     int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {

@@ -55,8 +55,8 @@ do_fit_init_info(void) {
 
 void
 do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
-             double *yfit, double **yderv, int32 npts, int32 npars, int32 nvars,
-             int32 *ivar, int32 *ipar)
+                double *yfit, double **yderv, int32 npts, int32 npars,
+                int32 nvars, int32 *ivar, int32 *ipar)
 /*
   y     initial condition
   a     initial guesses for the parameters
@@ -185,8 +185,8 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
 }
 
 void
-do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
-        int32 npts) {
+do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
+               int32 nvars, int32 npts) {
     int32 i, j, k;
     int32 ioff;
     for (i = 0; i < npts; i++) {
@@ -405,9 +405,10 @@ do_fit_test(void) {
 
     do_fit_print_info();
     ggets_plintf(" Running the fit...\n");
-    ok = do_fit_run(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
-                 fit_info.maxiter, fit_info.dim, fit_info.eps, fit_info.tol,
-                 fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
+    ok =
+        do_fit_run(fit_info.file, fit_info.npts, fit_info.npars, fit_info.nvars,
+                   fit_info.maxiter, fit_info.dim, fit_info.eps, fit_info.tol,
+                   fit_info.ipar, fit_info.ivar, fit_info.icols, y0, a, yfit);
 
     free(yfit);
     if (ok == 0)
@@ -426,9 +427,9 @@ do_fit_test(void) {
 
 int32
 do_fit_run(/* double arrays */
-        char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
-        int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
-        int32 *icols, double *y0, double *a, double *yfit)
+           char *filename, int32 npts, int32 npars, int32 nvars, int32 maxiter,
+           int32 ndim, double eps, double tol, int32 *ipar, int32 *ivar,
+           int32 *icols, double *y0, double *a, double *yfit)
 
 /*
    filename is where the data file is -- it is of the form:
@@ -489,9 +490,9 @@ do_fit_run(/* double arrays */
 
     while (good_flag < 3) { /* take 3 good steps after convergence  */
 
-        ok = do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
-                        covar, alpha, &chisq, &alambda, work, yderv, yfit,
-                        &ochisq, ictrl, eps);
+        ok = do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar,
+                                ipar, covar, alpha, &chisq, &alambda, work,
+                                yderv, yfit, &ochisq, ictrl, eps);
         niter++;
         ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n",
                      niter, ok, alambda, chisq, ochisq);
@@ -543,8 +544,9 @@ do_fit_run(/* double arrays */
         return 1;
     }
     ictrl = 2;
-    do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar, alpha,
-               &chisq, &alambda, work, yderv, yfit, &ochisq, ictrl, eps);
+    do_fit_marlev_step(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, covar,
+                       alpha, &chisq, &alambda, work, yderv, yfit, &ochisq,
+                       ictrl, eps);
     ggets_err_msg(" Success! ");
     /* have the covariance matrix -- so what?   */
     ggets_plintf(" covariance: \n");
@@ -568,10 +570,10 @@ do_fit_run(/* double arrays */
 
 int32
 do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
-           int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
-           double *covar, double *alpha, double *chisq, double *alambda,
-           double *work, double **yderv, double *yfit, double *ochisq,
-           int32 ictrl, double eps)
+                   int32 npts, int32 nvars, int32 npars, int32 *ivar,
+                   int32 *ipar, double *covar, double *alpha, double *chisq,
+                   double *alambda, double *work, double **yderv, double *yfit,
+                   double *ochisq, int32 ictrl, double eps)
 /*   One step of Levenberg-Marquardt
 
 nvars  the number of variables to fit
@@ -607,8 +609,8 @@ sigma  weights on nvars
 
     if (ictrl == 0) {
         *alambda = .001;
-        if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar, alpha,
-                   chisq, beta, yderv, yfit, eps) == 0)
+        if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
+                          alpha, chisq, beta, yderv, yfit, eps) == 0)
             return 0;
         for (i = 0; i < npars; i++)
             atry[i] = a[i];
@@ -646,8 +648,8 @@ sigma  weights on nvars
     for (j = 0; j < npars; j++) {
         atry[j] = a[j] + da[j];
     }
-    if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar, covar,
-               chisq, da, yderv, yfit, eps) == 0)
+    if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar,
+                      covar, chisq, da, yderv, yfit, eps) == 0)
         return 0;
 
     if (*chisq < *ochisq) {
@@ -667,14 +669,15 @@ sigma  weights on nvars
 }
 
 int32
-do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a, int32 npts,
-       int32 nvars, int32 npars, int32 *ivar, int32 *ipar, double *alpha,
-       double *chisq, double *beta, double **yderv, double *yfit, double eps) {
+do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
+              int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
+              double *alpha, double *chisq, double *beta, double **yderv,
+              double *yfit, double eps) {
     int32 flag, i, j, k, l, k0;
     double sig2i, dy, wt;
 
-    do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars, ivar,
-                 ipar);
+    do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
+                    ivar, ipar);
     if (flag == 0) {
         ggets_err_msg(" Integration error ...\n");
         return 0;

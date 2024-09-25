@@ -1734,7 +1734,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     }
     /* here is where to put send_eigenvalue   */
     autevd_send_eigen((int32)ibr, (int32)ntot + 1, (int32)ndim,
-               (doublecomplex *)&ev[0]);
+                      (doublecomplex *)&ev[0]);
     /* Order the eigenvalues by real part. */
 
     for (int32 i = 0; i < ndm - 1; ++i) {
@@ -2612,7 +2612,8 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
             ntots = -ntot;
         }
     }
-    autevd_addbif(iap, ntots, iap->ibr, par, icp, (int32)labw, &amp, u, u, u, u);
+    autevd_addbif(iap, ntots, iap->ibr, par, icp, (int32)labw, &amp, u, u, u,
+                  u);
     wrline(iap, rap, par, icp, &icp[NPARX], &ibr, &ntots, &labw, &amp, u);
 
     /* Write restart information for multi-parameter analysis : */
@@ -6167,7 +6168,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     /* Find the multiplier closest to z=1. */
     /* autevd_send_mult here! */
     autevd_send_mult((int32)ibr, (int32)ntot + 1, (int32)ndim,
-              (doublecomplex *)&ev[0]);
+                     (doublecomplex *)&ev[0]);
     amin = RLARGE;
     for (j = 0; j < ndim; ++j) {
         doublecomplex tmp;
@@ -6625,8 +6626,8 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     }
     jtmp = NPARX;
     /* autevd_addbif max min  of variables & initial data */
-    autevd_addbif(iap, ntots, ibrs, par, icp, (int32)labw, &amp, u_high, u_low, u_0,
-           u_bar);
+    autevd_addbif(iap, ntots, ibrs, par, icp, (int32)labw, &amp, u_high, u_low,
+                  u_0, u_bar);
 
     wrline(iap, rap, par, icp, &icp[jtmp], &ibrs, &ntots, &labw, &amp, umx);
 

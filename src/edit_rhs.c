@@ -37,8 +37,8 @@ typedef struct EditBox {
 static void edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col);
 static void edit_rhs_expose_box(EditBox *sb, Window window, int32 pos);
 static void edit_rhs_reset_hot(int32 inew, EditBox *sb);
-static void edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
-                          int32 *done, Window *w);
+static void edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos,
+                                  int32 *col, int32 *done, Window *w);
 static int32 edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col);
 static void edit_rhs_make_box_windows(EditBox *sb, char *title);
 
@@ -150,8 +150,8 @@ edit_rhs_reset_hot(int32 inew, EditBox *sb) {
 }
 
 void
-edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
-              Window *w) {
+edit_rhs_new_editable(EditBox *sb, int32 inew, int32 *pos, int32 *col,
+                      int32 *done, Window *w) {
     edit_rhs_reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
     *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;

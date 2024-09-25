@@ -56,8 +56,8 @@ static int32 browse_add_stor_col(char *name, char *formula, Browser *b);
 static void browse_chk_seq(char *f, int32 *seq, double *a1, double *a2);
 static void browse_replace_column(char *var, char *form, double **dat, int32 n);
 static void browse_unreplace_column(void);
-static void browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
-                         Browser b);
+static void browse_make_d_table(double xlo, double xhi, int32 col,
+                                char *filename, Browser b);
 static void browse_find_value(int32 col, double val, int32 *row, Browser b);
 static void browse_but_on(Browser *b, int32 i, Window window, int32 yn);
 static void enter_browser(XEvent event, Browser *b, int32 yn);
@@ -198,8 +198,8 @@ browse_data_add_col(Browser *b) {
     strcpy(form, "");
     status = dialog_box_get("Add Column", "Name", var, "Ok", "Cancel", 20);
     if (status != 0) {
-        status =
-            dialog_box_get("Add Column", "Formula:", form, "Add it", "Cancel", 80);
+        status = dialog_box_get("Add Column", "Formula:", form, "Add it",
+                                "Cancel", 80);
         if (status != 0)
             browse_add_stor_col(var, form, b);
     }
@@ -412,7 +412,8 @@ browse_unreplace_column(void) {
 }
 
 void
-browse_make_d_table(double xlo, double xhi, int32 col, char *filename, Browser b) {
+browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
+                    Browser b) {
     int32 i, npts, ok;
     FILE *fp;
     browse_open_write_file(&fp, filename, &ok);
@@ -1235,8 +1236,8 @@ browse_data_end(Browser *b) {
 }
 
 void
-browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
-             int32 off) {
+browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
+                    int32 i3, int32 off) {
     int32 in = my_browser.row0 + off;
     *x = my_browser.data[i1][in];
     *y = my_browser.data[i2][in];
@@ -1280,8 +1281,8 @@ browse_data_replace(Browser *b) {
     strcpy(form, uvar_names[0]);
     status = dialog_box_get("Replace", "Variable:", var, "Ok", "Cancel", 20);
     if (status != 0) {
-        status =
-            dialog_box_get("Replace", "Formula:", form, "Replace", "Cancel", 80);
+        status = dialog_box_get("Replace", "Formula:", form, "Replace",
+                                "Cancel", 80);
         if (status != 0)
             browse_replace_column(var, form, b->data, b->maxrow);
         browse_draw_data(*b);

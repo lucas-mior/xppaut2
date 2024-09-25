@@ -27,8 +27,8 @@ int32 DelayGrid = 1000;
 double variable_shift[2][MAX_ODE];
 double delay_list[MAX_DELAY];
 
-static void delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
-                   double *dy);
+static void delay_handle_polint(double *xa, double *ya, int32 n, double x,
+                                double *y, double *dy);
 
 double
 delay_handle_stab_eval(
@@ -108,7 +108,8 @@ delay_handle_stor_delay(double *y) {
 }
 
 void
-delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y, double *dy) {
+delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
+                    double *dy) {
     int32 i, m, ns = 1;
     double den, dif, dift, h0, hp, w;
     double c[10], d[10];

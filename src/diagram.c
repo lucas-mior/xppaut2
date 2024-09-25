@@ -32,10 +32,10 @@ diagram_start(int32 n) {
 }
 
 void
-diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar, double a,
-           double *uhi, double *ulo, double *u0, double *ubar, double *par,
-           double per, int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
-           double *evr, double *evi) {
+diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
+                   double a, double *uhi, double *ulo, double *u0, double *ubar,
+                   double *par, double per, int32 n, int32 icp1, int32 icp2,
+                   int32 icp3, int32 icp4, double *evr, double *evi) {
     edit_diagram(bifd, ibr, ntot, itp, lab, nfpar, a, uhi, ulo, u0, ubar, par,
                  per, n, icp1, icp2, icp3, icp4, AutoTwoParam, evr, evi,
                  blrtn.torper);
@@ -161,8 +161,9 @@ diagram_redraw(void) {
             flag = 0;
         else
             flag = 1;
-        auto_add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type, flag,
-                  d->lab, d->icp1, d->icp2, d->flag2, d->evr, d->evi);
+        auto_add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
+                       flag, d->lab, d->icp1, d->icp2, d->flag2, d->evr,
+                       d->evi);
         d = d->next;
         if (d == NULL)
             break;
@@ -187,7 +188,8 @@ diagram_write_info_out(void) {
     /*double a,*ubar,*u0;*/
     FILE *fp;
     sprintf(filename, "allinfo.dat");
-    /* status=dialog_box_get("Write all info","Filename",filename,"Ok","Cancel",60);
+    /* status=dialog_box_get("Write all
+     * info","Filename",filename,"Ok","Cancel",60);
      */
     status = init_conds_file_selector("Write all info", filename, "*.dat");
 
@@ -301,7 +303,8 @@ diagram_write_init_data_file(void) {
     /*double a,*uhigh,*ulow,*ubar;*/
     FILE *fp;
     sprintf(filename, "initdata.dat");
-    /* status=dialog_box_get("Write all info","Filename",filename,"Ok","Cancel",60);
+    /* status=dialog_box_get("Write all
+     * info","Filename",filename,"Ok","Cancel",60);
      */
     status =
         init_conds_file_selector("Write init data file", filename, "*.dat");
@@ -425,7 +428,8 @@ diagram_post_auto(void) {
     int32 type, flag = 0;
     int32 status;
     sprintf(filename, "auto.ps");
-    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60); */
+    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
+     */
     status = init_conds_file_selector("Postscript", filename, "*.ps");
     if (status == 0)
         return;
@@ -444,8 +448,8 @@ diagram_post_auto(void) {
             flag = 0;
         else
             flag = 1;
-        auto_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
-                     flag, d->icp1, d->icp2, d->flag2);
+        auto_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
+                          type, flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
         if (d == NULL)
             break;
@@ -463,7 +467,8 @@ diagram_svg_auto(void) {
     int32 type, flag = 0;
     int32 status;
     sprintf(filename, "auto.svg");
-    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60); */
+    /* status=dialog_box_get("Postscript","Filename",filename,"Ok","Cancel",60);
+     */
     status = init_conds_file_selector("SVG", filename, "*.svg");
     if (status == 0)
         return;
@@ -482,8 +487,8 @@ diagram_svg_auto(void) {
             flag = 0;
         else
             flag = 1;
-        auto_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
-                     flag, d->icp1, d->icp2, d->flag2);
+        auto_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
+                          type, flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
         if (d == NULL)
             break;
@@ -588,8 +593,9 @@ diagram_load(FILE *fp, int32 node) {
             fscanf(fp, "%lg %lg %lg %lg %lg %lg", &u0[i], &uhi[i], &ulo[i],
                    &ubar[i], &evr[i], &evi[i]);
         if (flag == 0) {
-            diagram_edit_start(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0, ubar,
-                       par, per, node, icp1, icp2, icp3, icp4, evr, evi);
+            diagram_edit_start(ibr, ntot, itp, lab, nfpar, norm, uhi, ulo, u0,
+                               ubar, par, per, node, icp1, icp2, icp3, icp4,
+                               evr, evi);
             flag = 1;
             DiagFlag = 1;
         } else

@@ -91,8 +91,9 @@ static void extra_parse_inout(char *l, int32 flag);
 static int32 extra_get_export_count(char *s);
 
 void
-extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
-                  double *wgt[MAXW], double *var, double *con) {
+extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
+                        int32 ivar, double *wgt[MAXW], double *var,
+                        double *con) {
     char sofullname[sizeof(cur_dir) + 2];
     char *error;
     if (dll_loaded == 1) {
@@ -124,7 +125,8 @@ extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 
 }
 
 int32
-extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
+extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
+             double *c) {
     char *error;
     if (dlf.loaded == -1)
         return 0;
@@ -161,8 +163,9 @@ extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *
 #else
 
 void
-extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun, int32 ivar,
-                  double *wgt[MAXW], double *var, double *con) {
+extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
+                        int32 ivar, double *wgt[MAXW], double *var,
+                        double *con) {
     return;
 }
 
@@ -170,7 +173,8 @@ int32
 extra_load_new_dll(void) {
 }
 
-extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v, double *c) {
+extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
+             double *c) {
 }
 
 int32
@@ -190,7 +194,7 @@ extra_do_in_out(void) {
             in_out.vin[i] = variables[in_out.in[i]];
     }
     extra_my_fun(in_out.vin, in_out.vout, in_out.nin, in_out.nout, variables,
-           constants);
+                 constants);
     for (i = 0; i < in_out.nout; i++) {
         if (in_out.outtype[i] == PAR)
             constants[in_out.out[i]] = in_out.vout[i];

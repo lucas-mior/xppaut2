@@ -108,8 +108,7 @@ enum {
  *                                                                *
  ******************************************************************/
 
-typedef void (*RhsFn)(int64 N, double t, Vector y, Vector ydot,
-                      void *f_data);
+typedef void (*RhsFn)(int64 N, double t, Vector y, Vector ydot, void *f_data);
 
 /******************************************************************
  *                                                                *
@@ -268,8 +267,7 @@ void *cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm,
  *                                                                *
  ******************************************************************/
 
-int32 CVode(void *cvode_mem, double tout, Vector yout, double *t,
-            int32 itask);
+int32 CVode(void *cvode_mem, double tout, Vector yout, double *t, int32 itask);
 
 /* CVode return values */
 
@@ -508,20 +506,20 @@ typedef struct CVodeMemRec {
     /* Nordsieck History Array */
 
     Vector cv_zn[L_MAX]; /* Nordsieck array N x (q+1),                  */
-                           /* zn[j] is a vector of length N, j=0, ... , q */
-                           /* zn[j] = h^j*jth derivative of the         */
-                           /* interpolating polynomial                    */
+                         /* zn[j] is a vector of length N, j=0, ... , q */
+                         /* zn[j] = h^j*jth derivative of the         */
+                         /* interpolating polynomial                    */
 
     /* Vectors of length N */
 
     Vector cv_ewt;   /* error weight vector                          */
     Vector cv_y;     /* y is used as temporary storage by the solver */
-                       /* The memory is provided by the user to CVode  */
-                       /* where the vector is named yout.              */
+                     /* The memory is provided by the user to CVode  */
+                     /* where the vector is named yout.              */
     Vector cv_acor;  /* In the context of the solution of the        */
-                       /* nonlinear equation, acor = y_n(m) - y_n(0).  */
-                       /* On return, this vector is scaled to give     */
-                       /* the estimated local error in y.              */
+                     /* nonlinear equation, acor = y_n(m) - y_n(0).  */
+                     /* On return, this vector is scaled to give     */
+                     /* the estimated local error in y.              */
     Vector cv_tempv; /* temporary storage vector                     */
     Vector cv_ftemp; /* temporary storage vector                     */
 
@@ -587,9 +585,9 @@ typedef struct CVodeMemRec {
 
     int32 (*cv_linit)(struct CVodeMemRec *cv_mem, bool *setupNonNull);
 
-    int32 (*cv_lsetup)(struct CVodeMemRec *cv_mem, int32 convfail,
-                       Vector ypred, Vector fpred, bool *jcurPtr,
-                       Vector vtemp1, Vector vtemp2, Vector vtemp3);
+    int32 (*cv_lsetup)(struct CVodeMemRec *cv_mem, int32 convfail, Vector ypred,
+                       Vector fpred, bool *jcurPtr, Vector vtemp1,
+                       Vector vtemp2, Vector vtemp3);
 
     int32 (*cv_lsolve)(struct CVodeMemRec *cv_mem, Vector b, Vector ycur,
                        Vector fcur);

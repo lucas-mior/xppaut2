@@ -230,8 +230,9 @@ void auto_x11_col(int32 col);
 void auto_x11_bw(void);
 void auto_x11_scroll(void);
 int32 auto_x11_rubber(int32 *i1, int32 *j1, int32 *i2, int32 *j2, int32 flag);
-int32 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n, int32 max,
-                       int32 def, int32 x, int32 y, char **hints, char *httxt);
+int32 auto_x11_pop_up_list(char *title, char **list, char *key, int32 n,
+                           int32 max, int32 def, int32 x, int32 y, char **hints,
+                           char *httxt);
 void auto_x11_xor_cross(int32 x, int32 y);
 void auto_x11_fill_circle(int32 x, int32 y, int32 r);
 void auto_x11_line_width(int32 wid);
@@ -696,7 +697,7 @@ void band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu);
  * b(i,j) <- a(i,j), 0 <= i,j <= n-1, j-copymu <= i <= j+copyml.  *
  ******************************************************************/
 void band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
-              int64 copymu, int64 copyml);
+                int64 copymu, int64 copyml);
 
 /******************************************************************
  * Function : band_scale2                                           *
@@ -792,14 +793,14 @@ void init_browser(void);
 void make_new_browser(void);
 Window browse_button2(Window root, int32 row, int32 col, int32 iflag);
 Window browse_button_data(Window root, int32 row, int32 col, char *name,
-                      int32 iflag);
+                          int32 iflag);
 void expose_my_browser(XEvent event);
 void enter_my_browser(XEvent event, int32 yn);
 void my_browse_button(XEvent event);
 void my_browse_keypress(XEvent event, int32 *used);
 void resize_my_browser(Window win);
-void browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2, int32 i3,
-                  int32 off);
+void browse_get_data_xyz(double *x, double *y, double *z, int32 i1, int32 i2,
+                         int32 i3, int32 off);
 void browse_open_write_file(FILE **fp, char *fil, int32 *ok);
 void write_my_browser_data(FILE *fp);
 void data_get_my_browser(int32 row);
@@ -823,8 +824,8 @@ double calc(char *expr, int32 *ok);
 #include <X11/Xlib.h>
 #include "struct.h"
 
-void choice_box_base(char *wname, int32 n, int32 mcc, char **names, int32 *check,
-                 int32 type);
+void choice_box_base(char *wname, int32 n, int32 mcc, char **names,
+                     int32 *check, int32 type);
 int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
                     int32 *check, int32 type);
 
@@ -1065,15 +1066,16 @@ typedef struct COMPLEX {
     double i;
 } COMPLEX;
 
-void del_stab_do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
-                   int32 n, int32 *ierr, double *stabinfo);
+void del_stab_do_delay_sing(double *x, double eps, double err, double big,
+                            int32 maxit, int32 n, int32 *ierr,
+                            double *stabinfo);
 void del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
-            COMPLEX lambda);
+                     COMPLEX lambda);
 int32 del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
-                         double err, double eps, double big, int32 maxit,
-                         double *rr);
-int32 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
-                double almax, double wmax);
+                                  double err, double eps, double big,
+                                  int32 maxit, double *rr);
+int32 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m,
+                         int32 npts, double almax, double wmax);
 
 #endif
 
@@ -1530,10 +1532,11 @@ extern Diagram *bifd;
 extern int32 NBifs;
 
 void diagram_start(int32 n);
-void diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab, int32 nfpar,
-                double a, double *uhi, double *ulo, double *u0, double *ubar,
-                double *par, double per, int32 n, int32 icp1, int32 icp2,
-                int32 icp3, int32 icp4, double *evr, double *evi);
+void diagram_edit_start(int32 ibr, int32 ntot, int32 itp, int32 lab,
+                        int32 nfpar, double a, double *uhi, double *ulo,
+                        double *u0, double *ubar, double *par, double per,
+                        int32 n, int32 icp1, int32 icp2, int32 icp3, int32 icp4,
+                        double *evr, double *evi);
 void edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
                   int32 nfpar, double a, double *uhi, double *ulo, double *u0,
                   double *ubar, double *par, double per, int32 n, int32 icp1,
@@ -1563,8 +1566,8 @@ void diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte);
 #include <X11/Xlib.h>
 #include "struct.h"
 
-int32 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cancel,
-                 int32 max);
+int32 dialog_box_get(char *wname, char *name, char *value, char *ok,
+                     char *cancel, int32 max);
 
 #endif
 
@@ -1573,24 +1576,26 @@ int32 dialog_box_get(char *wname, char *name, char *value, char *ok, char *cance
 
 void do_fit_init_info(void);
 void do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
-                  double *yfit, double **yderv, int32 npts, int32 npars,
-                  int32 nvars, int32 *ivar, int32 *ipar);
-void do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars, int32 nvars,
-             int32 npts);
+                     double *yfit, double **yderv, int32 npts, int32 npars,
+                     int32 nvars, int32 *ivar, int32 *ipar);
+void do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
+                    int32 nvars, int32 npts);
 int32 do_fit_one_step_int(double *y, double t0, double t1, int32 *istart);
 void do_fit_test(void);
 int32 do_fit_run(char *filename, int32 npts, int32 npars, int32 nvars,
-              int32 maxiter, int32 ndim, double eps, double tol, int32 *ipar,
-              int32 *ivar, int32 *icols, double *y0, double *a, double *yfit);
-int32 do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
-                 int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
-                 double *covar, double *alpha, double *chisq, double *alambda,
-                 double *work, double **yderv, double *yfit, double *ochisq,
-                 int32 ictrl, double eps);
+                 int32 maxiter, int32 ndim, double eps, double tol, int32 *ipar,
+                 int32 *ivar, int32 *icols, double *y0, double *a,
+                 double *yfit);
+int32 do_fit_marlev_step(double *t0, double *y0, double *y, double *sig,
+                         double *a, int32 npts, int32 nvars, int32 npars,
+                         int32 *ivar, int32 *ipar, double *covar, double *alpha,
+                         double *chisq, double *alambda, double *work,
+                         double **yderv, double *yfit, double *ochisq,
+                         int32 ictrl, double eps);
 int32 do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
-             int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
-             double *alpha, double *chisq, double *beta, double **yderv,
-             double *yfit, double eps);
+                    int32 npts, int32 nvars, int32 npars, int32 *ivar,
+                    int32 *ipar, double *alpha, double *chisq, double *beta,
+                    double **yderv, double *yfit, double eps);
 
 #endif
 
@@ -2047,8 +2052,8 @@ void eig_list_enter_eq_stuff(Window window, int32 b);
 void eig_list_eq_list_button(XEvent event);
 void eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt);
 void eig_list_resize_eq_list(Window win);
-void eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
-                   int32 n);
+void eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
+                            double *y, int32 n);
 void eig_list_draw_eq_box(Window window);
 
 #endif
@@ -2065,13 +2070,14 @@ extern char dll_fun[256];
 
 void extra_load_new_dll(void);
 int32 extra_my_fun(double *in, double *out, int32 nin, int32 nout, double *v,
-             double *c);
+                   double *c);
 void extra_auto_load_dll(void);
 void extra_do_in_out(void);
 void extra_add_export_list(char *in, char *out);
 void extra_do_export_list(void);
 void extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
-                       int32 ivar, double *wgt[MAXW], double *var, double *con);
+                             int32 ivar, double *wgt[MAXW], double *var,
+                             double *con);
 
 #endif
 
@@ -2664,10 +2670,10 @@ int32 integrate(double *t, double *x, double tend, double dt, int32 count,
 void integrate_send_halt(void);
 void integrate_send_output(double *y, double t);
 void integrate_plot(double *oldxpl, double *oldypl, double *oldzpl, double *xpl,
-             double *ypl, double *zpl);
+                    double *ypl, double *zpl);
 void integrate_export_data(FILE *fp);
 void integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
-                     int32 flag);
+                               int32 flag);
 void integrate_restore(int32 i1, int32 i2);
 void integrate_comp_color(double *v1, double *v2, int32 n, double dt);
 void integrate_shoot(double *x, double *xg, double *evec, int32 sgn);
@@ -2812,7 +2818,7 @@ typedef int32 (*PSolveFn)(void *P_data, Vector r, Vector z, int32 lr);
  *                                                                *
  ******************************************************************/
 int32 iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
-                 double *new_vk_norm);
+                           double *new_vk_norm);
 
 /******************************************************************
  *                                                                *
@@ -2834,7 +2840,7 @@ int32 iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
  *                                                                *
  ******************************************************************/
 int32 iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
-                  double *new_vk_norm, Vector temp, double *s);
+                            double *new_vk_norm, Vector temp, double *s);
 
 /******************************************************************
  *                                                                *
@@ -4221,10 +4227,10 @@ SpgmrMem spgmr_malloc(int64 N, int32 l_max);
  * to use.                                                        *
  *                                                                *
  ******************************************************************/
-int32 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b,
-                 int32 pretype, int32 gstype, double delta, int32 max_restarts,
-                 void *P_data, Vector sx, Vector sb, ATimesFn atimes,
-                 PSolveFn psolve, double *res_norm, int32 *nli, int32 *nps);
+int32 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
+                  int32 gstype, double delta, int32 max_restarts, void *P_data,
+                  Vector sx, Vector sb, ATimesFn atimes, PSolveFn psolve,
+                  double *res_norm, int32 *nli, int32 *nps);
 
 /* Return values for spgmr_solve */
 

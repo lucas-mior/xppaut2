@@ -153,9 +153,9 @@ spgmr_malloc(int64 N, int32 l_max) {
 
 int32
 spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
-           int32 gstype, double delta, int32 max_restarts, void *P_data,
-           Vector sx, Vector sb, ATimesFn atimes, PSolveFn psolve,
-           double *res_norm, int32 *nli, int32 *nps) {
+            int32 gstype, double delta, int32 max_restarts, void *P_data,
+            Vector sx, Vector sb, ATimesFn atimes, PSolveFn psolve,
+            double *res_norm, int32 *nli, int32 *nps) {
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
@@ -304,12 +304,12 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             /*  Orthogonalize V[l+1] against previous V[i]: V[l+1] = w_tilde. */
 
             if (gstype == CLASSICAL_GS) {
-                if (iterativ_classical_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l]),
-                                vtemp, yg) != 0)
+                if (iterativ_classical_gs(V, Hes, l_plus_1, l_max,
+                                          &(Hes[l_plus_1][l]), vtemp, yg) != 0)
                     return SPGMR_GS_FAIL;
             } else {
-                if (iterativ_modified_gs(V, Hes, l_plus_1, l_max, &(Hes[l_plus_1][l])) !=
-                    0)
+                if (iterativ_modified_gs(V, Hes, l_plus_1, l_max,
+                                         &(Hes[l_plus_1][l])) != 0)
                     return SPGMR_GS_FAIL;
             }
 

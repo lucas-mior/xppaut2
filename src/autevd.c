@@ -26,11 +26,12 @@ static struct {
 } my_ev;
 
 void
-autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp, int32 ntst,
-          int32 isp, int32 isw, int32 nmx, int32 npr, double ds, double dsmin,
-          double dsmax, double rl0, double rl1, double a0, double a1, int32 ip1,
-          int32 ip2, int32 ip3, int32 ip4, int32 ip5, double epsl, double epsu,
-          double epss, int32 ncol) {
+autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
+                 int32 ntst, int32 isp, int32 isw, int32 nmx, int32 npr,
+                 double ds, double dsmin, double dsmax, double rl0, double rl1,
+                 double a0, double a1, int32 ip1, int32 ip2, int32 ip3,
+                 int32 ip4, int32 ip5, double epsl, double epsu, double epss,
+                 int32 ncol) {
     /* here are the constants that we do not allow the user to change */
     int32 nnbc;
     int32 i;
@@ -136,8 +137,8 @@ autevd_get_bif_type(int32 ibr, int32 ntot) {
 
 void
 autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
-       int32 lab, double *a, double *uhigh, double *ulow, double *u0,
-       double *ubar) {
+              int32 lab, double *a, double *uhigh, double *ulow, double *u0,
+              double *ubar) {
     int32 type;
     int32 icp1 = (int32)icp[0], icp2 = (int32)icp[1], icp3 = (int32)icp[2],
           icp4 = (int32)icp[3];
@@ -146,19 +147,19 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
 
     /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
-        auto_add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab, icp1, icp2,
-                  AutoTwoParam, my_ev.evr, my_ev.evi);
+        auto_add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab, icp1,
+                       icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
     } else {
-        auto_add_point(par, per, uhigh, ulow, ubar, *a, type, 1, lab, icp1, icp2,
-                  AutoTwoParam, my_ev.evr, my_ev.evi);
+        auto_add_point(par, per, uhigh, ulow, ubar, *a, type, 1, lab, icp1,
+                       icp2, AutoTwoParam, my_ev.evr, my_ev.evi);
     }
 
     if (DiagFlag == 0) {
         /* diagram_start(*ndim); */
         diagram_edit_start((int32)ibrs, (int32)ntots, (int32)iap->itp, lab,
-                   (int32)iap->nfpr, *a, uhigh, ulow, u0, ubar, par, per,
-                   (int32)iap->ndim, icp1, icp2, icp3, icp4, my_ev.evr,
-                   my_ev.evi);
+                           (int32)iap->nfpr, *a, uhigh, ulow, u0, ubar, par,
+                           per, (int32)iap->ndim, icp1, icp2, icp3, icp4,
+                           my_ev.evr, my_ev.evi);
         DiagFlag = 1;
         return;
     }
@@ -170,7 +171,8 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
 }
 
 int32
-autevd_eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work, int32 *ier) {
+autevd_eigrf_(double *a, int32 *n, doublecomplex *ecv, double *work,
+              int32 *ier) {
     double ev[400];
     gear_eigen(*n, a, ev, work, ier);
     for (int32 i = 0; i < *n; i++) {

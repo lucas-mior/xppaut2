@@ -23,18 +23,18 @@
 
 /* Private Helper Prototypes */
 
-static void vector_copy(Vector x, Vector z);             /* z=x */
+static void vector_copy(Vector x, Vector z);           /* z=x */
 static void vector_sum(Vector x, Vector y, Vector z);  /* z=x+y */
 static void vector_diff(Vector x, Vector y, Vector z); /* z=x-y */
-static void vector_neg(Vector x, Vector z);              /* z=-x */
+static void vector_neg(Vector x, Vector z);            /* z=-x */
 /* z=c(x+y) */
 static void vector_scaleSum(double c, Vector x, Vector y, Vector z);
 /* z=c(x-y) */
 static void vector_scaleDiff(double c, Vector x, Vector y, Vector z);
 static void vector_lin1(double a, Vector x, Vector y, Vector z); /* z=ax+y */
 static void vector_lin2(double a, Vector x, Vector y, Vector z); /* z=ax-y */
-static void vector_axpy(double a, Vector x, Vector y);             /* y <- ax+y */
-static void vector_scaleBy(double a, Vector x);                      /* x <- ax */
+static void vector_axpy(double a, Vector x, Vector y);           /* y <- ax+y */
+static void vector_scaleBy(double a, Vector x);                  /* x <- ax */
 
 /********************* Exported Functions ************************/
 

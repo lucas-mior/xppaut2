@@ -317,7 +317,7 @@ typedef int32 (*CVSpgmrPSolveFn)(int64 N, double t, Vector y, Vector fy,
  ******************************************************************/
 
 void cv_spgmr(void *cvode_mem, int32 pretype, int32 gstype, int32 maxl,
-             double delt, CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve,
-             void *P_data);
+              double delt, CVSpgmrPrecondFn precond, CVSpgmrPSolveFn psolve,
+              void *P_data);
 
 #endif

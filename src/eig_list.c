@@ -299,8 +299,8 @@ eig_list_eq_box_button(Window window) {
 }
 
 void
-eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im, double *y,
-              int32 n) {
+eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
+                       double *y, int32 n) {
     int32 width, hstab, hequil, height;
     static char *name[] = {"Equilibria"};
     static char *iname[] = {"Equil"};

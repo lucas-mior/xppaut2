@@ -56,11 +56,10 @@ typedef struct {
 static int32 cv_diag_init(CVodeMem cv_mem, bool *setupNonNull);
 
 static int32 cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred,
-                         Vector fpred, bool *jcurPtr, Vector vtemp1,
-                         Vector vtemp2, Vector vtemp3);
+                           Vector fpred, bool *jcurPtr, Vector vtemp1,
+                           Vector vtemp2, Vector vtemp3);
 
-static int32 cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur,
-                         Vector fcur);
+static int32 cv_diag_solve(CVodeMem cv_mem, Vector b, Vector ycur, Vector fcur);
 
 static void cv_diag_free(CVodeMem cv_mem);
 
@@ -188,7 +187,7 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
 
 static int32
 cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
-            bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
+              bool *jcurPtr, Vector vtemp1, Vector vtemp2, Vector vtemp3) {
     double r;
     Vector ftemp;
     Vector y;
