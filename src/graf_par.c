@@ -82,7 +82,6 @@ static void fit_window(void);
 static void corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
 static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
 static void get_3d_view(int32 ind);
-static void graf_par_axes_opts(void);
 static void get_2d_view(int32 ind);
 static void graf_par_check_flags(void);
 static void graf_par_scroll_window(void);
@@ -179,32 +178,6 @@ get_2d_view(int32 ind) {
     return;
 }
 
-void
-graf_par_axes_opts(void) {
-    static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
-                        "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xorg);
-    snprintf(values[1], sizeof(values[1]), "%g", MyGraph->yorg);
-    snprintf(values[2], sizeof(values[2]), "%g", MyGraph->zorg);
-    snprintf(values[3], sizeof(values[3]), "%d", MyGraph->xorgflag);
-    snprintf(values[4], sizeof(values[4]), "%d", MyGraph->yorgflag);
-    snprintf(values[5], sizeof(values[5]), "%d", MyGraph->zorgflag);
-    snprintf(values[6], sizeof(values[6]), "%d", PS_FONTSIZE);
-    status = do_string_box(7, 7, 1, "Axes options", n, values, 25);
-    if (status != 0) {
-        MyGraph->xorg = atof(values[0]);
-        MyGraph->yorg = atof(values[1]);
-        MyGraph->zorg = atof(values[2]);
-        MyGraph->xorgflag = atoi(values[3]);
-        MyGraph->yorgflag = atoi(values[4]);
-        MyGraph->zorgflag = atoi(values[5]);
-        PS_FONTSIZE = atoi(values[6]);
-        graf_par_redraw_the_graph();
-    }
-    return;
-}
 
 void
 get_3d_view(int32 ind) {
@@ -1535,8 +1508,32 @@ graf_par_add_a_curve_com(int32 c) {
         /* case 6: freeze();
            break; */
     case 7:
-        graf_par_axes_opts();
+    {
+        /* graf par axes opts */
+        static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
+                            "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xorg);
+        snprintf(values[1], sizeof(values[1]), "%g", MyGraph->yorg);
+        snprintf(values[2], sizeof(values[2]), "%g", MyGraph->zorg);
+        snprintf(values[3], sizeof(values[3]), "%d", MyGraph->xorgflag);
+        snprintf(values[4], sizeof(values[4]), "%d", MyGraph->yorgflag);
+        snprintf(values[5], sizeof(values[5]), "%d", MyGraph->zorgflag);
+        snprintf(values[6], sizeof(values[6]), "%d", PS_FONTSIZE);
+        status = do_string_box(7, 7, 1, "Axes options", n, values, 25);
+        if (status != 0) {
+            MyGraph->xorg = atof(values[0]);
+            MyGraph->yorg = atof(values[1]);
+            MyGraph->zorg = atof(values[2]);
+            MyGraph->xorgflag = atoi(values[3]);
+            MyGraph->yorgflag = atoi(values[4]);
+            MyGraph->zorgflag = atoi(values[5]);
+            PS_FONTSIZE = atoi(values[6]);
+            graf_par_redraw_the_graph();
+        }
         break;
+    }
     case 8:
         export_graf_data();
         break;
