@@ -1,7 +1,5 @@
 #include "functions.h"
 #include "integers.h"
-#include <stdlib.h>
-#include "xpplim.h"
 #include "parserslow.h"
 
 int32
