@@ -56,6 +56,9 @@ static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
 static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
 static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
+static int32 adj2_adjoint(double **orbit, double **adjnt,
+                          int32 nt, double dt, double eps, double minerr,
+                          int32 maxit, int32 node);
 
 void
 adj2_init_trans(void) {

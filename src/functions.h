@@ -62,8 +62,6 @@ extern char *browse_hint[];
 
 extern bool adj_range;
 
-int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
-                   double eps, double minerr, int32 maxit, int32 node);
 int32 adj2_do_transpose(void);
 void adj2_alloc_h_stuff(void);
 void adj2_alloc_liap(int32 n);
