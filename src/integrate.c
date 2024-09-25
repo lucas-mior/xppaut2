@@ -678,7 +678,7 @@ integrate_eq_range(double *x) {
             integrate_monte_carlo_search(0, 0, 1);
         } else {
             if (DelayFlag)
-                do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
+                del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE,
                               &ierr, &stabinfo);
             else
                 do_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
@@ -1017,7 +1017,7 @@ integrate_find_equilib_com(int32 com) {
     }
 
     if (DelayFlag) {
-        do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
+        del_stab_do_delay_sing(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, &ierr,
                       &stabinfo);
         ggets_ping();
     } else

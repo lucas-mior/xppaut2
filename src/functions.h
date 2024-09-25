@@ -1065,14 +1065,14 @@ typedef struct COMPLEX {
     double i;
 } COMPLEX;
 
-void do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
+void del_stab_do_delay_sing(double *x, double eps, double err, double big, int32 maxit,
                    int32 n, int32 *ierr, double *stabinfo);
-void make_z(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
+void del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
             COMPLEX lambda);
-int32 find_positive_root(double *coef, double *delay, int32 n, int32 m,
+int32 del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
                          double err, double eps, double big, int32 maxit,
                          double *rr);
-int32 plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
+int32 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
                 double almax, double wmax);
 
 #endif
