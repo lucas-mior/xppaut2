@@ -231,7 +231,6 @@ static int32 ani_run_now_grab(void);
 static int32 ani_search_for_grab(double x, double y);
 static void ani_do_grab_tasks(int32 which);
 static int32 ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which);
-static void ani_draw_grab_points(void);
 static void ani_free_grabber(void);
 static void do_ani_slider_motion(Window window, int32 x);
 static void draw_ani_slider(Window window, int32 x);
@@ -2062,8 +2061,34 @@ render_ani(void) {
             break;
         }
     }
-    if (show_grab_points == 1)
-        ani_draw_grab_points();
+    if (show_grab_points == 1) {
+        /* ani draw grab points */
+        /* Draw little black x's where the grab points are */
+        double xc;
+        double yc;
+        double x1, y1, x2, y2, z;
+        int32 i1, j1, i2, j2, ic, jc;
+        XSetForeground(display, ani_gc, BlackPixel(display, screen));
+        for (int32 i = 0; i < n_ani_grab; i++) {
+            xc = evaluate(ani_grab[i].x);
+            yc = evaluate(ani_grab[i].y);
+            ani_grab[i].zx = xc;
+            ani_grab[i].zy = yc;
+            z = ani_grab[i].tol;
+            x1 = xc + z;
+            x2 = xc - z;
+            y1 = yc + z;
+            y2 = yc - z;
+            ani_xyscale(xc, yc, &ic, &jc);
+            ani_xyscale(x1, y1, &i1, &j1);
+            ani_xyscale(x2, y2, &i2, &j2);
+            XDrawLine(display, ani_pixmap, ani_gc, i1, j1, i2, j2);
+            XDrawLine(display, ani_pixmap, ani_gc, i1, j2, i2, j1);
+        }
+        show_grab_points = 0;
+        return;
+    }
+
     return;
 }
 
@@ -2725,34 +2750,6 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         return 1;
     }
     return -1;
-}
-
-void
-ani_draw_grab_points(void) {
-    /* Draw little black x's where the grab points are */
-    double xc;
-    double yc;
-    double x1, y1, x2, y2, z;
-    int32 i1, j1, i2, j2, ic, jc;
-    XSetForeground(display, ani_gc, BlackPixel(display, screen));
-    for (int32 i = 0; i < n_ani_grab; i++) {
-        xc = evaluate(ani_grab[i].x);
-        yc = evaluate(ani_grab[i].y);
-        ani_grab[i].zx = xc;
-        ani_grab[i].zy = yc;
-        z = ani_grab[i].tol;
-        x1 = xc + z;
-        x2 = xc - z;
-        y1 = yc + z;
-        y2 = yc - z;
-        ani_xyscale(xc, yc, &ic, &jc);
-        ani_xyscale(x1, y1, &i1, &j1);
-        ani_xyscale(x2, y2, &i2, &j2);
-        XDrawLine(display, ani_pixmap, ani_gc, i1, j1, i2, j2);
-        XDrawLine(display, ani_pixmap, ani_gc, i1, j2, i2, j1);
-    }
-    show_grab_points = 0;
-    return;
 }
 
 void
