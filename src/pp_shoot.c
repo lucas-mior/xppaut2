@@ -30,7 +30,6 @@ static struct ShootRange {
 
 /*   more general mixed boundary types   */
 
-static int32 set_up_sh_range(void);
 static void last_shot(int32 flag);
 static int32 set_up_periodic(int32 *ipar, int32 *ivar, double *sect,
                              int32 *ishow);
@@ -138,12 +137,51 @@ bad_shoot(int32 iret) {
 void
 do_sh_range(double *ystart, double *yend) {
     double parlo, parhi, dpar, temp;
-    int32 npar, i, j, ierr;
+    int32 npar, j, ierr;
     int32 side, cycle, icol, color;
     char bob[sizeof(shoot_range.item) + 30];
 
-    if (set_up_sh_range() == 0)
+    int32 find;
+    static char *n[] = {"*2Range over",     "Steps",     "Start",     "End",
+                        "Cycle color(Y/N)", "Side(0/1)", "Movie(Y/N)"};
+    char values[LENGTH(n)][MAX_LEN_SBOX];
+    int32 status;
+    static char *yn[] = {"N", "Y"};
+    snprintf(values[0], sizeof(values[0]), "%s", shoot_range.item);
+    snprintf(values[1], sizeof(values[1]), "%d", shoot_range.steps);
+    snprintf(values[2], sizeof(values[2]), "%g", shoot_range.plow);
+    snprintf(values[3], sizeof(values[3]), "%g", shoot_range.phigh);
+    snprintf(values[4], sizeof(values[4]), "%s", yn[shoot_range.cycle]);
+    snprintf(values[5], sizeof(values[5]), "%d", shoot_range.side);
+    snprintf(values[6], sizeof(values[6]), "%s", yn[shoot_range.movie]);
+
+    status = do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
+    if (status == 0)
         return;
+
+    strcpy(shoot_range.item, values[0]);
+    find = init_conds_find_user_name(Param, shoot_range.item);
+    if (find < 0) {
+        ggets_err_msg("No such parameter");
+        return;
+    }
+
+    shoot_range.steps = atoi(values[1]);
+    if (shoot_range.steps <= 0)
+        shoot_range.steps = 10;
+    shoot_range.plow = atof(values[2]);
+    shoot_range.phigh = atof(values[3]);
+    if (values[4][0] == 'Y' || values[4][0] == 'y')
+        shoot_range.cycle = 1;
+    else
+        shoot_range.cycle = 0;
+    if (values[6][0] == 'Y' || values[6][0] == 'y')
+        shoot_range.movie = 1;
+    else
+        shoot_range.movie = 0;
+
+    shoot_range.side = atoi(values[5]);
+
     integrate_swap_color(&color, 0);
     parhi = shoot_range.phigh;
     parlo = shoot_range.plow;
@@ -155,7 +193,7 @@ do_sh_range(double *ystart, double *yend) {
     icol = 0;
     if (shoot_range.movie == 1)
         kinescope_reset_film();
-    for (i = 0; i <= npar; i++) {
+    for (int32 i = 0; i <= npar; i++) {
         temp = parlo + dpar*(double)i;
         set_val(shoot_range.item, temp);
         snprintf(bob, sizeof(bob), "%s=%.16g", shoot_range.item, temp);
@@ -331,52 +369,6 @@ last_shot(int32 flag) {
     return;
 }
 
-int32
-set_up_sh_range(void) {
-    static char *n[] = {"*2Range over",     "Steps",     "Start",     "End",
-                        "Cycle color(Y/N)", "Side(0/1)", "Movie(Y/N)"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    int32 i;
-    static char *yn[] = {"N", "Y"};
-    snprintf(values[0], sizeof(values[0]), "%s", shoot_range.item);
-    snprintf(values[1], sizeof(values[1]), "%d", shoot_range.steps);
-    snprintf(values[2], sizeof(values[2]), "%g", shoot_range.plow);
-    snprintf(values[3], sizeof(values[3]), "%g", shoot_range.phigh);
-    snprintf(values[4], sizeof(values[4]), "%s", yn[shoot_range.cycle]);
-    snprintf(values[5], sizeof(values[5]), "%d", shoot_range.side);
-    snprintf(values[6], sizeof(values[6]), "%s", yn[shoot_range.movie]);
-
-    status = do_string_box(7, 7, 1, "Range Shoot", n, values, 45);
-    if (status != 0) {
-        strcpy(shoot_range.item, values[0]);
-        i = init_conds_find_user_name(Param, shoot_range.item);
-        if (i < 0) {
-            ggets_err_msg("No such parameter");
-            return 0;
-        }
-
-        shoot_range.steps = atoi(values[1]);
-        if (shoot_range.steps <= 0)
-            shoot_range.steps = 10;
-        shoot_range.plow = atof(values[2]);
-        shoot_range.phigh = atof(values[3]);
-        if (values[4][0] == 'Y' || values[4][0] == 'y')
-            shoot_range.cycle = 1;
-        else
-            shoot_range.cycle = 0;
-        if (values[6][0] == 'Y' || values[6][0] == 'y')
-            shoot_range.movie = 1;
-        else
-            shoot_range.movie = 0;
-
-        shoot_range.side = atoi(values[5]);
-
-        return 1;
-    }
-
-    return 0;
-}
 
 void
 bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
