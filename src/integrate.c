@@ -141,7 +141,6 @@ static void integrate_eq_range(double *x);
 static void integrate_monte_carlo_search(int32 append, int32 stuffbrowse,
                                          int32 ishoot);
 static void integrate_monte_carlo(void);
-static void integrate_init_monte_carlo(void);
 static int32 integrate_set_up_range(void);
 static int32 integrate_range_item(void);
 
@@ -223,7 +222,16 @@ integrate_init_range(void) {
     }
     sprintf(range.item2, "%s", uvar_names[0]);
     pp_shoot_init_shoot_range(upar_names[0]);
-    integrate_init_monte_carlo();
+
+    /* integrate init monte carlo */
+    fixptguess.tol = .001;
+    fixptguess.n = 100;
+    for (int32 i2 = 0; i2 < NODE; i2++) {
+        fixptguess.xlo[i2] = -10;
+        fixptguess.xhi[i2] = 10;
+    }
+    fixptlist.flag = 0;
+    fixptlist.n = 0;
     return;
 }
 
@@ -332,19 +340,6 @@ integrate_set_up_range(void) {
 }
 
 
-void
-integrate_init_monte_carlo(void) {
-    int32 i;
-    fixptguess.tol = .001;
-    fixptguess.n = 100;
-    for (i = 0; i < NODE; i++) {
-        fixptguess.xlo[i] = -10;
-        fixptguess.xhi[i] = 10;
-    }
-    fixptlist.flag = 0;
-    fixptlist.n = 0;
-    return;
-}
 
 void
 integrate_monte_carlo(void) {
