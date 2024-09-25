@@ -110,7 +110,6 @@ static void clrscr(void);
 static void form_ode_find_ker(char *string, int32 *alt);
 static void form_ode_take_apart(char *bob, double *value, char *name);
 static void form_ode_show_syms(void);
-static void form_ode_welcome(void);
 static void form_ode_list_em(char *wild);
 static int32 form_ode_get_a_filename(char *filename, char *wild);
 static void form_ode_format_list(char **s, int32 n);
@@ -439,7 +438,29 @@ form_ode_compiler(char *bob, FILE *fptr) {
         form_ode_show_syms();
         break;
     case 'h':
-        form_ode_welcome();
+        /* form ode welcome */
+        ggets_plintf("\n The commands are: \n");
+        ggets_plintf(" P(arameter) -- declare parameters "
+                     "<name1>=<value1>,<name2>=<value2>,...\n");
+        ggets_plintf(" F(ixed)     -- declare fixed variables\n");
+        ggets_plintf(" V(ariables) -- declare ode variables \n");
+        ggets_plintf(
+            " U(ser)      -- declare user functions <name> <nargs> <formula>\n");
+        ggets_plintf(" C(hange)    -- change option file   <filename>\n");
+        ggets_plintf(" O(de)       -- declare RHS for equations\n");
+        ggets_plintf(" D(one)      -- finished compiling formula\n");
+        ggets_plintf(" H(elp)      -- this menu                 \n");
+        ggets_plintf(" S(ymbols)   -- Valid functions and symbols\n");
+        ggets_plintf(" I(ntegral)  -- rhs for integral eqn\n");
+        ggets_plintf(" K(ernel)    -- declare kernel for integral eqns\n");
+        ggets_plintf(" T(able)     -- lookup table\n");
+        ggets_plintf(" A(ux)       -- name auxiliary variable\n");
+        ggets_plintf(" N(umbers)   --  hidden parameters\n");
+        ggets_plintf(" M(arkov)    --  Markov variables \n");
+        ggets_plintf(" W(iener)    -- Wiener parameter \n");
+        ggets_plintf(
+            "_____________________________________________________________________"
+            "____\n");
         break;
     case 'x':
         my_string = form_ode_do_fit_get_next("{ ");
@@ -806,32 +827,6 @@ form_ode_compiler(char *bob, FILE *fptr) {
     return done;
 }
 
-void
-form_ode_welcome(void) {
-    ggets_plintf("\n The commands are: \n");
-    ggets_plintf(" P(arameter) -- declare parameters "
-                 "<name1>=<value1>,<name2>=<value2>,...\n");
-    ggets_plintf(" F(ixed)     -- declare fixed variables\n");
-    ggets_plintf(" V(ariables) -- declare ode variables \n");
-    ggets_plintf(
-        " U(ser)      -- declare user functions <name> <nargs> <formula>\n");
-    ggets_plintf(" C(hange)    -- change option file   <filename>\n");
-    ggets_plintf(" O(de)       -- declare RHS for equations\n");
-    ggets_plintf(" D(one)      -- finished compiling formula\n");
-    ggets_plintf(" H(elp)      -- this menu                 \n");
-    ggets_plintf(" S(ymbols)   -- Valid functions and symbols\n");
-    ggets_plintf(" I(ntegral)  -- rhs for integral eqn\n");
-    ggets_plintf(" K(ernel)    -- declare kernel for integral eqns\n");
-    ggets_plintf(" T(able)     -- lookup table\n");
-    ggets_plintf(" A(ux)       -- name auxiliary variable\n");
-    ggets_plintf(" N(umbers)   --  hidden parameters\n");
-    ggets_plintf(" M(arkov)    --  Markov variables \n");
-    ggets_plintf(" W(iener)    -- Wiener parameter \n");
-    ggets_plintf(
-        "_____________________________________________________________________"
-        "____\n");
-    return;
-}
 
 void
 form_ode_show_syms(void) {
