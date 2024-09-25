@@ -156,7 +156,6 @@ int32 NewPeriodFlag;
 static AutoAX Old1p;
 static AutoAX Old2p;
 
-static void auto_extend_bvp(void);
 static void auto_switch_per(void);
 static void auto_switch_bvp(void);
 static void auto_switch_ss(void);
@@ -1939,7 +1938,19 @@ auto_run(void) {
         return;
     }
     if (grabpt.ibr > 0 && ips == 4) {
-        auto_extend_bvp();
+        /* auto extend bvp */
+        TypeOfCalc = BV1;
+        Auto.irs = grabpt.lab;
+        Auto.itp = grabpt.itp;
+        Auto.nfpar = grabpt.nfpar;
+        Auto.ilp = 1;
+        Auto.isw = 1;
+        Auto.isp = 2;
+        if (SuppressBP == 1)
+            Auto.isp = 0;
+        Auto.ips = 4;
+        AutoTwoParam = 0;
+        auto_nox_do(OPEN_3, APPEND);
         ggets_ping();
         return;
     }
@@ -2220,23 +2231,6 @@ auto_new_per(void) {
     return;
 }
 
-void
-auto_extend_bvp(void) {
-    /* extending bvp */
-    TypeOfCalc = BV1;
-    Auto.irs = grabpt.lab;
-    Auto.itp = grabpt.itp;
-    Auto.nfpar = grabpt.nfpar;
-    Auto.ilp = 1;
-    Auto.isw = 1;
-    Auto.isp = 2;
-    if (SuppressBP == 1)
-        Auto.isp = 0;
-    Auto.ips = 4;
-    AutoTwoParam = 0;
-    auto_nox_do(OPEN_3, APPEND);
-    return;
-}
 
 void
 auto_switch_per(void) {
