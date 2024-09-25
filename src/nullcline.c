@@ -73,7 +73,6 @@ static void nullcline_redraw_froz(int32 flag);
 static void nullcline_save_frozen(char *fn);
 static void nullcline_clear_froz(void);
 static void nullcline_start(void);
-static void nullcline_do_range(void);
 
 void
 nullcline_froz_cline_stuff_com(int32 i) {
@@ -96,72 +95,37 @@ nullcline_froz_cline_stuff_com(int32 i) {
         nullcline_redraw_froz(delay);
         break;
     case 2:
-        nullcline_do_range();
-        break;
-    default:
-        break;
-    }
-    return;
-}
+    {
+        /* nullcline do range */
+        static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
+        char values[LENGTH(n)][MAX_LEN_SBOX];
+        int32 status;
+        int32 i;
+        double z, dz, zold;
+        double xmin, xmax, y_tp, y_bot;
+        int32 col1 = XNullColor, col2 = YNullColor;
+        int32 course = NMESH;
+        /* if(PaperWhite){
+          col1=1;
+          col2=9;
+          } */
+        snprintf(values[0], sizeof(values[0]), "%s", ncrange.rv);
+        snprintf(values[1], sizeof(values[1]), "%d", ncrange.nstep);
+        snprintf(values[2], sizeof(values[2]), "%g", ncrange.xlo);
+        snprintf(values[3], sizeof(values[3]), "%g", ncrange.xhi);
+        status = do_string_box(4, 4, 1, "Range Clines", n, values, 45);
+        if (status == 0)
+            break;
 
-void
-nullcline_silent_dfields(void) {
-    if (DFBatch == 5 || DFBatch == 4) {
-        DFSuppress = 1;
-        graphics_init_ps();
-        nullcline_do_batch_dfield();
-        DFSuppress = 0;
-    }
-    return;
-}
-
-void
-silent_nullclines(void) {
-    FILE *fp;
-    if (NCBatch != 2)
-        return;
-    NCSuppress = 1;
-    nullcline_new_clines_com(0);
-    fp = fopen("nullclines.dat", "w");
-    if (fp == NULL) {
-        ggets_plintf("Cannot open nullcline file\n");
-        return;
-    }
-    nullcline_dump(fp, X_n, num_x_n, Y_n, num_y_n);
-    fclose(fp);
-    NCSuppress = 0;
-    return;
-}
-
-void
-nullcline_do_range(void) {
-    static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    int32 status;
-    int32 i;
-    double z, dz, zold;
-    double xmin, xmax, y_tp, y_bot;
-    int32 col1 = XNullColor, col2 = YNullColor;
-    int32 course = NMESH;
-    /* if(PaperWhite){
-      col1=1;
-      col2=9;
-      } */
-    snprintf(values[0], sizeof(values[0]), "%s", ncrange.rv);
-    snprintf(values[1], sizeof(values[1]), "%d", ncrange.nstep);
-    snprintf(values[2], sizeof(values[2]), "%g", ncrange.xlo);
-    snprintf(values[3], sizeof(values[3]), "%g", ncrange.xhi);
-    status = do_string_box(4, 4, 1, "Range Clines", n, values, 45);
-    if (status != 0) {
         strcpy(ncrange.rv, values[0]);
         ncrange.nstep = atoi(values[1]);
         ncrange.xlo = atof(values[2]);
         ncrange.xhi = atof(values[3]);
         if (ncrange.nstep <= 0)
-            return;
+            break;
         dz = (ncrange.xhi - ncrange.xlo) / (double)ncrange.nstep;
         if (dz <= 0.0)
-            return;
+            break;
         get_val(ncrange.rv, &zold);
 
         for (i = NODE; i < NODE + NMarkov; i++)
@@ -206,9 +170,43 @@ nullcline_do_range(void) {
             nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         }
         set_val(ncrange.rv, zold);
+        break;
+    }
+    default:
+        break;
     }
     return;
 }
+
+void
+nullcline_silent_dfields(void) {
+    if (DFBatch == 5 || DFBatch == 4) {
+        DFSuppress = 1;
+        graphics_init_ps();
+        nullcline_do_batch_dfield();
+        DFSuppress = 0;
+    }
+    return;
+}
+
+void
+silent_nullclines(void) {
+    FILE *fp;
+    if (NCBatch != 2)
+        return;
+    NCSuppress = 1;
+    nullcline_new_clines_com(0);
+    fp = fopen("nullclines.dat", "w");
+    if (fp == NULL) {
+        ggets_plintf("Cannot open nullcline file\n");
+        return;
+    }
+    nullcline_dump(fp, X_n, num_x_n, Y_n, num_y_n);
+    fclose(fp);
+    NCSuppress = 0;
+    return;
+}
+
 
 void
 nullcline_start(void) {
