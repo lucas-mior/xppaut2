@@ -42,6 +42,9 @@ static MainAutoStorage mas = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                               NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                               NULL, NULL, NULL, NULL, NULL};
 
+static int32 gdsum(void);
+static int32 gsendx(void);
+
 /* ----------------------------------------------------------------------- */
 /*           Setting up of the Jacobian and right hand side */
 /* ----------------------------------------------------------------------- */

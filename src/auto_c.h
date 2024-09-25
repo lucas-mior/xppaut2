@@ -455,8 +455,6 @@ int64 mynode(void);
 int64 numnodes(void);
 int32 csend(void);
 int32 crecv(void);
-int32 gdsum(void);
-int32 gsendx(void);
 int32 gcol(void);
 int32 led(void);
 int32 setiomode(void);
