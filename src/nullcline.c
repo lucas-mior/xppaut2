@@ -71,7 +71,6 @@ static void nullcline_dump(FILE *fp, double *x, int32 nx, double *y, int32 ny);
 static void save_the_nullclines(void);
 static void nullcline_redraw_froz(int32 flag);
 static void nullcline_save_frozen(char *fn);
-static void nullcline_clear_froz(void);
 
 void
 nullcline_froz_cline_stuff_com(int32 i) {
@@ -98,8 +97,43 @@ nullcline_froz_cline_stuff_com(int32 i) {
         nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         break;
     case 1:
-        nullcline_clear_froz();
+    {
+        /* nullcline_clear_froz */
+        NullClines *z;
+        NullClines *znew;
+        z = ncperm;
+        while (z->n != NULL)
+            z = z->n;
+        /*  this is the bottom but there is nothing here that has been stored   */
+
+        znew = z->p;
+        if (znew == NULL)
+            break;
+        free(z);
+        z = znew;
+        /* now we are deleting everything */
+        while (z->p != NULL) {
+            znew = z->p;
+            z->n = NULL;
+            z->p = NULL;
+            free(z->xn);
+            free(z->yn);
+            free(z);
+            z = znew;
+        }
+        if (ncperm->nmx > 0) {
+            free(ncperm->xn);
+            ncperm->nmx = 0;
+        }
+        if (ncperm->nmy > 0) {
+            free(ncperm->yn);
+            ncperm->nmy = 0;
+        }
+        ncperm->n = NULL;
+        n_nstore = 1;
+        ncline_cnt = 0;
         break;
+    }
     case 3:
         ggets_new_int("Delay (msec)", &delay);
         if (delay <= 0)
@@ -221,43 +255,6 @@ silent_nullclines(void) {
 
 
 
-void
-nullcline_clear_froz(void) {
-    NullClines *z;
-    NullClines *znew;
-    z = ncperm;
-    while (z->n != NULL)
-        z = z->n;
-    /*  this is the bottom but there is nothing here that has been stored   */
-
-    znew = z->p;
-    if (znew == NULL)
-        return;
-    free(z);
-    z = znew;
-    /* now we are deleting everything */
-    while (z->p != NULL) {
-        znew = z->p;
-        z->n = NULL;
-        z->p = NULL;
-        free(z->xn);
-        free(z->yn);
-        free(z);
-        z = znew;
-    }
-    if (ncperm->nmx > 0) {
-        free(ncperm->xn);
-        ncperm->nmx = 0;
-    }
-    if (ncperm->nmy > 0) {
-        free(ncperm->yn);
-        ncperm->nmy = 0;
-    }
-    ncperm->n = NULL;
-    n_nstore = 1;
-    ncline_cnt = 0;
-    return;
-}
 
 int32
 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
