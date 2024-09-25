@@ -160,7 +160,6 @@ static void update_ani_motion_stuff(int32 x, int32 y);
 static void ani_buttonx(XEvent event, int32 flag);
 static void ani_button(Window window);
 static void ani_resize(int32 x, int32 y);
-static void ani_newskip(void);
 static void ani_check_on_the_fly(void);
 static void ani_frame(int32 task);
 static void ani_set_to_init_data(void);
@@ -594,8 +593,24 @@ ani_button(Window window) {
     if (window == vcr.wgo) {
         ani_flip();
     }
-    if (window == vcr.wskip)
-        ani_newskip();
+    if (window == vcr.wskip) {
+        /* ani newskip */
+        char bob[20];
+        Window window;
+        int32 rev;
+        int32 status;
+        XGetInputFocus(display, &window, &rev);
+        snprintf(bob, sizeof(bob), "%d", vcr.inc);
+        status = dialog_box_get("Frame skip", "Increment:",
+                                bob, "Ok", "Cancel", 20);
+        if (status != 0) {
+            vcr.inc = atoi(bob);
+            if (vcr.inc <= 0)
+                vcr.inc = 1;
+        }
+        XSetInputFocus(display, window, rev, CurrentTime);
+        return;
+    }
     if (window == vcr.wup)
         ani_flip1(1);
     if (window == vcr.wdn)
@@ -751,25 +766,6 @@ ani_resize(int32 x, int32 y) {
                    (uint)vcr.hgt);
     XSetForeground(display, ani_gc, BlackPixel(display, screen));
     ani_tst_pix_draw();
-    return;
-}
-
-void
-ani_newskip(void) {
-    char bob[20];
-    Window window;
-    int32 rev;
-    int32 status;
-    XGetInputFocus(display, &window, &rev);
-    snprintf(bob, sizeof(bob), "%d", vcr.inc);
-    status =
-        dialog_box_get("Frame skip", "Increment:", bob, "Ok", "Cancel", 20);
-    if (status != 0) {
-        vcr.inc = atoi(bob);
-        if (vcr.inc <= 0)
-            vcr.inc = 1;
-    }
-    XSetInputFocus(display, window, rev, CurrentTime);
     return;
 }
 
