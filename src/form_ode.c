@@ -113,6 +113,7 @@ static void form_ode_welcome(void);
 static void form_ode_list_em(char *wild);
 static int32 form_ode_get_a_filename(char *filename, char *wild);
 static void form_ode_format_list(char **s, int32 n);
+static void form_ode_count_object(int32 type);
 
 int32
 form_ode_make_eqn(void) {
@@ -1053,7 +1054,7 @@ form_ode_if_end_include(char *old) {
     return 0;
 }
 
-static void
+void
 form_ode_count_object(int32 type) {
     switch (type) {
     case ODE:

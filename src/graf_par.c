@@ -1044,18 +1044,6 @@ create_svg(void) {
     return;
 }
 
-/*
-ps_test() {
- double xlo=MyGraph->xlo,xhi=MyGraph->xhi,ylo=MyGraph->ylo,yhi=MyGraph->yhi;
- graphics_text_abs((double)xlo,(double)ylo,"lolo");
- graphics_text_abs((double)xlo,(double)yhi,"lohi");
- graphics_text_abs((double)xhi,(double)ylo,"hilo");
- graphics_text_abs((double)xhi,(double)yhi,"hihi");
- ps_end();
-}
-
-*/
-
 void
 graf_par_change_cmap_com(int32 i) {
     color_new_map(i);
