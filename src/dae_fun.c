@@ -37,7 +37,6 @@ static int32 nsvar = 0, naeqn = 0;
 
 static int32 dae_fun_solve(void);
 static void get_dae_fun(double *y, double *f);
-static void dae_fun_init_work(void);
 
 int32
 dae_fun_add_svar(char *name, char *rhs) {
@@ -111,7 +110,12 @@ dae_fun_compile_svars(void) {
         for (k = 0; k < n; k++)
             svar[i].form[k] = f[k];
     }
-    dae_fun_init_work();
+
+    /* dae fun init work */
+    dae_work.work =
+        xmalloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
+    dae_work.iwork = xmalloc(sizeof(*(dae_work.iwork))*(usize)nsvar);
+    dae_work.status = 1;
     return 0;
 }
 
@@ -161,14 +165,6 @@ dae_fun_err_dae(void) {
     return;
 }
 
-void
-dae_fun_init_work(void) {
-    dae_work.work =
-        xmalloc(sizeof(*(dae_work.work))*(usize)(nsvar*nsvar + 10*nsvar));
-    dae_work.iwork = xmalloc(sizeof(*(dae_work.iwork))*(usize)nsvar);
-    dae_work.status = 1;
-    return;
-}
 
 void
 get_dae_fun(double *y, double *f) {
