@@ -148,7 +148,6 @@ static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
 static void main_make_pops(void);
 static void main_load_fonts(void);
 static void main_get_gc(GC *gc);
-static void main_make_top_buttons(void);
 static void main_top_button_events(XEvent report);
 static void main_top_button_press(Window window);
 static void main_top_button_cross(Window window, int32 b);
@@ -489,7 +488,26 @@ do_main(int32 argc, char **argv) {
 
     main_make_pops();
 
-    main_make_top_buttons();
+    {
+        /* main make top buttons */
+        int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
+        TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+        TopButton[1] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[2] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[3] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[4] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[5] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+    }
 
     init_conds_initialize_box();
 
@@ -1241,27 +1259,6 @@ main_top_button_events(XEvent report) {
     return;
 }
 
-void
-main_make_top_buttons(void) {
-    int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
-    TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-    x1 += x2 + dx;
-    TopButton[1] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-    x1 += x2 + dx;
-
-    TopButton[2] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-    x1 += x2 + dx;
-
-    TopButton[3] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-    x1 += x2 + dx;
-
-    TopButton[4] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-    x1 += x2 + dx;
-
-    TopButton[5] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-    x1 += x2 + dx;
-    return;
-}
 
 void
 main_get_gc(GC *gc2) {
