@@ -66,7 +66,6 @@ static void many_pops_lo_lite(Window wi);
 static void many_pops_set_gr_back(void);
 static void many_pops_set_gr_fore(void);
 static void many_pops_select_window(Window window);
-static void many_pops_kill_all(void);
 static void many_pops_set_restore(int32 flag);
 static void many_pops_add_pntarr(int32 type);
 static void many_pops_add_marker(void);
@@ -961,8 +960,22 @@ many_pops_do_windows_com(int32 c) {
         many_pops_create_a_pop();
         break;
     case 1:
-        if (pop_list_yes_no_box())
-            many_pops_kill_all();
+        if (pop_list_yes_no_box()) {
+            /* many pops kill all */
+            many_pops_select_window(graph[0].window);
+
+            for (int32 i = 1; i < MAXPOP; i++) {
+                if (graph[i].Use) {
+                    graph[i].Use = 0;
+                    many_pops_destroy_label(graph[i].window);
+                    many_pops_destroy_grob(graph[i].window);
+
+                    XDestroySubwindows(display, graph[i].window);
+                    XDestroyWindow(display, graph[i].window);
+                }
+            }
+            num_pops = 1;
+        }
         break;
     case 3:
         XLowerWindow(display, draw_win);
@@ -1259,23 +1272,6 @@ many_pops_resize_all(int32 wid, int32 hgt) {
     return;
 }
 
-void
-many_pops_kill_all(void) {
-    int32 i;
-    many_pops_select_window(graph[0].window);
-
-    for (i = 1; i < MAXPOP; i++)
-        if (graph[i].Use) {
-            graph[i].Use = 0;
-            many_pops_destroy_label(graph[i].window);
-            many_pops_destroy_grob(graph[i].window);
-
-            XDestroySubwindows(display, graph[i].window);
-            XDestroyWindow(display, graph[i].window);
-        }
-    num_pops = 1;
-    return;
-}
 
 void
 many_pops_create_a_pop(void) {
