@@ -1,7 +1,7 @@
 #!/bin/bash
 
-FUNC_NAME="\**[[:alnum:]_]+"
-files="src/*.[ch] src/cvode/*.[ch]"
+FUNC_NAME="[[:alnum:]_]+"
+files="src/*.c src/*.h"
 
 grep -E "^$FUNC_NAME\(void\)" $files \
 | while read match; do
@@ -10,8 +10,8 @@ grep -E "^$FUNC_NAME\(void\)" $files \
     function="${function%(*}"
 
     n="$(grep -F -l "$function" $files | wc -l)"
-    if [ $n -eq 2 ]; then
+    if [ $n -eq 1 ]; then
         m="$(grep -F "$function" "$file" | wc -l)"
-        [ $m -le 2 ] && echo "$function"
+        [ $m -le 3 ] && echo "$function"
     fi
 done
