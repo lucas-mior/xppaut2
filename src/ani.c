@@ -1637,16 +1637,16 @@ free_ani(void) {
     n_anicom = 0;
     {    
         /* ani free grabber */
-        int32 i, j, m;
-        for (i = 0; i < n_ani_grab; i++) {
+        int32 m;
+        for (int32 i = 0; i < n_ani_grab; i++) {
             free(ani_grab[i].x);
             free(ani_grab[i].y);
             m = ani_grab[i].start.n;
-            for (j = 0; j < m; j++)
+            for (int32 j = 0; j < m; j++)
                 free(ani_grab[i].start.comrhs[j]);
 
             m = ani_grab[i].end.n;
-            for (j = 0; j < m; j++)
+            for (int32 j = 0; j < m; j++)
                 free(ani_grab[i].end.comrhs[j]);
             ani_grab[i].start.n = 0;
             ani_grab[i].end.n = 0;
