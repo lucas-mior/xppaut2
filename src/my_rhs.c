@@ -4,8 +4,6 @@
 #include "xpplim.h"
 #include "parserslow.h"
 
-/* #define Set_ivar(a,b) variables[(a)]=(b) */
-
 int32
 main(int32 argc, char **argv) {
     do_main(argc, argv);
@@ -23,28 +21,12 @@ my_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
         SETVAR(i + 1, y__y[i - FIX_VAR]);
     for (i = nod; i < nod + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
-    /* I dont think this is generally needed  */
-
-    /* extra_do_in_out();   */
 
     for (i = nod + NMarkov; i < neq; i++)
         y__y[i] = evaluate(my_ode[i + FIX_VAR - NMarkov]);
     return;
 }
 
-/* set_fix_rhs(t,y,neq)
-     int32 neq;
-     double t,*y;
-{
-  int32 i;
-  SETVAR(0,t);
-  for(i=0;i<neq;i++)
-    SETVAR(i+1,y[i]);
-  for(i=neq;i<neq+FIX_VAR;i++)
-    SETVAR(i+1,evaluate(my_ode[i]));
-  simplenet_eval_all_nets();
-  extra_do_in_out();
-  } */
 void
 set_fix_rhs(double t, double *y) {
     int32 i;
@@ -111,17 +93,15 @@ rhs_only(double *ydot) {
     return;
 }
 
-/***
-    This is the order in which quantities are evaluated
+/*
+ * This is the order in which quantities are evaluated
+ *
+ * 1.  Fixed variables
+ * 2.  network stuff
+ * 3.  DAEs
+ * 4.  External C code
+ * 5.  RH sides of the ODEs
 
-1.  Fixed variables
-2.  network stuff
-3.  DAEs
-4.  External C code
-5.  RH sides of the ODEs
+ * For Auxilliary stuff
 
-For Auxilliary stuff
-
-external C code is not evaluated but fixed are
-
-***/
+ * external C code is not evaluated but fixed are */
