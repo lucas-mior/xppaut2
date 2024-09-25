@@ -93,7 +93,6 @@ static void form_ode_remove_blanks(char *s1);
 static int32 form_ode_next_nonspace(char *s1, int32 i0, int32 *i1);
 static int32 form_ode_strparse(char *s1, char *s2, int32 i0, int32 *i1);
 static int32 form_ode_extract(char *s1, int32 *ie, int32 i1);
-static void form_ode_free_varinfo(void);
 static void form_ode_init_varinfo(void);
 static int32 form_ode_parse_a_string(char *s1, VarInfo *v);
 static void form_ode_strpiece(char *dest, char *src, int32 i0, int32 ie);
@@ -1829,7 +1828,23 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                      naux, nfix, nmark, NEQ, NODE);
     }
 
-    form_ode_free_varinfo();
+    {
+        /* form ode free varinfo */
+        VarInfo *v3;
+        VarInfo *vnew;
+        v3 = my_varinfo;
+        while (v3->next != NULL) {
+            v3 = v3->next;
+        }
+        while (v3->prev != NULL) {
+            vnew = v3->prev;
+            v3->next = NULL;
+            v3->prev = NULL;
+            free(v3);
+            v3 = vnew;
+        }
+        form_ode_init_varinfo();
+    }
     return 1;
 }
 
@@ -2112,24 +2127,6 @@ form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
     return;
 }
 
-void
-form_ode_free_varinfo(void) {
-    VarInfo *v;
-    VarInfo *vnew;
-    v = my_varinfo;
-    while (v->next != NULL) {
-        v = v->next;
-    }
-    while (v->prev != NULL) {
-        vnew = v->prev;
-        v->next = NULL;
-        v->prev = NULL;
-        free(v);
-        v = vnew;
-    }
-    form_ode_init_varinfo();
-    return;
-}
 
 int32
 form_ode_extract(/* name is char 1-i1  ie is start of rhs */
