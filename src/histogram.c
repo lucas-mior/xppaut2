@@ -176,9 +176,7 @@ histogram_post_process_stuff(void) {
 }
 
 int32
-histogram_two_d2(void)
-
-{
+histogram_two_d2(void) {
     int32 length;
     int32 i;
     length = hist_inf.nbins*hist_inf.nbins2;
