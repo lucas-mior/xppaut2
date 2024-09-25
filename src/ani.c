@@ -596,10 +596,10 @@ ani_button(Window window) {
     if (window == vcr.wskip) {
         /* ani newskip */
         char bob[20];
-        Window window;
+        Window win;
         int32 rev;
         int32 status;
-        XGetInputFocus(display, &window, &rev);
+        XGetInputFocus(display, &win, &rev);
         snprintf(bob, sizeof(bob), "%d", vcr.inc);
         status = dialog_box_get("Frame skip", "Increment:",
                                 bob, "Ok", "Cancel", 20);
@@ -608,7 +608,7 @@ ani_button(Window window) {
             if (vcr.inc <= 0)
                 vcr.inc = 1;
         }
-        XSetInputFocus(display, window, rev, CurrentTime);
+        XSetInputFocus(display, win, rev, CurrentTime);
         return;
     }
     if (window == vcr.wup)

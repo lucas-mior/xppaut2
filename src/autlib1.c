@@ -6963,28 +6963,6 @@ setpbv(iap_type *iap, rap_type *rap, double *dtm) {
 #include <sys/resource.h>
 
 double
-autlib1_time_start(void) {
-    struct timeval time;
-    double seconds;
-    double microseconds;
-    gettimeofday(&time, NULL);
-    seconds = (double)time.tv_sec;
-    microseconds = (double)time.tv_usec;
-    return seconds + microseconds / 1e6;
-}
-
-double
-autlib1_time_end(double start) {
-    struct timeval time;
-    double seconds;
-    double microseconds;
-    gettimeofday(&time, NULL);
-    seconds = (double)time.tv_sec;
-    microseconds = (double)time.tv_usec;
-    return (seconds + microseconds / 1e6) - start;
-}
-
-double
 getp(char *code, int64 *ic, double *ups, int64 code_len) {
     double ret_val = 0.0;
     int64 ntst;

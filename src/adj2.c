@@ -660,15 +660,15 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
             double *mu = &nrm;
             int32 n = NODE;
 
-            int32 i;
-            double sum = 0.0;
-            for (i = 0; i < n; i++)
-                sum += (v[i]*v[i]);
+            double sum2 = 0.0;
+            for (int32 i2 = 0; i2 < n; i2++)
+                sum += (v[i2]*v[i2]);
             sum = sqrt(sum);
-            if (sum > 0)
-                for (i = 0; i < n; i++)
-                    v[i] = v[i] / sum;
-            *mu = sum;
+            if (sum > 0) {
+                for (int32 i2 = 0; i2 < n; i2++)
+                    v[i2] = v[i2] / sum;
+            }
+            *mu = sum2;
         }
 
         nrm = nrm / eps;
