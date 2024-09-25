@@ -224,7 +224,6 @@ static void ani_tst_pix_draw(void);
 static void read_ani_line(FILE *fp, char *s);
 static int32 ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp);
 static int32 ani_grab_tasks(char *graphics_line, int32 igrab, int32 which);
-static int32 ani_run_now_grab(void);
 static int32 ani_search_for_grab(double x, double y);
 static void ani_do_grab_tasks(int32 which);
 static int32 ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which);
@@ -529,9 +528,13 @@ ani_buttonx(XEvent event, int32 flag) {
 
             ani_grab_flag = 0;
             init_conds_redraw_params();
-            if (ani_run_now_grab()) {
-                integrate_run_now();
-                ani_grab_flag = 0;
+
+            if (who_was_grabbed >= 0) {
+                /* ani run now grab */
+                if (ani_grab[who_was_grabbed].end.runnow) {
+                    integrate_run_now();
+                    ani_grab_flag = 0;
+                }
             }
         }
         return;
@@ -2624,13 +2627,6 @@ ani_grab_tasks(char *graphics_line, int32 igrab, int32 which) {
         k++;
     }
     return 1;
-}
-
-int32
-ani_run_now_grab(void) {
-    if (who_was_grabbed < 0)
-        return 0;
-    return ani_grab[who_was_grabbed].end.runnow;
 }
 
 int32
