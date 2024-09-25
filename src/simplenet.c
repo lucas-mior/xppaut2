@@ -9,120 +9,118 @@
 #include <string.h>
 
 /*
-  n is the number of values to return
-  ncon is the number of connections each guy gets
-  index[n][ncon] is the list of indices to which it connects
-  weight[n][ncon] is the list of weights
-  root is the address of lowest entry in the variable array
-
-  To wit:
-  for sparse type
-  name(i) produces values[i]
-  value[i] = simplenet_sum(k=0..ncon-1)of(w[i][k]*root[index[i][k]])
-
-ODE FILE CALL:
-
-special f=sparse( n, ncon, w,index,rootname)
-special f=sconv(type,n,ncon,w,rootname)
-index,w are tables that are loaded by the "tabular"
-command.
-rootname here is the name of the root quantity.
-type is either ep0
-for conv.
-
-conv0 conve convp type
-
-value[i]=    simplenet_sum(j=-ncon;j<=ncon;i++){
-              k=i+j;
-        0 type      if(k>=0 && k<n)
-              value[i]+=wgt[j+ncon]*rootname[k]
-        e type k=abs(i+j); if(k<2n)
-                               if(k>=n)k=n-k;
-                               ...
-        p type
-           k=mod(2*n+i+j,n)
-
-for example  discretized diffusion
-tabular dd % 3 -1 1 3*abs(t)-2
-special diff=conv(even, 51, 2, dd,v0)
-v[0..50]'=f(v[j],w[j])+d*diff([j])
-
-another example
-nnetwork
-
-tabular wgt % 51 -25 25 .032*cos(.5*pi*t/25)
-special stot=conv(0, 51, 25, wgt,v0)
-v[0..50]'=f(v[j],w[j])-gsyn*stot([j])*(v([j])-vsyn)
-
-last example -- random sparse network 51 cells 5 connections each
-
-tabular w % 251 0 250 .2*rand(1)
-tabular con % 251 0 250 flr(rand(1)*5)
-special stot=sparse(51,5,w,con,v0)
-v[0..50]'=f(v[j],w[j])-gsyn*stot([j])*(v([j])-vsyn)
-
-more stuff:
-special k= delmmult(n,m,w,tau,root)
-          w has n*m values and tau has n*m delays
-          n is the length of root (cols) and m is number of rows
-          k(i) = simplenet_sum(j=0,n-1) w[i*n+j] delay(root(j),tau[i*n+j])
-          Note delays can only work on variables and not on
-          fixed  values
-special k=delsparse(m,nc,w,index,tau,root)
-          m is the number of return values
-          nc is number of connections per node. Must be the sam
-          w is  n*nc is weights
-          index is  m*nc that has the indices of connections
-
-          tau is m*nc is list of delays
-
-       k[i]=simplenet_sum( 0<=j < nc) w[j+nc*i]*delay(root[c[j+nc*i]],tau[j+nc*i])
-
-special f=mmult(n,m,w,root)  -- note that here m is the number of return
-                          values and n is the size of input root
-f[j] = simplenet_sum(i=0,n-1)of(w(i+n*j)*root(i)) j=0,..,m-1
-special f=fmmult(n,m,w,root1,root2,fname)
-f[j] = simplenet_sum(i=0,n-1)of(w(i+n*j)*fname(root1[i],root2[j])
-special f=fsparse( n, ncon,w,index,root1,root2,fname)
-special f=fconv(type,n,ncon,w,root1,root2,fname)
-simplenet_sum(j=-ncon,ncon)w(j)*fname(root1[i+j],root2[i])
-similarly for fsparse
-
-special k=fftcon(type,n,wgt,v0)
-
-uses the fft to convolve v0 with the wgt which must be of
-length n if type=periodic
-       2n if type=0
-
-special f=interp(type,n,root)
-        this produces an interpolated value of x for
-        x \in [0,n)
-        type =0 for linear (all that works now)
-        root0,....rootn-1  are values at the integers
-        Like a table, but the int64 values are variables
-
-special f=findext(type,n,skip,root)
-if type=1  mx(0)=maximum mx(1)=index
-if type=-1 mx(2)=minimum mx(3)=index
-if type=0 mx(0)=maximum mx(1)=index,mx(2)=minimum mx(3)=index
-
-special ydot=import(soname,sofun,nret,root,w1,w2,...wm)
-
- run right hand side in C
- soname is shared object library say mlnet.so
- sofun  is shared object function
- nret is the number of return values
- root is the name of the first variable
-
-sofun(int32 nret, int32 root, double *con, double *var, double *z[50],double
-*ydot)
-
-*z[50] contains a list of pointers  z[0] -> w1, .... 50 is hard coded
-
-NOTE that the user-defined parameters start at #6 and are in order
-including derived parameters but XPP takes care of this so start at 0
-
-*/
+ * n is the number of values to return
+ * ncon is the number of connections each guy gets
+ * index[n][ncon] is the list of indices to which it connects
+ * weight[n][ncon] is the list of weights
+ * root is the address of lowest entry in the variable array
+ * 
+ * To wit:
+ * for sparse type
+ * name(i) produces values[i]
+ * value[i] = simplenet_sum(k=0..ncon-1)of(w[i][k]*root[index[i][k]])
+ * 
+ * ODE FILE CALL:
+ * 
+ * special f=sparse( n, ncon, w,index,rootname)
+ * special f=sconv(type,n,ncon,w,rootname)
+ * index,w are tables that are loaded by the "tabular"
+ * command.
+ * rootname here is the name of the root quantity.
+ * type is either ep0
+ * for conv.
+ * 
+ * conv0 conve convp type
+ * 
+ * value[i]=    simplenet_sum(j=-ncon;j<=ncon;i++){
+ *               k=i+j;
+ *         0 type      if(k>=0 && k<n)
+ *               value[i]+=wgt[j+ncon]*rootname[k]
+ *         e type k=abs(i+j); if(k<2n)
+ *                                if(k>=n)k=n-k;
+ *                                ...
+ *         p type
+ *            k=mod(2*n+i+j,n)
+ * 
+ * for example  discretized diffusion
+ * tabular dd % 3 -1 1 3*abs(t)-2
+ * special diff=conv(even, 51, 2, dd,v0)
+ * v[0..50]'=f(v[j],w[j])+d*diff([j])
+ * 
+ * another example
+ * nnetwork
+ * 
+ * tabular wgt % 51 -25 25 .032*cos(.5*pi*t/25)
+ * special stot=conv(0, 51, 25, wgt,v0)
+ * v[0..50]'=f(v[j],w[j])-gsyn*stot([j])*(v([j])-vsyn)
+ * 
+ * last example -- random sparse network 51 cells 5 connections each
+ * 
+ * tabular w % 251 0 250 .2*rand(1)
+ * tabular con % 251 0 250 flr(rand(1)*5)
+ * special stot=sparse(51,5,w,con,v0)
+ * v[0..50]'=f(v[j],w[j])-gsyn*stot([j])*(v([j])-vsyn)
+ * 
+ * more stuff:
+ * special k= delmmult(n,m,w,tau,root)
+ *           w has n*m values and tau has n*m delays
+ *           n is the length of root (cols) and m is number of rows
+ *           k(i) = simplenet_sum(j=0,n-1) w[i*n+j] delay(root(j),tau[i*n+j])
+ *           Note delays can only work on variables and not on
+ *           fixed  values
+ * special k=delsparse(m,nc,w,index,tau,root)
+ *           m is the number of return values
+ *           nc is number of connections per node. Must be the sam
+ *           w is  n*nc is weights
+ *           index is  m*nc that has the indices of connections
+ * 
+ *           tau is m*nc is list of delays
+ * 
+ *        k[i]=simplenet_sum( 0<=j < nc) w[j+nc*i]*delay(root[c[j+nc*i]],tau[j+nc*i])
+ * 
+ * special f=mmult(n,m,w,root)  -- note that here m is the number of return
+ *                           values and n is the size of input root
+ * f[j] = simplenet_sum(i=0,n-1)of(w(i+n*j)*root(i)) j=0,..,m-1
+ * special f=fmmult(n,m,w,root1,root2,fname)
+ * f[j] = simplenet_sum(i=0,n-1)of(w(i+n*j)*fname(root1[i],root2[j])
+ * special f=fsparse( n, ncon,w,index,root1,root2,fname)
+ * special f=fconv(type,n,ncon,w,root1,root2,fname)
+ * simplenet_sum(j=-ncon,ncon)w(j)*fname(root1[i+j],root2[i])
+ * similarly for fsparse
+ * 
+ * special k=fftcon(type,n,wgt,v0)
+ * 
+ * uses the fft to convolve v0 with the wgt which must be of
+ * length n if type=periodic
+ *        2n if type=0
+ * 
+ * special f=interp(type,n,root)
+ *         this produces an interpolated value of x for
+ *         x \in [0,n)
+ *         type =0 for linear (all that works now)
+ *         root0,....rootn-1  are values at the integers
+ *         Like a table, but the int64 values are variables
+ * 
+ * special f=findext(type,n,skip,root)
+ * if type=1  mx(0)=maximum mx(1)=index
+ * if type=-1 mx(2)=minimum mx(3)=index
+ * if type=0 mx(0)=maximum mx(1)=index,mx(2)=minimum mx(3)=index
+ * 
+ * special ydot=import(soname,sofun,nret,root,w1,w2,...wm)
+ * 
+ *  run right hand side in C
+ *  soname is shared object library say mlnet.so
+ *  sofun  is shared object function
+ *  nret is the number of return values
+ *  root is the name of the first variable
+ * 
+ * sofun(int32 nret, int32 root, double *con, double *var, double *z[50],double
+ * *ydot)
+ * 
+ * *z[50] contains a list of pointers  z[0] -> w1, .... 50 is hard coded
+ * 
+ * NOTE that the user-defined parameters start at #6 and are in order
+ * including derived parameters but XPP takes care of this so start at 0 */
 
 #include <stdio.h>
 
