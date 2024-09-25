@@ -33,7 +33,6 @@ static struct FitInfo {
 static void do_fit_parse_parlist(char *parlist, int32 *ipars, int32 *n);
 static void do_fit_parse_varlist(char *varlist, int32 *ivars, int32 *n);
 static void do_fit_parse_collist(char *collist, int32 *icols, int32 *n);
-static int32 do_fit_get_params(void);
 
 void
 do_fit_init_info(void) {
@@ -325,12 +324,43 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
 void
 do_fit_test(void) {
     double *yfit, a[1000], y0[1000];
-    int32 nvars, npars, i, ok;
+    int32 nvars, npars, ok;
     char collist[30], parlist1[30], parlist2[30], varlist[30];
+
+    static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
+                        "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
+    int32 status;
+    char values[LENGTH(n)][MAX_LEN_SBOX];
+
     fit_info.nvars = 0;
     fit_info.npars = 0;
-    if (do_fit_get_params() == 0)
+
+    /* do fit get params */
+    snprintf(values[0], sizeof(values[0]), "%s", fit_info.file);
+    snprintf(values[1], sizeof(values[1]), "%s", fit_info.varlist);
+    snprintf(values[2], sizeof(values[2]), "%s", fit_info.parlist1);
+    snprintf(values[3], sizeof(values[3]), "%g", fit_info.tol);
+    snprintf(values[4], sizeof(values[4]), "%d", fit_info.npts);
+    snprintf(values[5], sizeof(values[5]), "%d", fit_info.dim);
+    snprintf(values[6], sizeof(values[6]), "%s", fit_info.collist);
+    snprintf(values[7], sizeof(values[7]), "%s", fit_info.parlist2);
+    snprintf(values[8], sizeof(values[8]), "%g", fit_info.eps);
+    snprintf(values[9], sizeof(values[9]), "%d", fit_info.maxiter);
+
+    status = do_string_box(10, 5, 2, "Fit", n, values, 45);
+    if (status == 0)
         return;
+
+    fit_info.tol = atof(values[3]);
+    fit_info.npts = atoi(values[4]);
+    fit_info.dim = atoi(values[5]);
+    fit_info.eps = atof(values[8]);
+    fit_info.maxiter = atoi(values[9]);
+    strncpy(fit_info.file, values[0], sizeof(fit_info.file));
+    strncpy(fit_info.varlist, values[1], sizeof(fit_info.varlist));
+    strncpy(fit_info.parlist1, values[2], sizeof(fit_info.varlist));
+    strncpy(fit_info.collist, values[6], sizeof(fit_info.varlist));
+    strncpy(fit_info.parlist2, values[7], sizeof(fit_info.varlist));
 
     strncpy(collist, fit_info.collist, sizeof(collist));
     strncpy(varlist, fit_info.varlist, sizeof(varlist));
@@ -361,14 +391,14 @@ do_fit_test(void) {
         return;
     }
     fit_info.npars = npars;
-    for (i = 0; i < npars; i++)
+    for (int32 i = 0; i < npars; i++)
         if (fit_info.ipar[i] >= 0) {
             if (fit_info.ipar[i] >= NODE) {
                 ggets_err_msg(" Cant vary auxiliary/markov variables! ");
                 return;
             }
         }
-    for (i = 0; i < nvars; i++) {
+    for (int32 i = 0; i < nvars; i++) {
         if (fit_info.icols[i] < 2) {
             ggets_err_msg(" Illegal column must be >= 2");
             return;
@@ -379,9 +409,9 @@ do_fit_test(void) {
         }
     }
     yfit = xmalloc((usize)(fit_info.npts*fit_info.nvars)*sizeof(*yfit));
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         y0[i] = last_ic[i];
-    for (i = 0; i < fit_info.npars; i++) {
+    for (int32 i = 0; i < fit_info.npars; i++) {
         if (fit_info.ipar[i] < 0)
             a[i] = constants[-fit_info.ipar[i]];
         else
@@ -411,7 +441,7 @@ do_fit_test(void) {
 
     /* get the latest par values ...  */
 
-    for (i = 0; i < npars; i++) {
+    for (int32 i = 0; i < npars; i++) {
         if (fit_info.ipar[i] < 0)
             constants[-fit_info.ipar[i]] = a[i];
         else
@@ -706,38 +736,6 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
     return 1;
 }
 
-int32
-do_fit_get_params(void) {
-    static char *n[] = {"File",  "Fitvar", "Params", "Tolerance", "Npts",
-                        "NCols", "To Col", "Params", "Epsilon",   "Max iter"};
-    int32 status;
-    char values[LENGTH(n)][MAX_LEN_SBOX];
-    snprintf(values[0], sizeof(values[0]), "%s", fit_info.file);
-    snprintf(values[1], sizeof(values[1]), "%s", fit_info.varlist);
-    snprintf(values[2], sizeof(values[2]), "%s", fit_info.parlist1);
-    snprintf(values[3], sizeof(values[3]), "%g", fit_info.tol);
-    snprintf(values[4], sizeof(values[4]), "%d", fit_info.npts);
-    snprintf(values[5], sizeof(values[5]), "%d", fit_info.dim);
-    snprintf(values[6], sizeof(values[6]), "%s", fit_info.collist);
-    snprintf(values[7], sizeof(values[7]), "%s", fit_info.parlist2);
-    snprintf(values[8], sizeof(values[8]), "%g", fit_info.eps);
-    snprintf(values[9], sizeof(values[9]), "%d", fit_info.maxiter);
-    status = do_string_box(10, 5, 2, "Fit", n, values, 45);
-    if (status != 0) {
-        fit_info.tol = atof(values[3]);
-        fit_info.npts = atoi(values[4]);
-        fit_info.dim = atoi(values[5]);
-        fit_info.eps = atof(values[8]);
-        fit_info.maxiter = atoi(values[9]);
-        strncpy(fit_info.file, values[0], sizeof(fit_info.file));
-        strncpy(fit_info.varlist, values[1], sizeof(fit_info.varlist));
-        strncpy(fit_info.parlist1, values[2], sizeof(fit_info.varlist));
-        strncpy(fit_info.collist, values[6], sizeof(fit_info.varlist));
-        strncpy(fit_info.parlist2, values[7], sizeof(fit_info.varlist));
-        return 1;
-    }
-    return 0;
-}
 
 /* gets a list of the data columns to use ... */
 
