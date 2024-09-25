@@ -522,13 +522,13 @@ array_plot_dump(FILE *fp, int32 f) {
         fgets(bob, 255, fp);
     else
         fprintf(fp, "# Array plot stuff\n");
-    io_string(array_plot.name, 11, fp, f);
-    io_int(&array_plot.nacross, fp, f, "NCols");
-    io_int(&array_plot.nstart, fp, f, "Row 1");
-    io_int(&array_plot.ndown, fp, f, "NRows");
-    io_int(&array_plot.nskip, fp, f, "RowSkip");
-    io_double(&array_plot.zmin, fp, f, "Zmin");
-    io_double(&array_plot.zmax, fp, f, "Zmax");
+    lunch_io_string(array_plot.name, 11, fp, f);
+    lunch_io_int(&array_plot.nacross, fp, f, "NCols");
+    lunch_io_int(&array_plot.nstart, fp, f, "Row 1");
+    lunch_io_int(&array_plot.ndown, fp, f, "NRows");
+    lunch_io_int(&array_plot.nskip, fp, f, "RowSkip");
+    lunch_io_double(&array_plot.zmin, fp, f, "Zmin");
+    lunch_io_double(&array_plot.zmax, fp, f, "Zmax");
     return;
 }
 

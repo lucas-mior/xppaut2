@@ -394,7 +394,7 @@ comline_if_needed_load_par(void) {
     if (!loadparfile)
         return 1;
     ggets_plintf("Loading external parameter file: %s\n", parfilename);
-    io_parameter_file(parfilename, 1);
+    lunch_io_parameter_file(parfilename, 1);
     return 1;
 }
 
@@ -403,7 +403,7 @@ comline_if_needed_load_ic(void) {
     if (!loadicfile)
         return 1;
     ggets_plintf("Loading external initial condition file: %s\n", icfilename);
-    io_ic_file(icfilename, 1);
+    lunch_io_ic_file(icfilename, 1);
     return 1;
 }
 

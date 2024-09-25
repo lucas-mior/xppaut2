@@ -2266,11 +2266,11 @@ init_conds_new_parameter(void) {
         }
 
         if (strncasecmp(name, "!LOAD", 5) == 0) {
-            io_parameter_file(name, READEM);
+            lunch_io_parameter_file(name, READEM);
             continue;
         }
         if (strncasecmp(name, "!SAVE", 5) == 0) {
-            io_parameter_file(name, WRITEM);
+            lunch_io_parameter_file(name, WRITEM);
             continue;
         }
 

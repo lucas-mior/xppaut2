@@ -1051,7 +1051,7 @@ main_commander(int32 ch) {
             do_lunch(0);
             break;
         case 's':
-            file_inf();
+            lunch_file_inf();
             break;
         case 'a':
 #ifdef AUTO

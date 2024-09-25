@@ -145,11 +145,11 @@ load_eqn_dump_torus(FILE *fp, int32 f) {
         fgets(bob, 255, fp);
     else
         fprintf(fp, "# Torus information \n");
-    io_int(&TORUS, fp, f, " Torus flag 1=ON");
-    io_double(&TOR_PERIOD, fp, f, "Torus period");
+    lunch_io_int(&TORUS, fp, f, " Torus flag 1=ON");
+    lunch_io_double(&TOR_PERIOD, fp, f, "Torus period");
     if (TORUS) {
         for (i = 0; i < NEQ; i++)
-            io_int(&itor[i], fp, f, uvar_names[i]);
+            lunch_io_int(&itor[i], fp, f, uvar_names[i]);
     }
     return;
 }

@@ -17,15 +17,15 @@
 
 static int32 set_type = 0;
 
-static void io_graph(int32 f, FILE *fp);
-static void io_exprs(int32 f, FILE *fp);
-static void io_parameters(int32 f, FILE *fp);
-static void io_numerics(int32 f, FILE *fp);
-static void dump_eqn(FILE *fp);
-static void do_info(FILE *fp);
+static void lunch_io_graph(int32 f, FILE *fp);
+static void lunch_io_exprs(int32 f, FILE *fp);
+static void lunch_io_parameters(int32 f, FILE *fp);
+static void lunch_io_numerics(int32 f, FILE *fp);
+static void lunch_dump_eqn(FILE *fp);
+static void lunch_do_info(FILE *fp);
 
 void
-file_inf(void) {
+lunch_file_inf(void) {
     int32 ok;
     FILE *fp;
     /*char filename[256];*/
@@ -39,7 +39,7 @@ file_inf(void) {
     if (!ok)
         return;
     init_conds_redraw_params();
-    do_info(fp);
+    lunch_do_info(fp);
     fclose(fp);
     return;
 }
@@ -69,7 +69,7 @@ ps_write_pars(FILE *fp) {
 }
 
 void
-do_info(FILE *fp) {
+lunch_do_info(FILE *fp) {
     int32 i;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
@@ -158,26 +158,26 @@ lunch_read(FILE *fp) {
     fgets(bob, 255, fp);
     if (bob[0] == '#') {
         set_type = 1;
-        io_int(&ne, fp, f, " ");
+        lunch_io_int(&ne, fp, f, " ");
     } else {
         ne = atoi(bob);
         set_type = 0;
     }
-    /* io_int(&ne,fp,f); */
-    io_int(&np, fp, f, " ");
+    /* lunch_io_int(&ne,fp,f); */
+    lunch_io_int(&np, fp, f, " ");
     if (ne != NEQ || np != NUPAR) {
         ggets_plintf("Set file has incompatible parameters\n");
         return 0;
     }
-    io_numerics(f, fp);
+    lunch_io_numerics(f, fp);
     if (METHOD == VOLTERRA) {
-        io_int(&temp, fp, f, " ");
+        lunch_io_int(&temp, fp, f, " ");
         volterra_allocate(temp, 1);
         MyStart = 1;
     }
     numerics_chk_delay();
-    io_exprs(f, fp);
-    io_graph(f, fp);
+    lunch_io_exprs(f, fp);
+    lunch_io_graph(f, fp);
     if (set_type == 1) {
         adj2_dump_transpose_info(fp, f);
         adj2_dump_h_stuff(fp, f);
@@ -212,27 +212,27 @@ do_lunch(int32 f) {
         fgets(bob, 255, fp);
         if (bob[0] == '#') {
             set_type = 1;
-            io_int(&ne, fp, f, " ");
+            lunch_io_int(&ne, fp, f, " ");
         } else {
             ne = atoi(bob);
             set_type = 0;
         }
-        /* io_int(&ne,fp,f); */
-        io_int(&np, fp, f, " ");
+        /* lunch_io_int(&ne,fp,f); */
+        lunch_io_int(&np, fp, f, " ");
         if (ne != NEQ || np != NUPAR) {
             ggets_err_msg("Incompatible parameters");
             fclose(fp);
             return;
         }
-        io_numerics(f, fp);
+        lunch_io_numerics(f, fp);
         if (METHOD == VOLTERRA) {
-            io_int(&temp, fp, f, " ");
+            lunch_io_int(&temp, fp, f, " ");
             volterra_allocate(temp, 1);
             MyStart = 1;
         }
         numerics_chk_delay();
-        io_exprs(f, fp);
-        io_graph(f, fp);
+        lunch_io_exprs(f, fp);
+        lunch_io_graph(f, fp);
         if (set_type == 1) {
             adj2_dump_transpose_info(fp, f);
             adj2_dump_h_stuff(fp, f);
@@ -251,25 +251,25 @@ do_lunch(int32 f) {
     init_conds_redraw_params();
     ttt = time(0);
     fprintf(fp, "## Set file for %s on %s", this_file, ctime(&ttt));
-    io_int(&NEQ, fp, f, "Number of equations and auxiliaries");
-    io_int(&NUPAR, fp, f, "Number of parameters");
-    io_numerics(f, fp);
+    lunch_io_int(&NEQ, fp, f, "Number of equations and auxiliaries");
+    lunch_io_int(&NUPAR, fp, f, "Number of parameters");
+    lunch_io_numerics(f, fp);
     if (METHOD == VOLTERRA)
-        io_int(&MaxPoints, fp, f, "Max points for volterra");
-    io_exprs(f, fp);
-    io_graph(f, fp);
+        lunch_io_int(&MaxPoints, fp, f, "Max points for volterra");
+    lunch_io_exprs(f, fp);
+    lunch_io_graph(f, fp);
     adj2_dump_transpose_info(fp, f);
     adj2_dump_h_stuff(fp, f);
     array_plot_dump(fp, f);
     load_eqn_dump_torus(fp, f);
     integrate_dump_range(fp, f);
-    dump_eqn(fp);
+    lunch_dump_eqn(fp);
     fclose(fp);
     return;
 }
 
 void
-dump_eqn(FILE *fp) {
+lunch_dump_eqn(FILE *fp) {
     int32 i;
 
     char fstr[15];
@@ -297,7 +297,7 @@ dump_eqn(FILE *fp) {
 }
 
 void
-io_numerics(int32 f, FILE *fp) {
+lunch_io_numerics(int32 f, FILE *fp) {
     char *method[] = {"Discrete",  "Euler", "Mod. Euler", "Runge-Kutta",
                       "Adams",     "Gear",  "Volterra",   "BackEul",
                       "Qual RK",   "Stiff", "CVode",      "DorPrin5",
@@ -310,53 +310,53 @@ io_numerics(int32 f, FILE *fp) {
     }
     if (f != READEM)
         fprintf(fp, "# Numerical stuff\n");
-    io_int(&NJMP, fp, f, " nout");
-    io_int(&NMESH, fp, f, " nullcline mesh");
-    io_int(&METHOD, fp, f, method[METHOD]);
+    lunch_io_int(&NJMP, fp, f, " nout");
+    lunch_io_int(&NMESH, fp, f, " nullcline mesh");
+    lunch_io_int(&METHOD, fp, f, method[METHOD]);
     if (f == READEM) {
         numerics_do_meth();
         storage_alloc_meth();
     }
-    io_double(&TEND, fp, f, "total");
-    io_double(&DELTA_T, fp, f, "DeltaT");
-    io_double(&T0, fp, f, "T0");
-    io_double(&TRANS, fp, f, "Transient");
-    io_double(&BOUND, fp, f, "Bound");
-    io_double(&HMIN, fp, f, "DtMin");
-    io_double(&HMAX, fp, f, "DtMax");
-    io_double(&TOLER, fp, f, "Tolerance");
+    lunch_io_double(&TEND, fp, f, "total");
+    lunch_io_double(&DELTA_T, fp, f, "DeltaT");
+    lunch_io_double(&T0, fp, f, "T0");
+    lunch_io_double(&TRANS, fp, f, "Transient");
+    lunch_io_double(&BOUND, fp, f, "Bound");
+    lunch_io_double(&HMIN, fp, f, "DtMin");
+    lunch_io_double(&HMAX, fp, f, "DtMax");
+    lunch_io_double(&TOLER, fp, f, "Tolerance");
     /* fix stuff concerning the tolerance */
     if (f == READEM) {
         if (set_type == 1)
-            io_double(&ATOLER, fp, f, "Abs. Tolerance");
+            lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
         else
             ATOLER = TOLER*10;
     } else
-        io_double(&ATOLER, fp, f, "Abs. Tolerance");
+        lunch_io_double(&ATOLER, fp, f, "Abs. Tolerance");
 
-    io_double(&DELAY, fp, f, "Max Delay");
-    io_int(&EVEC_ITER, fp, f, "Eigenvector iterates");
-    io_double(&EVEC_ERR, fp, f, "Eigenvector tolerance");
-    io_double(&NEWT_ERR, fp, f, "Newton tolerance");
-    io_double(&POIPLN, fp, f, "Poincare plane");
-    io_double(&BVP_TOL, fp, f, "Boundary value tolerance");
-    io_double(&BVP_EPS, fp, f, "Boundary value epsilon");
-    io_int(&BVP_MAXIT, fp, f, "Boundary value iterates");
-    io_int(&POIMAP, fp, f, pmap[POIMAP]);
+    lunch_io_double(&DELAY, fp, f, "Max Delay");
+    lunch_io_int(&EVEC_ITER, fp, f, "Eigenvector iterates");
+    lunch_io_double(&EVEC_ERR, fp, f, "Eigenvector tolerance");
+    lunch_io_double(&NEWT_ERR, fp, f, "Newton tolerance");
+    lunch_io_double(&POIPLN, fp, f, "Poincare plane");
+    lunch_io_double(&BVP_TOL, fp, f, "Boundary value tolerance");
+    lunch_io_double(&BVP_EPS, fp, f, "Boundary value epsilon");
+    lunch_io_int(&BVP_MAXIT, fp, f, "Boundary value iterates");
+    lunch_io_int(&POIMAP, fp, f, pmap[POIMAP]);
 
-    io_int(&POIVAR, fp, f, "Poincare variable");
-    io_int(&POISGN, fp, f, "Poincare sign");
-    io_int(&SOS, fp, f, "Stop on Section");
-    io_int(&DelayFlag, fp, f, "Delay flag");
-    io_double(&MyTime, fp, f, "Current time");
-    io_double(&LastTime, fp, f, "Last Time");
-    io_int(&MyStart, fp, f, "MyStart");
-    io_int(&INFLAG, fp, f, "INFLAG");
+    lunch_io_int(&POIVAR, fp, f, "Poincare variable");
+    lunch_io_int(&POISGN, fp, f, "Poincare sign");
+    lunch_io_int(&SOS, fp, f, "Stop on Section");
+    lunch_io_int(&DelayFlag, fp, f, "Delay flag");
+    lunch_io_double(&MyTime, fp, f, "Current time");
+    lunch_io_double(&LastTime, fp, f, "Last Time");
+    lunch_io_int(&MyStart, fp, f, "MyStart");
+    lunch_io_int(&INFLAG, fp, f, "INFLAG");
     return;
 }
 
 void
-io_parameter_file(char *fn, int32 flag) {
+lunch_io_parameter_file(char *fn, int32 flag) {
     char fnx[256], c;
     int32 j = 0;
     int32 np;
@@ -376,7 +376,7 @@ io_parameter_file(char *fn, int32 flag) {
             ggets_err_msg("Cannot open file");
             return;
         }
-        io_int(&np, fp, flag, " ");
+        lunch_io_int(&np, fp, flag, " ");
         if (np != NUPAR) {
             printf("%d", np);
             printf("%d", NUPAR);
@@ -384,7 +384,7 @@ io_parameter_file(char *fn, int32 flag) {
             fclose(fp);
             return;
         }
-        io_parameters(flag, fp);
+        lunch_io_parameters(flag, fp);
         fclose(fp);
         init_conds_redo_stuff();
 
@@ -395,8 +395,8 @@ io_parameter_file(char *fn, int32 flag) {
         ggets_err_msg("Cannot open file");
         return;
     }
-    io_int(&NUPAR, fp, flag, "Number params");
-    io_parameters(flag, fp);
+    lunch_io_int(&NUPAR, fp, flag, "Number params");
+    lunch_io_parameters(flag, fp);
     ttt = time(0);
     fprintf(fp, "\n\nFile:%s\n%s", this_file, ctime(&ttt));
     fclose(fp);
@@ -404,7 +404,7 @@ io_parameter_file(char *fn, int32 flag) {
 }
 
 void
-io_ic_file(char *fn, int32 flag) {
+lunch_io_ic_file(char *fn, int32 flag) {
     char fnx[256], c;
     int32 j = 0;
     int32 chk = 0;
@@ -450,13 +450,13 @@ io_ic_file(char *fn, int32 flag) {
         fclose(fp);
     }
 
-    /* io_int(&np,fp,flag," ");
+    /* lunch_io_int(&np,fp,flag," ");
      if(np!=NUPAR){
        ggets_err_msg("Incompatible parameters");
     fclose(fp);
     return;
      }
-     io_parameters(flag,fp);
+     lunch_io_parameters(flag,fp);
      fclose(fp);
      init_conds_redo_stuff();
 
@@ -467,8 +467,8 @@ io_ic_file(char *fn, int32 flag) {
        ggets_err_msg("Cannot open file");
        return;
      }
-  io_int(&NUPAR,fp,flag,"Number params");
-  io_parameters(flag,fp);
+  lunch_io_int(&NUPAR,fp,flag,"Number params");
+  lunch_io_parameters(flag,fp);
   ttt=time(0);
   fprintf(fp,"\n\nFile:%s\n%s",this_file, ctime(&ttt));
   fclose(fp);
@@ -476,7 +476,7 @@ io_ic_file(char *fn, int32 flag) {
 }
 
 void
-io_parameters(int32 f, FILE *fp) {
+lunch_io_parameters(int32 f, FILE *fp) {
     int32 i;
     int32 index;
     char junk[256];
@@ -484,9 +484,9 @@ io_parameters(int32 f, FILE *fp) {
     for (i = 0; i < NUPAR; i++) {
         if (f != READEM) {
             get_val(upar_names[i], &z);
-            io_double(&z, fp, f, upar_names[i]);
+            lunch_io_double(&z, fp, f, upar_names[i]);
         } else {
-            io_double(&z, fp, f, " ");
+            lunch_io_double(&z, fp, f, " ");
             set_val(upar_names[i], z);
 
             if (!XPPBatch) {
@@ -506,7 +506,7 @@ io_parameters(int32 f, FILE *fp) {
 }
 
 void
-io_exprs(int32 f, FILE *fp) {
+lunch_io_exprs(int32 f, FILE *fp) {
     int32 i;
     char temp[256];
     double z;
@@ -516,28 +516,28 @@ io_exprs(int32 f, FILE *fp) {
     if (f != READEM)
         fprintf(fp, "# Delays\n");
     for (i = 0; i < NODE; i++)
-        io_string(delay_string[i], 100, fp, f);
+        lunch_io_string(delay_string[i], 100, fp, f);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Bndry conds\n");
     for (i = 0; i < NODE; i++)
-        io_string(my_bc[i].string, 100, fp, f);
+        lunch_io_string(my_bc[i].string, 100, fp, f);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Old ICs\n");
     for (i = 0; i < NODE + NMarkov; i++)
-        io_double(&last_ic[i], fp, f, uvar_names[i]);
+        lunch_io_double(&last_ic[i], fp, f, uvar_names[i]);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Ending  ICs\n");
     for (i = 0; i < NODE + NMarkov; i++)
-        io_double(&MyData[i], fp, f, uvar_names[i]);
+        lunch_io_double(&MyData[i], fp, f, uvar_names[i]);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
@@ -546,9 +546,9 @@ io_exprs(int32 f, FILE *fp) {
     for (i = 0; i < NUPAR; i++) {
         if (f != READEM) {
             get_val(upar_names[i], &z);
-            io_double(&z, fp, f, upar_names[i]);
+            lunch_io_double(&z, fp, f, upar_names[i]);
         } else {
-            io_double(&z, fp, f, " ");
+            lunch_io_double(&z, fp, f, " ");
             set_val(upar_names[i], z);
         }
     }
@@ -563,7 +563,7 @@ io_exprs(int32 f, FILE *fp) {
 }
 
 void
-io_graph(int32 f, FILE *fp) {
+lunch_io_graph(int32 f, FILE *fp) {
     int32 j;
     int32 k;
     char temp[256];
@@ -574,58 +574,58 @@ io_graph(int32 f, FILE *fp) {
         fprintf(fp, "# Graphics\n");
     for (j = 0; j < 3; j++)
         for (k = 0; k < 3; k++)
-            io_double(&(MyGraph->rm[k][j]), fp, f, "rm");
+            lunch_io_double(&(MyGraph->rm[k][j]), fp, f, "rm");
     for (j = 0; j < MAXPERPLOT; j++) {
-        io_int(&(MyGraph->xv[j]), fp, f, " ");
-        io_int(&(MyGraph->yv[j]), fp, f, " ");
-        io_int(&(MyGraph->zv[j]), fp, f, " ");
-        io_int(&(MyGraph->line[j]), fp, f, " ");
-        io_int(&(MyGraph->color[j]), fp, f, " ");
+        lunch_io_int(&(MyGraph->xv[j]), fp, f, " ");
+        lunch_io_int(&(MyGraph->yv[j]), fp, f, " ");
+        lunch_io_int(&(MyGraph->zv[j]), fp, f, " ");
+        lunch_io_int(&(MyGraph->line[j]), fp, f, " ");
+        lunch_io_int(&(MyGraph->color[j]), fp, f, " ");
     }
 
-    io_double(&(MyGraph->ZPlane), fp, f, " ");
-    io_double(&(MyGraph->ZView), fp, f, " ");
-    io_int(&(MyGraph->PerspFlag), fp, f, " ");
-    io_int(&(MyGraph->ThreeDFlag), fp, f, "3DFlag");
-    io_int(&(MyGraph->TimeFlag), fp, f, "Timeflag");
-    io_int(&(MyGraph->ColorFlag), fp, f, "Colorflag");
-    io_int(&(MyGraph->grtype), fp, f, "Type");
-    io_double(&(MyGraph->color_scale), fp, f, "color scale");
-    io_double(&(MyGraph->min_scale), fp, f, " minscale");
+    lunch_io_double(&(MyGraph->ZPlane), fp, f, " ");
+    lunch_io_double(&(MyGraph->ZView), fp, f, " ");
+    lunch_io_int(&(MyGraph->PerspFlag), fp, f, " ");
+    lunch_io_int(&(MyGraph->ThreeDFlag), fp, f, "3DFlag");
+    lunch_io_int(&(MyGraph->TimeFlag), fp, f, "Timeflag");
+    lunch_io_int(&(MyGraph->ColorFlag), fp, f, "Colorflag");
+    lunch_io_int(&(MyGraph->grtype), fp, f, "Type");
+    lunch_io_double(&(MyGraph->color_scale), fp, f, "color scale");
+    lunch_io_double(&(MyGraph->min_scale), fp, f, " minscale");
 
-    io_double(&(MyGraph->xmax), fp, f, " xmax");
-    io_double(&(MyGraph->xmin), fp, f, " xmin");
-    io_double(&(MyGraph->ymax), fp, f, " ymax");
-    io_double(&(MyGraph->ymin), fp, f, " ymin");
-    io_double(&(MyGraph->zmax), fp, f, " zmax");
-    io_double(&(MyGraph->zmin), fp, f, " zmin");
-    io_double(&(MyGraph->xbar), fp, f, " ");
-    io_double(&(MyGraph->dx), fp, f, " ");
-    io_double(&(MyGraph->ybar), fp, f, " ");
-    io_double(&(MyGraph->dy), fp, f, " ");
-    io_double(&(MyGraph->zbar), fp, f, " ");
-    io_double(&(MyGraph->dz), fp, f, " ");
+    lunch_io_double(&(MyGraph->xmax), fp, f, " xmax");
+    lunch_io_double(&(MyGraph->xmin), fp, f, " xmin");
+    lunch_io_double(&(MyGraph->ymax), fp, f, " ymax");
+    lunch_io_double(&(MyGraph->ymin), fp, f, " ymin");
+    lunch_io_double(&(MyGraph->zmax), fp, f, " zmax");
+    lunch_io_double(&(MyGraph->zmin), fp, f, " zmin");
+    lunch_io_double(&(MyGraph->xbar), fp, f, " ");
+    lunch_io_double(&(MyGraph->dx), fp, f, " ");
+    lunch_io_double(&(MyGraph->ybar), fp, f, " ");
+    lunch_io_double(&(MyGraph->dy), fp, f, " ");
+    lunch_io_double(&(MyGraph->zbar), fp, f, " ");
+    lunch_io_double(&(MyGraph->dz), fp, f, " ");
 
-    io_double(&(MyGraph->Theta), fp, f, " Theta");
-    io_double(&(MyGraph->Phi), fp, f, " Phi");
-    io_int(&(MyGraph->xshft), fp, f, " xshft");
-    io_int(&(MyGraph->yshft), fp, f, " yshft");
-    io_int(&(MyGraph->zshft), fp, f, " zshft");
-    io_double(&(MyGraph->xlo), fp, f, " xlo");
-    io_double(&(MyGraph->ylo), fp, f, " ylo");
-    io_double(&(MyGraph->oldxlo), fp, f, " ");
-    io_double(&(MyGraph->oldylo), fp, f, " ");
-    io_double(&(MyGraph->xhi), fp, f, " xhi");
-    io_double(&(MyGraph->yhi), fp, f, " yhi");
-    io_double(&(MyGraph->oldxhi), fp, f, " ");
-    io_double(&(MyGraph->oldyhi), fp, f, " ");
+    lunch_io_double(&(MyGraph->Theta), fp, f, " Theta");
+    lunch_io_double(&(MyGraph->Phi), fp, f, " Phi");
+    lunch_io_int(&(MyGraph->xshft), fp, f, " xshft");
+    lunch_io_int(&(MyGraph->yshft), fp, f, " yshft");
+    lunch_io_int(&(MyGraph->zshft), fp, f, " zshft");
+    lunch_io_double(&(MyGraph->xlo), fp, f, " xlo");
+    lunch_io_double(&(MyGraph->ylo), fp, f, " ylo");
+    lunch_io_double(&(MyGraph->oldxlo), fp, f, " ");
+    lunch_io_double(&(MyGraph->oldylo), fp, f, " ");
+    lunch_io_double(&(MyGraph->xhi), fp, f, " xhi");
+    lunch_io_double(&(MyGraph->yhi), fp, f, " yhi");
+    lunch_io_double(&(MyGraph->oldxhi), fp, f, " ");
+    lunch_io_double(&(MyGraph->oldyhi), fp, f, " ");
     if (f == READEM && Xup)
         graf_par_redraw_the_graph();
     return;
 }
 
 void
-io_int(int32 *i, FILE *fp, int32 f, char *ss) {
+lunch_io_int(int32 *i, FILE *fp, int32 f, char *ss) {
     char bob[256];
     if (f == READEM) {
         fgets(bob, 255, fp);
@@ -636,7 +636,7 @@ io_int(int32 *i, FILE *fp, int32 f, char *ss) {
 }
 
 void
-io_double(double *z, FILE *fp, int32 f, char *ss) {
+lunch_io_double(double *z, FILE *fp, int32 f, char *ss) {
     char bob[256];
     if (f == READEM) {
         fgets(bob, 255, fp);
@@ -647,7 +647,7 @@ io_double(double *z, FILE *fp, int32 f, char *ss) {
 }
 
 void
-io_string(char *s, int32 len, FILE *fp, int32 f) {
+lunch_io_string(char *s, int32 len, FILE *fp, int32 f) {
     usize i;
     if (f == READEM) {
         fgets(s, len, fp);

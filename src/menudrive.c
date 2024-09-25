@@ -481,7 +481,7 @@ menudrive_do_file_com(int32 com) {
         do_lunch(0);
         break;
     case M_FS:
-        file_inf();
+        lunch_file_inf();
         break;
     case M_FA:
 #ifdef AUTO

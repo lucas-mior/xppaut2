@@ -81,12 +81,12 @@ adj2_dump_transpose_info(FILE *fp, int32 f) {
     else
         fprintf(fp, "# Transpose variables etc\n");
 
-    io_string(my_trans.firstcol, 11, fp, f);
-    io_int(&my_trans.ncol, fp, f, "n columns");
-    io_int(&my_trans.nrow, fp, f, "n rows");
-    io_int(&my_trans.rowskip, fp, f, "row skip");
-    io_int(&my_trans.colskip, fp, f, "col skip");
-    io_int(&my_trans.row0, fp, f, "row 0");
+    lunch_io_string(my_trans.firstcol, 11, fp, f);
+    lunch_io_int(&my_trans.ncol, fp, f, "n columns");
+    lunch_io_int(&my_trans.nrow, fp, f, "n rows");
+    lunch_io_int(&my_trans.rowskip, fp, f, "row skip");
+    lunch_io_int(&my_trans.colskip, fp, f, "col skip");
+    lunch_io_int(&my_trans.row0, fp, f, "row 0");
     return;
 }
 
@@ -304,7 +304,7 @@ adj2_dump_h_stuff(FILE *fp, int32 f) {
     else
         fprintf(fp, "# Coupling stuff for H funs\n");
     for (int32 i = 0; i < NODE; i++)
-        io_string(coup_string[i], 79, fp, f);
+        lunch_io_string(coup_string[i], 79, fp, f);
     return;
 }
 

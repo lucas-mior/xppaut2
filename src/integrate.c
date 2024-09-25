@@ -161,22 +161,22 @@ integrate_dump_range(FILE *fp, int32 f) {
         fgets(bob, 255, fp);
     else
         fprintf(fp, "# Range information\n");
-    io_string(eq_range.item, 11, fp, f);
-    io_int(&eq_range.col, fp, f, "eq-range stab col");
-    io_int(&eq_range.shoot, fp, f, "shoot flag 1=on");
-    io_int(&eq_range.steps, fp, f, "eq-range steps");
-    io_double(&eq_range.plow, fp, f, "eq_range low");
-    io_double(&eq_range.phigh, fp, f, "eq_range high");
-    io_string(range.item, 11, fp, f);
-    io_string(range.item2, 11, fp, f);
-    io_int(&range.steps, fp, f, "Range steps");
-    io_int(&range.cycle, fp, f, "Cycle color 1=on");
-    io_int(&range.reset, fp, f, "Reset data 1=on");
-    io_int(&range.oldic, fp, f, "Use old I.C.s 1=yes");
-    io_double(&range.plow, fp, f, "Par1 low");
-    io_double(&range.plow2, fp, f, "Par2 low");
-    io_double(&range.phigh, fp, f, "Par1 high");
-    io_double(&range.phigh2, fp, f, "Par2 high");
+    lunch_io_string(eq_range.item, 11, fp, f);
+    lunch_io_int(&eq_range.col, fp, f, "eq-range stab col");
+    lunch_io_int(&eq_range.shoot, fp, f, "shoot flag 1=on");
+    lunch_io_int(&eq_range.steps, fp, f, "eq-range steps");
+    lunch_io_double(&eq_range.plow, fp, f, "eq_range low");
+    lunch_io_double(&eq_range.phigh, fp, f, "eq_range high");
+    lunch_io_string(range.item, 11, fp, f);
+    lunch_io_string(range.item2, 11, fp, f);
+    lunch_io_int(&range.steps, fp, f, "Range steps");
+    lunch_io_int(&range.cycle, fp, f, "Cycle color 1=on");
+    lunch_io_int(&range.reset, fp, f, "Reset data 1=on");
+    lunch_io_int(&range.oldic, fp, f, "Use old I.C.s 1=yes");
+    lunch_io_double(&range.plow, fp, f, "Par1 low");
+    lunch_io_double(&range.plow2, fp, f, "Par2 low");
+    lunch_io_double(&range.phigh, fp, f, "Par1 high");
+    lunch_io_double(&range.phigh2, fp, f, "Par2 high");
     pp_shoot_dump_shoot_range(fp, f);
     if (f == READEM)
         range.steps2 = range.steps;
