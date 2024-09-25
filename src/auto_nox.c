@@ -1654,50 +1654,6 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
 }
 
 void
-auto_start_choice(void) {
-    static char *m[] = {"Steady state", "Periodic", "Bdry Value", "Homoclinic",
-                        "hEteroclinic"};
-    static char key[] = "spbhe";
-    char ch;
-    HomoFlag = 0;
-    if (METHOD == DISCRETE) {
-        auto_new_discrete();
-        return;
-    }
-    ch = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
-                                    arun_hint, Auto.hinttxt);
-    if (ch == 's') {
-        auto_new_ss();
-        return;
-    }
-    if (ch == 'p') {
-        auto_start_at_per();
-        return;
-    }
-    if (ch == 'b') {
-        Auto.nbc = NODE;
-        auto_start_at_bvp();
-        return;
-    }
-    if (ch == 'h') {
-        HomoFlag = 1;
-        auto_start_at_homoclinic();
-        return;
-    }
-
-    /*  Auto.nbc=NODE-1;
-      auto_start_at_bvp();
-      } */
-    if (ch == 'e') {
-        HomoFlag = 2;
-        auto_start_at_homoclinic();
-        return;
-    }
-
-    auto_x11_redraw_menus();
-}
-
-void
 auto_nox_torus_choice(void) {
     static char *m[] = {"Two Param", "Fixed period", "Extend"};
     /*static char *m[]={"Fixed period","Extend"}; */
@@ -1801,7 +1757,47 @@ auto_run(void) {
     int32 itp1, itp2, itp, ips;
     char ch;
     if (grabpt.flag == 0) { /* the first call to AUTO   */
-        auto_start_choice();
+        /* auto start choice */
+        static char *m[] = {"Steady state", "Periodic", "Bdry Value", "Homoclinic",
+                            "hEteroclinic"};
+        static char key[] = "spbhe";
+        char ch;
+        HomoFlag = 0;
+        if (METHOD == DISCRETE) {
+            auto_new_discrete();
+            return;
+        }
+        ch = (char)auto_x11_pop_up_list("Start", m, key, 5, 13, 0, 10, 10,
+                                        arun_hint, Auto.hinttxt);
+        if (ch == 's') {
+            auto_new_ss();
+            return;
+        }
+        if (ch == 'p') {
+            auto_start_at_per();
+            return;
+        }
+        if (ch == 'b') {
+            Auto.nbc = NODE;
+            auto_start_at_bvp();
+            return;
+        }
+        if (ch == 'h') {
+            HomoFlag = 1;
+            auto_start_at_homoclinic();
+            return;
+        }
+
+        /*  Auto.nbc=NODE-1;
+          auto_start_at_bvp();
+          } */
+        if (ch == 'e') {
+            HomoFlag = 2;
+            auto_start_at_homoclinic();
+            return;
+        }
+
+        auto_x11_redraw_menus();
         ggets_ping();
         return;
     }
