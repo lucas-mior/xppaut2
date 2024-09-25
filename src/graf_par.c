@@ -53,10 +53,8 @@ char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
                        "YELLOWORANGE", "YELLOW", "YELLOWGREEN", "GREEN",
                        "BLUEGREEN",    "BLUE",   "PURPLE",      "BLACK"};
 
-static void export_graf_data(void);
 static int32 get_frz_index(Window window);
 static void read_bd(FILE *fp);
-static void frz_bd(void);
 static void add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
 static void draw_bd(Window window);
 static void draw_frozen_cline(int32 index, Window window);
