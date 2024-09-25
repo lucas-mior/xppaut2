@@ -28,10 +28,10 @@ static int32 KnFlag;
 
 int32 AutoEvaluate = 0;
 
-static void get_kn(double *y, double t);
-static double betnn(double mu, double dt);
-static double alpbetjn(double mu, double dt, int32 l);
-static double alpha1n(double mu, double dt, double t, double t0);
+static void volterra_get_kn(double *y, double t);
+static double volterra_betnn(double mu, double dt);
+static double volterra_alpbetjn(double mu, double dt, int32 l);
+static double volterra_alpha1n(double mu, double dt, double t, double t0);
 
 double
 volterra_ker_val(int32 in) {
@@ -147,7 +147,7 @@ volterra_alloc_kernels(int32 flag) {
                 free(kernel[i].al);
             kernel[i].al = xmalloc((usize)(n + 1)*sizeof(*(kernel[i].al)));
             for (int32 j = 0; j <= n; j++)
-                kernel[i].al[j] = alpbetjn(mu, DELTA_T, j);
+                kernel[i].al[j] = volterra_alpbetjn(mu, DELTA_T, j);
         }
     }
     return;
@@ -183,7 +183,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
         if (mu == 0.0)
             al = .5*dt;
         else
-            al = alpha1n(mu, dt, t, tp);
+            al = volterra_alpha1n(mu, dt, t, tp);
         sum[ker] = al*evaluate(kernel[ker].formula);
         if (kernel[ker].flag == CONV)
             sum[ker] = sum[ker]*kernel[ker].cnv[n - i0];
@@ -199,7 +199,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
             if (mu == 0.0)
                 alpbet = dt;
             else
-                alpbet = kernel[ker].al[n - i0 - i]; /* alpbetjn(mu,dt,t,tp); */
+                alpbet = kernel[ker].al[n - i0 - i]; /* volterra_alpbetjn(mu,dt,t,tp); */
             if (kernel[ker].flag == CONV)
                 sum[ker] += (alpbet*evaluate(kernel[ker].formula) *
                              kernel[ker].cnv[n - i0 - i]);
@@ -221,7 +221,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
  */
 
 double
-alpha1n(double mu, double dt, double t, double t0) {
+volterra_alpha1n(double mu, double dt, double t, double t0) {
     double m1;
     if (mu == .5)
         return sqrt(fabs(t - t0)) - sqrt(fabs(t - t0 - dt));
@@ -230,7 +230,7 @@ alpha1n(double mu, double dt, double t, double t0) {
 }
 
 double
-alpbetjn(double mu, double dt, int32 l) {
+volterra_alpbetjn(double mu, double dt, int32 l) {
     double m1;
     double dif = l*dt;
     if (mu == .5)
@@ -240,7 +240,7 @@ alpbetjn(double mu, double dt, int32 l) {
 }
 
 double
-betnn(double mu, double dt) {
+volterra_betnn(double mu, double dt) {
     double m1;
     if (mu == .5)
         return sqrt(dt);
@@ -249,7 +249,7 @@ betnn(double mu, double dt) {
 }
 
 void
-get_kn(double *y, double t) {
+volterra_get_kn(double *y, double t) {
     /* uses the guessed value y to update Kn  */
     int32 i;
 
@@ -296,7 +296,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
             if (mu == 0.0)
                 bet = .5*dt;
             else
-                bet = betnn(mu, dt);
+                bet = volterra_betnn(mu, dt);
             kernel[i].betnn = bet;
         }
         SETVAR(0, *t);
@@ -362,7 +362,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     }
     KnFlag = 1;
     while (true) {
-        get_kn(yg, t);
+        volterra_get_kn(yg, t);
         for (i = NODE; i < NODE + FIX_VAR; i++)
             SETVAR(i + 1, evaluate(my_ode[i]));
         for (i = 0; i < NODE; i++) {
@@ -378,7 +378,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             yold = yg[i];
             yg[i] += del;
             delinv = 1. / del;
-            get_kn(yg, t);
+            volterra_get_kn(yg, t);
             for (j = NODE; j < NODE + FIX_VAR; j++)
                 SETVAR(j + 1, evaluate(my_ode[j]));
             for (j = 0; j < NODE; j++) {
@@ -409,7 +409,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             return -2; /* too many iterates   */
     }
     /* We have a good graphics_point; lets save it    */
-    get_kn(yg, t);
+    volterra_get_kn(yg, t);
     for (i = 0; i < NODE; i++)
         y[i] = yg[i];
     ind = CurrentPoint % MaxPoints;
