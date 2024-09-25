@@ -145,7 +145,6 @@ XFontStruct *small_font;
 
 static void main_test_color_info(void);
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
-static void main_make_pops(void);
 static void main_get_gc(GC *gc);
 static void main_top_button_events(XEvent report);
 static void main_top_button_press(Window window);
@@ -485,7 +484,31 @@ do_main(int32 argc, char **argv) {
 
     XMapWindow(display, main_win);
 
-    main_make_pops();
+    {
+        /* main make pops */
+        int32 x;
+        int32 y;
+        uint32 h, w, bw, d;
+        Window wn;
+        XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
+        create_the_menus(main_win);
+        command_pop =
+            XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
+                                (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
+        info_pop =
+            XCreateSimpleWindow(display, main_win, 0, (int32)h - DCURY - 4, w - 2,
+                                (uint)DCURY, 2, MyForeColor, MyBackColor);
+        XCreateFontCursor(display, XC_hand2);
+        XSelectInput(display, command_pop,
+                     KeyPressMask | ButtonPressMask | ExposureMask);
+        XSelectInput(display, info_pop, ExposureMask);
+        XMapWindow(display, info_pop);
+        XMapWindow(display, command_pop);
+        many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6,
+                             (int32)w - 16 - 16*DCURX, (int32)h - 6*DCURY - 16);
+        init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
+        graphics_get_draw_area();
+    }
 
     {
         /* main make top buttons */
@@ -1304,32 +1327,6 @@ main_get_gc(GC *gc2) {
 }
 
 
-void
-main_make_pops(void) {
-    int32 x;
-    int32 y;
-    uint32 h, w, bw, d;
-    Window wn;
-    XGetGeometry(display, main_win, &wn, &x, &y, &w, &h, &bw, &d);
-    create_the_menus(main_win);
-    command_pop =
-        XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
-                            (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
-    info_pop =
-        XCreateSimpleWindow(display, main_win, 0, (int32)h - DCURY - 4, w - 2,
-                            (uint)DCURY, 2, MyForeColor, MyBackColor);
-    XCreateFontCursor(display, XC_hand2);
-    XSelectInput(display, command_pop,
-                 KeyPressMask | ButtonPressMask | ExposureMask);
-    XSelectInput(display, info_pop, ExposureMask);
-    XMapWindow(display, info_pop);
-    XMapWindow(display, command_pop);
-    many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6,
-                         (int32)w - 16 - 16*DCURX, (int32)h - 6*DCURY - 16);
-    init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
-    graphics_get_draw_area();
-    return;
-}
 
 void
 main_fix_window_size(Window window, int32 width, int32 height, int32 flag) {
