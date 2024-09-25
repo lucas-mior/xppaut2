@@ -173,7 +173,6 @@ static int32 parse_ani_string(char *s, FILE *fp);
 static void set_ani_dimension(char *x1, char *y1, char *x2, char *y2);
 static int32 add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2,
                          char *col, char *thick);
-static void init_ani_stuff(void);
 static void free_ani(void);
 static int32 chk_ani_color(char *s, int32 *index);
 static int32 add_ani_expr(char *x, int32 *c);
@@ -1639,25 +1638,6 @@ add_ani_com(int32 type, char *x1, char *y1, char *x2, char *y2, char *col,
 }
 
 void
-init_ani_stuff(void) {
-    ani_text_size = 1;
-    ani_text_font = 0;
-    ani_text_color = 0;
-    ani_xlo = 0.0;
-    ani_ylo = 0.0;
-    ani_xhi = 1.0;
-    ani_yhi = 1.0;
-    aniflag = TRANSIENT;
-    n_anicom = 0;
-    ani_lastx = 0.0;
-    ani_lasty = 0.0;
-    vcr.pos = 0;
-    ani_grab_flag = 0; /*********** GRABBER *******************/
-    n_ani_grab = 0;
-    return;
-}
-
-void
 free_ani(void) {
     for (int32 i = 0; i < n_anicom; i++) {
         free(my_ani[i].x1);
@@ -1675,7 +1655,21 @@ free_ani(void) {
     n_anicom = 0;
     ani_free_grabber();
 
-    init_ani_stuff();
+    /* init ani stuff */
+    ani_text_size = 1;
+    ani_text_font = 0;
+    ani_text_color = 0;
+    ani_xlo = 0.0;
+    ani_ylo = 0.0;
+    ani_xhi = 1.0;
+    ani_yhi = 1.0;
+    aniflag = TRANSIENT;
+    n_anicom = 0;
+    ani_lastx = 0.0;
+    ani_lasty = 0.0;
+    vcr.pos = 0;
+    ani_grab_flag = 0; /*********** GRABBER *******************/
+    n_ani_grab = 0;
     return;
 }
 
