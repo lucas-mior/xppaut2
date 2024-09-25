@@ -965,13 +965,11 @@ graf_par_freeze_com(int32 c) {
     {
         /* frz bd */
         FILE *fp;
-        /*char filename[256];*/
         char filename[XPP_MAX_NAME];
         snprintf(filename, sizeof(filename), "diagram.dat");
         ggets_ping();
         if (!init_conds_file_selector("Import Diagram", filename, "*.dat"))
             return;
-        /* if(ggets_new_string("Diagram to import: ",filename)==0)return; */
         if ((fp = fopen(filename, "r")) == NULL) {
             ggets_err_msg("Couldn't open file");
             return;
