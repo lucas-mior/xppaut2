@@ -227,7 +227,6 @@ static int32 ani_grab_tasks(char *graphics_line, int32 igrab, int32 which);
 static int32 ani_search_for_grab(double x, double y);
 static void ani_do_grab_tasks(int32 which);
 static int32 ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which);
-static void ani_free_grabber(void);
 static void do_ani_slider_motion(Window window, int32 x);
 static void draw_ani_slider(Window window, int32 x);
 static void redraw_ani_slider(void);
@@ -1636,7 +1635,23 @@ free_ani(void) {
         }
     }
     n_anicom = 0;
-    ani_free_grabber();
+    {    
+        /* ani free grabber */
+        int32 i, j, m;
+        for (i = 0; i < n_ani_grab; i++) {
+            free(ani_grab[i].x);
+            free(ani_grab[i].y);
+            m = ani_grab[i].start.n;
+            for (j = 0; j < m; j++)
+                free(ani_grab[i].start.comrhs[j]);
+
+            m = ani_grab[i].end.n;
+            for (j = 0; j < m; j++)
+                free(ani_grab[i].end.comrhs[j]);
+            ani_grab[i].start.n = 0;
+            ani_grab[i].end.n = 0;
+        }
+    }
 
     /* init ani stuff */
     ani_text_size = 1;
@@ -2724,23 +2739,4 @@ ani_add_grab_task(char *lhs, char *rhs, int32 igrab, int32 which) {
         return 1;
     }
     return -1;
-}
-
-void
-ani_free_grabber(void) {
-    int32 i, j, m;
-    for (i = 0; i < n_ani_grab; i++) {
-        free(ani_grab[i].x);
-        free(ani_grab[i].y);
-        m = ani_grab[i].start.n;
-        for (j = 0; j < m; j++)
-            free(ani_grab[i].start.comrhs[j]);
-
-        m = ani_grab[i].end.n;
-        for (j = 0; j < m; j++)
-            free(ani_grab[i].end.comrhs[j]);
-        ani_grab[i].start.n = 0;
-        ani_grab[i].end.n = 0;
-    }
-    return;
 }
