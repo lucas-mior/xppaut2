@@ -732,7 +732,17 @@ auto_plot_par(void) {
     }
 
     if (ch == key[9]) {
-        auto_fit();
+        /* auto fit */
+        double xlo = Auto.xmin;
+        double xhi = Auto.xmax;
+        double ylo = Auto.ymin;
+        double yhi = Auto.ymax;
+        diagram_bound(&xlo, &xhi, &ylo, &yhi);
+        Auto.xmin = xlo;
+        Auto.xmax = xhi;
+        Auto.ymin = ylo;
+        Auto.ymax = yhi;
+
         diagram_redraw();
         return;
     }
@@ -794,17 +804,6 @@ auto_plot_par(void) {
         if (Auto.plot == 4)
             auto_nox_keep_last_plot(2);
     }
-    return;
-}
-
-void
-auto_fit(void) {
-    double xlo = Auto.xmin, xhi = Auto.xmax, ylo = Auto.ymin, yhi = Auto.ymax;
-    diagram_bound(&xlo, &xhi, &ylo, &yhi);
-    Auto.xmin = xlo;
-    Auto.xmax = xhi;
-    Auto.ymin = ylo;
-    Auto.ymax = yhi;
     return;
 }
 
