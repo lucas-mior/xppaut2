@@ -178,11 +178,13 @@ void
 switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n) {
     COMPLEX zt;
     int32 j;
+#define Z(a, b) z[(a) + n*(b)]
     for (j = 0; j < n; j++) {
-        zt = z[(i1) + n*(j)];
-        z[(i1) + n*(j)] = z[(i2) + n*(j)];
-        z[(i2) + n*(j)] = zt;
+        zt = Z(i1, j);
+        Z(i1, j) = Z(i2, j);
+        Z(i2, j) = zt;
     }
+#undef Z
     return;
 }
 
@@ -205,10 +207,11 @@ cdeterm(COMPLEX *z, int32 n) {
     double q;
     double qmax;
     COMPLEX sign = rtoc(1.0, 0.0), mult, sum, zd;
+#define Z(a, b) z[(a) + n*(b)]
     for (j = 0; j < n; j++) {
         qmax = 0.0;
         for (i = j; i < n; i++) {
-            q = c_abs(z[(i) + n*(j)]);
+            q = c_abs(Z(i, j));
             if (q > qmax) {
                 qmax = q;
                 imax = i;
@@ -219,18 +222,19 @@ cdeterm(COMPLEX *z, int32 n) {
         switch_rows(z, imax, j, n);
         if (imax > j)
             sign = cmlt(rtoc(-1.0, 0.0), sign);
-        zd = z[(j) + n*(j)];
+        zd = Z(j, j);
         for (i = j + 1; i < n; i++) {
-            mult = cdivv(z[(i) + n*(j)], zd);
+            mult = cdivv(Z(i, j), zd);
             for (k = j + 1; k < n; k++) {
-                z[(i) + n*(k)] = cdif(z[(i) + n*(k)], cmlt(mult, z[(j) + n*(k)]));
+                Z(i, k) = cdif(Z(i, k), cmlt(mult, Z(j, k)));
             }
         }
     }
     sum = sign;
     for (j = 0; j < n; j++)
-        sum = cmlt(sum, z[(j) + n*(j)]);
+        sum = cmlt(sum, Z(j, j));
     return sum;
+#undef Z
 }
 
 void
