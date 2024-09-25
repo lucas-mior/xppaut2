@@ -1419,8 +1419,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         char big2[2*MAXEXPLEN + 10];
         char formula[MAXEXPLEN];
         char *junk, *ptr;
-        int32 nmark = 0, nfix = 0, naux = 0, nvar = 0, nn, alt, in, i, ntab = 0,
-              nufun = 0;
+        int32 nmark = 0, nfix = 0, naux = 0, nvar = 0;
+        int32 nn, alt, in, i, ntab = 0, nufun = 0;
         int32 in1, in2, iflag;
         int32 fon;
         FILE *fp2 = NULL;
