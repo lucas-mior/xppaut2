@@ -737,7 +737,12 @@ auto_plot_par(void) {
         return;
     }
     if (ch == key[12]) {
-        auto_default();
+        /* auto default */
+        Auto.xmin = auto_xmin;
+        Auto.xmax = auto_xmax;
+        Auto.ymin = auto_ymin;
+        Auto.ymax = auto_ymax;
+
         diagram_redraw();
         return;
     }
@@ -789,15 +794,6 @@ auto_plot_par(void) {
         if (Auto.plot == 4)
             auto_nox_keep_last_plot(2);
     }
-    return;
-}
-
-void
-auto_default(void) {
-    Auto.xmin = auto_xmin;
-    Auto.xmax = auto_xmax;
-    Auto.ymin = auto_ymin;
-    Auto.ymax = auto_ymax;
     return;
 }
 
