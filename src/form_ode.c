@@ -109,7 +109,6 @@ static int32 form_ode_if_include_file(char *old, char *nf);
 static void clrscr(void);
 static void form_ode_find_ker(char *string, int32 *alt);
 static void form_ode_take_apart(char *bob, double *value, char *name);
-static void form_ode_show_syms(void);
 static void form_ode_list_em(char *wild);
 static int32 form_ode_get_a_filename(char *filename, char *wild);
 static void form_ode_format_list(char **s, int32 n);
@@ -435,7 +434,12 @@ form_ode_compiler(char *bob, FILE *fptr) {
         done = 0;
         break;
     case 's':
-        form_ode_show_syms();
+        /* form ode show syms */
+        ggets_plintf("(    ,    )    +    -      *    ^    **    / \n");
+        ggets_plintf("sin  cos  tan  atan  atan2 acos asin\n");
+        ggets_plintf("exp  ln   log  log10 tanh  cosh sinh \n");
+        ggets_plintf("max  min  heav flr   mod   sign sqrt \n");
+        ggets_plintf("t    pi   ran  \n");
         break;
     case 'h':
         /* form ode welcome */
@@ -828,15 +832,6 @@ form_ode_compiler(char *bob, FILE *fptr) {
 }
 
 
-void
-form_ode_show_syms(void) {
-    ggets_plintf("(    ,    )    +    -      *    ^    **    / \n");
-    ggets_plintf("sin  cos  tan  atan  atan2 acos asin\n");
-    ggets_plintf("exp  ln   log  log10 tanh  cosh sinh \n");
-    ggets_plintf("max  min  heav flr   mod   sign sqrt \n");
-    ggets_plintf("t    pi   ran  \n");
-    return;
-}
 
 /* ram: do I need to strip the name of any whitespace? */
 void
