@@ -72,7 +72,6 @@ static void many_pops_destroy_label(Window window);
 static void many_pops_destroy_grob(Window window);
 static void many_pops_arrow_head(double xs, double ys, double xe, double ye,
                                  double size);
-static void many_pops_draw_grob(int32 i);
 static void many_pops_draw_marker(double x, double y, double size, int32 type);
 
 int32
@@ -547,18 +546,6 @@ many_pops_draw_marker(double x, double y, double size, int32 type) {
     return;
 }
 
-void
-many_pops_draw_grob(int32 i) {
-    double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
-    graphics_set_linestyle(grob[i].color);
-    if (grob[i].type == POINTER)
-        graphics_line_abs(xs, ys, xe, ye);
-    if (grob[i].type == ARROW || grob[i].type == POINTER)
-        many_pops_arrow_head(xs, ys, xe, ye, grob[i].size);
-    if (grob[i].type >= MARKER)
-        many_pops_draw_marker(xs, ys, grob[i].size, grob[i].type - 2);
-    return;
-}
 
 void
 many_pops_arrow_head(double xs, double ys, double xe, double ye, double size) {
@@ -607,8 +594,17 @@ many_pops_draw_label(Window window) {
             graphics_fancy_text_abs(lb[i].x, lb[i].y, lb[i].s, lb[i].size);
     }
     for (i = 0; i < MAXGROB; i++) {
-        if ((grob[i].use == 1) && (grob[i].window == window))
-            many_pops_draw_grob(i);
+        if ((grob[i].use == 1) && (grob[i].window == window)) {
+            /* many pops draw grob */
+            double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
+            graphics_set_linestyle(grob[i].color);
+            if (grob[i].type == POINTER)
+                graphics_line_abs(xs, ys, xe, ye);
+            if (grob[i].type == ARROW || grob[i].type == POINTER)
+                many_pops_arrow_head(xs, ys, xe, ye, grob[i].size);
+            if (grob[i].type >= MARKER)
+                many_pops_draw_marker(xs, ys, grob[i].size, grob[i].type - 2);
+        }
     }
     many_pops_base_col();
     return;
