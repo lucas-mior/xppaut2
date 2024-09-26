@@ -245,7 +245,7 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     width = (MAX_LEN_EBOX + 4)*DCURX;
     height = (n + 4)*(DCURY + 16);
     base =
-        make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
+        pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
     XStringListToTextProperty(&title, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
     size_hints.x = 0;
@@ -266,16 +266,16 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
         xpos = xstart;
         ypos = ystart + i*(DCURY + 10);
         sb->win[i] =
-            make_window(base, xpos, ypos, MAX_LEN_EBOX*DCURX, DCURY, 1);
+            pop_list_make_window(base, xpos, ypos, MAX_LEN_EBOX*DCURX, DCURY, 1);
     }
 
     ypos = height - 2*DCURY;
     xpos = (width - 19*DCURX) / 2;
-    (sb->ok) = make_window(base, xpos, ypos, 2*DCURX, DCURY, 1);
+    (sb->ok) = pop_list_make_window(base, xpos, ypos, 2*DCURX, DCURY, 1);
     (sb->cancel) =
-        make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 1);
+        pop_list_make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 1);
     (sb->reset) =
-        make_window(base, xpos + 12*DCURX, ypos, 5*DCURX, DCURY, 1);
+        pop_list_make_window(base, xpos + 12*DCURX, ypos, 5*DCURX, DCURY, 1);
     XRaiseWindow(display, base);
     return;
 }

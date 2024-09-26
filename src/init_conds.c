@@ -647,7 +647,7 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     filesel.minhgt = height;
     /* printf("Here now 23!\n");*/
     base =
-        make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
+        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     /* printf("Here now 23!\n"); */
     filesel.base = base;
     XStringListToTextProperty(&title, 1, &winname);
@@ -674,43 +674,43 @@ init_conds_create_file_selector(char *title, char *file, char *wild) {
     }
 
     /*
-    filesel.up=make_window(base,DCURXs,2+4*hgt,3*DCURXs+5,DCURYs,1);
-    filesel.dn=make_window(base,DCURXs,2+5*hgt,3*DCURXs+5,DCURYs,1);
-    filesel.pgup=make_plain_window(base,DCURXs,2+7*hgt,3*DCURXs+5,DCURYs,1);
-    filesel.pgdn=make_window(base,DCURXs,2+8*hgt,3*DCURXs+5,DCURYs,1);
+    filesel.up=pop_list_make_window(base,DCURXs,2+4*hgt,3*DCURXs+5,DCURYs,1);
+    filesel.dn=pop_list_make_window(base,DCURXs,2+5*hgt,3*DCURXs+5,DCURYs,1);
+    filesel.pgup=pop_list_make_plain_window(base,DCURXs,2+7*hgt,3*DCURXs+5,DCURYs,1);
+    filesel.pgdn=pop_list_make_window(base,DCURXs,2+8*hgt,3*DCURXs+5,DCURYs,1);
     */
 
-    filesel.up = make_icon_window(base, DCURXs, 2 + 3*hgt + 72 + 15, 32, 24,
+    filesel.up = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 72 + 15, 32, 24,
                                   1, lineup_bits);
-    filesel.dn = make_icon_window(base, DCURXs, 2 + 3*hgt + 96 + 18, 32, 24,
+    filesel.dn = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 96 + 18, 32, 24,
                                   1, linedn_bits);
-    filesel.pgup = make_icon_window(base, DCURXs, 2 + 3*hgt + 48 + 12, 32, 24,
+    filesel.pgup = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 48 + 12, 32, 24,
                                     1, pageup_bits);
-    filesel.pgdn = make_icon_window(base, DCURXs, 2 + 3*hgt + 120 + 21, 32,
+    filesel.pgdn = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 120 + 21, 32,
                                     24, 1, pagedn_bits);
     filesel.home =
-        make_icon_window(base, DCURXs, 2 + 3*hgt, 32, 24, 1, home_bits);
-    filesel.start = make_icon_window(base, DCURXs, 2 + 3*hgt + 24 + 3, 32, 24,
+        pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt, 32, 24, 1, home_bits);
+    filesel.start = pop_list_make_icon_window(base, DCURXs, 2 + 3*hgt + 24 + 3, 32, 24,
                                      1, start_bits);
 
-    filesel.dir = make_plain_window(base, 7*DCURXs, 2, width - 7*DCURXs - 5,
+    filesel.dir = pop_list_make_plain_window(base, 7*DCURXs, 2, width - 7*DCURXs - 5,
                                     DCURYs, 0);
-    filesel.wild = make_plain_window(base, 7*DCURXs, 2 + hgt,
+    filesel.wild = pop_list_make_plain_window(base, 7*DCURXs, 2 + hgt,
                                      width - 7*DCURXs - 5, DCURYs, 1);
-    filesel.ww = make_window(base, 2, 2 + hgt, 6*DCURXs + 2, DCURYs, 0);
-    filesel.file = make_plain_window(base, 7*DCURXs, 2 + 2*hgt,
+    filesel.ww = pop_list_make_window(base, 2, 2 + hgt, 6*DCURXs + 2, DCURYs, 0);
+    filesel.file = pop_list_make_plain_window(base, 7*DCURXs, 2 + 2*hgt,
                                      width - 7*DCURXs - 5, DCURYs, 1);
-    filesel.fw = make_window(base, 2, 2 + 2*hgt, 6*DCURXs + 2, DCURYs, 0);
+    filesel.fw = pop_list_make_window(base, 2, 2 + 2*hgt, 6*DCURXs + 2, DCURYs, 0);
     for (int32 i = 0; i < nwin; i++) {
         filesel.window[i] =
-            make_plain_window(base, 6*DCURXs + 5, 2 + (3 + i)*hgt,
+            pop_list_make_plain_window(base, 6*DCURXs + 5, 2 + (3 + i)*hgt,
                               width - 6*DCURXs - 10, DCURYs, 0);
     }
 
-    filesel.ok = make_window(base, width / 2 - 7*DCURXs - 3, height - hgt,
+    filesel.ok = pop_list_make_window(base, width / 2 - 7*DCURXs - 3, height - hgt,
                              7*DCURXs, DCURYs, 1);
     filesel.cancel =
-        make_window(base, width / 2 + 3, height - hgt, 7*DCURXs, DCURYs, 1);
+        pop_list_make_window(base, width / 2 + 3, height - hgt, 7*DCURXs, DCURYs, 1);
     /*  XSelectInput(display,filesel.wild,BOXEVENT);
         XSelectInput(display,filesel.file,BOXEVENT); */
     filesel.here = 1;
@@ -1306,18 +1306,18 @@ init_conds_make_par_slider(Window base, int32 x, int32 y, int32 width, int32 ind
     if (mainwid < (width + 4))
         mainwid = width + 4;
 
-    window = make_plain_window(base, x, y, mainwid, mainhgt, 1);
+    window = pop_list_make_plain_window(base, x, y, mainwid, mainhgt, 1);
     my_par_slide[index].main = window;
     xs = (mainwid - width - 4) / 2;
     my_par_slide[index].slide =
-        make_window(window, xs, DCURYs + 5, width + 4, DCURYs - 4, 1);
-    my_par_slide[index].go = make_window(window, xs + width + 8, DCURYs + 5,
+        pop_list_make_window(window, xs, DCURYs + 5, width + 4, DCURYs - 4, 1);
+    my_par_slide[index].go = pop_list_make_window(window, xs + width + 8, DCURYs + 5,
                                          3*DCURXs, DCURYs - 3, 1);
-    my_par_slide[index].top = make_window(window, 2, 2, mainwid - 6, DCURYs, 1);
+    my_par_slide[index].top = pop_list_make_window(window, 2, 2, mainwid - 6, DCURYs, 1);
     my_par_slide[index].left =
-        make_window(window, 2, 2*DCURYs + 3, 12*DCURXs, DCURYs, 0);
+        pop_list_make_window(window, 2, 2*DCURYs + 3, 12*DCURXs, DCURYs, 0);
     my_par_slide[index].right =
-        make_window(window, mainwid - 12*DCURXs - 4, 2*DCURYs + 3,
+        pop_list_make_window(window, mainwid - 12*DCURXs - 4, 2*DCURYs + 3,
                     12*DCURXs, DCURYs, 0);
     my_par_slide[index].lo = 0.0;
     my_par_slide[index].hi = 1.0;
@@ -1575,7 +1575,7 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     b->minwid = width;
     b->minhgt = height;
     base =
-        make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
+        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     b->base = base;
     XStringListToTextProperty(&b->wname, 1, &winname);
     XStringListToTextProperty(&b->iname, 1, &iconame);
@@ -1610,39 +1610,39 @@ init_conds_make_box_list_window(BoxList *b, int32 type) {
     xb3 = xb2 + 7*DCURXs + 14;
     xb4 = xb3 + 7*DCURXs + 14;
 
-    b->close = make_window(base, 2, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->ok = make_window(base, xb1, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->def = make_window(base, xb2, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->cancel = make_window(base, xb3, 5, 7*DCURXs + 10, DCURYs, 1);
-    b->go = make_window(base, xb4, 5, 7*DCURXs + 10, DCURYs, 1);
+    b->close = pop_list_make_window(base, 2, 5, 7*DCURXs + 10, DCURYs, 1);
+    b->ok = pop_list_make_window(base, xb1, 5, 7*DCURXs + 10, DCURYs, 1);
+    b->def = pop_list_make_window(base, xb2, 5, 7*DCURXs + 10, DCURYs, 1);
+    b->cancel = pop_list_make_window(base, xb3, 5, 7*DCURXs + 10, DCURYs, 1);
+    b->go = pop_list_make_window(base, xb4, 5, 7*DCURXs + 10, DCURYs, 1);
     xb1 = DCURXs + wid1 + wid2 + 12;
 
-    b->up = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 24 + 3, 32, 24,
+    b->up = pop_list_make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 24 + 3, 32, 24,
                              1, lineup_bits);
-    b->dn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 48 + 6, 32, 24,
+    b->dn = pop_list_make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 48 + 6, 32, 24,
                              1, linedn_bits);
-    b->pgup = make_icon_window(base, xb1, (int32)(1.75*DCURYs), 32, 24, 1,
+    b->pgup = pop_list_make_icon_window(base, xb1, (int32)(1.75*DCURYs), 32, 24, 1,
                                pageup_bits);
-    b->pgdn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32,
+    b->pgdn = pop_list_make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32,
                                24, 1, pagedn_bits);
 
     for (int32 i = 0; i < nrow; i++) {
         x = DCURXs;
         y = DCURYs + (hgt + 4)*i + (int32)(1.5*hgt);
-        b->w[i] = make_plain_window(base, x, y, wid1, hgt, 0);
-        b->we[i] = make_plain_window(base, x + wid1 + 2, y, wid2, hgt, 1);
+        b->w[i] = pop_list_make_plain_window(base, x, y, wid1, hgt, 0);
+        b->we[i] = pop_list_make_plain_window(base, x + wid1 + 2, y, wid2, hgt, 1);
         XSelectInput(display, b->w[i], BOXEVENT);
         if (type == ICBOX) {
-            b->ck[i] = make_plain_window(base, 1, y, 6, DCURYs, 1);
+            b->ck[i] = pop_list_make_plain_window(base, 1, y, 6, DCURYs, 1);
         }
     }
 
     y = DCURYs + (hgt + 4)*nrow + (int32)(1.5*hgt);
     x = (width - 24) / 3;
     if (type == ICBOX) {
-        b->xvt = make_window(base, x, y, 5*DCURXs, DCURYs, 1);
-        b->pp = make_window(base, x + 6*DCURXs, y, 5*DCURXs, DCURYs, 1);
-        b->arr = make_window(base, x + 12*DCURXs, y, 5*DCURXs, DCURYs, 1);
+        b->xvt = pop_list_make_window(base, x, y, 5*DCURXs, DCURYs, 1);
+        b->pp = pop_list_make_window(base, x + 6*DCURXs, y, 5*DCURXs, DCURYs, 1);
+        b->arr = pop_list_make_window(base, x + 12*DCURXs, y, 5*DCURXs, DCURYs, 1);
     }
 
     b->xuse = 1;

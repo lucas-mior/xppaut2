@@ -39,22 +39,22 @@ typedef struct ScrollBox {
 static void pop_list_destroy_scroll_box(ScrollBox *sb);
 static void pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent,
                               int32 nw, char **list, ScrollBox *sb);
-static void expose_scroll_box(Window window, ScrollBox sb);
-static void redraw_scroll_box(ScrollBox sb);
+static void pop_list_expose_scroll_box(Window window, ScrollBox sb);
+static void pop_list_redraw_scroll_box(ScrollBox sb);
 static void pop_list_crossing_scroll_box(Window window, int32 c, ScrollBox sb);
-static int32 scroll_box_motion(XEvent event, ScrollBox *sb);
-static int32 select_scroll_item(Window window, ScrollBox sb);
-static void scroll_popup(StringBox *sb, ScrollBox *scrb);
-static int32 s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
+static int32 pop_list_scroll_box_motion(XEvent event, ScrollBox *sb);
+static int32 pop_list_select_scroll_item(Window window, ScrollBox sb);
+static void pop_list_scroll_popup(StringBox *sb, ScrollBox *scrb);
+static int32 pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col,
                               ScrollBox *scrb);
-static void draw_pop_up(PopUp p, Window window);
-static void set_sbox_item(StringBox *sb, int32 item);
-static void reset_hot(int32 inew, StringBox *sb);
-static void expose_sbox(StringBox sb, Window window, int32 pos);
+static void pop_list_draw_pop_up(PopUp p, Window window);
+static void pop_list_set_sbox_item(StringBox *sb, int32 item);
+static void pop_list_reset_hot(int32 inew, StringBox *sb);
+static void pop_list_expose_sbox(StringBox sb, Window window, int32 pos);
 static void pop_list_bin_prnt_byte(int32 x, int32 *arr);
-static void expose_resp_box(char *button, char *message, Window wb, Window wm,
+static void pop_list_expose_resp_box(char *button, char *message, Window wb, Window wm,
                             Window window);
-static void make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
+static void pop_list_make_sbox_windows(StringBox *sb, int32 row, int32 col, char *title,
                               int32 maxchar);
 
 void
@@ -178,16 +178,16 @@ pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw
     ww = slen*DCURXs + DCURXs / 2;
     hgt = hw*(nw + 1);
     len = hgt - 6;
-    sb->base = (Window)make_plain_window(root, x0, y0, wid, hgt, 2);
+    sb->base = (Window)pop_list_make_plain_window(root, x0, y0, wid, hgt, 2);
     sb->w = xmalloc((usize)nw*sizeof(*(sb->w)));
     for (int32 i = 0; i < nw; i++)
-        sb->w[i] = make_window(sb->base, 1, hw / 2 + i*hw, ww, DCURYs, 0);
+        sb->w[i] = pop_list_make_window(sb->base, 1, hw / 2 + i*hw, ww, DCURYs, 0);
     sb->i0 = 0;
     sb->nw = nw;
     sb->nent = nent;
     sb->list = list;
     if (sb->nw < sb->nent)
-        sb->slide = make_window(sb->base, ww + DCURXs / 2 + 2, 2,
+        sb->slide = pop_list_make_window(sb->base, ww + DCURXs / 2 + 2, 2,
                                 ww + DCURXs / 2 + 6, 2 + len, 1);
     sb->len = len - 4;
     sb->exist = 1;
@@ -195,20 +195,20 @@ pop_list_create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw
 }
 
 void
-expose_scroll_box(Window window, ScrollBox sb) {
+pop_list_expose_scroll_box(Window window, ScrollBox sb) {
     /*int32 flag=-1;*/
     for (int32 i = 0; i < sb.nw; i++)
         if (window == sb.w[i]) {
-            redraw_scroll_box(sb);
+            pop_list_redraw_scroll_box(sb);
             return;
         }
     if (sb.nw < sb.nent && window == sb.slide)
-        redraw_scroll_box(sb);
+        pop_list_redraw_scroll_box(sb);
     return;
 }
 
 void
-redraw_scroll_box(ScrollBox sb) {
+pop_list_redraw_scroll_box(ScrollBox sb) {
     int32 p;
     int32 i0 = sb.i0;
     for (int32 i = 0; i < sb.nw; i++) {
@@ -238,7 +238,7 @@ pop_list_crossing_scroll_box(Window window, int32 c, ScrollBox sb) {
 }
 
 int32
-scroll_box_motion(XEvent event, ScrollBox *sb) {
+pop_list_scroll_box_motion(XEvent event, ScrollBox *sb) {
     int32 x;
     Window window;
     int32 pos;
@@ -259,13 +259,13 @@ scroll_box_motion(XEvent event, ScrollBox *sb) {
         if (pos > (sb->nent - sb->nw))
             pos = sb->nent - sb->nw;
         sb->i0 = pos;
-        redraw_scroll_box(*sb);
+        pop_list_redraw_scroll_box(*sb);
     }
     return 1;
 }
 
 int32
-select_scroll_item(Window window, ScrollBox sb) {
+pop_list_select_scroll_item(Window window, ScrollBox sb) {
     int32 item = -1;
     for (int32 i = 0; i < sb.nw; i++) {
         if (window == sb.w[i]) {
@@ -277,7 +277,7 @@ select_scroll_item(Window window, ScrollBox sb) {
 }
 
 void
-scroll_popup(StringBox *sb, ScrollBox *scrb) {
+pop_list_scroll_popup(StringBox *sb, ScrollBox *scrb) {
     int32 hw = DCURYs + 4;
     int32 ihot = sb->hot;
     int32 id = sb->hh[ihot];
@@ -322,14 +322,14 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title, char **name
     }
     sb.n = n;
     sb.hot = 0;
-    make_sbox_windows(&sb, rows, cols, title, maxchar);
+    pop_list_make_sbox_windows(&sb, rows, cols, title, maxchar);
     XSelectInput(display, sb.cancel, BUT_MASK);
     XSelectInput(display, sb.ok, BUT_MASK);
     pos = (int32)strlen(sb.value[0]);
     colm = (pos + (int32)strlen(sb.name[0]))*DCURX;
 
     while (true) {
-        status = s_box_event_loop(&sb, &pos, &colm, &scrb);
+        status = pop_list_s_box_event_loop(&sb, &pos, &colm, &scrb);
         if (status != -1)
             break;
     }
@@ -348,7 +348,7 @@ pop_list_do_string_box(int32 n, int32 rows, int32 cols, char *title, char **name
 }
 
 void
-expose_sbox(StringBox sb, Window window, int32 pos) {
+pop_list_expose_sbox(StringBox sb, Window window, int32 pos) {
     int32 flag;
 
     if (window == sb.ok) {
@@ -390,7 +390,7 @@ pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window, int3
 }
 
 void
-reset_hot(int32 inew, StringBox *sb) {
+pop_list_reset_hot(int32 inew, StringBox *sb) {
     int32 i = sb->hot;
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
@@ -403,9 +403,9 @@ reset_hot(int32 inew, StringBox *sb) {
 }
 
 void
-new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
+pop_list_new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
              Window *w) {
-    reset_hot(inew, sb);
+    pop_list_reset_hot(inew, sb);
     *pos = (int32)strlen(sb->value[inew]);
     *col = (*pos + (int32)strlen(sb->name[inew]))*DCURX;
     *done = 0;
@@ -414,7 +414,7 @@ new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col, int32 *done,
 }
 
 void
-set_sbox_item(StringBox *sb, int32 item) {
+pop_list_set_sbox_item(StringBox *sb, int32 item) {
     int32 i = sb->hot;
     int32 id = sb->hh[i];
     if (id < 0)
@@ -424,7 +424,7 @@ set_sbox_item(StringBox *sb, int32 item) {
 }
 
 int32
-s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
+pop_list_s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     XEvent event;
     int32 status = -1, inew;
     int32 nn = sb->n;
@@ -443,20 +443,20 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
     case Expose:
     case MapNotify:
         many_pops_do_expose(event); /*  menus and graphs etc  */
-        expose_sbox(*sb, event.xany.window, *pos);
+        pop_list_expose_sbox(*sb, event.xany.window, *pos);
         if (scrb->exist)
-            expose_scroll_box(event.xany.window, *scrb);
+            pop_list_expose_scroll_box(event.xany.window, *scrb);
         break;
     case MotionNotify:
         if (scrb->exist)
-            scroll_box_motion(event, scrb);
+            pop_list_scroll_box_motion(event, scrb);
         break;
     case ButtonPress:
         if (scrb->exist) {
-            item = select_scroll_item(event.xbutton.window, *scrb);
+            item = pop_list_select_scroll_item(event.xbutton.window, *scrb);
             if (item >= 0) {
-                set_sbox_item(sb, item);
-                new_editable(sb, sb->hot, pos, col, &done, &window);
+                pop_list_set_sbox_item(sb, item);
+                pop_list_new_editable(sb, sb->hot, pos, col, &done, &window);
                 pop_list_destroy_scroll_box(scrb);
             }
         }
@@ -475,12 +475,12 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
                                CurrentTime);
                 if (i != sb->hot) {
                     pop_list_destroy_scroll_box(scrb);
-                    new_editable(sb, i, pos, col, &done, &window);
+                    pop_list_new_editable(sb, i, pos, col, &done, &window);
                 } else { /* i==sb->hot */
                     if (event.xbutton.x < DCURX) {
                         j = sb->hot;
                         if (sb->hh[j] >= 0) {
-                            scroll_popup(sb, scrb);
+                            pop_list_scroll_popup(sb, scrb);
                         }
                     }
                 }
@@ -515,7 +515,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
                 break;
             }
             inew = (sb->hot + 1) % nn;
-            new_editable(sb, inew, pos, col, &done, &window);
+            pop_list_new_editable(sb, inew, pos, col, &done, &window);
         }
         break;
     default:
@@ -525,7 +525,7 @@ s_box_event_loop(StringBox *sb, int32 *pos, int32 *col, ScrollBox *scrb) {
 }
 
 void
-make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
+pop_list_make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
                   int32 maxchar) {
     int32 width;
     int32 height;
@@ -539,7 +539,7 @@ make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
     width = (maxchar + 4)*cols*DCURX;
     height = (rows + 4)*(DCURY + 16);
     base =
-        make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
+        pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
     XStringListToTextProperty(&title, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
     size_hints.x = 0;
@@ -568,20 +568,20 @@ make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
     for (int32 i = 0; i < n; i++) {
         xpos = xstart + (maxchar + 4)*DCURX*(i / rows);
         ypos = ystart + (i % rows)*(DCURY + 10);
-        sb->win[i] = make_window(base, xpos, ypos, maxchar*DCURX, DCURY, 1);
+        sb->win[i] = pop_list_make_window(base, xpos, ypos, maxchar*DCURX, DCURY, 1);
     }
 
     ypos = height - 2*DCURY;
     xpos = (width - 16*DCURX) / 2;
-    (sb->ok) = make_window(base, xpos, ypos, 8*DCURX, DCURY, 1);
+    (sb->ok) = pop_list_make_window(base, xpos, ypos, 8*DCURX, DCURY, 1);
     (sb->cancel) =
-        make_window(base, xpos + 8*DCURX + 4, ypos, 8*DCURX, DCURY, 1);
+        pop_list_make_window(base, xpos + 8*DCURX + 4, ypos, 8*DCURX, DCURY, 1);
     XRaiseWindow(display, base);
     return;
 }
 
 Window
-make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
+pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
                   int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
@@ -667,7 +667,7 @@ make_fancy_window(Window root, int32 x, int32 y, int32 width, int32 height,
 }
 
 Window
-make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
+pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width, int32 height,
                      int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
@@ -769,7 +769,7 @@ pop_list_bin_prnt_byte(int32 x, int32 *arr) {
 }
 
 Window
-make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
+pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                           int32 height, int32 bw, uchar *icdata) {
     Window win =
         XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
@@ -912,7 +912,7 @@ make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
 }
 
 Window
-make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
+pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                            int32 height, int32 bw) {
     Window win;
     win = XCreateSimpleWindow(display, root, x, y, (uint)width, (uint)height,
@@ -927,10 +927,10 @@ make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
 }
 
 Window
-make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
+pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
                  int32 bw, uchar *icdata) {
     Window win;
-    win = make_unmapped_icon_window(root, x, y, width, height, bw, icdata);
+    win = pop_list_make_unmapped_icon_window(root, x, y, width, height, bw, icdata);
     if (root == RootWindow(display, screen))
         XSetWMProtocols(display, win, &deleteWindowAtom, 1);
     XMapWindow(display, win);
@@ -938,10 +938,10 @@ make_icon_window(Window root, int32 x, int32 y, int32 width, int32 height,
 }
 
 Window
-make_window(Window root, int32 x, int32 y, int32 width, int32 height,
+pop_list_make_window(Window root, int32 x, int32 y, int32 width, int32 height,
             int32 bw) {
     Window win;
-    win = make_unmapped_window(root, x, y, width, height, bw);
+    win = pop_list_make_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen))
         XSetWMProtocols(display, win, &deleteWindowAtom, 1);
     XMapWindow(display, win);
@@ -949,10 +949,10 @@ make_window(Window root, int32 x, int32 y, int32 width, int32 height,
 }
 
 Window
-make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
+pop_list_make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
                   int32 bw) {
     Window win;
-    win = make_plain_unmapped_window(root, x, y, width, height, bw);
+    win = pop_list_make_plain_unmapped_window(root, x, y, width, height, bw);
     if (root == RootWindow(display, screen))
         XSetWMProtocols(display, win, &deleteWindowAtom, 1);
     XMapWindow(display, win);
@@ -960,7 +960,7 @@ make_plain_window(Window root, int32 x, int32 y, int32 width, int32 height,
 }
 
 void
-expose_resp_box(char *button, char *message, Window wb, Window wm,
+pop_list_expose_resp_box(char *button, char *message, Window wb, Window wm,
                 Window window) {
     if (window == wb)
         ggets_f_text(0, 0, button, wb);
@@ -983,12 +983,12 @@ pop_list_respond_box(char *button, char *message) {
         width = l2;
     width = width + 4;
     height = 5*DCURY;
-    wmain = make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
+    wmain = pop_list_make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
                               DisplayHeight / 2, width*DCURX, height, 4);
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height, wmain);
-    wm = make_plain_window(wmain, ((width - l1)*DCURX) / 2, DCURY / 2,
+    wm = pop_list_make_plain_window(wmain, ((width - l1)*DCURX) / 2, DCURY / 2,
                            l1*DCURX, DCURY, 0);
-    wb = make_window(wmain, ((width - l2)*DCURX) / 2, 2*DCURY, l2*DCURX,
+    wb = pop_list_make_window(wmain, ((width - l2)*DCURX) / 2, 2*DCURY, l2*DCURX,
                      DCURY, 1);
 
     ggets_ping();
@@ -1000,7 +1000,7 @@ pop_list_respond_box(char *button, char *message) {
         case Expose:
         case MapNotify:
             many_pops_do_expose(event);
-            expose_resp_box(button, message, wb, wm, event.xexpose.window);
+            pop_list_expose_resp_box(button, message, wb, wm, event.xexpose.window);
             break;
         case KeyPress:
             done = 1;
@@ -1034,7 +1034,7 @@ pop_list_message_box(Window *w, int32 x, int32 y, char *message) {
     int32 wid = (int32)strlen(message)*DCURX;
     int32 hgt = 4*DCURY;
     Window z;
-    z = make_plain_window(*w, x, y, wid + 50, hgt, 4);
+    z = pop_list_make_plain_window(*w, x, y, wid + 50, hgt, 4);
     XSelectInput(display, z, 0);
     ggets_f_text(25, 2*DCURY, message, z);
     ggets_ping();
@@ -1043,7 +1043,7 @@ pop_list_message_box(Window *w, int32 x, int32 y, char *message) {
 }
 
 void
-expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
+pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
               Window wm, Window window) {
     if (window == wm)
         ggets_f_text(0, 0, msg, wm);
@@ -1055,7 +1055,7 @@ expose_choice(char *choice1, char *choice2, char *msg, Window c1, Window c2,
 }
 
 int32
-two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
+pop_list_two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
            int32 y, Window window, char *title) {
     Window base, c1, c2, wm;
     XEvent event;
@@ -1072,16 +1072,16 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
     xm = (tot - lm) / 2;
     x1 = (tot - l1 - l2 - 4*DCURX) / 2;
     x2 = x1 + l1 + 4*DCURX;
-    base = make_plain_window(window, x, y, tot, 5*DCURY, 4);
+    base = pop_list_make_plain_window(window, x, y, tot, 5*DCURY, 4);
 
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height, base);
 
-    c1 = make_window(base, x1, 3*DCURY, l1 + DCURX, DCURY + 4, 1);
-    c2 = make_window(base, x2, 3*DCURY, l2 + DCURX, DCURY + 4, 1);
+    c1 = pop_list_make_window(base, x1, 3*DCURY, l1 + DCURX, DCURY + 4, 1);
+    c2 = pop_list_make_window(base, x2, 3*DCURY, l2 + DCURX, DCURY + 4, 1);
     XSelectInput(display, c1, BUT_MASK);
     XSelectInput(display, c2, BUT_MASK);
 
-    wm = make_window(base, xm, DCURY / 2, lm + 2, DCURY, 0);
+    wm = pop_list_make_window(base, xm, DCURY / 2, lm + 2, DCURY, 0);
 
     ggets_ping();
     if (window == RootWindow(display, screen)) {
@@ -1098,7 +1098,7 @@ two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
         case Expose:
         case MapNotify:
             many_pops_do_expose(event);
-            expose_choice(choice1, choice2, string, c1, c2, wm,
+            pop_list_expose_choice(choice1, choice2, string, c1, c2, wm,
                           event.xexpose.window);
             break;
 
@@ -1162,7 +1162,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     int32 done = 0, value;
     int32 width = DCURX*(max + 5);
     int32 length = (DCURY + 6)*(n + 2);
-    window = make_plain_window(*root, x, y, width, length, 2);
+    window = pop_list_make_plain_window(*root, x, y, width, length, 2);
     txt = XCreateFontCursor(display, XC_hand2);
     XDefineCursor(display, window, txt);
     p.base = window;
@@ -1175,9 +1175,9 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     p.hot = def;
     value = (int32)key[def];
     p.w = xmalloc((usize)n*sizeof(*(p.w)));
-    p.tit = make_window(window, 0, 0, width, DCURY + 7, 0);
+    p.tit = pop_list_make_window(window, 0, 0, width, DCURY + 7, 0);
     for (int32 i = 0; i < n; i++) {
-        p.w[i] = make_window(window, DCURX, DCURY + 10 + i*(DCURY + 6),
+        p.w[i] = pop_list_make_window(window, DCURX, DCURY + 10 + i*(DCURY + 6),
                              DCURX*(max + 3), DCURY + 3, 0);
         XSelectInput(display, p.w[i], BUT_MASK);
     }
@@ -1188,7 +1188,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
         case Expose:
         case MapNotify:
             many_pops_do_expose(event);
-            draw_pop_up(p, event.xexpose.window);
+            pop_list_draw_pop_up(p, event.xexpose.window);
             break;
         case KeyPress:
             value = ggets_get_key_press(&event);
@@ -1238,7 +1238,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 }
 
 void
-draw_pop_up(PopUp p, Window window) {
+pop_list_draw_pop_up(PopUp p, Window window) {
     if (window == p.tit) {
         ggets_set_fore();
         ggets_bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);

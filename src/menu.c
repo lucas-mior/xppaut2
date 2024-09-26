@@ -372,7 +372,7 @@ add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     Window window;
     Cursor cursor;
     cursor = XCreateFontCursor(display, XC_hand2);
-    window = make_plain_unmapped_window(base, 0, DCURYs + DCURYb + 10,
+    window = pop_list_make_plain_unmapped_window(base, 0, DCURYs + DCURYb + 10,
                                         16*DCURX, 21*(DCURY + 2) - 3, 1);
     my_menus[j].base = window;
     XDefineCursor(display, window, cursor);
@@ -381,9 +381,9 @@ add_menu(Window base, int32 j, int32 n, char **names, char *key, char **hint) {
     my_menus[j].hints = hint;
     strcpy(my_menus[j].key, key);
     my_menus[j].title =
-        make_unmapped_window(window, 0, 0, 16*DCURX, DCURY, 1);
+        pop_list_make_unmapped_window(window, 0, 0, 16*DCURX, DCURY, 1);
     for (int32 i = 0; i < n; i++) {
-        my_menus[j].window[i] = make_unmapped_window(
+        my_menus[j].window[i] = pop_list_make_unmapped_window(
             window, 0, (i + 1)*(DCURY + 2), 16*DCURX, DCURY, 0);
     }
     my_menus[j].visible = 0;

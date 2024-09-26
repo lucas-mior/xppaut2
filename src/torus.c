@@ -176,7 +176,7 @@ torus_make_box(char *title) {
     height = 3*DCURYs + ndn*(DCURYs + 8);
 
     base =
-        make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
+        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
 
     torbox.base = base;
     XStringListToTextProperty(&title, 1, &winname);
@@ -205,15 +205,15 @@ torus_make_box(char *title) {
         xpos = xstart + 18*DCURXs*i1;
         ypos = ystart + j1*(DCURYs + 8);
         torbox.window[i] =
-            make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
+            pop_list_make_window(base, xpos, ypos, 15*DCURXs, DCURYs, 1);
     }
 
     xpos = (width - 16*DCURXs - 10) / 2;
     ypos = height - 3*DCURYs / 2;
 
-    torbox.cancel = make_window(base, xpos, ypos, 8*DCURXs, DCURYs, 1);
+    torbox.cancel = pop_list_make_window(base, xpos, ypos, 8*DCURXs, DCURYs, 1);
     torbox.done =
-        make_window(base, xpos + 8*DCURXs + 10, ypos, 8*DCURXs, DCURYs, 1);
+        pop_list_make_window(base, xpos + 8*DCURXs + 10, ypos, 8*DCURXs, DCURYs, 1);
     XSelectInput(display, torbox.cancel, BUT_MASK);
     XSelectInput(display, torbox.done, BUT_MASK);
     XRaiseWindow(display, torbox.base);

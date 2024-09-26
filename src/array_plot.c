@@ -284,7 +284,7 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     /* init_array_plot(ap); */
     width = ap->width;
     height = ap->height;
-    base = make_plain_window(RootWindow(display, screen), 0, 0, ap->width,
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, ap->width,
                              ap->height, 1);
     ap->base = base;
     XSelectInput(display, base,
@@ -310,13 +310,13 @@ create_array_plot(struct ArrayPlot *ap, char *wname, char *iname) {
     ap->wfit = browse_button2(base, 0, 4, 0);
     ap->wrange = browse_button2(base, 0, 5, 0);
     ap->wgif = browse_button2(base, 1, 0, 0);
-    ap->wmax = make_window(base, 10, 45, 10*DCURXs, DCURYs, 1);
-    ap->wmin = make_window(base, 10, 51 + DCURYs + color_total, 10*DCURXs,
+    ap->wmax = pop_list_make_window(base, 10, 45, 10*DCURXs, DCURYs, 1);
+    ap->wmin = pop_list_make_window(base, 10, 51 + DCURYs + color_total, 10*DCURXs,
                            DCURYs, 1);
-    ap->wscale = make_window(base, 10 + 4*DCURXs, 48 + DCURYs, 2*DCURXs,
+    ap->wscale = pop_list_make_window(base, 10 + 4*DCURXs, 48 + DCURYs, 2*DCURXs,
                              color_total, 0);
-    ap->wtime = make_window(base, 20 + 10*DCURXs, 30, 20*DCURXs, DCURYs, 0);
-    ap->wplot = make_plain_window(base, 20 + 10*DCURXs, 45,
+    ap->wtime = pop_list_make_window(base, 20 + 10*DCURXs, 30, 20*DCURXs, DCURYs, 0);
+    ap->wplot = pop_list_make_plain_window(base, 20 + 10*DCURXs, 45,
                                   width - 30 - 10*DCURXs, height - 55, 2);
     ap->plotw = width - 30 - 10*DCURXs;
     ap->ploth = height - 55;

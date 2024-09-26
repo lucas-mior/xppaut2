@@ -504,21 +504,21 @@ do_main(int32 argc, char **argv) {
     {
         /* main make top buttons */
         int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
-        TopButton[0] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[0] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
-        TopButton[1] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-        x1 += x2 + dx;
-
-        TopButton[2] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[1] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
 
-        TopButton[3] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[2] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
 
-        TopButton[4] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[3] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
 
-        TopButton[5] = make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[4] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[5] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
     }
 

@@ -869,7 +869,7 @@ Window
 auto_x11_lil_button(Window root, int32 x, int32 y) {
     Window win;
     int32 width = 12*DCURX;
-    win = make_window(root, x, y, width, DCURY + 1, 1);
+    win = pop_list_make_window(root, x, y, width, DCURY + 1, 1);
     XSelectInput(display, win, MYMASK);
     return win;
 }
@@ -895,7 +895,7 @@ auto_x11_make(char *wname, char *iname) {
     y = DCURY;
     Auto_x0 = x;
     Auto_y0 = y;
-    base = make_plain_window(RootWindow(display, screen), 0, 0, wid, hgt, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, wid, hgt, 4);
     XSetWindowBackground(display, base, MyMainWinColor);
     auto_win.base = base;
 
@@ -925,14 +925,14 @@ auto_x11_make(char *wname, char *iname) {
 
     many_pops_make_icon((char *)auto_bits, auto_width, auto_height, base);
 
-    auto_win.canvas = make_plain_window(base, x, y, STD_WID_var + xmargin,
+    auto_win.canvas = pop_list_make_plain_window(base, x, y, STD_WID_var + xmargin,
                                         STD_HGT_var + ymargin, 1);
     XSetWindowBackground(display, auto_win.canvas, MyDrawWinColor);
     XSelectInput(display, auto_win.canvas, MYMASK);
 
     x = DCURX;
     y = DCURY + STD_HGT_var + ymargin - 8*DCURX;
-    auto_win.stab = make_plain_window(base, x, y, 12*DCURX, 12*DCURX, 2);
+    auto_win.stab = pop_list_make_plain_window(base, x, y, 12*DCURX, 12*DCURX, 2);
     Auto.st_wid = 12*DCURX;
     x = DCURX + 2;
     y = 2*DCURY;
@@ -965,8 +965,8 @@ auto_x11_make(char *wname, char *iname) {
     y = DCURY + STD_HGT_var + ymargin + 5;
     x = addwid + 5;
     auto_win.info =
-        make_plain_window(base, x, y, STD_WID_var + xmargin, addhgt, 2);
-    auto_win.hint = make_plain_window(base, x, y + addhgt + 6,
+        pop_list_make_plain_window(base, x, y, STD_WID_var + xmargin, addhgt, 2);
+    auto_win.hint = pop_list_make_plain_window(base, x, y + addhgt + 6,
                                       STD_WID_var + xmargin, DCURY + 2, 2);
 
     auto_nox_draw_bix_axes();

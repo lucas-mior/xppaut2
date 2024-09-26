@@ -3912,31 +3912,31 @@ int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title, char **
                     char values[][MAX_LEN_SBOX], int32 maxchar);
 void pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
                     int32 pos);
-void new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
+void pop_list_new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
                   int32 *done, Window *w);
-Window make_fancy_window(Window root, int32 x, int32 y, int32 width,
+Window pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
                          int32 height, int32 bw);
-Window make_unmapped_window(Window root, int32 x, int32 y, int32 width,
+Window pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
                             int32 height, int32 bw);
-Window make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
+Window pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                                   int32 height, int32 bw);
-Window make_window(Window root, int32 x, int32 y, int32 width, int32 height,
+Window pop_list_make_window(Window root, int32 x, int32 y, int32 width, int32 height,
                    int32 bw);
-Window make_plain_window(Window root, int32 x, int32 y, int32 width,
+Window pop_list_make_plain_window(Window root, int32 x, int32 y, int32 width,
                          int32 height, int32 bw);
 void pop_list_respond_box(char *button, char *message);
 void pop_list_message_box(Window *w, int32 x, int32 y, char *message);
-void expose_choice(char *choice1, char *choice2, char *msg, Window c1,
+void pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1,
                    Window c2, Window wm, Window window);
-int32 two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
+int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
                  int32 y, Window window, char *title);
 int32 pop_list_yes_no_box(void);
 int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
                   int32 max, int32 def, int32 x, int32 y, char **hints,
                   Window hwin, char *httxt);
-Window make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
+Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
                                  int32 height, int32 bw, uchar *icdata);
-Window make_icon_window(Window root, int32 x, int32 y, int32 width,
+Window pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width,
                         int32 height, int32 bw, uchar *icdata);
 
 #endif

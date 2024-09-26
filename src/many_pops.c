@@ -1268,7 +1268,7 @@ many_pops_create_a_pop(void) {
         XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
                             (uint)MINI_W, (uint)MINI_H, 2, GrFore, GrBack);
     graph[index].w_info =
-        make_window(graph[index].window, 10, 0, 40*DCURXs, DCURYs, 0);
+        pop_list_make_window(graph[index].window, 10, 0, 40*DCURXs, DCURYs, 0);
     XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
 
     graphics_copy_graph(index, current_pop);

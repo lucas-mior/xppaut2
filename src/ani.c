@@ -315,7 +315,7 @@ ani_create_vcr(char *name) {
     XTextProperty winname;
     XTextProperty iconname;
 
-    base = make_plain_window(RootWindow(display, screen), 0, 0,
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
                              5*12*DCURXs + 8*DCURXs + 4,
                              20*(DCURYs + 6), 1);
     vcr.base = base;
@@ -337,16 +337,16 @@ ani_create_vcr(char *name) {
     vcr.wdn = browse_button2(base, 1, 3, 0);
     vcr.wgrab = browse_button2(base, 2, 3, 0);
     vcr.slider =
-        make_window(base, DCURXs, 7 + 4*DCURYs, 48*DCURXs, DCURYs + 4, 1);
+        pop_list_make_window(base, DCURXs, 7 + 4*DCURYs, 48*DCURXs, DCURYs + 4, 1);
     vcr.slipos = 0;
     vcr.sliwid = 48*DCURXs;
     vcr.wpause = browse_button2(base, 2, 0, 0);
     vcr.wmpeg = browse_button2(base, 2, 1, 0);
     vcr.kill = browse_button2(base, 2, 2, 0);
 
-    vcr.wfly = make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
+    vcr.wfly = pop_list_make_window(base, 4*12*DCURXs, 4, 5 + DCURXs + 5,
                            (DCURYs + 6) - 4, 1);
-    vcr.view = make_plain_window(base, 10, 100, wid, hgt, 2);
+    vcr.view = pop_list_make_plain_window(base, 10, 100, wid, hgt, 2);
     ani_gc = XCreateGC(display, vcr.view, valuemask, &values);
     vcr.hgt = hgt;
     vcr.wid = wid;

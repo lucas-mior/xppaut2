@@ -699,7 +699,7 @@ browse_button2(Window root, int32 row, int32 col, int32 iflag) {
         dcol = 14*DCURXs;
     x = dcol*col + 4;
     y = drow*row + 4;
-    window = make_window(root, x, y, width + 5, DCURYs + 1, 1);
+    window = pop_list_make_window(root, x, y, width + 5, DCURYs + 1, 1);
     XSelectInput(display, window, MYMASK);
     return window;
 }
@@ -717,7 +717,7 @@ browse_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
         dcol = 14*DCURXs;
     x = dcol*col + 4;
     y = drow*row + 4;
-    window = make_window(root, x, y, width + 5, DCURYs + 1, 1);
+    window = pop_list_make_window(root, x, y, width + 5, DCURYs + 1, 1);
     XSelectInput(display, window, MYMASK);
     return window;
 }
@@ -745,7 +745,7 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     b->nrow = row;
     b->ncol = ncol;
     base =
-        make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
+        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
     b->base = base;
     XSelectInput(display, base,
                  ExposureMask | KeyPressMask | ButtonPressMask |
@@ -772,10 +772,10 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
                          &size_hints, NULL, &class_hints);
     }
     many_pops_make_icon((char *)browse_bits, browse_width, browse_height, base);
-    b->upper = make_window(base, 0, 0, width, ystart + drow*6, 1);
+    b->upper = pop_list_make_window(base, 0, 0, width, ystart + drow*6, 1);
     XSetWindowBackground(display, b->upper, MyMainWinColor);
     b->main =
-        make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
+        pop_list_make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
     b->find = browse_button2(base, 0, 0, 0);
     b->get = browse_button2(base, 1, 0, 0);
@@ -799,7 +799,7 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     b->delcol = browse_button2(base, 2, 5, 0);
     b->close = browse_button2(base, 2, 6, 0);
     b->time = browse_button2(base, 5, 0, 1);
-    b->hint = make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
+    b->hint = pop_list_make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
     XSelectInput(display, b->time, SIMPMASK);
 
     for (int32 i = 0; i < BMAXCOL; i++) {
