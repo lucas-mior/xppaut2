@@ -51,7 +51,6 @@ static void draw_pop_up(PopUp p, Window window);
 static void set_sbox_item(StringBox *sb, int32 item);
 static void reset_hot(int32 inew, StringBox *sb);
 static void expose_sbox(StringBox sb, Window window, int32 pos);
-static int32 get_x_coord_win(Window win);
 static void bin_prnt_byte(int32 x, int32 *arr);
 static void expose_resp_box(char *button, char *message, Window wb, Window wm,
                             Window window);
@@ -153,15 +152,6 @@ pop_list_make_scrbox_lists(void) {
     return;
 }
 
-int32
-get_x_coord_win(Window win) {
-    int32 x;
-    int32 y;
-    uint32 h, w, bw, d;
-    Window root;
-    XGetGeometry(display, win, &root, &x, &y, &w, &h, &bw, &d);
-    return x;
-}
 
 void
 destroy_scroll_box(ScrollBox *sb) {
@@ -305,9 +295,16 @@ scroll_popup(StringBox *sb, ScrollBox *scrb) {
     maxw = maxhgt / hw - 1;
     if (maxw > scrbox_list[id].n)
         maxw = scrbox_list[id].n;
-    xx = get_x_coord_win(sb->win[ihot]);
-    create_scroll_box(sb->base, xx, 3, scrbox_list[id].n, maxw,
-                      scrbox_list[id].list, scrb);
+
+    {
+        /* get x coord win */
+        int32 y;
+        uint32 h, w, bw, d;
+        Window root;
+        XGetGeometry(display, sb->win[ihot], &root, &xx, &y, &w, &h, &bw, &d);
+        create_scroll_box(sb->base, xx, 3, scrbox_list[id].n, maxw,
+                          scrbox_list[id].list, scrb);
+    }
     return;
 }
 
