@@ -54,7 +54,6 @@ static struct MsgBoxStruct {
     int32 here;
 } MsgBox;
 
-static void menudrive_do_file_com(int32 com);
 
 void
 menudrive_do_tutorial(void) {
@@ -354,7 +353,72 @@ menudrive_run_the_commands(int32 com) {
     }
     /* CLONE */
     if (com >= M_FP && com <= M_FL) {
-        menudrive_do_file_com(com);
+        /* menudrive do file com */
+        switch (com) {
+        case M_FT:
+            adj2_do_transpose();
+            break;
+        case M_FG:
+            many_pops_get_intern_set();
+            break;
+        case M_FI:
+            TipsFlag = 1 - TipsFlag;
+            break;
+        case M_FP:
+            txt_make_view();
+            break;
+        case M_FW:
+            do_lunch(0);
+            break;
+        case M_FS:
+            lunch_file_inf();
+            break;
+        case M_FA:
+#ifdef AUTO
+            auto_nox_win();
+#endif
+            break;
+        case M_FC:
+            calc_q_calc();
+            break;
+        case M_FR:
+            do_lunch(1);
+            break;
+        case M_FB:
+            tfBell = 1 - tfBell;
+            break;
+        case M_FH:
+            /*menudrive_xpp_hlp();
+             */
+            break;
+        case M_FX:
+            menudrive_edit_xpprc();
+            break;
+        case M_FU:
+            menudrive_do_tutorial();
+            break;
+        case M_FQ:
+            if (pop_list_yes_no_box())
+                main_bye_bye();
+            break;
+        case M_FER:
+            edit_rhs();
+            break;
+        case M_FEF:
+            edit_rhs_functions();
+            break;
+        case M_FES:
+            edit_rhs_save_as();
+            break;
+        case M_FEL:
+            extra_load_new_dll();
+            break;
+        case M_FL:
+            init_conds_clone_ode();
+            break;
+        default:
+            break;
+        }
         return;
     }
 
@@ -462,75 +526,6 @@ menudrive_make_adj(void) {
     return;
 }
 
-void
-menudrive_do_file_com(int32 com) {
-    switch (com) {
-    case M_FT:
-        adj2_do_transpose();
-        break;
-    case M_FG:
-        many_pops_get_intern_set();
-        break;
-    case M_FI:
-        TipsFlag = 1 - TipsFlag;
-        break;
-    case M_FP:
-        txt_make_view();
-        break;
-    case M_FW:
-        do_lunch(0);
-        break;
-    case M_FS:
-        lunch_file_inf();
-        break;
-    case M_FA:
-#ifdef AUTO
-        auto_nox_win();
-#endif
-        break;
-    case M_FC:
-        calc_q_calc();
-        break;
-    case M_FR:
-        do_lunch(1);
-        break;
-    case M_FB:
-        tfBell = 1 - tfBell;
-        break;
-    case M_FH:
-        /*menudrive_xpp_hlp();
-         */
-        break;
-    case M_FX:
-        menudrive_edit_xpprc();
-        break;
-    case M_FU:
-        menudrive_do_tutorial();
-        break;
-    case M_FQ:
-        if (pop_list_yes_no_box())
-            main_bye_bye();
-        break;
-    case M_FER:
-        edit_rhs();
-        break;
-    case M_FEF:
-        edit_rhs_functions();
-        break;
-    case M_FES:
-        edit_rhs_save_as();
-        break;
-    case M_FEL:
-        extra_load_new_dll();
-        break;
-    case M_FL:
-        init_conds_clone_ode();
-        break;
-    default:
-        break;
-    }
-    return;
-}
 
 void
 menudrive_do_gr_objs(void) {
