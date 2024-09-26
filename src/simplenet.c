@@ -180,7 +180,6 @@ typedef struct Network {
 static int32 g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
 static int32 gilparse(char *s, int32 *ind, int32 *nn);
 static void simplenet_update_fft(int32 ind);
-static void evaluate_network(int32 ind);
 static int32 simplenet_is_network(char *s);
 static void simplenet_init(double *v, int32 n);
 static double simplenet_interp(double x, int32 i);
@@ -1104,279 +1103,274 @@ simplenet_is_network(char *s) {
 
 void
 simplenet_eval_all_nets(void) {
-    int32 i;
-    for (i = 0; i < n_network; i++)
-        evaluate_network(i);
-    return;
-}
-
-void
-evaluate_network(int32 ind) {
-    int32 i, j, k, ij;
-    int32 imin;
-    int32 imax;
-    double ymin, ymax;
-    int32 skip;
-    int32 mmt;
-    int32 in0;
-    double sum;
-    double z;
-    int32 n = my_net[ind].n, *f;
-    int32 ncon = my_net[ind].ncon;
-    double *w, *y, *cc, *values, *tau;
-    int32 twon = 2*n, root = my_net[ind].root, root2 = my_net[ind].root2;
-    cc = my_net[ind].index;
-    w = my_net[ind].weight;
-    values = my_net[ind].values;
-    /*  y=&variables[my_net[ind].root]; */
-    switch (my_net[ind].type) {
-    case FINDEXT:
-        y = &variables[root];
-        mmt = my_net[ind].iwgt;
-        skip = ncon;
-        imax = 0;
-        ymax = y[0];
-        imin = 0;
-        ymin = y[0];
-        i = 0;
-
-        if (mmt == 1 || mmt == 0) { /* get max  */
-            while (i < n) {
-                if (y[i] > ymax) {
-                    imax = i;
-                    ymax = y[i];
-                }
-                i += skip;
-            }
-        }
-        if (mmt == (-1) || mmt == 0) { /* get min */
+    for (int32 ind = 0; ind < n_network; ind++) {
+        /* evaluate network */
+        int32 i, j, k, ij;
+        int32 imin;
+        int32 imax;
+        double ymin, ymax;
+        int32 skip;
+        int32 mmt;
+        int32 in0;
+        double sum;
+        double z;
+        int32 n = my_net[ind].n, *f;
+        int32 ncon = my_net[ind].ncon;
+        double *w, *y, *cc, *values, *tau;
+        int32 twon = 2*n, root = my_net[ind].root, root2 = my_net[ind].root2;
+        cc = my_net[ind].index;
+        w = my_net[ind].weight;
+        values = my_net[ind].values;
+        /*  y=&variables[my_net[ind].root]; */
+        switch (my_net[ind].type) {
+        case FINDEXT:
+            y = &variables[root];
+            mmt = my_net[ind].iwgt;
+            skip = ncon;
+            imax = 0;
+            ymax = y[0];
+            imin = 0;
+            ymin = y[0];
             i = 0;
-            while (i < n) {
-                if (y[i] < ymin) {
-                    imin = i;
-                    ymin = y[i];
-                }
-                i += skip;
-            }
-        }
-        values[1] = (double)imax;
-        values[0] = ymax;
-        values[3] = (double)imin;
-        values[2] = ymin;
-        break;
-    case INTERP: /* do nothing! */
-        break;
-    case GILLTYPE:
-        if (my_net[ind].ncon == -1 && my_net[ind].iwgt > 0) {
-            my_net[ind].weight =
-                xmalloc((usize)(my_net[ind].root*NODE)*sizeof(double));
-            markov_make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
-                                my_net[ind].values);
-            my_net[ind].ncon = 0;
-        }
-        markov_one_gill_step(my_net[ind].iwgt, my_net[ind].root,
-                             my_net[ind].gcom, my_net[ind].values);
-        break;
-    case CONVE:
-        y = &variables[root];
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            for (j = -ncon; j <= ncon; j++) {
-                k = abs(i + j);
-                if (k < twon) {
-                    if (k >= n)
-                        k = abs(twon - 2 - k);
-                    sum += (w[j + ncon]*y[k]);
+
+            if (mmt == 1 || mmt == 0) { /* get max  */
+                while (i < n) {
+                    if (y[i] > ymax) {
+                        imax = i;
+                        ymax = y[i];
+                    }
+                    i += skip;
                 }
             }
-            values[i] = sum;
-        }
-        break;
-    case CONV0:
-        y = &variables[root];
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            for (j = -ncon; j <= ncon; j++) {
-                k = i + j;
-                if (k < n && k >= 0)
+            if (mmt == (-1) || mmt == 0) { /* get min */
+                i = 0;
+                while (i < n) {
+                    if (y[i] < ymin) {
+                        imin = i;
+                        ymin = y[i];
+                    }
+                    i += skip;
+                }
+            }
+            values[1] = (double)imax;
+            values[0] = ymax;
+            values[3] = (double)imin;
+            values[2] = ymin;
+            break;
+        case INTERP: /* do nothing! */
+            break;
+        case GILLTYPE:
+            if (my_net[ind].ncon == -1 && my_net[ind].iwgt > 0) {
+                my_net[ind].weight =
+                    xmalloc((usize)(my_net[ind].root*NODE)*sizeof(double));
+                markov_make_gill_nu(my_net[ind].weight, NODE, my_net[ind].root,
+                                    my_net[ind].values);
+                my_net[ind].ncon = 0;
+            }
+            markov_one_gill_step(my_net[ind].iwgt, my_net[ind].root,
+                                 my_net[ind].gcom, my_net[ind].values);
+            break;
+        case CONVE:
+            y = &variables[root];
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                for (j = -ncon; j <= ncon; j++) {
+                    k = abs(i + j);
+                    if (k < twon) {
+                        if (k >= n)
+                            k = abs(twon - 2 - k);
+                        sum += (w[j + ncon]*y[k]);
+                    }
+                }
+                values[i] = sum;
+            }
+            break;
+        case CONV0:
+            y = &variables[root];
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                for (j = -ncon; j <= ncon; j++) {
+                    k = i + j;
+                    if (k < n && k >= 0)
+                        sum += (w[j + ncon]*y[k]);
+                }
+                values[i] = sum;
+            }
+            break;
+        case CONVP:
+            y = &variables[root];
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                for (j = -ncon; j <= ncon; j++) {
+                    k = ((twon + i + j) % n);
                     sum += (w[j + ncon]*y[k]);
+                }
+                values[i] = sum;
             }
-            values[i] = sum;
-        }
-        break;
-    case CONVP:
-        y = &variables[root];
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            for (j = -ncon; j <= ncon; j++) {
-                k = ((twon + i + j) % n);
-                sum += (w[j + ncon]*y[k]);
-            }
-            values[i] = sum;
-        }
-        break;
-    case FFTCONP:
-        y = &variables[root];
-        fft_conv(0, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
-                 my_net[ind].dr, my_net[ind].di);
-        break;
+            break;
+        case FFTCONP:
+            y = &variables[root];
+            fft_conv(0, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
+                     my_net[ind].dr, my_net[ind].di);
+            break;
 
-    case FFTCON0:
-        y = &variables[root];
-        fft_conv(1, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
-                 my_net[ind].dr, my_net[ind].di);
-        break;
+        case FFTCON0:
+            y = &variables[root];
+            fft_conv(1, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
+                     my_net[ind].dr, my_net[ind].di);
+            break;
 
-    case IMPORT:
-        extra_get_import_values(n, values, my_net[ind].soname,
-                                my_net[ind].sofun, my_net[ind].root,
-                                my_net[ind].wgtlist, variables, &constants[6]);
-        break;
-    case DEL_MUL:
-        tau = my_net[ind].taud;
-        in0 = my_net[ind].root;
-        for (j = 0; j < n; j++) {
-            sum = 0.0;
-            for (i = 0; i < ncon; i++) {
-                ij = j*ncon + i;
-                sum += (w[ij]*delay_handle_get_delay(i + in0, tau[ij]));
+        case IMPORT:
+            extra_get_import_values(n, values, my_net[ind].soname,
+                                    my_net[ind].sofun, my_net[ind].root,
+                                    my_net[ind].wgtlist, variables, &constants[6]);
+            break;
+        case DEL_MUL:
+            tau = my_net[ind].taud;
+            in0 = my_net[ind].root;
+            for (j = 0; j < n; j++) {
+                sum = 0.0;
+                for (i = 0; i < ncon; i++) {
+                    ij = j*ncon + i;
+                    sum += (w[ij]*delay_handle_get_delay(i + in0, tau[ij]));
+                }
+                values[j] = sum;
             }
-            values[j] = sum;
-        }
-        break;
-    case MMULT:
-        y = &variables[root];
-        for (j = 0; j < n; j++) {
-            sum = 0.0;
-            for (i = 0; i < ncon; i++) {
-                ij = j*ncon + i;
-                sum += (w[ij]*y[i]);
+            break;
+        case MMULT:
+            y = &variables[root];
+            for (j = 0; j < n; j++) {
+                sum = 0.0;
+                for (i = 0; i < ncon; i++) {
+                    ij = j*ncon + i;
+                    sum += (w[ij]*y[i]);
+                }
+                values[j] = sum;
             }
-            values[j] = sum;
-        }
-        break;
-    case DEL_SPAR:
-        tau = my_net[ind].taud;
-        in0 = my_net[ind].root;
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            for (j = 0; j < ncon; j++) {
-                ij = i*ncon + j;
-                k = (int32)cc[ij];
-                if (k >= 0)
-                    sum += (w[ij]*delay_handle_get_delay(k + in0, tau[ij]));
+            break;
+        case DEL_SPAR:
+            tau = my_net[ind].taud;
+            in0 = my_net[ind].root;
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                for (j = 0; j < ncon; j++) {
+                    ij = i*ncon + j;
+                    k = (int32)cc[ij];
+                    if (k >= 0)
+                        sum += (w[ij]*delay_handle_get_delay(k + in0, tau[ij]));
+                }
+                values[i] = sum;
             }
-            values[i] = sum;
-        }
-        break;
-    case SPARSE:
-        y = &variables[root];
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            for (j = 0; j < ncon; j++) {
-                ij = i*ncon + j;
-                k = (int32)cc[ij];
-                if (k >= 0)
-                    sum += (w[ij]*y[k]);
+            break;
+        case SPARSE:
+            y = &variables[root];
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                for (j = 0; j < ncon; j++) {
+                    ij = i*ncon + j;
+                    k = (int32)cc[ij];
+                    if (k >= 0)
+                        sum += (w[ij]*y[k]);
+                }
+                values[i] = sum;
             }
-            values[i] = sum;
-        }
-        break;
+            break;
 
-        /*     f stuff  */
-    case FCONVE:
-        f = my_net[ind].f;
+            /*     f stuff  */
+        case FCONVE:
+            f = my_net[ind].f;
 
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            f[1] = root + i;
-            for (j = -ncon; j <= ncon; j++) {
-                k = abs(i + j);
-                if (k < twon) {
-                    if (k >= n)
-                        k = abs(twon - 2 - k);
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                f[1] = root + i;
+                for (j = -ncon; j <= ncon; j++) {
+                    k = abs(i + j);
+                    if (k < twon) {
+                        if (k >= n)
+                            k = abs(twon - 2 - k);
+                        f[0] = root2 + k;
+
+                        z = evaluate(f);
+                        sum += (w[j + ncon]*z);
+                    }
+                }
+                values[i] = sum;
+            }
+            break;
+        case FCONV0:
+            f = my_net[ind].f;
+
+            for (i = 0; i < n; i++) {
+                sum = 0.0;
+                f[1] = root + i;
+                for (j = -ncon; j <= ncon; j++) {
+                    k = i + j;
+                    if (k < n && k >= 0) {
+                        f[0] = root2 + k;
+                        z = evaluate(f);
+                        sum += (w[j + ncon]*z);
+                    }
+                }
+                values[i] = sum;
+            }
+            break;
+        case FCONVP:
+            f = my_net[ind].f;
+
+            for (i = 0; i < n; i++) {
+                f[1] = root + i;
+                sum = 0.0;
+                for (j = -ncon; j <= ncon; j++) {
+                    k = ((twon + i + j) % n);
                     f[0] = root2 + k;
-
                     z = evaluate(f);
                     sum += (w[j + ncon]*z);
                 }
+                values[i] = sum;
             }
-            values[i] = sum;
-        }
-        break;
-    case FCONV0:
-        f = my_net[ind].f;
+            break;
+        case FSPARSE:
+            f = my_net[ind].f;
 
-        for (i = 0; i < n; i++) {
-            sum = 0.0;
-            f[1] = root + i;
-            for (j = -ncon; j <= ncon; j++) {
-                k = i + j;
-                if (k < n && k >= 0) {
-                    f[0] = root2 + k;
-                    z = evaluate(f);
-                    sum += (w[j + ncon]*z);
+            for (i = 0; i < n; i++) {
+                f[1] = root + i;
+                sum = 0.0;
+                for (j = 0; j < ncon; j++) {
+                    ij = i*ncon + j;
+                    k = (int32)cc[ij];
+                    if (k >= 0) {
+                        f[0] = root2 + k;
+                        z = evaluate(f);
+                        sum += (w[ij]*z);
+                    }
                 }
+                values[i] = sum;
             }
-            values[i] = sum;
-        }
-        break;
-    case FCONVP:
-        f = my_net[ind].f;
+            break;
+        case FMMULT:
+            f = my_net[ind].f;
 
-        for (i = 0; i < n; i++) {
-            f[1] = root + i;
-            sum = 0.0;
-            for (j = -ncon; j <= ncon; j++) {
-                k = ((twon + i + j) % n);
-                f[0] = root2 + k;
-                z = evaluate(f);
-                sum += (w[j + ncon]*z);
-            }
-            values[i] = sum;
-        }
-        break;
-    case FSPARSE:
-        f = my_net[ind].f;
+            for (j = 0; j < n; j++) {
+                f[1] = root + j;
 
-        for (i = 0; i < n; i++) {
-            f[1] = root + i;
-            sum = 0.0;
-            for (j = 0; j < ncon; j++) {
-                ij = i*ncon + j;
-                k = (int32)cc[ij];
-                if (k >= 0) {
-                    f[0] = root2 + k;
+                sum = 0.0;
+                for (i = 0; i < ncon; i++) {
+                    ij = j*ncon + i;
+
+                    f[0] = root2 + i;
+
                     z = evaluate(f);
+
                     sum += (w[ij]*z);
                 }
+
+                values[j] = sum;
             }
-            values[i] = sum;
+            break;
+        default:
+            fprintf(stderr, "Unexpected case in %s.\n", __func__);
+            exit(EXIT_FAILURE);
         }
-        break;
-    case FMMULT:
-        f = my_net[ind].f;
-
-        for (j = 0; j < n; j++) {
-            f[1] = root + j;
-
-            sum = 0.0;
-            for (i = 0; i < ncon; i++) {
-                ij = j*ncon + i;
-
-                f[0] = root2 + i;
-
-                z = evaluate(f);
-
-                sum += (w[ij]*z);
-            }
-
-            values[j] = sum;
-        }
-        break;
-    default:
-        fprintf(stderr, "Unexpected case in %s.\n", __func__);
-        exit(EXIT_FAILURE);
     }
     return;
 }
