@@ -539,7 +539,7 @@ bye:
 int32
 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
               int32 node, double dt) {
-    int32 i, n2 = node*node, info;
+    int32 n2 = node*node, info;
     int32 ipvt[MAX_ODE];
     double *mat;
     double *fold;
@@ -548,14 +548,14 @@ adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
 
     for (int32 j = 0; j < node; j++) {
         fold[j] = 0.0;
-        for (i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++)
             fold[j] = fold[j] + jac[i + j*node][k]*yold[i];
     }
     for (int32 j = 0; j < node; j++)
         yold[j] = yold[j] + .5*dt*fold[j];
-    for (i = 0; i < n2; i++)
+    for (int32 i = 0; i < n2; i++)
         mat[i] = -jac[i][k2]*dt*.5;
-    for (i = 0; i < node; i++)
+    for (int32 i = 0; i < node; i++)
         mat[i + i*node] = 1. + mat[i + i*node];
     gear_sgefa(mat, node, node, ipvt, &info);
     if (info != -1) {
