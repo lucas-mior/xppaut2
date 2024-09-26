@@ -125,7 +125,14 @@ static double ani_lastx;
 static double ani_lasty;
 static Pixmap ani_pixmap;
 
-static MpegSave mpeg;
+static struct MpegSave {
+    int32 flag;
+    int32 skip;
+    char root[100];
+    char filter[256];
+    int32 aviflag;
+    int32 filflag;
+} mpeg;
 
 static AniCom my_ani[MAX_ANI_LINES];
 

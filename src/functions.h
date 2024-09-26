@@ -110,15 +110,6 @@ typedef struct AniGrab {
 
 /***************  End of grabber stuff  in header **************/
 
-typedef struct MpegSave {
-    int32 flag;
-    int32 skip;
-    char root[100];
-    char filter[256];
-    int32 aviflag;
-    int32 filflag;
-} MpegSave;
-
 typedef struct AniCom {
     struct {
         int32 n;
