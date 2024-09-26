@@ -2058,7 +2058,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         }
         if ((notAlreadySet.TUTORIAL || force) ||
             ((mask != NULL) && (mask->TUTORIAL == 1))) {
-            DoTutorial = atoi(s2);
+            do_tutorial = atoi(s2);
             notAlreadySet.TUTORIAL = 0;
         }
         return;

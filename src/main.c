@@ -124,7 +124,7 @@ double SLIDER3HI = 1.0;
 
 /* Set this to 1 if you want the tutorial to come up at start-up
  * as default behavior */
-int32 DoTutorial = 0;
+int32 do_tutorial = 0;
 
 OptionsSet notAlreadySet;
 XFontStruct *small_font;
@@ -562,7 +562,7 @@ do_main(int32 argc, char **argv) {
         ani_get_file(anifile);
     }
 
-    if (DoTutorial == 1)
+    if (do_tutorial == 1)
         menudrive_do_tutorial();
 
     graf_par_default_window();

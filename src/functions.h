@@ -3214,7 +3214,7 @@ extern double SLIDER1HI;
 extern double SLIDER2HI;
 extern double SLIDER3HI;
 
-extern int32 DoTutorial;
+extern int32 do_tutorial;
 extern char anifile[XPP_MAX_NAME];
 
 extern double xpp_version_maj;
