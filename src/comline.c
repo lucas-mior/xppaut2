@@ -4,7 +4,6 @@
 
 #include "integers.h"
 #include "functions.h"
-#include "xpplim.h"
 
 #define NCMD 45 /* add new commands as needed  */
 

@@ -15,8 +15,6 @@
 #include <wctype.h>
 #endif
 
-#include "xpplim.h"
-
 #define EV_MASK                                                                \
     (ButtonPressMask | KeyPressMask | ExposureMask | StructureNotifyMask)
 

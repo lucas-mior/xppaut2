@@ -1,7 +1,6 @@
 #include "functions.h"
 #include "integers.h"
 #include <math.h>
-#include <stdlib.h>
 #include "xpplim.h"
 #include <stdbool.h>
 

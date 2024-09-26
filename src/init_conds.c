@@ -28,7 +28,6 @@ This also has the clone gadget
 #endif
 
 #include <time.h>
-#include "xpplim.h"
 #include "ic.bitmap"
 #include "param.bitmap"
 #include "delay.bitmap"

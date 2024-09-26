@@ -40,7 +40,6 @@
 #include "array.bitmap"
 #include "functions.h"
 #include "integers.h"
-#include "xpplim.h"
 
 #ifndef WCTYPE
 #include <ctype.h>

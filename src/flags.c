@@ -5,7 +5,6 @@
 #include "cv2.h"
 #include "parserslow.h"
 
-#include <stdlib.h>
 #include <strings.h>
 #include <string.h>
 #include <stdio.h>

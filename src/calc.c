@@ -10,7 +10,6 @@
 #include "functions.h"
 #include "integers.h"
 #include "parserslow.h"
-#include "xpplim.h"
 
 #define Param 1
 #define IC 2

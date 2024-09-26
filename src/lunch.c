@@ -8,7 +8,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <time.h>
-#include "xpplim.h"
 #include "struct.h"
 
 #define READEM 1

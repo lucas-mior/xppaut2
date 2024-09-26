@@ -3,7 +3,6 @@
 #include "functions.h"
 
 #include <math.h>
-#include <stdio.h>
 #include "xpplim.h"
 #include "integers.h"
 

@@ -9,7 +9,6 @@
 #include <unistd.h>
 
 #include "functions.h"
-#include "autlim.h"
 #include "auto.bitmap"
 #include "auto_nox.h"
 #include "integers.h"

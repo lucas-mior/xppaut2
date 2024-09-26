@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "struct.h"
-#include "mykeydef.h"
 #include "integers.h"
 #include <libgen.h>
 

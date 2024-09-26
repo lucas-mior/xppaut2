@@ -17,7 +17,6 @@
 #include "integers.h"
 #include "mykeydef.h"
 #include "parserslow.h"
-#include "xpplim.h"
 
 #ifndef WCTYPE
 #include <ctype.h>

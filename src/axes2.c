@@ -8,7 +8,6 @@
 #include "functions.h"
 #include "integers.h"
 #include "struct.h"
-#include "xpplim.h"
 
 #define SIGNIF (0.01) /* less than one hundredth of a tic mark */
 #define CheckZero(x, tic) (fabs(x) < ((tic)*SIGNIF) ? 0.0 : (x))
