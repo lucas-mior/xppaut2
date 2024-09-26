@@ -1287,7 +1287,6 @@ main_top_button_cross(Window window, int32 b) {
 
 void
 main_top_button_events(XEvent report) {
-    Window window = report.xbutton.window;
     switch (report.type) {
     case Expose:
     case MapNotify:
@@ -1300,6 +1299,8 @@ main_top_button_events(XEvent report) {
         main_top_button_cross(report.xcrossing.window, 1);
         break;
     case ButtonPress:
+    {
+        Window window = report.xbutton.window;
         /* main top button press */
         if (window == TopButton[0])
             init_conds_make_new_ic_box();
@@ -1314,6 +1315,7 @@ main_top_button_events(XEvent report) {
         if (window == TopButton[5])
             make_new_browser();
         break;
+    }
     default:
         break;
     }
