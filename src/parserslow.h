@@ -1,5 +1,5 @@
-#ifndef parserslow_h
-#define parserslow_h
+#ifndef PARSERSLOW_H
+#define PARSERSLOW_H
 
 #include "integers.h"
 #include "xpplim.h"

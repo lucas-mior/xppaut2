@@ -1,5 +1,5 @@
-#ifndef autevd_h
-#define autevd_h
+#ifndef AUTEVD_H
+#define AUTEVD_H
 
 #include "autlim.h"
 #include "auto_f2c.h"

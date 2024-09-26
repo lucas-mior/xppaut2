@@ -18,10 +18,10 @@ int32 PS_Color = 1;
 #define UPER 4
 #define UEQ 2
 
-#define lsSEQ 0
-#define lsUEQ 1
-#define lsSPER 8
-#define lsUPER 9
+#define LS_SEQ 0
+#define LS_UEQ 1
+#define LS_SPER 8
+#define LS_UPER 9
 
 static struct Mov3D {
     char angle[20];
@@ -226,7 +226,7 @@ graf_par_check_val(double *x1, double *x2, double *xb, double *xd) {
     /* see get_max for details */
 
     if (*x1 == *x2) {
-        temp = .05*lmax(fabs(*x1), 1.0);
+        temp = .05*LMAX(fabs(*x1), 1.0);
         *x1 = *x1 - temp;
         *x2 = *x2 + temp;
     }
@@ -257,7 +257,7 @@ graf_par_get_max(int32 index, double *vmin, double *vmax) {
     *vmin = (double)x0;
     *vmax = (double)x1;
     if (fabs(*vmin - *vmax) < REAL_SMALL) {
-        temp = .05*lmax(fabs(*vmin), 1.0);
+        temp = .05*LMAX(fabs(*vmin), 1.0);
         *vmin = *vmin - temp;
         *vmax = *vmax + temp;
     }
@@ -384,18 +384,18 @@ fit_window(void) {
         for (i = 0; i < n; i++) {
             graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
                              &(MyGraph->xmax));
-            Mx = lmax(MyGraph->xmax, Mx);
-            mx = -lmax(-MyGraph->xmin, -mx);
+            Mx = LMAX(MyGraph->xmax, Mx);
+            mx = -LMAX(-MyGraph->xmin, -mx);
 
             graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin),
                              &(MyGraph->ymax));
-            My = lmax(MyGraph->ymax, My);
-            my = -lmax(-MyGraph->ymin, -my);
+            My = LMAX(MyGraph->ymax, My);
+            my = -LMAX(-MyGraph->ymin, -my);
 
             graf_par_get_max(MyGraph->zv[i], &(MyGraph->zmin),
                              &(MyGraph->zmax));
-            Mz = lmax(MyGraph->zmax, Mz);
-            mz = -lmax(-MyGraph->zmin, -mz);
+            Mz = LMAX(MyGraph->zmax, Mz);
+            mz = -LMAX(-MyGraph->zmin, -mz);
         }
         MyGraph->xmax = Mx;
         MyGraph->ymax = My;
@@ -411,13 +411,13 @@ fit_window(void) {
         for (i = 0; i < n; i++) {
             graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
                              &(MyGraph->xmax));
-            Mx = lmax(MyGraph->xmax, Mx);
-            mx = -lmax(-MyGraph->xmin, -mx);
+            Mx = LMAX(MyGraph->xmax, Mx);
+            mx = -LMAX(-MyGraph->xmin, -mx);
 
             graf_par_get_max(MyGraph->yv[i], &(MyGraph->ymin),
                              &(MyGraph->ymax));
-            My = lmax(MyGraph->ymax, My);
-            my = -lmax(-MyGraph->ymin, -my);
+            My = LMAX(MyGraph->ymax, My);
+            my = -LMAX(-MyGraph->ymin, -my);
         }
         MyGraph->xmax = Mx;
         MyGraph->ymax = My;
@@ -1242,13 +1242,13 @@ add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
         my_bd.y[ncrv][i] = y[i];
     }
     my_bd.npts[ncrv] = len;
-    i = lsSEQ;
+    i = LS_SEQ;
     if (type == UPER)
-        i = lsUPER;
+        i = LS_UPER;
     if (type == SPER)
-        i = lsSPER;
+        i = LS_SPER;
     if (type == UEQ)
-        i = lsUEQ;
+        i = LS_UEQ;
     my_bd.color[ncrv] = i;
     return;
 }

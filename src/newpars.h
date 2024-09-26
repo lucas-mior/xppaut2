@@ -1,5 +1,5 @@
-#ifndef newpars_h
-#define newpars_h
+#ifndef NEWPARS_H
+#define NEWPARS_H
 #include "integers.h"
 
 #define COMMENT 2

@@ -18,7 +18,7 @@
 #include "txtview.bitmap"
 #include "mykeydef.h"
 
-#define xds(a)                                                                 \
+#define XDS(a)                                                                 \
     do {                                                                       \
         XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
         return;                                                                \
@@ -233,23 +233,23 @@ txt_redraw_view(Window window) {
     if (window == txtview.text)
         redraw_txtview_text();
     if (window == txtview.up)
-        xds("Up");
+        XDS("Up");
     if (window == txtview.down)
-        xds("Down");
+        XDS("Down");
     if (window == txtview.pgup)
-        xds("PgUp");
+        XDS("PgUp");
     if (window == txtview.pgdn)
-        xds("PgDn");
+        XDS("PgDn");
     if (window == txtview.kill)
-        xds("Kill");
+        XDS("Kill");
     if (window == txtview.home)
-        xds("Home");
+        XDS("Home");
     if (window == txtview.end)
-        xds("End");
+        XDS("End");
     if (window == txtview.src)
-        xds("Source");
+        XDS("Source");
     if (window == txtview.action)
-        xds("Action");
+        XDS("Action");
     return;
 }
 

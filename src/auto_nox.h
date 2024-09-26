@@ -1,5 +1,5 @@
-#ifndef auto_nox_h
-#define auto_nox_h
+#ifndef AUTO_NOX_H
+#define AUTO_NOX_H
 #include "integers.h"
 
 #include <stdio.h>

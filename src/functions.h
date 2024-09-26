@@ -2351,7 +2351,7 @@ int32 go_go_auto(void);
 
 #define REAL_SMALL 1.e-6
 #define MAXBIFCRV 100
-#define lmax(a, b) ((a > b) ? a : b)
+#define LMAX(a, b) ((a > b) ? a : b)
 
 #include <X11/Xlib.h>
 #include <stdio.h>

@@ -4,7 +4,7 @@
 #include "integers.h"
 #include "complex_math.h"
 
-#define log10e 0.43429448190325182765
+#define LOG10E 0.43429448190325182765
 
 double
 d_imag(doublecomplex *z) {
@@ -13,7 +13,7 @@ d_imag(doublecomplex *z) {
 
 double
 d_lg10(double *x) {
-    return log10e*log(*x);
+    return LOG10E*log(*x);
 }
 
 double
@@ -40,7 +40,7 @@ i_dnnt(double *x) {
 
 double
 r_lg10(double x) {
-    return log10e*log(x);
+    return LOG10E*log(x);
 }
 
 double

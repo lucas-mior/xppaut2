@@ -18,11 +18,11 @@
 #define TERMIN 'T'
 #define LOOKUP 'L'
 #define SEARCH 'S'
-#define noOfArrays 20
+#define NUMBER_OF_ARRAYS 20
 /* defines the amount of memory set aside in the encoding for the
  * LOOKUP type nodes; for a 256 color GIF, the number of LOOKUP
- * nodes will be <= noOfArrays, for a 128 color GIF the number of
- * LOOKUP nodes will be <= 2*noOfArrays, etc.  */
+ * nodes will be <= NUMBER_OF_ARRAYS, for a 128 color GIF the number of
+ * LOOKUP nodes will be <= 2*NUMBER_OF_ARRAYS, etc.  */
 #define GifPutShort(i, fout)                                                   \
     do {                                                                       \
         fputc(i & 0xff, fout);                                                 \
@@ -456,9 +456,9 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
     if ((topNode = baseNode = xmalloc(sizeof(GifTree)*4094)) == NULL)
         return 0;
     if ((nodeArray = first->node =
-             xmalloc(256*sizeof(GifTree *)*noOfArrays)) == NULL)
+             xmalloc(256*sizeof(GifTree *)*NUMBER_OF_ARRAYS)) == NULL)
         return 0;
-    lastArray = nodeArray + (256*noOfArrays - cc);
+    lastArray = nodeArray + (256*NUMBER_OF_ARRAYS - cc);
     scrngif_clear_tree(cc, first);
 
     pos = scrngif_add_code_to_buffer(cc, cLength, pos);
@@ -621,7 +621,7 @@ scrngif_clear_tree(int32 cc, GifTree *root) {
     nodecount = 0;
     nodeArray = root->node;
     xx = nodeArray;
-    for (i = 0; i < noOfArrays; i++) {
+    for (i = 0; i < NUMBER_OF_ARRAYS; i++) {
         memmove(xx, empty, 256*sizeof(GifTree **));
         xx += 256;
     }

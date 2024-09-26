@@ -41,7 +41,7 @@
 #define FIX_SIZE 3
 #define FIX_MIN_SIZE 2
 #define FIX_MAX_SIZE 1
-#define lowbit(x) ((x) & (~(x) + 1))
+#define LOWBIT(x) ((x) & (~(x) + 1))
 
 #include <X11/cursorfont.h>
 
@@ -1393,9 +1393,9 @@ main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
         ggets_plintf("DirectColor visual\n");
 
         red = green = blue = 0;
-        red1 = (int32)lowbit(win_info->visual->red_mask);
-        green1 = (int32)lowbit(win_info->visual->green_mask);
-        blue1 = (int32)lowbit(win_info->visual->blue_mask);
+        red1 = (int32)LOWBIT(win_info->visual->red_mask);
+        green1 = (int32)LOWBIT(win_info->visual->green_mask);
+        blue1 = (int32)LOWBIT(win_info->visual->blue_mask);
         for (int32 i = 0; i < ncolors; i++) {
             (*colors)[i].pixel = (ulong)(red | green | blue);
             (*colors)[i].pad = 0;

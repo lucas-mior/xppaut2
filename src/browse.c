@@ -25,7 +25,7 @@
 #include <wctype.h>
 #endif
 
-#define xds(a)                                                                 \
+#define XDS(a)                                                                 \
     do {                                                                       \
         XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
         return;                                                                \
@@ -524,49 +524,49 @@ display_browser(Window window, Browser b) {
     }
 
     if (window == b.find)
-        xds("Find");
+        XDS("Find");
     if (window == b.up)
-        xds("Up");
+        XDS("Up");
     if (window == b.down)
-        xds("Down");
+        XDS("Down");
     if (window == b.pgup)
-        xds("PgUp");
+        XDS("PgUp");
     if (window == b.pgdn)
-        xds("PgDn");
+        XDS("PgDn");
     if (window == b.left)
-        xds("Left");
+        XDS("Left");
     if (window == b.right)
-        xds("Right");
+        XDS("Right");
     if (window == b.home)
-        xds("Home");
+        XDS("Home");
     if (window == b.end)
-        xds("End");
+        XDS("End");
     if (window == b.first)
-        xds("First");
+        XDS("First");
     if (window == b.last)
-        xds("Last");
+        XDS("Last");
     if (window == b.restore)
-        xds("Restore");
+        XDS("Restore");
     if (window == b.write)
-        xds("Write");
+        XDS("Write");
     if (window == b.get)
-        xds("Get");
+        XDS("Get");
     if (window == b.repl)
-        xds("Replace");
+        XDS("Replace");
     if (window == b.unrepl)
-        xds("Unrepl");
+        XDS("Unrepl");
     if (window == b.table)
-        xds("Table");
+        XDS("Table");
     if (window == b.load)
-        xds("Load");
+        XDS("Load");
     if (window == b.time)
-        xds("Time");
+        XDS("Time");
     if (window == b.addcol)
-        xds("Add col");
+        XDS("Add col");
     if (window == b.close)
-        xds("Close");
+        XDS("Close");
     if (window == b.delcol)
-        xds("Del col");
+        XDS("Del col");
 
     for (int32 i = 0; i < BMAXCOL; i++) {
         if (window == b.label[i]) {

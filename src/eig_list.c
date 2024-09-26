@@ -14,7 +14,7 @@
 #include "equilib.bitmap"
 
 #include "mykeydef.h"
-#define xds(a)                                                                 \
+#define XDS(a)                                                                 \
     do {                                                                       \
         XDrawString(display, window, small_gc, 5, CURY_OFFs, a, strlen(a));    \
         return;                                                                \
@@ -51,11 +51,11 @@ eig_list_draw_eq_list(Window window) {
     if (eq_list.flag == 0)
         return;
     if (window == eq_list.up)
-        xds("Up");
+        XDS("Up");
     if (window == eq_list.down)
-        xds("Down");
+        XDS("Down");
     if (window == eq_list.close)
-        xds("Close");
+        XDS("Close");
     if (window == eq_list.list) {
         for (i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
             if (i >= NEQ)
@@ -377,9 +377,9 @@ eig_list_draw_eq_box(Window window) {
     if (eq_box.flag == 0)
         return;
     if (window == eq_box.close)
-        xds("Close");
+        XDS("Close");
     if (window == eq_box.import)
-        xds("Import");
+        XDS("Import");
     if (window == eq_box.top) {
         XDrawString(display, eq_box.top, gc, 5, CURY_OFF, eq_box.type,
                     (int)strlen(eq_box.type));
