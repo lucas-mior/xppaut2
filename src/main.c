@@ -62,8 +62,8 @@ char UserOUTFILE[XPP_MAX_NAME];
 int32 DisplayHeight;
 int32 DisplayWidth;
 int32 TrueColorFlag;
-char big_font_name[100];
-char small_font_name[100];
+char font_name_big[100];
+char font_name_small[100];
 char PlotFormat[10];
 
 int32 PaperWhite = -1;
@@ -722,14 +722,14 @@ main_init_x(void) {
                      ButtonMotionMask);
 
     /* main load fonts */
-    if ((big_font = XLoadQueryFont(display, big_font_name)) == NULL) {
-        ggets_plintf("X Error: Failed to load big font: %s\n", big_font_name);
+    if ((big_font = XLoadQueryFont(display, font_name_big)) == NULL) {
+        ggets_plintf("X Error: Failed to load big font: %s\n", font_name_big);
         exit(-1);
     }
 
-    if ((small_font = XLoadQueryFont(display, small_font_name)) == NULL) {
+    if ((small_font = XLoadQueryFont(display, font_name_small)) == NULL) {
         ggets_plintf("X Error: Failed to load small font: %s\n",
-                     small_font_name);
+                     font_name_small);
         exit(-1);
     }
 

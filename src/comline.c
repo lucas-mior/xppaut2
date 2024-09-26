@@ -158,14 +158,14 @@ comline_do(int32 argc, char **argv) {
         }
         if (k == 2) {
             if (notAlreadySet.SMALL_FONT_NAME) {
-                strcpy(small_font_name, argv[i + 1]);
+                strcpy(font_name_small, argv[i + 1]);
                 notAlreadySet.SMALL_FONT_NAME = 0;
             }
             i++;
         }
         if (k == 3) {
             if (notAlreadySet.BIG_FONT_NAME) {
-                strcpy(big_font_name, argv[i + 1]);
+                strcpy(font_name_big, argv[i + 1]);
                 notAlreadySet.BIG_FONT_NAME = 0;
             }
             i++;

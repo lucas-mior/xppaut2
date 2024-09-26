@@ -222,12 +222,12 @@ load_eqn_set_x_vals(void) {
      */
     /*fixed is the new X11 default fixed font. 9x15 is dead and gone.
      */
-    if (strlen(big_font_name) == 0) {
-        strcpy(big_font_name, "fixed");
+    if (strlen(font_name_big) == 0) {
+        strcpy(font_name_big, "fixed");
     }
 
-    if (strlen(small_font_name) == 0) {
-        strcpy(small_font_name, "6x13");
+    if (strlen(font_name_small) == 0) {
+        strcpy(font_name_small, "6x13");
     }
 
     if (strlen(UserBlack) == 0) {
@@ -575,14 +575,14 @@ load_eqn_read_defaults(FILE *fp) {
     fgets(bob, 80, fp);
     ptr = form_ode_get_first(bob, " ");
     if (notAlreadySet.BIG_FONT_NAME) {
-        strcpy(big_font_name, ptr);
+        strcpy(font_name_big, ptr);
         notAlreadySet.BIG_FONT_NAME = 0;
     }
 
     fgets(bob, 80, fp);
     ptr = form_ode_get_first(bob, " ");
     if (notAlreadySet.SMALL_FONT_NAME) {
-        strcpy(small_font_name, ptr);
+        strcpy(font_name_small, ptr);
         notAlreadySet.SMALL_FONT_NAME = 0;
     }
 
@@ -861,7 +861,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
                 if (strcmp("smallfont",name)==0)
                 {
-                        if (strlen(small_font_name)!=0)
+                        if (strlen(font_name_small)!=0)
                         {
                                 continue;
                         }
@@ -869,7 +869,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
                 if (strcmp("bigfont",name)==0)
                 {
-                        if (strlen(big_font_name)!=0)
+                        if (strlen(font_name_big)!=0)
                         {
                                 continue;
                         }
@@ -1048,7 +1048,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if ((load_eqn_msc("BIGFONT", s1)) || (load_eqn_msc("BIG", s1))) {
         if ((notAlreadySet.BIG_FONT_NAME || force) ||
             ((mask != NULL) && (mask->BIG_FONT_NAME == 1))) {
-            strcpy(big_font_name, s2);
+            strcpy(font_name_big, s2);
             notAlreadySet.BIG_FONT_NAME = 0;
         }
         return;
@@ -1056,7 +1056,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
     if ((load_eqn_msc("SMALLFONT", s1)) || (load_eqn_msc("SMALL", s1))) {
         if ((notAlreadySet.SMALL_FONT_NAME || force) ||
             ((mask != NULL) && (mask->SMALL_FONT_NAME == 1))) {
-            strcpy(small_font_name, s2);
+            strcpy(font_name_small, s2);
             notAlreadySet.SMALL_FONT_NAME = 0;
         }
         return;
