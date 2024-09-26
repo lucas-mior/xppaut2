@@ -1156,7 +1156,6 @@ auto_x11_button(XEvent event) {
     return;
 }
 
-
 void
 auto_x11_keypress(XEvent event, int32 *used) {
     Window window = event.xkey.window;

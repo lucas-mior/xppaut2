@@ -123,10 +123,10 @@
                       /* for iter == NEWTON                    */
 
 #define CRDOWN 0.3 /* constant used in the estimation of the   */
-                           /* convergence rate (crate) of the          */
-                           /* iterates for the nonlinear equation      */
+                   /* convergence rate (crate) of the          */
+                   /* iterates for the nonlinear equation      */
 #define DGMAX 0.3  /* iter == NEWTON, |gamma/gammap-1| > DGMAX */
-                           /* => call lsetup                           */
+                   /* => call lsetup                           */
 
 #define RDIV TWO /* declare divergence if ratio del/delp > RDIV  */
 #define MSBP 20  /* max no. of steps between lsetup calls        */

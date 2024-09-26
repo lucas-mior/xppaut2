@@ -538,9 +538,6 @@ markov_variance_back(void) {
     return;
 }
 
-
-
-
 void
 markov_append_stoch(int32 first, int32 length) {
     double z;
@@ -550,7 +547,8 @@ markov_append_stoch(int32 first, int32 length) {
         stoch_len = length;
         for (int32 i = 0; i < (NEQ + 1); i++) {
             my_mean[i] = xmalloc(sizeof(*(my_mean[i]))*(usize)stoch_len);
-            my_variance[i] = xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
+            my_variance[i] =
+                xmalloc(sizeof(*(my_variance[i]))*(usize)stoch_len);
             for (int32 j = 0; j < stoch_len; j++) {
                 my_mean[i][j] = 0.0;
                 my_variance[i][j] = 0.0;

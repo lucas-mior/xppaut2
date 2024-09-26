@@ -399,7 +399,6 @@ browse_wipe_rep(void) {
     return;
 }
 
-
 void
 browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
                     Browser b) {

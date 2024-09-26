@@ -1223,7 +1223,8 @@ simplenet_eval_all_nets(void) {
         case IMPORT:
             extra_get_import_values(n, values, my_net[ind].soname,
                                     my_net[ind].sofun, my_net[ind].root,
-                                    my_net[ind].wgtlist, variables, &constants[6]);
+                                    my_net[ind].wgtlist, variables,
+                                    &constants[6]);
             break;
         case DEL_MUL:
             tau = my_net[ind].taud;
@@ -1257,7 +1258,8 @@ simplenet_eval_all_nets(void) {
                     ij = i*ncon + j;
                     k = (int32)cc[ij];
                     if (k >= 0)
-                        sum += (w[ij]*delay_handle_get_delay(k + in0, tau[ij]));
+                        sum +=
+                            (w[ij]*delay_handle_get_delay(k + in0, tau[ij]));
                 }
                 values[i] = sum;
             }

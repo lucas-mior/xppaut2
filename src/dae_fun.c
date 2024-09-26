@@ -164,7 +164,6 @@ dae_fun_err_dae(void) {
     return;
 }
 
-
 void
 get_dae_fun(double *y, double *f) {
     int32 i;

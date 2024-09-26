@@ -2918,7 +2918,6 @@ int32 kinescope_film_clip(void);
 #ifndef LLNLMATH_H
 #define LLNLMATH_H
 
-
 /******************************************************************
  *                                                                *
  * Macros : MIN, MAX, ABS, SQR                                    *

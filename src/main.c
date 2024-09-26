@@ -493,9 +493,9 @@ do_main(int32 argc, char **argv) {
         command_pop =
             XCreateSimpleWindow(display, main_win, 0, DCURYs + 4, w - 2,
                                 (uint)DCURY + 4, 2, MyForeColor, MyBackColor);
-        info_pop =
-            XCreateSimpleWindow(display, main_win, 0, (int32)h - DCURY - 4, w - 2,
-                                (uint)DCURY, 2, MyForeColor, MyBackColor);
+        info_pop = XCreateSimpleWindow(display, main_win, 0,
+                                       (int32)h - DCURY - 4, w - 2, (uint)DCURY,
+                                       2, MyForeColor, MyBackColor);
         XCreateFontCursor(display, XC_hand2);
         XSelectInput(display, command_pop,
                      KeyPressMask | ButtonPressMask | ExposureMask);
@@ -503,7 +503,8 @@ do_main(int32 argc, char **argv) {
         XMapWindow(display, info_pop);
         XMapWindow(display, command_pop);
         many_pops_init_grafs(16*DCURX + 6, DCURYs + DCURYb + 6,
-                             (int32)w - 16 - 16*DCURX, (int32)h - 6*DCURY - 16);
+                             (int32)w - 16 - 16*DCURX,
+                             (int32)h - 6*DCURY - 16);
         init_conds_create_par_sliders(main_win, 0, (int32)h - 5*DCURY + 8);
         graphics_get_draw_area();
     }
@@ -846,7 +847,6 @@ main_init_x(void) {
     XResizeWindow(display, main_win, (uint)SCALEX, (uint)SCALEY);
     return;
 }
-
 
 /* not sure what to do with this - but it works pretty well!
  * it allows you to create a KB script and send it as
@@ -1286,7 +1286,6 @@ main_top_button_cross(Window window, int32 b) {
     return;
 }
 
-
 void
 main_top_button_events(XEvent report) {
     Window window = report.xbutton.window;
@@ -1322,7 +1321,6 @@ main_top_button_events(XEvent report) {
     return;
 }
 
-
 void
 main_get_gc(GC *gc2) {
     uint32 valuemask = 0;
@@ -1331,8 +1329,6 @@ main_get_gc(GC *gc2) {
     XSetForeground(display, *gc2, MyForeColor);
     return;
 }
-
-
 
 void
 main_fix_window_size(Window window, int32 width, int32 height, int32 flag) {
@@ -1424,7 +1420,6 @@ main_get_x_colors(XWindowAttributes *win_info, XColor **colors) {
 
     return ncolors;
 }
-
 
 int32
 main_get_command_width(void) {

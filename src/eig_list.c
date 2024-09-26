@@ -220,7 +220,7 @@ eig_list_eq_list_button(XEvent event) {
             XDestroySubwindows(display, eq_box.base);
             XDestroyWindow(display, eq_box.base);
         }
-    } while(0);
+    } while (0);
     if (eq_list.flag == 0)
         return;
 
@@ -261,7 +261,6 @@ eig_list_eq_list_down(void) {
     return;
 }
 
-
 void
 eig_list_get_new_size(Window win, uint32 *wid, uint32 *hgt) {
     int32 x;
@@ -289,7 +288,6 @@ eig_list_resize_eq_list(Window win) {
     XResizeWindow(display, eq_list.main, w, (uint)(2*DCURYs));
     return;
 }
-
 
 void
 eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,

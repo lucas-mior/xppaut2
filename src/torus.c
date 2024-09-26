@@ -63,11 +63,13 @@ do_torus_com(int32 c) {
                     /* draw torus box */
                     Window win = event.xany.window;
                     if (win == torbox.cancel) {
-                        XDrawString(display, win, small_gc, 5, CURY_OFFs, "Cancel", 6);
+                        XDrawString(display, win, small_gc, 5, CURY_OFFs,
+                                    "Cancel", 6);
                         return;
                     }
                     if (win == torbox.done) {
-                        XDrawString(display, win, small_gc, 5, CURY_OFFs, "Done", 4);
+                        XDrawString(display, win, small_gc, 5, CURY_OFFs,
+                                    "Done", 4);
                         return;
                     }
 
@@ -146,8 +148,6 @@ draw_tor_var(int32 i) {
                 (int)strlen(strng));
     return;
 }
-
-
 
 void
 make_tor_box(char *title) {

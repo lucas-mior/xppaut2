@@ -85,7 +85,6 @@ tabular_set_table_name(char *name, int32 index) {
     return;
 }
 
-
 void
 tabular_new_lookup_com(int32 i) {
     char file[128];

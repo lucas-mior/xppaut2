@@ -235,7 +235,6 @@ integrate_init_range(void) {
     return;
 }
 
-
 void
 integrate_cont_integ(void) {
     double tetemp;
@@ -280,7 +279,6 @@ integrate_range_item(void) {
     }
     return 1;
 }
-
 
 int32
 integrate_set_up_range(void) {
@@ -338,8 +336,6 @@ integrate_set_up_range(void) {
     }
     return 0;
 }
-
-
 
 void
 integrate_monte_carlo(void) {
@@ -666,7 +662,8 @@ integrate_do_range(double *x, int32 flag) {
         else
             sprintf(values[11], "1");
         sprintf(values[12], "%d", range.steps2);
-        status = do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
+        status =
+            do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
 
         if (status == 0)
             return -1;
@@ -688,7 +685,8 @@ integrate_do_range(double *x, int32 flag) {
             } else {
                 i2 = init_conds_find_user_name(IC, range.item2);
                 if (i2 <= -1) {
-                    sprintf(bob2, " %s is not a parameter or variable !", range.item2);
+                    sprintf(bob2, " %s is not a parameter or variable !",
+                            range.item2);
                     ggets_err_msg(bob2);
                     return -1;
                 }

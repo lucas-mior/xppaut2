@@ -320,7 +320,6 @@ do_fit_one_step_int(double *y, double t0, double t1, int32 *istart) {
     return 1;
 }
 
-
 void
 do_fit_test(void) {
     double *yfit, a[1000], y0[1000];
@@ -735,7 +734,6 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
     }
     return 1;
 }
-
 
 /* gets a list of the data columns to use ... */
 

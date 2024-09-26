@@ -172,9 +172,12 @@ graf_par_change_view_com(int32 com) {
             browse_find_variable(values[2], &i);
             if (i > -1)
                 MyGraph->zv[ind] = i;
-            snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s", values[13]);
-            snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s", values[14]);
-            snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s", values[15]);
+            snprintf(MyGraph->xlabel, sizeof(MyGraph->xlabel), "%s",
+                     values[13]);
+            snprintf(MyGraph->ylabel, sizeof(MyGraph->ylabel), "%s",
+                     values[14]);
+            snprintf(MyGraph->zlabel, sizeof(MyGraph->zlabel), "%s",
+                     values[15]);
 
             MyGraph->xmin = atof(values[3]);
             MyGraph->ymin = atof(values[5]);
@@ -215,9 +218,6 @@ graf_par_check_flags(void) {
         MyGraph->TimeFlag = 0;
     return;
 }
-
-
-
 
 void
 graf_par_check_val(double *x1, double *x2, double *xb, double *xd) {
@@ -449,7 +449,6 @@ graf_par_check_windows(void) {
     return;
 }
 
-
 void
 graf_par_xi_vs_t(void) {
     /*  a short cut   */
@@ -598,13 +597,11 @@ graf_par_update_view(double xlo, double xhi, double ylo, double yhi) {
     graf_par_redraw_the_graph();
 }
 
-
 void
 graf_par_window_zoom_com(int32 c) {
     int32 i1, i2, j1, j2;
     switch (c) {
-    case 0:
-    {
+    case 0: {
         /* graf par user window */
         static char *n[] = {"X Lo", "X Hi", "Y Lo", "Y Hi"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -647,8 +644,7 @@ graf_par_window_zoom_com(int32 c) {
     case 4:
         graf_par_default_window();
         break;
-    case 5:
-    {
+    case 5: {
         /* graf par scroll window */
         XEvent event;
         int32 i = 0, j = 0;
@@ -689,7 +685,8 @@ graf_par_window_zoom_com(int32 c) {
                     dx = -(x - x0) / 2;
                     dy = -(y - y0) / 2;
 
-                    graf_par_update_view(xlo + dx, xhi + dx, ylo + dy, yhi + dy);
+                    graf_par_update_view(xlo + dx, xhi + dx, ylo + dy,
+                                         yhi + dy);
                 }
                 break;
             case ButtonRelease:
@@ -893,9 +890,6 @@ graf_par_alter_curve(char *title, int32 in_it, int32 n) {
     return 0;
 }
 
-
-
-
 void
 graf_par_dump_ps(int32 i) {
 #define FILENAME_SIZE                                                          \
@@ -922,7 +916,6 @@ graf_par_dump_ps(int32 i) {
     return;
 }
 
-
 void
 graf_par_change_cmap_com(int32 i) {
     color_new_map(i);
@@ -932,8 +925,7 @@ graf_par_change_cmap_com(int32 i) {
 void
 graf_par_freeze_com(int32 c) {
     switch (c) {
-    case 0:
-    {
+    case 0: {
         /* freeze crv */
         int32 crv;
         crv = create_crv(0);
@@ -955,8 +947,7 @@ graf_par_freeze_com(int32 c) {
                 delete_frz_crv(i);
         }
         break;
-    case 5:
-    {
+    case 5: {
         /* frz bd */
         FILE *fp;
         char filename[XPP_MAX_NAME];
@@ -1083,8 +1074,6 @@ delete_frz(void) {
     delete_frz_crv(i);
     return;
 }
-
-
 
 void
 graf_par_auto_freeze_it(void) {
@@ -1241,8 +1230,6 @@ graf_par_init_bd(void) {
     return;
 }
 
-
-
 void
 add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     int32 i;
@@ -1265,7 +1252,6 @@ add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv) {
     my_bd.color[ncrv] = i;
     return;
 }
-
 
 void
 read_bd(FILE *fp) {
@@ -1342,7 +1328,6 @@ get_frz_index(Window window) {
     return (int32)(ch - 'a');
 }
 
-
 void
 graf_par_add_a_curve_com(int32 c) {
     switch (c) {
@@ -1362,8 +1347,7 @@ graf_par_add_a_curve_com(int32 c) {
     case 2:
         MyGraph->nvars = 1;
         break;
-    case 3:
-    {
+    case 3: {
         /* edit curve */
         char bob[21];
         int32 crv = 0;
@@ -1376,8 +1360,7 @@ graf_par_add_a_curve_com(int32 c) {
         }
         break;
     }
-    case 4:
-    {
+    case 4: {
         /* create ps */
         char filename[XPP_MAX_NAME + 3];
         static char *nn[] = {"BW-0/Color-1", "Land(0)/Port(1)", "Axes fontsize",
@@ -1389,7 +1372,8 @@ graf_par_add_a_curve_com(int32 c) {
         snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
         strncpy(values[3], PS_FONT, sizeof(values[3]));
         snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
-        status = do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
+        status =
+            do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
         if (status != 0) {
             PS_Color = atoi(values[0]);
             PS_Port = atoi(values[1]);
@@ -1408,8 +1392,7 @@ graf_par_add_a_curve_com(int32 c) {
         }
         break;
     }
-    case 5:
-    {
+    case 5: {
         /* create svg */
         char filename[XPP_MAX_NAME];
         strcpy(filename, this_file);
@@ -1426,11 +1409,11 @@ graf_par_add_a_curve_com(int32 c) {
     }
         /* case 6: freeze();
            break; */
-    case 7:
-    {
+    case 7: {
         /* graf par axes opts */
-        static char *n[] = {"X-origin",    "Y-origin",   "Z-origin",  "X-org(1=on)",
-                            "Y-org(1=on)", "Z-org(1=on", "PSFontSize"};
+        static char *n[] = {"X-origin",    "Y-origin",    "Z-origin",
+                            "X-org(1=on)", "Y-org(1=on)", "Z-org(1=on",
+                            "PSFontSize"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
         int32 status;
         snprintf(values[0], sizeof(values[0]), "%g", MyGraph->xorg);
@@ -1453,8 +1436,7 @@ graf_par_add_a_curve_com(int32 c) {
         }
         break;
     }
-    case 8:
-    {
+    case 8: {
         /* export graf data */
         FILE *fp;
         /*char filename[256];*/

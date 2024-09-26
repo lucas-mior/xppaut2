@@ -291,7 +291,8 @@ graphics_set_linestyle(int32 ls) {
         int32 type = 0;
         if (ls == -2) { /*  Border  */
             color_set(0);
-            XSetLineAttributes(display, gc_graph, 2, LineSolid, CapButt, JoinBevel);
+            XSetLineAttributes(display, gc_graph, 2, LineSolid, CapButt,
+                               JoinBevel);
             return;
         }
         /*width=0;

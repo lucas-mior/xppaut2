@@ -152,7 +152,6 @@ pop_list_make_scrbox_lists(void) {
     return;
 }
 
-
 void
 destroy_scroll_box(ScrollBox *sb) {
     if (sb->exist == 1) {

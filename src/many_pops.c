@@ -545,7 +545,6 @@ many_pops_draw_marker(double x, double y, double size, int32 type) {
     return;
 }
 
-
 void
 many_pops_arrow_head(double xs, double ys, double xe, double ye, double size) {
     double l = xe - xs, h = ye - ys;
@@ -595,7 +594,8 @@ many_pops_draw_label(Window window) {
     for (i = 0; i < MAXGROB; i++) {
         if ((grob[i].use == 1) && (grob[i].window == window)) {
             /* many pops draw grob */
-            double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe, ye = grob[i].ye;
+            double xs = grob[i].xs, ys = grob[i].ys, xe = grob[i].xe,
+                   ye = grob[i].ye;
             graphics_set_linestyle(grob[i].color);
             if (grob[i].type == POINTER)
                 graphics_line_abs(xs, ys, xe, ye);
@@ -653,8 +653,6 @@ many_pops_select_marker_type(int32 *type) {
     return 1;
 }
 
-
-
 void
 many_pops_add_marker(void) {
     int32 flag, i1, j1;
@@ -687,7 +685,6 @@ many_pops_add_marker(void) {
                        markinfo.color);
     main_redraw_all();
 }
-
 
 void
 many_pops_add_pntarr(int32 type) {
@@ -876,15 +873,15 @@ many_pops_do_gr_objs_com(int32 com) {
     case 3:
         many_pops_add_marker();
         break;
-    case 6:
-    {
+    case 6: {
         /* many pops add markers */
         int32 i;
         double xe = 0.0, ye = 0.0, xs, ys, x, y, z;
 
         {
             /* many pops get markers info */
-            static char *n[] = {"*5Type", "*4Color", "Size", "Number", "Row1", "Skip"};
+            static char *n[] = {"*5Type", "*4Color", "Size",
+                                "Number", "Row1",    "Skip"};
             char values[LENGTH(n)][MAX_LEN_SBOX];
             int32 status;
             snprintf(values[0], sizeof(values[0]), "%d", markinfo.type);
@@ -908,7 +905,8 @@ many_pops_do_gr_objs_com(int32 com) {
 
         for (i = 0; i < markinfo.number; i++) {
             browse_get_data_xyz(&x, &y, &z, MyGraph->xv[0], MyGraph->yv[0],
-                                MyGraph->zv[0], markinfo.start + i*markinfo.skip);
+                                MyGraph->zv[0],
+                                markinfo.start + i*markinfo.skip);
             if (MyGraph->ThreeDFlag == 0) {
                 xs = x;
                 ys = y;
@@ -973,8 +971,7 @@ many_pops_do_windows_com(int32 c) {
     case 3:
         XLowerWindow(display, draw_win);
         break;
-    case 2:
-    {
+    case 2: {
         /* many pops destroy a pop */
         int32 i;
         if (draw_win == graph[0].window) {
@@ -1026,7 +1023,6 @@ many_pops_set_restore(int32 flag) {
     }
     return;
 }
-
 
 void
 many_pops_init_grafs(int32 x, int32 y, int32 w, int32 h) {
@@ -1265,7 +1261,6 @@ many_pops_resize_all(int32 wid, int32 hgt) {
     return;
 }
 
-
 void
 many_pops_create_a_pop(void) {
     int32 i;
@@ -1413,8 +1408,6 @@ many_pops_select_window(Window window) {
     return;
 }
 
-
-
 void
 many_pops_hi_lite(Window wi) {
     /* many pops set gr fore */
@@ -1422,7 +1415,6 @@ many_pops_hi_lite(Window wi) {
     many_pops_select_sym(wi);
     return;
 }
-
 
 void
 many_pops_select_sym(Window window) {

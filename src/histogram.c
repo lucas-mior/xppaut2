@@ -201,8 +201,9 @@ histogram_post_process_stuff(void) {
             histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
                                my_hist[1]);
         else
-            histogram_cross_spectrum(storage[spec_col], storage[spec_col2], storind,
-                                     spec_wid, spec_win, my_hist[1], spec_type);
+            histogram_cross_spectrum(storage[spec_col], storage[spec_col2],
+                                     storind, spec_wid, spec_win, my_hist[1],
+                                     spec_type);
         histogram_back();
         ggets_ping();
         return;

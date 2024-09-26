@@ -452,7 +452,6 @@ display_file_sel(struct FileSel f, Window window) {
     return;
 }
 
-
 void
 fs_scroll(int32 i) {
     int32 n0 = filesel.n0;
@@ -625,7 +624,6 @@ crossing_selector(Window window, int32 c) {
         XSetWindowBorderWidth(display, w, (uint)t2);
     return;
 }
-
 
 void
 create_file_selector(char *title, char *file, char *wild) {
@@ -1040,7 +1038,6 @@ selector_key(XEvent event) {
     }
 }
 
-
 int32
 init_conds_file_selector(char *title, char *file, char *wild) {
     int32 selected;
@@ -1069,7 +1066,8 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             if (done == 1) {
                 selected = 1; /* OK made a selection */
                 goto end;
-            } if (done == 2) {
+            }
+            if (done == 2) {
                 selected = 0; /* canceled the whole thing */
                 goto end;
             }
@@ -1085,7 +1083,8 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             if (done == 2) {
                 selected = 0;
                 goto end;
-            } if (done == 1) {
+            }
+            if (done == 1) {
                 selected = 1;
                 goto end;
             }
@@ -1933,9 +1932,6 @@ box_enter(BoxList b, Window window, int32 val) {
     return;
 }
 
-
-
-
 void
 redraw_entire_box(BoxList *b) {
     if (b->xuse == 0)
@@ -1978,9 +1974,9 @@ do_box_button(BoxList *b, Window window) {
         set_default_params();
     if (window == b->def && b->type == ICBOX)
 
-    /* set default ics */
-    for (int32 i2 = 0; i2 < NODE + NMarkov; i2++)
-        last_ic[i2] = default_ic[i2];
+        /* set default ics */
+        for (int32 i2 = 0; i2 < NODE + NMarkov; i2++)
+            last_ic[i2] = default_ic[i2];
     init_conds_redraw_ics();
 
     /* now for the "scrolling"
@@ -2004,8 +2000,10 @@ do_box_button(BoxList *b, Window window) {
                 if (HotBoxItem < 0 || HotBox->xuse == 0)
                     break;
                 n0 = HotBox->n0;
-                draw_editable(HotBox->we[HotBoxItem], HotBox->value[HotBoxItem + n0],
-                              HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem], HotBox->mc);
+                draw_editable(HotBox->we[HotBoxItem],
+                              HotBox->value[HotBoxItem + n0],
+                              HotBox->off[HotBoxItem], HotBox->pos[HotBoxItem],
+                              HotBox->mc);
                 HotBoxItem = -1;
             } while (0);
             HotBoxItem = i;
@@ -2297,7 +2295,6 @@ init_conds_redo_stuff(void) {
     return;
 }
 
-
 void
 set_default_params(void) {
     int32 i;
@@ -2494,7 +2491,6 @@ add_editval(BoxList *b, int32 i, char *string) {
         draw_editable(b->we[iw], string, b->off[i], b->pos[i], b->mc);
     return;
 }
-
 
 int32
 to_float(char *s, double *z) {

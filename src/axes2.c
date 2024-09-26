@@ -24,7 +24,6 @@ static void axes2_find_max_min_tic(double *tmin, double *tmax, double tic);
 static void axes2_draw_ytics(char *s1, double start, double incr, double end);
 static void axes2_draw_xtics(char *s2, double start, double incr, double end);
 
-
 void
 axes2_get_title_str(char *s1, char *s2, char *s3) {
     int32 i;
@@ -264,7 +263,6 @@ axes2_redraw_cube(double theta, double phi) {
     many_pops_canvas_xy(bob);
     return;
 }
-
 
 void
 axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,

@@ -94,7 +94,6 @@ make_calc(double z)
     return;
 }
 
-
 void
 ini_calc_string(char *name, char *value, int32 *pos, int32 *col) {
     strcpy(value, " ");

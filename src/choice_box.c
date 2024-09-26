@@ -20,7 +20,6 @@ static void choice_box_display(Window window, ChoiceBox p);
 static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc,
                            char **names, int32 *check, int32 type);
 
-
 void
 choice_box_display(Window window, ChoiceBox p) {
     int32 i;
@@ -185,4 +184,3 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     }
     return status;
 }
-

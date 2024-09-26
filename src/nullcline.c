@@ -95,15 +95,14 @@ nullcline_froz_cline_stuff_com(int32 i) {
             return;
         nullcline_add_froz(X_n, num_x_n, null_ix, Y_n, num_y_n, null_iy);
         break;
-    case 1:
-    {
+    case 1: {
         /* nullcline_clear_froz */
         NullClines *z;
         NullClines *znew;
         z = ncperm;
         while (z->n != NULL)
             z = z->n;
-        /*  this is the bottom but there is nothing here that has been stored   */
+        /*  this is the bottom but there is nothing here that has been stored */
 
         znew = z->p;
         if (znew == NULL)
@@ -139,8 +138,7 @@ nullcline_froz_cline_stuff_com(int32 i) {
             delay = 0;
         nullcline_redraw_froz(delay);
         break;
-    case 2:
-    {
+    case 2: {
         /* nullcline do range */
         static char *n[] = {"*2Range parameter", "Steps", "Low", "High"};
         char values[LENGTH(n)][MAX_LEN_SBOX];
@@ -251,9 +249,6 @@ silent_nullclines(void) {
     NCSuppress = 0;
     return;
 }
-
-
-
 
 int32
 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
@@ -725,7 +720,6 @@ nullcline_direct_field_com(int32 c) {
  * clear - delete all but the current set
  * animate - replay all frozen ones (not current set )
  */
-
 
 void
 restore_nullclines(void) {

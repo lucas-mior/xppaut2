@@ -445,8 +445,8 @@ form_ode_compiler(char *bob, FILE *fptr) {
                      "<name1>=<value1>,<name2>=<value2>,...\n");
         ggets_plintf(" F(ixed)     -- declare fixed variables\n");
         ggets_plintf(" V(ariables) -- declare ode variables \n");
-        ggets_plintf(
-            " U(ser)      -- declare user functions <name> <nargs> <formula>\n");
+        ggets_plintf(" U(ser)      -- declare user functions <name> <nargs> "
+                     "<formula>\n");
         ggets_plintf(" C(hange)    -- change option file   <filename>\n");
         ggets_plintf(" O(de)       -- declare RHS for equations\n");
         ggets_plintf(" D(one)      -- finished compiling formula\n");
@@ -459,9 +459,9 @@ form_ode_compiler(char *bob, FILE *fptr) {
         ggets_plintf(" N(umbers)   --  hidden parameters\n");
         ggets_plintf(" M(arkov)    --  Markov variables \n");
         ggets_plintf(" W(iener)    -- Wiener parameter \n");
-        ggets_plintf(
-            "_____________________________________________________________________"
-            "____\n");
+        ggets_plintf("_________________________________________________________"
+                     "____________"
+                     "____\n");
         break;
     case 'x':
         my_string = form_ode_do_fit_get_next("{ ");
@@ -828,8 +828,6 @@ form_ode_compiler(char *bob, FILE *fptr) {
     return done;
 }
 
-
-
 /* ram: do I need to strip the name of any whitespace? */
 void
 form_ode_take_apart(char *bob, double *value, char *name) {
@@ -1041,7 +1039,6 @@ form_ode_if_end_include(char *old) {
     }
     return 0;
 }
-
 
 int32
 form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
@@ -1401,7 +1398,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         free(strings[ns]);
     {
         /* form ode compile em */
-        /* Now we try to keep track of markov, fixed, etc as well as their names */
+        /* Now we try to keep track of markov, fixed, etc as well as their names
+         */
         VarInfo *v2;
         char vnames[MAX_ODE1][MAXVNAM];
         char fnames[MAX_ODE1][MAXVNAM];
@@ -1520,7 +1518,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             if (v2->type == FUNCTION) {
                 convert(v2->lhs, tmp);
                 if (add_ufun_name(tmp, nufun, v2->nargs) == 1) {
-                    printf("Duplicate name or too many functions for %s \n", tmp);
+                    printf("Duplicate name or too many functions for %s \n",
+                           tmp);
                     exit(0);
                 }
 
@@ -1563,7 +1562,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             strcpy(aux_names[i], anames[i]);
         dae_fun_add_svar_names();
 
-        /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR = nfix; */
+        /* NODE = nvars ; Naux = naux ; NEQ = NODE+NMarkov+Naux ; FIX_VAR =
+         * nfix; */
 
         IN_VARS = nvar;
         Naux = naux;
@@ -1645,8 +1645,9 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                         set_val(tmp, z);
                         ggets_plintf(" Markov %s(0)=%g\n", tmp, z);
                     } else {
-                        ggets_plintf("In initial value statement no variable %s \n",
-                                     tmp);
+                        ggets_plintf(
+                            "In initial value statement no variable %s \n",
+                            tmp);
                         exit(0);
                     }
                 }
@@ -1664,7 +1665,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 EqType[nvar] = iflag;
                 nn = (int32)strlen(v2->rhs) + 1;
                 if ((ode_names[nvar] = xmalloc((usize)nn + 2)) == NULL ||
-                    (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+                    (my_ode[nvar] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
+                        NULL) {
                     ggets_plintf("could not allocate space for %s \n", v2->lhs);
                     exit(0);
                 }
@@ -1690,11 +1692,12 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 break;
             case FIXED:
                 form_ode_find_ker(v2->rhs, &alt);
-                if ((my_ode[nfix + IN_VARS] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
-                        NULL ||
+                if ((my_ode[nfix + IN_VARS] =
+                         xmalloc(MAXEXPLEN*sizeof(int32))) == NULL ||
                     add_expr(v2->rhs, my_ode[nfix + IN_VARS],
                              &leng[IN_VARS + nfix]) != 0) {
-                    ggets_plintf(" Error allocating or compiling %s\n", v2->lhs);
+                    ggets_plintf(" Error allocating or compiling %s\n",
+                                 v2->lhs);
                     exit(0);
                 }
                 nfix++;
@@ -1711,7 +1714,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 in2 = IN_VARS + FIX_VAR + naux;
                 nn = (int32)strlen(v2->rhs) + 1;
                 if ((ode_names[in1] = xmalloc((usize)nn + 2)) == NULL ||
-                    (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) == NULL) {
+                    (my_ode[in2] = xmalloc(MAXEXPLEN*sizeof(int32))) ==
+                        NULL) {
                     ggets_plintf("could not allocate space for %s \n", v2->lhs);
                     exit(0);
                 }
@@ -1742,7 +1746,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             case MARKOV_VAR:
                 nn = (int32)strlen(v2->rhs) + 1;
 
-                if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) == NULL) {
+                if ((ode_names[IN_VARS + nmark] = xmalloc((usize)nn + 2)) ==
+                    NULL) {
                     ggets_plintf(" Out of memory for  %s \n", v2->lhs);
                     exit(0);
                 }
@@ -1779,8 +1784,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     xhi = atof(my_string);
                     my_string = form_ode_do_fit_get_next("\n");
                     strcpy(formula, my_string);
-                    ggets_plintf(" %s has %d pts from %f to %f = %s\n", v2->lhs, nn,
-                                 xlo, xhi, formula);
+                    ggets_plintf(" %s has %d pts from %f to %f = %s\n", v2->lhs,
+                                 nn, xlo, xhi, formula);
                     if (add_form_table(ntab, nn, xlo, xhi, formula)) {
                         ggets_plintf("ERROR computing %s\n", v2->lhs);
                         exit(0);
@@ -1818,8 +1823,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         extra_do_export_list();
         ggets_plintf(" All formulas are valid!!\n");
         NODE = nvar + naux + nfix;
-        ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n", nvar,
-                     naux, nfix, nmark, NEQ, NODE);
+        ggets_plintf(" nvar=%d naux=%d nfix=%d nmark=%d NEQ=%d NODE=%d \n",
+                     nvar, naux, nfix, nmark, NEQ, NODE);
     }
 
     {
@@ -1903,7 +1908,6 @@ form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
     }
     return -1;
 }
-
 
 /* this code checks if the right-hand side for an initial
  * condition is a formula (for delays) or a number
@@ -2120,7 +2124,6 @@ form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
     }
     return;
 }
-
 
 int32
 form_ode_extract(/* name is char 1-i1  ie is start of rhs */

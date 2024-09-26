@@ -54,7 +54,6 @@ static struct MsgBoxStruct {
     int32 here;
 } MsgBox;
 
-
 void
 menudrive_do_tutorial(void) {
     int32 tut = 0;
@@ -525,7 +524,6 @@ menudrive_make_adj(void) {
         menudrive_run_the_commands(M_UAN + i);
     return;
 }
-
 
 void
 menudrive_do_gr_objs(void) {

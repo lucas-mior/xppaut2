@@ -689,7 +689,8 @@ array_plot_redraw(struct ArrayPlot ap) {
                     XSetForeground(display, array_plot_gc, GrFore);
                 else {
                     if (COLOR)
-                        XSetForeground(display, array_plot_gc, (uint)color_map(colr));
+                        XSetForeground(display, array_plot_gc,
+                                       (uint)color_map(colr));
                     else
                         XSetForeground(display, array_plot_gc, GrFore);
                 }

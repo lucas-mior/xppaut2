@@ -369,7 +369,6 @@ last_shot(int32 flag) {
     return;
 }
 
-
 void
 bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar,

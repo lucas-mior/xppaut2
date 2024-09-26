@@ -2335,8 +2335,6 @@ auto_2p_limit(int32 ips) {
     return;
 }
 
-
-
 void
 auto_2p_branch(int32 ips) {
     int32 ipsuse = 1;
@@ -2414,7 +2412,6 @@ auto_2p_hopf(void) {
     auto_nox_do(OPEN_3, APPEND);
     return;
 }
-
 
 /**********   END RUN AUTO *********************/
 

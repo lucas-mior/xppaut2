@@ -148,8 +148,7 @@ numerics_get_num_par(int32 ch)
         ggets_new_float("Bounds :", &BOUND);
         BOUND = fabs(BOUND);
         break;
-    case 'm':
-    {
+    case 'm': {
         /* method */
         /* numerics get method */
         char ch2;
@@ -170,7 +169,7 @@ numerics_get_num_par(int32 ch)
         nmeth = 15;
 #endif
         ch2 = (char)pop_up_list(&temp2, "Method", n, key, nmeth, 15, METHOD, 10,
-                               DCURY + 8, meth_hint, info_pop, info_message);
+                                DCURY + 8, meth_hint, info_pop, info_message);
         for (i2 = 0; i2 < nmeth; i2++) {
             if (ch2 == key[i2])
                 METHOD = i2;
@@ -251,8 +250,7 @@ numerics_get_num_par(int32 ch)
         /*Poincare map */
         menudrive_get_pmap_pars();
         break;
-    case 'u':
-    {
+    case 'u': {
         /* ruelle */
         /* numerics ruelle */
         ggets_new_int("x-axis shift ", &(MyGraph->xshft));
@@ -306,7 +304,6 @@ numerics_set_delay(void) {
     }
     return;
 }
-
 
 void
 numerics_compute_one_period(double period, double *x, char *name) {
@@ -407,7 +404,6 @@ numerics_get_pmap_pars_com(int32 l) {
     }
     return;
 }
-
 
 void
 numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
