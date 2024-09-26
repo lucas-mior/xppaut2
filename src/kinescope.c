@@ -12,16 +12,17 @@
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
 #include "mykeydef.h"
+
 #define MAXFILM 250
+
 static int32 ks_ncycle = 1;
 static int32 ks_speed = 50;
-typedef struct Movie {
+
+static struct Movie {
     int32 h;
     int32 w;
     Pixmap xi;
-} Movie;
-
-static Movie movie[MAXFILM];
+} movie[MAXFILM];
 
 static void kinescope_too_small(void);
 static void kinescope_auto_play(void);
