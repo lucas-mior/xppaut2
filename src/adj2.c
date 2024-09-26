@@ -577,7 +577,6 @@ adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
 void
 adj2_do_liapunov(void) {
     double z;
-    int32 i;
     double *x;
     ggets_new_int("Range over parameters?(0/1)", &LIAP_FLAG);
     if (LIAP_FLAG != 1) {
@@ -587,7 +586,7 @@ adj2_do_liapunov(void) {
     x = &MyData[0];
     integrate_do_range(x, 0);
     /* done the range */
-    for (i = 0; i < LIAP_I; i++) {
+    for (int32 i = 0; i < LIAP_I; i++) {
         storage[0][i] = my_liap[0][i];
         storage[1][i] = my_liap[1][i];
     }
@@ -632,7 +631,6 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     double sum = 0.0;
     char bob[256];
     int32 istart = 1;
-    int32 i;
     int32 j;
 
     if (storind < 2) {
@@ -642,7 +640,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
     }
 
     /* lets make an initial random perturbation */
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         dy[i] = 0;
     dy[0] = eps;
 
@@ -650,10 +648,10 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
         t0 = storage[0][j];
         t1 = storage[0][j + 1];
         istart = 1;
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             y[i] = storage[i + 1][j] + dy[i];
         do_fit_one_step_int(y, t0, t1, &istart);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             yp[i] = (y[i] - storage[i + 1][j + 1]);
 
         {
@@ -681,7 +679,7 @@ adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
             exit(EXIT_FAILURE);
         }
         sum = sum + log(nrm);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             dy[i] = eps*yp[i];
     }
     t1 = storage[0][storind - 1] - storage[0][0];
