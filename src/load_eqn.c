@@ -171,7 +171,7 @@ load_eqn(void) {
         (dp = (struct dirent *)opendir(this_file)) != NULL) {
         no_eqn = 1;
         okay = 0;
-        change_directory(this_file);
+        read_dir_change_dir(this_file);
         okay = form_ode_make_eqn();
         return;
     } else {
@@ -194,7 +194,7 @@ load_eqn(void) {
                 sprintf(odeclassrm, "%s", getenv("XPPSTART"));
 
                 if ((dp2 = (struct dirent *)opendir(odeclassrm)) != NULL) {
-                    change_directory(odeclassrm);
+                    read_dir_change_dir(odeclassrm);
                 }
             }
 

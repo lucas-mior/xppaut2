@@ -341,7 +341,7 @@ tabular_load_table(char *filename, int32 index) {
     }
     fp = fopen(filename2, "r");
     if (fp == NULL) {
-        get_directory(cur_dir);
+        read_dir_get_directory(cur_dir);
         snprintf(error, sizeof(error), "File<%s> not found in %s", filename2,
                  cur_dir);
         ggets_err_msg(error);

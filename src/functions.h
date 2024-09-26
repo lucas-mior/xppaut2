@@ -3953,7 +3953,7 @@ void pp_shoot_reset_bvp(void);
 void pp_shoot_init_shoot_range(char *s);
 void pp_shoot_dump_shoot_range(FILE *fp, int32 f);
 void pp_shoot_find_bvp_com(int32 com);
-void bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
+void pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
              int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
              int32 ivar, double sect);
 

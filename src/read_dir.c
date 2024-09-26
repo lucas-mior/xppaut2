@@ -64,13 +64,13 @@ static char	CurrentSelectionName[MAXPATHLEN];
 */
 char cur_dir[MAXPATHLEN];
 
-static int32 star(char *string, char *pattern);
-static int32 cmpstringp(const void *p1, const void *p2);
+static int32 read_dir_star(char *string, char *pattern);
+static int32 read_dir_cmp_string_p(const void *p1, const void *p2);
 
 FileInfo my_ff;
 
 void
-free_finfo(FileInfo *ff) {
+read_dir_free_finfo(FileInfo *ff) {
     for (int32 i = 0; i < ff->ndirs; i++)
         free(ff->dirnames[i]);
     free(ff->dirnames);
@@ -81,7 +81,7 @@ free_finfo(FileInfo *ff) {
 }
 
 int32
-cmpstringp(const void *p1, const void *p2) {
+read_dir_cmp_string_p(const void *p1, const void *p2) {
     /* The actual arguments to this function are "pointers to
        pointers to char", but strcmp(3) arguments are "pointers
        to char", hence the following cast plus dereference */
@@ -90,14 +90,14 @@ cmpstringp(const void *p1, const void *p2) {
 }
 
 int32
-get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
+read_dir_get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     int32 ans;
     DIR *dirp;
     int32 mlf;
     int32 mld;
     int32 nf, nd;
     struct dirent *dp;
-    ans = fil_count(direct, &nd, &nf, wild, &mld, &mlf);
+    ans = read_dir_fil_count(direct, &nd, &nf, wild, &mld, &mlf);
     if (ans == 0)
         return 0;
     ff->nfiles = nf;
@@ -113,16 +113,16 @@ get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     nf = 0;
     nd = 0;
     while (dp != NULL) {
-        if (is_directory(direct, dp->d_name)) {
-            if (wild_match(dp->d_name, wild)) {
+        if (read_dir_is_directory(direct, dp->d_name)) {
+            if (read_dir_wild_match(dp->d_name, wild)) {
                 strcpy(ff->dirnames[nd], dp->d_name);
                 nd++;
             }
         } else {
-            if (wild_match(dp->d_name, wild)) {
+            if (read_dir_wild_match(dp->d_name, wild)) {
                 /*printf("Matched leading (tab-completion) pattern:%s
                  * wild=%s\n",dp->d_name,wild);*/
-                if (wild_match(dp->d_name, wild2)) {
+                if (read_dir_wild_match(dp->d_name, wild2)) {
                     /* printf("Also matched usual filename wild:%s
                      * wild=%s\n",dp->d_name,wild2);*/
                     strcpy(ff->filenames[nf], dp->d_name);
@@ -135,23 +135,23 @@ get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     ff->nfiles = nf;
     ff->ndirs = nd;
     if (nd > 0)
-        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), cmpstringp);
+        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), read_dir_cmp_string_p);
 
     if (nf > 0)
-        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), cmpstringp);
+        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), read_dir_cmp_string_p);
     closedir(dirp);
     return 1;
 }
 
 int32
-get_fileinfo(char *wild, char *direct, FileInfo *ff) {
+read_dir_get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     int32 ans;
     DIR *dirp;
     int32 mlf;
     int32 mld;
     int32 nf, nd;
     struct dirent *dp;
-    ans = fil_count(direct, &nd, &nf, wild, &mld, &mlf);
+    ans = read_dir_fil_count(direct, &nd, &nf, wild, &mld, &mlf);
     if (ans == 0)
         return 0;
     ff->nfiles = nf;
@@ -167,11 +167,11 @@ get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     nf = 0;
     nd = 0;
     while (dp != NULL) {
-        if (is_directory(direct, dp->d_name)) {
+        if (read_dir_is_directory(direct, dp->d_name)) {
             strcpy(ff->dirnames[nd], dp->d_name);
             nd++;
         } else {
-            if (wild_match(dp->d_name, wild)) {
+            if (read_dir_wild_match(dp->d_name, wild)) {
                 strcpy(ff->filenames[nf], dp->d_name);
                 nf++;
             }
@@ -180,16 +180,16 @@ get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     }
 
     if (nd > 0)
-        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), cmpstringp);
+        qsort(&(ff->dirnames[0]), (usize)nd, sizeof(char *), read_dir_cmp_string_p);
 
     if (nf > 0)
-        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), cmpstringp);
+        qsort(&(ff->filenames[0]), (usize)nf, sizeof(char *), read_dir_cmp_string_p);
     closedir(dirp);
     return 1;
 }
 
 int32
-fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
+read_dir_fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
           int32 *mlf) {
     DIR *dirp;
     int32 l;
@@ -205,13 +205,13 @@ fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
     *ndir = 0;
     *nfil = 0;
     while (dp != NULL) {
-        if (is_directory(direct, dp->d_name)) {
+        if (read_dir_is_directory(direct, dp->d_name)) {
             *ndir = *ndir + 1;
             l = (int32)strlen(dp->d_name);
             if (l > *mld)
                 *mld = l;
         } else {
-            if (wild_match(dp->d_name, wild)) {
+            if (read_dir_wild_match(dp->d_name, wild)) {
                 *nfil = *nfil + 1;
                 l = (int32)strlen(dp->d_name);
                 if (l > *mlf)
@@ -225,7 +225,7 @@ fil_count(char *direct, int32 *ndir, int32 *nfil, char *wild, int32 *mld,
 }
 
 int32
-change_directory(char *path) {
+read_dir_change_dir(char *path) {
     if (path == NULL) {
         *cur_dir = '\0';
         return 0;
@@ -234,14 +234,14 @@ change_directory(char *path) {
         ggets_plintf("Can't go to directory %s\n", path);
         return 1;
     }
-    if (get_directory(cur_dir) != 0) /* get cwd */
+    if (read_dir_get_directory(cur_dir) != 0) /* get cwd */
         return 0;
     else
         return 1;
 }
 
 int32
-get_directory(char *direct) {
+read_dir_get_directory(char *direct) {
     if (getcwd(direct, 1024) == NULL) { /* get current working dir */
         ggets_plintf("%s\n", "Can't get current directory");
         *direct = '\0';
@@ -253,7 +253,7 @@ get_directory(char *direct) {
 static void read_dir_make_full_path(char *root, char *filename, char *pathname);
 
 int32
-is_directory(char *root, char *path) {
+read_dir_is_directory(char *root, char *path) {
     char fullpath[MAXPATHLEN];
     struct stat statbuf;
 
@@ -326,7 +326,7 @@ read_dir_make_full_path(char *root, char *filename, char *pathname) {
  * `pattern'; zero if not. */
 
 int32
-wild_match(char *string, char *pattern) {
+read_dir_wild_match(char *string, char *pattern) {
     int32 prev;    /* Previous character in character class. */
     int32 matched; /* If 1, character class has been matched. */
     int32 reverse; /* If 1, character class is inverted. */
@@ -348,7 +348,7 @@ wild_match(char *string, char *pattern) {
             continue;
         case '*':
             /* Trailing star matches everything. */
-            return *++pattern ? star(string, pattern) : 1;
+            return *++pattern ? read_dir_star(string, pattern) : 1;
         case '[':
             /* Check for inverse character class. */
             reverse = pattern[1] == INVERT;
@@ -369,8 +369,8 @@ wild_match(char *string, char *pattern) {
 }
 
 static int32
-star(char *string, char *pattern) {
-    while (wild_match(string, pattern) == 0)
+read_dir_star(char *string, char *pattern) {
+    while (read_dir_wild_match(string, pattern) == 0)
         if (*++string == '\0')
             return 0;
     return 1;

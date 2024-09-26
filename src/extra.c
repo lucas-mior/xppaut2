@@ -57,7 +57,7 @@ int32 dll_loaded = 0;
 void
 extra_auto_load_dll(void) {
     if (dll_flag == 3) {
-        get_directory(cur_dir);
+        read_dir_get_directory(cur_dir);
         ggets_plintf("DLL lib %s/%s with function %s \n", cur_dir, dll_lib,
                      dll_fun);
         sprintf(dlf.libfile, "%s", dll_lib);
@@ -103,7 +103,7 @@ extra_get_import_values(int32 n, double *ydot, char *soname, char *sofun,
     if (dll_loaded == -1)
         return;
     printf("soname = %s  sofun = %s \n", soname, sofun);
-    get_directory(cur_dir);
+    read_dir_get_directory(cur_dir);
     snprintf(sofullname, sizeof(sofullname), "%s/%s", cur_dir, soname);
     dlhandle = dlopen(sofullname, RTLD_LAZY);
     if (!dlhandle) {

@@ -30,11 +30,11 @@ static struct ShootRange {
 
 /*   more general mixed boundary types   */
 
-static void last_shot(int32 flag);
-static int32 set_up_periodic(int32 *ipar, int32 *ivar, double *sect,
+static void pp_shoot_last(int32 flag);
+static int32 pp_shoot_set_up_periodic(int32 *ipar, int32 *ivar, double *sect,
                              int32 *ishow);
-static void do_sh_range(double *ystart, double *yend);
-static void bad_shoot(int32 iret);
+static void pp_shoot_do_range(double *ystart, double *yend);
+static void pp_shoot_bad(int32 iret);
 
 void
 pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
@@ -108,7 +108,7 @@ pp_shoot_dump_shoot_range(FILE *fp, int32 f) {
 }
 
 void
-bad_shoot(int32 iret) {
+pp_shoot_bad(int32 iret) {
     switch (iret) {
     case NOCHANGE:
         ggets_err_msg("No change from last point. Saving anyway");
@@ -133,7 +133,7 @@ bad_shoot(int32 iret) {
 }
 
 void
-do_sh_range(double *ystart, double *yend) {
+pp_shoot_do_range(double *ystart, double *yend) {
     double parlo, parhi, dpar, temp;
     int32 npar, j, ierr;
     int32 side, cycle, icol, color;
@@ -199,12 +199,12 @@ do_sh_range(double *ystart, double *yend) {
         if (shoot_range.movie == 1)
             main_clr_scrn();
 
-        bvshoot(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0, 0, 0,
+        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0, 0, 0,
                 0, 0.0);
         if (ierr == -5)
             continue;
         if (ierr < 0) {
-            bad_shoot(ierr);
+            pp_shoot_bad(ierr);
 
             refresh_browser(storind);
             integrate_swap_color(&color, 1);
@@ -220,7 +220,7 @@ do_sh_range(double *ystart, double *yend) {
         storind++;
         integrate_set_cycle(cycle, &icol);
         integrate_get_ic(0, ystart);
-        last_shot(0);
+        pp_shoot_last(0);
         if (shoot_range.movie == 1)
             kinescope_film_clip();
         ggets_ping();
@@ -232,7 +232,7 @@ do_sh_range(double *ystart, double *yend) {
 }
 
 int32
-set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
+pp_shoot_set_up_periodic(int32 *ipar, int32 *ivar, double *sect, int32 *ishow) {
     static char *n[] = {"Freq. Par.", "*1Sect. Var", "Section", "Show(Y/N)"};
     char values[LENGTH(n)][MAX_LEN_SBOX];
     int32 status;
@@ -295,12 +295,12 @@ pp_shoot_find_bvp_com(int32 com) {
     integrate_get_ic(1, ystart);
     switch (com) {
     case 0:
-        do_sh_range(ystart, yend);
+        pp_shoot_do_range(ystart, yend);
         return;
     case 3:
         if (NUPAR == 0)
             goto bye;
-        pflag = set_up_periodic(&ipar, &ivar, &sect, &ishow);
+        pflag = pp_shoot_set_up_periodic(&ipar, &ivar, &sect, &ishow);
         if (pflag == 0)
             goto bye;
         iper = 1;
@@ -317,19 +317,19 @@ pp_shoot_find_bvp_com(int32 com) {
         break;
     }
     if (iper)
-        bvshoot(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE, ishow,
+        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE, ishow,
                 iper, ipar, ivar, sect);
     else
-        bvshoot(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE, ishow,
+        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE, ishow,
                 0, 0, 0, 0.0);
-    bad_shoot(iret);
+    pp_shoot_bad(iret);
     if (iret == 1 || iret == 2) {
         integrate_get_ic(0, ystart);
         init_conds_redraw_ics();
         if (ishow) {
             ggets_reset_graphics();
         }
-        last_shot(1);
+        pp_shoot_last(1);
         INFLAG = 1;
         refresh_browser(storind);
         graf_par_auto_freeze_it();
@@ -343,7 +343,7 @@ bye:
 }
 
 void
-last_shot(int32 flag) {
+pp_shoot_last(int32 flag) {
     double *x;
     x = &MyData[0];
     MyStart = 1;
@@ -367,7 +367,7 @@ last_shot(int32 flag) {
 }
 
 void
-bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
+pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
         int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar,
         double sect) {
     double *jac, *f, *fdev, *y0, *y1;

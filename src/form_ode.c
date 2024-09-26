@@ -223,7 +223,7 @@ form_ode_get_a_filename(char *filename, char *wild) {
                     if (string[0] == 'c') {
                         ggets_plintf("Change to directory: ");
                         scanf("%s", string);
-                        change_directory(string);
+                        read_dir_change_dir(string);
                         form_ode_list_em(wild);
                     }
                 }
@@ -232,7 +232,7 @@ form_ode_get_a_filename(char *filename, char *wild) {
     } else {
         int32 status;
         int32 m;
-        get_directory(filename);
+        read_dir_get_directory(filename);
         m = (int32)strlen(filename);
         if (filename[m - 1] != '/') {
             strcat(filename, "/");
@@ -247,15 +247,15 @@ form_ode_get_a_filename(char *filename, char *wild) {
 
 void
 form_ode_list_em(char *wild) {
-    get_directory(cur_dir);
+    read_dir_get_directory(cur_dir);
     ggets_plintf("%s: \n", cur_dir);
-    get_fileinfo(wild, cur_dir, &my_ff);
+    read_dir_get_fileinfo(wild, cur_dir, &my_ff);
     ggets_plintf("DIRECTORIES:\n");
     form_ode_format_list(my_ff.dirnames, my_ff.ndirs);
     ggets_plintf("FILES OF TYPE %s:\n", wild);
     form_ode_format_list(my_ff.filenames, my_ff.nfiles);
 
-    free_finfo(&my_ff);
+    read_dir_free_finfo(&my_ff);
     return;
 }
 

@@ -491,13 +491,13 @@ init_conds_button_selector(Window window) {
             ggets_plintf("User's KEY_HOME environment variable not set.\n");
             return 0;
         }
-        change_directory(HOMEDIR);
+        read_dir_change_dir(HOMEDIR);
 
-        get_directory(cur_dir);
+        read_dir_get_directory(cur_dir);
         init_conds_redraw_directory();
-        free_finfo(&my_ff); /* delete the old file info */
+        read_dir_free_finfo(&my_ff); /* delete the old file info */
         filesel.n0 = 0;     /* back to the top of the list */
-        get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+        read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
         filesel.n = my_ff.ndirs + my_ff.nfiles;
 
         strcpy(filesel.filetxt, cur_dir);
@@ -522,13 +522,13 @@ init_conds_button_selector(Window window) {
             return 0;
         }
 
-        change_directory(START);
+        read_dir_change_dir(START);
 
-        get_directory(cur_dir);
+        read_dir_get_directory(cur_dir);
         init_conds_redraw_directory();
-        free_finfo(&my_ff); /* delete the old file info */
+        read_dir_free_finfo(&my_ff); /* delete the old file info */
         filesel.n0 = 0;     /* back to the top of the list */
-        get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+        read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
         filesel.n = my_ff.ndirs + my_ff.nfiles;
 
         strcpy(filesel.filetxt, cur_dir);
@@ -571,12 +571,12 @@ init_conds_button_selector(Window window) {
         k = i0 + filesel.n0;
         if (k < my_ff.ndirs) { /* it is a directory so we should reset */
             int32 m;
-            change_directory(my_ff.dirnames[k]);
-            get_directory(cur_dir);
+            read_dir_change_dir(my_ff.dirnames[k]);
+            read_dir_get_directory(cur_dir);
             init_conds_redraw_directory();
-            free_finfo(&my_ff); /* delete the old file info */
+            read_dir_free_finfo(&my_ff); /* delete the old file info */
             filesel.n0 = 0;     /* back to the top of the list */
-            get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+            read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
             filesel.n = my_ff.ndirs + my_ff.nfiles;
 
             strcpy(filesel.filetxt, cur_dir);
@@ -838,12 +838,12 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1, int32 *pos
         /*Try to change to that new directory if it is one.*/
         if ((dp = (struct dirent *)opendir(filesel.filetxt)) != NULL) {
             if (strcmp(cur_dir, filesel.filetxt) != 0) {
-                change_directory(filesel.filetxt);
-                get_directory(cur_dir);
+                read_dir_change_dir(filesel.filetxt);
+                read_dir_get_directory(cur_dir);
                 init_conds_redraw_directory();
-                free_finfo(&my_ff); /* delete the old file info */
+                read_dir_free_finfo(&my_ff); /* delete the old file info */
                 filesel.n0 = 0;     /* back to the top of the list */
-                get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+                read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
                 m = (int32)strlen(filesel.filetxt);
@@ -899,21 +899,21 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1, int32 *pos
         /*Make sure we are in the correct directory now
         since user could have moved cursor back up _several_
         branches in directory tree before hitting tab key.*/
-        change_directory(ftpath);
-        free_finfo(&my_ff);
+        read_dir_change_dir(ftpath);
+        read_dir_free_finfo(&my_ff);
         filesel.n0 = 0;
-        get_fileinfo_tab(ft, ftpath, &my_ff, filesel.wildtxt);
+        read_dir_get_fileinfo_tab(ft, ftpath, &my_ff, filesel.wildtxt);
         filesel.n = my_ff.ndirs + my_ff.nfiles;
         if ((my_ff.ndirs + my_ff.nfiles) == 1) {
             if (my_ff.ndirs == 1) /*Only possible directory -- take it.*/
             {
                 int32 m2;
-                change_directory(my_ff.dirnames[0]);
-                get_directory(cur_dir);
+                read_dir_change_dir(my_ff.dirnames[0]);
+                read_dir_get_directory(cur_dir);
                 init_conds_redraw_directory();
-                free_finfo(&my_ff); /* delete the old file info */
+                read_dir_free_finfo(&my_ff); /* delete the old file info */
                 filesel.n0 = 0;     /* back to the top of the list */
-                get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+                read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
                 filesel.n = my_ff.ndirs + my_ff.nfiles;
                 strcpy(filesel.filetxt, cur_dir);
                 m2 = (int32)strlen(filesel.filetxt);
@@ -1018,9 +1018,9 @@ init_conds_selector_key(XEvent event) {
                           &(filesel.pos), 29);
         if (flag == EDIT_DONE) {
             /* new wild */
-            free_finfo(&my_ff); /* delete the old file info */
+            read_dir_free_finfo(&my_ff); /* delete the old file info */
             filesel.n0 = 0;     /* back to the top of the list */
-            get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
+            read_dir_get_fileinfo(filesel.wildtxt, cur_dir, &my_ff);
             filesel.n = my_ff.ndirs + my_ff.nfiles;
             init_conds_redraw_file_list();
             XFlush(display);
@@ -1039,9 +1039,9 @@ int32
 init_conds_file_selector(char *title, char *file, char *wild) {
     int32 selected;
     int32 done;
-    if (!get_directory(cur_dir))
+    if (!read_dir_get_directory(cur_dir))
         return 0;
-    if (!get_fileinfo(wild, cur_dir, &my_ff))
+    if (!read_dir_get_fileinfo(wild, cur_dir, &my_ff))
         return 0;
 
     init_conds_create_file_selector(title, file, wild);
@@ -1097,7 +1097,7 @@ end:
     browse_wait_a_sec(ClickTime);
     XDestroySubwindows(display, filesel.base);
     XDestroyWindow(display, filesel.base);
-    free_finfo(&my_ff);
+    read_dir_free_finfo(&my_ff);
 
     XFlush(display); /*Need to do this otherwise the file dialog hangs around*/
     if (selected == 0)

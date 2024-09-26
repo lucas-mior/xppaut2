@@ -375,7 +375,7 @@ do_main(int32 argc, char **argv) {
     notAlreadySet.COLORHI = 1;
     notAlreadySet.COLORLO = 1;
 
-    get_directory(myfile);
+    read_dir_get_directory(myfile);
 
     SCALEX = 640;
     SCALEY = 480;
