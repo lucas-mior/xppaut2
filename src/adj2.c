@@ -305,7 +305,7 @@ adj2_dump_h_stuff(FILE *fp, int32 f) {
 
 int32
 adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
-    int32 j, rval = 0;
+    int32 n, rval = 0;
     double sum;
     int32 n0 = node + 1 + FIX_VAR, k2, k;
     if (silent2 == 0) {
@@ -313,14 +313,14 @@ adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
             char name[sizeof(uvar_names[i]) + 18];
             snprintf(name, sizeof(name), "Coupling for %s eqn:", uvar_names[i]);
             ggets_new_string(name, coup_string[i]);
-            if (add_expr(coup_string[i], coup_fun[i], &j)) {
+            if (add_expr(coup_string[i], coup_fun[i], &n)) {
                 ggets_err_msg("Illegal formula");
                 goto bye;
             }
         }
     }
     /*  formulae are fine .. lets do it ... */
-    for (j = 0; j < nt; j++) {
+    for (int32 j = 0; j < nt; j++) {
         /* j is phi variable  */
         sum = 0.0;
 

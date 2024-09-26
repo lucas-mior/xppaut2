@@ -574,7 +574,6 @@ do_main(int32 argc, char **argv) {
 void
 main_check_for_quiet(int32 argc, char **argv) {
     /* First scan, check for any QUIET option set... */
-    int32 i = 0;
     /* Allow for multiple calls to the QUIET and LOGFILE options
      * on the command line. The last setting is the one that will stick.
      * Settings of logfile and quiet in the xpprc file will be ignored
@@ -582,7 +581,7 @@ main_check_for_quiet(int32 argc, char **argv) {
     int32 quiet_specified_once = 0;
     int32 logfile_specified_once = 0;
 
-    for (i = 1; i < argc; i++) {
+    for (int32 i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-quiet") == 0) {
             load_eqn_set_option("QUIET", argv[i + 1], 1, NULL);
             quiet_specified_once = 1;
@@ -991,16 +990,17 @@ main_do_events(uint32 min_wid, uint32 min_hgt) {
 
 void
 main_bye_bye(void) {
-    int32 i;
     auto_nox_yes_reset();
     XUnloadFont(display, font_big->fid);
     XUnloadFont(display, font_small->fid);
-    for (i = 0; i < 5; i++) {
+
+    for (int32 i = 0; i < 5; i++) {
         if (avsymfonts[i])
             XUnloadFont(display, symfonts[i]->fid);
         if (avromfonts[i])
             XUnloadFont(display, romfonts[i]->fid);
     }
+
     XFreeGC(display, gc);
     XCloseDisplay(display);
     exit(1);
@@ -1270,8 +1270,7 @@ main_top_button_draw(Window window) {
 
 void
 main_top_button_cross(Window window, int32 b) {
-    int32 i;
-    for (i = 0; i < 6; i++)
+    for (int32 i = 0; i < 6; i++)
         if (window == TopButton[i]) {
             XSetWindowBorderWidth(display, window, (uint)b);
             return;
