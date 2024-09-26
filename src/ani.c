@@ -86,6 +86,16 @@ static char *toons[] = {"Popeye the Sailor",
 #define SPEED 23
 
 /***************  stuff for grabber  *******************/
+/* tasks have the form {name1=formula1;name2=formula2;...} */
+typedef struct GrabTask {
+    double vrhs[MAX_GEVENTS];
+    char lhsname[MAX_GEVENTS][11];
+    int32 lhsivar[MAX_GEVENTS];
+    int32 *comrhs[MAX_GEVENTS];
+    int32 runnow;
+    int32 n; /* number of tasks <= MAX_GEVENTS */
+} GrabTask;
+
 static struct AniMotionInfo {
     double x0;
     double y0;

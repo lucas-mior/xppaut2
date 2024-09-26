@@ -87,16 +87,6 @@ void adjoints_data_back(void);
 #define MAX_GEVENTS 20  /* maximum variables you can change per grabbable */
 #define MAX_ANI_GRAB 50 /* max grabbable objects  */
 
-/* tasks have the form {name1=formula1;name2=formula2;...} */
-typedef struct GrabTask {
-    double vrhs[MAX_GEVENTS];
-    char lhsname[MAX_GEVENTS][11];
-    int32 lhsivar[MAX_GEVENTS];
-    int32 *comrhs[MAX_GEVENTS];
-    int32 runnow;
-    int32 n; /* number of tasks <= MAX_GEVENTS */
-} GrabTask;
-
 /***************  End of grabber stuff  in header **************/
 
 typedef struct AniCom {
