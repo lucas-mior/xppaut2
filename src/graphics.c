@@ -81,7 +81,6 @@ static void graphics_init(int32 i);
 static void graphics_line_x11(int32 xp1, int32 yp1, int32 xp2, int32 yp2);
 static void graphics_rect_x11(int32 x, int32 y, int32 w, int32 h);
 static void graphics_bead_x11(int32 x, int32 y);
-static void graphics_set_line_style_x11(int32 ls);
 static void graphics_point_x11(int32 xp, int32 yp);
 static void graphics_bead(int32 x1, int32 y1);
 static void graphics_rot_3dvec(double x, double y, double z, double *xp,
@@ -286,46 +285,42 @@ graphics_set_linestyle(int32 ls) {
         ps_linetype(ls);
     else if (PltFmtFlag == SVGFMT)
         svg_linetype(ls);
-    else
-        graphics_set_line_style_x11(ls);
-    return;
-}
-
-void
-graphics_set_line_style_x11(int32 ls) {
-    /*int32 width=0;*/
-    int32 type = 0;
-    if (ls == -2) { /*  Border  */
-        color_set(0);
-        XSetLineAttributes(display, gc_graph, 2, LineSolid, CapButt, JoinBevel);
-        return;
-    }
-    /*width=0;
-     */
-    if (ls == -1) {
-        color_set(0);
-        XSetDashes(display, gc_graph, 0, dashes[1], (int)strlen(dashes[1]));
-        XSetLineAttributes(display, gc_graph, 0, LineOnOffDash, CapButt,
-                           JoinBevel);
-        return;
-    }
-    if (!COLOR) { /* Mono  */
-        ls = (ls % 8) + 2;
-        if (ls == 2)
-            type = LineSolid;
-        else {
-            type = LineOnOffDash;
-            XSetDashes(display, gc_graph, 0, dashes[ls],
-                       (int)strlen(dashes[ls]));
+    else {
+        /* graphics set line style x11 */
+        /*int32 width=0;*/
+        int32 type = 0;
+        if (ls == -2) { /*  Border  */
+            color_set(0);
+            XSetLineAttributes(display, gc_graph, 2, LineSolid, CapButt, JoinBevel);
+            return;
         }
-        color_set(0);
-        XSetLineAttributes(display, gc_graph, 0, type, CapButt, JoinBevel);
-        return;
+        /*width=0;
+         */
+        if (ls == -1) {
+            color_set(0);
+            XSetDashes(display, gc_graph, 0, dashes[1], (int)strlen(dashes[1]));
+            XSetLineAttributes(display, gc_graph, 0, LineOnOffDash, CapButt,
+                               JoinBevel);
+            return;
+        }
+        if (!COLOR) { /* Mono  */
+            ls = (ls % 8) + 2;
+            if (ls == 2)
+                type = LineSolid;
+            else {
+                type = LineOnOffDash;
+                XSetDashes(display, gc_graph, 0, dashes[ls],
+                           (int)strlen(dashes[ls]));
+            }
+            color_set(0);
+            XSetLineAttributes(display, gc_graph, 0, type, CapButt, JoinBevel);
+            return;
+        }
+        /* color system  */
+        ls = ls % 11;
+        XSetLineAttributes(display, gc_graph, 0, LineSolid, CapButt, JoinBevel);
+        color_set(colorline[ls]);
     }
-    /* color system  */
-    ls = ls % 11;
-    XSetLineAttributes(display, gc_graph, 0, LineSolid, CapButt, JoinBevel);
-    color_set(colorline[ls]);
     return;
 }
 
