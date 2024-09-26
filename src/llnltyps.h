@@ -5,7 +5,7 @@
  * Last Modified : 1 September 1994                               *
  *----------------------------------------------------------------*
  * This header file exports three types: double, int64, and bool  *
- * (short for boolean), as well as the constants TRUE and FALSE.  *
+ * (short for boolean), as well as the constants true and false.  *
  *                                                                *
  * Users should #include "llnltyps.h" in any file that should     *
  * be easily modifiable to work with different double or int64    *
@@ -85,33 +85,6 @@
 
 #define RCONST(x) x
 
-#endif
-
-/******************************************************************
- *                                                                *
- * Type : bool                                                    *
- * Constants : FALSE, TRUE                                        *
- *----------------------------------------------------------------*
- * ANSI C does not have a built-in boolean type. Below is the     *
- * definition for a new type bool. The advantage of using the     *
- * name bool (instead of int32) is an increase in code readability. *
- * It allows the programmer to make a distinction between int32 and *
- * boolean data. Variables of type bool are intended to have only *
- * the two values FALSE and TRUE which are defined below to be    *
- * equal to 0 and 1, respectively.                                *
- *                                                                *
- ******************************************************************/
-
-#ifndef bool
-#define bool int32
-#endif
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef TRUE
-#define TRUE 1
 #endif
 
 #endif

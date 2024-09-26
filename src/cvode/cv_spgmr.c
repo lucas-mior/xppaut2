@@ -282,7 +282,7 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
         iopt[SPGMR_LIW] = 0;
     }
 
-    /* Set setupNonNull to TRUE iff there is preconditioning        */
+    /* Set setupNonNull to true iff there is preconditioning        */
     /* (pretype != PRE_NONE) and there is a preconditioning setup phase */
     /* (precond != NULL)                                            */
     *setupNonNull = (pretype != PRE_NONE) && (precond != NULL);
@@ -296,8 +296,8 @@ cv_spgmr_init(CVodeMem cv_mem, bool *setupNonNull) {
  It makes a decision as to whether or not to signal for re-evaluation
  of Jacobian data in the precond routine, based on various state
  variables, then it calls precond.  If we signal for re-evaluation,
- then we reset jcur = *jcurPtr to TRUE, regardless of the precond output.
- In any case, if jcur == TRUE, we increment npe and save nst in nstlpre.
+ then we reset jcur = *jcurPtr to true, regardless of the precond output.
+ In any case, if jcur == true, we increment npe and save nst in nstlpre.
 
 **********************************************************************/
 
@@ -324,9 +324,9 @@ cv_spgmr_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     ier = precond(N, tn, ypred, fpred, jok, jcurPtr, gamma, ewt, h, uround,
                   &nfe, P_data, vtemp1, vtemp2, vtemp3);
     if (jbad)
-        *jcurPtr = TRUE;
+        *jcurPtr = true;
 
-    /* If jcur = TRUE, increment npe and save nst value */
+    /* If jcur = true, increment npe and save nst value */
     if (*jcurPtr) {
         npe++;
         nstlpre = nst;

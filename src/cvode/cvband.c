@@ -269,8 +269,8 @@ cv_band_init(CVodeMem cv_mem, bool *setupNonNull) {
         return LINIT_ERR;
     }
 
-    /* Set flag setupNonNull = TRUE */
-    *setupNonNull = TRUE;
+    /* Set flag setupNonNull = true */
+    *setupNonNull = true;
 
     /* Test ml and mu for legality */
     if ((ml < 0) || (mu < 0) || (ml >= N) || (mu >= N)) {
@@ -344,16 +344,16 @@ cv_band_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     jok = !jbad;
 
     if (jok) {
-        /* If jok = TRUE, use saved copy of J */
-        *jcurPtr = FALSE;
+        /* If jok = true, use saved copy of J */
+        *jcurPtr = false;
         band_copy(savedJ, M, mu, ml);
     } else {
-        /* If jok = FALSE, call jac routine for new J value */
+        /* If jok = false, call jac routine for new J value */
         nje++;
         if (iopt != NULL)
             iopt[BAND_NJE] = nje;
         nstlj = nst;
-        *jcurPtr = TRUE;
+        *jcurPtr = true;
         band_zero(M);
         jac(N, mu, ml, M, f, f_data, tn, ypred, fpred, ewt, h, uround, J_data,
             &nfe, vtemp1, vtemp2, vtemp3);

@@ -368,11 +368,11 @@ vector_inv_test(Vector x, Vector z) {
 
     for (i = 0; i < N; i++) {
         if (*xd == ZERO)
-            return FALSE;
+            return false;
         *zd++ = ONE / (*xd++);
     }
 
-    return TRUE;
+    return true;
 }
 
 void

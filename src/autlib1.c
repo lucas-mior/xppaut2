@@ -4069,7 +4069,7 @@ findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
     (void)rap;
 
     /* Locates restart point with label IRS and determines type. */
-    /* If the label can not be located on unit 3 then FOUND will be .FALSE. */
+    /* If the label can not be located on unit 3 then FOUND will be .false. */
 
     *found = false;
     rewind(fp3);

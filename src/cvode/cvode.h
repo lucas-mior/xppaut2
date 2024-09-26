@@ -157,21 +157,21 @@ typedef void (*RhsFn)(int64 N, double t, Vector y, Vector ydot, void *f_data);
  *                                                                *
  * optIn   is a flag indicating whether there are any optional    *
  *            inputs from the user in the arrays iOpt and rOpt.   *
- *            Pass FALSE to indicate no optional inputs and TRUE  *
+ *            Pass false to indicate no optional inputs and true  *
  *            to indicate that optional inputs are present.       *
  *                                                                *
  * iopt    is the user-allocated array (of size OPT_SIZE given    *
  *            later) that will hold optional int64 inputs and   *
  *            outputs.  The user can pass NULL if he/she does not *
  *            wish to use optional int64 inputs or outputs.     *
- *            If optIn is TRUE, the user should preset to 0 those *
+ *            If optIn is true, the user should preset to 0 those *
  *            locations for which default values are to be used.  *
  *                                                                *
  * ropt    is the user-allocated array (of size OPT_SIZE given    *
  *            later) that will hold optional double inputs and      *
  *            outputs.  The user can pass NULL if he/she does not *
  *            wish to use optional double inputs or outputs.        *
- *            If optIn is TRUE, the user should preset to 0.0 the *
+ *            If optIn is true, the user should preset to 0.0 the *
  *            locations for which default values are to be used.  *
  *                                                                *
  * machEnv is a pointer to machine environment-specific           *
@@ -692,8 +692,8 @@ typedef struct CVodeMemRec {
  * solver-specific fields in the structure *(cv_mem->cv_lmem) and  *
  * perform any needed initializations of solver-specific memory,   *
  * such as counters/statistics. The cv_linit routine should set    *
- * *setupNonNull to be TRUE if the setup operation for the linear  *
- * solver is non-empty and FALSE if the setup operation does       *
+ * *setupNonNull to be true if the setup operation for the linear  *
+ * solver is non-empty and false if the setup operation does       *
  * nothing. An LInitFn should return LINIT_OK (== 0) if it has     *
  * successfully initialized the CVODE linear solver and LINIT_ERR  *
  * (== -1) otherwise. These constants are defined above. If an     *
@@ -730,12 +730,12 @@ typedef struct CVodeMemRec {
  * fpred - f(tn, ypred).                                           *
  *                                                                 *
  * jcurPtr - a pointer to a boolean to be filled in by cv_lsetup.  *
- *           The function should set *jcurPtr=TRUE if its Jacobian *
+ *           The function should set *jcurPtr=true if its Jacobian *
  *           data is current after the call and should set         *
- *           *jcurPtr=FALSE if its Jacobian data is not current.   *
+ *           *jcurPtr=false if its Jacobian data is not current.   *
  *           Note: If cv_lsetup calls for re-evaluation of         *
  *           Jacobian data (based on convfail and CVODE state      *
- *           data), it should return *jcurPtr=TRUE unconditionally;*
+ *           data), it should return *jcurPtr=true unconditionally;*
  *           otherwise an infinite loop can result.                *
  *                                                                 *
  * vtemp1 - temporary Vector provided for use by cv_lsetup.      *

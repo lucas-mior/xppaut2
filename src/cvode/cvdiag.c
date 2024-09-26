@@ -144,8 +144,8 @@ cv_diag_init(CVodeMem cv_mem, bool *setupNonNull) {
         return LINIT_ERR;
     }
 
-    /* Set flag setupNonNull = TRUE */
-    *setupNonNull = TRUE;
+    /* Set flag setupNonNull = true */
+    *setupNonNull = true;
 
     /* Allocate memory for M, bit, and bitcomp */
 
@@ -228,8 +228,8 @@ cv_diag_setup(CVodeMem cv_mem, int32 convfail, Vector ypred, Vector fpred,
     if (!invOK)
         return 1;
 
-    /* Set jcur = TRUE, save gamma in gammasv, and return */
-    *jcurPtr = TRUE;
+    /* Set jcur = true, save gamma in gammasv, and return */
+    *jcurPtr = true;
     gammasv = gamma;
     return 0;
 }

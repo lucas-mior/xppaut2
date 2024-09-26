@@ -177,7 +177,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     vtemp = mem->vtemp;
 
     *nli = *nps = 0;   /* Initialize counters */
-    converged = FALSE; /* Initialize converged flag */
+    converged = false; /* Initialize converged flag */
 
     if (max_restarts < 0)
         max_restarts = 0;
@@ -324,7 +324,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
             rotation_product *= givens[2*l + 1];
 
             if ((*res_norm = rho = ABS(rotation_product*r_norm)) <= delta) {
-                converged = TRUE;
+                converged = true;
                 break;
             }
 

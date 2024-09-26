@@ -27,7 +27,7 @@
 #define M1SB (NBIFX)
 #define LEFT (1)
 #define RIGHT (2)
-#define QZMATZ (.FALSE.)
+#define QZMATZ (.false.)
 #define QZEPS1 (0.0E0)
 #define HMACHHO (1.0e-13)
 

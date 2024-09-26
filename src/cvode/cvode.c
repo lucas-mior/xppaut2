@@ -175,10 +175,10 @@
 #define MSG_BAD_ABSTOL CVM "Some abstol component < 0.0 illegal.\n\n"
 
 #define MSG_BAD_OPTIN_1 CVM "optIn=%d illegal.\n"
-#define MSG_BAD_OPTIN_2 "The legal values are FALSE=%d and TRUE=%d.\n\n"
+#define MSG_BAD_OPTIN_2 "The legal values are false=%d and true=%d.\n\n"
 #define MSG_BAD_OPTIN MSG_BAD_OPTIN_1 MSG_BAD_OPTIN_2
 
-#define MSG_BAD_OPT CVM "optIn=TRUE, but iopt=ropt=NULL.\n\n"
+#define MSG_BAD_OPT CVM "optIn=true, but iopt=ropt=NULL.\n\n"
 
 #define MSG_BAD_HMIN_HMAX_1 CVM "Inconsistent step size limits:\n"
 #define MSG_BAD_HMIN_HMAX_2 "ropt[CV_HMIN]=%g > ropt[CV_HMAX]=%g.\n\n"
@@ -501,8 +501,8 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
         return NULL;
     }
 
-    if ((optIn != FALSE) && (optIn != TRUE)) {
-        fprintf(fp, MSG_BAD_OPTIN, optIn, FALSE, TRUE);
+    if ((optIn != false) && (optIn != true)) {
+        fprintf(fp, MSG_BAD_OPTIN, optIn, false, true);
         return NULL;
     }
 
@@ -584,7 +584,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
 
     uround = llnlmath_unit_roundoff();
 
-    /* Set the linear solver addresses to NULL, linitOK to FALSE */
+    /* Set the linear solver addresses to NULL, linitOK to false */
 
     linit = NULL;
     lsetup = NULL;
@@ -592,7 +592,7 @@ cvode_malloc(int64 N, RhsFn f, double t0, Vector y0, int32 lmm, int32 iter,
     lfree = NULL;
     lmem = NULL;
     /* We check != NULL later, in CVode and linit, if using NEWTON */
-    linitOK = FALSE;
+    linitOK = false;
 
     /* Initialize the history array zn */
 
@@ -1015,8 +1015,8 @@ cvode_free(void *cvode_mem) {
  zn[0], ..., zn[maxord]. The length of the vectors is the input
  parameter neq and the maximum order (needed to allocate zn) is the
  input parameter maxord. If all memory allocations are successful,
- CVAllocVectors returns TRUE. Otherwise all allocated memory is freed
- and CVAllocVectors returns FALSE.
+ CVAllocVectors returns true. Otherwise all allocated memory is freed
+ and CVAllocVectors returns false.
  This routine also sets the optional outputs lrw and liw, which are
  (respectively) the lengths of the double and int64 work spaces
  allocated here.
@@ -1032,24 +1032,24 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
 
     ewt = vector_new(neq);
     if (ewt == NULL)
-        return FALSE;
+        return false;
     acor = vector_new(neq);
     if (acor == NULL) {
         vector_free(ewt);
-        return FALSE;
+        return false;
     }
     tempv = vector_new(neq);
     if (tempv == NULL) {
         vector_free(ewt);
         vector_free(acor);
-        return FALSE;
+        return false;
     }
     ftemp = vector_new(neq);
     if (ftemp == NULL) {
         vector_free(tempv);
         vector_free(ewt);
         vector_free(acor);
-        return FALSE;
+        return false;
     }
 
     /* Allocate zn[0] ... zn[maxord] */
@@ -1063,7 +1063,7 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
             vector_free(ftemp);
             for (i = 0; i < j; i++)
                 vector_free(zn[i]);
-            return FALSE;
+            return false;
         }
     }
 
@@ -1072,7 +1072,7 @@ cv_alloc_vectors(CVodeMem cv_mem, int64 neq, int32 maxord) {
     lrw = (int32)((maxord + 5)*neq);
     liw = 0;
 
-    return TRUE;
+    return true;
 }
 
 /***************** CVFreeVectors *********************************
@@ -1104,9 +1104,9 @@ cv_free_vectors(CVodeMem cv_mem, int32 maxord) {
  (2) ewtvec[i] = 1 / (*rtol*ABS(ycur[i]) + atol[i]), i=0,...,neq-1
      if tol_type = SV
 
-  cv_ewt_set returns TRUE if ewtvec is successfully set as above to a
-  positive vector and FALSE otherwise. In the latter case, ewtvec is
-  considered undefined after the FALSE return from cv_ewt_set.
+  cv_ewt_set returns true if ewtvec is successfully set as above to a
+  positive vector and false otherwise. In the latter case, ewtvec is
+  considered undefined after the false return from cv_ewt_set.
 
   All the double work is done in the routines cv_ewt_set_ss, cv_ewt_set_sv.
 
@@ -1130,9 +1130,9 @@ cv_ewt_set(CVodeMem cv_mem, double *rtol, void *atol, int32 tol_type,
 
  This routine sets ewtvec as decribed above in the case tol_type=SS.
  It tests for non-positive components before inverting. cv_ewt_set_ss
- returns TRUE if ewtvec is successfully set to a positive vector
- and FALSE otherwise. In the latter case, ewtvec is considered
- undefined after the FALSE return from cv_ewt_set_ss.
+ returns true if ewtvec is successfully set to a positive vector
+ and false otherwise. In the latter case, ewtvec is considered
+ undefined after the false return from cv_ewt_set_ss.
 
 ********************************************************************/
 
@@ -1149,18 +1149,18 @@ cv_ewt_set_ss(CVodeMem cv_mem, double *rtol, double *atol, Vector ycur,
     vector_scale(rtoli, tempv, tempv);
     vector_add_const(tempv, atoli, tempv);
     if (vector_min(tempv) <= ZERO)
-        return FALSE;
+        return false;
     vector_inv(tempv, ewtvec);
-    return TRUE;
+    return true;
 }
 
 /*********************** cv_ewt_set_sv *********************************
 
  This routine sets ewtvec as decribed above in the case tol_type=SV.
  It tests for non-positive components before inverting. cv_ewt_set_sv
- returns TRUE if ewtvec is successfully set to a positive vector
- and FALSE otherwise. In the latter case, ewtvec is considered
- undefined after the FALSE return from cv_ewt_set_sv.
+ returns true if ewtvec is successfully set to a positive vector
+ and false otherwise. In the latter case, ewtvec is considered
+ undefined after the false return from cv_ewt_set_sv.
 
 ********************************************************************/
 
@@ -1174,17 +1174,17 @@ cv_ewt_set_sv(CVodeMem cv_mem, double *rtol, Vector atol, Vector ycur,
     vector_abs(ycur, tempv);
     vector_linear_sum(rtoli, tempv, ONE, atol, tempv);
     if (vector_min(tempv) <= ZERO)
-        return FALSE;
+        return false;
     vector_inv(tempv, ewtvec);
-    return TRUE;
+    return true;
 }
 
 /******************* CVHin ***************************************
 
  This routine computes a tentative initial step size h0.
- If tout is too close to tn (= t0), then CVHin returns FALSE and
+ If tout is too close to tn (= t0), then CVHin returns false and
  h remains uninitialized. Otherwise, CVHin sets h to the chosen
- value h0 and returns TRUE.
+ value h0 and returns true.
 
  The algorithm used seeks to find h0 as a solution of
        (WRMS norm of (h0^2 ydd / 2)) = 1,
@@ -1202,13 +1202,13 @@ cv_hin(CVodeMem cv_mem, double tout) {
     /* Test for tout too close to tn */
 
     if ((tdiff = tout - tn) == ZERO)
-        return FALSE;
+        return false;
 
     sign = (tdiff > ZERO) ? 1 : -1;
     tdist = ABS(tdiff);
     tround = uround*MAX(ABS(tn), ABS(tout));
     if (tdist < TWO*tround)
-        return FALSE;
+        return false;
 
     /* Set lower and upper bounds on h0, and take geometric mean
        Exit with this value if the bounds cross each other       */
@@ -1220,7 +1220,7 @@ cv_hin(CVodeMem cv_mem, double tout) {
         if (sign == -1)
             hg = -hg;
         h = hg;
-        return TRUE;
+        return true;
     }
 
     /* Loop up to MAX_ITERS times to find h0.
@@ -1257,7 +1257,7 @@ cv_hin(CVodeMem cv_mem, double tout) {
     if (sign == -1)
         h0 = -h0;
     h = h0;
-    return TRUE;
+    return true;
 }
 
 /******************** CVUpperBoundH0 ******************************
@@ -1970,7 +1970,7 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
                     (ABS(gamrat - ONE) > DGMAX);
     } else {
         crate = ONE;
-        callSetup = FALSE;
+        callSetup = false;
     }
 
     /* Looping point for the solution of the nonlinear system.
@@ -1986,7 +1986,7 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
             ier = lsetup(cv_mem, convfail, zn[0], ftemp, &jcur, vtemp1, vtemp2,
                          vtemp3);
             nsetups++;
-            callSetup = FALSE;
+            callSetup = false;
             gamrat = crate = ONE;
             gammap = gamma;
             nstlp = nst;
@@ -2010,7 +2010,7 @@ cv_nls_newton(CVodeMem cv_mem, int32 nflag) {
         if (ier != TRY_AGAIN)
             return ier;
 
-        callSetup = TRUE;
+        callSetup = true;
         convfail = FAIL_BAD_J;
     }
 }
@@ -2073,7 +2073,7 @@ cv_newton_iteration(CVodeMem cv_mem) {
 
         if (dcon <= ONE) {
             acnrm = (m == 0) ? del : vector_wrms_norm(acor, ewt);
-            jcur = FALSE;
+            jcur = false;
             return SOLVED; /* Nonlinear system was solved successfully */
         }
 
@@ -2183,10 +2183,10 @@ cv_restore(CVodeMem cv_mem, double saved_t) {
  The weighted local error norm dsm is loaded into *dsmPtr, and
  the test dsm ?<= 1 is made.
 
- If the test passes, cv_do_error_test returns TRUE.
+ If the test passes, cv_do_error_test returns true.
 
  If the test fails, we undo the step just taken (call CVRestore),
- set *nflagPtr to PREV_ERR_FAIL, and return FALSE.
+ set *nflagPtr to PREV_ERR_FAIL, and return false.
 
  If MXNEF error test failures have occurred or if ABS(h) = hmin,
  we set *kflagPtr = REP_ERR_FAIL. (Otherwise *kflagPtr has the
@@ -2204,10 +2204,10 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
 
     dsm = acnrm / tq[2];
 
-    /* If est. local error norm dsm passes test, return TRUE */
+    /* If est. local error norm dsm passes test, return true */
     *dsmPtr = dsm;
     if (dsm <= ONE)
-        return TRUE;
+        return true;
 
     /* Test failed; increment counters, set nflag, and restore zn array */
     (*nefPtr)++;
@@ -2218,7 +2218,7 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
     /* At MXNEF failures or |h| = hmin, return with kflag = REP_ERR_FAIL */
     if ((ABS(h) <= hmin*ONEPSM) || (*nefPtr == MXNEF)) {
         *kflagPtr = REP_ERR_FAIL;
-        return FALSE;
+        return false;
     }
 
     /* Set etamax = 1 to prevent step size increase at end of this step */
@@ -2231,7 +2231,7 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
         if (*nefPtr >= SMALL_NEF)
             eta = MIN(eta, ETAMXF);
         cv_rescale(cv_mem);
-        return FALSE;
+        return false;
     }
 
     /* After MXNEF1 failures, force an order reduction and retry step */
@@ -2242,7 +2242,7 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
         q--;
         qwait = L;
         cv_rescale(cv_mem);
-        return FALSE;
+        return false;
     }
 
     /* If already at order 1, restart: reload zn from scratch */
@@ -2253,7 +2253,7 @@ cv_do_error_test(CVodeMem cv_mem, int32 *nflagPtr, int32 *kflagPtr,
     f(N, tn, zn[0], tempv, f_data);
     nfe++;
     vector_scale(h, tempv, zn[1]);
-    return FALSE;
+    return false;
 }
 
 /*************** CVCompleteStep **********************************

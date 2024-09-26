@@ -33,7 +33,7 @@
  *                                                                *
  * iopt[SPGMR_NPE]  : number of preconditioner evaluations,       *
  *                    i.e. of calls made to user's precond        *
- *                    function with jok == FALSE.                 *
+ *                    function with jok == false.                 *
  *                                                                *
  * iopt[SPGMR_NLI]  : number of linear iterations.                *
  *                                                                *
@@ -138,18 +138,18 @@ enum {
  *                                                                *
  * jok     is an input flag indicating whether Jacobian-related   *
  *         data needs to be recomputed, as follows:               *
- *           jok == FALSE means recompute Jacobian-related data   *
+ *           jok == false means recompute Jacobian-related data   *
  *                  from scratch.                                 *
- *           jok == TRUE  means that Jacobian data, if saved from *
+ *           jok == true  means that Jacobian data, if saved from *
  *                  the previous Precond call, can be reused      *
  *                  (with the current value of gamma).            *
- *         A Precond call with jok == TRUE can only occur after   *
- *         a call with jok == FALSE.                              *
+ *         A Precond call with jok == true can only occur after   *
+ *         a call with jok == false.                              *
  *                                                                *
  * jcurPtr is a pointer to an output int64 flag which is        *
  *         to be set by Precond as follows:                       *
- *         Set *jcurPtr = TRUE if Jacobian data was recomputed.   *
- *         Set *jcurPtr = FALSE if Jacobian data was not          *
+ *         Set *jcurPtr = true if Jacobian data was recomputed.   *
+ *         Set *jcurPtr = false if Jacobian data was not          *
  *                        recomputed, but saved data was reused.  *
  *                                                                *
  * gamma   is the scalar appearing in the Newton matrix.          *

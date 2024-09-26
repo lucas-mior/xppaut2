@@ -368,8 +368,8 @@ void vector_compare(double c, Vector x, Vector z);
  *             before inverting x[i].                          *
  *-------------------------------------------------------------*
  *                                                             *
- * This routine returns TRUE if all components of x are        *
- * non-zero (successful inversion) and returns FALSE           *
+ * This routine returns true if all components of x are        *
+ * non-zero (successful inversion) and returns false           *
  * otherwise.                                                  *
  *                                                             *
  ***************************************************************/

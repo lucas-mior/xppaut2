@@ -1795,10 +1795,10 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
 
     /*        B CONTAINS A REAL GENERAL MATRIX. */
 
-    /*        MATZ SHOULD BE SET TO .TRUE. IF THE RIGHT HAND TRANSFORMATIONS
+    /*        MATZ SHOULD BE SET TO .true. IF THE RIGHT HAND TRANSFORMATIONS
      */
     /*          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING */
-    /*          EIGENVECTORS, AND TO .FALSE. OTHERWISE. */
+    /*          EIGENVECTORS, AND TO .false. OTHERWISE. */
 
     /*     ON OUTPUT */
 
@@ -1809,7 +1809,7 @@ qzhes(int64 nm, int64 n, double *a, double *b, int64 matz, double *z__) {
     /*          BELOW THE MAIN DIAGONAL HAVE BEEN SET TO ZERO. */
 
     /*        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS IF */
-    /*          MATZ HAS BEEN SET TO .TRUE.  OTHERWISE, Z IS NOT REFERENCED.
+    /*          MATZ HAS BEEN SET TO .true.  OTHERWISE, Z IS NOT REFERENCED.
      */
 
     /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
@@ -2100,15 +2100,15 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
     /*          POSITIVE VALUE OF EPS1 MAY RESULT IN FASTER EXECUTION, */
     /*          BUT LESS ACCURATE RESULTS. */
 
-    /*        MATZ SHOULD BE SET TO .TRUE. IF THE RIGHT HAND TRANSFORMATIONS
+    /*        MATZ SHOULD BE SET TO .true. IF THE RIGHT HAND TRANSFORMATIONS
      */
     /*          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING */
-    /*          EIGENVECTORS, AND TO .FALSE. OTHERWISE. */
+    /*          EIGENVECTORS, AND TO .false. OTHERWISE. */
 
-    /*        Z CONTAINS, IF MATZ HAS BEEN SET TO .TRUE., THE */
+    /*        Z CONTAINS, IF MATZ HAS BEEN SET TO .true., THE */
     /*          TRANSFORMATION MATRIX PRODUCED IN THE REDUCTION */
     /*          BY  QZHES, IF PERFORMED, OR ELSE THE IDENTITY MATRIX. */
-    /*          IF MATZ HAS BEEN SET TO .FALSE., Z IS NOT REFERENCED. */
+    /*          IF MATZ HAS BEEN SET TO .false., Z IS NOT REFERENCED. */
 
     /*     ON OUTPUT */
 
@@ -2122,7 +2122,7 @@ qzit(int64 nm, int64 n, double *a, double *b, double eps1, int64 matz,
      */
 
     /*        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS */
-    /*          (FOR BOTH STEPS) IF MATZ HAS BEEN SET TO .TRUE.. */
+    /*          (FOR BOTH STEPS) IF MATZ HAS BEEN SET TO .true.. */
 
     /*        IERR IS SET TO */
     /*          ZERO       FOR NORMAL RETURN, */
@@ -2609,15 +2609,15 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     /*          LOCATION B(N,1) CONTAINS THE TOLERANCE QUANTITY (EPSB) */
     /*          COMPUTED AND SAVED IN  QZIT. */
 
-    /*        MATZ SHOULD BE SET TO .TRUE. IF THE RIGHT HAND TRANSFORMATIONS
+    /*        MATZ SHOULD BE SET TO .true. IF THE RIGHT HAND TRANSFORMATIONS
      */
     /*          ARE TO BE ACCUMULATED FOR LATER USE IN COMPUTING */
-    /*          EIGENVECTORS, AND TO .FALSE. OTHERWISE. */
+    /*          EIGENVECTORS, AND TO .false. OTHERWISE. */
 
-    /*        Z CONTAINS, IF MATZ HAS BEEN SET TO .TRUE., THE */
+    /*        Z CONTAINS, IF MATZ HAS BEEN SET TO .true., THE */
     /*          TRANSFORMATION MATRIX PRODUCED IN THE REDUCTIONS BY QZHES */
     /*          AND QZIT, IF PERFORMED, OR ELSE THE IDENTITY MATRIX. */
-    /*          IF MATZ HAS BEEN SET TO .FALSE., Z IS NOT REFERENCED. */
+    /*          IF MATZ HAS BEEN SET TO .false., Z IS NOT REFERENCED. */
 
     /*     ON OUTPUT */
 
@@ -2640,7 +2640,7 @@ qzval(int64 nm, int64 n, double *a, double *b, double *alfr, double *alfi,
     /*          EIGENVALUES ARE THEN THE RATIOS ((ALFR+I*ALFI)/BETA). */
 
     /*        Z CONTAINS THE PRODUCT OF THE RIGHT HAND TRANSFORMATIONS */
-    /*          (FOR ALL THREE STEPS) IF MATZ HAS BEEN SET TO .TRUE. */
+    /*          (FOR ALL THREE STEPS) IF MATZ HAS BEEN SET TO .true. */
 
     /*     QUESTIONS AND COMMENTS SHOULD BE DIRECTED TO BURTON S. GARBOW, */
     /*     MATHEMATICS AND COMPUTER SCIENCE DIV, ARGONNE NATIONAL LABORATORY
@@ -2973,7 +2973,7 @@ epslon(double x) {
     /*     THE STATEMENT NUMBER 10 AND THE GO TO 10 ARE INTENDED TO */
     /*     FORCE OPTIMIZING COMPILERS TO GENERATE CODE SATISFYING */
     /*     ASSUMPTION 2. */
-    /*     UNDER THESE ASSUMPTIONS, IT SHOULD BE TRUE THAT, */
+    /*     UNDER THESE ASSUMPTIONS, IT SHOULD BE true THAT, */
     /*            A  IS NOT EXACTLY EQUAL TO FOUR-THIRDS, */
     /*            B  HAS A ZERO FOR ITS LAST BIT OR DIGIT, */
     /*            C  IS NOT EXACTLY EQUAL TO ONE, */
@@ -3745,7 +3745,7 @@ lsame(char *ca, char *cb, int64 ca_len, int64 cb_len) {
     /*  ======= */
 
     /*  LSAME  tests if CA is the same letter as CB regardless of case. */
-    /*  CB is assumed to be an upper case letter. LSAME returns .TRUE. if */
+    /*  CB is assumed to be an upper case letter. LSAME returns .true. if */
     /*  CA is either the same as CB or the equivalent lower case letter. */
 
     /*  N.B. This version of the routine is only correct for ASCII code. */
@@ -6570,10 +6570,10 @@ exchng(double *a, double *v, int64 *n, int64 *l, int64 *b1, int64 *b2,
     /*     B2      AN int64 CONTAINING THE SIZE OF THE */
     /*             SECOND BLOCK. */
     /*     EPS     A CONVERGENCE CRITERION (CF. HQR3). */
-    /*    *FAIL    A LOGICAL VARIABLE WHICH IS FALSE ON A */
+    /*    *FAIL    A LOGICAL VARIABLE WHICH IS false ON A */
     /*             NORMAL RETURN.  IF THIRTY ITERATIONS WERE */
     /*             PERFORMED WITHOUT CONVERGENCE, FAIL IS SET */
-    /*             TO TRUE AND THE ELEMENT */
+    /*             TO true AND THE ELEMENT */
     /*             A(L+B2,L+B2-1) CANNOT BE ASSUMED ZERO. */
     /*     NA      THE FIRST DIMENSION OF THE ARRAY A. */
     /*     NV      THE FIRST DIMENSION OF THE ARRAY V. */
