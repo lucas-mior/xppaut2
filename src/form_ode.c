@@ -104,7 +104,7 @@ static void form_ode_add_only(char *s);
 static int32 form_ode_do_new_parser(FILE *fp, char *first, int32 nnn);
 static int32 form_ode_if_end_include(char *old);
 static int32 form_ode_if_include_file(char *old, char *nf);
-static void clrscr(void);
+static void form_ode_clrscr(void);
 static void form_ode_find_ker(char *string, int32 *alt);
 static void form_ode_take_apart(char *bob, double *value, char *name);
 static void form_ode_list_em(char *wild);
@@ -128,7 +128,7 @@ form_ode_make_eqn(void) {
         return 0;
     }
     strcpy(this_file, string);
-    clrscr();
+    form_ode_clrscr();
     okay = form_ode_get_eqn(fptr);
     fclose(fptr);
     return okay;
@@ -928,7 +928,7 @@ form_ode_find_ker(char *string, int32 *alt) {
 }
 
 void
-clrscr(void) {
+form_ode_clrscr(void) {
     system("clear");
     return;
 }
