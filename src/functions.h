@@ -850,6 +850,7 @@ typedef struct InternSet {
     uint32 use;
 } InternSet;
 
+extern InternSet intern_set[MAX_INTERN_SET];
 extern int32 RunImmediately;
 extern int32 MultiWin;
 extern int32 START_LINE_TYPE;
@@ -864,7 +865,6 @@ extern double X_LO[10];
 extern double Y_LO[10];
 extern double X_HI[10];
 extern double Y_HI[10];
-extern InternSet intern_set[MAX_INTERN_SET];
 extern double last_ic[MAX_ODE];
 extern char delay_string[MAX_ODE][80];
 extern int32 itor[MAX_ODE];
