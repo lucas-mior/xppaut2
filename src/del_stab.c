@@ -46,7 +46,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
     double colnorm = 0, colmax, colsum;
     double *work, old_x[MAX_ODE], sign;
     double *coef, yp[MAX_ODE], y[MAX_ODE], xp[MAX_ODE], dx;
-    int32 kmem = n*(2*n + 5) + 50, i, j, okroot;
+    int32 kmem = n*(2*n + 5) + 50, i, okroot;
 
     double *ev;
     ev = xmalloc((usize)(2*n)*sizeof(*ev));
@@ -84,12 +84,12 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
 
     for (i = 0; i < n; i++) {
         colsum = 0.0;
-        for (j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++)
             xp[j] = x[j];
         dx = eps*gear_amax(eps, fabs(x[i]));
         xp[i] = xp[i] + dx;
         rhs_function(0.0, xp, yp, n);
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             coef[j*n + i] = (yp[j] - y[j]) / dx;
             colsum += fabs(coef[j*n + i]);
         }
@@ -97,7 +97,7 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
             colmax = colsum;
     }
     colnorm = colmax;
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         xp[j] = x[j];
     /* now the jacobians for the delays */
     for (int32 k = 0; k < NDelay; k++) {
@@ -105,13 +105,13 @@ del_stab_do_delay_sing(double *x, double eps, double err, double big,
         colmax = 0.0;
         for (i = 0; i < n; i++) {
             colsum = 0.0;
-            for (j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++)
                 variable_shift[1][j] = variable_shift[0][j];
             dx = eps*gear_amax(eps, fabs(x[i]));
             variable_shift[1][i] = x[i] + dx;
             rhs_function(0.0, x, yp, n);
             variable_shift[1][i] = x[i];
-            for (j = 0; j < n; j++) {
+            for (int32 j = 0; j < n; j++) {
                 coef[j*n + i + n*n*(k + 1)] = (yp[j] - y[j]) / dx;
                 colsum += fabs(coef[j*n + i + n*n*(k + 1)]);
             }
@@ -184,8 +184,7 @@ del_stab_c_exp2(COMPLEX z) {
 void
 del_stab_switch_rows(COMPLEX *z, int32 i1, int32 i2, int32 n) {
     COMPLEX zt;
-    int32 j;
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         zt = Z(i1, j, n);
         Z(i1, j, n) = Z(i2, j, n);
         Z(i2, j, n) = zt;
@@ -208,11 +207,11 @@ del_stab_z_abs(COMPLEX z) {
 
 COMPLEX
 del_stab_z_determ(COMPLEX *z, int32 n) {
-    int32 j, imax = 0;
+    int32 imax = 0;
     double q;
     double qmax;
     COMPLEX sign = del_stab_rtoc(1.0, 0.0), mult, sum, zd;
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         qmax = 0.0;
         for (int32 i = j; i < n; i++) {
             q = del_stab_z_abs(Z(i, j, n));
@@ -236,7 +235,7 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
         }
     }
     sum = sign;
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         sum = del_stab_z_mult(sum, Z(j, j, n));
     return sum;
 }
@@ -244,11 +243,11 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
 void
 del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                 COMPLEX lambda) {
-    int32 j, km;
+    int32 km;
     COMPLEX temp;
     COMPLEX eld;
 
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         for (int32 i = 0; i < n; i++) {
             if (i == j)
                 temp = lambda;
@@ -266,7 +265,7 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
-        for (j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++)
             for (int32 i = 0; i < n; i++)
                 z[i + j*n] = del_stab_z_dif(
                     z[i + j*n],
@@ -366,7 +365,7 @@ del_stab_process_root(double real, double im) {
 double
 del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
                  COMPLEX lambda) {
-    int32 j, km;
+    int32 km;
     COMPLEX *z;
     COMPLEX temp;
     COMPLEX eld;
@@ -374,7 +373,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
     if (m == 0)
         return 0; /* no delays so don't use this! */
     z = xmalloc(sizeof(*z)*(usize)(n*n));
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         for (int32 i = 0; i < n; i++) {
             if (i == j)
                 temp = lambda;
@@ -392,7 +391,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
         eld = del_stab_c_exp2(
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
-        for (j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++)
             for (int32 i = 0; i < n; i++)
                 z[i + j*n] = del_stab_z_dif(
                     z[i + j*n],

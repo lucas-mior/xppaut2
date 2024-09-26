@@ -126,7 +126,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
     choice_box_do_checks(p);
     while (true) {
         /* choice_box_event_loop */
-        int32 j, nn = p.n;
+        int32 nn = p.n;
         XEvent event;
         XNextEvent(display, &event);
 
@@ -150,7 +150,7 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
             for (int32 i = 0; i < nn; i++) {
                 if (event.xbutton.window == p.cw[i]) {
                     if (p.type == RADIO) {
-                        for (j = 0; j < nn; j++)
+                        for (int32 j = 0; j < nn; j++)
                             p.flag[j] = 0;
                         p.flag[i] = 1;
                         choice_box_do_checks(p);

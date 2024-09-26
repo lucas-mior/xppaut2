@@ -112,7 +112,6 @@ band_print(BandMat A) {
 double **
 band_alloc2(int64 n, int64 smu, int64 ml) {
     double **a;
-    int64 j;
     int64 colSize;
 
     if (n <= 0)
@@ -129,7 +128,7 @@ band_alloc2(int64 n, int64 smu, int64 ml) {
         return NULL;
     }
 
-    for (j = 1; j < n; j++)
+    for (int32 j = 1; j < n; j++)
         a[j] = a[0] + j*colSize;
 
     return a;
@@ -146,7 +145,7 @@ band_alloc_piv2(int64 n) {
 int64
 band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
     int64 c, r, num_rows;
-    int64 i, j, l, storage_l, storage_k, last_col_k, last_row_k;
+    int64 i, l, storage_l, storage_k, last_col_k, last_row_k;
     double *a_c, *col_k, *diag_k, *sub_diag_k, *col_j, *kptr, *jptr;
     double max, temp, mult, a_kj;
     bool swap;
@@ -213,7 +212,7 @@ band_gbfa(double **a, int64 n, int64 mu, int64 ml, int64 smu, int64 *p) {
         /* column j=k+1, ..., MIN(k+smu,n-1).                               */
 
         last_col_k = MIN(k + smu, n - 1);
-        for (j = k + 1; j <= last_col_k; j++) {
+        for (int64 j = k + 1; j <= last_col_k; j++) {
             col_j = a[j];
             storage_l = ROW(l, j, smu);
             storage_k = ROW(k, j, smu);
@@ -285,11 +284,11 @@ band_gbsl(double **a, int64 n, int64 smu, int64 ml, int64 *p, double *b) {
 
 void
 band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
-    int64 j, colSize;
+    int64 colSize;
     double *col_j;
 
     colSize = mu + ml + 1;
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         col_j = a[j] + smu - mu;
         for (int32 i = 0; i < colSize; i++)
             col_j[i] = ZERO;
@@ -300,13 +299,13 @@ band_zero2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 void
 band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
            int64 copymu, int64 copyml) {
-    int64 j, copySize;
+    int64 copySize;
     double *a_col_j;
     double *b_col_j;
 
     copySize = copymu + copyml + 1;
 
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         a_col_j = a[j] + a_smu - copymu;
         b_col_j = b[j] + b_smu - copymu;
         for (int32 i = 0; i < copySize; i++)
@@ -317,12 +316,12 @@ band_copy2(double **a, double **b, int64 n, int64 a_smu, int64 b_smu,
 
 void
 band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
-    int64 j, colSize;
+    int64 colSize;
     double *col_j;
 
     colSize = mu + ml + 1;
 
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         col_j = a[j] + smu - mu;
         for (int32 i = 0; i < colSize; i++)
             col_j[i] *= c;
@@ -332,9 +331,7 @@ band_scale2(double c, double **a, int64 n, int64 mu, int64 ml, int64 smu) {
 
 void
 band_add_i2(double **a, int64 n, int64 smu) {
-    int64 j;
-
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         a[j][smu] += ONE;
     return;
 }
@@ -354,15 +351,15 @@ band_free2(double **a) {
 
 void
 band_print2(double **a, int64 n, int64 mu, int64 ml, int64 smu) {
-    int64 j, start, finish;
+    int64 start, finish;
 
     ggets_plintf("\n");
     for (int64 i = 0; i < n; i++) {
         start = MAX(0, i - ml);
         finish = MIN(n - 1, i + mu);
-        for (j = 0; j < start; j++)
+        for (int32 j = 0; j < start; j++)
             ggets_plintf("%10s", "");
-        for (j = start; j <= finish; j++) {
+        for (int64 j = start; j <= finish; j++) {
             ggets_plintf("%10g", a[j][i - j + smu]);
         }
         ggets_plintf("\n");

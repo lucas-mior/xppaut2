@@ -1469,7 +1469,7 @@ convert(char *source, char *dest) {
 void
 find_tok(char *source, int32 *index, int32 *tok) {
     int32 i = *index, maxlen = 0, symlen;
-    int32 j, my_tok, match;
+    int32 my_tok, match;
     my_tok = NSYM;
     for (int32 k = 0; k < NSYM; k++) {
         symlen = my_symb[k].len;
@@ -1477,7 +1477,7 @@ find_tok(char *source, int32 *index, int32 *tok) {
             continue;
 
         match = 1;
-        for (j = 0; j < symlen; j++) {
+        for (int32 j = 0; j < symlen; j++) {
             if (source[i + j] != my_symb[k].name[j]) {
                 match = 0;
                 break;
@@ -1524,7 +1524,6 @@ bessel_y(double x, double y) {
 
 double
 bessi(double nn, double x) {
-    int32 j;
     int32 n;
     double bi, bim, bip, tox, ans;
     n = (int32)nn;
@@ -1538,7 +1537,7 @@ bessi(double nn, double x) {
         tox = 2.0 / fabs(x);
         bip = ans = 0.0;
         bi = 1.0;
-        for (j = 2*(n + (int32)(sqrt(ACC*n))); j > 0; j--) {
+        for (int32 j = 2*(n + (int32)(sqrt(ACC*n))); j > 0; j--) {
             bim = bip + j*tox*bi;
             bip = bi;
             bi = bim;
@@ -1615,7 +1614,6 @@ bessi1(double x) {
 
 double
 bessis(double nn, double x) {
-    int32 j;
     int32 n;
     double bi, bim, bip, tox, ans;
     n = (int32)nn;
@@ -1629,7 +1627,7 @@ bessis(double nn, double x) {
         tox = 2.0 / fabs(x);
         bip = ans = 0.0;
         bi = 1.0;
-        for (j = 2*(n + (int32)(sqrt(ACC*n))); j > 0; j--) {
+        for (int32 j = 2*(n + (int32)(sqrt(ACC*n))); j > 0; j--) {
             bim = bip + j*tox*bi;
             bip = bi;
             bi = bim;

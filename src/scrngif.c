@@ -147,11 +147,11 @@ scrngif_local_to_global(void) {
 int32
 scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r, g, b;
-    int32 j, k = 0, l = 0;
+    int32 k = 0, l = 0;
     int32 pix;
     int32 nc;
     for (int32 i = 0; i < h; i++) {
-        for (j = 0; j < w; j++) {
+        for (int32 j = 0; j < w; j++) {
             r = ppm[k];
             g = ppm[k + 1];
             b = ppm[k + 2];
@@ -169,10 +169,10 @@ scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
 int32
 scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r, g, b;
-    int32 j, k = 0, l = 0;
+    int32 k = 0, l = 0;
     int32 pix, ncol = 0;
     for (int32 i = 0; i < h; i++) {
-        for (j = 0; j < w; j++) {
+        for (int32 j = 0; j < w; j++) {
             r = ppm[k];
             g = ppm[k + 1];
             b = ppm[k + 2];

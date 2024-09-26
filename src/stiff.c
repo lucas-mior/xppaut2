@@ -44,7 +44,6 @@
 void
 stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
              double *work, int32 n) {
-    int32 j;
     double r;
     double *yval, *ynew, ytemp;
     yval = work;
@@ -62,7 +61,7 @@ stiff_jacobn(double x, double *y, double *dfdx, double *dermat, double eps,
         r = eps*MAX(eps, fabs(ytemp));
         y[i] = ytemp + r;
         rhs_function(x, y, ynew, n);
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             dermat[j*n + i] = (ynew[j] - yval[j]) / r;
         }
         y[i] = ytemp;
@@ -145,7 +144,7 @@ int32
 stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
       double yscal[], double *hdid, double *hnext, double *work, double epjac,
       int32 *ier) {
-    int32 j, jtry, indx[700];
+    int32 jtry, indx[700];
     int32 info;
     double errmax, h, xsav, *a, *dfdx, *dfdy, *dysav, *err;
     double *g1, *g2, *g3, *g4, *ysav, *work2;
@@ -171,7 +170,7 @@ stiff(double y[], double dydx[], int32 n, double *x, double htry, double eps,
     h = htry;
     for (jtry = 1; jtry <= MAXTRY; jtry++) {
         for (int32 i = 0; i < n; i++) {
-            for (j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++)
                 a[i + n*j] = -dfdy[i + n*j];
             a[i + n*i] += 1.0 / (GAM*h);
         }

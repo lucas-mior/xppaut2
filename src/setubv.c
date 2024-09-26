@@ -279,8 +279,6 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *thu, double *p0, double *p1) {
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
-    int64 j;
-
     double *wi, *wp, *wt;
 
     (void)p0;
@@ -320,17 +318,17 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     /*  NA is the local node's mesh interval number. */
 
     for (int32 i = 0; i < na; ++i) {
-        for (j = 0; j < nra; ++j) {
+        for (int32 j = 0; j < nra; ++j) {
             for (int32 k = 0; k < nca; ++k) {
                 ARRAY3D(aa, k, j, i) = 0.;
             }
         }
-        for (j = 0; j < nra; ++j) {
+        for (int32 j = 0; j < nra; ++j) {
             for (int32 k = 0; k < ncb; ++k) {
                 ARRAY3D(bb, k, j, i) = 0.;
             }
         }
-        for (j = 0; j < nca; ++j) {
+        for (int32 j = 0; j < nca; ++j) {
             for (int32 k = 0; k < nrc; ++k) {
                 ARRAY3D(cc, j, k, i) = 0.;
             }

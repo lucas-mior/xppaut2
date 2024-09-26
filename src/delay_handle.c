@@ -186,7 +186,7 @@ delay_handle_get_delay(int32 in, double tau) {
 int32
 delay_handle_do_init_delay(double big) {
     double t = T0, old_t, y[MAX_ODE];
-    int32 nt, j;
+    int32 nt;
     int32 len;
 
     int32 *del_form[MAX_ODE];
@@ -197,7 +197,7 @@ delay_handle_do_init_delay(double big) {
         del_form[i] = (int32 *)calloc(200, sizeof(int32));
         if (del_form[i] == NULL) {
             ggets_err_msg("Failed to allocate delay formula ...");
-            for (j = 0; j < i; j++)
+            for (int32 j = 0; j < i; j++)
                 free(del_form[j]);
             NCON = NCON_START;
             NSYM = NSYM_START;
@@ -206,7 +206,7 @@ delay_handle_do_init_delay(double big) {
 
         if (parserslow_add_expr(delay_string[i], del_form[i], &len)) {
             ggets_err_msg("Illegal delay expression");
-            for (j = 0; j <= i; j++)
+            for (int32 j = 0; j <= i; j++)
                 free(del_form[j]);
             NCON = NCON_START;
             NSYM = NSYM_START;
@@ -220,11 +220,11 @@ delay_handle_do_init_delay(double big) {
     for (int32 i = nt; i >= 0; i--) {
         t = T0 - fabs(DELTA_T)*i;
         set_val("t", t);
-        for (j = 0; j < (NODE); j++)
+        for (int32 j = 0; j < (NODE); j++)
             y[j] = evaluate(del_form[j]);
         delay_handle_stor_delay(y);
     }
-    for (j = 0; j < (NODE); j++)
+    for (int32 j = 0; j < (NODE); j++)
         free(del_form[j]);
     NCON = NCON_START;
     NSYM = NSYM_START;

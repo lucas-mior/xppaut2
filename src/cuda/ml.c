@@ -66,7 +66,7 @@ cuda_update_sums(double *s, double *wgt, int n) {
     int j;
     for (int32 i = 0; i < n; i++) {
         sum[i] = 0.0;
-        for (j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++)
             sum[i] += (s[j]*wgt[j + i*n]);
     }
 }

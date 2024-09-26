@@ -1105,7 +1105,7 @@ void
 simplenet_eval_all_nets(void) {
     for (int32 ind = 0; ind < n_network; ind++) {
         /* evaluate network */
-        int32 i, j, k, ij;
+        int32 i, k, ij;
         int32 imin;
         int32 imax;
         double ymin, ymax;
@@ -1174,7 +1174,7 @@ simplenet_eval_all_nets(void) {
             y = &variables[root];
             for (i = 0; i < n; i++) {
                 sum = 0.0;
-                for (j = -ncon; j <= ncon; j++) {
+                for (int32 j = -ncon; j <= ncon; j++) {
                     k = ABS(i + j);
                     if (k < twon) {
                         if (k >= n)
@@ -1189,7 +1189,7 @@ simplenet_eval_all_nets(void) {
             y = &variables[root];
             for (i = 0; i < n; i++) {
                 sum = 0.0;
-                for (j = -ncon; j <= ncon; j++) {
+                for (int32 j = -ncon; j <= ncon; j++) {
                     k = i + j;
                     if (k < n && k >= 0)
                         sum += (w[j + ncon]*y[k]);
@@ -1201,7 +1201,7 @@ simplenet_eval_all_nets(void) {
             y = &variables[root];
             for (i = 0; i < n; i++) {
                 sum = 0.0;
-                for (j = -ncon; j <= ncon; j++) {
+                for (int32 j = -ncon; j <= ncon; j++) {
                     k = ((twon + i + j) % n);
                     sum += (w[j + ncon]*y[k]);
                 }
@@ -1231,7 +1231,7 @@ simplenet_eval_all_nets(void) {
         case DEL_MUL:
             tau = my_net[ind].taud;
             in0 = my_net[ind].root;
-            for (j = 0; j < n; j++) {
+            for (int32 j = 0; j < n; j++) {
                 sum = 0.0;
                 for (i = 0; i < ncon; i++) {
                     ij = j*ncon + i;
@@ -1242,7 +1242,7 @@ simplenet_eval_all_nets(void) {
             break;
         case MMULT:
             y = &variables[root];
-            for (j = 0; j < n; j++) {
+            for (int32 j = 0; j < n; j++) {
                 sum = 0.0;
                 for (i = 0; i < ncon; i++) {
                     ij = j*ncon + i;
@@ -1256,7 +1256,7 @@ simplenet_eval_all_nets(void) {
             in0 = my_net[ind].root;
             for (i = 0; i < n; i++) {
                 sum = 0.0;
-                for (j = 0; j < ncon; j++) {
+                for (int32 j = 0; j < ncon; j++) {
                     ij = i*ncon + j;
                     k = (int32)cc[ij];
                     if (k >= 0)
@@ -1270,7 +1270,7 @@ simplenet_eval_all_nets(void) {
             y = &variables[root];
             for (i = 0; i < n; i++) {
                 sum = 0.0;
-                for (j = 0; j < ncon; j++) {
+                for (int32 j = 0; j < ncon; j++) {
                     ij = i*ncon + j;
                     k = (int32)cc[ij];
                     if (k >= 0)
@@ -1287,7 +1287,7 @@ simplenet_eval_all_nets(void) {
             for (i = 0; i < n; i++) {
                 sum = 0.0;
                 f[1] = root + i;
-                for (j = -ncon; j <= ncon; j++) {
+                for (int32 j = -ncon; j <= ncon; j++) {
                     k = ABS(i + j);
                     if (k < twon) {
                         if (k >= n)
@@ -1307,7 +1307,7 @@ simplenet_eval_all_nets(void) {
             for (i = 0; i < n; i++) {
                 sum = 0.0;
                 f[1] = root + i;
-                for (j = -ncon; j <= ncon; j++) {
+                for (int32 j = -ncon; j <= ncon; j++) {
                     k = i + j;
                     if (k < n && k >= 0) {
                         f[0] = root2 + k;
@@ -1324,7 +1324,7 @@ simplenet_eval_all_nets(void) {
             for (i = 0; i < n; i++) {
                 f[1] = root + i;
                 sum = 0.0;
-                for (j = -ncon; j <= ncon; j++) {
+                for (int32 j = -ncon; j <= ncon; j++) {
                     k = ((twon + i + j) % n);
                     f[0] = root2 + k;
                     z = evaluate(f);
@@ -1339,7 +1339,7 @@ simplenet_eval_all_nets(void) {
             for (i = 0; i < n; i++) {
                 f[1] = root + i;
                 sum = 0.0;
-                for (j = 0; j < ncon; j++) {
+                for (int32 j = 0; j < ncon; j++) {
                     ij = i*ncon + j;
                     k = (int32)cc[ij];
                     if (k >= 0) {
@@ -1354,7 +1354,7 @@ simplenet_eval_all_nets(void) {
         case FMMULT:
             f = my_net[ind].f;
 
-            for (j = 0; j < n; j++) {
+            for (int32 j = 0; j < n; j++) {
                 f[1] = root + j;
 
                 sum = 0.0;

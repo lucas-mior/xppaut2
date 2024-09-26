@@ -206,7 +206,7 @@ browse_data_add_col(Browser *b) {
 
 int32
 browse_add_stor_col(char *name, char *formula, Browser *b) {
-    int32 com[4000], i, j;
+    int32 com[4000], i;
 
     if (parserslow_add_expr(formula, com, &i)) {
         ggets_err_msg("Bad Formula .... ");
@@ -230,16 +230,16 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
     }
     strcpy(ode_names[NEQ], formula);
     strupr(ode_names[NEQ]);
-    for (j = 0; j <= i; j++)
+    for (int32 j = 0; j <= i; j++)
         my_ode[NEQ + FIX_VAR][j] = com[j];
     strcpy(uvar_names[NEQ], name);
     strupr(uvar_names[NEQ]);
     for (i = 0; i < b->maxrow; i++)
         storage[NEQ + 1][i] = 0.0; /*  zero it all   */
     for (i = 0; i < b->maxrow; i++) {
-        for (j = 0; j < NODE + 1; j++)
+        for (int32 j = 0; j < NODE + 1; j++)
             set_ivar(j, (double)storage[j][i]);
-        for (j = NODE; j < NEQ; j++)
+        for (int32 j = NODE; j < NEQ; j++)
             set_val(uvar_names[j], (double)storage[j + 1][i]);
         storage[NEQ + 1][i] = (double)evaluate(com);
     }
@@ -284,7 +284,7 @@ browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
 
 void
 browse_replace_column(char *var, char *form, double **dat, int32 n) {
-    int32 com[200], i, j;
+    int32 com[200], i;
     int32 intflag = 0;
     int32 dif_var = -1;
     int32 seq = 0;
@@ -360,9 +360,9 @@ browse_replace_column(char *var, char *form, double **dat, int32 n) {
         old_rep[i] = dat[R_COL][i];
         if (dif_var < 0) {
             if (seq == 0) {
-                for (j = 0; j < NODE + 1; j++)
+                for (int32 j = 0; j < NODE + 1; j++)
                     set_ivar(j, (double)dat[j][i]);
-                for (j = NODE; j < NEQ; j++)
+                for (int32 j = NODE; j < NEQ; j++)
                     set_val(uvar_names[j], (double)dat[j + 1][i]);
                 if (intflag) {
                     sum += (double)evaluate(com);
@@ -616,7 +616,7 @@ reset_browser(void) {
 
 void
 browse_draw_data(Browser b) {
-    int32 i0, j, j0;
+    int32 i0, j0;
     int32 x0;
     char string[50];
     int32 dcol = DCURXs*14;
@@ -637,7 +637,7 @@ browse_draw_data(Browser b) {
     }
 
     /* Do data stuff   */
-    for (j = 0; j < b.ncol; j++) {
+    for (int32 j = 0; j < b.ncol; j++) {
         x0 = (j + 1)*dcol + DCURXs / 2;
         j0 = j + b.col0;
         if (j0 >= b.maxcol)
@@ -1443,7 +1443,6 @@ browse_data_write(Browser *b) {
     char fil[256];
     FILE *fp;
     int32 i;
-    int32 j;
     int32 ok;
 
     strcpy(fil, "test.dat");
@@ -1464,7 +1463,7 @@ browse_data_write(Browser *b) {
     if (!ok)
         return;
     for (i = b->istart; i < b->iend; i++) {
-        for (j = 0; j < b->maxcol; j++)
+        for (int32 j = 0; j < b->maxcol; j++)
             fprintf(fp, "%.8g ", b->data[j][i]);
         fprintf(fp, "\n");
     }

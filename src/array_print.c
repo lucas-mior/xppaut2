@@ -69,7 +69,7 @@ void
 array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
                       int32 ncskip, int32 maxrow, int32 maxcol, int32 nacross,
                       int32 ndown, double zmin, double zmax, int32 type) {
-    int32 j, ib, jb;
+    int32 ib, jb;
 
     double fill, x, y;
     double dx = (ps_scale.xmax - ps_scale.xmin);
@@ -83,7 +83,7 @@ array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
         ib = col0 + i*ncskip;
         if (ib > maxcol)
             return;
-        for (j = 0; j < ndown; j++) {
+        for (int32 j = 0; j < ndown; j++) {
             jb = row0 + j*nskip;
             if (jb < maxrow && jb >= 0) {
                 fill = (z[ib][jb] - zmin) / (zmax - zmin);

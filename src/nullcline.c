@@ -388,12 +388,11 @@ void
 nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
                          double du, double dv, int32 n, int32 inx, int32 iny,
                          double *mdf) {
-    int32 j;
     double amp, dxp, dyp;
     *mdf = 0.0;
     for (int32 i = 0; i <= n; i++) {
         y[inx] = u0 + du*i;
-        for (j = 0; j <= n; j++) {
+        for (int32 j = 0; j <= n; j++) {
             y[iny] = v0 + dv*j;
             rhs_function(0.0, y, ydot, NODE);
             main_rhs_extra(y, 0.0, NODE, NEQ);
@@ -476,7 +475,6 @@ nullcline_do_batch_dfield(void) {
 
 void
 nullcline_redraw_dfield(void) {
-    int32 j;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
@@ -518,7 +516,7 @@ nullcline_redraw_dfield(void) {
     }
     for (int32 i = 0; i <= grid; i++) {
         y[inx] = u0 + du*i;
-        for (j = 0; j <= grid; j++) {
+        for (int32 j = 0; j <= grid; j++) {
             y[iny] = v0 + dv*j;
             rhs_function(0.0, y, ydot, NODE);
             main_rhs_extra(y, 0.0, NODE, NEQ);
@@ -574,7 +572,7 @@ nullcline_redraw_dfield(void) {
 
 void
 nullcline_direct_field_com(int32 c) {
-    int32 j, start;
+    int32 start;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
@@ -632,7 +630,7 @@ nullcline_direct_field_com(int32 c) {
 
         for (int32 i = 0; i <= grid; i++) {
             y[inx] = u0 + du*i;
-            for (j = 0; j <= grid; j++) {
+            for (int32 j = 0; j <= grid; j++) {
                 y[iny] = v0 + dv*j;
                 rhs_function(0.0, y, ydot, NODE);
                 main_rhs_extra(y, 0.0, NODE, NEQ);
@@ -681,7 +679,7 @@ nullcline_direct_field_com(int32 c) {
     SuppressBounds = 1;
     for (int32 k = 0; k < 2; k++) {
         for (int32 i = 0; i <= grid; i++)
-            for (j = 0; j <= grid; j++) {
+            for (int32 j = 0; j <= grid; j++) {
                 integrate_get_ic(2, y);
                 y[inx] = u0 + du*i;
                 y[iny] = v0 + dv*j;
@@ -968,7 +966,6 @@ nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     double x;
     double y;
     Point p[5];
-    int32 j;
     int32 nx = ngrid + 1;
     int32 ny = ngrid + 1;
 
@@ -978,7 +975,7 @@ nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
         NBot[i] = nullcline_fnull(x, y);
     }
 
-    for (j = 1; j < ny; j++) {
+    for (int32 j = 1; j < ny; j++) {
         y = y2 - j*dy;
         NTop[0] = NBot[0];
         NBot[0] = nullcline_fnull(x1, y);

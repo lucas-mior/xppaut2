@@ -158,7 +158,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
     double beta, rotation_product, r_norm, s_product, rho = 0.0;
     bool preOnLeft, preOnRight, scale_x, scale_b, converged;
-    int32 j, l, l_plus_1, l_max, krydim = 0, ier, ntries;
+    int32 l, l_plus_1, l_max, krydim = 0, ier, ntries;
 
     if (mem == NULL)
         return SPGMR_MEM_NULL;
@@ -241,7 +241,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
            product.  Normalize the initial vector V[0].             */
 
         for (int32 i = 0; i <= l_max; i++)
-            for (j = 0; j < l_max; j++)
+            for (int32 j = 0; j < l_max; j++)
                 Hes[i][j] = ZERO;
 
         rotation_product = ONE;
@@ -448,9 +448,7 @@ spgmr_free(SpgmrMem mem) {
 
 static void
 spgmr_free_vector_array(Vector *A, int32 indMax) {
-    int32 j;
-
-    for (j = 0; j <= indMax; j++)
+    for (int32 j = 0; j <= indMax; j++)
         vector_free(A[j]);
 
     free(A);

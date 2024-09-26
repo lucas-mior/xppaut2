@@ -940,7 +940,6 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
         } else if (filesel.n > 1) /*Expand the file text to most generic
                                      currently represented*/
         {
-            int32 j = 0;
             char U[256];
             if (my_ff.ndirs > 0) {
                 strcpy(U, my_ff.dirnames[0]);
@@ -948,7 +947,7 @@ init_conds_fit_em(int32 ch, char *string, Window window, int32 *off1,
                 strcpy(U, my_ff.filenames[0]);
             }
 
-            for (j = 0; j < filesel.n; j++) {
+            for (int32 j = 0; j < filesel.n; j++) {
                 if (j < my_ff.ndirs) {
                     init_conds_string_intersect(U, my_ff.dirnames[j]);
                 } else {

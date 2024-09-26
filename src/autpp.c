@@ -11,7 +11,6 @@
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    int32 j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
 
@@ -30,7 +29,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     if (METHOD > 0 || NJMP == 1)
         return 0;
     for (int32 i = 1; i < NJMP; i++) {
-        for (j = 0; j < ndim; j++)
+        for (int32 j = 0; j < ndim; j++)
             zz[j] = f[j];
         rhs_function(0.0, zz, f, (int32)ndim);
     }

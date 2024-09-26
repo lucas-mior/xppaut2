@@ -136,7 +136,7 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
 int32
 iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
     double c, s, temp1, temp2, temp3;
-    int32 i, j, q_ptr, n_minus_1, code = 0;
+    int32 i, q_ptr, n_minus_1, code = 0;
 
     switch (job) {
     case 0:
@@ -144,7 +144,7 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
         code = 0;
         for (int32 k = 0; k < n; k++) {
             /* Multiply column k by the previous k-1 Givens rotations. */
-            for (j = 0; j < k - 1; j++) {
+            for (int32 j = 0; j < k - 1; j++) {
                 i = 2*j;
                 temp1 = h[j][k];
                 temp2 = h[j + 1][k];

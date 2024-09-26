@@ -45,13 +45,13 @@ lunch_file_inf(void) {
 
 void
 lunch_ps_write_pars(FILE *fp) {
-    int32 div, rem, j;
+    int32 div, rem;
     double z;
 
     fprintf(fp, "\n %%%% %s \n %%%% Parameters ...\n", this_file);
     div = NUPAR / 4;
     rem = NUPAR % 4;
-    for (j = 0; j < div; j++) {
+    for (int32 j = 0; j < div; j++) {
         for (int32 i = 0; i < 4; i++) {
             get_val(upar_names[i + 4*j], &z);
             fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4*j], z);
@@ -75,7 +75,6 @@ lunch_do_info(FILE *fp) {
         "CVode",    "DoPri5",   "DoPri8(3)",  "Rosenbrock",  "Symplectic"};
     int32 div;
     int32 rem;
-    int32 j;
     double z;
     char bob[200];
     char fstr[15];
@@ -132,7 +131,7 @@ lunch_do_info(FILE *fp) {
     fprintf(fp, "\n\n Parameters ...\n");
     div = NUPAR / 4;
     rem = NUPAR % 4;
-    for (j = 0; j < div; j++) {
+    for (int32 j = 0; j < div; j++) {
         for (int32 i = 0; i < 4; i++) {
             get_val(upar_names[i + 4*j], &z);
             fprintf(fp, "%s=%.16g   ", upar_names[i + 4*j], z);
@@ -558,17 +557,16 @@ lunch_io_exprs(int32 f, FILE *fp) {
 
 void
 lunch_io_graph(int32 f, FILE *fp) {
-    int32 j;
     char temp[256];
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Graphics\n");
-    for (j = 0; j < 3; j++)
+    for (int32 j = 0; j < 3; j++)
         for (int32 k = 0; k < 3; k++)
             lunch_io_double(&(MyGraph->rm[k][j]), fp, f, "rm");
-    for (j = 0; j < MAXPERPLOT; j++) {
+    for (int32 j = 0; j < MAXPERPLOT; j++) {
         lunch_io_int(&(MyGraph->xv[j]), fp, f, " ");
         lunch_io_int(&(MyGraph->yv[j]), fp, f, " ");
         lunch_io_int(&(MyGraph->zv[j]), fp, f, " ");

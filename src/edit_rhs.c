@@ -317,7 +317,7 @@ void
 edit_rhs(void) {
     char **names, **values;
     int32 **command;
-    int32 status, err, len, i0, j;
+    int32 status, err, len, i0;
     int32 n = NEQ;
     char fstr[20], msg[200];
     if (NEQ > NEQMAXFOREDIT)
@@ -356,7 +356,7 @@ edit_rhs(void) {
                     if (i >= NODE)
                         i0 = i0 + FIX_VAR - NMarkov;
 
-                    for (j = 0; j < len; j++)
+                    for (int32 j = 0; j < len; j++)
                         my_ode[i0][j] = command[i][j];
                 }
             }
@@ -377,8 +377,7 @@ edit_rhs(void) {
 void
 edit_rhs_user_fun_info(FILE *fp) {
     char fundef[256];
-    int32 j;
-    for (j = 0; j < NFUN; j++) {
+    for (int32 j = 0; j < NFUN; j++) {
         sprintf(fundef, "%s(", ufun_names[j]);
         for (int32 i = 0; i < narg_fun[j]; i++) {
             strcat(fundef, ufun_arg[j].args[i]);
@@ -396,7 +395,7 @@ void
 edit_rhs_functions(void) {
     char **names, **values;
     int32 **command;
-    int32 status, err, len, j;
+    int32 status, err, len;
     int32 n = NFUN;
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)
@@ -432,7 +431,7 @@ edit_rhs_functions(void) {
                 ggets_err_msg(msg);
             } else {
                 strcpy(ufun_def[i], values[i]);
-                for (j = 0; j <= len; j++) {
+                for (int32 j = 0; j <= len; j++) {
                     ufun[i][j] = command[i][j];
                 }
                 fixup_endfun(ufun[i], len, narg_fun[i]);

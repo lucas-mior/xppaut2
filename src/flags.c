@@ -180,12 +180,11 @@ flags_show(void) {
 
 int32
 flags_compile(void) {
-    int32 j;
     int32 index, nc;
     int32 command[256];
     if (NFlags == 0)
         return 0;
-    for (j = 0; j < NFlags; j++) {
+    for (int32 j = 0; j < NFlags; j++) {
         if (parserslow_add_expr(flag[j].cond, command, &nc)) {
             ggets_plintf("Illegal global condition:  %s\n", flag[j].cond);
             return 1;
@@ -255,7 +254,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     double dt = *tnew - told;
     double f0, f1, tol, tolmin = 1e-10;
     double smin = 2;
-    int32 sign, j, in, ncycle = 0, newhit, nevents;
+    int32 sign, in, ncycle = 0, newhit, nevents;
 
     if (NFlags == 0)
         return 0;
@@ -277,7 +276,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         sign = flag[i].sign;
         flag[i].f0 = flag[i].f1;
         f0 = flag[i].f0;
-        for (j = 0; j < neq; j++)
+        for (int32 j = 0; j < neq; j++)
             SETVAR(j + 1, ynew[j]);
         SETVAR(0, *tnew);
         f1 = evaluate(flag[i].comcond);
@@ -336,7 +335,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         for (int32 i = 0; i < NFlags; i++) {
             nevents = flag[i].nevents;
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
-                for (j = 0; j < nevents; j++) {
+                for (int32 j = 0; j < nevents; j++) {
                     flag[i].vrhs[j] = evaluate(flag[i].comrhs[j]);
                     in = flag[i].lhs[j];
                     if (flag[i].type[j] == 0)
@@ -350,7 +349,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
         for (int32 i = 0; i < NFlags; i++) {
             nevents = flag[i].nevents;
             if (flag[i].hit == ncycle && flag[i].tstar <= smin) {
-                for (j = 0; j < nevents; j++) {
+                for (int32 j = 0; j < nevents; j++) {
                     in = flag[i].lhs[j];
                     if (flag[i].type[j] == 0) {
                         ynew[in] = flag[i].vrhs[j];

@@ -42,7 +42,7 @@ volterra_ker_val(int32 in) {
 
 void
 volterra_alloc_memory(void) {
-    int32 len, formula[256], j;
+    int32 len, formula[256];
 
     /* First parse the kernels   since these were deferred */
     for (int32 i = 0; i < NKernel; i++) {
@@ -54,7 +54,7 @@ volterra_alloc_memory(void) {
         }
         kernel[i].formula =
             xmalloc((usize)(len + 2)*sizeof(*(kernel[i].formula)));
-        for (j = 0; j < len; j++) {
+        for (int32 j = 0; j < len; j++) {
             kernel[i].formula[j] = formula[j];
         }
         if (kernel[i].flag == CONV) {
@@ -65,7 +65,7 @@ volterra_alloc_memory(void) {
             }
             kernel[i].kerform =
                 xmalloc((usize)(len + 2)*sizeof(*(kernel[i].kerform)));
-            for (j = 0; j < len; j++) {
+            for (int32 j = 0; j < len; j++) {
                 kernel[i].kerform[j] = formula[j];
             }
         }
@@ -76,7 +76,7 @@ volterra_alloc_memory(void) {
 
 void
 volterra_allocate(int32 npts, int32 flag) {
-    int32 i, oldmem = MaxPoints, j;
+    int32 i, oldmem = MaxPoints;
     int32 ntot = NODE + FIX_VAR + NMarkov;
     npts = ABS(npts);
     MaxPoints = npts;
@@ -98,7 +98,7 @@ volterra_allocate(int32 npts, int32 flag) {
     }
     if (i < ntot) {
         MaxPoints = oldmem;
-        for (j = 0; j < i; j++)
+        for (int32 j = 0; j < i; j++)
             free(Memory[j]);
         for (i = 0; i < ntot; i++)
             Memory[i] = xmalloc(sizeof(*Memory)*(usize)MaxPoints);
@@ -336,7 +336,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
 int32
 volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
               double *yp2, double *errvec, double *jac) {
-    int32 i0, iend, ishift, iter = 0, info, ipivot[MAX_ODE1], j, ind;
+    int32 i0, iend, ishift, iter = 0, info, ipivot[MAX_ODE1], ind;
     int32 n1 = NODE + 1;
     double dt2 = .5*dt, err;
     double del, yold, fac, delinv;
@@ -380,9 +380,9 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             yg[i] += del;
             delinv = 1. / del;
             volterra_get_kn(yg, t);
-            for (j = NODE; j < NODE + FIX_VAR; j++)
+            for (int32 j = NODE; j < NODE + FIX_VAR; j++)
                 SETVAR(j + 1, evaluate(my_ode[j]));
-            for (j = 0; j < NODE; j++) {
+            for (int32 j = 0; j < NODE; j++) {
                 fac = delinv;
                 if (!EqType[j])
                     fac *= dt2;

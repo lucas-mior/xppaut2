@@ -288,13 +288,11 @@ int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     int64 dd_dim1;
 
-    int64 j;
-
     dd_dim1 = *ncb;
 
     for (int64 i = 0; i < *nrc; ++i) {
         if (*ifst == 1) {
-            for (j = 0; j < *ncb; ++j) {
+            for (int64 j = 0; j < *ncb; ++j) {
                 ARRAY2D(dd, j, i) = 0.;
             }
         }
@@ -1753,7 +1751,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
     int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
         faa_dim1, a2_dim1, a2_dim2, bb_dim1, bb_dim2;
 
-    int64 j, k;
+    int64 k;
 
     int64 novpi, novpj, k1, k2;
 
@@ -1799,14 +1797,14 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
     /* Copy */
     if (*iam == *kwt - 1) {
         for (int64 i = 0; i < *nov; ++i) {
-            for (j = 0; j < *nov; ++j) {
+            for (int64 j = 0; j < *nov; ++j) {
                 novpj = *nov + j;
                 ARRAY2D(e, i, j) = ARRAY3D(s, i, j, (*na - 1));
                 ARRAY2D(p0, i, j) = ARRAY3D(s, i, j, (*na - 1));
                 ARRAY2D(e, i, novpj) = ARRAY3D(a2, i, j, (*na - 1));
                 ARRAY2D(p1, i, j) = ARRAY3D(a2, i, j, (*na - 1));
             }
-            for (j = 0; j < *ncb; ++j) {
+            for (int64 j = 0; j < *ncb; ++j) {
                 novpj2 = (*nov*2) + j;
                 ARRAY2D(e, i, novpj2) = ARRAY3D(bb, i, j, (*na - 1));
             }
@@ -1814,12 +1812,12 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
         for (int64 i = 0; i < *nrc; ++i) {
             novpi = *nov + i;
-            for (j = 0; j < *nov; ++j) {
+            for (int64 j = 0; j < *nov; ++j) {
                 novpj = *nov + j;
                 ARRAY2D(e, novpi, j) = ARRAY3D(cc, j, i, 0);
                 ARRAY2D(e, novpi, novpj) = ARRAY3D(cc, j, i, (nap1 - 1));
             }
-            for (j = 0; j < *ncb; ++j) {
+            for (int64 j = 0; j < *ncb; ++j) {
                 novpj2 = (*nov*2) + j;
                 ARRAY2D(e, novpi, novpj2) = ARRAY2D(d, j, i);
             }
@@ -1851,7 +1849,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
             for (int64 i = 0; i < ncrloc; ++i) {
                 int32 total_printed = 0;
-                for (j = 0; j < ncrloc; ++j) {
+                for (int64 j = 0; j < ncrloc; ++j) {
                     if ((total_printed != 0) && (total_printed % 10 == 0))
                         fprintf(fp9, "\n");
                     fprintf(fp9, " %11.3E", ARRAY2D(e, i, j));
@@ -2188,7 +2186,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
 
-    int64 nram, icfj1, j;
+    int64 nram, icfj1;
     double *x;
     int64 nrapj, irfir, j1, novpj, icfnovpir, ir;
     double sm;
@@ -2221,16 +2219,16 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
             irp1 = ir + 1;
             sm = 0.;
             irfir = ARRAY2D(irf, ir, i) - 1;
-            for (j = 0; j < *nov; ++j) {
+            for (int64 j = 0; j < *nov; ++j) {
                 nrapj = *nra + j;
                 sm += ARRAY3D(a, j, irfir, i)*ARRAY2D(sol1, j, i);
                 sm += ARRAY3D(a, nrapj, irfir, i)*ARRAY2D(sol2, j, i);
             }
-            for (j = 0; j < *ncb; ++j) {
+            for (int64 j = 0; j < *ncb; ++j) {
                 novpj = *nov + j;
                 sm += ARRAY3D(b, j, irfir, i)*fc[novpj];
             }
-            for (j = irp1; j < nram; ++j) {
+            for (int64 j = irp1; j < nram; ++j) {
                 j1 = j + *nov;
                 icfj1 = ARRAY2D(icf, j1, i) - 1;
                 sm += ARRAY3D(a, icfj1, irfir, i)*x[icfj1];
@@ -2241,10 +2239,10 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
                 (ARRAY2D(fa, irfir, i) - sm) / ARRAY3D(a, icfnovpir, irfir, i);
         }
         /*        **Copy SOL1 and X into FA */
-        for (j = 0; j < *nov; ++j) {
+        for (int64 j = 0; j < *nov; ++j) {
             ARRAY2D(fa, j, i) = ARRAY2D(sol1, j, i);
         }
-        for (j = *nov; j < *nra; ++j) {
+        for (int64 j = *nov; j < *nra; ++j) {
             ARRAY2D(fa, j, i) = x[j];
         }
     }

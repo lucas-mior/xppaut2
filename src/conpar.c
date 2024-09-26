@@ -243,7 +243,6 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     int64 icf_dim1;
     int64 irf_dim1;
 
-    int64 j;
     int64 nex;
 
     irf_dim1 = *nra;
@@ -255,10 +254,10 @@ conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
 
     /*     Initialization */
     for (int32 i = 0; i < *na; ++i) {
-        for (j = 0; j < *nra; ++j) {
+        for (int32 j = 0; j < *nra; ++j) {
             irf[j + i*irf_dim1] = j + 1;
         }
-        for (j = 0; j < *nca; ++j) {
+        for (int32 j = 0; j < *nca; ++j) {
             icf[j + i*icf_dim1] = j + 1;
         }
     }

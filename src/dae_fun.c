@@ -181,7 +181,7 @@ dae_fun_do_daes(void) {
 
     /* dae fun solve */
     /* Newton solver for algebraic stuff */
-    int32 j, n;
+    int32 n;
     int32 info;
     double err, del, z, yold;
     double tol = EVEC_ERR, eps = NEWT_ERR;
@@ -226,7 +226,7 @@ dae_fun_do_daes(void) {
             yold = y[i];
             y[i] = y[i] + del;
             get_dae_fun(y, fnew);
-            for (j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++)
                 jac[j*n + i] = (fnew[j] - f[j]) / del;
             y[i] = yold;
         }

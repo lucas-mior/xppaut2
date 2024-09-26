@@ -228,9 +228,8 @@ extra_add_export_list(char *in, char *out) {
 int32
 extra_get_export_count(char *s) {
     int32 i = 0;
-    int32 j;
     int32 l = (int32)strlen(s);
-    for (j = 0; j < l; j++)
+    for (int32 j = 0; j < l; j++)
         if (s[j] == ',')
             i++;
     i++;

@@ -106,7 +106,6 @@ dense_print(DenseMat A) {
 
 double **
 dense_alloc2(int64 n) {
-    int64 j;
     double **a;
 
     if (n <= 0)
@@ -122,7 +121,7 @@ dense_alloc2(int64 n) {
         return NULL;
     }
 
-    for (j = 1; j < n; j++)
+    for (int32 j = 1; j < n; j++)
         a[j] = a[0] + j*n;
 
     return a;
@@ -138,7 +137,7 @@ dense_alloc_piv2(int64 n) {
 
 int64
 dense_gefa(double **a, int64 n, int64 *p) {
-    int64 j, l;
+    int64 l;
     double *col_j, *col_k, *diag_k;
     double temp, mult, a_kj;
     bool swap;
@@ -185,7 +184,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
         /* The computation is done one column at a time,          */
         /* column j=k+1, ..., n-1.                                */
 
-        for (j = k + 1; j < n; j++) {
+        for (int32 j = k + 1; j < n; j++) {
             col_j = a[j];
             a_kj = col_j[l];
 
@@ -251,10 +250,9 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
 
 void
 dense_zero2(double **a, int64 n) {
-    int64 j;
     double *col_j;
 
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         col_j = a[j];
         for (int64 i = 0; i < n; i++)
             col_j[i] = ZERO;
@@ -264,10 +262,9 @@ dense_zero2(double **a, int64 n) {
 
 void
 dense_copy2(double **a, double **b, int64 n) {
-    int64 j;
     double *a_col_j, *b_col_j;
 
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         a_col_j = a[j];
         b_col_j = b[j];
         for (int64 i = 0; i < n; i++)
@@ -278,10 +275,9 @@ dense_copy2(double **a, double **b, int64 n) {
 
 void
 dense_scale2(double c, double **a, int64 n) {
-    int64 j;
     double *col_j;
 
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         col_j = a[j];
         for (int64 i = 0; i < n; i++)
             col_j[i] *= c;
@@ -311,11 +307,9 @@ dense_free2(double **a) {
 
 void
 dense_print2(double **a, int64 n) {
-    int64 j;
-
     ggets_plintf("\n");
     for (int64 i = 0; i < n; i++) {
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             ggets_plintf("%10g", a[j][i]);
         }
         ggets_plintf("\n");

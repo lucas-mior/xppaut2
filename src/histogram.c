@@ -171,7 +171,7 @@ histogram_post_process_stuff(void) {
     if (post_process > 3 && post_process < 7) {
         /* histogram just sd */
         int32 flag = post_process - 4;
-        int32 length, j;
+        int32 length;
         double total = storage[0][storind - 1] - storage[0][0];
         spec_type = flag;
         if (HIST_HERE) {
@@ -194,7 +194,7 @@ histogram_post_process_stuff(void) {
         HIST_HERE = 1;
         for (int32 i = 2; i <= NEQ; i++)
             my_hist[i] = storage[i];
-        for (j = 0; j < hist_len; j++)
+        for (int32 j = 0; j < hist_len; j++)
             my_hist[0][j] = ((double)j*storind / spec_wid) / total;
         if (spec_type == 0)
             histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
@@ -292,7 +292,7 @@ histogram_new_2d(void) {
 void
 histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
               char *condition, int32 which) {
-    int32 i, j, index;
+    int32 i, index;
     int32 command[256];
     int32 cond = 0, flag = 1;
     double z;
@@ -339,9 +339,9 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
         for (i = 0; i < storind; i++) {
             flag = 1;
             if (cond) {
-                for (j = 0; j < NODE + 1; j++)
+                for (int32 j = 0; j < NODE + 1; j++)
                     set_ivar(j, (double)storage[j][i]);
-                for (j = 0; j < NMarkov; j++)
+                for (int32 j = 0; j < NMarkov; j++)
                     set_ivar(j + NODE + 1 + FIX_VAR,
                              (double)storage[j + NODE + 1][i]);
                 z = evaluate(command);
@@ -364,7 +364,7 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
     }
     if (which == 1) {
         for (i = 0; i < storind; i++) {
-            for (j = 0; j < storind; j++) {
+            for (int32 j = 0; j < storind; j++) {
                 y = storage[col][i] - storage[col][j];
                 z = (y - zlo) / dz;
                 index = (int32)z;
@@ -476,7 +476,7 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     /* assumes 50% overlap */
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
-    int32 j, kk;
+    int32 kk;
     double *ct, *st, *f, *d, x, nrmf;
     /*double sum;
      */
@@ -517,7 +517,7 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     /*sum=0;
      */
 
-    for (j = 0; j < kwin; j++) {
+    for (int32 j = 0; j < kwin; j++) {
         for (int32 i = 0; i < win; i++) {
             kk = (j*shift + i + nr) % nr;
             d[i] = f[i]*data[kk];
@@ -562,7 +562,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
     /*  int32 kwin=nr/shift; */
-    int32 j, kk;
+    int32 kk;
     double *ct, *st, *f, *d, x, nrmwin;
     /*double sum; Not used anywhere*/
     double *ct2, *st2, *d2;
@@ -616,7 +616,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
     }
 
     /*sum=0;*/
-    for (j = 0; j <= kwin; j++) {
+    for (int32 j = 0; j <= kwin; j++) {
         for (int32 i = 0; i < win; i++) {
             /* kk=kk=(-shift+j*shift+i+nr)%nr; */
             kk = (i + j*shift) % nr;
@@ -661,7 +661,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
 
 void
 histogram_compute_sd(void) {
-    int32 length, j;
+    int32 length;
     double total = storage[0][storind - 1] - storage[0][0];
     ggets_new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
 
@@ -692,7 +692,7 @@ histogram_compute_sd(void) {
     HIST_HERE = 1;
     for (int32 i = 2; i <= NEQ; i++)
         my_hist[i] = storage[i];
-    for (j = 0; j < hist_len; j++)
+    for (int32 j = 0; j < hist_len; j++)
         my_hist[0][j] = ((double)j*storind / spec_wid) / total;
     if (spec_type == 0)
         histogram_spectrum(storage[spec_col], storind, spec_wid, spec_win,
@@ -796,7 +796,6 @@ histogram_compute_stacor(void) {
 void
 histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
                 int32 nbins, double *z, int32 flag) {
-    int32 j;
     int32 k, count = 0;
     double sum, avx = 0.0, avy = 0.0;
     double dz = (zhi - zlo) / (double)nbins, jz;
@@ -808,7 +807,7 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
         avx = avx / (double)n;
         avy = avy / (double)n;
     }
-    for (j = 0; j <= nbins; j++) {
+    for (int32 j = 0; j <= nbins; j++) {
         sum = 0.0;
         count = 0;
         jz = dz*j + zlo;
@@ -829,7 +828,6 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
 void
 histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
                  int32 flag) {
-    int32 j;
     int32 k, count = 0, lag = nbins / 2;
     double sum, avx = 0.0, avy = 0.0;
     if (flag) {
@@ -840,7 +838,7 @@ histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
         avx = avx / (double)n;
         avy = avy / (double)n;
     }
-    for (j = 0; j <= nbins; j++) {
+    for (int32 j = 0; j <= nbins; j++) {
         sum = 0.0;
         count = 0;
         for (int32 i = 0; i < n; i++) {

@@ -526,8 +526,7 @@ graphics_scale_to_real(/* Not needed except for X */
 
 void
 graphics_reset_all_line_type(void) {
-    int32 j;
-    for (j = 0; j < MAXPOP; j++) {
+    for (int32 j = 0; j < MAXPOP; j++) {
         for (int32 k = 0; k < MAXPERPLOT; k++) {
             graph[j].line[k] = START_LINE_TYPE;
         }
@@ -638,17 +637,16 @@ graphics_get_graph(void) {
 
 void
 graphics_init(int32 i) {
-    int32 j;
     if (AXES <= 3)
         AXES = 0;
-    for (j = 0; j < 3; j++)
+    for (int32 j = 0; j < 3; j++)
         for (int32 k = 0; k < 3; k++)
             if (k == j)
                 graph[i].rm[k][j] = 1.0;
             else
                 graph[i].rm[k][j] = 0.0;
     graph[i].nvars = 1;
-    for (j = 0; j < MAXPERPLOT; j++) {
+    for (int32 j = 0; j < MAXPERPLOT; j++) {
         graph[i].xv[j] = IXPLT;
         graph[i].yv[j] = IYPLT;
         graph[i].zv[j] = IZPLT;
@@ -717,15 +715,14 @@ graphics_init(int32 i) {
 void
 graphics_copy_graph(/*  Graph[i]=Graph[l]  */
                     int32 i, int32 l) {
-    int32 j;
     graph[i].Use = graph[l].Use;
     graph[i].Restore = graph[l].Restore;
     graph[i].Nullrestore = graph[l].Nullrestore;
-    for (j = 0; j < 3; j++)
+    for (int32 j = 0; j < 3; j++)
         for (int32 k = 0; k < 3; k++)
             graph[i].rm[k][j] = graph[l].rm[k][j];
     graph[i].nvars = graph[l].nvars;
-    for (j = 0; j < MAXPERPLOT; j++) {
+    for (int32 j = 0; j < MAXPERPLOT; j++) {
         graph[i].xv[j] = graph[l].xv[j];
         graph[i].yv[j] = graph[l].yv[j];
         graph[i].zv[j] = graph[l].zv[j];
@@ -967,7 +964,6 @@ graphics_pers_line(double x, double y, double z, double xp, double yp,
 void
 graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
                    double *zp) {
-    int32 j;
     double vt[3], vnew[3];
     vt[0] = x;
     vt[1] = y;
@@ -975,7 +971,7 @@ graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
 
     for (int32 i = 0; i < 3; i++) {
         vnew[i] = 0.0;
-        for (j = 0; j < 3; j++)
+        for (int32 j = 0; j < 3; j++)
             vnew[i] = vnew[i] + MyGraph->rm[i][j]*vt[j];
     }
     *xp = vnew[0];

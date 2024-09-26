@@ -89,7 +89,7 @@ build_markov(
     char line[256], expr[256];
     int32 istart;
 
-    int32 j, nstates, index;
+    int32 nstates, index;
     index = -1;
     /* find it -- if not defined, then abort  */
     for (int32 i = 0; i < NMarkov; i++) {
@@ -120,7 +120,7 @@ build_markov(
           ggets_plintf("saveeqn-prob\n");exit(0);}
           strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
-        for (j = 0; j < nstates; j++) {
+        for (int32 j = 0; j < nstates; j++) {
             markov_extract_expr(line, expr, &istart);
             ggets_plintf("%s ", expr);
             add_markov_entry(index, i, j, expr);
@@ -137,7 +137,7 @@ markov_old_build(FILE *fptr, char *name) {
     char line[256], expr[256];
     int32 istart;
 
-    int32 j, nstates, index;
+    int32 nstates, index;
     index = -1;
     /* find it -- if not defined, then abort  */
     for (int32 i = 0; i < NMarkov; i++) {
@@ -167,7 +167,7 @@ markov_old_build(FILE *fptr, char *name) {
         /* if((save_eqn[NLINES]=xmalloc(nn))==NULL)exit(0);
            strncpy(save_eqn[NLINES++],line,nn); */
         istart = 0;
-        for (j = 0; j < nstates; j++) {
+        for (int32 j = 0; j < nstates; j++) {
             markov_extract_expr(line, expr, &istart);
             ggets_plintf("%s ", expr);
             add_markov_entry(index, i, j, expr);
@@ -255,12 +255,12 @@ add_markov_entry(int32 index, int32 j, int32 k, char *expr) {
 
 void
 markov_compile_all(void) {
-    int32 index, j, ns, l0;
+    int32 index, ns, l0;
     if (NMarkov == 0)
         return;
     for (index = 0; index < NMarkov; index++) {
         ns = markov[index].nstates;
-        for (j = 0; j < ns; j++) {
+        for (int32 j = 0; j < ns; j++) {
             for (int32 k = 0; k < ns; k++) {
                 l0 = ns*j + k;
                 if (compile_markov(index, j, k) == -1) {
@@ -570,13 +570,12 @@ markov_append_stoch(int32 first, int32 length) {
 
 void
 markov_do_stats(int32 ierr) {
-    int32 j;
     double ninv, mean;
     /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {
         ninv = 1. / (double)(N_TRIALS);
         for (int32 i = 0; i < stoch_len; i++) {
-            for (j = 1; j <= NEQ; j++) {
+            for (int32 j = 1; j <= NEQ; j++) {
                 mean = my_mean[j][i]*ninv;
                 my_mean[j][i] = mean;
                 my_variance[j][i] = (my_variance[j][i]*ninv - mean*mean);
@@ -592,13 +591,11 @@ markov_gammln(double xx) {
     static double cof[6] = {76.18009172947146,     -86.50532032941677,
                             24.01409824083091,     -1.231739572450155,
                             0.1208650973866179e-2, -0.5395239384953e-5};
-    int32 j;
-
     y = x = xx;
     tmp = x + 5.5;
     tmp -= (x + 0.5)*log(tmp);
     ser = 1.000000000190015;
-    for (j = 0; j <= 5; j++)
+    for (int32 j = 0; j <= 5; j++)
         ser += cof[j] / ++y;
     return -tmp + log(2.5066282746310005*ser / x);
 }

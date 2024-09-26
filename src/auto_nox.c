@@ -1590,13 +1590,12 @@ auto_nox_find_best_homo_shift(int32 n) {
      * point of the homoclinic when starting from a
      * long periodic orbit */
     int32 i;
-    int32 j;
     double dmin = 10000.0;
     double d;
     double tshift = 0.0;
     for (i = 0; i < storind; i++) {
         d = 0.0;
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             d += fabs(storage[j + 1][i] - homo_l[j]);
         }
         if (d < dmin) {
@@ -1612,7 +1611,7 @@ auto_nox_find_best_homo_shift(int32 n) {
 void
 auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
     double ts;
-    int32 i, i1, i2, ip, j;
+    int32 i, i1, i2, ip;
     double lam;
     if (t > 1.0)
         t -= 1.0;
@@ -1625,7 +1624,7 @@ auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n) {
             i1 = i;
             i2 = ip;
             lam = ts - storage[0][i];
-            for (j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++)
                 u[j] =
                     (1.0 - lam)*storage[j + 1][i1] + lam*storage[j + 1][i2];
             break;
@@ -1638,7 +1637,7 @@ void
 auto_nox_get_start_orbit(double *u, double t, int32 n) {
     double tnorm;
     double lam;
-    int32 i1, i2, j;
+    int32 i1, i2;
     if (t > 1.0)
         t -= 1.0;
     if (t < 0.0)
@@ -1650,7 +1649,7 @@ auto_nox_get_start_orbit(double *u, double t, int32 n) {
         i2 -= storind;
     lam = (tnorm - (double)i1);
 
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         u[j] = (1.0 - lam)*storage[j + 1][i1] + lam*storage[j + 1][i2];
     return;
 }
@@ -2429,7 +2428,7 @@ void
 auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
     FILE *fp;
     double *x;
-    int32 i, j, nstor;
+    int32 i, nstor;
     double u[NAUTO], t;
     double period;
     char string[256];
@@ -2465,12 +2464,12 @@ auto_nox_load_orbitx(int32 ibr, int32 flag, int32 lab, double per) {
         else
             storage[0][i] = t;
 
-        for (j = 0; j < nstor; j++) {
+        for (int32 j = 0; j < nstor; j++) {
             storage[j + 1][i] = u[j];
             x[j] = u[j];
         }
         main_rhs_extra(x, (double)storage[0][i], nstor, NEQ);
-        for (j = nstor; j < NEQ; j++)
+        for (int32 j = nstor; j < NEQ; j++)
             storage[j + 1][i] = (double)x[j];
     }
     storind = nrow;

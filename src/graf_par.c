@@ -1084,7 +1084,7 @@ graf_par_auto_freeze_it(void) {
 
 int32
 graf_par_create_crv(int32 ind) {
-    int32 type, j;
+    int32 type;
     int32 ix, iy, iz;
 
     for (int32 i = 0; i < MAXFRZ; i++) {
@@ -1110,7 +1110,7 @@ graf_par_create_crv(int32 ind) {
             }
             frz[i].use = 1;
             frz[i].len = my_browser.maxrow;
-            for (j = 0; j < my_browser.maxrow; j++) {
+            for (int32 j = 0; j < my_browser.maxrow; j++) {
                 frz[i].xv[j] = my_browser.data[ix][j];
                 frz[i].yv[j] = my_browser.data[iy][j];
                 if (type > 0)
@@ -1153,7 +1153,7 @@ graf_par_draw_frozen_cline(int32 index, Window window) {
 
 void
 graf_par_draw_freeze(Window window) {
-    int32 j, type = MyGraph->grtype, lt = 0;
+    int32 type = MyGraph->grtype, lt = 0;
     double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
     double *xv, *yv, *zv;
     for (int32 i = 0; i < MAXNCLINE; i++)
@@ -1172,7 +1172,7 @@ graf_par_draw_freeze(Window window) {
             oldypl = yv[0];
             if (type > 0)
                 oldzpl = zv[0];
-            for (j = 0; j < frz[i].len; j++) {
+            for (int32 j = 0; j < frz[i].len; j++) {
                 xpl = xv[j];
                 ypl = yv[j];
                 if (type > 0)

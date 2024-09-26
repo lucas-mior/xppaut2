@@ -60,8 +60,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     double beta, *svde, *svds, svdu[1], *svdv;
 
-    int64 j;
-
     double *v;
     double *x;
 
@@ -120,7 +118,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     /* Change sign of P1 so that we get the sign of the multipliers right. */
 
-    for (j = 0; j < *ndim; ++j) {
+    for (int32 j = 0; j < *ndim; ++j) {
         for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(c1, i, j) = -ARRAY2D(c1, i, j);
         }
@@ -134,7 +132,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         fprintf(fp9, "   C0 : \n");
 
         for (int32 i = 0; i < *ndim; ++i) {
-            for (j = 0; j < *ndim; ++j) {
+            for (int32 j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c0, i, j));
             }
             fprintf(fp9, "\n");
@@ -142,7 +140,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         fprintf(fp9, "   C1 : \n");
 
         for (int32 i = 0; i < *ndim; ++i) {
-            for (j = 0; j < *ndim; ++j) {
+            for (int32 j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c1, i, j));
             }
             fprintf(fp9, "\n");
@@ -182,7 +180,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
      */
     /*  not it the first column, as was shown in the paper. */
 
-    for (j = 0; j < *ndim; ++j) {
+    for (int32 j = 0; j < *ndim; ++j) {
         for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(rwork, i, j) = ARRAY2D(c0, i, j) - ARRAY2D(c1, i, j);
         }
@@ -253,7 +251,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     /* Computing MAX */
     const__ = max(fabs(ARRAY2D(c0, 0, (*ndim - 1))),
                   fabs(ARRAY2D(c1, 0, (*ndim - 1))));
-    for (j = 0; j < *ndim; ++j) {
+    for (int32 j = 0; j < *ndim; ++j) {
         for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(c0, i, j) /= const__;
             ARRAY2D(c1, i, j) /= const__;
@@ -268,7 +266,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         fprintf(fp9, "   (H2^T)*C0*(H1) : \n");
 
         for (int32 i = 0; i < *ndim; ++i) {
-            for (j = 0; j < *ndim; ++j) {
+            for (int32 j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c0, i, j));
             }
             fprintf(fp9, "\n");
@@ -276,7 +274,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         fprintf(fp9, "   (H2^T)*C1*(H1) : \n");
 
         for (int32 i = 0; i < *ndim; ++i) {
-            for (j = 0; j < *ndim; ++j) {
+            for (int32 j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c1, i, j));
             }
             fprintf(fp9, "\n");
@@ -332,7 +330,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     ev[0].r = ARRAY2D(c0, 0, (*ndim - 1)) / ARRAY2D(c1, 0, (*ndim - 1));
     ev[0].i = 0.;
     infev = false;
-    for (j = 0; j < ndimm1; ++j) {
+    for (int32 j = 0; j < ndimm1; ++j) {
         if (qzbeta[j] != 0.) {
             ev[j + 1].r = qzalfr[j] / qzbeta[j];
             ev[j + 1].i = qzalfi[j] / qzbeta[j];

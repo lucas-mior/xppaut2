@@ -431,7 +431,6 @@ numerics_user_set_color_par(int32 flag, char *via, double lo, double hi) {
 
 void
 numerics_set_col_par_com(int32 i) {
-    int32 j;
     int32 ivar;
     double temp[2];
     double maxder = 0.0, minder = 0.0, sum = 0.0;
@@ -481,7 +480,7 @@ numerics_set_col_par_com(int32 i) {
         minder = 1.e20;
         for (i = 1; i < my_browser.maxrow; i++) {
             sum = 0.0;
-            for (j = 0; j < NODE; j++)
+            for (int32 j = 0; j < NODE; j++)
                 sum += (double)fabs((double)(my_browser.data[1 + j][i] -
                                              my_browser.data[1 + j][i - 1]));
             if (sum < minder)

@@ -1002,7 +1002,7 @@ load_eqn_stor_internopts(char *s1) {
 
 void
 load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
-    int32 i, j, f;
+    int32 i, f;
     char xx[4], yy[4], zz[4];
     char xxl[6], xxh[6], yyl[6], yyh[6];
     static char mkey[] = "demragvbqsc582y";
@@ -1262,7 +1262,7 @@ load_eqn_set_option(char *s1, char *s2, int32 force, OptionsSet *mask) {
         MultiWin = 1;
         return;
     }
-    for (j = 2; j <= 8; j++) {
+    for (int32 j = 2; j <= 8; j++) {
         sprintf(xx, "XP%d", j);
         sprintf(yy, "YP%d", j);
         sprintf(zz, "ZP%d", j);

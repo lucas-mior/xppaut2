@@ -135,7 +135,7 @@ pp_shoot_bad(int32 iret) {
 void
 pp_shoot_do_range(double *ystart, double *yend) {
     double parlo, parhi, dpar, temp;
-    int32 npar, j, ierr;
+    int32 npar, ierr;
     int32 side, cycle, icol, color;
     char bob[sizeof(shoot_range.item) + 30];
 
@@ -212,10 +212,10 @@ pp_shoot_do_range(double *ystart, double *yend) {
         }
         storage[0][storind] = temp;
         if (side == 0)
-            for (j = 0; j < NODE; j++)
+            for (int32 j = 0; j < NODE; j++)
                 storage[j + 1][storind] = ystart[j];
         else
-            for (j = 0; j < NODE; j++)
+            for (int32 j = 0; j < NODE; j++)
                 storage[j + 1][storind] = yend[j];
         storind++;
         integrate_set_cycle(cycle, &icol);
@@ -374,7 +374,7 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
     double dev, error, ytemp;
 
     int32 ntot = n;
-    int32 istart = 1, j;
+    int32 istart = 1;
     int32 ipvt[MAX_ODE1];
     char esc;
     int32 info, niter = 0;
@@ -450,7 +450,7 @@ pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
 
         /*   create the Jacobian matrix ...   */
 
-        for (j = 0; j < ntot; j++) {
+        for (int32 j = 0; j < ntot; j++) {
             for (int32 i = 0; i < n; i++)
                 y[i] = y0[i];
             if (fabs(y0[j]) < eps)

@@ -75,7 +75,7 @@ void
 do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                 double *yfit, double **yderv, int32 npts, int32 npars,
                 int32 nvars, int32 *ivar, int32 *ipar) {
-    int32 iv, ip, istart = 1, j, l, k0, ok;
+    int32 iv, ip, istart = 1, l, k0, ok;
     double yold[MAX_ODE], dp;
     double par;
     *flag = 0;
@@ -124,7 +124,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
     for (l = 0; l < npars; l++) {
         istart = 1;
         /* set up all the initial conditions   */
-        for (j = 0; j < nvars; j++)
+        for (int32 j = 0; j < nvars; j++)
             yderv[l][j] = 0.0; /* no dependence on initial data ... */
         for (int32 i = 0; i < NODE; i++)
             y[i] = yold[i];
@@ -137,7 +137,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             par = yold[ip];
             dp = eps*MAX(eps, fabs(par));
             y[ip] = par + dp;
-            for (j = 0; j < nvars; j++) {
+            for (int32 j = 0; j < nvars; j++) {
                 if (ip == ivar[j])
                     yderv[l][j] =
                         1.0; /* ... except for those ICs that can vary */
@@ -184,12 +184,11 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
 void
 do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
                int32 nvars, int32 npts) {
-    int32 j;
     int32 ioff;
     for (int32 i = 0; i < npts; i++) {
         ggets_plintf(" %8.5g ", t0[i]);
         ioff = nvars*i;
-        for (j = 0; j < nvars; j++) {
+        for (int32 j = 0; j < nvars; j++) {
             ggets_plintf(" %g ", yfit[ioff + j]);
             for (int32 k = 0; k < npars; k++)
                 printf(" %g ", yderv[k][ioff + j]);
@@ -466,7 +465,7 @@ do_fit_run(/* double arrays */
            int32 *icols, double *y0, double *a, double *yfit) {
     double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
-    int32 j, ioff, ictrl = 0, ok = 0;
+    int32 ioff, ictrl = 0, ok = 0;
     FILE *fp;
     int32 niter = 0, good_flag = 0;
     double tol10 = 10*tol;
@@ -486,7 +485,7 @@ do_fit_run(/* double arrays */
     for (int32 i = 0; i < npts; i++) {
         fscanf(fp, "%lg ", &t);
 
-        for (j = 0; j < ndim - 1; j++)
+        for (int32 j = 0; j < ndim - 1; j++)
             fscanf(fp, "%lg ", &ytemp[j]);
         t0[i] = t;
 
@@ -571,7 +570,7 @@ do_fit_run(/* double arrays */
     /* have the covariance matrix -- so what?   */
     ggets_plintf(" covariance: \n");
     for (int32 i = 0; i < npars; i++) {
-        for (j = 0; j < npars; j++)
+        for (int32 j = 0; j < npars; j++)
             ggets_plintf(" %g ", covar[i + npars*j]);
         ggets_plintf("\n");
     }
@@ -618,7 +617,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
                    int32 *ipar, double *covar, double *alpha, double *chisq,
                    double *alambda, double *work, double **yderv, double *yfit,
                    double *ochisq, int32 ictrl, double eps) {
-    int32 j, ierr, ipivot[1000];
+    int32 ierr, ipivot[1000];
 
     double *da, *atry, *beta, *oneda;
     da = work;
@@ -635,7 +634,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
             atry[i] = a[i];
         *ochisq = (*chisq);
     }
-    for (j = 0; j < npars; j++) {
+    for (int32 j = 0; j < npars; j++) {
         for (int32 k = 0; k < npars; k++)
             covar[j + k*npars] = alpha[j + k*npars];
         covar[j + j*npars] = alpha[j + j*npars]*(1 + (*alambda));
@@ -648,13 +647,13 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
     }
 
     gear_sgesl(covar, npars, npars, ipivot, oneda, 0);
-    for (j = 0; j < npars; j++) {
+    for (int32 j = 0; j < npars; j++) {
         da[j] = oneda[j];
     }
     if (ictrl == 2) { /* all done invert alpha to get the covariance */
-        for (j = 0; j < (npars*npars); j++)
+        for (int32 j = 0; j < (npars*npars); j++)
             alpha[j] = covar[j];
-        for (j = 0; j < npars; j++) {
+        for (int32 j = 0; j < npars; j++) {
             for (int32 k = 0; k < npars; k++)
                 oneda[k] = 0.0;
             oneda[j] = 1.0;
@@ -664,7 +663,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         }
         return 1;
     }
-    for (j = 0; j < npars; j++) {
+    for (int32 j = 0; j < npars; j++) {
         atry[j] = a[j] + da[j];
     }
     if (do_fit_mrqcof(t0, y0, y, sig, atry, npts, nvars, npars, ivar, ipar,
@@ -674,7 +673,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
     if (*chisq < *ochisq) {
         /* *ochisq=*chisq; */
         *alambda *= 0.1;
-        for (j = 0; j < npars; j++) {
+        for (int32 j = 0; j < npars; j++) {
             for (int32 k = 0; k < npars; k++)
                 alpha[j + k*npars] = covar[j + k*npars];
             beta[j] = da[j];
@@ -692,7 +691,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
               int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
               double *alpha, double *chisq, double *beta, double **yderv,
               double *yfit, double eps) {
-    int32 flag, j, l, k0;
+    int32 flag, l, k0;
     double sig2i, dy, wt;
 
     do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
@@ -703,7 +702,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
     }
     for (int32 i = 0; i < npars; i++) {
         beta[i] = 0.0;
-        for (j = 0; j < npars; j++) {
+        for (int32 j = 0; j < npars; j++) {
             alpha[i + j*npars] = 0.0;
         }
     }
@@ -713,7 +712,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
         for (int32 k = 0; k < npts; k++) {
             k0 = k*nvars + i;
             dy = y[k0] - yfit[k0];
-            for (j = 0; j < npars; j++) {
+            for (int32 j = 0; j < npars; j++) {
                 wt = yderv[j][k0]*sig2i;
                 for (l = 0; l < npars; l++)
                     alpha[j + l*npars] += wt*yderv[l][k0];

@@ -372,7 +372,7 @@ integrate_monte_carlo(void) {
 
 void
 integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
-    int32 j, m, n = fixptguess.n;
+    int32 m, n = fixptguess.n;
     int32 ierr, new = 1;
     double x[MAX_ODE], sum;
     double er[MAX_ODE], em[MAX_ODE];
@@ -392,7 +392,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         fixptlist.flag = 1;
     }
     for (int32 i = 0; i < n; i++) {
-        for (j = 0; j < NODE; j++) {
+        for (int32 j = 0; j < NODE; j++) {
             x[j] = markov_ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
                    fixptguess.xlo[j];
         }
@@ -403,7 +403,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
             if (m == 0) { /* first fixed point found */
                 fixptlist.n = 1;
                 ggets_plintf("Found: %d\n", m);
-                for (j = 0; j < NODE; j++) {
+                for (int32 j = 0; j < NODE; j++) {
                     fixptlist.x[0][j] = x[j];
                     fixptlist.er[0][j] = er[j];
                     fixptlist.em[0][j] = em[j];
@@ -416,7 +416,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                 new = 1;
                 for (int32 k = 0; k < m; k++) {
                     sum = 0.0;
-                    for (j = 0; j < NODE; j++)
+                    for (int32 j = 0; j < NODE; j++)
                         sum += fabs(x[j] - fixptlist.x[k][j]);
                     if (sum < fixptguess.tol)
                         new = 0;
@@ -426,7 +426,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
                     fixptlist.n++;
                     if (m < MAXFP) {
                         ggets_plintf("Found: %d\n", m);
-                        for (j = 0; j < NODE; j++) {
+                        for (int32 j = 0; j < NODE; j++) {
                             fixptlist.x[m][j] = x[j];
                             fixptlist.er[m][j] = er[j];
                             fixptlist.em[m][j] = em[j];
@@ -446,7 +446,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         m = fixptlist.n;
         for (int32 i = 0; i < m; i++) {
             storage[0][storind] = (double)i;
-            for (j = 0; j < NODE; j++)
+            for (int32 j = 0; j < NODE; j++)
                 storage[j + 1][storind] = (double)fixptlist.x[i][j];
             storind++;
         }
@@ -458,7 +458,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
 void
 integrate_eq_range(double *x) {
     double parlo, parhi, dpar, temp;
-    int32 npar, stabcol, i, j, ierr;
+    int32 npar, stabcol, i, ierr;
     int32 mc;
     char bob[256];
     double stabinfo = 0.0;
@@ -560,9 +560,9 @@ integrate_eq_range(double *x) {
         }
         if (mc == 0) {
             storage[0][storind] = temp;
-            for (j = 0; j < NODE; j++)
+            for (int32 j = 0; j < NODE; j++)
                 storage[j + 1][storind] = (double)x[j];
-            for (j = NODE; j < NODE + NMarkov; j++)
+            for (int32 j = NODE; j < NODE + NMarkov; j++)
                 storage[j + 1][storind] = 0.0;
             if (stabcol > 0)
                 storage[stabcol - 1][storind] = stabinfo;
@@ -610,7 +610,7 @@ integrate_do_range(double *x, int32 flag) {
     char parn[256];
     char bob[sizeof(parn) + 30];
     int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
-    int32 nit = 20, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0, nit2 = 0,
+    int32 nit = 20, itype = 0, itype2 = 0, cycle = 0, icol = 0, nit2 = 0,
           iii = 0;
     int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
@@ -767,7 +767,7 @@ integrate_do_range(double *x, int32 flag) {
         auto_x11_get_info(&nit, parn);
         nit2 = 0;
     }
-    for (j = 0; j <= nit2; j++) {
+    for (int32 j = 0; j <= nit2; j++) {
         for (int32 i = 0; i <= nit; i++) {
             if (range.movie)
                 menudrive_clear_draw_window();
@@ -1486,12 +1486,11 @@ integrate_store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
 
 void
 integrate_evaluate_ar_ic(char *v, char *f, int32 j1, int32 j2) {
-    int32 j;
     int32 i;
     int32 flag;
     double z;
     char vp[25], fp[256];
-    for (j = j1; j <= j2; j++) {
+    for (int32 j = j1; j <= j2; j++) {
         i = -1;
         form_ode_subsk(v, vp, j, 1);
         browse_find_variable(vp, &i);
@@ -2423,7 +2422,7 @@ void
 integrate_export_data(FILE *fp) {
     int32 ip, np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
-    int32 j, kxoff, kyoff, kzoff;
+    int32 kxoff, kyoff, kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
     int32 strind = get_max_row_browser();
     int32 i1 = 0;
@@ -2448,7 +2447,7 @@ integrate_export_data(FILE *fp) {
     iiYPLT = MyGraph->yv[0];
     if (MyGraph->ThreeDFlag > 0) {
         iiZPLT = MyGraph->zv[0];
-        for (j = i1; j < strind; j++) {
+        for (int32 j = i1; j < strind; j++) {
             fprintf(fp, "%g %g %g \n", data[iiXPLT][kxoff], data[iiYPLT][kyoff],
                     data[iiZPLT][kzoff]);
             kxoff++;
@@ -2458,7 +2457,7 @@ integrate_export_data(FILE *fp) {
         return;
     }
     /* 2D graph so we will save y from each curve  */
-    for (j = i1; j < strind; j++) {
+    for (int32 j = i1; j < strind; j++) {
         fprintf(fp, "%g ", data[iiXPLT][kxoff]);
         for (ip = 0; ip < np; ip++) {
             iiYPLT = MyGraph->yv[ip];
@@ -2524,7 +2523,7 @@ void
 integrate_restore(int32 i1, int32 i2) {
     int32 ip, np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
-    int32 j, kxoff, kyoff, kzoff;
+    int32 kxoff, kyoff, kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
     double oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
     double v1[MAX_ODE + 1], v2[MAX_ODE + 1];
@@ -2574,7 +2573,7 @@ integrate_restore(int32 i1, int32 i2) {
                     oldzpl = zpl;
             }
             if (MyGraph->ColorFlag != 0 && i > i1) {
-                for (j = 0; j <= NEQ; j++) {
+                for (int32 j = 0; j <= NEQ; j++) {
                     v1[j] = data[j][i];
                     v2[j] = data[j][i - 1];
                 }

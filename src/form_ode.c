@@ -1003,7 +1003,7 @@ form_ode_clrscr(void) {
 
 int32
 form_ode_if_include_file(char *old, char *nf) {
-    int32 i = 0, j = 0;
+    int32 i = 0;
     int32 n = (int32)strlen(old);
     char c;
     if (strncmp(old, "#include", 8) == 0) {
@@ -1015,7 +1015,7 @@ form_ode_if_include_file(char *old, char *nf) {
             if (i == n)
                 return 0;
         }
-        for (j = i + 1; j < n; j++)
+        for (int32 j = i + 1; j < n; j++)
             nf[j - i - 1] = old[j];
         nf[n - i - 1] = 0;
         ani_de_space(nf);
@@ -1067,9 +1067,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
         } else {
             if (loadincludefile) {
-                int32 j = 0;
                 loadincludefile = 0; /*Only do this once*/
-                for (j = 0; j < NincludedFiles; j++) {
+                for (int32 j = 0; j < NincludedFiles; j++) {
                     printf("Trying to open %d %s\n", NincludedFiles,
                            includefilename[j]);
                     fnew = fopen(includefilename[j], "r");
@@ -2214,10 +2213,9 @@ form_ode_find_char(char *s1, char *s2, int32 i0, int32 *i1) {
     int32 m = (int32)strlen(s2), n = (int32)strlen(s1);
     int32 i = i0;
     char ch;
-    int32 j;
     while (i < n) {
         ch = s1[i];
-        for (j = 0; j < m; j++) {
+        for (int32 j = 0; j < m; j++) {
             if (ch == s2[j]) {
                 *i1 = i;
                 return j;
@@ -2249,7 +2247,6 @@ form_ode_next_nonspace(char *s1, int32 i0, int32 *i1) {
 void
 form_ode_remove_blanks(char *s1) {
     int32 i = 0, n = (int32)strlen(s1), l;
-    int32 j;
     char ch;
     while (i < n) {
         ch = s1[i];
@@ -2262,7 +2259,7 @@ form_ode_remove_blanks(char *s1) {
         s1[0] = 0;
     else {
         l = n - i;
-        for (j = 0; j < l; j++)
+        for (int32 j = 0; j < l; j++)
             s1[j] = s1[j + i];
         s1[l] = 0;
     }
@@ -2470,7 +2467,7 @@ form_ode_is_comment(char *s) {
 
 void
 form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
-    int32 i, n = (int32)strlen(big), inew, add, inum, j, m, isign, ok,
+    int32 i, n = (int32)strlen(big), inew, add, inum, m, isign, ok,
              multflag = 0;
     char ch, chp, num[20];
     inew = 0;
@@ -2498,7 +2495,7 @@ form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
                     add = atoi(num);
                     snprintf(num, sizeof(num), "%d", add);
                     m = (int32)strlen(num);
-                    for (j = 0; j < m; j++) {
+                    for (int32 j = 0; j < m; j++) {
                         new[inew] = num[j];
                         inew++;
                     }
@@ -2557,7 +2554,7 @@ form_ode_subsk(char *big, char *new, int32 k, int32 flag) {
                     }
                     snprintf(num, sizeof(num), "%d", add);
                     m = (int32)strlen(num);
-                    for (j = 0; j < m; j++) {
+                    for (int32 j = 0; j < m; j++) {
                         new[inew] = num[j];
                         inew++;
                     }

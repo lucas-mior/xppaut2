@@ -1676,7 +1676,6 @@ free_ani(void) {
 
 int32
 chk_ani_color(char *s, int32 *index) {
-    int32 j;
     char *s2;
 
     *index = -1;
@@ -1689,7 +1688,7 @@ chk_ani_color(char *s, int32 *index) {
     }
     if (s[0] == '$') {
         s2 = &s[1];
-        for (j = 0; j < 12; j++) {
+        for (int32 j = 0; j < 12; j++) {
             if (strcmp(s2, color_names[j]) == 0) {
                 *index = colorline[j];
 
@@ -2667,14 +2666,13 @@ void
 ani_do_grab_tasks(int32 which) {
     /* which=1 for start, 2 for end */
     int32 i = who_was_grabbed;
-    int32 j;
     int32 n;
     double z;
     if (i < 0)
         return; /*  no legal grab graphics_point */
     if (which == 1) {
         n = ani_grab[i].start.n;
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             z = evaluate(ani_grab[i].start.comrhs[j]);
             /*      printf("%s=%g\n",ani_grab[i].start.lhsname[j],z); */
             set_val(ani_grab[i].start.lhsname[j], z);
@@ -2683,7 +2681,7 @@ ani_do_grab_tasks(int32 which) {
     }
     if (which == 2) {
         n = ani_grab[i].end.n;
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             z = evaluate(ani_grab[i].end.comrhs[j]);
             set_val(ani_grab[i].end.lhsname[j], z);
         }

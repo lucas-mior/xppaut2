@@ -64,7 +64,6 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 j;
     double ep;
     int64 ndm;
     double umx;
@@ -105,7 +104,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ep = rtmp*(umx + 1);
 
     for (int64 i = 0; i < ndim; ++i) {
-        for (j = 0; j < ndim; ++j) {
+        for (int32 j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
         }
@@ -115,7 +114,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
              global_scratch.ff1, ndm, global_scratch.dfu, global_scratch.dfp);
         ffho(iap, rap, ndim, global_scratch.uu2, uold, icp, par,
              global_scratch.ff2, ndm, global_scratch.dfu, global_scratch.dfp);
-        for (j = 0; j < ndim; ++j) {
+        for (int32 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdu, j, i) =
                 (global_scratch.ff2[j] - global_scratch.ff1[j]) / (ep*2);
         }
@@ -125,7 +124,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         par[icp[i]] += ep;
         ffho(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
-        for (j = 0; j < ndim; ++j) {
+        for (int32 j = 0; j < ndim; ++j) {
             ARRAY2D(dfdp, j, icp[i]) = (global_scratch.ff1[j] - f[j]) / ep;
         }
         par[icp[i]] -= ep;
@@ -141,7 +140,6 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 j;
     double dum1;
 
     /* Parameter adjustments */
@@ -162,7 +160,7 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         /*        *Adjoint variational equations for normal vector */
         funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
         /*        *Set F = - (Df)^T u */
-        for (j = 0; j < ndm; ++j) {
+        for (int32 j = 0; j < ndm; ++j) {
             dum1 = 0.;
             for (int64 i = 0; i < ndm; ++i) {
                 dum1 += ARRAY2D(dfdu, i, j)*u[ndm + i];
@@ -170,7 +168,7 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             f[ndm + j] = -dum1;
         }
         /*        *Set F =  F + PAR(10)*f */
-        for (j = 0; j < ndm; ++j) {
+        for (int32 j = 0; j < ndm; ++j) {
             f[ndm + j] += par[9]*f[j];
         }
     }
@@ -191,7 +189,6 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
 
@@ -241,7 +238,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
     for (int64 i = 0; i < ndim; ++i) {
-        for (j = 0; j < ndim; ++j) {
+        for (int32 j = 0; j < ndim; ++j) {
             uu1[j] = u0[j];
             uu2[j] = u0[j];
         }
@@ -249,7 +246,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         uu2[i] += ep;
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu1, u1, ff1, dfu);
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, uu2, u1, ff2, dfu);
-        for (j = 0; j < nbc; ++j) {
+        for (int32 j = 0; j < nbc; ++j) {
             ARRAY2D(dbc, j, i) = (ff2[j] - ff1[j]) / (ep*2);
         }
     }
@@ -265,7 +262,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
     for (int64 i = 0; i < ndim; ++i) {
-        for (j = 0; j < ndim; ++j) {
+        for (int32 j = 0; j < ndim; ++j) {
             uu1[j] = u1[j];
             uu2[j] = u1[j];
         }
@@ -273,7 +270,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         uu2[i] += ep;
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu1, ff1, dfu);
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, uu2, ff2, dfu);
-        for (j = 0; j < nbc; ++j) {
+        for (int32 j = 0; j < nbc; ++j) {
             ARRAY2D(dbc, j, (ndim + i)) = (ff2[j] - ff1[j]) / (ep*2);
         }
     }
@@ -281,7 +278,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, u1, ff2, dfu);
-        for (j = 0; j < nbc; ++j) {
+        for (int32 j = 0; j < nbc; ++j) {
             ARRAY2D(dbc, j, (ndim*2) + icp[i]) = (ff2[j] - f[j]) / ep;
         }
         par[icp[i]] -= ep;
@@ -302,7 +299,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 ieig;
 
-    int64 j, k;
+    int64 k;
 
     int64 ineig;
 
@@ -527,7 +524,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             dum = 0.;
             kp = ip + blhom_1.nunstab;
             jb = ndm + 1;
-            for (j = 0; j < blhom_1.nunstab; ++j) {
+            for (int32 j = 0; j < blhom_1.nunstab; ++j) {
                 for (int64 i = 0; i < ndm; ++i) {
                     fb[i] =
                         u0[i] - xequib1[i] -
@@ -558,7 +555,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         for (int64 i = 0; i < blhom_1.nunstab; ++i) {
             k = i + blhom_1.nstab;
             dum = 0.;
-            for (j = 0; j < ndm; ++j) {
+            for (int32 j = 0; j < ndm; ++j) {
                 dum += (u1[j] - xequib2[j])*vt[k + j*(iap->ndm)];
             }
             ++kp;
@@ -617,7 +614,6 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
 
@@ -670,7 +666,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     ep = rtmp*(umx + 1);
 
     for (int64 i = 0; i < ndim; ++i) {
-        for (j = 0; j < ndim; ++j) {
+        for (int32 j = 0; j < ndim; ++j) {
             uu1[j] = u[j];
             uu2[j] = u[j];
         }
@@ -680,7 +676,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
              dfu);
         fiho(iap, rap, ndim, par, icp, nint, nnt0, uu2, uold, udot, upold, ff2,
              dfu);
-        for (j = 0; j < nint; ++j) {
+        for (int32 j = 0; j < nint; ++j) {
             ARRAY2D(dint, j, i) = (ff2[j] - ff1[j]) / (ep*2);
         }
     }
@@ -689,7 +685,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         par[icp[i]] += ep;
         fiho(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, ff1,
              dfu);
-        for (j = 0; j < nint; ++j) {
+        for (int32 j = 0; j < nint; ++j) {
             ARRAY2D(dint, j, ndim + icp[i]) = (ff1[j] - f[j]) / ep;
         }
         par[icp[i]] -= ep;
@@ -1036,7 +1032,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntst, ncol1, j;
+    int64 ndim, ncol, nfpr, ntst, ncol1;
     double t;
     double *u;
     int64 k1, k2;
@@ -1080,7 +1076,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     msh(iap, tm);
     dt = 1. / (double)(ntst*ncol);
 
-    for (j = 0; j < ntst + 1; ++j) {
+    for (int32 j = 0; j < ntst + 1; ++j) {
         if (j == ntst) {
             ncol1 = 1;
         } else {
@@ -1115,8 +1111,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
 int32
 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
-    int64 j;
-
     int64 ip;
     int64 kp;
     int64 ndm;
@@ -1228,7 +1222,7 @@ L3:
 
     for (int64 i = 0; i < blhom_1.nunstab; ++i) {
         par[ip + i] = 0.;
-        for (j = 0; j < ndm; ++j) {
+        for (int32 j = 0; j < ndm; ++j) {
             par[ip + i] += vr[blhom_1.nstab + j*(iap->ndm)]*par[-1 + kp] *
                            par[kp]*exp(rr[blhom_1.nstab]*par[10]) *
                            vt[blhom_1.nstab + i + j*(iap->ndm)];
@@ -1247,8 +1241,6 @@ int32
 pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
     int64 ups_dim1, p0_dim1, p1_dim1;
-
-    int64 j;
 
     double orient;
 
@@ -1277,7 +1269,7 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
           &ndm);
     if (iid >= 3) {
         fprintf(fp9, "EIGENVALUES\n");
-        for (j = 0; j < ndm; ++j) {
+        for (int32 j = 0; j < ndm; ++j) {
             fprintf(fp9, " (%12.7f %12.7f)\n", bleig_1.rr[j], bleig_1.ri[j]);
         }
     }
@@ -1319,7 +1311,6 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
       int64 *icp, double *par) {
     double ret_val;
 
-    int64 j;
     double *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
     int64 ndm;
     double dum1;
@@ -1366,7 +1357,7 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
         f1norm = 0.;
         u0norm = 0.;
         u1norm = 0.;
-        for (j = 0; j < ndm; ++j) {
+        for (int32 j = 0; j < ndm; ++j) {
             s1 += f1[j]*blhmu_1.pu0[ndm + j];
             s2 += f0[j]*blhmu_1.pu1[ndm + j];
             /* Computing 2nd power */
@@ -1513,7 +1504,7 @@ L10:
     /*     e.g. 1D unstable manifold */
 
 L11:
-    for (j = 0; j < ndm; ++j) {
+    for (int32 j = 0; j < ndm; ++j) {
         ret_val += f1[j]*vt[blhom_1.nstab + (j + 1)*(iap->ndm)];
     }
     ret_val *= exp(-par[10]*rr[-1 + blhom_1.nstab] / 2.);
@@ -1523,7 +1514,7 @@ L11:
     /*     e.g. 1D stable manifold */
 
 L12:
-    for (j = 0; j < ndm; ++j) {
+    for (int32 j = 0; j < ndm; ++j) {
         ret_val += f0[j]*vt[blhom_1.nstab + 1 + (j + 1)*(iap->ndm)];
     }
     ret_val *= exp(par[10]*rr[blhom_1.nstab] / 2.);
@@ -1603,7 +1594,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *dfdp, double *zz) {
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
-    int64 j, ifail;
+    int64 ifail;
     double vdot;
 
     double *f;
@@ -1654,12 +1645,12 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     if (*itrans == 1) {
         for (int64 i = 0; i < *ndm; ++i) {
-            for (j = 0; j < *ndm; ++j) {
+            for (int32 j = 0; j < *ndm; ++j) {
                 vrdum[i + j*(*ndm)] = ARRAY2D(dfdu, j, i);
             }
         }
         for (int64 i = 0; i < *ndm; ++i) {
-            for (j = 0; j < *ndm; ++j) {
+            for (int32 j = 0; j < *ndm; ++j) {
                 ARRAY2D(dfdu, i, j) = vrdum[i + j*(*ndm)];
             }
         }
@@ -1671,7 +1662,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     if (ifail != 0)
         fprintf(fp9, "EISPACK EIGENVALUE ROUTINE FAILED !\n");
 
-    for (j = 0; j < *ndm; ++j) {
+    for (int32 j = 0; j < *ndm; ++j) {
         if (ri[j] > 0.) {
             for (int64 i = 0; i < *ndm; ++i) {
                 vr[i + j*(*ndm)] = ARRAY2D(zz, i, j);
@@ -1694,7 +1685,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     /*     (smallest first) */
 
     for (int64 i = 0; i < *ndm - 1; ++i) {
-        for (j = i + 1; j < *ndm; ++j) {
+        for (int64 j = i + 1; j < *ndm; ++j) {
             if (rr[i] > rr[j]) {
                 rrdum[i] = rr[i];
                 ridum[i] = ri[i];
@@ -1719,7 +1710,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     /* from the previous call with the same value of ISIGN */
 
     if (blhme_1.ieigc[*itrans - 1] == 0) {
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             for (int64 i = 0; i < *ndm; ++i) {
                 blhme_1.vrprev[*itrans + (i*2 + j*(*ndm)*2) - 1] =
                     vr[i + j*(*ndm)];
@@ -1734,24 +1725,24 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
         {
             int64 tmp;
             tmp = *ndm;
-            for (j = 0; j < tmp; ++j) {
+            for (int32 j = 0; j < tmp; ++j) {
                 vdot += vr[j + i*tmp] *
                         blhme_1.vrprev[*itrans + (j*2 + i*tmp*2) - 1];
             }
         }
 #else
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             vdot += vr[j + i*(*ndm)] *
                     blhme_1.vrprev[*itrans + (j*2 + i*(*ndm)*2) - 1];
         }
 #endif
         if (vdot < 0.) {
-            for (j = 0; j < *ndm; ++j) {
+            for (int32 j = 0; j < *ndm; ++j) {
                 vr[j + i*(*ndm)] = -vr[j + i*(*ndm)];
                 /*               VI(J,I)=-VI(J,I) */
             }
         }
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             blhme_1.vrprev[*itrans + (j*2 + i*(*ndm)*2) - 1] =
                 vr[j + i*(*ndm)];
         }
@@ -1759,7 +1750,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     /* Send back the transpose of the matrix of real parts of eigenvectors */
     for (int64 i = 0; i < *ndm; ++i) {
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             vret[(i + 1) + (j + 1)*(*ndm)] = vr[j + i*(*ndm)];
         }
     }
@@ -1798,7 +1789,6 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 j;
     int64 mcond, k1, k2, m0;
 
     double det;
@@ -1857,13 +1847,13 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     /* Compute transpose of A if ITRANS=1 */
     if (*itrans == 1) {
         for (int64 i = 0; i < *ndm; ++i) {
-            for (j = 0; j < *ndm; ++j) {
+            for (int32 j = 0; j < *ndm; ++j) {
                 a[i + j*(*ndm)] = ARRAY2D(dfdu, j, i);
             }
         }
     } else {
         for (int64 i = 0; i < *ndm; ++i) {
-            for (j = 0; j < *ndm; ++j) {
+            for (int32 j = 0; j < *ndm; ++j) {
                 a[i + j*(*ndm)] = ARRAY2D(dfdu, i, j);
             }
         }
@@ -1881,7 +1871,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     /* Force A to be upper Hessenberg */
     if (*ndm > 2) {
         for (int64 i = 2; i < *ndm; ++i) {
-            for (j = 0; j < i - 1; ++j) {
+            for (int32 j = 0; j < i - 1; ++j) {
                 a[i + j*(*ndm)] = 0.;
             }
         }
@@ -1908,7 +1898,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     m0 = k1 - 1;
 
     for (int64 i = k1 - 1; i < k2; ++i) {
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             cnow[i + j*(*ndm)] = v[j + (i - k1 + 1)*(*ndm)];
         }
     }
@@ -1922,7 +1912,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
        with zeros, even though this is not guaranteed.*/
     if (beyn_1.iflag[*is + (*itrans*2) - 3] == 0) {
         for (int64 i = k1 - 1; i < k2; ++i) {
-            for (j = 0; j < *ndm; ++j) {
+            for (int32 j = 0; j < *ndm; ++j) {
                 beyn_1.cprev[i +
                              (j + ((*is - 1) + ((*itrans - 1)*2))*(*ndm)) *
                                  (*ndm)] = cnow[i + j*(*ndm)];
@@ -1946,7 +1936,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
 
     /* Calculate the (transpose of the) BEYN matrix D and hence BOUND */
     for (int64 i = 0; i < mcond; ++i) {
-        for (j = 0; j < mcond; ++j) {
+        for (int32 j = 0; j < mcond; ++j) {
             dum1[i + j*(*ndm)] = 0.;
             dum2[i + j*(*ndm)] = 0.;
 #define GCC_2_96_FIX
@@ -1998,7 +1988,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
         ge(mcond, *ndm, dum1, mcond, *ndm, d, *ndm, dum2, &det);
 
     for (int64 i = 0; i < mcond; ++i) {
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             bound[(i + 1) + m0 + (j + 1)*(*ndm)] = 0.;
             for (int64 k = 0; k < mcond; ++k) {
                 bound[(i + 1) + m0 + (j + 1)*(*ndm)] +=
@@ -2008,7 +1998,7 @@ prjctn(double *bound, double *xequib, int64 *icp, double *par, int64 *imfd,
     }
 
     for (int64 i = k1 - 1; i < k2; ++i) {
-        for (j = 0; j < *ndm; ++j) {
+        for (int32 j = 0; j < *ndm; ++j) {
             beyn_1.cprev[i + (j + ((*is - 1) + ((*itrans - 1)*2))*(*ndm)) *
                                  (*ndm)] = bound[(i + 1) + (j + 1)*(*ndm)];
         }

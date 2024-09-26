@@ -374,7 +374,7 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
 
 void
 eig_list_draw_eq_box(Window window) {
-    int32 j, ncol, n = eq_box.n, nrow;
+    int32 ncol, n = eq_box.n, nrow;
     int32 in;
     char temp[50];
     if (eq_box.flag == 0)
@@ -414,7 +414,7 @@ eig_list_draw_eq_box(Window window) {
 
         ncol = 1 + n / 3;
 
-        for (j = 0; j < ncol; j++) {
+        for (int32 j = 0; j < ncol; j++) {
             for (int32 i = 0; i < nrow; i++) {
                 in = j*20 + i;
                 if (in >= n)

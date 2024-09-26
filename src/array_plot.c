@@ -149,7 +149,7 @@ array_plot_make_my(char *name) {
 
 void
 array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
-    int32 j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
+    int32 ib, jb, row0 = ap->nstart, col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
     ib = col0;
@@ -159,7 +159,7 @@ array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
     for (int32 i = 0; i < ap->nacross / ap->ncskip; i++) {
         ib = col0 + i*ap->ncskip;
         if (ib <= my_browser.maxcol) {
-            for (j = 0; j < ap->ndown; j++) {
+            for (int32 j = 0; j < ap->ndown; j++) {
                 jb = row0 + ap->nskip*j;
                 if (jb < nrows && jb >= 0) {
                     z = my_browser.data[ib][jb];
@@ -456,7 +456,7 @@ array_plot_edit(void) {
 void
 array_plot_get_root(char *s, char *sroot, int32 *num) {
     int32 n = (int32)strlen(s);
-    int32 i = n - 1, j;
+    int32 i = n - 1;
 
     char me[100];
     *num = 0;
@@ -471,12 +471,12 @@ array_plot_get_root(char *s, char *sroot, int32 *num) {
     if (i < 0)
         strcpy(sroot, s);
     else {
-        for (j = 0; j <= i; j++)
+        for (int32 j = 0; j <= i; j++)
             sroot[j] = s[j];
         sroot[i + 1] = 0;
     }
     if (i >= 0 && i < n) {
-        for (j = i + 1; j < n; j++)
+        for (int32 j = i + 1; j < n; j++)
             me[j - i - 1] = s[j];
         me[n - i] = 0;
         *num = atoi(me);
@@ -629,7 +629,6 @@ array_plot_gif(void) {
 
 void
 array_plot_redraw(struct ArrayPlot ap) {
-    int32 j;
     Window window = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
     char bob[100];
@@ -667,7 +666,7 @@ array_plot_redraw(struct ArrayPlot ap) {
 
         if (ib >= my_browser.maxcol)
             return;
-        for (j = 0; j < ap.ndown; j++) {
+        for (int32 j = 0; j < ap.ndown; j++) {
             jb = row0 + ap.nskip*j;
 
             if (jb < nrows && jb >= 0) {

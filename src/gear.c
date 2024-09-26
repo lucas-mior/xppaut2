@@ -44,7 +44,7 @@ static double gear_max(double x, double y);
 void
 gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
              int32 n, int32 *ierr, double *stabinfo) {
-    int32 kmem, j, ipivot[MAX_ODE];
+    int32 kmem, ipivot[MAX_ODE];
     int32 oldcol;
     int32 dummy;
     int32 rp = 0, rn = 0, cp = 0, cn = 0, im = 0;
@@ -88,7 +88,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
     }
     /* Transpose for Eigen        */
     for (int32 i = 0; i < n; i++) {
-        for (j = i + 1; j < n; j++) {
+        for (int32 j = i + 1; j < n; j++) {
             temp = work[i + j*n];
             work[i + j*n] = work[i*n + j];
             work[i*n + j] = temp;
@@ -169,7 +169,7 @@ gear_do_sing(double *x, double eps, double err, double big, int32 maxit,
 
     /* Lets change Work back to transposed oldwork */
     for (int32 i = 0; i < n; i++) {
-        for (j = i + 1; j < n; j++) {
+        for (int32 j = i + 1; j < n; j++) {
             temp = oldwork[i + j*n];
             work[i + j*n] = oldwork[i*n + j];
             work[i*n + j] = temp;
@@ -346,7 +346,7 @@ gear_shoot_this_now(void) {
 void
 gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
                   int32 n, double *er, double *em, int32 *ierr) {
-    int32 kmem, j, ipivot[MAX_ODE];
+    int32 kmem, ipivot[MAX_ODE];
 
     int32 rp = 0, rn = 0, cp = 0, cn = 0;
     int32 pose = 0, nege = 0;
@@ -390,7 +390,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
     }
     /* Transpose for Eigen        */
     for (int32 i = 0; i < n; i++) {
-        for (j = i + 1; j < n; j++) {
+        for (int32 j = i + 1; j < n; j++) {
             temp = work[i + j*n];
             work[i + j*n] = work[i*n + j];
             work[i*n + j] = temp;
@@ -453,7 +453,7 @@ gear_do_sing_info(double *x, double eps, double err, double big, int32 maxit,
 
     /* Lets change Work back to transposed oldwork */
     for (int32 i = 0; i < n; i++) {
-        for (j = i + 1; j < n; j++) {
+        for (int32 j = i + 1; j < n; j++) {
             temp = oldwork[i + j*n];
             work[i + j*n] = oldwork[i*n + j];
             work[i*n + j] = temp;
@@ -509,14 +509,14 @@ gear_get_complex_evec(double *m, double evr, double evm, double *br, double *bm,
     double *b;
     double *bp;
     int32 nn = 2*n;
-    int32 j, k;
+    int32 k;
     a = xmalloc((usize)(nn*nn)*sizeof(*a));
     anew = xmalloc((usize)(nn*nn)*sizeof(*anew));
     b = xmalloc((usize)nn*sizeof(*b));
     bp = xmalloc((usize)nn*sizeof(*bp));
     ipivot = xmalloc((usize)nn*sizeof(*ipivot));
     for (int32 i = 0; i < nn; i++) {
-        for (j = 0; j < nn; j++) {
+        for (int32 j = 0; j < nn; j++) {
             k = j*nn + i;
             a[k] = 0.0;
             if ((j < n) && (i < n))
@@ -551,16 +551,16 @@ void
 gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
               int32 maxit, double err, int32 *ipivot, double eval,
               int32 *ierr) {
-    int32 j, iter, jmax;
+    int32 iter, jmax;
     double temp;
     double zz = fabs(eval);
     if (zz < err)
         zz = err;
     *ierr = 0;
-    for (j = 0; j < n*n; j++) {
+    for (int32 j = 0; j < n*n; j++) {
         anew[j] = a[j];
     }
-    for (j = 0; j < n; j++)
+    for (int32 j = 0; j < n; j++)
         anew[j*(1 + n)] = anew[j*(1 + n)] - eval - err*err*zz;
 
     gear_sgefa(anew, n, n, ipivot, ierr);
@@ -568,7 +568,7 @@ gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
         ggets_plintf(" Pivot failed\n");
         return;
     }
-    for (j = 0; j < n; j++) {
+    for (int32 j = 0; j < n; j++) {
         b[j] = 1 + .1*markov_ndrand48();
         bp[j] = b[j];
     }
@@ -579,17 +579,17 @@ gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
         temp = fabs(b[0]);
         jmax = 0;
 
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             if (fabs(b[j]) > temp) {
                 temp = fabs(b[j]);
                 jmax = j;
             }
         }
         temp = b[jmax];
-        for (j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++)
             b[j] = b[j] / temp;
         temp = 0.0;
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             temp = temp + fabs(b[j] - bp[j]);
             bp[j] = b[j];
         }
@@ -606,14 +606,14 @@ gear_get_evec(double *a, double *anew, double *b, double *bp, int32 n,
     if (*ierr == 0) {
         temp = fabs(b[0]);
         jmax = 0;
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             if (fabs(b[j]) > temp) {
                 temp = fabs(b[j]);
                 jmax = j;
             }
         }
         temp = b[jmax];
-        for (j = 0; j < n; j++)
+        for (int32 j = 0; j < n; j++)
             b[j] = b[j] / temp;
     }
     return;
@@ -875,7 +875,6 @@ gear_amax(double u, double v) {
 void
 gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
              double *dermat, int32 n) {
-    int32 j;
     double r;
     rhs_function(0.0, x, y, n);
     if (METHOD == 0)
@@ -893,10 +892,10 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
            ggets_plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
         */
         if (METHOD == 0) {
-            for (j = 0; j < n; j++)
+            for (int32 j = 0; j < n; j++)
                 yp[j] = yp[j] - xp[j];
         }
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             dermat[j*n + i] = (yp[j] - y[j]) / r;
         }
     }
@@ -906,7 +905,6 @@ gear_get_jac(double *x, double *y, double *yp, double *xp, double eps,
 void
 gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
                double *dermat, int32 n) {
-    int32 j;
     double r;
     rhs_function(0.0, x, y, n);
     for (int32 i = 0; i < n; i++) {
@@ -919,7 +917,7 @@ gear_jac_trans(double *x, double *y, double *yp, double *xp, double eps,
            for(j=0;j<n;j++)
            ggets_plintf(" r=%g yp=%g xp=%g\n",r,yp[j],xp[j]);
         */
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             dermat[j + n*i] = (yp[j] - y[j]) / r;
         }
     }
@@ -1021,7 +1019,7 @@ ggear(int32 n, double *t, double tout, double *y, double hmin, double hmax,
     double enq1 = 0.0, enq2 = 0.0, enq3 = 0.0, pepsh = 0.0, e = 0.0, edwn = 0.0,
            eup = 0.0, bnd = 0.0;
     double *ytable[8], *ymax, *work2;
-    int32 iret = 0, maxder = 0, j = 0, k = 0, iret1 = 0, nqold = 0, nq = 0,
+    int32 iret = 0, maxder = 0, k = 0, iret1 = 0, nqold = 0, nq = 0,
           newq = 0;
     int32 idoub = 0, mtyp = 0, iweval = 0, j1 = 0, j2 = 0, l = 0, info = 0,
           job = 0, nt = 0;
@@ -1086,7 +1084,7 @@ L70:
 L80:
 
     for (int32 i = 0; i < n; i++)
-        for (j = 1; j <= k; j++)
+        for (int32 j = 1; j <= k; j++)
             save[j - 1][i] = ytable[j - 1][i];
 
     hold = hnew;
@@ -1210,7 +1208,7 @@ L150:
 L330:
 
     *t = *t + h;
-    for (j = 2; j <= k; j++)
+    for (int32 j = 2; j <= k; j++)
         for (j1 = j; j1 <= k; j1++) {
             j2 = k - j1 + j - 1;
             for (int32 i = 0; i < n; i++)
@@ -1226,7 +1224,7 @@ L330:
         /*       JACOBIAN COMPUTED   */
         for (int32 i = 0; i < n; i++)
             save9[i] = ytable[0][i];
-        for (j = 0; j < n; j++) {
+        for (int32 j = 0; j < n; j++) {
             r = eps*gear_max(eps, fabs(save9[j]));
             ytable[0][j] = ytable[0][j] + r;
             d = a[0]*h / r;
@@ -1285,7 +1283,7 @@ L530:
 L540:
 
     for (int32 i = 0; i < n; i++)
-        for (j = 1; j <= k; j++)
+        for (int32 j = 1; j <= k; j++)
             ytable[j - 1][i] = save[j - 1][i];
     h = hold;
     nq = nqold;
@@ -1301,7 +1299,7 @@ L560:
     if (d > e)
         goto L610;
     if (k >= 3) {
-        for (j = 3; j <= k; j++)
+        for (int32 j = 3; j <= k; j++)
             for (int32 i = 0; i < n; i++)
                 ytable[j - 1][i] = ytable[j - 1][i] + a[j - 1]*error[i];
     }
@@ -1404,7 +1402,7 @@ L740:
 L750:
 
     r1 = 1.0;
-    for (j = 2; j <= k; j++) {
+    for (int32 j = 2; j <= k; j++) {
         r1 = r1*r;
         for (int32 i = 0; i < n; i++)
             ytable[j - 1][i] = ytable[j - 1][i]*r1;
@@ -1449,7 +1447,7 @@ L820:
     racum = gear_max(fabs(hmin / hold), racum);
     racum = gear_min(racum, fabs(hmax / hold));
     r1 = 1.0;
-    for (j = 2; j <= k; j++) {
+    for (int32 j = 2; j <= k; j++) {
         r1 = r1*racum;
         for (int32 i = 0; i < n; i++)
             ytable[j - 1][i] = save[j - 1][i]*r1;
@@ -1523,7 +1521,7 @@ gear_min(double x, double y) {
 
 void
 gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
-    int32 j, kp1, l, nm1;
+    int32 kp1, l, nm1;
     double t;
     *info = -1;
     nm1 = n - 1;
@@ -1540,7 +1538,7 @@ gear_sgefa(double *a, int32 lda, int32 n, int32 *ipvt, int32 *info) {
                 }
                 t = -1.0 / a[(k - 1)*lda + k - 1];
                 gear_sscal(n - k, t, (a + k*lda + k - 1), lda);
-                for (j = kp1; j <= n; j++) {
+                for (int32 j = kp1; j <= n; j++) {
                     t = a[l*lda + j - 1];
                     if (l != (k - 1)) {
                         a[l*lda + j - 1] = a[(k - 1)*lda + j - 1];

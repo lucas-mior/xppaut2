@@ -345,10 +345,9 @@ comline_if_needed_load_ext_options(void) {
 
 int32
 comline_if_needed_select_sets(void) {
-    int32 j;
     if (!select_intern_sets)
         return 1;
-    for (j = 0; j < Nintern_set; j++) {
+    for (int32 j = 0; j < Nintern_set; j++) {
         intern_set[j].use = (uint32)use_intern_sets;
         Nintern_2_use += use_intern_sets;
 
