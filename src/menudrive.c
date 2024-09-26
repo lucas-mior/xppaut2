@@ -59,10 +59,10 @@ menudrive_do_tutorial(void) {
     int32 tut = 0;
     printf("Running tutorial!\n");
     while (true) {
-        char ans = (char)pop_list_two_choice("Next", "Done", tutorial[tut], "nd",
-                                    DisplayWidth / 2, DisplayHeight / 2,
-                                    RootWindow(display, screen),
-                                    "Did you know you can...");
+        char ans = (char)pop_list_two_choice(
+            "Next", "Done", tutorial[tut], "nd", DisplayWidth / 2,
+            DisplayHeight / 2, RootWindow(display, screen),
+            "Did you know you can...");
 
         if (ans == 'd')
             break;
@@ -140,9 +140,9 @@ void
 menudrive_message_box(char *m) {
     int32 wid = (int32)strlen(m)*DCURX + 20;
     int32 hgt = 4*DCURY;
-    MsgBox.window =
-        pop_list_make_plain_window(RootWindow(display, screen), DisplayWidth / 2,
-                          DisplayHeight / 2, wid, hgt, 4);
+    MsgBox.window = pop_list_make_plain_window(RootWindow(display, screen),
+                                               DisplayWidth / 2,
+                                               DisplayHeight / 2, wid, hgt, 4);
 
     many_pops_make_icon((char *)alert_bits, alert_width, alert_height,
                         MsgBox.window);
@@ -174,7 +174,7 @@ int32
 menudrive_two_choice(char *c1, char *c2, char *q, char *key) {
     int32 choice =
         pop_list_two_choice(c1, c2, q, key, DisplayWidth / 2, DisplayHeight / 2,
-                   RootWindow(display, screen), NULL);
+                            RootWindow(display, screen), NULL);
     return choice;
 }
 

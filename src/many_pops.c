@@ -882,7 +882,8 @@ many_pops_do_gr_objs_com(int32 com) {
             snprintf(values[4], sizeof(values[4]), "%d", markinfo.start);
             snprintf(values[5], sizeof(values[5]), "%d", markinfo.skip);
 
-            status = pop_list_do_string_box(6, 6, 1, "Add Markers", n, values, 25);
+            status =
+                pop_list_do_string_box(6, 6, 1, "Add Markers", n, values, 25);
             if (status == 0)
                 break;
 
@@ -1267,8 +1268,8 @@ many_pops_create_a_pop(void) {
     graph[index].window =
         XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0,
                             (uint)MINI_W, (uint)MINI_H, 2, GrFore, GrBack);
-    graph[index].w_info =
-        pop_list_make_window(graph[index].window, 10, 0, 40*DCURXs, DCURYs, 0);
+    graph[index].w_info = pop_list_make_window(graph[index].window, 10, 0,
+                                               40*DCURXs, DCURYs, 0);
     XSetWindowBackground(display, graph[i].window, MyDrawWinColor);
 
     graphics_copy_graph(index, current_pop);

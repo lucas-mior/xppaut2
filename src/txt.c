@@ -303,8 +303,8 @@ txt_make_view(void) {
     XSizeHints size_hints;
     if (txtview.here == 1)
         return;
-    base =
-        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, minwid, minlen, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, minwid,
+                                      minlen, 4);
     txtview.base = base;
     XSelectInput(display, base,
                  ExposureMask | KeyPressMask | ButtonPressMask |
@@ -322,18 +322,24 @@ txt_make_view(void) {
     many_pops_make_icon((char *)txtview_bits, txtview_width, txtview_height,
                         base);
     txtview.up = pop_list_make_window(base, DCURXs, 2, 8*DCURXs, DCURYs, 1);
-    txtview.down = pop_list_make_window(base, DCURXs + ww, 2, 8*DCURXs, DCURYs, 1);
-    txtview.pgup = pop_list_make_window(base, DCURXs + 2*ww, 2, 8*DCURXs, DCURYs, 1);
-    txtview.pgdn = pop_list_make_window(base, DCURXs + 3*ww, 2, 8*DCURXs, DCURYs, 1);
-    txtview.kill = pop_list_make_window(base, DCURXs + 4*ww, 2, 8*DCURXs, DCURYs, 1);
-    txtview.home = pop_list_make_window(base, DCURXs, 2 + hh, 8*DCURXs, DCURYs, 1);
-    txtview.end = pop_list_make_window(base, DCURXs + ww, 2 + hh, 8*DCURXs, DCURYs, 1);
-    txtview.src =
-        pop_list_make_window(base, DCURXs + 2*ww, 2 + hh, 8*DCURXs, DCURYs, 1);
-    txtview.action =
-        pop_list_make_window(base, DCURXs + 3*ww, 2 + hh, 8*DCURXs, DCURYs, 1);
-    txtview.text =
-        pop_list_make_plain_window(base, 2, 3*DCURYs + 5, minwid - 4, 10*DCURY, 1);
+    txtview.down =
+        pop_list_make_window(base, DCURXs + ww, 2, 8*DCURXs, DCURYs, 1);
+    txtview.pgup =
+        pop_list_make_window(base, DCURXs + 2*ww, 2, 8*DCURXs, DCURYs, 1);
+    txtview.pgdn =
+        pop_list_make_window(base, DCURXs + 3*ww, 2, 8*DCURXs, DCURYs, 1);
+    txtview.kill =
+        pop_list_make_window(base, DCURXs + 4*ww, 2, 8*DCURXs, DCURYs, 1);
+    txtview.home =
+        pop_list_make_window(base, DCURXs, 2 + hh, 8*DCURXs, DCURYs, 1);
+    txtview.end =
+        pop_list_make_window(base, DCURXs + ww, 2 + hh, 8*DCURXs, DCURYs, 1);
+    txtview.src = pop_list_make_window(base, DCURXs + 2*ww, 2 + hh,
+                                       8*DCURXs, DCURYs, 1);
+    txtview.action = pop_list_make_window(base, DCURXs + 3*ww, 2 + hh,
+                                          8*DCURXs, DCURYs, 1);
+    txtview.text = pop_list_make_plain_window(base, 2, 3*DCURYs + 5,
+                                              minwid - 4, 10*DCURY, 1);
     txtview.here = 1;
     txtview.nlines = 10;
     txtview.which = 0;

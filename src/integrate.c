@@ -610,8 +610,8 @@ integrate_do_range(double *x, int32 flag) {
     char parn[256];
     char bob[sizeof(parn) + 30];
     int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
-    int32 nit = 20, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
-          nit2 = 0, iii = 0;
+    int32 nit = 20, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0, nit2 = 0,
+          iii = 0;
     int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
                     p2 = 0.0, dpar2 = 0.0;
@@ -662,8 +662,8 @@ integrate_do_range(double *x, int32 flag) {
         else
             sprintf(values[11], "1");
         sprintf(values[12], "%d", range.steps2);
-        status =
-            pop_list_do_string_box(13, 7, 2, "Double Range Integrate", n, values, 45);
+        status = pop_list_do_string_box(13, 7, 2, "Double Range Integrate", n,
+                                        values, 45);
 
         if (status == 0)
             return -1;

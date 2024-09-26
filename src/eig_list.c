@@ -56,7 +56,8 @@ eig_list_draw_eq_list(Window window) {
     if (window == eq_list.close)
         XDS("Close");
     if (window == eq_list.list) {
-        for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
+        for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines;
+             i++) {
             if (i >= NEQ)
                 break;
             if (i < NODE && METHOD > 0)
@@ -103,8 +104,8 @@ eig_list_create_eq_list(void) {
     eq_list.nlines = (height - hmain) / (DCURYs + 2);
 
     width = 300;
-    base =
-        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
+                                      height, 4);
     eq_list.base = base;
 
     XStringListToTextProperty(wname, 1, &winname);
@@ -129,11 +130,12 @@ eig_list_create_eq_list(void) {
     many_pops_make_icon((char *)eqns_bits, eqns_width, eqns_height, base);
     eq_list.main = pop_list_make_plain_window(base, 0, 0, width, hmain, 1);
     eq_list.list = pop_list_make_plain_window(base, 0, hmain, width, hlist, 1);
-    eq_list.close = pop_list_make_window(eq_list.main, 10, 5, 7*DCURXs, DCURYs + 2, 1);
-    eq_list.up = pop_list_make_window(eq_list.main, 10 + 7*DCURXs + 14, 5, 7*DCURXs,
-                             DCURYs + 2, 1);
+    eq_list.close =
+        pop_list_make_window(eq_list.main, 10, 5, 7*DCURXs, DCURYs + 2, 1);
+    eq_list.up = pop_list_make_window(eq_list.main, 10 + 7*DCURXs + 14, 5,
+                                      7*DCURXs, DCURYs + 2, 1);
     eq_list.down = pop_list_make_window(eq_list.main, 10 + 14*DCURXs + 28, 5,
-                               7*DCURXs, DCURYs + 2, 1);
+                                        7*DCURXs, DCURYs + 2, 1);
 
     XSelectInput(display, eq_list.up, MYMASK);
     XSelectInput(display, eq_list.down, MYMASK);
@@ -327,8 +329,8 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
         height = hequil + hstab;
         tpos = (width - 8*DCURX) / 2;
         tpos2 = tpos + 9*DCURX;
-        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                 height, 4);
+        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
+                                          width, height, 4);
 
         eq_box.base = base;
 
@@ -348,14 +350,16 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
                          &size_hints, NULL, NULL);
         many_pops_make_icon((char *)equilib_bits, equilib_width, equilib_height,
                             base);
-        eq_box.stab = pop_list_make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
+        eq_box.stab =
+            pop_list_make_plain_window(eq_box.base, 0, 0, width, hstab, 1);
         eq_box.rest =
             pop_list_make_plain_window(eq_box.base, 0, hstab, width, hequil, 1);
-        eq_box.top = pop_list_make_window(eq_box.stab, tpos, 2, 8*DCURX, DCURY + 5, 1);
+        eq_box.top =
+            pop_list_make_window(eq_box.stab, tpos, 2, 8*DCURX, DCURY + 5, 1);
         eq_box.close =
             pop_list_make_window(eq_box.base, 2, 2, 8*DCURXs, DCURYs + 4, 1);
-        eq_box.import =
-            pop_list_make_window(eq_box.base, tpos2, 2, 8*DCURXs, DCURYs + 4, 1);
+        eq_box.import = pop_list_make_window(eq_box.base, tpos2, 2, 8*DCURXs,
+                                             DCURYs + 4, 1);
         eq_box.flag = 1;
     } else { /*   Already it has been created so we are updating it */
         XClearWindow(display, eq_box.top);

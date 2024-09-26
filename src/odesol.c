@@ -22,8 +22,8 @@ static int32 odesol_bandfac(double *a, int32 ml, int32 mr, int32 n);
 static int32 odesol_abmpc(double *y, double *t, double dt, int32 neq);
 
 int32
-odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
-          double *work) {
+odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq,
+                 int32 *istart, double *work) {
     if (NFlags == 0) {
         for (int32 i = 0; i < nt; i++) {
             odesol2_one_step_symp(y, dt, work, neq, tim);
@@ -41,8 +41,8 @@ odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
 /*   DISCRETE    */
 
 int32
-odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
-         double *work) {
+odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq,
+                int32 *istart, double *work) {
     if (NFlags == 0) {
         for (int32 i = 0; i < nt; i++) {
             odesol2_one_step_discrete(y, dt, work, neq, tim);
@@ -60,8 +60,8 @@ odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *i
 /* Backward Euler  */
 
 int32
-odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
-          double *work) {
+odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
+                 int32 *istart, double *work) {
     int32 j;
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     yp = work;
@@ -72,8 +72,8 @@ odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
     jac = yp2 + neq;
     if (NFlags == 0) {
         for (int32 i = 0; i < nt; i++) {
-            if ((j = odesol_one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp, errvec,
-                                  jac)) != 0)
+            if ((j = odesol_one_bak_step(y, tim, dt, neq, yg, yp, yp2, ytemp,
+                                         errvec, jac)) != 0)
                 return j;
             delay_handle_stor_delay(y);
         }
@@ -89,8 +89,9 @@ odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
 }
 
 int32
-odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg, double *yp,
-             double *yp2, double *ytemp, double *errvec, double *jac) {
+odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
+                    double *yp, double *yp2, double *ytemp, double *errvec,
+                    double *jac) {
     double err = 0.0, err1 = 0.0;
 
     int32 iter = 0, info, ipivot[MAX_ODE1];
@@ -180,7 +181,8 @@ odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq, double *t) {
 }
 
 void
-odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *tim) {
+odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
+                    double *tim) {
     double t = *tim, t1, t2;
     markov_set_wieners(dt, y, t);
     rhs_function(t, y, yval[1], neq);
@@ -208,7 +210,8 @@ odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq, double *ti
 }
 
 void
-odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq, double *tim) {
+odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq,
+                     double *tim) {
     double t = *tim, t1;
     markov_set_wieners(dt, y, *tim);
     rhs_function(t, y, yval[0], neq);
@@ -225,8 +228,8 @@ odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq, double *t
 /*  Euler  */
 
 int32
-odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
-      double *work) {
+odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
+             int32 *istart, double *work) {
     if (NFlags == 0) {
         for (int32 i = 0; i < nt; i++) {
             odesol2_one_step_euler(y, dt, work, neq, tim);
@@ -244,8 +247,8 @@ odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *ista
 /* Modified Euler  */
 
 int32
-odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
-          double *work) {
+odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
+                 int32 *istart, double *work) {
     double *yval[2];
     int32 j;
 
@@ -268,8 +271,8 @@ odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *
 /*  Runge Kutta    */
 
 int32
-odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *istart,
-         double *work) {
+odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq,
+                int32 *istart, double *work) {
     register int32 j;
     double *yval[3];
 
@@ -295,8 +298,8 @@ odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq, int32 *i
 /*   ABM   */
 
 int32
-odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq, int32 *ist,
-      double *work) {
+odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq,
+             int32 *ist, double *work) {
     int32 istart = *ist, istpst, k, ik, n;
     int32 irk;
     double *work1;
@@ -411,7 +414,7 @@ odesol_abmpc(double *y, double *t, double dt, int32 neq) {
     This uses banded routines as well */
 int32
 odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
-     double *work, int32 *ierr) {
+            double *work, int32 *ierr) {
     int32 out = -1;
     if (NFlags == 0) {
         out = odesol_rosen(y, tstart, tfinal, istart, n, work, ierr);
@@ -423,7 +426,7 @@ odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
 
 int32
 odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
-      double *work, int32 *ierr) {
+             double *work, int32 *ierr) {
     static double htry;
     double epsjac = NEWT_ERR;
     double eps = 1e-15, hmin, hmax;
@@ -434,7 +437,7 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
     double d = 1 / (2. + sqrt(2.)), e32 = 6. + sqrt(2.), tnew;
     /*double ninf;  Is this needed?*/
     int32 n2 = n*n, done = 0, info, ml = cv_bandlower, mr = cv_bandupper,
-             mt = ml + mr + 1;
+          mt = ml + mr + 1;
     int32 ipivot[MAX_ODE1], nofailed;
     double temp, err, tdel;
     double *ypnew, *k1, *k2, *k3, *f0, *f1, *f2, *dfdt, *ynew, *dfdy;
@@ -566,7 +569,7 @@ odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
 /* this assumes that yp is already computed */
 void
 odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
-            int32 neq, double eps, double scal) {
+                   int32 neq, double eps, double scal) {
     int32 j;
     double yold, del, dsy;
     if (cv_bandflag)
@@ -587,8 +590,8 @@ odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
 }
 
 void
-odesol_get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
-             int32 n, double eps, double scal) {
+odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
+                    double *ypold, int32 n, double eps, double scal) {
     int32 ml = cv_bandlower, mr = cv_bandupper;
     int32 j, k, n1 = n - 1, mt = ml + mr + 1;
     double yhat;
@@ -615,7 +618,7 @@ odesol_get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold
 
 int32
 odesol_bandfac(/*   factors the matrix    */
-        double *a, int32 ml, int32 mr, int32 n) {
+               double *a, int32 ml, int32 mr, int32 n) {
     int32 j, k;
     int32 n1 = n - 1, mt = ml + mr + 1, row, rowi, m, r0, ri0;
     double al;
@@ -646,7 +649,7 @@ odesol_bandfac(/*   factors the matrix    */
 
 void
 odesol_bandsol(/* requires that the matrix be factored   */
-        double *a, double *b, int32 ml, int32 mr, int32 n) {
+               double *a, double *b, int32 ml, int32 mr, int32 n) {
     int32 j, k, r0;
     int32 mt = ml + mr + 1;
     int32 m, n1 = n - 1, row;

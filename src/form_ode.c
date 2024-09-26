@@ -1694,7 +1694,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 if ((my_ode[nfix + IN_VARS] =
                          xmalloc(MAXEXPLEN*sizeof(int32))) == NULL ||
                     parserslow_add_expr(v2->rhs, my_ode[nfix + IN_VARS],
-                             &leng[IN_VARS + nfix]) != 0) {
+                                        &leng[IN_VARS + nfix]) != 0) {
                     ggets_plintf(" Error allocating or compiling %s\n",
                                  v2->lhs);
                     exit(0);
@@ -1756,7 +1756,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                 ggets_plintf("%s: %s", v2->lhs, v2->rhs);
                 break;
             case FUNCTION:
-                if (parserslow_add_ufun_new(nufun, v2->nargs, v2->rhs, v2->args) != 0) {
+                if (parserslow_add_ufun_new(nufun, v2->nargs, v2->rhs,
+                                            v2->args) != 0) {
                     ggets_plintf(" Function %s messed up \n", v2->lhs);
                     exit(0);
                 }
@@ -1785,7 +1786,8 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
                     strcpy(formula, my_string);
                     ggets_plintf(" %s has %d pts from %f to %f = %s\n", v2->lhs,
                                  nn, xlo, xhi, formula);
-                    if (parserslow_add_form_table(ntab, nn, xlo, xhi, formula)) {
+                    if (parserslow_add_form_table(ntab, nn, xlo, xhi,
+                                                  formula)) {
                         ggets_plintf("ERROR computing %s\n", v2->lhs);
                         exit(0);
                     }

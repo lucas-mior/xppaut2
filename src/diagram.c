@@ -160,9 +160,9 @@ diagram_redraw(void) {
             flag = 0;
         else
             flag = 1;
-        auto_nox_add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm, type,
-                       flag, d->lab, d->icp1, d->icp2, d->flag2, d->evr,
-                       d->evi);
+        auto_nox_add_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
+                           type, flag, d->lab, d->icp1, d->icp2, d->flag2,
+                           d->evr, d->evi);
         d = d->next;
         if (d == NULL)
             break;
@@ -405,7 +405,8 @@ diagram_write_pts(void) {
            current view
         */
         if (auto_nox_check_plot_type(d->flag2, icp1, icp2) == 1) {
-            auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar, a);
+            auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar,
+                             a);
             fprintf(fp, "%g %g %g %d %d %d\n", x, y1, y2, type, abs(d->ibr),
                     d->flag2);
         }
@@ -446,7 +447,7 @@ diagram_post_auto(void) {
         else
             flag = 1;
         auto_nox_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
-                          type, flag, d->icp1, d->icp2, d->flag2);
+                              type, flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
         if (d == NULL)
             break;
@@ -485,7 +486,7 @@ diagram_svg_auto(void) {
         else
             flag = 1;
         auto_nox_add_ps_point(d->par, d->per, d->uhi, d->ulo, d->ubar, d->norm,
-                          type, flag, d->icp1, d->icp2, d->flag2);
+                              type, flag, d->icp1, d->icp2, d->flag2);
         d = d->next;
         if (d == NULL)
             break;
@@ -523,8 +524,8 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
         par1 = d->par[d->icp1];
         if (d->icp2 < NAutoPar)
             par2 = d->par[d->icp2];
-        auto_nox_xy_plot(&x, &y1, &y2, par1, par2, d->per, d->uhi, d->ulo, d->ubar,
-                     d->norm);
+        auto_nox_xy_plot(&x, &y1, &y2, par1, par2, d->per, d->uhi, d->ulo,
+                         d->ubar, d->norm);
         if (x < *xlo)
             *xlo = x;
         if (x > *xhi)

@@ -109,13 +109,15 @@ do_choice_box(Window root, char *wname, int32 n, int32 mcc, char **names,
         oldcheck[i] = check[i];
         xpos = xstart;
         ypos = ystart + i*(DCURY + 10);
-        p.cw[i] = pop_list_make_window(base, xpos, ypos, (mcc + 3)*DCURX, DCURY, 1);
+        p.cw[i] =
+            pop_list_make_window(base, xpos, ypos, (mcc + 3)*DCURX, DCURY, 1);
     }
 
     ypos = height - 2*DCURY;
     xpos = (width - 12*DCURX) / 2;
     p.ok = pop_list_make_window(base, xpos, ypos, 2*DCURX, DCURY, 2);
-    p.cancel = pop_list_make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 2);
+    p.cancel =
+        pop_list_make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 2);
     p.base = base;
 
     p.n = n;

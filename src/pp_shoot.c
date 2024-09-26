@@ -32,7 +32,7 @@ static struct ShootRange {
 
 static void pp_shoot_last(int32 flag);
 static int32 pp_shoot_set_up_periodic(int32 *ipar, int32 *ivar, double *sect,
-                             int32 *ishow);
+                                      int32 *ishow);
 static void pp_shoot_do_range(double *ystart, double *yend);
 static void pp_shoot_bad(int32 iret);
 
@@ -199,8 +199,8 @@ pp_shoot_do_range(double *ystart, double *yend) {
         if (shoot_range.movie == 1)
             main_clr_scrn();
 
-        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0, 0, 0,
-                0, 0.0);
+        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &ierr, NODE, 0,
+                    0, 0, 0, 0.0);
         if (ierr == -5)
             continue;
         if (ierr < 0) {
@@ -317,11 +317,11 @@ pp_shoot_find_bvp_com(int32 com) {
         break;
     }
     if (iper)
-        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE, ishow,
-                iper, ipar, ivar, sect);
+        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE,
+                    ishow, iper, ipar, ivar, sect);
     else
-        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE, ishow,
-                0, 0, 0, 0.0);
+        pp_shoot_bv(ystart, yend, BVP_TOL, BVP_EPS, BVP_MAXIT, &iret, NODE,
+                    ishow, 0, 0, 0, 0.0);
     pp_shoot_bad(iret);
     if (iret == 1 || iret == 2) {
         integrate_get_ic(0, ystart);
@@ -368,8 +368,8 @@ pp_shoot_last(int32 flag) {
 
 void
 pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
-        int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar, int32 ivar,
-        double sect) {
+            int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
+            int32 ivar, double sect) {
     double *jac, *f, *fdev, *y0, *y1;
     double dev, error, ytemp;
 

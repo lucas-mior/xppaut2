@@ -913,7 +913,8 @@ auto_nox_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
 
 void
 auto_nox_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
-             double per, double *uhigh, double *ulow, double *ubar, double a) {
+                 double per, double *uhigh, double *ulow, double *ubar,
+                 double a) {
     switch (Auto.plot) {
     case HI_P:
         *x = par1;
@@ -972,8 +973,8 @@ auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2) {
 
 void
 auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
-                  double *ubar, double a, int32 type, int32 flag, int32 icp1,
-                  int32 icp2, int32 flag2) {
+                      double *ubar, double a, int32 type, int32 flag,
+                      int32 icp1, int32 icp2, int32 flag2) {
     double x, y1, y2, par1, par2 = 0;
     int32 type1 = type;
     par1 = par[icp1];
@@ -1103,8 +1104,9 @@ auto_nox_check_plot_type(int32 flag2, int32 icp1, int32 icp2) {
 /* main plotting code  */
 void
 auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
-               double *ubar, double a, int32 type, int32 flg, int32 lab,
-               int32 icp1, int32 icp2, int32 flag2, double *evr, double *evi) {
+                   double *ubar, double a, int32 type, int32 flg, int32 lab,
+                   int32 icp1, int32 icp2, int32 flag2, double *evr,
+                   double *evi) {
     double x, y1, y2, par1, par2 = 0;
     int32 ix, iy1, iy2, type1 = type;
     char bob[5];
@@ -1113,7 +1115,7 @@ auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
     if (icp2 < NAutoPar)
         par2 = par[icp2];
     auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar,
-                 a); /* figure out who sits on axes */
+                     a); /* figure out who sits on axes */
     if (flg == 0) {
         Auto.lastx = x;
         Auto.lasty = y1;
@@ -1324,7 +1326,8 @@ auto_nox_traverse_out(Diagram *d, int32 *ix, int32 *iy, int32 dodraw) {
     par1 = par[icp1];
     if (icp2 < NAutoPar)
         par2 = par[icp2];
-    auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, d->uhi, d->ulo, d->ubar, norm);
+    auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, d->uhi, d->ulo, d->ubar,
+                     norm);
 
     *ix = auto_nox_ix_val(x);
     *iy = auto_nox_iy_val(y1);

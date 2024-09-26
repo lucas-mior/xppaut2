@@ -578,7 +578,8 @@ parserslow_add_table_name(int32 index, char *name) {
 /* ADD LOOKUP TABLE   */
 
 int32
-parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
+parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi,
+                          char *formula) {
     if (tabular_create_fun(nn, xlo, xhi, formula, index) == 0) {
         if (ERROUT)
             printf("Problem with creating table !!\n");
@@ -643,7 +644,8 @@ fixup_endfun(int32 *u, int32 l, int32 narg) {
 }
 
 int32
-parserslow_add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
+parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
+                        char args[MAXARG][14]) {
     int32 l;
     int32 end;
     if (narg > MAXARG) {

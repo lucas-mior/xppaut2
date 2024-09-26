@@ -2561,8 +2561,8 @@ void init_conds_make_new_delay_box(void);
 void init_conds_make_new_param_box(void);
 void init_conds_initialize_box(void);
 void init_conds_resize_par_box(Window win);
-void init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
-                   int32 use);
+void init_conds_make_box_list(BoxList *b, char *wname, char *iname, int32 n,
+                              int32 type, int32 use);
 void init_conds_do_box_expose(Window window);
 void init_conds_draw_one_box(BoxList b, int32 index);
 void init_conds_redraw_params(void);
@@ -3775,39 +3775,39 @@ void numerics_compute_one_period(double period, double *x, char *name);
 extern int32 (*rhs_function)(double t, double *y, double *ydot, int32 neq);
 
 int32 odesol_symplect3(double *y, double *tim, double dt, int32 nt, int32 neq,
-                int32 *istart, double *work);
+                       int32 *istart, double *work);
 int32 odesol_discrete(double *y, double *tim, double dt, int32 nt, int32 neq,
-               int32 *istart, double *work);
+                      int32 *istart, double *work);
 int32 odesol_bak_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
-                int32 *istart, double *work);
-int32 odesol_one_bak_step(double *y, double *t, double dt, int32 neq, double *yg,
-                   double *yp, double *yp2, double *ytemp, double *errvec,
-                   double *jac);
+                       int32 *istart, double *work);
+int32 odesol_one_bak_step(double *y, double *t, double dt, int32 neq,
+                          double *yg, double *yp, double *yp2, double *ytemp,
+                          double *errvec, double *jac);
 void odesol2_one_step_discrete(double *y, double dt, double *yp, int32 neq,
                                double *t);
 void odesol2_one_step_symp(double *y, double h, double *f, int32 n, double *t);
 void odesol2_one_step_euler(double *y, double dt, double *yp, int32 neq,
                             double *t);
 void odesol_one_step_rk4(double *y, double dt, double *yval[3], int32 neq,
-                  double *tim);
+                         double *tim);
 void odesol_one_step_heun(double *y, double dt, double *yval[2], int32 neq,
-                   double *tim);
+                          double *tim);
 int32 odesol_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
-            int32 *istart, double *work);
+                   int32 *istart, double *work);
 int32 odesol_mod_euler(double *y, double *tim, double dt, int32 nt, int32 neq,
-                int32 *istart, double *work);
+                       int32 *istart, double *work);
 int32 odesol_rung_kut(double *y, double *tim, double dt, int32 nt, int32 neq,
-               int32 *istart, double *work);
+                      int32 *istart, double *work);
 int32 odesol_adams(double *y, double *tim, double dt, int32 nstep, int32 neq,
-            int32 *ist, double *work);
-int32 odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
-           double *work, int32 *ierr);
-int32 odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart, int32 n,
-            double *work, int32 *ierr);
-void odesol_get_the_jac(double t, double *y, double *yp, double *ypnew, double *dfdy,
-                 int32 neq, double eps, double scal);
-void odesol_get_band_jac(double *a, double *y, double t, double *ypnew, double *ypold,
-                  int32 n, double eps, double scal);
+                   int32 *ist, double *work);
+int32 odesol_rb23(double *y, double *tstart, double tfinal, int32 *istart,
+                  int32 n, double *work, int32 *ierr);
+int32 odesol_rosen(double *y, double *tstart, double tfinal, int32 *istart,
+                   int32 n, double *work, int32 *ierr);
+void odesol_get_the_jac(double t, double *y, double *yp, double *ypnew,
+                        double *dfdy, int32 neq, double eps, double scal);
+void odesol_get_band_jac(double *a, double *y, double t, double *ypnew,
+                         double *ypold, int32 n, double eps, double scal);
 
 #endif
 
@@ -3908,36 +3908,38 @@ extern char *color_names[];
 
 void pop_list_set_window_title(Window win, char *string);
 void pop_list_make_scrbox_lists(void);
-int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title, char **names,
-                    char values[][MAX_LEN_SBOX], int32 maxchar);
+int32 pop_list_do_string_box(int32 n, int32 row, int32 col, char *title,
+                             char **names, char values[][MAX_LEN_SBOX],
+                             int32 maxchar);
 void pop_list_do_hilite_text(char *name, char *value, int32 flag, Window window,
-                    int32 pos);
+                             int32 pos);
 void pop_list_new_editable(StringBox *sb, int32 inew, int32 *pos, int32 *col,
-                  int32 *done, Window *w);
+                           int32 *done, Window *w);
 Window pop_list_make_fancy_window(Window root, int32 x, int32 y, int32 width,
-                         int32 height, int32 bw);
-Window pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
-                            int32 height, int32 bw);
-Window pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y, int32 width,
                                   int32 height, int32 bw);
-Window pop_list_make_window(Window root, int32 x, int32 y, int32 width, int32 height,
-                   int32 bw);
+Window pop_list_make_unmapped_window(Window root, int32 x, int32 y, int32 width,
+                                     int32 height, int32 bw);
+Window pop_list_make_plain_unmapped_window(Window root, int32 x, int32 y,
+                                           int32 width, int32 height, int32 bw);
+Window pop_list_make_window(Window root, int32 x, int32 y, int32 width,
+                            int32 height, int32 bw);
 Window pop_list_make_plain_window(Window root, int32 x, int32 y, int32 width,
-                         int32 height, int32 bw);
+                                  int32 height, int32 bw);
 void pop_list_respond_box(char *button, char *message);
 void pop_list_message_box(Window *w, int32 x, int32 y, char *message);
 void pop_list_expose_choice(char *choice1, char *choice2, char *msg, Window c1,
-                   Window c2, Window wm, Window window);
-int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key, int32 x,
-                 int32 y, Window window, char *title);
+                            Window c2, Window wm, Window window);
+int32 pop_list_two_choice(char *choice1, char *choice2, char *string, char *key,
+                          int32 x, int32 y, Window window, char *title);
 int32 pop_list_yes_no_box(void);
 int32 pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
                   int32 max, int32 def, int32 x, int32 y, char **hints,
                   Window hwin, char *httxt);
-Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y, int32 width,
-                                 int32 height, int32 bw, uchar *icdata);
+Window pop_list_make_unmapped_icon_window(Window root, int32 x, int32 y,
+                                          int32 width, int32 height, int32 bw,
+                                          uchar *icdata);
 Window pop_list_make_icon_window(Window root, int32 x, int32 y, int32 width,
-                        int32 height, int32 bw, uchar *icdata);
+                                 int32 height, int32 bw, uchar *icdata);
 
 #endif
 
@@ -3954,8 +3956,8 @@ void pp_shoot_init_shoot_range(char *s);
 void pp_shoot_dump_shoot_range(FILE *fp, int32 f);
 void pp_shoot_find_bvp_com(int32 com);
 void pp_shoot_bv(double *y, double *yend, double err, double eps, int32 maxit,
-             int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
-             int32 ivar, double sect);
+                 int32 *iret, int32 n, int32 ishow, int32 iper, int32 ipar,
+                 int32 ivar, double sect);
 
 #endif
 
@@ -4000,8 +4002,8 @@ int32 simplenet_add_vectorizer(char *name, char *rhs);
 void simplenet_add_vectorizer_name(char *name, char *rhs);
 void simplenet_eval_all_nets(void);
 void simplenet_update_all_ffts(void);
-void simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
-              double *ffti, double *dr, double *di);
+void simplenet_fft_conv(int32 it, int32 n, double *values, double *yy,
+                        double *fftr, double *ffti, double *dr, double *di);
 double simplenet_vector_value(double x, int32 i);
 
 #endif

@@ -433,8 +433,8 @@ do_main(int32 argc, char **argv) {
     xpp_version_maj = (double)MAJOR_VERSION;
     xpp_version_min = (double)MINOR_VERSION;
     if (strlen(this_file) < 60) {
-        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s", xpp_version_maj,
-                 xpp_version_min, this_file);
+        snprintf(pptitle, sizeof(pptitle), "XPP Ver %g.%g >> %s",
+                 xpp_version_maj, xpp_version_min, this_file);
     } else {
         snprintf(pptitle, sizeof(pptitle), "XPP Version %g.%g", xpp_version_maj,
                  xpp_version_min);
@@ -504,21 +504,27 @@ do_main(int32 argc, char **argv) {
     {
         /* main make top buttons */
         int32 x1 = 2, x2 = 6*DCURXs + 5, dx = DCURXs;
-        TopButton[0] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[0] =
+            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
-        TopButton[1] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-        x1 += x2 + dx;
-
-        TopButton[2] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
-        x1 += x2 + dx;
-
-        TopButton[3] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[1] =
+            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
 
-        TopButton[4] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[2] =
+            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
 
-        TopButton[5] = pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        TopButton[3] =
+            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[4] =
+            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
+        x1 += x2 + dx;
+
+        TopButton[5] =
+            pop_list_make_fancy_window(main_win, x1, 1, x2, DCURYs, 1);
         x1 += x2 + dx;
     }
 

@@ -289,7 +289,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
     if (*istart == 1) {
         CurrentPoint = 0;
         KnFlag = 1;
-        for (int32 i = 0; i < NKernel; i++) { /* zero the integrals              */
+        for (int32 i = 0; i < NKernel; i++) { /* zero the integrals */
             kernel[i].k_n = 0.0;
             kernel[i].k_n1 = 0.0;
             mu = kernel[i].mu; /*  compute bet_nn                 */
@@ -313,7 +313,8 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
                 SETVAR(i + 1, z);
                 y[i] = z;
             }
-        for (int32 i = NODE; i < NODE + FIX_VAR; i++) /* pass 2 for fixed variables */
+        for (int32 i = NODE; i < NODE + FIX_VAR;
+             i++) /* pass 2 for fixed variables */
             SETVAR(i + 1, evaluate(my_ode[i]));
         for (int32 i = 0; i < NODE + FIX_VAR + NMarkov; i++)
             Memory[i][0] = get_ivar(i + 1); /* save everything */

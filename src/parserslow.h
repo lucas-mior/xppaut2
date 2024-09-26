@@ -122,12 +122,13 @@ int32 parserslow_add_vector_name(int32 index, char *name);
 int32 parserslow_add_file_table(int32 index, char *file);
 int32 parserslow_add_table_name(int32 index, char *name);
 int32 parserslow_add_form_table(int32 index, int32 nn, double xlo, double xhi,
-                     char *formula);
+                                char *formula);
 void set_old_arg_names(int32 narg);
 void set_new_arg_names(int32 narg, char args[10][14]);
 int32 parserslow_add_ufun_name(char *name, int32 index, int32 narg);
 void fixup_endfun(int32 *u, int32 l, int32 narg);
-int32 parserslow_add_ufun_new(int32 index, int32 narg, char *rhs, char args[20][14]);
+int32 parserslow_add_ufun_new(int32 index, int32 narg, char *rhs,
+                              char args[20][14]);
 int32 parserslow_add_ufun(char *junk, char *expr, int32 narg);
 int32 check_num(int32 *tok, double value);
 int32 is_ufun(int32 x);

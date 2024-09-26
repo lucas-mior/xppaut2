@@ -744,8 +744,8 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     width = ncol*dcol;
     b->nrow = row;
     b->ncol = ncol;
-    base =
-        pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width, height, 4);
+    base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
+                                      height, 4);
     b->base = base;
     XSelectInput(display, base,
                  ExposureMask | KeyPressMask | ButtonPressMask |
@@ -774,8 +774,8 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     many_pops_make_icon((char *)browse_bits, browse_width, browse_height, base);
     b->upper = pop_list_make_window(base, 0, 0, width, ystart + drow*6, 1);
     XSetWindowBackground(display, b->upper, MyMainWinColor);
-    b->main =
-        pop_list_make_plain_window(base, 0, ystart + drow*6, width, row*drow, 1);
+    b->main = pop_list_make_plain_window(base, 0, ystart + drow*6, width,
+                                         row*drow, 1);
     XSetWindowBackground(display, b->main, MyDrawWinColor);
     b->find = browse_button2(base, 0, 0, 0);
     b->get = browse_button2(base, 1, 0, 0);

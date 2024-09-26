@@ -137,10 +137,10 @@ edit_rhs_reset_hot(int32 inew, EditBox *sb) {
     sb->hot = inew;
     XClearWindow(display, sb->win[inew]);
     pop_list_do_hilite_text(sb->name[inew], sb->value[inew], 1, sb->win[inew],
-                   (int32)strlen(sb->value[inew]));
+                            (int32)strlen(sb->value[inew]));
     XClearWindow(display, sb->win[i]);
     pop_list_do_hilite_text(sb->name[i], sb->value[i], 0, sb->win[i],
-                   (int32)strlen(sb->value[i]));
+                            (int32)strlen(sb->value[i]));
     return;
 }
 
@@ -244,8 +244,8 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     Window base;
     width = (MAX_LEN_EBOX + 4)*DCURX;
     height = (n + 4)*(DCURY + 16);
-    base =
-        pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width, height, 4);
+    base = pop_list_make_plain_window(DefaultRootWindow(display), 0, 0, width,
+                                      height, 4);
     XStringListToTextProperty(&title, 1, &winname);
     size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
     size_hints.x = 0;
@@ -265,8 +265,8 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     for (int32 i = 0; i < n; i++) {
         xpos = xstart;
         ypos = ystart + i*(DCURY + 10);
-        sb->win[i] =
-            pop_list_make_window(base, xpos, ypos, MAX_LEN_EBOX*DCURX, DCURY, 1);
+        sb->win[i] = pop_list_make_window(base, xpos, ypos,
+                                          MAX_LEN_EBOX*DCURX, DCURY, 1);
     }
 
     ypos = height - 2*DCURY;
@@ -274,8 +274,8 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
     (sb->ok) = pop_list_make_window(base, xpos, ypos, 2*DCURX, DCURY, 1);
     (sb->cancel) =
         pop_list_make_window(base, xpos + 4*DCURX, ypos, 6*DCURX, DCURY, 1);
-    (sb->reset) =
-        pop_list_make_window(base, xpos + 12*DCURX, ypos, 5*DCURX, DCURY, 1);
+    (sb->reset) = pop_list_make_window(base, xpos + 12*DCURX, ypos, 5*DCURX,
+                                       DCURY, 1);
     XRaiseWindow(display, base);
     return;
 }

@@ -62,8 +62,8 @@ make_calc(double z) {
     if (my_calc.use == 0) {
         width = 20 + 24*DCURXs;
         height = 4*DCURYs;
-        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0, width,
-                                 height, 4);
+        base = pop_list_make_plain_window(RootWindow(display, screen), 0, 0,
+                                          width, height, 4);
         my_calc.base = base;
         XStringListToTextProperty(name, 1, &winname);
         size_hints.flags = PPosition | PSize | PMinSize | PMaxSize;
@@ -82,7 +82,7 @@ make_calc(double z) {
             pop_list_make_window(base, 10, DCURYs / 2, 24*DCURXs, DCURYs, 0);
         width = (width - 4*DCURXs) / 2;
         my_calc.quit = pop_list_make_window(base, width, (int32)(2.5*DCURYs),
-                                   4*DCURXs, DCURYs, 1);
+                                            4*DCURXs, DCURYs, 1);
         XSelectInput(display, my_calc.quit, MYMASK);
         my_calc.use = 1;
     }

@@ -52,12 +52,13 @@ static char *coup_string[MAX_ODE];
 static void adjoints_h_back(void);
 static void adjoints_back(void);
 static int32 adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
-                         int32 silent2);
+                             int32 silent2);
 static int32 adjoints_step_eul(double **jac, int32 k, int32 k2, double *yold,
-                           double *work, int32 node, double dt);
+                               double *work, int32 node, double dt);
 static int32 adjoints_hrw_liapunov(double *liap, int32 batch, double eps);
-static int32 adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
-                          double eps, double minerr, int32 maxit, int32 node);
+static int32 adjoints_adjoint(double **orbit, double **adjnt, int32 nt,
+                              double dt, double eps, double minerr, int32 maxit,
+                              int32 node);
 
 void
 adjoints_init_trans(void) {
@@ -115,7 +116,7 @@ adjoints_do_transpose(void) {
     }
 
     status = pop_list_do_string_box(LENGTH(strings), LENGTH(strings), 1,
-                           "Transpose Data", strings, values, 33);
+                                    "Transpose Data", strings, values, 33);
     if (status == 0)
         return 0;
 
@@ -303,7 +304,8 @@ adjoints_dump_h_stuff(FILE *fp, int32 f) {
 }
 
 int32
-adjoints_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
+adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
+                int32 silent2) {
     int32 n, rval = 0;
     double sum;
     int32 n0 = node + 1 + FIX_VAR, k2;
@@ -373,8 +375,8 @@ adjoints_new_adjoint(void) {
         my_adj[i] = xmalloc(sizeof(*my_adj)*(usize)adj_len);
     for (int32 i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
-    if (adjoints_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
-                     ADJ_MAXIT, NODE)) {
+    if (adjoints_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS,
+                         ADJ_ERR, ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
         adjoints_back();
     }
@@ -400,8 +402,8 @@ adjoints_new_adjoint(void) {
  * t in the first column. */
 
 int32
-adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
-             double minerr, int32 maxit, int32 node) {
+adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
+                 double eps, double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime;
     double *work;
@@ -537,7 +539,7 @@ bye:
 
 int32
 adjoints_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
-              int32 node, double dt) {
+                  int32 node, double dt) {
     int32 n2 = node*node, info;
     int32 ipvt[MAX_ODE];
     double *mat;

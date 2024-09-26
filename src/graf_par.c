@@ -54,7 +54,8 @@ char *color_names[] = {"WHITE",        "RED",    "REDORANGE",   "ORANGE",
 
 static int32 graf_par_get_frz_index(Window window);
 static void graf_par_read_bd(FILE *fp);
-static void graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type, int32 ncrv);
+static void graf_par_add_bd_crv(double *x, double *y, int32 len, int32 type,
+                                int32 ncrv);
 static void graf_par_draw_frozen_cline(int32 index, Window window);
 static void graf_par_edit_frz_crv(int32 i);
 static int32 graf_par_create_crv(int32 ind);
@@ -66,9 +67,11 @@ static void graf_par_set_key(int32 x, int32 y);
 static int32 graf_par_alter_curve(char *title, int32 in_it, int32 n);
 static void graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
 static void graf_par_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
-static void graf_par_movie_rot(double start, double increment, int32 nclip, int32 angle);
+static void graf_par_movie_rot(double start, double increment, int32 nclip,
+                               int32 angle);
 static void graf_par_fit_window(void);
-static void graf_par_corner_cube(double *xlo, double *xhi, double *ylo, double *yhi);
+static void graf_par_corner_cube(double *xlo, double *xhi, double *ylo,
+                                 double *yhi);
 static void graf_par_check_val(double *x1, double *x2, double *xb, double *xd);
 static void graf_par_check_flags(void);
 static void graf_par_update_view(double xlo, double xhi, double ylo,
@@ -353,7 +356,7 @@ graf_par_default_window(void) {
         MyGraph->zmin = z_3d[0];
 
         graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
-                    &(MyGraph->yhi));
+                             &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
         MyGraph->xmax = x_3d[1];
@@ -403,7 +406,7 @@ graf_par_fit_window(void) {
         MyGraph->zmin = mz;
 
         graf_par_corner_cube(&(MyGraph->xlo), &(MyGraph->xhi), &(MyGraph->ylo),
-                    &(MyGraph->yhi));
+                             &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
         for (int32 i = 0; i < n; i++) {
@@ -1367,8 +1370,8 @@ graf_par_add_a_curve_com(int32 c) {
         snprintf(values[2], sizeof(values[2]), "%d", PS_FONTSIZE);
         strncpy(values[3], PS_FONT, sizeof(values[3]));
         snprintf(values[4], sizeof(values[4]), "%g", PS_LW);
-        status =
-            pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn, values, 25);
+        status = pop_list_do_string_box(5, 5, 1, "Postscript parameters", nn,
+                                        values, 25);
         if (status != 0) {
             PS_Color = atoi(values[0]);
             PS_Port = atoi(values[1]);

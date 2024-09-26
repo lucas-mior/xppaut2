@@ -237,8 +237,8 @@ conpar2_default_wrapper(int64 *nov, int64 *na, int64 *nra, int64 *nca,
 
 int32
 conpar(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
-        double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
-        int64 *icf) {
+       double *b, int64 *nbc, int64 *nrc, double *c, double *d, int64 *irf,
+       int64 *icf) {
     /* Aliases for the dimensions of the arrays */
     int64 icf_dim1;
     int64 irf_dim1;

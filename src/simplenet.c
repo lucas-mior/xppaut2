@@ -177,7 +177,8 @@ typedef struct Network {
 #define DEL_SPAR 41 /* sparse with unequal in degree and delays  */
 #define IMPORT 50   /* not really a network type   */
 
-static int32 simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1, int32 *i2);
+static int32 simplenet_g_namelist(char *s, char *root, int32 *flag, int32 *i1,
+                                  int32 *i2);
 static int32 simplenet_gil_parse(char *s, int32 *ind, int32 *nn);
 static void simplenet_update_fft(int32 ind);
 static int32 simplenet_is_network(char *s);
@@ -1209,14 +1210,16 @@ simplenet_eval_all_nets(void) {
             break;
         case FFTCONP:
             y = &variables[root];
-            simplenet_fft_conv(0, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
-                     my_net[ind].dr, my_net[ind].di);
+            simplenet_fft_conv(0, n, values, y, my_net[ind].fftr,
+                               my_net[ind].ffti, my_net[ind].dr,
+                               my_net[ind].di);
             break;
 
         case FFTCON0:
             y = &variables[root];
-            simplenet_fft_conv(1, n, values, y, my_net[ind].fftr, my_net[ind].ffti,
-                     my_net[ind].dr, my_net[ind].di);
+            simplenet_fft_conv(1, n, values, y, my_net[ind].fftr,
+                               my_net[ind].ffti, my_net[ind].dr,
+                               my_net[ind].di);
             break;
 
         case IMPORT:
@@ -1431,7 +1434,7 @@ simplenet_update_fft(int32 ind) {
 
 void
 simplenet_fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
-         double *ffti, double *dr, double *di) {
+                   double *ffti, double *dr, double *di) {
     int32 dims[2];
     double x;
     double y;
