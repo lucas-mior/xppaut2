@@ -568,8 +568,12 @@ diagram_save(FILE *fp, int32 n) {
 
 int32
 diagram_load(FILE *fp, int32 node) {
-    double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO], evr[NAUTO],
-        evi[NAUTO], norm, par[8], per;
+    double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO];
+    double evr[NAUTO], evi[NAUTO];
+    double norm;
+    double par[8];
+    double per;
+
     int32 flag = 0;
     int32 n;
     int32 calc, ibr, ntot, itp, lab, index, nfpar, icp1, icp2, icp3, icp4,
