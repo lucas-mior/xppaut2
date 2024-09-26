@@ -43,8 +43,8 @@
 #ifndef vector_h
 #define vector_h
 
-#include "llnltyps.h"
 #include <stdbool.h>
+#include "integers.h"
 
 /* Part I: Machine Environment-Dependent Declarations */
 

@@ -17,7 +17,6 @@
 
 #include <stdio.h>
 #include "cvode.h"
-#include "llnltyps.h"
 #include "functions.h"
 #include "vector.h"
 #include "integers.h"
@@ -63,7 +62,7 @@ enum {
 
 #define CVD_MSBJ 50
 
-#define CVD_DGMAX RCONST(0.2)
+#define CVD_DGMAX 0.2
 
 /******************************************************************
  *                                                                *

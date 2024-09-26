@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include "cvdiag.h"
 #include "cvode.h"
-#include "llnltyps.h"
 #include "vector.h"
 #include "integers.h"
 #include "functions.h"
@@ -27,8 +26,8 @@
 
 /* Other Constants */
 
-#define FRACT RCONST(0.1)
-#define ONE RCONST(1.0)
+#define FRACT 0.1
+#define ONE 1.0
 
 /******************************************************************
  *                                                                *

@@ -8,7 +8,6 @@
 #include "cvode.h"
 #include "functions.h"
 #include "integers.h"
-#include "llnltyps.h"
 #include "vector.h"
 
 static double cv_ropt[OPT_SIZE];

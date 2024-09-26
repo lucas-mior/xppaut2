@@ -12,7 +12,6 @@
 #define _cvode_h
 
 #include <stdio.h>
-#include "llnltyps.h"
 #include "vector.h"
 #include "integers.h"
 

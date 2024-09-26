@@ -315,7 +315,6 @@ void axes2_box(double x_min, double x_max, double y_min, double y_max, char *sx,
 #ifndef BAND_H
 #define BAND_H
 
-#include "llnltyps.h"
 #include "vector.h"
 
 /******************************************************************
@@ -1123,7 +1122,6 @@ int32 del_stab_find_positive_root(double *coef, double *delay, int32 n, int32 m,
 #ifndef DENSE_H
 #define DENSE_H
 
-#include "llnltyps.h"
 #include "vector.h"
 
 /******************************************************************
@@ -2684,7 +2682,6 @@ void integrate_silent_equilibria(void);
 #ifndef ITERATIV_H
 #define ITERATIV_H
 
-#include "llnltyps.h"
 #include "vector.h"
 
 /******************************************************************
@@ -2921,7 +2918,6 @@ int32 kinescope_film_clip(void);
 #ifndef LLNLMATH_H
 #define LLNLMATH_H
 
-#include "llnltyps.h"
 
 /******************************************************************
  *                                                                *
@@ -4038,7 +4034,6 @@ double simplenet_vector_value(double x, int32 i);
 #ifndef SPGMR_H
 #define SPGMR_H
 
-#include "llnltyps.h"
 #include "vector.h"
 
 /******************************************************************

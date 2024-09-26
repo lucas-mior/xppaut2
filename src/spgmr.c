@@ -13,12 +13,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
-#include "llnltyps.h"
 #include "vector.h"
 #include <stdbool.h>
 
-#define ZERO RCONST(0.0)
-#define ONE RCONST(1.0)
+#define ZERO 0.0
+#define ONE 1.0
 
 /*************** Private Helper Function Prototype *******************/
 

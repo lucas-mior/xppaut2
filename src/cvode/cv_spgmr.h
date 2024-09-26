@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include "cvode.h"
 #include "functions.h"
-#include "llnltyps.h"
 #include "vector.h"
 
 /******************************************************************
@@ -84,9 +83,9 @@ enum {
 
 #define CVSPGMR_MSBPRE 50
 
-#define CVSPGMR_DGMAX RCONST(0.2)
+#define CVSPGMR_DGMAX 0.2
 
-#define CVSPGMR_DELT RCONST(0.05)
+#define CVSPGMR_DELT 0.05
 
 /******************************************************************
  *                                                                *

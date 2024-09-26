@@ -15,7 +15,6 @@
 #include "cvdense.h"
 #include "cvode.h"
 #include "functions.h"
-#include "llnltyps.h"
 #include "vector.h"
 #include "integers.h"
 
@@ -27,10 +26,10 @@
 
 /* Other Constants */
 
-#define MIN_INC_MULT RCONST(1000.0)
-#define ZERO RCONST(0.0)
-#define ONE RCONST(1.0)
-#define TWO RCONST(2.0)
+#define MIN_INC_MULT 1000.0
+#define ZERO 0.0
+#define ONE 1.0
+#define TWO 2.0
 
 /******************************************************************
  *                                                                *

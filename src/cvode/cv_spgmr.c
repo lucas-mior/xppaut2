@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include "cv_spgmr.h"
 #include "cvode.h"
-#include "llnltyps.h"
 #include "vector.h"
 #include "functions.h"
 #include "integers.h"
@@ -41,8 +40,8 @@
 
 /* Other Constants */
 
-#define ZERO RCONST(0.0)
-#define ONE RCONST(1.0)
+#define ZERO 0.0
+#define ONE 1.0
 
 /******************************************************************
  *                                                                *

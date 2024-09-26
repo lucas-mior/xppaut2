@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "cvode.h"
-#include "llnltyps.h"
 #include "vector.h"
 #include "functions.h"
 #include "integers.h"
@@ -22,11 +21,11 @@
 /************** BEGIN CVODE Private Constants ***************/
 /************************************************************/
 
-#define HALF RCONST(0.5)    /* double 0.5   */
-#define ZERO RCONST(0.0)    /* double 0.0   */
-#define ONE RCONST(1.0)     /* double 1.0   */
-#define TWO RCONST(2.0)     /* double 2.0   */
-#define TWELVE RCONST(12.0) /* double 12.0  */
+#define HALF 0.5    /* double 0.5   */
+#define ZERO 0.0    /* double 0.0   */
+#define ONE 1.0     /* double 1.0   */
+#define TWO 2.0     /* double 2.0   */
+#define TWELVE 12.0 /* double 12.0  */
 
 /***************************************************************/
 /************** BEGIN Default Constants ************************/
@@ -47,18 +46,18 @@
 
 /* CVodeDky */
 
-#define FUZZ_FACTOR RCONST(100.0)
+#define FUZZ_FACTOR 100.0
 
 /* CVHin */
 
-#define HLB_FACTOR RCONST(100.0)
-#define HUB_FACTOR RCONST(0.1)
+#define HLB_FACTOR 100.0
+#define HUB_FACTOR 0.1
 #define H_BIAS HALF
 #define MAX_ITERS 4
 
 /* CVSet */
 
-#define CORTES RCONST(0.1)
+#define CORTES 0.1
 
 /* CVStep return values */
 
@@ -75,18 +74,18 @@
 
 /* CVStep */
 
-#define THRESH RCONST(1.5)
-#define ETAMX1 RCONST(10000.0)
-#define ETAMX2 RCONST(10.0)
-#define ETAMX3 RCONST(10.0)
-#define ETAMXF RCONST(0.2)
-#define ETAMIN RCONST(0.1)
-#define ETACF RCONST(0.25)
-#define ADDON RCONST(0.000001)
-#define BIAS1 RCONST(6.0)
-#define BIAS2 RCONST(6.0)
-#define BIAS3 RCONST(10.0)
-#define ONEPSM RCONST(1.000001)
+#define THRESH 1.5
+#define ETAMX1 10000.0
+#define ETAMX2 10.0
+#define ETAMX3 10.0
+#define ETAMXF 0.2
+#define ETAMIN 0.1
+#define ETACF 0.25
+#define ADDON 0.000001
+#define BIAS1 6.0
+#define BIAS2 6.0
+#define BIAS3 10.0
+#define ONEPSM 1.000001
 
 #define SMALL_NST 10 /* nst > SMALL_NST => use ETAMX3          */
 #define MXNCF 10     /* max no. of convergence failures during */
@@ -123,10 +122,10 @@
 #define NEWT_MAXCOR 3 /* maximum no. of corrector iterations   */
                       /* for iter == NEWTON                    */
 
-#define CRDOWN RCONST(0.3) /* constant used in the estimation of the   */
+#define CRDOWN 0.3 /* constant used in the estimation of the   */
                            /* convergence rate (crate) of the          */
                            /* iterates for the nonlinear equation      */
-#define DGMAX RCONST(0.3)  /* iter == NEWTON, |gamma/gammap-1| > DGMAX */
+#define DGMAX 0.3  /* iter == NEWTON, |gamma/gammap-1| > DGMAX */
                            /* => call lsetup                           */
 
 #define RDIV TWO /* declare divergence if ratio del/delp > RDIV  */
