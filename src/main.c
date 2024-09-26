@@ -853,7 +853,7 @@ main_init_x(void) {
  * #b backspace
  * #d delete
  * #r return
- *so for example to change a parameter to some numbert and then
+ * so for example to change a parameter to some numbert and then
  * run the integration, you would script
  * "piapp#r#b#b#b#b.12#r#rig"
 
@@ -862,9 +862,7 @@ main_init_x(void) {
  * #b#b#b#b deletes the current value (assuming no more than 4 numbers)
  * .12# types in the number
  * #r gets out of the parameter picker
- * ig  runs XPP
-
-*/
+ * ig  runs XPP */
 void
 main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt) {
     char ch;
