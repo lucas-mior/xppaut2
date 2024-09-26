@@ -146,7 +146,6 @@ XFontStruct *small_font;
 static int32 main_get_x_colors(XWindowAttributes *win_info, XColor **colors);
 static void main_get_gc(GC *gc);
 static void main_top_button_events(XEvent report);
-static void main_top_button_press(Window window);
 static void main_top_button_cross(Window window, int32 b);
 static void main_xpp_events(XEvent report, int32 min_wid, int32 min_hgt);
 static void main_init_x(void);
@@ -1287,25 +1286,10 @@ main_top_button_cross(Window window, int32 b) {
     return;
 }
 
-void
-main_top_button_press(Window window) {
-    if (window == TopButton[0])
-        init_conds_make_new_ic_box();
-    if (window == TopButton[1])
-        init_conds_make_new_bc_box();
-    if (window == TopButton[2])
-        init_conds_make_new_delay_box();
-    if (window == TopButton[3])
-        init_conds_make_new_param_box();
-    if (window == TopButton[4])
-        eig_list_create_eq_list();
-    if (window == TopButton[5])
-        make_new_browser();
-    return;
-}
 
 void
 main_top_button_events(XEvent report) {
+    Window window = report.xbutton.window;
     switch (report.type) {
     case Expose:
     case MapNotify:
@@ -1318,7 +1302,19 @@ main_top_button_events(XEvent report) {
         main_top_button_cross(report.xcrossing.window, 1);
         break;
     case ButtonPress:
-        main_top_button_press(report.xbutton.window);
+        /* main top button press */
+        if (window == TopButton[0])
+            init_conds_make_new_ic_box();
+        if (window == TopButton[1])
+            init_conds_make_new_bc_box();
+        if (window == TopButton[2])
+            init_conds_make_new_delay_box();
+        if (window == TopButton[3])
+            init_conds_make_new_param_box();
+        if (window == TopButton[4])
+            eig_list_create_eq_list();
+        if (window == TopButton[5])
+            make_new_browser();
         break;
     default:
         break;
