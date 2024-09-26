@@ -217,6 +217,7 @@ do_main(int32 argc, char **argv) {
     char pptitle[sizeof(this_file) + 40];
     uint32 min_wid = 450, min_hgt = 360;
     OptionsSet *tempNS;
+
     /* Track which options have not been set already */
     notAlreadySet.BIG_FONT_NAME = 1;
     notAlreadySet.SMALL_FONT_NAME = 1;
