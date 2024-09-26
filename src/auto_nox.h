@@ -126,42 +126,42 @@ extern int32 load_all_labeled_orbits;
 extern int32 AutoTwoParam;
 extern int32 NAutoPar;
 
-void auto_colset(int32 type);
-void auto_colset2(int32 flag2);
+void auto_nox_colset(int32 type);
+void auto_nox_colset2(int32 flag2);
 void auto_nox_get_str(char *xlabel, char *ylabel);
 void auto_nox_draw_ps_axes(void);
 void auto_nox_draw_svg_axes(void);
 void auto_nox_draw_bix_axes(void);
 int32 auto_nox_ix_val(double x);
 int32 auto_nox_iy_val(double y);
-int32 auto_check_bnds(int32 ix, int32 iy);
+int32 auto_nox_check_bnds(int32 ix, int32 iy);
 void auto_nox_renamef(char *old, char *new);
 void auto_nox_copyf(char *old, char *new);
-void auto_appendf(char *old, char *new);
+void auto_nox_appendf(char *old, char *new);
 void auto_nox_deletef(char *old);
-void auto_close(int32 flag);
+void auto_nox_close(int32 flag);
 void auto_nox_open(int32 flag);
 void auto_nox_do(int32 iold, int32 isave);
 void auto_nox_set_auto(void);
-int32 auto_name_to_index(char *s);
-int32 auto_par_to_name(int64 index, char *s);
-void auto_per_par(void);
-void auto_params(void);
-void auto_num_par(void);
-void auto_plot_par(void);
+int32 auto_nox_name_to_index(char *s);
+int32 auto_nox_par_to_name(int64 index, char *s);
+void auto_nox_per_par(void);
+void auto_nox_params(void);
+void auto_nox_num_par(void);
+void auto_nox_plot_par(void);
 void auto_fit(void);
 void auto_default(void);
-void auto_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
-void auto_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
-void auto_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
+void auto_nox_zoom_in(int32 i1, int32 j1, int32 i2, int32 j2);
+void auto_nox_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2);
+void auto_nox_xy_plot(double *x, double *y1, double *y2, double par1, double par2,
                   double per, double *uhigh, double *ulow, double *ubar,
                   double a);
 int32 auto_nox_plot_point(int32 flag2, int32 icp1, int32 icp2);
-void auto_add_ps_point(double *par, double per, double *uhigh, double *ulow,
+void auto_nox_add_ps_point(double *par, double per, double *uhigh, double *ulow,
                        double *ubar, double a, int32 type, int32 flag,
                        int32 icp1, int32 icp2, int32 flag2);
-void auto_line(double x1i, double y1i, double x2i, double y2i);
-void auto_add_point(double *par, double per, double *uhigh, double *ulow,
+void auto_nox_line(double x1i, double y1i, double x2i, double y2i);
+void auto_nox_add_point(double *par, double per, double *uhigh, double *ulow,
                     double *ubar, double a, int32 type, int32 flg, int32 lab,
                     int32 icp1, int32 icp2, int32 flag2, double *evr,
                     double *evi);
@@ -178,7 +178,7 @@ void auto_nox_init_win(void);
 void auto_nox_plot_stab(double *evr, double *evi, int32 n);
 int32 auto_nox_yes_reset(void);
 int32 auto_nox_reset(void);
-void auto_grab(void);
+void auto_nox_grab(void);
 
 void auto_start_diff_ss(void);
 void auto_start_at_bvp(void);
@@ -187,24 +187,24 @@ void auto_nox_find_best_homo_shift(int32 n);
 void auto_nox_get_start_period(double *p);
 void auto_nox_get_start_orbit(double *u, double t, int32 n);
 void auto_nox_get_shifted_orbit(double *u, double t, double p, int32 n);
-void auto_new_ss(void);
+void auto_nox_new_ss(void);
 void auto_new_discrete(void);
-void auto_extend_ss(void);
+void auto_nox_extend_ss(void);
 void auto_start_choice(void);
 void auto_nox_torus_choice(void);
 void auto_nox_per_doub_choice(void);
 void auto_nox_periodic_choice(void);
 void auto_nox_hopf_choice(void);
-void auto_new_per(void);
+void auto_nox_new_per(void);
 int32 auto_nox_get_homo_info(int32 *nun, int32 *nst, double *ul, double *ur);
 void auto_extend_homoclinic(void);
-void auto_2p_limit(int32 ips);
-void auto_2p_branch(int32 ips);
-void auto_branch_choice(int32 ibr, int32 ips);
-void auto_homo_choice(int32 itp);
-void auto_2p_fixper(void);
-void auto_err(char *s);
-void auto_run(void);
+void auto_nox_2p_limit(int32 ips);
+void auto_nox_2p_branch(int32 ips);
+void auto_nox_branch_choice(int32 ibr, int32 ips);
+void auto_nox_homo_choice(int32 itp);
+void auto_nox_2p_fixper(void);
+void auto_nox_err(char *s);
+void auto_nox_run(void);
 void auto_nox_load_orbit(void);
 void auto_nox_save(void);
 void auto_nox_save_numerics(FILE *fp);
@@ -217,8 +217,8 @@ int32 auto_nox_no_info_noinfo(char *s);
 void auto_nox_load(void);
 int32 auto_nox_move_to_label(int32 mylab, int32 *nrow, int32 *ndim, FILE *fp);
 void auto_nox_get_a_row(double *u, double *t, int32 n, FILE *fp);
-void auto_file(void);
-int32 auto_check_plot_type(int32 flag2, int32 icp1, int32 icp2);
+void auto_nox_file(void);
+int32 auto_nox_check_plot_type(int32 flag2, int32 icp1, int32 icp2);
 void auto_nox_store_point(double x, double y);
 
 #endif

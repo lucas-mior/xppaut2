@@ -1099,22 +1099,22 @@ auto_x11_button(XEvent event) {
         return;
     if (window == auto_win.axes) {
         SBW;
-        auto_plot_par();
+        auto_nox_plot_par();
         return;
     }
     if (window == auto_win.numerics) {
         SBW;
-        auto_num_par();
+        auto_nox_num_par();
         return;
     }
     if (window == auto_win.grab) {
         SBW;
-        auto_grab();
+        auto_nox_grab();
         return;
     }
     if (window == auto_win.run) {
         SBW;
-        auto_run();
+        auto_nox_run();
         return;
     }
     if (window == auto_win.redraw) {
@@ -1129,12 +1129,12 @@ auto_x11_button(XEvent event) {
     }
     if (window == auto_win.per) {
         SBW;
-        auto_per_par();
+        auto_nox_per_par();
         return;
     }
     if (window == auto_win.param) {
         SBW;
-        auto_params();
+        auto_nox_params();
         return;
     }
     if (window == auto_win.kill) {
@@ -1148,7 +1148,7 @@ auto_x11_button(XEvent event) {
     }
     if (window == auto_win.file) {
         SBW;
-        auto_file();
+        auto_nox_file();
         return;
     }
     return;
@@ -1172,19 +1172,19 @@ auto_x11_keypress(XEvent event, int32 *used) {
         ks = (char)ggets_get_key_press(&event);
 
         if (ks == 'a' || ks == 'A') {
-            auto_plot_par();
+            auto_nox_plot_par();
             return;
         }
         if (ks == 'n' || ks == 'N') {
-            auto_num_par();
+            auto_nox_num_par();
             return;
         }
         if (ks == 'G' || ks == 'g') {
-            auto_grab();
+            auto_nox_grab();
             return;
         }
         if (ks == 'R' || ks == 'r') {
-            auto_run();
+            auto_nox_run();
             return;
         }
         if (ks == 'D' || ks == 'd') {
@@ -1196,15 +1196,15 @@ auto_x11_keypress(XEvent event, int32 *used) {
             return;
         }
         if (ks == 'U' || ks == 'u') {
-            auto_per_par();
+            auto_nox_per_par();
             return;
         }
         if (ks == 'P' || ks == 'p') {
-            auto_params();
+            auto_nox_params();
             return;
         }
         if (ks == 'F' || ks == 'f') {
-            auto_file();
+            auto_nox_file();
             return;
         }
 
