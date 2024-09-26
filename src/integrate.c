@@ -244,7 +244,7 @@ integrate_cont_integ(void) {
         return;
     tetemp = TEND;
     browse_wipe_rep();
-    adj2_data_back();
+    adjoints_data_back();
     if (ggets_new_float("Continue until:", &tetemp) == -1)
         return;
     x = &MyData[0];
@@ -512,7 +512,7 @@ integrate_eq_range(double *x) {
         eq_range.col = -1;
 
     browse_wipe_rep();
-    adj2_data_back();
+    adjoints_data_back();
     parlo = eq_range.plow;
     parhi = eq_range.phigh;
 
@@ -747,7 +747,7 @@ integrate_do_range(double *x, int32 flag) {
         nit2 = range.steps2;
     if (range.type == Param)
         get_val(range.item, &temp);
-    adj2_alloc_liap(nit); /* make space */
+    adjoints_alloc_liap(nit); /* make space */
     if (range.rtype > 0) {
         itype2 = range.type2;
         ivar2 = range.index2;
@@ -863,7 +863,7 @@ integrate_do_range(double *x, int32 flag) {
                                             last_ic, bob);
             }
 
-            adj2_do_this_liaprun(i, p); /* sends parameter and index back */
+            adjoints_do_this_liaprun(i, p); /* sends parameter and index back */
             if (storind > 2)
                 graf_par_auto_freeze_it();
             if (array_plot_range == 1)
@@ -1190,7 +1190,7 @@ integrate_do_init_data(int32 com) {
         return;
     }
 
-    adj2_data_back();
+    adjoints_data_back();
     browse_wipe_rep();
     MyTime = T0;
 

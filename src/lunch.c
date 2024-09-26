@@ -177,8 +177,8 @@ lunch_read(FILE *fp) {
     lunch_io_exprs(f, fp);
     lunch_io_graph(f, fp);
     if (set_type == 1) {
-        adj2_dump_transpose_info(fp, f);
-        adj2_dump_h_stuff(fp, f);
+        adjoints_dump_transpose_info(fp, f);
+        adjoints_dump_h_stuff(fp, f);
         array_plot_dump(fp, f);
         load_eqn_dump_torus(fp, f);
         integrate_dump_range(fp, f);
@@ -232,8 +232,8 @@ do_lunch(int32 f) {
         lunch_io_exprs(f, fp);
         lunch_io_graph(f, fp);
         if (set_type == 1) {
-            adj2_dump_transpose_info(fp, f);
-            adj2_dump_h_stuff(fp, f);
+            adjoints_dump_transpose_info(fp, f);
+            adjoints_dump_h_stuff(fp, f);
             array_plot_dump(fp, f);
             load_eqn_dump_torus(fp, f);
             integrate_dump_range(fp, f);
@@ -256,8 +256,8 @@ do_lunch(int32 f) {
         lunch_io_int(&MaxPoints, fp, f, "Max points for volterra");
     lunch_io_exprs(f, fp);
     lunch_io_graph(f, fp);
-    adj2_dump_transpose_info(fp, f);
-    adj2_dump_h_stuff(fp, f);
+    adjoints_dump_transpose_info(fp, f);
+    adjoints_dump_h_stuff(fp, f);
     array_plot_dump(fp, f);
     load_eqn_dump_torus(fp, f);
     integrate_dump_range(fp, f);

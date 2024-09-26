@@ -353,7 +353,7 @@ menudrive_run_the_commands(int32 com) {
         /* menudrive do file com */
         switch (com) {
         case M_FT:
-            adj2_do_transpose();
+            adjoints_do_transpose();
             break;
         case M_FG:
             many_pops_get_intern_set();
@@ -435,7 +435,7 @@ menudrive_run_the_commands(int32 com) {
     if (com >= M_V2 && com <= M_VT)
         graf_par_change_view_com(com - M_V2);
     if (com >= M_UAN && com <= M_UAR)
-        adj2_make_adj_com(com - M_UAN);
+        adjoints_make_adj_com(com - M_UAN);
     if (com >= M_UCN && com <= M_UCA)
         numerics_set_col_par_com(com - M_UCN);
     if (com >= M_UPN && com <= M_UPP)

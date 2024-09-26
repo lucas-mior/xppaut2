@@ -283,7 +283,7 @@ pp_shoot_find_bvp_com(int32 com) {
         return;
     }
     browse_wipe_rep();
-    adj2_data_back();
+    adjoints_data_back();
     pp_shoot_compile_bvp();
     if (FFT || HIST || DelayFlag || BVP_FLAG == 0)
         return;

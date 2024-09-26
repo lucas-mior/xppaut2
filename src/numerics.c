@@ -329,21 +329,21 @@ numerics_compute_one_period(double period, double *x, char *name) {
 
         return;
     }
-    adj2_new_adjoint();
+    adjoints_new_adjoint();
     snprintf(filename, sizeof(filename), "adjoint.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
         write_my_browser_data(fp);
         fclose(fp);
-        adj2_data_back();
+        adjoints_data_back();
     }
-    adj2_new_h_fun(1);
+    adjoints_new_h_fun(1);
     snprintf(filename, sizeof(filename), "hfun.%s.dat", name);
     fp = fopen(filename, "w");
     if (fp != NULL) {
         write_my_browser_data(fp);
         fclose(fp);
-        adj2_data_back();
+        adjoints_data_back();
     }
 
     reset_browser();

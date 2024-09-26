@@ -442,7 +442,7 @@ markov_do_stochast_com(int32 i) {
         markov_nsrand48(RandSeed);
         break;
     case 'd':
-        adj2_data_back();
+        adjoints_data_back();
         break;
     case 'm':
         markov_mean_back();
@@ -454,7 +454,7 @@ markov_do_stochast_com(int32 i) {
         /* markov compute em */
         /* markov free stoch */
         if (STOCH_HERE) {
-            adj2_data_back();
+            adjoints_data_back();
             for (int32 i2 = 0; i2 < (NEQ + 1); i2++) {
                 free(my_mean[i2]);
                 free(my_variance[i2]);
@@ -488,7 +488,7 @@ markov_do_stochast_com(int32 i) {
         histogram_column_mean();
         break;
     case 'l':
-        adj2_do_liapunov();
+        adjoints_do_liapunov();
         break;
     case 'a':
         histogram_compute_stacor();

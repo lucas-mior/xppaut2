@@ -1108,7 +1108,7 @@ main_commander(int32 ch) {
     case FILE_MENU: {
         switch (ch) {
         case 't':
-            adj2_do_transpose();
+            adjoints_do_transpose();
             break;
         case 'g':
             many_pops_get_intern_set();

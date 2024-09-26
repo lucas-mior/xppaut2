@@ -510,7 +510,7 @@ load_eqn_set_all_vals(void) {
     }
 
     integrate_init_range();
-    adj2_init_trans();
+    adjoints_init_trans();
     array_plot_init_my();
     txt_init_view();
 
@@ -556,7 +556,7 @@ load_eqn_set_all_vals(void) {
     if (AXES >= 5)
         PLOT_3D = 1;
     numerics_chk_delay(); /* check for delay allocation */
-    adj2_alloc_h_stuff();
+    adjoints_alloc_h_stuff();
 
     volterra_alloc_memory(); /* allocate stuff for volterra equations */
     storage_alloc_meth();

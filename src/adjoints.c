@@ -49,18 +49,18 @@ bool adj_range = false;
 static int32 *coup_fun[MAX_ODE];
 static char *coup_string[MAX_ODE];
 
-static void adj2_h_back(void);
-static void adj2_back(void);
-static int32 adj2_make_h(double **orb, double **adj, int32 nt, int32 node,
+static void adjoints_h_back(void);
+static void adjoints_back(void);
+static int32 adjoints_make_h(double **orb, double **adj, int32 nt, int32 node,
                          int32 silent2);
-static int32 adj2_step_eul(double **jac, int32 k, int32 k2, double *yold,
+static int32 adjoints_step_eul(double **jac, int32 k, int32 k2, double *yold,
                            double *work, int32 node, double dt);
-static int32 adj2_hrw_liapunov(double *liap, int32 batch, double eps);
-static int32 adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
+static int32 adjoints_hrw_liapunov(double *liap, int32 batch, double eps);
+static int32 adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt,
                           double eps, double minerr, int32 maxit, int32 node);
 
 void
-adj2_init_trans(void) {
+adjoints_init_trans(void) {
     my_trans.here = 0;
     strncpy(my_trans.firstcol, uvar_names[0], sizeof(my_trans.firstcol));
     my_trans.ncol = 2;
@@ -73,7 +73,7 @@ adj2_init_trans(void) {
 }
 
 void
-adj2_dump_transpose_info(FILE *fp, int32 f) {
+adjoints_dump_transpose_info(FILE *fp, int32 f) {
     char bob[256];
 
     if (f == READEM)
@@ -91,7 +91,7 @@ adj2_dump_transpose_info(FILE *fp, int32 f) {
 }
 
 int32
-adj2_do_transpose(void) {
+adjoints_do_transpose(void) {
     int32 ii;
     int32 status;
     static char *strings[] = {"*0Column 1", "NCols", "ColSkip",
@@ -111,7 +111,7 @@ adj2_do_transpose(void) {
             free(my_trans.data[i]);
         free(my_trans.data);
         my_trans.here = 0;
-        adj2_data_back();
+        adjoints_data_back();
     }
 
     status = pop_list_do_string_box(LENGTH(strings), LENGTH(strings), 1,
@@ -164,7 +164,7 @@ adj2_do_transpose(void) {
 }
 
 void
-adj2_alloc_h_stuff(void) {
+adjoints_alloc_h_stuff(void) {
     for (int32 i = 0; i < NODE; i++) {
         coup_fun[i] = xmalloc(100*sizeof(*coup_fun));
         coup_string[i] = xmalloc(80);
@@ -174,7 +174,7 @@ adj2_alloc_h_stuff(void) {
 }
 
 void
-adj2_data_back(void) {
+adjoints_data_back(void) {
     FOUR_HERE = 0;
     set_browser_data(storage, 1);
     refresh_browser(storind);
@@ -182,7 +182,7 @@ adj2_data_back(void) {
 }
 
 void
-adj2_back(void) {
+adjoints_back(void) {
     if (ADJ_HERE) {
         set_browser_data(my_adj, 1);
         refresh_browser(adj_len);
@@ -191,7 +191,7 @@ adj2_back(void) {
 }
 
 void
-adj2_h_back(void) {
+adjoints_h_back(void) {
     if (H_HERE) {
         set_browser_data(my_h, 1);
         refresh_browser(h_len);
@@ -217,23 +217,23 @@ adj2_h_back(void) {
  * orbit.parname_parvalue.dat etc
  */
 void
-adj2_make_adj_com(int32 com) {
+adjoints_make_adj_com(int32 com) {
     static char key[] = "nmaohpr";
     switch (key[com]) {
     case 'n':
-        adj2_new_adjoint();
+        adjoints_new_adjoint();
         break;
     case 'm':
-        adj2_new_h_fun(0);
+        adjoints_new_h_fun(0);
         break;
     case 'a':
-        adj2_back();
+        adjoints_back();
         break;
     case 'o':
-        adj2_data_back();
+        adjoints_data_back();
         break;
     case 'h':
-        adj2_h_back();
+        adjoints_h_back();
         break;
     case 'p':
         /* adj2 adjoint parameters */
@@ -250,7 +250,7 @@ adj2_make_adj_com(int32 com) {
 }
 
 void
-adj2_new_h_fun(int32 silent2) {
+adjoints_new_h_fun(int32 silent2) {
     int32 n = 2;
     if (!ADJ_HERE) {
         ggets_err_msg("Must compute adjoint first!");
@@ -276,22 +276,22 @@ adj2_new_h_fun(int32 silent2) {
         n = 4;
     }
     h_len = storind;
-    adj2_data_back();
+    adjoints_data_back();
     my_h = xmalloc(sizeof(*my_h)*(usize)(NEQ + 1));
     for (int32 i = 0; i < n; i++)
         my_h[i] = xmalloc(sizeof(*my_h)*(usize)h_len);
     for (int32 i = n; i <= NEQ; i++)
         my_h[i] = storage[i];
-    if (adj2_make_h(storage, my_adj, h_len, NODE, silent2)) {
+    if (adjoints_make_h(storage, my_adj, h_len, NODE, silent2)) {
         H_HERE = 1;
-        adj2_h_back();
+        adjoints_h_back();
     }
     ggets_ping();
     return;
 }
 
 void
-adj2_dump_h_stuff(FILE *fp, int32 f) {
+adjoints_dump_h_stuff(FILE *fp, int32 f) {
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -303,7 +303,7 @@ adj2_dump_h_stuff(FILE *fp, int32 f) {
 }
 
 int32
-adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
+adjoints_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
     int32 n, rval = 0;
     double sum;
     int32 n0 = node + 1 + FIX_VAR, k2;
@@ -358,10 +358,10 @@ bye:
 }
 
 void
-adj2_new_adjoint(void) {
+adjoints_new_adjoint(void) {
     int32 n = NODE + 1;
     if (ADJ_HERE) {
-        adj2_data_back();
+        adjoints_data_back();
         for (int32 i = 0; i < n; i++)
             free(my_adj[i]);
         free(my_adj);
@@ -373,10 +373,10 @@ adj2_new_adjoint(void) {
         my_adj[i] = xmalloc(sizeof(*my_adj)*(usize)adj_len);
     for (int32 i = n; i <= NEQ; i++)
         my_adj[i] = storage[i];
-    if (adj2_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
+    if (adjoints_adjoint(storage, my_adj, adj_len, DELTA_T*NJMP, ADJ_EPS, ADJ_ERR,
                      ADJ_MAXIT, NODE)) {
         ADJ_HERE = 1;
-        adj2_back();
+        adjoints_back();
     }
     ggets_ping();
     return;
@@ -400,7 +400,7 @@ adj2_new_adjoint(void) {
  * t in the first column. */
 
 int32
-adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
+adjoints_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
              double minerr, int32 maxit, int32 node) {
     double **jac, *yold, ytemp, *fold, *fdev;
     double *yprime;
@@ -465,7 +465,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
             k2 = k + 1;
             if (k2 >= nt)
                 k2 = k2 - nt;
-            if (adj2_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
+            if (adjoints_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
                 rval = 0;
                 goto bye;
             }
@@ -508,7 +508,7 @@ adj2_adjoint(double **orbit, double **adjnt, int32 nt, double dt, double eps,
         k2 = k + 1;
         if (k2 >= nt)
             k2 -= nt;
-        if (adj2_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
+        if (adjoints_step_eul(jac, k, k2, yold, work, node, dt) == 0) {
             rval = 0;
             goto bye;
         }
@@ -536,7 +536,7 @@ bye:
 }
 
 int32
-adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
+adjoints_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
               int32 node, double dt) {
     int32 n2 = node*node, info;
     int32 ipvt[MAX_ODE];
@@ -575,12 +575,12 @@ adj2_step_eul(double **jac, int32 k, int32 k2, double *yold, double *work,
  * to get an approximation */
 
 void
-adj2_do_liapunov(void) {
+adjoints_do_liapunov(void) {
     double z;
     double *x;
     ggets_new_int("Range over parameters?(0/1)", &LIAP_FLAG);
     if (LIAP_FLAG != 1) {
-        adj2_hrw_liapunov(&z, 0, NEWT_ERR);
+        adjoints_hrw_liapunov(&z, 0, NEWT_ERR);
         return;
     }
     x = &MyData[0];
@@ -599,7 +599,7 @@ adj2_do_liapunov(void) {
 }
 
 void
-adj2_alloc_liap(int32 n) {
+adjoints_alloc_liap(int32 n) {
     if (LIAP_FLAG == 0)
         return;
     my_liap[0] = xmalloc(sizeof(*my_liap)*(usize)(n + 1));
@@ -610,12 +610,12 @@ adj2_alloc_liap(int32 n) {
 }
 
 void
-adj2_do_this_liaprun(int32 i, double p) {
+adjoints_do_this_liaprun(int32 i, double p) {
     double liap;
     if (LIAP_FLAG == 0)
         return;
     my_liap[0][i] = p;
-    if (adj2_hrw_liapunov(&liap, 1, NEWT_ERR)) {
+    if (adjoints_hrw_liapunov(&liap, 1, NEWT_ERR)) {
         my_liap[1][i] = liap;
         LIAP_I++;
     }
@@ -623,7 +623,7 @@ adj2_do_this_liaprun(int32 i, double p) {
 }
 
 int32
-adj2_hrw_liapunov(double *liap, int32 batch, double eps) {
+adjoints_hrw_liapunov(double *liap, int32 batch, double eps) {
     double y[MAX_ODE];
     double yp[MAX_ODE];
     double dy[MAX_ODE];
