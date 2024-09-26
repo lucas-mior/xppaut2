@@ -25,7 +25,7 @@ main_rhs_extra(double *y__y, double t, int32 nod, int32 neq) {
 }
 
 void
-set_fix_rhs(double t, double *y) {
+main_rhs_set_fix(double t, double *y) {
     SETVAR(0, t);
     for (int32 i = 0; i < NODE; i++)
         SETVAR(i + 1, y[i]);
@@ -62,7 +62,7 @@ main_rhs(double t, double *y, double *ydot, int32 neq) {
 }
 
 void
-update_based_on_current(void) {
+main_rhs_update_based_on_current(void) {
     for (int32 i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
 
@@ -79,7 +79,7 @@ main_rhs_fix_only(void) {
 }
 
 void
-rhs_only(double *ydot) {
+main_rhs_only(double *ydot) {
     for (int32 i = 0; i < NODE; i++) {
         ydot[i] = evaluate(my_ode[i]);
     }

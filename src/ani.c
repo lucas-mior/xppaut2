@@ -855,7 +855,7 @@ ani_flip1(int32 n) {
     t = (double)ss[0][row];
     for (int32 i = 0; i < NODE + NMarkov; i++)
         y[i] = (double)ss[i + 1][row];
-    set_fix_rhs(t, y);
+    main_rhs_set_fix(t, y);
 
     /* now draw the stuff  */
 
@@ -937,7 +937,7 @@ ani_flip(void) {
         t = (double)ss[0][row];
         for (int32 i = 0; i < NODE + NMarkov; i++)
             y[i] = (double)ss[i + 1][row];
-        set_fix_rhs(t, y);
+        main_rhs_set_fix(t, y);
 
         /* now draw the stuff  */
 
@@ -2104,7 +2104,7 @@ set_ani_perm(void) {
     for (int32 i = 0; i < NODE + NMarkov; i++) {
         y[i] = last_ic[i];
     }
-    set_fix_rhs(T0, y);
+    main_rhs_set_fix(T0, y);
 
     for (int32 i = 0; i < n_anicom; i++) {
         type = my_ani[i].type;

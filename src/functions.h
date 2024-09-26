@@ -3640,11 +3640,11 @@ void ps_text(int32 x, int32 y, char *str);
 
 int32 main(int32 argc, char **argv);
 void main_rhs_extra(double *y__y, double t, int32 nod, int32 neq);
-void set_fix_rhs(double t, double *y);
+void main_rhs_set_fix(double t, double *y);
 int32 main_rhs(double t, double *y, double *ydot, int32 neq);
-void update_based_on_current(void);
+void main_rhs_update_based_on_current(void);
 void main_rhs_fix_only(void);
-void rhs_only(double *ydot);
+void main_rhs_only(double *ydot);
 
 #endif
 

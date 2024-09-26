@@ -80,7 +80,7 @@ static struct FileSel {
     char title[256];
 } filesel;
 
-static void display_file_sel(struct FileSel f, Window window);
+static void init_conds_display_file_sel(struct FileSel f, Window window);
 
 static struct ParSlider {
     int32 use, pos, l;
@@ -103,31 +103,31 @@ static void expose_slider(Window window, struct ParSlider *p);
 static void load_entire_box(BoxList *b);
 static void set_value_from_box(BoxList *b, int32 i);
 static int32 to_float(char *s, double *z);
-static void add_editval(BoxList *b, int32 i, char *string);
-static void add_edit_float(BoxList *b, int32 i, double z);
+static void init_conds_add_edit_val(BoxList *b, int32 i, char *string);
+static void init_conds_add_edit_float(BoxList *b, int32 i, double z);
 static int32 edit_bitem(BoxList *b, int32 i, int32 ch);
 static void put_edit_cursor(Window window, int32 pos);
 static void draw_editable(Window win, char *string, int32 off, int32 cursor,
                           int32 mc);
 static void set_default_params(void);
-static void do_box_key(BoxList *b, XEvent event, int32 *used);
-static void box_list_scroll(BoxList *b, int32 i);
-static void do_box_button(BoxList *b, Window window);
+static void init_conds_do_box_key(BoxList *b, XEvent event, int32 *used);
+static void init_conds_box_list_scroll(BoxList *b, int32 i);
+static void init_conds_do_box_button(BoxList *b, Window window);
 static void redraw_entire_box(BoxList *b);
-static void box_enter(BoxList b, Window window, int32 val);
-static void display_box(BoxList b, Window window);
+static void init_conds_box_enter(BoxList b, Window window, int32 val);
+static void init_conds_display_box(BoxList b, Window window);
 static void justify_string(Window w1, char *s1);
 static void make_box_list_window(BoxList *b, int32 type);
-static void destroy_box(BoxList *b);
+static void init_conds_destroy_box(BoxList *b);
 static void get_nrow_from_hgt(int32 h, int32 *n, int32 *w);
 static void make_par_slider(Window base, int32 x, int32 y, int32 width,
                             int32 index);
 static void draw_slider(Window window, int32 x, int32 hgt, int32 l);
 static int32 selector_key(XEvent event);
 static void stringintersect(char *target, char *sother);
-static void create_file_selector(char *title, char *file, char *wild);
-static void crossing_selector(Window window, int32 c);
-static int32 button_selector(Window window);
+static void init_conds_create_file_selector(char *title, char *file, char *wild);
+static void init_conds_crossing_selector(Window window, int32 c);
+static int32 init_conds_button_selector(Window window);
 static void fs_scroll(int32 i);
 static void redraw_fs_text(char *string, Window window, int32 flag);
 static void redraw_file_list(void);
@@ -322,7 +322,7 @@ do_slide_button(Window window, struct ParSlider *p) {
 
 void
 expose_selector(Window window) {
-    display_file_sel(filesel, window);
+    init_conds_display_file_sel(filesel, window);
     return;
 }
 
@@ -358,7 +358,7 @@ redraw_fs_text(char *string, Window window, int32 flag) {
 }
 
 void
-display_file_sel(struct FileSel f, Window window) {
+init_conds_display_file_sel(struct FileSel f, Window window) {
     int32 i0;
     Window root;
     int32 xloc;
@@ -469,7 +469,7 @@ fs_scroll(int32 i) {
 }
 
 int32
-button_selector(Window window) {
+init_conds_button_selector(Window window) {
     int32 i0;
     int32 k, n = filesel.n;
     if (window == filesel.ok)
@@ -602,7 +602,7 @@ button_selector(Window window) {
 }
 
 void
-crossing_selector(Window window, int32 c) {
+init_conds_crossing_selector(Window window, int32 c) {
     int32 t1 = 1, t2 = 2;
     Window w = window;
     if (c == 1) {
@@ -624,7 +624,7 @@ crossing_selector(Window window, int32 c) {
 }
 
 void
-create_file_selector(char *title, char *file, char *wild) {
+init_conds_create_file_selector(char *title, char *file, char *wild) {
     int32 n = my_ff.ndirs + my_ff.nfiles;
     int32 nwin = FILESELNWIN;
     int32 hgt;
@@ -1044,7 +1044,7 @@ init_conds_file_selector(char *title, char *file, char *wild) {
     if (!get_fileinfo(wild, cur_dir, &my_ff))
         return 0;
 
-    create_file_selector(title, file, wild);
+    init_conds_create_file_selector(title, file, wild);
 
     /* do file select events */
     while (true) {
@@ -1059,7 +1059,7 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             expose_selector(event.xany.window);
             break;
         case ButtonPress:
-            done = button_selector(event.xbutton.window);
+            done = init_conds_button_selector(event.xbutton.window);
             if (done == 1) {
                 selected = 1; /* OK made a selection */
                 goto end;
@@ -1070,10 +1070,10 @@ init_conds_file_selector(char *title, char *file, char *wild) {
             }
             break;
         case EnterNotify:
-            crossing_selector(event.xcrossing.window, 0);
+            init_conds_crossing_selector(event.xcrossing.window, 0);
             break;
         case LeaveNotify:
-            crossing_selector(event.xcrossing.window, 1);
+            init_conds_crossing_selector(event.xcrossing.window, 1);
             break;
         case KeyPress:
             done = selector_key(event);
@@ -1486,19 +1486,19 @@ init_conds_resize_par_box(Window window) {
 
     switch (ok) {
     case 1:
-        destroy_box(&ICBox);
+        init_conds_destroy_box(&ICBox);
         init_conds_make_new_ic_box();
         break;
     case 2:
-        destroy_box(&ParamBox);
+        init_conds_destroy_box(&ParamBox);
         init_conds_make_new_param_box();
         break;
     case 3:
-        destroy_box(&BCBox);
+        init_conds_destroy_box(&BCBox);
         init_conds_make_new_bc_box();
         break;
     case 4:
-        destroy_box(&DelayBox);
+        init_conds_destroy_box(&DelayBox);
         init_conds_make_new_delay_box();
         break;
     default:
@@ -1520,7 +1520,7 @@ get_nrow_from_hgt(int32 h, int32 *n, int32 *w) {
 }
 
 void
-destroy_box(BoxList *b) {
+init_conds_destroy_box(BoxList *b) {
     /*int32 n,nrow;
      */
     if (b->xuse == 0)
@@ -1708,13 +1708,13 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
 void
 init_conds_do_box_expose(Window window) {
     if (ICBox.xuse)
-        display_box(ICBox, window);
+        init_conds_display_box(ICBox, window);
     if (BCBox.xuse)
-        display_box(BCBox, window);
+        init_conds_display_box(BCBox, window);
     if (ParamBox.xuse)
-        display_box(ParamBox, window);
+        init_conds_display_box(ParamBox, window);
     if (DelayBox.xuse)
-        display_box(DelayBox, window);
+        init_conds_display_box(DelayBox, window);
     return;
 }
 
@@ -1782,7 +1782,7 @@ init_conds_redraw_params(void) {
     if (ParamBox.use)
         for (int32 i = 0; i < NUPAR; i++) {
             get_val(upar_names[i], &z);
-            add_edit_float(&ParamBox, i, z);
+            init_conds_add_edit_float(&ParamBox, i, z);
             init_conds_draw_one_box(ParamBox, i);
         }
     init_conds_reset_sliders();
@@ -1800,7 +1800,7 @@ void
 init_conds_redraw_ics(void) {
     int32 in;
     for (int32 i = 0; i < NODE + NMarkov; i++) {
-        add_edit_float(&ICBox, i, last_ic[i]);
+        init_conds_add_edit_float(&ICBox, i, last_ic[i]);
         init_conds_draw_one_box(ICBox, i);
     }
     init_conds_reset_sliders();
@@ -1824,7 +1824,7 @@ init_conds_redraw_bcs(void) {
 }
 
 void
-display_box(BoxList b, Window window) {
+init_conds_display_box(BoxList b, Window window) {
     int32 n0 = b.n0;
     int32 n1 = n0 + b.nwin;
     int32 index;
@@ -1892,13 +1892,13 @@ init_conds_box_enter_events(Window window, int32 yn) {
     else
         val = 1;
     if (ICBox.xuse)
-        box_enter(ICBox, window, val);
+        init_conds_box_enter(ICBox, window, val);
     if (BCBox.xuse)
-        box_enter(BCBox, window, val);
+        init_conds_box_enter(BCBox, window, val);
     if (ParamBox.xuse)
-        box_enter(ParamBox, window, val);
+        init_conds_box_enter(ParamBox, window, val);
     if (DelayBox.xuse)
-        box_enter(DelayBox, window, val);
+        init_conds_box_enter(DelayBox, window, val);
     if (ICBox.xuse &&
         (window == ICBox.xvt || window == ICBox.pp || window == ICBox.arr))
         XSetWindowBorderWidth(display, window, (uint)val);
@@ -1911,7 +1911,7 @@ init_conds_box_enter_events(Window window, int32 yn) {
 }
 
 void
-box_enter(BoxList b, Window window, int32 val) {
+init_conds_box_enter(BoxList b, Window window, int32 val) {
     Window w = window;
     if (w == b.ok || w == b.cancel || w == b.def || w == b.go || w == b.close ||
         w == b.dn || w == b.up || w == b.pgdn || w == b.pgup)
@@ -1943,12 +1943,12 @@ redraw_entire_box(BoxList *b) {
 }
 
 void
-do_box_button(BoxList *b, Window window) {
+init_conds_do_box_button(BoxList *b, Window window) {
     int32 n = b->nwin;
     if (b->xuse == 0)
         return;
     if (window == b->close) {
-        destroy_box(b);
+        init_conds_destroy_box(b);
         return;
     }
     if (window == b->ok || window == b->go)
@@ -1970,13 +1970,13 @@ do_box_button(BoxList *b, Window window) {
 
      */
     if (window == b->up)
-        box_list_scroll(b, 1);
+        init_conds_box_list_scroll(b, 1);
     if (window == b->pgup)
-        box_list_scroll(b, b->nwin);
+        init_conds_box_list_scroll(b, b->nwin);
     if (window == b->dn)
-        box_list_scroll(b, -1);
+        init_conds_box_list_scroll(b, -1);
     if (window == b->pgdn)
-        box_list_scroll(b, -b->nwin);
+        init_conds_box_list_scroll(b, -b->nwin);
 
     for (int32 i = 0; i < n; i++) {
         if (window == b->we[i]) {
@@ -2068,7 +2068,7 @@ do_box_button(BoxList *b, Window window) {
 }
 
 void
-box_list_scroll(BoxList *b, int32 i) {
+init_conds_box_list_scroll(BoxList *b, int32 i) {
     int32 n0 = b->n0;
     int32 new;
     int32 nw = b->nwin, n = b->n;
@@ -2112,35 +2112,35 @@ box_list_scroll(BoxList *b, int32 i) {
 void
 init_conds_box_buttons(Window window) {
     if (ICBox.xuse)
-        do_box_button(&ICBox, window);
+        init_conds_do_box_button(&ICBox, window);
     if (BCBox.xuse)
-        do_box_button(&BCBox, window);
+        init_conds_do_box_button(&BCBox, window);
     if (DelayBox.xuse)
-        do_box_button(&DelayBox, window);
+        init_conds_do_box_button(&DelayBox, window);
     if (ParamBox.xuse)
-        do_box_button(&ParamBox, window);
+        init_conds_do_box_button(&ParamBox, window);
     return;
 }
 
 void
 init_conds_box_keypress(XEvent event, int32 *used) {
     if (ICBox.xuse) {
-        do_box_key(&ICBox, event, used);
+        init_conds_do_box_key(&ICBox, event, used);
         if (*used)
             return;
     }
     if (BCBox.xuse) {
-        do_box_key(&BCBox, event, used);
+        init_conds_do_box_key(&BCBox, event, used);
         if (*used)
             return;
     }
     if (DelayBox.xuse) {
-        do_box_key(&DelayBox, event, used);
+        init_conds_do_box_key(&DelayBox, event, used);
         if (*used)
             return;
     }
     if (ParamBox.xuse) {
-        do_box_key(&ParamBox, event, used);
+        init_conds_do_box_key(&ParamBox, event, used);
         if (*used)
             return;
     }
@@ -2148,7 +2148,7 @@ init_conds_box_keypress(XEvent event, int32 *used) {
 }
 
 void
-do_box_key(BoxList *b, XEvent event, int32 *used) {
+init_conds_do_box_key(BoxList *b, XEvent event, int32 *used) {
     Window window = event.xkey.window;
     char ch;
     Window focus;
@@ -2372,16 +2372,16 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
         return 0;
 
     case KEY_DOWN:
-        box_list_scroll(b, -1);
+        init_conds_box_list_scroll(b, -1);
         return 0;
     case KEY_UP:
-        box_list_scroll(b, 1);
+        init_conds_box_list_scroll(b, 1);
         return 0;
     case KEY_PGUP:
-        box_list_scroll(b, b->nwin);
+        init_conds_box_list_scroll(b, b->nwin);
         return 0;
     case KEY_PGDN:
-        box_list_scroll(b, -b->nwin);
+        init_conds_box_list_scroll(b, -b->nwin);
         return 0; /* junk key  */
     case KEY_ESC:
         return EDIT_ESC;
@@ -2444,10 +2444,10 @@ edit_bitem(BoxList *b, int32 i, int32 ch) {
 }
 
 void
-add_edit_float(BoxList *b, int32 i, double z) {
+init_conds_add_edit_float(BoxList *b, int32 i, double z) {
     char junk[256];
     sprintf(junk, "%.16g", z);
-    add_editval(b, i, junk);
+    init_conds_add_edit_val(b, i, junk);
     return;
 }
 
@@ -2464,7 +2464,7 @@ init_conds_set_edit_params(BoxList *b, int32 i, char *string) {
 }
 
 void
-add_editval(BoxList *b, int32 i, char *string) {
+init_conds_add_edit_val(BoxList *b, int32 i, char *string) {
     int32 n0 = b->n0, n1 = b->n0 + b->nwin - 1;
     int32 iw;
     init_conds_set_edit_params(b, i, string);
@@ -2500,22 +2500,22 @@ set_value_from_box(BoxList *b, int32 i) {
         if (to_float(s, &z) == -1)
             return;
         last_ic[i] = z;
-        add_edit_float(b, i, z);
+        init_conds_add_edit_float(b, i, z);
         break;
     case PARAMBOX:
         if (to_float(s, &z) == -1)
             return;
         set_val(upar_names[i], z);
-        add_edit_float(b, i, z);
+        init_conds_add_edit_float(b, i, z);
         break;
 
     case BCBOX:
         strcpy(my_bc[i].string, s);
-        add_editval(b, i, s);
+        init_conds_add_edit_val(b, i, s);
         break;
     case DELAYBOX:
         strcpy(delay_string[i], s);
-        add_editval(b, i, s);
+        init_conds_add_edit_val(b, i, s);
         break;
     default:
         fprintf(stderr, "Unexpected switch case in %s.\n", __func__);

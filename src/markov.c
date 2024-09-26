@@ -374,10 +374,10 @@ markov_make_gill_nu(double *nu, int32 n, int32 m, double *v) {
     yp = xmalloc((usize)n*sizeof(*yp));
     for (ir = 0; ir < m; ir++)
         v[ir + 1] = 0;
-    rhs_only(yold);
+    main_rhs_only(yold);
     for (ir = 0; ir < m; ir++) {
         v[ir + 1] = 1;
-        rhs_only(yp);
+        main_rhs_only(yp);
         for (iy = 0; iy < n; iy++) {
             nu[ir + m*iy] = yp[iy];
             ggets_plintf("ir=%d iy=%d nu=%g\n", ir + 1, iy, yp[iy] - yold[iy]);

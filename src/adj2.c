@@ -331,7 +331,7 @@ adj2_make_h(double **orb, double **adj, int32 nt, int32 node, int32 silent2) {
                 set_ivar(i + 1, (double)orb[i + 1][k]);
                 set_ivar(i + n0 + 1, (double)orb[i + 1][k2]);
             }
-            update_based_on_current();
+            main_rhs_update_based_on_current();
 
             for (int32 i = 0; i < node; i++) {
                 double z = evaluate(coup_fun[i]);
