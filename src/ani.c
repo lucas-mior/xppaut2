@@ -119,6 +119,35 @@ static struct AniGrab {
     GrabTask end;
 } ani_grab[MAX_ANI_GRAB];
 
+typedef struct AniCom {
+    struct {
+        int32 n;
+        int32 *x;
+        int32 *y;
+        int32 *col;
+        int32 i;
+    } c;
+    int32 type;
+    int32 flag;
+    int32 *col;
+    int32 *x1;
+    int32 *y1;
+    int32 *x2;
+    int32 *y2;
+    int32 *who;
+    double zcol;
+    double zx1;
+    double zy1;
+    double zx2;
+    double zy2;
+    double zrad;
+    double zval;
+    int32 zthick;
+    int32 tfont;
+    int32 tsize;
+    int32 tcolor;
+} AniCom;
+
 static int32 n_ani_grab = 0;
 static int32 show_grab_points = 0;
 static int32 ani_grab_flag = 0;
