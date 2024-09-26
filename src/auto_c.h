@@ -1,3 +1,6 @@
+#ifndef AUTO_C_H
+#define AUTO_C_H
+
 #include <stdio.h>
 #include <unistd.h>
 #ifdef PTHREADS
@@ -12,9 +15,6 @@
 #include "somemath.h"
 
 #include "integers.h"
-
-#ifndef AUTO_C_H
-#define AUTO_C_H
 
 #define NPARX (36) /*get rid of*/
 #define NBIFX (20)

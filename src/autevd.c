@@ -1,5 +1,4 @@
 #include <math.h>
-#include <stdlib.h>
 
 #include "functions.h"
 #include "autevd.h"

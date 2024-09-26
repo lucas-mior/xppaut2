@@ -14,7 +14,6 @@
 
 #include "autevd.h"
 #include "integers.h"
-#include "auto_c.h"
 #include "autlib.h"
 
 #ifndef WCTYPE
