@@ -48,7 +48,6 @@
 #include "myfonts.h"
 
 int32 allwinvis = 0;
-int32 use_intern_sets = 1;
 int32 use_ani_file = 0;
 char anifile[XPP_MAX_NAME];
 

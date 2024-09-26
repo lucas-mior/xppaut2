@@ -3189,7 +3189,6 @@ void lunch_io_string(char *s, int32 len, FILE *fp, int32 f);
 #include <X11/Xlib.h>
 
 extern int32 allwinvis;
-extern int32 use_intern_sets;
 extern int32 use_ani_file;
 extern int32 XPPBatch;
 extern int32 batch_range;

@@ -53,6 +53,7 @@
 #define WITH 43
 #define EQUIL 44
 
+static int32 use_intern_sets = 1;
 static char setfilename[XPP_MAX_NAME];
 static char parfilename[XPP_MAX_NAME];
 static char icfilename[XPP_MAX_NAME];
