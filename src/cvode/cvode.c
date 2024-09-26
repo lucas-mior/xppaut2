@@ -1261,7 +1261,7 @@ cv_hin(CVodeMem cv_mem, double tout) {
 
 /******************** CVUpperBoundH0 ******************************
 
- This routine sets an upper bound on abs(h0) based on
+ This routine sets an upper bound on ABS(h0) based on
  tdist = tn - t0 and the values of y[i]/ydot[i].
 
 ******************************************************************/

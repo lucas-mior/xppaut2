@@ -173,10 +173,10 @@ auto_x11_get_info(int32 *n, char *pname) {
     Diagram *dnew;
 
     if (mark_flag == 2) {
-        i1 = abs(mark_ipts);
+        i1 = ABS(mark_ipts);
         ibr = mark_ibrs;
-        i2 = abs(mark_ipte);
-        *n = abs(i2 - i1);
+        i2 = ABS(mark_ipte);
+        *n = ABS(i2 - i1);
         d = bifd;
         while (true) {
             if (d->ibr == ibr && ((d->ntot == i1) || (d->ntot == (-i1)))) {
@@ -199,10 +199,10 @@ auto_x11_set_mark(int32 i) {
     int32 ibr;
     if (mark_flag == 2) {
         ibr = mark_ibrs;
-        if (abs(mark_ipts) < abs(mark_ipte))
-            pt = abs(mark_ipts) + i;
+        if (ABS(mark_ipts) < ABS(mark_ipte))
+            pt = ABS(mark_ipts) + i;
         else
-            pt = abs(mark_ipte) + i;
+            pt = ABS(mark_ipte) + i;
         auto_x11_find_point(ibr, pt);
     }
     return;

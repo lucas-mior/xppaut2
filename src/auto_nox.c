@@ -2307,7 +2307,7 @@ auto_nox_2p_limit(int32 ips) {
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
     itp1 = (grabpt.itp) % 10;
-    itp2 = abs(grabpt.itp) / 10;
+    itp2 = ABS(grabpt.itp) / 10;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
     Auto.ilp = 0; /* was 1 */
@@ -2343,7 +2343,7 @@ auto_nox_2p_branch(int32 ips) {
     blrtn.torper = grabpt.torper;
     Auto.irs = grabpt.lab;
     itp1 = (grabpt.itp) % 10;
-    itp2 = abs(grabpt.itp) / 10;
+    itp2 = ABS(grabpt.itp) / 10;
     Auto.itp = grabpt.itp;
     Auto.nfpar = 2;
     Auto.ilp = 0; /* was 1 */

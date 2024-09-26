@@ -78,7 +78,7 @@ void
 volterra_allocate(int32 npts, int32 flag) {
     int32 i, oldmem = MaxPoints, j;
     int32 ntot = NODE + FIX_VAR + NMarkov;
-    npts = abs(npts);
+    npts = ABS(npts);
     MaxPoints = npts;
     /* now allocate the memory   */
     if (NKernel == 0)

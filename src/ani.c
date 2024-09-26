@@ -2404,8 +2404,8 @@ draw_ani_rect(int32 j) {
     set_ani_col(j);
     ani_xyscale(x1, y1, &i1, &j1);
     ani_xyscale(x2, y2, &i2, &j2);
-    h = abs(j2 - j1);
-    w = abs(i2 - i1);
+    h = ABS(j2 - j1);
+    w = ABS(i2 - i1);
     if (i1 > i2)
         i1 = i2;
     if (j1 > j2)
@@ -2426,8 +2426,8 @@ draw_ani_frect(int32 j) {
     ani_xyscale(x1, y1, &i1, &j1);
     ani_xyscale(x2, y2, &i2, &j2);
 
-    h = abs(j2 - j1);
-    w = abs(i2 - i1);
+    h = ABS(j2 - j1);
+    w = ABS(i2 - i1);
     if (i1 > i2)
         i1 = i2;
     if (j1 > j2)

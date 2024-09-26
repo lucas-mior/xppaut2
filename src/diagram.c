@@ -251,8 +251,8 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
     double par1;
     double *u0;
     int32 first, last, nrows;
-    first = abs(pts);
-    last = abs(pte);
+    first = ABS(pts);
+    last = ABS(pte);
     if (last <
         first) { /* reorder the points so that we will store in right range*/
         i = first;
@@ -265,7 +265,7 @@ diagram_load_browser_with_branch(int32 ibr, int32 pts, int32 pte) {
         return;
     j = 0;
     while (true) {
-        pt = abs(d->ntot);
+        pt = ABS(d->ntot);
         if ((d->ibr == ibr) && (pt >= first) && (pt <= last)) {
             icp1 = d->icp1;
             par = d->par;
@@ -407,7 +407,7 @@ diagram_write_pts(void) {
         if (auto_nox_check_plot_type(d->flag2, icp1, icp2) == 1) {
             auto_nox_xy_plot(&x, &y1, &y2, par1, par2, per, uhigh, ulow, ubar,
                              a);
-            fprintf(fp, "%g %g %g %d %d %d\n", x, y1, y2, type, abs(d->ibr),
+            fprintf(fp, "%g %g %g %d %d %d\n", x, y1, y2, type, ABS(d->ibr),
                     d->flag2);
         }
         d = d->next;

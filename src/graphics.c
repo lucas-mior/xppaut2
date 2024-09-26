@@ -1037,8 +1037,8 @@ graphics_frect_abs(double x1, double y1, double w, double h) {
     double y2 = y1 + h;
     graphics_scale_to_screen(x1, y1, &i1, &j1);
     graphics_scale_to_screen(x2, y2, &i2, &j2);
-    iw = abs(i2 - i1);
-    ih = abs(j2 - j1);
+    iw = ABS(i2 - i1);
+    ih = ABS(j2 - j1);
     graphics_frect(i1, j1, iw + 1, ih + 1);
     return;
 }
@@ -1185,7 +1185,7 @@ graphics_clip3d(double x1, double y1, double z1, double x2, double y2,
     if (z2 > 1.)
         iz2 = 1;
 
-    if ((abs(ix1) + abs(ix2) + abs(iy1) + abs(iy2) + abs(iz1) + abs(iz2)) == 0)
+    if ((ABS(ix1) + ABS(ix2) + abs(iy1) + abs(iy2) + abs(iz1) + abs(iz2)) == 0)
         return 1;
 
     /*  Both are outside the cube  */
@@ -1336,7 +1336,7 @@ graphics_clip(double x1, double x2, double y1, double y2, double *x1_out,
         iy1 = -1;
     if (y1 > y_top)
         iy1 = 1;
-    isum = abs(ix1) + abs(ix2) + abs(iy1) + abs(iy2);
+    isum = ABS(ix1) + ABS(ix2) + abs(iy1) + abs(iy2);
     if (isum == 0)
         return 1; /* both inside window so plottem' */
 

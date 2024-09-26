@@ -92,8 +92,8 @@ autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
 void
 autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
     double er, cs, sn;
-    my_ev.pt = abs(ntot);
-    my_ev.br = abs(ibr);
+    my_ev.pt = ABS(ntot);
+    my_ev.br = ABS(ibr);
     for (int32 i = 0; i < n; i++) {
         er = exp((ev + i)->r);
         cs = cos((ev + i)->i);
@@ -106,8 +106,8 @@ autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
 
 void
 autevd_send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
-    my_ev.pt = abs(ntot);
-    my_ev.br = abs(ibr);
+    my_ev.pt = ABS(ntot);
+    my_ev.br = ABS(ibr);
     for (int32 i = 0; i < n; i++) {
         my_ev.evr[i] = (ev + i)->r;
         my_ev.evi[i] = (ev + i)->i;
@@ -142,7 +142,7 @@ autevd_addbif(iap_type *iap, int64 ntots, int64 ibrs, double *par, int64 *icp,
     double per = par[10];
     type = autevd_get_bif_type((int32)ibrs, (int32)ntots);
 
-    /*if(my_ev.br==abs(*ibr)&&my_ev.pt==abs(*ntot)){evflag=1;}*/
+    /*if(my_ev.br==ABS(*ibr)&&my_ev.pt==ABS(*ntot)){evflag=1;}*/
     if (iap->ntot == 1) {
         auto_nox_add_point(par, per, uhigh, ulow, ubar, *a, type, 0, lab, icp1,
                            icp2, AutoTwoParam, my_ev.evr, my_ev.evi);

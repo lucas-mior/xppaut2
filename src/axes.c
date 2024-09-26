@@ -76,7 +76,7 @@ axes2_dbl_raise(double x, int32 y) {
     double val;
 
     val = 1.0;
-    for (int32 i = 0; i < abs(y); i++)
+    for (int32 i = 0; i < ABS(y); i++)
         val *= x;
     if (y < 0)
         return 1.0 / val;

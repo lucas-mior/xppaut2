@@ -4243,8 +4243,8 @@ ezsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
      */
     /*            if negative, desired absolute precision in singular values
      */
-    /*               (expressed as abs(tol)*sigma-max) */
-    /*            (in both cases, abs(tol) should be less than 1 and */
+    /*               (expressed as ABS(tol)*sigma-max) */
+    /*            (in both cases, ABS(tol) should be less than 1 and */
     /*             greater than macheps) */
 
     /*        I have tested this software on a SUN 3 in double precision */
@@ -4408,8 +4408,8 @@ ndsvd(double *x, int64 *ldx, int64 *n, int64 *p, double *s, double *e,
      */
     /*            if negative, desired absolute precision in singular values
      */
-    /*               (expressed as abs(tol)*sigma-max) */
-    /*            (abs(tol) should be less than 1 and greater than macheps) */
+    /*               (expressed as ABS(tol)*sigma-max) */
+    /*            (ABS(tol) should be less than 1 and greater than macheps) */
 
     /*     idbg = 0 for no debug output (normal setting) */
     /*          = 1 convergence, shift decisions (written to standard output)
@@ -4990,7 +4990,7 @@ L1003:
         /*       if (s(ll).eq.0.0d0) then */
         /*         f = 0.0d0 */
         /*       else */
-        /*         f = (abs(s(ll)) - shift)*(dsign(1.0d0,s(ll))+shift/s(ll))
+        /*         f = (ABS(s(ll)) - shift)*(dsign(1.0d0,s(ll))+shift/s(ll))
          */
         /*       endif */
         /*       g=e(ll) */
@@ -5060,8 +5060,8 @@ L1003:
     /*       if (sminl.gt.0.0d0) then */
     /*         if (idir.eq.1) then */
     /*           do 1004 lll=ll,m-1 */
-    /*             abse = abs(e(lll)) */
-    /*             abss = abs(s(lll)) */
+    /*             abse = ABS(e(lll)) */
+    /*             abss = ABS(s(lll)) */
     /*             if (abss.lt.abse) then */
     /*               sminl = sminl*(abss/abse) */
     /*               oldacc = -1 */
@@ -5069,8 +5069,8 @@ L1003:
     /* L1004: */
     /*         else */
     /*           do 1005 lll=ll,m-1 */
-    /*             abse = abs(e(lll)) */
-    /*             abss = abs(s(lll+1)) */
+    /*             abse = ABS(e(lll)) */
+    /*             abss = ABS(s(lll+1)) */
     /*             if (abss.lt.abse) then */
     /*               sminl = sminl*(abss/abse) */
     /*               oldacc = -1 */

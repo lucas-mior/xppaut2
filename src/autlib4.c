@@ -414,7 +414,7 @@ dhhpr(int64 *k, int64 *j, int64 *n, double *x, int64 *incx, double *beta,
     /*           Unchanged on exit. */
 
     /*  X      - DOUBLE PRECISION array of DIMENSION at least */
-    /*           ( 1 + ( N - 1 )*abs( INCX ) ). */
+    /*           ( 1 + ( N - 1 )*ABS( INCX ) ). */
     /*           On entry, X specifies the vector to be (partially) zeroed. */
     /*           Unchanged on exit. */
 

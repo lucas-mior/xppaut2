@@ -14,13 +14,6 @@
 #include "integers.h"
 #include <complex_math.h>
 
-#ifndef abs
-#define abs(x) ((x) >= 0 ? (x) : -(x))
-#endif
-#ifndef fabs
-#define fabs(x) ((x) >= 0 ? (x) : -(x))
-#endif
-
 #define min(a, b) ((a) <= (b) ? (a) : (b))
 #define max(a, b) ((a) >= (b) ? (a) : (b))
 

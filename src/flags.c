@@ -260,7 +260,7 @@ one_flag_step(double *yold, double *ynew, int32 *istart, double told,
     if (NFlags == 0)
         return 0;
     /* printf("dt=%g yold= %g ynew = %g \n",dt,yold[0],ynew[0]); */
-    /*  if(abs(dt)<MY_DBL_EPS) return 0;  */
+    /*  if(ABS(dt)<MY_DBL_EPS) return 0;  */
     for (int32 i = 0; i < NFlags; i++) {
         flag[i].tstar = 2.0;
         flag[i].hit = 0;

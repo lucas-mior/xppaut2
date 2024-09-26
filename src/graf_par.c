@@ -1008,7 +1008,7 @@ graf_par_draw_freeze_key(void) {
     for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == draw_win &&
             strlen(frz[i].key) > 0) {
-            graphics_set_linestyle(abs(frz[i].color));
+            graphics_set_linestyle(ABS(frz[i].color));
             graphics_line(ix, y0, ix2, y0);
             graphics_set_linestyle(0);
             graphics_put_text(ix2 + HChar, y0, frz[i].key);

@@ -377,7 +377,7 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
 
     /* General Redefinition. */
 
-    if (abs(ips) <= 1 && isw == 1) {
+    if (ABS(ips) <= 1 && isw == 1) {
         /*        ** Algebraic Systems */
         nfpr = 1;
     } else if (ips == -2) {
@@ -387,13 +387,13 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
         ilp = 0;
         icp[0] = 13;
 
-    } else if (ips == 2 && abs(isw) == 1) {
+    } else if (ips == 2 && ABS(isw) == 1) {
         /*        ** Periodic Solutions */
         nbc = ndim;
         nint = 1;
         nfpr = nbc + nint - ndim + 1;
         /*        **ISW=1 when starting from a HB */
-        if (itp == 3 || abs(itp) / 10 == 3) {
+        if (itp == 3 || ABS(itp) / 10 == 3) {
             isw = 1;
         }
         if (nicp == 1) {
@@ -401,15 +401,15 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
             icp[1] = 10;
         }
 
-    } else if (ips == 4 && abs(isw) == 1) {
+    } else if (ips == 4 && ABS(isw) == 1) {
         /*        ** Boundary value problems */
         nfpr = nbc + nint - ndim + 1;
 
-    } else if (ips == 7 && abs(isw) == 1) {
+    } else if (ips == 7 && ABS(isw) == 1) {
         /*        ** Boundary value problems */
         nfpr = nbc + nint - ndim + 1;
 
-    } else if (ips == 9 && abs(isw) == 1) {
+    } else if (ips == 9 && ABS(isw) == 1) {
         /*        ** Homoclinic bifurcation analysis */
         /*        Redefine AUTO constants for homoclinic orbits */
         inho(iap, icp, par);
@@ -462,7 +462,7 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
         nneg = 0;
         for (int64 i = 0; i < nicp; ++i) {
             ic = ict[i];
-            jc = abs(ic) - 20;
+            jc = ABS(ic) - 20;
             if (ic < 0 && jc > 0 && jc <= 11) {
                 ++nneg;
                 icp[nfpr + nneg - 1] = jc;
@@ -489,17 +489,17 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
             icp[0] = 9;
         }
 
-    } else if (irs > 0 && abs(isw) == 2) {
+    } else if (irs > 0 && ABS(isw) == 2) {
         /*        ** Continuation of singular points */
 
-        if ((itp == 1 || abs(itp) / 10 == 1 || itp == 2 ||
-             abs(itp) / 10 == 2) &&
-            abs(ips) <= 1) {
+        if ((itp == 1 || ABS(itp) / 10 == 1 || itp == 2 ||
+             ABS(itp) / 10 == 2) &&
+            ABS(ips) <= 1) {
             /*          ** Fold continuation (Algebraic Problems) */
             ndim = (ndim << 1) + 1;
             nfpr = 2;
 
-        } else if ((itp == 3 || abs(itp) / 10 == 3) && abs(ips) <= 1) {
+        } else if ((itp == 3 || ABS(itp) / 10 == 3) && ABS(ips) <= 1) {
             /*          ** Hopf bifurcation continuation (Maps, ODE, Waves) */
             ndim = ndim*3 + 2;
             nfpr = 2;
@@ -530,7 +530,7 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
                 restart_flag = 1;
             }
 
-        } else if ((abs(itp) / 10 == 5 || abs(itp) / 10 == 6) && ips == 2) {
+        } else if ((ABS(itp) / 10 == 5 || ABS(itp) / 10 == 6) && ips == 2) {
             /*          ** Fold continuation (Periodic solutions); restart */
             ndim <<= 1;
             nbc = ndim;
@@ -567,7 +567,7 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
                 restart_flag = 1;
             }
 
-        } else if (abs(itp) / 10 == 7 && ips == 2) {
+        } else if (ABS(itp) / 10 == 7 && ips == 2) {
             /*          ** Continuation of period doubling bifurcations; resta
       rt */
             ndim <<= 1;
@@ -598,7 +598,7 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
                 restart_flag = 1;
             }
 
-        } else if (abs(itp) / 10 == 8 && ips == 2) {
+        } else if (ABS(itp) / 10 == 8 && ips == 2) {
             /*          ** Continuation of torus bifurcations; restart */
             ndim *= 3;
             nbc = ndim;
@@ -630,7 +630,7 @@ autlib1_init(iap_type *iap, rap_type *rap, int64 *icp, double *par) {
                        "below :\n");
             }
 
-        } else if ((abs(itp) / 10 == 5 || abs(itp) / 10 == 5) && ips == 4) {
+        } else if ((ABS(itp) / 10 == 5 || ABS(itp) / 10 == 5) && ips == 4) {
             /*          ** Continuation of folds (BVP; restart) */
             ndim <<= 1;
             nbc <<= 1;
@@ -961,7 +961,7 @@ L3:
 
     /* Check for Hopf bifurcation */
 
-    if (abs(ips) == 1) {
+    if (ABS(ips) == 1) {
         lcspae(iap, rap, par, icp, fnhbae, funi, &aa_first_dimension, aa, rhs,
                rlcur, rlold, rldot, u, du, uold, udot, f, dfdu, dfdp, &rev, thl,
                thu, iuz, vuz);
@@ -999,7 +999,7 @@ L6:
         goto L3;
 
     nbif = iap->nbif;
-    if (nbif != 0 && nbfc < abs(mxbf)) {
+    if (nbif != 0 && nbfc < ABS(mxbf)) {
         goto L2;
     }
 
@@ -1657,7 +1657,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     /* If requested write additional output on unit 9 : */
 
     if (iid >= 2 && iap->mynode == 0) {
-        fprintf(fp9, "%4li%6li        Fold Function %14.6E\n", abs(ibr), ntop,
+        fprintf(fp9, "%4li%6li        Fold Function %14.6E\n", ABS(ibr), ntop,
                 ret_val);
     }
     free(ud);
@@ -1811,7 +1811,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     ntot = iap->ntot;
     ntotp1 = ntot + 1;
     if (iid >= 2 && iap->mynode == 0) {
-        fprintf(fp9, "%4li%6li        Hopf Function %14.6E\n", abs(ibr), ntop,
+        fprintf(fp9, "%4li%6li        Hopf Function %14.6E\n", ABS(ibr), ntop,
                 ret_val);
     }
     if (nins1 == ndm)
@@ -1821,18 +1821,18 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         fprintf(fp9,
                 "%4li%6li        Eigenvalues:                                 "
                 "Stable:%3li\n",
-                abs(ibr), ntop, nins);
+                ABS(ibr), ntop, nins);
         if (ips == -1) {
             for (int64 i = 0; i < ndm; ++i) {
                 doublecomplex tmp;
                 z_exp(&tmp, &ev[i]);
                 fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",
-                        abs(ibr), ntop, i + 1, tmp.r, tmp.i);
+                        ABS(ibr), ntop, i + 1, tmp.r, tmp.i);
             }
         } else {
             for (int64 i = 0; i < ndm; ++i) {
                 fprintf(fp9, "%4li%6li        Eigenvalue%3li %14.6E%14.6E\n",
-                        abs(ibr), ntop, i + 1, ev[i].r, ev[i].i);
+                        ABS(ibr), ntop, i + 1, ev[i].r, ev[i].i);
             }
         }
     }
@@ -1871,11 +1871,11 @@ fnuzae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     ntot = iap->ntot;
     ntop = (ntot + 1) % 10000;
 
-    ret_val = par[abs(iuz[iuzr])] - vuz[iuzr];
+    ret_val = par[ABS(iuz[iuzr])] - vuz[iuzr];
     *chng = true;
 
     if (iid >= 3) {
-        fprintf(fp9, "%4li%6li        User Func. %3li %16.6E\n", abs(ibr), ntop,
+        fprintf(fp9, "%4li%6li        User Func. %3li %16.6E\n", ABS(ibr), ntop,
                 iuzr, ret_val);
     }
 
@@ -2017,7 +2017,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
         u[i] = ARRAY2D(stu, 0, i);
         udot[i] = ARRAY2D(stud, 0, i);
     }
-    if (abs(isw) == 2) {
+    if (ABS(isw) == 2) {
         par[icp[1]] = u[-1 + ndim];
     }
 
@@ -2418,13 +2418,13 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     } else if (iplt > ndm << 1 && iplt <= ndm*3) {
         sprintf(col[1], " L2-NORM U(%ld) ", iplt - (ndm*2));
     } else if (iplt > 0 && iplt <= ndm) {
-        if (abs(ips) <= 1 || ips == 5) {
+        if (ABS(ips) <= 1 || ips == 5) {
             sprintf(col[1], "     U(%ld)     ", -iplt);
         } else {
             sprintf(col[1], "   MAX U(%ld)   ", iplt);
         }
     } else if (iplt < 0 && iplt >= -ndm) {
-        if (abs(ips) <= 1 || ips == 5) {
+        if (ABS(ips) <= 1 || ips == 5) {
             sprintf(col[1], "     U(%ld)     ", -iplt);
         } else {
             sprintf(col[1], "   MIN U(%ld)   ", -iplt);
@@ -2563,7 +2563,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
     /* CHECK WHETHER LIMITS OF THE BIFURCATION Diagram HAVE BEEN REACHED : */
 
-    iab = abs(iplt);
+    iab = ABS(iplt);
 
     if (iab <= ndim && iab > 0) {
         amp = u[-1 + iab];
@@ -2611,7 +2611,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 
     ntots = ntot;
     nins = iap->nins;
-    if (abs(ips) == 1 && abs(isw) != 2 && ntot > 1) {
+    if (ABS(ips) == 1 && ABS(isw) != 2 && ntot > 1) {
         if (nins == ndim) {
             ntots = -ntot;
         }
@@ -2663,10 +2663,10 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 
     /* Write a heading above the first line. */
 
-    if (abs(*ntot) == 1) {
+    if (ABS(*ntot) == 1) {
         headng(iap, rap, par, icu, 6, &n1, &n2);
     }
-    if (abs(*ntot) == 1) {
+    if (ABS(*ntot) == 1) {
         headng(iap, rap, par, icu, 7, &n1, &n2);
     }
     headng(iap, rap, par, icu, 9, &n1, &n2);
@@ -2731,7 +2731,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
     } else {
         if (n1 == 1) {
             if (itp % 10 != 0) {
-                printf("%4li%6li  %c%c%4li", abs(*ibr), abs(mtot), atype[0],
+                printf("%4li%6li  %c%c%4li", ABS(*ibr), ABS(mtot), atype[0],
                        atype[1], *(lab));
                 printf("%14.6E", par[icu[0]]);
                 printf("%14.6E", (*vaxis));
@@ -2759,7 +2759,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 
         } else {
             if (itp % 10 != 0) {
-                printf("%4li%6li  %c%c%4li", abs(*ibr), abs(mtot), atype[0],
+                printf("%4li%6li  %c%c%4li", ABS(*ibr), ABS(mtot), atype[0],
                        atype[1], *(lab));
                 printf("%14.6E", par[icu[0]]);
                 printf("%14.6E", (*vaxis));
@@ -3251,9 +3251,9 @@ adptds(iap_type *iap, rap_type *rap, double *rds) {
     if (ards > dsmax)
         *rds = *rds*dsmax / ards;
 
-    fprintf(fp9, "%4li%6li        Iterations     %3li\n", abs(ibr), ntop - 1,
+    fprintf(fp9, "%4li%6li        Iterations     %3li\n", ABS(ibr), ntop - 1,
             nit);
-    fprintf(fp9, "%4li%6li        Stepsize      %14.6E\n", abs(ibr), ntop,
+    fprintf(fp9, "%4li%6li        Stepsize      %14.6E\n", ABS(ibr), ntop,
             (*rds));
 
     return 0;
@@ -3310,7 +3310,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
 
     /* For periodic boundary conditions extrapolate by periodicity. */
 
-    if (ips == 2 && abs(isw) != 2) {
+    if (ips == 2 && ABS(isw) != 2) {
         iper = 1;
     } else {
         iper = 0;
@@ -4044,8 +4044,8 @@ L2:
     if (isw < 0 || irs == 0) {
         ibr = mbr + 1;
         iap->ibr = ibr;
-    } else if ((abs(itp) < 10 && abs(isw) == 2) || (ips == 2 && itp == 3) ||
-               (ips == 4 && isw == 2 && abs(itp) < 10) ||
+    } else if ((ABS(itp) < 10 && ABS(isw) == 2) || (ips == 2 && itp == 3) ||
+               (ips == 4 && isw == 2 && ABS(itp) < 10) ||
                (ips == 5 && itp % 10 == 2)) {
         ibr = irs;
         iap->ibr = ibr;
@@ -4105,12 +4105,12 @@ findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
         iap->ibr = ibr;
         if (labrs == irs) {
             *found = true;
-            if (abs(isw) == 2) {
-                if (abs(itp) < 10) {
-                    itpst = abs(itp);
+            if (ABS(isw) == 2) {
+                if (ABS(itp) < 10) {
+                    itpst = ABS(itp);
                     iap->itpst = itpst;
                 } else {
-                    itpst = abs(itp / 10);
+                    itpst = ABS(itp / 10);
                     iap->itpst = itpst;
                 }
             } else {
@@ -5988,7 +5988,7 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     scaleb(iap, icp, ndxloc, udotps, rldot, dtm, thl, thu);
     if (iid >= 2 && iap->mynode == 0) {
-        fprintf(fp9, "%4li%6li        Fold Function %14.6E\n", abs(ibr), ntop,
+        fprintf(fp9, "%4li%6li        Fold Function %14.6E\n", ABS(ibr), ntop,
                 rldot[0]);
     }
 
@@ -6085,7 +6085,7 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     }
 
     if (iid >= 2) {
-        fprintf(fp9, "%4li%6li        BP   Function %14.6E\n", abs(ibr), ntop,
+        fprintf(fp9, "%4li%6li        BP   Function %14.6E\n", ABS(ibr), ntop,
                 ret_val);
     }
     free(pp);
@@ -6223,19 +6223,19 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     if (amin > (double).05 && isp == 2) {
         if (iap->mynode == 0) {
             if (iid >= 2) {
-                fprintf(fp9, "%4li%6li NOTE:Multiplier inaccurate\n", abs(ibr),
+                fprintf(fp9, "%4li%6li NOTE:Multiplier inaccurate\n", ABS(ibr),
                         ntop);
             }
             for (int64 i = 0; i < ndim; ++i) {
                 fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
-                        abs(ibr), ntop, i, ev[i].r, ev[i].i);
+                        ABS(ibr), ntop, i, ev[i].r, ev[i].i);
             }
         }
         nins = 0;
         iap->nins = nins;
         if (iap->mynode == 0) {
             fprintf(fp9, "%4li%6li        Multipliers:   Stable: %3li\n",
-                    abs(ibr), ntop, nins);
+                    ABS(ibr), ntop, nins);
         }
         isp = -isp;
         iap->isp = isp;
@@ -6249,7 +6249,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         if (amin < (double).01) {
             if (iap->mynode == 0) {
                 fprintf(fp9, "%4li%6li NOTE:Multiplier accurate again\n",
-                        abs(ibr), ntop);
+                        ABS(ibr), ntop);
             }
             isp = -isp;
             iap->isp = isp;
@@ -6258,7 +6258,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
                 for (int64 i = 0; i < ndim; ++i) {
                     fprintf(fp9,
                             "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
-                            abs(ibr), ntop, i, ev[i].r, ev[i].i);
+                            ABS(ibr), ntop, i, ev[i].r, ev[i].i);
                 }
             }
             return ret_val;
@@ -6302,7 +6302,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     iap->nins = nins;
     if (iid >= 2 && (isp == 1 || isp == 2)) {
         if (iap->mynode == 0) {
-            fprintf(fp9, "%4li%6li        SPB  Function %14.6E\n", abs(ibr),
+            fprintf(fp9, "%4li%6li        SPB  Function %14.6E\n", ABS(ibr),
                     ntop, d);
         }
     }
@@ -6311,12 +6311,12 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     nins = iap->nins;
     if (iap->mynode == 0) {
-        fprintf(fp9, "%4li%6li        Multipliers:   Stable: %3li\n", abs(ibr),
+        fprintf(fp9, "%4li%6li        Multipliers:   Stable: %3li\n", ABS(ibr),
                 ntop, nins);
 
         for (int64 i = 0; i < ndim; ++i) {
             fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
-                    abs(ibr), ntop, i, ev[i].r, ev[i].i);
+                    ABS(ibr), ntop, i, ev[i].r, ev[i].i);
         }
     }
 
@@ -6365,11 +6365,11 @@ fnuzbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     ntot = iap->ntot;
     ntop = (ntot + 1) % 10000;
 
-    ret_val = par[abs(iuz[iuzr])] - vuz[iuzr];
+    ret_val = par[ABS(iuz[iuzr])] - vuz[iuzr];
     *chng = true;
 
     if (iid >= 3) {
-        fprintf(fp9, "%4li%6li        User Func. %3li %14.6E\n", abs(ibr), ntop,
+        fprintf(fp9, "%4li%6li        User Func. %3li %14.6E\n", ABS(ibr), ntop,
                 iuzr, ret_val);
     }
 
@@ -6542,7 +6542,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     /* Check whether limits of the bifurcation diagram have been reached : */
 
-    iab = abs(iplt);
+    iab = ABS(iplt);
     if (iab == 0 || iab > ndm*3)
         amp = sqrt(rnrmsq(iap, &ndm, ndxloc, ups, dtm, thu));
     if (iplt > 0 && iab <= ndm)
@@ -6613,7 +6613,7 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
 
     ibrs = ibr;
     ntots = ntot;
-    if (ips == 2 && abs(isw) != 2) {
+    if (ips == 2 && ABS(isw) != 2) {
         ibrs = -ibr;
         nins = iap->nins;
         if (nins == ndim) {
@@ -6851,7 +6851,7 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
     ntot = iap->ntot;
     ds = rap->ds;
 
-    iab = abs(iplt);
+    iab = ABS(iplt);
     if (iab == 0 || iab > ndim)
         amp = sqrt(rnrmsq(iap, &ndm, ndxloc, ups, dtm, thu));
     if (iplt > 0 && iab <= ndim)
@@ -6972,7 +6972,7 @@ getp(char *code, int64 *ic, double *ups, int64 code_len) {
     ips = global_parameters.iav->ips;
     ntst = global_parameters.iav->ntst;
 
-    if (abs(ips) <= 1 || ips == 5) {
+    if (ABS(ips) <= 1 || ips == 5) {
         if (strcmp(code, "NRM") == 0 || strcmp(code, "nrm") == 0) {
             ret_val = fabs(ups[*ic - 1]);
         } else if (strcmp(code, "INT") == 0 || strcmp(code, "int32") == 0) {

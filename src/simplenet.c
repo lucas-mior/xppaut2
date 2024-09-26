@@ -36,14 +36,14 @@
  *               k=i+j;
  *         0 type      if(k>=0 && k<n)
  *               value[i]+=wgt[j+ncon]*rootname[k]
- *         e type k=abs(i+j); if(k<2n)
+ *         e type k=ABS(i+j); if(k<2n)
  *                                if(k>=n)k=n-k;
  *                                ...
  *         p type
  *            k=mod(2*n+i+j,n)
  *
  * for example  discretized diffusion
- * tabular dd % 3 -1 1 3*abs(t)-2
+ * tabular dd % 3 -1 1 3*ABS(t)-2
  * special diff=conv(even, 51, 2, dd,v0)
  * v[0..50]'=f(v[j],w[j])+d*diff([j])
  *
@@ -1175,10 +1175,10 @@ simplenet_eval_all_nets(void) {
             for (i = 0; i < n; i++) {
                 sum = 0.0;
                 for (j = -ncon; j <= ncon; j++) {
-                    k = abs(i + j);
+                    k = ABS(i + j);
                     if (k < twon) {
                         if (k >= n)
-                            k = abs(twon - 2 - k);
+                            k = ABS(twon - 2 - k);
                         sum += (w[j + ncon]*y[k]);
                     }
                 }
@@ -1288,10 +1288,10 @@ simplenet_eval_all_nets(void) {
                 sum = 0.0;
                 f[1] = root + i;
                 for (j = -ncon; j <= ncon; j++) {
-                    k = abs(i + j);
+                    k = ABS(i + j);
                     if (k < twon) {
                         if (k >= n)
-                            k = abs(twon - 2 - k);
+                            k = ABS(twon - 2 - k);
                         f[0] = root2 + k;
 
                         z = evaluate(f);
