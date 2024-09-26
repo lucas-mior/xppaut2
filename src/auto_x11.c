@@ -211,7 +211,6 @@ auto_x11_set_mark(int32 i) {
 
 void
 auto_x11_find_point(int32 ibr, int32 pt) {
-    int32 i;
     Diagram *d;
     Diagram *dnew;
     if (NBifs < 2)
@@ -223,10 +222,10 @@ auto_x11_find_point(int32 ibr, int32 pt) {
              (d->ntot ==
               (-pt)))) { /* need to look at both signs to ignore stability */
             /* now we use this info to set parameters and init data */
-            for (i = 0; i < NODE; i++)
+            for (int32 i = 0; i < NODE; i++)
                 set_ivar(i + 1, d->u0[i]);
             integrate_get_ic(0, d->u0);
-            for (i = 0; i < NAutoPar; i++)
+            for (int32 i = 0; i < NAutoPar; i++)
                 constants[Auto_index_to_array[i]] = d->par[i];
             derived_evaluate();
             tabular_redo_all_fun_tables();
@@ -249,7 +248,7 @@ void
 auto_x11_traverse_diagram(void) {
     Diagram *d, *dnew, *dold;
     int32 done = 0;
-    int32 ix, iy, i;
+    int32 ix, iy;
     int32 lalo;
     XEvent event;
     int32 kp;
@@ -549,13 +548,13 @@ auto_x11_traverse_diagram(void) {
     if (done == 1) {
         grabpt.ibr = d->ibr;
         grabpt.lab = d->lab;
-        for (i = 0; i < 8; i++)
+        for (int32 i = 0; i < 8; i++)
             grabpt.par[i] = d->par[i];
         grabpt.icp1 = d->icp1;
         grabpt.icp2 = d->icp2;
         grabpt.per = d->per;
         grabpt.torper = d->torper;
-        for (i = 0; i < NODE; i++) {
+        for (int32 i = 0; i < NODE; i++) {
             grabpt.uhi[i] = d->uhi[i];
             grabpt.ulo[i] = d->ulo[i];
             grabpt.u0[i] = d->u0[i];
@@ -568,7 +567,7 @@ auto_x11_traverse_diagram(void) {
         grabpt.ntot = d->ntot;
         grabpt.nfpar = d->nfpar;
         grabpt.index = d->index;
-        for (i = 0; i < NAutoPar; i++)
+        for (int32 i = 0; i < NAutoPar; i++)
             constants[Auto_index_to_array[i]] = grabpt.par[i];
     }
     derived_evaluate();

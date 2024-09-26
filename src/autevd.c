@@ -34,7 +34,6 @@ autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
                  int32 ncol) {
     /* here are the constants that we do not allow the user to change */
     int32 nnbc;
-    int32 i;
     x_auto.iad = aauto.iad;
     x_auto.iplt = 0;
     x_auto.mxbf = aauto.mxbf;
@@ -83,7 +82,7 @@ autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
     x_auto.dsmin = dsmin;
 
     x_auto.nuzr = NAutoUzr;
-    for (i = 0; i < NAutoUzr; i++) {
+    for (int32 i = 0; i < NAutoUzr; i++) {
         x_auto.iuz[i] = (int32)UzrPar[i];
         x_auto.vuz[i] = outperiod[i];
     }
@@ -92,11 +91,10 @@ autevd_init_auto(int32 ndim, int32 nicp, int32 ips, int32 irs, int32 ilp,
 
 void
 autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
-    int32 i;
     double er, cs, sn;
     my_ev.pt = abs(ntot);
     my_ev.br = abs(ibr);
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         er = exp((ev + i)->r);
         cs = cos((ev + i)->i);
         sn = sin((ev + i)->i);
@@ -108,10 +106,9 @@ autevd_send_eigen(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
 
 void
 autevd_send_mult(int32 ibr, int32 ntot, int32 n, doublecomplex *ev) {
-    int32 i;
     my_ev.pt = abs(ntot);
     my_ev.br = abs(ibr);
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         my_ev.evr[i] = (ev + i)->r;
         my_ev.evi[i] = (ev + i)->i;
     }

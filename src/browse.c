@@ -253,13 +253,13 @@ browse_add_stor_col(char *name, char *formula, Browser *b) {
 
 void
 browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
-    int32 i, j = -1;
+    int32 j = -1;
     char n1[256], n2[256];
     int32 n = (int32)strlen(f);
     *seq = 0;
     *a1 = 0.0;
     *a2 = 0.0;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (f[i] == ':') {
             *seq = 1;
             j = i;
@@ -271,10 +271,10 @@ browse_chk_seq(char *f, int32 *seq, double *a1, double *a2) {
         }
     }
     if (j > -1) {
-        for (i = 0; i < j; i++)
+        for (int32 i = 0; i < j; i++)
             n1[i] = f[i];
         n1[j] = 0;
-        for (i = j + 1; i < n; i++)
+        for (int32 i = j + 1; i < n; i++)
             n2[i - j - 1] = f[i];
         n2[n - j - 1] = 0;
         *a1 = atof(n1);
@@ -402,7 +402,7 @@ browse_wipe_rep(void) {
 void
 browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
                     Browser b) {
-    int32 i, npts, ok;
+    int32 npts, ok;
     FILE *fp;
     browse_open_write_file(&fp, filename, &ok);
     if (!ok)
@@ -411,7 +411,7 @@ browse_make_d_table(double xlo, double xhi, int32 col, char *filename,
 
     fprintf(fp, "%d\n", npts);
     fprintf(fp, "%g\n%g\n", xlo, xhi);
-    for (i = 0; i < npts; i++)
+    for (int32 i = 0; i < npts; i++)
         fprintf(fp, "%10.10g\n", b.data[col][i + b.istart]);
     fclose(fp);
     ggets_ping();
@@ -583,11 +583,10 @@ display_browser(Window window, Browser b) {
 
 void
 redraw_browser(Browser b) {
-    int32 i;
     int32 i0;
     Window window;
     browse_draw_data(b);
-    for (i = 0; i < BMAXCOL; i++) {
+    for (int32 i = 0; i < BMAXCOL; i++) {
         window = b.label[i];
         i0 = i + b.col0 - 1;
         if (i0 < (b.maxcol - 1)) {
@@ -618,7 +617,7 @@ reset_browser(void) {
 
 void
 browse_draw_data(Browser b) {
-    int32 i, i0, j, j0;
+    int32 i0, j, j0;
     int32 x0;
     char string[50];
     int32 dcol = DCURXs*14;
@@ -629,7 +628,7 @@ browse_draw_data(Browser b) {
 
     /* Do time data first  */
 
-    for (i = 0; i < b.nrow; i++) {
+    for (int32 i = 0; i < b.nrow; i++) {
         i0 = i + b.row0;
         if (i0 < b.maxrow) {
             sprintf(string, "%.8g", b.data[0][i0]);
@@ -644,7 +643,7 @@ browse_draw_data(Browser b) {
         j0 = j + b.col0;
         if (j0 >= b.maxcol)
             return; /* if this one is too big, they all are  */
-        for (i = 0; i < b.nrow; i++) {
+        for (int32 i = 0; i < b.nrow; i++) {
             i0 = i + b.row0;
             if (i0 < b.maxrow) {
                 sprintf(string, "%.7g", b.data[j0][i0]);
@@ -726,7 +725,6 @@ browse_button_data(Window root, int32 row, int32 col, char *name, int32 iflag) {
 
 void
 make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
-    int32 i;
     int32 ncol = col;
     int32 width;
     int32 height;
@@ -805,7 +803,7 @@ make_browser(Browser *b, char *wname, char *iname, int32 row, int32 col) {
     b->hint = make_window(base, 0, 4*drow, width - 17, drow - 3, 1);
     XSelectInput(display, b->time, SIMPMASK);
 
-    for (i = 0; i < BMAXCOL; i++) {
+    for (int32 i = 0; i < BMAXCOL; i++) {
         b->label[i] = browse_button_data(base, 5, i + 1, "1234567890", 1);
         XSelectInput(display, b->label[i], SIMPMASK);
     }
@@ -1242,17 +1240,17 @@ data_get_my_browser(int32 row) {
 
 void
 browse_data_get(Browser *b) {
-    int32 i, in = b->row0;
+    int32 in = b->row0;
     set_ivar(0, (double)storage[0][in]);
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         last_ic[i] = (double)storage[i + 1][in];
         set_ivar(i + 1, last_ic[i]);
     }
-    for (i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < NMarkov; i++) {
         last_ic[i + NODE] = (double)storage[i + NODE + 1][in];
         set_ivar(i + 1 + NODE + FIX_VAR, last_ic[i + NODE]);
     }
-    for (i = NODE + NMarkov; i < NEQ; i++)
+    for (int32 i = NODE + NMarkov; i < NEQ; i++)
         set_val(uvar_names[i], storage[i + 1][in]);
 
     init_conds_redraw_ics();
@@ -1283,10 +1281,10 @@ browse_data_replace(Browser *b) {
 void
 browse_data_unreplace(Browser *b) {
     /* browse unreplace column */
-    int32 i, n = my_browser.maxrow;
+    int32 n = my_browser.maxrow;
     if (!REPLACE)
         return;
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         my_browser.data[R_COL][i] = old_rep[i];
     browse_wipe_rep();
 

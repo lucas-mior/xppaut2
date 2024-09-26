@@ -69,7 +69,7 @@ void
 array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
                       int32 ncskip, int32 maxrow, int32 maxcol, int32 nacross,
                       int32 ndown, double zmin, double zmax, int32 type) {
-    int32 i, j, ib, jb;
+    int32 j, ib, jb;
 
     double fill, x, y;
     double dx = (ps_scale.xmax - ps_scale.xmin);
@@ -79,7 +79,7 @@ array_print_ps_replot(double **z, int32 col0, int32 row0, int32 nskip,
     double dely;
     delx = .8*dx / (double)ndown;
     dely = .8*dy / (double)(nacross / ncskip);
-    for (i = 0; i < nacross / ncskip; i++) {
+    for (int32 i = 0; i < nacross / ncskip; i++) {
         ib = col0 + i*ncskip;
         if (ib > maxcol)
             return;
@@ -162,12 +162,11 @@ array_print_ps_convert(double x, double y, double *xs, double *ys) {
 void
 array_print_ps_col_scale(double y0, double x0, double dy, double dx, int32 n,
                          double zlo, double zhi, int32 type) {
-    int32 i;
     char s[100];
 
     double dz = 1. / (double)(n - 1);
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (type == GREYSCALE)
             array_print_ps_bar(x0, y0 - (i + 1)*dy, dx, dy,
                                1 - (double)i*dz, 0);

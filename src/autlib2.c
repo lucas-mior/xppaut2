@@ -288,12 +288,11 @@ int32
 setfcdd(int64 *ifst, double *dd, double *fc, int64 *ncb, int64 *nrc) {
     int64 dd_dim1;
 
-    int64 i;
     int64 j;
 
     dd_dim1 = *ncb;
 
-    for (i = 0; i < *nrc; ++i) {
+    for (int64 i = 0; i < *nrc; ++i) {
         if (*ifst == 1) {
             for (j = 0; j < *ncb; ++j) {
                 ARRAY2D(dd, j, i) = 0.;
@@ -324,18 +323,18 @@ faft(double *ff, double *fa, int64 *ntst, int64 *nrow, int64 *ndxloc) {
 
 int32
 partition(int64 *n, int64 *kwt, int64 *m) {
-    int64 i, s, t;
+    int64 s, t;
 
     /*     Linear distribution of NTST over all nodes */
 
     t = *n / *kwt;
     s = *n % *kwt;
 
-    for (i = 0; i < *kwt; ++i) {
+    for (int64 i = 0; i < *kwt; ++i) {
         m[i] = t;
     }
 
-    for (i = 0; i < s; ++i) {
+    for (int64 i = 0; i < s; ++i) {
         ++m[i];
     }
 
@@ -346,13 +345,12 @@ int64
 mypart(int64 *iam, int64 *np) {
     int64 ret_val;
 
-    int64 i;
     int64 k;
 
     /*     Partition the mesh */
 
     k = 0;
-    for (i = 0; i < *iam; ++i) {
+    for (int64 i = 0; i < *iam; ++i) {
         k += np[i];
     }
     ret_val = k;
@@ -372,7 +370,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     int64 ups_dim1, dups_dim1, uoldps_dim1, udotps_dim1, upoldp_dim1;
     int64 fa_dim1, wt_dim1, wp_dim1, wploc_dim1;
 
-    int64 i, j, k, l, m;
+    int64 j, k, l, m;
     int64 mpart, i1, j1, k1, l1;
 
     double rlsum;
@@ -438,13 +436,13 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     wint(*ncol + 1, wi);
     genwts(*ncol, iap->ncol + 1, wt, wp);
     /* Initialize to zero. */
-    for (i = 0; i < *nrc; ++i) {
+    for (int64 i = 0; i < *nrc; ++i) {
         fc[i] = 0.;
     }
 
     /* Set constants. */
     ncp1 = *ncol + 1;
-    for (i = 0; i < *ncb; ++i) {
+    for (int64 i = 0; i < *ncb; ++i) {
         par[icp[i]] = rlcur[i];
     }
 
@@ -477,12 +475,12 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
             if (*ips == 14 || *ips == 16) {
                 rap->tivp = rlold[0];
             }
-            for (i = 0; i < NPARX; ++i) {
+            for (int64 i = 0; i < NPARX; ++i) {
                 prm[i] = par[i];
             }
             (*funi)(iap, rap, *ndim, u, uold, icp, prm, 2, f, dfdu, dfdp);
             ic1 = ic**ndim;
-            for (i = 0; i < *ndim; ++i) {
+            for (int64 i = 0; i < *ndim; ++i) {
                 ARRAY2D(fa, ic1 + i, jj) =
                     f[i] - ARRAY2D(wploc, *ncol, ic)*ARRAY2D(ups, jp1, i);
                 for (k = 0; k < *ncol; ++k) {
@@ -501,17 +499,17 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
     /*     Boundary conditions : */
 
     if (*nbc > 0) {
-        for (i = 0; i < *ndim; ++i) {
+        for (int64 i = 0; i < *ndim; ++i) {
             ubc0[i] = ARRAY2D(ups, 0, i);
             ubc1[i] = ARRAY2D(ups, *ntst, i);
         }
         (*bcni)(iap, rap, *ndim, par, icp, *nbc, ubc0, ubc1, fbc, 2, dbc);
-        for (i = 0; i < *nbc; ++i) {
+        for (int64 i = 0; i < *nbc; ++i) {
             fc[i] = -fbc[i];
         }
         /*       Save difference : */
         for (j = 0; j < *ntst + 1; ++j) {
-            for (i = 0; i < *nra; ++i) {
+            for (int64 i = 0; i < *nra; ++i) {
                 ARRAY2D(dups, j, i) =
                     ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i);
             }
@@ -524,7 +522,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
             j = jj + mpart;
             jp1 = j + 1;
             for (k = 0; k < ncp1; ++k) {
-                for (i = 0; i < *ndim; ++i) {
+                for (int64 i = 0; i < *ndim; ++i) {
                     i1 = k**ndim + i;
                     j1 = j;
                     if (k + 1 == ncp1) {
@@ -549,7 +547,7 @@ setrhs(int64 *ndim, int64 *ips, int64 *na, int64 *ntst, int64 *np, int64 *ncol,
 
     /*     Pseudo-arclength equation : */
     rlsum = 0.;
-    for (i = 0; i < *ncb; ++i) {
+    for (int64 i = 0; i < *ncb; ++i) {
         rlsum += thl[icp[i]]*(rlcur[i] - rlold[i])*rldot[i];
     }
 
@@ -685,7 +683,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
        int64 *iam) {
     int64 icf_dim1, irf_dim1, a_dim1, a_dim2, c_dim1, c_dim2, fa_dim1;
 
-    int64 nbcp1, i, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex, irp;
+    int64 nbcp1, icfic, irfir, m1, m2, ic, ir, irfirp, ir1, nex, irp;
 
     (void)iam;
 
@@ -707,7 +705,7 @@ conrhs(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *nbc,
     m1 = *nov + 1;
     m2 = *nov + nex;
 
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         for (ic = *nov; ic < m2; ++ic) {
             ir1 = ic - *nov + 1;
             irp = ir1 - 1;
@@ -740,7 +738,7 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     int64 irf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, a1_dim1,
         a1_dim2, a2_dim1, a2_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2;
 
-    int64 i, irfir, ic, ir, ic1, nap1;
+    int64 irfir, ic, ir, ic1, nap1;
 
     (void)iam;
     (void)kwt;
@@ -766,7 +764,7 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
     c_dim2 = *nrc;
 
     nap1 = *na + 1;
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         for (ir = 0; ir < *nov; ++ir) {
             irfir = ARRAY2D(irf, *nra - *nov + ir, i);
             for (ic = 0; ic < *nov; ++ic) {
@@ -780,7 +778,7 @@ copycp(int64 *iam, int64 *kwt, int64 *na, int64 *nov, int64 *nra, int64 *nca,
         }
     }
 
-    for (i = 0; i < nap1; ++i) {
+    for (int64 i = 0; i < nap1; ++i) {
         for (ir = 0; ir < *nrc; ++ir) {
             for (ic = 0; ic < *nov; ++ic) {
                 if (i + 1 == 1) {
@@ -802,13 +800,13 @@ int32
 cpyrhs(int64 *na, int64 *nov, int64 *nra, double *faa, double *fa, int64 *irf) {
     int64 irf_dim1, fa_dim1, faa_dim1;
 
-    int64 i, irfir, ir;
+    int64 irfir, ir;
 
     faa_dim1 = *nov;
     irf_dim1 = *nra;
     fa_dim1 = *nra;
 
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         for (ir = 0; ir < *nov; ++ir) {
             irfir = ARRAY2D(irf, *nra - *nov + ir, i);
             ARRAY2D(faa, ir, i) = ARRAY2D(fa, (irfir - 1), i);
@@ -833,7 +831,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     double zero;
     double tpiv;
     double xkwt;
-    int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, i, k, l;
+    int64 nbcp1, ibuf1, ipiv1, jpiv1, ipiv2, jpiv2, k, l;
 
     int64 evenc[KREDO];
 
@@ -900,7 +898,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     /* The message type at each level in the recursion is also determined. */
 
     if (*par) {
-        for (i = 0; i < nlev; ++i) {
+        for (int64 i = 0; i < nlev; ++i) {
             oddc[i] = false;
             evenc[i] = false;
             master[i] = false;
@@ -947,7 +945,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
 
     /* Initialization */
 
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         for (k1 = 0; k1 < *nov; ++k1) {
             ARRAY2D(icf1, k1, i) = k1 + 1;
             ARRAY2D(icf2, k1, i) = k1 + 1;
@@ -1140,7 +1138,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     }
 
     /* Initialization */
-    for (i = 0; i < *nov; ++i) {
+    for (int64 i = 0; i < *nov; ++i) {
         ARRAY2D(icf2, i, (*na - 1)) = i + 1;
     }
 
@@ -1155,7 +1153,7 @@ reduce(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *bb,
     /*neighboring nodes in the condensation of parameters is delayed until her
     e.*/
     if (*par) {
-        for (i = 0; i < nlev; ++i) {
+        for (int64 i = 0; i < nlev; ++i) {
             if (master[i]) {
                 crecv();
                 for (ir = nbcp1; ir <= *nrc; ++ir) {
@@ -1583,7 +1581,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     int64 niam;
     int64 nlev;
     double xkwt;
-    int64 nbcp1, ipiv1, ipiv2, i;
+    int64 nbcp1, ipiv1, ipiv2;
 
     int64 i1, i2, k1, l1, ic, ir;
     double rm;
@@ -1628,7 +1626,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
     /* at distance 2**(K-1) from the master. Here K is the recursion level. */
 
     if (*par) {
-        for (i = 0; i < nlev; ++i) {
+        for (int64 i = 0; i < nlev; ++i) {
             master[i] = false;
             worker[i] = false;
             k1 = pow_ii(2, i);
@@ -1686,7 +1684,7 @@ redrhs(int64 *iam, int64 *kwt, int64 *par, double *a1, double *a2, double *cc,
 
     /* Inter-node reduction needs communication between nodes */
     if (*par) {
-        for (i = 0; i < nlev; ++i) {
+        for (int64 i = 0; i < nlev; ++i) {
             for (ic = 0; ic < *nov; ++ic) {
                 icp1 = ic + 1;
                 if (master[i]) {
@@ -1755,7 +1753,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
     int64 e_dim1, cc_dim1, cc_dim2, d_dim1, p0_dim1, p1_dim1, s_dim1, s_dim2,
         faa_dim1, a2_dim1, a2_dim2, bb_dim1, bb_dim2;
 
-    int64 i, j, k;
+    int64 j, k;
 
     int64 novpi, novpj, k1, k2;
 
@@ -1800,7 +1798,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
 
     /* Copy */
     if (*iam == *kwt - 1) {
-        for (i = 0; i < *nov; ++i) {
+        for (int64 i = 0; i < *nov; ++i) {
             for (j = 0; j < *nov; ++j) {
                 novpj = *nov + j;
                 ARRAY2D(e, i, j) = ARRAY3D(s, i, j, (*na - 1));
@@ -1814,7 +1812,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             }
         }
 
-        for (i = 0; i < *nrc; ++i) {
+        for (int64 i = 0; i < *nrc; ++i) {
             novpi = *nov + i;
             for (j = 0; j < *nov; ++j) {
                 novpj = *nov + j;
@@ -1827,11 +1825,11 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             }
         }
 
-        for (i = 0; i < *nov; ++i) {
+        for (int64 i = 0; i < *nov; ++i) {
             xe[i] = ARRAY2D(faa, i, (*na - 1));
         }
 
-        for (i = 0; i < *nrc; ++i) {
+        for (int64 i = 0; i < *nrc; ++i) {
             novpi = *nov + i;
             xe[novpi] = fc[i];
         }
@@ -1840,7 +1838,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
             fprintf(fp9, " Residuals of reduced system:\n");
 
             fprintf(fp9, " ");
-            for (i = 0; i < ncrloc; ++i) {
+            for (int64 i = 0; i < ncrloc; ++i) {
                 fprintf(fp9, "%11.3E", xe[i]);
                 if ((i + 1) % 10 == 0)
                     fprintf(fp9, "\n ");
@@ -1851,7 +1849,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
         if (*idb >= 4) {
             fprintf(fp9, " Reduced Jacobian matrix:\n");
 
-            for (i = 0; i < ncrloc; ++i) {
+            for (int64 i = 0; i < ncrloc; ++i) {
                 int32 total_printed = 0;
                 for (j = 0; j < ncrloc; ++j) {
                     if ((total_printed != 0) && (total_printed % 10 == 0))
@@ -1869,7 +1867,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
         } else if (*nllv > 0) {
             nlvc(ncrloc, ncrloc, *nllv, e, fcc);
         } else {
-            for (i = 0; i < ncrloc - 1; ++i) {
+            for (int64 i = 0; i < ncrloc - 1; ++i) {
                 xe[i] = 0.;
             }
             xe[-1 + ncrloc] = 1.;
@@ -1878,7 +1876,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
         if (*idb >= 4) {
             fprintf(fp9, " Solution vector:\n");
 
-            for (i = 0; i < ncrloc; ++i) {
+            for (int64 i = 0; i < ncrloc; ++i) {
                 if ((i != 0) && (i % 7 == 0))
                     fprintf(fp9, "\n");
                 fprintf(fp9, " %11.3E", fcc[i]);
@@ -1910,7 +1908,7 @@ dimrge(int64 *iam, int64 *kwt, int64 *par, double *e, double *cc, double *d,
         }
     }
 
-    for (i = 0; i < *nrc; ++i) {
+    for (int64 i = 0; i < *nrc; ++i) {
         fc[i] = fcc[*nov + i];
     }
 
@@ -1951,7 +1949,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     int64 nlev;
     int64 hasright;
     double xkwt;
-    int64 rmsgtype, smsgtype, i, k, l;
+    int64 rmsgtype, smsgtype, k, l;
 
     int64 nlist[2], itest, l1, l2;
     double sm;
@@ -1996,7 +1994,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
     /*At each recursion level determine the sender nodes (called MASTER here).
      */
     if (*par) {
-        for (i = 0; i < nlev; ++i) {
+        for (int64 i = 0; i < nlev; ++i) {
             master[i] = false;
             niam = *iam / pow_ii(2, i);
             if (notsend) {
@@ -2018,7 +2016,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
             }
         }
 
-        for (i = nlev - 1; i >= 0; --i) {
+        for (int64 i = nlev - 1; i >= 0; --i) {
             if (master[i]) {
                 ism = i + nlev + (*kwt*4);
                 irm = ism + 1;
@@ -2153,7 +2151,7 @@ bcksub(int64 *iam, int64 *kwt, int64 *par, double *s1, double *s2, double *a2,
 
     /* Backsubstitution process; concurrently in each node. */
     nam1 = *na - 1;
-    for (i = nam1 - 1; i >= 0; --i) {
+    for (int64 i = nam1 - 1; i >= 0; --i) {
         for (k = *nov - 1; k >= 0; --k) {
             sm = 0.;
             for (l = 0; l < *nov; ++l) {
@@ -2190,7 +2188,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
     int64 irf_dim1, icf_dim1, a_dim1, a_dim2, b_dim1, b_dim2, fa_dim1,
         sol1_dim1, sol2_dim1;
 
-    int64 nram, icfj1, i, j;
+    int64 nram, icfj1, j;
     double *x;
     int64 nrapj, irfir, j1, novpj, icfnovpir, ir;
     double sm;
@@ -2218,7 +2216,7 @@ infpar(int64 *iam, int64 *par, double *a, double *b, double *fa, double *sol1,
 
     /* Backsubstitution in the condensation of parameters; no communication.
      */
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         for (ir = nram - 1; ir >= 0; --ir) {
             irp1 = ir + 1;
             sm = 0.;
@@ -2260,7 +2258,6 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
     int64 niam;
     int64 even[KREDO];
     double xkwt;
-    int64 i;
     int64 n;
 
     int64 nredo, msglen, rmtype[KREDO], smtype[KREDO];
@@ -2318,7 +2315,7 @@ rd0(int64 *iam, int64 *kwt, double *d, int64 *nrc) {
             crecv();
             /*          ** Accumulate the partial sum in the current receiving
                         node */
-            for (i = 0; i < niam; ++i) {
+            for (int64 i = 0; i < niam; ++i) {
                 d[i] += buf[i];
             }
         }
@@ -2332,7 +2329,7 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
        double *a, double *b, double *c, double *d, double *fa, double *fc) {
     int64 a_dim1, a_dim2, b_dim1, b_dim2, c_dim1, c_dim2, d_dim1, fa_dim1;
 
-    int64 i, ic, ir;
+    int64 ic, ir;
 
     (void)nov;
 
@@ -2347,7 +2344,7 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
 
     fprintf(fp9, "AA , BB , FA (Full dimension) :\n");
     /* should be 10.3f*/
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         fprintf(fp9, "I=%3ld\n", i + 1);
         for (ir = 0; ir < *nra; ++ir) {
             int32 total_written = 0;
@@ -2372,7 +2369,7 @@ print1(int64 *nov, int64 *na, int64 *nra, int64 *nca, int64 *ncb, int64 *nrc,
 
     fprintf(fp9, "CC (Full dimension) :\n");
 
-    for (i = 0; i < *na; ++i) {
+    for (int64 i = 0; i < *na; ++i) {
         fprintf(fp9, "I=%3ld\n", i + 1);
         for (ir = 0; ir < *nrc; ++ir) {
             int32 total_written = 0;

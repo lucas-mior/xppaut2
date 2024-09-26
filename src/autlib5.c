@@ -96,7 +96,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (int32 i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -105,7 +105,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (int32 i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -122,7 +122,7 @@ fnho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (int32 i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         ffho(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
@@ -142,7 +142,6 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double dum1;
 
@@ -166,7 +165,7 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         /*        *Set F = - (Df)^T u */
         for (j = 0; j < ndm; ++j) {
             dum1 = 0.;
-            for (i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 dum1 += ARRAY2D(dfdu, i, j)*u[ndm + i];
             }
             f[ndm + j] = -dum1;
@@ -179,7 +178,7 @@ ffho(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     /* Scale by truncation interval T=PAR(11) */
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         f[i] = par[10]*f[i];
     }
 
@@ -193,7 +192,6 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
@@ -236,14 +234,14 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Derivatives with respect to U0. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u0[i]) > umx) {
             umx = fabs(u0[i]);
         }
     }
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             uu1[j] = u0[j];
             uu2[j] = u0[j];
@@ -260,14 +258,14 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Derivatives with respect to U1. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u1[i]) > umx) {
             umx = fabs(u1[i]);
         }
     }
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             uu1[j] = u1[j];
             uu2[j] = u1[j];
@@ -281,7 +279,7 @@ bcho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fbho(iap, rap, ndim, par, icp, nbc, nbc0, u0, u1, ff2, dfu);
         for (j = 0; j < nbc; ++j) {
@@ -305,7 +303,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 ieig;
 
-    int64 i, j, k;
+    int64 j, k;
 
     int64 ineig;
 
@@ -361,13 +359,13 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     ndm = iap->ndm;
 
     /*     *Initialization */
-    for (i = 1; i <= nbc; ++i) {
+    for (int64 i = 1; i <= nbc; ++i) {
         fb[-1 + i] = 0.;
     }
     jb = 1;
 
     /*     *Update pu0,pu1 */
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         blhmu_1.pu0[i] = u0[i];
         blhmu_1.pu1[i] = u1[i];
     }
@@ -375,16 +373,16 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     if (blhom_1.iequib == 0 || blhom_1.iequib == -1)
         pvls(ndm, u0, par);
     /*              write(9,*) 'Xequib:' */
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         xequib1[i] = par[i + 11];
         /*              write(9,*) I,XEQUIB1(I) */
     }
     if (blhom_1.iequib >= 0) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             xequib2[i] = par[i + 11];
         }
     } else {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             xequib2[i] = par[ndm + 11 + i];
         }
     }
@@ -394,7 +392,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         /*        *Projection boundary conditions for the homoclinic orbit */
         /*        *NSTAB boundary conditions at t=0 */
         prjcti(bound, xequib1, icp, par, -1, 1, 1, &ndm);
-        for (i = 0; i < blhom_1.nstab; ++i) {
+        for (int64 i = 0; i < blhom_1.nstab; ++i) {
             for (k = 0; k < ndm; ++k) {
                 fb[-1 + jb] += (u0[k] - xequib1[k])*bound[i + k*(iap->ndm)];
             }
@@ -404,7 +402,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         /*        *NUNSTAB boundary conditions at t=1 */
         if (blhom_1.nrev == 0) {
             prjcti(bound, xequib2, icp, par, 1, 2, 1, &ndm);
-            for (i = ndm - blhom_1.nunstab; i < ndm; ++i) {
+            for (int64 i = ndm - blhom_1.nunstab; i < ndm; ++i) {
                 for (k = 0; k < ndm; ++k) {
                     fb[-1 + jb] +=
                         (u1[k] - xequib2[k])*bound[i + k*(iap->ndm)];
@@ -415,7 +413,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             /*         *NUNSTAB symmetric boundary conditions at t=1 if NREV=1
              */
 
-            for (i = 0; i < ndim; ++i) {
+            for (int64 i = 0; i < ndim; ++i) {
                 if (blhmp_1.irev[i] > 0) {
                     if (blhmp_1.irev[i] == 1) {
                         /* *****NOTE MODIFICATION FROM GENERAL CASE */
@@ -437,7 +435,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
                 eighi(1, 2, rr, ri, vr, xequib1, icp, par, &ndm);
                 ieig = 1;
             }
-            for (i = 0; i < blhom_1.nfixed; ++i) {
+            for (int64 i = 0; i < blhom_1.nfixed; ++i) {
                 if (blhmp_1.ifixed[i] > 10 && ineig == 0) {
                     eighi(1, 1, rr, ri, vt, xequib1, icp, par, &ndm);
                     ineig = 1;
@@ -451,7 +449,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
          */
         if (blhom_1.iequib != 0 && blhom_1.iequib != -1) {
             func(ndm, xequib1, icp, par, 0, f, &dum1, &dum2);
-            for (i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 fb[-1 + jb] = f[i];
                 ++jb;
             }
@@ -459,7 +457,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
                       UIB=-2 */
             if (blhom_1.iequib == -2) {
                 func(ndm, xequib2, icp, par, 0, f, &dum1, &dum2);
-                for (i = 0; i < ndm; ++i) {
+                for (int64 i = 0; i < ndm; ++i) {
                     fb[-1 + jb] = f[i];
                     ++jb;
                 }
@@ -480,7 +478,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             /*           *-orthogonal to the unstable directions of A  at t=0
              */
             prjcti(bound, xequib1, icp, par, 1, 1, 2, &ndm);
-            for (i = ndm - blhom_1.nunstab; i < ndm; ++i) {
+            for (int64 i = ndm - blhom_1.nunstab; i < ndm; ++i) {
                 dum = 0.;
                 for (k = 0; k < ndm; ++k) {
                     dum += u0[ndm + k]*bound[i + k*(iap->ndm)];
@@ -490,7 +488,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             }
             /*           *-orthogonal to the stable directions of A  at t=1 */
             prjcti(bound, xequib2, icp, par, -1, 2, 2, &ndm);
-            for (i = 0; i < blhom_1.nstab; ++i) {
+            for (int64 i = 0; i < blhom_1.nstab; ++i) {
                 dum = 0.;
                 for (k = 0; k < ndm; ++k) {
                     dum += u1[ndm + k]*bound[i + k*(iap->ndm)];
@@ -512,7 +510,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     } else {
         /*     **Starting Solutions using Homotopy** */
         jb = 0;
-        for (i = 1; i <= nbc; ++i) {
+        for (int64 i = 1; i <= nbc; ++i) {
             fb[-1 + i] = 0.;
         }
         ineig = 0;
@@ -531,7 +529,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             kp = ip + blhom_1.nunstab;
             jb = ndm + 1;
             for (j = 0; j < blhom_1.nunstab; ++j) {
-                for (i = 0; i < ndm; ++i) {
+                for (int64 i = 0; i < ndm; ++i) {
                     fb[i] =
                         u0[i] - xequib1[i] -
                         par[ip + j]*vr[blhom_1.nstab + j + i*(iap->ndm)];
@@ -545,7 +543,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         } else {
             kp = ip + 1;
             jb = ndm;
-            for (i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 fb[i] =
                     u0[i] - xequib1[i] -
                     par[-1 + ip]*par[ip]*vr[blhom_1.nstab + i*(iap->ndm)];
@@ -558,7 +556,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
             eighi(1, 1, rr, ri, vt, xequib2, icp, par, &ndm);
             ineig = 1;
         }
-        for (i = 0; i < blhom_1.nunstab; ++i) {
+        for (int64 i = 0; i < blhom_1.nunstab; ++i) {
             k = i + blhom_1.nstab;
             dum = 0.;
             for (j = 0; j < ndm; ++j) {
@@ -572,7 +570,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
          */
         if (blhom_1.iequib != 0 && blhom_1.iequib != -1) {
             func(ndm, xequib1, icp, par, 0, f, &dum1, &dum2);
-            for (i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 fb[-1 + jb] = f[i];
                 ++jb;
             }
@@ -580,7 +578,7 @@ fbho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
                       UIB=-2 */
             if (blhom_1.iequib == -2) {
                 func(ndm, xequib2, icp, par, 0, f, &dum1, &dum2);
-                for (i = 0; i < ndm; ++i) {
+                for (int64 i = 0; i < ndm; ++i) {
                     fb[-1 + jb] = f[i];
                     ++jb;
                 }
@@ -620,7 +618,6 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
@@ -664,7 +661,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -673,7 +670,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             uu1[j] = u[j];
             uu2[j] = u[j];
@@ -689,7 +686,7 @@ icho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fiho(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, ff1,
              dfu);
@@ -715,7 +712,6 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 ijac = 0;
 
-    int64 i;
     int64 jb;
     double *fj;
     int64 ndm;
@@ -737,7 +733,7 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     if (blhom_1.nrev == 0) {
         dum = 0.;
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             dum += upold[i]*(u[i] - uold[i]);
         }
         ++jb;
@@ -748,7 +744,7 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     if (blhom_1.itwist == 1) {
         dum = 0.;
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             dum += uold[ndm + i]*(u[ndm + i] - uold[ndm + i]);
         }
         ++jb;
@@ -759,7 +755,7 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     if (jb < nint) {
         icnd(ndm, par, icp, nint, u, uold, udot, upold, ijac, fj, dint);
-        for (i = 0; i < nint - jb; ++i) {
+        for (int64 i = 0; i < nint - jb; ++i) {
             fi[i + jb] = fj[i];
         }
     }
@@ -769,7 +765,7 @@ fiho(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
 int32
 inho(iap_type *iap, int64 *icp, double *par) {
-    int64 ndim, nint, nuzr, i, nfree, icorr, nbc, ndm, irs, isw;
+    int64 ndim, nint, nuzr, nfree, icorr, nbc, ndm, irs, isw;
 
     /* Allocate memory for global structures. */
     free(blhmp_1.ipsi);
@@ -803,7 +799,7 @@ inho(iap_type *iap, int64 *icp, double *par) {
          the first time the prjctn_ function has been called.
          Accordingly, I initialize it to zero here after I
          have created it. */
-    for (i = 0; i < 4; i++)
+    for (int64 i = 0; i < 4; i++)
         beyn_1.iflag[i] = 0;
 
     /* Reads from fort.11 specific constants for homoclinic continuation. */
@@ -871,13 +867,13 @@ inho(iap_type *iap, int64 *icp, double *par) {
     /* Extra free parameters for equilibrium if iequib=1,2,-2 */
 
     if (blhom_1.iequib != 0 && blhom_1.iequib != -1) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             icp[nfree + i] = i + 11;
         }
     }
 
     if (blhom_1.iequib == -2) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             icp[nfree + ndm + i] = ndm + 11 + i;
         }
     }
@@ -1041,7 +1037,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 ups_dim1;
     int64 udotps_dim1;
 
-    int64 ndim, ncol, nfpr, ntst, ncol1, i, j, k;
+    int64 ndim, ncol, nfpr, ntst, ncol1, j, k;
     double t;
     double *u;
     int64 k1, k2;
@@ -1091,7 +1087,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         } else {
             ncol1 = ncol;
         }
-        for (i = 0; i < ncol1; ++i) {
+        for (int64 i = 0; i < ncol1; ++i) {
             t = tm[j] + (double)i*dt;
             k1 = i*ndim;
             k2 = (i + 1)*ndim - 1;
@@ -1109,7 +1105,7 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     lab = 0;
     iap->lab = lab;
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -1120,7 +1116,6 @@ stpnho(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
 int32
 stpho(iap_type *iap, int64 *icp, double *u, double *par, double *t) {
-    int64 i;
     int64 j;
 
     int64 ip;
@@ -1191,7 +1186,7 @@ L3:
     /*     *Starting solutions using homotopy */
 
     pvls(ndm, u, par);
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         xequib[i] = par[i + 11];
     }
     eighi(1, 1, rr, ri, vt, xequib, icp, par, &ndm);
@@ -1211,7 +1206,7 @@ L3:
 
     par[ip] = 1.;
     if (blhom_1.nunstab > 1) {
-        for (i = 1; i < blhom_1.nunstab; ++i) {
+        for (int64 i = 1; i < blhom_1.nunstab; ++i) {
             par[ip + i] = 0.;
         }
     }
@@ -1220,11 +1215,11 @@ L3:
     /*Starting guess for homoclinic orbit in real principal unstable direction
      */
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         u[i] = xequib[i] + vr[blhom_1.nstab + i*(iap->ndm)]*par[-1 + kp] *
                                par[kp]*exp(rr[blhom_1.nstab]**t*par[10]);
     }
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         fprintf(fp9, "stpho %20.10f\n", u[i]);
     }
     fprintf(fp9, "\n");
@@ -1232,7 +1227,7 @@ L3:
     /* Artificial parameters at the right-hand end point of the orbit */
     /* omega_i=<x(1)-x_o,w_i^*> */
 
-    for (i = 0; i < blhom_1.nunstab; ++i) {
+    for (int64 i = 0; i < blhom_1.nunstab; ++i) {
         par[ip + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             par[ip + i] += vr[blhom_1.nstab + j*(iap->ndm)]*par[-1 + kp] *
@@ -1254,7 +1249,6 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
        double *ups, int64 *ndim, double *p0, double *p1, double *par) {
     int64 ups_dim1, p0_dim1, p1_dim1;
 
-    int64 i;
     int64 j;
 
     double orient;
@@ -1277,7 +1271,7 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
 
     /*      *Compute eigenvalues */
     bleig_1.ineig = 0;
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         bleig_1.xequib[i] = par[i + 11];
     }
     eighi(1, 2, bleig_1.rr, bleig_1.ri, bleig_1.v, bleig_1.xequib, icp, par,
@@ -1303,7 +1297,7 @@ pvlsho(iap_type *iap, rap_type *rap, int64 *icp, double *dtm, int64 *ndxloc,
         }
     }
 
-    for (i = 0; i < blhom_1.npsi; ++i) {
+    for (int64 i = 0; i < blhom_1.npsi; ++i) {
         if (blhmp_1.ipsi[i] > 10 && bleig_1.ineig == 0) {
             eighi(1, 1, bleig_1.rr, bleig_1.ri, bleig_1.vt, bleig_1.xequib, icp,
                   par, &ndm);
@@ -1326,7 +1320,6 @@ psiho(iap_type *iap, int64 is, double *rr, double *ri, double *v, double *vt,
       int64 *icp, double *par) {
     double ret_val;
 
-    int64 i;
     int64 j;
     double *f0, *f1, droot, s1, s2, f0norm, f1norm, u0norm, u1norm;
     int64 ndm;
@@ -1542,7 +1535,7 @@ L12:
     /*   e.g. 1D unstable manifold */
 
 L13:
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ret_val +=
             blhmu_1.pu0[ndm + i]*v[blhom_1.nstab + (i + 1)*(iap->ndm)];
     }
@@ -1554,7 +1547,7 @@ L13:
     /*   e.g. 1D stable manifold */
 
 L14:
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ret_val +=
             blhmu_1.pu1[ndm + i]*v[blhom_1.nstab + 1 + (i + 1)*(iap->ndm)];
     }
@@ -1564,7 +1557,7 @@ L14:
     /* Non-central homoclinic to saddle-node (in stable manifold) */
 
 L15:
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ret_val += (par[i + 11] - blhmu_1.pu1[i]) *
                    v[blhom_1.nstab + 1 + (i + 1)*(iap->ndm)];
     }
@@ -1573,7 +1566,7 @@ L15:
     /* Non-central homoclinic to saddle-node (in unstable manifold) */
 
 L16:
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ret_val += (par[i + 11] - blhmu_1.pu0[i]) *
                    v[blhom_1.nstab + 1 + (i + 1)*(iap->ndm)];
     }
@@ -1611,7 +1604,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
       double *dfdp, double *zz) {
     int64 dfdu_dim1, dfdp_dim1, zz_dim1;
 
-    int64 i, j, k, ifail;
+    int64 j, k, ifail;
     double vdot;
 
     double *f;
@@ -1661,12 +1654,12 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     func(*ndm, xequib, icp, par, 1, f, dfdu, dfdp);
 
     if (*itrans == 1) {
-        for (i = 0; i < *ndm; ++i) {
+        for (int64 i = 0; i < *ndm; ++i) {
             for (j = 0; j < *ndm; ++j) {
                 vrdum[i + j*(*ndm)] = ARRAY2D(dfdu, j, i);
             }
         }
-        for (i = 0; i < *ndm; ++i) {
+        for (int64 i = 0; i < *ndm; ++i) {
             for (j = 0; j < *ndm; ++j) {
                 ARRAY2D(dfdu, i, j) = vrdum[i + j*(*ndm)];
             }
@@ -1681,17 +1674,17 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     for (j = 0; j < *ndm; ++j) {
         if (ri[j] > 0.) {
-            for (i = 0; i < *ndm; ++i) {
+            for (int64 i = 0; i < *ndm; ++i) {
                 vr[i + j*(*ndm)] = ARRAY2D(zz, i, j);
                 vi[i + j*(*ndm)] = ARRAY2D(zz, i, (j + 1));
             }
         } else if (ri[j] < 0.) {
-            for (i = 0; i < *ndm; ++i) {
+            for (int64 i = 0; i < *ndm; ++i) {
                 vr[i + j*(*ndm)] = ARRAY2D(zz, i, (j - 1));
                 vi[i + j*(*ndm)] = -ARRAY2D(zz, i, j);
             }
         } else {
-            for (i = 0; i < *ndm; ++i) {
+            for (int64 i = 0; i < *ndm; ++i) {
                 vr[i + j*(*ndm)] = ARRAY2D(zz, i, j);
                 vi[i + j*(*ndm)] = 0.;
             }
@@ -1701,7 +1694,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
      */
     /*     (smallest first) */
 
-    for (i = 0; i < *ndm - 1; ++i) {
+    for (int64 i = 0; i < *ndm - 1; ++i) {
         for (j = i + 1; j < *ndm; ++j) {
             if (rr[i] > rr[j]) {
                 rrdum[i] = rr[i];
@@ -1728,14 +1721,14 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
 
     if (blhme_1.ieigc[*itrans - 1] == 0) {
         for (j = 0; j < *ndm; ++j) {
-            for (i = 0; i < *ndm; ++i) {
+            for (int64 i = 0; i < *ndm; ++i) {
                 blhme_1.vrprev[*itrans + (i*2 + j*(*ndm)*2) - 1] =
                     vr[i + j*(*ndm)];
             }
         }
         blhme_1.ieigc[*itrans - 1] = 1;
     }
-    for (i = 0; i < *ndm; ++i) {
+    for (int64 i = 0; i < *ndm; ++i) {
         vdot = 0.;
 #define GCC_2_96_FIX
 #ifdef GCC_2_96_FIX
@@ -1766,7 +1759,7 @@ eigho(int64 *isign, int64 *itrans, double *rr, double *ri, double *vret,
     }
 
     /* Send back the transpose of the matrix of real parts of eigenvectors */
-    for (i = 0; i < *ndm; ++i) {
+    for (int64 i = 0; i < *ndm; ++i) {
         for (j = 0; j < *ndm; ++j) {
             vret[(i + 1) + (j + 1)*(*ndm)] = vr[j + i*(*ndm)];
         }

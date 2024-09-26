@@ -688,7 +688,6 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double *stud;
     int64 ntot, iuzr, nuzr;
     double *f;
-    int64 i;
     int64 k;
     double *u, dsold;
 
@@ -750,7 +749,7 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     rev = 0.;
     rlp = 0.;
     if (nuzr > 0) {
-        for (i = 0; i < nuzr; ++i) {
+        for (int64 i = 0; i < nuzr; ++i) {
             uzr[i] = 0.;
         }
     }
@@ -769,7 +768,7 @@ cnrlae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     lab = 0;
     iap->lab = lab;
 
-    for (i = 0; i < iap->ndim; ++i) {
+    for (int64 i = 0; i < iap->ndim; ++i) {
         u[i] = 0.;
         du[i] = 0.;
         udot[i] = 0.;
@@ -834,7 +833,7 @@ L2:
     rev = 0.;
     rlp = 0.;
     if (nuzr > 0) {
-        for (i = 0; i < nuzr; ++i) {
+        for (int64 i = 0; i < nuzr; ++i) {
             uzr[i] = 0.;
         }
     }
@@ -1062,7 +1061,6 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ndim;
 
     double sign;
-    int64 i;
     int64 k;
 
     double sc;
@@ -1078,14 +1076,14 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     iid = iap->iid;
 
     rlold[0] = par[icp[0]];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         uold[i] = u[i];
     }
 
     /* Determine the direction of the branch at the starting point */
 
     (*funi)(iap, rap, ndim, u, uold, icp, par, 2, f, dfdu, dfdp);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         rhs[i] = f[i];
         ARRAY2D(aa, i, ndim) = dfdp[(icp[0])*ndim + i];
         ARRAY2D(aa, ndim, i) = 0.;
@@ -1105,7 +1103,7 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* Scale and make sure that the PAR(ICP(1))-dot is positive. */
 
     ss = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         /* Computing 2nd power */
         ss += thu[i]*(du[i]*du[i]);
     }
@@ -1116,18 +1114,18 @@ stprae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     if (du[ndim] < 0.)
         sign = -1.;
     sc = sign / sqrt(ss);
-    for (i = 0; i < ndim + 1; ++i) {
+    for (int64 i = 0; i < ndim + 1; ++i) {
         du[i] = sc*du[i];
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         udot[i] = du[i];
     }
     rldot[0] = du[ndim];
 
     /* Set initial approximations to the second point on the branch */
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i] + *rds*udot[i];
     }
     rlcur[0] = rlold[0] + *rds*rldot[0];
@@ -1142,7 +1140,6 @@ int32
 contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
        double *rldot, double *u, double *uold, double *udot) {
     int64 ndim;
-    int64 i;
     double dsold;
     int64 ips;
 
@@ -1156,13 +1153,13 @@ contae(iap_type *iap, rap_type *rap, double *rds, double *rlcur, double *rlold,
     dsold = rap->dsold;
 
     rldot[0] = (rlcur[0] - rlold[0]) / dsold;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         udot[i] = (u[i] - uold[i]) / dsold;
     }
 
     rlold[0] = rlcur[0];
     rlcur[0] += *rds*rldot[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         uold[i] = u[i];
         u[i] += udot[i]**rds;
     }
@@ -1186,7 +1183,7 @@ solvae(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double drlm;
     int64 ndmr;
     double epsl, epsu, dumx;
-    int64 ntop, itnw, ntot, i, k;
+    int64 ntop, itnw, ntot, k;
     double dsold;
     double dsmin;
 
@@ -1250,7 +1247,7 @@ L1:
 
         fprintf(fp9, "%4li%6li%4li    %14.6E              ", ibr, ntop, nit,
                 rlcur[0]);
-        for (i = 0; i < ndmr; ++i) {
+        for (int64 i = 0; i < ndmr; ++i) {
             fprintf(fp9, "%14.6E", u[i]);
         }
         fprintf(fp9, "\n");
@@ -1267,7 +1264,7 @@ L1:
 
         /* Set up the Jacobian matrix and the right hand side : */
 
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(aa, i, ndim) = dfdp[(icp[0])*ndim + i];
             rhs[i] = -f[i];
             for (k = 0; k < ndim; ++k) {
@@ -1280,7 +1277,7 @@ L1:
         ARRAY2D(aa, ndim, ndim) =
             thl[icp[0]]*2.*(rlcur[0] - rlold[0])*dds;
         ss = 0.;
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             /* Computing 2nd power */
             ss += thu[i]*((u[i] - uold[i])*(u[i] - uold[i]));
         }
@@ -1303,13 +1300,13 @@ L1:
 
         /* Add the Newton increments : */
 
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             u[i] += du[i];
         }
         rlcur[0] += drlm;
         dumx = 0.;
         umx = 0.;
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             adu = fabs(du[i]);
             au = fabs(u[i]);
             if (au > umx) {
@@ -1324,7 +1321,7 @@ L1:
             if (iap->mynode == 0) {
                 fprintf(fp9, "%4li%6li%4li    %14.6E              ", ibr, ntop,
                         nit, rlcur[0]);
-                for (i = 0; i < ndmr; ++i) {
+                for (int64 i = 0; i < ndmr; ++i) {
                     fprintf(fp9, "%14.6E", u[i]);
                 }
                 fprintf(fp9, "\n");
@@ -1375,7 +1372,7 @@ L3:
         goto L4;
     }
     rlcur[0] = rlold[0] + *rds*rldot[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i] + *rds*udot[i];
     }
     if (iid >= 2 && iap->mynode == 0)
@@ -1392,7 +1389,7 @@ L4:
 L5:
     rlcur[0] = rlold[0];
     par[icp[0]] = rlcur[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i];
     }
     istop = 1;
@@ -1609,7 +1606,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     int64 aa_dim1;
     double ret_val;
 
-    int64 ndim, ntop, ntot, i, k;
+    int64 ndim, ntop, ntot, k;
 
     double *ud;
     int64 iid;
@@ -1634,7 +1631,7 @@ fnlpae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     par[icp[0]] = rlcur[0];
     (*funi)(iap, rap, ndim, u, uold, icp, par, 2, rhs, dfdu, dfdp);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(aa, i, ndim) = dfdp[(icp[0])*ndim + i];
         for (k = 0; k < ndim; ++k) {
             ARRAY2D(aa, i, k) = dfdu[k*ndim + i];
@@ -1725,7 +1722,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     eig(iap, &ndm, &ndim, dfdu, ev, &ier);
     if (ips == -1) {
-        for (int32 i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             if (ev[i].r != -1. || d_imag(&ev[i]) != 0.) {
                 doublecomplex in, out;
                 in.r = ev[i].r + 1.;
@@ -1744,7 +1741,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
                       (doublecomplex *)&ev[0]);
     /* Order the eigenvalues by real part. */
 
-    for (int32 i = 0; i < ndm - 1; ++i) {
+    for (int64 i = 0; i < ndm - 1; ++i) {
         rmax = -RLARGE;
         for (j = i; j < ndm; ++j) {
             rp = ev[j].r;
@@ -1768,7 +1765,7 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     rimhb = 0.;
     arev = RLARGE;
     rev = 0.;
-    for (int32 i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (d_imag(&ev[i]) != 0.) {
             ar = fabs(ev[i].r);
             if (ar <= arev) {
@@ -1786,13 +1783,13 @@ fnhbae(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     nins1 = 0;
     if (isw != 2) {
-        for (int32 i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             if (ev[i].r <= 0.) {
                 ++nins1;
             }
         }
     } else {
-        for (int32 i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             if (ev[i].r <= HMACH) {
                 ++nins1;
             }
@@ -1900,7 +1897,7 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
     int64 nbif;
     int64 ndim;
 
-    int64 ntop, ntot, i, j;
+    int64 ntop, ntot, j;
     double sc;
     double ss;
     int64 ibr;
@@ -1943,13 +1940,13 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
         return 0;
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             ARRAY2D(aa, i, j) = dfdu[j*ndim + i];
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(aa, i, ndim) = dfdp[(icp[0])*ndim + i];
         ARRAY2D(aa, ndim, i) = udot[i];
     }
@@ -1958,7 +1955,7 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
     nlvc(ndim + 1, *m1aaloc, 1, aa, du);
 
     ss = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         /* Computing 2nd power */
         ss += thu[i]*(du[i]*du[i]);
     }
@@ -1966,13 +1963,13 @@ stbif(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *m1aaloc,
     ss += thl[icp[0]]*(du[ndim]*du[ndim]);
     sc = 1. / sqrt(ss);
 
-    for (i = 0; i < ndim + 1; ++i) {
+    for (int64 i = 0; i < ndim + 1; ++i) {
         du[i] = sc*du[i];
     }
 
     nbif = iap->nbif;
     stld[-1 + nbif] = du[ndim];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(stu, -1 + nbif, i) = u[i];
         ARRAY2D(stud, -1 + nbif, i) = du[i];
     }
@@ -1988,7 +1985,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     int64 stud_dim1;
     int64 stu_dim1;
 
-    int64 nbif, ndim, mxbf, ipos, i, i1;
+    int64 nbif, ndim, mxbf, ipos, i1;
     double ds;
     int64 isw;
 
@@ -2016,7 +2013,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     rlcur[0] = stla[0];
     par[icp[0]] = rlcur[0];
     rldot[0] = stld[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u[i] = ARRAY2D(stu, 0, i);
         udot[i] = ARRAY2D(stud, 0, i);
     }
@@ -2031,7 +2028,7 @@ swpnt(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rds,
     if (ipos == 0)
         return 0;
 
-    for (i = 0; i < nbif; ++i) {
+    for (int64 i = 0; i < nbif; ++i) {
         stla[i] = stla[i + 1];
         stld[i] = stld[i + 1];
         for (i1 = 0; i1 < ndim; ++i1) {
@@ -2056,7 +2053,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
     double drlm;
     int64 ndmr;
     double epsl, epsu, dumx;
-    int64 ntop, itnw, ntot, i, k;
+    int64 ntop, itnw, ntot, k;
     double dsold;
     double dsmin;
 
@@ -2103,7 +2100,7 @@ swprc(iap_type *iap, rap_type *rap, double *par, int64 *icp, FUNI_TYPE((*funi)),
 
     rlold[0] = rlcur[0];
     rlcur[0] = rlold[0] + *rds*rldot[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         uold[i] = u[i];
         u[i] = uold[i] + *rds*udot[i];
     }
@@ -2122,14 +2119,14 @@ L2:
     if (iid >= 2 && iap->mynode == 0) {
         fprintf(fp9, " Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=", ibr,
                 ntop, nit, icp[0], rlcur[0]);
-        for (i = 0; i < ndmr; ++i) {
+        for (int64 i = 0; i < ndmr; ++i) {
             fprintf(fp9, "%11.3E", u[i]);
         }
         fprintf(fp9, "\n");
     }
 
     rlm1 = rlcur[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u1[i] = u[i];
     }
 
@@ -2137,7 +2134,7 @@ L2:
         iap->nit = nit + 1;
         par[icp[0]] = rlcur[0];
         (*funi)(iap, rap, ndim, u, uold, icp, par, 2, f, dfdu, dfdp);
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(aa, i, ndim) = dfdp[(icp[0])*ndim + i];
             rhs[i] = -f[i];
             for (k = 0; k < ndim; ++k) {
@@ -2149,7 +2146,7 @@ L2:
         }
         ARRAY2D(aa, ndim, ndim) = thl[icp[0]]*rldot[0];
         ss = 0.;
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ss += thu[i]*(u[i] - u1[i])*udot[i];
         }
         rhs[ndim] = -ss - thl[icp[0]]*(rlcur[0] - rlm1)*rldot[0];
@@ -2167,13 +2164,13 @@ L2:
 
         /* Add the Newton increments : */
 
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             u[i] += du[i];
         }
         rlcur[0] += drlm;
         dumx = 0.;
         umx = 0.;
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             adu = fabs(du[i]);
             if (adu > dumx) {
                 dumx = adu;
@@ -2187,7 +2184,7 @@ L2:
         if (iid >= 2 && iap->mynode == 0) {
             fprintf(fp9, " Branch %2ld N=%5ld IT=%2ld PAR(%2ld)=%11.3E U=", ibr,
                     ntop, nit + 1, icp[0], rlcur[0]);
-            for (i = 0; i < ndmr; ++i) {
+            for (int64 i = 0; i < ndmr; ++i) {
                 fprintf(fp9, "%11.3E", u[i]);
             }
             fprintf(fp9, "\n");
@@ -2223,7 +2220,7 @@ L2:
         goto L4;
     }
     rlcur[0] = rlold[0] + *rds*rldot[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i] + *rds*udot[i];
     }
     if (iid >= 2 && iap->mynode == 0)
@@ -2243,7 +2240,7 @@ L4:
 L5:
     rlcur[0] = rlold[0];
     par[icp[0]] = rlcur[0];
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         u[i] = uold[i];
     }
     istop = 1;
@@ -2266,7 +2263,7 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     int64 nfpr, iplt, nint;
     double epsu;
     double epss;
-    int64 jtmp, itmx, itnw, nwtn, ntst, nuzr, i;
+    int64 jtmp, itmx, itnw, nwtn, ntst, nuzr;
     double dsmin, dsmax, a0, a1, ds, rl0, rl1;
     int64 iad, jac, nbc, iid, ilp, ips, isp, irs, npr, isw, nmx;
 
@@ -2338,14 +2335,14 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     if (nicp == 1) {
         jtmp = NPARX;
         fprintf(fp7, "   0   User-specified parameter:       ");
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             fprintf(fp7, "%4li", icp[jtmp + i]);
         }
         fprintf(fp7, "\n");
     } else {
         jtmp = NPARX;
         fprintf(fp7, "   0   User-specified parameters:      ");
-        for (i = 0; i < nicp; ++i) {
+        for (int64 i = 0; i < nicp; ++i) {
             fprintf(fp7, "%4li", icp[jtmp + i]);
         }
         fprintf(fp7, "\n");
@@ -2354,13 +2351,13 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
     if (nfpr == 1) {
         fprintf(fp7, "   0   Active continuation parameter:  ");
 
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             fprintf(fp7, "%4li", icp[i]);
         }
         fprintf(fp7, "\n");
     } else {
         fprintf(fp7, "   0   Active continuation parameters:  ");
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             fprintf(fp7, "%4li", icp[i]);
         }
         fprintf(fp7, "\n");
@@ -2372,7 +2369,7 @@ sthd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *thl,
 int32
 headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
        int64 *n1, int64 *n2) {
-    int64 iplt, i, j;
+    int64 iplt, j;
     char col[9][34];
     int64 ndm;
     int64 ips;
@@ -2387,7 +2384,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     ndm = iap->ndm;
 
     /*initialize strings*/
-    for (i = 0; i < 9; ++i) {
+    for (int64 i = 0; i < 9; ++i) {
         strcpy(col[i], "              ");
     }
 
@@ -2404,7 +2401,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     }
 
     j = 0;
-    for (i = 0; i < *n1; ++i) {
+    for (int64 i = 0; i < *n1; ++i) {
         ++j;
         if ((double)j == (double)2.) {
             j = j + 1 + *n2;
@@ -2437,12 +2434,12 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     }
 
     if (*n2 > 0) {
-        for (i = 0; i < *n2; ++i) {
+        for (int64 i = 0; i < *n2; ++i) {
             sprintf(col[i + 2], "     U(%ld)     ", i + 1);
         }
         if ((ips >= 2 && ips <= 4) || (ips >= 6 && ips <= 9) ||
             (ips >= 12 && ips <= 17)) {
-            for (i = 3; i <= *n2 + 2; ++i) {
+            for (int64 i = 3; i <= *n2 + 2; ++i) {
                 col[i - 1][3] = 'M';
                 col[i - 1][4] = 'A';
                 col[i - 1][5] = 'X';
@@ -2450,7 +2447,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
         }
     }
 
-    for (i = 0; i < *n1 + *n2 + 1; ++i) {
+    for (int64 i = 0; i < *n1 + *n2 + 1; ++i) {
         if (strcmp(col[i], "   PAR(10)    ") == 0 && ips > 0 && ips != 4) {
             sprintf(col[i], "    PERIOD    ");
         } else if (strcmp(col[i], "   PAR(9)    ") == 0 &&
@@ -2465,20 +2462,20 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
     if (iap->mynode == 0) {
         if (iunit == 6) {
             printf("  BR    PT  TY LAB ");
-            for (i = 0; i < *n1 + *n2 + 1; ++i) {
+            for (int64 i = 0; i < *n1 + *n2 + 1; ++i) {
                 printf("%s", col[i]);
             }
             printf("\n");
             fflush(stdout);
         } else if (iunit == 7) {
             fprintf(fp7, "   0    PT  TY LAB ");
-            for (i = 0; i < *n1 + *n2 + 1; ++i) {
+            for (int64 i = 0; i < *n1 + *n2 + 1; ++i) {
                 fprintf(fp7, "%s", col[i]);
             }
             fprintf(fp7, "\n");
         } else if (iunit == 9) {
             fprintf(fp9, "  BR    PT  TY LAB ");
-            for (i = 0; i < *n1 + *n2 + 1; ++i) {
+            for (int64 i = 0; i < *n1 + *n2 + 1; ++i) {
                 fprintf(fp9, "%s", col[i]);
             }
             fprintf(fp9, "\n");
@@ -2491,7 +2488,7 @@ headng(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 iunit,
 int32
 stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *u) {
-    int64 labw, ndim, nins, iplt, ntot, i;
+    int64 labw, ndim, nins, iplt, ntot;
     double a0;
     double a1;
     int64 istop, itpst, ntots;
@@ -2576,7 +2573,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
         amp = u[-1 + iplt - (ndim*2)];
     } else {
         ss = 0.;
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             ss += u[i]*u[i];
         }
         amp = sqrt(ss);
@@ -2634,7 +2631,7 @@ stplae(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
 int32
 wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
        int64 *ibr, int64 *ntot, int64 *lab, double *vaxis, double *u) {
-    int64 nicp, mtot, i;
+    int64 nicp, mtot;
     char atype[3];
     int64 n1;
     int64 n2;
@@ -2710,7 +2707,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
                    *(lab));
             printf("%14.6E", par[icu[0]]);
             printf("%14.6E", (*vaxis));
-            for (i = 1; i < n1; ++i) {
+            for (int64 i = 0; i < n1; ++i) {
                 printf("%14.6E", par[icu[i]]);
             }
             printf("\n");
@@ -2719,7 +2716,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
         fprintf(fp7, "%4li%6li%4li%4li", (*ibr), mtot, itp, (*lab));
         fprintf(fp7, "%14.5E", par[icu[0]]);
         fprintf(fp7, "%14.5E", (*vaxis));
-        for (i = 1; i < n1; ++i) {
+        for (int64 i = 0; i < n1; ++i) {
             fprintf(fp7, "%14.5E", par[icu[i]]);
         }
         fprintf(fp7, "\n");
@@ -2727,7 +2724,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
                 *(lab));
         fprintf(fp9, "%14.6E", par[icu[0]]);
         fprintf(fp9, "%14.6E", (*vaxis));
-        for (i = 1; i < n1; ++i) {
+        for (int64 i = 0; i < n1; ++i) {
             fprintf(fp9, "%14.6E", par[icu[i]]);
         }
         fprintf(fp9, "\n");
@@ -2738,7 +2735,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
                        atype[1], *(lab));
                 printf("%14.6E", par[icu[0]]);
                 printf("%14.6E", (*vaxis));
-                for (i = 0; i < n2; ++i) {
+                for (int64 i = 0; i < n2; ++i) {
                     printf("%14.6E", u[i]);
                 }
                 printf("\n");
@@ -2747,7 +2744,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
             fprintf(fp7, "%4li%6li%4li%4li", (*ibr), mtot, itp, (*lab));
             fprintf(fp7, "%14.5E", par[icu[0]]);
             fprintf(fp7, "%14.5E", (*vaxis));
-            for (i = 0; i < n2; ++i) {
+            for (int64 i = 0; i < n2; ++i) {
                 fprintf(fp7, "%14.5E", u[i]);
             }
             fprintf(fp7, "\n");
@@ -2755,7 +2752,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
                     *(lab));
             fprintf(fp9, "%14.6E", par[icu[0]]);
             fprintf(fp9, "%14.6E", (*vaxis));
-            for (i = 0; i < n2; ++i) {
+            for (int64 i = 0; i < n2; ++i) {
                 fprintf(fp9, "%14.6E", u[i]);
             }
             fprintf(fp9, "\n");
@@ -2766,10 +2763,10 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
                        atype[1], *(lab));
                 printf("%14.6E", par[icu[0]]);
                 printf("%14.6E", (*vaxis));
-                for (i = 0; i < n2; ++i) {
+                for (int64 i = 0; i < n2; ++i) {
                     printf("%14.6E", u[i]);
                 }
-                for (i = 1; i < n1; ++i) {
+                for (int64 i = 1; i < n1; ++i) {
                     printf("%14.6E", par[icu[i]]);
                 }
                 printf("\n");
@@ -2778,10 +2775,10 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
             fprintf(fp7, "%4li%6li%4li%4li", (*ibr), mtot, itp, (*lab));
             fprintf(fp7, "%14.5E", par[icu[0]]);
             fprintf(fp7, "%14.5E", (*vaxis));
-            for (i = 0; i < n2; ++i) {
+            for (int64 i = 0; i < n2; ++i) {
                 fprintf(fp7, "%14.5E", u[i]);
             }
-            for (i = 1; i < n1; ++i) {
+            for (int64 i = 1; i < n1; ++i) {
                 fprintf(fp7, "%14.5E", par[icu[i]]);
             }
             fprintf(fp7, "\n");
@@ -2789,10 +2786,10 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
                     *(lab));
             fprintf(fp9, "%14.6E", par[icu[0]]);
             fprintf(fp9, "%14.6E", (*vaxis));
-            for (i = 0; i < n2; ++i) {
+            for (int64 i = 0; i < n2; ++i) {
                 fprintf(fp9, "%14.6E", u[i]);
             }
-            for (i = 1; i < n1; ++i) {
+            for (int64 i = 1; i < n1; ++i) {
                 fprintf(fp9, "%14.6E", par[icu[i]]);
             }
             fprintf(fp9, "\n");
@@ -2805,7 +2802,7 @@ wrline(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *icu,
 int32
 wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
        double *rlcur, double *u) {
-    int64 ndim, nfpr, ntpl, jtmp, mtot, ntot, i;
+    int64 ndim, nfpr, ntpl, jtmp, mtot, ntot;
     double t;
     int64 nrowpr;
     int64 ibr;
@@ -2858,13 +2855,13 @@ wrtsp8(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *lab,
     fprintf(fp8, "%5d", 0);
     fprintf(fp8, "%5d\n", NPARX);
     fprintf(fp8, "    %19.10E", t);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if ((i > 0) && ((i + 1) % 7 == 0))
             fprintf(fp8, "\n    ");
         fprintf(fp8, "%19.10E", u[i]);
     }
     fprintf(fp8, "\n");
-    for (i = 0; i < NPARX; ++i) {
+    for (int64 i = 0; i < NPARX; ++i) {
         if (i == 0)
             fprintf(fp8, "    ");
         if ((i > 0) && (i % 7 == 0))
@@ -2881,7 +2878,6 @@ int32
 wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
     int64 aa_dim1;
 
-    int64 i;
     int64 j;
 
     aa_dim1 = *m1aaloc;
@@ -2890,12 +2886,12 @@ wrjac(iap_type *iap, int64 *n, int64 *m1aaloc, double *aa, double *rhs) {
         return 0;
     fprintf(fp9, " Residual vector :\n");
 
-    for (i = 0; i < *n; ++i) {
+    for (int64 i = 0; i < *n; ++i) {
         fprintf(fp9, " %10.3E", rhs[i]);
     }
     fprintf(fp9, "\n");
     fprintf(fp9, " Jacobian matrix :\n");
-    for (i = 0; i < *n; ++i) {
+    for (int64 i = 0; i < *n; ++i) {
         for (j = 0; j < *n; ++j) {
             fprintf(fp9, " %10.3E", ARRAY2D(aa, i, j));
         }
@@ -3100,7 +3096,7 @@ L7:
 
 int32
 cntdif(int64 *n, double *d) {
-    int64 i, k, k1;
+    int64 k, k1;
     double sc;
 
     /* Generates the coefficients of the central difference formula for */
@@ -3112,7 +3108,7 @@ cntdif(int64 *n, double *d) {
     if (*n == 0)
         return 0;
 
-    for (i = 0; i < *n; ++i) {
+    for (int64 i = 0; i < *n; ++i) {
         d[i + 1] = 0.;
         for (k = 0; k < i + 1; ++k) {
             k1 = i + 1 - k;
@@ -3124,7 +3120,7 @@ cntdif(int64 *n, double *d) {
     /* Scale to [0,1]  : */
 
     sc = (double)(pow_ii(*n, *n));
-    for (i = 0; i < *n + 1; ++i) {
+    for (int64 i = 0; i < *n + 1; ++i) {
         d[i] = sc*d[i];
     }
 
@@ -3272,7 +3268,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
 
     int64 ndim;
     int64 iper;
-    int64 i, j, noldp1, nnewp1;
+    int64 j, noldp1, nnewp1;
 
     int64 nrwnew;
     int64 ips;
@@ -3307,7 +3303,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     nrwnew = ndim**ncnew;
 
     for (j = 0; j < (*ndxloc); ++j) {
-        for (i = 0; i < (iap->ndim*iap->ncol); ++i) {
+        for (int64 i = 0; i < (iap->ndim*iap->ncol); ++i) {
             uint1[j + i*(*ndxloc)] = 0.;
         }
     }
@@ -3329,7 +3325,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, ups, &nnewp1, ncnew,
            tint, uint1, tm2, itm);
     for (j = 0; j < nnewp1; ++j) {
-        for (i = 0; i < nrwnew; ++i) {
+        for (int64 i = 0; i < nrwnew; ++i) {
             ARRAY2D(ups, j, i) = uint1[j + i*(*ndxloc)];
         }
     }
@@ -3339,7 +3335,7 @@ adapt(iap_type *iap, rap_type *rap, int64 *nold, int64 *ncold, int64 *nnew,
     interp(iap, rap, &ndim, &noldp1, ncold, tm, ndxloc, vps, &nnewp1, ncnew,
            tint, uint1, tm2, itm);
     for (j = 0; j < nnewp1; ++j) {
-        for (i = 0; i < nrwnew; ++i) {
+        for (int64 i = 0; i < nrwnew; ++i) {
             ARRAY2D(vps, j, i) = uint1[j + i*(*ndxloc)];
         }
     }
@@ -3641,7 +3637,7 @@ eqdf(iap_type *iap, rap_type *rap, int64 *ntst, int64 *ndim, int64 *ncol,
 int32
 eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
     int64 *ier) {
-    int64 matz, ntop, ntot, i;
+    int64 matz, ntop, ntot;
     double *z__;
 
     double *wi, *wr, *fv1;
@@ -3669,7 +3665,7 @@ eig(iap_type *iap, int64 *ndim, int64 *m1a, double *a, doublecomplex *ev,
 
     rg(*m1a, *ndim, a, wr, wi, matz, z__, iv1, fv1, ier);
 
-    for (i = 0; i < *ndim; ++i) {
+    for (int64 i = 0; i < *ndim; ++i) {
         ev[i].r = wr[i];
         ev[i].i = wi[i];
     }
@@ -3721,7 +3717,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
 
     a_dim1 = m;
 
-    for (int32 i = 0; i < n; ++i) {
+    for (int64 i = 0; i < n; ++i) {
         ic[i] = i;
         ir[i] = i;
     }
@@ -3773,7 +3769,7 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
 
     /*   Backsubstitution : */
 
-    for (int32 i = 0; i < k; ++i) {
+    for (int64 i = 0; i < k; ++i) {
         u[ic[-1 + n - i]] = 1.;
     }
 
@@ -3799,17 +3795,16 @@ nlvc(int64 n, int64 m, int64 k, double *a, double *u) {
 int32
 nrmlz(int64 *ndim, double *v) {
     double c;
-    int64 i;
     double ss;
 
     /* Scale the vector V so that its discrete L2-norm becomes 1. */
 
     ss = 0.;
-    for (i = 0; i < *ndim; ++i) {
+    for (int64 i = 0; i < *ndim; ++i) {
         ss += v[i]*v[i];
     }
     c = 1. / sqrt(ss);
-    for (i = 0; i < *ndim; ++i) {
+    for (int64 i = 0; i < *ndim; ++i) {
         v[i] *= c;
     }
 
@@ -4139,7 +4134,7 @@ findlb(iap_type *iap, rap_type *rap, int64 irs, int64 *nfpr, int64 *found) {
 
 int32
 readlb(double *u, double *par) {
-    int64 labr, ndim, ibrr, itpr, iswr, i;
+    int64 labr, ndim, ibrr, itpr, iswr;
     double t;
     int64 nparr, nfprr, n1, n2, ntotr, nskipr, ntplrs, nar;
 
@@ -4159,7 +4154,7 @@ readlb(double *u, double *par) {
     fscanf(fp3, "%ld", &nparr);
     ndim = nar - 1;
     fscanf(fp3, "%le", &t);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         fscanf(fp3, "%le", &u[i]);
     }
     if (nparr > NPARX) {
@@ -4168,7 +4163,7 @@ readlb(double *u, double *par) {
                "skipped for i > %3ld\n",
                nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%le", &par[i]);
     }
 
@@ -4177,12 +4172,10 @@ readlb(double *u, double *par) {
 
 int32
 skip3(int64 *nskip, int64 *eof3) {
-    int64 i;
-
     /* Skips the specified number of lines on unit 3. */
 
     *eof3 = false;
-    for (i = 0; i < *nskip; ++i) {
+    for (int64 i = 0; i < *nskip; ++i) {
         /* NOTE from Randy:  I am not 100% happy with this.  I am
            not sure if this properly simulates the Fortran behavior */
         while (true) {
@@ -4209,7 +4202,7 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
     int64 ndim;
     int64 ncol;
 
-    int64 ntst, i, j, k;
+    int64 ntst, j, k;
     double s;
     int64 k1;
     double sj;
@@ -4237,7 +4230,7 @@ rinpr(iap_type *iap, int64 *ndim1, int64 *ndxloc, double *ups, double *vps,
     for (j = 0; j < ntst; ++j) {
         jp1 = j + 1;
         sj = 0.;
-        for (i = 0; i < *ndim1; ++i) {
+        for (int64 i = 0; i < *ndim1; ++i) {
             for (k = 0; k < ncol; ++k) {
                 k1 = k*ndim + i;
                 sj +=
@@ -4433,7 +4426,7 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
        double *dtm, double *thl, double *thu) {
     int64 dvps_dim1;
 
-    int64 ndim, ncol, nfpr, nrow, ntst, i, j;
+    int64 ndim, ncol, nfpr, nrow, ntst, j;
     double sc;
     double ss;
 
@@ -4447,7 +4440,7 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
     nfpr = iap->nfpr;
 
     ss = rnrmsq(iap, &ndim, ndxloc, dvps, dtm, thu);
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         /* Computing 2nd power */
         ss += thl[icp[i]]*(rld[i]*rld[i]);
     }
@@ -4456,16 +4449,16 @@ scaleb(iap_type *iap, int64 *icp, int64 *ndxloc, double *dvps, double *rld,
 
     nrow = ndim*ncol;
     for (j = 0; j < ntst; ++j) {
-        for (i = 0; i < nrow; ++i) {
+        for (int64 i = 0; i < nrow; ++i) {
             ARRAY2D(dvps, j, i) *= sc;
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(dvps, ntst, i) *= sc;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rld[i] = sc*rld[i];
     }
 
@@ -4482,7 +4475,7 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        STPNT_TYPE_BVP((*stpnt)), PVLI_TYPE_BVP((*pvli)), double *thl,
        double *thu, int64 *iuz, double *vuz) {
     int64 iads, ndim, ncol;
-    int64 ntot, ntst, iuzr, nuzr, i, j, k;
+    int64 ntot, ntst, iuzr, nuzr, j, k;
     double dsold;
     int64 nodir = 0;
     double rlold[NPARX], rldot[NPARX], rlcur[NPARX];
@@ -4556,7 +4549,7 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     bp1 = 0.;
     rlp = 0.;
     if (nuzr > 0) {
-        for (i = 0; i < nuzr; ++i) {
+        for (int64 i = 0; i < nuzr; ++i) {
             uzr[i] = 0.;
         }
     }
@@ -4568,7 +4561,7 @@ cnrlbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     iap->istop = istop;
 
     for (j = 0; j < (iap->ntst + 1); ++j) {
-        for (i = 0; i < (iap->ndim*iap->ncol); ++i) {
+        for (int64 i = 0; i < (iap->ndim*iap->ncol); ++i) {
             ups[j + i*(iap->ntst + 1)] = 0.;
             uoldps[j + i*(iap->ntst + 1)] = 0.;
             upoldp[j + i*(iap->ntst + 1)] = 0.;
@@ -4675,16 +4668,16 @@ L1:
                             (iap->ncol));
         rlolddot = xmalloc(sizeof(*rlolddot)*(iap->nfpr));
 
-        for (i = 0; i < iap->nfpr; ++i) {
+        for (int64 i = 0; i < iap->nfpr; ++i) {
             rlolddot[i] = rldot[i];
         }
         for (j = 0; j < iap->ntst; ++j) {
-            for (i = 0; i < iap->ncol*iap->ndim; ++i) {
+            for (int64 i = 0; i < iap->ncol*iap->ndim; ++i) {
                 uolddotps[j + i*(iap->ntst + 1)] =
                     udotps[j + i*(iap->ntst + 1)];
             }
         }
-        for (i = 0; i < iap->ndim; ++i) {
+        for (int64 i = 0; i < iap->ndim; ++i) {
             uolddotps[ntst + i*(iap->ntst + 1)] =
                 udotps[ntst + i*(iap->ntst + 1)];
         }
@@ -4697,7 +4690,7 @@ L1:
             double dot_product = rinpr(iap, &(iap->ndim), &ntst_plus_one,
                                        udotps, uolddotps, dtm, thu);
 
-            for (i = 0; i < iap->nfpr; ++i) {
+            for (int64 i = 0; i < iap->nfpr; ++i) {
                 /* Computing 2nd power */
                 // FIXME  No sure if this is right
                 // This is the original
@@ -4706,16 +4699,16 @@ L1:
             }
 
             if (dot_product < 0) {
-                for (i = 0; i < iap->nfpr; ++i) {
+                for (int64 i = 0; i < iap->nfpr; ++i) {
                     rldot[i] = -rldot[i];
                 }
                 for (j = 0; j < iap->ntst; ++j) {
-                    for (i = 0; i < iap->ndim*iap->ncol; ++i) {
+                    for (int64 i = 0; i < iap->ndim*iap->ncol; ++i) {
                         udotps[j + i*(iap->ntst + 1)] =
                             -udotps[j + i*(iap->ntst + 1)];
                     }
                 }
-                for (i = 0; i < iap->ndim; ++i) {
+                for (int64 i = 0; i < iap->ndim; ++i) {
                     udotps[ntst + i*(iap->ntst + 1)] =
                         -udotps[ntst + i*(iap->ntst + 1)];
                 }
@@ -4863,7 +4856,7 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
        double *udotps, double *upoldp, double *dtm, double *thl, double *thu) {
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
-    int64 ndim, ncol, nfpr, nrow, ntst, i, j;
+    int64 ndim, ncol, nfpr, nrow, ntst, j;
     double dsold;
 
     double dds;
@@ -4888,12 +4881,12 @@ contbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     dds = 1. / dsold;
     nrow = ndim*ncol;
     for (j = 0; j < ntst + 1; ++j) {
-        for (i = 0; i < nrow; ++i) {
+        for (int64 i = 0; i < nrow; ++i) {
             ARRAY2D(udotps, j, i) =
                 (ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i))*dds;
         }
     }
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rldot[i] = (rlcur[i] - rlold[i])*dds;
     }
     /*        Rescale, to set the norm of (UDOTPS,RLDOT) equal to 1. */
@@ -4918,7 +4911,7 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
        double *uoldps, double *udotps) {
     int64 ups_dim1, udotps_dim1, uoldps_dim1;
 
-    int64 ndim, ncol, nfpr, nrow, ntst, i, j;
+    int64 ndim, ncol, nfpr, nrow, ntst, j;
 
     (void)rap;
     (void)funi;
@@ -4937,12 +4930,12 @@ extrbv(iap_type *iap, rap_type *rap, FUNI_TYPE((*funi)), double *rds,
     nfpr = iap->nfpr;
 
     nrow = ndim*ncol;
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlold[i] = rlcur[i];
         rlcur[i] += *rds*rldot[i];
     }
     for (j = 0; j < ntst + 1; ++j) {
-        for (i = 0; i < nrow; ++i) {
+        for (int64 i = 0; i < nrow; ++i) {
             ARRAY2D(uoldps, j, i) = ARRAY2D(ups, j, i);
             ARRAY2D(ups, j, i) += *rds*ARRAY2D(udotps, j, i);
         }
@@ -4987,12 +4980,12 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     ncol = iap->ncol;
     nfpr = iap->nfpr;
 
-    for (int32 i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] = rlold[i];
     }
 
     for (j = 0; j < ntst + 1; ++j) {
-        for (int32 i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             u[i] = ARRAY2D(uoldps, j, i);
             if (ips == 14 || ips == 16) {
                 uold[i] = ARRAY2D(uoldps, j, i)*2 - ARRAY2D(ups, j, i);
@@ -5001,7 +4994,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
             }
         }
         (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f, dfdu, dfdp);
-        for (int32 i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(upoldp, j, i) = f[i];
         }
     }
@@ -5009,7 +5002,7 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     for (k = 1; k <= ncol - 1; ++k) {
         n1 = k*ndim;
         for (j = 0; j < ntst; ++j) {
-            for (int32 i = 0; i < ndim; ++i) {
+            for (int64 i = 0; i < ndim; ++i) {
                 u[i] = ARRAY2D(uoldps, j, (n1 + i));
                 if (ips == 14 || ips == 16) {
                     uold[i] = ARRAY2D(uoldps, j, (n1 + i))*2 -
@@ -5019,13 +5012,13 @@ stupbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                 }
             }
             (*funi)(iap, rap, ndim, u, uold, icp, par, 0, f, dfdu, dfdp);
-            for (int32 i = 0; i < ndim; ++i) {
+            for (int64 i = 0; i < ndim; ++i) {
                 ARRAY2D(upoldp, j, (n1 + i)) = f[i];
             }
         }
     }
 
-    for (int32 i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] = rlcur[i];
     }
     free(dfdp);
@@ -5057,7 +5050,7 @@ stepbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     double epsu;
     int64 ntop, itnw, nllv;
     double dumx;
-    int64 ntot, nrow = 0, nwtn, ntst, i, j;
+    int64 ntot, nrow = 0, nwtn, ntst, j;
     double dsold;
     double dsmin;
     int64 nitps;
@@ -5126,10 +5119,10 @@ L1:
                fc, p0, p1, thl, thu);
         /* Add Newton increments. */
 
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(ups, ntst, i) += fc[i];
         }
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             rlcur[i] += fc[ndim + i];
             par[icp[i]] = rlcur[i];
         }
@@ -5138,7 +5131,7 @@ L1:
         umx = 0.;
         nrow = ndim*ncol;
         for (j = 0; j < ntst; ++j) {
-            for (i = 0; i < nrow; ++i) {
+            for (int64 i = 0; i < nrow; ++i) {
                 adu = fabs(ARRAY2D(fa, j, i));
                 if (adu > dumx) {
                     dumx = adu;
@@ -5161,7 +5154,7 @@ L1:
 
         done = true;
         rdrl = 0.;
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             adrl = fabs(fc[ndim + i]) / (fabs(rlcur[i]) + 1.);
             if (adrl > epsl) {
                 done = false;
@@ -5209,11 +5202,11 @@ L3:
     if (fabs(*rds) < dsmin) {
         goto L12;
     }
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = rlold[i] + *rds*rldot[i];
     }
     for (j = 0; j < ntst + 1; ++j) {
-        for (i = 0; i < nrow; ++i) {
+        for (int64 i = 0; i < nrow; ++i) {
             ARRAY2D(ups, j, i) =
                 ARRAY2D(uoldps, j, i) + *rds*ARRAY2D(udotps, j, i);
         }
@@ -5230,12 +5223,12 @@ L12:
                 ibr, ntop);
     }
 L13:
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = rlold[i];
         par[icp[i]] = rlcur[i];
     }
     for (j = 0; j < ntst + 1; ++j) {
-        for (i = 0; i < nrow; ++i) {
+        for (int64 i = 0; i < nrow; ++i) {
             ARRAY2D(ups, j, i) = ARRAY2D(uoldps, j, i);
         }
     }
@@ -5337,7 +5330,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
         tm_new = xmalloc(sizeof(*tm_new)*(usize)(*ndxloc));
         dtm_new = xmalloc(sizeof(*dtm_new)*(usize)(*ndxloc));
 
-        for (int32 i = 0; i < *ndxloc; i++) {
+        for (int64 i = 0; i < *ndxloc; i++) {
             dtm_new[i] = 0.0;
             tm_new[i] = 0.0;
             for (j = 0; j < ndim*ncol_used; j++) {
@@ -5364,7 +5357,7 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
                   ndxloc, ups_new, udotps_new);
         }
         /* Copy from the temporary large arrays into the normal arrays. */
-        for (int32 i = 0; i < ntst + 1; i++) {
+        for (int64 i = 0; i < ntst + 1; i++) {
             dtm[-1 + i + 1] = dtm_new[i];
             tm[-1 + i + 1] = tm_new[i];
             for (j = 0; j < ndim*ncol; j++) {
@@ -5383,12 +5376,12 @@ rsptbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* Set UOLDPS, RLOLD. */
 
-    for (int32 i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
         rlold[i] = rlcur[i];
     }
 
-    for (int32 i = 0; i < ndim*ncol; ++i) {
+    for (int64 i = 0; i < ndim*ncol; ++i) {
         for (j = 0; j < ntst + 1; ++j) {
             ARRAY2D(uoldps, j, i) = ARRAY2D(ups, j, i);
         }
@@ -5421,7 +5414,6 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     double temp[7];
     int64 nfpr;
 
-    int64 i;
     int64 k;
 
     int64 found;
@@ -5476,7 +5468,7 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     }
 
     for (int32 j = 0; j < *ntsrs; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndimrd - 1;
             fscanf(fp3, "%le", &temp[i]);
@@ -5503,17 +5495,17 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
     if (nskip1 > 0)
         skip3(&nskip1, &eof3);
 
-    for (i = 0; i < nfprs; ++i) {
+    for (int64 i = 0; i < nfprs; ++i) {
         fscanf(fp3, "%ld", &icprs[i]);
     }
-    for (i = 0; i < nfprs; ++i) {
+    for (int64 i = 0; i < nfprs; ++i) {
         fscanf(fp3, "%le", &rldot[i]);
     }
 
     /* Read U-dot (deriv. with respect to arclength along solution branch). */
 
     for (int32 j = 0; j < *ntsrs; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndimrd - 1;
             for (k = k1; k <= k2; ++k) {
@@ -5544,10 +5536,10 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
                "skipped for i > %3ld\n",
                nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%le", &par[i]);
     }
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -5573,7 +5565,7 @@ stpnbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsrs,
         *nodir = 1;
         return 0;
     }
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         if (icprs[i] != icp[i]) {
             *nodir = 1;
             return 0;
@@ -5704,7 +5696,7 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* variables functions */
     int64 ndim, ncol, nfpr, ifst, nllv;
     double rdsz;
-    int64 nrow, ntst, i, j;
+    int64 nrow, ntst, j;
 
     int64 iid;
 
@@ -5727,11 +5719,11 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     nrow = ndim*ncol;
     if (iperp == 0) {
         for (j = 0; j < ntst + 1; ++j) {
-            for (i = 0; i < nrow; ++i) {
+            for (int64 i = 0; i < nrow; ++i) {
                 ARRAY2D(udotps, j, i) = 0.;
             }
         }
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             rldot[i] = 0.;
         }
     }
@@ -5745,16 +5737,16 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     /* Compute the starting direction. */
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(udotps, ntst, i) = fc[i];
     }
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rldot[i] = fc[ndim + i];
         par[icp[i]] = rlcur[i];
     }
 
     for (j = 0; j < ntst; ++j) {
-        for (i = 0; i < nrow; ++i) {
+        for (int64 i = 0; i < nrow; ++i) {
             ARRAY2D(udotps, j, i) = ARRAY2D(fa, j, i);
         }
     }
@@ -5766,17 +5758,17 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     /* Make sure that RLDOT(1) is positive (unless zero). */
 
     if (rldot[0] < 0.) {
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             rldot[i] = -rldot[i];
         }
         for (j = 0; j < ntst; ++j) {
-            for (i = 0; i < nrow; ++i) {
+            for (int64 i = 0; i < nrow; ++i) {
                 ARRAY2D(udotps, j, i) = -ARRAY2D(udotps, j, i);
             }
         }
 #define BUG_FIX
 #ifdef BUG_FIX
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(udotps, ntst, i) = -ARRAY2D(udotps, ntst, i);
         }
 #endif
@@ -5788,7 +5780,7 @@ stdrbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     if (iid >= 2) {
         fprintf(fp9, "Starting direction of the free parameter(s) :\n");
 
-        for (i = 0; i < nfpr; ++i) {
+        for (int64 i = 0; i < nfpr; ++i) {
             fprintf(fp9, " PAR(%3ld) :%11.3E\n", icp[i], rldot[i]);
         }
     }
@@ -5978,16 +5970,16 @@ fnlpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
            rlold, rldot, ndxloc, ups, dups, uoldps, udotps, upoldp, dtm, fa, fc,
            p0, p1, thl, thu);
 
-    for (int32 i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(udotps, ntst, i) = fc[i];
     }
 
-    for (int32 i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rldot[i] = fc[ndim + i];
     }
 
     for (j = 0; j < ntst; ++j) {
-        for (int32 i = 0; i < ndim*ncol; ++i) {
+        for (int64 i = 0; i < ndim*ncol; ++i) {
             ARRAY2D(udotps, j, i) = ARRAY2D(fa, j, i);
         }
     }
@@ -6021,7 +6013,6 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
 
     int64 ndim, ntop, ntot;
     double f;
-    int64 i;
     double u;
 
     double *pp;
@@ -6071,7 +6062,7 @@ fnbpbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     /* Compute the determinant of P1. */
 
     /* Computing 2nd power */
-    for (i = 0; i < ndim*ndim; ++i) {
+    for (int64 i = 0; i < ndim*ndim; ++i) {
         pp[i] = p1[i];
     }
     ge(ndim, ndim, pp, 0, 1, &u, 1, &f, &det);
@@ -6116,7 +6107,6 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     doublecomplex ztmp;
     int64 nins1 = 0;
     double d;
-    int64 i;
     int64 j;
 
     int64 iid, ibr, loc = 0, isp, isw;
@@ -6199,7 +6189,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
     /* Order the remaining Floquet multipliers by distance from |z|=1. */
 
     if (ndim >= 3) {
-        for (i = 1; i < ndim - 1; ++i) {
+        for (int64 i = 1; i < ndim - 1; ++i) {
             amin = RLARGE;
             for (j = i; j < ndim; ++j) {
                 azm1 = z_abs(&ev[j]) - 1.;
@@ -6236,7 +6226,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
                 fprintf(fp9, "%4li%6li NOTE:Multiplier inaccurate\n", abs(ibr),
                         ntop);
             }
-            for (i = 0; i < ndim; ++i) {
+            for (int64 i = 0; i < ndim; ++i) {
                 fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
                         abs(ibr), ntop, i, ev[i].r, ev[i].i);
             }
@@ -6265,7 +6255,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
             iap->isp = isp;
         } else {
             if (iap->mynode == 0) {
-                for (i = 0; i < ndim; ++i) {
+                for (int64 i = 0; i < ndim; ++i) {
                     fprintf(fp9,
                             "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
                             abs(ibr), ntop, i, ev[i].r, ev[i].i);
@@ -6283,7 +6273,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         rap->spbf = ret_val;
     } else {
         nins1 = 1;
-        for (i = 1; i < ndim; ++i) {
+        for (int64 i = 1; i < ndim; ++i) {
             if (z_abs(&ev[i]) <= 1.) {
                 ++nins1;
             }
@@ -6324,7 +6314,7 @@ fnspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *chng,
         fprintf(fp9, "%4li%6li        Multipliers:   Stable: %3li\n", abs(ibr),
                 ntop, nins);
 
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             fprintf(fp9, "%4li%6li        Multiplier %3li %14.6E %14.6E\n",
                     abs(ibr), ntop, i, ev[i].r, ev[i].i);
         }
@@ -6393,7 +6383,7 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
     int64 ndim;
     double epss;
     double d;
-    int64 i, itpst;
+    int64 itpst;
     double ad;
     int64 loc, itp, loc1;
     double azm1;
@@ -6411,7 +6401,7 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     loc = 1;
     amin = RLARGE;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         doublecomplex tmp;
         tmp.r = ev[i].r - 1.;
         tmp.i = ev[i].i;
@@ -6427,7 +6417,7 @@ tpspbv(iap_type *iap, rap_type *rap, double *par, int64 *icp,
 
     loc1 = 1;
     amin = RLARGE;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (i != loc) {
             d = z_abs(&ev[i]) - 1.;
             ad = fabs(d);
@@ -6469,7 +6459,6 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
        double *thl, double *thu) {
     int64 labw, ndim, ibrs, nins, iplt, itmp, jtmp, ntot;
     int32 iflag = 0;
-    int64 i;
     double u_high[1000], u_low[1000], u_0[1000], u_bar[1000];
     double a0;
     double a1;
@@ -6606,13 +6595,13 @@ stplbv(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rldot,
     n2 = ndm;
     if (n2 > 7)
         n2 = 7;
-    for (i = 0; i < n2; ++i) {
+    for (int64 i = 0; i < n2; ++i) {
         itmp = i + 1;
         umx[i] = rmxups(iap, ndxloc, &itmp, ups);
     }
 
     /* compute max, min, etc of solutions   This is correct!! */
-    for (i = 0; i < NODE; i++) {
+    for (int64 i = 0; i < NODE; i++) {
         itmp = i + 1;
         u_high[i] = rmxups(iap, ndxloc, &itmp, ups);
         u_low[i] = rmnups(iap, ndxloc, &itmp, ups);
@@ -6833,7 +6822,7 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
        double *thu) {
     int64 ups_dim1;
 
-    int64 ndim, ncol, nfpr, iplt, mtot, ntot, ntst, i, j, k;
+    int64 ndim, ncol, nfpr, iplt, mtot, ntot, ntst, j, k;
     double t;
     int64 nfprp, k1, nitps, k2;
     double ds;
@@ -6892,7 +6881,7 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
         fprintf(fp9, " UPS :\n");
         for (j = 0; j < ntst; ++j) {
             rn = 1. / (double)ncol;
-            for (i = 0; i < ncol; ++i) {
+            for (int64 i = 0; i < ncol; ++i) {
                 t = tm[j] + (double)i*rn*dtm[j];
                 k1 = i*ndim;
                 k2 = (i + 1)*ndim;
@@ -6906,7 +6895,7 @@ wrtbv9(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *rlcur,
             }
         }
         fprintf(fp9, " %14.6E", tm[ntst]);
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             if ((i + 1) % 7 == 0)
                 fprintf(fp9, "\n ");
             fprintf(fp9, " %14.6E", ARRAY2D(ups, ntst, i));

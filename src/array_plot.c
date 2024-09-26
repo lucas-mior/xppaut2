@@ -150,14 +150,14 @@ array_plot_make_my(char *name) {
 
 void
 array_plot_scale(struct ArrayPlot *ap, double *zmax, double *zmin) {
-    int32 i, j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
+    int32 j, ib, jb, row0 = ap->nstart, col0 = ap->index0;
     int32 nrows = my_browser.maxrow;
     double z;
     ib = col0;
     jb = row0;
     *zmax = my_browser.data[ib][jb];
     *zmin = *zmax;
-    for (i = 0; i < ap->nacross / ap->ncskip; i++) {
+    for (int32 i = 0; i < ap->nacross / ap->ncskip; i++) {
         ib = col0 + i*ap->ncskip;
         if (ib <= my_browser.maxcol) {
             for (j = 0; j < ap->ndown; j++) {
@@ -429,10 +429,9 @@ array_plot_button(Window window) {
 
 void
 array_plot_draw_scale(struct ArrayPlot ap) {
-    int32 i;
     int32 y;
     Window window = ap.wscale;
-    for (i = 0; i < color_total; i++) {
+    for (int32 i = 0; i < color_total; i++) {
         y = color_total - i - 1;
         color_set(i + FIRSTCOLOR);
         XDrawLine(display, window, gc_graph, 0, y, 2*DCURXs, y);
@@ -629,7 +628,6 @@ array_plot_gif(void) {
 
 void
 array_plot_redraw(struct ArrayPlot ap) {
-    int32 i;
     int32 j;
     Window window = ap.wplot;
     double z, dx, dy, x, y, tlo, thi;
@@ -661,7 +659,7 @@ array_plot_redraw(struct ArrayPlot ap) {
     dy = (double)ap.ploth / (double)ap.ndown;
     delx = (int32)dx + 1;
     dely = (int32)dy + 1;
-    for (i = 0; i < ap.nacross / ap.ncskip; i++) {
+    for (int32 i = 0; i < ap.nacross / ap.ncskip; i++) {
         ib = col0 + i*ap.ncskip;
         x = dx*i;
         ix = (int32)x;

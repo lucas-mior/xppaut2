@@ -2307,7 +2307,7 @@ draw_ani_null(int32 j, int32 id) {
            yh = my_ani[j].zy2;
     double z = my_ani[j].zval;
     double *v;
-    int32 n, i, i4, who, i1, j1, i2, j2;
+    int32 n, i4, who, i1, j1, i2, j2;
     double x1, y1, x2, y2, dx = xh - xl, dy = yh - yl;
     int32 err;
     if (dx == 0.0 || dy == 0.0)
@@ -2318,7 +2318,7 @@ draw_ani_null(int32 j, int32 id) {
     err = get_nullcline_floats(&v, &n, who, id);
     if (err == 1)
         return;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         i4 = 4*i;
         x1 = (v[i4] - xl) / dx;
         y1 = (v[i4 + 1] - yl) / dy;
@@ -2558,9 +2558,9 @@ read_ani_line(FILE *fp, char *s) {
 void
 ani_de_space(char *s) {
     int32 n = (int32)strlen(s);
-    int32 i, j = 0;
+    int32 j = 0;
     char ch;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         ch = s[i];
         if (!isspace(ch)) {
             s[j] = ch;
@@ -2618,13 +2618,12 @@ ani_add_grab_command(char *xs, char *ys, char *ts, FILE *fp) {
 
 int32
 ani_grab_tasks(char *graphics_line, int32 igrab, int32 which) {
-    int32 i;
     int32 k;
     int32 n = (int32)strlen(graphics_line);
     char form[256], c;
     char rhs[256], lhs[20];
     k = 0;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         c = graphics_line[i];
         if (c == '{' || c == ' ')
             continue;
@@ -2650,11 +2649,10 @@ ani_grab_tasks(char *graphics_line, int32 igrab, int32 which) {
 
 int32
 ani_search_for_grab(double x, double y) {
-    int32 i;
     double d, u, v;
     double dmin = 100000000;
     int32 gear_imin = -1;
-    for (i = 0; i < n_ani_grab; i++) {
+    for (int32 i = 0; i < n_ani_grab; i++) {
         u = ani_grab[i].zx;
         v = ani_grab[i].zy;
         d = sqrt((x - u)*(x - u) + (y - v)*(y - v));

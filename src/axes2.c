@@ -74,11 +74,10 @@ axes2_make_title(char *str) {
 
 double
 axes2_dbl_raise(double x, int32 y) {
-    register int32 i;
     double val;
 
     val = 1.0;
-    for (i = 0; i < abs(y); i++)
+    for (int32 i = 0; i < abs(y); i++)
         val *= x;
     if (y < 0)
         return 1.0 / val;

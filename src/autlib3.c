@@ -22,7 +22,6 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdp_dim1;
 
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -49,7 +48,7 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -58,7 +57,7 @@ fnlp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -96,7 +95,7 @@ fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i, j, ips;
+    int64 j, ips;
 
     /* Parameter adjustments */
     dfdp_dim1 = ndm;
@@ -111,7 +110,7 @@ fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             f[ndm + i] += ARRAY2D(dfdu, i, j)*u[ndm + j];
@@ -120,7 +119,7 @@ fflp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     f[-1 + ndim] = -1.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[-1 + ndim] += u[ndm + i]*u[ndm + i];
     }
 
@@ -134,7 +133,6 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double uold;
     int64 nfpr1;
     double *f;
-    int64 i;
     double *v;
     int64 found;
 
@@ -165,7 +163,7 @@ stpnlp(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     }
     nlvc(ndm, ndm, 1, global_scratch.dfu, v);
     nrmlz(&ndm, v);
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         u[ndm + i] = v[i];
     }
     u[-1 + ndim] = par[icp[1]];
@@ -186,7 +184,6 @@ fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double ddp[NPARX], *ddu;
     int64 ndm;
@@ -210,13 +207,13 @@ fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     if (ijac != 0) {
         for (j = ndm - 1; j >= 0; --j) {
-            for (i = ndm - 1; i >= 0; --i) {
+            for (int64 i = ndm - 1; i >= 0; --i) {
                 ARRAY2D(dfdu, i, j) = dfdu[j*ndm + i];
             }
         }
 
         for (j = NPARX - 1; j >= 0; --j) {
-            for (i = ndm - 1; i >= 0; --i) {
+            for (int64 i = ndm - 1; i >= 0; --i) {
                 ARRAY2D(dfdp, i, j) = dfdp[j*ndm + i];
             }
         }
@@ -226,7 +223,7 @@ fnc1(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     f[-1 + ndim] = par[icp[0]] - f[-1 + ndim];
 
     if (ijac != 0) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             ARRAY2D(dfdu, (ndim - 1), i) = -ddu[i];
             ARRAY2D(dfdu, i, (ndim - 1)) = ARRAY2D(dfdp, i, (icp[1]));
             ARRAY2D(dfdp, i, (icp[0])) = 0.;
@@ -273,7 +270,6 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdp_dim1;
 
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -301,7 +297,7 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -310,7 +306,7 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -327,7 +323,7 @@ fnc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(dfdp, i, (icp[0])) = 0.;
     }
     ARRAY2D(dfdp, (ndim - 1), (icp[0])) = 1.;
@@ -344,7 +340,7 @@ ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 icpm;
 
-    int64 nfpr, i, j;
+    int64 nfpr, j;
     double ddp[NPARX], *ddu, fop;
     int64 ndm2;
 
@@ -357,13 +353,13 @@ ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     nfpr = iap->nfpr;
 
-    for (i = 1; i < nfpr; ++i) {
+    for (int64 i = 1; i < nfpr; ++i) {
         par[icp[i]] = u[(ndm*2) + i];
     }
     funi(iap, rap, ndm, u, uold, icp, par, 2, f, dfdu, dfdp);
     fopi(iap, rap, ndm, u, icp, par, 2, &fop, ddu, ddp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = ddu[i]*u[(ndm*2)];
         for (j = 0; j < ndm; ++j) {
             f[ndm + i] += ARRAY2D(dfdu, j, i)*u[ndm + j];
@@ -372,11 +368,11 @@ ffc2(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     ndm2 = ndm*2;
     icpm = nfpr - 2;
-    for (i = 0; i < icpm; ++i) {
+    for (int64 i = 0; i < icpm; ++i) {
         f[ndm2 + i] = ddp[icp[i + 1]]*u[ndm2];
     }
 
-    for (i = 0; i < icpm; ++i) {
+    for (int64 i = 0; i < icpm; ++i) {
         for (j = 0; j < ndm; ++j) {
             f[ndm2 + i] += u[ndm + j]*ARRAY2D(dfdp, j, (icp[i + 1]));
         }
@@ -399,7 +395,6 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double uold;
     int64 nfpr;
     double *f;
-    int64 i;
     int64 j;
     double *v;
     int64 found;
@@ -435,12 +430,12 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
              global_scratch.dfp);
         fopi(iap, rap, ndm, u, icp, par, 2, &fop, du, dp);
         /*       TRANSPOSE */
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             for (j = 0; j < ndm; ++j) {
                 dd[i + j*ndim] = global_scratch.dfu[i*ndm + j];
             }
         }
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             dd[i + ndm*ndim] = du[i];
             dd[ndm + i*ndim] = global_scratch.dfp[(icp[1])*ndm + i];
         }
@@ -450,13 +445,13 @@ stpnc2(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
             int64 tmp = ndm + 1;
             nrmlz(&tmp, v);
         }
-        for (i = 0; i < ndm + 1; ++i) {
+        for (int64 i = 0; i < ndm + 1; ++i) {
             u[ndm + i] = v[i];
         }
         par[icp[0]] = fop;
     }
 
-    for (i = 0; i < nfpr - 1; ++i) {
+    for (int64 i = 0; i < nfpr - 1; ++i) {
         u[ndim - nfpr + 1 + i] = par[icp[i + 1]];
     }
 
@@ -478,8 +473,6 @@ fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
-
     /* Generate the equations for continuing fixed points. */
 
     /* Parameter adjustments */
@@ -488,14 +481,14 @@ fnds(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         f[i] -= u[i];
     }
 
     if (ijac == 0)
         return 0;
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         --ARRAY2D(dfdu, i, i);
     }
 
@@ -514,7 +507,6 @@ fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdp_dim1;
 
     double told;
-    int64 i;
     int64 j;
     double dt;
 
@@ -529,7 +521,7 @@ fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     told = rap->tivp;
     dt = par[icp[0]] - told;
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(dfdp, i, (icp[0])) = f[i];
         f[i] = dt*f[i] - u[i] + uold[i];
     }
@@ -537,7 +529,7 @@ fnti(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     if (ijac == 0)
         return 0;
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             ARRAY2D(dfdu, i, j) = dt*ARRAY2D(dfdu, i, j);
         }
@@ -559,7 +551,6 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdp_dim1;
 
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -587,7 +578,7 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -596,7 +587,7 @@ fnhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -636,7 +627,6 @@ ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double thta;
 
-    int64 i;
     int64 j;
     double c1, s1;
     int64 ndm2;
@@ -653,12 +643,12 @@ ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     c1 = cos(thta);
     par[icp[1]] = u[-1 + ndim];
     funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[i] -= u[i];
         ARRAY2D(dfdu, i, i) -= c1;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = s1*u[ndm2 + i];
         f[ndm2 + i] = -s1*u[ndm + i];
         for (j = 0; j < ndm; ++j) {
@@ -669,14 +659,14 @@ ffhd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     f[ndim - 2] = -1.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndim - 2] =
             f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
     f[-1 + ndim] = 0.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[-1 + ndim] = f[-1 + ndim] + uold[ndm2 + i]*u[ndm + i] -
                        uold[ndm + i]*u[ndm2 + i];
     }
@@ -694,7 +684,6 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     int64 nfpr1;
     double *f;
-    int64 i;
     int64 j;
     double *v;
     int64 found;
@@ -728,21 +717,21 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
          global_scratch.dfp);
 
     ndm2 = ndm*2;
-    for (i = 0; i < ndm2; ++i) {
+    for (int64 i = 0; i < ndm2; ++i) {
         for (j = 0; j < ndm2; ++j) {
             smat[i + j*(ndim*2)] = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         smat[i + (ndm + i)*(ndim*2)] = s1;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         smat[ndm + i + i*(ndim*2)] = -s1;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < ndm; ++j) {
             smat[i + j*(ndim*2)] = global_scratch.dfu[j*ndm + i];
             smat[ndm + i + (ndm + j)*(ndim*2)] =
@@ -757,7 +746,7 @@ stpnhd(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     }
     nrmlz(&ndm2, v);
 
-    for (i = 0; i < ndm2; ++i) {
+    for (int64 i = 0; i < ndm2; ++i) {
         u[ndm + i] = v[i];
     }
 
@@ -782,7 +771,6 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdp_dim1;
 
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -811,7 +799,7 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -820,7 +808,7 @@ fnhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -857,7 +845,6 @@ ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
 
     double rom;
@@ -875,7 +862,7 @@ ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     par[icp[1]] = u[-1 + ndim];
     funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = u[ndm2 + i];
         f[ndm2 + i] = -u[ndm + i];
         for (j = 0; j < ndm; ++j) {
@@ -886,14 +873,14 @@ ffhb(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     f[ndim - 2] = -1.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndim - 2] =
             f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
     f[-1 + ndim] = 0.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[-1 + ndim] = f[-1 + ndim] +
                        uold[ndm2 + i]*(u[ndm + i] - uold[ndm + i]) -
                        uold[ndm + i]*(u[ndm2 + i] - uold[ndm2 + i]);
@@ -910,7 +897,6 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     double *smat;
     int64 nfpr1;
     double *f;
-    int64 i;
     int64 j;
     double *v;
     int64 found;
@@ -943,21 +929,21 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
          global_scratch.dfp);
 
     ndm2 = ndm*2;
-    for (i = 0; i < ndm2; ++i) {
+    for (int64 i = 0; i < ndm2; ++i) {
         for (j = 0; j < ndm2; ++j) {
             smat[i + j*(ndim*2)] = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         smat[i + (ndm + i)*(ndim*2)] = 1.;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         smat[ndm + i + i*(ndim*2)] = -1.;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < ndm; ++j) {
             smat[i + j*(ndim*2)] = rom*global_scratch.dfu[j*ndm + i];
             smat[ndm + i + (ndm + j)*(ndim*2)] =
@@ -970,7 +956,7 @@ stpnhb(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     }
     nrmlz(&ndm2, v);
 
-    for (i = 0; i < ndm2; ++i) {
+    for (int64 i = 0; i < ndm2; ++i) {
         u[ndm + i] = v[i];
     }
 
@@ -994,7 +980,6 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdp_dim1;
 
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -1023,7 +1008,7 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -1032,7 +1017,7 @@ fnhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -1072,7 +1057,6 @@ ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 ijac;
 
-    int64 i;
     int64 j;
     double rom;
     int64 ndm2;
@@ -1088,7 +1072,7 @@ ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     ijac = 1;
     fnws(iap, rap, ndm, u, uold, icp, par, ijac, f, dfdu, dfdp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = u[ndm2 + i];
         f[ndm2 + i] = -u[ndm + i];
         for (j = 0; j < ndm; ++j) {
@@ -1099,14 +1083,14 @@ ffhw(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     f[ndim - 2] = -1.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndim - 2] =
             f[ndim - 2] + u[ndm + i]*u[ndm + i] + u[ndm2 + i]*u[ndm2 + i];
     }
 
     f[-1 + ndim] = 0.;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[-1 + ndim] = f[-1 + ndim] +
                        uold[ndm2 + i]*(u[ndm + i] - uold[ndm + i]) -
                        uold[ndm + i]*(u[ndm2 + i] - uold[ndm2 + i]);
@@ -1125,7 +1109,6 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
 
     int64 nfpr1;
     double *f;
-    int64 i;
     int64 j;
     double *v;
     int64 found;
@@ -1161,21 +1144,21 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     fnws(iap, rap, ndm, u, &uold, icp, par, ijac, f, dfu, dfp);
 
     ndm2 = ndm*2;
-    for (i = 0; i < ndm2; ++i) {
+    for (int64 i = 0; i < ndm2; ++i) {
         for (j = 0; j < ndm2; ++j) {
             smat[i + j*(ndim*2)] = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         smat[i + (ndm + i)*(ndim*2)] = 1.;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         smat[ndm + i + i*(ndim*2)] = -1.;
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < ndm; ++j) {
             smat[i + j*(ndim*2)] = rom*global_scratch.dfu[j*ndm + i];
             smat[ndm + i + (ndm + j)*(ndim*2)] =
@@ -1188,7 +1171,7 @@ stpnhw(iap_type *iap, rap_type *rap, double *par, int64 *icp, double *u) {
     }
     nrmlz(&ndm2, v);
 
-    for (i = 0; i < ndm2; ++i) {
+    for (int64 i = 0; i < ndm2; ++i) {
         u[ndm + i] = v[i];
     }
 
@@ -1215,7 +1198,6 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double period;
 
@@ -1231,7 +1213,7 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         /*          **Variable period continuation */
         funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         period = par[10];
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(dfdp, i, 10) = f[i];
             f[i] = period*ARRAY2D(dfdp, i, 10);
         }
@@ -1239,7 +1221,7 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
             return 0;
         }
         /*          **Generate the Jacobian. */
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             for (j = 0; j < ndim; ++j) {
                 ARRAY2D(dfdu, i, j) = period*ARRAY2D(dfdu, i, j);
             }
@@ -1249,14 +1231,14 @@ fnps(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         /*          **Fixed period continuation */
         period = par[10];
         funi(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             f[i] = period*f[i];
         }
         if (ijac == 0) {
             return 0;
         }
         /*          **Generate the Jacobian. */
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             for (j = 0; j < ndim; ++j) {
                 ARRAY2D(dfdu, i, j) = period*ARRAY2D(dfdu, i, j);
             }
@@ -1274,7 +1256,7 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 jtmp, i, j, nn;
+    int64 jtmp, j, nn;
 
     (void)iap;
     (void)rap;
@@ -1284,13 +1266,13 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     dbc_dim1 = nbc;
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         f[i] = u0[i] - u1[i];
     }
 
     /* Rotations */
     if (global_rotations.irtn != 0) {
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             if (global_rotations.nrtn[i] != 0) {
                 f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
@@ -1302,13 +1284,13 @@ bcps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dbc, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(dbc, i, i) = 1.;
         ARRAY2D(dbc, i, (ndim + i)) = -1.;
     }
@@ -1322,7 +1304,7 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, i, nn;
+    int64 jtmp, nn;
 
     (void)iap;
     (void)rap;
@@ -1336,7 +1318,7 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     dint_dim1 = nint;
 
     f[0] = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             f[0] += u[i]*upold[i];
         }
@@ -1347,11 +1329,11 @@ icps(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = ndim + jtmp;
-    for (i = 0; i < nn; ++i) {
+    for (int64 i = 0; i < nn; ++i) {
         ARRAY2D(dint, 0, i) = 0.;
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             ARRAY2D(dint, 0, i) = upold[i];
         } else {
@@ -1424,7 +1406,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 nfpr, ntst, ndim2, nfpr1;
     double c;
     double *f;
-    int64 i, j, k;
+    int64 j, k;
     double s, t, *u, rimhb;
     int64 found;
     int64 k1;
@@ -1461,7 +1443,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     findlb(iap, rap, irs, &nfpr1, &found);
     readlb(u, par);
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -1472,13 +1454,13 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     *ncolrs = ncol;
 
     ndim2 = ndim*2;
-    for (i = 0; i < ndim2; ++i) {
+    for (int64 i = 0; i < ndim2; ++i) {
         for (j = 0; j < ndim2; ++j) {
             smat[i + j*(ndim*2)] = 0.;
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         smat[i + i*(ndim*2)] = -rimhb;
         smat[ndim + i + (ndim + i)*(ndim*2)] = rimhb;
     }
@@ -1486,7 +1468,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     funi(iap, rap, ndim, u, &uold, icp, par, 1, f, global_scratch.dfu,
          global_scratch.dfp);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             smat[i + (ndim + j)*(ndim*2)] =
                 global_scratch.dfu[j*ndim + i];
@@ -1516,7 +1498,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         }
     }
 
-    for (i = 0; i < ncol - 1; ++i) {
+    for (int64 i = 0; i < ncol - 1; ++i) {
         for (j = 0; j < ntst; ++j) {
             t = tm[j] + (double)(i + 1)*(tm[j + 1] - tm[j]) / (double)ncol;
             s = sin(tpi*t);
@@ -1533,7 +1515,7 @@ stpnps(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     rldot[0] = 0.;
     rldot[1] = 0.;
 
-    for (i = 0; i < ntst; ++i) {
+    for (int64 i = 0; i < ntst; ++i) {
         dtm[i] = dt;
     }
 
@@ -1591,7 +1573,6 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double c;
-    int64 i;
     int64 j;
 
     /* Parameter adjustments */
@@ -1606,7 +1587,7 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     c = par[9];
     funi(iap, rap, ndm, u, uold, icp, par, ijac, f, dfu, dfp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = -(c*u[ndm + i] + f[i]) / par[i + 14];
         f[i] = u[ndm + i];
     }
@@ -1614,7 +1595,7 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     if (ijac == 0)
         return 0;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < ndm; ++j) {
             ARRAY2D(dfdu, i, j) = 0.;
             ARRAY2D(dfdu, i, (j + ndm)) = 0.;
@@ -1637,7 +1618,7 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     /* Derivative with respect to the wave speed. */
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ARRAY2D(dfdp, i, 9) = 0.;
         ARRAY2D(dfdp, i + ndm, 9) = -u[ndm + i] / par[i + 14];
     }
@@ -1645,7 +1626,7 @@ ffws(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Derivatives with respect to the diffusion coefficients. */
 
     for (j = 0; j < ndm; ++j) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             ARRAY2D(dfdp, i, (j + 14)) = 0.;
             ARRAY2D(dfdp, i + ndm, (j + 14)) = 0.;
         }
@@ -1662,7 +1643,6 @@ fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double period;
 
@@ -1678,37 +1658,37 @@ fnwp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         /*          **Variable wave length */
         fnws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         period = par[10];
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(dfdp, i, 10) = f[i];
             f[i] = period*f[i];
         }
         if (ijac == 0) {
             return 0;
         }
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             for (j = 0; j < ndim; ++j) {
                 ARRAY2D(dfdu, i, j) = period*ARRAY2D(dfdu, i, j);
             }
         }
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             ARRAY2D(dfdp, i, (icp[0])) = period*ARRAY2D(dfdp, i, (icp[0]));
         }
     } else {
         /*          **Fixed wave length */
         fnws(iap, rap, ndim, u, uold, icp, par, ijac, f, dfdu, dfdp);
         period = par[10];
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             f[i] = period*f[i];
         }
         if (ijac == 0) {
             return 0;
         }
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             for (j = 0; j < ndim; ++j) {
                 ARRAY2D(dfdu, i, j) = period*ARRAY2D(dfdu, i, j);
             }
         }
-        for (i = 0; i < ndim; ++i) {
+        for (int64 i = 0; i < ndim; ++i) {
             for (j = 0; j < 2; ++j) {
                 ARRAY2D(dfdp, i, icp[j]) = period*ARRAY2D(dfdp, i, icp[j]);
             }
@@ -1735,7 +1715,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     int64 ntst, ndim2, nfpr1;
     double c;
     double *f;
-    int64 i, j, k;
+    int64 j, k;
     double s, t, *u, rimhb;
     int64 found;
     int64 k1;
@@ -1774,7 +1754,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     findlb(iap, rap, irs, &nfpr1, &found);
     readlb(u, par);
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -1785,20 +1765,20 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     *ncolrs = ncol;
 
     ndim2 = ndim*2;
-    for (i = 0; i < ndim2; ++i) {
+    for (int64 i = 0; i < ndim2; ++i) {
         for (j = 0; j < ndim2; ++j) {
             smat[i + j*(ndim*2)] = 0.;
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         smat[i + i*(ndim*2)] = -rimhb;
         smat[ndim + i + (ndim + i)*(ndim*2)] = rimhb;
     }
 
     fnws(iap, rap, ndim, u, &uold, icp, par, 1, f, dfu, dfp);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             smat[i + (ndim + j)*(ndim*2)] = dfu[j*ndim + i];
             smat[ndim + i + j*(ndim*2)] = dfu[j*ndim + i];
@@ -1824,7 +1804,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         }
     }
 
-    for (i = 0; i < ncol - 1; ++i) {
+    for (int64 i = 0; i < ncol - 1; ++i) {
         for (j = 0; j < ntst; ++j) {
             t = tm[j] + (double)(i + 1)*(tm[j + 1] - tm[j]) / (double)ncol;
             s = sin(tpi*t);
@@ -1841,7 +1821,7 @@ stpnwp(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     rldot[0] = 0.;
     rldot[1] = 0.;
 
-    for (i = 0; i < ntst; ++i) {
+    for (int64 i = 0; i < ntst; ++i) {
         dtm[i] = dt;
     }
 
@@ -1896,7 +1876,6 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    int64 i;
     int64 j;
     double period;
 
@@ -1910,7 +1889,7 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     funi(iap, rap, ndm, u, uold, icp, par, ijac, &f[ndm], dfu, dfp);
 
     period = par[10];
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[i] = period*u[ndm + i];
         f[ndm + i] = -period*f[ndm + i] / par[i + 14];
     }
@@ -1918,7 +1897,7 @@ ffsp(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     if (ijac == 0)
         return 0;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < ndm; ++j) {
             ARRAY2D(dfdu, i, j) = 0.;
             ARRAY2D(dfdu, i, (j + ndm)) = 0.;
@@ -1979,7 +1958,6 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
      int64 ndm, double *dfu, double *dfp) {
     int64 dfdu_dim1, dfdp_dim1, dfu_dim1, dfp_dim1;
 
-    int64 i;
     int64 j;
     double t, dsmin, rlold, ds, dt, period;
 
@@ -2002,7 +1980,7 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     funi(iap, rap, ndm, u, uold, icp, par, ijac, &f[ndm], dfu, dfp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[i] = period*u[ndm + i];
         f[ndm + i] =
             period*((u[i] - uold[i]) / dt - f[ndm + i]) / par[i + 14];
@@ -2011,7 +1989,7 @@ ffpe(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     if (ijac == 0)
         return 0;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < ndm; ++j) {
             ARRAY2D(dfdu, i, j) = 0.;
             ARRAY2D(dfdu, i, (j + ndm)) = 0.;
@@ -2066,7 +2044,6 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -2092,7 +2069,7 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -2101,7 +2078,7 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -2118,7 +2095,7 @@ fnpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         ffpl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
@@ -2140,7 +2117,6 @@ ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     double beta;
 
-    int64 i;
     int64 j;
     double period;
     int64 ips;
@@ -2156,7 +2132,7 @@ ffpl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     funi(iap, rap, ndm, u, uold, icp, par, 2, f, dfdu, dfdp);
 
     ips = iap->ips;
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             f[ndm + i] += ARRAY2D(dfdu, i, j)*u[ndm + j];
@@ -2179,7 +2155,7 @@ int32
 bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
-    int64 jtmp, i, j, nn, ndm;
+    int64 jtmp, j, nn, ndm;
 
     (void)rap;
     (void)icp;
@@ -2189,14 +2165,14 @@ bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Parameter adjustments */
     dbc_dim1 = nbc;
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         f[i] = u0[i] - u1[i];
     }
 
     /* Rotations */
     if (global_rotations.irtn != 0) {
         ndm = iap->ndm;
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
                 f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
@@ -2208,13 +2184,13 @@ bcpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dbc, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(dbc, i, i) = 1.;
         ARRAY2D(dbc, i, (ndim + i)) = -1.;
     }
@@ -2228,7 +2204,7 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, i, j, nn, ndm;
+    int64 jtmp, j, nn, ndm;
 
     (void)udot;
     (void)rap;
@@ -2247,7 +2223,7 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Computing 2nd power */
     f[2] = par[11]*par[11] - par[12];
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             f[0] += u[i]*upold[i];
             f[1] += u[ndm + i]*upold[i];
@@ -2260,13 +2236,13 @@ icpl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = ndim + jtmp;
-    for (i = 0; i < nint; ++i) {
+    for (int64 i = 0; i < nint; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dint, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             ARRAY2D(dint, 0, i) = upold[i];
             ARRAY2D(dint, 1, ndm + i) = upold[i];
@@ -2292,7 +2268,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
+    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, j, k;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
@@ -2339,7 +2315,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nrsp1 = *ntsr + 1;
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             fscanf(fp3, "%lf", &temp[i]);
@@ -2363,7 +2339,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Read U-dot (derivative with respect to arclength). */
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             for (k = k1; k <= k2; ++k) {
@@ -2383,7 +2359,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         printf("Warning : NPARX too small for restart data\n");
         printf("PAR(i) set to zero, fot i > %3ld\n", nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%lf", &par[i]);
     }
 
@@ -2406,7 +2382,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     }
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim + ndm;
             k2 = (i + 1)*ndim - 1;
             for (k = k1; k <= k2; ++k) {
@@ -2421,7 +2397,7 @@ stpnpl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         ARRAY2D(udotps, nrsp1 - 1, k) = 0.;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -2443,7 +2419,6 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -2469,7 +2444,7 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -2478,7 +2453,7 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -2495,7 +2470,7 @@ fnpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         ffpd(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
@@ -2515,7 +2490,6 @@ ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double period;
 
@@ -2528,7 +2502,7 @@ ffpd(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     period = par[10];
     funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             f[ndm + i] += ARRAY2D(dfdu, i, j)*u[ndm + j];
@@ -2545,7 +2519,7 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 jtmp, i, j, nn, ndm;
+    int64 jtmp, j, nn, ndm;
 
     (void)icp;
     (void)rap;
@@ -2558,14 +2532,14 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     ndm = iap->ndm;
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[i] = u0[i] - u1[i];
         f[ndm + i] = u0[ndm + i] + u1[ndm + i];
     }
 
     /* Rotations */
     if (global_rotations.irtn != 0) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
                 f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
@@ -2577,13 +2551,13 @@ bcpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dbc, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         ARRAY2D(dbc, i, i) = 1.;
         if ((i + 1) <= ndm) {
             ARRAY2D(dbc, i, (ndim + i)) = -1.;
@@ -2601,7 +2575,7 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, i, j, nn, ndm;
+    int64 jtmp, j, nn, ndm;
 
     (void)udot;
     (void)uold;
@@ -2616,7 +2590,7 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     f[0] = 0.;
     f[1] = -par[12];
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             f[0] += u[i]*upold[i];
         }
@@ -2628,13 +2602,13 @@ icpd(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = ndim + jtmp;
-    for (i = 0; i < nint; ++i) {
+    for (int64 i = 0; i < nint; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dint, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             ARRAY2D(dint, 0, i) = upold[i];
         } else {
@@ -2657,7 +2631,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
+    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, j, k;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
@@ -2701,7 +2675,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nrsp1 = *ntsr + 1;
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             fscanf(fp3, "%lf", &temp[i]);
@@ -2724,7 +2698,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Read U-dot (derivative with respect to arclength). */
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             for (k = k1; k <= k2; ++k) {
@@ -2744,7 +2718,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         printf("Warning : NPARX too small for restart data\n");
         printf("PAR(i) set to zero, fot i > %3ld\n", nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%lf", &par[i]);
     }
 
@@ -2752,7 +2726,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     par[12] = 0.;
     rldot[2] = 0.;
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim + ndm;
             k2 = (i + 1)*ndim - 1;
             for (k = k1; k <= k2; ++k) {
@@ -2766,7 +2740,7 @@ stpnpd(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         ARRAY2D(udotps, *ntsr, k) = 0.;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -2788,7 +2762,6 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -2817,7 +2790,7 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -2826,7 +2799,7 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -2843,7 +2816,7 @@ fntr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fftr(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
@@ -2863,7 +2836,6 @@ fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double period;
     int64 ndm2;
@@ -2878,7 +2850,7 @@ fftr(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
 
     ndm2 = ndm*2;
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = 0.;
         f[ndm2 + i] = 0.;
         for (j = 0; j < ndm; ++j) {
@@ -2898,7 +2870,7 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 jtmp, i, j;
+    int64 jtmp, j;
     double theta;
     double cs;
     int64 nn;
@@ -2920,7 +2892,7 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     ss = sin(theta);
     cs = cos(theta);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[i] = u0[i] - u1[i];
         f[ndm + i] = u1[ndm + i] - cs*u0[ndm + i] + ss*u0[ndm2 + i];
         f[ndm2 + i] = u1[ndm2 + i] - cs*u0[ndm2 + i] - ss*u0[ndm + i];
@@ -2928,7 +2900,7 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     /* Rotations */
     if (global_rotations.irtn != 0) {
-        for (i = 0; i < ndm; ++i) {
+        for (int64 i = 0; i < ndm; ++i) {
             if (global_rotations.nrtn[i] != 0) {
                 f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
@@ -2940,13 +2912,13 @@ bctr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = (ndim*2) + jtmp;
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dbc, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ARRAY2D(dbc, i, i) = 1.;
         ARRAY2D(dbc, i, (ndim + i)) = -1.;
         ARRAY2D(dbc, ndm + i, (ndm + i)) = -cs;
@@ -2970,7 +2942,7 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *f, int64 ijac, double *dint) {
     int64 dint_dim1;
 
-    int64 jtmp, i, j, nn, ndm, ndm2;
+    int64 jtmp, j, nn, ndm, ndm2;
 
     (void)udot;
     (void)uold;
@@ -2987,7 +2959,7 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     f[1] = 0.;
     f[2] = -par[12];
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             f[0] += u[i]*upold[i];
         }
@@ -3000,13 +2972,13 @@ ictr(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     jtmp = NPARX;
     nn = ndim + jtmp;
-    for (i = 0; i < nint; ++i) {
+    for (int64 i = 0; i < nint; ++i) {
         for (j = 0; j < nn; ++j) {
             ARRAY2D(dint, i, j) = 0.;
         }
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             ARRAY2D(dint, 0, i) = upold[i];
         } else {
@@ -3033,7 +3005,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
+    int64 nfpr, nfpr1, ntpl1, nrsp1, ntot1, j, k;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, k3, nskip1;
 
@@ -3076,7 +3048,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nrsp1 = *ntsr + 1;
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             fscanf(fp3, "%lf", &temp[i]);
@@ -3097,7 +3069,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     for (k = 0; k < ndm; ++k) {
         fscanf(fp3, "%lf", &ARRAY2D(ups, *ntsr, k));
     }
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ARRAY2D(ups, *ntsr, (ndm + i)) = 0.;
         ARRAY2D(ups, *ntsr, ((ndm*2) + i)) = 0.;
     }
@@ -3112,7 +3084,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     /* Read the direction vector and initialize the starting direction. */
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             for (k = k1; k <= k2; ++k) {
@@ -3130,7 +3102,7 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     for (k = 0; k < ndm; ++k) {
         fscanf(fp3, "%lf", &ARRAY2D(udotps, *ntsr, k));
     }
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         ARRAY2D(udotps, *ntsr, (ndm + i)) = 0.;
         ARRAY2D(udotps, *ntsr, ((ndm*2) + i)) = 0.;
     }
@@ -3142,13 +3114,13 @@ stpntr(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         printf("Warning : NPARX too small for restart data\n");
         printf("PAR(i) set to zero, fot i > %3ld\n", nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%lf", &par[i]);
     }
 
     par[12] = 0.;
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -3170,7 +3142,6 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double *upold, ep, period;
     int64 ndm;
@@ -3193,7 +3164,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     funi(iap, rap, ndm, uold, uold, icp, par, 0, upold, dfdu, dfdp);
     period = par[10];
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         upold[i] = period*upold[i];
     }
 
@@ -3210,7 +3181,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -3219,7 +3190,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -3236,7 +3207,7 @@ fnpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         ffpo(iap, rap, ndim, u, uold, upold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
@@ -3257,7 +3228,6 @@ ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 i;
     int64 j;
     double gamma, rkappa, period, dfp[NPARX], *dfu, fop;
 
@@ -3274,18 +3244,18 @@ ffpo(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rkappa = par[12];
     gamma = par[13];
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < NPARX; ++j) {
             ARRAY2D(dfdp, i, j) = 0.;
         }
     }
     funi(iap, rap, ndm, u, uold, icp, par, 1, f, dfdu, dfdp);
-    for (i = 0; i < NPARX; ++i) {
+    for (int64 i = 0; i < NPARX; ++i) {
         dfp[i] = 0.;
     }
     fopi(iap, rap, ndm, u, icp, par, 1, &fop, dfu, dfp);
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             f[ndm + i] -= ARRAY2D(dfdu, j, i)*u[ndm + j];
@@ -3303,7 +3273,7 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, double *u0, double *u1, double *f, int64 ijac, double *dbc) {
     int64 dbc_dim1;
 
-    int64 nfpr, i, j, nbc0;
+    int64 nfpr, j, nbc0;
 
     (void)rap;
 
@@ -3315,14 +3285,14 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     nfpr = iap->nfpr;
 
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         f[i] = u0[i] - u1[i];
     }
 
     /* Rotations */
     if (global_rotations.irtn != 0) {
         nbc0 = iap->nbc0;
-        for (i = 0; i < nbc0; ++i) {
+        for (int64 i = 0; i < nbc0; ++i) {
             if (global_rotations.nrtn[i] != 0) {
                 f[i] += par[18]*(double)global_rotations.nrtn[i];
             }
@@ -3332,7 +3302,7 @@ bcpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     if (ijac == 0)
         return 0;
 
-    for (i = 0; i < nbc; ++i) {
+    for (int64 i = 0; i < nbc; ++i) {
         for (j = 0; j <= (ndim*2); ++j) {
             ARRAY2D(dbc, i, j) = 0.;
         }
@@ -3353,7 +3323,6 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double *f1, *f2, ep;
     int64 ndm;
@@ -3391,7 +3360,7 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -3400,7 +3369,7 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -3416,7 +3385,7 @@ icpo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fipo(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, f1,
              dnt, ndm, global_scratch.dfu, global_scratch.dfp);
@@ -3442,7 +3411,7 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     int64 nfpr;
     int64 indx;
     double *f;
-    int64 i, j, l;
+    int64 j, l;
     double dfp[NPARX], *dfu;
     int64 ndm;
     double fop;
@@ -3464,13 +3433,13 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     nfpr = iap->nfpr;
 
     fi[0] = 0.;
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         if (global_rotations.nrtn[i] == 0) {
             fi[0] += u[i]*upold[i];
         }
     }
 
-    for (i = 0; i < NPARX; ++i) {
+    for (int64 i = 0; i < NPARX; ++i) {
         dfp[i] = 0.;
     }
     fopi(iap, rap, ndm, u, icp, par, 2, &fop, dfu, dfp);
@@ -3478,12 +3447,12 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     /* Computing 2nd power */
     fi[2] = par[12]*par[12] + par[13]*par[13] - par[11];
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         /* Computing 2nd power */
         fi[2] += u[ndm + i]*u[ndm + i];
     }
 
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         for (j = 0; j < NPARX; ++j) {
             ARRAY2D(dfdp, i, j) = 0.;
         }
@@ -3494,12 +3463,12 @@ fipo(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         indx = icp[nfpr + l - 3];
         if (indx == 10) {
             fi[l] = -par[13]*dfp[indx] - par[indx + 20];
-            for (i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 fi[l] += f[i]*u[ndm + i];
             }
         } else {
             fi[l] = -par[13]*dfp[indx] - par[indx + 20];
-            for (i = 0; i < ndm; ++i) {
+            for (int64 i = 0; i < ndm; ++i) {
                 fi[l] += par[10]*ARRAY2D(dfdp, i, (indx))*u[ndm + i];
             }
         }
@@ -3523,7 +3492,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     double dump;
 
     double dumu;
-    int64 nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
+    int64 nfpr1, ntpl1, nrsp1, ntot1, j, k;
     double *u;
     int64 found;
     int64 icprs[NPARX], nparr;
@@ -3593,7 +3562,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nrsp1 = *ntsr + 1;
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             fscanf(fp3, "%lf", &temp[i]);
@@ -3618,7 +3587,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     /* Read U-dot (derivative with respect to arclength). */
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             for (k = k1; k <= k2; ++k) {
@@ -3636,12 +3605,12 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         printf("Warning : NPARX too small for restart data\n");
         printf("PAR(i) set to zero, fot i > %3ld\n", nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%lf", &par[i]);
     }
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             for (k = k1; k <= k2; ++k) {
@@ -3670,12 +3639,12 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     /* Complement starting data */
 
-    for (i = 11; i < NPARX; ++i) {
+    for (int64 i = 11; i < NPARX; ++i) {
         par[i] = 0.;
     }
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim + ndm;
             k2 = (i + 1)*ndim - 1;
             for (k = k1; k <= k2; ++k) {
@@ -3687,7 +3656,7 @@ stpnpo(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         ARRAY2D(ups, *ntsr, k) = 0.;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -3711,7 +3680,6 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 ndm;
@@ -3740,7 +3708,7 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -3749,7 +3717,7 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             global_scratch.uu1[j] = u[j];
             global_scratch.uu2[j] = u[j];
@@ -3766,7 +3734,7 @@ fnbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         ffbl(iap, rap, ndim, u, uold, icp, par, global_scratch.ff1, ndm,
              global_scratch.dfu, global_scratch.dfp);
@@ -3786,7 +3754,7 @@ ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     int64 dfdu_dim1;
     int64 dfdp_dim1;
 
-    int64 nfpr, nfpx, i, j;
+    int64 nfpr, nfpx, j;
 
     (void)ndim;
 
@@ -3799,7 +3767,7 @@ ffbl(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     funi(iap, rap, ndm, u, uold, icp, par, 2, f, dfdu, dfdp);
 
     nfpx = nfpr / 2 - 1;
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[ndm + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             f[ndm + i] += ARRAY2D(dfdu, i, j)*u[ndm + j];
@@ -3822,7 +3790,6 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nbc0;
@@ -3860,14 +3827,14 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Derivatives with respect to U0. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u0[i]) > umx) {
             umx = fabs(u0[i]);
         }
     }
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             uu1[j] = u0[j];
             uu2[j] = u0[j];
@@ -3884,14 +3851,14 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Derivatives with respect to U1. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u1[i]) > umx) {
             umx = fabs(u1[i]);
         }
     }
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             uu1[j] = u1[j];
             uu2[j] = u1[j];
@@ -3905,7 +3872,7 @@ bcbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fbbl(iap, rap, ndim, par, icp, nbc, nbc0, u0, u1, ff2, dfu);
         for (j = 0; j < nbc; ++j) {
@@ -3927,7 +3894,7 @@ fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      int64 nbc, int64 nbc0, double *u0, double *u1, double *f, double *dbc) {
     int64 dbc_dim1;
 
-    int64 nfpr, nfpx, i, j, ndm;
+    int64 nfpr, nfpx, j, ndm;
 
     (void)nbc;
 
@@ -3939,7 +3906,7 @@ fbbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     nfpx = nfpr / 2 - 1;
     bcni(iap, rap, ndm, par, icp, nbc0, u0, u1, f, 2, dbc);
-    for (i = 0; i < nbc0; ++i) {
+    for (int64 i = 0; i < nbc0; ++i) {
         f[nbc0 + i] = 0.;
         for (j = 0; j < ndm; ++j) {
             f[nbc0 + i] += ARRAY2D(dbc, i, j)*u0[ndm + j];
@@ -3964,7 +3931,6 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep, *ff1, *ff2, *uu1, *uu2, *dfu, umx;
     int64 nnt0;
@@ -4002,7 +3968,7 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generate the Jacobian. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -4011,7 +3977,7 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             uu1[j] = u[j];
             uu2[j] = u[j];
@@ -4027,7 +3993,7 @@ icbl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         }
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         par[icp[i]] += ep;
         fibl(iap, rap, ndim, par, icp, nint, nnt0, u, uold, udot, upold, ff1,
              dfu);
@@ -4051,7 +4017,7 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
      double *upold, double *f, double *dint) {
     int64 dint_dim1;
 
-    int64 nfpr, nfpx = 0, i, j, ndm;
+    int64 nfpr, nfpx = 0, j, ndm;
 
     (void)ndim;
 
@@ -4064,7 +4030,7 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     if (nnt0 > 0) {
         nfpx = nfpr / 2 - 1;
         icni(iap, rap, ndm, par, icp, nnt0, u, uold, udot, upold, f, 2, dint);
-        for (i = 0; i < nnt0; ++i) {
+        for (int64 i = 0; i < nnt0; ++i) {
             f[nnt0 + i] = 0.;
             for (j = 0; j < ndm; ++j) {
                 f[nnt0 + i] += ARRAY2D(dint, i, j)*u[ndm + j];
@@ -4080,11 +4046,11 @@ fibl(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     /* Note that PAR(11+NFPR/2) is used to keep the norm of the null vector */
     f[-1 + nint] = -par[-1 + nfpr / 2 + 11];
-    for (i = 0; i < ndm; ++i) {
+    for (int64 i = 0; i < ndm; ++i) {
         f[-1 + nint] += u[ndm + i]*u[ndm + i];
     }
     if (nfpx != 0) {
-        for (i = 0; i < nfpx; ++i) {
+        for (int64 i = 0; i < nfpx; ++i) {
             /* Computing 2nd power */
             f[-1 + nint] +=
                 par[icp[nfpr - nfpx + i]]*par[icp[nfpr - nfpx + i]];
@@ -4104,7 +4070,7 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     int64 ndim;
     double temp[7];
-    int64 nfpr, nfpx, nfpr0, nfpr1, ntpl1, nrsp1, ntot1, i, j, k;
+    int64 nfpr, nfpx, nfpr0, nfpr1, ntpl1, nrsp1, ntot1, j, k;
     int64 found;
     int64 icprs[NPARX], nparr, k1, k2, nskip1;
 
@@ -4148,7 +4114,7 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
     nrsp1 = *ntsr + 1;
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim;
             k2 = k1 + ndm - 1;
             fscanf(fp3, "%lf", &temp[i]);
@@ -4165,14 +4131,14 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
 
     nfpr0 = nfpr / 2;
     fscanf(fp3, "%ld", icprs);
-    for (i = 0; i < nfpr0; ++i) {
+    for (int64 i = 0; i < nfpr0; ++i) {
         fscanf(fp3, "%lf", &rldot[i]);
     }
 
     /* Read U-dot (Derivative with respect to arclength). */
 
     for (j = 0; j < *ntsr; ++j) {
-        for (i = 0; i < *ncolrs; ++i) {
+        for (int64 i = 0; i < *ncolrs; ++i) {
             k1 = i*ndim + ndm;
             k2 = (i + 1)*ndim - 1;
             for (k = k1; k <= k2; ++k) {
@@ -4191,20 +4157,20 @@ stpnbl(iap_type *iap, rap_type *rap, double *par, int64 *icp, int64 *ntsr,
         printf("Warning : NPARX too small for restart data\n");
         printf("PAR(i) set to zero, for i > %3ld\n", nparr);
     }
-    for (i = 0; i < nparr; ++i) {
+    for (int64 i = 0; i < nparr; ++i) {
         fscanf(fp3, "%lf", &par[i]);
     }
 
     nfpx = nfpr / 2 - 1;
     if (nfpx > 0) {
-        for (i = 0; i < nfpx; ++i) {
+        for (int64 i = 0; i < nfpx; ++i) {
             par[icp[nfpr0 + 1 + i]] = rldot[i + 1];
         }
     }
     /* Initialize the norm of the null vector */
     par[-1 + nfpr / 2 + 11] = (double)0.;
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rlcur[i] = par[icp[i]];
     }
 
@@ -4230,7 +4196,6 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 jac;
@@ -4276,7 +4241,7 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     /* Generate the Jacobian by differencing. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -4285,7 +4250,7 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             u1zz[j] = u[j];
             u2zz[j] = u[j];
@@ -4307,7 +4272,7 @@ funi(iap_type *iap, rap_type *rap, int64 ndim, double *u, double *uold,
         return 0;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rtmp = HMACH;
         ep = rtmp*(fabs(par[icp[i]]) + 1);
         par[icp[i]] += ep;
@@ -4334,7 +4299,6 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     double *u2zz;
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 jac;
@@ -4373,7 +4337,7 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generate the Jacobian by differencing. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u0[i]) > umx) {
             umx = fabs(u0[i]);
         }
@@ -4382,7 +4346,7 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             u1zz[j] = u0[j];
             u2zz[j] = u0[j];
@@ -4397,7 +4361,7 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     }
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u1[i]) > umx) {
             umx = fabs(u1[i]);
         }
@@ -4406,7 +4370,7 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             u1zz[j] = u1[j];
             u2zz[j] = u1[j];
@@ -4428,7 +4392,7 @@ bcni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rtmp = HMACH;
         ep = rtmp*(fabs(par[icp[i]]) + 1);
         par[icp[i]] += ep;
@@ -4457,7 +4421,6 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
 
     int64 nfpr;
     double rtmp;
-    int64 i;
     int64 j;
     double ep;
     int64 jac;
@@ -4496,7 +4459,7 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     /* Generate the Jacobian by differencing. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -4505,7 +4468,7 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             u1zz[j] = u[j];
             u2zz[j] = u[j];
@@ -4527,7 +4490,7 @@ icni(iap_type *iap, rap_type *rap, int64 ndim, double *par, int64 *icp,
         return 0;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rtmp = HMACH;
         ep = rtmp*(fabs(par[icp[i]]) + 1);
         par[icp[i]] += ep;
@@ -4553,7 +4516,6 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
     int64 nfpr;
 
     double rtmp;
-    int64 i;
     int64 j;
     double f1, f2, ep;
     int64 jac;
@@ -4592,7 +4554,7 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
     /* Generate the Jacobian by differencing. */
 
     umx = 0.;
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         if (fabs(u[i]) > umx) {
             umx = fabs(u[i]);
         }
@@ -4601,7 +4563,7 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
     rtmp = HMACH;
     ep = rtmp*(umx + 1);
 
-    for (i = 0; i < ndim; ++i) {
+    for (int64 i = 0; i < ndim; ++i) {
         for (j = 0; j < ndim; ++j) {
             u1zz[j] = u[j];
             u2zz[j] = u[j];
@@ -4619,7 +4581,7 @@ fopi(iap_type *iap, rap_type *rap, int64 ndim, double *u, int64 *icp,
         return 0;
     }
 
-    for (i = 0; i < nfpr; ++i) {
+    for (int64 i = 0; i < nfpr; ++i) {
         rtmp = HMACH;
         ep = rtmp*(fabs(par[icp[i]]) + 1);
         par[icp[i]] += ep;

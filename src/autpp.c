@@ -11,7 +11,6 @@
 int32
 func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
      double *dfdu, double *dfdp) {
-    int32 i;
     int32 j;
     double zz[NAUTO];
     double y[NAUTO], yp[NAUTO], xp[NAUTO];
@@ -20,7 +19,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
     (void)dfdu;
     (void)dfdp;
 
-    for (i = 0; i < NAutoPar; i++) {
+    for (int32 i = 0; i < NAutoPar; i++) {
         constants[Auto_index_to_array[i]] = par[i];
     }
     derived_evaluate();
@@ -30,7 +29,7 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
         gear_jac_trans(u, y, yp, xp, NEWT_ERR, dfdu, (int32)ndim);
     if (METHOD > 0 || NJMP == 1)
         return 0;
-    for (i = 1; i < NJMP; i++) {
+    for (int32 i = 1; i < NJMP; i++) {
         for (j = 0; j < ndim; j++)
             zz[j] = f[j];
         rhs_function(0.0, zz, f, (int32)ndim);
@@ -41,15 +40,13 @@ func(int64 ndim, double *u, int64 *icp, double *par, int64 ijac, double *f,
 
 int32
 stpnt(int64 ndim, double t, double *u, double *par) {
-    int32 i;
-
     double p;
 
-    for (i = 0; i < NAutoPar; i++)
+    for (int32 i = 0; i < NAutoPar; i++)
         par[i] = constants[Auto_index_to_array[i]];
 
     if (NewPeriodFlag == 0) {
-        for (i = 0; i < ndim; i++)
+        for (int32 i = 0; i < ndim; i++)
             u[i] = last_ic[i];
         return 0;
     }
@@ -61,12 +58,12 @@ stpnt(int64 ndim, double t, double *u, double *par) {
     /*  printf("%d %d %g %g %g %g \n",ndim,HomoFlag,t,u[0],u[1],p); */
     if (HomoFlag == 1) {
         auto_nox_get_shifted_orbit(u, t, p, (int32)ndim);
-        for (i = 0; i < ndim; i++) {
+        for (int32 i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
         }
     }
     if (HomoFlag == 2) { /* heteroclinic */
-        for (i = 0; i < ndim; i++) {
+        for (int32 i = 0; i < ndim; i++) {
             par[11 + i] = homo_l[i];
             par[11 + i + ndim] = homo_r[i];
         }

@@ -77,7 +77,7 @@ color_set(int32 col) {
 void
 color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
     double x;
-    int32 i, i1, i2, i3;
+    int32 i1, i2, i3;
     double pii = 3.1415926;
     /* for CUBHLX  */
     double start = .5, rots = -1.5, hue = 1.2, gamma = 1.;
@@ -87,7 +87,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
 
     switch (type) {
     case C_NORM:
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             r[i] = color_rfun(1 - x, 0) << 8;
             g[i] = color_gfun(1 - x, 0) << 8;
@@ -95,7 +95,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
         break;
     case C_PERIODIC:
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             r[i] = color_rfun(x, 1) << 8;
             g[i] = color_gfun(x, 1) << 8;
@@ -107,7 +107,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         i2 = 2*i1;
         i3 = n - i2;
 
-        for (i = 0; i < i1; i++) {
+        for (int32 i = 0; i < i1; i++) {
             x = 256*255*(double)i / ((double)i1);
 
             r[i] = (int32)x;
@@ -117,9 +117,9 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
             b[i + i1] = 0;
         }
 
-        for (i = i1; i < n; i++)
+        for (int32 i = i1; i < n; i++)
             r[i] = 256*255;
-        for (i = i2; i < n; i++) {
+        for (int32 i = i2; i < n; i++) {
             x = 256*255*(double)(i - i2) / ((double)i3);
 
             g[i] = 256*255;
@@ -127,7 +127,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
         break;
     case C_COOL:
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             r[i] = (int32)(256*255*x);
             b[i] = (int32)(256*255*(1 - x));
@@ -135,7 +135,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         }
         break;
     case C_REDBLUE:
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             r[i] = (int32)(256*255*x);
             b[i] = (int32)(256*255*(1 - x));
@@ -144,7 +144,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         break;
 
     case C_GRAY:
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             r[i] = i*256*255 / n;
             b[i] = i*256*255 / n;
             g[i] = i*256*255 / n;
@@ -152,7 +152,7 @@ color_make_cmaps(int32 *r, int32 *g, int32 *b, int32 n, int32 type) {
         break;
         /* https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/ */
     case C_CUBHLX:
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             x = (double)i / ((double)n);
             angle = 2*pii*(start / 3.0 + 1 + rots*x);
             x = pow(x, gamma);

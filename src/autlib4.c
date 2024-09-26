@@ -60,7 +60,6 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
     double beta, *svde, *svds, svdu[1], *svdv;
 
-    int64 i;
     int64 j;
 
     double *v;
@@ -122,7 +121,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     /* Change sign of P1 so that we get the sign of the multipliers right. */
 
     for (j = 0; j < *ndim; ++j) {
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(c1, i, j) = -ARRAY2D(c1, i, j);
         }
     }
@@ -134,7 +133,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
         fprintf(fp9, "   C0 : \n");
 
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             for (j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c0, i, j));
             }
@@ -142,7 +141,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         }
         fprintf(fp9, "   C1 : \n");
 
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             for (j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c1, i, j));
             }
@@ -184,7 +183,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     /*  not it the first column, as was shown in the paper. */
 
     for (j = 0; j < *ndim; ++j) {
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(rwork, i, j) = ARRAY2D(c0, i, j) - ARRAY2D(c1, i, j);
         }
     }
@@ -233,7 +232,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         nrmc0x = dnrm2(ndim, &ARRAY2D(c0, 0, (*ndim - 1)), &tmp);
         nrmc1x = dnrm2(ndim, &ARRAY2D(c1, 0, (*ndim - 1)), &tmp);
     }
-    for (i = 0; i < *ndim; ++i) {
+    for (int32 i = 0; i < *ndim; ++i) {
         x[i] = (ARRAY2D(c0, i, (*ndim - 1)) / nrmc0x +
                 ARRAY2D(c1, i, (*ndim - 1)) / nrmc1x) /
                2.;
@@ -255,7 +254,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
     const__ = max(fabs(ARRAY2D(c0, 0, (*ndim - 1))),
                   fabs(ARRAY2D(c1, 0, (*ndim - 1))));
     for (j = 0; j < *ndim; ++j) {
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             ARRAY2D(c0, i, j) /= const__;
             ARRAY2D(c1, i, j) /= const__;
         }
@@ -268,7 +267,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
 
         fprintf(fp9, "   (H2^T)*C0*(H1) : \n");
 
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             for (j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c0, i, j));
             }
@@ -276,7 +275,7 @@ flowkm(int64 *ndim, double *c0, double *c1, int64 *iid, double *rwork,
         }
         fprintf(fp9, "   (H2^T)*C1*(H1) : \n");
 
-        for (i = 0; i < *ndim; ++i) {
+        for (int32 i = 0; i < *ndim; ++i) {
             for (j = 0; j < *ndim; ++j) {
                 fprintf(fp9, " %23.16f", ARRAY2D(c1, i, j));
             }

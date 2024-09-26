@@ -22,7 +22,6 @@ static int32 do_choice_box(Window root, char *wname, int32 n, int32 mcc,
 
 void
 choice_box_display(Window window, ChoiceBox p) {
-    int32 i;
     int32 n = p.n;
     XSetFillStyle(display, gc, FillSolid);
     XSetForeground(display, gc, MyForeColor);
@@ -31,7 +30,7 @@ choice_box_display(Window window, ChoiceBox p) {
         XDrawString(display, window, gc, 0, CURY_OFF, "Ok", 2);
     if (window == p.cancel)
         XDrawString(display, window, gc, 0, CURY_OFF, "Cancel", 6);
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (window != p.cw[i])
             continue;
         XDrawString(display, window, gc, 0, CURY_OFF, p.name[i],
@@ -48,9 +47,7 @@ choice_box_display(Window window, ChoiceBox p) {
 
 void
 choice_box_do_checks(ChoiceBox p) {
-    int32 i;
-
-    for (i = 0; i < p.n; i++) {
+    for (int32 i = 0; i < p.n; i++) {
         if (p.flag[i] == 1)
             ggets_set_fore();
         else
