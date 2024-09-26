@@ -132,7 +132,6 @@ double SLIDER2HI = 1.0;
 double SLIDER3HI = 1.0;
 double SLIDER1INIT = 0.5;
 double SLIDER2INIT = 0.5;
-double SLIDER3INIT = 0.5;
 
 /* Set this to 1 if you want the tutorial to come up at start-up
  * as default behavior */
