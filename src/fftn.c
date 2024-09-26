@@ -364,9 +364,8 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
     nTotal = 1;
     if (ndim) {
         if (dims != NULL) {
-            int32 i;
             /* number of dimensions was specified */
-            for (i = 0; i < ndim; i++) {
+            for (int32 i = 0; i < ndim; i++) {
                 if (dims[i] <= 0)
                     goto Dimension_Error;
                 nTotal *= (usize)dims[i];
@@ -411,9 +410,8 @@ FFTN(int32 ndim, int32 dims[], REAL Re[], REAL Im[], int32 iSign,
     /* loop over the dimensions: */
     if (dims != NULL) {
         usize nSpan = 1;
-        int32 i;
 
-        for (i = 0; i < ndim; i++) {
+        for (int32 i = 0; i < ndim; i++) {
             int32 ret;
             nSpan *= (usize)dims[i];
             ret = FFTRADIX(Re, Im, nTotal, (usize)dims[i], nSpan, iSign,

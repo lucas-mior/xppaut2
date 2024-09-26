@@ -114,7 +114,6 @@ static void ps_rel(int32 x, int32 y);
 
 int32
 ps_init(char *filename, int32 color) {
-    int32 i;
     if ((psfile = fopen(filename, "w")) == NULL) {
         ggets_err_msg("Cannot open file ");
         return 0;
@@ -144,7 +143,7 @@ ps_init(char *filename, int32 color) {
     fprintf(psfile, "/dl {%d mul} def\n", PS_SC); /* dash length */
     fprintf(psfile, "/hpt %.1f def\n", PS_HTIC / 2.0);
     fprintf(psfile, "/vpt %.1f def\n", PS_VTIC / 2.0);
-    for (i = 0; PS_header[i] != NULL; i++)
+    for (int32 i = 0; PS_header[i] != NULL; i++)
         fprintf(psfile, "%s", PS_header[i]);
     fprintf(psfile, "end\n");
     fprintf(psfile, "%%%%EndProlog\n");

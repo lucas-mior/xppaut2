@@ -21,7 +21,7 @@ conpar2_process(void *arg) {
 
     int64 ipiv, jpiv, itmp;
     double tpiv;
-    int64 i, l, k1, k2, m1, m2, ic, ir;
+    int64 l, k1, k2, m1, m2, ic, ir;
     double rm;
     int64 ir1;
     int64 irp;
@@ -62,7 +62,7 @@ conpar2_process(void *arg) {
        sum (with the true copy of d) in the
        master */
     else if (global_conpar_type == CONPAR_MPI) {
-        for (i = 0; i < (*ncb)*(*nrc); i++)
+        for (int32 i = 0; i < (*ncb)*(*nrc); i++)
             d[i] = 0.0;
     }
     /* In the shared memory case we create a local
@@ -92,7 +92,7 @@ conpar2_process(void *arg) {
     m1 = *nov + 1;
     m2 = *nca - *nov;
 
-    for (i = loop_start; i < loop_end; i++) {
+    for (int64 i = loop_start; i < loop_end; i++) {
         for (ic = m1; ic <= m2; ++ic) {
             ir1 = ic - *nov + 1;
             irp = ir1 - 1;
@@ -244,7 +244,6 @@ conpar2(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
     int64 icf_dim1;
     int64 irf_dim1;
 
-    int64 i;
     int64 j;
     int64 nex;
 
@@ -256,7 +255,7 @@ conpar2(int64 *nov, int64 *na, int64 *nra, int64 *nca, double *a, int64 *ncb,
         return 0;
 
     /*     Initialization */
-    for (i = 0; i < *na; ++i) {
+    for (int32 i = 0; i < *na; ++i) {
         for (j = 0; j < *nra; ++j) {
             irf[j + i*irf_dim1] = j + 1;
         }

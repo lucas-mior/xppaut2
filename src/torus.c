@@ -154,7 +154,7 @@ make_tor_box(char *title) {
     int32 ndn, nac, width, height;
     int32 nv;
     /*int32 nh; Not used anywhere*/
-    int32 i, i1, j1, xpos, ypos;
+    int32 i1, j1, xpos, ypos;
     int32 xstart = DCURXs;
     int32 ystart = DCURYs;
     Window base;
@@ -199,7 +199,7 @@ make_tor_box(char *title) {
         XSetWMProperties(display, base, &winname, NULL, NULL, 0, &size_hints,
                          NULL, &class_hints);
     }
-    for (i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < NEQ; i++) {
         i1 = i / nv;
         j1 = i % nv;
         xpos = xstart + 18*DCURXs*i1;

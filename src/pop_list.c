@@ -79,7 +79,6 @@ pop_list_set_window_title(Window win, char *string) {
 
 void
 pop_list_make_scrbox_lists(void) {
-    int32 i;
     int32 n;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
@@ -90,14 +89,14 @@ pop_list_make_scrbox_lists(void) {
     scrbox_list[0].list = xmalloc((usize)(NEQ + 1)*sizeof(char *));
     scrbox_list[0].list[0] = xmalloc(5);
     strcpy(scrbox_list[0].list[0], "T");
-    for (i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < NEQ; i++) {
         scrbox_list[0].list[i + 1] = xmalloc(15);
         strcpy(scrbox_list[0].list[i + 1], uvar_names[i]);
     }
     /* variable list */
     scrbox_list[1].n = NODE + NMarkov;
     scrbox_list[1].list = xmalloc((usize)(NODE + NMarkov)*sizeof(char *));
-    for (i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         scrbox_list[1].list[i] = xmalloc(15);
         strcpy(scrbox_list[1].list[i], uvar_names[i]);
     }
@@ -105,7 +104,7 @@ pop_list_make_scrbox_lists(void) {
     /* parameter list */
     scrbox_list[2].n = NUPAR;
     scrbox_list[2].list = xmalloc((usize)NUPAR*sizeof(char *));
-    for (i = 0; i < NUPAR; i++) {
+    for (int32 i = 0; i < NUPAR; i++) {
         scrbox_list[2].list[i] = xmalloc(15);
         strcpy(scrbox_list[2].list[i], upar_names[i]);
     }
@@ -114,25 +113,25 @@ pop_list_make_scrbox_lists(void) {
     n = NODE + NMarkov + NUPAR;
     scrbox_list[3].n = n;
     scrbox_list[3].list = xmalloc((usize)n*sizeof(char *));
-    for (i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         scrbox_list[3].list[i] = xmalloc(15);
         strcpy(scrbox_list[3].list[i], uvar_names[i]);
     }
-    for (i = NODE + NMarkov; i < n; i++) {
+    for (int32 i = NODE + NMarkov; i < n; i++) {
         scrbox_list[3].list[i] = xmalloc(15);
         strcpy(scrbox_list[3].list[i], upar_names[i - NODE - NMarkov]);
     }
     /* color list */
     scrbox_list[4].n = 11;
     scrbox_list[4].list = xmalloc(11*sizeof(char *));
-    for (i = 0; i < 11; i++) {
+    for (int32 i = 0; i < 11; i++) {
         scrbox_list[4].list[i] = xmalloc(20);
         sprintf(scrbox_list[4].list[i], "%d %s", i, color_names[i]);
     }
     /* marker list */
     scrbox_list[5].n = 6;
     scrbox_list[5].list = xmalloc(6*sizeof(char *));
-    for (i = 0; i < 6; i++)
+    for (int32 i = 0; i < 6; i++)
         scrbox_list[5].list[i] =
             xmalloc(13*sizeof(*(scrbox_list[5].list[i])));
     strcpy(scrbox_list[5].list[0], "2 Box");
@@ -144,7 +143,7 @@ pop_list_make_scrbox_lists(void) {
     /* method list */
     scrbox_list[6].list = xmalloc(15*sizeof(char *));
     scrbox_list[6].n = 15;
-    for (i = 0; i < 15; i++) {
+    for (int32 i = 0; i < 15; i++) {
         scrbox_list[6].list[i] =
             xmalloc(22*sizeof(*(scrbox_list[6].list[i])));
         sprintf(scrbox_list[6].list[i], "%d %s", i, method[i]);
@@ -197,9 +196,8 @@ create_scroll_box(Window root, int32 x0, int32 y0, int32 nent, int32 nw,
 
 void
 expose_scroll_box(Window window, ScrollBox sb) {
-    int32 i;
     /*int32 flag=-1;*/
-    for (i = 0; i < sb.nw; i++)
+    for (int32 i = 0; i < sb.nw; i++)
         if (window == sb.w[i]) {
             redraw_scroll_box(sb);
             return;
@@ -211,10 +209,9 @@ expose_scroll_box(Window window, ScrollBox sb) {
 
 void
 redraw_scroll_box(ScrollBox sb) {
-    int32 i;
     int32 p;
     int32 i0 = sb.i0;
-    for (i = 0; i < sb.nw; i++) {
+    for (int32 i = 0; i < sb.nw; i++) {
         XClearWindow(display, sb.w[i]);
         XDrawString(display, sb.w[i], small_gc, 0, CURY_OFFs, sb.list[i + i0],
                     (int)strlen(sb.list[i + i0]));
@@ -223,7 +220,7 @@ redraw_scroll_box(ScrollBox sb) {
         XClearWindow(display, sb.slide);
         /* now calculate the slide position */
         p = 2 + (sb.i0*sb.len) / (sb.nent - sb.nw);
-        for (i = -2; i <= 2; i++)
+        for (int32 i = -2; i <= 2; i++)
             XDrawLine(display, sb.slide, small_gc, 0, p + i, 5, p + i);
     }
     return;
@@ -231,8 +228,7 @@ redraw_scroll_box(ScrollBox sb) {
 
 void
 crossing_scroll_box(Window window, int32 c, ScrollBox sb) {
-    int32 i;
-    for (i = 0; i < sb.nw; i++) {
+    for (int32 i = 0; i < sb.nw; i++) {
         if (window == sb.w[i]) {
             XSetWindowBorderWidth(display, window, (uint)c);
             return;
@@ -270,9 +266,8 @@ scroll_box_motion(XEvent event, ScrollBox *sb) {
 
 int32
 select_scroll_item(Window window, ScrollBox sb) {
-    int32 i;
     int32 item = -1;
-    for (i = 0; i < sb.nw; i++) {
+    for (int32 i = 0; i < sb.nw; i++) {
         if (window == sb.w[i]) {
             item = i + sb.i0;
             return item;
@@ -311,13 +306,12 @@ int32
 do_string_box(int32 n, int32 rows, int32 cols, char *title, char **names,
               char values[][MAX_LEN_SBOX], int32 maxchar) {
     StringBox sb;
-    int32 i;
     int32 status;
     int32 colm, pos;
     ScrollBox scrb;
     scrb.exist = 0;
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         sb.hh[i] = -1;
         if (names[i][0] == '*') {
             sb.hh[i] = atoi(names[i] + 1);
@@ -348,14 +342,13 @@ do_string_box(int32 n, int32 rows, int32 cols, char *title, char **names,
 
     if (status == FORGET_ALL)
         return status;
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         strcpy(values[i], sb.value[i]);
     return status;
 }
 
 void
 expose_sbox(StringBox sb, Window window, int32 pos) {
-    int32 i;
     int32 flag;
 
     if (window == sb.ok) {
@@ -366,7 +359,7 @@ expose_sbox(StringBox sb, Window window, int32 pos) {
         XDrawString(display, window, gc, 5, CURY_OFF, "Cancel", 6);
         return;
     }
-    for (i = 0; i < sb.n; i++) {
+    for (int32 i = 0; i < sb.n; i++) {
         if (window != sb.win[i])
             continue;
         flag = 0;
@@ -536,7 +529,6 @@ make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
                   int32 maxchar) {
     int32 width;
     int32 height;
-    int32 i;
     int32 xpos, ypos, n = sb->n;
     int32 xstart;
     int32 ystart;
@@ -573,7 +565,7 @@ make_sbox_windows(StringBox *sb, int32 rows, int32 cols, char *title,
     sb->wid = width;
     ystart = DCURY;
     xstart = DCURX;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         xpos = xstart + (maxchar + 4)*DCURX*(i / rows);
         ypos = ystart + (i % rows)*(DCURY + 10);
         sb->win[i] = make_window(base, xpos, ypos, maxchar*DCURX, DCURY, 1);
@@ -1167,7 +1159,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     XEvent event;
     Window window;
     Cursor txt;
-    int32 i, done = 0, value;
+    int32 done = 0, value;
     int32 width = DCURX*(max + 5);
     int32 length = (DCURY + 6)*(n + 2);
     window = make_plain_window(*root, x, y, width, length, 2);
@@ -1184,7 +1176,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
     value = (int32)key[def];
     p.w = xmalloc((usize)n*sizeof(*(p.w)));
     p.tit = make_window(window, 0, 0, width, DCURY + 7, 0);
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         p.w[i] = make_window(window, DCURX, DCURY + 10 + i*(DCURY + 6),
                              DCURX*(max + 3), DCURY + 3, 0);
         XSelectInput(display, p.w[i], BUT_MASK);
@@ -1203,7 +1195,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
             done = 1;
             break;
         case ButtonPress:
-            for (i = 0; i < n; i++) {
+            for (int32 i = 0; i < n; i++) {
                 if (event.xbutton.window == p.w[i]) {
                     value = (int32)p.key[i];
                     done = 1;
@@ -1212,7 +1204,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 
             break;
         case EnterNotify:
-            for (i = 0; i < p.n; i++)
+            for (int32 i = 0; i < p.n; i++)
                 if (event.xcrossing.window == p.w[i]) {
                     XSetWindowBorderWidth(display, p.w[i], 1);
                     if (TipsFlag) {
@@ -1225,7 +1217,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 
             break;
         case LeaveNotify:
-            for (i = 0; i < p.n; i++)
+            for (int32 i = 0; i < p.n; i++)
                 if (event.xcrossing.window == p.w[i])
                     XSetWindowBorderWidth(display, p.w[i], 0);
             break;
@@ -1234,7 +1226,7 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
         }
     }
 
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         XSelectInput(display, p.w[i], EV_MASK);
     /*browse_wait_a_sec(ClickTime); Not here. Don't want to delay short cuts*/
     XDestroySubwindows(display, p.base);
@@ -1247,8 +1239,6 @@ pop_up_list(Window *root, char *title, char **list, char *key, int32 n,
 
 void
 draw_pop_up(PopUp p, Window window) {
-    int32 i;
-
     if (window == p.tit) {
         ggets_set_fore();
         ggets_bar(0, 0, DCURX*(p.max + 5), (DCURY + 7), window);
@@ -1257,7 +1247,7 @@ draw_pop_up(PopUp p, Window window) {
         ggets_set_fore();
         return;
     }
-    for (i = 0; i < p.n; i++) {
+    for (int32 i = 0; i < p.n; i++) {
         if (window == p.w[i]) {
             ggets_f_text(DCURX / 2, 3, p.entries[i], window);
             if (i == p.hot)

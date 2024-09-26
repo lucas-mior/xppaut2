@@ -171,14 +171,13 @@ form_ode_idsc(char *string) {
 
 void
 form_ode_format_list(char **s, int32 n) {
-    int32 i;
     int32 ip;
     int32 ncol;
     int32 k;
     int32 j;
     char fmat[30];
     int32 lmax = 0, l = 0;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         l = (int32)strlen(s[i]);
         if (lmax < l)
             lmax = l;
@@ -192,11 +191,11 @@ form_ode_format_list(char **s, int32 n) {
     j = n - ncol*k;
     snprintf(fmat, sizeof(fmat), "%s%d%s", "%", lmax + 2, "s");
     for (ip = 0; ip < k; ip++) {
-        for (i = 0; i < ncol; i++)
+        for (int32 i = 0; i < ncol; i++)
             ggets_plintf(fmat, s[ip*ncol + i]);
         ggets_plintf("\n");
     }
-    for (i = 0; i < j; i++)
+    for (int32 i = 0; i < j; i++)
         ggets_plintf(fmat, s[k*ncol + i]);
     ggets_plintf("\n");
     return;
@@ -831,7 +830,7 @@ form_ode_compiler(char *bob, FILE *fptr) {
 /* ram: do I need to strip the name of any whitespace? */
 void
 form_ode_take_apart(char *bob, double *value, char *name) {
-    int32 k, i, l;
+    int32 k, l;
     char number[40];
     l = (int32)strlen(bob);
     k = (int32)strcspn(bob, "=");
@@ -841,7 +840,7 @@ form_ode_take_apart(char *bob, double *value, char *name) {
     } else {
         form_ode_strncpy_trim(name, bob, k);
         name[k] = '\0';
-        for (i = k + 1; i < l; i++)
+        for (int32 i = k + 1; i < l; i++)
             number[i - k - 1] = bob[i];
         number[l - k - 1] = '\0';
         *value = atof(number);
@@ -1411,7 +1410,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         char formula[MAXEXPLEN];
         char *junk, *ptr;
         int32 nmark = 0, nfix = 0, naux = 0, nvar = 0;
-        int32 nn, alt, in, i, ntab = 0, nufun = 0;
+        int32 nn, alt, in, ntab = 0, nufun = 0;
         int32 in1, in2, iflag;
         int32 fon;
         FILE *fp2 = NULL;
@@ -1534,7 +1533,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
         /* now we add all the names of the variables and the
            fixed stuff
         */
-        for (i = 0; i < nvar; i++) {
+        for (int32 i = 0; i < nvar; i++) {
             if (add_var(vnames[i], 0.0)) {
                 printf(" Duplicate name %s \n", vnames[i]);
                 exit(0);
@@ -1543,13 +1542,13 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             last_ic[i] = 0.0;
             default_ic[i] = 0.0;
         }
-        for (i = 0; i < nfix; i++) {
+        for (int32 i = 0; i < nfix; i++) {
             if (add_var(fnames[i], 0.0)) {
                 printf(" Duplicate name %s \n", fnames[i]);
                 exit(0);
             }
         }
-        for (i = 0; i < nmark; i++) {
+        for (int32 i = 0; i < nmark; i++) {
             if (add_var(mnames[i], 0.0)) {
                 printf(" Duplicate name %s \n", mnames[i]);
                 exit(0);
@@ -1558,7 +1557,7 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
             last_ic[i + nvar] = 0.0;
             default_ic[i + nvar] = 0.0;
         }
-        for (i = 0; i < naux; i++)
+        for (int32 i = 0; i < naux; i++)
             strcpy(aux_names[i], anames[i]);
         dae_fun_add_svar_names();
 
@@ -1849,11 +1848,11 @@ form_ode_do_new_parser(FILE *fp, char *first, int32 nnn) {
 
 void
 form_ode_create_plot_list(void) {
-    int32 i, j = 0, k;
+    int32 j = 0, k;
     if (N_only == 0)
         return;
     plotlist = xmalloc(sizeof(*plotlist)*(usize)(N_only + 1));
-    for (i = 0; i < N_only; i++) {
+    for (int32 i = 0; i < N_only; i++) {
         browse_find_variable(onlylist[i], &k);
         if (k >= 0) {
             plotlist[j] = k;
@@ -1900,9 +1899,7 @@ form_ode_break_up_list(char *rhs) {
 
 int32
 form_ode_find_the_name(char list[MAX_ODE1][MAXVNAM], int32 n, char *name) {
-    int32 i;
-
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (strcmp(list[i], name) == 0)
             return i;
     }
@@ -1931,8 +1928,7 @@ form_ode_formula_or_number(char *expr, double *z) {
 
 void
 form_ode_strpiece(char *dest, char *src, int32 i0, int32 ie) {
-    int32 i;
-    for (i = i0; i <= ie; i++)
+    for (int32 i = i0; i <= ie; i++)
         dest[i - i0] = src[i];
     dest[ie - i0 + 1] = 0;
     return;
@@ -1942,7 +1938,7 @@ int32
 form_ode_parse_a_string(char *s1, VarInfo *v) {
     int32 i0 = 0, i1, i2, i3;
     char lhs[MAXEXPLEN], rhs[MAXEXPLEN], args[MAXARG][NAMLEN + 1];
-    int32 i, type, type2;
+    int32 type, type2;
     int32 narg = 0;
     int32 n1 = (int32)strlen(s1) - 1;
     char s1old[MAXEXPLEN];
@@ -2075,7 +2071,7 @@ good_type:
     strcpy(v->lhs, lhs);
     strcpy(v->rhs, rhs);
     v->nargs = narg;
-    for (i = 0; i < narg; i++)
+    for (int32 i = 0; i < narg; i++)
         strcpy(v->args[i], args[i]);
 
     if (lhs[0] == 'D' && type2 == COMMAND)
@@ -2097,14 +2093,13 @@ form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
                      char args[MAXARG][NAMLEN + 1]) {
     VarInfo *v;
     VarInfo *vnew;
-    int32 i;
     v = my_varinfo;
     if (start_var_info == 0) {
         v->type = type;
         v->nargs = nargs;
         strcpy(v->lhs, lhs);
         strcpy(v->rhs, rhs);
-        for (i = 0; i < nargs; i++)
+        for (int32 i = 0; i < nargs; i++)
             strcpy(v->args[i], args[i]);
         start_var_info = 1;
     } else {
@@ -2117,7 +2112,7 @@ form_ode_add_varinfo(int32 type, char *lhs, char *rhs, int32 nargs,
         vnew->nargs = nargs;
         strcpy(vnew->lhs, lhs);
         strcpy(vnew->rhs, rhs);
-        for (i = 0; i < nargs; i++)
+        for (int32 i = 0; i < nargs; i++)
             strcpy(vnew->args[i], args[i]);
         vnew->next = NULL;
         vnew->prev = v;
@@ -2275,7 +2270,7 @@ form_ode_remove_blanks(char *s1) {
 void
 form_ode_read_a_line(FILE *fp, char *s) {
     char temp[MAXEXPLEN];
-    int32 i, n, nn, ok, ihat = 0;
+    int32 n, nn, ok, ihat = 0;
     s[0] = 0;
     ok = 1;
 
@@ -2288,7 +2283,7 @@ form_ode_read_a_line(FILE *fp, char *s) {
             exit(0);
         strncpy(save_eqn[NLINES++], temp, (usize)nn);
         n = (int32)strlen(temp);
-        for (i = n - 1; i >= 0; i--) {
+        for (int32 i = n - 1; i >= 0; i--) {
             if (temp[i] == '\\') {
                 ok = 1;
                 ihat = i;
@@ -2320,7 +2315,7 @@ form_ode_read_a_line(FILE *fp, char *s) {
 
 int32
 form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
-    int32 i, j, k, l;
+    int32 j, k, l;
     int32 ileft;
     int32 iright;
     int32 n = (int32)strlen(old);
@@ -2345,7 +2340,7 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
         strcpy(new, old);
         return 1;
     }
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         ch = old[i];
         chp = old[i + 1];
         if (ch == '.' && chp == '.') {
@@ -2405,14 +2400,14 @@ form_ode_search_array(char *old, char *new, int32 *i1, int32 *i2, int32 *flag) {
     *i2 = atoi(num2);
     /* now we have the numbers and will get rid of the junk inbetween */
     l = 0;
-    for (i = 0; i <= ileft; i++) {
+    for (int32 i = 0; i <= ileft; i++) {
         new[l] = old[i];
         l++;
     }
     if (iright > 0) {
         new[l] = 'j';
         l++;
-        for (i = iright; i < n; i++) {
+        for (int32 i = iright; i < n; i++) {
             new[l] = old[i];
             l++;
         }
@@ -2591,10 +2586,10 @@ void
 form_ode_add_comment(char *s) {
     char text[256], action[256], ch;
     int32 n = (int32)strlen(s);
-    int32 i, j1 = 0, ja = 0, noact = 1;
+    int32 j1 = 0, ja = 0, noact = 1;
     if (n_comments >= MAXCOMMENTS)
         return;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (s[i] == '{') {
             j1 = i + 1;
             noact = 0;
@@ -2611,7 +2606,7 @@ form_ode_add_comment(char *s) {
         action[0] = '$';
         action[1] = ' ';
         ja = 2;
-        for (i = j1; i < n; i++) {
+        for (int32 i = j1; i < n; i++) {
             ch = s[i];
             if (ch == ',') {
                 action[ja] = ' ';
@@ -2629,7 +2624,7 @@ form_ode_add_comment(char *s) {
             }
         }
         ja = 2;
-        for (i = j1; i < n; i++) {
+        for (int32 i = j1; i < n; i++) {
             text[ja] = s[i];
             ja++;
         }

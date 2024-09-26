@@ -45,7 +45,6 @@ static void eig_list_eq_list_up(void);
 
 void
 eig_list_draw_eq_list(Window window) {
-    int32 i;
     char bob[300];
     char fstr[15];
     if (eq_list.flag == 0)
@@ -57,7 +56,7 @@ eig_list_draw_eq_list(Window window) {
     if (window == eq_list.close)
         XDS("Close");
     if (window == eq_list.list) {
-        for (i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
+        for (int32 i = eq_list.istart; i < eq_list.istart + eq_list.nlines; i++) {
             if (i >= NEQ)
                 break;
             if (i < NODE && METHOD > 0)
@@ -194,18 +193,18 @@ eig_list_eq_list_button(XEvent event) {
             break;
         if (window == eq_box.import) {
             /* eig list eq box import */
-            int32 n = eq_box.n, i;
-            for (i = 0; i < n; i++)
+            int32 n = eq_box.n;
+            for (int32 i = 0; i < n; i++)
                 last_ic[i] = eq_box.y[i];
 
             if (n < 20) {
                 if (sparity == 0) {
-                    for (i = 0; i < n; i++)
+                    for (int32 i = 0; i < n; i++)
                         homo_l[i] = eq_box.y[i];
                     printf("Saved to left equilibrium\n");
                 }
                 if (sparity == 1) {
-                    for (i = 0; i < n; i++)
+                    for (int32 i = 0; i < n; i++)
                         homo_r[i] = eq_box.y[i];
                     printf("Saved to right equilibrium\n");
                 }
@@ -371,7 +370,7 @@ eig_list_create_eq_box(int32 cp, int32 cm, int32 rp, int32 rm, int32 im,
 
 void
 eig_list_draw_eq_box(Window window) {
-    int32 i, j, ncol, n = eq_box.n, nrow;
+    int32 j, ncol, n = eq_box.n, nrow;
     int32 in;
     char temp[50];
     if (eq_box.flag == 0)
@@ -412,7 +411,7 @@ eig_list_draw_eq_box(Window window) {
         ncol = 1 + n / 3;
 
         for (j = 0; j < ncol; j++) {
-            for (i = 0; i < nrow; i++) {
+            for (int32 i = 0; i < nrow; i++) {
                 in = j*20 + i;
                 if (in >= n)
                     continue;

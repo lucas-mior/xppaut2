@@ -139,7 +139,6 @@ static void load_eqn_read_defaults(FILE *fp);
 
 void
 load_eqn_dump_torus(FILE *fp, int32 f) {
-    int32 i;
     char bob[256];
     if (f == READEM)
         fgets(bob, 255, fp);
@@ -148,7 +147,7 @@ load_eqn_dump_torus(FILE *fp, int32 f) {
     lunch_io_int(&TORUS, fp, f, " Torus flag 1=ON");
     lunch_io_double(&TOR_PERIOD, fp, f, "Torus period");
     if (TORUS) {
-        for (i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++)
             lunch_io_int(&itor[i], fp, f, uvar_names[i]);
     }
     return;
@@ -157,13 +156,12 @@ load_eqn_dump_torus(FILE *fp, int32 f) {
 void
 load_eqn(void) {
     int32 no_eqn = 1, okay = 0;
-    int32 i;
     int32 std = 0;
     FILE *fptr;
     struct dirent *dp;
 
     integrate_init_ar_ic();
-    for (i = 0; i < MAX_ODE; i++) {
+    for (int32 i = 0; i < MAX_ODE; i++) {
         itor[i] = 0;
         strcpy(delay_string[i], "0.0");
     }
@@ -253,8 +251,6 @@ load_eqn_set_x_vals(void) {
 
 void
 load_eqn_set_all_vals(void) {
-    int32 i;
-
     FILE *fp;
 
     if (notAlreadySet.TIMEPLOT) {
@@ -494,7 +490,7 @@ load_eqn_set_all_vals(void) {
             }
         }
         NPltV = 1;
-        for (i = 0; i < 10; i++) {
+        for (int32 i = 0; i < 10; i++) {
             IX_PLT[i] = IXPLT;
             IY_PLT[i] = IYPLT;
             IZ_PLT[i] = IZPLT;
@@ -706,7 +702,7 @@ load_eqn_fil_int(FILE *fpt, int32 *val) {
 void
 load_eqn_add_intern_set(char *name, char *does) {
     char bob[1024], ch;
-    int32 i, n, j = Nintern_set, k = 0;
+    int32 n, j = Nintern_set, k = 0;
     if (Nintern_set >= MAX_INTERN_SET) {
         ggets_plintf(" %s not added -- too many must be less than %d \n", name,
                      MAX_INTERN_SET);
@@ -720,7 +716,7 @@ load_eqn_add_intern_set(char *name, char *does) {
     bob[0] = '$';
     bob[1] = ' ';
     k = 2;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         ch = does[i];
         if (ch == ',') {
             bob[k] = ' ';
@@ -804,12 +800,11 @@ load_eqn_msc(char *s1, char *s2) {
 
 void
 load_eqn_set_internopts(OptionsSet *mask) {
-    int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
     if (Nopts == 0)
         return;
     /*  parsem here   */
-    for (i = 0; i < Nopts; i++) {
+    for (int32 i = 0; i < Nopts; i++) {
         ptr = interopt[i];
         junk = form_ode_get_first(ptr, " ,");
         if (junk == NULL) {
@@ -880,7 +875,7 @@ load_eqn_set_internopts(OptionsSet *mask) {
         }
     }
 
-    for (i = 0; i < Nopts; i++) {
+    for (int32 i = 0; i < Nopts; i++) {
         free(interopt[i]);
     }
     Nopts = 0;
@@ -889,7 +884,6 @@ load_eqn_set_internopts(OptionsSet *mask) {
 
 void
 load_eqn_set_internopts_xpprc_and_comline(void) {
-    int32 i;
     char *ptr, name[20], value[80], *junk, *mystring;
     OptionsSet *tempNAS;
     /*  parsem here   */
@@ -898,7 +892,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
                               in get_first below*/
     if (Nopts == 0)
         return;
-    for (i = 0; i < Nopts; i++) {
+    for (int32 i = 0; i < Nopts; i++) {
         strcpy(intrnoptcpy, interopt[i]);
         ptr = intrnoptcpy;
         junk = form_ode_get_first(ptr, " ,");
@@ -931,7 +925,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
     tempNAS = xmalloc(sizeof(*tempNAS));
     *tempNAS = notAlreadySet;
 
-    for (i = 0; i < Nopts; i++) {
+    for (int32 i = 0; i < Nopts; i++) {
         ptr = interopt[i];
         junk = form_ode_get_first(ptr, " ,");
         while ((mystring = form_ode_do_fit_get_next(" ,\n\r")) != NULL) {
@@ -946,7 +940,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
     /*
     We leave a fresh start for options specified in the ODE file.
     */
-    for (i = 0; i < Nopts; i++) {
+    for (int32 i = 0; i < Nopts; i++) {
         free(interopt[i]);
     }
 
@@ -956,7 +950,7 @@ load_eqn_set_internopts_xpprc_and_comline(void) {
 
 void
 load_eqn_split_apart(char *bob, char *name, char *value) {
-    int32 k, i, l;
+    int32 k, l;
 
     l = (int32)strlen(bob);
     k = (int32)strcspn(bob, "=");
@@ -966,7 +960,7 @@ load_eqn_split_apart(char *bob, char *name, char *value) {
     } else {
         strncpy(name, bob, (usize)k);
         name[k] = '\0';
-        for (i = k + 1; i < l; i++)
+        for (int32 i = k + 1; i < l; i++)
             value[i - k - 1] = bob[i];
         value[l - k - 1] = '\0';
     }

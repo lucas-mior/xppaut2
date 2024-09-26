@@ -81,16 +81,16 @@ scrngif_set_global_map(int32 flag) {
 
 int32
 scrngif_ppm_to_pix(uchar r, uchar g, uchar b, int32 *n) {
-    int32 i, nc = *n;
+    int32 nc = *n;
     if (UseGlobalMap == 1) {
-        for (i = 0; i < NGlobalColors; i++) {
+        for (int32 i = 0; i < NGlobalColors; i++) {
             if (r == gifGcol[i].r && g == gifGcol[i].g && b == gifGcol[i].b)
                 return i;
         }
 
         return -1;
     }
-    for (i = 0; i < nc; i++)
+    for (int32 i = 0; i < nc; i++)
         if (r == gifcol[i].r && g == gifcol[i].g && b == gifcol[i].b)
             return i;
     if (nc > 255) {
@@ -136,8 +136,7 @@ scrngif_get_global_colormap(Window win) {
 
 void
 scrngif_local_to_global(void) {
-    int32 i;
-    for (i = 0; i < 256; i++) {
+    for (int32 i = 0; i < 256; i++) {
         gifcol[i].r = gifGcol[i].r;
         gifcol[i].g = gifGcol[i].g;
         gifcol[i].b = gifGcol[i].b;
@@ -148,10 +147,10 @@ scrngif_local_to_global(void) {
 int32
 scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r, g, b;
-    int32 i, j, k = 0, l = 0;
+    int32 j, k = 0, l = 0;
     int32 pix;
     int32 nc;
-    for (i = 0; i < h; i++) {
+    for (int32 i = 0; i < h; i++) {
         for (j = 0; j < w; j++) {
             r = ppm[k];
             g = ppm[k + 1];
@@ -170,9 +169,9 @@ scrngif_use_global_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
 int32
 scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
     uchar r, g, b;
-    int32 i, j, k = 0, l = 0;
+    int32 j, k = 0, l = 0;
     int32 pix, ncol = 0;
-    for (i = 0; i < h; i++) {
+    for (int32 i = 0; i < h; i++) {
         for (j = 0; j < w; j++) {
             r = ppm[k];
             g = ppm[k + 1];
@@ -186,7 +185,7 @@ scrngif_make_local_map(uchar *pixels, uchar *ppm, int32 h, int32 w) {
         }
     }
     ggets_plintf("Got %d colors\n", ncol);
-    for (i = ncol; i < 256; i++) {
+    for (int32 i = ncol; i < 256; i++) {
         gifcol[i].r = 255;
         gifcol[i].g = 255;
         gifcol[i].b = 255;
@@ -203,7 +202,6 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
     uchar *ppm;
 
     uchar *pixels;
-    int32 i;
     int32 ncol = 0;
 
     int32 ok;
@@ -216,7 +214,7 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
     switch (task) {
     case GET_GLOBAL_CMAP:
         ncol = scrngif_make_local_map(pixels, ppm, (int32)h, (int32)w);
-        for (i = 0; i < 256; i++) {
+        for (int32 i = 0; i < 256; i++) {
             gifGcol[i].r = gifcol[i].r;
             gifGcol[i].g = gifcol[i].g;
             gifGcol[i].b = gifcol[i].b;
@@ -289,8 +287,6 @@ scrngif_stuff(Window win, FILE *fp, int32 task) {
 
 void
 scrngif_write_global_header(int32 cols, int32 rows, FILE *dst) {
-    int32 i;
-
     uchar *pos;
     uchar *buffer;
 
@@ -314,7 +310,7 @@ scrngif_write_global_header(int32 cols, int32 rows, FILE *dst) {
     *pos++ = 0xff;
     *pos++ = 0x0;
 
-    for (i = 0; i < 256; i++) {
+    for (int32 i = 0; i < 256; i++) {
         *pos++ = 0xff & gifcol[i].r;
         *pos++ = 0xff & gifcol[i].g;
         *pos++ = 0xff & gifcol[i].b;
@@ -343,7 +339,6 @@ scrngif_loop(FILE *fout, uint32 repeats) {
 void
 scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
                            int32 delay) {
-    int32 i;
     fputc(0x21, fout);
     fputc(0xF9, fout);
     fputc(0x04, fout);
@@ -361,7 +356,7 @@ scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
     else
         fputc(0x07, fout);
     if (colflag) {
-        for (i = 0; i < 256; i++) {
+        for (int32 i = 0; i < 256; i++) {
             fputc(0xff & gifcol[i].r, fout);
             fputc(0xff & gifcol[i].g, fout);
             fputc(0xff & gifcol[i].b, fout);
@@ -372,7 +367,7 @@ scrngif_write_local_header(int32 cols, int32 rows, FILE *fout, int32 colflag,
 
 void
 scrngif_make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
-    int32 i, depth = 8;
+    int32 depth = 8;
 
     uchar *pos;
     uchar *buffer;
@@ -397,7 +392,7 @@ scrngif_make_gif(uchar *pixels, int32 cols, int32 rows, FILE *dst) {
     *pos++ = 0xff;
     *pos++ = 0x0;
 
-    for (i = 0; i < 256; i++) {
+    for (int32 i = 0; i < 256; i++) {
         *pos++ = 0xff & gifcol[i].r;
         *pos++ = 0xff & gifcol[i].g;
         *pos++ = 0xff & gifcol[i].b;
@@ -608,7 +603,6 @@ scrngif_encode(FILE *fout, uchar *pixels, int32 depth, int32 siz) {
 
 void
 scrngif_clear_tree(int32 cc, GifTree *root) {
-    int32 i;
     GifTree *newNode, **xx;
 
     if (debugFlag > 1)
@@ -621,12 +615,12 @@ scrngif_clear_tree(int32 cc, GifTree *root) {
     nodecount = 0;
     nodeArray = root->node;
     xx = nodeArray;
-    for (i = 0; i < NUMBER_OF_ARRAYS; i++) {
+    for (int32 i = 0; i < NUMBER_OF_ARRAYS; i++) {
         memmove(xx, empty, 256*sizeof(GifTree **));
         xx += 256;
     }
     topNode = baseNode;
-    for (i = 0; i < cc; i++) {
+    for (int32 i = 0; i < cc; i++) {
         root->node[i] = newNode = ++topNode;
         newNode->nxt = NULL;
         newNode->alt = NULL;

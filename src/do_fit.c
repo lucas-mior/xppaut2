@@ -75,7 +75,7 @@ void
 do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
                 double *yfit, double **yderv, int32 npts, int32 npars,
                 int32 nvars, int32 *ivar, int32 *ipar) {
-    int32 i, iv, ip, istart = 1, j, k, l, k0, ok;
+    int32 iv, ip, istart = 1, j, k, l, k0, ok;
     double yold[MAX_ODE], dp;
     double par;
     *flag = 0;
@@ -87,7 +87,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         else
             y[ip] = a[l];
     }
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         yold[i] = y[i];
     }
     if (DelayFlag) {
@@ -97,7 +97,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
     }
     derived_evaluate();
     /*   This gets the values at the desired points  */
-    for (i = 0; i < nvars; i++) {
+    for (int32 i = 0; i < nvars; i++) {
         iv = ivar[i];
         yfit[i] = y[iv];
     }
@@ -105,13 +105,13 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         k0 = k*nvars;
         ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
         if (ok == 0) {
-            for (i = 0; i < NODE; i++)
+            for (int32 i = 0; i < NODE; i++)
                 y[i] = yold[i];
 
             return;
         }
 
-        for (i = 0; i < nvars; i++) {
+        for (int32 i = 0; i < nvars; i++) {
             iv = ivar[i];
             yfit[i + k0] = y[iv];
         }
@@ -126,7 +126,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
         /* set up all the initial conditions   */
         for (j = 0; j < nvars; j++)
             yderv[l][j] = 0.0; /* no dependence on initial data ... */
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             y[i] = yold[i];
         ip = ipar[l];
         if (ip < 0) {
@@ -154,12 +154,12 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
             k0 = k*nvars;
             ok = do_fit_one_step_int(y, t0[k - 1], t0[k], &istart);
             if (ok == 0) {
-                for (i = 0; i < NODE; i++)
+                for (int32 i = 0; i < NODE; i++)
                     y[i] = yold[i];
 
                 return;
             }
-            for (i = 0; i < nvars; i++) {
+            for (int32 i = 0; i < nvars; i++) {
                 iv = ivar[i];
                 yderv[l][i + k0] = (y[iv] - yfit[i + k0]) / dp;
             }
@@ -174,7 +174,7 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
 #endif
     }
     *flag = 1;
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         y[i] = yold[i];
 
     /*do_fit_printem(yderv,yfit,t0,npars,nvars,npts);  */
@@ -184,9 +184,9 @@ do_fit_get_info(double *y, double *a, double *t0, int32 *flag, double eps,
 void
 do_fit_printem(double **yderv, double *yfit, double *t0, int32 npars,
                int32 nvars, int32 npts) {
-    int32 i, j, k;
+    int32 j, k;
     int32 ioff;
-    for (i = 0; i < npts; i++) {
+    for (int32 i = 0; i < npts; i++) {
         ggets_plintf(" %8.5g ", t0[i]);
         ioff = nvars*i;
         for (j = 0; j < nvars; j++) {
@@ -466,7 +466,7 @@ do_fit_run(/* double arrays */
            int32 *icols, double *y0, double *a, double *yfit) {
     double *t0, *y, sig[MAX_ODE], *covar, *alpha, chisq, ochisq, alambda,
         **yderv, *work;
-    int32 i, j, k, ioff, ictrl = 0, ok = 0;
+    int32 j, k, ioff, ictrl = 0, ok = 0;
     FILE *fp;
     int32 niter = 0, good_flag = 0;
     double tol10 = 10*tol;
@@ -483,7 +483,7 @@ do_fit_run(/* double arrays */
     y = xmalloc((usize)((npts + 1)*nvars)*sizeof(*y));
     /* load up the data to fit   */
 
-    for (i = 0; i < npts; i++) {
+    for (int32 i = 0; i < npts; i++) {
         fscanf(fp, "%lg ", &t);
 
         for (j = 0; j < ndim - 1; j++)
@@ -500,9 +500,9 @@ do_fit_run(/* double arrays */
 
     work = xmalloc(sizeof(*work)*(usize)(4*npars + npars*npars));
     yderv = xmalloc((usize)npars*sizeof(double *));
-    for (i = 0; i < npars; i++)
+    for (int32 i = 0; i < npars; i++)
         yderv[i] = xmalloc((usize)((npts + 1)*nvars)*sizeof(*(yderv[i])));
-    for (i = 0; i < nvars; i++)
+    for (int32 i = 0; i < nvars; i++)
         sig[i] = 1.0;
 
     covar = xmalloc((usize)(npars*npars)*sizeof(*covar));
@@ -517,7 +517,7 @@ do_fit_run(/* double arrays */
         ggets_plintf(" step %d is %d  -- lambda= %g  chisq= %g oldchi= %g\n",
                      niter, ok, alambda, chisq, ochisq);
         ggets_plintf(" params: ");
-        for (i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++)
             ggets_plintf(" %g ", a[i]);
         ggets_plintf("\n");
         if ((ok == 0) || (niter >= maxiter))
@@ -539,7 +539,7 @@ do_fit_run(/* double arrays */
         ggets_err_msg("Error in step...");
 
         free(work);
-        for (i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++)
             free(yderv[i]);
         free(yderv);
         free(alpha);
@@ -553,7 +553,7 @@ do_fit_run(/* double arrays */
         ggets_err_msg("Max iterations exceeded...");
 
         free(work);
-        for (i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++)
             free(yderv[i]);
         free(yderv);
         free(alpha);
@@ -570,14 +570,14 @@ do_fit_run(/* double arrays */
     ggets_err_msg(" Success! ");
     /* have the covariance matrix -- so what?   */
     ggets_plintf(" covariance: \n");
-    for (i = 0; i < npars; i++) {
+    for (int32 i = 0; i < npars; i++) {
         for (j = 0; j < npars; j++)
             ggets_plintf(" %g ", covar[i + npars*j]);
         ggets_plintf("\n");
     }
 
     free(work);
-    for (i = 0; i < npars; i++)
+    for (int32 i = 0; i < npars; i++)
         free(yderv[i]);
     free(yderv);
     free(alpha);
@@ -618,7 +618,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
                    int32 *ipar, double *covar, double *alpha, double *chisq,
                    double *alambda, double *work, double **yderv, double *yfit,
                    double *ochisq, int32 ictrl, double eps) {
-    int32 i, j, k, ierr, ipivot[1000];
+    int32 j, k, ierr, ipivot[1000];
 
     double *da, *atry, *beta, *oneda;
     da = work;
@@ -631,7 +631,7 @@ do_fit_marlev_step(double *t0, double *y0, double *y, double *sig, double *a,
         if (do_fit_mrqcof(t0, y0, y, sig, a, npts, nvars, npars, ivar, ipar,
                           alpha, chisq, beta, yderv, yfit, eps) == 0)
             return 0;
-        for (i = 0; i < npars; i++)
+        for (int32 i = 0; i < npars; i++)
             atry[i] = a[i];
         *ochisq = (*chisq);
     }
@@ -692,7 +692,7 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
               int32 npts, int32 nvars, int32 npars, int32 *ivar, int32 *ipar,
               double *alpha, double *chisq, double *beta, double **yderv,
               double *yfit, double eps) {
-    int32 flag, i, j, k, l, k0;
+    int32 flag, j, k, l, k0;
     double sig2i, dy, wt;
 
     do_fit_get_info(y0, a, t0, &flag, eps, yfit, yderv, npts, npars, nvars,
@@ -701,14 +701,14 @@ do_fit_mrqcof(double *t0, double *y0, double *y, double *sig, double *a,
         ggets_err_msg(" Integration error ...\n");
         return 0;
     }
-    for (i = 0; i < npars; i++) {
+    for (int32 i = 0; i < npars; i++) {
         beta[i] = 0.0;
         for (j = 0; j < npars; j++) {
             alpha[i + j*npars] = 0.0;
         }
     }
     *chisq = 0.0;
-    for (i = 0; i < nvars; i++) {
+    for (int32 i = 0; i < nvars; i++) {
         sig2i = 1.0 / (sig[i]*sig[i]);
         for (k = 0; k < npts; k++) {
             k0 = k*nvars + i;

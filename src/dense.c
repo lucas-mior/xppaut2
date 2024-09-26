@@ -138,7 +138,7 @@ dense_alloc_piv2(int64 n) {
 
 int64
 dense_gefa(double **a, int64 n, int64 *p) {
-    int64 i, j, k, l;
+    int64 j, k, l;
     double *col_j, *col_k, *diag_k;
     double temp, mult, a_kj;
     bool swap;
@@ -152,7 +152,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
         /* find l = pivot row number */
 
         l = k;
-        for (i = k + 1; i < n; i++)
+        for (int64 i = k + 1; i < n; i++)
             if (ABS(col_k[i]) > ABS(col_k[l]))
                 l = i;
         *p = l;
@@ -177,7 +177,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
         /* in a(i,k), i=k+1, ..., n-1.                      */
 
         mult = -ONE / (*diag_k);
-        for (i = k + 1; i < n; i++)
+        for (int64 i = k + 1; i < n; i++)
             col_k[i] *= mult;
 
         /* row_i = row_i - [a(i,k)/a(k,k)] row_k, i=k+1, ..., n-1 */
@@ -200,7 +200,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
             /* a_kj = a(k,j), col_k[i] = - a(i,k)/a(k,k) */
 
             if (a_kj != ZERO) {
-                for (i = k + 1; i < n; i++)
+                for (int64 i = k + 1; i < n; i++)
                     col_j[i] += a_kj*col_k[i];
             }
         }
@@ -219,7 +219,7 @@ dense_gefa(double **a, int64 n, int64 *p) {
 
 void
 dense_gesl(double **a, int64 n, int64 *p, double *b) {
-    int64 k, l, i;
+    int64 k, l;
     double mult;
     double *col_k;
 
@@ -233,7 +233,7 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
             b[k] = mult;
         }
         col_k = a[k];
-        for (i = k + 1; i < n; i++)
+        for (int64 i = k + 1; i < n; i++)
             b[i] += mult*col_k[i];
     }
 
@@ -243,7 +243,7 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
         col_k = a[k];
         b[k] /= col_k[k];
         mult = -b[k];
-        for (i = 0; i < k; i++)
+        for (int32 i = 0; i < k; i++)
             b[i] += mult*col_k[i];
     }
     return;
@@ -251,13 +251,12 @@ dense_gesl(double **a, int64 n, int64 *p, double *b) {
 
 void
 dense_zero2(double **a, int64 n) {
-    int64 i;
     int64 j;
     double *col_j;
 
     for (j = 0; j < n; j++) {
         col_j = a[j];
-        for (i = 0; i < n; i++)
+        for (int64 i = 0; i < n; i++)
             col_j[i] = ZERO;
     }
     return;
@@ -265,14 +264,13 @@ dense_zero2(double **a, int64 n) {
 
 void
 dense_copy2(double **a, double **b, int64 n) {
-    int64 i;
     int64 j;
     double *a_col_j, *b_col_j;
 
     for (j = 0; j < n; j++) {
         a_col_j = a[j];
         b_col_j = b[j];
-        for (i = 0; i < n; i++)
+        for (int64 i = 0; i < n; i++)
             b_col_j[i] = a_col_j[i];
     }
     return;
@@ -280,13 +278,12 @@ dense_copy2(double **a, double **b, int64 n) {
 
 void
 dense_scale2(double c, double **a, int64 n) {
-    int64 i;
     int64 j;
     double *col_j;
 
     for (j = 0; j < n; j++) {
         col_j = a[j];
-        for (i = 0; i < n; i++)
+        for (int64 i = 0; i < n; i++)
             col_j[i] *= c;
     }
     return;
@@ -294,9 +291,7 @@ dense_scale2(double c, double **a, int64 n) {
 
 void
 dense_add_i2(double **a, int64 n) {
-    int64 i;
-
-    for (i = 0; i < n; i++)
+    for (int64 i = 0; i < n; i++)
         a[i][i] += ONE;
     return;
 }
@@ -316,11 +311,10 @@ dense_free2(double **a) {
 
 void
 dense_print2(double **a, int64 n) {
-    int64 i;
     int64 j;
 
     ggets_plintf("\n");
-    for (i = 0; i < n; i++) {
+    for (int64 i = 0; i < n; i++) {
         for (j = 0; j < n; j++) {
             ggets_plintf("%10g", a[j][i]);
         }

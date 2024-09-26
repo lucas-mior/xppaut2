@@ -61,10 +61,9 @@ kinescope_do_movie_com(int32 c) {
 
 void
 kinescope_reset_film(void) {
-    int32 i;
     if (mov_ind == 0)
         return;
-    for (i = 0; i < mov_ind; i++)
+    for (int32 i = 0; i < mov_ind; i++)
         XFreePixmap(display, movie[i].xi);
     mov_ind = 0;
     return;

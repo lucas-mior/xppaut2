@@ -281,8 +281,7 @@ simplenet_network_value(double x, int32 i) {
 
 void
 simplenet_init(double *v, int32 n) {
-    int32 i;
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         v[i] = 0.0;
     return;
 }
@@ -1379,9 +1378,7 @@ simplenet_eval_all_nets(void) {
 
 void
 simplenet_update_all_ffts(void) {
-    int32 i;
-
-    for (i = 0; i < n_network; i++)
+    for (int32 i = 0; i < n_network; i++)
         if (my_net[i].type == FFTCON0 || my_net[i].type == FFTCONP)
             simplenet_update_fft(i);
     return;
@@ -1396,7 +1393,6 @@ simplenet_update_all_ffts(void) {
 */
 void
 simplenet_update_fft(int32 ind) {
-    int32 i;
     int32 dims[2];
     double *w = my_net[ind].weight;
     double *fftr = my_net[ind].fftr;
@@ -1407,11 +1403,11 @@ simplenet_update_fft(int32 ind) {
     if (type == FFTCONP) {
         n = my_net[ind].n;
         n2 = n / 2;
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             ffti[i] = 0.0;
-        for (i = 0; i <= n2; i++)
+        for (int32 i = 0; i <= n2; i++)
             fftr[i] = w[i + n2];
-        for (i = 0; i < n2; i++)
+        for (int32 i = 0; i < n2; i++)
             fftr[n2 + i + 1] = w[i];
         dims[0] = n;
         fftn(1, dims, fftr, ffti, 1, 1.);
@@ -1419,11 +1415,11 @@ simplenet_update_fft(int32 ind) {
     if (type == FFTCON0) {
         n = 2*my_net[ind].n;
         n2 = n / 2;
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             ffti[i] = 0.0;
-        for (i = 0; i <= n2; i++)
+        for (int32 i = 0; i <= n2; i++)
             fftr[i] = w[i + n2];
-        for (i = 1; i < n2; i++)
+        for (int32 i = 1; i < n2; i++)
             fftr[n2 + i] = w[i];
         dims[0] = n;
         fftn(1, dims, fftr, ffti, 1, 1.);
@@ -1436,7 +1432,6 @@ simplenet_update_fft(int32 ind) {
 void
 fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
          double *ffti, double *dr, double *di) {
-    int32 i;
     int32 dims[2];
     double x;
     double y;
@@ -1444,14 +1439,14 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
     switch (it) {
     case 0:
         dims[0] = n;
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             di[i] = 0.0;
             dr[i] = yy[i];
         }
 
         fftn(1, dims, dr, di, 1, -2.0);
 
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             x = dr[i]*fftr[i] - di[i]*ffti[i];
             y = dr[i]*ffti[i] + di[i]*fftr[i];
             dr[i] = x;
@@ -1459,13 +1454,13 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
         }
 
         fftn(1, dims, dr, di, -1, -2.0);
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             values[i] = dr[i];
 
         return;
     case 1:
         dims[0] = n2;
-        for (i = 0; i < n2; i++) {
+        for (int32 i = 0; i < n2; i++) {
             di[i] = 0.0;
             if (i < n)
                 dr[i] = yy[i];
@@ -1473,14 +1468,14 @@ fft_conv(int32 it, int32 n, double *values, double *yy, double *fftr,
                 dr[i] = 0.0;
         }
         fftn(1, dims, dr, di, 1, -2.0);
-        for (i = 0; i < n2; i++) {
+        for (int32 i = 0; i < n2; i++) {
             x = dr[i]*fftr[i] - di[i]*ffti[i];
             y = dr[i]*ffti[i] + di[i]*fftr[i];
             dr[i] = x;
             di[i] = y;
         }
         fftn(1, dims, dr, di, -1, -2.0);
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             values[i] = dr[i];
         return;
     default:

@@ -209,13 +209,13 @@ del_stab_z_abs(COMPLEX z) {
 
 COMPLEX
 del_stab_z_determ(COMPLEX *z, int32 n) {
-    int32 i, j, imax = 0, k;
+    int32 j, imax = 0, k;
     double q;
     double qmax;
     COMPLEX sign = del_stab_rtoc(1.0, 0.0), mult, sum, zd;
     for (j = 0; j < n; j++) {
         qmax = 0.0;
-        for (i = j; i < n; i++) {
+        for (int32 i = j; i < n; i++) {
             q = del_stab_z_abs(Z(i, j, n));
             if (q > qmax) {
                 qmax = q;
@@ -228,7 +228,7 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
         if (imax > j)
             sign = del_stab_z_mult(del_stab_rtoc(-1.0, 0.0), sign);
         zd = Z(j, j, n);
-        for (i = j + 1; i < n; i++) {
+        for (int32 i = j + 1; i < n; i++) {
             mult = del_stab_c_div(Z(i, j, n), zd);
             for (k = j + 1; k < n; k++) {
                 Z(i, k, n) = del_stab_z_dif(Z(i, k, n),
@@ -245,12 +245,12 @@ del_stab_z_determ(COMPLEX *z, int32 n) {
 void
 del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
                 COMPLEX lambda) {
-    int32 i, j, k, km;
+    int32 j, k, km;
     COMPLEX temp;
     COMPLEX eld;
 
     for (j = 0; j < n; j++)
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             if (i == j)
                 temp = lambda;
             else
@@ -268,7 +268,7 @@ del_stab_z_make(COMPLEX *z, double *delay, int32 n, int32 m, double *coef,
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
         for (j = 0; j < n; j++)
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 z[i + j*n] = del_stab_z_dif(
                     z[i + j*n],
                     del_stab_z_mult(eld,
@@ -369,7 +369,7 @@ del_stab_process_root(double real, double im) {
 double
 del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
                  COMPLEX lambda) {
-    int32 i, j, k, km;
+    int32 j, k, km;
     COMPLEX *z;
     COMPLEX temp;
     COMPLEX eld;
@@ -378,7 +378,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
         return 0; /* no delays so don't use this! */
     z = xmalloc(sizeof(*z)*(usize)(n*n));
     for (j = 0; j < n; j++)
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             if (i == j)
                 temp = lambda;
             else
@@ -396,7 +396,7 @@ del_stab_get_arg(double *delay, double *coef, int32 m, int32 n,
             del_stab_z_mult(temp, lambda)); /* compute exp(-lambda*tau) */
         /* cprintn(eld); */
         for (j = 0; j < n; j++)
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 z[i + j*n] = del_stab_z_dif(
                     z[i + j*n],
                     del_stab_z_mult(eld,
@@ -449,7 +449,6 @@ del_stab_test_sign(double old, double new) {
 int32
 del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
                    double almax, double wmax) {
-    int32 i;
     int32 sign = 0;
     COMPLEX lambda;
     double x, y, arg, oldarg = 0.0;
@@ -457,7 +456,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     /* first the contour from i wmax -- -i wmax */
     ds = 2*wmax / npts;
     x = 0.0;
-    for (i = 0; i < npts; i++) {
+    for (int32 i = 0; i < npts; i++) {
         y = wmax - i*ds;
         lambda = del_stab_rtoc(x, y);
         arg = del_stab_get_arg(delay, coef, m, n, lambda);
@@ -467,7 +466,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     /* lower contour   */
     y = -wmax;
     ds = almax / npts;
-    for (i = 0; i < npts; i++) {
+    for (int32 i = 0; i < npts; i++) {
         x = i*ds;
         lambda = del_stab_rtoc(x, y);
         arg = del_stab_get_arg(delay, coef, m, n, lambda);
@@ -477,7 +476,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     /* right contour */
     x = almax;
     ds = 2*wmax / npts;
-    for (i = 0; i < npts; i++) {
+    for (int32 i = 0; i < npts; i++) {
         y = -wmax + i*ds;
         lambda = del_stab_rtoc(x, y);
         arg = del_stab_get_arg(delay, coef, m, n, lambda);
@@ -488,7 +487,7 @@ del_stab_plot_args(double *coef, double *delay, int32 n, int32 m, int32 npts,
     /* top contour */
     y = wmax;
     ds = almax / npts;
-    for (i = 0; i < npts; i++) {
+    for (int32 i = 0; i < npts; i++) {
         x = almax - i*ds;
         lambda = del_stab_rtoc(x, y);
         arg = del_stab_get_arg(delay, coef, m, n, lambda);

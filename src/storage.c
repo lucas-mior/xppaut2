@@ -16,11 +16,10 @@ int32 IWORK[10000];
 
 void
 storage_init_alloc_info(void) {
-    int32 i;
     xpv.node = NODE + NMarkov;
     xpv.nvec = 0; /* this is just for now */
     xpv.x = xmalloc((usize)(xpv.nvec + xpv.node)*sizeof(*(xpv.x)));
-    for (i = xpv.node; i < (xpv.nvec + xpv.node); i++)
+    for (int32 i = xpv.node; i < (xpv.nvec + xpv.node); i++)
         xpv.x[i] = 0.0;
     return;
 }

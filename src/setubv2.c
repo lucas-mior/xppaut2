@@ -13,7 +13,7 @@ setubv_make_aa_bb_cc(void *arg) {
         uoldps_dim1, udotps_dim1, upoldp_dim1, dbc_dim1, dicd_dim1, wploc_dim1,
         dfdu_dim1, dfdp_dim1, wp_dim1, wt_dim1;
 
-    int64 i, j, k, l, m;
+    int64 j, k, l, m;
     int64 k1;
     int64 l1;
     int64 i1, j1;
@@ -124,7 +124,7 @@ setubv_make_aa_bb_cc(void *arg) {
                 }
             }
 
-            for (i = 0; i < NPARX; ++i) {
+            for (int32 i = 0; i < NPARX; ++i) {
                 prm[i] = larg->par[i];
             }
             /*
@@ -146,7 +146,7 @@ setubv_make_aa_bb_cc(void *arg) {
                 double wt_tmp = ARRAY2D(wt, ib, ic);
                 double wploc_tmp = ARRAY2D(wploc, ib, ic);
                 ib1 = ib*larg->ndim;
-                for (i = 0; i < larg->ndim; ++i) {
+                for (int32 i = 0; i < larg->ndim; ++i) {
                     ARRAY3D(aa, ib1 + i, ic1 + i, jj) = wploc_tmp;
                     for (k = 0; k < larg->ndim; ++k) {
                         ARRAY3D(aa, ib1 + k, ic1 + i, jj) -=
@@ -154,7 +154,7 @@ setubv_make_aa_bb_cc(void *arg) {
                     }
                 }
             }
-            for (i = 0; i < larg->ndim; ++i) {
+            for (int32 i = 0; i < larg->ndim; ++i) {
                 for (k = 0; k < larg->ncb; ++k) {
                     ARRAY3D(bb, k, ic1 + i, jj) =
                         -ARRAY2D(dfdp, i, larg->icp[k]);
@@ -167,14 +167,14 @@ setubv_make_aa_bb_cc(void *arg) {
 
     /*     Boundary conditions : */
     if (larg->nbc > 0) {
-        for (i = 0; i < larg->ndim; ++i) {
+        for (int32 i = 0; i < larg->ndim; ++i) {
             ubc0[i] = ARRAY2D(ups, 0, i);
             ubc1[i] = ARRAY2D(ups, larg->na, i);
         }
 
         (*(larg->bcni))(larg->iap, larg->rap, larg->ndim, larg->par, larg->icp,
                         larg->nbc, ubc0, ubc1, fbc, 2, dbc);
-        for (i = 0; i < larg->nbc; ++i) {
+        for (int32 i = 0; i < larg->nbc; ++i) {
             for (k = 0; k < larg->ndim; ++k) {
                 /*NOTE!!
                   This needs to split up.  Only the first processor does the
@@ -197,7 +197,7 @@ setubv_make_aa_bb_cc(void *arg) {
             j = jj;
             jp1 = j + 1;
             for (k = 0; k < (larg->ncol + 1); ++k) {
-                for (i = 0; i < larg->ndim; ++i) {
+                for (int32 i = 0; i < larg->ndim; ++i) {
                     i1 = k*larg->ndim + i;
                     j1 = j;
                     if (k + 1 == (larg->ncol + 1)) {
@@ -217,7 +217,7 @@ setubv_make_aa_bb_cc(void *arg) {
                                 2, dicd);
 
                 for (m = 0; m < larg->nint; ++m) {
-                    for (i = 0; i < larg->ndim; ++i) {
+                    for (int32 i = 0; i < larg->ndim; ++i) {
                         k1 = k*larg->ndim + i;
                         ARRAY3D(cc, k1, larg->nbc + m, jj) =
                             larg->dtm[j]*larg->wi[k]*ARRAY2D(dicd, m, i);
@@ -228,7 +228,7 @@ setubv_make_aa_bb_cc(void *arg) {
     }
     /*     Pseudo-arclength equation : */
     for (jj = larg->loop_start; jj < larg->loop_end; ++jj) {
-        for (i = 0; i < larg->ndim; ++i) {
+        for (int32 i = 0; i < larg->ndim; ++i) {
             for (k = 0; k < larg->ncol; ++k) {
                 k1 = k*larg->ndim + i;
                 ARRAY3D(cc, k1, larg->nrc - 1, jj) =
@@ -279,7 +279,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
        double *thu, double *p0, double *p1) {
     int64 aa_dim1, aa_dim2, bb_dim1, bb_dim2, cc_dim1, cc_dim2, dd_dim1;
 
-    int64 i, j, k;
+    int64 j, k;
 
     double *wi, *wp, *wt;
 
@@ -305,7 +305,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     genwts(ncol, ncol + 1, wt, wp);
 
     /* Initialize to zero. */
-    for (i = 0; i < nrc; ++i) {
+    for (int32 i = 0; i < nrc; ++i) {
         fc[i] = 0.;
         for (k = 0; k < ncb; ++k) {
             ARRAY2D(dd, k, i) = 0.;
@@ -313,13 +313,13 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
     }
 
     /* Set constants. */
-    for (i = 0; i < ncb; ++i) {
+    for (int32 i = 0; i < ncb; ++i) {
         par[icp[i]] = rlcur[i];
     }
 
     /*  NA is the local node's mesh interval number. */
 
-    for (i = 0; i < na; ++i) {
+    for (int32 i = 0; i < na; ++i) {
         for (j = 0; j < nra; ++j) {
             for (k = 0; k < nca; ++k) {
                 ARRAY3D(aa, k, j, i) = 0.;
@@ -365,7 +365,7 @@ setubv(int64 ndim, int64 ips, int64 na, int64 ncol, int64 nbc, int64 nint,
 
 void
 setubv_make_fa(setubv_parallel_arglist larg) {
-    int64 i, j, k, l;
+    int64 j, k, l;
     int64 ic, k1, ib;
     int64 jj, jp1, l1, ic1;
     double dt;
@@ -420,14 +420,14 @@ setubv_make_fa(setubv_parallel_arglist larg) {
                 }
             }
 
-            for (i = 0; i < NPARX; ++i) {
+            for (int32 i = 0; i < NPARX; ++i) {
                 prm[i] = larg.par[i];
             }
             (*(larg.funi))(larg.iap, larg.rap, larg.ndim, u, uold, larg.icp,
                            prm, 2, f, dfdu, dfdp);
 
             ic1 = ic*(larg.ndim);
-            for (i = 0; i < larg.ndim; ++i) {
+            for (int32 i = 0; i < larg.ndim; ++i) {
                 ARRAY2D(fa, ic1 + i, jj) =
                     f[i] - ARRAY2D(wploc, larg.ncol, ic) *
                                ARRAY2D(ups, jp1 + larg.loop_offset, i);
@@ -453,7 +453,7 @@ setubv_make_fa(setubv_parallel_arglist larg) {
 void
 setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
                   double *rlold, double rds) {
-    int64 i, j, jj, jp1, k, i1, m, j1;
+    int64 j, jj, jp1, k, i1, m, j1;
     double rlsum;
 
     int64 dups_dim1 = larg.ndxloc;
@@ -490,14 +490,14 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
 
     /* Boundary condition part of FC */
     if (larg.nbc > 0) {
-        for (i = 0; i < larg.ndim; ++i) {
+        for (int32 i = 0; i < larg.ndim; ++i) {
             ubc0[i] = ARRAY2D(ups, 0, i);
             ubc1[i] = ARRAY2D(ups, larg.na, i);
         }
 
         (*(larg.bcni))(larg.iap, larg.rap, larg.ndim, larg.par, larg.icp,
                        larg.nbc, ubc0, ubc1, fbc, 2, dbc);
-        for (i = 0; i < larg.nbc; ++i) {
+        for (int32 i = 0; i < larg.nbc; ++i) {
             larg.fc[i] = -fbc[i];
             for (k = 0; k < larg.ncb; ++k) {
                 ARRAY2D(dd, k, i) =
@@ -506,7 +506,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
         }
         /*       Save difference : */
         for (j = 0; j < larg.na + 1; ++j) {
-            for (i = 0; i < larg.nra; ++i) {
+            for (int32 i = 0; i < larg.nra; ++i) {
                 ARRAY2D(dups, j, i) =
                     ARRAY2D(ups, j, i) - ARRAY2D(uoldps, j, i);
             }
@@ -519,7 +519,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
             j = jj;
             jp1 = j + 1;
             for (k = 0; k < (larg.ncol + 1); ++k) {
-                for (i = 0; i < larg.ndim; ++i) {
+                for (int32 i = 0; i < larg.ndim; ++i) {
                     i1 = k*larg.ndim + i;
                     j1 = j;
                     if (k + 1 == (larg.ncol + 1)) {
@@ -540,7 +540,7 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
 
                 for (m = 0; m < larg.nint; ++m) {
                     larg.fc[larg.nbc + m] -= larg.dtm[j]*larg.wi[k]*ficd[m];
-                    for (i = 0; i < larg.ncb; ++i) {
+                    for (int32 i = 0; i < larg.ncb; ++i) {
                         ARRAY2D(dd, i, larg.nbc + m) +=
                             larg.dtm[j]*larg.wi[k] *
                             ARRAY2D(dicd, m, larg.ndim + larg.icp[i]);
@@ -550,12 +550,12 @@ setubv_make_fc_dd(setubv_parallel_arglist larg, double *dups, double *rlcur,
         }
     }
 
-    for (i = 0; i < larg.ncb; ++i) {
+    for (int32 i = 0; i < larg.ncb; ++i) {
         ARRAY2D(dd, i, (larg.nrc - 1)) = larg.thl[larg.icp[i]]*larg.rldot[i];
     }
 
     rlsum = 0.;
-    for (i = 0; i < larg.ncb; ++i) {
+    for (int32 i = 0; i < larg.ncb; ++i) {
         rlsum += larg.thl[larg.icp[i]]*(rlcur[i] - rlold[i])*larg.rldot[i];
     }
 

@@ -255,10 +255,9 @@ txt_redraw_view(Window window) {
 
 void
 redraw_txtview_text(void) {
-    int32 i;
     int32 j;
     XClearWindow(display, txtview.text);
-    for (i = 0; i < txtview.nlines; i++) {
+    for (int32 i = 0; i < txtview.nlines; i++) {
         j = i + txtview.first;
         switch (txtview.which) {
         case 0:

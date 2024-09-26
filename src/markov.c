@@ -64,9 +64,8 @@ markov_add_wiener(int32 index) {
 
 void
 markov_set_wieners(double dt, double *x, double t) {
-    int32 i;
     update_markov(x, t, fabs(dt));
-    for (i = 0; i < NWiener; i++)
+    for (int32 i = 0; i < NWiener; i++)
         constants[Wiener[i]] = normal(0.00, 1.00) / sqrt(fabs(dt));
     return;
 }
@@ -74,8 +73,7 @@ markov_set_wieners(double dt, double *x, double t) {
 void
 markov_add(int32 nstate, char *name) {
     double st[50];
-    int32 i;
-    for (i = 0; i < 50; i++)
+    for (int32 i = 0; i < 50; i++)
         st[i] = (double)i;
     create_markov(nstate, st, 0, name);
     return;
@@ -91,10 +89,10 @@ build_markov(
     char line[256], expr[256];
     int32 istart;
 
-    int32 i, j, nstates, index;
+    int32 j, nstates, index;
     index = -1;
     /* find it -- if not defined, then abort  */
-    for (i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < NMarkov; i++) {
         ll = (int32)strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
             if (len < ll) {
@@ -112,7 +110,7 @@ build_markov(
     if (ConvertStyle)
         fprintf(convertf, "markov %s %d\n", name, nstates);
     ggets_plintf(" Building %s %d states...\n", name, nstates);
-    for (i = 0; i < nstates; i++) {
+    for (int32 i = 0; i < nstates; i++) {
         /* fgets(line,256,fptr); */
         snprintf(line, sizeof(line), "%s", ma[i]);
         if (ConvertStyle)
@@ -139,10 +137,10 @@ markov_old_build(FILE *fptr, char *name) {
     char line[256], expr[256];
     int32 istart;
 
-    int32 i, j, nstates, index;
+    int32 j, nstates, index;
     index = -1;
     /* find it -- if not defined, then abort  */
-    for (i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < NMarkov; i++) {
         ll = (int32)strlen(markov[i].name);
         if (strncasecmp(name, markov[i].name, (usize)ll) == 0) {
             if (len < ll) {
@@ -160,7 +158,7 @@ markov_old_build(FILE *fptr, char *name) {
     if (ConvertStyle)
         fprintf(convertf, "markov %s %d\n", name, nstates);
     ggets_plintf(" Building %s ...\n", name);
-    for (i = 0; i < nstates; i++) {
+    for (int32 i = 0; i < nstates; i++) {
         fgets(line, 256, fptr);
 
         if (ConvertStyle)
@@ -204,7 +202,6 @@ markov_extract_expr(char *source, char *dest, int32 *i0) {
 
 void
 create_markov(int32 nstates, double *st, int32 type, char *name) {
-    int32 i;
     int32 n2 = nstates*nstates;
     int32 j = NMarkov;
     if (j >= MAX_MARK) {
@@ -221,7 +218,7 @@ create_markov(int32 nstates, double *st, int32 type, char *name) {
         markov[j].fixed = xmalloc((usize)n2*sizeof(*(markov[j].fixed)));
     }
 
-    for (i = 0; i < nstates; i++)
+    for (int32 i = 0; i < nstates; i++)
         markov[j].states[i] = st[i];
     strcpy(markov[j].name, name);
     NMarkov++;
@@ -283,7 +280,6 @@ compile_markov(int32 index, int32 j, int32 k) {
     char *expr;
     int32 l0 = markov[index].nstates*j + k;
     int32 leng2;
-    int32 i;
     int32 com[256];
     expr = markov[index].trans[l0];
 
@@ -291,7 +287,7 @@ compile_markov(int32 index, int32 j, int32 k) {
         return -1;
     markov[index].command[l0] =
         xmalloc(sizeof(*(markov[index].command[l0]))*(usize)(leng2 + 2));
-    for (i = 0; i < leng2; i++) {
+    for (int32 i = 0; i < leng2; i++) {
         markov[index].command[l0][i] = com[i];
     }
 
@@ -300,20 +296,19 @@ compile_markov(int32 index, int32 j, int32 k) {
 
 void
 update_markov(double *x, double t, double dt) {
-    int32 i;
     double yp[MAX_ODE];
     if (NMarkov == 0)
         return;
     set_ivar(0, t);
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         set_ivar(i + 1, x[i]);
-    for (i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++)
+    for (int32 i = NODE + FIX_VAR; i < NODE + FIX_VAR + NMarkov; i++)
         set_ivar(i + 1, x[i - FIX_VAR]);
-    for (i = NODE; i < NODE + FIX_VAR; i++)
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
         set_ivar(i + 1, evaluate(my_ode[i]));
-    for (i = 0; i < NMarkov; i++)
+    for (int32 i = 0; i < NMarkov; i++)
         yp[i] = markov_new_state(x[NODE + i], i, dt);
-    for (i = 0; i < NMarkov; i++) {
+    for (int32 i = 0; i < NMarkov; i++) {
         x[NODE + i] = yp[i];
         set_ivar(i + NODE + FIX_VAR + 1, yp[i]);
     }
@@ -327,10 +322,10 @@ markov_new_state(double old, int32 index, double dt) {
     double coin = markov_ndrand48();
     int32 row = -1, rns;
     double *st;
-    int32 i, ns = markov[index].nstates;
+    int32 ns = markov[index].nstates;
     int32 type = markov[index].type;
     st = markov[index].states;
-    for (i = 0; i < ns; i++)
+    for (int32 i = 0; i < ns; i++)
         if (fabs(st[i] - old) < .0001) {
             row = i;
             break;
@@ -340,7 +335,7 @@ markov_new_state(double old, int32 index, double dt) {
     rns = row*ns;
     sum = 0.0;
     if (type == 0) {
-        for (i = 0; i < ns; i++) {
+        for (int32 i = 0; i < ns; i++) {
             if (i != row) {
                 prob = evaluate(markov[index].command[rns + i])*dt;
                 sum = sum + prob;
@@ -350,7 +345,7 @@ markov_new_state(double old, int32 index, double dt) {
             }
         }
     } else {
-        for (i = 0; i < ns; i++) {
+        for (int32 i = 0; i < ns; i++) {
             if (i != row) {
                 prob = markov[index].fixed[rns + i]*dt;
                 sum = sum + prob;
@@ -402,10 +397,9 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
     double r[1000];
     /*double rold[1000]; Not used*/
 
-    int32 i;
     switch (meth) {
     case 0: /* std gillespie method */
-        for (i = 0; i < nrxn; i++) {
+        for (int32 i = 0; i < nrxn; i++) {
             v[i + 1] = 0.0;
             r[i] = get_ivar(rxn[i]);
             rate += r[i];
@@ -415,7 +409,7 @@ markov_one_gill_step(int32 meth, int32 nrxn, int32 *rxn, double *v) {
         v[0] = -log(markov_ndrand48()) / rate; /* next step */
         test = rate*markov_ndrand48();
         rate = r[0];
-        for (i = 0; i < nrxn; i++) {
+        for (int32 i = 0; i < nrxn; i++) {
             if (test < rate) {
                 v[i + 1] = 1.0;
                 break;
@@ -576,13 +570,12 @@ markov_append_stoch(int32 first, int32 length) {
 
 void
 markov_do_stats(int32 ierr) {
-    int32 i;
     int32 j;
     double ninv, mean;
     /*  STOCH_FLAG=0; */
     if (ierr != -1 && N_TRIALS > 0) {
         ninv = 1. / (double)(N_TRIALS);
-        for (i = 0; i < stoch_len; i++) {
+        for (int32 i = 0; i < stoch_len; i++) {
             for (j = 1; j <= NEQ; j++) {
                 mean = my_mean[j][i]*ninv;
                 my_mean[j][i] = mean;

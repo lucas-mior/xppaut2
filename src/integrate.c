@@ -372,7 +372,7 @@ integrate_monte_carlo(void) {
 
 void
 integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
-    int32 i, j, k, m, n = fixptguess.n;
+    int32 j, k, m, n = fixptguess.n;
     int32 ierr, new = 1;
     double x[MAX_ODE], sum;
     double er[MAX_ODE], em[MAX_ODE];
@@ -380,7 +380,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         fixptlist.n = 0;
 
     if (fixptlist.flag == 0) {
-        for (i = 0; i < MAXFP; i++) {
+        for (int32 i = 0; i < MAXFP; i++) {
             fixptlist.x[i] = xmalloc((usize)NODE*sizeof(*(fixptlist.x)));
             fixptlist.er[i] = xmalloc((usize)NODE*sizeof(*(fixptlist.er)));
             fixptlist.em[i] = xmalloc((usize)NODE*sizeof(*(fixptlist.em)));
@@ -391,7 +391,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         }
         fixptlist.flag = 1;
     }
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         for (j = 0; j < NODE; j++) {
             x[j] = markov_ndrand48()*(fixptguess.xhi[j] - fixptguess.xlo[j]) +
                    fixptguess.xlo[j];
@@ -444,7 +444,7 @@ integrate_monte_carlo_search(int32 append, int32 stuffbrowse, int32 ishoot) {
         reset_browser();
         storind = 0;
         m = fixptlist.n;
-        for (i = 0; i < m; i++) {
+        for (int32 i = 0; i < m; i++) {
             storage[0][storind] = (double)i;
             for (j = 0; j < NODE; j++)
                 storage[j + 1][storind] = (double)fixptlist.x[i][j];
@@ -610,7 +610,7 @@ integrate_do_range(double *x, int32 flag) {
     char parn[256];
     char bob[sizeof(parn) + 30];
     int32 ivar = 0, ivar2 = 0, res = 0, oldic = 0;
-    int32 nit = 20, i = 0, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
+    int32 nit = 20, j = 0, itype = 0, itype2 = 0, cycle = 0, icol = 0,
           nit2 = 0, iii = 0;
     int32 color = MyGraph->color[0];
     double t, dpar, plow = 0.0, phigh = 1.0, p = 0.0, plow2 = 0.0, phigh2 = 0.0,
@@ -768,7 +768,7 @@ integrate_do_range(double *x, int32 flag) {
         nit2 = 0;
     }
     for (j = 0; j <= nit2; j++) {
-        for (i = 0; i <= nit; i++) {
+        for (int32 i = 0; i <= nit; i++) {
             if (range.movie)
                 menudrive_clear_draw_window();
             if (cycle)
@@ -908,18 +908,17 @@ void
 integrate_silent_equilibria(void) {
     double x[MAX_ODE], er[MAX_ODE], em[MAX_ODE];
     int32 ierr;
-    int32 i;
     FILE *fp;
     if (BatchEquil < 0)
         return;
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         x[i] = last_ic[i];
 
     gear_do_sing_info(x, NEWT_ERR, EVEC_ERR, BOUND, EVEC_ITER, NODE, er, em,
                       &ierr);
     if (ierr == 0) {
         fp = fopen("equil.dat", "w");
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fprintf(fp, "%g %g %g\n", x[i], er[i], em[i]);
         fclose(fp);
         if (BatchEquil == 1)
@@ -997,8 +996,6 @@ integrate_find_equilib_com(int32 com) {
 
 void
 integrate_batch(void) {
-    int32 i;
-
     if ((Nintern_set == 0) | (Nintern_2_use == 0)) {
         this_internset[0] = '\0';
         integrate_batch_dry_run();
@@ -1006,7 +1003,7 @@ integrate_batch(void) {
         return;
     }
 
-    for (i = 0; i < Nintern_set; i++) {
+    for (int32 i = 0; i < Nintern_set; i++) {
         sprintf(this_internset, "_%s", intern_set[i].name);
         if (strlen(UserOUTFILE) == 0) /*Use the set name for outfile name*/
         {
@@ -1072,7 +1069,6 @@ void
 batch_integrate_once(void) {
     FILE *fp;
     double *x;
-    int32 i;
 
     if (dryrun)
         return;
@@ -1104,7 +1100,7 @@ batch_integrate_once(void) {
         if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
             storage[0][0] = (double)MyTime;
             my_rhs_extra(x, MyTime, NODE, NEQ);
-            for (i = 0; i < NEQ; i++)
+            for (int32 i = 0; i < NEQ; i++)
                 storage[1 + i][0] = (double)x[i];
             storind = 1;
         }
@@ -1170,7 +1166,6 @@ integrate_write_this_run(char *file, int32 i) {
 void
 integrate_do_init_data(int32 com) {
     char sr[20], ch;
-    int32 i;
     int32 si;
     double *x;
     double old_dt = DELTA_T;
@@ -1323,7 +1318,7 @@ integrate_do_init_data(int32 com) {
         ggets_new_int(sr, &si);
         si--;
         if (si < ShootIndex && si >= 0) {
-            for (i = 0; i < NODE; i++)
+            for (int32 i = 0; i < NODE; i++)
                 last_ic[i] = ShootIC[si][i];
             integrate_get_ic(2, x);
         } else
@@ -1338,7 +1333,7 @@ integrate_do_init_data(int32 com) {
             ggets_err_msg(" Cant open IC file");
             return;
         }
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fscanf(fp, "%lg", &last_ic[i]);
         fclose(fp);
         integrate_get_ic(2, x);
@@ -1402,13 +1397,11 @@ integrate_start_flags(double *x, double *t) {
 
 void
 usual_integrate_stuff(double *x) {
-    int32 i;
-
     integrate_start_flags(x, &MyTime);
     if (fabs(MyTime) >= TRANS && STORFLAG == 1 && POIMAP == 0) {
         storage[0][0] = (double)MyTime;
         my_rhs_extra(x, MyTime, NODE, NEQ);
-        for (i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++)
             storage[1 + i][0] = (double)x[i];
         storind = 1;
     }
@@ -1430,13 +1423,12 @@ usual_integrate_stuff(double *x) {
 
 void
 integrate_new_array_ic(char *new, int32 j1, int32 j2) {
-    int32 i;
     int32 ihot = -1;
     int32 ifree = -1;
     /* first check to see if this is
        one that has already been used and also find the first free one
     */
-    for (i = 0; i < NAR_IC; i++) {
+    for (int32 i = 0; i < NAR_IC; i++) {
         if (ar_ic[i].index0 == -1 && ifree == -1 && ar_ic[i].type == 0)
             ifree = i;
         if (strcmp(ar_ic[i].var, new) == 0 && ar_ic[i].j1 == j1 &&
@@ -1464,13 +1456,12 @@ integrate_new_array_ic(char *new, int32 j1, int32 j2) {
 
 void
 integrate_store_new_array_ic(char *new, int32 j1, int32 j2, char *formula) {
-    int32 i;
     int32 ihot = -1;
     int32 ifree = -1;
     /* first check to see if this is
        one that has already been used and also find the first free one
     */
-    for (i = 0; i < NAR_IC; i++) {
+    for (int32 i = 0; i < NAR_IC; i++) {
         if (ar_ic[i].index0 == -1 && ifree == -1 && ar_ic[i].type == 0)
             ifree = i;
         if (strcmp(ar_ic[i].var, new) == 0 && ar_ic[i].j1 == j1 &&
@@ -1557,10 +1548,9 @@ integrate_extract_ic_data(char *big) {
 
 void
 integrate_arr_ic_start(void) {
-    int32 i;
     if (ar_ic_defined == 0)
         return;
-    for (i = 0; i < NAR_IC; i++) {
+    for (int32 i = 0; i < NAR_IC; i++) {
         if (ar_ic[i].type == 2) {
             integrate_evaluate_ar_ic(ar_ic[i].var, ar_ic[i].formula,
                                      ar_ic[i].j1, ar_ic[i].j2);
@@ -1646,15 +1636,14 @@ integrate_form_ic(void) {
 
 void
 integrate_get_ic(int32 it, double *x) {
-    int32 i;
     switch (it) {
     case 0:
-        for (i = 0; i < NODE + NMarkov; i++)
+        for (int32 i = 0; i < NODE + NMarkov; i++)
             last_ic[i] = x[i];
         break;
     case 1:
     case 2:
-        for (i = 0; i < NODE + NMarkov; i++)
+        for (int32 i = 0; i < NODE + NMarkov; i++)
             x[i] = last_ic[i];
         break;
     default:
@@ -2390,12 +2379,11 @@ integrate_send_halt(void) {
 void
 integrate_send_output(double *y, double t) {
     double yy[MAX_ODE];
-    int32 i;
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         yy[i] = y[i];
     my_rhs_extra(yy, t, NODE, NEQ);
     if ((STORFLAG == 1) && (storind < MAXSTOR)) {
-        for (i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++)
             storage[i + 1][storind] = (double)yy[i];
         storage[0][storind] = (double)t;
         storind++;
@@ -2487,14 +2475,13 @@ integrate_export_data(FILE *fp) {
 void
 integrate_plot_the_graphs(double *xv, double *xvold, double ddt, int32 *tc,
                           int32 flag) {
-    int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
         integrate_plot_one_graph(xv, xvold, ddt, tc);
         return;
     }
 
-    for (i = 0; i < num_pops; i++) {
+    for (int32 i = 0; i < num_pops; i++) {
         many_pops_make_active(ActiveWinList[i], flag);
         integrate_plot_one_graph(xv, xvold, ddt, tc);
     }
@@ -2537,7 +2524,7 @@ void
 integrate_restore(int32 i1, int32 i2) {
     int32 ip, np = MyGraph->nvars;
     int32 ZSHFT, YSHFT, XSHFT;
-    int32 i, j, kxoff, kyoff, kzoff;
+    int32 j, kxoff, kyoff, kzoff;
     int32 iiXPLT, iiYPLT, iiZPLT;
     double oldxpl, oldypl, oldzpl, xpl, ypl, zpl;
     double v1[MAX_ODE + 1], v2[MAX_ODE + 1];
@@ -2571,7 +2558,7 @@ integrate_restore(int32 i1, int32 i2) {
         oldxpl = data[iiXPLT][kxoff];
         oldypl = data[iiYPLT][kyoff];
         oldzpl = data[iiZPLT][kzoff];
-        for (i = i1; i < i2; i++) {
+        for (int32 i = i1; i < i2; i++) {
             {
                 xpl = data[iiXPLT][kxoff];
                 ypl = data[iiYPLT][kyoff];
@@ -2627,15 +2614,14 @@ integrate_restore(int32 i1, int32 i2) {
 /*  Sets the color according to the velocity or z-value */
 void
 integrate_comp_color(double *v1, double *v2, int32 n, double dt) {
-    int32 i;
     int32 cur_color;
-    double sum;
+    double sum = 0.0;
     double min_scale = (double)(MyGraph->min_scale);
     double color_scale = (double)(MyGraph->color_scale);
     if (MyGraph->ColorFlag == 2) {
         sum = v1[MyGraph->ColorValue];
     } else {
-        for (i = 0, sum = 0.0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             sum += (double)fabs((double)(v1[i + 1] - v2[i + 1]));
         sum = sum / (dt);
     }

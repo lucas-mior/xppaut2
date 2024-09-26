@@ -34,11 +34,10 @@ double
 delay_handle_stab_eval(
     /* this returns appropriate values for delay jacobian */
     double delay, int32 var) {
-    int32 i;
 
-    if (del_stab_flag == 0) /* search for all delays  */
-    {
-        for (i = 0; i < NDelay; i++) {
+    if (del_stab_flag == 0) {
+        /* search for all delays  */
+        for (int32 i = 0; i < NDelay; i++) {
             if (delay == delay_list[i])
                 return GETVAR(var);
         }
@@ -48,7 +47,7 @@ delay_handle_stab_eval(
     }
     /*  now we must determine the value to return  */
     /*  del_stab_flag =-1 */
-    for (i = 0; i < NDelay; i++) {
+    for (int32 i = 0; i < NDelay; i++) {
         if (delay == delay_list[i])
             if (i == WhichDelay)
                 return variable_shift[1][var - 1];
@@ -59,7 +58,6 @@ delay_handle_stab_eval(
 int32
 delay_handle_alloc_delay(double big) {
     int32 n;
-    int32 i;
 
     n = (int32)(big / fabs(DELTA_T)) + 1;
 
@@ -78,7 +76,7 @@ delay_handle_alloc_delay(double big) {
     NDelay = 0;
     WhichDelay = -1;
     del_stab_flag = 1;
-    for (i = 0; i < n*(NODE); i++)
+    for (int32 i = 0; i < n*(NODE); i++)
         DelayWork[i] = 0.0;
     return 1;
 }
@@ -93,7 +91,6 @@ delay_handle_free_delay(void) {
 
 void
 delay_handle_stor_delay(double *y) {
-    int32 i;
     int32 in;
     int32 nodes = NODE;
     if (DelayFlag == 0)
@@ -102,7 +99,7 @@ delay_handle_stor_delay(double *y) {
     if (LatestDelay < 0)
         LatestDelay += MaxDelay;
     in = LatestDelay*(nodes);
-    for (i = 0; i < (nodes); i++)
+    for (int32 i = 0; i < (nodes); i++)
         DelayWork[i + in] = y[i];
     return;
 }
@@ -110,11 +107,11 @@ delay_handle_stor_delay(double *y) {
 void
 delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
                     double *dy) {
-    int32 i, m, ns = 1;
+    int32 m, ns = 1;
     double den, dif, dift, h0, hp, w;
     double c[10], d[10];
     dif = fabs(x - xa[0]);
-    for (i = 1; i <= n; i++) {
+    for (int32 i = 1; i <= n; i++) {
         if ((dift = fabs(x - xa[i - 1])) < dif) {
             ns = i;
             dif = dift;
@@ -124,7 +121,7 @@ delay_handle_polint(double *xa, double *ya, int32 n, double x, double *y,
     }
     *y = ya[(ns--) - 1];
     for (m = 1; m < n; m++) {
-        for (i = 1; i <= n - m; i++) {
+        for (int32 i = 1; i <= n - m; i++) {
             h0 = xa[i - 1] - x;
             hp = xa[i + m - 1] - x;
             w = c[i] - d[i - 1];
@@ -189,14 +186,14 @@ delay_handle_get_delay(int32 in, double tau) {
 int32
 delay_handle_do_init_delay(double big) {
     double t = T0, old_t, y[MAX_ODE];
-    int32 i, nt, j;
+    int32 nt, j;
     int32 len;
 
     int32 *del_form[MAX_ODE];
     nt = (int32)(big / fabs(DELTA_T));
     NCON = NCON_START;
     NSYM = NSYM_START;
-    for (i = 0; i < (NODE); i++) {
+    for (int32 i = 0; i < (NODE); i++) {
         del_form[i] = (int32 *)calloc(200, sizeof(int32));
         if (del_form[i] == NULL) {
             ggets_err_msg("Failed to allocate delay formula ...");
@@ -220,7 +217,7 @@ delay_handle_do_init_delay(double big) {
 
     get_val("t", &old_t);
 
-    for (i = nt; i >= 0; i--) {
+    for (int32 i = nt; i >= 0; i--) {
         t = T0 - fabs(DELTA_T)*i;
         set_val("t", t);
         for (j = 0; j < (NODE); j++)

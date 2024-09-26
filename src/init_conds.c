@@ -145,7 +145,7 @@ static BoxList BCBox;
 /* CLONE */
 void
 init_conds_clone_ode(void) {
-    int32 i, j, x, y;
+    int32 j, x, y;
     FILE *fp;
     char clone[256];
 
@@ -161,7 +161,7 @@ init_conds_clone_ode(void) {
     }
     ttt = time(0);
     fprintf(fp, "# clone of %s on %s", this_file, ctime(&ttt));
-    for (i = 0; i < NLINES; i++) {
+    for (int32 i = 0; i < NLINES; i++) {
         s = save_eqn[i];
 
         if (s[0] == 'p' || s[0] == 'P' || s[0] == 'b' || s[0] == 'B') {
@@ -181,7 +181,7 @@ init_conds_clone_ode(void) {
     /* now we do parameters boundary conds and ICs */
     j = 0;
     fprintf(fp, "init ");
-    for (i = 0; i < (NODE + NMarkov); i++) {
+    for (int32 i = 0; i < (NODE + NMarkov); i++) {
         if (j == 8) {
             fprintf(fp, "\ninit ");
             j = 0;
@@ -194,13 +194,13 @@ init_conds_clone_ode(void) {
 
     /* BDRY conds */
     if (my_bc[0].string[0] != '0') {
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fprintf(fp, "bdry %s\n", my_bc[i].string);
     }
     j = 0;
     if (NUPAR > 0) {
         fprintf(fp, "par ");
-        for (i = 0; i < NUPAR; i++) {
+        for (int32 i = 0; i < NUPAR; i++) {
             if (j == 8) {
                 fprintf(fp, "\npar ");
                 j = 0;
@@ -243,8 +243,7 @@ init_conds_find_user_name(int32 type, char *oname) {
 
 void
 init_conds_create_par_sliders(Window base, int32 x0, int32 h0) {
-    int32 i;
-    for (i = 0; i < 3; i++)
+    for (int32 i = 0; i < 3; i++)
         make_par_slider(base, x0 + i*36*DCURXs, h0, 100, i);
     return;
 }
@@ -630,7 +629,6 @@ create_file_selector(char *title, char *file, char *wild) {
     int32 n = my_ff.ndirs + my_ff.nfiles;
     int32 nwin = FILESELNWIN;
     int32 hgt;
-    int32 i;
     int32 width, height;
 
     Window base;
@@ -704,7 +702,7 @@ create_file_selector(char *title, char *file, char *wild) {
     filesel.file = make_plain_window(base, 7*DCURXs, 2 + 2*hgt,
                                      width - 7*DCURXs - 5, DCURYs, 1);
     filesel.fw = make_window(base, 2, 2 + 2*hgt, 6*DCURXs + 2, DCURYs, 0);
-    for (i = 0; i < nwin; i++) {
+    for (int32 i = 0; i < nwin; i++) {
         filesel.window[i] =
             make_plain_window(base, 6*DCURXs + 5, 2 + (3 + i)*hgt,
                               width - 6*DCURXs - 10, DCURYs, 0);
@@ -1111,10 +1109,9 @@ end:
 
 void
 init_conds_reset_sliders(void) {
-    int32 i;
     double val;
     struct ParSlider *p;
-    for (i = 0; i < 3; i++) {
+    for (int32 i = 0; i < 3; i++) {
         p = &my_par_slide[i];
         if (p->use) {
             if (p->type == ICBOX)
@@ -1219,8 +1216,7 @@ do_slide_motion(Window window, int32 x, struct ParSlider *p, int32 s) {
 
 void
 init_conds_enter_slides(Window window, int32 val) {
-    int32 i;
-    for (i = 0; i < 3; i++)
+    for (int32 i = 0; i < 3; i++)
         enter_slider(window, &my_par_slide[i], val);
     return;
 }
@@ -1234,8 +1230,7 @@ enter_slider(Window window, struct ParSlider *p, int32 val) {
 
 void
 init_conds_expose_slides(Window window) {
-    int32 i;
-    for (i = 0; i < 3; i++)
+    for (int32 i = 0; i < 3; i++)
         expose_slider(window, &my_par_slide[i]);
     return;
 }
@@ -1292,13 +1287,13 @@ expose_slider(Window window, struct ParSlider *p) {
 
 void
 draw_slider(Window window, int32 x, int32 hgt, int32 l) {
-    int32 x0 = x - 2, i;
+    int32 x0 = x - 2;
     if (x0 < 0)
         x0 = 0;
     if (x0 > (l - 4))
         x0 = l - 4;
     XClearWindow(display, window);
-    for (i = 0; i < 4; i++)
+    for (int32 i = 0; i < 4; i++)
         XDrawLine(display, window, small_gc, x0 + i, 0, x0 + i, hgt);
     return;
 }
@@ -1562,7 +1557,7 @@ make_box_list_window(BoxList *b, int32 type) {
     int32 n;
     int32 x, y;
     int32 xb1, xb2, xb3, xb4;
-    int32 i, wid1, wid2;
+    int32 wid1, wid2;
     int32 width, height, wid, hgt;
 
     Window base;
@@ -1606,7 +1601,7 @@ make_box_list_window(BoxList *b, int32 type) {
     if (type == ICBOX) {
         b->ck = xmalloc((usize)nrow*sizeof(*(b->ck)));
         b->isck = xmalloc((usize)n*sizeof(*(b->isck)));
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             b->isck[i] = 0;
     }
 
@@ -1632,7 +1627,7 @@ make_box_list_window(BoxList *b, int32 type) {
     b->pgdn = make_icon_window(base, xb1, (int32)(1.75*DCURYs) + 72 + 9, 32,
                                24, 1, pagedn_bits);
 
-    for (i = 0; i < nrow; i++) {
+    for (int32 i = 0; i < nrow; i++) {
         x = DCURXs;
         y = DCURYs + (hgt + 4)*i + (int32)(1.5*hgt);
         b->w[i] = make_plain_window(base, x, y, wid1, hgt, 0);
@@ -1659,7 +1654,6 @@ void
 make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
               int32 use) {
     int32 nrow;
-    int32 i;
     char sss[256];
     double z;
 
@@ -1682,7 +1676,7 @@ make_box_list(BoxList *b, char *wname, char *iname, int32 n, int32 type,
     b->wname = xmalloc(strlen(wname) + 5);
     strcpy(b->wname, wname);
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         b->value[i] = xmalloc(256);
         switch (type) {
         case PARAMBOX:
@@ -1784,11 +1778,10 @@ init_conds_draw_one_box(BoxList b, int32 index) {
 
 void
 init_conds_redraw_params(void) {
-    int32 i;
     double z;
     derived_evaluate();
     if (ParamBox.use)
-        for (i = 0; i < NUPAR; i++) {
+        for (int32 i = 0; i < NUPAR; i++) {
             get_val(upar_names[i], &z);
             add_edit_float(&ParamBox, i, z);
             init_conds_draw_one_box(ParamBox, i);
@@ -1798,25 +1791,23 @@ init_conds_redraw_params(void) {
 
 void
 init_conds_redraw_delays(void) {
-    int32 i;
     if (DelayBox.use)
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             init_conds_draw_one_box(DelayBox, i);
     return;
 }
 
 void
 init_conds_redraw_ics(void) {
-    int32 i;
     int32 in;
-    for (i = 0; i < NODE + NMarkov; i++) {
+    for (int32 i = 0; i < NODE + NMarkov; i++) {
         add_edit_float(&ICBox, i, last_ic[i]);
         init_conds_draw_one_box(ICBox, i);
     }
     init_conds_reset_sliders();
     if (ICBox.xuse == 0)
         return;
-    for (i = 0; i < ICBox.nwin; i++) {
+    for (int32 i = 0; i < ICBox.nwin; i++) {
         in = i + ICBox.n0;
         if (ICBox.isck[in])
             XDrawString(display, ICBox.ck[i], small_gc, 0, CURY_OFFs, "*", 1);
@@ -1828,15 +1819,13 @@ init_conds_redraw_ics(void) {
 
 void
 init_conds_redraw_bcs(void) {
-    int32 i;
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         init_conds_draw_one_box(BCBox, i);
     return;
 }
 
 void
 display_box(BoxList b, Window window) {
-    int32 i;
     int32 n0 = b.n0;
     int32 n1 = n0 + b.nwin;
     int32 index;
@@ -1878,13 +1867,13 @@ display_box(BoxList b, Window window) {
             XDrawString(display, window, small_gc, 3, CURY_OFFs, "arry", 4);
     }
 
-    for (i = 0; i < b.nwin; i++)
+    for (int32 i = 0; i < b.nwin; i++)
         if (b.w[i] == window || b.we[i] == window) {
             init_conds_draw_one_box(b, i + b.n0);
             return;
         }
     if (b.type == ICBOX) {
-        for (i = 0; i < b.nwin; i++) {
+        for (int32 i = 0; i < b.nwin; i++) {
             index = i + b.n0;
             if (index >= n0 && index < n1) {
                 if (b.ck[i] == window && b.isck[index] == 1)
@@ -1898,7 +1887,6 @@ display_box(BoxList b, Window window) {
 
 void
 init_conds_box_enter_events(Window window, int32 yn) {
-    int32 i;
     int32 val;
     if (yn == 1)
         val = 2;
@@ -1917,7 +1905,7 @@ init_conds_box_enter_events(Window window, int32 yn) {
         XSetWindowBorderWidth(display, window, (uint)val);
     if (ICBox.xuse == 0)
         return;
-    for (i = 0; i < ICBox.nwin; i++)
+    for (int32 i = 0; i < ICBox.nwin; i++)
         if (window == ICBox.ck[i])
             XSetWindowBorderWidth(display, window, (uint)val);
     return;
@@ -2165,11 +2153,11 @@ do_box_key(BoxList *b, XEvent event, int32 *used) {
     Window window = event.xkey.window;
     char ch;
     Window focus;
-    int32 rev, n = b->nwin, i, j, flag;
+    int32 rev, n = b->nwin, j, flag;
     *used = 0;
     if (b->xuse == 0)
         return;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         if (b->we[i] == window) {
             XGetInputFocus(display, &focus, &rev);
             if (window == focus) {
@@ -2297,9 +2285,8 @@ init_conds_redo_stuff(void) {
 
 void
 set_default_params(void) {
-    int32 i;
     char junk[256];
-    for (i = 0; i < NUPAR; i++) {
+    for (int32 i = 0; i < NUPAR; i++) {
         set_val(upar_names[i], default_val[i]);
         sprintf(junk, "%.16g", default_val[i]);
         init_conds_set_edit_params(&ParamBox, i, junk);

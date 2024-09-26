@@ -34,13 +34,12 @@ llnlmath_unit_roundoff(void) {
 
 double
 llnlmath_rpower_i(double base, int32 exponent) {
-    int32 i;
     int32 expt;
     double prod;
 
     prod = ONE;
     expt = ABS(exponent);
-    for (i = 1; i <= expt; i++)
+    for (int32 i = 1; i <= expt; i++)
         prod *= base;
     if (exponent < 0)
         prod = ONE / prod;

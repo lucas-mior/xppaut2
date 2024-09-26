@@ -340,8 +340,7 @@ graphics_rect_x11(int32 x, int32 y, int32 w, int32 h) {
 void
 graphics_draw_many_lines(void) {
     int32 NLINE = 500000;
-    int32 i;
-    for (i = 0; i < NLINE; i++)
+    for (int32 i = 0; i < NLINE; i++)
         XDrawLine(display, draw_win, gc_graph, rand() % 200, rand() % 200,
                   rand() % 200, rand() % 200);
     printf("Done\n");
@@ -539,8 +538,7 @@ graphics_reset_all_line_type(void) {
 
 void
 graphics_init_all(void) {
-    int32 i;
-    for (i = 0; i < MAXPOP; i++)
+    for (int32 i = 0; i < MAXPOP; i++)
         graphics_init(i);
     MyGraph = &graph[0];
     /*graphics_set_extra();*/
@@ -550,14 +548,13 @@ graphics_init_all(void) {
 
 void
 graphics_set_extra(void) {
-    int32 i;
     if (NPltV < 2)
         return;
     if (NPltV > 8)
         NPltV = 8;
     if (MultiWin == 0) {
         MyGraph->nvars = NPltV;
-        for (i = 1; i < NPltV; i++) {
+        for (int32 i = 1; i < NPltV; i++) {
             MyGraph->xv[i] = IX_PLT[i + 1];
             MyGraph->yv[i] = IY_PLT[i + 1];
             MyGraph->zv[i] = IZ_PLT[i + 1];
@@ -566,7 +563,7 @@ graphics_set_extra(void) {
         return;
     }
     if (Xup) {
-        for (i = 1; i < NPltV; i++) {
+        for (int32 i = 1; i < NPltV; i++) {
             many_pops_create_a_pop();
             graph[i].xv[0] = IX_PLT[i + 1];
             graph[i].yv[0] = IY_PLT[i + 1];
@@ -973,14 +970,13 @@ graphics_pers_line(double x, double y, double z, double xp, double yp,
 void
 graphics_rot_3dvec(double x, double y, double z, double *xp, double *yp,
                    double *zp) {
-    int32 i;
     int32 j;
     double vt[3], vnew[3];
     vt[0] = x;
     vt[1] = y;
     vt[2] = z;
 
-    for (i = 0; i < 3; i++) {
+    for (int32 i = 0; i < 3; i++) {
         vnew[i] = 0.0;
         for (j = 0; j < 3; j++)
             vnew[i] = vnew[i] + MyGraph->rm[i][j]*vt[j];

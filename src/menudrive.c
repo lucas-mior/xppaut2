@@ -198,7 +198,6 @@ menudrive_clear_draw_window(void) {
 
 void
 menudrive_drw_all_scrns(void) {
-    int32 i;
     int32 me = manual_expose;
     int32 ic = current_pop;
     manual_expose = 0;
@@ -208,7 +207,7 @@ menudrive_drw_all_scrns(void) {
         return;
     }
 
-    for (i = 0; i < num_pops; i++) {
+    for (int32 i = 0; i < num_pops; i++) {
         many_pops_make_active(ActiveWinList[i], 1);
         main_redraw_all();
     }
@@ -221,7 +220,6 @@ menudrive_drw_all_scrns(void) {
 
 void
 menudrive_clr_all_scrns(void) {
-    int32 i;
     int32 ic = current_pop;
     if (SimulPlotFlag == 0) {
         main_clr_scrn();
@@ -229,7 +227,7 @@ menudrive_clr_all_scrns(void) {
         return;
     }
 
-    for (i = 0; i < num_pops; i++) {
+    for (int32 i = 0; i < num_pops; i++) {
         many_pops_make_active(ActiveWinList[i], 1);
         main_clr_scrn();
     }

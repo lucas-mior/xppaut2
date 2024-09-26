@@ -42,10 +42,10 @@ volterra_ker_val(int32 in) {
 
 void
 volterra_alloc_memory(void) {
-    int32 i, len, formula[256], j;
+    int32 len, formula[256], j;
 
     /* First parse the kernels   since these were deferred */
-    for (i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < NKernel; i++) {
         kernel[i].k_n = 0.0;
         if (add_expr(kernel[i].expr, formula, &len)) {
             ggets_plintf("Illegal kernel %s=%s\n", kernel[i].name,
@@ -172,7 +172,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
     double t = t0 + n*dt, tp = t0 + i0*dt;
     double sum[MAX_ODE], al, alpbet, mu;
     int32 nvar = FIX_VAR + NODE + NMarkov;
-    int32 l, ioff, ker, i;
+    int32 l, ioff, ker;
     SETVAR(0, t);
     SETVAR(PrimeStart, tp);
     for (l = 0; l < nvar; l++)
@@ -188,7 +188,7 @@ volterra_init_sums(double t0, int32 n, double dt, int32 i0, int32 iend,
         if (kernel[ker].flag == CONV)
             sum[ker] = sum[ker]*kernel[ker].cnv[n - i0];
     }
-    for (i = 1; i <= iend; i++) {
+    for (int32 i = 1; i <= iend; i++) {
         ioff = (ishift + i) % MaxPoints;
         tp += dt;
         SETVAR(PrimeStart, tp);
@@ -253,15 +253,14 @@ volterra_betnn(double mu, double dt) {
 void
 volterra_get_kn(double *y, double t) {
     /* uses the guessed value y to update Kn  */
-    int32 i;
 
     SETVAR(0, t);
     SETVAR(PrimeStart, t);
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         SETVAR(i + 1, y[i]);
-    for (i = NODE; i < NODE + FIX_VAR; i++)
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
-    for (i = 0; i < NKernel; i++) {
+    for (int32 i = 0; i < NKernel; i++) {
         if (kernel[i].flag == CONV)
             kernel[i].k_n = kernel[i].sum + kernel[i].betnn *
                                                 evaluate(kernel[i].formula) *
@@ -278,7 +277,6 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
          double *work) {
     double *jac, *yg, *yp, *yp2, *ytemp, *errvec;
     double z, mu, bet;
-    int32 i;
     int32 j;
     yp = work;
     yg = yp + neq;
@@ -291,7 +289,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
     if (*istart == 1) {
         CurrentPoint = 0;
         KnFlag = 1;
-        for (i = 0; i < NKernel; i++) { /* zero the integrals              */
+        for (int32 i = 0; i < NKernel; i++) { /* zero the integrals              */
             kernel[i].k_n = 0.0;
             kernel[i].k_n1 = 0.0;
             mu = kernel[i].mu; /*  compute bet_nn                 */
@@ -303,27 +301,27 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
         }
         SETVAR(0, *t);
         SETVAR(PrimeStart, *t);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             if (!EqType[i])
                 SETVAR(i + 1, y[i]); /* assign initial data             */
-        for (i = NODE; i < NODE + FIX_VAR; i++)
+        for (int32 i = NODE; i < NODE + FIX_VAR; i++)
             SETVAR(i + 1,
                    evaluate(my_ode[i])); /* set fixed variables  for pass 1 */
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             if (EqType[i]) {
                 z = evaluate(my_ode[i]); /* reset IC for integral eqns      */
                 SETVAR(i + 1, z);
                 y[i] = z;
             }
-        for (i = NODE; i < NODE + FIX_VAR; i++) /* pass 2 for fixed variables */
+        for (int32 i = NODE; i < NODE + FIX_VAR; i++) /* pass 2 for fixed variables */
             SETVAR(i + 1, evaluate(my_ode[i]));
-        for (i = 0; i < NODE + FIX_VAR + NMarkov; i++)
+        for (int32 i = 0; i < NODE + FIX_VAR + NMarkov; i++)
             Memory[i][0] = get_ivar(i + 1); /* save everything */
         CurrentPoint = 1;
         *istart = 0;
     }
 
-    for (i = 0; i < nt; i++) /* the real computation            */
+    for (int32 i = 0; i < nt; i++) /* the real computation            */
     {
         *t = *t + dt;
         markov_set_wieners(dt, y, *t);
@@ -337,7 +335,7 @@ volterra(double *y, double *t, double dt, int32 nt, int32 neq, int32 *istart,
 int32
 volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
               double *yp2, double *errvec, double *jac) {
-    int32 i0, iend, ishift, i, iter = 0, info, ipivot[MAX_ODE1], j, ind;
+    int32 i0, iend, ishift, iter = 0, info, ipivot[MAX_ODE1], j, ind;
     int32 n1 = NODE + 1;
     double dt2 = .5*dt, err;
     double del, yold, fac, delinv;
@@ -347,16 +345,16 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     volterra_init_sums(T0, CurrentPoint, dt, i0, iend,
                        ishift); /*  initialize all the sums */
     KnFlag = 0;
-    for (i = 0; i < neq; i++) {
+    for (int32 i = 0; i < neq; i++) {
         SETVAR(i + 1, y[i]);
         yg[i] = y[i];
     }
-    for (i = NODE; i < NODE + NMarkov; i++)
+    for (int32 i = NODE; i < NODE + NMarkov; i++)
         SETVAR(i + 1 + FIX_VAR, y[i]);
     SETVAR(0, t - dt);
-    for (i = NODE; i < NODE + FIX_VAR; i++)
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         if (!EqType[i])
             yp2[i] = y[i] + dt2*evaluate(my_ode[i]);
         else
@@ -365,9 +363,9 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     KnFlag = 1;
     while (true) {
         volterra_get_kn(yg, t);
-        for (i = NODE; i < NODE + FIX_VAR; i++)
+        for (int32 i = NODE; i < NODE + FIX_VAR; i++)
             SETVAR(i + 1, evaluate(my_ode[i]));
-        for (i = 0; i < NODE; i++) {
+        for (int32 i = 0; i < NODE; i++) {
             yp[i] = evaluate(my_ode[i]);
             if (EqType[i])
                 errvec[i] = -yg[i] + yp[i];
@@ -375,7 +373,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
                 errvec[i] = -yg[i] + dt2*yp[i] + yp2[i];
         }
         /*   Compute Jacobian     */
-        for (i = 0; i < NODE; i++) {
+        for (int32 i = 0; i < NODE; i++) {
             del = NEWT_ERR*MAX(NEWT_ERR, fabs(yg[i]));
             yold = yg[i];
             yg[i] += del;
@@ -392,7 +390,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
             yg[i] = yold;
         }
 
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             jac[n1*i] -= 1.0;
         gear_sgefa(jac, NODE, NODE, ipivot, &info);
         if (info != -1) {
@@ -400,7 +398,7 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
         }
         err = 0.0;
         gear_sgesl(jac, NODE, NODE, ipivot, errvec, 0);
-        for (i = 0; i < NODE; i++) {
+        for (int32 i = 0; i < NODE; i++) {
             err = MAX(fabs(errvec[i]), err);
             yg[i] -= errvec[i];
         }
@@ -412,10 +410,10 @@ volterra_step(double *y, double t, double dt, int32 neq, double *yg, double *yp,
     }
     /* We have a good graphics_point; lets save it    */
     volterra_get_kn(yg, t);
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         y[i] = yg[i];
     ind = CurrentPoint % MaxPoints;
-    for (i = 0; i < NODE + FIX_VAR + NMarkov; i++)
+    for (int32 i = 0; i < NODE + FIX_VAR + NMarkov; i++)
         Memory[i][ind] = GETVAR(i + 1);
     CurrentPoint++;
 

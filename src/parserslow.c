@@ -589,8 +589,7 @@ add_form_table(int32 index, int32 nn, double xlo, double xhi, char *formula) {
 
 void
 set_old_arg_names(int32 narg) {
-    int32 i;
-    for (i = 0; i < narg; i++) {
+    for (int32 i = 0; i < narg; i++) {
         snprintf(my_symb[FIRST_ARG + i].name,
                  sizeof(my_symb[FIRST_ARG + i].name), "ARG%d", i + 1);
         my_symb[FIRST_ARG + i].len = 4;
@@ -600,8 +599,7 @@ set_old_arg_names(int32 narg) {
 
 void
 set_new_arg_names(int32 narg, char args[10][14]) {
-    int32 i;
-    for (i = 0; i < narg; i++) {
+    for (int32 i = 0; i < narg; i++) {
         strcpy(my_symb[FIRST_ARG + i].name, args[i]);
         my_symb[FIRST_ARG + i].len = (int32)strlen(args[i]);
     }
@@ -646,7 +644,6 @@ fixup_endfun(int32 *u, int32 l, int32 narg) {
 
 int32
 add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
-    int32 i;
     int32 l;
     int32 end;
     if (narg > MAXARG) {
@@ -664,7 +661,7 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
         return 1;
     }
     ufun_arg[index].narg = narg;
-    for (i = 0; i < narg; i++)
+    for (int32 i = 0; i < narg; i++)
         strcpy(ufun_arg[index].args[i], args[i]);
     set_new_arg_names(narg, args);
     if (add_expr(rhs, ufun[index], &end) == 0) {
@@ -690,7 +687,6 @@ add_ufun_new(int32 index, int32 narg, char *rhs, char args[MAXARG][14]) {
 int32
 add_ufun(char *junk, char *expr, int32 narg) {
     char string[50];
-    int32 i;
     int32 l;
     int32 end;
     int32 len = (int32)strlen(junk);
@@ -732,7 +728,7 @@ add_ufun(char *junk, char *expr, int32 narg) {
         ufun_def[NFUN][l - 1] = 0;
         strcpy(ufun_names[NFUN], junk);
         narg_fun[NFUN] = narg;
-        for (i = 0; i < narg; i++) {
+        for (int32 i = 0; i < narg; i++) {
             snprintf(ufun_arg[NFUN].args[i], sizeof(ufun_arg[NFUN].args[i]),
                      "ARG%d", i + 1);
         }
@@ -746,9 +742,9 @@ add_ufun(char *junk, char *expr, int32 narg) {
 
 int32
 check_num(int32 *tok, double value) {
-    int32 bob, in, i;
+    int32 bob, in;
     /*int32 m;*/
-    for (i = 0; i < NSYM; i++) {
+    for (int32 i = 0; i < NSYM; i++) {
         if (strncmp(my_symb[i].name, "NUM##", 5) == 0) {
             bob = my_symb[i].com;
             in = bob % MAXTYPE;
@@ -1172,9 +1168,8 @@ pr_command(int32 *command) {
 void
 show_where(char *string, int32 index) {
     char junk[MAXEXPLEN];
-    int32 i;
     /* exit(-1); */
-    for (i = 0; i < index; i++)
+    for (int32 i = 0; i < index; i++)
         junk[i] = ' ';
     junk[index] = '^';
     junk[index + 1] = 0;

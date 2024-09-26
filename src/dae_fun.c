@@ -57,8 +57,7 @@ dae_fun_add_svar(char *name, char *rhs) {
 
 int32
 dae_fun_add_svar_names(void) {
-    int32 i;
-    for (i = 0; i < nsvar; i++) {
+    for (int32 i = 0; i < nsvar; i++) {
         svar[i].index = NVAR;
         if (add_var(svar[i].name, 0.0) == 1)
             return 1;
@@ -83,14 +82,14 @@ dae_fun_add_aeqn(char *rhs) {
 /* this compiles formulas to set to zero */
 int32
 dae_fun_compile_svars(void) {
-    int32 i, f[256], n, k;
+    int32 f[256], n, k;
     if (nsvar != naeqn) {
         ggets_plintf(" #SOL_VAR(%d) must equal #ALG_EQN(%d) ! \n", nsvar,
                      naeqn);
         return 1;
     }
 
-    for (i = 0; i < naeqn; i++) {
+    for (int32 i = 0; i < naeqn; i++) {
         if (add_expr(aeqn[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad right-hand side for alg-eqn \n");
             return 1;
@@ -100,7 +99,7 @@ dae_fun_compile_svars(void) {
             aeqn[i].form[k] = f[k];
     }
 
-    for (i = 0; i < nsvar; i++) {
+    for (int32 i = 0; i < nsvar; i++) {
         if (add_expr(svar[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad initial guess for sol-var \n");
             return 1;
@@ -166,13 +165,12 @@ dae_fun_err_dae(void) {
 
 void
 get_dae_fun(double *y, double *f) {
-    int32 i;
     /* better do this in case fixed variables depend on sol_var */
-    for (i = 0; i < nsvar; i++)
+    for (int32 i = 0; i < nsvar; i++)
         SETVAR(svar[i].index, y[i]);
-    for (i = NODE; i < NODE + FIX_VAR; i++)
+    for (int32 i = NODE; i < NODE + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
-    for (i = 0; i < naeqn; i++)
+    for (int32 i = 0; i < naeqn; i++)
         f[i] = evaluate(aeqn[i].form);
     return;
 }
@@ -183,7 +181,7 @@ dae_fun_do_daes(void) {
 
     /* dae fun solve */
     /* Newton solver for algebraic stuff */
-    int32 i, j, n;
+    int32 j, n;
     int32 info;
     double err, del, z, yold;
     double tol = EVEC_ERR, eps = NEWT_ERR;
@@ -200,19 +198,19 @@ dae_fun_do_daes(void) {
     ynew = fnew + nsvar;
     errvec = ynew + nsvar;
     jac = errvec + nsvar;
-    for (i = 0; i < n; i++) { /* copy current value as initial guess */
+    for (int32 i = 0; i < n; i++) { /* copy current value as initial guess */
         y[i] = svar[i].last;
         ynew[i] = y[i]; /* keep old guess */
     }
     while (true) {
         get_dae_fun(y, f);
         err = 0.0;
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             err += fabs(f[i]);
             errvec[i] = f[i];
         }
         if (err < tol) { /* success */
-            for (i = 0; i < n; i++) {
+            for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, y[i]);
                 svar[i].last = y[i];
             }
@@ -220,7 +218,7 @@ dae_fun_do_daes(void) {
             break;
         }
         /* compute jacobian */
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             z = fabs(y[i]);
             if (z < eps)
                 z = eps;
@@ -234,26 +232,26 @@ dae_fun_do_daes(void) {
         }
         gear_sgefa(jac, n, n, dae_work.iwork, &info);
         if (info != -1) {
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 SETVAR(svar[i].index, ynew[i]);
             ans = -1; /* singular jacobian */
             break;
         }
         gear_sgesl(jac, n, n, dae_work.iwork, errvec, 0); /* get x=J^(-1) f */
         err = 0.0;
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             y[i] -= errvec[i];
             err += fabs(errvec[i]);
         }
         if (err > (n*BOUND)) {
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
             ans = -3; /* getting too big */
             break;
         }
         if (err < tol) /* not much change */
         {
-            for (i = 0; i < n; i++) {
+            for (int32 i = 0; i < n; i++) {
                 SETVAR(svar[i].index, y[i]);
                 svar[i].last = y[i];
             }
@@ -262,7 +260,7 @@ dae_fun_do_daes(void) {
         }
         iter++;
         if (iter > maxit) {
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 SETVAR(svar[i].index, svar[i].last);
             ans = -2; /* too many iterates */
             break;
@@ -279,12 +277,11 @@ dae_fun_do_daes(void) {
 
 void
 dae_fun_get_new_guesses(void) {
-    int32 i;
     int32 n;
     double z;
     if (nsvar < 1)
         return;
-    for (i = 0; i < nsvar; i++) {
+    for (int32 i = 0; i < nsvar; i++) {
         char name[sizeof(svar[i].name) + 23];
 
         z = svar[i].last;

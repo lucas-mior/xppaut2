@@ -22,10 +22,9 @@ It is called only once during the session
 */
 int32
 derived_compile(void) {
-    int32 i;
     int32 k;
     int32 f[256], n;
-    for (i = 0; i < nderived; i++) {
+    for (int64 i = 0; i < nderived; i++) {
         if (add_expr(derived[i].rhs, f, &n) == 1) {
             ggets_plintf(" Bad right-hand side for derived parameters \n");
             return 1;
@@ -44,8 +43,7 @@ and after changing parameters and constants
 */
 void
 derived_evaluate(void) {
-    int32 i;
-    for (i = 0; i < nderived; i++) {
+    for (int32 i = 0; i < nderived; i++) {
         derived[i].value = evaluate(derived[i].form);
         constants[derived[i].index] = derived[i].value;
     }

@@ -71,11 +71,10 @@ FileInfo my_ff;
 
 void
 free_finfo(FileInfo *ff) {
-    int32 i;
-    for (i = 0; i < ff->ndirs; i++)
+    for (int32 i = 0; i < ff->ndirs; i++)
         free(ff->dirnames[i]);
     free(ff->dirnames);
-    for (i = 0; i < ff->nfiles; i++)
+    for (int32 i = 0; i < ff->nfiles; i++)
         free(ff->filenames[i]);
     free(ff->filenames);
     return;
@@ -92,7 +91,6 @@ cmpstringp(const void *p1, const void *p2) {
 
 int32
 get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
-    int32 i;
     int32 ans;
     DIR *dirp;
     int32 mlf;
@@ -106,9 +104,9 @@ get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
     ff->ndirs = nd;
     ff->dirnames = xmalloc((usize)nd*sizeof(char *));
     ff->filenames = xmalloc((usize)nf*sizeof(char *));
-    for (i = 0; i < nd; i++)
+    for (int32 i = 0; i < nd; i++)
         ff->dirnames[i] = xmalloc((usize)mld + 2);
-    for (i = 0; i < nf; i++)
+    for (int32 i = 0; i < nf; i++)
         ff->filenames[i] = xmalloc((usize)mlf + 2);
     dirp = opendir(direct);
     dp = readdir(dirp);
@@ -147,7 +145,6 @@ get_fileinfo_tab(char *wild, char *direct, FileInfo *ff, char *wild2) {
 
 int32
 get_fileinfo(char *wild, char *direct, FileInfo *ff) {
-    int32 i;
     int32 ans;
     DIR *dirp;
     int32 mlf;
@@ -161,9 +158,9 @@ get_fileinfo(char *wild, char *direct, FileInfo *ff) {
     ff->ndirs = nd;
     ff->dirnames = xmalloc((usize)nd*sizeof(char *));
     ff->filenames = xmalloc((usize)nf*sizeof(char *));
-    for (i = 0; i < nd; i++)
+    for (int32 i = 0; i < nd; i++)
         ff->dirnames[i] = xmalloc((usize)mld + 2);
-    for (i = 0; i < nf; i++)
+    for (int32 i = 0; i < nf; i++)
         ff->filenames[i] = xmalloc((usize)mlf + 2);
     dirp = opendir(direct);
     dp = readdir(dirp);

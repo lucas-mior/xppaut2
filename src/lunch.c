@@ -46,20 +46,20 @@ lunch_file_inf(void) {
 
 void
 ps_write_pars(FILE *fp) {
-    int32 div, rem, i, j;
+    int32 div, rem, j;
     double z;
 
     fprintf(fp, "\n %%%% %s \n %%%% Parameters ...\n", this_file);
     div = NUPAR / 4;
     rem = NUPAR % 4;
     for (j = 0; j < div; j++) {
-        for (i = 0; i < 4; i++) {
+        for (int32 i = 0; i < 4; i++) {
             get_val(upar_names[i + 4*j], &z);
             fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4*j], z);
         }
         fprintf(fp, "\n");
     }
-    for (i = 0; i < rem; i++) {
+    for (int32 i = 0; i < rem; i++) {
         get_val(upar_names[i + 4*div], &z);
         fprintf(fp, "%%%% %s=%.16g   ", upar_names[i + 4*div], z);
     }
@@ -70,7 +70,6 @@ ps_write_pars(FILE *fp) {
 
 void
 lunch_do_info(FILE *fp) {
-    int32 i;
     static char *method[] = {
         "Discrete", "Euler",    "Mod. Euler", "Runge-Kutta", "Adams",
         "Gear",     "Volterra", "BackEul",    "QualRK",      "Stiff",
@@ -82,7 +81,7 @@ lunch_do_info(FILE *fp) {
     char bob[200];
     char fstr[15];
     fprintf(fp, "File: %s \n\n Equations... \n", this_file);
-    for (i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < NEQ; i++) {
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT=%s\n");
         if (i < NODE && METHOD == 0)
@@ -94,7 +93,7 @@ lunch_do_info(FILE *fp) {
 
     if (FIX_VAR > 0) {
         fprintf(fp, "\nwhere ...\n");
-        for (i = 0; i < FIX_VAR; i++)
+        for (int32 i = 0; i < FIX_VAR; i++)
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
     }
     if (NFUN > 0) {
@@ -121,27 +120,27 @@ lunch_do_info(FILE *fp) {
 
     fprintf(fp, "\n\n Delay strings ...\n");
 
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         fprintf(fp, "%s\n", delay_string[i]);
     fprintf(fp, "\n\n BCs ...\n");
 
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         fprintf(fp, "0=%s\n", my_bc[i].string);
     fprintf(fp, "\n\n ICs ...\n");
 
-    for (i = 0; i < NODE + NMarkov; i++)
+    for (int32 i = 0; i < NODE + NMarkov; i++)
         fprintf(fp, "%s=%.16g\n", uvar_names[i], last_ic[i]);
     fprintf(fp, "\n\n Parameters ...\n");
     div = NUPAR / 4;
     rem = NUPAR % 4;
     for (j = 0; j < div; j++) {
-        for (i = 0; i < 4; i++) {
+        for (int32 i = 0; i < 4; i++) {
             get_val(upar_names[i + 4*j], &z);
             fprintf(fp, "%s=%.16g   ", upar_names[i + 4*j], z);
         }
         fprintf(fp, "\n");
     }
-    for (i = 0; i < rem; i++) {
+    for (int32 i = 0; i < rem; i++) {
         get_val(upar_names[i + 4*div], &z);
         fprintf(fp, "%s=%.16g   ", upar_names[i + 4*div], z);
     }
@@ -270,11 +269,9 @@ do_lunch(int32 f) {
 
 void
 lunch_dump_eqn(FILE *fp) {
-    int32 i;
-
     char fstr[15];
     fprintf(fp, "RHS etc ...\n");
-    for (i = 0; i < NEQ; i++) {
+    for (int32 i = 0; i < NEQ; i++) {
         if (i < NODE && METHOD > 0)
             strcpy(fstr, "d%s/dT=%s\n");
         if (i < NODE && METHOD == 0)
@@ -286,7 +283,7 @@ lunch_dump_eqn(FILE *fp) {
 
     if (FIX_VAR > 0) {
         fprintf(fp, "\nwhere ...\n");
-        for (i = 0; i < FIX_VAR; i++)
+        for (int32 i = 0; i < FIX_VAR; i++)
             fprintf(fp, "%s = %s \n", fixinfo[i].name, fixinfo[i].value);
     }
     if (NFUN > 0) {
@@ -477,11 +474,10 @@ lunch_io_ic_file(char *fn, int32 flag) {
 
 void
 lunch_io_parameters(int32 f, FILE *fp) {
-    int32 i;
     int32 index;
     char junk[256];
     double z;
-    for (i = 0; i < NUPAR; i++) {
+    for (int32 i = 0; i < NUPAR; i++) {
         if (f != READEM) {
             get_val(upar_names[i], &z);
             lunch_io_double(&z, fp, f, upar_names[i]);
@@ -507,7 +503,6 @@ lunch_io_parameters(int32 f, FILE *fp) {
 
 void
 lunch_io_exprs(int32 f, FILE *fp) {
-    int32 i;
     char temp[256];
     double z;
     if (f == READEM && set_type == 1) {
@@ -515,35 +510,35 @@ lunch_io_exprs(int32 f, FILE *fp) {
     }
     if (f != READEM)
         fprintf(fp, "# Delays\n");
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         lunch_io_string(delay_string[i], 100, fp, f);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Bndry conds\n");
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         lunch_io_string(my_bc[i].string, 100, fp, f);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Old ICs\n");
-    for (i = 0; i < NODE + NMarkov; i++)
+    for (int32 i = 0; i < NODE + NMarkov; i++)
         lunch_io_double(&last_ic[i], fp, f, uvar_names[i]);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Ending  ICs\n");
-    for (i = 0; i < NODE + NMarkov; i++)
+    for (int32 i = 0; i < NODE + NMarkov; i++)
         lunch_io_double(&MyData[i], fp, f, uvar_names[i]);
     if (f == READEM && set_type == 1) {
         fgets(temp, 255, fp); /* skip a line */
     }
     if (f != READEM)
         fprintf(fp, "# Parameters\n");
-    for (i = 0; i < NUPAR; i++) {
+    for (int32 i = 0; i < NUPAR; i++) {
         if (f != READEM) {
             get_val(upar_names[i], &z);
             lunch_io_double(&z, fp, f, upar_names[i]);

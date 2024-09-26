@@ -390,16 +390,14 @@ ggets_put_string_at(Window window, int32 col, char *s, int32 off) {
 
 void
 ggets_mov_mem(char *s1, char *s2, int32 len) {
-    int32 i;
-    for (i = len - 1; i >= 0; i--)
+    for (int32 i = len - 1; i >= 0; i--)
         s1[i] = s2[i];
     return;
 }
 
 void
 ggets_mem_mov(char *s1, char *s2, int32 len) {
-    int32 i;
-    for (i = 0; i < len; i++)
+    for (int32 i = 0; i < len; i++)
         s1[i] = s2[i];
     return;
 }

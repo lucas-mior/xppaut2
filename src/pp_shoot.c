@@ -40,26 +40,24 @@ void
 pp_shoot_do_bc(double *y__0, double t0, double *y__1, double t1, double *f,
                int32 n) {
     int32 n0 = PrimeStart;
-    int32 i;
 
     SETVAR(0, t0);
     SETVAR(n0, t1);
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         SETVAR(i + 1, y__0[i]);
         SETVAR(i + n0 + 1, y__1[i]);
     }
-    for (i = n; i < n + FIX_VAR; i++)
+    for (int32 i = n; i < n + FIX_VAR; i++)
         SETVAR(i + 1, evaluate(my_ode[i]));
 
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         f[i] = evaluate(my_bc[i].com);
     return;
 }
 
 void
 pp_shoot_compile_bvp(void) {
-    int32 i;
     int32 len;
     char badcom[50];
     pp_shoot_reset_bvp();
@@ -69,7 +67,7 @@ pp_shoot_compile_bvp(void) {
     NCON = NCON_START;
     NSYM = NSYM_START;
     BVP_FLAG = 0;
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         if (add_expr(my_bc[i].string, my_bc[i].com, &len)) {
             snprintf(badcom, sizeof(badcom), "Bad syntax on %d th BC", i + 1);
             ggets_err_msg(badcom);
@@ -346,7 +344,6 @@ bye:
 
 void
 last_shot(int32 flag) {
-    int32 i;
     double *x;
     x = &MyData[0];
     MyStart = 1;
@@ -356,7 +353,7 @@ last_shot(int32 flag) {
     if (flag) {
         storage[0][0] = (double)T0;
         my_rhs_extra(x, T0, NODE, NEQ);
-        for (i = 0; i < NEQ; i++)
+        for (int32 i = 0; i < NEQ; i++)
             storage[1 + i][0] = (double)x[i];
         storind = 1;
     }
@@ -377,7 +374,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
     double dev, error, ytemp;
 
     int32 ntot = n;
-    int32 i, istart = 1, j;
+    int32 istart = 1, j;
     int32 ipvt[MAX_ODE1];
     char esc;
     int32 info, niter = 0;
@@ -393,7 +390,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
     y0 = xmalloc((usize)ntot*sizeof(*(y0)));
     y1 = xmalloc((usize)ntot*sizeof(*(y1)));
 
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         y0[i] = y[i];
     if (iper)
         get_val(upar_names[ipar], &y0[n]);
@@ -422,7 +419,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             *iret = -4;
             goto bye;
         }
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             y1[i] = y[i];
         }
 
@@ -430,17 +427,17 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         if (iper)
             f[n] = y1[ivar] - sect;
         error = 0.0;
-        for (i = 0; i < ntot; i++)
+        for (int32 i = 0; i < ntot; i++)
             error += fabs(f[i]);
         if (error < err) {
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 y[i] = y0[i]; /*   Good values .... */
             if (iper) {
                 set_val(upar_names[ipar], y0[n]);
                 init_conds_redraw_params();
             }
 
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 yend[i] = y1[i];
             *iret = 1;
             goto bye;
@@ -454,7 +451,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
         /*   create the Jacobian matrix ...   */
 
         for (j = 0; j < ntot; j++) {
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 y[i] = y0[i];
             if (fabs(y0[j]) < eps)
                 dev = eps*eps;
@@ -481,7 +478,7 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             if (iper)
                 fdev[n] = y[ivar] - sect;
             y0[j] = ytemp;
-            for (i = 0; i < ntot; i++)
+            for (int32 i = 0; i < ntot; i++)
                 jac[j + i*ntot] = (fdev[i] - f[i]) / dev;
         }
 
@@ -490,19 +487,19 @@ bvshoot(double *y, double *yend, double err, double eps, int32 maxit,
             *iret = -3;
             goto bye;
         }
-        for (i = 0; i < ntot; i++)
+        for (int32 i = 0; i < ntot; i++)
             fdev[i] = f[i];
         gear_sgesl(jac, ntot, ntot, ipvt, fdev, 0);
         error = 0.0;
-        for (i = 0; i < ntot; i++) {
+        for (int32 i = 0; i < ntot; i++) {
             y0[i] = y0[i] - fdev[i];
             error += fabs(fdev[i]);
         }
 
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             y[i] = y0[i];
         if (error < 1.e-10) {
-            for (i = 0; i < n; i++)
+            for (int32 i = 0; i < n; i++)
                 yend[i] = y1[i];
             *iret = 2;
             goto bye;

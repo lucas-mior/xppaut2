@@ -184,10 +184,9 @@ extra_auto_load_dll(void) {
 
 void
 extra_do_in_out(void) {
-    int32 i;
     if (in_out.nin == 0 || in_out.nout == 0)
         return;
-    for (i = 0; i < in_out.nin; i++) {
+    for (int32 i = 0; i < in_out.nin; i++) {
         if (in_out.intype[i] == PAR)
             in_out.vin[i] = constants[in_out.in[i]];
         else
@@ -195,7 +194,7 @@ extra_do_in_out(void) {
     }
     extra_my_fun(in_out.vin, in_out.vout, in_out.nin, in_out.nout, variables,
                  constants);
-    for (i = 0; i < in_out.nout; i++) {
+    for (int32 i = 0; i < in_out.nout; i++) {
         if (in_out.outtype[i] == PAR)
             constants[in_out.out[i]] = in_out.vout[i];
         else

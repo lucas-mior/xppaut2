@@ -48,7 +48,6 @@ edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
              double *ubar, double *par, double per, int32 n, int32 icp1,
              int32 icp2, int32 icp3, int32 icp4, int32 flag2, double *evr,
              double *evi, double tp) {
-    int32 i;
     d->calc = TypeOfCalc;
     d->ibr = ibr;
     d->ntot = ntot;
@@ -56,7 +55,7 @@ edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
     d->lab = lab;
     d->nfpar = nfpar;
     d->norm = a;
-    for (i = 0; i < 8; i++) {
+    for (int32 i = 0; i < 8; i++) {
         d->par[i] = par[i];
         /*  printf("%d %g\n",i,par[i]); */
     }
@@ -68,7 +67,7 @@ edit_diagram(Diagram *d, int32 ibr, int32 ntot, int32 itp, int32 lab,
     d->icp3 = icp3;
     d->icp4 = icp4;
     d->flag2 = flag2;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         d->ulo[i] = ulo[i];
         d->uhi[i] = uhi[i];
         d->ubar[i] = ubar[i];
@@ -177,7 +176,6 @@ diagram_write_info_out(void) {
     char filename[XPP_MAX_NAME];
     Diagram *d;
     int32 type;
-    int32 i;
     /*int32 flag=0
      */
     int32 status;
@@ -227,11 +225,11 @@ diagram_write_info_out(void) {
 
         fprintf(fp, "%d %d %d %g %g %g ", type, d->ibr, d->flag2, par1, par2,
                 per);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fprintf(fp, "%g ", uhigh[i]);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fprintf(fp, "%g ", ulow[i]);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fprintf(fp, "%g %g ", d->evr[i], d->evi[i]);
         fprintf(fp, "\n");
         d = d->next;
@@ -292,7 +290,6 @@ diagram_write_init_data_file(void) {
     /*char filename[256];*/
     char filename[XPP_MAX_NAME];
     Diagram *d;
-    int32 i;
     /*int32 flag=0;
      */
     int32 status;
@@ -345,7 +342,7 @@ diagram_write_init_data_file(void) {
         /* fprintf(fp,"%d %d %g %g %g ",
            type,d->ibr,par1,par2,per); */
         fprintf(fp, "%g ", par1);
-        for (i = 0; i < NODE; i++)
+        for (int32 i = 0; i < NODE; i++)
             fprintf(fp, "%g ", u0[i]);
         fprintf(fp, "\n");
         d = d->next;
@@ -545,7 +542,6 @@ diagram_bound(double *xlo, double *xhi, double *ylo, double *yhi) {
 
 int32
 diagram_save(FILE *fp, int32 n) {
-    int32 i;
     Diagram *d;
     fprintf(fp, "%d\n", NBifs - 1);
     if (NBifs == 1)
@@ -555,11 +551,11 @@ diagram_save(FILE *fp, int32 n) {
         fprintf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d\n", d->calc, d->ibr,
                 d->ntot, d->itp, d->lab, d->index, d->nfpar, d->icp1, d->icp2,
                 d->icp3, d->icp4, d->flag2);
-        for (i = 0; i < 8; i++)
+        for (int32 i = 0; i < 8; i++)
             fprintf(fp, "%g ", d->par[i]);
         fprintf(fp, "%g %g \n", d->norm, d->per);
 
-        for (i = 0; i < n; i++)
+        for (int32 i = 0; i < n; i++)
             fprintf(fp, "%f %f %f %f %f %f\n", d->u0[i], d->uhi[i], d->ulo[i],
                     d->ubar[i], d->evr[i], d->evi[i]);
         d = d->next;
@@ -573,7 +569,7 @@ int32
 diagram_load(FILE *fp, int32 node) {
     double u0[NAUTO], uhi[NAUTO], ulo[NAUTO], ubar[NAUTO], evr[NAUTO],
         evi[NAUTO], norm, par[8], per;
-    int32 i, flag = 0;
+    int32 flag = 0;
     int32 n;
     int32 calc, ibr, ntot, itp, lab, index, nfpar, icp1, icp2, icp3, icp4,
         flag2;
@@ -586,10 +582,10 @@ diagram_load(FILE *fp, int32 node) {
     while (true) {
         fscanf(fp, "%d %d %d %d %d %d %d %d %d %d %d %d", &calc, &ibr, &ntot,
                &itp, &lab, &index, &nfpar, &icp1, &icp2, &icp3, &icp4, &flag2);
-        for (i = 0; i < 8; i++)
+        for (int32 i = 0; i < 8; i++)
             fscanf(fp, "%lg ", &par[i]);
         fscanf(fp, "%lg %lg ", &norm, &per);
-        for (i = 0; i < node; i++)
+        for (int32 i = 0; i < node; i++)
             fscanf(fp, "%lg %lg %lg %lg %lg %lg", &u0[i], &uhi[i], &ulo[i],
                    &ubar[i], &evr[i], &evi[i]);
         if (flag == 0) {

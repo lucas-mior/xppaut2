@@ -244,10 +244,9 @@ void
 graf_par_get_max(int32 index, double *vmin, double *vmax) {
     double x0, x1, z;
     double temp;
-    int32 i;
     x0 = my_browser.data[index][0];
     x1 = x0;
-    for (i = 0; i < my_browser.maxrow; i++) {
+    for (int32 i = 0; i < my_browser.maxrow; i++) {
         z = my_browser.data[index][i];
         if (z < x0)
             x0 = z;
@@ -377,11 +376,11 @@ graf_par_default_window(void) {
 void
 fit_window(void) {
     double Mx = -1.e25, My = -1.e25, Mz = -1.e25, mx = -Mx, my = -My, mz = -Mz;
-    int32 i, n = MyGraph->nvars;
+    int32 n = MyGraph->nvars;
     if (storind < 2)
         return;
     if (MyGraph->ThreeDFlag) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
                              &(MyGraph->xmax));
             Mx = LMAX(MyGraph->xmax, Mx);
@@ -408,7 +407,7 @@ fit_window(void) {
                     &(MyGraph->yhi));
         graf_par_check_windows();
     } else {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             graf_par_get_max(MyGraph->xv[i], &(MyGraph->xmin),
                              &(MyGraph->xmax));
             Mx = LMAX(MyGraph->xmax, Mx);
@@ -503,10 +502,9 @@ graf_par_redraw_the_graph(void) {
 
 void
 movie_rot(double start, double increment, int32 nclip, int32 angle) {
-    int32 i;
     double thetaold = MyGraph->Theta, phiold = MyGraph->Phi;
     kinescope_reset_film();
-    for (i = 0; i <= nclip; i++) {
+    for (int32 i = 0; i <= nclip; i++) {
         if (angle == 0)
             graphics_make_rot(start + i*increment, phiold);
         else
@@ -819,9 +817,8 @@ graf_par_zoom_out(int32 i1, int32 j1, int32 i2, int32 j2) {
 
 void
 graf_par_graph_all(int32 *list, int32 n, int32 type) {
-    int32 i;
     if (type == 0) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             MyGraph->xv[i] = 0;
             MyGraph->yv[i] = list[i];
             MyGraph->line[i] = MyGraph->line[0];
@@ -996,7 +993,7 @@ void
 draw_freeze_key(void) {
     int32 ix;
     int32 iy;
-    int32 i, y0;
+    int32 y0;
     int32 ix2;
     int32 dy = 2*HChar;
     if (FreezeKeyFlag == SCRNFMT)
@@ -1006,7 +1003,7 @@ draw_freeze_key(void) {
     graphics_scale_to_screen((double)FreezeKeyX, (double)FreezeKeyY, &ix, &iy);
     ix2 = ix + 4*HChar;
     y0 = iy;
-    for (i = 0; i < MAXFRZ; i++) {
+    for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == draw_win &&
             strlen(frz[i].key) > 0) {
             graphics_set_linestyle(abs(frz[i].color));
@@ -1085,10 +1082,10 @@ graf_par_auto_freeze_it(void) {
 
 int32
 create_crv(int32 ind) {
-    int32 i, type, j;
+    int32 type, j;
     int32 ix, iy, iz;
 
-    for (i = 0; i < MAXFRZ; i++) {
+    for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 0) {
             ix = MyGraph->xv[ind];
             iy = MyGraph->yv[ind];
@@ -1154,12 +1151,12 @@ draw_frozen_cline(int32 index, Window window) {
 
 void
 graf_par_draw_freeze(Window window) {
-    int32 i, j, type = MyGraph->grtype, lt = 0;
+    int32 j, type = MyGraph->grtype, lt = 0;
     double oldxpl, oldypl, oldzpl = 0.0, xpl, ypl, zpl = 0.0;
     double *xv, *yv, *zv;
-    for (i = 0; i < MAXNCLINE; i++)
+    for (int32 i = 0; i < MAXNCLINE; i++)
         draw_frozen_cline(i, window);
-    for (i = 0; i < MAXFRZ; i++) {
+    for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && frz[i].window == window && frz[i].type == type) {
             if (frz[i].color < 0) {
                 graphics_set_linestyle(-frz[i].color);
@@ -1306,10 +1303,9 @@ get_frz_index(Window window) {
     char *n[MAXFRZ];
     char key[MAXFRZ], ch;
 
-    int32 i;
     int32 count = 0;
     Window temp = main_win;
-    for (i = 0; i < MAXFRZ; i++) {
+    for (int32 i = 0; i < MAXFRZ; i++) {
         if (frz[i].use == 1 && window == frz[i].window) {
             n[count] = xmalloc(20);
             sprintf(n[count], "%s", frz[i].name);
@@ -1323,7 +1319,7 @@ get_frz_index(Window window) {
     key[count] = 0;
     ch = (char)pop_up_list(&temp, "Curves", n, key, count, 12, 0, 10,
                            8*DCURY + 8, no_hint, info_pop, info_message);
-    for (i = 0; i < count; i++)
+    for (int32 i = 0; i < count; i++)
         free(n[i]);
     return (int32)(ch - 'a');
 }

@@ -104,7 +104,6 @@ histogram_back(void) {
 
 void
 histogram_new_four(int32 nmodes, int32 col) {
-    int32 i;
     int32 length = nmodes + 1;
     double total = storage[0][storind - 1] - storage[0][0];
     double *bob;
@@ -126,9 +125,9 @@ histogram_new_four(int32 nmodes, int32 col) {
         return;
     }
     FOUR_HERE = 1;
-    for (i = 3; i <= NEQ; i++)
+    for (int32 i = 3; i <= NEQ; i++)
         my_four[i] = storage[i];
-    for (i = 0; i < length; i++)
+    for (int32 i = 0; i < length; i++)
         my_four[0][i] = (double)i / total;
     bob = browse_get_data_col(col);
     histogram_fft(bob, my_four[1], my_four[2], nmodes, storind);
@@ -172,7 +171,7 @@ histogram_post_process_stuff(void) {
     if (post_process > 3 && post_process < 7) {
         /* histogram just sd */
         int32 flag = post_process - 4;
-        int32 length, i, j;
+        int32 length, j;
         double total = storage[0][storind - 1] - storage[0][0];
         spec_type = flag;
         if (HIST_HERE) {
@@ -193,7 +192,7 @@ histogram_post_process_stuff(void) {
             return;
         }
         HIST_HERE = 1;
-        for (i = 2; i <= NEQ; i++)
+        for (int32 i = 2; i <= NEQ; i++)
             my_hist[i] = storage[i];
         for (j = 0; j < hist_len; j++)
             my_hist[0][j] = ((double)j*storind / spec_wid) / total;
@@ -214,7 +213,6 @@ histogram_post_process_stuff(void) {
 int32
 histogram_two_d2(void) {
     int32 length;
-    int32 i;
     length = hist_inf.nbins*hist_inf.nbins2;
     if (length >= MAXSTOR)
         length = MAXSTOR - 1;
@@ -239,7 +237,7 @@ histogram_two_d2(void) {
         return -1;
     }
     HIST_HERE = 2;
-    for (i = 3; i <= NEQ; i++)
+    for (int32 i = 3; i <= NEQ; i++)
         my_hist[i] = storage[i];
     hist_len = length;
     histogram_two_d(hist_inf.col, hist_inf.col2, storind, hist_inf.nbins,
@@ -399,7 +397,6 @@ histogram_new(int32 nbins, double zlo, double zhi, int32 col, int32 col2,
 
 void
 histogram_column_mean(void) {
-    int32 i;
     char bob[100];
     double sum, sum2, ss;
     double mean;
@@ -412,7 +409,7 @@ histogram_column_mean(void) {
         return;
     sum = 0.0;
     sum2 = 0.0;
-    for (i = 0; i < storind; i++) {
+    for (int32 i = 0; i < storind; i++) {
         ss = storage[hist_inf.col][i];
         sum += ss;
         sum2 += (ss*ss);
@@ -442,7 +439,6 @@ histogram_get_col_info(int32 *col, char *prompt) {
 
 void
 histogram_compute_power(void) {
-    int32 i;
     double s;
     double c;
     double *datx, *daty, ptot = 0;
@@ -452,7 +448,7 @@ histogram_compute_power(void) {
     datx = browse_get_data_col(1);
     daty = browse_get_data_col(2);
 
-    for (i = 0; i < four_len; i++) {
+    for (int32 i = 0; i < four_len; i++) {
         c = datx[i];
         s = daty[i];
         datx[i] = sqrt(s*s + c*c);
@@ -480,7 +476,7 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     /* assumes 50% overlap */
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
-    int32 i, j, kk;
+    int32 j, kk;
     double *ct, *st, *f, *d, x, nrmf;
     /*double sum;
      */
@@ -493,7 +489,7 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
     st = xmalloc(sizeof(*st)*(usize)win);
     f = xmalloc(sizeof(*f)*(usize)win);
     nrmf = 0.0;
-    for (i = 0; i < win; i++) {
+    for (int32 i = 0; i < win; i++) {
         x = (double)i / ((double)win);
         switch (w_type) {
         case 0:
@@ -516,25 +512,25 @@ histogram_spectrum(double *data, int32 nr, int32 win, int32 w_type,
         }
         nrmf += (f[i]*f[i] / win);
     }
-    for (i = 0; i < shift; i++)
+    for (int32 i = 0; i < shift; i++)
         pow[i] = 0.0;
     /*sum=0;
      */
 
     for (j = 0; j < kwin; j++) {
-        for (i = 0; i < win; i++) {
+        for (int32 i = 0; i < win; i++) {
             kk = (j*shift + i + nr) % nr;
             d[i] = f[i]*data[kk];
             /* if(j==kwin)printf("d[%d]=%g\n",i,d[i]); */
         }
         histogram_fft(d, ct, st, shift, win);
-        for (i = 0; i < shift; i++) {
+        for (int32 i = 0; i < shift; i++) {
             x = ct[i]*ct[i] + st[i]*st[i];
             pow[i] = pow[i] + sqrt(x);
             /* sum+=x; */
         }
     }
-    for (i = 0; i < shift; i++)
+    for (int32 i = 0; i < shift; i++)
         /*  pow[i]=log(pow[i]/((kwin)*nrmf)); */
         pow[i] = pow[i] / ((kwin)*sqrt(nrmf));
     free(f);
@@ -566,7 +562,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
     int32 shift = win / 2;
     int32 kwin = (nr - win + 1) / shift;
     /*  int32 kwin=nr/shift; */
-    int32 i, j, kk;
+    int32 j, kk;
     double *ct, *st, *f, *d, x, nrmwin;
     /*double sum; Not used anywhere*/
     double *ct2, *st2, *d2;
@@ -589,7 +585,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
     pxyr = xmalloc(sizeof(*pxyr)*(usize)win);
     pxym = xmalloc(sizeof(*pxym)*(usize)win);
     nrmwin = 0.0;
-    for (i = 0; i < win; i++) {
+    for (int32 i = 0; i < win; i++) {
         x = (double)i / ((double)win);
         switch (w_type) {
         case 0:
@@ -612,7 +608,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
         }
         nrmwin += f[i]*f[i];
     }
-    for (i = 0; i < shift; i++) {
+    for (int32 i = 0; i < shift; i++) {
         pxx[i] = 0.0;
         pyy[i] = 0.0;
         pxyr[i] = 0.0;
@@ -621,7 +617,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
 
     /*sum=0;*/
     for (j = 0; j <= kwin; j++) {
-        for (i = 0; i < win; i++) {
+        for (int32 i = 0; i < win; i++) {
             /* kk=kk=(-shift+j*shift+i+nr)%nr; */
             kk = (i + j*shift) % nr;
             d[i] = f[i]*data[kk];
@@ -630,14 +626,14 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
         }
         histogram_fft(d, ct, st, shift, win);
         histogram_fft(d2, ct2, st2, shift, win);
-        for (i = 0; i < shift; i++) {
+        for (int32 i = 0; i < shift; i++) {
             pxyr[i] += (ct[i]*ct2[i] + st[i]*st2[i]);
             pxym[i] += (ct[i]*st2[i] - ct2[i]*st[i]);
             pxx[i] += (ct[i]*ct[i] + st[i]*st[i]);
             pyy[i] += (ct2[i]*ct2[i] + st2[i]*st2[i]);
         }
     }
-    for (i = 0; i < shift; i++) {
+    for (int32 i = 0; i < shift; i++) {
         pxx[i] = pxx[i] / ((kwin)*nrmwin);
         pyy[i] = pyy[i] / ((kwin)*nrmwin);
         pxyr[i] = pxyr[i] / ((kwin)*nrmwin);
@@ -665,7 +661,7 @@ histogram_cross_spectrum(double *data, double *data2, int32 nr, int32 win,
 
 void
 histogram_compute_sd(void) {
-    int32 length, i, j;
+    int32 length, j;
     double total = storage[0][storind - 1] - storage[0][0];
     ggets_new_int("(0) PSDx, (1) PSDxy, (2) COHxy:", &spec_type);
 
@@ -694,7 +690,7 @@ histogram_compute_sd(void) {
         return;
     }
     HIST_HERE = 1;
-    for (i = 2; i <= NEQ; i++)
+    for (int32 i = 2; i <= NEQ; i++)
         my_hist[i] = storage[i];
     for (j = 0; j < hist_len; j++)
         my_hist[0][j] = ((double)j*storind / spec_wid) / total;
@@ -711,7 +707,6 @@ histogram_compute_sd(void) {
 
 void
 histogram_just_fourier(int32 flag) {
-    int32 i;
     double s;
     double c;
     double *datx, *daty;
@@ -723,7 +718,7 @@ histogram_just_fourier(int32 flag) {
         datx = browse_get_data_col(1);
         daty = browse_get_data_col(2);
 
-        for (i = 0; i < four_len; i++) {
+        for (int32 i = 0; i < four_len; i++) {
             c = datx[i];
             s = daty[i];
             datx[i] = sqrt(s*s + c*c);
@@ -801,13 +796,12 @@ histogram_compute_stacor(void) {
 void
 histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
                 int32 nbins, double *z, int32 flag) {
-    int32 i;
     int32 j;
     int32 k, count = 0;
     double sum, avx = 0.0, avy = 0.0;
     double dz = (zhi - zlo) / (double)nbins, jz;
     if (flag) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             avx += x[i];
             avy += y[i];
         }
@@ -818,7 +812,7 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
         sum = 0.0;
         count = 0;
         jz = dz*j + zlo;
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             k = i + (int32)jz;
             if ((k >= 0) && (k < n)) {
                 count++;
@@ -835,12 +829,11 @@ histogram_mycor(double *x, double *y, int32 n, double zlo, double zhi,
 void
 histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
                  int32 flag) {
-    int32 i;
     int32 j;
     int32 k, count = 0, lag = nbins / 2;
     double sum, avx = 0.0, avy = 0.0;
     if (flag) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             avx += x[i];
             avy += y[i];
         }
@@ -850,7 +843,7 @@ histogram_mycor2(double *x, double *y, int32 n, int32 nbins, double *z,
     for (j = 0; j <= nbins; j++) {
         sum = 0.0;
         count = 0;
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             k = i + j - lag;
             k = (k + n) % n;
             if ((k >= 0) && (k < n)) {
@@ -885,10 +878,10 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
                     double *cr, int32 flag) {
     double *re1, *re2, *im1, *im2, x, y, sum;
     double av1 = 0.0, av2 = 0.0;
-    int32 dim[2], i;
+    int32 dim[2];
     /*int32 n2; Not used anywhere*/
     if (flag) {
-        for (i = 0; i < length; i++) {
+        for (int32 i = 0; i < length; i++) {
             av1 += data1[i];
             av2 += data2[i];
         }
@@ -903,7 +896,7 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
     re2 = xmalloc((usize)length*sizeof(*(re2)));
     im2 = xmalloc((usize)length*sizeof(*(im2)));
 
-    for (i = 0; i < length; i++) {
+    for (int32 i = 0; i < length; i++) {
         im1[i] = 0.0;
         re1[i] = (data1[i] - av1);
         im2[i] = 0.0;
@@ -912,7 +905,7 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
 
     fftn(1, dim, re1, im1, 1, -1);
     fftn(1, dim, re2, im2, 1, -1);
-    for (i = 0; i < length; i++) {
+    for (int32 i = 0; i < length; i++) {
         x = re1[i]*re2[i] + im1[i]*im2[i];
         y = im1[i]*re2[i] - im2[i]*re1[i];
         re1[i] = x;
@@ -922,12 +915,12 @@ histogram_fft_xcorr(double *data1, double *data2, int32 length, int32 nlag,
     /* now lets order these
        I think!  */
     sum = 0.0;
-    for (i = 0; i < nlag; i++) {
+    for (int32 i = 0; i < nlag; i++) {
         sum += fabs(im1[i]);
         cr[nlag + i] =
             (double)re1[i]*length; /* positive part of the correlation */
     }
-    for (i = 0; i < nlag; i++) {
+    for (int32 i = 0; i < nlag; i++) {
         sum += fabs(im1[length - nlag + i]);
         cr[i] = (double)re1[length - nlag + i]*length;
     }
@@ -944,11 +937,11 @@ histogram_fft(double *data, double *ct, double *st, int32 nmodes,
               int32 length) {
     double *im;
     double *re;
-    int32 dim[2], i;
+    int32 dim[2];
     dim[0] = length;
     re = xmalloc((usize)length*sizeof(*re));
     im = xmalloc((usize)length*sizeof(*im));
-    for (i = 0; i < length; i++) {
+    for (int32 i = 0; i < length; i++) {
         im[i] = 0.0;
         re[i] = data[i];
     }
@@ -956,7 +949,7 @@ histogram_fft(double *data, double *ct, double *st, int32 nmodes,
     fftn(1, dim, re, im, 1, -1);
     ct[0] = re[0];
     st[0] = 0.0;
-    for (i = 1; i < nmodes; i++) {
+    for (int32 i = 1; i < nmodes; i++) {
         ct[i] = re[i]*2.0;
         st[i] = im[i]*2.0;
     }

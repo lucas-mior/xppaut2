@@ -26,7 +26,7 @@
 int32
 iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
                      double *new_vk_norm) {
-    int32 i, k_minus_1, i0;
+    int32 k_minus_1, i0;
     double new_norm_2, new_product, vk_norm, temp;
 
     vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
@@ -35,7 +35,7 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
 
     /* Perform modified Gram-Schmidt */
 
-    for (i = i0; i < k; i++) {
+    for (int32 i = i0; i < k; i++) {
         h[i][k_minus_1] = vector_dot_prod(v[i], v[k]);
         vector_linear_sum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
@@ -56,7 +56,7 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
 
     new_norm_2 = ZERO;
 
-    for (i = i0; i < k; i++) {
+    for (int32 i = i0; i < k; i++) {
         new_product = vector_dot_prod(v[i], v[k]);
         temp = FACTOR*h[i][k_minus_1];
         if ((temp + new_product) == temp)
@@ -83,7 +83,7 @@ iterativ_modified_gs(Vector *v, double **h, int32 k, int32 p,
 int32
 iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
                       double *new_vk_norm, Vector temp, double *s) {
-    int32 i, k_minus_1, i0;
+    int32 k_minus_1, i0;
     double vk_norm;
 
     k_minus_1 = k - 1;
@@ -93,11 +93,11 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
     vk_norm = llnlmath_rsqrt(vector_dot_prod(v[k], v[k]));
 
     i0 = MAX(k - p, 0);
-    for (i = i0; i < k; i++) {
+    for (int32 i = i0; i < k; i++) {
         h[i][k_minus_1] = vector_dot_prod(v[i], v[k]);
     }
 
-    for (i = i0; i < k; i++) {
+    for (int32 i = i0; i < k; i++) {
         vector_linear_sum(ONE, v[k], -h[i][k_minus_1], v[i], v[k]);
     }
 
@@ -108,7 +108,7 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
     /* Reorthogonalize if necessary */
 
     if ((FACTOR*(*new_vk_norm)) < vk_norm) {
-        for (i = i0; i < k; i++) {
+        for (int32 i = i0; i < k; i++) {
             s[i] = vector_dot_prod(v[i], v[k]);
         }
 
@@ -116,7 +116,7 @@ iterativ_classical_gs(Vector *v, double **h, int32 k, int32 p,
             vector_scale(s[i0], v[i0], temp);
             h[i0][k_minus_1] += s[i0];
         }
-        for (i = i0 + 1; i < k; i++) {
+        for (int32 i = i0 + 1; i < k; i++) {
             vector_linear_sum(s[i], v[i], ONE, temp, temp);
             h[i][k_minus_1] += s[i];
         }
@@ -228,7 +228,7 @@ iterativ_qr_fact(int32 n, double **h, double *q, int32 job) {
 int32
 iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
     double c, s, temp1, temp2;
-    int32 i, k, q_ptr, code = 0;
+    int32 k, q_ptr, code = 0;
 
     /* Compute Q*b. */
 
@@ -250,7 +250,7 @@ iterativ_qr_sol(int32 n, double **h, double *q, double *b) {
             break;
         }
         b[k] /= h[k][k];
-        for (i = 0; i < k; i++)
+        for (int32 i = 0; i < k; i++)
             b[i] -= b[k]*h[i][k];
     }
 

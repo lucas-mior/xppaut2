@@ -33,7 +33,6 @@ spgmr_malloc(int64 N, int32 l_max) {
     Vector *V, xcor, vtemp;
     double **Hes, *givens, *yg;
     int32 k;
-    int32 i;
 
     /* Check the input parameters */
 
@@ -65,7 +64,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     for (k = 0; k <= l_max; k++) {
         Hes[k] = xmalloc((usize)l_max*sizeof(*(Hes[k])));
         if (Hes[k] == NULL) {
-            for (i = 0; i < k; i++)
+            for (int32 i = 0; i < k; i++)
                 free(Hes[i]);
             spgmr_free_vector_array(V, l_max);
             return NULL;
@@ -76,7 +75,7 @@ spgmr_malloc(int64 N, int32 l_max) {
 
     givens = xmalloc(2*(usize)l_max*sizeof(*givens));
     if (givens == NULL) {
-        for (i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++)
             free(Hes[i]);
         spgmr_free_vector_array(V, l_max);
         return NULL;
@@ -87,7 +86,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     xcor = vector_new(N);
     if (xcor == NULL) {
         free(givens);
-        for (i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++)
             free(Hes[i]);
         spgmr_free_vector_array(V, l_max);
         return NULL;
@@ -99,7 +98,7 @@ spgmr_malloc(int64 N, int32 l_max) {
     if (yg == NULL) {
         vector_free(xcor);
         free(givens);
-        for (i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++)
             free(Hes[i]);
         spgmr_free_vector_array(V, l_max);
         return NULL;
@@ -112,7 +111,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(yg);
         vector_free(xcor);
         free(givens);
-        for (i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++)
             free(Hes[i]);
         spgmr_free_vector_array(V, l_max);
         return NULL;
@@ -126,7 +125,7 @@ spgmr_malloc(int64 N, int32 l_max) {
         free(yg);
         vector_free(xcor);
         free(givens);
-        for (i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++)
             free(Hes[i]);
         spgmr_free_vector_array(V, l_max);
         return NULL;
@@ -160,7 +159,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
     /*double s_r0_norm, beta, rotation_product, r_norm, s_product, rho;*/
     double beta, rotation_product, r_norm, s_product, rho = 0.0;
     bool preOnLeft, preOnRight, scale_x, scale_b, converged;
-    int32 i, j, k, l, l_plus_1, l_max, krydim = 0, ier, ntries;
+    int32 j, k, l, l_plus_1, l_max, krydim = 0, ier, ntries;
 
     if (mem == NULL)
         return SPGMR_MEM_NULL;
@@ -242,7 +241,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
         /* Initialize the Hessenberg matrix Hes and Givens rotation
            product.  Normalize the initial vector V[0].             */
 
-        for (i = 0; i <= l_max; i++)
+        for (int32 i = 0; i <= l_max; i++)
             for (j = 0; j < l_max; j++)
                 Hes[i][j] = ZERO;
 
@@ -335,7 +334,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Construct g, then solve for y */
         yg[0] = r_norm;
-        for (i = 1; i <= krydim; i++)
+        for (int32 i = 1; i <= krydim; i++)
             yg[i] = ZERO;
         if (iterativ_qr_sol(krydim, Hes, givens, yg) != 0)
             return SPGMR_QRSOL_FAIL;
@@ -374,7 +373,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Construct last column of Q in yg */
         s_product = ONE;
-        for (i = krydim; i > 0; i--) {
+        for (int32 i = krydim; i > 0; i--) {
             yg[i] = s_product*givens[2*i - 2];
             s_product *= givens[2*i - 1];
         }
@@ -382,7 +381,7 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
         /* Scale r_norm and yg */
         r_norm *= s_product;
-        for (i = 0; i <= krydim; i++)
+        for (int32 i = 0; i <= krydim; i++)
             yg[i] *= r_norm;
         r_norm = ABS(r_norm);
 
@@ -424,7 +423,6 @@ spgmr_solve(SpgmrMem mem, void *A_data, Vector x, Vector b, int32 pretype,
 
 void
 spgmr_free(SpgmrMem mem) {
-    int32 i;
     int32 l_max;
     double **Hes;
 
@@ -435,7 +433,7 @@ spgmr_free(SpgmrMem mem) {
     Hes = mem->Hes;
 
     spgmr_free_vector_array(mem->V, l_max);
-    for (i = 0; i <= l_max; i++)
+    for (int32 i = 0; i <= l_max; i++)
         free(Hes[i]);
     free(Hes);
     free(mem->givens);

@@ -47,10 +47,9 @@ static int32 edit_rhs_box(int32 n, char *title, char **names, char **values);
 void
 edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col) {
     int32 n = sb->n;
-    int32 i;
     int32 l;
     Window window;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         strcpy(sb->value[i], sb->rval[i]);
         window = sb->win[i];
         l = (int32)strlen(sb->name[i]);
@@ -70,11 +69,10 @@ edit_rhs_reset_box(EditBox *sb, int32 *pos, int32 *col) {
 int32
 edit_rhs_box(int32 n, char *title, char **names, char **values) {
     EditBox sb;
-    int32 i;
     int32 status;
     int32 colm, pos;
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         sprintf(sb.name[i], "%s=", names[i]);
         strcpy(sb.value[i], values[i]);
         strcpy(sb.rval[i], values[i]);
@@ -103,14 +101,13 @@ edit_rhs_box(int32 n, char *title, char **names, char **values) {
 
     if (status == FORGET_ALL)
         return status;
-    for (i = 0; i < n; i++)
+    for (int32 i = 0; i < n; i++)
         strcpy(values[i], sb.value[i]);
     return status;
 }
 
 void
 edit_rhs_expose_box(EditBox *sb, Window window, int32 pos) {
-    int32 i;
     int32 flag;
 
     if (window == sb->ok) {
@@ -125,7 +122,7 @@ edit_rhs_expose_box(EditBox *sb, Window window, int32 pos) {
         XDrawString(display, window, gc, 0, CURY_OFF, "Reset", 5);
         return;
     }
-    for (i = 0; i < sb->n; i++) {
+    for (int32 i = 0; i < sb->n; i++) {
         if (window != sb->win[i])
             continue;
         flag = 0;
@@ -165,7 +162,7 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
     XEvent event;
     int32 status = -1, inew;
     int32 nn = sb->n;
-    int32 done = 0, i;
+    int32 done = 0;
     char ch;
     int32 ihot = sb->hot;
     Window wt;
@@ -195,7 +192,7 @@ edit_rhs_box_event_loop(EditBox *sb, int32 *pos, int32 *col) {
             edit_rhs_reset_box(sb, pos, col);
             break;
         }
-        for (i = 0; i < nn; i++) {
+        for (int32 i = 0; i < nn; i++) {
             if (event.xbutton.window == sb->win[i]) {
                 XSetInputFocus(display, sb->win[i], RevertToParent,
                                CurrentTime);
@@ -240,7 +237,6 @@ void
 edit_rhs_make_box_windows(EditBox *sb, char *title) {
     int32 width;
     int32 height;
-    int32 i;
     int32 xpos, ypos, n = sb->n;
     int32 xstart;
     int32 ystart;
@@ -268,7 +264,7 @@ edit_rhs_make_box_windows(EditBox *sb, char *title) {
 
     ystart = DCURY;
     xstart = DCURX;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         xpos = xstart;
         ypos = ystart + i*(DCURY + 10);
         sb->win[i] =
@@ -292,11 +288,11 @@ edit_rhs_menu(void) {
     static char *n[] = {"RHS's", "Functions", "Save as", "Load DLL"};
     static char key[] = "rfsl";
     char ch;
-    int32 edtype = 0, i;
+    int32 edtype = 0;
     ch = (char)pop_up_list(&temp, "Edit Stuff", n, key, 4, 11, edtype, 10,
                            13*DCURY + 8, edrh_hint, info_pop, info_message);
     edtype = -1;
-    for (i = 0; i < 4; i++)
+    for (int32 i = 0; i < 4; i++)
         if (ch == key[i])
             edtype = i;
     switch (edtype) {
@@ -323,7 +319,7 @@ void
 edit_rhs(void) {
     char **names, **values;
     int32 **command;
-    int32 i, status, err, len, i0, j;
+    int32 status, err, len, i0, j;
     int32 n = NEQ;
     char fstr[20], msg[200];
     if (NEQ > NEQMAXFOREDIT)
@@ -331,7 +327,7 @@ edit_rhs(void) {
     names = xmalloc((usize)n*sizeof(char *));
     values = xmalloc((usize)n*sizeof(char *));
     command = xmalloc((usize)n*sizeof(int32 *));
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         values[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(values[i])));
         names[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(names[i])));
         command[i] = xmalloc(200*sizeof(*(command[i])));
@@ -348,7 +344,7 @@ edit_rhs(void) {
     }
     status = edit_rhs_box(n, "Right Hand Sides", names, values);
     if (status != 0) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             if (i < NODE || (i >= (NODE + NMarkov))) {
                 err = add_expr(values[i], command[i], &len);
                 if (err == 1) {
@@ -369,7 +365,7 @@ edit_rhs(void) {
         }
     }
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         free(values[i]);
         free(names[i]);
         free(command[i]);
@@ -383,11 +379,10 @@ edit_rhs(void) {
 void
 edit_rhs_user_fun_info(FILE *fp) {
     char fundef[256];
-    int32 i;
     int32 j;
     for (j = 0; j < NFUN; j++) {
         sprintf(fundef, "%s(", ufun_names[j]);
-        for (i = 0; i < narg_fun[j]; i++) {
+        for (int32 i = 0; i < narg_fun[j]; i++) {
             strcat(fundef, ufun_arg[j].args[i]);
             if (i < narg_fun[j] - 1)
                 strcat(fundef, ",");
@@ -403,7 +398,7 @@ void
 edit_rhs_functions(void) {
     char **names, **values;
     int32 **command;
-    int32 i, status, err, len, j;
+    int32 status, err, len, j;
     int32 n = NFUN;
     char msg[200];
     if (n == 0 || n > NEQMAXFOREDIT)
@@ -411,7 +406,7 @@ edit_rhs_functions(void) {
     names = xmalloc((usize)n*sizeof(char *));
     values = xmalloc((usize)n*sizeof(char *));
     command = xmalloc((usize)n*sizeof(int32 *));
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         values[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(values[i])));
         names[i] = xmalloc(MAX_LEN_EBOX*sizeof(*(names[i])));
         command[i] = xmalloc(200*sizeof(*(command[i])));
@@ -430,7 +425,7 @@ edit_rhs_functions(void) {
 
     status = edit_rhs_box(n, "Functions", names, values);
     if (status != 0) {
-        for (i = 0; i < n; i++) {
+        for (int32 i = 0; i < n; i++) {
             set_new_arg_names(narg_fun[i], ufun_arg[i].args);
             err = add_expr(values[i], command[i], &len);
             set_old_arg_names(narg_fun[i]);
@@ -447,7 +442,7 @@ edit_rhs_functions(void) {
         }
     }
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         free(values[i]);
         free(names[i]);
         free(command[i]);
@@ -460,7 +455,6 @@ edit_rhs_functions(void) {
 
 int32
 edit_rhs_save_as(void) {
-    int32 i;
     int32 ok;
     FILE *fp;
     double z;
@@ -477,38 +471,38 @@ edit_rhs_save_as(void) {
     if (fp == NULL)
         return 0;
     fprintf(fp, "%d", NEQ);
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         if (i % 5 == 0)
             fprintf(fp, "\nvariable ");
         fprintf(fp, " %s=%.16g ", uvar_names[i], last_ic[i]);
     }
     fprintf(fp, "\n");
-    for (i = NODE; i < NEQ; i++) {
+    for (int32 i = NODE; i < NEQ; i++) {
         if ((i - NODE) % 5 == 0)
             fprintf(fp, "\naux ");
         fprintf(fp, " %s ", uvar_names[i]);
     }
     fprintf(fp, "\n");
-    for (i = 0; i < NUPAR; i++) {
+    for (int32 i = 0; i < NUPAR; i++) {
         if (i % 5 == 0)
             fprintf(fp, "\nparam  ");
         get_val(upar_names[i], &z);
         fprintf(fp, " %s=%.16g   ", upar_names[i], z);
     }
     fprintf(fp, "\n");
-    for (i = 0; i < NFUN; i++) {
+    for (int32 i = 0; i < NFUN; i++) {
         fprintf(fp, "user %s %d %s\n", ufun_names[i], narg_fun[i], ufun_def[i]);
     }
-    for (i = 0; i < NODE; i++) {
+    for (int32 i = 0; i < NODE; i++) {
         if (EqType[i] == 1)
             fprintf(fp, "i ");
         else
             fprintf(fp, "o ");
         fprintf(fp, "%s\n", ode_names[i]);
     }
-    for (i = NODE; i < NEQ; i++)
+    for (int32 i = NODE; i < NEQ; i++)
         fprintf(fp, "o %s\n", ode_names[i]);
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         fprintf(fp, "b %s \n", my_bc[i].string);
     fprintf(fp, "done\n");
     fclose(fp);

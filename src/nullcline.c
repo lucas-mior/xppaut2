@@ -254,7 +254,6 @@ int32
 get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
     /* type=0,1 */
     NullClines *z;
-    int32 i;
     if (who < 0) {
         if (type == 0) {
             *v = X_n;
@@ -270,7 +269,7 @@ get_nullcline_floats(double **v, int32 *n, int32 who, int32 type) {
     if (who > ncline_cnt || n_nstore == 0)
         return 1;
     z = ncperm;
-    for (i = 0; i < who; i++)
+    for (int32 i = 0; i < who; i++)
         z = z->n;
     if (z == NULL)
         return 1;
@@ -358,17 +357,16 @@ nullcline_add_froz(double *xn, int32 nmx, int32 n_ix, double *yn, int32 nmy,
                    int32 n_iy) {
     NullClines *z;
     NullClines *znew;
-    int32 i;
     z = ncperm;
     /* move to end */
     while (z->n != NULL) {
         z = (z->n);
     }
     z->xn = xmalloc(4*(usize)nmx*sizeof(*(z->xn)));
-    for (i = 0; i < 4*nmx; i++)
+    for (int32 i = 0; i < 4*nmx; i++)
         z->xn[i] = xn[i];
     z->yn = xmalloc(4*(usize)nmy*sizeof(*(z->yn)));
-    for (i = 0; i < 4*nmy; i++)
+    for (int32 i = 0; i < 4*nmy; i++)
         z->yn[i] = yn[i];
     z->nmx = nmx;
     z->nmy = nmy;
@@ -390,11 +388,10 @@ void
 nullcline_get_max_dfield(double *y, double *ydot, double u0, double v0,
                          double du, double dv, int32 n, int32 inx, int32 iny,
                          double *mdf) {
-    int32 i;
     int32 j;
     double amp, dxp, dyp;
     *mdf = 0.0;
-    for (i = 0; i <= n; i++) {
+    for (int32 i = 0; i <= n; i++) {
         y[inx] = u0 + du*i;
         for (j = 0; j <= n; j++) {
             y[iny] = v0 + dv*j;
@@ -479,7 +476,7 @@ nullcline_do_batch_dfield(void) {
 
 void
 nullcline_redraw_dfield(void) {
-    int32 i, j, k;
+    int32 j, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
@@ -519,7 +516,7 @@ nullcline_redraw_dfield(void) {
         DOING_DFIELD = 1;
         fprintf(svgfile, "<g>\n");
     }
-    for (i = 0; i <= grid; i++) {
+    for (int32 i = 0; i <= grid; i++) {
         y[inx] = u0 + du*i;
         for (j = 0; j <= grid; j++) {
             y[iny] = v0 + dv*j;
@@ -577,7 +574,7 @@ nullcline_redraw_dfield(void) {
 
 void
 nullcline_direct_field_com(int32 c) {
-    int32 i, j, start, k;
+    int32 j, start, k;
     int32 inx = MyGraph->xv[0] - 1;
     int32 iny = MyGraph->yv[0] - 1;
     double y[MAX_ODE], ydot[MAX_ODE], xv1, xv2;
@@ -633,7 +630,7 @@ nullcline_direct_field_com(int32 c) {
             fprintf(svgfile, "<g>\n");
         }
 
-        for (i = 0; i <= grid; i++) {
+        for (int32 i = 0; i <= grid; i++) {
             y[inx] = u0 + du*i;
             for (j = 0; j <= grid; j++) {
                 y[iny] = v0 + dv*j;
@@ -683,7 +680,7 @@ nullcline_direct_field_com(int32 c) {
 
     SuppressBounds = 1;
     for (k = 0; k < 2; k++) {
-        for (i = 0; i <= grid; i++)
+        for (int32 i = 0; i <= grid; i++)
             for (j = 0; j <= grid; j++) {
                 integrate_get_ic(2, y);
                 y[inx] = u0 + du*i;
@@ -744,15 +741,14 @@ restore_nullclines(void) {
 void
 nullcline_dump(/* gnuplot format */
                FILE *fp, double *x, int32 nx, double *y, int32 ny) {
-    int32 i;
     fprintf(fp, "# X-nullcline\n");
-    for (i = 0; i < nx - 1; i++) {
+    for (int32 i = 0; i < nx - 1; i++) {
         fprintf(fp, "%g %g 1 \n", x[4*i], x[4*i + 1]);
         fprintf(fp, "%g %g 1 \n", x[4*i + 2], x[4*i + 3]);
         fprintf(fp, "\n");
     }
     fprintf(fp, "\n# Y-nullcline\n");
-    for (i = 0; i < ny - 1; i++) {
+    for (int32 i = 0; i < ny - 1; i++) {
         fprintf(fp, "%g %g 2 \n", y[4*i], y[4*i + 1]);
         fprintf(fp, "%g %g 2 \n", y[4*i + 2], y[4*i + 3]);
         fprintf(fp, "\n");
@@ -763,7 +759,6 @@ nullcline_dump(/* gnuplot format */
 void
 nullcline_restor(/* d=1 for x and 2 for y  */
                  double *v, int32 n, int32 d) {
-    int32 i;
     int32 i4;
     double xm, ym;
     int32 x1;
@@ -771,7 +766,7 @@ nullcline_restor(/* d=1 for x and 2 for y  */
     if (PltFmtFlag == SVGFMT)
         fprintf(svgfile, "<g>\n");
 
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         i4 = 4*i;
         graphics_line_abs(v[i4], v[i4 + 1], v[i4 + 2], v[i4 + 3]);
         if (NullStyle == 1) {
@@ -806,7 +801,7 @@ nullcline_create_new_cline(void) {
 
 void
 nullcline_new_clines_com(int32 c) {
-    int32 course = NMESH, i;
+    int32 course = NMESH;
     double xmin, xmax, y_tp, y_bot;
     int32 col1 = XNullColor, col2 = YNullColor;
 
@@ -851,7 +846,7 @@ nullcline_new_clines_com(int32 c) {
         return;
     }
     if (c == 0) {
-        for (i = NODE; i < NODE + NMarkov; i++)
+        for (int32 i = NODE; i < NODE + NMarkov; i++)
             set_ivar(i + 1 + FIX_VAR, last_ic[i]);
         xmin = (double)MyGraph->xmin;
         xmax = (double)MyGraph->xmax;
@@ -921,8 +916,7 @@ nullcline_store(double x1, double y1, double x2, double y2) {
 double
 nullcline_fnull(double x, double y) {
     double y1[MAX_ODE], ydot[MAX_ODE];
-    int32 i;
-    for (i = 0; i < NODE; i++)
+    for (int32 i = 0; i < NODE; i++)
         y1[i] = last_ic[i];
 
     y1[null_ix - 1] = (double)x;
@@ -974,13 +968,12 @@ nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
     double x;
     double y;
     Point p[5];
-    int32 i;
     int32 j;
     int32 nx = ngrid + 1;
     int32 ny = ngrid + 1;
 
     y = y2;
-    for (i = 0; i < nx; i++) {
+    for (int32 i = 0; i < nx; i++) {
         x = x1 + i*dx;
         NBot[i] = nullcline_fnull(x, y);
     }
@@ -989,7 +982,7 @@ nullcline_do_cline(int32 ngrid, double x1, double y1, double x2, double y2) {
         y = y2 - j*dy;
         NTop[0] = NBot[0];
         NBot[0] = nullcline_fnull(x1, y);
-        for (i = 1; i < nx; i++) {
+        for (int32 i = 1; i < nx; i++) {
             x = x1 + i*dx;
             NTop[i] = NBot[i];
             NBot[i] = nullcline_fnull(x, y);

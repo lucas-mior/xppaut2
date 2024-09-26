@@ -73,8 +73,7 @@ static double tabular_lookup_xy(double x, int32 n, double *xv, double *yv);
 
 void
 tabular_set_auto_eval_flags(int32 f) {
-    int32 i;
-    for (i = 0; i < MAX_TAB; i++)
+    for (int32 i = 0; i < MAX_TAB; i++)
         my_table[i].autoeval = f;
     return;
 }
@@ -141,7 +140,6 @@ tabular_new_lookup_com(int32 i) {
 double
 tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
     double dx, dy, x1, y1, x2, y2;
-    int32 i;
     if (x <= xv[0])
         return yv[0] + (yv[1] - yv[0])*(x - xv[0]) / (xv[1] - xv[0]);
     if (x >= xv[n - 1])
@@ -149,7 +147,7 @@ tabular_lookup_xy(double x, int32 n, double *xv, double *yv) {
                                 (xv[n - 1] - xv[n - 2]));
     x1 = xv[0];
     y1 = yv[0];
-    for (i = 1; i < n; i++) {
+    for (int32 i = 1; i < n; i++) {
         if (x <= xv[i]) {
             x2 = xv[i];
             y2 = yv[i];
@@ -225,8 +223,7 @@ tabular_lookup(double x, int32 index) {
 
 void
 tabular_init_table(void) {
-    int32 i;
-    for (i = 0; i < MAX_TAB; i++) {
+    for (int32 i = 0; i < MAX_TAB; i++) {
         my_table[i].flag = 0;
         my_table[i].autoeval = 1;
         my_table[i].interp = 0;
@@ -236,8 +233,7 @@ tabular_init_table(void) {
 
 void
 tabular_redo_all_fun_tables(void) {
-    int32 i;
-    for (i = 0; i < NTable; i++) {
+    for (int32 i = 0; i < NTable; i++) {
         if (my_table[i].flag == 2 && my_table[i].autoeval == 1)
             tabular_eval_fun(my_table[i].n, my_table[i].xlo, my_table[i].xhi,
                              my_table[i].filename, my_table[i].y);
@@ -313,7 +309,6 @@ tabular_create_fun(int32 npts, double xlo, double xhi, char *formula,
 
 int32
 tabular_load_table(char *filename, int32 index) {
-    int32 i;
     char bobtab[100];
     char *bob;
     int32 length;
@@ -324,7 +319,7 @@ tabular_load_table(char *filename, int32 index) {
     char error[sizeof(filename2) + sizeof(cur_dir) + 20];
     int32 n = (int32)strlen(filename);
     int32 j = 0, flag = 0;
-    for (i = 0; i < n; i++) {
+    for (int32 i = 0; i < n; i++) {
         ch = filename[i];
         if ((ch == '"') && flag == 1) {
             break;
@@ -387,7 +382,7 @@ tabular_load_table(char *filename, int32 index) {
             fclose(fp);
             return 0;
         }
-        for (i = 0; i < length; i++) {
+        for (int32 i = 0; i < length; i++) {
             fgets(bob, 100, fp);
             my_table[index].y[i] = atof(bob);
         }
@@ -408,7 +403,7 @@ tabular_load_table(char *filename, int32 index) {
         fclose(fp);
         return 0;
     }
-    for (i = 0; i < length; i++) {
+    for (int32 i = 0; i < length; i++) {
         fgets(bob, 100, fp);
         my_table[index].y[i] = atof(bob);
     }
