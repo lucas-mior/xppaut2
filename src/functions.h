@@ -97,17 +97,6 @@ typedef struct GrabTask {
     int32 n; /* number of tasks <= MAX_GEVENTS */
 } GrabTask;
 
-typedef struct AniGrab {
-    int32 ok;
-    double zx;
-    double zy;
-    double tol;
-    int32 *x;
-    int32 *y;
-    GrabTask start;
-    GrabTask end;
-} AniGrab;
-
 /***************  End of grabber stuff  in header **************/
 
 typedef struct AniCom {

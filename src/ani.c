@@ -98,7 +98,17 @@ static struct AniMotionInfo {
     double vax, vay;
 } ami;
 
-static AniGrab ani_grab[MAX_ANI_GRAB];
+static struct AniGrab {
+    int32 ok;
+    double zx;
+    double zy;
+    double tol;
+    int32 *x;
+    int32 *y;
+    GrabTask start;
+    GrabTask end;
+} ani_grab[MAX_ANI_GRAB];
+
 static int32 n_ani_grab = 0;
 static int32 show_grab_points = 0;
 static int32 ani_grab_flag = 0;
